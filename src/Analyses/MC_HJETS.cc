@@ -15,9 +15,7 @@ namespace Rivet {
     /// Default constructor
     MC_HJETS()
       : MC_JetAnalysis("MC_HJETS", 4, "Jets")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

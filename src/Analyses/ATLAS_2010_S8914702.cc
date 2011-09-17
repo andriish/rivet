@@ -29,8 +29,6 @@ namespace Rivet {
     ATLAS_2010_S8914702()
       : Analysis("ATLAS_2010_S8914702")
     {
-      setNeedsCrossSection(true);
-
       _eta_bins.push_back( 0.00);
       _eta_bins.push_back( 0.60);
       _eta_bins.push_back( 1.37);

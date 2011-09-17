@@ -28,6 +28,7 @@ Description:
   maximum around 700~GeV.  The inclusive jet pT is plotted in bins of
   rapidity $|y|<0.1$, $0.1<|y|<0.7$, $0.7<|y|<1.1$, $1.1<|y|<1.6$ and
   $1.6<|y|<2.1$.
+NeedCrossSection: yes
 BibKey: Abulencia:2007ez
 BibTeX: '@Article{Abulencia:2007ez,
      author    = "Abulencia, A. and others",

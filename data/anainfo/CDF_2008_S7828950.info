@@ -27,6 +27,7 @@ Description:
   using the cone-based Midpoint jet clustering algorithm in rapidity
   bins within $|y|<2.1$. This measurement can be used to provide
   increased precision in PDFs at high parton momentum fraction $x$.
+NeedCrossSection: yes
 BibKey: Aaltonen:2008eq
 BibTeX: '@Article{Aaltonen:2008eq,
      author    = "Aaltonen, T. and others",

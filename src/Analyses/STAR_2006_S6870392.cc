@@ -15,9 +15,7 @@ namespace Rivet {
     /// Constructor
     STAR_2006_S6870392()
       : Analysis("STAR_2006_S6870392")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

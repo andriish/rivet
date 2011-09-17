@@ -1,6 +1,4 @@
 // -*- C++ -*-
-// CDF Run II inclusive jet cross-section using the midpoint algorithm.
-
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -19,10 +17,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CDF_2008_S7828950() : Analysis("CDF_2008_S7828950")
-    {
-      setNeedsCrossSection(true);
-    }
+    CDF_2008_S7828950()
+      : Analysis("CDF_2008_S7828950")
+    {    }
 
 
     /// @name Analysis methods

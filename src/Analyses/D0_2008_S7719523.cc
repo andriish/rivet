@@ -18,7 +18,6 @@ namespace Rivet {
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   class D0_2008_S7719523 : public Analysis {
-
   public:
 
     /// @name Constructors etc.
@@ -27,9 +26,7 @@ namespace Rivet {
     /// Constructor
     D0_2008_S7719523()
       : Analysis("D0_2008_S7719523")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 

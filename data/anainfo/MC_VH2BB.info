@@ -16,3 +16,4 @@ Energies: [7000]
 PtCuts: [0]
 Description:
   'Various plots for characterising the process $V H \to b\bar{b}$'
+NeedCrossSection: yes

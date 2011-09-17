@@ -35,8 +35,6 @@ namespace Rivet {
     ATLAS_2011_S9120807()
       : Analysis("ATLAS_2011_S9120807")
     {
-      setNeedsCrossSection(true);
-
       _eta_bins_areaoffset.push_back(0.0);
       _eta_bins_areaoffset.push_back(1.5);
       _eta_bins_areaoffset.push_back(3.0);

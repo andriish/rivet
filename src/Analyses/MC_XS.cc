@@ -17,9 +17,7 @@ namespace Rivet {
     /// Constructor
     MC_XS()
       : Analysis("MC_XS")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 

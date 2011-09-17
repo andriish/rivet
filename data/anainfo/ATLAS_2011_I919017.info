@@ -22,6 +22,7 @@ Description:
   transverse momentum, radius w.r.t jet axis distributions, with
   jets constructed from charged tracks with $pT > 300$ MeV, using the anti-$k_T$ jet
   algorithm with $R = 0.4, 0.6$.
+NeedCrossSection: yes
 BibKey: Aad:2011gn
 BibTeX: '@article{Aad:2011gn,
       author         = "Aad, Georges and others",

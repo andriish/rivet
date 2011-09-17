@@ -10,3 +10,4 @@ NumEvents: 10000000
 PtCuts: [0]
 Description:
   Different observables related to the photon and extra jets.
+NeedCrossSection: yes

@@ -20,9 +20,7 @@ namespace Rivet {
     /// Constructor
     MC_WPOL()
       : Analysis("MC_WPOL")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 

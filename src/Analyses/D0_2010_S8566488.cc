@@ -19,9 +19,7 @@ namespace Rivet {
     /// Constructor
     D0_2010_S8566488()
       : Analysis("D0_2010_S8566488")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 

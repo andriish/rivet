@@ -14,8 +14,8 @@ References:
  - doi:10.1016/j.physletb.2008.06.076
  - arXiv:0804.1107v2 [hep-ex]
 RunInfo:
-  "Produce only gamma + jet ($q,\\bar{q},g$) hard processes (for Pythia 6, this means MSEL=10 
-  and MSUB indices 14, 29 & 115 enabled). The lowest bin edge is at 30 GeV, so a kinematic 
+  "Produce only gamma + jet ($q,\\bar{q},g$) hard processes (for Pythia 6, this means MSEL=10
+  and MSUB indices 14, 29 & 115 enabled). The lowest bin edge is at 30 GeV, so a kinematic
   pTmin cut is probably required to fill the histograms."
 NumEvents: 1000000
 Beams: [p-, p+]
@@ -35,6 +35,7 @@ Description:
   jet.  MC predictions have trouble with simultaneously describing the
   measured normalization and $pT^\gamma$ dependence of the cross section
   in any of the four measured regions.
+NeedCrossSection: yes
 BibKey: Abazov:2008er
 BibTeX: '@Article{Abazov:2008er,
      author    = "Abazov, V. M. and others",

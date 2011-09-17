@@ -23,6 +23,7 @@ Description:
   transverse momentum range from 61 to 620 GeV/c in $0.1 < |y| < 0.7$.
   This analysis has been updated with more data in more rapidity bins in
   CDF_2008_S7828950.
+NeedCrossSection: yes
 BibKey: Abulencia:2005yg
 BibTeX: '@Article{Abulencia:2005yg,
      author    = "Abulencia, A. and others",

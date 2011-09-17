@@ -13,7 +13,7 @@ References:
  - doi:10.1103/PhysRevLett.101.062001
  - arXiv:0802.2400v3 [hep-ex]
 RunInfo:
-  QCD events at sqrt(s) = 1960 GeV. A pTmin cut is probably necessary since 
+  QCD events at sqrt(s) = 1960 GeV. A pTmin cut is probably necessary since
   the lowest jet pT bin is at 50 GeV
 NumEvents: 1000000
 Beams: [p-, p+]
@@ -24,6 +24,7 @@ Description:
   center-of-mass energy sqrt(s) = 1.96 TeV. The data cover jet
   transverse momenta from 50--600 GeV and jet rapidities in the range
   -2.4 to 2.4.
+NeedCrossSection: yes
 BibKey: :2008hua
 BibTeX: '@Article{:2008hua,
      author    = "Abazov, V. M. and others",

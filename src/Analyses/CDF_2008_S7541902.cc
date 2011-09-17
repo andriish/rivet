@@ -27,9 +27,7 @@ namespace Rivet {
         _eTmissCut(30.0*GeV), _mTCut(20.0*GeV),
         _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0),
         _xpoint(1960.)
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

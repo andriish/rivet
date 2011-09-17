@@ -26,6 +26,7 @@ Description:
   and rapidity of the leading jet in the di-muon channel in
   $p \bar{p}$ collisions at $\sqrt{s}$ = 1.96
   TeV, based on an integrated luminosity of 1.0 fb$^{-1}$.
+NeedCrossSection: yes
 BibKey: Abazov:2008ez
 BibTeX: '@Article{Abazov:2008ez,
      author    = "Abazov, V. M. and others",

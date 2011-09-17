@@ -15,9 +15,7 @@ namespace Rivet {
     /// Constructor
     CDF_2008_S8093652()
       : Analysis("CDF_2008_S8093652")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

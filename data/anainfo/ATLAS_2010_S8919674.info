@@ -26,6 +26,7 @@ Description:
    The results, based on an integrated luminosity of 1.3 pb-1, have been
    corrected for all known detector effects and are quoted in a limited and
    well-defined range of jet and lepton kinematics.'
+NeedCrossSection: yes
 BibKey: Aad:2010pg
 BibTeX: '@Article{Aad:2010pg,
      author    = "Collaboration, The ATLAS",

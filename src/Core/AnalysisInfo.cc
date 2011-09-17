@@ -134,7 +134,7 @@ namespace Rivet {
             *todo >> s;
             ai->_todos += s;
           }
-        } else if (key == "NeedCrossSection") {
+        } else if (key == "NeedCrossSection" || key == "NeedsCrossSection") {
           it.second() >> ai->_needsCrossSection;
         } else if (key == "RunInfo") {
           it.second() >> ai->_runInfo;

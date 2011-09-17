@@ -12,8 +12,8 @@ References:
  - arXiv:0711.4044 [hep-ex]
  - Phys.Rev.D77:011108,2008
 RunInfo:
-  Requires the process $p\bar{p} \rightarrow {W} \rightarrow {e}\nu$. 
-  Additional hard jets will also have to be included to get a good 
+  Requires the process $p\bar{p} \rightarrow {W} \rightarrow {e}\nu$.
+  Additional hard jets will also have to be included to get a good
   description. The LO process in Herwig is set with IPROC=1451.
 NumEvents: 1000000
 Beams: [p-, p+]
@@ -30,7 +30,7 @@ Description:
   $\times$ BR($W \rightarrow{e}\nu$) is made, where d$E_T(n^{th}$-jet)
   is the Et of the n$^{th}$-highest Et jet above 20 GeV. A measurement
   of the total cross section, $\sigma(p\bar{p} \rightarrow W + \geq$
-  n-jet) $\times$ BR($W \rightarrow{e}\nu)$ with $E_T(n^{th}-jet) > 25$
+  $n$-jet) $\times$ BR($W \rightarrow{e}\nu)$ with $E_T(n^{th}-jet) > 25$
   GeV is also made. Both measurements are made for jets with $|\eta| <
   2$ and for a limited region of the $W \rightarrow{e}\nu$ decay phase
   space; $|\eta^{e}| < 1.1$, $p_{T}^{e} > 20$ GeV, $p_{T}^{\nu} > 30$
@@ -39,6 +39,7 @@ Description:
   jet(s) predictions. These measurements can be used to test and tune
   QCD predictions for the number of jets in and kinematics of $W$ + jets
   events.
+NeedCrossSection: yes
 BibKey: Aaltonen:2007ip
 BibTeX: '@Article{Aaltonen:2007ip,
      author    = "Aaltonen, T. and others",

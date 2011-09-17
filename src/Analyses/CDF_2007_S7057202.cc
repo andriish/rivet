@@ -14,9 +14,7 @@ namespace Rivet {
 
     CDF_2007_S7057202()
       : Analysis("CDF_2007_S7057202")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     void init() {

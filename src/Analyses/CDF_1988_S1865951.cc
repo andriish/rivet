@@ -15,7 +15,6 @@ namespace Rivet {
     CDF_1988_S1865951()
       : Analysis("CDF_1988_S1865951")
     {
-      setNeedsCrossSection(true);
       _sumWTrig = 0;
     }
 

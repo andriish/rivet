@@ -18,9 +18,9 @@ namespace Rivet {
     //@{
 
     /// Constructor.
-    D0_2001_S4674421() : Analysis("D0_2001_S4674421") {
-      setNeedsCrossSection(true);
-    }
+    D0_2001_S4674421()
+      : Analysis("D0_2001_S4674421")
+    {    }
 
 
     /// @name Analysis methods
@@ -77,7 +77,7 @@ namespace Rivet {
         if (inRange(mass/GeV, 75.0, 105.0)) {
           ++Zcount;
           _eventsFilledZ += weight;
-          //MSG_DEBUG("Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV");
+          MSG_DEBUG("Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV");
           _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
         }
       } else {

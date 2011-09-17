@@ -29,6 +29,7 @@ Description:
   normalisation in the double differential cross sections. This has been
   reported to and fixed by the authors in v2 and the journal submission.
   HepData as well as the Rivet analysis have also been updated.
+NeedCrossSection: yes
 BibKey: Abazov:2010ah
 BibTeX: '@Article{Abazov:2010ah,
      author    = "Abazov, V. M. and others",

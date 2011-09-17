@@ -19,6 +19,7 @@ PtCuts: [20]
 Description:
   Properties of two-, three-, four-, five-, and six-jet events...
   Multijet-mass, leading jet angle, jet pT.
+NeedCrossSection: yes
 ToDo:
  - This is at 1800 GeV only, or also 630 GeV?
 BibKey: Abe:1995rw

@@ -15,9 +15,7 @@ namespace Rivet {
     /// Default constructor
     MC_PHOTONJETS()
       : MC_JetAnalysis("MC_PHOTONJETS", 4, "Jets")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

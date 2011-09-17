@@ -21,6 +21,7 @@ Description:
   for isolated photons with $|\eta|<2.37$ and $E_T^\gamma>16$~GeV.
   The measurement uses 37 pb$^{-1}$ of integrated luminosity collected with
   the ATLAS detector.'
+NeedCrossSection: yes
 BibTeX: '@Article{Aad:2011mh,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the isolated di-photon cross-section in

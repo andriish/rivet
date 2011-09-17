@@ -21,6 +21,7 @@ Description:
   Measurement of the cross section for production of two or more jets as a
   function of dijet mass in the range 180 to 1000 GeV.
   It is based on an integrated luminosity of $86 \mathrm{pb}^{-1}$.
+NeedCrossSection: yes
 BibKey: Affolder:1999ua
 BibTeX: '@Article{Affolder:1999ua,
      author    = "Affolder, Anthony Allen and others",

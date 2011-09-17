@@ -12,10 +12,9 @@ namespace Rivet {
   class MC_JETS : public MC_JetAnalysis {
   public:
 
-    MC_JETS() : MC_JetAnalysis("MC_JETS", 4, "Jets")
-    {
-      setNeedsCrossSection(true);
-    }
+    MC_JETS()
+      : MC_JetAnalysis("MC_JETS", 4, "Jets")
+    {    }
 
 
   public:

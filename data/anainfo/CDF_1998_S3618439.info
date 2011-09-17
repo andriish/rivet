@@ -17,11 +17,12 @@ Beams: [p-, p+]
 Energies: [1800]
 PtCuts: [0]
 Description:
-  Measurement of the differential cross section 
+  Measurement of the differential cross section
   $\mathrm{d}\sigma/\mathrm{d}E_\perp^j$ for the
-  production of multijet events in $p\bar{p}$ collisions where the 
-  sum is over all jets with transverse energy 
-  $E_\perp^j > E_\perp^\mathrm{min}$. 
+  production of multijet events in $p\bar{p}$ collisions where the
+  sum is over all jets with transverse energy
+  $E_\perp^j > E_\perp^\mathrm{min}$.
+NeedCrossSection: yes
 BibKey: Abe:1997eua
 BibTeX: '@Article{Abe:1997eua,
      author    = "Abe, F. and others",

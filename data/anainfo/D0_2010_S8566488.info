@@ -22,6 +22,7 @@ Description:
   event is measured using 0.7 fb$^{-1}$ of data.
   The measurement is performed in six rapidity regions up to
   $|y|_\text{max}=2.4$.
+NeedCrossSection: yes
 BibKey: Abazov:2010fr
 BibTeX: '@Article{Abazov:2010fr,
      author    = "Abazov, V. M. and others",

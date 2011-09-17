@@ -12,9 +12,9 @@ namespace Rivet {
   class ATLAS_2010_CONF_2010_049 : public Analysis {
   public:
 
-    ATLAS_2010_CONF_2010_049() : Analysis("ATLAS_2010_CONF_2010_049") {
-      setNeedsCrossSection(true);
-    }
+    ATLAS_2010_CONF_2010_049()
+      : Analysis("ATLAS_2010_CONF_2010_049")
+    {    }
 
 
     void init() {

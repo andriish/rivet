@@ -67,9 +67,7 @@ namespace Rivet {
         _numjets06_15_19_04_06(0), _numjets06_15_19_06_10(0), _numjets06_15_19_10_15(0), _numjets06_15_19_15_24(0), _numjets06_15_19_24_40(0),
         _numjets04_00_19_04_06(0), _numjets04_00_19_06_10(0), _numjets04_00_19_10_15(0), _numjets04_00_19_15_24(0), _numjets04_00_19_24_40(0),
         _numjets06_00_19_04_06(0), _numjets06_00_19_06_10(0), _numjets06_00_19_10_15(0), _numjets06_00_19_15_24(0), _numjets06_00_19_24_40(0)
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 

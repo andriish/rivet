@@ -11,13 +11,14 @@ Authors:
 References:
  - "Nucl.Phys.B353:261,1990"
 RunInfo: QCD min bias events at sqrtS = 63, 200, 500 and 900 GeV.
-Description: 
+Description:
   Particle multiplicities, transverse momenta and transverse energy
   distributions at the UA1 experiment, at energies of 200, 500 and 900 GeV
   (with one plot at 63 GeV for comparison).
 Beams: [p-, p+]
 Energies: [63, 200, 500, 900]
 PtCuts: [0]
+NeedCrossSection: yes
 BibKey: Albajar:1989an
 BibTeX: '@Article{Albajar:1989an,
      author    = "Albajar, C. and others",

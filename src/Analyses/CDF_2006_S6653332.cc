@@ -27,9 +27,7 @@ namespace Rivet {
       : Analysis("CDF_2006_S6653332"),
         _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(1.1),
         _sumWeightsWithZ(0.0), _sumWeightsWithZJet(0.0)
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

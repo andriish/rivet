@@ -1,6 +1,4 @@
 // -*- C++ -*-
-// CDF Z pT analysis
-
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -17,9 +15,7 @@ namespace Rivet {
     /// Constructor
     CDF_2000_S4155203()
       : Analysis("CDF_2000_S4155203")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

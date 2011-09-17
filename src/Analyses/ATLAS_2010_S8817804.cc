@@ -14,9 +14,7 @@ namespace Rivet {
   public:
 
     ATLAS_2010_S8817804() : Analysis("ATLAS_2010_S8817804")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
   private:

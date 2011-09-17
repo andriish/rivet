@@ -21,8 +21,8 @@ PtCuts: [0]
 Description:
   Measurement of differential W/Z boson cross section and ratio in $p
   \bar{p}$ collisions at center-of-mass energy sqrt(s) = 1.8 TeV. The data
-  cover electrons and neutrinos in a pseudo-rapidity range of -2.5 to
-  2.5.
+  cover electrons and neutrinos in a pseudo-rapidity range of -2.5 to 2.5.
+NeedCrossSection: yes
 BibKey: Abazov:2001nta
 BibTeX: '@Article{Abazov:2001nta,
      author    = "Abazov, V. M. and others",

@@ -21,6 +21,7 @@ Description:
   Measurement of the inclusive jet cross section for jet transverse energies
   from 40 to 465 GeV in the pseudo-rapidity range $0.1<|\eta|<0.7$.
   The results are based on 87 $\mathrm{pb}^{-1}$ of data.
+NeedCrossSection: yes
 BibKey: Affolder:2001fa
 BibTeX: '@Article{Affolder:2001fa,
      author    = "Affolder, Anthony Allen and others",

@@ -29,9 +29,7 @@ namespace Rivet {
     CDF_2009_S8233977()
       : Analysis("CDF_2009_S8233977"),
         _sumWeightSelected(0.0)
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

@@ -13,7 +13,7 @@ References:
  - doi:10.1103/PhysRevD.79.112005
  - arXiv:0904.1098 [hep-ex]
 RunInfo:
-  $p\bar{p}$ QCD interactions at 1960~GeV. Particles with $c \\tau > {}$10 mm 
+  $p\bar{p}$ QCD interactions at 1960~GeV. Particles with $c \\tau > {}$10 mm
   should be set stable.
 NumEvents: 1000000
 Beams: [p-, p+]
@@ -22,7 +22,8 @@ PtCuts: [0]
 Description:
   Niccolo Moggi's min bias analysis. Minimum bias events are used to
   measure the average track pT vs. charged multiplicity, a track pT
-  distribution and an inclusive $\sum E_T$ distribution. 
+  distribution and an inclusive $\sum E_T$ distribution.
+NeedCrossSection: yes
 BibKey: Aaltonen:2009ne
 BibTeX: '@Article{Aaltonen:2009ne,
      author    = "Aaltonen, T. and others",

@@ -22,6 +22,7 @@ Description:
   function of its transverse momentum. The data were collected by the D0
   experiment at the Fermilab Tevatron Collider during 1994-1995 and correspond
   to an integrated luminosity of 85 pb$^{-1}$.
+NeedCrossSection: yes
 BibKey: Abbott:2000xv
 BibTeX: '@Article{Abbott:2000xv,
      author    = "Abbott, B. and others",

@@ -19,9 +19,7 @@ namespace Rivet {
     /// Constructor
     CDF_2001_S4517016()
       : Analysis("CDF_2001_S4517016")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 

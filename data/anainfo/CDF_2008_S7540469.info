@@ -23,6 +23,7 @@ Description:
   TeV, based on an integrated luminosity of $1.7~\text{fb}^{-1}$. The
   measurements cover the rapidity region $|y_\text{jet}| < 2.1$ and
   the transverse momentum range $pT^\text{jet} > 30~\text{GeV}/c$.
+NeedCrossSection: yes
 BibKey: :2007cp
 BibTeX: '@Article{:2007cp,
      author    = "Aaltonen, T. and others",

@@ -20,6 +20,7 @@ Description:
   2.4 pb-1. Results on multi-jet cross sections are presented differential
   in pT of the four leading jets, HT. Additionally three-to-two jet fractions
   are presented differential in different observables.'
+NeedCrossSection: yes
 BibKey: Collaboration:2011tq
 BibTeX: '@Article{Collaboration:2011tq,
      author    = "Collaboration, ATLAS",

@@ -19,6 +19,7 @@ Description:
   Dijet mass spectrum  from 0.2 TeV to 1.4 TeV in $p \bar{p}$ collisions at
   $\sqrt{s} = 1.96$ TeV, based on an integrated luminosity of
   1.13 fb$^{-1}$.
+NeedCrossSection: yes
 BibKey: Aaltonen:2008dn
 BibTeX: '@Article{Aaltonen:2008dn,
      author    = "Aaltonen, T. and others",

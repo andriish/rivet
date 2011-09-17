@@ -9,6 +9,7 @@
 
 namespace Rivet {
 
+
   /// @brief MC validation analysis for W^+[enu]W^-[munu] + jets events
   class MC_WWJETS : public MC_JetAnalysis {
   public:
@@ -16,9 +17,7 @@ namespace Rivet {
     /// Default constructor
     MC_WWJETS()
       : MC_JetAnalysis("MC_WWJETS", 4, "Jets")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
 
     /// @name Analysis methods

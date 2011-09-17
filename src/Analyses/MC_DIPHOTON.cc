@@ -13,9 +13,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    MC_DIPHOTON() : Analysis("MC_DIPHOTON") {
-      setNeedsCrossSection(true);
-    }
+    MC_DIPHOTON()
+      : Analysis("MC_DIPHOTON")
+    {    }
 
 
     /// @name Analysis methods

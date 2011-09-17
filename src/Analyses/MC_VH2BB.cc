@@ -25,9 +25,7 @@ namespace Rivet {
     /// Constructor
     MC_VH2BB()
       : Analysis("MC_VH2BB")
-    {
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 

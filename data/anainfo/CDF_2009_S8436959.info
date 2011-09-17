@@ -22,6 +22,7 @@ Description:
   and the transverse energy range $E_T^\gamma>30$~GeV and is based on 2.5~fb$^{-1}$
   of integrated luminosity. The cross section is measured differential in
   $E_\perp(\gamma)$.
+NeedCrossSection: yes
 BibKey: Aaltonen:2009ty
 BibTeX: '@Article{Aaltonen:2009ty,
      author    = "Aaltonen, T. and others",

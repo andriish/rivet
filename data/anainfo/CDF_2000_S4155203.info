@@ -35,6 +35,7 @@ Description:
   definition, since the Rivet implementation reconstructs the Z momentum from the
   dilepton pair with finite cones for QED bremstrahlung summation, rather than
   non-portable direct use of the (sometimes absent) Z in the event record.
+NeedCrossSection: yes
 BibKey: Affolder:1999jh
 BibTeX: '@Article{Affolder:1999jh,
      author    = "Affolder, Anthony Allen and others",

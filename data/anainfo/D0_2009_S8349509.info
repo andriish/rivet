@@ -29,6 +29,7 @@ Description:
   describing the data.
   Using these measurements as inputs in tuning event generators will
   increase the experimental sensitivity to rare signals.
+NeedCrossSection: yes
 BibKey: Abazov:2009pp
 BibTeX: '@Article{Abazov:2009pp,
      author    = "Abazov, Victor Mukhamedovich and others",
