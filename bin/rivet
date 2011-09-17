@@ -287,19 +287,26 @@ if len(opts.SHOW_ANALYSES) > 0:
             print "Inspire URL: http://inspire-hep.net/search?p=find+key+%s" % ana.spiresId()
             print "HepData URL: http://hepdata.cedar.ac.uk/view/irn%s" % ana.spiresId()
 
-        coll = ""
-        if ana.collider():
-            coll = ana.collider()
-        print "Experiment: %s" % ana.experiment(), "(%s)" % coll
-        print "Year of publication: %s" % ana.year()
+        if ana.experiment():
+            print "Experiment: %s" % ana.experiment(),
+            if ana.collider():
+                print "(%s)" % ana.collider()
+
+        if ana.year():
+            print "Year of publication: %s" % ana.year()
+
         print "Authors:"
         for a in ana.authors():
             print "  " + a
+
         print ""
+
         print "Description:"
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
         print twrap.fill(ana.description())
+
         print ""
+
         if ana.requiredBeams():
             def pid_to_str(pid):
                 if pid == 11:
@@ -318,14 +325,18 @@ if len(opts.SHOW_ANALYSES) > 0:
             for bp in ana.requiredBeams():
                 beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
             print "Beams:", ", ".join(beamstrs)
+
         if ana.requiredEnergies():
             print "Beam energies:", "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()]), "GeV"
         else:
             print "Beam energies: ANY"
-        print "Run details:"
-        twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
-        for l in ana.runInfo().split("\n"):
-            print twrap.fill(l)
+
+        if ana.runInfo():
+            print "Run details:"
+            twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
+            for l in ana.runInfo().split("\n"):
+                print twrap.fill(l)
+
         if ana.references():
             print ""
             print "References:"
