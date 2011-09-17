@@ -1,5 +1,9 @@
 2011-09-17  Andy Buckley  <andy@insectnation.org>
 
+	* Bumping the release number to 1.7.0alpha0, since with these
+	SPIRES/Inspire changes and the MissingMomentum API change we need
+	more than a minor release.
+
 	* Updating the mkanalysis, BibTeX-grabbing and other places that
 	care about analysis SPIRES IDs to also be able to handle the new
 	Inspire system record IDs. The missing link is getting to HepData
