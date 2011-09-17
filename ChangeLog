@@ -1,5 +1,8 @@
 2011-09-17  Andy Buckley  <andy@insectnation.org>
 
+	* Using the .info file rather than an in-code declaration to
+	specify that an analysis needs cross-section information.
+
 	* Adding Inspire support to the AnalysisInfo and Analysis
 	interfaces. Maybe we can find a way to combine the two,
 	e.g. return the SPIRES code prefixed with an "S" if no Inspire ID
