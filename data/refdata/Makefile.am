@@ -10,6 +10,7 @@ dist_pkgdata_DATA = \
   ALICE_2010_S8624100.aida       \
   ALICE_2010_S8625980.aida       \
   ALICE_2010_S8706239.aida       \
+  ALICE_2011_S8909580.aida       \
   ALICE_2011_S8945144.aida       \
   ATLAS_2010_S8591806.aida       \
   ATLAS_2010_S8817804.aida       \
