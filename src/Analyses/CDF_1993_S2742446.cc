@@ -17,9 +17,7 @@ namespace Rivet {
 
     CDF_1993_S2742446()
       : Analysis("CDF_1993_S2742446")
-    {
-      setNeedsCrossSection(false);
-    }
+    {    }
 
 
   public:

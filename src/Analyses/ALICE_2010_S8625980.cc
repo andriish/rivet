@@ -17,10 +17,7 @@ namespace Rivet {
     ALICE_2010_S8625980()
       : Analysis("ALICE_2010_S8625980"),
         _Nevt_after_cuts(0.0)
-    {
-      /// @todo Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

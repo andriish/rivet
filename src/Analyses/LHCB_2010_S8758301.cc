@@ -18,10 +18,7 @@ namespace Rivet {
     LHCB_2010_S8758301()
       : Analysis("LHCB_2010_S8758301"),
       sumKs0_30(0.0), sumKs0_35(0.0), sumKs0_40(0.0)
-
-    {
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

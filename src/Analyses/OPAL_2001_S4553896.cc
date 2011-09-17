@@ -7,6 +7,7 @@
 
 namespace Rivet {
 
+
   namespace {
 
     /// @name Jet angle calculator functions
@@ -68,9 +69,7 @@ namespace Rivet {
     /// Constructor
     OPAL_2001_S4553896()
       : Analysis("OPAL_2001_S4553896")
-    {
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

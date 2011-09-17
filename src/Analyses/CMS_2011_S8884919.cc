@@ -12,9 +12,10 @@ namespace Rivet {
   class CMS_2011_S8884919 : public Analysis {
   public:
 
-    CMS_2011_S8884919() : Analysis("CMS_2011_S8884919") {
-      setNeedsCrossSection(false);
-    }
+    CMS_2011_S8884919()
+      : Analysis("CMS_2011_S8884919")
+    {    }
+
 
     void init() {
       ChargedFinalState cfs(-2.4, 2.4, 0.0*GeV);

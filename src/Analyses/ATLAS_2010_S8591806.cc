@@ -15,9 +15,7 @@ namespace Rivet {
     ATLAS_2010_S8591806()
       : Analysis("ATLAS_2010_S8591806"),
         _Nevt_after_cuts(0.0)
-    {
-      setNeedsCrossSection(false);
-    }
+    {    }
 
 
     void init() {

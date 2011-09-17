@@ -36,10 +36,7 @@ namespace Rivet {
         mumuZCR(0), eeZCR(0),
         munuW2CR(0), munuttCR(0),
         enuW2CR(0), enuttCR(0)
-    {
-      /// Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

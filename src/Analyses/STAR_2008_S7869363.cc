@@ -50,9 +50,7 @@ namespace Rivet {
       : Analysis("STAR_2008_S7869363"),
         nCutsPassed(0),
         nPi(0), nPiPlus(0), nKaon(0), nKaonPlus(0), nProton(0), nAntiProton(0)
-    {
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

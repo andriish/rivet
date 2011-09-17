@@ -17,9 +17,7 @@ namespace Rivet {
     ALICE_2010_S8706239()
       : Analysis("ALICE_2010_S8706239"),
         _Nevt_after_cuts(0.0)
-    {
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

@@ -16,10 +16,7 @@ namespace Rivet {
     /// Constructor
     ALICE_2010_S8624100()
       : Analysis("ALICE_2010_S8624100")
-    {
-      /// @todo Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

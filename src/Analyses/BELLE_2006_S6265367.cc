@@ -11,26 +11,21 @@ namespace Rivet {
 
   /// @brief BELLE charmed mesons and baryons from fragmentation
   /// @author Eike von Seggern
+  /// @todo Apply BELLE hadron selection cuts
   class BELLE_2006_S6265367 : public Analysis {
   public:
 
-    BELLE_2006_S6265367(): Analysis("BELLE_2006_S6265367")
-    {
-      // setNeedsCrossSection(true);
-    }
+    BELLE_2006_S6265367()
+      : Analysis("BELLE_2006_S6265367")
+    {    }
 
 
     void analyze(const Event& e) {
-      //
-      /// @todo Apply BELLE hadron selection cuts
-      //
-
       const double weight = e.weight();
 
       // Loop through unstable FS particles and look for charmed mesons/baryons
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
-      /// @todo Implement sqrtS() for asymm. beams in beam projection
       const Beam beamproj = applyProjection<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
       FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
@@ -42,7 +37,7 @@ namespace Rivet {
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
       foreach (const Particle& p, ufs.particles()) {
-        // TODO: Data is not corrected for branching fractions.
+        /// @todo Data is not corrected for branching fractions.
 
         double xp = 0.0;
         double mH2 = 0.0;

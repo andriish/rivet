@@ -18,10 +18,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2011_S8971293()
       : Analysis("ATLAS_2011_S8971293")
-    {
-      /// Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

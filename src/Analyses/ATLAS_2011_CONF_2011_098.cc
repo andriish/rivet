@@ -24,9 +24,7 @@ namespace Rivet {
       : Analysis("ATLAS_2011_CONF_2011_098"),
 //debug variables
 threeJA(0), threeJB(0), threeJC(0), threeJD(0), bj(0), jets(0), zerolept(0), eTmisscut(0)
-    {
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 

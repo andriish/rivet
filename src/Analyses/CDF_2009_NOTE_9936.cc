@@ -17,13 +17,7 @@ namespace Rivet {
     /// Constructor
     CDF_2009_NOTE_9936()
       : Analysis("CDF_2009_NOTE_9936")
-        //_sumWPassed(0.0)
-    {
-      /// @todo Set approriate for your analysis
-
-      /// @todo Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(false);
-    }
+    {    }
 
     //@}
 
