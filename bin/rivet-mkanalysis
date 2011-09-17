@@ -74,24 +74,26 @@ for ANANAME in ANANAMES:
 
     ## Extract some metadata from the name if it matches the standard pattern
     import re
-    re_stdana = re.compile(r"^(\w+)_(\d{4})_S(\d+)$")
+    re_stdana = re.compile(r"^(\w+)_(\d{4})_(I|S)(\d+)$")
     match = re_stdana.match(ANANAME)
     STDANA = False
     ANAEXPT = "<Insert the experiment name>"
     ANAYEAR = "<Insert year of publication>"
-    ANASPIRESID = "<Insert the SPIRES IRN ID>"
+    INSPIRE_SPIRES = None
+    ANAINSPIREID = "<Insert the Inspire ID>"
     if match:
         STDANA = True
         ANAEXPT = match.group(1)
         ANAYEAR = match.group(2)
-        ANASPIRESID = match.group(3)
+        INSPIRE_SPIRES = match.group(3)
+        ANAINSPIREID = match.group(4)
     KEYWORDS = {
         "ANANAME" : ANANAME,
         "ANAEXPT" : ANAEXPT,
         "ANAYEAR" : ANAYEAR,
-        "ANASPIRESID" : ANASPIRESID
+        "ANAREFREPO" : "Spires" if INSPIRE_SPIRES == "S" else "Inspire",
+        "ANAINSPIREID" : ANAINSPIREID
         }
-
 
     ## Try to get bib info from SPIRES
     ANABIBKEY = ""
@@ -100,10 +102,10 @@ for ANANAME in ANANAMES:
     if STDANA:
         try:
             import spiresbib
-            logging.debug("Getting SPIRES biblio data for '%s'" % ANANAME)
-            bibkey, bibtex = spiresbib.get_bibtex_from_spires(ANASPIRESID)
+            logging.debug("Getting Inspire/SPIRES biblio data for '%s'" % ANANAME)
+            bibkey, bibtex = spiresbib.get_bibtex_from_repo(INSPIRE_SPIRES, ANAINSPIREID)
         except Exception, e:
-            logging.error("SPIRES oops: %s" % e)
+            logging.error("Inspire/SPIRES oops: %s" % e)
         if bibkey and bibtex:
             ANABIBKEY = bibkey
             ANABIBTEX = bibtex
@@ -115,7 +117,7 @@ for ANANAME in ANANAMES:
     if STDANA:
         try:
             import urllib
-            hdurl = "http://hepdata.cedar.ac.uk/view/irn%s/aida" % ANASPIRESID
+            hdurl = "http://hepdata.cedar.ac.uk/view/irn%s/aida" % ANAINSPIREID
             logging.debug("Getting data file from HepData at %s" % hdurl)
             httpstream = urllib.urlopen(hdurl)
             aidastr = httpstream.read()
@@ -131,10 +133,12 @@ for ANANAME in ANANAMES:
 
 
     if opts.INLINE:
+        KEYWORDS["ANAREFREPO_LOWER"] = KEYWORDS["ANAREFREPO"].lower()
         INLINEMETHODS="""
   public:
     string experiment()         const { return "%(ANAEXPT)s"; }
     string year()               const { return "%(ANAYEAR)s"; }
+    string %(ANAREFREPO_LOWER)sId()          const { return "%(ANAINSPIREID)s"; }
     string spiresId()           const { return "%(ANASPIRESID)s"; }
     string collider()           const { return ""; }
     string summary()            const { return ""; }
@@ -147,6 +151,7 @@ for ANANAME in ANANAMES:
     vector<string> references() const { return vector<string>(); }
     vector<std::string> todos() const { return vector<string>(); }
     """ % KEYWORDS
+        del KEYWORDS["ANAREFREPO_LOWER"]
     else:
         INLINEMETHODS=""
 
@@ -176,10 +181,7 @@ namespace Rivet {
     /// Constructor
     %(ANANAME)s()
       : Analysis("%(ANANAME)s")
-    {
-      /// @todo Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(true);
-    }
+    {    }
 
     //@}
 
@@ -276,7 +278,7 @@ Year: %(ANAYEAR)s
 Summary: <Insert short %(ANANAME)s description>
 Experiment: %(ANAEXPT)s
 Collider: <Insert %(ANANAME)s collider>
-SpiresID: %(ANASPIRESID)s
+%(ANAREFREPO)sID: %(ANAINSPIREID)s
 Status: UNVALIDATED
 Authors:
  - Your Name <your@email.address>
@@ -289,6 +291,7 @@ RunInfo:
   efficiency cut(s) that may be needed; essentially any details needed to set
   up a generator to reproduce the data.>
 NumEvents: 1000000
+NeedCrossSection: no
 #Beams: <Insert beam pair(s), e.g. [p-, p+] or [[p-, e-], [p-, e+]]>
 #Energies: <Insert list of run energies or beam energy pairs in GeV,
 #           e.g. [1960] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">

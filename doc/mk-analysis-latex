@@ -99,7 +99,11 @@ for aname in sorted(list(all_analyses)):
         if ana.collider():
             page += " (%s)" % ana.collider()
         page += "\\newline\n"
-    if ana.spiresId():
+    if ana.inspireId():
+        spiresbase = "http://inspire-hep.net/record"
+        page += "\\textbf{Inspire ID:} \\href{%s+%s}{%s}\\newline\n" % \
+            (spiresbase, ana.inspireId(), ana.inspireId())
+    elif ana.spiresId():
         spiresbase = "http://inspire-hep.net/search?p=find+key"
         page += "\\textbf{Spires ID:} \\href{%s+%s}{%s}\\newline\n" % \
             (spiresbase, ana.spiresId(), ana.spiresId())
