@@ -209,6 +209,11 @@ BottomMargin=<size>
 --------------------
 Distance between the plot and the paper edge.
 
+--------------------
+FrameColor=<color>
+--------------------
+Background color for the margin around the plot.
+
 
 Legends
 ^^^^^^^
@@ -349,7 +354,8 @@ GofFrame=<histogram_ID>
 `GofLegend` calculates the GoF for all histograms and displays the results in
 the legend. With `GofFrame` you can specify a single histogram for which the
 GoF result will be shown in the legend and used to assign a color to the plot
-margins. You can use
+margins. Note that `FrameColor` overrides the color choice for the margin.
+You can use
 
 --------------------
 GofFrameColor=<colorthresholds>
@@ -357,7 +363,8 @@ GofFrameColor=<colorthresholds>
 
 to specify the thresholds for the frame color. This option takes a list of
 `<threshold>:<color>` pairs, separated by whitespace. The default is
-`GofFrameColor=0:green 3:yellow 6:red!70`.
+`GofFrameColor=0:green 3:yellow 6:red!70`. Again, if you use `FrameColor`,
+this option is disabled.
 
 
 Color Palettes for 2-dim Plots

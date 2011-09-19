@@ -1,6 +1,7 @@
 2011-09-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* make-plots: Fixing regex for \physicscoor
+	* make-plots: Fixing regex for \physicscoor. Adding "FrameColor"
+	option.
 
 2011-09-17  Andy Buckley  <andy@insectnation.org>
 

@@ -596,7 +596,7 @@ class MainPlot(Plot):
 
         inputdata.description.setdefault('GofLegend','0')
         inputdata.description.setdefault('GofFrame','')
-        inputdata.description['DrawGofFrame']=None
+        inputdata.description.setdefault('FrameColor',None)
 
         for i in inputdata.description['DrawOnly']:
             if i==refdata: continue
@@ -605,8 +605,8 @@ class MainPlot(Plot):
             if inputdata.description.has_key('GofType') and inputdata.description['GofType']!='chi2':
                 return
             gof = inputdata.histos[i].getChi2(inputdata.histos[refdata])
-            if i==inputdata.description['GofFrame']:
-                inputdata.description['DrawGofFrame']=pickcolor(gof)
+            if i==inputdata.description['GofFrame'] and inputdata.description['FrameColor']==None:
+                inputdata.description['FrameColor']=pickcolor(gof)
             if inputdata.histos[i].description.setdefault('Title', '')!='':
                 inputdata.histos[i].description['Title'] += ', '
             inputdata.histos[i].description['Title'] += '$\\chi^2/n={}$%1.2f' %gof
@@ -1600,10 +1600,10 @@ class Frame:
 
     def draw(self,inputdata):
         out = ('\n%\n% Frame\n%\n')
-        if inputdata.description.has_key('DrawGofFrame') and inputdata.description['DrawGofFrame']!=None:
-            color = inputdata.description['DrawGofFrame']
+        if inputdata.description.has_key('FrameColor') and inputdata.description['FrameColor']!=None:
+            color = inputdata.description['FrameColor']
             # We want to draw this frame only once, so set it to False for next time:
-            inputdata.description['DrawGofFrame']=None
+            inputdata.description['FrameColor']=None
 
             # Calculate how high and wide the overall plot is
             height = [0,0]
