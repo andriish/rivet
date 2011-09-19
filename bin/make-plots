@@ -962,7 +962,7 @@ class Special:
         out = ""
         out += ('\n%\n% Special\n%\n')
         import re
-        regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(([^,]+),([^,]+)\)(.*)')
+        regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(([0-9\.\s]+),([0-9\.\s]+)\)(.*)')
         for i in range(len(self.data)):
             while regex.search(self.data[i]):
                 match = regex.search(self.data[i])
