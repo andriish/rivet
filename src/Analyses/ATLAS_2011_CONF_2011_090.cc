@@ -63,8 +63,7 @@ namespace Rivet {
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairDetail(MUON,10*GeV,7000*GeV);
-      vfs.addVetoPairDetail(ELECTRON,20*GeV,7000*GeV);
+      vfs.addVetoPair(MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
                    "AntiKtJets04");
 
@@ -172,20 +171,20 @@ namespace Rivet {
 	       deltaR(e.momentum(),jet.momentum()) > 0.2 )
 	    e_near_jet = true;
 	}
-        if ( e_near_jet == false )
+        if ( ! e_near_jet )
           recon_e.push_back( e );
-       }
+      }
 
       foreach ( const Particle & mu, cand_mu ) {
-         bool mu_near_jet = false;
-         foreach ( const Jet& jet, cand_jets_2 ) {
-           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
-	     mu_near_jet = true;
-	 }
-	 if ( mu_near_jet == false )
+	bool mu_near_jet = false;
+	foreach ( const Jet& jet, cand_jets_2 ) {
+	  if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
+	    mu_near_jet = true;
+	}
+	if ( ! mu_near_jet )
 	  recon_mu.push_back( mu );
-       }
-
+      }
+      
       // pTmiss
       ParticleVector vfs_particles
 	= applyProjection<VisibleFinalState>(event, "vfs").particles();
