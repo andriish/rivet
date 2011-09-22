@@ -64,7 +64,7 @@ namespace Rivet {
 
 
       VetoedFinalState vfs;
-      vfs.addVetoPairDetail(MUON);
+      vfs.addVetoPairId(MUON);
 
 
       /// Jet finder

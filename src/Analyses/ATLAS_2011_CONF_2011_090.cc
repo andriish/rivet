@@ -63,7 +63,7 @@ namespace Rivet {
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPair(MUON);
+      vfs.addVetoPairId(MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
                    "AntiKtJets04");
 
@@ -94,7 +94,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
+      cerr << __LINE__ << "\n";
       const double weight = event.weight();
 
 
@@ -104,6 +104,7 @@ namespace Rivet {
        	MSG_DEBUG("electrons in veto region");
        	vetoEvent;
       }
+      cerr << __LINE__ << "\n";
 
       Jets cand_jets;
       foreach ( const Jet& jet,
@@ -112,6 +113,7 @@ namespace Rivet {
           cand_jets.push_back(jet);
         }
       }
+      cerr << __LINE__ << "\n";
 
       ParticleVector candtemp_e =
 	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
@@ -121,6 +123,7 @@ namespace Rivet {
 	applyProjection<ChargedFinalState>(event, "cfs").particles();
       ParticleVector cand_mu;
       ParticleVector cand_e;
+      cerr << __LINE__ << "\n";
 
 
       // pTcone around muon track
@@ -134,6 +137,7 @@ namespace Rivet {
 	  cand_mu.push_back(mu);
       }
 
+      cerr << __LINE__ << "\n";
 
       // pTcone around electron
       foreach ( const Particle e, candtemp_e ) {
@@ -146,6 +150,7 @@ namespace Rivet {
 	  cand_e.push_back(e);
       }
 
+      cerr << __LINE__ << "\n";
 
 
       // discard jets that overlap with electrons
@@ -161,6 +166,7 @@ namespace Rivet {
 	  if ( away_from_e )
 	    cand_jets_2.push_back( jet );
       }
+      cerr << __LINE__ << "\n";
 
       // only consider leptons far from jet
       ParticleVector recon_e, recon_mu;
@@ -174,6 +180,7 @@ namespace Rivet {
         if ( ! e_near_jet )
           recon_e.push_back( e );
       }
+      cerr << __LINE__ << "\n";
 
       foreach ( const Particle & mu, cand_mu ) {
 	bool mu_near_jet = false;
@@ -184,6 +191,7 @@ namespace Rivet {
 	if ( ! mu_near_jet )
 	  recon_mu.push_back( mu );
       }
+      cerr << __LINE__ << "\n";
       
       // pTmiss
       ParticleVector vfs_particles
@@ -194,6 +202,7 @@ namespace Rivet {
       }
       double eTmiss = pTmiss.pT();
 
+      cerr << __LINE__ << "\n";
 
       // final jet filter
       Jets recon_jets;
@@ -203,6 +212,7 @@ namespace Rivet {
 
 
 
+      cerr << __LINE__ << "\n";
 
       // ==================== observables ====================
 
@@ -215,20 +225,24 @@ namespace Rivet {
 	if ( fabs(jet.momentum().eta()) < 2.8 )
 	  Njets+=1;
       }
+      cerr << __LINE__ << "\n";
       if ( Njets < 3 ) {
 	MSG_DEBUG("Only " << Njets << " jets w/ eta<2.8 left");
 	vetoEvent;
       }
 
+      cerr << __LINE__ << "\n";
       if ( recon_jets[0].momentum().pT() <= 60.0 * GeV ) {
 	MSG_DEBUG("No hard leading jet in " << recon_jets.size() << " jets");
 	vetoEvent;
       }
+      cerr << __LINE__ << "\n";
       for ( int i = 1; i < 3; ++i ) {
 	if ( recon_jets[i].momentum().pT() <= 25*GeV ) {
 	  vetoEvent;
 	}
       }
+      cerr << __LINE__ << "\n";
 
       for ( int i = 0; i < 3; ++i ) {
 	double dPhi = deltaPhi( pTmiss_phi, recon_jets[i].momentum().phi() );
@@ -238,6 +252,7 @@ namespace Rivet {
 	  break;
 	}
       }
+      cerr << __LINE__ << "\n";
 
 
       ParticleVector lepton;
@@ -251,6 +266,7 @@ namespace Rivet {
         foreach ( const Particle & e, recon_e )
 	    lepton.push_back(e);
       }
+      cerr << __LINE__ << "\n";
 
       std::sort(lepton.begin(), lepton.end(), cmpParticleByPt);
 
@@ -266,6 +282,7 @@ namespace Rivet {
                 lepton[0].momentum().pT() <= 20*GeV ) {
 	vetoEvent;
       }
+      cerr << __LINE__ << "\n";
 
       // exactly one hard leading lepton cut
       if ( fabs(lepton[1].pdgId()) == e_id &&
@@ -277,6 +294,7 @@ namespace Rivet {
 	  vetoEvent;
       }
 
+      cerr << __LINE__ << "\n";
 
 
     // ==================== FILL ====================
@@ -295,6 +313,7 @@ namespace Rivet {
 	+ recon_jets[1].momentum().pT()
 	+ recon_jets[2].momentum().pT();
 
+      cerr << __LINE__ << "\n";
 
       // Electron channel signal region
 
@@ -326,6 +345,7 @@ namespace Rivet {
         }
 
       }
+      cerr << __LINE__ << "\n";
 
 
     }
