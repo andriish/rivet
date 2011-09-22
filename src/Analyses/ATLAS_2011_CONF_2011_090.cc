@@ -63,7 +63,7 @@ namespace Rivet {
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPair(MUON);
+      vfs.addVetoPairId(MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
                    "AntiKtJets04");
 
