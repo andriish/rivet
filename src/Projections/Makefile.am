@@ -14,6 +14,7 @@ libRivetProjections_la_SOURCES = \
   FoxWolframMoments.cc \
   FParameter.cc \
   HadronicFinalState.cc \
+  NonHadronicFinalState.cc \
   Hemispheres.cc \
   IdentifiedFinalState.cc \
   InitialQuarks.cc \
