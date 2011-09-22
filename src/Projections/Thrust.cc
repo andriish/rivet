@@ -46,11 +46,10 @@ namespace Rivet {
 
   // Do the general case thrust calculation
   void _calcT(const vector<Vector3>& momenta, double& t, Vector3& taxis) {
-    /* This function implements the iterative algorithm as described in the
-     * Pythia manual. We take eight (four) different starting vectors
-     * constructed from the four (three) leading particles to make sure that
-     * we don't find a local maximum.
-     */
+    // This function implements the iterative algorithm as described in the
+    // Pythia manual. We take eight (four) different starting vectors
+    // constructed from the four (three) leading particles to make sure that
+    // we don't find a local maximum.
     vector<Vector3> p = momenta;
     assert(p.size() >= 3);
     unsigned int n = 3;
@@ -58,13 +57,13 @@ namespace Rivet {
     vector<Vector3> tvec;
     vector<double> tval;
     std::sort(p.begin(), p.end(), mod2Cmp);
-    for (unsigned int i=0 ; i<pow(2,n-1) ; i++) {
+    for (int i = 0 ; i < intpow(2, n-1); ++i) {
       // Create an initial vector from the leading four jets
       Vector3 foo(0,0,0);
-      int sign=i;
-      for (unsigned int k=0 ; k<n ; k++) {
-        (sign%2)==1 ? foo+=p[k] : foo-=p[k];
-        sign/=2;
+      int sign = i;
+      for (unsigned int k = 0 ; k < n ; ++k) {
+        (sign % 2) == 1 ? foo += p[k] : foo -= p[k];
+        sign /= 2;
       }
       foo=foo.unit();
 
