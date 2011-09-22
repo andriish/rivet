@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analyses/MC_JetAnalysis.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetAIDA.hh"

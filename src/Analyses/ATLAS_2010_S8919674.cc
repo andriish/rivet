@@ -3,6 +3,7 @@
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ClusteredPhotons.hh"

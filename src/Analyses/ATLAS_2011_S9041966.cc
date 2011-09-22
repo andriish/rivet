@@ -7,6 +7,7 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {

@@ -8,7 +8,6 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
 
@@ -20,16 +19,21 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Default constructor.
-    VisibleFinalState();
-
     /// Constructor with min and max pseudorapidity \f$ \eta \f$ and min \f$ p_T \f$ (in GeV).
     VisibleFinalState(double mineta = -MAXRAPIDITY,
                       double maxeta =  MAXRAPIDITY,
-                      double minpt  =  0.0*GeV);
+                      double minpt  =  0.0*GeV)
+    {
+      setName("VisibleFinalState");
+      addProjection(FinalState(mineta, maxeta, minpt), "FS");
+    }
 
     /// Constructor with specific FinalState.
-    VisibleFinalState(const FinalState& fsp);
+    VisibleFinalState(const FinalState& fsp)
+    {
+      setName("VisibleFinalState");
+      addProjection(fsp, "FS");
+    }
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

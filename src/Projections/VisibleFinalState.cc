@@ -1,56 +1,45 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Cmp.hh"
-#include "Rivet/Tools/Utils.hh"
 #include <algorithm>
 
 namespace Rivet {
 
 
-  namespace {
-    void _setup_vfs(VetoedFinalState& vfs) {
-      vfs.vetoNeutrinos();
-      vfs.addVetoId(1000022); // lightest neutralino
-      vfs.addVetoId(1000039); // gravitino
-      /// @todo More?
-    }
-  }
-
-
-  VisibleFinalState::VisibleFinalState() {
-    setName("VisibleFinalState");
-    VetoedFinalState vfs;
-    _setup_vfs(vfs);
-    addProjection(vfs, "VetoedFS");
-  }
-
-
-  VisibleFinalState::VisibleFinalState(double mineta, double maxeta, double minpt) {
-    setName("VisibleFinalState");
-    VetoedFinalState vfs(FinalState(mineta, maxeta, minpt));
-    _setup_vfs(vfs);
-    addProjection(vfs, "VetoedFS");
-  }
-
-
-  VisibleFinalState::VisibleFinalState(const FinalState& fsp) {
-    setName("VisibleFinalState");
-    VetoedFinalState vfs(fsp);
-    _setup_vfs(vfs);
-    addProjection(vfs, "VetoedFS");
-  }
-
-
   int VisibleFinalState::compare(const Projection& p) const {
-    return mkNamedPCmp(p, "VetoedFS");
+    return FinalState::compare(p);
+  }
+
+
+  // Since we remove inivisibles from the FinalState in project(),
+  // we need a filter where invisible --> true
+  bool isInvisibleFilter(const Particle& p) {
+    // charged particles are visible
+    if ( PID::threeCharge( p.pdgId() ) != 0 ) 
+      return false;
+
+    // neutral hadrons are visible
+    if ( PID::isHadron( p.pdgId() ) ) 
+      return false;
+
+    // photons are visible
+    if ( p.pdgId() == PHOTON ) 
+      return false;
+
+    // everything else is invisible
+    return true;
   }
 
 
   void VisibleFinalState::project(const Event& e) {
-    const FinalState& vfs = applyProjection<FinalState>(e, "VetoedFS");
-    _theParticles = vfs.particles();
+    const FinalState& fs = applyProjection<FinalState>(e, "FS");
+    _theParticles.clear();
+    std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
+                        std::back_inserter(_theParticles), isInvisibleFilter);
+    MSG_DEBUG("Number of visible final-state particles = "
+             << _theParticles.size());
   }
-
 
 }
