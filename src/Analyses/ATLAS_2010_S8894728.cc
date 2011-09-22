@@ -165,8 +165,8 @@ namespace Rivet {
       const double dEtadPhi = (2*2.5 * 2*PI/3.0);
       // Transverse profiles need 4 orders of moments for stddev with errors
       for (int i = 0; i < 4; ++i) {
-        _hist_nch_transverse_500[i]->fill(pTlead/GeV, intpow(num500[1]/dEtadPhi, i+1), weight);
-        _hist_ptsum_transverse_500[i]->fill(pTlead/GeV, intpow(ptSum500[1]/GeV/dEtadPhi, i+1), weight);
+        _hist_nch_transverse_500[i]->fill(pTlead/GeV, pow(num500[1]/dEtadPhi, i+1), weight);
+        _hist_ptsum_transverse_500[i]->fill(pTlead/GeV, pow(ptSum500[1]/GeV/dEtadPhi, i+1), weight);
       }
       // Toward and away profiles only need the first moment (the mean)
       _hist_nch_toward_500->fill(pTlead/GeV, num500[0]/dEtadPhi, weight);
@@ -259,7 +259,7 @@ namespace Rivet {
       for (int b = 0; b < target_dps->size(); ++b) { // loop over bins
         /// @todo Assuming unit weights here! Should use N_effective = sumW**2/sumW2? How?
         const double numentries = moment_profiles[0]->binEntries(b);
-        const double var = moment_profiles[1]->binHeight(b) - intpow(moment_profiles[0]->binHeight(b), 2);
+        const double var = moment_profiles[1]->binHeight(b) - pow(moment_profiles[0]->binHeight(b), 2);
         const double sd = isZero(var) ? 0 : sqrt(var); //< Numerical safety check
         target_dps->point(b)->coordinate(1)->setValue(sd);
         if (sd == 0 || numentries < 3) {
@@ -272,9 +272,9 @@ namespace Rivet {
         // c2(y) = m4(x) - 4 m3(x) m1(x) - m2(x)^2 + 8 m2(x) m1(x)^2 - 4 m1(x)^4
         const double var_on_var = moment_profiles[3]->binHeight(b)
           - 4 * moment_profiles[2]->binHeight(b) * moment_profiles[0]->binHeight(b)
-          - intpow(moment_profiles[1]->binHeight(b), 2)
-          + 8 * moment_profiles[1]->binHeight(b) * intpow(moment_profiles[0]->binHeight(b), 2)
-          - 4 * intpow(moment_profiles[0]->binHeight(b), 4);
+          - pow(moment_profiles[1]->binHeight(b), 2)
+          + 8 * moment_profiles[1]->binHeight(b) * pow(moment_profiles[0]->binHeight(b), 2)
+          - 4 * pow(moment_profiles[0]->binHeight(b), 4);
         const double stderr_on_var = sqrt(var_on_var/(numentries-2.0));
         const double stderr_on_sd = stderr_on_var / (2.0*sd);
         target_dps->point(b)->coordinate(1)->setErrorPlus(stderr_on_sd);

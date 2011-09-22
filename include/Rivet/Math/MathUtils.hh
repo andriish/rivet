@@ -175,12 +175,10 @@ namespace Rivet {
   }
 
   /// A more efficient version of pow for raising numbers to integer powers.
+  /// @deprecated Use std::pow instead
   template <typename Num>
   inline Num intpow(Num val, unsigned int exp) {
-    assert(exp >= 0);
-    if (exp == 0) return (Num) 1;
-    else if (exp == 1) return val;
-    else return val * intpow(val, exp-1);
+    return std::pow(val, exp);
   }
 
   /// Find the sign of a number

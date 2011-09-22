@@ -43,6 +43,7 @@ namespace Rivet {
   using std::cin;
   using std::cerr;
   using std::setw;
+  using std::pow;
   using std::endl;
 
 }
