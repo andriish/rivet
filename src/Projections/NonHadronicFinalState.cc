@@ -22,7 +22,7 @@ namespace Rivet {
     _theParticles.clear();
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
                         std::back_inserter(_theParticles), nonHadronFilter);
-    MSG_DEBUG("Number of hadronic final-state particles = "
+    MSG_DEBUG("Number of non-hadronic final-state particles = "
              << _theParticles.size());
   }
 
