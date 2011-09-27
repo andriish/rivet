@@ -31,6 +31,27 @@ namespace Rivet {
   }
 
 
+  InvMassFinalState::InvMassFinalState(const pair<PdgId, PdgId>& idpair, // pair of decay products
+                                       double minmass, // min inv mass
+                                       double maxmass, // max inv mass
+                                       double masstarget)
+    : _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget), _useTransverseMass(false)
+  {
+    setName("InvMassFinalState");
+    _decayids.push_back(idpair);
+  }
+
+
+  InvMassFinalState::InvMassFinalState(const vector<pair<PdgId, PdgId> >& idpairs,  // vector of pairs of decay products
+                                       double minmass, // min inv mass
+                                       double maxmass, // max inv mass
+                                       double masstarget)
+    : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget), _useTransverseMass(false)
+  {
+    setName("InvMassFinalState");
+  }
+
+
   int InvMassFinalState::compare(const Projection& p) const {
     // First compare the final states we are running on
     int fscmp = mkNamedPCmp(p, "FS");

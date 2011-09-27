@@ -27,6 +27,17 @@ namespace Rivet {
                       double masstarget=-1.0);
 
 
+    /// Same thing as above, but we want to pass the particles directly to the calc method
+    InvMassFinalState(const std::pair<PdgId, PdgId>& idpair, // pair of decay products
+                      double minmass, // min inv mass
+                      double maxmass, // max inv mass
+                      double masstarget=-1.0);
+    InvMassFinalState(const std::vector<std::pair<PdgId, PdgId> >& idpairs,  // vector of pairs of decay products
+                      double minmass, // min inv mass
+                      double maxmass, // max inv mass
+                      double masstarget=-1.0);
+
+
     /// Clone on the heap.
     virtual const Projection* clone() const {
     	return new InvMassFinalState(*this);

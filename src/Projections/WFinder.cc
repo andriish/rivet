@@ -119,7 +119,7 @@ namespace Rivet {
     vector<pair<PdgId, PdgId> > l_nu_ids;
     l_nu_ids += make_pair(abs(_pid), -abs(_nu_pid));
     l_nu_ids += make_pair(-abs(_pid), abs(_nu_pid));
-    InvMassFinalState imfs(FinalState(), l_nu_ids, _minmass, _maxmass, _masstarget);
+    InvMassFinalState imfs(l_nu_ids, _minmass, _maxmass, _masstarget);
     imfs.useTransverseMass(_useTransverseMass);
     ParticleVector tmp;
     tmp.insert(tmp.end(), leptons.clusteredLeptons().begin(), leptons.clusteredLeptons().end());
