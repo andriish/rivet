@@ -81,10 +81,10 @@ namespace Rivet {
       _count_e_channel = bookHistogram1D("count_electron_channel", 1, 0., 1.);
       _hist_eTmiss_e = bookHistogram1D("Et_miss_e", 50, 0., 500.);
       _hist_eTmiss_mu = bookHistogram1D("Et_miss_mu", 50, 0., 500.);
-      _hist_m_eff_e = bookHistogram1D("m_eff_e", 30, 0., 1500.);
-      _hist_m_eff_mu = bookHistogram1D("m_eff_mu", 30, 0., 1500.);
-      _hist_m_eff_e_final = bookHistogram1D("m_eff_e_final", 30, 0., 1500.);
-      _hist_m_eff_mu_final = bookHistogram1D("m_eff_mu_final", 30, 0., 1500.);
+      _hist_m_eff_e = bookHistogram1D("m_eff_e", 60, 0., 1500.);
+      _hist_m_eff_mu = bookHistogram1D("m_eff_mu", 60, 0., 1500.);
+      _hist_m_eff_e_final = bookHistogram1D("m_eff_e_final", 60, 0., 1500.);
+      _hist_m_eff_mu_final = bookHistogram1D("m_eff_mu_final", 60, 0., 1500.);
 
 
 
@@ -338,10 +338,10 @@ namespace Rivet {
 
 	scale( _hist_eTmiss_e, 10. * 165. * crossSection()/sumOfWeights() );
 	scale( _hist_eTmiss_mu, 10. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_e, 50. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_mu, 50. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_e_final, 50. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_mu_final, 50. * 165. * crossSection()/sumOfWeights() );
+	scale( _hist_m_eff_e, 25. * 165. * crossSection()/sumOfWeights() );
+	scale( _hist_m_eff_mu, 25. * 165. * crossSection()/sumOfWeights() );
+	scale( _hist_m_eff_e_final, 25. * 165. * crossSection()/sumOfWeights() );
+	scale( _hist_m_eff_mu_final, 25. * 165. * crossSection()/sumOfWeights() );
 
 
     }
