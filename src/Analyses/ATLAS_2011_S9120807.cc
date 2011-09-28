@@ -91,12 +91,10 @@ namespace Rivet {
       ///
       /// compute the median energy density
       ///
-      _ptDensity.clear();
-      _sigma.clear();
-      _Njets.clear();
+      std::vector<double> _ptDensity;
       std::vector< std::vector<double> > ptDensities;
       std::vector<double> emptyVec;
-      ptDensities.assign(_eta_bins_areaoffset.size()-1,emptyVec);
+      ptDensities.assign(_eta_bins_areaoffset.size()-1, emptyVec);
 
       const fastjet::ClusterSequenceArea* clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
       foreach (const fastjet::PseudoJet& jet, applyProjection<FastJets>(event, "KtJetsD05").pseudoJets(0.0*GeV)) {
@@ -113,8 +111,6 @@ namespace Rivet {
 
       for(int b=0; b<(int)_eta_bins_areaoffset.size()-1;b++){
         double median = 0.0;
-        double sigma = 0.0;
-        int Njets = 0;
         if(ptDensities[b].size() > 0)
           {
             std::sort(ptDensities[b].begin(), ptDensities[b].end());
@@ -123,12 +119,8 @@ namespace Rivet {
               median = (ptDensities[b][nDens/2]+ptDensities[b][(nDens-2)/2])/2;
             else
               median = ptDensities[b][(nDens-1)/2];
-            sigma = ptDensities[b][(int)(.15865*nDens)];
-            Njets = nDens;
           }
         _ptDensity.push_back(median);
-        _sigma.push_back(sigma);
-        _Njets.push_back(Njets);
       }
 
 
@@ -159,14 +151,14 @@ namespace Rivet {
 
           /// check if it's in the 5x7 central core
           if (fabs(eta_P-p.momentum().eta()) < .025*7.0*0.5 &&
-              fabs(phi_P-p.momentum().phi()) < (PI/128.)*5.0*0.5) continue;
+              fabs(phi_P-p.momentum().phi()) < (M_PI/128.)*5.0*0.5) continue;
 
           mom_in_EtCone += p.momentum();
         }
 
         /// now figure out the correction (area*density)
-        float EtCone_area = PI*.4*.4 - (7.0*.025)*(5.0*PI/128.);
-        float correction = _ptDensity[getEtaBin(eta_P)]*EtCone_area;
+        double EtCone_area = M_PI*.4*.4 - (7.0*.025)*(5.0*M_PI/128.);
+        double correction = _ptDensity[getEtaBin(eta_P)]*EtCone_area;
 
         /// shouldn't need to subtract photon
         /// note: using expected cut at hadron/particle level, not cut at reco level
@@ -225,13 +217,8 @@ namespace Rivet {
 
     fastjet::AreaDefinition* _area_def;
 
-    std::vector<float> _eta_bins_areaoffset;
-
-    std::vector<float> _ptDensity;
-    std::vector<float> _sigma;
-    std::vector<float> _Njets;
+    std::vector<double> _eta_bins_areaoffset;
   };
-
 
 
   // The hook for the plugin system
