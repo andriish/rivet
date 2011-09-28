@@ -32,7 +32,7 @@ namespace Rivet {
       // Set up projections
       ZFinder zfinder_dressed_el(-2.4, 2.4, 20, ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
       addProjection(zfinder_dressed_el, "ZFinder_dressed_el");
-      ZFinder zfinder_bare_el(-2.4, 2.4, 20, ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      ZFinder zfinder_bare_el(-2.4, 2.4, 20, ELECTRON, 66.0*GeV, 116.0*GeV, 0.0, true, false);
       addProjection(zfinder_bare_el, "ZFinder_bare_el");
       ZFinder zfinder_dressed_mu(-2.4, 2.4, 20, MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
       addProjection(zfinder_dressed_mu, "ZFinder_dressed_mu");
