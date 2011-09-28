@@ -4,13 +4,14 @@
 
 ## Print help
 PROG=$(basename $0)
-tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
-if test $# -lt 2 || test -n "$tmp"; then
+tmp=$(echo $* |& egrep -- '--\<help\>|-\<h\>')
+if test $# -lt 1 || test -n "$tmp"; then
     echo "$PROG: compilation helper for Rivet analysis plugins"
     echo
-    echo "Usage: $PROG <libname> <source1> [<source2> [compiler_flags] ...]"
+    echo "Usage: $PROG [<libname>] <source1> [<source2> [compiler_flags] ...]"
     echo
     echo "<libname> can be a path, provided the filename is of the form 'Rivet*.so'"
+    echo "If <libname> is not specified, the default name is 'RivetAnalysis.so'."
     echo
     echo "To make special build variations you can add appropriate compiler flags"
     echo "to the arguments and these will be passed directly to the compiler. For"
@@ -20,6 +21,9 @@ if test $# -lt 2 || test -n "$tmp"; then
     echo "Options:"
     echo "  -h | --help: display this help message"
     echo "  --with-root: add ROOT link options (requires root-config on system)"
+    echo
+    echo "TODO:"
+    echo "  * is there a GCC option to parallelise the single-command compilation?"
     test -n "$tmp"
     exit $?
 fi
@@ -77,14 +81,22 @@ set $tmp
 
 ## Get and check the library name
 libname=$1
-match=$(basename "$libname" | egrep '^Rivet.*\.so')
-if test -z "$match"; then
-    echo "Library name '$libname' does not have the required 'Rivet*.so' name pattern" 1>&2
-    exit 1
+match1=$(basename "$libname" |& egrep '^.*\.so')
+match2=$(basename "$libname" |& egrep '^Rivet.*\.so')
+if test -n "$match1"; then
+    if test -z "$match2"; then
+        echo "Library name '$libname' does not have the required 'Rivet*.so' name pattern" 1>&2
+        exit 1
+    fi
+    ## If we're using the first arg as the library name, shift it off the positional list
+    shift
+else
+    echo "Using default library name 'RivetAnalysis.so'"
+    libname="RivetAnalysis.so"
 fi
 
+
 ## Get the source files (and more flags)
-shift
 sources_and_flags="$@"
 if [[ -n $with_root ]]; then
     root_flags=$(root-config --libs --cflags 2> /dev/null)

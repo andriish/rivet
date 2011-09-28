@@ -1,3 +1,9 @@
+2011-09-26  Andy Buckley  <andy@insectnation.org>
+
+	* Adding a default libname argument to rivet-buildplugin. If the
+	first argument doesn't have a .so library suffix, then use
+	RivetAnalysis.so as the default.
+
 2011-09-19  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* make-plots: Fixing regex for \physicscoor. Adding "FrameColor"
