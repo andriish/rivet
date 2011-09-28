@@ -67,7 +67,7 @@ namespace Rivet {
       double eta = fabs(eta_w);
 
       int v_iter=0;
-      for (v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++){
+      for (v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++) {
         if (inRange(eta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1]))
           break;
       }
@@ -84,7 +84,7 @@ namespace Rivet {
       /// require at least 2 photons in final state
       ///
       ParticleVector photons = applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
-      if (photons.size() < 2){
+      if (photons.size() < 2) {
         vetoEvent;
       }
 
@@ -104,19 +104,18 @@ namespace Rivet {
         /// get the cluster sequence
         double area = clust_seq_area->area(jet);
 
-        if(area > 10e-4 && fabs(eta)<_eta_bins_areaoffset[_eta_bins_areaoffset.size()-1]){
+        if(area > 10e-4 && fabs(eta) < _eta_bins_areaoffset[_eta_bins_areaoffset.size()-1]) {
           ptDensities.at(getEtaBin(fabs(eta))).push_back(pt/area);
         }
       }
 
-      for(int b=0; b<(int)_eta_bins_areaoffset.size()-1;b++){
+      for(int b=0; b<(int)_eta_bins_areaoffset.size()-1; b++) {
         double median = 0.0;
-        if(ptDensities[b].size() > 0)
-          {
+        if(ptDensities[b].size() > 0) {
             std::sort(ptDensities[b].begin(), ptDensities[b].end());
             int nDens = ptDensities[b].size();
             if( nDens%2 == 0 )
-              median = (ptDensities[b][nDens/2]+ptDensities[b][(nDens-2)/2])/2;
+              median = (ptDensities[b][nDens/2] + ptDensities[b][(nDens-2)/2]) / 2;
             else
               median = ptDensities[b][(nDens-1)/2];
           }
@@ -134,7 +133,7 @@ namespace Rivet {
         /// remove photons in crack
         ///
         double eta_P = photon.momentum().eta();
-        if(fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
+        if (fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
 
         double phi_P = photon.momentum().phi();
 
@@ -162,7 +161,7 @@ namespace Rivet {
 
         /// shouldn't need to subtract photon
         /// note: using expected cut at hadron/particle level, not cut at reco level
-        if(mom_in_EtCone.Et()-correction > 4.0*GeV){
+        if (mom_in_EtCone.Et()-correction > 4.0*GeV) {
           continue;
         }
 
@@ -191,10 +190,10 @@ namespace Rivet {
         vetoEvent;
       }
 
-      FourMomentum yy=y1+y2;
+      FourMomentum yy = y1+y2;
       double Myy = yy.mass()/GeV;
       double pTyy = yy.pT()/GeV;
-      double dPhiyy = mapAngle0ToPi(y1.phi()-y2.phi());
+      double dPhiyy = deltaPhi(y1.phi(), y2.phi());
 
       _h_M->fill(Myy, weight);
       _h_pT->fill(pTyy, weight);
