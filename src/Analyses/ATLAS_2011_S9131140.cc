@@ -73,7 +73,7 @@ namespace Rivet {
       }
 
       const ZFinder& zfinder_bare_mu = applyProjection<ZFinder>(evt, "ZFinder_bare_mu");
-      if (zfinder_bare_mu.bosons().empty()) {
+      if (!zfinder_bare_mu.bosons().empty()) {
         _sumw_mu_bare += weight;
         const FourMomentum pZ = zfinder_bare_mu.bosons()[0].momentum();
         _hist_zpt_mu_bare->fill(pZ.pT()/GeV, weight);
