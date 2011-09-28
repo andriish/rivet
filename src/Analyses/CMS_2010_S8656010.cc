@@ -48,7 +48,7 @@ namespace Rivet {
           if (pT < 6.0*GeV) {
             _h_dNch_dpT_all->fill(pT/GeV, weight/(pT/GeV));
             if (pT < 2.0*GeV) {
-              int ietabin(fabs(eta)/0.2);
+              int ietabin = int(fabs(eta)/0.2);
               _h_dNch_dpT[ietabin]->fill(pT/GeV, weight);
             }
           }
