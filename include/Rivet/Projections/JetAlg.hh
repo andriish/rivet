@@ -107,10 +107,10 @@ namespace Rivet {
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
     template <typename F>
-    Jets jets(F sorter, double ptmin, double,
-              double, double,
-              RapScheme) const {
-      Jets js = jets(ptmin);
+    Jets jets(F sorter, double ptmin, double ptmax,
+              double rapmin, double rapmax,
+              RapScheme rapscheme) const {
+      Jets js = jets(ptmin, ptmax, rapmin, rapmax, rapscheme);
       if (sorter != 0) {
         std::sort(js.begin(), js.end(), sorter);
       }
@@ -156,7 +156,7 @@ namespace Rivet {
     /// An optional cut on min \f$ p_\perp \f$ is applied in this function, since that is
     /// directly supported by FastJet and it seems a shame to not make use of that. But
     /// all other jet cuts are applied at the @c ::jets() function level.
-    virtual Jets _jets(double ptmin=0.0) const = 0;
+    virtual Jets _jets(double ptmin) const = 0;
 
 
   public:
