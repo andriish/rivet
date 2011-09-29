@@ -6,11 +6,11 @@ libRivetProjections_la_SOURCES = \
   ChargedLeptons.cc \
   CentralEtHCM.cc \
   ClusteredPhotons.cc \
+  DISFinalState.cc \
   DISKinematics.cc \
   DISLepton.cc \
   FastJets.cc \
   FinalState.cc \
-  FinalStateHCM.cc \
   FoxWolframMoments.cc \
   FParameter.cc \
   HadronicFinalState.cc \

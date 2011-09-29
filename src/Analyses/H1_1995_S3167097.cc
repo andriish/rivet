@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
-#include "Rivet/Projections/FinalStateHCM.hh"
+#include "Rivet/Projections/DISFinalState.hh"
 #include "Rivet/Projections/CentralEtHCM.hh"
 
 namespace Rivet {
@@ -24,7 +24,7 @@ namespace Rivet {
 
     void init() {
       const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
-      const FinalStateHCM& fshcm = addProjection(FinalStateHCM(diskin), "FS");
+      const DISFinalState& fshcm = addProjection(DISFinalState(diskin, DISFinalState::HCM), "FS");
       addProjection(CentralEtHCM(fshcm), "Y1HCM");
 
       _hEtFlow = vector<AIDA::IHistogram1D *>(_nbin);
@@ -74,7 +74,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const FinalStateHCM& fs = applyProjection<FinalStateHCM>(event, "FS");
+      const FinalState& fs = applyProjection<FinalState>(event, "FS");
       const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
       const CentralEtHCM y1 = applyProjection<CentralEtHCM>(event, "Y1HCM");
 
