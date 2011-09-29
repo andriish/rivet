@@ -47,7 +47,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
-      const Jets jets = fastjets.jetsByPt(20.);
+      const Jets jets = fastjets.jetsByPt(20.*GeV);
       const double weight = event.weight();
 
       if (jets.size() < 2 || jets.size() >= 3) vetoEvent;
@@ -59,7 +59,7 @@ namespace Rivet {
       _hist_jetdphi->fill(angle , weight);
       _hist_jetdeta->fill(prapidity, weight);
 
-      foreach(Jet j, fastjets.jetsByPt(20*GeV)) {
+      foreach(Jet j, fastjets.jetsByPt(20.*GeV)) {
         _hist_jetpt->fill(j.momentum().pT(), weight);
         _hist_jetptlog->fill(log(j.momentum().pT()), weight);
         _hist_jetphi->fill(j.momentum().azimuthalAngle(), weight);
@@ -70,7 +70,7 @@ namespace Rivet {
       // const FastJets& cfastjets = applyProjection<FastJets>(event, "ChargedJets");
       double meanpt(0), rmspt(0);
       /// @todo Add jets
-      // foreach(Jet cj, cfastjets.jetsByPt(20.)){
+      // foreach(Jet cj, cfastjets.jetsByPt(20.*GeV)){
       _hist_chargemultiplicity->fill(cfs.particles().size(), weight);
       foreach(Particle cp, cfs.particles()) {
         meanpt= meanpt + cp.momentum().pT();
