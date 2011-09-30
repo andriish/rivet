@@ -9,7 +9,7 @@ namespace Rivet {
 
 
   int VisibleFinalState::compare(const Projection& p) const {
-    return FinalState::compare(p);
+    return mkNamedPCmp(p, "FS");
   }
 
 
@@ -26,6 +26,10 @@ namespace Rivet {
 
     // photons are visible
     if ( p.pdgId() == PHOTON ) 
+      return false;
+
+    // gluons are visible (for parton level analyses)
+    if ( p.pdgId() == GLUON ) 
       return false;
 
     // everything else is invisible
