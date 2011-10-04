@@ -116,8 +116,7 @@ namespace Rivet {
         }
         if (copy) jetparts.push_back(p);
       }
-      /// @todo Allow proj creation w/o FS as ctor arg, so that calc can be used more easily.
-      FastJets jetpro(fs, FastJets::CDFMIDPOINT, 0.7);
+      FastJets jetpro(FastJets::CDFMIDPOINT, 0.7);
       jetpro.calc(jetparts);
 
       // Take jets with pt > 30, |eta| < 2.1:
