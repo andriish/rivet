@@ -4,7 +4,7 @@ Summary: Single Lepton Search for Supersymmetry
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Angela Chen <aqchen@fas.harvard.edu>
 References:
