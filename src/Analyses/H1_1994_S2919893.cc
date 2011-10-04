@@ -99,7 +99,7 @@ namespace Rivet {
 
         // Energy flow histogram
         double et = fabs(Et(hcmMom));
-        double eta = -hcmMom.pseudorapidity();
+        double eta = hcmMom.pseudorapidity();
         if (x < 1e-3) {
           _histEnergyFlowLowX ->fill(eta, et*weight);
         } else {
@@ -108,7 +108,7 @@ namespace Rivet {
         if (PID::threeCharge(p.pdgId()) != 0) {
           /// @todo Use units in w comparisons... what are the units?
           if (w > 50. && w <= 200.) {
-            double xf= -2 * hcmMom.z() / w;
+            double xf= 2 * hcmMom.z() / w;
             double pt2 = pT2(hcmMom);
             if (w > 50. && w <= 100.) {
               _histSpectraW77 ->fill(xf, weight);
