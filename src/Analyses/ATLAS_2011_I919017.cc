@@ -39,7 +39,7 @@ namespace Rivet {
         if (r < bins_r[bin+1]) {
           double up = bins_r[bin+1];
           double down = bins_r[bin];
-          return ((up-down)/(3.141592654*(up*up-down*down)));
+          return ((up-down)/(M_PI*(up*up-down*down)));
         }
       }
       return 1.0;
