@@ -173,7 +173,7 @@ namespace Rivet {
 
   double Analysis::crossSectionPerEvent() const {
     const double sumW = sumOfWeights();
-    assert(sumW > 0);
+    assert(sumW != 0.0);
     return _crossSection / sumW;
   }
 
