@@ -89,19 +89,19 @@ namespace Rivet {
       // event weight
       const double weight = event.weight();
       // get the charged final-state particles
-      ParticleVector charged = 
-	applyProjection<VetoedFinalState>(event,"VFS").particles();
+      ParticleVector charged =
+        applyProjection<VetoedFinalState>(event,"VFS").particles();
       // need at least two candidates
       if(charged.size()<2) vetoEvent;
       // number passing trigger
       _count_trigger->fill(0.5,weight);
       // Z mass veto
       foreach ( const Particle & mu1,charged ) {
-	foreach ( const Particle & mu2,charged ) {
-	  double mass = (mu1.momentum()+mu2.momentum()).mass();
-	  double diff = abs(mass-91.18);
-	  if(diff<10.) vetoEvent;
-	}
+        foreach ( const Particle & mu2,charged ) {
+          double mass = (mu1.momentum()+mu2.momentum()).mass();
+          double diff = abs(mass-91.18);
+          if(diff<10.) vetoEvent;
+        }
       }
       // number passing first event selection
       _count_event->fill(0.5,weight);
@@ -109,17 +109,17 @@ namespace Rivet {
       // loop over the particles and find muons and heavy charged particles
       map<double,Particle> muonCandidates;
       foreach ( const Particle & mu,charged ) {
-	// calculate the smeared momentum
-	double pT     = mu.momentum().perp2();
-	double pmag   = sqrt(pT+sqr(mu.momentum().z()));
-	pT = sqrt(pT);
- 	double deltap = sqrt( sqr(csag*sqr(pmag)) +
-			      sqr(cms*mu.momentum().t()/GeV));
-	double psmear = rndGauss(deltap,pmag);
-	// keep particles with pT>40
- 	if(psmear/pmag*mu.momentum().perp()<40.*GeV||
-	   psmear/pmag*mu.momentum().perp()>1000.*GeV) continue;
-	muonCandidates.insert(make_pair(psmear,mu));
+        // calculate the smeared momentum
+        double pT     = mu.momentum().perp2();
+        double pmag   = sqrt(pT+sqr(mu.momentum().z()));
+        pT = sqrt(pT);
+        double deltap = sqrt( sqr(csag*sqr(pmag)) +
+                              sqr(cms*mu.momentum().t()/GeV));
+        double psmear = rndGauss(deltap,pmag);
+        // keep particles with pT>40
+        if(psmear/pmag*mu.momentum().perp()<40.*GeV||
+           psmear/pmag*mu.momentum().perp()>1000.*GeV) continue;
+        muonCandidates.insert(make_pair(psmear,mu));
       }
       // require two candidates
       if(muonCandidates.size()<2) vetoEvent;
@@ -128,39 +128,39 @@ namespace Rivet {
       // now do the time of flight
       bool filled = false;
       for(map<double,Particle>::const_iterator it=muonCandidates.begin();
-	  it!=muonCandidates.end();++it) {
-	// true magnitude and pT of momentum
-	double pT     = it->second.momentum().perp2();
-	double pmag   = sqrt(pT+sqr(it->second.momentum().z()));
-	pT = sqrt(pT);
-	// true time difference in ns
-	double deltaT  =tr *(it->second.momentum().t()-pmag)/pT;
- 	// smear it
- 	deltaT = rndGauss(tsmear,deltaT);
-	// beta
-	double beta = 1./(1.+deltaT/tr*pT/pmag);
-	_hist_beta->fill(beta, weight);
-	_hist_time->fill(deltaT, weight);
-	// beta cut
-	if(beta<0.95) continue;
-	// mass
- 	double mass = 2.*pT*it->first*deltaT/tr*(1.+0.5*deltaT/tr*pT/pmag);
-	if(mass<0.) continue;
-	mass = sqrt(mass);
-	filled = true;
-	_hist_mass->fill(mass,weight);
-	if(mass>90. ) {
-	  _count_90 ->fill(0.5,weight);
-	  if(mass>110.) {
-	    _count_110->fill(0.5,weight);
-	    if(mass>120.) {
-	      _count_120->fill(0.5,weight);
-	      if(mass>130.) {
-		_count_130->fill(0.5,weight);
-	      }
-	    }
-	  }
-	}
+          it!=muonCandidates.end();++it) {
+        // true magnitude and pT of momentum
+        double pT     = it->second.momentum().perp2();
+        double pmag   = sqrt(pT+sqr(it->second.momentum().z()));
+        pT = sqrt(pT);
+        // true time difference in ns
+        double deltaT  =tr *(it->second.momentum().t()-pmag)/pT;
+        // smear it
+        deltaT = rndGauss(tsmear,deltaT);
+        // beta
+        double beta = 1./(1.+deltaT/tr*pT/pmag);
+        _hist_beta->fill(beta, weight);
+        _hist_time->fill(deltaT, weight);
+        // beta cut
+        if(beta<0.95) continue;
+        // mass
+        double mass = 2.*pT*it->first*deltaT/tr*(1.+0.5*deltaT/tr*pT/pmag);
+        if(mass<0.) continue;
+        mass = sqrt(mass);
+        filled = true;
+        _hist_mass->fill(mass,weight);
+        if(mass>90. ) {
+          _count_90 ->fill(0.5,weight);
+          if(mass>110.) {
+            _count_110->fill(0.5,weight);
+            if(mass>120.) {
+              _count_120->fill(0.5,weight);
+              if(mass>130.) {
+                _count_130->fill(0.5,weight);
+              }
+            }
+          }
+        }
       }
       if(!filled) vetoEvent;
       // number passing beta cut
@@ -168,11 +168,10 @@ namespace Rivet {
     }
 
     //@}
-    
+
     void finalize() {
       double fact = crossSection()/sumOfWeights()*37;
-      cerr << "testing " << crossSection() << " " 
-	   << sumOfWeights() << " " << fact << "\n";
+      MSG_WARNING("testing " << crossSection() << " " << sumOfWeights() << " " << fact);
       scale(_hist_beta,fact);
       scale(_hist_time,fact);
       scale(_hist_mass,fact);
@@ -208,8 +207,8 @@ namespace Rivet {
 
   };
 
-  // This global object acts as a hook for the plugin system
-  AnalysisBuilder<ATLAS_2011_S9108483> plugin_ATLAS_2011_S9108483;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9108483);
 
 
 }
