@@ -1,10 +1,10 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 ## -*- sh -*-
 ## @configure_input@
 
 ## Print help
 PROG=$(basename $0)
-tmp=$(echo $* |& egrep -- '--\<help\>|-\<h\>')
+tmp=$(echo $* | egrep -- '--\<help\>|-\<h\>')
 if test $# -lt 1 || test -n "$tmp"; then
     echo "$PROG: compilation helper for Rivet analysis plugins"
     echo
@@ -81,8 +81,8 @@ set $tmp
 
 ## Get and check the library name
 libname=$1
-match1=$(basename "$libname" |& egrep '^.*\.so')
-match2=$(basename "$libname" |& egrep '^Rivet.*\.so')
+match1=$(basename "$libname" | egrep '^.*\.so')
+match2=$(basename "$libname" | egrep '^Rivet.*\.so')
 if test -n "$match1"; then
     if test -z "$match2"; then
         echo "Library name '$libname' does not have the required 'Rivet*.so' name pattern" 1>&2

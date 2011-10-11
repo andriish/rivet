@@ -149,7 +149,7 @@ def getBinsFromTGraph(TGraph):
     X = TGraph.GetX()
     Y = TGraph.GetY()
     for ii in xrange(TGraph.GetN()):
-        i = ii + 1
+        i = ii #+ 1
         xlow  = X[i] - TGraph.GetErrorXlow(i)
         xhigh = X[i] + TGraph.GetErrorXhigh(i)
         y     = Y[i]
