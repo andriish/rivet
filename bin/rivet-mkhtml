@@ -53,6 +53,8 @@ parser.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF
                   default="PDF", help="use PDF as the vector plot format.")
 parser.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
                   default="PDF", help="use PostScript as the vector plot format.")
+parser.add_option("--booklet", dest="BOOKLET", action="store_true",
+                  default=False, help="create booklet (currently only available for PDF with pdftk).")
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
                   default=False, help="ignore unvalidated analyses.")
 parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
@@ -71,7 +73,7 @@ if not aidafiles:
 
 
 ## Make output directory
-if os.path.exists(opts.OUTPUTDIR):
+if os.path.exists(opts.OUTPUTDIR) and not os.path.realpath(opts.OUTPUTDIR)==os.getcwd():
     import shutil
     shutil.rmtree(opts.OUTPUTDIR)
 try:
@@ -184,7 +186,10 @@ timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.TITLE, style))
-index.write('<h2>%s</h2>\n\n' % opts.TITLE)
+if opts.BOOKLET and opts.VECTORFORMAT=="PDF":
+    index.write('<h2><a href="booklet.pdf">%s</a></h2>\n\n' % opts.TITLE)
+else:
+    index.write('<h2>%s</h2>\n\n' % opts.TITLE)
 
 if opts.SINGLE:
     ## Write table of contents
@@ -293,3 +298,11 @@ if datfiles:
         print "Calling make-plots with the following options:"
         print mp_cmd
     Popen(mp_cmd).wait()
+    if opts.BOOKLET and opts.VECTORFORMAT=="PDF":
+        bookletcmd = ["pdftk"]
+        for analysis in analyses:
+            anapath = os.path.join(opts.OUTPUTDIR, analysis)
+            bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
+        bookletcmd += ["cat", "output", "%s/booklet.pdf" % opts.OUTPUTDIR]
+        print bookletcmd
+        Popen(bookletcmd).wait()
