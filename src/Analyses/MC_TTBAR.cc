@@ -39,6 +39,8 @@ namespace Rivet {
       addProjection(MissingMomentum(fs), "MissingET");
 
       // Booking of histograms
+      _h_njets = bookHistogram1D("jet_mult", 11, -0.5, 10.5);
+      //
       _h_jet_1_pT = bookHistogram1D("jet_1_pT", 50, 0, 500);
       _h_jet_2_pT = bookHistogram1D("jet_2_pT", 50, 0, 400);
       _h_jet_3_pT = bookHistogram1D("jet_3_pT", 50, 0, 300);
@@ -103,6 +105,7 @@ namespace Rivet {
       // Insist that the hardest 4 jets pass pT hardness cuts. If we don't find
       // at least 4 such jets, we abandon this event.
       const Jets jets = jetpro.jetsByPt(30*GeV);
+      _h_njets->fill(jets.size(), weight);
       double ht = 0.0;
       foreach (const Jet& j, jets) { ht += j.momentum().pT(); }
       _h_jet_HT->fill(ht/GeV, weight);
@@ -194,6 +197,7 @@ namespace Rivet {
 
 
     void finalize() {
+      scale(_h_njets, 1/_sumwPassedLepJetMET);
       scale(_h_jet_1_pT, 1/_sumwPassedLepJetMET);
       scale(_h_jet_2_pT, 1/_sumwPassedLepJetMET);
       scale(_h_jet_3_pT, 1/_sumwPassedLepJetMET);
@@ -219,6 +223,7 @@ namespace Rivet {
     // @name Histogram data members
     //@{
 
+    AIDA::IHistogram1D *_h_njets;
     AIDA::IHistogram1D *_h_jet_1_pT, *_h_jet_2_pT, *_h_jet_3_pT, *_h_jet_4_pT;
     AIDA::IHistogram1D *_h_jet_HT;
     AIDA::IHistogram1D *_h_bjet_1_pT, *_h_bjet_2_pT;

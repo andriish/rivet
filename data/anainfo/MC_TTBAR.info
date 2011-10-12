@@ -1,6 +1,6 @@
 Name: MC_TTBAR
 Summary: MC analysis for ttbar studies
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
  - Andy Buckley <andy.buckley@cern.ch>
