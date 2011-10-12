@@ -1,9 +1,22 @@
+2011-10-12  Andy Buckley  <andy@insectnation.org>
+
+	* Adding a separate test program for non-matrix/vector math
+	functions, and adding a new set of int/float literal arg tests for
+	the inRange functions in it.
+
+	* Adding a jet multiplicity plot for jets with pT > 30 GeV to
+	MC_TTBAR.
+
 2011-10-11  James Monk    <jmonk@cern.ch>
-  * root2flat was missing the first bin (plus spurious last bin)
-  * my version of bash does not understand the pipe syntax |& in rivet-buildplugin
+
+	* root2flat was missing the first bin (plus spurious last bin)
+
+	* My version of bash does not understand the pipe syntax |& in rivet-buildplugin
 
 2011-09-30  James Monk    <jmonk@cern.ch>
-  * fix bug in ATLAS_2010_S8817804 that misidentified the akt4 jets as akt6
+
+	* Fix bug in ATLAS_2010_S8817804 that misidentified the akt4 jets
+	as akt6
 
 2011-09-29  Andy Buckley  <andy@insectnation.org>
 

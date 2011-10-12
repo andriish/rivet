@@ -1,7 +1,10 @@
-check_PROGRAMS = testMatVec testBoost testCmp testApi
+check_PROGRAMS = testMath testMatVec testBoost testCmp testApi
 
 testBoost_SOURCES = testBoost.cc
 testBoost_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
+
+testMath_SOURCES = testMath.cc
+testMath_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
 
 testMatVec_SOURCES = testMatVec.cc
 testMatVec_LDADD   = -lm $(GSL_LDFLAGS)
@@ -22,7 +25,7 @@ TESTS_ENVIRONMENT = \
   PYTHON_BUILD_DIR=$(top_builddir)/pyext/build \
   PATH=$(top_builddir)/bin:$(PATH)
 
-TESTS = testMatVec testBoost testCmp testApi testCmdLine.sh
+TESTS = testMath testMatVec testBoost testCmp testApi testCmdLine.sh
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh
 
