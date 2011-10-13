@@ -1,19 +1,21 @@
-Name: CMS_2011_S8950903 
+Name: CMS_2011_S8950903
 Year: 2011
-Summary: Dijet Azimuthal Decorrelations in pp Collisions at sqrt(s) = 7 TeV 
+Summary: Dijet Azimuthal Decorrelations in pp Collisions at sqrt(s) = 7 TeV
 Experiment: CMS
 Collider: LHC
-SpiresID: 8950903 
+SpiresID: 8950903
 Status: VALIDATED
 Authors:
  - Tomo Umer <tomo.umer@cern.ch>
 References:
  - Phys. Rev. Lett. 106 (2011) 122003
+ - arXiv:1101.5029 [hep-ex]
 RunInfo:
    Inclusive QCD at 7TeV comEnergy, ptHat (or equivalent) greater than 20 GeV
 NumEvents: 100k
 Beams: [p+, p+]
 Energies: [7000]
+PtCuts: [20]
 Description:
   Measurements of dijet azimuthal decorrelations in pp collisions at sqrt(s) = 7 TeV using the CMS
   detector at the CERN LHC are presented. The analysis is based on an inclusive dijet event sample

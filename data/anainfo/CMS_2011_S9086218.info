@@ -21,6 +21,7 @@ Description:
   energy of 7 TeV at the LHC using the CMS experiment. The data sample corresponds to an
   integrated luminosity of 34 inverse picobarns. The measurement is made for jet transverse
   momenta in the range 18-1100 GeV and for absolute values of rapidity less than 3.
+NeedCrossSection: yes
 BibKey: :2011me
 BibTeX: '@article{:2011me,
       author         = "Chatrchyan, Serguei and others",

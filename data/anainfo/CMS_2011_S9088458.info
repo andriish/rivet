@@ -1,9 +1,9 @@
-Name: CMS_2011_S9088458 
+Name: CMS_2011_S9088458
 Year: 2011
 Summary: Measurement of ratio of the 3-jet over 2-jet cross section in pp collisions at sqrt(s) = 7 TeV
 Experiment: CMS
 Collider: LHC
-SpiresID: 9088458 
+SpiresID: 9088458
 Status: VALIDATED
 Authors:
  - Tomo Umer <tomo.umer@cern.ch>
