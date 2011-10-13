@@ -36,9 +36,13 @@ dist_pkgdata_DATA = \
   CMS_2010_S8547297.aida         \
   CMS_2010_S8656010.aida         \
   CMS_2011_S8884919.aida         \
+  CMS_2011_S8950903.aida         \
   CMS_2011_S8957746.aida         \
   CMS_2011_S8968497.aida         \
   CMS_2011_S8978280.aida         \
+  CMS_2011_S9086218.aida         \
+  CMS_2011_S9088458.aida         \
+  CMS_2011_S9120041.aida         \
   DELPHI_1994_S3021912.aida      \
   DELPHI_1995_S3137023.aida      \
   DELPHI_1996_S3430090.aida      \

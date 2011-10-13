@@ -77,9 +77,13 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2010_S8547297.cc \
     CMS_2010_S8656010.cc \
     CMS_2011_S8884919.cc \
+    CMS_2011_S8950903.cc \
     CMS_2011_S8957746.cc \
     CMS_2011_S8968497.cc \
-    CMS_2011_S8978280.cc
+    CMS_2011_S8978280.cc \
+    CMS_2011_S9086218.cc \
+    CMS_2011_S9088458.cc \
+    CMS_2011_S9120041.cc
 
 
 lib_LTLIBRARIES += RivetLHCbAnalyses.la
