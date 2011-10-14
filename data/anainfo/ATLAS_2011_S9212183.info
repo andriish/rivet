@@ -7,12 +7,12 @@ SpiresID: 9212183
 Status: UNVALIDATED
 Authors:
  - Chris Wymant <c.m.wymant@durham.ac.uk>
-????? - David Grellscheid <david.grellscheid@durham.ac.uk>
+ - David Grellscheid <david.grellscheid@durham.ac.uk>
 References:
  - arXiv:1102.5290
 RunInfo:
   BSM signal events at 7000 GeV.
-????? NumEvents: 25000 for BSM signals
+NumEvents: 25000 for BSM signals
 Beams: [p+, p+]
 Energies: [7000]
 Description:
