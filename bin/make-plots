@@ -1270,6 +1270,23 @@ class Histogram(DrawableObject):
                                     'Content': foo/float(rebin),
                                     'Error':   [sqrt(barl)/float(rebin),sqrt(baru)/float(rebin)]})
                 self.data=newdata
+        if self.description.has_key('EnvelopeRebin') and self.description['EnvelopeRebin']!='':
+            rebin=int(self.description['EnvelopeRebin'])
+            newdata=[]
+            if rebin>=2:
+                for i in range(0,(len(self.data)/rebin)*rebin,rebin):
+                    newcentral=0.
+                    newmax=0.
+                    newmin=0.
+                    for j in range(rebin):
+                        newcentral +=self.data[i+j]['Content']
+                        newmin +=self.data[i+j]['Content']-self.data[i+j]['Error'][0]
+                        newmax +=self.data[i+j]['Content']+self.data[i+j]['Error'][1]
+                    newdata.append({'LowEdge': self.data[i]['LowEdge'],
+                                    'UpEdge':  self.data[i+rebin-1]['UpEdge'],
+                                    'Content': newcentral/float(rebin),
+                                    'Error':   [(newcentral-newmin)/float(rebin),(newmax-newcentral)/float(rebin)]})
+                self.data=newdata
 
     def add(self,name):
         if len(self.data)!=len(name.data):
