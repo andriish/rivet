@@ -962,8 +962,11 @@ class Special:
         out = ""
         out += ('\n%\n% Special\n%\n')
         import re
-        regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(([0-9\.\s]+),([0-9\.\s]+)\)(.*)')
-        for i in range(len(self.data)):
+        regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(\s?([0-9\.e+-]+)\s?,\s?([0-9\.e+-]+)\s?\)(.*)')
+        # TODO: More precise number string matching, something like this:
+        # num = r"-?[0-9]*(?:\.[0-9]*)(?:[eE][+-]?\d+]"
+        # regex = re.compile(r'^(.*?)(\\physics[xy]?coor)\(\s?(' + num + ')\s?,\s?(' + num + ')\s?\)(.*)')
+        for i in xrange(len(self.data)):
             while regex.search(self.data[i]):
                 match = regex.search(self.data[i])
                 xcoor, ycoor = float(match.group(3)), float(match.group(4))
@@ -1640,10 +1643,10 @@ class Frame:
             bottom = inputdata.description['BottomMargin']+0.1
 
             #
-            out += ('\\rput(0,1){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(top, color, -left, top/2, width+right, top/2))
-            out += ('\\rput(0,%scm){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(height[1], bottom, color, -left, -bottom/2, width+right, -bottom/2))
-            out += ('\\rput(0,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(left, color, -left/2, height[1]-0.05, -left/2, height[0]+0.05))
-            out += ('\\rput(1,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}' %(right, color, right/2, height[1]-0.05, right/2, height[0]+0.05))
+            out += ('\\rput(0,1){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}\n' %(top, color, -left, top/2, width+right, top/2))
+            out += ('\\rput(0,%scm){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}\n' %(height[1], bottom, color, -left, -bottom/2, width+right, -bottom/2))
+            out += ('\\rput(0,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}\n' %(left, color, -left/2, height[1]-0.05, -left/2, height[0]+0.05))
+            out += ('\\rput(1,0){\\psline[linewidth=%scm,linecolor=%s](%scm,%scm)(%scm,%scm)}\n' %(right, color, right/2, height[1]-0.05, right/2, height[0]+0.05))
 
 
         out += ('\\psframe[linewidth='+self.framelinewidth+',dimen=middle](0,0)(1,1)\n')
