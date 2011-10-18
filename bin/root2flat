@@ -21,15 +21,18 @@ if sys.version_info[:3] < (2,4,0):
 
 
 import os, optparse, logging, ROOT
-# try:
-#     from IPython.Shell import IPShellEmbed
-#     ipshell = IPShellEmbed([])
-# except:
-#     print "Ipython shell not available."
 
 
 ## Parse options
 parser = optparse.OptionParser(usage = __doc__)
+parser.add_option("-a", dest="ANALYSIS", default=None,
+                  help = "Optionally add analysis name to histogram keys")
+parser.add_option("-e", dest="ENUM", default=False, action='store_true',
+                  help = "Enumerate histos hepdata style")
+parser.add_option("-f", dest="FILENAME", default=None,
+                  help = "Force output of all histos in single file")
+parser.add_option("-x", dest="XCLUDE", default=None,
+                  help = "Exclude histos from conversion based on string pattern")
 parser.add_option("-o", dest="OUTDIR", default=".",
                   help = "specify directory in which to write out converted files")
 (opts, args) = parser.parse_args()
@@ -39,27 +42,29 @@ def readROOT(rootfile):
     """ This is the main function that opens a ROOT file, browses its contents
         for histograms and tries to write the converted histos to files.
     """
+    global nobs
     # Open the ROOT file
     f = ROOT.TFile(rootfile)
 
     # Initial browse to see the structure
     subdirs, histonames, tgraphnames = browse(f)
 
-    # Keep browding if there are subdirectories TODO: Make this work for
+    # Keep browsing if there are subdirectories TODO: Make this work for
     # arbitrarily deep directory structures
     if len(subdirs) > 0:
         for sd in subdirs:
             t_s, t_h = browse(f, sd)
             histonames.extend(t_h)
 
-    #primary_keys = f.GetListOfKeys()
-    #iter_primaries = ROOT.TListIter(primary_keys)
-
     # This will convert and write the histos
-    for histoname in histonames:
-        writeHisto(histoname, f.Get(histoname))
-    for tgraphname in tgraphnames:
-        writeHisto(tgraphname, f.Get(tgraphname), True)
+    for num, histoname in enumerate(histonames):
+        writeHisto(histoname, f.Get(histoname), num+nobs)
+    for num, tgraphname in enumerate(tgraphnames):
+        writeHisto(tgraphname, f.Get(tgraphname), num + len(histonames)+nobs, True)
+
+    nobs += len(histonames)
+    nobs += len(tgraphnames)
+
 
 
 
@@ -90,10 +95,12 @@ def browse(f, branch=None):
             t_n = iter_primaries.Next().GetName()
         # Make sure we don't have a NoneType object here
         if f.Get(t_n):
-            # Check if the curent hing is a directory
+            if opts.XCLUDE is not None and opts.XCLUDE in t_n:
+                continue
+            # Check if the curent object is a directory
             if type(f.Get(t_n)) == ROOT.TDirectoryFile:
                 subdirs.append(t_n)
-            # Check if the curent hing is a histogram
+            # Check if the curent object is a histogram
             elif f.Get(t_n).InheritsFrom("TH1") or f.Get(t_n).InheritsFrom("TProfile"):
                 histos.append(t_n)
             elif f.Get(t_n).InheritsFrom("TGraphAsymmErrors"):
@@ -160,7 +167,7 @@ def getBinsFromTGraph(TGraph):
     return allbins
 
 
-def writeHisto(name, R_histo, tgraph=False):
+def writeHisto(name, R_histo, rivetid, tgraph=False):
     """ This writes the histogram into a single file, ready to plot with
     make-plots.
     """
@@ -171,13 +178,28 @@ def writeHisto(name, R_histo, tgraph=False):
     head = "# BEGIN PLOT\nTitle=%s\nLegend=1\nLogY=1\nDrawOnly=%s\n" % (title, name)
     head += "XLabel=%s\nYLabel=%s\n# END PLOT\n" % (xlabel, ylabel)
 
-    histo = getFlatHisto(bins, name, title)
+    if opts.ANALYSIS and opts.ENUM:
+        name = os.path.join(opts.ANALYSIS, "d"+str(rivetid).zfill(2)+"-x01-y01")
+    elif opts.ANALYSIS and not opts.ENUM:
+        name = os.path.join(opts.ANALYSIS, name)
 
+    histo = getFlatHisto(bins, name, title)
     flatname = name.replace("/","_") + ".dat"
+
     if flatname.startswith("_"):
         flatname = flatname[1:]
     flatfile = os.path.join(opts.OUTDIR, flatname)
-    f = open(flatfile, "w")
+
+    if not opts.FILENAME:
+        f = open(flatfile, "w")
+    else:
+        global nobs
+        if os.path.exists(opts.FILENAME) and rivetid == 1:
+            print "Error, outputfile '%s' exists! Exiting..."%opts.FILENAME
+            sys.exit(1)
+        else:
+            f = open(opts.FILENAME, "a")
+
     f.write(head)
     f.write("\n")
     f.write(histo)
@@ -194,13 +216,17 @@ def getFlatHisto(bins, name, title):
     for bin in bins:
         histo += "%.8e\t%.8e\t%.8e\t%.8e\t%.8e\n" % (bin["xlow"], bin["xhigh"],
                                                      bin["y"], bin["y_err_low"], bin["y_err_high"])
-    histo += "# END HISTOGRAM\n"
+    histo += "# END HISTOGRAM\n\n"
     return histo
 
 
 if __name__ == "__main__":
+    nobs = 1
     for infile in args:
         if not os.path.exists(opts.OUTDIR):
             os.mkdir(opts.OUTDIR)
         readROOT(infile)
-    print "Done. Written all plot files to %s" % opts.OUTDIR
+    dest = opts.OUTDIR
+    if opts.FILENAME:
+        dest=opts.FILENAME
+    print  "Done. Written all converted histos to %s" % dest
