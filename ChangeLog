@@ -1,4 +1,16 @@
+2011-10-19  Andy Buckley  <andy@insectnation.org>
+
+	* Adding new version of LHCB_2010_S8758301, based on submission
+	from Alex Grecu. There is some slightly dodgy-looking GenParticle*
+	fiddling going on, but apparently it's necessary (and hopefully robust).
+
+2011-10-17  Andy Buckley  <andy@insectnation.org>
+
+	* bin/rivet-nopy linker line tweak to make compilation work with
+	GCC 4.6 (-lHepMC has to be explicitly added for some reason).
+
 2011-10-13  Frank Siegert  <frank.siegert@cern.ch>
+
 	* Add four CMS QCD analyses kindly provided by CMS.
 
 2011-10-12  Andy Buckley  <andy@insectnation.org>

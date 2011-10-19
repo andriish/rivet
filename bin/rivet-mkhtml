@@ -186,7 +186,7 @@ timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.TITLE, style))
-if opts.BOOKLET and opts.VECTORFORMAT=="PDF":
+if opts.BOOKLET and opts.VECTORFORMAT == "PDF":
     index.write('<h2><a href="booklet.pdf">%s</a></h2>\n\n' % opts.TITLE)
 else:
     index.write('<h2>%s</h2>\n\n' % opts.TITLE)
