@@ -15,10 +15,11 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
+                   double masstarget,
+                   FinalState inputfs) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget, inputfs);
   }
 
 
@@ -27,8 +28,9 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, const double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+                   double masstarget,
+                   FinalState inputfs) {
+    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget, inputfs);
   }
 
 
@@ -36,7 +38,8 @@ namespace Rivet {
                       double pTmin,  PdgId pid,
                       double minmass, double maxmass,
                       double dRmax, bool clusterPhotons, bool trackPhotons,
-                      double masstarget)
+                      double masstarget,
+                      FinalState inputfs)
   {
     setName("ZFinder");
 
@@ -46,10 +49,9 @@ namespace Rivet {
     _pid = pid;
     _trackPhotons = trackPhotons;
 
-    FinalState fs;
-    IdentifiedFinalState bareleptons(fs);
+    IdentifiedFinalState bareleptons(inputfs);
     bareleptons.acceptIdPair(pid);
-    LeptonClusters leptons(fs, bareleptons, dRmax,
+    LeptonClusters leptons(inputfs, bareleptons, dRmax,
                            clusterPhotons,
                            etaRanges, pTmin);
     addProjection(leptons, "LeptonClusters");

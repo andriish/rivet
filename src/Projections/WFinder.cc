@@ -19,11 +19,12 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass) {
+                   bool useTransverseMass,
+                   FinalState inputfs) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
     _init(etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, inputfs);
   }
 
 
@@ -34,9 +35,10 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass) {
+                   bool useTransverseMass,
+                   FinalState inputfs) {
     _init(etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, inputfs);
   }
 
 
@@ -47,7 +49,8 @@ namespace Rivet {
                       double missingET,
                       double dRmax, bool clusterPhotons, bool trackPhotons,
                       double masstarget,
-                      bool useTransverseMass)
+                      bool useTransverseMass,
+                      FinalState inputfs)
   {
     setName("WFinder");
 
@@ -64,21 +67,20 @@ namespace Rivet {
     assert(abs(_nu_pid) == NU_E || abs(_nu_pid) == NU_MU);
 
     // Don't make pT or eta cuts on the neutrino
-    IdentifiedFinalState neutrinos;
+    IdentifiedFinalState neutrinos(inputfs);
     neutrinos.acceptNeutrinos();
     addProjection(neutrinos, "Neutrinos");
 
     // Lepton clusters
-    FinalState fs;
-    IdentifiedFinalState bareleptons(fs);
+    IdentifiedFinalState bareleptons(inputfs);
     bareleptons.acceptIdPair(pid);
-    LeptonClusters leptons(fs, bareleptons, dRmax,
+    LeptonClusters leptons(inputfs, bareleptons, dRmax,
                            clusterPhotons,
                            etaRanges, pTmin);
     addProjection(leptons, "LeptonClusters");
 
     // Add MissingMomentum proj to calc MET
-    MissingMomentum vismom(fs);
+    MissingMomentum vismom(inputfs);
     addProjection(vismom, "MissingET");
     // Set ETmiss
     _etMiss = missingET;

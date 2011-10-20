@@ -38,7 +38,8 @@ namespace Rivet {
             PdgId pid,
             double minmass, double maxmass,
             double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
+            double masstarget=91.2*GeV,
+            FinalState inputfs=FinalState());
 
 
     /// Constructor taking multiple eta/pT bounds
@@ -55,7 +56,8 @@ namespace Rivet {
             PdgId pid,
             double minmass, const double maxmass,
             double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
+            double masstarget=91.2*GeV,
+            FinalState inputfs=FinalState());
 
 
     /// Clone on the heap.
@@ -103,7 +105,8 @@ namespace Rivet {
                double pTmin,  PdgId pid,
                double minmass, double maxmass,
                double dRmax, bool clusterPhotons, bool trackPhotons,
-               double masstarget);
+               double masstarget,
+               FinalState inputfs);
 
     /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
     double _minmass, _maxmass, _masstarget;

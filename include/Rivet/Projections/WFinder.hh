@@ -41,7 +41,8 @@ namespace Rivet {
             double missingET,
             double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
             double masstarget=80.4,
-            bool useTransverseMass=false);
+            bool useTransverseMass=false,
+            FinalState inputfs=FinalState());
 
 
     /// Constructor taking multiple eta/pT bounds
@@ -62,7 +63,8 @@ namespace Rivet {
             double missingET,
             double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
             double masstarget=80.4,
-            bool useTransverseMass=false);
+            bool useTransverseMass=false,
+            FinalState inputfs=FinalState());
 
 
     /// Clone on the heap.
@@ -117,7 +119,8 @@ namespace Rivet {
                double missingET,
                double dRmax, bool clusterPhotons, bool trackPhotons,
                double masstarget,
-               bool useTransverseMass);
+               bool useTransverseMass,
+               FinalState inputfs);
 
 
   private:
