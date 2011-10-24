@@ -33,7 +33,6 @@ using namespace std;
       sum_low_pt_loss(0), sum_high_pt_loss(0)
     {
       setNeedsCrossSection(true);
-      setBeams(PROTON, PROTON);
     }
     //@}
     /// @name Analysis methods
