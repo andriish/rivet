@@ -220,7 +220,6 @@ namespace Rivet {
     AIDA::IHistogram1D * _h_WW_jet1_deta;
     AIDA::IHistogram1D * _h_WW_jet1_dR;
     AIDA::IHistogram1D * _h_We_jet1_dR;
-    AIDA::IHistogram1D * _h_jets_dphi_12;
     AIDA::IHistogram1D * _h_jets_m_12;
     AIDA::IHistogram1D * _h_HT;
     //@}
