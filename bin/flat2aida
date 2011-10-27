@@ -42,8 +42,7 @@ if __name__ == "__main__":
     parser.add_option("-o", "--output", default=None,
                       help="Write all histos to a single output file. "
                       "stdout can be explicitly specified by setting '-' as the output filename. This option will "
-                      "be disregarded if --split is specified.",
-                      dest="OUTPUT")
+                      "be disregarded if --split is specified.", dest="OUTPUT")
     parser.add_option("-s", "--split", action="store_true", default=False,
                       help="Split histograms into individual files", dest="SPLITOUTPUT")
     parser.add_option("--plotinfodir", dest="PLOTINFODIR", action="append",

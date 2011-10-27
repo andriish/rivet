@@ -8,7 +8,7 @@
 namespace Rivet {
 
 
-  /// Rivet analysis class for ATLAS_2010_S8918562 dataset
+  /// Rivet analysis class for ATLAS 2010 minimum bias analysis
   class ATLAS_2010_S8918562 : public Analysis {
   public:
 
