@@ -778,7 +778,7 @@ if __name__ == "__main__":
     ## STAR inclusive jet cross-section
     logging.info("Processing STAR_2006_S6870392")
     useOnePt("/STAR_2006_S6870392/d01-x01-y01", "200", "0")
-    useOnePt("/STAR_2006_S6870392/d02-x01-y01", "200", "3")
+    mergeByPt("/STAR_2006_S6870392/d02-x01-y01", "200")
 
     ## STAR underlying event (Helen Caines)
     logging.info("Processing STAR_2009_UE_HELEN")
