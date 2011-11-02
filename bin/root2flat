@@ -47,7 +47,7 @@ def readROOT(rootfile):
     f = ROOT.TFile(rootfile)
 
     # Initial browse to see the structure
-    subdirs, histonames, tgraphnames = browse(f)
+    subdirs, histonames, tgraphnames, tcanvases = browse(f)
 
     # Keep browsing if there are subdirectories TODO: Make this work for
     # arbitrarily deep directory structures
@@ -56,11 +56,15 @@ def readROOT(rootfile):
             t_s, t_h = browse(f, sd)
             histonames.extend(t_h)
 
+    from IPython.Shell import IPShellEmbed
     # This will convert and write the histos
     for num, histoname in enumerate(histonames):
         writeHisto(histoname, f.Get(histoname), num+nobs)
     for num, tgraphname in enumerate(tgraphnames):
         writeHisto(tgraphname, f.Get(tgraphname), num + len(histonames)+nobs, True)
+    # TCanvas items
+    for num, tc in enumerate(tcanvases):
+        writeHisto(tc[0], tc[-1], num + len(histonames) + len(tgraphnames) + nobs, tc[1])
 
     nobs += len(histonames)
     nobs += len(tgraphnames)
@@ -76,6 +80,7 @@ def browse(f, branch=None):
     histos  = []
     tgraphs = []
     subdirs = []
+    tcanvases = []
 
     # Get Iterator
     if branch:
@@ -105,8 +110,15 @@ def browse(f, branch=None):
                 histos.append(t_n)
             elif f.Get(t_n).InheritsFrom("TGraphAsymmErrors"):
                 tgraphs.append(t_n)
+            # Also support graphs, histos stored in TCanvases
+            elif f.Get(t_n).InheritsFrom("TCanvas"):
+                for ci in f.Get(t_n).GetListOfPrimitives():
+                    if ci.InheritsFrom("TH1") or ci.InheritsFrom("TProfile"):
+                        tcanvases.append((t_n,False,ci))
+                    elif ci.InheritsFrom("TGraphAsymmErrors"):
+                        tcanvases.append((t_n,True,ci))
 
-    return subdirs, histos, tgraphs
+    return subdirs, histos, tgraphs, tcanvases
 
 
 def convertHisto(R_histo):
