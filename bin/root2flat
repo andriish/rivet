@@ -56,7 +56,6 @@ def readROOT(rootfile):
             t_s, t_h = browse(f, sd)
             histonames.extend(t_h)
 
-    from IPython.Shell import IPShellEmbed
     # This will convert and write the histos
     for num, histoname in enumerate(histonames):
         writeHisto(histoname, f.Get(histoname), num+nobs)
