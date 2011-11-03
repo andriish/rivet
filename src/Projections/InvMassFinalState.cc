@@ -79,11 +79,11 @@ namespace Rivet {
   }
 
 
-
   void InvMassFinalState::project(const Event& e) {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     calc(fs.particles());
   }
+
 
   void InvMassFinalState::calc(const ParticleVector& inparticles) {
     _theParticles.clear();
@@ -107,7 +107,7 @@ namespace Rivet {
         }
       }
     }
-    if(type1.empty() || type2.empty()) return;
+    if (type1.empty() || type2.empty()) return;
 
     // Temporary container of selected particles iterators
     // Useful to compare iterators and avoid double occurrences of the same
@@ -119,7 +119,7 @@ namespace Rivet {
     closestPair.first = 1e30;
     foreach (const Particle* i1, type1) {
       foreach (const Particle* i2, type2) {
-        // check this is actually a pair
+        // Check this is actually a pair
         // (if more than one pair in vector particles can be unrelated)
         bool found = false;
         foreach (const PdgIdPair& ipair, _decayids) {

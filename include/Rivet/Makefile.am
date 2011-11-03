@@ -63,6 +63,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/MissingMomentum.hh \
   Projections/Multiplicity.hh   \
   Projections/NeutralFinalState.hh \
+  Projections/NonHadronicFinalState.hh \
   Projections/ParisiTensor.hh   \
   Projections/PVertex.hh        \
   Projections/Sphericity.hh     \

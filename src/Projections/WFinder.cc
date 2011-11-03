@@ -107,7 +107,6 @@ namespace Rivet {
             cmp(_useTransverseMass, other._useTransverseMass) ||
             cmp(_etMiss, other._etMiss) ||
             cmp(_pid, other._pid) || cmp(_trackPhotons, other._trackPhotons));
-
   }
 
 
@@ -168,7 +167,7 @@ namespace Rivet {
     const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WMINUSBOSON;
     _bosons.push_back(Particle(wpid, pW));
 
-    // find the LeptonClusters and neutrinos which survived the IMFS cut such that we can
+    // Find the LeptonClusters and neutrinos which survived the IMFS cut such that we can
     // extract their original particles
     foreach (const Particle& p, _constituentNeutrinos) {
       _theParticles.push_back(p);
