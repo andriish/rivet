@@ -1,5 +1,9 @@
 2011-11-09  Andy Buckley  <andy@insectnation.org>
 
+	* Renaming source files for EXAMPLE and
+	PDG_HADRON_MULTIPLICITIES(_RATIOS) analyses to match the analysis
+	names.
+
 	* Cosmetic fixes in ATLAS_2011_S9212183 SUSY analysis.
 
 	* Adding new ATLAS W pT analysis from Elena Yatsenko (slightly adapted).

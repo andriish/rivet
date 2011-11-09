@@ -237,8 +237,8 @@ RivetSPSAnalyses_la_SOURCES = \
 
 lib_LTLIBRARIES += RivetMiscAnalyses.la
 RivetMiscAnalyses_la_SOURCES = \
-    PDG_Hadron_Multiplicities.cc \
-    PDG_Hadron_Multiplicities_Ratios.cc \
+    PDG_HADRON_MULTIPLICITIES.cc \
+    PDG_HADRON_MULTIPLICITIES_RATIOS.cc \
     JADE_OPAL_2000_S4300807.cc \
     BELLE_2006_S6265367.cc
 if ENABLE_UNVALIDATED
@@ -250,7 +250,7 @@ endif
 
 lib_LTLIBRARIES += RivetMCAnalyses.la
 RivetMCAnalyses_la_SOURCES = \
-    ExampleAnalysis.cc \
+    EXAMPLE.cc \
     MC_GENERIC.cc \
     MC_JETS.cc \
     MC_PHOTONJETS.cc \
