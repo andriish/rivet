@@ -229,18 +229,21 @@ namespace Rivet {
 	}
       }
 
+      // require at least four jets with et > 55
+      if(njet55<=3) vetoEvent;
+
       // plots of etmiss/ht
       double etht = eTmiss/sqrt(HT);
       if(njet55==6) _etmissHTA->fill(etht,weight);
       if(njet80==5) _etmissHTB->fill(etht,weight);
 
       if(etht>1.5&&etht<2. ) {
-	_njet55A->fill(njet55,weight);
-	_njet80A->fill(njet80,weight);
+	if(njet55>3) _njet55A->fill(njet55,weight);
+	if(njet80>3) _njet80A->fill(njet80,weight);
       }
       if(etht>2. &&etht<3. ) {
-	_njet55B->fill(njet55,weight);
-	_njet80B->fill(njet80,weight);
+	if(njet55>3) _njet55B->fill(njet55,weight);
+	if(njet80>3) _njet80B->fill(njet80,weight);
       }
 
       // apply E_T/sqrt(H_T) cut
