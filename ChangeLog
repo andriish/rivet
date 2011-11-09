@@ -1,4 +1,11 @@
+2011-11-09  Andy Buckley  <andy@insectnation.org>
+
+	* Cosmetic fixes in ATLAS_2011_S9212183 SUSY analysis.
+
+	* Adding new ATLAS W pT analysis from Elena Yatsenko (slightly adapted).
+
 2011-10-20  Frank Siegert  <frank.siegert@cern.ch>
+
 	* Extend API of W/ZFinder to allow for specification of input final
 	state in which to search for leptons/photons.
 

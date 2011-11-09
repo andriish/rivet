@@ -27,7 +27,6 @@ dist_pkgdata_DATA = \
   ATLAS_2011_S9126244.aida       \
   ATLAS_2011_S9128077.aida       \
   ATLAS_2011_S9131140.aida       \
-  ATLAS_2011_S9212183.aida       \
   ATLAS_2011_I919017.aida        \
   ATLAS_2011_I925932.aida        \
   BABAR_2006_S6511112.aida       \
