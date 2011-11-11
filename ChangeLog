@@ -1,3 +1,9 @@
+2011-11-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protecting the OPAL 2004 analysis against NaNs in the
+	hemispheres projection -- I can't track the origin of these and
+	suspect some occasional memory corruption.
+
 2011-11-09  Andy Buckley  <andy@insectnation.org>
 
 	* Renaming source files for EXAMPLE and

@@ -55,8 +55,6 @@ namespace Rivet {
     _M2high = max(mass2With, mass2Against);
     _M2low = min(mass2With, mass2Against);
 
-    if (_M2low < 0) cout << _M2low << ", " << p4With << " / " << p4Against << endl;
-
     // Calculate broadenings.
     broadWith /= broadDenom;
     broadAgainst /= broadDenom;
