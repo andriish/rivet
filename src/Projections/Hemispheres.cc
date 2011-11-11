@@ -5,6 +5,8 @@ namespace Rivet {
 
 
   void Hemispheres::project(const Event& e) {
+    clear();
+
     // Get thrust axes.
     const AxesDefinition& ax = applyProjection<AxesDefinition>(e, "Axes");
     const Vector3 n = ax.axis1();
@@ -14,7 +16,7 @@ namespace Rivet {
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
     const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
     const ParticleVector& particles = fs.particles();
-    MSG_DEBUG("number of particles = " << particles.size());
+    MSG_DEBUG("Number of particles = " << particles.size());
     foreach (const Particle& p, particles) {
       const FourMomentum p4 = p.momentum();
       const Vector3 p3 = p4.vector3();
@@ -36,7 +38,7 @@ namespace Rivet {
       } else {
         // In the incredibly unlikely event that a particle goes exactly along the
         // thrust plane, add half to each hemisphere.
-        MSG_DEBUG("Particle split between hemispheres");
+        MSG_WARNING("Particle split between hemispheres");
         p4With += 0.5 * p4;
         p4Against += 0.5 * p4;
         broadWith += 0.5 * p3Trans;
@@ -52,6 +54,8 @@ namespace Rivet {
     const double mass2Against = p4Against.mass2();
     _M2high = max(mass2With, mass2Against);
     _M2low = min(mass2With, mass2Against);
+
+    if (_M2low < 0) cout << _M2low << ", " << p4With << " / " << p4Against << endl;
 
     // Calculate broadenings.
     broadWith /= broadDenom;

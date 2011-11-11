@@ -10,55 +10,51 @@
 
 namespace Rivet {
 
-  /**
-     @brief Calculate the hemisphere masses and broadenings.
-
-     Calculate the hemisphere masses and broadenings, with event hemispheres
-     defined by the plane normal to the thrust vector, \f$ \vec{n}_\mathrm{T} \f$.
-
-     @todo Allow axes to be defined by sphericity: superclass Thrust and Sphericity as AxisDefinition?
-
-     The "high" hemisphere mass,
-     \f$ M^2_\mathrm{high} / E^2_\mathrm{vis} \f$, is defined as
-     \f[
-     \frac{M^2_\mathrm{high}}{E^2_\mathrm{vis}} =
-     \frac{1}{E^2_\mathrm{vis}} \max
-     \left(
-     \left| \sum_{\vec{p}_k \cdot \vec{n}_\mathrm{T} > 0} p_k \right|^2 ,
-     \left| \sum_{\vec{p}_k \cdot \vec{n}_\mathrm{T} < 0} p_k \right|^2
-     \right)
-     \f]
-     and the corresponding "low" hemisphere mass,
-     \f$ M^2_\mathrm{low} / E^2_\mathrm{vis} \f$,
-     is the sum of momentum vectors in the opposite hemisphere, i.e.
-     \f$ \max \rightarrow \min \f$ in the formula above.
-
-     Finally, we define a hemisphere mass difference:
-     \f[
-     \frac{M^2_\mathrm{diff} }{ E^2_\mathrm{vis}} =
-     \frac{ M^2_\mathrm{high} - M^2_\mathrm{low} }{ E^2_\mathrm{vis}} .
-     \f]
-
-     Similarly to the masses, we also define hemisphere broadenings, using the
-     momenta transverse to the thrust axis:
-     \f[
-     B_\pm =
-     \frac{
-       \sum{\pm \vec{p}_i \cdot \vec{n}_\mathrm{T} > 0}
-       |\vec{p}_i \times \vec{n}_\mathrm{T} |
-     }{
-       2 \sum_i | \vec{p}_i |
-     }
-     \f]
-     and then a set of the broadening maximum, minimum, sum and difference as follows:
-     \f[ B_\mathrm{max}  = \max(B_+, B_-) \f]
-     \f[ B_\mathrm{min}  = \min(B_+, B_-) \f]
-     \f[ B_\mathrm{sum}  = B_+ + B_- \f]
-     \f[ B_\mathrm{diff} = |B_+ - B_-| \f]
-
-     Internally, this projection uses a Thrust or Sphericity projection to
-     determine the hemisphere orientation.
-  */
+  /// @brief Calculate the hemisphere masses and broadenings.
+  ///
+  /// Calculate the hemisphere masses and broadenings, with event hemispheres
+  /// defined by the plane normal to the thrust vector, \f$ \vec{n}_\mathrm{T} \f$.
+  ///
+  /// The "high" hemisphere mass,
+  /// \f$ M^2_\mathrm{high} / E^2_\mathrm{vis} \f$, is defined as
+  /// \f[
+  /// \frac{M^2_\mathrm{high}}{E^2_\mathrm{vis}} =
+  /// \frac{1}{E^2_\mathrm{vis}} \max
+  /// \left(
+  /// \left| \sum_{\vec{p}_k \cdot \vec{n}_\mathrm{T} > 0} p_k \right|^2 ,
+  /// \left| \sum_{\vec{p}_k \cdot \vec{n}_\mathrm{T} < 0} p_k \right|^2
+  /// \right)
+  /// \f]
+  /// and the corresponding "low" hemisphere mass,
+  /// \f$ M^2_\mathrm{low} / E^2_\mathrm{vis} \f$,
+  /// is the sum of momentum vectors in the opposite hemisphere, i.e.
+  /// \f$ \max \rightarrow \min \f$ in the formula above.
+  ///
+  /// Finally, we define a hemisphere mass difference:
+  /// \f[
+  /// \frac{M^2_\mathrm{diff} }{ E^2_\mathrm{vis}} =
+  /// \frac{ M^2_\mathrm{high} - M^2_\mathrm{low} }{ E^2_\mathrm{vis}} .
+  /// \f]
+  ///
+  /// Similarly to the masses, we also define hemisphere broadenings, using the
+  /// momenta transverse to the thrust axis:
+  /// \f[
+  /// B_\pm =
+  /// \frac{
+  ///   \sum{\pm \vec{p}_i \cdot \vec{n}_\mathrm{T} > 0}
+  ///   |\vec{p}_i \times \vec{n}_\mathrm{T} |
+  /// }{
+  ///   2 \sum_i | \vec{p}_i |
+  /// }
+  /// \f]
+  /// and then a set of the broadening maximum, minimum, sum and difference as follows:
+  /// \f[ B_\mathrm{max}  = \max(B_+, B_-) \f]
+  /// \f[ B_\mathrm{min}  = \min(B_+, B_-) \f]
+  /// \f[ B_\mathrm{sum}  = B_+ + B_- \f]
+  /// \f[ B_\mathrm{diff} = |B_+ - B_-| \f]
+  ///
+  /// Internally, this projection uses a Thrust or Sphericity projection to
+  /// determine the hemisphere orientation.
   class Hemispheres : public Projection {
   public:
 
@@ -114,15 +110,15 @@ namespace Rivet {
     double Mdiff() const { return sqrt(M2diff()); }
 
     double scaledM2high() const {
-      if (_M2high == 0.0) return 0.0;
-      if (_E2vis != 0.0) return _M2high/_E2vis;
+      if (isZero(_M2high)) return 0.0;
+      if (!isZero(_E2vis)) return _M2high/_E2vis;
       else return std::numeric_limits<double>::max();
     }
     double scaledMhigh() const { return sqrt(scaledM2high()); }
 
     double scaledM2low() const {
-      if (_M2low == 0.0) return 0.0;
-      if (_E2vis != 0.0) return _M2low/_E2vis;
+      if (isZero(_M2low)) return 0.0;
+      if (!isZero(_E2vis)) return _M2low/_E2vis;
       else return std::numeric_limits<double>::max();
     }
     double scaledMlow() const { return sqrt(scaledM2low()); }
@@ -150,7 +146,7 @@ namespace Rivet {
       return _highMassEqMaxBroad;
     }
 
-     
+
   private:
 
     /// Visible energy-squared, \f$ E^2_\mathrm{vis} \f$.
