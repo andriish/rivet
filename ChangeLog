@@ -1,5 +1,7 @@
 2011-11-11  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Version 1.7.0 release!
+
 	* Protecting the OPAL 2004 analysis against NaNs in the
 	hemispheres projection -- I can't track the origin of these and
 	suspect some occasional memory corruption.
