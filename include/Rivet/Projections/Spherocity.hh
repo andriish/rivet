@@ -33,6 +33,9 @@ namespace Rivet {
   class Spherocity : public AxesDefinition {
   public:
 
+    // Default Constructor
+    Spherocity() {}
+
     /// Constructor.
     Spherocity(const FinalState& fsp)
       : _calculatedSpherocity(false)
