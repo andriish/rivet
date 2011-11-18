@@ -1,3 +1,8 @@
+2011-11-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a guide to compiling a new analysis template to the
+	output message of rivet-mkanalysis.
+
 2011-11-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version 1.7.0 release!

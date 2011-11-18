@@ -310,3 +310,6 @@ ToDo:
 """ % KEYWORDS
     f.write(src)
     f.close()
+
+
+    logging.info("Use e.g. 'rivet-buildplugin Rivet%s.so %s.cc' to compile the plugin" % (ANANAME, ANANAME))
