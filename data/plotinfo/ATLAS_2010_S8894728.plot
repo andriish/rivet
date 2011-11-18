@@ -110,7 +110,7 @@ LegendYPos=0.4
 
 # BEGIN PLOT /ATLAS_2010_S8894728/d05-x01-y01
 Title=Std. dev. Transverse $N_\text{chg}$ density vs. $p_\perp^\text{trk1}$, $\sqrt{s} = \text{900~GeV}$
-XLabel=$p_\perp$ (leading track)
+XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=Std. dev. $\mathrm{d}^2 N_\text{chg}/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
 LegendXPos=0.5
@@ -119,7 +119,7 @@ LegendYPos=0.4
 
 # BEGIN PLOT /ATLAS_2010_S8894728/d06-x01-y01
 Title=Std. dev. Transverse $N_\text{chg}$ density vs. $p_\perp^\text{trk1}$, $\sqrt{s} = \text{7~TeV}$
-XLabel=$p_\perp$ (leading track)
+XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=Std. dev. $\mathrm{d}^2 N_\text{chg}/\mathrm{d}\eta\mathrm{d}\phi$
 LogY=0
 LegendXPos=0.5
@@ -129,7 +129,7 @@ LegendYPos=0.4
 
 # BEGIN PLOT /ATLAS_2010_S8894728/d07-x01-y01
 Title=Std. dev. Transverse $\sum p_\perp$ density vs. $p_\perp^\text{trk1}$, $\sqrt{s} = \text{900~GeV}$
-XLabel=$p_\perp$ (leading track)
+XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=Std. dev. $\mathrm{d}^2 \sum p_\perp/\mathrm{d}\eta\mathrm{d}\phi$[GeV]
 LogY=0
 LegendXPos=0.5
@@ -138,7 +138,7 @@ LegendYPos=0.4
 
 # BEGIN PLOT /ATLAS_2010_S8894728/d08-x01-y01
 Title=Std. dev. Transverse $\sum p_\perp$ density vs. $p_\perp^\text{trk1}$, $\sqrt{s} = \text{7~TeV}$
-XLabel=$p_\perp$ (leading track)
+XLabel=$p_\perp$ (leading track) [GeV]
 YLabel=Std. dev. $\mathrm{d}^2 \sum p_\perp/\mathrm{d}\eta\mathrm{d}\phi$[GeV]
 LogY=0
 LegendXPos=0.5
