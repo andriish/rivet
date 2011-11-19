@@ -6,48 +6,64 @@
 namespace Rivet {
 
 
-  FastJets::FastJets(const FinalState& fsp, JetAlgName alg, double rparameter, double seed_threshold)
-    : JetAlg(fsp), _adef(0)
-  {
-    _init1(alg, rparameter, seed_threshold);
+  void FastJets::_init1(JetAlgName alg, double rparameter, double seed_threshold) {
+    setName("FastJets");
+    MSG_DEBUG("R parameter = " << rparameter);
+    MSG_DEBUG("Seed threshold = " << seed_threshold);
+    if (alg == KT) {
+      _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
+    } else if (alg == CAM) {
+      _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
+    } else if (alg == ANTIKT) {
+      _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
+    } else if (alg == DURHAM) {
+      _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
+    } else {
+      // Plugins:
+      if (alg == SISCONE) {
+        const double OVERLAP_THRESHOLD = 0.75;
+        _plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
+      } else if (alg == PXCONE) {
+        string msg = "PxCone currently not supported, since FastJet doesn't install it by default. ";
+        msg += "Please notify the Rivet authors if this behaviour should be changed.";
+        throw Error(msg);
+        //_plugin.reset(new fastjet::PxConePlugin(rparameter));
+      } else if (alg == ATLASCONE) {
+        const double OVERLAP_THRESHOLD = 0.5;
+        _plugin.reset(new fastjet::ATLASConePlugin(rparameter, seed_threshold, OVERLAP_THRESHOLD));
+      } else if (alg == CMSCONE) {
+        _plugin.reset(new fastjet::CMSIterativeConePlugin(rparameter, seed_threshold));
+      } else if (alg == CDFJETCLU) {
+        const double OVERLAP_THRESHOLD = 0.75;
+        _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
+      } else if (alg == CDFMIDPOINT) {
+        const double OVERLAP_THRESHOLD = 0.5;
+        _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
+      } else if (alg == D0ILCONE) {
+        const double min_jet_Et = 6.0;
+        _plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, min_jet_Et));
+      } else if (alg == JADE) {
+        _plugin.reset(new fastjet::JadePlugin());
+      } else if (alg == TRACKJET) {
+        _plugin.reset(new fastjet::TrackJetPlugin(rparameter));
+      }
+      _jdef = fastjet::JetDefinition(_plugin.get());
+    }
   }
 
-
-  FastJets::FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
-                     fastjet::RecombinationScheme recom, double rparameter)
-    : JetAlg(fsp), _adef(0)
-  {
-    _init2(type, recom, rparameter);
+  void FastJets::_init2(fastjet::JetAlgorithm type,
+                        fastjet::RecombinationScheme recom, double rparameter) {
+    setName("FastJets");
+    _jdef = fastjet::JetDefinition(type, rparameter, recom);
   }
 
-
-  FastJets::FastJets(const FinalState& fsp,
-                     fastjet::JetDefinition::Plugin& plugin)
-    : JetAlg(fsp), _adef(0)
-  {
-    _init3(plugin);
+  void FastJets::_init3(fastjet::JetDefinition::Plugin* plugin) {
+    setName("FastJets");
+    /// @todo Should we be copying the plugin?
+    _plugin.reset(plugin);
+    _jdef = fastjet::JetDefinition(_plugin.get());
   }
 
-
-  FastJets::FastJets(JetAlgName alg, double rparameter, double seed_threshold)
-    : _adef(0)
-  {
-    _init1(alg, rparameter, seed_threshold);
-  }
-
-  FastJets::FastJets(fastjet::JetAlgorithm type,
-                     fastjet::RecombinationScheme recom, double rparameter)
-    : _adef(0)
-  {
-    _init2(type, recom, rparameter);
-  }
-
-
-  FastJets::FastJets(fastjet::JetDefinition::Plugin& plugin)
-    : _adef(0)
-  {
-    _init3(plugin);
-  }
 
 
   int FastJets::compare(const Projection& p) const {
@@ -242,5 +258,6 @@ namespace Rivet {
     }
     return reconst_jet;
   }
+
 
 }

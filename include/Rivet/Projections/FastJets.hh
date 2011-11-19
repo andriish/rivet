@@ -67,22 +67,35 @@ namespace Rivet {
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
     FastJets(const FinalState& fsp, JetAlgName alg,
-             double rparameter, double seed_threshold=1.0);
+             double rparameter, double seed_threshold=1.0)
+      : JetAlg(fsp), _adef(0) { _init1(alg, rparameter, seed_threshold); }
 
     /// Native argument constructor, using FastJet alg/scheme enums.
     FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
-             fastjet::RecombinationScheme recom, double rparameter);
+             fastjet::RecombinationScheme recom, double rparameter)
+      : JetAlg(fsp), _adef(0) { _init2(type, recom, rparameter); }
 
-    /// Explicitly pass in an externally-constructed plugin
-    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin);
+    /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin* plugin);
+      : JetAlg(fsp), _adef(0) { _init3(plugin); }
+    /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin)
+      : JetAlg(fsp), _adef(0) { _init3(&plugin); }
 
-    /// Same thing as above, but we want to pass the particles directly to the calc method
-    FastJets(JetAlgName alg, double rparameter, double seed_threshold=1.0);
-    FastJets(fastjet::JetAlgorithm type, fastjet::RecombinationScheme recom, double rparameter);
-    FastJets(fastjet::JetDefinition::Plugin& plugin);
 
-    // /// Explicit copy constructor.
-    // FastJets(const FastJets& other);
+    /// Same thing as above, but without an FS (for when we want to pass the particles directly to the calc method)
+    FastJets(JetAlgName alg, double rparameter, double seed_threshold=1.0)
+      : _adef(0) { _init1(alg, rparameter, seed_threshold); }
+    /// Same thing as above, but without an FS (for when we want to pass the particles directly to the calc method)
+    FastJets(fastjet::JetAlgorithm type, fastjet::RecombinationScheme recom, double rparameter)
+      : _adef(0) { _init2(type, recom, rparameter); }
+    /// Same thing as above, but without an FS (for when we want to pass the particles directly to the calc method)
+    FastJets(fastjet::JetDefinition::Plugin* plugin)
+      : _adef(0) { _init3(plugin); }
+    /// Same thing as above, but without an FS (for when we want to pass the particles directly to the calc method)
+    FastJets(fastjet::JetDefinition::Plugin& plugin)
+      : _adef(0) { _init3(&plugin); }
+
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -170,63 +183,11 @@ namespace Rivet {
 
     Jets _pseudojetsToJets(const PseudoJets& pjets) const;
 
-    void _init1(JetAlgName alg, double rparameter, double seed_threshold) {
-      setName("FastJets");
-      MSG_DEBUG("R parameter = " << rparameter);
-      MSG_DEBUG("Seed threshold = " << seed_threshold);
-      if (alg == KT) {
-        _jdef = fastjet::JetDefinition(fastjet::kt_algorithm, rparameter, fastjet::E_scheme);
-      } else if (alg == CAM) {
-        _jdef = fastjet::JetDefinition(fastjet::cambridge_algorithm, rparameter, fastjet::E_scheme);
-      } else if (alg == ANTIKT) {
-        _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
-      } else if (alg == DURHAM) {
-        _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
-      } else {
-        // Plugins:
-        if (alg == SISCONE) {
-          const double OVERLAP_THRESHOLD = 0.75;
-          _plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
-        } else if (alg == PXCONE) {
-          string msg = "PxCone currently not supported, since FastJet doesn't install it by default. ";
-          msg += "Please notify the Rivet authors if this behaviour should be changed.";
-          throw Error(msg);
-          //_plugin.reset(new fastjet::PxConePlugin(rparameter));
-        } else if (alg == ATLASCONE) {
-          const double OVERLAP_THRESHOLD = 0.5;
-          _plugin.reset(new fastjet::ATLASConePlugin(rparameter, seed_threshold, OVERLAP_THRESHOLD));
-        } else if (alg == CMSCONE) {
-          _plugin.reset(new fastjet::CMSIterativeConePlugin(rparameter, seed_threshold));
-        } else if (alg == CDFJETCLU) {
-          const double OVERLAP_THRESHOLD = 0.75;
-          _plugin.reset(new fastjet::CDFJetCluPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
-        } else if (alg == CDFMIDPOINT) {
-          const double OVERLAP_THRESHOLD = 0.5;
-          _plugin.reset(new fastjet::CDFMidPointPlugin(rparameter, OVERLAP_THRESHOLD, seed_threshold));
-        } else if (alg == D0ILCONE) {
-          const double min_jet_Et = 6.0;
-          _plugin.reset(new fastjet::D0RunIIConePlugin(rparameter, min_jet_Et));
-        } else if (alg == JADE) {
-          _plugin.reset(new fastjet::JadePlugin());
-        } else if (alg == TRACKJET) {
-          _plugin.reset(new fastjet::TrackJetPlugin(rparameter));
-        }
-        _jdef = fastjet::JetDefinition(_plugin.get());
-      }
-    }
-
+    /// Shared utility functions to implement constructor behaviour
+    void _init1(JetAlgName alg, double rparameter, double seed_threshold);
     void _init2(fastjet::JetAlgorithm type,
-                     fastjet::RecombinationScheme recom, double rparameter) {
-      setName("FastJets");
-      _jdef = fastjet::JetDefinition(type, rparameter, recom);
-    }
-
-    void _init3(fastjet::JetDefinition::Plugin& plugin) {
-      setName("FastJets");
-      /// @todo Should we be copying the plugin?
-      _plugin.reset(&plugin);
-      _jdef = fastjet::JetDefinition(_plugin.get());
-    }
+                fastjet::RecombinationScheme recom, double rparameter);
+    void _init3(fastjet::JetDefinition::Plugin* plugin);
 
   protected:
 

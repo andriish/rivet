@@ -1,3 +1,11 @@
+2011-11-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/rivet: Adding a more helpful error message if the rivet
+	module can't be loaded, grouping the option parser options,
+	removing the -A option (this just doesn't seem useful anymore),
+	and providing a --pwd option as a shortcut to append "." to the
+	search path.
+
 2011-11-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a guide to compiling a new analysis template to the
