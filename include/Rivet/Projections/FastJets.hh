@@ -76,7 +76,7 @@ namespace Rivet {
       : JetAlg(fsp), _adef(0) { _init2(type, recom, rparameter); }
 
     /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
-    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin* plugin);
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin* plugin)
       : JetAlg(fsp), _adef(0) { _init3(plugin); }
     /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
     FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin)

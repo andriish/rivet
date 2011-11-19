@@ -1,5 +1,9 @@
 2011-11-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding variant constructors to FastJets with a more natural
+	Plugin* argument, and decrufting the constructor implementations a
+	bit.
+
 	* bin/rivet: Adding a more helpful error message if the rivet
 	module can't be loaded, grouping the option parser options,
 	removing the -A option (this just doesn't seem useful anymore),
