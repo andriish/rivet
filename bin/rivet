@@ -411,8 +411,8 @@ def logNEvt(n, starttime, maxevtnum):
 RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(opts.IGNORE_BEAMS)
-if opts.ALL_ANALYSES:
-    opts.ANALYSES = all_analyses
+#if opts.ALL_ANALYSES:
+#    opts.ANALYSES = all_analyses
 for a in opts.ANALYSES:
     a_up = a.upper()
     ## Print warning message and exit if not a valid analysis name
