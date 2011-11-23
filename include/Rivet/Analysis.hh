@@ -79,7 +79,7 @@ namespace Rivet {
     /// Initialize this analysis object. A concrete class should here
     /// book all necessary histograms. An overridden function must make
     /// sure it first calls the base class function.
-    virtual void init() = 0;
+    virtual void init() { }
 
     /// Analyze one event. A concrete class should here apply the
     /// necessary projections on the \a event and fill the relevant
@@ -92,7 +92,7 @@ namespace Rivet {
     /// histograms to a file is, however, done by the Rivet class. An
     /// overridden function must make sure it first calls the base class
     /// function.
-    virtual void finalize() = 0;
+    virtual void finalize() { }
 
     //@}
 
