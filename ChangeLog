@@ -1,5 +1,9 @@
 2011-11-23  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Bumping version to 1.8.0alpha0 since the Jet interface changes
+	are quite a major break with backward compatibility (although the
+	vast majority of analyses should be unaffected).
+
 	* Removing crufty legacy stuff from the Jet class -- there is
 	never any ambiguity between whether Particle or FourMomentum
 	objects are the constituents now, and the jet 4-momentum is set
