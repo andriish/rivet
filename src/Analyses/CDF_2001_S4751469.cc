@@ -101,7 +101,7 @@ namespace Rivet {
       }
 
       Jet leadingJet = jets.front();
-      const double phiLead = leadingJet.ptWeightedPhi();
+      const double phiLead = leadingJet.phi();
       const double ptLead = leadingJet.ptSum();
 
       // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
@@ -210,7 +210,7 @@ namespace Rivet {
 
       // Log some event details about Nch
       MSG_DEBUG("N [twd, away, trans] = [" << ptLead << "; "
-               << numToward << ", " << numTrans << ", " << numAway << "]");
+                << numToward << ", " << numTrans << ", " << numAway << "]");
 
       // Update the N_track profile histograms
       _numTowardMB->fill(ptLead/GeV, numToward, weight);

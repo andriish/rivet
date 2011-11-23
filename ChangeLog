@@ -1,3 +1,17 @@
+2011-11-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing crufty legacy stuff from the Jet class -- there is
+	never any ambiguity between whether Particle or FourMomentum
+	objects are the constituents now, and the jet 4-momentum is set
+	explicitly by the jet alg so that e.g. there is no mismatch if the
+	FastJet pt recombination scheme is used.
+
+	* Adding default do-nothing implementations of Analysis::init()
+	and Analysis::finalize(), since it is possible for analysis
+	implementations to not need to do anything in these methods, and
+	forcing analysis authors to write do-nothing boilerplate code is
+	not "the Rivet way"!
+
 2011-11-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding variant constructors to FastJets with a more natural

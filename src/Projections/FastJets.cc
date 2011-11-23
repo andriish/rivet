@@ -117,16 +117,20 @@ namespace Rivet {
   Jets FastJets::_pseudojetsToJets(const PseudoJets& pjets) const {
     Jets rtn;
     foreach (const fastjet::PseudoJet& pj, pjets) {
-      Jet j;
       assert(clusterSeq());
       const PseudoJets parts = clusterSeq()->constituents(pj);
+      vector<Particle> constituents;
+      constituents.reserve(parts.size());
       foreach (const fastjet::PseudoJet& p, parts) {
         map<int, Particle>::const_iterator found = _particles.find(p.user_index());
         assert(found != _particles.end());
-        j.addParticle(found->second);
+        constituents.push_back(found->second);
       }
+      FourMomentum pjet(pj.E(), pj.px(), pj.py(), pj.pz());
+      Jet j(constituents, pjet);
       rtn.push_back(j);
     }
+    /// @todo Cache?
     return rtn;
   }
 

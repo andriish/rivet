@@ -7,34 +7,53 @@
 namespace Rivet {
 
 
-  Jet::Jet()
-    : ParticleBase()
-  {
-    clear();
+  Jet& Jet::setState(const vector<Particle>& particles, const FourMomentum& pjet) {
+    setParticles(particles);
+    setMomentum(pjet);
+    return *this;
   }
 
 
-  Jet& Jet::setParticles(const vector<FourMomentum>& particles) {
+  Jet& Jet::setState(const vector<FourMomentum>& momenta, const FourMomentum& pjet) {
+    setParticles(momenta);
+    setMomentum(pjet);
+    return *this;
+  }
+
+
+  Jet& Jet::setMomentum(const FourMomentum& momentum) {
+    _momentum = momentum;
+    return *this;
+  }
+
+
+  Jet& Jet::setParticles(const vector<Particle>& particles) {
     _particles = particles;
-    _resetCaches();
+    foreach (const Particle& p, particles) {
+      _momenta.push_back(p.momentum());
+    }
     return *this;
   }
 
 
-  Jet& Jet::addParticle(const FourMomentum& particle) {
-    _particles.push_back(particle);
-    _resetCaches();
+  Jet& Jet::setParticles(const vector<FourMomentum>& momenta) {
+    _momenta = momenta;
     return *this;
   }
 
 
-  Jet& Jet::addParticle(const Particle& particle) {
-    _fullParticles.push_back(particle);
-    _particles.push_back(particle.momentum());
-    _resetCaches();
-    return *this;
-  }
- 
+  // Jet& Jet::addParticle(const FourMomentum& particle) {
+  //   _momenta.push_back(particle);
+  //   return *this;
+  // }
+
+
+  // Jet& Jet::addParticle(const Particle& particle) {
+  //   _particles.push_back(particle);
+  //   _momenta.push_back(particle.momentum());
+  //   return *this;
+  // }
+
 
   bool Jet::containsParticle(const Particle& particle) const {
     const int barcode = particle.genParticle().barcode();
@@ -64,11 +83,6 @@ namespace Rivet {
 
 
   /// @todo Jet::containsMatch(Matcher m) { ... if m(pid) return true; ... }
-
-
-  double Jet::totalEnergy() const {
-    return momentum().E();
-  }
 
 
   double Jet::neutralEnergy() const {
@@ -130,90 +144,10 @@ namespace Rivet {
 
 
   Jet& Jet::clear() {
+    _momenta.clear();
     _particles.clear();
-    _fullParticles.clear();
-    _resetCaches();
+    _momentum = FourMomentum();
     return *this;
-  }
-
-
-  double Jet::ptWeightedEta() const {
-    _calcPtAvgs();
-    assert(_okPtWeightedEta);
-    return _ptWeightedEta;
-  }
-
-
-  double Jet::ptWeightedPhi() const {
-    _calcPtAvgs();
-    assert(_okPtWeightedPhi);
-    return _ptWeightedPhi;
-  }
-
-
-  double Jet::eta() const {
-    return momentum().eta();
-
-  }
-
-
-  double Jet::phi() const {
-    return momentum().phi();
-  }
-
-
-  const FourMomentum& Jet::momentum() const {
-    _calcMomVector();
-    return _momentum;
-  }
-
- 
-  // FourMomentum& Jet::momentum() {
-  //   _calcMomVector();
-  //   return _momentum;
-  // }
-
- 
-  double Jet::ptSum() const {
-    return momentum().pT();
-  }
-
-
-  double Jet::EtSum() const {
-    return momentum().Et();
-  }
-
-
-  void Jet::_resetCaches() const {
-    _okPtWeightedPhi = false;
-    _okPtWeightedEta = false;
-    _okMomentum = false;
-  }
-
-
-  void Jet::_calcMomVector() const {
-    if (!_okMomentum) {
-      _momentum = accumulate(begin(), end(), FourMomentum());
-      _okMomentum = true;
-    }
-  }
-
-
-  void Jet::_calcPtAvgs() const {
-    if (!_okPtWeightedEta || !_okPtWeightedPhi) {
-      double ptwetasum(0.0), ptwdphisum(0.0), ptsum(0.0);
-      double phi0 = phi();
-      foreach (const FourMomentum& p, momenta()) {
-        double pt = p.pT();
-        ptsum += pt;
-        ptwetasum += pt * p.pseudorapidity();
-        ptwdphisum += pt * mapAngleMPiToPi(phi0 - p.azimuthalAngle());
-      }
-      _ptWeightedEta = ptwetasum/ptsum;
-      _okPtWeightedEta = true;
-      _ptWeightedPhi = mapAngleMPiToPi(phi0 + ptwdphisum/ptsum);
-      _okPtWeightedPhi = true;
-    }
   }
 
 
