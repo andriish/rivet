@@ -14,11 +14,11 @@ namespace Rivet {
   }
 
 
-  Jet& Jet::setState(const vector<FourMomentum>& momenta, const FourMomentum& pjet) {
-    setParticles(momenta);
-    setMomentum(pjet);
-    return *this;
-  }
+  // Jet& Jet::setState(const vector<FourMomentum>& momenta, const FourMomentum& pjet) {
+  //   setParticles(momenta);
+  //   setMomentum(pjet);
+  //   return *this;
+  // }
 
 
   Jet& Jet::setMomentum(const FourMomentum& momentum) {
@@ -27,19 +27,19 @@ namespace Rivet {
   }
 
 
-  Jet& Jet::setParticles(const vector<Particle>& particles) {
-    _particles = particles;
-    foreach (const Particle& p, particles) {
-      _momenta.push_back(p.momentum());
-    }
-    return *this;
-  }
+ Jet& Jet::setParticles(const vector<Particle>& particles) {
+   _particles = particles;
+   // foreach (const Particle& p, particles) {
+   //   _momenta.push_back(p.momentum());
+   // }
+   return *this;
+ }
 
 
-  Jet& Jet::setParticles(const vector<FourMomentum>& momenta) {
-    _momenta = momenta;
-    return *this;
-  }
+  // Jet& Jet::setParticles(const vector<FourMomentum>& momenta) {
+  //   _momenta = momenta;
+  //   return *this;
+  // }
 
 
   // Jet& Jet::addParticle(const FourMomentum& particle) {
@@ -144,7 +144,7 @@ namespace Rivet {
 
 
   Jet& Jet::clear() {
-    _momenta.clear();
+    //_momenta.clear();
     _particles.clear();
     _momentum = FourMomentum();
     return *this;
