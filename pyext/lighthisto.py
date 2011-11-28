@@ -381,6 +381,11 @@ class Histo(object):
                     new.addBin(Bin(float(linearray[0]), float(linearray[1]),
                                    float(linearray[2]),
                                    float(linearray[3]), float(linearray[4])))
+                elif len(linearray) == 6:
+                    new.addBin(Bin(float(linearray[0]), float(linearray[1]),
+                                   float(linearray[4]),
+                                   float(linearray[5]),float(linearray[5]),None,
+                                   float(linearray[2]), float(linearray[3])))
                 else:
                     sys.stderr.write("Unknown line format in '%s'\n" % line)
         ## Apply special annotations as histo obj attributes
@@ -486,14 +491,28 @@ class Bin(object):
     def asAIDA(self):
         "Return this bin as AIDA formatted string."
         ind = self.aidaindent
-        return (ind + "<dataPoint>\n"
-            + ind
-            + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                .5*(self.xhigh - self.xlow), self.getBinCenter(), .5*(self.xhigh - self.xlow))
-            + ind
-            + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                self.errplus, self.val, self.errminus)
-            + ind + "</dataPoint>\n")
+        if self.ylow==None or self.yhigh==None:
+            out = (ind + "<dataPoint>\n"
+                   + ind
+                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
+                    .5*(self.xhigh - self.xlow), self.getBinCenter(), .5*(self.xhigh - self.xlow))
+                   + ind
+                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
+                    self.errplus, self.val, self.errminus)
+                   + ind + "</dataPoint>\n")
+        else :
+            out = (ind + "<dataPoint>\n"
+                   + ind
+                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
+                    .5*(self.xhigh - self.xlow), float(.5*(self.xhigh + self.xlow)), .5*(self.xhigh - self.xlow))
+                   + ind
+                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
+                    .5*(self.yhigh - self.ylow), float(.5*(self.yhigh + self.ylow)), .5*(self.yhigh - self.ylow))
+                   + ind
+                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
+                    self.errplus, self.val, self.errminus)
+                   + ind + "</dataPoint>\n")
+        return out
 
     def __cmp__(self, other):
         """Sort by mean x value (yeah, I know...)"""
