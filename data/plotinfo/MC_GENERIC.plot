@@ -77,7 +77,7 @@ LegendYPos=0.5
 
 # BEGIN PLOT /MC_GENERIC/MultCh
 Title=Charged multiplicity of events
-XLabel=$N_text{ch}$
+XLabel=$N_\text{ch}$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}N_\text{ch}$
 LogY=0
 # END PLOT
