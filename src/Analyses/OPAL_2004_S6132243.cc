@@ -10,6 +10,7 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
 #include "Rivet/Projections/Hemispheres.hh"
+#include <cmath>
 
 namespace Rivet {
 
@@ -164,7 +165,7 @@ namespace Rivet {
       //   MSG_ERROR("NaN in HemiL! Event = " << numEvents());
       //   MSG_ERROR(hemi.M2low() << ", " << hemi.E2vis());
       // }
-      if (!isnan(hemi_mh) && !isnan(hemi_ml)) {
+      if (!std::isnan(hemi_mh) && !std::isnan(hemi_ml)) {
         const double hemi_bmax = hemi.Bmax();
         const double hemi_bmin = hemi.Bmin();
         const double hemi_bsum = hemi.Bsum();
