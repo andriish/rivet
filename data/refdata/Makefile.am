@@ -6,6 +6,7 @@ dist_pkgdata_DATA = \
   ALEPH_1991_S2435284.aida       \
   ALEPH_1996_S3486095.aida       \
   ALEPH_1996_S3196992.aida       \
+  ALEPH_1999_S4193598.aida       \
   ALEPH_2004_S5765862.aida       \
   ALICE_2010_S8624100.aida       \
   ALICE_2010_S8625980.aida       \
