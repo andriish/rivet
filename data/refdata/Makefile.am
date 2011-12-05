@@ -1,5 +1,6 @@
 dist_pkgdata_DATA = \
   LHCB_2010_S8758301.aida        \
+  LHCB_2011_I919315.aida         \
   JADE_OPAL_2000_S4300807.aida   \
   JADE_1998_S3612880.aida        \
   TASSO_1990_S2148048.aida       \
