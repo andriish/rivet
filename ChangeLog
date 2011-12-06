@@ -1,3 +1,8 @@
+2011-12-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Include underflow and overflow bins in the normalisation when
+	calling Analysis::normalise(h)
+
 2011-11-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Bumping version to 1.8.0alpha0 since the Jet interface changes

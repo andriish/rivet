@@ -488,12 +488,18 @@ namespace Rivet {
     const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
     MSG_TRACE("Normalizing histo " << hpath << " to " << norm);
 
+    // Get integral
     double oldintg = 0.0;
     int nBins = histo->axis().bins();
     for (int iBin = 0; iBin != nBins; ++iBin) {
       // Leaving out factor of binWidth because AIDA's "height" already includes a width factor.
       oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
     }
+    // Include overflow bins in the integral
+    oldintg += histo->binHeight(AIDA::IAxis::UNDERFLOW_BIN);
+    oldintg += histo->binHeight(AIDA::IAxis::OVERFLOW_BIN);
+
+    // Sanity check
     if (oldintg == 0.0) {
       MSG_WARNING("Histo " << hpath << " has null integral during normalization");
       return;
