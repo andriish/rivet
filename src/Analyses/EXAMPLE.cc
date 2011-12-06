@@ -13,11 +13,11 @@ namespace Rivet {
 
 
   /// @brief Just measures a few random things as an example.
-  class ExampleAnalysis : public Analysis {
+  class EXAMPLE : public Analysis {
   public:
 
     /// Constructor
-    ExampleAnalysis()
+    EXAMPLE()
       : Analysis("EXAMPLE")
     {
       // No counters etc. to initialise, hence nothing to do here!
@@ -127,6 +127,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ExampleAnalysis);
+  DECLARE_RIVET_PLUGIN(EXAMPLE);
 
 }
