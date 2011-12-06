@@ -8,11 +8,9 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 
-bool hasDecayedTo(const Rivet::Particle& p, int id1, int id2) {
+bool hasDecayedTo(const HepMC::GenParticle* p, int id1, int id2) {
   bool decision = false;
-  const HepMC::GenParticle& genp = p.genParticle();
-  //HepMC::GenVertex* prodV = genp.production_vertex();
-  HepMC::GenVertex* decV  = genp.end_vertex();
+  HepMC::GenVertex* decV  = p->end_vertex();
   std::vector<int> decids;
   if (decV->particles_out_size() == 2) {
     for (HepMC::GenVertex::particles_out_const_iterator pp = decV->particles_out_const_begin() ;
@@ -25,24 +23,8 @@ bool hasDecayedTo(const Rivet::Particle& p, int id1, int id2) {
   return decision;
 }
 
-bool hasDecayedTo(const HepMC::GenParticle* p, int id1, int id2) {
-  bool decision = false;
-  HepMC::GenVertex* decV  = p->end_vertex();
-  std::vector<int> decids;
-  std::vector<int> decids2;
-  if (decV->particles_out_size() == 2) {
-    for (HepMC::GenVertex::particles_out_const_iterator pp = decV->particles_out_const_begin() ;
-         pp != decV->particles_out_const_end() ; ++pp) {
-      decids.push_back(fabs((*pp)->pdg_id()));
-      decids2.push_back((*pp)->pdg_id());
-    }
-    if ( (decids[0] == fabs(id1) && decids[1] == fabs(id2)) || (decids[1] == fabs(id1) && decids[0] == fabs(id2)) ) {
-      decision = true;
-      std::cout << decids2[0] <<  " " << decids2[1] << std::endl;
-    }
-
-  };
-  return decision;
+bool hasDecayedTo(const Rivet::Particle& p, int id1, int id2) {
+  return hasDecayedTo(p.genParticle(), id1, id2);
 }
 
 namespace Rivet {
