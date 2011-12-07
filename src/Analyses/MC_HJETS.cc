@@ -23,7 +23,8 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      ZFinder hfinder(-3.5, 3.5, 25.0*GeV, TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
+      FinalState fs;
+      ZFinder hfinder(fs, -3.5, 3.5, 25.0*GeV, TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
       addProjection(hfinder, "Hfinder");
       FastJets jetpro(hfinder.remainingFinalState(), FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");

@@ -33,7 +33,8 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      WFinder wfinder(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
+      FinalState fs;
+      WFinder wfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
                       60.0*GeV, 100.0*GeV, 0.0*GeV, 0.0);
       addProjection(wfinder, "WFinder");
       Beam beams;

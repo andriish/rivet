@@ -34,7 +34,8 @@ namespace Rivet {
       /// Initialise and register projections here
       // this seems to have been corrected completely for all selection cuts,
       // i.e. eta cuts and pT cuts on leptons.
-      ZFinder zfinder(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
+      FinalState fs;
+      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
                       66.0*GeV, 116.0*GeV, 0.2, true, true);
       addProjection(zfinder, "ZFinder");
 

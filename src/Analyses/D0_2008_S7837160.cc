@@ -36,7 +36,8 @@ namespace Rivet {
     void init() {
       // Projections
       /// @todo Use separate pT and ETmiss cuts in WFinder
-      const WFinder wfe(-5, 5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      FinalState fs;
+      const WFinder wfe(fs, -5, 5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
       // Cross-section histograms

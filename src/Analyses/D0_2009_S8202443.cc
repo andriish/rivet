@@ -29,12 +29,13 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
+      FinalState fs;
       // Leptons in constrained tracking acceptance
       vector<pair<double, double> > etaRanges;
       etaRanges.push_back(make_pair(-2.5, -1.5));
       etaRanges.push_back(make_pair(-1.1, 1.1));
       etaRanges.push_back(make_pair(1.5, 2.5));
-      ZFinder zfinder_constrained(etaRanges, 25.0*GeV, ELECTRON,
+      ZFinder zfinder_constrained(fs, etaRanges, 25.0*GeV, ELECTRON,
                                   65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zfinder_constrained, "ZFinderConstrained");
       FastJets conefinder_constrained(zfinder_constrained.remainingFinalState(),
@@ -42,7 +43,7 @@ namespace Rivet {
       addProjection(conefinder_constrained, "ConeFinderConstrained");
 
       // Unconstrained leptons
-      ZFinder zfinder(-MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
+      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
                       65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zfinder, "ZFinder");
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);

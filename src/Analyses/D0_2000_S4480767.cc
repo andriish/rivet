@@ -29,8 +29,8 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-
-      WFinder wf(-5, 5, 0.0*GeV, ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
+      FinalState fs;
+      WFinder wf(fs, -5, 5, 0.0*GeV, ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
       addProjection(wf, "WFinder");
 
       _h_W_pT = bookHistogram1D(1, 1, 1);

@@ -24,10 +24,15 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      ZFinder zeefinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      FinalState fs;
+      ZFinder zeefinder(fs, -3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zeefinder, "ZeeFinder");
-      ZFinder zmmfinder(-3.5, 3.5, 25.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+
+      VetoedFinalState zmminput;
+      zmminput.addVetoOnThisFinalState(zeefinder);
+      ZFinder zmmfinder(zmminput, -3.5, 3.5, 25.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zmmfinder, "ZmmFinder");
+
       VetoedFinalState jetinput;
       jetinput
           .addVetoOnThisFinalState(zeefinder)

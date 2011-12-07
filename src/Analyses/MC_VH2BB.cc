@@ -66,17 +66,17 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      ZFinder zeefinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      FinalState fs;
+      ZFinder zeefinder(fs, -3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zeefinder, "ZeeFinder");
-      ZFinder zmmfinder(-3.5, 3.5, 25.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zmmfinder(fs, -3.5, 3.5, 25.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zmmfinder, "ZmmFinder");
 
-      WFinder wefinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wefinder(fs, -3.5, 3.5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wefinder, "WeFinder");
-      WFinder wmfinder(-3.5, 3.5, 25.0*GeV, MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wmfinder(fs, -3.5, 3.5, 25.0*GeV, MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wmfinder, "WmFinder");
 
-      FinalState fs;
       addProjection(fs, "FinalState");
       addProjection(FastJets(fs, FastJets::ANTIKT, 0.4), "AntiKT04");
       addProjection(FastJets(fs, FastJets::ANTIKT, 0.5), "AntiKT05");

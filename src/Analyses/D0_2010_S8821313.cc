@@ -34,14 +34,15 @@ namespace Rivet {
     void init() {
 
       /// Initialise and register projections
+      FinalState fs;
       vector<pair<double, double> > etaRanges_ee;
       etaRanges_ee.push_back(make_pair(-3.0, -1.5));
       etaRanges_ee.push_back(make_pair(-1.1, 1.1));
       etaRanges_ee.push_back(make_pair(1.5, 3.0));
-      ZFinder zfinder_ee(etaRanges_ee, 20.0*GeV, ELECTRON, 70.0*GeV, 110.0*GeV, 0.2, true, true);
+      ZFinder zfinder_ee(fs, etaRanges_ee, 20.0*GeV, ELECTRON, 70.0*GeV, 110.0*GeV, 0.2, true, true);
       addProjection(zfinder_ee, "zfinder_ee");
 
-      ZFinder zfinder_mm(-2.0, 2.0, 15.0*GeV, MUON, 70.0*GeV, 110.0*GeV, 0.0, false, false);
+      ZFinder zfinder_mm(fs, -2.0, 2.0, 15.0*GeV, MUON, 70.0*GeV, 110.0*GeV, 0.0, false, false);
       addProjection(zfinder_mm, "zfinder_mm");
 
       /// Book histograms here

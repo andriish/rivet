@@ -25,10 +25,15 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      WFinder wenufinder(-3.5, 3.5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      FinalState fs;
+      WFinder wenufinder(fs, -3.5, 3.5, 25.0*GeV, ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wenufinder, "WenuFinder");
-      WFinder wmnufinder(-3.5, 3.5, 25.0*GeV, MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+
+      VetoedFinalState wmnuinput;
+      wmnuinput.addVetoOnThisFinalState(wenufinder);
+      WFinder wmnufinder(wmnuinput, -3.5, 3.5, 25.0*GeV, MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wmnufinder, "WmnuFinder");
+
       VetoedFinalState jetinput;
       jetinput
           .addVetoOnThisFinalState(wenufinder)
