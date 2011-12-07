@@ -10,16 +10,40 @@
 namespace Rivet {
 
 
+  ZFinder::ZFinder(const FinalState& inputfs,
+                   double etaMin, double etaMax,
+                   double pTmin,
+                   PdgId pid,
+                   double minmass, double maxmass,
+                   double dRmax, bool clusterPhotons, bool trackPhotons,
+                   double masstarget) {
+    vector<pair<double, double> > etaRanges;
+    etaRanges += std::make_pair(etaMin, etaMax);
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+  }
+
+
+  ZFinder::ZFinder(const FinalState& inputfs,
+                   const std::vector<std::pair<double, double> >& etaRanges,
+                   double pTmin,
+                   PdgId pid,
+                   double minmass, const double maxmass,
+                   double dRmax, bool clusterPhotons, bool trackPhotons,
+                   double masstarget) {
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+  }
+
+
   ZFinder::ZFinder(double etaMin, double etaMax,
                    double pTmin,
                    PdgId pid,
                    double minmass, double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   FinalState inputfs) {
+                   double masstarget) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget, inputfs);
+    FinalState inputfs;
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
   }
 
 
@@ -28,18 +52,16 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, const double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   FinalState inputfs) {
-    _init(etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget, inputfs);
+                   double masstarget) {
+    FinalState inputfs;
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
   }
-
-
-  void ZFinder::_init(const std::vector<std::pair<double, double> >& etaRanges,
+  void ZFinder::_init(const FinalState& inputfs,
+                      const std::vector<std::pair<double, double> >& etaRanges,
                       double pTmin,  PdgId pid,
                       double minmass, double maxmass,
                       double dRmax, bool clusterPhotons, bool trackPhotons,
-                      double masstarget,
-                      FinalState inputfs)
+                      double masstarget)
   {
     setName("ZFinder");
 

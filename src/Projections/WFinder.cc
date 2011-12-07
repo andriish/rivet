@@ -12,6 +12,36 @@
 namespace Rivet {
 
 
+  WFinder::WFinder(const FinalState& inputfs,
+                   double etaMin, double etaMax,
+                   double pTmin,
+                   PdgId pid,
+                   double minmass, double maxmass,
+                   double missingET,
+                   double dRmax, bool clusterPhotons, bool trackPhotons,
+                   double masstarget,
+                   bool useTransverseMass) {
+    vector<pair<double, double> > etaRanges;
+    etaRanges += std::make_pair(etaMin, etaMax);
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+  }
+
+
+  WFinder::WFinder(const FinalState& inputfs,
+                   const std::vector<std::pair<double, double> >& etaRanges,
+                   double pTmin,
+                   PdgId pid,
+                   double minmass, double maxmass,
+                   double missingET,
+                   double dRmax, bool clusterPhotons, bool trackPhotons,
+                   double masstarget,
+                   bool useTransverseMass) {
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+  }
+
+
   WFinder::WFinder(double etaMin, double etaMax,
                    double pTmin,
                    PdgId pid,
@@ -19,12 +49,12 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass,
-                   FinalState inputfs) {
+                   bool useTransverseMass) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, inputfs);
+    FinalState inputfs;
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
   }
 
 
@@ -35,22 +65,22 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass,
-                   FinalState inputfs) {
-    _init(etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, inputfs);
+                   bool useTransverseMass) {
+    FinalState inputfs;
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
   }
 
 
-  void WFinder::_init(const std::vector<std::pair<double, double> >& etaRanges,
+  void WFinder::_init(const FinalState& inputfs,
+                      const std::vector<std::pair<double, double> >& etaRanges,
                       double pTmin,
                       PdgId pid,
                       double minmass, double maxmass,
                       double missingET,
                       double dRmax, bool clusterPhotons, bool trackPhotons,
                       double masstarget,
-                      bool useTransverseMass,
-                      FinalState inputfs)
+                      bool useTransverseMass)
   {
     setName("WFinder");
 

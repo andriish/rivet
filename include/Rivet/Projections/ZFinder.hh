@@ -25,6 +25,8 @@ namespace Rivet {
     //@{
 
     /// Constructor taking single eta/pT bounds
+    /// @param inputfs Input final state
+    /// @param etaMin,etaMax,pTmin lepton cuts
     /// @param pid type of the leptons
     /// @param minmass,maxmass mass window
     /// @param dRmax maximum dR of photons around leptons to take into account
@@ -33,16 +35,18 @@ namespace Rivet {
     ///  clustered to the lepton objects and thus Z mom
     /// @param trackPhotons whether such photons should be added to _theParticles
     ///  (cf. _trackPhotons)
-    ZFinder(double etaMin, double etaMax,
+    ZFinder(const FinalState& inputfs,
+            double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
             double minmass, double maxmass,
             double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV,
-            FinalState inputfs=FinalState());
+            double masstarget=91.2*GeV);
 
 
     /// Constructor taking multiple eta/pT bounds
+    /// @param inputfs Input final state
+    /// @param etaRanges,pTmin lepton cuts
     /// @param pid type of the leptons
     /// @param minmass,maxmass mass window
     /// @param dRmax maximum dR of photons around leptons to take into account
@@ -51,13 +55,21 @@ namespace Rivet {
     ///  clustered to the lepton objects and thus Z mom
     /// @param trackPhotons whether such photons should be added to _theParticles
     ///  (cf. _trackPhotons)
-    ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
+    ZFinder(const FinalState& inputfs,
+            const std::vector<std::pair<double, double> >& etaRanges,
             double pTmin,
             PdgId pid,
             double minmass, const double maxmass,
             double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV,
-            FinalState inputfs=FinalState());
+            double masstarget=91.2*GeV);
+
+
+    /// @deprecated Constructors without inputfs -- only for backwards compatibility
+    ZFinder(double, double, double, PdgId, double, double, double,
+            bool, bool, double masstarget=91.2*GeV);
+    /// @deprecated Constructors without inputfs -- only for backwards compatibility
+    ZFinder(const std::vector<std::pair<double, double> >&, double, PdgId,
+            double, double, double, bool, bool, double masstarget=91.2*GeV);
 
 
     /// Clone on the heap.
@@ -101,12 +113,12 @@ namespace Rivet {
 
   private:
     /// Common implementation of constructor operation, taking FS params.
-    void _init(const std::vector<std::pair<double, double> >& etaRanges,
+    void _init(const FinalState& inputfs,
+               const std::vector<std::pair<double, double> >& etaRanges,
                double pTmin,  PdgId pid,
                double minmass, double maxmass,
                double dRmax, bool clusterPhotons, bool trackPhotons,
-               double masstarget,
-               FinalState inputfs);
+               double masstarget);
 
     /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
     double _minmass, _maxmass, _masstarget;
