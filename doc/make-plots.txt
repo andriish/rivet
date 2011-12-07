@@ -240,7 +240,11 @@ LegendOnly=<list>
 --------------------
 Whitespace separated list of IDs. These can be histograms or functions. The
 legend is only shown for the listed objects. Without this option, all plotted
-objects which have a title enter the legend.
+objects which have a title enter the legend. The legend titles
+are plotted in the given order, so there are cases in which it makes
+sense to use `LegendOnly` together with all histogram IDs.
+It is also possible to specify the legend order on an entry-by-entry basis
+using the `LegendOrder=<int>` setting for each histogram or function.
 
 
 Plotting Options
@@ -253,7 +257,9 @@ Whitespace separated list of histogram IDs. Only the histograms in this list
 are plotted, even if there are more histograms defined in the file. The
 histograms are plotted in the given order, so there are cases in which it makes
 sense to use `DrawOnly` together with all histogram IDs. This is especially
-useful for the `Stack` option.
+useful for the `Stack` option. It is also possible to specify the plotting order
+on a histogram-by-histogram basis using the `PlotOrder=<int>` setting for each
+histogram.
 
 --------------------
 Stack=<list>

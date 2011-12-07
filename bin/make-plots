@@ -122,15 +122,25 @@ class Inputdata:
         if self.description.has_key('Rebin'):
             for i in self.histos:
                 self.histos[i].description['Rebin'] = self.description['Rebin']
+        if self.description.has_key('EnvelopeRebin'):
+            for i in self.histos:
+                self.histos[i].description['EnvelopeRebin'] = self.description['EnvelopeRebin']
 
-        foo=[]
+        histoordermap = {}
+        histolist = self.histos.keys()
         if self.description.has_key('DrawOnly'):
-            for i in self.description['DrawOnly'].strip().split():
-                if i in self.histos.keys():
-                    foo.append(i)
-        else:
-            foo=self.histos.keys()
-        self.description['DrawOnly']=foo
+            histolist = filter(self.histos.keys().count, self.description['DrawOnly'].strip().split())
+        for histo in histolist:
+            order = 0
+            if self.histos[histo].description.has_key('PlotOrder'):
+                order = int(self.histos[histo].description['PlotOrder'])
+            if not order in histoordermap:
+                histoordermap[order] = []
+            histoordermap[order].append(histo)
+        sortedhistolist = []
+        for i in sorted(histoordermap.keys()):
+            sortedhistolist.extend(histoordermap[i])
+        self.description['DrawOnly']=sortedhistolist
 
 
     def read_input(self, f):
@@ -786,13 +796,26 @@ class Legend:
         out += '\n%\n% Legend\n%\n'
         out += '\\rput[tr](%s,%s){%%\n' % (self.getLegendXPos(), self.getLegendYPos())
         ypos = -0.05*6/self.description['PlotSizeY']
-        foo=[]
+
+        legendordermap = {}
+        legendlist = self.description['DrawOnly']+self.functions.keys()
         if self.description.has_key('LegendOnly'):
-            for i in self.description['LegendOnly'].strip().split():
-                if i in self.histos.keys() or i in self.functions.keys():
-                    foo.append(i)
-        else:
-            foo=self.description['DrawOnly']+self.functions.keys()
+            legendlist = []
+            for legend in self.description['LegendOnly'].strip().split():
+                if legend in self.histos.keys() or legend in self.functions.keys():
+                    legendlist.append(legend)
+        for legend in legendlist:
+            order = 0
+            if self.histos.has_key(legend) and self.histos[legend].description.has_key('LegendOrder'):
+                order = int(self.histos[legend].description['LegendOrder'])
+            if self.functions.has_key(legend) and self.functions[legend].description.has_key('LegendOrder'):
+                order = int(self.functions[legend].description['LegendOrder'])
+            if not order in legendordermap:
+                legendordermap[order] = []
+            legendordermap[order].append(legend)
+        foo=[]
+        for i in sorted(legendordermap.keys()):
+            foo.extend(legendordermap[i])
 
         for i in foo:
             if self.histos.has_key(i):
