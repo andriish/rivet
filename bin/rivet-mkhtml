@@ -57,6 +57,8 @@ parser.add_option("--booklet", dest="BOOKLET", action="store_true",
                   default=False, help="create booklet (currently only available for PDF with pdftk).")
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
                   default=False, help="ignore unvalidated analyses.")
+parser.add_option("--ignore-missing", dest="IGNORE_MISSING", action="store_true",
+                  default=False, help="ignore missing AIDA files.")
 parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
                   help="only write out histograms from analyses whose name matches any of these regexes")
 parser.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS",
@@ -106,7 +108,10 @@ for aidafile in aidafiles:
     aidafilepath = os.path.abspath(aidafile.split(":")[0])
     if not os.access(aidafilepath, os.R_OK):
         print "Error: cannot read from %s" % aidafilepath
-        sys.exit(2)
+        if opts.IGNORE_MISSING:
+            continue
+        else:
+            sys.exit(2)
     try:
         tree = ET.parse(aidafilepath)
     except Exception, e:
