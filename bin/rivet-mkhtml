@@ -165,6 +165,8 @@ ch_cmd.append("--rivet-refs")
 # TODO: This isn't very sensible... what's the intention? Provide --plotinfodir cmd line option?
 ch_cmd.append("--plotinfodir=../")
 for af in aidafiles:
+    if not os.access(os.path.abspath(af), os.R_OK):
+        continue
     ch_cmd.append("%s" % os.path.abspath(af))
 if opts.VERBOSE:
     ch_cmd.append("--verbose")

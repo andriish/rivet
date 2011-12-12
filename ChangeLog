@@ -1,3 +1,8 @@
+2011-12-12  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Add --ignore-missing option to rivet-mkhtml to ignore non-existing
+	AIDA files.
+
 2011-12-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Include underflow and overflow bins in the normalisation when
