@@ -30,23 +30,23 @@ function _rivet() {
 
     if test -x "$(which rivet 2> /dev/null)"; then
         anas=$(rivet --list-analyses)
-        if $(echo ${prev} | egrep -- "-a|--analysis|--show-analysis|--list-analyses" &> /dev/null); then
+        if (echo ${prev} | egrep -- "-a|--analysis|--show-analysis|--list-analyses" &> /dev/null); then
             COMPREPLY=( $(compgen -W "$anas" -- ${cur}) )
             return 0
         fi
     fi
 
-    if $(echo ${prev} | egrep -- "-n|--nevts|--runname|--histo-interval|--cross-section|-x|--event-timeout" &> /dev/null); then
+    if (echo ${prev} | egrep -- "-n|--nevts|--runname|--histo-interval|--cross-section|-x|--event-timeout" &> /dev/null); then
         COMPREPLY=()
         return 0
     fi
 
-    if $(echo ${prev} | egrep -- "--histo-file|-H" &> /dev/null); then
+    if (echo ${prev} | egrep -- "--histo-file|-H" &> /dev/null); then
         _filedir aida
         return 0
     fi
 
-    if $(echo ${prev} | egrep -- "--analysis-path|--analysis-path-append" &> /dev/null); then
+    if (echo ${prev} | egrep -- "--analysis-path|--analysis-path-append" &> /dev/null); then
         _filedir -d
         return 0
     fi
@@ -65,7 +65,6 @@ complete -F _rivet rivet
 function _rivet_config() {
     local cur prev commands options command
     COMPREPLY=()
-    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -98,7 +97,6 @@ complete -F _rivet_config rivet-config
 function _compare_histos() {
     local cur prev commands options command
     COMPREPLY=()
-    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -143,7 +141,6 @@ complete -F _compare_histos -o default compare-histos
 function _make_plots() {
     local cur prev commands options command
     COMPREPLY=()
-    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -169,13 +166,64 @@ function _make_plots() {
 complete -F _make_plots -o default make-plots
 
 
+########################
+
+
+function _rivet_mkhtml() {
+    local cur prev commands options command
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    opts="--help -h"
+    opts="$opts --outputdir -o"
+    opts="$opts --title -t"
+    opts="$opts --config -c"
+    opts="$opts --single -s"
+    opts="$opts --no-ratio --mc-errs --refid"
+    opts="$opts --num-threads --n"
+    opts="$opts --pdf --ps --booklet"
+    opts="$opts --ignore-unvalidated -i"
+    opts="$opts --match -m"
+    opts="$opts --unmatch -M"
+    opts="$opts --verbose -v"
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
+    ## Options with files / directories as the arg
+    if (echo ${prev} | egrep -- "--outputdir|-o" &> /dev/null); then
+        _filedir -d
+        return 0
+    fi
+    if (echo ${prev} | egrep -- "--config|-c" &> /dev/null); then
+        _filedir
+        return 0
+    fi
+
+    ## Options without an completeable arg
+    if (echo ${prev} | egrep -- "-t|--title|--refid|--n|--num-threads|-m|--match|-M|--unmatch" &> /dev/null); then
+        COMPREPLY=()
+        return 0
+    fi
+
+    _filedir aida
+    return 0
+}
+
+
+complete -F _rivet_mkhtml rivet-mkhtml
+
+
 ##############################
 
 
 function _aida2flat() {
     local cur prev commands options command
     COMPREPLY=()
-    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
@@ -213,7 +261,6 @@ complete -F _aida2flat -o default aida2flat
 function _flat2aida() {
     local cur prev commands options command
     COMPREPLY=()
-    #cur=`_get_cword`
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
