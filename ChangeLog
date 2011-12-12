@@ -1,5 +1,7 @@
 2011-12-12  Frank Siegert  <frank.siegert@cern.ch>
 
+	* Fix for factor of 2.0 in normalisation of CMS_2011_S9086218
+	
 	* Add --ignore-missing option to rivet-mkhtml to ignore non-existing
 	AIDA files.
 
