@@ -20,6 +20,7 @@ Description:
   2.4 pb-1. Results on multi-jet cross sections are presented differential
   in pT of the four leading jets, HT. Additionally three-to-two jet fractions
   are presented differential in different observables.'
+  Jets are anti-kt with $R=0.4$ and $R=0.6$, $p_\perp>80(60)$ GeV and $|\eta|<2.8$.
 NeedCrossSection: yes
 BibKey: Collaboration:2011tq
 BibTeX: '@Article{Collaboration:2011tq,

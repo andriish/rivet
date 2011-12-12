@@ -20,6 +20,7 @@ Description:
   Measurements of dijet azimuthal decorrelations in pp collisions at sqrt(s) = 7 TeV using the CMS
   detector at the CERN LHC are presented. The analysis is based on an inclusive dijet event sample
   corresponding to an integrated luminosity of 2.9/pb.
+  Jets are anti-kt with $R=0.5$, $p_\perp>80(30)$ GeV and $|\eta|<1.1$.
 BibKey: Khachatryan:2011zj
 BibTeX: '@article{Khachatryan:2011zj,
       author         = "Khachatryan, Vardan and others",

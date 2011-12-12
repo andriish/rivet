@@ -17,7 +17,8 @@ Energies: [7000]
 PtCuts:   [30, 60]
 Description:
   The first jet cross section measurement made with the ATLAS detector at the LHC.
-  Jets are resconstructed within $|y|<2.8$ and above 60~GeV for the inclusive jet
+  Anti-kt jets with $R=0.4$ and $R=0.6$ are resconstructed within
+   $|y|<2.8$ and above 60~GeV for the inclusive jet
   cross section plots.  For the di-jet plots the second jet must have pT>30~GeV.
   Jet pT and di-jet mass spectra are plotted in bins or rapidity $|y|<0.3$,
   $0.3<|y|<0.8$, $0.8<|y|<1.2$, $1.2<|y|<2.1$, $2.1<|y|<2.8$.  Di-jet $\chi$

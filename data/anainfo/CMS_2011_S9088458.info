@@ -21,6 +21,7 @@ Description:
   transverse momentum, HT, in the range 0.2 < HT < 2.5 TeV is presented. The data have been collected
   at a proton-proton centre-of-mass energy of 7 TeV with the CMS detector at the LHC, and correspond
   to an integrated luminosity of 36/pb.
+  Jets are anti-kt with $R=0.5$, $p_\perp>50$ GeV and $|\eta|<2.5$.
 BibKey: Chatrchyan:2011wn
 BibTeX: '@article{Chatrchyan:2011wn,
       author         = "Chatrchyan, Serguei and others",

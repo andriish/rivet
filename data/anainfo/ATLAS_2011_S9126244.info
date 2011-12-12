@@ -27,7 +27,9 @@ Description:
   are taken to define the dijet system, where the veto threhsold is 20GeV. 
   Additionally for the latter selection an alternative veto transverse 
   momentum threshold which is equal to the average transverse momentum is 
-  applied.'
+  applied.
+  Jet selections are based on anti-kt with $R=0.6$, $p_\perp>20$ GeV and
+   $|y|<4.4$.'
 BibTeX: 
 '@Article{Aad:2011jz,
      author    = "Aad, Georges and others",

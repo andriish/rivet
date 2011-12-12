@@ -21,6 +21,7 @@ Description:
    collisions at sqrt(s)=7 TeV, with a data sample collected with the CMS
    detector at the LHC. The sample corresponds to an integrated luminosity of
    3.2 inverse picobarns.
+   Input for the variables are anti-kt jets with $R=0.5$.
 BibKey: Khachatryan:2011dx
 BibTeX: '@Article{Khachatryan:2011dx,
      author    = "Khachatryan, Vardan and others",
