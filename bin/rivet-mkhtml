@@ -165,15 +165,21 @@ ch_cmd.append("--rivet-refs")
 # TODO: This isn't very sensible... what's the intention? Provide --plotinfodir cmd line option?
 ch_cmd.append("--plotinfodir=../")
 for af in aidafiles:
-    aidafilepath = os.path.abspath(aidafile.split(":")[0])
+    aidafilepath = os.path.abspath(af.split(":")[0])
     if not os.access(aidafilepath, os.R_OK):
         continue
-    ch_cmd.append("%s" % aidafilepath)
+    newarg = aidafilepath
+    if ":" in af:
+        for opt in af.split(":")[1:]:
+            newarg += ":%s" % opt
+    # print newarg
+    ch_cmd.append(newarg)
 if opts.VERBOSE:
     ch_cmd.append("--verbose")
     print "Calling compare-histos with the following options:"
     print ch_cmd
     print " ".join(ch_cmd)
+# print " ".join(ch_cmd)
 Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
 
 
