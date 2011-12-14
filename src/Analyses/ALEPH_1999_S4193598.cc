@@ -15,9 +15,9 @@ bool hasDecayedTo(const HepMC::GenParticle* p, int id1, int id2) {
   if (decV->particles_out_size() == 2) {
     for (HepMC::GenVertex::particles_out_const_iterator pp = decV->particles_out_const_begin() ;
          pp != decV->particles_out_const_end() ; ++pp) {
-      decids.push_back(fabs((*pp)->pdg_id()));
+      decids.push_back(abs((*pp)->pdg_id()));
     }
-    if ( (decids[0] == fabs(id1) && decids[1] == fabs(id2)) || (decids[1] == fabs(id1) && decids[0] == fabs(id2)) ) decision = true;
+    if ( (decids[0] == abs(id1) && decids[1] == abs(id2)) || (decids[1] == abs(id1) && decids[0] == abs(id2)) ) decision = true;
 
   };
   return decision;
