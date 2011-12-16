@@ -4,7 +4,7 @@ Summary: Inclusive differential $\Phi$ production cross-section as a function of
 Experiment: LHCB
 Collider: LHC
 InspireID: 919315
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Friederike Blatt friederike.blatt@tu-dortmund.de
  - Michael Kaballo michael.kaballo@tu-dortmund.de
@@ -38,5 +38,3 @@ BibTeX: '@article{Aaij:2011uk,
       archivePrefix  = "arXiv",
       primaryClass   = "Unknown",
 }'
-ToDo:
- - Get reference data into HepData
