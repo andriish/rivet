@@ -460,6 +460,14 @@
   </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
+      <measurement value="700.0" errorPlus="100.0" errorMinus="100.0"/>
+      <measurement value="1.8235" errorPlus="0.2074463063059933" errorMinus="0.21070647830572273"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="900.0" errorPlus="100.0" errorMinus="100.0"/>
+      <measurement value="1.529" errorPlus="0.1688879214153576" errorMinus="0.16602102276519082"/>
+    </dataPoint>
+    <dataPoint>
       <measurement value="1100.0" errorPlus="100.0" errorMinus="100.0"/>
       <measurement value="1.2623" errorPlus="0.13710525154055916" errorMinus="0.13192520608284072"/>
     </dataPoint>
