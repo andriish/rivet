@@ -1,9 +1,13 @@
 2011-12-30  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Tweaking to avoid a very time-consuming debug printout in
-	compare-histos with the -v flag, other minor tidyings, noting some
-	TODOs, and adding a placeholder rivet-which script (not currently
+	* Adding a placeholder rivet-which script (not currently
 	installed).
+
+	* Tweaking to avoid a very time-consuming debug printout in
+	compare-histos with the -v flag, and modifying the Rivet env vars
+	in rivet-mkhtml before calling compare-histos to eliminate
+	problems induced by relative paths (i.e. "." does not mean the
+	same thing when the directory is changed within the script).
 
 2011-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
