@@ -14,7 +14,7 @@ appropriately).
 You can overwrite an existing output directory.
 """
 
-import sys
+import sys, os
 if sys.version_info[:3] < (2,4,0):
     sys.stderr.write("rivet scripts require Python version >= 2.4.0... exiting\n")
     sys.exit(1)
@@ -143,12 +143,13 @@ for aidafile in aidafiles:
         if reffile and reffile not in reffiles:
             reffiles.append(reffile)
 
+
 def anasort(name):
     if name.startswith("MC"):
         return "0"+name
     else:
         return name
-analyses=sorted(analyses, key=anasort, reverse=True)
+analyses = sorted(analyses, key=anasort, reverse=True)
 
 
 ## Run compare-histos to get plain .dat files from .aida
@@ -161,8 +162,7 @@ if not opts.SHOW_RATIO:
 if opts.REF_ID is not None:
     ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
 ch_cmd.append("--hier-out")
-ch_cmd.append("--rivet-refs")
-# TODO: This isn't very sensible... what's the intention? Provide --plotinfodir cmd line option?
+# TODO: Need to be able to override this: provide a --plotinfodir cmd line option?
 ch_cmd.append("--plotinfodir=../")
 for af in aidafiles:
     aidafilepath = os.path.abspath(af.split(":")[0])
@@ -174,14 +174,18 @@ for af in aidafiles:
             newarg += ":%s" % opt
     # print newarg
     ch_cmd.append(newarg)
+# TODO: Pass rivet-mkhtml -m and -M args to compare-histos
 if opts.VERBOSE:
     ch_cmd.append("--verbose")
-    print "Calling compare-histos with the following options:"
-    print ch_cmd
+    print "Calling compare-histos with the following command:"
     print " ".join(ch_cmd)
-# print " ".join(ch_cmd)
-Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
 
+## Run compare-histos in a subdir, after fixing any relative paths in Rivet env vars
+for var in ("RIVET_ANALYSIS_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_PLOT_PATH"):
+    if var in os.environ:
+        abspaths = map(os.path.abspath, os.environ[var].split(":"))
+        os.environ[var] = ":".join(abspaths)
+Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
 
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in

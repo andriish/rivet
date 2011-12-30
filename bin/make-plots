@@ -5,7 +5,8 @@ Usage: %prog [options] file.dat [file2.dat ...]
 
 TODO
  * Optimise output for e.g. lots of same-height bins in a row
- * Tidy LaTeX-writing code
+ * Add a RatioFullRange directive to show the full range of error bars + MC envelope in the ratio
+ * Tidy LaTeX-writing code -- faster to compile one doc only, then split it?
  * Handle boolean values flexibly (yes, no, true, false, etc. as well as 1, 0)
 """
 

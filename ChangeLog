@@ -1,3 +1,10 @@
+2011-12-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tweaking to avoid a very time-consuming debug printout in
+	compare-histos with the -v flag, other minor tidyings, noting some
+	TODOs, and adding a placeholder rivet-which script (not currently
+	installed).
+
 2011-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a command line completion function for rivet-mkhtml.

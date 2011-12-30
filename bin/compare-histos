@@ -261,7 +261,7 @@ if __name__ == "__main__":
     if opts.STYLE == 'talk':
         PLOTSTYLES += 'PlotSize=8,6\n'
         HISTSTYLES += 'LineWidth=1pt\n'
-    if opts.STYLE == 'bw':
+    elif opts.STYLE == 'bw':
         PLOTSTYLES += 'RatioPlotErrorBandColor=black!10\n'
         COLORS = ('black!90', 'black!50', 'black!30')
         STYLES = []
@@ -298,13 +298,11 @@ if __name__ == "__main__":
         logging.error(parser.get_usage())
         exit(2)
 
-
     ## Handle a request for a reference dataset other than REF
     if opts.REF_ID != "REF":
         if not os.access(os.path.abspath(opts.REF_ID), os.R_OK):
             logging.error("Error: cannot read reference file %s" % opts.REF_ID)
             sys.exit(2)
-
 
     ## Read histo data from files into data structures
     HISTOS = {}
@@ -339,7 +337,6 @@ if __name__ == "__main__":
             XLABELS[n] = t
         for n, t in ylabels.iteritems():
             YLABELS[n] = t
-
 
     # ## Choose histos - use all histos with MC data, or restrict with a list read from file
     # if opts.HISTOGRAMLIST is not None:
@@ -379,7 +376,6 @@ if __name__ == "__main__":
             acceptednames.add(path)
     NAMES = NAMES.intersection(acceptednames)
     MCNAMES = MCNAMES.intersection(acceptednames)
-
 
     ## Pre-emptively reduce number of files to iterate through
     ## (assuming, reasonably, that there is only one ref file per histo)
@@ -506,7 +502,8 @@ if __name__ == "__main__":
             histopts = {}
         histstrs = []
         i = 0
-        logging.debug("Active files: %s" % activefiles)
+        # logging.debug("Active files: %s" % activefiles)
+
         for hfile in activefiles:
             histstr = '# BEGIN HISTOGRAM %s%s\n' % (hfile.replace(' ','_'), HISTOS[hfile][name].fullPath().replace(' ','_'))
             if HISTOS[hfile][name].isdata:
@@ -565,4 +562,5 @@ if __name__ == "__main__":
         f.write(headstr + "\n" + "\n".join(histstrs))
         f.close()
         num_written += 1
+
     logging.info("Wrote %d histo files" % num_written)
