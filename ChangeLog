@@ -1,3 +1,7 @@
+2012-01-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing references to Boost random numbers.
+
 2011-12-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a placeholder rivet-which script (not currently
