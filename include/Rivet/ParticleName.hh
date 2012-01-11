@@ -27,6 +27,7 @@ namespace Rivet {
   static const PdgId NU_TAUBAR = -16;
   static const PdgId PIPLUS = 211;
   static const PdgId PIMINUS = -211;
+  static const PdgId PI0 = 111;
   static const PdgId K0L = 130;
   static const PdgId K0S = 310;
   static const PdgId KPLUS = 321;
