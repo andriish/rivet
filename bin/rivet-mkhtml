@@ -63,6 +63,14 @@ parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
                   help="only write out histograms from analyses whose name matches any of these regexes")
 parser.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS",
                   help="Exclude histograms whose $path/$name string matches these regexes")
+parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
+                  help="Use Palatino as font (default).")
+parser.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
+                  help="Use Computer Modern as font.")
+parser.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
+                  help="Use Times as font.")
+parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
+                  help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
 parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERBOSE",
                   action="store_true", default=False)
 opts, aidafiles = parser.parse_args()
@@ -298,6 +306,12 @@ if opts.VECTORFORMAT == "PDF":
     mp_cmd.append("--pdfpng")
 elif opts.VECTORFORMAT == "PS":
     mp_cmd.append("--pspng")
+if opts.OUTPUT_FONT == "CM":
+    mp_cmd.append("--cm")
+elif opts.OUTPUT_FONT == "TIMES":
+    mp_cmd.append("--times")
+elif opts.OUTPUT_FONT == "minion":
+    mp_cmd.append("--minion")
 mp_cmd.append("--full-range")
 for configfile in opts.CONFIGFILES:
     if os.access(os.path.expanduser(configfile), os.R_OK):
