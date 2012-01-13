@@ -31,6 +31,7 @@ dist_pkgdata_DATA = \
   ATLAS_2011_S9131140.aida       \
   ATLAS_2011_I919017.aida        \
   ATLAS_2011_I925932.aida        \
+  ATLAS_2011_I926145.aida        \
   BABAR_2006_S6511112.aida       \
   BELLE_2006_S6265367.aida       \
   CLEO_1997_S3486664.aida        \
