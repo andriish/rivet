@@ -63,9 +63,11 @@ namespace Rivet {
       FinalState fs;
       LeadingParticlesFinalState muon_neutrino(fs);
       muon_neutrino.addParticleIdPair(NU_MU);
+      muon_neutrino.setLeadingOnly(true);
       addProjection(muon_neutrino, "muon_neutrino");
       LeadingParticlesFinalState elec_neutrino(fs);
       elec_neutrino.addParticleIdPair(NU_E);
+      elec_neutrino.setLeadingOnly(true);
       addProjection(elec_neutrino, "elec_neutrino");
 
       // Input for the jets: No neutrinos, no muons, and no electron which

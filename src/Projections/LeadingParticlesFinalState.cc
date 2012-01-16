@@ -14,6 +14,9 @@ namespace Rivet {
     fscmp = FinalState::compare(other);
     if (fscmp != EQUIVALENT) return fscmp;
 
+    int locmp = cmp(_leading_only, other._leading_only);
+    if (locmp != EQUIVALENT) return locmp;
+
     // Finally compare the IDs
     if (_ids < other._ids) return ORDERED;
     else if (other._ids < _ids) return UNORDERED;
@@ -53,6 +56,21 @@ namespace Rivet {
       MSG_DEBUG("LeadingParticlesFinalState is accepting particle ID " << i->second->pdgId()
                << " with momentum " << i->second->momentum());
       _theParticles.push_back(*(i->second));
+    }
+
+    if (_leading_only) {
+      double ptmax=0.0;
+      Particle pmax;
+
+      foreach (const Particle& p, _theParticles) {
+        if (p.momentum().pT() > ptmax) {
+          ptmax = p.momentum().pT();
+          pmax = p;
+        }
+      }
+
+      _theParticles.clear();
+      _theParticles.push_back(pmax);
     }
   }
 

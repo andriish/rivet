@@ -17,7 +17,7 @@ namespace Rivet {
 
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
     LeadingParticlesFinalState(const FinalState& fsp)
-      :  FinalState()
+      :  FinalState(), _leading_only(false)
     {
       setName("LeadingParticlesFinalState");
       addProjection(fsp, "FS");
@@ -39,6 +39,13 @@ namespace Rivet {
       _ids.insert(id);
       _ids.insert(-id);
       return *this;
+    }
+
+    /// Toggle whether to keep track only of the leading particle of any ID,
+    /// or the leading particle of all IDs separately
+    /// Default is the latter (=false)
+    void setLeadingOnly(const bool& leadingonly) {
+      _leading_only = leadingonly;
     }
 
     // /// Check if a particle of a particular ID was found in the current event
@@ -63,6 +70,7 @@ namespace Rivet {
 
     /// IDs of the leading particles to be selected
     std::set<long>_ids;
+    bool _leading_only;
 
   };
 

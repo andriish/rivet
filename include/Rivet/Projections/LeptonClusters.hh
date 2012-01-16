@@ -39,11 +39,6 @@ namespace Rivet {
   /// leptons) from signal and store the original charged particles and photons
   /// as particles() while the newly created clustered lepton objects are
   /// accessible as clusteredLeptons()
-  /// @brief Use LeptonClustersConstituents projection to cluster all photons to
-  /// leptons. This projection here makes the clustered objects available
-  /// in a FinalState manner, i.e. as particles(). The given pT and eta cuts are
-  /// applied to those objects. The underlying (original) leptons and photons
-  /// are available by means of the constituentsFinalState() method.
   class LeptonClusters : public FinalState {
 
   public:
