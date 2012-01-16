@@ -27,6 +27,7 @@ dist_pkgdata_DATA = \
   ATLAS_2011_I919017.plot  \
   ATLAS_2011_I925932.plot  \
   ATLAS_2011_I926145.plot  \
+  ATLAS_2011_S9225137.plot \
   CDF_1988_S1865951.plot \
   CDF_1990_S2089246.plot \
   CDF_1993_S2742446.plot \

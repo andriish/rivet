@@ -72,13 +72,43 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.0,3.0),"cfs");
 
       /// Book histograms
-      _etmissHTA = bookHistogram1D("etmissHTA", 64, 0., 16.);
-      _etmissHTB = bookHistogram1D("etmissHTB", 64, 0., 16.);
+      _etmisspT_55_NJ_6_obs = bookHistogram1D( 1,1,1);
+      _etmisspT_55_NJ_6_bac = bookHistogram1D( 1,1,2);
+      _etmisspT_55_NJ_6_sig = bookHistogram1D( 1,1,3);
+      _etmisspT_55_NJ_7_obs = bookHistogram1D(13,1,1);
+      _etmisspT_55_NJ_7_bac = bookHistogram1D(13,1,2);
+      _etmisspT_55_NJ_7_sig = bookHistogram1D(13,1,3);
+      _etmisspT_55_NJ_8_obs = bookHistogram1D(15,1,1);
+      _etmisspT_55_NJ_8_bac = bookHistogram1D(15,1,2);
+      _etmisspT_55_NJ_8_sig = bookHistogram1D(15,1,3);
+      _etmisspT_80_NJ_5_obs = bookHistogram1D( 2,1,1);
+      _etmisspT_80_NJ_5_bac = bookHistogram1D( 2,1,2);
+      _etmisspT_80_NJ_5_sig = bookHistogram1D( 2,1,3);
+      _etmisspT_80_NJ_6_obs = bookHistogram1D(14,1,1);
+      _etmisspT_80_NJ_6_bac = bookHistogram1D(14,1,2);
+      _etmisspT_80_NJ_6_sig = bookHistogram1D(14,1,3);
+      _etmisspT_80_NJ_7_obs = bookHistogram1D(16,1,1);
+      _etmisspT_80_NJ_7_bac = bookHistogram1D(16,1,2);
+      _etmisspT_80_NJ_7_sig = bookHistogram1D(16,1,3);
 
-      _njet55A = bookHistogram1D("njet55A", 14, 0.5, 14.5);
-      _njet55B = bookHistogram1D("njet55B", 14, 0.5, 14.5);
-      _njet80A = bookHistogram1D("njet80A", 14, 0.5, 14.5);
-      _njet80B = bookHistogram1D("njet80B", 14, 0.5, 14.5);
+      _njet55A_obs = bookHistogram1D( 3,1,1);
+      _njet55A_bac = bookHistogram1D( 3,1,2);
+      _njet55A_sig = bookHistogram1D( 3,1,3);
+      _njet55B_obs = bookHistogram1D( 4,1,1);
+      _njet55B_bac = bookHistogram1D( 4,1,2);
+      _njet55B_sig = bookHistogram1D( 4,1,3);
+      _njet55C_obs = bookHistogram1D(17,1,1);
+      _njet55C_bac = bookHistogram1D(17,1,2);
+      _njet55C_sig = bookHistogram1D(17,1,3);
+      _njet80A_obs = bookHistogram1D( 5,1,1);
+      _njet80A_bac = bookHistogram1D( 5,1,2);
+      _njet80A_sig = bookHistogram1D( 5,1,3);
+      _njet80B_obs = bookHistogram1D( 6,1,1);
+      _njet80B_bac = bookHistogram1D( 6,1,2);
+      _njet80B_sig = bookHistogram1D( 6,1,3);
+      _njet80C_obs = bookHistogram1D(18,1,1);
+      _njet80C_bac = bookHistogram1D(18,1,2);
+      _njet80C_sig = bookHistogram1D(18,1,3);
 
       _count_7j55 = bookHistogram1D("count_7j55", 1, 0., 1.);
       _count_8j55 = bookHistogram1D("count_8j55", 1, 0., 1.);
@@ -91,7 +121,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-
       // apply electron veto region
       ParticleVector veto_e
         = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
@@ -220,11 +249,11 @@ namespace Rivet {
         for (unsigned int iy=ix+1;iy<recon_jets.size();++iy) {
           if(recon_jets[ix].momentum().pT()>55.*GeV &&
              recon_jets[iy].momentum().pT()>55.*GeV &&
-             deltaR(recon_jets[ix],recon_jets[ix]) <0.6 )
+             deltaR(recon_jets[ix],recon_jets[iy]) <0.6 )
             pass55DeltaR = false;
           if(recon_jets[ix].momentum().pT()>80.*GeV &&
              recon_jets[iy].momentum().pT()>80.*GeV &&
-             deltaR(recon_jets[ix],recon_jets[ix]) <0.6 )
+             deltaR(recon_jets[ix],recon_jets[iy]) <0.6 )
             pass80DeltaR = false;
         }
       }
@@ -234,16 +263,72 @@ namespace Rivet {
 
       // plots of etmiss/ht
       double etht = eTmiss/sqrt(HT);
-      if(njet55==6) _etmissHTA->fill(etht,weight);
-      if(njet80==5) _etmissHTB->fill(etht,weight);
+      if(njet55==6) {
+	_etmisspT_55_NJ_6_obs->fill(etht,weight);
+	_etmisspT_55_NJ_6_bac->fill(etht,weight);
+	_etmisspT_55_NJ_6_sig->fill(etht,weight);
+      }
+      else if(njet55==7) {
+	_etmisspT_55_NJ_7_obs->fill(etht,weight);
+	_etmisspT_55_NJ_7_bac->fill(etht,weight);
+	_etmisspT_55_NJ_7_sig->fill(etht,weight);
+      }
+      else if(njet55==8) {
+	_etmisspT_55_NJ_8_obs->fill(etht,weight);
+	_etmisspT_55_NJ_8_bac->fill(etht,weight);
+	_etmisspT_55_NJ_8_sig->fill(etht,weight);
+      }
+      if(njet80==5) {
+	_etmisspT_80_NJ_5_obs->fill(etht,weight);
+	_etmisspT_80_NJ_5_bac->fill(etht,weight);
+	_etmisspT_80_NJ_5_sig->fill(etht,weight);
+      }
+      else if(njet80==6) {
+	_etmisspT_80_NJ_6_obs->fill(etht,weight);
+	_etmisspT_80_NJ_6_bac->fill(etht,weight);
+	_etmisspT_80_NJ_6_sig->fill(etht,weight);
+      }
+      else if(njet80==7) {
+	_etmisspT_80_NJ_7_obs->fill(etht,weight);
+	_etmisspT_80_NJ_7_bac->fill(etht,weight);
+	_etmisspT_80_NJ_7_sig->fill(etht,weight);
+      }
 
       if(etht>1.5&&etht<2. ) {
-        if(njet55>3) _njet55A->fill(njet55,weight);
-        if(njet80>3) _njet80A->fill(njet80,weight);
+        if(njet55>3) {
+	  _njet55A_obs->fill(njet55,weight);
+	  _njet55A_bac->fill(njet55,weight);
+	  _njet55A_sig->fill(njet55,weight);
+	}
+        if(njet80>3) {
+	  _njet80A_obs->fill(njet80,weight);
+	  _njet80A_bac->fill(njet80,weight);
+	  _njet80A_sig->fill(njet80,weight);
+	}
       }
-      if(etht>2. &&etht<3. ) {
-        if(njet55>3) _njet55B->fill(njet55,weight);
-        if(njet80>3) _njet80B->fill(njet80,weight);
+      else if(etht>2. &&etht<3. ) {
+        if(njet55>3) {
+	  _njet55B_obs->fill(njet55,weight);
+	  _njet55B_bac->fill(njet55,weight);
+	  _njet55B_sig->fill(njet55,weight);
+	}
+        if(njet80>3) {
+	  _njet80B_obs->fill(njet80,weight);
+	  _njet80B_bac->fill(njet80,weight);
+	  _njet80B_sig->fill(njet80,weight);
+	}
+      }
+      else {
+        if(njet55>3) {
+	  _njet55C_obs->fill(njet55,weight);
+	  _njet55C_bac->fill(njet55,weight);
+	  _njet55C_sig->fill(njet55,weight);
+	}
+        if(njet80>3) {
+	  _njet80C_obs->fill(njet80,weight);
+	  _njet80C_bac->fill(njet80,weight);
+	  _njet80C_sig->fill(njet80,weight);
+	}
       }
 
       // apply E_T/sqrt(H_T) cut
@@ -260,8 +345,8 @@ namespace Rivet {
       }
 
       // 7j55
-      if(njet55>=7&&pass55DeltaR)
-        _count_7j55->fill( 0.5, weight) ;
+      if(njet55>=7&&pass55DeltaR) 
+	_count_7j55->fill( 0.5, weight) ;
       // 8j55
       if(njet55>=8&&pass55DeltaR)
         _count_8j55->fill( 0.5, weight) ;
@@ -276,18 +361,90 @@ namespace Rivet {
 
     //@}
 
-    void finalize() {}
+    void finalize() {
+      double norm = crossSection()/femtobarn*1.34/sumOfWeights();
+      scale(_etmisspT_55_NJ_6_obs,norm);
+      scale(_etmisspT_55_NJ_6_bac,norm);
+      scale(_etmisspT_55_NJ_6_sig,norm);
+      scale(_etmisspT_55_NJ_7_obs,norm);
+      scale(_etmisspT_55_NJ_7_bac,norm);
+      scale(_etmisspT_55_NJ_7_sig,norm);
+      scale(_etmisspT_55_NJ_8_obs,norm);
+      scale(_etmisspT_55_NJ_8_bac,norm);
+      scale(_etmisspT_55_NJ_8_sig,norm);
+      scale(_etmisspT_80_NJ_5_obs,norm);
+      scale(_etmisspT_80_NJ_5_bac,norm);
+      scale(_etmisspT_80_NJ_5_sig,norm);
+      scale(_etmisspT_80_NJ_6_obs,norm);
+      scale(_etmisspT_80_NJ_6_bac,norm);
+      scale(_etmisspT_80_NJ_6_sig,norm);
+      scale(_etmisspT_80_NJ_7_obs,norm);
+      scale(_etmisspT_80_NJ_7_bac,norm);
+      scale(_etmisspT_80_NJ_7_sig,norm);
+      scale(_njet55A_obs,norm);
+      scale(_njet55A_bac,norm);
+      scale(_njet55A_sig,norm);
+      scale(_njet55B_obs,norm);
+      scale(_njet55B_bac,norm);
+      scale(_njet55B_sig,norm);
+      scale(_njet55C_obs,norm);
+      scale(_njet55C_bac,norm);
+      scale(_njet55C_sig,norm);
+      scale(_njet80A_obs,norm);
+      scale(_njet80A_bac,norm);
+      scale(_njet80A_sig,norm);
+      scale(_njet80B_obs,norm);
+      scale(_njet80B_bac,norm);
+      scale(_njet80B_sig,norm);
+      scale(_njet80C_obs,norm);
+      scale(_njet80C_bac,norm);
+      scale(_njet80C_sig,norm);
+      scale(_count_7j55,norm);
+      scale(_count_8j55,norm);
+      scale(_count_6j80,norm);
+      scale(_count_7j80,norm);
+    }
 
   private:
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _etmissHTA;
-    AIDA::IHistogram1D* _etmissHTB;
-    AIDA::IHistogram1D* _njet55A;
-    AIDA::IHistogram1D* _njet55B;
-    AIDA::IHistogram1D* _njet80A;
-    AIDA::IHistogram1D* _njet80B;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_6_obs;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_6_bac;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_6_sig;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_7_obs;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_7_bac;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_7_sig;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_8_obs;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_8_bac;
+    AIDA::IHistogram1D* _etmisspT_55_NJ_8_sig;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_5_obs;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_5_bac;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_5_sig;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_6_obs;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_6_bac;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_6_sig;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_7_obs;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_7_bac;
+    AIDA::IHistogram1D* _etmisspT_80_NJ_7_sig;
+    AIDA::IHistogram1D* _njet55A_obs;
+    AIDA::IHistogram1D* _njet55A_bac;
+    AIDA::IHistogram1D* _njet55A_sig;
+    AIDA::IHistogram1D* _njet55B_obs;
+    AIDA::IHistogram1D* _njet55B_bac;
+    AIDA::IHistogram1D* _njet55B_sig;
+    AIDA::IHistogram1D* _njet55C_obs;
+    AIDA::IHistogram1D* _njet55C_bac;
+    AIDA::IHistogram1D* _njet55C_sig;
+    AIDA::IHistogram1D* _njet80A_obs;
+    AIDA::IHistogram1D* _njet80A_bac;
+    AIDA::IHistogram1D* _njet80A_sig;
+    AIDA::IHistogram1D* _njet80B_obs;
+    AIDA::IHistogram1D* _njet80B_bac;
+    AIDA::IHistogram1D* _njet80B_sig;
+    AIDA::IHistogram1D* _njet80C_obs;
+    AIDA::IHistogram1D* _njet80C_bac;
+    AIDA::IHistogram1D* _njet80C_sig;
     AIDA::IHistogram1D* _count_7j55;
     AIDA::IHistogram1D* _count_8j55;
     AIDA::IHistogram1D* _count_6j80;
