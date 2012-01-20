@@ -58,6 +58,7 @@ namespace Rivet {
       veto.addVetoOnThisFinalState(leptons);
       veto.addVetoOnThisFinalState(neutrinos);
       FastJets jets(veto, FastJets::ANTIKT, 0.4);
+      jets.useInvisibles(true);
       addProjection(jets, "jets");
 
       for (size_t i=0; i<2; ++i) {
