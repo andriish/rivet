@@ -1,3 +1,8 @@
+2012-01-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tidying lighthisto, including fixing the order in which +- error
+	values are passed to the Bin constructor in fromFlatHisto.
+
 2012-01-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing references to Boost random numbers.
