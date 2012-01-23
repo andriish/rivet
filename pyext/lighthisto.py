@@ -157,25 +157,19 @@ class Histo(object):
         r = ind + '<dataPointSet name="%s" dimension="2"\n' % (
                 self.name)
         if self.title is not None:
-            r += ind + '    path="%s" title="%s">\n' % (
-                    self.path, htmlescape(self.title))
+            r += ind + '    path="%s" title="%s">\n' % (self.path, htmlescape(self.title))
         else:
-            r += ind + '    path="%s" title="">\n' % (
-                    self.path)
-        if (self.xlabel!=''):
-            r += ind + '  <dimension dim="0" title="%s"/>\n' % (
-                    htmlescape(self.xlabel))
-        if (self.ylabel!=''):
-            r += ind + '  <dimension dim="1" title="%s"/>\n' % (
-                    htmlescape(self.ylabel))
+            r += ind + '    path="%s" title="">\n' % (self.path)
+        if self.xlabel!='':
+            r += ind + '  <dimension dim="0" title="%s"/>\n' % (htmlescape(self.xlabel))
+        if self.ylabel!='':
+            r += ind + '  <dimension dim="1" title="%s"/>\n' % (htmlescape(self.ylabel))
         r += ind + "  <annotation>\n"
-        if (self.title!=''):
-            r += ind + '    <item key="Title" value="%s" sticky="true"/>\n' % (
-                    htmlescape(self.title))
+        if self.title!='':
+            r += ind + '    <item key="Title" value="%s" sticky="true"/>\n' % (htmlescape(self.title))
         else:
             r += ind + '    <item key="Title" value="" sticky="true"/>\n'
-        r += ind + '    <item key="AidaPath" value="%s" sticky="true"/>\n' % (
-                self.fullPath())
+        r += ind + '    <item key="AidaPath" value="%s" sticky="true"/>\n' % (self.fullPath())
         # TODO: FullPath annotation item?
         # r += ind + '    <item key="FullPath" value
         r += ind + "  </annotation>\n"
@@ -270,11 +264,8 @@ class Histo(object):
                 irange += 1
                 curran = xranges[irange]
 
-            if ((curran[0] is None or curran[0] <= br[0] or
-                        br[0] <= curran[0] <= br[1]) and
-
-                (curran[1] is None or curran[1] >= br[1] or
-                        br[0] <= curran[1] <= br[1])):
+            if ((curran[0] is None or curran[0] <= br[0] or br[0] <= curran[0] <= br[1]) and
+                (curran[1] is None or curran[1] >= br[1] or br[0] <= curran[1] <= br[1])):
                 new.addBin(b)
             else:
                 sys.stderr.write("Chopping bin %s: %e\n" % (self.fullPath(), b.getBinCenter()))
@@ -380,12 +371,12 @@ class Histo(object):
                 elif len(linearray) == 5:
                     new.addBin(Bin(float(linearray[0]), float(linearray[1]),
                                    float(linearray[2]),
-                                   float(linearray[3]), float(linearray[4])))
+                                   float(linearray[4]), float(linearray[3]))) # get +- err ordering right
                 elif len(linearray) == 6:
                     new.addBin(Bin(float(linearray[0]), float(linearray[1]),
                                    float(linearray[4]),
-                                   float(linearray[5]),float(linearray[5]),None,
-                                   float(linearray[2]), float(linearray[3])))
+                                   float(linearray[5]), float(linearray[5]), None,
+                                   float(linearray[2]), float(linearray[3]))) # TODO: right ordering?
                 else:
                     sys.stderr.write("Unknown line format in '%s'\n" % line)
         ## Apply special annotations as histo obj attributes
@@ -454,7 +445,7 @@ class Histo(object):
 
 class Bin(object):
     """A simple container for a binned value with an error."""
-    aidaindent = "    "
+    aidaindent = "  "
     __slots__ = ["xlow", "xhigh", "ylow", "yhigh", "val", "errplus", "errminus", "_focus"]
     def __init__(self, xlow=None, xhigh=None, val=0, errplus=0, errminus=0, focus=None, ylow=None, yhigh=None):
         def _float(f):
@@ -476,7 +467,7 @@ class Bin(object):
         return out
 
     def asFlat(self):
-        if self.ylow==None or self.yhigh==None:
+        if self.ylow is None or self.yhigh is None:
             out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.val, self.errminus, self.errplus)
         else:
             out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.ylow, self.yhigh, self.val, 0.5*(self.errminus+self.errplus))
@@ -491,27 +482,14 @@ class Bin(object):
     def asAIDA(self):
         "Return this bin as AIDA formatted string."
         ind = self.aidaindent
-        if self.ylow==None or self.yhigh==None:
-            out = (ind + "<dataPoint>\n"
-                   + ind
-                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                    .5*(self.xhigh - self.xlow), self.getBinCenter(), .5*(self.xhigh - self.xlow))
-                   + ind
-                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                    self.errplus, self.val, self.errminus)
-                   + ind + "</dataPoint>\n")
-        else :
-            out = (ind + "<dataPoint>\n"
-                   + ind
-                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                    .5*(self.xhigh - self.xlow), float(.5*(self.xhigh + self.xlow)), .5*(self.xhigh - self.xlow))
-                   + ind
-                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                    .5*(self.yhigh - self.ylow), float(.5*(self.yhigh + self.ylow)), .5*(self.yhigh - self.ylow))
-                   + ind
-                   + '  <measurement errorPlus="%e" value="%e" errorMinus="%e"/>\n' % (
-                    self.errplus, self.val, self.errminus)
-                   + ind + "</dataPoint>\n")
+        out = ind + "<dataPoint>\n"
+        out += 2*ind + '<measurement value="%e" errorPlus="%e" errorMinus="%e"/>\n' % \
+            (self.getBinCenter(), .5*(self.xhigh - self.xlow), .5*(self.xhigh - self.xlow))
+        out += 2*ind + '<measurement value="%e" errorPlus="%e" errorMinus="%e"/>\n' % \
+            (self.val, self.errplus, self.errminus)
+        # out += 2*ind + '<measurement value="%e" errorPlus="%e" errorMinus="%e"/>\n' % \
+        #     (.5*(self.yhigh + self.ylow), .5*(self.yhigh - self.ylow), .5*(self.yhigh - self.ylow))
+        out += ind + "</dataPoint>\n"
         return out
 
     def __cmp__(self, other):
@@ -536,14 +514,14 @@ class Bin(object):
 
     def getBinCenter(self):
         """Geometric middle of the bin range."""
-        return float(self.xlow + .5*(self.xhigh - self.xlow))
+        return float(self.xhigh + self.xlow)/2
 
     def getFocus(self):
         """Mean x-value of the bin."""
         if self._focus is not None:
-            return (self.xlow + self.xhigh)/2.0
-        else:
             return self._focus
+        else:
+            return (self.xlow + self.xhigh)/2.0
     focus = property(getFocus)
 
     def getVal(self):
