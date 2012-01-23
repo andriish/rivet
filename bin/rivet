@@ -259,7 +259,7 @@ if opts.LIST_ANALYSES:
                     break
         if toshow:
             msg = aname
-            if opts.LOGLEVEL == logging.DEBUG:
+            if opts.LOGLEVEL <= logging.INFO:
                 a = rivet.AnalysisLoader.getAnalysis(aname)
                 msg = "%-25s   %s" % (aname, a.summary())
             print msg

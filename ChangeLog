@@ -1,3 +1,14 @@
+2012-01-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/rivet: When using --list-analyses, the analysis summary is
+	now printed out when log level is <= INFO, rather than < INFO.
+	The effect on command line behaviour is that useful identifying
+	info is now printed by default when using --list-analyses, rather
+	than requiring --list-analyses -v. To get the old behaviour,
+	e.g. if using the output of rivet --list-analyses for scripting,
+	now use --list-analyses -q.
+
+
 2012-01-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Tidying lighthisto, including fixing the order in which +- error
