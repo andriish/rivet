@@ -532,7 +532,7 @@ class MainPlot(Plot):
             for i in range(len(FOO)):
                 xcustomminorticks.append({'Value': float(FOO[i])})
         xticks = XTicks(inputdata.description, self.coors)
-        if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
+        if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1') or (inputdata.description.has_key('PlotTickLabels') and inputdata.description['PlotTickLabels']=='0'):
             drawlabels=False
         else:
             drawlabels=True
@@ -738,10 +738,15 @@ class RatioPlot(Plot):
             for i in range(len(FOO)):
                 xcustomminorticks.append({'Value': float(FOO[i])})
         xticks = XTicks(inputdata.description, self.coors)
+        if inputdata.description.has_key('RatioPlotTickLabels') and inputdata.description['RatioPlotTickLabels']=='0':
+            drawlabels=False
+        else:
+            drawlabels=True
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
                            customminortickmarks=xcustomminortickmarks,\
                            custommajorticks=xcustommajorticks,\
-                           customminorticks=xcustomminorticks)
+                           customminorticks=xcustomminorticks,
+                           drawlabels=drawlabels)
 
         if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks']!='':
             ycustommajortickmarks=int(inputdata.description['YMajorTickMarks'])
@@ -1477,6 +1482,14 @@ class Histogram(DrawableObject):
                             + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
                             + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
         else:
+            if self.getErrorBands():
+                self.description['SmoothLine']=0
+                for i in range(len(self.data)):
+                    out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
+                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
+                                + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
             if self.getErrorBars():
                 for i in range(len(self.data)):
                     if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]: continue
@@ -1491,41 +1504,32 @@ class Histogram(DrawableObject):
                                 + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
                                 + bincenter + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
+            if self.getSmoothLine():
+                out += ('\psbezier')
             else:
-                if self.getErrorBands():
-                    self.description['SmoothLine']=0
-                    for i in range(len(self.data)):
-                        out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
-                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
-                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
-                if self.getSmoothLine():
-                    out += ('\psbezier')
+                out += ('\psline')
+            if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
+                if (coors.phys2frameX(self.data[0]['LowEdge']) > 1e-4):
+                    out += '(' + coors.strphys2frameX(self.data[0]['LowEdge']) + ', -0.1)\n'
                 else:
-                    out += ('\psline')
-                if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
-                    if (coors.phys2frameX(self.data[0]['LowEdge']) > 1e-4):
-                        out += '(' + coors.strphys2frameX(self.data[0]['LowEdge']) + ', -0.1)\n'
-                    else:
-                        out += '(-0.1, -0.1)\n'
-                for i in range(len(self.data)):
-                    if self.getSmoothLine():
-                        out += ('(' + coors.strphys2frameX(0.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                    else:
-                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
-                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                        if not (self.description.has_key('ConnectGaps') and self.description['ConnectGaps']=='1'):
-                            if (i+1 < len(self.data)) and (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
-                                out += ('\\psline')
-                if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
-                    if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
-                        out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
-                    else:
-                        out += '(1.1, -0.1)\n'
+                    out += '(-0.1, -0.1)\n'
+            for i in range(len(self.data)):
+                if self.getSmoothLine():
+                    out += ('(' + coors.strphys2frameX(0.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                else:
+                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
+                                + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                    if not (self.description.has_key('ConnectGaps') and self.description['ConnectGaps']=='1'):
+                        if (i+1 < len(self.data)) and (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
+                            out += ('\\psline')
+            if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
+                if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
+                    out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
+                else:
+                    out += '(1.1, -0.1)\n'
         #
         if self.getPolyMarker() != '':
             for i in range(len(self.data)):
