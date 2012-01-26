@@ -8,25 +8,28 @@
 
 namespace Rivet {
 
-
-  int UnstableFinalState::compare(const Projection& p) const {
-    const UnstableFinalState& other = dynamic_cast<const UnstableFinalState&>(p);
-    return \
-      cmp(_etamin, other._etamin) ||
-      cmp(_etamax, other._etamax) ||
-      cmp(_ptmin, other._ptmin);
-  }
-
-
   void UnstableFinalState::project(const Event& e) {
     _theParticles.clear();
+
+    // \todo We should really implement the FinalState algorithm here instead
+    double etamin, etamax;
+    if ( _etaRanges.empty() ) {
+      etamin = -MAXRAPIDITY;
+      etamax = MAXRAPIDITY;
+    }
+    else {
+      // with our current constructor choice, we can only ever have one entry
+      assert( _etaRanges.size() == 1 );
+      etamin = _etaRanges[0].first;
+      etamax = _etaRanges[0].second;
+    }
 
     foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
       const int st = p->status();
       bool passed = \
         ( st == 1 || (st == 2 && abs(p->pdg_id()) != 22) ) &&
         !isZero(p->momentum().perp()) && p->momentum().perp() >= _ptmin &&
-        p->momentum().eta() > _etamin && p->momentum().eta() < _etamax &&
+        p->momentum().eta() > etamin && p->momentum().eta() < etamax &&
         !IS_PARTON_PDGID(p->pdg_id());
 
       // Avoid double counting by re-marking as unpassed if particle ID == parent ID
@@ -68,7 +71,7 @@ namespace Rivet {
         }
       }
     }
-    MSG_DEBUG("Number of final-state particles = " << _theParticles.size());
+    MSG_DEBUG("Number of unstable final-state particles = " << _theParticles.size());
   }
 
 
