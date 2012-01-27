@@ -206,7 +206,7 @@ LegendXPos=0.05
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1083318/d24-x01-y0[12]
-Title=$\Delta y$ Distance of Leading Jets
+Title=Rapidity Distance of Leading Jets
 XLabel=$\Delta y$(First Jet, Second Jet)
 YLabel=d$\sigma$/d$\Delta y$ [pb]
 LogY=0
