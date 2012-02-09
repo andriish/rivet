@@ -93,7 +93,7 @@ def getHistos(aidafile):
         h.expt = dpsname.split("_")[0][1:]
         ## Hard-coded cosmetic handling for the D0 experiment name!
         if h.expt == "D0":
-            h.expt = "D\O\ "
+            h.expt = "D\O{}"
         histos[dpsname] = h
     return histos, titles, xlabels, ylabels
 
@@ -134,6 +134,8 @@ def getCommandLineOptions():
                         "(useful when the plot description should only be given in a caption)")
     stygroup.add_option("--style", dest="STYLE", default="default",
                         help="change plotting style: default|bw|talk")
+    stygroup.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
+                        help="additional plot config file(s). Settings will be included in the output configuration.")
     parser.add_option_group(stygroup)
 
     selgroup = OptionGroup(parser, "Selective plotting")
@@ -385,7 +387,7 @@ if __name__ == "__main__":
 
     ## Write out histos
     num_written = 0
-    plotparser = PlotParser(opts.PLOTINFODIR)
+    plotparser = PlotParser(opts.PLOTINFODIR, opts.CONFIGFILES)
     for name in sorted(activenames):
         logging.debug("Writing histos for plot '%s'" % name)
 

@@ -554,7 +554,7 @@ class PlotParser(object):
     pat_property = re.compile('^(\w+?)=(.*)$')
     pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 
-    def __init__(self, plotpaths=None):
+    def __init__(self, plotpaths=None, addfiles=[]):
         """
         Parameters
         ----------
@@ -572,6 +572,8 @@ class PlotParser(object):
         if plotpaths is None:
             plotpaths = []
         self.plotpaths = plotpaths
+
+        self.addfiles = addfiles
 
         if len(self.plotpaths) == 0:
             try:
@@ -615,39 +617,43 @@ class PlotParser(object):
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
             plotfile = os.path.join(pidir, base)
-            if os.access(plotfile, os.R_OK):
-                #print plotfile
-                startreading = False
-                f = open(plotfile)
-                for line in f:
-                    m = self.pat_begin_block.match(line)
-                    if m:
-                        tag, pathpat = m.group(1,2)
-                        # pathpat could be a regex
-                        if tag == section and re.match(pathpat,hpath):
-                            startreading = True
-                            if section in ['SPECIAL']:
-                                ret[section] = ''
-                            continue
-                    if not startreading:
-                        continue
-                    if self.isEndMarker(line, section):
-                        startreading = False
-                        continue
-                    elif self.isComment(line):
-                        continue
-                    if section in ['PLOT', 'HISTOGRAM']:
-                        vm = self.pat_property.match(line)
-                        if vm:
-                            prop, value = vm.group(1,2)
-                            #print prop, value
-                            ret[section][prop] = value
-                    elif section in ['SPECIAL']:
-                        ret[section] += line
-                f.close()
-                # no break, as we can collect settings from multiple .plot files
+            self.readHeadersFromFile(plotfile, ret, section, hpath)
+            # no break, as we can collect settings from multiple .plot files
+        for extrafile in self.addfiles:
+            self.readHeadersFromFile(extrafile, ret, section, hpath)
         return ret[section]
 
+    def readHeadersFromFile(self, plotfile, ret, section, hpath):
+        """Get a section for a histogram from a .plot file."""
+        if os.access(plotfile, os.R_OK):
+            startreading = False
+            f = open(plotfile)
+            for line in f:
+                m = self.pat_begin_block.match(line)
+                if m:
+                    tag, pathpat = m.group(1,2)
+                    # pathpat could be a regex
+                    if tag == section and re.match(pathpat,hpath):
+                        startreading = True
+                        if section in ['SPECIAL']:
+                            ret[section] = ''
+                        continue
+                if not startreading:
+                    continue
+                if self.isEndMarker(line, section):
+                    startreading = False
+                    continue
+                elif self.isComment(line):
+                    continue
+                if section in ['PLOT', 'HISTOGRAM']:
+                    vm = self.pat_property.match(line)
+                    if vm:
+                        prop, value = vm.group(1,2)
+                        #print prop, value
+                        ret[section][prop] = value
+                elif section in ['SPECIAL']:
+                    ret[section] += line
+            f.close()
 
     def getHeaders(self, hpath):
         """Get the plot headers for histogram hpath.
