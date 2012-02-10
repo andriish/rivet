@@ -15,7 +15,7 @@ RunInfo:
   pp to ele + X or mu + X at 7 TeV, heavy-flavour (bb and cc) production with B/D -> ele or muon
 NumEvents: 1000000
 Beams: [p+, p+]
-Energies: [3500,3500]
+Energies: [7000]
 PtCuts: 
 Description:
   'Measurement of inclusive electron and muon cross sections for
