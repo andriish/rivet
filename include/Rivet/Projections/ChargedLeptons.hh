@@ -13,7 +13,7 @@ namespace Rivet {
   /// @brief Get charged final-state leptons
   ///
   /// NB. This is just electrons and muons, unless you set taus stable!
-  class ChargedLeptons : public Projection {
+  class ChargedLeptons : public FinalState {
   public:
 
     /// Constructor
@@ -40,13 +40,8 @@ namespace Rivet {
 
     /// Access the projected leptons.
     const ParticleVector& chargedLeptons() const {
-      return _theChargedLeptons;
+      return _theParticles;
     }
-
-  private:
-
-    /// The leptons
-    ParticleVector _theChargedLeptons;
 
   };
 

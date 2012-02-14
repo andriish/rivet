@@ -14,16 +14,16 @@ namespace Rivet {
 
   void ChargedLeptons::project(const Event& evt) {
     // Reset result
-    _theChargedLeptons.clear();
+    _theParticles.clear();
 
     // Loop over charged particles and fill vector with leptons
     const FinalState& fs = applyProjection<FinalState>(evt, "ChFS");
     foreach (const Particle& p, fs.particles()) {
       if (PID::isLepton(p.pdgId())) {
-        _theChargedLeptons += Particle(p);
+        _theParticles += Particle(p);
       }
     }
-    std::sort(_theChargedLeptons.begin(), _theChargedLeptons.end(), cmpParticleByPt);
+    std::sort(_theParticles.begin(), _theParticles.end(), cmpParticleByPt);
   }
 
 

@@ -1,3 +1,11 @@
+2012-02-14  Frank Siegert  <frank.siegert@cern.ch>
+	* Bugfixes and improvements for MC_TTBAR:
+	  - Avoid assert failure with logspace starting at 0.0
+	  - Ignore charged lepton in jet finding (otherwise jet multi is always
+	    +1).
+	  - Add some dR/deta/dphi distributions as noted in TODO
+	  - Change pT plots to logspace as well (to avoid low-stat high pT bins)
+
 2012-02-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* rivet-mkhtml -c option now has the semantics of a .plot

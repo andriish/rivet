@@ -13,5 +13,3 @@ NumEvents: 10000
 PtCuts: [0]
 Description:
   This is a pure Monte Carlo study for semi-leptonic $t\bar{t}$ production.
-ToDo:
- - Add delta(R,phi,eta) plots between various b and light jets, and w.r.t the top and W candidates

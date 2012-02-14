@@ -1,5 +1,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -15,9 +16,6 @@ namespace Rivet {
     /// Minimal constructor
     MC_TTBAR() : Analysis("MC_TTBAR")
     {
-      _sumwPassedLepJetMET = 0;
-      _sumwPassedJetID = 0;
-      _sumwPassedWMass = 0;
     }
 
 
@@ -30,32 +28,51 @@ namespace Rivet {
       // A FinalState is used to select particles within |eta| < 4.2 and with pT
       // > 30 GeV, out of which the ChargedLeptons projection picks only the
       // electrons and muons, to be accessed later as "LFS".
-      addProjection(ChargedLeptons(FinalState(-4.2, 4.2, 30*GeV)), "LFS");
+      ChargedLeptons lfs(FinalState(-4.2, 4.2, 30*GeV));
+      addProjection(lfs, "LFS");
       // A second FinalState is used to select all particles in |eta| < 4.2,
       // with no pT cut. This is used to construct jets and measure missing
       // transverse energy.
-      FinalState fs(-4.2, 4.2, 0*GeV);
+      VetoedFinalState fs(FinalState(-4.2, 4.2, 0*GeV));
+      fs.addVetoOnThisFinalState(lfs);
       addProjection(FastJets(fs, FastJets::ANTIKT, 0.6), "Jets");
       addProjection(MissingMomentum(fs), "MissingET");
 
       // Booking of histograms
       _h_njets = bookHistogram1D("jet_mult", 11, -0.5, 10.5);
       //
-      _h_jet_1_pT = bookHistogram1D("jet_1_pT", 50, 0, 500);
-      _h_jet_2_pT = bookHistogram1D("jet_2_pT", 50, 0, 400);
-      _h_jet_3_pT = bookHistogram1D("jet_3_pT", 50, 0, 300);
-      _h_jet_4_pT = bookHistogram1D("jet_4_pT", 50, 0, 200);
-      _h_jet_HT   = bookHistogram1D("jet_HT", logspace(0, 2000, 50));
+      _h_jet_1_pT = bookHistogram1D("jet_1_pT", logspace(20.0, 500.0, 50));
+      _h_jet_2_pT = bookHistogram1D("jet_2_pT", logspace(20.0, 400.0, 50));
+      _h_jet_3_pT = bookHistogram1D("jet_3_pT", logspace(20.0, 300.0, 50));
+      _h_jet_4_pT = bookHistogram1D("jet_4_pT", logspace(20.0, 200.0, 50));
+      _h_jet_HT   = bookHistogram1D("jet_HT", logspace(100.0, 2000.0, 50));
       //
-      _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", 50, 0, 400);
-      _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", 50, 0, 300);
+      _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", logspace(20.0, 400.0, 50));
+      _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", logspace(20.0, 300.0, 50));
       //
-      _h_ljet_1_pT = bookHistogram1D("jetl_1_pT", 50, 0, 400);
-      _h_ljet_2_pT = bookHistogram1D("jetl_2_pT", 50, 0, 300);
+      _h_ljet_1_pT = bookHistogram1D("jetl_1_pT", logspace(20.0, 400.0, 50));
+      _h_ljet_2_pT = bookHistogram1D("jetl_2_pT", logspace(20.0, 300.0, 50));
       //
       _h_W_mass = bookHistogram1D("W_mass", 75, 30, 180);
       _h_t_mass = bookHistogram1D("t_mass", 150, 130, 430);
       _h_t_mass_W_cut = bookHistogram1D("t_mass_W_cut", 150, 130, 430);
+      //
+      _h_jetb_1_jetb_2_dR = bookHistogram1D("jetb_1_jetb_2_dR", 20, 0.0, 7.0);
+      _h_jetb_1_jetb_2_deta  = bookHistogram1D("jetb_1_jetb_2_deta", 20, 0.0, 7.0);
+      _h_jetb_1_jetb_2_dphi = bookHistogram1D("jetb_1_jetb_2_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_jetl_1_dR = bookHistogram1D("jetb_1_jetl_1_dR", 20, 0.0, 7.0);
+      _h_jetb_1_jetl_1_deta  = bookHistogram1D("jetb_1_jetl_1_deta", 20, 0.0, 7.0);
+      _h_jetb_1_jetl_1_dphi = bookHistogram1D("jetb_1_jetl_1_dphi", 20, 0.0, M_PI);
+      _h_jetl_1_jetl_2_dR = bookHistogram1D("jetl_1_jetl_2_dR", 20, 0.0, 7.0);
+      _h_jetl_1_jetl_2_deta  = bookHistogram1D("jetl_1_jetl_2_deta", 20, 0.0, 7.0);
+      _h_jetl_1_jetl_2_dphi = bookHistogram1D("jetl_1_jetl_2_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_W_dR = bookHistogram1D("jetb_1_W_dR", 20, 0.0, 7.0);
+      _h_jetb_1_W_deta  = bookHistogram1D("jetb_1_W_deta", 20, 0.0, 7.0);
+      _h_jetb_1_W_dphi = bookHistogram1D("jetb_1_W_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_l_dR = bookHistogram1D("jetb_1_l_dR", 20, 0.0, 7.0);
+      _h_jetb_1_l_deta  = bookHistogram1D("jetb_1_l_deta", 20, 0.0, 7.0);
+      _h_jetb_1_l_dphi = bookHistogram1D("jetb_1_l_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_l_mass = bookHistogram1D("jetb_1_l_mass", 40, 0.0, 500.0);
     }
 
 
@@ -96,7 +113,6 @@ namespace Rivet {
       }
 
       // Update passed-cuts counter and fill all-jets histograms
-      _sumwPassedLepJetMET += weight;
       _h_jet_1_pT->fill(alljets[0].momentum().pT()/GeV, weight);
       _h_jet_2_pT->fill(alljets[1].momentum().pT()/GeV, weight);
       _h_jet_3_pT->fill(alljets[2].momentum().pT()/GeV, weight);
@@ -142,6 +158,7 @@ namespace Rivet {
         }
       }
       MSG_DEBUG("Number of b-jets = " << bjets.size());
+      MSG_DEBUG("Number of l-jets = " << ljets.size());
       if (bjets.size() != 2) {
         MSG_DEBUG("Event failed post-lepton-isolation b-tagging cut");
         vetoEvent;
@@ -152,7 +169,6 @@ namespace Rivet {
       }
 
       // Plot the pTs of the identified jets.
-      _sumwPassedJetID += weight;
       _h_bjet_1_pT->fill(bjets[0].momentum().pT(), weight);
       _h_bjet_2_pT->fill(bjets[1].momentum().pT(), weight);
       _h_ljet_1_pT->fill(ljets[0].momentum().pT(), weight);
@@ -188,37 +204,71 @@ namespace Rivet {
       // Placing a cut on the well-known W mass helps to reduce backgrounds
       if (inRange(W.mass()/GeV, 75, 85)) {
         MSG_DEBUG("W found with mass " << W.mass()/GeV << " GeV");
-        _sumwPassedWMass += weight;
         _h_t_mass_W_cut->fill(t1.mass(), weight);
         _h_t_mass_W_cut->fill(t2.mass(), weight);
+
+        _h_jetb_1_jetb_2_dR->fill(deltaR(bjets[0].momentum(), bjets[1].momentum()),weight);
+        _h_jetb_1_jetb_2_deta->fill(fabs(bjets[0].momentum().eta()-bjets[1].momentum().eta()),weight);
+        _h_jetb_1_jetb_2_dphi->fill(deltaPhi(bjets[0].momentum(),bjets[1].momentum()),weight);
+
+        _h_jetb_1_jetl_1_dR->fill(deltaR(bjets[0].momentum(), ljets[0].momentum()),weight);
+        _h_jetb_1_jetl_1_deta->fill(fabs(bjets[0].momentum().eta()-ljets[0].momentum().eta()),weight);
+        _h_jetb_1_jetl_1_dphi->fill(deltaPhi(bjets[0].momentum(),ljets[0].momentum()),weight);
+
+        _h_jetl_1_jetl_2_dR->fill(deltaR(ljets[0].momentum(), ljets[1].momentum()),weight);
+        _h_jetl_1_jetl_2_deta->fill(fabs(ljets[0].momentum().eta()-ljets[1].momentum().eta()),weight);
+        _h_jetl_1_jetl_2_dphi->fill(deltaPhi(ljets[0].momentum(),ljets[1].momentum()),weight);
+
+        _h_jetb_1_W_dR->fill(deltaR(bjets[0].momentum(), W),weight);
+        _h_jetb_1_W_deta->fill(fabs(bjets[0].momentum().eta()-W.eta()),weight);
+        _h_jetb_1_W_dphi->fill(deltaPhi(bjets[0].momentum(),W),weight);
+
+        FourMomentum l=lfs.chargedLeptons()[0].momentum();
+        _h_jetb_1_l_dR->fill(deltaR(bjets[0].momentum(), l),weight);
+        _h_jetb_1_l_deta->fill(fabs(bjets[0].momentum().eta()-l.eta()),weight);
+        _h_jetb_1_l_dphi->fill(deltaPhi(bjets[0].momentum(),l),weight);
+        _h_jetb_1_l_mass->fill(FourMomentum(bjets[0].momentum()+l).mass(), weight);
       }
 
     }
 
 
     void finalize() {
-      scale(_h_njets, 1/_sumwPassedLepJetMET);
-      scale(_h_jet_1_pT, 1/_sumwPassedLepJetMET);
-      scale(_h_jet_2_pT, 1/_sumwPassedLepJetMET);
-      scale(_h_jet_3_pT, 1/_sumwPassedLepJetMET);
-      scale(_h_jet_4_pT, 1/_sumwPassedLepJetMET);
-      scale(_h_jet_HT, 1/_sumwPassedLepJetMET);
-      scale(_h_bjet_1_pT, 1/_sumwPassedJetID);
-      scale(_h_bjet_2_pT, 1/_sumwPassedJetID);
-      scale(_h_ljet_1_pT, 1/_sumwPassedJetID);
-      scale(_h_ljet_2_pT, 1/_sumwPassedJetID);
-      scale(_h_W_mass, 1/_sumwPassedJetID);
-      scale(_h_t_mass, 1/_sumwPassedJetID);
-      scale(_h_t_mass_W_cut, 1/_sumwPassedWMass);
+      normalize(_h_njets);
+      normalize(_h_jet_1_pT);
+      normalize(_h_jet_2_pT);
+      normalize(_h_jet_3_pT);
+      normalize(_h_jet_4_pT);
+      normalize(_h_jet_HT);
+      normalize(_h_bjet_1_pT);
+      normalize(_h_bjet_2_pT);
+      normalize(_h_ljet_1_pT);
+      normalize(_h_ljet_2_pT);
+      normalize(_h_W_mass);
+      normalize(_h_t_mass);
+      normalize(_h_t_mass_W_cut);
+      normalize(_h_jetb_1_jetb_2_dR);
+      normalize(_h_jetb_1_jetb_2_deta);
+      normalize(_h_jetb_1_jetb_2_dphi);
+      normalize(_h_jetb_1_jetl_1_dR);
+      normalize(_h_jetb_1_jetl_1_deta);
+      normalize(_h_jetb_1_jetl_1_dphi);
+      normalize(_h_jetl_1_jetl_2_dR);
+      normalize(_h_jetl_1_jetl_2_deta);
+      normalize(_h_jetl_1_jetl_2_dphi);
+      normalize(_h_jetb_1_W_dR);
+      normalize(_h_jetb_1_W_deta);
+      normalize(_h_jetb_1_W_dphi);
+      normalize(_h_jetb_1_l_dR);
+      normalize(_h_jetb_1_l_deta);
+      normalize(_h_jetb_1_l_dphi);
+      normalize(_h_jetb_1_l_mass);
     }
 
     //@}
 
 
   private:
-
-    // Passed-cuts counters
-    double _sumwPassedLepJetMET, _sumwPassedJetID, _sumwPassedWMass;
 
     // @name Histogram data members
     //@{
@@ -230,6 +280,12 @@ namespace Rivet {
     AIDA::IHistogram1D *_h_ljet_1_pT, *_h_ljet_2_pT;
     AIDA::IHistogram1D *_h_W_mass;
     AIDA::IHistogram1D *_h_t_mass, *_h_t_mass_W_cut;
+    AIDA::IHistogram1D *_h_jetb_1_jetb_2_dR, *_h_jetb_1_jetb_2_deta, *_h_jetb_1_jetb_2_dphi;
+    AIDA::IHistogram1D *_h_jetb_1_jetl_1_dR, *_h_jetb_1_jetl_1_deta, *_h_jetb_1_jetl_1_dphi;
+    AIDA::IHistogram1D *_h_jetl_1_jetl_2_dR, *_h_jetl_1_jetl_2_deta, *_h_jetl_1_jetl_2_dphi;
+    AIDA::IHistogram1D *_h_jetb_1_W_dR, *_h_jetb_1_W_deta, *_h_jetb_1_W_dphi;
+    AIDA::IHistogram1D *_h_jetb_1_l_dR, *_h_jetb_1_l_deta, *_h_jetb_1_l_dphi,*_h_jetb_1_l_mass;
+
 
     //@}
 
