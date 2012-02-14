@@ -1,4 +1,10 @@
+2012-02-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/rivet: Remove the conversion of requested analysis names to
+	upper-case: mixed-case analysis names will now work.
+
 2012-02-14  Frank Siegert  <frank.siegert@cern.ch>
+
 	* Bugfixes and improvements for MC_TTBAR:
 	  - Avoid assert failure with logspace starting at 0.0
 	  - Ignore charged lepton in jet finding (otherwise jet multi is always

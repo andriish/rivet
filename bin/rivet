@@ -414,16 +414,16 @@ ah.setIgnoreBeams(opts.IGNORE_BEAMS)
 # if opts.ALL_ANALYSES:
 #     opts.ANALYSES = all_analyses
 for a in opts.ANALYSES:
-    a_up = a.upper()
+    #a_up = a.upper()
     ## Print warning message and exit if not a valid analysis name
-    if not a_up in all_analyses:
-        logging.warning("'%s' is not a valid analysis. Available analyses are:" % a_up)
+    if not a in all_analyses:
+        logging.warning("'%s' is not a valid analysis. Available analyses are:" % a)
         for aa in all_analyses:
             logging.warning("    %s" % aa)
         logging.warning("Exiting...")
         sys.exit(1)
-    logging.debug("Adding analysis '%s'" % a_up)
-    ah.addAnalysis(a_up)
+    logging.debug("Adding analysis '%s'" % a)
+    ah.addAnalysis(a)
 
 ## Read and process events
 run = rivet.Run(ah)
