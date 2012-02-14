@@ -4,6 +4,10 @@
 
 2012-02-14  Andy Buckley  <andy.buckley@cern.ch>
 
+	* bin/compare-histos: Don't attempt to remove bins from MC histos
+	where they aren't found in the ref file, if the ref file is not
+	expt data, or if the new --no-rmgapbins arg is given.
+
 	* bin/rivet: Remove the conversion of requested analysis names to
 	upper-case: mixed-case analysis names will now work.
 

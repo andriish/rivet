@@ -113,6 +113,9 @@ def getCommandLineOptions():
     parser.add_option("--plotinfodir", dest="PLOTINFODIR", action="append",
                       default=["."], help="directory which may contain plot header information (in addition "
                       "to standard Rivet search paths)")
+    parser.add_option("--no-rmgapbins", dest="RMBINS", action="store_false",
+                      default=True, help="disable attempting to remove 'gap' bins from MC histos when they "
+                      "don't appear in the ref file")
 
     stygroup = OptionGroup(parser, "Plot style")
     stygroup.add_option("--refid", dest="REF_ID",
@@ -467,7 +470,12 @@ if __name__ == "__main__":
 
         if opts.RATIO_DEVIATION:
             paramdefaults["RatioPlotMode"] = "deviation"
+
+        ## Behaviour changes if "ref" data is just another MC file
         if not HISTOS[ref][name].isdata:
+            ## Don't attempt to remove "gap" bins
+            opts.RMBINS = False
+            ## Different ratio plot label (not MC/Data)
             paramdefaults["RatioPlotYLabel"] = "Ratio"
             if opts.RATIO_DEVIATION:
                 paramdefaults["RatioPlotYLabel"] = "Deviation"
@@ -536,14 +544,17 @@ if __name__ == "__main__":
             numskipped = 0
             #print hfile, name, HISTOS[hfile][name].numBins(), HISTOS[ref][name].numBins()
             for ibin, bin in enumerate(HISTOS[hfile][name].getBins()):
-                xmin, xmax = bin.getXRange()
                 ## Skip writing this MC bin if the bin edges don't match, and the MC histo has too many bins
-                if hfile != ref and HISTOS[hfile][name].numBins() > HISTOS[ref][name].numBins():
-                    rxmin, rxmax = HISTOS[ref][name].getBin(ibin-numskipped).getXRange()
-                    if not eq(rxmin, xmin) or not eq(rxmax, xmax):
-                        numskipped += 1
-                        assert(numskipped <= (HISTOS[hfile][name].numBins() - HISTOS[ref][name].numBins()))
-                        continue
+                if opts.RMBINS:
+                    xmin, xmax = bin.getXRange()
+                    #print HISTOS[hfile][name].numBins(), HISTOS[ref][name].numBins()
+                    if hfile != ref and HISTOS[hfile][name].numBins() > HISTOS[ref][name].numBins():
+                        rxmin, rxmax = HISTOS[ref][name].getBin(ibin-numskipped).getXRange()
+                        if not eq(rxmin, xmin) or not eq(rxmax, xmax):
+                            numskipped += 1
+                            #print numskipped, (HISTOS[hfile][name].numBins() - HISTOS[ref][name].numBins())
+                            assert(numskipped <= abs(HISTOS[hfile][name].numBins() - HISTOS[ref][name].numBins()))
+                            continue
                 histstr += '%s\n' % (bin.asFlat())
             histstr += "# END HISTOGRAM\n"
             histstrs.append(histstr)

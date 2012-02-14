@@ -109,6 +109,7 @@ function _compare_histos() {
     opts="$opts --all --show-mc-only --show-single --refid"
     opts="$opts --no-plottitle"
     opts="$opts --plotinfodir"
+    opts="$opts --no-rmgapbins"
     opts="$opts --quiet -q --verbose -v"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
