@@ -202,7 +202,7 @@ namespace Rivet {
       _h_t_mass->fill(t2.mass(), weight);
 
       // Placing a cut on the well-known W mass helps to reduce backgrounds
-      if (inRange(W.mass()/GeV, 75, 85)) {
+      if (inRange(W.mass()/GeV, 75.0, 85.0)) {
         MSG_DEBUG("W found with mass " << W.mass()/GeV << " GeV");
         _h_t_mass_W_cut->fill(t1.mass(), weight);
         _h_t_mass_W_cut->fill(t2.mass(), weight);

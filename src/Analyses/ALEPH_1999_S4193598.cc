@@ -8,6 +8,7 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 
+
 bool hasDecayedTo(const HepMC::GenParticle* p, int id1, int id2) {
   bool decision = false;
   HepMC::GenVertex* decV  = p->end_vertex();
@@ -26,6 +27,7 @@ bool hasDecayedTo(const HepMC::GenParticle* p, int id1, int id2) {
 bool hasDecayedTo(const Rivet::Particle& p, int id1, int id2) {
   return hasDecayedTo(p.genParticle(), id1, id2);
 }
+
 
 namespace Rivet {
 
@@ -50,14 +52,11 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-
       addProjection(Beam(), "Beams");
       addProjection(UnstableFinalState(), "UFS");
       addProjection(ChargedFinalState(), "CFS");
 
       _h_Xe_Ds = bookHistogram1D(1, 1, 1);
-
-
     }
 
 
@@ -68,7 +67,7 @@ namespace Rivet {
       // Trigger condition
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 5) vetoEvent;
-      
+
       _sumWpassed += weight;
 
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
@@ -77,17 +76,15 @@ namespace Rivet {
       const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
                                    beams.second.momentum().vector3().mod() ) / 2.0/GeV;
-     
-      foreach (const Particle& p, ufs.particles()) {
-        
-        const PdgId pid = fabs(p.pdgId());
 
+      foreach (const Particle& p, ufs.particles()) {
+        const PdgId pid = abs(p.pdgId());
 
         switch (pid) {
         case 413:
 
           // Accept all D*+- decays. Normalisation to D0 + pi+- in finalize()
-          
+
           // Scaled energy.
           const double energy = p.momentum().E()/GeV;
           const double scaledEnergy = energy/meanBeamMom;
