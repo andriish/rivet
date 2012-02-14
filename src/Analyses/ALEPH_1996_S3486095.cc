@@ -215,7 +215,7 @@ namespace Rivet {
 
         // Calculate rapidities w.r.t. thrust.
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
-        _histRapidityT->fill(rapidityT, weight);
+        _histRapidityT->fill(fabs(rapidityT), weight);
         if (std::fabs(rapidityT) <= 0.5)  {
             rapt05 += 1.0;
         }

@@ -1,6 +1,7 @@
 2012-02-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* DELPHI_1996_S3430090: fix rapidity vs {Thrust,Sphericity}-axis.
+	* DELPHI_1996_S3430090 and ALEPH_1996_S3486095:
+	fix rapidity vs {Thrust,Sphericity}-axis.
 
 2012-02-14  Andy Buckley  <andy.buckley@cern.ch>
 
