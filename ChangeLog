@@ -1,3 +1,10 @@
+2012-02-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Splitting MC_GENERIC to put the PDF and PID plotting into
+	MC_PDFS and MC_IDENTIFIED respectively.
+
+	* Renaming MC_LEADINGJETS to MC_LEADJETUE.
+
 2012-02-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* DELPHI_1996_S3430090 and ALEPH_1996_S3486095:

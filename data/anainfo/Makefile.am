@@ -109,7 +109,6 @@ dist_pkgdata_DATA = \
   DELPHI_2002_069_CONF_603.info \
   DELPHI_2003_WUD_03_11.info \
   EXAMPLE.info \
-  EXAMPLETREE.info \
   H1_1994_S2919893.info \
   H1_1995_S3167097.info \
   H1_2000_S4129130.info \
@@ -117,17 +116,19 @@ dist_pkgdata_DATA = \
   JADE_1998_S3612880.info \
   LHCB_2010_S8758301.info \
   LHCB_2011_I919315.info \
-  MC_GENERIC.info \
-  MC_LEADINGJETS.info \
   MC_DIJET.info \
   MC_DIPHOTON.info \
+  MC_GENERIC.info \
+  MC_HJETS.info \
+  MC_IDENTIFIED.info \
+  MC_JETS.info \
+  MC_LEADJETUE.info \
+  MC_PDFS.info \
+  MC_PHOTONJETS.info \
   MC_PHOTONJETUE.info \
   MC_SUSY.info \
   MC_TTBAR.info \
-  MC_JETS.info \
-  MC_PHOTONJETS.info \
   MC_VH2BB.info \
-  MC_HJETS.info \
   MC_WJETS.info \
   MC_WPOL.info \
   MC_WWJETS.info \

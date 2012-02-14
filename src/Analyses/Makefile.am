@@ -256,21 +256,25 @@ endif
 lib_LTLIBRARIES += RivetMCAnalyses.la
 RivetMCAnalyses_la_SOURCES = \
     EXAMPLE.cc \
+    MC_DIPHOTON.cc \
     MC_GENERIC.cc \
-    MC_JETS.cc \
-    MC_PHOTONJETS.cc \
-    MC_VH2BB.cc \
     MC_HJETS.cc \
+    MC_IDENTIFIED.cc \
+    MC_JETS.cc \
+    MC_LEADJETUE.cc \
+    MC_PDFS.cc \
+    MC_PHOTONJETS.cc \
+    MC_SUSY.cc \
+    MC_TTBAR.cc \
+    MC_VH2BB.cc \
     MC_WJETS.cc \
     MC_WPOL.cc \
     MC_WWJETS.cc \
+    MC_XS.cc \
     MC_ZJETS.cc \
-    MC_ZZJETS.cc \
-    MC_LEADINGJETS.cc \
-    MC_DIPHOTON.cc \
-    MC_SUSY.cc \
-    MC_TTBAR.cc \
-    MC_XS.cc
+    MC_ZZJETS.cc
+
+
 if ENABLE_UNVALIDATED
 RivetMCAnalyses_la_SOURCES += \
     MC_DIJET.cc \

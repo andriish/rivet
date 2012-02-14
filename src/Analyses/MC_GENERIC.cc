@@ -4,8 +4,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/Projections/MissingMomentum.hh"
+//#include "Rivet/Projections/MissingMomentum.hh"
 #include "LWH/Histogram1D.h"
 
 namespace Rivet {
@@ -33,17 +32,12 @@ namespace Rivet {
       const FinalState cnfs(-5.0, 5.0, 500*MeV);
       addProjection(cnfs, "FS");
       addProjection(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
-      addProjection(UnstableFinalState(-5.0, 5.0, 500*MeV), "UFS");
       //addProjection(MissingMomentum(cnfs), "ETmiss");
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
       _histMult   = bookHistogram1D("Mult", 100, -0.5, 199.5);
       _histMultCh = bookHistogram1D("MultCh", 100, -0.5, 199.5);
-
-      _histStablePIDs  = bookHistogram1D("MultsStablePIDs", 3335, -0.5, 3334.5);
-      _histDecayedPIDs = bookHistogram1D("MultsDecayedPIDs", 3335, -0.5, 3334.5);
-      _histAllPIDs  = bookHistogram1D("MultsAllPIDs", 3335, -0.5, 3334.5);
 
       _histPt    = bookHistogram1D("Pt", 300, 0, 30);
       _histPtCh  = bookHistogram1D("PtCh", 300, 0, 30);
@@ -58,9 +52,6 @@ namespace Rivet {
       _tmphistEtaChPlus.reset(new LWH::Histogram1D(25, 0, 5));
       _tmphistEtaChMinus.reset(new LWH::Histogram1D(25, 0, 5));
 
-      _histEtaPi       = bookHistogram1D("EtaPi", 25, 0, 5);
-      _histEtaK        = bookHistogram1D("EtaK", 25, 0, 5);
-      _histEtaLambda   = bookHistogram1D("EtaLambda", 25, 0, 5);
       _histEtaSumEt    = bookProfile1D("EtaSumEt", 25, 0, 5);
 
       _histRapidity    = bookHistogram1D("Rapidity", 50, -5, 5);
@@ -72,14 +63,6 @@ namespace Rivet {
 
       _histPhi    = bookHistogram1D("Phi", 50, 0, TWOPI);
       _histPhiCh  = bookHistogram1D("PhiCh", 50, 0, TWOPI);
-
-      _histPdfX = bookHistogram1D("PdfX", logspace(0.000001, 1.0, 50));
-      _histPdfXmin = bookHistogram1D("PdfXmin", logspace(0.000001, 1.0, 50));
-      _histPdfXmax = bookHistogram1D("PdfXmax", logspace(0.000001, 1.0, 50));
-      _histPdfQ = bookHistogram1D("PdfQ", 50, 0.0, 30.0);
-      // _histPdfXQ = bookHistogram2D("PdfXQ", logspace(0.000001, 1.0, 50), linspace(0.0, 30.0, 50));
-      // _histPdfTrackptVsX = bookProfile1D("PdfTrackptVsX", logspace(0.000001, 1.0, 50));
-      // _histPdfTrackptVsQ = bookProfile1D("PdfTrackptVsQ", 50, 0.0, 30.0);
     }
 
 
@@ -88,30 +71,11 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      // Unphysical (debug) plotting of all PIDs in the event, physical or otherwise
-      foreach (const GenParticle* gp, particles(event.genEvent())) {
-        _histAllPIDs->fill(abs(gp->pdg_id()), weight);
-      }
-
-      // Print and plot PDF info
-      if (event.genEvent().pdf_info() != 0) {
-        HepMC::PdfInfo pdfi = *event.genEvent().pdf_info();
-        MSG_DEBUG("PDF Q = " << pdfi.scalePDF() << " for (id, x) = "
-                  << "(" << pdfi.id1() << ", " << pdfi.x1() << ") "
-                  << "(" << pdfi.id2() << ", " << pdfi.x2() << ")");
-        _histPdfX->fill(pdfi.x1(), weight);
-        _histPdfX->fill(pdfi.x2(), weight);
-        _histPdfXmin->fill(std::min(pdfi.x1(), pdfi.x2()), weight);
-        _histPdfXmax->fill(std::max(pdfi.x1(), pdfi.x2()), weight);
-        _histPdfQ->fill(pdfi.scalePDF(), weight); // always in GeV?
-      }
-
       // Charged + neutral final state
       const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
       MSG_DEBUG("Total multiplicity = " << cnfs.size());
       _histMult->fill(cnfs.size(), weight);
       foreach (const Particle& p, cnfs.particles()) {
-        _histStablePIDs->fill(abs(p.pdgId()), weight);
         const double eta = p.momentum().eta();
         _histEta->fill(eta, weight);
         _histEtaSumEt->fill(fabs(eta), p.momentum().Et(), weight);
@@ -153,30 +117,9 @@ namespace Rivet {
         _histPtCh->fill(p.momentum().pT()/GeV, weight);
         _histECh->fill(p.momentum().E()/GeV, weight);
         _histPhiCh->fill(p.momentum().phi(), weight);
-
-        // if (event.genEvent().pdf_info() != 0) {
-        //   if (fabs(eta) < 2.5 && p.momentum().pT() > 10*GeV) {
-        //     HepMC::PdfInfo pdfi = *event.genEvent().pdf_info();
-        //     _histPdfTrackptVsX->fill(pdfi.x1(), p.momentum().pT()/GeV, weight);
-        //     _histPdfTrackptVsX->fill(pdfi.x2(), p.momentum().pT()/GeV, weight);
-        //     _histPdfTrackptVsQ->fill(pdfi.scalePDF(), p.momentum().pT()/GeV, weight);
-        //   }
-        // }
       }
 
-
-      // Histogram identified particle eta spectra
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
-        const double eta_abs = fabs(p.momentum().eta());
-        _histDecayedPIDs->fill(p.pdgId(), weight);
-        const PdgId pid = abs(p.pdgId());
-        //if (PID::isMeson(pid) && PID::hasStrange()) {
-        if (pid == 211 || pid == 111) _histEtaPi->fill(eta_abs, weight);
-        else if (pid == 321 || pid == 130 || pid == 310) _histEtaK->fill(eta_abs, weight);
-        else if (pid == 3122) _histEtaLambda->fill(eta_abs, weight);
-        // const MissingMomentum& met = applyProjection<MissingMomentum>(event, "ETmiss");
-      }
+      // const MissingMomentum& met = applyProjection<MissingMomentum>(event, "ETmiss");
 
     }
 
@@ -187,16 +130,8 @@ namespace Rivet {
       scale(_histMult, 1/sumOfWeights());
       scale(_histMultCh, 1/sumOfWeights());
 
-      scale(_histStablePIDs, 1/sumOfWeights());
-      scale(_histDecayedPIDs, 1/sumOfWeights());
-      scale(_histAllPIDs, 1/sumOfWeights());
-
       scale(_histEta, 1/sumOfWeights());
       scale(_histEtaCh, 1/sumOfWeights());
-
-      scale(_histEtaPi, 1/sumOfWeights());
-      scale(_histEtaK, 1/sumOfWeights());
-      scale(_histEtaLambda, 1/sumOfWeights());
 
       scale(_histRapidity, 1/sumOfWeights());
       scale(_histRapidityCh, 1/sumOfWeights());
@@ -209,11 +144,6 @@ namespace Rivet {
 
       scale(_histPhi, 1/sumOfWeights());
       scale(_histPhiCh, 1/sumOfWeights());
-
-      scale(_histPdfX, 1/sumOfWeights());
-      scale(_histPdfXmin, 1/sumOfWeights());
-      scale(_histPdfXmax, 1/sumOfWeights());
-      scale(_histPdfQ, 1/sumOfWeights());
 
       histogramFactory().divide(histoPath("EtaPMRatio"), *_tmphistEtaPlus, *_tmphistEtaMinus);
       histogramFactory().divide(histoPath("EtaChPMRatio"), *_tmphistEtaChPlus, *_tmphistEtaChMinus);
@@ -235,16 +165,12 @@ namespace Rivet {
     /// @name Histograms
     //@{
     AIDA::IHistogram1D *_histMult, *_histMultCh;
-    AIDA::IHistogram1D *_histStablePIDs, *_histDecayedPIDs, *_histAllPIDs;
-    AIDA::IHistogram1D *_histEtaPi, *_histEtaK, *_histEtaLambda;
     AIDA::IProfile1D   *_histEtaSumEt;
     AIDA::IHistogram1D *_histEta, *_histEtaCh;
     AIDA::IHistogram1D *_histRapidity, *_histRapidityCh;
     AIDA::IHistogram1D *_histPt, *_histPtCh;
     AIDA::IHistogram1D *_histE, *_histECh;
     AIDA::IHistogram1D *_histPhi, *_histPhiCh;
-    AIDA::IHistogram1D *_histPdfX, *_histPdfXmin, *_histPdfXmax, *_histPdfQ;
-    // AIDA::IProfile1D   *_histPdfTrackptVsX, *_histPdfTrackptVsQ;
     //@}
 
   };

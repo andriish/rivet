@@ -109,7 +109,8 @@ dist_pkgdata_DATA = \
   LHCB_2010_S8758301.plot \
   LHCB_2011_I919315.plot \
   MC_GENERIC.plot \
-  MC_LEADINGJETS.plot \
+  MC_IDENTIFIED.plot \
+  MC_LEADJETUE.plot \
   MC_DIJET.plot \
   MC_DIPHOTON.plot \
   MC_PHOTONJETUE.plot \
@@ -119,6 +120,7 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETS.plot \
   MC_VH2BB.plot \
   MC_HJETS.plot \
+  MC_PDFS.plot \
   MC_WJETS.plot \
   MC_WPOL.plot \
   MC_WWJETS.plot \

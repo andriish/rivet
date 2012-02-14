@@ -40,38 +40,11 @@ Title=Pseudorapidity $+/-$ ratio of all particles
 Title=Pseudorapidity $+/-$ ratio of charged particles
 # END PLOT
 
-# BEGIN PLOT /MC_GENERIC/EtaK
-Title=Pseudorapidity distribution of kaon multiplicity
-XLabel=$\eta$
-YLabel=$1/\sigma_K \; \mathrm{d}\sigma_K/\mathrm{d}\eta$
-LogY=0
-LegendXPos=0.3
-LegendYPos=0.5
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/EtaLambda
-Title=Pseudorapidity distribution of $\Lambda$ multiplicity
-XLabel=$\eta$
-YLabel=$1/\sigma_\Lambda \; \mathrm{d}\sigma_\Lambda/\mathrm{d}\eta$
-LogY=0
-LegendXPos=0.3
-LegendYPos=0.5
-# END PLOT
-
 # BEGIN PLOT /MC_GENERIC/EtaSumEt
 Title=Pseudorapidity distribution of $\langle \sum E_\perp \rangle$
 XLabel=$\eta$
 YLabel=$\langle \sum E_\perp \rangle$
 LogY=0
-LegendYPos=0.5
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/EtaPi
-Title=Pseudorapidity distribution of pion multiplicity
-XLabel=$\eta$
-YLabel=$1/\sigma_\pi \; \mathrm{d}\sigma_\pi/\mathrm{d}\eta$
-LogY=0
-LegendXPos=0.3
 LegendYPos=0.5
 # END PLOT
 
@@ -87,24 +60,6 @@ Title=Total multiplicity of events
 XLabel=$N$
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}N$
 LogY=0
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/Mults.*PIDs
-XLabel=$|\text{PID}|$
-YLabel=$\langle N_\text{PID} \rangle$
-LogY=1
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/MultsDecayedPIDs
-Title=Average per-event multiplicity of decayed particle IDs
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/MultsStablePIDs
-Title=Average per-event multiplicity of stable particle IDs
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/MultsAllPIDs
-Title=Average per-event multiplicity of \emph{all} (unphysical) particle IDs
 # END PLOT
 
 # BEGIN PLOT /MC_GENERIC/Phi$
@@ -168,44 +123,3 @@ YLabel=$\mathrm{d}\sigma/\mathrm{d}y_+ \; / \; \mathrm{d}\sigma/\mathrm{d}y_-$
 LogY=0
 LegendYPos=0.5
 # END PLOT
-
-# BEGIN PLOT /MC_GENERIC/PdfX
-Title=PDF sampling $x$ value distribution
-XLabel=$x$
-YLabel=$1/N_\text{evt} \  \mathrm{d}N_\text{evt}/\mathrm{d}x$
-LogX=1
-LogY=1
-FullRange=1
-LegendXPos=0.1
-LegendYPos=0.5
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/PdfXmin
-Title=PDF sampling $x_\text{min}$ value distribution
-XLabel=$x_\text{min}$
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/PdfXmax
-Title=PDF sampling $x_\text{max}$ value distribution
-XLabel=$x_\text{max}$
-LegendXPos=0.3
-XMin=0.00005
-# END PLOT
-
-# BEGIN PLOT /MC_GENERIC/PdfQ
-Title=PDF sampling $Q$ value distribution
-XLabel=$Q$
-YLabel=$1/N_\text{evt} \  \mathrm{d}N_\text{evt}/\mathrm{d}Q$
-LogX=0
-LogY=1
-FullRange=1
-LegendYPos=0.9
-# END PLOT
-
-# # BEGIN PLOT /MC_GENERIC/PdfXQ
-# Title=PDF sampling $x, Q$ value distribution
-# XLabel=$x$
-# YLabel=$Q$
-# LogX=0
-# LogY=0
-# # END PLOT

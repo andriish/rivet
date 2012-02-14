@@ -11,12 +11,12 @@ namespace Rivet {
 
   /// @brief MC validation analysis for underlying event in jet events
   /// @author Andy Buckley
-  class MC_LEADINGJETS : public Analysis {
+  class MC_LEADJETUE : public Analysis {
   public:
 
     /// Constructor
-    MC_LEADINGJETS()
-      : Analysis("MC_LEADINGJETS")
+    MC_LEADJETUE()
+      : Analysis("MC_LEADJETUE")
     {    }
 
 
@@ -165,6 +165,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_LEADINGJETS);
+  DECLARE_RIVET_PLUGIN(MC_LEADJETUE);
 
 }
