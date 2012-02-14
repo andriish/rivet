@@ -287,9 +287,9 @@ namespace Rivet {
   inline double covariance(const vector<int>& sample1, const vector<int>& sample2) {
     const double mean1 = mean(sample1);
     const double mean2 = mean(sample2);
-    const int N = sample1.size();
+    const size_t N = sample1.size();
     double cov = 0.0;
-    for (int i = 0; i < N; i++) {
+    for (size_t i = 0; i < N; i++) {
       const double cov_i = (sample1[i] - mean1)*(sample2[i] - mean2);
       cov += cov_i;
     }
@@ -303,9 +303,9 @@ namespace Rivet {
     const double mean2 = mean(sample2);
     const double mean1_e = mean_err(sample1);
     const double mean2_e = mean_err(sample2);
-    const int N = sample1.size();
+    const size_t N = sample1.size();
     double cov_e = 0.0;
-    for (int i = 0; i < N; i++) {
+    for (size_t i = 0; i < N; i++) {
       const double cov_i = (sqrt(sample1[i]) - mean1_e)*(sample2[i] - mean2) +
         (sample1[i] - mean1)*(sqrt(sample2[i]) - mean2_e);
       cov_e += cov_i;
