@@ -1,3 +1,25 @@
+2012-02-10  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* rivet-mkhtml -c option now has the semantics of a .plot
+	file. The contents are appended to the dat output by
+	compare-histos.
+
+2012-02-09  David Grellscheid <david.grellscheid@durham.ac.uk>
+
+	* Fixed broken UnstableFS behaviour
+
+2012-01-25 Frank Siegert  <frank.siegert@cern.ch>
+
+	* Improvements in make-plots:
+          - Add PlotTickLabels and RatioPlotTickLabels options (cf.
+	    make-plots.txt)
+          - Make ErrorBars and ErrorBands non-exclusive (and change
+	    their order, such that Bars are on top of Bands)
+
+2012-01-25 Holger Schulz  <holger.schulz@physik.hu-berlin.de>
+
+	* Add ATLAS diffractive gap analysis
+
 2012-01-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* bin/rivet: When using --list-analyses, the analysis summary is
@@ -12,6 +34,35 @@
 
 	* Tidying lighthisto, including fixing the order in which +- error
 	values are passed to the Bin constructor in fromFlatHisto.
+
+2012-01-16 Frank Siegert  <frank.siegert@cern.ch>
+
+	* Bugfix in ATLAS_2012_I1083318: Include non-signal neutrinos in
+	jet clustering.
+
+	* Add first version of ATLAS_2012_I1083318 (W+jets). Still
+	UNVALIDATED until final happiness with validation plots arises and
+	data is in Hepdata.
+
+	* Bugfix in ATLAS_2010_S8919674: Really use neutrino with highest
+	pT for Etmiss. Doesn't seem to make very much difference, but is
+	more correct in principle.
+
+2012-01-16 Peter Richardson  <peter.richardson@durham.ac.uk>
+
+	* Fixes to ATLAS_20111_S9225137 to include reference data
+
+2012-01-13 Holger Schulz  <holger.schulz@physik.hu-berlin.de>
+
+	* Add ATLAS inclusive lepton analysis
+
+2012-01-12 Hendrik Hoeth  <hendrik.hoeth@durham.ac.uk>
+
+	* Font selection support in rivet-mkhtml
+
+2012-01-11 Peter Richardson  <peter.richardson@durham.ac.uk>
+
+	* Added pi0 to list of particles.
 
 2012-01-11  Andy Buckley  <andy.buckley@cern.ch>
 
