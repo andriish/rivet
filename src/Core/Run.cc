@@ -43,7 +43,7 @@ namespace Rivet {
     }
     // Rescale event weights by file-level weight, if scaling is non-trivial
     if (!fuzzyEquals(_fileweight, 1.0)) {
-      for (size_t i = 0; i < _evt->weights().size(); ++i) {
+      for (size_t i = 0; i < (size_t) _evt->weights().size(); ++i) {
         _evt->weights()[i] *= _fileweight;
       }
     }
