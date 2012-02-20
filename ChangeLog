@@ -1,3 +1,8 @@
+2012-02-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* src/Analyses/ATLAS_2011_I925932.cc: Using new overflow-aware
+	normalize() in place of counters and scale(..., 1/count)
+
 2012-02-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Splitting MC_GENERIC to put the PDF and PID plotting into
