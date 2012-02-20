@@ -22,7 +22,7 @@ namespace Rivet {
       const GenVertex* pv = p->production_vertex();
       const GenVertex* dv = p->end_vertex();
       const PdgId pid = abs(p->pdg_id());
-      bool passed = (inRange(pid, 1, 5));
+      bool passed = inRange((long)pid, 1, 5);
       if (passed) {
         if (pv != 0) {
           foreach (const GenParticle* pp, particles_in(pv)) {

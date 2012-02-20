@@ -9,6 +9,13 @@
 namespace Rivet {
 
 
+  namespace {
+    inline double calcMT(const FourMomentum& a, const FourMomentum& b) {
+      return sqrt(2.0 * a.pT() * b.pT() * (1.0 - cos(a.phi() - b.phi())) );
+    }
+  }
+
+
   class ATLAS_2011_I925932 : public Analysis {
   public:
 
@@ -31,22 +38,11 @@ namespace Rivet {
       WFinder wfinder_bare_mu(fs, -2.4, 2.4, 20.0*GeV, MUON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.0,true,false);
       addProjection(wfinder_bare_mu, "WFinder_bare_mu");
 
-      // Counters
-      _sumW_e_dressed = 0;
-      _sumW_e_bare = 0;
-      _sumW_mu_dressed = 0;
-      _sumW_mu_bare = 0;
-
       // Book histograms
       _hist_wpt_dressed_el  = bookHistogram1D(1, 1, 1);
       _hist_wpt_bare_el     = bookHistogram1D(1, 1, 2);
       _hist_wpt_dressed_mu  = bookHistogram1D(2, 1, 1);
       _hist_wpt_bare_mu     = bookHistogram1D(2, 1, 2);
-    }
-
-
-    inline double calcMT(const FourMomentum& a, const FourMomentum& b) {
-      return sqrt(2.0 * a.pT() * b.pT() * (1.0 - cos(a.phi() - b.phi())) );
     }
 
 
@@ -69,7 +65,6 @@ namespace Rivet {
 	    const FourMomentum el = wfinder_dressed_el.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_dressed_el.constituentNeutrinos()[0].momentum();
 	    if (calcMT(el, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _sumW_e_dressed += event.weight();
           _hist_wpt_dressed_el->fill(wfinder_dressed_el.bosons()[0].momentum().pT()/GeV, event.weight());
 	    }
       }
@@ -79,7 +74,6 @@ namespace Rivet {
 	    const FourMomentum el = wfinder_bare_el.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_bare_el.constituentNeutrinos()[0].momentum();
 	    if (calcMT(el, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _sumW_e_bare += event.weight();
           _hist_wpt_bare_el->fill(wfinder_bare_el.bosons()[0].momentum().pT()/GeV, event.weight());
 	    }
       }
@@ -89,7 +83,6 @@ namespace Rivet {
 	    const FourMomentum mu = wfinder_dressed_mu.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_dressed_mu.constituentNeutrinos()[0].momentum();
 	    if (calcMT(mu, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _sumW_mu_dressed += event.weight();
           _hist_wpt_dressed_mu->fill(wfinder_dressed_mu.bosons()[0].momentum().pT()/GeV, event.weight());
 	    }
       }
@@ -99,7 +92,6 @@ namespace Rivet {
 	    const FourMomentum mu = wfinder_bare_mu.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_bare_mu.constituentNeutrinos()[0].momentum();
 	    if (calcMT(mu, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _sumW_mu_bare += event.weight();
           _hist_wpt_bare_mu->fill(wfinder_bare_mu.bosons()[0].momentum().pT()/GeV, event.weight());
 	    }
       }
@@ -109,18 +101,16 @@ namespace Rivet {
 
     // Normalize histos
     void finalize() {
-      scale(_hist_wpt_dressed_el, 1/_sumW_e_dressed);
-      scale(_hist_wpt_bare_el, 1/_sumW_e_bare);
-      scale(_hist_wpt_dressed_mu, 1/_sumW_mu_dressed);
-      scale(_hist_wpt_bare_mu, 1/_sumW_mu_bare);
+      normalize(_hist_wpt_dressed_el);
+      normalize(_hist_wpt_bare_el);
+      normalize(_hist_wpt_dressed_mu);
+      normalize(_hist_wpt_bare_mu);
     }
 
     //@}
 
 
   private:
-
-	double _sumW_e_dressed, _sumW_e_bare, _sumW_mu_dressed, _sumW_mu_bare;
 
 	AIDA::IHistogram1D* _hist_wpt_dressed_el;
 	AIDA::IHistogram1D* _hist_wpt_bare_el;
