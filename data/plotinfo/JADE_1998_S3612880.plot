@@ -58,7 +58,7 @@ XLabel=$D_2$
 YLabel=$1/\sigma \text{d}\sigma/\text{d}(d_2)$
 # END PLOT
 
-# BEGIN PLOT /JADE_1998_S3612880/d11-x01-y01
+# BEGIN PLOT /JADE_1998_S3612880/d12-x01-y01
 Title=Differential 2-Jet rate (Durham), $\sqrt{s}=22$ GeV
 XLabel=$D_2$
 YLabel=$1/\sigma \text{d}\sigma/\text{d}(d_2)$
