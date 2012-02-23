@@ -22,7 +22,6 @@ namespace Rivet {
     ATLAS_2011_I944826()
       : Analysis("ATLAS_2011_I944826")
     {
-        setBeams(PROTON, PROTON);
         _sum_w_ks     = 0.0;
         _sum_w_lambda = 0.0;
         _sum_w_passed = 0.0;
