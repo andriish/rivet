@@ -316,7 +316,10 @@ if __name__ == "__main__":
             else:
                 newarea = tempref.getArea()
 
-            scalefactor = newarea/oldarea
+            if not oldarea == 0.0:
+                scalefactor = newarea/oldarea
+            else:
+                scalefactor= 0.0
             if scalefactor != 1.0:
                 oldarea = histos[name].getArea()
                 newarea = histos[name].getArea() * scalefactor
