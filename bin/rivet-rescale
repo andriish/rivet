@@ -320,7 +320,8 @@ if __name__ == "__main__":
                 scalefactor = newarea/oldarea
             else:
                 scalefactor= 0.0
-            if scalefactor != 1.0:
+            if scalefactor != 1.0 and scalefactor > 0.0:
+                print scalefactor
                 oldarea = histos[name].getArea()
                 newarea = histos[name].getArea() * scalefactor
 
