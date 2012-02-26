@@ -1,5 +1,8 @@
 2012-02-26  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding CMS_2011_S8973270, CMS_2011_S8941262, CMS_2011_S9215166,
+	CMS_QCD_10_024, from CMS.
+
 	* Adding LHCB_2011_I917009 analysis, from Alex Grecu.
 
 	* src/Core/Analysis.cc, include/Rivet/Analysis.hh: Add a numeric-arg version of histoPath().

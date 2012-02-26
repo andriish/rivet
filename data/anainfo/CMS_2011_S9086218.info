@@ -1,9 +1,9 @@
-Name: CMS_2011_S9086218 
+Name: CMS_2011_S9086218
 Year: 2011
-Summary: Measurement of the Inclusive Jet Cross Section in pp Collisions at sqrt(s) = 7 TeV
+Summary: Measurement of the inclusive jet cross-section in $pp$ collisions at $\sqrt{s} = 7$ TeV
 Experiment: CMS
 Collider: LHC
-SpiresID: 9086218 
+SpiresID: 9086218
 Status: VALIDATED
 Authors:
  - Rasmus Sloth Hansen<rsh07@phys.au.dk>
