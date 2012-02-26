@@ -116,6 +116,7 @@ dist_pkgdata_DATA = \
   JADE_OPAL_2000_S4300807.info \
   JADE_1998_S3612880.info \
   LHCB_2010_S8758301.info \
+  LHCB_2011_I917009.info \
   LHCB_2011_I919315.info \
   MC_DIJET.info \
   MC_DIPHOTON.info \

@@ -98,6 +98,7 @@ RivetLHCbAnalyses_la_SOURCES =
 if ENABLE_UNVALIDATED
 RivetLHCbAnalyses_la_SOURCES += \
     LHCB_2010_S8758301.cc \
+    LHCB_2011_I917009.cc \
     LHCB_2011_I919315.cc
 endif
 

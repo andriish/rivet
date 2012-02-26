@@ -1,3 +1,13 @@
+2012-02-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding LHCB_2011_I917009 analysis, from Alex Grecu.
+
+	* src/Core/Analysis.cc, include/Rivet/Analysis.hh: Add a numeric-arg version of histoPath().
+
+2012-02-24  Holger Schulz  <holger.schulz@physik.hu-berlin.de>
+
+	* Adding ATLAS Ks/Lambda analysis.
+
 2012-02-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* src/Analyses/ATLAS_2011_I925932.cc: Using new overflow-aware
