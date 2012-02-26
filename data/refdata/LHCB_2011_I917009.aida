@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE aida
+  SYSTEM 'http://aida.freehep.org/schemas/3.2.1/aida.dtd'>
+<aida version="3.2">
+	<implementation package="LHCb raw2aida" version="1.0"/>
+	<dataPointSet dimension="2" name="d01-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=0.9$ TeV ($0.25 &lt; p_\perp &lt; 0.65$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="4.864977e-01" errorPlus="4.864977e-01" value="1.622000e+00"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="7.249828e-02" errorPlus="7.249828e-02" value="9.040000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="5.467175e-02" errorPlus="5.467175e-02" value="6.100000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="1.348518e-01" errorPlus="1.348518e-01" value="4.200000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d01-x01-y02" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=0.9$ TeV ($0.65 &lt; p_\perp &lt; 1.00$ Gev/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="1.001699e-01" errorPlus="1.001699e-01" value="7.230000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="4.579301e-02" errorPlus="4.579301e-02" value="7.720000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="5.108816e-02" errorPlus="5.108816e-02" value="7.460000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="6.657327e-02" errorPlus="6.657327e-02" value="6.170000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d01-x01-y03" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=0.9$ TeV ($1.00 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="1.164174e-01" errorPlus="1.164174e-01" value="9.040000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="5.188449e-02" errorPlus="5.188449e-02" value="7.450000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="4.601087e-02" errorPlus="4.601087e-02" value="7.570000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="4.390900e-02" errorPlus="4.390900e-02" value="4.850000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d02-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=0.9$ TeV ($0.25 &lt; p_\perp &lt; 0.65$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="4.440721e-02" errorPlus="4.440721e-02" value="1.970000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="2.607681e-02" errorPlus="2.607681e-02" value="2.180000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="2.059126e-02" errorPlus="2.059126e-02" value="1.800000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.744329e-02" errorPlus="3.744329e-02" value="1.580000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d02-x01-y02" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=0.9$ TeV ($0.65 &lt; p_\perp &lt; 1.00$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="3.828838e-02" errorPlus="3.828838e-02" value="3.160000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="2.641969e-02" errorPlus="2.641969e-02" value="3.060000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="2.505993e-02" errorPlus="2.505993e-02" value="3.000000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.041381e-02" errorPlus="3.041381e-02" value="2.990000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d02-x01-y03" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=0.9$ TeV ($1.00 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="5.353504e-02" errorPlus="5.353504e-02" value="4.630000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="3.264966e-02" errorPlus="3.264966e-02" value="4.290000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="3.577709e-02" errorPlus="3.577709e-02" value="4.130000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.280244e-02" errorPlus="3.280244e-02" value="3.230000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d03-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=0.9$ TeV ($0.25 &lt; p_\perp &lt; 2.50$ Gev/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="9.436631e-02" errorPlus="9.436631e-02" value="9.340000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="3.535534e-02" errorPlus="3.535534e-02" value="8.000000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="3.858756e-02" errorPlus="3.858756e-02" value="7.270000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="5.060632e-02" errorPlus="5.060632e-02" value="5.390000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d04-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=0.9$ TeV ($0.25 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="3.162278e-02" errorPlus="3.162278e-02" value="2.850000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="2.213594e-02" errorPlus="2.213594e-02" value="2.630000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="2.184033e-02" errorPlus="2.184033e-02" value="2.580000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="2.282542e-02" errorPlus="2.282542e-02" value="2.520000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d05-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=0.9$ TeV ($2.0 &lt; y &lt; 4.0$)">
+		<dataPoint>
+			<measurement errorMinus="1.250000e-01" errorPlus="1.250000e-01" value="3.750000e-01"/>
+			<measurement errorMinus="6.095900e-02" errorPlus="6.095900e-02" value="8.060000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="5.750000e-01"/>
+			<measurement errorMinus="4.816638e-02" errorPlus="4.816638e-02" value="7.310000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="7.250000e-01"/>
+			<measurement errorMinus="4.891830e-02" errorPlus="4.891830e-02" value="7.370000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="9.000000e-01"/>
+			<measurement errorMinus="4.891830e-02" errorPlus="4.891830e-02" value="7.750000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="1.100000e+00"/>
+			<measurement errorMinus="4.104875e-02" errorPlus="4.104875e-02" value="7.010000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="6.500000e-01" errorPlus="6.500000e-01" value="1.850000e+00"/>
+			<measurement errorMinus="3.905125e-02" errorPlus="3.905125e-02" value="7.450000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d06-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=0.9$ TeV ($2.0 &lt; y &lt; 4.0$)">
+		<dataPoint>
+			<measurement errorMinus="1.250000e-01" errorPlus="1.250000e-01" value="3.750000e-01"/>
+			<measurement errorMinus="1.878829e-02" errorPlus="1.878829e-02" value="1.770000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="5.750000e-01"/>
+			<measurement errorMinus="2.012461e-02" errorPlus="2.012461e-02" value="2.180000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="7.250000e-01"/>
+			<measurement errorMinus="2.507987e-02" errorPlus="2.507987e-02" value="2.840000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="9.000000e-01"/>
+			<measurement errorMinus="2.683282e-02" errorPlus="2.683282e-02" value="3.230000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="1.100000e+00"/>
+			<measurement errorMinus="2.830194e-02" errorPlus="2.830194e-02" value="3.680000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="6.500000e-01" errorPlus="6.500000e-01" value="1.850000e+00"/>
+			<measurement errorMinus="3.176476e-02" errorPlus="3.176476e-02" value="4.420000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d07-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=0.9$ TeV ($0.25 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.120000e+00"/>
+			<measurement errorMinus="5.060632e-02" errorPlus="5.060632e-02" value="5.390000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.620000e+00"/>
+			<measurement errorMinus="3.858756e-02" errorPlus="3.858756e-02" value="7.270000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.120000e+00"/>
+			<measurement errorMinus="3.535534e-02" errorPlus="3.535534e-02" value="8.000000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.620000e+00"/>
+			<measurement errorMinus="9.436631e-02" errorPlus="9.436631e-02" value="9.340000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d08-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=0.9$ TeV ($0.25 &lt; p_\perp &lt; 2.50$ Gev/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.120000e+00"/>
+			<measurement errorMinus="2.282542e-02" errorPlus="2.282542e-02" value="2.520000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.620000e+00"/>
+			<measurement errorMinus="2.184033e-02" errorPlus="2.184033e-02" value="2.580000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.120000e+00"/>
+			<measurement errorMinus="2.213594e-02" errorPlus="2.213594e-02" value="2.630000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.620000e+00"/>
+			<measurement errorMinus="3.162278e-02" errorPlus="3.162278e-02" value="2.850000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d09-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=7$ TeV ($0.15 &lt; p_\perp &lt; 0.65$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="1.999725e-01" errorPlus="1.999725e-01" value="8.720000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="3.935734e-02" errorPlus="3.935734e-02" value="9.570000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="3.584690e-02" errorPlus="3.584690e-02" value="9.420000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.940812e-02" errorPlus="3.940812e-02" value="8.760000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="1.328157e-01" errorPlus="1.328157e-01" value="9.000000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d09-x01-y02" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=7$ TeV ($0.65 &lt; p_\perp &lt; 1.00$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="6.580274e-02" errorPlus="6.580274e-02" value="9.740000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="4.134005e-02" errorPlus="4.134005e-02" value="9.680000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="3.546830e-02" errorPlus="3.546830e-02" value="9.240000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.671512e-02" errorPlus="3.671512e-02" value="8.960000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="5.280152e-02" errorPlus="5.280152e-02" value="8.620000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d09-x01-y03" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=7$ TeV ($1.00 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="4.468781e-02" errorPlus="4.468781e-02" value="9.870000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="3.758989e-02" errorPlus="3.758989e-02" value="9.660000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="3.534119e-02" errorPlus="3.534119e-02" value="9.280000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.623534e-02" errorPlus="3.623534e-02" value="9.030000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="4.031129e-02" errorPlus="4.031129e-02" value="7.920000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d10-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=7$ TeV ($0.15 &lt; p_\perp &lt; 0.65$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="4.036087e-02" errorPlus="4.036087e-02" value="1.820000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="2.617250e-02" errorPlus="2.617250e-02" value="1.910000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="2.507987e-02" errorPlus="2.507987e-02" value="1.850000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="2.531798e-02" errorPlus="2.531798e-02" value="1.750000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="3.354102e-02" errorPlus="3.354102e-02" value="2.070000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d10-x01-y02" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=7$ TeV ($0.65 &lt; p_\perp &lt; 1.00$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="3.269557e-02" errorPlus="3.269557e-02" value="3.200000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="3.059412e-02" errorPlus="3.059412e-02" value="3.280000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="2.828427e-02" errorPlus="2.828427e-02" value="3.150000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="2.844293e-02" errorPlus="2.844293e-02" value="2.990000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="3.138471e-02" errorPlus="3.138471e-02" value="3.210000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d10-x01-y03" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=7$ TeV ($1.00 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="3.668787e-02" errorPlus="3.668787e-02" value="4.830000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="3.373426e-02" errorPlus="3.373426e-02" value="4.780000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="3.354102e-02" errorPlus="3.354102e-02" value="4.580000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.275668e-02" errorPlus="3.275668e-02" value="4.560000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="3.162278e-02" errorPlus="3.162278e-02" value="3.990000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d11-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=7$ TeV ($0.15 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="4.720169e-02" errorPlus="4.720169e-02" value="9.780000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="3.417601e-02" errorPlus="3.417601e-02" value="9.520000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="3.201562e-02" errorPlus="3.201562e-02" value="9.310000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="3.289377e-02" errorPlus="3.289377e-02" value="8.890000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="4.134005e-02" errorPlus="4.134005e-02" value="8.100000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d12-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=7$ TeV ($0.15 &lt; p_\perp &lt; 2.5$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.250000e+00"/>
+			<measurement errorMinus="2.961419e-02" errorPlus="2.961419e-02" value="2.940000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="2.750000e+00"/>
+			<measurement errorMinus="2.816026e-02" errorPlus="2.816026e-02" value="2.790000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.250000e+00"/>
+			<measurement errorMinus="2.707397e-02" errorPlus="2.707397e-02" value="2.740000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="3.750000e+00"/>
+			<measurement errorMinus="2.617250e-02" errorPlus="2.617250e-02" value="2.760000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.250000e+00"/>
+			<measurement errorMinus="2.961419e-02" errorPlus="2.961419e-02" value="2.860000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d13-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=7$ TeV ($2.0 &lt; y &lt; 4.5$)">
+		<dataPoint>
+			<measurement errorMinus="1.750000e-01" errorPlus="1.750000e-01" value="3.250000e-01"/>
+			<measurement errorMinus="3.676955e-02" errorPlus="3.676955e-02" value="9.540000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="5.750000e-01"/>
+			<measurement errorMinus="3.584690e-02" errorPlus="3.584690e-02" value="9.300000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="7.250000e-01"/>
+			<measurement errorMinus="3.584690e-02" errorPlus="3.584690e-02" value="9.430000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="9.000000e-01"/>
+			<measurement errorMinus="3.453983e-02" errorPlus="3.453983e-02" value="9.230000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="1.100000e+00"/>
+			<measurement errorMinus="3.534119e-02" errorPlus="3.534119e-02" value="9.360000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="6.500000e-01" errorPlus="6.500000e-01" value="1.850000e+00"/>
+			<measurement errorMinus="3.289377e-02" errorPlus="3.289377e-02" value="9.190000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d14-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=7$ TeV ($2.0 &lt; y &lt; 4.5$)">
+		<dataPoint>
+			<measurement errorMinus="1.750000e-01" errorPlus="1.750000e-01" value="3.250000e-01"/>
+			<measurement errorMinus="2.408319e-02" errorPlus="2.408319e-02" value="1.620000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="5.750000e-01"/>
+			<measurement errorMinus="2.517936e-02" errorPlus="2.517936e-02" value="2.310000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="7.500000e-02" errorPlus="7.500000e-02" value="7.250000e-01"/>
+			<measurement errorMinus="2.716616e-02" errorPlus="2.716616e-02" value="2.880000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="9.000000e-01"/>
+			<measurement errorMinus="2.828427e-02" errorPlus="2.828427e-02" value="3.510000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="1.000000e-01" errorPlus="1.000000e-01" value="1.100000e+00"/>
+			<measurement errorMinus="3.059412e-02" errorPlus="3.059412e-02" value="4.120000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="6.500000e-01" errorPlus="6.500000e-01" value="1.850000e+00"/>
+			<measurement errorMinus="3.436568e-02" errorPlus="3.436568e-02" value="4.920000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d15-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/\Lambda$ ratio at $\sqrt{s}=7$ TeV ($0.15 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.000000e-01" errorPlus="2.000000e-01" value="4.720000e+00"/>
+			<measurement errorMinus="4.134005e-02" errorPlus="4.134005e-02" value="8.100000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="5.170000e+00"/>
+			<measurement errorMinus="3.289377e-02" errorPlus="3.289377e-02" value="8.890000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="5.670000e+00"/>
+			<measurement errorMinus="3.201562e-02" errorPlus="3.201562e-02" value="9.310000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="6.170000e+00"/>
+			<measurement errorMinus="3.417601e-02" errorPlus="3.417601e-02" value="9.520000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="6.670000e+00"/>
+			<measurement errorMinus="4.720169e-02" errorPlus="4.720169e-02" value="9.780000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d16-x01-y01" path="/REF/LHCB_2011_I917009" title="$\bar{\Lambda}/K_{s}^{0}$ ratio at $\sqrt{s}=7$ TeV ($0.15 &lt; p_\perp &lt; 2.50$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="6.670000e+00"/>
+			<measurement errorMinus="2.961419e-02" errorPlus="2.961419e-02" value="2.940000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="6.170000e+00"/>
+			<measurement errorMinus="2.816026e-02" errorPlus="2.816026e-02" value="2.790000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="5.670000e+00"/>
+			<measurement errorMinus="2.707397e-02" errorPlus="2.707397e-02" value="2.740000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="5.170000e+00"/>
+			<measurement errorMinus="2.617250e-02" errorPlus="2.617250e-02" value="2.760000e-01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="2.500000e-01" errorPlus="2.500000e-01" value="4.670000e+00"/>
+			<measurement errorMinus="2.961419e-02" errorPlus="2.961419e-02" value="2.860000e-01"/>
+		</dataPoint>
+	</dataPointSet>
+</aida>
