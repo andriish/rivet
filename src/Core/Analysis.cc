@@ -79,6 +79,11 @@ namespace Rivet {
   }
 
 
+  const string Analysis::histoPath(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+    return histoDir() + "/" + makeAxisCode(datasetId, xAxisId, yAxisId);
+  }
+
+
   const string Analysis::makeAxisCode(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
     stringstream axisCode;
     axisCode << "d";
