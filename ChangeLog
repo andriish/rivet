@@ -1,3 +1,8 @@
+2012-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* doc/mk-analysis-html: Adding more LaTeX/text -> HTML conversion
+	replacements, including better <,> handling.
+
 2012-02-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding CMS_2011_S8973270, CMS_2011_S8941262, CMS_2011_S9215166,

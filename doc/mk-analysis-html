@@ -43,10 +43,16 @@ except:
 import rivet
 
 
-def htmlify(s):
+def htmlify(s, para=False):
+    # TODO: also replace LaTeX like \text, $$, \le, \ge, \mathrm, \emph, etc.
     t = s \
         .replace("&", "&amp;") \
-        #.replace("->", "\\ensuremath{\\to}") \
+        .replace(">", "&gt;") \
+        .replace("<", "&lt;") \
+        .replace("$", "") \
+        .replace("\\pm", "+-")
+    if para:
+        t = t.replace("\n\n", "</p><p>")
     return t
 
 
@@ -58,7 +64,7 @@ for aname in sorted(list(all_analyses)):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
     page += "<h3 id='%s'>%s</h3>\n" % (aname, aname)
-    page += "<b>%s</b><br/>\n" %  ana.summary()
+    page += "<b>%s</b><br/>\n" %  htmlify(ana.summary())
     page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
     if ana.inspireId():
         spiresbase = "http://inspire-hep.net/record"
@@ -82,7 +88,7 @@ for aname in sorted(list(all_analyses)):
                 email = a.split()[-1].replace("<", "").replace(">", "")
                 #s = "<a href='mailto:%s'>%s</a>" % (email, name)
                 s = name
-            page += "  <li>%s</li>\n" % s
+            page += "  <li>%s</li>\n" % htmlify(s)
         page += "</ul>\n"
     else:
         page += "<b>No authors listed</b>\n"
@@ -95,13 +101,13 @@ for aname in sorted(list(all_analyses)):
             if r.startswith("arXiv:"):
                 code = r.split()[0].replace("arXiv:", "")
                 url = "http://arxiv.org/abs/" + code
-                page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("arXiv:", url, code)
+                page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("arXiv:", htmlify(url), htmlify(code))
             elif r.startswith("doi:"):
                 code = r.replace("doi:", "")
                 url = "http://dx.doi.org/" + code
-                page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("DOI:", url, code)
+                page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("DOI:", htmlify(url), htmlify(code))
             else:
-                page += "  <li>%s</li>\n" % r
+                page += "  <li>%s</li>\n" % htmlify(r)
         page += "</ul>\n"
     else:
         page += "<b>No references listed</b>\n"
@@ -142,15 +148,14 @@ for aname in sorted(list(all_analyses)):
             l = l.strip()
             if l.startswith("*"):
                 l = l[1:].strip()
-            page += "  <li>%s</li>\n" % l
+            page += "  <li>%s</li>\n" % htmlify(l)
         page += "</ul>\n"
     else:
         page += "<ul>No run details listed</ul>\n"
 
 
-    page += "\n<p>" + ana.description().replace("\n\n", "</p><p>") + "</p>\n"
+    page += "\n<p>" + htmlify(ana.description(), para=True) + "</p>\n"
 
-    page = htmlify(page)
     pages.append(page)
 
 
