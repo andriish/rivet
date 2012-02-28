@@ -1,3 +1,8 @@
+2012-02-28  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* lighthisto.py: Caching for re.compile(). This speeds up aida2flat
+	ant flat2aida by more than an order of magnitude.
+
 2012-02-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* doc/mk-analysis-html: Adding more LaTeX/text -> HTML conversion

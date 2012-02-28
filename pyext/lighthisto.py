@@ -553,6 +553,7 @@ class PlotParser(object):
     pat_comment = re.compile('^#|^\s*$')
     pat_property = re.compile('^(\w+?)=(.*)$')
     pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
+    pat_paths = {}
 
     def __init__(self, plotpaths=None, addfiles=[]):
         """
@@ -633,7 +634,9 @@ class PlotParser(object):
                 if m:
                     tag, pathpat = m.group(1,2)
                     # pathpat could be a regex
-                    if tag == section and re.match(pathpat,hpath):
+                    if not self.pat_paths.has_key(pathpat):
+                        self.pat_paths[pathpat] = re.compile(pathpat)
+                    if tag == section and self.pat_paths[pathpat].match(hpath):
                         startreading = True
                         if section in ['SPECIAL']:
                             ret[section] = ''
