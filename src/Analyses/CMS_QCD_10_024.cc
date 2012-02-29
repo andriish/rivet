@@ -15,7 +15,9 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CMS_QCD_10_024() : Analysis("CMS_QCD_10_024") {  }
+    CMS_QCD_10_024() : Analysis("CMS_QCD_10_024"), 
+		       _weight_pt05_eta08(0.), _weight_pt10_eta08(0.),
+		       _weight_pt05_eta24(0.), _weight_pt10_eta24(0.) {  }
 
 
     void init() {
@@ -42,27 +44,29 @@ namespace Rivet {
       const ChargedFinalState& cfs_24_10 = applyProjection<ChargedFinalState>(event, "CFS_24_10");
 
       // Plot distributions
-      foreach (const Particle& p, cfs_08_05.particles()) {
-        _hist_dNch_deta_pt05_eta08->fill(p.momentum().pseudorapidity(), weight);
-      }
-      foreach (const Particle& p, cfs_08_10.particles()) {
-        _hist_dNch_deta_pt10_eta08->fill(p.momentum().pseudorapidity(), weight);
-      }
+      if(!cfs_08_05.particles().empty()) _weight_pt05_eta08 += weight;
+      if(!cfs_24_05.particles().empty()) _weight_pt05_eta24 += weight;
       foreach (const Particle& p, cfs_24_05.particles()) {
         _hist_dNch_deta_pt05_eta24->fill(p.momentum().pseudorapidity(), weight);
+        if(!cfs_08_05.particles().empty()) 
+	  _hist_dNch_deta_pt05_eta08->fill(p.momentum().pseudorapidity(), weight);
       }
+      if(!cfs_08_10.particles().empty()) _weight_pt10_eta08 += weight;
+      if(!cfs_24_10.particles().empty()) _weight_pt10_eta24 += weight;
       foreach (const Particle& p, cfs_24_10.particles()) {
         _hist_dNch_deta_pt10_eta24->fill(p.momentum().pseudorapidity(), weight);
+	if(!cfs_08_10.particles().empty())
+	  _hist_dNch_deta_pt10_eta08->fill(p.momentum().pseudorapidity(), weight);
       }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_hist_dNch_deta_pt05_eta08);
-      normalize(_hist_dNch_deta_pt10_eta08);
-      normalize(_hist_dNch_deta_pt05_eta24);
-      normalize(_hist_dNch_deta_pt10_eta24);
+      scale(_hist_dNch_deta_pt05_eta08,1./_weight_pt05_eta08);
+      scale(_hist_dNch_deta_pt10_eta08,1./_weight_pt10_eta08);
+      scale(_hist_dNch_deta_pt05_eta24,1./_weight_pt05_eta24);
+      scale(_hist_dNch_deta_pt10_eta24,1./_weight_pt10_eta24);
     }
 
 
@@ -72,7 +76,7 @@ namespace Rivet {
     AIDA::IHistogram1D *_hist_dNch_deta_pt10_eta08;
     AIDA::IHistogram1D *_hist_dNch_deta_pt05_eta24;
     AIDA::IHistogram1D *_hist_dNch_deta_pt10_eta24;
-
+    double _weight_pt05_eta08,_weight_pt10_eta08,_weight_pt05_eta24,_weight_pt10_eta24;
   };
 
 

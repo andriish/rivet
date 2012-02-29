@@ -14,7 +14,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CMS_2011_S9215166() : Analysis("CMS_2011_S9215166") {  }
+    CMS_2011_S9215166() : Analysis("CMS_2011_S9215166"), _weightMB(0.), _weightDiJet(0.) {  }
 
 
     void init() {
@@ -64,6 +64,7 @@ namespace Rivet {
 
 
       // MINIMUM BIAS EVENTS
+      _weightMB += weight;
       foreach (const Particle& p, fsv.particles()) {
         _hist_mb->fill(fabs(p.momentum().eta()), weight*p.momentum().E()/GeV);
       }
@@ -81,6 +82,7 @@ namespace Rivet {
           // Back to back condition of the jets
           const double diffphi = deltaPhi(jets[1].momentum().phi(), jets[0].momentum().phi());
           if (diffphi-PI < 1.0) {
+	    _weightDiJet += weight;
             foreach (const Particle& p, fsv.particles()) {
               _hist_dijet->fill(fabs(p.momentum().eta()), weight*p.momentum().E()/GeV);
             }
@@ -92,14 +94,15 @@ namespace Rivet {
 
 
     void finalize() {
-      normalize(_hist_mb, 0.5);
-      normalize(_hist_dijet, 0.5);
+      scale(_hist_mb   , 0.5/_weightMB   );
+      scale(_hist_dijet, 0.5/_weightDiJet);
     }
 
 
   private:
 
     AIDA::IHistogram1D *_hist_mb, *_hist_dijet;
+    double _weightMB,_weightDiJet;
 
   };
 
