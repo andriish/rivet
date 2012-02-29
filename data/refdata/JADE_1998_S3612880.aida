@@ -681,11 +681,11 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d11-x01-y01" dimension="2"
-    path="/REF/JADE_1998_S3612880" title="Wide Differential 2-Jet rate (Durham), $\sqrt{s}=22$ GeV">
+    path="/REF/JADE_1998_S3612880" title="Wide Differential 2-Jet rate (Durham), $\sqrt{s}=35$ GeV">
     <dimension dim="0" title="$D_2$" />
     <dimension dim="1" title="$1/\sigma \text{d}\sigma/\text{d}(d_2)$" />
     <annotation>
-      <item key="Title" value="Wide Differential 2-Jet rate (Durham), $\sqrt{s}=22$ GeV" sticky="true"/>
+      <item key="Title" value="Wide Differential 2-Jet rate (Durham), $\sqrt{s}=35$ GeV" sticky="true"/>
       <item key="AidaPath" value="/REF/JADE_1998_S3612880/d11-x01-y01" sticky="true"/>
       <item key="FullPath" value="/temp.aida/REF/JADE_1998_S3612880/d11-x01-y01" sticky="true"/>
     </annotation>
@@ -755,9 +755,9 @@
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d12-x01-y01" dimension="2"
-    path="/REF/JADE_1998_S3612880" title="(1/SIG)*D(SIG)/D(Y23)">
+    path="/REF/JADE_1998_S3612880" title="Wide Differential 2-Jet rate (Durham), $\sqrt{s}=22$ GeV">
     <annotation>
-      <item key="Title" value="(1/SIG)*D(SIG)/D(Y23)" sticky="true"/>
+      <item key="Title" value="Wide Differential 2-Jet rate (Durham), $\sqrt{s}=22$ GeV" sticky="true"/>
       <item key="AidaPath" value="/REF/JADE_1998_S3612880/d12-x01-y01" sticky="true"/>
       <item key="FullPath" value="/temp.aida/REF/JADE_1998_S3612880/d12-x01-y01" sticky="true"/>
     </annotation>
