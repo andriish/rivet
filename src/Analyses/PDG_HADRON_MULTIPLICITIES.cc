@@ -608,33 +608,33 @@ namespace Rivet {
       }
 
       if (sqrtS()/GeV >= 29 && sqrtS()/GeV <= 35) {
-        scale(_histMeanMultiPiPlus            , 1.0/sumOfWeights());
-        scale(_histMeanMultiPi0               , 1.0/sumOfWeights());
-        scale(_histMeanMultiKPlus             , 1.0/sumOfWeights());
-        scale(_histMeanMultiK0                , 1.0/sumOfWeights());
-        scale(_histMeanMultiEta               , 1.0/sumOfWeights());
-        scale(_histMeanMultiEtaPrime          , 1.0/sumOfWeights());
-        scale(_histMeanMultiDPlus             , 1.0/sumOfWeights());
-        scale(_histMeanMultiD0                , 1.0/sumOfWeights());
-        scale(_histMeanMultiDPlus_s           , 1.0/sumOfWeights());
-        scale(_histMeanMultiF0_980            , 1.0/sumOfWeights());
-        scale(_histMeanMultiRho770_0          , 1.0/sumOfWeights());
-        scale(_histMeanMultiKStar892Plus      , 1.0/sumOfWeights());
-        scale(_histMeanMultiKStar892_0        , 1.0/sumOfWeights());
-        scale(_histMeanMultiPhi1020           , 1.0/sumOfWeights());
-        scale(_histMeanMultiDStar2010Plus     , 1.0/sumOfWeights());
-        scale(_histMeanMultiDStar2007_0       , 1.0/sumOfWeights());
-        scale(_histMeanMultiF2_1270           , 1.0/sumOfWeights());
-        scale(_histMeanMultiK2Star1430Plus    , 1.0/sumOfWeights());
-        scale(_histMeanMultiK2Star1430_0      , 1.0/sumOfWeights());
-        scale(_histMeanMultiP                 , 1.0/sumOfWeights());
-        scale(_histMeanMultiLambda            , 1.0/sumOfWeights());
-        scale(_histMeanMultiXiMinus           , 1.0/sumOfWeights());
-        scale(_histMeanMultiSigma1385Minus    , 1.0/sumOfWeights());
-        scale(_histMeanMultiSigma1385Plus     , 1.0/sumOfWeights());
-        scale(_histMeanMultiSigma1385PlusMinus, 1.0/sumOfWeights());
-        scale(_histMeanMultiOmegaMinus        , 1.0/sumOfWeights());
-        scale(_histMeanMultiLambda_c_Plus     , 1.0/sumOfWeights());
+        scale(_histMeanMultiPiPlus            , 5.0/sumOfWeights());
+        scale(_histMeanMultiPi0               , 5.0/sumOfWeights());
+        scale(_histMeanMultiKPlus             , 5.0/sumOfWeights());
+        scale(_histMeanMultiK0                , 5.0/sumOfWeights());
+        scale(_histMeanMultiEta               , 5.0/sumOfWeights());
+        scale(_histMeanMultiEtaPrime          , 5.0/sumOfWeights());
+        scale(_histMeanMultiDPlus             , 5.0/sumOfWeights());
+        scale(_histMeanMultiD0                , 5.0/sumOfWeights());
+        scale(_histMeanMultiDPlus_s           , 5.0/sumOfWeights());
+        scale(_histMeanMultiF0_980            , 5.0/sumOfWeights());
+        scale(_histMeanMultiRho770_0          , 5.0/sumOfWeights());
+        scale(_histMeanMultiKStar892Plus      , 5.0/sumOfWeights());
+        scale(_histMeanMultiKStar892_0        , 5.0/sumOfWeights());
+        scale(_histMeanMultiPhi1020           , 5.0/sumOfWeights());
+        scale(_histMeanMultiDStar2010Plus     , 5.0/sumOfWeights());
+        scale(_histMeanMultiDStar2007_0       , 5.0/sumOfWeights());
+        scale(_histMeanMultiF2_1270           , 5.0/sumOfWeights());
+        scale(_histMeanMultiK2Star1430Plus    , 5.0/sumOfWeights());
+        scale(_histMeanMultiK2Star1430_0      , 5.0/sumOfWeights());
+        scale(_histMeanMultiP                 , 5.0/sumOfWeights());
+        scale(_histMeanMultiLambda            , 5.0/sumOfWeights());
+        scale(_histMeanMultiXiMinus           , 5.0/sumOfWeights());
+        scale(_histMeanMultiSigma1385Minus    , 5.0/sumOfWeights());
+        scale(_histMeanMultiSigma1385Plus     , 5.0/sumOfWeights());
+        scale(_histMeanMultiSigma1385PlusMinus, 5.0/sumOfWeights());
+        scale(_histMeanMultiOmegaMinus        , 5.0/sumOfWeights());
+        scale(_histMeanMultiLambda_c_Plus     , 5.0/sumOfWeights());
       }
 
       if (sqrtS()/GeV >= 89.5 && sqrtS()/GeV <= 91.8) {
@@ -692,11 +692,11 @@ namespace Rivet {
       }
 
       if (sqrtS()/GeV >= 130 && sqrtS()/GeV <= 200) {
-        scale(_histMeanMultiPiPlus           , 1.0/sumOfWeights());
-        scale(_histMeanMultiKPlus            , 1.0/sumOfWeights());
-        scale(_histMeanMultiK0               , 1.0/sumOfWeights());
-        scale(_histMeanMultiP                , 1.0/sumOfWeights());
-        scale(_histMeanMultiLambda           , 1.0/sumOfWeights());
+        scale(_histMeanMultiPiPlus           , 70.0/sumOfWeights());
+        scale(_histMeanMultiKPlus            , 70.0/sumOfWeights());
+        scale(_histMeanMultiK0               , 70.0/sumOfWeights());
+        scale(_histMeanMultiP                , 70.0/sumOfWeights());
+        scale(_histMeanMultiLambda           , 70.0/sumOfWeights());
       }
     }
 
