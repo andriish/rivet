@@ -2,7 +2,7 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.0" package="HepData"/>
-  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="RapidityGapSize_200MeV" >
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="RapidityGapSize_200MeV" >
     <dataPoint>
       <measurement value="0.2000" errorPlus="0.2000" errorMinus="0.2000"/>
       <measurement value="85.3859" errorPlus="7.9982" errorMinus="8.0695"/>
@@ -144,7 +144,7 @@
       <measurement value="1.2003" errorPlus="0.0685" errorMinus="0.0651"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="RapidityGapSize_400MeV" >
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="RapidityGapSize_400MeV" >
     <dataPoint>
       <measurement value="0.2000" errorPlus="0.2000" errorMinus="0.2000"/>
       <measurement value="66.4771" errorPlus="9.6328" errorMinus="9.9383"/>
@@ -286,7 +286,7 @@
       <measurement value="1.1568" errorPlus="0.0979" errorMinus="0.0977"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="RapidityGapSize_600MeV" >
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="RapidityGapSize_600MeV" >
     <dataPoint>
       <measurement value="0.2000" errorPlus="0.2000" errorMinus="0.2000"/>
       <measurement value="46.4142" errorPlus="8.5966" errorMinus="9.2191"/>
@@ -428,7 +428,7 @@
       <measurement value="1.2884" errorPlus="0.2042" errorMinus="0.2049"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="RapidityGapSize_800MeV" >
+  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="RapidityGapSize_800MeV" >
     <dataPoint>
       <measurement value="0.2000" errorPlus="0.2000" errorMinus="0.2000"/>
       <measurement value="31.2086" errorPlus="6.8760" errorMinus="7.1706"/>
@@ -570,7 +570,7 @@
       <measurement value="1.6185" errorPlus="0.4762" errorMinus="0.4749"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.1626" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -612,7 +612,7 @@
       <measurement value="-0.0976" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y02" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y02" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.1925" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -654,7 +654,7 @@
       <measurement value="0.0510" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y03" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y03" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2901" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -696,7 +696,7 @@
       <measurement value="0.1416" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y04" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y04" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.3363" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -738,7 +738,7 @@
       <measurement value="-0.0288" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y05" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y05" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4706" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -780,7 +780,7 @@
       <measurement value="0.0328" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y06" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y06" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5949" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -822,7 +822,7 @@
       <measurement value="0.3922" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y07" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y07" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5704" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -864,7 +864,7 @@
       <measurement value="0.4500" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y08" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y08" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8597" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -906,7 +906,7 @@
       <measurement value="0.1114" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y09" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y09" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.0502" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -948,7 +948,7 @@
       <measurement value="0.4458" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y010" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y010" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9420" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -990,7 +990,7 @@
       <measurement value="0.4864" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y011" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y011" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.1244" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1032,7 +1032,7 @@
       <measurement value="0.5177" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y012" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y012" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.2626" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1074,7 +1074,7 @@
       <measurement value="0.5925" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y013" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y013" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.2778" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1116,7 +1116,7 @@
       <measurement value="0.8771" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y014" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y014" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3260" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1158,7 +1158,7 @@
       <measurement value="0.6710" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y015" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y015" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.5548" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1200,7 +1200,7 @@
       <measurement value="0.5692" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y016" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y016" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.6010" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1242,7 +1242,7 @@
       <measurement value="0.8487" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y017" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y017" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3213" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1284,7 +1284,7 @@
       <measurement value="0.6468" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y018" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y018" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.7674" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1326,7 +1326,7 @@
       <measurement value="0.4052" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y019" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y019" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.7013" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1368,7 +1368,7 @@
       <measurement value="1.0619" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y020" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y020" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.8975" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1410,7 +1410,7 @@
       <measurement value="0.9102" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y021" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y021" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.6361" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1452,7 +1452,7 @@
       <measurement value="0.8582" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y022" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y022" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.7645" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1494,7 +1494,7 @@
       <measurement value="0.8872" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y023" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y023" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3059" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1536,7 +1536,7 @@
       <measurement value="1.0620" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y024" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y024" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.2168" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1578,7 +1578,7 @@
       <measurement value="1.2503" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y025" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y025" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.4095" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1620,7 +1620,7 @@
       <measurement value="0.9396" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y026" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y026" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3676" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1662,7 +1662,7 @@
       <measurement value="0.9899" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y027" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y027" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.1468" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1704,7 +1704,7 @@
       <measurement value="1.2203" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y028" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y028" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3035" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1746,7 +1746,7 @@
       <measurement value="1.2119" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y029" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y029" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3003" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1788,7 +1788,7 @@
       <measurement value="1.0166" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y030" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y030" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3346" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1830,7 +1830,7 @@
       <measurement value="0.6352" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y031" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y031" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.1997" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1872,7 +1872,7 @@
       <measurement value="1.1367" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y032" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y032" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9383" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1914,7 +1914,7 @@
       <measurement value="1.2665" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y033" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y033" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9769" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1956,7 +1956,7 @@
       <measurement value="1.5696" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y034" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y034" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9624" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -1998,7 +1998,7 @@
       <measurement value="1.2637" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y035" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
+  <dataPointSet name="d05-x01-y035" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_200MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9533" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2040,7 +2040,7 @@
       <measurement value="1.0488" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.1601" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2082,7 +2082,7 @@
       <measurement value="-0.0735" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y02" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y02" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.1787" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2124,7 +2124,7 @@
       <measurement value="0.0781" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y03" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y03" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2468" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2166,7 +2166,7 @@
       <measurement value="-0.1718" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y04" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y04" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2763" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2208,7 +2208,7 @@
       <measurement value="0.0117" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y05" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y05" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.3438" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2250,7 +2250,7 @@
       <measurement value="-0.3116" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y06" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y06" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.3751" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2292,7 +2292,7 @@
       <measurement value="0.0654" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y07" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y07" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4325" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2334,7 +2334,7 @@
       <measurement value="-0.0030" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y08" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y08" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5866" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2376,7 +2376,7 @@
       <measurement value="0.3965" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y09" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y09" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6404" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2418,7 +2418,7 @@
       <measurement value="0.4353" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y010" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y010" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5723" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2460,7 +2460,7 @@
       <measurement value="0.3351" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y011" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y011" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7421" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2502,7 +2502,7 @@
       <measurement value="0.4158" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y012" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y012" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8835" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2544,7 +2544,7 @@
       <measurement value="0.0681" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y013" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y013" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9213" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2586,7 +2586,7 @@
       <measurement value="0.3234" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y014" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y014" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.0649" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2628,7 +2628,7 @@
       <measurement value="0.6599" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y015" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y015" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.0706" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2670,7 +2670,7 @@
       <measurement value="1.2081" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y016" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y016" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9789" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2712,7 +2712,7 @@
       <measurement value="0.3746" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y017" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y017" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.4689" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2754,7 +2754,7 @@
       <measurement value="0.7320" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y018" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y018" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.4198" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2796,7 +2796,7 @@
       <measurement value="0.9057" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y019" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y019" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3929" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2838,7 +2838,7 @@
       <measurement value="0.6193" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y020" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y020" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.2589" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2880,7 +2880,7 @@
       <measurement value="0.5454" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y021" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y021" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.6569" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2922,7 +2922,7 @@
       <measurement value="0.4340" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y022" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y022" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3674" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -2964,7 +2964,7 @@
       <measurement value="0.5581" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y023" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y023" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.5229" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3006,7 +3006,7 @@
       <measurement value="0.9400" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y024" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y024" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3165" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3048,7 +3048,7 @@
       <measurement value="1.1171" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y025" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y025" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3999" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3090,7 +3090,7 @@
       <measurement value="0.9175" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y026" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y026" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.2539" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3132,7 +3132,7 @@
       <measurement value="1.0659" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y027" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y027" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.3153" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3174,7 +3174,7 @@
       <measurement value="1.1408" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y028" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y028" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.1552" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3216,7 +3216,7 @@
       <measurement value="0.9173" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y029" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y029" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.2157" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3258,7 +3258,7 @@
       <measurement value="0.6120" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y030" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y030" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.0249" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3300,7 +3300,7 @@
       <measurement value="0.5803" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y031" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y031" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.1729" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3342,7 +3342,7 @@
       <measurement value="0.8495" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y032" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y032" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.2836" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3384,7 +3384,7 @@
       <measurement value="1.2076" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y033" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y033" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9325" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3426,7 +3426,7 @@
       <measurement value="0.8669" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y034" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y034" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7876" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3468,7 +3468,7 @@
       <measurement value="1.1878" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y035" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
+  <dataPointSet name="d06-x01-y035" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_400MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8479" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3510,7 +3510,7 @@
       <measurement value="0.5949" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2108" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3552,7 +3552,7 @@
       <measurement value="-0.0396" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y02" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y02" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.1904" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3594,7 +3594,7 @@
       <measurement value="-0.0569" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y03" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y03" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2263" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3636,7 +3636,7 @@
       <measurement value="-0.2315" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y04" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y04" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2510" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3678,7 +3678,7 @@
       <measurement value="-0.0745" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y05" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y05" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2089" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3720,7 +3720,7 @@
       <measurement value="-0.1553" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y06" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y06" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2632" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3762,7 +3762,7 @@
       <measurement value="0.3406" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y07" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y07" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2624" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3804,7 +3804,7 @@
       <measurement value="-0.1846" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y08" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y08" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.3633" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3846,7 +3846,7 @@
       <measurement value="0.1728" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y09" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y09" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4381" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3888,7 +3888,7 @@
       <measurement value="0.0352" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y010" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y010" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4595" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3930,7 +3930,7 @@
       <measurement value="-0.0222" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y011" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y011" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4897" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -3972,7 +3972,7 @@
       <measurement value="-0.1127" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y012" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y012" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4748" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4014,7 +4014,7 @@
       <measurement value="0.1902" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y013" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y013" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4905" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4056,7 +4056,7 @@
       <measurement value="-0.3360" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y014" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y014" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5579" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4098,7 +4098,7 @@
       <measurement value="0.0380" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y015" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y015" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5689" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4140,7 +4140,7 @@
       <measurement value="0.6750" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y016" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y016" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5578" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4182,7 +4182,7 @@
       <measurement value="-0.4161" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y017" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y017" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7796" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4224,7 +4224,7 @@
       <measurement value="0.4720" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y018" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y018" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8288" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4266,7 +4266,7 @@
       <measurement value="0.4936" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y019" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y019" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7490" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4308,7 +4308,7 @@
       <measurement value="0.5113" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y020" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y020" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7472" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4350,7 +4350,7 @@
       <measurement value="0.7358" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y021" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y021" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7641" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4392,7 +4392,7 @@
       <measurement value="0.4257" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y022" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y022" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9059" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4434,7 +4434,7 @@
       <measurement value="0.5341" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y023" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y023" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9704" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4476,7 +4476,7 @@
       <measurement value="1.2698" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y024" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y024" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.1003" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4518,7 +4518,7 @@
       <measurement value="0.9533" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y025" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y025" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8568" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4560,7 +4560,7 @@
       <measurement value="0.7605" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y026" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y026" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8619" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4602,7 +4602,7 @@
       <measurement value="0.9346" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y027" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y027" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.0583" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4644,7 +4644,7 @@
       <measurement value="0.8533" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y028" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y028" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.1681" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4686,7 +4686,7 @@
       <measurement value="1.1681" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y029" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y029" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="1.0652" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4728,7 +4728,7 @@
       <measurement value="0.8141" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y030" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y030" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8951" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4770,7 +4770,7 @@
       <measurement value="0.8843" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y031" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y031" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.9067" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4812,7 +4812,7 @@
       <measurement value="0.2541" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y032" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y032" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.8940" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4854,7 +4854,7 @@
       <measurement value="0.7420" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y033" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y033" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6278" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4896,7 +4896,7 @@
       <measurement value="0.6898" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y034" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y034" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5176" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4938,7 +4938,7 @@
       <measurement value="0.7313" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y035" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
+  <dataPointSet name="d07-x01-y035" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_600MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6169" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -4980,7 +4980,7 @@
       <measurement value="0.7729" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y01" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y01" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2105" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5022,7 +5022,7 @@
       <measurement value="0.0005" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y02" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y02" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.1874" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5064,7 +5064,7 @@
       <measurement value="-0.0369" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y03" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y03" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.1998" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5106,7 +5106,7 @@
       <measurement value="-0.1455" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y04" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y04" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2371" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5148,7 +5148,7 @@
       <measurement value="-0.2750" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y05" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y05" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2301" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5190,7 +5190,7 @@
       <measurement value="-0.4487" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y06" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y06" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2415" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5232,7 +5232,7 @@
       <measurement value="-0.3829" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y07" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y07" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.2158" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5274,7 +5274,7 @@
       <measurement value="-0.0868" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y08" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y08" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.3669" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5316,7 +5316,7 @@
       <measurement value="-0.2164" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y09" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y09" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.3122" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5358,7 +5358,7 @@
       <measurement value="-0.3492" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y010" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y010" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4794" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5400,7 +5400,7 @@
       <measurement value="-0.0683" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y011" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y011" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.3550" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5442,7 +5442,7 @@
       <measurement value="-0.0523" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y012" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y012" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4087" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5484,7 +5484,7 @@
       <measurement value="-0.0681" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y013" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y013" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4367" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5526,7 +5526,7 @@
       <measurement value="-0.4137" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y014" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y014" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4968" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5568,7 +5568,7 @@
       <measurement value="0.3870" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y015" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y015" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4938" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5610,7 +5610,7 @@
       <measurement value="-0.1639" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y016" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y016" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5305" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5652,7 +5652,7 @@
       <measurement value="0.0256" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y017" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y017" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5846" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5694,7 +5694,7 @@
       <measurement value="-0.0454" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y018" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y018" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5970" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5736,7 +5736,7 @@
       <measurement value="-0.1355" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y019" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y019" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6576" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5778,7 +5778,7 @@
       <measurement value="0.2049" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y020" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y020" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7529" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5820,7 +5820,7 @@
       <measurement value="-0.0650" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y021" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y021" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6017" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5862,7 +5862,7 @@
       <measurement value="0.3856" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y022" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y022" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7250" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5904,7 +5904,7 @@
       <measurement value="0.1448" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y023" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y023" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7014" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5946,7 +5946,7 @@
       <measurement value="0.2544" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y024" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y024" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7062" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -5988,7 +5988,7 @@
       <measurement value="0.1227" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y025" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y025" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7401" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6030,7 +6030,7 @@
       <measurement value="0.6138" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y026" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y026" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6914" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6072,7 +6072,7 @@
       <measurement value="0.3962" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y027" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y027" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6644" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6114,7 +6114,7 @@
       <measurement value="0.9196" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y028" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y028" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6683" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6156,7 +6156,7 @@
       <measurement value="0.6894" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y029" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y029" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7290" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6198,7 +6198,7 @@
       <measurement value="0.8249" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y030" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y030" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6497" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6240,7 +6240,7 @@
       <measurement value="0.7438" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y031" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y031" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.7306" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6282,7 +6282,7 @@
       <measurement value="0.6629" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y032" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y032" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.6994" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6324,7 +6324,7 @@
       <measurement value="0.3898" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y033" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y033" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.5304" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6366,7 +6366,7 @@
       <measurement value="0.7008" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y034" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y034" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4544" errorPlus="0.0000" errorMinus="0.0000"/>
@@ -6408,7 +6408,7 @@
       <measurement value="0.4340" errorPlus="0.0000" errorMinus="0.0000"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y035" dimension="2" path="/REF/ATLAS_2012_DIFFRATIVEGAPS" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
+  <dataPointSet name="d08-x01-y035" dimension="2" path="/REF/ATLAS_2012_I1084540" title="Statistical_and_Correlated_Systematic_Uncertainties_(%)_800MeV" >
     <dataPoint>
       <measurement value="0.0" errorPlus="0.5000" errorMinus="0.5000"/>
       <measurement value="0.4674" errorPlus="0.0000" errorMinus="0.0000"/>
