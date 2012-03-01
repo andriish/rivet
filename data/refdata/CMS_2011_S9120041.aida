@@ -1536,7 +1536,7 @@
 </dataPointSet> 
 <dataPointSet name="d13-x01-y01" dimension="2" path="/REF/CMS_2011_S9120041" title="Dist_pT_09TeV_pT3">
     <dataPoint>
-      <measurement value="0.75" errorPlus="0.5" errorMinus="0.25"/>
+      <measurement value="0.75" errorPlus="0.25" errorMinus="0.25"/>
       <measurement value="4.631" errorPlus="0.15505160431288675" errorMinus="0.15505160431288675"/>
     </dataPoint>
     <dataPoint>
