@@ -62,7 +62,7 @@ namespace Rivet {
           
           _h_Phi_y->fill (y, weight);
           _h_Phi_pT->fill (pT/MeV, weight);
-          _h_Phi_pT_y.fill(y, pT/MeV, weight);
+          _h_Phi_pT_y.fill(y, pT/GeV, weight);
         }
       }
     }
@@ -73,7 +73,7 @@ namespace Rivet {
       double scale_factor = crossSectionPerEvent()/microbarn;
       scale (_h_Phi_y, scale_factor);
       scale (_h_Phi_pT, scale_factor);
-      _h_Phi_pT_y.scale(scale_factor, this);
+      _h_Phi_pT_y.scale(scale_factor/1000., this);
     }
 
     //@}

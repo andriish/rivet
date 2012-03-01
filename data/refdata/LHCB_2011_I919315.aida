@@ -2,13 +2,13 @@
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
   <implementation version="1.0" package="HepData"/>
-  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="SIG IN MUB" >
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="SIG IN MUB" >
     <dataPoint>
       <measurement value="7000.0" errorPlus="0.5" errorMinus="0.5"/>
       <measurement value="1758.0" errorPlus="187.9734023738465" errorMinus="183.52384041317356"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.001" errorPlus="0.18969712702094357" errorMinus="0.17574128712399942"/>
@@ -58,7 +58,7 @@
       <measurement value="0.014" errorPlus="0.0017320508075688774" errorMinus="0.0017320508075688774"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d02-x01-y02" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d02-x01-y02" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="0.853" errorPlus="0.16523014252853502" errorMinus="0.1456845908117945"/>
@@ -108,7 +108,7 @@
       <measurement value="0.014" errorPlus="0.0017320508075688774" errorMinus="0.001414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.069" errorPlus="0.1800361074895811" errorMinus="0.15650239614779066"/>
@@ -158,7 +158,7 @@
       <measurement value="0.011" errorPlus="0.001414213562373095" errorMinus="0.001414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d03-x01-y02" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d03-x01-y02" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.171" errorPlus="0.1673469449975111" errorMinus="0.15963082409108836"/>
@@ -208,7 +208,7 @@
       <measurement value="0.01" errorPlus="0.0017320508075688774" errorMinus="0.001414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.06" errorPlus="0.14516886718577093" errorMinus="0.14897650821522163"/>
@@ -258,7 +258,7 @@
       <measurement value="0.01" errorPlus="0.001414213562373095" errorMinus="0.001414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d04-x01-y02" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d04-x01-y02" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.131" errorPlus="0.18933039903829496" errorMinus="0.25686767021172596"/>
@@ -308,7 +308,7 @@
       <measurement value="0.0090" errorPlus="0.001414213562373095" errorMinus="0.001414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.341" errorPlus="0.21316894708188622" errorMinus="0.29518468794976477"/>
@@ -358,7 +358,7 @@
       <measurement value="0.0080" errorPlus="0.0017320508075688774" errorMinus="0.001414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d05-x01-y02" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d05-x01-y02" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.164" errorPlus="0.19987245933344594" errorMinus="0.20802403707264217"/>
@@ -408,7 +408,7 @@
       <measurement value="0.0070" errorPlus="0.0017320508075688774" errorMinus="0.001414213562373095"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="0.7" errorPlus="0.10000000000000009" errorMinus="0.09999999999999998"/>
       <measurement value="1.341" errorPlus="0.2664019519448009" errorMinus="0.24055352834660315"/>
@@ -458,7 +458,7 @@
       <measurement value="0.0070" errorPlus="0.0022360679774997894" errorMinus="0.0030"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DPT IN MUB/MEV" >
+  <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DPT IN MUB/MEV" >
     <dataPoint>
       <measurement value="700.0" errorPlus="100.0" errorMinus="100.0"/>
       <measurement value="1.8235" errorPlus="0.2074463063059933" errorMinus="0.21070647830572273"/>
@@ -508,7 +508,7 @@
       <measurement value="0.0161" errorPlus="0.001905255888325765" errorMinus="0.0017972200755611428"/>
     </dataPoint>
   </dataPointSet>
-  <dataPointSet name="d08-x01-y01" dimension="2" path="/REF/LHCB_2011_S9139796" title="D(SIG)/DYRAP IN MUB" >
+  <dataPointSet name="d08-x01-y01" dimension="2" path="/REF/LHCB_2011_I919315" title="D(SIG)/DYRAP IN MUB" >
     <dataPoint>
       <measurement value="2.5300000000000002" errorPlus="0.08999999999999986" errorMinus="0.0900000000000003"/>
       <measurement value="1130.0" errorPlus="155.42844012599497" errorMinus="123.3450444890268"/>
