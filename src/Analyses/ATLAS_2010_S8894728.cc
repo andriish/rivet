@@ -260,7 +260,7 @@ namespace Rivet {
         /// @todo Assuming unit weights here! Should use N_effective = sumW**2/sumW2? How?
         const double numentries = moment_profiles[0]->binEntries(b);
         const double var = moment_profiles[1]->binHeight(b) - pow(moment_profiles[0]->binHeight(b), 2);
-        const double sd = isZero(var) ? 0 : sqrt(var); //< Numerical safety check
+        const double sd = fuzzyLessEquals(var,0.) ? 0 : sqrt(var); //< Numerical safety check
         target_dps->point(b)->coordinate(1)->setValue(sd);
         if (sd == 0 || numentries < 3) {
           MSG_WARNING("Need at least 3 bin entries and a non-zero central value to calculate "
