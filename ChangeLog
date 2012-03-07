@@ -1,3 +1,8 @@
+2012-03-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Marking ATLAS_2011_I919017 as VALIDATED (this should have
+	happened a long time ago) and adding more references.
+
 2012-02-28  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* lighthisto.py: Caching for re.compile(). This speeds up aida2flat
