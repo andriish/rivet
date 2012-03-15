@@ -6,6 +6,8 @@
 	ATLAS_2011_I944826 and ATLAS_2012_I1084540
 	* Fix compiler warnings in ATLAS_2011_I944826 and CMS_2011_S8973270
 	* CMS_2011_S8941262: Weights are double, not int.
+	* disable inRange() tests in test/testMath.cc until we have a proper
+	fix for the compiler warnings we see on SL5.
 
 2012-03-07  Andy Buckley  <andy.buckley@cern.ch>
 

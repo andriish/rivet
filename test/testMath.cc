@@ -24,14 +24,15 @@ int main() {
   linspace(0, 10, 50);
   logspace(0.000001, 1.0, 50);
 
-  inRange(1, 0, 2);
-  inRange(1, 0.0, 2);
-  inRange(1, 0, 2.0);
-  inRange(1, 0.0, 2.0);
-  inRange(1.0, 0, 2);
-  inRange(1.0, 0.0, 2);
-  inRange(1.0, 0, 2.0);
-  inRange(1.0, 0.0, 2.0);
+//  // These tests are disabled, because they trigger compiler warnings on SL5
+//  inRange(1, 0, 2);
+//  inRange(1, 0.0, 2);
+//  inRange(1, 0, 2.0);
+//  inRange(1, 0.0, 2.0);
+//  inRange(1.0, 0, 2);
+//  inRange(1.0, 0.0, 2);
+//  inRange(1.0, 0, 2.0);
+//  inRange(1.0, 0.0, 2.0);
 
   assert(isZero(1e-15));
   assert(fuzzyEquals(1e-15, 0.0));
