@@ -182,15 +182,15 @@ class ATLAS_2012_I1084540 : public Analysis {
           case 600: energyMap = energyMap_600; largestEdgeGap = largestEdgeGap_600; break;
           case 800: energyMap = energyMap_800; largestEdgeGap = largestEdgeGap_800; break;
         }
-        getLog() << Log::INFO << "Largest Forward Gap at pT Cut " << E << " MeV=" << largestEdgeGap 
-          << " eta, NFinalState pT > 200 in ATLAS acceptance:" << fs2.particles().size() << std::endl;
+        MSG_DEBUG("Largest Forward Gap at pT Cut " << E << " MeV=" << largestEdgeGap 
+          << " eta, NFinalState pT > 200 in ATLAS acceptance:" << fs2.particles().size());
         std::string hitPattern = "Detector HitPattern=-4.9[";
         for (int a = 0; a < _etaBins; ++a) {
           if (energyMap[a] == true) hitPattern += "X";
           else hitPattern += "_";
         }
         hitPattern += "]4.9";
-        getLog() << Log::INFO << hitPattern << std::endl;
+        MSG_DEBUG(hitPattern);
         std::string gapArrow = "                         ";
           if (!gapDirectionAt200) {
           int drawSpaces = (int)(_etaBins - (largestEdgeGap/_etaBinSize) + 0.5);
@@ -198,7 +198,7 @@ class ATLAS_2012_I1084540 : public Analysis {
         }
         int drawArrows = (int)((largestEdgeGap/_etaBinSize) + 0.5);
         for (int i = 0; i < drawArrows; ++i) gapArrow += "^";
-        getLog() << Log::INFO << gapArrow << std::endl;
+        MSG_DEBUG(gapArrow);
       }
     }
 
@@ -210,8 +210,7 @@ class ATLAS_2012_I1084540 : public Analysis {
 
   /// Normalise histograms after the run, Scale to cross section
   void finalize() {
-    getLog() << Log::INFO << "Cross Section=" << crossSection() / millibarn 
-      << "mb, SumOfWeights=" << sumOfWeights() << endl;
+    MSG_DEBUG("Cross Section=" << crossSection() / millibarn << "mb, SumOfWeights=" << sumOfWeights());
     scale(_h_DeltaEtaF_200, (crossSection() / millibarn)/sumOfWeights());
     scale(_h_DeltaEtaF_400, (crossSection() / millibarn)/sumOfWeights());
     scale(_h_DeltaEtaF_600, (crossSection() / millibarn)/sumOfWeights());

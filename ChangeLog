@@ -1,3 +1,7 @@
+2012-03-15  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Make ATLAS_2012_I1084540 less verbose.
+
 2012-03-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Marking ATLAS_2011_I919017 as VALIDATED (this should have
