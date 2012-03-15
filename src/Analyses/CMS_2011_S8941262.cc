@@ -20,7 +20,7 @@ namespace Rivet {
       _h_total = bookHistogram1D(1, 1, 1);
       _h_mupt  = bookHistogram1D(2, 1, 1);
       _h_mueta = bookHistogram1D(3, 1, 1);
-      nbtot=0;   nbmutot=0;
+      nbtot=0.;   nbmutot=0.;
 
       IdentifiedFinalState ifs(-2.1, 2.1, 6.0*GeV);
       ifs.acceptIdPair(MUON);
@@ -62,7 +62,7 @@ namespace Rivet {
 
   private:
 
-    int nbtot, nbmutot;
+    double nbtot, nbmutot;
 
     AIDA::IHistogram1D *_h_total;
     AIDA::IHistogram1D *_h_mupt;
