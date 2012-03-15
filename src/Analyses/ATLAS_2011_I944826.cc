@@ -144,7 +144,7 @@ namespace Rivet {
       // Veto event also when we find less than 2 particles in the acceptance region of type 211,2212,11,13,321
       int n_stable = 0;
       foreach (const Particle& p, cfs.particles()) {
-        const PdgId pid = fabs(p.pdgId());
+        const PdgId pid = abs(p.pdgId());
         if (pid == 11 || pid == 13 || pid == 211 || pid == 321 || pid == 2212) n_stable++;
       }
 
@@ -167,7 +167,7 @@ namespace Rivet {
         // General particle quantities
         const double pT = p.momentum().pT()*GeV;
         const double y = p.momentum().rapidity();
-        const PdgId pid = fabs(p.pdgId());
+        const PdgId pid = abs(p.pdgId());
 
         double flightd = 0.0;
 
