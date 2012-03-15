@@ -56,6 +56,7 @@ namespace Rivet {
       _h_DeltaEtaF_800 = bookHistogram1D(4, 1, 1);
     }
 
+  private:
     void fillMap(const FinalState& fs, bool* energyMap, double pTcut) {
       // Fill true/false array by iterating over particles and compare their
       // pT with pTcut
@@ -73,6 +74,7 @@ namespace Rivet {
       }
     }
 
+  public:
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       static unsigned int event_count = 0;
