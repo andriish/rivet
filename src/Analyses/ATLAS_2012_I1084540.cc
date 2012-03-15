@@ -234,7 +234,7 @@ class ATLAS_2012_I1084540 : public Analysis {
   //@}
 };
 
-// This global object acts as a hook for the plugin system
-AnalysisBuilder<ATLAS_2012_I1084540> plugin_ATLAS_2012_I1084540;
+  // The hook for the plugin system
+  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1084540);
 
 }

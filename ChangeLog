@@ -1,6 +1,8 @@
 2012-03-15  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Make ATLAS_2012_I1084540 less verbose.
+	* New-style plugin hook in ATLAS_2011_I926145,
+	ATLAS_2011_I944826 and ATLAS_2012_I1084540
 
 2012-03-07  Andy Buckley  <andy.buckley@cern.ch>
 
