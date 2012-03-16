@@ -2,6 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetAIDA.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "LWH/Histogram1D.h"
 #include "Rivet/Math/MathUtils.hh"
@@ -171,9 +172,10 @@ namespace Rivet {
       } else {
         lft = (*pPartLft).second;
       }
-      if (lft < 0.0)
+      if (lft < 0.0 && PID::isHadron(pid)) {
         MSG_ERROR("Could not determine lifetime for particle with PID " << pid
                   << "... This V^0 will be considered unprompt!");
+      }
       return lft;
     }
 
