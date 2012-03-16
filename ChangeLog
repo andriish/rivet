@@ -1,5 +1,10 @@
 2012-03-16  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Version change to 1.8.0beta0 -- nearly ready for long-awaited release!
+
+	* pyext/setup.py.in: Adding handling for the YAML library: fix for
+	Genser build from Anton Karneyeu.
+
 	* src/Analyses/LHCB_2011_I917009.cc: Hiding lifetime-lookup error
 	message if the offending particle is not a hadron.
 
@@ -29,7 +34,7 @@
 2012-02-28  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* lighthisto.py: Caching for re.compile(). This speeds up aida2flat
-	ant flat2aida by more than an order of magnitude.
+	and flat2aida by more than an order of magnitude.
 
 2012-02-27  Andy Buckley  <andy.buckley@cern.ch>
 
