@@ -453,19 +453,35 @@ if __name__ == "__main__":
             logging.debug("Could not get plot headers: %s" % err)
             headers = {}
 
+        is2dim = False
+        if HISTOS[activefiles[0]][name].is2dim():
+            is2dim = True
+        if is2dim and len(activefiles)>1:
+            logging.warning("More than one histogram file for 2-dim histogram '%s', only using first file" % name)
+            activefiles = [activefiles[0]]
+
         drawonlystr = ""
         for hfile in activefiles:
             drawonlystr += hfile.replace(' ','_') + HISTOS[hfile][name].fullPath().replace(' ','_') + " "
-        paramdefaults = {"Title" : title,
-                         "XLabel" : xlabel,
-                         "YLabel" : ylabel,
-                         "Legend" : "1",
-                         "LogY" : "%d" % int((len(HISTOS[ref][name].getBins()) > 1) and not opts.LINEAR),
-                         "DrawOnly" : drawonlystr,
-                         "RatioPlot" : "%d" % int(not opts.NORATIO),
-                         "XTwosidedTicks" : "1",
-                         "YTwosidedTicks" : "1",
-                         "RatioPlotReference" : "%s%s" % (ref.replace(' ','_'), HISTOS[ref][name].fullPath().replace(' ','_'))}
+        paramdefaults = {}
+        if not is2dim:
+            paramdefaults = {"Title" : title,
+                             "XLabel" : xlabel,
+                             "YLabel" : ylabel,
+                             "Legend" : "1",
+                             "LogY" : "%d" % int((len(HISTOS[ref][name].getBins()) > 1) and not opts.LINEAR),
+                             "DrawOnly" : drawonlystr,
+                             "RatioPlot" : "%d" % int(not opts.NORATIO),
+                             "XTwosidedTicks" : "1",
+                             "YTwosidedTicks" : "1",
+                             "RatioPlotReference" : "%s%s" % (ref.replace(' ','_'), HISTOS[ref][name].fullPath().replace(' ','_'))}
+        else:
+            paramdefaults = {"Title" : title,
+                             "XLabel" : xlabel,
+                             "YLabel" : ylabel,
+                             "Legend" : "1",
+                             "XTwosidedTicks" : "1",
+                             "YTwosidedTicks" : "1"}
 
 
         if opts.RATIO_DEVIATION:
@@ -526,8 +542,12 @@ if __name__ == "__main__":
                 color, style = STYLES[i % len(STYLES)]
                 if opts.MC_ERRS:
                     histstr += "ErrorBars=1\n"
-                histstr += 'LineColor=%s\n' % color
-                histstr += 'LineStyle=%s\n' % style
+                if not is2dim:
+                    histstr += 'LineColor=%s\n' % color
+                    histstr += 'LineStyle=%s\n' % style
+                else:
+                    histstr += 'LineStyle=none\n'
+                    histstr += 'LineWidth=0pt\n'
                 histstr += 'Title=%s\n' % LABELS[hfile][name]
                 for key, val in histopts.iteritems():
                     #if key == 'ErrorBars' and opts.MC_ERRS:

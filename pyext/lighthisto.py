@@ -178,6 +178,11 @@ class Histo(object):
         r += ind + "</dataPointSet>\n"
         return r
 
+    def is2dim(self):
+        if self.numBins()==0:
+            return False
+        return self._bins[0].is2dim()
+
     def numBins(self):
         return len(self._bins)
 
@@ -466,8 +471,13 @@ class Bin(object):
                 self.val, self.errplus, self.errminus)
         return out
 
-    def asFlat(self):
+    def is2dim(self):
         if self.ylow is None or self.yhigh is None:
+            return False
+        return True
+
+    def asFlat(self):
+        if not self.is2dim():
             out = "%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.val, self.errminus, self.errplus)
         else:
             out = "%e\t%e\t%e\t%e\t%e\t%e" % (self.xlow, self.xhigh, self.ylow, self.yhigh, self.val, 0.5*(self.errminus+self.errplus))

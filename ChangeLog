@@ -1,3 +1,7 @@
+2012-03-16  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Improve default plot behaviour for 2D histograms
+
 2012-03-15  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Make ATLAS_2012_I1084540 less verbose, and general code
