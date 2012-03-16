@@ -37,6 +37,8 @@ namespace Rivet {
   using std::min;
   using std::max;
   using std::abs;
+  using std::isnan;
+  using std::isinf;
 
   const double MAXDOUBLE = std::numeric_limits<double>::max();
   const double MAXINT = std::numeric_limits<int>::max();
