@@ -57,8 +57,8 @@ namespace Rivet {
       Particle p_lead = particles500[0];
       const double philead = p_lead.momentum().phi();
       const double etalead = p_lead.momentum().eta();
-      const double pTlead  = p_lead.momentum().perp();
-      MSG_DEBUG("Leading oject: pT = " << pTlead << ", eta = " << etalead << ", phi = " << philead);
+      const double pTlead  = p_lead.momentum().pT();
+      MSG_DEBUG("Leading object: pT = " << pTlead << ", eta = " << etalead << ", phi = " << philead);
 
       // Iterate over all > 500 MeV particles and count particles and scalar pTsum in the three regions
       vector<double> num500(3, 0), ptSum500(3, 0.0);

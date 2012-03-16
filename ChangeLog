@@ -1,3 +1,11 @@
+2012-03-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* src/Analyses/LHCB_2011_I917009.cc: Hiding lifetime-lookup error
+	message if the offending particle is not a hadron.
+
+	* include/Rivet/Math/MathHeader.hh: Using unnamespaced std::isnan
+	and std::isinf as standard.
+
 2012-03-16  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Improve default plot behaviour for 2D histograms
