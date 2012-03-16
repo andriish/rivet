@@ -204,7 +204,7 @@ if __name__ == "__main__":
                       help="Produce AIDA output rather than FLAT")
     parser.add_option("-f", dest="AIDA", default=True, action="store_false",
                       help="Produce FLAT output rather than AIDA")
-    parser.add_option("--multiply", default=False, action="store_true",
+    parser.add_option("--multiply", dest="MULTIPLY", default=False, action="store_true",
                       help="Rescale histos using weight given as factor rather than new area")
     parser.add_option("-i", "--in-place", dest="IN_PLACE", default=False, action="store_true",
                       help="Overwrite input file rather than making input-rescaled.aida")
@@ -239,7 +239,7 @@ if __name__ == "__main__":
         import rivet
         refdirs += rivet.getAnalysisRefPaths()
     refhistos = getRefHistos(refdirs, analyses)
-    if len(refhistos) == 0 and not opts.multiply:
+    if len(refhistos) == 0 and not opts.MULTIPLY:
         logging.warning("You haven't specified any reference histograms. You'd better know what you're doing!")
 
     # Read in observables, if no bindefinitions are given in the file or the
@@ -273,7 +273,7 @@ if __name__ == "__main__":
     aidaheader = """<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
 <aida version="3.3">
-  <implementation version="1.1" package="FreeHEP"/>
+  <implementation version="1.1" package="Rivet"/>
     """
     # Open file for output
     f = open(outfile, "w")
@@ -307,7 +307,7 @@ if __name__ == "__main__":
             oldarea = tempold.getArea()
             if name in obsnorms.keys():
                 # Check if we want to scale histos by a factor
-                if opts.multiply:
+                if opts.MULTIPLY:
                     newarea = oldarea*obsnorms[name]
                 else:
                     # Rescale to manually given new area
