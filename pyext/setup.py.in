@@ -14,11 +14,14 @@ wrapsrc = '@srcdir@/rivet/rivetwrap_wrap.cc'
 incdir_src = os.path.abspath('@top_srcdir@/include')
 incdir_build = os.path.abspath('@top_builddir@/include')
 libdir = os.path.abspath('@top_builddir@/src/.libs')
+libdir_yaml = '@YAML_CPPLIBPATH@'
+if not libdir_yaml:
+    libdir_yaml = '@top_builddir@/src/Tools/yaml-cpp/.libs'
 cxxargs = '@CXXFLAGS@'.split()
 ldargs = '@LDFLAGS@'.split()
 ext = Extension('_rivetwrap',
                 [wrapsrc],
-                define_macros = [("SWIG_TYPE_TABLE", "hepmccompat")],
+                define_macros = [('SWIG_TYPE_TABLE', 'hepmccompat')],
                 include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@BOOSTINCPATH@', '@GSLINCPATH@'],
                 library_dirs=[libdir, '@HEPMCLIBPATH@'],
                 extra_compile_args = cxxargs,
