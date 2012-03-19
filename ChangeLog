@@ -1,5 +1,7 @@
 2012-03-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* src/Core/AnalysisInfo.cc: Add printout of YAML parser exception error messages to aid debugging.
+
 	* bin/Makefile.am: Attempt to fix rivet-nopy build on SLC5.
 
 	* src/Analyses/LHCB_2010_S8758301.cc: Add two missing entries to the PDGID -> lifetime map.

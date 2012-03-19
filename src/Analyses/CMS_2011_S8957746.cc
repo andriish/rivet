@@ -39,7 +39,7 @@ namespace Rivet {
       if (jets.size() < 2 ||
           fabs(jets[0].momentum().eta()) >= 1.3 ||
           fabs(jets[1].momentum().eta()) >= 1.3 ||
-          jets[0].momentum().pT() < 90/GeV) {
+          jets[0].momentum().pT() < 90*GeV) {
         vetoEvent;
       }
       std::vector<Vector3> momenta;

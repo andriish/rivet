@@ -42,7 +42,7 @@ namespace Rivet {
       parser.GetNextDocument(doc);
       //cout << doc << endl;
     } catch (const YAML::ParserException& ex) {
-      MSG_ERROR("Parse error when reading analysis data from " << datapath);
+      MSG_ERROR("Parse error when reading analysis data from " << datapath << " (" << ex.what() << ")");
       return ai;
     }
 
