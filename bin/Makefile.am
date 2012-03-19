@@ -20,4 +20,5 @@ endif
 noinst_PROGRAMS = rivet-nopy
 rivet_nopy_SOURCES = rivet-nopy.cc
 rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
-rivet_nopy_LDADD = ../src/libRivet.la -lHepMC
+rivet_nopy_LDADD = $(top_builddir)/src/libRivet.la -lHepMC
+rivet_nopy_LDFLAGS = -L$(HEPMCLIBPATH)
