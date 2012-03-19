@@ -8,29 +8,33 @@
 
 namespace Rivet {
 
+
   void UnstableFinalState::project(const Event& e) {
     _theParticles.clear();
 
-    // \todo We should really implement the FinalState algorithm here instead
+    // @todo We should really implement the FinalState algorithm here instead
     double etamin, etamax;
     if ( _etaRanges.empty() ) {
       etamin = -MAXRAPIDITY;
       etamax = MAXRAPIDITY;
-    }
-    else {
-      // with our current constructor choice, we can only ever have one entry
+    } else {
+      // With our current constructor choice, we can only ever have one entry
       assert( _etaRanges.size() == 1 );
       etamin = _etaRanges[0].first;
       etamax = _etaRanges[0].second;
     }
 
+    vector<PdgId> vetoIds;
+    vetoIds += 22; // status 2 photons don't count!
+    vetoIds += 110; vetoIds += 990; vetoIds += 9990; // Reggeons
+    //vetoIds += 9902210; // something weird from PYTHIA6
     foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
       const int st = p->status();
-      bool passed = \
-        ( st == 1 || (st == 2 && abs(p->pdg_id()) != 22) ) &&
-        !isZero(p->momentum().perp()) && p->momentum().perp() >= _ptmin &&
-        p->momentum().eta() > etamin && p->momentum().eta() < etamax &&
-        !IS_PARTON_PDGID(p->pdg_id());
+      bool passed =
+        (st == 1 || (st == 2 && find(vetoIds.begin(), vetoIds.end(), abs(p->pdg_id())) == vetoIds.end()) &&
+         !IS_PARTON_PDGID(p->pdg_id()) && //< Always veto partons?
+         !isZero(p->momentum().perp()) && p->momentum().perp() >= _ptmin &&
+         p->momentum().eta() > etamin && p->momentum().eta() < etamax);
 
       // Avoid double counting by re-marking as unpassed if particle ID == parent ID
       const GenVertex* pv = p->production_vertex();

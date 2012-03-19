@@ -15,9 +15,12 @@ namespace Rivet {
 using namespace HepMC;
 using namespace std;
 
-  /// lifetime cut: longest living ancestor ctau < 10^-11 [m]
-  const double MAX_CTAU = 1.0E-11;        // [m]
-  const double MIN_pT = 0.0001;           // [GeV/c]
+  // Lifetime cut: longest living ancestor ctau < 10^-11 [m]
+  namespace {
+    const double MAX_CTAU = 1.0E-11; // [m]
+    const double MIN_PT = 0.0001; // [GeV/c]
+  }
+
 
   class LHCB_2010_S8758301 : public Analysis {
   public:
@@ -31,9 +34,9 @@ using namespace std;
       sumKs0_badlft(0), sumKs0_all(0),
       sumKs0_outup(0), sumKs0_outdwn(0),
       sum_low_pt_loss(0), sum_high_pt_loss(0)
-    {
-      setNeedsCrossSection(true);
-    }
+    {  }
+
+
     //@}
     /// @name Analysis methods
     //@{
@@ -51,6 +54,7 @@ using namespace std;
       addProjection(UnstableFinalState(), "UFS");
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       int id;
@@ -64,11 +68,10 @@ using namespace std;
         sumKs0_all ++;
         ancestor_lftime = 0.;
         const GenParticle* long_ancestor = getLongestLivedAncestor(p, ancestor_lftime);
-        if ( !(long_ancestor) )
-        {
+        if ( !(long_ancestor) ) {
           sumKs0_badnull ++;
           continue;
-        };
+        }
         if ( ancestor_lftime > MAX_CTAU ) {
           sumKs0_badlft ++;
           MSG_DEBUG("Ancestor " << long_ancestor->pdg_id() << ", ctau: " << ancestor_lftime << " [m]");
@@ -77,7 +80,7 @@ using namespace std;
         const FourMomentum& qmom = p.momentum();
         y = 0.5 * log((qmom.E() + qmom.pz())/(qmom.E() - qmom.pz()));
         pT = sqrt((qmom.px() * qmom.px()) + (qmom.py() * qmom.py()));
-        if (pT < MIN_pT) {
+        if (pT < MIN_PT) {
           sum_low_pt_loss ++;
           MSG_DEBUG("Small pT K^0_S: " << pT << " GeV/c.");
         }
@@ -119,7 +122,7 @@ using namespace std;
                 << "Nb. unprompt Ks0 [mother lifetime exceeded]: " << sumKs0_badlft << endl
                 << "Nb. Ks0 (y > 4.0): " << sumKs0_outup << endl
                 << "Nb. Ks0 (y < 2.5): " << sumKs0_outdwn << endl
-                << "Nb. Ks0 (pT < " << (MIN_pT/MeV) << " MeV/c): " << sum_low_pt_loss << endl
+                << "Nb. Ks0 (pT < " << (MIN_PT/MeV) << " MeV/c): " << sum_low_pt_loss << endl
                 << "Nb. Ks0 (pT > 1.6 GeV/c): " << sum_high_pt_loss << endl
                 << "Cross-section [mb]: " << crossSection()/millibarn << endl
                 << "Nb. events: " << numEvents());
@@ -154,7 +157,7 @@ using namespace std;
       if (pPartLft == partLftMap.end()) {
         if (pid <= 100) return 0.0;
         for (unsigned int i=0; i < sizeof(stablePDGIds)/sizeof(unsigned int); i++ ) {
-          if (pid == stablePDGIds[i]) { lft = 0.0; break; };
+          if (pid == stablePDGIds[i]) { lft = 0.0; break; }
         }
       } else {
         lft = (*pPartLft).second;
@@ -176,7 +179,7 @@ using namespace std;
       GenVertex* ivertex = pmother->production_vertex();
       while (ivertex) {
         n_inparts = ivertex->particles_in_size();
-        if (n_inparts < 1) {ret = NULL; break;};    // error: should never happen!
+        if (n_inparts < 1) {ret = NULL; break;}    // error: should never happen!
         const HepMC::GenVertex::particles_in_const_iterator iPart_invtx = ivertex->particles_in_const_begin();
         pmother = (*iPart_invtx);                   // first mother particle
         mother_pid = pmother->pdg_id();
@@ -250,7 +253,8 @@ using namespace std;
       m[12224] =  2.194041E-24;  m[12226] =  1.828367E-24;  m[13112] =  6.582122E-24;  m[13114] =  1.09702E-23;
       m[13116] =  5.485102E-24;  m[13122] =  1.316424E-23;  m[13124] =  1.09702E-23;  m[13126] =  6.928549E-24;
       m[13212] =  6.582122E-24;  m[13214] =  1.09702E-23;  m[13216] =  5.485102E-24;  m[13222] =  6.582122E-24;
-      m[13224] =  1.09702E-23;  m[13226] =  5.485102E-24;  m[13314] =  2.742551E-23;
+      m[13224] =  1.09702E-23;   m[13226] =  5.485102E-24;
+      m[13312] =  4.135667E-22;  m[13314] =  2.742551E-23;
       m[13324] =  2.742551E-23;  m[14122] =  1.828367E-22;  m[20022] =  1.E+16;  m[20113] =  1.567172E-24;
       m[20213] =  1.567172E-24;  m[20223] =  2.708692E-23;  m[20313] =  3.782829E-24;
       m[20315] =  2.384827E-24;  m[20323] =  3.782829E-24;  m[20325] =  2.384827E-24;
@@ -277,7 +281,8 @@ using namespace std;
       m[200553] =  3.242425E-20;  m[300553] =  3.210791E-23;  m[9000111] =  8.776163E-24;
       m[9000211] =  8.776163E-24;  m[9000443] =  8.227652E-24;  m[9000553] =  5.983747E-24;
       m[9010111] =  3.164482E-24;  m[9010211] =  3.164482E-24;  m[9010221] =  9.403031E-24;
-      m[9010443] =  8.438618E-24;  m[9010553] =  8.3318E-24;  m[9020443] =  1.061633E-23;
+      m[9010443] =  8.438618E-24;  m[9010553] =  8.3318E-24;
+      m[9020221] =  8.093281E-23;  m[9020443] =  1.061633E-23;
       m[9030221] =  6.038644E-24;  m[9042413] =  2.07634E-21;  m[9050225] =  1.394517E-24;
       m[9060225] =  3.291061E-24;  m[9080225] =  4.388081E-24;  m[9090225] =  2.056913E-24;
       m[9910445] =  2.07634E-21;  m[9920443] =  2.07634E-21;

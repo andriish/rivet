@@ -1,3 +1,11 @@
+2012-03-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/Makefile.am: Attempt to fix rivet-nopy build on SLC5.
+
+	* src/Analyses/LHCB_2010_S8758301.cc: Add two missing entries to the PDGID -> lifetime map.
+
+	* src/Projections/UnstableFinalState.cc: Extend list of vetoed particles to include reggeons.
+
 2012-03-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version change to 1.8.0beta0 -- nearly ready for long-awaited release!
