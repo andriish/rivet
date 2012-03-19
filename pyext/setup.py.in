@@ -23,7 +23,7 @@ ext = Extension('_rivetwrap',
                 [wrapsrc],
                 define_macros = [('SWIG_TYPE_TABLE', 'hepmccompat')],
                 include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@BOOSTINCPATH@', '@GSLINCPATH@'],
-                library_dirs=[libdir, '@HEPMCLIBPATH@'],
+                library_dirs=[libdir, libdir_yaml, '@HEPMCLIBPATH@'],
                 extra_compile_args = cxxargs,
                 extra_link_args = ldargs,
                 libraries=['HepMC', 'Rivet'])
