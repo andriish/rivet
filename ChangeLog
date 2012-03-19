@@ -1,5 +1,7 @@
 2012-03-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Version bump for testing: 1.8.0beta1.
+
 	* src/Core/AnalysisInfo.cc: Add printout of YAML parser exception error messages to aid debugging.
 
 	* bin/Makefile.am: Attempt to fix rivet-nopy build on SLC5.
