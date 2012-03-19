@@ -1,5 +1,9 @@
 2012-03-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Version 1.8.0!
+
+	* src/Projections/UnstableFinalState.cc: Fix compiler warning.
+
 	* Version bump for testing: 1.8.0beta1.
 
 	* src/Core/AnalysisInfo.cc: Add printout of YAML parser exception error messages to aid debugging.

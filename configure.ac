@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.8.0beta1],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.8.0],[rivet@projects.hepforge.org],[Rivet])
 if test "$prefix" = "$PWD"; then
   AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
 fi
