@@ -31,10 +31,10 @@ namespace Rivet {
     foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
       const int st = p->status();
       bool passed =
-        (st == 1 || (st == 2 && find(vetoIds.begin(), vetoIds.end(), abs(p->pdg_id())) == vetoIds.end()) &&
-         !IS_PARTON_PDGID(p->pdg_id()) && //< Always veto partons?
-         !isZero(p->momentum().perp()) && p->momentum().perp() >= _ptmin &&
-         p->momentum().eta() > etamin && p->momentum().eta() < etamax);
+        (st == 1 || (st == 2 && find(vetoIds.begin(), vetoIds.end(), abs(p->pdg_id())) == vetoIds.end())) &&
+        !IS_PARTON_PDGID(p->pdg_id()) && //< Always veto partons?
+        !isZero(p->momentum().perp()) && p->momentum().perp() >= _ptmin &&
+        inRange(p->momentum().eta(), etamin, etamax);
 
       // Avoid double counting by re-marking as unpassed if particle ID == parent ID
       const GenVertex* pv = p->production_vertex();
