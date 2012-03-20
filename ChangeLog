@@ -118,9 +118,9 @@
 2012-01-25 Frank Siegert  <frank.siegert@cern.ch>
 
 	* Improvements in make-plots:
-          - Add PlotTickLabels and RatioPlotTickLabels options (cf.
+	  - Add PlotTickLabels and RatioPlotTickLabels options (cf.
 	    make-plots.txt)
-          - Make ErrorBars and ErrorBands non-exclusive (and change
+	  - Make ErrorBars and ErrorBands non-exclusive (and change
 	    their order, such that Bars are on top of Bands)
 
 2012-01-25 Holger Schulz  <holger.schulz@physik.hu-berlin.de>
