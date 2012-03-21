@@ -1218,22 +1218,13 @@ To load pluggable analyses you will need to set the \var{RIVET_ANALYSIS_PATH}
 environment variable: this is a standard colon-separated UNIX path, specifying
 directories in which analysis plugin libraries may be found. If it is
 unspecified, the Rivet loader system will assume that the only entry is the
-\kbd{lib} directory in the Rivet installation area -- specifying the variable
-will disable this standard location to allow you to override standard analyses
-with same-named variants of your own (provided they are loaded from different
-directories).
-
-\begin{change}
-  Note that the search path behaviour has changed as of Rivet 1.2.0: previously
-  the standard library install directory was \emph{always} used, as were the
-  current directory and \kbd{./.libs}, if found. While the new system requires a
-  bit more setup if you are to use personal plugin analyses, it also solves many
-  niggling problems and areas for confusion.
-
-  Note also that the behaviour is planned to change again, to a more standard
-  system where all paths will be searched but only the \emph{first} analysis of
-  a given name to be found will be used.
-\end{change}
+\kbd{lib} directory in the Rivet installation area. Specifying the variable adds
+new paths for searching \emph{before} the standard library area, and they will
+be searched in the left-to-right order in the path variable. If analyses with
+duplicate names are found, a warning message is issued and the first version to
+have been found will be used. This allows you to override standard analyses
+with same-named variants of your own, provided they are loaded from different
+directories.
 
 Several further environment variables are used to load analysis reference data
 and metadata files:
@@ -1290,7 +1281,7 @@ histogramming parts.
 \begin{warning}
   The histogramming interfaces in Rivet have long been advertised as marked for
   replacement, and while progress in that area has lagger far behind our
-  ambitions, it \emph{will} happen before the 2.0.0 release, with unavoidable
+  ambitions, it \emph{will} happen with the 2.0.0 release, with unavoidable
   impact on the related parts of the API. You have been warned!
 \end{warning}
 

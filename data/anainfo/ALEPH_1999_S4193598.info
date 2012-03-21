@@ -1,6 +1,6 @@
 Name: ALEPH_1999_S4193598
 Year: 1999
-Summary: Scaled energy distribution of D^* at LEP
+Summary: Scaled energy distribution of $D^*$ at LEP
 Experiment: ALEPH
 Collider: LEP
 SpiresID: 4193598
@@ -12,13 +12,13 @@ References:
  - hep-ex/9909032
  - CERN-EP-99-094
 RunInfo:
-  Hadronic Z-decays at 91.2 GeV.
+  Hadronic $Z$ decays at 91.2~GeV.
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [e+, e-]
 Energies: [91.2]
 Description:
-  'Study of Charm Production in Z Decays. Here, only the scaled energy distribution
+  'Study of Charm Production in $Z$ Decays. Here, only the scaled energy distribution
 of $D^{*\pm}$ is implemented. Should be very important for fragmentation tuning.'
 BibKey: Barate:1999bg
 BibTeX: '@article{Barate:1999bg,
