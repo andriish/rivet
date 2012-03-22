@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 
-"""\
-%prog datafile.aida mcfile.aida [outputfile.aida]
+"""
+%prog mcfile.aida [outputfile.aida]
+%prog --no-rivet-refs datafile.aida mcfile.aida [outputfile.aida]
 
 Remove bins in Rivet-generated MC AIDA files which are actually binning gaps in
 the reference histogram. Rivet's histogramming system currently has no way to
