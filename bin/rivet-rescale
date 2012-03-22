@@ -166,7 +166,8 @@ def getBindef(line):
     """
     area = None
     # Try to read bin specs for chopping
-    splitline = line.strip().split()
+    # Remove possible comments at the end of the line
+    splitline = line.strip().rsplit("#")[0].split()
     try:
         path, low, high = splitline[0].split(":")
     except:
@@ -321,7 +322,6 @@ if __name__ == "__main__":
             else:
                 scalefactor= 0.0
             if scalefactor != 1.0 and scalefactor > 0.0:
-                print scalefactor
                 oldarea = histos[name].getArea()
                 newarea = histos[name].getArea() * scalefactor
 
