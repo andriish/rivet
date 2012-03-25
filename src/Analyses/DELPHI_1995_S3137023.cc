@@ -68,7 +68,7 @@ namespace Rivet {
           _histXpXiMinus->fill(p.momentum().vector3().mod()/meanBeamMom, weight);
           _weightedTotalNumXiMinus += weight;
           break;
-        case 3114:
+        case 3114: case 3224:
           _histXpSigma1385Plus->fill(p.momentum().vector3().mod()/meanBeamMom, weight);
           _weightedTotalNumSigma1385Plus += weight;
           break;
