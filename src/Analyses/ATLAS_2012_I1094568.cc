@@ -11,7 +11,7 @@
 #include "Rivet/Projections/LeptonClusters.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
-
+#include "LWH/AIManagedObject.h"
 #include "Rivet/Particle.hh"
 #include "HepMC/GenEvent.h"
 
@@ -413,7 +413,7 @@ namespace Rivet {
 
                     ++dp_counter;
                 }
-                delete vetoPt;
+		tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*vetoPt)));
             }
 
 
