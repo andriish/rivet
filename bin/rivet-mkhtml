@@ -240,9 +240,12 @@ for analysis in analyses:
     references = []
     summary = analysis
     description = "NONE"
-    if analysis.startswith("S"):
-        spiresid = analysis[analysis.rfind('S')+1:len(analysis)]
+    if analysis.find("_S")>0:
+        spiresid = analysis[analysis.rfind('_S')+2:len(analysis)]
+    elif analysis.find("_I")>0:
+        inspireid = analysis[analysis.rfind('_I')+2:len(analysis)]
     else:
+        inspireid = "NONE"
         spiresid = "NONE"
     ana = rivet.AnalysisLoader.getAnalysis(analysis)
     if ana:
@@ -258,7 +261,9 @@ for analysis in analyses:
     else:
         index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
     reflist = []
-    if spiresid and spiresid != "NONE":
+    if inspireid and inspireid !="NONE":
+        reflist.append('<a href="http://inspirehep.net/record/%s">Spires</a>' % spiresid)
+    elif spiresid and spiresid != "NONE":
         reflist.append('<a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
     reflist += references
     index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
