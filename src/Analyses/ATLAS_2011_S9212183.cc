@@ -66,10 +66,10 @@ namespace Rivet {
       _count_4j10 = bookHistogram1D("count_4j10", 1, 0., 1.);
       _count_HM =   bookHistogram1D("count_HM", 1, 0., 1.);
 
-      _hist_meff_2j  = bookHistogram1D("m_eff_2j", 30, 0., 3000.);
-      _hist_meff_3j = bookHistogram1D("m_eff_3j", 30, 0., 3000.);
-      _hist_meff_4j = bookHistogram1D("m_eff_4j", 30, 0., 3000.);
-      _hist_meff_HM = bookHistogram1D("m_eff_HM", 20, 0., 3000.);
+      _hist_meff_2j  = bookHistogram1D(1,1,1);
+      _hist_meff_3j  = bookHistogram1D(2,1,1);
+      _hist_meff_4j  = bookHistogram1D(3,1,1);
+      _hist_meff_HM  = bookHistogram1D(4,1,1);
 
       _hist_eTmiss  = bookHistogram1D("Et_miss", 20, 0., 1000.);
     }
