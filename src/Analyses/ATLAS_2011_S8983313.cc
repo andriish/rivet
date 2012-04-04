@@ -304,7 +304,14 @@ namespace Rivet {
 
     //@}
 
-    void finalize() {}
+    void finalize() {
+
+      double norm = crossSection()/picobarn*35.0/sumOfWeights();
+      scale(_hist_meff_A ,100.*norm);
+      scale(_hist_mT2_B  ,100.*norm);
+      scale(_hist_meff_CD, 40.*norm);
+      scale(_hist_eTmiss , 50.*norm);
+    }
 
 
   private:
