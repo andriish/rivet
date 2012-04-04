@@ -242,6 +242,7 @@ for analysis in analyses:
     description = "NONE"
     if analysis.find("_S")>0:
         spiresid = analysis[analysis.rfind('_S')+2:len(analysis)]
+        inspireid = "NONE"
     elif analysis.find("_I")>0:
         inspireid = analysis[analysis.rfind('_I')+2:len(analysis)]
     else:
