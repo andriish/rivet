@@ -268,18 +268,19 @@ namespace Rivet {
       }
 
       // exactly one hard leading lepton cut
-      if ( fabs(lepton[1].pdgId()) == e_id &&
-           lepton[1].momentum().pT() > 20*GeV ) {
+      if(lepton.size()>1) {
+	if ( fabs(lepton[1].pdgId()) == e_id &&
+	     lepton[1].momentum().pT() > 20*GeV ) {
 	  vetoEvent;
-      }
-      else if ( fabs(lepton[1].pdgId()) == mu_id &&
-                lepton[1].momentum().pT() > 10*GeV ) {
+	}
+	else if ( fabs(lepton[1].pdgId()) == mu_id &&
+		  lepton[1].momentum().pT() > 10*GeV ) {
 	  vetoEvent;
+	}
       }
 
 
-
-    // ==================== FILL ====================
+      // ==================== FILL ====================
 
 
       FourMomentum pT_l = lepton[0].momentum();
@@ -334,12 +335,12 @@ namespace Rivet {
 
 
     void finalize() {
-	scale( _hist_eTmiss_e, 10. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_eTmiss_mu, 10. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_e, 25. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_mu, 25. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_e_final, 100. * 165. * crossSection()/sumOfWeights() );
-	scale( _hist_m_eff_mu_final, 100. * 165. * crossSection()/sumOfWeights() );
+	scale( _hist_eTmiss_e      , 10.  * 165. * crossSection()/picobarn/sumOfWeights() );
+	scale( _hist_eTmiss_mu     , 10.  * 165. * crossSection()/picobarn/sumOfWeights() );
+	scale( _hist_m_eff_e       , 25.  * 165. * crossSection()/picobarn/sumOfWeights() );
+	scale( _hist_m_eff_mu      , 25.  * 165. * crossSection()/picobarn/sumOfWeights() );
+	scale( _hist_m_eff_e_final , 100. * 165. * crossSection()/picobarn/sumOfWeights() );
+	scale( _hist_m_eff_mu_final, 100. * 165. * crossSection()/picobarn/sumOfWeights() );
     }
 
   private:
