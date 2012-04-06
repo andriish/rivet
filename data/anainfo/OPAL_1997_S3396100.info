@@ -17,7 +17,7 @@ Energies: [91.2]
 PtCuts: [0]
 Description:
   Measurement of the $\Xi^-$, $\Lambda^0$, $\Sigma^+(1385)$, \Sigma^-(1385)$,
-  $Xi^0(1530)$ and $\Lambda^0(1520)$ scaled
+  $\Xi^0(1530)$ and $\Lambda^0(1520)$ scaled
   momentum distributions by OPAL at LEP 1. The paper also has the
   production cross-sections of these particles, but that is not
   implemented in Rivet.
