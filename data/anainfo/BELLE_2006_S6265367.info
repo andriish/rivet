@@ -10,8 +10,9 @@ References:
 RunInfo:
   $e^+ e^-$ analysis on the $\Upsilon(4S)$ resonance, with CoM boost -- 8.0~GeV~($e^−$) and 3.5~GeV~($e^+$)
 NumEvents: 1000000
+SpiresID: 6265367
 Beams: [e+, e-]
-Energies: [[3.5, 8.0]]
+Energies: [[3.5, 8.0],[3.5,7.91]]
 PtCuts: [0]
 Description:
   Analysis of charm quark fragmentation at 10.6 GeV, based on a data
@@ -19,7 +20,21 @@ Description:
   Fragmentation into charm is studied for the main charmed hadron ground states, 
   namely $D^0$, $D^+$, $D^+_s$ and $\Lambda_c^+$, as well as the excited states 
   $D^{*0}$ and $D^{*+}$. This analysis can be used to constrain charm fragmentation 
-  in Monte Carlo generators. Additionally, we determine the average number of
-  these charmed hadrons produced per B decay at the $\Upsilon(4S)$ resonance
-  and measure the distribution of their production angle in $e^+ e^-$ annihilation 
-  events and in B decays.
+  in Monte Carlo generators. As the original data are not corrected for the branching ratios
+  of the decay modes used to observed the charm hadrons we also include distributions with
+  unit normalisation which are more useful for Monte Carlo tuning.
+BibKey: Seuster:2005tr
+BibTeX: '@Article{Seuster:2005tr,
+     author    = "Seuster, R. and others",
+     collaboration = "Belle",
+     title     = "{Charm hadrons from fragmentation and B decays in e+ e-
+                  annihilation at  $\sqrt{s}$ = 10.6\,GeV}",
+     journal   = "Phys. Rev.",
+     volume    = "D73",
+     year      = "2006",
+     pages     = "032002",
+     eprint    = "hep-ex/0506068",
+     archivePrefix = "arXiv",
+     doi       = "10.1103/PhysRevD.73.032002",
+     SLACcitation  = "%%CITATION = HEP-EX/0506068;%%"
+}'

@@ -35,6 +35,7 @@ dist_pkgdata_DATA = \
   ATLAS_2012_I1083318.plot \
   ATLAS_2012_I1084540.plot \
   ATLAS_2012_I1094568.plot \
+  BELLE_2006_S6265367.plot \
   CDF_1988_S1865951.plot \
   CDF_1990_S2089246.plot \
   CDF_1993_S2742446.plot \
@@ -70,6 +71,7 @@ dist_pkgdata_DATA = \
   CDF_2009_S8436959.plot \
   CDF_2010_S8591881_DY.plot \
   CDF_2010_S8591881_QCD.plot \
+  CLEO_2004_S5809304.plot \
   CMS_2010_S8547297.plot \
   CMS_2010_S8656010.plot \
   CMS_2011_S8884919.plot \
