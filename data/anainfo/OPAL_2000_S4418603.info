@@ -16,7 +16,7 @@ NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
 PtCuts: [0]
-Description: Multiplicities of $\pi^0, $\eta$, $K^0$ and of charged particles
+Description: Multiplicities of $\pi^0$, $\eta$, $K^0$ and of charged particles
              in quark and gluon jets in 3-jet events, as measured by the OPAL
              experiment at LEP. The main implemented measurement is the 
              $K^0$ fragmentation function.
