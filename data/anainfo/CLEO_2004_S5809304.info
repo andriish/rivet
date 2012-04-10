@@ -7,14 +7,14 @@ References:
  - Phys.Rev.D70:112001,2004.
  - arXiv:hep-ex/0402040
 RunInfo:
-  $e^+ e^-$ analysis on the $\Upsilon(4S)$ resonance, with CoM boost -- 8.0~GeV~($e^−$) and 3.5~GeV~($e^+$)
+  $e^+ e^-$ analysis near the $\Upsilon(4S)$ resonance
 NumEvents: 1000000
 SpiresID: 6265367
 Beams: [e+, e-]
-Energies: [[3.5,7.91]]
+Energies: [10.52]
 PtCuts: [0]
 Description:
-  Analysis of charm quark fragmentation at 10.6 GeV, based on a data
+  Analysis of charm quark fragmentation at 10.5 GeV, based on a data
   sample of 103 fb collected by the CLEO experiment. 
   Fragmentation into charm is studied for the charmed hadron ground states, 
   namely $D^0$, $D^+$, as well as the excited states 

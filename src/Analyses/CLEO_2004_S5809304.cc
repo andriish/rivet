@@ -111,7 +111,7 @@ namespace Rivet {
 
     void init() {
       addProjection(Beam(), "Beams");
-      addProjection(UnstableFinalState(-1.3170, 1.9008), "UFS");
+      addProjection(UnstableFinalState(), "UFS");
 
       // continuum cross sections
       _sigmaDPlus      = bookHistogram1D(1,1,1);

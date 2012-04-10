@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.0" package="HepData"/>
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/ARGUS_1993_S2669951" title="MULT(P=3)/EVENT" >
+    <dataPoint>
+      <measurement value="9.905" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.014" errorPlus="0.006" errorMinus="0.006"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="9.46" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.034" errorPlus="0.011" errorMinus="0.011"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y02" dimension="2" path="/REF/ARGUS_1993_S2669951" title="MULT(P=3)/EVENT" >
+    <dataPoint>
+      <measurement value="9.905" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.034" errorPlus="0.010770329614269008" errorMinus="0.010770329614269008"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="9.46" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.115" errorPlus="0.04205948168962618" errorMinus="0.04205948168962618"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="10.02" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.12" errorPlus="0.08246211251235322" errorMinus="0.08246211251235322"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/ARGUS_1993_S2669951" title="(1/(BETA*SIG(C=CONTINUUM)))*D(SIG)/DZ" >
+    <dataPoint>
+      <measurement value="0.2525" errorPlus="0.02250000000000002" errorMinus="0.022499999999999992"/>
+      <measurement value="0.313" errorPlus="0.09730878685915265" errorMinus="0.09730878685915265"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.3215" errorPlus="0.046499999999999986" errorMinus="0.046499999999999986"/>
+      <measurement value="0.065" errorPlus="0.029120439557122076" errorMinus="0.029120439557122076"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.41600000000000004" errorPlus="0.04799999999999999" errorMinus="0.04800000000000004"/>
+      <measurement value="0.029" errorPlus="0.015297058540778355" errorMinus="0.015297058540778355"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.5375" errorPlus="0.07350000000000001" errorMinus="0.07349999999999995"/>
+      <measurement value="0.0108" errorPlus="0.007021395872616783" errorMinus="0.007021395872616783"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.6599999999999999" errorPlus="0.049000000000000044" errorMinus="0.04899999999999993"/>
+      <measurement value="0.0087" errorPlus="0.004805205510693585" errorMinus="0.004805205510693585"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.8545" errorPlus="0.14549999999999996" errorMinus="0.14550000000000007"/>
+      <measurement value="-4.0E-4" errorPlus="0.00140356688476182" errorMinus="0.00140356688476182"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/ARGUS_1993_S2669951" title="(1/(BETA*SIG(C=UPSI(1S))))*D(SIG)/DZ" >
+    <dataPoint>
+      <measurement value="0.2585" errorPlus="0.02150000000000002" errorMinus="0.02150000000000002"/>
+      <measurement value="0.41" errorPlus="0.20615528128088306" errorMinus="0.20615528128088306"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.326" errorPlus="0.045999999999999985" errorMinus="0.045999999999999985"/>
+      <measurement value="0.181" errorPlus="0.060539243470661246" errorMinus="0.060539243470661246"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.4195" errorPlus="0.04750000000000004" errorMinus="0.04749999999999999"/>
+      <measurement value="0.087" errorPlus="0.02731300056749533" errorMinus="0.02731300056749533"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.54" errorPlus="0.07299999999999995" errorMinus="0.07300000000000001"/>
+      <measurement value="0.006" errorPlus="0.01004987562112089" errorMinus="0.01004987562112089"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.6619999999999999" errorPlus="0.049000000000000044" errorMinus="0.04899999999999993"/>
+      <measurement value="-0.0074" errorPlus="0.005277309920783505" errorMinus="0.005277309920783505"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.8554999999999999" errorPlus="0.14450000000000007" errorMinus="0.14449999999999996"/>
+      <measurement value="0.0016" errorPlus="0.001216552506059644" errorMinus="0.001216552506059644"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/ARGUS_1993_S2669951" title="(1/(BETA*SIG(C=UPSI(2S))))*D(SIG)/DZ" >
+    <dataPoint>
+      <measurement value="0.255" errorPlus="0.02200000000000002" errorMinus="0.021999999999999992"/>
+      <measurement value="0.28" errorPlus="0.29274562336608895" errorMinus="0.29274562336608895"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.3235" errorPlus="0.046499999999999986" errorMinus="0.046499999999999986"/>
+      <measurement value="0.222" errorPlus="0.09139474820797965" errorMinus="0.09139474820797965"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.41800000000000004" errorPlus="0.04799999999999999" errorMinus="0.04800000000000004"/>
+      <measurement value="0.013" errorPlus="0.04104875150354759" errorMinus="0.04104875150354759"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.539" errorPlus="0.07299999999999995" errorMinus="0.07300000000000001"/>
+      <measurement value="-0.001" errorPlus="0.022000227271553353" errorMinus="0.022000227271553353"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.661" errorPlus="0.04899999999999993" errorMinus="0.049000000000000044"/>
+      <measurement value="0.002" errorPlus="0.011004090148667448" errorMinus="0.011004090148667448"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.855" errorPlus="0.14500000000000002" errorMinus="0.14500000000000002"/>
+      <measurement value="5.0E-4" errorPlus="0.0026019223662515373" errorMinus="0.0026019223662515373"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/ARGUS_1993_S2669951" title="MULT(P=3)/EVENT" >
+    <dataPoint>
+      <measurement value="10.45" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.0236" errorPlus="0.005742821606144492" errorMinus="0.005742821606144492"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="9.46" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.039" errorPlus="0.010072239075796404" errorMinus="0.010072239075796404"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="10.02" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.035" errorPlus="0.016236070953281768" errorMinus="0.016236070953281768"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>

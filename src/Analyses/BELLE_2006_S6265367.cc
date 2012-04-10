@@ -30,7 +30,6 @@ namespace Rivet {
       FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
       LorentzTransform cms_boost(-mom_tot.boostVector());
       const double s = sqr(beamproj.sqrtS());
-
       const bool onresonance = fuzzyEquals(beamproj.sqrtS(), 10.58, 5E-3);
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
@@ -142,7 +141,6 @@ namespace Rivet {
                 Piplusdecay = true;
               }
             }
-
             if (D0decay && Piplusdecay && checkDecay(*Dmeson)) {
               if (onresonance)
                 _histXpDstarplus2D0_R->fill(xp, s*weight);
@@ -253,7 +251,7 @@ namespace Rivet {
 
     void init() {
       addProjection(Beam(), "Beams");
-      addProjection(UnstableFinalState(-1.3170, 1.9008), "UFS");
+      addProjection(UnstableFinalState(), "UFS");
 
       // continuum cross sections
       _sigmaD0         = bookHistogram1D(1,1,1);

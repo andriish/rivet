@@ -88,13 +88,13 @@ YLabel=$s\times\text{d}\sigma/\text{d}x_p$ [$\text{GeV}^2$nb]
 YLog=0
 # END PLOT
 # BEGIN PLOT /BELLE_2006_S6265367/d10-x01-y01
-Title=$D^0\to K-\pi^+$ scaled momentum in the resonance region
+Title=$D^0\to K^-\pi^+$ scaled momentum in the resonance region
 XLabel=$x_p$
 YLabel=$s\times\text{d}\sigma/\text{d}x_p$ [$\text{GeV}^2$nb]
 YLog=0
 # END PLOT
 # BEGIN PLOT /BELLE_2006_S6265367/d11-x01-y01
-Title=$D^+\to K-\pi^+\pi^-$ scaled momentum in the resonance region
+Title=$D^+\to K^-\pi^+\pi^-$ scaled momentum in the resonance region
 XLabel=$x_p$
 YLabel=$s\times\text{d}\sigma/\text{d}x_p$ [$\text{GeV}^2$nb]
 YLog=0
@@ -176,13 +176,13 @@ YLabel=$1/\sigma\text{d}\sigma/\text{d}x_p$
 YLog=0
 # END PLOT
 # BEGIN PLOT /BELLE_2006_S6265367/d10-x01-y02
-Title=$D^0\to K-\pi^+$ scaled momentum in the resonance region
+Title=$D^0\to K^-\pi^+$ scaled momentum in the resonance region
 XLabel=$x_p$
 YLabel=$1/\sigma\text{d}\sigma/\text{d}x_p$ 
 YLog=0
 # END PLOT
 # BEGIN PLOT /BELLE_2006_S6265367/d11-x01-y02
-Title=$D^+\to K-\pi^+\pi^-$ scaled momentum in the resonance region
+Title=$D^+\to K^-\pi^+\pi^-$ scaled momentum in the resonance region
 XLabel=$x_p$
 YLabel=$1/\sigma\text{d}\sigma/\text{d}x_p$ 
 YLog=0
