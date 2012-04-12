@@ -32,17 +32,17 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       // Z -> e- e+
-      LeadingParticlesFinalState eeFS(FinalState(-2.5, 2.5, 0.)); //20.);
+      LeadingParticlesFinalState eeFS(FinalState(-5.0, 5.0, 0.)); //20.);
       eeFS.addParticleIdPair(ELECTRON);
       addProjection(eeFS, "eeFS");
 
       // W- -> e- nu_e~
-      LeadingParticlesFinalState enuFS(FinalState(-2.5, 2.5, 0.)); //25.);
+      LeadingParticlesFinalState enuFS(FinalState(-5.0, 5.0, 0.)); //25.);
       enuFS.addParticleId(ELECTRON).addParticleId(NU_EBAR);
       addProjection(enuFS, "enuFS");
 
       // W+ -> e+ nu_e
-      LeadingParticlesFinalState enubFS(FinalState(-2.5, 2.5, 0.)); //25.);
+      LeadingParticlesFinalState enubFS(FinalState(-5.0, 5.0, 0.)); //25.);
       enubFS.addParticleId(POSITRON).addParticleId(NU_E);
       addProjection(enubFS, "enubFS");
 
@@ -67,39 +67,58 @@ namespace Rivet {
       const double weight = event.weight();
 
       const LeadingParticlesFinalState& eeFS = applyProjection<LeadingParticlesFinalState>(event, "eeFS");
-      if (eeFS.particles().size() == 2) {
+      // Z boson analysis
+      if (eeFS.particles().size() >= 2) {
         // If there is a Z candidate:
-        static size_t Zcount = 0;
         // Fill Z pT distributions
+	double deltaM2=1e30,mass2(0.);
+	double pT=-1.;
         const ParticleVector& Zdaughters = eeFS.particles();
-        const FourMomentum pmom = Zdaughters[0].momentum() + Zdaughters[1].momentum();
-        double mass = sqrt(pmom.invariant());
-        if (inRange(mass/GeV, 75.0, 105.0)) {
-          ++Zcount;
-          _eventsFilledZ += weight;
-          MSG_DEBUG("Z #" << Zcount << " pmom.pT() = " << pmom.pT()/GeV << " GeV");
-          _h_dsigdpt_z->fill(pmom.pT()/GeV, weight);
-        }
-      } else {
-        // There is no Z -> ee candidate... so this must be a W event, right?
-        const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
-        const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS");
-        static size_t Wcount = 0;
-
-        // Fill W pT distributions
-        ParticleVector Wdaughters;
-        if (enuFS.particles().size() == 2 && enubFS.empty()) {
-          Wdaughters = enuFS.particles();
-        } else if (enuFS.empty() && enubFS.particles().size() == 2) {
-          Wdaughters = enubFS.particles();
-        }
-        if (! Wdaughters.empty()) {
-          assert(Wdaughters.size() == 2);
-          const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
-          ++Wcount;
-          _eventsFilledW += weight;
-          _h_dsigdpt_w->fill(pmom.pT()/GeV, weight);
-        }
+	for(unsigned int ix=0;ix<Zdaughters.size();++ix) {
+ 	  for(unsigned int iy=ix+1;iy<Zdaughters.size();++iy) {
+ 	    if(Zdaughters[ix].pdgId()!=-Zdaughters[iy].pdgId()) continue;
+ 	    const FourMomentum pmom = Zdaughters[ix].momentum() + Zdaughters[iy].momentum();
+ 	    double mz2 = pmom.mass2();
+ 	    double dm2 = abs(mz2-sqr(91.118*GeV));
+	    if(dm2<deltaM2) {
+	      pT = pmom.pT();
+	      deltaM2 = dm2;
+	      mass2 = mz2;
+	    }
+	  }
+	}
+	if (pT>0. && mass2 > 0. && inRange(sqrt(mass2)/GeV, 75.0, 105.0)) {
+	  _eventsFilledZ += weight;
+          MSG_DEBUG("Z pmom.pT() = " << pT/GeV << " GeV");
+          _h_dsigdpt_z->fill(pT/GeV, weight);
+	  // return if found a Z
+	  return;
+	}
+      }
+      // There is no Z -> ee candidate... so this might be a W event
+      const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
+      const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS");
+      
+      double deltaM2=1e30;
+      double pT=-1.;
+      for(unsigned int iw=0;iw<2;++iw) {
+	ParticleVector Wdaughters;
+	Wdaughters = iw==0 ? enuFS.particles() : enubFS.particles();
+	for(unsigned int ix=0;ix<Wdaughters.size();++ix) {
+	  for(unsigned int iy=ix+1;iy<Wdaughters.size();++iy) {
+	    if(Wdaughters[ix].pdgId()==Wdaughters[iy].pdgId())  continue;
+	    const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
+	    double dm2 = abs(pmom.mass2()-sqr(80.4*GeV));
+	    if(dm2<deltaM2) {
+	      pT = pmom.pT();
+	      deltaM2 = dm2;
+	    }
+	  }
+	}
+      }
+      if(pT>0.) {
+	_eventsFilledW += weight;
+	_h_dsigdpt_w->fill(pT/GeV, weight);
       }
     }
 
