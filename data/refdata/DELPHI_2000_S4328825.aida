@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.0" package="HepData"/>
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/DELPHI_2000_S4328825" title="MULT(Q=BB,C=CHARGED)" >
+    <dataPoint>
+      <measurement value="183.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="29.79" errorPlus="1.11" errorMinus="1.11"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="189.0" errorPlus="1.5" errorMinus="3.0"/>
+      <measurement value="30.53" errorPlus="0.7" errorMinus="0.7"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="192.0" errorPlus="2.0" errorMinus="1.5"/>
+      <measurement value="27.57" errorPlus="1.56" errorMinus="1.56"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="196.0" errorPlus="2.0" errorMinus="2.0"/>
+      <measurement value="29.58" errorPlus="0.97" errorMinus="0.97"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="200.0" errorPlus="3.0" errorMinus="2.0"/>
+      <measurement value="29.38" errorPlus="0.65" errorMinus="0.65"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="206.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="28.72" errorPlus="0.70" errorMinus="0.70"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y02" dimension="2" path="/REF/DELPHI_2000_S4328825" title="MULT(Q=CC,C=CHARGED)" >
+    <dataPoint>
+      <measurement value="183.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="29.41" errorPlus="4.05" errorMinus="4.05"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="189.0" errorPlus="1.5" errorMinus="3.0"/>
+      <measurement value="28.63" errorPlus="2.81" errorMinus="2.81"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="192.0" errorPlus="2.0" errorMinus="1.5"/>
+      <measurement value="30.63" errorPlus="7.7" errorMinus="7.7"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="196.0" errorPlus="2.0" errorMinus="2.0"/>
+      <measurement value="26.75" errorPlus="4.45" errorMinus="4.45"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="200.0" errorPlus="3.0" errorMinus="2.0"/>
+      <measurement value="29.89" errorPlus="2.92" errorMinus="2.92"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="206.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="36.32" errorPlus="3.08" errorMinus="3.08"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y03" dimension="2" path="/REF/DELPHI_2000_S4328825" title="MULT(Q=UDS,C=CHARGED)" >
+    <dataPoint>
+      <measurement value="183.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="25.25" errorPlus="1.35" errorMinus="1.35"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="189.0" errorPlus="1.5" errorMinus="3.0"/>
+      <measurement value="26.1" errorPlus="0.97" errorMinus="0.97"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="192.0" errorPlus="2.0" errorMinus="1.5"/>
+      <measurement value="25.54" errorPlus="2.75" errorMinus="2.75"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="196.0" errorPlus="2.0" errorMinus="2.0"/>
+      <measurement value="27.12" errorPlus="1.58" errorMinus="1.58"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="200.0" errorPlus="3.0" errorMinus="2.0"/>
+      <measurement value="25.99" errorPlus="1.03" errorMinus="1.03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="206.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="24.22" errorPlus="1.09" errorMinus="1.09"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y04" dimension="2" path="/REF/DELPHI_2000_S4328825" title="MULT(Q=BB)-MULT(Q=UDS)" >
+    <dataPoint>
+      <measurement value="183.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="4.55" errorPlus="1.31" errorMinus="1.31"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="189.0" errorPlus="1.5" errorMinus="3.0"/>
+      <measurement value="4.43" errorPlus="0.85" errorMinus="0.85"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="192.0" errorPlus="2.0" errorMinus="1.5"/>
+      <measurement value="2.03" errorPlus="2.36" errorMinus="2.36"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="196.0" errorPlus="2.0" errorMinus="2.0"/>
+      <measurement value="2.46" errorPlus="1.37" errorMinus="1.37"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="200.0" errorPlus="3.0" errorMinus="2.0"/>
+      <measurement value="4.79" errorPlus="1.34" errorMinus="1.34"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="206.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="4.50" errorPlus="1.05" errorMinus="1.05"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/DELPHI_2000_S4328825" title="MULT(Q=BB)-MULT(Q=UDS)" >
+    <dataPoint>
+      <measurement value="183.0" errorPlus="3.0" errorMinus="3.0"/>
+      <measurement value="4.55" errorPlus="1.499666629621397" errorMinus="1.499666629621397"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="189.0" errorPlus="5.5" errorMinus="3.0"/>
+      <measurement value="4.43" errorPlus="1.046231331972045" errorMinus="1.046231331972045"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="200.0" errorPlus="5.5" errorMinus="5.5"/>
+      <measurement value="3.42" errorPlus="1.3461797799699713" errorMinus="1.3461797799699713"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
