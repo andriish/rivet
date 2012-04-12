@@ -7,5 +7,5 @@ YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
 Title=$\pi^0$ multiplicity
 XLabel=
 YLabel=$N_{\pi^0}$
-YLog=0
+LogY=0
 # END PLOT

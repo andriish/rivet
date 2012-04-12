@@ -2,91 +2,91 @@
 Title=$\omega$ multiplicity, continuum
 XLabel=
 YLabel=$N_{\omega}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d01-x01-y02
 Title=$\rho^0$ multiplicity, continuum
 XLabel=
 YLabel=$N_{\rho^0}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d01-x01-y03
 Title=$K^{*0}$ multiplicity, continuum
 XLabel=
 YLabel=$N_{K^{*0}}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d01-x01-y04
 Title=$K^{*+}$ multiplicity, continuum
 XLabel=
 YLabel=$N_{K^{*+}}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d01-x01-y05
 Title=$\phi$ multiplicity, continuum
 XLabel=
 YLabel=$N_{\phi}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d02-x01-y01
 Title=$\omega$ multiplicity, $\Upsilon(1S)$
 XLabel=
 YLabel=$N_{\omega}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d02-x01-y02
 Title=$\rho^0$ multiplicity, $\Upsilon(1S)$
 XLabel=
 YLabel=$N_{\rho^0}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d02-x01-y03
 Title=$K^{*0}$ multiplicity, $\Upsilon(1S)$
 XLabel=
 YLabel=$N_{K^{*0}}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d02-x01-y04
 Title=$K^{*+}$ multiplicity, $\Upsilon(1S)$
 XLabel=
 YLabel=$N_{K^{*+}}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d02-x01-y05
 Title=$\phi$ multiplicity, $\Upsilon(1S)$
 XLabel=
 YLabel=$N_{\phi}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d03-x01-y01
 Title=$\omega$ multiplicity, $\Upsilon(4S)$
 XLabel=
 YLabel=$N_{\omega}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d03-x01-y02
 Title=$\rho^0$ multiplicity, $\Upsilon(4S)$
 XLabel=
 YLabel=$N_{\rho^0}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d03-x01-y03
 Title=$K^{*0}$ multiplicity, $\Upsilon(4S)$
 XLabel=
 YLabel=$N_{K^{*0}}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d03-x01-y04
 Title=$K^{*+}$ multiplicity, $\Upsilon(4S)$
 XLabel=
 YLabel=$N_{K^{*+}}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2789213/d03-x01-y05
 Title=$\phi$ multiplicity, $\Upsilon(4S)$
 XLabel=
 YLabel=$N_{\phi}$
-YLog=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ARGUS_1993_S2789213/d04-x01-y01

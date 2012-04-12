@@ -34,29 +34,29 @@ YLabel=$1/\sigma\text{d}\sigma/dp$ [$\text{GeV}^{-1}$]
 Title=$\pi^+$ multiplicity, no $\Lambda$, $K^0_S$
 XLabel=
 YLabel=$N_{\pi^+}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2653028/d08-x01-y01
 Title=$\pi^+$ multiplicity, including $\Lambda$, $K^0_S$
 XLabel=
 YLabel=$N_{\pi^+}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2653028/d09-x01-y01
 Title=$K^+$ multiplicity
 XLabel=
 YLabel=$N_{K^+}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2653028/d10-x01-y01
 Title=Proton multiplicity, no $\Lambda$, $K^0_S$
 XLabel=
 YLabel=$N_{p}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2653028/d11-x01-y01
 Title=Proton multiplicity, including $\Lambda$, $K^0_S$
 XLabel=
 YLabel=$N_{p}$
-YLog=0
+LogY=0
 # END PLOT

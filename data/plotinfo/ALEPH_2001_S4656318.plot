@@ -17,7 +17,7 @@ Title=Mean of $b$ quark fragmentation function $f(x_B^\text{weak})$
 XLabel=
 YLabel=$\langle x_B \rangle$
 ShowZero=0
-YLog=0
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2001_S4656318/d07-x01-y01
@@ -25,6 +25,6 @@ Title=Mean of $b$ quark fragmentation function $f(x_B^\text{lead})$
 XLabel=
 YLabel=$\langle x_B \rangle$
 ShowZero=0
-YLog=0
+LogY=0
 # END PLOT
 

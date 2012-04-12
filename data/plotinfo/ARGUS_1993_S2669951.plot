@@ -17,17 +17,17 @@ YLabel=$1/(\sigma\beta)\text{d}\sigma/\text{d}x_p$
 Title=$\eta'$ multiplicity, $x_p>0.35$
 XLabel=
 YLabel=$N_{\eta'}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2669951/d01-x01-y02
 Title=$\eta'$ multiplicity, $x_p>0.35$
 XLabel=
 YLabel=$N_{\eta'}$
-YLog=0
+LogY=0
 # END PLOT
 # BEGIN PLOT /ARGUS_1993_S2669951/d05-x01-y01
 Title=$f_0$ multiplicity
 XLabel=
 YLabel=$N_{f_0}$
-YLog=0
+LogY=0
 # END PLOT

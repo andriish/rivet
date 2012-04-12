@@ -3,5 +3,5 @@ Title=$b$ quark fragmentation function $f(x_B^\text{weak})$
 XLabel=$x_B$
 YLabel=$1/N \, \text{d}{N}/\text{d}x_B$
 LegendYPos=0.60
-YLog=0
+LogY=0
 # END PLOT
