@@ -14,8 +14,8 @@
 namespace Rivet {
 
 
-  /// @brief DELPHI b-fragmentation measurement
-  /// @author Hendrik Hoeth
+  /// @brief SLD b-fragmentation measurement
+  /// @author Peter Richardson
   class SLD_2002_S4869273 : public Analysis {
   public:
 
