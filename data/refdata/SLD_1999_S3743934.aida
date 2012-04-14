@@ -1058,6 +1058,12 @@
       <measurement value="0.6" errorPlus="0.05385164807134505" errorMinus="0.05385164807134505"/>
     </dataPoint>
   </dataPointSet>
+  <dataPointSet name="d05-x02-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(Q=HAD))*D(N)/DX" >
+    <dataPoint>
+      <measurement value="0.253" errorPlus="0.244" errorMinus="0.244"/>
+      <measurement value="1.9" errorPlus="0.07280109889280519" errorMinus="0.07280109889280519"/>
+    </dataPoint>
+  </dataPointSet>
   <dataPointSet name="d07-x01-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(Q=HAD))*D(N)/DX" >
     <dataPoint>
       <measurement value="0.015" errorPlus="0.002999999999999999" errorMinus="9.999999999999992E-4"/>
@@ -1120,6 +1126,12 @@
       <measurement value="0.15" errorPlus="0.03605551275463989" errorMinus="0.03605551275463989"/>
     </dataPoint>
   </dataPointSet>
+  <dataPointSet name="d07-x02-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(Q=HAD))*D(N)/DX" >
+    <dataPoint>
+      <measurement value="0.2555" errorPlus="0.2415" errorMinus="0.2415"/>
+      <measurement value="0.37" errorPlus="0.022360679774997897" errorMinus="0.022360679774997897"/>
+    </dataPoint>
+  </dataPointSet>
   <dataPointSet name="d08-x01-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(Q=HAD))*D(N)/DX" >
     <dataPoint>
       <measurement value="0.033" errorPlus="0.015" errorMinus="0.015000000000000003"/>
@@ -1146,6 +1158,12 @@
       <measurement value="0.051" errorPlus="0.00565685424949238" errorMinus="0.00565685424949238"/>
     </dataPoint>
   </dataPointSet>
+  <dataPointSet name="d08-x02-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(Q=HAD))*D(N)/DX" >
+    <dataPoint>
+      <measurement value="0.509" errorPlus="0.491" errorMinus="0.491"/>
+      <measurement value="0.647" errorPlus="0.03640054944640259" errorMinus="0.03640054944640259"/>
+    </dataPoint>
+  </dataPointSet>
   <dataPointSet name="d09-x01-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(Q=HAD))*D(N)/DX" >
     <dataPoint>
       <measurement value="0.037" errorPlus="0.020000000000000004" errorMinus="0.019"/>
@@ -1170,6 +1188,12 @@
     <dataPoint>
       <measurement value="0.689" errorPlus="0.31100000000000005" errorMinus="0.20599999999999996"/>
       <measurement value="0.0089" errorPlus="0.0018601075237738274" errorMinus="0.0018601075237738274"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d09-x02-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(Q=HAD))*D(N)/DX" >
+    <dataPoint>
+      <measurement value="0.509" errorPlus="0.491" errorMinus="0.491"/>
+      <measurement value="0.0985" errorPlus="0.00717007670809734" errorMinus="0.00717007670809734"/>
     </dataPoint>
   </dataPointSet>
   <dataPointSet name="d10-x01-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="(1/N(C=HAD)*D(N(Q=UDS))/DX" >
@@ -4022,6 +4046,258 @@
     <dataPoint>
       <measurement value="0.368" errorPlus="0.132" errorMinus="0.068"/>
       <measurement value="0.75" errorPlus="0.37" errorMinus="0.37"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x01-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult PI+ + PI-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="16.84" errorPlus="0.37" errorMinus="0.37"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x02-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult K+ + K-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.22" errorPlus="0.16" errorMinus="0.16"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x03-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult K0 + KBAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.01" errorPlus="0.08" errorMinus="0.08"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x04-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult K*0 + K*BAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.707" errorPlus="0.041" errorMinus="0.041"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x05-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult PHI" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.105" errorPlus="0.008" errorMinus="0.008"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x06-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds P + PBAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.03" errorPlus="0.13" errorMinus="0.13"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x07-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds LAMBDA + LAMBDABAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.395" errorPlus="0.022" errorMinus="0.022"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x01-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds PI+ + PI-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="16.46" errorPlus="0.47" errorMinus="0.47"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x02-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds K+ + K-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.04" errorPlus="0.15" errorMinus="0.15"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x03-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds K0 + KBAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.86" errorPlus="0.09" errorMinus="0.09"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x04-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds K*0 + K*BAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.727" errorPlus="0.081" errorMinus="0.081"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x05-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds PHI" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.091" errorPlus="0.021" errorMinus="0.021"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x06-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds P + PBAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.06" errorPlus="0.14" errorMinus="0.14"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x07-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult uds LAMBDA + LAMBDABAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.421" errorPlus="0.030" errorMinus="0.030"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x01-y03" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c PI+ + PI-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="16.30" errorPlus="1.01" errorMinus="1.01"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x02-y03" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c K+ + K-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.47" errorPlus="0.28" errorMinus="0.28"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x03-y03" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c K0 + KBAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.86" errorPlus="0.21" errorMinus="0.21"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x04-y03" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c K*0 + K*BAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.561" errorPlus="0.316" errorMinus="0.316"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x05-y03" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c PHI" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.131" errorPlus="0.091" errorMinus="0.091"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x06-y03" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c P + PBAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.06" errorPlus="0.21" errorMinus="0.21"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x07-y03" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c LAMBDA + LAMBDABAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.341" errorPlus="0.088" errorMinus="0.088"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x01-y04" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b PI+ + PI-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="18.36" errorPlus="0.52" errorMinus="0.52"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x02-y04" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b K+ + K-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.40" errorPlus="0.19" errorMinus="0.19"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x03-y04" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b K0 + KBAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.11" errorPlus="0.11" errorMinus="0.11"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x04-y04" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b K*0 + K*BAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.768" errorPlus="0.124" errorMinus="0.124"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x05-y04" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b PHI" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.121" errorPlus="0.026" errorMinus="0.026"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x06-y04" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b P + PBAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.91" errorPlus="0.13" errorMinus="0.13"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d24-x07-y04" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b LAMBDA + LAMBDABAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.383" errorPlus="0.032" errorMinus="0.032"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x01-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c-uds PI+ + PI-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="-0.15" errorPlus="0.96" errorMinus="0.96"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x02-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c-uds K+ + K-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.43" errorPlus="0.23" errorMinus="0.23"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x03-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c-uds K0 + KBAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.01" errorPlus="0.21" errorMinus="0.21"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x04-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c-uds K*0 + K*BAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="-0.166" errorPlus="0.321" errorMinus="0.321"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x05-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c-uds PHI" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.040" errorPlus="0.093" errorMinus="0.093"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x06-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c-uds P + PBAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.01" errorPlus="0.17" errorMinus="0.17"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x07-y01" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult c-uds LAMBDA + LAMBDABAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="-0.080" errorPlus="0.091" errorMinus="0.091"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x01-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b-uds PI+ + PI-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.91" errorPlus="0.36" errorMinus="0.36"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x02-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b-uds K+ + K-" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.36" errorPlus="0.10" errorMinus="0.10"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x03-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b-uds K0 + KBAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.25" errorPlus="0.09" errorMinus="0.09"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x04-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b-uds K*0 + K*BAR0" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.041" errorPlus="0.132" errorMinus="0.132"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x05-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b-uds PHI" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.030" errorPlus="0.031" errorMinus="0.031"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x06-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b-uds P + PBAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="-0.15" errorPlus="0.07" errorMinus="0.07"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d25-x07-y02" dimension="2" path="/REF/SLD_1999_S3743934" title="Mult b-uds LAMBDA + LAMBDABAR" >
+    <dataPoint>
+      <measurement value="91.2" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="-0.038" errorPlus="0.039" errorMinus="0.039"/>
     </dataPoint>
   </dataPointSet>
 </aida>

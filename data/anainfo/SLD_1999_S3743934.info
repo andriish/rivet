@@ -20,9 +20,7 @@ Description:
   Measurement of scaled momentum distributions and fragmentation functions
   in flavour tagged events at SLC. SLD measured these
   observables in uds-, c-, and b-events separately. An inclusive
-  measurement is also included. The measurements of leading particles, and
-  differences between particles and antiparticles need polarized beams
-  and are currently omitted.
+  measurement is also included.
 BibKey: Abe:1998zs
 BibTeX: '@Article{Abe:1998zs,
      author    = "Abe, K. and others",
