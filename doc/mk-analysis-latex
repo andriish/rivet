@@ -57,7 +57,7 @@ def texify(s):
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
-pages = { "LEP":[], "Tevatron":[], "LHC":[], "SPS":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
+pages = { "LEP and SLC":[], "Tevatron":[], "LHC":[], "SPS":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
 bib = {}
 for aname in sorted(list(all_analyses)):
@@ -183,8 +183,8 @@ for aname in sorted(list(all_analyses)):
 
     if "MC_" in ana.name().upper():
         pages["Monte Carlo"].append(page)
-    elif "LEP" in ana.collider():
-        pages["LEP"].append(page)
+    elif "LEP" in ana.collider() or "SLC" in ana.collider():
+        pages["LEP and SLC"].append(page)
     elif "Tevatron" in ana.collider():
         pages["Tevatron"].append(page)
     elif "LHC" in ana.collider():
@@ -224,7 +224,7 @@ for group, ps in pages.iteritems():
     groups[group] = s
 
 body = \
-    groups["LEP"] + "\n\n" + \
+    groups["LEP and SLC"] + "\n\n" + \
     groups["Tevatron"] + "\n\n" + \
     groups["LHC"] + "\n\n" + \
     groups["SPS"] + "\n\n" + \
