@@ -88,7 +88,7 @@ namespace Rivet {
             DPSXYPoint pt(xcentre, xerrminus, xerrplus, ycentre, yerrminus, yerrplus);
             points.push_back(pt);
           } else {
-            cerr << "Couldn't get <measurement> tag" << endl;
+            cerr << "Couldn't get <measurement> tag for " << papername << endl;
             /// @todo Throw an exception here?
           }
         }
@@ -161,7 +161,7 @@ namespace Rivet {
             DPSXPoint pt(centre, errminus, errplus);
             points.push_back(pt);
           } else {
-            cerr << "Couldn't get <measurement> tag" << endl;
+            cerr << "Couldn't get <measurement> tag for " << papername << endl;
             /// @todo Throw an exception here?
           }
         }
