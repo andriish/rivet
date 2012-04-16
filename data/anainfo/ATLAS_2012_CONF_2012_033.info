@@ -1,0 +1,22 @@
+Name: ATLAS_2012_CONF_2012_033
+Year: 2012
+Summary: 0-lepton squark and gluino search
+Experiment: ATLAS
+Collider: LHC
+SpiresID:
+Status: VALIDATED
+Authors:
+ - Peter Richardson <Peter.Richardson@durham.ac.uk>
+ - Chris Wymant <c.m.wymant@durham.ac.uk>
+ - David Grellscheid <david.grellscheid@durham.ac.uk>
+References:
+ - ATLAS-CONF-2012-033
+RunInfo:
+  BSM signal events at 7000 GeV.
+NumEvents: 10000 for BSM signals
+Beams: [p+, p+]
+Energies: [7000]
+Description:
+  '0-lepton search for squarks and gluinos by ATLAS at 7 TeV.
+  Event counts in five signal regions are implemented as one-bin
+  histograms.'
