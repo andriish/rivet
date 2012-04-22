@@ -99,10 +99,11 @@ class Histogram:
         self.write_datapointset_header(f)
         for bin, bindata in enumerate(self.data):
             xval = 0.5*(bindata['UpEdge'] + bindata['LowEdge'])
-            if bindata['UpEdge'] == bindata['LowEdge']:
-                xerr = 0.5
-            else:
-                xerr = 0.5*(bindata['UpEdge'] - bindata['LowEdge'])
+            #if bindata['UpEdge'] == bindata['LowEdge']:
+            #    xerr = 0.5
+            #else:
+            #    xerr = 0.5*(bindata['UpEdge'] - bindata['LowEdge'])
+            xerr = 0.5*(bindata['UpEdge'] - bindata['LowEdge'])
             yval = bindata['Content']
             yerr = bindata['Error']
             self.write_datapoint(f, xval, xerr, yval, yerr)
