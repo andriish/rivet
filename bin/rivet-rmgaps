@@ -125,6 +125,8 @@ class Histogram:
             logging.info("Stripping %d bin%s from %s" % (numrm, plural, self.description['AidaPath']))
             newdata = []
             for i in xrange(len(self.data)):
+                if (len(refhist.data) == i):  ## MC has additional bins above the upper edge of the refdata
+                    break
                 if self.data[i]['LowEdge'] == refhist.data[i]['LowEdge'] and \
                    self.data[i]['UpEdge'] == refhist.data[i]['UpEdge']:
                     newdata.append(self.data[i])
