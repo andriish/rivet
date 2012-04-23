@@ -167,7 +167,8 @@ namespace Rivet {
       foreach (const Jet& j, cand_jets) {
 	if(fabs( j.momentum().eta() ) <= 2.8) {
 	  recon_jets.push_back(j);
-	  if ( j.containsBottom() && rand()/static_cast<double>(RAND_MAX) < 0.5 )
+	  if ( fabs( j.momentum().eta() ) <= 2.5 && j.momentum().perp()>50. &&
+	       j.containsBottom() && rand()/static_cast<double>(RAND_MAX) < 0.5 )
 	    bjets.push_back(j);
 	}
       }
