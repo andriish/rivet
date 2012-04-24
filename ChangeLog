@@ -1,3 +1,9 @@
+2012-04-24  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* fixed a few bugs in rivet-rmgaps
+
+	* Added new TOTEM dN/deta analysis
+
 2012-03-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version 1.8.0!
@@ -35,10 +41,14 @@
 
 	* Make ATLAS_2012_I1084540 less verbose, and general code
 	cleanup of that analysis.
+
 	* New-style plugin hook in ATLAS_2011_I926145,
 	ATLAS_2011_I944826 and ATLAS_2012_I1084540
+
 	* Fix compiler warnings in ATLAS_2011_I944826 and CMS_2011_S8973270
+
 	* CMS_2011_S8941262: Weights are double, not int.
+
 	* disable inRange() tests in test/testMath.cc until we have a proper
 	fix for the compiler warnings we see on SL5.
 

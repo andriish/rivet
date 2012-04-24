@@ -185,6 +185,7 @@ dist_pkgdata_DATA = \
   STAR_2008_S7993412.plot \
   STAR_2009_UE_HELEN.plot \
   TASSO_1990_S2148048.plot \
+  TOTEM_2012_DNDETA.plot \
   ZEUS_2001_S4815815.plot \
   UA1_1990_S2044935.plot \
   UA5_1982_S875503.plot \

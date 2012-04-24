@@ -107,6 +107,7 @@ RivetCMSAnalyses_la_SOURCES += \
     CMS_QCD_10_024.cc
 endif
 
+
 lib_LTLIBRARIES += RivetLHCbAnalyses.la
 RivetLHCbAnalyses_la_SOURCES =
 if ENABLE_UNVALIDATED
@@ -115,6 +116,11 @@ RivetLHCbAnalyses_la_SOURCES += \
     LHCB_2011_I917009.cc \
     LHCB_2011_I919315.cc
 endif
+
+
+lib_LTLIBRARIES += RivetTOTEMAnalyses.la
+RivetTOTEMAnalyses_la_SOURCES = \
+    TOTEM_2012_DNDETA.cc
 
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la
