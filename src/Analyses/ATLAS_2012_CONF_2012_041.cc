@@ -184,13 +184,13 @@ namespace Rivet {
 	if(fabs(jet.momentum().eta())>2.5||
 	   jet.momentum().perp()<25.) continue;
 	bool away_from_e = true;
-	  foreach ( const Particle & e, cand_hard_e ) {
-	    if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
-	      away_from_e = false;
-	      break;
-	    }
+	foreach ( const Particle & e, cand_hard_e ) {
+	  if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
+	    away_from_e = false;
+	    break;
 	  }
-	  if ( away_from_e ) recon_jets.push_back( jet );
+	}
+	if ( away_from_e ) recon_jets.push_back( jet );
       }
       
       // pTmiss
@@ -230,7 +230,7 @@ namespace Rivet {
 
 	// three jet selection
 	if(recon_jets[0].momentum().perp()>100. && 
-	   (recon_jets.size() >= 3 ||
+	   (recon_jets.size() == 3 ||
 	    recon_jets[3].momentum().perp() < 80. ) &&
 	   mT>100. && eTmiss>250. && eTmiss/m_eff>0.3) {
 	  if(m_eff>1200.) _count_3jet_channel->fill(0.5,weight);
