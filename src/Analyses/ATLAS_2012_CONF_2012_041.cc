@@ -239,7 +239,7 @@ namespace Rivet {
 	// four jet selecton
 	if(recon_jets.size() >= 4 && 
 	   recon_jets[3].momentum().perp() > 80.  &&
-	   mT>100. && eTmiss>250. && eTmiss/m_eff>0.1) {
+	   mT>100. && eTmiss>250. && eTmiss/m_eff>0.2) {
 	  if(m_eff>800.) _count_4jet_channel->fill(0.5,weight);
 	  _hist_m_eff_4jet->fill(min(1599.,m_eff),weight);
 	}
