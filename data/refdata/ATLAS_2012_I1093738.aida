@@ -1,0 +1,315 @@
+<?xml version="1.0" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="Rivet"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+      path="/REF/ATLAS_2012_I1093738" title="Leading photon $p_\perp$ (central jets, same-sign rapidity)">
+    <dimension dim="0" title="$p_\perp^\gamma$ [GeV]"/>
+    <dimension dim="1" title="$\mathrm{d}\sigma/\mathrm{d}p_\perp^\gamma$ [pb/GeV]"/>
+    <annotation>
+      <item key="Title" value="Leading photon $p_\perp$ (central jets, same-sign rapidity)" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2012_I1093738/d01-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="2.750000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="3.100000e+01" value="3.940000e+02" errorMinus="7.400000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="3.250000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="2.300000e+01" value="2.580000e+02" errorMinus="5.000000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="4.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="1.300000e+01" value="1.370000e+02" errorMinus="2.700000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="5.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="5.200000e+00" value="6.090000e+01" errorMinus="7.100000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="6.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="2.400000e+00" value="2.480000e+01" errorMinus="3.000000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="7.750000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="1.000000e+00" value="9.510000e+00" errorMinus="1.240000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="9.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="5.000000e-01" value="4.400000e+00" errorMinus="5.700000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.125000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="2.200000e-01" value="1.770000e+00" errorMinus="2.400000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.375000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="9.300000e-02" value="6.980000e-01" errorMinus="1.030000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+01" value="1.750000e+02" errorMinus="2.500000e+01"/>
+      <measurement errorPlus="3.400000e-02" value="2.260000e-01" errorMinus="3.600000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e+02" value="3.000000e+02" errorMinus="1.000000e+02"/>
+      <measurement errorPlus="4.800000e-03" value="2.830000e-02" errorMinus="5.000000e-03"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2"
+      path="/REF/ATLAS_2012_I1093738" title="Leading photon $p_\perp$ (forward jets, same-sign rapidity)">
+    <dimension dim="0" title="$p_\perp^\gamma$ [GeV]"/>
+    <dimension dim="1" title="$\mathrm{d}\sigma/\mathrm{d}p_\perp^\gamma$ [pb/GeV]"/>
+    <annotation>
+      <item key="Title" value="Leading photon $p_\perp$ (forward jets, same-sign rapidity)" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2012_I1093738/d02-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="2.750000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="3.100000e+01" value="3.160000e+02" errorMinus="5.500000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="3.250000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="2.300000e+01" value="2.100000e+02" errorMinus="3.700000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="4.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="1.200000e+01" value="1.050000e+02" errorMinus="1.900000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="5.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="3.800000e+00" value="4.360000e+01" errorMinus="5.100000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="6.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="1.700000e+00" value="1.750000e+01" errorMinus="2.200000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="7.750000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="6.800000e-01" value="6.390000e+00" errorMinus="8.400000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="9.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="3.100000e-01" value="2.710000e+00" errorMinus="3.600000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.125000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="1.600000e-01" value="1.270000e+00" errorMinus="1.800000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.375000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="6.100000e-02" value="4.410000e-01" errorMinus="6.800000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+01" value="1.750000e+02" errorMinus="2.500000e+01"/>
+      <measurement errorPlus="1.800000e-02" value="1.020000e-01" errorMinus="1.900000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e+02" value="3.000000e+02" errorMinus="1.000000e+02"/>
+      <measurement errorPlus="2.100000e-03" value="9.000000e-03" errorMinus="2.200000e-03"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2"
+      path="/REF/ATLAS_2012_I1093738" title="Leading photon $p_\perp$ (very forward jets, same-sign rapidity)">
+    <dimension dim="0" title="$p_\perp^\gamma$ [GeV]"/>
+    <dimension dim="1" title="$\mathrm{d}\sigma/\mathrm{d}p_\perp^\gamma$ [pb/GeV]"/>
+    <annotation>
+      <item key="Title" value="Leading photon $p_\perp$ (very forward jets, same-sign rapidity)" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2012_I1093738/d03-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="2.750000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="1.000000e+01" value="6.600000e+01" errorMinus="1.900000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="3.250000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="8.000000e+00" value="4.600000e+01" errorMinus="1.300000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="4.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="3.000000e+00" value="2.000000e+01" errorMinus="6.000000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="5.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="8.000000e-01" value="8.100000e+00" errorMinus="1.400000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="6.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="3.000000e-01" value="2.400000e+00" errorMinus="4.000000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="7.750000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="1.100000e-01" value="8.600000e-01" errorMinus="1.700000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="9.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="4.000000e-02" value="2.400000e-01" errorMinus="4.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.125000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="2.000000e-02" value="7.000000e-02" errorMinus="2.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.375000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="7.000000e-03" value="1.400000e-02" errorMinus="7.000000e-03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+01" value="1.750000e+02" errorMinus="2.500000e+01"/>
+      <measurement errorPlus="2.000000e-03" value="2.800000e-03" errorMinus="1.900000e-03"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2"
+      path="/REF/ATLAS_2012_I1093738" title="Leading photon $p_\perp$ (central jets, opposite-sign rapidity)">
+    <dimension dim="0" title="$p_\perp^\gamma$ [GeV]"/>
+    <dimension dim="1" title="$\mathrm{d}\sigma/\mathrm{d}p_\perp^\gamma$ [pb/GeV]"/>
+    <annotation>
+      <item key="Title" value="Leading photon $p_\perp$ (central jets, opposite-sign rapidity)" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2012_I1093738/d04-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="2.750000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="3.000000e+01" value="3.240000e+02" errorMinus="6.500000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="3.250000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="2.000000e+01" value="2.010000e+02" errorMinus="4.100000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="4.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="1.200000e+01" value="1.120000e+02" errorMinus="2.300000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="5.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="3.900000e+00" value="4.550000e+01" errorMinus="5.600000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="6.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="1.800000e+00" value="1.830000e+01" errorMinus="2.400000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="7.750000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="7.600000e-01" value="7.180000e+00" errorMinus="9.900000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="9.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="3.800000e-01" value="3.260000e+00" errorMinus="4.000000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.125000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="1.700000e-01" value="1.360000e+00" errorMinus="1.700000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.375000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="7.200000e-02" value="5.030000e-01" errorMinus="7.500000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+01" value="1.750000e+02" errorMinus="2.500000e+01"/>
+      <measurement errorPlus="2.500000e-02" value="1.560000e-01" errorMinus="2.700000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e+02" value="3.000000e+02" errorMinus="1.000000e+02"/>
+      <measurement errorPlus="3.300000e-03" value="1.820000e-02" errorMinus="3.500000e-03"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y01" dimension="2"
+      path="/REF/ATLAS_2012_I1093738" title="Leading photon $p_\perp$ (forward jets, opposite-sign rapidity)">
+    <dimension dim="0" title="$p_\perp^\gamma$ [GeV]"/>
+    <dimension dim="1" title="$\mathrm{d}\sigma/\mathrm{d}p_\perp^\gamma$ [pb/GeV]"/>
+    <annotation>
+      <item key="Title" value="Leading photon $p_\perp$ (forward jets, opposite-sign rapidity)" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2012_I1093738/d05-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="2.750000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="2.700000e+01" value="1.880000e+02" errorMinus="3.600000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="3.250000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="1.800000e+01" value="1.150000e+02" errorMinus="2.300000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="4.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="9.000000e+00" value="5.800000e+01" errorMinus="1.200000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="5.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="2.200000e+00" value="2.410000e+01" errorMinus="3.100000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="6.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="9.000000e-01" value="8.800000e+00" errorMinus="1.200000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="7.750000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="3.700000e-01" value="3.320000e+00" errorMinus="4.800000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="9.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="1.800000e-01" value="1.490000e+00" errorMinus="1.900000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.125000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="7.000000e-02" value="5.400000e-01" errorMinus="7.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.375000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="3.100000e-02" value="1.750000e-01" errorMinus="3.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+01" value="1.750000e+02" errorMinus="2.500000e+01"/>
+      <measurement errorPlus="1.100000e-02" value="5.500000e-02" errorMinus="1.100000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.000000e+02" value="3.000000e+02" errorMinus="1.000000e+02"/>
+      <measurement errorPlus="1.200000e-03" value="4.100000e-03" errorMinus="1.100000e-03"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d06-x01-y01" dimension="2"
+      path="/REF/ATLAS_2012_I1093738" title="Leading photon $p_\perp$ (very forward jets, opposite-sign rapidity)">
+    <dimension dim="0" title="$p_\perp^\gamma$ [GeV]"/>
+    <dimension dim="1" title="$\mathrm{d}\sigma/\mathrm{d}p_\perp^\gamma$ [pb/GeV]"/>
+    <annotation>
+      <item key="Title" value="Leading photon $p_\perp$ (very forward jets, opposite-sign rapidity)" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2012_I1093738/d06-x01-y01" sticky="true"/>
+    </annotation>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="2.750000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="6.000000e+00" value="3.100000e+01" errorMinus="1.300000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+00" value="3.250000e+01" errorMinus="2.500000e+00"/>
+      <measurement errorPlus="4.000000e+00" value="2.100000e+01" errorMinus="9.000000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="4.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="2.000000e+00" value="1.200000e+01" errorMinus="5.000000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="5.000000e+00" value="5.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="6.000000e-01" value="3.500000e+00" errorMinus="1.100000e+00"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="6.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="3.000000e-01" value="1.500000e+00" errorMinus="5.000000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="7.750000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="8.000000e-02" value="3.800000e-01" errorMinus="1.200000e-01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.500000e+00" value="9.250000e+01" errorMinus="7.500000e+00"/>
+      <measurement errorPlus="3.000000e-02" value="1.200000e-01" errorMinus="3.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.125000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="1.000000e-02" value="4.000000e-02" errorMinus="1.000000e-02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.250000e+01" value="1.375000e+02" errorMinus="1.250000e+01"/>
+      <measurement errorPlus="7.000000e-03" value="1.500000e-02" errorMinus="7.000000e-03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.500000e+01" value="1.750000e+02" errorMinus="2.500000e+01"/>
+      <measurement errorPlus="1.900000e-03" value="2.300000e-03" errorMinus="1.900000e-03"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
