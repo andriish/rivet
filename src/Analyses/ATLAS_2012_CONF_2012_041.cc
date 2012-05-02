@@ -201,7 +201,7 @@ namespace Rivet {
       }
       double eTmiss = pTmiss.pT();
 
-      // both selections require at least 3 jets
+      // both selections require at least 2 jets
       if(recon_jets.size()<2) vetoEvent;
 
       // start of meff calculation
@@ -209,7 +209,7 @@ namespace Rivet {
       foreach( const Jet & jet, recon_jets) {
 	HT += jet.momentum().perp();
       }
-      double m_eff  = HT+eTmiss;
+      double m_eff_inc  = HT+eTmiss;
 
       // hard selection exactly one candidate 
       // and 1 recon and at least 3 jets
@@ -226,22 +226,25 @@ namespace Rivet {
 			 lepton.momentum().y()*pTmiss.y());
 	mT = sqrt(mT);
 	HT += pT;
-	m_eff += pT;
-
+	m_eff_inc += pT;
+	double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
+	  recon_jets[1].momentum().perp()+recon_jets[2].momentum().perp();
 	// three jet selection
 	if(recon_jets[0].momentum().perp()>100. && 
 	   (recon_jets.size() == 3 ||
 	    recon_jets[3].momentum().perp() < 80. ) &&
 	   mT>100. && eTmiss>250. && eTmiss/m_eff>0.3) {
-	  if(m_eff>1200.) _count_3jet_channel->fill(0.5,weight);
-	  _hist_m_eff_3jet->fill(min(1599.,m_eff),weight);
+	  if(m_eff_inc>1200.) _count_3jet_channel->fill(0.5,weight);
+	  _hist_m_eff_3jet->fill(min(1599.,m_eff_inc),weight);
 	}
 	// four jet selecton
-	if(recon_jets.size() >= 4 && 
-	   recon_jets[3].momentum().perp() > 80.  &&
-	   mT>100. && eTmiss>250. && eTmiss/m_eff>0.2) {
-	  if(m_eff>800.) _count_4jet_channel->fill(0.5,weight);
-	  _hist_m_eff_4jet->fill(min(1599.,m_eff),weight);
+	if(recon_jets.size() >= 4) {
+	  m_eff += recon_jets[3].momentum().perp();
+	  if(recon_jets[3].momentum().perp() > 80.  &&
+	     mT>100. && eTmiss>250. && eTmiss/m_eff>0.2) {
+	    if(m_eff_inc>800.) _count_4jet_channel->fill(0.5,weight);
+	    _hist_m_eff_4jet->fill(min(1599.,m_eff_inc),weight);
+	  }
 	}
       }
 
@@ -261,10 +264,12 @@ namespace Rivet {
 			 lepton.momentum().y()*pTmiss.y());
 	mT = sqrt(mT);
 	HT += pT;
-	m_eff += pT;
+	m_eff_inc += pT;
+	double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
+	  recon_jets[1].momentum().perp();
 	if (mT>100. && eTmiss>250.) {
 	  if( eTmiss/m_eff>0.3 ) _count_soft_channel->fill(0.5,weight);
-	  _hist_eTmiss_m_eff_soft->fill( eTmiss/m_eff,weight);
+	  _hist_eTmiss_m_eff_soft->fill( eTmiss/m_eff_inc,weight);
 	}
       }
     }
