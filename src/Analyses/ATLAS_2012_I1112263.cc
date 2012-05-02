@@ -14,15 +14,15 @@
 namespace Rivet {
 
   /// @author Peter Richardson
-  class ATLAS_2012_CONF_2012_023 : public Analysis {
+  class ATLAS_2012_I1112263 : public Analysis {
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    ATLAS_2012_CONF_2012_023()
-      : Analysis("ATLAS_2012_CONF_2012_023")
+    ATLAS_2012_I1112263()
+      : Analysis("ATLAS_2012_I1112263")
     {    }
 
     //@}
@@ -342,6 +342,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_CONF_2012_023);
+  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1112263);
 
 }
