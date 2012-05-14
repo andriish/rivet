@@ -1,0 +1,171 @@
+#! /usr/bin/env python
+import sys, re
+import urllib2
+import rivet
+
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    try:
+        import cElementTree as ET
+    except ImportError:
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser\n")
+            sys.exit(1)
+
+ALL_ANALYSES = rivet.AnalysisLoader.analysisNames()
+
+arxiv_pattern = re.compile('^\d\d[01]\d\.\d{4}$|^(hep-(ex|ph|th)|nucl-ex)/\d\d[01]\d{4}$')
+spires_pattern = re.compile('^(S|I)?(\d{6}\d?)$')
+
+
+def main():
+
+    if len(sys.argv) < 2:
+        sys.stderr.write("""\
+Usage: %s ID [ID ...]
+
+ID lookup helper for Rivet.
+
+Looks up the Rivet analysis and other ID formats matching the given ID. 
+
+Arguments:
+ ID            A paper ID in one of the following formats
+                - arXiv:   yymm.nnnn  
+                - arXiv:   foo-bar/yymmnnn
+                - SPIRES:  [S]nnnnnnn
+                - Inspire: [I]nnnnnn
+
+
+""" % sys.argv[0])
+
+    for N,id in enumerate(sys.argv[1:]):
+
+        RESULT = {}
+
+        a_match = arxiv_pattern.match(id)
+        s_match = spires_pattern.match(id)
+        r = None
+        if a_match:
+            r = try_arxiv(id)
+        elif s_match:
+            prefix = s_match.group(1)
+            number = s_match.group(2)
+
+            if prefix == 'S' and len(number) == 7:
+                r = try_spires(number)
+            elif prefix == 'I':
+                r = try_inspire(number)
+            elif len(number) == 7:
+                r = try_spires(number)
+            else:
+                r = try_inspire(number)
+
+        else:
+            sys.stderr.write('error       Pattern %s not recognized.\n\n' % id)
+            continue
+
+        if r:
+            RESULT.update(r)
+
+        rivet_candidates = []
+        if 'inspire' in RESULT:
+            rivet_candidates += try_rivet('I'+RESULT['inspire'])
+        if not rivet_candidates and 'spires' in RESULT:
+            rivet_candidates += try_rivet('S'+RESULT['spires'])
+        if rivet_candidates:
+            RESULT['rivet'] = rivet_candidates[0]
+
+        if N > 0:        print
+        output(RESULT)
+        
+
+
+
+
+
+
+def output(result):
+    if not result.get('title'):
+        return
+
+    print 'title       %s' % result['title']
+    ar = result.get('arxiv')
+    if ar:
+        print 'arxiv       %s' % ar
+        print 'arxiv_url   http://arxiv.org/abs/%s' % ar
+
+    sp = result.get('spires')
+    if sp:
+        print 'spires      %s' % sp
+
+    insp = result.get('inspire')
+    if insp:
+        print 'inspire     %s' % insp
+        print 'inspire_url http://inspirehep.net/record/%s' % insp
+
+    riv = result.get('rivet')
+    if riv:
+        print 'rivet       %s' % riv
+
+
+
+
+
+
+def try_arxiv(id):
+    url = 'http://inspirehep.net/search?p=eprint+%s&of=xm' % id
+    return _search_inspire(url)
+
+
+def try_spires(id):
+    url = 'http://inspirehep.net/search?p=key+%s&of=xm' % id
+    return _search_inspire(url)
+
+
+def try_inspire(id):
+    url = 'http://inspirehep.net/record/%s/export/xm' % id
+    return _search_inspire(url)
+
+def try_rivet(id):
+    id = re.compile(id)
+    return filter(id.search, ALL_ANALYSES)
+
+
+
+
+
+def _search_inspire(url):
+    result = {}
+    urlstream = urllib2.urlopen(url)
+    tree = ET.parse(urlstream)
+    for i in tree.getiterator('{http://www.loc.gov/MARC21/slim}controlfield'):
+        if i.get('tag') == '001':
+            result['inspire'] = i.text
+
+    for i in tree.getiterator('{http://www.loc.gov/MARC21/slim}datafield'):
+
+        if i.get('tag') == '037':
+            entries = {}
+            for c in i.getchildren():
+                for k,v in c.items():
+                    if k=='code':
+                        entries[v] = c.text
+            if entries.get('9') == 'arXiv':
+                result['arxiv'] = entries['a'].replace('arXiv:','')
+
+        elif i.get('tag') == '970':
+            for c in i.getchildren():
+                if c.text[:7] == 'SPIRES-':
+                    result['spires'] = c.text[7:]
+
+        elif i.get('tag') == '245':
+            for c in i.getchildren():
+                result['title'] = c.text
+
+    return result
+
+if __name__ == "__main__":
+    main()
