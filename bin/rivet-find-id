@@ -40,6 +40,7 @@ Arguments:
 
 
 """ % sys.argv[0])
+        exit(1)
 
     for N,id in enumerate(sys.argv[1:]):
 
@@ -63,7 +64,7 @@ Arguments:
                 RESULT.update( try_inspire(number) )
 
         else:
-            sys.stderr.write('error       Pattern %s not recognized.\n\n' % id)
+            sys.stderr.write('error       Pattern %s does not match any known ID pattern.\n' % id)
             continue
 
         rivet_candidates = []
@@ -113,17 +114,30 @@ def output(result):
 
 def try_arxiv(id):
     url = 'http://inspirehep.net/search?p=eprint+%s&of=xm' % id
-    return _search_inspire(url)
+    ret = _search_inspire(url)
+    if ret.get('arxiv') == id:
+        return ret
+    else:
+        return {}
 
 
 def try_spires(id):
     url = 'http://inspirehep.net/search?p=key+%s&of=xm' % id
-    return _search_inspire(url)
+    ret = _search_inspire(url)
+    if ret.get('spires') == id:
+        return ret
+    else:
+        return {}
 
 
 def try_inspire(id):
     url = 'http://inspirehep.net/record/%s/export/xm' % id
-    return _search_inspire(url)
+    ret = _search_inspire(url)
+    if ret.get('inspire') == id:
+        return ret
+    else:
+        return {}
+
 
 def try_rivet(id):
     id = re.compile(id)
