@@ -36,39 +36,35 @@ Arguments:
                 - arXiv:   yymm.nnnn  
                 - arXiv:   foo-bar/yymmnnn
                 - SPIRES:  [S]nnnnnnn
-                - Inspire: [I]nnnnnn
+                - Inspire: [I]nnnnnn[n]
 
 
 """ % sys.argv[0])
 
     for N,id in enumerate(sys.argv[1:]):
 
-        RESULT = {}
-
         a_match = arxiv_pattern.match(id)
         s_match = spires_pattern.match(id)
-        r = None
+        RESULT = {}
+
         if a_match:
-            r = try_arxiv(id)
+            RESULT = try_arxiv(id)
         elif s_match:
             prefix = s_match.group(1)
             number = s_match.group(2)
 
             if prefix == 'S' and len(number) == 7:
-                r = try_spires(number)
+                RESULT = try_spires(number)
             elif prefix == 'I':
-                r = try_inspire(number)
-            elif len(number) == 7:
-                r = try_spires(number)
+                RESULT = try_inspire(number)
             else:
-                r = try_inspire(number)
+                if len(number) == 7:
+                    RESULT = try_spires(number)
+                RESULT.update( try_inspire(number) )
 
         else:
             sys.stderr.write('error       Pattern %s not recognized.\n\n' % id)
             continue
-
-        if r:
-            RESULT.update(r)
 
         rivet_candidates = []
         if 'inspire' in RESULT:
