@@ -68,10 +68,20 @@ namespace Rivet {
       _hist_leptonpT.push_back(bookHistogram1D(2,1,1));
       _hist_leptonpT.push_back(bookHistogram1D(3,1,1));
       _hist_leptonpT.push_back(bookHistogram1D(4,1,1));
-      _hist_njet      = bookHistogram1D(5,1,1);
-      _hist_etmiss    = bookHistogram1D(6,1,1);
-      _hist_mSFOS     = bookHistogram1D(7,1,1);
-      _hist_meff      = bookHistogram1D(8,1,1);
+      _hist_njet   = bookHistogram1D(5,1,1);
+      _hist_etmiss = bookHistogram1D(6,1,1);
+      _hist_mSFOS  = bookHistogram1D(7,1,1);
+      _hist_meff   = bookHistogram1D(8,1,1);
+
+      _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_1", 26, 0., 260));
+      _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_2", 15, 0., 150));
+      _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_3", 20, 0., 100));
+      _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_4", 20, 0., 100));
+      _hist_njet_MC   = bookHistogram1D("hist_njet", 7, -0.5, 6.5);
+      _hist_etmiss_MC = bookHistogram1D("hist_etmiss",11,0.,220.);
+      _hist_mSFOS_MC  = bookHistogram1D("hist_m_SFOS",13,0.,260.);
+      _hist_meff_MC   = bookHistogram1D("hist_m_eff",19,0.,950.);
+
       _count_SR1 = bookHistogram1D("count_SR1", 1, 0., 1.);
       _count_SR2 = bookHistogram1D("count_SR2", 1, 0., 1.);
     }
@@ -138,7 +148,9 @@ namespace Rivet {
 
       // only keep electrons more than R=0.4 from jets
       ParticleVector recon_e;
-      foreach ( const Particle & e, cand_e ) {
+      for(unsigned int ie=0;ie<cand_e.size();++ie) {
+	const Particle & e = cand_e[ie];
+	// at least 0.4 from any jets
         bool away = true;
         foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
@@ -147,22 +159,33 @@ namespace Rivet {
           }
         }
 	// and 0.1 from any muons
-	if ( ! away ) {
-	  foreach ( const Particle & mu, cand_e ) {
+	if ( away ) {
+	  foreach ( const Particle & mu, cand_mu ) {
 	    if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
 	      away = false;
 	      break;
 	    }
 	  }
 	}
+	// and 0.1 from electrons
+	for(unsigned int ie2=0;ie2<cand_e.size();++ie2) {
+	  if(ie==ie2) continue;
+	  if ( deltaR(e.momentum(),cand_e[ie2].momentum()) < 0.1 ) {
+	    away = false;
+	    break;
+	  }
+	}
+	// if isolated keep it
         if ( away )
           recon_e.push_back( e );
       }
 
       // only keep muons more than R=0.4 from jets
       ParticleVector recon_mu;
-      foreach ( const Particle & mu, cand_mu ) {
+      for(unsigned int imu=0;imu<cand_mu.size();++imu) {
+	const Particle & mu = cand_mu[imu];
         bool away = true;
+	// at least 0.4 from any jets
         foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
             away = false;
@@ -170,12 +193,20 @@ namespace Rivet {
           }
         }
 	// and 0.1 from any electrona
-	if ( ! away ) {
+	if ( away ) {
 	  foreach ( const Particle & e, cand_e ) {
 	    if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
 	      away = false;
 	      break;
 	    }
+	  }
+	}
+	// and 0.1 from muons
+	for(unsigned int imu2=0;imu2<cand_mu.size();++imu2) {
+	  if(imu==imu2) continue;
+	  if ( deltaR(mu.momentum(),cand_mu[imu2].momentum()) < 0.1 ) {
+	    away = false;
+	    break;
 	  }
 	}
         if ( away )
@@ -233,7 +264,7 @@ namespace Rivet {
 	if(pT>40.) meff += pT;
       }
 
-      double mSFOS=1e30, mdiff=1e30;
+      double mSFOS=1e30, mdiff=1e30,mMin=1e30;
       // mass of SFOS pairs closest to the Z mass
       for(unsigned int ix=0;ix<recon_e.size();++ix) {
 	for(unsigned int iy=ix+1;iy<recon_e.size();++iy) {
@@ -243,17 +274,27 @@ namespace Rivet {
 	    mSFOS = mtest;
 	    mdiff = fabs(mtest-90.);
 	  }
+	  else if(mMin>mtest) {
+	    mMin = mtest;
+	  }
 	} 
       }
       for(unsigned int ix=0;ix<recon_mu.size();++ix) {
 	for(unsigned int iy=ix+1;iy<recon_mu.size();++iy) {
 	  if(recon_mu[ix].pdgId()*recon_mu[iy].pdgId()>0) continue;
 	  double mtest = (recon_mu[ix].momentum()+recon_mu[iy].momentum()).mass();
-	  if(fabs(mtest-90.)<mdiff) {
+	  if(fabs(mtest-91.118)<mdiff) {
 	    mSFOS = mtest;
-	    mdiff = fabs(mtest-90.);
+	    mdiff = fabs(mtest-91.118);
+	  }
+	  else if(mMin>mtest) {
+	    mMin = mtest;
 	  }
 	} 
+      }
+      // cut to reject low mass Drell-Yan
+      if(mMin<=20.) {
+	vetoEvent;
       }
 
       // make the control plots
@@ -265,25 +306,33 @@ namespace Rivet {
 	double pTmu = imu<recon_mu.size() ?
 	  recon_mu[imu].momentum().perp() : -1*GeV;
 	if(pTe>pTmu) {
-	  _hist_leptonpT[ix]->fill(pTe ,weight);
+	  _hist_leptonpT   [ix]->fill(pTe ,weight);
+	  _hist_leptonpT_MC[ix]->fill(pTe ,weight);
 	  ++ie;
 	}
 	else {
-	  _hist_leptonpT[ix]->fill(pTmu,weight);
+	  _hist_leptonpT   [ix]->fill(pTmu,weight);
+	  _hist_leptonpT_MC[ix]->fill(pTmu,weight);
 	  ++imu;
 	}
       }
       // njet
-      _hist_njet->fill(recon_jets.size(),weight);
+      _hist_njet   ->fill(recon_jets.size(),weight);
+      _hist_njet_MC->fill(recon_jets.size(),weight);
       // etmiss
-      _hist_etmiss->fill(eTmiss,weight);
-      if(mSFOS<1e30) _hist_mSFOS->fill(mSFOS,weight);
-      _hist_meff->fill(meff,weight);
+      _hist_etmiss   ->fill(eTmiss,weight);
+      _hist_etmiss_MC->fill(eTmiss,weight);
+      if(mSFOS<1e30) {
+	_hist_mSFOS   ->fill(mSFOS,weight);
+	_hist_mSFOS_MC->fill(mSFOS,weight);
+      }
+      _hist_meff   ->fill(meff,weight);
+      _hist_meff_MC->fill(meff,weight);
 
       // finally the counts
       if(eTmiss>50.) {
 	_count_SR1->fill(0.5,weight);
-	if(mdiff<10.) _count_SR2->fill(0.5,weight);
+	if(mdiff>10.) _count_SR2->fill(0.5,weight);
       }
     }
 
@@ -292,18 +341,26 @@ namespace Rivet {
     void finalize() {
       double norm = crossSection()/femtobarn*2.06/sumOfWeights();
       // these are number of events at 2.06fb^-1 per 10 GeV
-      scale(_hist_leptonpT[0],norm*10.);
-      scale(_hist_leptonpT[1],norm*10.);
+      scale(_hist_leptonpT   [0],norm*10.);
+      scale(_hist_leptonpT   [1],norm*10.);
+      scale(_hist_leptonpT_MC[0],norm*10.);
+      scale(_hist_leptonpT_MC[1],norm*10.);
       // these are number of events at 2.06fb^-1 per 5 GeV
-      scale(_hist_leptonpT[2],norm*5.);
-      scale(_hist_leptonpT[3],norm*5.);
+      scale(_hist_leptonpT   [2],norm*5.);
+      scale(_hist_leptonpT   [3],norm*5.);
+      scale(_hist_leptonpT_MC[2],norm*5.);
+      scale(_hist_leptonpT_MC[3],norm*5.);
       // these are number of events at 2.06fb^-1 per 20 GeV
-      scale(_hist_etmiss   ,norm*20.);
-      scale(_hist_mSFOS    ,norm*20.);
+      scale(_hist_etmiss      ,norm*20.);
+      scale(_hist_mSFOS       ,norm*20.);
+      scale(_hist_etmiss_MC   ,norm*20.);
+      scale(_hist_mSFOS_MC    ,norm*20.);
       // these are number of events at 2.06fb^-1 per 50 GeV
-      scale(_hist_meff     ,norm*50.);
+      scale(_hist_meff_MC     ,norm*50.);
+      scale(_hist_meff_MC     ,norm*50.);
       // these are number of events at 2.06fb^-1
-      scale(_hist_njet     ,norm);
+      scale(_hist_njet        ,norm);
+      scale(_hist_njet_MC     ,norm);
       scale(_count_SR1,norm);
       scale(_count_SR2,norm);
     }
@@ -312,11 +369,15 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    vector<AIDA::IHistogram1D*> _hist_leptonpT;
+    vector<AIDA::IHistogram1D*> _hist_leptonpT,_hist_leptonpT_MC;
     AIDA::IHistogram1D* _hist_njet;
+    AIDA::IHistogram1D* _hist_njet_MC;
     AIDA::IHistogram1D* _hist_etmiss;
+    AIDA::IHistogram1D* _hist_etmiss_MC;
     AIDA::IHistogram1D* _hist_mSFOS;
+    AIDA::IHistogram1D* _hist_mSFOS_MC;
     AIDA::IHistogram1D* _hist_meff;
+    AIDA::IHistogram1D* _hist_meff_MC;
     AIDA::IHistogram1D* _count_SR1;
     AIDA::IHistogram1D* _count_SR2;
     //@}
