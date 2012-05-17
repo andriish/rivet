@@ -3,11 +3,12 @@ Year: 2012
 Summary: 4 or more lepton plus missing transverse energy SUSY search
 Experiment: ATLAS
 Collider: LHC
-Status: UNVALIDATED
+Status: PRELIMINARY
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - ATLAS-CONF-2012-001
+ - ATLAS-CONF-2012-035
 RunInfo:
   BSM signal events at 7000 GeV.
 NumEvents: 25000 for BSM signals
