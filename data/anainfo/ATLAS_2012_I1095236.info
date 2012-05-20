@@ -3,7 +3,7 @@ Year: 2011
 Summary: b-jets search for supersymmetry with 0- and 1-leptons
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1095236
+InspireID: 1095236
 Status: UNVALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
@@ -22,7 +22,7 @@ Description:
   as one-bin histograms.
   Histograms for missing transverse energy, and effective mass are also
   implemented for some signal regions.'
-ibKey: ATLAS2012:1095236
+BibKey: ATLAS2012:1095236
 BibTeX: '@article{ATLAS2012:1095236,
       author         = "Aad, Georges and others",
       title          = "{Search for supersymmetry in pp collisions at sqrt(s) = 7
