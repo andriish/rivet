@@ -164,7 +164,7 @@ namespace Rivet {
       }
 
       // discard jets that overlap with electrons
-      Jets cand_jets_2;
+      Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
 	  bool away_from_e = true;
 	  foreach ( const Particle & e, cand_e ) {
@@ -174,14 +174,14 @@ namespace Rivet {
 	    }
 	  }
 	  if ( away_from_e )
-	    cand_jets_2.push_back( jet );
+	    recon_jets.push_back( jet );
       }
 
       // only consider leptons far from jet
       ParticleVector recon_e, recon_mu;
       foreach ( const Particle & e, cand_e ) {
         bool e_near_jet = false;
-	foreach ( const Jet& jet, cand_jets_2 ) {
+	foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 &&
 	       deltaR(e.momentum(),jet.momentum()) > 0.2 )
 	    e_near_jet = true;
@@ -192,7 +192,7 @@ namespace Rivet {
 
       foreach ( const Particle & mu, cand_mu ) {
 	bool mu_near_jet = false;
-	foreach ( const Jet& jet, cand_jets_2 ) {
+	foreach ( const Jet& jet, recon_jets ) {
 	  if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
 	    mu_near_jet = true;
 	}
@@ -208,12 +208,6 @@ namespace Rivet {
 	pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
-
-      // final jet filter
-      Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets_2 ) {
-	  recon_jets.push_back( jet );
-      }
 
 
       // ==================== observables ====================
