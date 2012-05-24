@@ -115,15 +115,16 @@ namespace Rivet {
 
       ParticleVector cand_e =
 	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      ParticleVector candtemp_mu =
-	applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
+
+      // charged particle for isolation
       ParticleVector chg_tracks =
 	applyProjection<ChargedFinalState>(event, "cfs").particles();
+
+      // apply muon isolation
       ParticleVector cand_mu;
-
-
       // pTcone around muon track
-      foreach ( const Particle & mu, candtemp_mu ) {
+      foreach ( const Particle & mu, 
+		applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt() ) {
 	double pTinCone = -mu.momentum().pT();
 	foreach ( const Particle & track, chg_tracks ) {
 	  if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
@@ -133,45 +134,52 @@ namespace Rivet {
 	  cand_mu.push_back(mu);
       }
 
-
       // Discard jets that overlap with electrons
-      Jets cand_jets_2;
+      Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-	if ( fabs( jet.momentum().eta() ) < 1.5 )
-	  cand_jets_2.push_back( jet );
-	else {
-	  bool away_from_e = true;
-	  foreach ( const Particle & e, cand_e ) {
-	    if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
-	      away_from_e = false;
-	      break;
-	    }
+	bool away_from_e = true;
+	foreach ( const Particle & e, cand_e ) {
+	  if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+	    away_from_e = false;
+	    break;
 	  }
-	  if ( away_from_e )
-	    cand_jets_2.push_back( jet );
 	}
+	if ( away_from_e )
+	 recon_jets.push_back( jet );
       }
-
 
       // Leptons far from jet
-      ParticleVector recon_e, recon_mu;
+      ParticleVector recon_e;
       foreach ( const Particle & e, cand_e ) {
         bool e_near_jet = false;
-	foreach ( const Jet& jet, cand_jets_2 ) {
-          if ( deltaR(e.momentum(),jet.momentum()) < 0.4 )
+	foreach ( const Jet& jet, recon_jets ) {
+          if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
 	    e_near_jet = true;
+	    break;
+	  }
 	}
-        if ( e_near_jet == false )
-          recon_e.push_back( e );
+	// Electron isolation criterion
+        if ( ! e_near_jet ) {
+	  double EtinCone = -e.momentum().Et();
+	  foreach ( const Particle & track, chg_tracks) {
+	    if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
+	      EtinCone += track.momentum().Et();
+	  }
+	  if ( EtinCone/e.momentum().pT() <= 0.15 )
+	    recon_e.push_back( e );
+	}
       }
 
+      ParticleVector recon_mu;
       foreach ( const Particle & mu, cand_mu ) {
          bool mu_near_jet = false;
-         foreach ( const Jet& jet, cand_jets_2 ) {
-           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
+         foreach ( const Jet& jet, recon_jets ) {
+           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
 	     mu_near_jet = true;
+	     break;
+	   }
 	 }
-	 if ( mu_near_jet == false)
+	 if ( ! mu_near_jet )
 	  recon_mu.push_back( mu );
        }
 
@@ -185,50 +193,23 @@ namespace Rivet {
       }
       double eTmiss = pTmiss.pT();
 
-
-      // Final jet filter
-      Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets_2 ) {
-	  recon_jets.push_back( jet );
-      }
-
-
-      // Electron isolation criterion
-      foreach ( Particle e, recon_e ) {
-	double EtinCone = -e.momentum().Et();
-	foreach ( const Particle & track, chg_tracks) {
-	  if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
-	    EtinCone += track.momentum().Et();
-	}
-	if ( EtinCone/e.momentum().pT() >= 0.15 )
-	  vetoEvent;
-      }
-
-
       // Exactly two leptons for each event
-      int num_leptons = recon_mu.size() + recon_e.size();
-      if ( num_leptons != 2)
+      if ( recon_mu.size() + recon_e.size() != 2)
 	vetoEvent;
 
-
-
       // Lepton pair mass
-      double mass_leptons = 0;
+      FourMomentum p_leptons;
       foreach ( Particle e, recon_e ) {
-        mass_leptons += e.momentum().E();
+        p_leptons +=  e.momentum();
       }
       foreach ( Particle mu, recon_mu) {
-        mass_leptons += mu.momentum().E();
+        p_leptons += mu.momentum();
       }
 
-      if ( mass_leptons <= 5.0 * GeV) {
-	MSG_DEBUG("Not enough m_ll: " << mass_leptons << " < 5");
+      if ( p_leptons.mass() <= 5.0 * GeV) 
         vetoEvent;
-      }
-
-
-
-    // ==================== FILL ====================
+      
+      // ==================== FILL ====================
 
 
       // electron, electron
@@ -305,7 +286,18 @@ namespace Rivet {
     //@}
 
 
-    void finalize() { }
+    void finalize() {
+      double norm = crossSection()/picobarn*35./sumOfWeights();
+      // event counts
+      scale(_count_OS_e_mu ,norm);
+      scale(_count_OS_e_e  ,norm);
+      scale(_count_OS_mu_mu,norm);
+      scale(_count_SS_e_mu ,norm);
+      scale(_count_SS_e_e  ,norm);
+      scale(_count_SS_mu_mu,norm);
+      scale(_hist_eTmiss_OS,10.*norm);
+      scale(_hist_eTmiss_SS,10.*norm);
+    }
 
 
   private:
