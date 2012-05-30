@@ -448,7 +448,7 @@ namespace Rivet {
       Analysis::scale(_histRLambda ,1./_SumOfudsWeights);
       Analysis::scale(_histRLBar   ,1./_SumOfudsWeights);
 
-      // multiplicities
+//       // multiplicities
       AIDA::IDataPointSet * multA;
       AIDA::IDataPointSet * multL;
       AIDA::IDataPointSet * multC;
@@ -551,7 +551,7 @@ namespace Rivet {
       // phi
       // all
       avgNumPartsAll = _multPhi[0]/sumOfWeights();
-      multA = bookDataPointSet(25, 5, 1);
+      multA = bookDataPointSet(24, 5, 1);
       multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
       // light
       avgNumPartsLight = _multPhi[1]/_SumOfudsWeights;
