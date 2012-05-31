@@ -16,7 +16,7 @@ Beams: [e+, e-]
 Energies: [91.2]
 PtCuts: [0]
 Description:
-  Measurement of the $\Xi^-$, $\Lambda^0$, $\Sigma^+(1385)$, \Sigma^-(1385)$,
+  Measurement of the $\Xi^-$, $\Lambda^0$, $\Sigma^+(1385)$, $\Sigma^-(1385)$,
   $\Xi^0(1530)$ and $\Lambda^0(1520)$ scaled
   momentum distributions by OPAL at LEP 1. The paper also has the
   production cross-sections of these particles, but that is not
@@ -25,7 +25,7 @@ BibKey: Alexander:1996qj
 BibTeX: '@Article{Alexander:1996qj,
      author    = "Alexander, G. and others",
      collaboration = "OPAL",
-     title     = "{Strange baryon production in hadronic Z0 decays}",
+     title     = "{Strange baryon production in hadronic $Z^0$ decays}",
      journal   = "Z. Phys.",
      volume    = "C73",
      year      = "1997",

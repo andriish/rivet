@@ -1,6 +1,6 @@
 Name: DELPHI_2000_S4328825
 Year: 2000
-Summary: Hadronization properties of $b$ quarks compared to light quarks in $e^+e^-\to q \bar q$ from 183 GeV to 200 GeV 
+Summary: Hadronization properties of $b$ quarks compared to light quarks in $e^+e^-\to q \bar q$ from 183 GeV to 200 GeV
 Experiment: OPAL
 Collider: LEP 2
 SpiresID: 4328825
@@ -11,7 +11,6 @@ References:
  - Phys.Lett.B479:118-128,2000
  - hep-ex/0103022
  - DELPHI 2002-052 CONF 586
-
 RunInfo:
   Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
 NumEvents: 1000000
