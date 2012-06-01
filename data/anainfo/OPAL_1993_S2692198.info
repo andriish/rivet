@@ -4,7 +4,7 @@ Summary: Measurement of photon production at LEP 1
 Experiment: OPAL
 Collider: LEP Run 1
 SpiresID: 2692198
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:
