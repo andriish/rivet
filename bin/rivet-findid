@@ -13,6 +13,8 @@ Arguments:
                 - SPIRES:  [S]nnnnnnn
                 - Inspire: [I]nnnnnn[n]"""
 
+import re
+
 try:
     import xml.etree.cElementTree as ET
 except ImportError:
@@ -38,11 +40,8 @@ def main():
 
 
     ## Set up some variables before the loop over args
-    import re
     arxiv_pattern = re.compile('^\d\d[01]\d\.\d{4}$|^(hep-(ex|ph|th)|nucl-ex)/\d\d[01]\d{4}$')
     spires_pattern = re.compile('^(S|I)?(\d{6}\d?)$')
-    import rivet
-    ALL_ANALYSES = rivet.AnalysisLoader.analysisNames()
 
 
     ## Loop over requested IDs
@@ -141,6 +140,8 @@ def try_inspire(id):
 
 def try_rivet(id):
     id = re.compile(id)
+    import rivet
+    ALL_ANALYSES = rivet.AnalysisLoader.analysisNames()
     return filter(id.search, ALL_ANALYSES)
 
 
