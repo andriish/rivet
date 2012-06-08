@@ -111,21 +111,21 @@ namespace Rivet {
       // candidate electrons
       ParticleVector cand_e;
       foreach ( const Particle & e,
-		applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
-	double eta = e.momentum().eta();
-	// remove electrons with pT<15 in old veto region 
-	// (NOT EXPLICIT IN THIS PAPER BUT IN SIMILAR 4 LEPTON PAPER and THIS DESCRPITION
-	//  IS MUCH WORSE SO ASSUME THIS IS DONE)
-	if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.momentum().perp()< 15.*GeV)
-	  continue;
+                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
+        double eta = e.momentum().eta();
+        // remove electrons with pT<15 in old veto region
+        // (NOT EXPLICIT IN THIS PAPER BUT IN SIMILAR 4 LEPTON PAPER and THIS DESCRPITION
+        //  IS MUCH WORSE SO ASSUME THIS IS DONE)
+        if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.momentum().perp()< 15.*GeV)
+          continue;
         double pTinCone = -e.momentum().perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.momentum().pT();
         }
-	if (pTinCone/e.momentum().perp()<0.1) {
+        if (pTinCone/e.momentum().perp()<0.1) {
           cand_e.push_back(e);
-	}
+        }
       }
 
       // resolve jet/lepton ambiguity
@@ -133,15 +133,15 @@ namespace Rivet {
       //  IS MUCH WORSE SO ASSUME THIS IS DONE)
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-	bool away_from_e = true;
-	foreach ( const Particle & e, cand_e ) {
-	  if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
-	    away_from_e = false;
-	    break;
-	  }
-	}
-	if ( away_from_e )
-	  recon_jets.push_back( jet );
+        bool away_from_e = true;
+        foreach ( const Particle & e, cand_e ) {
+          if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+            away_from_e = false;
+            break;
+          }
+        }
+        if ( away_from_e )
+          recon_jets.push_back( jet );
       }
 
       // only keep electrons more than R=0.4 from jets
@@ -154,15 +154,15 @@ namespace Rivet {
             break;
           }
         }
-	// and 0.1 from any muons
-	if ( ! away ) {
-	  foreach ( const Particle & mu, cand_e ) {
-	    if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
-	      away = false;
-	      break;
-	    }
-	  }
-	}
+        // and 0.1 from any muons
+        if ( ! away ) {
+          foreach ( const Particle & mu, cand_e ) {
+            if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
+              away = false;
+              break;
+            }
+          }
+        }
         if ( away )
           recon_e.push_back( e );
       }
@@ -176,15 +176,15 @@ namespace Rivet {
             break;
           }
         }
-	// and 0.1 from any electrona
-	if ( ! away ) {
-	  foreach ( const Particle & e, cand_e ) {
-	    if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
-	      away = false;
-	      break;
-	    }
-	  }
-	}
+        // and 0.1 from any electrona
+        if ( ! away ) {
+          foreach ( const Particle & e, cand_e ) {
+            if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
+              away = false;
+              break;
+            }
+          }
+        }
         if ( away )
           recon_mu.push_back( mu );
       }
@@ -208,25 +208,25 @@ namespace Rivet {
 
       // ATLAS calo problem
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
-	foreach ( const Particle & e, recon_e ) {
-	  double eta = e.momentum().eta();
-	  double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-	  if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
-	    vetoEvent;
-	}
-	foreach ( const Jet & jet, recon_jets ) {
-	  double eta = jet.momentum().rapidity();
-	  double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-	  if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
-	    vetoEvent;
-	}
+        foreach ( const Particle & e, recon_e ) {
+          double eta = e.momentum().eta();
+          double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+            vetoEvent;
+        }
+        foreach ( const Jet & jet, recon_jets ) {
+          double eta = jet.momentum().rapidity();
+          double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+            vetoEvent;
+        }
       }
 
       // check at least one e/mu passing trigger
       if( !( !recon_e .empty() && recon_e[0] .momentum().perp()>25.)  &&
-	  !( !recon_mu.empty() && recon_mu[0].momentum().perp()>20.) ) {
-	MSG_DEBUG("Hardest lepton fails trigger");
-	vetoEvent;
+          !( !recon_mu.empty() && recon_mu[0].momentum().perp()>20.) ) {
+        MSG_DEBUG("Hardest lepton fails trigger");
+        vetoEvent;
       }
 
       // eTmiss cut
@@ -236,72 +236,72 @@ namespace Rivet {
       double mSFOS=1e30, mdiff=1e30;
       unsigned int nSFOS=0;
       for(unsigned int ix=0;ix<recon_e.size();++ix) {
-	for(unsigned int iy=ix+1;iy<recon_e.size();++iy) {
- 	  if(recon_e[ix].pdgId()*recon_e[iy].pdgId()>0) continue;
-	  ++nSFOS;
- 	  double mtest = (recon_e[ix].momentum()+recon_e[iy].momentum()).mass();
-	  // veto is mass<20
-	  if(mtest<20.) vetoEvent;
-	  if(fabs(mtest-90.)<mdiff) {
- 	    mSFOS = mtest;
-	    mdiff = fabs(mtest-90.);
-	  }
-	} 
+        for(unsigned int iy=ix+1;iy<recon_e.size();++iy) {
+          if(recon_e[ix].pdgId()*recon_e[iy].pdgId()>0) continue;
+          ++nSFOS;
+          double mtest = (recon_e[ix].momentum()+recon_e[iy].momentum()).mass();
+          // veto is mass<20
+          if(mtest<20.) vetoEvent;
+          if(fabs(mtest-90.)<mdiff) {
+            mSFOS = mtest;
+            mdiff = fabs(mtest-90.);
+          }
+        }
       }
       for(unsigned int ix=0;ix<recon_mu.size();++ix) {
-	for(unsigned int iy=ix+1;iy<recon_mu.size();++iy) {
- 	  if(recon_mu[ix].pdgId()*recon_mu[iy].pdgId()>0) continue;
-	  ++nSFOS;
- 	  double mtest = (recon_mu[ix].momentum()+recon_mu[iy].momentum()).mass();
-	  // veto is mass<20
-	  if(mtest<20.) vetoEvent;
-	  if(fabs(mtest-90.)<mdiff) {
- 	    mSFOS = mtest;
-	    mdiff = fabs(mtest-90.);
-	  }
-	} 
+        for(unsigned int iy=ix+1;iy<recon_mu.size();++iy) {
+          if(recon_mu[ix].pdgId()*recon_mu[iy].pdgId()>0) continue;
+          ++nSFOS;
+          double mtest = (recon_mu[ix].momentum()+recon_mu[iy].momentum()).mass();
+          // veto is mass<20
+          if(mtest<20.) vetoEvent;
+          if(fabs(mtest-90.)<mdiff) {
+            mSFOS = mtest;
+            mdiff = fabs(mtest-90.);
+          }
+        }
       }
       // require at least 1 SFOS pair
       if(nSFOS==0) vetoEvent;
       // b-jet veto in SR!
       if(mdiff>10.) {
-	foreach (const Jet & jet, recon_jets ) {
-	  if(jet.containsBottom() &&
-	     rand()/static_cast<double>(RAND_MAX)<=0.60) 
-	    vetoEvent;
-	}
+        foreach (const Jet & jet, recon_jets ) {
+          if(jet.containsBottom() &&
+             rand()/static_cast<double>(RAND_MAX)<=0.60)
+            vetoEvent;
+        }
       }
       // region SR1, Z depleted
       if(mdiff>10.) {
-	_count_SR1->fill(0.5,weight);
-	_hist_etmiss_SR1_A->fill(eTmiss,weight);
-	_hist_etmiss_SR1_B->fill(eTmiss,weight);
-	_hist_mSFOS->fill(mSFOS,weight);
+        _count_SR1->fill(0.5,weight);
+        _hist_etmiss_SR1_A->fill(eTmiss,weight);
+        _hist_etmiss_SR1_B->fill(eTmiss,weight);
+        _hist_mSFOS->fill(mSFOS,weight);
       }
       // region SR2, Z enriched
       else {
- 	_count_SR2->fill(0.5,weight);
-	_hist_etmiss_SR2_A->fill(eTmiss,weight);
-	_hist_etmiss_SR2_B->fill(eTmiss,weight);
+        _count_SR2->fill(0.5,weight);
+        _hist_etmiss_SR2_A->fill(eTmiss,weight);
+        _hist_etmiss_SR2_B->fill(eTmiss,weight);
       }
       // make the control plots
       // lepton pT
       unsigned int ie=0,imu=0;
       for(unsigned int ix=0;ix<3;++ix) {
-	AIDA::IHistogram1D* hist = mdiff>10. ? 
-	  _hist_leptonpT_SR1[ix] :  _hist_leptonpT_SR2[ix];
-	double pTe  = ie <recon_e .size() ?
-	  recon_e [ie ].momentum().perp() : -1*GeV;
-	double pTmu = imu<recon_mu.size() ?
-	  recon_mu[imu].momentum().perp() : -1*GeV;
-	if(pTe>pTmu) {
-	  hist->fill(pTe ,weight);
-	  ++ie;
-	}
-	else {
-	  hist->fill(pTmu,weight);
-	  ++imu;
-	}
+        AIDA::IHistogram1D* hist = mdiff>10. ?
+          _hist_leptonpT_SR1[ix] :  _hist_leptonpT_SR2[ix];
+        double pTe  = ie <recon_e .size() ?
+          recon_e [ie ].momentum().perp() : -1*GeV;
+        double pTmu = imu<recon_mu.size() ?
+          recon_mu[imu].momentum().perp() : -1*GeV;
+        if(pTe>pTmu) {
+          hist->fill(pTe ,weight);
+          ++ie;
+        }
+        else {
+          hist->fill(pTmu,weight);
+          ++imu;
+        }
       }
     }
 
@@ -311,8 +311,8 @@ namespace Rivet {
       double norm = crossSection()/femtobarn*2.06/sumOfWeights();
       // these are number of events at 2.06fb^-1 per 20 GeV
       for(unsigned int ix=0;ix<3;++ix) {
-	scale(_hist_leptonpT_SR1[ix],norm*20.);
-	scale(_hist_leptonpT_SR2[ix],norm*20.);
+        scale(_hist_leptonpT_SR1[ix],norm*20.);
+        scale(_hist_leptonpT_SR2[ix],norm*20.);
       }
       scale(_hist_etmiss_SR1_A,norm*20.);
       scale(_hist_etmiss_SR1_B,norm*20.);
