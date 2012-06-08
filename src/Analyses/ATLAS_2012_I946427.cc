@@ -42,10 +42,10 @@ namespace Rivet {
       addProjection(photonfs, "Photon");
 
       //
-      FinalState fs;      
+      FinalState fs;
       addProjection(fs, "FS");
 
-      // Used for pTmiss 
+      // Used for pTmiss
       addProjection(VisibleFinalState(-4.9,4.9),"vfs");
 
       // Book histograms
@@ -63,8 +63,8 @@ namespace Rivet {
       const double weight = event.weight();
 
       // require at least 2 photons in final state
-      ParticleVector photons = 
-	applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
+      ParticleVector photons =
+        applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
       if (photons.size() < 2) {
         vetoEvent;
       }
@@ -79,15 +79,15 @@ namespace Rivet {
 
         double phi_P = photon.momentum().phi();
 
-	FourMomentum mom_in_EtCone = -photon.momentum();
+        FourMomentum mom_in_EtCone = -photon.momentum();
         foreach (const Particle& p, fs) {
           // check if it's in the cone of .2
-          if (deltaR(eta_P, phi_P, p.momentum().eta(), 
-		     p.momentum().phi()) >= 0.2) continue;
+          if (deltaR(eta_P, phi_P, p.momentum().eta(),
+                     p.momentum().phi()) >= 0.2) continue;
           mom_in_EtCone += p.momentum();
         }
- 	// apply isolation
- 	if(mom_in_EtCone.Et()>5.) continue;
+        // apply isolation
+        if(mom_in_EtCone.Et()>5.) continue;
 
         // add photon to list of isolated ones
         isolated_photons.push_back(photon);
@@ -95,7 +95,7 @@ namespace Rivet {
 
       // need two isolated photons
       if(isolated_photons.size() < 2 ) {
-	vetoEvent;
+        vetoEvent;
       }
 
       // pTmiss
@@ -133,7 +133,7 @@ namespace Rivet {
     AIDA::IHistogram1D* _count_SR;
     AIDA::IHistogram1D* _hist_ET_photon;
     AIDA::IHistogram1D* _hist_met;
-    
+
   };
 
 
