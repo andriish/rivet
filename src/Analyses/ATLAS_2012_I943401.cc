@@ -123,7 +123,7 @@ namespace Rivet {
       // get the jet candidates
       Jets cand_jets;
       foreach (const Jet& jet,
-       	applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+        applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.momentum().eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
@@ -131,122 +131,122 @@ namespace Rivet {
 
       // electron candidates
       ParticleVector cand_e =
-	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+        applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
       // Discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-	bool away_from_e = true;
-	  foreach ( const Particle & e, cand_e ) {
-	    if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
-	      away_from_e = false;
-	      break;
-	    }
-	  }
-	  if ( away_from_e ) recon_jets.push_back( jet );
+        bool away_from_e = true;
+          foreach ( const Particle & e, cand_e ) {
+            if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+              away_from_e = false;
+              break;
+            }
+          }
+          if ( away_from_e ) recon_jets.push_back( jet );
       }
       // get the charged tracks for isolation
       ParticleVector chg_tracks =
-	applyProjection<ChargedFinalState>(event, "cfs").particles();
-      
+        applyProjection<ChargedFinalState>(event, "cfs").particles();
+
       // Reconstructed electrons
       ParticleVector recon_e;
       foreach ( const Particle & e, cand_e ) {
-	// check not near a jet
-	bool e_near_jet = false;
-      	foreach ( const Jet& jet, recon_jets ) {
+        // check not near a jet
+        bool e_near_jet = false;
+        foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
-       	    e_near_jet = true;
-	    break;
-	  }
-	}
-	if ( e_near_jet ) continue;
-	// check the isolation
-	double pTinCone = -e.momentum().pT();
-	foreach ( const Particle & track, chg_tracks ) {
-	  if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
-	}
-	if ( pTinCone < 0.1*e.momentum().perp() )
-	  recon_e.push_back(e);
+            e_near_jet = true;
+            break;
+          }
+        }
+        if ( e_near_jet ) continue;
+        // check the isolation
+        double pTinCone = -e.momentum().pT();
+        foreach ( const Particle & track, chg_tracks ) {
+          if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
+            pTinCone += track.momentum().pT();
+        }
+        if ( pTinCone < 0.1*e.momentum().perp() )
+          recon_e.push_back(e);
       }
-      
+
       // Reconstructed Muons
-      ParticleVector recon_mu;  
+      ParticleVector recon_mu;
       ParticleVector cand_mu =
-	applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
+        applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
       foreach ( const Particle & mu, cand_mu ) {
-	// check not near a jet
-	bool mu_near_jet = false;
-	foreach ( const Jet& jet, recon_jets ) {
-	  if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
-	    mu_near_jet = true;
-	    break;
-	  }
-	}
-	if ( mu_near_jet ) continue;
-	// isolation
-	double pTinCone = -mu.momentum().pT();
-	foreach ( const Particle & track, chg_tracks ) {
-	  if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
-	}
-	if ( pTinCone < 1.8*GeV )
-	  recon_mu.push_back(mu);
+        // check not near a jet
+        bool mu_near_jet = false;
+        foreach ( const Jet& jet, recon_jets ) {
+          if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
+            mu_near_jet = true;
+            break;
+          }
+        }
+        if ( mu_near_jet ) continue;
+        // isolation
+        double pTinCone = -mu.momentum().pT();
+        foreach ( const Particle & track, chg_tracks ) {
+          if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
+            pTinCone += track.momentum().pT();
+        }
+        if ( pTinCone < 1.8*GeV )
+          recon_mu.push_back(mu);
       }
 
       // pTmiss
       ParticleVector vfs_particles
-	= applyProjection<VisibleFinalState>(event, "vfs").particles();
+        = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
-	pTmiss -= p.momentum();
+        pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
 
       // ATLAS calo problem
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
-	foreach ( const Particle & e, recon_e ) {
-	  double eta = e.momentum().eta();
-	  double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-	  if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
-	    vetoEvent;
-	}
-	foreach ( const Jet & jet, recon_jets ) {
-	  double eta = jet.momentum().rapidity();
-	  double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-	  if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
-	    vetoEvent;
-	}
+        foreach ( const Particle & e, recon_e ) {
+          double eta = e.momentum().eta();
+          double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+            vetoEvent;
+        }
+        foreach ( const Jet & jet, recon_jets ) {
+          double eta = jet.momentum().rapidity();
+          double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+            vetoEvent;
+        }
       }
 
       // Exactly two leptons for each event
       if ( recon_mu.size() + recon_e.size() != 2)
-	vetoEvent;
+        vetoEvent;
       // two electrons highest pT > 25
       ParticleVector recon_leptons;
       if(recon_e.size()==2&&recon_e[0].momentum().perp()>25.) {
-	recon_leptons = recon_e;
+        recon_leptons = recon_e;
       }
       // two muons highest pT > 20
       else if(recon_mu.size()==2&&recon_mu[0].momentum().perp()>20.) {
-	recon_leptons = recon_mu;
+        recon_leptons = recon_mu;
       }
       else if(recon_e.size()==1 && recon_mu.size()==1 &&
-	      (recon_e[0].momentum().perp()>25. ||recon_mu[0].momentum().perp()>20. )) {
-	if(recon_mu[0].momentum().perp()<recon_e[0].momentum().perp()) {
-	  recon_leptons.push_back(recon_e [0]);
-	  recon_leptons.push_back(recon_mu[0]);
-	}
-	else {
-	  recon_leptons.push_back(recon_mu[0]);
-	  recon_leptons.push_back(recon_e [0]);
-	}
+              (recon_e[0].momentum().perp()>25. ||recon_mu[0].momentum().perp()>20. )) {
+        if(recon_mu[0].momentum().perp()<recon_e[0].momentum().perp()) {
+          recon_leptons.push_back(recon_e [0]);
+          recon_leptons.push_back(recon_mu[0]);
+        }
+        else {
+          recon_leptons.push_back(recon_mu[0]);
+          recon_leptons.push_back(recon_e [0]);
+        }
       }
       // fails trigger
       else
-	vetoEvent;
-      
+        vetoEvent;
+
       double mll = (recon_leptons[0].momentum()+recon_leptons[1].momentum()).mass();
       // lepton pair mass > 12.
       if(mll < 12.) vetoEvent;
@@ -256,109 +256,109 @@ namespace Rivet {
 
       // same sign leptons
       if(sign>0) {
-	_hist_mll_SS_D   ->fill(mll   ,weight);
-	_hist_mll_SS_B   ->fill(mll   ,weight);
-	_hist_eTmiss_SS_D->fill(eTmiss,weight);
-	_hist_eTmiss_SS_B->fill(eTmiss,weight);
-	if(recon_jets.size()>=2) {
-	  _hist_mll_SS_2Jet_D   ->fill(mll   ,weight);
-	  _hist_mll_SS_2Jet_B   ->fill(mll   ,weight);
-	}
-	_hist_njet_SS_D ->fill(recon_jets.size(),weight);
-	_hist_njet_SS_B ->fill(recon_jets.size(),weight);
-	if(!recon_jets.empty()) {
-	  _hist_pT_j1_SS_D->fill(recon_jets[0].momentum().perp(),weight);
-	  _hist_pT_j1_SS_B->fill(recon_jets[0].momentum().perp(),weight);
-	}
-	if(recon_jets.size()>2) {
-	  _hist_pT_j2_SS_D->fill(recon_jets[1].momentum().perp(),weight);
-	  _hist_pT_j2_SS_B->fill(recon_jets[1].momentum().perp(),weight);
-	}
-	_hist_pT_l1_SS_D->fill(recon_leptons[0].momentum().perp(),weight);
-	_hist_pT_l1_SS_B->fill(recon_leptons[0].momentum().perp(),weight);
-	_hist_pT_l2_SS_D->fill(recon_leptons[1].momentum().perp(),weight);
-	_hist_pT_l2_SS_B->fill(recon_leptons[1].momentum().perp(),weight);
-	// SS-SR1
-	if(eTmiss>100.) {
-	  _count_SS_SR1->fill(0.5,weight);
-	}
-	// SS-SR2
-	if(eTmiss>80. && recon_jets.size()>=2 && 
-	   recon_jets[1].momentum().perp()>50.) {
-	  _count_SS_SR2->fill(0.5,weight);
-	}
+        _hist_mll_SS_D   ->fill(mll   ,weight);
+        _hist_mll_SS_B   ->fill(mll   ,weight);
+        _hist_eTmiss_SS_D->fill(eTmiss,weight);
+        _hist_eTmiss_SS_B->fill(eTmiss,weight);
+        if(recon_jets.size()>=2) {
+          _hist_mll_SS_2Jet_D   ->fill(mll   ,weight);
+          _hist_mll_SS_2Jet_B   ->fill(mll   ,weight);
+        }
+        _hist_njet_SS_D ->fill(recon_jets.size(),weight);
+        _hist_njet_SS_B ->fill(recon_jets.size(),weight);
+        if(!recon_jets.empty()) {
+          _hist_pT_j1_SS_D->fill(recon_jets[0].momentum().perp(),weight);
+          _hist_pT_j1_SS_B->fill(recon_jets[0].momentum().perp(),weight);
+        }
+        if(recon_jets.size()>2) {
+          _hist_pT_j2_SS_D->fill(recon_jets[1].momentum().perp(),weight);
+          _hist_pT_j2_SS_B->fill(recon_jets[1].momentum().perp(),weight);
+        }
+        _hist_pT_l1_SS_D->fill(recon_leptons[0].momentum().perp(),weight);
+        _hist_pT_l1_SS_B->fill(recon_leptons[0].momentum().perp(),weight);
+        _hist_pT_l2_SS_D->fill(recon_leptons[1].momentum().perp(),weight);
+        _hist_pT_l2_SS_B->fill(recon_leptons[1].momentum().perp(),weight);
+        // SS-SR1
+        if(eTmiss>100.) {
+          _count_SS_SR1->fill(0.5,weight);
+        }
+        // SS-SR2
+        if(eTmiss>80. && recon_jets.size()>=2 &&
+           recon_jets[1].momentum().perp()>50.) {
+          _count_SS_SR2->fill(0.5,weight);
+        }
       }
       // opposite sign
       else {
-	_hist_mll_OS_D->fill(mll   ,weight);
-	_hist_mll_OS_B->fill(mll   ,weight);
-	_hist_eTmiss_OS_D->fill(eTmiss,weight);
-	_hist_eTmiss_OS_B->fill(eTmiss,weight);
-	if(recon_jets.size()>=3){
-	  _hist_eTmiss_3Jet_OS_D->fill(eTmiss,weight);
-	  _hist_eTmiss_3Jet_OS_B->fill(eTmiss,weight);
-	}
-	if(recon_jets.size()>=4){
-	  _hist_eTmiss_4Jet_OS_D->fill(eTmiss,weight);
-	  _hist_eTmiss_4Jet_OS_B->fill(eTmiss,weight);
-	}
-	_hist_njet_OS_D->fill(recon_jets.size(),weight);
-	_hist_njet_OS_B->fill(recon_jets.size(),weight);
-	if(!recon_jets.empty()) {
-	  _hist_pT_j1_OS_D->fill(recon_jets[0].momentum().perp(),weight);
-	  _hist_pT_j1_OS_B->fill(recon_jets[0].momentum().perp(),weight);
-	}
-	if(recon_jets.size()>2) {
-	  _hist_pT_j2_OS_D->fill(recon_jets[1].momentum().perp(),weight);
-	  _hist_pT_j2_OS_B->fill(recon_jets[1].momentum().perp(),weight);
-	}
-	_hist_pT_l1_OS_D->fill(recon_leptons[0].momentum().perp(),weight);
-	_hist_pT_l1_OS_B->fill(recon_leptons[0].momentum().perp(),weight);
-	_hist_pT_l2_OS_D->fill(recon_leptons[1].momentum().perp(),weight);
-	_hist_pT_l2_OS_B->fill(recon_leptons[1].momentum().perp(),weight);
-	// different signal regions
-	// OS-SR1
-	if(eTmiss>250.) {
-	  _count_OS_SR1->fill(0.5,weight);
-	}
-	// OS-SR2
-	if(eTmiss>220. && recon_jets.size()>=3 && 
-	   recon_jets[0].momentum().perp()>80. && 
-	   recon_jets[2].momentum().perp()>40.) {
-	  _count_OS_SR2->fill(0.5,weight);
-	}
-	// OS-SR3
-	if(eTmiss>100. && recon_jets.size()>=4 && 
-	   recon_jets[0].momentum().perp()>100. && 
-	   recon_jets[3].momentum().perp()>70.) {
-	  _count_OS_SR3->fill(0.5,weight);
-	}
-	// same flavour analysis
-	static const double beta   = 0.75;
-	static const double tau_e  = 0.96;
-	static const double tau_mu = 0.816;
-	double fs_weight = weight;
-	if(abs(recon_leptons[0].pdgId())==ELECTRON && abs(recon_leptons[1].pdgId())==ELECTRON) {
-	  fs_weight /= beta*(1.-sqr(1.-tau_e));
-	}
-	else if(abs(recon_leptons[0].pdgId())==MUON && abs(recon_leptons[1].pdgId())==MUON) {
-	  fs_weight *= beta/(1.-sqr(1.-tau_mu));
-	}
-	else {
-	  fs_weight /= -(1.-(1.-tau_e)*(1.-tau_mu));
-	}
-	// FS-SR1
-	if(eTmiss>80.&& (mll<80.||mll>100.)) {
-	  _count_FS_SR1->fill(0.5,fs_weight);
-	}
-	// FS-SR2
-	if(eTmiss>80.&&recon_jets.size()>=2) {
-	  _count_FS_SR2->fill(0.5,fs_weight);
-	}
-	// FS-SR3
-	if(eTmiss>250.) {
-	  _count_FS_SR3->fill(0.5,fs_weight);
-	}
+        _hist_mll_OS_D->fill(mll   ,weight);
+        _hist_mll_OS_B->fill(mll   ,weight);
+        _hist_eTmiss_OS_D->fill(eTmiss,weight);
+        _hist_eTmiss_OS_B->fill(eTmiss,weight);
+        if(recon_jets.size()>=3){
+          _hist_eTmiss_3Jet_OS_D->fill(eTmiss,weight);
+          _hist_eTmiss_3Jet_OS_B->fill(eTmiss,weight);
+        }
+        if(recon_jets.size()>=4){
+          _hist_eTmiss_4Jet_OS_D->fill(eTmiss,weight);
+          _hist_eTmiss_4Jet_OS_B->fill(eTmiss,weight);
+        }
+        _hist_njet_OS_D->fill(recon_jets.size(),weight);
+        _hist_njet_OS_B->fill(recon_jets.size(),weight);
+        if(!recon_jets.empty()) {
+          _hist_pT_j1_OS_D->fill(recon_jets[0].momentum().perp(),weight);
+          _hist_pT_j1_OS_B->fill(recon_jets[0].momentum().perp(),weight);
+        }
+        if(recon_jets.size()>2) {
+          _hist_pT_j2_OS_D->fill(recon_jets[1].momentum().perp(),weight);
+          _hist_pT_j2_OS_B->fill(recon_jets[1].momentum().perp(),weight);
+        }
+        _hist_pT_l1_OS_D->fill(recon_leptons[0].momentum().perp(),weight);
+        _hist_pT_l1_OS_B->fill(recon_leptons[0].momentum().perp(),weight);
+        _hist_pT_l2_OS_D->fill(recon_leptons[1].momentum().perp(),weight);
+        _hist_pT_l2_OS_B->fill(recon_leptons[1].momentum().perp(),weight);
+        // different signal regions
+        // OS-SR1
+        if(eTmiss>250.) {
+          _count_OS_SR1->fill(0.5,weight);
+        }
+        // OS-SR2
+        if(eTmiss>220. && recon_jets.size()>=3 &&
+           recon_jets[0].momentum().perp()>80. &&
+           recon_jets[2].momentum().perp()>40.) {
+          _count_OS_SR2->fill(0.5,weight);
+        }
+        // OS-SR3
+        if(eTmiss>100. && recon_jets.size()>=4 &&
+           recon_jets[0].momentum().perp()>100. &&
+           recon_jets[3].momentum().perp()>70.) {
+          _count_OS_SR3->fill(0.5,weight);
+        }
+        // same flavour analysis
+        static const double beta   = 0.75;
+        static const double tau_e  = 0.96;
+        static const double tau_mu = 0.816;
+        double fs_weight = weight;
+        if(abs(recon_leptons[0].pdgId())==ELECTRON && abs(recon_leptons[1].pdgId())==ELECTRON) {
+          fs_weight /= beta*(1.-sqr(1.-tau_e));
+        }
+        else if(abs(recon_leptons[0].pdgId())==MUON && abs(recon_leptons[1].pdgId())==MUON) {
+          fs_weight *= beta/(1.-sqr(1.-tau_mu));
+        }
+        else {
+          fs_weight /= -(1.-(1.-tau_e)*(1.-tau_mu));
+        }
+        // FS-SR1
+        if(eTmiss>80.&& (mll<80.||mll>100.)) {
+          _count_FS_SR1->fill(0.5,fs_weight);
+        }
+        // FS-SR2
+        if(eTmiss>80.&&recon_jets.size()>=2) {
+          _count_FS_SR2->fill(0.5,fs_weight);
+        }
+        // FS-SR3
+        if(eTmiss>250.) {
+          _count_FS_SR3->fill(0.5,fs_weight);
+        }
       }
     }
 
@@ -394,7 +394,7 @@ namespace Rivet {
       scale(_hist_pT_l1_SS_B   ,norm*5. );
       scale(_hist_pT_l2_SS_D   ,norm*5. );
       scale(_hist_pT_l2_SS_B   ,norm*5. );
-      
+
       scale(_hist_mll_OS_D        ,norm*10.);
       scale(_hist_mll_OS_B        ,norm*10.);
       scale(_hist_eTmiss_OS_D     ,norm*10.);
@@ -413,10 +413,10 @@ namespace Rivet {
       scale(_hist_pT_l1_OS_B      ,norm*20.);
       scale(_hist_pT_l2_OS_D      ,norm*20.);
       scale(_hist_pT_l2_OS_B      ,norm*20.);
-    }    
-    
+    }
+
   private:
-    
+
     /// @name Histograms
     //@{
     AIDA::IHistogram1D* _count_OS_SR1;
@@ -428,12 +428,12 @@ namespace Rivet {
     AIDA::IHistogram1D* _count_FS_SR2;
     AIDA::IHistogram1D* _count_FS_SR3;
 
-    AIDA::IHistogram1D* _hist_mll_SS_D;   
-    AIDA::IHistogram1D* _hist_mll_SS_B;   
+    AIDA::IHistogram1D* _hist_mll_SS_D;
+    AIDA::IHistogram1D* _hist_mll_SS_B;
     AIDA::IHistogram1D* _hist_eTmiss_SS_D;
     AIDA::IHistogram1D* _hist_eTmiss_SS_B;
-    AIDA::IHistogram1D* _hist_mll_SS_2Jet_D;   
-    AIDA::IHistogram1D* _hist_mll_SS_2Jet_B;   
+    AIDA::IHistogram1D* _hist_mll_SS_2Jet_D;
+    AIDA::IHistogram1D* _hist_mll_SS_2Jet_B;
     AIDA::IHistogram1D* _hist_njet_SS_D;
     AIDA::IHistogram1D* _hist_njet_SS_B;
     AIDA::IHistogram1D* _hist_pT_j1_SS_D;
