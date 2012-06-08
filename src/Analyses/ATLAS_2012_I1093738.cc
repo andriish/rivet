@@ -38,7 +38,6 @@ namespace Rivet {
     ATLAS_2012_I1093738()
       : Analysis("ATLAS_2012_I1093738")
     {
-      setBeams(PROTON, PROTON);
       setNeedsCrossSection(true);
 
       _eta_bins_ph.push_back(0.0);
