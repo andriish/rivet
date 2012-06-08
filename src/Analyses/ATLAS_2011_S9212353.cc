@@ -117,95 +117,95 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       ParticleVector veto_e
-	= applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
+        = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
-       	MSG_DEBUG("electrons in veto region");
-       	vetoEvent;
+        MSG_DEBUG("electrons in veto region");
+        vetoEvent;
       }
 
       Jets cand_jets;
       foreach ( const Jet& jet,
-       	  applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+          applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.momentum().eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
       }
 
       ParticleVector candtemp_e =
-	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+        applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
       ParticleVector candtemp_mu =
-	applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
+        applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
       ParticleVector chg_tracks =
-	applyProjection<ChargedFinalState>(event, "cfs").particles();
+        applyProjection<ChargedFinalState>(event, "cfs").particles();
       ParticleVector cand_mu;
       ParticleVector cand_e;
 
 
       // pTcone around muon track
       foreach ( const Particle & mu, candtemp_mu ) {
-	double pTinCone = -mu.momentum().pT();
-	foreach ( const Particle & track, chg_tracks ) {
-	  if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
-	}
-	if ( pTinCone < 1.8*GeV )
-	  cand_mu.push_back(mu);
+        double pTinCone = -mu.momentum().pT();
+        foreach ( const Particle & track, chg_tracks ) {
+          if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
+            pTinCone += track.momentum().pT();
+        }
+        if ( pTinCone < 1.8*GeV )
+          cand_mu.push_back(mu);
       }
 
       // pTcone around electron
       foreach ( const Particle e, candtemp_e ) {
-	double pTinCone = -e.momentum().pT();
-	foreach ( const Particle & track, chg_tracks ) {
-	  if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
-	}
-	if ( pTinCone < 0.1 * e.momentum().pT() )
-	  cand_e.push_back(e);
+        double pTinCone = -e.momentum().pT();
+        foreach ( const Particle & track, chg_tracks ) {
+          if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
+            pTinCone += track.momentum().pT();
+        }
+        if ( pTinCone < 0.1 * e.momentum().pT() )
+          cand_e.push_back(e);
       }
 
       // discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-	  bool away_from_e = true;
-	  foreach ( const Particle & e, cand_e ) {
-	    if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
-	      away_from_e = false;
-	      break;
-	    }
-	  }
-	  if ( away_from_e )
-	    recon_jets.push_back( jet );
+          bool away_from_e = true;
+          foreach ( const Particle & e, cand_e ) {
+            if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
+              away_from_e = false;
+              break;
+            }
+          }
+          if ( away_from_e )
+            recon_jets.push_back( jet );
       }
 
       // only consider leptons far from jet
       ParticleVector recon_e, recon_mu;
       foreach ( const Particle & e, cand_e ) {
         bool e_near_jet = false;
-	foreach ( const Jet& jet, recon_jets ) {
+        foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 &&
-	       deltaR(e.momentum(),jet.momentum()) > 0.2 )
-	    e_near_jet = true;
-	}
+               deltaR(e.momentum(),jet.momentum()) > 0.2 )
+            e_near_jet = true;
+        }
         if ( ! e_near_jet )
           recon_e.push_back( e );
       }
 
       foreach ( const Particle & mu, cand_mu ) {
-	bool mu_near_jet = false;
-	foreach ( const Jet& jet, recon_jets ) {
-	  if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
-	    mu_near_jet = true;
-	}
-	if ( ! mu_near_jet )
-	  recon_mu.push_back( mu );
+        bool mu_near_jet = false;
+        foreach ( const Jet& jet, recon_jets ) {
+          if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
+            mu_near_jet = true;
+        }
+        if ( ! mu_near_jet )
+          recon_mu.push_back( mu );
       }
-      
+
       // pTmiss
       ParticleVector vfs_particles
-	= applyProjection<VisibleFinalState>(event, "vfs").particles();
+        = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
-	pTmiss -= p.momentum();
+        pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
 
@@ -217,24 +217,24 @@ namespace Rivet {
       int Njets = 0;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-	if ( fabs(jet.momentum().eta()) < 2.8 )
-	  Njets+=1;
+        if ( fabs(jet.momentum().eta()) < 2.8 )
+          Njets+=1;
       }
       if ( Njets < 3 ) {
-	MSG_DEBUG("Only " << Njets << " jets w/ eta<2.8 left");
-	vetoEvent;
+        MSG_DEBUG("Only " << Njets << " jets w/ eta<2.8 left");
+        vetoEvent;
       }
 
       ParticleVector lepton;
       if ( recon_mu.empty() && recon_e.empty() ) {
-	MSG_DEBUG("No leptons");
-	vetoEvent;
+        MSG_DEBUG("No leptons");
+        vetoEvent;
       }
       else {
-	foreach ( const Particle & mu, recon_mu )
-	    lepton.push_back(mu);
+        foreach ( const Particle & mu, recon_mu )
+            lepton.push_back(mu);
         foreach ( const Particle & e, recon_e )
-	    lepton.push_back(e);
+            lepton.push_back(e);
       }
 
 
@@ -246,195 +246,195 @@ namespace Rivet {
       // one hard leading lepton cut
       if ( fabs(lepton[0].pdgId()) == e_id &&
            lepton[0].momentum().pT() <= 25*GeV ) {
-	vetoEvent;
+        vetoEvent;
       }
       else if ( fabs(lepton[0].pdgId()) == mu_id &&
                 lepton[0].momentum().pT() <= 20*GeV ) {
-	vetoEvent;
+        vetoEvent;
       }
 
       // exactly one hard leading lepton cut
       if(lepton.size()>1) {
-	if ( fabs(lepton[1].pdgId()) == e_id &&
-	     lepton[1].momentum().pT() > 20*GeV ) {
-	  vetoEvent;
-	}
-	else if ( fabs(lepton[1].pdgId()) == mu_id &&
-		  lepton[1].momentum().pT() > 10*GeV ) {
-	  vetoEvent;
-	}
+        if ( fabs(lepton[1].pdgId()) == e_id &&
+             lepton[1].momentum().pT() > 20*GeV ) {
+          vetoEvent;
+        }
+        else if ( fabs(lepton[1].pdgId()) == mu_id &&
+                  lepton[1].momentum().pT() > 10*GeV ) {
+          vetoEvent;
+        }
       }
 
       // 3JL
       if ( recon_jets[0].momentum().pT() > 60.0*GeV &&
-	   recon_jets[1].momentum().pT() > 25.0*GeV &&
-	   recon_jets[2].momentum().pT() > 25.0*GeV &&
-	   deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
-	
-	FourMomentum pT_l = lepton[0].momentum();
-	double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
-	double mT = sqrt( 2 * pT_l.pT() * eTmiss * (1 - cos(dPhi)) );
-	double m_eff = eTmiss + pT_l.pT()
-	  + recon_jets[0].momentum().pT()
-	  + recon_jets[1].momentum().pT()
-	  + recon_jets[2].momentum().pT();
-	
-	if ( fabs( lepton[0].pdgId() ) == e_id ) {
-	  _3j_hist_mT_e->fill(mT, weight);	
-	  _3j_hist_eTmiss_e->fill(eTmiss, weight);
-	  _3j_hist_m_eff_e->fill(m_eff, weight);
-	  if ( mT > 100*GeV && eTmiss > 125*GeV ) {
-	    _3jl_hist_m_eff_e_final->fill(m_eff, weight);
-	    if ( m_eff > 500*GeV && eTmiss > 0.25*m_eff ) {
-	      _3jl_count_e_channel->fill(0.5,weight);
-	    }
-	  }
-	}
-	
-	else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
-	  _3j_hist_mT_mu->fill(mT, weight);
-	  _3j_hist_eTmiss_mu->fill(eTmiss, weight);
-	  _3j_hist_m_eff_mu->fill(m_eff, weight);
-	  if ( mT > 100*GeV && eTmiss > 125*GeV ) {
-	    _3jl_hist_m_eff_mu_final->fill(m_eff, weight);
-	    if ( m_eff > 500*GeV && eTmiss > 0.25*m_eff ) {
-	      _3jl_count_mu_channel->fill(0.5,weight);
-	    }
-	  }
-	}
+           recon_jets[1].momentum().pT() > 25.0*GeV &&
+           recon_jets[2].momentum().pT() > 25.0*GeV &&
+           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
+
+        FourMomentum pT_l = lepton[0].momentum();
+        double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
+        double mT = sqrt( 2 * pT_l.pT() * eTmiss * (1 - cos(dPhi)) );
+        double m_eff = eTmiss + pT_l.pT()
+          + recon_jets[0].momentum().pT()
+          + recon_jets[1].momentum().pT()
+          + recon_jets[2].momentum().pT();
+
+        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+          _3j_hist_mT_e->fill(mT, weight);
+          _3j_hist_eTmiss_e->fill(eTmiss, weight);
+          _3j_hist_m_eff_e->fill(m_eff, weight);
+          if ( mT > 100*GeV && eTmiss > 125*GeV ) {
+            _3jl_hist_m_eff_e_final->fill(m_eff, weight);
+            if ( m_eff > 500*GeV && eTmiss > 0.25*m_eff ) {
+              _3jl_count_e_channel->fill(0.5,weight);
+            }
+          }
+        }
+
+        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+          _3j_hist_mT_mu->fill(mT, weight);
+          _3j_hist_eTmiss_mu->fill(eTmiss, weight);
+          _3j_hist_m_eff_mu->fill(m_eff, weight);
+          if ( mT > 100*GeV && eTmiss > 125*GeV ) {
+            _3jl_hist_m_eff_mu_final->fill(m_eff, weight);
+            if ( m_eff > 500*GeV && eTmiss > 0.25*m_eff ) {
+              _3jl_count_mu_channel->fill(0.5,weight);
+            }
+          }
+        }
 
       }
 
       // 3JT
       if ( recon_jets[0].momentum().pT() > 80.0*GeV &&
-	   recon_jets[1].momentum().pT() > 25.0*GeV &&
-	   recon_jets[2].momentum().pT() > 25.0*GeV &&
-	   deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
-	
-	FourMomentum pT_l = lepton[0].momentum();
-	double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
-	double mT = sqrt( 2 * pT_l.pT() * eTmiss * (1 - cos(dPhi)) );
-	double m_eff = eTmiss + pT_l.pT()
-	  + recon_jets[0].momentum().pT()
-	  + recon_jets[1].momentum().pT()
-	  + recon_jets[2].momentum().pT();
-	
-	
-	if ( fabs( lepton[0].pdgId() ) == e_id ) {
-	  if ( mT > 100*GeV && eTmiss > 240*GeV ) {
-	    _3jt_hist_m_eff_e_final->fill(m_eff, weight);
-	    if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
-	      _3jt_count_e_channel->fill(0.5,weight);
-	    }
-	  }
-	}
-	
-	else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
-	  if ( mT > 100*GeV && eTmiss > 240*GeV ) {
-	    _3jt_hist_m_eff_mu_final->fill(m_eff, weight);
-	    if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
-	      _3jt_count_mu_channel->fill(0.5,weight);
-	    }
-	  }
-	}
+           recon_jets[1].momentum().pT() > 25.0*GeV &&
+           recon_jets[2].momentum().pT() > 25.0*GeV &&
+           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
+
+        FourMomentum pT_l = lepton[0].momentum();
+        double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
+        double mT = sqrt( 2 * pT_l.pT() * eTmiss * (1 - cos(dPhi)) );
+        double m_eff = eTmiss + pT_l.pT()
+          + recon_jets[0].momentum().pT()
+          + recon_jets[1].momentum().pT()
+          + recon_jets[2].momentum().pT();
+
+
+        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+          if ( mT > 100*GeV && eTmiss > 240*GeV ) {
+            _3jt_hist_m_eff_e_final->fill(m_eff, weight);
+            if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
+              _3jt_count_e_channel->fill(0.5,weight);
+            }
+          }
+        }
+
+        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+          if ( mT > 100*GeV && eTmiss > 240*GeV ) {
+            _3jt_hist_m_eff_mu_final->fill(m_eff, weight);
+            if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
+              _3jt_count_mu_channel->fill(0.5,weight);
+            }
+          }
+        }
 
       }
 
       if ( Njets < 4 ) {
-	MSG_DEBUG("Only " << Njets << " jets w/ eta<2.8 left");
-	vetoEvent;
+        MSG_DEBUG("Only " << Njets << " jets w/ eta<2.8 left");
+        vetoEvent;
       }
 
 
 
       // 4JL
       if ( recon_jets[0].momentum().pT() > 60.0*GeV &&
-	   recon_jets[1].momentum().pT() > 25.0*GeV &&
-	   recon_jets[2].momentum().pT() > 25.0*GeV &&
-	   recon_jets[3].momentum().pT() > 25.0*GeV &&
-	   deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
-	
-	FourMomentum pT_l = lepton[0].momentum();
-	double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
-	double mT = sqrt( 2 * pT_l.pT() * eTmiss * (1 - cos(dPhi)) );
-	double m_eff = eTmiss + pT_l.pT()
-	  + recon_jets[0].momentum().pT()
-	  + recon_jets[1].momentum().pT()
-	  + recon_jets[2].momentum().pT()
-	  + recon_jets[3].momentum().pT();
-	
-	
-	if ( fabs( lepton[0].pdgId() ) == e_id ) {
-	  _4j_hist_mT_e->fill(mT, weight);	
-	  _4j_hist_eTmiss_e->fill(eTmiss, weight);
-	  _4j_hist_m_eff_e->fill(m_eff, weight);
-	  if ( mT > 100*GeV && eTmiss > 140*GeV ) {
-	    _4jl_hist_m_eff_e_final->fill(m_eff, weight);
-	    if ( m_eff > 300*GeV && eTmiss > 0.3*m_eff ) {
-	      _4jl_count_e_channel->fill(0.5,weight);
-	    }
-	  }
-	}
-	
-	// Muon channel signal region
-	else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
-	  _4j_hist_mT_mu->fill(mT, weight);
-	  _4j_hist_eTmiss_mu->fill(eTmiss, weight);
-	  _4j_hist_m_eff_mu->fill(m_eff, weight);
-	  if ( mT > 100*GeV && eTmiss > 140*GeV ) {
-	    _4jl_hist_m_eff_mu_final->fill(m_eff, weight);
-	    if ( m_eff > 300*GeV && eTmiss > 0.3*m_eff ) {
-	      _4jl_count_mu_channel->fill(0.5,weight);
-	    }
-	  }
-	}
+           recon_jets[1].momentum().pT() > 25.0*GeV &&
+           recon_jets[2].momentum().pT() > 25.0*GeV &&
+           recon_jets[3].momentum().pT() > 25.0*GeV &&
+           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
+
+        FourMomentum pT_l = lepton[0].momentum();
+        double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
+        double mT = sqrt( 2 * pT_l.pT() * eTmiss * (1 - cos(dPhi)) );
+        double m_eff = eTmiss + pT_l.pT()
+          + recon_jets[0].momentum().pT()
+          + recon_jets[1].momentum().pT()
+          + recon_jets[2].momentum().pT()
+          + recon_jets[3].momentum().pT();
+
+
+        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+          _4j_hist_mT_e->fill(mT, weight);
+          _4j_hist_eTmiss_e->fill(eTmiss, weight);
+          _4j_hist_m_eff_e->fill(m_eff, weight);
+          if ( mT > 100*GeV && eTmiss > 140*GeV ) {
+            _4jl_hist_m_eff_e_final->fill(m_eff, weight);
+            if ( m_eff > 300*GeV && eTmiss > 0.3*m_eff ) {
+              _4jl_count_e_channel->fill(0.5,weight);
+            }
+          }
+        }
+
+        // Muon channel signal region
+        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+          _4j_hist_mT_mu->fill(mT, weight);
+          _4j_hist_eTmiss_mu->fill(eTmiss, weight);
+          _4j_hist_m_eff_mu->fill(m_eff, weight);
+          if ( mT > 100*GeV && eTmiss > 140*GeV ) {
+            _4jl_hist_m_eff_mu_final->fill(m_eff, weight);
+            if ( m_eff > 300*GeV && eTmiss > 0.3*m_eff ) {
+              _4jl_count_mu_channel->fill(0.5,weight);
+            }
+          }
+        }
 
       }
 
       // 4JT
       if ( recon_jets[0].momentum().pT() > 60.0*GeV &&
-	   recon_jets[1].momentum().pT() > 40.0*GeV &&
-	   recon_jets[2].momentum().pT() > 40.0*GeV &&
-	   recon_jets[3].momentum().pT() > 40.0*GeV &&
-	   deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
-	   deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
-	
-	FourMomentum pT_l = lepton[0].momentum();
-	
-	double m_eff = eTmiss + pT_l.pT()
-	  + recon_jets[0].momentum().pT()
-	  + recon_jets[1].momentum().pT()
-	  + recon_jets[2].momentum().pT()
-	  + recon_jets[3].momentum().pT();
-	
-	
-	if ( fabs( lepton[0].pdgId() ) == e_id ) {
-	  if ( eTmiss > 200*GeV ) {
-	    _4jt_hist_m_eff_e_final->fill(m_eff, weight);
-	    if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {
-	      _4jt_count_e_channel->fill(0.5,weight);
-	    }
-	  }
-	}
-	
-	// Muon channel signal region
-	else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
-	  if ( eTmiss > 200*GeV ) {
-	    _4jt_hist_m_eff_mu_final->fill(m_eff, weight);
-	    if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {
-	      _4jt_count_mu_channel->fill(0.5,weight);
-	    }
-	  }
-	}
+           recon_jets[1].momentum().pT() > 40.0*GeV &&
+           recon_jets[2].momentum().pT() > 40.0*GeV &&
+           recon_jets[3].momentum().pT() > 40.0*GeV &&
+           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
+
+        FourMomentum pT_l = lepton[0].momentum();
+
+        double m_eff = eTmiss + pT_l.pT()
+          + recon_jets[0].momentum().pT()
+          + recon_jets[1].momentum().pT()
+          + recon_jets[2].momentum().pT()
+          + recon_jets[3].momentum().pT();
+
+
+        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+          if ( eTmiss > 200*GeV ) {
+            _4jt_hist_m_eff_e_final->fill(m_eff, weight);
+            if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {
+              _4jt_count_e_channel->fill(0.5,weight);
+            }
+          }
+        }
+
+        // Muon channel signal region
+        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+          if ( eTmiss > 200*GeV ) {
+            _4jt_hist_m_eff_mu_final->fill(m_eff, weight);
+            if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {
+              _4jt_count_mu_channel->fill(0.5,weight);
+            }
+          }
+        }
 
       }
      }
