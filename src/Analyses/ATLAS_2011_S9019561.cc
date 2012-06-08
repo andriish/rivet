@@ -99,75 +99,75 @@ namespace Rivet {
       const double weight = event.weight();
 
       ParticleVector veto_e
-	= applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
+        = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
-       	MSG_DEBUG("electrons in veto region");
-       	vetoEvent;
+        MSG_DEBUG("electrons in veto region");
+        vetoEvent;
       }
 
       Jets cand_jets;
       foreach (const Jet& jet,
-       	applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+        applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.momentum().eta() ) < 2.5 ) {
           cand_jets.push_back(jet);
         }
       }
 
       ParticleVector cand_e =
-	applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+        applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
       // charged particle for isolation
       ParticleVector chg_tracks =
-	applyProjection<ChargedFinalState>(event, "cfs").particles();
+        applyProjection<ChargedFinalState>(event, "cfs").particles();
 
       // apply muon isolation
       ParticleVector cand_mu;
       // pTcone around muon track
-      foreach ( const Particle & mu, 
-		applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt() ) {
-	double pTinCone = -mu.momentum().pT();
-	foreach ( const Particle & track, chg_tracks ) {
-	  if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
-	}
-	if ( pTinCone < 1.8*GeV )
-	  cand_mu.push_back(mu);
+      foreach ( const Particle & mu,
+                applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt() ) {
+        double pTinCone = -mu.momentum().pT();
+        foreach ( const Particle & track, chg_tracks ) {
+          if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
+            pTinCone += track.momentum().pT();
+        }
+        if ( pTinCone < 1.8*GeV )
+          cand_mu.push_back(mu);
       }
 
       // Discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-	bool away_from_e = true;
-	foreach ( const Particle & e, cand_e ) {
-	  if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
-	    away_from_e = false;
-	    break;
-	  }
-	}
-	if ( away_from_e )
-	 recon_jets.push_back( jet );
+        bool away_from_e = true;
+        foreach ( const Particle & e, cand_e ) {
+          if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+            away_from_e = false;
+            break;
+          }
+        }
+        if ( away_from_e )
+         recon_jets.push_back( jet );
       }
 
       // Leptons far from jet
       ParticleVector recon_e;
       foreach ( const Particle & e, cand_e ) {
         bool e_near_jet = false;
-	foreach ( const Jet& jet, recon_jets ) {
+        foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
-	    e_near_jet = true;
-	    break;
-	  }
-	}
-	// Electron isolation criterion
+            e_near_jet = true;
+            break;
+          }
+        }
+        // Electron isolation criterion
         if ( ! e_near_jet ) {
-	  double EtinCone = -e.momentum().Et();
-	  foreach ( const Particle & track, chg_tracks) {
-	    if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
-	      EtinCone += track.momentum().Et();
-	  }
-	  if ( EtinCone/e.momentum().pT() <= 0.15 )
-	    recon_e.push_back( e );
-	}
+          double EtinCone = -e.momentum().Et();
+          foreach ( const Particle & track, chg_tracks) {
+            if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
+              EtinCone += track.momentum().Et();
+          }
+          if ( EtinCone/e.momentum().pT() <= 0.15 )
+            recon_e.push_back( e );
+        }
       }
 
       ParticleVector recon_mu;
@@ -175,27 +175,27 @@ namespace Rivet {
          bool mu_near_jet = false;
          foreach ( const Jet& jet, recon_jets ) {
            if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
-	     mu_near_jet = true;
-	     break;
-	   }
-	 }
-	 if ( ! mu_near_jet )
-	  recon_mu.push_back( mu );
+             mu_near_jet = true;
+             break;
+           }
+         }
+         if ( ! mu_near_jet )
+          recon_mu.push_back( mu );
        }
 
 
       // pTmiss
       ParticleVector vfs_particles
-	= applyProjection<VisibleFinalState>(event, "vfs").particles();
+        = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
-	pTmiss -= p.momentum();
+        pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
 
       // Exactly two leptons for each event
       if ( recon_mu.size() + recon_e.size() != 2)
-	vetoEvent;
+        vetoEvent;
 
       // Lepton pair mass
       FourMomentum p_leptons;
@@ -206,78 +206,78 @@ namespace Rivet {
         p_leptons += mu.momentum();
       }
 
-      if ( p_leptons.mass() <= 5.0 * GeV) 
+      if ( p_leptons.mass() <= 5.0 * GeV)
         vetoEvent;
-      
+
       // ==================== FILL ====================
 
 
       // electron, electron
       if (recon_e.size() == 2 ) {
 
-	// SS ee
-	if ( recon_e[0].pdgId() * recon_e[1].pdgId() > 0 ) {
-	  _hist_eTmiss_SS->fill(eTmiss, weight);
-	  if ( eTmiss > 100 ) {
-	    MSG_DEBUG("Hits SS e+/-e+/-");
-  	    _count_SS_e_e->fill(0.5, weight);
-	  }
-	}
+        // SS ee
+        if ( recon_e[0].pdgId() * recon_e[1].pdgId() > 0 ) {
+          _hist_eTmiss_SS->fill(eTmiss, weight);
+          if ( eTmiss > 100 ) {
+            MSG_DEBUG("Hits SS e+/-e+/-");
+            _count_SS_e_e->fill(0.5, weight);
+          }
+        }
 
-	// OS ee
-	else if ( recon_e[0].pdgId() * recon_e[1].pdgId() < 0) {
-	  _hist_eTmiss_OS->fill(eTmiss, weight);
-	  if ( eTmiss > 150 ) {
-	    MSG_DEBUG("Hits OS e+e-");
-	    _count_OS_e_e->fill(0.5, weight);
-	  }
-	}
+        // OS ee
+        else if ( recon_e[0].pdgId() * recon_e[1].pdgId() < 0) {
+          _hist_eTmiss_OS->fill(eTmiss, weight);
+          if ( eTmiss > 150 ) {
+            MSG_DEBUG("Hits OS e+e-");
+            _count_OS_e_e->fill(0.5, weight);
+          }
+        }
       }
 
 
       // muon, electron
       else if ( recon_e.size() == 1 ) {
 
-	// SS mu_e
-	if ( recon_e[0].pdgId() * recon_mu[0].pdgId() > 0 ) {
-	  _hist_eTmiss_SS->fill(eTmiss, weight);
-	  if ( eTmiss > 100 ) {
-	    MSG_DEBUG("Hits SS e+/-mu+/-");
-	    _count_SS_e_mu->fill(0.5, weight);
-	  }
-	}
+        // SS mu_e
+        if ( recon_e[0].pdgId() * recon_mu[0].pdgId() > 0 ) {
+          _hist_eTmiss_SS->fill(eTmiss, weight);
+          if ( eTmiss > 100 ) {
+            MSG_DEBUG("Hits SS e+/-mu+/-");
+            _count_SS_e_mu->fill(0.5, weight);
+          }
+        }
 
-	// OS mu_e
-	else if ( recon_e[0].pdgId() * recon_mu[0].pdgId() < 0) {
-	  _hist_eTmiss_OS->fill(eTmiss, weight);
-	  if ( eTmiss > 150 ) {
-	    MSG_DEBUG("Hits OS e+mu-");
-	    _count_OS_e_mu->fill(0.5, weight);
-	  }
-	}
+        // OS mu_e
+        else if ( recon_e[0].pdgId() * recon_mu[0].pdgId() < 0) {
+          _hist_eTmiss_OS->fill(eTmiss, weight);
+          if ( eTmiss > 150 ) {
+            MSG_DEBUG("Hits OS e+mu-");
+            _count_OS_e_mu->fill(0.5, weight);
+          }
+        }
       }
 
 
       // muon, muon
       else if ( recon_mu.size() == 2 ) {
 
-	// SS mu_mu
-	if ( recon_mu[0].pdgId() * recon_mu[1].pdgId() > 0 ) {
-	  _hist_eTmiss_SS->fill(eTmiss, weight);
-	  if ( eTmiss > 100 ) {
-	    MSG_DEBUG("Hits SS mu+/-mu+/-");
-	    _count_SS_mu_mu->fill(0.5, weight);
-	  }
-	}
+        // SS mu_mu
+        if ( recon_mu[0].pdgId() * recon_mu[1].pdgId() > 0 ) {
+          _hist_eTmiss_SS->fill(eTmiss, weight);
+          if ( eTmiss > 100 ) {
+            MSG_DEBUG("Hits SS mu+/-mu+/-");
+            _count_SS_mu_mu->fill(0.5, weight);
+          }
+        }
 
-	// OS mu_mu
-	else if ( recon_mu[0].pdgId() * recon_mu[1].pdgId() < 0) {
-	  _hist_eTmiss_OS->fill(eTmiss, weight);
-	  if ( eTmiss > 150 ) {
-	    MSG_DEBUG("Hits OS mu+mu-");
-	    _count_OS_mu_mu->fill(0.5, weight);
-	  }
-	}
+        // OS mu_mu
+        else if ( recon_mu[0].pdgId() * recon_mu[1].pdgId() < 0) {
+          _hist_eTmiss_OS->fill(eTmiss, weight);
+          if ( eTmiss > 150 ) {
+            MSG_DEBUG("Hits OS mu+mu-");
+            _count_OS_mu_mu->fill(0.5, weight);
+          }
+        }
       }
 
 
