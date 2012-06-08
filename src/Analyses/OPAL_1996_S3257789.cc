@@ -57,25 +57,25 @@ namespace Rivet {
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      
+
       foreach (const Particle& p, ufs.particles()) {
-	if(abs(p.pdgId())==443) {
-	  double xp = p.momentum().vector3().mod()/meanBeamMom;
-	  _histXpJPsi->fill(xp, weight);
-	  _multJPsi->fill(91.2,weight);
-	  _weightSum += weight;
+        if(abs(p.pdgId())==443) {
+          double xp = p.momentum().vector3().mod()/meanBeamMom;
+          _histXpJPsi->fill(xp, weight);
+          _multJPsi->fill(91.2,weight);
+          _weightSum += weight;
         }
-	else if(abs(p.pdgId())==100443) {
-	  _multPsiPrime->fill(91.2,weight);
-	}
+        else if(abs(p.pdgId())==100443) {
+          _multPsiPrime->fill(91.2,weight);
+        }
       }
     }
 
 
     /// Finalize
     void finalize() {
-      if(_weightSum>0.) 
-	scale(_histXpJPsi  , 0.1/_weightSum);
+      if(_weightSum>0.)
+        scale(_histXpJPsi  , 0.1/_weightSum);
       scale(_multJPsi    , 1./sumOfWeights());
       scale(_multPsiPrime, 1./sumOfWeights());
     }
