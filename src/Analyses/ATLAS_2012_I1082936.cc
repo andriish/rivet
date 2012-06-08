@@ -18,7 +18,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2012_I1082936()
       : Analysis("ATLAS_2012_I1082936")
-    {     
+    {
     }
 
     //@}
@@ -38,7 +38,7 @@ namespace Rivet {
       FastJets fj04(fs,  FastJets::ANTIKT, 0.4);
       fj04.useInvisibles();
       addProjection(fj04, "AntiKT04");
-      
+
       FastJets fj06(fs,  FastJets::ANTIKT, 0.6);
       fj06.useInvisibles();
       addProjection(fj06, "AntiKT06");
@@ -68,7 +68,7 @@ namespace Rivet {
       Jets jetAr[2];
       jetAr[AKT6] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(20*GeV);
       jetAr[AKT4] = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(20*GeV);
-      
+
       // Loop over jet "radii" used in analysis
       for (size_t alg = 0; alg < 2; ++alg) {
         // Identify dijets
@@ -88,7 +88,7 @@ namespace Rivet {
           MSG_DEBUG("Could not find two suitable leading jets");
           continue;
         }
-        
+
         const double y1 = leadjets[0].rapidity();
         const double y2 = leadjets[1].rapidity();
         const double ystar = fabs(y1-y2)/2.;
