@@ -131,6 +131,7 @@ dist_pkgdata_DATA = \
   D0_2010_S8570965.info \
   D0_2010_S8671338.info \
   D0_2010_S8821313.info \
+  D0_2011_I895662.info \
   E735_1998_S3905616.info \
   DELPHI_1995_S3137023.info \
   DELPHI_1996_S3430090.info \

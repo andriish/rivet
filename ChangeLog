@@ -1,3 +1,7 @@
+2012-06-20  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added D0_2011_I895662: 3-jet mass
+
 2012-04-24  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* fixed a few bugs in rivet-rmgaps
