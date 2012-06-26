@@ -575,12 +575,6 @@ if __name__ == "__main__":
                             #print numskipped, (HISTOS[hfile][name].numBins() - HISTOS[ref][name].numBins())
                             assert(numskipped <= abs(HISTOS[hfile][name].numBins() - HISTOS[ref][name].numBins()))
                             continue
-                # Skip every nskip bin when drawing -- helps to circumvent
-                # 'TeX capacity exceeded' error on some large plots
-                if headers.has_key("SkipBins"):
-                    nskip = int(headers["SkipBins"])
-                    if ibin%nskip ==0:
-                        continue
                 histstr += '%s\n' % (bin.asFlat())
             histstr += "# END HISTOGRAM\n"
             histstrs.append(histstr)
