@@ -45,7 +45,6 @@ Title=Power spectrum $p_\perp>100$MeV, $p_\perp^\text{max}<10$GeV, $\sqrt{s}=7$T
 XLabel=$\xi$
 YLabel=$\text{S}_\eta(\xi)-1$
 LogY=0
-SkipBins=2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1091481/d01-x02-y02
@@ -53,7 +52,6 @@ Title=Power spectrum $p_\perp>100$MeV, $p_\perp^\text{max}<1$GeV, $\sqrt{s}=7$Te
 XLabel=$\xi$
 YLabel=$\text{S}_\eta(\xi)-1$
 LogY=0
-SkipBins=2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1091481/d01-x02-y03
@@ -61,7 +59,6 @@ Title=Power spectrum $p_\perp>500$MeV, $p_\perp^\text{max}<10$GeV, $\sqrt{s}=7$T
 XLabel=$\xi$
 YLabel=$\text{S}_\eta(\xi)-1$
 LogY=0
-SkipBins=2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1091481/d02-x02-y01
@@ -69,7 +66,6 @@ Title=Power spectrum $p_\perp>100$MeV, $p_\perp^\text{max}<10$GeV, $\sqrt{s}=900
 XLabel=$\xi$
 YLabel=$\text{S}_\eta(\xi)-1$
 LogY=0
-SkipBins=2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1091481/d02-x02-y02
@@ -77,7 +73,6 @@ Title=Power spectrum $p_\perp>100$MeV, $p_\perp^\text{max}<1$GeV, $\sqrt{s}=900$
 XLabel=$\xi$
 YLabel=$\text{S}_\eta(\xi)-1$
 LogY=0
-SkipBins=2
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1091481/d02-x02-y03
@@ -85,5 +80,4 @@ Title=Power spectrum $p_\perp>500$MeV, $p_\perp^\text{max}<10$GeV, $\sqrt{s}=900
 XLabel=$\xi$
 YLabel=$\text{S}_\eta(\xi)-1$
 LogY=0
-SkipBins=2
 # END PLOT
