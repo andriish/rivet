@@ -18,7 +18,7 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2012_I1091481()
-      : Analysis("ATLAS_2012_I1091481") 
+      : Analysis("ATLAS_2012_I1091481")
     {
     }
 
@@ -37,8 +37,8 @@ namespace Rivet {
 
       // collision energy
       int isqrts = -1;
-      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 2;       
-      else if (fuzzyEquals(sqrtS(), 7*TeV)) isqrts = 1;       
+      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 2;
+      else if (fuzzyEquals(sqrtS(), 7*TeV)) isqrts = 1;
       assert(isqrts >= 0);
 
       _sE_10_100   = bookHistogram1D(isqrts, 1, 1);
@@ -49,22 +49,22 @@ namespace Rivet {
       _sEta_1_100  = bookHistogram1D(isqrts, 2, 2);
       _sEta_10_500 = bookHistogram1D(isqrts, 2, 3);
     }
-   
+
     std::vector<double> getXj(const ParticleVector& part) {
       // Iterate over particles to get vector X_j (energy thingy with PION mass for all particles)
       //
       // X_j = 0.5*E_j + sum_{k=0}^{k<j}(E_k)
       //
       // pion mass;
-      double m_pi = 0.1396;     
-      
+      double m_pi = 0.1396;
+
       std::vector<double> xj;
       std::vector<double> Ej;
       foreach (const Particle& p, part) {
         double pT = p.momentum().pT();
         double theta = p.momentum().theta();
         double E_j = sqrt(pow(m_pi,2) + pow(pT/sin(theta), 2));
-        
+
         Ej.push_back(E_j);
         double temp = 0.5*E_j;
         if (xj.size()==0) xj.push_back(temp);
@@ -77,12 +77,12 @@ namespace Rivet {
       }
       return xj;
     }
-   
+
     // Return the stuff that needs to get filled, dependent on those parameters xi and omega
     double getSeta(const ParticleVector& part, double xi) {
       // The cores of the double sum
       double c_eta = 0.0;
-     
+
       // This is the inner double sum
       for (unsigned int i=0; i<part.size(); i++) {
         //for (unsigned int j=0; j<part.size(); j++) {
@@ -98,11 +98,11 @@ namespace Rivet {
       }
       return c_eta/part.size();
     }
-    
+
     double getSE(const ParticleVector& part, std::vector<double> Xj, double omega) {
       // The cores of the double sum
       double c_E   = 0.0;
-     
+
       // This is the inner double sum
       for (unsigned int i=0; i<part.size(); i++) {
         //for (unsigned int j=0; j<part.size(); j++) {
@@ -133,17 +133,17 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-         
-      double weight = event.weight(); 
+
+      double weight = event.weight();
       // Charged fs
       const ChargedFinalState& cfs100 = applyProjection<ChargedFinalState>(event, "CFS100");
       const ParticleVector    part100 = cfs100.particlesByEta();
-      
+
       const ChargedFinalState& cfs500 = applyProjection<ChargedFinalState>(event, "CFS500");
       const ParticleVector&   part500 = cfs500.particlesByEta();
-      
+
       // The most first the pTmax < 10 and pT > 100 MeV part
-    
+
 
 
       if (part100.size() > 10) {
@@ -162,13 +162,13 @@ namespace Rivet {
         if (p.momentum().pT()/GeV < 1.0) nsmallpT++;
         smallpT.push_back(p);
       }
-      
+
       if (nsmallpT > 10) {
         std::vector<double> XjsmallpT = getXj(smallpT);
         fillS(_sE_1_100, smallpT, weight, XjsmallpT, true);
         fillS(_sEta_1_100, smallpT, weight, XjsmallpT, false);
       }
-      
+
       if (part500.size() > 10) {
         double ptmax500                 = cfs500.particlesByPt()[0].momentum().pT()/GeV;
         if (ptmax500 < 10) {
@@ -178,17 +178,17 @@ namespace Rivet {
         }
       }
     }
-      
+
     /// Normalise histograms etc., after the run
     void finalize() {
       scale(_sE_10_100, 1.0/(sumOfWeights()*_sE_10_100->axis().bins()));
       scale(_sE_1_100 , 1.0/(sumOfWeights()*_sE_1_100 ->axis().bins()));
-      scale(_sE_10_500, 1.0/(sumOfWeights()*_sE_10_500->axis().bins()));  
-                    
+      scale(_sE_10_500, 1.0/(sumOfWeights()*_sE_10_500->axis().bins()));
+
       scale(_sEta_10_100, 1.0/(sumOfWeights()*_sEta_10_100->axis().bins()));
       scale(_sEta_1_100 , 1.0/(sumOfWeights()*_sEta_1_100 ->axis().bins()));
       scale(_sEta_10_500, 1.0/(sumOfWeights()*_sEta_10_500->axis().bins()));
-    } 
+    }
 
     //@}
 
@@ -197,8 +197,8 @@ namespace Rivet {
 
     AIDA::IHistogram1D* _sE_10_100;
     AIDA::IHistogram1D* _sE_1_100;
-    AIDA::IHistogram1D* _sE_10_500;  
-                
+    AIDA::IHistogram1D* _sE_10_500;
+
     AIDA::IHistogram1D* _sEta_10_100;
     AIDA::IHistogram1D* _sEta_1_100;
     AIDA::IHistogram1D* _sEta_10_500;
