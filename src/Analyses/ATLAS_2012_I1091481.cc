@@ -56,14 +56,13 @@ namespace Rivet {
       // X_j = 0.5*E_j + sum_{k=0}^{k<j}(E_k)
       //
       // pion mass;
-      double m_pi = 0.1396;
+      double m_pi = 0.1396*GeV;
 
       std::vector<double> xj;
       std::vector<double> Ej;
       foreach (const Particle& p, part) {
-        double pT = p.momentum().pT();
-        double theta = p.momentum().theta();
-        double E_j = sqrt(pow(m_pi,2) + pow(pT/sin(theta), 2));
+        double p2  = p.momentum().vector3().mod2()/(GeV*GeV);
+        double E_j = sqrt(pow(m_pi,2) + p2);
 
         Ej.push_back(E_j);
         double temp = 0.5*E_j;
