@@ -121,8 +121,7 @@ namespace Rivet {
 
     void fillS(AIDA::IHistogram1D* h, const ParticleVector& part, double weight, std::vector<double> Xj, bool SE=true) {
       for (int i=0; i< h->axis().bins(); i++) {
-        double x = h->axis().binLowerEdge(i);
-        x += 0.5 * (h->axis().binUpperEdge(i) - h->axis().binLowerEdge(i));
+        double x = h->binMean(i);
         double y;
         if (SE) y = getSE(part, Xj, x);
         else    y = getSeta(part, x);
