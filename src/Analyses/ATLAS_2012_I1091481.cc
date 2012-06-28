@@ -111,7 +111,7 @@ namespace Rivet {
             const Particle& p_j = part[j];
             double dphi = deltaPhi(p_i, p_j);
             double dX = Xj[i] - Xj[j];
-            c_E   += cos(omega*dX - dphi);
+            c_E += cos(omega*dX - dphi);
           }
         }
       }
@@ -142,10 +142,8 @@ namespace Rivet {
 
       // The most first the pTmax < 10 and pT > 100 MeV part
 
-
-
       if (part100.size() > 10) {
-        double ptmax100                 = cfs100.particlesByPt()[0].momentum().pT()/GeV;
+        double ptmax100 = cfs100.particlesByPt()[0].momentum().pT()/GeV;
         if (ptmax100 < 10) {
           std::vector<double> Xj100 = getXj(part100);
           fillS(_sE_10_100, part100, weight, Xj100, true);
@@ -168,7 +166,7 @@ namespace Rivet {
       }
 
       if (part500.size() > 10) {
-        double ptmax500                 = cfs500.particlesByPt()[0].momentum().pT()/GeV;
+        double ptmax500 = cfs500.particlesByPt()[0].momentum().pT()/GeV;
         if (ptmax500 < 10) {
           std::vector<double> Xj500 = getXj(part500);
           fillS(_sE_10_500, part500, weight, Xj500, true);
