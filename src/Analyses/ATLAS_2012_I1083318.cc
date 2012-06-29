@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
@@ -62,31 +62,31 @@ namespace Rivet {
       addProjection(jets, "jets");
 
       for (size_t i=0; i<2; ++i) {
-        _h_NjetIncl[i] = bookHistogram1D(1, 1, i+1);
-        _h_RatioNjetIncl[i] = bookDataPointSet(2, 1, i+1);
-        _h_FirstJetPt_1jet[i] = bookHistogram1D(3, 1, i+1);
-        _h_FirstJetPt_2jet[i] = bookHistogram1D(4, 1, i+1);
-        _h_FirstJetPt_3jet[i] = bookHistogram1D(5, 1, i+1);
-        _h_FirstJetPt_4jet[i] = bookHistogram1D(6, 1, i+1);
-        _h_SecondJetPt_2jet[i] = bookHistogram1D(7, 1, i+1);
-        _h_SecondJetPt_3jet[i] = bookHistogram1D(8, 1, i+1);
-        _h_SecondJetPt_4jet[i] = bookHistogram1D(9, 1, i+1);
-        _h_ThirdJetPt_3jet[i] = bookHistogram1D(10, 1, i+1);
-        _h_ThirdJetPt_4jet[i] = bookHistogram1D(11, 1, i+1);
-        _h_FourthJetPt_4jet[i] = bookHistogram1D(12, 1, i+1);
-        _h_Ht_1jet[i] = bookHistogram1D(13, 1, i+1);
-        _h_Ht_2jet[i] = bookHistogram1D(14, 1, i+1);
-        _h_Ht_3jet[i] = bookHistogram1D(15, 1, i+1);
-        _h_Ht_4jet[i] = bookHistogram1D(16, 1, i+1);
-        _h_Minv_2jet[i] = bookHistogram1D(17, 1, i+1);
-        _h_Minv_3jet[i] = bookHistogram1D(18, 1, i+1);
-        _h_Minv_4jet[i] = bookHistogram1D(19, 1, i+1);
-        _h_JetRapidity[i] = bookHistogram1D(20, 1, i+1);
-        _h_DeltaYElecJet[i] = bookHistogram1D(21, 1, i+1);
-        _h_SumYElecJet[i] = bookHistogram1D(22, 1, i+1);
-        _h_DeltaR_2jet[i] = bookHistogram1D(23, 1, i+1);
-        _h_DeltaY_2jet[i] = bookHistogram1D(24, 1, i+1);
-        _h_DeltaPhi_2jet[i] = bookHistogram1D(25, 1, i+1);
+        _h_NjetIncl[i] = bookHisto1D(1, 1, i+1);
+        _h_RatioNjetIncl[i] = bookScatter2D(2, 1, i+1);
+        _h_FirstJetPt_1jet[i] = bookHisto1D(3, 1, i+1);
+        _h_FirstJetPt_2jet[i] = bookHisto1D(4, 1, i+1);
+        _h_FirstJetPt_3jet[i] = bookHisto1D(5, 1, i+1);
+        _h_FirstJetPt_4jet[i] = bookHisto1D(6, 1, i+1);
+        _h_SecondJetPt_2jet[i] = bookHisto1D(7, 1, i+1);
+        _h_SecondJetPt_3jet[i] = bookHisto1D(8, 1, i+1);
+        _h_SecondJetPt_4jet[i] = bookHisto1D(9, 1, i+1);
+        _h_ThirdJetPt_3jet[i] = bookHisto1D(10, 1, i+1);
+        _h_ThirdJetPt_4jet[i] = bookHisto1D(11, 1, i+1);
+        _h_FourthJetPt_4jet[i] = bookHisto1D(12, 1, i+1);
+        _h_Ht_1jet[i] = bookHisto1D(13, 1, i+1);
+        _h_Ht_2jet[i] = bookHisto1D(14, 1, i+1);
+        _h_Ht_3jet[i] = bookHisto1D(15, 1, i+1);
+        _h_Ht_4jet[i] = bookHisto1D(16, 1, i+1);
+        _h_Minv_2jet[i] = bookHisto1D(17, 1, i+1);
+        _h_Minv_3jet[i] = bookHisto1D(18, 1, i+1);
+        _h_Minv_4jet[i] = bookHisto1D(19, 1, i+1);
+        _h_JetRapidity[i] = bookHisto1D(20, 1, i+1);
+        _h_DeltaYElecJet[i] = bookHisto1D(21, 1, i+1);
+        _h_SumYElecJet[i] = bookHisto1D(22, 1, i+1);
+        _h_DeltaR_2jet[i] = bookHisto1D(23, 1, i+1);
+        _h_DeltaY_2jet[i] = bookHisto1D(24, 1, i+1);
+        _h_DeltaPhi_2jet[i] = bookHisto1D(25, 1, i+1);
       }
     }
 
@@ -181,19 +181,20 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for (size_t i=0; i<2; ++i) {
-        // first construct jet multi ratio
-        int Nbins = _h_NjetIncl[i]->axis().bins();
-        std::vector<double> ratio(Nbins-1, 0.0);
-        std::vector<double> err(Nbins-1, 0.0);
-        for (int n = 0; n < Nbins-1; ++n) {
-          if (_h_NjetIncl[i]->binHeight(n) > 0.0 && _h_NjetIncl[i]->binHeight(n+1) > 0.0) {
-            ratio[n] = _h_NjetIncl[i]->binHeight(n+1)/_h_NjetIncl[i]->binHeight(n);
-            double relerr_n = _h_NjetIncl[i]->binError(n)/_h_NjetIncl[i]->binHeight(n);
-            double relerr_m = _h_NjetIncl[i]->binError(n+1)/_h_NjetIncl[i]->binHeight(n+1);
-            err[n] = ratio[n] * (relerr_n + relerr_m);
-          }
-        }
-        _h_RatioNjetIncl[i]->setCoordinate(1, ratio, err);
+        /// @todo YODA
+        //// first construct jet multi ratio
+        //int Nbins = _h_NjetIncl[i]->numBins();
+        //std::vector<double> ratio(Nbins-1, 0.0);
+        //std::vector<double> err(Nbins-1, 0.0);
+        //for (int n = 0; n < Nbins-1; ++n) {
+        //  if (_h_NjetIncl[i]->binHeight(n) > 0.0 && _h_NjetIncl[i]->binHeight(n+1) > 0.0) {
+        //    ratio[n] = _h_NjetIncl[i]->binHeight(n+1)/_h_NjetIncl[i]->binHeight(n);
+        //    double relerr_n = _h_NjetIncl[i]->binError(n)/_h_NjetIncl[i]->binHeight(n);
+        //    double relerr_m = _h_NjetIncl[i]->binError(n+1)/_h_NjetIncl[i]->binHeight(n+1);
+        //    err[n] = ratio[n] * (relerr_n + relerr_m);
+        //  }
+        //}
+        //_h_RatioNjetIncl[i]->setCoordinate(1, ratio, err);
 
         // scale all histos to the cross section
         double factor = crossSection()/sumOfWeights();
@@ -231,31 +232,31 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_h_DeltaPhi_2jet[2];
-    AIDA::IHistogram1D *_h_DeltaR_2jet[2];
-    AIDA::IHistogram1D *_h_DeltaY_2jet[2];
-    AIDA::IHistogram1D *_h_DeltaYElecJet[2];
-    AIDA::IHistogram1D *_h_FirstJetPt_1jet[2];
-    AIDA::IHistogram1D *_h_FirstJetPt_2jet[2];
-    AIDA::IHistogram1D *_h_FirstJetPt_3jet[2];
-    AIDA::IHistogram1D *_h_FirstJetPt_4jet[2];
-    AIDA::IHistogram1D *_h_FourthJetPt_4jet[2];
-    AIDA::IHistogram1D *_h_Ht_1jet[2];
-    AIDA::IHistogram1D *_h_Ht_2jet[2];
-    AIDA::IHistogram1D *_h_Ht_3jet[2];
-    AIDA::IHistogram1D *_h_Ht_4jet[2];
-    AIDA::IHistogram1D *_h_JetRapidity[2];
-    AIDA::IHistogram1D *_h_Minv_2jet[2];
-    AIDA::IHistogram1D *_h_Minv_3jet[2];
-    AIDA::IHistogram1D *_h_Minv_4jet[2];
-    AIDA::IHistogram1D *_h_NjetIncl[2];
-    AIDA::IDataPointSet *_h_RatioNjetIncl[2];
-    AIDA::IHistogram1D *_h_SecondJetPt_2jet[2];
-    AIDA::IHistogram1D *_h_SecondJetPt_3jet[2];
-    AIDA::IHistogram1D *_h_SecondJetPt_4jet[2];
-    AIDA::IHistogram1D *_h_SumYElecJet[2];
-    AIDA::IHistogram1D *_h_ThirdJetPt_3jet[2];
-    AIDA::IHistogram1D *_h_ThirdJetPt_4jet[2];
+    Histo1DPtr _h_DeltaPhi_2jet[2];
+    Histo1DPtr _h_DeltaR_2jet[2];
+    Histo1DPtr _h_DeltaY_2jet[2];
+    Histo1DPtr _h_DeltaYElecJet[2];
+    Histo1DPtr _h_FirstJetPt_1jet[2];
+    Histo1DPtr _h_FirstJetPt_2jet[2];
+    Histo1DPtr _h_FirstJetPt_3jet[2];
+    Histo1DPtr _h_FirstJetPt_4jet[2];
+    Histo1DPtr _h_FourthJetPt_4jet[2];
+    Histo1DPtr _h_Ht_1jet[2];
+    Histo1DPtr _h_Ht_2jet[2];
+    Histo1DPtr _h_Ht_3jet[2];
+    Histo1DPtr _h_Ht_4jet[2];
+    Histo1DPtr _h_JetRapidity[2];
+    Histo1DPtr _h_Minv_2jet[2];
+    Histo1DPtr _h_Minv_3jet[2];
+    Histo1DPtr _h_Minv_4jet[2];
+    Histo1DPtr _h_NjetIncl[2];
+    Scatter2DPtr _h_RatioNjetIncl[2];
+    Histo1DPtr _h_SecondJetPt_2jet[2];
+    Histo1DPtr _h_SecondJetPt_3jet[2];
+    Histo1DPtr _h_SecondJetPt_4jet[2];
+    Histo1DPtr _h_SumYElecJet[2];
+    Histo1DPtr _h_ThirdJetPt_3jet[2];
+    Histo1DPtr _h_ThirdJetPt_4jet[2];
     //@}
 
 

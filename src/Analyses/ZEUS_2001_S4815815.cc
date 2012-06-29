@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
 
@@ -36,7 +36,7 @@ namespace Rivet {
                << "were reconstructed using the energies and positions of these cells'");
 
       /// @todo This doesn't seem to correspond to the plots in the paper (SPIRES 4730372)
-      _histJetEt1 = bookHistogram1D("JetET1", 11, 14.0, 75.0);
+      _histJetEt1 = bookHisto1D("JetET1", 11, 14.0, 75.0);
     }
 
 
@@ -62,7 +62,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _histJetEt1;
+    Histo1DPtr _histJetEt1;
     //@}
 
 

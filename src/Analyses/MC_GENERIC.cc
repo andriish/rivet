@@ -1,11 +1,10 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 //#include "Rivet/Projections/MissingMomentum.hh"
-#include "LWH/Histogram1D.h"
 
 namespace Rivet {
 
@@ -36,33 +35,38 @@ namespace Rivet {
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
-      _histMult   = bookHistogram1D("Mult", 100, -0.5, 199.5);
-      _histMultCh = bookHistogram1D("MultCh", 100, -0.5, 199.5);
+      _histMult   = bookHisto1D("Mult", 100, -0.5, 199.5);
+      _histMultCh = bookHisto1D("MultCh", 100, -0.5, 199.5);
 
-      _histPt    = bookHistogram1D("Pt", 300, 0, 30);
-      _histPtCh  = bookHistogram1D("PtCh", 300, 0, 30);
+      _histPt    = bookHisto1D("Pt", 300, 0, 30);
+      _histPtCh  = bookHisto1D("PtCh", 300, 0, 30);
 
-      _histE    = bookHistogram1D("E", 100, 0, 200);
-      _histECh  = bookHistogram1D("ECh", 100, 0, 200);
+      _histE    = bookHisto1D("E", 100, 0, 200);
+      _histECh  = bookHisto1D("ECh", 100, 0, 200);
 
-      _histEta    = bookHistogram1D("Eta", 50, -5, 5);
-      _histEtaCh  = bookHistogram1D("EtaCh", 50, -5, 5);
-      _tmphistEtaPlus.reset(new LWH::Histogram1D(25, 0, 5));
-      _tmphistEtaMinus.reset(new LWH::Histogram1D(25, 0, 5));
-      _tmphistEtaChPlus.reset(new LWH::Histogram1D(25, 0, 5));
-      _tmphistEtaChMinus.reset(new LWH::Histogram1D(25, 0, 5));
+      _histEta    = bookHisto1D("Eta", 50, -5, 5);
+      _histEtaCh  = bookHisto1D("EtaCh", 50, -5, 5);
+      _tmphistEtaPlus.reset(new Histo1D(25, 0, 5));
+      _tmphistEtaMinus.reset(new Histo1D(25, 0, 5));
+      _tmphistEtaChPlus.reset(new Histo1D(25, 0, 5));
+      _tmphistEtaChMinus.reset(new Histo1D(25, 0, 5));
 
       _histEtaSumEt    = bookProfile1D("EtaSumEt", 25, 0, 5);
 
-      _histRapidity    = bookHistogram1D("Rapidity", 50, -5, 5);
-      _histRapidityCh  = bookHistogram1D("RapidityCh", 50, -5, 5);
-      _tmphistRapPlus.reset(new LWH::Histogram1D(25, 0, 5));
-      _tmphistRapMinus.reset(new LWH::Histogram1D(25, 0, 5));
-      _tmphistRapChPlus.reset(new LWH::Histogram1D(25, 0, 5));
-      _tmphistRapChMinus.reset(new LWH::Histogram1D(25, 0, 5));
+      _histRapidity    = bookHisto1D("Rapidity", 50, -5, 5);
+      _histRapidityCh  = bookHisto1D("RapidityCh", 50, -5, 5);
+      _tmphistRapPlus.reset(new Histo1D(25, 0, 5));
+      _tmphistRapMinus.reset(new Histo1D(25, 0, 5));
+      _tmphistRapChPlus.reset(new Histo1D(25, 0, 5));
+      _tmphistRapChMinus.reset(new Histo1D(25, 0, 5));
 
-      _histPhi    = bookHistogram1D("Phi", 50, 0, TWOPI);
-      _histPhiCh  = bookHistogram1D("PhiCh", 50, 0, TWOPI);
+      _histPhi    = bookHisto1D("Phi", 50, 0, TWOPI);
+      _histPhiCh  = bookHisto1D("PhiCh", 50, 0, TWOPI);
+
+      _histEtaPMRatio = bookScatter2D("EtaPMRatio");
+      _histEtaChPMRatio = bookScatter2D("EtaChPMRatio");
+      _histRapidityPMRatio = bookScatter2D("RapidityPMRatio");
+      _histRapidityChPMRatio = bookScatter2D("RapidityChPMRatio");
     }
 
 
@@ -145,10 +149,23 @@ namespace Rivet {
       scale(_histPhi, 1/sumOfWeights());
       scale(_histPhiCh, 1/sumOfWeights());
 
-      histogramFactory().divide(histoPath("EtaPMRatio"), *_tmphistEtaPlus, *_tmphistEtaMinus);
-      histogramFactory().divide(histoPath("EtaChPMRatio"), *_tmphistEtaChPlus, *_tmphistEtaChMinus);
-      histogramFactory().divide(histoPath("RapidityPMRatio"), *_tmphistRapPlus, *_tmphistRapMinus);
-      histogramFactory().divide(histoPath("RapidityChPMRatio"), *_tmphistRapChPlus, *_tmphistRapChMinus);
+      /// @todo YODA need to clean up setting the path.
+      std::string path;
+      path = (*_histEtaPMRatio).path();
+      *_histEtaPMRatio = *_tmphistEtaPlus/ *_tmphistEtaMinus;
+      (*_histEtaPMRatio).setPath(path);
+
+      path = (*_histEtaChPMRatio).path();
+      *_histEtaChPMRatio = *_tmphistEtaChPlus/ *_tmphistEtaChMinus;
+      (*_histEtaChPMRatio).setPath(path);
+
+      path = (*_histRapidityPMRatio).path();
+      *_histRapidityPMRatio = *_tmphistRapPlus/ *_tmphistRapMinus;
+      (*_histRapidityPMRatio).setPath(path);
+
+      path = (*_histRapidityChPMRatio).path();
+      *_histRapidityChPMRatio = *_tmphistRapChPlus/ *_tmphistRapChMinus;
+      (*_histRapidityChPMRatio).setPath(path);
     }
 
     //@}
@@ -157,20 +174,24 @@ namespace Rivet {
   private:
 
     /// Temporary histos used to calculate eta+/eta- ratio plot
-    shared_ptr<LWH::Histogram1D> _tmphistEtaPlus, _tmphistEtaMinus;
-    shared_ptr<LWH::Histogram1D> _tmphistEtaChPlus, _tmphistEtaChMinus;
-    shared_ptr<LWH::Histogram1D> _tmphistRapPlus, _tmphistRapMinus;
-    shared_ptr<LWH::Histogram1D> _tmphistRapChPlus, _tmphistRapChMinus;
+    Histo1DPtr _tmphistEtaPlus, _tmphistEtaMinus;
+    Histo1DPtr _tmphistEtaChPlus, _tmphistEtaChMinus;
+    Histo1DPtr _tmphistRapPlus, _tmphistRapMinus;
+    Histo1DPtr _tmphistRapChPlus, _tmphistRapChMinus;
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_histMult, *_histMultCh;
-    AIDA::IProfile1D   *_histEtaSumEt;
-    AIDA::IHistogram1D *_histEta, *_histEtaCh;
-    AIDA::IHistogram1D *_histRapidity, *_histRapidityCh;
-    AIDA::IHistogram1D *_histPt, *_histPtCh;
-    AIDA::IHistogram1D *_histE, *_histECh;
-    AIDA::IHistogram1D *_histPhi, *_histPhiCh;
+    Histo1DPtr _histMult, _histMultCh;
+    Profile1DPtr _histEtaSumEt;
+    Histo1DPtr _histEta, _histEtaCh;
+    Histo1DPtr _histRapidity, _histRapidityCh;
+    Histo1DPtr _histPt, _histPtCh;
+    Histo1DPtr _histE, _histECh;
+    Histo1DPtr _histPhi, _histPhiCh;
+    Scatter2DPtr _histEtaPMRatio;
+    Scatter2DPtr _histEtaChPMRatio;
+    Scatter2DPtr _histRapidityPMRatio;
+    Scatter2DPtr _histRapidityChPMRatio;
     //@}
 
   };

@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -49,10 +49,10 @@ namespace Rivet {
       addProjection(VisibleFinalState(-4.9,4.9),"vfs");
 
       // Book histograms
-      _count_SR = bookHistogram1D("count_SR", 1, 0., 1.);
+      _count_SR = bookHisto1D("count_SR", 1, 0., 1.);
 
-      _hist_ET_photon = bookHistogram1D("hist_ET_photon", 48 , 20., 500.);
-      _hist_met       = bookHistogram1D("hist_met"      , 100,  0., 500.);
+      _hist_ET_photon = bookHisto1D("hist_ET_photon", 48 , 20., 500.);
+      _hist_met       = bookHisto1D("hist_met"      , 100,  0., 500.);
 
     }
 
@@ -130,9 +130,9 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D* _count_SR;
-    AIDA::IHistogram1D* _hist_ET_photon;
-    AIDA::IHistogram1D* _hist_met;
+    Histo1DPtr _count_SR;
+    Histo1DPtr _hist_ET_photon;
+    Histo1DPtr _hist_met;
 
   };
 

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -28,9 +28,9 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
       addProjection(UnstableFinalState(), "UFS");
-      _histXpJPsi   = bookHistogram1D( 1, 1, 1);
-      _multJPsi     = bookHistogram1D( 2, 1, 1);
-      _multPsiPrime = bookHistogram1D( 2, 1, 2);
+      _histXpJPsi   = bookHisto1D( 1, 1, 1);
+      _multJPsi     = bookHisto1D( 2, 1, 1);
+      _multPsiPrime = bookHisto1D( 2, 1, 2);
     }
 
 
@@ -86,9 +86,9 @@ namespace Rivet {
   private:
 
     double _weightSum;
-    AIDA::IHistogram1D *_histXpJPsi;
-    AIDA::IHistogram1D *_multJPsi;
-    AIDA::IHistogram1D *_multPsiPrime;
+    Histo1DPtr _histXpJPsi;
+    Histo1DPtr _multJPsi;
+    Histo1DPtr _multPsiPrime;
     //@}
 
   };

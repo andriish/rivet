@@ -12,7 +12,7 @@ nobase_pkginclude_HEADERS += \
   Event.hh             Event.fhh \
   ParticleBase.hh      Jet.hh \
   Particle.hh          Particle.fhh \
-  RivetAIDA.hh         RivetAIDA.fhh \
+  RivetYODA.hh         RivetYODA.fhh \
   Analysis.hh          Analysis.fhh  AnalysisBuilder.hh \
   AnalysisHandler.hh   AnalysisHandler.fhh \
   AnalysisInfo.hh      ProjectionHandler.hh \
@@ -65,12 +65,9 @@ nobase_pkginclude_HEADERS +=   \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/ParisiTensor.hh   \
-  Projections/PVertex.hh        \
   Projections/Sphericity.hh     \
   Projections/Spherocity.hh     \
-  Projections/SVertex.hh	    \
   Projections/Thrust.hh         \
-  Projections/TotalVisibleMomentum.hh \
   Projections/TriggerCDFRun0Run1.hh \
   Projections/TriggerCDFRun2.hh \
   Projections/TriggerUA5.hh \

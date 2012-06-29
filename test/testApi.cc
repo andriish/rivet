@@ -5,10 +5,6 @@
 using namespace std;
 
 int main() {
-  // Old type of constructor
-  /// @deprecated Use new kind which specifies output names only when writing
-  Rivet::AnalysisHandler rivet_old("out", "", Rivet::AIDAML);
-
   // New type
   Rivet::AnalysisHandler rivet;
 
@@ -19,9 +15,6 @@ int main() {
   //vector<string> moreanalyses(1, "D0_2007_S7075677");
   vector<string> moreanalyses(1, "MC_JETS");
   rivet.addAnalyses(moreanalyses);
-
-  // Initialise: obsolete, but allowed for compatibility
-  rivet.init();
 
   std::istream* file = new std::fstream("testApi.hepmc", std::ios::in);
   HepMC::IO_GenEvent hepmcio(*file);

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
@@ -20,19 +20,19 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
         for (int d=1; d<=3; d++) {
           for (int y=1; y<=4; y++) {
-            _h_dNch_dpT.push_back(bookHistogram1D(d, 1, y));
+            _h_dNch_dpT.push_back(bookHisto1D(d, 1, y));
           }
         }
-        _h_dNch_dpT_all = bookHistogram1D(7, 1, 1);
-        _h_dNch_dEta = bookHistogram1D(8, 1, 1);
+        _h_dNch_dpT_all = bookHisto1D(7, 1, 1);
+        _h_dNch_dEta = bookHisto1D(8, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 2360)) {
         for (int d=4; d<=6; d++) {
           for (int y=1; y<=4; y++) {
-            _h_dNch_dpT.push_back(bookHistogram1D(d, 1, y));
+            _h_dNch_dpT.push_back(bookHisto1D(d, 1, y));
           }
         }
-        _h_dNch_dpT_all = bookHistogram1D(7, 1, 2);
-        _h_dNch_dEta = bookHistogram1D(8, 1, 2);
+        _h_dNch_dpT_all = bookHisto1D(7, 1, 2);
+        _h_dNch_dEta = bookHisto1D(8, 1, 2);
       }
     }
 
@@ -85,9 +85,9 @@ namespace Rivet {
 
   private:
 
-    std::vector<AIDA::IHistogram1D*> _h_dNch_dpT;
-    AIDA::IHistogram1D* _h_dNch_dpT_all;
-    AIDA::IHistogram1D* _h_dNch_dEta;
+    std::vector<Histo1DPtr> _h_dNch_dpT;
+    Histo1DPtr _h_dNch_dpT_all;
+    Histo1DPtr _h_dNch_dEta;
 
   };
 

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
@@ -46,12 +46,12 @@ namespace Rivet {
       // unstable final-state for D*
       addProjection(UnstableFinalState(), "UFS");
 
-      _h_pt25_30 = bookHistogram1D( 8,1,1);
-      _h_pt30_40 = bookHistogram1D( 9,1,1);
-      _h_pt40_50 = bookHistogram1D(10,1,1);
-      _h_pt50_60 = bookHistogram1D(11,1,1);
-      _h_pt60_70 = bookHistogram1D(12,1,1);
-      _h_pt25_70 = bookHistogram1D(13,1,1);
+      _h_pt25_30 = bookHisto1D( 8,1,1);
+      _h_pt30_40 = bookHisto1D( 9,1,1);
+      _h_pt40_50 = bookHisto1D(10,1,1);
+      _h_pt50_60 = bookHisto1D(11,1,1);
+      _h_pt60_70 = bookHisto1D(12,1,1);
+      _h_pt25_70 = bookHisto1D(13,1,1);
     }
 
 
@@ -134,12 +134,12 @@ namespace Rivet {
     double _weight25_30,_weight30_40,_weight40_50;
     double _weight50_60,_weight60_70,_weight25_70;
 
-    AIDA::IHistogram1D * _h_pt25_30;
-    AIDA::IHistogram1D * _h_pt30_40;
-    AIDA::IHistogram1D * _h_pt40_50;
-    AIDA::IHistogram1D * _h_pt50_60;
-    AIDA::IHistogram1D * _h_pt60_70;
-    AIDA::IHistogram1D * _h_pt25_70;
+    Histo1DPtr _h_pt25_30;
+    Histo1DPtr _h_pt30_40;
+    Histo1DPtr _h_pt40_50;
+    Histo1DPtr _h_pt50_60;
+    Histo1DPtr _h_pt60_70;
+    Histo1DPtr _h_pt25_70;
     //@}
 
   };

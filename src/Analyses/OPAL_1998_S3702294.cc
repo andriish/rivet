@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -28,9 +28,9 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
       addProjection(UnstableFinalState(), "UFS");
-      _histXpf0  = bookHistogram1D( 2, 1, 1);
-      _histXpf2  = bookHistogram1D( 2, 1, 2);
-      _histXpPhi = bookHistogram1D( 2, 1, 3);
+      _histXpf0  = bookHisto1D( 2, 1, 1);
+      _histXpf2  = bookHisto1D( 2, 1, 2);
+      _histXpPhi = bookHisto1D( 2, 1, 3);
     }
 
 
@@ -57,21 +57,21 @@ namespace Rivet {
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      
+
       foreach (const Particle& p, ufs.particles()) {
         const int id = abs(p.pdgId());
-	double xp = p.momentum().vector3().mod()/meanBeamMom;
+        double xp = p.momentum().vector3().mod()/meanBeamMom;
         switch (id) {
-	case 9010221:
-	  _histXpf0->fill(xp, weight);
-	  break;
-	case 225:
-	  _histXpf2->fill(xp, weight);
-	  break;
-	case 333:
-	  _histXpPhi->fill(xp, weight);
-	  break;
-	}
+        case 9010221:
+          _histXpf0->fill(xp, weight);
+          break;
+        case 225:
+          _histXpf2->fill(xp, weight);
+          break;
+        case 333:
+          _histXpPhi->fill(xp, weight);
+          break;
+        }
       }
     }
 
@@ -88,9 +88,9 @@ namespace Rivet {
 
   private:
 
-      AIDA::IHistogram1D *_histXpf0;
-      AIDA::IHistogram1D *_histXpf2;
-      AIDA::IHistogram1D *_histXpPhi;
+      Histo1DPtr _histXpf0;
+      Histo1DPtr _histXpf2;
+      Histo1DPtr _histXpPhi;
     //@}
 
   };

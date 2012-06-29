@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -60,18 +60,18 @@ namespace Rivet {
 
 
       // Book histograms
-      _count_2j =   bookHistogram1D("count_2j", 1, 0., 1.);
-      _count_3j =   bookHistogram1D("count_3j", 1, 0., 1.);
-      _count_4j5 =  bookHistogram1D("count_4j5", 1, 0., 1.);
-      _count_4j10 = bookHistogram1D("count_4j10", 1, 0., 1.);
-      _count_HM =   bookHistogram1D("count_HM", 1, 0., 1.);
+      _count_2j   = bookHisto1D("count_2j",   1, 0., 1.);
+      _count_3j   = bookHisto1D("count_3j",   1, 0., 1.);
+      _count_4j5  = bookHisto1D("count_4j5",  1, 0., 1.);
+      _count_4j10 = bookHisto1D("count_4j10", 1, 0., 1.);
+      _count_HM   = bookHisto1D("count_HM",   1, 0., 1.);
 
-      _hist_meff_2j  = bookHistogram1D(1,1,1);
-      _hist_meff_3j  = bookHistogram1D(2,1,1);
-      _hist_meff_4j  = bookHistogram1D(3,1,1);
-      _hist_meff_HM  = bookHistogram1D(4,1,1);
+      _hist_meff_2j  = bookHisto1D(1, 1, 1);
+      _hist_meff_3j  = bookHisto1D(2, 1, 1);
+      _hist_meff_4j  = bookHisto1D(3, 1, 1);
+      _hist_meff_HM  = bookHisto1D(4, 1, 1);
 
-      _hist_eTmiss  = bookHistogram1D("Et_miss", 20, 0., 1000.);
+      _hist_eTmiss  = bookHisto1D("Et_miss", 20, 0., 1000.);
     }
 
 
@@ -315,16 +315,16 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D* _count_2j;
-    AIDA::IHistogram1D* _count_3j;
-    AIDA::IHistogram1D* _count_4j5;
-    AIDA::IHistogram1D* _count_4j10;
-    AIDA::IHistogram1D* _count_HM;
-    AIDA::IHistogram1D* _hist_meff_2j;
-    AIDA::IHistogram1D* _hist_meff_3j;
-    AIDA::IHistogram1D* _hist_meff_4j;
-    AIDA::IHistogram1D* _hist_meff_HM;
-    AIDA::IHistogram1D* _hist_eTmiss;
+    Histo1DPtr _count_2j;
+    Histo1DPtr _count_3j;
+    Histo1DPtr _count_4j5;
+    Histo1DPtr _count_4j10;
+    Histo1DPtr _count_HM;
+    Histo1DPtr _hist_meff_2j;
+    Histo1DPtr _hist_meff_3j;
+    Histo1DPtr _hist_meff_4j;
+    Histo1DPtr _hist_meff_HM;
+    Histo1DPtr _hist_eTmiss;
 
   };
 

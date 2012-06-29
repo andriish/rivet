@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -28,8 +28,8 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
       addProjection(UnstableFinalState(), "UFS");
-      _histXpEta   = bookHistogram1D( 2, 1, 2);
-      _histXpOmega = bookHistogram1D( 3, 1, 2);
+      _histXpEta   = bookHisto1D( 2, 1, 2);
+      _histXpOmega = bookHisto1D( 3, 1, 2);
     }
 
 
@@ -56,15 +56,15 @@ namespace Rivet {
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      
+
       foreach (const Particle& p, ufs.particles()) {
-	if(abs(p.pdgId())==221) {
-	  double xp = p.momentum().vector3().mod()/meanBeamMom;
-	  _histXpEta->fill(xp, weight);
+        if(abs(p.pdgId())==221) {
+          double xp = p.momentum().vector3().mod()/meanBeamMom;
+          _histXpEta->fill(xp, weight);
         }
-	else if(abs(p.pdgId())==223) {
-	  double xp = p.momentum().vector3().mod()/meanBeamMom;
-	  _histXpOmega->fill(xp, weight);
+        else if(abs(p.pdgId())==223) {
+          double xp = p.momentum().vector3().mod()/meanBeamMom;
+          _histXpOmega->fill(xp, weight);
         }
       }
     }
@@ -81,8 +81,8 @@ namespace Rivet {
 
   private:
 
-      AIDA::IHistogram1D *_histXpEta;
-      AIDA::IHistogram1D *_histXpOmega;
+      Histo1DPtr _histXpEta;
+      Histo1DPtr _histXpOmega;
     //@}
 
   };

@@ -1,7 +1,7 @@
 // -*- C++ -*-
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -32,19 +32,19 @@ namespace Rivet {
       addProjection(jetpro, "Jets");
       addProjection(Beam(), "Beam");
 
-      _hist_profile_Nch_pT_7TeV = bookProfile1D(1, 1, 1); //Profile plot for No. of Charged particles vs. pT max for 7 TeV.
-      _hist_profile_SumpT_pT_7TeV = bookProfile1D(2, 1, 1);   //Profile plot Trans. Momentum sum vs. pT max for 7 TeV.
-      _hist_profile_Nch_09TeV = bookProfile1D(3, 1, 1);
-      _hist_profile_Sum_09TeV = bookProfile1D(4, 1, 1);
-      _hist_dist_Nch_7TeV_pT3 = bookHistogram1D(5, 1, 1);
-      _hist_dist_Sum_7TeV_pT3 = bookHistogram1D(6, 1, 1);
-      _hist_dist_pT_7TeV_pT3 = bookHistogram1D(7, 1, 1);
-      _hist_dist_Nch_7TeV_pT20 = bookHistogram1D(8, 1, 1);
-      _hist_dist_Sum_7TeV_pT20 = bookHistogram1D(9,1,1);
-      _hist_dist_pT_7TeV_pT20 = bookHistogram1D(10, 1, 1);
-      _hist_dist_Nch_09TeV_pT3 = bookHistogram1D(11, 1, 1); // No. of trans. charged particles Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
-      _hist_dist_Sum_09TeV_pT3 = bookHistogram1D(12 , 1, 1); // No. of trans. momentum sum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
-      _hist_dist_pT_09TeV_pT3 = bookHistogram1D(13, 1, 1); // Trans. momentum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
+      _hist_profile_Nch_pT_7TeV   = bookProfile1D(1, 1, 1); //Profile plot for No. of Charged particles vs. pT max for 7 TeV.
+      _hist_profile_SumpT_pT_7TeV = bookProfile1D(2, 1, 1); //Profile plot Trans. Momentum sum vs. pT max for 7 TeV.
+      _hist_profile_Nch_09TeV     = bookProfile1D(3, 1, 1);
+      _hist_profile_Sum_09TeV     = bookProfile1D(4, 1, 1);
+      _hist_dist_Nch_7TeV_pT3     = bookHisto1D(5, 1, 1);
+      _hist_dist_Sum_7TeV_pT3     = bookHisto1D(6, 1, 1);
+      _hist_dist_pT_7TeV_pT3      = bookHisto1D(7, 1, 1);
+      _hist_dist_Nch_7TeV_pT20    = bookHisto1D(8, 1, 1);
+      _hist_dist_Sum_7TeV_pT20    = bookHisto1D(9,1,1);
+      _hist_dist_pT_7TeV_pT20     = bookHisto1D(10, 1, 1);
+      _hist_dist_Nch_09TeV_pT3    = bookHisto1D(11, 1, 1);  // No. of trans. charged particles Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
+      _hist_dist_Sum_09TeV_pT3    = bookHisto1D(12 , 1, 1); // No. of trans. momentum sum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
+      _hist_dist_pT_09TeV_pT3     = bookHisto1D(13, 1, 1);  // Trans. momentum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
 
       _j = 0.0;
       _jj = 0.0;
@@ -157,7 +157,7 @@ namespace Rivet {
 
   private:
 
-    double  _j;
+    double _j;
     double _jj;
     double _jjj;
 
@@ -165,19 +165,19 @@ namespace Rivet {
     double _nch_tot_7TeV_pT20;
     double _nch_tot_09TeV_pT3;
 
-    AIDA::IProfile1D * _hist_profile_Nch_pT_7TeV;
-    AIDA::IProfile1D * _hist_profile_SumpT_pT_7TeV;
-    AIDA::IProfile1D * _hist_profile_Nch_09TeV;
-    AIDA::IProfile1D * _hist_profile_Sum_09TeV;
-    AIDA::IHistogram1D * _hist_dist_Nch_7TeV_pT3 ;
-    AIDA::IHistogram1D * _hist_dist_Sum_7TeV_pT3;
-    AIDA::IHistogram1D * _hist_dist_pT_7TeV_pT3;
-    AIDA::IHistogram1D * _hist_dist_Nch_7TeV_pT20;
-    AIDA::IHistogram1D * _hist_dist_Sum_7TeV_pT20;
-    AIDA::IHistogram1D * _hist_dist_pT_7TeV_pT20;
-    AIDA::IHistogram1D * _hist_dist_Nch_09TeV_pT3;
-    AIDA::IHistogram1D * _hist_dist_Sum_09TeV_pT3;
-    AIDA::IHistogram1D * _hist_dist_pT_09TeV_pT3;
+    Profile1DPtr _hist_profile_Nch_pT_7TeV;
+    Profile1DPtr _hist_profile_SumpT_pT_7TeV;
+    Profile1DPtr _hist_profile_Nch_09TeV;
+    Profile1DPtr _hist_profile_Sum_09TeV;
+    Histo1DPtr _hist_dist_Nch_7TeV_pT3;
+    Histo1DPtr _hist_dist_Sum_7TeV_pT3;
+    Histo1DPtr _hist_dist_pT_7TeV_pT3;
+    Histo1DPtr _hist_dist_Nch_7TeV_pT20;
+    Histo1DPtr _hist_dist_Sum_7TeV_pT20;
+    Histo1DPtr _hist_dist_pT_7TeV_pT20;
+    Histo1DPtr _hist_dist_Nch_09TeV_pT3;
+    Histo1DPtr _hist_dist_Sum_09TeV_pT3;
+    Histo1DPtr _hist_dist_pT_09TeV_pT3;
 
   };
 
@@ -185,7 +185,5 @@ namespace Rivet {
   // This global object acts as a hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2011_S9120041);
 }
-
-
 
 

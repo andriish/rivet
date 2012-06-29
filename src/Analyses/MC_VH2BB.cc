@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -83,38 +83,38 @@ namespace Rivet {
       addProjection(FastJets(fs, FastJets::ANTIKT, 0.6), "AntiKT06");
 
       /// Book histograms
-      _h_jet_bb_Delta_eta = bookHistogram1D("jet_bb_Delta_eta", 50, 0, 4);
-      _h_jet_bb_Delta_phi = bookHistogram1D("jet_bb_Delta_phi", 50, 0, M_PI);
-      _h_jet_bb_Delta_pT = bookHistogram1D("jet_bb_Delta_pT", 50,0, 500);
-      _h_jet_bb_Delta_R = bookHistogram1D("jet_bb_Delta_R", 50, 0, 5);
-      _h_jet_b_jet_eta = bookHistogram1D("jet_b_jet_eta", 50, -4, 4);
-      _h_jet_b_jet_multiplicity = bookHistogram1D("jet_b_jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_b_jet_phi = bookHistogram1D("jet_b_jet_phi", 50, -M_PI, M_PI);
-      _h_jet_b_jet_pT = bookHistogram1D("jet_b_jet_pT", 50, 0, 500);
-      _h_jet_H_eta_using_bb = bookHistogram1D("jet_H_eta_using_bb", 50, -4, 4);
-      _h_jet_H_mass_using_bb = bookHistogram1D("jet_H_mass_using_bb", 50, 50, 200);
-      _h_jet_H_phi_using_bb = bookHistogram1D("jet_H_phi_using_bb", 50, -M_PI, M_PI);
-      _h_jet_H_pT_using_bb = bookHistogram1D("jet_H_pT_using_bb", 50, 0, 500);
-      _h_jet_eta = bookHistogram1D("jet_eta", 50, -4, 4);
-      _h_jet_multiplicity = bookHistogram1D("jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_phi = bookHistogram1D("jet_phi", 50, -M_PI, M_PI);
-      _h_jet_pT = bookHistogram1D("jet_pT", 50, 0, 500);
-      _h_jet_VBbb_Delta_eta = bookHistogram1D("jet_VBbb_Delta_eta", 50, 0, 4);
-      _h_jet_VBbb_Delta_phi = bookHistogram1D("jet_VBbb_Delta_phi", 50, 0, M_PI);
-      _h_jet_VBbb_Delta_pT = bookHistogram1D("jet_VBbb_Delta_pT", 50, 0, 500);
-      _h_jet_VBbb_Delta_R = bookHistogram1D("jet_VBbb_Delta_R", 50, 0, 8);
+      _h_jet_bb_Delta_eta = bookHisto1D("jet_bb_Delta_eta", 50, 0, 4);
+      _h_jet_bb_Delta_phi = bookHisto1D("jet_bb_Delta_phi", 50, 0, M_PI);
+      _h_jet_bb_Delta_pT = bookHisto1D("jet_bb_Delta_pT", 50,0, 500);
+      _h_jet_bb_Delta_R = bookHisto1D("jet_bb_Delta_R", 50, 0, 5);
+      _h_jet_b_jet_eta = bookHisto1D("jet_b_jet_eta", 50, -4, 4);
+      _h_jet_b_jet_multiplicity = bookHisto1D("jet_b_jet_multiplicity", 11, -0.5, 10.5);
+      _h_jet_b_jet_phi = bookHisto1D("jet_b_jet_phi", 50, -M_PI, M_PI);
+      _h_jet_b_jet_pT = bookHisto1D("jet_b_jet_pT", 50, 0, 500);
+      _h_jet_H_eta_using_bb = bookHisto1D("jet_H_eta_using_bb", 50, -4, 4);
+      _h_jet_H_mass_using_bb = bookHisto1D("jet_H_mass_using_bb", 50, 50, 200);
+      _h_jet_H_phi_using_bb = bookHisto1D("jet_H_phi_using_bb", 50, -M_PI, M_PI);
+      _h_jet_H_pT_using_bb = bookHisto1D("jet_H_pT_using_bb", 50, 0, 500);
+      _h_jet_eta = bookHisto1D("jet_eta", 50, -4, 4);
+      _h_jet_multiplicity = bookHisto1D("jet_multiplicity", 11, -0.5, 10.5);
+      _h_jet_phi = bookHisto1D("jet_phi", 50, -M_PI, M_PI);
+      _h_jet_pT = bookHisto1D("jet_pT", 50, 0, 500);
+      _h_jet_VBbb_Delta_eta = bookHisto1D("jet_VBbb_Delta_eta", 50, 0, 4);
+      _h_jet_VBbb_Delta_phi = bookHisto1D("jet_VBbb_Delta_phi", 50, 0, M_PI);
+      _h_jet_VBbb_Delta_pT = bookHisto1D("jet_VBbb_Delta_pT", 50, 0, 500);
+      _h_jet_VBbb_Delta_R = bookHisto1D("jet_VBbb_Delta_R", 50, 0, 8);
 
-      _h_VB_eta = bookHistogram1D("VB_eta", 50, -4, 4);
-      _h_VB_mass = bookHistogram1D("VB_mass", 50, 60, 110);
-      _h_Z_multiplicity = bookHistogram1D("Z_multiplicity", 11, -0.5, 10.5);
-      _h_W_multiplicity = bookHistogram1D("W_multiplicity", 11, -0.5, 10.5);
-      _h_VB_phi = bookHistogram1D("VB_phi", 50, -M_PI, M_PI);
-      _h_VB_pT = bookHistogram1D("VB_pT", 50, 0, 500);
+      _h_VB_eta = bookHisto1D("VB_eta", 50, -4, 4);
+      _h_VB_mass = bookHisto1D("VB_mass", 50, 60, 110);
+      _h_Z_multiplicity = bookHisto1D("Z_multiplicity", 11, -0.5, 10.5);
+      _h_W_multiplicity = bookHisto1D("W_multiplicity", 11, -0.5, 10.5);
+      _h_VB_phi = bookHisto1D("VB_phi", 50, -M_PI, M_PI);
+      _h_VB_pT = bookHisto1D("VB_pT", 50, 0, 500);
 
-      _h_jet_bVB_angle_Hframe = bookHistogram1D("jet_bVB_angle_Hframe", 50, 0, M_PI);
-      _h_jet_bVB_cosangle_Hframe = bookHistogram1D("jet_bVB_cosangle_Hframe", 50, -1, 1);
-      _h_jet_bb_angle_Hframe = bookHistogram1D("jet_bb_angle_Hframe", 50, 0, M_PI);
-      _h_jet_bb_cosangle_Hframe = bookHistogram1D("jet_bb_cosangle_Hframe", 50, -1, 1);
+      _h_jet_bVB_angle_Hframe = bookHisto1D("jet_bVB_angle_Hframe", 50, 0, M_PI);
+      _h_jet_bVB_cosangle_Hframe = bookHisto1D("jet_bVB_cosangle_Hframe", 50, -1, 1);
+      _h_jet_bb_angle_Hframe = bookHisto1D("jet_bb_angle_Hframe", 50, 0, M_PI);
+      _h_jet_bb_cosangle_Hframe = bookHisto1D("jet_bb_cosangle_Hframe", 50, -1, 1);
     }
 
 
@@ -257,15 +257,15 @@ namespace Rivet {
     /// @name Histograms
     //@{
 
-    AIDA::IHistogram1D *_h_Z_multiplicity, *_h_W_multiplicity;
-    AIDA::IHistogram1D *_h_jet_bb_Delta_eta, *_h_jet_bb_Delta_phi, *_h_jet_bb_Delta_pT, *_h_jet_bb_Delta_R;
-    AIDA::IHistogram1D *_h_jet_b_jet_eta, *_h_jet_b_jet_multiplicity, *_h_jet_b_jet_phi, *_h_jet_b_jet_pT;
-    AIDA::IHistogram1D *_h_jet_H_eta_using_bb, *_h_jet_H_mass_using_bb, *_h_jet_H_phi_using_bb, *_h_jet_H_pT_using_bb;
-    AIDA::IHistogram1D *_h_jet_eta, *_h_jet_multiplicity, *_h_jet_phi, *_h_jet_pT;
-    AIDA::IHistogram1D *_h_jet_VBbb_Delta_eta, *_h_jet_VBbb_Delta_phi, *_h_jet_VBbb_Delta_pT, *_h_jet_VBbb_Delta_R;
-    AIDA::IHistogram1D *_h_VB_eta, *_h_VB_mass, *_h_VB_phi, *_h_VB_pT;
-    AIDA::IHistogram1D *_h_jet_bVB_angle_Hframe, *_h_jet_bb_angle_Hframe, *_h_jet_bVB_cosangle_Hframe, *_h_jet_bb_cosangle_Hframe;
-    //AIDA::IProfile1D *_h_jet_cuts_bb_deltaR_v_HpT;
+    Histo1DPtr _h_Z_multiplicity, _h_W_multiplicity;
+    Histo1DPtr _h_jet_bb_Delta_eta, _h_jet_bb_Delta_phi, _h_jet_bb_Delta_pT, _h_jet_bb_Delta_R;
+    Histo1DPtr _h_jet_b_jet_eta, _h_jet_b_jet_multiplicity, _h_jet_b_jet_phi, _h_jet_b_jet_pT;
+    Histo1DPtr _h_jet_H_eta_using_bb, _h_jet_H_mass_using_bb, _h_jet_H_phi_using_bb, _h_jet_H_pT_using_bb;
+    Histo1DPtr _h_jet_eta, _h_jet_multiplicity, _h_jet_phi, _h_jet_pT;
+    Histo1DPtr _h_jet_VBbb_Delta_eta, _h_jet_VBbb_Delta_phi, _h_jet_VBbb_Delta_pT, _h_jet_VBbb_Delta_R;
+    Histo1DPtr _h_VB_eta, _h_VB_mass, _h_VB_phi, _h_VB_pT;
+    Histo1DPtr _h_jet_bVB_angle_Hframe, _h_jet_bb_angle_Hframe, _h_jet_bVB_cosangle_Hframe, _h_jet_bb_cosangle_Hframe;
+    //Histo1DPtr _h_jet_cuts_bb_deltaR_v_HpT;
 
     //@}
 

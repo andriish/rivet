@@ -1,10 +1,8 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "LWH/Profile1D.h"
-#include "LWH/Histogram1D.h"
 
 namespace Rivet {
 
@@ -42,12 +40,12 @@ namespace Rivet {
       // Standard deviation profiles
       // First the higher moments of main profiles to calculate variance and error on variance...
       for (size_t i = 1; i < 4; ++i) {
-        _hist_nch_transverse_500[i] = new LWH::Profile1D(binEdges(1+isqrts, 1, 1));
-        _hist_ptsum_transverse_500[i] = new LWH::Profile1D(binEdges(3+isqrts, 1, 1));
+        _hist_nch_transverse_500[i].reset(new Profile1D(referenceData(1+isqrts, 1, 1)));
+        _hist_ptsum_transverse_500[i].reset(new Profile1D(referenceData(3+isqrts, 1, 1)));
       }
       // Then the data point sets into which the results will be inserted
-      _dps_sdnch_transverse_500   = bookDataPointSet(5+isqrts, 1, 1);
-      _dps_sdptsum_transverse_500 = bookDataPointSet(7+isqrts, 1, 1);
+      _dps_sdnch_transverse_500   = bookScatter2D(5+isqrts, 1, 1);
+      _dps_sdptsum_transverse_500 = bookScatter2D(7+isqrts, 1, 1);
 
       // <pT> profiles, 500 MeV track pT cut
       _hist_ptavg_transverse_500 = bookProfile1D(9+isqrts, 1, 1);
@@ -120,8 +118,8 @@ namespace Rivet {
       vector<double> num500(3, 0), ptSum500(3, 0.0);
       // Temporary histos that bin Nch and pT in dPhi.
       // NB. Only one of each needed since binnings are the same for the energies and pT cuts
-      LWH::Histogram1D hist_num_dphi_500(binEdges(13,1,1));
-      LWH::Histogram1D hist_pt_dphi_500(binEdges(15,1,1));
+      Histo1D hist_num_dphi_500(referenceData(13,1,1));
+      Histo1D hist_pt_dphi_500(referenceData(15,1,1));
       foreach (const Particle& p, particles500) {
         const double pT = p.momentum().pT();
         const double dPhi = deltaPhi(philead, p.momentum().phi());
@@ -165,8 +163,8 @@ namespace Rivet {
       const double dEtadPhi = (2*2.5 * 2*PI/3.0);
       // Transverse profiles need 4 orders of moments for stddev with errors
       for (int i = 0; i < 4; ++i) {
-        _hist_nch_transverse_500[i]->fill(pTlead/GeV, pow(num500[1]/dEtadPhi, i+1), weight);
-        _hist_ptsum_transverse_500[i]->fill(pTlead/GeV, pow(ptSum500[1]/GeV/dEtadPhi, i+1), weight);
+        _hist_nch_transverse_500[i]->fill(pTlead/GeV, intpow(num500[1]/dEtadPhi, i+1), weight);
+        _hist_ptsum_transverse_500[i]->fill(pTlead/GeV, intpow(ptSum500[1]/GeV/dEtadPhi, i+1), weight);
       }
       // Toward and away profiles only need the first moment (the mean)
       _hist_nch_toward_500->fill(pTlead/GeV, num500[0]/dEtadPhi, weight);
@@ -184,7 +182,7 @@ namespace Rivet {
       // Note that we fill dN/dEtadPhi: dEta = 2*2.5, dPhi = 2*PI/nBins
       // The values tabulated in the note are for an (undefined) signed Delta(phi) rather than
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
-      const size_t nbins = binEdges(13,1,1).size() - 1;
+      const size_t nbins = referenceData(13,1,1).numPoints();
       std::vector<double> ptcut;
       if (fuzzyEquals(sqrtS(), 900*GeV)) {
         ptcut += 1.0; ptcut += 1.5; ptcut += 2.0; ptcut += 2.5;
@@ -195,15 +193,15 @@ namespace Rivet {
       assert(ptcut.size() == 4);
       for (size_t i = 0; i < nbins; ++i) {
         // First Nch
-        const double binmean_num = hist_num_dphi_500.binMean(i);
-        const double binvalue_num = hist_num_dphi_500.binHeight(i)/hist_num_dphi_500.axis().binWidth(i)/10.0;
+        const double binmean_num = hist_num_dphi_500.bin(i).xMean();
+        const double binvalue_num = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
         if (pTlead/GeV >= ptcut[0]) _hist_N_vs_dPhi_1_500->fill(binmean_num, binvalue_num, weight);
         if (pTlead/GeV >= ptcut[1]) _hist_N_vs_dPhi_2_500->fill(binmean_num, binvalue_num, weight);
         if (pTlead/GeV >= ptcut[2]) _hist_N_vs_dPhi_3_500->fill(binmean_num, binvalue_num, weight);
         if (pTlead/GeV >= ptcut[3]) _hist_N_vs_dPhi_5_500->fill(binmean_num, binvalue_num, weight);
         // Then pT
-        const double binmean_pt = hist_pt_dphi_500.binMean(i);
-        const double binvalue_pt = hist_pt_dphi_500.binHeight(i)/hist_pt_dphi_500.axis().binWidth(i)/10.0;
+        const double binmean_pt = hist_pt_dphi_500.bin(i).xMean();
+        const double binvalue_pt = hist_pt_dphi_500.bin(i).area()/hist_pt_dphi_500.bin(i).width()/10.0;
         if (pTlead/GeV >= ptcut[0]) _hist_pT_vs_dPhi_1_500->fill(binmean_pt, binvalue_pt, weight);
         if (pTlead/GeV >= ptcut[1]) _hist_pT_vs_dPhi_2_500->fill(binmean_pt, binvalue_pt, weight);
         if (pTlead/GeV >= ptcut[2]) _hist_pT_vs_dPhi_3_500->fill(binmean_pt, binvalue_pt, weight);
@@ -255,74 +253,72 @@ namespace Rivet {
   private:
 
 
-    inline void _moments_to_stddev(AIDA::IProfile1D* moment_profiles[], AIDA::IDataPointSet* target_dps) {
-      for (int b = 0; b < target_dps->size(); ++b) { // loop over bins
-        /// @todo Assuming unit weights here! Should use N_effective = sumW**2/sumW2? How?
-        const double numentries = moment_profiles[0]->binEntries(b);
-        const double var = moment_profiles[1]->binHeight(b) - pow(moment_profiles[0]->binHeight(b), 2);
+    inline void _moments_to_stddev(Profile1DPtr moment_profiles[], Scatter2DPtr target_dps) {
+      for (size_t b = 0; b < target_dps->numPoints(); ++b) { // loop over points
+        /// @todo Assuming unit weights here! Should use N_effective = sumW**2/sumW2?
+        const double numentries = moment_profiles[0]->bin(b).numEntries();
+        const double var = moment_profiles[1]->bin(b).mean() - intpow(moment_profiles[0]->bin(b).mean(), 2);
         const double sd = fuzzyLessEquals(var,0.) ? 0 : sqrt(var); //< Numerical safety check
-        target_dps->point(b)->coordinate(1)->setValue(sd);
+        target_dps->point(b).setY(sd);
         if (sd == 0 || numentries < 3) {
           MSG_WARNING("Need at least 3 bin entries and a non-zero central value to calculate "
                       << "an error on standard deviation profiles (bin " << b << ")");
-          target_dps->point(b)->coordinate(1)->setErrorPlus(0);
-          target_dps->point(b)->coordinate(1)->setErrorMinus(0);
+          target_dps->point(b).setYErr(0);
           continue;
         }
         // c2(y) = m4(x) - 4 m3(x) m1(x) - m2(x)^2 + 8 m2(x) m1(x)^2 - 4 m1(x)^4
-        const double var_on_var = moment_profiles[3]->binHeight(b)
-          - 4 * moment_profiles[2]->binHeight(b) * moment_profiles[0]->binHeight(b)
-          - pow(moment_profiles[1]->binHeight(b), 2)
-          + 8 * moment_profiles[1]->binHeight(b) * pow(moment_profiles[0]->binHeight(b), 2)
-          - 4 * pow(moment_profiles[0]->binHeight(b), 4);
+        const double var_on_var = moment_profiles[3]->bin(b).mean()
+          - 4 * moment_profiles[2]->bin(b).mean() * moment_profiles[0]->bin(b).mean()
+          - intpow(moment_profiles[1]->bin(b).mean(), 2)
+          + 8 * moment_profiles[1]->bin(b).mean() * intpow(moment_profiles[0]->bin(b).mean(), 2)
+          - 4 * intpow(moment_profiles[0]->bin(b).mean(), 4);
         const double stderr_on_var = sqrt(var_on_var/(numentries-2.0));
         const double stderr_on_sd = stderr_on_var / (2.0*sd);
-        target_dps->point(b)->coordinate(1)->setErrorPlus(stderr_on_sd);
-        target_dps->point(b)->coordinate(1)->setErrorMinus(stderr_on_sd);
+        target_dps->point(b).setYErr(stderr_on_sd);
       }
     }
 
 
   private:
 
-    AIDA::IProfile1D*  _hist_nch_transverse_500[4];
-    AIDA::IProfile1D*  _hist_nch_toward_500;
-    AIDA::IProfile1D*  _hist_nch_away_500;
+    Profile1DPtr _hist_nch_transverse_500[4];
+    Profile1DPtr _hist_nch_toward_500;
+    Profile1DPtr _hist_nch_away_500;
 
-    AIDA::IProfile1D*  _hist_ptsum_transverse_500[4];
-    AIDA::IProfile1D*  _hist_ptsum_toward_500;
-    AIDA::IProfile1D*  _hist_ptsum_away_500;
+    Profile1DPtr _hist_ptsum_transverse_500[4];
+    Profile1DPtr _hist_ptsum_toward_500;
+    Profile1DPtr _hist_ptsum_away_500;
 
-    AIDA::IDataPointSet*  _dps_sdnch_transverse_500;
-    AIDA::IDataPointSet*  _dps_sdptsum_transverse_500;
+    Scatter2DPtr  _dps_sdnch_transverse_500;
+    Scatter2DPtr  _dps_sdptsum_transverse_500;
 
-    AIDA::IProfile1D* _hist_ptavg_transverse_500;
-    AIDA::IProfile1D* _hist_ptavg_toward_500;
-    AIDA::IProfile1D* _hist_ptavg_away_500;
+    Profile1DPtr _hist_ptavg_transverse_500;
+    Profile1DPtr _hist_ptavg_toward_500;
+    Profile1DPtr _hist_ptavg_away_500;
 
-    AIDA::IProfile1D*  _hist_dn_dpt_transverse_500;
-    AIDA::IProfile1D*  _hist_dn_dpt_toward_500;
-    AIDA::IProfile1D*  _hist_dn_dpt_away_500;
+    Profile1DPtr _hist_dn_dpt_transverse_500;
+    Profile1DPtr _hist_dn_dpt_toward_500;
+    Profile1DPtr _hist_dn_dpt_away_500;
 
-    AIDA::IProfile1D*  _hist_N_vs_dPhi_1_500;
-    AIDA::IProfile1D*  _hist_N_vs_dPhi_2_500;
-    AIDA::IProfile1D*  _hist_N_vs_dPhi_3_500;
-    AIDA::IProfile1D*  _hist_N_vs_dPhi_5_500;
+    Profile1DPtr _hist_N_vs_dPhi_1_500;
+    Profile1DPtr _hist_N_vs_dPhi_2_500;
+    Profile1DPtr _hist_N_vs_dPhi_3_500;
+    Profile1DPtr _hist_N_vs_dPhi_5_500;
 
-    AIDA::IProfile1D*  _hist_pT_vs_dPhi_1_500;
-    AIDA::IProfile1D*  _hist_pT_vs_dPhi_2_500;
-    AIDA::IProfile1D*  _hist_pT_vs_dPhi_3_500;
-    AIDA::IProfile1D*  _hist_pT_vs_dPhi_5_500;
+    Profile1DPtr _hist_pT_vs_dPhi_1_500;
+    Profile1DPtr _hist_pT_vs_dPhi_2_500;
+    Profile1DPtr _hist_pT_vs_dPhi_3_500;
+    Profile1DPtr _hist_pT_vs_dPhi_5_500;
 
-    AIDA::IProfile1D*  _hist_nch_transverse_100;
-    AIDA::IProfile1D*  _hist_nch_toward_100;
-    AIDA::IProfile1D*  _hist_nch_away_100;
-    AIDA::IProfile1D*  _hist_ptsum_transverse_100;
-    AIDA::IProfile1D*  _hist_ptsum_toward_100;
-    AIDA::IProfile1D*  _hist_ptsum_away_100;
+    Profile1DPtr _hist_nch_transverse_100;
+    Profile1DPtr _hist_nch_toward_100;
+    Profile1DPtr _hist_nch_away_100;
+    Profile1DPtr _hist_ptsum_transverse_100;
+    Profile1DPtr _hist_ptsum_toward_100;
+    Profile1DPtr _hist_ptsum_away_100;
 
-    AIDA::IProfile1D* _hist_nch_vs_eta_transverse_100;
-    AIDA::IProfile1D* _hist_ptsum_vs_eta_transverse_100;
+    Profile1DPtr _hist_nch_vs_eta_transverse_100;
+    Profile1DPtr _hist_ptsum_vs_eta_transverse_100;
 
   };
 

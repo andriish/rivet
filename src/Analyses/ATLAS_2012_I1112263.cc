@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -64,20 +64,20 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.0,3.0),"cfs");
 
       // Book histograms
-      _hist_leptonpT_SR1.push_back(bookHistogram1D("hist_lepton_pT_1_SR1",11,0.,220.));
-      _hist_leptonpT_SR1.push_back(bookHistogram1D("hist_lepton_pT_2_SR1", 7,0.,140.));
-      _hist_leptonpT_SR1.push_back(bookHistogram1D("hist_lepton_pT_3_SR1", 8,0.,160.));
-      _hist_leptonpT_SR2.push_back(bookHistogram1D("hist_lepton_pT_1_SR2",11,0.,220.));
-      _hist_leptonpT_SR2.push_back(bookHistogram1D("hist_lepton_pT_2_SR2", 7,0.,140.));
-      _hist_leptonpT_SR2.push_back(bookHistogram1D("hist_lepton_pT_3_SR2", 8,0.,160.));
-      _hist_etmiss_SR1_A = bookHistogram1D("hist_etmiss_SR1_A",15,10.,310.);
-      _hist_etmiss_SR1_B = bookHistogram1D("hist_etmiss_SR1_B", 9,10.,190.);
-      _hist_etmiss_SR2_A = bookHistogram1D("hist_etmiss_SR2_A",15,10.,310.);
-      _hist_etmiss_SR2_B = bookHistogram1D("hist_etmiss_SR2_B", 9,10.,190.);
-      _hist_mSFOS= bookHistogram1D("hist_mSFOF",9,0.,180.);
+      _hist_leptonpT_SR1.push_back(bookHisto1D("hist_lepton_pT_1_SR1",11,0.,220.));
+      _hist_leptonpT_SR1.push_back(bookHisto1D("hist_lepton_pT_2_SR1", 7,0.,140.));
+      _hist_leptonpT_SR1.push_back(bookHisto1D("hist_lepton_pT_3_SR1", 8,0.,160.));
+      _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_1_SR2",11,0.,220.));
+      _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_2_SR2", 7,0.,140.));
+      _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_3_SR2", 8,0.,160.));
+      _hist_etmiss_SR1_A = bookHisto1D("hist_etmiss_SR1_A",15,10.,310.);
+      _hist_etmiss_SR1_B = bookHisto1D("hist_etmiss_SR1_B", 9,10.,190.);
+      _hist_etmiss_SR2_A = bookHisto1D("hist_etmiss_SR2_A",15,10.,310.);
+      _hist_etmiss_SR2_B = bookHisto1D("hist_etmiss_SR2_B", 9,10.,190.);
+      _hist_mSFOS= bookHisto1D("hist_mSFOF",9,0.,180.);
 
-      _count_SR1 = bookHistogram1D("count_SR1", 1, 0., 1.);
-      _count_SR2 = bookHistogram1D("count_SR2", 1, 0., 1.);
+      _count_SR1 = bookHisto1D("count_SR1", 1, 0., 1.);
+      _count_SR2 = bookHisto1D("count_SR2", 1, 0., 1.);
     }
 
 
@@ -288,7 +288,7 @@ namespace Rivet {
       // lepton pT
       unsigned int ie=0,imu=0;
       for(unsigned int ix=0;ix<3;++ix) {
-        AIDA::IHistogram1D* hist = mdiff>10. ?
+        Histo1DPtr hist = mdiff>10. ?
           _hist_leptonpT_SR1[ix] :  _hist_leptonpT_SR2[ix];
         double pTe  = ie <recon_e .size() ?
           recon_e [ie ].momentum().perp() : -1*GeV;
@@ -328,15 +328,15 @@ namespace Rivet {
 
   /// @name Histograms
   //@{
-  vector<AIDA::IHistogram1D*> _hist_leptonpT_SR1;
-  vector<AIDA::IHistogram1D*> _hist_leptonpT_SR2;
-  AIDA::IHistogram1D* _hist_etmiss_SR1_A;
-  AIDA::IHistogram1D* _hist_etmiss_SR1_B;
-  AIDA::IHistogram1D* _hist_etmiss_SR2_A;
-  AIDA::IHistogram1D* _hist_etmiss_SR2_B;
-  AIDA::IHistogram1D* _hist_mSFOS;
-  AIDA::IHistogram1D* _count_SR1;
-  AIDA::IHistogram1D* _count_SR2;
+  vector<Histo1DPtr> _hist_leptonpT_SR1;
+  vector<Histo1DPtr> _hist_leptonpT_SR2;
+  Histo1DPtr _hist_etmiss_SR1_A;
+  Histo1DPtr _hist_etmiss_SR1_B;
+  Histo1DPtr _hist_etmiss_SR2_A;
+  Histo1DPtr _hist_etmiss_SR2_B;
+  Histo1DPtr _hist_mSFOS;
+  Histo1DPtr _count_SR1;
+  Histo1DPtr _count_SR2;
   //@}
 
   };

@@ -1,3 +1,7 @@
+2012-06-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Merge YODA branch into trunk. YODA is alive!!!!!!
+
 2012-06-20  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added D0_2011_I895662: 3-jet mass
@@ -298,6 +302,10 @@
 	* Adding a jet multiplicity plot for jets with pT > 30 GeV to
 	MC_TTBAR.
 
+2011-10-11  Andy Buckley  <andy@insectnation.org>
+
+	* Removing SVertex.
+
 2011-10-11  James Monk    <jmonk@cern.ch>
 
 	* root2flat was missing the first bin (plus spurious last bin)
@@ -363,9 +371,6 @@
 
 2011-09-14  Andy Buckley  <andy@insectnation.org>
 
-	* Applying histogram dynamic_cast protection patch from Anton
-	Karneyeu and Alex Grecu.
-
 	* Adding the ATLAS Z pT measurement at 7 TeV (ATLAS_2011_S9131140)
 	and an MC analysis for VH->bb events (MC_VH2BB).
 
@@ -410,6 +415,13 @@
 
 	* lighthisto fixes from Christian Roehr.
 
+2011-08-26  Andy Buckley  <andy@insectnation.org>
+
+	* Removing deprecated features: the setBeams(...) method on
+	Analysis, the MaxRapidity constant, the split(...) function, the
+	default init() method from AnalysisHandler and its test, and the
+	deprecated TotalVisibleMomentum and PVertex projections.
+
 2011-08-23  Andy Buckley  <andy@insectnation.org>
 
 	* Adding a new DECLARE_RIVET_PLUGIN wrapper macro to hide the
@@ -449,9 +461,6 @@
 
 2011-08-07  Andy Buckley  <andy@insectnation.org>
 
-	* Add some protection against attempts to book histograms with
-	histo path names that are going to break the postprocessing scripts.
-
 	* Adding TEXINPUTS and LATEXINPUTS prepend definitions to the
 	variables provided by rivetenv.(c)sh. A manual setting of these
 	variables that didn't include the Rivet TEXMFHOME path was
@@ -469,6 +478,8 @@
 	W/Z constituents being excluded from the RemainingFinalState.
 
 2011-07-29  Andy Buckley  <andy@insectnation.org>
+
+	* Version 1.5.2 release!
 
 	* New version of aida2root from James Monk.
 

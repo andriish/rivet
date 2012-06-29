@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -77,36 +77,36 @@ namespace Rivet {
 
 
       /// Book histograms
-      _3jl_count_mu_channel = bookHistogram1D("3jl_count_muon_channel", 1, 0., 1.);
-      _3jl_count_e_channel = bookHistogram1D("3jl_count_electron_channel", 1, 0., 1.);
-      _3jt_count_mu_channel = bookHistogram1D("3jt_count_muon_channel", 1, 0., 1.);
-      _3jt_count_e_channel = bookHistogram1D("3jt_count_electron_channel", 1, 0., 1.);
-      _3j_hist_eTmiss_e = bookHistogram1D("3j_Et_miss_e", 65, 0., 650.);
-      _3j_hist_eTmiss_mu = bookHistogram1D("3j_Et_miss_mu", 65, 0., 650.);
-      _3j_hist_mT_e = bookHistogram1D("3j_mT_e", 58, 0., 580.);
-      _3j_hist_mT_mu = bookHistogram1D("3j_mT_mu", 58, 0., 580.);
-      _3j_hist_m_eff_e = bookHistogram1D("3j_m_eff_e", 46, 0., 2300.);
-      _3j_hist_m_eff_mu = bookHistogram1D("3j_m_eff_mu", 46, 0., 2300.);
-      _3jl_hist_m_eff_e_final = bookHistogram1D("3jl_m_eff_e_final", 15, 0., 1500.);
-      _3jl_hist_m_eff_mu_final = bookHistogram1D("3jl_m_eff_mu_final", 15, 0., 1500.);
-      _3jt_hist_m_eff_e_final = bookHistogram1D("3jt_m_eff_e_final", 15, 0., 1500.);
-      _3jt_hist_m_eff_mu_final = bookHistogram1D("3jt_m_eff_mu_final", 15, 0., 1500.);
+      _3jl_count_mu_channel = bookHisto1D("3jl_count_muon_channel", 1, 0., 1.);
+      _3jl_count_e_channel = bookHisto1D("3jl_count_electron_channel", 1, 0., 1.);
+      _3jt_count_mu_channel = bookHisto1D("3jt_count_muon_channel", 1, 0., 1.);
+      _3jt_count_e_channel = bookHisto1D("3jt_count_electron_channel", 1, 0., 1.);
+      _3j_hist_eTmiss_e = bookHisto1D("3j_Et_miss_e", 65, 0., 650.);
+      _3j_hist_eTmiss_mu = bookHisto1D("3j_Et_miss_mu", 65, 0., 650.);
+      _3j_hist_mT_e = bookHisto1D("3j_mT_e", 58, 0., 580.);
+      _3j_hist_mT_mu = bookHisto1D("3j_mT_mu", 58, 0., 580.);
+      _3j_hist_m_eff_e = bookHisto1D("3j_m_eff_e", 46, 0., 2300.);
+      _3j_hist_m_eff_mu = bookHisto1D("3j_m_eff_mu", 46, 0., 2300.);
+      _3jl_hist_m_eff_e_final = bookHisto1D("3jl_m_eff_e_final", 15, 0., 1500.);
+      _3jl_hist_m_eff_mu_final = bookHisto1D("3jl_m_eff_mu_final", 15, 0., 1500.);
+      _3jt_hist_m_eff_e_final = bookHisto1D("3jt_m_eff_e_final", 15, 0., 1500.);
+      _3jt_hist_m_eff_mu_final = bookHisto1D("3jt_m_eff_mu_final", 15, 0., 1500.);
 
 
-      _4jl_count_mu_channel = bookHistogram1D("4jl_count_muon_channel", 1, 0., 1.);
-      _4jl_count_e_channel = bookHistogram1D("4jl_count_electron_channel", 1, 0., 1.);
-      _4jt_count_mu_channel = bookHistogram1D("4jt_count_muon_channel", 1, 0., 1.);
-      _4jt_count_e_channel = bookHistogram1D("4jt_count_electron_channel", 1, 0., 1.);
-      _4j_hist_eTmiss_e = bookHistogram1D("4j_Et_miss_e", 65, 0., 650.);
-      _4j_hist_eTmiss_mu = bookHistogram1D("4j_Et_miss_mu", 65, 0., 650.);
-      _4j_hist_mT_e = bookHistogram1D("4j_mT_e", 58, 0., 580.);
-      _4j_hist_mT_mu = bookHistogram1D("4j_mT_mu", 58, 0., 580.);
-      _4j_hist_m_eff_e = bookHistogram1D("4j_m_eff_e", 46, 0., 2300.);
-      _4j_hist_m_eff_mu = bookHistogram1D("4j_m_eff_mu", 46, 0., 2300.);
-      _4jl_hist_m_eff_e_final = bookHistogram1D("4jl_m_eff_e_final", 15, 0., 1500.);
-      _4jl_hist_m_eff_mu_final = bookHistogram1D("4jl_m_eff_mu_final", 15, 0., 1500.);
-      _4jt_hist_m_eff_e_final = bookHistogram1D("4jt_m_eff_e_final", 15, 0., 1500.);
-      _4jt_hist_m_eff_mu_final = bookHistogram1D("4jt_m_eff_mu_final", 15, 0., 1500.);
+      _4jl_count_mu_channel = bookHisto1D("4jl_count_muon_channel", 1, 0., 1.);
+      _4jl_count_e_channel = bookHisto1D("4jl_count_electron_channel", 1, 0., 1.);
+      _4jt_count_mu_channel = bookHisto1D("4jt_count_muon_channel", 1, 0., 1.);
+      _4jt_count_e_channel = bookHisto1D("4jt_count_electron_channel", 1, 0., 1.);
+      _4j_hist_eTmiss_e = bookHisto1D("4j_Et_miss_e", 65, 0., 650.);
+      _4j_hist_eTmiss_mu = bookHisto1D("4j_Et_miss_mu", 65, 0., 650.);
+      _4j_hist_mT_e = bookHisto1D("4j_mT_e", 58, 0., 580.);
+      _4j_hist_mT_mu = bookHisto1D("4j_mT_mu", 58, 0., 580.);
+      _4j_hist_m_eff_e = bookHisto1D("4j_m_eff_e", 46, 0., 2300.);
+      _4j_hist_m_eff_mu = bookHisto1D("4j_m_eff_mu", 46, 0., 2300.);
+      _4jl_hist_m_eff_e_final = bookHisto1D("4jl_m_eff_e_final", 15, 0., 1500.);
+      _4jl_hist_m_eff_mu_final = bookHisto1D("4jl_m_eff_mu_final", 15, 0., 1500.);
+      _4jt_hist_m_eff_e_final = bookHisto1D("4jt_m_eff_e_final", 15, 0., 1500.);
+      _4jt_hist_m_eff_mu_final = bookHisto1D("4jt_m_eff_mu_final", 15, 0., 1500.);
 
 
     }
@@ -473,37 +473,37 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _3jl_count_e_channel;
-    AIDA::IHistogram1D* _3jl_count_mu_channel;
-    AIDA::IHistogram1D* _3jt_count_e_channel;
-    AIDA::IHistogram1D* _3jt_count_mu_channel;
-    AIDA::IHistogram1D* _3j_hist_eTmiss_e;
-    AIDA::IHistogram1D* _3j_hist_eTmiss_mu;
-    AIDA::IHistogram1D* _3j_hist_m_eff_e;
-    AIDA::IHistogram1D* _3j_hist_m_eff_mu;
-    AIDA::IHistogram1D* _3j_hist_mT_e;
-    AIDA::IHistogram1D* _3j_hist_mT_mu;
-    AIDA::IHistogram1D* _3jl_hist_m_eff_e_final;
-    AIDA::IHistogram1D* _3jl_hist_m_eff_mu_final;
-    AIDA::IHistogram1D* _3jt_hist_m_eff_e_final;
-    AIDA::IHistogram1D* _3jt_hist_m_eff_mu_final;
+    Histo1DPtr _3jl_count_e_channel;
+    Histo1DPtr _3jl_count_mu_channel;
+    Histo1DPtr _3jt_count_e_channel;
+    Histo1DPtr _3jt_count_mu_channel;
+    Histo1DPtr _3j_hist_eTmiss_e;
+    Histo1DPtr _3j_hist_eTmiss_mu;
+    Histo1DPtr _3j_hist_m_eff_e;
+    Histo1DPtr _3j_hist_m_eff_mu;
+    Histo1DPtr _3j_hist_mT_e;
+    Histo1DPtr _3j_hist_mT_mu;
+    Histo1DPtr _3jl_hist_m_eff_e_final;
+    Histo1DPtr _3jl_hist_m_eff_mu_final;
+    Histo1DPtr _3jt_hist_m_eff_e_final;
+    Histo1DPtr _3jt_hist_m_eff_mu_final;
 
 
 
-    AIDA::IHistogram1D* _4jl_count_e_channel;
-    AIDA::IHistogram1D* _4jl_count_mu_channel;
-    AIDA::IHistogram1D* _4jt_count_e_channel;
-    AIDA::IHistogram1D* _4jt_count_mu_channel;
-    AIDA::IHistogram1D* _4j_hist_eTmiss_e;
-    AIDA::IHistogram1D* _4j_hist_eTmiss_mu;
-    AIDA::IHistogram1D* _4j_hist_m_eff_e;
-    AIDA::IHistogram1D* _4j_hist_m_eff_mu;
-    AIDA::IHistogram1D* _4j_hist_mT_e;
-    AIDA::IHistogram1D* _4j_hist_mT_mu;
-    AIDA::IHistogram1D* _4jl_hist_m_eff_e_final;
-    AIDA::IHistogram1D* _4jl_hist_m_eff_mu_final;
-    AIDA::IHistogram1D* _4jt_hist_m_eff_e_final;
-    AIDA::IHistogram1D* _4jt_hist_m_eff_mu_final;
+    Histo1DPtr _4jl_count_e_channel;
+    Histo1DPtr _4jl_count_mu_channel;
+    Histo1DPtr _4jt_count_e_channel;
+    Histo1DPtr _4jt_count_mu_channel;
+    Histo1DPtr _4j_hist_eTmiss_e;
+    Histo1DPtr _4j_hist_eTmiss_mu;
+    Histo1DPtr _4j_hist_m_eff_e;
+    Histo1DPtr _4j_hist_m_eff_mu;
+    Histo1DPtr _4j_hist_mT_e;
+    Histo1DPtr _4j_hist_mT_mu;
+    Histo1DPtr _4jl_hist_m_eff_e_final;
+    Histo1DPtr _4jl_hist_m_eff_mu_final;
+    Histo1DPtr _4jt_hist_m_eff_e_final;
+    Histo1DPtr _4jt_hist_m_eff_mu_final;
 
 
     //@}

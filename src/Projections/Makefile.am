@@ -28,12 +28,9 @@ libRivetProjections_la_SOURCES = \
   Multiplicity.cc \
   NeutralFinalState.cc \
   ParisiTensor.cc \
-  PVertex.cc \
   Sphericity.cc \
   Spherocity.cc \
-  SVertex.cc \
   Thrust.cc \
-  TotalVisibleMomentum.cc \
   TriggerCDFRun0Run1.cc \
   TriggerCDFRun2.cc \
   TriggerUA5.cc \

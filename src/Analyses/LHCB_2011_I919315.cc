@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -30,17 +30,17 @@ namespace Rivet {
 
       addProjection(UnstableFinalState(), "UFS");
 
-      _h_Phi_pT_y.addHistogram(  2.44, 2.62, bookHistogram1D(2, 1, 1));
-      _h_Phi_pT_y.addHistogram(  2.62, 2.80, bookHistogram1D(2, 1, 2));
-      _h_Phi_pT_y.addHistogram(  2.80, 2.98, bookHistogram1D(3, 1, 1));
-      _h_Phi_pT_y.addHistogram(  2.98, 3.16, bookHistogram1D(3, 1, 2));
-      _h_Phi_pT_y.addHistogram(  3.16, 3.34, bookHistogram1D(4, 1, 1));
-      _h_Phi_pT_y.addHistogram(  3.34, 3.52, bookHistogram1D(4, 1, 2));
-      _h_Phi_pT_y.addHistogram(  3.52, 3.70, bookHistogram1D(5, 1, 1));
-      _h_Phi_pT_y.addHistogram(  3.70, 3.88, bookHistogram1D(5, 1, 2));
-      _h_Phi_pT_y.addHistogram(  3.88, 4.06, bookHistogram1D(6, 1, 1));
-      _h_Phi_pT = bookHistogram1D(7, 1, 1);
-      _h_Phi_y = bookHistogram1D(8, 1, 1);
+      _h_Phi_pT_y.addHistogram(  2.44, 2.62, bookHisto1D(2, 1, 1));
+      _h_Phi_pT_y.addHistogram(  2.62, 2.80, bookHisto1D(2, 1, 2));
+      _h_Phi_pT_y.addHistogram(  2.80, 2.98, bookHisto1D(3, 1, 1));
+      _h_Phi_pT_y.addHistogram(  2.98, 3.16, bookHisto1D(3, 1, 2));
+      _h_Phi_pT_y.addHistogram(  3.16, 3.34, bookHisto1D(4, 1, 1));
+      _h_Phi_pT_y.addHistogram(  3.34, 3.52, bookHisto1D(4, 1, 2));
+      _h_Phi_pT_y.addHistogram(  3.52, 3.70, bookHisto1D(5, 1, 1));
+      _h_Phi_pT_y.addHistogram(  3.70, 3.88, bookHisto1D(5, 1, 2));
+      _h_Phi_pT_y.addHistogram(  3.88, 4.06, bookHisto1D(6, 1, 1));
+      _h_Phi_pT = bookHisto1D(7, 1, 1);
+      _h_Phi_y = bookHisto1D(8, 1, 1);
     }
 
 
@@ -82,8 +82,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_Phi_y;
-    AIDA::IHistogram1D * _h_Phi_pT;
+    Histo1DPtr _h_Phi_y;
+    Histo1DPtr _h_Phi_pT;
     BinnedHistogram<double> _h_Phi_pT_y;
     //@}
 

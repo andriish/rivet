@@ -5,7 +5,7 @@
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/AnalysisLoader.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -39,40 +39,40 @@ namespace Rivet {
       addProjection(MissingMomentum(fs), "MissingET");
 
       // Booking of histograms
-      _h_njets = bookHistogram1D("jet_mult", 11, -0.5, 10.5);
+      _h_njets = bookHisto1D("jet_mult", 11, -0.5, 10.5);
       //
-      _h_jet_1_pT = bookHistogram1D("jet_1_pT", logspace(20.0, 500.0, 50));
-      _h_jet_2_pT = bookHistogram1D("jet_2_pT", logspace(20.0, 400.0, 50));
-      _h_jet_3_pT = bookHistogram1D("jet_3_pT", logspace(20.0, 300.0, 50));
-      _h_jet_4_pT = bookHistogram1D("jet_4_pT", logspace(20.0, 200.0, 50));
-      _h_jet_HT   = bookHistogram1D("jet_HT", logspace(100.0, 2000.0, 50));
+      _h_jet_1_pT = bookHisto1D("jet_1_pT", logspace(20.0, 500.0, 50));
+      _h_jet_2_pT = bookHisto1D("jet_2_pT", logspace(20.0, 400.0, 50));
+      _h_jet_3_pT = bookHisto1D("jet_3_pT", logspace(20.0, 300.0, 50));
+      _h_jet_4_pT = bookHisto1D("jet_4_pT", logspace(20.0, 200.0, 50));
+      _h_jet_HT   = bookHisto1D("jet_HT", logspace(100.0, 2000.0, 50));
       //
-      _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", logspace(20.0, 400.0, 50));
-      _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", logspace(20.0, 300.0, 50));
+      _h_bjet_1_pT = bookHisto1D("jetb_1_pT", logspace(20.0, 400.0, 50));
+      _h_bjet_2_pT = bookHisto1D("jetb_2_pT", logspace(20.0, 300.0, 50));
       //
-      _h_ljet_1_pT = bookHistogram1D("jetl_1_pT", logspace(20.0, 400.0, 50));
-      _h_ljet_2_pT = bookHistogram1D("jetl_2_pT", logspace(20.0, 300.0, 50));
+      _h_ljet_1_pT = bookHisto1D("jetl_1_pT", logspace(20.0, 400.0, 50));
+      _h_ljet_2_pT = bookHisto1D("jetl_2_pT", logspace(20.0, 300.0, 50));
       //
-      _h_W_mass = bookHistogram1D("W_mass", 75, 30, 180);
-      _h_t_mass = bookHistogram1D("t_mass", 150, 130, 430);
-      _h_t_mass_W_cut = bookHistogram1D("t_mass_W_cut", 150, 130, 430);
+      _h_W_mass = bookHisto1D("W_mass", 75, 30, 180);
+      _h_t_mass = bookHisto1D("t_mass", 150, 130, 430);
+      _h_t_mass_W_cut = bookHisto1D("t_mass_W_cut", 150, 130, 430);
       //
-      _h_jetb_1_jetb_2_dR = bookHistogram1D("jetb_1_jetb_2_dR", 20, 0.0, 7.0);
-      _h_jetb_1_jetb_2_deta  = bookHistogram1D("jetb_1_jetb_2_deta", 20, 0.0, 7.0);
-      _h_jetb_1_jetb_2_dphi = bookHistogram1D("jetb_1_jetb_2_dphi", 20, 0.0, M_PI);
-      _h_jetb_1_jetl_1_dR = bookHistogram1D("jetb_1_jetl_1_dR", 20, 0.0, 7.0);
-      _h_jetb_1_jetl_1_deta  = bookHistogram1D("jetb_1_jetl_1_deta", 20, 0.0, 7.0);
-      _h_jetb_1_jetl_1_dphi = bookHistogram1D("jetb_1_jetl_1_dphi", 20, 0.0, M_PI);
-      _h_jetl_1_jetl_2_dR = bookHistogram1D("jetl_1_jetl_2_dR", 20, 0.0, 7.0);
-      _h_jetl_1_jetl_2_deta  = bookHistogram1D("jetl_1_jetl_2_deta", 20, 0.0, 7.0);
-      _h_jetl_1_jetl_2_dphi = bookHistogram1D("jetl_1_jetl_2_dphi", 20, 0.0, M_PI);
-      _h_jetb_1_W_dR = bookHistogram1D("jetb_1_W_dR", 20, 0.0, 7.0);
-      _h_jetb_1_W_deta  = bookHistogram1D("jetb_1_W_deta", 20, 0.0, 7.0);
-      _h_jetb_1_W_dphi = bookHistogram1D("jetb_1_W_dphi", 20, 0.0, M_PI);
-      _h_jetb_1_l_dR = bookHistogram1D("jetb_1_l_dR", 20, 0.0, 7.0);
-      _h_jetb_1_l_deta  = bookHistogram1D("jetb_1_l_deta", 20, 0.0, 7.0);
-      _h_jetb_1_l_dphi = bookHistogram1D("jetb_1_l_dphi", 20, 0.0, M_PI);
-      _h_jetb_1_l_mass = bookHistogram1D("jetb_1_l_mass", 40, 0.0, 500.0);
+      _h_jetb_1_jetb_2_dR   = bookHisto1D("jetb_1_jetb_2_dR", 20, 0.0, 7.0);
+      _h_jetb_1_jetb_2_deta = bookHisto1D("jetb_1_jetb_2_deta", 20, 0.0, 7.0);
+      _h_jetb_1_jetb_2_dphi = bookHisto1D("jetb_1_jetb_2_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_jetl_1_dR   = bookHisto1D("jetb_1_jetl_1_dR", 20, 0.0, 7.0);
+      _h_jetb_1_jetl_1_deta = bookHisto1D("jetb_1_jetl_1_deta", 20, 0.0, 7.0);
+      _h_jetb_1_jetl_1_dphi = bookHisto1D("jetb_1_jetl_1_dphi", 20, 0.0, M_PI);
+      _h_jetl_1_jetl_2_dR   = bookHisto1D("jetl_1_jetl_2_dR", 20, 0.0, 7.0);
+      _h_jetl_1_jetl_2_deta = bookHisto1D("jetl_1_jetl_2_deta", 20, 0.0, 7.0);
+      _h_jetl_1_jetl_2_dphi = bookHisto1D("jetl_1_jetl_2_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_W_dR        = bookHisto1D("jetb_1_W_dR", 20, 0.0, 7.0);
+      _h_jetb_1_W_deta      = bookHisto1D("jetb_1_W_deta", 20, 0.0, 7.0);
+      _h_jetb_1_W_dphi      = bookHisto1D("jetb_1_W_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_l_dR        = bookHisto1D("jetb_1_l_dR", 20, 0.0, 7.0);
+      _h_jetb_1_l_deta      = bookHisto1D("jetb_1_l_deta", 20, 0.0, 7.0);
+      _h_jetb_1_l_dphi      = bookHisto1D("jetb_1_l_dphi", 20, 0.0, M_PI);
+      _h_jetb_1_l_mass      = bookHisto1D("jetb_1_l_mass", 40, 0.0, 500.0);
     }
 
 
@@ -273,18 +273,18 @@ namespace Rivet {
     // @name Histogram data members
     //@{
 
-    AIDA::IHistogram1D *_h_njets;
-    AIDA::IHistogram1D *_h_jet_1_pT, *_h_jet_2_pT, *_h_jet_3_pT, *_h_jet_4_pT;
-    AIDA::IHistogram1D *_h_jet_HT;
-    AIDA::IHistogram1D *_h_bjet_1_pT, *_h_bjet_2_pT;
-    AIDA::IHistogram1D *_h_ljet_1_pT, *_h_ljet_2_pT;
-    AIDA::IHistogram1D *_h_W_mass;
-    AIDA::IHistogram1D *_h_t_mass, *_h_t_mass_W_cut;
-    AIDA::IHistogram1D *_h_jetb_1_jetb_2_dR, *_h_jetb_1_jetb_2_deta, *_h_jetb_1_jetb_2_dphi;
-    AIDA::IHistogram1D *_h_jetb_1_jetl_1_dR, *_h_jetb_1_jetl_1_deta, *_h_jetb_1_jetl_1_dphi;
-    AIDA::IHistogram1D *_h_jetl_1_jetl_2_dR, *_h_jetl_1_jetl_2_deta, *_h_jetl_1_jetl_2_dphi;
-    AIDA::IHistogram1D *_h_jetb_1_W_dR, *_h_jetb_1_W_deta, *_h_jetb_1_W_dphi;
-    AIDA::IHistogram1D *_h_jetb_1_l_dR, *_h_jetb_1_l_deta, *_h_jetb_1_l_dphi,*_h_jetb_1_l_mass;
+    Histo1DPtr _h_njets;
+    Histo1DPtr _h_jet_1_pT, _h_jet_2_pT, _h_jet_3_pT, _h_jet_4_pT;
+    Histo1DPtr _h_jet_HT;
+    Histo1DPtr _h_bjet_1_pT, _h_bjet_2_pT;
+    Histo1DPtr _h_ljet_1_pT, _h_ljet_2_pT;
+    Histo1DPtr _h_W_mass;
+    Histo1DPtr _h_t_mass, _h_t_mass_W_cut;
+    Histo1DPtr _h_jetb_1_jetb_2_dR, _h_jetb_1_jetb_2_deta, _h_jetb_1_jetb_2_dphi;
+    Histo1DPtr _h_jetb_1_jetl_1_dR, _h_jetb_1_jetl_1_deta, _h_jetb_1_jetl_1_dphi;
+    Histo1DPtr _h_jetl_1_jetl_2_dR, _h_jetl_1_jetl_2_deta, _h_jetl_1_jetl_2_dphi;
+    Histo1DPtr _h_jetb_1_W_dR, _h_jetb_1_W_deta, _h_jetb_1_W_dphi;
+    Histo1DPtr _h_jetb_1_l_dR, _h_jetb_1_l_deta, _h_jetb_1_l_dphi,_h_jetb_1_l_mass;
 
 
     //@}

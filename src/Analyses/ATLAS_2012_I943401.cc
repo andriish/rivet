@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -65,51 +65,51 @@ namespace Rivet {
       // book histograms
 
       // counts in signal regions
-      _count_OS_SR1 = bookHistogram1D("count_OS_SR1", 1, 0., 1.);
-      _count_OS_SR2 = bookHistogram1D("count_OS_SR2", 1, 0., 1.);
-      _count_OS_SR3 = bookHistogram1D("count_OS_SR3", 1, 0., 1.);
-      _count_SS_SR1 = bookHistogram1D("count_SS_SR1", 1, 0., 1.);
-      _count_SS_SR2 = bookHistogram1D("count_SS_SR2", 1, 0., 1.);
-      _count_FS_SR1 = bookHistogram1D("count_FS_SR1", 1, 0., 1.);
-      _count_FS_SR2 = bookHistogram1D("count_FS_SR2", 1, 0., 1.);
-      _count_FS_SR3 = bookHistogram1D("count_FS_SR3", 1, 0., 1.);
+      _count_OS_SR1 = bookHisto1D("count_OS_SR1", 1, 0., 1.);
+      _count_OS_SR2 = bookHisto1D("count_OS_SR2", 1, 0., 1.);
+      _count_OS_SR3 = bookHisto1D("count_OS_SR3", 1, 0., 1.);
+      _count_SS_SR1 = bookHisto1D("count_SS_SR1", 1, 0., 1.);
+      _count_SS_SR2 = bookHisto1D("count_SS_SR2", 1, 0., 1.);
+      _count_FS_SR1 = bookHisto1D("count_FS_SR1", 1, 0., 1.);
+      _count_FS_SR2 = bookHisto1D("count_FS_SR2", 1, 0., 1.);
+      _count_FS_SR3 = bookHisto1D("count_FS_SR3", 1, 0., 1.);
 
       // histograms from paper
 
-      _hist_mll_SS_D         = bookHistogram1D( 1,1,1);
-      _hist_mll_SS_B         = bookHistogram1D( 1,1,2);
-      _hist_eTmiss_SS_D      = bookHistogram1D( 2,1,1);
-      _hist_eTmiss_SS_B      = bookHistogram1D( 2,1,2);
-      _hist_mll_SS_2Jet_D    = bookHistogram1D( 3,1,1);
-      _hist_mll_SS_2Jet_B    = bookHistogram1D( 3,1,2);
-      _hist_njet_SS_D        = bookHistogram1D( 5,1,1);
-      _hist_njet_SS_B        = bookHistogram1D( 5,1,2);
-      _hist_pT_j1_SS_D       = bookHistogram1D( 6,1,1);
-      _hist_pT_j1_SS_B       = bookHistogram1D( 6,1,2);
-      _hist_pT_j2_SS_D       = bookHistogram1D( 7,1,1);
-      _hist_pT_j2_SS_B       = bookHistogram1D( 7,1,2);
-      _hist_pT_l1_SS_D       = bookHistogram1D( 8,1,1);
-      _hist_pT_l1_SS_B       = bookHistogram1D( 8,1,2);
-      _hist_pT_l2_SS_D       = bookHistogram1D( 9,1,1);
-      _hist_pT_l2_SS_B       = bookHistogram1D( 9,1,2);
-      _hist_mll_OS_D         = bookHistogram1D(10,1,1);
-      _hist_mll_OS_B         = bookHistogram1D(10,1,2);
-      _hist_eTmiss_OS_D      = bookHistogram1D(11,1,1);
-      _hist_eTmiss_OS_B      = bookHistogram1D(11,1,2);
-      _hist_eTmiss_3Jet_OS_D = bookHistogram1D(12,1,1);
-      _hist_eTmiss_3Jet_OS_B = bookHistogram1D(12,1,2);
-      _hist_eTmiss_4Jet_OS_D = bookHistogram1D(13,1,1);
-      _hist_eTmiss_4Jet_OS_B = bookHistogram1D(13,1,2);
-      _hist_njet_OS_D        = bookHistogram1D(14,1,1);
-      _hist_njet_OS_B        = bookHistogram1D(14,1,2);
-      _hist_pT_j1_OS_D       = bookHistogram1D(15,1,1);
-      _hist_pT_j1_OS_B       = bookHistogram1D(15,1,2);
-      _hist_pT_j2_OS_D       = bookHistogram1D(16,1,1);
-      _hist_pT_j2_OS_B       = bookHistogram1D(16,1,2);
-      _hist_pT_l1_OS_D       = bookHistogram1D(17,1,1);
-      _hist_pT_l1_OS_B       = bookHistogram1D(17,1,2);
-      _hist_pT_l2_OS_D       = bookHistogram1D(18,1,1);
-      _hist_pT_l2_OS_B       = bookHistogram1D(18,1,2);
+      _hist_mll_SS_D         = bookHisto1D( 1,1,1);
+      _hist_mll_SS_B         = bookHisto1D( 1,1,2);
+      _hist_eTmiss_SS_D      = bookHisto1D( 2,1,1);
+      _hist_eTmiss_SS_B      = bookHisto1D( 2,1,2);
+      _hist_mll_SS_2Jet_D    = bookHisto1D( 3,1,1);
+      _hist_mll_SS_2Jet_B    = bookHisto1D( 3,1,2);
+      _hist_njet_SS_D        = bookHisto1D( 5,1,1);
+      _hist_njet_SS_B        = bookHisto1D( 5,1,2);
+      _hist_pT_j1_SS_D       = bookHisto1D( 6,1,1);
+      _hist_pT_j1_SS_B       = bookHisto1D( 6,1,2);
+      _hist_pT_j2_SS_D       = bookHisto1D( 7,1,1);
+      _hist_pT_j2_SS_B       = bookHisto1D( 7,1,2);
+      _hist_pT_l1_SS_D       = bookHisto1D( 8,1,1);
+      _hist_pT_l1_SS_B       = bookHisto1D( 8,1,2);
+      _hist_pT_l2_SS_D       = bookHisto1D( 9,1,1);
+      _hist_pT_l2_SS_B       = bookHisto1D( 9,1,2);
+      _hist_mll_OS_D         = bookHisto1D(10,1,1);
+      _hist_mll_OS_B         = bookHisto1D(10,1,2);
+      _hist_eTmiss_OS_D      = bookHisto1D(11,1,1);
+      _hist_eTmiss_OS_B      = bookHisto1D(11,1,2);
+      _hist_eTmiss_3Jet_OS_D = bookHisto1D(12,1,1);
+      _hist_eTmiss_3Jet_OS_B = bookHisto1D(12,1,2);
+      _hist_eTmiss_4Jet_OS_D = bookHisto1D(13,1,1);
+      _hist_eTmiss_4Jet_OS_B = bookHisto1D(13,1,2);
+      _hist_njet_OS_D        = bookHisto1D(14,1,1);
+      _hist_njet_OS_B        = bookHisto1D(14,1,2);
+      _hist_pT_j1_OS_D       = bookHisto1D(15,1,1);
+      _hist_pT_j1_OS_B       = bookHisto1D(15,1,2);
+      _hist_pT_j2_OS_D       = bookHisto1D(16,1,1);
+      _hist_pT_j2_OS_B       = bookHisto1D(16,1,2);
+      _hist_pT_l1_OS_D       = bookHisto1D(17,1,1);
+      _hist_pT_l1_OS_B       = bookHisto1D(17,1,2);
+      _hist_pT_l2_OS_D       = bookHisto1D(18,1,1);
+      _hist_pT_l2_OS_B       = bookHisto1D(18,1,2);
       //????
       //   <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/ATLAS_2011_I943401" title="EVENTS/10 GEV" >
       //   <dataPointSet name="d04-x01-y02" dimension="2" path="/REF/ATLAS_2011_I943401" title="EVENTS/10 GEV" >
@@ -419,50 +419,50 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _count_OS_SR1;
-    AIDA::IHistogram1D* _count_OS_SR2;
-    AIDA::IHistogram1D* _count_OS_SR3;
-    AIDA::IHistogram1D* _count_SS_SR1;
-    AIDA::IHistogram1D* _count_SS_SR2;
-    AIDA::IHistogram1D* _count_FS_SR1;
-    AIDA::IHistogram1D* _count_FS_SR2;
-    AIDA::IHistogram1D* _count_FS_SR3;
+    Histo1DPtr _count_OS_SR1;
+    Histo1DPtr _count_OS_SR2;
+    Histo1DPtr _count_OS_SR3;
+    Histo1DPtr _count_SS_SR1;
+    Histo1DPtr _count_SS_SR2;
+    Histo1DPtr _count_FS_SR1;
+    Histo1DPtr _count_FS_SR2;
+    Histo1DPtr _count_FS_SR3;
 
-    AIDA::IHistogram1D* _hist_mll_SS_D;
-    AIDA::IHistogram1D* _hist_mll_SS_B;
-    AIDA::IHistogram1D* _hist_eTmiss_SS_D;
-    AIDA::IHistogram1D* _hist_eTmiss_SS_B;
-    AIDA::IHistogram1D* _hist_mll_SS_2Jet_D;
-    AIDA::IHistogram1D* _hist_mll_SS_2Jet_B;
-    AIDA::IHistogram1D* _hist_njet_SS_D;
-    AIDA::IHistogram1D* _hist_njet_SS_B;
-    AIDA::IHistogram1D* _hist_pT_j1_SS_D;
-    AIDA::IHistogram1D* _hist_pT_j1_SS_B;
-    AIDA::IHistogram1D* _hist_pT_j2_SS_D;
-    AIDA::IHistogram1D* _hist_pT_j2_SS_B;
-    AIDA::IHistogram1D* _hist_pT_l1_SS_D;
-    AIDA::IHistogram1D* _hist_pT_l1_SS_B;
-    AIDA::IHistogram1D* _hist_pT_l2_SS_D;
-    AIDA::IHistogram1D* _hist_pT_l2_SS_B;
+    Histo1DPtr _hist_mll_SS_D;
+    Histo1DPtr _hist_mll_SS_B;
+    Histo1DPtr _hist_eTmiss_SS_D;
+    Histo1DPtr _hist_eTmiss_SS_B;
+    Histo1DPtr _hist_mll_SS_2Jet_D;
+    Histo1DPtr _hist_mll_SS_2Jet_B;
+    Histo1DPtr _hist_njet_SS_D;
+    Histo1DPtr _hist_njet_SS_B;
+    Histo1DPtr _hist_pT_j1_SS_D;
+    Histo1DPtr _hist_pT_j1_SS_B;
+    Histo1DPtr _hist_pT_j2_SS_D;
+    Histo1DPtr _hist_pT_j2_SS_B;
+    Histo1DPtr _hist_pT_l1_SS_D;
+    Histo1DPtr _hist_pT_l1_SS_B;
+    Histo1DPtr _hist_pT_l2_SS_D;
+    Histo1DPtr _hist_pT_l2_SS_B;
 
-    AIDA::IHistogram1D* _hist_mll_OS_D;
-    AIDA::IHistogram1D* _hist_mll_OS_B;
-    AIDA::IHistogram1D* _hist_eTmiss_OS_D;
-    AIDA::IHistogram1D* _hist_eTmiss_OS_B;
-    AIDA::IHistogram1D* _hist_eTmiss_3Jet_OS_D;
-    AIDA::IHistogram1D* _hist_eTmiss_3Jet_OS_B;
-    AIDA::IHistogram1D* _hist_eTmiss_4Jet_OS_D;
-    AIDA::IHistogram1D* _hist_eTmiss_4Jet_OS_B;
-    AIDA::IHistogram1D* _hist_njet_OS_D ;
-    AIDA::IHistogram1D* _hist_njet_OS_B ;
-    AIDA::IHistogram1D* _hist_pT_j1_OS_D;
-    AIDA::IHistogram1D* _hist_pT_j1_OS_B;
-    AIDA::IHistogram1D* _hist_pT_j2_OS_D;
-    AIDA::IHistogram1D* _hist_pT_j2_OS_B;
-    AIDA::IHistogram1D* _hist_pT_l1_OS_D;
-    AIDA::IHistogram1D* _hist_pT_l1_OS_B;
-    AIDA::IHistogram1D* _hist_pT_l2_OS_D;
-    AIDA::IHistogram1D* _hist_pT_l2_OS_B;
+    Histo1DPtr _hist_mll_OS_D;
+    Histo1DPtr _hist_mll_OS_B;
+    Histo1DPtr _hist_eTmiss_OS_D;
+    Histo1DPtr _hist_eTmiss_OS_B;
+    Histo1DPtr _hist_eTmiss_3Jet_OS_D;
+    Histo1DPtr _hist_eTmiss_3Jet_OS_B;
+    Histo1DPtr _hist_eTmiss_4Jet_OS_D;
+    Histo1DPtr _hist_eTmiss_4Jet_OS_B;
+    Histo1DPtr _hist_njet_OS_D ;
+    Histo1DPtr _hist_njet_OS_B ;
+    Histo1DPtr _hist_pT_j1_OS_D;
+    Histo1DPtr _hist_pT_j1_OS_B;
+    Histo1DPtr _hist_pT_j2_OS_D;
+    Histo1DPtr _hist_pT_j2_OS_B;
+    Histo1DPtr _hist_pT_l1_OS_D;
+    Histo1DPtr _hist_pT_l1_OS_B;
+    Histo1DPtr _hist_pT_l2_OS_D;
+    Histo1DPtr _hist_pT_l2_OS_B;
     //@}
   };
 

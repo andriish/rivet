@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
@@ -34,13 +34,13 @@ namespace Rivet {
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
 
-      _histStablePIDs  = bookHistogram1D("MultsStablePIDs", 3335, -0.5, 3334.5);
-      _histDecayedPIDs = bookHistogram1D("MultsDecayedPIDs", 3335, -0.5, 3334.5);
-      _histAllPIDs     = bookHistogram1D("MultsAllPIDs", 3335, -0.5, 3334.5);
+      _histStablePIDs  = bookHisto1D("MultsStablePIDs", 3335, -0.5, 3334.5);
+      _histDecayedPIDs = bookHisto1D("MultsDecayedPIDs", 3335, -0.5, 3334.5);
+      _histAllPIDs     = bookHisto1D("MultsAllPIDs", 3335, -0.5, 3334.5);
 
-      _histEtaPi       = bookHistogram1D("EtaPi", 25, 0, 5);
-      _histEtaK        = bookHistogram1D("EtaK", 25, 0, 5);
-      _histEtaLambda   = bookHistogram1D("EtaLambda", 25, 0, 5);
+      _histEtaPi       = bookHisto1D("EtaPi", 25, 0, 5);
+      _histEtaK        = bookHisto1D("EtaK", 25, 0, 5);
+      _histEtaLambda   = bookHisto1D("EtaLambda", 25, 0, 5);
     }
 
 
@@ -92,8 +92,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_histStablePIDs, *_histDecayedPIDs, *_histAllPIDs;
-    AIDA::IHistogram1D *_histEtaPi, *_histEtaK, *_histEtaLambda;
+    Histo1DPtr _histStablePIDs, _histDecayedPIDs, _histAllPIDs;
+    Histo1DPtr _histEtaPi, _histEtaK, _histEtaLambda;
     //@}
 
   };

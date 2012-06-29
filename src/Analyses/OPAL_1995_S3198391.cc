@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -28,7 +28,7 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
       addProjection(UnstableFinalState(), "UFS");
-      _histXpDelta   = bookHistogram1D( 1, 1, 1);
+      _histXpDelta   = bookHisto1D( 1, 1, 1);
     }
 
 
@@ -55,11 +55,11 @@ namespace Rivet {
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      
+
       foreach (const Particle& p, ufs.particles()) {
-	if(abs(p.pdgId())==2224) {
-	  double xp = p.momentum().vector3().mod()/meanBeamMom;
-	  _histXpDelta->fill(xp, weight);
+        if(abs(p.pdgId())==2224) {
+          double xp = p.momentum().vector3().mod()/meanBeamMom;
+          _histXpDelta->fill(xp, weight);
         }
       }
     }
@@ -75,7 +75,7 @@ namespace Rivet {
 
   private:
 
-      AIDA::IHistogram1D *_histXpDelta;
+      Histo1DPtr _histXpDelta;
     //@}
 
   };

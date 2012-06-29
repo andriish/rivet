@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Particle.fhh"
@@ -41,10 +41,10 @@ namespace Rivet {
       addProjection(zfinder_bare_mu, "ZFinder_bare_mu");
 
       // Book histograms
-      _hist_zpt_el_dressed     = bookHistogram1D(1, 1, 2);  // electron "dressed"
-      _hist_zpt_el_bare        = bookHistogram1D(1, 1, 3);  // electron "bare"
-      _hist_zpt_mu_dressed     = bookHistogram1D(2, 1, 2);  // muon "dressed"
-      _hist_zpt_mu_bare        = bookHistogram1D(2, 1, 3);  // muon "bare"
+      _hist_zpt_el_dressed     = bookHisto1D(1, 1, 2);  // electron "dressed"
+      _hist_zpt_el_bare        = bookHisto1D(1, 1, 3);  // electron "bare"
+      _hist_zpt_mu_dressed     = bookHisto1D(2, 1, 2);  // muon "dressed"
+      _hist_zpt_mu_bare        = bookHisto1D(2, 1, 3);  // muon "bare"
     }
 
 
@@ -98,10 +98,10 @@ namespace Rivet {
 	double _sumw_el_bare, _sumw_el_dressed;
 	double _sumw_mu_bare, _sumw_mu_dressed;
 
-	AIDA::IHistogram1D* _hist_zpt_el_dressed;
-	AIDA::IHistogram1D* _hist_zpt_el_bare;
-	AIDA::IHistogram1D* _hist_zpt_mu_dressed;
-	AIDA::IHistogram1D* _hist_zpt_mu_bare;
+	Histo1DPtr _hist_zpt_el_dressed;
+	Histo1DPtr _hist_zpt_el_bare;
+	Histo1DPtr _hist_zpt_mu_dressed;
+	Histo1DPtr _hist_zpt_mu_bare;
   };
 
 

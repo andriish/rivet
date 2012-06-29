@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
@@ -19,12 +19,12 @@ namespace Rivet {
 
       for (int d=1; d<=3; d++) {
         for (int y=1; y<=4; y++) {
-          _h_dNch_dpT.push_back(bookHistogram1D(d, 1, y));
+          _h_dNch_dpT.push_back(bookHisto1D(d, 1, y));
         }
       }
 
-      _h_dNch_dpT_all = bookHistogram1D(4, 1, 1);
-      _h_dNch_dEta = bookHistogram1D(5, 1, 1);
+      _h_dNch_dpT_all = bookHisto1D(4, 1, 1);
+      _h_dNch_dEta = bookHisto1D(5, 1, 1);
     }
 
 
@@ -76,9 +76,9 @@ namespace Rivet {
 
   private:
 
-    std::vector<AIDA::IHistogram1D*> _h_dNch_dpT;
-    AIDA::IHistogram1D* _h_dNch_dpT_all;
-    AIDA::IHistogram1D* _h_dNch_dEta;
+    std::vector<Histo1DPtr> _h_dNch_dpT;
+    Histo1DPtr _h_dNch_dpT_all;
+    Histo1DPtr _h_dNch_dEta;
 
   };
 

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -28,20 +28,20 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
       addProjection(UnstableFinalState(), "UFS");
-      _histXePhoton   = bookHistogram1D( 2, 1, 1);
-      _histXiPhoton   = bookHistogram1D( 3, 1, 1);
-      _histXePi       = bookHistogram1D( 4, 1, 1);
-      _histXiPi       = bookHistogram1D( 5, 1, 1);
-      _histXeEta      = bookHistogram1D( 6, 1, 1);
-      _histXiEta      = bookHistogram1D( 7, 1, 1);
-      _histXeRho      = bookHistogram1D( 8, 1, 1);
-      _histXiRho      = bookHistogram1D( 9, 1, 1);
-      _histXeOmega    = bookHistogram1D(10, 1, 1);
-      _histXiOmega    = bookHistogram1D(11, 1, 1);
-      _histXeEtaPrime = bookHistogram1D(12, 1, 1);
-      _histXiEtaPrime = bookHistogram1D(13, 1, 1);
-      _histXeA0       = bookHistogram1D(14, 1, 1);
-      _histXiA0       = bookHistogram1D(15, 1, 1);
+      _histXePhoton   = bookHisto1D( 2, 1, 1);
+      _histXiPhoton   = bookHisto1D( 3, 1, 1);
+      _histXePi       = bookHisto1D( 4, 1, 1);
+      _histXiPi       = bookHisto1D( 5, 1, 1);
+      _histXeEta      = bookHisto1D( 6, 1, 1);
+      _histXiEta      = bookHisto1D( 7, 1, 1);
+      _histXeRho      = bookHisto1D( 8, 1, 1);
+      _histXiRho      = bookHisto1D( 9, 1, 1);
+      _histXeOmega    = bookHisto1D(10, 1, 1);
+      _histXiOmega    = bookHisto1D(11, 1, 1);
+      _histXeEtaPrime = bookHisto1D(12, 1, 1);
+      _histXiEtaPrime = bookHisto1D(13, 1, 1);
+      _histXeA0       = bookHisto1D(14, 1, 1);
+      _histXiA0       = bookHisto1D(15, 1, 1);
     }
 
 
@@ -71,37 +71,37 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         const int id = abs(p.pdgId());
-	double xi = -log(p.momentum().vector3().mod()/meanBeamMom);
-	double xE = p.momentum().t()/meanBeamMom;
+        double xi = -log(p.momentum().vector3().mod()/meanBeamMom);
+        double xE = p.momentum().t()/meanBeamMom;
         switch (id) {
-	case 22:
-	  _histXePhoton->fill(xE, weight);
-	  _histXiPhoton->fill(xi, weight);
-	  break;
-	case 111:
-	  _histXePi->fill(xE, weight);
-	  _histXiPi->fill(xi, weight);
-	  break;
-	case 211:
-	  _histXeEta->fill(xE, weight);
-	  _histXiEta->fill(xi, weight);
-	  break;
-	case 213:
-	  _histXeRho->fill(xE, weight);
-	  _histXiRho->fill(xi, weight);
-	  break;
-	case 223:
-	  _histXeOmega->fill(xE, weight);
-	  _histXiOmega->fill(xi, weight);
-	  break;
-	case 331:
-	  _histXeEtaPrime->fill(xE, weight);
-	  _histXiEtaPrime->fill(xi, weight);
-	  break;
-	case 9000111:
-	  _histXeA0->fill(xE, weight);
-	  _histXiA0->fill(xi, weight);
-	  break;
+        case 22:
+          _histXePhoton->fill(xE, weight);
+          _histXiPhoton->fill(xi, weight);
+          break;
+        case 111:
+          _histXePi->fill(xE, weight);
+          _histXiPi->fill(xi, weight);
+          break;
+        case 211:
+          _histXeEta->fill(xE, weight);
+          _histXiEta->fill(xi, weight);
+          break;
+        case 213:
+          _histXeRho->fill(xE, weight);
+          _histXiRho->fill(xi, weight);
+          break;
+        case 223:
+          _histXeOmega->fill(xE, weight);
+          _histXiOmega->fill(xi, weight);
+          break;
+        case 331:
+          _histXeEtaPrime->fill(xE, weight);
+          _histXiEtaPrime->fill(xi, weight);
+          break;
+        case 9000111:
+          _histXeA0->fill(xE, weight);
+          _histXiA0->fill(xi, weight);
+          break;
         }
       }
     }
@@ -130,20 +130,20 @@ namespace Rivet {
 
   private:
 
-      AIDA::IHistogram1D *_histXePhoton  ;
-      AIDA::IHistogram1D *_histXiPhoton  ;
-      AIDA::IHistogram1D *_histXePi      ;
-      AIDA::IHistogram1D *_histXiPi      ;
-      AIDA::IHistogram1D *_histXeEta     ;
-      AIDA::IHistogram1D *_histXiEta     ;
-      AIDA::IHistogram1D *_histXeRho     ;
-      AIDA::IHistogram1D *_histXiRho     ;
-      AIDA::IHistogram1D *_histXeOmega   ;
-      AIDA::IHistogram1D *_histXiOmega   ;
-      AIDA::IHistogram1D *_histXeEtaPrime;
-      AIDA::IHistogram1D *_histXiEtaPrime;
-      AIDA::IHistogram1D *_histXeA0      ;
-      AIDA::IHistogram1D *_histXiA0      ;
+      Histo1DPtr _histXePhoton  ;
+      Histo1DPtr _histXiPhoton  ;
+      Histo1DPtr _histXePi      ;
+      Histo1DPtr _histXiPi      ;
+      Histo1DPtr _histXeEta     ;
+      Histo1DPtr _histXiEta     ;
+      Histo1DPtr _histXeRho     ;
+      Histo1DPtr _histXiRho     ;
+      Histo1DPtr _histXeOmega   ;
+      Histo1DPtr _histXiOmega   ;
+      Histo1DPtr _histXeEtaPrime;
+      Histo1DPtr _histXiEtaPrime;
+      Histo1DPtr _histXeA0      ;
+      Histo1DPtr _histXiA0      ;
     //@}
 
   };

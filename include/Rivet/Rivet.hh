@@ -22,8 +22,6 @@ namespace Rivet {
 
   /// A sensible default maximum value of rapidity for Rivet analyses to use.
   static const double MAXRAPIDITY = 100000.0;
-  /// @deprecated
-  static const double MaxRapidity = 100000.0;
 
   /// A function to get the Rivet version string
   string version();
@@ -32,7 +30,7 @@ namespace Rivet {
 
 
 // AIDA headers
-#include "Rivet/RivetAIDA.fhh"
+#include "Rivet/RivetYODA.fhh"
 
 // HepMC headers and helper functions
 #include "Rivet/RivetHepMC.hh"

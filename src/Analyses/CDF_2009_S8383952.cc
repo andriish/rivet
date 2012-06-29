@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ZFinder.hh"
@@ -41,8 +41,8 @@ namespace Rivet {
 
 
       /// Book histograms here
-      _h_xs = bookHistogram1D(1, 1, 1);
-      _h_yZ = bookHistogram1D(2, 1, 1);
+      _h_xs = bookHisto1D(1, 1, 1);
+      _h_yZ = bookHisto1D(2, 1, 1);
 
     }
 
@@ -79,8 +79,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_h_yZ;
-    AIDA::IHistogram1D *_h_xs;
+    Histo1DPtr _h_yZ;
+    Histo1DPtr _h_xs;
     //@}
 
   };

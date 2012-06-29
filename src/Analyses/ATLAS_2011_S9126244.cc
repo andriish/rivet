@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -8,7 +8,6 @@
 #include "Rivet/Tools/BinnedHistogram.hh"
 
 namespace Rivet {
-
 
   struct ATLAS_2011_S9126244_Plots {
 
@@ -31,19 +30,19 @@ namespace Rivet {
     int m_gapFractionQ0HistIndex;
     std::vector<double> m_gapFractionQ0SlicesPtBar;
     std::vector<double> m_gapFractionQ0SlicesDeltaY;
-    std::vector<AIDA::IHistogram1D*> _h_vetoPt;
-    std::vector<AIDA::IDataPointSet*> _d_vetoPtGapFraction;
+    std::vector<Histo1DPtr> _h_vetoPt;
+    std::vector<Scatter2DPtr> _d_vetoPtGapFraction;
     std::vector<double> _h_vetoPtTotalSum;
 
     // Average NJet Vs DeltaY Setup
     int m_avgNJetDeltaYHistIndex;
     std::vector<double> m_avgNJetDeltaYSlices;
-    std::vector<AIDA::IProfile1D*> _p_avgJetVsDeltaY;
+    std::vector<Profile1DPtr> _p_avgJetVsDeltaY;
 
     // Average NJet Vs PtBar Setup
     int m_avgNJetPtBarHistIndex;
     std::vector<double> m_avgNJetPtBarSlices;
-    std::vector<AIDA::IProfile1D*> _p_avgJetVsPtBar;
+    std::vector<Profile1DPtr> _p_avgJetVsPtBar;
   };
 
 
@@ -114,55 +113,57 @@ namespace Rivet {
     void initializePlots(ATLAS_2011_S9126244_Plots& plots) {
 
       // Gap Fraction Vs DeltaY
-      for (int x = 0; x < ((int)plots.m_gapFractionDeltaYSlices.size()-1); x++) {
+      for (int x=0; x<((int)plots.m_gapFractionDeltaYSlices.size()-1); x++) {
         std::stringstream vetoHistName;
         std::stringstream inclusiveHistName;
-        const BinEdges deltaYEdges = binEdges(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType);
 
         vetoHistName << "gapDeltaYVeto_" << plots.intermediateHistName << "_" << x;
         inclusiveHistName << "gapDeltaYInclusive_" << plots.intermediateHistName << "_" << x;
 
-        plots._h_gapVsDeltaYVeto.addHistogram(plots.m_gapFractionDeltaYSlices[x], plots.m_gapFractionDeltaYSlices[x+1], bookHistogram1D(vetoHistName.str(), deltaYEdges));
-        plots._h_gapVsDeltaYInc.addHistogram(plots.m_gapFractionDeltaYSlices[x], plots.m_gapFractionDeltaYSlices[x+1], bookHistogram1D(inclusiveHistName.str(), deltaYEdges));
+        plots._h_gapVsDeltaYVeto.addHistogram(plots.m_gapFractionDeltaYSlices[x], plots.m_gapFractionDeltaYSlices[x+1],
+            bookHisto1D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType, vetoHistName.str()));
+        plots._h_gapVsDeltaYInc.addHistogram(plots.m_gapFractionDeltaYSlices[x], plots.m_gapFractionDeltaYSlices[x+1],
+            bookHisto1D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType, inclusiveHistName.str()));
       }
 
       // Average NJet Vs DeltaY
-      for (int x = 0; x < ((int)plots.m_avgNJetDeltaYSlices.size()-1); x++) {
+      for (int x=0; x<((int)plots.m_avgNJetDeltaYSlices.size()-1); x++) {
         plots._p_avgJetVsDeltaY += bookProfile1D(plots.m_avgNJetDeltaYHistIndex+x, 1, plots.selectionType);
       }
 
       // Gap Fraction Vs PtBar
-      for (int x = 0; x < ((int)plots.m_gapFractionPtBarSlices.size()-1); x++) {
+      for (int x=0; x<((int)plots.m_gapFractionPtBarSlices.size()-1); x++) {
 
         std::stringstream vetoHistName;
         std::stringstream inclusiveHistName;
-        const BinEdges ptBarEdges = binEdges(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType);
 
         vetoHistName << "gapPtBarVeto_" << plots.intermediateHistName << "_" << x;
         inclusiveHistName << "gapPtBarInclusive_" << plots.intermediateHistName << "_" << x;
 
-        plots._h_gapVsPtBarVeto.addHistogram(plots.m_gapFractionPtBarSlices[x], plots.m_gapFractionPtBarSlices[x+1], bookHistogram1D(vetoHistName.str(), ptBarEdges));
-        plots._h_gapVsPtBarInc.addHistogram(plots.m_gapFractionPtBarSlices[x], plots.m_gapFractionPtBarSlices[x+1], bookHistogram1D(inclusiveHistName.str(), ptBarEdges));
+        plots._h_gapVsPtBarVeto.addHistogram(plots.m_gapFractionPtBarSlices[x], plots.m_gapFractionPtBarSlices[x+1],
+            bookHisto1D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType, vetoHistName.str()));
+        plots._h_gapVsPtBarInc.addHistogram(plots.m_gapFractionPtBarSlices[x], plots.m_gapFractionPtBarSlices[x+1],
+            bookHisto1D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType, inclusiveHistName.str()));
       }
 
       // Average NJet Vs PtBar
-      for (int x = 0; x < ((int)plots.m_avgNJetPtBarSlices.size()-1); x++) {
+      for (int x=0; x<((int)plots.m_avgNJetPtBarSlices.size()-1); x++) {
         plots._p_avgJetVsPtBar += bookProfile1D(plots.m_avgNJetPtBarHistIndex+x, 1, plots.selectionType);
       }
 
       // Gap fraction Vs Q0
       int q0PlotCount = 0;
-      for (int x = 0; x < ((int)plots.m_gapFractionQ0SlicesPtBar.size()/2); x++) {
-        for (int y = 0; y < ((int)plots.m_gapFractionQ0SlicesDeltaY.size()/2); y++) {
+      for (int x=0; x<((int)plots.m_gapFractionQ0SlicesPtBar.size()/2); x++) {
+        for (int y=0; y<((int)plots.m_gapFractionQ0SlicesDeltaY.size()/2); y++) {
           std::stringstream vetoPtHistName;
           std::stringstream vetoPtGapDataPointName;
 
           vetoPtHistName << "vetoPt_" << plots.intermediateHistName << "_" << q0PlotCount;
           vetoPtGapDataPointName << "gapQ0GapFractionDataPoints_" << plots.intermediateHistName << "_" << q0PlotCount;
 
-          plots._h_vetoPt += bookHistogram1D(vetoPtHistName.str(),
+          plots._h_vetoPt += bookHisto1D(vetoPtHistName.str(),
                                              m_q0BinEdges);
-          plots._d_vetoPtGapFraction += bookDataPointSet(plots.m_gapFractionQ0HistIndex+q0PlotCount, 1, plots.selectionType);
+          plots._d_vetoPtGapFraction += bookScatter2D(plots.m_gapFractionQ0HistIndex+q0PlotCount, 1, plots.selectionType);
           plots._h_vetoPtTotalSum += 0.0;
           q0PlotCount++;
         }
@@ -328,63 +329,65 @@ namespace Rivet {
 
     /// Derive final distributions for each selection
     void finalize() {
-      foreach (const ATLAS_2011_S9126244_Plots& plots, m_selectionPlots) {
-        // Calculate the gap fraction for each slice
-        for (size_t x = 0; x < plots._h_gapVsDeltaYVeto.getHistograms().size(); x++) {
-          histogramFactory().divide(histoPath(makeAxisCode(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType)),
-                                    *(plots._h_gapVsDeltaYVeto.getHistograms()[x]),
-                                    *(plots._h_gapVsDeltaYInc.getHistograms()[x]));
-          histogramFactory().destroy(plots._h_gapVsDeltaYVeto.getHistograms()[x]);
-          histogramFactory().destroy(plots._h_gapVsDeltaYInc.getHistograms()[x]);
-        }
+      /// \todo YODA divide and binEdges
+      /// foreach (const ATLAS_2011_S9126244_Plots& plots, m_selectionPlots) {
+      ///    // Calculate the gap fraction for each slice
+      ///    for (size_t x=0; x<plots._h_gapVsDeltaYVeto.getHistograms().size(); x++) {
+      ///      histogramFactory().divide(histoPath(makeAxisCode(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType)),
+      ///                                *(plots._h_gapVsDeltaYVeto.getHistograms()[x]),
+      ///                                *(plots._h_gapVsDeltaYInc.getHistograms()[x]));
+      ///      histogramFactory().destroy(plots._h_gapVsDeltaYVeto.getHistograms()[x]);
+      ///      histogramFactory().destroy(plots._h_gapVsDeltaYInc.getHistograms()[x]);
+      ///    }
 
-        for (size_t x = 0; x < plots._h_gapVsPtBarVeto.getHistograms().size(); x++) {
-          histogramFactory().divide(histoPath(makeAxisCode(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType)),
-                                    *(plots._h_gapVsPtBarVeto.getHistograms()[x]),
-                                    *(plots._h_gapVsPtBarInc.getHistograms()[x]));
-          histogramFactory().destroy(plots._h_gapVsPtBarVeto.getHistograms()[x]);
-          histogramFactory().destroy(plots._h_gapVsPtBarInc.getHistograms()[x]);
-        }
+      ///    for (size_t x=0; x<plots._h_gapVsPtBarVeto.getHistograms().size(); x++) {
+      ///      histogramFactory().divide(histoPath(makeAxisCode(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType)),
+      ///                                *(plots._h_gapVsPtBarVeto.getHistograms()[x]),
+      ///                                *(plots._h_gapVsPtBarInc.getHistograms()[x]));
+      ///      histogramFactory().destroy(plots._h_gapVsPtBarVeto.getHistograms()[x]);
+      ///      histogramFactory().destroy(plots._h_gapVsPtBarInc.getHistograms()[x]);
+      ///    }
 
-        for (size_t h = 0; h < plots._d_vetoPtGapFraction.size(); h++) {
-          // Get the number of bins needed for this slice
-          const BinEdges q0Edges = binEdges(plots.m_gapFractionQ0HistIndex+h, 1, plots.selectionType);
-          finalizeQ0GapFraction(plots._h_vetoPtTotalSum[h],
-                                plots._d_vetoPtGapFraction[h],
-                                plots._h_vetoPt[h],
-                                q0Edges.size());
-        }
-      }
+      ///    for (size_t h=0; h<plots._d_vetoPtGapFraction.size(); h++) {
+      ///      //Get the number of bins needed for this slice
+      ///      const BinEdges q0Edges = binEdges(plots.m_gapFractionQ0HistIndex+h, 1, plots.selectionType);
+      ///      finalizeQ0GapFraction(plots._h_vetoPtTotalSum[h],
+      ///                            plots._d_vetoPtGapFraction[h],
+      ///                            plots._h_vetoPt[h],
+      ///                            q0Edges.size());
+      ///    }
+      /// }
     }
 
 
-    void finalizeQ0GapFraction(double totalWeightSum,
-                               AIDA::IDataPointSet* gapFractionDP,
-                               AIDA::IHistogram1D* vetoPtHist,
-                               int binNumber) {
-      double vetoPtWeightSum = 0.0;
-      for (int x = 0; x < binNumber-1; x++) {
-        vetoPtWeightSum += vetoPtHist->binHeight(x);
+    /// \todo YODA
+    /// void finalizeQ0GapFraction(double totalWeightSum,
+    ///                            Scatter2DPtr gapFractionDP,
+    ///                            Histo1DPtr vetoPtHist,
+    ///                            int binNumber) {
+    ///   double vetoPtWeightSum = 0.0;
+    ///   for (int x=0; x<binNumber-1; x++) {
+    ///    vetoPtWeightSum += vetoPtHist->bin(x).area();
 
-        // Alternatively try saving as data points
-        IDataPoint* currentPoint = gapFractionDP->point(x);
-        IMeasurement* xCoord = currentPoint->coordinate(0);
-        IMeasurement* yCoord = currentPoint->coordinate(1);
+    ///     //Alternatively try saving as data points
+    ///     IDataPoint* currentPoint = gapFractionDP->point(x);
+    ///     IMeasurement* xCoord = currentPoint->coordinate(0);
+    ///     IMeasurement* yCoord = currentPoint->coordinate(1);
 
-        // Calculate the efficiency uncertainty
-        double efficiency = vetoPtWeightSum/totalWeightSum;
-        double efficiencyError = std::sqrt(efficiency*(1.0-efficiency)/totalWeightSum);
-        if (totalWeightSum==0.) efficiency = efficiencyError = 0.;
+    ///     //Calculate the efficiency uncertainty
+    ///     double efficiency = vetoPtWeightSum/totalWeightSum;
+    ///     double efficiencyError = std::sqrt(efficiency*(1.0-efficiency)/totalWeightSum);
+    ///     if (totalWeightSum==0.) efficiency = efficiencyError = 0.;
 
-        xCoord->setValue(m_q0BinEdges[x+1]);
-        xCoord->setErrorPlus(2.5);
-        xCoord->setErrorMinus(2.5);
-        yCoord->setValue(efficiency);
-        yCoord->setErrorPlus(efficiencyError);
-        yCoord->setErrorMinus(efficiencyError);
-      }
-      histogramFactory().destroy(vetoPtHist);
-    }
+    ///     xCoord->setValue(m_q0BinEdges[x+1]);
+    ///     xCoord->setErrorPlus(2.5);
+    ///     xCoord->setErrorMinus(2.5);
+    ///     yCoord->setValue(efficiency);
+    ///     yCoord->setErrorPlus(efficiencyError);
+    ///     yCoord->setErrorMinus(efficiencyError);
+    ///   }
+    ///   histogramFactory().destroy(vetoPtHist);
+    /// }
 
 
   private:
@@ -399,7 +402,6 @@ namespace Rivet {
     ATLAS_2011_S9126244_Plots m_selectionPlots[3];
 
   };
-
 
 
   // The hook for the plugin system

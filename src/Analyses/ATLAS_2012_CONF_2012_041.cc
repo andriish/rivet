@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -63,13 +63,13 @@ namespace Rivet {
       addProjection(VisibleFinalState(-4.9,4.9),"vfs");
 
       // Book histograms
-      _count_3jet_channel = bookHistogram1D("count_3jet_channel", 1, 0., 1.);
-      _count_4jet_channel = bookHistogram1D("count_4jet_channel", 1, 0., 1.);
-      _count_soft_channel = bookHistogram1D("count_soft_channel", 1, 0., 1.);
+      _count_3jet_channel = bookHisto1D("count_3jet_channel", 1, 0., 1.);
+      _count_4jet_channel = bookHisto1D("count_4jet_channel", 1, 0., 1.);
+      _count_soft_channel = bookHisto1D("count_soft_channel", 1, 0., 1.);
 
-      _hist_m_eff_3jet        = bookHistogram1D("hist_m_eff_3jet"       ,  6, 400., 1600.);
-      _hist_m_eff_4jet        = bookHistogram1D("hist_m_eff_4jet"       ,  6, 400., 1600.);
-      _hist_eTmiss_m_eff_soft = bookHistogram1D("hist_eTmiss_m_eff_soft",  6, 0.1 , 0.7  );
+      _hist_m_eff_3jet        = bookHisto1D("hist_m_eff_3jet"       ,  6, 400., 1600.);
+      _hist_m_eff_4jet        = bookHisto1D("hist_m_eff_4jet"       ,  6, 400., 1600.);
+      _hist_eTmiss_m_eff_soft = bookHisto1D("hist_eTmiss_m_eff_soft",  6, 0.1 , 0.7  );
 
     }
 
@@ -292,13 +292,13 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _count_3jet_channel;
-    AIDA::IHistogram1D* _count_4jet_channel;
-    AIDA::IHistogram1D* _count_soft_channel;
+    Histo1DPtr _count_3jet_channel;
+    Histo1DPtr _count_4jet_channel;
+    Histo1DPtr _count_soft_channel;
 
-    AIDA::IHistogram1D* _hist_m_eff_3jet;
-    AIDA::IHistogram1D* _hist_m_eff_4jet;
-    AIDA::IHistogram1D* _hist_eTmiss_m_eff_soft;
+    Histo1DPtr _hist_m_eff_3jet;
+    Histo1DPtr _hist_m_eff_4jet;
+    Histo1DPtr _hist_eTmiss_m_eff_soft;
     //@}
 
   };

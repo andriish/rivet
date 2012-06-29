@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -40,36 +40,36 @@ namespace Rivet {
       j6.useInvisibles();
       addProjection(j6, "AntiKtJets06");
 
-      _h_jet_multi_inclusive = bookHistogram1D(1, 1, 1);
-      _h_jet_multi_ratio = bookDataPointSet(2, 1, 1);
+      _h_jet_multi_inclusive = bookHisto1D(1, 1, 1);
+      _h_jet_multi_ratio = bookScatter2D(2, 1, 1);
       _h_jet_pT.resize(4);
-      _h_jet_pT[0] = bookHistogram1D(3, 1, 1);
-      _h_jet_pT[1] = bookHistogram1D(4, 1, 1);
-      _h_jet_pT[2] = bookHistogram1D(5, 1, 1);
-      _h_jet_pT[3] = bookHistogram1D(6, 1, 1);
-      _h_HT_2 = bookHistogram1D(7, 1, 1);
-      _h_HT_3 = bookHistogram1D(8, 1, 1);
-      _h_HT_4 = bookHistogram1D(9, 1, 1);
+      _h_jet_pT[0] = bookHisto1D(3, 1, 1);
+      _h_jet_pT[1] = bookHisto1D(4, 1, 1);
+      _h_jet_pT[2] = bookHisto1D(5, 1, 1);
+      _h_jet_pT[3] = bookHisto1D(6, 1, 1);
+      _h_HT_2 = bookHisto1D(7, 1, 1);
+      _h_HT_3 = bookHisto1D(8, 1, 1);
+      _h_HT_4 = bookHisto1D(9, 1, 1);
 
       /// temporary histograms which will be divided in the end for the dsigma3/dsigma2 ratios
-      _h_tmp_pTlead_R06_60_2 = bookHistogram1D("tmp1", binEdges(10, 1, 1));
-      _h_tmp_pTlead_R06_80_2 = bookHistogram1D("tmp2", binEdges(11, 1, 1));
-      _h_tmp_pTlead_R06_110_2 = bookHistogram1D("tmp3", binEdges(12, 1, 1));
-      _h_tmp_pTlead_R06_60_3 = bookHistogram1D("tmp4", binEdges(10, 1, 1));
-      _h_tmp_pTlead_R06_80_3 = bookHistogram1D("tmp5", binEdges(11, 1, 1));
-      _h_tmp_pTlead_R06_110_3 = bookHistogram1D("tmp6", binEdges(12, 1, 1));
+      _h_tmp_pTlead_R06_60_2  = bookHisto1D(10, 1, 1, "tmp1");
+      _h_tmp_pTlead_R06_80_2  = bookHisto1D(11, 1, 1, "tmp2");
+      _h_tmp_pTlead_R06_110_2 = bookHisto1D(12, 1, 1, "tmp3");
+      _h_tmp_pTlead_R06_60_3  = bookHisto1D(10, 1, 1, "tmp4");
+      _h_tmp_pTlead_R06_80_3  = bookHisto1D(11, 1, 1, "tmp5");
+      _h_tmp_pTlead_R06_110_3 = bookHisto1D(12, 1, 1, "tmp6");
 
-      _h_tmp_pTlead_R04_60_2 = bookHistogram1D("tmp7", binEdges(13, 1, 1));
-      _h_tmp_pTlead_R04_80_2 = bookHistogram1D("tmp8", binEdges(14, 1, 1));
-      _h_tmp_pTlead_R04_110_2 = bookHistogram1D("tmp9", binEdges(15, 1, 1));
-      _h_tmp_pTlead_R04_60_3 = bookHistogram1D("tmp10", binEdges(13, 1, 1));
-      _h_tmp_pTlead_R04_80_3 = bookHistogram1D("tmp11", binEdges(14, 1, 1));
-      _h_tmp_pTlead_R04_110_3 = bookHistogram1D("tmp12", binEdges(15, 1, 1));
+      _h_tmp_pTlead_R04_60_2  = bookHisto1D(13, 1, 1, "tmp7");
+      _h_tmp_pTlead_R04_80_2  = bookHisto1D(14, 1, 1, "tmp8");
+      _h_tmp_pTlead_R04_110_2 = bookHisto1D(15, 1, 1, "tmp9");
+      _h_tmp_pTlead_R04_60_3  = bookHisto1D(13, 1, 1, "tmp10");
+      _h_tmp_pTlead_R04_80_3  = bookHisto1D(14, 1, 1, "tmp11");
+      _h_tmp_pTlead_R04_110_3 = bookHisto1D(15, 1, 1, "tmp12");
 
-      _h_tmp_HT2_R06_2 = bookHistogram1D("tmp13", binEdges(16, 1, 1));
-      _h_tmp_HT2_R06_3 = bookHistogram1D("tmp14", binEdges(16, 1, 1));
-      _h_tmp_HT2_R04_2 = bookHistogram1D("tmp15", binEdges(17, 1, 1));
-      _h_tmp_HT2_R04_3 = bookHistogram1D("tmp16", binEdges(17, 1, 1));
+      _h_tmp_HT2_R06_2 = bookHisto1D(16, 1, 1, "tmp13");
+      _h_tmp_HT2_R06_3 = bookHisto1D(16, 1, 1, "tmp14");
+      _h_tmp_HT2_R04_2 = bookHisto1D(17, 1, 1, "tmp15");
+      _h_tmp_HT2_R04_3 = bookHisto1D(17, 1, 1, "tmp16");
 
     }
 
@@ -148,18 +148,19 @@ namespace Rivet {
     void finalize() {
 
       // Fill inclusive jet multi ratio
-      int Nbins = _h_jet_multi_inclusive->axis().bins();
+      int Nbins = _h_jet_multi_inclusive->numBins();
       std::vector<double> ratio(Nbins-1, 0.0);
       std::vector<double> err(Nbins-1, 0.0);
       for (int i = 0; i < Nbins-1; ++i) {
-        if (_h_jet_multi_inclusive->binHeight(i) > 0.0 && _h_jet_multi_inclusive->binHeight(i+1) > 0.0) {
-          ratio[i] = _h_jet_multi_inclusive->binHeight(i+1)/_h_jet_multi_inclusive->binHeight(i);
-          double relerr_i = _h_jet_multi_inclusive->binError(i)/_h_jet_multi_inclusive->binHeight(i);
-          double relerr_j = _h_jet_multi_inclusive->binError(i+1)/_h_jet_multi_inclusive->binHeight(i+1);
+        if (_h_jet_multi_inclusive->bin(i).area() > 0.0 && _h_jet_multi_inclusive->bin(i+1).area() > 0.0) {
+          ratio[i] = _h_jet_multi_inclusive->bin(i+1).area()/_h_jet_multi_inclusive->bin(i).area();
+          double relerr_i = _h_jet_multi_inclusive->bin(i).areaErr()/_h_jet_multi_inclusive->bin(i).area();
+          double relerr_j = _h_jet_multi_inclusive->bin(i+1).areaErr()/_h_jet_multi_inclusive->bin(i+1).area();
           err[i] = ratio[i] * (relerr_i + relerr_j);
         }
       }
-      _h_jet_multi_ratio->setCoordinate(1, ratio, err);
+      //\todo YODA
+      //_h_jet_multi_ratio->setCoordinate(1, ratio, err);
 
       scale(_h_jet_multi_inclusive, crossSectionPerEvent());
       scale(_h_jet_pT[0], crossSectionPerEvent());
@@ -171,30 +172,31 @@ namespace Rivet {
       scale(_h_HT_4, crossSectionPerEvent());
 
       /// create ratio histograms
-      histogramFactory().divide(histoDir() + "/d10-x01-y01", *_h_tmp_pTlead_R06_60_3, *_h_tmp_pTlead_R06_60_2);
-      histogramFactory().divide(histoDir() + "/d11-x01-y01", *_h_tmp_pTlead_R06_80_3, *_h_tmp_pTlead_R06_80_2);
-      histogramFactory().divide(histoDir() + "/d12-x01-y01", *_h_tmp_pTlead_R06_110_3, *_h_tmp_pTlead_R06_110_2);
-      histogramFactory().divide(histoDir() + "/d13-x01-y01", *_h_tmp_pTlead_R04_60_3, *_h_tmp_pTlead_R04_60_2);
-      histogramFactory().divide(histoDir() + "/d14-x01-y01", *_h_tmp_pTlead_R04_80_3, *_h_tmp_pTlead_R04_80_2);
-      histogramFactory().divide(histoDir() + "/d15-x01-y01", *_h_tmp_pTlead_R04_110_3, *_h_tmp_pTlead_R04_110_2);
-      histogramFactory().divide(histoDir() + "/d16-x01-y01", *_h_tmp_HT2_R06_3, *_h_tmp_HT2_R06_2);
-      histogramFactory().divide(histoDir() + "/d17-x01-y01", *_h_tmp_HT2_R04_3, *_h_tmp_HT2_R04_2);
-      histogramFactory().destroy(_h_tmp_pTlead_R06_60_2);
-      histogramFactory().destroy(_h_tmp_pTlead_R06_80_2);
-      histogramFactory().destroy(_h_tmp_pTlead_R06_110_2);
-      histogramFactory().destroy(_h_tmp_pTlead_R06_60_3);
-      histogramFactory().destroy(_h_tmp_pTlead_R06_80_3);
-      histogramFactory().destroy(_h_tmp_pTlead_R06_110_3);
-      histogramFactory().destroy(_h_tmp_pTlead_R04_60_2);
-      histogramFactory().destroy(_h_tmp_pTlead_R04_80_2);
-      histogramFactory().destroy(_h_tmp_pTlead_R04_110_2);
-      histogramFactory().destroy(_h_tmp_pTlead_R04_60_3);
-      histogramFactory().destroy(_h_tmp_pTlead_R04_80_3);
-      histogramFactory().destroy(_h_tmp_pTlead_R04_110_3);
-      histogramFactory().destroy(_h_tmp_HT2_R06_2);
-      histogramFactory().destroy(_h_tmp_HT2_R06_3);
-      histogramFactory().destroy(_h_tmp_HT2_R04_2);
-      histogramFactory().destroy(_h_tmp_HT2_R04_3);
+      //\todo YODA divide
+      //histogramFactory().divide(histoDir() + "/d10-x01-y01", *_h_tmp_pTlead_R06_60_3, *_h_tmp_pTlead_R06_60_2);
+      //histogramFactory().divide(histoDir() + "/d11-x01-y01", *_h_tmp_pTlead_R06_80_3, *_h_tmp_pTlead_R06_80_2);
+      //histogramFactory().divide(histoDir() + "/d12-x01-y01", *_h_tmp_pTlead_R06_110_3, *_h_tmp_pTlead_R06_110_2);
+      //histogramFactory().divide(histoDir() + "/d13-x01-y01", *_h_tmp_pTlead_R04_60_3, *_h_tmp_pTlead_R04_60_2);
+      //histogramFactory().divide(histoDir() + "/d14-x01-y01", *_h_tmp_pTlead_R04_80_3, *_h_tmp_pTlead_R04_80_2);
+      //histogramFactory().divide(histoDir() + "/d15-x01-y01", *_h_tmp_pTlead_R04_110_3, *_h_tmp_pTlead_R04_110_2);
+      //histogramFactory().divide(histoDir() + "/d16-x01-y01", *_h_tmp_HT2_R06_3, *_h_tmp_HT2_R06_2);
+      //histogramFactory().divide(histoDir() + "/d17-x01-y01", *_h_tmp_HT2_R04_3, *_h_tmp_HT2_R04_2);
+      //histogramFactory().destroy(_h_tmp_pTlead_R06_60_2);
+      //histogramFactory().destroy(_h_tmp_pTlead_R06_80_2);
+      //histogramFactory().destroy(_h_tmp_pTlead_R06_110_2);
+      //histogramFactory().destroy(_h_tmp_pTlead_R06_60_3);
+      //histogramFactory().destroy(_h_tmp_pTlead_R06_80_3);
+      //histogramFactory().destroy(_h_tmp_pTlead_R06_110_3);
+      //histogramFactory().destroy(_h_tmp_pTlead_R04_60_2);
+      //histogramFactory().destroy(_h_tmp_pTlead_R04_80_2);
+      //histogramFactory().destroy(_h_tmp_pTlead_R04_110_2);
+      //histogramFactory().destroy(_h_tmp_pTlead_R04_60_3);
+      //histogramFactory().destroy(_h_tmp_pTlead_R04_80_3);
+      //histogramFactory().destroy(_h_tmp_pTlead_R04_110_3);
+      //histogramFactory().destroy(_h_tmp_HT2_R06_2);
+      //histogramFactory().destroy(_h_tmp_HT2_R06_3);
+      //histogramFactory().destroy(_h_tmp_HT2_R04_2);
+      //histogramFactory().destroy(_h_tmp_HT2_R04_3);
 
     }
 
@@ -210,32 +212,32 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_jet_multi_inclusive;
-    AIDA::IDataPointSet * _h_jet_multi_ratio;
-    vector<AIDA::IHistogram1D *> _h_jet_pT;
-    AIDA::IHistogram1D * _h_HT_2;
-    AIDA::IHistogram1D * _h_HT_3;
-    AIDA::IHistogram1D * _h_HT_4;
+    Histo1DPtr _h_jet_multi_inclusive;
+    Scatter2DPtr _h_jet_multi_ratio;
+    vector<Histo1DPtr> _h_jet_pT;
+    Histo1DPtr _h_HT_2;
+    Histo1DPtr _h_HT_3;
+    Histo1DPtr _h_HT_4;
 
     /// temporary histograms which will be divided in the end for the dsigma3/dsigma2 ratios
-    AIDA::IHistogram1D * _h_tmp_pTlead_R06_60_2;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R06_80_2;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R06_110_2;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R06_60_3;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R06_80_3;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R06_110_3;
+    Histo1DPtr _h_tmp_pTlead_R06_60_2;
+    Histo1DPtr _h_tmp_pTlead_R06_80_2;
+    Histo1DPtr _h_tmp_pTlead_R06_110_2;
+    Histo1DPtr _h_tmp_pTlead_R06_60_3;
+    Histo1DPtr _h_tmp_pTlead_R06_80_3;
+    Histo1DPtr _h_tmp_pTlead_R06_110_3;
 
-    AIDA::IHistogram1D * _h_tmp_pTlead_R04_60_2;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R04_80_2;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R04_110_2;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R04_60_3;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R04_80_3;
-    AIDA::IHistogram1D * _h_tmp_pTlead_R04_110_3;
+    Histo1DPtr _h_tmp_pTlead_R04_60_2;
+    Histo1DPtr _h_tmp_pTlead_R04_80_2;
+    Histo1DPtr _h_tmp_pTlead_R04_110_2;
+    Histo1DPtr _h_tmp_pTlead_R04_60_3;
+    Histo1DPtr _h_tmp_pTlead_R04_80_3;
+    Histo1DPtr _h_tmp_pTlead_R04_110_3;
 
-    AIDA::IHistogram1D * _h_tmp_HT2_R06_2;
-    AIDA::IHistogram1D * _h_tmp_HT2_R06_3;
-    AIDA::IHistogram1D * _h_tmp_HT2_R04_2;
-    AIDA::IHistogram1D * _h_tmp_HT2_R04_3;
+    Histo1DPtr _h_tmp_HT2_R06_2;
+    Histo1DPtr _h_tmp_HT2_R06_3;
+    Histo1DPtr _h_tmp_HT2_R04_2;
+    Histo1DPtr _h_tmp_HT2_R04_3;
     //@}
 
   };

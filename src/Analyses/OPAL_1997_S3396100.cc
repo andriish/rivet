@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -18,9 +18,9 @@ namespace Rivet {
     /// Constructor
     OPAL_1997_S3396100()
       : Analysis("OPAL_1997_S3396100"),
-	_weightedTotalNumLambda(0.)     ,_weightedTotalNumXiMinus(0.),
-	_weightedTotalNumSigma1385Plus(0.),_weightedTotalNumSigma1385Minus(0.),
-	_weightedTotalNumXi1530(0.)   ,_weightedTotalNumLambda1520(0.)
+        _weightedTotalNumLambda(0.)     ,_weightedTotalNumXiMinus(0.),
+        _weightedTotalNumSigma1385Plus(0.),_weightedTotalNumSigma1385Minus(0.),
+        _weightedTotalNumXi1530(0.)   ,_weightedTotalNumLambda1520(0.)
     {}
 
 
@@ -31,18 +31,18 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
       addProjection(UnstableFinalState(), "UFS");
-      _histXpLambda         = bookHistogram1D( 1, 1, 1);
-      _histXiLambda         = bookHistogram1D( 2, 1, 1);
-      _histXpXiMinus        = bookHistogram1D( 3, 1, 1);
-      _histXiXiMinus        = bookHistogram1D( 4, 1, 1);
-      _histXpSigma1385Plus  = bookHistogram1D( 5, 1, 1);
-      _histXiSigma1385Plus  = bookHistogram1D( 6, 1, 1);
-      _histXpSigma1385Minus = bookHistogram1D( 7, 1, 1);
-      _histXiSigma1385Minus = bookHistogram1D( 8, 1, 1);
-      _histXpXi1530         = bookHistogram1D( 9, 1, 1);
-      _histXiXi1530         = bookHistogram1D(10, 1, 1);
-      _histXpLambda1520     = bookHistogram1D(11, 1, 1);
-      _histXiLambda1520     = bookHistogram1D(12, 1, 1);
+      _histXpLambda         = bookHisto1D( 1, 1, 1);
+      _histXiLambda         = bookHisto1D( 2, 1, 1);
+      _histXpXiMinus        = bookHisto1D( 3, 1, 1);
+      _histXiXiMinus        = bookHisto1D( 4, 1, 1);
+      _histXpSigma1385Plus  = bookHisto1D( 5, 1, 1);
+      _histXiSigma1385Plus  = bookHisto1D( 6, 1, 1);
+      _histXpSigma1385Minus = bookHisto1D( 7, 1, 1);
+      _histXiSigma1385Minus = bookHisto1D( 8, 1, 1);
+      _histXpXi1530         = bookHisto1D( 9, 1, 1);
+      _histXiXi1530         = bookHisto1D(10, 1, 1);
+      _histXpLambda1520     = bookHisto1D(11, 1, 1);
+      _histXiLambda1520     = bookHisto1D(12, 1, 1);
     }
 
 
@@ -72,8 +72,8 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         const int id = abs(p.pdgId());
-	double xp = p.momentum().vector3().mod()/meanBeamMom;
-	double xi = -log(xp);
+        double xp = p.momentum().vector3().mod()/meanBeamMom;
+        double xi = -log(xp);
         switch (id) {
         case 3312:
           _histXpXiMinus->fill(xp, weight);
@@ -134,25 +134,25 @@ namespace Rivet {
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
-    double _weightedTotalNumLambda;     
+    double _weightedTotalNumLambda;
     double _weightedTotalNumXiMinus;
     double _weightedTotalNumSigma1385Plus;
     double _weightedTotalNumSigma1385Minus;
-    double _weightedTotalNumXi1530;   
+    double _weightedTotalNumXi1530;
     double _weightedTotalNumLambda1520;
 
-    AIDA::IHistogram1D *_histXpLambda        ;
-    AIDA::IHistogram1D *_histXiLambda        ;
-    AIDA::IHistogram1D *_histXpXiMinus       ;
-    AIDA::IHistogram1D *_histXiXiMinus       ;
-    AIDA::IHistogram1D *_histXpSigma1385Plus ;
-    AIDA::IHistogram1D *_histXiSigma1385Plus ;
-    AIDA::IHistogram1D *_histXpSigma1385Minus;
-    AIDA::IHistogram1D *_histXiSigma1385Minus;
-    AIDA::IHistogram1D *_histXpXi1530        ;
-    AIDA::IHistogram1D *_histXiXi1530        ;
-    AIDA::IHistogram1D *_histXpLambda1520    ;
-    AIDA::IHistogram1D *_histXiLambda1520    ;
+    Histo1DPtr _histXpLambda        ;
+    Histo1DPtr _histXiLambda        ;
+    Histo1DPtr _histXpXiMinus       ;
+    Histo1DPtr _histXiXiMinus       ;
+    Histo1DPtr _histXpSigma1385Plus ;
+    Histo1DPtr _histXiSigma1385Plus ;
+    Histo1DPtr _histXpSigma1385Minus;
+    Histo1DPtr _histXiSigma1385Minus;
+    Histo1DPtr _histXpXi1530        ;
+    Histo1DPtr _histXiXi1530        ;
+    Histo1DPtr _histXpLambda1520    ;
+    Histo1DPtr _histXiLambda1520    ;
     //@}
 
   };

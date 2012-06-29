@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -65,16 +65,16 @@ namespace Rivet {
 
 
       /// Book histograms
-      _count_threeJA     = bookHistogram1D("count_threeJA", 1, 0., 1.);
-      _count_threeJB     = bookHistogram1D("count_threeJB", 1, 0., 1.);
-      _count_threeJC     = bookHistogram1D("count_threeJC", 1, 0., 1.);
-      _count_threeJD     = bookHistogram1D("count_threeJD", 1, 0., 1.);
-      _hist_meff_1bjet   = bookHistogram1D("meff_1bjet", 32, 0., 1600.);
-      _hist_eTmiss_1bjet = bookHistogram1D("eTmiss_1bjet", 6, 0., 600.);
-      _hist_pTj_1bjet    = bookHistogram1D("pTjet_1bjet", 20, 0., 800.);
-      _hist_meff_2bjet   = bookHistogram1D("meff_2bjet", 32, 0., 1600.);
-      _hist_eTmiss_2bjet = bookHistogram1D("eTmiss_2bjet", 6, 0., 600.);
-      _hist_pTj_2bjet    = bookHistogram1D("pTjet_2bjet", 20, 0., 800.);
+      _count_threeJA     = bookHisto1D("count_threeJA", 1, 0., 1.);
+      _count_threeJB     = bookHisto1D("count_threeJB", 1, 0., 1.);
+      _count_threeJC     = bookHisto1D("count_threeJC", 1, 0., 1.);
+      _count_threeJD     = bookHisto1D("count_threeJD", 1, 0., 1.);
+      _hist_meff_1bjet   = bookHisto1D("meff_1bjet", 32, 0., 1600.);
+      _hist_eTmiss_1bjet = bookHisto1D("eTmiss_1bjet", 6, 0., 600.);
+      _hist_pTj_1bjet    = bookHisto1D("pTjet_1bjet", 20, 0., 800.);
+      _hist_meff_2bjet   = bookHisto1D("meff_2bjet", 32, 0., 1600.);
+      _hist_eTmiss_2bjet = bookHisto1D("eTmiss_2bjet", 6, 0., 600.);
+      _hist_pTj_2bjet    = bookHisto1D("pTjet_2bjet", 20, 0., 800.);
 
 
     }
@@ -305,16 +305,16 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _count_threeJA;
-    AIDA::IHistogram1D* _count_threeJB;
-    AIDA::IHistogram1D* _count_threeJC;
-    AIDA::IHistogram1D* _count_threeJD;
-    AIDA::IHistogram1D* _hist_meff_1bjet;
-    AIDA::IHistogram1D* _hist_eTmiss_1bjet;
-    AIDA::IHistogram1D* _hist_pTj_1bjet;
-    AIDA::IHistogram1D* _hist_meff_2bjet;
-    AIDA::IHistogram1D* _hist_eTmiss_2bjet;
-    AIDA::IHistogram1D* _hist_pTj_2bjet;
+    Histo1DPtr _count_threeJA;
+    Histo1DPtr _count_threeJB;
+    Histo1DPtr _count_threeJC;
+    Histo1DPtr _count_threeJD;
+    Histo1DPtr _hist_meff_1bjet;
+    Histo1DPtr _hist_eTmiss_1bjet;
+    Histo1DPtr _hist_pTj_1bjet;
+    Histo1DPtr _hist_meff_2bjet;
+    Histo1DPtr _hist_eTmiss_2bjet;
+    Histo1DPtr _hist_pTj_2bjet;
 
     //@}
 

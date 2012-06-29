@@ -1,13 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 using namespace std;
 
 namespace Rivet {
-
 
   class CMS_2011_S8884919 : public Analysis {
   public:
@@ -30,25 +29,25 @@ namespace Rivet {
 
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHistogram1D( 2 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( bookHisto1D( 2 + ietabin, 1, 1) );
         }
-        _h_dNch_dn_pt500_eta24 = bookHistogram1D(20, 1, 1);
+        _h_dNch_dn_pt500_eta24 = bookHisto1D(20, 1, 1);
         _h_dmpt_dNch_eta24 = bookProfile1D(23, 1, 1);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 2360)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHistogram1D(7 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( bookHisto1D(7 + ietabin, 1, 1) );
         }
-        _h_dNch_dn_pt500_eta24 = bookHistogram1D(21, 1, 1);
+        _h_dNch_dn_pt500_eta24 = bookHisto1D(21, 1, 1);
         _h_dmpt_dNch_eta24 = bookProfile1D(24, 1, 1);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 7000)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHistogram1D(12 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( bookHisto1D(12 + ietabin, 1, 1) );
         }
-        _h_dNch_dn_pt500_eta24 = bookHistogram1D(22, 1, 1);
+        _h_dNch_dn_pt500_eta24 = bookHisto1D(22, 1, 1);
         _h_dmpt_dNch_eta24 = bookProfile1D(25, 1, 1);
       }
     }
@@ -75,7 +74,7 @@ namespace Rivet {
         double pT = p.momentum().pT();
         double eta = p.momentum().eta();
         sumpt += pT;
-        for (int ietabin = _etabins.size() - 1; ietabin >= 0; --ietabin) {
+        for (int ietabin = _etabins.size()-1; ietabin >= 0; --ietabin) {
           if (fabs(eta) <= _etabins[ietabin]){
             ++(_nch_in_Evt[ietabin]);
             if (pT > 0.5/GeV) ++(_nch_in_Evt_pt500[ietabin]);
@@ -93,7 +92,7 @@ namespace Rivet {
       // Do only if eta bins are the needed ones
       if (_etabins[4] == 2.4 && _etabins[0] == 0.5) {
         if (_nch_in_Evt[4] != 0) {
-          _h_dmpt_dNch_eta24->fill(_nch_in_Evt[4], sumpt / GeV / _nch_in_Evt[4], weight);
+          _h_dmpt_dNch_eta24->fill(_nch_in_Evt[4], sumpt/GeV / _nch_in_Evt[4], weight);
         }
         _h_dNch_dn_pt500_eta24->fill(_nch_in_Evt_pt500[4], weight);
       } else {
@@ -103,7 +102,7 @@ namespace Rivet {
 
 
     void finalize() {
-      for (size_t ietabin = 0; ietabin < _etabins.size(); ietabin++) {
+      for (size_t ietabin = 0; ietabin < _etabins.size(); ietabin++){
         normalize(_h_dNch_dn[ietabin]);
       }
       normalize(_h_dNch_dn_pt500_eta24);
@@ -112,14 +111,13 @@ namespace Rivet {
 
   private:
 
-    vector<AIDA::IHistogram1D*> _h_dNch_dn;
-    AIDA::IHistogram1D* _h_dNch_dn_pt500_eta24;
-    AIDA::IProfile1D*   _h_dmpt_dNch_eta24;
+    vector<Histo1DPtr> _h_dNch_dn;
+    Histo1DPtr _h_dNch_dn_pt500_eta24;
+    Profile1DPtr _h_dmpt_dNch_eta24;
 
     vector<double> _etabins;
 
   };
-
 
 
   // The hook for the plugin system

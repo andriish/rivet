@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
@@ -23,12 +23,12 @@ namespace Rivet {
       addProjection(FastJets(fs, FastJets::ANTIKT, 0.5),"Jets");
 
       // Book histograms:
-      _hist_sigma.addHistogram(0.0, 0.5, bookHistogram1D(1, 1, 1));
-      _hist_sigma.addHistogram(0.5, 1.0, bookHistogram1D(2, 1, 1));
-      _hist_sigma.addHistogram(1.0, 1.5, bookHistogram1D(3, 1, 1));
-      _hist_sigma.addHistogram(1.5, 2.0, bookHistogram1D(4, 1, 1));
-      _hist_sigma.addHistogram(2.0, 2.5, bookHistogram1D(5, 1, 1));
-      _hist_sigma.addHistogram(2.5, 3.0, bookHistogram1D(6, 1, 1));
+      _hist_sigma.addHistogram(0.0, 0.5, bookHisto1D(1, 1, 1));
+      _hist_sigma.addHistogram(0.5, 1.0, bookHisto1D(2, 1, 1));
+      _hist_sigma.addHistogram(1.0, 1.5, bookHisto1D(3, 1, 1));
+      _hist_sigma.addHistogram(1.5, 2.0, bookHisto1D(4, 1, 1));
+      _hist_sigma.addHistogram(2.0, 2.5, bookHisto1D(5, 1, 1));
+      _hist_sigma.addHistogram(2.5, 3.0, bookHisto1D(6, 1, 1));
     }
 
     // Analysis

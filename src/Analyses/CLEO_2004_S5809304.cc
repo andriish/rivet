@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include <iostream>
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
@@ -21,7 +21,7 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       const double weight = e.weight();
-      
+
       // Loop through unstable FS particles and look for charmed mesons/baryons
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
@@ -45,47 +45,47 @@ namespace Rivet {
         MSG_DEBUG("pdgID = " << PdgId << "  mom = " << mom);
         switch (PdgId) {
 
-	case 421:
-	  MSG_DEBUG("D0 found");
-	  mH2 = 3.47763; // 1.86484^2
-	  xp = mom/sqrt(s/4.0 - mH2);
-	  _sigmaD0A->fill(10.6,weight);
-	  _sigmaD0B->fill(10.6,weight);
-	  _histXpD0A->fill(xp, weight);
-	  _histXpD0B->fill(xp, weight);
-	  _histXpTotal->fill(xp, weight);
-	  break;
-	case 411:
-	  MSG_DEBUG("D+ found");
-	  mH2 = 3.49547; // 1.86962^2
-	  xp = mom/sqrt(s/4.0 - mH2);
-	  _sigmaDPlus->fill(10.6,weight);
-	  _histXpDplus->fill(xp, weight);
-	  _histXpTotal->fill(xp, weight);
-	  break;
+        case 421:
+          MSG_DEBUG("D0 found");
+          mH2 = 3.47763; // 1.86484^2
+          xp = mom/sqrt(s/4.0 - mH2);
+          _sigmaD0A->fill(10.6,weight);
+          _sigmaD0B->fill(10.6,weight);
+          _histXpD0A->fill(xp, weight);
+          _histXpD0B->fill(xp, weight);
+          _histXpTotal->fill(xp, weight);
+          break;
+        case 411:
+          MSG_DEBUG("D+ found");
+          mH2 = 3.49547; // 1.86962^2
+          xp = mom/sqrt(s/4.0 - mH2);
+          _sigmaDPlus->fill(10.6,weight);
+          _histXpDplus->fill(xp, weight);
+          _histXpTotal->fill(xp, weight);
+          break;
 
-	case 413:
-	  MSG_DEBUG("D*+ found");
-	  mH2 = 4.04119; // 2.01027^2
-	  xp = mom/sqrt(s/4.0 - mH2);
-	  _sigmaDStarPlusA->fill(10.6,weight);
-	  _sigmaDStarPlusB->fill(10.6,weight);
-	  _histXpDStarPlusA->fill(xp, weight);
-	  _histXpDStarPlusB->fill(xp, weight);
-	  _histXpTotal->fill(xp, weight);
-	  break;
+        case 413:
+          MSG_DEBUG("D*+ found");
+          mH2 = 4.04119; // 2.01027^2
+          xp = mom/sqrt(s/4.0 - mH2);
+          _sigmaDStarPlusA->fill(10.6,weight);
+          _sigmaDStarPlusB->fill(10.6,weight);
+          _histXpDStarPlusA->fill(xp, weight);
+          _histXpDStarPlusB->fill(xp, weight);
+          _histXpTotal->fill(xp, weight);
+          break;
 
-	case 423:
-	  MSG_DEBUG("D*0 found");
-	  mH2 = 4.02793; // 2.00697**2
-	  xp = mom/sqrt(s/4.0 - mH2);
-	  _sigmaDStar0A->fill(10.6,weight);
-	  _sigmaDStar0B->fill(10.6,weight);
-	  _histXpDStar0A->fill(xp, weight);
-	  _histXpDStar0B->fill(xp, weight);
-	  _histXpTotal->fill(xp, weight);
-	  break;
-	}
+        case 423:
+          MSG_DEBUG("D*0 found");
+          mH2 = 4.02793; // 2.00697**2
+          xp = mom/sqrt(s/4.0 - mH2);
+          _sigmaDStar0A->fill(10.6,weight);
+          _sigmaDStar0B->fill(10.6,weight);
+          _histXpDStar0A->fill(xp, weight);
+          _histXpDStar0B->fill(xp, weight);
+          _histXpTotal->fill(xp, weight);
+          break;
+        }
       }
     } // analyze
 
@@ -116,47 +116,47 @@ namespace Rivet {
       addProjection(UnstableFinalState(), "UFS");
 
       // continuum cross sections
-      _sigmaDPlus      = bookHistogram1D(1,1,1);
-      _sigmaD0A        = bookHistogram1D(1,1,2);
-      _sigmaD0B        = bookHistogram1D(1,1,3);
-      _sigmaDStarPlusA = bookHistogram1D(1,1,4);
-      _sigmaDStarPlusB = bookHistogram1D(1,1,5);
-      _sigmaDStar0A    = bookHistogram1D(1,1,6);
-      _sigmaDStar0B    = bookHistogram1D(1,1,7);
+      _sigmaDPlus      = bookHisto1D(1,1,1);
+      _sigmaD0A        = bookHisto1D(1,1,2);
+      _sigmaD0B        = bookHisto1D(1,1,3);
+      _sigmaDStarPlusA = bookHisto1D(1,1,4);
+      _sigmaDStarPlusB = bookHisto1D(1,1,5);
+      _sigmaDStar0A    = bookHisto1D(1,1,6);
+      _sigmaDStar0B    = bookHisto1D(1,1,7);
 
-       // histograms for continuum data 
-      _histXpDplus      = bookHistogram1D(2, 1, 1);
-      _histXpD0A        = bookHistogram1D(3, 1, 1);
-      _histXpD0B        = bookHistogram1D(4, 1, 1);
-      _histXpDStarPlusA = bookHistogram1D(5, 1, 1);
-      _histXpDStarPlusB = bookHistogram1D(6, 1, 1);
-      _histXpDStar0A    = bookHistogram1D(7, 1, 1);
-      _histXpDStar0B    = bookHistogram1D(8, 1, 1);
-      _histXpTotal      = bookHistogram1D(9, 1, 1);
+       // histograms for continuum data
+      _histXpDplus      = bookHisto1D(2, 1, 1);
+      _histXpD0A        = bookHisto1D(3, 1, 1);
+      _histXpD0B        = bookHisto1D(4, 1, 1);
+      _histXpDStarPlusA = bookHisto1D(5, 1, 1);
+      _histXpDStarPlusB = bookHisto1D(6, 1, 1);
+      _histXpDStar0A    = bookHisto1D(7, 1, 1);
+      _histXpDStar0B    = bookHisto1D(8, 1, 1);
+      _histXpTotal      = bookHisto1D(9, 1, 1);
 
     } // init
-    
+
   private:
 
     //@{
     // Histograms for the continuum cross sections
-    AIDA::IHistogram1D* _sigmaDPlus     ;
-    AIDA::IHistogram1D* _sigmaD0A       ;
-    AIDA::IHistogram1D* _sigmaD0B       ;
-    AIDA::IHistogram1D* _sigmaDStarPlusA;
-    AIDA::IHistogram1D* _sigmaDStarPlusB;
-    AIDA::IHistogram1D* _sigmaDStar0A   ;
-    AIDA::IHistogram1D* _sigmaDStar0B   ;
+    Histo1DPtr _sigmaDPlus     ;
+    Histo1DPtr _sigmaD0A       ;
+    Histo1DPtr _sigmaD0B       ;
+    Histo1DPtr _sigmaDStarPlusA;
+    Histo1DPtr _sigmaDStarPlusB;
+    Histo1DPtr _sigmaDStar0A   ;
+    Histo1DPtr _sigmaDStar0B   ;
 
-    // histograms for continuum data 
-    AIDA::IHistogram1D* _histXpDplus     ;
-    AIDA::IHistogram1D* _histXpD0A       ;
-    AIDA::IHistogram1D* _histXpD0B       ;
-    AIDA::IHistogram1D* _histXpDStarPlusA;
-    AIDA::IHistogram1D* _histXpDStarPlusB;
-    AIDA::IHistogram1D* _histXpDStar0A   ;
-    AIDA::IHistogram1D* _histXpDStar0B   ;
-    AIDA::IHistogram1D* _histXpTotal     ;
+    // histograms for continuum data
+    Histo1DPtr _histXpDplus     ;
+    Histo1DPtr _histXpD0A       ;
+    Histo1DPtr _histXpD0B       ;
+    Histo1DPtr _histXpDStarPlusA;
+    Histo1DPtr _histXpDStarPlusB;
+    Histo1DPtr _histXpDStar0A   ;
+    Histo1DPtr _histXpDStar0B   ;
+    Histo1DPtr _histXpTotal     ;
     //@}
 
   };

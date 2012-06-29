@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
@@ -11,7 +11,6 @@
 #include "Rivet/Projections/LeptonClusters.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
-#include "LWH/AIManagedObject.h"
 #include "Rivet/Particle.hh"
 #include "HepMC/GenEvent.h"
 
@@ -32,12 +31,12 @@ namespace Rivet {
 
     // Histograms to store the veto jet pT and
     // sum(veto jet pT) histograms.
-    AIDA::IHistogram1D* _h_vetoJetPt_Q0;
-    AIDA::IHistogram1D* _h_vetoJetPt_Qsum;
+    Histo1DPtr _h_vetoJetPt_Q0;
+    Histo1DPtr _h_vetoJetPt_Qsum;
 
     // DataPointSets for the gap fractions
-    AIDA::IDataPointSet* _d_gapFraction_Q0;
-    AIDA::IDataPointSet* _d_gapFraction_Qsum;
+    Scatter2DPtr _d_gapFraction_Q0;
+    Scatter2DPtr _d_gapFraction_Qsum;
   };
 
 
@@ -122,11 +121,11 @@ namespace Rivet {
       std::stringstream vetoPt_Qsum_name;
       vetoPt_Qsum_name << "vetoJetPt_Qsum_" << plots.region_index;
 
-      plots._h_vetoJetPt_Q0 = bookHistogram1D(vetoPt_Q0_name.str(), m_q0BinEdges);
-      plots._h_vetoJetPt_Qsum = bookHistogram1D(vetoPt_Qsum_name.str(), m_q0BinEdges);
+      plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name.str(), m_q0BinEdges);
+      plots._h_vetoJetPt_Qsum = bookHisto1D(vetoPt_Qsum_name.str(), m_q0BinEdges);
 
-      plots._d_gapFraction_Q0 = bookDataPointSet(plots.region_index, q0_index, 1);
-      plots._d_gapFraction_Qsum = bookDataPointSet(plots.region_index, qsum_index, 1);
+      plots._d_gapFraction_Q0   = bookScatter2D(plots.region_index, q0_index, 1);
+      plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, qsum_index, 1);
 
       plots.vetoJetPt_Q0 = 0.0;
       plots.vetoJetPt_Qsum = 0.0;
@@ -333,43 +332,44 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for(int i=0; i<4; ++i) {
-        FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Q0, m_plots[i]._h_vetoJetPt_Q0, binEdges(i+1, 1, 1));
-        FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Qsum, m_plots[i]._h_vetoJetPt_Qsum, binEdges(i+1, 2, 1));
+        // @todo YODA
+        //FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Q0, m_plots[i]._h_vetoJetPt_Q0, binEdges(i+1, 1, 1));
+        //FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Qsum, m_plots[i]._h_vetoJetPt_Qsum, binEdges(i+1, 2, 1));
       }
     }
 
-    //void FinalizeGapFraction(double total_weight, ATLAS_2011_I1094568_plots& plots, int type)
-    void FinalizeGapFraction(double total_weight, AIDA::IDataPointSet* gapFraction, AIDA::IHistogram1D* vetoPt, BinEdges fgap_binEdges) {
-      double fgap_low_bin = fgap_binEdges.at(0);
-      double fgap_high_bin = fgap_binEdges.at(fgap_binEdges.size() - 1);
+    // @todo YODA
+    //void FinalizeGapFraction(double total_weight, Scatter2DPtr gapFraction, Histo1DPtr vetoPt, BinEdges fgap_binEdges) {
+    //  double fgap_low_bin = fgap_binEdges.at(0);
+    //  double fgap_high_bin = fgap_binEdges.at(fgap_binEdges.size() - 1);
 
-      double vetoPtWeightSum = 0.0;
-      int dp_counter = 0;
-      for(unsigned int i=0; i<m_q0BinEdges.size()-2; ++i) {
-        vetoPtWeightSum += vetoPt->binHeight(i);
+    //  double vetoPtWeightSum = 0.0;
+    //  int dp_counter = 0;
+    //  for(unsigned int i=0; i<m_q0BinEdges.size()-2; ++i) {
+    //    vetoPtWeightSum += vetoPt->binHeight(i);
 
-        if(m_q0BinEdges.at(i+1) < fgap_low_bin) continue;
-        if(m_q0BinEdges.at(i+1) > fgap_high_bin) break;
+    //    if(m_q0BinEdges.at(i+1) < fgap_low_bin) continue;
+    //    if(m_q0BinEdges.at(i+1) > fgap_high_bin) break;
 
-        IDataPoint* currentPoint = gapFraction->point(dp_counter);
-        IMeasurement* xCoord = currentPoint->coordinate(0);
-        IMeasurement* yCoord = currentPoint->coordinate(1);
+    //    IDataPoint* currentPoint = gapFraction->point(dp_counter);
+    //    IMeasurement* xCoord = currentPoint->coordinate(0);
+    //    IMeasurement* yCoord = currentPoint->coordinate(1);
 
-        double fraction = vetoPtWeightSum/total_weight;
-        double fraction_error = sqrt(fraction*(1.0-fraction)/total_weight);
-        if(total_weight == 0.0) fraction = fraction_error = 0.0;
+    //    double fraction = vetoPtWeightSum/total_weight;
+    //    double fraction_error = sqrt(fraction*(1.0-fraction)/total_weight);
+    //    if(total_weight == 0.0) fraction = fraction_error = 0.0;
 
-        xCoord->setValue(m_q0BinEdges.at(i+1));
-        xCoord->setErrorPlus(2.5);
-        xCoord->setErrorMinus(2.5);
-        yCoord->setValue(fraction);
-        yCoord->setErrorPlus(fraction_error);
-        yCoord->setErrorMinus(fraction_error);
+    //    xCoord->setValue(m_q0BinEdges.at(i+1));
+    //    xCoord->setErrorPlus(2.5);
+    //    xCoord->setErrorMinus(2.5);
+    //    yCoord->setValue(fraction);
+    //    yCoord->setErrorPlus(fraction_error);
+    //    yCoord->setErrorMinus(fraction_error);
 
-        ++dp_counter;
-      }
-      tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*vetoPt)));
-    }
+    //    ++dp_counter;
+    //  }
+    //  tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*vetoPt)));
+    //}
 
 
   private:

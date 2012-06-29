@@ -4,7 +4,7 @@
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -20,11 +20,11 @@ namespace Rivet {
       FastJets akt(fs, FastJets::ANTIKT, 0.5);
       addProjection(akt, "antikT");
 
-      _h_deltaPhi.addHistogram(80., 110., bookHistogram1D(1, 1, 1));
-      _h_deltaPhi.addHistogram(110., 140., bookHistogram1D(2, 1, 1));
-      _h_deltaPhi.addHistogram(140., 200., bookHistogram1D(3, 1, 1));
-      _h_deltaPhi.addHistogram(200., 300., bookHistogram1D(4, 1, 1));
-      _h_deltaPhi.addHistogram(300., 7000., bookHistogram1D(5, 1, 1));
+      _h_deltaPhi.addHistogram( 80.,  110., bookHisto1D(1, 1, 1));
+      _h_deltaPhi.addHistogram(110.,  140., bookHisto1D(2, 1, 1));
+      _h_deltaPhi.addHistogram(140.,  200., bookHisto1D(3, 1, 1));
+      _h_deltaPhi.addHistogram(200.,  300., bookHisto1D(4, 1, 1));
+      _h_deltaPhi.addHistogram(300., 7000., bookHisto1D(5, 1, 1));
     }
 
 
@@ -44,7 +44,7 @@ namespace Rivet {
 
 
     void finalize() {
-      foreach (AIDA::IHistogram1D* histo, _h_deltaPhi.getHistograms()) {
+      foreach (Histo1DPtr histo, _h_deltaPhi.getHistograms()) {
         normalize(histo, 1.);
       }
     }

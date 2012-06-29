@@ -1,21 +1,16 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "LWH/AIManagedObject.h"
-using namespace AIDA;
 
 namespace Rivet {
-
-
   Analysis::Analysis(const string& name)
     : _crossSection(-1.0),
       _gotCrossSection(false),
-      _analysishandler(NULL),
-      _madeHistoDir(false)
+      _analysishandler(NULL)
   {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
@@ -25,27 +20,6 @@ namespace Rivet {
     _info.reset(ai);
     assert(_info.get() != 0);
   }
-
-
-  IAnalysisFactory& Analysis::analysisFactory() {
-    return handler().analysisFactory();
-  }
-
-
-  ITree& Analysis::tree() {
-    return handler().tree();
-  }
-
-
-  IHistogramFactory& Analysis::histogramFactory() {
-    return handler().histogramFactory();
-  }
-
-
-  IDataPointSetFactory& Analysis::datapointsetFactory() {
-    return handler().datapointsetFactory();
-  }
-
 
   double Analysis::sqrtS() const {
     return handler().sqrtS();
@@ -188,41 +162,24 @@ namespace Rivet {
   // Histogramming
 
 
-  void Analysis::_cacheBinEdges() const {
-    _cacheXAxisData();
-    if (_histBinEdges.empty()) {
-      MSG_TRACE("Getting histo bin edges from AIDA for paper " << name());
-      _histBinEdges = getBinEdges(_dpsData);
+  void Analysis::_cacheRefData() const {
+    if (_refdata.empty()) {
+      MSG_TRACE("Getting refdata cache for paper " << name());
+      _refdata = getRefData(name());
     }
   }
 
 
-  void Analysis::_cacheXAxisData() const {
-    if (_dpsData.empty()) {
-      MSG_TRACE("Getting DPS x-axis data from AIDA for paper " << name());
-      _dpsData = getDPSXValsErrs(name());
-    }
-  }
-
-
-  const BinEdges& Analysis::binEdges(const string& hname) const {
-    _cacheBinEdges();
+  const Scatter2D & Analysis::referenceData(const string& hname) const {
+    _cacheRefData();
     MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
-    const BinEdges& edges = _histBinEdges.find(hname)->second;
-    if (getLog().isActive(Log::TRACE)) {
-      stringstream edges_ss;
-      foreach (const double be, edges) {
-        edges_ss << " " << be;
-      }
-      MSG_TRACE("Edges:" << edges_ss.str());
-    }
-    return edges;
+    return *_refdata[hname];
   }
 
 
-  const BinEdges& Analysis::binEdges(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+  const Scatter2D & Analysis::referenceData(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
     const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return binEdges(hname);
+    return referenceData(hname);
   }
 
 
@@ -239,168 +196,145 @@ namespace Rivet {
     return binedges;
   }
 
-  IHistogram1D* Analysis::bookHistogram1D(size_t datasetId, size_t xAxisId,
-                                          size_t yAxisId, const string& title,
-                                          const string& xtitle, const string& ytitle)
+  Histo1DPtr Analysis::bookHisto1D(size_t datasetId, size_t xAxisId,
+				   size_t yAxisId, const string& title,
+				   const string& xtitle, const string& ytitle)
   {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookHistogram1D(axisCode, title, xtitle, ytitle);
+    return bookHisto1D(axisCode, title, xtitle, ytitle);
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const string& hname, const string& title,
-                                          const string& xtitle, const string& ytitle)
+  Histo1DPtr Analysis::bookHisto1D(const string& hname, const string& title,
+				   const string& xtitle, const string& ytitle)
   {
     // Get the bin edges (only read the AIDA file once)
-    const BinEdges edges = binEdges(hname);
-    _makeHistoDir();
+    const Scatter2D & refdata = referenceData(hname);
     const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, edges);
+    Histo1DPtr hist( new Histo1D(refdata, title) );
+    addPlot(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    hist->setXTitle(xtitle);
-    hist->setYTitle(ytitle);
+    // hist->setXTitle(xtitle);
+    // hist->setYTitle(ytitle);
     return hist;
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const string& hname,
-                                          size_t nbins, double lower, double upper,
-                                          const string& title,
-                                          const string& xtitle, const string& ytitle) {
-    _makeHistoDir();
+  Histo1DPtr Analysis::bookHisto1D(const string& hname,
+				   size_t nbins, double lower, double upper,
+				   const string& title,
+				   const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, nbins, lower, upper);
+    Histo1DPtr hist( new Histo1D(nbins, lower, upper, path, title) );
+    addPlot(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    hist->setXTitle(xtitle);
-    hist->setYTitle(ytitle);
+    // hist->setXTitle(xtitle);
+    // hist->setYTitle(ytitle);
     return hist;
   }
 
 
-  IHistogram1D* Analysis::bookHistogram1D(const string& hname,
-                                          const vector<double>& binedges,
-                                          const string& title,
-                                          const string& xtitle, const string& ytitle) {
-    _makeHistoDir();
+  Histo1DPtr Analysis::bookHisto1D(const string& hname,
+				   const vector<double>& binedges,
+				   const string& title,
+				   const string& xtitle,
+				   const string& ytitle) {
     const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IHistogram1D* hist = histogramFactory().createHistogram1D(path, title, binedges);
+    Histo1DPtr hist( new Histo1D(binedges, path, title) );
+    addPlot(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    hist->setXTitle(xtitle);
-    hist->setYTitle(ytitle);
+    // hist->setXTitle(xtitle);
+    // hist->setYTitle(ytitle);
     return hist;
   }
 
-  IHistogram2D*
-  Analysis::bookHistogram2D(const string& hname,
-			    size_t nxbins, double xlower, double xupper,
-			    size_t nybins, double ylower, double yupper,
-			    const string& title, const string& xtitle,
-			    const string& ytitle, const string& ztitle) {
-    _makeHistoDir();
-    const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IHistogram2D* hist =
-      histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
-					   nybins, ylower, yupper);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
-    hist->setXTitle(xtitle);
-    hist->setYTitle(ytitle);
-    hist->setZTitle(ztitle);
-    return hist;
-  }
+  // IHistogram2D*
+  // Analysis::bookHistogram2D(const string& hname,
+  // 			    size_t nxbins, double xlower, double xupper,
+  // 			    size_t nybins, double ylower, double yupper,
+  // 			    const string& title, const string& xtitle,
+  // 			    const string& ytitle, const string& ztitle) {
+  //   _makeHistoDir();
+  //   const string path = histoPath(hname);
+  //   IHistogram2D* hist =
+  //     histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
+  // 					   nybins, ylower, yupper);
+  //   MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
+  //   hist->setXTitle(xtitle);
+  //   hist->setYTitle(ytitle);
+  //   hist->setZTitle(ztitle);
+  //   return hist;
+  // }
 
 
-  IHistogram2D*
-  Analysis::bookHistogram2D(const string& hname,
-			    const vector<double>& xbinedges,
-			    const vector<double>& ybinedges,
-			    const string& title, const string& xtitle,
-			    const string& ytitle, const string& ztitle) {
-    _makeHistoDir();
-    const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IHistogram2D* hist =
-      histogramFactory().createHistogram2D(path, title, xbinedges, ybinedges);
-    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
-    hist->setXTitle(xtitle);
-    hist->setYTitle(ytitle);
-    hist->setZTitle(ztitle);
-    return hist;
-  }
+  // IHistogram2D*
+  // Analysis::bookHistogram2D(const string& hname,
+  // 			    const vector<double>& xbinedges,
+  // 			    const vector<double>& ybinedges,
+  // 			    const string& title, const string& xtitle,
+  // 			    const string& ytitle, const string& ztitle) {
+  //   _makeHistoDir();
+  //   const string path = histoPath(hname);
+  //   IHistogram2D* hist =
+  //     histogramFactory().createHistogram2D(path, title, xbinedges, ybinedges);
+  //   MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
+  //   hist->setXTitle(xtitle);
+  //   hist->setYTitle(ytitle);
+  //   hist->setZTitle(ztitle);
+  //   return hist;
+  // }
 
 
   /////////////////
 
 
-  IProfile1D* Analysis::bookProfile1D(size_t datasetId, size_t xAxisId,
-                                      size_t yAxisId, const string& title,
-                                      const string& xtitle, const string& ytitle) {
+  Profile1DPtr Analysis::bookProfile1D(size_t datasetId, size_t xAxisId,
+				       size_t yAxisId, const string& title,
+				       const string& xtitle, const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookProfile1D(axisCode, title, xtitle, ytitle);
   }
 
 
-  IProfile1D* Analysis::bookProfile1D(const string& hname, const string& title,
-                                      const string& xtitle, const string& ytitle)
+  Profile1DPtr Analysis::bookProfile1D(const string& hname, const string& title,
+				       const string& xtitle, const string& ytitle)
   {
     // Get the bin edges (only read the AIDA file once)
-    const BinEdges edges = binEdges(hname);
-    _makeHistoDir();
+    const Scatter2D & refdata = referenceData(hname);
     const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IProfile1D* prof = histogramFactory().createProfile1D(path, title, edges);
+    Profile1DPtr prof( new Profile1D(refdata, title) );
+    addPlot(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    prof->setXTitle(xtitle);
-    prof->setYTitle(ytitle);
+    // prof->setXTitle(xtitle);
+    // prof->setYTitle(ytitle);
     return prof;
   }
 
 
-  IProfile1D* Analysis::bookProfile1D(const string& hname,
-                                      size_t nbins, double lower, double upper,
-                                      const string& title,
-                                      const string& xtitle, const string& ytitle) {
-    _makeHistoDir();
+  Profile1DPtr Analysis::bookProfile1D(const string& hname,
+				       size_t nbins, double lower, double upper,
+				       const string& title,
+				       const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IProfile1D* prof = histogramFactory().createProfile1D(path, title, nbins, lower, upper);
+    Profile1DPtr prof( new Profile1D(nbins, lower, upper, path, title) );
+    addPlot(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    prof->setXTitle(xtitle);
-    prof->setYTitle(ytitle);
+    // prof->setXTitle(xtitle);
+    // prof->setYTitle(ytitle);
     return prof;
   }
 
 
-  IProfile1D* Analysis::bookProfile1D(const string& hname,
-                                      const vector<double>& binedges,
-                                      const string& title,
-                                      const string& xtitle, const string& ytitle) {
-    _makeHistoDir();
+  Profile1DPtr Analysis::bookProfile1D(const string& hname,
+				       const vector<double>& binedges,
+				       const string& title,
+				       const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IProfile1D* prof = histogramFactory().createProfile1D(path, title, binedges);
+    Profile1DPtr prof( new Profile1D(binedges, path, title) );
+    addPlot(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    prof->setXTitle(xtitle);
-    prof->setYTitle(ytitle);
+    // prof->setXTitle(xtitle);
+    // prof->setYTitle(ytitle);
     return prof;
   }
 
@@ -409,238 +343,108 @@ namespace Rivet {
 
 
 
-  IDataPointSet* Analysis::bookDataPointSet(const string& hname, const string& title,
-                                            const string& xtitle, const string& ytitle) {
-    _makeHistoDir();
+  Scatter2DPtr Analysis::bookScatter2D(const string& hname, const string& title,
+				       const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
-    if (path.find(" ") != string::npos) {
-      throw Error("Histogram path '" + path + "' is invalid: spaces are not permitted in paths");
-    }
-    IDataPointSet* dps = datapointsetFactory().create(path, title, 2);
+    Scatter2DPtr dps( new Scatter2D(path, title) );
+    addPlot(dps);
     MSG_TRACE("Made data point set " << hname <<  " for " << name());
-    dps->setXTitle(xtitle);
-    dps->setYTitle(ytitle);
+    // dps->setXTitle(xtitle);
+    // dps->setYTitle(ytitle);
     return dps;
   }
 
 
-  IDataPointSet* Analysis::bookDataPointSet(const string& hname,
-                                            size_t npts, double lower, double upper,
-                                            const string& title,
-                                            const string& xtitle, const string& ytitle) {
-    IDataPointSet* dps = bookDataPointSet(hname, title, xtitle, ytitle);
+  Scatter2DPtr Analysis::bookScatter2D(const string& hname,
+				       size_t npts, double lower, double upper,
+				       const string& title,
+				       const string& xtitle, const string& ytitle) {
+    Scatter2DPtr dps = bookScatter2D(hname, title, xtitle, ytitle);
+    const double binwidth = (upper-lower)/npts;
     for (size_t pt = 0; pt < npts; ++pt) {
-      const double binwidth = (upper-lower)/npts;
       const double bincentre = lower + (pt + 0.5) * binwidth;
-      dps->addPoint();
-      IMeasurement* meas = dps->point(pt)->coordinate(0);
-      meas->setValue(bincentre);
-      meas->setErrorPlus(binwidth/2.0);
-      meas->setErrorMinus(binwidth/2.0);
+      // \todo YODA check
+      dps->addPoint(bincentre, 0, binwidth/2.0, 0);
+      // IMeasurement* meas = dps->point(pt)->coordinate(0);
+      // meas->setValue(bincentre);
+      // meas->setErrorPlus(binwidth/2.0);
+      // meas->setErrorMinus(binwidth/2.0);
     }
     return dps;
   }
 
-
-  IDataPointSet* Analysis::bookDataPointSet(size_t datasetId, size_t xAxisId,
-                                            size_t yAxisId, const string& title,
-                                            const string& xtitle, const string& ytitle) {
-    // Get the bin edges (only read the AIDA file once)
-    _cacheXAxisData();
-    // Build the axis code
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    //const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
-    MSG_TRACE("Using DPS x-positions for " << name() << ":" << axisCode);
-    IDataPointSet* dps = bookDataPointSet(axisCode, title, xtitle, ytitle);
-    const vector<DPSXPoint> xpts = _dpsData.find(axisCode)->second;
-    for (size_t pt = 0; pt < xpts.size(); ++pt) {
-      dps->addPoint();
-      IMeasurement* meas = dps->point(pt)->coordinate(0);
-      meas->setValue(xpts[pt].val);
-      meas->setErrorPlus(xpts[pt].errplus);
-      meas->setErrorMinus(xpts[pt].errminus);
-    }
-    MSG_TRACE("Made DPS " << axisCode <<  " for " << name());
-    return dps;
-  }
-
-
-  ////////////////////
-
-
-  void Analysis::_makeHistoDir() {
-    if (!_madeHistoDir) {
-      if (! name().empty()) {
-        // vector<string> dirs;
-        // split(dirs, histoDir(), "/");
-        // string pathpart;
-        // foreach (const string& d, dirs) {
-        //tree().mkdir();
-        //}
-        tree().mkdirs(histoDir());
-      }
-      _madeHistoDir = true;
-    }
-  }
+  // \todo YODA
+  // Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId,
+  // 				       size_t yAxisId, const string& title,
+  // 				       const string& xtitle, const string& ytitle) {
+  //   // Get the bin edges (only read the AIDA file once)
+  //   _cacheXAxisData();
+  //   // Build the axis code
+  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+  //   //const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
+  //   MSG_TRACE("Using DPS x-positions for " << name() << ":" << axisCode);
+  //   Scatter2DPtr dps = bookScatter2D(axisCode, title, xtitle, ytitle);
+  //   const vector<Point2D> xpts = _dpsData.find(axisCode)->second;
+  //   foreach ( const Point2D & pt, xpts ) {
+  //     // \todo YODA check
+  //     dps->addPoint(pt.x(), pt.xErrMinus(), pt.xErrPlus(), 0, 0, 0);
+  //     // dps->addPoint(xpts[pt].val, xpts[pt].errminus, xpts[pt].errplus, 0, 0, 0);
+  //     // IMeasurement* meas = dps->point(pt)->coordinate(0);
+  //     // meas->setValue(xpts[pt].val);
+  //     // meas->setErrorPlus(xpts[pt].errplus);
+  //     // meas->setErrorMinus(xpts[pt].errminus);
+  //   }
+  //   MSG_TRACE("Made DPS " << axisCode <<  " for " << name());
+  //   return dps;
+  // }
 
 
-  void Analysis::normalize(AIDA::IHistogram1D*& histo, double norm) {
+  void Analysis::normalize(Histo1DPtr histo, double norm, bool includeoverflows) {
     if (!histo) {
-      MSG_ERROR("Failed to normalize histo=NULL in analysis "
-                << name() << " (norm=" << norm << ")");
+      MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
       return;
     }
-    const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    MSG_TRACE("Normalizing histo " << hpath << " to " << norm);
-
-    // Get integral
-    double oldintg = 0.0;
-    int nBins = histo->axis().bins();
-    for (int iBin = 0; iBin != nBins; ++iBin) {
-      // Leaving out factor of binWidth because AIDA's "height" already includes a width factor.
-      oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
-    }
-    // Include overflow bins in the integral
-    oldintg += histo->binHeight(AIDA::IAxis::UNDERFLOW_BIN);
-    oldintg += histo->binHeight(AIDA::IAxis::OVERFLOW_BIN);
-
-    // Sanity check
-    if (oldintg == 0.0) {
-      MSG_WARNING("Histo " << hpath << " has null integral during normalization");
+    MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
+    try {
+      histo->normalize(norm, includeoverflows);
+    } catch (YODA::WeightError& we) {
+      MSG_WARNING("Could not normalize histo " << histo->path());
       return;
     }
-
-    // Scale by the normalisation factor.
-    scale(histo, norm/oldintg);
   }
 
 
-  void Analysis::scale(AIDA::IHistogram1D*& histo, double scale) {
+  void Analysis::scale(Histo1DPtr histo, double scale) {
     if (!histo) {
-      MSG_ERROR("Failed to scale histo=NULL in analysis "
-                << name() << " (scale=" << scale << ")");
+      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
       return;
     }
-    const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    MSG_TRACE("Scaling histo " << hpath);
-
-    vector<double> x, y, ex, ey;
-    for (size_t i = 0, N = histo->axis().bins(); i < N; ++i) {
-      x.push_back(0.5 * (histo->axis().binLowerEdge(i) + histo->axis().binUpperEdge(i)));
-      ex.push_back(histo->axis().binWidth(i)*0.5);
-
-      // "Bin height" is a misnomer in the AIDA spec: width is neglected.
-      // We'd like to do this: y.push_back(histo->binHeight(i) * scale);
-      y.push_back(histo->binHeight(i)*scale/histo->axis().binWidth(i));
-
-      // "Bin error" is a misnomer in the AIDA spec: width is neglected.
-      // We'd like to do this: ey.push_back(histo->binError(i) * scale);
-      ey.push_back(histo->binError(i)*scale/histo->axis().binWidth(i));
+    MSG_TRACE("Scaling histo " << histo->path() << "by factor " << scale);
+    try {
+      histo->scaleW(scale);
+    } catch (YODA::WeightError& we) {
+      MSG_WARNING("Could not normalize histo " << histo->path());
+      return;
     }
-
-    string title = histo->title();
-    string xtitle = histo->xtitle();
-    string ytitle = histo->ytitle();
-
-    tree().mkdir("/tmpnormalize");
-    tree().mv(hpath, "/tmpnormalize");
-
-    if (hpath.find(" ") != string::npos) {
-      throw Error("Histogram path '" + hpath + "' is invalid: spaces are not permitted in paths");
-    }
-    AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
-    dps->setXTitle(xtitle);
-    dps->setYTitle(ytitle);
-
-    tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
-    tree().rmdir("/tmpnormalize");
-
-    // Set histo pointer to null - it can no longer be used.
-    histo = 0;
+    // // Transforming the histo into a scatter after scaling
+    // vector<double> x, y, ex, ey;
+    // for (size_t i = 0, N = histo->numBins(); i < N; ++i) {
+    //   x.push_back( histo->bin(i).midpoint() );
+    //   ex.push_back(histo->bin(i).width()*0.5);
+    //   y.push_back(histo->bin(i).height()*scale);
+    //   ey.push_back(histo->bin(i).heightErr()*scale);
+    // }
+    // string title = histo->title();
+    // Scatter2DPtr dps( new Scatter2D(x, y, ex, ey, hpath, title) );
+    // addPlot(dps);
   }
 
 
-  void Analysis::normalize(AIDA::IHistogram2D*& histo, double norm) {
-    if (!histo) {
-      MSG_ERROR("Failed to normalize histo=NULL in analysis "
-                << name() << " (norm=" << norm << ")");
-      return;
-    }
-    const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    MSG_TRACE("Normalizing histo " << hpath << " to " << norm);
+  /// @todo 2D versions of scale and normalize... or ditch these completely?
 
-    double oldintg = 0.0;
-    int nxBins = histo->xAxis().bins();
-    int nyBins = histo->yAxis().bins();
-    for (int ixBin = 0; ixBin != nxBins; ++ixBin)
-      for (int iyBin = 0; iyBin != nyBins; ++iyBin) {
-      // Leaving out factor of binWidth because AIDA's "height"
-      // already includes a width factor.
-	oldintg += histo->binHeight(ixBin, iyBin); // * histo->axis().binWidth(iBin);
-    }
-    if (oldintg == 0.0) {
-      MSG_WARNING("Histo " << hpath << " has null integral during normalization");
-      return;
-    }
 
-    // Scale by the normalisation factor.
-    scale(histo, norm/oldintg);
+  void Analysis::addPlot(AnalysisObjectPtr ao) {
+    _plotobjects.push_back(ao);
   }
-
-
-  void Analysis::scale(AIDA::IHistogram2D*& histo, double scale) {
-    if (!histo) {
-      MSG_ERROR("Failed to scale histo=NULL in analysis "
-                << name() << " (scale=" << scale << ")");
-      return;
-    }
-    const string hpath =
-      tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    MSG_TRACE("Scaling histo " << hpath);
-
-    vector<double> x, y, z, ex, ey, ez;
-    for (size_t ix = 0, Nx = histo->xAxis().bins(); ix < Nx; ++ix)
-      for (size_t iy = 0, Ny = histo->yAxis().bins(); iy < Ny; ++iy) {
-	x.push_back(0.5 * (histo->xAxis().binLowerEdge(ix) +
-			   histo->xAxis().binUpperEdge(ix)));
-	ex.push_back(histo->xAxis().binWidth(ix)*0.5);
-	y.push_back(0.5 * (histo->yAxis().binLowerEdge(iy) +
-			   histo->yAxis().binUpperEdge(iy)));
-	ey.push_back(histo->yAxis().binWidth(iy)*0.5);
-
-	// "Bin height" is a misnomer in the AIDA spec: width is neglected.
-	// We'd like to do this: y.push_back(histo->binHeight(i) * scale);
-	z.push_back(histo->binHeight(ix, iy)*scale/
-		    (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
-	// "Bin error" is a misnomer in the AIDA spec: width is neglected.
-	// We'd like to do this: ey.push_back(histo->binError(i) * scale);
-	ez.push_back(histo->binError(ix, iy)*scale/
-		     (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
-    }
-
-    string title = histo->title();
-    string xtitle = histo->xtitle();
-    string ytitle = histo->ytitle();
-    string ztitle = histo->ztitle();
-
-    tree().mkdir("/tmpnormalize");
-    tree().mv(hpath, "/tmpnormalize");
-
-    if (hpath.find(" ") != string::npos) {
-      throw Error("Histogram path '" + hpath + "' is invalid: spaces are not permitted in paths");
-    }
-    AIDA::IDataPointSet* dps =
-      datapointsetFactory().createXYZ(hpath, title, x, y, z, ex, ey, ez);
-    dps->setXTitle(xtitle);
-    dps->setYTitle(ytitle);
-    dps->setZTitle(ztitle);
-
-    tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
-    tree().rmdir("/tmpnormalize");
-
-    // Set histo pointer to null - it can no longer be used.
-    histo = 0;
-  }
-
 
 }

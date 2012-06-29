@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -64,22 +64,22 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.0,3.0),"cfs");
 
       /// Book histograms
-      _etmiss_HT_7j55 = bookHistogram1D("etmiss_HT_7j55", 8, 0., 16.);
-      _etmiss_HT_8j55 = bookHistogram1D("etmiss_HT_8j55", 8, 0., 16.);
-      _etmiss_HT_9j55 = bookHistogram1D("etmiss_HT_9j55", 8, 0., 16.);
-      _etmiss_HT_6j80 = bookHistogram1D("etmiss_HT_6j80", 8, 0., 16.);
-      _etmiss_HT_7j80 = bookHistogram1D("etmiss_HT_7j80", 8, 0., 16.);
-      _etmiss_HT_8j80 = bookHistogram1D("etmiss_HT_8j80", 8, 0., 16.);
+      _etmiss_HT_7j55 = bookHisto1D("etmiss_HT_7j55", 8, 0., 16.);
+      _etmiss_HT_8j55 = bookHisto1D("etmiss_HT_8j55", 8, 0., 16.);
+      _etmiss_HT_9j55 = bookHisto1D("etmiss_HT_9j55", 8, 0., 16.);
+      _etmiss_HT_6j80 = bookHisto1D("etmiss_HT_6j80", 8, 0., 16.);
+      _etmiss_HT_7j80 = bookHisto1D("etmiss_HT_7j80", 8, 0., 16.);
+      _etmiss_HT_8j80 = bookHisto1D("etmiss_HT_8j80", 8, 0., 16.);
 
-      _hist_njet55 = bookHistogram1D("hist_njet55", 11, 2.5, 13.5);
-      _hist_njet80 = bookHistogram1D("hist_njet80", 11, 2.5, 13.5);
+      _hist_njet55 = bookHisto1D("hist_njet55", 11, 2.5, 13.5);
+      _hist_njet80 = bookHisto1D("hist_njet80", 11, 2.5, 13.5);
 
-      _count_7j55 = bookHistogram1D("count_7j55", 1, 0., 1.);
-      _count_8j55 = bookHistogram1D("count_8j55", 1, 0., 1.);
-      _count_9j55 = bookHistogram1D("count_9j55", 1, 0., 1.);
-      _count_6j80 = bookHistogram1D("count_6j80", 1, 0., 1.);
-      _count_7j80 = bookHistogram1D("count_7j80", 1, 0., 1.);
-      _count_8j80 = bookHistogram1D("count_8j80", 1, 0., 1.);
+      _count_7j55 = bookHisto1D("count_7j55", 1, 0., 1.);
+      _count_8j55 = bookHisto1D("count_8j55", 1, 0., 1.);
+      _count_9j55 = bookHisto1D("count_9j55", 1, 0., 1.);
+      _count_6j80 = bookHisto1D("count_6j80", 1, 0., 1.);
+      _count_7j80 = bookHisto1D("count_7j80", 1, 0., 1.);
+      _count_8j80 = bookHisto1D("count_8j80", 1, 0., 1.);
 
     }
 
@@ -121,14 +121,14 @@ namespace Rivet {
       foreach ( const Jet& jet, cand_jets ) {
         // candidates after |eta| < 2.8
         if ( fabs( jet.momentum().eta() ) >= 2.8 ) continue;
-	bool away_from_e = true;
-	foreach ( const Particle & e, cand_e ) {
-	  if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
-	    away_from_e = false;
-	    break;
-	  }
-	}
-	if ( away_from_e ) recon_jets.push_back( jet );
+        bool away_from_e = true;
+        foreach ( const Particle & e, cand_e ) {
+          if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+            away_from_e = false;
+            break;
+          }
+        }
+        if ( away_from_e ) recon_jets.push_back( jet );
       }
 
       // only keep electrons more than R=0.4 from jets
@@ -193,45 +193,45 @@ namespace Rivet {
       double ratio = eTmiss/sqrt(HT);
 
       if(ratio>4.) {
-	_hist_njet55->fill(njet55,weight);
-	_hist_njet80->fill(njet80,weight);
-	// 7j55
-	if(njet55>=7) 
-	  _count_7j55->fill( 0.5, weight); 
-	// 8j55
-	if(njet55>=8) 
-	  _count_8j55->fill( 0.5, weight) ;
-	// 8j55
-	if(njet55>=9)
-	  _count_9j55->fill( 0.5, weight) ;
-	// 6j80
-	if(njet80>=6)
-	  _count_6j80->fill( 0.5, weight) ;
-	// 7j80
-	if(njet80>=7)
-	  _count_7j80->fill( 0.5, weight) ;
-	// 8j80
-	if(njet80>=7)
-	  _count_8j80->fill( 0.5, weight) ;
+        _hist_njet55->fill(njet55,weight);
+        _hist_njet80->fill(njet80,weight);
+        // 7j55
+        if(njet55>=7)
+          _count_7j55->fill( 0.5, weight);
+        // 8j55
+        if(njet55>=8)
+          _count_8j55->fill( 0.5, weight) ;
+        // 8j55
+        if(njet55>=9)
+          _count_9j55->fill( 0.5, weight) ;
+        // 6j80
+        if(njet80>=6)
+          _count_6j80->fill( 0.5, weight) ;
+        // 7j80
+        if(njet80>=7)
+          _count_7j80->fill( 0.5, weight) ;
+        // 8j80
+        if(njet80>=7)
+          _count_8j80->fill( 0.5, weight) ;
       }
 
-      if(njet55>=7) 
-	_etmiss_HT_7j55->fill( ratio, weight); 
+      if(njet55>=7)
+        _etmiss_HT_7j55->fill( ratio, weight);
       // 8j55
-      if(njet55>=8) 
-	_etmiss_HT_8j55->fill( ratio, weight) ;
+      if(njet55>=8)
+        _etmiss_HT_8j55->fill( ratio, weight) ;
       // 8j55
       if(njet55>=9)
-	_etmiss_HT_9j55->fill( ratio, weight) ;
+        _etmiss_HT_9j55->fill( ratio, weight) ;
       // 6j80
       if(njet80>=6)
-	_etmiss_HT_6j80->fill( ratio, weight) ;
+        _etmiss_HT_6j80->fill( ratio, weight) ;
       // 7j80
       if(njet80>=7)
-	_etmiss_HT_7j80->fill( ratio, weight) ;
+        _etmiss_HT_7j80->fill( ratio, weight) ;
       // 8j80
       if(njet80>=7)
-	_etmiss_HT_8j80->fill( ratio, weight) ;
+        _etmiss_HT_8j80->fill( ratio, weight) ;
 
     }
 
@@ -262,22 +262,22 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _etmiss_HT_7j55;
-    AIDA::IHistogram1D* _etmiss_HT_8j55;
-    AIDA::IHistogram1D* _etmiss_HT_9j55;
-    AIDA::IHistogram1D* _etmiss_HT_6j80;
-    AIDA::IHistogram1D* _etmiss_HT_7j80;
-    AIDA::IHistogram1D* _etmiss_HT_8j80;
+    Histo1DPtr _etmiss_HT_7j55;
+    Histo1DPtr _etmiss_HT_8j55;
+    Histo1DPtr _etmiss_HT_9j55;
+    Histo1DPtr _etmiss_HT_6j80;
+    Histo1DPtr _etmiss_HT_7j80;
+    Histo1DPtr _etmiss_HT_8j80;
 
-    AIDA::IHistogram1D* _hist_njet55;
-    AIDA::IHistogram1D* _hist_njet80;
+    Histo1DPtr _hist_njet55;
+    Histo1DPtr _hist_njet80;
 
-    AIDA::IHistogram1D* _count_7j55;
-    AIDA::IHistogram1D* _count_8j55;
-    AIDA::IHistogram1D* _count_9j55;
-    AIDA::IHistogram1D* _count_6j80;
-    AIDA::IHistogram1D* _count_7j80;
-    AIDA::IHistogram1D* _count_8j80;
+    Histo1DPtr _count_7j55;
+    Histo1DPtr _count_8j55;
+    Histo1DPtr _count_9j55;
+    Histo1DPtr _count_6j80;
+    Histo1DPtr _count_7j80;
+    Histo1DPtr _count_8j80;
     //@}
 
   };

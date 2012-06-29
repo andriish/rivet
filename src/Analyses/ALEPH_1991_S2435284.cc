@@ -3,7 +3,7 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -29,7 +29,7 @@ namespace Rivet {
       addProjection(cfs, "FS");
       addProjection(Multiplicity(cfs), "Mult");
 
-      _histChTot = bookHistogram1D(1, 1, 1);
+      _histChTot = bookHisto1D(1, 1, 1);
     }
 
 
@@ -53,7 +53,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _histChTot;
+    Histo1DPtr _histChTot;
     //@}
 
   };

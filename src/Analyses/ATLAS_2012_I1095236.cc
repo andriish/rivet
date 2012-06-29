@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -58,28 +58,28 @@ namespace Rivet {
       // All tracks (to do deltaR with leptons)
       addProjection(ChargedFinalState(-3.0,3.0),"cfs");
 
-      // Used for pTmiss 
+      // Used for pTmiss
       addProjection(VisibleFinalState(-4.9,4.9),"vfs");
 
       // Book histograms
-      _count_SR0_A1 = bookHistogram1D("count_SR0_A1", 1, 0., 1.);
-      _count_SR0_B1 = bookHistogram1D("count_SR0_B1", 1, 0., 1.);
-      _count_SR0_C1 = bookHistogram1D("count_SR0_C1", 1, 0., 1.);
-      _count_SR0_A2 = bookHistogram1D("count_SR0_A2", 1, 0., 1.);
-      _count_SR0_B2 = bookHistogram1D("count_SR0_B2", 1, 0., 1.);
-      _count_SR0_C2 = bookHistogram1D("count_SR0_C2", 1, 0., 1.);
-      _count_SR1_D  = bookHistogram1D("count_SR1_D" , 1, 0., 1.);
-      _count_SR1_E  = bookHistogram1D("count_SR1_E" , 1, 0., 1.);
+      _count_SR0_A1 = bookHisto1D("count_SR0_A1", 1, 0., 1.);
+      _count_SR0_B1 = bookHisto1D("count_SR0_B1", 1, 0., 1.);
+      _count_SR0_C1 = bookHisto1D("count_SR0_C1", 1, 0., 1.);
+      _count_SR0_A2 = bookHisto1D("count_SR0_A2", 1, 0., 1.);
+      _count_SR0_B2 = bookHisto1D("count_SR0_B2", 1, 0., 1.);
+      _count_SR0_C2 = bookHisto1D("count_SR0_C2", 1, 0., 1.);
+      _count_SR1_D  = bookHisto1D("count_SR1_D" , 1, 0., 1.);
+      _count_SR1_E  = bookHisto1D("count_SR1_E" , 1, 0., 1.);
 
-      _hist_meff_SR0_A1   = bookHistogram1D("hist_m_eff_SR0_A1", 14, 400., 1800.);
-      _hist_meff_SR0_A2   = bookHistogram1D("hist_m_eff_SR0_A2", 14, 400., 1800.);
-      _hist_meff_SR1_D_e  = bookHistogram1D("hist_meff_SR1_D_e" , 16, 600., 2200.);
-      _hist_meff_SR1_D_mu = bookHistogram1D("hist_meff_SR1_D_mu", 16, 600., 2200.);
+      _hist_meff_SR0_A1   = bookHisto1D("hist_m_eff_SR0_A1", 14, 400., 1800.);
+      _hist_meff_SR0_A2   = bookHisto1D("hist_m_eff_SR0_A2", 14, 400., 1800.);
+      _hist_meff_SR1_D_e  = bookHisto1D("hist_meff_SR1_D_e" , 16, 600., 2200.);
+      _hist_meff_SR1_D_mu = bookHisto1D("hist_meff_SR1_D_mu", 16, 600., 2200.);
 
-      _hist_met_SR0_A1    = bookHistogram1D("hist_met_SR0_A1", 14, 0., 700.);
-      _hist_met_SR0_A2    = bookHistogram1D("hist_met_SR0_A2", 14, 0., 700.);
-      _hist_met_SR0_D_e   = bookHistogram1D("hist_met_SR1_D_e" , 15, 0., 600.);
-      _hist_met_SR0_D_mu  = bookHistogram1D("hist_met_SR1_D_mu", 15, 0., 600.);
+      _hist_met_SR0_A1    = bookHisto1D("hist_met_SR0_A1", 14, 0., 700.);
+      _hist_met_SR0_A2    = bookHisto1D("hist_met_SR0_A2", 14, 0., 700.);
+      _hist_met_SR0_D_e   = bookHisto1D("hist_met_SR1_D_e" , 15, 0., 600.);
+      _hist_met_SR0_D_mu  = bookHisto1D("hist_met_SR1_D_mu", 15, 0., 600.);
 
     }
 
@@ -87,13 +87,13 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      
+
       Jets cand_jets;
       const Jets jets = applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV);
       foreach (const Jet& jet, jets) {
-	if ( fabs( jet.momentum().eta() ) < 2.8 ) {
-	  cand_jets.push_back(jet);
-	}
+        if ( fabs( jet.momentum().eta() ) < 2.8 ) {
+          cand_jets.push_back(jet);
+        }
       }
 
       const ParticleVector cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
@@ -102,17 +102,17 @@ namespace Rivet {
       // Resolve jet-lepton overlap for jets with |eta| < 2.8
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-	if ( fabs( jet.momentum().eta() ) >= 2.8 ) continue;
-	bool away_from_e = true;
-	foreach ( const Particle & e, cand_e ) {
-	  if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
-	    away_from_e = false;
-	    break;
-	  }
-	}
-	if ( away_from_e ) recon_jets.push_back( jet );
+        if ( fabs( jet.momentum().eta() ) >= 2.8 ) continue;
+        bool away_from_e = true;
+        foreach ( const Particle & e, cand_e ) {
+          if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+            away_from_e = false;
+            break;
+          }
+        }
+        if ( away_from_e ) recon_jets.push_back( jet );
       }
-      
+
       // get the loose leptons used to define the 0 lepton channel
       ParticleVector loose_e, loose_mu;
       foreach ( const Particle & e, cand_e ) {
@@ -140,7 +140,7 @@ namespace Rivet {
       ParticleVector chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu, loose_mu) {
-	if(mu.momentum().perp()<20.) continue;
+        if(mu.momentum().perp()<20.) continue;
         double pTinCone = -mu.momentum().pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
@@ -151,15 +151,15 @@ namespace Rivet {
       }
       ParticleVector tight_e;
       foreach ( const Particle & e, loose_e ) {
-	if(e.momentum().perp()<25.) continue;
+        if(e.momentum().perp()<25.) continue;
         double pTinCone = -e.momentum().perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.momentum().pT();
         }
-	if (pTinCone/e.momentum().perp()<0.1) {
+        if (pTinCone/e.momentum().perp()<0.1) {
           tight_e.push_back(e);
-	}
+        }
       }
 
       // pTmiss
@@ -174,19 +174,19 @@ namespace Rivet {
       // get the number of b-tagged jets
       unsigned int ntagged=0;
       foreach (const Jet & jet, recon_jets ) {
-	if(jet.momentum().perp()>50. && abs(jet.momentum().eta())<2.5 &&
-	   jet.containsBottom() && rand()/static_cast<double>(RAND_MAX)<=0.60)
-	  ++ntagged;
+        if(jet.momentum().perp()>50. && abs(jet.momentum().eta())<2.5 &&
+           jet.containsBottom() && rand()/static_cast<double>(RAND_MAX)<=0.60)
+          ++ntagged;
       }
 
       // ATLAS calo problem
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
-	foreach ( const Jet & jet, recon_jets ) {
-	  double eta = jet.momentum().rapidity();
-	  double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-	  if(jet.momentum().perp()>50 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
-	    vetoEvent;
-	}
+        foreach ( const Jet & jet, recon_jets ) {
+          double eta = jet.momentum().rapidity();
+          double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          if(jet.momentum().perp()>50 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+            vetoEvent;
+        }
       }
 
       // at least 1 b tag
@@ -197,88 +197,88 @@ namespace Rivet {
 
       // at least 3 jets pT > 50
       if(recon_jets.size()<3 || recon_jets[2].momentum().perp()<50.)
-	vetoEvent;
+        vetoEvent;
 
       // m_eff
       double m_eff =  eTmiss;
       for(unsigned int ix=0;ix<3;++ix)
-	m_eff += recon_jets[ix].momentum().perp();
+        m_eff += recon_jets[ix].momentum().perp();
 
       // delta Phi
       double min_dPhi = 999.999;
       double pTmiss_phi = pTmiss.phi();
       for(unsigned int ix=0;ix<3;++ix) {
-	min_dPhi = min( min_dPhi, deltaPhi( pTmiss_phi, recon_jets[ix].momentum().phi() ) );
+        min_dPhi = min( min_dPhi, deltaPhi( pTmiss_phi, recon_jets[ix].momentum().phi() ) );
       }
 
       // 0-lepton channels
       if(loose_e.empty() && loose_mu.empty() &&
-	 recon_jets[0].momentum().perp()>130.  && eTmiss>130. &&
-	 eTmiss/m_eff>0.25 && min_dPhi>0.4) {
-	// jet charge cut
-	bool jetCharge = true;
-	for(unsigned int ix=0;ix<3;++ix) {
-	  if(fabs(recon_jets[ix].momentum().eta())>2.) continue;
-	  double trackpT=0;
-	  foreach(const Particle & p, recon_jets[ix].particles()) {
-	    if(PID::threeCharge(p.pdgId())==0) continue;
-	    trackpT += p.momentum().perp();
-	  }
-	  if(trackpT/recon_jets[ix].momentum().perp()<0.05)
-	    jetCharge = false;
-	}
-	if(jetCharge) {
-	  // SR0-A region
-	  if(m_eff>500.) {
-	    _count_SR0_A1->fill(0.5,weight);
-	    _hist_meff_SR0_A1->fill(m_eff,weight);
-	    _hist_met_SR0_A1 ->fill(eTmiss,weight);
-	    if(ntagged>=2) {
-	      _count_SR0_A2->fill(0.5,weight);
-	      _hist_meff_SR0_A2->fill(m_eff,weight);
-	      _hist_met_SR0_A2 ->fill(eTmiss,weight);
-	    }
-	  }
-	  // SR0-B
-	  if(m_eff>700.) {
-	    _count_SR0_B1->fill(0.5,weight);
-	    if(ntagged>=2) _count_SR0_B2->fill(0.5,weight);
-	  }
-	  // SR0-C
-	  if(m_eff>900.) {
-	    _count_SR0_C1->fill(0.5,weight);
-	    if(ntagged>=2) _count_SR0_C2->fill(0.5,weight);
-	  }
-	}
+         recon_jets[0].momentum().perp()>130.  && eTmiss>130. &&
+         eTmiss/m_eff>0.25 && min_dPhi>0.4) {
+        // jet charge cut
+        bool jetCharge = true;
+        for(unsigned int ix=0;ix<3;++ix) {
+          if(fabs(recon_jets[ix].momentum().eta())>2.) continue;
+          double trackpT=0;
+          foreach(const Particle & p, recon_jets[ix].particles()) {
+            if(PID::threeCharge(p.pdgId())==0) continue;
+            trackpT += p.momentum().perp();
+          }
+          if(trackpT/recon_jets[ix].momentum().perp()<0.05)
+            jetCharge = false;
+        }
+        if(jetCharge) {
+          // SR0-A region
+          if(m_eff>500.) {
+            _count_SR0_A1->fill(0.5,weight);
+            _hist_meff_SR0_A1->fill(m_eff,weight);
+            _hist_met_SR0_A1 ->fill(eTmiss,weight);
+            if(ntagged>=2) {
+              _count_SR0_A2->fill(0.5,weight);
+              _hist_meff_SR0_A2->fill(m_eff,weight);
+              _hist_met_SR0_A2 ->fill(eTmiss,weight);
+            }
+          }
+          // SR0-B
+          if(m_eff>700.) {
+            _count_SR0_B1->fill(0.5,weight);
+            if(ntagged>=2) _count_SR0_B2->fill(0.5,weight);
+          }
+          // SR0-C
+          if(m_eff>900.) {
+            _count_SR0_C1->fill(0.5,weight);
+            if(ntagged>=2) _count_SR0_C2->fill(0.5,weight);
+          }
+        }
       }
 
       // 1-lepton channels
       if(tight_e.size() + tight_mu.size() == 1 &&
-	 recon_jets.size()>=4 && recon_jets[3].momentum().perp()>50.&&
-	 recon_jets[0].momentum().perp()>60.) {
-	Particle lepton = tight_e.empty() ? tight_mu[0] : tight_e[0];
-	m_eff += lepton.momentum().perp() + recon_jets[3].momentum().perp();
-	// transverse mass cut
-	double mT = 2.*(lepton.momentum().perp()*eTmiss-
-			lepton.momentum().x()*pTmiss.x()-
-			lepton.momentum().y()*pTmiss.y());
-	mT = sqrt(mT);
-	if(mT>100.&&m_eff>700.) {
-	  // D region
-	  _count_SR1_D->fill(0.5,weight);
-	  if(abs(lepton.pdgId())==ELECTRON) {
-	    _hist_meff_SR1_D_e->fill(m_eff,weight);
-	    _hist_met_SR0_D_e->fill(eTmiss,weight);
-	  }
-	  else {
-	    _hist_meff_SR1_D_mu->fill(m_eff,weight);
-	    _hist_met_SR0_D_mu->fill(eTmiss,weight);
-	  }
-	  // E region
-	  if(eTmiss>200.) {
-	    _count_SR1_E->fill(0.5,weight);
-	  }
-	}
+         recon_jets.size()>=4 && recon_jets[3].momentum().perp()>50.&&
+         recon_jets[0].momentum().perp()>60.) {
+        Particle lepton = tight_e.empty() ? tight_mu[0] : tight_e[0];
+        m_eff += lepton.momentum().perp() + recon_jets[3].momentum().perp();
+        // transverse mass cut
+        double mT = 2.*(lepton.momentum().perp()*eTmiss-
+                        lepton.momentum().x()*pTmiss.x()-
+                        lepton.momentum().y()*pTmiss.y());
+        mT = sqrt(mT);
+        if(mT>100.&&m_eff>700.) {
+          // D region
+          _count_SR1_D->fill(0.5,weight);
+          if(abs(lepton.pdgId())==ELECTRON) {
+            _hist_meff_SR1_D_e->fill(m_eff,weight);
+            _hist_met_SR0_D_e->fill(eTmiss,weight);
+          }
+          else {
+            _hist_meff_SR1_D_mu->fill(m_eff,weight);
+            _hist_met_SR0_D_mu->fill(eTmiss,weight);
+          }
+          // E region
+          if(eTmiss>200.) {
+            _count_SR1_E->fill(0.5,weight);
+          }
+        }
       }
     }
 
@@ -313,24 +313,24 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D* _count_SR0_A1;
-    AIDA::IHistogram1D* _count_SR0_B1;
-    AIDA::IHistogram1D* _count_SR0_C1;
-    AIDA::IHistogram1D* _count_SR0_A2;
-    AIDA::IHistogram1D* _count_SR0_B2;
-    AIDA::IHistogram1D* _count_SR0_C2;
-    AIDA::IHistogram1D* _count_SR1_D;
-    AIDA::IHistogram1D* _count_SR1_E;
+    Histo1DPtr _count_SR0_A1;
+    Histo1DPtr _count_SR0_B1;
+    Histo1DPtr _count_SR0_C1;
+    Histo1DPtr _count_SR0_A2;
+    Histo1DPtr _count_SR0_B2;
+    Histo1DPtr _count_SR0_C2;
+    Histo1DPtr _count_SR1_D;
+    Histo1DPtr _count_SR1_E;
 
-    AIDA::IHistogram1D* _hist_meff_SR0_A1;
-    AIDA::IHistogram1D* _hist_meff_SR0_A2;
-    AIDA::IHistogram1D* _hist_meff_SR1_D_e;
-    AIDA::IHistogram1D* _hist_meff_SR1_D_mu;
-    AIDA::IHistogram1D* _hist_met_SR0_A1;
-    AIDA::IHistogram1D* _hist_met_SR0_A2;
-    AIDA::IHistogram1D* _hist_met_SR0_D_e;
-    AIDA::IHistogram1D* _hist_met_SR0_D_mu;
-    
+    Histo1DPtr _hist_meff_SR0_A1;
+    Histo1DPtr _hist_meff_SR0_A2;
+    Histo1DPtr _hist_meff_SR1_D_e;
+    Histo1DPtr _hist_meff_SR1_D_mu;
+    Histo1DPtr _hist_met_SR0_A1;
+    Histo1DPtr _hist_met_SR0_A2;
+    Histo1DPtr _hist_met_SR0_D_e;
+    Histo1DPtr _hist_met_SR0_D_mu;
+
   };
 
 

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Math/Constants.hh"
@@ -44,13 +44,13 @@ using namespace std;
     void init() {
       MSG_DEBUG("Initializing analysis!");
       fillMap(partLftMap);
-      _h_K0s_pt_30    = bookHistogram1D(1,1,1);
-      _h_K0s_pt_35    = bookHistogram1D(1,1,2);
-      _h_K0s_pt_40    = bookHistogram1D(1,1,3);
-      _h_K0s_pt_y_30  = bookHistogram1D(2,1,1);
-      _h_K0s_pt_y_35  = bookHistogram1D(2,1,2);
-      _h_K0s_pt_y_40  = bookHistogram1D(2,1,3);
-      _h_K0s_pt_y_all = bookHistogram1D(3,1,1);
+      _h_K0s_pt_30    = bookHisto1D(1,1,1);
+      _h_K0s_pt_35    = bookHisto1D(1,1,2);
+      _h_K0s_pt_40    = bookHisto1D(1,1,3);
+      _h_K0s_pt_y_30  = bookHisto1D(2,1,1);
+      _h_K0s_pt_y_35  = bookHisto1D(2,1,2);
+      _h_K0s_pt_y_40  = bookHisto1D(2,1,3);
+      _h_K0s_pt_y_all = bookHisto1D(3,1,1);
       addProjection(UnstableFinalState(), "UFS");
     }
 
@@ -291,13 +291,13 @@ using namespace std;
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_h_K0s_pt_y_30;         // histogram for 2.5 < y < 3.0 (d2sigma)
-    AIDA::IHistogram1D *_h_K0s_pt_y_35;         // histogram for 3.0 < y < 3.5 (d2sigma)
-    AIDA::IHistogram1D *_h_K0s_pt_y_40;         // histogram for 3.5 < y < 4.0 (d2sigma)
-    AIDA::IHistogram1D *_h_K0s_pt_30;           // histogram for 2.5 < y < 3.0 (sigma)
-    AIDA::IHistogram1D *_h_K0s_pt_35;           // histogram for 3.0 < y < 3.5 (sigma)
-    AIDA::IHistogram1D *_h_K0s_pt_40;           // histogram for 3.5 < y < 4.0 (sigma)
-    AIDA::IHistogram1D *_h_K0s_pt_y_all;        // histogram for 2.5 < y < 4.0 (d2sigma)
+    Histo1DPtr _h_K0s_pt_y_30;         // histogram for 2.5 < y < 3.0 (d2sigma)
+    Histo1DPtr _h_K0s_pt_y_35;         // histogram for 3.0 < y < 3.5 (d2sigma)
+    Histo1DPtr _h_K0s_pt_y_40;         // histogram for 3.5 < y < 4.0 (d2sigma)
+    Histo1DPtr _h_K0s_pt_30;           // histogram for 2.5 < y < 3.0 (sigma)
+    Histo1DPtr _h_K0s_pt_35;           // histogram for 3.0 < y < 3.5 (sigma)
+    Histo1DPtr _h_K0s_pt_40;           // histogram for 3.5 < y < 4.0 (sigma)
+    Histo1DPtr _h_K0s_pt_y_all;        // histogram for 2.5 < y < 4.0 (d2sigma)
     double sumKs0_30;                           // Sum of weights 2.5 < y < 3.0
     double sumKs0_35;                           // Sum of weights 3.0 < y < 3.5
     double sumKs0_40;                           // Sum of weights 3.5 < y < 4.0

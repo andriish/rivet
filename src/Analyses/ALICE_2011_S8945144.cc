@@ -1,7 +1,7 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -20,12 +20,12 @@ namespace Rivet {
       const ChargedFinalState cfs(-15, 15);
       addProjection(cfs, "CFS");
 
-      _histPtPions        = bookHistogram1D("d01-x01-y01");
-      _histPtAntiPions    = bookHistogram1D("d01-x01-y02");
-      _histPtKaons        = bookHistogram1D("d02-x01-y01");
-      _histPtAntiKaons    = bookHistogram1D("d02-x01-y02");
-      _histPtProtons      = bookHistogram1D("d03-x01-y01");
-      _histPtAntiProtons  = bookHistogram1D("d03-x01-y02");
+      _histPtPions        = bookHisto1D("d01-x01-y01");
+      _histPtAntiPions    = bookHisto1D("d01-x01-y02");
+      _histPtKaons        = bookHisto1D("d02-x01-y01");
+      _histPtAntiKaons    = bookHisto1D("d02-x01-y02");
+      _histPtProtons      = bookHisto1D("d03-x01-y01");
+      _histPtAntiProtons  = bookHisto1D("d03-x01-y02");
       _histAveragePt      = bookProfile1D("d04-x01-y01");
     }
 
@@ -88,13 +88,13 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D *_histPtPions;
-    AIDA::IHistogram1D *_histPtProtons;
-    AIDA::IHistogram1D *_histPtKaons;
-    AIDA::IHistogram1D *_histPtAntiPions;
-    AIDA::IHistogram1D *_histPtAntiProtons;
-    AIDA::IHistogram1D *_histPtAntiKaons;
-    AIDA::IProfile1D   *_histAveragePt;
+    Histo1DPtr _histPtPions;
+    Histo1DPtr _histPtProtons;
+    Histo1DPtr _histPtKaons;
+    Histo1DPtr _histPtAntiPions;
+    Histo1DPtr _histPtAntiProtons;
+    Histo1DPtr _histPtAntiKaons;
+    Profile1DPtr _histAveragePt;
 
   };
 

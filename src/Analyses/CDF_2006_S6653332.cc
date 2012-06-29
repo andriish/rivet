@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -53,9 +53,9 @@ namespace Rivet {
       addProjection(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
 
       // Book histograms
-      _sigmaBJet = bookHistogram1D(1, 1, 1);
-      _ratioBJetToZ = bookHistogram1D(2, 1, 1);
-      _ratioBJetToJet = bookHistogram1D(3, 1, 1);
+      _sigmaBJet = bookHisto1D(1, 1, 1);
+      _ratioBJetToZ = bookHisto1D(2, 1, 1);
+      _ratioBJetToJet = bookHisto1D(3, 1, 1);
     }
 
 
@@ -145,9 +145,9 @@ namespace Rivet {
       MSG_DEBUG("Sum of weights for Z production in mass range = " << _sumWeightsWithZ);
       MSG_DEBUG("Sum of weights for Z+jet production in mass range = " << _sumWeightsWithZJet);
 
-      _sigmaBJet->scale(crossSection()/sumOfWeights());
-      _ratioBJetToZ->scale(1.0/_sumWeightsWithZ);
-      _ratioBJetToJet->scale(1.0/_sumWeightsWithZJet);
+      scale(_sigmaBJet,crossSection()/sumOfWeights());
+      scale(_ratioBJetToZ,1.0/_sumWeightsWithZ);
+      scale(_ratioBJetToJet,1.0/_sumWeightsWithZJet);
     }
 
         //@}
@@ -172,9 +172,9 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _sigmaBJet;
-    AIDA::IHistogram1D* _ratioBJetToZ;
-    AIDA::IHistogram1D* _ratioBJetToJet;
+    Histo1DPtr _sigmaBJet;
+    Histo1DPtr _ratioBJetToZ;
+    Histo1DPtr _ratioBJetToJet;
     //@}
 
   };

@@ -94,7 +94,7 @@ parser.add_option_group(anagroup)
 
 extragroup = OptionGroup(parser, "Extra run settings")
 extragroup.add_option("-H", "--histo-file", dest="HISTOFILE",
-                      default="Rivet.aida", help="specify the output histo file path (default = %default)")
+                      default="Rivet.yoda", help="specify the output histo file path (default = %default)")
 extragroup.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                       default=None, metavar="XS",
                       help="specify the signal process cross-section in pb")

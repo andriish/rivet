@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 
@@ -24,19 +24,19 @@ namespace Rivet {
       // Particle distributions versus rapidity and transverse momentum
       // Only make histograms if the correct energy is used.
       if (fuzzyEquals(sqrtS()/GeV, 900)){
-        _h_dNKshort_dy  = bookHistogram1D(1, 1, 1);
-        _h_dNKshort_dpT = bookHistogram1D(2, 1, 1);
-        _h_dNLambda_dy  = bookHistogram1D(3, 1, 1);
-        _h_dNLambda_dpT = bookHistogram1D(4, 1, 1);
-        _h_dNXi_dy      = bookHistogram1D(5, 1, 1);
-        _h_dNXi_dpT     = bookHistogram1D(6, 1, 1);
+        _h_dNKshort_dy  = bookHisto1D(1, 1, 1);
+        _h_dNKshort_dpT = bookHisto1D(2, 1, 1);
+        _h_dNLambda_dy  = bookHisto1D(3, 1, 1);
+        _h_dNLambda_dpT = bookHisto1D(4, 1, 1);
+        _h_dNXi_dy      = bookHisto1D(5, 1, 1);
+        _h_dNXi_dpT     = bookHisto1D(6, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 7000)){
-        _h_dNKshort_dy  = bookHistogram1D(1, 1, 2);
-        _h_dNKshort_dpT = bookHistogram1D(2, 1, 2);
-        _h_dNLambda_dy  = bookHistogram1D(3, 1, 2);
-        _h_dNLambda_dpT = bookHistogram1D(4, 1, 2);
-        _h_dNXi_dy      = bookHistogram1D(5, 1, 2);
-        _h_dNXi_dpT     = bookHistogram1D(6, 1, 2);
+        _h_dNKshort_dy  = bookHisto1D(1, 1, 2);
+        _h_dNKshort_dpT = bookHisto1D(2, 1, 2);
+        _h_dNLambda_dy  = bookHisto1D(3, 1, 2);
+        _h_dNLambda_dpT = bookHisto1D(4, 1, 2);
+        _h_dNXi_dy      = bookHisto1D(5, 1, 2);
+        _h_dNXi_dpT     = bookHisto1D(6, 1, 2);
       }
     }
 
@@ -78,21 +78,22 @@ namespace Rivet {
 
 
     void finalize() {
-      AIDA::IHistogramFactory& hf = histogramFactory();
-      const string dir = histoDir();
-
-      // Making the Lambda/Kshort and Xi/Lambda ratios vs pT and y
-      if (fuzzyEquals(sqrtS()/GeV, 900)) {
-        hf.divide(dir + "/d07-x01-y01",*_h_dNLambda_dpT, *_h_dNKshort_dpT);
-        hf.divide(dir + "/d08-x01-y01",*_h_dNXi_dpT, *_h_dNLambda_dpT);
-        hf.divide(dir + "/d09-x01-y01",*_h_dNLambda_dy, *_h_dNKshort_dy);
-        hf.divide(dir + "/d10-x01-y01",*_h_dNXi_dy, *_h_dNLambda_dy);
-      } else if (fuzzyEquals(sqrtS()/GeV, 7000)) {
-        hf.divide(dir + "/d07-x01-y02",*_h_dNLambda_dpT, *_h_dNKshort_dpT);
-        hf.divide(dir + "/d08-x01-y02",*_h_dNXi_dpT, *_h_dNLambda_dpT);
-        hf.divide(dir + "/d09-x01-y02",*_h_dNLambda_dy, *_h_dNKshort_dy);
-        hf.divide(dir + "/d10-x01-y02",*_h_dNXi_dy, *_h_dNLambda_dy);
-      }
+      // \todo YODA divide
+      // AIDA::IHistogramFactory& hf = histogramFactory();
+      // const string dir = histoDir();
+      //
+      // // Making the Lambda/Kshort and Xi/Lambda ratios vs pT and y
+      // if (fuzzyEquals(sqrtS()/GeV, 900)) {
+      //   hf.divide(dir + "/d07-x01-y01",*_h_dNLambda_dpT, *_h_dNKshort_dpT);
+      //   hf.divide(dir + "/d08-x01-y01",*_h_dNXi_dpT, *_h_dNLambda_dpT);
+      //   hf.divide(dir + "/d09-x01-y01",*_h_dNLambda_dy, *_h_dNKshort_dy);
+      //   hf.divide(dir + "/d10-x01-y01",*_h_dNXi_dy, *_h_dNLambda_dy);
+      // } else if (fuzzyEquals(sqrtS()/GeV, 7000)) {
+      //   hf.divide(dir + "/d07-x01-y02",*_h_dNLambda_dpT, *_h_dNKshort_dpT);
+      //   hf.divide(dir + "/d08-x01-y02",*_h_dNXi_dpT, *_h_dNLambda_dpT);
+      //   hf.divide(dir + "/d09-x01-y02",*_h_dNLambda_dy, *_h_dNKshort_dy);
+      //   hf.divide(dir + "/d10-x01-y02",*_h_dNXi_dy, *_h_dNLambda_dy);
+      // }
 
       double normpT = 1.0/sumOfWeights();
       double normy = 0.5*normpT; // Accounts for using |y| instead of y
@@ -108,12 +109,12 @@ namespace Rivet {
   private:
 
     // Particle distributions versus rapidity and transverse momentum
-    AIDA::IHistogram1D *_h_dNKshort_dy;
-    AIDA::IHistogram1D *_h_dNKshort_dpT;
-    AIDA::IHistogram1D *_h_dNLambda_dy;
-    AIDA::IHistogram1D *_h_dNLambda_dpT;
-    AIDA::IHistogram1D *_h_dNXi_dy;
-    AIDA::IHistogram1D *_h_dNXi_dpT;
+    Histo1DPtr _h_dNKshort_dy;
+    Histo1DPtr _h_dNKshort_dpT;
+    Histo1DPtr _h_dNLambda_dy;
+    Histo1DPtr _h_dNLambda_dpT;
+    Histo1DPtr _h_dNXi_dy;
+    Histo1DPtr _h_dNXi_dpT;
 
   };
 

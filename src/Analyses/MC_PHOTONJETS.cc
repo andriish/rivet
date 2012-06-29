@@ -4,7 +4,7 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -40,12 +40,12 @@ namespace Rivet {
       FastJets jetpro(vfs, FastJets::KT, 0.7);
       addProjection(jetpro, "Jets");
 
-      _h_photon_pT = bookHistogram1D("photon_pT", logBinEdges(50, 30.0, 0.5*sqrtS()));
-      _h_photon_pT_lin = bookHistogram1D("photon_pT_lin", 50, 0.0, 70.0);
-      _h_photon_y = bookHistogram1D("photon_y", 50, -5.0, 5.0);
-      _h_photon_jet1_deta = bookHistogram1D("photon_jet1_deta", 50, -5.0, 5.0);
-      _h_photon_jet1_dphi = bookHistogram1D("photon_jet1_dphi", 20, 0.0, M_PI);
-      _h_photon_jet1_dR = bookHistogram1D("photon_jet1_dR", 25, 0.5, 7.0);
+      _h_photon_pT = bookHisto1D("photon_pT", logBinEdges(50, 30.0, 0.5*sqrtS()));
+      _h_photon_pT_lin = bookHisto1D("photon_pT_lin", 50, 0.0, 70.0);
+      _h_photon_y = bookHisto1D("photon_y", 50, -5.0, 5.0);
+      _h_photon_jet1_deta = bookHisto1D("photon_jet1_deta", 50, -5.0, 5.0);
+      _h_photon_jet1_dphi = bookHisto1D("photon_jet1_dphi", 20, 0.0, M_PI);
+      _h_photon_jet1_dR = bookHisto1D("photon_jet1_dR", 25, 0.5, 7.0);
 
       MC_JetAnalysis::init();
     }
@@ -117,12 +117,12 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D * _h_photon_pT;
-    AIDA::IHistogram1D * _h_photon_pT_lin;
-    AIDA::IHistogram1D * _h_photon_y;
-    AIDA::IHistogram1D * _h_photon_jet1_deta;
-    AIDA::IHistogram1D * _h_photon_jet1_dphi;
-    AIDA::IHistogram1D * _h_photon_jet1_dR;
+    Histo1DPtr _h_photon_pT;
+    Histo1DPtr _h_photon_pT_lin;
+    Histo1DPtr _h_photon_y;
+    Histo1DPtr _h_photon_jet1_deta;
+    Histo1DPtr _h_photon_jet1_dphi;
+    Histo1DPtr _h_photon_jet1_dR;
     //@}
 
   };

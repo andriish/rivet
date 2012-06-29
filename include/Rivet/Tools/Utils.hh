@@ -74,10 +74,6 @@ namespace Rivet {
     return dirs;
   }
 
-  /// @deprecated Use @c pathsplit instead.
-  inline vector<string> split(const string& path, const string& UNUSED(delim) = ":") {
-    return pathsplit(path);
-  }
 
   /// @brief Join several filesystem paths together with a delimiter character.
   /// Note that this does NOT join path elements together with a platform-portable

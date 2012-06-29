@@ -1,10 +1,10 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "LWH/Histogram1D.h"
+//#include "LWH/Histogram1D.h"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Constants.hh"
 
@@ -60,12 +60,13 @@ namespace Rivet {
       } else {
         MSG_ERROR("Incompatible beam energy!");
       }
-      //pT edges are the same for all 3 histos in this suite
-      const BinEdges& pt_edges = binEdges(dsShift+5,1,1);
-      // booking temporary histos
-      for (int i = 0; i<12; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(y_nbins, rap_min, rap_max));
-      for (int i = 12; i<15; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(pt_edges));
-      for (int i = 15; i<18; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(y_nbins, rap_beam - rap_max, rap_beam - rap_min));
+      /// @todo YODA
+      ////pT edges are the same for all 3 histos in this suite
+      //const BinEdges& pt_edges = binEdges(dsShift+5,1,1);
+      //// booking temporary histos
+      //for (int i = 0; i<12; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(y_nbins, rap_min, rap_max));
+      //for (int i = 12; i<15; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(pt_edges));
+      //for (int i = 15; i<18; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(y_nbins, rap_beam - rap_max, rap_beam - rap_min));
       addProjection(UnstableFinalState(), "UFS");
     }
 
@@ -102,36 +103,38 @@ namespace Rivet {
         if ( (y < rap_min) || (y > rap_max) ) continue;
         pT = sqrt((qmom.px() * qmom.px()) + (qmom.py() * qmom.py()));
         if ( (pT < pt_min) || (pT > pt3_edge) ) continue;
-        // Filling corresponding temporary histograms for pT intervals
-        if ( (pT >= pt_min ) && (pT < pt1_edge) ) _tmphistos[partIdx*3]->fill(y, weight);
-        if ( (pT >= pt1_edge) && (pT < pt2_edge) ) _tmphistos[partIdx*3+1]->fill(y, weight);
-        if ( (pT >= pt2_edge) && (pT < pt3_edge) ) _tmphistos[partIdx*3+2]->fill(y, weight);
-        // Fill histo in rapidity for whole pT interval
-        _tmphistos[partIdx+9]->fill(y, weight);
-        // Fill histo in pT for whole rapidity interval
-        _tmphistos[partIdx+12]->fill(pT, weight);
-        // Fill histo in rapidity loss for whole pT interval
-        _tmphistos[partIdx+15]->fill(rap_beam - y, weight);
+        /// @todo YODA
+        //// Filling corresponding temporary histograms for pT intervals
+        //if ( (pT >= pt_min ) && (pT < pt1_edge) ) _tmphistos[partIdx*3]->fill(y, weight);
+        //if ( (pT >= pt1_edge) && (pT < pt2_edge) ) _tmphistos[partIdx*3+1]->fill(y, weight);
+        //if ( (pT >= pt2_edge) && (pT < pt3_edge) ) _tmphistos[partIdx*3+2]->fill(y, weight);
+        //// Fill histo in rapidity for whole pT interval
+        //_tmphistos[partIdx+9]->fill(y, weight);
+        //// Fill histo in pT for whole rapidity interval
+        //_tmphistos[partIdx+12]->fill(pT, weight);
+        //// Fill histo in rapidity loss for whole pT interval
+        //_tmphistos[partIdx+15]->fill(rap_beam - y, weight);
       }
     }
 
 
     // Generate the ratio histograms
     void finalize() {
-      // needed to determine AIDA to save the file!
-      tree().mkdirs(histoDir());
-      int dsId = dsShift+1;
-      for (int j=0; j<3; j++ ) {
-        histogramFactory().divide(histoPath(dsId, 1, j+1), *_tmphistos[j], *_tmphistos[3+j]);
-        histogramFactory().divide(histoPath(dsId+1, 1, j+1), *_tmphistos[j], *_tmphistos[6+j]);
-      }
-      dsId += 2;
-      for (int j = 3; j<6; j++) {
-        histogramFactory().divide(histoPath(dsId, 1, 1), *_tmphistos[3*j], *_tmphistos[3*j+1]);
-        dsId ++;
-        histogramFactory().divide(histoPath(dsId, 1, 1), *_tmphistos[3*j], *_tmphistos[3*j+2]);
-        dsId ++;
-      }
+      /// @todo YODA
+      //// needed to determine AIDA to save the file!
+      //tree().mkdirs(histoDir());
+      //int dsId = dsShift+1;
+      //for (int j=0; j<3; j++ ) {
+      //  histogramFactory().divide(histoPath(dsId, 1, j+1), *_tmphistos[j], *_tmphistos[3+j]);
+      //  histogramFactory().divide(histoPath(dsId+1, 1, j+1), *_tmphistos[j], *_tmphistos[6+j]);
+      //}
+      //dsId += 2;
+      //for (int j = 3; j<6; j++) {
+      //  histogramFactory().divide(histoPath(dsId, 1, 1), *_tmphistos[3*j], *_tmphistos[3*j+1]);
+      //  dsId ++;
+      //  histogramFactory().divide(histoPath(dsId, 1, 1), *_tmphistos[3*j], *_tmphistos[3*j+2]);
+      //  dsId ++;
+      //}
     }
 
     //@}
@@ -212,7 +215,7 @@ namespace Rivet {
     // The limits of the rapidity window
     double rap_min;
     double rap_max;
-    // Indicates which set of histograms will be output to aida file (according to beam energy)
+    // Indicates which set of histograms will be output to yoda file (according to beam energy)
     int dsShift;
     // Map between PDG id and particle lifetimes in seconds
     std::map<int, double> partLftMap;
@@ -220,7 +223,8 @@ namespace Rivet {
     static const int stablePDGIds[205];
     /// @name Helper Histograms:
     //@{
-    shared_ptr<LWH::Histogram1D> _tmphistos[18];
+    /// @todo YODA
+    //shared_ptr<LWH::Histogram1D> _tmphistos[18];
     // Histograms are defined in the following order: anti-Lambda, Lambda and K0s.
     // First 3 suites of 3 histograms correspond to each particle in bins of y for the 3 pT intervals. (9 histos)
     // Next 3 histograms contain the particles in y bins for the whole pT interval (3 histos)
@@ -338,7 +342,7 @@ namespace Rivet {
     9900024, 9900041, 9900042 };
 
 
-  // Plugin hook
+  // Hook for the plugin system
   DECLARE_RIVET_PLUGIN(LHCB_2011_I917009);
 
 }

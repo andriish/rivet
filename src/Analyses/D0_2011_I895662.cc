@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -23,11 +23,11 @@ namespace Rivet {
       jets.useInvisibles();
       addProjection(jets, "Jets");
 
-      _h_m3j_08_40  = bookHistogram1D(1, 1, 1);
-      _h_m3j_16_40  = bookHistogram1D(2, 1, 1);
-      _h_m3j_24_40  = bookHistogram1D(3, 1, 1);
-      _h_m3j_24_70  = bookHistogram1D(4, 1, 1);
-      _h_m3j_24_100 = bookHistogram1D(5, 1, 1);
+      _h_m3j_08_40  = bookHisto1D(1, 1, 1);
+      _h_m3j_16_40  = bookHisto1D(2, 1, 1);
+      _h_m3j_24_40  = bookHisto1D(3, 1, 1);
+      _h_m3j_24_70  = bookHisto1D(4, 1, 1);
+      _h_m3j_24_100 = bookHisto1D(5, 1, 1);
     }
 
 
@@ -82,11 +82,11 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D *_h_m3j_08_40;
-    AIDA::IHistogram1D *_h_m3j_16_40;
-    AIDA::IHistogram1D *_h_m3j_24_40;
-    AIDA::IHistogram1D *_h_m3j_24_70;
-    AIDA::IHistogram1D *_h_m3j_24_100;
+    Histo1DPtr _h_m3j_08_40;
+    Histo1DPtr _h_m3j_16_40;
+    Histo1DPtr _h_m3j_24_40;
+    Histo1DPtr _h_m3j_24_70;
+    Histo1DPtr _h_m3j_24_100;
 
   };
 

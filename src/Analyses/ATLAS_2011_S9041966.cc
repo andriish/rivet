@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -100,22 +100,22 @@ namespace Rivet {
 
 
       /// Book histograms
-      _count_mumujj = bookHistogram1D("count_2muons_dijet", 1, 0., 1.);
-      _count_eejj   = bookHistogram1D("count_2elecs_dijet", 1, 0., 1.);
-      _count_muvjj  = bookHistogram1D("count_muon_neutrino_dijet", 1, 0., 1.);
-      _count_evjj   = bookHistogram1D("count_elec_neutrino_dijet", 1, 0., 1.);
+      _count_mumujj = bookHisto1D("count_2muons_dijet", 1, 0., 1.);
+      _count_eejj   = bookHisto1D("count_2elecs_dijet", 1, 0., 1.);
+      _count_muvjj  = bookHisto1D("count_muon_neutrino_dijet", 1, 0., 1.);
+      _count_evjj   = bookHisto1D("count_elec_neutrino_dijet", 1, 0., 1.);
 
-      _hist_St_mumu = bookHistogram1D("hist_mumujj_St", 10, 450., 1650.);
-      _hist_St_ee   = bookHistogram1D("hist_eejj_St", 10, 450., 1650.);
-      _hist_MLQ_muv = bookHistogram1D("hist_munujj_MLQ", 9, 150., 600.);
-      _hist_MLQ_ev  = bookHistogram1D("hist_enujj_MLQ", 9, 150., 600.);
+      _hist_St_mumu = bookHisto1D("hist_mumujj_St", 10, 450., 1650.);
+      _hist_St_ee   = bookHisto1D("hist_eejj_St", 10, 450., 1650.);
+      _hist_MLQ_muv = bookHisto1D("hist_munujj_MLQ", 9, 150., 600.);
+      _hist_MLQ_ev  = bookHisto1D("hist_enujj_MLQ", 9, 150., 600.);
 
-      _hist_St_mumu_ZCR   = bookHistogram1D("CR_Zjets_St_mumu", 40, 0., 800.);
-      _hist_St_ee_ZCR     = bookHistogram1D("CR_Zjets_Stee", 40, 0., 800.);
-      _hist_MLQ_munu_W2CR = bookHistogram1D("CR_W2jets_MLQ_munu", 20, 0., 400.);
-      _hist_MLQ_enu_W2CR  = bookHistogram1D("CR_W2jets_MLQ_enu", 20, 0., 400.);
-      _hist_MLQ_munu_ttCR = bookHistogram1D("CR_tt_MLQ_munu", 35, 0., 700.);
-      _hist_MLQ_enu_ttCR  = bookHistogram1D("CR_tt_MLQ_enu", 35, 0., 700.);
+      _hist_St_mumu_ZCR   = bookHisto1D("CR_Zjets_St_mumu", 40, 0., 800.);
+      _hist_St_ee_ZCR     = bookHisto1D("CR_Zjets_Stee", 40, 0., 800.);
+      _hist_MLQ_munu_W2CR = bookHisto1D("CR_W2jets_MLQ_munu", 20, 0., 400.);
+      _hist_MLQ_enu_W2CR  = bookHisto1D("CR_W2jets_MLQ_enu", 20, 0., 400.);
+      _hist_MLQ_munu_ttCR = bookHisto1D("CR_tt_MLQ_munu", 35, 0., 700.);
+      _hist_MLQ_enu_ttCR  = bookHisto1D("CR_tt_MLQ_enu", 35, 0., 700.);
 
     }
 
@@ -625,22 +625,22 @@ scale( _hist_eTmiss_mu, binwidth*luminosity* crossSection()/sumOfWeights() );
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _count_mumujj;
-    AIDA::IHistogram1D* _count_eejj;
-    AIDA::IHistogram1D* _count_muvjj;
-    AIDA::IHistogram1D* _count_evjj;
+    Histo1DPtr _count_mumujj;
+    Histo1DPtr _count_eejj;
+    Histo1DPtr _count_muvjj;
+    Histo1DPtr _count_evjj;
 
-    AIDA::IHistogram1D* _hist_St_mumu;
-    AIDA::IHistogram1D* _hist_St_ee;
-    AIDA::IHistogram1D* _hist_MLQ_muv;
-    AIDA::IHistogram1D* _hist_MLQ_ev;
+    Histo1DPtr _hist_St_mumu;
+    Histo1DPtr _hist_St_ee;
+    Histo1DPtr _hist_MLQ_muv;
+    Histo1DPtr _hist_MLQ_ev;
 
-    AIDA::IHistogram1D* _hist_St_mumu_ZCR;
-    AIDA::IHistogram1D* _hist_St_ee_ZCR;
-    AIDA::IHistogram1D* _hist_MLQ_munu_W2CR;
-    AIDA::IHistogram1D* _hist_MLQ_enu_W2CR;
-    AIDA::IHistogram1D* _hist_MLQ_munu_ttCR;
-    AIDA::IHistogram1D* _hist_MLQ_enu_ttCR;
+    Histo1DPtr _hist_St_mumu_ZCR;
+    Histo1DPtr _hist_St_ee_ZCR;
+    Histo1DPtr _hist_MLQ_munu_W2CR;
+    Histo1DPtr _hist_MLQ_enu_W2CR;
+    Histo1DPtr _hist_MLQ_munu_ttCR;
+    Histo1DPtr _hist_MLQ_enu_ttCR;
 
 
 

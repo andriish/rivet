@@ -2,7 +2,7 @@
 // ATLAS W pT analysis
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/WFinder.hh"
 
@@ -39,10 +39,10 @@ namespace Rivet {
       addProjection(wfinder_bare_mu, "WFinder_bare_mu");
 
       // Book histograms
-      _hist_wpt_dressed_el  = bookHistogram1D(1, 1, 1);
-      _hist_wpt_bare_el     = bookHistogram1D(1, 1, 2);
-      _hist_wpt_dressed_mu  = bookHistogram1D(2, 1, 1);
-      _hist_wpt_bare_mu     = bookHistogram1D(2, 1, 2);
+      _hist_wpt_dressed_el  = bookHisto1D(1, 1, 1);
+      _hist_wpt_bare_el     = bookHisto1D(1, 1, 2);
+      _hist_wpt_dressed_mu  = bookHisto1D(2, 1, 1);
+      _hist_wpt_bare_mu     = bookHisto1D(2, 1, 2);
     }
 
 
@@ -112,10 +112,10 @@ namespace Rivet {
 
   private:
 
-	AIDA::IHistogram1D* _hist_wpt_dressed_el;
-	AIDA::IHistogram1D* _hist_wpt_bare_el;
-	AIDA::IHistogram1D* _hist_wpt_dressed_mu;
-	AIDA::IHistogram1D* _hist_wpt_bare_mu;
+	Histo1DPtr _hist_wpt_dressed_el;
+	Histo1DPtr _hist_wpt_bare_el;
+	Histo1DPtr _hist_wpt_dressed_mu;
+	Histo1DPtr _hist_wpt_bare_mu;
 
   };
 

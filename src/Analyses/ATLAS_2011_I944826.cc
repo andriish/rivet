@@ -1,11 +1,11 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "LWH/Histogram1D.h"
+//#include "LWH/Histogram1D.h"
 #include "HepMC/GenParticle.h"
 #include "HepMC/GenVertex.h"
 
@@ -40,32 +40,34 @@ namespace Rivet {
       addProjection(cfs, "CFS");
 
       if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
-        _hist_Ks_pT   = bookHistogram1D(1,1,1);
-        _hist_Ks_y    = bookHistogram1D(2,1,1);
-        _hist_Ks_mult = bookHistogram1D(3,1,1);
-        _hist_L_pT    = bookHistogram1D(7,1,1);
-        _hist_L_y     = bookHistogram1D(8,1,1);
-        _hist_L_mult  = bookHistogram1D(9,1,1);
-        _hist_Ratio_v_y      = bookDataPointSet(13,1,1);
-        _hist_Ratio_v_pT     = bookDataPointSet(14,1,1);
-        _temp_lambda_v_y.reset(    new LWH::Histogram1D(10, 0.0, 2.5));
-        _temp_lambdabar_v_y.reset( new LWH::Histogram1D(10, 0.0, 2.5));
-        _temp_lambda_v_pT.reset(   new LWH::Histogram1D(18, 0.5, 4.1));
-        _temp_lambdabar_v_pT.reset(new LWH::Histogram1D(18, 0.5, 4.1));
+        _hist_Ks_pT      = bookHisto1D(1,1,1);
+        _hist_Ks_y       = bookHisto1D(2,1,1);
+        _hist_Ks_mult    = bookHisto1D(3,1,1);
+        _hist_L_pT       = bookHisto1D(7,1,1);
+        _hist_L_y        = bookHisto1D(8,1,1);
+        _hist_L_mult     = bookHisto1D(9,1,1);
+        _hist_Ratio_v_y  = bookScatter2D(13,1,1);
+        _hist_Ratio_v_pT = bookScatter2D(14,1,1);
+        /// @todo YODA
+        //_temp_lambda_v_y.reset(    new LWH::Histogram1D(10, 0.0, 2.5));
+        //_temp_lambdabar_v_y.reset( new LWH::Histogram1D(10, 0.0, 2.5));
+        //_temp_lambda_v_pT.reset(   new LWH::Histogram1D(18, 0.5, 4.1));
+        //_temp_lambdabar_v_pT.reset(new LWH::Histogram1D(18, 0.5, 4.1));
       } 
       else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {
-        _hist_Ks_pT   = bookHistogram1D(4,1,1);
-        _hist_Ks_y    = bookHistogram1D(5,1,1);
-        _hist_Ks_mult = bookHistogram1D(6,1,1);
-        _hist_L_pT    = bookHistogram1D(10,1,1);
-        _hist_L_y     = bookHistogram1D(11,1,1);
-        _hist_L_mult  = bookHistogram1D(12,1,1);
-        _hist_Ratio_v_y      = bookDataPointSet(15,1,1); 
-        _hist_Ratio_v_pT     = bookDataPointSet(16,1,1);
-        _temp_lambda_v_y.reset(    new LWH::Histogram1D(5, 0.0, 2.5));
-        _temp_lambdabar_v_y.reset( new LWH::Histogram1D(5, 0.0, 2.5));
-        _temp_lambda_v_pT.reset(   new LWH::Histogram1D(8, 0.5, 3.7));
-        _temp_lambdabar_v_pT.reset(new LWH::Histogram1D(8, 0.5, 3.7));
+        _hist_Ks_pT   = bookHisto1D(4,1,1);
+        _hist_Ks_y    = bookHisto1D(5,1,1);
+        _hist_Ks_mult = bookHisto1D(6,1,1);
+        _hist_L_pT    = bookHisto1D(10,1,1);
+        _hist_L_y     = bookHisto1D(11,1,1);
+        _hist_L_mult  = bookHisto1D(12,1,1);
+        _hist_Ratio_v_y      = bookScatter2D(15,1,1); 
+        _hist_Ratio_v_pT     = bookScatter2D(16,1,1);
+        /// @todo YODA
+        //_temp_lambda_v_y.reset(    new LWH::Histogram1D(5, 0.0, 2.5));
+        //_temp_lambdabar_v_y.reset( new LWH::Histogram1D(5, 0.0, 2.5));
+        //_temp_lambda_v_pT.reset(   new LWH::Histogram1D(8, 0.5, 3.7));
+        //_temp_lambdabar_v_pT.reset(new LWH::Histogram1D(8, 0.5, 3.7));
       }
     }
 
@@ -201,8 +203,9 @@ namespace Rivet {
             }
             if ( daughtersSurviveCuts(p) ) {
               if (p.pdgId() == 3122) {
-                _temp_lambda_v_y    ->fill(fabs(y), weight);
-                _temp_lambda_v_pT   ->fill(pT,      weight);
+                /// @todo YODA
+                //_temp_lambda_v_y    ->fill(fabs(y), weight);
+                //_temp_lambda_v_pT   ->fill(pT,      weight);
                 
                 _hist_L_y->fill( y,  weight);
                 _hist_L_pT->fill(pT, weight);
@@ -212,8 +215,9 @@ namespace Rivet {
                 }
               
               else if (p.pdgId() == -3122) {
-                _temp_lambdabar_v_y ->fill(fabs(y), weight);
-                _temp_lambdabar_v_pT->fill(pT,      weight);
+                /// @todo YODA
+                //_temp_lambdabar_v_y ->fill(fabs(y), weight);
+                //_temp_lambdabar_v_pT->fill(pT,      weight);
               }
             }
           break;
@@ -244,15 +248,16 @@ namespace Rivet {
       scale(_hist_L_mult, 1.0/_sum_w_passed);
      
 
-      // Division of histograms to obtain lambdabar/lambda ratios
-      if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
-        histogramFactory().divide(histoPath("d13-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
-        histogramFactory().divide(histoPath("d14-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
-      }                                                                                              
-      else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {                                                
-        histogramFactory().divide(histoPath("d15-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
-        histogramFactory().divide(histoPath("d16-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
-      }
+      /// @todo YODA
+      //// Division of histograms to obtain lambdabar/lambda ratios
+      //if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
+      //  histogramFactory().divide(histoPath("d13-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
+      //  histogramFactory().divide(histoPath("d14-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
+      //}                                                                                              
+      //else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {                                                
+      //  histogramFactory().divide(histoPath("d15-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
+      //  histogramFactory().divide(histoPath("d16-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
+      //}
     }
 
 
@@ -265,19 +270,20 @@ namespace Rivet {
     double _sum_w_passed;
 
     /// @name Histograms
-    AIDA::IHistogram1D *_hist_Ks_pT;
-    AIDA::IHistogram1D *_hist_Ks_y;
-    AIDA::IHistogram1D *_hist_Ks_mult;
+    Histo1DPtr _hist_Ks_pT;
+    Histo1DPtr _hist_Ks_y;
+    Histo1DPtr _hist_Ks_mult;
 
-    AIDA::IHistogram1D *_hist_L_pT;
-    AIDA::IHistogram1D *_hist_L_y;
-    AIDA::IHistogram1D *_hist_L_mult;
+    Histo1DPtr _hist_L_pT;
+    Histo1DPtr _hist_L_y;
+    Histo1DPtr _hist_L_mult;
 
-    AIDA::IDataPointSet *_hist_Ratio_v_pT;
-    AIDA::IDataPointSet *_hist_Ratio_v_y;
+    Scatter2DPtr _hist_Ratio_v_pT;
+    Scatter2DPtr _hist_Ratio_v_y;
     
-    shared_ptr<LWH::Histogram1D> _temp_lambda_v_y,  _temp_lambdabar_v_y;
-    shared_ptr<LWH::Histogram1D> _temp_lambda_v_pT, _temp_lambdabar_v_pT;
+    /// @todo YODA
+    //shared_ptr<LWH::Histogram1D> _temp_lambda_v_y,  _temp_lambdabar_v_y;
+    //shared_ptr<LWH::Histogram1D> _temp_lambda_v_pT, _temp_lambdabar_v_pT;
   };
 
 

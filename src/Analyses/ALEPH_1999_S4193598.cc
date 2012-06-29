@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "HepMC/GenParticle.h"
@@ -56,7 +56,7 @@ namespace Rivet {
       addProjection(UnstableFinalState(), "UFS");
       addProjection(ChargedFinalState(), "CFS");
 
-      _h_Xe_Ds = bookHistogram1D(1, 1, 1);
+      _h_Xe_Ds = bookHisto1D(1, 1, 1);
     }
 
 
@@ -110,7 +110,7 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D *_h_Xe_Ds;
+    Histo1DPtr _h_Xe_Ds;
 
   };
 

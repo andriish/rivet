@@ -4,7 +4,7 @@
 #include <string>
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 
@@ -57,9 +57,9 @@ namespace Rivet {
       photonfs.acceptId(PHOTON);
       addProjection(photonfs, "Photon");
 
-      _h_M    = bookHistogram1D(1, 1, 1);
-      _h_pT   = bookHistogram1D(2, 1, 1);
-      _h_dPhi = bookHistogram1D(3, 1, 1);
+      _h_M    = bookHisto1D(1, 1, 1);
+      _h_pT   = bookHisto1D(2, 1, 1);
+      _h_dPhi = bookHisto1D(3, 1, 1);
     }
 
 
@@ -210,9 +210,9 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D *_h_M;
-    AIDA::IHistogram1D *_h_pT;
-    AIDA::IHistogram1D *_h_dPhi;
+    Histo1DPtr _h_M;
+    Histo1DPtr _h_pT;
+    Histo1DPtr _h_dPhi;
 
     fastjet::AreaDefinition* _area_def;
 

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
@@ -51,12 +51,12 @@ namespace Rivet {
       size_t ptDsOffset(0), massDsOffset(2);
       for (size_t alg = 0; alg < 2; ++alg) {
         for (size_t i = 0; i < 7; ++i) {
-          _pThistos[alg].addHistogram(ybins[i], ybins[i+1], bookHistogram1D(1 + ptDsOffset, 1, i+1));
+          _pThistos[alg].addHistogram(ybins[i], ybins[i+1], bookHisto1D(1 + ptDsOffset, 1, i+1));
         }
         ptDsOffset += 1;
 
         for (size_t i = 0; i < 9; ++i) {
-          _mass[alg].addHistogram(ystarbins[i], ystarbins[i+1], bookHistogram1D(1 + massDsOffset, 1, i+1));
+          _mass[alg].addHistogram(ystarbins[i], ystarbins[i+1], bookHisto1D(1 + massDsOffset, 1, i+1));
         }
         massDsOffset += 1;
       }

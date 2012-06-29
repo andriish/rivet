@@ -18,7 +18,7 @@
  *
  */
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 
@@ -50,10 +50,10 @@ namespace Rivet {
       _etaBinSize = (2. * _etaMax)/(double)_etaBins;
 
       //Book histogram
-      _h_DeltaEtaF_200 = bookHistogram1D(1, 1, 1);
-      _h_DeltaEtaF_400 = bookHistogram1D(2, 1, 1);
-      _h_DeltaEtaF_600 = bookHistogram1D(3, 1, 1);
-      _h_DeltaEtaF_800 = bookHistogram1D(4, 1, 1);
+      _h_DeltaEtaF_200 = bookHisto1D(1, 1, 1);
+      _h_DeltaEtaF_400 = bookHisto1D(2, 1, 1);
+      _h_DeltaEtaF_600 = bookHisto1D(3, 1, 1);
+      _h_DeltaEtaF_800 = bookHisto1D(4, 1, 1);
     }
 
   private:
@@ -221,10 +221,10 @@ namespace Rivet {
   private:
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _h_DeltaEtaF_200;
-    AIDA::IHistogram1D* _h_DeltaEtaF_400;
-    AIDA::IHistogram1D* _h_DeltaEtaF_600;
-    AIDA::IHistogram1D* _h_DeltaEtaF_800;
+    Histo1DPtr _h_DeltaEtaF_200;
+    Histo1DPtr _h_DeltaEtaF_400;
+    Histo1DPtr _h_DeltaEtaF_600;
+    Histo1DPtr _h_DeltaEtaF_800;
     //@}
     /// @name Private variables
     //@{

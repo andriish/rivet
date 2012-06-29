@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
@@ -26,12 +26,12 @@ namespace Rivet {
       addProjection(ufs, "UFS");
 
       // Book histograms
-      _h_dsigma_dR_56GeV = bookHistogram1D(1,1,1);
-      _h_dsigma_dR_84GeV = bookHistogram1D(2,1,1);
-      _h_dsigma_dR_120GeV = bookHistogram1D(3,1,1);
-      _h_dsigma_dPhi_56GeV = bookHistogram1D(4,1,1);
-      _h_dsigma_dPhi_84GeV = bookHistogram1D(5,1,1);
-      _h_dsigma_dPhi_120GeV = bookHistogram1D(6,1,1);
+      _h_dsigma_dR_56GeV = bookHisto1D(1,1,1);
+      _h_dsigma_dR_84GeV = bookHisto1D(2,1,1);
+      _h_dsigma_dR_120GeV = bookHisto1D(3,1,1);
+      _h_dsigma_dPhi_56GeV = bookHisto1D(4,1,1);
+      _h_dsigma_dPhi_84GeV = bookHisto1D(5,1,1);
+      _h_dsigma_dPhi_120GeV = bookHisto1D(6,1,1);
 
       _countMCDR56 = 0;
       _countMCDR84 = 0;
@@ -153,8 +153,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_h_dsigma_dR_56GeV, *_h_dsigma_dR_84GeV, *_h_dsigma_dR_120GeV;
-    AIDA::IHistogram1D *_h_dsigma_dPhi_56GeV, *_h_dsigma_dPhi_84GeV, *_h_dsigma_dPhi_120GeV;
+    Histo1DPtr _h_dsigma_dR_56GeV, _h_dsigma_dR_84GeV, _h_dsigma_dR_120GeV;
+    Histo1DPtr _h_dsigma_dPhi_56GeV, _h_dsigma_dPhi_84GeV, _h_dsigma_dPhi_120GeV;
     //@}
 
   };

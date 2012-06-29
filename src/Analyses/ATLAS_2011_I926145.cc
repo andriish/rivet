@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
@@ -85,9 +85,9 @@ namespace Rivet {
 
 
       // Book histograms  - use autobooking
-      _histPt_elecs      = bookHistogram1D(1 ,1 ,1);
-      _histPt_muons      = bookHistogram1D(2 ,1 ,1); 
-      _histPt_muons_full = bookHistogram1D(3 ,1 ,1); 
+      _histPt_elecs      = bookHisto1D(1 ,1 ,1);
+      _histPt_muons      = bookHisto1D(2 ,1 ,1); 
+      _histPt_muons_full = bookHisto1D(3 ,1 ,1); 
     }
 
     /// Perform the per-event analysis
@@ -172,9 +172,9 @@ namespace Rivet {
   private:
 
     /// @name Histograms
-    AIDA::IHistogram1D *_histPt_elecs;
-    AIDA::IHistogram1D *_histPt_muons;
-    AIDA::IHistogram1D *_histPt_muons_full;
+    Histo1DPtr _histPt_elecs;
+    Histo1DPtr _histPt_muons;
+    Histo1DPtr _histPt_muons_full;
   };
 
 

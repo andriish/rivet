@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 // #include "Rivet/Projections/ChargedFinalState.hh"
 
@@ -28,11 +28,11 @@ namespace Rivet {
       // addProjection(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
 
       // Histograms
-      _histPdfX = bookHistogram1D("PdfX", logspace(0.000001, 1.0, 50));
-      _histPdfXmin = bookHistogram1D("PdfXmin", logspace(0.000001, 1.0, 50));
-      _histPdfXmax = bookHistogram1D("PdfXmax", logspace(0.000001, 1.0, 50));
-      _histPdfQ = bookHistogram1D("PdfQ", 50, 0.0, 30.0);
-      // _histPdfXQ = bookHistogram2D("PdfXQ", logspace(0.000001, 1.0, 50), linspace(0.0, 30.0, 50));
+      _histPdfX = bookHisto1D("PdfX", logspace(0.000001, 1.0, 50));
+      _histPdfXmin = bookHisto1D("PdfXmin", logspace(0.000001, 1.0, 50));
+      _histPdfXmax = bookHisto1D("PdfXmax", logspace(0.000001, 1.0, 50));
+      _histPdfQ = bookHisto1D("PdfQ", 50, 0.0, 30.0);
+      // _histPdfXQ = bookHisto2D("PdfXQ", logspace(0.000001, 1.0, 50), linspace(0.0, 30.0, 50));
       // _histPdfTrackptVsX = bookProfile1D("PdfTrackptVsX", logspace(0.000001, 1.0, 50));
       // _histPdfTrackptVsQ = bookProfile1D("PdfTrackptVsQ", 50, 0.0, 30.0);
     }
@@ -84,8 +84,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D *_histPdfX, *_histPdfXmin, *_histPdfXmax, *_histPdfQ;
-    // AIDA::IProfile1D   *_histPdfTrackptVsX, *_histPdfTrackptVsQ;
+    Histo1DPtr _histPdfX, _histPdfXmin, _histPdfXmax, _histPdfQ;
+    // Profile1DPtr   _histPdfTrackptVsX, _histPdfTrackptVsQ;
     //@}
 
   };

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -35,11 +35,11 @@ namespace Rivet {
       addProjection(fschrgdv, "fschrgdv");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        _hist_mb      = bookHistogram1D(1, 1, 1); // energy flow in MB, 0.9 TeV
-        _hist_dijet = bookHistogram1D(2, 1, 1); // energy flow in dijet events, 0.9 TeV
+        _hist_mb      = bookHisto1D(1, 1, 1); // energy flow in MB, 0.9 TeV
+        _hist_dijet = bookHisto1D(2, 1, 1); // energy flow in dijet events, 0.9 TeV
       } else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
-        _hist_mb      = bookHistogram1D(3, 1, 1); // energy flow in MB, 7 TeV
-        _hist_dijet = bookHistogram1D(4, 1, 1); // energy flow in dijet events, 7 TeV
+        _hist_mb      = bookHisto1D(3, 1, 1); // energy flow in MB, 7 TeV
+        _hist_dijet = bookHisto1D(4, 1, 1); // energy flow in dijet events, 7 TeV
       }
     }
 
@@ -101,7 +101,7 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D *_hist_mb, *_hist_dijet;
+    Histo1DPtr _hist_mb, _hist_dijet;
     double _weightMB,_weightDiJet;
 
   };

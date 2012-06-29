@@ -4,7 +4,7 @@
 #include <string>
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
@@ -90,13 +90,13 @@ namespace Rivet {
 
       MYDEBUG << "\t... Booking Histograms " << std::endl;
       // use autobook option, histo d??-x??-y??
-      _h_phbarrel_jetcentral_SS = bookHistogram1D(1, 1, 1);
-      _h_phbarrel_jetmedium_SS = bookHistogram1D(2, 1, 1);
-      _h_phbarrel_jetforward_SS = bookHistogram1D(3, 1, 1);
+      _h_phbarrel_jetcentral_SS = bookHisto1D(1, 1, 1);
+      _h_phbarrel_jetmedium_SS  = bookHisto1D(2, 1, 1);
+      _h_phbarrel_jetforward_SS = bookHisto1D(3, 1, 1);
 
-      _h_phbarrel_jetcentral_OS = bookHistogram1D(4, 1, 1);
-      _h_phbarrel_jetmedium_OS = bookHistogram1D(5, 1, 1);
-      _h_phbarrel_jetforward_OS = bookHistogram1D(6, 1, 1);
+      _h_phbarrel_jetcentral_OS = bookHisto1D(4, 1, 1);
+      _h_phbarrel_jetmedium_OS  = bookHisto1D(5, 1, 1);
+      _h_phbarrel_jetforward_OS = bookHisto1D(6, 1, 1);
 
       MYDEBUG << "Exiting init." << std::endl;
     }
@@ -309,13 +309,13 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D* _h_phbarrel_jetcentral_SS;
-    AIDA::IHistogram1D* _h_phbarrel_jetmedium_SS;
-    AIDA::IHistogram1D* _h_phbarrel_jetforward_SS;
+    Histo1DPtr _h_phbarrel_jetcentral_SS;
+    Histo1DPtr _h_phbarrel_jetmedium_SS;
+    Histo1DPtr _h_phbarrel_jetforward_SS;
 
-    AIDA::IHistogram1D* _h_phbarrel_jetcentral_OS;
-    AIDA::IHistogram1D* _h_phbarrel_jetmedium_OS;
-    AIDA::IHistogram1D* _h_phbarrel_jetforward_OS;
+    Histo1DPtr _h_phbarrel_jetcentral_OS;
+    Histo1DPtr _h_phbarrel_jetmedium_OS;
+    Histo1DPtr _h_phbarrel_jetforward_OS;
 
     fastjet::AreaDefinition* _area_def;
 

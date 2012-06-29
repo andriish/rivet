@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Particle.hh"
@@ -17,9 +17,9 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      _h_total = bookHistogram1D(1, 1, 1);
-      _h_mupt  = bookHistogram1D(2, 1, 1);
-      _h_mueta = bookHistogram1D(3, 1, 1);
+      _h_total = bookHisto1D(1, 1, 1);
+      _h_mupt  = bookHisto1D(2, 1, 1);
+      _h_mueta = bookHisto1D(3, 1, 1);
       nbtot=0.;   nbmutot=0.;
 
       IdentifiedFinalState ifs(-2.1, 2.1, 6.0*GeV);
@@ -64,9 +64,9 @@ namespace Rivet {
 
     double nbtot, nbmutot;
 
-    AIDA::IHistogram1D *_h_total;
-    AIDA::IHistogram1D *_h_mupt;
-    AIDA::IHistogram1D *_h_mueta;
+    Histo1DPtr _h_total;
+    Histo1DPtr _h_mupt;
+    Histo1DPtr _h_mueta;
 
   };
 

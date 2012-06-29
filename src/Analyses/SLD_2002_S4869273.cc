@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
@@ -34,7 +34,7 @@ namespace Rivet {
       addProjection(Beam(), "Beams");
       addProjection(ChargedFinalState(), "FS");
 
-      _histXbweak     = bookHistogram1D(1, 1, 1);
+      _histXbweak     = bookHisto1D(1, 1, 1);
     }
 
 
@@ -95,7 +95,7 @@ namespace Rivet {
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
 
-    AIDA::IHistogram1D *_histXbweak;
+    Histo1DPtr _histXbweak;
 
     //@}
 

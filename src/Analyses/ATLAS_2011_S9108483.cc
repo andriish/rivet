@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Math/Constants.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -51,18 +51,18 @@ namespace Rivet {
       addProjection(vfs,"VFS");
 
       /// Book histograms
-      _count_trigger   = bookHistogram1D("count_trigger"  , 1, 0., 1.);
-      _count_event     = bookHistogram1D("count_selection", 1, 0., 1.);
-      _count_quality   = bookHistogram1D("count_quality"  , 1, 0., 1.);
-      _count_beta      = bookHistogram1D("count_beta"     , 1, 0., 1.);
-      _count_90  = bookHistogram1D("count_90" , 1, 0., 1.);
-      _count_110 = bookHistogram1D("count_110", 1, 0., 1.);
-      _count_120 = bookHistogram1D("count_120", 1, 0., 1.);
-      _count_130 = bookHistogram1D("count_130", 1, 0., 1.);
+      _count_trigger   = bookHisto1D("count_trigger"  , 1, 0., 1.);
+      _count_event     = bookHisto1D("count_selection", 1, 0., 1.);
+      _count_quality   = bookHisto1D("count_quality"  , 1, 0., 1.);
+      _count_beta      = bookHisto1D("count_beta"     , 1, 0., 1.);
+      _count_90  = bookHisto1D("count_90" , 1, 0., 1.);
+      _count_110 = bookHisto1D("count_110", 1, 0., 1.);
+      _count_120 = bookHisto1D("count_120", 1, 0., 1.);
+      _count_130 = bookHisto1D("count_130", 1, 0., 1.);
 
-      _hist_beta = bookHistogram1D("beta",1000, 0.,   2.);
-      _hist_time = bookHistogram1D("time",1000, -50,  50.);
-      _hist_mass = bookHistogram1D("mass",  60, 5., 305.);
+      _hist_beta = bookHisto1D("beta",1000, 0.,   2.);
+      _hist_time = bookHisto1D("time",1000, -50,  50.);
+      _hist_mass = bookHisto1D("mass",  60, 5., 305.);
     }
 
 
@@ -189,17 +189,17 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _hist_beta;
-    AIDA::IHistogram1D* _hist_time;
-    AIDA::IHistogram1D* _hist_mass;
-    AIDA::IHistogram1D* _count_trigger;
-    AIDA::IHistogram1D* _count_event;
-    AIDA::IHistogram1D* _count_quality;
-    AIDA::IHistogram1D* _count_beta;
-    AIDA::IHistogram1D* _count_90;
-    AIDA::IHistogram1D* _count_110;
-    AIDA::IHistogram1D* _count_120;
-    AIDA::IHistogram1D* _count_130;
+    Histo1DPtr _hist_beta;
+    Histo1DPtr _hist_time;
+    Histo1DPtr _hist_mass;
+    Histo1DPtr _count_trigger;
+    Histo1DPtr _count_event;
+    Histo1DPtr _count_quality;
+    Histo1DPtr _count_beta;
+    Histo1DPtr _count_90;
+    Histo1DPtr _count_110;
+    Histo1DPtr _count_120;
+    Histo1DPtr _count_130;
     //@}
 
     // som of weights

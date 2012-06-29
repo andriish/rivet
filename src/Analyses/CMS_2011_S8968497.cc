@@ -18,15 +18,15 @@ namespace Rivet {
       FinalState fs;
       FastJets antikt(fs, FastJets::ANTIKT, 0.5);
       addProjection(antikt, "ANTIKT");
-      _h_chi_dijet.addHistogram(2200., 7000., bookHistogram1D(1, 1, 1));
-      _h_chi_dijet.addHistogram(1800., 2200., bookHistogram1D(2, 1, 1));
-      _h_chi_dijet.addHistogram(1400., 1800., bookHistogram1D(3, 1, 1));
-      _h_chi_dijet.addHistogram(1100., 1400., bookHistogram1D(4, 1, 1));
-      _h_chi_dijet.addHistogram( 850., 1100., bookHistogram1D(5, 1, 1));
-      _h_chi_dijet.addHistogram( 650.,  850., bookHistogram1D(6, 1, 1));
-      _h_chi_dijet.addHistogram( 500.,  650., bookHistogram1D(7, 1, 1));
-      _h_chi_dijet.addHistogram( 350.,  500., bookHistogram1D(8, 1, 1));
-      _h_chi_dijet.addHistogram( 250.,  350., bookHistogram1D(9, 1, 1));
+      _h_chi_dijet.addHistogram(2200., 7000., bookHisto1D(1, 1, 1));
+      _h_chi_dijet.addHistogram(1800., 2200., bookHisto1D(2, 1, 1));
+      _h_chi_dijet.addHistogram(1400., 1800., bookHisto1D(3, 1, 1));
+      _h_chi_dijet.addHistogram(1100., 1400., bookHisto1D(4, 1, 1));
+      _h_chi_dijet.addHistogram( 850., 1100., bookHisto1D(5, 1, 1));
+      _h_chi_dijet.addHistogram( 650.,  850., bookHisto1D(6, 1, 1));
+      _h_chi_dijet.addHistogram( 500.,  650., bookHisto1D(7, 1, 1));
+      _h_chi_dijet.addHistogram( 350.,  500., bookHisto1D(8, 1, 1));
+      _h_chi_dijet.addHistogram( 250.,  350., bookHisto1D(9, 1, 1));
     }
 
 
@@ -46,7 +46,7 @@ namespace Rivet {
 
 
     void finalize() {
-      foreach (AIDA::IHistogram1D* hist, _h_chi_dijet.getHistograms()) {
+      foreach (Histo1DPtr hist, _h_chi_dijet.getHistograms()) {
         normalize(hist);
       }
     }

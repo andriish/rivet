@@ -1,6 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
@@ -23,7 +23,7 @@ namespace Rivet {
       addProjection(cfsm, "CFSM");
       addProjection(cfsp, "CFSP");
 
-      _h_eta = bookHistogram1D(1, 1, 1);
+      _h_eta = bookHisto1D(1, 1, 1);
       _sumofweights = 0.;
     }
 
@@ -53,7 +53,7 @@ namespace Rivet {
   private:
 
     double _sumofweights;
-    AIDA::IHistogram1D *_h_eta;
+    Histo1DPtr _h_eta;
 
 
   };

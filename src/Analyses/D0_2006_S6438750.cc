@@ -4,7 +4,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -41,7 +41,7 @@ namespace Rivet {
       addProjection(photonfs, "LeadingPhoton");
 
       // Book histograms
-      _h_pTgamma = bookHistogram1D(1, 1, 1);
+      _h_pTgamma = bookHisto1D(1, 1, 1);
     }
 
 
@@ -91,7 +91,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _h_pTgamma;
+    Histo1DPtr _h_pTgamma;
     //@}
 
   };
