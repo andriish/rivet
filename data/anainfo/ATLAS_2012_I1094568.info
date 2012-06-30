@@ -30,8 +30,8 @@ BibTeX:
   title         = "{Measurement of ttbar production with a veto on
                     additional central jet activity in pp collisions at
                     sqrt(s) = 7 TeV using the ATLAS detector}",
-    year           = "2012",
-    eprint         = "1203.5015",
-    archivePrefix  = "arXiv",
-    primaryClass   = "hep-ex",
+  year          = "2012",
+  eprint        = "1203.5015",
+  archivePrefix = "arXiv",
+  primaryClass  = "hep-ex",
 }'
