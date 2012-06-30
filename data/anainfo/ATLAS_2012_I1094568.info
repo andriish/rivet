@@ -25,9 +25,9 @@ Description:
   in the rapidity interval is above a threshold.'
 BibTeX: 
 '@article{Aad:2012jr,
-      author    = "Aad, Georges and others",
+  author        = "Aad, Georges and others",
   collaboration = "ATLAS",
-      title     = "{Measurement of ttbar production with a veto on
+  title         = "{Measurement of ttbar production with a veto on
                     additional central jet activity in pp collisions at
                     sqrt(s) = 7 TeV using the ATLAS detector}",
     year           = "2012",

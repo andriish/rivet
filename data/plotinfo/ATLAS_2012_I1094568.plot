@@ -30,8 +30,8 @@ Title=Gap fraction vs. $Q_{0}$ for veto region: $1.5 < |y| < 2.1$
 # BEGIN PLOT /ATLAS_2012_I1094568/d04-x01-y01
 Title=Gap fraction vs. $Q_{0}$ for veto region: $|y| < 2.1$
 # END PLOT
- 
- 
+
+
 # BEGIN PLOT /ATLAS_2012_I1094568/d0[1234]-x02-y01
 XLabel=$Q_{sum}$
 YLabel=$f_{gap}$
