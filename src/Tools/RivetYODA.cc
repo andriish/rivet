@@ -1,6 +1,7 @@
 #include "Rivet/RivetYODA.hh"
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/RivetPaths.hh"
+#include "boost/algorithm/string/split.hpp"
 
 using namespace std;
 
@@ -23,8 +24,6 @@ namespace Rivet {
     YODA::Reader & reader =  ReaderAIDA::create();
     vector<YODA::AnalysisObject *> aovec;
     reader.read(xmlfile, aovec);
-    /// @todo Remove debug cerr
-    cerr << "HERE2 " << aovec.size() << '\n';
 
     // Return value, to be populated
     RefDataMap rtn;
@@ -32,8 +31,12 @@ namespace Rivet {
       Scatter2DPtr refdata( dynamic_cast<Scatter2D *>(ao) );
       if (!refdata) continue;
       string plotpath = refdata->path();
-      /// @todo Remove debug cerr
-      cerr << plotpath << '\n';
+
+      // split path at "/" and only return the last field, i.e. the histogram ID
+      std::vector<string> pathvec;
+      split( pathvec, plotpath, is_any_of("/"), token_compress_on );
+      plotpath = pathvec.back();
+
       rtn[plotpath] = refdata;
     }
     return rtn;

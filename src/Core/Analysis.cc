@@ -173,6 +173,9 @@ namespace Rivet {
   const Scatter2D & Analysis::referenceData(const string& hname) const {
     _cacheRefData();
     MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
+    if (!_refdata[hname]) {
+      MSG_ERROR("Can't find reference histogram " << hname);
+    }
     return *_refdata[hname];
   }
 
