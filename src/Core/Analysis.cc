@@ -214,9 +214,10 @@ namespace Rivet {
     // Get the bin edges (only read the AIDA file once)
     const Scatter2D & refdata = referenceData(hname);
     const string path = histoPath(hname);
-    Histo1DPtr hist( new Histo1D(refdata, title) );
+    Histo1DPtr hist( new Histo1D(refdata, path) );
     addPlot(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    hist->setTitle(title);
     // hist->setXTitle(xtitle);
     // hist->setYTitle(ytitle);
     return hist;
@@ -305,9 +306,10 @@ namespace Rivet {
     // Get the bin edges (only read the AIDA file once)
     const Scatter2D & refdata = referenceData(hname);
     const string path = histoPath(hname);
-    Profile1DPtr prof( new Profile1D(refdata, title) );
+    Profile1DPtr prof( new Profile1D(refdata, path) );
     addPlot(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
+    prof->setTitle(title);
     // prof->setXTitle(xtitle);
     // prof->setYTitle(ytitle);
     return prof;
