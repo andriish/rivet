@@ -1798,7 +1798,7 @@ class Ticks:
             else:
                 label = '10$^{'+sign+'\\text{'+str(abs(int(log10(value))))+'}}$'
         else:
-            if fabs(value) < 1e-8: value=0
+            if fabs(value) < 1e-10: value=0
             label=str(value)
         return label
 
