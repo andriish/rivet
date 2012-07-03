@@ -193,23 +193,32 @@ namespace Rivet {
       assert(ptcut.size() == 4);
       for (size_t i = 0; i < nbins; ++i) {
         // First Nch
+        double mean;
+        double value;
         if (hist_num_dphi_500.bin(i).numEntries() > 0) {
-          const double binmean_num = hist_num_dphi_500.bin(i).xMean();
-          const double binvalue_num = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
-          if (pTlead/GeV >= ptcut[0]) _hist_N_vs_dPhi_1_500->fill(binmean_num, binvalue_num, weight);
-          if (pTlead/GeV >= ptcut[1]) _hist_N_vs_dPhi_2_500->fill(binmean_num, binvalue_num, weight);
-          if (pTlead/GeV >= ptcut[2]) _hist_N_vs_dPhi_3_500->fill(binmean_num, binvalue_num, weight);
-          if (pTlead/GeV >= ptcut[3]) _hist_N_vs_dPhi_5_500->fill(binmean_num, binvalue_num, weight);
+          mean = hist_num_dphi_500.bin(i).xMean();
+          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
+        } else {
+          mean = hist_num_dphi_500.bin(i).midpoint();
+          value = 0.;
         }
+        if (pTlead/GeV >= ptcut[0]) _hist_N_vs_dPhi_1_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[1]) _hist_N_vs_dPhi_2_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[2]) _hist_N_vs_dPhi_3_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[3]) _hist_N_vs_dPhi_5_500->fill(mean, value, weight);
+
         // Then pT
         if (hist_pt_dphi_500.bin(i).numEntries() > 0) {
-          const double binmean_pt = hist_pt_dphi_500.bin(i).xMean();
-          const double binvalue_pt = hist_pt_dphi_500.bin(i).area()/hist_pt_dphi_500.bin(i).width()/10.0;
-          if (pTlead/GeV >= ptcut[0]) _hist_pT_vs_dPhi_1_500->fill(binmean_pt, binvalue_pt, weight);
-          if (pTlead/GeV >= ptcut[1]) _hist_pT_vs_dPhi_2_500->fill(binmean_pt, binvalue_pt, weight);
-          if (pTlead/GeV >= ptcut[2]) _hist_pT_vs_dPhi_3_500->fill(binmean_pt, binvalue_pt, weight);
-          if (pTlead/GeV >= ptcut[3]) _hist_pT_vs_dPhi_5_500->fill(binmean_pt, binvalue_pt, weight);
+          mean = hist_pt_dphi_500.bin(i).xMean();
+          value = hist_pt_dphi_500.bin(i).area()/hist_pt_dphi_500.bin(i).width()/10.0;
+        } else {
+          mean = hist_pt_dphi_500.bin(i).midpoint();
+          value = 0.;
         }
+        if (pTlead/GeV >= ptcut[0]) _hist_pT_vs_dPhi_1_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[1]) _hist_pT_vs_dPhi_2_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[2]) _hist_pT_vs_dPhi_3_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[3]) _hist_pT_vs_dPhi_5_500->fill(mean, value, weight);
       }
 
 
