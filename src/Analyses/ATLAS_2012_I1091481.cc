@@ -1,9 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
-#include "LWH/AIDataPointSet.h"
-#include "LWH/Histogram1D.h"
-#include "LWH/Profile1D.h"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
@@ -41,13 +38,13 @@ namespace Rivet {
       else if (fuzzyEquals(sqrtS(), 7*TeV)) isqrts = 1;
       assert(isqrts >= 0);
 
-      _sE_10_100   = bookHistogram1D(isqrts, 1, 1);
-      _sE_1_100    = bookHistogram1D(isqrts, 1, 2);
-      _sE_10_500   = bookHistogram1D(isqrts, 1, 3);
+      _sE_10_100   = bookHisto1D(isqrts, 1, 1);
+      _sE_1_100    = bookHisto1D(isqrts, 1, 2);
+      _sE_10_500   = bookHisto1D(isqrts, 1, 3);
 
-      _sEta_10_100 = bookHistogram1D(isqrts, 2, 1);
-      _sEta_1_100  = bookHistogram1D(isqrts, 2, 2);
-      _sEta_10_500 = bookHistogram1D(isqrts, 2, 3);
+      _sEta_10_100 = bookHisto1D(isqrts, 2, 1);
+      _sEta_1_100  = bookHisto1D(isqrts, 2, 2);
+      _sEta_10_500 = bookHisto1D(isqrts, 2, 3);
     }
 
     std::vector<double> getXj(const ParticleVector& part) {
@@ -119,9 +116,9 @@ namespace Rivet {
     }
 
 
-    void fillS(AIDA::IHistogram1D* h, const ParticleVector& part, double weight, std::vector<double> Xj, bool SE=true) {
-      for (int i=0; i< h->axis().bins(); i++) {
-        double x = h->binMean(i);
+    void fillS(Histo1DPtr h, const ParticleVector& part, double weight, std::vector<double> Xj, bool SE=true) {
+      for (int i=0; i< h->numBins(); i++) {
+        double x = h->bin(i).midpoint();
         double y;
         if (SE) y = getSE(part, Xj, x);
         else    y = getSeta(part, x);
@@ -177,13 +174,13 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_sE_10_100, 1.0/(sumOfWeights()*_sE_10_100->axis().bins()));
-      scale(_sE_1_100 , 1.0/(sumOfWeights()*_sE_1_100 ->axis().bins()));
-      scale(_sE_10_500, 1.0/(sumOfWeights()*_sE_10_500->axis().bins()));
+      scale(_sE_10_100, 1.0/(sumOfWeights()*_sE_10_100->numBins()));
+      scale(_sE_1_100 , 1.0/(sumOfWeights()*_sE_1_100 ->numBins()));
+      scale(_sE_10_500, 1.0/(sumOfWeights()*_sE_10_500->numBins()));
 
-      scale(_sEta_10_100, 1.0/(sumOfWeights()*_sEta_10_100->axis().bins()));
-      scale(_sEta_1_100 , 1.0/(sumOfWeights()*_sEta_1_100 ->axis().bins()));
-      scale(_sEta_10_500, 1.0/(sumOfWeights()*_sEta_10_500->axis().bins()));
+      scale(_sEta_10_100, 1.0/(sumOfWeights()*_sEta_10_100->numBins()));
+      scale(_sEta_1_100 , 1.0/(sumOfWeights()*_sEta_1_100 ->numBins()));
+      scale(_sEta_10_500, 1.0/(sumOfWeights()*_sEta_10_500->numBins()));
     }
 
     //@}
@@ -191,13 +188,13 @@ namespace Rivet {
 
   private:
 
-    AIDA::IHistogram1D* _sE_10_100;
-    AIDA::IHistogram1D* _sE_1_100;
-    AIDA::IHistogram1D* _sE_10_500;
+    Histo1DPtr _sE_10_100;
+    Histo1DPtr _sE_1_100;
+    Histo1DPtr _sE_10_500;
 
-    AIDA::IHistogram1D* _sEta_10_100;
-    AIDA::IHistogram1D* _sEta_1_100;
-    AIDA::IHistogram1D* _sEta_10_500;
+    Histo1DPtr _sEta_10_100;
+    Histo1DPtr _sEta_1_100;
+    Histo1DPtr _sEta_10_500;
   };
 
   // The hook for the plugin system
