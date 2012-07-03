@@ -339,34 +339,46 @@ namespace Rivet {
     }
 
     // @todo YODA
+    ////void FinalizeGapFraction(double total_weight, ATLAS_2011_I1094568_plots& plots, int type)
     //void FinalizeGapFraction(double total_weight, Scatter2DPtr gapFraction, Histo1DPtr vetoPt, BinEdges fgap_binEdges) {
-    //  double fgap_low_bin = fgap_binEdges.at(0);
-    //  double fgap_high_bin = fgap_binEdges.at(fgap_binEdges.size() - 1);
 
+    //  // Stores the cumulative frequency of the veto jet pT histogram
     //  double vetoPtWeightSum = 0.0;
-    //  int dp_counter = 0;
+    //  
+    //  // Keep track of which gap fraction point we're doing
+    //  unsigned int fgap_point = 0;
     //  for(unsigned int i=0; i<m_q0BinEdges.size()-2; ++i) {
     //    vetoPtWeightSum += vetoPt->binHeight(i);
 
-    //    if(m_q0BinEdges.at(i+1) < fgap_low_bin) continue;
-    //    if(m_q0BinEdges.at(i+1) > fgap_high_bin) break;
+    //    // If we've done the last point, stop.
+    //    if(fgap_point == fgap_binEdges.size()-1) break;
 
-    //    IDataPoint* currentPoint = gapFraction->point(dp_counter);
-    //    IMeasurement* xCoord = currentPoint->coordinate(0);
-    //    IMeasurement* yCoord = currentPoint->coordinate(1);
+    //    // Get the x-value of this gap fraction point, from the mid-point of the bin edges
+    //    double binCentre = ( fgap_binEdges.at(fgap_point) + fgap_binEdges.at(fgap_point+1) ) / 2;
+    //    double errorPlus = fgap_binEdges.at(fgap_point+1) - binCentre;
+    //    double errorMinus = binCentre - fgap_binEdges.at(fgap_point);
 
+    //    // If this Q0/Qsum point is not the cut value we need for this gap fraction point, continue
+    //    if(m_q0BinEdges.at(i+1) != binCentre) continue;
+
+    //    // Calculate the gap fraction and its uncertainty
     //    double fraction = vetoPtWeightSum/total_weight;
     //    double fraction_error = sqrt(fraction*(1.0-fraction)/total_weight);
     //    if(total_weight == 0.0) fraction = fraction_error = 0.0;
 
-    //    xCoord->setValue(m_q0BinEdges.at(i+1));
-    //    xCoord->setErrorPlus(2.5);
-    //    xCoord->setErrorMinus(2.5);
+    //    // Set the point
+    //    IDataPoint* currentPoint = gapFraction->point(fgap_point);
+    //    IMeasurement* xCoord = currentPoint->coordinate(0);
+    //    IMeasurement* yCoord = currentPoint->coordinate(1);
+
+    //    xCoord->setValue(binCentre);
+    //    xCoord->setErrorPlus(errorPlus);
+    //    xCoord->setErrorMinus(errorMinus);
     //    yCoord->setValue(fraction);
     //    yCoord->setErrorPlus(fraction_error);
     //    yCoord->setErrorMinus(fraction_error);
 
-    //    ++dp_counter;
+    //    ++fgap_point;
     //  }
     //  tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*vetoPt)));
     //}
