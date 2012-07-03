@@ -258,16 +258,21 @@ namespace Rivet {
 
 
     inline void _moments_to_stddev(Profile1DPtr moment_profiles[], Scatter2DPtr target_dps) {
-      for (size_t b = 0; b < target_dps->numPoints(); ++b) { // loop over points
+      for (size_t b = 0; b < moment_profiles[0]->numBins(); ++b) { // loop over points
         /// @todo Assuming unit weights here! Should use N_effective = sumW**2/sumW2?
         const double numentries = moment_profiles[0]->bin(b).numEntries();
-        const double var = moment_profiles[1]->bin(b).mean() - intpow(moment_profiles[0]->bin(b).mean(), 2);
-        const double sd = fuzzyLessEquals(var,0.) ? 0 : sqrt(var); //< Numerical safety check
-        target_dps->point(b).setY(sd);
+        const double x = moment_profiles[0]->bin(b).midpoint();
+        const double ex = moment_profiles[0]->bin(b).width()/2.;
+        double var = 0.;
+        double sd = 0.;
+        if (numentries > 0) {
+          var = moment_profiles[1]->bin(b).mean() - intpow(moment_profiles[0]->bin(b).mean(), 2);
+          sd = fuzzyLessEquals(var,0.) ? 0 : sqrt(var); //< Numerical safety check
+        }
         if (sd == 0 || numentries < 3) {
           MSG_WARNING("Need at least 3 bin entries and a non-zero central value to calculate "
                       << "an error on standard deviation profiles (bin " << b << ")");
-          target_dps->point(b).setYErr(0);
+          target_dps->addPoint(x, sd, ex, 0);
           continue;
         }
         // c2(y) = m4(x) - 4 m3(x) m1(x) - m2(x)^2 + 8 m2(x) m1(x)^2 - 4 m1(x)^4
@@ -278,7 +283,7 @@ namespace Rivet {
           - 4 * intpow(moment_profiles[0]->bin(b).mean(), 4);
         const double stderr_on_var = sqrt(var_on_var/(numentries-2.0));
         const double stderr_on_sd = stderr_on_var / (2.0*sd);
-        target_dps->point(b).setYErr(stderr_on_sd);
+        target_dps->addPoint(x, sd, ex, stderr_on_sd);
       }
     }
 
