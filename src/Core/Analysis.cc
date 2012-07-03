@@ -346,6 +346,12 @@ namespace Rivet {
 
   ///////////////////
 
+  Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId,
+                                       size_t yAxisId, const string& title,
+                                       const string& xtitle, const string& ytitle) {
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    return bookScatter2D(axisCode, title, xtitle, ytitle);
+  }
 
 
   Scatter2DPtr Analysis::bookScatter2D(const string& hname, const string& title,
