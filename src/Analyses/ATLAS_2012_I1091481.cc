@@ -117,7 +117,7 @@ namespace Rivet {
 
 
     void fillS(Histo1DPtr h, const ParticleVector& part, double weight, std::vector<double> Xj, bool SE=true) {
-      for (int i=0; i< h->numBins(); i++) {
+      for (size_t i=0; i< h->numBins(); i++) {
         double x = h->bin(i).midpoint();
         double y;
         if (SE) y = getSE(part, Xj, x);
