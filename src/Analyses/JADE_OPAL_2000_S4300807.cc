@@ -50,8 +50,8 @@ namespace Rivet {
       default: break;
       }
       for (size_t i = 0; i < 5; ++i) {
-        _h_R_Jade[i] = bookScatter2D(offset, 1, i+1);
-        _h_R_Durham[i] = bookScatter2D(offset+9, 1, i+1);
+        _h_R_Jade[i] = bookHisto1D(offset, 1, i+1);
+        _h_R_Durham[i] = bookHisto1D(offset+9, 1, i+1);
         if (i < 4) _h_y_Durham[i] = bookHisto1D(offset+17, 1, i+1);
       }
     }
@@ -70,38 +70,39 @@ namespace Rivet {
         double y_45 = jadejet.clusterSeq()->exclusive_ymerge_max(4);
         double y_56 = jadejet.clusterSeq()->exclusive_ymerge_max(5);
 
-        for (size_t i = 0; i < _h_R_Jade[0]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Jade[0]->point(i);
-          if (y_23 < dp.x()) {
-            dp.setY(dp.y() + weight);
+        for (size_t i = 0; i < _h_R_Jade[0]->numBins(); ++i) {
+          double ycut = _h_R_Jade[0]->bin(i).midpoint();
+          double width = _h_R_Jade[0]->bin(i).width();
+          if (y_23 < ycut) {
+            _h_R_Jade[0]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Jade[1]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Jade[1]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Jade[1]->numBins(); ++i) {
+          double ycut = _h_R_Jade[1]->bin(i).midpoint();
+          double width = _h_R_Jade[1]->bin(i).width();
           if (y_34 < ycut && y_23 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Jade[1]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Jade[2]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Jade[2]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Jade[2]->numBins(); ++i) {
+          double ycut = _h_R_Jade[2]->bin(i).midpoint();
+          double width = _h_R_Jade[2]->bin(i).width();
           if (y_45 < ycut && y_34 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Jade[2]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Jade[3]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Jade[3]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Jade[3]->numBins(); ++i) {
+          double ycut = _h_R_Jade[3]->bin(i).midpoint();
+          double width = _h_R_Jade[3]->bin(i).width();
           if (y_56 < ycut && y_45 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Jade[3]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Jade[4]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Jade[4]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Jade[4]->numBins(); ++i) {
+          double ycut = _h_R_Jade[4]->bin(i).midpoint();
+          double width = _h_R_Jade[4]->bin(i).width();
           if (y_56 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Jade[4]->fill(ycut, weight*width);
           }
         }
       }
@@ -119,38 +120,39 @@ namespace Rivet {
         _h_y_Durham[2]->fill(y_45, weight);
         _h_y_Durham[3]->fill(y_56, weight);
 
-        for (size_t i = 0; i < _h_R_Durham[0]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Durham[0]->point(i);
-          if (y_23 < dp.x()) {
-            dp.setY(dp.y() + weight);
+        for (size_t i = 0; i < _h_R_Durham[0]->numBins(); ++i) {
+          double ycut = _h_R_Durham[0]->bin(i).midpoint();
+          double width = _h_R_Durham[0]->bin(i).width();
+          if (y_23 < ycut) {
+            _h_R_Durham[0]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Durham[1]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Durham[1]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Durham[1]->numBins(); ++i) {
+          double ycut = _h_R_Durham[1]->bin(i).midpoint();
+          double width = _h_R_Durham[1]->bin(i).width();
           if (y_34 < ycut && y_23 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Durham[1]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Durham[2]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Durham[2]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Durham[2]->numBins(); ++i) {
+          double ycut = _h_R_Durham[2]->bin(i).midpoint();
+          double width = _h_R_Durham[2]->bin(i).width();
           if (y_45 < ycut && y_34 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Durham[2]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Durham[3]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Durham[3]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Durham[3]->numBins(); ++i) {
+          double ycut = _h_R_Durham[3]->bin(i).midpoint();
+          double width = _h_R_Durham[3]->bin(i).width();
           if (y_56 < ycut && y_45 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Durham[3]->fill(ycut, weight*width);
           }
         }
-        for (size_t i = 0; i < _h_R_Durham[4]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Durham[4]->point(i);
-          double ycut = dp.x();
+        for (size_t i = 0; i < _h_R_Durham[4]->numBins(); ++i) {
+          double ycut = _h_R_Durham[4]->bin(i).midpoint();
+          double width = _h_R_Durham[4]->bin(i).width();
           if (y_56 > ycut) {
-            dp.setY(dp.y() + weight);
+            _h_R_Durham[4]->fill(ycut, weight*width);
           }
         }
       }
@@ -166,14 +168,8 @@ namespace Rivet {
 
       for (size_t n = 0; n < 5; ++n) {
         // Scale integrated jet rates to 100%
-        for (size_t i = 0; i < _h_R_Jade[n]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Jade[n]->point(i);
-          dp.setY(dp.y()*100.0/sumOfWeights());
-        }
-        for (size_t i = 0; i < _h_R_Durham[n]->numPoints(); ++i) {
-          Point2D & dp = _h_R_Durham[n]->point(i);
-          dp.setY(dp.y()*100.0/sumOfWeights());
-        }
+        scale(_h_R_Jade[n],   100./sumOfWeights());
+        scale(_h_R_Durham[n], 100./sumOfWeights());
       }
     }
 
@@ -184,8 +180,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Scatter2DPtr _h_R_Jade[5];
-    Scatter2DPtr _h_R_Durham[5];
+    Histo1DPtr _h_R_Jade[5];
+    Histo1DPtr _h_R_Durham[5];
     Histo1DPtr _h_y_Durham[4];
     //@}
 
