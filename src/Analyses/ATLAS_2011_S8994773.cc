@@ -90,11 +90,13 @@ namespace Rivet {
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
       const size_t nbins = referenceData(13+isqrts,1,1).numPoints();
       for (size_t i = 0; i < nbins; ++i) {
-        const double binmean_num = hist_num_dphi_500.bin(i).xMean();
-        const double binvalue_num = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
-        if (pTlead/GeV >= 1.0) _hist_N_vs_dPhi_1_500->fill(binmean_num, binvalue_num, weight);
-        if (pTlead/GeV >= 2.0) _hist_N_vs_dPhi_2_500->fill(binmean_num, binvalue_num, weight);
-        if (pTlead/GeV >= 3.0) _hist_N_vs_dPhi_3_500->fill(binmean_num, binvalue_num, weight);
+        if (hist_num_dphi_500.bin(i).numEntries() > 0) {
+          const double binmean_num = hist_num_dphi_500.bin(i).xMean();
+          const double binvalue_num = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
+          if (pTlead/GeV >= 1.0) _hist_N_vs_dPhi_1_500->fill(binmean_num, binvalue_num, weight);
+          if (pTlead/GeV >= 2.0) _hist_N_vs_dPhi_2_500->fill(binmean_num, binvalue_num, weight);
+          if (pTlead/GeV >= 3.0) _hist_N_vs_dPhi_3_500->fill(binmean_num, binvalue_num, weight);
+        }
       }
 
     }
