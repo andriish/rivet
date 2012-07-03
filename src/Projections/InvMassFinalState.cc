@@ -137,7 +137,7 @@ namespace Rivet {
         }
         bool passedMassCut = false;
         if (_useTransverseMass) {
-          passedMassCut = inRange(v4.massT(), _minmass, _maxmass);
+          passedMassCut = inRange(massT(i1->momentum(), i2->momentum()), _minmass, _maxmass);
         } else {
           passedMassCut = inRange(v4.mass(), _minmass, _maxmass);
         }

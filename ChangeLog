@@ -1,3 +1,7 @@
+2012-07-03  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Bugfix for transverse mass (thanks to Gavin Hesketh)
+
 2012-06-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Merge YODA branch into trunk. YODA is alive!!!!!!

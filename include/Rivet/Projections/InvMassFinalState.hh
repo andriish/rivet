@@ -58,6 +58,13 @@ namespace Rivet {
     /// Operate on a given particle vector directly instead of through project (no caching)
     void calc(const ParticleVector& inparticles);
 
+  private:
+
+    /// Transverse Mass
+    inline double massT( FourMomentum v1, FourMomentum v2) {
+      return sqrt( (v1.Et() + v2.Et())*(v1.Et() + v2.Et()) -
+                   (v1+v2).perp()*(v1+v2).perp() );
+    }
 
   protected:
 
