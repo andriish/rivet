@@ -1,3 +1,11 @@
+2012-07-03  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Bugfix for transverse mass (thanks to Gavin Hesketh)
+
+2012-06-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Create AIDA based Rivet branch and convert trunk to YODA
+
 2012-06-20  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added D0_2011_I895662: 3-jet mass

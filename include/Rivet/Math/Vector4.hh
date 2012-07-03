@@ -385,19 +385,9 @@ namespace Rivet {
       }
     }
 
-    /// Calculate the transverse mass \f$ m_T = m \sin{\theta} \f$.
-    double massT() const {
-      return mass() * sin(polarAngle());
-    }
-
     /// Get the squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant).
     double mass2() const {
       return invariant();
-    }
-
-    /// Calculate the squared transverse mass \f$ m_T^2 = m^2 \sin^2{\theta} \f$.
-    double massT2() const {
-      return massT() * massT();
     }
 
     /// Calculate the rapidity.
@@ -541,19 +531,9 @@ namespace Rivet {
     return v.mass();
   }
 
-  /// Get the transverse mass \f$ m_T = m \sin{\theta} \f$ of a momentum 4-vector.
-  inline double massT(const FourMomentum& v) {
-    return v.massT();
-  }
-
   /// Get the squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant) of a momentum 4-vector.
   inline double mass2(const FourMomentum& v) {
     return v.mass2();
-  }
-
-  /// Get the squared transverse mass \f$ m_T^2 = m^2 \sin^2{\theta} \f$ of a momentum 4-vector.
-  inline double massT2(const FourMomentum& v) {
-    return v.massT2();
   }
 
   /// Calculate the rapidity of a momentum 4-vector.
