@@ -82,6 +82,8 @@ namespace Rivet {
     void finalize() {
       int Nbins = _h_plus->numBins();
       for (int i=0; i<Nbins; i++) {
+        double x     = _h_plus->bin(i).midpoint();
+        double ex    = _h_plus->bin(i).width()/2.;
         double num   = _h_plus->bin(i).area() - _h_minus->bin(i).area();
         double denom = _h_plus->bin(i).area() + _h_minus->bin(i).area();
         double err   = _h_plus->bin(i).areaErr()  + _h_minus->bin(i).areaErr();
@@ -95,8 +97,7 @@ namespace Rivet {
           asym = num/denom;
           asym_err = num/denom*((err/num)+(err/denom));
         }
-        _h_asym->point(i).setY(asym);
-        _h_asym->point(i).setYErr(asym_err);
+        _h_asym->addPoint(x, asym, ex, asym_err);
       }
 
       // todo YODA deleteplot
