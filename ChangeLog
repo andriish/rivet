@@ -4,7 +4,11 @@
 
 2012-06-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
-	* Create AIDA based Rivet branch and convert trunk to YODA
+	* Merge YODA branch into trunk. YODA is alive!!!!!!
+
+2012-06-26  Holger Schulz  <holger.schulz@physik.hu-berlin.de>
+
+	* Add ATLAS_2012_I1091481
 
 2012-06-20  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
