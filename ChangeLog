@@ -2,6 +2,10 @@
 
 	* Merge YODA branch into trunk. YODA is alive!!!!!!
 
+2012-06-26  Holger Schulz  <holger.schulz@physik.hu-berlin.de>
+
+	* Add ATLAS_2012_I1091481
+
 2012-06-20  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added D0_2011_I895662: 3-jet mass
