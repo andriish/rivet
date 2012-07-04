@@ -98,7 +98,7 @@ namespace Rivet {
         // Get entry for rad_Psi = 0.2 bin
         AIDA::IProfile1D* ph_i = _profhistPsi_pT[i];
         y.push_back(ph_i->binHeight(2));
-        ey.push_back(ph_i->binError(1));
+        ey.push_back(ph_i->binError(2));
       }
       _profhistPsi_vs_pT->setCoordinate(1, y, ey);
 
