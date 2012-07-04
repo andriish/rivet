@@ -85,9 +85,9 @@ namespace Rivet {
         // run the jet clustering DURHAM
         fastjet::ClusterSequence clust_seq(input_particles, durham_def);
         // cluster the jets
-        for (size_t j = 0; j < _nPhotonDurham->numPoints(); ++j) {
+        for (size_t j = 0; j < _nPhotonDurham->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonDurham->point(j).x();
+          double ycut = _nPhotonDurham->bin(j).midpoint();
           double dcut = sqr(evis)*ycut;
           vector<fastjet::PseudoJet> exclusive_jets =
             sorted_by_E(clust_seq.exclusive_jets(dcut));
@@ -102,17 +102,17 @@ namespace Rivet {
             }
           }
           if(!accept) continue;
-          _nPhotonDurham->point(j).setY(_nPhotonDurham->point(j).y()+weight);
+          _nPhotonDurham->fill(ycut, weight*_nPhotonDurham->bin(j).width());
           int njet = min(4,int(exclusive_jets.size())) - 1;
-          if(j<_nPhotonJetDurham[njet]->numPoints()) {
-            _nPhotonJetDurham[njet]->point(j).setY(_nPhotonJetDurham[njet]->point(j).y()+weight);
+          if(j<_nPhotonJetDurham[njet]->numBins()) {
+            _nPhotonJetDurham[njet]->fill(_nPhotonJetDurham[njet]->bin(j).midpoint(), weight*_nPhotonJetDurham[njet]->bin(j).width());
           }
         }
         // run the jet clustering JADE
         fastjet::ClusterSequence clust_seq2(input_particles, jade_def);
-        for (size_t j = 0; j < _nPhotonJade->numPoints(); ++j) {
+        for (size_t j = 0; j < _nPhotonJade->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonJade->point(j).x();
+          double ycut = _nPhotonJade->bin(j).midpoint();
           double dcut = sqr(evis)*ycut;
           vector<fastjet::PseudoJet> exclusive_jets =
             sorted_by_E(clust_seq2.exclusive_jets(dcut));
@@ -126,10 +126,10 @@ namespace Rivet {
             }
           }
           if(!accept) continue;
-          _nPhotonJade->point(j).setY(_nPhotonJade->point(j).y()+weight);
+          _nPhotonJade->fill(ycut, weight*_nPhotonJade->bin(j).width());
           int njet = min(4,int(exclusive_jets.size())) - 1;
-          if(j<_nPhotonJetJade[njet]->numPoints()) {
-            _nPhotonJetJade[njet]->point(j).setY(_nPhotonJetJade[njet]->point(j).y()+weight);
+          if(j<_nPhotonJetJade[njet]->numBins()) {
+            _nPhotonJetJade[njet]->fill(_nPhotonJetJade[njet]->bin(j).midpoint(), weight*_nPhotonJetJade[njet]->bin(j).width());
           }
         }
         // add this photon back in for the next interation of the loop
@@ -147,11 +147,11 @@ namespace Rivet {
 //       addProjection(ChargedFinalState(), "CFS");
 
       // Book data sets
-      _nPhotonJade       = bookScatter2D(1, 1, 1);
-      _nPhotonDurham     = bookScatter2D(2, 1, 1);
+      _nPhotonJade       = bookHisto1D(1, 1, 1);
+      _nPhotonDurham     = bookHisto1D(2, 1, 1);
       for(unsigned int ix=0;ix<4;++ix) {
-        _nPhotonJetJade  [ix] = bookScatter2D(3 , 1, 1+ix);
-        _nPhotonJetDurham[ix] = bookScatter2D(4 , 1, 1+ix);
+        _nPhotonJetJade  [ix] = bookHisto1D(3 , 1, 1+ix);
+        _nPhotonJetDurham[ix] = bookHisto1D(4 , 1, 1+ix);
       }
     }
 
@@ -159,28 +159,22 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       const double fact = 1000./sumOfWeights();
-      normaliseScatter2D(_nPhotonJade      ,fact);
-      normaliseScatter2D(_nPhotonDurham    ,fact);
+      scale(_nPhotonJade  ,fact);
+      scale(_nPhotonDurham,fact);
       for(unsigned int ix=0;ix<4;++ix) {
-        normaliseScatter2D(_nPhotonJetJade  [ix],fact);
-        normaliseScatter2D(_nPhotonJetDurham[ix],fact);
+        scale(_nPhotonJetJade  [ix],fact);
+        scale(_nPhotonJetDurham[ix],fact);
       }
     }
 
-    // normalise a data point set, default function does both x and y AHHH
-    void normaliseScatter2D(Scatter2DPtr points, double fact) {
-      for (size_t i = 0; i < points->numPoints(); ++i) {
-        points->point(i).setY(points->point(i).y()*fact);
-      }
-    }
     //@}
 
   private:
 
-    Scatter2DPtr _nPhotonJade;
-    Scatter2DPtr _nPhotonDurham;
-    Scatter2DPtr _nPhotonJetJade  [4];
-    Scatter2DPtr _nPhotonJetDurham[4];
+    Histo1DPtr _nPhotonJade;
+    Histo1DPtr _nPhotonDurham;
+    Histo1DPtr _nPhotonJetJade  [4];
+    Histo1DPtr _nPhotonJetDurham[4];
 
   };
 
