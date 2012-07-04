@@ -97,9 +97,11 @@ namespace Rivet {
       for (size_t i = 0; i < _ptedges.size()-1; ++i) {
         // Get entry for rad_Psi = 0.2 bin
         Profile1DPtr ph_i = _profhistPsi_pT[i];
-
-	_profhistPsi_vs_pT->point(i).setY(ph_i->bin(2).mean());
-	_profhistPsi_vs_pT->point(i).setYErr(ph_i->bin(1).stdErr());
+        const double ex = 0.5*(_ptedges[i+1] - _ptedges[i]);
+        const double x  = _ptedges[i] + ex;
+        const double y  = ph_i->bin(2).mean();
+        const double ey = ph_i->bin(2).stdErr();
+        _profhistPsi_vs_pT->addPoint(x, y, ex, ey);
       }
     }
 
