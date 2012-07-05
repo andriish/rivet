@@ -59,7 +59,7 @@ namespace Rivet {
 
     // S_eta core for one event
     //
-    //  -1 + 1/Nch * |sum_j^Nch exp[i*(xi eta_j - Phi_j)]|^2 
+    //  -1 + 1/Nch * |sum_j^Nch exp[i*(xi eta_j - Phi_j)]|^2
     //
     double getSeta(const ParticleVector& part, double xi) {
       std::complex<double> c_eta (0.0, 0.0);
@@ -76,7 +76,7 @@ namespace Rivet {
 
     // S_E core for one event
     //
-    //  -1 + 1/Nch * |sum_j^Nch exp[i*(omega X_j - Phi_j)]|^2 
+    //  -1 + 1/Nch * |sum_j^Nch exp[i*(omega X_j - Phi_j)]|^2
     double getSE(const ParticleVector& part, double omega) {
       double Xj = 0.0;
       std::complex<double> c_E (0.0, 0.0);

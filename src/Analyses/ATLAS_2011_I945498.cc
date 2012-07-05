@@ -60,15 +60,15 @@ namespace Rivet {
       ZFinder zfinder_el(eta_e, 20, ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
       addProjection(zfinder_el, "ZFinder_el");
 
-      // Define veto FS in order to prevent Z-decay products entering the jet algorithm 
+      // Define veto FS in order to prevent Z-decay products entering the jet algorithm
       VetoedFinalState remfs;
       remfs.addVetoOnThisFinalState(zfinder_el);
       remfs.addVetoOnThisFinalState(zfinder_mu);
-      
+
       FastJets jets(remfs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles();
       addProjection(jets, "jets");
-      
+
       // 0=el, 1=mu, 2=comb
       for (size_t chn = 0; chn < 3; ++chn) {
         _h_njet_incl[chn]  = bookHistogram1D(1, 1, chn+1);
@@ -79,10 +79,10 @@ namespace Rivet {
         _h_yjet[chn]       = bookHistogram1D(6, 1, chn+1);
         _h_ylead[chn]      = bookHistogram1D(7, 1, chn+1);
         _h_yseclead[chn]   = bookHistogram1D(8, 1, chn+1);
-        _h_mass[chn]       = bookHistogram1D(9, 1, chn+1);  
-        _h_deltay[chn]     = bookHistogram1D(10, 1, chn+1);  
-        _h_deltaphi[chn]   = bookHistogram1D(11, 1, chn+1);  
-        _h_deltaR[chn]     = bookHistogram1D(12, 1, chn+1);  
+        _h_mass[chn]       = bookHistogram1D(9, 1, chn+1);
+        _h_deltay[chn]     = bookHistogram1D(10, 1, chn+1);
+        _h_deltaphi[chn]   = bookHistogram1D(11, 1, chn+1);
+        _h_deltaR[chn]     = bookHistogram1D(12, 1, chn+1);
       }
     }
 
@@ -149,16 +149,16 @@ namespace Rivet {
       }
 
       if (jets.size() <1) vetoEvent;
-      
-      _h_njet_incl[chn]    ->fill(jets.size(), weight); 
-      _h_njet_incl[2]      ->fill(jets.size(), weight); 
 
-      // Loop over selected jets, fill inclusive jet distributions 
+      _h_njet_incl[chn]    ->fill(jets.size(), weight);
+      _h_njet_incl[2]      ->fill(jets.size(), weight);
+
+      // Loop over selected jets, fill inclusive jet distributions
       for (unsigned int ijet=0; ijet<jets.size(); ijet++){
-        _h_ptjet[chn]     ->fill(jets[ijet].momentum().pT()/GeV, weight); 
-        _h_ptjet[2]       ->fill(jets[ijet].momentum().pT()/GeV, weight); 
-        _h_yjet[chn]      ->fill(fabs(jets[ijet].momentum().rapidity()), weight); 
-        _h_yjet[2]        ->fill(fabs(jets[ijet].momentum().rapidity()), weight); 
+        _h_ptjet[chn]     ->fill(jets[ijet].momentum().pT()/GeV, weight);
+        _h_ptjet[2]       ->fill(jets[ijet].momentum().pT()/GeV, weight);
+        _h_yjet[chn]      ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
+        _h_yjet[2]        ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
       }
 
       // The leading jet histos
@@ -167,7 +167,7 @@ namespace Rivet {
         double yabslead = fabs(jets[0].momentum().rapidity());
         _h_ptlead[chn]   ->fill(ptlead,   weight);
         _h_ptlead[2]     ->fill(ptlead,   weight);
-       
+
         _h_ylead[chn]    ->fill(yabslead, weight);
         _h_ylead[2]      ->fill(yabslead, weight);
       }
@@ -176,7 +176,7 @@ namespace Rivet {
         // The second to leading jet histos
         double pt2ndlead   = jets[1].momentum().pT()/GeV;
         double yabs2ndlead = fabs(jets[1].momentum().rapidity());
-        
+
         _h_ptseclead[chn]   ->fill(pt2ndlead,   weight);
         _h_ptseclead[2]     ->fill(pt2ndlead,   weight);
         _h_yseclead[chn]    ->fill(yabs2ndlead, weight);
@@ -186,7 +186,7 @@ namespace Rivet {
         double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
         double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
         double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
-        double mass     = (jets[0].momentum() + jets[1].momentum()).mass(); 
+        double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
 
         _h_mass[chn]       ->fill(mass,     weight);
         _h_mass[2]         ->fill(mass,     weight);
@@ -221,7 +221,7 @@ namespace Rivet {
       // Fill RATIO histograms (DataPointSets)
       vector<double> yvals_ratio[3];
       vector<double> yerrs_ratio[3];
-     
+
       for (size_t chn = 0; chn < 2; ++chn) {
         yvals_ratio[chn].push_back(ratio(weights_nj1[chn], weights_nj0[chn])[0]);
         yvals_ratio[chn].push_back(ratio(weights_nj2[chn], weights_nj1[chn])[0]);
@@ -275,7 +275,7 @@ namespace Rivet {
     double weights_nj3[3];
     double weights_nj4[3];
 
-    // 
+    //
     AIDA::IDataPointSet *_h_njet_ratio[3];
     AIDA::IHistogram1D  *_h_njet_incl[3];
     AIDA::IHistogram1D  *_h_ptjet[3];
@@ -284,10 +284,10 @@ namespace Rivet {
     AIDA::IHistogram1D  *_h_yjet[3];
     AIDA::IHistogram1D  *_h_ylead[3];
     AIDA::IHistogram1D  *_h_yseclead[3];
-    AIDA::IHistogram1D  *_h_deltaphi[3]; 
-    AIDA::IHistogram1D  *_h_deltay[3];  
-    AIDA::IHistogram1D  *_h_deltaR[3];  
-    AIDA::IHistogram1D  *_h_mass[3];  
+    AIDA::IHistogram1D  *_h_deltaphi[3];
+    AIDA::IHistogram1D  *_h_deltay[3];
+    AIDA::IHistogram1D  *_h_deltaR[3];
+    AIDA::IHistogram1D  *_h_mass[3];
 
   };
 
