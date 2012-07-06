@@ -99,12 +99,12 @@ namespace Rivet {
         }
 
         // Durham n-jet fractions
-        _h_R_Durham[0] = bookScatter2D(offset+187, 1, 1); // R1 d187 ... d194
-        _h_R_Durham[1] = bookScatter2D(offset+195, 1, 1); // R2 d195 ... d202
-        _h_R_Durham[2] = bookScatter2D(offset+203, 1, 1); // R3 d203 ... d210
-        _h_R_Durham[3] = bookScatter2D(offset+211, 1, 1); // R4 d211 ... d218
-        _h_R_Durham[4] = bookScatter2D(offset+219, 1, 1); // R5 d219 ... d226
-        _h_R_Durham[5] = bookScatter2D(offset+227, 1, 1); // R>=6 d227 ... d234
+        _h_R_Durham[0] = bookHisto1D(offset+187, 1, 1); // R1 d187 ... d194
+        _h_R_Durham[1] = bookHisto1D(offset+195, 1, 1); // R2 d195 ... d202
+        _h_R_Durham[2] = bookHisto1D(offset+203, 1, 1); // R3 d203 ... d210
+        _h_R_Durham[3] = bookHisto1D(offset+211, 1, 1); // R4 d211 ... d218
+        _h_R_Durham[4] = bookHisto1D(offset+219, 1, 1); // R5 d219 ... d226
+        _h_R_Durham[5] = bookHisto1D(offset+227, 1, 1); // R>=6 d227 ... d234
       }
       // offset for the charged particle distributions
       offset = 0;
@@ -181,21 +181,21 @@ namespace Rivet {
               _h_y_Durham[i]->fill(logyn, weight);
             }
             if(!LEP1) logyn *= log10e;
-            for (size_t j = 0; j < _h_R_Durham[i]->numPoints(); ++j) {
-              Point2D & dp = _h_R_Durham[i]->point(j);
-              double val = -dp.xMin();
-              if(val<=logynm1) break;
-              if(val<logyn) {
-                dp.setY(dp.y()+weight);
+            for (size_t j = 0; j < _h_R_Durham[i]->numBins(); ++j) {
+              double val   = _h_R_Durham[i]->bin(j).xMin();
+              double width = _h_R_Durham[i]->bin(j).width();
+              if(-val<=logynm1) break;
+              if(-val<logyn) {
+                _h_R_Durham[i]->fill(val+0.5*width, weight*width);
               }
             }
             logynm1 = logyn;
           }
-          for (size_t j = 0; j < _h_R_Durham[5]->numPoints(); ++j) {
-            Point2D & dp = _h_R_Durham[5]->point(j);
-            double val = -dp.xMin();
-            if(val<=logynm1) break;
-            dp.setY(dp.y()+weight);
+          for (size_t j = 0; j < _h_R_Durham[5]->numBins(); ++j) {
+            double val   = _h_R_Durham[5]->bin(j).xMin();
+            double width = _h_R_Durham[5]->bin(j).width();
+            if(-val<=logynm1) break;
+            _h_R_Durham[5]->fill(val+0.5*width, weight*width);
           }
         }
         if( !_initialisedSpectra) {
@@ -253,10 +253,8 @@ namespace Rivet {
         normalize(_h_oblateness);
         normalize(_h_sphericity);
 
-        for (size_t N=1; N<7; ++N) {
-          for (size_t i = 0; i < _h_R_Durham[N-1]->numPoints(); ++i) {
-            _h_R_Durham[N-1]->point(i).setY(_h_R_Durham[N-1]->point(i).y()/sumOfWeights());
-          }
+        for (size_t n=0; n<6; ++n) {
+          scale(_h_R_Durham[n], 1./sumOfWeights());
         }
 
         for (size_t n = 0; n < 5; ++n) {
@@ -310,7 +308,7 @@ namespace Rivet {
     Histo1DPtr _h_oblateness;
     Histo1DPtr _h_sphericity;
 
-    Scatter2DPtr _h_R_Durham[6];
+    Histo1DPtr _h_R_Durham[6];
     Histo1DPtr _h_y_Durham[5];
 
     double _weightedTotalChargedPartNum;
