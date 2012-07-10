@@ -23,6 +23,7 @@ Description:
   three leading jet rapidity configurations, separately for the cases where the photon and 
   jet rapidities have the same or the opposite sign.
   The measurement uses 37 pb$^{-1}$ of integrated luminosity collected with the ATLAS detector.'
+NeedCrossSection: yes
 BibKey: Aad:2012cv
 BibTeX: 
 '@article{Aad:2012cv,

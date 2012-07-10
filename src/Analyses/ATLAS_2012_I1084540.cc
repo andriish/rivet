@@ -29,7 +29,6 @@ namespace Rivet {
   public:
 
     ATLAS_2012_I1084540() : Analysis("ATLAS_2012_I1084540"), _etaBins(49), _etaMax(4.9) {
-      setNeedsCrossSection(true);
     }
 
 

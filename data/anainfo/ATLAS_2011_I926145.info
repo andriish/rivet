@@ -23,6 +23,7 @@ Description:
   and muon cross section for $4 < \pT < 100$~GeV in  $|\eta| <2.50$.
   W/Z/gamma* component must be subtracted to leave the heavy flavour
   contribution.'
+NeedCrossSection: yes
 BibKey: Aad:2011rr
 BibTeX: '@article{Aad:2011rr,
       author         = "Aad, Georges and others",
