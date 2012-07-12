@@ -1,3 +1,7 @@
+2012-07-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix rivet-mkanalysis a bit for YODA compatibility.
+
 2012-07-03  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Bugfix for transverse mass (thanks to Gavin Hesketh)
