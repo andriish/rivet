@@ -89,15 +89,15 @@ namespace Rivet {
       _h_jet_bb_Delta_R = bookHistogram1D("jet_bb_Delta_R", 50, 0, 5);
       _h_jet_b_jet_eta = bookHistogram1D("jet_b_jet_eta", 50, -4, 4);
       _h_jet_b_jet_multiplicity = bookHistogram1D("jet_b_jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_b_jet_phi = bookHistogram1D("jet_b_jet_phi", 50, -M_PI, M_PI);
+      _h_jet_b_jet_phi = bookHistogram1D("jet_b_jet_phi", 50, 0, 2.*M_PI);
       _h_jet_b_jet_pT = bookHistogram1D("jet_b_jet_pT", 50, 0, 500);
       _h_jet_H_eta_using_bb = bookHistogram1D("jet_H_eta_using_bb", 50, -4, 4);
       _h_jet_H_mass_using_bb = bookHistogram1D("jet_H_mass_using_bb", 50, 50, 200);
-      _h_jet_H_phi_using_bb = bookHistogram1D("jet_H_phi_using_bb", 50, -M_PI, M_PI);
+      _h_jet_H_phi_using_bb = bookHistogram1D("jet_H_phi_using_bb", 50, 0, 2.*M_PI);
       _h_jet_H_pT_using_bb = bookHistogram1D("jet_H_pT_using_bb", 50, 0, 500);
       _h_jet_eta = bookHistogram1D("jet_eta", 50, -4, 4);
       _h_jet_multiplicity = bookHistogram1D("jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_phi = bookHistogram1D("jet_phi", 50, -M_PI, M_PI);
+      _h_jet_phi = bookHistogram1D("jet_phi", 50, 0., 2.*M_PI);
       _h_jet_pT = bookHistogram1D("jet_pT", 50, 0, 500);
       _h_jet_VBbb_Delta_eta = bookHistogram1D("jet_VBbb_Delta_eta", 50, 0, 4);
       _h_jet_VBbb_Delta_phi = bookHistogram1D("jet_VBbb_Delta_phi", 50, 0, M_PI);
@@ -108,7 +108,7 @@ namespace Rivet {
       _h_VB_mass = bookHistogram1D("VB_mass", 50, 60, 110);
       _h_Z_multiplicity = bookHistogram1D("Z_multiplicity", 11, -0.5, 10.5);
       _h_W_multiplicity = bookHistogram1D("W_multiplicity", 11, -0.5, 10.5);
-      _h_VB_phi = bookHistogram1D("VB_phi", 50, -M_PI, M_PI);
+      _h_VB_phi = bookHistogram1D("VB_phi", 50, 0, 2.*M_PI);
       _h_VB_pT = bookHistogram1D("VB_pT", 50, 0, 500);
 
       _h_jet_bVB_angle_Hframe = bookHistogram1D("jet_bVB_angle_Hframe", 50, 0, M_PI);
@@ -130,16 +130,16 @@ namespace Rivet {
       const WFinder& wefinder = applyProjection<WFinder>(event, "WeFinder");
       const WFinder& wmfinder = applyProjection<WFinder>(event, "WmFinder");
 
-      Jets jets = applyProjection<FastJets>(event, "AntiKTJets").jetsByPt(JETPTCUT);
+      Jets jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(JETPTCUT);
 
-      ParticleVector vectorBosons = zeefinder.particles();
+      ParticleVector vectorBosons = zeefinder.bosons();
       /// @todo Don't we have a neater vector concatenation?
-      vectorBosons.insert(vectorBosons.end(), zeefinder.particles().begin(), zeefinder.particles().end());
-      vectorBosons.insert(vectorBosons.end(), wefinder.particles().begin(), wefinder.particles().end());
-      vectorBosons.insert(vectorBosons.end(), wmfinder.particles().begin(), wmfinder.particles().end());
+      vectorBosons.insert(vectorBosons.end(), zmmfinder.bosons().begin(), zmmfinder.bosons().end());
+      vectorBosons.insert(vectorBosons.end(), wefinder.bosons().begin(), wefinder.bosons().end());
+      vectorBosons.insert(vectorBosons.end(), wmfinder.bosons().begin(), wmfinder.bosons().end());
 
-      _h_Z_multiplicity->fill(zeefinder.particles().size() + zmmfinder.particles().size(), weight);
-      _h_W_multiplicity->fill(wefinder.particles().size() + wmfinder.particles().size(), weight);
+      _h_Z_multiplicity->fill(zeefinder.bosons().size() + zmmfinder.bosons().size(), weight);
+      _h_W_multiplicity->fill(wefinder.bosons().size() + wmfinder.bosons().size(), weight);
       _h_jet_multiplicity->fill(jets.size(), weight);
 
       // Identify the b-jets
@@ -168,6 +168,9 @@ namespace Rivet {
         _h_VB_eta->fill(v.momentum().eta(), weight);
         _h_VB_mass->fill(v.momentum().mass(), weight);
       }
+
+      // rest of analysis requires at least 1 b jets
+      if(bjets.empty()) vetoEvent;
 
       // Construct Higgs candidates from pairs of b-jets
       for (size_t i = 0; i < bjets.size()-1; ++i) {
