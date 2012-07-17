@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="FreeHEP"/> 
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/CMS_2012_I1087342" title="Inclusive Forward Jet Pt Spectrum">
+    <dataPoint> 
+      <measurement errorPlus="5.700000e+00" value="3.9300000e+01" errorMinus="4.300000e+00"/>
+      <measurement errorPlus="2.440000e+04" value="8.9100000e+04" errorMinus="1.930000e+04"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="6.800000e+00" value="5.0200000e+01" errorMinus="5.200000e+00"/>
+      <measurement errorPlus="5.000000e+03" value="1.9900000e+04" errorMinus="4.0000000e+03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="8.600000e+00" value="6.340000e+01" errorMinus="6.400000e+00"/>
+      <measurement errorPlus="1.040000e+03" value="4.410000e+03" errorMinus="0.940000e+03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.030000e+01" value="7.970000e+01" errorMinus="7.700000e+00"/>
+      <measurement errorPlus="2.000000e+02" value="8.800000e+02" errorMinus="1.800000e+02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.800000e+01" value="1.020000e+02" errorMinus="1.200000e+01"/>
+      <measurement errorPlus="4.020000e+01" value="1.140000e+02" errorMinus="2.530000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.800000e+01" value="1.320000e+02" errorMinus="1.200000e+01"/>
+      <measurement errorPlus="3.230000e+00" value="1.010000e+01" errorMinus="3.230000e+00"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/CMS_2012_I1087342" title="Forward Jet Pt Spectrum">
+    <dataPoint>
+      <measurement errorPlus="5.700000e+00" value="3.930000e+01" errorMinus="4.300000e+00"/>
+      <measurement errorPlus="5.400000e+02" value="2.108533e+04" errorMinus="0.540000e+02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="7.000000e+00" value="5.000000e+01" errorMinus="5.000000e+00"/>
+      <measurement errorPlus="2.200000e+02" value="9.125694e+03" errorMinus="1.800000e+02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="9.100000e+00" value="6.290000e+01" errorMinus="5.900000e+00"/>
+      <measurement errorPlus="7.000000e+01" value="2.937573e+03" errorMinus="6.000000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.130000e+01" value="7.870000e+01" errorMinus="6.700000e+00"/>
+      <measurement errorPlus="1.726300e+02" value="6.959800e+02" errorMinus="1.431800e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="2.000000e+01" value="1.000000e+02" errorMinus="1.000000e+01"/>
+      <measurement errorPlus="2.262500e+01" value="1.119050e+02" errorMinus="2.262500e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.970000e+01" value="1.303000e+02" errorMinus="1.030000e+01"/>
+      <measurement errorPlus="3.780000e+00" value="9.777733e+00" errorMinus="3.780000e+00"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/CMS_2012_I1087342" title="Central Jet Pt Spectrum">
+    <dataPoint>
+      <measurement errorPlus="5.400000e+00" value="3.960000e+01" errorMinus="4.600000e+00"/>
+      <measurement errorPlus="2.600000e+03" value="1.027318e+04" errorMinus="2.200000e+03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="6.800000e+00" value="5.020000e+01" errorMinus="5.200000e+00"/>
+      <measurement errorPlus="1.200000e+03" value="5.167215e+03" errorMinus="1.000000e+03"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="8.800000e+00" value="6.320000e+01" errorMinus="6.200000e+00"/>
+      <measurement errorPlus="4.000000e+02" value="1.891232e+03" errorMinus="4.000000e+02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.100000e+01" value="7.900000e+01" errorMinus="7.000000e+00"/>
+      <measurement errorPlus="1.315300e+02" value="5.861695e+02" errorMinus="1.216600e+02"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.890000e+01" value="1.011000e+02" errorMinus="1.110000e+01"/>
+      <measurement errorPlus="3.335400e+01" value="1.339735e+02" errorMinus="2.571000e+01"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement errorPlus="1.730000e+01" value="1.327000e+02" errorMinus="1.270000e+01"/>
+      <measurement errorPlus="7.620000e+00" value="2.804353e+01" errorMinus="5.830000e+00"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
