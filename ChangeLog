@@ -1,6 +1,6 @@
 2012-07-24  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Improvements to rivet-mkhtml.
+	* Improvements to rivet-mkhtml and rivet-buildplugin.
 
 2012-07-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 

@@ -72,6 +72,15 @@ test -n "$igsl" && mycppflags="$mycppflags -I${igsl}"
 iboost="@BOOSTINCPATH@"
 test -n "$iboost" && mycppflags="$mycppflags -I${iboost}"
 
+## Get Rivet system linker flags (duplicating that in rivet-config.in)
+myldflags=""
+lrivet="@libdir@"
+test -n "$lrivet" && myldflags="$mycppflags -L${lrivet}"
+lhepmc="@HEPMCLIBPATH@"
+test -n "$lhepmc" && myldflags="$mycppflags -L${lhepmc}"
+lfastjet="@FASTJETLIBPATH@"
+test -n "$lfastjet" && myldflags="$mycppflags -L${lfastjet}"
+
 ## Link against ROOT if requested
 with_root=$(echo $* | egrep -- '--\<with-root\>')
 # echo $with_root
@@ -105,6 +114,6 @@ if [[ -n $with_root ]]; then
 fi
 
 ## Build
-cmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $sources_and_flags"
+cmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $myldflags $sources_and_flags"
 echo $cmd
 eval $cmd
