@@ -215,6 +215,8 @@ style = """<style>
 import datetime
 timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
 
+def _htmlify(s):
+    return s.replace("<","&lt;").replace(">","&gt;")
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.TITLE, style))
@@ -233,7 +235,7 @@ if opts.SINGLE:
             summary = "%s (%s)" % (ana.summary(), analysis)
             if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
                 continue
-        index.write('<li><a href="#%s">%s</a>\n' % (analysis, summary) )
+        index.write('<li><a href="#%s">%s</a>\n' % (analysis, _htmlify(summary)) )
     index.write('</ul>\n')
 
 for analysis in analyses:
@@ -258,9 +260,9 @@ for analysis in analyses:
         if opts.IGNORE_UNVALIDATED and ana.status().upper() != "VALIDATED":
             continue
     if opts.SINGLE:
-        index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary) )
+        index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, _htmlify(summary)) )
     else:
-        index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
+        index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, _htmlify(summary)))
     reflist = []
     if inspireid and inspireid !="NONE":
         reflist.append('<a href="http://inspirehep.net/record/%s">Spires</a>' % spiresid)
@@ -268,7 +270,7 @@ for analysis in analyses:
         reflist.append('<a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
     reflist += references
     index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
-    index.write('<p style="font-size:smaller;">%s</p>\n' % description.replace("<","&lt;").replace(">","&gt;"))
+    index.write('<p style="font-size:smaller;">%s</p>\n' % _htmlify(description))
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     if not opts.SINGLE:
         if not os.path.exists(anapath):
@@ -282,11 +284,13 @@ for analysis in analyses:
                        (opts.OUTPUTDIR, analysis, style))
         anaindex.write('<h3>%s</h3>\n' % analysis)
         anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
-        anaindex.write('<p>\n  %s\n</p>\n' % summary)
+        anaindex.write('<p>\n  %s\n</p>\n' % _htmlify(summary))
     else:
         anaindex = index
 
     datfiles = glob.glob("%s/*.dat" % anapath)
+
+    anaindex.write('<div style="float:none; overflow:auto; width:100%">\n')
     for datfile in sorted(datfiles):
         obsname = os.path.basename(datfile).replace(".dat", "")
         pngfile = obsname+".png"
@@ -301,9 +305,10 @@ for analysis in analyses:
         anaindex.write('      <img src="%s">\n' % pngfile )
         anaindex.write('    </a></a>\n')
         anaindex.write('  </div>\n')
+    anaindex.write('</div>\n')
 
     if not opts.SINGLE:
-        anaindex.write("<br>%s</body>\n</html>\n" % timestamp)
+        anaindex.write('<div style="float:none">%s</body>\n</html></div>\n' % timestamp)
         anaindex.close()
 index.write('<br>%s</body>\n</html>' % timestamp)
 index.close()

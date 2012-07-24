@@ -163,7 +163,7 @@ for ANANAME in ANANAMES:
     src = """\
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetAIDA.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 /// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
@@ -216,7 +216,7 @@ namespace Rivet {
 
       /// @todo Normalise, scale and otherwise manipulate histograms here
 
-      // scale(_h_YYYY, crossSection()/sumOfWeights()); # norm to cross section
+      // scale(_h_YYYY, crossSection()/sumOfWeights()); // norm to cross section
       // normalize(_h_YYYY); # normalize to unity
 
     }
@@ -234,7 +234,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Profile1DPtr _h_XXXX;
-    Histogram1DPtr _h_YYYY;
+    Histo1DPtr _h_YYYY;
     //@}
 %(INLINEMETHODS)s
 

@@ -903,7 +903,7 @@ namespace Rivet {
   //@{
 
   /// Render a 4-vector as a string.
-  inline const string toString(const FourVector& lv) {
+  inline std::string toString(const FourVector& lv) {
     ostringstream out;
     out << "("  << (fabs(lv.t()) < 1E-30 ? 0.0 : lv.t())
         << "; " << (fabs(lv.x()) < 1E-30 ? 0.0 : lv.x())
