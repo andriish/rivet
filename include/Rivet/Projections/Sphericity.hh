@@ -56,7 +56,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    Sphericity() {}
+    Sphericity(double rparam=2.0): _regparam(rparam){}
 
     Sphericity(const FinalState& fsp, double rparam=2.0);
 
