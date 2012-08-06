@@ -773,7 +773,7 @@ public:
       */
     bool isZero( const T & precision = Util::epsilon<T>() ) const
     {
-        return isNegligible( static_cast<T>(1) );
+      return isNegligible( static_cast<T>(1), precision );
     }
 
     /**
