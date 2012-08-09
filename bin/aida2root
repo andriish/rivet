@@ -58,280 +58,281 @@ except ImportError:
 
 class Histo:
 
-  def __init__(self, nDim):
-    self._points = []
-    self.name    = ""
-    self.title   = ""
-    self._nDim   = nDim
+    def __init__(self, nDim):
+        self._points = []
+        self.name    = ""
+        self.title   = ""
+        self._nDim   = nDim
 
-  def addPoint(self, dp):
-    if dp.dimensionality() != self._nDim:
-      er = "Tried to add a datapoint of dimensionality " + str(dp.dimensionality()) + " to a histogram of dimensionality " + str(self._nDim)
-      sys.stderr.write(er)
-      sys.exit(1)
-    self._points.append(dp)
+    def addPoint(self, dp):
+        if dp.dimensionality() != self._nDim:
+            er = "Tried to add a datapoint of dimensionality " + str(dp.dimensionality()) + " to a histogram of dimensionality " + str(self._nDim)
+            sys.stderr.write(er)
+            sys.exit(1)
+        self._points.append(dp)
 
-  def numPts(self):
-    return len(self._points)
+    def numPts(self):
+        return len(self._points)
 
-  def asTGraph(self):
-    tg = TGraph()
-    tg.SetName(self.name)
-    tg.SetTitle(self.title)
-    return tg
+    def asTGraph(self):
+        tg = TGraph()
+        tg.SetName(self.name)
+        tg.SetTitle(self.title)
+        return tg
 
-  def asHisto(self):
-    tg = self.asTGraph()
-    histo = tg.Histogram().Clone()
-    return histo
+    def asHisto(self):
+        tg = self.asTGraph()
+        histo = tg.Histogram().Clone()
+        return histo
 
-  @staticmethod
-  def equalFloats(left, right, precision=1.e-6):
-
-    try:
-      test = abs((left - right) / (left + right))
-      return test < precision
-    except ZeroDivisionError:
-      if left * right < 0.:
+    @staticmethod
+    def equalFloats(left, right, precision=1.e-6):
+        try:
+            test = abs((left - right) / (left + right))
+            return test < precision
+        except ZeroDivisionError:
+            if left * right < 0.:
+                return False
+            else:
+                return True
         return False
-      else:
-        return True
-
-    return False
 
 
 class Histo2D(Histo):
 
-  def __init__(self):
-    Histo.__init__(self,3)
+    def __init__(self):
+        Histo.__init__(self,3)
 
-  def asTGraph(self):
-    xs = array.array("d", [])
-    ex = array.array("d", [])
-    ys = array.array("d", [])
-    ey = array.array("d", [])
-    zs = array.array("d", [])
-    ez = array.array("d", [])
 
-    for pt in self._points:
-      x   = pt.mean(0)
-      erx = pt.er(0)
-      y   = pt.mean(1)
-      ery = pt.er(1)
-      z   = pt.mean(2)
-      erz = pt.er(2)
+    def asTGraph(self):
+        xs = array.array("d", [])
+        ex = array.array("d", [])
+        ys = array.array("d", [])
+        ey = array.array("d", [])
+        zs = array.array("d", [])
+        ez = array.array("d", [])
 
-      xs.append(x)
-      ex.append(erx)
-      ys.append(y)
-      ey.append(ery)
-      zs.append(z)
-      ez.append(erz)
+        for pt in self._points:
+            x   = pt.mean(0)
+            erx = pt.er(0)
+            y   = pt.mean(1)
+            ery = pt.er(1)
+            z   = pt.mean(2)
+            erz = pt.er(2)
 
-    if self.numPts() == 0:
-      tg = TGraph2DErrors()
-      er = "Tried to create TGraph2DErrors called " + self.name + " with zero datapoints"
-    else:
-      tg = TGraph2DErrors(self.numPts(), xs, ys, zs, ex, ey, ez)
-    tg.SetTitle(self.title)
-    tg.SetName(self.name.replace("-", "_"))
-    return tg
+            xs.append(x)
+            ex.append(erx)
+            ys.append(y)
+            ey.append(ery)
+            zs.append(z)
+            ez.append(erz)
 
-  def asTHisto(self):
+        if self.numPts() == 0:
+            tg = TGraph2DErrors()
+            er = "Tried to create TGraph2DErrors called " + self.name + " with zero datapoints"
+        else:
+            tg = TGraph2DErrors(self.numPts(), xs, ys, zs, ex, ey, ez)
+        tg.SetTitle(self.title)
+        tg.SetName(self.name.replace("-", "_"))
+        return tg
 
-    if self.numPts() == 0:
-      histo = TH2F()
-      histo.SetName(self.name)
-      return histo
 
-    tmpXEdges = []
-    tmpYEdges = []
+    def asTHisto(self):
 
-    for pt in self._points:
-      tmpXEdges.append(pt.lowEdge(0))
-      tmpXEdges.append(pt.highEdge(0))
-      tmpYEdges.append(pt.lowEdge(1))
-      tmpYEdges.append(pt.highEdge(1))
+        if self.numPts() == 0:
+            histo = TH2F()
+            histo.SetName(self.name)
+            return histo
 
-    sortedX = sorted(tmpXEdges)
-    sortedY = sorted(tmpYEdges)
+        tmpXEdges = []
+        tmpYEdges = []
 
-    xBinEdges = array.array("d", [sortedX[0]])
-    yBinEdges = array.array("d", [sortedY[0]])
+        for pt in self._points:
+            tmpXEdges.append(pt.lowEdge(0))
+            tmpXEdges.append(pt.highEdge(0))
+            tmpYEdges.append(pt.lowEdge(1))
+            tmpYEdges.append(pt.highEdge(1))
 
-    for edge in sortedX:
-      if not Histo.equalFloats(edge, xBinEdges[-1]):
-        xBinEdges.append(edge)
+        sortedX = sorted(tmpXEdges)
+        sortedY = sorted(tmpYEdges)
 
-    for edge in sortedY:
-      if not Histo.equalFloats(edge, yBinEdges[-1]):
-        yBinEdges.append(edge)
+        xBinEdges = array.array("d", [sortedX[0]])
+        yBinEdges = array.array("d", [sortedY[0]])
 
-    histo = TH2F(self.name, self.title, len(xBinEdges)-1, xBinEdges, len(yBinEdges)-1, yBinEdges)
-    histo.Sumw2()
+        for edge in sortedX:
+            if not Histo.equalFloats(edge, xBinEdges[-1]):
+                xBinEdges.append(edge)
 
-    for pt in self._points:
-      bin = histo.FindBin(pt.value(0), pt.value(1))
-      histo.SetBinContent(bin, pt.value(2))
-      histo.SetBinError(bin, pt.er(2))
+        for edge in sortedY:
+            if not Histo.equalFloats(edge, yBinEdges[-1]):
+                yBinEdges.append(edge)
 
-    return histo
+        histo = TH2F(self.name, self.title, len(xBinEdges)-1, xBinEdges, len(yBinEdges)-1, yBinEdges)
+        histo.Sumw2()
+
+        for pt in self._points:
+            bin = histo.FindBin(pt.value(0), pt.value(1))
+            histo.SetBinContent(bin, pt.value(2))
+            histo.SetBinError(bin, pt.er(2))
+
+        return histo
 
 
 class Histo1D(Histo):
-  def __init__(self):
-    Histo.__init__(self,2)
+    def __init__(self):
+        Histo.__init__(self,2)
 
-  def asTGraph(self):
-    xerrminus = array.array("d", [])
-    xerrplus  = array.array("d", [])
-    xval      = array.array("d", [])
-    yval      = array.array("d", [])
-    yerrminus = array.array("d", [])
-    yerrplus  = array.array("d", [])
 
-    for pt in self._points:
-      x      = pt.value(0)
-      xplus  = pt.erUp(0)
-      xminus = pt.erDn(0)
+    def asTGraph(self):
+        xerrminus = array.array("d", [])
+        xerrplus  = array.array("d", [])
+        xval      = array.array("d", [])
+        yval      = array.array("d", [])
+        yerrminus = array.array("d", [])
+        yerrplus  = array.array("d", [])
 
-      y      = pt.value(1)
-      yplus  = pt.erUp(1)
-      yminus = pt.erDn(1)
+        for pt in self._points:
+            x      = pt.value(0)
+            xplus  = pt.erUp(0)
+            xminus = pt.erDn(0)
 
-      xval.append(x)
-      xerrminus.append(xminus)
-      xerrplus.append(xplus)
-      yval.append(y)
-      yerrminus.append(yminus)
-      yerrplus.append(yplus)
+            y      = pt.value(1)
+            yplus  = pt.erUp(1)
+            yminus = pt.erDn(1)
 
-    tg = TGraphAsymmErrors(self.numPts(), xval, yval, xerrminus, xerrplus, yerrminus, yerrplus)
-    tg.SetTitle(self.title)
-    tg.SetName(self.name.replace("-", "_"))
-    return tg
+            xval.append(x)
+            xerrminus.append(xminus)
+            xerrplus.append(xplus)
+            yval.append(y)
+            yerrminus.append(yminus)
+            yerrplus.append(yplus)
 
-  def asTHisto(self):
+        tg = TGraphAsymmErrors(self.numPts(), xval, yval, xerrminus, xerrplus, yerrminus, yerrplus)
+        tg.SetTitle(self.title)
+        tg.SetName(self.name.replace("-", "_"))
+        return tg
 
-    if self.numPts() == 0:
-      histo = TH1F()
-      histo.SetName(self.name)
-      return histo
 
-    binEdges = array.array("d", [])
-    binEdges.append(self._points[0].lowEdge(0))
+    def asTHisto(self):
 
-    bin = 0
-    binNumbers = []
+        if self.numPts() == 0:
+            histo = TH1F()
+            histo.SetName(self.name)
+            return histo
 
-    for pt in self._points:
-      lowEdge = pt.lowEdge(0)
-      highEdge = pt.highEdge(0)
-      if not Histo1D.equalFloats(lowEdge, binEdges[-1]):
-        binEdges.append(lowEdge)
-        bin = bin + 1
+        binEdges = array.array("d", [])
+        binEdges.append(self._points[0].lowEdge(0))
 
-      bin = bin + 1
-      binEdges.append(highEdge)
-      binNumbers.append(bin)
+        bin = 0
+        binNumbers = []
 
-    histo = TH1F(self.name, self.title, self.numPts(), binEdges)
-    histo.Sumw2()
+        for pt in self._points:
+            lowEdge = pt.lowEdge(0)
+            highEdge = pt.highEdge(0)
+            if not Histo1D.equalFloats(lowEdge, binEdges[-1]):
+                binEdges.append(lowEdge)
+                bin = bin + 1
 
-    for i, pt in enumerate(self._points):
-      histo.SetBinContent(binNumbers[i], pt.value(1))
-      histo.SetBinError(binNumbers[i], pt.er(1))
+            bin = bin + 1
+            binEdges.append(highEdge)
+            binNumbers.append(bin)
 
-    return histo
+        histo = TH1F(self.name, self.title, self.numPts(), binEdges)
+        histo.Sumw2()
+
+        for i, pt in enumerate(self._points):
+            histo.SetBinContent(binNumbers[i], pt.value(1))
+            histo.SetBinError(binNumbers[i], pt.er(1))
+
+        return histo
 
 
 class DataPoint:
 
   def __init__(self):
-    self._dims   = 0
-    self._coords = []
-    self._erUps  = []
-    self._erDns  = []
+      self._dims   = 0
+      self._coords = []
+      self._erUps  = []
+      self._erDns  = []
 
   def setCoord(self, val, up, down):
-    self._dims = self._dims + 1
-    self._coords.append(val)
-    self._erUps.append(up)
-    self._erDns.append(down)
+      self._dims = self._dims + 1
+      self._coords.append(val)
+      self._erUps.append(up)
+      self._erDns.append(down)
 
   def dimensionality(self):
-    return self._dims
+      return self._dims
 
   def th(self, dim):
-    th = "th"
-    if dim == 1:
-      th = "st"
-    elif dim == 2:
-      th = "nd"
-    elif dim == 3:
-      th = "rd"
-    return th
+      th = "th"
+      if dim == 1:
+          th = "st"
+      elif dim == 2:
+          th = "nd"
+      elif dim == 3:
+          th = "rd"
+      return th
 
   def checkDimensionality(self, dim):
-    if dim >= self.dimensionality():
-      er = "Tried to obtain the " + str(dim) + self.th(dim) + " dimension of a " + str(self.dimensionality()) + " dimension DataPoint"
-      sys.stderr.write(er)
-      sys.exit(1)
+      if dim >= self.dimensionality():
+          er = "Tried to obtain the " + str(dim) + self.th(dim) + " dimension of a " + str(self.dimensionality()) + " dimension DataPoint"
+          sys.stderr.write(er)
+          sys.exit(1)
 
   def value(self, dim):
-    self.checkDimensionality(dim)
-    return self._coords[dim]
+      self.checkDimensionality(dim)
+      return self._coords[dim]
 
   def erUp(self, dim):
-    self.checkDimensionality(dim)
-    return self._erUps[dim]
+      self.checkDimensionality(dim)
+      return self._erUps[dim]
 
   def erDn(self, dim):
-    self.checkDimensionality(dim)
-    return self._erDns[dim]
+      self.checkDimensionality(dim)
+      return self._erDns[dim]
 
   def mean(self, dim):
-    val = self.value(dim) + 0.5 * (self.erUp(dim) - self.erDn(dim))
-    return val
+      val = self.value(dim) + 0.5 * (self.erUp(dim) - self.erDn(dim))
+      return val
 
   def er(self, dim):
-    ee = 0.5 * (self.erUp(dim) + self.erDn(dim))
-    return ee
+      ee = 0.5 * (self.erUp(dim) + self.erDn(dim))
+      return ee
 
   def lowEdge(self, dim):
-    return self.value(dim) - self.erDn(dim)
+      return self.value(dim) - self.erDn(dim)
 
   def highEdge(self, dim):
-    return self.value(dim) + self.erUp(dim)
+      return self.value(dim) + self.erUp(dim)
 
 def mkHistoFromDPS(dps):
+    dim = dps.get("dimension")
 
-  dim = dps.get("dimension")
+    is3D = False
+    if dim == "3":
+        myhist = Histo2D()
+        is3D = True
+    else:
+        myhist = Histo1D()
 
-  is3D = False
-  if dim == "3":
-      myhist = Histo2D()
-      is3D = True
-  else:
-      myhist = Histo1D()
+    myhist.name = dps.get("name")
+    myhist.title = dps.get("title")
+    myhist.path = dps.get("path")
 
-  myhist.name = dps.get("name")
-  myhist.title = dps.get("title")
-  myhist.path = dps.get("path")
+    points = dps.findall("dataPoint")
+    numbins = len(points)
 
-  points = dps.findall("dataPoint")
-  numbins = len(points)
+    for ptNum, point in enumerate(points):
+        dp = DataPoint()
+        for d, m in enumerate(point.findall("measurement")):
+            val  = float(m.get("value"))
+            down = float(m.get("errorMinus"))
+            up = float(m.get("errorPlus"))
+            dp.setCoord(val, up, down)
+        myhist.addPoint(dp)
 
-  for ptNum, point in enumerate(points):
-      dp = DataPoint()
-      for d, m in enumerate(point.findall("measurement")):
-          val  = float(m.get("value"))
-          down = float(m.get("errorMinus"))
-          up = float(m.get("errorPlus"))
-          dp.setCoord(val, up, down)
-      myhist.addPoint(dp)
-
-  return myhist
+    return myhist
 
 
 ##################################
@@ -345,7 +346,7 @@ parser.add_option("-s", "--smart-output", action="store_true", default=True,
 parser.add_option("-m", "--match", action="append",
                   help="Only write out histograms whose $path/$name string matches these regexes",
                   dest="PATHPATTERNS")
-parser.add_option("-g", "--tgraph", action="store_true", default=True,
+parser.add_option("-g", "--tgraph", action="store_true", default=False,
                   help="Store output as ROOT TGraphAsymmErrors or TGraph2DErrors",
                   dest="TGRAPH")
 parser.add_option("-t", "--thisto", action="store_false",

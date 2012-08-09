@@ -1,3 +1,7 @@
+2012-08-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fixing aida2root command-line help message and converting to TH* rather than TGraph by default.
+
 2012-07-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improvements/migrations to rivet-mkhtml, rivet-mkanalysis, and rivet-buildplugin.
