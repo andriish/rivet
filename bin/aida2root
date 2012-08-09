@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-%prog aidafile [aidafile2 ...]"
+%prog aidafile [aidafile2 ...]
 
 Verify in the ROOT user manual what needs to be setup for use of ROOT with python
 
@@ -11,6 +11,9 @@ For example, additional setup steps such as this may be required:
  setenv LD_LIBRARY_PATH $ROOTSYS/lib:$PYTHONDIR/lib/python2.6:$LD_LIBRARY_PATH
  setenv PYTHONPATH $ROOTSYS/lib:$PYTHONDIR/lib/python2.6
 """
+
+import ROOT
+ROOT.PyConfig.IgnoreCommandLineOptions = True
 
 import sys
 if sys.version_info[:3] < (2,4,0):
