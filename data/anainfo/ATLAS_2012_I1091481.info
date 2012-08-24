@@ -7,12 +7,12 @@ InspireID: 1091481
 Status: UNVALIDATED
 Authors:
  - Sharka Todorova <sarka.todorova@cern.ch>
+ - Holger Schulz <hschulz@physik.hu-berlin.de>
 References:
   - CERN-PH-EP-2011-197 
   - arXiv:1203.0419 [hep-ex]
 RunInfo:
-  QCD events with diffractives.
-  Note, to plot with compare-histos do compare-histos Rivet.aida:'PolyMarker=+':'ErrorBars=1'
+  QCD events with diffractives switched on.
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]
@@ -32,3 +32,6 @@ BibTeX: '@article{:2012fa,
       reportNumber   = "CERN-PH-EP-2011-197",
       SLACcitation   = "%%CITATION = ARXIV:1203.0419;%%",
 }'
+ToDo:
+ - Check normalisation(s)
+ - Check the -1 in the fill expression
