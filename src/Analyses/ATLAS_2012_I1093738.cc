@@ -38,8 +38,6 @@ namespace Rivet {
     ATLAS_2012_I1093738()
       : Analysis("ATLAS_2012_I1093738")
     {
-      setNeedsCrossSection(true);
-
       _eta_bins_ph.push_back(0.0);
       _eta_bins_ph.push_back(1.37);
       _eta_bins_ph.push_back(1.52);

@@ -22,8 +22,6 @@ namespace Rivet {
     ATLAS_2011_S9108483()
       : Analysis("ATLAS_2011_S9108483"), _wgtSum(0.)
     {
-      /// Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(false);
     }
 
     //@}
