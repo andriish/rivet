@@ -71,54 +71,54 @@ namespace Rivet {
       if (eeFS.particles().size() >= 2) {
         // If there is a Z candidate:
         // Fill Z pT distributions
-	double deltaM2=1e30,mass2(0.);
-	double pT=-1.;
+        double deltaM2=1e30,mass2(0.);
+        double pT=-1.;
         const ParticleVector& Zdaughters = eeFS.particles();
-	for(unsigned int ix=0;ix<Zdaughters.size();++ix) {
- 	  for(unsigned int iy=ix+1;iy<Zdaughters.size();++iy) {
- 	    if(Zdaughters[ix].pdgId()!=-Zdaughters[iy].pdgId()) continue;
- 	    const FourMomentum pmom = Zdaughters[ix].momentum() + Zdaughters[iy].momentum();
- 	    double mz2 = pmom.mass2();
- 	    double dm2 = abs(mz2-sqr(91.118*GeV));
-	    if(dm2<deltaM2) {
-	      pT = pmom.pT();
-	      deltaM2 = dm2;
-	      mass2 = mz2;
-	    }
-	  }
-	}
-	if (pT>0. && mass2 > 0. && inRange(sqrt(mass2)/GeV, 75.0, 105.0)) {
-	  _eventsFilledZ += weight;
+        for(unsigned int ix=0;ix<Zdaughters.size();++ix) {
+          for(unsigned int iy=ix+1;iy<Zdaughters.size();++iy) {
+            if(Zdaughters[ix].pdgId()!=-Zdaughters[iy].pdgId()) continue;
+            const FourMomentum pmom = Zdaughters[ix].momentum() + Zdaughters[iy].momentum();
+            double mz2 = pmom.mass2();
+            double dm2 = abs(mz2-sqr(91.118*GeV));
+            if(dm2<deltaM2) {
+              pT = pmom.pT();
+              deltaM2 = dm2;
+              mass2 = mz2;
+            }
+          }
+        }
+        if (pT>0. && mass2 > 0. && inRange(sqrt(mass2)/GeV, 75.0, 105.0)) {
+          _eventsFilledZ += weight;
           MSG_DEBUG("Z pmom.pT() = " << pT/GeV << " GeV");
           _h_dsigdpt_z->fill(pT/GeV, weight);
-	  // return if found a Z
-	  return;
-	}
+          // return if found a Z
+          return;
+        }
       }
       // There is no Z -> ee candidate... so this might be a W event
       const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
       const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS");
-      
+
       double deltaM2=1e30;
       double pT=-1.;
       for(unsigned int iw=0;iw<2;++iw) {
-	ParticleVector Wdaughters;
-	Wdaughters = iw==0 ? enuFS.particles() : enubFS.particles();
-	for(unsigned int ix=0;ix<Wdaughters.size();++ix) {
-	  for(unsigned int iy=ix+1;iy<Wdaughters.size();++iy) {
-	    if(Wdaughters[ix].pdgId()==Wdaughters[iy].pdgId())  continue;
-	    const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
-	    double dm2 = abs(pmom.mass2()-sqr(80.4*GeV));
-	    if(dm2<deltaM2) {
-	      pT = pmom.pT();
-	      deltaM2 = dm2;
-	    }
-	  }
-	}
+        ParticleVector Wdaughters;
+        Wdaughters = iw==0 ? enuFS.particles() : enubFS.particles();
+        for(unsigned int ix=0;ix<Wdaughters.size();++ix) {
+          for(unsigned int iy=ix+1;iy<Wdaughters.size();++iy) {
+            if(Wdaughters[ix].pdgId()==Wdaughters[iy].pdgId())  continue;
+            const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
+            double dm2 = abs(pmom.mass2()-sqr(80.4*GeV));
+            if(dm2<deltaM2) {
+              pT = pmom.pT();
+              deltaM2 = dm2;
+            }
+          }
+        }
       }
       if(pT>0.) {
-	_eventsFilledW += weight;
-	_h_dsigdpt_w->fill(pT/GeV, weight);
+        _eventsFilledW += weight;
+        _h_dsigdpt_w->fill(pT/GeV, weight);
       }
     }
 
