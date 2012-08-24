@@ -113,8 +113,8 @@ namespace Rivet {
       // If stdout is a valid tty, try to use the appropriate codes.
       if (isatty(1)) {
         /// @todo Test for VT100 compliance?
-        Log::colorCodes[TRACE] = "\033[0;37m";
-        Log::colorCodes[DEBUG] = "\033[0;36m";
+        Log::colorCodes[TRACE] = "\033[0;36m";
+        Log::colorCodes[DEBUG] = "\033[0;34m";
         Log::colorCodes[INFO]  = "\033[0;32m";
         Log::colorCodes[WARN]  = "\033[0;33m";
         Log::colorCodes[ERROR] = "\033[0;31m";
