@@ -16,12 +16,12 @@ Beams: [p+, p+]
 Energies: [7000]
 Description:
   Measurement of $D^{*\pm}$ meson production in jets from proton-proton collisions
-  at a centre-of-mass energy of $\sqrt{s}=7$ TeV at the LHC. 
+  at a centre-of-mass energy of $\sqrt{s}=7$ TeV at the LHC.
   The measurement is based on a data sample recorded with the ATLAS detector with
   an integrated luminosity of $0.30\,\text{pb}^{-1}$ for jets with transverse momentum
-  between 25 and 70 GeV in the pseudorapidity range $|eta| < 2.5$. 
+  between 25 and 70 GeV in the pseudorapidity range $|eta| < 2.5$.
 BibKey: Aad:2011td
-BibTeX: 'article{Aad:2011td,
+BibTeX: '@Article{Aad:2011td,
       author         = "Aad, Georges and others",
       title          = "{Measurement of $D^{*\pm}$ meson production in jets from
                         pp collisions at $\sqrt{s}=7$ TeV with the ATLAS detector}",

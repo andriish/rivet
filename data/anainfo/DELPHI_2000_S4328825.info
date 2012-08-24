@@ -22,7 +22,7 @@ Description: Measurements of the mean charged multiplicities separately for $b\b
   above the $Z^0$ mass. In addition to the energy points in the original paper
   one additional point at 206 GeV is included from a later preliminary result.
 BibKey: Abreu:2000nt
-BibTeX: 'Article{Abreu:2000nt,
+BibTeX: '@Article{Abreu:2000nt,
      author    = "Abreu, P. and others",
      collaboration = "DELPHI",
      title     = "{Hadronization properties of b quarks compared to light
