@@ -73,17 +73,17 @@ namespace Rivet {
 
     // Use Rivet's preferred units if possible
     #ifdef HEPMC_HAS_UNITS
-    if (_genEvent.momentum_unit()!=HepMC::Units::GEV ||
-        _genEvent.length_unit()!=HepMC::Units::MM) {
+    if (_genEvent.momentum_unit() != HepMC::Units::GEV ||
+        _genEvent.length_unit() != HepMC::Units::MM) {
       if (!_modGenEvent) _modGenEvent = new GenEvent(ge);
       _modGenEvent->use_units(HepMC::Units::GEV, HepMC::Units::MM);
     }
     #endif
- 
+
     // Use the conventional alignment
     _geNormAlignment();
 
-    // Debug printout to check that copying/magling has worked
+    // Debug printout to check that copying/mangling has worked
     //_genEvent.print();
   }
 
