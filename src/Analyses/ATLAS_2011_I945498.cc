@@ -119,6 +119,10 @@ namespace Rivet {
       Jets jets=selectJets(zfs[chn], event);
 
 
+      /// TODO: Holger wrote in his commit message that the njet_ratio
+      /// histograms need fixing/checking, and therefore the analysis
+      /// is marked unvalidated!
+
       // Some silly weight counters for the njet-ratio histo
       // --- not sure about the njet=0 case, the Figure ca[ption says
       // that selected events require at least one jet with 20 GeV
