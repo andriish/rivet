@@ -6,9 +6,14 @@
 
 	* Improvements/migrations to rivet-mkhtml, rivet-mkanalysis, and rivet-buildplugin.
 
+2012-07-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Add CMS_2012_I1087342
+
 2012-07-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix rivet-mkanalysis a bit for YODA compatibility.
+
 2012-07-05  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Version 1.8.1!
