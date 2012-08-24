@@ -265,7 +265,7 @@ for analysis in analyses:
         index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, _htmlify(summary)))
     reflist = []
     if inspireid and inspireid !="NONE":
-        reflist.append('<a href="http://inspirehep.net/record/%s">Spires</a>' % spiresid)
+        reflist.append('<a href="http://inspirehep.net/record/%s">Spires</a>' % inspireid)
     elif spiresid and spiresid != "NONE":
         reflist.append('<a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
     reflist += references
@@ -284,7 +284,7 @@ for analysis in analyses:
                        (opts.OUTPUTDIR, analysis, style))
         anaindex.write('<h3>%s</h3>\n' % analysis)
         anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
-        anaindex.write('<p>\n  %s\n</p>\n' % _htmlify(summary))
+        anaindex.write('<p>\n  %s\n</p>\n' % _htmlify(description))
     else:
         anaindex = index
 
