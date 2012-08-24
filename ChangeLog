@@ -5,7 +5,8 @@
 
 2012-07-24  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Improvements/migrations to rivet-mkhtml, rivet-mkanalysis, and rivet-buildplugin.
+	* Improvements/migrations to rivet-mkhtml, rivet-mkanalysis, and
+	rivet-buildplugin.
 
 2012-07-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
