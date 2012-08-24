@@ -98,7 +98,7 @@ namespace Rivet {
       // There is no Z -> ee candidate... so this might be a W event
       const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
       const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS");
-      
+
       double deltaM2=1e30;
       double pT=-1.;
       for(unsigned int iw=0;iw<2;++iw) {
