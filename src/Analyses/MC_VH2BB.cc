@@ -57,10 +57,10 @@ namespace Rivet {
       double test = 1.+cosbb;
       double anglebb;
       if(test<0.&&test>-1e-10) {
-	cosbb=-1.;
-	anglebb = M_PI;
+        cosbb=-1.;
+        anglebb = M_PI;
       }
-      else {	
+      else {
         anglebb = acos(cosbb);
       }
 
@@ -106,7 +106,7 @@ namespace Rivet {
       _h_jet_H_pT_using_bb = bookHistogram1D("jet_H_pT_using_bb", 50, 0, 500);
       _h_jet_eta = bookHistogram1D("jet_eta", 50, -4, 4);
       _h_jet_multiplicity = bookHistogram1D("jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_phi = bookHistogram1D("jet_phi", 50, 0., 2.*M_PI);
+      _h_jet_phi = bookHistogram1D("jet_phi", 50, 0, 2.*M_PI);
       _h_jet_pT = bookHistogram1D("jet_pT", 50, 0, 500);
       _h_jet_VBbb_Delta_eta = bookHistogram1D("jet_VBbb_Delta_eta", 50, 0, 4);
       _h_jet_VBbb_Delta_phi = bookHistogram1D("jet_VBbb_Delta_phi", 50, 0, M_PI);
