@@ -1,3 +1,7 @@
+2012-07-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Cleanup and multiple fixes in CMS_2011_S9120041
+
 2012-08-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fixing aida2root command-line help message and converting to TH*
