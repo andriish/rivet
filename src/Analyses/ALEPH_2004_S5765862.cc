@@ -53,16 +53,16 @@ namespace Rivet {
       // offset for the event shapes and jets
       int offset = 0;
       switch (int(sqrtS()/GeV + 0.5)) {
-      case 91: offset = 0; break;
-      case 133: offset = 1; break;
-      case 161: offset = 2; break;
-      case 172: offset = 3; break;
-      case 183: offset = 4; break;
-      case 189: offset = 5; break;
-      case 200: offset = 6; break;
-      case 206: offset = 7; break;
-      default:
-        _initialisedJets = false;
+        case 91: offset = 0; break;
+        case 133: offset = 1; break;
+        case 161: offset = 2; break;
+        case 172: offset = 3; break;
+        case 183: offset = 4; break;
+        case 189: offset = 5; break;
+        case 200: offset = 6; break;
+        case 206: offset = 7; break;
+        default:
+          _initialisedJets = false;
       }
       // event shapes
       if(_initialisedJets) {
@@ -109,16 +109,16 @@ namespace Rivet {
       // offset for the charged particle distributions
       offset = 0;
       switch (int(sqrtS()/GeV + 0.5)) {
-      case 133: offset = 0; break;
-      case 161: offset = 1; break;
-      case 172: offset = 2; break;
-      case 183: offset = 3; break;
-      case 189: offset = 4; break;
-      case 196: offset = 5; break;
-      case 200: offset = 6; break;
-      case 206: offset = 7; break;
-      default:
-        _initialisedSpectra=false;
+        case 133: offset = 0; break;
+        case 161: offset = 1; break;
+        case 172: offset = 2; break;
+        case 183: offset = 3; break;
+        case 189: offset = 4; break;
+        case 196: offset = 5; break;
+        case 200: offset = 6; break;
+        case 206: offset = 7; break;
+        default:
+          _initialisedSpectra=false;
       }
       if (_initialisedSpectra) {
         _h_xp = bookHistogram1D( 2+offset, 1, 1);
@@ -227,11 +227,11 @@ namespace Rivet {
           const double momT = dot(thrust.thrustAxis()        ,p.momentum().vector3());
           const double rapidityT = 0.5 * std::log((p.momentum().E() + momT) /
                                                   (p.momentum().E() - momT));
-          _h_rapidityT->fill(rapidityT, weight);
+          _h_rapidityT->fill(fabs(rapidityT), weight);
           const double momS = dot(sphericity.sphericityAxis(),p.momentum().vector3());
           const double rapidityS = 0.5 * std::log((p.momentum().E() + momS) /
                                                   (p.momentum().E() - momS));
-          _h_rapidityS->fill(rapidityS, weight);
+          _h_rapidityS->fill(fabs(rapidityS), weight);
         }
       }
     }
