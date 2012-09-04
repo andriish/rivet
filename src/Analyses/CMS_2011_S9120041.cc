@@ -148,8 +148,8 @@ namespace Rivet {
       double _nch_avg_7TeV_pT20 = (_nch_tot_7TeV_pT20 / _jj);
       double _nch_avg_09TeV_pT3 = (_nch_tot_09TeV_pT3 / _jjj);
 
-      if (_j!=0.0) normalize(_hist_dist_pT_7TeV_pT20, _nch_avg_7TeV_pT20);
-      if (_jj!=0.0) normalize(_hist_dist_pT_7TeV_pT3, _nch_avg_7TeV_pT3);
+      if (_j!=0.0) normalize(_hist_dist_pT_7TeV_pT3, _nch_avg_7TeV_pT3);
+      if (_jj!=0.0) normalize(_hist_dist_pT_7TeV_pT20, _nch_avg_7TeV_pT20);
       if (_jjj!=0.0) normalize(_hist_dist_pT_09TeV_pT3, _nch_avg_09TeV_pT3);
     }
 
