@@ -40,10 +40,10 @@ namespace Rivet {
       _hist_dist_Sum_7TeV_pT3     = bookHisto1D(6, 1, 1);
       _hist_dist_pT_7TeV_pT3      = bookHisto1D(7, 1, 1);
       _hist_dist_Nch_7TeV_pT20    = bookHisto1D(8, 1, 1);
-      _hist_dist_Sum_7TeV_pT20    = bookHisto1D(9,1,1);
+      _hist_dist_Sum_7TeV_pT20    = bookHisto1D(9, 1, 1);
       _hist_dist_pT_7TeV_pT20     = bookHisto1D(10, 1, 1);
       _hist_dist_Nch_09TeV_pT3    = bookHisto1D(11, 1, 1);  // No. of trans. charged particles Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
-      _hist_dist_Sum_09TeV_pT3    = bookHisto1D(12 , 1, 1); // No. of trans. momentum sum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
+      _hist_dist_Sum_09TeV_pT3    = bookHisto1D(12, 1, 1);  // No. of trans. momentum sum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
       _hist_dist_pT_09TeV_pT3     = bookHisto1D(13, 1, 1);  // Trans. momentum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
 
       _j = 0.0;
