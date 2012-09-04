@@ -64,7 +64,8 @@ namespace Rivet {
           _h_xsec[i]->fill(pTjet, weight);
           if (pTjet > 24*GeV) continue;
           foreach (const Particle& p, jet.particles()) {
-            const double z=p.momentum().p().mod()/pjet;
+            double z=p.momentum().p().mod()/pjet;
+            if (z>0.9999) z=0.9999;   // Make sure that z=1 doesn't go into overflow
             if (pTjet > 15*GeV) {
               _h_frag_15_24[i]->fill(z, weight);
             }

@@ -2,7 +2,8 @@
 
 	* Cleanup and multiple fixes in CMS_2011_S9120041
 
-	* Bugfix in ALEPH_2004_S5765862 (thanks to Anil Pratap)
+	* Bugfixed in ALEPH_2004_S5765862 and ATLAS_2010_CONF_2010_049
+	(thanks to Anil Pratap)
 
 2012-08-09  Andy Buckley  <andy.buckley@cern.ch>
 
