@@ -6,7 +6,6 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/Beam.hh"
 
 using namespace std;
 
@@ -24,35 +23,36 @@ namespace Rivet {
       const ChargedFinalState cfs(-2.0, 2.0, 500*MeV);
       addProjection(cfs, "CFS");
 
-      const ChargedFinalState cfsforjet(-2.5, 2.5, 500*MeV); // tracks accepted are with pT > 0.5 GeV
+      const ChargedFinalState cfsforjet(-2.5, 2.5, 500*MeV);
       addProjection(cfsforjet, "CFSforjet");
-
 
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
       addProjection(jetpro, "Jets");
-      addProjection(Beam(), "Beam");
 
-      _hist_profile_Nch_pT_7TeV   = bookProfile1D(1, 1, 1); //Profile plot for No. of Charged particles vs. pT max for 7 TeV.
-      _hist_profile_SumpT_pT_7TeV = bookProfile1D(2, 1, 1); //Profile plot Trans. Momentum sum vs. pT max for 7 TeV.
-      _hist_profile_Nch_09TeV     = bookProfile1D(3, 1, 1);
-      _hist_profile_Sum_09TeV     = bookProfile1D(4, 1, 1);
-      _hist_dist_Nch_7TeV_pT3     = bookHisto1D(5, 1, 1);
-      _hist_dist_Sum_7TeV_pT3     = bookHisto1D(6, 1, 1);
-      _hist_dist_pT_7TeV_pT3      = bookHisto1D(7, 1, 1);
-      _hist_dist_Nch_7TeV_pT20    = bookHisto1D(8, 1, 1);
-      _hist_dist_Sum_7TeV_pT20    = bookHisto1D(9, 1, 1);
-      _hist_dist_pT_7TeV_pT20     = bookHisto1D(10, 1, 1);
-      _hist_dist_Nch_09TeV_pT3    = bookHisto1D(11, 1, 1);  // No. of trans. charged particles Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
-      _hist_dist_Sum_09TeV_pT3    = bookHisto1D(12, 1, 1);  // No. of trans. momentum sum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
-      _hist_dist_pT_09TeV_pT3     = bookHisto1D(13, 1, 1);  // Trans. momentum Distribution for sqrt(s) = 0.9TeV, pT max > 3GeV.
+      if (fuzzyEquals(sqrtS(), 7.0*TeV)) {
+        _h_Nch_vs_pT = bookProfile1D(1, 1, 1); // Nch vs. pT_max
+        _h_Sum_vs_pT = bookProfile1D(2, 1, 1); // sum(pT) vs. pT_max
+        _h_pT3_Nch   = bookHisto1D(5, 1, 1);   // transverse Nch,     pT_max > 3GeV
+        _h_pT3_Sum   = bookHisto1D(6, 1, 1);   // transverse sum(pT), pT_max > 3GeV
+        _h_pT3_pT    = bookHisto1D(7, 1, 1);   // transverse pT,      pT_max > 3GeV
+        _h_pT20_Nch  = bookHisto1D(8, 1, 1);   // transverse Nch,     pT_max > 20GeV
+        _h_pT20_Sum  = bookHisto1D(9, 1, 1);   // transverse sum(pT), pT_max > 20GeV
+        _h_pT20_pT   = bookHisto1D(10, 1, 1);  // transverse pT,      pT_max > 20GeV
+      }
 
-      _j = 0.0;
-      _jj = 0.0;
-      _jjj = 0.0;
+      if (fuzzyEquals(sqrtS(), 0.9*TeV)) {
+        _h_Nch_vs_pT = bookProfile1D(3, 1, 1); // Nch vs. pT_max
+        _h_Sum_vs_pT = bookProfile1D(4, 1, 1); // sum(pT) vs. pT_max
+        _h_pT3_Nch   = bookHisto1D(11, 1, 1);  // transverse Nch,     pT_max > 3GeV
+        _h_pT3_Sum   = bookHisto1D(12, 1, 1);  // transverse sum(pT), pT_max > 3GeV
+        _h_pT3_pT    = bookHisto1D(13, 1, 1);  // transverse pT,      pT_max > 3GeV
+      }
 
-      _nch_tot_7TeV_pT3 = 0.0;
-      _nch_tot_7TeV_pT20 = 0.0;
-      _nch_tot_09TeV_pT3 = 0.0;
+      sumOfWeights3  = 0.0;
+      sumOfWeights20 = 0.0;
+
+      _nch_tot_pT3  = 0.0;
+      _nch_tot_pT20 = 0.0;
     }
 
 
@@ -65,71 +65,39 @@ namespace Rivet {
 
       FourMomentum p_lead = jets[0].momentum();
       const double philead = p_lead.phi();
-      const double pTlead  = p_lead.perp();
+      const double pTlead  = p_lead.pT();
 
-      ParticleVector particles =
-          applyProjection<ChargedFinalState>(event, "CFS").particlesByPt();
+      ParticleVector particles = applyProjection<ChargedFinalState>(event, "CFS").particlesByPt();
 
-      double nTransverse(0.0), ptSumTransverse(0.0), pT;
+      int nTransverse = 0;
+      double ptSumTransverse = 0.;
       foreach (const Particle& p, particles) {
         double dphi = fabs(deltaPhi(philead, p.momentum().phi()));
-        double eta = fabs(p.momentum().eta());
-        if (((PI/3.0 < dphi) && (dphi < 2.0*PI/3.0))&&(eta < 2.0)) {
-          nTransverse += 1.0;
+        if (dphi>PI/3. && dphi<PI*2./3.) {   // Transverse region
+          nTransverse++;
 
-          ptSumTransverse += p.momentum().perp();
-          pT = p.momentum().perp();
+          const double pT = p.momentum().pT()/GeV;
+          ptSumTransverse += pT;
 
-          if ( (fuzzyEquals(sqrtS(), 7.0*TeV)) && (pTlead > 20.0*GeV) )
-            _hist_dist_pT_7TeV_pT20 -> fill(pT/GeV, weight);
-
-          if ( (fuzzyEquals(sqrtS(), 7.0*TeV)) && (pTlead > 3.0*GeV) )
-            _hist_dist_pT_7TeV_pT3 -> fill(pT/GeV, weight);
-
-          if ( (fuzzyEquals(sqrtS(), 900.0*GeV)) && (pTlead > 3.0*GeV) )
-            _hist_dist_pT_09TeV_pT3 -> fill(pT/GeV, weight);
+          if (pTlead > 3.0*GeV) _h_pT3_pT->fill(pT, weight);
+          if (fuzzyEquals(sqrtS(), 7.0*TeV) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT, weight);
         }
       }
 
-
-      if (fuzzyEquals(sqrtS(), 7.0*TeV))
-      {
-        _hist_profile_Nch_pT_7TeV -> fill
-            (pTlead/GeV, nTransverse / ((8.0 * PI/3.0)), weight);
-
-        _hist_profile_SumpT_pT_7TeV -> fill
-            (pTlead/GeV , ptSumTransverse / ((GeV * (8.0 * PI/3.0))) , weight);
-        if(pTlead > 3.0*GeV)
-        {
-          _hist_dist_Nch_7TeV_pT3 -> fill(nTransverse, weight);
-          _nch_tot_7TeV_pT3 += nTransverse*weight;
-          _j += weight ;
-          _hist_dist_Sum_7TeV_pT3 -> fill(ptSumTransverse / GeV, weight);
-        }
-        if(pTlead > 20.0*GeV)
-        {
-
-          _hist_dist_Nch_7TeV_pT20 -> fill(nTransverse, weight);
-          _nch_tot_7TeV_pT20 += nTransverse*weight;
-          _jj += weight;
-
-          _hist_dist_Sum_7TeV_pT20 -> fill(ptSumTransverse / GeV, weight);
-        }
+      const double area = 8./3. * PI;
+      _h_Nch_vs_pT->fill(pTlead/GeV, 1./area*nTransverse, weight);
+      _h_Sum_vs_pT->fill(pTlead/GeV, 1./area*ptSumTransverse, weight);
+      if(pTlead > 3.0*GeV) {
+        _h_pT3_Nch->fill(nTransverse, weight);
+        _h_pT3_Sum->fill(ptSumTransverse, weight);
+        sumOfWeights3 += weight;
+        _nch_tot_pT3  += weight*nTransverse;
       }
-      else if (fuzzyEquals(sqrtS() , 900.0*GeV))
-      {
-        _hist_profile_Nch_09TeV -> fill(pTlead / GeV, nTransverse / ((8.0 * PI/3.0)), weight);
-        _hist_profile_Sum_09TeV -> fill(pTlead / GeV, ptSumTransverse / ((GeV * (8.0 * PI/3.0))), weight);
-
-
-        if(pTlead > 3.0*GeV)
-        {
-          _hist_dist_Nch_09TeV_pT3 -> fill(nTransverse, weight);
-          _nch_tot_09TeV_pT3 += nTransverse*weight;
-          _jjj += weight;
-
-          _hist_dist_Sum_09TeV_pT3 -> fill(ptSumTransverse/GeV, weight);
-        }
+      if (fuzzyEquals(sqrtS(), 7.0*TeV) && pTlead > 20.0*GeV) {
+        _h_pT20_Nch->fill(nTransverse, weight);
+        _h_pT20_Sum->fill(ptSumTransverse, weight);
+        sumOfWeights20 += weight;
+        _nch_tot_pT20  += weight*nTransverse;
       }
     }
 
@@ -137,47 +105,35 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_hist_dist_Nch_7TeV_pT3);
-      normalize(_hist_dist_Sum_7TeV_pT3);
-      normalize(_hist_dist_Nch_7TeV_pT20);
-      normalize(_hist_dist_Sum_7TeV_pT20);
-      normalize(_hist_dist_Nch_09TeV_pT3);
-      normalize(_hist_dist_Sum_09TeV_pT3);
+      normalize(_h_pT3_Nch);
+      normalize(_h_pT3_Sum);
+      if (sumOfWeights3 != 0.0) normalize(_h_pT3_pT, _nch_tot_pT3 / sumOfWeights3);
 
-      double _nch_avg_7TeV_pT3 = (_nch_tot_7TeV_pT3 / _j);
-      double _nch_avg_7TeV_pT20 = (_nch_tot_7TeV_pT20 / _jj);
-      double _nch_avg_09TeV_pT3 = (_nch_tot_09TeV_pT3 / _jjj);
-
-      if (_j!=0.0) normalize(_hist_dist_pT_7TeV_pT20, _nch_avg_7TeV_pT20);
-      if (_jj!=0.0) normalize(_hist_dist_pT_7TeV_pT3, _nch_avg_7TeV_pT3);
-      if (_jjj!=0.0) normalize(_hist_dist_pT_09TeV_pT3, _nch_avg_09TeV_pT3);
+      if (fuzzyEquals(sqrtS(), 7.0*TeV)) {
+        normalize(_h_pT20_Nch);
+        normalize(_h_pT20_Sum);
+        if (sumOfWeights20 != 0.0) normalize(_h_pT20_pT, _nch_tot_pT20 / sumOfWeights20);
+      }
     }
 
 
 
   private:
 
-    double _j;
-    double _jj;
-    double _jjj;
+    double sumOfWeights3;
+    double sumOfWeights20;
 
-    double _nch_tot_7TeV_pT3;
-    double _nch_tot_7TeV_pT20;
-    double _nch_tot_09TeV_pT3;
+    double _nch_tot_pT3;
+    double _nch_tot_pT20;
 
-    Profile1DPtr _hist_profile_Nch_pT_7TeV;
-    Profile1DPtr _hist_profile_SumpT_pT_7TeV;
-    Profile1DPtr _hist_profile_Nch_09TeV;
-    Profile1DPtr _hist_profile_Sum_09TeV;
-    Histo1DPtr _hist_dist_Nch_7TeV_pT3;
-    Histo1DPtr _hist_dist_Sum_7TeV_pT3;
-    Histo1DPtr _hist_dist_pT_7TeV_pT3;
-    Histo1DPtr _hist_dist_Nch_7TeV_pT20;
-    Histo1DPtr _hist_dist_Sum_7TeV_pT20;
-    Histo1DPtr _hist_dist_pT_7TeV_pT20;
-    Histo1DPtr _hist_dist_Nch_09TeV_pT3;
-    Histo1DPtr _hist_dist_Sum_09TeV_pT3;
-    Histo1DPtr _hist_dist_pT_09TeV_pT3;
+    Profile1DPtr _h_Nch_vs_pT;
+    Profile1DPtr _h_Sum_vs_pT;
+    Histo1DPtr _h_pT3_Nch;
+    Histo1DPtr _h_pT3_Sum;
+    Histo1DPtr _h_pT3_pT;
+    Histo1DPtr _h_pT20_Nch;
+    Histo1DPtr _h_pT20_Sum;
+    Histo1DPtr _h_pT20_pT;
 
   };
 
@@ -185,5 +141,4 @@ namespace Rivet {
   // This global object acts as a hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2011_S9120041);
 }
-
 
