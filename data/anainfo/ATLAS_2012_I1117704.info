@@ -1,13 +1,13 @@
-Name: ATLAS_2012_CONF_2012_037
+Name: ATLAS_2012_I1117704
 Year: 2012
 Summary: High jet multiplicity squark and gluino search
 Experiment: ATLAS
 Collider: LHC
-Status: PRELIMINARY
+Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- - ATLAS-CONF-2012-037
+ - arXiv:1206.1760
 RunInfo:
   BSM signal events at 7000 GeV.
 NumEvents: 25000 for BSM signals
