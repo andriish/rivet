@@ -288,7 +288,7 @@ ConnectGaps=<0|1>
 If error bars are disabled and you want to bridge gaps in a histogram, you
 can set this parameter. By default it is off. Setting it in the `PLOT` section
 affects all histograms, but you can also set it in the `HISTOGRAM` section for
-individual histograms. The local setting overrides the global settig.
+individual histograms. The local setting overrides the global setting.
 
 
 Comparison Plots
@@ -489,7 +489,7 @@ ConnectGaps=<0|1>
 If error bars are disabled and you want to bridge gaps in a histogram, you
 can set this parameter. By default it is off. Setting it in the `PLOT` section
 affects all histograms, but you can also set it in the `HISTOGRAM` section for
-individual histograms. The local setting overrides the global settig.
+individual histograms. The local setting overrides the global setting.
 
 --------------------
 SmoothLine=<0|1>
@@ -580,10 +580,10 @@ into a new bin. If the number of bins in the histogram is not a multiple of
 histogram shows three bins combining the bins 1--9 of the original histogram).
 
 --------------------
-EnvelopeRebin=<nbins>  
+EnvelopeRebin=<nbins>
 --------------------
-Rebin an envelope histogram where the error bars represent an envelope. Thus, 
-they are combined linearly instead of as sum of squares. The functionality 
+Rebin an envelope histogram where the error bars represent an envelope. Thus,
+they are combined linearly instead of as sum of squares. The functionality
 is the same as 'Rebin' otherwise.
 
 
