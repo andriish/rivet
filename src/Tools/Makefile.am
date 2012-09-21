@@ -12,8 +12,8 @@ libRivetTools_la_SOURCES = \
   Utils.cc \
   ParticleIdUtils.cc \
   mt2_bisect.cc \
-  RivetMT2.cc
-##  BinnedHistogram.cc \
+  RivetMT2.cc \
+  BinnedHistogram.cc
 
 dist_noinst_HEADERS = binreloc.h mt2_bisect.hh
 

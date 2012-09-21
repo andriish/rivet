@@ -44,7 +44,7 @@ namespace Rivet {
       _histosByUpperBound.upper_bound(bin);
     //check that the bin is not out of range
     if (histIt == _histosByUpperBound.end()) {
-      return 0;
+      return Histo1DPtr();
     }
  
     Histo1DPtr histo = histIt->second;
@@ -54,14 +54,14 @@ namespace Rivet {
     // (given that upper bound > lower bound is checked)
     // Check it is not before the start of the map
     if (histIt == _histosByLowerBound.begin()) {
-      return 0;
+      return Histo1DPtr();
     }
     // By-lower-bound actually gives us the iterator one above the nearest element,
     // so decrement it. This is safe because we already checked we're not at the start!
     --histIt;
  
     if (histo != histIt->second) {
-      return 0;
+      return Histo1DPtr();
     }
     
     histo->fill(val, weight);
