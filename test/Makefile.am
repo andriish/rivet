@@ -30,6 +30,7 @@ TESTS_ENVIRONMENT = \
   PATH=$(top_builddir)/bin:$(PATH)
 
 TESTS = testMath testMatVec testBoost testCmp testApi testNaN testCmdLine.sh
+XFAIL_TESTS = testNaN
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh
 

@@ -115,6 +115,7 @@ public:
    *
    */
   int coordToIndex(double coord) const {
+    assert( ! isnan(coord) );
     if ( coord >= upper ) return OVERFLOW_BIN;
     else if ( coord < lower ) return UNDERFLOW_BIN;
     else return int((coord - lower)/binWidth(0));
