@@ -1,4 +1,4 @@
-check_PROGRAMS = testMath testMatVec testBoost testCmp testApi
+check_PROGRAMS = testMath testMatVec testBoost testCmp testApi testNaN
 
 testBoost_SOURCES = testBoost.cc
 testBoost_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
@@ -17,6 +17,10 @@ testApi_SOURCES = testApi.cc
 testApi_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
 testApi_LDADD = ../src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
 
+testNaN_SOURCES = testNaN.cc
+testNaN_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
+testNaN_LDADD = ../src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
+
 TESTS_ENVIRONMENT = \
   RIVET_REF_PATH=$(top_builddir)/data/refdata \
   RIVET_INFO_PATH=$(top_builddir)/data/anainfo \
@@ -25,7 +29,7 @@ TESTS_ENVIRONMENT = \
   PYTHON_BUILD_DIR=$(top_builddir)/pyext/build \
   PATH=$(top_builddir)/bin:$(PATH)
 
-TESTS = testMath testMatVec testBoost testCmp testApi testCmdLine.sh
+TESTS = testMath testMatVec testBoost testCmp testApi testNaN testCmdLine.sh
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh
 
