@@ -16,8 +16,25 @@ public:
 
   void analyze(const Rivet::Event & e) {
     _h_test->fill(90.,1.);
-    _h_test->fill(1./0.,1.);
-    _h_test->fill(sqrt(-1.),1.);
+
+    try {
+      _h_test->fill(1./0.,1.);
+    }
+    catch (YODA::RangeError e) {
+      cerr << e.what() << '\n';
+      if ( string(e.what()) != string("X is Inf") )
+	throw;
+    }
+
+    try {
+      _h_test->fill(sqrt(-1.),1.);
+    }
+    catch (YODA::RangeError e) {
+      cerr << e.what() << '\n';
+      if ( string(e.what()) != string("X is NaN") )
+	throw;
+    }
+
     _h_test->fill(30.,1.);
     _h_test->fill(130.,1.);
   }
