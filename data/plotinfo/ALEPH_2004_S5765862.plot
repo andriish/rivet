@@ -4,7 +4,8 @@ XLabel=$E_\mathrm{CMS}/GeV$
 YLabel=$N_\text{ch}$
 LegendXPos=0.20
 LegendYPos=0.85
-FullRange=1
+LogY=0
+YMin=18
 # END PLOT
 
 # BEGIN PLOT /ALEPH_2004_S5765862/d02-x01-y01
