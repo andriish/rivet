@@ -104,6 +104,10 @@ def output(result):
         print 'inspire     %s' % insp
         print 'inspire_url http://inspirehep.net/record/%s' % insp
 
+    tex = result.get('bibtex')
+    if tex:
+        print 'bibtex      %s' % tex
+
     riv = result.get('rivet')
     if riv:
         print 'rivet       %s' % riv
@@ -158,6 +162,15 @@ def _search_inspire(url):
             result['inspire'] = i.text
 
     for i in tree.getiterator('{http://www.loc.gov/MARC21/slim}datafield'):
+
+        if i.get('tag') == '035':
+            entries = {}
+            for c in i.getchildren():
+                for k,v in c.items():
+                    if k=='code':
+                        entries[v] = c.text
+            if entries.get('9') == 'SPIRESTeX':
+                result['bibtex'] = entries['z']
 
         if i.get('tag') == '037':
             entries = {}
