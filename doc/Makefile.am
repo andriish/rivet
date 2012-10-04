@@ -4,7 +4,7 @@ dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex
 
 DOCSOURCES = compare-histos.txt  heppennames.sty warning.png thinker.png cone.png \
   h-physrev3.bst hepnames.sty JHEP3.cls bend.png hepnicenames.sty JHEP.bst \
-  make-plots.txt rivet-manual.tex preamble.tex intro.tex gettingstarted.tex writinganalyses.tex appendices.tex hepparticles.sty maybemath.sty \
+  make-plots.txt rivet-manual.tex preamble.tex intro.tex gettingstarted.tex writinganalyses.tex agilerunmc.tex acknowledgements.tex hepparticles.sty maybemath.sty \
   rivet-manual.pdf hepunits.sty underscore.sty microtype.sty
 
 ## TODO: replace readplot with lighthisto/YODA functionality
@@ -63,7 +63,7 @@ MAKEIDX = "^[^%]*\\makeindex"
 RM = rm -f
 
 DOCNAME = rivet-manual
-$(DOCNAME).pdf : $(DOCNAME).tex preamble.tex intro.tex gettingstarted.tex writinganalyses.tex appendices.tex analyses.tex refs.bib analyses.bib
+$(DOCNAME).pdf : $(DOCNAME).tex preamble.tex intro.tex gettingstarted.tex writinganalyses.tex agilerunmc.tex acknowledgements.tex analyses.tex refs.bib analyses.bib
 	$(LATEX) $<; true
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<) > /dev/null; true
 	egrep -c $(RERUNBIB) $(DOCNAME).log && ($(BIBTEX) $(DOCNAME) && cp $(DOCNAME).toc $(DOCNAME).toc.bak && $(LATEX) $<); true
@@ -108,7 +108,7 @@ upload: $(DOCS)
 arxivtar: $(DOCSOURCES) rivet-manual.bbl
 	for i in *.png; do convert $$i $${i/.png/.eps}; done
 	tar czf rivet-manual.tar.gz \
-rivet-manual.tex preamble.tex intro.tex gettingstarted.tex writinganalyses.tex appendices.tex analyses.tex rivetversion.sty rivet-manual.bbl \
+rivet-manual.tex preamble.tex intro.tex gettingstarted.tex writinganalyses.tex agilerunmc.tex acknowledgements.tex analyses.tex rivetversion.sty rivet-manual.bbl \
 hepnames.sty hepnicenames.sty hepparticles.sty heppennames.sty hepunits.sty maybemath.sty microtype.sty underscore.sty \
 bend.eps cone.eps thinker.eps warning.eps \
 h-physrev3.bst JHEP3.cls JHEP.bst
