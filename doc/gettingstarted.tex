@@ -265,12 +265,12 @@ slake your thirst for danger.
 
 \begin{itemize}
 
-\item \paragraph{Getting help:}{\kbd{rivet --help} will print a (hopefully)
+\item \textbf{Getting help: }{\kbd{rivet --help} will print a (hopefully)
     helpful list of options which may be used with the \kbd{rivet} command, as
     well as other information such as environment variables which may affect the
     run.}
 
-\item \paragraph{Choosing analyses:}{\kbd{rivet --list-analyses} will list the
+\item \textbf{Choosing analyses: }{\kbd{rivet --list-analyses} will list the
     available analyses, including both those in the Rivet distribution and any
     plugins which are found at runtime. \kbd{rivet --show-analysis \val{patt}}
     will show a lot of details about any analyses whose name match the
@@ -280,7 +280,7 @@ slake your thirst for danger.
     details of all available CDF experiment analyses published in the
     ``noughties.''}
 
-\item \paragraph{Running analyses:}{\kbd{rivet -a~DELPHI_1996_S3430090
+\item \textbf{Running analyses: }{\kbd{rivet -a~DELPHI_1996_S3430090
       fifo.hepmc} will run the Rivet
     \kbd{DELPHI_1996_S3430090}\cite{Abreu:1996na} analysis on the events in the
     \kbd{fifo.hepmc} file (which, from the name, is probably a filesystem named
@@ -297,12 +297,12 @@ slake your thirst for danger.
 %     above, incompatible analyses will be removed before the main analysis run
 %     begins.}
 
-\item \paragraph{Histogramming:}{\kbd{rivet fifo.hepmc -H~foo.aida} will read all the
+\item \textbf{Histogramming: }{\kbd{rivet fifo.hepmc -H~foo.aida} will read all the
     events in the \kbd{fifo.hepmc} file. The \kbd{-H} switch is used to
     specify that the output histogram file will be named \kbd{foo.aida}. By
     default the output file is called \kbd{Rivet.aida}.}
 
-\item \paragraph{Fine-grained logging:}{\kbd{rivet fifo.hepmc -A
+\item \textbf{Fine-grained logging: }{\kbd{rivet fifo.hepmc -A
       -l~Rivet.Analysis=DEBUG~\cmdbreak -l~Rivet.Projection=DEBUG
       -l~Rivet.Projection.FinalState=TRACE~\cmdbreak -l~NEvt=WARN}
     will analyse events as before, but will print different status
