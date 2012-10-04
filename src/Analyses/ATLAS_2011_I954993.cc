@@ -48,7 +48,7 @@ namespace Rivet {
       _h_fiducial = bookHisto1D(1,1,1);
 
     }
-    
+
     /// Do the analysis
     void analyze(const Event & e) {
 
@@ -58,8 +58,8 @@ namespace Rivet {
       const ZFinder& zfinder_mu = applyProjection<ZFinder>(e, "ZFinder_mu");
       const WFinder& wfinder_e = applyProjection<WFinder>(e, "WFinder_e");
       const WFinder& wfinder_mu = applyProjection<WFinder>(e, "WFinder_mu");
-      
-    
+
+
       // Looking for a Z
       if (zfinder_e.bosons().size()!= 1 && zfinder_mu.bosons().size() != 1) {
         MSG_DEBUG("No Z boson found, vetoing event");
@@ -76,35 +76,35 @@ namespace Rivet {
       FourMomentum wmom_e(0.0,0.0,0.0,0.0), We(0.0,0.0,0.0,0.0), Wenu(0.0,0.0,0.0,0.0);
       FourMomentum wmom_mu(0.0,0.0,0.0,0.0), Wmu(0.0,0.0,0.0,0.0), Wmunu(0.0,0.0,0.0,0.0);
       if(wfinder_e.bosons().size()== 1){
-	wmom_e = wfinder_e.bosons().front().momentum(); 
-	We = wfinder_e.constituentLeptons()[0].momentum();
-	Wenu = wfinder_e.constituentNeutrinos()[0].momentum();    
+        wmom_e = wfinder_e.bosons().front().momentum();
+        We = wfinder_e.constituentLeptons()[0].momentum();
+        Wenu = wfinder_e.constituentNeutrinos()[0].momentum();
       }
       if(wfinder_mu.bosons().size()== 1){
-	wmom_mu = wfinder_mu.bosons().front().momentum(); 
-	Wmu = wfinder_mu.constituentLeptons()[0].momentum();
-	Wmunu = wfinder_mu.constituentNeutrinos()[0].momentum();
+        wmom_mu = wfinder_mu.bosons().front().momentum();
+        Wmu = wfinder_mu.constituentLeptons()[0].momentum();
+        Wmunu = wfinder_mu.constituentNeutrinos()[0].momentum();
       }
 
       // Applying remaining fiducial phase space requirements
       double mT = 0;
       if(wfinder_e.bosons().size() == 1){
-	mT = sqrt(2*We.pT()*Wenu.Et()*(1.0-cos(We.phi()-Wenu.phi())));
-	if (Wenu.pT()/GeV < 25.0 || We.pT()/GeV < 20.0 || mT/GeV < 20.0) {
-	  MSG_DEBUG(" Wnu.pT()/GeV:" << Wenu.pT()/GeV<<" Wl.pT()/GeV:" << We.pT()/GeV<<" mT/GeV:" << mT/GeV);
-	  vetoEvent;
-	}
+        mT = sqrt(2*We.pT()*Wenu.Et()*(1.0-cos(We.phi()-Wenu.phi())));
+        if (Wenu.pT()/GeV < 25.0 || We.pT()/GeV < 20.0 || mT/GeV < 20.0) {
+          MSG_DEBUG(" Wnu.pT()/GeV:" << Wenu.pT()/GeV<<" Wl.pT()/GeV:" << We.pT()/GeV<<" mT/GeV:" << mT/GeV);
+          vetoEvent;
+        }
       }
       else if(wfinder_mu.bosons().size() == 1){
-	mT = sqrt(2*Wmu.pT()*Wmunu.Et()*(1.0-cos(Wmu.phi()-Wmunu.phi())));
-	if (Wmunu.pT()/GeV < 25.0 || Wmu.pT()/GeV < 20.0 || mT/GeV < 20.0) {
-	  MSG_DEBUG(" Wnu.pT()/GeV:" << Wmunu.pT()/GeV<<" Wl.pT()/GeV:" << Wmu.pT()/GeV<<" mT/GeV:" << mT/GeV);
-	  vetoEvent;
-	}
+        mT = sqrt(2*Wmu.pT()*Wmunu.Et()*(1.0-cos(Wmu.phi()-Wmunu.phi())));
+        if (Wmunu.pT()/GeV < 25.0 || Wmu.pT()/GeV < 20.0 || mT/GeV < 20.0) {
+          MSG_DEBUG(" Wnu.pT()/GeV:" << Wmunu.pT()/GeV<<" Wl.pT()/GeV:" << Wmu.pT()/GeV<<" mT/GeV:" << mT/GeV);
+          vetoEvent;
+        }
       }
       else{
-	MSG_DEBUG("No W boson found, can't make a transverse mass, vetoing event");
-	vetoEvent;
+        MSG_DEBUG("No W boson found, can't make a transverse mass, vetoing event");
+        vetoEvent;
       }
 
       _h_fiducial->fill(7000.0, weight);
@@ -114,7 +114,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      
+
       scale(_h_fiducial, crossSection()/femtobarn/sumOfWeights());
 
     }
