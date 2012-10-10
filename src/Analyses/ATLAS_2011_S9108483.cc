@@ -20,7 +20,7 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2011_S9108483()
-      : Analysis("ATLAS_2011_S9108483"), _wgtSum(0.)
+      : Analysis("ATLAS_2011_S9108483")
     {
     }
 
@@ -110,7 +110,6 @@ namespace Rivet {
         // calculate the smeared momentum
         double pT     = mu.momentum().perp2();
         double pmag   = sqrt(pT+sqr(mu.momentum().z()));
-        pT = sqrt(pT);
         double deltap = sqrt( sqr(csag*sqr(pmag)) +
                               sqr(cms*mu.momentum().t()/GeV));
         double psmear = rndGauss(deltap,pmag);
@@ -199,9 +198,6 @@ namespace Rivet {
     Histo1DPtr _count_120;
     Histo1DPtr _count_130;
     //@}
-
-    // som of weights
-    double _wgtSum;
 
   };
 

@@ -57,7 +57,6 @@ namespace Rivet {
       double test = 1.+cosbb;
       double anglebb;
       if(test<0.&&test>-1e-10) {
-        cosbb=-1.;
         anglebb = M_PI;
       }
       else {

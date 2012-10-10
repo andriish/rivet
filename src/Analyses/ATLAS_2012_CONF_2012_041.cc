@@ -225,7 +225,6 @@ namespace Rivet {
                          lepton.momentum().x()*pTmiss.x() -
                          lepton.momentum().y()*pTmiss.y());
         mT = sqrt(mT);
-        HT += pT;
         m_eff_inc += pT;
         double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
           recon_jets[1].momentum().perp()+recon_jets[2].momentum().perp();
@@ -263,7 +262,6 @@ namespace Rivet {
                          lepton.momentum().x()*pTmiss.x() -
                          lepton.momentum().y()*pTmiss.y());
         mT = sqrt(mT);
-        HT += pT;
         m_eff_inc += pT;
         double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
           recon_jets[1].momentum().perp();
