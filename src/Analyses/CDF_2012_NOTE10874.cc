@@ -54,7 +54,6 @@ namespace Rivet {
       ParticleVector particles = cfs.particlesByPt();
       Particle p_lead = particles[0];
       const double philead = p_lead.momentum().phi();
-      const double etalead = p_lead.momentum().eta();
       const double pTlead  = p_lead.momentum().pT();
 
       int    tNch = 0;
@@ -69,7 +68,6 @@ namespace Rivet {
         }
       }
 
-      const double avePt = ptSum / tNch;
       const double dEtadPhi = 4.0*PI/3.0;
 
       _h_nch_transverse->fill(pTlead/GeV, tNch/dEtadPhi, weight);
