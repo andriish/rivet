@@ -151,6 +151,7 @@ dist_pkgdata_DATA = \
   CDF_2009_S8436959.aida \
   CDF_2010_S8591881_DY.aida \
   CDF_2010_S8591881_QCD.aida \
+  CDF_2012_NOTE10874.aida \
   D0_1996_S3214044.aida \
   D0_1996_S3324664.aida \
   D0_2000_S4480767.aida \
