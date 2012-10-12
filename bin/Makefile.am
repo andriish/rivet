@@ -9,7 +9,8 @@ RIVETPROGS = \
     rivet \
     rivet-mkanalysis rivet-buildplugin \
     rivet-chopbins rivet-rmgaps rivet-rescale \
-    rivet-mergeruns rivet-mkhtml rivet-findid
+    rivet-mergeruns rivet-mkhtml rivet-findid \
+    rivet-merge-CDF_2012_NOTE10874
 
 if ENABLE_PYEXT
 dist_bin_SCRIPTS += $(RIVETPROGS)
