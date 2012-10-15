@@ -101,9 +101,9 @@ namespace Rivet {
         _h_pTsum_towards_pTmumu->        fill(Zpt, 1./area * ptSumTowards, weight);
         _h_pTsum_transverse_pTmumu->     fill(Zpt, 1./area * ptSumTransverse, weight);
         _h_pTsum_away_pTmumu->           fill(Zpt, 1./area * ptSumAway, weight);
-        _h_avgpT_towards_pTmumu->        fill(Zpt, 1.*nTowards/ptSumTowards, weight);
-        _h_avgpT_transverse_pTmumu->     fill(Zpt, 1.*nTransverse/ptSumTransverse, weight);
-        _h_avgpT_away_pTmumu->           fill(Zpt, 1.*nAway/ptSumAway, weight);
+        if (nTowards > 0)    _h_avgpT_towards_pTmumu->    fill(Zpt, ptSumTowards/nTowards, weight);
+        if (nTransverse > 0) _h_avgpT_transverse_pTmumu-> fill(Zpt, ptSumTransverse/nTransverse, weight);
+        if (nAway > 0)       _h_avgpT_away_pTmumu->       fill(Zpt, ptSumAway/nAway, weight);
         _h_Nchg_towards_zmass_81_101->   fill(nTowards, weight);
         _h_Nchg_transverse_zmass_81_101->fill(nTransverse, weight);
         _h_Nchg_away_zmass_81_101->      fill(nAway, weight);
@@ -112,7 +112,7 @@ namespace Rivet {
       if (Zpt < 5.) {
         _h_Nchg_towards_plus_transverse_Mmumu->fill(Zmass, (nTowards + nTransverse)/(2.*area), weight);
         _h_pTsum_towards_plus_transverse_Mmumu->fill(Zmass, (ptSumTowards + ptSumTransverse)/(2.*area), weight);
-        _h_avgpT_towards_plus_transverse_Mmumu->fill(Zmass, 1.*(nTowards + nTransverse)/(ptSumTowards + ptSumTransverse), weight);
+        if ((nTowards + nTransverse) > 0) _h_avgpT_towards_plus_transverse_Mmumu->fill(Zmass, (ptSumTowards + ptSumTransverse)/(nTowards + nTransverse), weight);
         _h_Nchg_transverse_zpt_5->fill(nTransverse, weight);
       }
 
