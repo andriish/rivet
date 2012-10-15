@@ -304,10 +304,12 @@ options you can create ratio plots for two or more histograms. Note that you
 must specify your reference data ID. This option is used by the
 link:compare-histos.html[`compare-histos`] script.
 
-If you prefer showing `(MC-data)/uncertainty` rather than `MC/data`, you can set
 --------------------
-RatioPlotMode=deviation
+RatioPlotMode=<default|deviation|datamc>
 --------------------
+By default, the ratio plot displays MC/Data. You can switch to
+(MC-data)/uncertainty (`deviation`) or Data/MC (`datamc`) with this
+option.
 
 In ratio plots the following additional options are available and work in
 a similar way as their regular counterparts:
