@@ -69,7 +69,7 @@ LogY=1
 Title=Ratio $E_{\mathrm{T}}^{\rm miss}/m_{\mathrm{eff}}$ in the 1 soft lepton channel
 XLabel=$E_{\mathrm{T}}^{\rm miss}/m_{\mathrm{eff}}$
 YLabel=$\mathrm{Events}/0.1$
-LogY=1
+LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1180197/count_2l_2jet_all_channel
