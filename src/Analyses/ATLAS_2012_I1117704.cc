@@ -190,6 +190,8 @@ namespace Rivet {
         if(recon_jets[ix].momentum().pT()>55.*GeV) ++njet55;
       }
 
+      if(njet55==0) vetoEvent;
+
       double ratio = eTmiss/sqrt(HT);
 
       if(ratio>4.) {
