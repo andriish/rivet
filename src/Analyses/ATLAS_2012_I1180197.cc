@@ -63,14 +63,30 @@ namespace Rivet {
       addProjection(VisibleFinalState(-4.9,4.9),"vfs");
 
       // Book histograms
-      _count_3jet_channel = bookHistogram1D("count_3jet_channel", 1, 0., 1.);
-      _count_4jet_channel = bookHistogram1D("count_4jet_channel", 1, 0., 1.);
-      _count_soft_channel = bookHistogram1D("count_soft_channel", 1, 0., 1.);
+      _count_1l_3jet_all_channel  = bookHistogram1D("count_1l_3jet_all_channel", 1, 0., 1.);
+      _count_1l_3jet_e_channel    = bookHistogram1D("count_1l_3jet_e_channel"  , 1, 0., 1.);
+      _count_1l_3jet_mu_channel   = bookHistogram1D("count_1l_3jet_mu_channel" , 1, 0., 1.);
+      _count_1l_4jet_all_channel  = bookHistogram1D("count_1l_4jet_all_channel", 1, 0., 1.);
+      _count_1l_4jet_e_channel    = bookHistogram1D("count_1l_4jet_e_channel"  , 1, 0., 1.);
+      _count_1l_4jet_mu_channel   = bookHistogram1D("count_1l_4jet_mu_channel" , 1, 0., 1.);
+      _count_1l_soft_all_channel  = bookHistogram1D("count_1l_soft_all_channel", 1, 0., 1.);
+      _count_1l_soft_e_channel    = bookHistogram1D("count_1l_soft_e_channel"  , 1, 0., 1.);
+      _count_1l_soft_mu_channel   = bookHistogram1D("count_1l_soft_mu_channel" , 1, 0., 1.);
+						                               
+      _count_2l_2jet_all_channel  = bookHistogram1D("count_2l_2jet_all_channel" , 1, 0., 1.);
+      _count_2l_2jet_ee_channel   = bookHistogram1D("count_2l_2jet_ee_channel"  , 1, 0., 1.);
+      _count_2l_2jet_emu_channel  = bookHistogram1D("count_2l_2jet_emu_channel" , 1, 0., 1.);
+      _count_2l_2jet_mumu_channel = bookHistogram1D("count_2l_2jet_mumu_channel", 1, 0., 1.);
+      _count_2l_4jet_all_channel  = bookHistogram1D("count_2l_4jet_all_channel" , 1, 0., 1.);
+      _count_2l_4jet_ee_channel   = bookHistogram1D("count_2l_4jet_ee_channel"  , 1, 0., 1.);
+      _count_2l_4jet_emu_channel  = bookHistogram1D("count_2l_4jet_emu_channel" , 1, 0., 1.);
+      _count_2l_4jet_mumu_channel = bookHistogram1D("count_2l_4jet_mumu_channel", 1, 0., 1.);
 
-      _hist_m_eff_3jet        = bookHistogram1D("hist_m_eff_3jet"       ,  6, 400., 1600.);
-      _hist_m_eff_4jet        = bookHistogram1D("hist_m_eff_4jet"       ,  6, 400., 1600.);
-      _hist_eTmiss_m_eff_soft = bookHistogram1D("hist_eTmiss_m_eff_soft",  6, 0.1 , 0.7  );
-
+      _hist_1l_m_eff_3jet        = bookHistogram1D("hist_1l_m_eff_3jet"       ,  6, 400., 1600.);
+      _hist_1l_m_eff_4jet        = bookHistogram1D("hist_1l_m_eff_4jet"       ,  4, 800., 1600.);
+      _hist_1l_eTmiss_m_eff_soft = bookHistogram1D("hist_1l_eTmiss_m_eff_soft",  6, 0.1 , 0.7  );
+      _hist_2l_m_eff_2jet        = bookHistogram1D("hist_2l_m_eff_2jet"       ,  5, 700., 1700.);
+      _hist_2l_m_eff_4jet        = bookHistogram1D("hist_2l_m_eff_4jet"       ,  5, 600., 1600.);
     }
 
     /// Perform the per-event analysis
@@ -85,8 +101,10 @@ namespace Rivet {
           cand_jets.push_back(jet);
         }
       }
-
-      // get the candidate "medium" leptons without isolation
+      // charged tracks for isolation
+      ParticleVector chg_tracks =
+        applyProjection<ChargedFinalState>(event, "cfs").particles();
+      // find the electrons
       ParticleVector cand_soft_e,cand_hard_e;
       foreach( const Particle & e,
                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
@@ -130,14 +148,10 @@ namespace Rivet {
         // hard selection
         if(pT>10.) cand_hard_mu.push_back(mu);
       }
-      // apply the isolation
-      ParticleVector chg_tracks =
-        applyProjection<ChargedFinalState>(event, "cfs").particles();
       // pTcone around muon track (hard)
       ParticleVector recon_hard_mu;
       foreach ( const Particle & mu, cand_hard_mu ) {
         double pTinCone = -mu.momentum().pT();
-        if(-pTinCone<20.) continue;
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.momentum().pT();
@@ -159,7 +173,6 @@ namespace Rivet {
       ParticleVector recon_hard_e;
       foreach ( const Particle & e, cand_hard_e ) {
         double pTinCone = -e.momentum().pT();
-        if(-pTinCone<25.) continue;
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.momentum().pT();
@@ -178,21 +191,6 @@ namespace Rivet {
         if ( pTinCone < 0.1 * e.momentum().pT() ) recon_soft_e.push_back(e);
       }
 
-      // discard jets that overlap with electrons
-      Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets ) {
-        if(fabs(jet.momentum().eta())>2.5||
-           jet.momentum().perp()<25.) continue;
-        bool away_from_e = true;
-        foreach ( const Particle & e, cand_hard_e ) {
-          if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
-            away_from_e = false;
-            break;
-          }
-        }
-        if ( away_from_e ) recon_jets.push_back( jet );
-      }
-
       // pTmiss
       FourMomentum pTmiss;
       foreach ( const Particle & p,
@@ -201,59 +199,146 @@ namespace Rivet {
       }
       double eTmiss = pTmiss.pT();
 
-      // both selections require at least 2 jets
-      if(recon_jets.size()<2) vetoEvent;
-
-      // start of meff calculation
-      double HT=0.;
-      foreach( const Jet & jet, recon_jets) {
-        HT += jet.momentum().perp();
+      // hard lepton selection
+      if( ! recon_hard_e.empty() || !recon_hard_mu.empty() ) {
+	// discard jets that overlap with electrons
+	Jets recon_jets;
+	foreach ( const Jet& jet, cand_jets ) {
+	  if(fabs(jet.momentum().eta())>2.5||
+	     jet.momentum().perp()<25.) continue;
+	  bool away_from_e = true;
+	  foreach ( const Particle & e, cand_hard_e ) {
+	    if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
+	      away_from_e = false;
+	      break;
+	    }
+	  }
+	  if ( away_from_e ) recon_jets.push_back( jet );
+	}
+	// both selections require at least 2 jets
+	// meff calculation
+	double HT=0.;
+	foreach( const Jet & jet, recon_jets) {
+	  HT += jet.momentum().perp();
+	}
+	double m_eff_inc  = HT+eTmiss;
+	unsigned int njet = recon_jets.size();
+	// 1 lepton only
+	if( recon_hard_e.size() + recon_hard_mu.size() == 1 && njet >=3 )  {
+	  // get the lepton
+	  Particle lepton = recon_hard_e.empty() ?
+	    recon_hard_mu[0] : recon_hard_e[0];
+	  // lepton variables
+	  double pT = lepton.momentum().perp();
+	  double mT  = 2.*(pT*eTmiss -
+			   lepton.momentum().x()*pTmiss.x() -
+			   lepton.momentum().y()*pTmiss.y());
+	  mT = sqrt(mT);
+	  HT += pT;
+	  m_eff_inc += pT;
+	  // apply the cuts on the leptons and min no. of jets
+	  if( ( ( abs(lepton.pdgId()) == ELECTRON && pT > 25. ) ||
+		( abs(lepton.pdgId()) == MUON     && pT > 20. ) ) &&
+	      mT > 100. && eTmiss > 250. ) {
+	    double m_eff = pT+eTmiss;
+	    for(unsigned int ix=0;ix<3;++ix) 
+	      m_eff += recon_jets[ix].momentum().perp();
+	    // 3 jet channel
+	    if( (njet == 3 || recon_jets[3].momentum().perp() < 80. ) &&
+		recon_jets[0].momentum().perp()>100. ) {
+	      if(eTmiss/m_eff>0.3) {
+		if(m_eff_inc>1200.) {
+		  _count_1l_3jet_all_channel->fill(0.5,weight); 
+		  if(abs(lepton.pdgId()) == ELECTRON )
+		    _count_1l_3jet_e_channel->fill(0.5,weight);
+		  else
+		    _count_1l_3jet_mu_channel->fill(0.5,weight);
+		}
+		_hist_1l_m_eff_3jet->fill(min(1599.,m_eff_inc),weight);
+	      }
+	    }
+	    // 4 jet channel
+	    else if (njet >=4 && recon_jets[3].momentum().perp()>80.) {
+	      m_eff += recon_jets[3].momentum().perp();
+	      if(eTmiss/m_eff>0.2) {
+		if(m_eff_inc>800.) {
+		  _count_1l_4jet_all_channel->fill(0.5,weight);
+		  if(abs(lepton.pdgId()) == ELECTRON )
+		    _count_1l_4jet_e_channel->fill(0.5,weight);
+		  else
+		    _count_1l_4jet_mu_channel->fill(0.5,weight);
+		}
+		_hist_1l_m_eff_4jet->fill(min(1599.,m_eff_inc),weight);
+	      }
+	    }
+	  }
+	}
+	// multi lepton
+	else if( recon_hard_e.size() + recon_hard_mu.size() >= 2 && njet >=2 ) {
+	  // get all the leptons and sort them by pT
+	  ParticleVector leptons(recon_hard_e.begin(),recon_hard_e.end());
+	  leptons.insert(leptons.begin(),recon_hard_mu.begin(),recon_hard_mu.end());
+	  std::sort(leptons.begin(),leptons.end(),cmpParticleByPt);
+	  double m_eff(0.0);
+	  for(unsigned int ix=0;ix<leptons.size();++ix)
+	    m_eff += leptons[ix].momentum().perp();
+	  m_eff_inc += m_eff;
+	  m_eff += eTmiss;
+	  for(unsigned int ix=0;ix<min(4,int(recon_jets.size()));++ix) 
+	    m_eff += recon_jets[ix].momentum().perp();
+	  // require opposite sign leptons
+	  if(leptons[0].pdgId()*leptons[1].pdgId()<0) {
+	    // 2 jet
+	    if(recon_jets[1].momentum().perp()>200 && 
+	       ( njet<4 || (njet>=4 && recon_jets[3].momentum().perp()<50.)) && eTmiss>300.) {
+	      _count_2l_2jet_all_channel->fill(0.5,weight);
+	      if(abs(leptons[0].pdgId()) == ELECTRON && abs(leptons[1].pdgId()) == ELECTRON )
+		_count_2l_2jet_ee_channel->fill(0.5,weight);
+	      else if (abs(leptons[0].pdgId()) == MUON && abs(leptons[1].pdgId()) == MUON )
+		_count_2l_2jet_mumu_channel->fill(0.5,weight);
+	      else
+		_count_2l_2jet_emu_channel->fill(0.5,weight);
+	      _hist_2l_m_eff_2jet->fill(min(1699.,m_eff_inc),weight);
+	    }
+	    // 4 jet
+	    else if(njet>=4&& recon_jets[3].momentum().perp()>=50.&& 
+		    eTmiss>100. && eTmiss/m_eff>0.2) {
+	      if( m_eff_inc>650. ) {
+		_count_2l_4jet_all_channel->fill(0.5,weight);
+		if(abs(leptons[0].pdgId()) == ELECTRON && abs(leptons[1].pdgId()) == ELECTRON )
+		  _count_2l_4jet_ee_channel->fill(0.5,weight);
+		else if (abs(leptons[0].pdgId()) == MUON && abs(leptons[1].pdgId()) == MUON )
+		  _count_2l_4jet_mumu_channel->fill(0.5,weight);
+		else
+		  _count_2l_4jet_emu_channel->fill(0.5,weight);
+	      }
+	      _hist_2l_m_eff_4jet->fill(min(1599.,m_eff_inc),weight);
+	    }
+	  }
+	}
       }
-      double m_eff_inc  = HT+eTmiss;
-
-      // hard selection exactly one candidate
-      // and 1 recon and at least 3 jets
-      if( cand_hard_e.size()  +  cand_hard_mu.size() == 1 &&
-          recon_hard_e.size() + recon_hard_mu.size() == 1 &&
-          recon_jets.size() >= 3 ) {
-        // get the lepton
-        Particle lepton = recon_hard_e.empty() ?
-          recon_hard_mu[0] : recon_hard_e[0];
-        // lepton variables
-        double pT = lepton.momentum().perp();
-        double mT  = 2.*(pT*eTmiss -
-                         lepton.momentum().x()*pTmiss.x() -
-                         lepton.momentum().y()*pTmiss.y());
-        mT = sqrt(mT);
-        HT += pT;
-        m_eff_inc += pT;
-        double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
-          recon_jets[1].momentum().perp()+recon_jets[2].momentum().perp();
-        // three jet selection
-        if(recon_jets[0].momentum().perp()>100. &&
-           (recon_jets.size() == 3 ||
-            recon_jets[3].momentum().perp() < 80. ) &&
-           mT>100. && eTmiss>250. && eTmiss/m_eff>0.3) {
-          if(m_eff_inc>1200.) _count_3jet_channel->fill(0.5,weight);
-          _hist_m_eff_3jet->fill(min(1599.,m_eff_inc),weight);
-        }
-        // four jet selecton
-        if(recon_jets.size() >= 4) {
-          m_eff += recon_jets[3].momentum().perp();
-          if(recon_jets[3].momentum().perp() > 80.  &&
-             mT>100. && eTmiss>250. && eTmiss/m_eff>0.2) {
-            if(m_eff_inc>800.) _count_4jet_channel->fill(0.5,weight);
-            _hist_m_eff_4jet->fill(min(1599.,m_eff_inc),weight);
-          }
-        }
-      }
-
-      // soft selection exactly one candidate
-      // and 1 recon and 4 jets
-      if( cand_soft_e.size()  +  cand_soft_mu.size() == 1 &&
-          recon_soft_e.size() + recon_soft_mu.size() == 1 &&
-          recon_jets.size() >= 2 &&
-          recon_jets[0].momentum().perp()>130.) {
+      // soft lepton selection
+      if( recon_soft_e.size() + recon_soft_mu.size() == 1 ) {
+	// discard jets that overlap with electrons
+	Jets recon_jets;
+	foreach ( const Jet& jet, cand_jets ) {
+	  if(fabs(jet.momentum().eta())>2.5||
+	     jet.momentum().perp()<25.) continue;
+	  bool away_from_e = true;
+	  foreach ( const Particle & e, cand_soft_e ) {
+	    if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
+	      away_from_e = false;
+	      break;
+	    }
+	  }
+	  if ( away_from_e ) recon_jets.push_back( jet );
+	}
+	// meff calculation
+	double HT=0.;
+	foreach( const Jet & jet, recon_jets) {
+	  HT += jet.momentum().perp();
+	}
+	double m_eff_inc  = HT+eTmiss;
         // get the lepton
         Particle lepton = recon_soft_e.empty() ?
           recon_soft_mu[0] : recon_soft_e[0];
@@ -265,12 +350,20 @@ namespace Rivet {
         mT = sqrt(mT);
         HT += pT;
         m_eff_inc += pT;
-        double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
-          recon_jets[1].momentum().perp();
-        if (mT>100. && eTmiss>250.) {
-          if( eTmiss/m_eff>0.3 ) _count_soft_channel->fill(0.5,weight);
-          _hist_eTmiss_m_eff_soft->fill( eTmiss/m_eff_inc,weight);
-        }
+	double m_eff = pT+eTmiss;
+	// apply final cuts
+	if(recon_jets.size() >= 2 && recon_jets[0].momentum().perp()>130. && 
+	   mT>100. && eTmiss>250.) {
+	  for(unsigned int ix=0;ix<2;++ix) m_eff += recon_jets[0].momentum().perp();
+          if( eTmiss/m_eff>0.3 ) {
+	    _count_1l_soft_all_channel->fill(0.5,weight);
+	    if(abs(lepton.pdgId()) == ELECTRON )
+	      _count_1l_soft_e_channel->fill(0.5,weight);
+	    else
+	      _count_1l_soft_mu_channel->fill(0.5,weight);
+	  }
+	  _hist_1l_eTmiss_m_eff_soft->fill( eTmiss/m_eff_inc,weight);
+	}
       }
     }
     //@}
@@ -279,12 +372,29 @@ namespace Rivet {
     void finalize() {
 
       double norm = 4.7* crossSection()/sumOfWeights()/femtobarn;
-      scale(_count_3jet_channel    ,norm);
-      scale(_count_4jet_channel    ,norm);
-      scale(_count_soft_channel    ,norm);
-      scale(_hist_m_eff_3jet       ,200.*norm);
-      scale(_hist_m_eff_4jet       ,200.*norm);
-      scale(_hist_eTmiss_m_eff_soft,0.1*norm);
+      scale(_count_1l_3jet_all_channel	,norm);
+      scale(_count_1l_3jet_e_channel	,norm);
+      scale(_count_1l_3jet_mu_channel	,norm);
+      scale(_count_1l_4jet_all_channel	,norm);
+      scale(_count_1l_4jet_e_channel	,norm);
+      scale(_count_1l_4jet_mu_channel	,norm);
+      scale(_count_1l_soft_all_channel	,norm);
+      scale(_count_1l_soft_e_channel	,norm);
+      scale(_count_1l_soft_mu_channel	,norm);
+      scale(_count_2l_2jet_all_channel	,norm);
+      scale(_count_2l_2jet_ee_channel	,norm);
+      scale(_count_2l_2jet_emu_channel	,norm);
+      scale(_count_2l_2jet_mumu_channel	,norm);
+      scale(_count_2l_4jet_all_channel	,norm);
+      scale(_count_2l_4jet_ee_channel	,norm);
+      scale(_count_2l_4jet_emu_channel	,norm);
+      scale(_count_2l_4jet_mumu_channel ,norm);
+
+      scale(_hist_1l_m_eff_3jet         ,200.*norm);
+      scale(_hist_1l_m_eff_4jet         ,200.*norm);
+      scale(_hist_1l_eTmiss_m_eff_soft  ,0.1*norm);
+      scale(_hist_2l_m_eff_2jet         ,200.*norm);
+      scale(_hist_2l_m_eff_4jet         ,200.*norm);
 
     }
 
@@ -292,13 +402,29 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    AIDA::IHistogram1D* _count_3jet_channel;
-    AIDA::IHistogram1D* _count_4jet_channel;
-    AIDA::IHistogram1D* _count_soft_channel;
+    AIDA::IHistogram1D* _count_1l_3jet_all_channel;
+    AIDA::IHistogram1D* _count_1l_3jet_e_channel;
+    AIDA::IHistogram1D* _count_1l_3jet_mu_channel;
+    AIDA::IHistogram1D* _count_1l_4jet_all_channel;
+    AIDA::IHistogram1D* _count_1l_4jet_e_channel;
+    AIDA::IHistogram1D* _count_1l_4jet_mu_channel;
+    AIDA::IHistogram1D* _count_1l_soft_all_channel;
+    AIDA::IHistogram1D* _count_1l_soft_e_channel;
+    AIDA::IHistogram1D* _count_1l_soft_mu_channel;
+    AIDA::IHistogram1D* _count_2l_2jet_all_channel;
+    AIDA::IHistogram1D* _count_2l_2jet_ee_channel;
+    AIDA::IHistogram1D* _count_2l_2jet_emu_channel;
+    AIDA::IHistogram1D* _count_2l_2jet_mumu_channel;
+    AIDA::IHistogram1D* _count_2l_4jet_all_channel;
+    AIDA::IHistogram1D* _count_2l_4jet_ee_channel;
+    AIDA::IHistogram1D* _count_2l_4jet_emu_channel;
+    AIDA::IHistogram1D* _count_2l_4jet_mumu_channel;
 
-    AIDA::IHistogram1D* _hist_m_eff_3jet;
-    AIDA::IHistogram1D* _hist_m_eff_4jet;
-    AIDA::IHistogram1D* _hist_eTmiss_m_eff_soft;
+    AIDA::IHistogram1D* _hist_1l_m_eff_3jet;
+    AIDA::IHistogram1D* _hist_1l_m_eff_4jet;
+    AIDA::IHistogram1D* _hist_1l_eTmiss_m_eff_soft;
+    AIDA::IHistogram1D* _hist_2l_m_eff_2jet;
+    AIDA::IHistogram1D* _hist_2l_m_eff_4jet;
     //@}
 
   };
