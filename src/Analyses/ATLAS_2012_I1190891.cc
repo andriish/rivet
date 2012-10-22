@@ -63,27 +63,11 @@ namespace Rivet {
       // all tracks (to do deltaR with leptons)
       addProjection(ChargedFinalState(-3.0,3.0),"cfs");
 
-      // // Book histograms
-      // _hist_leptonpT.push_back(bookHistogram1D(1,1,1));
-      // _hist_leptonpT.push_back(bookHistogram1D(2,1,1));
-      // _hist_leptonpT.push_back(bookHistogram1D(3,1,1));
-      // _hist_leptonpT.push_back(bookHistogram1D(4,1,1));
-      // _hist_njet   = bookHistogram1D(5,1,1);
-      // _hist_etmiss = bookHistogram1D(6,1,1);
-      // _hist_mSFOS  = bookHistogram1D(7,1,1);
-      // _hist_meff   = bookHistogram1D(8,1,1);
-
-      // _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_1", 26, 0., 260));
-      // _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_2", 15, 0., 150));
-      // _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_3", 20, 0., 100));
-      // _hist_leptonpT_MC.push_back(bookHistogram1D("hist_lepton_pT_4", 20, 0., 100));
-      // _hist_njet_MC   = bookHistogram1D("hist_njet", 7, -0.5, 6.5);
-      // _hist_etmiss_MC = bookHistogram1D("hist_etmiss",11,0.,220.);
-      // _hist_mSFOS_MC  = bookHistogram1D("hist_m_SFOS",13,0.,260.);
-      // _hist_meff_MC   = bookHistogram1D("hist_m_eff",19,0.,950.);
-
-      // _count_SR1 = bookHistogram1D("count_SR1", 1, 0., 1.);
-      // _count_SR2 = bookHistogram1D("count_SR2", 1, 0., 1.);
+      // Book histograms
+      _hist_etmiss = bookHistogram1D("hist_etmiss",10,0.,500.);
+      _hist_meff   = bookHistogram1D("hist_m_eff",7,0.,1050.);
+      _count_SR1 = bookHistogram1D("count_SR1", 1, 0., 1.);
+      _count_SR2 = bookHistogram1D("count_SR2", 1, 0., 1.);
     }
 
 
