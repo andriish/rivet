@@ -147,7 +147,7 @@ namespace Rivet {
       }
 
       // only keep electrons more than R=0.4 from jets
-      ParticleVector recon_e;
+      ParticleVector cand2_e;
       for(unsigned int ie=0;ie<cand_e.size();++ie) {
         const Particle & e = cand_e[ie];
         // at least 0.4 from any jets
@@ -176,12 +176,25 @@ namespace Rivet {
           }
         }
         // if isolated keep it
-        if ( away )
-          recon_e.push_back( e );
+        if ( away ) cand2_e.push_back( e );
+      }
+      // remove e+e- pairs with mass < 20.
+      ParticleVector recon_e;
+      for(unsigned int ie=0;ie<cand2_e.size();++ie) {
+	bool pass = true;
+	for(unsigned int ie2=0;ie2<cand2_e.size();++ie2) {
+	  if(cand2_e[ie].pdgId()*cand2_e[ie2].pdgId()>0) continue;
+	  double mtest = (cand2_e[ie].momentum()+cand2_e[ie2].momentum()).mass();
+	  if(mtest<=20.) {
+	    pass = false;
+	    break;
+	  }
+	}
+	if(pass) recon_e.push_back(cand2_e[ie]);
       }
 
       // only keep muons more than R=0.4 from jets
-      ParticleVector recon_mu;
+      ParticleVector cand2_mu;
       for(unsigned int imu=0;imu<cand_mu.size();++imu) {
         const Particle & mu = cand_mu[imu];
         bool away = true;
@@ -210,7 +223,22 @@ namespace Rivet {
           }
         }
         if ( away )
-          recon_mu.push_back( mu );
+          cand2_mu.push_back( mu );
+      }
+
+      // remove mu+mu- pairs with mass < 20.
+      ParticleVector recon_mu;
+      for(unsigned int imu=0;imu<cand2_mu.size();++imu) {
+	bool pass = true;
+	for(unsigned int imu2=0;imu2<cand2_mu.size();++imu2) {
+	  if(cand2_mu[imu].pdgId()*cand2_mu[imu2].pdgId()>0) continue;
+	  double mtest = (cand2_mu[imu].momentum()+cand2_mu[imu2].momentum()).mass();
+	  if(mtest<=20.) {
+	    pass = false;
+	    break;
+	  }
+	}
+	if(pass) recon_mu.push_back(cand2_mu[imu]);
       }
 
       // pTmiss
@@ -264,7 +292,7 @@ namespace Rivet {
         if(pT>40.) meff += pT;
       }
 
-      double mSFOS=1e30, mdiff=1e30,mMin=1e30;
+      double mSFOS=1e30, mdiff=1e30;
       // mass of SFOS pairs closest to the Z mass
       for(unsigned int ix=0;ix<recon_e.size();++ix) {
         for(unsigned int iy=ix+1;iy<recon_e.size();++iy) {
@@ -273,9 +301,6 @@ namespace Rivet {
           if(fabs(mtest-90.)<mdiff) {
             mSFOS = mtest;
             mdiff = fabs(mtest-90.);
-          }
-          else if(mMin>mtest) {
-            mMin = mtest;
           }
         }
       }
@@ -287,14 +312,7 @@ namespace Rivet {
             mSFOS = mtest;
             mdiff = fabs(mtest-91.118);
           }
-          else if(mMin>mtest) {
-            mMin = mtest;
-          }
         }
-      }
-      // cut to reject low mass Drell-Yan
-      if(mMin<=20.) {
-        vetoEvent;
       }
 
       // make the control plots
@@ -356,7 +374,7 @@ namespace Rivet {
       scale(_hist_etmiss_MC   ,norm*20.);
       scale(_hist_mSFOS_MC    ,norm*20.);
       // these are number of events at 2.06fb^-1 per 50 GeV
-      scale(_hist_meff_MC     ,norm*50.);
+      scale(_hist_meff        ,norm*50.);
       scale(_hist_meff_MC     ,norm*50.);
       // these are number of events at 2.06fb^-1
       scale(_hist_njet        ,norm);
