@@ -4,6 +4,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "LWH/Histogram1D.h"
 #include "HepMC/GenParticle.h"
@@ -36,8 +37,19 @@ namespace Rivet {
       UnstableFinalState ufs(-MAXRAPIDITY, MAXRAPIDITY, 100*MeV);
       addProjection(ufs, "UFS");
       
-      ChargedFinalState  cfs(-2.5, 2.5, 100*MeV);
-      addProjection(cfs, "CFS");
+      vector<pair<double, double> > etaRanges;
+      etaRanges.push_back(make_pair(-3.84, -2.09));
+      etaRanges.push_back(make_pair(2.09, 3.84));
+      ChargedFinalState  mbts(etaRanges);
+      addProjection(mbts, "MBTS");
+
+      IdentifiedFinalState nstable(-2.5, 2.5, 100*MeV);
+      nstable.acceptIdPair(ELECTRON)
+        .acceptIdPair(MUON)
+        .acceptIdPair(PIPLUS)
+        .acceptIdPair(KPLUS)
+        .acceptIdPair(P);
+      addProjection(nstable, "nstable");
 
       if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
         _hist_Ks_pT   = bookHistogram1D(1,1,1);
@@ -129,26 +141,13 @@ namespace Rivet {
       const double weight = event.weight();
 
       // ATLAS MBTS trigger requirement of at least one hit in either hemisphere
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-      int n_mbts = 0;
-      foreach (const Particle& p, cfs.particles()) {
-        const double eta = fabs(p.momentum().eta());
-        if (inRange(eta, 2.09, 3.84)) n_mbts++; 
-      }
-
-      if (n_mbts < 1) {
+      if (applyProjection<FinalState>(event, "MBTS").size() < 1) {
         MSG_DEBUG("Failed trigger cut");
         vetoEvent;
       }
 
       // Veto event also when we find less than 2 particles in the acceptance region of type 211,2212,11,13,321
-      int n_stable = 0;
-      foreach (const Particle& p, cfs.particles()) {
-        const PdgId pid = abs(p.pdgId());
-        if (pid == 11 || pid == 13 || pid == 211 || pid == 321 || pid == 2212) n_stable++;
-      }
-
-      if (n_stable < 2) {
+      if (applyProjection<FinalState>(event, "nstable").size() < 2) {
         MSG_DEBUG("Failed stable particle cut");
         vetoEvent;
       }
