@@ -6,11 +6,18 @@
 %\documentclass[preprint,12pt]{elsarticle}
 
 \input{preamble}
-\usepackage{hyperref}
-\smartqed  % flush right qed marks, e.g. at end of proof
 
 \def\part#1{\section*{\large #1}}
 
+\RequirePackage[T1]{fontenc}
+
+\smartqed  % flush right qed marks, e.g. at end of proof
+
+\RequirePackage{graphicx}
+\RequirePackage{mathptmx}      % use Times fonts if available on your TeX system
+\RequirePackage{flushend}
+\RequirePackage[numbers,sort&compress]{natbib}
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue,linkcolor=blue]{hyperref}
 \journalname{Eur. Phys. J. C}
 
 \begin{document}
