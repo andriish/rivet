@@ -1,3 +1,10 @@
+2012-11-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* include/Math/: Various numerical fixes to Vector3::angle and
+	changing the 4 vector mass treatment to permit spacelike
+	virtualities (in some cases even the fuzzy isZero assert check was
+	being violated).
+
 2012-10-15  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added CMS_2012_I1107658 analysis

@@ -375,14 +375,17 @@ namespace Rivet {
     /// Set z-component of momentum \f$ p_z \f$.
     FourMomentum& setPz(double pz) { setZ(pz); return *this; }
 
-    /// Get the mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant).
+    /// @brief Get the mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant).
+    ///
+    /// For spacelike momenta, the mass will be -sqrt(|mass2|).
     double mass() const {
-      assert(Rivet::isZero(mass2()) || mass2() > 0);
-      if (Rivet::isZero(mass2())) {
-        return 0.0;
-      } else {
-        return sqrt(mass2());
-      }
+      // assert(Rivet::isZero(mass2()) || mass2() > 0);
+      // if (Rivet::isZero(mass2())) {
+      //   return 0.0;
+      // } else {
+      //   return sqrt(mass2());
+      // }
+      return sign(mass2()) * sqrt(fabs(mass2()));
     }
 
     /// Get the squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant).
