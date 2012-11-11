@@ -55,14 +55,7 @@ namespace Rivet {
 
       double cosbb = b1BOOSTED.vector3().unit().dot(b2BOOSTED.vector3().unit());
       double test = 1.+cosbb;
-      double anglebb;
-      if(test<0.&&test>-1e-10) {
-        cosbb=-1.;
-        anglebb = M_PI;
-      }
-      else {
-        anglebb = acos(cosbb);
-      }
+      double anglebb = b1BOOSTED.angle(b2BOOSTED);
 
       vector<double> toReturn;
       toReturn.push_back(angle1 < angle2 ? angle1 : angle2);
