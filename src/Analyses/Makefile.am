@@ -94,7 +94,7 @@ RivetATLASAnalyses_la_SOURCES += \
     ATLAS_2012_I1095236.cc \
     ATLAS_2012_I1082009.cc \
     ATLAS_2012_I946427.cc \
-    ATLAS_2012_CONF_2012_041.cc
+    ATLAS_2012_I1180197.cc
 endif
 
 

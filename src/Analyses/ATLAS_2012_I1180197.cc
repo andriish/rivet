@@ -13,7 +13,7 @@
 namespace Rivet {
 
 
-  class ATLAS_2012_CONF_2012_041 : public Analysis {
+  class ATLAS_2012_I1180197 : public Analysis {
   public:
 
     /// @name Constructors etc.
@@ -21,8 +21,8 @@ namespace Rivet {
 
     /// Constructor
 
-    ATLAS_2012_CONF_2012_041()
-      : Analysis("ATLAS_2012_CONF_2012_041")
+    ATLAS_2012_I1180197()
+      : Analysis("ATLAS_2012_I1180197")
     {    }
 
     //@}
@@ -225,6 +225,7 @@ namespace Rivet {
                          lepton.momentum().x()*pTmiss.x() -
                          lepton.momentum().y()*pTmiss.y());
         mT = sqrt(mT);
+        HT += pT;
         m_eff_inc += pT;
         double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
           recon_jets[1].momentum().perp()+recon_jets[2].momentum().perp();
@@ -262,6 +263,7 @@ namespace Rivet {
                          lepton.momentum().x()*pTmiss.x() -
                          lepton.momentum().y()*pTmiss.y());
         mT = sqrt(mT);
+        HT += pT;
         m_eff_inc += pT;
         double m_eff = pT+eTmiss+recon_jets[0].momentum().perp()+
           recon_jets[1].momentum().perp();
@@ -302,6 +304,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_CONF_2012_041);
+  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1180197);
 
 }
