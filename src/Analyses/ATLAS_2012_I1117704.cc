@@ -211,7 +211,7 @@ namespace Rivet {
         if(njet80>=7)
           _count_7j80->fill( 0.5, weight) ;
         // 8j80
-        if(njet80>=7)
+        if(njet80>=8)
           _count_8j80->fill( 0.5, weight) ;
       }
 
@@ -230,7 +230,7 @@ namespace Rivet {
       if(njet80>=7)
         _etmiss_HT_7j80->fill( ratio, weight) ;
       // 8j80
-      if(njet80>=7)
+      if(njet80>=8)
         _etmiss_HT_8j80->fill( ratio, weight) ;
 
     }
