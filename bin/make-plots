@@ -653,8 +653,12 @@ class RatioPlot(Plot):
             inputdata.description['YLabel']='$(\\text{MC}-\\text{data})$'
             inputdata.description['YMin']=-3.5
             inputdata.description['YMax']=3.5
+        elif inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='datamc':
+            inputdata.description['YLabel']='Data/MC'
+            inputdata.description['YMin']=0.5
+            inputdata.description['YMax']=1.5
         else:
-            inputdata.description['YLabel']='MC/data'
+            inputdata.description['YLabel']='MC/Data'
             inputdata.description['YMin']=0.5
             inputdata.description['YMax']=1.5
         if inputdata.description.has_key('RatioPlotYLabel'):
@@ -699,17 +703,26 @@ class RatioPlot(Plot):
             if i!=self.refdata:
                 if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
                     inputdata.histos[i].deviation(inputdata.histos[self.refdata])
+                elif inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='datamc':
+                    inputdata.histos[i].dividereverse(inputdata.histos[self.refdata])
+                    inputdata.histos[i].description['ErrorBars']='1'
                 else:
                     inputdata.histos[i].divide(inputdata.histos[self.refdata])
         if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
             inputdata.histos[self.refdata].deviation(inputdata.histos[self.refdata])
+        elif inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='datamc':
+            inputdata.histos[self.refdata].dividereverse(inputdata.histos[self.refdata])
         else:
             inputdata.histos[self.refdata].divide(inputdata.histos[self.refdata])
 
     def _draw(self, inputdata):
         out = ""
         for i in inputdata.description['DrawOnly']:
-            out += inputdata.histos[i].draw(self.coors)
+            if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='datamc':
+                if i!=self.refdata:
+                    out += inputdata.histos[i].draw(self.coors)
+            else:
+                out += inputdata.histos[i].draw(self.coors)
 
         frame = Frame()
         out += frame.draw(inputdata)
@@ -1352,6 +1365,27 @@ class Histogram(DrawableObject):
                     self.data[i]['Content']=1.
 #                self.data[i]['Error'][0] = sqrt(self.data[i]['Error'][0]**2 + name.data[i]['Error'][0]**2)
 #                self.data[i]['Error'][1] = sqrt(self.data[i]['Error'][1]**2 + name.data[i]['Error'][1]**2)
+            else:
+                print '+++ Error in Histogram.divide(): Binning of histograms differs'
+
+    def dividereverse(self,name):
+        if len(self.data)!=len(name.data):
+            print '+++ Error in Histogram.divide(): Binning of histograms differs'
+        for i in range(len(self.data)):
+            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
+               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+                try:
+                    self.data[i]['Error'][0] = name.data[i]['Error'][0]/self.data[i]['Content']
+                except ZeroDivisionError:
+                    self.data[i]['Error'][0]=0.
+                try:
+                    self.data[i]['Error'][1] = name.data[i]['Error'][1]/self.data[i]['Content']
+                except ZeroDivisionError:
+                    self.data[i]['Error'][1]=0.
+                try:
+                    self.data[i]['Content'] = name.data[i]['Content']/self.data[i]['Content']
+                except ZeroDivisionError:
+                    self.data[i]['Content']=1.
             else:
                 print '+++ Error in Histogram.divide(): Binning of histograms differs'
 
