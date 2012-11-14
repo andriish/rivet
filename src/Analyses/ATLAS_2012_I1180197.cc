@@ -280,11 +280,11 @@ namespace Rivet {
           leptons.insert(leptons.begin(),recon_hard_mu.begin(),recon_hard_mu.end());
           std::sort(leptons.begin(),leptons.end(),cmpParticleByPt);
           double m_eff(0.0);
-          for(unsigned int ix=0;ix<leptons.size();++ix)
+          for (size_t ix = 0; ix < leptons.size(); ++ix)
             m_eff += leptons[ix].momentum().perp();
           m_eff_inc += m_eff;
           m_eff += eTmiss;
-          for(unsigned int ix=0;ix<min(4,int(recon_jets.size()));++ix)
+          for (size_t ix = 0; ix < (size_t) min(4, int(recon_jets.size())); ++ix)
             m_eff += recon_jets[ix].momentum().perp();
           // require opposite sign leptons
           if(leptons[0].pdgId()*leptons[1].pdgId()<0) {
