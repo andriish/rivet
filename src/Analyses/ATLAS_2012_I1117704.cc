@@ -14,15 +14,15 @@
 namespace Rivet {
 
 
-  class ATLAS_2012_CONF_2012_037 : public Analysis {
+  class ATLAS_2012_I1117704 : public Analysis {
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    ATLAS_2012_CONF_2012_037()
-      : Analysis("ATLAS_2012_CONF_2012_037")
+    ATLAS_2012_I1117704()
+      : Analysis("ATLAS_2012_I1117704")
     {    }
 
     //@}
@@ -283,6 +283,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_CONF_2012_037);
+  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1117704);
 
 }
