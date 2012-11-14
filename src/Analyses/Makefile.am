@@ -170,7 +170,8 @@ RivetCDFAnalyses_la_SOURCES = \
     CDF_2010_S8591881_QCD.cc
 if ENABLE_PRELIMINARY
 RivetCDFAnalyses_la_SOURCES += \
-    CDF_2009_NOTE_9936.cc
+    CDF_2009_NOTE_9936.cc \
+    CDF_2012_NOTE10874.cc
 endif
 if ENABLE_OBSOLETE
 RivetCDFAnalyses_la_SOURCES += \

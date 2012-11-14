@@ -1,0 +1,126 @@
+#! /usr/bin/env python
+
+"""\
+%prog <aidafile_300> <aidafile_900> <aidafile_1960>
+
+Combine runs at different energies into a single .aida file containing the
+energy ratio plots in the CDF_2012_NOTE10874 analysis.
+"""
+
+import sys
+if sys.version_info[:3] < (2,4,0):
+    print "rivet scripts require Python version >= 2.4.0... exiting"
+    sys.exit(1)
+
+import os, logging
+from lighthisto import *
+
+## Try to load faster but non-standard cElementTree module
+try:
+    import xml.etree.cElementTree as ET
+except ImportError:
+    try:
+        import cElementTree as ET
+    except ImportError:
+        try:
+            import xml.etree.ElementTree as ET
+        except:
+            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
+            sys.exit(1)
+
+
+##########################################################
+
+
+def CreateHistoList(histolist1, histolist2, EnergyRatioIndex):
+    newHistoList = []     
+    for m in range(3):
+	histo1= histolist1[m]
+	histo2= histolist2[m]	
+	VarIndex = m+1
+	histo3 = newHisto(histo1, histo2, VarIndex, EnergyRatioIndex)
+	newHistoList.append(histo3)
+    return newHistoList
+
+
+def newHisto(h1, h2, vIndex, eIndex):
+    h3 = Histo()
+    for binNum1, bin1 in enumerate(h1.getBins()): #getBins ensures bins are sorted 
+	for binNum2, bin2 in enumerate(h2.getBins()):
+	    if (binNum1 == binNum2) and (bin1.xlow == bin2.xlow) and (bin2.xhigh == bin2.xhigh):
+	        ratio = bin1.val / bin2.val
+	        newBin = Bin (xlow = bin1.xlow, xhigh = bin1.xhigh, val=ratio)
+		err = FindError(bin1.val, bin2.val, bin1.getErr(), bin2.getErr() )
+		newBin.setErr(err)
+	    	h3.addBin(newBin)
+		
+
+    h3.name = "d0%d-x01-y0%d"%(vIndex, eIndex)
+    h3.path = "/CDF_2012_NOTE10874/"
+    print ("Histogram %s created" %h3.title)
+    return h3
+
+#function to find error deltaF for F(X,Y) = X/Y
+def FindError(X, Y, deltaX, deltaY):
+    error = abs(deltaX)/Y - abs(deltaY)*X/(Y**2)
+    return error
+
+
+########################################################
+if __name__ == "__main__":
+
+    plotparser = PlotParser() #will this work? Check.
+
+    histos = {}
+    
+    from optparse import OptionParser
+    parser = OptionParser(usage=__doc__)
+    opts, aidafiles = parser.parse_args()
+
+    keys = ['300', '900', '1960']
+
+    for counter in range(3):
+	aidafile = aidafiles[counter]	
+	try:
+	    tree = ET.parse(aidafile)
+        except:
+            logging.error("%s can not be parsed as XML" % aidafile)
+            sys.exit(1)
+        for dps in tree.findall("dataPointSet"):
+            useThis = True
+            
+            ## Check dataPointSet contains at least one measurement
+            try:
+                if dps.find('dataPoint').find('measurement') is None:
+                    useThis = False
+            except AttributeError, err:
+                logging.debug(err)
+
+            
+            if useThis:
+                hist = Histo.fromDPS(dps)
+                try:
+                    plotparser.updateHistoHeaders(hist)
+                except ValueError, err:
+                    logging.debug(err)
+ 		histos.setdefault(keys[counter], []).append(hist)
+
+
+    for energy, hs in histos.items():
+	sorted(hs, key=lambda hist: hist.name)
+    
+    MyNewHistoList = CreateHistoList(histos['1960'], histos['300'], 4)
+    MyNewHistoList += CreateHistoList(histos['900'], histos['300'], 5)
+    MyNewHistoList += CreateHistoList(histos['1960'], histos['900'], 6)
+
+    outfile = "RatioPlots.dat"
+    out = open(outfile, "w")
+    out.write("\n\n".join([h.asFlat() for h in sorted(MyNewHistoList)]))
+    out.write("\n")
+    out.close()
+
+    print ("Successfully created new file %s" % outfile)
+
+#####################################################################
+
+
