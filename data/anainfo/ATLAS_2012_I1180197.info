@@ -3,7 +3,7 @@ Year: 2012
 Summary: Search for supersymmetry at 7 TeV in final states with jets, missing transverse momentum and isolated leptons with the ATLAS detector.
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 
+InspireID: 1180197
 Status: UNVALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
