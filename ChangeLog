@@ -1,3 +1,8 @@
+2012-11-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merging updates from the AIDA maintenance branch up to r3974
+	(latest revision for next merges is r4009).
+
 2012-11-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* include/Math/: Various numerical fixes to Vector3::angle and
