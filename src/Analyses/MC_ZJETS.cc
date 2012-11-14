@@ -30,13 +30,13 @@ namespace Rivet {
       addProjection(jetpro, "Jets");
 
       _h_Z_mass = bookHisto1D("Z_mass", 50, 66.0, 116.0);
-      _h_Z_pT = bookHisto1D("Z_pT", logBinEdges(100, 1.0, 0.5*sqrtS()));
+      _h_Z_pT = bookHisto1D("Z_pT", logspace(100, 1.0, 0.5*sqrtS()));
       _h_Z_pT_peak = bookHisto1D("Z_pT_peak", 25, 0.0, 25.0);
       _h_Z_y = bookHisto1D("Z_y", 40, -4.0, 4.0);
       _h_Z_phi = bookHisto1D("Z_phi", 25, 0.0, TWOPI);
       _h_Z_jet1_deta = bookHisto1D("Z_jet1_deta", 50, -5.0, 5.0);
       _h_Z_jet1_dR = bookHisto1D("Z_jet1_dR", 25, 0.5, 7.0);
-      _h_lepton_pT = bookHisto1D("lepton_pT", logBinEdges(100, 10.0, 0.25*sqrtS()));
+      _h_lepton_pT = bookHisto1D("lepton_pT", logspace(100, 10.0, 0.25*sqrtS()));
       _h_lepton_eta = bookHisto1D("lepton_eta", 40, -4.0, 4.0);
 
       MC_JetAnalysis::init();

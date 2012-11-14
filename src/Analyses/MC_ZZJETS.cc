@@ -41,27 +41,27 @@ namespace Rivet {
       addProjection(jetpro, "Jets");
 
       // properties of the pair momentum
-      _h_ZZ_pT = bookHisto1D("ZZ_pT", logBinEdges(100, 1.0, 0.5*sqrtS()));
+      _h_ZZ_pT = bookHisto1D("ZZ_pT", logspace(100, 1.0, 0.5*sqrtS()));
       _h_ZZ_pT_peak = bookHisto1D("ZZ_pT_peak", 25, 0.0, 25.0);
       _h_ZZ_eta = bookHisto1D("ZZ_eta", 40, -7.0, 7.0);
       _h_ZZ_phi = bookHisto1D("ZZ_phi", 25, 0.0, TWOPI);
-      _h_ZZ_m = bookHisto1D("ZZ_m", logBinEdges(100, 150.0, 180.0+0.25*sqrtS()));
+      _h_ZZ_m = bookHisto1D("ZZ_m", logspace(100, 150.0, 180.0+0.25*sqrtS()));
 
       // correlations between the ZZ
       _h_ZZ_dphi = bookHisto1D("ZZ_dphi", 25, 0.0, PI);  /// @todo non-linear?
       _h_ZZ_deta = bookHisto1D("ZZ_deta", 25, -7.0, 7.0);
       _h_ZZ_dR = bookHisto1D("ZZ_dR", 25, 0.5, 7.0);
-      _h_ZZ_dpT = bookHisto1D("ZZ_dpT", logBinEdges(100, 1.0, 0.5*sqrtS()));
+      _h_ZZ_dpT = bookHisto1D("ZZ_dpT", logspace(100, 1.0, 0.5*sqrtS()));
       _h_ZZ_costheta_planes = bookHisto1D("ZZ_costheta_planes", 25, -1.0, 1.0);
 
       /// @todo fuer WW: missing ET
 
       // properties of the Z bosons
-      _h_Z_pT = bookHisto1D("Z_pT", logBinEdges(100, 10.0, 0.25*sqrtS()));
+      _h_Z_pT = bookHisto1D("Z_pT", logspace(100, 10.0, 0.25*sqrtS()));
       _h_Z_eta = bookHisto1D("Z_eta", 70, -7.0, 7.0);
 
       // properties of the leptons
-      _h_Zl_pT = bookHisto1D("Zl_pT", logBinEdges(100, 30.0, 0.1
+      _h_Zl_pT = bookHisto1D("Zl_pT", logspace(100, 30.0, 0.1
                                                       *sqrtS()));
       _h_Zl_eta = bookHisto1D("Zl_eta", 40, -3.5, 3.5);
 
@@ -77,7 +77,7 @@ namespace Rivet {
       _h_Ze_jet1_dR = bookHisto1D("Ze_jet1_dR", 25, 0.0, 7.0);
 
       // global stuff
-      _h_HT = bookHisto1D("HT", logBinEdges(100, 100.0, 0.5*sqrtS()));
+      _h_HT = bookHisto1D("HT", logspace(100, 100.0, 0.5*sqrtS()));
 
       MC_JetAnalysis::init();
     }

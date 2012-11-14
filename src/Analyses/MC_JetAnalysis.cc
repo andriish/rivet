@@ -39,13 +39,13 @@ namespace Rivet {
       pTname << "jet_pT_" << i+1;
       double pTmax = 1.0/(double(i)+2.0) * sqrtS()/GeV/2.0;
       int nbins_pT = 100/(i+1);
-      _h_pT_jet[i] = bookHisto1D(pTname.str(), logBinEdges(nbins_pT, 10.0, pTmax));
+      _h_pT_jet[i] = bookHisto1D(pTname.str(), logspace(nbins_pT, 10.0, pTmax));
 
       stringstream massname;
       massname << "jet_mass_" << i+1;
       double mmax = 100.0;
       int nbins_m = 100/(i+1);
-      _h_mass_jet[i] = bookHisto1D(massname.str(), logBinEdges(nbins_m, 1.0, mmax));
+      _h_mass_jet[i] = bookHisto1D(massname.str(), logspace(nbins_m, 1.0, mmax));
 
       stringstream etaname;
       etaname << "jet_eta_" << i+1;
@@ -82,7 +82,7 @@ namespace Rivet {
     _h_jet_multi_exclusive = bookHisto1D("jet_multi_exclusive", m_njet+3, -0.5, m_njet+3-0.5);
     _h_jet_multi_inclusive = bookHisto1D("jet_multi_inclusive", m_njet+3, -0.5, m_njet+3-0.5);
     _h_jet_multi_ratio = bookScatter2D("jet_multi_ratio", m_njet+2, 0.5, m_njet+3-0.5);
-    _h_jet_HT = bookHisto1D("jet_HT", logBinEdges(50, m_jetptcut, sqrtS()/GeV/2.0));
+    _h_jet_HT = bookHisto1D("jet_HT", logspace(50, m_jetptcut, sqrtS()/GeV/2.0));
   }
 
 

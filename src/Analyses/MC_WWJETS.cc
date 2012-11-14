@@ -42,27 +42,27 @@ namespace Rivet {
       addProjection(jetpro, "Jets");
 
       // properties of the pair momentum
-      _h_WW_pT = bookHisto1D("WW_pT", logBinEdges(100, 1.0, 0.5*sqrtS()));
+      _h_WW_pT = bookHisto1D("WW_pT", logspace(100, 1.0, 0.5*sqrtS()));
       _h_WW_pT_peak = bookHisto1D("WW_pT_peak", 25, 0.0, 25.0);
       _h_WW_eta = bookHisto1D("WW_eta", 40, -7.0, 7.0);
       _h_WW_phi = bookHisto1D("WW_phi", 25, 0.0, TWOPI);
-      _h_WW_m = bookHisto1D("WW_m", logBinEdges(100, 150.0, 180.0+0.25*sqrtS()));
+      _h_WW_m = bookHisto1D("WW_m", logspace(100, 150.0, 180.0+0.25*sqrtS()));
 
       // correlations between the WW
       _h_WW_dphi = bookHisto1D("WW_dphi", 25, 0.0, PI);  /// @todo non-linear?
       _h_WW_deta = bookHisto1D("WW_deta", 25, -7.0, 7.0);
       _h_WW_dR = bookHisto1D("WW_dR", 25, 0.5, 7.0);
-      _h_WW_dpT = bookHisto1D("WW_dpT", logBinEdges(100, 1.0, 0.5*sqrtS()));
+      _h_WW_dpT = bookHisto1D("WW_dpT", logspace(100, 1.0, 0.5*sqrtS()));
       _h_WW_costheta_planes = bookHisto1D("WW_costheta_planes", 25, -1.0, 1.0);
 
       /// @todo fuer WW: missing ET
 
       // properties of the W bosons
-      _h_W_pT = bookHisto1D("W_pT", logBinEdges(100, 10.0, 0.25*sqrtS()));
+      _h_W_pT = bookHisto1D("W_pT", logspace(100, 10.0, 0.25*sqrtS()));
       _h_W_eta = bookHisto1D("W_eta", 70, -7.0, 7.0);
 
       // properties of the leptons
-      _h_Wl_pT = bookHisto1D("Wl_pT", logBinEdges(100, 30.0, 0.1
+      _h_Wl_pT = bookHisto1D("Wl_pT", logspace(100, 30.0, 0.1
                                                       *sqrtS()));
       _h_Wl_eta = bookHisto1D("Wl_eta", 40, -3.5, 3.5);
 
@@ -78,8 +78,8 @@ namespace Rivet {
       _h_We_jet1_dR = bookHisto1D("We_jet1_dR", 25, 0.0, 7.0);
 
       // global stuff
-      _h_HT = bookHisto1D("HT", logBinEdges(100, 100.0, 0.5*sqrtS()));
-      _h_jets_m_12 = bookHisto1D("jets_m_12", logBinEdges(100, 1.0, 0.25*sqrtS()));
+      _h_HT = bookHisto1D("HT", logspace(100, 100.0, 0.5*sqrtS()));
+      _h_jets_m_12 = bookHisto1D("jets_m_12", logspace(100, 1.0, 0.25*sqrtS()));
 
       MC_JetAnalysis::init();
     }
