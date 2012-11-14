@@ -196,7 +196,7 @@ namespace Rivet {
 	// require at least 1 b jet
 	unsigned int n_b=0;
 	for(unsigned int ix=0;ix<recon_jets.size();++ix) {
-	   if(recon_jets[ix].containsBottom() && rand()/static_cast<double>(RAND_MAX)>=0.60)
+	   if(recon_jets[ix].containsBottom() && rand()/static_cast<double>(RAND_MAX)<=0.60)
 	     ++n_b;
 	}
 	if(n_b==0) vetoEvent;

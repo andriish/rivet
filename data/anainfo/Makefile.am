@@ -58,6 +58,7 @@ dist_pkgdata_DATA = \
   ATLAS_2012_CONF_2012_001.info \
   ATLAS_2012_I1112263.info \
   ATLAS_2012_I1125961.info \
+  ATLAS_2012_I1126136.info \
   ATLAS_2012_I1117704.info \
   ATLAS_2012_I1180197.info \
   ATLAS_2012_I1186556.info \
@@ -215,3 +216,4 @@ dist_pkgdata_DATA = \
   UA5_1987_S1640666.info \
   UA5_1988_S1867512.info \
   UA5_1989_S1926373.info
+
