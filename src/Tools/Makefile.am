@@ -16,7 +16,8 @@ libRivetTools_la_SOURCES = \
   TinyXML/tinyxmlparser.cpp \
   BinnedHistogram.cc \
   mt2_bisect.cc \
-  RivetMT2.cc
+  RivetMT2.cc \
+  BinnedHistogram.cc
 
 dist_noinst_HEADERS = binreloc.h mt2_bisect.hh
 
