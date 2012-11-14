@@ -72,7 +72,7 @@ namespace Rivet {
       _count_1l_soft_all_channel  = bookHistogram1D("count_1l_soft_all_channel", 1, 0., 1.);
       _count_1l_soft_e_channel    = bookHistogram1D("count_1l_soft_e_channel"  , 1, 0., 1.);
       _count_1l_soft_mu_channel   = bookHistogram1D("count_1l_soft_mu_channel" , 1, 0., 1.);
-						                               
+
       _count_2l_2jet_all_channel  = bookHistogram1D("count_2l_2jet_all_channel" , 1, 0., 1.);
       _count_2l_2jet_ee_channel   = bookHistogram1D("count_2l_2jet_ee_channel"  , 1, 0., 1.);
       _count_2l_2jet_emu_channel  = bookHistogram1D("count_2l_2jet_emu_channel" , 1, 0., 1.);
@@ -234,21 +234,20 @@ namespace Rivet {
 			   lepton.momentum().x()*pTmiss.x() -
 			   lepton.momentum().y()*pTmiss.y());
 	  mT = sqrt(mT);
-	  HT += pT;
 	  m_eff_inc += pT;
 	  // apply the cuts on the leptons and min no. of jets
 	  if( ( ( abs(lepton.pdgId()) == ELECTRON && pT > 25. ) ||
 		( abs(lepton.pdgId()) == MUON     && pT > 20. ) ) &&
 	      mT > 100. && eTmiss > 250. ) {
 	    double m_eff = pT+eTmiss;
-	    for(unsigned int ix=0;ix<3;++ix) 
+	    for(unsigned int ix=0;ix<3;++ix)
 	      m_eff += recon_jets[ix].momentum().perp();
 	    // 3 jet channel
 	    if( (njet == 3 || recon_jets[3].momentum().perp() < 80. ) &&
 		recon_jets[0].momentum().perp()>100. ) {
 	      if(eTmiss/m_eff>0.3) {
 		if(m_eff_inc>1200.) {
-		  _count_1l_3jet_all_channel->fill(0.5,weight); 
+		  _count_1l_3jet_all_channel->fill(0.5,weight);
 		  if(abs(lepton.pdgId()) == ELECTRON )
 		    _count_1l_3jet_e_channel->fill(0.5,weight);
 		  else
@@ -284,12 +283,12 @@ namespace Rivet {
 	    m_eff += leptons[ix].momentum().perp();
 	  m_eff_inc += m_eff;
 	  m_eff += eTmiss;
-	  for(unsigned int ix=0;ix<min(4,int(recon_jets.size()));++ix) 
+	  for(unsigned int ix=0;ix<min(4,int(recon_jets.size()));++ix)
 	    m_eff += recon_jets[ix].momentum().perp();
 	  // require opposite sign leptons
 	  if(leptons[0].pdgId()*leptons[1].pdgId()<0) {
 	    // 2 jet
-	    if(recon_jets[1].momentum().perp()>200 && 
+	    if(recon_jets[1].momentum().perp()>200 &&
 	       ( njet<4 || (njet>=4 && recon_jets[3].momentum().perp()<50.)) && eTmiss>300.) {
 	      _count_2l_2jet_all_channel->fill(0.5,weight);
 	      if(abs(leptons[0].pdgId()) == ELECTRON && abs(leptons[1].pdgId()) == ELECTRON )
@@ -301,7 +300,7 @@ namespace Rivet {
 	      _hist_2l_m_eff_2jet->fill(min(1699.,m_eff_inc),weight);
 	    }
 	    // 4 jet
-	    else if(njet>=4&& recon_jets[3].momentum().perp()>=50.&& 
+	    else if(njet>=4&& recon_jets[3].momentum().perp()>=50.&&
 		    eTmiss>100. && eTmiss/m_eff>0.2) {
 	      if( m_eff_inc>650. ) {
 		_count_2l_4jet_all_channel->fill(0.5,weight);
@@ -348,11 +347,10 @@ namespace Rivet {
                          lepton.momentum().x()*pTmiss.x() -
                          lepton.momentum().y()*pTmiss.y());
         mT = sqrt(mT);
-        HT += pT;
         m_eff_inc += pT;
 	double m_eff = pT+eTmiss;
 	// apply final cuts
-	if(recon_jets.size() >= 2 && recon_jets[0].momentum().perp()>130. && 
+	if(recon_jets.size() >= 2 && recon_jets[0].momentum().perp()>130. &&
 	   mT>100. && eTmiss>250.) {
 	  for(unsigned int ix=0;ix<2;++ix) m_eff += recon_jets[0].momentum().perp();
           if( eTmiss/m_eff>0.3 ) {
