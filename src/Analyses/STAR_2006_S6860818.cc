@@ -45,6 +45,8 @@ namespace Rivet {
       _h_pT_xiplus     = bookHisto1D(1, 7, 1);
       //_h_pT_omega      = bookHisto1D(1, 8, 1);
       _h_antibaryon_baryon_ratio = bookScatter2D(2, 1, 1);
+      _h_lambar_lam	= bookScatter2D(2, 2, 1);
+      _h_xiplus_ximinus = bookScatter2D(2, 3, 1);
       _h_pT_vs_mass    = bookProfile1D(3, 1, 1);
     }
 
@@ -153,12 +155,12 @@ namespace Rivet {
         }
       }
       _h_antibaryon_baryon_ratio->addPoints( points );
-
-      // \todo YODA divide
-      // AIDA::IHistogramFactory& hf = histogramFactory();
-      // const string dir = histoDir();
-      // hf.divide(dir + "/d02-x02-y01", *_h_pT_lambdabar, *_h_pT_lambda);
-      // hf.divide(dir + "/d02-x03-y01", *_h_pT_xiplus, *_h_pT_ximinus);
+ 
+      divide(_h_pT_lambdabar,_h_pT_lambda,
+	     _h_lambar_lam);
+      
+      divide(_h_pT_xiplus,_h_pT_ximinus,
+	     _h_xiplus_ximinus);
 
       scale(_h_pT_k0s,       1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_kminus,    1./(2*M_PI*_sumWeightSelected));
@@ -190,6 +192,9 @@ namespace Rivet {
     //Histo1DPtr _h_pT_omega;
     Scatter2DPtr _h_antibaryon_baryon_ratio;
     Profile1DPtr   _h_pT_vs_mass;
+    Scatter2DPtr _h_lambar_lam;
+    Scatter2DPtr _h_xiplus_ximinus;
+
   };
 
 

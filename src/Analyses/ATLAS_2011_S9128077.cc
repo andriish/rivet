@@ -71,6 +71,14 @@ namespace Rivet {
       _h_tmp_HT2_R04_2 = bookHisto1D(17, 1, 1, "tmp15");
       _h_tmp_HT2_R04_3 = bookHisto1D(17, 1, 1, "tmp16");
 
+      _h_pTlead_R06_60_ratio = bookScatter2D(10, 1, 1);      
+      _h_pTlead_R06_80_ratio = bookScatter2D(11, 1, 1);
+      _h_pTlead_R06_110_ratio = bookScatter2D(12, 1, 1);
+      _h_pTlead_R04_60_ratio = bookScatter2D(13, 1, 1);
+      _h_pTlead_R04_80_ratio = bookScatter2D(14, 1, 1);
+      _h_pTlead_R04_110_ratio = bookScatter2D(15, 1, 1);
+      _h_HT2_R06_ratio = bookScatter2D(16, 1, 1);
+      _h_HT2_R04_ratio = bookScatter2D(17, 1, 1);
     }
 
 
@@ -172,31 +180,29 @@ namespace Rivet {
       scale(_h_HT_4, crossSectionPerEvent());
 
       /// create ratio histograms
-      //\todo YODA divide
-      //histogramFactory().divide(histoDir() + "/d10-x01-y01", *_h_tmp_pTlead_R06_60_3, *_h_tmp_pTlead_R06_60_2);
-      //histogramFactory().divide(histoDir() + "/d11-x01-y01", *_h_tmp_pTlead_R06_80_3, *_h_tmp_pTlead_R06_80_2);
-      //histogramFactory().divide(histoDir() + "/d12-x01-y01", *_h_tmp_pTlead_R06_110_3, *_h_tmp_pTlead_R06_110_2);
-      //histogramFactory().divide(histoDir() + "/d13-x01-y01", *_h_tmp_pTlead_R04_60_3, *_h_tmp_pTlead_R04_60_2);
-      //histogramFactory().divide(histoDir() + "/d14-x01-y01", *_h_tmp_pTlead_R04_80_3, *_h_tmp_pTlead_R04_80_2);
-      //histogramFactory().divide(histoDir() + "/d15-x01-y01", *_h_tmp_pTlead_R04_110_3, *_h_tmp_pTlead_R04_110_2);
-      //histogramFactory().divide(histoDir() + "/d16-x01-y01", *_h_tmp_HT2_R06_3, *_h_tmp_HT2_R06_2);
-      //histogramFactory().divide(histoDir() + "/d17-x01-y01", *_h_tmp_HT2_R04_3, *_h_tmp_HT2_R04_2);
-      //histogramFactory().destroy(_h_tmp_pTlead_R06_60_2);
-      //histogramFactory().destroy(_h_tmp_pTlead_R06_80_2);
-      //histogramFactory().destroy(_h_tmp_pTlead_R06_110_2);
-      //histogramFactory().destroy(_h_tmp_pTlead_R06_60_3);
-      //histogramFactory().destroy(_h_tmp_pTlead_R06_80_3);
-      //histogramFactory().destroy(_h_tmp_pTlead_R06_110_3);
-      //histogramFactory().destroy(_h_tmp_pTlead_R04_60_2);
-      //histogramFactory().destroy(_h_tmp_pTlead_R04_80_2);
-      //histogramFactory().destroy(_h_tmp_pTlead_R04_110_2);
-      //histogramFactory().destroy(_h_tmp_pTlead_R04_60_3);
-      //histogramFactory().destroy(_h_tmp_pTlead_R04_80_3);
-      //histogramFactory().destroy(_h_tmp_pTlead_R04_110_3);
-      //histogramFactory().destroy(_h_tmp_HT2_R06_2);
-      //histogramFactory().destroy(_h_tmp_HT2_R06_3);
-      //histogramFactory().destroy(_h_tmp_HT2_R04_2);
-      //histogramFactory().destroy(_h_tmp_HT2_R04_3);
+      divide(_h_tmp_pTlead_R06_60_3,_h_tmp_pTlead_R06_60_2,
+	     _h_pTlead_R06_60_ratio);
+
+      divide(_h_tmp_pTlead_R06_80_3,_h_tmp_pTlead_R06_80_2,
+	     _h_pTlead_R06_80_ratio);
+
+      divide(_h_tmp_pTlead_R06_110_3,_h_tmp_pTlead_R06_110_2,
+	     _h_pTlead_R06_110_ratio);
+
+      divide(_h_tmp_pTlead_R04_60_3,_h_tmp_pTlead_R04_60_2,
+	     _h_pTlead_R04_60_ratio);
+
+      divide(_h_tmp_pTlead_R04_80_3,_h_tmp_pTlead_R04_80_2,
+	     _h_pTlead_R04_80_ratio);
+
+      divide(_h_tmp_pTlead_R04_110_3,_h_tmp_pTlead_R04_110_2,
+	     _h_pTlead_R04_110_ratio);
+
+      divide(_h_tmp_HT2_R06_3,_h_tmp_HT2_R06_2,
+	     _h_HT2_R06_ratio);
+
+      divide(_h_tmp_HT2_R04_3,_h_tmp_HT2_R04_2,
+	     _h_HT2_R04_ratio);
 
     }
 
@@ -238,6 +244,16 @@ namespace Rivet {
     Histo1DPtr _h_tmp_HT2_R06_3;
     Histo1DPtr _h_tmp_HT2_R04_2;
     Histo1DPtr _h_tmp_HT2_R04_3;
+
+    Scatter2DPtr _h_pTlead_R06_60_ratio;
+    Scatter2DPtr _h_pTlead_R06_80_ratio;
+    Scatter2DPtr _h_pTlead_R06_110_ratio;
+    Scatter2DPtr _h_pTlead_R04_60_ratio;
+    Scatter2DPtr _h_pTlead_R04_80_ratio;
+    Scatter2DPtr _h_pTlead_R04_110_ratio;
+    Scatter2DPtr _h_HT2_R06_ratio;
+    Scatter2DPtr _h_HT2_R04_ratio;
+
     //@}
 
   };

@@ -5,6 +5,7 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
+#include "Rivet/Analysis.hh"
 
 namespace Rivet {
 
@@ -43,6 +44,9 @@ namespace Rivet {
       _h_lepton_eta = bookHisto1D("lepton_eta", 40, -4.0, 4.0);
       _htmp_dsigminus_deta = bookHisto1D("lepton_dsigminus_deta", 20, 0.0, 4.0);
       _htmp_dsigplus_deta  = bookHisto1D("lepton_dsigplus_deta", 20, 0.0, 4.0);
+
+      _h_asym = bookScatter2D("W_chargeasymm_eta");
+      _h_asym_pT = bookScatter2D("W_chargeasymm_pT");
 
       MC_JetAnalysis::init();
     }
@@ -113,19 +117,14 @@ namespace Rivet {
       scale(_h_lepton_eta, crossSection()/sumOfWeights());
 
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each Et region
-      // \todo YODA
-      // AIDA::IHistogramFactory& hf = histogramFactory();
-      // IHistogram1D* numtmp = hf.subtract("/numtmp", *_htmp_dsigplus_deta, *_htmp_dsigminus_deta);
-      // IHistogram1D* dentmp = hf.add("/dentmp", *_htmp_dsigplus_deta, *_htmp_dsigminus_deta);
-      // assert(numtmp && dentmp);
-      // hf.divide(histoDir() + "/W_chargeasymm_eta", *numtmp, *dentmp);
-      // hf.destroy(numtmp);
-      // hf.destroy(dentmp);
-      // hf.destroy(_htmp_dsigminus_deta);
-      // hf.destroy(_htmp_dsigplus_deta);
+      divide(*_htmp_dsigplus_deta - *_htmp_dsigminus_deta,
+	     *_htmp_dsigplus_deta + *_htmp_dsigminus_deta,
+	     _h_asym);
 
       // // W charge asymmetry vs. pTW: dsig+/dpT / dsig-/dpT
-      // hf.divide(histoDir() + "/W_chargeasymm_pT", *_h_Wplus_pT, *_h_Wminus_pT);
+      divide(_h_Wplus_pT, _h_Wminus_pT, 
+	     _h_asym_pT);
+
       scale(_h_Wplus_pT, crossSection()/sumOfWeights());
       scale(_h_Wminus_pT, crossSection()/sumOfWeights());
 
@@ -153,6 +152,11 @@ namespace Rivet {
 
     Histo1DPtr _htmp_dsigminus_deta;
     Histo1DPtr _htmp_dsigplus_deta;
+
+    Scatter2DPtr _h_asym;
+    Scatter2DPtr _h_asym_pT;
+
+
     //@}
 
   };

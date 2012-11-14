@@ -410,6 +410,38 @@ namespace Rivet {
   // }
 
 
+  void Analysis::divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
+    // preserve the path info
+    std::string path = s->path();
+    *s = *h1 / *h2;
+    s->setPath( path );
+  }
+
+  void Analysis::divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const {
+    // preserve the path info
+    std::string path = s->path();
+    *s = *p1 / *p2;
+    s->setPath( path );
+  }
+
+  void Analysis::divide(const Histo1D & h1, 
+			const Histo1D & h2, 
+			Scatter2DPtr s) const {
+    // preserve the path info
+    std::string path = s->path();
+    *s = h1 / h2;
+    s->setPath( path );
+  }
+
+  void Analysis::divide(const Profile1D & p1, 
+			const Profile1D & p2, 
+			Scatter2DPtr s) const {
+    // preserve the path info
+    std::string path = s->path();
+    *s = p1 / p2;
+    s->setPath( path );
+  }
+
   void Analysis::normalize(Histo1DPtr histo, double norm, bool includeoverflows) {
     if (!histo) {
       MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");

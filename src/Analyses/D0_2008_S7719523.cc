@@ -59,6 +59,14 @@ namespace Rivet {
       _h_central_opp_cross_section  = bookHisto1D(2, 1, 1);
       _h_forward_same_cross_section = bookHisto1D(3, 1, 1);
       _h_forward_opp_cross_section  = bookHisto1D(4, 1, 1);
+      
+      _h_cen_opp_same	= bookScatter2D(5, 1, 1);
+      _h_fwd_opp_same	= bookScatter2D(8, 1, 1);
+      _h_cen_same_fwd_same = bookScatter2D(6, 1, 1);
+      _h_cen_opp_fwd_same = bookScatter2D(7, 1, 1);
+      _h_cen_same_fwd_opp = bookScatter2D(9, 1, 1);
+      _h_cen_opp_fwd_opp = bookScatter2D(10, 1, 1);
+
     }
 
 
@@ -136,24 +144,30 @@ namespace Rivet {
       const double dy_jet_central = 1.6;
       const double dy_jet_forward = 2.0;
 
-      // \todo YODA divide
+
       // Cross-section ratios (6 plots)
       // Central/central and forward/forward ratios
-      // AIDA::IHistogramFactory& hf = histogramFactory();
-      // const string dir = histoDir();
 
-      // hf.divide(dir + "/d05-x01-y01", *_h_central_opp_cross_section, *_h_central_same_cross_section);
-      // hf.divide(dir + "/d08-x01-y01", *_h_forward_opp_cross_section, *_h_forward_same_cross_section);
+      divide(_h_central_opp_cross_section,_h_central_same_cross_section,
+	     _h_cen_opp_same);
 
-      // // Central/forward ratio combinations
-      // hf.divide(dir + "/d06-x01-y01", *_h_central_same_cross_section,
-      //           *_h_forward_same_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
-      // hf.divide(dir + "/d07-x01-y01", *_h_central_opp_cross_section,
-      //           *_h_forward_same_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
-      // hf.divide(dir + "/d09-x01-y01", *_h_central_same_cross_section,
-      //           *_h_forward_opp_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
-      // hf.divide(dir + "/d10-x01-y01", *_h_central_opp_cross_section,
-      //           *_h_forward_opp_cross_section)->scale(dy_jet_forward/dy_jet_central, 1);
+      divide(_h_forward_opp_cross_section,_h_forward_same_cross_section,
+	     _h_fwd_opp_same);
+
+
+      // Central/forward ratio combinations
+
+      divide(_h_central_same_cross_section,_h_forward_same_cross_section,
+	     _h_cen_same_fwd_same);
+
+      divide(_h_central_opp_cross_section,_h_forward_same_cross_section,
+	     _h_cen_opp_fwd_same);
+
+      divide(_h_central_same_cross_section,_h_forward_opp_cross_section,
+	     _h_cen_same_fwd_opp);
+
+      divide(_h_central_opp_cross_section,_h_forward_opp_cross_section,
+	     _h_cen_opp_fwd_opp);
 
       // Use generator cross section for remaining histograms
       // Each of these needs the additional factor 2 because the
@@ -175,6 +189,13 @@ namespace Rivet {
     Histo1DPtr _h_central_opp_cross_section;
     Histo1DPtr _h_forward_same_cross_section;
     Histo1DPtr _h_forward_opp_cross_section;
+
+    Scatter2DPtr _h_cen_opp_same;
+    Scatter2DPtr _h_fwd_opp_same;
+    Scatter2DPtr _h_cen_same_fwd_same;
+    Scatter2DPtr _h_cen_opp_fwd_same;
+    Scatter2DPtr _h_cen_same_fwd_opp;
+    Scatter2DPtr _h_cen_opp_fwd_opp;   
     //@}
 
   };

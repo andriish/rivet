@@ -27,12 +27,13 @@ namespace Rivet {
       _histPtPhi        = bookHisto1D("d05-x01-y01");
       _temp_h_Lambdas   = bookHisto1D(6, 1, 1, "temp_h_Lambdas");
       _temp_h_Kzeros    = bookHisto1D(6, 1, 1, "temp_h_Kzeros");
+      _h_LamKzero	= bookScatter2D(6, 1, 1, "_h_LamKzero");
     }
 
     void analyze(const Event& event) {
       const double weight = event.weight();
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
-
+      
       foreach (const Particle& p, ufs.particles()) {
         const double absrap = fabs(p.momentum().rapidity());
         const double pT = p.momentum().pT()/GeV;
@@ -78,16 +79,13 @@ namespace Rivet {
     }
 
     void finalize() {
-      scale(_histPtK0s,        1./(1.5*sumOfWeights()));
-      scale(_histPtLambda,     1./(1.5*sumOfWeights()));
-      scale(_histPtAntiLambda, 1./(1.5*sumOfWeights()));
-      scale(_histPtXi,         1./(1.6*sumOfWeights()));
-      scale(_histPtPhi,        1./(1.2*sumOfWeights()));
+      	scale(_histPtK0s,        1./(1.5*sumOfWeights()));
+      	scale(_histPtLambda,     1./(1.5*sumOfWeights()));
+      	scale(_histPtAntiLambda, 1./(1.5*sumOfWeights()));
+      	scale(_histPtXi,         1./(1.6*sumOfWeights()));
+      	scale(_histPtPhi,        1./(1.2*sumOfWeights()));
 
-      // \todo YODA divide
-      //histogramFactory().divide(histoPath("d06-x01-y01"), *_temp_h_Lambdas, *_temp_h_Kzeros);
-      //histogramFactory().destroy(_temp_h_Lambdas);
-      //histogramFactory().destroy(_temp_h_Kzeros);
+	divide(_temp_h_Lambdas, _temp_h_Kzeros, _h_LamKzero);
     }
 
 
@@ -100,6 +98,7 @@ namespace Rivet {
     Histo1DPtr _histPtPhi;
     Histo1DPtr _temp_h_Lambdas;
     Histo1DPtr _temp_h_Kzeros;
+    Scatter2DPtr _h_LamKzero;
 
   };
 

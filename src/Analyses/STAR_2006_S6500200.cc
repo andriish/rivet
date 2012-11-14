@@ -37,6 +37,11 @@ namespace Rivet {
       _h_pT_piminus    = bookHisto1D(1, 2, 1);
       _h_pT_proton     = bookHisto1D(1, 3, 1);
       _h_pT_antiproton = bookHisto1D(1, 4, 1);
+
+      _h_piminus_piplus	= bookScatter2D(2, 1, 1);
+      _h_antipr_pr	= bookScatter2D(2, 2, 1);
+      _h_pr_piplus	= bookScatter2D(2, 3, 1);
+      _h_antipr_piminus	= bookScatter2D(2, 4, 1);  
     }
 
 
@@ -82,14 +87,17 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      // \todo YODA divide
-      // AIDA::IHistogramFactory& hf = histogramFactory();
-      // const string dir = histoDir();
+      divide(_h_pT_piminus, _h_pT_piplus,
+	     _h_piminus_piplus);
 
-      // hf.divide(dir + "/d02-x01-y01", *_h_pT_piminus, *_h_pT_piplus);
-      // hf.divide(dir + "/d02-x02-y01", *_h_pT_antiproton, *_h_pT_proton);
-      // hf.divide(dir + "/d02-x03-y01", *_h_pT_proton, *_h_pT_piplus);
-      // hf.divide(dir + "/d02-x04-y01", *_h_pT_antiproton, *_h_pT_piminus);
+      divide(_h_pT_antiproton, _h_pT_proton,
+	     _h_antipr_pr);
+
+      divide(_h_pT_proton, _h_pT_piplus,
+	     _h_pr_piplus);
+ 
+      divide(_h_pT_antiproton, _h_pT_piminus,
+	     _h_antipr_piminus);
 
       scale(_h_pT_piplus,     1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_piminus,    1./(2*M_PI*_sumWeightSelected));
@@ -108,6 +116,12 @@ namespace Rivet {
     Histo1DPtr _h_pT_piminus;
     Histo1DPtr _h_pT_proton;
     Histo1DPtr _h_pT_antiproton;
+
+    Scatter2DPtr _h_piminus_piplus;
+    Scatter2DPtr _h_antipr_pr;
+    Scatter2DPtr _h_pr_piplus;
+    Scatter2DPtr _h_antipr_piminus;
+
   };
 
 

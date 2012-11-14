@@ -311,6 +311,24 @@ namespace Rivet {
     /// Set the cross section from the generator
     Analysis& setCrossSection(double xs);
 
+    /// Helper for histogram division. Preserves the path information
+    /// of the target.
+    void divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
+
+    /// Helper for profile histogram division. Preserves the path information
+    /// of the target.
+    void divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const;
+
+    /// Helper for histogram division. Preserves the path information
+    /// of the target.
+    void divide(const YODA::Histo1D & h1, 
+		const YODA::Histo1D & h2, Scatter2DPtr s) const;
+
+    /// Helper for profile histogram division. Preserves the path information
+    /// of the target.
+    void divide(const YODA::Profile1D & p1, 
+		const YODA::Profile1D & p2, Scatter2DPtr s) const;
+
 
   protected:
 

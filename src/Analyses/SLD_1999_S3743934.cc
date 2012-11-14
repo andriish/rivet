@@ -327,6 +327,31 @@ namespace Rivet {
       _histRPBar    = bookHisto1D( 32, 1, 2);
       _histRLambda  = bookHisto1D( 34, 1, 1);
       _histRLBar    = bookHisto1D( 34, 1, 2);
+ 
+
+      _h_Xp_PiPl_Ch		= bookScatter2D(1, 1, 1);
+      _h_Xp_KPl_Ch		= bookScatter2D(2, 1, 1);
+      _h_Xp_Pr_Ch		= bookScatter2D(3, 1, 1);
+      _h_Xp_PiPlCh_PiPlLi	= bookScatter2D(11, 1, 1);
+      _h_Xp_PiPlBo_PiPlLi	= bookScatter2D(11, 1, 2);
+      _h_Xp_KPlCh_KPlLi	= bookScatter2D(13, 1, 1);
+      _h_Xp_KPlBo_KPlLi	= bookScatter2D(13, 1, 2);
+      _h_Xp_KS0Ch_KS0Li	= bookScatter2D(15, 1, 1);
+      _h_Xp_KS0Bo_KS0Li	= bookScatter2D(15, 1, 2);
+      _h_Xp_PrCh_PrLi		= bookScatter2D(17, 1, 1);
+      _h_Xp_PrBo_PrLi		= bookScatter2D(17, 1, 2);
+      _h_Xp_LaCh_LaLi		= bookScatter2D(19, 1, 1);
+      _h_Xp_LaBo_LaLi		= bookScatter2D(19, 1, 2);
+      _h_Xp_K0Ch_K0Li		= bookScatter2D(21, 1, 1);
+      _h_Xp_K0Bo_K0Li		= bookScatter2D(21, 1, 2);
+      _h_Xp_PhiCh_PhiLi	= bookScatter2D(23, 1, 1);
+      _h_Xp_PhiBo_PhiLi	= bookScatter2D(23, 1, 2);
+
+      _h_PiM_PiP		= bookScatter2D(27, 1, 1);
+      _h_KSBar0_KS0		= bookScatter2D(29, 1, 1);
+      _h_KM_KP		= bookScatter2D(31, 1, 1);
+      _h_Pr_PBar		= bookScatter2D(33, 1, 1);
+      _h_Lam_LBar		= bookScatter2D(35, 1, 1); 
 
     }
 
@@ -334,72 +359,80 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       // get the ratio plots sorted out first
-      // @todo YODA
-      //AIDA::IDataPointSet* h = 0;
-      //const string dir = histoDir();
-      //h = histogramFactory().divide(dir + "/d01-x01-y01", *_histXpPiPlusN , *_histXpChargedN );
-      //h = histogramFactory().divide(dir + "/d02-x01-y01", *_histXpKPlusN , *_histXpChargedN );
-      //h = histogramFactory().divide(dir + "/d03-x01-y01", *_histXpProtonN , *_histXpChargedN );
-      //h = histogramFactory().divide(dir + "/d11-x01-y01", *_histXpPiPlusCharm , *_histXpPiPlusLight);
-      //scale(h,_SumOfudsWeights/_SumOfcWeights);
-      //h = histogramFactory().divide(dir + "/d11-x01-y02", *_histXpPiPlusBottom, *_histXpPiPlusLight);
-      //scale(h,_SumOfudsWeights/_SumOfbWeights);
-      //h = histogramFactory().divide(dir + "/d13-x01-y01", *_tempXpKPlusCharm  , *_tempXpKPlusLight );
-      //scale(h,_SumOfudsWeights/_SumOfcWeights);
-      //h = histogramFactory().divide(dir + "/d13-x01-y02", *_histXpKPlusBottom , *_histXpKPlusLight );
-      //scale(h,_SumOfudsWeights/_SumOfbWeights);
-      //h = histogramFactory().divide(dir + "/d15-x01-y01", *_tempXpKStar0Charm , *_tempXpKStar0Light);
-      //scale(h,_SumOfudsWeights/_SumOfcWeights);
-      //h = histogramFactory().divide(dir + "/d15-x01-y02", *_histXpKStar0Bottom, *_histXpKStar0Light);
-      //scale(h,_SumOfudsWeights/_SumOfbWeights);
-      //h = histogramFactory().divide(dir + "/d17-x01-y01", *_tempXpProtonCharm , *_tempXpProtonLight);
-      //scale(h,_SumOfudsWeights/_SumOfcWeights);
-      //h = histogramFactory().divide(dir + "/d17-x01-y02", *_histXpProtonBottom, *_histXpProtonLight);
-      //scale(h,_SumOfudsWeights/_SumOfbWeights);
-      //h = histogramFactory().divide(dir + "/d19-x01-y01", *_histXpLambdaCharm , *_histXpLambdaLight);
-      //scale(h,_SumOfudsWeights/_SumOfcWeights);
-      //h = histogramFactory().divide(dir + "/d19-x01-y02", *_histXpLambdaBottom, *_histXpLambdaLight);
-      //scale(h,_SumOfudsWeights/_SumOfbWeights);
-      //h = histogramFactory().divide(dir + "/d21-x01-y01", *_histXpK0Charm     , *_histXpK0Light    );
-      //scale(h,_SumOfudsWeights/_SumOfcWeights);
-      //h = histogramFactory().divide(dir + "/d21-x01-y02", *_histXpK0Bottom    , *_histXpK0Light    );
-      //scale(h,_SumOfudsWeights/_SumOfbWeights);
-      //h = histogramFactory().divide(dir + "/d23-x01-y01", *_histXpPhiCharm    , *_histXpPhiLight   );
-      //scale(h,_SumOfudsWeights/_SumOfcWeights);
-      //h =  histogramFactory().divide(dir + "/d23-x01-y02", *_histXpPhiBottom   , *_histXpPhiLight   );
-      //scale(h,_SumOfudsWeights/_SumOfbWeights);
-      //histogramFactory().destroy(_tempXpKPlusCharm );
-      //histogramFactory().destroy(_tempXpKPlusLight );
-      //histogramFactory().destroy(_tempXpKStar0Charm);
-      //histogramFactory().destroy(_tempXpKStar0Light);
-      //histogramFactory().destroy(_tempXpProtonCharm);
-      //histogramFactory().destroy(_tempXpProtonLight);
+      divide(_histXpPiPlusN,_histXpChargedN,
+	     _h_Xp_PiPl_Ch);
+
+      divide(_histXpKPlusN,_histXpChargedN,
+	     _h_Xp_KPl_Ch);
+
+      divide(_histXpProtonN,_histXpChargedN,
+	     _h_Xp_Pr_Ch);
+
+      divide(_histXpPiPlusCharm ,_histXpPiPlusLight,
+	     _h_Xp_PiPlCh_PiPlLi);
+
+      divide(_histXpPiPlusBottom ,_histXpPiPlusLight,
+	     _h_Xp_PiPlBo_PiPlLi);
+
+      divide(_tempXpKPlusCharm  ,_tempXpKPlusLight,
+	     _h_Xp_KPlCh_KPlLi);
+
+      divide(_histXpKPlusBottom ,_histXpKPlusLight,
+	     _h_Xp_KPlBo_KPlLi);
+
+      divide(_tempXpKStar0Charm,_tempXpKStar0Light,
+	     _h_Xp_KS0Ch_KS0Li);
+
+      divide(_histXpKStar0Bottom,_histXpKStar0Light,
+	     _h_Xp_KS0Bo_KS0Li);
+
+      divide(_tempXpProtonCharm,_tempXpProtonLight,
+	     _h_Xp_PrCh_PrLi);
+
+      divide(_histXpProtonBottom,_histXpProtonLight,
+	     _h_Xp_PrBo_PrLi);
+
+      divide(_histXpLambdaCharm ,_histXpLambdaLight,
+	     _h_Xp_LaCh_LaLi);
+
+      divide(_histXpLambdaBottom ,_histXpLambdaLight,
+	     _h_Xp_LaBo_LaLi);
+
+      divide(_histXpK0Charm ,_histXpK0Light,
+	     _h_Xp_K0Ch_K0Li);
+
+      divide(_histXpK0Bottom ,_histXpK0Light,
+	     _h_Xp_K0Bo_K0Li);
+
+      divide(_histXpPhiCharm ,_histXpPhiLight,
+	     _h_Xp_PhiCh_PhiLi);
+
+      divide(_histXpPhiBottom ,_histXpPhiLight,
+	     _h_Xp_PhiBo_PhiLi);
+
       //// leading particles
-      //Histo1DPtr * num = histogramFactory().subtract(dir + "/n1",*_histRPiMinus,*_histRPiPlus);
-      //Histo1DPtr * den = histogramFactory().add     (dir + "/n2",*_histRPiMinus,*_histRPiPlus);
-      //h   = histogramFactory().divide(dir +"/d27-x01-y01",*num,*den);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
-      //num = histogramFactory().subtract(dir + "/n3",*_histRKSBar0,*_histRKS0);
-      //den = histogramFactory().add     (dir + "/n4",*_histRKSBar0,*_histRKS0);
-      //h   = histogramFactory().divide(dir +"/d29-x01-y01",*num,*den);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
-      //num = histogramFactory().subtract(dir + "/n5",*_histRKMinus,*_histRKPlus);
-      //den = histogramFactory().add     (dir + "/n6",*_histRKMinus,*_histRKPlus);
-      //h   = histogramFactory().divide(dir +"/d31-x01-y01",*num,*den);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
-      //num = histogramFactory().subtract(dir + "/n7",*_histRProton,*_histRPBar);
-      //den = histogramFactory().add     (dir + "/n8",*_histRProton,*_histRPBar);
-      //h   = histogramFactory().divide(dir +"/d33-x01-y01",*num,*den);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
-      //num = histogramFactory().subtract(dir + "/n9" ,*_histRLambda,*_histRLBar);
-      //den = histogramFactory().add     (dir + "/n10",*_histRLambda,*_histRLBar);
-      //h   = histogramFactory().divide(dir +"/d35-x01-y01",*num,*den);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
+
+      divide(*_histRPiMinus - *_histRPiPlus,
+	     *_histRPiMinus + *_histRPiPlus,
+	     _h_PiM_PiP);
+
+      divide(*_histRKSBar0 - *_histRKS0,
+	     *_histRKSBar0 + *_histRKS0,
+	     _h_KSBar0_KS0);
+
+      divide(*_histRKMinus - *_histRKPlus,
+	     *_histRKMinus + *_histRKPlus,
+	     _h_KM_KP);
+
+      divide(*_histRProton - *_histRPBar,
+	     *_histRProton + *_histRPBar,
+	     _h_Pr_PBar);
+
+      divide(*_histRLambda - *_histRLBar,
+	     *_histRLambda + *_histRLBar,
+	     _h_Lam_LBar);
+
+
       // then the rest
       Analysis::scale(_histXpPiPlusN    ,1./sumOfWeights());
       Analysis::scale(_histXpKPlusN     ,1./sumOfWeights());
@@ -715,6 +748,31 @@ namespace Rivet {
     Histo1DPtr _histRPBar   ;
     Histo1DPtr _histRLambda ;
     Histo1DPtr _histRLBar   ;
+
+    Scatter2DPtr _h_Xp_PiPl_Ch;
+    Scatter2DPtr _h_Xp_KPl_Ch;
+    Scatter2DPtr _h_Xp_Pr_Ch;
+    Scatter2DPtr _h_Xp_PiPlCh_PiPlLi;
+    Scatter2DPtr _h_Xp_PiPlBo_PiPlLi;
+    Scatter2DPtr _h_Xp_KPlCh_KPlLi;
+    Scatter2DPtr _h_Xp_KPlBo_KPlLi;
+    Scatter2DPtr _h_Xp_KS0Ch_KS0Li;
+    Scatter2DPtr _h_Xp_KS0Bo_KS0Li;
+    Scatter2DPtr _h_Xp_PrCh_PrLi;
+    Scatter2DPtr _h_Xp_PrBo_PrLi;
+    Scatter2DPtr _h_Xp_LaCh_LaLi;
+    Scatter2DPtr _h_Xp_LaBo_LaLi;
+    Scatter2DPtr _h_Xp_K0Ch_K0Li;
+    Scatter2DPtr _h_Xp_K0Bo_K0Li;
+    Scatter2DPtr _h_Xp_PhiCh_PhiLi;
+    Scatter2DPtr _h_Xp_PhiBo_PhiLi; 
+
+    Scatter2DPtr _h_PiM_PiP;
+    Scatter2DPtr _h_KSBar0_KS0;
+    Scatter2DPtr _h_KM_KP;
+    Scatter2DPtr _h_Pr_PBar;
+    Scatter2DPtr _h_Lam_LBar;
+
     //@}
 
   };

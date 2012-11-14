@@ -236,6 +236,10 @@ namespace Rivet {
       _histRProton  = bookHisto1D(11, 1, 1);
       _histRPBar    = bookHisto1D(11, 1, 2);
 
+      _h_PiM_PiP	= bookScatter2D(9, 1, 3);
+      _h_KM_KP		= bookScatter2D(10, 1, 3);
+      _h_Pr_PBar	= bookScatter2D(11, 1, 3);
+
     }
 
 
@@ -262,25 +266,15 @@ namespace Rivet {
       //AIDA::IDataPointSet * multD2 = bookDataPointSet(8, 3, 3);
       //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
 
-      //const string dir = histoDir();
-      //Histo1DPtr * num = histogramFactory().subtract(dir + "/n1",*_histRPiMinus,*_histRPiPlus);
-      //Histo1DPtr * den = histogramFactory().add     (dir + "/n2",*_histRPiMinus,*_histRPiPlus);
-      //AIDA::IDataPointSet* h   = histogramFactory().divide(dir +"/d09-x01-y03",*num,*den);
-      //scale(h,100.);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
-      //num = histogramFactory().subtract(dir + "/n3",*_histRKMinus,*_histRKPlus);
-      //den = histogramFactory().add     (dir + "/n4",*_histRKMinus,*_histRKPlus);
-      //h   = histogramFactory().divide(dir +"/d10-x01-y03",*num,*den);
-      //scale(h,100.);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
-      //num = histogramFactory().subtract(dir + "/n5",*_histRProton,*_histRPBar);
-      //den = histogramFactory().add     (dir + "/n6",*_histRProton,*_histRPBar);
-      //h   = histogramFactory().divide(dir +"/d11-x01-y03",*num,*den);
-      //scale(h,100.);
-      //histogramFactory().destroy(num);
-      //histogramFactory().destroy(den);
+
+      divide(*_histRPiMinus - *_histRPiPlus,*_histRPiMinus + *_histRPiPlus,
+	     _h_PiM_PiP);
+
+      divide(*_histRKMinus - *_histRKPlus,*_histRKMinus + *_histRKPlus,
+	     _h_KM_KP);
+
+      divide(*_histRProton - *_histRPBar,*_histRProton + *_histRPBar,
+	     _h_Pr_PBar);
 
       // histograms
       Analysis::scale(_histPCharged   ,1./sumOfWeights());
@@ -379,6 +373,11 @@ namespace Rivet {
     Histo1DPtr _histRKMinus ;
     Histo1DPtr _histRProton ;
     Histo1DPtr _histRPBar   ;
+
+    Scatter2DPtr _h_PiM_PiP;
+    Scatter2DPtr _h_KM_KP;
+    Scatter2DPtr _h_Pr_PBar;
+
     //@}
 
     // @todo YODA
