@@ -1,175 +1,132 @@
-# BEGIN PLOT /CMS_2012_I1107658/d01-x01-y01
-Title=$<\text{N}_\text{ch}>$  vs $\text{p}_{T}^{\mu\mu}$, $| \Delta \phi | < 60^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$(1/N_\text{ev})\; dN_\text{ch}/\Delta \eta \Delta (\Delta \phi) $
-LegendYPos=0.4
-FullRange=1
+# BEGIN PLOT /CMS_2012_I1107658/d0
 LogY=0
+LegendYPos=0.4
+# END PLOT
+
+# BEGIN PLOT /CMS_2012_I1107658/d0[1-3]
+XLabel=$p_\perp(\mu\mu)$ [GeV]
+YLabel=$\langle\mathrm{d}^2 N_\text{chg}/\mathrm{d}\eta\mathrm{d}\phi\rangle$
+# END PLOT
+
+# BEGIN PLOT /CMS_2012_I1107658/d01-x01-y01
+Title=Toward $N_\text{chg}$ density vs $p_\perp^{\mu\mu}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d02-x01-y01
-Title=$<\text{N}_\text{ch}>$  vs $\text{p}_{T}^{\mu\mu}$, $60^{o} < | \Delta \phi | < 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$(1/N_\text{ev})\; dN_\text{ch}/\Delta \eta \Delta (\Delta \phi) $
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Transverse $N_\text{chg}$ density vs $p_\perp^{\mu\mu}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d03-x01-y01
-Title=$<\text{N}_\text{ch}>$  vs $\text{p}_{T}^{\mu\mu}$, $| \Delta \phi | > 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$(1/N_\text{ev})\; dN_\text{ch}/\Delta \eta \Delta (\Delta \phi) $
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Away $N_\text{chg}$ density vs $p_\perp^{\mu\mu}$
+# END PLOT
+
+
+# BEGIN PLOT /CMS_2012_I1107658/d0[4-6]
+XLabel=$p_\perp(\mu\mu)$ [GeV]
+YLabel=$\langle\mathrm{d}^2 \sum p_\perp/\mathrm{d}\eta\mathrm{d}\phi\rangle$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d04-x01-y01
-Title=$<\Sigma\text{p}_{T}>$  vs $\text{p}_{T}^{\mu\mu}$, $| \Delta \phi | < 60^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$(1/N_\text{ev})\; \Sigma p_{T}/\Delta \eta \Delta (\Delta \phi)$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Toward $\sum p_\perp$ density vs $p_\perp^{\mu\mu}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d05-x01-y01
-Title=$<\Sigma\text{p}_{T}>$  vs $\text{p}_{T}^{\mu\mu}$, $60^{o} < | \Delta \phi | < 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$(1/N_\text{ev})\; \Sigma p_{T}/\Delta \eta \Delta (\Delta \phi)$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Transverse $\sum p_\perp$ density vs $p_\perp^{\mu\mu}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d06-x01-y01
-Title=$<\Sigma\text{p}_{T}>$ vs $\text{p}_{T}^{\mu\mu}$, $| \Delta \phi | > 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$(1/N_\text{ev})\; \Sigma p_{T}/\Delta \eta \Delta (\Delta \phi)$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Away $\sum p_\perp$ density vs $p_\perp^{\mu\mu}$
+# END PLOT
+
+
+# BEGIN PLOT /CMS_2012_I1107658/d0[7-9]
+XLabel=$p_\perp(\mu\mu)$ [GeV]
+YLabel=$\langle p_\perp \rangle$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d07-x01-y01
-Title=$< \Sigma\text{p}_{T}>$/<$\text{N}_\text{ch}>$ vs $\text{p}_{T}^{\mu\mu}$, $| \Delta \phi | < 60^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$<\Sigma p_{T}>/<\text{N}_\text{ch}>$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Toward $\langle p_\perp \rangle$ vs $p_\perp^{\mu\mu}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d08-x01-y01
-Title=$< \Sigma\text{p}_{T}>$/$\<text{N}_\text{ch}>$ vs $\text{p}_{T}^{\mu\mu}$, $60^{o} < | \Delta \phi | < 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$< \Sigma p_{T}>/<\text{N}_\text{ch}>$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Transverse $\langle p_\perp \rangle$ vs $p_\perp^{\mu\mu}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d09-x01-y01
-Title=$< \Sigma\text{p}_{T}>$/$< \text{N}_\text{ch}>$ vs $\text{p}_{T}^{\mu\mu}$, $| \Delta \phi | > 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{p}_{T}^{\mu\mu}$ [GeV/c]
-YLabel=$<\Sigma p_{T}>/<\text{N}_\text{ch}>$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Away $\langle p_\perp \rangle$ vs $p_\perp^{\mu\mu}$
 # END PLOT
 
 
-# BEGIN PLOT /CMS_2012_I1107658/d10-x01-y01
-Title=$<\text{N}_\text{ch}>$ vs $\text{M}_{\mu\mu}$, $| \Delta \phi | < 120^{o}$, $ p_{T}^{\mu\mu} < 5$ GeV/c
-XLabel=$\text{M}_{\mu\mu}$ [GeV/c$^{2}$]
-YLabel=$(1/N_\text{ev})\; dN_\text{ch}/\Delta \eta \Delta (\Delta \phi) $
-LegendYPos=0.4
-FullRange=1
+
+# BEGIN PLOT /CMS_2012_I1107658/d1[0-2]
+XLabel=$m_{\mu\mu}$ [GeV]
+YMin=0.5
 LogY=0
+LegendYPos=0.4
+# END PLOT
+
+# BEGIN PLOT /CMS_2012_I1107658/d10-x01-y01
+Title=Towards $+$ transverse $N_\text{chg}$ density vs $m_{\mu\mu}$, $p_\perp^{\mu\mu} < 5$ GeV
+YLabel=$\langle\mathrm{d}^2 N_\text{chg}/\mathrm{d}\eta\mathrm{d}\phi\rangle$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d11-x01-y01
-Title=$<\Sigma\text{p}_{T}>$ vs $\text{M}_{\mu\mu}$, $| \Delta \phi | < 120^{o}$, $ p_{T}^{\mu\mu} < 5$ GeV/c
-XLabel=$\text{M}_{\mu\mu}$ [GeV/c$^{2}$]
-YLabel=$(1/N_\text{ev})\; \Sigma p_{T}/\Delta \eta \Delta (\Delta \phi)$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Towards $+$ transverse $\sum p_\perp$ density vs $m_{\mu\mu}$, $p_\perp^{\mu\mu} < 5$ GeV
+YLabel=$\langle\mathrm{d}^2 \sum p_\perp/\mathrm{d}\eta\mathrm{d}\phi\rangle$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d12-x01-y01
-Title=$< \Sigma\text{p}_{T}>$/$< \text{N}_\text{ch}>$ vs $\text{M}_{\mu\mu}$, $| \Delta \phi | < 120^{o}$, $p_{T}^{\mu\mu} < 5$ GeV/c
-XLabel=$\text{M}_{\mu\mu}$ [GeV/c$^{2}$]
-YLabel=$<\Sigma p_{T}>/<\text{N}_\text{ch}>$ [GeV/c]
-LegendYPos=0.4
-FullRange=1
-LogY=0
+Title=Towards $+$ transverse $\langle p_\perp \rangle$ vs $m_{\mu\mu}$, $p_\perp^{\mu\mu} < 5$ GeV
+YLabel=$\langle p_\perp \rangle$
 # END PLOT
 
 
-# BEGIN PLOT /CMS_2012_I1107658/d13-x01-y01
-Title=Normalized $\text{N}_\text{ch}$, $| \Delta \phi | < 60^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{N}_\text{ch}$
-YLabel=$(1/N_\text{ev})\; d N_\text{ev} / d N_\text{ch}$
-FullRange=1
-LogY=1
 
+# BEGIN PLOT /CMS_2012_I1107658/d1[3-5]
+XLabel=$N_\text{chg}$
+YLabel=$1/N_\text{ev} \; \mathrm{d} N_\text{ev} / \mathrm{d} N_\text{chg}$
+# END PLOT
+
+# BEGIN PLOT /CMS_2012_I1107658/d13-x01-y01
+Title=Toward $N_\text{chg}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d14-x01-y01
-Title= Normalized  $\text{N}_\text{ch}$, $60^{o} < | \Delta \phi | < 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{N}_\text{ch}$
-YLabel=$(1/N_\text{ev})\; d N_\text{ev} / d N_\text{ch}$
-FullRange=1
-LogY=1
+Title=Transverse $N_\text{chg}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d15-x01-y01
-Title= Normalized $\text{N}_\text{ch}$, $| \Delta \phi | > 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$\text{N}_\text{ch}$
-YLabel=$(1/N_\text{ev})\; d N_\text{ev} / d N_\text{ch}$
-FullRange=1
-LogY=1
+Title=Away $N_\text{chg}$
 # END PLOT
 
 
+
+# BEGIN PLOT /CMS_2012_I1107658/d1[6-8]
+XLabel=$p_\perp$ [GeV]
+YLabel=$1/N_\text{ev} \; \mathrm{d} N_\text{chg} / \mathrm{d} p_\perp$ [GeV$^{-1}$]
+# END PLOT
+
 # BEGIN PLOT /CMS_2012_I1107658/d16-x01-y01
-Title=Normalized $ \text{p}_\text{T}$, $| \Delta \phi | < 60^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$ p_\text{T}$ [GeV/c]
-YLabel=d N_\text{ch} / d p_\text{T}$ $[(\text{GeV/c})^{-1}]$
-FullRange=1
-LogY=1
+Title=Toward $p_\perp$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d17-x01-y01
-Title= Normalized $ \text{p}_\text{T}$ , $60^{o} < | \Delta \phi | < 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$ p_\text{T}$ [GeV/c]
-YLabel=d N_\text{ch} / d p_\text{T}$ $[(\text{GeV/c})^{-1}]$
-FullRange=1
-LogY=1
+Title=Transverse $p_\perp$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d18-x01-y01
-Title= Normalized $ \text{p}_\text{T}$ , $| \Delta \phi | > 120^{o}$, $  M_{\mu\mu} \in [81,101]$ GeV/c$^{2}$
-XLabel=$ p_\text{T}$ [GeV/c]
-YLabel=d N_\text{ch} / d p_\text{T}$ $[(\text{GeV/c})^{-1}]$
-FullRange=1
-LogY=1
+Title=Away $p_\perp$
 # END PLOT
 
+
 # BEGIN PLOT /CMS_2012_I1107658/d19-x01-y01
-Title= Normalized $\text{N}_\text{ch}$, $60^{o} < | \Delta \phi | < 120^{o}$, $ p_{T}^{\mu\mu} < 5$ GeV/c
-XLabel=$\text{N}_\text{ch}$
-YLabel=$(1/N_\text{ev})\; dN_\text{ev} / dN_\text{ch}$
-FullRange=1
-LogY=1
+Title=Transverse $N_\text{chg}$, $p_\perp(\mu\mu) < 5$ GeV
+XLabel=$N_\text{chg}$
+YLabel=$1/N_\text{ev} \; \mathrm{d} N_\text{ev} / \mathrm{d} N_\text{chg}$
 # END PLOT
 
 # BEGIN PLOT /CMS_2012_I1107658/d20-x01-y01
-Title= Normalized $ \text{p}_\text{T}$, $60^{o} < | \Delta \phi | < 120^{o}$, $ p_{T}^{\mu\mu} < 5$ GeV/c
-XLabel=$ p_\text{T}$ [GeV/c]
-YLabel=$dN_\text{ch} / dp_\text{T}$ $[(\text{GeV/c})^{-1}]$
-FullRange=1
-LogY=1
+Title=Transverse $p_\perp$, $p_\perp(\mu\mu) < 5$ GeV
+XLabel=$p_\perp$ [GeV]
+YLabel=$1/N_\text{ev} \; \mathrm{d} N_\text{chg} / \mathrm{d} p_\perp$ [GeV$^{-1}$]
 # END PLOT
