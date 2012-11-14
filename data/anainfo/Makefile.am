@@ -120,6 +120,7 @@ dist_pkgdata_DATA = \
   CMS_2011_S9088458.info \
   CMS_2011_S9120041.info \
   CMS_2012_I1087342.info \
+  CMS_2012_I1107658.info \
   CMS_QCD_10_024.info \
   D0_1996_S3214044.info \
   D0_1996_S3324664.info \
