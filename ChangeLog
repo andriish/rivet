@@ -6,6 +6,10 @@
 	being violated). The angle check allows a clean-up of some
 	workaround code in MC_VH2BB.
 
+2012-10-04  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added ATLAS_2012_I1183818 analysis
+
 2012-07-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Cleanup and multiple fixes in CMS_2011_S9120041
