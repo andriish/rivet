@@ -14,7 +14,7 @@ namespace Rivet {
     : _rapscheme(rapscheme)
   {
     setName("JetShape");
-    _binedges = linspace(rmin, rmax, nbins);
+    _binedges = linspace(nbins, rmin, rmax);
     _ptcuts = make_pair(ptmin, ptmax);
     _rapcuts = make_pair(absrapmin, absrapmax);
     addProjection(jetalg, "Jets");

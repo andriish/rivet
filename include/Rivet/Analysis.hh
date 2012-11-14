@@ -392,7 +392,9 @@ namespace Rivet {
     /// Get bin edges for a numbered histo (using ref AIDA caching)
     const BinEdges& binEdges(size_t datasetId, size_t xAxisId, size_t yAxisId) const;
 
-    /// Get bin edges with logarithmic widths
+    /// @brief Get bin edges with logarithmic widths
+    ///
+    /// @deprecated Prefer logspace. This will disappear in Rivet 2.0.0
     BinEdges logBinEdges(size_t nbins, double lower, double upper);
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .

@@ -208,8 +208,11 @@ namespace Rivet {
   /// @name Binning helper functions
   //@{
 
-  /// Make a list of @a nbins + 1 values equally spaced between @a start and @a end inclusive.
-  inline vector<double> linspace(double start, double end, size_t nbins) {
+  /// @brief Make a list of @a nbins + 1 values equally spaced between @a start and @a end inclusive.
+  ///
+  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// as opposed to the Numpy/Matlab version.
+  inline vector<double> linspace(size_t nbins, double start, double end) {
     assert(end >= start);
     assert(nbins > 0);
     vector<double> rtn;
@@ -224,14 +227,18 @@ namespace Rivet {
   }
 
 
-  /// Make a list of @a nbins + 1 values exponentially spaced between @a start and @a end inclusive.
-  inline vector<double> logspace(double start, double end, size_t nbins) {
+  /// @brief Make a list of @a nbins + 1 values exponentially spaced between @a start and @a end inclusive.
+  ///
+  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
+  /// in "normal" space, rather than as the logarithms of the start/end values as in Numpy/Matlab.
+  inline vector<double> logspace(size_t nbins, double start, double end) {
     assert(end >= start);
     assert(start > 0);
     assert(nbins > 0);
     const double logstart = std::log(start);
     const double logend = std::log(end);
-    const vector<double> logvals = linspace(logstart, logend, nbins);
+    const vector<double> logvals = linspace(nbins, logstart, logend);
     assert(logvals.size() == nbins+1);
     vector<double> rtn;
     foreach (double logval, logvals) {

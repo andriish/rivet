@@ -41,17 +41,17 @@ namespace Rivet {
       // Booking of histograms
       _h_njets = bookHistogram1D("jet_mult", 11, -0.5, 10.5);
       //
-      _h_jet_1_pT = bookHistogram1D("jet_1_pT", logspace(20.0, 500.0, 50));
-      _h_jet_2_pT = bookHistogram1D("jet_2_pT", logspace(20.0, 400.0, 50));
-      _h_jet_3_pT = bookHistogram1D("jet_3_pT", logspace(20.0, 300.0, 50));
-      _h_jet_4_pT = bookHistogram1D("jet_4_pT", logspace(20.0, 200.0, 50));
-      _h_jet_HT   = bookHistogram1D("jet_HT", logspace(100.0, 2000.0, 50));
+      _h_jet_1_pT = bookHistogram1D("jet_1_pT", logspace(50, 20.0, 500.0));
+      _h_jet_2_pT = bookHistogram1D("jet_2_pT", logspace(50, 20.0, 400.0));
+      _h_jet_3_pT = bookHistogram1D("jet_3_pT", logspace(50, 20.0, 300.0));
+      _h_jet_4_pT = bookHistogram1D("jet_4_pT", logspace(50, 20.0, 200.0));
+      _h_jet_HT   = bookHistogram1D("jet_HT", logspace(50, 100.0, 2000.0));
       //
-      _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", logspace(20.0, 400.0, 50));
-      _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", logspace(20.0, 300.0, 50));
+      _h_bjet_1_pT = bookHistogram1D("jetb_1_pT", logspace(50, 20.0, 400.0));
+      _h_bjet_2_pT = bookHistogram1D("jetb_2_pT", logspace(50, 20.0, 300.0));
       //
-      _h_ljet_1_pT = bookHistogram1D("jetl_1_pT", logspace(20.0, 400.0, 50));
-      _h_ljet_2_pT = bookHistogram1D("jetl_2_pT", logspace(20.0, 300.0, 50));
+      _h_ljet_1_pT = bookHistogram1D("jetl_1_pT", logspace(50, 20.0, 400.0));
+      _h_ljet_2_pT = bookHistogram1D("jetl_2_pT", logspace(50, 20.0, 300.0));
       //
       _h_W_mass = bookHistogram1D("W_mass", 75, 30, 180);
       _h_t_mass = bookHistogram1D("t_mass", 150, 130, 430);

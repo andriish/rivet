@@ -4,6 +4,9 @@
 
 2012-11-14  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Converting the argument order of logspace, clarifying the
+	arguments, updating affected code, and deprecating Analysis::logBinEdges.
+
 	* Merging updates from the AIDA maintenance branch up to r3974
 	(latest revision for next merges is r4009).
 

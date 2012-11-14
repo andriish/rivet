@@ -28,12 +28,12 @@ namespace Rivet {
       // addProjection(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
 
       // Histograms
-      _histPdfX = bookHistogram1D("PdfX", logspace(0.000001, 1.0, 50));
-      _histPdfXmin = bookHistogram1D("PdfXmin", logspace(0.000001, 1.0, 50));
-      _histPdfXmax = bookHistogram1D("PdfXmax", logspace(0.000001, 1.0, 50));
+      _histPdfX = bookHistogram1D("PdfX", logspace(50, 0.000001, 1.0));
+      _histPdfXmin = bookHistogram1D("PdfXmin", logspace(50, 0.000001, 1.0));
+      _histPdfXmax = bookHistogram1D("PdfXmax", logspace(50, 0.000001, 1.0));
       _histPdfQ = bookHistogram1D("PdfQ", 50, 0.0, 30.0);
-      // _histPdfXQ = bookHistogram2D("PdfXQ", logspace(0.000001, 1.0, 50), linspace(0.0, 30.0, 50));
-      // _histPdfTrackptVsX = bookProfile1D("PdfTrackptVsX", logspace(0.000001, 1.0, 50));
+      // _histPdfXQ = bookHistogram2D("PdfXQ", logspace(50, 0.000001, 1.0), linspace(50, 0.0, 30.0));
+      // _histPdfTrackptVsX = bookProfile1D("PdfTrackptVsX", logspace(50, 0.000001, 1.0));
       // _histPdfTrackptVsQ = bookProfile1D("PdfTrackptVsQ", 50, 0.0, 30.0);
     }
 
