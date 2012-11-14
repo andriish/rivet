@@ -5,6 +5,8 @@ YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}|\cos(\chi_\text{BZ})|$
 LogY=0
 RatioPlotYMin=0.9
 RatioPlotYMax=1.1
+LegendXPos=0.1
+LegendYPos=0.9
 # END PLOT
 
 # BEGIN PLOT /OPAL_2001_S4553896/d04-x01-y01
@@ -14,6 +16,8 @@ YLabel=$1/\sigma \, \text{d}{\sigma}/\text{d}\,\cos(\phi_\text{KSW})$
 LogY=0
 RatioPlotYMin=0.9
 RatioPlotYMax=1.1
+LegendXPos=0.25
+LegendYPos=0.9
 # END PLOT
 
 # BEGIN PLOT /OPAL_2001_S4553896/d05-x01-y01
