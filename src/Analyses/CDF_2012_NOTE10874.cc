@@ -86,7 +86,6 @@ namespace Rivet {
   private:
 
     AIDA::IProfile1D *_h_nch_transverse, *_h_ptSumDen, *_h_avePt;
-    AIDA::IHistogram1D *_h_YYYY;
 
   };
 
