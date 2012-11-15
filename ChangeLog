@@ -1,3 +1,7 @@
+2012-11-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing the long-unused/defunct autopackage system.
+
 2012-11-15  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added LHCF_2012_I1115479 analysis
