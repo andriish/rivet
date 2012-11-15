@@ -140,6 +140,11 @@ RivetLHCbAnalyses_la_SOURCES += \
 endif
 
 
+lib_LTLIBRARIES += RivetLHCfAnalyses.la
+RivetLHCfAnalyses_la_SOURCES = \
+    LHCF_2012_I1115479.cc
+
+
 lib_LTLIBRARIES += RivetTOTEMAnalyses.la
 RivetTOTEMAnalyses_la_SOURCES = \
     TOTEM_2012_I1115294.cc

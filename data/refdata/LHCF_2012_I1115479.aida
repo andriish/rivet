@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.0" package="LWH"/>
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/LHCF_2012_I1115479" title="1/SIG E**D3(SIG)/DP**3" >
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.271" errorPlus="0.158" errorMinus="0.141"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.175" errorPlus="0.025000000000000022" errorMinus="0.024999999999999994"/>
+      <measurement value="0.195" errorPlus="0.0995" errorMinus="0.085"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.225" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.125" errorPlus="0.0566" errorMinus="0.0498"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.275" errorPlus="0.024999999999999967" errorMinus="0.025000000000000022"/>
+      <measurement value="0.0715" errorPlus="0.029" errorMinus="0.0254"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.32499999999999996" errorPlus="0.025000000000000022" errorMinus="0.024999999999999967"/>
+      <measurement value="0.0434" errorPlus="0.00422" errorMinus="0.00421"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.375" errorPlus="0.025000000000000022" errorMinus="0.025000000000000022"/>
+      <measurement value="0.0236" errorPlus="0.00366" errorMinus="0.00365"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.42500000000000004" errorPlus="0.024999999999999967" errorMinus="0.025000000000000022"/>
+      <measurement value="0.015" errorPlus="0.00326" errorMinus="0.00325"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.475" errorPlus="0.025000000000000022" errorMinus="0.024999999999999967"/>
+      <measurement value="0.00673" errorPlus="0.00216" errorMinus="0.00215"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.55" errorPlus="0.04999999999999993" errorMinus="0.050000000000000044"/>
+      <measurement value="0.00342" errorPlus="0.00127" errorMinus="0.00127"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/LHCF_2012_I1115479" title="1/SIG E**D3(SIG)/DP**3" >
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.23" errorPlus="0.0812" errorMinus="0.0806"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.175" errorPlus="0.025000000000000022" errorMinus="0.024999999999999994"/>
+      <measurement value="0.151" errorPlus="0.0419" errorMinus="0.0399"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.225" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.0892" errorPlus="0.00314" errorMinus="0.00314"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.275" errorPlus="0.024999999999999967" errorMinus="0.025000000000000022"/>
+      <measurement value="0.0543" errorPlus="0.00335" errorMinus="0.00335"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.32499999999999996" errorPlus="0.025000000000000022" errorMinus="0.024999999999999967"/>
+      <measurement value="0.0321" errorPlus="0.00332" errorMinus="0.00331"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.375" errorPlus="0.025000000000000022" errorMinus="0.025000000000000022"/>
+      <measurement value="0.018" errorPlus="0.00273" errorMinus="0.00272"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.42500000000000004" errorPlus="0.024999999999999967" errorMinus="0.025000000000000022"/>
+      <measurement value="0.00891" errorPlus="0.00184" errorMinus="0.00183"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.475" errorPlus="0.025000000000000022" errorMinus="0.024999999999999967"/>
+      <measurement value="0.00359" errorPlus="0.00101" errorMinus="0.00101"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.55" errorPlus="0.04999999999999993" errorMinus="0.050000000000000044"/>
+      <measurement value="9.72E-4" errorPlus="3.65E-4" errorMinus="3.66E-4"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/LHCF_2012_I1115479" title="1/SIG E**D3(SIG)/DP**3" >
+    <dataPoint>
+      <measurement value="0.025" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.331" errorPlus="0.184" errorMinus="0.158"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.07500000000000001" errorPlus="0.024999999999999994" errorMinus="0.02500000000000001"/>
+      <measurement value="0.231" errorPlus="0.107" errorMinus="0.0905"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.166" errorPlus="0.0196" errorMinus="0.0196"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.175" errorPlus="0.025000000000000022" errorMinus="0.024999999999999994"/>
+      <measurement value="0.106" errorPlus="0.00376" errorMinus="0.00376"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.225" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.0571" errorPlus="0.00269" errorMinus="0.00269"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.275" errorPlus="0.024999999999999967" errorMinus="0.025000000000000022"/>
+      <measurement value="0.0358" errorPlus="0.00298" errorMinus="0.00297"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.32499999999999996" errorPlus="0.025000000000000022" errorMinus="0.024999999999999967"/>
+      <measurement value="0.0177" errorPlus="0.00229" errorMinus="0.00229"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.375" errorPlus="0.025000000000000022" errorMinus="0.025000000000000022"/>
+      <measurement value="0.00807" errorPlus="0.00149" errorMinus="0.00149"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.45" errorPlus="0.04999999999999999" errorMinus="0.04999999999999999"/>
+      <measurement value="0.00135" errorPlus="3.72E-4" errorMinus="3.71E-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.55" errorPlus="0.04999999999999993" errorMinus="0.050000000000000044"/>
+      <measurement value="1.47E-4" errorPlus="9.18E-5" errorMinus="9.17E-5"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/LHCF_2012_I1115479" title="1/SIG E**D3(SIG)/DP**3" >
+    <dataPoint>
+      <measurement value="0.025" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.203" errorPlus="0.0309" errorMinus="0.0309"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.07500000000000001" errorPlus="0.024999999999999994" errorMinus="0.02500000000000001"/>
+      <measurement value="0.173" errorPlus="0.0164" errorMinus="0.0164"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.107" errorPlus="0.0046" errorMinus="0.00461"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.175" errorPlus="0.025000000000000022" errorMinus="0.024999999999999994"/>
+      <measurement value="0.063" errorPlus="0.00245" errorMinus="0.00245"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.225" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.032" errorPlus="0.00264" errorMinus="0.00263"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.275" errorPlus="0.024999999999999967" errorMinus="0.025000000000000022"/>
+      <measurement value="0.0145" errorPlus="0.00215" errorMinus="0.00214"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.32499999999999996" errorPlus="0.025000000000000022" errorMinus="0.024999999999999967"/>
+      <measurement value="0.00364" errorPlus="9.29E-4" errorMinus="9.28E-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.375" errorPlus="0.025000000000000022" errorMinus="0.025000000000000022"/>
+      <measurement value="0.00154" errorPlus="6.21E-4" errorMinus="6.2E-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.45" errorPlus="0.04999999999999999" errorMinus="0.04999999999999999"/>
+      <measurement value="5.43E-5" errorPlus="6.41E-5" errorMinus="6.41E-5"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/LHCF_2012_I1115479" title="1/SIG E**D3(SIG)/DP**3" >
+    <dataPoint>
+      <measurement value="0.025" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.12" errorPlus="0.00968" errorMinus="0.00966"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.07500000000000001" errorPlus="0.024999999999999994" errorMinus="0.02500000000000001"/>
+      <measurement value="0.0828" errorPlus="0.0029" errorMinus="0.00289"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.0449" errorPlus="0.00188" errorMinus="0.00188"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.175" errorPlus="0.025000000000000022" errorMinus="0.024999999999999994"/>
+      <measurement value="0.021" errorPlus="0.00128" errorMinus="0.00128"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.225" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.00743" errorPlus="9.76E-4" errorMinus="9.73E-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.275" errorPlus="0.024999999999999967" errorMinus="0.025000000000000022"/>
+      <measurement value="0.00184" errorPlus="5.16E-4" errorMinus="5.15E-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.35" errorPlus="0.050000000000000044" errorMinus="0.04999999999999999"/>
+      <measurement value="2.17E-4" errorPlus="1.33E-4" errorMinus="1.33E-4"/>
+    </dataPoint>
+  </dataPointSet> 
+  <dataPointSet name="d06-x01-y01" dimension="2" path="/REF/LHCF_2012_I1115479" title="1/SIG E**D3(SIG)/DP**3" >
+    <dataPoint>
+      <measurement value="0.025" errorPlus="0.025" errorMinus="0.025"/>
+      <measurement value="0.0128" errorPlus="0.00142" errorMinus="0.00142"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.07500000000000001" errorPlus="0.024999999999999994" errorMinus="0.02500000000000001"/>
+      <measurement value="0.00755" errorPlus="8.85E-4" errorMinus="8.88E-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.125" errorPlus="0.024999999999999994" errorMinus="0.024999999999999994"/>
+      <measurement value="0.00237" errorPlus="3.76E-4" errorMinus="3.77E-4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.175" errorPlus="0.025000000000000022" errorMinus="0.024999999999999994"/>
+      <measurement value="1.91E-4" errorPlus="6.98E-5" errorMinus="6.99E-5"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="0.25" errorPlus="0.04999999999999999" errorMinus="0.04999999999999999"/>
+      <measurement value="8.37E-6" errorPlus="1.05E-5" errorMinus="1.05E-5"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>
