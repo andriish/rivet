@@ -7,11 +7,11 @@
 namespace Rivet {
 
 
-  class TOTEM_2012_DNDETA : public Analysis {
+  class TOTEM_2012_I1115294 : public Analysis {
   public:
 
-    TOTEM_2012_DNDETA()
-      : Analysis("TOTEM_2012_DNDETA")
+    TOTEM_2012_I1115294()
+      : Analysis("TOTEM_2012_I1115294")
     {    }
 
 
@@ -61,6 +61,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(TOTEM_2012_DNDETA);
+  DECLARE_RIVET_PLUGIN(TOTEM_2012_I1115294);
 
 }
