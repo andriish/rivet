@@ -1,4 +1,4 @@
-Name: TOTEM_2012_DNDETA
+Name: TOTEM_2012_I1115294
 Year: 2012
 Summary: Forward dN/deta at 7 TeV
 Experiment: TOTEM
@@ -8,6 +8,8 @@ Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:
+ - Europhys.Lett. 98 (2012) 31002
+ - arXiv:1205.4105
  - CERN-PH-EP-2012-106
  - TOTEM 2012-01
 RunInfo:

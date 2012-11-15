@@ -141,7 +141,7 @@ endif
 
 lib_LTLIBRARIES += RivetTOTEMAnalyses.la
 RivetTOTEMAnalyses_la_SOURCES = \
-    TOTEM_2012_DNDETA.cc
+    TOTEM_2012_I1115294.cc
 
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la
