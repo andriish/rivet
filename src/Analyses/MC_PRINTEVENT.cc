@@ -213,16 +213,16 @@ namespace Rivet {
         if ((*p)->end_vertex() && (*p)->end_vertex()->barcode() != 0) {
           p_endvtx=(*p)->end_vertex()->barcode();
         }
-        double v_x = 0;
-        double v_y = 0;
-        double v_z = 0;
-        double v_ct = 0;
-        if ((*p)->production_vertex()) {
-          v_x = (*p)->production_vertex()->position().x();
-          v_y = (*p)->production_vertex()->position().y();
-          v_z = (*p)->production_vertex()->position().z();
-          v_ct = (*p)->production_vertex()->position().t();
-        }
+        // double v_x = 0;
+        // double v_y = 0;
+        // double v_z = 0;
+        // double v_ct = 0;
+        // if ((*p)->production_vertex()) {
+        //   v_x = (*p)->production_vertex()->position().x();
+        //   v_y = (*p)->production_vertex()->position().y();
+        //   v_z = (*p)->production_vertex()->position().z();
+        //   v_ct = (*p)->production_vertex()->position().t();
+        // }
 
         // Mass (prefer generated mass if available)
         double p_mass = (*p)->generated_mass();
