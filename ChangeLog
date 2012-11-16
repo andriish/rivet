@@ -1,3 +1,8 @@
+2012-11-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding MC_PRINTEVENT, a convenient (but verbose!) analysis for
+	printing out event details to stdout.
+
 2012-11-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing the long-unused/defunct autopackage system.
