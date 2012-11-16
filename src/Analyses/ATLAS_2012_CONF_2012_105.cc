@@ -169,7 +169,7 @@ namespace Rivet {
       if ( recon_leptons.size() != 2) vetoEvent;
       // ensure 1st hardest
       if(recon_leptons[0].momentum().perp()<recon_leptons[1].momentum().perp())
-	swap(recon_leptons[0],recon_leptons[1]);
+        std::swap(recon_leptons[0],recon_leptons[1]);
       // only keep same sign
       if(recon_leptons[0].pdgId()*recon_leptons[1].pdgId()<0)
 	vetoEvent;
