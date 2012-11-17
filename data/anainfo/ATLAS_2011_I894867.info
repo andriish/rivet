@@ -11,14 +11,15 @@ Authors:
 References:
  - arXiv:1104.0326 [hep-ex]
 RunInfo:
-   Inelastic events (non-diffractive and inelastic diffractive). 
+   Inelastic events (non-diffractive and inelastic diffractive).
 NumEvents: 100K
 Beams: [p+, p+]
 Energies: [7000]
 Description:
-    Inelastic cross-section is measured for $\xi > 5x10^{-6}$, where xi=M_X^2/s is calculated from the invariant mass, M_X, 
+    Inelastic cross-section is measured for $\xi > 5 \times 10^{-6}$, where
+    $\xi=M_X^2/s$ is calculated from the invariant mass, $M_X$,
     of hadrons selected using the largest rapidity gap in the event.
-BibKey: 2011eu
+BibKey: Aad:2011eu
 BibTeX: '@Article{Aad:2011eu,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the Inelastic Proton-Proton Cross-Section
