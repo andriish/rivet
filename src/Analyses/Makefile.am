@@ -334,6 +334,7 @@ RivetMCAnalyses_la_SOURCES = \
     MC_LEADJETUE.cc \
     MC_PDFS.cc \
     MC_PHOTONJETS.cc \
+    MC_PHOTONS.cc \
     MC_PRINTEVENT.cc \
     MC_SUSY.cc \
     MC_TTBAR.cc \
