@@ -175,6 +175,7 @@ dist_pkgdata_DATA = \
   MC_PDFS.info \
   MC_PHOTONJETS.info \
   MC_PHOTONJETUE.info \
+  MC_PHOTONS.info \
   MC_PRINTEVENT.info \
   MC_SUSY.info \
   MC_TTBAR.info \
