@@ -87,17 +87,13 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      divide(_h_pT_piminus, _h_pT_piplus,
-	     _h_piminus_piplus);
+      divide(_h_pT_piminus, _h_pT_piplus, _h_piminus_piplus);
 
-      divide(_h_pT_antiproton, _h_pT_proton,
-	     _h_antipr_pr);
+      divide(_h_pT_antiproton, _h_pT_proton, _h_antipr_pr);
 
-      divide(_h_pT_proton, _h_pT_piplus,
-	     _h_pr_piplus);
- 
-      divide(_h_pT_antiproton, _h_pT_piminus,
-	     _h_antipr_piminus);
+      divide(_h_pT_proton, _h_pT_piplus, _h_pr_piplus);
+
+      divide(_h_pT_antiproton, _h_pT_piminus, _h_antipr_piminus);
 
       scale(_h_pT_piplus,     1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_piminus,    1./(2*M_PI*_sumWeightSelected));
