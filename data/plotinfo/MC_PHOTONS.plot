@@ -22,25 +22,25 @@ XLabel=$\sum{E_\gamma}$ [GeV]
 YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}\sum{E_\gamma}$ [GeV$^{-1}$]
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONS/deltaR
+# BEGIN PLOT /MC_PHOTONS/DeltaR
 Title=$\Delta{R}$ between photons and associated leptons
 XLabel=$\Delta{R}$
 #YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}\Delta{R}$
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONS/deltaR_weighted
+# BEGIN PLOT /MC_PHOTONS/DeltaR_ptweighted
 Title=$p_\perp$-weighted $\Delta{R}$ between photons and associated leptons
 XLabel=$\Delta{R}$
 #YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}\Delta{R}$
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONS/deltaR_R
+# BEGIN PLOT /MC_PHOTONS/DeltaR_R
 Title=Phase-space weighted $\Delta{R}$ between photons and associated leptons
 XLabel=$\Delta{R}$
 #YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}\Delta{R}$
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONS/deltaR_R_weighted
+# BEGIN PLOT /MC_PHOTONS/DeltaR_R_ptweighted
 Title=Phase-space \& $p_\perp$-weighted $\Delta{R}$ between photons and associated leptons
 XLabel=$\Delta{R}$
 #YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}\Delta{R}$
@@ -51,16 +51,26 @@ XLabel=Lepton $p_\perp$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONS/DeltaR_vs_pTlep
-Title=Mean $\Delta{R}$ between photons and associated leptons vs. lepton $p_\perp$
-YLabel=$\angle\Delta{R}\rangle$
+Title=$\Delta{R}_{\gamma\ell}$ vs. lepton $p_\perp$
+YLabel=$\langle\Delta{R}_{\gamma\ell}\rangle$
 # END PLOT
 
-# BEGIN PLOT /MC_PHOTONS/DeltaR_weighted_vs_pTlep
-Title=Mean $p_\perp$-weighted $\Delta{R}$ between photons and associated leptons vs. lepton $p_\perp$
-YLabel=$\angle\text{Weighted}\quad\Delta{R}\rangle$
+# BEGIN PLOT /MC_PHOTONS/DeltaR_ptweighted_vs_pTlep
+Title=$p_\perp$-weighted $\Delta{R}_{\gamma\ell}$ vs. lepton $p_\perp$
+YLabel=$\langle\text{Weighted}\quad\Delta{R}_{\gamma\ell}\rangle$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONS/DeltaR_R_ptweighted_vs_pTlep
+Title=$1/R$-weighted $\Delta{R}_{\gamma\ell}$ vs. lepton $p_\perp$
+YLabel=$\langle\text{Weighted}\quad\Delta{R}_{\gamma\ell}\rangle$
+# END PLOT
+
+# BEGIN PLOT /MC_PHOTONS/DeltaR_R_ptweighted_vs_pTlep
+Title=$p_\perp/R$-weighted $\Delta{R}_{\gamma\ell}$ vs. lepton $p_\perp$
+YLabel=$\langle\text{Weighted}\quad\Delta{R}_{\gamma\ell}\rangle$
 # END PLOT
 
 # BEGIN PLOT /MC_PHOTONS/sumPtGamma_vs_pTlep
-Title=Mean scalar $\sum{p_\perp}$ of photons on associated leptons vs. lepton $p_\perp$
-YLabel=$\angle\sum{p_\perp}\rangle$
+Title=Scalar $\sum{p_\perp}^\gamma$ vs. associated lepton $p_\perp$
+YLabel=$\langle\sum{p_\perp}^\gamma\rangle$ [GeV]
 # END PLOT
