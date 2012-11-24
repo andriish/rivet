@@ -81,9 +81,9 @@ namespace Rivet {
       edges_eT.push_back(150);
       edges_eT.push_back(300);
       edges_eT.push_back(500);
-            
+
       // Book histograms
-      _hist_electrons = bookHistogram1D("hist_electrons_before", 11, -0.5,10.5); 
+      _hist_electrons = bookHistogram1D("hist_electrons_before", 11, -0.5,10.5);
       _hist_muons     = bookHistogram1D("hist_muons_before"    , 11, -0.5,10.5);
       _hist_leptons   = bookHistogram1D("hist_leptons_before"  , 11, -0.5,10.5);
       _hist_4leptons  = bookHistogram1D("hist_4leptons", 1, 0.,1.);
@@ -117,13 +117,13 @@ namespace Rivet {
       vector<bool> vetoed(temp.size(),false);
       ParticleVector cand_e;
       for (unsigned int ix=0; ix<temp.size(); ++ix) {
-	if(vetoed[ix]) continue;
-      	for (unsigned int iy=ix+1; iy<temp.size(); ++iy) {
-	  if( deltaR(temp[ix].momentum(),temp[iy].momentum()) < 0.1 ) {
-	    vetoed[iy] = true;
+        if(vetoed[ix]) continue;
+        for (unsigned int iy=ix+1; iy<temp.size(); ++iy) {
+          if( deltaR(temp[ix].momentum(),temp[iy].momentum()) < 0.1 ) {
+            vetoed[iy] = true;
           }
-        }  
-	if(!vetoed[ix]) cand_e.push_back(temp[ix]);
+        }
+        if(!vetoed[ix]) cand_e.push_back(temp[ix]);
       }
 
       // Sort by transverse momentum
@@ -156,7 +156,7 @@ namespace Rivet {
         }
         // if isolated keep it
         if ( away )
-      	  cand2_e.push_back( e );
+          cand2_e.push_back( e );
       }
 
       // only keep muons more than R=0.4 from jets
@@ -177,25 +177,25 @@ namespace Rivet {
       // electron and muon more than 0.1 apart
       ParticleVector cand3_e;
       foreach ( const Particle & e, cand2_e ) {
-	bool away = true;
-	foreach( const Particle & mu, cand2_mu ) {
-	  if( deltaR(e.momentum(),mu.momentum()) < 0.1) {
-	    away = false;
-	    break;
-	  } 
-	}
-	if(away) cand3_e.push_back(e);
+        bool away = true;
+        foreach( const Particle & mu, cand2_mu ) {
+          if( deltaR(e.momentum(),mu.momentum()) < 0.1) {
+            away = false;
+            break;
+          }
+        }
+        if(away) cand3_e.push_back(e);
       }
       ParticleVector cand3_mu;
       foreach( const Particle & mu, cand2_mu ) {
-	bool away = true;
-	foreach ( const Particle & e, cand2_e ) {
-	  if( deltaR(e.momentum(),mu.momentum()) < 0.1) {
-	    away = false;
-	    break;
-	  } 
-	}
-	if(away) cand3_mu.push_back(mu);
+        bool away = true;
+        foreach ( const Particle & e, cand2_e ) {
+          if( deltaR(e.momentum(),mu.momentum()) < 0.1) {
+            away = false;
+            break;
+          }
+        }
+        if(away) cand3_mu.push_back(mu);
       }
 
       // pTmiss
@@ -206,30 +206,30 @@ namespace Rivet {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
-      
+
       // apply electron isolation
       ParticleVector chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       ParticleVector cand4_e;
       foreach ( const Particle & e, cand3_e ) {
-	// charge isolation
+        // charge isolation
         double pTinCone = -e.momentum().perp();
         foreach ( const Particle & track, chg_tracks ) {
-	  if(track.momentum().perp()>0.4 && 
-	     deltaR(e.momentum(),track.momentum()) <= 0.3 )
+          if(track.momentum().perp()>0.4 &&
+             deltaR(e.momentum(),track.momentum()) <= 0.3 )
             pTinCone += track.momentum().pT();
         }
-	if (pTinCone/e.momentum().perp()>0.16) continue;
-	// all particles isolation
+        if (pTinCone/e.momentum().perp()>0.16) continue;
+        // all particles isolation
         pTinCone = -e.momentum().perp();
-	foreach ( const Particle & p, vfs_particles ) {
-	  if(abs(p.pdgId())!=MUON && 
-	     deltaR(e.momentum(),p.momentum()) <= 0.3 )
+        foreach ( const Particle & p, vfs_particles ) {
+          if(abs(p.pdgId())!=MUON &&
+             deltaR(e.momentum(),p.momentum()) <= 0.3 )
             pTinCone += p.momentum().pT();
-	}
+        }
         if (pTinCone/e.momentum().perp()<0.18) {
           cand4_e.push_back(e);
-	}
+        }
       }
 
       // apply muon isolation
@@ -237,37 +237,37 @@ namespace Rivet {
       foreach ( const Particle & mu, cand3_mu ) {
         double pTinCone = -mu.momentum().perp();
         foreach ( const Particle & track, chg_tracks ) {
-	  if(track.momentum().perp()>1.0 && 
-	     deltaR(mu.momentum(),track.momentum()) <= 0.3 )
+          if(track.momentum().perp()>1.0 &&
+             deltaR(mu.momentum(),track.momentum()) <= 0.3 )
             pTinCone += track.momentum().pT();
         }
         if (pTinCone/mu.momentum().perp()<0.12) {
           cand4_mu.push_back(mu);
-	}
+        }
       }
 
       // same SOSF pairs m>12.
       ParticleVector recon_e;
       foreach(const Particle & e, cand4_e) {
-	bool veto=false;
-	foreach(const Particle & e2, cand4_e) {
-	  if(e.pdgId()*e2.pdgId()<0&&(e.momentum()+e2.momentum()).mass()<12.) {
-	    veto=true;
-	    break;
-	  }
-	}
-	if(!veto) recon_e.push_back(e);
+        bool veto=false;
+        foreach(const Particle & e2, cand4_e) {
+          if(e.pdgId()*e2.pdgId()<0&&(e.momentum()+e2.momentum()).mass()<12.) {
+            veto=true;
+            break;
+          }
+        }
+        if(!veto) recon_e.push_back(e);
       }
       ParticleVector recon_mu;
       foreach(const Particle & mu, cand4_mu) {
-	bool veto=false;
-	foreach(const Particle & mu2, cand4_mu) {
-	  if(mu.pdgId()*mu2.pdgId()<0&&(mu.momentum()+mu2.momentum()).mass()<12.) {
-	    veto=true;
-	    break;
-	  }
-	}
-	if(!veto) recon_mu.push_back(mu);
+        bool veto=false;
+        foreach(const Particle & mu2, cand4_mu) {
+          if(mu.pdgId()*mu2.pdgId()<0&&(mu.momentum()+mu2.momentum()).mass()<12.) {
+            veto=true;
+            break;
+          }
+        }
+        if(!veto) recon_mu.push_back(mu);
       }
 
       // now only use recon_jets, recon_mu, recon_e
@@ -275,7 +275,7 @@ namespace Rivet {
       _hist_muons->fill(recon_mu.size(), weight);
       _hist_leptons->fill(recon_mu.size() + recon_e.size(), weight);
       if( recon_mu.size() + recon_e.size() > 3) {
-      	_hist_4leptons->fill(0.5, weight);
+        _hist_4leptons->fill(0.5, weight);
       }
 
       // reject events with less than 4 electrons and muons
@@ -286,14 +286,14 @@ namespace Rivet {
 
 
       // or two lepton trigger
-      bool passDouble = 
-      	(recon_mu.size()>=2 && ( (recon_mu[1].momentum().perp()>14.) ||
-				 (recon_mu[0].momentum().perp()>18. && recon_mu[1].momentum().perp()>10.) )) ||
-      	(recon_e.size() >=2 && ( (recon_e [1].momentum().perp()>14.) ||
-				 (recon_e [0].momentum().perp()>25. && recon_e [1].momentum().perp()>10.) )) ||
-       	(!recon_e.empty() && !recon_mu.empty() && 
-	 ( (recon_e[0].momentum().perp()>14. && recon_mu[0].momentum().perp()>10.)||
-	   (recon_e[0].momentum().perp()>10. && recon_mu[0].momentum().perp()>18.) ));
+      bool passDouble =
+        (recon_mu.size()>=2 && ( (recon_mu[1].momentum().perp()>14.) ||
+                                 (recon_mu[0].momentum().perp()>18. && recon_mu[1].momentum().perp()>10.) )) ||
+        (recon_e.size() >=2 && ( (recon_e [1].momentum().perp()>14.) ||
+                                 (recon_e [0].momentum().perp()>25. && recon_e [1].momentum().perp()>10.) )) ||
+        (!recon_e.empty() && !recon_mu.empty() &&
+         ( (recon_e[0].momentum().perp()>14. && recon_mu[0].momentum().perp()>10.)||
+           (recon_e[0].momentum().perp()>10. && recon_mu[0].momentum().perp()>18.) ));
 
       // must pass a trigger
        if(!passDouble ) {
@@ -322,14 +322,14 @@ namespace Rivet {
           double mtest = ppair.mass();
           if(mtest>81.2 && mtest<101.2) vetoEvent;
 
-	  // check triplets with electron
+          // check triplets with electron
           for(unsigned int iz=0;iz<recon_e.size();++iz) {
             if(iz==ix||iz==iy) continue;
             mtest = (ppair+recon_e[iz].momentum()).mass();
             if(mtest>81.2 && mtest<101.2) vetoEvent;
-	  }
+          }
 
-	  // check triplets with muon
+          // check triplets with muon
           for(unsigned int iz=0;iz<recon_mu.size();++iz) {
             mtest = (ppair+recon_mu[iz].momentum()).mass();
             if(mtest>81.2 && mtest<101.2) vetoEvent;
@@ -362,39 +362,39 @@ namespace Rivet {
           FourMomentum ppair = recon_mu[ix].momentum()+recon_mu[iy].momentum();
           double mtest = ppair.mass();
           if(mtest>81.2 && mtest<101.2) vetoEvent;
-            
-	 // check triplets with muon
+
+         // check triplets with muon
           for(unsigned int iz=0;iz<recon_mu.size();++iz) {
             if(iz==ix||iz==iy) continue;
             mtest = (ppair+recon_mu[iz].momentum()).mass();
             if(mtest>81.2 && mtest<101.2) vetoEvent;
-	  }
+          }
 
-	 // check triplets with electron
+         // check triplets with electron
           for(unsigned int iz=0;iz<recon_e.size();++iz) {
             mtest = (ppair+recon_e[iz].momentum()).mass();
             if(mtest>81.2 && mtest<101.2) vetoEvent;
-	  }
+          }
 
-	// check muon quadruplets
+        // check muon quadruplets
           for(unsigned int iz=0;iz<recon_mu.size();++iz) {
             for(unsigned int iw=iz+1;iy<recon_mu.size();++iy) {
-	      if(iz==ix||iz==iy||iw==ix||iw==iy) continue;
+              if(iz==ix||iz==iy||iw==ix||iw==iy) continue;
               if(recon_mu[iz].pdgId()*recon_mu[iw].pdgId()>0) continue;
               mtest = (ppair+recon_mu[iz].momentum()+recon_mu[iw].momentum()).mass();
               if(mtest>81.2 && mtest<101.2) vetoEvent;
-	    }
-	  }
+            }
+          }
         }
       }
-      
+
       //make the control plots
       _hist_etmiss ->fill(eTmiss,weight);
       _hist_meff   ->fill(meff  ,weight);
       // finally the counts
       if(eTmiss>50.) _count_SR1->fill(0.5,weight);
       if(meff  >0. ) _count_SR2->fill(0.5,weight);
-      	
+
     }
 
     //@}
