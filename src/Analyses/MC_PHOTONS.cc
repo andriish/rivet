@@ -37,15 +37,17 @@ namespace Rivet {
 
       _h_Ptgamma = bookHisto1D("Ptgamma", logspace(50, 0.01, 30));
       _h_Egamma = bookHisto1D("Egamma", logspace(50, 0.01, 200));
-      _h_sumPtgamma = bookHisto1D("sumPtgamma", logspace(50, 0.1, 100));
-      _h_sumEgamma = bookHisto1D("sumEgamma", logspace(50, 0.1, 500));
+      _h_sumPtgamma = bookHisto1D("sumPtgamma", 50, 0, 100);
+      _h_sumEgamma = bookHisto1D("sumEgamma", 50, 0, sqrtS()/GeV/5.0);
       _h_DelR = bookHisto1D("DeltaR", 50, 0, 2);
-      _h_DelR_weighted = bookHisto1D("DeltaR_weighted", 50, 0, 2);
+      _h_DelR_weighted = bookHisto1D("DeltaR_ptweighted", 50, 0, 2);
       _h_DelR_R = bookHisto1D("DeltaR_R", 50, 0, 2);
-      _h_DelR_R_weighted = bookHisto1D("DeltaR_R_weighted", 50, 0, 2);
-      _p_DelR_vs_pTl = bookProfile1D("DeltaR_vs_pTlep", logspace(50, 10, 50*log10(sqrtS())));
-      _p_DelR_weighted_vs_pTl = bookProfile1D("DeltaR_weighted_vs_pTlep", logspace(50, 10, 50*log10(sqrtS())));
-      _p_sumPtgamma_vs_pTl = bookProfile1D("sumPtGamma_vs_pTlep", logspace(50, 10, 50*log10(sqrtS())));
+      _h_DelR_R_weighted = bookHisto1D("DeltaR_R_ptweighted", 50, 0, 2);
+      _p_DelR_vs_pTl = bookProfile1D("DeltaR_vs_pTlep", 50, 10, 120);
+      _p_DelR_weighted_vs_pTl = bookProfile1D("DeltaR_ptweighted_vs_pTlep", 50, 10, 120);
+      _p_DelR_R_vs_pTl = bookProfile1D("DeltaR_R_vs_pTlep", 50, 10, 120);
+      _p_DelR_R_weighted_vs_pTl = bookProfile1D("DeltaR_R_ptweighted_vs_pTlep", 50, 10, 120);
+      _p_sumPtgamma_vs_pTl = bookProfile1D("sumPtGamma_vs_pTlep", 50, 10, 120);
     }
 
 
@@ -86,11 +88,13 @@ namespace Rivet {
         }
         if (ilep != -1) {
           _h_DelR->fill(delR, weight);
-          _h_DelR_weighted->fill(delR*pTgamma/GeV, weight);
+          _h_DelR_weighted->fill(delR, weight*pTgamma/GeV);
           _h_DelR_R->fill(delR, weight/(delR+1e-5));
-          _h_DelR_R_weighted->fill(delR*pTgamma/GeV, weight/(delR+1e-5));
+          _h_DelR_R_weighted->fill(delR, weight*pTgamma/GeV/(delR+1e-5));
           _p_DelR_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight);
-          _p_DelR_weighted_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR*pTgamma, weight);
+          _p_DelR_weighted_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight*pTgamma/GeV);
+          _p_DelR_R_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight/(delR+1e-5));
+          _p_DelR_R_weighted_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight*pTgamma/GeV/(delR+1e-5));
           sumpT_per_lep[ilep] += pTgamma;
         }
       }
@@ -131,6 +135,7 @@ namespace Rivet {
     Histo1DPtr _h_DelR, _h_DelR_weighted;
     Histo1DPtr _h_DelR_R, _h_DelR_R_weighted;
     Profile1DPtr _p_DelR_vs_pTl, _p_DelR_weighted_vs_pTl;
+    Profile1DPtr _p_DelR_R_vs_pTl, _p_DelR_R_weighted_vs_pTl;
     Profile1DPtr _p_sumPtgamma_vs_pTl;
     //@}
 
