@@ -24,7 +24,7 @@ namespace Rivet {
                           _multPiPlus(4,0.),_multKPlus(4,0.),_multK0(4,0.),
                           _multKStar0(4,0.),_multPhi(4,0.),
                           _multProton(4,0.),_multLambda(4,0.)
-    {}
+    {  }
 
 
     /// @name Analysis methods
@@ -70,15 +70,15 @@ namespace Rivet {
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
           double energy(0.);
-          if(quarkmap.find( i)!=quarkmap.end())
+          if (quarkmap.find( i)!=quarkmap.end())
             energy += quarkmap[ i].momentum().E();
-          if(quarkmap.find(-i)!=quarkmap.end())
+          if (quarkmap.find(-i)!=quarkmap.end())
             energy += quarkmap[-i].momentum().E();
           if (energy > maxenergy) flavour = i;
         }
-        if(quarkmap.find( flavour)!=quarkmap.end())
+        if (quarkmap.find( flavour)!=quarkmap.end())
           quarks.push_back(quarkmap[ flavour]);
-        if(quarkmap.find(-flavour)!=quarkmap.end())
+        if (quarkmap.find(-flavour)!=quarkmap.end())
           quarks.push_back(quarkmap[-flavour]);
       }
       switch (flavour) {
@@ -107,7 +107,7 @@ namespace Rivet {
         _histXpChargedN->fill(xp, weight);
         int id = abs(p.pdgId());
         // charged pions
-        if(id==PIPLUS) {
+        if (id == PIPLUS) {
           _histXpPiPlusN->fill(xp, weight);
           _multPiPlus[0] += weight;
           switch (flavour) {
@@ -129,7 +129,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==KPLUS) {
+        else if (id == KPLUS) {
           _histXpKPlusN->fill(xp, weight);
           _multKPlus[0] += weight;
           switch (flavour) {
@@ -154,7 +154,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==PROTON) {
+        else if (id == PROTON) {
           _histXpProtonN->fill(xp, weight);
           _multProton[0] += weight;
           switch (flavour) {
@@ -186,7 +186,7 @@ namespace Rivet {
         // if in quark or antiquark hemisphere
         bool quark = p.momentum().vector3().dot(axis)*dot>0.;
         int id = abs(p.pdgId());
-        if(id==LAMBDA) {
+        if (id == LAMBDA) {
           _multLambda[0] += weight;
           _histXpLambdaN->fill(xp, weight);
           switch (flavour) {
@@ -208,7 +208,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==313) {
+        else if (id == 313) {
           _multKStar0[0] += weight;
           _histXpKStar0N->fill(xp, weight);
           switch (flavour) {
@@ -216,7 +216,7 @@ namespace Rivet {
             _multKStar0[1] += weight;
             _tempXpKStar0Light->fill(xp, weight);
             _histXpKStar0Light->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
               _histRKS0   ->fill(xp, weight);
             else
               _histRKSBar0->fill(xp, weight);
@@ -233,7 +233,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==333) {
+        else if (id == 333) {
           _multPhi[0] += weight;
           _histXpPhiN->fill(xp, weight);
           switch (flavour) {
@@ -251,7 +251,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==K0S || id == K0L) {
+        else if (id == K0S || id == K0L) {
           _multK0[0] += weight;
           _histXpK0N->fill(xp, weight);
           switch (flavour) {
@@ -327,7 +327,7 @@ namespace Rivet {
       _histRPBar    = bookHisto1D( 32, 1, 2);
       _histRLambda  = bookHisto1D( 34, 1, 1);
       _histRLBar    = bookHisto1D( 34, 1, 2);
- 
+
 
       _h_Xp_PiPl_Ch		= bookScatter2D(1, 1, 1);
       _h_Xp_KPl_Ch		= bookScatter2D(2, 1, 1);
@@ -351,7 +351,7 @@ namespace Rivet {
       _h_KSBar0_KS0		= bookScatter2D(29, 1, 1);
       _h_KM_KP		= bookScatter2D(31, 1, 1);
       _h_Pr_PBar		= bookScatter2D(33, 1, 1);
-      _h_Lam_LBar		= bookScatter2D(35, 1, 1); 
+      _h_Lam_LBar		= bookScatter2D(35, 1, 1);
 
     }
 
@@ -765,7 +765,7 @@ namespace Rivet {
     Scatter2DPtr _h_Xp_K0Ch_K0Li;
     Scatter2DPtr _h_Xp_K0Bo_K0Li;
     Scatter2DPtr _h_Xp_PhiCh_PhiLi;
-    Scatter2DPtr _h_Xp_PhiBo_PhiLi; 
+    Scatter2DPtr _h_Xp_PhiBo_PhiLi;
 
     Scatter2DPtr _h_PiM_PiP;
     Scatter2DPtr _h_KSBar0_KS0;
