@@ -2,6 +2,10 @@
 
 	* Fix make-plots png creation for SL5
 
+2012-11-23  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Added ATLAS_2012_CONF_2012_153 4-lepton SUSY search
+
 2012-11-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding MC_PHOTONS by Steve Lloyd and AB, for testing general
