@@ -1,5 +1,7 @@
 2012-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Converting CMS_2012_I1102908 analysis to use YODA.
+
 	* Adding XLabel and YLabel setting in histo/profile/scatter booking.
 
 2012-11-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>

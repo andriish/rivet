@@ -122,6 +122,7 @@ dist_pkgdata_DATA = \
   CMS_2011_S9120041.plot \
   CMS_2011_S9215166.plot \
   CMS_2012_I1087342.plot \
+  CMS_2012_I1102908.plot \
   CMS_2012_I1107658.plot \
   CMS_QCD_10_024.plot \
   D0_1996_S3214044.plot \
