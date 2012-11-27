@@ -159,6 +159,7 @@ dist_pkgdata_DATA = \
   LHCB_2010_S8758301.plot \
   LHCB_2011_I917009.plot \
   LHCB_2011_I919315.plot \
+  LHCF_2012_I1115479.plot \
   MC_GENERIC.plot \
   MC_IDENTIFIED.plot \
   MC_LEADJETUE.plot \
