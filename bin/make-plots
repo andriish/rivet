@@ -2115,7 +2115,7 @@ def process_datfile(datfile):
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            pngcmd = ["convert", "-density", "200", "-flatten", "-", "%s.png" % filename]
+            pngcmd = ["convert", "-density", "200", "-", "%s.png" % filename]
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
@@ -2129,7 +2129,7 @@ def process_datfile(datfile):
             if testconvert.wait() != 0:
                 convertavailable = False
             if convertavailable:
-                pngcmd = ["convert", "-density", "85", "-flatten", "%s.ps" % filename, "%s.png" % filename]
+                pngcmd = ["convert", "-density", "85", "%s.ps" % filename, "%s.png" % filename]
                 logging.debug(" ".join(pngcmd))
                 pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
                 pngproc.wait()
@@ -2147,7 +2147,7 @@ def process_datfile(datfile):
             f.write(cnvproc.communicate()[0])
             f.close()
             logging.debug(os.listdir(tempdir))
-            pngcmd = ["convert", "-density", "85", "-flatten", "%s.pdf" % filename, "%s.png" % filename]
+            pngcmd = ["convert", "-density", "85", "%s.pdf" % filename, "%s.png" % filename]
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
@@ -2159,7 +2159,7 @@ def process_datfile(datfile):
             f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
             f.write(cnvproc.communicate()[0])
             f.close()
-            pngcmd = ["convert", "-density", "85", "-flatten", "%s.eps" % filename, "%s.png" % filename]
+            pngcmd = ["convert", "-density", "85", "%s.eps" % filename, "%s.png" % filename]
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()

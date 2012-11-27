@@ -1,3 +1,7 @@
+2012-11-27  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fix make-plots png creation for SL5
+
 2012-11-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding MC_PHOTONS by Steve Lloyd and AB, for testing general
