@@ -72,15 +72,15 @@ namespace Rivet {
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
           double energy(0.);
-          if(quarkmap.find( i)!=quarkmap.end())
+          if (quarkmap.find( i)!=quarkmap.end())
             energy += quarkmap[ i].momentum().E();
-          if(quarkmap.find(-i)!=quarkmap.end())
+          if (quarkmap.find(-i)!=quarkmap.end())
             energy += quarkmap[-i].momentum().E();
           if (energy > maxenergy) flavour = i;
         }
-        if(quarkmap.find( flavour)!=quarkmap.end())
+        if (quarkmap.find( flavour)!=quarkmap.end())
           quarks.push_back(quarkmap[ flavour]);
-        if(quarkmap.find(-flavour)!=quarkmap.end())
+        if (quarkmap.find(-flavour)!=quarkmap.end())
           quarks.push_back(quarkmap[-flavour]);
       }
       switch (flavour) {
@@ -97,9 +97,9 @@ namespace Rivet {
       // thrust axis for projections
       Vector3 axis = applyProjection<Thrust>(e, "Thrust").thrustAxis();
       double dot(0.);
-      if(!quarks.empty()) {
+      if (!quarks.empty()) {
         dot = quarks[0].momentum().vector3().dot(axis);
-        if(quarks[0].pdgId()<0) dot *= -1.;
+        if (quarks[0].pdgId()<0) dot *= -1.;
       }
 
       foreach (const Particle& p, fs.particles()) {
@@ -109,14 +109,14 @@ namespace Rivet {
         _histXpChargedN->fill(xp, weight);
         int id = abs(p.pdgId());
         // charged pions
-        if(id==PIPLUS) {
+        if (id==PIPLUS) {
           _histXpPiPlusN->fill(xp, weight);
           _multPiPlus[0] += weight;
           switch (flavour) {
           case DQUARK: case UQUARK: case SQUARK:
             _multPiPlus[1] += weight;
             _histXpPiPlusLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
               _histRPiPlus->fill(xp, weight);
             else
               _histRPiMinus->fill(xp, weight);
@@ -131,7 +131,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==KPLUS) {
+        else if (id==KPLUS) {
           _histXpKPlusN->fill(xp, weight);
           _multKPlus[0] += weight;
           switch (flavour) {
@@ -139,7 +139,7 @@ namespace Rivet {
             _multKPlus[1] += weight;
             _tempXpKPlusLight->fill(xp, weight);
             _histXpKPlusLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
               _histRKPlus->fill(xp, weight);
             else
               _histRKMinus->fill(xp, weight);
@@ -156,7 +156,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==PROTON) {
+        else if (id==PROTON) {
           _histXpProtonN->fill(xp, weight);
           _multProton[0] += weight;
           switch (flavour) {
@@ -164,7 +164,7 @@ namespace Rivet {
             _multProton[1] += weight;
             _tempXpProtonLight->fill(xp, weight);
             _histXpProtonLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
               _histRProton->fill(xp, weight);
             else
               _histRPBar  ->fill(xp, weight);
@@ -188,14 +188,14 @@ namespace Rivet {
         // if in quark or antiquark hemisphere
         bool quark = p.momentum().vector3().dot(axis)*dot>0.;
         int id = abs(p.pdgId());
-        if(id==LAMBDA) {
+        if (id==LAMBDA) {
           _multLambda[0] += weight;
           _histXpLambdaN->fill(xp, weight);
           switch (flavour) {
           case DQUARK: case UQUARK: case SQUARK:
             _multLambda[1] += weight;
             _histXpLambdaLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
               _histRLambda->fill(xp, weight);
             else
               _histRLBar  ->fill(xp, weight);
@@ -210,7 +210,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==313) {
+        else if (id==313) {
           _multKStar0[0] += weight;
           _histXpKStar0N->fill(xp, weight);
           switch (flavour) {
@@ -218,7 +218,7 @@ namespace Rivet {
             _multKStar0[1] += weight;
             _tempXpKStar0Light->fill(xp, weight);
             _histXpKStar0Light->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
               _histRKS0   ->fill(xp, weight);
             else
               _histRKSBar0->fill(xp, weight);
@@ -235,7 +235,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==333) {
+        else if (id==333) {
           _multPhi[0] += weight;
           _histXpPhiN->fill(xp, weight);
           switch (flavour) {
@@ -253,7 +253,7 @@ namespace Rivet {
             break;
           }
         }
-        else if(id==K0S || id == K0L) {
+        else if (id==K0S || id == K0L) {
           _multK0[0] += weight;
           _histXpK0N->fill(xp, weight);
           switch (flavour) {
