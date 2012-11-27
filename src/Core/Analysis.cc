@@ -196,60 +196,59 @@ namespace Rivet {
 
 
   Histo1DPtr Analysis::bookHisto1D(const string& hname, const string& title,
-				   const string& xtitle, const string& ytitle)
+                                   const string& xtitle, const string& ytitle)
   {
-    // Get the bin edges (only read the AIDA file once)
     const Scatter2D & refdata = referenceData(hname);
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(refdata, path) );
     addPlot(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setTitle(title);
-    // hist->setXTitle(xtitle);
-    // hist->setYTitle(ytitle);
+    hist->setAnnotation("XLabel", xtitle);
+    hist->setAnnotation("YLabel", ytitle);
     return hist;
   }
 
 
   Histo1DPtr Analysis::bookHisto1D(const string& hname,
-				   size_t nbins, double lower, double upper,
-				   const string& title,
-				   const string& xtitle, const string& ytitle) {
+                                   size_t nbins, double lower, double upper,
+                                   const string& title,
+                                   const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(nbins, lower, upper, path, title) );
     addPlot(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    // hist->setXTitle(xtitle);
-    // hist->setYTitle(ytitle);
+    hist->setAnnotation("XLabel", xtitle);
+    hist->setAnnotation("YLabel", ytitle);
     return hist;
   }
 
 
   Histo1DPtr Analysis::bookHisto1D(const string& hname,
-				   const vector<double>& binedges,
-				   const string& title,
-				   const string& xtitle,
-				   const string& ytitle) {
+                                   const vector<double>& binedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle) {
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(binedges, path, title) );
     addPlot(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    // hist->setXTitle(xtitle);
-    // hist->setYTitle(ytitle);
+    hist->setAnnotation("XLabel", xtitle);
+    hist->setAnnotation("YLabel", ytitle);
     return hist;
   }
 
   // IHistogram2D*
   // Analysis::bookHistogram2D(const string& hname,
-  // 			    size_t nxbins, double xlower, double xupper,
-  // 			    size_t nybins, double ylower, double yupper,
-  // 			    const string& title, const string& xtitle,
-  // 			    const string& ytitle, const string& ztitle) {
+  //                size_t nxbins, double xlower, double xupper,
+  //                size_t nybins, double ylower, double yupper,
+  //                const string& title, const string& xtitle,
+  //                const string& ytitle, const string& ztitle) {
   //   _makeHistoDir();
   //   const string path = histoPath(hname);
   //   IHistogram2D* hist =
   //     histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
-  // 					   nybins, ylower, yupper);
+  //                       nybins, ylower, yupper);
   //   MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
   //   hist->setXTitle(xtitle);
   //   hist->setYTitle(ytitle);
@@ -260,10 +259,10 @@ namespace Rivet {
 
   // IHistogram2D*
   // Analysis::bookHistogram2D(const string& hname,
-  // 			    const vector<double>& xbinedges,
-  // 			    const vector<double>& ybinedges,
-  // 			    const string& title, const string& xtitle,
-  // 			    const string& ytitle, const string& ztitle) {
+  //                const vector<double>& xbinedges,
+  //                const vector<double>& ybinedges,
+  //                const string& title, const string& xtitle,
+  //                const string& ytitle, const string& ztitle) {
   //   _makeHistoDir();
   //   const string path = histoPath(hname);
   //   IHistogram2D* hist =
@@ -280,58 +279,58 @@ namespace Rivet {
 
 
   Profile1DPtr Analysis::bookProfile1D(size_t datasetId, size_t xAxisId,
-				       size_t yAxisId, const string& title,
-				       const string& xtitle, const string& ytitle) {
+                                       size_t yAxisId, const string& title,
+                                       const string& xtitle, const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookProfile1D(axisCode, title, xtitle, ytitle);
   }
 
 
   Profile1DPtr Analysis::bookProfile1D(const string& hname, const string& title,
-				       const string& xtitle, const string& ytitle)
+                                       const string& xtitle, const string& ytitle)
   {
-    // Get the bin edges (only read the AIDA file once)
     const Scatter2D & refdata = referenceData(hname);
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(refdata, path) );
     addPlot(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setTitle(title);
-    // prof->setXTitle(xtitle);
-    // prof->setYTitle(ytitle);
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
     return prof;
   }
 
 
   Profile1DPtr Analysis::bookProfile1D(const string& hname,
-				       size_t nbins, double lower, double upper,
-				       const string& title,
-				       const string& xtitle, const string& ytitle) {
+                                       size_t nbins, double lower, double upper,
+                                       const string& title,
+                                       const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(nbins, lower, upper, path, title) );
     addPlot(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    // prof->setXTitle(xtitle);
-    // prof->setYTitle(ytitle);
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
     return prof;
   }
 
 
   Profile1DPtr Analysis::bookProfile1D(const string& hname,
-				       const vector<double>& binedges,
-				       const string& title,
-				       const string& xtitle, const string& ytitle) {
+                                       const vector<double>& binedges,
+                                       const string& title,
+                                       const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(binedges, path, title) );
     addPlot(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    // prof->setXTitle(xtitle);
-    // prof->setYTitle(ytitle);
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
     return prof;
   }
 
 
   ///////////////////
+
 
   Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId,
                                        size_t yAxisId, const string& title,
@@ -342,26 +341,26 @@ namespace Rivet {
 
 
   Scatter2DPtr Analysis::bookScatter2D(const string& hname, const string& title,
-				       const string& xtitle, const string& ytitle) {
+                                       const string& xtitle, const string& ytitle) {
     const string path = histoPath(hname);
     Scatter2DPtr dps( new Scatter2D(path, title) );
     addPlot(dps);
     MSG_TRACE("Made data point set " << hname <<  " for " << name());
-    // dps->setXTitle(xtitle);
-    // dps->setYTitle(ytitle);
+    dps->setAnnotation("XLabel", xtitle);
+    dps->setAnnotation("YLabel", ytitle);
     return dps;
   }
 
 
   Scatter2DPtr Analysis::bookScatter2D(const string& hname,
-				       size_t npts, double lower, double upper,
-				       const string& title,
-				       const string& xtitle, const string& ytitle) {
+                                       size_t npts, double lower, double upper,
+                                       const string& title,
+                                       const string& xtitle, const string& ytitle) {
     Scatter2DPtr dps = bookScatter2D(hname, title, xtitle, ytitle);
     const double binwidth = (upper-lower)/npts;
     for (size_t pt = 0; pt < npts; ++pt) {
       const double bincentre = lower + (pt + 0.5) * binwidth;
-      // \todo YODA check
+      // @todo YODA check
       dps->addPoint(bincentre, 0, binwidth/2.0, 0);
       // IMeasurement* meas = dps->point(pt)->coordinate(0);
       // meas->setValue(bincentre);
@@ -371,10 +370,10 @@ namespace Rivet {
     return dps;
   }
 
-  // \todo YODA
+  // @todo YODA
   // Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId,
-  // 				       size_t yAxisId, const string& title,
-  // 				       const string& xtitle, const string& ytitle) {
+  //                       size_t yAxisId, const string& title,
+  //                       const string& xtitle, const string& ytitle) {
   //   // Get the bin edges (only read the AIDA file once)
   //   _cacheXAxisData();
   //   // Build the axis code
@@ -411,18 +410,18 @@ namespace Rivet {
     s->setPath( path );
   }
 
-  void Analysis::divide(const Histo1D & h1, 
-			const Histo1D & h2, 
-			Scatter2DPtr s) const {
+  void Analysis::divide(const Histo1D & h1,
+                        const Histo1D & h2,
+                        Scatter2DPtr s) const {
     // preserve the path info
     std::string path = s->path();
     *s = h1 / h2;
     s->setPath( path );
   }
 
-  void Analysis::divide(const Profile1D & p1, 
-			const Profile1D & p2, 
-			Scatter2DPtr s) const {
+  void Analysis::divide(const Profile1D & p1,
+                        const Profile1D & p2,
+                        Scatter2DPtr s) const {
     // preserve the path info
     std::string path = s->path();
     *s = p1 / p2;

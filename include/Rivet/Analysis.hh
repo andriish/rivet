@@ -18,7 +18,7 @@
 
 /// @def vetoEvent
 /// Preprocessor define for vetoing events, including the log message and return.
-#define vetoEvent \
+#define vetoEvent                                                       \
   do { MSG_DEBUG("Vetoing event on line " << __LINE__ << " of " << __FILE__); return; } while(0)
 
 /// @def DECLARE_RIVET_PLUGIN
@@ -229,10 +229,12 @@ namespace Rivet {
 
 
     /// Return true if this analysis needs to know the process cross-section.
+    /// @todo Remove this and require HepMC >= 2.06
     bool needsCrossSection() const {
       return info().needsCrossSection();
     }
     /// Declare whether this analysis needs to know the process cross-section from the generator.
+    /// @todo Remove this and require HepMC >= 2.06
     Analysis& setNeedsCrossSection(bool needed=true) {
       info().setNeedsCrossSection(needed);
       return *this;
@@ -241,7 +243,7 @@ namespace Rivet {
     //@}
 
 
-    /// @name Internal metadata modifiying methods
+    /// @name Internal metadata modifying methods
     //@{
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored (non-const).
@@ -321,13 +323,13 @@ namespace Rivet {
 
     /// Helper for histogram division. Preserves the path information
     /// of the target.
-    void divide(const YODA::Histo1D & h1, 
-		const YODA::Histo1D & h2, Scatter2DPtr s) const;
+    void divide(const YODA::Histo1D & h1,
+                const YODA::Histo1D & h2, Scatter2DPtr s) const;
 
     /// Helper for profile histogram division. Preserves the path information
     /// of the target.
-    void divide(const YODA::Profile1D & p1, 
-		const YODA::Profile1D & p2, Scatter2DPtr s) const;
+    void divide(const YODA::Profile1D & p1,
+                const YODA::Profile1D & p2, Scatter2DPtr s) const;
 
 
   protected:
@@ -378,24 +380,24 @@ namespace Rivet {
 
     /// Get reference data for a numbered histo
     const YODA::Scatter2D & referenceData(size_t datasetId,
-				    size_t xAxisId, size_t yAxisId) const;
+                                          size_t xAxisId, size_t yAxisId) const;
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     /// (NB. this returns a pointer rather than a reference since it will
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     Histo1DPtr bookHisto1D(const std::string& name,
-			   size_t nbins, double lower, double upper,
-			   const std::string& title="",
-			   const std::string& xtitle="", const std::string& ytitle="");
+                           size_t nbins, double lower, double upper,
+                           const std::string& title="",
+                           const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     Histo1DPtr bookHisto1D(const std::string& name,
-                                        const std::vector<double>& binedges, const std::string& title="",
-                                        const std::string& xtitle="", const std::string& ytitle="");
+                           const std::vector<double>& binedges, const std::string& title="",
+                           const std::string& xtitle="", const std::string& ytitle="");
 
     // /// Book a 2D histogram with @a nxbins and @a nybins uniformly
     // /// distributed across the ranges @a xlower - @a xupper and @a
@@ -406,10 +408,10 @@ namespace Rivet {
     // /// reference before they can use it!)
     // AIDA::IHistogram2D*
     // bookHistogram2D(const std::string& name,
-    // 		    size_t nxbins, double xlower, double xupper,
-    // 		    size_t nybins, double ylower, double yupper,
-    // 		    const std::string& title="", const std::string& xtitle="",
-    // 		    const std::string& ytitle="", const std::string& ztitle="");
+    //          size_t nxbins, double xlower, double xupper,
+    //          size_t nybins, double ylower, double yupper,
+    //          const std::string& title="", const std::string& xtitle="",
+    //          const std::string& ytitle="", const std::string& ztitle="");
 
     // /// Book a 2D histogram with non-uniform bins defined by the
     // /// vectorx of bin edges @a xbinedges and @a ybinedges.
@@ -419,26 +421,26 @@ namespace Rivet {
     // /// reference before they can use it!)
     // AIDA::IHistogram2D*
     // bookHistogram2D(const std::string& name,
-    // 		    const std::vector<double>& xbinedges,
-    // 		    const std::vector<double>& ybinedges,
-    // 		    const std::string& title="", const std::string& xtitle="",
-    // 		    const std::string& ytitle="", const std::string& ztitle="");
+    //          const std::vector<double>& xbinedges,
+    //          const std::vector<double>& ybinedges,
+    //          const std::string& title="", const std::string& xtitle="",
+    //          const std::string& ytitle="", const std::string& ztitle="");
 
     /// Book a 1D histogram based on the name in the corresponding AIDA
     /// file. The binnings will be obtained by reading the bundled AIDA data
     /// record file with the same filename as the analysis' name() property.
     Histo1DPtr bookHisto1D(const std::string& name,
-			   const std::string& title="",
-			   const std::string& xtitle="",
-			   const std::string& ytitle="");
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
 
     /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
     Histo1DPtr bookHisto1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-			   const std::string& title="",
-			   const std::string& xtitle="",
-			   const std::string& ytitle="");
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
 
     //@}
 
@@ -451,31 +453,31 @@ namespace Rivet {
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     Profile1DPtr bookProfile1D(const std::string& name,
-			       size_t nbins, double lower, double upper,
-			       const std::string& title="",
-			       const std::string& xtitle="", const std::string& ytitle="");
+                               size_t nbins, double lower, double upper,
+                               const std::string& title="",
+                               const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     /// (NB. this returns a pointer rather than a reference since it will
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     Profile1DPtr bookProfile1D(const std::string& name,
-			       const std::vector<double>& binedges,
-			       const std::string& title="",
-			       const std::string& xtitle="", const std::string& ytitle="");
+                               const std::vector<double>& binedges,
+                               const std::string& title="",
+                               const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D profile histogram based on the name in the corresponding AIDA
     /// file. The binnings will be obtained by reading the bundled AIDA data
     /// record file with the same filename as the analysis' name() property.
     Profile1DPtr bookProfile1D(const std::string& name, const std::string& title="",
-			       const std::string& xtitle="", const std::string& ytitle="");
+                               const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
     /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
     Profile1DPtr bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-			       const std::string& title="",
-			       const std::string& xtitle="", const std::string& ytitle="");
+                               const std::string& title="",
+                               const std::string& xtitle="", const std::string& ytitle="");
     //@}
 
 
@@ -487,7 +489,7 @@ namespace Rivet {
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     Scatter2DPtr bookScatter2D(const std::string& name, const std::string& title="",
-			       const std::string& xtitle="", const std::string& ytitle="");
+                               const std::string& xtitle="", const std::string& ytitle="");
 
 
     /// Book a 2-dimensional data point set with equally spaced points in a range.
@@ -495,9 +497,9 @@ namespace Rivet {
     /// have to be stored in the analysis class - there's no point in forcing users to explicitly
     /// get the pointer from a reference before they can use it!)
     Scatter2DPtr bookScatter2D(const std::string& name,
-			       size_t npts, double lower, double upper,
-			       const std::string& title="",
-			       const std::string& xtitle="", const std::string& ytitle="");
+                               size_t npts, double lower, double upper,
+                               const std::string& title="",
+                               const std::string& xtitle="", const std::string& ytitle="");
 
     /// Book a 2-dimensional data point set based on the corresponding AIDA data
     /// file. The binnings (x-errors) will be obtained by reading the bundled
@@ -509,8 +511,8 @@ namespace Rivet {
     /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
     /// of the same filename as the analysis' name() property.
     Scatter2DPtr bookScatter2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-			       const std::string& title="",
-			       const std::string& xtitle="", const std::string& ytitle="");
+                               const std::string& title="",
+                               const std::string& xtitle="", const std::string& ytitle="");
 
     //@}
 
