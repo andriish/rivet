@@ -1,3 +1,7 @@
+2012-11-27  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fix make-plots png creation for SL5
+
 2012-11-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding MC_PHOTONS by Steve Lloyd and AB, for testing general
@@ -17,8 +21,6 @@
 
 	* Converting the argument order of logspace, clarifying the
 	arguments, updating affected code, and removing Analysis::logBinEdges.
-
-	* Merging updates from the AIDA maintenance branch up to r3974
 
 	* Merging updates from the AIDA maintenance branch up to r4002
 	 (latest revision for next merges is r4009).
