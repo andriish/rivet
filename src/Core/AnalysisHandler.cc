@@ -8,6 +8,14 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projections/Beam.hh"
 
+namespace {
+  bool AOSortByPath(const Rivet::AnalysisObjectPtr a, 
+		    const Rivet::AnalysisObjectPtr b) {
+    return a->path() < b->path();
+  }
+}
+
+
 namespace Rivet {
 
 
@@ -194,7 +202,8 @@ namespace Rivet {
   void AnalysisHandler::writeData(const string& filename) {
     vector<AnalysisObjectPtr> allPlots;
     foreach (const AnaHandle a, _analyses) {
-      const vector<AnalysisObjectPtr> & plots = a->plots();
+      vector<AnalysisObjectPtr> plots = a->plots();
+      sort(plots.begin(), plots.end(), AOSortByPath);
       allPlots.insert(allPlots.end(), plots.begin(), plots.end());
     }
     WriterYODA::write(filename, allPlots.begin(), allPlots.end());
