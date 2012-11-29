@@ -4,10 +4,6 @@
 
 	* Adding XLabel and YLabel setting in histo/profile/scatter booking.
 
-2012-11-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
-
-	* Added CMS_2012_I1102908 analysis
-
 2012-11-27  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fix make-plots png creation for SL5
@@ -35,6 +31,10 @@
 
 	* Added LHCF_2012_I1115479 analysis
 	* Added ATLAS_2011_I894867 analysis
+
+2012-11-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added CMS_2012_I1102908 analysis
 
 2012-11-14  Andy Buckley  <andy.buckley@cern.ch>
 
