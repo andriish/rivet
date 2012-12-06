@@ -1,6 +1,7 @@
 2012-12-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added ATLAS_2012_I1188891 analysis
+	* Added LHCB_2010_I867355 analysis
 	* Added TGraphErrors support to root2flat
 
 2012-11-27  Hendrik Hoeth <hendrik.hoeth@cern.ch>
