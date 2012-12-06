@@ -34,8 +34,9 @@ namespace Rivet {
       double xiM = 0.;
       double xiP = 0.;
 
-      const Jets jets = applyProjection<FastJets>(event, "AntiKtJets05").jetsByPt(20.*GeV, MAXDOUBLE, -4.4, 4.4);
+      const Jets jets = applyProjection<FastJets>(event, "AntiKtJets05").jetsByPt(20.*GeV);
       if (jets.size() < 2) vetoEvent;  // require a dijet system with a 20 GeV cut on both jets
+      if (fabs(jets[0].momentum().eta()) > 4.4 || fabs(jets[1].momentum().eta()) > 4.4) vetoEvent;
 
       const FinalState& fsp = applyProjection<FinalState>(event, "FS");
 
