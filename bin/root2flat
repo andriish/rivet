@@ -107,14 +107,14 @@ def browse(f, branch=None):
             # Check if the curent object is a histogram
             elif f.Get(t_n).InheritsFrom("TH1") or f.Get(t_n).InheritsFrom("TProfile"):
                 histos.append(t_n)
-            elif f.Get(t_n).InheritsFrom("TGraphAsymmErrors"):
+            elif f.Get(t_n).InheritsFrom("TGraphAsymmErrors") or f.Get(t_n).InheritsFrom("TGraphErrors"):
                 tgraphs.append(t_n)
             # Also support graphs, histos stored in TCanvases
             elif f.Get(t_n).InheritsFrom("TCanvas"):
                 for ci in f.Get(t_n).GetListOfPrimitives():
                     if ci.InheritsFrom("TH1") or ci.InheritsFrom("TProfile"):
                         tcanvases.append((t_n,False,ci))
-                    elif ci.InheritsFrom("TGraphAsymmErrors"):
+                    elif ci.InheritsFrom("TGraphAsymmErrors") or ci.InheritsFrom("TGraphErrors"):
                         tcanvases.append((t_n,True,ci))
 
     return subdirs, histos, tgraphs, tcanvases
