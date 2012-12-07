@@ -19,10 +19,10 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [0]
 Description:
-  'Measurement of $b$-hadron production cross section using 3.3 pb$^{-1}$ of integrated luminosity, collected during the 2010 LHC run. 
-   The $b$-hadrons are selected by partially reconstructing $D^{*}\mu^-X$ final states using only direct semileptonic decays of $b$ to $D^{*}\mu^-X$. 
+  'Measurement of $b$-hadron production cross section using 3.3 pb$^{-1}$ of integrated luminosity, collected during the 2010 LHC run.
+   The $b$-hadrons are selected by partially reconstructing $D^{*}\mu^-X$ final states using only direct semileptonic decays of $b$ to $D^{*}\mu^-X$.
    Differential cross sections as functions of $p_\perp$ and $|\eta|$.'
-BibKey: 2012fc
+BibKey: :2012fc
 BibTeX: '@article{:2012fc,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the b-hadron production cross section
