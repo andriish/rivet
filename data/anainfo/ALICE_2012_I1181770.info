@@ -24,7 +24,7 @@ Description:
    Single-diffractive events are selected with $M_{X} < 200\;\GeV/c^2$ and double-diffractive events defined as NSD events with $\Delta\eta > 3$.
    To measure the inelastic cross-section, beam properties were determined with van der Meer scans using a simulation of diffraction adjusted to data.
 
-   Note that these are experimental approximations to theoretical concepts -- it's not totally clear whether the data point values are model-independent.'
+   Note that these are experimental approximations to theoretical concepts -- it is not totally clear whether the data point values are model-independent.'
 BibKey: :2012sja
 BibTeX: '@article{:2012sja,
       author         = "Abelev, Betty and others",
