@@ -27,22 +27,25 @@ namespace Rivet {
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
-      // Calculate gap sizes and midpoints
-      const ParticleVector particlesByEta = fs.particlesByEta(); // sorted from minus to plus
-      vector<double> gaps, midpoints;
-      for (size_t ip = 1; ip < particlesByEta.size(); ++ip) {
-        const Particle& p1 = particlesByEta[ip-1];
-        const Particle& p2 = particlesByEta[ip];
-        const double gap = p2.momentum().eta() - p1.momentum().eta();
-        const double mid = (p2.momentum().eta() + p1.momentum().eta()) / 2.;
-        assert(gap >= 0);
-        gaps.push_back(gap);
-        midpoints.push_back(mid);
+      double gapcenter = 0.;
+      double LRG = 0.;
+      double etapre = 0.;
+      bool first = true;
+
+      foreach(const Particle& p, fs.particlesByEta()) { // sorted from minus to plus
+        if (first) { // First particle
+          first = false;
+          etapre = p.momentum().eta();
+        } else {
+          double gap = fabs(p.momentum().eta()-etapre);
+          if (gap > LRG) {
+            LRG = gap; // largest gap
+            gapcenter = (p.momentum().eta()+etapre)/2.; // find the center of the gap to separate the X and Y systems.
+          }
+          etapre = p.momentum().eta();
+        }
       }
 
-      // Find the midpoint of the largest gap to separate X and Y systems
-      int imid = std::distance(gaps.begin(), max_element(gaps.begin(), gaps.end()));
-      double gapcenter = midpoints[imid];
 
       FourMomentum mxFourVector, myFourVector;
       foreach(const Particle& p, fs.particlesByEta()) {
@@ -64,7 +67,6 @@ namespace Rivet {
       scale(_h_sigma, crossSection()/millibarn/sumOfWeights());
     }
 
-
   private:
 
     AIDA::IHistogram1D* _h_sigma;
@@ -72,6 +74,7 @@ namespace Rivet {
   };
 
 
+  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2011_I894867);
 
 }
