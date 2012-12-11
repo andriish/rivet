@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     void init() {
-      addProjection(FinalState(),"FS");
+      addProjection(FinalState(), "FS");
       _h_sigma = bookHistogram1D(1, 1, 1);
     }
 
@@ -25,53 +25,45 @@ namespace Rivet {
       const double weight = event.weight();
 
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      if (fs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
-      double gapcenter = 0.;
-      double LRG = 0.;
-      double etapre = 0.;
-      bool first = true;
-
-      foreach(const Particle& p, fs.particlesByEta()) { // sorted from minus to plus
-        if (first) { // First particle
-          first = false;
-          etapre = p.momentum().eta();
-        } else {
-          double gap = fabs(p.momentum().eta()-etapre);
-          if (gap > LRG) {
-            LRG = gap; // largest gap
-            gapcenter = (p.momentum().eta()+etapre)/2.; // find the center of the gap to separate the X and Y systems.
-          }
-          etapre = p.momentum().eta();
-        }
+      // Calculate gap sizes and midpoints
+      const ParticleVector particlesByEta = fs.particlesByEta(); // sorted from minus to plus
+      vector<double> gaps, midpoints;
+      for (size_t ip = 1; ip < particlesByEta.size(); ++ip) {
+        const Particle& p1 = particlesByEta[ip-1];
+        const Particle& p2 = particlesByEta[ip];
+        const double gap = p2.momentum().eta() - p1.momentum().eta();
+        const double mid = (p2.momentum().eta() + p1.momentum().eta()) / 2.;
+        assert(gap >= 0);
+        gaps.push_back(gap);
+        midpoints.push_back(mid);
       }
 
-      FourMomentum MxFourVector(0.,0.,0.,0.);
-      FourMomentum MyFourVector(0.,0.,0.,0.);
+      // Find the midpoint of the largest gap to separate X and Y systems
+      int imid = std::distance(gaps.begin(), max_element(gaps.begin(), gaps.end()));
+      double gapcenter = midpoints[imid];
 
+      FourMomentum mxFourVector, myFourVector;
       foreach(const Particle& p, fs.particlesByEta()) {
         if (p.momentum().eta() > gapcenter) {
-          MxFourVector += p.momentum();
+          mxFourVector += p.momentum();
         } else {
-          MyFourVector += p.momentum();
+          myFourVector += p.momentum();
         }
       }
-
-      double Mx2 = MxFourVector.mass2();
-      double My2 = MyFourVector.mass2();
-
-      const double M2 = (Mx2 > My2 ? Mx2 : My2);
-      const double xi = M2/(7000*7000); // sqrt(s)=7000 GeV
-
+      const double M2 = max(mxFourVector.mass2(), myFourVector.mass2());
+      const double xi = M2/sqr(sqrtS()); // sqrt(s)=7000 GeV, note that units cancel
       if (xi < 5*10e-6) vetoEvent;
 
-      _h_sigma->fill(7000/GeV, weight);
-
+      _h_sigma->fill(sqrtS()/GeV, weight);
     }
 
 
     void finalize() {
       scale(_h_sigma, crossSection()/millibarn/sumOfWeights());
     }
+
 
   private:
 
@@ -80,7 +72,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2011_I894867);
 
 }
