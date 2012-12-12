@@ -11,6 +11,7 @@ using namespace std;
 
 namespace Rivet {
 
+
   // UE charged particles vs. leading jet
   class CMS_2011_S9120041 : public Analysis {
   public:
@@ -24,8 +25,6 @@ namespace Rivet {
       addProjection(cfs, "CFS");
 
       const ChargedFinalState cfsforjet(-2.5, 2.5, 500*MeV);
-      addProjection(cfsforjet, "CFSforjet");
-
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
       addProjection(jetpro, "Jets");
 
@@ -60,10 +59,15 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(1.0*GeV);
-      if (jets.size() < 1) vetoEvent;
-
-      FourMomentum p_lead = jets[0].momentum();
+      // Find the lead jet, applying a restriction that the jets must be within |eta| < 2.
+      FourMomentum p_lead;
+      foreach (const Jet& j, applyProjection<FastJets>(event, "Jets").jetsByPt(1.0*GeV)) {
+        if (fabs(j.momentum().eta()) < 2.0) {
+          p_lead = j.momentum();
+          break;
+        }
+      }
+      if (p_lead.isZero()) vetoEvent;
       const double philead = p_lead.phi();
       const double pTlead  = p_lead.pT();
 
