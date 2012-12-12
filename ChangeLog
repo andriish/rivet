@@ -1,3 +1,7 @@
+2012-12-12  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added CMS_2012_PAS_QCD_11_010 analysis
+
 2012-12-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version number bump to 1.8.2 -- release approaching.
@@ -13,14 +17,19 @@
 2012-12-07  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added ALICE_2012_I1181770 analysis
+
 	* Bump version to 1.8.2
 
 2012-12-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added ATLAS_2012_I1188891 analysis
+
 	* Added ATLAS_2012_I1118269 analysis
+
 	* Added CMS_2012_I1184941 analysis
+
 	* Added LHCB_2010_I867355 analysis
+
 	* Added TGraphErrors support to root2flat
 
 2012-11-27  Hendrik Hoeth <hendrik.hoeth@cern.ch>
