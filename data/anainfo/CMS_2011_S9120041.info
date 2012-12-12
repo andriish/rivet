@@ -10,14 +10,14 @@ Authors:
 References:
   - J. High Energy Phys 09 (2011) 109
 RunInfo:
-   Non single diffrative events. Switch on single diffraction in generator.
-   The profile plots require large statistics.
+   Requires inclusive inelastic events (non-diffractive and inelastic
+   diffractive). The profile plots require large statistics.
 Beams: [p+, p+]
 Energies: [900, 7000]
 pT Cuts: pT > 0.5 GeV (all tracks).
 Description:
    A measurement of the underlying activity in scattering processes with a hard
-   scale in the several GeV region is performed in proton-proton collisions at
+   scale in the several-GeV region is performed in proton-proton collisions at
    Energies of 0.9 and 7 TeV, using data collected by the CMS experiment at the
    LHC. The production of charged particles with pseudorapidity |eta| < 2 and
    transverse momentum pT > 0.5 GeV/c is studied in the azimuthal region transverse
