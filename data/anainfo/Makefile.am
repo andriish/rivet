@@ -172,6 +172,7 @@ dist_pkgdata_DATA = \
   LHCB_2010_I867355.info \
   LHCB_2011_I917009.info \
   LHCB_2011_I919315.info \
+  LHCB_2012_I1119400.info \
   LHCF_2012_I1115479.info \
   MC_DIJET.info \
   MC_DIPHOTON.info \

@@ -3,6 +3,7 @@ dist_pkgdata_DATA = \
   LHCB_2010_I867355.aida \
   LHCB_2011_I917009.aida \
   LHCB_2011_I919315.aida \
+  LHCB_2012_I1119400.aida \
   LHCF_2012_I1115479.aida \
   JADE_OPAL_2000_S4300807.aida \
   JADE_1998_S3612880.aida \
