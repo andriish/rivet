@@ -133,6 +133,7 @@ RivetCMSAnalyses_la_SOURCES = \
 if ENABLE_PRELIMINARY
 RivetCMSAnalyses_la_SOURCES += \
     CMS_QCD_10_024.cc \
+    CMS_2012_PAS_FWD_11_003.cc \
     CMS_2012_PAS_QCD_11_010.cc
 endif
 
