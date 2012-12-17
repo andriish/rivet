@@ -293,10 +293,10 @@ namespace Rivet {
 
   IHistogram2D*
   Analysis::bookHistogram2D(const string& hname,
-			    size_t nxbins, double xlower, double xupper,
-			    size_t nybins, double ylower, double yupper,
-			    const string& title, const string& xtitle,
-			    const string& ytitle, const string& ztitle) {
+                            size_t nxbins, double xlower, double xupper,
+                            size_t nybins, double ylower, double yupper,
+                            const string& title, const string& xtitle,
+                            const string& ytitle, const string& ztitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
     if (path.find(" ") != string::npos) {
@@ -304,7 +304,7 @@ namespace Rivet {
     }
     IHistogram2D* hist =
       histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
-					   nybins, ylower, yupper);
+                                           nybins, ylower, yupper);
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     hist->setXTitle(xtitle);
     hist->setYTitle(ytitle);
@@ -315,10 +315,10 @@ namespace Rivet {
 
   IHistogram2D*
   Analysis::bookHistogram2D(const string& hname,
-			    const vector<double>& xbinedges,
-			    const vector<double>& ybinedges,
-			    const string& title, const string& xtitle,
-			    const string& ytitle, const string& ztitle) {
+                            const vector<double>& xbinedges,
+                            const vector<double>& ybinedges,
+                            const string& title, const string& xtitle,
+                            const string& ytitle, const string& ztitle) {
     _makeHistoDir();
     const string path = histoPath(hname);
     if (path.find(" ") != string::npos) {
@@ -568,7 +568,7 @@ namespace Rivet {
       for (int iyBin = 0; iyBin != nyBins; ++iyBin) {
       // Leaving out factor of binWidth because AIDA's "height"
       // already includes a width factor.
-	oldintg += histo->binHeight(ixBin, iyBin); // * histo->axis().binWidth(iBin);
+        oldintg += histo->binHeight(ixBin, iyBin); // * histo->axis().binWidth(iBin);
     }
     if (oldintg == 0.0) {
       MSG_WARNING("Histo " << hpath << " has null integral during normalization");
@@ -593,21 +593,21 @@ namespace Rivet {
     vector<double> x, y, z, ex, ey, ez;
     for (size_t ix = 0, Nx = histo->xAxis().bins(); ix < Nx; ++ix)
       for (size_t iy = 0, Ny = histo->yAxis().bins(); iy < Ny; ++iy) {
-	x.push_back(0.5 * (histo->xAxis().binLowerEdge(ix) +
-			   histo->xAxis().binUpperEdge(ix)));
-	ex.push_back(histo->xAxis().binWidth(ix)*0.5);
-	y.push_back(0.5 * (histo->yAxis().binLowerEdge(iy) +
-			   histo->yAxis().binUpperEdge(iy)));
-	ey.push_back(histo->yAxis().binWidth(iy)*0.5);
+        x.push_back(0.5 * (histo->xAxis().binLowerEdge(ix) +
+                           histo->xAxis().binUpperEdge(ix)));
+        ex.push_back(histo->xAxis().binWidth(ix)*0.5);
+        y.push_back(0.5 * (histo->yAxis().binLowerEdge(iy) +
+                           histo->yAxis().binUpperEdge(iy)));
+        ey.push_back(histo->yAxis().binWidth(iy)*0.5);
 
-	// "Bin height" is a misnomer in the AIDA spec: width is neglected.
-	// We'd like to do this: y.push_back(histo->binHeight(i) * scale);
-	z.push_back(histo->binHeight(ix, iy)*scale/
-		    (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
-	// "Bin error" is a misnomer in the AIDA spec: width is neglected.
-	// We'd like to do this: ey.push_back(histo->binError(i) * scale);
-	ez.push_back(histo->binError(ix, iy)*scale/
-		     (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
+        // "Bin height" is a misnomer in the AIDA spec: width is neglected.
+        // We'd like to do this: y.push_back(histo->binHeight(i) * scale);
+        z.push_back(histo->binHeight(ix, iy)*scale/
+                    (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
+        // "Bin error" is a misnomer in the AIDA spec: width is neglected.
+        // We'd like to do this: ey.push_back(histo->binError(i) * scale);
+        ez.push_back(histo->binError(ix, iy)*scale/
+                     (histo->xAxis().binWidth(ix)*histo->yAxis().binWidth(iy)));
     }
 
     string title = histo->title();
