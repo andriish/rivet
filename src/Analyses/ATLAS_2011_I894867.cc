@@ -57,7 +57,7 @@ namespace Rivet {
       }
       const double M2 = max(mxFourVector.mass2(), myFourVector.mass2());
       const double xi = M2/sqr(sqrtS()); // sqrt(s)=7000 GeV, note that units cancel
-      if (xi < 5*10e-6) vetoEvent;
+      if (xi < 5e-6) vetoEvent;
 
       _h_sigma->fill(sqrtS()/GeV, weight);
     }
