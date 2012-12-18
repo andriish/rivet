@@ -414,6 +414,10 @@ class Plot:
             out += ('\\usepackage{mathpazo}\n')
         elif opts.OUTPUT_FONT == "TIMES":
             out += ('\\usepackage{mathptmx}\n')
+        elif opts.OUTPUT_FONT == "HELVETICA":
+            out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
+            out += ('\\usepackage{sfmath}\n')
+            out += ('\\usepackage{helvet}\n')
         for pkg in opts.LATEXPKGS:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage{pst-all}\n')
@@ -2267,6 +2271,8 @@ if __name__ == '__main__':
                       help="Use Times as font.")
     parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
                       help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
+    parser.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="HELVETICA", default="PALATINO",
+                      help="Use Helvetica as font.")
     parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PDF",
                       help="Create PostScript output (default).")
     parser.add_option("--pdf", dest="OUTPUT_FORMAT", action="store_const", const="PDF", default="PDF",
