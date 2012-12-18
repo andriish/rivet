@@ -20,19 +20,20 @@ Description:
   'Obtaining the tranverse momentum spectra of pions, kaons and protons in $pp$ collisions at
    $\sqrt{s} = 0.9$ TeV with ALICE at the LHC. Mean transverse momentum as a function of the
    mass of the emitted particle is also included.'
-BibKey: Aamodt:2011my
-BibTeX: '@Article{Aamodt:2011my,
-     author    = "Aamodt, K and others",
-     collaboration = "ALICE",
-     title     = "{Production of pions, kaons and protons in $pp$ collisions at $\sqrt{s} = 900$ GeV with ALICE at the LHC.}",
-     journal   = "Eur.Phys.J. C",
-     volume    = "71",
-     year      = "2011",
-     pages     = "1655",
-     eprint    = "1101.4110",
-     archivePrefix = "arXiv",
-     primaryClass  =  "hep-ex",
-     doi       = "10.1140/epjc/s10052-011-1655-9"
-     EXP CERN-LHC-ALICE | Reaction Data (Durham)
-     SLACcitation  = "%%CITATION = 1101.4110;%%"
+BibKey: Aamodt:2011zj
+BibTeX: '@article{Aamodt:2011zj,
+      author         = "Aamodt, K. and others",
+      title          = "{Production of pions, kaons and protons in $pp$
+                        collisions at $\sqrt{s}= 900$ GeV with ALICE at the LHC}",
+      collaboration  = "ALICE",
+      journal        = "Eur.Phys.J.",
+      volume         = "C71",
+      pages          = "1655",
+      doi            = "10.1140/epjc/s10052-011-1655-9",
+      year           = "2011",
+      eprint         = "1101.4110",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "CERN-PH-EP-2010-085",
+      SLACcitation   = "%%CITATION = ARXIV:1101.4110;%%",
 }'
