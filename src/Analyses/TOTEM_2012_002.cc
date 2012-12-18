@@ -44,17 +44,15 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_hist_tlow, crossSection()/millibarn/sumOfWeights());
-      scale(_hist_thigh, crossSection()/millibarn/sumOfWeights());
-      scale(_hist_sigma, crossSection()/millibarn/sumOfWeights());
+      normalize(_hist_tlow, crossSection()/millibarn);
+      normalize(_hist_thigh, crossSection()/millibarn);
+      normalize(_hist_sigma, crossSection()/millibarn);
     }
 
 
   private:
 
-    AIDA::IHistogram1D *_hist_tlow;
-    AIDA::IHistogram1D *_hist_thigh;
-    AIDA::IHistogram1D *_hist_sigma;
+    AIDA::IHistogram1D *_hist_tlow, *_hist_thigh, *_hist_sigma;
 
   };
 
