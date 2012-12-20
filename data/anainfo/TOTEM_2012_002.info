@@ -10,9 +10,10 @@ Authors:
  - Peter Skands <Peter.Skands@cern.ch>
 References:
  - CERN-PH-EP-2012-239
+ - http://cds.cern.ch/record/1472948
 RunInfo:
    Elastic events only.
-NumEvents: 100000
+NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [0]
@@ -26,8 +27,7 @@ BibTeX: '@techreport{Antchev:1472948,
       author        = "Antchev, G. and others",
       collaboration = "TOTEM",
       title         = "Measurement of proton-proton elastic scattering and total
-                       cross-section at $\sqrt{s}$ = 7 TeV.
-                       oai:cds.cern.ch:1472948",
+                       cross-section at $\sqrt{s}$ = 7 TeV",
       institution   = "CERN",
       address       = "Geneva",
       number        = "CERN-PH-EP-2012-239. TOTEM-2012-002",
