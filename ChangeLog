@@ -1,3 +1,7 @@
+2013-01-22  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Fix TeX variable in the rivetenv scripts, especially for csh
+
 2012-12-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version 1.8.2 release!
