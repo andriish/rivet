@@ -12,26 +12,8 @@ else
 setenv PYTHONPATH "@RIVET_PYTHONPATH@"
 endif
 
-if ($?TEXMFHOME) then
 setenv TEXMFHOME "@datadir@/Rivet/texmf:$TEXMFHOME"
-else
-setenv TEXMFHOME "@datadir@/Rivet/texmf"
-endif
-
-if ($?HOMETEXMF) then
 setenv HOMETEXMF "@datadir@/Rivet/texmf:$HOMETEXMF"
-else
-setenv HOMETEXMF "@datadir@/Rivet/texmf"
-endif
-
-if ($?TEXINPUTS) then
-setenv TEXINPUTS "@datadir@/Rivet/texmf:$TEXINPUTS"
-else
-setenv TEXINPUTS "@datadir@/Rivet/texmf/tex//"
-endif
-
-if ($?LATEXINPUTS) then
-setenv LATEXINPUTS "@datadir@/Rivet/texmf:$LATEXINPUTS"
-else
-setenv LATEXINPUTS "@datadir@/Rivet/texmf/tex//"
-endif
+setenv TEXMFCNF "@datadir@/Rivet/texmf/cnf:$TEXMFCNF"
+setenv TEXINPUTS "@datadir@/Rivet/texmf/tex:$TEXINPUTS"
+setenv LATEXINPUTS "@datadir@/Rivet/texmf/tex:$LATEXINPUTS"
