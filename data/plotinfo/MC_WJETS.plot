@@ -1,22 +1,3 @@
-# BEGIN PLOT /MC_WJETS/W_chargeasymm_eta
-Title=Charge asymmetry vs. $\eta(\ell)$
-XLabel=$\eta(\ell)$ [GeV]
-YLabel=$(\mathrm{d}\sigma(\ell^+)-\mathrm{d}\sigma(\ell^-))\;/\;(\mathrm{d}\sigma(\ell^+)+\mathrm{d}\sigma(\ell^-))$
-LogY=0
-Scale=1.0
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/W_chargeasymm_pT
-Title=Charge asymmetry vs. $p_\perp(W)$
-XLabel=$p_\perp(W)$ [GeV]
-YLabel=$\mathrm{d}\sigma(W^+)\;/\;\mathrm{d}\sigma(W^-)$
-LogX=1
-LogY=0
-Scale=1.0
-YMin=0.0
-YMax=3.0
-# END PLOT
-
 # BEGIN PLOT /MC_WJETS/W_jet1_dR
 Title=Separation between W boson and leading jet
 XLabel=$\Delta R(\text{W, 1st jet})$
@@ -29,76 +10,6 @@ LegendYPos=0.5
 Title=
 XLabel=$\Delta{\eta}(\text{W, 1st jet})$
 YLabel=$\text{d}\sigma/\text{d}\Delta{\eta}(\text{W, 1st jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/W_mass
-Title=W mass
-XLabel=$m_{\text{W}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}m_{\text{W}}$ [pb/GeV]
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/W_pT$
-Title=W boson $p_\perp$
-XLabel=$p_\perp^{\text{W}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$ [pb/GeV]
-LogX=1
-LegendXPos=0.05
-LegendYPos=0.5
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/W_pT_peak
-Title=W boson $p_\perp$ in peak region
-XLabel=$p_\perp^{\text{W}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{W}}$ [pb/GeV]
-LogY=0
-LogX=0
-LegendYPos=0.5
-LegendXPos=0.30
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/W_y
-Title=W boson rapidity
-XLabel=$y_{\text{W}}$
-YLabel=$\text{d}\sigma/\text{d}y_{\text{W}}$ [pb]
-LegendXPos=0.35
-LegendYPos=0.5
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/W_phi
-Title=W azimuthal angle
-XLabel=$\phi_{\text{W}}$
-YLabel=$\text{d}\sigma/\text{d}\phi_{\text{W}}$ [pb]
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/Wplus_pT$
-Title=$p_\perp$ of $W^+$ boson
-XLabel=$p_\perp^{W^+}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{W^+}$ [pb/GeV]
-LogX=1
-LegendXPos=0.05
-LegendYPos=0.5
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/Wminus_pT$
-Title=$p_\perp$ of $W^-$ boson
-XLabel=$p_\perp^{W^-}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{W^-}$ [pb/GeV]
-LogX=1
-LegendXPos=0.05
-LegendYPos=0.5
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/lepton_pT
-Title=Lepton $p_\perp$
-XLabel=$p_\perp^{\text{l}}$ [GeV]
-YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{l}}$ [pb/GeV]
-LogX=1
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/lepton_eta
-Title=Lepton $\eta$
-XLabel=$\eta_{\text{l}}$
-YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/jets_dR_
@@ -317,79 +228,6 @@ XMajorTickMarks=10
 XMinorTickMarks=0
 LogY=0
 ErrorBands=1
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_R_0
-Title=$\log_{10}$(Integrated $0$ jet rate in $k_\perp$ [GeV])
-XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
-YLabel=$R_{0}$
-Rebin=2
-LegendYPos=0.8
-LegendXPos=0.75
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_R_1
-Title=$\log_{10}$(Integrated $1$ jet rate in $k_\perp$ [GeV])
-XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
-YLabel=$R_{1}$
-Rebin=2
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_R_2
-Title=$\log_{10}$(Integrated $2$ jet rate in $k_\perp$ [GeV])
-XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
-YLabel=$R_{2}$
-Rebin=2
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_R_3
-Title=$\log_{10}$(Integrated $3$ jet rate in $k_\perp$ [GeV])
-XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
-YLabel=$R_{3}$
-Rebin=2
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_R_4
-Title=$\log_{10}$(Integrated $4$ jet rate in $k_\perp$ [GeV])
-XLabel=$\log_{10}(d_{\text{cut}}/\text{GeV})$
-YLabel=$R_{\geq4}$
-Rebin=2
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_d_01
-Title=$\log_{10}$($k_\perp$ jet resolution $0 \to 1$ [GeV])
-XLabel=$\log_{10}(d_{01}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{01}/\text{GeV})$ [pb]
-LegendXPos=0.15
-LegendYPos=0.5
-Rebin=2
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_d_12
-Title=$\log_{10}$($k_\perp$ jet resolution $1 \to 2$ [GeV])
-XLabel=$\log_{10}(d_{12}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{12}/\text{GeV})$ [pb]
-LegendXPos=0.15
-LegendYPos=0.5
-Rebin=2
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_d_23
-Title=$\log_{10}$($k_\perp$ jet resolution $2 \to 3$ [GeV])
-XLabel=$\log_{10}(d_{23}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{23}/\text{GeV})$ [pb]
-LegendXPos=0.15
-LegendYPos=0.5
-Rebin=2
-# END PLOT
-
-# BEGIN PLOT /MC_WJETS/log10_d_34
-Title=$\log_{10}$($k_\perp$ jet resolution $3 \to 4$ [GeV])
-XLabel=$\log_{10}(d_{34}/\text{GeV})$
-YLabel=$\text{d}\sigma/\text{d}\log_{10}(d_{34}/\text{GeV})$ [pb]
-LegendXPos=0.15
-LegendYPos=0.5
-Rebin=2
 # END PLOT
 
 # BEGIN PLOT /MC_WJETS/jet_pT_1

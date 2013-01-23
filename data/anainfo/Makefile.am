@@ -192,7 +192,9 @@ dist_pkgdata_DATA = \
   MC_SUSY.info \
   MC_TTBAR.info \
   MC_VH2BB.info \
+  MC_WINC.info \
   MC_WJETS.info \
+  MC_WKTSPLITTINGS.info \
   MC_WPOL.info \
   MC_WWJETS.info \
   MC_XS.info \

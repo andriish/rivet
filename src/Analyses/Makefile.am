@@ -360,7 +360,9 @@ RivetMCAnalyses_la_SOURCES = \
     MC_SUSY.cc \
     MC_TTBAR.cc \
     MC_VH2BB.cc \
+    MC_WINC.cc \
     MC_WJETS.cc \
+    MC_WKTSPLITTINGS.cc \
     MC_WPOL.cc \
     MC_WWJETS.cc \
     MC_XS.cc \

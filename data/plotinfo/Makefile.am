@@ -188,7 +188,9 @@ dist_pkgdata_DATA = \
   MC_VH2BB.plot \
   MC_HJETS.plot \
   MC_PDFS.plot \
+  MC_WINC.plot \
   MC_WJETS.plot \
+  MC_WKTSPLITTINGS.plot \
   MC_WPOL.plot \
   MC_WWJETS.plot \
   MC_XS.plot \
