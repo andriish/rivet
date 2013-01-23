@@ -12,7 +12,7 @@ namespace Rivet {
                                  const string& jetpro_name,
                                  double jetptcut)
     : Analysis(name), m_njet(njet), m_jetpro_name(jetpro_name), m_jetptcut(jetptcut),
-      _h_log10_d(njet, NULL), _h_log10_R(njet+1, NULL), _h_pT_jet(njet, NULL),
+      _h_pT_jet(njet, NULL),
       _h_eta_jet(njet, NULL), _h_eta_jet_plus(njet), _h_eta_jet_minus(njet),
       _h_rap_jet(njet, NULL), _h_rap_jet_plus(njet), _h_rap_jet_minus(njet),
       _h_mass_jet(njet, NULL)
@@ -26,15 +26,6 @@ namespace Rivet {
   void MC_JetAnalysis::init() {
 
     for (size_t i=0; i < m_njet; ++i) {
-      stringstream dname;
-      dname << "log10_d_" << i << i+1;
-
-      _h_log10_d[i] = bookHistogram1D(dname.str(), 50, 0.2, log10(0.5*sqrtS()));
-
-      stringstream Rname;
-      Rname << "log10_R_" << i;
-      _h_log10_R[i] = bookDataPointSet(Rname.str(), 50, 0.2, log10(0.5*sqrtS()));
-
       stringstream pTname;
       pTname << "jet_pT_" << i+1;
       double pTmax = 1.0/(double(i)+2.0) * sqrtS()/GeV/2.0;
@@ -75,9 +66,6 @@ namespace Rivet {
         _h_dR_jets.insert(make_pair(ij, bookHistogram1D(dRname.str(), 25, 0.0, 5.0)));
       }
     }
-    stringstream Rname;
-    Rname << "log10_R_" << m_njet;
-    _h_log10_R[m_njet] = bookDataPointSet(Rname.str(), 50, 0.2, log10(0.5*sqrtS()));
 
     _h_jet_multi_exclusive = bookHistogram1D("jet_multi_exclusive", m_njet+3, -0.5, m_njet+3-0.5);
     _h_jet_multi_inclusive = bookHistogram1D("jet_multi_inclusive", m_njet+3, -0.5, m_njet+3-0.5);
@@ -91,42 +79,8 @@ namespace Rivet {
   void MC_JetAnalysis::analyze(const Event & e) {
     const double weight = e.weight();
 
-    const FastJets& jetpro = applyProjection<FastJets>(e, m_jetpro_name);
+    const Jets& jets = applyProjection<FastJets>(e, m_jetpro_name).jetsByPt(m_jetptcut);
 
-    // Jet resolutions and integrated jet rates
-    const fastjet::ClusterSequence* seq = jetpro.clusterSeq();
-    if (seq != NULL) {
-      double previous_dij = 10.0;
-      for (size_t i = 0; i < m_njet; ++i) {
-        // Jet resolution i -> j
-        double d_ij = log10(sqrt(seq->exclusive_dmerge_max(i)));
-
-        // Fill differential jet resolution
-        _h_log10_d[i]->fill(d_ij, weight);
-
-        // Fill integrated jet resolution
-        for (int ibin = 0; ibin < _h_log10_R[i]->size(); ++ibin) {
-          IDataPoint* dp = _h_log10_R[i]->point(ibin);
-          double dcut = dp->coordinate(0)->value();
-          if (d_ij < dcut && previous_dij > dcut) {
-            dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-          }
-        }
-        previous_dij = d_ij;
-      }
-      // One remaining integrated jet resolution
-      for (int ibin = 0; ibin<_h_log10_R[m_njet]->size(); ++ibin) {
-        IDataPoint* dp = _h_log10_R[m_njet]->point(ibin);
-        double dcut = dp->coordinate(0)->value();
-        if (previous_dij > dcut) {
-          dp->coordinate(1)->setValue(dp->coordinate(1)->value() + weight);
-        }
-      }
-    }
-
-    const Jets& jets = jetpro.jetsByPt(m_jetptcut);
-
-    // The remaining direct jet observables
     for (size_t i = 0; i < m_njet; ++i) {
       if (jets.size() < i+1) continue;
       _h_pT_jet[i]->fill(jets[i].momentum().pT()/GeV, weight);
@@ -192,12 +146,6 @@ namespace Rivet {
   // Finalize
   void MC_JetAnalysis::finalize() {
     for (size_t i = 0; i < m_njet; ++i) {
-      scale(_h_log10_d[i], crossSection()/sumOfWeights());
-      for (int ibin = 0; ibin<_h_log10_R[i]->size(); ++ibin) {
-        IDataPoint* dp = _h_log10_R[i]->point(ibin);
-        dp->coordinate(1)->setValue(dp->coordinate(1)->value()*crossSection()/sumOfWeights());
-      }
-
       scale(_h_pT_jet[i], crossSection()/sumOfWeights());
       scale(_h_mass_jet[i], crossSection()/sumOfWeights());
       scale(_h_eta_jet[i], crossSection()/sumOfWeights());
@@ -210,11 +158,6 @@ namespace Rivet {
       stringstream rapname;
       rapname << "jet_y_pmratio_" << i+1;
       histogramFactory().divide(histoPath(rapname.str()), *_h_rap_jet_plus[i], *_h_rap_jet_minus[i]);
-    }
-
-    for (int ibin = 0; ibin < _h_log10_R[m_njet]->size(); ++ibin) {
-      IDataPoint* dp =_h_log10_R[m_njet]->point(ibin);
-      dp->coordinate(1)->setValue(dp->coordinate(1)->value()*crossSection()/sumOfWeights());
     }
 
     // Scale the d{eta,R} histograms
