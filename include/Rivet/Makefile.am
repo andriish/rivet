@@ -80,7 +80,8 @@ nobase_pkginclude_HEADERS +=   \
 
 ## Analysis base class headers
 nobase_pkginclude_HEADERS += \
-  Analyses/MC_JetAnalysis.hh
+  Analyses/MC_JetAnalysis.hh \
+  Analyses/MC_JetSplittings.hh
 
 
 ## Tools

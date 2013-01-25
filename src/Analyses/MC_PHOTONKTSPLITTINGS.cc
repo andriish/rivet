@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/MC_JetAnalysis.hh"
+#include "Rivet/Analyses/MC_JetSplittings.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
@@ -10,12 +10,12 @@ namespace Rivet {
 
 
   /// @brief MC validation analysis for photon + jets events
-  class MC_PHOTONJETS : public MC_JetAnalysis {
+  class MC_PHOTONKTSPLITTINGS : public MC_JetSplittings {
   public:
 
     /// Default constructor
-    MC_PHOTONJETS()
-      : MC_JetAnalysis("MC_PHOTONJETS", 4, "Jets")
+    MC_PHOTONKTSPLITTINGS()
+      : MC_JetSplittings("MC_PHOTONKTSPLITTINGS", 4, "Jets")
     {    }
 
 
@@ -37,21 +37,16 @@ namespace Rivet {
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
       addProjection(vfs, "JetFS");
-      FastJets jetpro(vfs, FastJets::ANTIKT, 0.4);
+      FastJets jetpro(vfs, FastJets::KT, 0.6);
       addProjection(jetpro, "Jets");
 
-      _h_photon_jet1_deta = bookHisto1D("photon_jet1_deta", 50, -5.0, 5.0);
-      _h_photon_jet1_dphi = bookHisto1D("photon_jet1_dphi", 20, 0.0, M_PI);
-      _h_photon_jet1_dR = bookHisto1D("photon_jet1_dR", 25, 0.5, 7.0);
-
-      MC_JetAnalysis::init();
+      MC_JetSplittings::init();
     }
 
 
     /// Do the analysis
     void analyze(const Event& e) {
       // Get the photon
-      /// @todo share IsolatedPhoton projection between all MC_*PHOTON* analyses
       const ParticleVector photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
       if (photons.size() != 1) {
         vetoEvent;
@@ -63,9 +58,6 @@ namespace Rivet {
       if (fs.empty()) {
         vetoEvent;
       }
-
-      // Passed cuts, so get the weight
-      const double weight = e.weight();
 
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       const double egamma = photon.E();
@@ -80,36 +72,15 @@ namespace Rivet {
         }
       }
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
-      if (jets.size()>0) {
-        _h_photon_jet1_deta->fill(photon.eta()-jets[0].momentum().eta(), weight);
-        _h_photon_jet1_dphi->fill(mapAngle0ToPi(photon.phi()-jets[0].momentum().phi()), weight);
-        _h_photon_jet1_dR->fill(deltaR(photon, jets[0].momentum()), weight);
-      }
-
-      MC_JetAnalysis::analyze(e);
+      MC_JetSplittings::analyze(e);
     }
 
 
     // Finalize
     void finalize() {
-      scale(_h_photon_jet1_deta, crossSectionPerEvent());
-      scale(_h_photon_jet1_dphi, crossSectionPerEvent());
-      scale(_h_photon_jet1_dR, crossSectionPerEvent());
-
-      MC_JetAnalysis::finalize();
+      MC_JetSplittings::finalize();
     }
 
-    //@}
-
-
-  private:
-
-    /// @name Histograms
-    //@{
-    Histo1DPtr _h_photon_jet1_deta;
-    Histo1DPtr _h_photon_jet1_dphi;
-    Histo1DPtr _h_photon_jet1_dR;
     //@}
 
   };
@@ -117,6 +88,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_PHOTONJETS);
+  DECLARE_RIVET_PLUGIN(MC_PHOTONKTSPLITTINGS);
 
 }

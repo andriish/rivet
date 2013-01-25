@@ -43,8 +43,6 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    std::vector<Histo1DPtr> _h_log10_d;
-    std::vector<Scatter2DPtr> _h_log10_R;
     std::vector<Histo1DPtr> _h_pT_jet;
     std::vector<Histo1DPtr> _h_eta_jet;
     std::vector<Histo1DPtr> _h_eta_jet_plus, _h_eta_jet_minus;

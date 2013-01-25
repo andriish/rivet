@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/MC_JetAnalysis.hh"
+#include "Rivet/Analyses/MC_JetSplittings.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/Logging.hh"
@@ -9,11 +9,11 @@ namespace Rivet {
 
 
   /// @brief MC validation analysis for jet events
-  class MC_JETS : public MC_JetAnalysis {
+  class MC_KTSPLITTINGS : public MC_JetSplittings {
   public:
 
-    MC_JETS()
-      : MC_JetAnalysis("MC_JETS", 4, "Jets")
+    MC_KTSPLITTINGS()
+      : MC_JetSplittings("MC_KTSPLITTINGS", 4, "Jets")
     {    }
 
 
@@ -21,26 +21,26 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
-      FastJets jetpro(fs, FastJets::ANTIKT, 0.4);
+      FastJets jetpro(fs, FastJets::KT, 0.6);
       addProjection(jetpro, "Jets");
 
-      MC_JetAnalysis::init();
+      MC_JetSplittings::init();
     }
 
 
     void analyze(const Event& event) {
-      MC_JetAnalysis::analyze(event);
+      MC_JetSplittings::analyze(event);
     }
 
 
     void finalize() {
-      MC_JetAnalysis::finalize();
+      MC_JetSplittings::finalize();
     }
 
   };
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_JETS);
+  DECLARE_RIVET_PLUGIN(MC_KTSPLITTINGS);
 
 }

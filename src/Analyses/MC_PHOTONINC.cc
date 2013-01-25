@@ -1,21 +1,20 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/MC_JetAnalysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
 
-  /// @brief MC validation analysis for photon + jets events
-  class MC_PHOTONJETS : public MC_JetAnalysis {
+  /// @brief MC validation analysis for single photon events
+  class MC_PHOTONINC : public Analysis {
   public:
 
     /// Default constructor
-    MC_PHOTONJETS()
-      : MC_JetAnalysis("MC_PHOTONJETS", 4, "Jets")
+    MC_PHOTONINC()
+      : Analysis("MC_PHOTONINC")
     {    }
 
 
@@ -33,25 +32,20 @@ namespace Rivet {
       photonfs.addParticleId(PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
-      // FS for jets excludes the leading photon
+      // FS for isolation excludes the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
       addProjection(vfs, "JetFS");
-      FastJets jetpro(vfs, FastJets::ANTIKT, 0.4);
-      addProjection(jetpro, "Jets");
 
-      _h_photon_jet1_deta = bookHisto1D("photon_jet1_deta", 50, -5.0, 5.0);
-      _h_photon_jet1_dphi = bookHisto1D("photon_jet1_dphi", 20, 0.0, M_PI);
-      _h_photon_jet1_dR = bookHisto1D("photon_jet1_dR", 25, 0.5, 7.0);
-
-      MC_JetAnalysis::init();
+      _h_photon_pT = bookHisto1D("photon_pT", logspace(50, 30.0, 0.5*sqrtS()));
+      _h_photon_pT_lin = bookHisto1D("photon_pT_lin", 50, 0.0, 70.0);
+      _h_photon_y = bookHisto1D("photon_y", 50, -5.0, 5.0);
     }
 
 
     /// Do the analysis
     void analyze(const Event& e) {
       // Get the photon
-      /// @todo share IsolatedPhoton projection between all MC_*PHOTON* analyses
       const ParticleVector photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
       if (photons.size() != 1) {
         vetoEvent;
@@ -80,24 +74,17 @@ namespace Rivet {
         }
       }
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
-      if (jets.size()>0) {
-        _h_photon_jet1_deta->fill(photon.eta()-jets[0].momentum().eta(), weight);
-        _h_photon_jet1_dphi->fill(mapAngle0ToPi(photon.phi()-jets[0].momentum().phi()), weight);
-        _h_photon_jet1_dR->fill(deltaR(photon, jets[0].momentum()), weight);
-      }
-
-      MC_JetAnalysis::analyze(e);
+      _h_photon_pT->fill(photon.pT(),weight);
+      _h_photon_pT_lin->fill(photon.pT(),weight);
+      _h_photon_y->fill(photon.rapidity(),weight);
     }
 
 
     // Finalize
     void finalize() {
-      scale(_h_photon_jet1_deta, crossSectionPerEvent());
-      scale(_h_photon_jet1_dphi, crossSectionPerEvent());
-      scale(_h_photon_jet1_dR, crossSectionPerEvent());
-
-      MC_JetAnalysis::finalize();
+      scale(_h_photon_pT, crossSectionPerEvent());
+      scale(_h_photon_pT_lin, crossSectionPerEvent());
+      scale(_h_photon_y, crossSectionPerEvent());
     }
 
     //@}
@@ -107,9 +94,9 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_photon_jet1_deta;
-    Histo1DPtr _h_photon_jet1_dphi;
-    Histo1DPtr _h_photon_jet1_dR;
+    Histo1DPtr _h_photon_pT;
+    Histo1DPtr _h_photon_pT_lin;
+    Histo1DPtr _h_photon_y;
     //@}
 
   };
@@ -117,6 +104,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_PHOTONJETS);
+  DECLARE_RIVET_PLUGIN(MC_PHOTONINC);
 
 }

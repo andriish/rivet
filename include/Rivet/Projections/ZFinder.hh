@@ -84,6 +84,7 @@ namespace Rivet {
 
     /// Access to the Z constituent clustered leptons
     /// (e.g. for more fine-grained cuts on the clustered leptons)
+    /// The order is going to be: positive charge constituent 1st, negative 2nd
     const vector<Particle>& constituents() const { return _constituents; }
 
     /// Access to the remaining particles, after the Z and clustered photons
