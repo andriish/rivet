@@ -44,8 +44,6 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    std::vector<AIDA::IHistogram1D *> _h_log10_d;
-    std::vector<AIDA::IDataPointSet *> _h_log10_R;
     std::vector<AIDA::IHistogram1D *> _h_pT_jet;
     std::vector<AIDA::IHistogram1D *> _h_eta_jet;
     std::vector<shared_ptr<LWH::Histogram1D> > _h_eta_jet_plus, _h_eta_jet_minus;
