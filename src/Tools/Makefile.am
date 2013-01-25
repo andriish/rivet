@@ -14,7 +14,6 @@ libRivetTools_la_SOURCES = \
   TinyXML/tinyxml.cpp \
   TinyXML/tinyxmlerror.cpp \
   TinyXML/tinyxmlparser.cpp \
-  BinnedHistogram.cc \
   mt2_bisect.cc \
   RivetMT2.cc \
   BinnedHistogram.cc
