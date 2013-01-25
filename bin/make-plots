@@ -418,6 +418,7 @@ class Plot:
             out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
             out += ('\\usepackage{sfmath}\n')
             out += ('\\usepackage{helvet}\n')
+            out += ('\\usepackage[symbolgreek]{mathastext}\n')
         for pkg in opts.LATEXPKGS:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage{pst-all}\n')
