@@ -116,7 +116,12 @@ namespace Rivet {
     if (imfs.particlePairs().size() < 1) return;
     ParticlePair Zconstituents(imfs.particlePairs()[0]);
     Particle l1(Zconstituents.first), l2(Zconstituents.second);
-    _constituents += l1, l2;
+    if (PID::threeCharge(l1)>0.0) {
+      _constituents += l1, l2;
+    }
+    else {
+      _constituents += l2, l1;
+    }
     FourMomentum pZ = l1.momentum() + l2.momentum();
     const int z3charge = PID::threeCharge(l1.pdgId()) + PID::threeCharge(l2.pdgId());
     assert(z3charge == 0);

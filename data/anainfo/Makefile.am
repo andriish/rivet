@@ -180,12 +180,17 @@ dist_pkgdata_DATA = \
   MC_DIJET.info \
   MC_DIPHOTON.info \
   MC_GENERIC.info \
+  MC_HINC.info \
   MC_HJETS.info \
+  MC_HKTSPLITTINGS.info \
   MC_IDENTIFIED.info \
   MC_JETS.info \
+  MC_KTSPLITTINGS.info \
   MC_LEADJETUE.info \
   MC_PDFS.info \
+  MC_PHOTONINC.info \
   MC_PHOTONJETS.info \
+  MC_PHOTONKTSPLITTINGS.info \
   MC_PHOTONJETUE.info \
   MC_PHOTONS.info \
   MC_PRINTEVENT.info \
@@ -196,10 +201,16 @@ dist_pkgdata_DATA = \
   MC_WJETS.info \
   MC_WKTSPLITTINGS.info \
   MC_WPOL.info \
+  MC_WWINC.info \
   MC_WWJETS.info \
+  MC_WWKTSPLITTINGS.info \
   MC_XS.info \
+  MC_ZINC.info \
   MC_ZJETS.info \
+  MC_ZKTSPLITTINGS.info \
+  MC_ZZINC.info \
   MC_ZZJETS.info \
+  MC_ZZKTSPLITTINGS.info \
   OPAL_1993_S2692198.info \
   OPAL_1994_S2927284.info \
   OPAL_1995_S3198391.info \

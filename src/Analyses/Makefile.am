@@ -349,12 +349,16 @@ RivetMCAnalyses_la_SOURCES = \
     EXAMPLE.cc \
     MC_DIPHOTON.cc \
     MC_GENERIC.cc \
+    MC_HINC.cc \
     MC_HJETS.cc \
+    MC_HKTSPLITTINGS.cc \
     MC_IDENTIFIED.cc \
     MC_JETS.cc \
     MC_LEADJETUE.cc \
     MC_PDFS.cc \
+    MC_PHOTONINC.cc \
     MC_PHOTONJETS.cc \
+    MC_PHOTONKTSPLITTINGS.cc \
     MC_PHOTONS.cc \
     MC_PRINTEVENT.cc \
     MC_SUSY.cc \
@@ -364,10 +368,16 @@ RivetMCAnalyses_la_SOURCES = \
     MC_WJETS.cc \
     MC_WKTSPLITTINGS.cc \
     MC_WPOL.cc \
+    MC_WWINC.cc \
     MC_WWJETS.cc \
+    MC_WWKTSPLITTINGS.cc \
     MC_XS.cc \
+    MC_ZINC.cc \
     MC_ZJETS.cc \
-    MC_ZZJETS.cc
+    MC_ZKTSPLITTINGS.cc \
+    MC_ZZINC.cc \
+    MC_ZZJETS.cc \
+    MC_ZZKTSPLITTINGS.cc
 
 
 if ENABLE_UNVALIDATED

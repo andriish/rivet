@@ -183,19 +183,30 @@ dist_pkgdata_DATA = \
   MC_SUSY.plot \
   MC_TTBAR.plot \
   MC_JETS.plot \
+  MC_KTSPLITTINGS.plot \
+  MC_PHOTONINC.plot \
   MC_PHOTONJETS.plot \
+  MC_PHOTONKTSPLITTINGS.plot \
   MC_PHOTONS.plot \
   MC_VH2BB.plot \
+  MC_HINC.plot \
   MC_HJETS.plot \
+  MC_HKTSPLITTINGS.plot \
   MC_PDFS.plot \
   MC_WINC.plot \
   MC_WJETS.plot \
   MC_WKTSPLITTINGS.plot \
   MC_WPOL.plot \
+  MC_WWINC.plot \
   MC_WWJETS.plot \
+  MC_WWKTSPLITTINGS.plot \
   MC_XS.plot \
+  MC_ZINC.plot \
   MC_ZJETS.plot \
+  MC_ZKTSPLITTINGS.plot \
+  MC_ZZINC.plot \
   MC_ZZJETS.plot \
+  MC_ZZKTSPLITTINGS.plot \
   OPAL_1993_S2692198.plot \
   OPAL_1994_S2927284.plot \
   OPAL_1995_S3198391.plot \

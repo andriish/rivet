@@ -1,3 +1,10 @@
+2013-01-25  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Split MC_*JETS analyses into three separate bits:
+	MC_*INC (inclusive properties)
+	MC_*JETS (jet properties)
+	MC_*KTSPLITTINGS (kT splitting scales).
+
 2013-01-22  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Fix TeX variable in the rivetenv scripts, especially for csh
