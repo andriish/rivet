@@ -4,7 +4,12 @@ set exec_prefix=@exec_prefix@
 set datarootdir=@datarootdir@
 
 setenv PATH "$exec_prefix/bin:$PATH"
+
+if ($?@LIBPATHVARNAME@) then
 setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:$@LIBPATHVARNAME@"
+else
+setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@"
+endif
 
 if ($?PYTHONPATH) then
 setenv PYTHONPATH "@RIVET_PYTHONPATH@:$PYTHONPATH"
@@ -12,8 +17,32 @@ else
 setenv PYTHONPATH "@RIVET_PYTHONPATH@"
 endif
 
+if ($?TEXMFHOME) then
 setenv TEXMFHOME "@datadir@/Rivet/texmf:$TEXMFHOME"
+else
+setenv TEXMFHOME "@datadir@/Rivet/texmf"
+endif
+
+if ($?HOMETEXMF) then
 setenv HOMETEXMF "@datadir@/Rivet/texmf:$HOMETEXMF"
+else
+setenv HOMETEXMF "@datadir@/Rivet/texmf"
+endif
+
+if ($?TEXMFCNF) then
 setenv TEXMFCNF "@datadir@/Rivet/texmf/cnf:$TEXMFCNF"
+else
+setenv TEXMFCNF "@datadir@/Rivet/texmf/cnf:"
+endif
+
+if ($?TEXINPUTS) then
 setenv TEXINPUTS "@datadir@/Rivet/texmf/tex:$TEXINPUTS"
+else
+setenv TEXINPUTS "@datadir@/Rivet/texmf/tex:"
+endif
+
+if ($?LATEXINPUTS) then
 setenv LATEXINPUTS "@datadir@/Rivet/texmf/tex:$LATEXINPUTS"
+else
+setenv LATEXINPUTS "@datadir@/Rivet/texmf/tex:"
+endif
