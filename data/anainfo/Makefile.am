@@ -183,6 +183,7 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETUE.info \
   MC_PHOTONS.info \
   MC_PRINTEVENT.info \
+  MC_QCD_PARTONS.info \
   MC_SUSY.info \
   MC_TTBAR.info \
   MC_VH2BB.info \
