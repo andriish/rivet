@@ -347,6 +347,7 @@ endif
 lib_LTLIBRARIES += RivetMCAnalyses.la
 RivetMCAnalyses_la_SOURCES = \
     EXAMPLE.cc \
+    MC_QCD_PARTONS.cc \
     MC_DIPHOTON.cc \
     MC_GENERIC.cc \
     MC_HINC.cc \

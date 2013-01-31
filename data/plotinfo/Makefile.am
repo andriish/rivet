@@ -188,6 +188,7 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETS.plot \
   MC_PHOTONKTSPLITTINGS.plot \
   MC_PHOTONS.plot \
+  MC_QCD_PARTONS.plot \
   MC_VH2BB.plot \
   MC_HINC.plot \
   MC_HJETS.plot \
