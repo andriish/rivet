@@ -295,12 +295,14 @@ for analysis in analyses:
         obsname = os.path.basename(datfile).replace(".dat", "")
         pngfile = obsname+".png"
         vecfile = obsname+"."+opts.VECTORFORMAT.lower()
+        srcfile = obsname+".dat"
         if opts.SINGLE:
             pngfile = os.path.join(analysis, pngfile)
             vecfile = os.path.join(analysis, vecfile)
+            srcfile = os.path.join(analysis, srcfile)
 
         anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
-        anaindex.write('    <a href="#%s-%s">&#9875;</a> %s:<br>\n' % (analysis, obsname, vecfile) )
+        anaindex.write('    <a href="#%s-%s">&#9875;</a><a href="%s">&#8984</a> %s:<br>\n' % (analysis, obsname, srcfile, vecfile) )
         anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis, obsname, vecfile) )
         anaindex.write('      <img src="%s">\n' % pngfile )
         anaindex.write('    </a></a>\n')
@@ -329,7 +331,6 @@ elif opts.OUTPUT_FONT == "TIMES":
     mp_cmd.append("--times")
 elif opts.OUTPUT_FONT == "minion":
     mp_cmd.append("--minion")
-mp_cmd.append("--full-range")
 datfiles = []
 for analysis in analyses:
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
