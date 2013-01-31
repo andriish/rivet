@@ -287,7 +287,7 @@ class Plot:
                     if len(foo)==0:
                         if self.ymax==0:
                             self.ymax=1
-                        foo.append(2e-4*self.ymax)
+                        foo.append(2e-7*self.ymax)
                     fullrange = opts.FULL_RANGE
                     if inputdata.description.has_key('FullRange'):
                         if inputdata.description['FullRange']=='1':
@@ -297,7 +297,7 @@ class Plot:
                     if fullrange:
                         self.ymin = min(foo)/1.7
                     else:
-                        self.ymin = max(min(foo)/1.7, 2e-4*self.ymax)
+                        self.ymin = max(min(foo)/1.7, 2e-7*self.ymax)
                 if self.ymin==self.ymax:
                     self.ymin-=1
                     self.ymax+=1
@@ -349,7 +349,7 @@ class Plot:
                     if len(foo)==0:
                         if self.zmax==0:
                             self.zmax=1
-                        foo.append(2e-4*self.zmax)
+                        foo.append(2e-7*self.zmax)
                     fullrange = opts.FULL_RANGE
                     if inputdata.description.has_key('FullRange'):
                         if inputdata.description['FullRange']=='1':
@@ -359,7 +359,7 @@ class Plot:
                     if fullrange:
                         self.zmin = min(foo)/1.7
                     else:
-                        self.zmin = max(min(foo)/1.7, 2e-4*self.zmax)
+                        self.zmin = max(min(foo)/1.7, 2e-7*self.zmax)
                 if self.zmin==self.zmax:
                     self.zmin-=1
                     self.zmax+=1

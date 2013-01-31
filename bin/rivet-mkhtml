@@ -331,7 +331,6 @@ elif opts.OUTPUT_FONT == "TIMES":
     mp_cmd.append("--times")
 elif opts.OUTPUT_FONT == "minion":
     mp_cmd.append("--minion")
-mp_cmd.append("--full-range")
 datfiles = []
 for analysis in analyses:
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
