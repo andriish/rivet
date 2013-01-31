@@ -243,6 +243,13 @@ Position of the legend within the plot. Anchor point is the top left corner of
 the legend, so units typically range between 0.0 and 1.0.
 
 --------------------
+LegendAlign=<align>
+--------------------
+Horizontal alignment of the legend: `LegendAlign=l` is the default and will
+create a left-aligned legend, while `LegendAlign=r` is right-aligned with
+the keys on the right hand side.
+
+--------------------
 LegendOnly=<list>
 --------------------
 Whitespace separated list of IDs. These can be histograms or functions. The
