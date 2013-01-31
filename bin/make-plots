@@ -841,6 +841,12 @@ class Legend:
         for i in sorted(legendordermap.keys()):
             foo.extend(legendordermap[i])
 
+        rel_xpos_sign = 1.0
+        if self.getLegendAlign()=='r':
+            rel_xpos_sign = -1.0
+        xpos1 = -0.10*rel_xpos_sign
+        xpos2 = -0.02*rel_xpos_sign
+
         for i in foo:
             if self.histos.has_key(i):
                 drawobject=self.histos[i]
@@ -852,11 +858,11 @@ class Legend:
             if title == '':
                 continue
             else:
-                out += ('\\rput[Bl](0.1,' + str(ypos) + '){' + title + '}\n')
-                out += ('\\rput[Bl](0.1,%s){%s\n' %(ypos,'%'))
+                out += ('\\rput[B%s](%s,%s){%s}\n' %(self.getLegendAlign(),rel_xpos_sign*0.1,ypos,title))
+                out += ('\\rput[B%s](%s,%s){%s\n' %(self.getLegendAlign(),rel_xpos_sign*0.1,ypos,'%'))
                 if drawobject.getErrorBands():
                     out += ('\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(drawobject.getErrorBandColor(),drawobject.getErrorBandOpacity()))
-                    out += ('(-0.10, 0.033)(-0.02, 0.001)\n')
+                    out += ('(%s, 0.033)(%s, 0.001)\n' %(xpos1, xpos2))
                 out += ('\\psline[linestyle=' + drawobject.getLineStyle() \
                             + ', linecolor=' + drawobject.getLineColor() \
                             + ', linewidth=' + drawobject.getLineWidth() \
@@ -868,9 +874,10 @@ class Legend:
                     out += (', fillstyle=' + drawobject.getFillStyle() \
                                 + ', fillcolor='  + drawobject.getFillColor() \
                                 + ', hatchcolor=' + drawobject.getHatchColor() \
-                                + ']{C-C}(-0.10, 0.030)(-0.02, 0.030)(-0.02, 0.004)(-0.10, 0.004)(-0.10, 0.030)\n')
+                                + ']{C-C}(%s, 0.030)(%s, 0.030)(%s, 0.004)(%s, 0.004)(%s, 0.030)\n' \
+                                %(xpos1, xpos2, xpos2, xpos1, xpos1))
                 else:
-                    out += ('](-0.10, 0.016)(-0.02, 0.016)\n')
+                    out += ('](%s, 0.016)(%s, 0.016)\n' %(xpos1, xpos2))
                 if drawobject.getPolyMarker() != '':
                     out += ('  \\psdot[dotstyle=' + drawobject.getPolyMarker() \
                                 + ', dotsize='    + drawobject.getDotSize()   \
@@ -884,14 +891,14 @@ class Legend:
                                 + ', opacity=' + drawobject.getFillOpacity() \
                                 + ', hatchcolor=' + drawobject.getHatchColor())
                     if drawobject.getFillStyle()!='none':
-                        out += ('](-0.06, 0.028)\n')
+                        out += ('](%s, 0.028)\n' % (rel_xpos_sign*-0.06))
                     else:
-                        out += ('](-0.06, 0.016)\n')
+                        out += ('](%s, 0.016)\n' % (rel_xpos_sign*-0.06))
                 out += ('}\n')
                 ypos -= 0.075*6/self.description['PlotSizeY']
         if self.description.has_key('CustomLegend'):
             for i in self.description['CustomLegend'].strip().split('\\\\'):
-                out += ('\\rput[Bl](0.1,' + str(ypos) + '){' + i + '}\n')
+                out += ('\\rput[B%s](%s,%s){%s}\n' %(self.getLegendAlign(),rel_xpos_sign*0.1,ypos,i))
                 ypos -= 0.075*6/self.description['PlotSizeY']
         out += ('}\n')
         return out
@@ -900,7 +907,10 @@ class Legend:
         if self.description.has_key('LegendXPos'):
             return self.description['LegendXPos']
         else:
-            return '0.53'
+            if self.getLegendAlign()=='r':
+                return '0.95'
+            else:
+                return '0.53'
 
     def getLegendYPos(self):
         if self.description.has_key('LegendYPos'):
@@ -908,6 +918,11 @@ class Legend:
         else:
             return '0.93'
 
+    def getLegendAlign(self):
+        if self.description.has_key('LegendAlign'):
+            return self.description['LegendAlign']
+        else:
+            return 'l'
 
 
 class Colorscale:
