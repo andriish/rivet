@@ -14,11 +14,10 @@ libRivet_la_LDFLAGS = \
   -L$(HEPMCLIBPATH) -R$(HEPMCLIBPATH) \
   -export-dynamic $(VERSIONINFOFLAGS)
 
-libRivet_la_LIBADD  = \
+libRivet_la_LIBADD = \
   Core/libRivetCore.la \
   Projections/libRivetProjections.la \
   Tools/libRivetTools.la \
   Analyses/libRivetAnalysisTools.la \
- -ldl -lm -lYODA -lHepMC \
+  -ldl -lm -lYODA -lHepMC \
   $(GSL_LDFLAGS) $(FASTJETCONFIGLIBADD)
-

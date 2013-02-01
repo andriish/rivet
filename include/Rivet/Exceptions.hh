@@ -41,11 +41,19 @@ namespace Rivet {
 
 
   /// @brief Errors relating to event/bin weights
+  ///
   /// Arises in computing statistical quantities because e.g. the bin
   /// weight is zero or negative.
   class WeightError : public Error {
   public:
     WeightError(const std::string& what) : Error(what) {}
+  };
+
+
+  /// @brief Error specialisation for where the problem is between the chair and computer.
+  class UserError : public Error {
+  public:
+    UserError(const std::string& what) : Error(what) {}
   };
 
 

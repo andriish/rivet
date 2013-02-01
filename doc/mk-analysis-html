@@ -45,6 +45,7 @@ import rivet
 
 def htmlify(s, para=False):
     # TODO: also replace LaTeX like \text, $$, \le, \ge, \mathrm, \emph, etc.
+    # TODO: replace the &, <, > etc. with .encode("xmlcharrefreplace")? Or does that encode *all* characters?
     t = s \
         .replace("&", "&amp;") \
         .replace(">", "&gt;") \
