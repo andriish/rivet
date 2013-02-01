@@ -1,3 +1,9 @@
+2013-02-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding an element to the PhiMapping enum and a new mapAngle(angle, mapping) function.
+
+	* Fixes to Vector3::azimuthalAngle and Vector3::polarAngle calculation (using the mapAngle functions).
+
 2013-01-25  Frank Siegert  <frank.siegert@cern.ch>
 
 	* Split MC_*JETS analyses into three separate bits:

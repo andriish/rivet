@@ -399,6 +399,20 @@ namespace Rivet {
     return rtn;
   }
 
+  /// Map an angle into the enum-specified range.
+  inline double mapAngle(double angle, PhiMapping mapping) {
+    switch (mapping) {
+    case MINUSPI_PLUSPI:
+      return mapAngleMPiToPi(angle);
+    case ZERO_2PI:
+      return mapAngle0To2Pi(angle);
+    case ZERO_PI:
+      return mapAngle0To2Pi(angle);
+    default:
+      throw Rivet::UserError("The specified phi mapping scheme is not implemented");
+    }
+  }
+
   //@}
 
 

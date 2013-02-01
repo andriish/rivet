@@ -1,6 +1,7 @@
 #ifndef RIVET_Math_MathHeader
 #define RIVET_Math_MathHeader
 
+#include "Rivet/Exceptions.hh"
 #include <stdexcept>
 #include <string>
 #include <ostream>
@@ -59,7 +60,7 @@ namespace Rivet {
   enum RapScheme { PSEUDORAPIDITY = 0, ETA = 0, RAPIDITY = 1, YRAP = 1 };
 
   /// Enum for range of \f$ \phi \f$ to be mapped into
-  enum PhiMapping { MINUSPI_PLUSPI, ZERO_2PI };
+  enum PhiMapping { MINUSPI_PLUSPI, ZERO_2PI, ZERO_PI };
 
 }
 
