@@ -1,10 +1,10 @@
-# BEGIN PLOT /MC_ZJETS/Z_mass
+# BEGIN PLOT /MC_ZINC/Z_mass
 Title=Z mass
 XLabel=$m_{\text{Z}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m_{\text{Z}}$ [pb/GeV]
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/Z_pT$
+# BEGIN PLOT /MC_ZINC/Z_pT$
 Title=Z $p_\perp$
 XLabel=$p_\perp^{\text{Z}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{Z}}$ [pb/GeV]
@@ -13,7 +13,7 @@ LegendXPos=0.05
 LegendYPos=0.5
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/Z_pT_peak
+# BEGIN PLOT /MC_ZINC/Z_pT_peak
 Title=Z $p_\perp$ in peak region
 XLabel=$p_\perp^{\text{Z}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{Z}}$ [pb/GeV]
@@ -22,7 +22,7 @@ LegendYPos=0.5
 LegendXPos=0.30
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/Z_y
+# BEGIN PLOT /MC_ZINC/Z_y
 Title=Z rapidity
 XLabel=$y_{\text{Z}}$
 YLabel=$\text{d}\sigma/\text{d}y_{\text{Z}}$ [pb]
@@ -30,20 +30,20 @@ LegendXPos=0.35
 LegendYPos=0.5
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/Z_phi
+# BEGIN PLOT /MC_ZINC/Z_phi
 Title=Z azimuthal angle
 XLabel=$\phi_{\text{Z}}$
 YLabel=$\text{d}\sigma/\text{d}\phi_{\text{Z}}$ [pb]
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/lepton_pT
+# BEGIN PLOT /MC_ZINC/lepton_pT
 Title=Lepton $p_\perp$
 XLabel=$p_\perp^{\text{l}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp^{\text{l}}$ [pb/GeV]
 LogX=1
 # END PLOT
 
-# BEGIN PLOT /MC_ZJETS/lepton_eta
+# BEGIN PLOT /MC_ZINC/lepton_eta
 Title=Lepton $\eta$
 XLabel=$\eta_{\text{l}}$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}\eta_{\text{l}}$ [pb/GeV]
