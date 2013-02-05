@@ -9,6 +9,7 @@ Authors:
  - Kiran Joshi <kiran.joshi@cern.ch>
 References:
  - arXiv:1203.5015 [hep-ex]
+ - Eur.Phys.J. C72 (2012) 2043
 RunInfo:
   Require dileptonic ttbar events at 7TeV.
 NumEvents: 1000000
@@ -23,15 +24,21 @@ Description:
   jet in the rapidity interval with transverse momentum above a threshold, or 
   alternatively, if the scalar transverse momentum sum of all additional jets 
   in the rapidity interval is above a threshold.'
-BibTeX: 
-'@article{Aad:2012jr,
-  author        = "Aad, Georges and others",
-  collaboration = "ATLAS",
-  title         = "{Measurement of ttbar production with a veto on
-                    additional central jet activity in pp collisions at
-                    sqrt(s) = 7 TeV using the ATLAS detector}",
-  year          = "2012",
-  eprint        = "1203.5015",
-  archivePrefix = "arXiv",
-  primaryClass  = "hep-ex",
+BibKey: ATLAS:2012al
+BibTeX: '@article{ATLAS:2012al,
+      author         = "Aad, Georges and others",
+      title          = "{Measurement of $t \bar{t}$ production with a veto on
+                        additional central jet activity in pp collisions at
+                        sqrt(s) = 7 TeV using the ATLAS detector}",
+      collaboration  = "ATLAS Collaboration",
+      journal        = "Eur.Phys.J.",
+      volume         = "C72",
+      pages          = "2043",
+      doi            = "10.1140/epjc/s10052-012-2043-9",
+      year           = "2012",
+      eprint         = "1203.5015",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "CERN-PH-EP-2012-062",
+      SLACcitation   = "%%CITATION = ARXIV:1203.5015;%%",
 }'

@@ -6,7 +6,7 @@ Collider: PETRA
 SpiresID: 2148048
 Status: VALIDATED
 Authors:
- - Holger Schulz holger.schulz@physik.hu-berlin.de
+ - Holger Schulz <holger.schulz@physik.hu-berlin.de>
 References:
  - Z.Phys.C47:187-198,1990
  - DESY-90-013

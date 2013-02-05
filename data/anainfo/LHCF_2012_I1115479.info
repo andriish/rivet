@@ -9,6 +9,7 @@ Status: VALIDATED
 Authors:
  - Sercan Sen <ssen@cern.ch>
 References:
+ - Phys.Rev. D86 (2012) 092001
  - arXiv:1205.4578 [hep-ex]
 RunInfo:
    Inelastic events (ND+SD+DD) at $\sqrt{s}$ = 7 TeV.
@@ -28,6 +29,10 @@ BibTeX: '@Article{Adriani:2012ap,
                         spectra for $\sqrt{s}$ = 7TeV proton-proton collisions at
                         LHC}",
       collaboration  = "LHCf Collaboration",
+      journal        = "Phys.Rev.",
+      volume         = "D86",
+      pages          = "092001",
+      doi            = "10.1103/PhysRevD.86.092001",
       year           = "2012",
       eprint         = "1205.4578",
       archivePrefix  = "arXiv",

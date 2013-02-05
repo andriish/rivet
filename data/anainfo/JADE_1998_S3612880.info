@@ -6,9 +6,9 @@ Collider: PETRA
 SpiresID: 3612880
 Status: VALIDATED
 Authors:
- - Holger Schulz holger.schulz@physik.hu-berlin.de
+ - Holger Schulz <holger.schulz@physik.hu-berlin.de>
 References:
- - hep-ex/9708034
+ - arXiv:hep-ex/9708034
  - Eur.Phys.J.C1:461-478,1998
 RunInfo:
   Z->hadronic final states, bbar contributions have been corrected for as well as ISR

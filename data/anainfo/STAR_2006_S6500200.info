@@ -10,7 +10,7 @@ Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>
 References:
  - Phys. Lett. B637, 161
- - nucl-ex/0601033
+ - arXiv:nucl-ex/0601033
 RunInfo:
   pp at 200 GeV
 NumEvents: 2500000

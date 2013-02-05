@@ -24,5 +24,20 @@ Description:
   density $dN_\text{ch}/d\eta$ in pp collisions at $\sqrt{s} = 7$\,TeV
   for $5.3 < |\eta| < 6.4$ in events with at least one charged particle
   with transverse momentum above 40 MeV/c in this pseudorapidity range.'
-BibKey: 
-BibTeX: ''
+BibKey: Aspell:2012ux
+BibTeX: '@article{Aspell:2012ux,
+      author         = "Aspell, P.",
+      title          = "{Measurement of the forward charged particle
+                        pseudorapidity density in $pp$ collisions at $\sqrt{s} =
+                        7$ TeV with the TOTEM experiment}",
+      collaboration  = "TOTEM Collaboration",
+      journal        = "Europhys.Lett.",
+      volume         = "98",
+      pages          = "31002",
+      doi            = "10.1209/0295-5075/98/31002",
+      year           = "2012",
+      eprint         = "1205.4105",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      SLACcitation   = "%%CITATION = ARXIV:1205.4105;%%",
+}'

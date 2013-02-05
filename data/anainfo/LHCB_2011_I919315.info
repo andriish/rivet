@@ -6,9 +6,9 @@ Collider: LHC
 InspireID: 919315
 Status: VALIDATED
 Authors:
- - Friederike Blatt friederike.blatt@tu-dortmund.de
- - Michael Kaballo michael.kaballo@tu-dortmund.de
- - Till Moritz Karbach moritz.karbach@tu-dortmund.de
+ - Friederike Blatt <friederike.blatt@tu-dortmund.de>
+ - Michael Kaballo <michael.kaballo@tu-dortmund.de>
+ - Till Moritz Karbach <moritz.karbach@tu-dortmund.de>
 References:
  - Phys.Lett.B703:267-273,2011
  - arXiv:1107.3935 [hep-ex]
@@ -20,7 +20,7 @@ Description:
   'Measurement of the inclusive differential $\Phi$ cross-section in $pp$
    collisions at $\sqrt {s}=7$TeV in the rapidity range of
    $ 2.44 < y < 4.06$ and the $p_\text{T}$ range of
-   0.6 GeV/c < $p_\text{T}$ < 5.0 GeV/c.'
+   0.6 GeV/c $< p_\text{T} <$ 5.0 GeV/c.'
 NeedCrossSection: yes
 BibKey: Aaij:2011uk
 BibTeX: '@article{Aaij:2011uk,

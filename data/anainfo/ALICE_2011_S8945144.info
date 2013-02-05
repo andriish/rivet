@@ -10,6 +10,7 @@ Authors:
  - Eva Sicking <esicking@cern.ch>
 References:
  - Eur.Phys.J.C71:1655,2011.
+ - arXiv:1101.4110 [hep-ex]
 RunInfo:
   Diffractive events need to be enabled.
 NumEvents: 1000000

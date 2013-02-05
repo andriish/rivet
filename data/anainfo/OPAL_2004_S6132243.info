@@ -9,7 +9,7 @@ Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:
  - Eur.Phys.J.C40:287-316,2005
- - hep-ex/0503051
+ - arXiv:hep-ex/0503051
 RunInfo:
   Hadronic $e^+ e^-$ events at 4 representative energies (91, 133, 177, 197).
   Runs need to have ISR suppressed, since the analysis was done using a cut of
