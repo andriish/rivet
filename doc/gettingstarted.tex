@@ -32,30 +32,13 @@ more detailed information that they crave in Part~\ref{part:writinganalyses}.
 The point of this section is to get you up and running with Rivet as soon as
 possible. Doing this by hand may be rather frustrating, as Rivet depends on
 several external libraries --- you'll get bored downloading and building them by
-hand in the right order. Here we recommend two much simpler ways --- for the
+hand in the right order. Here we recommend a much simpler way --- for the
 full details of how to build Rivet by hand, please consult the Rivet Web page.
-
-
-\paragraph{Ubuntu/Debian package archive}
-
-A selection of HEP packages, including Rivet, are maintained as Debian/Ubuntu
-Linux packages on the Launchpad PPA system:
-\url{https://launchpad.net/~hep/+archive}. This is the nicest option for
-Debian/Ubuntu, since not only will it work more easily than anything else, but
-you will also automatically benefit from bug fixes and version upgrades as they
-appear.
-
-The PPA packages have been built as binaries for a variety of architectures, and
-the package interdependencies are automatically known and used: all you need to
-do on a Debian-type Linux system (Ubuntu included) is to add the Launchpad
-archive address to your APT sources list and then request installation of the
-\kbd{rivet} package in the usual way. See the Launchpad and system documentation
-for all the details.
 
 
 \paragraph{Bootstrap script}
 
-For those not using Debian/Ubuntu systems, we have written a bootstrapping
+We have written a bootstrapping
 script which will download tarballs of Rivet, AGILe and the other required
 libraries, expand them and build them in the right order with the correct build
 flags. This is generally nicer than doing it all by hand, and virtually
@@ -64,8 +47,8 @@ libraries, and so on from CERN AFS: there are issues with these versions which
 the script works around, which you won't find easy to do yourself.
 
 To run the script, we recommend that you choose a personal installation
-directory. Personally, I make a \kbd{\home/local} directory for this purpose, to
-avoid polluting my home directory with a lot of files. If you already use a
+directory, i.e.\ make a \kbd{\home/local} directory for this purpose, to
+avoid polluting your home directory with a lot of files. If you already use a
 directory of the same name, you might want to use a separate one, say
 \kbd{\home/rivetlocal}, such that if you need to delete everything in the
 installation area you can do so without difficulties.
@@ -145,7 +128,7 @@ commands. Despite being cosmetic and semi-trivial, programmable completion makes
 using \kbd{rivet} positively pleasant, especially since you no longer need to
 remember the somewhat cryptic analysis names\footnote{Standard Rivet analyses
   have names which, as well as the publication date and experiment name,
-  incorporate the 8-digit Spires ID code.}!
+  incorporate the 8-digit Spires/Inspire ID code.}!
 
 To use programmable completion, source the appropriate files from the install
 location:\\
@@ -209,7 +192,7 @@ The standard Rivet analyses are divided into four status classes: validated,
 preliminary, obsolete, and unvalidated (in roughly decreasing order of academic
 acceptability).
 
-The Rivet ``validation procedure'' is not (as of February 2011) formally
+The Rivet ``validation procedure'' is not formally
 defined, but generally implies that an analysis has been checked to ensure
 reproduction of MC points shown in the paper where possible, and is believed to
 have no outstanding issues with analysis procedure or cuts.  Additionally,
@@ -230,7 +213,7 @@ aware of the incomplete status of the corresponding experimental study, and also
 be aware that the histograms in such analyses may be renamed or removed
 entirely, as may the analysis itself.
 
-Preliminary analyses will not have a SPIRES preprint number, and hence on their
+Preliminary analyses will not have a Spires/Inspire ID, and hence on their
 move into the standard Rivet analysis library they will normally undergo a name
 change: please ensure when you upgrade between Rivet versions that any scripts
 or programs which were using preliminary analyses are not broken by the
