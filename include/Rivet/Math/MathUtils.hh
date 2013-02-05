@@ -248,6 +248,44 @@ namespace Rivet {
     return rtn;
   }
 
+  namespace BWHelpers {
+    /// @brief CDF for the Breit-Wigner distribution
+    inline double CDF(double x, double mu, double gamma) {
+      // normalize to (0;1) distribution
+      const double xn = (x - mu)/gamma;
+      return std::atan(xn)/M_PI + 0.5;
+    }
+
+    /// @brief inverse CDF for the Breit-Wigner distribution
+    inline double antiCDF(double p, double mu, double gamma) {
+      const double xn = std::tan(M_PI*(p-0.5));
+      return gamma*xn + mu;
+    }
+  }
+
+  /// @brief Make a list of @a nbins + 1 values spaced for equal area
+  /// Breit-Wigner binning between @a start and @a end inclusive. @a
+  /// mu and @a gamma are the Breit-Wigner parameters.
+  ///
+  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
+  /// in "normal" space.
+  inline vector<double> BWspace(size_t nbins, double start, double end, 
+				double mu, double gamma) {
+    assert(end >= start);
+    assert(nbins > 0);
+    const double pmin = BWHelpers::CDF(start,mu,gamma);
+    const double pmax = BWHelpers::CDF(end,  mu,gamma);
+    const vector<double> edges = linspace(nbins, pmin, pmax);
+    assert(edges.size() == nbins+1);
+    vector<double> rtn;
+    foreach (double edge, edges) {
+      rtn.push_back(BWHelpers::antiCDF(edge,mu,gamma));
+    }
+    assert(rtn.size() == nbins+1);
+    return rtn;
+  }
+
 
   /// @brief Return the bin index of the given value, @a val, given a vector of bin edges
   ///
