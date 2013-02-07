@@ -476,7 +476,7 @@ namespace Rivet {
   }
 
 
-  void Analysis::normalize(AIDA::IHistogram1D*& histo, double norm) {
+  void Analysis::normalize(AIDA::IHistogram1D*& histo, double norm, bool includeoverflows) {
     if (!histo) {
       MSG_ERROR("Failed to normalize histo=NULL in analysis "
                 << name() << " (norm=" << norm << ")");
@@ -492,10 +492,11 @@ namespace Rivet {
       // Leaving out factor of binWidth because AIDA's "height" already includes a width factor.
       oldintg += histo->binHeight(iBin); // * histo->axis().binWidth(iBin);
     }
-    // Include overflow bins in the integral
-    oldintg += histo->binHeight(AIDA::IAxis::UNDERFLOW_BIN);
-    oldintg += histo->binHeight(AIDA::IAxis::OVERFLOW_BIN);
-
+    if (includeoverflows) {
+      // Include overflow bins in the integral
+      oldintg += histo->binHeight(AIDA::IAxis::UNDERFLOW_BIN);
+      oldintg += histo->binHeight(AIDA::IAxis::OVERFLOW_BIN);
+    }
     // Sanity check
     if (oldintg == 0.0) {
       MSG_WARNING("Histo " << hpath << " has null integral during normalization");

@@ -302,7 +302,7 @@ namespace Rivet {
     /// @param histo The histogram to be normalised.
     /// @param norm The new area of the histogram.
     /// @warning The old histogram will be deleted, and its pointer set to zero.
-    void normalize(AIDA::IHistogram1D*& histo, double norm=1.0);
+    void normalize(AIDA::IHistogram1D*& histo, double norm=1.0, bool includeoverflows=true);
 
     /// Multiplicatively scale the given histogram, @a histo. After this call the
     /// histogram will have been transformed to a DataPointSet with the same name and path.
