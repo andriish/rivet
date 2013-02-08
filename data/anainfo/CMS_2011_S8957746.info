@@ -26,8 +26,8 @@ BibKey: Khachatryan:2011dx
 BibTeX: '@Article{Khachatryan:2011dx,
      author    = "Khachatryan, Vardan and others",
  collaboration = "CMS",
-     title     = "{First Measurement of Hadronic Event Shapes in pp
-                  Collisions at sqrt(s)=7 TeV}",
+     title     = "{First Measurement of Hadronic Event Shapes in $pp$
+                  Collisions at $\sqrt{s}=7$ TeV}",
      journal   = "Phys. Lett.",
      volume    = "B699",
      year      = "2011",

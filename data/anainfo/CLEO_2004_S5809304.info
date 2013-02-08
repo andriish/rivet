@@ -24,8 +24,7 @@ BibKey: Artuso:2004pj
 BibTeX: '@Article{Artuso:2004pj,
      author    = "Artuso, M. and others",
  collaboration = "CLEO",
-     title     = "{Charm meson spectra in e+ e- annihilation at 10.5-GeV
-                  c.m.e}",
+     title     = "{Charm meson spectra in $e+ e-$ annihilation at 10.5 GeV}",
      journal   = "Phys. Rev.",
      volume    = "D70",
      year      = "2004",

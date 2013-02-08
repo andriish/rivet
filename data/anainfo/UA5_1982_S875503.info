@@ -22,8 +22,8 @@ BibKey: Alpgard:1982zx
 BibTeX: '@Article{Alpgard:1982zx,
      author    = "Alpgard, K. and others",
  collaboration = "UA5",
-     title     = "{COMPARISON OF p anti-p and p p INTERACTIONS AT s**(1/2) =
-                  53-GeV}",
+     title     = "{Comparison of $p\bar{p}$ and $pp$ interactions at
+                  $\sqrt{s}=53$ GeV}",
      journal   = "Phys. Lett.",
      volume    = "B112",
      year      = "1982",

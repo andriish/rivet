@@ -27,7 +27,7 @@ BibKey: Seuster:2005tr
 BibTeX: '@Article{Seuster:2005tr,
      author    = "Seuster, R. and others",
      collaboration = "Belle",
-     title     = "{Charm hadrons from fragmentation and B decays in e+ e-
+     title     = "{Charm hadrons from fragmentation and $B$ decays in $e^+ e^-$
                   annihilation at  $\sqrt{s}$ = 10.6\,GeV}",
      journal   = "Phys. Rev.",
      volume    = "D73",

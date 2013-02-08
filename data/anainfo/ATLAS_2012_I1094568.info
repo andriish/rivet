@@ -29,7 +29,7 @@ BibTeX: '@article{ATLAS:2012al,
       author         = "Aad, Georges and others",
       title          = "{Measurement of $t \bar{t}$ production with a veto on
                         additional central jet activity in pp collisions at
-                        sqrt(s) = 7 TeV using the ATLAS detector}",
+                        $\sqrt{s} = 7$ TeV using the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       journal        = "Eur.Phys.J.",
       volume         = "C72",

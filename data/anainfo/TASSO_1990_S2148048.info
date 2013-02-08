@@ -22,8 +22,7 @@ BibKey: Braunschweig:1990yd
 BibTeX: '@Article{Braunschweig:1990yd,
      author    = "Braunschweig, W. and others",
  collaboration = "TASSO",
-     title     = "{GLOBAL JET PROPERTIES AT 14-GeV TO 44-GeV CENTER-OF-MASS
-                  ENERGY IN e+ e- ANNIHILATION}",
+     title     = "{Global jet properties at 14 GeV to 44 GeV center-of-mass energy in $e^+e^-$ annihilation}",
      journal   = "Z. Phys.",
      volume    = "C47",
      year      = "1990",

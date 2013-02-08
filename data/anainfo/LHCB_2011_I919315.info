@@ -25,15 +25,14 @@ NeedCrossSection: yes
 BibKey: Aaij:2011uk
 BibTeX: '@article{Aaij:2011uk,
       author         = "Aaij, R. and others",
-      title          = "{Measurement of the inclusive phi cross-section in pp
-                        collisions at sqrt(s) = 7 TeV}",
+      title          = "{Measurement of the inclusive $\phi$ cross-section in $pp$
+                        collisions at $\sqrt{s} = 7$ TeV}",
       collaboration  = "LHCb Collaboration",
       journal        = "Phys.Lett.",
       volume         = "B703",
       pages          = "267-273",
       doi            = "10.1016/j.physletb.2011.08.017",
       year           = "2011",
-      note           = "* Temporary entry *",
       eprint         = "1107.3935",
       archivePrefix  = "arXiv",
       primaryClass   = "Unknown",

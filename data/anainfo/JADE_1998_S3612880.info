@@ -23,9 +23,9 @@ BibTeX: '@Article{MovillaFernandez:1997fr,
      author    = "Movilla Fernandez, P. A. and Biebel, O. and Bethke, S. and
                   Kluth, S. and Pfeifenschneider, P.",
  collaboration = "JADE",
-     title     = "{A study of event shapes and determinations of alpha(s)
-                  using data of  e+ e- annihilations at s**(1/2) = 22-GeV to
-                  44-GeV}",
+     title     = "{A study of event shapes and determinations of $\alpha_s$
+                  using data of  $e^+ e^-$ annihilations at $\sqrt{s} =$ 22 GeV to
+                  44 GeV}",
      journal   = "Eur. Phys. J.",
      volume    = "C1",
      year      = "1998",

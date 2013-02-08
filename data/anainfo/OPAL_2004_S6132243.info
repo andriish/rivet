@@ -27,9 +27,9 @@ BibKey: Abbiendi:2004qz
 BibTeX: '@Article{Abbiendi:2004qz,
      author    = "Abbiendi, G. and others",
  collaboration = "OPAL",
-     title     = "{Measurement of event shape distributions and moments in e+
-                  e- -->  hadrons at 91-GeV - 209-GeV and a determination of
-                  alpha(s)}",
+     title     = "{Measurement of event shape distributions and moments in $e^+
+                  e^- \to$ hadrons at 91 GeV - 209 GeV and a determination of
+                  $\alpha_s$}",
      journal   = "Eur. Phys. J.",
      volume    = "C40",
      year      = "2005",

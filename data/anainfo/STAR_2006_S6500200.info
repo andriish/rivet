@@ -26,7 +26,7 @@ BibTeX: '@Article{Adams:2006nd,
      author    = "Adams, John and others",
  collaboration = "STAR",
      title     = "{Identified hadron spectra at large transverse momentum in
-                  p + p and d +  Au collisions at s(NN)**(1/2) = 200-GeV}",
+                  $p\,p$ and $d\,Au$ collisions at $\sqrt{s} = 200$ GeV}",
      journal   = "Phys. Lett.",
      volume    = "B637",
      year      = "2006",
