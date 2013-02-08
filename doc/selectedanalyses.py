@@ -150,7 +150,7 @@ for aname in sorted(list(analyses)):
         page += "\\textsc{No authors listed}\\\\ \n"
 
 
-    if ana.references():
+    if False and ana.references():
         page += "\\textsc{References:}\n \\penalty 100\n"
         page += "\\begin{itemize}\n"
         for r in ana.references():
@@ -165,8 +165,6 @@ for aname in sorted(list(analyses)):
             else:
                 page += "  \\item %s\n" % r
         page += "\\end{itemize}\n"
-    else:
-        page += "\\textsc{No references listed}\\\\ \n"
 
 
     if ana.runInfo():
