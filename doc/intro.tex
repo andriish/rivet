@@ -1,6 +1,6 @@
 This manual is a users' guide to using the Rivet generator validation
 system. Rivet is a C++ class library, which provides the infrastructure and
-calculational tools for simulation-level analyses for high energy collider
+calculational tools for particle-level analyses for high energy collider
 experiments, enabling physicists to
 validate event generator models and tunings with minimal effort and maximum
 portability. Rivet is designed to scale effectively to large numbers of analyses
@@ -22,8 +22,8 @@ using the generator's own steering program, if one is provided; for generators
 which provide no default way to produce HepMC output, the AGILe generator
 interface library, and in particular the \kbd{agile-runmc} command which it
 provides, may be useful. For those who wish to embed their analyses in some
-larger framework, Rivet can also be run programmatically on HepMC event objects
-with no special executable being required.
+larger framework, Rivet can also be used as a library to run programmatically
+on HepMC event objects with no special executable being required.
 
 Before we get started, a declaration of intent: this manual is intended to be a
 guide to using Rivet, rather than a comprehensive and painstakingly maintained
@@ -50,12 +50,12 @@ optional arguments, and italic font between angle brackets to represent an
 argument name which should be replaced by a value,
 e.g. \code{Event::applyProjection(\val{proj})}.
 
-Following the example of Donald Knuth in his books on \TeX{}, in this document
-we will indicate paragraphs of particular technicality or esoteric nature with a
-``dangerous bend''\marginpar{\bendimg\\Dangerous bend} sign. These will
-typically describe internals of Rivet of which most people will be fortunate
-enough to remain happily ignorant without adverse effects. However they may be
-of interest to detail obsessives, the inordinately curious and Rivet
-hackers. You can certainly skip them on a first reading. Similarly, you may see
-double bend signs \marginpar{\dblbendimg\\Double bend} --- the same rules apply
-for these, but even more strongly.
+% Following the example of Donald Knuth in his books on \TeX{}, in this document
+% we will indicate paragraphs of particular technicality or esoteric nature with a
+% ``dangerous bend''\marginpar{\bendimg\\Dangerous bend} sign. These will
+% typically describe internals of Rivet of which most people will be fortunate
+% enough to remain happily ignorant without adverse effects. However they may be
+% of interest to detail obsessives, the inordinately curious and Rivet
+% hackers. You can certainly skip them on a first reading. Similarly, you may see
+% double bend signs \marginpar{\dblbendimg\\Double bend} --- the same rules apply
+% for these, but even more strongly.
