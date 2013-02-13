@@ -179,21 +179,6 @@ for aname in sorted(list(analyses)):
     else:
         page += "\\textsc{No run details listed}\\\\ \n"
 
-
-    try:
-        import readplot
-        info = readplot.plotinfo(ana.name())
-        if info:
-            page += "\n\\vspace{1em}\n\\noindent\n"
-            page += "\\textsc{Histograms:}\n \\penalty 100\n"
-            page += "\\begin{itemize}\n"
-            for hpath in sorted(info.keys()):
-                htitle = info[hpath]["TITLE"]
-                page += "  \\item %s (\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
-            page += "\\end{itemize}\n"
-    except:
-        pass
-
     page += "\n"
 
     page = texify(page)
