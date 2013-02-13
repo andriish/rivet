@@ -141,10 +141,10 @@ your install path, Rivet and AGILe's installation scripts will install extra
 copies into that location, since automatically sourcing all completion files in
 such a path is quite standard.
 
-Apologies to \{C,k,z,\dots\}-shell users, but this feature is currently only
-available for the \kbd{bash} shell. Anyone who feels like supplying fixes or
-additions for their favourite shell is very welcome to get in touch with the
-developers.
+% Apologies to \{C,k,z,\dots\}-shell users, but this feature is currently only
+% available for the \kbd{bash} shell. Anyone who feels like supplying fixes or
+% additions for their favourite shell is very welcome to get in touch with the
+% developers.
 
 
 
@@ -312,21 +312,25 @@ plotting, validation and tuning.
 
 Rivet currently produces output histogram data in the AIDA XML format. Most
 people aren't familiar with AIDA (and we recommend that you remain that way!),
-and it will disappear entirely from Rivet in version 2.0. You will probably
+and it will disappear entirely from Rivet in version 2.0. If you do not want to
+use the plotting tools that come with Rivet (cf.\ Sec.~\ref{sec:plotting}), you might
 wish to cast the AIDA files to a different format for plotting, and for this we
 supply several scripts.
 
 \paragraph{Conversion to ROOT}
 
-Your knee-jerk reaction is probably to want to know how to plot your Rivet
-histograms in ROOT\cite{Antcheva:2009zz}. Don't worry: a few months of therapy
-can work wonders. For unrepentant ROOT junkies, Rivet installs an
+% Your knee-jerk reaction is probably to want to know how to plot your Rivet
+% histograms in ROOT\cite{Antcheva:2009zz}. Don't worry: a few months of therapy
+% can work wonders. For unrepentant ROOT junkies, 
+Rivet installs an
 \kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
 full of ROOT \texttt{TGraph}s. One word of warning: a bug in ROOT means that
 \texttt{TGraph}s do not render properly from file because the axis is not drawn by
 default. To display the plots correctly in ROOT you will need to pass the
 \kbd{"AP"} drawing option string to either the \kbd{TGraph::Draw()} method, or
 in the options box in the \kbd{TBrowser} GUI interface.
+Alternatively you can also use the \kbd{-t} option with which \kbd{aida2root}
+produces \texttt{TH1}s instead.
 
 \paragraph{Conversion to ``flat format''}
 
@@ -425,6 +429,7 @@ histogram to one.
 
 
 \subsection{Plotting and comparing data}
+\label{sec:plotting}
 Rivet comes with three commands --- \kbd{rivet-mkhtml}, \kbd{compare-histos} and
 \kbd{make-plots} --- for comparing and plotting data files. These commands
 produce nice comparison plots of publication quality from the AIDA format text
