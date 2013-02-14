@@ -45,26 +45,26 @@ namespace Rivet {
         }
       }
 
-    FourMomentum MxFourVector(0.,0.,0.,0.);
-    FourMomentum MyFourVector(0.,0.,0.,0.);
+      FourMomentum MxFourVector(0.,0.,0.,0.);
+      FourMomentum MyFourVector(0.,0.,0.,0.);
 
-    foreach(const Particle& p, fs.particlesByEta()) {
-      if (p.momentum().eta() > gapcenter) {
-        MxFourVector += p.momentum();
-      } else {
-        MyFourVector += p.momentum();
+      foreach(const Particle& p, fs.particlesByEta()) {
+        if (p.momentum().eta() > gapcenter) {
+          MxFourVector += p.momentum();
+        } else {
+          MyFourVector += p.momentum();
+        }
       }
-    }
 
-    double Mx2 = FourMomentum(MxFourVector).mass2();
-    double My2 = FourMomentum(MyFourVector).mass2();
+      double Mx2 = MxFourVector.mass2();
+      double My2 = MyFourVector.mass2();
 
-    const double M2 = (Mx2 > My2 ? Mx2 : My2);
-    const double xi = M2/(7000*7000); // sqrt(s)=7000 GeV
+      const double M2 = (Mx2 > My2 ? Mx2 : My2);
+      const double xi = M2/(7000*7000); // sqrt(s)=7000 GeV
 
-    if (xi < 5*10e-6) vetoEvent;
+      if (xi < 5*10e-6) vetoEvent;
 
-    _h_sigma->fill(7000/GeV, weight);
+      _h_sigma->fill(7000/GeV, weight);
 
     }
 
