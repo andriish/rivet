@@ -1,5 +1,6 @@
 dist_pkgdata_DATA = \
   LHCB_2010_S8758301.aida \
+  LHCB_2010_I867355.aida \
   LHCB_2011_I917009.aida \
   LHCB_2011_I919315.aida \
   LHCF_2012_I1115479.aida \

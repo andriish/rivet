@@ -136,7 +136,8 @@ endif
 
 
 lib_LTLIBRARIES += RivetLHCbAnalyses.la
-RivetLHCbAnalyses_la_SOURCES =
+RivetLHCbAnalyses_la_SOURCES = \
+    LHCB_2010_I867355.cc
 if ENABLE_UNVALIDATED
 RivetLHCbAnalyses_la_SOURCES += \
     LHCB_2010_S8758301.cc \
