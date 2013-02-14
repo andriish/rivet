@@ -159,28 +159,31 @@ namespace Rivet {
       return contract(v);
     }
 
-    /// Multiply by a scalar
+    /// Multiply by a scalar.
     FourVector& operator*=(double a) {
       _vec = multiply(a, *this)._vec;
       return *this;
     }
 
-    /// Divide by a scalar
+    /// Divide by a scalar.
     FourVector& operator/=(double a) {
       _vec = multiply(1.0/a, *this)._vec;
       return *this;
     }
 
+    /// Add to this 4-vector.
     FourVector& operator+=(const FourVector& v) {
       _vec = add(*this, v)._vec;
       return *this;
     }
 
+    /// Subtract from this 4-vector. NB time as well as space components are subtracted.
     FourVector& operator-=(const FourVector& v) {
       _vec = add(*this, -v)._vec;
       return *this;
     }
 
+    /// Multiply all components (space and time) by -1.
     FourVector operator-() const {
       FourVector result;
       result._vec = -_vec;
@@ -471,16 +474,19 @@ namespace Rivet {
       return *this;
     }
 
+    /// Subtract from this 4-vector. NB time as well as space components are subtracted.
     FourMomentum& operator+=(const FourMomentum& v) {
       _vec = add(*this, v)._vec;
       return *this;
     }
 
+    /// Subtract from this 4-vector. NB time as well as space components are subtracted.
     FourMomentum& operator-=(const FourMomentum& v) {
       _vec = add(*this, -v)._vec;
       return *this;
     }
 
+    /// Multiply all components (time and space) by -1.
     FourMomentum operator-() const {
       FourMomentum result;
       result._vec = -_vec;

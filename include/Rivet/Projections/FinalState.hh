@@ -75,6 +75,16 @@ namespace Rivet {
       return particles(cmpParticleByAscAbsPseudorapidity);
     }
 
+    /// Get the final-state particles, ordered by increasing \f$ y \f$.
+    const ParticleVector& particlesByRapidity() const {
+      return particles(cmpParticleByAscRapidity);
+    }
+
+    /// Get the final-state particles, ordered by increasing \f$ |y| \f$.
+    const ParticleVector& particlesByModRapidity() const {
+      return particles(cmpParticleByAscAbsRapidity);
+    }
+
     /// Access the projected final-state particles.
     virtual size_t size() const { return _theParticles.size(); }
 
