@@ -86,6 +86,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I1102908.aida \
   CMS_2012_I1107658.aida \
   CMS_2012_I1184941.aida \
+  CMS_2012_PAS_QCD_11_010.aida \
   CMS_QCD_10_024.aida \
   DELPHI_1994_S3021912.aida \
   DELPHI_1995_S3137023.aida \
