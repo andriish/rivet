@@ -24,6 +24,8 @@
 
 	* Version number bump to 1.8.2 -- release approaching.
 
+	* Rewrite of ALICE_2012_I1181770 analysis to make it a bit more sane and acceptable.
+
 	* Adding a note on FourVector and FourMomentum that operator- and
 	operator-= invert both the space and time components: use of -=
 	can result in a vector with negative energy.
