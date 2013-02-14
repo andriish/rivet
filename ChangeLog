@@ -26,6 +26,8 @@
 
 	* Added ATLAS_2012_I1118269 analysis
 
+	* Added CMS_2012_I1184941 analysis
+
 	* Added LHCB_2010_I867355 analysis
 
 	* Added TGraphErrors support to root2flat
