@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     void init() {
-      addProjection(FinalState(),"FS");
+      addProjection(FinalState(), "FS");
       _h_sigma = bookHisto1D(1, 1, 1);
     }
 
@@ -25,6 +25,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      if (fs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
       double gapcenter = 0.;
       double LRG = 0.;
@@ -45,27 +46,20 @@ namespace Rivet {
         }
       }
 
-      FourMomentum MxFourVector(0.,0.,0.,0.);
-      FourMomentum MyFourVector(0.,0.,0.,0.);
 
+      FourMomentum mxFourVector, myFourVector;
       foreach(const Particle& p, fs.particlesByEta()) {
         if (p.momentum().eta() > gapcenter) {
-          MxFourVector += p.momentum();
+          mxFourVector += p.momentum();
         } else {
-          MyFourVector += p.momentum();
+          myFourVector += p.momentum();
         }
       }
+      const double M2 = max(mxFourVector.mass2(), myFourVector.mass2());
+      const double xi = M2/sqr(sqrtS()); // sqrt(s)=7000 GeV, note that units cancel
+      if (xi < 5e-6) vetoEvent;
 
-      double Mx2 = MxFourVector.mass2();
-      double My2 = MyFourVector.mass2();
-
-      const double M2 = (Mx2 > My2 ? Mx2 : My2);
-      const double xi = M2/(7000*7000); // sqrt(s)=7000 GeV
-
-      if (xi < 5*10e-6) vetoEvent;
-
-      _h_sigma->fill(7000/GeV, weight);
-
+      _h_sigma->fill(sqrtS()/GeV, weight);
     }
 
 
