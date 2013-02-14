@@ -20,6 +20,10 @@
 
 	* Fix TeX variable in the rivetenv scripts, especially for csh
 
+2012-12-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added ATLAS_2012_I1188891 analysis
+
 2012-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Converting CMS_2012_I1102908 analysis to use YODA.
