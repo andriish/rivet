@@ -162,9 +162,9 @@ namespace Rivet {
 
       // booking histograms
       for (it=_ratiotype.begin(); it!=_ratiotype.end(); it++) {
-        divide(_h_num_lowpt[it->first],  _h_den_lowpt[it->first],  _h_ratio_lowpt);
-        divide(_h_num_midpt[it->first],  _h_den_midpt[it->first],  _h_ratio_midpt);
-        divide(_h_num_highpt[it->first], _h_den_highpt[it->first], _h_ratio_highpt);
+        divide(_h_num_lowpt[it->first],  _h_den_lowpt[it->first],  _h_ratio_lowpt[it->first]);
+        divide(_h_num_midpt[it->first],  _h_den_midpt[it->first],  _h_ratio_midpt[it->first]);
+        divide(_h_num_highpt[it->first], _h_den_highpt[it->first], _h_ratio_highpt[it->first]);
       }
     }
 
@@ -242,9 +242,9 @@ namespace Rivet {
 
     // Define histograms
     // ratio
-    std::map<std::string, Histo1DPtr > _h_ratio_lowpt;
-    std::map<std::string, Histo1DPtr > _h_ratio_midpt;
-    std::map<std::string, Histo1DPtr > _h_ratio_highpt;
+    std::map<std::string, Scatter2DPtr > _h_ratio_lowpt;
+    std::map<std::string, Scatter2DPtr > _h_ratio_midpt;
+    std::map<std::string, Scatter2DPtr > _h_ratio_highpt;
     // numerator
     std::map<std::string, Histo1DPtr > _h_num_lowpt;
     std::map<std::string, Histo1DPtr > _h_num_midpt;
