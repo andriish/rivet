@@ -10,18 +10,18 @@ Authors:
 References:
  - Z.Phys.C47:187-198,1990
  - DESY-90-013
-RunInfo: $e^+ e^- \to$ jet jet (+ jets)  Kinematic cuts such as CKIN(1) in Pythia
-  need to be set slightly below the CMS energy.
+RunInfo: '$e^+ e^- \to \text{jet jet}$ (+ jets). Kinematic cuts such as
+          CKIN(1) in Pythia need to be set slightly below the CMS energy.'
 NumEvents: 100000
 Beams: [e-, e+]
 Energies: [14.03, 21.99, 35, 43.7]
-PtCuts: 
+PtCuts:
 Description:
   'Event shapes Thrust, Sphericity, Aplanarity at four different energies'
 BibKey: Braunschweig:1990yd
 BibTeX: '@Article{Braunschweig:1990yd,
      author    = "Braunschweig, W. and others",
- collaboration = "TASSO",
+     collaboration = "TASSO",
      title     = "{Global jet properties at 14 GeV to 44 GeV center-of-mass energy in $e^+e^-$ annihilation}",
      journal   = "Z. Phys.",
      volume    = "C47",
@@ -31,6 +31,5 @@ BibTeX: '@Article{Braunschweig:1990yd,
      SLACcitation  = "%%CITATION = ZEPYA,C47,187;%%"
 }'
 ToDo:
- - Add the missing ditributions
+ - Add the missing distributions
  - Add missing Trigger conditions, move to Trigger Projection
-

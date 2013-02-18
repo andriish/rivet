@@ -20,7 +20,7 @@ Description: The production of $\Delta^{++}$ baryons measured using 3.5 millon $
 BibKey: Alexander:1995gq
 BibTeX: '@Article{Alexander:1995gq,
      author    = "Alexander, G. and others",
- collaboration = "OPAL",
+     collaboration = "OPAL",
      title     = "{$\Delta^{++}$ production in hadronic $Z^0$ decays}",
      journal   = "Phys. Lett.",
      volume    = "B358",
