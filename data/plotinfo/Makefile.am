@@ -129,6 +129,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I1102908.plot \
   CMS_2012_I1107658.plot \
   CMS_2012_I1184941.plot \
+  CMS_2012_PAS_FWD_11_003.plot \
   CMS_2012_PAS_QCD_11_010.plot \
   CMS_QCD_10_024.plot \
   D0_1996_S3214044.plot \
@@ -169,6 +170,7 @@ dist_pkgdata_DATA = \
   LHCB_2010_I867355.plot \
   LHCB_2011_I917009.plot \
   LHCB_2011_I919315.plot \
+  LHCB_2012_I1119400.plot \
   LHCF_2012_I1115479.plot \
   MC_GENERIC.plot \
   MC_IDENTIFIED.plot \

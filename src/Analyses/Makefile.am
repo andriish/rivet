@@ -135,6 +135,7 @@ RivetCMSAnalyses_la_SOURCES = \
 if ENABLE_PRELIMINARY
 RivetCMSAnalyses_la_SOURCES += \
     CMS_QCD_10_024.cc \
+    CMS_2012_PAS_FWD_11_003.cc \
     CMS_2012_PAS_QCD_11_010.cc
 endif
 
@@ -146,7 +147,8 @@ if ENABLE_UNVALIDATED
 RivetLHCbAnalyses_la_SOURCES += \
     LHCB_2010_S8758301.cc \
     LHCB_2011_I917009.cc \
-    LHCB_2011_I919315.cc
+    LHCB_2011_I919315.cc \
+    LHCB_2012_I1119400.cc
 endif
 
 

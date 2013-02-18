@@ -3,6 +3,7 @@ dist_pkgdata_DATA = \
   LHCB_2010_I867355.aida \
   LHCB_2011_I917009.aida \
   LHCB_2011_I919315.aida \
+  LHCB_2012_I1119400.aida \
   LHCF_2012_I1115479.aida \
   JADE_OPAL_2000_S4300807.aida \
   JADE_1998_S3612880.aida \
@@ -86,6 +87,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I1102908.aida \
   CMS_2012_I1107658.aida \
   CMS_2012_I1184941.aida \
+  CMS_2012_PAS_FWD_11_003.aida \
   CMS_2012_PAS_QCD_11_010.aida \
   CMS_QCD_10_024.aida \
   DELPHI_1994_S3021912.aida \

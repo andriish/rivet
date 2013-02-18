@@ -59,11 +59,13 @@ def htmlify(s, para=False):
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
+summaries = {}
 pages = []
 ## Use list(...) ctor for 2.3 compatibility
 for aname in sorted(list(all_analyses)):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
+    summaries[aname] = ana.summary()
     page += "<h3 id='%s'>%s</h3>\n" % (aname, aname)
     page += "<b>%s</b><br/>\n" %  htmlify(ana.summary())
     page += "<b>Experiment:</b> %s (%s)<br/>\n" % (ana.experiment(), ana.collider())
@@ -179,9 +181,9 @@ head = """\
 """
 
 toc = "<h3>Contents</h3>\n"
-toc += "<ul>\n"
+toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses:
-    toc += "<li><a href='#%s'>%s</a></li>\n" % (a,a)
+    toc += "<li><a href='#%s'>%s</a> &ndash; %s</li>\n" % (a,a, htmlify(summaries[a]))
 toc += "</ul>\n"
 
 foot = """\

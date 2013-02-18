@@ -20,6 +20,16 @@
 
 	* Fix TeX variable in the rivetenv scripts, especially for csh
 
+2012-12-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding analysis descriptions to the HTML analysis page ToC.
+
+2012-12-14  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added CMS_2012_PAS_FWD_11_003 analysis
+
+	* Added LHCB_2012_I1119400 analysis
+
 2012-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Correction to jet acceptance in CMS_2011_S9120041, from Sercan Sen: thanks!

@@ -132,6 +132,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I1102908.info \
   CMS_2012_I1107658.info \
   CMS_2012_I1184941.info \
+  CMS_2012_PAS_FWD_11_003.info \
   CMS_2012_PAS_QCD_11_010.info \
   CMS_QCD_10_024.info \
   D0_1996_S3214044.info \
@@ -172,6 +173,7 @@ dist_pkgdata_DATA = \
   LHCB_2010_I867355.info \
   LHCB_2011_I917009.info \
   LHCB_2011_I919315.info \
+  LHCB_2012_I1119400.info \
   LHCF_2012_I1115479.info \
   MC_DIJET.info \
   MC_DIPHOTON.info \
