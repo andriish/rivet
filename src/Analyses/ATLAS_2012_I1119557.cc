@@ -66,8 +66,8 @@ namespace Rivet {
         /// @todo Commented eccentricity out for now: reinstate
         // if (fabs(eta) < 0.7 && m > 100*GeV) _hs_eccentricity[alg]->fill(getEcc(jet), weight);
 
-        if (alg == 1 && fabs(eta) < 0.7 && inRange(m/GeV, 130, 210)) _h_planarFlow->fill(getPFlow(jet), weight);
-        if (alg == 0 && fabs(eta) < 0.7 && inRange(m/GeV, 100, 130)) _h_angularity->fill(getAngularity(jet), weight);
+        if (alg == 1 && fabs(eta) < 0.7 && inRange(m/GeV, 130., 210.)) _h_planarFlow->fill(getPFlow(jet), weight);
+        if (alg == 0 && fabs(eta) < 0.7 && inRange(m/GeV, 100., 130.)) _h_angularity->fill(getAngularity(jet), weight);
       }
     }
 
