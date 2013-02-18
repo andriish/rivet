@@ -119,7 +119,7 @@ for aname in sorted(list(all_analyses)):
                 name = " ".join(a.split()[:-1])
                 email = a.split()[-1].replace("<", "").replace(">", "")
                 #s = "\\href{mailto:%s}{%s}" % (email, name)
-                s = "%s $\\langle\,$\\href{mailto:%s}{%s}$\,\\rangle$;" % (name, email, email)
+                s = "%s $\\langle\,$\\href{mailto:%s}{%s}$\,\\rangle$" % (name, email, email)
             page += "  \\item %s\n" % s
         page += "\\end{itemize}\n"
     else:
