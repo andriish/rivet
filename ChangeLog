@@ -20,6 +20,10 @@
 
 	* Fix TeX variable in the rivetenv scripts, especially for csh
 
+2012-12-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding TOTEM_2012_002 analysis, from Sercan Sen.
+
 2012-12-18  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added CMS_2011_I954992 analysis

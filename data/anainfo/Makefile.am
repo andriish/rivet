@@ -240,6 +240,7 @@ dist_pkgdata_DATA = \
   STAR_2009_UE_HELEN.info \
   TASSO_1990_S2148048.info \
   TOTEM_2012_I1115294.info \
+  TOTEM_2012_002.info \
   ZEUS_2001_S4815815.info \
   UA1_1990_S2044935.info \
   UA5_1982_S875503.info \
