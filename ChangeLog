@@ -20,6 +20,10 @@
 
 	* Fix TeX variable in the rivetenv scripts, especially for csh
 
+2012-12-18  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added CMS_2011_I954992 analysis
+
 2012-12-17  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added CMS_2012_I1193338 analysis

@@ -83,6 +83,7 @@ dist_pkgdata_DATA = \
   CMS_2011_S9088458.aida \
   CMS_2011_S9120041.aida \
   CMS_2011_S9215166.aida \
+  CMS_2011_I954992.aida \
   CMS_2012_I1087342.aida \
   CMS_2012_I1102908.aida \
   CMS_2012_I1107658.aida \
