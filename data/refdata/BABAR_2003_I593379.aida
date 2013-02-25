@@ -387,13 +387,13 @@
 <dataPointSet name="d01-x01-y03" dimension="2" path="/REF/BABAR_2003_I593379" title="B" >
 <dataPoint>
 <measurement value="10.58" errorPlus="0.5" errorMinus="0.5"/>
-<measurement value="0.21" errorPlus="0.0546443043693" errorMinus="0.0546443043693"/>
+<measurement value="0.367" errorPlus="0.0562227711875" errorMinus="0.0562227711875"/>
 </dataPoint>
 </dataPointSet>
 <dataPointSet name="d01-x01-y04" dimension="2" path="/REF/BABAR_2003_I593379" title="B" >
 <dataPoint>
 <measurement value="10.58" errorPlus="0.5" errorMinus="0.5"/>
-<measurement value="0.19" errorPlus="0.0535350352573" errorMinus="0.0535350352573"/>
+<measurement value="0.341" errorPlus="0.0546717477313" errorMinus="0.0546717477313"/>
 </dataPoint>
 </dataPointSet>
 <dataPointSet name="d01-x01-y05" dimension="2" path="/REF/BABAR_2003_I593379" title="B" >
