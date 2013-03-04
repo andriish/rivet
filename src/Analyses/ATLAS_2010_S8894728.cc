@@ -40,8 +40,8 @@ namespace Rivet {
       // Standard deviation profiles
       // First the higher moments of main profiles to calculate variance and error on variance...
       for (size_t i = 1; i < 4; ++i) {
-        _hist_nch_transverse_500[i].reset(new Profile1D(referenceData(1+isqrts, 1, 1)));
-        _hist_ptsum_transverse_500[i].reset(new Profile1D(referenceData(3+isqrts, 1, 1)));
+        _hist_nch_transverse_500[i].reset(new Profile1D(refData(1+isqrts, 1, 1)));
+        _hist_ptsum_transverse_500[i].reset(new Profile1D(refData(3+isqrts, 1, 1)));
       }
       // Then the data point sets into which the results will be inserted
       _dps_sdnch_transverse_500   = bookScatter2D(5+isqrts, 1, 1);
@@ -118,8 +118,8 @@ namespace Rivet {
       vector<double> num500(3, 0), ptSum500(3, 0.0);
       // Temporary histos that bin Nch and pT in dPhi.
       // NB. Only one of each needed since binnings are the same for the energies and pT cuts
-      Histo1D hist_num_dphi_500(referenceData(13,1,1));
-      Histo1D hist_pt_dphi_500(referenceData(15,1,1));
+      Histo1D hist_num_dphi_500(refData(13,1,1));
+      Histo1D hist_pt_dphi_500(refData(15,1,1));
       foreach (const Particle& p, particles500) {
         const double pT = p.momentum().pT();
         const double dPhi = deltaPhi(philead, p.momentum().phi());
@@ -182,7 +182,7 @@ namespace Rivet {
       // Note that we fill dN/dEtadPhi: dEta = 2*2.5, dPhi = 2*PI/nBins
       // The values tabulated in the note are for an (undefined) signed Delta(phi) rather than
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
-      const size_t nbins = referenceData(13,1,1).numPoints();
+      const size_t nbins = refData(13,1,1).numPoints();
       std::vector<double> ptcut;
       if (fuzzyEquals(sqrtS(), 900*GeV)) {
         ptcut += 1.0; ptcut += 1.5; ptcut += 2.0; ptcut += 2.5;

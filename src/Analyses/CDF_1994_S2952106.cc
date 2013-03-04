@@ -41,9 +41,9 @@ namespace Rivet {
       _histAlpha   = bookScatter2D(5,1,1);
 
       // Temporary histos: these are the ones we actually fill for the plots which require correction
-      _tmphistJet3eta.reset(new Histo1D(referenceData(3,1,1)));
-      _tmphistR23.reset(    new Histo1D(referenceData(4,1,1)));
-      _tmphistAlpha.reset(  new Histo1D(referenceData(5,1,1)));
+      _tmphistJet3eta.reset(new Histo1D(refData(3,1,1)));
+      _tmphistR23.reset(    new Histo1D(refData(4,1,1)));
+      _tmphistAlpha.reset(  new Histo1D(refData(5,1,1)));
     }
 
 

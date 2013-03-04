@@ -376,11 +376,11 @@ namespace Rivet {
     //@{
 
     /// Get reference data for a named histo
-    const YODA::Scatter2D & referenceData(const string& hname) const;
+    const YODA::Scatter2D & refData(const string& hname) const;
 
     /// Get reference data for a numbered histo
-    const YODA::Scatter2D & referenceData(size_t datasetId,
-                                          size_t xAxisId, size_t yAxisId) const;
+    const YODA::Scatter2D & refData(size_t datasetId,
+                                    size_t xAxisId, size_t yAxisId) const;
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     /// (NB. this returns a pointer rather than a reference since it will

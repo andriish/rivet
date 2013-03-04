@@ -170,7 +170,7 @@ namespace Rivet {
   }
 
 
-  const Scatter2D & Analysis::referenceData(const string& hname) const {
+  const Scatter2D & Analysis::refData(const string& hname) const {
     _cacheRefData();
     MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
     if (!_refdata[hname]) {
@@ -180,9 +180,9 @@ namespace Rivet {
   }
 
 
-  const Scatter2D & Analysis::referenceData(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+  const Scatter2D & Analysis::refData(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
     const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return referenceData(hname);
+    return refData(hname);
   }
 
 
@@ -198,7 +198,7 @@ namespace Rivet {
   Histo1DPtr Analysis::bookHisto1D(const string& hname, const string& title,
                                    const string& xtitle, const string& ytitle)
   {
-    const Scatter2D & refdata = referenceData(hname);
+    const Scatter2D & refdata = refData(hname);
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(refdata, path) );
     addPlot(hist);
@@ -289,7 +289,7 @@ namespace Rivet {
   Profile1DPtr Analysis::bookProfile1D(const string& hname, const string& title,
                                        const string& xtitle, const string& ytitle)
   {
-    const Scatter2D & refdata = referenceData(hname);
+    const Scatter2D & refdata = refData(hname);
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(refdata, path) );
     addPlot(prof);

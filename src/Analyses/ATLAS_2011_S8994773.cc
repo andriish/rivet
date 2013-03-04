@@ -62,7 +62,7 @@ namespace Rivet {
       vector<double> num500(3, 0), ptSum500(3, 0.0);
       // Temporary histos that bin N in dPhi.
       // NB. Only one of each needed since binnings are the same for the energies and pT cuts
-      Histo1D hist_num_dphi_500(referenceData(13+isqrts,1,1));
+      Histo1D hist_num_dphi_500(refData(13+isqrts,1,1));
       foreach (const Particle& p, particles500) {
         const double pT = p.momentum().pT();
         const double dPhi = deltaPhi(philead, p.momentum().phi());
@@ -88,7 +88,7 @@ namespace Rivet {
       // Note that we fill dN/dEtadPhi: dEta = 2*2.5, dPhi = 2*PI/nBins
       // The values tabulated in the note are for an (undefined) signed Delta(phi) rather than
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
-      const size_t nbins = referenceData(13+isqrts,1,1).numPoints();
+      const size_t nbins = refData(13+isqrts,1,1).numPoints();
       for (size_t i = 0; i < nbins; ++i) {
         double mean = hist_num_dphi_500.bin(i).midpoint();
         double value = 0.;
