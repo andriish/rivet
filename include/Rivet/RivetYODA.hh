@@ -15,13 +15,10 @@
 #include "YODA/Profile1D.h"
 #include "YODA/Scatter2D.h"
 #include "YODA/Point2D.h"
-#include "YODA/ReaderAIDA.h"
 
 namespace Rivet {
 
   using YODA::WriterYODA;
-  using YODA::ReaderAIDA;
-
   typedef YODA::Histo1D Histo1D;
   typedef YODA::Profile1D Profile1D;
   typedef YODA::Scatter2D Scatter2D;

@@ -3,19 +3,14 @@
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/RivetBoost.hh"
 #include "binreloc.h"
-//#include <sys/stat.h>
 
 namespace Rivet {
 
 
   inline string _findFile(const string& filename, const vector<string>& paths) {
-    //struct stat stFileInfo;
     foreach (const string& dir, paths) {
       const string path = dir + "/" + filename;
-      //if (stat(path.c_str(), &stFileInfo) == 0) {
-      if (access(path.c_str(), R_OK) == 0) {
-        return path;
-      }
+      if (fileexists(path)) return path;
     }
     return "";
   }

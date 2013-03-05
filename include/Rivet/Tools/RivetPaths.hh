@@ -5,6 +5,12 @@
 namespace Rivet {
 
 
+  /// Convenience function for determining if a filesystem path exists
+  inline bool fileexists(const string& path) {
+    return (access(path.c_str(), R_OK) == 0);
+  }
+
+
   /// @name Installation directory paths
   //@{
 

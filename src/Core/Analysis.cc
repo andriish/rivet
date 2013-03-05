@@ -7,6 +7,8 @@
 #include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
+
+
   Analysis::Analysis(const string& name)
     : _crossSection(-1.0),
       _gotCrossSection(false),
@@ -35,15 +37,18 @@ namespace Rivet {
 
 
   const string Analysis::histoDir() const {
-    /// @todo This doesn't change: calc and cache at first use!
-    string path = "/" + name();
-    if (handler().runName().length() > 0) {
-      path = "/" + handler().runName() + path;
+    // Caching...
+    static string _histoDir;
+    if (_histoDir.empty()) {
+      _histoDir = "/" + name();
+      if (handler().runName().length() > 0) {
+        _histoDir = "/" + handler().runName() + _histoDir;
+      }
+      while (find_first(_histoDir, "//")) {
+        replace_all(_histoDir, "//", "/");
+      }
     }
-    while (find_first(path, "//")) {
-      replace_all(path, "//", "/");
-    }
-    return path;
+    return _histoDir;
   }
 
 

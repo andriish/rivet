@@ -1,6 +1,8 @@
 #include "Rivet/RivetYODA.hh"
 #include "Rivet/Rivet.hh"
 #include "Rivet/Tools/RivetPaths.hh"
+#include "YODA/ReaderYODA.h"
+#include "YODA/ReaderAIDA.h"
 #include "boost/algorithm/string/split.hpp"
 
 using namespace std;
@@ -9,25 +11,29 @@ namespace Rivet {
 
 
   string getDatafilePath(const string& papername) {
-    const string path =  findAnalysisRefFile(papername + ".aida");
-    if (!path.empty()) return path;
-    throw Rivet::Error("Couldn't find ref data file '" + papername + ".aida" +
-                       " in $RIVET_REF_PATH, " + getRivetDataPath() + ", or .");
-    return "";
+    /// Try to find YODA otherwise fall back to try AIDA
+    const string path1 = findAnalysisRefFile(papername + ".yoda");
+    if (!path1.empty()) return path1;
+    const string path2 = findAnalysisRefFile(papername + ".aida");
+    if (!path2.empty()) return path2;
+    throw Rivet::Error("Couldn't find ref data file '" + papername + ".yoda/aida" +
+                       " in $RIVET_REF_PATH, '" + getRivetDataPath() + "', or '.'");
+    //return "";
   }
 
 
   RefDataMap getRefData(const string& papername) {
-    // Get filename
-    const string xmlfile = getDatafilePath(papername);
+    const string datafile = getDatafilePath(papername);
 
-    YODA::Reader & reader =  ReaderAIDA::create();
+    // Make an appropriate data file reader and read the data objects
+    YODA::Reader& reader = (datafile.find(".yoda") != string::npos) ? \
+      YODA::ReaderYODA::create() : YODA::ReaderAIDA::create();
     vector<YODA::AnalysisObject *> aovec;
-    reader.read(xmlfile, aovec);
+    reader.read(datafile, aovec);
 
     // Return value, to be populated
     RefDataMap rtn;
-    foreach ( YODA::AnalysisObject * ao, aovec ) {
+    foreach ( YODA::AnalysisObject* ao, aovec ) {
       Scatter2DPtr refdata( dynamic_cast<Scatter2D *>(ao) );
       if (!refdata) continue;
       string plotpath = refdata->path();
