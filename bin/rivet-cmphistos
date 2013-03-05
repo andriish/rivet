@@ -60,8 +60,8 @@ def getCommandLineOptions():
     stygroup.add_option("--no-plottitle", action="store_true", dest="NOPLOTTITLE",
                         default=False, help="don't show the plot title on the plot "
                         "(useful when the plot description should only be given in a caption)")
-#    stygroup.add_option("--style", dest="STYLE", default="default",
-#                        help="change plotting style: default|bw|talk")
+    stygroup.add_option("--style", dest="STYLE", default="default",
+                        help="change plotting style: default|bw|talk")
     stygroup.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                         help="additional plot config file(s). Settings will be included in the output configuration.")
     parser.add_option_group(stygroup)
@@ -182,23 +182,28 @@ def parseArgs(args):
 def setStyle(ao, style):
     ## Set default plot styles (color and line width)
     # colors borrowed from Google Ngrams
-    LINECOLORS = ['ee3311',    # red (Google uses 'dc3912')
-                  '3366cc',    # blue
-                  '109618',    # green
-                  'ff9900',    # orange
-                  '990099',    # lila
-                 ]
+    LINECOLORS = ['{[HTML]{ee3311}}',  # red (Google uses 'dc3912')
+                  '{[HTML]{3366cc}}',  # blue
+                  '{[HTML]{109618}}',  # green
+                  '{[HTML]{ff9900}}',  # orange
+                  '{[HTML]{990099}}']  # lila
     LINESTYLES = ['solid',
                   'dashed',
                   'dashdotted',
-                  'dotted',
-                 ]
+                  'dotted']
+
+    if opts.STYLE == 'talk':
+        ao.setAnnotation('LineWidth', '1pt')
+    if opts.STYLE == 'bw':
+        LINECOLORS = ['black!90',
+                      'black!50',
+                      'black!30']
 
     c = style%len(LINECOLORS)
     s = style/len(LINECOLORS)
 
     ao.setAnnotation('LineStyle', '%s' %LINESTYLES[s])
-    ao.setAnnotation('LineColor', '{[HTML]{%s}}' %LINECOLORS[c])
+    ao.setAnnotation('LineColor', '%s' %LINECOLORS[c])
 
 
 def setOptions(ao, options):
@@ -297,6 +302,10 @@ if __name__ == '__main__':
         if opts.NOPLOTTITLE:
             plot['Title'] = ''
 
+        if opts.STYLE == 'talk':
+            plot['PlotSize'] = '8,6'
+        if opts.STYLE == 'bw':
+            plot['RatioPlotErrorBandColor'] = 'black!10'
 
         ## DrawOnly is needed to keep the order in the Legend equal to the
         ## order of the files on the command line
