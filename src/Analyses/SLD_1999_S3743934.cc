@@ -272,6 +272,7 @@ namespace Rivet {
       }
     }
 
+
     void init() {
       // Projections
       addProjection(Beam(), "Beams");
@@ -279,6 +280,7 @@ namespace Rivet {
       addProjection(UnstableFinalState(), "UFS");
       addProjection(InitialQuarks(), "IQF");
       addProjection(Thrust(FinalState()), "Thrust");
+
       _histXpPiPlusN      = bookHisto1D( 1, 1, 2);
       _histXpKPlusN       = bookHisto1D( 2, 1, 2);
       _histXpProtonN      = bookHisto1D( 3, 1, 2);
@@ -328,7 +330,6 @@ namespace Rivet {
       _histRLambda  = bookHisto1D( 34, 1, 1);
       _histRLBar    = bookHisto1D( 34, 1, 2);
 
-
       _h_Xp_PiPl_Ch		= bookScatter2D(1, 1, 1);
       _h_Xp_KPl_Ch		= bookScatter2D(2, 1, 1);
       _h_Xp_Pr_Ch		= bookScatter2D(3, 1, 1);
@@ -352,344 +353,251 @@ namespace Rivet {
       _h_KM_KP		= bookScatter2D(31, 1, 1);
       _h_Pr_PBar		= bookScatter2D(33, 1, 1);
       _h_Lam_LBar		= bookScatter2D(35, 1, 1);
-
     }
 
 
     /// Finalize
     void finalize() {
-      // get the ratio plots sorted out first
-      divide(_histXpPiPlusN,_histXpChargedN,
-	     _h_Xp_PiPl_Ch);
+      // Get the ratio plots sorted out first
+      divide(_histXpPiPlusN, _histXpChargedN, _h_Xp_PiPl_Ch);
+      divide(_histXpKPlusN, _histXpChargedN, _h_Xp_KPl_Ch);
+      divide(_histXpProtonN, _histXpChargedN, _h_Xp_Pr_Ch);
+      divide(_histXpPiPlusCharm, _histXpPiPlusLight, _h_Xp_PiPlCh_PiPlLi);
+      divide(_histXpPiPlusBottom, _histXpPiPlusLight, _h_Xp_PiPlBo_PiPlLi);
+      divide(_tempXpKPlusCharm , _tempXpKPlusLight, _h_Xp_KPlCh_KPlLi);
+      divide(_histXpKPlusBottom, _histXpKPlusLight, _h_Xp_KPlBo_KPlLi);
+      divide(_tempXpKStar0Charm, _tempXpKStar0Light, _h_Xp_KS0Ch_KS0Li);
+      divide(_histXpKStar0Bottom, _histXpKStar0Light, _h_Xp_KS0Bo_KS0Li);
+      divide(_tempXpProtonCharm, _tempXpProtonLight, _h_Xp_PrCh_PrLi);
+      divide(_histXpProtonBottom, _histXpProtonLight, _h_Xp_PrBo_PrLi);
+      divide(_histXpLambdaCharm, _histXpLambdaLight, _h_Xp_LaCh_LaLi);
+      divide(_histXpLambdaBottom, _histXpLambdaLight, _h_Xp_LaBo_LaLi);
+      divide(_histXpK0Charm, _histXpK0Light, _h_Xp_K0Ch_K0Li);
+      divide(_histXpK0Bottom, _histXpK0Light, _h_Xp_K0Bo_K0Li);
+      divide(_histXpPhiCharm, _histXpPhiLight, _h_Xp_PhiCh_PhiLi);
+      divide(_histXpPhiBottom, _histXpPhiLight, _h_Xp_PhiBo_PhiLi);
 
-      divide(_histXpKPlusN,_histXpChargedN,
-	     _h_Xp_KPl_Ch);
+      // Then the leading particles
+      divide(*_histRPiMinus - *_histRPiPlus, *_histRPiMinus + *_histRPiPlus, _h_PiM_PiP);
+      divide(*_histRKSBar0 - *_histRKS0, *_histRKSBar0 + *_histRKS0, _h_KSBar0_KS0);
+      divide(*_histRKMinus - *_histRKPlus, *_histRKMinus + *_histRKPlus, _h_KM_KP);
+      divide(*_histRProton - *_histRPBar, *_histRProton + *_histRPBar, _h_Pr_PBar);
+      divide(*_histRLambda - *_histRLBar, *_histRLambda + *_histRLBar, _h_Lam_LBar);
 
-      divide(_histXpProtonN,_histXpChargedN,
-	     _h_Xp_Pr_Ch);
+      // Then the rest
+      Analysis::scale(_histXpPiPlusN,      1./sumOfWeights());
+      Analysis::scale(_histXpKPlusN,       1./sumOfWeights());
+      Analysis::scale(_histXpProtonN,      1./sumOfWeights());
+      Analysis::scale(_histXpChargedN,     1./sumOfWeights());
+      Analysis::scale(_histXpK0N,          1./sumOfWeights());
+      Analysis::scale(_histXpLambdaN,      1./sumOfWeights());
+      Analysis::scale(_histXpKStar0N,      1./sumOfWeights());
+      Analysis::scale(_histXpPhiN,         1./sumOfWeights());
+      Analysis::scale(_histXpPiPlusLight,  1./_SumOfudsWeights);
+      Analysis::scale(_histXpPiPlusCharm,  1./_SumOfcWeights);
+      Analysis::scale(_histXpPiPlusBottom, 1./_SumOfbWeights);
+      Analysis::scale(_histXpKPlusLight,   1./_SumOfudsWeights);
+      Analysis::scale(_histXpKPlusCharm,   1./_SumOfcWeights);
+      Analysis::scale(_histXpKPlusBottom,  1./_SumOfbWeights);
+      Analysis::scale(_histXpKStar0Light,  1./_SumOfudsWeights);
+      Analysis::scale(_histXpKStar0Charm,  1./_SumOfcWeights);
+      Analysis::scale(_histXpKStar0Bottom, 1./_SumOfbWeights);
+      Analysis::scale(_histXpProtonLight,  1./_SumOfudsWeights);
+      Analysis::scale(_histXpProtonCharm,  1./_SumOfcWeights);
+      Analysis::scale(_histXpProtonBottom, 1./_SumOfbWeights);
+      Analysis::scale(_histXpLambdaLight,  1./_SumOfudsWeights);
+      Analysis::scale(_histXpLambdaCharm,  1./_SumOfcWeights);
+      Analysis::scale(_histXpLambdaBottom, 1./_SumOfbWeights);
+      Analysis::scale(_histXpK0Light,      1./_SumOfudsWeights);
+      Analysis::scale(_histXpK0Charm,      1./_SumOfcWeights);
+      Analysis::scale(_histXpK0Bottom,     1./_SumOfbWeights);
+      Analysis::scale(_histXpPhiLight,     1./_SumOfudsWeights);
+      Analysis::scale(_histXpPhiCharm ,    1./_SumOfcWeights);
+      Analysis::scale(_histXpPhiBottom,    1./_SumOfbWeights);
+      Analysis::scale(_histRPiPlus,        1./_SumOfudsWeights);
+      Analysis::scale(_histRPiMinus,       1./_SumOfudsWeights);
+      Analysis::scale(_histRKS0,           1./_SumOfudsWeights);
+      Analysis::scale(_histRKSBar0,        1./_SumOfudsWeights);
+      Analysis::scale(_histRKPlus,         1./_SumOfudsWeights);
+      Analysis::scale(_histRKMinus,        1./_SumOfudsWeights);
+      Analysis::scale(_histRProton,        1./_SumOfudsWeights);
+      Analysis::scale(_histRPBar,          1./_SumOfudsWeights);
+      Analysis::scale(_histRLambda,        1./_SumOfudsWeights);
+      Analysis::scale(_histRLBar,          1./_SumOfudsWeights);
 
-      divide(_histXpPiPlusCharm ,_histXpPiPlusLight,
-	     _h_Xp_PiPlCh_PiPlLi);
-
-      divide(_histXpPiPlusBottom ,_histXpPiPlusLight,
-	     _h_Xp_PiPlBo_PiPlLi);
-
-      divide(_tempXpKPlusCharm  ,_tempXpKPlusLight,
-	     _h_Xp_KPlCh_KPlLi);
-
-      divide(_histXpKPlusBottom ,_histXpKPlusLight,
-	     _h_Xp_KPlBo_KPlLi);
-
-      divide(_tempXpKStar0Charm,_tempXpKStar0Light,
-	     _h_Xp_KS0Ch_KS0Li);
-
-      divide(_histXpKStar0Bottom,_histXpKStar0Light,
-	     _h_Xp_KS0Bo_KS0Li);
-
-      divide(_tempXpProtonCharm,_tempXpProtonLight,
-	     _h_Xp_PrCh_PrLi);
-
-      divide(_histXpProtonBottom,_histXpProtonLight,
-	     _h_Xp_PrBo_PrLi);
-
-      divide(_histXpLambdaCharm ,_histXpLambdaLight,
-	     _h_Xp_LaCh_LaLi);
-
-      divide(_histXpLambdaBottom ,_histXpLambdaLight,
-	     _h_Xp_LaBo_LaLi);
-
-      divide(_histXpK0Charm ,_histXpK0Light,
-	     _h_Xp_K0Ch_K0Li);
-
-      divide(_histXpK0Bottom ,_histXpK0Light,
-	     _h_Xp_K0Bo_K0Li);
-
-      divide(_histXpPhiCharm ,_histXpPhiLight,
-	     _h_Xp_PhiCh_PhiLi);
-
-      divide(_histXpPhiBottom ,_histXpPhiLight,
-	     _h_Xp_PhiBo_PhiLi);
-
-      //// leading particles
-
-      divide(*_histRPiMinus - *_histRPiPlus,
-	     *_histRPiMinus + *_histRPiPlus,
-	     _h_PiM_PiP);
-
-      divide(*_histRKSBar0 - *_histRKS0,
-	     *_histRKSBar0 + *_histRKS0,
-	     _h_KSBar0_KS0);
-
-      divide(*_histRKMinus - *_histRKPlus,
-	     *_histRKMinus + *_histRKPlus,
-	     _h_KM_KP);
-
-      divide(*_histRProton - *_histRPBar,
-	     *_histRProton + *_histRPBar,
-	     _h_Pr_PBar);
-
-      divide(*_histRLambda - *_histRLBar,
-	     *_histRLambda + *_histRLBar,
-	     _h_Lam_LBar);
-
-
-      // then the rest
-      Analysis::scale(_histXpPiPlusN    ,1./sumOfWeights());
-      Analysis::scale(_histXpKPlusN     ,1./sumOfWeights());
-      Analysis::scale(_histXpProtonN    ,1./sumOfWeights());
-      Analysis::scale(_histXpChargedN,1./sumOfWeights());
-      Analysis::scale(_histXpK0N,1./sumOfWeights());
-      Analysis::scale(_histXpLambdaN,1./sumOfWeights());
-      Analysis::scale(_histXpKStar0N,1./sumOfWeights());
-      Analysis::scale(_histXpPhiN,1./sumOfWeights());
-      Analysis::scale(_histXpPiPlusLight,1./_SumOfudsWeights);
-      Analysis::scale(_histXpPiPlusCharm,1./_SumOfcWeights);
-      Analysis::scale(_histXpPiPlusBottom,1./_SumOfbWeights);
-      Analysis::scale(_histXpKPlusLight ,1./_SumOfudsWeights);
-      Analysis::scale(_histXpKPlusCharm ,1./_SumOfcWeights);
-      Analysis::scale(_histXpKPlusBottom,1./_SumOfbWeights);
-      Analysis::scale(_histXpKStar0Light ,1./_SumOfudsWeights);
-      Analysis::scale(_histXpKStar0Charm ,1./_SumOfcWeights);
-      Analysis::scale(_histXpKStar0Bottom,1./_SumOfbWeights);
-      Analysis::scale(_histXpProtonLight ,1./_SumOfudsWeights);
-      Analysis::scale(_histXpProtonCharm ,1./_SumOfcWeights);
-      Analysis::scale(_histXpProtonBottom,1./_SumOfbWeights);
-      Analysis::scale(_histXpLambdaLight ,1./_SumOfudsWeights);
-      Analysis::scale(_histXpLambdaCharm ,1./_SumOfcWeights);
-      Analysis::scale(_histXpLambdaBottom,1./_SumOfbWeights);
-      Analysis::scale(_histXpK0Light ,1./_SumOfudsWeights);
-      Analysis::scale(_histXpK0Charm ,1./_SumOfcWeights);
-      Analysis::scale(_histXpK0Bottom,1./_SumOfbWeights);
-      Analysis::scale(_histXpPhiLight ,1./_SumOfudsWeights);
-      Analysis::scale(_histXpPhiCharm ,1./_SumOfcWeights);
-      Analysis::scale(_histXpPhiBottom,1./_SumOfbWeights);
-      Analysis::scale(_histRPiPlus ,1./_SumOfudsWeights);
-      Analysis::scale(_histRPiMinus,1./_SumOfudsWeights);
-      Analysis::scale(_histRKS0    ,1./_SumOfudsWeights);
-      Analysis::scale(_histRKSBar0 ,1./_SumOfudsWeights);
-      Analysis::scale(_histRKPlus  ,1./_SumOfudsWeights);
-      Analysis::scale(_histRKMinus ,1./_SumOfudsWeights);
-      Analysis::scale(_histRProton ,1./_SumOfudsWeights);
-      Analysis::scale(_histRPBar   ,1./_SumOfudsWeights);
-      Analysis::scale(_histRLambda ,1./_SumOfudsWeights);
-      Analysis::scale(_histRLBar   ,1./_SumOfudsWeights);
-
-      // multiplicities
+      // Multiplicities
       Scatter2DPtr multA;
       Scatter2DPtr multL;
       Scatter2DPtr multC;
       Scatter2DPtr multB;
       Scatter2DPtr multD1;
       Scatter2DPtr multD2;
-      double  avgNumPartsAll,avgNumPartsLight,avgNumPartsCharm, avgNumPartsBottom;
+      double avgNumPartsAll, avgNumPartsLight,avgNumPartsCharm, avgNumPartsBottom;
       // pi+/-
       // all
-      // @todo YODA
-      //avgNumPartsAll = _multPiPlus[0]/sumOfWeights();
-      //multA = bookDataPointSet(24, 1, 1);
-      //multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
-      //// light
-      //avgNumPartsLight = _multPiPlus[1]/_SumOfudsWeights;
-      //multL = bookDataPointSet(24, 1, 2);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm
-      //avgNumPartsCharm = _multPiPlus[2]/_SumOfcWeights;
-      //multC = bookDataPointSet(24, 1, 3);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// bottom
-      //avgNumPartsBottom = _multPiPlus[3]/_SumOfbWeights;
-      //multB = bookDataPointSet(24, 1, 4);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm-light
-      //multD1 = bookDataPointSet(25, 1, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //multD2 = bookDataPointSet(25, 1, 2);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
-      //// K+/-
-      //// all
-      //avgNumPartsAll = _multKPlus[0]/sumOfWeights();
-      //multA = bookDataPointSet(24, 2, 1);
-      //multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
-      //// light
-      //avgNumPartsLight = _multKPlus[1]/_SumOfudsWeights;
-      //multL = bookDataPointSet(24, 2, 2);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm
-      //avgNumPartsCharm = _multKPlus[2]/_SumOfcWeights;
-      //multC = bookDataPointSet(24, 2, 3);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// bottom
-      //avgNumPartsBottom = _multKPlus[3]/_SumOfbWeights;
-      //multB = bookDataPointSet(24, 2, 4);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm-light
-      //multD1 = bookDataPointSet(25, 2, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //multD2 = bookDataPointSet(25, 2, 2);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
-      //// K0
-      //// all
-      //avgNumPartsAll = _multK0[0]/sumOfWeights();
-      //multA = bookDataPointSet(24, 3, 1);
-      //multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
-      //// light
-      //avgNumPartsLight = _multK0[1]/_SumOfudsWeights;
-      //multL = bookDataPointSet(24, 3, 2);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm
-      //avgNumPartsCharm = _multK0[2]/_SumOfcWeights;
-      //multC = bookDataPointSet(24, 3, 3);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// bottom
-      //avgNumPartsBottom = _multK0[3]/_SumOfbWeights;
-      //multB = bookDataPointSet(24, 3, 4);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm-light
-      //multD1 = bookDataPointSet(25, 3, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //multD2 = bookDataPointSet(25, 3, 2);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
-      //// K*0
-      //// all
-      //avgNumPartsAll = _multKStar0[0]/sumOfWeights();
-      //multA = bookDataPointSet(24, 4, 1);
-      //multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
-      //// light
-      //avgNumPartsLight = _multKStar0[1]/_SumOfudsWeights;
-      //multL = bookDataPointSet(24, 4, 2);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm
-      //avgNumPartsCharm = _multKStar0[2]/_SumOfcWeights;
-      //multC = bookDataPointSet(24, 4, 3);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// bottom
-      //avgNumPartsBottom = _multKStar0[3]/_SumOfbWeights;
-      //multB = bookDataPointSet(24, 4, 4);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm-light
-      //multD1 = bookDataPointSet(25, 4, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //multD2 = bookDataPointSet(25, 4, 2);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
-      //// phi
-      //// all
-      //avgNumPartsAll = _multPhi[0]/sumOfWeights();
-      //multA = bookDataPointSet(24, 5, 1);
-      //multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
-      //// light
-      //avgNumPartsLight = _multPhi[1]/_SumOfudsWeights;
-      //multL = bookDataPointSet(24, 5, 2);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm
-      //avgNumPartsCharm = _multPhi[2]/_SumOfcWeights;
-      //multC = bookDataPointSet(24, 5, 3);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// bottom
-      //avgNumPartsBottom = _multPhi[3]/_SumOfbWeights;
-      //multB = bookDataPointSet(24, 5, 4);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm-light
-      //multD1 = bookDataPointSet(25, 5, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //multD2 = bookDataPointSet(25, 5, 2);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
-      //// p
-      //// all
-      //avgNumPartsAll = _multProton[0]/sumOfWeights();
-      //multA = bookDataPointSet(24, 6, 1);
-      //multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
-      //// light
-      //avgNumPartsLight = _multProton[1]/_SumOfudsWeights;
-      //multL = bookDataPointSet(24, 6, 2);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm
-      //avgNumPartsCharm = _multProton[2]/_SumOfcWeights;
-      //multC = bookDataPointSet(24, 6, 3);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// bottom
-      //avgNumPartsBottom = _multProton[3]/_SumOfbWeights;
-      //multB = bookDataPointSet(24, 6, 4);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm-light
-      //multD1 = bookDataPointSet(25, 6, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //multD2 = bookDataPointSet(25, 6, 2);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
-      //// Lambda
-      //// all
-      //avgNumPartsAll = _multLambda[0]/sumOfWeights();
-      //multA = bookDataPointSet(24, 7, 1);
-      //multA->point(0)->coordinate(1)->setValue(avgNumPartsAll);
-      //// light
-      //avgNumPartsLight = _multLambda[1]/_SumOfudsWeights;
-      //multL = bookDataPointSet(24, 7, 2);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm
-      //avgNumPartsCharm = _multLambda[2]/_SumOfcWeights;
-      //multC = bookDataPointSet(24, 7, 3);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// bottom
-      //avgNumPartsBottom = _multLambda[3]/_SumOfbWeights;
-      //multB = bookDataPointSet(24, 7, 4);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm-light
-      //multD1 = bookDataPointSet(25, 7, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //multD2 = bookDataPointSet(25, 7, 2);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
+      avgNumPartsAll = _multPiPlus[0]/sumOfWeights();
+      multA = bookScatter2D(24, 1, 1);
+      multA->point(0).setY(avgNumPartsAll);
+      // light
+      avgNumPartsLight = _multPiPlus[1]/_SumOfudsWeights;
+      multL = bookScatter2D(24, 1, 2);
+      multL->point(0).setY(avgNumPartsLight);
+      // charm
+      avgNumPartsCharm = _multPiPlus[2]/_SumOfcWeights;
+      multC = bookScatter2D(24, 1, 3);
+      multC->point(0).setY(avgNumPartsCharm);
+      // bottom
+      avgNumPartsBottom = _multPiPlus[3]/_SumOfbWeights;
+      multB = bookScatter2D(24, 1, 4);
+      multB->point(0).setY(avgNumPartsBottom);
+      // charm-light
+      multD1 = bookScatter2D(25, 1, 1);
+      multD1->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // bottom-light
+      multD2 = bookScatter2D(25, 1, 2);
+      multD2->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      // K+/-
+      // all
+      avgNumPartsAll = _multKPlus[0]/sumOfWeights();
+      multA = bookScatter2D(24, 2, 1);
+      multA->point(0).setY(avgNumPartsAll);
+      // light
+      avgNumPartsLight = _multKPlus[1]/_SumOfudsWeights;
+      multL = bookScatter2D(24, 2, 2);
+      multL->point(0).setY(avgNumPartsLight);
+      // charm
+      avgNumPartsCharm = _multKPlus[2]/_SumOfcWeights;
+      multC = bookScatter2D(24, 2, 3);
+      multC->point(0).setY(avgNumPartsCharm);
+      // bottom
+      avgNumPartsBottom = _multKPlus[3]/_SumOfbWeights;
+      multB = bookScatter2D(24, 2, 4);
+      multB->point(0).setY(avgNumPartsBottom);
+      // charm-light
+      multD1 = bookScatter2D(25, 2, 1);
+      multD1->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // bottom-light
+      multD2 = bookScatter2D(25, 2, 2);
+      multD2->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      // K0
+      // all
+      avgNumPartsAll = _multK0[0]/sumOfWeights();
+      multA = bookScatter2D(24, 3, 1);
+      multA->point(0).setY(avgNumPartsAll);
+      // light
+      avgNumPartsLight = _multK0[1]/_SumOfudsWeights;
+      multL = bookScatter2D(24, 3, 2);
+      multL->point(0).setY(avgNumPartsLight);
+      // charm
+      avgNumPartsCharm = _multK0[2]/_SumOfcWeights;
+      multC = bookScatter2D(24, 3, 3);
+      multC->point(0).setY(avgNumPartsCharm);
+      // bottom
+      avgNumPartsBottom = _multK0[3]/_SumOfbWeights;
+      multB = bookScatter2D(24, 3, 4);
+      multB->point(0).setY(avgNumPartsBottom);
+      // charm-light
+      multD1 = bookScatter2D(25, 3, 1);
+      multD1->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // bottom-light
+      multD2 = bookScatter2D(25, 3, 2);
+      multD2->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      // K*0
+      // all
+      avgNumPartsAll = _multKStar0[0]/sumOfWeights();
+      multA = bookScatter2D(24, 4, 1);
+      multA->point(0).setY(avgNumPartsAll);
+      // light
+      avgNumPartsLight = _multKStar0[1]/_SumOfudsWeights;
+      multL = bookScatter2D(24, 4, 2);
+      multL->point(0).setY(avgNumPartsLight);
+      // charm
+      avgNumPartsCharm = _multKStar0[2]/_SumOfcWeights;
+      multC = bookScatter2D(24, 4, 3);
+      multC->point(0).setY(avgNumPartsCharm);
+      // bottom
+      avgNumPartsBottom = _multKStar0[3]/_SumOfbWeights;
+      multB = bookScatter2D(24, 4, 4);
+      multB->point(0).setY(avgNumPartsBottom);
+      // charm-light
+      multD1 = bookScatter2D(25, 4, 1);
+      multD1->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // bottom-light
+      multD2 = bookScatter2D(25, 4, 2);
+      multD2->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      // phi
+      // all
+      avgNumPartsAll = _multPhi[0]/sumOfWeights();
+      multA = bookScatter2D(24, 5, 1);
+      multA->point(0).setY(avgNumPartsAll);
+      // light
+      avgNumPartsLight = _multPhi[1]/_SumOfudsWeights;
+      multL = bookScatter2D(24, 5, 2);
+      multL->point(0).setY(avgNumPartsLight);
+      // charm
+      avgNumPartsCharm = _multPhi[2]/_SumOfcWeights;
+      multC = bookScatter2D(24, 5, 3);
+      multC->point(0).setY(avgNumPartsCharm);
+      // bottom
+      avgNumPartsBottom = _multPhi[3]/_SumOfbWeights;
+      multB = bookScatter2D(24, 5, 4);
+      multB->point(0).setY(avgNumPartsBottom);
+      // charm-light
+      multD1 = bookScatter2D(25, 5, 1);
+      multD1->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // bottom-light
+      multD2 = bookScatter2D(25, 5, 2);
+      multD2->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      // p
+      // all
+      avgNumPartsAll = _multProton[0]/sumOfWeights();
+      multA = bookScatter2D(24, 6, 1);
+      multA->point(0).setY(avgNumPartsAll);
+      // light
+      avgNumPartsLight = _multProton[1]/_SumOfudsWeights;
+      multL = bookScatter2D(24, 6, 2);
+      multL->point(0).setY(avgNumPartsLight);
+      // charm
+      avgNumPartsCharm = _multProton[2]/_SumOfcWeights;
+      multC = bookScatter2D(24, 6, 3);
+      multC->point(0).setY(avgNumPartsCharm);
+      // bottom
+      avgNumPartsBottom = _multProton[3]/_SumOfbWeights;
+      multB = bookScatter2D(24, 6, 4);
+      multB->point(0).setY(avgNumPartsBottom);
+      // charm-light
+      multD1 = bookScatter2D(25, 6, 1);
+      multD1->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // bottom-light
+      multD2 = bookScatter2D(25, 6, 2);
+      multD2->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      // Lambda
+      // all
+      avgNumPartsAll = _multLambda[0]/sumOfWeights();
+      multA = bookScatter2D(24, 7, 1);
+      multA->point(0).setY(avgNumPartsAll);
+      // light
+      avgNumPartsLight = _multLambda[1]/_SumOfudsWeights;
+      multL = bookScatter2D(24, 7, 2);
+      multL->point(0).setY(avgNumPartsLight);
+      // charm
+      avgNumPartsCharm = _multLambda[2]/_SumOfcWeights;
+      multC = bookScatter2D(24, 7, 3);
+      multC->point(0).setY(avgNumPartsCharm);
+      // bottom
+      avgNumPartsBottom = _multLambda[3]/_SumOfbWeights;
+      multB = bookScatter2D(24, 7, 4);
+      multB->point(0).setY(avgNumPartsBottom);
+      // charm-light
+      multD1 = bookScatter2D(25, 7, 1);
+      multD1->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // bottom-light
+      multD2 = bookScatter2D(25, 7, 2);
+      multD2->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
     }
 
     //@}
 
-    // @todo YODA
-    //void scale(AIDA::IDataPointSet*& histo, double scale) {
-    //  if (!histo) {
-    //    MSG_ERROR("Failed to scale histo=NULL in analysis "
-    //              << name() << " (scale=" << scale << ")");
-    //    return;
-    //  }
-    //  const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    //  MSG_TRACE("Scaling histo " << hpath);
-
-    //  vector<double> x, y, ex, ey;
-    //  for (size_t i = 0, N = histo->size(); i < N; ++i) {
-
-    //    IDataPoint * point = histo->point(i);
-    //    assert(point->dimension()==2);
-    //    x .push_back(point->coordinate(0)->value());
-    //    ex.push_back(0.5*(point->coordinate(0)->errorPlus()+
-    //                      point->coordinate(0)->errorMinus()));
-    //    y .push_back(point->coordinate(1)->value()*scale);
-    //    ey.push_back(0.5*scale*(point->coordinate(1)->errorPlus()+
-    //                            point->coordinate(1)->errorMinus()));
-    //  }
-    //  string title = histo->title();
-    //  string xtitle = histo->xtitle();
-    //  string ytitle = histo->ytitle();
-
-    //  tree().mkdir("/tmpnormalize");
-    //  tree().mv(hpath, "/tmpnormalize");
-
-    //  if (hpath.find(" ") != string::npos) {
-    //    throw Error("Histogram path '" + hpath + "' is invalid: spaces are not permitted in paths");
-    //  }
-    //  AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
-    //  dps->setXTitle(xtitle);
-    //  dps->setYTitle(ytitle);
-
-    //  tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
-    //  tree().rmdir("/tmpnormalize");
-
-    //  // Set histo pointer to null - it can no longer be used.
-    //  histo = 0;
-    //}
 
   private:
 
@@ -697,8 +605,7 @@ namespace Rivet {
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
     double _SumOfudsWeights,_SumOfcWeights,_SumOfbWeights;
-    vector<double> _multPiPlus,_multKPlus,_multK0,_multKStar0,
-      _multPhi,_multProton,_multLambda;
+    vector<double> _multPiPlus,_multKPlus,_multK0,_multKStar0, _multPhi,_multProton,_multLambda;
 
     Histo1DPtr _histXpPiPlusSig;
     Histo1DPtr _histXpPiPlusN;
