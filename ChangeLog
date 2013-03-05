@@ -1,3 +1,12 @@
+2013-03-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fixing the histograms entries in the documentation to be
+	tolerant to plotinfo loading failures.
+
+	* Making the findDatafile() function primarily find YODA data
+	files, then fall back to AIDA. The ref data loader will use the
+	appropriate YODA format reader.
+
 2013-02-05  David Grellscheid  <David.Grellscheid@durham.ac.uk>
 
 	* include/Rivet/Math/MathUtils.hh: added BWspace bin edge method
