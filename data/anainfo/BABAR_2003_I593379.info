@@ -7,17 +7,16 @@ References:
  - Phys.Rev. D67 032002, 2003
  - hep-ex/0207097
 RunInfo:
-  Production of charmionum at the $\Upslion(4S)$ resonace.
+  Production of charmionum at the $\Upsilon(4S)$ resonace.
 NumEvents: 1000000
 InspireID: 593379
 Beams: [e+, e-]
 Energies: [[3.5, 8.0]]
 PtCuts: [0]
-Description: Measurement of  $J/\Psi$, $\Psi'$, $\chi_{c1}$ and 
-    $\chi_{c2}$ production using
- a data sample corresponding to an integrated luminosity of 20.3$\mathrm{fb}^{-1}$ collected
+Description: Measurement of  $J/\psi$, $\psi'$, $\chi_{c1}$ and $\chi_{c2}$ production using
+ a data sample corresponding to an integrated luminosity of 20.3\;fb$^{-1}$ collected
  with the BABAR detector at the SLAC PEP-II electron-positron storage ring operating
- at a centre-of-mass energy near 10.58 GeV.
+ at a centre-of-mass energy near 10.58\;GeV.
 BibKey: Aubert:2002hc
 BibTeX: '@article{Aubert:2002hc,
       author         = "Aubert, Bernard and others",
