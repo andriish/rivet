@@ -1,0 +1,298 @@
+#! /usr/bin/env python
+
+'''\
+%prog - generate comparison plots
+
+USAGE:
+ %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value'] [path/to/yodafile2 ...]
+
+where the plot options are described in the make-plots manual in the HISTOGRAM
+section.
+'''
+
+import sys, os
+if sys.version_info[:3] < (2, 4, 0):
+    print 'rivet scripts require Python version >= 2.4.0... exiting'
+    sys.exit(1)
+
+
+class Plot(dict):
+    ## A tiny Plot object to help writing out the head in the .dat file
+    def __repr__(self):
+        return "# BEGIN PLOT\n" + "\n".join("%s=%s" % (k,v) for k,v in self.iteritems()) + "\n# END PLOT\n\n"
+
+
+def getCommandLineOptions():
+    ## Parse command line options
+    from optparse import OptionParser, OptionGroup
+    parser = OptionParser(usage=__doc__)
+
+    parser.add_option("--no-rivet-refs", dest="RIVETREFS", action="store_false",
+                      default=True, help="don't use Rivet reference data files")
+    parser.add_option('-o', '--outdir', dest='OUTDIR',
+                      default='.', help='write data files into this directory')
+    parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
+                      help="write output dat files into a directory hierarchy which matches the analysis paths")
+    parser.add_option('--plotinfodir', dest='PLOTINFODIR', action='append',
+                      default=['.'], help='directory which may contain plot header information (in addition '
+                      'to standard Rivet search paths)')
+
+    stygroup = OptionGroup(parser, "Plot style")
+    stygroup.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
+                        help="additional plot config file(s). Settings will be included in the output configuration.")
+    parser.add_option_group(stygroup)
+
+    return parser
+
+
+def initPlotparser(filelist):
+    from lighthisto import PlotParser
+
+    ## Add standard locations and the input files' dirs to the PLOTINFO search paths
+    import rivet
+    opts.PLOTINFODIR += rivet.getAnalysisPlotPaths()
+    for infile in filelist:
+        adir = os.path.abspath(os.path.split(infile)[0])
+        if not adir in opts.PLOTINFODIR:
+            opts.PLOTINFODIR.append(adir)
+
+    return PlotParser(opts.PLOTINFODIR, opts.CONFIGFILES)
+
+
+
+def getHistos(filelist):
+    ## Loop over all input files. Only use the first occurrence of any REF-histogram
+    ## and the first occurrence in each MC file for every MC-histogram.
+    refhistos = {}
+    mchistos = {}
+    mchistolist = []
+    for infile in filelist:
+        if not mchistos.has_key(infile):
+            mchistos[infile] = {}
+        analysisobjects = yoda.readYODA(infile)
+        for ao in analysisobjects:
+            path = ao.annotations()['Path']
+            if path.startswith('/REF/'):
+                if not refhistos.has_key(path):
+                    refhistos[path] = ao
+            else:
+                if not mchistos[infile].has_key(path):
+                    mchistos[infile][path] = ao
+                    if path not in mchistolist:
+                        mchistolist.append(path)
+    return refhistos, mchistos, mchistolist
+
+
+def getRefdata(refhistos):
+    ## Find all Rivet reference data files
+    import rivet
+    rivet_data_dirs = rivet.getAnalysisRefPaths()
+    dirlist = []
+    for d in rivet_data_dirs:
+        import glob
+        dirlist.append(glob.glob(os.path.join(d, '*.yoda')))
+    for filelist in dirlist:
+        for infile in filelist:
+            analysisobjects = yoda.readYODA(infile)
+            for ao in analysisobjects:
+                path = ao.annotations()['Path']
+                if path.startswith('/REF/'):
+                    if not refhistos.has_key(path):
+                        refhistos[path] = ao
+
+
+def parseArgs(args):
+    ## Look at the argument list and split it at colons, in order to separate
+    ## the file names from the plotting options. Store the file names and
+    ## file specific plotting options.
+    filelist = []
+    plotoptions = {}
+    for a in args:
+        asplit = a.split(':')
+        path = asplit[0]
+        filelist.append(path)
+        plotoptions[path] = []
+        has_title = False
+        for i in xrange(1, len(asplit)):
+            ## Add 'Title' if there is no = sign before math mode
+            if not '=' in asplit[i] or ('$' in asplit[i] and asplit[i].index('$') < asplit[i].index('=')):
+                asplit[i] = 'Title=%s' % asplit[i]
+            if asplit[i].startswith('Title='):
+                has_title = True
+            plotoptions[path].append(asplit[i])
+        if not has_title:
+            plotoptions[path].append('Title=%s' %path.split('/')[-1].replace('.yoda', ''))
+    return filelist, plotoptions
+
+
+def setStyle(ao, style):
+    ## Set default plot styles (color and line width)
+    # colors borrowed from Google Ngrams
+    LINECOLORS = ['ee3311',    # red (Google uses 'dc3912')
+                  '3366cc',    # blue
+                  '109618',    # green
+                  'ff9900',    # orange
+                  '990099',    # lila
+                 ]
+    LINESTYLES = ['solid',
+                  'dashed',
+                  'dashdotted',
+                  'dotted',
+                 ]
+
+    c = style%len(LINECOLORS)
+    s = style/len(LINECOLORS)
+
+    ao.setAnnotation('LineStyle', '%s' %LINESTYLES[s])
+    ao.setAnnotation('LineColor', '{[HTML]{%s}}' %LINECOLORS[c])
+
+
+def setOptions(ao, options):
+    ## Set arbitrary annotations
+    for opt in options:
+        key = opt.split('=', 1)[0]
+        val = opt.split('=', 1)[1]
+        ao.setAnnotation(key, val)
+
+
+def mkoutdir(outdir):
+    ## Function to make output directories
+    if not os.path.exists(outdir):
+        try:
+            os.makedirs(outdir)
+        except:
+            msg = "Can't make output directory '%s'" % outdir
+            raise Exception(msg)
+    if not os.access(outdir, os.W_OK):
+        msg = "Can't write to output directory '%s'" % outdir
+        raise Exception(msg)
+
+
+def writeOutput(output, h):
+    ## Choose output file name and dir
+    if opts.HIER_OUTPUT:
+        outdir = os.path.dirname(os.path.join(opts.OUTDIR, h[1:]))
+        outfile = '%s.dat' % os.path.basename(h)
+    else:
+        outdir = opts.OUTDIR
+        outfile = '%s.dat' % h.replace('/', "_")[1:]
+    mkoutdir(outdir)
+    outfilepath = os.path.join(outdir, outfile)
+    f = open(outfilepath, 'w')
+    f.write(output)
+    f.close()
+
+
+#--------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    import os
+    import yoda
+
+    ## Try to rename the process on Linux
+    try:
+        import ctypes
+        libc = ctypes.cdll.LoadLibrary('libc.so.6')
+        libc.prctl(15, 'compare-histos', 0, 0, 0)
+    except Exception:
+        pass
+
+    ## Try to use Psyco optimiser
+    try:
+        import psyco
+        psyco.full()
+    except ImportError:
+        pass
+
+
+    ## Command line parsing
+    parser = getCommandLineOptions()
+    opts, args = parser.parse_args()
+
+    ## split the input file names and the associated plotting options
+    ## given on the command line into two separate lists
+    filelist, plotoptions = parseArgs(args)
+
+    ## read the .plot files
+    plotparser = initPlotparser(filelist)
+
+    ## create a list of all histograms to be plotted
+    refhistos, mchistos, mchistolist = getHistos(filelist)
+
+    ## read the reference data from the Rivet search paths and add them
+    ## to the list of reference histograms
+    if opts.RIVETREFS: getRefdata(refhistos)
+
+
+    ## Now loop over all MC histograms and plot them
+    for h in mchistolist:
+
+        ## A list of all analysis objects to be plotted
+        anaobjects = []
+
+
+        ## Plot object for the PLOT section in the .dat file
+        plot = Plot()
+        plot['Legend'] = '1'
+        plot['LogY'] = '1'
+        for key, val in plotparser.getHeaders(h).iteritems():
+            plot[key] = val
+
+
+        ## DrawOnly is needed to keep the order in the Legend equal to the
+        ## order of the files on the command line
+        drawonly = ''
+
+
+        ## Check if we have reference data for the histogram
+        if refhistos.has_key('/REF' + h):
+            refdata = refhistos['/REF' + h]
+            refdata.setAnnotation('ErrorBars', '1')
+            refdata.setAnnotation('PolyMarker', '*')
+            refdata.setAnnotation('Title', 'Data')
+            plot['RatioPlot'] = '1'
+            plot['RatioPlotReference'] = '/REF'+h
+            anaobjects.append(refdata)
+            drawonly += '/REF' + h + ' '
+
+
+        ## Loop over the MC files to plot all instances of the histogram
+        for i,infile in enumerate(filelist):
+            if mchistos.has_key(infile) and mchistos[infile].has_key(h):
+                ## default linecolor, linestyle
+                setStyle(mchistos[infile][h], i)
+                ## plot defaults from .plot files
+                for key, val in plotparser.getHistogramOptions(h).iteritems():
+                    mchistos[infile][h].setAnnotation(key, val)
+                ## command line plot options
+                setOptions(mchistos[infile][h], plotoptions[infile])
+                mchistos[infile][h].setAnnotation('Path', infile + h)
+                anaobjects.append(mchistos[infile][h])
+                drawonly += infile + h + ' '
+
+        plot['DrawOnly'] = drawonly.strip()
+
+        ## Now create the output. We can't use "yoda.writeFLAT(anaobjects, 'foobar.dat')" because
+        ## the PLOT and SPECIAL blocks don't have a corresponding analysis object.
+
+        output = ''
+        output += str(plot)
+
+        ## Special
+        special = plotparser.getSpecial(h)
+        if special:
+            output += "\n"
+            output += "# BEGIN SPECIAL %s\n" % h
+            output += special
+            output += "# END SPECIAL\n\n"
+
+        from cStringIO import StringIO
+        sio = StringIO()
+        yoda.writeFLAT(anaobjects, sio)
+        output += sio.getvalue()
+
+
+        ## Write everything into a file
+        writeOutput(output, h)
+
