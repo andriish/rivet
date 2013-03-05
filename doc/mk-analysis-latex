@@ -44,16 +44,23 @@ import rivet
 
 
 def texify(s):
+    "Insert required TeX escapes"
     t = s \
         .replace(r"&", r"\&") \
         .replace(r"\\&", r"\&") \
         .replace(r"#", r"\#") \
-        .replace(r"->", r"\ensuremath{\to}") \
-        .replace(r"pT", r"\pT") \
-        .replace(r"sqrt(s)", r"\ensuremath{\sqrt{s}}")
         # .replace(r"_", r"\_") \
         # .replace(r"^", r"") \
     return t
+
+def niceify(s):
+    "Replace informal symbols in titles and descriptions with nice LaTeX forms"
+    t = s \
+        .replace(r"->", r"\ensuremath{\to}") \
+        .replace(r"pT", r"\pT") \
+        .replace(r"sqrt(s)", r"\ensuremath{\sqrt{s}}")
+    return t
+
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
@@ -72,7 +79,7 @@ for aname in sorted(list(all_analyses)):
         citetex = r"\cite{%s}" % ana.bibKey()
         subtitle = "\\subsection[%s]{%s}\n" % (safe_aname, safe_aname + "\," + citetex)
     page += subtitle
-    page += "\\textbf{%s}\\newline\n" %  ana.summary()
+    page += "\\textbf{%s}\\newline\n" % niceify(ana.summary())
     if ana.requiredBeams():
         def pid_to_str(pid):
             if pid == 11:
@@ -152,36 +159,37 @@ for aname in sorted(list(all_analyses)):
         page += "\\begin{itemize}\n"
         for i in infos:
             if i:
-                page += "\\item %s\n" % i
+                page += "\\item %s\n" % niceify(i)
         page += "\\end{itemize}\n"
     else:
         page += "\\textbf{No run details listed}\\\\ \n"
 
 
     for para in ana.description().split("\n\n"):
-        page += "\n\\noindent " + para + "\n"
+        page += "\n\\noindent " + niceify(para) + "\n"
 
 
-    try:
-        import readplot
-        info = readplot.plotinfo(ana.name())
-        histpage = ""
-        histcount = 0
-        if info and info.keys():
-            histpage += "\n\\vspace{1em}\n\\noindent\n"
-            histpage += "\\textbf{Histograms:}\n \\penalty 100\n"
-            try:
-                histpage += "\\begin{itemize}\n"
-                for hpath in sorted(info.keys()):
-                    htitle = info[hpath]["TITLE"]
-                    histpage += "  \\item %s (\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
-                    histcount += 1
-            finally:
-                histpage += "\\end{itemize}\n"
-        if histcount > 0:
-            page += histpage
-    except:
-        pass
+    # TODO: The plot file contains patterns, not all histo names: we need to work a bit harder than this!
+    # try:
+    #     import readplot
+    #     info = readplot.plotinfo(ana.name())
+    #     histpage = ""
+    #     histcount = 0
+    #     if info and info.keys():
+    #         histpage += "\n\\vspace{1em}\n\\noindent\n"
+    #         histpage += "\\textbf{Histograms:}\n \\penalty 100\n"
+    #         try:
+    #             histpage += "\\begin{itemize}\n"
+    #             for hpath in sorted(info.keys()):
+    #                 htitle = info[hpath]["TITLE"]
+    #                 histpage += "  \\item %s (\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
+    #                 histcount += 1
+    #         finally:
+    #             histpage += "\\end{itemize}\n"
+    #     if histcount > 0:
+    #         page += histpage
+    # except:
+    #     pass
 
     page += "\n\\clearpage\n"
 
@@ -218,6 +226,7 @@ prefix = """\
 \\renewcommand{\\phi}{\\ensuremath{\\old@phi}\\xspace}
 \\providecommand{\\pT}{\\ensuremath{p_\\perp}\\xspace}
 \\providecommand{\\pTmin}{\\ensuremath{p_\\perp^\\text{min}}\\xspace}
+\\renewcommand{\\d}{\\ensuremath{\\mathrm{d}}\\xspace}
 \\makeatother
 
 """
