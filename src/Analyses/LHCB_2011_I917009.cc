@@ -4,7 +4,6 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-//#include "LWH/Histogram1D.h"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Constants.hh"
 
@@ -47,11 +46,11 @@ namespace Rivet {
     void init() {
       int y_nbins = 4;
       fillMap(partLftMap);
-      if ( fuzzyEquals(sqrtS(), 0.9*TeV) ) {
+      if (fuzzyEquals(sqrtS(), 0.9*TeV)) {
         rap_beam = 6.87;
         rap_max = 4.;
         pt_min = 0.25;
-      } else if ( fuzzyEquals(sqrtS(), 7*TeV) ) {
+      } else if (fuzzyEquals(sqrtS(), 7*TeV)) {
         rap_beam = 8.92;
         rap_max = 4.5;
         pt_min = 0.15;
@@ -60,13 +59,12 @@ namespace Rivet {
       } else {
         MSG_ERROR("Incompatible beam energy!");
       }
-      /// @todo YODA
-      ////pT edges are the same for all 3 histos in this suite
-      //const BinEdges& pt_edges = binEdges(dsShift+5,1,1);
-      //// booking temporary histos
-      //for (int i = 0; i<12; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(y_nbins, rap_min, rap_max));
-      //for (int i = 12; i<15; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(pt_edges));
-      //for (int i = 15; i<18; i++ ) _tmphistos[i].reset(new LWH::Histogram1D(y_nbins, rap_beam - rap_max, rap_beam - rap_min));
+
+      // Create the sets of temporary histograms that will be used to make the ratios in the finalize()
+      for (size_t i = 0; i < 12; ++i) _tmphistos[i] = YODA::Histo1D(y_nbins, rap_min, rap_max);
+      for (size_t i = 12; i < 15; ++i) _tmphistos[i] = YODA::Histo1D(refData(dsShift+5, 1, 1));
+      for (size_t i = 15; i < 18; ++i) _tmphistos[i] = YODA::Histo1D(y_nbins, rap_beam - rap_max, rap_beam - rap_min);
+
       addProjection(UnstableFinalState(), "UFS");
     }
 
@@ -90,7 +88,7 @@ namespace Rivet {
           partIdx = 0;
         } else {
           continue;
-        };
+        }
         ancestor_lftsum = getMotherLifeTimeSum(p);
         // Lifetime cut: ctau sum of all particle ancestors < 10^-9 m according to the paper (see eq. 5)
         const double MAX_CTAU = 1.0E-9; // [m]
@@ -100,62 +98,48 @@ namespace Rivet {
         // skip this particle if it has too high or too low rapidity (extremely rare cases when E = +- pz)
         if ( isnan(y) || isinf(y) ) continue;
         y = fabs(y);
-        if ( (y < rap_min) || (y > rap_max) ) continue;
+        if (!inRange(y, rap_min, rap_max)) continue;
         pT = sqrt((qmom.px() * qmom.px()) + (qmom.py() * qmom.py()));
-        if ( (pT < pt_min) || (pT > pt3_edge) ) continue;
-        /// @todo YODA
-        //// Filling corresponding temporary histograms for pT intervals
-        //if ( (pT >= pt_min ) && (pT < pt1_edge) ) _tmphistos[partIdx*3]->fill(y, weight);
-        //if ( (pT >= pt1_edge) && (pT < pt2_edge) ) _tmphistos[partIdx*3+1]->fill(y, weight);
-        //if ( (pT >= pt2_edge) && (pT < pt3_edge) ) _tmphistos[partIdx*3+2]->fill(y, weight);
-        //// Fill histo in rapidity for whole pT interval
-        //_tmphistos[partIdx+9]->fill(y, weight);
-        //// Fill histo in pT for whole rapidity interval
-        //_tmphistos[partIdx+12]->fill(pT, weight);
-        //// Fill histo in rapidity loss for whole pT interval
-        //_tmphistos[partIdx+15]->fill(rap_beam - y, weight);
+        if (!inRange(pT, pt_min, pt3_edge)) continue;
+        // Filling corresponding temporary histograms for pT intervals
+        if (inRange(pT, pt_min, pt1_edge)) _tmphistos[partIdx*3].fill(y, weight);
+        if (inRange(pT, pt1_edge, pt2_edge)) _tmphistos[partIdx*3+1].fill(y, weight);
+        if (inRange(pT, pt2_edge, pt3_edge)) _tmphistos[partIdx*3+2].fill(y, weight);
+        // Fill histo in rapidity for whole pT interval
+        _tmphistos[partIdx+9].fill(y, weight);
+        // Fill histo in pT for whole rapidity interval
+        _tmphistos[partIdx+12].fill(pT, weight);
+        // Fill histo in rapidity loss for whole pT interval
+        _tmphistos[partIdx+15].fill(rap_beam - y, weight);
       }
     }
 
 
     // Generate the ratio histograms
     void finalize() {
-      /// @todo YODA
-      //// needed to determine AIDA to save the file!
-      //tree().mkdirs(histoDir());
-      //int dsId = dsShift+1;
-      //for (int j=0; j<3; j++ ) {
-      //  histogramFactory().divide(histoPath(dsId, 1, j+1), *_tmphistos[j], *_tmphistos[3+j]);
-      //  histogramFactory().divide(histoPath(dsId+1, 1, j+1), *_tmphistos[j], *_tmphistos[6+j]);
-      //}
-      //dsId += 2;
-      //for (int j = 3; j<6; j++) {
-      //  histogramFactory().divide(histoPath(dsId, 1, 1), *_tmphistos[3*j], *_tmphistos[3*j+1]);
-      //  dsId ++;
-      //  histogramFactory().divide(histoPath(dsId, 1, 1), *_tmphistos[3*j], *_tmphistos[3*j+2]);
-      //  dsId ++;
-      //}
+      int dsId = dsShift + 1;
+      for (size_t j = 0; j < 3; ++j) {
+        /// @todo Compactify to two one-liners
+        Scatter2DPtr s1 = bookScatter2D(dsId, 1, j+1);
+        divide(_tmphistos[j], _tmphistos[3+j], s1);
+        Scatter2DPtr s2 = bookScatter2D(dsId+1, 1, j+1);
+        divide(_tmphistos[j], _tmphistos[6+j], s2);
+      }
+      dsId += 2;
+      for (size_t j = 3; j < 6; ++j) {
+        /// @todo Compactify to two one-liners
+        Scatter2DPtr s1 = bookScatter2D(dsId, 1, 1);
+        divide(_tmphistos[3*j], _tmphistos[3*j+1], s1);
+        dsId += 1;
+        Scatter2DPtr s2 = bookScatter2D(dsId, 1, 1);
+        divide(_tmphistos[3*j], _tmphistos[3*j+2], s2);
+        dsId += 1;
+      }
     }
 
     //@}
 
-
   private:
-
-
-    // //doubles the protected makeAxisCode function in Analysis.cc
-    // //if only it wouldn't be defined in anonymous namespace...!
-    // string _datasetName(int d, int x, int y) {
-    //   stringstream dsns;
-    //    dsns << "d";
-    //    if (d < 10) dsns << '0';
-    //    dsns << dec << d << "-x";
-    //    if (x < 10) dsns << '0';
-    //    dsns << dec << x << "-y";
-    //    if (y < 10) dsns << '0';
-    //    dsns << dec << y;
-    //    return dsns.str();
-    // }
 
 
     // Get particle lifetime from hardcoded data
@@ -190,51 +174,57 @@ namespace Rivet {
       const GenParticle* part = &(p.genParticle());
       GenVertex* ivtx = part->production_vertex();
       while(ivtx)
-      {
-        if (ivtx->particles_in_size() < 1) { lftSum = -1.; break; };
-        const HepMC::GenVertex::particles_in_const_iterator iPart_invtx = ivtx->particles_in_const_begin();
-        part = (*iPart_invtx);
-        if ( !(part) ) { lftSum = -1.; break; };
-        ivtx = part->production_vertex();
-        if ( (part->pdg_id() == 2212) || !(ivtx) ) break; //reached beam
-        plft = getLifeTime(part->pdg_id());
-        if (plft < 0.) { lftSum = -1.; break; };
-        lftSum += plft;
-      };
+        {
+          if (ivtx->particles_in_size() < 1) { lftSum = -1.; break; };
+          const HepMC::GenVertex::particles_in_const_iterator iPart_invtx = ivtx->particles_in_const_begin();
+          part = (*iPart_invtx);
+          if ( !(part) ) { lftSum = -1.; break; };
+          ivtx = part->production_vertex();
+          if ( (part->pdg_id() == 2212) || !(ivtx) ) break; //reached beam
+          plft = getLifeTime(part->pdg_id());
+          if (plft < 0.) { lftSum = -1.; break; };
+          lftSum += plft;
+        };
       return (lftSum * c_light);
     }
 
-    /// @name Private variables:
+    /// @name Private variables
+    //@{
+
     // The rapidity of the beam according to the selected beam energy
     double rap_beam;
-    // The edges of the intervals of transversal momentum
-    double pt_min;
-    double pt1_edge;
-    double pt2_edge;
-    double pt3_edge;
+
+    // The edges of the intervals of transverse momentum
+    double pt_min, pt1_edge, pt2_edge, pt3_edge;
+
     // The limits of the rapidity window
     double rap_min;
     double rap_max;
+
     // Indicates which set of histograms will be output to yoda file (according to beam energy)
     int dsShift;
+
     // Map between PDG id and particle lifetimes in seconds
     std::map<int, double> partLftMap;
+
     // Set of PDG Ids for stable particles (PDG Id <= 100 are considered stable)
     static const int stablePDGIds[205];
-    /// @name Helper Histograms:
+
+    //@}
+
+    /// @name Helper histograms
     //@{
-    /// @todo YODA
-    //shared_ptr<LWH::Histogram1D> _tmphistos[18];
-    // Histograms are defined in the following order: anti-Lambda, Lambda and K0s.
-    // First 3 suites of 3 histograms correspond to each particle in bins of y for the 3 pT intervals. (9 histos)
-    // Next 3 histograms contain the particles in y bins for the whole pT interval (3 histos)
-    // Next 3 histograms contain the particles in y_loss bins for the whole pT interval (3 histos)
-    // Last 3 histograms contain the particles in pT bins for the whole rapidity (y) interval (3 histos)
+    /// Histograms are defined in the following order: anti-Lambda, Lambda and K0s.
+    /// First 3 suites of 3 histograms correspond to each particle in bins of y for the 3 pT intervals. (9 histos)
+    /// Next 3 histograms contain the particles in y bins for the whole pT interval (3 histos)
+    /// Next 3 histograms contain the particles in y_loss bins for the whole pT interval (3 histos)
+    /// Last 3 histograms contain the particles in pT bins for the whole rapidity (y) interval (3 histos)
+    YODA::Histo1D _tmphistos[18];
     //@}
 
     // Fill the PDG Id to Lifetime[seconds] map
     // Data was extracted from LHCb Particle Table through LHCb::ParticlePropertySvc
-    bool fillMap(map<int, double> &m) {
+    bool fillMap(map<int, double>& m) {
       m[6] =  4.707703E-25;  m[11] =  1.E+16;  m[12] =  1.E+16;
       m[13] =  2.197019E-06;  m[14] =  1.E+16;  m[15] =  2.906E-13;  m[16] =  1.E+16;  m[22] =  1.E+16;
       m[23] =  2.637914E-25;  m[24] =  3.075758E-25;  m[25] =  9.4E-26;  m[35] =  9.4E-26;
