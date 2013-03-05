@@ -1,5 +1,7 @@
 2013-03-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Replacing all AIDA ref data with YODA versions.
+
 	* Fixing the histograms entries in the documentation to be
 	tolerant to plotinfo loading failures.
 
