@@ -26,7 +26,7 @@ namespace Rivet {
         _electronETCut(20.0*GeV), _electronETACut(1.1),
         _eTmissCut(30.0*GeV), _mTCut(20.0*GeV),
         _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0),
-        _xpoint(1960.)
+        _sumW(0)
     {    }
 
 
@@ -55,11 +55,11 @@ namespace Rivet {
 
       // Book histograms
       for (int i = 0 ; i < 4 ; ++i) {
-        _histJetEt[i] = bookHisto1D(i+1, 1, 1);
-        _histJetMultRatio[i] = bookScatter2D(5 , 1, i+1);
-        _histJetMult[i]   = bookHisto1D(i+6, 1, 1);
+        _histJetEt[i] = bookHisto1D(1+i, 1, 1);
+        _histJetMultRatio[i] = bookScatter2D(5, 1, i+1);
+        /// @todo These would be better off as YODA::Counter until finalize()
+        _histJetMult[i] = bookHisto1D(6+i, 1, 1); // _sumW is essentially the 0th "histo" counter
       }
-      _histJetMultNorm = bookHisto1D("norm", 1, _xpoint, _xpoint+1.);
     }
 
 
@@ -107,10 +107,13 @@ namespace Rivet {
         }
       }
 
+      // Increment event counter
+      _sumW += event.weight();
+
       // Jet multiplicity
-      _histJetMultNorm->fill(_xpoint, event.weight());
       for (size_t i = 1; i <= njetsB; ++i) {
-        _histJetMult[i-1]->fill(_xpoint, event.weight());
+        /// @todo This isn't really a histogram: replace with a YODA::Counter when we have one!
+        _histJetMult[i-1]->fill(1960., event.weight());
         if (i == 4) break;
       }
     }
@@ -119,48 +122,36 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double xsec = crossSection()/sumOfWeights();
-      // Get the x-axis for the ratio plots
-      /// @todo YODA Replace with autobooking etc. once YODA in place
-      // std::vector<double> xval; xval.push_back(_xpoint);
-      // std::vector<double> xerr; xerr.push_back(.5);
-      // // Fill the first ratio histogram using the special normalisation histogram for the total cross section
-      // double ratio1to0 = 0.;
-      // if (_histJetMultNorm->bin(0).area() > 0.) ratio1to0 = _histJetMult[0]->bin(0).area()/_histJetMultNorm->bin(0).area();
-      // // Get the fractional error on the ratio histogram
-      // double frac_err1to0 = 0.;
-      // if (_histJetMult[0]->bin(0).area() > 0.)  frac_err1to0 = _histJetMult[0]->bin(0).areaErr()/_histJetMult[0]->bin(0).area();
-      // if (_histJetMultNorm->bin(0).area() > 0.) {
-      //   frac_err1to0 *= frac_err1to0;
-      //   frac_err1to0 += pow(_histJetMultNorm->bin(0).areaErr()/_histJetMultNorm->bin(0).area(),2.);
-      //   frac_err1to0 = sqrt(frac_err1to0);
-      // }
 
-      // /// @todo Replace with autobooking etc. once YODA in place
-      // vector<double> yval[4]; yval[0].push_back(ratio1to0);
-      // vector<double> yerr[4]; yerr[0].push_back(ratio1to0*frac_err1to0);
-      // _histJetMultRatio[0]->setCoordinate(0,xval,xerr);
-      // _histJetMultRatio[0]->setCoordinate(1,yval[0],yerr[0]);
-      // for (int i = 0; i < 4; ++i) {
-      //   if (i < 3) {
-      //     float ratio = 0.0;
-      //     if (_histJetMult[i]->bin(0).area() > 0.0) ratio = _histJetMult[i+1]->bin(0).area()/_histJetMult[i]->bin(0).area();
-      //     float frac_err = 0.0;
-      //     if (_histJetMult[i]->bin(0).area() > 0.0) frac_err = _histJetMult[i]->binError(0)/_histJetMult[i]->bin(0).area();
-      //     if (_histJetMult[i+1]->bin(0).area() > 0.0) {
-      //       frac_err *= frac_err;
-      //       frac_err += pow(_histJetMult[i+1]->binError(0)/_histJetMult[i+1]->bin(0).area(),2.);
-      //       frac_err = sqrt(frac_err);
-      //     }
-      //     yval[i+1].push_back(ratio);
-      //     yerr[i+1].push_back(ratio*frac_err);
-      //     _histJetMultRatio[i+1]->setCoordinate(0,xval,xerr);
-      //     _histJetMultRatio[i+1]->setCoordinate(1,yval[i+1],yerr[i+1]);
-      //   }
-      //   _histJetEt[i]->scale(xsec);
-      //   _histJetMult[i]->scale(xsec);
-      // }
-      // _histJetMultNorm->scale(xsec);
+      // Fill the 0th ratio histogram specially
+      /// @todo This special case for 1-to-0 will disappear if we use Counters for all mults including 0.
+      if (_sumW > 0) {
+        const YODA::Histo1D::Bin& b0 = _histJetMult[0]->bin(0);
+        double ratio = b0.area()/_sumW;
+        double frac_err = 1/_sumW; //< This 1/sqrt{N} error treatment isn't right for weighted events: use YODA::Counter
+        if (b0.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b0.areaErr()/b0.area()) );
+        _histJetMultRatio[0]->point(0).setY(ratio);
+        _histJetMultRatio[0]->point(0).setYErr(ratio*frac_err);
+      }
+
+      // Loop over the non-zero multiplicities
+      for (size_t i = 0; i < 3; ++i) {
+        const YODA::Histo1D::Bin& b1 = _histJetMult[i]->bin(0);
+        const YODA::Histo1D::Bin& b2 = _histJetMult[i+1]->bin(0);
+        if (b1.area() == 0.0) continue;
+        double ratio = b2.area()/b1.area();
+        double frac_err = b1.areaErr()/b1.area();
+        if (b2.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b2.areaErr()/b2.area()) );
+        _histJetMultRatio[i+1]->point(0).setY(ratio);
+        _histJetMultRatio[i+1]->point(0).setYErr(ratio*frac_err);
+      }
+
+      // Normalize the non-ratio histograms
+      for (size_t i = 0; i < 4; ++i) {
+        normalize(_histJetEt[i], crossSection()/picobarn);
+        normalize(_histJetMult[i], crossSection()/picobarn);
+      }
+
     }
 
     //@}
@@ -170,6 +161,7 @@ namespace Rivet {
 
     /// @name Cuts
     //@{
+
     /// Cut on the electron ET:
     double _electronETCut;
     /// Cut on the electron ETA:
@@ -184,9 +176,8 @@ namespace Rivet {
     double _jetEtCutB;
     /// Cut on the jet ETA
     double _jetETA;
-    //@}
 
-    double _xpoint;
+    //@}
 
     /// @name Histograms
     //@{
@@ -194,6 +185,7 @@ namespace Rivet {
     Histo1DPtr _histJetMultNorm;
     Scatter2DPtr _histJetMultRatio[4];
     Histo1DPtr _histJetMult[4];
+    double _sumW;
     //@}
 
   };
