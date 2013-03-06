@@ -97,7 +97,7 @@ namespace Rivet {
         const FourMomentum& qmom = p.momentum();
         y = log((qmom.E() + qmom.pz())/(qmom.E() - qmom.pz()))/2.;
         // skip this particle if it has too high or too low rapidity (extremely rare cases when E = +- pz)
-        if ( isnan(y) || isinf(y) ) continue;
+        if ( std::isnan(y) || std::isinf(y) ) continue;
         y = fabs(y);
         if ( (y < rap_min) || (y > rap_max) ) continue;
         pT = sqrt((qmom.px() * qmom.px()) + (qmom.py() * qmom.py()));

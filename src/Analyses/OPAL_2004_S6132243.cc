@@ -161,7 +161,7 @@ namespace Rivet {
       const double hemi_mh = hemi.scaledMhigh();
       const double hemi_ml = hemi.scaledMlow();
       /// @todo This shouldn't be necessary... what's going on? Memory corruption suspected :(
-      // if (isnan(hemi_ml)) {
+      // if (std::isnan(hemi_ml)) {
       //   MSG_ERROR("NaN in HemiL! Event = " << numEvents());
       //   MSG_ERROR(hemi.M2low() << ", " << hemi.E2vis());
       // }
@@ -175,7 +175,7 @@ namespace Rivet {
         _histHemiBroadN[_isqrts]->fill(hemi_bmin, weight);
         _histHemiBroadT[_isqrts]->fill(hemi_bsum, weight);
         for (int n = 1; n <= 5; ++n) {
-          // if (isnan(pow(hemi_ml, n))) MSG_ERROR("NaN in HemiL moment! Event = " << numEvents());
+          // if (std::isnan(pow(hemi_ml, n))) MSG_ERROR("NaN in HemiL moment! Event = " << numEvents());
           _histHemiMassHMom[_isqrts]->fill(n, pow(hemi_mh, n)*weight);
           _histHemiMassLMom[_isqrts]->fill(n, pow(hemi_ml, n)*weight);
           _histHemiBroadWMom[_isqrts]->fill(n, pow(hemi_bmax, n)*weight);
