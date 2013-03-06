@@ -1,6 +1,6 @@
 Name: OPAL_1996_S3257789
 Year: 1995
-Summary: $J/\Psi$ and $\Psi^\prime$ Production in Hadronic $Z^0$ Decays
+Summary: $J/\psi$ and $\psi^\prime$ Production in Hadronic $Z^0$ Decays
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3257789
@@ -15,9 +15,9 @@ NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
 PtCuts: [0]
-Description: The production of $J/\Psi$ and $\Psi^\prime$ mesons measured
-   by the OPAL experiment at LEP. The fragmentation function for $J/\Psi$ and the 
-   multiplicities of  $J/\Psi$ and $\Psi^\prime$ are included.
+Description: The production of $J/\psi$ and $\psi^\prime$ mesons measured
+   by the OPAL experiment at LEP. The fragmentation function for $J/\psi$ and the
+   multiplicities of  $J/\psi$ and $\psi^\prime$ are included.
 BibKey: Alexander:1995qb
 BibTeX: '@article{Alexander:1995qb,
       author         = "Alexander, G. and others",
