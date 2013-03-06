@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 
 """\
-%prog [options] <aidafile1> [<aidafile2> <aidafile3>...]
+%prog [options] <yodafile1> [<yodafile2> <yodafile3>...]
 
 Make web pages from histogram files written out by Rivet.  You can specify
-multiple Monte Carlo AIDA files to be compared in the same syntax as for
-compare-histos, i.e. including plotting options.
+multiple Monte Carlo YODA files to be compared in the same syntax as for
+rivet-cmphistos, i.e. including plotting options.
 
 Reference data, analysis metadata, and plot style information should be found
 automatically (if not, set the RIVET_ANALYSIS_PATH or similar variables
@@ -38,7 +38,7 @@ parser.add_option("-o", "--outputdir", dest="OUTPUTDIR",
 parser.add_option("-t", "--title", dest="TITLE",
                   default="Plots from Rivet analyses", help="title to be displayed on the main web page")
 parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
-                  help="plot config file(s) to be used with compare-histos.")
+                  help="plot config file(s) to be used with rivet-cmphistos.")
 parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
                   default=False, help="display plots on single webpage.")
 parser.add_option("--no-ratio", dest="SHOW_RATIO", action="store_false",
@@ -58,7 +58,7 @@ parser.add_option("--booklet", dest="BOOKLET", action="store_true",
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
                   default=False, help="ignore unvalidated analyses.")
 parser.add_option("--ignore-missing", dest="IGNORE_MISSING", action="store_true",
-                  default=False, help="ignore missing AIDA files.")
+                  default=False, help="ignore missing YODA files.")
 parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS",
                   help="only write out histograms from analyses whose name matches any of these regexes")
 parser.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS",
@@ -73,12 +73,12 @@ parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="M
                   help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
 parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERBOSE",
                   action="store_true", default=False)
-opts, aidafiles = parser.parse_args()
+opts, yodafiles = parser.parse_args()
 
 
 ## Check that there are some arguments!
-if not aidafiles:
-    print "Error: You need to specify some .aida files to be plotted!"
+if not yodafiles:
+    print "Error: You need to specify some .yoda files to be plotted!"
     sys.exit(1)
 
 
@@ -93,64 +93,24 @@ except:
     sys.exit(1)
 
 
-## Try to load faster but non-standard cElementTree module
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:
-    try:
-        import cElementTree as ET
-    except ImportError:
-        try:
-            import xml.etree.ElementTree as ET
-        except:
-            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
-            sys.exit(1)
-
-
-## Get set of analyses/reffiles involved in the runs
+## Get set of analyses involved in the runs
 analyses = set()
 blocked_analyses = set()
-reffiles = list()
-labels = []
-for aidafile in aidafiles:
-    aidafilepath = os.path.abspath(aidafile.split(":")[0])
-    if not os.access(aidafilepath, os.R_OK):
-        print "Error: cannot read from %s" % aidafilepath
+import yoda
+for yodafile in yodafiles:
+    yodafilepath = os.path.abspath(yodafile.split(":")[0])
+    if not os.access(yodafilepath, os.R_OK):
+        print "Error: cannot read from %s" % yodafilepath
         if opts.IGNORE_MISSING:
             continue
         else:
             sys.exit(2)
-    try:
-        tree = ET.parse(aidafilepath)
-    except Exception, e:
-        print "Problem parsing AIDA XML file '%s': %s. Skipping this file" % (aidafilepath, e)
-        continue
-    for dps in tree.findall("dataPointSet"):
-        path = dps.get("path")
-        analysis = path[path.rfind("/")+1:]
-        if analysis in analyses.union(blocked_analyses):
-            continue
-        ## If regexes have been provided, only add analyses which match and don't unmatch
-        if opts.PATHPATTERNS:
-            import re
-            matched = False
-            for patt in opts.PATHPATTERNS:
-                if re.search(patt, analysis) is not None:
-                    matched = True
-                    break
-            if matched and opts.PATHUNPATTERNS:
-                for patt in opts.PATHUNPATTERNS:
-                    if re.search(patt, analysis):
-                        matched = False
-                        break
-            if not matched:
-                blocked_analyses.add(analysis)
-                continue
-        analyses.add(analysis)
-        reffile = rivet.findAnalysisRefFile(analysis+".aida")
-        if reffile and reffile not in reffiles:
-            reffiles.append(reffile)
-
+    analysisobjects = yoda.readYODA(yodafilepath)
+    for ao in analysisobjects:
+        path = ao.annotations()['Path']
+        if path.startswith('/REF/'):
+            path = path[5:]
+        analyses.add(path.strip('/').split('/')[0])
 
 def anasort(name):
     if name.startswith("MC"):
@@ -160,9 +120,9 @@ def anasort(name):
 analyses = sorted(analyses, key=anasort, reverse=True)
 
 
-## Run compare-histos to get plain .dat files from .aida
+## Run rivet-cmphistos to get plain .dat files from .yoda
 ## We do this here since it also makes the necessary directories
-ch_cmd = ["compare-histos"]
+ch_cmd = ["rivet-cmphistos"]
 if opts.MC_ERRS:
     ch_cmd.append("--mc-errs")
 if not opts.SHOW_RATIO:
@@ -172,11 +132,11 @@ if opts.REF_ID is not None:
 ch_cmd.append("--hier-out")
 # TODO: Need to be able to override this: provide a --plotinfodir cmd line option?
 ch_cmd.append("--plotinfodir=../")
-for af in aidafiles:
-    aidafilepath = os.path.abspath(af.split(":")[0])
-    if not os.access(aidafilepath, os.R_OK):
+for af in yodafiles:
+    yodafilepath = os.path.abspath(af.split(":")[0])
+    if not os.access(yodafilepath, os.R_OK):
         continue
-    newarg = aidafilepath
+    newarg = yodafilepath
     if ":" in af:
         for opt in af.split(":")[1:]:
             newarg += ":%s" % opt
@@ -187,14 +147,14 @@ for configfile in opts.CONFIGFILES:
     if os.access(configfile, os.R_OK):
         ch_cmd.append("-c")
         ch_cmd.append(configfile)
-# TODO: Pass rivet-mkhtml -m and -M args to compare-histos
+# TODO: Pass rivet-mkhtml -m and -M args to rivet-cmphistos
 
 if opts.VERBOSE:
     ch_cmd.append("--verbose")
-    print "Calling compare-histos with the following command:"
+    print "Calling rivet-cmphistos with the following command:"
     print " ".join(ch_cmd)
 
-## Run compare-histos in a subdir, after fixing any relative paths in Rivet env vars
+## Run rivet-cmphistos in a subdir, after fixing any relative paths in Rivet env vars
 for var in ("RIVET_ANALYSIS_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_PLOT_PATH"):
     if var in os.environ:
         abspaths = map(os.path.abspath, os.environ[var].split(":"))
@@ -273,12 +233,6 @@ for analysis in analyses:
     index.write('<p style="font-size:smaller;">%s</p>\n' % _htmlify(description))
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     if not opts.SINGLE:
-        if not os.path.exists(anapath):
-            try:
-                os.makedirs(anapath)
-            except:
-                print "Error: failed to make new directory '%s'. Skipping analysis %s" % (anapath, analysis)
-                continue
         anaindex = open(os.path.join(anapath, "index.html"), 'w')
         anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>\n' %
                        (opts.OUTPUTDIR, analysis, style))
