@@ -8,7 +8,7 @@ EXTRA_DIST =
 RIVETPROGS = \
     rivet \
     rivet-mkanalysis rivet-buildplugin \
-    rivet-chopbins rivet-rmgaps rivet-rescale \
+    rivet-chopbins rivet-cmphistos rivet-rmgaps rivet-rescale \
     rivet-mergeruns rivet-mkhtml rivet-findid \
     rivet-merge-CDF_2012_NOTE10874
 
