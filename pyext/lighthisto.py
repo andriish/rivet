@@ -580,27 +580,16 @@ class PlotParser(object):
             If `plotpaths` is not specified and calling
             :command:`rivet-config` fails.
         """
-        if plotpaths is None:
-            plotpaths = []
-        self.plotpaths = plotpaths
-
         self.addfiles = addfiles
 
-        if len(self.plotpaths) == 0:
+        self.plotpaths = plotpaths
+        if not self.plotpaths:
             try:
                 import rivet
-                try:
-                    self.plotpaths = rivet.getAnalysisPlotPaths()
-                except AttributeError:
-                    self.plotpaths = rivet.getAnalysisRefPaths()
-                except AttributeError, e:
-                    sys.stderr.write("Failed to load Rivet analysis plot/reference paths: %s\n" % e)
-                    sys.stderr.write("Rivet version is too old.\n")
-                    raise ValueError("No plot paths given and rivet module is too old.")
-            except ImportError, e:
-                sys.stderr.write("Failed to import rivet module: %s\n" % e)
+                self.plotpaths = rivet.getAnalysisPlotPaths()
+            except e:
+                sys.stderr.write("Failed to load Rivet analysis plot paths: %s\n" % e)
                 raise ValueError("No plot paths given and the rivet module could not be loaded!")
-
 
     def getSection(self, section, hpath):
         """Get a section for a histogram from a .plot file.
@@ -610,7 +599,7 @@ class PlotParser(object):
         section : ('PLOT'|'SPECIAL'|'HISTOGRAM')
             The section that should be extracted.
         hpath : str
-            The histogram path, i.e. /AnaylsisID/HistogramID .
+            The histogram path, i.e. /AnalysisID/HistogramID .
 
         Todo
         ----
@@ -622,8 +611,11 @@ class PlotParser(object):
             raise ValueError("Can't parse section \'%s\'" %section)
 
         parts = hpath.split("/")
+        if parts[1] == "REF":
+            del parts[1]
+            hpath = "/".join(parts)
         if len(parts) != 3:
-            raise ValueError("hpath has wrong number of parts (%i)" % (len(parts)))
+            raise ValueError("hpath '%s' has wrong number of parts (%i) -- should be 3" % (hpath, len(parts)))
         base = parts[1] + ".plot"
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
@@ -646,11 +638,12 @@ class PlotParser(object):
                     # pathpat could be a regex
                     if not self.pat_paths.has_key(pathpat):
                         self.pat_paths[pathpat] = re.compile(pathpat)
-                    if tag == section and self.pat_paths[pathpat].match(hpath):
-                        startreading = True
-                        if section in ['SPECIAL']:
-                            ret[section] = ''
-                        continue
+                    if tag == section:
+                        if self.pat_paths[pathpat].match(hpath):
+                            startreading = True
+                            if section in ['SPECIAL']:
+                                ret[section] = ''
+                            continue
                 if not startreading:
                     continue
                 if self.isEndMarker(line, section):

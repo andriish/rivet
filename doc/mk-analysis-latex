@@ -182,20 +182,15 @@ for aname in sorted(list(all_analyses)):
         pp = lighthisto.PlotParser([os.path.join("..", "data", "plotinfo")])
         for hp in hpaths:
             attrs = pp.getHeaders(hp)
-            print "BAR", hp, attrs
             if attrs.has_key("Title"):
                 paths_titles[hp] = attrs["Title"]
-
-    print hpaths
-    print paths_titles
-
-    page = ""
     if paths_titles:
         page += "\n\\vspace{1em}\n\\noindent\n"
-        page += "\\textbf{Histograms:}\n \\penalty 100\n"
+        page += "\\textbf{Histograms (%d):}\n \\penalty 100\n" % len(paths_titles)
         page += "\\begin{itemize}\n"
         for hpath, htitle in sorted(paths_titles.iteritems()):
-            page += "  \\item %s (\\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
+            page += "  \\item %s ({\\smaller \\kbd{%s}})\n" % (htitle, hpath.replace(r"_", r"\_"))
+            # TODO: Truncate with a \dots after N ~ 50 or so?
         page += "\\end{itemize}\n"
     # except:
     #     pass
