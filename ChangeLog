@@ -1,3 +1,11 @@
+2013-03-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* Added ATLAS_2012_I1125575 analysis
+
+	* Converted rivet-mkhtml to yoda
+
+	* Introduced rivet-cmphistos as yoda based replacement for compare-histos
+
 2013-03-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Replacing all AIDA ref data with YODA versions.
