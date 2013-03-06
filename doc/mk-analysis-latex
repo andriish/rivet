@@ -169,25 +169,34 @@ for aname in sorted(list(all_analyses)):
         page += "\n\\noindent " + niceify(para) + "\n"
 
 
-    # TODO: The plot file contains patterns, not all histo names: we need to work a bit harder than this!
     # try:
-    #     import readplot
-    #     info = readplot.plotinfo(ana.name())
-    #     histpage = ""
-    #     histcount = 0
-    #     if info and info.keys():
-    #         histpage += "\n\\vspace{1em}\n\\noindent\n"
-    #         histpage += "\\textbf{Histograms:}\n \\penalty 100\n"
-    #         try:
-    #             histpage += "\\begin{itemize}\n"
-    #             for hpath in sorted(info.keys()):
-    #                 htitle = info[hpath]["TITLE"]
-    #                 histpage += "  \\item %s (\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
-    #                 histcount += 1
-    #         finally:
-    #             histpage += "\\end{itemize}\n"
-    #     if histcount > 0:
-    #         page += histpage
+    anarefpath = os.path.join("..", "data", "refdata", ana.name()+".yoda")
+    hpaths = None
+    if os.path.exists(anarefpath):
+        import yoda
+        aos = yoda.readYODA(anarefpath)
+        hpaths = [ao.path for ao in aos]
+    paths_titles = {}
+    if hpaths:
+        import lighthisto
+        pp = lighthisto.PlotParser([os.path.join("..", "data", "plotinfo")])
+        for hp in hpaths:
+            attrs = pp.getHeaders(hp)
+            print "BAR", hp, attrs
+            if attrs.has_key("Title"):
+                paths_titles[hp] = attrs["Title"]
+
+    print hpaths
+    print paths_titles
+
+    page = ""
+    if paths_titles:
+        page += "\n\\vspace{1em}\n\\noindent\n"
+        page += "\\textbf{Histograms:}\n \\penalty 100\n"
+        page += "\\begin{itemize}\n"
+        for hpath, htitle in sorted(paths_titles.iteritems()):
+            page += "  \\item %s (\\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
+        page += "\\end{itemize}\n"
     # except:
     #     pass
 

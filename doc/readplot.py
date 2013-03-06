@@ -43,11 +43,6 @@ except:
 import rivet
 
 
-# all_analyses = rivet.AnalysisLoader.analysisNames()
-# for a in
-#plotinfos = glob.glob(os.path.join(os.getcwd(), "..", "data", "plotinfo", "*"))
-
-
 ## Get list of plots for each analysis
 def plotinfo(aname):
     finfo = None
