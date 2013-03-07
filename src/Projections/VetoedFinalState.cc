@@ -60,23 +60,23 @@ namespace Rivet {
       }
     }
 
-    set<ParticleVector::iterator> toErase;
+    set<Particles::iterator> toErase;
     for (set<int>::iterator nIt = _nCompositeDecays.begin();
          nIt != _nCompositeDecays.end() && !_theParticles.empty(); ++nIt) {
-      map<set<ParticleVector::iterator>, FourMomentum> oldMasses;
-      map<set<ParticleVector::iterator>, FourMomentum> newMasses;
-      set<ParticleVector::iterator> start;
+      map<set<Particles::iterator>, FourMomentum> oldMasses;
+      map<set<Particles::iterator>, FourMomentum> newMasses;
+      set<Particles::iterator> start;
       start.insert(_theParticles.begin());
-      oldMasses.insert(pair<set<ParticleVector::iterator>, FourMomentum>
+      oldMasses.insert(pair<set<Particles::iterator>, FourMomentum>
                        (start, _theParticles.begin()->momentum()));
 
       for (int nParts = 1; nParts != *nIt; ++nParts) {
-        for (map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
+        for (map<set<Particles::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
              mIt != oldMasses.end(); ++mIt) {
-          ParticleVector::iterator pStart = *(mIt->first.rbegin());
-          for (ParticleVector::iterator pIt = pStart + 1; pIt != _theParticles.end(); ++pIt) {
+          Particles::iterator pStart = *(mIt->first.rbegin());
+          for (Particles::iterator pIt = pStart + 1; pIt != _theParticles.end(); ++pIt) {
             FourMomentum cMom = mIt->second + pIt->momentum();
-            set<ParticleVector::iterator> pList(mIt->first);
+            set<Particles::iterator> pList(mIt->first);
             pList.insert(pIt);
             newMasses[pList] = cMom;
           }
@@ -84,7 +84,7 @@ namespace Rivet {
         oldMasses = newMasses;
         newMasses.clear();
       }
-      for (map<set<ParticleVector::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
+      for (map<set<Particles::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
            mIt != oldMasses.end(); ++mIt) {
         double mass2 = mIt->second.mass2();
         if (mass2 >= 0.0) {
@@ -93,7 +93,7 @@ namespace Rivet {
                cIt != _compositeVetoes.upper_bound(*nIt); ++cIt) {
             BinaryCut massRange = cIt->second;
             if (mass < massRange.second && mass > massRange.first) {
-              for (set<ParticleVector::iterator>::iterator lIt = mIt->first.begin();
+              for (set<Particles::iterator>::iterator lIt = mIt->first.begin();
                    lIt != mIt->first.end(); ++lIt) {
                 toErase.insert(*lIt);
               }
@@ -103,13 +103,13 @@ namespace Rivet {
       }
     }
 
-    for (set<ParticleVector::iterator>::reverse_iterator p = toErase.rbegin(); p != toErase.rend(); ++p) {
+    for (set<Particles::iterator>::reverse_iterator p = toErase.rbegin(); p != toErase.rend(); ++p) {
       _theParticles.erase(*p);
     }
 
     /// @todo Improve!
     for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
-      for (ParticleVector::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
+      for (Particles::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
         GenVertex* startVtx = p->genParticle()->production_vertex();
         bool veto = false;
         if (startVtx!=0) {
@@ -129,11 +129,11 @@ namespace Rivet {
     // Now veto on the FS
     foreach (const string& ifs, _vetofsnames) {
       const FinalState& vfs = applyProjection<FinalState>(e, ifs);
-      const ParticleVector& vfsp = vfs.particles();
-      for (ParticleVector::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck) {
+      const Particles& vfsp = vfs.particles();
+      for (Particles::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck) {
         if (icheck->genParticle() == NULL) continue;
         bool found = false;
-        for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
+        for (Particles::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
           if (ipart->genParticle() == NULL) continue;
           MSG_TRACE("Comparing barcode " << icheck->genParticle()->barcode()
                    << " with veto particle " << ipart->genParticle()->barcode());

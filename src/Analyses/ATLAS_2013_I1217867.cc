@@ -100,7 +100,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const ParticleVector& neutrinos = applyProjection<FinalState>(e, "neutrinos").particlesByPt();
+      const Particles& neutrinos = applyProjection<FinalState>(e, "neutrinos").particlesByPt();
       if (neutrinos.size() < 1) vetoEvent;
       FourMomentum neutrino = neutrinos[0].momentum();
 

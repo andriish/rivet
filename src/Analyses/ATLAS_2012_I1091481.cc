@@ -58,7 +58,7 @@ namespace Rivet {
     //
     //  -1 + 1/Nch * |sum_j^Nch exp[i*(xi eta_j - Phi_j)]|^2
     //
-    double getSeta(const ParticleVector& part, double xi) {
+    double getSeta(const Particles& part, double xi) {
       std::complex<double> c_eta (0.0, 0.0);
       foreach (const Particle& p, part) {
         double eta = p.momentum().eta();
@@ -74,7 +74,7 @@ namespace Rivet {
     // S_E core for one event
     //
     //  -1 + 1/Nch * |sum_j^Nch exp[i*(omega X_j - Phi_j)]|^2
-    double getSE(const ParticleVector& part, double omega) {
+    double getSE(const Particles& part, double omega) {
       double Xj = 0.0;
       std::complex<double> c_E (0.0, 0.0);
       for (unsigned int i=0; i<part.size(); i++) {
@@ -90,7 +90,7 @@ namespace Rivet {
     }
 
     // Convenient fill function
-    void fillS(Histo1DPtr h, const ParticleVector& part, double weight, bool SE=true) {
+    void fillS(Histo1DPtr h, const Particles& part, double weight, bool SE=true) {
       // Loop over bins, take bin centers as parameter values
       for (size_t i=0; i< h->numBins(); i++) {
         double x = h->bin(i).midpoint();
@@ -107,9 +107,9 @@ namespace Rivet {
 
       // Charged fs
       const ChargedFinalState& cfs100 = applyProjection<ChargedFinalState>(event, "CFS100");
-      const ParticleVector    part100 = cfs100.particlesByEta();
+      const Particles    part100 = cfs100.particlesByEta();
       const ChargedFinalState& cfs500 = applyProjection<ChargedFinalState>(event, "CFS500");
-      const ParticleVector&   part500 = cfs500.particlesByEta();
+      const Particles&   part500 = cfs500.particlesByEta();
 
       // Veto event if the most inclusive phase space has less than 10 particles and the max pT is > 10 GeV
       if (part100.size() < 11) vetoEvent;

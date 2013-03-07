@@ -220,7 +220,7 @@ namespace Rivet {
       // compute photon isolation
 
       // std EtCone
-      ParticleVector fs = applyProjection<FinalState>(event, "JetFS").particles();
+      Particles fs = applyProjection<FinalState>(event, "JetFS").particles();
       FourMomentum mom_in_EtCone;
       float iso_dR = 0.4;
       float cluster_eta_width = 0.25*7.0;

@@ -96,9 +96,9 @@ namespace Rivet {
         }
       }
 
-      const ParticleVector cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      const Particles cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
-      const ParticleVector cand_mu = applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
+      const Particles cand_mu = applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
       // Resolve jet-lepton overlap for jets with |eta| < 2.8
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
@@ -114,7 +114,7 @@ namespace Rivet {
       }
 
       // get the loose leptons used to define the 0 lepton channel
-      ParticleVector loose_e, loose_mu;
+      Particles loose_e, loose_mu;
       foreach ( const Particle & e, cand_e ) {
         bool away = true;
         foreach ( const Jet& jet, recon_jets ) {
@@ -136,8 +136,8 @@ namespace Rivet {
         if ( away ) loose_mu.push_back( mu );
       }
       // tight leptons for the 1-lepton channel
-      ParticleVector tight_mu;
-      ParticleVector chg_tracks =
+      Particles tight_mu;
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu, loose_mu) {
         if(mu.momentum().perp()<20.) continue;
@@ -149,7 +149,7 @@ namespace Rivet {
         if ( pTinCone < 1.8*GeV )
           tight_mu.push_back(mu);
       }
-      ParticleVector tight_e;
+      Particles tight_e;
       foreach ( const Particle & e, loose_e ) {
         if(e.momentum().perp()<25.) continue;
         double pTinCone = -e.momentum().perp();
@@ -163,7 +163,7 @@ namespace Rivet {
       }
 
       // pTmiss
-      ParticleVector vfs_particles =
+      Particles vfs_particles =
         applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {

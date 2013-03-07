@@ -56,7 +56,7 @@ namespace Rivet {
     }
 
     /// Operate on a given particle vector directly instead of through project (no caching)
-    void calc(const ParticleVector& inparticles);
+    void calc(const Particles& inparticles);
 
   private:
 

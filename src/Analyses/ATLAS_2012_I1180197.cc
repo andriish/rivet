@@ -102,10 +102,10 @@ namespace Rivet {
         }
       }
       // charged tracks for isolation
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       // find the electrons
-      ParticleVector cand_soft_e,cand_hard_e;
+      Particles cand_soft_e,cand_hard_e;
       foreach( const Particle & e,
                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         double pT  = e.momentum().perp();
@@ -127,7 +127,7 @@ namespace Rivet {
         // hard selection
         if(pT>10.) cand_hard_e.push_back(e);
       }
-      ParticleVector cand_soft_mu,cand_hard_mu;
+      Particles cand_soft_mu,cand_hard_mu;
       foreach( const Particle & mu,
                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         double pT  = mu.momentum().perp();
@@ -149,7 +149,7 @@ namespace Rivet {
         if(pT>10.) cand_hard_mu.push_back(mu);
       }
       // pTcone around muon track (hard)
-      ParticleVector recon_hard_mu;
+      Particles recon_hard_mu;
       foreach ( const Particle & mu, cand_hard_mu ) {
         double pTinCone = -mu.momentum().pT();
         foreach ( const Particle & track, chg_tracks ) {
@@ -159,7 +159,7 @@ namespace Rivet {
         if ( pTinCone < 1.8*GeV ) recon_hard_mu.push_back(mu);
       }
       // pTcone around muon track (soft)
-      ParticleVector recon_soft_mu;
+      Particles recon_soft_mu;
       foreach ( const Particle & mu, cand_soft_mu ) {
         double pTinCone = -mu.momentum().pT();
         if(-pTinCone>20.) continue;
@@ -170,7 +170,7 @@ namespace Rivet {
         if ( pTinCone < 1.8*GeV ) recon_soft_mu.push_back(mu);
       }
       // pTcone around electron track (hard)
-      ParticleVector recon_hard_e;
+      Particles recon_hard_e;
       foreach ( const Particle & e, cand_hard_e ) {
         double pTinCone = -e.momentum().pT();
         foreach ( const Particle & track, chg_tracks ) {
@@ -180,7 +180,7 @@ namespace Rivet {
         if ( pTinCone < 0.1 * e.momentum().pT() ) recon_hard_e.push_back(e);
       }
       // pTcone around electron track (soft)
-      ParticleVector recon_soft_e;
+      Particles recon_soft_e;
       foreach ( const Particle & e, cand_soft_e ) {
         double pTinCone = -e.momentum().pT();
         if(-pTinCone>25.) continue;
@@ -276,7 +276,7 @@ namespace Rivet {
         // multi lepton
         else if( recon_hard_e.size() + recon_hard_mu.size() >= 2 && njet >=2 ) {
           // get all the leptons and sort them by pT
-          ParticleVector leptons(recon_hard_e.begin(),recon_hard_e.end());
+          Particles leptons(recon_hard_e.begin(),recon_hard_e.end());
           leptons.insert(leptons.begin(),recon_hard_mu.begin(),recon_hard_mu.end());
           std::sort(leptons.begin(),leptons.end(),cmpParticleByPt);
           double m_eff(0.0);

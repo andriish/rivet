@@ -161,7 +161,7 @@ namespace Rivet {
   private:
 
     /// Full particle information including tracks, ID etc
-    ParticleVector _particles;
+    Particles _particles;
 
     // /// The particle momenta.
     // /// @todo Eliminate this to ensure consistency.

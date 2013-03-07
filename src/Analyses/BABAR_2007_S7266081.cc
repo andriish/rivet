@@ -23,12 +23,12 @@ namespace Rivet {
     void analyze(const Event& e) {
 
       // Find the taus
-      ParticleVector taus;
+      Particles taus;
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if(abs(p.pdgId())!=15) continue;
         _weight_total += 1.;
-        ParticleVector pip,pim,Kp,Km;
+        Particles pip,pim,Kp,Km;
         unsigned int nstable = 0.;
         // get the boost to the rest frame
         LorentzTransform cms_boost;
@@ -158,8 +158,8 @@ namespace Rivet {
 
     void findDecayProducts(const GenParticle* p,
                            unsigned int & nstable,
-                           ParticleVector& pip, ParticleVector& pim,
-                           ParticleVector&  Kp, ParticleVector& Km) {
+                           Particles& pip, Particles& pim,
+                           Particles&  Kp, Particles& Km) {
       const GenVertex* dv = p->end_vertex();
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {

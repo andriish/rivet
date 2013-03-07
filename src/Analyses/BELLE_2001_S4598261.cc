@@ -24,7 +24,7 @@ namespace Rivet {
 
 
       // find the upsilons
-      ParticleVector upsilons;
+      Particles upsilons;
       // first in unstable final state
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())

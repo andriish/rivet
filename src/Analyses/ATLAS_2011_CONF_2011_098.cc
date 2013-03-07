@@ -99,11 +99,11 @@ namespace Rivet {
         }
       }
 
-      ParticleVector cand_e =
+      Particles cand_e =
         applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      ParticleVector cand_mu =
+      Particles cand_mu =
         applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
 
 //cerr << "cand_e.size(): " << cand_e.size() << "   cand_mu.size(): " << cand_mu.size() << '\n';
@@ -126,7 +126,7 @@ namespace Rivet {
         }
       }
 
-      ParticleVector cand_lept;
+      Particles cand_lept;
 
       bool isolated_e;
       foreach ( const Particle & e, cand_e ) {
@@ -153,7 +153,7 @@ namespace Rivet {
 
 
       // pTmiss
-      ParticleVector vfs_particles
+      Particles vfs_particles
         = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {

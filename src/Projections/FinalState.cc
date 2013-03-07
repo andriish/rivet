@@ -78,7 +78,7 @@ namespace Rivet {
 
     // If this is not itself the "open" FS, base the calculations on the open FS' results
     /// @todo In general, we'd like to calculate a restrictive FS based on the most restricted superset FS.
-    const ParticleVector allstable = applyProjection<FinalState>(e, "OpenFS").particles();
+    const Particles allstable = applyProjection<FinalState>(e, "OpenFS").particles();
     foreach (const Particle& p, allstable) {
       const bool passed = accept(p);
       // MSG_TRACE("Choosing: ID = " << p.pdgId()

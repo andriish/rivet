@@ -15,7 +15,7 @@ namespace Rivet {
     FourMomentum p4With, p4Against;
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
     const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
-    const ParticleVector& particles = fs.particles();
+    const Particles& particles = fs.particles();
     MSG_DEBUG("Number of particles = " << particles.size());
     foreach (const Particle& p, particles) {
       const FourMomentum p4 = p.momentum();

@@ -84,7 +84,7 @@ namespace Rivet {
       }
 
       // get the candidate "medium" leptons without isolation
-      ParticleVector cand_e;
+      Particles cand_e;
       foreach( const Particle & e,
                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets
@@ -98,7 +98,7 @@ namespace Rivet {
         }
         if ( ! e_near_jet ) cand_e.push_back(e);
       }
-      ParticleVector cand_mu;
+      Particles cand_mu;
       foreach( const Particle & mu,
                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets
@@ -112,10 +112,10 @@ namespace Rivet {
         if ( ! mu_near_jet ) cand_mu.push_back(mu);
       }
       // apply the isolation
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       // pTcone around muon track (hard)
-      ParticleVector recon_mu;
+      Particles recon_mu;
       foreach ( const Particle & mu, cand_mu ) {
         double pTinCone = -mu.momentum().pT();
         if(-pTinCone<25.) continue;
@@ -126,7 +126,7 @@ namespace Rivet {
         if ( pTinCone < 1.8*GeV ) recon_mu.push_back(mu);
       }
       // pTcone around electron track (hard)
-      ParticleVector recon_e;
+      Particles recon_e;
       foreach ( const Particle & e, cand_e ) {
         double pTinCone = -e.momentum().pT();
         if(-pTinCone<25.) continue;

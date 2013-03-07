@@ -85,7 +85,7 @@ namespace Rivet {
   }
 
 
-  void InvMassFinalState::calc(const ParticleVector& inparticles) {
+  void InvMassFinalState::calc(const Particles& inparticles) {
     _theParticles.clear();
     _particlePairs.clear();
 

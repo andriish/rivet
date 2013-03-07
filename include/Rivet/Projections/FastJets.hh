@@ -200,7 +200,7 @@ namespace Rivet {
   public:
 
     /// Do the calculation locally (no caching).
-    void calc(const ParticleVector& ps);
+    void calc(const Particles& ps);
 
 
   private:

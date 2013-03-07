@@ -39,7 +39,7 @@ namespace Rivet {
   public:
 
     /// Access the projected leptons.
-    const ParticleVector& chargedLeptons() const {
+    const Particles& chargedLeptons() const {
       return _theParticles;
     }
 

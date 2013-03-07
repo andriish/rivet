@@ -46,7 +46,7 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      ParticleVector photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
+      Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size()!=1 || photons[0].momentum().pT()>45.0*GeV) {
         vetoEvent;
       }

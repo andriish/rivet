@@ -46,7 +46,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
       // Get the photon
-      const ParticleVector photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
+      const Particles photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
       if (photons.size() != 1) {
         vetoEvent;
       }

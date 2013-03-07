@@ -95,7 +95,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      ParticleVector veto_e
+      Particles veto_e
         = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
@@ -111,11 +111,11 @@ namespace Rivet {
         }
       }
 
-      ParticleVector cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      Particles cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
 
-      ParticleVector cand_mu;
-      ParticleVector chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
+      Particles cand_mu;
+      Particles chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
         double pTinCone = -mu.momentum().pT();
@@ -144,7 +144,7 @@ namespace Rivet {
         }
       }
 
-      ParticleVector recon_e, recon_mu;
+      Particles recon_e, recon_mu;
 
       foreach ( const Particle & e, cand_e ) {
         bool away = true;
@@ -172,7 +172,7 @@ namespace Rivet {
 
 
       // pTmiss
-      ParticleVector vfs_particles = applyProjection<VisibleFinalState>(event, "vfs").particles();
+      Particles vfs_particles = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
         pTmiss -= p.momentum();

@@ -19,10 +19,10 @@ namespace Rivet {
       // see: http://cepa.fnal.gov/psm/simulation/mcgen/lund/pythia_manual/pythia6.3/pythia6301/node215.html
 
       double sumEnergy = 0.0;
-      for (ParticleVector::const_iterator pi = fs.particles().begin(); pi != fs.particles().end(); ++pi) {
+      for (Particles::const_iterator pi = fs.particles().begin(); pi != fs.particles().end(); ++pi) {
         sumEnergy += pi->momentum().E();
         const FourMomentum pi_4 = pi->momentum();
-        for (ParticleVector::const_iterator pj = pi+1; pj != fs.particles().end(); ++pj) {
+        for (Particles::const_iterator pj = pi+1; pj != fs.particles().end(); ++pj) {
           const FourMomentum pj_4 = pj->momentum();
 
           // Calculate x_ij = cos(theta_ij)

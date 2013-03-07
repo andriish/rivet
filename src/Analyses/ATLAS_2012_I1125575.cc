@@ -132,7 +132,7 @@ namespace Rivet {
           lead_jet_pts[i] = all_jets[i]->at(0).momentum().pT();
 
           // Loop over each of the charged particles
-          const ParticleVector& tracks = applyProjection<ChargedFinalState>(event, "TRACK_INPUT").particlesByPt();
+          const Particles& tracks = applyProjection<ChargedFinalState>(event, "TRACK_INPUT").particlesByPt();
           foreach(const Particle& t, tracks) {
 
             // Get the delta-phi between the track and the leading jet

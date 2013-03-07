@@ -51,7 +51,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      ParticleVector particles = cfs.particlesByPt();
+      Particles particles = cfs.particlesByPt();
       Particle p_lead = particles[0];
       const double philead = p_lead.momentum().phi();
       const double pTlead  = p_lead.momentum().pT();

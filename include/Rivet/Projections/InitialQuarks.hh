@@ -33,7 +33,7 @@ namespace Rivet {
     //@}
 
     /// Access the projected final-state particles.
-    virtual const ParticleVector& particles() const { return _theParticles; }
+    virtual const Particles& particles() const { return _theParticles; }
 
     /// Is this final state empty?
     virtual bool empty() const { return _theParticles.empty(); }
@@ -53,7 +53,7 @@ namespace Rivet {
   protected:
 
     /// The final-state particles.
-    ParticleVector _theParticles;
+    Particles _theParticles;
 
   };
 

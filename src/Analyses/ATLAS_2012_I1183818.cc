@@ -79,7 +79,7 @@ namespace Rivet {
 
       const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
 
-      ParticleVector particles;
+      Particles particles;
       foreach( const Particle& p, cnfs.particles() ) {
         // enforce truth selection representing detected particle sensitivity
         double pp = p.momentum().p().mod();

@@ -83,7 +83,7 @@ namespace Rivet {
       ///
       /// require at least 2 photons in final state
       ///
-      ParticleVector photons = applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
+      Particles photons = applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
       if (photons.size() < 2) {
         vetoEvent;
       }
@@ -126,7 +126,7 @@ namespace Rivet {
       ///
       /// Loop over photons and fill vector of isolated ones
       ///
-      ParticleVector isolated_photons;
+      Particles isolated_photons;
       foreach (const Particle& photon, photons) {
 
         ///
@@ -142,7 +142,7 @@ namespace Rivet {
         ///
 
         /// std EtCone
-        ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
+        Particles fs = applyProjection<FinalState>(event, "FS").particles();
         FourMomentum mom_in_EtCone;
         foreach (const Particle& p, fs) {
           /// check if it's in the cone of .4

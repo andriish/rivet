@@ -74,7 +74,7 @@ namespace Rivet {
       // ====================== Minimum Bias selection
 
       const FinalState& sfsv = applyProjection<FinalState>(event, "sfsv");
-      ParticleVector parts = sfsv.particlesByRapidity();
+      Particles parts = sfsv.particlesByRapidity();
       if (parts.empty()) vetoEvent;
 
       // find dymax

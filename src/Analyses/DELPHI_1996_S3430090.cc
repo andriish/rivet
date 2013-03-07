@@ -259,8 +259,8 @@ namespace Rivet {
 
       // (A)EEC
       // Need iterators since second loop starts at current outer loop iterator, i.e. no "foreach" here!
-      for (ParticleVector::const_iterator p_i = fs.particles().begin(); p_i != fs.particles().end(); ++p_i) {
-        for (ParticleVector::const_iterator p_j = p_i; p_j != fs.particles().end(); ++p_j) {
+      for (Particles::const_iterator p_i = fs.particles().begin(); p_i != fs.particles().end(); ++p_i) {
+        for (Particles::const_iterator p_j = p_i; p_j != fs.particles().end(); ++p_j) {
           if (p_i == p_j) continue;
           const Vector3 mom3_i = p_i->momentum().vector3();
           const Vector3 mom3_j = p_j->momentum().vector3();

@@ -66,7 +66,7 @@ namespace Rivet {
       }
       // get the D* mesons
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
-      ParticleVector Dstar;
+      Particles Dstar;
       foreach (const Particle& p, ufs.particles()) {
         const int id = abs(p.pdgId());
         if(id==413) Dstar.push_back(p);

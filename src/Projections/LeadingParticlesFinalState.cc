@@ -29,15 +29,15 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
     // Temporary container
-    map<long, ParticleVector::const_iterator> tmp;
+    map<long, Particles::const_iterator> tmp;
 
-    const ParticleVector& particles = fs.particles();
+    const Particles& particles = fs.particles();
     MSG_DEBUG("Original final state particles size " << particles.size());
-    ParticleVector::const_iterator ifs;
+    Particles::const_iterator ifs;
     for (ifs = particles.begin(); ifs != particles.end(); ++ifs) {
       if (inList(*ifs) && FinalState::accept(*ifs->genParticle())) {
         // Look for an existing particle in tmp container
-        map < long, ParticleVector::const_iterator >::const_iterator itmp = tmp.find(ifs->pdgId());
+        map < long, Particles::const_iterator >::const_iterator itmp = tmp.find(ifs->pdgId());
         if (itmp != tmp.end()) {  // if a particle with this type has been already selected
           // If the new pT is higher than the previous one, then substitute...
           if (ifs->momentum().pT() > itmp->second->momentum().pT()) {
@@ -51,7 +51,7 @@ namespace Rivet {
     }
 
     // Loop on the tmp container and fill _theParticles
-    map<long, ParticleVector::const_iterator>::const_iterator i;
+    map<long, Particles::const_iterator>::const_iterator i;
     for (i = tmp.begin(); i != tmp.end(); ++i) {
       MSG_DEBUG("LeadingParticlesFinalState is accepting particle ID " << i->second->pdgId()
                << " with momentum " << i->second->momentum());

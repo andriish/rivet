@@ -96,7 +96,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       const vector<ClusteredLepton>& leptons = applyProjection<LeptonClusters>(event, "leptons").clusteredLeptons();
-      ParticleVector neutrinos = applyProjection<FinalState>(event, "neutrinos").particlesByPt();
+      Particles neutrinos = applyProjection<FinalState>(event, "neutrinos").particlesByPt();
 
       if (leptons.size()!=1 || (neutrinos.size()==0)) {
         vetoEvent;

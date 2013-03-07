@@ -64,7 +64,7 @@ namespace Rivet {
       // Check we have an l+l- pair that passes the kinematic cuts
       // Get the Z decay products (mu+mu- or e+e- pair)
       const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
-      const ParticleVector&  ZDecayProducts =  invMassFinalState.particles();
+      const Particles&  ZDecayProducts =  invMassFinalState.particles();
 
       // Make sure we have at least 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
@@ -89,7 +89,7 @@ namespace Rivet {
 
       // Put all b-quarks in a vector
       /// @todo Use jet contents rather than accessing quarks directly
-      ParticleVector bquarks;
+      Particles bquarks;
       /// @todo Use nicer looping
       for (GenEvent::particle_const_iterator p = event.genEvent()->particles_begin(); p != event.genEvent()->particles_end(); ++p) {
         if ( fabs((*p)->pdg_id()) == BQUARK ) {

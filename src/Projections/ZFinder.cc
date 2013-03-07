@@ -109,7 +109,7 @@ namespace Rivet {
     const LeptonClusters& leptons = applyProjection<LeptonClusters>(e, "LeptonClusters");
 
     InvMassFinalState imfs(std::make_pair(_pid, -_pid), _minmass, _maxmass, _masstarget);
-    ParticleVector tmp;
+    Particles tmp;
     tmp.insert(tmp.end(), leptons.clusteredLeptons().begin(), leptons.clusteredLeptons().end());
     imfs.calc(tmp);
 

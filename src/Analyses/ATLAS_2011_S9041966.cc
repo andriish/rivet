@@ -131,7 +131,7 @@ namespace Rivet {
  // debug
 
 
-      ParticleVector veto_e
+      Particles veto_e
         = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
@@ -149,13 +149,13 @@ namespace Rivet {
       }
 
 
-      ParticleVector candtemp_e =
+      Particles candtemp_e =
         applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      ParticleVector candtemp_mu =
+      Particles candtemp_mu =
         applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
-      ParticleVector cand_mu;
-      ParticleVector cand_e;
-      ParticleVector vfs_particles
+      Particles cand_mu;
+      Particles cand_e;
+      Particles vfs_particles
         = applyProjection<VisibleFinalState>(event, "vfs").particles();
 
 
@@ -257,7 +257,7 @@ namespace Rivet {
       p_j[0] = recon_jets[0].momentum();
       p_j[1] = recon_jets[1].momentum();
 
-      ParticleVector dilept_pair;
+      Particles dilept_pair;
       bool single_lept = false;
 
       if ( cand_mu.size() == 2 && cand_e.empty() ) {

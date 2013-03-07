@@ -109,13 +109,13 @@ namespace Rivet {
       }
 
       // candidate muons
-      ParticleVector cand_mu = applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
+      Particles cand_mu = applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
 
       // candidate electrons
       // Discard if two electrons are within R=0.1
-      ParticleVector temp = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByE();
+      Particles temp = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByE();
       vector<bool> vetoed(temp.size(),false);
-      ParticleVector cand_e;
+      Particles cand_e;
       for (unsigned int ix=0; ix<temp.size(); ++ix) {
         if(vetoed[ix]) continue;
         for (unsigned int iy=ix+1; iy<temp.size(); ++iy) {
@@ -144,7 +144,7 @@ namespace Rivet {
       }
 
       // only keep electrons more than R=0.4 from jets
-      ParticleVector cand2_e;
+      Particles cand2_e;
       foreach (const Particle & e, cand_e) {
         // at least 0.4 from any jets
         bool away = true;
@@ -160,7 +160,7 @@ namespace Rivet {
       }
 
       // only keep muons more than R=0.4 from jets
-      ParticleVector cand2_mu;
+      Particles cand2_mu;
       foreach(const Particle & mu, cand_mu ) {
         bool away = true;
         // at least 0.4 from any jets
@@ -175,7 +175,7 @@ namespace Rivet {
       }
 
       // electron and muon more than 0.1 apart
-      ParticleVector cand3_e;
+      Particles cand3_e;
       foreach ( const Particle & e, cand2_e ) {
         bool away = true;
         foreach( const Particle & mu, cand2_mu ) {
@@ -186,7 +186,7 @@ namespace Rivet {
         }
         if(away) cand3_e.push_back(e);
       }
-      ParticleVector cand3_mu;
+      Particles cand3_mu;
       foreach( const Particle & mu, cand2_mu ) {
         bool away = true;
         foreach ( const Particle & e, cand2_e ) {
@@ -199,7 +199,7 @@ namespace Rivet {
       }
 
       // pTmiss
-      ParticleVector vfs_particles =
+      Particles vfs_particles =
         applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
@@ -208,9 +208,9 @@ namespace Rivet {
       double eTmiss = pTmiss.pT();
 
       // apply electron isolation
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
-      ParticleVector cand4_e;
+      Particles cand4_e;
       foreach ( const Particle & e, cand3_e ) {
         // charge isolation
         double pTinCone = -e.momentum().perp();
@@ -233,7 +233,7 @@ namespace Rivet {
       }
 
       // apply muon isolation
-      ParticleVector cand4_mu;
+      Particles cand4_mu;
       foreach ( const Particle & mu, cand3_mu ) {
         double pTinCone = -mu.momentum().perp();
         foreach ( const Particle & track, chg_tracks ) {
@@ -247,7 +247,7 @@ namespace Rivet {
       }
 
       // same SOSF pairs m>12.
-      ParticleVector recon_e;
+      Particles recon_e;
       foreach(const Particle & e, cand4_e) {
         bool veto=false;
         foreach(const Particle & e2, cand4_e) {
@@ -258,7 +258,7 @@ namespace Rivet {
         }
         if(!veto) recon_e.push_back(e);
       }
-      ParticleVector recon_mu;
+      Particles recon_mu;
       foreach(const Particle & mu, cand4_mu) {
         bool veto=false;
         foreach(const Particle & mu2, cand4_mu) {

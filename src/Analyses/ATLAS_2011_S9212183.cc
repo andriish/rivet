@@ -87,13 +87,13 @@ namespace Rivet {
         }
       }
 
-      const ParticleVector cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      const Particles cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
       // Muon isolation not mentioned in hep-exp 1109.6572, unlike in 1102.5290,
       // but assumed to still be applicable
-      ParticleVector cand_mu;
-      const ParticleVector chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
-      const ParticleVector muons = applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
+      Particles cand_mu;
+      const Particles chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
+      const Particles muons = applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
       foreach (const Particle& mu, muons) {
         double pTinCone = -mu.momentum().pT();
         foreach (const Particle& track, chg_tracks) {
@@ -122,7 +122,7 @@ namespace Rivet {
       }
 
 
-      ParticleVector recon_e, recon_mu;
+      Particles recon_e, recon_mu;
 
       foreach ( const Particle & e, cand_e ) {
         bool away = true;
@@ -150,7 +150,7 @@ namespace Rivet {
       // pTmiss
       // Based on all candidate electrons, muons and jets, plus everything else with |eta| < 4.5
       // i.e. everything in our projection "vfs" plus the jets with |eta| > 4.5
-      ParticleVector vfs_particles = applyProjection<VisibleFinalState>(event, "vfs").particles();
+      Particles vfs_particles = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
         pTmiss -= p.momentum();
@@ -171,7 +171,7 @@ namespace Rivet {
       // the paper and the similar Rivet analysis ATLAS_2011_S8983313
 
       // 'candidate' muons needed only 10 GeV, to cause a veto they need 20 GeV
-      ParticleVector veto_mu;
+      Particles veto_mu;
       foreach ( const Particle & mu, cand_mu ) {
         if ( mu.momentum().pT() >= 20.0*GeV ) veto_mu.push_back(mu);
       }

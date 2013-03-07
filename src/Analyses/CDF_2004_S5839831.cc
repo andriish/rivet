@@ -46,7 +46,7 @@ namespace Rivet {
     /// @endcond
 
     ConesInfo _calcTransCones(const double etaLead, const double phiLead,
-                              const ParticleVector& tracks) {
+                              const Particles& tracks) {
       const double phiTransPlus = mapAngle0To2Pi(phiLead + PI/2.0);
       const double phiTransMinus = mapAngle0To2Pi(phiLead - PI/2.0);
       MSG_DEBUG("phi_lead = " << phiLead
@@ -89,7 +89,7 @@ namespace Rivet {
 
 
     ConesInfo _calcTransCones(const FourMomentum& leadvec,
-                              const ParticleVector& tracks) {
+                              const Particles& tracks) {
       const double etaLead = leadvec.pseudorapidity();
       const double phiLead = leadvec.azimuthalAngle();
       return _calcTransCones(etaLead, phiLead, tracks);
@@ -173,7 +173,7 @@ namespace Rivet {
                      << " not in |eta| < 0.5 & pT > 15 GeV");
           } else {
             // Multiplicity & pT distributions for sqrt(s) = 630 GeV, 1800 GeV
-            const ParticleVector tracks = applyProjection<FinalState>(event, "TrackFS").particles();
+            const Particles tracks = applyProjection<FinalState>(event, "TrackFS").particles();
             const ConesInfo cones = _calcTransCones(leadingjet.momentum(), tracks);
             if (fuzzyEquals(sqrtS/GeV, 630)) {
               _pt90Max630->fill(ETlead/GeV, cones.ptMax/GeV, weight);
@@ -210,7 +210,7 @@ namespace Rivet {
       // Fill min bias total track multiplicity histos
       {
         MSG_DEBUG("Running min bias multiplicity analysis");
-        const ParticleVector mbtracks = applyProjection<FinalState>(event, "MBFS").particles();
+        const Particles mbtracks = applyProjection<FinalState>(event, "MBFS").particles();
         if (fuzzyEquals(sqrtS/GeV, 1800)) {
           _numTracksDbn1800MB->fill(mbtracks.size(), weight);
         } else if (fuzzyEquals(sqrtS/GeV, 630)) {
@@ -237,7 +237,7 @@ namespace Rivet {
       // the removed jets must have Et > 5 GeV.
       {
         MSG_DEBUG("Running Swiss Cheese analysis");
-        const ParticleVector cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
+        const Particles cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
         vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").jetsByE();
         if (cheesejets.empty()) {
           MSG_DEBUG("No 'cheese' jets found in event");

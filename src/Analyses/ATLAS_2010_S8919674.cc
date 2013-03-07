@@ -98,7 +98,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       const FinalState& elecs = applyProjection<FinalState>(event, "elecs");
-      ParticleVector elec_neutrino=applyProjection<FinalState>(event, "elec_neutrino").particles();
+      Particles elec_neutrino=applyProjection<FinalState>(event, "elec_neutrino").particles();
       if (elecs.size()==1 && elec_neutrino.size()>0) {
         FourMomentum lepton=elecs.particles()[0].momentum();
         foreach (const Particle& photon,
@@ -131,7 +131,7 @@ namespace Rivet {
       }
 
       const FinalState& muons = applyProjection<FinalState>(event, "muons");
-      ParticleVector muon_neutrino=applyProjection<FinalState>(event, "muon_neutrino").particles();
+      Particles muon_neutrino=applyProjection<FinalState>(event, "muon_neutrino").particles();
       if (muons.size()==1 && muon_neutrino.size()>0) {
         FourMomentum lepton=muons.particles()[0].momentum();
         foreach (const Particle& photon,

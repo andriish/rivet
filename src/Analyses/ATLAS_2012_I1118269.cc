@@ -22,7 +22,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       double weight = event.weight();
 
-      ParticleVector bhadrons;
+      Particles bhadrons;
       foreach (const GenParticle* p, particles(event.genEvent())) {
 
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;

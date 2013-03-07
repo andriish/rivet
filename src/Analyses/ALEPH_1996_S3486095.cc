@@ -242,7 +242,7 @@ namespace Rivet {
 
       //// Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      for (ParticleVector::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
+      for (Particles::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
         const Vector3 mom3 = p->momentum().vector3();
         int id = abs(p->pdgId());
         const double mom = mom3.mod();

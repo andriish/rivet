@@ -36,52 +36,52 @@ namespace Rivet {
 
 
     /// Get the final-state particles.
-    virtual const ParticleVector& particles() const { return _theParticles; }
+    virtual const Particles& particles() const { return _theParticles; }
 
     /// Get the final-state particles, ordered by supplied sorting function object.
     template <typename F>
-    const ParticleVector& particles(F sorter) const {
+    const Particles& particles(F sorter) const {
       std::sort(_theParticles.begin(), _theParticles.end(), sorter);
       return _theParticles;
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ p_T \f$.
-    const ParticleVector& particlesByPt() const {
+    const Particles& particlesByPt() const {
       return particles(cmpParticleByPt);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ p \f$.
-    const ParticleVector& particlesByP() const {
+    const Particles& particlesByP() const {
       return particles(cmpParticleByP);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E \f$.
-    const ParticleVector& particlesByE() const {
+    const Particles& particlesByE() const {
       return particles(cmpParticleByE);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E_T \f$.
-    const ParticleVector& particlesByEt() const {
+    const Particles& particlesByEt() const {
       return particles(cmpParticleByEt);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ \eta \f$.
-    const ParticleVector& particlesByEta() const {
+    const Particles& particlesByEta() const {
       return particles(cmpParticleByAscPseudorapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |\eta| \f$.
-    const ParticleVector& particlesByModEta() const {
+    const Particles& particlesByModEta() const {
       return particles(cmpParticleByAscAbsPseudorapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ y \f$.
-    const ParticleVector& particlesByRapidity() const {
+    const Particles& particlesByRapidity() const {
       return particles(cmpParticleByAscRapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |y| \f$.
-    const ParticleVector& particlesByModRapidity() const {
+    const Particles& particlesByModRapidity() const {
       return particles(cmpParticleByAscAbsRapidity);
     }
 
@@ -100,7 +100,7 @@ namespace Rivet {
   public:
 
     typedef Particle entity_type;
-    typedef ParticleVector collection_type;
+    typedef Particles collection_type;
 
     /// Template-usable interface common to JetAlg.
     const collection_type& entities() const {
@@ -129,7 +129,7 @@ namespace Rivet {
     double _ptmin;
 
     /// The final-state particles.
-    mutable ParticleVector _theParticles;
+    mutable Particles _theParticles;
 
   };
 

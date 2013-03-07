@@ -100,8 +100,8 @@ namespace Rivet {
       }
 
       // candidate muons
-      ParticleVector cand_mu;
-      ParticleVector chg_tracks =
+      Particles cand_mu;
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
@@ -115,7 +115,7 @@ namespace Rivet {
       }
 
       // candidate electrons
-      ParticleVector cand_e;
+      Particles cand_e;
       foreach ( const Particle & e,
                 applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
         double eta = e.momentum().eta();
@@ -147,7 +147,7 @@ namespace Rivet {
       }
 
       // only keep electrons more than R=0.4 from jets
-      ParticleVector cand2_e;
+      Particles cand2_e;
       for(unsigned int ie=0;ie<cand_e.size();++ie) {
         const Particle & e = cand_e[ie];
         // at least 0.4 from any jets
@@ -179,7 +179,7 @@ namespace Rivet {
         if ( away ) cand2_e.push_back( e );
       }
       // remove e+e- pairs with mass < 20.
-      ParticleVector recon_e;
+      Particles recon_e;
       for(unsigned int ie=0;ie<cand2_e.size();++ie) {
 	bool pass = true;
 	for(unsigned int ie2=0;ie2<cand2_e.size();++ie2) {
@@ -194,7 +194,7 @@ namespace Rivet {
       }
 
       // only keep muons more than R=0.4 from jets
-      ParticleVector cand2_mu;
+      Particles cand2_mu;
       for(unsigned int imu=0;imu<cand_mu.size();++imu) {
         const Particle & mu = cand_mu[imu];
         bool away = true;
@@ -227,7 +227,7 @@ namespace Rivet {
       }
 
       // remove mu+mu- pairs with mass < 20.
-      ParticleVector recon_mu;
+      Particles recon_mu;
       for(unsigned int imu=0;imu<cand2_mu.size();++imu) {
 	bool pass = true;
 	for(unsigned int imu2=0;imu2<cand2_mu.size();++imu2) {
@@ -242,7 +242,7 @@ namespace Rivet {
       }
 
       // pTmiss
-      ParticleVector vfs_particles =
+      Particles vfs_particles =
         applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {

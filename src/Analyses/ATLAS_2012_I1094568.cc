@@ -138,9 +138,9 @@ namespace Rivet {
       const double weight = event.weight();
 
       /// Get the various sets of final state particles
-      const ParticleVector& elecFS = applyProjection<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
-      const ParticleVector& muonFS = applyProjection<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
-      const ParticleVector& neutrinoFS = applyProjection<IdentifiedFinalState>(event, "NEUTRINO_FS").particlesByPt();
+      const Particles& elecFS = applyProjection<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
+      const Particles& muonFS = applyProjection<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
+      const Particles& neutrinoFS = applyProjection<IdentifiedFinalState>(event, "NEUTRINO_FS").particlesByPt();
 
       // Get all jets with pT > 25 GeV
       const Jets& jets = applyProjection<FastJets>(event, "JETS").jetsByPt(25.0*GeV);

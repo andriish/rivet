@@ -87,7 +87,7 @@ namespace Rivet {
       // event weight
       const double weight = event.weight();
       // get the charged final-state particles
-      ParticleVector charged =
+      Particles charged =
         applyProjection<VetoedFinalState>(event,"VFS").particles();
       // need at least two candidates
       if(charged.size()<2) vetoEvent;

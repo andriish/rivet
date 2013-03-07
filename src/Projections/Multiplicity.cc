@@ -16,7 +16,7 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _totalMult = fs.particles().size();
     _hadMult = 0;
-    for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+    for (Particles::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
       if (PID::isHadron(p->pdgId())) ++_hadMult;
     }
   }

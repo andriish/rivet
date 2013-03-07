@@ -97,7 +97,7 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      ParticleVector veto_e
+      Particles veto_e
         = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
@@ -112,15 +112,15 @@ namespace Rivet {
         }
       }
 
-      ParticleVector cand_e =
+      Particles cand_e =
         applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
       // charged particle for isolation
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
 
       // apply muon isolation
-      ParticleVector cand_mu;
+      Particles cand_mu;
       // pTcone around muon track
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt() ) {
@@ -148,7 +148,7 @@ namespace Rivet {
       }
 
       // Leptons far from jet
-      ParticleVector recon_e;
+      Particles recon_e;
       foreach ( const Particle & e, cand_e ) {
         bool e_near_jet = false;
         foreach ( const Jet& jet, recon_jets ) {
@@ -169,7 +169,7 @@ namespace Rivet {
         }
       }
 
-      ParticleVector recon_mu;
+      Particles recon_mu;
       foreach ( const Particle & mu, cand_mu ) {
          bool mu_near_jet = false;
          foreach ( const Jet& jet, recon_jets ) {
@@ -184,7 +184,7 @@ namespace Rivet {
 
 
       // pTmiss
-      ParticleVector vfs_particles
+      Particles vfs_particles
         = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {

@@ -80,7 +80,7 @@ namespace Rivet {
 
 
   void FastJets::project(const Event& e) {
-    ParticleVector particles;
+    Particles particles;
     if (_useInvisibles) {
       particles = applyProjection<FinalState>(e, "FS").particles();
     } else {
@@ -90,7 +90,7 @@ namespace Rivet {
   }
 
 
-  void FastJets::calc(const ParticleVector& ps) {
+  void FastJets::calc(const Particles& ps) {
     _particles.clear();
     vector<fastjet::PseudoJet> vecs;
     // Store 4 vector data about each particle into vecs

@@ -130,7 +130,7 @@ namespace Rivet {
       }
 
       // electron candidates
-      ParticleVector cand_e =
+      Particles cand_e =
         applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
       // Discard jets that overlap with electrons
@@ -146,11 +146,11 @@ namespace Rivet {
           if ( away_from_e ) recon_jets.push_back( jet );
       }
       // get the charged tracks for isolation
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
 
       // Reconstructed electrons
-      ParticleVector recon_e;
+      Particles recon_e;
       foreach ( const Particle & e, cand_e ) {
         // check not near a jet
         bool e_near_jet = false;
@@ -172,8 +172,8 @@ namespace Rivet {
       }
 
       // Reconstructed Muons
-      ParticleVector recon_mu;
-      ParticleVector cand_mu =
+      Particles recon_mu;
+      Particles cand_mu =
         applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
       foreach ( const Particle & mu, cand_mu ) {
         // check not near a jet
@@ -196,7 +196,7 @@ namespace Rivet {
       }
 
       // pTmiss
-      ParticleVector vfs_particles
+      Particles vfs_particles
         = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
@@ -224,7 +224,7 @@ namespace Rivet {
       if ( recon_mu.size() + recon_e.size() != 2)
         vetoEvent;
       // two electrons highest pT > 25
-      ParticleVector recon_leptons;
+      Particles recon_leptons;
       if(recon_e.size()==2&&recon_e[0].momentum().perp()>25.) {
         recon_leptons = recon_e;
       }

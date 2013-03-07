@@ -73,7 +73,7 @@ namespace Rivet {
         // Fill Z pT distributions
         double deltaM2=1e30,mass2(0.);
         double pT=-1.;
-        const ParticleVector& Zdaughters = eeFS.particles();
+        const Particles& Zdaughters = eeFS.particles();
         for(unsigned int ix=0;ix<Zdaughters.size();++ix) {
           for(unsigned int iy=ix+1;iy<Zdaughters.size();++iy) {
             if(Zdaughters[ix].pdgId()!=-Zdaughters[iy].pdgId()) continue;
@@ -102,7 +102,7 @@ namespace Rivet {
       double deltaM2=1e30;
       double pT=-1.;
       for(unsigned int iw=0;iw<2;++iw) {
-        ParticleVector Wdaughters;
+        Particles Wdaughters;
         Wdaughters = iw==0 ? enuFS.particles() : enubFS.particles();
         for(unsigned int ix=0;ix<Wdaughters.size();++ix) {
           for(unsigned int iy=ix+1;iy<Wdaughters.size();++iy) {

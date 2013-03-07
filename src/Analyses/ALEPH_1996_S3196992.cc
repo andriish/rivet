@@ -54,8 +54,8 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const ParticleVector allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
-      ParticleVector photons;
+      const Particles allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
+      Particles photons;
       foreach (const Particle& photon, allphotons) {
         if (fabs(cos(photon.momentum().theta()))<0.95 && photon.momentum().E()>5.0*GeV) {
           photons.push_back(photon);

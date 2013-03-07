@@ -84,7 +84,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      ParticleVector photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
+      Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size() != 1) {
         vetoEvent;
       }
@@ -99,7 +99,7 @@ namespace Rivet {
 
       int eta_bin = getEtaBin(eta_P,false);
 
-      ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
+      Particles fs = applyProjection<FinalState>(event, "FS").particles();
       FourMomentum mom_in_EtCone;
       foreach (const Particle& p, fs) {
         // check if it's in the cone of .4

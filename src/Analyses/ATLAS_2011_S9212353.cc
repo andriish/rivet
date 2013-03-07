@@ -116,7 +116,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      ParticleVector veto_e
+      Particles veto_e
         = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
@@ -131,14 +131,14 @@ namespace Rivet {
         }
       }
 
-      ParticleVector candtemp_e =
+      Particles candtemp_e =
         applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      ParticleVector candtemp_mu =
+      Particles candtemp_mu =
         applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
-      ParticleVector cand_mu;
-      ParticleVector cand_e;
+      Particles cand_mu;
+      Particles cand_e;
 
 
       // pTcone around muon track
@@ -178,7 +178,7 @@ namespace Rivet {
       }
 
       // only consider leptons far from jet
-      ParticleVector recon_e, recon_mu;
+      Particles recon_e, recon_mu;
       foreach ( const Particle & e, cand_e ) {
         bool e_near_jet = false;
         foreach ( const Jet& jet, recon_jets ) {
@@ -201,7 +201,7 @@ namespace Rivet {
       }
 
       // pTmiss
-      ParticleVector vfs_particles
+      Particles vfs_particles
         = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
@@ -225,7 +225,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      ParticleVector lepton;
+      Particles lepton;
       if ( recon_mu.empty() && recon_e.empty() ) {
         MSG_DEBUG("No leptons");
         vetoEvent;

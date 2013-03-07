@@ -63,15 +63,15 @@ namespace Rivet {
       const double weight = event.weight();
 
       // require at least 2 photons in final state
-      ParticleVector photons =
+      Particles photons =
         applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
       if (photons.size() < 2) {
         vetoEvent;
       }
 
       // Loop over photons and fill vector of isolated ones
-      ParticleVector fs = applyProjection<FinalState>(event, "FS").particles();
-      ParticleVector isolated_photons;
+      Particles fs = applyProjection<FinalState>(event, "FS").particles();
+      Particles isolated_photons;
       foreach (const Particle& photon, photons) {
         // remove photons in crack
         double eta_P = photon.momentum().eta();
@@ -99,7 +99,7 @@ namespace Rivet {
       }
 
       // pTmiss
-      ParticleVector vfs_particles =
+      Particles vfs_particles =
         applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {

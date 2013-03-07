@@ -86,10 +86,10 @@ namespace Rivet {
         }
       }
       // charged tracks for isolation
-      ParticleVector chg_tracks =
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       // find the electrons
-      ParticleVector cand_e;
+      Particles cand_e;
       foreach( const Particle & e,
                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets
@@ -104,7 +104,7 @@ namespace Rivet {
 	if ( e_near_jet ) continue;
 	cand_e.push_back(e);
       }
-      ParticleVector cand_mu;
+      Particles cand_mu;
       foreach( const Particle & mu,
                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets
@@ -119,7 +119,7 @@ namespace Rivet {
 	cand_mu.push_back(mu);
       }
       // pTcone around muon track
-      ParticleVector recon_mu;
+      Particles recon_mu;
       foreach ( const Particle & mu, cand_mu ) {
         double pTinCone = -mu.momentum().pT();
         foreach ( const Particle & track, chg_tracks ) {
@@ -129,7 +129,7 @@ namespace Rivet {
         if ( pTinCone < 1.8*GeV ) recon_mu.push_back(mu);
       }
       // pTcone around electron track
-      ParticleVector recon_e;
+      Particles recon_e;
       foreach ( const Particle & e, cand_e ) {
         double pTinCone = -e.momentum().pT();
         foreach ( const Particle & track, chg_tracks ) {
@@ -162,7 +162,7 @@ namespace Rivet {
       }
 
       // put leptons into 1 vector and order by pT
-      ParticleVector leptons(recon_e.begin(),recon_e.end());
+      Particles leptons(recon_e.begin(),recon_e.end());
       leptons.insert(leptons.begin(),recon_mu.begin(),recon_mu.end());
       sort(leptons.begin(),leptons.end(),cmpParticleByPt);
 

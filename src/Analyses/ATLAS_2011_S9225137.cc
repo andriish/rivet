@@ -122,7 +122,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       // apply electron veto region
-      ParticleVector veto_e
+      Particles veto_e
         = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
@@ -139,8 +139,8 @@ namespace Rivet {
       }
 
       // candidate muons
-      ParticleVector cand_mu;
-      ParticleVector chg_tracks =
+      Particles cand_mu;
+      Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
@@ -155,7 +155,7 @@ namespace Rivet {
 
       // candidate electrons
 
-      ParticleVector cand_e  =
+      Particles cand_e  =
         applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
       // resolve jet/lepton ambiguity
@@ -179,7 +179,7 @@ namespace Rivet {
       }
 
       // only keep electrons more than R=0.4 from jets
-      ParticleVector recon_e;
+      Particles recon_e;
       foreach ( const Particle & e, cand_e ) {
         bool away = true;
         foreach ( const Jet& jet, cand_jets_2 ) {
@@ -193,7 +193,7 @@ namespace Rivet {
       }
 
       // only keep muons more than R=0.4 from jets
-      ParticleVector recon_mu;
+      Particles recon_mu;
       foreach ( const Particle & mu, cand_mu ) {
         bool away = true;
         foreach ( const Jet& jet, cand_jets_2 ) {
@@ -207,7 +207,7 @@ namespace Rivet {
       }
 
       // pTmiss
-      ParticleVector vfs_particles =
+      Particles vfs_particles =
         applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {

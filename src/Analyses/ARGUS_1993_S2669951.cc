@@ -31,7 +31,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       // find the upsilons
-      ParticleVector upsilons;
+      Particles upsilons;
       // first in unstable final state
       foreach (const Particle& p, ufs.particles())
         if (p.pdgId()==553 || p.pdgId()==100553 ) upsilons.push_back(p);
@@ -83,7 +83,7 @@ namespace Rivet {
             _weightSum_Ups1 += weight;
           else
             _weightSum_Ups2 += weight;
-          ParticleVector unstable;
+          Particles unstable;
           // find the decay products we want
           findDecayProducts(ups.genParticle(), unstable);
           LorentzTransform cms_boost;
@@ -195,7 +195,7 @@ namespace Rivet {
 
 
     void findDecayProducts(const GenParticle* p,
-                           ParticleVector & unstable) {
+                           Particles & unstable) {
       const GenVertex* dv = p->end_vertex();
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {

@@ -56,7 +56,7 @@ namespace Rivet {
       // Find the Z candidates
       const FinalState & electronfs = applyProjection<FinalState>(event, "LeadingElectrons");
       std::vector<std::pair<Particle, Particle> > Z_candidates;
-      ParticleVector all_els=electronfs.particles();
+      Particles all_els=electronfs.particles();
       for (size_t i=0; i<all_els.size(); ++i) {
         for (size_t j=i+1; j<all_els.size(); ++j) {
           bool candidate=true;
@@ -89,7 +89,7 @@ namespace Rivet {
 
       // Now build the jets on a FS without the electrons from the Z
       // (including their QED radiation)
-      ParticleVector jetparts;
+      Particles jetparts;
       foreach (const Particle& p, fs.particles()) {
         bool copy = true;
         if (p.pdgId() == PHOTON) {

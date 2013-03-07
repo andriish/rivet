@@ -97,7 +97,7 @@ namespace Rivet {
       }
 
       // find the electrons
-      ParticleVector cand_e;
+      Particles cand_e;
       foreach( const Particle & e,
                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets
@@ -114,7 +114,7 @@ namespace Rivet {
       }
 
       // find the muons
-      ParticleVector cand_mu;
+      Particles cand_mu;
       foreach( const Particle & mu,
                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets

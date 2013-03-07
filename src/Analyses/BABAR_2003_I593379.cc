@@ -23,7 +23,7 @@ namespace Rivet {
       const double weight = e.weight();
 
       // Find the charmonia
-      ParticleVector upsilons;
+      Particles upsilons;
       // First in unstable final state
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())

@@ -45,7 +45,7 @@ namespace Rivet {
         applyProjection<ChargedFinalState>(event, "tracks");
 
       if (muons.size()<1) vetoEvent;
-      ParticleVector selected_muons;
+      Particles selected_muons;
       foreach (Particle muon, muons.particles()) {
         FourMomentum testmom = muon.momentum();
         double ptmu(testmom.pT()), ptsum(-ptmu), ratio(0.);

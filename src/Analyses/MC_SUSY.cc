@@ -175,7 +175,7 @@ namespace Rivet {
       // Fill final state non-isolated photon histos
       const FinalState& allphotonfs = applyProjection<FinalState>(evt, "AllPhotons");
       _hist_n_gamma->fill(allphotonfs.size(), weight);
-      ParticleVector isolatedphotons;
+      Particles isolatedphotons;
       foreach (const Particle& ph, allphotonfs.particles()) {
         const FourMomentum& p = ph.momentum();
         _hist_phi_gamma->fill(mapAngleMPiToPi(p.phi()), weight);

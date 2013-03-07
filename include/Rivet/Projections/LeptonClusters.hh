@@ -26,11 +26,11 @@ namespace Rivet {
     }
 
     const Particle& constituentLepton() const { return _constituentLepton; }
-    const ParticleVector& constituentPhotons() const { return _constituentPhotons; }
+    const Particles& constituentPhotons() const { return _constituentPhotons; }
 
   private:
 
-    ParticleVector _constituentPhotons;
+    Particles _constituentPhotons;
     Particle _constituentLepton;
   };
 

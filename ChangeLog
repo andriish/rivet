@@ -1,5 +1,7 @@
 2013-03-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Renaming existing uses of ParticleVector to the new 'Particles' type.
+
 	* Updating util classes, projections, and analyses to deal with
 	the HepMC return value changes.
 

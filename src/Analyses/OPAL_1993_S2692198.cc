@@ -41,8 +41,8 @@ namespace Rivet {
       const double weight = e.weight();
 
       // extract the photons
-      ParticleVector photons;
-      ParticleVector nonPhotons;
+      Particles photons;
+      Particles nonPhotons;
       FourMomentum ptotal;
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       foreach (const Particle& p, fs.particles()) {

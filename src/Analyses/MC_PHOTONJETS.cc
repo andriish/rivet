@@ -52,7 +52,7 @@ namespace Rivet {
     void analyze(const Event& e) {
       // Get the photon
       /// @todo share IsolatedPhoton projection between all MC_*PHOTON* analyses
-      const ParticleVector photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
+      const Particles photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
       if (photons.size() != 1) {
         vetoEvent;
       }

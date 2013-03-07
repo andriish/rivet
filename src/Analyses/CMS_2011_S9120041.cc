@@ -71,7 +71,7 @@ namespace Rivet {
       const double philead = p_lead.phi();
       const double pTlead  = p_lead.pT();
 
-      ParticleVector particles = applyProjection<ChargedFinalState>(event, "CFS").particlesByPt();
+      Particles particles = applyProjection<ChargedFinalState>(event, "CFS").particlesByPt();
 
       int nTransverse = 0;
       double ptSumTransverse = 0.;

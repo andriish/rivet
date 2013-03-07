@@ -19,7 +19,7 @@ namespace Rivet {
 
 
   void FParameter::project(const Event& e) {
-    const ParticleVector prts = applyProjection<FinalState>(e, "FS").particles();
+    const Particles prts = applyProjection<FinalState>(e, "FS").particles();
     calc(prts);
   }
 

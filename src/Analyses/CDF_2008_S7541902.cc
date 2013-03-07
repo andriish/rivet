@@ -67,7 +67,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       // Get the W decay products (electron and neutrino)
       const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
-      const ParticleVector&  wDecayProducts = invMassFinalState.particles();
+      const Particles&  wDecayProducts = invMassFinalState.particles();
 
       FourMomentum electronP, neutrinoP;
       bool gotElectron(false), gotNeutrino(false);

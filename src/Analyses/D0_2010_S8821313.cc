@@ -61,7 +61,7 @@ namespace Rivet {
 
       const ZFinder& zfinder_ee = applyProjection<ZFinder>(event, "zfinder_ee");
       if (zfinder_ee.bosons().size()==1) {
-        ParticleVector ee=zfinder_ee.constituents();
+        Particles ee=zfinder_ee.constituents();
         std::sort(ee.begin(), ee.end(), cmpParticleByPt);
         FourMomentum eminus=PID::threeCharge(ee[0].pdgId())<0.0?ee[0].momentum():ee[1].momentum();
         FourMomentum eplus=PID::threeCharge(ee[0].pdgId())<0.0?ee[1].momentum():ee[0].momentum();
@@ -77,7 +77,7 @@ namespace Rivet {
 
       const ZFinder& zfinder_mm = applyProjection<ZFinder>(event, "zfinder_mm");
       if (zfinder_mm.bosons().size()==1) {
-        ParticleVector mm=zfinder_mm.constituents();
+        Particles mm=zfinder_mm.constituents();
         std::sort(mm.begin(), mm.end(), cmpParticleByPt);
         FourMomentum mminus=PID::threeCharge(mm[0].pdgId())<0.0?mm[0].momentum():mm[1].momentum();
         FourMomentum mplus=PID::threeCharge(mm[0].pdgId())<0.0?mm[1].momentum():mm[0].momentum();

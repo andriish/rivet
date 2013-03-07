@@ -51,7 +51,7 @@ namespace Rivet {
       const FinalState& chargedNeutral500 = applyProjection<FinalState>(event, "FS500");
 
       // Identify leading object and its phi and pT
-      ParticleVector particles500 = chargedNeutral500.particlesByPt();
+      Particles particles500 = chargedNeutral500.particlesByPt();
       Particle p_lead = particles500[0];
       const double philead = p_lead.momentum().phi();
       const double etalead = p_lead.momentum().eta();

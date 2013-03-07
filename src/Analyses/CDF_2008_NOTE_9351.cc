@@ -89,7 +89,7 @@ namespace Rivet {
       const double weight = e.weight();
 
       // Get the leptons
-      const ParticleVector& leptons = applyProjection<ChargedLeptons>(e, "CL").chargedLeptons();
+      const Particles& leptons = applyProjection<ChargedLeptons>(e, "CL").chargedLeptons();
 
       // We want exactly two leptons of the same flavour.
       MSG_DEBUG("lepton multiplicity = " << leptons.size());
@@ -112,7 +112,7 @@ namespace Rivet {
       const double phiZ = azimuthalAngle(dilepton);
       const double pTZ  = pT(dilepton);
       /// @todo Replace with foreach
-      for (ParticleVector::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
+      for (Particles::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
         // Don't use the leptons
         /// @todo Replace with PID::isLepton
         if (abs(p->pdgId()) < 20) continue;

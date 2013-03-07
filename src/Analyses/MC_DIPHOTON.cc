@@ -40,15 +40,15 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      ParticleVector photons = applyProjection<IdentifiedFinalState>(event, "IFS").particles();
+      Particles photons = applyProjection<IdentifiedFinalState>(event, "IFS").particles();
 
       if (photons.size() < 2) {
         vetoEvent;
       }
 
       // Isolate photons with ET_sum in cone
-      ParticleVector isolated_photons;
-      ParticleVector fs = applyProjection<FinalState>(event, "FS").particlesByPt();
+      Particles isolated_photons;
+      Particles fs = applyProjection<FinalState>(event, "FS").particlesByPt();
       foreach (const Particle& photon, photons) {
         FourMomentum mom_in_cone;
         double eta_P = photon.momentum().eta();

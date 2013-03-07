@@ -61,7 +61,7 @@ namespace Rivet {
       // Check we have an l+l- pair that passes the kinematic cuts
       // Get the Z decay products (mu+mu- or e+e- pair)
       const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
-      const ParticleVector&  ZDecayProducts =  invMassFinalState.particles();
+      const Particles&  ZDecayProducts =  invMassFinalState.particles();
 
       // make sure we have 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
@@ -90,7 +90,7 @@ namespace Rivet {
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
 
       // Put all b-quarks in a vector
-      ParticleVector bquarks;
+      Particles bquarks;
       foreach (const GenParticle* p, particles(event.genEvent())) {
         if (fabs(p->pdg_id()) == BQUARK) {
           bquarks += Particle(*p);

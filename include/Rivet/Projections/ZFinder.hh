@@ -80,7 +80,7 @@ namespace Rivet {
 
 
     /// Access to the found bosons (currently either 0 or 1)
-    const ParticleVector& bosons() const { return _bosons; }
+    const Particles& bosons() const { return _bosons; }
 
     /// Access to the Z constituent clustered leptons
     /// (e.g. for more fine-grained cuts on the clustered leptons)
@@ -136,7 +136,7 @@ namespace Rivet {
     PdgId _pid;
 
     /// list of found bosons (currently either 0 or 1)
-    ParticleVector _bosons;
+    Particles _bosons;
 
     /// Clustered leptons
     vector<Particle> _constituents;

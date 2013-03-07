@@ -132,7 +132,7 @@ namespace Rivet {
 
       Jets jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(JETPTCUT);
 
-      ParticleVector vectorBosons = zeefinder.bosons();
+      Particles vectorBosons = zeefinder.bosons();
       /// @todo Don't we have a neater vector concatenation?
       vectorBosons.insert(vectorBosons.end(), zmmfinder.bosons().begin(), zmmfinder.bosons().end());
       vectorBosons.insert(vectorBosons.end(), wefinder.bosons().begin(), wefinder.bosons().end());

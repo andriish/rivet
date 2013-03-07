@@ -44,7 +44,7 @@ namespace Rivet {
     _clusteredLeptons.clear();
 
     const FinalState& signal = applyProjection<FinalState>(e, "Signal");
-    ParticleVector bareleptons = signal.particles();
+    Particles bareleptons = signal.particles();
     if (bareleptons.empty()) return;
 
     vector<ClusteredLepton> allClusteredLeptons;

@@ -89,7 +89,7 @@ namespace Rivet {
 
 
     /// Access to the found bosons (currently either 0 or 1)
-    const ParticleVector& bosons() const { return _bosons; }
+    const Particles& bosons() const { return _bosons; }
 
     /// Access to the W constituent clustered leptons (currently either of
     /// size 0 if no boson was found or 1 if one boson was found)
@@ -161,13 +161,13 @@ namespace Rivet {
     PdgId _nu_pid;
 
     /// list of found bosons (currently either 0 or 1)
-    ParticleVector _bosons;
+    Particles _bosons;
 
     /// Constituent leptons (currently either 0 or 1)
-    ParticleVector _constituentLeptons;
+    Particles _constituentLeptons;
 
     /// Constituent neutrinos (currently either 0 or 1)
-    ParticleVector _constituentNeutrinos;
+    Particles _constituentNeutrinos;
 
   };
 

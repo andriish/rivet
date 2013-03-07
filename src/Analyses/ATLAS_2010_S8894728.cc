@@ -107,7 +107,7 @@ namespace Rivet {
       const ChargedFinalState& charged500 = applyProjection<ChargedFinalState>(event, "CFS500");
 
       // Identify leading track and its phi and pT (this is the same for both the 100 MeV and 500 MeV track cuts)
-      ParticleVector particles500 = charged500.particlesByPt();
+      Particles particles500 = charged500.particlesByPt();
       Particle p_lead = particles500[0];
       const double philead = p_lead.momentum().phi();
       const double etalead = p_lead.momentum().eta();

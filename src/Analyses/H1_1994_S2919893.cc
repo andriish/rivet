@@ -50,7 +50,7 @@ namespace Rivet {
       double thel = leptonMom.angle(dk.beamHadron().momentum())/degree;
 
       // Extract the particles other than the lepton
-      ParticleVector particles;
+      Particles particles;
       particles.reserve(fs.particles().size());
       const GenParticle* dislepGP = dl.out().genParticle();
       foreach (const Particle& p, fs.particles()) {

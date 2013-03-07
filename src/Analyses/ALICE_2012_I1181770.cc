@@ -43,12 +43,12 @@ namespace Rivet {
       _h_xsec_inel->fill(sqrtS()/GeV, weight);
 
       // Identify particles with most positive/most negative rapidities
-      const ParticleVector particlesByRap = cfs.particlesByRapidity();
+      const Particles particlesByRap = cfs.particlesByRapidity();
       const Particle pslowest = particlesByRap.front();
       const Particle pfastest = particlesByRap.back();
 
       // Find gap sizes
-      const ParticleVector particlesByEta = cfs.particlesByEta(); // sorted from minus to plus
+      const Particles particlesByEta = cfs.particlesByEta(); // sorted from minus to plus
       const size_t num_particles = particlesByEta.size();
       vector<double> gaps;
       for (size_t ip = 1; ip < num_particles; ++ip) {
