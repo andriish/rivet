@@ -98,51 +98,49 @@ namespace Rivet {
     Histo1DPtr _histOffResonance_norm;
     //@}
 
-    bool checkDecay(const GenParticle & p) {
-      unsigned int nstable=0,npip=0,npim=0;
-      unsigned int nXim=0,nXip=0;
-      findDecayProducts(p,nstable,npip,npim,
-                        nXip,nXim);
-      int id = p.pdg_id();
+    bool checkDecay(const GenParticle* p) {
+      unsigned int nstable = 0, npip = 0, npim = 0;
+      unsigned int nXim = 0, nXip = 0;
+      findDecayProducts(p, nstable, npip, npim, nXip, nXim);
+      int id = p->pdg_id();
       // Xi_c
-      if(id==4132) {
-        if(nstable==2&&nXim==1&&npip==1) return true;
+      if (id==4132) {
+        if (nstable==2 && nXim==1 && npip==1) return true;
       }
-      else if(id==-4132) {
-        if(nstable==2&&nXip==1&&npim==1) return true;
+      else if (id==-4132) {
+        if (nstable==2 && nXip==1 && npim==1) return true;
       }
       return false;
     }
 
-    void findDecayProducts(const GenParticle & p,
-                           unsigned int & nstable,
-                           unsigned int & npip, unsigned int & npim,
-                           unsigned int & nXip, unsigned int & nXim) {
-      const GenVertex* dv = p.end_vertex();
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+    void findDecayProducts(const GenParticle* p,
+                           unsigned int& nstable,
+                           unsigned int& npip, unsigned int& npim,
+                           unsigned int& nXip, unsigned int& nXim) {
+      const GenVertex* dv = p->end_vertex();
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = (*pp)->pdg_id();
-        if(id==3312) {
+        if (id==3312) {
           ++nXim;
           ++nstable;
-        }
-        else if(id==-3312) {
+        } else if (id==-3312) {
           ++nXip;
           ++nstable;
-        }
-        else if(id==111||id==221)
+        } else if(id==111||id==221) {
           ++nstable;
-        else if((*pp)->end_vertex())
-          findDecayProducts(**pp,nstable,npip,npim,nXip,nXim);
-        else {
-          if(id!=22) ++nstable;
+        } else if ((*pp)->end_vertex()) {
+          findDecayProducts(*pp, nstable, npip, npim, nXip, nXim);
+        } else {
+          if     (id !=    22) ++nstable;
           if     (id ==   211) ++npip;
           else if(id ==  -211) ++npim;
         }
       }
     }
+
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(BABAR_2005_S6181155);

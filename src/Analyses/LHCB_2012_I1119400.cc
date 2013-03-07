@@ -200,10 +200,10 @@ namespace Rivet {
 
     // Data members like post-cuts event weight counters go here
     const double getMotherLifeTimeSum(const Particle& p) {
-      if ( !p.hasGenParticle() ) return -1.;
+      if (p.genParticle() == NULL) return -1.;
       double lftSum = 0.;
       double plft = 0.;
-      const GenParticle* part = &(p.genParticle());
+      const GenParticle* part = p.genParticle();
       GenVertex* ivtx = part->production_vertex();
       while(ivtx)
       {

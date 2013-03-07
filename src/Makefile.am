@@ -1,4 +1,4 @@
-SUBDIRS = Core Projections Tools
+SUBDIRS = Core Tools Projections
 if ENABLE_ANALYSES
 SUBDIRS += Analyses
 endif

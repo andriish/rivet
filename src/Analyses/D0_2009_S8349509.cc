@@ -17,8 +17,9 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    D0_2009_S8349509() : Analysis("D0_2009_S8349509"),
-                         _inclusive_Z_sumofweights(0.0)
+    D0_2009_S8349509()
+      : Analysis("D0_2009_S8349509"),
+        _inclusive_Z_sumofweights(0.0)
     {    }
 
     //@}
@@ -81,8 +82,7 @@ namespace Rivet {
 
         // Return if there are no jets:
         if (jets.size() < 1) {
-          MSG_DEBUG("Skipping event " << event.genEvent().event_number()
-                    << " because no jets pass cuts ");
+          MSG_DEBUG("Skipping event " << numEvents() << " because no jets pass cuts ");
           vetoEvent;
         }
 

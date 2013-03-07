@@ -49,8 +49,7 @@ namespace Rivet {
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
-        MSG_DEBUG("Skipping event " << event.genEvent().event_number()
-                 << " because no final state pair found ");
+        MSG_DEBUG("Skipping event " << numEvents() << " because no final state pair found");
         vetoEvent;
       }
 
@@ -61,22 +60,22 @@ namespace Rivet {
       for (size_t i=0; i<all_els.size(); ++i) {
         for (size_t j=i+1; j<all_els.size(); ++j) {
           bool candidate=true;
-          double mZ=FourMomentum(all_els[i].momentum()+all_els[j].momentum()).mass()/GeV;
-          if (mZ<66.0 || mZ>116.0) {
-            candidate=false;
+          double mZ = FourMomentum(all_els[i].momentum()+all_els[j].momentum()).mass()/GeV;
+          if (mZ < 66.0 || mZ > 116.0) {
+            candidate = false;
           }
-          double abs_eta_0=fabs(all_els[i].momentum().pseudorapidity());
-          double abs_eta_1=fabs(all_els[j].momentum().pseudorapidity());
-          if (abs_eta_1<abs_eta_0) {
-            double tmp=abs_eta_0;
-            abs_eta_0=abs_eta_1;
-            abs_eta_1=tmp;
+          double abs_eta_0 = fabs(all_els[i].momentum().pseudorapidity());
+          double abs_eta_1 = fabs(all_els[j].momentum().pseudorapidity());
+          if (abs_eta_1 < abs_eta_0) {
+            double tmp = abs_eta_0;
+            abs_eta_0 = abs_eta_1;
+            abs_eta_1 = tmp;
           }
-          if (abs_eta_0>1.0) {
-            candidate=false;
+          if (abs_eta_0 > 1.0) {
+            candidate = false;
           }
-          if (!(abs_eta_1<1.0 || (abs_eta_1>1.2 && abs_eta_1<2.8))) {
-            candidate=false;
+          if (!(abs_eta_1 < 1.0 || (inRange(abs_eta_1, 1.2, 2.8)))) {
+            candidate = false;
           }
           if (candidate) {
             Z_candidates.push_back(make_pair(all_els[i], all_els[j]));
@@ -84,8 +83,7 @@ namespace Rivet {
         }
       }
       if (Z_candidates.size() != 1) {
-        MSG_DEBUG("Skipping event " << event.genEvent().event_number()
-                 << " because no unique electron pair found ");
+        MSG_DEBUG("Skipping event " << numEvents() << " because no unique electron pair found ");
         vetoEvent;
       }
 
@@ -107,10 +105,10 @@ namespace Rivet {
             copy = false;
           }
         } else {
-          if (p.genParticle().barcode()==Z_candidates[0].first.genParticle().barcode()) {
+          if (p.genParticle()->barcode() == Z_candidates[0].first.genParticle()->barcode()) {
             copy = false;
           }
-          if (p.genParticle().barcode()==Z_candidates[0].second.genParticle().barcode()) {
+          if (p.genParticle()->barcode() == Z_candidates[0].second.genParticle()->barcode()) {
             copy = false;
           }
         }

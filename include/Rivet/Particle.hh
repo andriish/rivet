@@ -36,19 +36,19 @@ namespace Rivet {
         _momentum(gp.momentum())
     { }
 
+    /// Constructor from a HepMC GenParticle pointer.
+    Particle(const GenParticle* gp)
+      : ParticleBase(),
+        _original(gp), _id(gp->pdg_id()),
+        _momentum(gp->momentum())
+    { }
+
 
   public:
 
     /// Get a const reference to the original GenParticle.
-    const GenParticle& genParticle() const {
-      assert(_original);
-      return *_original;
-    }
-
-
-    /// Check if the particle corresponds to a GenParticle.
-    bool hasGenParticle() const {
-      return bool(_original);
+    const GenParticle* genParticle() const {
+      return _original;
     }
 
 
@@ -79,12 +79,13 @@ namespace Rivet {
       return momentum().mass();
     }
 
+    /// @todo Enable?
     // /// The charge of this Particle.
     // double charge() const {
     //   return PID::charge(*this);
     // }
 
-    // /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
+    /// @todo Enable?    // /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
     // int threeCharge() const {
     //   return PID::threeCharge(*this);
     // }

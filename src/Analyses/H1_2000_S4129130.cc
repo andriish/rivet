@@ -45,12 +45,11 @@ namespace Rivet {
       // Extract the particles other than the lepton
       ParticleVector particles;
       particles.reserve(fs.particles().size());
-      const GenParticle& dislepGP = dl.out().genParticle();
-      for (ParticleVector::const_iterator p = fs.particles().begin();
-           p != fs.particles().end(); ++p) {
-        const GenParticle& loopGP = p->genParticle();
-        if (&loopGP == &dislepGP) continue;
-        particles.push_back(*p);
+      const GenParticle* dislepGP = dl.out().genParticle();
+      foreach (const Particle& p, fs.particles()) {
+        const GenParticle* loopGP = p.genParticle();
+        if (loopGP == dislepGP) continue;
+        particles.push_back(p);
       }
 
       // Cut on the forward energy

@@ -6,15 +6,9 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-//#include "LWH/Histogram1D.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
-
-//using namespace std;
-//using namespace Rivet;
-
 
 namespace Rivet {
+
 
   class ATLAS_2011_I944826 : public Analysis {
   public:
@@ -36,7 +30,7 @@ namespace Rivet {
 
       UnstableFinalState ufs(-MAXRAPIDITY, MAXRAPIDITY, 100*MeV);
       addProjection(ufs, "UFS");
-      
+
       vector<pair<double, double> > etaRanges;
       etaRanges.push_back(make_pair(-3.84, -2.09));
       etaRanges.push_back(make_pair(2.09, 3.84));
@@ -65,7 +59,7 @@ namespace Rivet {
         //_temp_lambdabar_v_y.reset( new LWH::Histogram1D(10, 0.0, 2.5));
         //_temp_lambda_v_pT.reset(   new LWH::Histogram1D(18, 0.5, 4.1));
         //_temp_lambdabar_v_pT.reset(new LWH::Histogram1D(18, 0.5, 4.1));
-      } 
+      }
       else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {
         _hist_Ks_pT   = bookHisto1D(4,1,1);
         _hist_Ks_y    = bookHisto1D(5,1,1);
@@ -73,7 +67,7 @@ namespace Rivet {
         _hist_L_pT    = bookHisto1D(10,1,1);
         _hist_L_y     = bookHisto1D(11,1,1);
         _hist_L_mult  = bookHisto1D(12,1,1);
-        _hist_Ratio_v_y      = bookScatter2D(15,1,1); 
+        _hist_Ratio_v_y      = bookScatter2D(15,1,1);
         _hist_Ratio_v_pT     = bookScatter2D(16,1,1);
         /// @todo YODA
         //_temp_lambda_v_y.reset(    new LWH::Histogram1D(5, 0.0, 2.5));
@@ -85,24 +79,24 @@ namespace Rivet {
 
     // This function is required to impose the flight time cuts on Kaons and Lambdas
     inline double getPerpFlightDistance(const Rivet::Particle& p) {
-      const HepMC::GenParticle& genp = p.genParticle();
-      HepMC::GenVertex* prodV = genp.production_vertex();
-      HepMC::GenVertex* decV  = genp.end_vertex();
+      const HepMC::GenParticle* genp = p.genParticle();
+      HepMC::GenVertex* prodV = genp->production_vertex();
+      HepMC::GenVertex* decV  = genp->end_vertex();
       const HepMC::ThreeVector prodPos = prodV->point3d();
       if (decV) {
-        const HepMC::ThreeVector decPos =  decV->point3d();
+        const HepMC::ThreeVector decPos = decV->point3d();
         double dy = prodPos.y() - decPos.y();
         double dx = prodPos.x() - decPos.x();
-        return sqrt(dx*dx + dy*dy);
+        return add_quad(dx, dy);
       }
       else return 9999999.;
     }
 
     inline bool daughtersSurviveCuts(const Rivet::Particle& p) {
-      // We require the Kshort or Lambda to decay into two charged 
+      // We require the Kshort or Lambda to decay into two charged
       // particles with at least 100MeV pT inside acceptance region
-      const HepMC::GenParticle& genp = p.genParticle();
-      HepMC::GenVertex* decV  = genp.end_vertex();
+      const HepMC::GenParticle* genp = p.genParticle();
+      HepMC::GenVertex* decV  = genp->end_vertex();
       bool decision = true;
 
       if (!decV) return false;
@@ -157,14 +151,14 @@ namespace Rivet {
 
       // This ufs holds all the Kaons and Lambdas
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
-     
+
       // Some conters
-      int n_KS0 = 0; 
-      int n_LAMBDA = 0; 
+      int n_KS0 = 0;
+      int n_LAMBDA = 0;
 
       // Particle loop
       foreach (const Particle& p, ufs.particles()) {
-       
+
         // General particle quantities
         const double pT = p.momentum().pT()*GeV;
         const double y = p.momentum().rapidity();
@@ -174,7 +168,7 @@ namespace Rivet {
 
         // Look for Kaons, Lambdas
         switch (pid) {
-        
+
           case K0S:
             flightd = getPerpFlightDistance(p);
             if (!inRange(flightd, 4., 450.) ){
@@ -184,7 +178,7 @@ namespace Rivet {
             if (daughtersSurviveCuts(p) ) {
               _hist_Ks_y ->fill(y,  weight);
               _hist_Ks_pT->fill(pT, weight);
-              
+
               _sum_w_ks += weight;
               n_KS0++;
             }
@@ -193,7 +187,7 @@ namespace Rivet {
           case LAMBDA:
             if (pT < 0.5) { // Lambdas have an additional pT cut of 500 MeV
               MSG_DEBUG("Lambda failed pT cut:" << pT);
-              break; 
+              break;
             }
             flightd = getPerpFlightDistance(p);
             if (!inRange(flightd, 17., 450.)) {
@@ -205,14 +199,14 @@ namespace Rivet {
                 /// @todo YODA
                 //_temp_lambda_v_y    ->fill(fabs(y), weight);
                 //_temp_lambda_v_pT   ->fill(pT,      weight);
-                
+
                 _hist_L_y->fill( y,  weight);
                 _hist_L_pT->fill(pT, weight);
-               
+
                 _sum_w_lambda += weight;
                 n_LAMBDA++;
                 }
-              
+
               else if (p.pdgId() == -3122) {
                 /// @todo YODA
                 //_temp_lambdabar_v_y ->fill(fabs(y), weight);
@@ -220,16 +214,16 @@ namespace Rivet {
               }
             }
           break;
-      
+
         } // End of switch
-      
+
       }// End of particle loop
 
       // Fill multiplicity histos
       _hist_Ks_mult->fill(n_KS0, weight);
       _hist_L_mult->fill(n_LAMBDA, weight);
     }
-      
+
 
 
     /// Normalise histograms etc., after the run
@@ -245,15 +239,15 @@ namespace Rivet {
       scale(_hist_L_pT,   1.0/_sum_w_lambda);
       scale(_hist_L_y,    1.0/_sum_w_lambda);
       scale(_hist_L_mult, 1.0/_sum_w_passed);
-     
+
 
       /// @todo YODA
       //// Division of histograms to obtain lambdabar/lambda ratios
       //if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
       //  histogramFactory().divide(histoPath("d13-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
       //  histogramFactory().divide(histoPath("d14-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
-      //}                                                                                              
-      //else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {                                                
+      //}
+      //else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {
       //  histogramFactory().divide(histoPath("d15-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
       //  histogramFactory().divide(histoPath("d16-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
       //}
@@ -279,7 +273,7 @@ namespace Rivet {
 
     Scatter2DPtr _hist_Ratio_v_pT;
     Scatter2DPtr _hist_Ratio_v_y;
-    
+
     /// @todo YODA
     //shared_ptr<LWH::Histogram1D> _temp_lambda_v_y,  _temp_lambdabar_v_y;
     //shared_ptr<LWH::Histogram1D> _temp_lambda_v_pT, _temp_lambdabar_v_pT;

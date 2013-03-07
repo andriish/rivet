@@ -56,9 +56,9 @@ namespace Rivet {
 
 
   bool Jet::containsParticle(const Particle& particle) const {
-    const int barcode = particle.genParticle().barcode();
+    const int barcode = particle.genParticle()->barcode();
     foreach (const Particle& p, particles()) {
-      if (p.genParticle().barcode() == barcode) return true;
+      if (p.genParticle()->barcode() == barcode) return true;
     }
     return false;
   }
@@ -114,7 +114,7 @@ namespace Rivet {
       const PdgId pid = p.pdgId();
       if (abs(pid) == CQUARK) return true;
       if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
-      HepMC::GenVertex* gv = p.genParticle().production_vertex();
+      HepMC::GenVertex* gv = p.genParticle()->production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
           const PdgId pid2 = pi->pdg_id();
@@ -131,7 +131,7 @@ namespace Rivet {
       const PdgId pid = p.pdgId();
       if (abs(pid) == BQUARK) return true;
       if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
-      HepMC::GenVertex* gv = p.genParticle().production_vertex();
+      HepMC::GenVertex* gv = p.genParticle()->production_vertex();
       if (gv) {
         foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
           const PdgId pid2 = pi->pdg_id();

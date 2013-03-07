@@ -1,5 +1,21 @@
 2013-03-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Updating util classes, projections, and analyses to deal with
+	the HepMC return value changes.
+
+	* Adding new Particle(const GenParticle*) constructor.
+
+	* Converting Particle::genParticle() to return a const pointer
+	rather than a reference, for the same reason as below (+
+	consistency within Rivet and with the HepMC pointer-centric coding
+	design).
+
+	* Converting Event to use a different implementation of original
+	and modified GenParticles, and to manage the memory in a more
+	future-proof way. Event::genParticle() now returns a const pointer
+	rather than a reference, to signal that the user is leaving the
+	happy pastures of 'normal' Rivet behind.
+
 	* Adding a Particles typedef by analogy to Jets, and in preference
 	to the cumbersome ParticleVector.
 

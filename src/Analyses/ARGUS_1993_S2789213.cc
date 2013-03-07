@@ -27,35 +27,34 @@ namespace Rivet {
       const Beam beamproj = applyProjection<Beam>(e, "Beams");
       const double s = sqr(beamproj.sqrtS());
       const double roots = sqrt(s);
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
-      // find the upsilons
+      // Find the upsilons
       ParticleVector upsilons;
-      // first in unstable final state
+      // First in unstable final state
+      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())
-        if(p.pdgId()==300553 || p.pdgId()==553 ) upsilons.push_back(p);
-      // then in whole event if fails
-      if(upsilons.empty()) {
+        if (p.pdgId() == 300553 || p.pdgId() == 553) upsilons.push_back(p);
+      // Then in whole event if that failed
+      if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
-          if( p->pdg_id() != 300553 && p->pdg_id() != 553 ) continue;
+          if (p->pdg_id() != 300553 && p->pdg_id() != 553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            for (GenVertex::particles_in_const_iterator
-                   pp = pv->particles_in_const_begin() ;
-                 pp != pv->particles_in_const_end() ; ++pp) {
+            /// @todo Use better looping
+            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ; pp != pv->particles_in_const_end() ; ++pp) {
               if ( p->pdg_id() == (*pp)->pdg_id() ) {
                 passed = false;
                 break;
               }
             }
           }
-          if(passed) upsilons.push_back(Particle(*p));
+          if (passed) upsilons.push_back(Particle(*p));
         }
       }
 
       // continuum
-      if(upsilons.empty()) {
+      if (upsilons.empty()) {
         _weightSum_cont += weight;
         unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
         foreach (const Particle& p, ufs.particles()) {
@@ -261,26 +260,26 @@ namespace Rivet {
     Histo1DPtr _hist_cont_Omega    ;
     Histo1DPtr _hist_Ups1_Omega    ;
 
-    // count of weights
     double _weightSum_cont,_weightSum_Ups1,_weightSum_Ups4;
     //@}
 
-    void findDecayProducts(const GenParticle & p,
-                           ParticleVector & unstable) {
-      const GenVertex* dv = p.end_vertex();
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+
+    void findDecayProducts(const GenParticle* p, ParticleVector& unstable) {
+      const GenVertex* dv = p->end_vertex();
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = abs((*pp)->pdg_id());
-        if(id == 113 || id == 313 || id == 323 ||
-           id == 333 || id == 223 ) {
-          unstable.push_back(Particle(**pp));
+        if (id == 113 || id == 313 || id == 323 ||
+            id == 333 || id == 223 ) {
+          unstable.push_back(Particle(*pp));
         }
-        else if((*pp)->end_vertex())
-          findDecayProducts(**pp,unstable);
+        else if ((*pp)->end_vertex())
+          findDecayProducts(*pp, unstable);
       }
     }
+
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ARGUS_1993_S2789213);

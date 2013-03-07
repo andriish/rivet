@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// @brief Babar chamronium spectra
+  /// @brief Babar charmonium spectra
   /// @author Peter Richardson
   class BABAR_2003_I593379 : public Analysis {
   public:
@@ -21,21 +21,21 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       const double weight = e.weight();
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      // find the upsilons
+
+      // Find the charmonia
       ParticleVector upsilons;
-      // first in unstable final state
+      // First in unstable final state
+      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())
         if (p.pdgId()==300553) upsilons.push_back(p);
-      // then in whole event if fails
+      // Then in whole event if fails
       if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
           if (p->pdg_id()!=300553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
-                 pp != pv->particles_in_const_end() ; ++pp) {
+            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end(); ++pp) {
               if ( p->pdg_id() == (*pp)->pdg_id() ) {
                 passed = false;
                 break;
@@ -55,12 +55,12 @@ namespace Rivet {
         findDecayProducts(p.genParticle(), allJpsi, primaryJpsi, Psiprime,
                           all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
         LorentzTransform cms_boost(-p.momentum().boostVector());
-        for (size_t i=0; i<allJpsi.size(); i++) {
+        for (size_t i = 0; i < allJpsi.size(); i++) {
           double pcm = cms_boost.transform(FourMomentum(allJpsi[i]->momentum())).vector3().mod();
           _hist_all_Jpsi->fill(pcm, weight);
         }
         _mult_JPsi->fill(10.58, weight*double(allJpsi.size()));
-        for (size_t i=0; i<primaryJpsi.size(); i++) {
+        for (size_t i = 0; i < primaryJpsi.size(); i++) {
           double pcm = cms_boost.transform(FourMomentum(primaryJpsi[i]->momentum())).vector3().mod();
           _hist_primary_Jpsi->fill(pcm, weight);
         }
@@ -70,13 +70,13 @@ namespace Rivet {
           _hist_Psi_prime->fill(pcm, weight);
         }
         _mult_Psi2S->fill(10.58, weight*double(Psiprime.size()));
-        for (size_t i=0; i<all_chi_c1.size(); i++) {
+        for (size_t i = 0; i < all_chi_c1.size(); i++) {
           double pcm = cms_boost.transform(FourMomentum(all_chi_c1[i]->momentum())).vector3().mod();
           _hist_chi_c1->fill(pcm, weight);
         }
         _mult_chi_c1->fill(10.58, weight*double(all_chi_c1.size()));
         _mult_chi_c1_direct->fill(10.58, weight*double(primary_chi_c1.size()));
-        for (size_t i=0; i<all_chi_c2.size(); i++) {
+        for (size_t i = 0; i < all_chi_c2.size(); i++) {
           double pcm = cms_boost.transform(FourMomentum(all_chi_c2[i]->momentum())).vector3().mod();
           _hist_chi_c2->fill(pcm, weight);
         }
@@ -85,8 +85,8 @@ namespace Rivet {
       }
     } // analyze
 
-    void finalize() {
 
+    void finalize() {
       scale(_hist_all_Jpsi     , 0.5*0.1/_weightSum);
       scale(_hist_chi_c1       , 0.5*0.1/_weightSum);
       scale(_hist_chi_c2       , 0.5*0.1/_weightSum);
@@ -140,27 +140,24 @@ namespace Rivet {
     Histo1DPtr _mult_Psi2S;
     //@}
 
-    void findDecayProducts(const GenParticle & p,
-                           vector<GenParticle *> & allJpsi,
-                           vector<GenParticle *> & primaryJpsi,
-                           vector<GenParticle *> & Psiprime,
-                           vector<GenParticle *> & all_chi_c1,
-                           vector<GenParticle *> & all_chi_c2,
-                           vector<GenParticle *> & primary_chi_c1,
-                           vector<GenParticle *> & primary_chi_c2) {
-      const GenVertex* dv = p.end_vertex();
-      bool isOnium(false);
-      for (GenVertex::particles_in_const_iterator pp = dv->particles_in_const_begin() ;
-           pp != dv->particles_in_const_end() ; ++pp) {
+    void findDecayProducts(const GenParticle* p,
+                           vector<GenParticle*>& allJpsi,
+                           vector<GenParticle*>& primaryJpsi,
+                           vector<GenParticle*>& Psiprime,
+                           vector<GenParticle*>& all_chi_c1, vector<GenParticle*>& all_chi_c2,
+                           vector<GenParticle*>& primary_chi_c1, vector<GenParticle*>& primary_chi_c2) {
+      const GenVertex* dv = p->end_vertex();
+      bool isOnium = false;
+      /// @todo Use better looping
+      for (GenVertex::particles_in_const_iterator pp = dv->particles_in_const_begin() ; pp != dv->particles_in_const_end() ; ++pp) {
         int id = (*pp)->pdg_id();
         id = id%1000;
         id -= id%10;
         id /= 10;
         if (id==44) isOnium = true;
       }
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = (*pp)->pdg_id();
         if (id==100443) {
           Psiprime.push_back(*pp);
@@ -178,11 +175,11 @@ namespace Rivet {
           if (!isOnium) primaryJpsi.push_back(*pp);
         }
         if ((*pp)->end_vertex()) {
-          findDecayProducts(**pp, allJpsi, primaryJpsi, Psiprime,
-                            all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
+          findDecayProducts(*pp, allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
         }
       }
     }
+
   };
 
 

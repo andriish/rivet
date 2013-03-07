@@ -23,17 +23,17 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-
-      // find the upsilons
+      // Find the upsilons
       ParticleVector upsilons;
-      // first in unstable final state
-      foreach (const Particle& p, ufs.particles())
-        if(p.pdgId()==300553) upsilons.push_back(p);
-      // then in whole event if fails
-      if(upsilons.empty()) {
+      // First in unstable final state
+      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+      foreach (const Particle& p, ufs.particles()) {
+        if (p.pdgId() == 300553) upsilons.push_back(p);
+      }
+      // Then in whole event if that failed
+      if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
-          if(p->pdg_id()!=300553) continue;
+          if (p->pdg_id() != 300553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
@@ -45,17 +45,16 @@ namespace Rivet {
               }
             }
           }
-          if(passed) upsilons.push_back(Particle(*p));
+          if (passed) upsilons.push_back(Particle(*p));
         }
       }
 
-      // find an upsilons
+      // Find an upsilon
       foreach (const Particle& p, upsilons) {
         _weightSum += weight;
         vector<GenParticle *> pionsA,pionsB,protonsA,protonsB,kaons;
-        // find the decay products we want
-        findDecayProducts(p.genParticle(),pionsA,pionsB,
-                          protonsA,protonsB,kaons);
+        // Find the decay products we want
+        findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
         if(p.momentum().vector3().mod()>0.001)
           cms_boost = LorentzTransform(-p.momentum().boostVector());
@@ -96,7 +95,7 @@ namespace Rivet {
     } // analyze
 
     void finalize() {
-      if(_weightSum>0.) {
+      if (_weightSum > 0.) {
         scale(_histPiA, 1./_weightSum);
         scale(_histPiB, 1./_weightSum);
         scale(_histKA , 1./_weightSum);
@@ -133,7 +132,7 @@ namespace Rivet {
   private:
 
     //@{
-    // count of weights
+    /// Count of weights
     double _weightSum;
     // Histograms
     // spectra
@@ -151,28 +150,26 @@ namespace Rivet {
     Histo1DPtr _multpB;
     //@}
 
-    void findDecayProducts(const GenParticle & p,
-                           vector<GenParticle *> & pionsA,
-                           vector<GenParticle *> & pionsB,
-                           vector<GenParticle *> & protonsA,
-                           vector<GenParticle *> & protonsB,
-                           vector<GenParticle *> & kaons) {
-      int parentId = p.pdg_id();
-      const GenVertex* dv = p.end_vertex();
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+    void findDecayProducts(const GenParticle* p,
+                           vector<GenParticle*>& pionsA, vector<GenParticle*>& pionsB,
+                           vector<GenParticle*>& protonsA, vector<GenParticle*>& protonsB,
+                           vector<GenParticle*>& kaons)
+    {
+      int parentId = p->pdg_id();
+      const GenVertex* dv = p->end_vertex();
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = abs((*pp)->pdg_id());
-        if(id==PIPLUS) {
-          if(parentId != LAMBDA && parentId != K0S) {
+        if (id==PIPLUS) {
+          if (parentId != LAMBDA && parentId != K0S) {
             pionsA.push_back(*pp);
             pionsB.push_back(*pp);
           }
           else
             pionsB.push_back(*pp);
         }
-        else if(id==PROTON) {
-          if(parentId != LAMBDA && parentId != K0S) {
+        else if (id==PROTON) {
+          if (parentId != LAMBDA && parentId != K0S) {
             protonsA.push_back(*pp);
             protonsB.push_back(*pp);
           }
@@ -183,8 +180,7 @@ namespace Rivet {
           kaons.push_back(*pp);
         }
         else if((*pp)->end_vertex())
-          findDecayProducts(**pp,pionsA,pionsB,
-                            protonsA,protonsB,kaons);
+          findDecayProducts(*pp, pionsA, pionsB, protonsA, protonsB, kaons);
       }
     }
   };

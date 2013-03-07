@@ -91,8 +91,7 @@ namespace Rivet {
       /// @todo Use jet contents rather than accessing quarks directly
       ParticleVector bquarks;
       /// @todo Use nicer looping
-      for (GenEvent::particle_const_iterator p = event.genEvent().particles_begin();
-           p != event.genEvent().particles_end(); ++p) {
+      for (GenEvent::particle_const_iterator p = event.genEvent()->particles_begin(); p != event.genEvent()->particles_end(); ++p) {
         if ( fabs((*p)->pdg_id()) == BQUARK ) {
           bquarks.push_back(Particle(**p));
         }

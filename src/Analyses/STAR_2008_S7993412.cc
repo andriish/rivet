@@ -34,8 +34,7 @@ namespace Rivet {
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
-        MSG_DEBUG("Skipping event " << event.genEvent().event_number()
-                  << " because no final state found ");
+        MSG_DEBUG("Skipping event " << numEvents() << " because no final state found ");
         vetoEvent;
       }
 

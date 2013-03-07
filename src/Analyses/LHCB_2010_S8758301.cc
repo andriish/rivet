@@ -171,8 +171,8 @@ using namespace std;
     const GenParticle* getLongestLivedAncestor(const Particle& p, double& lifeTime) {
       const GenParticle* ret = NULL;
       lifeTime = 1.;
-      if (!p.hasGenParticle()) return NULL;
-      const GenParticle* pmother = &(p.genParticle());
+      if (p.genParticle() == NULL) return NULL;
+      const GenParticle* pmother = p.genParticle();
       double longest_ctau = 0.;
       double mother_ctau;
       int mother_pid, n_inparts;

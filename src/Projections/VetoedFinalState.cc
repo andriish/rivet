@@ -110,9 +110,10 @@ namespace Rivet {
     /// @todo Improve!
     for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
       for (ParticleVector::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
-        GenVertex* startVtx = ((*p).genParticle()).production_vertex();
+        GenVertex* startVtx = p->genParticle()->production_vertex();
         bool veto = false;
         if (startVtx!=0) {
+          /// @todo Use better HepMC iteration
           for (GenVertex::particle_iterator pIt = startVtx->particles_begin(HepMC::ancestors);
                    pIt != startVtx->particles_end(HepMC::ancestors) && !veto; ++pIt) {
             if (*vIt == (*pIt)->pdg_id()) {
@@ -130,13 +131,13 @@ namespace Rivet {
       const FinalState& vfs = applyProjection<FinalState>(e, ifs);
       const ParticleVector& vfsp = vfs.particles();
       for (ParticleVector::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck) {
-        if (!icheck->hasGenParticle()) continue;
+        if (icheck->genParticle() == NULL) continue;
         bool found = false;
         for (ParticleVector::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
-          if (!ipart->hasGenParticle()) continue;
-          MSG_TRACE("Comparing barcode " << icheck->genParticle().barcode()
-                   << " with veto particle " << ipart->genParticle().barcode());
-          if (ipart->genParticle().barcode() == icheck->genParticle().barcode()){
+          if (ipart->genParticle() == NULL) continue;
+          MSG_TRACE("Comparing barcode " << icheck->genParticle()->barcode()
+                   << " with veto particle " << ipart->genParticle()->barcode());
+          if (ipart->genParticle()->barcode() == icheck->genParticle()->barcode()){
             found = true;
             break;
           }

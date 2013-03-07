@@ -22,10 +22,9 @@ namespace Rivet {
 
     void analyze(const Event& e) {
 
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-
-      // find the taus
+      // Find the taus
       ParticleVector taus;
+      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if(abs(p.pdgId())!=15) continue;
         _weight_total += 1.;
@@ -36,14 +35,14 @@ namespace Rivet {
         if(p.momentum().vector3().mod()>0.001)
           cms_boost = LorentzTransform(-p.momentum().boostVector());
         // find the decay products we want
-        findDecayProducts(p.genParticle(),nstable,pip,pim,Kp,Km);
-        if(p.pdgId()<0) {
+        findDecayProducts(p.genParticle(), nstable, pip, pim, Kp, Km);
+        if (p.pdgId()<0) {
           swap(pip,pim);
           swap(Kp ,Km );
         }
-        if(nstable!=4) continue;
+        if (nstable!=4) continue;
         // pipipi
-        if(pim.size()==2&&pip.size()==1) {
+        if (pim.size()==2&&pip.size()==1) {
           _weight_pipippi += 1.;
           _hist_pipipi_pipipi->
             fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass(),1.);
@@ -52,7 +51,7 @@ namespace Rivet {
           _hist_pipipi_pipi->
             fill((pip[0].momentum()+pim[1].momentum()).mass(),1.);
         }
-        else if(pim.size()==1&&pip.size()==1&&Km.size()==1) {
+        else if (pim.size()==1&&pip.size()==1&&Km.size()==1) {
           _weight_Kpipi += 1.;
           _hist_Kpipi_Kpipi->
             fill((pim[0].momentum()+pip[0].momentum()+Km[0].momentum()).mass(),1.);
@@ -61,7 +60,7 @@ namespace Rivet {
           _hist_Kpipi_pipi->
             fill((pim[0].momentum()+pip[0].momentum()).mass(),1.);
         }
-        else if(Kp.size()==1&&Km.size()==1&&pim.size()==1) {
+        else if (Kp.size()==1&&Km.size()==1&&pim.size()==1) {
           _weight_KpiK += 1.;
           _hist_KpiK_KpiK->
             fill((Kp[0].momentum()+Km[0].momentum()+pim[0].momentum()).mass(),1.);
@@ -70,7 +69,7 @@ namespace Rivet {
           _hist_KpiK_piK->
             fill((Kp[0].momentum()+pim[0].momentum()).mass(),1.);
         }
-        else if(Kp.size()==1&&Km.size()==2) {
+        else if (Kp.size()==1&&Km.size()==2) {
           _weight_KKK += 1.;
           _hist_KKK_KKK->
             fill((Kp[0].momentum()+Km[0].momentum()+Km[1].momentum()).mass(),1.);
@@ -81,6 +80,7 @@ namespace Rivet {
         }
       }
     } // analyze
+
 
     void finalize() {
       if(_weight_pipippi>0.) {
@@ -120,6 +120,7 @@ namespace Rivet {
       //br_KKK->point(0)->coordinate(1)->setErrorMinus( 100.*sqrt(_weight_KKK)/_weight_total);
     } // finalize
 
+
     void init() {
       addProjection(UnstableFinalState(), "UFS");
 
@@ -135,6 +136,7 @@ namespace Rivet {
       _hist_KKK_KK        = bookHisto1D(10,1,1);
 
     } // init
+
 
   private:
 
@@ -154,13 +156,13 @@ namespace Rivet {
     double _weight_total,_weight_pipippi,_weight_Kpipi,_weight_KpiK,_weight_KKK;
     //@}
 
-    void findDecayProducts(const GenParticle & p, unsigned int & nstable,
-                           ParticleVector & pip, ParticleVector & pim,
-                           ParticleVector &  Kp, ParticleVector & Km) {
-      const GenVertex* dv = p.end_vertex();
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+    void findDecayProducts(const GenParticle* p,
+                           unsigned int & nstable,
+                           ParticleVector& pip, ParticleVector& pim,
+                           ParticleVector&  Kp, ParticleVector& Km) {
+      const GenVertex* dv = p->end_vertex();
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = (*pp)->pdg_id();
         if( id == PI0 )
           ++nstable;
@@ -183,13 +185,16 @@ namespace Rivet {
           ++nstable;
         }
         else if((*pp)->end_vertex()) {
-          findDecayProducts(**pp,nstable,pip,pim,Kp,Km);
+          findDecayProducts(*pp, nstable, pip, pim, Kp, Km);
         }
         else
           ++nstable;
       }
     }
+
+
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(BABAR_2007_S7266081);

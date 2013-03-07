@@ -34,9 +34,9 @@ namespace Rivet {
       ParticleVector upsilons;
       // first in unstable final state
       foreach (const Particle& p, ufs.particles())
-        if(p.pdgId()==553 || p.pdgId()==100553 ) upsilons.push_back(p);
+        if (p.pdgId()==553 || p.pdgId()==100553 ) upsilons.push_back(p);
       // then in whole event if fails
-      if(upsilons.empty()) {
+      if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
           if( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
           const GenVertex* pv = p->production_vertex();
@@ -85,7 +85,7 @@ namespace Rivet {
             _weightSum_Ups2 += weight;
           ParticleVector unstable;
           // find the decay products we want
-          findDecayProducts(ups.genParticle(),unstable);
+          findDecayProducts(ups.genParticle(), unstable);
           LorentzTransform cms_boost;
           if(ups.momentum().vector3().mod()>0.001)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
@@ -96,17 +96,17 @@ namespace Rivet {
             FourMomentum p2 = cms_boost.transform(p.momentum());
             double xp = 2.*p2.t()/mass;
             double beta = p2.vector3().mod()/p2.t();
-            if(id==9010221) {
+            if (id==9010221) {
               if(parentId==553) _hist_Ups1_f0->fill(xp,weight/beta);
               else              _hist_Ups2_f0->fill(xp,weight/beta);
               ++nf0;
             }
-            else if(id==331) {
+            else if (id==331) {
               if(xp>0.35) ++nEtaA;
               ++nEtaB;
             }
           }
-          if(parentId==553) {
+          if (parentId==553) {
             _count_f0[0]             +=   nf0*weight;
             _count_etaPrime_highZ[0] += nEtaA*weight;
             _count_etaPrime_allZ[0]  += nEtaB*weight;
@@ -176,9 +176,10 @@ namespace Rivet {
       _hist_cont_f0 = bookHisto1D( 2,1,1);
       _hist_Ups1_f0 = bookHisto1D( 3,1,1);
       _hist_Ups2_f0 = bookHisto1D( 4,1,1);
-    } // init
+    }
 
-    private:
+
+  private:
 
     //@{
     vector<double> _count_etaPrime_highZ;
@@ -189,25 +190,25 @@ namespace Rivet {
     Histo1DPtr _hist_Ups1_f0;
     Histo1DPtr _hist_Ups2_f0;
 
-    // count of weights
     double _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
     //@}
 
-    void findDecayProducts(const GenParticle & p,
+
+    void findDecayProducts(const GenParticle* p,
                            ParticleVector & unstable) {
-      const GenVertex* dv = p.end_vertex();
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+      const GenVertex* dv = p->end_vertex();
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = abs((*pp)->pdg_id());
-        if(id == 331 || id == 9010221 ) {
-          unstable.push_back(Particle(**pp));
-        }
-        else if((*pp)->end_vertex())
-          findDecayProducts(**pp,unstable);
+        if (id == 331 || id == 9010221) {
+          unstable.push_back(Particle(*pp));
+        } else if ((*pp)->end_vertex())
+          findDecayProducts(*pp, unstable);
       }
     }
+
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ARGUS_1993_S2669951);

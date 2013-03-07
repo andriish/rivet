@@ -48,15 +48,15 @@ namespace Rivet {
 
 
   void Beam::project(const Event& e) {
-    assert(e.genEvent().particles_size() >= 2);
-    if (e.genEvent().valid_beam_particles()) {
-      pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent().beam_particles();
+    assert(e.genEvent()->particles_size() >= 2);
+    if (e.genEvent()->valid_beam_particles()) {
+      pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent()->beam_particles();
       assert(beams.first && beams.second);
       _theBeams.first = *(beams.first);
       _theBeams.second = *(beams.second);
-    } else if(e.genEvent().barcode_to_particle(1) && e.genEvent().barcode_to_particle(2)) {
-      _theBeams.first = *(e.genEvent().barcode_to_particle(1));
-      _theBeams.second = *(e.genEvent().barcode_to_particle(2));
+    } else if(e.genEvent()->barcode_to_particle(1) && e.genEvent()->barcode_to_particle(2)) {
+      _theBeams.first = *(e.genEvent()->barcode_to_particle(1));
+      _theBeams.second = *(e.genEvent()->barcode_to_particle(2));
     }
     else {
       _theBeams.first = Particle(ANY, FourMomentum());

@@ -122,8 +122,8 @@ namespace Rivet {
               _sigmaDStarPlusB->fill(10.6,weight);
               _sigmaDStarPlusC->fill(10.6,weight);
             }
-            const GenParticle * Dmeson = &p.genParticle();
-            const GenVertex* dv = p.genParticle().end_vertex();
+            const GenParticle* Dmeson = p.genParticle();
+            const GenVertex* dv = p.genParticle()->end_vertex();
             bool D0decay(false), Pi0decay(false), Piplusdecay(false), Dplusdecay(false);
 
             for (GenVertex::particles_out_const_iterator
@@ -141,13 +141,13 @@ namespace Rivet {
                 Piplusdecay = true;
               }
             }
-            if (D0decay && Piplusdecay && checkDecay(*Dmeson)) {
+            if (D0decay && Piplusdecay && checkDecay(Dmeson)) {
               if (onresonance)
                 _histXpDstarplus2D0_R->fill(xp, s*weight);
               else
                 _histXpDstarplus2D0_C->fill(xp, s*weight);
             }
-            else if (Dplusdecay && Pi0decay && checkDecay(*Dmeson)) {
+            else if (Dplusdecay && Pi0decay && checkDecay(Dmeson)) {
               if (onresonance)
                 _histXpDstarplus2Dplus_R->fill(xp, s*weight);
               else
@@ -173,12 +173,11 @@ namespace Rivet {
             xp = mom/sqrt(s/4.0 - mH2);
             if(!onresonance) _sigmaDStar0    ->fill(10.6,weight);
             MSG_DEBUG("xp = " << xp);
-            const GenParticle * Dmeson = &p.genParticle();
-            const GenVertex* dv = p.genParticle().end_vertex();
+            const GenParticle* Dmeson = p.genParticle();
+            const GenVertex* dv = p.genParticle()->end_vertex();
             bool D0decay(false), Pi0decay(false);
-            for (GenVertex::particles_out_const_iterator
-                   pp = dv->particles_out_const_begin();
-                 pp != dv->particles_out_const_end(); ++pp) {
+            /// @todo Use better looping
+            for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
               if (abs((*pp)->pdg_id()) == 421) {
                 Dmeson = *pp;
                 D0decay = true;
@@ -187,7 +186,7 @@ namespace Rivet {
                 Pi0decay = true;
               }
             }
-            if (D0decay && Pi0decay && checkDecay(*Dmeson)) {
+            if (D0decay && Pi0decay && checkDecay(Dmeson)) {
               if (onresonance)
                 _histXpDstar0_R->fill(xp, s*weight);
               else {
@@ -349,12 +348,11 @@ namespace Rivet {
     Histo1DPtr _histXpDstar0_R_N;
     //@}
 
-    bool checkDecay(const GenParticle & p) {
+    bool checkDecay(const GenParticle* p) {
       unsigned int nstable=0,npip=0,npim=0;
       unsigned int np=0,nap=0,nKp=0,nKm=0,nPhi=0;
-      findDecayProducts(p,nstable,npip,npim,
-                        np,nap,nKp,nKm,nPhi);
-      int id = p.pdg_id();
+      findDecayProducts(p, nstable, npip, npim, np, nap, nKp, nKm, nPhi);
+      int id = p->pdg_id();
       //D0
       if(id==421) {
         if(nstable==2&&nKm==1&&npip==1) return true;
@@ -390,24 +388,23 @@ namespace Rivet {
       return false;
     }
 
-    void findDecayProducts(const GenParticle & p,
+    void findDecayProducts(const GenParticle* p,
                            unsigned int & nstable, unsigned int & npip,
                            unsigned int & npim   , unsigned int & np,
                            unsigned int & nap    , unsigned int & nKp,
                            unsigned int & nKm    , unsigned int & nPhi) {
-      const GenVertex* dv = p.end_vertex();
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+      const GenVertex* dv = p->end_vertex();
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = (*pp)->pdg_id();
         if(id==333)
           ++nPhi;
         else if(id==111||id==221)
           ++nstable;
         else if((*pp)->end_vertex())
-          findDecayProducts(**pp,nstable,npip,npim,np,nap,nKp,nKm,nPhi);
+          findDecayProducts(*pp, nstable, npip, npim, np, nap, nKp, nKm, nPhi);
         else {
-          if(id!=22) ++nstable;
+          if     (id !=    22) ++nstable;
           if     (id ==   211) ++npip;
           else if(id ==  -211) ++npim;
           else if(id ==  2212) ++np;
@@ -417,6 +414,7 @@ namespace Rivet {
         }
       }
     }
+
   };
 
 

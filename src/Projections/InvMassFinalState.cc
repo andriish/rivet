@@ -177,7 +177,7 @@ namespace Rivet {
     MSG_DEBUG("Selected " << _theParticles.size() << " particles " << "(" << _particlePairs.size() << " pairs)");
     if (getLog().isActive(Log::TRACE)) {
       foreach (const Particle& p, _theParticles) {
-        MSG_TRACE("ID: " << p.pdgId() << ", barcode: " << p.genParticle().barcode());
+        MSG_TRACE("ID: " << p.pdgId() << ", barcode: " << p.genParticle()->barcode());
       }
     }
   }

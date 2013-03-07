@@ -68,12 +68,12 @@ namespace Rivet {
         double phi_P = photon.momentum().phi();
         double Etsum=0.0;
         foreach (const Particle& p, fs) {
-          if (p.genParticle().barcode()!=photon.genParticle().barcode() &&
+          if (p.genParticle()->barcode() != photon.genParticle()->barcode() &&
               deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) < 0.4) {
             Etsum += p.momentum().Et();
           }
         }
-        if (Etsum<2.5*GeV) {
+        if (Etsum < 2.5*GeV) {
           isolated_photons.push_back(photon);
         }
       }

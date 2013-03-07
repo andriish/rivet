@@ -35,7 +35,7 @@ namespace Rivet {
     MSG_DEBUG("Original final state particles size " << particles.size());
     ParticleVector::const_iterator ifs;
     for (ifs = particles.begin(); ifs != particles.end(); ++ifs) {
-      if (inList(*ifs) && FinalState::accept(ifs->genParticle())) {
+      if (inList(*ifs) && FinalState::accept(*ifs->genParticle())) {
         // Look for an existing particle in tmp container
         map < long, ParticleVector::const_iterator >::const_iterator itmp = tmp.find(ifs->pdgId());
         if (itmp != tmp.end()) {  // if a particle with this type has been already selected
@@ -49,7 +49,7 @@ namespace Rivet {
         }
       }
     }
- 
+
     // Loop on the tmp container and fill _theParticles
     map<long, ParticleVector::const_iterator>::const_iterator i;
     for (i = tmp.begin(); i != tmp.end(); ++i) {

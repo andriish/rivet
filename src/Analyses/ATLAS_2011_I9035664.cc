@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  /// @brief  J/Psi production at ATLAS
+  /// @brief  J/psi production at ATLAS
   class ATLAS_2011_I9035664: public Analysis {
   public:
 
@@ -50,8 +50,8 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        if (abs(p.pdgId())!=443) continue;
-        HepMC::GenVertex* gv = p.genParticle().production_vertex();
+        if (abs(p.pdgId()) != 443) continue;
+        HepMC::GenVertex* gv = p.genParticle()->production_vertex();
         bool nonPrompt = false;
         if (gv) {
           foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
@@ -80,7 +80,7 @@ namespace Rivet {
           else if (!nonPrompt) _PrRapMedLow->fill(xp, weight);
           _IncRapMedLow->fill(xp, weight);
         }
-        
+
         else if (rapidity<=0.75) {
           if (nonPrompt) _nonPrRapLow->fill(xp, weight);
           else if (!nonPrompt) _PrRapLow->fill(xp, weight);

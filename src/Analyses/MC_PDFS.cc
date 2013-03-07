@@ -43,8 +43,8 @@ namespace Rivet {
       const double weight = event.weight();
 
       // This analysis needs a valid HepMC PDF info object to do anything
-      if (event.genEvent().pdf_info() == 0) vetoEvent;
-      HepMC::PdfInfo pdfi = *event.genEvent().pdf_info();
+      if (event.genEvent()->pdf_info() == 0) vetoEvent;
+      HepMC::PdfInfo pdfi = *(event.genEvent()->pdf_info());
 
       MSG_DEBUG("PDF Q = " << pdfi.scalePDF() << " for (id, x) = "
                 << "(" << pdfi.id1() << ", " << pdfi.x1() << ") "

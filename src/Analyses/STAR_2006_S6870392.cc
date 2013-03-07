@@ -1,9 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -40,8 +40,7 @@ namespace Rivet {
       // Skip if the event is empty
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       if (fs.empty()) {
-        MSG_DEBUG("Skipping event " << event.genEvent().event_number()
-                  << " because no final state found ");
+        MSG_DEBUG("Skipping event " << numEvents() << " because no final state found ");
         vetoEvent;
       }
 

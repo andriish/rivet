@@ -25,37 +25,49 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
 
-    /// The default constructor.
-    Event(const GenEvent& ge);
+    /// Constructor from a HepMC GenEvent reference
+    Event(const GenEvent& ge)
+      : _originalGenEvent(&ge), _genEvent(ge)
+    { _init(ge); }
 
-    /// The copy constructor.
-    Event(const Event& e);
+    /// Constructor from a HepMC GenEvent pointer
+    Event(const GenEvent* ge)
+      : _originalGenEvent(ge), _genEvent(*ge)
+    { assert(ge); _init(*ge); }
 
-    /// The destructor
-    ~Event();
+    /// Copy constructor
+    Event(const Event& e)
+      : _originalGenEvent(e._originalGenEvent), _genEvent(e._genEvent)
+    {  }
 
     //@}
 
 
   public:
 
-    /// Return the generated event obtained from an external event generator.
-    const GenEvent& genEvent() const;
+    /// The generated event obtained from an external event generator
+    const GenEvent* genEvent() const {
+      return &_genEvent;
+    }
 
-    /// The weight associated with the event.
+    /// @brief The generation weight associated with the event
+    ///
+    /// @todo This needs to be revisited when we finally add the mechanism to
+    /// support NLO counter-events and weight vectors.
     double weight() const {
-      return _weight;
+      return (!_genEvent.weights().empty()) ? _genEvent.weights()[0] : 1.0;
     }
 
 
   public:
 
-    /// Add a projection \a p to this Event. If an equivalent Projection
-    /// has been applied before, the Projection::project(const Event &)
-    /// of \a p is not called and a reference to the previous equivalent
-    /// projection is returned. If no previous Projection was found, the
-    /// Projection::project(const Event &) of \a p is called and a
-    /// reference to p is returned.
+    /// @brief Add a projection @a p to this Event.
+    ///
+    /// If an equivalent Projection has been applied before, the
+    /// Projection::project(const Event&) of @a p is not called and a reference
+    /// to the previous equivalent projection is returned. If no previous
+    /// Projection was found, the Projection::project(const Event&) of @a p is
+    /// called and a reference to @a p is returned.
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
       const Projection* cpp(&p);
@@ -81,21 +93,40 @@ namespace Rivet {
 
 
   private:
+
+    /// @brief Actual (shared) implementation of the constructors from GenEvents
+    ///
+    /// @todo When we can require C++11, constructors can call each other and
+    /// this can be removed.
+    void _init(const GenEvent& ge);
+
+    /// @brief Convert the GenEvent to use conventional alignment
+    ///
+    /// For example, FHerwig only produces DIS events in the unconventional
+    /// hadron-lepton orientation and has to be corrected for DIS analysis
+    /// portability.
     void _geNormAlignment();
 
+    /// @brief The generated event, as obtained from an external generator.
+    ///
+    /// This is the original GenEvent. In practise the version seen by users
+    /// will often/always be a modified one.
+    ///
+    /// @todo Provide access to this via an Event::originalGenEvent() method? If requested...
+    const GenEvent* _originalGenEvent;
 
-    /// @brief The generated event, obtained from an external generator.
-    /// Note that it is only externally accessible via a const reference.
-    GenEvent const& _genEvent;
-
-    GenEvent* _modGenEvent;
+    /// @brief The GenEvent used by Rivet analysis projections etc.
+    ///
+    /// This version may be rotated to a "normal" alignment, have
+    /// generator-specific particles stripped out, etc.  If an analysis is
+    /// affected by these modifications, it is probably an unphysical analysis!
+    ///
+    /// Stored as a non-pointer since it may get overwritten, and memory for
+    /// copying and cleanup is much neater this way.
+    GenEvent _genEvent;
 
     /// The set of Projection objects applied so far.
     mutable std::set<ConstProjectionPtr> _projections;
-
-    /// @brief The generation weight associated with the event.
-    /// Usually 1.0. Only copied from the HepMC event once, at construction time.
-    double _weight;
 
   };
 

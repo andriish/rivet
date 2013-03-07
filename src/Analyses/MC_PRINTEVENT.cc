@@ -153,30 +153,31 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      //printEvent(event.genEvent());
+      /// @todo Wouldn't this be nice... if HepMC::IO_AsciiParticles was sane :-/
+      // printEvent(event.genEvent());
 
-      const GenEvent& evt = event.genEvent();
+      const GenEvent* evt = event.genEvent();
 
       cout << string(120, '=') << "\n" << endl;
 
       // Weights
-      cout << "Weights(" << evt.weights().size() << ")=";
-      for (HepMC::WeightContainer::const_iterator wgt = evt.weights().begin(); wgt != evt.weights().end(); ++wgt) {
+      cout << "Weights(" << evt->weights().size() << ")=";
+      for (HepMC::WeightContainer::const_iterator wgt = evt->weights().begin(); wgt != evt->weights().end(); ++wgt) {
         cout << *wgt << " ";
       }
       cout << "\n"
-           << "EventScale " << evt.event_scale()
-           << " [energy] \t alphaQCD=" << evt.alphaQCD()
-           << "\t alphaQED=" << evt.alphaQED() << endl;
+           << "EventScale " << evt->event_scale()
+           << " [energy] \t alphaQCD=" << evt->alphaQCD()
+           << "\t alphaQED=" << evt->alphaQED() << endl;
 
-      if (evt.pdf_info()) {
-        cout << "PdfInfo: id1=" << evt.pdf_info()->id1()
-             << " id2=" << evt.pdf_info()->id2()
-             << " x1=" << evt.pdf_info()->x1()
-             << " x2=" << evt.pdf_info()->x2()
-             << " q=" << evt.pdf_info()->scalePDF()
-             << " xpdf1=" << evt.pdf_info()->pdf1()
-             << " xpdf2=" << evt.pdf_info()->pdf2()
+      if (evt->pdf_info()) {
+        cout << "PdfInfo: id1=" << evt->pdf_info()->id1()
+             << " id2=" << evt->pdf_info()->id2()
+             << " x1=" << evt->pdf_info()->x1()
+             << " x2=" << evt->pdf_info()->x2()
+             << " q=" << evt->pdf_info()->scalePDF()
+             << " xpdf1=" << evt->pdf_info()->pdf1()
+             << " xpdf2=" << evt->pdf_info()->pdf2()
              << endl;
       } else {
         cout << "PdfInfo: EMPTY";
@@ -196,7 +197,7 @@ namespace Rivet {
 
       // Print all particles
       // const HepPDT::ParticleDataTable* pdt = m_ppsvc->PDT();
-      for (HepMC::GenEvent::particle_const_iterator p = evt.particles_begin(); p != evt.particles_end(); ++p) {
+      for (HepMC::GenEvent::particle_const_iterator p = evt->particles_begin(); p != evt->particles_end(); ++p) {
         int p_bcode = (*p)->barcode();
         int p_pdg_id = (*p)->pdg_id();
         double p_px = (*p)->momentum().px();

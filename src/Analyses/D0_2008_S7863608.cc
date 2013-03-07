@@ -68,8 +68,7 @@ namespace Rivet {
 
         // Return if there are no jets:
         if(jets_cut.size()<1) {
-          MSG_DEBUG("Skipping event " << e.genEvent().event_number()
-                    << " because no jets pass cuts ");
+          MSG_DEBUG("Skipping event " << numEvents() << " because no jets pass cuts ");
           vetoEvent;
         }
 

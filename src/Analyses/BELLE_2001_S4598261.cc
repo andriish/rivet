@@ -22,29 +22,29 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       // find the upsilons
       ParticleVector upsilons;
       // first in unstable final state
+      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())
-        if(p.pdgId()==300553) upsilons.push_back(p);
+        if (p.pdgId()==300553) upsilons.push_back(p);
       // then in whole event if fails
-      if(upsilons.empty()) {
-        foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
-          if(p->pdg_id()!=300553) continue;
+      if (upsilons.empty()) {
+        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+          if (p->pdg_id() != 300553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
-                 pp != pv->particles_in_const_end() ; ++pp) {
+            /// @todo Use better looping
+            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ; pp != pv->particles_in_const_end() ; ++pp) {
               if ( p->pdg_id() == (*pp)->pdg_id() ) {
                 passed = false;
                 break;
               }
             }
           }
-          if(passed) upsilons.push_back(Particle(*p));
+          if (passed) upsilons.push_back(Particle(p));
         }
       }
 
@@ -53,7 +53,7 @@ namespace Rivet {
         _weightSum += weight;
         // find the neutral pions from the decay
         vector<GenParticle *> pions;
-        findDecayProducts(p.genParticle(),pions);
+        findDecayProducts(p.genParticle(), pions);
         LorentzTransform cms_boost(-p.momentum().boostVector());
         for(unsigned int ix=0;ix<pions.size();++ix) {
           double pcm =
@@ -90,20 +90,19 @@ namespace Rivet {
     Histo1DPtr _histMult;
     //@}
 
-    void findDecayProducts(const GenParticle & p,
-                           vector<GenParticle *> & pions) {
-      const GenVertex* dv = p.end_vertex();
-      for (GenVertex::particles_out_const_iterator
-             pp = dv->particles_out_const_begin();
-           pp != dv->particles_out_const_end(); ++pp) {
+    void findDecayProducts(const GenParticle* p, vector<GenParticle*>& pions) {
+      const GenVertex* dv = p->end_vertex();
+      /// @todo Use better looping
+      for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = (*pp)->pdg_id();
-        if(id==111) {
+        if (id==111) {
           pions.push_back(*pp);
-        }
-        else if((*pp)->end_vertex())
-          findDecayProducts(**pp,pions);
+        } else if((*pp)->end_vertex())
+          findDecayProducts(*pp, pions);
       }
     }
+
+
   };
 
 
