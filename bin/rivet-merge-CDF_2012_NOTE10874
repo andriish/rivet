@@ -7,32 +7,12 @@ Combine runs at different energies into a single .aida file containing the
 energy ratio plots in the CDF_2012_NOTE10874 analysis.
 """
 
-import sys
-if sys.version_info[:3] < (2,4,0):
-    print "rivet scripts require Python version >= 2.4.0... exiting"
-    sys.exit(1)
-
-import os, logging
-from lighthisto import *
-
-## Try to load faster but non-standard cElementTree module
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:
-    try:
-        import cElementTree as ET
-    except ImportError:
-        try:
-            import xml.etree.ElementTree as ET
-        except:
-            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
-            sys.exit(1)
+import rivet, sys, os
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
 
 
-##########################################################
-
-
-def CreateHistoList(histolist1, histolist2, EnergyRatioIndex):
+def createHistoList(histolist1, histolist2, EnergyRatioIndex):
     newHistoList = []
     for m in range(3):
 	histo1= histolist1[m]
@@ -69,7 +49,8 @@ def FindError(X, Y, deltaX, deltaY):
 ########################################################
 if __name__ == "__main__":
 
-    plotparser = PlotParser() #will this work? Check.
+    import logging
+    plotparser = rivet.PlotParser()
 
     histos = {}
 
@@ -85,7 +66,7 @@ if __name__ == "__main__":
 	    tree = ET.parse(aidafile)
         except:
             logging.error("%s can not be parsed as XML" % aidafile)
-            sys.exit(1)
+            exit(1)
         for dps in tree.findall("dataPointSet"):
             useThis = True
 
@@ -109,9 +90,9 @@ if __name__ == "__main__":
     for energy, hs in histos.items():
 	sorted(hs, key=lambda hist: hist.name)
 
-    MyNewHistoList = CreateHistoList(histos['1960'], histos['300'], 4)
-    MyNewHistoList += CreateHistoList(histos['900'], histos['300'], 5)
-    MyNewHistoList += CreateHistoList(histos['1960'], histos['900'], 6)
+    MyNewHistoList = createHistoList(histos['1960'], histos['300'], 4)
+    MyNewHistoList += createHistoList(histos['900'], histos['300'], 5)
+    MyNewHistoList += createHistoList(histos['1960'], histos['900'], 6)
 
     outfile = "RatioPlots.dat"
     out = open(outfile, "w")

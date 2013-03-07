@@ -10,11 +10,13 @@ TODO:
  * Add partial name / regex searching? (Requires extending the Rivet library)
 """
 
+import rivet, sys, os
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
+
 import sys, os, optparse
 op = optparse.OptionParser()
 ops, args = op.parse_args()
-
-import rivet
 
 # print rivet.findAnalysisPlotFile()
 # print rivet.findAnalysisLibFile()

@@ -1,5 +1,13 @@
 2013-03-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* bin/: Lots of tidying/pruning of messy/defunct scripts.
+
+	* Creating spiresbib, util, and plotinfo rivet python module
+	submodules: this eliminates lighthisto and the standalone
+	spiresbib modules. Util contains convenience functions for Python
+	version testing, clean ElementTree import, and process renaming,
+	for primary use by the rivet-* scripts.
+
 	* Removing defunct scripts that have been replaced/obsoleted by YODA.
 
 2013-03-06  Andy Buckley  <andy.buckley@cern.ch>

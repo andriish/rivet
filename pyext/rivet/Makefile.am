@@ -1,4 +1,4 @@
-EXTRA_DIST = __init__.py rivetwrap.i
+EXTRA_DIST = __init__.py util.py plotinfo.py spiresbib.py rivetwrap.i
 
 all-local: rivetwrap_wrap.cc rivetwrap.py
 	@true

@@ -14,20 +14,11 @@ appropriately).
 You can overwrite an existing output directory.
 """
 
-import sys, os
-if sys.version_info[:3] < (2,4,0):
-    sys.stderr.write("rivet scripts require Python version >= 2.4.0... exiting\n")
-    sys.exit(1)
+import rivet, sys, os
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
 
-import traceback
-try:
-    import rivet
-except ImportError:
-    traceback.print_exc(file=sys.stderr)
-    sys.stderr.write("rivet is broken... exiting\n")
-    sys.exit(1)
-
-import sys, os, glob, shutil
+import glob, shutil
 from subprocess import Popen, PIPE
 
 

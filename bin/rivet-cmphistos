@@ -10,14 +10,13 @@ where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
 '''
 
-import sys, os
-if sys.version_info[:3] < (2, 4, 0):
-    print 'rivet scripts require Python version >= 2.4.0... exiting'
-    sys.exit(1)
+import rivet, sys, os
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
 
 
 class Plot(dict):
-    ## A tiny Plot object to help writing out the head in the .dat file
+    "A tiny Plot object to help writing out the head in the .dat file"
     def __repr__(self):
         return "# BEGIN PLOT\n" + "\n".join("%s=%s" % (k,v) for k,v in self.iteritems()) + "\n# END PLOT\n\n"
 
@@ -32,7 +31,7 @@ def sanitiseString(s):
 
 
 def getCommandLineOptions():
-    ## Parse command line options
+    "Parse command line options"
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
 
@@ -99,24 +98,20 @@ def getCommandLineOptions():
     return parser
 
 
-def initPlotparser(filelist):
-    from lighthisto import PlotParser
-
-    ## Add standard locations and the input files' dirs to the PLOTINFO search paths
-    import rivet
+def initPlotParser(filelist):
+    "Add standard locations and the input files' dirs to the PLOTINFO search paths"
     opts.PLOTINFODIR += rivet.getAnalysisPlotPaths()
     for infile in filelist:
         adir = os.path.abspath(os.path.split(infile)[0])
         if not adir in opts.PLOTINFODIR:
             opts.PLOTINFODIR.append(adir)
-
-    return PlotParser(opts.PLOTINFODIR, opts.CONFIGFILES)
+    return rivet.PlotParser(opts.PLOTINFODIR, opts.CONFIGFILES)
 
 
 
 def getHistos(filelist):
-    ## Loop over all input files. Only use the first occurrence of any REF-histogram
-    ## and the first occurrence in each MC file for every MC-histogram.
+    """Loop over all input files. Only use the first occurrence of any REF-histogram
+    and the first occurrence in each MC file for every MC-histogram."""
     refhistos = {}
     mchistos = {}
     mchistolist = []
@@ -138,8 +133,7 @@ def getHistos(filelist):
 
 
 def getRefdata(refhistos):
-    ## Find all Rivet reference data files
-    import rivet
+    "Find all Rivet reference data files"
     rivet_data_dirs = rivet.getAnalysisRefPaths()
     dirlist = []
     for d in rivet_data_dirs:
@@ -156,9 +150,9 @@ def getRefdata(refhistos):
 
 
 def parseArgs(args):
-    ## Look at the argument list and split it at colons, in order to separate
-    ## the file names from the plotting options. Store the file names and
-    ## file specific plotting options.
+    """Look at the argument list and split it at colons, in order to separate
+    the file names from the plotting options. Store the file names and
+    file specific plotting options."""
     filelist = []
     plotoptions = {}
     for a in args:
@@ -180,8 +174,7 @@ def parseArgs(args):
 
 
 def setStyle(ao, style):
-    ## Set default plot styles (color and line width)
-    # colors borrowed from Google Ngrams
+    """Set default plot styles (color and line width) colors borrowed from Google Ngrams"""
     LINECOLORS = ['{[HTML]{ee3311}}',  # red (Google uses 'dc3912')
                   '{[HTML]{3366cc}}',  # blue
                   '{[HTML]{109618}}',  # green
@@ -207,7 +200,7 @@ def setStyle(ao, style):
 
 
 def setOptions(ao, options):
-    ## Set arbitrary annotations
+    "Set arbitrary annotations"
     for opt in options:
         key = opt.split('=', 1)[0]
         val = opt.split('=', 1)[1]
@@ -215,7 +208,7 @@ def setOptions(ao, options):
 
 
 def mkoutdir(outdir):
-    ## Function to make output directories
+    "Function to make output directories"
     if not os.path.exists(outdir):
         try:
             os.makedirs(outdir)
@@ -228,7 +221,7 @@ def mkoutdir(outdir):
 
 
 def writeOutput(output, h):
-    ## Choose output file name and dir
+    "Choose output file name and dir"
     if opts.HIER_OUTPUT:
         outdir = os.path.dirname(os.path.join(opts.OUTDIR, h[1:]))
         outfile = '%s.dat' % os.path.basename(h)
@@ -243,19 +236,15 @@ def writeOutput(output, h):
 
 
 #--------------------------------------------------------------------------------------------
-#--------------------------------------------------------------------------------------------
+
 
 if __name__ == '__main__':
     import os
     import yoda
 
     ## Try to rename the process on Linux
-    try:
-        import ctypes
-        libc = ctypes.cdll.LoadLibrary('libc.so.6')
-        libc.prctl(15, 'compare-histos', 0, 0, 0)
-    except Exception:
-        pass
+    print __file__
+    rivet.util.set_process_name(__name__)
 
     ## Try to use Psyco optimiser
     try:
@@ -263,7 +252,6 @@ if __name__ == '__main__':
         psyco.full()
     except ImportError:
         pass
-
 
     ## Command line parsing
     parser = getCommandLineOptions()
@@ -290,7 +278,6 @@ if __name__ == '__main__':
         ## A list of all analysis objects to be plotted
         anaobjects = []
 
-
         ## Plot object for the PLOT section in the .dat file
         plot = Plot()
         plot['Legend'] = '1'
@@ -310,7 +297,6 @@ if __name__ == '__main__':
         ## DrawOnly is needed to keep the order in the Legend equal to the
         ## order of the files on the command line
         drawonly = ''
-
 
         ## Check if we have reference data for the histogram
         if refhistos.has_key('/REF' + h):
@@ -367,4 +353,3 @@ if __name__ == '__main__':
 
         ## Write everything into a file
         writeOutput(output, h)
-

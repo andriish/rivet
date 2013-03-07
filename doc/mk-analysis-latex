@@ -29,18 +29,7 @@ try:
 except:
     pass
 anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
-#print anadirs
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
-
-
-## Change dlopen status to GLOBAL for Rivet lib
-try:
-    import ctypes
-    sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
-except:
-    import dl
-    sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
-import rivet
 
 
 def texify(s):
@@ -63,6 +52,7 @@ def niceify(s):
 
 
 ## Build analysis pages
+import rivet
 all_analyses = rivet.AnalysisLoader.analysisNames()
 pages = { "LEP and SLC":[], "Tevatron":[], "LHC":[], "SPS":[], "HERA":[], "RHIC":[], "Monte Carlo":[], "Example":[], "Misc.":[] }
 ## Use list(...) ctor for 2.3 compatibility
@@ -178,8 +168,7 @@ for aname in sorted(list(all_analyses)):
         hpaths = [ao.path for ao in aos]
     paths_titles = {}
     if hpaths:
-        import lighthisto
-        pp = lighthisto.PlotParser([os.path.join("..", "data", "plotinfo")])
+        pp = rivet.PlotParser([os.path.join("..", "data", "plotinfo")])
         for hp in hpaths:
             attrs = pp.getHeaders(hp)
             if attrs.has_key("Title"):

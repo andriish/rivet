@@ -13,19 +13,10 @@ Arguments:
                 - SPIRES:  [S]nnnnnnn
                 - Inspire: [I]nnnnnn[n]"""
 
-import sys,re
-
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:
-    try:
-        import cElementTree as ET
-    except ImportError:
-        try:
-            import xml.etree.ElementTree as ET
-        except:
-            sys.stderr.write("Can't load the ElementTree XML parser\n")
-            sys.exit(1)
+import rivet, sys, os, re
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
+rivet.util.import_ET()
 
 
 def main():

@@ -15,13 +15,10 @@ For example, additional setup steps such as this may be required:
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
-import sys
-if sys.version_info[:3] < (2,4,0):
-    print "rivet scripts require Python version >= 2.4.0... exiting"
-    sys.exit(1)
-
-
-import os, array
+import rivet, sys, os, array
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
+rivet.util.import_ET()
 
 try:
     from ROOT import ROOT, TGraphAsymmErrors, TGraph2DErrors, TH1F, TH2F, TFile
@@ -42,20 +39,8 @@ except:
     sys.stderr.write("You can test if PyROOT is properly set up by calling 'import ROOT' at the interactive Python shell\n")
     sys.exit(1)
 
-## Try to load faster but non-standard cElementTree module
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:
-    try:
-        import cElementTree as ET
-    except ImportError:
-        try:
-            import xml.etree.ElementTree as ET
-        except:
-            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
-            sys.exit(1)
 
-
+# TODO: replace with YODA (and move this script to YODA)
 class Histo:
 
     def __init__(self, nDim):

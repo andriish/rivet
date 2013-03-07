@@ -14,13 +14,10 @@ Usage:
 Use --help to get information for all options.
 """
 
-import sys
-if sys.version_info[:3] < (2,4,0):
-    print "rivet scripts require Python version >= 2.4.0... exiting"
-    sys.exit(1)
-
-
-import os, optparse, logging, ROOT
+import rivet, sys, os
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
+import optparse, logging, ROOT
 
 
 ## Parse options

@@ -17,34 +17,11 @@ ENVIRONMENT:
      metadata files
 """
 
-import sys
-if sys.version_info[:3] < (2, 4, 0):
-    print "rivet scripts require Python version >= 2.4.0... exiting"
-    sys.exit(1)
-
-
-import os, time
-import logging, signal
-
-## Try to rename the process on Linux
-try:
-    import ctypes
-    libc = ctypes.cdll.LoadLibrary('libc.so.6')
-    libc.prctl(15, 'rivet', 0, 0, 0)
-except Exception:
-    pass
-
-## Try to use Psyco optimiser
-try:
-    import psyco
-    psyco.full()
-except ImportError:
-    pass
-
+## Try to bootstrap the Python path for rivet loading
+# TODO: Move this intorivet.__init__.py?
+import os, sys
 PROGPATH = sys.argv[0]
 PROGNAME = os.path.basename(PROGPATH)
-
-## Try to bootstrap the Python path
 import commands
 try:
     modname = sys.modules[__name__].__file__
@@ -55,17 +32,10 @@ try:
 except:
     pass
 
-
-## Try importing rivet
-try:
-    import rivet
-    rivet.check_python_version()
-except Exception, e:
-    sys.stderr.write(PROGNAME + " requires the 'rivet' Python module but it cannot be loaded:\n")
-    sys.stderr.write(str(e)+'\n')
-    sys.stderr.write("Try re-running with the -v switch to enable more debugging output \n")
-    sys.exit(1)
-
+import rivet
+rivet.util.check_python_version()
+rivet.util.set_process_name("rivet")
+import time, logging, signal
 
 ## Parse command line options
 from optparse import OptionParser, OptionGroup

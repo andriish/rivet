@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# TODO: Rewrite or remove
+
 """\
 %prog [-r <REFDATAPATH>] [-O <observable-file>] [-b <bindef> [-b ...]] <AIDAFILE> [<OUTFILE>]
 
@@ -45,56 +47,13 @@ Examples:
    data file is only applied between 2 < x < 5 GeV.
 """
 
-import sys
-if sys.version_info[:3] < (2,4,0):
-    print "rivet scripts require Python version >= 2.4.0... exiting"
-    sys.exit(1)
+import rivet, sys, os
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
+import re, logging
 
-import os, re, logging
-from lighthisto import Histo
-
-# try:
-#     from IPython.Shell import IPShellEmbed
-#     ipshell = IPShellEmbed([])
-# except:
-#     logging.info("Ipython shell not available.")
-
-
-## Try to load faster but non-standard cElementTree module
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:
-    try:
-        import cElementTree as ET
-    except ImportError:
-        try:
-            import xml.etree.ElementTree as ET
-        except:
-            sys.stderr.write("Can't load the ElementTree XML parser: please install it!\n")
-            sys.exit(1)
-
-
-def getHistosFromAIDA(aidafile):
-    '''Get a dictionary of histograms indexed by name.'''
-    if not re.match(r'.*\.aida$', aidafile):
-        logging.debug("Error: input file '%s' is not an AIDA file" % aidafile)
-    aidafilepath = os.path.abspath(aidafile)
-    if not os.access(aidafilepath, os.R_OK):
-        logging.debug("Error: cannot read from %s" % aidafile)
-
-    histos = {}
-    tree = ET.parse(aidafilepath)
-    for dps in tree.findall("dataPointSet"):
-        ## Get this histogram's path name
-        dpsname = os.path.join(dps.get("path"), dps.get("name"))
-        ## Is it a data histo?
-        h = Histo.fromDPS(dps)
-        h.isdata = dpsname.upper().startswith("/REF")
-        if h.isdata:
-            dpsname = dpsname.replace("/REF", "")
-        histos[dpsname] = h
-    return histos
-
+# TODO: convert to YODA
+import yoda
 
 def getRefHistos(refpaths, analyses):
     """

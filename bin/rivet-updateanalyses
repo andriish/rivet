@@ -1,8 +1,6 @@
 #! /usr/bin/env python
 
-import os, sys, cmd, logging, re
-
-usage = """%prog [--unvalidated] [--all] [--repo=URL] [--dest=DEST] [--dryrun]
+"""%prog [--unvalidated] [--all] [--repo=URL] [--dest=DEST] [--dryrun]
 
 Grab analysis files from the Rivet trunk repository and install them into a
 local directory. You wil have to build them after downloading, using
@@ -17,6 +15,12 @@ Examples:
 TODO:
   * Run rivet-buildplugin on the downloaded files.
 """
+
+import rivet, sys, os
+rivet.util.check_python_version()
+rivet.util.set_process_name(os.path.basename(__file__))
+import cmd, logging, re
+
 
 def getFileList(url):
     logging.debug("Getting Rivet file list from '%s'" % url)
@@ -84,7 +88,7 @@ DEFAULT_OUTDIR = os.path.abspath(os.path.join(os.curdir, "rivetanalyses"))
 if __name__ == '__main__':
     ## Parse command line options
     from optparse import OptionParser
-    parser = OptionParser(usage=usage)
+    parser = OptionParser(usage=__doc__)
     parser.add_option("--repo", help="Base URL of online sets repository (%default)", metavar="URL",
                       dest="URL", default="http://svn.hepforge.org/rivet/trunk")
     parser.add_option("--dest", help="Directory to install to (%default)", metavar="DEST",

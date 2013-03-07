@@ -1,5 +1,3 @@
-EXTRA_DIST = ez_setup.py lighthisto.py spiresbib.py
-
 if ENABLE_PYEXT
 
 SUBDIRS = rivet .
@@ -13,8 +11,6 @@ install-exec-local:
 ## TODO: Really want DESTDIR here?
 uninstall-local:
 	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/rivet
-	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/lighthisto.py*
-	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/spiresbib.py*
 	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/Rivet-*.egg-info
 
 clean-local:
