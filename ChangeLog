@@ -1,5 +1,8 @@
 2013-03-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding a Particles typedef by analogy to Jets, and in preference
+	to the cumbersome ParticleVector.
+
 	* bin/: Lots of tidying/pruning of messy/defunct scripts.
 
 	* Creating spiresbib, util, and plotinfo rivet python module

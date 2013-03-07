@@ -13,8 +13,9 @@ namespace Rivet {
   // Forward declaration
   class Particle;
 
-  /// Typedef for a vector of Particle objects.
-  typedef std::vector<Particle> ParticleVector;
+  /// Typedefs for a vector of Particle objects.
+  typedef std::vector<Particle> Particles; //< New form, cf. Jets
+  typedef std::vector<Particle> ParticleVector; //< Old form
 
   /// Typedef for a pair of Particle objects.
   typedef std::pair<Particle, Particle> ParticlePair;
