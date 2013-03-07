@@ -162,7 +162,7 @@ for ANANAME in ANANAMES:
     ANASRCFILE = os.path.join(ANASRCDIR, ANANAME+".cc")
     logging.debug("Writing implementation template to %s" % ANASRCFILE)
     f = open(ANASRCFILE, "w")
-    src = """\
+    src = '''\
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/RivetYODA.hh"
@@ -176,15 +176,10 @@ namespace Rivet {
   class %(ANANAME)s : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
     %(ANANAME)s()
       : Analysis("%(ANANAME)s")
     {    }
-
-    //@}
 
 
   public:
@@ -248,14 +243,14 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(%(ANANAME)s);
 
 }
-""" % KEYWORDS
+''' % KEYWORDS
     f.write(src)
     f.close()
 
     ANAPLOTFILE = os.path.join(ANAPLOTDIR, ANANAME+".plot")
     logging.debug("Writing plot template to %s" % ANAPLOTFILE)
     f = open(ANAPLOTFILE, "w")
-    src = """\
+    src = '''\
 # BEGIN PLOT /%(ANANAME)s/d01-x01-y01
 #Title=[Uncomment and insert title for histogram d01-x01-y01 here]
 #XLabel=[Uncomment and insert x-axis label for histogram d01-x01-y01 here]
@@ -264,7 +259,7 @@ namespace Rivet {
 # END PLOT
 
 # ... add more histograms as you need them ...
-""" % KEYWORDS
+''' % KEYWORDS
     f.write(src)
     f.close()
 
@@ -311,6 +306,5 @@ ToDo:
 """ % KEYWORDS
     f.write(src)
     f.close()
-
 
     logging.info("Use e.g. 'rivet-buildplugin Rivet%s.so %s.cc' to compile the plugin" % (ANANAME, ANANAME))
