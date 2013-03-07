@@ -104,6 +104,9 @@ namespace Rivet {
 
     /// The momentum of this projection of the Particle.
     FourMomentum _momentum;
+
+    /// @todo Also store production and decay positions and make them available.
+
   };
 
 

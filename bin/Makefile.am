@@ -1,17 +1,12 @@
 bin_SCRIPTS = rivet-config
-
-dist_bin_SCRIPTS = \
-	aida2flat aida2root flat2aida root2flat \
-	compare-histos make-plots
+dist_bin_SCRIPTS = aida2root root2flat make-plots
 EXTRA_DIST =
 
 RIVETPROGS = \
     rivet \
-    rivet-mkanalysis rivet-buildplugin \
-    rivet-chopbins rivet-cmphistos rivet-rmgaps rivet-rescale \
-    rivet-mergeruns rivet-mkhtml rivet-findid \
-    rivet-merge-CDF_2012_NOTE10874
-
+    rivet-mkanalysis rivet-buildplugin rivet-findid \
+    rivet-cmphistos rivet-mkhtml
+    # TODO: reinstate  rivet-rescale rivet-mergeruns rivet-merge-CDF_2012_NOTE10874
 if ENABLE_PYEXT
 dist_bin_SCRIPTS += $(RIVETPROGS)
 else

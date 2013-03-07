@@ -33,10 +33,10 @@ except ImportError:
 
 
 def CreateHistoList(histolist1, histolist2, EnergyRatioIndex):
-    newHistoList = []     
+    newHistoList = []
     for m in range(3):
 	histo1= histolist1[m]
-	histo2= histolist2[m]	
+	histo2= histolist2[m]
 	VarIndex = m+1
 	histo3 = newHisto(histo1, histo2, VarIndex, EnergyRatioIndex)
 	newHistoList.append(histo3)
@@ -45,7 +45,7 @@ def CreateHistoList(histolist1, histolist2, EnergyRatioIndex):
 
 def newHisto(h1, h2, vIndex, eIndex):
     h3 = Histo()
-    for binNum1, bin1 in enumerate(h1.getBins()): #getBins ensures bins are sorted 
+    for binNum1, bin1 in enumerate(h1.getBins()): #getBins ensures bins are sorted
 	for binNum2, bin2 in enumerate(h2.getBins()):
 	    if (binNum1 == binNum2) and (bin1.xlow == bin2.xlow) and (bin2.xhigh == bin2.xhigh):
 	        ratio = bin1.val / bin2.val
@@ -53,7 +53,7 @@ def newHisto(h1, h2, vIndex, eIndex):
 		err = FindError(bin1.val, bin2.val, bin1.getErr(), bin2.getErr() )
 		newBin.setErr(err)
 	    	h3.addBin(newBin)
-		
+
 
     h3.name = "d0%d-x01-y0%d"%(vIndex, eIndex)
     h3.path = "/CDF_2012_NOTE10874/"
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     plotparser = PlotParser() #will this work? Check.
 
     histos = {}
-    
+
     from optparse import OptionParser
     parser = OptionParser(usage=__doc__)
     opts, aidafiles = parser.parse_args()
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     keys = ['300', '900', '1960']
 
     for counter in range(3):
-	aidafile = aidafiles[counter]	
+	aidafile = aidafiles[counter]
 	try:
 	    tree = ET.parse(aidafile)
         except:
@@ -88,7 +88,7 @@ if __name__ == "__main__":
             sys.exit(1)
         for dps in tree.findall("dataPointSet"):
             useThis = True
-            
+
             ## Check dataPointSet contains at least one measurement
             try:
                 if dps.find('dataPoint').find('measurement') is None:
@@ -96,7 +96,7 @@ if __name__ == "__main__":
             except AttributeError, err:
                 logging.debug(err)
 
-            
+
             if useThis:
                 hist = Histo.fromDPS(dps)
                 try:
@@ -108,7 +108,7 @@ if __name__ == "__main__":
 
     for energy, hs in histos.items():
 	sorted(hs, key=lambda hist: hist.name)
-    
+
     MyNewHistoList = CreateHistoList(histos['1960'], histos['300'], 4)
     MyNewHistoList += CreateHistoList(histos['900'], histos['300'], 5)
     MyNewHistoList += CreateHistoList(histos['1960'], histos['900'], 6)
@@ -120,7 +120,3 @@ if __name__ == "__main__":
     out.close()
 
     print ("Successfully created new file %s" % outfile)
-
-#####################################################################
-
-

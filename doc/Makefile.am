@@ -8,8 +8,7 @@ DOCSOURCES = compare-histos.txt  heppennames.sty warning.png thinker.png cone.pn
   make-plots.txt rivet-manual.tex $(LATEXSUBSOURCES) hepparticles.sty maybemath.sty \
   rivet-manual.pdf hepunits.sty underscore.sty microtype.sty
 
-## TODO: replace readplot with lighthisto/YODA functionality
-EXTRA_DIST = $(DOCSOURCES) readplot.py
+EXTRA_DIST = $(DOCSOURCES)
 
 if WITH_ASCIIDOC
 EXTRA_DIST += compare-histos.html make-plots.html
