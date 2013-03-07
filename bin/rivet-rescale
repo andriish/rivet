@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-# TODO: Rewrite or remove
+# TODO: Rewrite or remove. This thing is a UI nightmare: can a command-line interface
+#   possibly encode all the sorts of rescalings that people want to do, or should the
+#   answer just be "Load the objects in YODA and do whatever you want"? We can add some
+#   rivet Python module functions to make loading the appropriate ref data super-easy.
 
 """\
 %prog [-r <REFDATAPATH>] [-O <observable-file>] [-b <bindef> [-b ...]] <AIDAFILE> [<OUTFILE>]

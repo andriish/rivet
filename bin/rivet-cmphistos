@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-'''\
+"""\
 %prog - generate comparison plots
 
 USAGE:
@@ -8,9 +8,9 @@ USAGE:
 
 where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
-'''
+"""
 
-import rivet, sys, os
+import rivet, yoda, sys, os
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 
@@ -106,7 +106,6 @@ def initPlotParser(filelist):
         if not adir in opts.PLOTINFODIR:
             opts.PLOTINFODIR.append(adir)
     return rivet.PlotParser(opts.PLOTINFODIR, opts.CONFIGFILES)
-
 
 
 def getHistos(filelist):
@@ -239,19 +238,6 @@ def writeOutput(output, h):
 
 
 if __name__ == '__main__':
-    import os
-    import yoda
-
-    ## Try to rename the process on Linux
-    print __file__
-    rivet.util.set_process_name(__name__)
-
-    ## Try to use Psyco optimiser
-    try:
-        import psyco
-        psyco.full()
-    except ImportError:
-        pass
 
     ## Command line parsing
     parser = getCommandLineOptions()
@@ -349,7 +335,6 @@ if __name__ == '__main__':
         sio = StringIO()
         yoda.writeFLAT(anaobjects, sio)
         output += sio.getvalue()
-
 
         ## Write everything into a file
         writeOutput(output, h)
