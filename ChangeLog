@@ -1,3 +1,7 @@
+2013-03-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect the AIDA reader against finding XML comments.
+
 2013-03-06  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* Added ATLAS_2012_I1125575 analysis

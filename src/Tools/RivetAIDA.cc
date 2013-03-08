@@ -48,8 +48,9 @@ namespace Rivet {
       // Walk down tree to get to the <paper> element
       const TiXmlNode* aidaN = doc.FirstChild("aida");
       if (!aidaN) throw Error("Couldn't get <aida> root element");
-      for (const TiXmlNode* dpsN = aidaN->FirstChild("dataPointSet"); dpsN; dpsN = dpsN->NextSibling()) {
+      for (const TiXmlNode* dpsN = aidaN->FirstChild("dataPointSet"); dpsN; dpsN = dpsN->NextSibling("dataPointSet")) {
         const TiXmlElement* dpsE = dpsN->ToElement();
+        if (dpsE == 0) continue;
         const string plotname = dpsE->Attribute("name");
         const string plotpath = dpsE->Attribute("path");
         /// Check path to make sure that this is a reference histogram.
@@ -60,9 +61,9 @@ namespace Rivet {
 
         /// @todo Check that "path" matches filename
         vector<DPSXYPoint> points;
-        for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling()) {
+        for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling("dataPoint")) {
           const TiXmlNode* xMeasN = dpN->FirstChild("measurement");
-          const TiXmlNode* yMeasN = xMeasN->NextSibling();
+          const TiXmlNode* yMeasN = xMeasN->NextSibling("measurement");
           if (xMeasN && yMeasN)  {
             const TiXmlElement* xMeasE = xMeasN->ToElement();
             const TiXmlElement* yMeasE = yMeasN->ToElement();
@@ -130,7 +131,7 @@ namespace Rivet {
       // Walk down tree to get to the <paper> element
       const TiXmlNode* aidaN = doc.FirstChild("aida");
       if (!aidaN) throw Error("Couldn't get <aida> root element");
-      for (const TiXmlNode* dpsN = aidaN->FirstChild("dataPointSet"); dpsN; dpsN = dpsN->NextSibling()) {
+      for (const TiXmlNode* dpsN = aidaN->FirstChild("dataPointSet"); dpsN; dpsN = dpsN->NextSibling("dataPointSet")) {
         const TiXmlElement* dpsE = dpsN->ToElement();
         const string plotname = dpsE->Attribute("name");
         const string plotpath = dpsE->Attribute("path");
@@ -142,7 +143,7 @@ namespace Rivet {
 
         /// @todo Check that "path" matches filename
         vector<DPSXPoint> points;
-        for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling()) {
+        for (const TiXmlNode* dpN = dpsN->FirstChild("dataPoint"); dpN; dpN = dpN->NextSibling("dataPoint")) {
           const TiXmlNode* xMeasN = dpN->FirstChild("measurement");
           if (xMeasN) {
             const TiXmlElement* xMeasE = xMeasN->ToElement();
