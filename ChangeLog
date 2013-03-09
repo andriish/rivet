@@ -1,5 +1,7 @@
 2013-03-09  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Version bump to 2.0.0b1 in anticipation of first beta release.
+
 	* Adding many more 'popular' particle ID code named-consts and
 	aliases, and updating the RapScheme enum with ETA -> ETARAP, and
 	fixing affected analyses (plus other opportunistic tidying / minor
