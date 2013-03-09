@@ -25,31 +25,31 @@ namespace Rivet {
       _hist_jetpt_central = bookHisto1D(3,1,1);
     }
 
-    void analyze(const Event &event) {
+    void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const FastJets &fj = applyProjection<FastJets>(event,"Jets");
-      const Jets jets = fj.jets(35*GeV, 150*GeV, -4.7, 4.7, ETA);
+      const FastJets& fj = applyProjection<FastJets>(event,"Jets");
+      const Jets jets = fj.jets(35*GeV, 150*GeV, -4.7, 4.7, ETARAP);
 
-      double cjet_pt=0.0;
-      double fjet_pt=0.0;
+      double cjet_pt = 0.0;
+      double fjet_pt = 0.0;
 
-      foreach(const Jet &j, jets) {
-        if(j.momentum().eta() > 3.2 || j.momentum().eta() < -3.2) {
-          _hist_jetpt_fwdincl -> fill(j.momentum().pT(), weight);
+      foreach(const Jet& j, jets) {
+        double pT = j.momentum().pT();
+        if (j.momentum().eta() > 3.2 || j.momentum().eta() < -3.2) {
+          _hist_jetpt_fwdincl->fill(j.momentum().pT()/GeV, weight);
         }
-        double pT = j.momentum().pT()*GeV;
         if (fabs(j.momentum().eta()) < 2.8) {
-          if(cjet_pt < pT) cjet_pt = pT;
+          if (cjet_pt < pT) cjet_pt = pT;
         }
         if (fabs(j.momentum().eta()) < 4.7  && fabs(j.momentum().eta()) > 3.2) {
-          if(fjet_pt < pT) fjet_pt = pT;
+          if (fjet_pt < pT) fjet_pt = pT;
         }
       }
 
-      if (cjet_pt > 35 && fjet_pt > 35) {
-        _hist_jetpt_forward->fill(fjet_pt, weight);
-        _hist_jetpt_central->fill(cjet_pt, weight);
+      if (cjet_pt > 35*GeV && fjet_pt > 35*GeV) {
+        _hist_jetpt_forward->fill(fjet_pt/GeV, weight);
+        _hist_jetpt_central->fill(cjet_pt/GeV, weight);
       }
 
     }
@@ -62,6 +62,7 @@ namespace Rivet {
 
 
   private:
+
     Histo1DPtr _hist_jetpt_fwdincl;
     Histo1DPtr _hist_jetpt_forward;
     Histo1DPtr _hist_jetpt_central;

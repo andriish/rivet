@@ -57,7 +57,7 @@ namespace Rivet {
   enum Sign { MINUS = -1, ZERO = 0, PLUS = 1 };
 
   /// Enum for rapidity variable to be used in calculating \f$ R \f$, applying rapidity cuts, etc.
-  enum RapScheme { PSEUDORAPIDITY = 0, ETA = 0, RAPIDITY = 1, YRAP = 1 };
+  enum RapScheme { PSEUDORAPIDITY = 0, ETARAP = 0, RAPIDITY = 1, YRAP = 1 };
 
   /// Enum for range of \f$ \phi \f$ to be mapped into
   enum PhiMapping { MINUSPI_PLUSPI, ZERO_2PI, ZERO_PI };

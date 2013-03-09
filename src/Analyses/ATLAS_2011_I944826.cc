@@ -42,7 +42,7 @@ namespace Rivet {
         .acceptIdPair(MUON)
         .acceptIdPair(PIPLUS)
         .acceptIdPair(KPLUS)
-        .acceptIdPair(P);
+        .acceptIdPair(PROTON);
       addProjection(nstable, "nstable");
 
       if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {

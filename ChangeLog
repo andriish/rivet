@@ -1,5 +1,10 @@
 2013-03-09  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding many more 'popular' particle ID code named-consts and
+	aliases, and updating the RapScheme enum with ETA -> ETARAP, and
+	fixing affected analyses (plus other opportunistic tidying / minor
+	bug-fixing).
+
 	* Fixing a symbol misnaming in ATLAS_2012_I1119557.
 
 2013-03-07  Andy Buckley  <andy.buckley@cern.ch>
