@@ -147,7 +147,7 @@ namespace Rivet {
 
 
     /// Jet width calculation
-    double jetWidth(const Jet& jet) {
+    double getWidth(const Jet& jet) {
       const double phi_jet = jet.phi();
       const double eta_jet = jet.eta();
       double width(0), pTsum(0);
