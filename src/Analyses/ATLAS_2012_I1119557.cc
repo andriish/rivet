@@ -8,12 +8,13 @@
 namespace Rivet {
 
 
-  // Forward declarations of calculator functions: implementations at bottom of file
-  double getWidth(const Jet& jet);
-  double getEcc(const Jet& jet);
-  double getPFlow(const Jet& jet);
-  double getAngularity(const Jet& jet);
-
+  namespace { // unnamed namespace
+    // Forward declarations of calculator functions: implementations at bottom of file
+    double getWidth(const Jet& jet);
+    double getEcc(const Jet& jet);
+    double getPFlow(const Jet& jet);
+    double getAngularity(const Jet& jet);
+  }
 
 
   class ATLAS_2012_I1119557 : public Analysis {
@@ -100,7 +101,7 @@ namespace Rivet {
 
 
 
-  namespace {
+  namespace { // unnamed namespace
 
     // Adapted code from Lily
     /// @todo Convert to use the Rivet rotation matrix code (should be simpler)
@@ -147,7 +148,7 @@ namespace Rivet {
 
 
     /// Jet width calculation
-    double jetWidth(const Jet& jet) {
+    double getWidth(const Jet& jet) {
       const double phi_jet = jet.phi();
       const double eta_jet = jet.eta();
       double width(0), pTsum(0);
