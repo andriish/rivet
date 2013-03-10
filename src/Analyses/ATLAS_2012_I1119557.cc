@@ -8,12 +8,13 @@
 namespace Rivet {
 
 
-  // Forward declarations of calculator functions: implementations at bottom of file
-  double getWidth(const Jet& jet);
-  double getEcc(const Jet& jet);
-  double getPFlow(const Jet& jet);
-  double getAngularity(const Jet& jet);
-
+  namespace { // unnamed namespace
+    // Forward declarations of calculator functions: implementations at bottom of file
+    double getWidth(const Jet& jet);
+    double getEcc(const Jet& jet);
+    double getPFlow(const Jet& jet);
+    double getAngularity(const Jet& jet);
+  }
 
 
   class ATLAS_2012_I1119557 : public Analysis {
