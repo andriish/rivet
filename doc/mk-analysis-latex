@@ -162,19 +162,19 @@ for aname in sorted(list(all_analyses)):
         page += "\n\\noindent " + para + "\n"
 
 
-    try:
-        import readplot
-        info = readplot.plotinfo(ana.name())
-        if info:
-            page += "\n\\vspace{1em}\n\\noindent\n"
-            page += "\\textbf{Histograms:}\n \\penalty 100\n"
-            page += "\\begin{itemize}\n"
-            for hpath in sorted(info.keys()):
-                htitle = info[hpath]["TITLE"]
-                page += "  \\item %s (\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
-            page += "\\end{itemize}\n"
-    except:
-        pass
+    # try:
+    #     import readplot
+    #     info = readplot.plotinfo(ana.name())
+    #     if info:
+    #         page += "\n\\vspace{1em}\n\\noindent\n"
+    #         page += "\\textbf{Histograms:}\n \\penalty 100\n"
+    #         page += "\\begin{itemize}\n"
+    #         for hpath in sorted(info.keys()):
+    #             htitle = info[hpath]["TITLE"]
+    #             page += "  \\item %s (\kbd{%s})\n" % (htitle, hpath.replace(r"_", r"\_"))
+    #         page += "\\end{itemize}\n"
+    # except:
+    #     pass
 
     page += "\n\\clearpage\n"
 
