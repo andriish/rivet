@@ -392,8 +392,8 @@ namespace Rivet {
       _hist_etmiss ->fill(eTmiss,weight);
       _hist_meff   ->fill(meff  ,weight);
       // finally the counts
-      if(eTmiss>50.) _count_SR1->fill(0.5,weight);
-      if(meff  >0. ) _count_SR2->fill(0.5,weight);
+      if(eTmiss>50.)   _count_SR1->fill(0.5,weight);
+      if(meff  >300. ) _count_SR2->fill(0.5,weight);
 
     }
 
