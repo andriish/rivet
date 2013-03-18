@@ -123,9 +123,6 @@ class Inputdata:
         if self.description.has_key('Rebin'):
             for i in self.histos:
                 self.histos[i].description['Rebin'] = self.description['Rebin']
-        if self.description.has_key('EnvelopeRebin'):
-            for i in self.histos:
-                self.histos[i].description['EnvelopeRebin'] = self.description['EnvelopeRebin']
 
         histoordermap = {}
         histolist = self.histos.keys()
@@ -1320,6 +1317,9 @@ class Histogram(DrawableObject):
                 self.data[i]['Error'][1] *= scale
         if self.description.has_key('Rebin') and self.description['Rebin']!='':
             rebin=int(self.description['Rebin'])
+            errortype = "stat"
+            if self.description.has_key('ErrorType') and self.description['ErrorType']!='':
+                errortype = self.description['ErrorType']
             newdata=[]
             if rebin>=2:
                 for i in range(0,(len(self.data)/rebin)*rebin,rebin):
@@ -1327,30 +1327,27 @@ class Histogram(DrawableObject):
                     barl=0.
                     baru=0.
                     for j in range(rebin):
-                        foo +=self.data[i+j]['Content']
-                        barl+=self.data[i+j]['Error'][0]**2
-                        baru+=self.data[i+j]['Error'][1]**2
+                        binwidth=self.data[i+j]['UpEdge']-self.data[i+j]['LowEdge']
+                        foo +=self.data[i+j]['Content']*binwidth
+                        if errortype=="stat":
+                            barl+=(binwidth*self.data[i+j]['Error'][0])**2
+                            baru+=(binwidth*self.data[i+j]['Error'][1])**2
+                        elif errortype=="env":
+                            barl+=(self.data[i+j]['Content']-self.data[i+j]['Error'][0])*binwidth
+                            baru+=(self.data[i+j]['Content']+self.data[i+j]['Error'][1])*binwidth
+                        else:
+                            logging.error("Rebinning for ErrorType not implemented.")
+                            sys.exit(1)
+                    newbinwidth=self.data[i+rebin-1]['UpEdge']-self.data[i]['LowEdge']
+                    newcentral=foo/newbinwidth
+                    if errortype=="stat":
+                        newerror=[sqrt(barl)/newbinwidth,sqrt(baru)/newbinwidth]
+                    elif errortype=="env":
+                        newerror=[(foo-barl)/newbinwidth,(baru-foo)/newbinwidth]
                     newdata.append({'LowEdge': self.data[i]['LowEdge'],
                                     'UpEdge':  self.data[i+rebin-1]['UpEdge'],
-                                    'Content': foo/float(rebin),
-                                    'Error':   [sqrt(barl)/float(rebin),sqrt(baru)/float(rebin)]})
-                self.data=newdata
-        if self.description.has_key('EnvelopeRebin') and self.description['EnvelopeRebin']!='':
-            rebin=int(self.description['EnvelopeRebin'])
-            newdata=[]
-            if rebin>=2:
-                for i in range(0,(len(self.data)/rebin)*rebin,rebin):
-                    newcentral=0.
-                    newmax=0.
-                    newmin=0.
-                    for j in range(rebin):
-                        newcentral +=self.data[i+j]['Content']
-                        newmin +=self.data[i+j]['Content']-self.data[i+j]['Error'][0]
-                        newmax +=self.data[i+j]['Content']+self.data[i+j]['Error'][1]
-                    newdata.append({'LowEdge': self.data[i]['LowEdge'],
-                                    'UpEdge':  self.data[i+rebin-1]['UpEdge'],
-                                    'Content': newcentral/float(rebin),
-                                    'Error':   [(newcentral-newmin)/float(rebin),(newmax-newcentral)/float(rebin)]})
+                                    'Content': newcentral,
+                                    'Error':   newerror})
                 self.data=newdata
 
     def add(self,name):
