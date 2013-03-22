@@ -40,19 +40,19 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 20.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
                     "AntiKtJets04");
 
@@ -179,18 +179,18 @@ namespace Rivet {
 
       if(recon_leptons[0].pdgId()!=recon_leptons[1].pdgId())
         _hist_eTmiss_emu ->fill(eTmiss,weight);
-      else if(abs(recon_leptons[0].pdgId())==ELECTRON)
+      else if(abs(recon_leptons[0].pdgId())==PID::ELECTRON)
         _hist_eTmiss_ee ->fill(eTmiss,weight);
-      else if(abs(recon_leptons[0].pdgId())==MUON)
+      else if(abs(recon_leptons[0].pdgId())==PID::MUON)
         _hist_eTmiss_mumu->fill(eTmiss,weight);
       _hist_eTmiss_ll->fill(eTmiss,weight);
 
       if(eTmiss>150.) {
         if(recon_leptons[0].pdgId()!=recon_leptons[1].pdgId())
           _count_emu ->fill(0.5,weight);
-        else if(abs(recon_leptons[0].pdgId())==ELECTRON)
+        else if(abs(recon_leptons[0].pdgId())==PID::ELECTRON)
           _count_ee  ->fill(0.5,weight);
-        else if(abs(recon_leptons[0].pdgId())==MUON)
+        else if(abs(recon_leptons[0].pdgId())==PID::MUON)
           _count_mumu->fill(0.5,weight);
         _count_ll->fill(0.5,weight);
       }

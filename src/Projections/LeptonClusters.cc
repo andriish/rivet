@@ -17,7 +17,7 @@ namespace Rivet {
     setName("LeptonClusters");
 
     IdentifiedFinalState photonfs(photons);
-    photonfs.acceptId(PHOTON);
+    photonfs.acceptId(PID::PHOTON);
     addProjection(photonfs, "Photons");
     addProjection(signal, "Signal");
   }
@@ -62,9 +62,9 @@ namespace Rivet {
         // Only cluster photons around *charged* signal particles
         if (PID::threeCharge(bareleptons[i].pdgId()) == 0) continue;
         // Geometrically match momentum vectors
-        double dR=deltaR(p_l, p_P);
+        double dR = deltaR(p_l, p_P);
         if (dR < dRmin) {
-          dRmin=dR;
+          dRmin = dR;
           idx = i;
         }
       }

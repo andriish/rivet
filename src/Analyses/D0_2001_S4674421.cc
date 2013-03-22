@@ -33,17 +33,17 @@ namespace Rivet {
 
       // Z -> e- e+
       LeadingParticlesFinalState eeFS(FinalState(-5.0, 5.0, 0.)); //20.);
-      eeFS.addParticleIdPair(ELECTRON);
+      eeFS.addParticleIdPair(PID::ELECTRON);
       addProjection(eeFS, "eeFS");
 
       // W- -> e- nu_e~
       LeadingParticlesFinalState enuFS(FinalState(-5.0, 5.0, 0.)); //25.);
-      enuFS.addParticleId(ELECTRON).addParticleId(NU_EBAR);
+      enuFS.addParticleId(PID::ELECTRON).addParticleId(PID::NU_EBAR);
       addProjection(enuFS, "enuFS");
 
       // W+ -> e+ nu_e
       LeadingParticlesFinalState enubFS(FinalState(-5.0, 5.0, 0.)); //25.);
-      enubFS.addParticleId(POSITRON).addParticleId(NU_E);
+      enubFS.addParticleId(PID::POSITRON).addParticleId(PID::NU_E);
       addProjection(enubFS, "enubFS");
 
       // Remove neutrinos for isolation of final state particles

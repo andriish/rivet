@@ -58,7 +58,7 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         const int id = abs(p.pdgId());
-        if(id==K0S || id == K0L) {
+        if (id == PID::K0S || id == PID::K0L) {
           double xE = p.momentum().t()/meanBeamMom;
           _histXeK0->fill(xE, weight);
         }
@@ -80,6 +80,7 @@ namespace Rivet {
     //@}
 
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(OPAL_2000_S4418603);

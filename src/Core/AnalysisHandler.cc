@@ -9,7 +9,7 @@
 #include "Rivet/Projections/Beam.hh"
 
 namespace {
-  bool AOSortByPath(const Rivet::AnalysisObjectPtr a, 
+  bool AOSortByPath(const Rivet::AnalysisObjectPtr a,
 		    const Rivet::AnalysisObjectPtr b) {
     return a->path() < b->path();
   }
@@ -103,7 +103,7 @@ namespace Rivet {
     const double sqrts = Rivet::sqrtS(ge);
     if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
       cerr     << "Event beams mismatch: "
-               << toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+               << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
                << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
       exit(1);
     }

@@ -31,7 +31,7 @@ namespace Rivet {
       IdentifiedFinalState leptons(-5.0, 5.0, 10*GeV);
       IdentifiedFinalState photons(-5.0, 5.0);
       leptons.acceptChLeptons();
-      photons.acceptId(PHOTON);
+      photons.acceptId(PID::PHOTON);
       addProjection(leptons, "lFS");
       addProjection(photons, "gammaFS");
 

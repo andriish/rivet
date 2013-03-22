@@ -20,8 +20,7 @@ namespace Rivet {
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    InitialQuarks()
-    {
+    InitialQuarks() {
       setName("InitialQuarks");
     }
 
@@ -37,8 +36,6 @@ namespace Rivet {
 
     /// Is this final state empty?
     virtual bool empty() const { return _theParticles.empty(); }
-    /// @deprecated Is this final state empty?
-    virtual bool isEmpty() const { return _theParticles.empty(); }
 
 
   protected:

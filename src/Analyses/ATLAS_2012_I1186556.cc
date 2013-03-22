@@ -41,19 +41,19 @@ namespace Rivet {
       vector<pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
       vector<pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 10.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
@@ -170,8 +170,8 @@ namespace Rivet {
       if(leptons.size() !=2) vetoEvent;
 
       // hardest lepton pT greater the 25 (20) e(mu)
-      if( (abs(leptons[0].pdgId())==ELECTRON && leptons[0].momentum().perp()<25.) ||
-	  (abs(leptons[0].pdgId())==ELECTRON && leptons[0].momentum().perp()<20.))
+      if( (abs(leptons[0].pdgId())==PID::ELECTRON && leptons[0].momentum().perp()<25.) ||
+	  (abs(leptons[0].pdgId())==PID::ELECTRON && leptons[0].momentum().perp()<20.))
 	vetoEvent;
 
       // require opposite sign

@@ -36,8 +36,8 @@ namespace Rivet {
 
       FinalState fs;
       IdentifiedFinalState allleptons;
-      allleptons.acceptIdPair(ELECTRON);
-      allleptons.acceptIdPair(MUON);
+      allleptons.acceptIdPair(PID::ELECTRON);
+      allleptons.acceptIdPair(PID::MUON);
       std::vector<std::pair<double, double> > etaRanges;
       etaRanges.push_back(make_pair(-2.5, 2.5));
       LeptonClusters leptons(fs, allleptons,
@@ -47,8 +47,8 @@ namespace Rivet {
 
       // Leading neutrinos for Etmiss
       LeadingParticlesFinalState neutrinos(fs);
-      neutrinos.addParticleIdPair(NU_E);
-      neutrinos.addParticleIdPair(NU_MU);
+      neutrinos.addParticleIdPair(PID::NU_E);
+      neutrinos.addParticleIdPair(PID::NU_MU);
       neutrinos.setLeadingOnly(true);
       addProjection(neutrinos, "neutrinos");
 

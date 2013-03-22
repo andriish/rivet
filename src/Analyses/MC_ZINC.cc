@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      ZFinder zfinder(fs, -3.5, 3.5, 25.0*GeV, ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zfinder(fs, -3.5, 3.5, 25.0*GeV, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zfinder, "ZFinder");
 
       _h_Z_mass = bookHisto1D("Z_mass", 50, 66.0, 116.0);

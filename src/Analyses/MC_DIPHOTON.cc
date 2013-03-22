@@ -26,7 +26,7 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       IdentifiedFinalState ifs(-2.0, 2.0, 20.0*GeV);
-      ifs.acceptId(PHOTON);
+      ifs.acceptId(PID::PHOTON);
       addProjection(ifs, "IFS");
 
       _h_m_PP = bookHisto1D("m_PP", logspace(50, 1.0, 0.25*sqrtS()));

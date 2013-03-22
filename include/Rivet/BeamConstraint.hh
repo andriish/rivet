@@ -14,8 +14,7 @@ namespace Rivet {
   /// template ParticleName @a allowed. Effectively this is
   /// asking whether @a p is a subset of @a allowed.
   inline bool compatible(PdgId p, PdgId allowed) {
-    //assert(p != ANY);
-    return (allowed == ANY || p == allowed);
+    return (allowed == PID::ANY || p == allowed);
   }
 
   /// Find whether PdgIdPair @a pair is compatible with the template
@@ -33,8 +32,8 @@ namespace Rivet {
   /// Check particle compatibility of Particle pairs
   inline bool compatible(const ParticlePair& ppair,
                          const PdgIdPair& allowedpair) {
-    return compatible(make_pdgid_pair(ppair.first.pdgId(),
-                                      ppair.second.pdgId()), allowedpair);
+    return compatible(PID::make_pdgid_pair(ppair.first.pdgId(),
+                                           ppair.second.pdgId()), allowedpair);
   }
   /// Check particle compatibility of Particle pairs (for symmetric completeness)
   inline bool compatible(const PdgIdPair& allowedpair,

@@ -34,7 +34,7 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      WFinder wfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
+      WFinder wfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, PID::ELECTRON,
                       60.0*GeV, 100.0*GeV, 0.0*GeV, 0.0);
       addProjection(wfinder, "WFinder");
       Beam beams;

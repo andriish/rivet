@@ -22,7 +22,7 @@ namespace Rivet {
 
     void init() {
       IdentifiedFinalState Muons(-2.4,2.4,20.*GeV);
-      Muons.acceptIdPair(MUON);
+      Muons.acceptIdPair(PID::MUON);
       addProjection(Muons,"muons");
 
       ChargedFinalState CFS(-2.8,2.8,0.*GeV);

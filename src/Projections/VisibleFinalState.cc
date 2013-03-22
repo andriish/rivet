@@ -13,26 +13,26 @@ namespace Rivet {
   }
 
 
-  // Since we remove inivisibles from the FinalState in project(),
+  // Since we remove invisibles from the FinalState in project(),
   // we need a filter where invisible --> true
   bool isInvisibleFilter(const Particle& p) {
-    // charged particles are visible
-    if ( PID::threeCharge( p.pdgId() ) != 0 ) 
+    // Charged particles are visible
+    if ( PID::threeCharge( p.pdgId() ) != 0 )
       return false;
 
-    // neutral hadrons are visible
-    if ( PID::isHadron( p.pdgId() ) ) 
+    // Neutral hadrons are visible
+    if ( PID::isHadron( p.pdgId() ) )
       return false;
 
-    // photons are visible
-    if ( p.pdgId() == PHOTON ) 
+    // Photons are visible
+    if ( p.pdgId() == PID::PHOTON )
       return false;
 
-    // gluons are visible (for parton level analyses)
-    if ( p.pdgId() == GLUON ) 
+    // Gluons are visible (for parton level analyses)
+    if ( p.pdgId() == PID::GLUON )
       return false;
 
-    // everything else is invisible
+    // Everything else is invisible
     return true;
   }
 
@@ -43,7 +43,8 @@ namespace Rivet {
     std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
                         std::back_inserter(_theParticles), isInvisibleFilter);
     MSG_DEBUG("Number of visible final-state particles = "
-             << _theParticles.size());
+              << _theParticles.size());
   }
+
 
 }

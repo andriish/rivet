@@ -40,19 +40,19 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // Projection to find the muons
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 10.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // All tracks (to do deltaR with leptons)
@@ -187,36 +187,35 @@ namespace Rivet {
         vetoEvent;
       }
 
-      // check the charged and EM fractions of the hard jets to avoid
-      // photons
-      for(unsigned int ix=0;ix<2;++ix) {
+      // check the charged and EM fractions of the hard jets to avoid photons
+      for (unsigned int ix = 0; ix < 2; ++ix) {
         // jets over 100 GeV
-        if(recon_jets[ix].momentum().pT()<100. ||
-           recon_jets[ix].momentum().eta()>2.) continue;
+        if (recon_jets[ix].momentum().pT() < 100*GeV ||
+            recon_jets[ix].momentum().eta() > 2.) continue; //< @todo Should be |eta|?
         double fch(0.), fem(0.), eTotal(0.);
         foreach(const Particle & part, recon_jets[ix].particles()) {
           long id = abs(part.pdgId());
           if(PID::threeCharge(id)!=0)
             fch += part.momentum().E();
-          if(id==PHOTON||id==EMINUS||id==PI0)
+          if (id == PID::PHOTON || id == PID::ELECTRON || id == PID::PI0)
             fem += part.momentum().E();
         }
         fch /= eTotal;
         fem /= eTotal;
-        // reomve events with hard photon
-        if(fch<0.02|| (fch<0.05&&fem>0.09))
-          vetoEvent;
+        // remove events with hard photon
+        if (fch < 0.02 || (fch < 0.05 && fem > 0.09)) vetoEvent;
       }
+
       // ==================== observables ====================
 
       int Njets = 0;
-      double min_dPhi_All = 999.999;
-      double min_dPhi_2   = 999.999;
-      double min_dPhi_3   = 999.999;
+      double min_dPhi_All = 999.999; //< @todo Use std::numeric_limits!
+      double min_dPhi_2   = 999.999; //< @todo Use std::numeric_limits!
+      double min_dPhi_3   = 999.999; //< @todo Use std::numeric_limits!
       double pTmiss_phi = pTmiss.phi();
 
       foreach ( const Jet& jet, recon_jets ) {
-        if ( jet.momentum().pT() < 40 * GeV ) continue;
+        if ( jet.momentum().pT() < 40*GeV ) continue;
         double dPhi = deltaPhi( pTmiss_phi, jet.momentum().phi());
         if ( Njets < 2 ) min_dPhi_2 = min( min_dPhi_2, dPhi );
         if ( Njets < 3 ) min_dPhi_3 = min( min_dPhi_3, dPhi );

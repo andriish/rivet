@@ -37,13 +37,13 @@ namespace Rivet {
       // skip Neutrinos and Muons
       VetoedFinalState fsv(FinalState(-7.0, -4.0, 0.*GeV));
       fsv.vetoNeutrinos();
-      fsv.addVetoPairId(MUON);
+      fsv.addVetoPairId(PID::MUON);
       addProjection(fsv, "fsv");
 
       // for the hadron level selection
       VetoedFinalState sfsv(FinalState(-MAXRAPIDITY, MAXRAPIDITY, 0.*GeV));
       sfsv.vetoNeutrinos();
-      sfsv.addVetoPairId(MUON);
+      sfsv.addVetoPairId(PID::MUON);
       addProjection(sfsv, "sfsv");
 
       //counters

@@ -11,10 +11,6 @@ namespace Rivet {
 
   /// @brief D0 direct photon pair production
   class D0_2010_S8570965 : public Analysis {
-
-    typedef std::pair<double, double> doublepair;
-
-
   public:
 
 
@@ -23,14 +19,12 @@ namespace Rivet {
     {    }
 
 
-  public:
-
     void init() {
       FinalState fs;
       addProjection(fs, "FS");
 
       IdentifiedFinalState ifs(-0.9, 0.9, 20.0*GeV);
-      ifs.acceptId(PHOTON);
+      ifs.acceptId(PID::PHOTON);
       addProjection(ifs, "IFS");
 
       _h_M = bookHisto1D(1, 1, 1);
@@ -42,7 +36,7 @@ namespace Rivet {
                                                std::make_pair(50.0, 80.0),
                                                std::make_pair(80.0, 350.0) };
 
-      for (size_t i=0; i<3; ++i) {
+      for (size_t i = 0; i < 3; ++i) {
         _h_pT_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHisto1D(5+3*i, 1, 1));
         _h_dPhi_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHisto1D(6+3*i, 1, 1));
         _h_costheta_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHisto1D(7+3*i, 1, 1));

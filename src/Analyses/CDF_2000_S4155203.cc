@@ -24,7 +24,7 @@ namespace Rivet {
     void init() {
       // Set up projections
       FinalState fs;
-      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, ELECTRON,
+      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, PID::ELECTRON,
                       66.0*GeV, 116.0*GeV, 0.0, false, false);
       addProjection(zfinder, "ZFinder");
 

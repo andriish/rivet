@@ -33,7 +33,7 @@ namespace Rivet {
 
       // Leading electrons in tracking acceptance
       IdentifiedFinalState elfs(-5.0, 5.0, 25.0*GeV);
-      elfs.acceptIdPair(ELECTRON);
+      elfs.acceptIdPair(PID::ELECTRON);
       addProjection(elfs, "LeadingElectrons");
 
       _h_jet_multiplicity = bookHisto1D(1, 1, 1);
@@ -92,7 +92,7 @@ namespace Rivet {
       Particles jetparts;
       foreach (const Particle& p, fs.particles()) {
         bool copy = true;
-        if (p.pdgId() == PHOTON) {
+        if (p.pdgId() == PID::PHOTON) {
           FourMomentum p_e0 = Z_candidates[0].first.momentum();
           FourMomentum p_e1 = Z_candidates[0].second.momentum();
           FourMomentum p_P = p.momentum();

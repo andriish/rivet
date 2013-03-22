@@ -10,19 +10,12 @@ namespace Rivet {
   Projection::Projection()
     : _name("BaseProjection")
   {
-    addPdgIdPair(ANY, ANY);
-    //getLog() << Log::TRACE << "Creating " << name() << " at " << this << endl;
+    addPdgIdPair(PID::ANY, PID::ANY);
   }
 
 
   Projection:: ~Projection() {
-    //getLog() << Log::TRACE << "Destroying " << name() << " at " << this << endl;
   }
-
-
- //  int Projection::compare(const Projection& p) const {
- //    return mkNamedPCmp(p, "FS");
- //  }
 
 
   bool Projection::before(const Projection& p) const {

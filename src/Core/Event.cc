@@ -58,10 +58,10 @@ namespace Rivet {
     //   Log::getLog("Rivet.Event") << Log::TRACE << "May need to rotate event..." << endl;
     bool rot = false;
     const HepMC::GenParticle* plusgp = 0;
-    if (bps.first->pdg_id() != PROTON || bps.second->pdg_id() != PROTON) {
-      if (bps.first->pdg_id() == PROTON) {
+    if (bps.first->pdg_id() != PID::PROTON || bps.second->pdg_id() != PID::PROTON) {
+      if (bps.first->pdg_id() == PID::PROTON) {
         plusgp = bps.first;
-      } else if (bps.second->pdg_id() == PROTON) {
+      } else if (bps.second->pdg_id() == PID::PROTON) {
         plusgp = bps.second;
       }
       if (plusgp && plusgp->momentum().pz() < 0) {

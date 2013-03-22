@@ -40,19 +40,19 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 10.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
                    "AntiKtJets04");
 
@@ -338,10 +338,10 @@ namespace Rivet {
         static const double tau_e  = 0.96;
         static const double tau_mu = 0.816;
         double fs_weight = weight;
-        if(abs(recon_leptons[0].pdgId())==ELECTRON && abs(recon_leptons[1].pdgId())==ELECTRON) {
+        if(abs(recon_leptons[0].pdgId())==PID::ELECTRON && abs(recon_leptons[1].pdgId())==PID::ELECTRON) {
           fs_weight /= beta*(1.-sqr(1.-tau_e));
         }
-        else if(abs(recon_leptons[0].pdgId())==MUON && abs(recon_leptons[1].pdgId())==MUON) {
+        else if(abs(recon_leptons[0].pdgId())==PID::MUON && abs(recon_leptons[1].pdgId())==PID::MUON) {
           fs_weight *= beta/(1.-sqr(1.-tau_mu));
         }
         else {

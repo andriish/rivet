@@ -29,13 +29,13 @@ namespace Rivet {
     void init() {
       // Set up projections
       FinalState fs;
-      WFinder wfinder_dressed_el(fs, -2.4, 2.4, 20.0*GeV, ELECTRON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.2,true,false);
+      WFinder wfinder_dressed_el(fs, -2.4, 2.4, 20.0*GeV, PID::ELECTRON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.2,true,false);
       addProjection(wfinder_dressed_el, "WFinder_dressed_el");
-      WFinder wfinder_bare_el(fs, -2.4, 2.4, 20.0*GeV, ELECTRON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.0,true,false);
+      WFinder wfinder_bare_el(fs, -2.4, 2.4, 20.0*GeV, PID::ELECTRON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.0,true,false);
       addProjection(wfinder_bare_el, "WFinder_bare_el");
-      WFinder wfinder_dressed_mu(fs, -2.4, 2.4, 20.0*GeV, MUON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.2,true,false);
+      WFinder wfinder_dressed_mu(fs, -2.4, 2.4, 20.0*GeV, PID::MUON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.2,true,false);
       addProjection(wfinder_dressed_mu, "WFinder_dressed_mu");
-      WFinder wfinder_bare_mu(fs, -2.4, 2.4, 20.0*GeV, MUON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.0,true,false);
+      WFinder wfinder_bare_mu(fs, -2.4, 2.4, 20.0*GeV, PID::MUON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.0,true,false);
       addProjection(wfinder_bare_mu, "WFinder_bare_mu");
 
       // Book histograms

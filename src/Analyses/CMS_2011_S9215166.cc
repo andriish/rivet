@@ -24,7 +24,7 @@ namespace Rivet {
 
       VetoedFinalState fsv(fs);
       fsv.vetoNeutrinos();
-      fsv.addVetoPairDetail(MUON, 0.0*GeV, 99999.9*GeV);
+      fsv.addVetoPairDetail(PID::MUON, 0.0*GeV, 99999.9*GeV);
       addProjection(fsv, "fsv");
 
       // For the MB ND selection

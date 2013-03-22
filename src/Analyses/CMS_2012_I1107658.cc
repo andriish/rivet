@@ -20,12 +20,12 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      ZFinder zfinder(fs, -2.4, 2.4, 20.0*GeV, MUON, 4.0*GeV, 140.0*GeV, 0.2, false, false);
+      ZFinder zfinder(fs, -2.4, 2.4, 20.0*GeV, PID::MUON, 4.0*GeV, 140.0*GeV, 0.2, false, false);
       addProjection(zfinder, "ZFinder");
 
       ChargedFinalState cfs(-2.0, 2.0, 500*MeV); // For charged particles
       VetoedFinalState nonmuons(cfs);
-      nonmuons.addVetoPairId(MUON);
+      nonmuons.addVetoPairId(PID::MUON);
       addProjection(nonmuons, "nonmuons");
 
       _h_Nchg_towards_pTmumu                 = bookProfile1D(1, 1, 1);

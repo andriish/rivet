@@ -34,11 +34,10 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
-      photonfs.addParticleId(PHOTON);
+      photonfs.addParticleId(PID::PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
       _h_Et_photon = bookHisto1D(1, 1, 1);
-
     }
 
 
@@ -60,7 +59,7 @@ namespace Rivet {
             mom_in_cone += p.momentum();
         }
       }
-      if (mom_in_cone.Et()-leadingPhoton.Et() > 2.0*GeV) {
+      if ( (mom_in_cone.Et() - leadingPhoton.Et()) > 2.0*GeV) {
         vetoEvent;
       }
       _h_Et_photon->fill(leadingPhoton.Et(), weight);

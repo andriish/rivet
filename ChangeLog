@@ -1,5 +1,8 @@
 2013-03-22  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Moving PID consts to the PID namespace and corresponding code
+	updates and opportunistic clean-ups.
+
 	* Adding Particle::fromDecay() method.
 
 2013-03-09  Andy Buckley  <andy.buckley@cern.ch>

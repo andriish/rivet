@@ -40,19 +40,19 @@ namespace Rivet {
       vector<pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 10.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
       vector<pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 10.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
@@ -196,14 +196,14 @@ namespace Rivet {
       if(mT>100.&& eTmiss/m_eff_4>0.2 &&
          m_eff_inc > 800.) {
         if( eTmiss > 250. ) {
-          if(abs(lepton.pdgId())==ELECTRON)
+          if(abs(lepton.pdgId())==PID::ELECTRON)
             _count_e->fill(0.5,weight);
-          else if(abs(lepton.pdgId())==MUON)
+          else if(abs(lepton.pdgId())==PID::MUON)
             _count_mu->fill(0.5,weight);
         }
-        if(abs(lepton.pdgId())==ELECTRON)
+        if(abs(lepton.pdgId())==PID::ELECTRON)
           _hist_eTmiss_e ->fill(eTmiss,weight);
-        else if(abs(lepton.pdgId())==MUON)
+        else if(abs(lepton.pdgId())==PID::MUON)
           _hist_eTmiss_mu->fill(eTmiss,weight);
       }
     }

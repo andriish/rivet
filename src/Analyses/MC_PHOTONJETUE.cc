@@ -37,7 +37,7 @@ namespace Rivet {
       // Photons (for isolation)
       const FinalState fsp(-2.0, 2.0, 20.0*GeV);
       IdentifiedFinalState photonfs(fsp);
-      photonfs.acceptId(PHOTON);
+      photonfs.acceptId(PID::PHOTON);
       addProjection(photonfs, "Photons");
 
       // Histograms

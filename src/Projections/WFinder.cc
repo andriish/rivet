@@ -92,9 +92,9 @@ namespace Rivet {
     _useTransverseMass = useTransverseMass;
 
     // Check that the arguments are legal
-    assert(abs(_pid) == ELECTRON || abs(_pid) == MUON);
+    assert(abs(_pid) == PID::ELECTRON || abs(_pid) == PID::MUON);
     _nu_pid = abs(_pid) + 1;
-    assert(abs(_nu_pid) == NU_E || abs(_nu_pid) == NU_MU);
+    assert(abs(_nu_pid) == PID::NU_E || abs(_nu_pid) == PID::NU_MU);
 
     // Don't make pT or eta cuts on the neutrino
     IdentifiedFinalState neutrinos(inputfs);
@@ -105,8 +105,7 @@ namespace Rivet {
     IdentifiedFinalState bareleptons(inputfs);
     bareleptons.acceptIdPair(pid);
     LeptonClusters leptons(inputfs, bareleptons, dRmax,
-                           clusterPhotons,
-                           etaRanges, pTmin);
+                           clusterPhotons, etaRanges, pTmin);
     addProjection(leptons, "LeptonClusters");
 
     // Add MissingMomentum proj to calc MET
@@ -165,8 +164,7 @@ namespace Rivet {
     if (PID::threeCharge(p1)==0) {
       _constituentLeptons += p2;
       _constituentNeutrinos += p1;
-    }
-    else {
+    } else {
       _constituentLeptons += p1;
       _constituentNeutrinos += p2;
     }
@@ -194,7 +192,7 @@ namespace Rivet {
     }
 
     // Make W Particle and insert into particles list
-    const PdgId wpid = (wcharge == 1) ? WPLUSBOSON : WMINUSBOSON;
+    const PdgId wpid = (wcharge == 1) ? PID::WPLUSBOSON : PID::WMINUSBOSON;
     _bosons.push_back(Particle(wpid, pW));
 
     // Find the LeptonClusters and neutrinos which survived the IMFS cut such that we can
@@ -208,8 +206,7 @@ namespace Rivet {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
             _theParticles.insert(_theParticles.end(),
-                                 l.constituentPhotons().begin(),
-                                 l.constituentPhotons().end());
+                                 l.constituentPhotons().begin(), l.constituentPhotons().end());
           }
         }
       }

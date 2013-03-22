@@ -41,8 +41,8 @@ namespace Rivet {
 
       // Create a final state with any e-nu pair with invariant mass 65 -> 95 GeV and ET > 20 (W decay products)
       vector<pair<PdgId,PdgId> > vids;
-      vids += make_pair(ELECTRON, NU_EBAR);
-      vids += make_pair(POSITRON, NU_E);
+      vids += make_pair(PID::ELECTRON, PID::NU_EBAR);
+      vids += make_pair(PID::POSITRON, PID::NU_E);
       FinalState fs2(-3.6, 3.6, 20*GeV);
       InvMassFinalState invfs(fs2, vids, 65*GeV, 95*GeV);
       addProjection(invfs, "INVFS");
@@ -73,11 +73,11 @@ namespace Rivet {
       bool gotElectron(false), gotNeutrino(false);
       foreach (const Particle& p, wDecayProducts) {
         FourMomentum p4 = p.momentum();
-        if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && abs(p.pdgId()) == ELECTRON) {
+        if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && abs(p.pdgId()) == PID::ELECTRON) {
           electronP = p4;
           gotElectron = true;
         }
-        else if (p4.Et() > _eTmissCut && abs(p.pdgId()) == NU_E) {
+        else if (p4.Et() > _eTmissCut && abs(p.pdgId()) == PID::NU_E) {
           neutrinoP = p4;
           gotNeutrino = true;
         }

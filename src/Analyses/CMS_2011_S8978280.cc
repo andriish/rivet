@@ -49,18 +49,18 @@ namespace Rivet {
 
         if (y < 2.0) {
           switch (pid) {
-          case K0S:
+          case PID::K0S:
               _h_dNKshort_dy->fill(y, weight);
               _h_dNKshort_dpT->fill(pT, weight);
             break;
-          case LAMBDA:
+          case PID::LAMBDA:
             // Lambda should not have Cascade or Omega ancestors since they should not decay. But just in case...
             if ( !( p.hasAncestor(3322) || p.hasAncestor(-3322) || p.hasAncestor(3312) || p.hasAncestor(-3312) || p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {
               _h_dNLambda_dy->fill(y, weight);
               _h_dNLambda_dpT->fill(pT, weight);
             }
             break;
-          case XIMINUS:
+          case PID::XIMINUS:
             // Cascade should not have Omega ancestors since it should not decay.  But just in case...
             if ( !( p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {
               _h_dNXi_dy->fill(y, weight);
@@ -77,10 +77,10 @@ namespace Rivet {
 
       divide(_h_dNLambda_dpT,_h_dNKshort_dpT,
 	     _h_LampT_KpT);
-      
+
       divide(_h_dNXi_dpT,_h_dNLambda_dpT,
 	     _h_XipT_LampT);
-      
+
       divide(_h_dNLambda_dy,_h_dNKshort_dy,
 	     _h_Lamy_Ky);
 

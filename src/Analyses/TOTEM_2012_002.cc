@@ -34,7 +34,7 @@ namespace Rivet {
       _hist_sigma->fill(sqrtS()/GeV, weight);
 
       foreach (const Particle& p, cfs.particles()) {
-        if (p.momentum().eta() > 0. && p.pdgId() == PROTON) {
+        if (p.momentum().eta() > 0. && p.pdgId() == PID::PROTON) {
           double t = sqr(p.momentum().pT());
           _hist_tlow->fill(t, weight);
           _hist_thigh->fill(t, weight);

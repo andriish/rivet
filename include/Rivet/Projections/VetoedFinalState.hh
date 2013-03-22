@@ -109,9 +109,9 @@ namespace Rivet {
 
     /// Veto all neutrinos (convenience method)
     VetoedFinalState& vetoNeutrinos() {
-      addVetoPairId(NU_E);
-      addVetoPairId(NU_MU);
-      addVetoPairId(NU_TAU);
+      addVetoPairId(PID::NU_E);
+      addVetoPairId(PID::NU_MU);
+      addVetoPairId(PID::NU_TAU);
       return *this;
     }
 

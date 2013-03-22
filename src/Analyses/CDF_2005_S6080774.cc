@@ -26,7 +26,7 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       IdentifiedFinalState ifs(-0.9, 0.9, 13.0*GeV);
-      ifs.acceptId(PHOTON);
+      ifs.acceptId(PID::PHOTON);
       addProjection(ifs, "IFS");
 
       for (size_t yAxisId=1; yAxisId<5; ++yAxisId) {
@@ -41,8 +41,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       Particles photons = applyProjection<IdentifiedFinalState>(event, "IFS").particlesByPt();
-      if (photons.size() < 2 ||
-          (photons[0].momentum().pT() < 14.0*GeV)) {
+      if (photons.size() < 2 || photons[0].momentum().pT() < 14.0*GeV) {
         vetoEvent;
       }
 

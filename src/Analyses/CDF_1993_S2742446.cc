@@ -26,7 +26,7 @@ namespace Rivet {
 
       // The photon selection has been corrected to pTmin=22 GeV (vs. 23 in the trigger)
       LeadingParticlesFinalState photonfs(FinalState(-0.9, 0.9, 22.0*GeV));
-      photonfs.addParticleId(PHOTON);
+      photonfs.addParticleId(PID::PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon

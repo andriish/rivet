@@ -39,8 +39,8 @@ namespace Rivet {
       // STAR can't see neutrons and K^0_L
       VetoedFinalState vfs(nfs);
       vfs.vetoNeutrinos();
-      vfs.addVetoPairId(K0L);
-      vfs.addVetoPairId(NEUTRON);
+      vfs.addVetoPairId(PID::K0L);
+      vfs.addVetoPairId(PID::NEUTRON);
       addProjection(vfs, "VFS");
 
       // Jets are reconstructed from charged and neutral particles,

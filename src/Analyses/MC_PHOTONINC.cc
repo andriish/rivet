@@ -29,7 +29,7 @@ namespace Rivet {
 
       // Get leading photon
       LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
-      photonfs.addParticleId(PHOTON);
+      photonfs.addParticleId(PID::PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
       // FS for isolation excludes the leading photon

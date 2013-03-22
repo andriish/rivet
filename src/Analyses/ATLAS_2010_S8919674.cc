@@ -41,7 +41,7 @@ namespace Rivet {
       eta_e.push_back(make_pair(-1.37,1.37));
       eta_e.push_back(make_pair(1.52,2.47));
       IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
       // projection for finding the photons which have to be clustered into
       // the lepton later
@@ -52,7 +52,7 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 20.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
       // projection for finding the photons which have to be clustered into
       // the lepton later
@@ -62,11 +62,11 @@ namespace Rivet {
       // Leading neutrinos for Etmiss
       FinalState fs;
       LeadingParticlesFinalState muon_neutrino(fs);
-      muon_neutrino.addParticleIdPair(NU_MU);
+      muon_neutrino.addParticleIdPair(PID::NU_MU);
       muon_neutrino.setLeadingOnly(true);
       addProjection(muon_neutrino, "muon_neutrino");
       LeadingParticlesFinalState elec_neutrino(fs);
-      elec_neutrino.addParticleIdPair(NU_E);
+      elec_neutrino.addParticleIdPair(PID::NU_E);
       elec_neutrino.setLeadingOnly(true);
       addProjection(elec_neutrino, "elec_neutrino");
 
@@ -74,7 +74,7 @@ namespace Rivet {
       // passed the electron cuts ("elecs" finalstate from above)
       VetoedFinalState veto;
       veto.addVetoOnThisFinalState(elecs);
-      veto.addVetoPairId(MUON);
+      veto.addVetoPairId(PID::MUON);
       veto.vetoNeutrinos();
       FastJets jets(veto, FastJets::ANTIKT, 0.4);
       addProjection(jets, "jets");

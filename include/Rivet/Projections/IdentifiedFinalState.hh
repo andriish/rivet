@@ -78,17 +78,17 @@ namespace Rivet {
 
     /// Accept all neutrinos (convenience method).
     IdentifiedFinalState& acceptNeutrinos() {
-      acceptIdPair(NU_E);
-      acceptIdPair(NU_MU);
-      acceptIdPair(NU_TAU);
+      acceptIdPair(PID::NU_E);
+      acceptIdPair(PID::NU_MU);
+      acceptIdPair(PID::NU_TAU);
       return *this;
     }
 
     /// Accept all charged leptons (convenience method).
     IdentifiedFinalState& acceptChLeptons() {
-      acceptIdPair(ELECTRON);
-      acceptIdPair(MUON);
-      acceptIdPair(TAU);
+      acceptIdPair(PID::ELECTRON);
+      acceptIdPair(PID::MUON);
+      acceptIdPair(PID::TAU);
       return *this;
     }
 

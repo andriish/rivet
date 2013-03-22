@@ -58,13 +58,13 @@ namespace Rivet {
 
       /// Get electrons from truth record
       IdentifiedFinalState elec_fs(-2.47, 2.47, 25.0*GeV);
-      elec_fs.acceptIdPair(ELECTRON);
+      elec_fs.acceptIdPair(PID::ELECTRON);
       addProjection(elec_fs, "ELEC_FS");
 
       /// Get muons which pass the initial kinematic cuts:
       IdentifiedFinalState muon_fs(-2.5, 2.5, 20.0*GeV);
-      muon_fs.acceptIdPair(MUON);
-      addProjection(muon_fs, "MUON_FS");
+      muon_fs.acceptIdPair(PID::MUON);
+      addProjection(muon_fs, "PID::MUON_FS");
 
       /// Get all neutrinos. These will not be used to form jets.
       /// We'll use the highest 2 pT neutrinos to calculate the MET
@@ -76,7 +76,7 @@ namespace Rivet {
       // We include everything except the muons and neutrinos
       VetoedFinalState jet_input(fs);
       jet_input.vetoNeutrinos();
-      jet_input.addVetoPairId(MUON);
+      jet_input.addVetoPairId(PID::MUON);
       addProjection(jet_input, "JET_INPUT");
 
       // Get the jets
@@ -139,7 +139,7 @@ namespace Rivet {
 
       /// Get the various sets of final state particles
       const Particles& elecFS = applyProjection<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
-      const Particles& muonFS = applyProjection<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
+      const Particles& muonFS = applyProjection<IdentifiedFinalState>(event, "PID::MUON_FS").particlesByPt();
       const Particles& neutrinoFS = applyProjection<IdentifiedFinalState>(event, "NEUTRINO_FS").particlesByPt();
 
       // Get all jets with pT > 25 GeV

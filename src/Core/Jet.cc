@@ -112,7 +112,7 @@ namespace Rivet {
   bool Jet::containsCharm() const {
     foreach (const Particle& p, particles()) {
       const PdgId pid = p.pdgId();
-      if (abs(pid) == CQUARK) return true;
+      if (abs(pid) == PID::CQUARK) return true;
       if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
       HepMC::GenVertex* gv = p.genParticle()->production_vertex();
       if (gv) {
@@ -129,7 +129,7 @@ namespace Rivet {
   bool Jet::containsBottom() const {
     foreach (const Particle& p, particles()) {
       const PdgId pid = p.pdgId();
-      if (abs(pid) == BQUARK) return true;
+      if (abs(pid) == PID::BQUARK) return true;
       if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
       HepMC::GenVertex* gv = p.genParticle()->production_vertex();
       if (gv) {

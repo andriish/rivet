@@ -16,9 +16,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ALEPH_1996_S3196992() : Analysis("ALEPH_1996_S3196992")
-    {
-    }
+    ALEPH_1996_S3196992()
+      : Analysis("ALEPH_1996_S3196992")
+    {    }
 
 
     /// @name Analysis methods
@@ -29,7 +29,7 @@ namespace Rivet {
       FinalState fs;
       addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
       IdentifiedFinalState ifs(-MAXRAPIDITY, +MAXRAPIDITY, 0.0);
-      ifs.acceptId(PHOTON);
+      ifs.acceptId(PID::PHOTON);
       addProjection(ifs, "Photons");
       addProjection(Thrust(fs), "Thrust");
       addProjection(ChargedFinalState(), "CFS");

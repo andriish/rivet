@@ -22,7 +22,7 @@ namespace Rivet {
     if (prodVtx == NULL) return false;
     foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
-      if (ancestor->status() == 2 && (PID::isHadron(pid) || abs(pid) == TAU)) return true;
+      if (ancestor->status() == 2 && (PID::isHadron(pid) || abs(pid) == PID::TAU)) return true;
     }
     return false;
   }

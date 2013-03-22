@@ -37,8 +37,8 @@ namespace Rivet {
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
-                 pp != pv->particles_in_const_end() ; ++pp) {
+            /// @todo Use better looping
+            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end() ; ++pp) {
               if ( p->pdg_id() == (*pp)->pdg_id() ) {
                 passed = false;
                 break;
@@ -56,43 +56,39 @@ namespace Rivet {
         // Find the decay products we want
         findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
-        if(p.momentum().vector3().mod()>0.001)
+        if (p.momentum().vector3().mod() > 1*MeV)
           cms_boost = LorentzTransform(-p.momentum().boostVector());
-        for(unsigned int ix=0;ix<pionsA.size();++ix) {
+        for (size_t ix = 0; ix < pionsA.size(); ++ix) {
           FourMomentum ptemp(pionsA[ix]->momentum());
           FourMomentum p2 = cms_boost.transform(ptemp);
-          double pcm =
-            cms_boost.transform(ptemp).vector3().mod();
+          double pcm = cms_boost.transform(ptemp).vector3().mod();
           _histPiA->fill(pcm,weight);
         }
         _multPiA->fill(10.58,double(pionsA.size())*weight);
-        for(unsigned int ix=0;ix<pionsB.size();++ix) {
-          double pcm =
-            cms_boost.transform(FourMomentum(pionsB[ix]->momentum())).vector3().mod();
+        for (size_t ix = 0; ix < pionsB.size(); ++ix) {
+          double pcm = cms_boost.transform(FourMomentum(pionsB[ix]->momentum())).vector3().mod();
           _histPiB->fill(pcm,weight);
         }
         _multPiB->fill(10.58,double(pionsB.size())*weight);
-        for(unsigned int ix=0;ix<protonsA.size();++ix) {
-          double pcm =
-            cms_boost.transform(FourMomentum(protonsA[ix]->momentum())).vector3().mod();
+        for (size_t ix = 0; ix < protonsA.size(); ++ix) {
+          double pcm = cms_boost.transform(FourMomentum(protonsA[ix]->momentum())).vector3().mod();
           _histpA->fill(pcm,weight);
         }
         _multpA->fill(10.58,double(protonsA.size())*weight);
-        for(unsigned int ix=0;ix<protonsB.size();++ix) {
-          double pcm =
-            cms_boost.transform(FourMomentum(protonsB[ix]->momentum())).vector3().mod();
+        for (size_t ix = 0; ix < protonsB.size(); ++ix) {
+          double pcm = cms_boost.transform(FourMomentum(protonsB[ix]->momentum())).vector3().mod();
           _histpB->fill(pcm,weight);
         }
         _multpB->fill(10.58,double(protonsB.size())*weight);
-        for(unsigned int ix=0;ix<kaons.size();++ix) {
-          double pcm =
-            cms_boost.transform(FourMomentum(kaons[ix]->momentum())).vector3().mod();
+        for (size_t ix = 0 ;ix < kaons.size(); ++ix) {
+          double pcm = cms_boost.transform(FourMomentum(kaons[ix]->momentum())).vector3().mod();
           _histKA->fill(pcm,weight);
           _histKB->fill(pcm,weight);
         }
         _multK->fill(10.58,double(kaons.size())*weight);
       }
-    } // analyze
+    }
+
 
     void finalize() {
       if (_weightSum > 0.) {
@@ -108,7 +104,7 @@ namespace Rivet {
         scale(_multpA , 1./_weightSum);
         scale(_multpB , 1./_weightSum);
       }
-    } // finalize
+    }
 
 
     void init() {
@@ -129,25 +125,16 @@ namespace Rivet {
       _multpB  = bookHisto1D(11, 1, 1);
     } // init
 
+
   private:
 
     //@{
     /// Count of weights
     double _weightSum;
-    // Histograms
-    // spectra
-    Histo1DPtr _histPiA;
-    Histo1DPtr _histPiB;
-    Histo1DPtr _histKA;
-    Histo1DPtr _histKB;
-    Histo1DPtr _histpA;
-    Histo1DPtr _histpB;
-    // multiplicities
-    Histo1DPtr _multPiA;
-    Histo1DPtr _multPiB;
-    Histo1DPtr _multK;
-    Histo1DPtr _multpA;
-    Histo1DPtr _multpB;
+    /// Spectra
+    Histo1DPtr _histPiA, _histPiB, _histKA, _histKB, _histpA, _histpB;
+    /// Multiplicities
+    Histo1DPtr _multPiA, _multPiB, _multK, _multpA, _multpB;
     //@}
 
     void findDecayProducts(const GenParticle* p,
@@ -160,30 +147,31 @@ namespace Rivet {
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = abs((*pp)->pdg_id());
-        if (id==PIPLUS) {
-          if (parentId != LAMBDA && parentId != K0S) {
+        if (id == PID::PIPLUS) {
+          if (parentId != PID::LAMBDA && parentId != PID::K0S) {
             pionsA.push_back(*pp);
             pionsB.push_back(*pp);
           }
           else
             pionsB.push_back(*pp);
         }
-        else if (id==PROTON) {
-          if (parentId != LAMBDA && parentId != K0S) {
+        else if (id == PID::PROTON) {
+          if (parentId != PID::LAMBDA && parentId != PID::K0S) {
             protonsA.push_back(*pp);
             protonsB.push_back(*pp);
           }
           else
             protonsB.push_back(*pp);
         }
-        else if(id==KPLUS) {
+        else if (id == PID::KPLUS) {
           kaons.push_back(*pp);
         }
-        else if((*pp)->end_vertex())
+        else if ((*pp)->end_vertex())
           findDecayProducts(*pp, pionsA, pionsB, protonsA, protonsB, kaons);
       }
     }
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ARGUS_1993_S2653028);

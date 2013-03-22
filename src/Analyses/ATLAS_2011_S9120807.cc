@@ -54,7 +54,7 @@ namespace Rivet {
       addProjection(fj, "KtJetsD05");
 
       IdentifiedFinalState photonfs(-2.37, 2.37, 16.0*GeV);
-      photonfs.acceptId(PHOTON);
+      photonfs.acceptId(PID::PHOTON);
       addProjection(photonfs, "Photon");
 
       _h_M    = bookHisto1D(1, 1, 1);

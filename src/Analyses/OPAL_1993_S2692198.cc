@@ -17,74 +17,57 @@ namespace Rivet {
   public:
 
     /// Constructor
-    OPAL_1993_S2692198() : Analysis("OPAL_1993_S2692198")
-    {
-
-    }
+    OPAL_1993_S2692198()
+      : Analysis("OPAL_1993_S2692198")
+    {    }
 
 
     /// @name Analysis methods
     //@{
 
     void analyze(const Event& e) {
-      // First, veto on leptonic events by requiring at least 4 charged FS particles
-//       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
-//       const size_t numParticles = cfs.particles().size();
-
-//       if (numParticles < 4) {
-//         MSG_DEBUG("Failed ncharged cut");
-//         vetoEvent;
-//       }
-//       MSG_DEBUG("Passed ncharged cut");
-
       // Get event weight for histo filling
       const double weight = e.weight();
 
-      // extract the photons
+      // Extract the photons
       Particles photons;
       Particles nonPhotons;
       FourMomentum ptotal;
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       foreach (const Particle& p, fs.particles()) {
         ptotal+= p.momentum();
-        if(p.pdgId()==PHOTON) {
+        if (p.pdgId() == PID::PHOTON) {
           photons.push_back(p);
-        }
-        else {
+        } else {
           nonPhotons.push_back(p);
         }
       }
-      // no photon return but still count for normalisation
-      if(photons.empty()) return;
-      // definition of the Durham algorithm
-      fastjet::JetDefinition durham_def(fastjet::ee_kt_algorithm,fastjet::E_scheme,
-                                        fastjet::Best);
-      // definition of the JADE algorithm
+      // No photon return but still count for normalisation
+      if (photons.empty()) return;
+      // Definition of the Durham algorithm
+      fastjet::JetDefinition durham_def(fastjet::ee_kt_algorithm, fastjet::E_scheme, fastjet::Best);
+      // Definition of the JADE algorithm
       fastjet::JadePlugin jade;
       fastjet::JetDefinition jade_def = fastjet::JetDefinition(&jade);
-      // now for the weird jet algorithm
+      // Now for the weird jet algorithm
       double evis = ptotal.mass();
       vector<fastjet::PseudoJet> input_particles;
-      // pseudo jets from the non photons
+      // Pseudo-jets from the non photons
       foreach (const Particle& p,  nonPhotons) {
-        input_particles.push_back(fastjet::PseudoJet(p.momentum().px(),
-                                                     p.momentum().py(),
-                                                     p.momentum().pz(),
-                                                     p.momentum().E()));
+        const FourMomentum p4 = p.momentum();
+        input_particles.push_back(fastjet::PseudoJet(p4.px(), p4.py(), p4.pz(), p4.E()));
       }
-      // pseudo jets from all bar the first photon
-      for(unsigned int ix=1;ix<photons.size();++ix) {
-        input_particles.push_back(fastjet::PseudoJet(photons[ix].momentum().px(),
-                                                     photons[ix].momentum().py(),
-                                                     photons[ix].momentum().pz(),
-                                                     photons[ix].momentum().E()));
+      // Pseudo-jets from all bar the first photon
+      for (size_t ix = 1; ix < photons.size(); ++ix) {
+        const FourMomentum p4 = photons[ix].momentum();
+        input_particles.push_back(fastjet::PseudoJet(p4.px(), p4.py(), p4.pz(), p4.E()));
       }
-      // now loop over the photons
-      for(unsigned int ix=0;ix<photons.size();++ix) {
+      // Now loop over the photons
+      for (size_t ix = 0; ix < photons.size(); ++ix) {
         FourMomentum pgamma = photons[ix].momentum();
-        // run the jet clustering DURHAM
+        // Run the jet clustering DURHAM
         fastjet::ClusterSequence clust_seq(input_particles, durham_def);
-        // cluster the jets
+        // Cluster the jets
         for (size_t j = 0; j < _nPhotonDurham->numBins(); ++j) {
           bool accept(true);
           double ycut = _nPhotonDurham->bin(j).midpoint();
@@ -94,21 +77,20 @@ namespace Rivet {
           for(unsigned int iy=0;iy<exclusive_jets.size();++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
             double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
-            double ygamma = 2.*min(sqr(pjet.E()/evis),
-                                   sqr(pgamma.E()/evis))*(1.-cost);
-            if(ygamma<ycut) {
+            double ygamma = 2 * min(sqr(pjet.E()/evis), sqr(pgamma.E()/evis)) * (1 - cost);
+            if (ygamma < ycut) {
               accept = false;
               break;
             }
           }
-          if(!accept) continue;
+          if (!accept) continue;
           _nPhotonDurham->fill(ycut, weight*_nPhotonDurham->bin(j).width());
           int njet = min(4,int(exclusive_jets.size())) - 1;
           if(j<_nPhotonJetDurham[njet]->numBins()) {
             _nPhotonJetDurham[njet]->fill(_nPhotonJetDurham[njet]->bin(j).midpoint(), weight*_nPhotonJetDurham[njet]->bin(j).width());
           }
         }
-        // run the jet clustering JADE
+        // Run the jet clustering JADE
         fastjet::ClusterSequence clust_seq2(input_particles, jade_def);
         for (size_t j = 0; j < _nPhotonJade->numBins(); ++j) {
           bool accept(true);
@@ -116,27 +98,26 @@ namespace Rivet {
           double dcut = sqr(evis)*ycut;
           vector<fastjet::PseudoJet> exclusive_jets =
             sorted_by_E(clust_seq2.exclusive_jets(dcut));
-          for(unsigned int iy=0;iy<exclusive_jets.size();++iy) {
+          for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
             double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
             double ygamma = 2.*pjet.E()*pgamma.E()/sqr(evis)*(1.-cost);
-            if(ygamma<ycut) {
+            if (ygamma < ycut) {
               accept = false;
               break;
             }
           }
-          if(!accept) continue;
+          if (!accept) continue;
           _nPhotonJade->fill(ycut, weight*_nPhotonJade->bin(j).width());
           int njet = min(4,int(exclusive_jets.size())) - 1;
-          if(j<_nPhotonJetJade[njet]->numBins()) {
+          if (j < _nPhotonJetJade[njet]->numBins()) {
             _nPhotonJetJade[njet]->fill(_nPhotonJetJade[njet]->bin(j).midpoint(), weight*_nPhotonJetJade[njet]->bin(j).width());
           }
         }
-        // add this photon back in for the next interation of the loop
-        if(ix+1!=photons.size())
-          input_particles[nonPhotons.size()+ix] =
-            fastjet::PseudoJet(photons[ix].momentum().px(),photons[ix].momentum().py(),
-                               photons[ix].momentum().pz(),photons[ix].momentum().E());
+        // Add this photon back in for the next iteration of the loop
+        if (ix+1 != photons.size()) {
+          input_particles[nonPhotons.size()+ix] = fastjet::PseudoJet(pgamma.px(), pgamma.py(), pgamma.pz(), pgamma.E());
+        }
       }
     }
 

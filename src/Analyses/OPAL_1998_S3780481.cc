@@ -16,9 +16,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    OPAL_1998_S3780481() : Analysis("OPAL_1998_S3780481")
-    {
-
+    OPAL_1998_S3780481() : Analysis("OPAL_1998_S3780481") {
       // Counters
       _weightedTotalPartNum = 0;
       _SumOfudsWeights = 0;
@@ -57,10 +55,10 @@ namespace Rivet {
 
       // If we only have two quarks (qqbar), just take the flavour.
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
+      /// @todo Yuck... does this *really* have to be quark-based?!?
       if (iqf.particles().size() == 2) {
         flavour = abs( iqf.particles().front().pdgId() );
-      }
-      else {
+      } else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {
           if (quarkmap[p.pdgId()] < p.momentum().E()) {
@@ -97,19 +95,19 @@ namespace Rivet {
         _histMultiChargedall->fill(_histMultiChargedall->bin(0).xMean(), weight);
         switch (flavour) {
           /// @todo Use PDG code enums
-        case DQUARK:
-        case UQUARK:
-        case SQUARK:
+        case PID::DQUARK:
+        case PID::UQUARK:
+        case PID::SQUARK:
           _histXpuds->fill(xp, weight);
           _histLogXpuds->fill(logxp, weight);
           _histMultiChargeduds->fill(_histMultiChargeduds->bin(0).xMean(), weight);
           break;
-        case CQUARK:
+        case PID::CQUARK:
           _histXpc->fill(xp, weight);
           _histLogXpc->fill(logxp, weight);
           _histMultiChargedc->fill(_histMultiChargedc->bin(0).xMean(), weight);
           break;
-        case BQUARK:
+        case PID::BQUARK:
           _histXpb->fill(xp, weight);
           _histLogXpb->fill(logxp, weight);
           _histMultiChargedb->fill(_histMultiChargedb->bin(0).xMean(), weight);

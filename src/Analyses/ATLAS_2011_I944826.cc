@@ -17,9 +17,9 @@ namespace Rivet {
     ATLAS_2011_I944826()
       : Analysis("ATLAS_2011_I944826")
     {
-        _sum_w_ks     = 0.0;
-        _sum_w_lambda = 0.0;
-        _sum_w_passed = 0.0;
+      _sum_w_ks     = 0.0;
+      _sum_w_lambda = 0.0;
+      _sum_w_passed = 0.0;
     }
 
 
@@ -38,11 +38,11 @@ namespace Rivet {
       addProjection(mbts, "MBTS");
 
       IdentifiedFinalState nstable(-2.5, 2.5, 100*MeV);
-      nstable.acceptIdPair(ELECTRON)
-        .acceptIdPair(MUON)
-        .acceptIdPair(PIPLUS)
-        .acceptIdPair(KPLUS)
-        .acceptIdPair(PROTON);
+      nstable.acceptIdPair(PID::ELECTRON)
+        .acceptIdPair(PID::MUON)
+        .acceptIdPair(PID::PIPLUS)
+        .acceptIdPair(PID::KPLUS)
+        .acceptIdPair(PID::PROTON);
       addProjection(nstable, "nstable");
 
       if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
@@ -160,64 +160,59 @@ namespace Rivet {
       foreach (const Particle& p, ufs.particles()) {
 
         // General particle quantities
-        const double pT = p.momentum().pT()*GeV;
+        const double pT = p.momentum().pT();
         const double y = p.momentum().rapidity();
-        const PdgId pid = abs(p.pdgId());
+        const PdgId apid = abs(p.pdgId());
 
         double flightd = 0.0;
 
         // Look for Kaons, Lambdas
-        switch (pid) {
+        switch (apid) {
 
-          case K0S:
-            flightd = getPerpFlightDistance(p);
-            if (!inRange(flightd, 4., 450.) ){
-              MSG_DEBUG("Kaon failed flight distance cut:" << flightd);
-              break;
-            }
-            if (daughtersSurviveCuts(p) ) {
-              _hist_Ks_y ->fill(y,  weight);
-              _hist_Ks_pT->fill(pT, weight);
-
-              _sum_w_ks += weight;
-              n_KS0++;
-            }
+        case PID::K0S:
+          flightd = getPerpFlightDistance(p);
+          if (!inRange(flightd, 4., 450.) ) { //< @todo Need units
+            MSG_DEBUG("Kaon failed flight distance cut:" << flightd);
+            break;
+          }
+          if (daughtersSurviveCuts(p) ) {
+            _hist_Ks_y ->fill(y, weight);
+            _hist_Ks_pT->fill(pT/GeV, weight);
+            _sum_w_ks += weight;
+            n_KS0++;
+          }
           break;
 
-          case LAMBDA:
-            if (pT < 0.5) { // Lambdas have an additional pT cut of 500 MeV
-              MSG_DEBUG("Lambda failed pT cut:" << pT);
-              break;
+        case PID::LAMBDA:
+          if (pT < 0.5*GeV) { // Lambdas have an additional pT cut of 500 MeV
+            MSG_DEBUG("Lambda failed pT cut:" << pT/GeV << " GeV");
+            break;
+          }
+          flightd = getPerpFlightDistance(p);
+          if (!inRange(flightd, 17., 450.)) { //< @todo Need units
+            MSG_DEBUG("Lambda failed flight distance cut:" << flightd);
+            break;
+          }
+          if ( daughtersSurviveCuts(p) ) {
+            if (p.pdgId() == PID::LAMBDA) {
+              /// @todo YODA
+              //_temp_lambda_v_y    ->fill(fabs(y), weight);
+              //_temp_lambda_v_pT   ->fill(pT,      weight);
+              _hist_L_y->fill(y, weight);
+              _hist_L_pT->fill(pT/GeV, weight);
+              _sum_w_lambda += weight;
+              n_LAMBDA++;
             }
-            flightd = getPerpFlightDistance(p);
-            if (!inRange(flightd, 17., 450.)) {
-              MSG_DEBUG("Lambda failed flight distance cut:" << flightd);
-              break;
+            else if (p.pdgId() == -PID::LAMBDA) {
+              /// @todo YODA
+              //_temp_lambdabar_v_y ->fill(fabs(y), weight);
+              //_temp_lambdabar_v_pT->fill(pT,      weight);
             }
-            if ( daughtersSurviveCuts(p) ) {
-              if (p.pdgId() == 3122) {
-                /// @todo YODA
-                //_temp_lambda_v_y    ->fill(fabs(y), weight);
-                //_temp_lambda_v_pT   ->fill(pT,      weight);
-
-                _hist_L_y->fill( y,  weight);
-                _hist_L_pT->fill(pT, weight);
-
-                _sum_w_lambda += weight;
-                n_LAMBDA++;
-                }
-
-              else if (p.pdgId() == -3122) {
-                /// @todo YODA
-                //_temp_lambdabar_v_y ->fill(fabs(y), weight);
-                //_temp_lambdabar_v_pT->fill(pT,      weight);
-              }
-            }
+          }
           break;
 
-        } // End of switch
-
-      }// End of particle loop
+        }
+      }
 
       // Fill multiplicity histos
       _hist_Ks_mult->fill(n_KS0, weight);
@@ -239,7 +234,6 @@ namespace Rivet {
       scale(_hist_L_pT,   1.0/_sum_w_lambda);
       scale(_hist_L_y,    1.0/_sum_w_lambda);
       scale(_hist_L_mult, 1.0/_sum_w_passed);
-
 
       /// @todo YODA
       //// Division of histograms to obtain lambdabar/lambda ratios

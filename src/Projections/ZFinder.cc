@@ -131,7 +131,7 @@ namespace Rivet {
         << "   " << l1.momentum() << " " << l1.pdgId() << "\n"
         << " + " << l2.momentum() << " " << l2.pdgId();
     MSG_DEBUG(msg.str());
-    _bosons.push_back(Particle(ZBOSON, pZ));
+    _bosons.push_back(Particle(PID::ZBOSON, pZ));
 
     // Find the LeptonClusters which survived the IMFS cut such that we can
     // extract their original particles
@@ -141,8 +141,7 @@ namespace Rivet {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
             _theParticles.insert(_theParticles.end(),
-                                 l.constituentPhotons().begin(),
-                                 l.constituentPhotons().end());
+                                 l.constituentPhotons().begin(), l.constituentPhotons().end());
           }
         }
       }

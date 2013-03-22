@@ -40,19 +40,19 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 7.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 6.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
                     "AntiKtJets04");
 
@@ -237,8 +237,8 @@ namespace Rivet {
           HT += pT;
           m_eff_inc += pT;
           // apply the cuts on the leptons and min no. of jets
-          if( ( ( abs(lepton.pdgId()) == ELECTRON && pT > 25. ) ||
-                ( abs(lepton.pdgId()) == MUON     && pT > 20. ) ) &&
+          if( ( ( abs(lepton.pdgId()) == PID::ELECTRON && pT > 25. ) ||
+                ( abs(lepton.pdgId()) == PID::MUON     && pT > 20. ) ) &&
               mT > 100. && eTmiss > 250. ) {
             double m_eff = pT+eTmiss;
             for(unsigned int ix=0;ix<3;++ix)
@@ -249,7 +249,7 @@ namespace Rivet {
               if(eTmiss/m_eff>0.3) {
                 if(m_eff_inc>1200.) {
                   _count_1l_3jet_all_channel->fill(0.5,weight);
-                  if(abs(lepton.pdgId()) == ELECTRON )
+                  if(abs(lepton.pdgId()) == PID::ELECTRON )
                     _count_1l_3jet_e_channel->fill(0.5,weight);
                   else
                     _count_1l_3jet_mu_channel->fill(0.5,weight);
@@ -263,7 +263,7 @@ namespace Rivet {
               if(eTmiss/m_eff>0.2) {
                 if(m_eff_inc>800.) {
                   _count_1l_4jet_all_channel->fill(0.5,weight);
-                  if(abs(lepton.pdgId()) == ELECTRON )
+                  if(abs(lepton.pdgId()) == PID::ELECTRON )
                     _count_1l_4jet_e_channel->fill(0.5,weight);
                   else
                     _count_1l_4jet_mu_channel->fill(0.5,weight);
@@ -292,9 +292,9 @@ namespace Rivet {
             if(recon_jets[1].momentum().perp()>200 &&
                ( njet<4 || (njet>=4 && recon_jets[3].momentum().perp()<50.)) && eTmiss>300.) {
               _count_2l_2jet_all_channel->fill(0.5,weight);
-              if(abs(leptons[0].pdgId()) == ELECTRON && abs(leptons[1].pdgId()) == ELECTRON )
+              if(abs(leptons[0].pdgId()) == PID::ELECTRON && abs(leptons[1].pdgId()) == PID::ELECTRON )
                 _count_2l_2jet_ee_channel->fill(0.5,weight);
-              else if (abs(leptons[0].pdgId()) == MUON && abs(leptons[1].pdgId()) == MUON )
+              else if (abs(leptons[0].pdgId()) == PID::MUON && abs(leptons[1].pdgId()) == PID::MUON )
                 _count_2l_2jet_mumu_channel->fill(0.5,weight);
               else
                 _count_2l_2jet_emu_channel->fill(0.5,weight);
@@ -305,9 +305,9 @@ namespace Rivet {
                     eTmiss>100. && eTmiss/m_eff>0.2) {
               if( m_eff_inc>650. ) {
                 _count_2l_4jet_all_channel->fill(0.5,weight);
-                if(abs(leptons[0].pdgId()) == ELECTRON && abs(leptons[1].pdgId()) == ELECTRON )
+                if(abs(leptons[0].pdgId()) == PID::ELECTRON && abs(leptons[1].pdgId()) == PID::ELECTRON )
                   _count_2l_4jet_ee_channel->fill(0.5,weight);
-                else if (abs(leptons[0].pdgId()) == MUON && abs(leptons[1].pdgId()) == MUON )
+                else if (abs(leptons[0].pdgId()) == PID::MUON && abs(leptons[1].pdgId()) == PID::MUON )
                   _count_2l_4jet_mumu_channel->fill(0.5,weight);
                 else
                   _count_2l_4jet_emu_channel->fill(0.5,weight);
@@ -356,7 +356,7 @@ namespace Rivet {
           for(unsigned int ix=0;ix<2;++ix) m_eff += recon_jets[0].momentum().perp();
           if( eTmiss/m_eff>0.3 ) {
             _count_1l_soft_all_channel->fill(0.5,weight);
-            if(abs(lepton.pdgId()) == ELECTRON )
+            if(abs(lepton.pdgId()) == PID::ELECTRON )
               _count_1l_soft_e_channel->fill(0.5,weight);
             else
               _count_1l_soft_mu_channel->fill(0.5,weight);

@@ -37,23 +37,23 @@ namespace Rivet {
       addProjection(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
 
       IdentifiedFinalState photonfs(fs);
-      photonfs.acceptId(PHOTON);
+      photonfs.acceptId(PID::PHOTON);
       addProjection(photonfs, "AllPhotons");
 
       IdentifiedFinalState efs(fs);
-      efs.acceptIdPair(ELECTRON);
+      efs.acceptIdPair(PID::ELECTRON);
       addProjection(efs, "Electrons");
 
       IdentifiedFinalState mufs(fs);
-      mufs.acceptIdPair(MUON);
+      mufs.acceptIdPair(PID::MUON);
       addProjection(mufs, "Muons");
 
       MissingMomentum missing(fs);
       addProjection(missing, "MET");
 
       LeadingParticlesFinalState lpfs(fs);
-      lpfs.addParticleIdPair(ELECTRON);
-      lpfs.addParticleIdPair(MUON);
+      lpfs.addParticleIdPair(PID::ELECTRON);
+      lpfs.addParticleIdPair(PID::MUON);
       addProjection(lpfs, "LeadingParticles");
 
       _hist_n_trk   = bookHisto1D("n-trk", 50, 0.5, 300.5);
@@ -215,16 +215,16 @@ namespace Rivet {
         if (p.momentum().pT()/GeV < 20) continue;
         // Identify the PID
         const PdgId pid = p.pdgId();
-        if (pid == ELECTRON) {
+        if (pid == PID::ELECTRON) {
           eminus_ok = true;
           peminus = p.momentum();
-        } else if (pid == POSITRON) {
+        } else if (pid == PID::POSITRON) {
           eplus_ok = true;
           peplus = p.momentum();
-        } else if (pid == MUON) {
+        } else if (pid == PID::MUON) {
           muminus_ok = true;
           pmuminus = p.momentum();
-        } else if (pid == ANTIMUON) {
+        } else if (pid == PID::ANTIMUON) {
           muplus_ok = true;
           pmuplus = p.momentum();
         } else {

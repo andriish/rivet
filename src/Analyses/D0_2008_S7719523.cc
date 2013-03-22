@@ -42,7 +42,7 @@ namespace Rivet {
 
       // Get leading photon
       LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
-      photonfs.addParticleId(PHOTON);
+      photonfs.addParticleId(PID::PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon
@@ -59,7 +59,7 @@ namespace Rivet {
       _h_central_opp_cross_section  = bookHisto1D(2, 1, 1);
       _h_forward_same_cross_section = bookHisto1D(3, 1, 1);
       _h_forward_opp_cross_section  = bookHisto1D(4, 1, 1);
-      
+
       _h_cen_opp_same	= bookScatter2D(5, 1, 1);
       _h_fwd_opp_same	= bookScatter2D(8, 1, 1);
       _h_cen_same_fwd_same = bookScatter2D(6, 1, 1);
@@ -195,7 +195,7 @@ namespace Rivet {
     Scatter2DPtr _h_cen_same_fwd_same;
     Scatter2DPtr _h_cen_opp_fwd_same;
     Scatter2DPtr _h_cen_same_fwd_opp;
-    Scatter2DPtr _h_cen_opp_fwd_opp;   
+    Scatter2DPtr _h_cen_opp_fwd_opp;
     //@}
 
   };

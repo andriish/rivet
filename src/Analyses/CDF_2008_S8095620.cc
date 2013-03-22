@@ -35,8 +35,8 @@ namespace Rivet {
       // Create a final state with any e+e- or mu+mu- pair with
       // invariant mass 76 -> 106 GeV and ET > 18 (Z decay products)
       vector<pair<PdgId,PdgId> > vids;
-      vids.push_back(make_pair(ELECTRON, POSITRON));
-      vids.push_back(make_pair(MUON, ANTIMUON));
+      vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
+      vids.push_back(make_pair(PID::MUON, PID::ANTIMUON));
       FinalState fs2(-3.2, 3.2);
       InvMassFinalState invfs(fs2, vids, 76*GeV, 106*GeV);
       addProjection(invfs, "INVFS");
@@ -86,13 +86,14 @@ namespace Rivet {
       }
 
       _sumWeightSelected += event.weight();
-      // @todo: write out a warning if there are more than two decay products
+      /// @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
 
       // Put all b-quarks in a vector
+      /// @todo Use a b-hadron search rather than b-quarks for tagging
       Particles bquarks;
       foreach (const GenParticle* p, particles(event.genEvent())) {
-        if (fabs(p->pdg_id()) == BQUARK) {
+        if (fabs(p->pdg_id()) == PID::BQUARK) {
           bquarks += Particle(*p);
         }
       }

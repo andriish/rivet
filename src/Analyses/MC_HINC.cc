@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      ZFinder hfinder(fs, -3.5, 3.5, 25.0*GeV, TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
+      ZFinder hfinder(fs, -3.5, 3.5, 25.0*GeV, PID::TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
       addProjection(hfinder, "Hfinder");
 
       _h_H_mass = bookHisto1D("H_mass", 50, 119.7, 120.3);
@@ -33,7 +33,6 @@ namespace Rivet {
       _h_H_phi = bookHisto1D("H_phi", 25, 0.0, TWOPI);
       _h_lepton_pT = bookHisto1D("lepton_pT", logspace(100, 10.0, 0.25*sqrtS()));
       _h_lepton_eta = bookHisto1D("lepton_eta", 40, -4.0, 4.0);
-
     }
 
 

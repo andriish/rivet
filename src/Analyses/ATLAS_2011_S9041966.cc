@@ -54,7 +54,7 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
 
@@ -63,14 +63,14 @@ namespace Rivet {
       eta_v_e.push_back(make_pair(-1.52,-1.35));
       eta_v_e.push_back(make_pair( 1.35, 1.52));
       IdentifiedFinalState veto_elecs(eta_v_e, 10.0*GeV);
-      veto_elecs.acceptIdPair(ELECTRON);
+      veto_elecs.acceptIdPair(PID::ELECTRON);
       addProjection(veto_elecs, "veto_elecs");
 
 ///DEBUG
       // projection to find all leptons
       IdentifiedFinalState all_mu_e;
-      all_mu_e.acceptIdPair(MUON);
-      all_mu_e.acceptIdPair(ELECTRON);
+      all_mu_e.acceptIdPair(PID::MUON);
+      all_mu_e.acceptIdPair(PID::ELECTRON);
       addProjection(all_mu_e, "all_mu_e"); //debug
 
 
@@ -79,14 +79,14 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 20.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairDetail(MUON,20*GeV,7000*GeV);
-      vfs.addVetoPairDetail(ELECTRON,20*GeV,7000*GeV);
+      vfs.addVetoPairDetail(PID::MUON,20*GeV,7000*GeV);
+      vfs.addVetoPairDetail(PID::ELECTRON,20*GeV,7000*GeV);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
                    "AntiKtJets04");
 

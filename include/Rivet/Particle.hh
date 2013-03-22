@@ -135,9 +135,9 @@ namespace Rivet {
   inline std::string toString(const ParticlePair& pair) {
     stringstream out;
     out << "["
-        << toParticleName(pair.first.pdgId()) << " @ "
+        << PID::toParticleName(pair.first.pdgId()) << " @ "
         << pair.first.momentum().E()/GeV << " GeV, "
-        << toParticleName(pair.second.pdgId()) << " @ "
+        << PID::toParticleName(pair.second.pdgId()) << " @ "
         << pair.second.momentum().E()/GeV << " GeV]";
     return out.str();
   }

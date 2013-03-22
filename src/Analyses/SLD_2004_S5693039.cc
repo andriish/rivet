@@ -79,15 +79,17 @@ namespace Rivet {
       }
       // total multiplicities
       switch (flavour) {
-      case 1: case 2: case 3:
+      case PID::DQUARK:
+      case PID::UQUARK:
+      case PID::SQUARK:
         _weightLight  += weight;
         _weightedTotalChargedPartNumLight  += numParticles * weight;
         break;
-      case 4:
+      case PID::CQUARK:
         _weightCharm  += weight;
         _weightedTotalChargedPartNumCharm  += numParticles * weight;
         break;
-      case 5:
+      case PID::BQUARK:
         _weightBottom += weight;
         _weightedTotalChargedPartNumBottom += numParticles * weight;
         break;
@@ -110,24 +112,28 @@ namespace Rivet {
         _histPCharged ->fill(pcm     , weight);
         // all charged
         switch (flavour) {
-        case DQUARK: case UQUARK: case SQUARK:
+        case PID::DQUARK:
+        case PID::UQUARK:
+        case PID::SQUARK:
           _histXpChargedL->fill(xp, weight);
           break;
-        case CQUARK:
+        case PID::CQUARK:
           _histXpChargedC->fill(xp, weight);
           break;
-        case BQUARK:
+        case PID::BQUARK:
           _histXpChargedB->fill(xp, weight);
           break;
         }
 
         int id = abs(p.pdgId());
         // charged pions
-        if(id==PIPLUS) {
+        if (id == PID::PIPLUS) {
           _histXpPiPlus->fill(xp, weight);
           _histXpPiPlusTotal->fill(xp, weight);
           switch (flavour) {
-          case DQUARK: case UQUARK: case SQUARK:
+          case PID::DQUARK:
+          case PID::UQUARK:
+          case PID::SQUARK:
             _histXpPiPlusL->fill(xp, weight);
             _multPiPlusL->fill(sqrtS(), weight);
             if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
@@ -135,21 +141,23 @@ namespace Rivet {
             else
               _histRPiMinus->fill(xp, weight);
             break;
-          case CQUARK:
+          case PID::CQUARK:
             _histXpPiPlusC->fill(xp, weight);
             _multPiPlusC->fill(sqrtS(), weight);
             break;
-          case BQUARK:
+          case PID::BQUARK:
             _histXpPiPlusB->fill(xp, weight);
             _multPiPlusB->fill(sqrtS(), weight);
             break;
           }
         }
-        else if(id==KPLUS) {
+        else if (id == PID::KPLUS) {
           _histXpKPlus->fill(xp, weight);
           _histXpKPlusTotal->fill(xp, weight);
           switch (flavour) {
-          case DQUARK: case UQUARK: case SQUARK:
+          case PID::DQUARK:
+          case PID::UQUARK:
+          case PID::SQUARK:
             _histXpKPlusL->fill(xp, weight);
             _multKPlusL->fill(sqrtS(), weight);
             if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
@@ -157,21 +165,23 @@ namespace Rivet {
             else
               _histRKMinus->fill(xp, weight);
             break;
-          case CQUARK:
+          case PID::CQUARK:
             _histXpKPlusC->fill(xp, weight);
             _multKPlusC->fill(sqrtS(), weight);
             break;
-          case BQUARK:
+          case PID::BQUARK:
             _histXpKPlusB->fill(xp, weight);
             _multKPlusB->fill(sqrtS(), weight);
             break;
           }
         }
-        else if(id==PROTON) {
+        else if (id == PID::PROTON) {
           _histXpProton->fill(xp, weight);
           _histXpProtonTotal->fill(xp, weight);
           switch (flavour) {
-          case DQUARK: case UQUARK: case SQUARK:
+          case PID::DQUARK:
+          case PID::UQUARK:
+          case PID::SQUARK:
             _histXpProtonL->fill(xp, weight);
             _multProtonL->fill(sqrtS(), weight);
             if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
@@ -179,11 +189,11 @@ namespace Rivet {
             else
               _histRPBar  ->fill(xp, weight);
             break;
-          case CQUARK:
+          case PID::CQUARK:
             _histXpProtonC->fill(xp, weight);
             _multProtonC->fill(sqrtS(), weight);
             break;
-          case BQUARK:
+          case PID::BQUARK:
             _histXpProtonB->fill(xp, weight);
             _multProtonB->fill(sqrtS(), weight);
             break;
@@ -191,6 +201,7 @@ namespace Rivet {
         }
       }
     }
+
 
     void init() {
       // Projections

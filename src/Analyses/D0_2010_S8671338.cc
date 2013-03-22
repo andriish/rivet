@@ -29,7 +29,7 @@ namespace Rivet {
     /// Add projections and book histograms
     void init() {
       FinalState fs;
-      ZFinder zfinder(fs, -1.7, 1.7, 15.0*GeV, MUON, 65.0*GeV, 115.0*GeV, 0.2, false, true);
+      ZFinder zfinder(fs, -1.7, 1.7, 15.0*GeV, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, false, true);
       addProjection(zfinder, "ZFinder");
 
       _h_Z_pT_normalised = bookHisto1D(1, 1, 1);

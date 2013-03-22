@@ -40,19 +40,19 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // Projection to find the muons
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 10.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // Jet finder
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // All tracks (to do deltaR with leptons)
@@ -266,7 +266,7 @@ namespace Rivet {
         if(mT>100.&&m_eff>700.) {
           // D region
           _count_SR1_D->fill(0.5,weight);
-          if(abs(lepton.pdgId())==ELECTRON) {
+          if(abs(lepton.pdgId())==PID::ELECTRON) {
             _hist_meff_SR1_D_e->fill(m_eff,weight);
             _hist_met_SR0_D_e->fill(eTmiss,weight);
           }

@@ -13,6 +13,7 @@
 
 namespace Rivet {
 
+
   /// @author Peter Richardson
   class ATLAS_2012_I946427 : public Analysis {
   public:
@@ -38,7 +39,7 @@ namespace Rivet {
 
       // photons
       IdentifiedFinalState photonfs(-1.81, 1.81, 25.0*GeV);
-      photonfs.acceptId(PHOTON);
+      photonfs.acceptId(PID::PHOTON);
       addProjection(photonfs, "Photon");
 
       //

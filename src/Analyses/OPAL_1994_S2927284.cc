@@ -14,23 +14,24 @@ namespace Rivet {
   public:
 
     /// Constructor
-    OPAL_1994_S2927284() : Analysis("OPAL_1994_S2927284")
-    {}
+    OPAL_1994_S2927284()
+      : Analysis("OPAL_1994_S2927284")
+    {   }
 
 
     /// @name Analysis methods
     //@{
 
     void analyze(const Event& e) {
-      // First, veto on leptonic events by requiring at least 4 charged FS particles
-      const FinalState& fs = applyProjection<FinalState>(e, "FS");
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
+      const FinalState& fs = applyProjection<FinalState>(e, "FS");
       if (fs.particles().size() < 2) {
         MSG_DEBUG("Failed ncharged cut");
         vetoEvent;
       }
       MSG_DEBUG("Passed ncharged cut");
+
       // Get event weight for histo filling
       const double weight = e.weight();
 
@@ -43,13 +44,11 @@ namespace Rivet {
       foreach (const Particle& p, fs.particles()) {
         int id = abs(p.pdgId());
         // charged pions
-        if(id==PIPLUS) {
+        if (id == PID::PIPLUS) {
           _histXpPiPlus->fill(p.momentum().vector3().mod(), weight);
-        }
-        else if(id==KPLUS) {
+        } else if(id == PID::KPLUS) {
           _histXpKPlus->fill(p.momentum().vector3().mod(), weight);
-        }
-        else if(id==PROTON) {
+        } else if(id == PID::PROTON) {
           _histXpProton->fill(p.momentum().vector3().mod(), weight);
         }
       }

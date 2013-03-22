@@ -23,7 +23,7 @@ namespace Rivet {
   AnalysisInfo* AnalysisInfo::make(const std::string& ananame) {
     // Returned AI, in semi-null state
     AnalysisInfo* ai = new AnalysisInfo();
-    ai->_beams += make_pair(ANY, ANY);
+    ai->_beams += make_pair(PID::ANY, PID::ANY);
     ai->_name = ananame;
 
     /// If no ana data file found, return null AI
@@ -69,7 +69,7 @@ namespace Rivet {
             string bstr0, bstr1;
             beampairs[0] >> bstr0;
             beampairs[1] >> bstr1;
-            beam_pairs += make_pdgid_pair(bstr0, bstr1);
+            beam_pairs += PID::make_pdgid_pair(bstr0, bstr1);
           } else {
             for (YAML::Iterator bpi = beampairs.begin(); bpi != beampairs.end(); ++bpi) {
               const YAML::Node& bp = *bpi;
@@ -79,7 +79,7 @@ namespace Rivet {
                 string bstr0, bstr1;
                 bp[0] >> bstr0;
                 bp[1] >> bstr1;
-                beam_pairs += make_pdgid_pair(bstr0, bstr1);
+                beam_pairs += PID::make_pdgid_pair(bstr0, bstr1);
               } else {
                 assert(0 && "Beam ID pairs have to be either a 2-tuple or a list of 2-tuples of particle names");
               }

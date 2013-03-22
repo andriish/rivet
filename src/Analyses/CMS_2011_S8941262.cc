@@ -23,7 +23,7 @@ namespace Rivet {
       nbtot=0.;   nbmutot=0.;
 
       IdentifiedFinalState ifs(-2.1, 2.1, 6.0*GeV);
-      ifs.acceptIdPair(MUON);
+      ifs.acceptIdPair(PID::MUON);
       addProjection(ifs, "IFS");
     }
 
@@ -35,7 +35,7 @@ namespace Rivet {
       // a b-quark must have been produced
       int nb = 0;
       foreach (const GenParticle* p, particles(event.genEvent())) {
-        if (abs(p->pdg_id()) == BQUARK) nb += 1;
+        if (abs(p->pdg_id()) == PID::BQUARK) nb += 1;
       }
       if (nb == 0) vetoEvent;
       nbtot += weight;

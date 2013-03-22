@@ -29,7 +29,7 @@ namespace Rivet {
       // Projections
       IdentifiedFinalState partonfs;
       for (int i=1; i<6; ++i) partonfs.acceptIdPair(i);
-      partonfs.acceptId(GLUON);
+      partonfs.acceptId(PID::GLUON);
       addProjection(FastJets(partonfs, FastJets::KT, 0.6), "Jets");
 
       MC_JetSplittings::init();

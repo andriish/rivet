@@ -43,7 +43,7 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47,2.47));
       IdentifiedFinalState elecs(eta_e, 10.0*GeV);
-      elecs.acceptIdPair(ELECTRON);
+      elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
 
@@ -51,14 +51,14 @@ namespace Rivet {
       std::vector<std::pair<double, double> > eta_m;
       eta_m.push_back(make_pair(-2.4,2.4));
       IdentifiedFinalState muons(eta_m, 10.0*GeV);
-      muons.acceptIdPair(MUON);
+      muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // for pTmiss
       addProjection(VisibleFinalState(-4.9,4.9),"vfs");
 
       VetoedFinalState vfs;
-      vfs.addVetoPairId(MUON);
+      vfs.addVetoPairId(PID::MUON);
 
       /// Jet finder
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
@@ -223,7 +223,7 @@ namespace Rivet {
         // all particles isolation
         pTinCone = -e.momentum().perp();
         foreach ( const Particle & p, vfs_particles ) {
-          if(abs(p.pdgId())!=MUON &&
+          if(abs(p.pdgId())!=PID::MUON &&
              deltaR(e.momentum(),p.momentum()) <= 0.3 )
             pTinCone += p.momentum().pT();
         }

@@ -39,7 +39,7 @@ namespace Rivet {
 
       // Input for the jets: No neutrinos, no muons
       VetoedFinalState veto;
-      veto.addVetoPairId(MUON);
+      veto.addVetoPairId(PID::MUON);
       veto.vetoNeutrinos();
       FastJets jets(veto, FastJets::ANTIKT, 0.6);
       addProjection(jets, "jets");

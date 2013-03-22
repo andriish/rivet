@@ -26,7 +26,7 @@ namespace Rivet {
     {
       setName("ClusteredPhotons");
       IdentifiedFinalState photonfs(fs);
-      photonfs.acceptId(PHOTON);
+      photonfs.acceptId(PID::PHOTON);
       addProjection(photonfs, "Photons");
       addProjection(signal, "Signal");
     }
@@ -38,8 +38,6 @@ namespace Rivet {
     }
     //@}
 
-
-  public:
 
   protected:
 

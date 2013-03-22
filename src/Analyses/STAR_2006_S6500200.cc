@@ -28,10 +28,10 @@ namespace Rivet {
 
       IdentifiedFinalState pionfs(-2.5, 2.5, 0.3*GeV);
       IdentifiedFinalState protonfs(-2.5, 2.5, 0.4*GeV);
-      pionfs.acceptIdPair(PIPLUS);
-      protonfs.acceptIdPair(PROTON);
-      addProjection(pionfs, "PIONFS");
-      addProjection(protonfs, "PROTONFS");
+      pionfs.acceptIdPair(PID::PIPLUS);
+      protonfs.acceptIdPair(PID::PROTON);
+      addProjection(pionfs, "PionFS");
+      addProjection(protonfs, "ProtonFS");
 
       _h_pT_piplus     = bookHisto1D(1, 1, 1);
       _h_pT_piminus    = bookHisto1D(1, 2, 1);
@@ -56,7 +56,7 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      const IdentifiedFinalState& pionfs = applyProjection<IdentifiedFinalState>(event, "PIONFS");
+      const IdentifiedFinalState& pionfs = applyProjection<IdentifiedFinalState>(event, "PionFS");
       foreach (const Particle& p, pionfs.particles()) {
         if (fabs(p.momentum().rapidity()) < 0.5) {
           const double pT = p.momentum().pT() / GeV;
@@ -69,7 +69,7 @@ namespace Rivet {
         }
       }
 
-      const IdentifiedFinalState& protonfs = applyProjection<IdentifiedFinalState>(event, "PROTONFS");
+      const IdentifiedFinalState& protonfs = applyProjection<IdentifiedFinalState>(event, "ProtonFS");
       foreach (const Particle& p, protonfs.particles()) {
         if (fabs(p.momentum().rapidity()) < 0.5) {
           const double pT = p.momentum().pT() / GeV;
@@ -88,19 +88,13 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       divide(_h_pT_piminus, _h_pT_piplus, _h_piminus_piplus);
-
       divide(_h_pT_antiproton, _h_pT_proton, _h_antipr_pr);
-
       divide(_h_pT_proton, _h_pT_piplus, _h_pr_piplus);
-
       divide(_h_pT_antiproton, _h_pT_piminus, _h_antipr_piminus);
-
       scale(_h_pT_piplus,     1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_piminus,    1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_proton,     1./(2*M_PI*_sumWeightSelected));
       scale(_h_pT_antiproton, 1./(2*M_PI*_sumWeightSelected));
-      MSG_DEBUG("sumOfWeights()     = " << sumOfWeights());
-      MSG_DEBUG("_sumWeightSelected = " << _sumWeightSelected);
     }
 
 

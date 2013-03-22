@@ -44,7 +44,7 @@ namespace Rivet {
       addProjection(cfs,"CFS");
       // and then veto electrons, and taus to be safe
       VetoedFinalState vfs(cfs);
-      vfs.addVetoPairId(ELECTRON);
+      vfs.addVetoPairId(PID::ELECTRON);
 
       addProjection(vfs,"VFS");
 

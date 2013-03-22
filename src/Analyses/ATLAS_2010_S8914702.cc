@@ -52,7 +52,7 @@ namespace Rivet {
       addProjection(fj, "KtJetsD05");
 
       LeadingParticlesFinalState photonfs(FinalState(-1.81, 1.81, 15.0*GeV));
-      photonfs.addParticleId(PHOTON);
+      photonfs.addParticleId(PID::PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
       int hist_bin = 0;

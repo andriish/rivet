@@ -37,7 +37,7 @@ namespace Rivet {
 
       // Get leading photon
       LeadingParticlesFinalState photonfs(FinalState(-0.9, 0.9, 23.0*GeV));
-      photonfs.addParticleId(PHOTON);
+      photonfs.addParticleId(PID::PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
       // Book histograms

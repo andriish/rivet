@@ -28,7 +28,7 @@ namespace Rivet {
           foreach (const GenParticle* pp, particles_in(pv)) {
             // Only accept if parent is electron or Z0
             const PdgId pid = abs(pp->pdg_id());
-            passed = (pid == ELECTRON || abs(pp->pdg_id()) == ZBOSON);
+            passed = (pid == PID::ELECTRON || abs(pp->pdg_id()) == PID::ZBOSON);
           }
         } else {
           passed = false;
@@ -49,8 +49,7 @@ namespace Rivet {
         }
         if (dv != 0) {
           foreach (const GenParticle* pp, particles_out(dv)) {
-            MSG_TRACE(std::boolalpha
-                      << " child ID  = " << pp->pdg_id());
+            MSG_TRACE(std::boolalpha << " child ID  = " << pp->pdg_id());
           }
         }
       }

@@ -40,7 +40,7 @@ namespace Rivet {
       FinalState fs(-5.0, 5.0, 0.0*GeV);
 
       IdentifiedFinalState bareElectrons(fs);
-      bareElectrons.acceptIdPair(ELECTRON);
+      bareElectrons.acceptIdPair(PID::ELECTRON);
       vector<pair<double, double> > etaRangesElectrons;
       etaRangesElectrons.push_back(make_pair(-2.47, -1.52));
       etaRangesElectrons.push_back(make_pair(-1.37, 1.37));
@@ -49,7 +49,7 @@ namespace Rivet {
       addProjection(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
-      bareMuons.acceptIdPair(MUON);
+      bareMuons.acceptIdPair(PID::MUON);
       vector<pair<double, double> > etaRangesMuons;
       etaRangesMuons.push_back(make_pair(-2.4, 2.4));
       LeptonClusters muonClusters(fs, bareMuons, 0.1, true, etaRangesMuons, 20.0*GeV);
