@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[1.8.2],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[1.8.3],[rivet@projects.hepforge.org],[Rivet])
 if test "$prefix" = "$PWD"; then
   AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
 fi
@@ -20,8 +20,8 @@ AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
 
 ## Set library version info code
-## Set for version 1.8.0
-VERSIONINFOFLAGS="-version-info 11:0:0"
+## Set for version 1.8.3
+VERSIONINFOFLAGS="-version-info 11:1:0"
 AC_SUBST(VERSIONINFOFLAGS)
 
 ## OS X
