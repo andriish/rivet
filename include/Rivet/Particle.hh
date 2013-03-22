@@ -79,19 +79,37 @@ namespace Rivet {
       return momentum().mass();
     }
 
+
+    /// @todo Re-enable
     // /// The charge of this Particle.
     // double charge() const {
     //   return PID::charge(*this);
     // }
 
+    /// @todo Re-enable
     // /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
     // int threeCharge() const {
     //   return PID::threeCharge(*this);
     // }
 
-
     /// Check whether a given PID is found in the GenParticle's ancestor list
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
     bool hasAncestor(PdgId pdg_id) const;
+
+    /// @brief Determine whether the particle is from a hadron or tau decay
+    ///
+    /// Specifically, walk up the ancestor chain until a status 2 hadron or
+    /// tau is found, if at all.
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromDecay() const;
+
+    /// @todo Add methods like fromS/C/BHadron(), fromTau()?
 
 
   private:
