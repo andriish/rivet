@@ -150,12 +150,12 @@ namespace Rivet {
 
 
     void finalize() {
-      divide(_h_temp[0], _h_temp[6], _h_results[1]);
-      divide(_h_temp[1], _h_temp[6], _h_results[2]);
-      divide(_h_temp[2], _h_temp[6], _h_results[3]);
-      divide(_h_temp[3], _h_temp[6], _h_results[4]);
-      divide(_h_temp[4], _h_temp[6], _h_results[5]);
-      divide(_h_temp[5], _h_temp[6], _h_results[6]);
+      divide(_h_temp[0], _h_temp[6], _h_results[0]);
+      divide(_h_temp[1], _h_temp[6], _h_results[1]);
+      divide(_h_temp[2], _h_temp[6], _h_results[2]);
+      divide(_h_temp[3], _h_temp[6], _h_results[3]);
+      divide(_h_temp[4], _h_temp[6], _h_results[4]);
+      divide(_h_temp[5], _h_temp[6], _h_results[5]);
     }
 
   private:
