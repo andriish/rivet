@@ -134,7 +134,7 @@ namespace Rivet {
     static const PdgId XIMINUS = 3312;
     static const PdgId XIPLUS = -XIMINUS;
     static const PdgId OMEGAMINUS = 3334;
-    static const PdgId OMEGAPLUS = -OMEGAPLUS;
+    static const PdgId OMEGAPLUS = -OMEGAMINUS;
     //@}
 
     /// @name Exotic/weird stuff
