@@ -3,7 +3,7 @@ Year: 2012
 Summary: Measurement of the underlying event activity in the Drell-Yan process at a centre-of-mass energy of 7 TeV
 Experiment: CMS
 Collider: LHC
-SpiresID:
+InspireID: 1107658
 Status: VALIDATED
 Authors:
  - Sunil Bansal (sunil.bansal@cern.ch)
