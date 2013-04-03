@@ -54,24 +54,19 @@ AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])]
 CPPFLAGS=$oldCPPFLAGS
 
 ## Boost C++ header library
-AC_CEDAR_HEADERS([Boost], , , [AC_MSG_ERROR([Boost is required])])
-oldCPPFLAGS=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I$BOOSTINCPATH"
-BOOSTERRMSG="You need at least version 1.34.0 of Boost for this installation."
-BOOSTERRMSG="$BOOSTERRMSG If you want to use Boost from a non-standard location,"
-BOOSTERRMSG="$BOOSTERRMSG please specify '--with-boost-incpath=/path/to/boost_1_35/include'"
-BOOSTERRMSG="$BOOSTERRMSG as option to the configure script or run the rivet-bootstrap script "
-BOOSTERRMSG="$BOOSTERRMSG with the --install-boost option, or --boost=/path/to/boost"
-AC_CHECK_HEADER([boost/foreach.hpp], [], [AC_MSG_ERROR([Boost foreach not found. $BOOSTERRMSG])])
-AC_CHECK_HEADER([boost/smart_ptr.hpp], [], [AC_MSG_ERROR([Boost smart_ptr not found. $BOOSTERRMSG])])
-AC_CHECK_HEADER([boost/lexical_cast.hpp], [], [AC_MSG_ERROR([Boost lexical_cast not found. $BOOSTERRMSG])])
-AC_CHECK_HEADER([boost/assign.hpp], [], [AC_MSG_ERROR([Boost assign not found. $BOOSTERRMSG])])
-#AC_CHECK_HEADER([boost/random.hpp], [], [AC_MSG_ERROR([Boost random numbers not found. $BOOSTERRMSG])])
-CPPFLAGS=$oldCPPFLAGS
+## Boost utility library
+BOOST_REQUIRE([1.40.0])
+BOOST_FOREACH
+BOOST_SMART_PTR
+BOOST_FIND_HEADER([boost/lexical_cast.hpp])
+BOOST_FIND_HEADER([boost/range.hpp])
+BOOST_FIND_HEADER([boost/assign.hpp])
+
 
 ## YODA library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
 ## TODO NEEDS TESTS HERE
+
 
 ## HepMC library
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
@@ -302,7 +297,7 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
 #AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen2"
 AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
-AM_CPPFLAGS="$AM_CPPFLAGS -I\$(BOOSTINCPATH) \$(BOOST_CPPFLAGS)"
+AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(YODAINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
