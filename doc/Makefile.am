@@ -9,23 +9,17 @@ DOCSOURCES = compare-histos.txt  heppennames.sty warning.png thinker.png cone.pn
   rivet-manual.pdf hepunits.sty underscore.sty microtype.sty
 
 EXTRA_DIST = $(DOCSOURCES)
-
-if WITH_ASCIIDOC
-EXTRA_DIST += compare-histos.html make-plots.html
-endif
-
 DOCS =
 
-if ENABLE_PYEXT
 
+if ENABLE_PYEXT
 DOCS += analyses.html
 analyses.html: $(top_srcdir)/src/Analyses mk-analysis-html
-	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(top_srcdir)/src/Tools/yaml-cpp/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
-DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(top_srcdir)/src/Tools/yaml-cpp/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
+DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
-PYTHONPATH=$(top_srcdir)/pyext:$(PYTHONPATH) \
+PYTHONPATH=$(top_builddir)/pyext:$(PYTHONPATH) \
 $(PYTHON) mk-analysis-html analyses.html
-
 endif
 
 
@@ -35,25 +29,18 @@ if WITH_PDFLATEX
 DOCS += rivet-manual.pdf
 EXTRA_DIST += analyses.tex analyses.bib refs.bib
 
-
 if ENABLE_PYEXT
-
 analyses.bib analyses.tex: $(top_srcdir)/src/Analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(LD_LIBRARY_PATH) \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(DYLD_LIBRARY_PATH) \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
 $(PYTHON) mk-analysis-latex
-
 else
-
 analyses.bib analyses.tex:
 	> analyses.tex
 	> analyses.bib
-
 endif
 
-
-#LATEX	= pdflatex
 LATEX	= pdflatex --interaction=nonstopmode
 BIBTEX	= bibtex
 MAKEINDEX = makeindex
@@ -78,6 +65,7 @@ endif
 if WITH_ASCIIDOC
 
 DOCS += compare-histos.html make-plots.html
+EXTRA_DIST += compare-histos.html make-plots.html
 
 compare-histos.html: compare-histos.txt
 	asciidoc -a toc compare-histos.txt
@@ -93,13 +81,10 @@ endif
 
 .PHONY = all doc upload arxivtar
 
-#all:
-#	@echo "Default make rule does nothing: use 'make doc'"
-
 doc: $(DOCS)
 	@true
 
-## TODO: Put Rivet version string in PDF filename for upload?
+# TODO: Put Rivet version string in PDF filename for upload?
 RSH=rsync
 DEST=login.hepforge.org:rivet/public_html/
 upload: $(DOCS)

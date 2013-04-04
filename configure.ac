@@ -45,6 +45,7 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
+
 ## GNU Scientific Library
 AC_SEARCH_GSL
 AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
@@ -53,7 +54,7 @@ CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
 AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
 CPPFLAGS=$oldCPPFLAGS
 
-## Boost C++ header library
+
 ## Boost utility library
 BOOST_REQUIRE([1.40.0])
 BOOST_FOREACH
@@ -63,12 +64,12 @@ BOOST_FIND_HEADER([boost/range.hpp])
 BOOST_FIND_HEADER([boost/assign.hpp])
 
 
-## YODA library
+## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
 ## TODO NEEDS TESTS HERE
 
 
-## HepMC library
+## HepMC event record library
 AC_CEDAR_LIBRARYANDHEADERS([HepMC], , , [AC_MSG_ERROR([HepMC is required])])
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I$HEPMCINCPATH"
@@ -100,7 +101,7 @@ AC_SUBST(HEPMC_VERSION)
 CPPFLAGS=$oldCPPFLAGS
 
 
-## FastJet library
+## FastJet clustering library
 AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 AC_PATH_PROG(FJCONFIG, fastjet-config, [], $FASTJETPATH/bin:$PATH)
 if test -f "$FJCONFIG"; then
@@ -136,14 +137,8 @@ AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG]
 CPPFLAGS=$oldCPPFLAGS
 
 
-## Build Doxygen if possible
-AC_ARG_ENABLE([doxygen],
-  [AC_HELP_STRING(--disable-doxygen, [don't try to make Doxygen documentation])],
-  [], [enable_doxygen=yes])
-if test x$enable_doxygen = xyes; then
-   AC_PATH_PROG(DOXYGEN, doxygen)
-fi
-AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
+## yaml-cpp metadata file parsing library
+AC_CEDAR_LIBRARYANDHEADERS([yaml-cpp], , , [AC_MSG_ERROR([yaml-cpp is required])])
 
 
 ## Disable build/install of standard analyses
@@ -204,14 +199,18 @@ if test x$enable_pdfmanual != xyes; then
 fi
 AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
 
+## Build Doxygen documentation if possible
+AC_ARG_ENABLE([doxygen],
+  [AC_HELP_STRING(--disable-doxygen, [don't try to make Doxygen documentation])],
+  [], [enable_doxygen=yes])
+if test x$enable_doxygen = xyes; then
+   AC_PATH_PROG(DOXYGEN, doxygen)
+fi
+AM_CONDITIONAL(WITH_DOXYGEN, [test x$DOXYGEN != x])
 
 ## Build asciidoc docs if possible
 AC_PATH_PROG(ASCIIDOC, asciidoc)
 AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
-
-
-## Test to see if we have to install libyaml-cpp
-AC_CEDAR_LIBRARYANDHEADERS([yaml-cpp], , , [AC_MSG_NOTICE([Rivet will install the yaml-cpp library])])
 
 
 ## Python extension
@@ -295,7 +294,7 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
-#AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen2"
+#AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen3"
 AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(YODAINCPATH)"
@@ -331,7 +330,7 @@ AC_EMPTY_SUBST
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Core/Makefile)
-AC_CONFIG_FILES(src/Tools/Makefile src/Tools/yaml-cpp/Makefile)
+AC_CONFIG_FILES(src/Tools/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/Analyses/Makefile)
 AC_CONFIG_FILES(test/Makefile)

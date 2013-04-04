@@ -1,9 +1,10 @@
 #! /usr/bin/env python
 
-"""This is a simple SWIG wrapper on the main steering interface of
-the Rivet event simulation analysis library. It is used to create, query and
-use the Rivet C++ analysis classes from a Python program, of which the prime
-customer is Rivet's own command line interface.
+"""\
+A simple wrapper on the main steering interface of the Rivet event simulation
+analysis library. It is used to create, query and use the Rivet C++ analysis
+classes from a Python program: the prime customer is Rivet's own command line
+interface and associated scripts.
 """
 
 from distutils.core import setup, Extension
@@ -16,18 +17,12 @@ incdir_build = os.path.abspath('@top_builddir@/include')
 libdir = os.path.abspath('@top_builddir@/src/.libs')
 libdir_yaml = '@YAML_CPPLIBPATH@'
 
-# TODO: remove along with the yaml-cpp bundling
-if not libdir_yaml:
-    libdir_yaml = '@top_builddir@/src/Tools/yaml-cpp/.libs'
-
-ext = Extension('_rivetwrap',
-                [wrapsrc],
-                define_macros = [('SWIG_TYPE_TABLE', 'hepmccompat')],
+ext = Extension('_rivetwrap', [wrapsrc],
                 include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@GSLINCPATH@'],
                 extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@ @CXXFLAGS@".split(),
                 library_dirs=[libdir, libdir_yaml, '@HEPMCLIBPATH@'],
                 extra_link_args = "-L@prefix@/lib @LDFLAGS@".split(),
-                libraries=['HepMC', 'Rivet'])
+                libraries=['Rivet']) # 'HepMC', 'fastjet', 'yaml-cpp', 'GSL', 'HepPID'
 
 ## Setup definition
 setup(name = 'Rivet',
@@ -35,10 +30,10 @@ setup(name = 'Rivet',
       ext_package = 'rivet',
       ext_modules = [ext],
       py_modules = ['rivet.rivetwrap', 'rivet.__init__', 'rivet.plotinfo', 'rivet.util', 'rivet.spiresbib'],
-      author = ['Andy Buckley'],
-      author_email = 'andy.buckley@cern.ch',
-      url = 'http://projects.hepforge.org/rivet/',
-      description = 'Rivet: a Python interface to the Rivet high-energy physics analysis library.',
+      author = ['Rivet collaboration'],
+      author_email = 'rivet@projects.hepforge.org',
+      url = 'http://rivet.hepforge.org',
+      description = 'A Python interface to the Rivet high-energy physics analysis library.',
       long_description = __doc__,
       keywords = 'generator montecarlo simulation data hep physics particle validation analysis tuning',
       license = 'GPL'

@@ -1,3 +1,8 @@
+2013-04-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing bundling of yaml-cpp: it needs to be installed by the
+	user / bootstrap script from now on.
+
 2013-04-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing svn:external m4 directory, and converting Boost
