@@ -17,7 +17,8 @@ libRivetTools_la_CPPFLAGS = \
   $(AM_CPPFLAGS) \
   -DENABLE_BINRELOC \
   -DDEFAULTDATADIR=\"$(datadir)\" \
-  -DDEFAULTLIBDIR=\"$(libdir)\"
+  -DDEFAULTLIBDIR=\"$(libdir)\" \
+  -I$(YAML_CPPINCDIR)
 
 libRivetTools_la_LDFLAGS = $(AM_LDFLAGS) -L$(YAML_CPPLIBPATH)
 libRivetTools_la_LIBADD = -lyaml-cpp
