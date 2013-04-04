@@ -3,7 +3,7 @@
 """This is a simple SWIG wrapper on the main steering interface of
 the Rivet event simulation analysis library. It is used to create, query and
 use the Rivet C++ analysis classes from a Python program, of which the prime
-example is Rivet's own command line interface.
+customer is Rivet's own command line interface.
 """
 
 from distutils.core import setup, Extension
@@ -15,17 +15,18 @@ incdir_src = os.path.abspath('@top_srcdir@/include')
 incdir_build = os.path.abspath('@top_builddir@/include')
 libdir = os.path.abspath('@top_builddir@/src/.libs')
 libdir_yaml = '@YAML_CPPLIBPATH@'
+
+# TODO: remove along with the yaml-cpp bundling
 if not libdir_yaml:
     libdir_yaml = '@top_builddir@/src/Tools/yaml-cpp/.libs'
-cxxargs = '@CXXFLAGS@'.split()
-ldargs = '@LDFLAGS@'.split()
+
 ext = Extension('_rivetwrap',
                 [wrapsrc],
                 define_macros = [('SWIG_TYPE_TABLE', 'hepmccompat')],
-                include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@BOOSTINCPATH@', '@GSLINCPATH@'],
+                include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@GSLINCPATH@'],
+                extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@ @CXXFLAGS@".split(),
                 library_dirs=[libdir, libdir_yaml, '@HEPMCLIBPATH@'],
-                extra_compile_args = cxxargs,
-                extra_link_args = ldargs,
+                extra_link_args = "-L@prefix@/lib @LDFLAGS@".split(),
                 libraries=['HepMC', 'Rivet'])
 
 ## Setup definition
