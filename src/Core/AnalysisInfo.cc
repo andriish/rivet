@@ -64,8 +64,8 @@ namespace Rivet {
           const YAML::Node& beampairs = it.second();
           vector<PdgIdPair> beam_pairs;
           if (beampairs.size() == 2 &&
-              beampairs[0].GetType() == YAML::CT_SCALAR &&
-              beampairs[1].GetType() == YAML::CT_SCALAR) {
+              beampairs[0].Type() == YAML::NodeType::Scalar &&
+              beampairs[1].Type() == YAML::NodeType::Scalar) {
             string bstr0, bstr1;
             beampairs[0] >> bstr0;
             beampairs[1] >> bstr1;
@@ -74,8 +74,8 @@ namespace Rivet {
             for (YAML::Iterator bpi = beampairs.begin(); bpi != beampairs.end(); ++bpi) {
               const YAML::Node& bp = *bpi;
               if (bp.size() == 2 &&
-                  bp[0].GetType() == YAML::CT_SCALAR &&
-                  bp[1].GetType() == YAML::CT_SCALAR) {
+                  bp[0].Type() == YAML::NodeType::Scalar &&
+                  bp[1].Type() == YAML::NodeType::Scalar) {
                 string bstr0, bstr1;
                 bp[0] >> bstr0;
                 bp[1] >> bstr1;
@@ -91,12 +91,12 @@ namespace Rivet {
           const YAML::Node& energies = it.second();
           vector<pair<double,double> > beam_energy_pairs;
           for (YAML::Iterator be = energies.begin(); be != energies.end(); ++be) {
-            if (be->GetType() == YAML::CT_SCALAR) {
+            if (be->Type() == YAML::NodeType::Scalar) {
               // If beam energy is a scalar, then assume symmetric beams each with half that energy
               double sqrts;
               *be >> sqrts;
               beam_energy_pairs += make_pair(sqrts/2.0, sqrts/2.0);
-            } else if (be->GetType() == YAML::CT_SEQUENCE) {
+            } else if (be->Type() == YAML::NodeType::Sequence) {
               const YAML::Node& beseq = *be;
               // If the sub-sequence is of length 1, then it's another scalar sqrt(s)!
               if (beseq.size() == 1) {
