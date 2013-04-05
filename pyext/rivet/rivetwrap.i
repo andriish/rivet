@@ -83,8 +83,8 @@ namespace Rivet {
 
   double sqrtS(const Event& e);
 
-  const std::string& toParticleName(PdgId p);
-  PdgId toParticleId(const std::string& pname);
+  // const std::string& toParticleName(PdgId p);
+  // PdgId toParticleId(const std::string& pname);
 
 
   // Mapping of just the metadata parts of the Analysis API
