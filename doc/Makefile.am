@@ -41,8 +41,9 @@ analyses.bib analyses.tex:
 	> analyses.bib
 endif
 
-LATEX	= pdflatex --interaction=nonstopmode
-BIBTEX	= bibtex
+# LATEX = pdflatex --interaction=nonstopmode
+LATEX = pdflatex --interaction=batchmode
+BIBTEX = bibtex
 MAKEINDEX = makeindex
 RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
 RERUNBIB = "No file.*\.bbl|Citation.*undefined"
