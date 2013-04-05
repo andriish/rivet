@@ -12,34 +12,23 @@ else:
 
 ## Get input paths to allow rivet module to be imported from the src dir
 import os, re, glob
+## Add the rivet Python module build dir(s) to the Python module path
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
-dirs = []
+pydirs = []
 for d in os.listdir(pybuild):
     if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d):
-        dirs.append(os.path.join(pybuild, d))
-sys.path = dirs + sys.path
-try:
-    os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + \
-        os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
-except:
-    pass
-try:
-    os.environ["DYLD_LIBRARY_PATH"] = os.environ["DYLD_LIBRARY_PATH"] + ":" + \
-        os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
-except:
-    pass
+        pydirs.append(os.path.join(pybuild, d))
+sys.path = pydirs + sys.path
+## Set up libRivet directory in shared lib runtime search paths
+libpath = os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
+if os.environ.has_key("LD_LIBRARY_PATH"):
+    os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + libpath
+if os.environ.has_key("DYLD_LIBRARY_PATH"):
+    os.environ["DYLD_LIBRARY_PATH"] = os.environ["DYLD_LIBRARY_PATH"] + ":" + libpath
+## Set up analysis plugin directory
 anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
-#print anadirs
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
-
-
-## Change dlopen status to GLOBAL for Rivet lib
-try:
-    import ctypes
-    sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
-except:
-    import dl
-    sys.setdlopenflags(sys.getdlopenflags() | dl.RTLD_GLOBAL)
+## Finally do the rivet module import!
 import rivet
 
 
