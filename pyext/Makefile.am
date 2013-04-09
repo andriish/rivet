@@ -3,10 +3,10 @@ if ENABLE_PYEXT
 SUBDIRS = rivet .
 
 all-local: rivet/rivetwrap_wrap.cc
-	$(PYTHON) setup.py build
+	$(ENV) $(PYTHON) setup.py build
 
 install-exec-local:
-	$(PYTHON) setup.py install --prefix=$(DESTDIR)$(prefix)
+	$(ENV) $(PYTHON) setup.py install --prefix=$(DESTDIR)$(prefix)
 
 ## TODO: Really want DESTDIR here?
 uninstall-local:
@@ -14,7 +14,7 @@ uninstall-local:
 	rm -rf $(DESTDIR)$(RIVET_PYTHONPATH)/Rivet-*.egg-info
 
 clean-local:
-	$(PYTHON) setup.py clean --all
+	$(ENV) $(PYTHON) setup.py clean --all
 	@rm -f $(top_builddir)/*.pyc
 	@rm -rf $(builddir)/build
 	@rm -rf dist
