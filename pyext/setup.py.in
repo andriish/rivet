@@ -19,7 +19,7 @@ libdir_yaml = '@YAML_CPPLIBPATH@'
 
 ext = Extension('_rivetwrap', [wrapsrc],
                 include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@GSLINCPATH@'],
-                extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@ @AM_CPPFLAGS @CPPFLAGS@ @AM_CXXFLAGS @CXXFLAGS@".split(),
+                extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@".split(),
                 library_dirs=[libdir, libdir_yaml, '@HEPMCLIBPATH@'],
                 extra_link_args = "-L@prefix@/lib @LDFLAGS@".split(),
                 libraries=['Rivet']) # 'HepMC', 'fastjet', 'yaml-cpp', 'GSL', 'HepPID'
