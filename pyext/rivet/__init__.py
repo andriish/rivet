@@ -27,10 +27,10 @@ except:
 del sys
 
 ## Import SWIG-generated wrapper core
-from .rivetwrap import *
+from rivet.rivetwrap import *
 
 ## Import plot info helper
-from .plotinfo import *
+from rivet.plotinfo import *
 
 ## Import submodules into the visible namespace
 import spiresbib, util
