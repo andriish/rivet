@@ -136,7 +136,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::finalize() {
-    assert(_initialised);
+    if (!_initialised) return;
     MSG_INFO("Finalising analyses");
     foreach (AnaHandle a, _analyses) {
       try {
