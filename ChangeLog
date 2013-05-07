@@ -1,3 +1,7 @@
+2013-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Converting info file reading to use the yaml-cpp 0.5.x API.
+
 2013-04-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Tagging as 2.0.0b1

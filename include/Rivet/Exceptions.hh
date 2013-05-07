@@ -40,6 +40,13 @@ namespace Rivet {
   };
 
 
+  /// @brief Error specialisation for failures relating to analysis info.
+  class InfoError : public Error {
+  public:
+    InfoError(const std::string& what) : Error(what) {}
+  };
+
+
   /// @brief Errors relating to event/bin weights
   ///
   /// Arises in computing statistical quantities because e.g. the bin

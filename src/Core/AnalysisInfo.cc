@@ -35,134 +35,110 @@ namespace Rivet {
 
     // Read data from YAML document
     MSG_DEBUG("Reading analysis data from " << datapath);
-    std::ifstream io(datapath.c_str());
-    YAML::Parser parser(io);
     YAML::Node doc;
     try {
-      parser.GetNextDocument(doc);
-      //cout << doc << endl;
+      doc = YAML::LoadFile(datapath);
     } catch (const YAML::ParserException& ex) {
       MSG_ERROR("Parse error when reading analysis data from " << datapath << " (" << ex.what() << ")");
       return ai;
     }
 
-    for (YAML::Iterator it = doc.begin(); it != doc.end(); ++it) {
-      string key;
-      it.first() >> key;
-      stringstream sec;
-      // sec << it.second();
-      // const string secstr = sec.str().substr(0, sec.str().length()-1);
-      // MSG_TRACE(key << ": " << secstr);
-      try {
-        if (key == "Name") {
-          it.second() >> ai->_name;
-        } else if (key == "Summary") {
-          it.second() >> ai->_summary;
-        } else if (key == "Experiment") {
-          it.second() >> ai->_experiment;
-        } else if (key == "Beams") {
-          const YAML::Node& beampairs = it.second();
-          vector<PdgIdPair> beam_pairs;
-          if (beampairs.size() == 2 &&
-              beampairs[0].Type() == YAML::NodeType::Scalar &&
-              beampairs[1].Type() == YAML::NodeType::Scalar) {
-            string bstr0, bstr1;
-            beampairs[0] >> bstr0;
-            beampairs[1] >> bstr1;
-            beam_pairs += PID::make_pdgid_pair(bstr0, bstr1);
-          } else {
-            for (YAML::Iterator bpi = beampairs.begin(); bpi != beampairs.end(); ++bpi) {
-              const YAML::Node& bp = *bpi;
-              if (bp.size() == 2 &&
-                  bp[0].Type() == YAML::NodeType::Scalar &&
-                  bp[1].Type() == YAML::NodeType::Scalar) {
-                string bstr0, bstr1;
-                bp[0] >> bstr0;
-                bp[1] >> bstr1;
-                beam_pairs += PID::make_pdgid_pair(bstr0, bstr1);
-              } else {
-                assert(0 && "Beam ID pairs have to be either a 2-tuple or a list of 2-tuples of particle names");
-              }
-            }
-          }
-          ai->_beams = beam_pairs;
-        }
-        else if (key == "Energies") {
-          const YAML::Node& energies = it.second();
-          vector<pair<double,double> > beam_energy_pairs;
-          for (YAML::Iterator be = energies.begin(); be != energies.end(); ++be) {
-            if (be->Type() == YAML::NodeType::Scalar) {
-              // If beam energy is a scalar, then assume symmetric beams each with half that energy
-              double sqrts;
-              *be >> sqrts;
-              beam_energy_pairs += make_pair(sqrts/2.0, sqrts/2.0);
-            } else if (be->Type() == YAML::NodeType::Sequence) {
-              const YAML::Node& beseq = *be;
-              // If the sub-sequence is of length 1, then it's another scalar sqrt(s)!
-              if (beseq.size() == 1) {
-                double sqrts;
-                (*be)[0] >> sqrts;
-                beam_energy_pairs += make_pair(sqrts/2.0, sqrts/2.0);
-              } else if (beseq.size() == 2) {
-                vector<double> beamenergies;
-                double beamenergy0, beamenergy1;
-                beseq[0] >> beamenergy0;
-                beseq[1] >> beamenergy1;
-                beam_energy_pairs += make_pair(beamenergy0, beamenergy1);
-              } else {
-                assert(0 && "Beam energies have to be a list of either numbers or pairs of numbers");
-              }
-            } else {
-              assert(0 && "Beam energies have to be a list of either numbers or pairs of numbers");
-            }
-          }
-          ai->_energies = beam_energy_pairs;
-        } else if (key == "Collider") {
-          it.second() >> ai->_collider;
-        } else if (key == "SpiresID") {
-          it.second() >> ai->_spiresId;
-        } else if (key == "BibKey") {
-          it.second() >> ai->_bibKey;
-        } else if (key == "BibTeX") {
-          it.second() >> ai->_bibTeX;//Body;
-        } else if (key == "Status") {
-          it.second() >> ai->_status;
-        } else if (key == "ToDo") {
-          const YAML::Node& todos = it.second();
-          for (YAML::Iterator todo = todos.begin(); todo != todos.end(); ++todo) {
-            string s;
-            *todo >> s;
-            ai->_todos += s;
-          }
-        } else if (key == "NeedCrossSection" || key == "NeedsCrossSection") {
-          it.second() >> ai->_needsCrossSection;
-        } else if (key == "RunInfo") {
-          it.second() >> ai->_runInfo;
-        } else if (key == "Description") {
-          it.second() >> ai->_description;
-        } else if (key == "Year") {
-          it.second() >> ai->_year;
-        } else if (key == "Authors") {
-          const YAML::Node& authors = it.second();
-          for (YAML::Iterator a = authors.begin(); a != authors.end(); ++a) {
-            string astr;
-            *a >> astr;
-            ai->_authors += astr;
-          }
-        } else if (key == "References") {
-          const YAML::Node& refs = it.second();
-          for (YAML::Iterator r = refs.begin(); r != refs.end(); ++r) {
-            string rstr;
-            *r >> rstr;
-            ai->_references += rstr;
-          }
-        }
-      } catch (const YAML::RepresentationException& ex) {
-        Log::getLog("Rivet.Analysis")
-          << Log::WARN << "Type error when reading analysis data '"
-          << key << "' from " << datapath << endl;
-      }
+    #define THROW_INFOERR(KEY) throw InfoError("Problem in info parsing while accessing key " + string(KEY) + " in file " + datapath)
+    #define TRY_GETINFO(KEY, VAR) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { THROW_INFOERR(KEY); }
+
+    TRY_GETINFO("Name", name);
+    // if (doc["Summary"]) ai->_summary = doc["Summary"].as<string>();
+    TRY_GETINFO("Summary", summary);
+    // if (doc["Status"]) ai->_status = doc["Status"].as<string>();
+    TRY_GETINFO("Status", status);
+    // if (doc["RunInfo"]) ai->_runInfo = doc["RunInfo"].as<string>();
+    TRY_GETINFO("RunInfo", runInfo);
+    // if (doc["Description"]) ai->_description = doc["Description"].as<string>();
+    TRY_GETINFO("Description", description);
+    // if (doc["Experiment"]) ai->_experiment = doc["Experiment"].as<string>();
+    TRY_GETINFO("Experiment", experiment);
+    // if (doc["Collider"]) ai->_collider = doc["Collider"].as<string>();
+    TRY_GETINFO("Collider", collider);
+    // if (doc["Year"]) ai->_year = doc["Year"].as<string>();
+    TRY_GETINFO("Year", year);
+    // if (doc["SpiresID"]) ai->_spiresId = doc["SpiresID"].as<string>();
+    TRY_GETINFO("SpiresID", spiresId);
+    // if (doc["InspireID"]) ai->_inspireId = doc["InspireID"].as<string>();
+    TRY_GETINFO("InspireID", inspireId);
+    // if (doc["BibKey"]) ai->_bibKey = doc["BibKey"].as<string>();
+    TRY_GETINFO("BibKey", bibKey);
+    // if (doc["BibTeX"]) ai->_bibTeX = doc["BibTeX"].as<string>();
+    TRY_GETINFO("BibTeX", bibTeX);
+
+    try {
+      if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
+      else if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
+    } catch (...) {
+      THROW_INFOERR("NeedsCrossSection|NeedCrossSection");
     }
+
+    try {
+      if (doc["Authors"]) {
+        const YAML::Node& authors = doc["Authors"];
+        for (size_t i = 0; i < authors.size(); ++i) ai->_authors += authors[i].as<string>();
+      }
+    } catch (...) { THROW_INFOERR("Authors"); }
+
+    try {
+      if (doc["References"]) {
+        const YAML::Node& refs = doc["References"];
+        for (size_t i = 0; i < refs.size(); ++i) ai->_references += refs[i].as<string>();
+      }
+    } catch (...) { THROW_INFOERR("References"); }
+
+    try {
+      if (doc["ToDo"]) {
+        const YAML::Node& todos = doc["ToDo"];
+        for (size_t i = 0; i < todos.size(); ++i) ai->_todos += todos[i].as<string>();
+      }
+    } catch (...) { THROW_INFOERR("ToDo"); }
+
+    try {
+      if (doc["Beams"]) {
+        const YAML::Node& beams = doc["Beams"];
+        vector<PdgIdPair> beam_pairs;
+        if (beams.size() == 2 && beams[0].IsScalar() && beams[0].IsScalar()) {
+          beam_pairs += PID::make_pdgid_pair(beams[0].as<string>(), beams[1].as<string>());
+        } else {
+          for (size_t i = 0; i < beams.size(); ++i) {
+            const YAML::Node& bp = beams[i];
+            if (bp.size() != 2 || !bp[0].IsScalar() || !bp[0].IsScalar())
+              throw InfoError("Beam ID pairs have to be either a 2-tuple or a list of 2-tuples of particle names");
+            beam_pairs += PID::make_pdgid_pair(bp[0].as<string>(), bp[1].as<string>());
+          }
+        }
+        ai->_beams = beam_pairs;
+      }
+    } catch (...) { THROW_INFOERR("beams"); }
+
+    try {
+      if (doc["Energies"]) {
+        vector< pair<double,double> > beam_energy_pairs;
+        for (size_t i = 0; i < doc["Energies"].size(); ++i) {
+          const YAML::Node& be = doc["Energies"][i];
+          if (be.IsScalar()) {
+            // If beam energy is a scalar, then assume symmetric beams each with half that energy
+            beam_energy_pairs += make_pair(be.as<double>()/2.0, be.as<double>()/2.0);
+          } else if (be.IsSequence()) {
+            if (be.size() != 2)
+              throw InfoError("Beam energies have to be a list of either numbers or pairs of numbers");
+            beam_energy_pairs += make_pair(be[0].as<double>(), be[1].as<double>());
+          } else {
+            throw InfoError("Beam energies have to be a list of either numbers or pairs of numbers");
+          }
+        }
+        ai->_energies = beam_energy_pairs;
+      }
+    } catch (...) { THROW_INFOERR("Energies"); }
+
+    #undef TRY_GETINFO
+    #undef THROW_INFOERR
+
     MSG_TRACE("AnalysisInfo pointer = " << ai);
     return ai;
   }

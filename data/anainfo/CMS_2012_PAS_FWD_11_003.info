@@ -3,11 +3,11 @@ Year: 2011
 Summary: Study of the Underlying Event at Forward Rapidity in Proton-Proton Collisions at the LHC
 Experiment: CMS
 Collider: LHC
-SpiresID: 
+SpiresID:
 Status: VALIDATED
 Authors:
  - Samantha Dooling <samantha.dooling@desy.de>
-References: 
+References:
  - CMS-PAS-FWD-11-003
  - http://cdsweb.cern.ch/record/1434458
 RunInfo:
