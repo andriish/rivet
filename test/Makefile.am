@@ -25,7 +25,8 @@ TESTS_ENVIRONMENT = \
   RIVET_REF_PATH=$(top_builddir)/data/refdata \
   RIVET_INFO_PATH=$(top_builddir)/data/anainfo \
   RIVET_ANALYSIS_PATH=$(top_builddir)/src/Analyses/.libs \
-  LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$LD_LIBRARY_PATH \
+  LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(LD_LIBRARY_PATH) \
+  DYLD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(DYLD_LIBRARY_PATH) \
   PYTHON_BUILD_DIR=$(top_builddir)/pyext/build \
   PATH=$(top_builddir)/bin:$(PATH)
 
