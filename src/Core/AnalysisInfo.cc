@@ -44,32 +44,36 @@ namespace Rivet {
     }
 
     #define THROW_INFOERR(KEY) throw InfoError("Problem in info parsing while accessing key " + string(KEY) + " in file " + datapath)
+
+    // Simple scalars (test for nullness before casting)
     #define TRY_GETINFO(KEY, VAR) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { THROW_INFOERR(KEY); }
-
     TRY_GETINFO("Name", name);
-    // if (doc["Summary"]) ai->_summary = doc["Summary"].as<string>();
     TRY_GETINFO("Summary", summary);
-    // if (doc["Status"]) ai->_status = doc["Status"].as<string>();
     TRY_GETINFO("Status", status);
-    // if (doc["RunInfo"]) ai->_runInfo = doc["RunInfo"].as<string>();
     TRY_GETINFO("RunInfo", runInfo);
-    // if (doc["Description"]) ai->_description = doc["Description"].as<string>();
     TRY_GETINFO("Description", description);
-    // if (doc["Experiment"]) ai->_experiment = doc["Experiment"].as<string>();
     TRY_GETINFO("Experiment", experiment);
-    // if (doc["Collider"]) ai->_collider = doc["Collider"].as<string>();
     TRY_GETINFO("Collider", collider);
-    // if (doc["Year"]) ai->_year = doc["Year"].as<string>();
     TRY_GETINFO("Year", year);
-    // if (doc["SpiresID"]) ai->_spiresId = doc["SpiresID"].as<string>();
     TRY_GETINFO("SpiresID", spiresId);
-    // if (doc["InspireID"]) ai->_inspireId = doc["InspireID"].as<string>();
     TRY_GETINFO("InspireID", inspireId);
-    // if (doc["BibKey"]) ai->_bibKey = doc["BibKey"].as<string>();
     TRY_GETINFO("BibKey", bibKey);
-    // if (doc["BibTeX"]) ai->_bibTeX = doc["BibTeX"].as<string>();
     TRY_GETINFO("BibTeX", bibTeX);
+    #undef TRY_GETINFO
 
+    // Sequences (test the seq *and* each entry for nullness before casting)
+    #define TRY_GETINFO_SEQ(KEY, VAR) try { \
+        if (doc[KEY] && !doc[KEY].IsNull()) {                           \
+          const YAML::Node& VAR = doc[KEY];                             \
+          for (size_t i = 0; i < VAR.size(); ++i)                       \
+            if (!VAR[i].IsNull()) ai->_ ## VAR += VAR[i].as<string>();  \
+        } } catch (...) { THROW_INFOERR(KEY); }
+    TRY_GETINFO_SEQ("Authors", authors);
+    TRY_GETINFO_SEQ("References", references);
+    TRY_GETINFO_SEQ("ToDo", todos);
+    #undef TRY_GETINFO_SEQ
+
+    // A boolean with some name flexibility
     try {
       if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
       else if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
@@ -77,27 +81,7 @@ namespace Rivet {
       THROW_INFOERR("NeedsCrossSection|NeedCrossSection");
     }
 
-    try {
-      if (doc["Authors"]) {
-        const YAML::Node& authors = doc["Authors"];
-        for (size_t i = 0; i < authors.size(); ++i) ai->_authors += authors[i].as<string>();
-      }
-    } catch (...) { THROW_INFOERR("Authors"); }
-
-    try {
-      if (doc["References"]) {
-        const YAML::Node& refs = doc["References"];
-        for (size_t i = 0; i < refs.size(); ++i) ai->_references += refs[i].as<string>();
-      }
-    } catch (...) { THROW_INFOERR("References"); }
-
-    try {
-      if (doc["ToDo"]) {
-        const YAML::Node& todos = doc["ToDo"];
-        for (size_t i = 0; i < todos.size(); ++i) ai->_todos += todos[i].as<string>();
-      }
-    } catch (...) { THROW_INFOERR("ToDo"); }
-
+    // Beam particle identities
     try {
       if (doc["Beams"]) {
         const YAML::Node& beams = doc["Beams"];
@@ -116,6 +100,7 @@ namespace Rivet {
       }
     } catch (...) { THROW_INFOERR("beams"); }
 
+    // Beam energies
     try {
       if (doc["Energies"]) {
         vector< pair<double,double> > beam_energy_pairs;
@@ -136,7 +121,6 @@ namespace Rivet {
       }
     } catch (...) { THROW_INFOERR("Energies"); }
 
-    #undef TRY_GETINFO
     #undef THROW_INFOERR
 
     MSG_TRACE("AnalysisInfo pointer = " << ai);
