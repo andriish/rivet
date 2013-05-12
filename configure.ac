@@ -139,6 +139,21 @@ CPPFLAGS=$oldCPPFLAGS
 
 ## yaml-cpp metadata file parsing library
 AC_CEDAR_LIBRARYANDHEADERS([yaml-cpp], , , [AC_MSG_ERROR([yaml-cpp is required])])
+YAMLCPP_LIBS="-lyaml-cpp"
+oldCPPFLAGS=$CPPFLAGS
+oldLDFLAGS=$LDFLAGS
+CPPFLAGS="$AM_CPPFLAGS $CPPFLAGS -I$YAML_CPPINCPATH"
+LDFLAGS="$AM_LDFLAGS $LDFLAGS -L$YAML_CPP_LIBPATH"
+dnl AC_CHECK_HEADER([yaml-cpp/yaml.h], [], [AC_MSG_ERROR([yaml-cpp/yaml.h header not found.])])
+AC_CHECK_HEADER([yaml-cpp/node.h], [YAMLCPP_MAJOR_VERSION=3])
+AC_CHECK_HEADER([yaml-cpp/node/node.h], [YAMLCPP_MAJOR_VERSION=5])
+if test "x$YAMLCPP_MAJOR_VERSION" = x; then
+  AC_MSG_ERROR([yaml-cpp API version could not be determined])
+fi
+AC_MSG_NOTICE([yaml-cpp API version = $YAMLCPP_MAJOR_VERSION])
+AC_SUBST(YAMLCPP_MAJOR_VERSION)
+CPPFLAGS=$oldCPPFLAGS
+LDFLAGS=$oldLDFLAGS
 
 
 ## Disable build/install of standard analyses

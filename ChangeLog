@@ -1,3 +1,7 @@
+2013-05-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding configure-time differentiation between yaml-cpp API versions 3 and 5.
+
 2013-05-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Converting info file reading to use the yaml-cpp 0.5.x API.
