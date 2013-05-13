@@ -38,7 +38,7 @@ namespace Rivet {
       IdentifiedFinalState allleptons;
       allleptons.acceptIdPair(PID::ELECTRON);
       allleptons.acceptIdPair(PID::MUON);
-      std::vector<std::pair<double, double> > etaRanges;
+      vector< pair<double, double> > etaRanges;
       etaRanges.push_back(make_pair(-2.5, 2.5));
       LeptonClusters leptons(fs, allleptons,
                      0.1, true,
@@ -61,7 +61,7 @@ namespace Rivet {
       jets.useInvisibles(true);
       addProjection(jets, "jets");
 
-      for (size_t i=0; i<2; ++i) {
+      for (size_t i = 0; i < 2; ++i) {
         _h_NjetIncl[i] = bookHisto1D(1, 1, i+1);
         _h_RatioNjetIncl[i] = bookScatter2D(2, 1, i+1);
         _h_FirstJetPt_1jet[i] = bookHisto1D(3, 1, i+1);
@@ -98,30 +98,29 @@ namespace Rivet {
       const vector<ClusteredLepton>& leptons = applyProjection<LeptonClusters>(event, "leptons").clusteredLeptons();
       Particles neutrinos = applyProjection<FinalState>(event, "neutrinos").particlesByPt();
 
-      if (leptons.size()!=1 || (neutrinos.size()==0)) {
+      if (leptons.size() != 1 || (neutrinos.size() == 0)) {
         vetoEvent;
       }
 
-      FourMomentum lepton=leptons[0].momentum();
+      FourMomentum lepton = leptons[0].momentum();
       FourMomentum p_miss = neutrinos[0].momentum();
-      if (p_miss.Et()<25.0*GeV) {
+      if (p_miss.Et() < 25.0*GeV) {
         vetoEvent;
       }
 
-      double mT=sqrt(2.0*lepton.pT()*p_miss.Et()*(1.0-cos(lepton.phi()-p_miss.phi())));
-      if (mT<40.0*GeV) {
+      double mT = sqrt(2.0 * lepton.pT() * p_miss.Et() * (1.0 - cos( lepton.phi()-p_miss.phi()) ) );
+      if (mT < 40.0*GeV) {
         vetoEvent;
       }
 
-      double jetcuts[] = {30.0*GeV, 20.0*GeV};
+      double jetcuts[] = { 30.0*GeV, 20.0*GeV };
       const FastJets& jetpro = applyProjection<FastJets>(event, "jets");
 
-      for (size_t i=0; i<2; ++i) {
+      for (size_t i = 0; i < 2; ++i) {
         vector<FourMomentum> jets;
-        double HT=lepton.pT()+p_miss.pT();
+        double HT = lepton.pT() + p_miss.pT();
         foreach (const Jet& jet, jetpro.jetsByPt(jetcuts[i])) {
-          if (fabs(jet.momentum().rapidity())<4.4 &&
-              deltaR(lepton, jet.momentum())>0.5) {
+          if (fabs(jet.momentum().rapidity()) < 4.4 && deltaR(lepton, jet.momentum()) > 0.5) {
             jets.push_back(jet.momentum());
             HT += jet.momentum().pT();
           }
@@ -130,7 +129,7 @@ namespace Rivet {
         _h_NjetIncl[i]->fill(0.0, weight);
 
         // Njet>=1 observables
-        if (jets.size()<1) continue;
+        if (jets.size() < 1) continue;
         _h_NjetIncl[i]->fill(1.0, weight);
         _h_FirstJetPt_1jet[i]->fill(jets[0].pT(), weight);
         _h_JetRapidity[i]->fill(jets[0].rapidity(), weight);
@@ -139,7 +138,7 @@ namespace Rivet {
         _h_SumYElecJet[i]->fill(lepton.rapidity()+jets[0].rapidity(), weight);
 
         // Njet>=2 observables
-        if (jets.size()<2) continue;
+        if (jets.size() < 2) continue;
         _h_NjetIncl[i]->fill(2.0, weight);
         _h_FirstJetPt_2jet[i]->fill(jets[0].pT(), weight);
         _h_SecondJetPt_2jet[i]->fill(jets[1].pT(), weight);
@@ -151,7 +150,7 @@ namespace Rivet {
         _h_DeltaPhi_2jet[i]->fill(deltaPhi(jets[0], jets[1]), weight);
 
         // Njet>=3 observables
-        if (jets.size()<3) continue;
+        if (jets.size() < 3) continue;
         _h_NjetIncl[i]->fill(3.0, weight);
         _h_FirstJetPt_3jet[i]->fill(jets[0].pT(), weight);
         _h_SecondJetPt_3jet[i]->fill(jets[1].pT(), weight);
@@ -161,7 +160,7 @@ namespace Rivet {
         _h_Minv_3jet[i]->fill(m2_3jet>0.0 ? sqrt(m2_3jet) : 0.0, weight);
 
         // Njet>=4 observables
-        if (jets.size()<4) continue;
+        if (jets.size() < 4) continue;
         _h_NjetIncl[i]->fill(4.0, weight);
         _h_FirstJetPt_4jet[i]->fill(jets[0].pT(), weight);
         _h_SecondJetPt_4jet[i]->fill(jets[1].pT(), weight);
@@ -172,7 +171,7 @@ namespace Rivet {
         _h_Minv_4jet[i]->fill(m2_4jet>0.0 ? sqrt(m2_4jet) : 0.0, weight);
 
         // Njet>=5 observables
-        if (jets.size()<5) continue;
+        if (jets.size() < 5) continue;
         _h_NjetIncl[i]->fill(5.0, weight);
       }
     }
@@ -180,24 +179,19 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for (size_t i=0; i<2; ++i) {
-        /// @todo YODA
-        //// first construct jet multi ratio
-        //int Nbins = _h_NjetIncl[i]->numBins();
-        //std::vector<double> ratio(Nbins-1, 0.0);
-        //std::vector<double> err(Nbins-1, 0.0);
-        //for (int n = 0; n < Nbins-1; ++n) {
-        //  if (_h_NjetIncl[i]->binHeight(n) > 0.0 && _h_NjetIncl[i]->binHeight(n+1) > 0.0) {
-        //    ratio[n] = _h_NjetIncl[i]->binHeight(n+1)/_h_NjetIncl[i]->binHeight(n);
-        //    double relerr_n = _h_NjetIncl[i]->binError(n)/_h_NjetIncl[i]->binHeight(n);
-        //    double relerr_m = _h_NjetIncl[i]->binError(n+1)/_h_NjetIncl[i]->binHeight(n+1);
-        //    err[n] = ratio[n] * (relerr_n + relerr_m);
-        //  }
-        //}
-        //_h_RatioNjetIncl[i]->setCoordinate(1, ratio, err);
+      for (size_t i = 0; i < 2; ++i) {
 
-        // scale all histos to the cross section
-        double factor = crossSection()/sumOfWeights();
+        // Construct jet multiplicity ratio
+        for (int n = 0; n < _h_NjetIncl[i]->numPoints()-1; ++n) {
+          YODA::Bin& b0 = _h_NjetIncl[i]->bin(n);
+          YODA::Bin& b1 = _h_NjetIncl[i]->bin(n+1);
+          if (b0.height() == 0.0 || b1.height() == 0.0) continue;
+          _h_RatioNjetIncl[i]->point(n).setY(b1.height()/b0.height());
+          _h_RatioNjetIncl[i]->point(n).setYErr(b1.height()/b0.height() * (b0.relErr() + b1.relErr()));
+        }
+
+        // Scale all histos to the cross section
+        const double factor = crossSection()/sumOfWeights();
         scale(_h_DeltaPhi_2jet[i], factor);
         scale(_h_DeltaR_2jet[i], factor);
         scale(_h_DeltaY_2jet[i], factor);
