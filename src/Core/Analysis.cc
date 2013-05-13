@@ -283,17 +283,19 @@ namespace Rivet {
   /////////////////
 
 
-  Profile1DPtr Analysis::bookProfile1D(size_t datasetId, size_t xAxisId,
-                                       size_t yAxisId, const string& title,
-                                       const string& xtitle, const string& ytitle) {
+  Profile1DPtr Analysis::bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookProfile1D(axisCode, title, xtitle, ytitle);
   }
 
 
-  Profile1DPtr Analysis::bookProfile1D(const string& hname, const string& title,
-                                       const string& xtitle, const string& ytitle)
-  {
+  Profile1DPtr Analysis::bookProfile1D(const string& hname,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
     const Scatter2D & refdata = refData(hname);
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(refdata, path) );
@@ -309,7 +311,8 @@ namespace Rivet {
   Profile1DPtr Analysis::bookProfile1D(const string& hname,
                                        size_t nbins, double lower, double upper,
                                        const string& title,
-                                       const string& xtitle, const string& ytitle) {
+                                       const string& xtitle,
+                                       const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(nbins, lower, upper, path, title) );
     addPlot(prof);
@@ -323,7 +326,8 @@ namespace Rivet {
   Profile1DPtr Analysis::bookProfile1D(const string& hname,
                                        const vector<double>& binedges,
                                        const string& title,
-                                       const string& xtitle, const string& ytitle) {
+                                       const string& xtitle,
+                                       const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(binedges, path, title) );
     addPlot(prof);
@@ -337,68 +341,64 @@ namespace Rivet {
   ///////////////////
 
 
-  Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId,
-                                       size_t yAxisId, const string& title,
-                                       const string& xtitle, const string& ytitle) {
+  Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookScatter2D(axisCode, title, xtitle, ytitle);
   }
 
 
-  Scatter2DPtr Analysis::bookScatter2D(const string& hname, const string& title,
-                                       const string& xtitle, const string& ytitle) {
+  Scatter2DPtr Analysis::bookScatter2D(const string& hname,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
+    const Scatter2D& refdata = refData(hname);
     const string path = histoPath(hname);
-    Scatter2DPtr dps( new Scatter2D(path, title) );
-    addPlot(dps);
-    MSG_TRACE("Made data point set " << hname <<  " for " << name());
-    dps->setAnnotation("XLabel", xtitle);
-    dps->setAnnotation("YLabel", ytitle);
-    return dps;
+    Scatter2DPtr s( new Scatter2D(refdata, path) );
+    foreach (Point2D& p, s->points()) p.setY(0, 0);
+    addPlot(s);
+    MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    return s;
+
   }
 
 
   Scatter2DPtr Analysis::bookScatter2D(const string& hname,
                                        size_t npts, double lower, double upper,
                                        const string& title,
-                                       const string& xtitle, const string& ytitle) {
+                                       const string& xtitle,
+                                       const string& ytitle) {
     Scatter2DPtr dps = bookScatter2D(hname, title, xtitle, ytitle);
     const double binwidth = (upper-lower)/npts;
     for (size_t pt = 0; pt < npts; ++pt) {
       const double bincentre = lower + (pt + 0.5) * binwidth;
-      // @todo YODA check
       dps->addPoint(bincentre, 0, binwidth/2.0, 0);
-      // IMeasurement* meas = dps->point(pt)->coordinate(0);
-      // meas->setValue(bincentre);
-      // meas->setErrorPlus(binwidth/2.0);
-      // meas->setErrorMinus(binwidth/2.0);
     }
     return dps;
   }
 
-  // @todo YODA
-  // Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId,
-  //                       size_t yAxisId, const string& title,
-  //                       const string& xtitle, const string& ytitle) {
-  //   // Get the bin edges (only read the AIDA file once)
-  //   _cacheXAxisData();
-  //   // Build the axis code
-  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-  //   //const map<string, vector<DPSXPoint> > xpoints = getDPSXValsErrs(papername);
-  //   MSG_TRACE("Using DPS x-positions for " << name() << ":" << axisCode);
-  //   Scatter2DPtr dps = bookScatter2D(axisCode, title, xtitle, ytitle);
-  //   const vector<Point2D> xpts = _dpsData.find(axisCode)->second;
-  //   foreach ( const Point2D & pt, xpts ) {
-  //     // \todo YODA check
-  //     dps->addPoint(pt.x(), pt.xErrMinus(), pt.xErrPlus(), 0, 0, 0);
-  //     // dps->addPoint(xpts[pt].val, xpts[pt].errminus, xpts[pt].errplus, 0, 0, 0);
-  //     // IMeasurement* meas = dps->point(pt)->coordinate(0);
-  //     // meas->setValue(xpts[pt].val);
-  //     // meas->setErrorPlus(xpts[pt].errplus);
-  //     // meas->setErrorMinus(xpts[pt].errminus);
-  //   }
-  //   MSG_TRACE("Made DPS " << axisCode <<  " for " << name());
-  //   return dps;
-  // }
+
+  Scatter2DPtr Analysis::bookScatter2D(const string& hname,
+                                       const vector<double>& binedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
+    Scatter2DPtr dps = bookScatter2D(hname, title, xtitle, ytitle);
+    for (size_t pt = 0; pt < binedges.size()-1; ++pt) {
+      const double bincentre = (binedges[pt] + binedges[pt+1]) / 2.0;
+      const double binwidth = binedges[pt+1] - binedges[pt];
+      dps->addPoint(bincentre, 0, binwidth/2.0, 0);
+    }
+    return dps;
+  }
+
+
+  /////////////////////
 
 
   void Analysis::divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {

@@ -21,11 +21,6 @@
 #define vetoEvent                                                       \
   do { MSG_DEBUG("Vetoing event on line " << __LINE__ << " of " << __FILE__); return; } while(0)
 
-/// @def DECLARE_RIVET_PLUGIN
-/// Preprocessor define to prettify the global-object plugin hook mechanism.
-#define DECLARE_RIVET_PLUGIN(clsname) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
-
-
 
 namespace Rivet {
 
@@ -357,6 +352,7 @@ namespace Rivet {
 
     /// @name AIDA analysis infrastructure.
     //@{
+
     /// Get the canonical histogram "directory" path for this analysis.
     const std::string histoDir() const;
 
@@ -372,7 +368,7 @@ namespace Rivet {
     //@}
 
 
-    /// @name Internal histogram booking (for use by Analysis sub-classes).
+    /// @name Histogram reference data
     //@{
 
     /// Get reference data for a named histo
@@ -382,145 +378,204 @@ namespace Rivet {
     const YODA::Scatter2D & refData(size_t datasetId,
                                     size_t xAxisId, size_t yAxisId) const;
 
-    /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    /// (NB. this returns a pointer rather than a reference since it will
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
-    /// get the pointer from a reference before they can use it!)
-    Histo1DPtr bookHisto1D(const std::string& name,
-                           size_t nbins, double lower, double upper,
-                           const std::string& title="",
-                           const std::string& xtitle="", const std::string& ytitle="");
+    //@}
 
-    /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    /// (NB. this returns a pointer rather than a reference since it will
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
-    /// get the pointer from a reference before they can use it!)
-    Histo1DPtr bookHisto1D(const std::string& name,
-                           const std::vector<double>& binedges, const std::string& title="",
-                           const std::string& xtitle="", const std::string& ytitle="");
 
-    // /// Book a 2D histogram with @a nxbins and @a nybins uniformly
-    // /// distributed across the ranges @a xlower - @a xupper and @a
-    // /// ylower - @a yupper respectively along the x- and y-axis.
-    // /// (NB. this returns a pointer rather than a reference since it
-    // /// will have to be stored in the analysis class - there's no
-    // /// point in forcing users to explicitly get the pointer from a
-    // /// reference before they can use it!)
-    // AIDA::IHistogram2D*
-    // bookHistogram2D(const std::string& name,
-    //          size_t nxbins, double xlower, double xupper,
-    //          size_t nybins, double ylower, double yupper,
-    //          const std::string& title="", const std::string& xtitle="",
-    //          const std::string& ytitle="", const std::string& ztitle="");
+    /// @name 1D histogram booking
+    //@{
 
-    // /// Book a 2D histogram with non-uniform bins defined by the
-    // /// vectorx of bin edges @a xbinedges and @a ybinedges.
-    // /// (NB. this returns a pointer rather than a reference since it
-    // /// will have to be stored in the analysis class - there's no
-    // /// point in forcing users to explicitly get the pointer from a
-    // /// reference before they can use it!)
-    // AIDA::IHistogram2D*
-    // bookHistogram2D(const std::string& name,
-    //          const std::vector<double>& xbinedges,
-    //          const std::vector<double>& ybinedges,
-    //          const std::string& title="", const std::string& xtitle="",
-    //          const std::string& ytitle="", const std::string& ztitle="");
-
-    /// Book a 1D histogram based on the name in the corresponding AIDA
-    /// file. The binnings will be obtained by reading the bundled AIDA data
-    /// record file with the same filename as the analysis' name() property.
+    /// Book a 1D histogram, using the binnings in the reference data histogram.
     Histo1DPtr bookHisto1D(const std::string& name,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="");
 
-    /// Book a 1D histogram based on the paper, dataset and x/y-axis IDs in the corresponding
-    /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' name() property.
+    /// Book a 1D histogram, using the binnings in the reference data histogram.
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     Histo1DPtr bookHisto1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="");
 
+    /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
+    Histo1DPtr bookHisto1D(const std::string& name,
+                           size_t nbins, double lower, double upper,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
+
+    /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
+    Histo1DPtr bookHisto1D(const std::string& name,
+                           const std::vector<double>& binedges,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
+
     //@}
 
 
-    /// @name Internal profile histogram booking (for use by Analysis sub-classes).
+    // /// @name 2D histogram booking
+    // //@{
+
+    // /// Book a 2D histogram, using the binnings in the reference data histogram.
+    // Histogram2DPtr bookHisto2D(const std::string& name,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D histogram, using the binnings in the reference data histogram.
+    // ///
+    // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    // Histogram2DPtr bookHisto2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D histogram with @a nxbins and @a nybins uniformly
+    // /// distributed across the ranges @a xlower - @a xupper and @a
+    // /// ylower - @a yupper respectively along the x- and y-axis.
+    // Histogram2DPtr bookHisto2D(const std::string& name,
+    //                            size_t nxbins, double xlower, double xupper,
+    //                            size_t nybins, double ylower, double yupper,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D histogram with non-uniform bins defined by the
+    // /// vectorx of bin edges @a xbinedges and @a ybinedges.
+    // Histogram2DPtr bookHisto2D(const std::string& name,
+    //                            const std::vector<double>& xbinedges,
+    //                            const std::vector<double>& ybinedges,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // //@}
+
+
+    /// @name 1D profile histogram booking
     //@{
 
+    /// Book a 1D profile histogram, using the binnings in the reference data histogram.
+    Profile1DPtr bookProfile1D(const std::string& name,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
+
+    /// Book a 1D profile histogram, using the binnings in the reference data histogram.
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    Profile1DPtr bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
+
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    /// (NB. this returns a pointer rather than a reference since it will
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
-    /// get the pointer from a reference before they can use it!)
     Profile1DPtr bookProfile1D(const std::string& name,
                                size_t nbins, double lower, double upper,
                                const std::string& title="",
-                               const std::string& xtitle="", const std::string& ytitle="");
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    /// (NB. this returns a pointer rather than a reference since it will
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
-    /// get the pointer from a reference before they can use it!)
     Profile1DPtr bookProfile1D(const std::string& name,
                                const std::vector<double>& binedges,
                                const std::string& title="",
-                               const std::string& xtitle="", const std::string& ytitle="");
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
 
-    /// Book a 1D profile histogram based on the name in the corresponding AIDA
-    /// file. The binnings will be obtained by reading the bundled AIDA data
-    /// record file with the same filename as the analysis' name() property.
-    Profile1DPtr bookProfile1D(const std::string& name, const std::string& title="",
-                               const std::string& xtitle="", const std::string& ytitle="");
-
-    /// Book a 1D profile histogram based on the paper, dataset and x/y-axis IDs in the corresponding
-    /// HepData record. The binnings will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' name() property.
-    Profile1DPtr bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-                               const std::string& title="",
-                               const std::string& xtitle="", const std::string& ytitle="");
     //@}
 
 
-    /// @name Internal data point set booking (for use by Analysis sub-classes).
+    // /// @name 2D profile histogram booking
+    // //@{
+
+    // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
+    // Profile2DPtr bookProfile2D(const std::string& name,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
+    // ///
+    // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    // Profile2DPtr bookProfile2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D profile histogram with @a nxbins and @a nybins uniformly
+    // /// distributed across the ranges @a xlower - @a xupper and @a ylower - @a
+    // /// yupper respectively along the x- and y-axis.
+    // Profile2DPtr bookProfile2D(const std::string& name,
+    //                            size_t nxbins, double xlower, double xupper,
+    //                            size_t nybins, double ylower, double yupper,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D profile histogram with non-uniform bins defined by the vectorx
+    // /// of bin edges @a xbinedges and @a ybinedges.
+    // Profile2DPtr bookProfile2D(const std::string& name,
+    //                            const std::vector<double>& xbinedges,
+    //                            const std::vector<double>& ybinedges,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // //@}
+
+
+    /// @name 2D scatter booking
     //@{
 
-    /// Book a 2-dimensional data point set.
-    /// (NB. this returns a pointer rather than a reference since it will
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
-    /// get the pointer from a reference before they can use it!)
-    Scatter2DPtr bookScatter2D(const std::string& name, const std::string& title="",
-                               const std::string& xtitle="", const std::string& ytitle="");
+    /// Book a 2-dimensional data point set, using the binnings in the reference data histogram.
+    Scatter2DPtr bookScatter2D(const std::string& name,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
 
+    /// Book a 2-dimensional data point set, using the binnings in the reference data histogram.
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    Scatter2DPtr bookScatter2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
 
     /// Book a 2-dimensional data point set with equally spaced points in a range.
-    /// (NB. this returns a pointer rather than a reference since it will
-    /// have to be stored in the analysis class - there's no point in forcing users to explicitly
-    /// get the pointer from a reference before they can use it!)
     Scatter2DPtr bookScatter2D(const std::string& name,
                                size_t npts, double lower, double upper,
                                const std::string& title="",
-                               const std::string& xtitle="", const std::string& ytitle="");
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
 
-    /// Book a 2-dimensional data point set based on the corresponding AIDA data
-    /// file. The binnings (x-errors) will be obtained by reading the bundled
-    /// AIDA data record file of the same filename as the analysis' name()
-    /// property.
-    Scatter2DPtr bookScatter2D(const std::string& name, const std::string& title);
-
-    /// Book a 2-dimensional data point set based on the paper, dataset and x/y-axis IDs in the corresponding
-    /// HepData record. The binnings (x-errors) will be obtained by reading the bundled AIDA data record file
-    /// of the same filename as the analysis' name() property.
-    Scatter2DPtr bookScatter2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-                               const std::string& title="",
-                               const std::string& xtitle="", const std::string& ytitle="");
+    /// Book a 2-dimensional data point set based on provided contiguous bin edges.
+    Scatter2DPtr bookScatter2D(const std::string& hname,
+                               const std::vector<double>& binedges,
+                               const std::string& title,
+                               const std::string& xtitle,
+                               const std::string& ytitle);
 
     //@}
 
+
   public:
+
     /// List of registered plot objects
     const vector<AnalysisObjectPtr> & plots() const {
       return _plotobjects;
     }
+
 
   private:
 
@@ -577,6 +632,10 @@ namespace Rivet {
 
 // Include definition of analysis plugin system so that analyses automatically see it when including Analysis.hh
 #include "Rivet/AnalysisBuilder.hh"
+
+/// @def DECLARE_RIVET_PLUGIN
+/// Preprocessor define to prettify the global-object plugin hook mechanism.
+#define DECLARE_RIVET_PLUGIN(clsname) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
 
 
 #endif
