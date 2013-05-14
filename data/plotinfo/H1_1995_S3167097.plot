@@ -10,12 +10,6 @@ XLabel=$\eta$
 YLabel=$1/\mathrm{N} \mathrm{d}E_{\perp}/d\eta [GeV]$
 # END PLOT
 
-# BEGIN PLOT /H1_1995_S3167097/24
-Title=Num events vs kin. bin
-XLabel=Kinematic bin
-YLabel=N
-# END PLOT
-
 # BEGIN PLOT /H1_1995_S3167097/3
 Title=Stat $\mathrm{d}E_\perp/\mathrm{d}[c]$ CMS bin = 13
 XLabel=$\eta$
