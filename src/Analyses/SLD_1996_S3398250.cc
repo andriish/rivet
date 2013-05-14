@@ -92,26 +92,21 @@ namespace Rivet {
 
 
     void finalize() {
-      // @todo YODA
-      //// bottom
-      //const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      //AIDA::IDataPointSet * multB = bookDataPointSet(1, 1, 1);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm
-      //const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      //AIDA::IDataPointSet * multC = bookDataPointSet(2, 1, 1);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// light
-      //const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      //AIDA::IDataPointSet * multL = bookDataPointSet(3, 1, 1);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm-light
-      //AIDA::IDataPointSet * multD1 = bookDataPointSet(4, 1, 1);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //AIDA::IDataPointSet * multD2 = bookDataPointSet(5, 1, 1);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
+      // Bottom
+      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
+      bookScatter2D(1, 1, 1)->point(0).setY(avgNumPartsBottom);
+      // Charm
+      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
+      bookScatter2D(2, 1, 1)->point(0).setY(avgNumPartsCharm);
+      // Light
+      const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
+      bookScatter2D(3, 1, 1)->point(0).setY(avgNumPartsLight);
+      // Charm - light
+      bookScatter2D(4, 1, 1)->point(0).setY(avgNumPartsCharm -avgNumPartsLight);
+      // bottom - light
+      bookScatter2D(5, 1, 1)->point(0).setY(avgNumPartsBottom-avgNumPartsLight);
     }
+
     //@}
 
 
@@ -130,7 +125,9 @@ namespace Rivet {
     double _weightCharm;
     double _weightBottom;
     //@}
+
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(SLD_1996_S3398250);

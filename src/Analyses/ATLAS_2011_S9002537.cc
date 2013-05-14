@@ -18,98 +18,78 @@ namespace Rivet {
     {  }
 
 
-  public:
-
     void init() {
       IdentifiedFinalState Muons(-2.4,2.4,20.*GeV);
       Muons.acceptIdPair(PID::MUON);
-      addProjection(Muons,"muons");
+      addProjection(Muons, "muons");
 
       ChargedFinalState CFS(-2.8,2.8,0.*GeV);
-      addProjection(CFS,"tracks");
+      addProjection(CFS, "tracks");
 
       MissingMomentum missmom(FinalState(-5.,5.,0.*GeV));
-      addProjection(missmom,"MissingMomentum");
+      addProjection(missmom, "MissingMomentum");
 
-      _h_plus   = bookHisto1D(1,1,1,"_h_plus");
-      _h_minus  = bookHisto1D(1,1,1,"_h_minus");
-      _h_asym   = bookScatter2D(1,1,1);
+      _tmp_h_plus  = Histo1D(refData(1,1,1));
+      _tmp_h_minus = Histo1D(refData(1,1,1));
+      _h_asym = bookScatter2D(1, 1, 1);
     }
 
 
     void analyze(const Event& event) {
-      const IdentifiedFinalState& muons =
-        applyProjection<IdentifiedFinalState>(event, "muons");
 
-      const ChargedFinalState& tracks =
-        applyProjection<ChargedFinalState>(event, "tracks");
+      const IdentifiedFinalState& muons = applyProjection<IdentifiedFinalState>(event, "muons");
+      if (muons.size() < 1) vetoEvent;
+      const ChargedFinalState& tracks = applyProjection<ChargedFinalState>(event, "tracks");
 
-      if (muons.size()<1) vetoEvent;
       Particles selected_muons;
       foreach (Particle muon, muons.particles()) {
         FourMomentum testmom = muon.momentum();
         double ptmu(testmom.pT()), ptsum(-ptmu), ratio(0.);
-        foreach (Particle track,tracks.particles()) {
-          FourMomentum trackmom = track.momentum();
-          if (deltaR(testmom,trackmom)<0.4) {
+        foreach (Particle track, tracks.particles()) {
+          const FourMomentum& trackmom = track.momentum();
+          if (deltaR(testmom, trackmom) < 0.4) {
             ptsum += trackmom.pT();
             ratio  = ptsum/ptmu;
-            if (ratio>0.2)
-              break;
+            if (ratio > 0.2) break;
           }
         }
-        if (ratio<0.2)
-          selected_muons.push_back(muon);
+        if (ratio < 0.2) selected_muons.push_back(muon);
       }
-      if (selected_muons.size()<1) vetoEvent;
+      if (selected_muons.size() < 1) vetoEvent;
 
       const FourMomentum muonmom = selected_muons[0].momentum();
       const MissingMomentum& missmom = applyProjection<MissingMomentum>(event, "MissingMomentum");
       FourMomentum missvec = -missmom.visibleMomentum();
-      if (fabs(missvec.Et())<25) vetoEvent;
+      if (fabs(missvec.Et()) < 25*GeV) vetoEvent;
 
-      double MTW = sqrt(2.*missvec.pT()*muonmom.pT()*(1.-cos(deltaPhi(missvec.phi(),muonmom.phi()))));
-      if (MTW<40.*GeV) vetoEvent;
+      double MTW = sqrt( 2 * missvec.pT() * muonmom.pT() * (1 - cos( deltaPhi(missvec.phi(), muonmom.phi()) )) );
+      if (MTW < 40*GeV) vetoEvent;
 
-      if (selected_muons[0].pdgId()>0)
-        _h_minus->fill(muonmom.eta(),event.weight());
-      else
-        _h_plus->fill(muonmom.eta(),event.weight());
+      if (selected_muons[0].pdgId() > 0) {
+        _tmp_h_minus.fill(muonmom.eta(), event.weight());
+      } else {
+        _tmp_h_plus.fill(muonmom.eta(), event.weight());
+      }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      int Nbins = _h_plus->numBins();
-      for (int i=0; i<Nbins; i++) {
-        double x     = _h_plus->bin(i).midpoint();
-        double ex    = _h_plus->bin(i).width()/2.;
-        double num   = _h_plus->bin(i).area() - _h_minus->bin(i).area();
-        double denom = _h_plus->bin(i).area() + _h_minus->bin(i).area();
-        double err   = _h_plus->bin(i).areaErr()  + _h_minus->bin(i).areaErr();
-
-        double asym, asym_err;
-        if (num==0 || denom==0) {
-          asym = 0;
-          asym_err = 0;
-        }
-        else {
-          asym = num/denom;
-          asym_err = num/denom*((err/num)+(err/denom));
-        }
-        _h_asym->addPoint(x, asym, ex, asym_err);
+      for (size_t i = 0; i < _h_asym->numPoints(); i++) {
+        const double num   = _tmp_h_plus.bin(i).sumW() - _tmp_h_minus.bin(i).sumW();
+        const double denom = _tmp_h_plus.bin(i).sumW() + _tmp_h_minus.bin(i).sumW();
+        const double relerr = _tmp_h_plus.bin(i).relErr()  + _tmp_h_minus.bin(i).relErr();
+        const double asym = (num != 0 && denom != 0) ? num / denom : 0;
+        const double asym_err = (num != 0 && denom != 0) ? asym*relerr : 0;
+        _h_asym->point(i).setY(asym, asym_err);
       }
-
-      // todo YODA deleteplot
-      // histogramFactory().destroy(_h_plus);
-      // histogramFactory().destroy(_h_minus);
     }
 
 
   private:
 
-    Histo1DPtr  _h_plus, _h_minus;
     Scatter2DPtr _h_asym;
+    Histo1D  _tmp_h_plus, _tmp_h_minus;
 
   };
 
