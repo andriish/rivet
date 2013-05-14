@@ -9,8 +9,9 @@ namespace Rivet {
 
   /// H1 energy flow in DIS
   ///
-  /// @todo Check!
+  /// @todo Make histograms match those in HepData and use autobooking
   /// @author Leif Lonnblad
+  /// @author Andy Buckley
   class H1_1995_S3167097 : public Analysis {
   public:
 
@@ -24,28 +25,21 @@ namespace Rivet {
     //@{
 
     void init() {
+      // Projections
       const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
       const DISFinalState& fshcm = addProjection(DISFinalState(diskin, DISFinalState::HCM), "FS");
       addProjection(CentralEtHCM(fshcm), "Y1HCM");
 
-      const size_t NBINS = 9;
-      _hEtFlow = vector<Histo1DPtr>(NBINS);
-      _hEtFlowStat = vector<Histo1DPtr>(NBINS);
-      _nev = vector<double>(NBINS);
-      /// @todo Automate this sort of thing so that the analysis code is more readable.
-      for (size_t i = 0; i < NBINS; ++i) {
-        string istr(1, char('1' + i));
-        _hEtFlow[i] = bookHisto1D(istr, 24, -6, 6);
-        _hEtFlowStat[i] = bookHisto1D(istr, 24, -6, 6);
-      }
-      /// @todo Replace with really temp (non-persistent) histos?
-      // _hAvEt = bookScatter2D("21");
-      // _hAvX  = bookScatter2D("22");
-      // _hAvQ2 = bookScatter2D("23");
-      _hAvEt = bookHisto1D("21tmp", NBINS, 1.0, 10.0);
-      _hAvX  = bookHisto1D("22tmp", NBINS, 1.0, 10.0);
-      _hAvQ2 = bookHisto1D("23tmp", NBINS, 1.0, 10.0);
-      _hN    = bookHisto1D("24", NBINS, 1.0, 10.0);
+      // Histograms
+      /// @todo Convert to use autobooking and correspond to HepData data tables
+      _sumw.resize(9);
+      _hEtFlow.resize(9);
+      for (size_t i = 0; i < 9; ++i)
+        _hEtFlow[i] = bookHisto1D(lexical_cast<string>(i), 24, -6, 6);
+      _tmphAvEt = Histo1D(9, 1.0, 10.0);
+      _tmphAvX  = Histo1D(9, 1.0, 10.0);
+      _tmphAvQ2 = Histo1D(9, 1.0, 10.0);
+      _tmphN    = Histo1D(9, 1.0, 10.0);
     }
 
 
@@ -81,36 +75,21 @@ namespace Rivet {
         const double rap = fs.particles()[i].momentum().rapidity();
         const double et = fs.particles()[i].momentum().Et();
         _hEtFlow[ibin]->fill(rap, weight * et/GeV);
-        _hEtFlowStat[ibin]->fill(rap, weight * et/GeV);
       }
 
-      _nev[ibin] += weight;
-      _hAvEt->fill(ibin + 1.5, weight * y1.sumEt()/GeV);
-      _hAvX->fill(ibin + 1.5, weight * dk.x());
-      _hAvQ2->fill(ibin + 1.5, weight * dk.Q2()/GeV2);
-      _hN->fill(ibin + 1.5, weight);
+      _sumw[ibin] += weight;
+      _tmphAvEt.fill(ibin + 1.5, weight * y1.sumEt()/GeV);
+      _tmphAvX.fill(ibin + 1.5, weight * dk.x());
+      _tmphAvQ2.fill(ibin + 1.5, weight * dk.Q2()/GeV2);
+      _tmphN.fill(ibin + 1.5, weight);
     }
 
 
     void finalize() {
-      for (size_t ibin = 0; ibin < 9; ++ibin) {
-        scale(_hEtFlow[ibin], 0.5/_nev[ibin]);
-        scale(_hEtFlowStat[ibin], 0.5/_nev[ibin]);
-      }
-
-      "/H1_1995_S3167097/21";
-
-      divide(_tmphAvEt, *_hN, );
-      h->setTitle(_hAvEt->title());
-      histogramFactory().destroy(_hAvEt);
-
-      h = histogramFactory().divide("/H1_1995_S3167097/22", *_hAvX, *_hN);
-      h->setTitle(_hAvX->title());
-      histogramFactory().destroy(_hAvX);
-
-      h = histogramFactory().divide("/H1_1995_S3167097/23", *_hAvQ2, *_hN);
-      h->setTitle(_hAvQ2->title());
-      histogramFactory().destroy(_hAvQ2);
+      for (size_t ibin = 0; ibin < 9; ++ibin) scale(_hEtFlow[ibin], 0.5/_sumw[ibin]);
+      addPlot(Scatter2DPtr( new Scatter2D(_tmphAvEt/_tmphN, histoPath("21")) ));
+      addPlot(Scatter2DPtr( new Scatter2D(_tmphAvX/_tmphN,  histoPath("22")) ));
+      addPlot(Scatter2DPtr( new Scatter2D(_tmphAvQ2/_tmphN, histoPath("23")) ));
     }
 
     //@}
@@ -118,14 +97,14 @@ namespace Rivet {
 
   private:
 
-    /// Histograms for the \f$ E_T \f$ flows
-    vector<Histo1DPtr> _hEtFlow, _hEtFlowStat;
+    /// Histograms for the \f$ E_T \f$ flow
+    vector<Histo1DPtr> _hEtFlow;
 
-    /// Histograms for averages in different kinematical bins.
-    Histo1DPtr _hAvEt, _hAvX, _hAvQ2, _hN;
+    /// Temporary histograms for averages in different kinematical bins.
+    Histo1D _tmphAvEt, _tmphAvX, _tmphAvQ2, _tmphN;
 
-    /// Helper vector;
-    vector<double> _nev;
+    /// Weights counters for each kinematic bin
+    vector<double> _sumw;
 
   };
 

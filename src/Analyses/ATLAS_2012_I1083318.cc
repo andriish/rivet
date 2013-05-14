@@ -40,9 +40,7 @@ namespace Rivet {
       allleptons.acceptIdPair(PID::MUON);
       vector< pair<double, double> > etaRanges;
       etaRanges.push_back(make_pair(-2.5, 2.5));
-      LeptonClusters leptons(fs, allleptons,
-                     0.1, true,
-                     etaRanges, 20.0*GeV);
+      LeptonClusters leptons(fs, allleptons, 0.1, true, etaRanges, 20.0*GeV);
       addProjection(leptons, "leptons");
 
       // Leading neutrinos for Etmiss
@@ -182,9 +180,9 @@ namespace Rivet {
       for (size_t i = 0; i < 2; ++i) {
 
         // Construct jet multiplicity ratio
-        for (int n = 0; n < _h_NjetIncl[i]->numPoints()-1; ++n) {
-          YODA::Bin& b0 = _h_NjetIncl[i]->bin(n);
-          YODA::Bin& b1 = _h_NjetIncl[i]->bin(n+1);
+        for (size_t n = 0; n < _h_NjetIncl[i]->numBins()-1; ++n) {
+          YODA::HistoBin1D& b0 = _h_NjetIncl[i]->bin(n);
+          YODA::HistoBin1D& b1 = _h_NjetIncl[i]->bin(n+1);
           if (b0.height() == 0.0 || b1.height() == 0.0) continue;
           _h_RatioNjetIncl[i]->point(n).setY(b1.height()/b0.height());
           _h_RatioNjetIncl[i]->point(n).setYErr(b1.height()/b0.height() * (b0.relErr() + b1.relErr()));
