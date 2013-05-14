@@ -15,7 +15,7 @@ namespace Rivet {
       _h_pT_jet(njet),
       _h_eta_jet(njet), _h_eta_jet_plus(njet), _h_eta_jet_minus(njet),
       _h_rap_jet(njet), _h_rap_jet_plus(njet), _h_rap_jet_minus(njet),
-     _h_mass_jet(njet)
+      _h_mass_jet(njet)
   {
     setNeedsCrossSection(true); // legitimate use, since a base class has no .info file!
   }
@@ -152,13 +152,8 @@ namespace Rivet {
       scale(_h_rap_jet[i], crossSection()/sumOfWeights());
 
       // Create eta/rapidity ratio plots
-      stringstream etaname;
-      etaname << "jet_eta_pmratio_" << i+1;
-      // \todo YODA divide
-      // histogramFactory().divide(histoPath(etaname.str()), *_h_eta_jet_plus[i], *_h_eta_jet_minus[i]);
-      stringstream rapname;
-      rapname << "jet_y_pmratio_" << i+1;
-      // histogramFactory().divide(histoPath(rapname.str()), *_h_rap_jet_plus[i], *_h_rap_jet_minus[i]);
+      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], bookScatter2D("jet_eta_pmratio_" + lexical_cast<string>(i+1)));
+      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], bookScatter2D("jet_y_pmratio_" + lexical_cast<string>(i+1)));
     }
 
     // Scale the d{eta,R} histograms
@@ -181,10 +176,9 @@ namespace Rivet {
         double relerr_i = _h_jet_multi_inclusive->bin(i).areaErr()/_h_jet_multi_inclusive->bin(i).area();
         double relerr_j = _h_jet_multi_inclusive->bin(i+1).areaErr()/_h_jet_multi_inclusive->bin(i+1).area();
         double err = ratio * (relerr_i + relerr_j);
-
-	Point2D & pt = _h_jet_multi_ratio->point(i);
-	pt.setY(ratio);
-	pt.setYErr(err);
+        Point2D & pt = _h_jet_multi_ratio->point(i);
+        pt.setY(ratio);
+        pt.setYErr(err);
       }
     }
 

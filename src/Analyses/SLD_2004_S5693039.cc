@@ -209,7 +209,8 @@ namespace Rivet {
       addProjection(ChargedFinalState(), "FS");
       addProjection(InitialQuarks(), "IQF");
       addProjection(Thrust(FinalState()), "Thrust");
-      // histograms
+
+      // Book histograms
       _histPCharged   = bookHisto1D( 1, 1, 1);
       _histXpPiPlus   = bookHisto1D( 2, 1, 2);
       _histXpKPlus    = bookHisto1D( 3, 1, 2);
@@ -256,83 +257,73 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      // @todo YODA
-      //// multiplicities
-      //// bottom
-      //const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      //AIDA::IDataPointSet * multB = bookDataPointSet(8, 2, 3);
-      //multB->point(0)->coordinate(1)->setValue(avgNumPartsBottom);
-      //// charm
-      //const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      //AIDA::IDataPointSet * multC = bookDataPointSet(8, 2, 2);
-      //multC->point(0)->coordinate(1)->setValue(avgNumPartsCharm);
-      //// light
-      //const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      //AIDA::IDataPointSet * multL = bookDataPointSet(8, 2, 1);
-      //multL->point(0)->coordinate(1)->setValue(avgNumPartsLight);
-      //// charm-light
-      //AIDA::IDataPointSet * multD1 = bookDataPointSet(8, 3, 2);
-      //multD1->point(0)->coordinate(1)->setValue(avgNumPartsCharm -avgNumPartsLight);
-      //// bottom-light
-      //AIDA::IDataPointSet * multD2 = bookDataPointSet(8, 3, 3);
-      //multD2->point(0)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
 
+      // Multiplicities
+      /// @todo Errors
+      // Bottom
+      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
+      bookScatter2D(8, 2, 3)->point(0).setY(avgNumPartsBottom);
+      // Charm
+      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
+      bookScatter2D(8, 2, 2)->point(0).setY(avgNumPartsCharm);
+      // Light
+      const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
+      bookScatter2D(8, 2, 1)->point(0).setY(avgNumPartsLight);
+      // Charm - light
+      bookScatter2D(8, 3, 2)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      // Bottom - light
+      bookScatter2D(8, 3, 3)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
 
-      divide(*_histRPiMinus - *_histRPiPlus,*_histRPiMinus + *_histRPiPlus,
-	     _h_PiM_PiP);
+      // Do divisions
+      divide(*_histRPiMinus - *_histRPiPlus, *_histRPiMinus + *_histRPiPlus, _h_PiM_PiP);
+      divide(*_histRKMinus - *_histRKPlus, *_histRKMinus + *_histRKPlus, _h_KM_KP);
+      divide(*_histRProton - *_histRPBar, *_histRProton + *_histRPBar, _h_Pr_PBar);
 
-      divide(*_histRKMinus - *_histRKPlus,*_histRKMinus + *_histRKPlus,
-	     _h_KM_KP);
+      // Scale histograms
+      scale(_histPCharged,      1./sumOfWeights());
+      scale(_histXpPiPlus,      1./sumOfWeights());
+      scale(_histXpKPlus,       1./sumOfWeights());
+      scale(_histXpProton,      1./sumOfWeights());
+      scale(_histXpPiPlusTotal, 1./sumOfWeights());
+      scale(_histXpKPlusTotal,  1./sumOfWeights());
+      scale(_histXpProtonTotal, 1./sumOfWeights());
+      scale(_histXpPiPlusL,     1./_weightLight);
+      scale(_histXpPiPlusC,     1./_weightCharm);
+      scale(_histXpPiPlusB,     1./_weightBottom);
+      scale(_histXpKPlusL,      1./_weightLight);
+      scale(_histXpKPlusC,      1./_weightCharm);
+      scale(_histXpKPlusB,      1./_weightBottom);
+      scale(_histXpProtonL,     1./_weightLight);
+      scale(_histXpProtonC,     1./_weightCharm);
+      scale(_histXpProtonB,     1./_weightBottom);
 
-      divide(*_histRProton - *_histRPBar,*_histRProton + *_histRPBar,
-	     _h_Pr_PBar);
+      scale(_histXpChargedL, 1./_weightLight);
+      scale(_histXpChargedC, 1./_weightCharm);
+      scale(_histXpChargedB, 1./_weightBottom);
 
-      // histograms
-      Analysis::scale(_histPCharged   ,1./sumOfWeights());
-      Analysis::scale(_histXpPiPlus   ,1./sumOfWeights());
-      Analysis::scale(_histXpKPlus    ,1./sumOfWeights());
-      Analysis::scale(_histXpProton   ,1./sumOfWeights());
-      Analysis::scale(_histXpPiPlusTotal ,1./sumOfWeights());
-      Analysis::scale(_histXpKPlusTotal  ,1./sumOfWeights());
-      Analysis::scale(_histXpProtonTotal ,1./sumOfWeights());
-      Analysis::scale(_histXpPiPlusL  ,1./_weightLight);
-      Analysis::scale(_histXpPiPlusC  ,1./_weightCharm);
-      Analysis::scale(_histXpPiPlusB  ,1./_weightBottom);
-      Analysis::scale(_histXpKPlusL   ,1./_weightLight);
-      Analysis::scale(_histXpKPlusC   ,1./_weightCharm);
-      Analysis::scale(_histXpKPlusB   ,1./_weightBottom);
-      Analysis::scale(_histXpProtonL  ,1./_weightLight);
-      Analysis::scale(_histXpProtonC  ,1./_weightCharm);
-      Analysis::scale(_histXpProtonB  ,1./_weightBottom);
+      scale(_multPiPlusL, 1./_weightLight);
+      scale(_multPiPlusC, 1./_weightCharm);
+      scale(_multPiPlusB, 1./_weightBottom);
+      scale(_multKPlusL,  1./_weightLight);
+      scale(_multKPlusC,  1./_weightCharm);
+      scale(_multKPlusB,  1./_weightBottom);
+      scale(_multProtonL, 1./_weightLight);
+      scale(_multProtonC, 1./_weightCharm);
+      scale(_multProtonB, 1./_weightBottom);
 
-      Analysis::scale(_histXpChargedL ,1./_weightLight);
-      Analysis::scale(_histXpChargedC ,1./_weightCharm);
-      Analysis::scale(_histXpChargedB ,1./_weightBottom);
-
-      Analysis::scale(_multPiPlusL   ,1./_weightLight);
-      Analysis::scale(_multPiPlusC   ,1./_weightCharm);
-      Analysis::scale(_multPiPlusB   ,1./_weightBottom);
-      Analysis::scale(_multKPlusL    ,1./_weightLight);
-      Analysis::scale(_multKPlusC    ,1./_weightCharm);
-      Analysis::scale(_multKPlusB    ,1./_weightBottom);
-      Analysis::scale(_multProtonL   ,1./_weightLight);
-      Analysis::scale(_multProtonC   ,1./_weightCharm);
-      Analysis::scale(_multProtonB   ,1./_weightBottom);
-
-      // paper suggests this should be 0.5/weight but has to be 1.
-      // to get normalisations right
-      Analysis::scale(_histRPiPlus ,1./_weightLight);
-      Analysis::scale(_histRPiMinus,1./_weightLight);
-      Analysis::scale(_histRKPlus  ,1./_weightLight);
-      Analysis::scale(_histRKMinus ,1./_weightLight);
-      Analysis::scale(_histRProton ,1./_weightLight);
-      Analysis::scale(_histRPBar   ,1./_weightLight);
-
+      // Paper suggests this should be 0.5/weight but it has to be 1.0 to get normalisations right...
+      scale(_histRPiPlus,  1./_weightLight);
+      scale(_histRPiMinus, 1./_weightLight);
+      scale(_histRKPlus,   1./_weightLight);
+      scale(_histRKMinus,  1./_weightLight);
+      scale(_histRProton,  1./_weightLight);
+      scale(_histRPBar,    1./_weightLight);
     }
+
     //@}
 
-  private:
 
+  private:
 
     /// @name Multiplicities
     //@{
@@ -350,92 +341,25 @@ namespace Rivet {
 
     // Histograms
     //@{
-    Histo1DPtr _histPCharged  ;
-    Histo1DPtr _histXpPiPlus  ;
-    Histo1DPtr _histXpKPlus   ;
-    Histo1DPtr _histXpProton  ;
-    Histo1DPtr _histXpPiPlusTotal;
-    Histo1DPtr _histXpKPlusTotal ;
-    Histo1DPtr _histXpProtonTotal;
-    Histo1DPtr _histXpPiPlusL ;
-    Histo1DPtr _histXpPiPlusC ;
-    Histo1DPtr _histXpPiPlusB ;
-    Histo1DPtr _histXpKPlusL  ;
-    Histo1DPtr _histXpKPlusC  ;
-    Histo1DPtr _histXpKPlusB  ;
-    Histo1DPtr _histXpProtonL ;
-    Histo1DPtr _histXpProtonC ;
-    Histo1DPtr _histXpProtonB ;
-    Histo1DPtr _histXpChargedL;
-    Histo1DPtr _histXpChargedC;
-    Histo1DPtr _histXpChargedB;
-    Histo1DPtr _multPiPlusL ;
-    Histo1DPtr _multPiPlusC ;
-    Histo1DPtr _multPiPlusB ;
-    Histo1DPtr _multKPlusL  ;
-    Histo1DPtr _multKPlusC  ;
-    Histo1DPtr _multKPlusB  ;
-    Histo1DPtr _multProtonL ;
-    Histo1DPtr _multProtonC ;
-    Histo1DPtr _multProtonB ;
-    Histo1DPtr _histRPiPlus ;
-    Histo1DPtr _histRPiMinus;
-    Histo1DPtr _histRKPlus  ;
-    Histo1DPtr _histRKMinus ;
-    Histo1DPtr _histRProton ;
-    Histo1DPtr _histRPBar   ;
-
-    Scatter2DPtr _h_PiM_PiP;
-    Scatter2DPtr _h_KM_KP;
-    Scatter2DPtr _h_Pr_PBar;
-
+    Histo1DPtr _histPCharged;
+    Histo1DPtr _histXpPiPlus, _histXpKPlus, _histXpProton;
+    Histo1DPtr _histXpPiPlusTotal, _histXpKPlusTotal, _histXpProtonTotal;
+    Histo1DPtr _histXpPiPlusL, _histXpPiPlusC, _histXpPiPlusB;
+    Histo1DPtr _histXpKPlusL, _histXpKPlusC, _histXpKPlusB;
+    Histo1DPtr _histXpProtonL, _histXpProtonC, _histXpProtonB;
+    Histo1DPtr _histXpChargedL, _histXpChargedC, _histXpChargedB;
+    Histo1DPtr _multPiPlusL, _multPiPlusC, _multPiPlusB;
+    Histo1DPtr _multKPlusL, _multKPlusC, _multKPlusB;
+    Histo1DPtr _multProtonL, _multProtonC, _multProtonB;
+    Histo1DPtr _histRPiPlus, _histRPiMinus, _histRKPlus;
+    Histo1DPtr _histRKMinus, _histRProton, _histRPBar;
+    Scatter2DPtr _h_PiM_PiP, _h_KM_KP, _h_Pr_PBar;
     //@}
 
-    // @todo YODA
-    //void scale(AIDA::IDataPointSet*& histo, double scale) {
-    //  if (!histo) {
-    //    MSG_ERROR("Failed to scale histo=NULL in analysis "
-    //              << name() << " (scale=" << scale << ")");
-    //    return;
-    //  }
-    //  const string hpath = tree().findPath(dynamic_cast<const AIDA::IManagedObject&>(*histo));
-    //  MSG_TRACE("Scaling histo " << hpath);
-
-    //  vector<double> x, y, ex, ey;
-    //  for (size_t i = 0, N = histo->size(); i < N; ++i) {
-
-    //    IDataPoint * point = histo->point(i);
-    //    assert(point->dimension()==2);
-    //    x .push_back(point->coordinate(0)->value());
-    //    ex.push_back(0.5*(point->coordinate(0)->errorPlus()+
-    //                      point->coordinate(0)->errorMinus()));
-    //    y .push_back(point->coordinate(1)->value()*scale);
-    //    ey.push_back(0.5*scale*(point->coordinate(1)->errorPlus()+
-    //                            point->coordinate(1)->errorMinus()));
-    //  }
-    //  string title = histo->title();
-    //  string xtitle = histo->xtitle();
-    //  string ytitle = histo->ytitle();
-
-    //  tree().mkdir("/tmpnormalize");
-    //  tree().mv(hpath, "/tmpnormalize");
-
-    //  if (hpath.find(" ") != string::npos) {
-    //    throw Error("Histogram path '" + hpath + "' is invalid: spaces are not permitted in paths");
-    //  }
-    //  AIDA::IDataPointSet* dps = datapointsetFactory().createXY(hpath, title, x, y, ex, ey);
-    //  dps->setXTitle(xtitle);
-    //  dps->setYTitle(ytitle);
-
-    //  tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*histo)));
-    //  tree().rmdir("/tmpnormalize");
-
-    //  // Set histo pointer to null - it can no longer be used.
-    //  histo = 0;
-    //}
   };
 
-  // The hook for the plugin system
+
+  // Hook for the plugin system
   DECLARE_RIVET_PLUGIN(SLD_2004_S5693039);
 
 }

@@ -45,35 +45,35 @@ namespace Rivet {
         .acceptIdPair(PID::PROTON);
       addProjection(nstable, "nstable");
 
-      if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
-        _hist_Ks_pT      = bookHisto1D(1,1,1);
-        _hist_Ks_y       = bookHisto1D(2,1,1);
-        _hist_Ks_mult    = bookHisto1D(3,1,1);
-        _hist_L_pT       = bookHisto1D(7,1,1);
-        _hist_L_y        = bookHisto1D(8,1,1);
-        _hist_L_mult     = bookHisto1D(9,1,1);
-        _hist_Ratio_v_y  = bookScatter2D(13,1,1);
-        _hist_Ratio_v_pT = bookScatter2D(14,1,1);
-        /// @todo YODA
-        //_temp_lambda_v_y.reset(    new LWH::Histogram1D(10, 0.0, 2.5));
-        //_temp_lambdabar_v_y.reset( new LWH::Histogram1D(10, 0.0, 2.5));
-        //_temp_lambda_v_pT.reset(   new LWH::Histogram1D(18, 0.5, 4.1));
-        //_temp_lambdabar_v_pT.reset(new LWH::Histogram1D(18, 0.5, 4.1));
+      if (fuzzyEquals(sqrtS()*GeV, 7000, 1e-3)) {
+        _hist_Ks_pT      = bookHisto1D(1, 1, 1);
+        _hist_Ks_y       = bookHisto1D(2, 1, 1);
+        _hist_Ks_mult    = bookHisto1D(3, 1, 1);
+        _hist_L_pT       = bookHisto1D(7, 1, 1);
+        _hist_L_y        = bookHisto1D(8, 1, 1);
+        _hist_L_mult     = bookHisto1D(9, 1, 1);
+        _hist_Ratio_v_y  = bookScatter2D(13, 1, 1);
+        _hist_Ratio_v_pT = bookScatter2D(14, 1, 1);
+        //
+        _temp_lambda_v_y = Histo1D(10, 0.0, 2.5);
+        _temp_lambdabar_v_y = Histo1D(10, 0.0, 2.5);
+        _temp_lambda_v_pT = Histo1D(18, 0.5, 4.1);
+        _temp_lambdabar_v_pT = Histo1D(18, 0.5, 4.1);
       }
       else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {
-        _hist_Ks_pT   = bookHisto1D(4,1,1);
-        _hist_Ks_y    = bookHisto1D(5,1,1);
-        _hist_Ks_mult = bookHisto1D(6,1,1);
-        _hist_L_pT    = bookHisto1D(10,1,1);
-        _hist_L_y     = bookHisto1D(11,1,1);
-        _hist_L_mult  = bookHisto1D(12,1,1);
-        _hist_Ratio_v_y      = bookScatter2D(15,1,1);
-        _hist_Ratio_v_pT     = bookScatter2D(16,1,1);
-        /// @todo YODA
-        //_temp_lambda_v_y.reset(    new LWH::Histogram1D(5, 0.0, 2.5));
-        //_temp_lambdabar_v_y.reset( new LWH::Histogram1D(5, 0.0, 2.5));
-        //_temp_lambda_v_pT.reset(   new LWH::Histogram1D(8, 0.5, 3.7));
-        //_temp_lambdabar_v_pT.reset(new LWH::Histogram1D(8, 0.5, 3.7));
+        _hist_Ks_pT   = bookHisto1D(4, 1, 1);
+        _hist_Ks_y    = bookHisto1D(5, 1, 1);
+        _hist_Ks_mult = bookHisto1D(6, 1, 1);
+        _hist_L_pT    = bookHisto1D(10, 1, 1);
+        _hist_L_y     = bookHisto1D(11, 1, 1);
+        _hist_L_mult  = bookHisto1D(12, 1, 1);
+        _hist_Ratio_v_y      = bookScatter2D(15, 1, 1);
+        _hist_Ratio_v_pT     = bookScatter2D(16, 1, 1);
+        //
+        _temp_lambda_v_y = Histo1D(5, 0.0, 2.5);
+        _temp_lambdabar_v_y = Histo1D(5, 0.0, 2.5);
+        _temp_lambda_v_pT = Histo1D(8, 0.5, 3.7);
+        _temp_lambdabar_v_pT = Histo1D(8, 0.5, 3.7);
       }
     }
 
@@ -89,6 +89,7 @@ namespace Rivet {
         double dx = prodPos.x() - decPos.x();
         return add_quad(dx, dy);
       }
+      /// @todo Yuck... prefer limits<double>::max()
       else return 9999999.;
     }
 
@@ -171,7 +172,7 @@ namespace Rivet {
 
         case PID::K0S:
           flightd = getPerpFlightDistance(p);
-          if (!inRange(flightd, 4., 450.) ) { //< @todo Need units
+          if (!inRange(flightd/mm, 4., 450.) ) {
             MSG_DEBUG("Kaon failed flight distance cut:" << flightd);
             break;
           }
@@ -189,24 +190,21 @@ namespace Rivet {
             break;
           }
           flightd = getPerpFlightDistance(p);
-          if (!inRange(flightd, 17., 450.)) { //< @todo Need units
-            MSG_DEBUG("Lambda failed flight distance cut:" << flightd);
+          if (!inRange(flightd/mm, 17., 450.)) {
+            MSG_DEBUG("Lambda failed flight distance cut:" << flightd/mm << " mm");
             break;
           }
           if ( daughtersSurviveCuts(p) ) {
             if (p.pdgId() == PID::LAMBDA) {
-              /// @todo YODA
-              //_temp_lambda_v_y    ->fill(fabs(y), weight);
-              //_temp_lambda_v_pT   ->fill(pT,      weight);
+              _temp_lambda_v_y.fill(fabs(y), weight);
+              _temp_lambda_v_pT.fill(pT/GeV, weight);
               _hist_L_y->fill(y, weight);
               _hist_L_pT->fill(pT/GeV, weight);
               _sum_w_lambda += weight;
               n_LAMBDA++;
-            }
-            else if (p.pdgId() == -PID::LAMBDA) {
-              /// @todo YODA
-              //_temp_lambdabar_v_y ->fill(fabs(y), weight);
-              //_temp_lambdabar_v_pT->fill(pT,      weight);
+            } else if (p.pdgId() == -PID::LAMBDA) {
+             _temp_lambdabar_v_y.fill(fabs(y), weight);
+              _temp_lambdabar_v_pT.fill(pT/GeV, weight);
             }
           }
           break;
@@ -223,54 +221,44 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      MSG_INFO("Events that pass the trigger: " << _sum_w_passed);
-      MSG_INFO("Kshort events: " << _sum_w_ks);
-      MSG_INFO("Lambda events: " << _sum_w_lambda);
+      MSG_DEBUG("# Events that pass the trigger: " << _sum_w_passed);
+      MSG_DEBUG("# Kshort events: " << _sum_w_ks);
+      MSG_DEBUG("# Lambda events: " << _sum_w_lambda);
 
+      /// @todo Replace with normalize()?
       scale(_hist_Ks_pT,   1.0/_sum_w_ks);
       scale(_hist_Ks_y,    1.0/_sum_w_ks);
       scale(_hist_Ks_mult, 1.0/_sum_w_passed);
 
+      /// @todo Replace with normalize()?
       scale(_hist_L_pT,   1.0/_sum_w_lambda);
       scale(_hist_L_y,    1.0/_sum_w_lambda);
       scale(_hist_L_mult, 1.0/_sum_w_passed);
 
-      /// @todo YODA
-      //// Division of histograms to obtain lambdabar/lambda ratios
-      //if (fuzzyEquals(sqrtS()*GeV, 7000, 1E-3)) {
-      //  histogramFactory().divide(histoPath("d13-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
-      //  histogramFactory().divide(histoPath("d14-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
-      //}
-      //else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {
-      //  histogramFactory().divide(histoPath("d15-x01-y01"),  *_temp_lambdabar_v_y, *_temp_lambda_v_y );
-      //  histogramFactory().divide(histoPath("d16-x01-y01"), *_temp_lambdabar_v_pT, *_temp_lambda_v_pT);
-      //}
+      // Division of histograms to obtain lambda_bar/lambda ratios
+      divide(_temp_lambdabar_v_y, _temp_lambda_v_y, _hist_Ratio_v_y);
+      divide(_temp_lambdabar_v_pT, _temp_lambda_v_pT, _hist_Ratio_v_pT);
     }
-
 
 
   private:
 
-    // Data members like post-cuts event weight counters go here
-    double _sum_w_ks    ;
-    double _sum_w_lambda;
-    double _sum_w_passed;
+    /// Counters
+    double _sum_w_ks, _sum_w_lambda, _sum_w_passed;
 
-    /// @name Histograms
-    Histo1DPtr _hist_Ks_pT;
-    Histo1DPtr _hist_Ks_y;
-    Histo1DPtr _hist_Ks_mult;
+    /// @name Persistent histograms
+    //@{
+    Histo1DPtr _hist_Ks_pT, _hist_Ks_y, _hist_Ks_mult;
+    Histo1DPtr _hist_L_pT, _hist_L_y, _hist_L_mult;
+    Scatter2DPtr _hist_Ratio_v_pT, _hist_Ratio_v_y;
+    //@}
 
-    Histo1DPtr _hist_L_pT;
-    Histo1DPtr _hist_L_y;
-    Histo1DPtr _hist_L_mult;
+    /// @name Temporary histograms
+    //@{
+    Histo1D _temp_lambda_v_y, _temp_lambdabar_v_y;
+    Histo1D _temp_lambda_v_pT, _temp_lambdabar_v_pT;
+    //@}
 
-    Scatter2DPtr _hist_Ratio_v_pT;
-    Scatter2DPtr _hist_Ratio_v_y;
-
-    /// @todo YODA
-    //shared_ptr<LWH::Histogram1D> _temp_lambda_v_y,  _temp_lambdabar_v_y;
-    //shared_ptr<LWH::Histogram1D> _temp_lambda_v_pT, _temp_lambdabar_v_pT;
   };
 
 

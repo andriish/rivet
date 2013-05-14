@@ -92,39 +92,30 @@ namespace Rivet {
 
 
     void finalize() {
-      // @todo YODA
-      //// bottom
-      //const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      //AIDA::IDataPointSet * multB = bookDataPointSet(1, 1, 1);
-      //for (int i = 0; i < multB->size(); ++i) {
-      //  if (fuzzyEquals(sqrtS(), multB->point(i)->coordinate(0)->value(), 0.01)) {
-      //    multB->point(i)->coordinate(1)->setValue(avgNumPartsBottom);
-      //  }
-      //}
-      //// charm
-      //const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      //AIDA::IDataPointSet * multC = bookDataPointSet(1, 1, 2);
-      //for (int i = 0; i < multC->size(); ++i) {
-      //  if (fuzzyEquals(sqrtS(), multC->point(i)->coordinate(0)->value(), 0.01)) {
-      //    multC->point(i)->coordinate(1)->setValue(avgNumPartsCharm);
-      //  }
-      //}
-      //// light
-      //const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      //AIDA::IDataPointSet * multL = bookDataPointSet(1, 1, 3);
-      //for (int i = 0; i < multL->size(); ++i) {
-      //  if (fuzzyEquals(sqrtS(), multL->point(i)->coordinate(0)->value(), 0.01)) {
-      //    multL->point(i)->coordinate(1)->setValue(avgNumPartsLight);
-      //  }
-      //}
-      //// bottom-light
-      //AIDA::IDataPointSet * multD = bookDataPointSet(1, 1, 4);
-      //for (int i = 0; i < multD->size(); ++i) {
-      //  if (fuzzyEquals(sqrtS(), multD->point(i)->coordinate(0)->value(), 0.01)) {
-      //    multD->point(i)->coordinate(1)->setValue(avgNumPartsBottom-avgNumPartsLight);
-      //  }
-      //}
+      // Bottom
+      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
+      foreach (Point2D& p, bookScatter2D(1, 1, 1)->points()) {
+        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsBottom);
+      }
+
+      // Charm
+      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
+      foreach (Point2D& p, bookScatter2D(1, 1, 2)->points()) {
+        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsCharm);
+      }
+
+      // Light
+      const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
+      foreach (Point2D& p, bookScatter2D(1, 1, 3)->points()) {
+        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsLight);
+      }
+
+      // Bottom-light
+      foreach (Point2D& p, bookScatter2D(1, 1, 4)->points()) {
+        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsBottom - avgNumPartsLight);
+      }
     }
+
     //@}
 
 
@@ -144,6 +135,7 @@ namespace Rivet {
     double _weightBottom;
     //@}
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(DELPHI_2000_S4328825);
