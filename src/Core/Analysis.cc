@@ -191,17 +191,20 @@ namespace Rivet {
   }
 
 
-  Histo1DPtr Analysis::bookHisto1D(size_t datasetId, size_t xAxisId,
-                                   size_t yAxisId, const string& title,
-                                   const string& xtitle, const string& ytitle)
+  Histo1DPtr Analysis::bookHisto1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle)
   {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookHisto1D(axisCode, title, xtitle, ytitle);
   }
 
 
-  Histo1DPtr Analysis::bookHisto1D(const string& hname, const string& title,
-                                   const string& xtitle, const string& ytitle)
+  Histo1DPtr Analysis::bookHisto1D(const string& hname,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle)
   {
     const Scatter2D & refdata = refData(hname);
     const string path = histoPath(hname);
@@ -218,7 +221,8 @@ namespace Rivet {
   Histo1DPtr Analysis::bookHisto1D(const string& hname,
                                    size_t nbins, double lower, double upper,
                                    const string& title,
-                                   const string& xtitle, const string& ytitle) {
+                                   const string& xtitle,
+                                   const string& ytitle) {
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(nbins, lower, upper, path, title) );
     addPlot(hist);
