@@ -7,16 +7,17 @@
 namespace Rivet {
 
 
-  /// @brief H1 energy flow in DIS
-  /// @todo Check this analysis!
+  /// H1 energy flow in DIS
+  ///
+  /// @todo Check!
   /// @author Leif Lonnblad
   class H1_1995_S3167097 : public Analysis {
   public:
 
     /// Constructor
-    H1_1995_S3167097() : Analysis("H1_1995_S3167097")
-    {
-    }
+    H1_1995_S3167097()
+      : Analysis("H1_1995_S3167097")
+    {    }
 
 
     /// @name Analysis methods
@@ -27,47 +28,41 @@ namespace Rivet {
       const DISFinalState& fshcm = addProjection(DISFinalState(diskin, DISFinalState::HCM), "FS");
       addProjection(CentralEtHCM(fshcm), "Y1HCM");
 
-      _hEtFlow = vector<Histo1DPtr>(_nbin);
-      _hEtFlowStat = vector<Histo1DPtr>(_nbin);
-      _nev = vector<double>(_nbin);
+      const size_t NBINS = 9;
+      _hEtFlow = vector<Histo1DPtr>(NBINS);
+      _hEtFlowStat = vector<Histo1DPtr>(NBINS);
+      _nev = vector<double>(NBINS);
       /// @todo Automate this sort of thing so that the analysis code is more readable.
-      for (size_t i = 0; i < _nbin; ++i) {
+      for (size_t i = 0; i < NBINS; ++i) {
         string istr(1, char('1' + i));
-        _hEtFlow[i] = bookHisto1D(istr, _nb, _xmin, _xmax);
-        _hEtFlowStat[i] = bookHisto1D(istr, _nb, _xmin, _xmax);
+        _hEtFlow[i] = bookHisto1D(istr, 24, -6, 6);
+        _hEtFlowStat[i] = bookHisto1D(istr, 24, -6, 6);
       }
-      _hAvEt = bookHisto1D("21tmp", _nbin, 1.0, 10.0);
-      _hAvX  = bookHisto1D("22tmp", _nbin, 1.0, 10.0);
-      _hAvQ2 = bookHisto1D("23tmp", _nbin, 1.0, 10.0);
-      _hN    = bookHisto1D("24", _nbin, 1.0, 10.0);
+      /// @todo Replace with really temp (non-persistent) histos?
+      // _hAvEt = bookScatter2D("21");
+      // _hAvX  = bookScatter2D("22");
+      // _hAvQ2 = bookScatter2D("23");
+      _hAvEt = bookHisto1D("21tmp", NBINS, 1.0, 10.0);
+      _hAvX  = bookHisto1D("22tmp", NBINS, 1.0, 10.0);
+      _hAvQ2 = bookHisto1D("23tmp", NBINS, 1.0, 10.0);
+      _hN    = bookHisto1D("24", NBINS, 1.0, 10.0);
     }
 
 
     /// Calculate the bin number from the DISKinematics projection
-    int _getbin(const DISKinematics& dk) {
-      if ( dk.Q2() > 5.0*GeV2 && dk.Q2() <= 10.0*GeV2 ) {
-        if ( dk.x() > 0.0001 && dk.x() <= 0.0002 )
-          return 0;
-        else if ( dk.x() > 0.0002 && dk.x() <= 0.0005 && dk.Q2() > 6.0*GeV2 )
-          return 1;
-      }
-      else if ( dk.Q2() > 10.0*GeV2 && dk.Q2() <= 20.0*GeV2 ){
-        if ( dk.x() > 0.0002 && dk.x() <= 0.0005 )
-          return 2;
-        else if ( dk.x() > 0.0005 && dk.x() <= 0.0008 )
-          return 3;
-        else if ( dk.x() > 0.0008 && dk.x() <= 0.0015 )
-          return 4;
-        else if ( dk.x() > 0.0015 && dk.x() <= 0.0040 )
-          return 5;
-      }
-      else if ( dk.Q2() > 20.0*GeV2 && dk.Q2() <= 50.0*GeV2 ){
-        if ( dk.x() > 0.0005 && dk.x() <= 0.0014 )
-          return 6;
-        else if ( dk.x() > 0.0014 && dk.x() <= 0.0030 )
-          return 7;
-        else if ( dk.x() > 0.0030 && dk.x() <= 0.0100 )
-          return 8;
+    size_t _getbin(const DISKinematics& dk) {
+      if (inRange(dk.Q2()/GeV2, 5.0, 10.0)) {
+        if (inRange(dk.x(), 1e-4, 2e-4)) return 0;
+        if (inRange(dk.x(), 2e-4, 5e-4) && dk.Q2() > 6.0*GeV2) return 1;
+      } else if (inRange(dk.Q2()/GeV2, 10.0, 20.0)) {
+        if (inRange(dk.x(), 2e-4, 5e-4)) return 2;
+        if (inRange(dk.x(), 5e-4, 8e-4)) return 3;
+        if (inRange(dk.x(), 8e-4, 1.5e-3)) return 4;
+        if (inRange(dk.x(), 1.5e-3, 4e-3)) return 5;
+      } else if (inRange(dk.Q2()/GeV2, 20.0, 50.0)) {
+        if (inRange(dk.x(), 5e-4, 1.4e-3)) return 6;
+        if (inRange(dk.x(), 1.4e-3, 3e-3)) return 7;
+        if (inRange(dk.x(), 3e-3, 1e-2)) return 8;
       }
       return -1;
     }
@@ -98,39 +93,30 @@ namespace Rivet {
 
 
     void finalize() {
-      for (size_t ibin = 0; ibin < _nbin; ++ibin) {
-        scale( _hEtFlow[ibin], 1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
-        scale( _hEtFlowStat[ibin], 1.0/(_nev[ibin]*double(_nb)/(_xmax-_xmin)));
+      for (size_t ibin = 0; ibin < 9; ++ibin) {
+        scale(_hEtFlow[ibin], 0.5/_nev[ibin]);
+        scale(_hEtFlowStat[ibin], 0.5/_nev[ibin]);
       }
 
-      /// @todo Automate this sort of thing so that the analysis code is more readable.
-      // \todo YODA divide
-      // Scatter2DPtr h;
-      // h = histogramFactory().divide("/H1_1995_S3167097/21", *_hAvEt, *_hN);
-      // h->setTitle(_hAvEt->title());
-      // histogramFactory().destroy(_hAvEt);
+      "/H1_1995_S3167097/21";
 
-      // h = histogramFactory().divide("/H1_1995_S3167097/22", *_hAvX, *_hN);
-      // h->setTitle(_hAvX->title());
-      // histogramFactory().destroy(_hAvX);
+      divide(_tmphAvEt, *_hN, );
+      h->setTitle(_hAvEt->title());
+      histogramFactory().destroy(_hAvEt);
 
-      // h = histogramFactory().divide("/H1_1995_S3167097/23", *_hAvQ2, *_hN);
-      // h->setTitle(_hAvQ2->title());
-      // histogramFactory().destroy(_hAvQ2);
+      h = histogramFactory().divide("/H1_1995_S3167097/22", *_hAvX, *_hN);
+      h->setTitle(_hAvX->title());
+      histogramFactory().destroy(_hAvX);
+
+      h = histogramFactory().divide("/H1_1995_S3167097/23", *_hAvQ2, *_hN);
+      h->setTitle(_hAvQ2->title());
+      histogramFactory().destroy(_hAvQ2);
     }
 
     //@}
 
 
   private:
-
-    /// Some integer constants used.
-    /// @todo Remove statics!
-    static const size_t _nb = 24, _nbin = 9;
-
-    /// Some double constants used.
-    /// @todo Remove statics!
-    static const double _xmin, _xmax;
 
     /// Histograms for the \f$ E_T \f$ flows
     vector<Histo1DPtr> _hEtFlow, _hEtFlowStat;
@@ -140,13 +126,8 @@ namespace Rivet {
 
     /// Helper vector;
     vector<double> _nev;
+
   };
-
-
-  // Init statics
-  const double H1_1995_S3167097::_xmin = -6.0;
-  const double H1_1995_S3167097::_xmax = 6.0;
-
 
 
   // The hook for the plugin system
