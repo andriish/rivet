@@ -9,11 +9,13 @@
 namespace Rivet {
 
 
-   // CMS Ratio of the 3-jet to 2-jet Cross Sections by Tomo
+   /// CMS ratio of 3-jet to 2-jet cross-sections
    class CMS_2011_S9088458 : public Analysis {
    public:
 
-     CMS_2011_S9088458() : Analysis("CMS_2011_S9088458") {}
+
+     CMS_2011_S9088458()
+       : Analysis("CMS_2011_S9088458") {  }
 
 
      void init() {
@@ -21,8 +23,8 @@ namespace Rivet {
        FastJets akt(fs, FastJets::ANTIKT, 0.5);
        addProjection(akt, "antikT");
 
-       _h_dijet = bookHisto1D(1, 1, 1, "dijet");
-       _h_trijet = bookHisto1D(1, 1, 1, "trijet");
+       _h_tmp_dijet = Histo1D(refData(1, 1, 1));
+       _h_tmp_trijet = Histo1D(refData(1, 1, 1));
        _h_r32 = bookScatter2D(1, 1, 1);
      }
 
@@ -39,45 +41,25 @@ namespace Rivet {
          }
        }
        if (highpT_jets.size() < 2) vetoEvent;
-
-       if (highpT_jets.size() >= 2) _h_dijet->fill(HT/TeV, weight) ;
-       if (highpT_jets.size() >= 3) _h_trijet->fill(HT/TeV, weight) ;
+       if (highpT_jets.size() >= 2) _h_tmp_dijet.fill(HT/TeV, weight);
+       if (highpT_jets.size() >= 3) _h_tmp_trijet.fill(HT/TeV, weight);
      }
 
 
      void finalize() {
-       // \todo YODA
-       // vector<double> yval_R32, yerr_R32;
-       // for (size_t i = 0;  i < 30; ++i) {
-       //   double yval, yerr;
-       //   if (_h_dijet->binHeight(i)==0.0 || _h_trijet->binHeight(i)==0.0) {
-       //     yval = 0.0;
-       //     yerr = 0.0;
-       //   }
-       //   else {
-       //     yval =  _h_trijet->binHeight(i)/_h_dijet->binHeight(i);
-       //     yerr = sqrt(_h_dijet->binError(i)*_h_dijet->binError(i)/(_h_dijet->binHeight(i) * _h_dijet->binHeight(i)) +
-       //                 _h_trijet->binError(i)*_h_trijet->binError(i)/(_h_trijet->binHeight(i) * _h_trijet->binHeight(i))) * yval;
-       //   }
-       //   yval_R32.push_back(yval);
-       //   yerr_R32.push_back(yerr);
-       // }
-       // _h_r32->setCoordinate(1, yval_R32, yerr_R32);
-       // histogramFactory().destroy(_h_dijet);
-       // histogramFactory().destroy(_h_trijet);
+       divide(_h_tmp_trijet, _h_tmp_dijet, _h_r32);
      }
 
 
    private:
 
-     Histo1DPtr _h_dijet, _h_trijet;
+     Histo1D _h_tmp_dijet, _h_tmp_trijet;
      Scatter2DPtr _h_r32;
 
   };
 
-  // This global object acts as a hook for the plugin system
+
+  // A hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2011_S9088458);
 
 }
-
-
