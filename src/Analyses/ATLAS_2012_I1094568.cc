@@ -111,17 +111,13 @@ namespace Rivet {
 
 
     void initializePlots(ATLAS_2012_I1094568_Plots& plots) {
-      int q0_index = 1;
-      int qsum_index = 2;
+      const int q0_index = 1;
+      const int qsum_index = 2;
 
-      std::stringstream vetoPt_Q0_name;
-      vetoPt_Q0_name << "vetoJetPt_Q0_" << plots.region_index;
-
-      std::stringstream vetoPt_Qsum_name;
-      vetoPt_Qsum_name << "vetoJetPt_Qsum_" << plots.region_index;
-
-      plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name.str(), m_q0BinEdges);
-      plots._h_vetoJetPt_Qsum = bookHisto1D(vetoPt_Qsum_name.str(), m_q0BinEdges);
+      const string vetoPt_Q0_name = "vetoJetPt_Q0_" + lexical_cast<string>(plots.region_index);
+      const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + lexical_cast<string>(plots.region_index);
+      plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, m_q0BinEdges);
+      plots._h_vetoJetPt_Qsum = bookHisto1D(vetoPt_Qsum_name, m_q0BinEdges);
 
       plots._d_gapFraction_Q0   = bookScatter2D(plots.region_index, q0_index, 1);
       plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, qsum_index, 1);
@@ -146,10 +142,8 @@ namespace Rivet {
 
       // Keep any jets that pass the initial rapidity cut
       vector<const Jet*> central_jets;
-      double rapMax = 2.4;
       foreach(const Jet& j, jets) {
-        double rapidity = fabs(j.momentum().rapidity());
-        if (rapidity < rapMax) central_jets.push_back(&j);
+        if (fabs(j.momentum().rapidity()) < 2.4) central_jets.push_back(&j);
       }
 
       // For each of the jets that pass the rapidity cut, only keep those that are not
@@ -157,47 +151,47 @@ namespace Rivet {
       vector<const Jet*> good_jets;
       foreach(const Jet* j, central_jets) {
         bool goodJet = true;
+
         foreach (const Particle& e, elecFS) {
           double elec_jet_dR = deltaR(e.momentum(), j->momentum());
-          if (elec_jet_dR < 0.4) goodJet = false;
+          if (elec_jet_dR < 0.4) { goodJet = false; break; }
         }
+        if (!goodJet) continue;
+        if (!goodJet) continue;
+
         foreach (const Particle& m, muonFS) {
           double muon_jet_dR = deltaR(m.momentum(), j->momentum());
-          if (muon_jet_dR < 0.4) goodJet = false;
+          if (muon_jet_dR < 0.4) { goodJet = false; break; }
         }
-        if (goodJet == true) good_jets.push_back(j);
+        if (!goodJet) continue;
+
+        good_jets.push_back(j);
       }
 
-      // Temporary fix to get B-hadrons in evgen files where they don't show up
-      // in the UnstableFinalState projection
-      // (e.g. mc10_7TeV.105200.T1_McAtNlo_Jimmy.evgen.EVNT.e598/)
-      // This will be updated for MC12 to just use UnstableFinalState
-      // (Thanks to Steve Bieniek for this!)
-      std::vector<HepMC::GenParticle*> B_hadrons;
-      std::vector<HepMC::GenParticle*> allParticles = particles(event.genEvent());
-      for (unsigned int i = 0; i < allParticles.size(); i++) {
-        GenParticle* p = allParticles.at(i);
-        if ( !(Rivet::PID::isHadron( p->pdg_id() ) && Rivet::PID::hasBottom( p->pdg_id() )) ) continue;
-        if (p->momentum().perp()*GeV < 5) continue;
+      // Get b hadrons with pT > 5 GeV
+      /// @todo This is a hack -- replace with UnstableFinalState
+      vector<HepMC::GenParticle*> B_hadrons;
+      vector<HepMC::GenParticle*> allParticles = particles(event.genEvent());
+      for (size_t i = 0; i < allParticles.size(); i++) {
+        GenParticle* p = allParticles[i];
+        if (!PID::isHadron(p->pdg_id()) || !PID::hasBottom(p->pdg_id())) continue;
+        if (p->momentum().perp() < 5*GeV) continue;
         B_hadrons.push_back(p);
       }
 
-
-      // For each of the good jets, check whether any are b-jets
+      // For each of the good jets, check whether any are b-jets (via dR matching)
       vector<const Jet*> b_jets;
       foreach(const Jet* j, good_jets) {
         bool isbJet = false;
         foreach(HepMC::GenParticle* b, B_hadrons) {
-          FourMomentum hadron = b->momentum();
-          double hadron_jet_dR = deltaR(j->momentum(), hadron);
-          if (hadron_jet_dR < 0.3) isbJet = true;
+          if (deltaR(j->momentum(), FourMomentum(b->momentum())) < 0.3) isbJet = true;
         }
         if (isbJet) b_jets.push_back(j);
       }
 
 
       // Check the good jets again and keep track of the "additional jets"
-      // I.e. those which are not either of the 2 highest pT b-jets
+      // i.e. those which are not either of the 2 highest pT b-jets
       vector<const Jet*> veto_jets;
       int n_bjets_matched = 0;
       foreach(const Jet* j, good_jets) {
@@ -211,13 +205,13 @@ namespace Rivet {
 
 
       // Get the MET by taking the vector sum of all neutrinos
+      /// @todo Use MissingMomentum instead?
       double MET = 0;
-      FourMomentum p_MET(0., 0., 0., 0.);
-      foreach(const Particle& p, neutrinoFS) {
+      FourMomentum p_MET;
+      foreach (const Particle& p, neutrinoFS) {
         p_MET = p_MET + p.momentum();
       }
       MET = p_MET.pT();
-
 
       // Now we have everything we need to start doing the event selections
       bool passed_ee = false;
@@ -226,14 +220,14 @@ namespace Rivet {
       // We want exactly 2 electrons...
       if (elecFS.size() == 2) {
         // ... with opposite sign charges.
-        if (PID::charge(elecFS.at(0)) != PID::charge(elecFS.at(1))) {
+        if (PID::charge(elecFS[0]) != PID::charge(elecFS[1])) {
           // Check the MET
           if (MET >= 40*GeV) {
             // Do some dilepton mass cuts
-            double dilepton_mass = (elecFS.at(0).momentum() + elecFS.at(1).momentum()).mass();
+            const double dilepton_mass = (elecFS[0].momentum() + elecFS[1].momentum()).mass();
             if (dilepton_mass >= 15*GeV) {
               if (fabs(dilepton_mass - 91.0*GeV) >= 10.0*GeV) {
-                // we need at least 2 b-jets
+                // We need at least 2 b-jets
                 if (b_jets.size() > 1) {
                   // This event has passed all the cuts;
                   passed_ee = true;
@@ -243,7 +237,6 @@ namespace Rivet {
           }
         }
       }
-
 
       bool passed_mumu = false;
       // Now do the same checks for the mumu channel
@@ -255,10 +248,10 @@ namespace Rivet {
           // Check the MET
           if (MET >= 40*GeV) {
             // and do some di-muon mass cuts
-            double dilepton_mass = (muonFS.at(0).momentum() + muonFS.at(1).momentum()).mass();
+            const double dilepton_mass = (muonFS.at(0).momentum() + muonFS.at(1).momentum()).mass();
             if (dilepton_mass >= 15*GeV) {
               if (fabs(dilepton_mass - 91.0*GeV) >= 10.0*GeV) {
-                // Need atleast 2 b-jets
+                // Need at least 2 b-jets
                 if (b_jets.size() > 1) {
                   // This event has passed all mumu-channel cuts
                   passed_mumu = true;
@@ -269,7 +262,6 @@ namespace Rivet {
         }
       }
 
-
       bool passed_emu = false;
       // Finally, the same again with the emu channel
       vector<const Jet*> vetoJets_emu;
@@ -277,14 +269,12 @@ namespace Rivet {
       if (elecFS.size() == 1 && muonFS.size() == 1) {
         // With opposite sign charges
         if (PID::charge(elecFS.at(0)) != PID::charge(muonFS.at(0))) {
-          // Calculate the HT from the scalar sum of the pT of the leptons
-          // and all good jets
+          // Calculate HT: scalar sum of the pTs of the leptons and all good jets
           double HT = 0;
-          HT += fabs(elecFS.at(0).momentum().pT());
-          HT += fabs(muonFS.at(0).momentum().pT());
-          foreach(const Jet* j, good_jets) {
+          HT += elecFS[0].momentum().pT();
+          HT += muonFS[0].momentum().pT();
+          foreach (const Jet* j, good_jets)
             HT += fabs(j->momentum().pT());
-          }
           // Keep events with HT > 130 GeV
           if (HT > 130.0*GeV) {
             // And again we want 2 or more b-jets
@@ -300,42 +290,38 @@ namespace Rivet {
         m_total_weight += weight;
 
         // Loop over each veto jet
-        foreach(const Jet* j, veto_jets) {
-          double pt = j->momentum().pT();
-          double rapidity = fabs(j->momentum().rapidity());
+        foreach (const Jet* j, veto_jets) {
+          const double pt = j->momentum().pT();
+          const double rapidity = fabs(j->momentum().rapidity());
           // Loop over each region
-          for (int i=0; i<4; ++i) {
+          for (size_t i = 0; i < 4; ++i) {
             // If the jet falls into this region, get its pT and increment sum(pT)
-            if ( (rapidity > m_plots[i].y_low) && (rapidity < m_plots[i].y_high)) {
+            if (inRange(rapidity, m_plots[i].y_low, m_plots[i].y_high)) {
               m_plots[i].vetoJetPt_Qsum += pt;
-
               // If we've already got a veto jet, don't replace it
               if (m_plots[i].vetoJetPt_Q0 == 0.0) m_plots[i].vetoJetPt_Q0 = pt;
             }
           }
-        } // end loop over veto jets
-        for (int i=0; i<4; ++i) {
+        }
+        for (size_t i = 0; i < 4; ++i) {
           m_plots[i]._h_vetoJetPt_Q0->fill(m_plots[i].vetoJetPt_Q0, weight);
           m_plots[i]._h_vetoJetPt_Qsum->fill(m_plots[i].vetoJetPt_Qsum, weight);
-          ClearVetoJetPts(m_plots[i]);
+          m_plots[i].vetoJetPt_Q0 = 0.0;
+          m_plots[i].vetoJetPt_Qsum = 0.0;
         }
       }
-    }
-
-    void ClearVetoJetPts(ATLAS_2012_I1094568_Plots& plots) {
-      plots.vetoJetPt_Q0 = 0.0;
-      plots.vetoJetPt_Qsum = 0.0;
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for (int i=0; i<4; ++i) {
+      for (size_t i = 0; i < 4; ++i) {
         // @todo YODA
         //FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Q0, m_plots[i]._h_vetoJetPt_Q0, binEdges(i+1, 1, 1));
         //FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Qsum, m_plots[i]._h_vetoJetPt_Qsum, binEdges(i+1, 2, 1));
       }
     }
+
 
     // @todo YODA
     ////void FinalizeGapFraction(double total_weight, ATLAS_2011_I1094568_Plots& plots, int type)
@@ -385,11 +371,11 @@ namespace Rivet {
 
   private:
 
-    // Define the vetoJet pT binning
+    // Veto jet pT binning
     std::vector<double> m_q0BinEdges;
     double m_total_weight;
 
-
+    // Structs containing all the plots, for each event selection
     ATLAS_2012_I1094568_Plots m_plots[4];
 
   };
