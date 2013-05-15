@@ -53,7 +53,7 @@ namespace Rivet {
     // Simple scalars (test for nullness before casting)
     #if YAMLCPP_API_VERSION == 3
     /// @todo Fix
-    #define TRY_GETINFO(KEY, VAR) try { if (doc[KEY] { string val; doc[KEY].second >> val; ai->_ ## VAR = val; } catch (...) { THROW_INFOERR(KEY); }
+    #define TRY_GETINFO(KEY, VAR) try { if (doc.FindValue(KEY) { string val; doc[KEY] >> val; ai->_ ## VAR = val; } catch (...) { THROW_INFOERR(KEY); }
     #elif YAMLCPP_API_VERSION == 5
     #define TRY_GETINFO(KEY, VAR) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { THROW_INFOERR(KEY); }
     #endif
@@ -75,11 +75,10 @@ namespace Rivet {
     #if YAMLCPP_API_VERSION == 3
     /// @todo Fix
     #define TRY_GETINFO_SEQ(KEY, VAR) try { \
-        if (doc[KEY]) {                                                 \
-          const YAML::Node& VAR = doc[KEY];                             \
-          for (size_t i = 0; i < VAR.size(); ++i)                       \
-            if (!VAR[i].IsNull()) ai->_ ## VAR += VAR[i].as<string>();  \
-        } } catch (...) { THROW_INFOERR(KEY); }
+        if (const YAML::Node* VAR = doc.FindValue(KEY)) {                                       \
+          for (size_t i = 0; i < VAR.size(); ++i) {                     \
+            string val; VAR[i] >> val; ai->_ ## VAR += val;             \
+          } } } catch (...) { THROW_INFOERR(KEY); }
     #elif YAMLCPP_API_VERSION == 5
     #define TRY_GETINFO_SEQ(KEY, VAR) try { \
         if (doc[KEY] && !doc[KEY].IsNull()) {                           \
@@ -111,6 +110,10 @@ namespace Rivet {
     try {
       #if YAMLCPP_API_VERSION == 3
 
+      /// @todo Fix
+
+      #elif YAMLCPP_API_VERSION == 5
+
       if (doc["Beams"]) {
         const YAML::Node& beams = doc["Beams"];
         vector<PdgIdPair> beam_pairs;
@@ -127,10 +130,6 @@ namespace Rivet {
         ai->_beams = beam_pairs;
       }
 
-      #elif YAMLCPP_API_VERSION == 5
-
-      /// @todo Fix
-
       #endif
     } catch (...) { THROW_INFOERR("Beams"); }
 
@@ -138,6 +137,10 @@ namespace Rivet {
     // Beam energies
     try {
       #if YAMLCPP_API_VERSION == 3
+
+      /// @todo Fix
+
+      #elif YAMLCPP_API_VERSION == 5
 
       if (doc["Energies"]) {
         vector< pair<double,double> > beam_energy_pairs;
@@ -156,10 +159,6 @@ namespace Rivet {
         }
         ai->_energies = beam_energy_pairs;
       }
-
-      #elif YAMLCPP_API_VERSION == 5
-
-      /// @todo Fix
 
       #endif
 
