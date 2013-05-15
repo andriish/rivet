@@ -77,7 +77,7 @@ namespace Rivet {
     #define TRY_GETINFO_SEQ(KEY, VAR) try { \
         if (const YAML::Node* VAR = doc.FindValue(KEY)) {                                       \
           for (size_t i = 0; i < VAR.size(); ++i) {                     \
-            string val; VAR[i] >> val; ai->_ ## VAR += val;             \
+            string val; (*VAR)[i] >> val; ai->_ ## VAR += val;          \
           } } } catch (...) { THROW_INFOERR(KEY); }
     #elif YAMLCPP_API_VERSION == 5
     #define TRY_GETINFO_SEQ(KEY, VAR) try { \
@@ -96,10 +96,12 @@ namespace Rivet {
     // A boolean with some name flexibility
     try {
       #if YAMLCPP_API_VERSION == 3
-      /// @todo Fix
+      bool val;
+      if (const YAML::Node n = doc.FindValue("NeedsCrossSection")) { *n >> val; ai->_needsCrossSection = val; }
+      if (const YAML::Node n = doc.FindValue("NeedCrossSection")) { *n >> val; ai->_needsCrossSection = val; }
       #elif YAMLCPP_API_VERSION == 5
       if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
-      else if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
+      else if (doc["NeedCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
       #endif
     } catch (...) {
       THROW_INFOERR("NeedsCrossSection|NeedCrossSection");
