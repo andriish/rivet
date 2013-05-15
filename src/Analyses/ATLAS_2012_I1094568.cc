@@ -40,6 +40,7 @@ namespace Rivet {
 
 
   /// Top pair production with central jet veto
+  /// @todo Check correctness of conversion to efficiency scatter: binning mismatch?
   class ATLAS_2012_I1094568 : public Analysis {
   public:
 
@@ -111,16 +112,13 @@ namespace Rivet {
 
 
     void initializePlots(ATLAS_2012_I1094568_Plots& plots) {
-      const int q0_index = 1;
-      const int qsum_index = 2;
-
       const string vetoPt_Q0_name = "vetoJetPt_Q0_" + lexical_cast<string>(plots.region_index);
       const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + lexical_cast<string>(plots.region_index);
       plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, m_q0BinEdges);
       plots._h_vetoJetPt_Qsum = bookHisto1D(vetoPt_Qsum_name, m_q0BinEdges);
 
-      plots._d_gapFraction_Q0   = bookScatter2D(plots.region_index, q0_index, 1);
-      plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, qsum_index, 1);
+      plots._d_gapFraction_Q0   = bookScatter2D(plots.region_index, 1, 1);
+      plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, 2, 1);
 
       plots.vetoJetPt_Q0 = 0.0;
       plots.vetoJetPt_Qsum = 0.0;
@@ -316,57 +314,40 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for (size_t i = 0; i < 4; ++i) {
-        // @todo YODA
-        //FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Q0, m_plots[i]._h_vetoJetPt_Q0, binEdges(i+1, 1, 1));
-        //FinalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Qsum, m_plots[i]._h_vetoJetPt_Qsum, binEdges(i+1, 2, 1));
+        finalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Q0, m_plots[i]._h_vetoJetPt_Q0);
+        finalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Qsum, m_plots[i]._h_vetoJetPt_Qsum);
       }
     }
 
 
-    // @todo YODA
-    ////void FinalizeGapFraction(double total_weight, ATLAS_2011_I1094568_Plots& plots, int type)
-    //void FinalizeGapFraction(double total_weight, Scatter2DPtr gapFraction, Histo1DPtr vetoPt, BinEdges fgap_binEdges) {
+    /// Convert temporary histos to cumulative efficiency scatters
+    /// @todo Should be possible to replace this with a couple of YODA one-lines for diff -> integral and "efficiency division"
+    void finalizeGapFraction(double total_weight, Scatter2DPtr gapFraction, Histo1DPtr vetoPt) {
+     // Stores the cumulative frequency of the veto jet pT histogram
+     double vetoPtWeightSum = 0.0;
 
-    //  // Stores the cumulative frequency of the veto jet pT histogram
-    //  double vetoPtWeightSum = 0.0;
-    //
-    //  // Keep track of which gap fraction point we're doing
-    //  unsigned int fgap_point = 0;
-    //  for (unsigned int i=0; i<m_q0BinEdges.size()-2; ++i) {
-    //    vetoPtWeightSum += vetoPt->binHeight(i);
+     // Keep track of which gap fraction point we're doing (#final_points != #tmp_bins)
+     size_t fgap_point = 0;
+     for (size_t i = 0; i < m_q0BinEdges.size()-2; ++i) {
+       // If we've done the last point, stop.
+       if (fgap_point == gapFraction->numPoints()) break;
 
-    //    // If we've done the last point, stop.
-    //    if (fgap_point == fgap_binEdges.size()-1) break;
+       // Increment the cumulative vetoPt counter for this temp histo bin
+       vetoPtWeightSum += vetoPt->bin(i).sumW();
 
-    //    // Get the x-value of this gap fraction point, from the mid-point of the bin edges
-    //    double binCentre = ( fgap_binEdges.at(fgap_point) + fgap_binEdges.at(fgap_point+1) ) / 2;
-    //    double errorPlus = fgap_binEdges.at(fgap_point+1) - binCentre;
-    //    double errorMinus = binCentre - fgap_binEdges.at(fgap_point);
+       // If this temp histo bin doesn't correspond to the edge of the reference scatter, read another histo bin
+       /// @todo Shouldn't this be equal to the upper error rather than the bin centre?
+       if ( !fuzzyEquals(m_q0BinEdges[i+1], gapFraction->point(fgap_point).x()) ) continue;
 
-    //    // If this Q0/Qsum point is not the cut value we need for this gap fraction point, continue
-    //    if (m_q0BinEdges.at(i+1) != binCentre) continue;
+       // Calculate the gap fraction and its uncertainty
+       const double frac = (total_weight != 0.0) ? vetoPtWeightSum/total_weight : 0;
+       const double fracErr = (total_weight != 0.0) ? sqrt(frac*(1-frac)/total_weight) : 0;
+       gapFraction->point(fgap_point).setY(frac, fracErr);
 
-    //    // Calculate the gap fraction and its uncertainty
-    //    double fraction = vetoPtWeightSum/total_weight;
-    //    double fraction_error = sqrt(fraction*(1.0-fraction)/total_weight);
-    //    if (total_weight == 0.0) fraction = fraction_error = 0.0;
-
-    //    // Set the point
-    //    IDataPoint* currentPoint = gapFraction->point(fgap_point);
-    //    IMeasurement* xCoord = currentPoint->coordinate(0);
-    //    IMeasurement* yCoord = currentPoint->coordinate(1);
-
-    //    xCoord->setValue(binCentre);
-    //    xCoord->setErrorPlus(errorPlus);
-    //    xCoord->setErrorMinus(errorMinus);
-    //    yCoord->setValue(fraction);
-    //    yCoord->setErrorPlus(fraction_error);
-    //    yCoord->setErrorMinus(fraction_error);
-
-    //    ++fgap_point;
-    //  }
-    //  tree().rm(tree().findPath(dynamic_cast<AIDA::IManagedObject&>(*vetoPt)));
-    //}
+       ++fgap_point;
+     }
+     /// @todo Delete vetoPt temp histos
+    }
 
 
   private:

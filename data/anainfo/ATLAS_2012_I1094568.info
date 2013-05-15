@@ -21,14 +21,14 @@ Description:
   fraction of events passing a veto requirement are shown as a function the veto
   scale for four central rapidity intervals.
   Two veto definitions are used: events are vetoed if they contain an additional
-  jet in the rapidity interval with transverse momentum above a threshold, or 
-  alternatively, if the scalar transverse momentum sum of all additional jets 
+  jet in the rapidity interval with transverse momentum above a threshold, or
+  alternatively, if the scalar transverse momentum sum of all additional jets
   in the rapidity interval is above a threshold.'
 BibKey: ATLAS:2012al
 BibTeX: '@article{ATLAS:2012al,
       author         = "Aad, Georges and others",
       title          = "{Measurement of $t \bar{t}$ production with a veto on
-                        additional central jet activity in pp collisions at
+                        additional central jet activity in $pp$ collisions at
                         $\sqrt{s} = 7$ TeV using the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       journal        = "Eur.Phys.J.",
