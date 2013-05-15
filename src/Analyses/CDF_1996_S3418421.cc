@@ -41,7 +41,7 @@ namespace Rivet {
       _h_chi.addHistogram(517.0, 625.0, bookHisto1D(1, 1, 4));
       _h_chi.addHistogram(625.0, 1800.0, bookHisto1D(1, 1, 5));
 
-      _h_ratio = bookScatter2D(2,1,1,"","","");
+      _h_ratio = bookScatter2D(2, 1, 1);
       _chi_above_25.resize(_h_ratio->numPoints());
       _chi_below_25.resize(_h_ratio->numPoints());
     }
@@ -55,48 +55,33 @@ namespace Rivet {
       if (jets.size()<2) {
         vetoEvent;
       }
-      FourMomentum jet1 = jets[0].momentum();
-      FourMomentum jet2 = jets[1].momentum();
-      double eta1 = jet1.eta();
-      double eta2 = jet2.eta();
-      double chi = exp(fabs(eta1-eta2));
-      if (fabs(eta2)>2.0 || fabs(eta1)>2.0 || chi>5.0) {
-        vetoEvent;
-      }
+      const FourMomentum jet1 = jets[0].momentum();
+      const FourMomentum jet2 = jets[1].momentum();
+      const double eta1 = jet1.eta();
+      const double eta2 = jet2.eta();
+      const double chi = exp(fabs(eta1 - eta2));
+      if (fabs(eta2) > 2.0 || fabs(eta1) > 2.0 || chi > 5.0) vetoEvent;
 
-      double m = FourMomentum(jet1+jet2).mass();
+      double m = FourMomentum(jet1 + jet2).mass();
       _h_chi.fill(m, chi, weight);
 
-      // \todo YODA extents
-      // // fill ratio counter
-      // if (m > _h_ratio->lowerExtent(0) && m < _h_ratio->upperExtent(0)) {
-      //   int bin=-1;
-      //   for (size_t i=0; i<_h_ratio->numPoints(); ++i) {
-      //     AIDA::IMeasurement* x = _h_ratio->point(i)->coordinate(0);
-      //     if (m > x->value()-x->errorMinus() && m < x->value()+x->errorPlus()) {
-      //       bin=i;
-      //       break;
-      //     }
-      //   }
-      //   if (bin>-1) {
-      //     if (chi>2.5) _chi_above_25[bin] += weight;
-      //     else _chi_below_25[bin] += weight;
-      //   }
-      // }
+      // Fill ratio counter
+      /// @todo Replace with a "binned counter": this is an inefficient bin lookup to avoid the "bin width factor"
+      for (size_t i = 0; i < _h_ratio->numPoints(); ++i) {
+        if (inRange(m/GeV, _h_ratio->point(i).xMin(), _h_ratio->point(i).xMax())) {
+          ((chi > 2.5) ? _chi_above_25 : _chi_below_25)[i] += weight;
+          break;
+        }
+      }
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      foreach (Histo1DPtr hist, _h_chi.getHistograms()) {
+      foreach (Histo1DPtr hist, _h_chi.getHistograms())
         normalize(hist);
-      }
-
-      for (size_t bin=0; bin<_h_ratio->numPoints(); ++bin) {
-        _h_ratio->point(bin).setY(_chi_below_25[bin]/_chi_above_25[bin]);
-        /// @todo calculate errors while analysing and fill them here as well
-      }
+      for (size_t bin = 0; bin < _h_ratio->numPoints(); ++bin)
+        _h_ratio->point(bin).setY(_chi_below_25[bin]/_chi_above_25[bin]); //< @todo Add errors
     }
 
     //@}
