@@ -91,22 +91,20 @@ namespace Rivet {
           // find the decay products we want
           findDecayProducts(ups.genParticle(), unstable);
           LorentzTransform cms_boost;
-          if (ups.momentum().vector3().mod()>0.001)
+          if (ups.momentum().vector3().mod() > 1*MeV)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
           double mass = ups.momentum().mass();
-          unsigned int nEtaA(0),nEtaB(0),nf0(0);
-          foreach(const Particle & p , unstable) {
-            int id = abs(p.pdgId());
+          unsigned int nEtaA(0), nEtaB(0), nf0(0);
+          foreach(const Particle& p , unstable) {
+            const int id = abs(p.pdgId());
             FourMomentum p2 = cms_boost.transform(p.momentum());
             double xp = 2.*p2.t()/mass;
             double beta = p2.vector3().mod()/p2.t();
             if (id == 9010221) {
-              if (parentId == 553) _hist_Ups1_f0->fill(xp,weight/beta);
-              else              _hist_Ups2_f0->fill(xp,weight/beta);
+              ((parentId == 553) ? _hist_Ups1_f0 : _hist_Ups2_f0)->fill(xp, weight/beta);
               ++nf0;
-            }
-            else if (id == 331) {
-              if (xp>0.35) ++nEtaA;
+            } else if (id == 331) {
+              if (xp > 0.35) ++nEtaA;
               ++nEtaB;
             }
           }
@@ -114,10 +112,9 @@ namespace Rivet {
             _count_f0[0]             +=   nf0*weight;
             _count_etaPrime_highZ[0] += nEtaA*weight;
             _count_etaPrime_allZ[0]  += nEtaB*weight;
-          }
-          else {
+          } else {
             _count_f0[1] += nf0*weight;
-            _count_etaPrime_allZ[1] += nEtaB*weight;
+            _count_etaPrime_allZ[1]  += nEtaB*weight;
           }
         }
       }
@@ -127,15 +124,17 @@ namespace Rivet {
     void finalize() {
 
       // @todo YODA
-      //AIDA::IDataPointSet * mult_etaPrime_highZ = bookDataPointSet( 1,1,1);
-      //for (int i = 0; i < mult_etaPrime_highZ->size(); ++i) {
-      //  if ( fuzzyEquals( 9.905, mult_etaPrime_highZ->point(i)->coordinate(0)->value(), 0.001) &&
-      //       _weightSum_cont>0.)
-      //    mult_etaPrime_highZ->point(i)->coordinate(1)->setValue( _count_etaPrime_highZ[1]/_weightSum_cont);
-      //  else if ( fuzzyEquals( 9.46, mult_etaPrime_highZ->point(i)->coordinate(0)->value(), 0.001) &&
-      //            _weightSum_Ups1>0.)
-      //    mult_etaPrime_highZ->point(i)->coordinate(1)->setValue(_count_etaPrime_highZ[0]/_weightSum_Ups1);
-      //}
+
+      Scatter2DPtr mult_etaPrime_highZ = bookScatter2D(1, 1, 1);
+      for (size_t i = 0; i < mult_etaPrime_highZ->numPoints(); ++i) {
+        Point2D& p = mult_etaPrime_highZ->point(i);
+        if (fuzzyEquals(9.905, p.x(), 1e-3) && _weightSum_cont > 0) {
+          p.setY(_count_etaPrime_highZ[1] / _weightSum_cont);
+        } else if (fuzzyEquals( 9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
+          p.setY(_count_etaPrime_highZ[0] / _weightSum_Ups1);
+        }
+      }
+
       //AIDA::IDataPointSet * mult_etaPrime_allZ = bookDataPointSet( 1,1,2);
       //for (int i = 0; i < mult_etaPrime_allZ->size(); ++i) {
       //  if ( fuzzyEquals( 9.905, mult_etaPrime_allZ->point(i)->coordinate(0)->value(), 0.001) &&
