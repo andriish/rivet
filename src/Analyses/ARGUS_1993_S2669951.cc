@@ -16,10 +16,20 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2669951()
-      : Analysis("ARGUS_1993_S2669951"), _count_etaPrime_highZ(2,0.),
-        _count_etaPrime_allZ(3,0.), _count_f0(3,0.),
-        _weightSum_cont(0.),_weightSum_Ups1(0.),_weightSum_Ups2(0.)
-    { }
+      : Analysis("ARGUS_1993_S2669951"),
+        _count_etaPrime_highZ(2, 0.), _count_etaPrime_allZ(3, 0.), _count_f0(3, 0.),
+        _weightSum_cont(0.), _weightSum_Ups1(0.), _weightSum_Ups2(0.)
+    {   }
+
+
+    void init() {
+      addProjection(Beam(), "Beams");
+      addProjection(UnstableFinalState(), "UFS");
+
+      _hist_cont_f0 = bookHisto1D(2, 1, 1);
+      _hist_Ups1_f0 = bookHisto1D(3, 1, 1);
+      _hist_Ups2_f0 = bookHisto1D(4, 1, 1);
+    }
 
 
     void analyze(const Event& e) {
@@ -34,11 +44,11 @@ namespace Rivet {
       Particles upsilons;
       // first in unstable final state
       foreach (const Particle& p, ufs.particles())
-        if (p.pdgId()==553 || p.pdgId()==100553 ) upsilons.push_back(p);
+        if (p.pdgId() == 553 || p.pdgId() == 100553 ) upsilons.push_back(p);
       // then in whole event if fails
       if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
-          if( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
+          if ( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
@@ -51,23 +61,23 @@ namespace Rivet {
               }
             }
           }
-          if(passed) upsilons.push_back(Particle(*p));
+          if (passed) upsilons.push_back(Particle(*p));
         }
       }
       // continuum
-      if(upsilons.empty()) {
+      if (upsilons.empty()) {
         _weightSum_cont += weight;
         unsigned int nEtaA(0),nEtaB(0),nf0(0);
         foreach (const Particle& p, ufs.particles()) {
           int id = abs(p.pdgId());
           double xp = 2.*p.momentum().t()/roots;
           double beta = p.momentum().vector3().mod()/p.momentum().t();
-          if(id==9010221) {
+          if (id == 9010221) {
             _hist_cont_f0->fill(xp,weight/beta);
             ++nf0;
           }
-          else if(id==331) {
-            if(xp>0.35) ++nEtaA;
+          else if (id == 331) {
+            if (xp>0.35) ++nEtaA;
             ++nEtaB;
           }
         }
@@ -79,7 +89,7 @@ namespace Rivet {
         // find an upsilons
         foreach (const Particle& ups, upsilons) {
           int parentId = ups.pdgId();
-          if(parentId==553)
+          if (parentId == 553)
             _weightSum_Ups1 += weight;
           else
             _weightSum_Ups2 += weight;
@@ -87,7 +97,7 @@ namespace Rivet {
           // find the decay products we want
           findDecayProducts(ups.genParticle(), unstable);
           LorentzTransform cms_boost;
-          if(ups.momentum().vector3().mod()>0.001)
+          if (ups.momentum().vector3().mod()>0.001)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
           double mass = ups.momentum().mass();
           unsigned int nEtaA(0),nEtaB(0),nf0(0);
@@ -96,17 +106,17 @@ namespace Rivet {
             FourMomentum p2 = cms_boost.transform(p.momentum());
             double xp = 2.*p2.t()/mass;
             double beta = p2.vector3().mod()/p2.t();
-            if (id==9010221) {
-              if(parentId==553) _hist_Ups1_f0->fill(xp,weight/beta);
+            if (id == 9010221) {
+              if (parentId == 553) _hist_Ups1_f0->fill(xp,weight/beta);
               else              _hist_Ups2_f0->fill(xp,weight/beta);
               ++nf0;
             }
-            else if (id==331) {
-              if(xp>0.35) ++nEtaA;
+            else if (id == 331) {
+              if (xp>0.35) ++nEtaA;
               ++nEtaB;
             }
           }
-          if (parentId==553) {
+          if (parentId == 553) {
             _count_f0[0]             +=   nf0*weight;
             _count_etaPrime_highZ[0] += nEtaA*weight;
             _count_etaPrime_allZ[0]  += nEtaB*weight;
@@ -117,7 +127,8 @@ namespace Rivet {
           }
         }
       }
-    } // analyze
+    }
+
 
     void finalize() {
 
@@ -162,50 +173,37 @@ namespace Rivet {
       //  }
       //}
 
-      if(_weightSum_cont>0.) scale(_hist_cont_f0, 1./_weightSum_cont);
-      if(_weightSum_Ups1>0.) scale(_hist_Ups1_f0, 1./_weightSum_Ups1);
-      if(_weightSum_Ups2>0.) scale(_hist_Ups2_f0, 1./_weightSum_Ups2);
+      if (_weightSum_cont > 0.) scale(_hist_cont_f0, 1./_weightSum_cont);
+      if (_weightSum_Ups1 > 0.) scale(_hist_Ups1_f0, 1./_weightSum_Ups1);
+      if (_weightSum_Ups2 > 0.) scale(_hist_Ups2_f0, 1./_weightSum_Ups2);
 
-    } // finalize
-
-
-    void init() {
-      addProjection(Beam(), "Beams");
-      addProjection(UnstableFinalState(), "UFS");
-
-      _hist_cont_f0 = bookHisto1D( 2,1,1);
-      _hist_Ups1_f0 = bookHisto1D( 3,1,1);
-      _hist_Ups2_f0 = bookHisto1D( 4,1,1);
     }
 
 
   private:
 
+    /// @name Counters
     //@{
-    vector<double> _count_etaPrime_highZ;
-    vector<double> _count_etaPrime_allZ;
-    vector<double> _count_f0;
-
-    Histo1DPtr _hist_cont_f0;
-    Histo1DPtr _hist_Ups1_f0;
-    Histo1DPtr _hist_Ups2_f0;
-
+    vector<double> _count_etaPrime_highZ, _count_etaPrime_allZ, _count_f0;
     double _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
     //@}
 
 
-    void findDecayProducts(const GenParticle* p,
-                           Particles & unstable) {
+    /// Histos
+    Histo1DPtr _hist_cont_f0, _hist_Ups1_f0, _hist_Ups2_f0;
+
+
+    /// Recursively walk the HepMC tree to find decay products of @a p
+    void findDecayProducts(const GenParticle* p, Particles& unstable) {
       const GenVertex* dv = p->end_vertex();
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
-        int id = abs((*pp)->pdg_id());
-        if (id == 331 || id == 9010221) {
-          unstable.push_back(Particle(*pp));
-        } else if ((*pp)->end_vertex())
-          findDecayProducts(*pp, unstable);
+        const int id = abs((*pp)->pdg_id());
+        if (id == 331 || id == 9010221) unstable.push_back(Particle(*pp));
+        else if ((*pp)->end_vertex()) findDecayProducts(*pp, unstable);
       }
     }
+
 
   };
 
@@ -214,4 +212,3 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(ARGUS_1993_S2669951);
 
 }
-
