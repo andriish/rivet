@@ -125,9 +125,7 @@ namespace Rivet {
 
       // @todo YODA
 
-      Scatter2DPtr mult_etaPrime_highZ = bookScatter2D(1, 1, 1);
-      for (size_t i = 0; i < mult_etaPrime_highZ->numPoints(); ++i) {
-        Point2D& p = mult_etaPrime_highZ->point(i);
+      foreach (Point2D& p, bookScatter2D(1, 1, 1)->points()) {
         if (fuzzyEquals(9.905, p.x(), 1e-3) && _weightSum_cont > 0) {
           p.setY(_count_etaPrime_highZ[1] / _weightSum_cont);
         } else if (fuzzyEquals( 9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
