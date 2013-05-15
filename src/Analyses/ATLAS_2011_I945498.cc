@@ -4,15 +4,11 @@
 #include "Rivet/Tools/Logging.hh"
 
 #include "Rivet/Projections/ZFinder.hh"
-#include "Rivet/Particle.fhh"
-
 #include "Rivet/Projections/FastJets.hh"
-
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-
 #include "Rivet/Projections/ClusteredPhotons.hh"
 
 
@@ -126,29 +122,29 @@ namespace Rivet {
       // that selected events require at least one jet with 20 GeV
       switch (jets.size()) {
       case 0:
-        weights_nj0[chn] += 1.0;
+        weights_nj0[chn] += weight;
         break;
       case 1:
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
+        weights_nj0[chn] += weight;
+        weights_nj1[chn] += weight;
         break;
       case 2:
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
-        weights_nj2[chn] += 1.0;
+        weights_nj0[chn] += weight;
+        weights_nj1[chn] += weight;
+        weights_nj2[chn] += weight;
         break;
       case 3:
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
-        weights_nj2[chn] += 1.0;
-        weights_nj3[chn] += 1.0;
+        weights_nj0[chn] += weight;
+        weights_nj1[chn] += weight;
+        weights_nj2[chn] += weight;
+        weights_nj3[chn] += weight;
         break;
       default: // >= 4
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
-        weights_nj2[chn] += 1.0;
-        weights_nj3[chn] += 1.0;
-        weights_nj4[chn] += 1.0;
+        weights_nj0[chn] += weight;
+        weights_nj1[chn] += weight;
+        weights_nj2[chn] += weight;
+        weights_nj3[chn] += weight;
+        weights_nj4[chn] += weight;
       }
 
       // Require at least one jet
