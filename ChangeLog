@@ -1,3 +1,9 @@
+2013-05-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* yaml-cpp v3 support re-introduced in .info parsing.
+
+	* Lots of analysis clean-ups for YODA TODO issues.
+
 2013-05-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Analysis histo booking improvements for Scatter2D, placeholders
