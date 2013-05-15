@@ -40,21 +40,19 @@ namespace Rivet {
       const double roots = sqrt(s);
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
-      // find the upsilons
+      // Find the upsilons
       Particles upsilons;
-      // first in unstable final state
+      // First in unstable final state
       foreach (const Particle& p, ufs.particles())
         if (p.pdgId() == 553 || p.pdgId() == 100553 ) upsilons.push_back(p);
-      // then in whole event if fails
+      // Then in whole event if fails
       if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
           if ( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            for (GenVertex::particles_in_const_iterator
-                   pp = pv->particles_in_const_begin() ;
-                 pp != pv->particles_in_const_end() ; ++pp) {
+            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end() ; ++pp) {
               if ( p->pdg_id() == (*pp)->pdg_id() ) {
                 passed = false;
                 break;
@@ -64,20 +62,19 @@ namespace Rivet {
           if (passed) upsilons.push_back(Particle(*p));
         }
       }
-      // continuum
+      // Continuum
       if (upsilons.empty()) {
         _weightSum_cont += weight;
         unsigned int nEtaA(0),nEtaB(0),nf0(0);
         foreach (const Particle& p, ufs.particles()) {
           int id = abs(p.pdgId());
           double xp = 2.*p.momentum().t()/roots;
-          double beta = p.momentum().vector3().mod()/p.momentum().t();
+          double beta = p.momentum().vector3().mod() / p.momentum().t();
           if (id == 9010221) {
-            _hist_cont_f0->fill(xp,weight/beta);
+            _hist_cont_f0->fill(xp, weight/beta);
             ++nf0;
-          }
-          else if (id == 331) {
-            if (xp>0.35) ++nEtaA;
+          } else if (id == 331) {
+            if (xp > 0.35) ++nEtaA;
             ++nEtaB;
           }
         }
@@ -89,10 +86,7 @@ namespace Rivet {
         // find an upsilons
         foreach (const Particle& ups, upsilons) {
           int parentId = ups.pdgId();
-          if (parentId == 553)
-            _weightSum_Ups1 += weight;
-          else
-            _weightSum_Ups2 += weight;
+          ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2) += weight;
           Particles unstable;
           // find the decay products we want
           findDecayProducts(ups.genParticle(), unstable);
