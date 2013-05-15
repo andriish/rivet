@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  /// @brief BELLE pi+/-, K+/- and proton/antiproton spectrum at Upsilon(4S)
+  /// @brief Production of the $\eta'(958)$ and $f_0(980)$ in $e^+e^-$ annihilation in the Upsilon region
   /// @author Peter Richardson
   class ARGUS_1993_S2669951 : public Analysis {
   public:
@@ -83,12 +83,12 @@ namespace Rivet {
         _count_etaPrime_allZ[2]  += nEtaB*weight;
       }
       else {
-        // find an upsilons
+        // Find an Upsilon
         foreach (const Particle& ups, upsilons) {
           int parentId = ups.pdgId();
           ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2) += weight;
           Particles unstable;
-          // find the decay products we want
+          // Find the decay products we want
           findDecayProducts(ups.genParticle(), unstable);
           LorentzTransform cms_boost;
           if (ups.momentum().vector3().mod() > 1*MeV)
@@ -123,51 +123,40 @@ namespace Rivet {
 
     void finalize() {
 
-      // @todo YODA
-
+      // High-Z eta' multiplicity
       foreach (Point2D& p, bookScatter2D(1, 1, 1)->points()) {
         if (fuzzyEquals(9.905, p.x(), 1e-3) && _weightSum_cont > 0) {
           p.setY(_count_etaPrime_highZ[1] / _weightSum_cont);
-        } else if (fuzzyEquals( 9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
+        } else if (fuzzyEquals(9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
           p.setY(_count_etaPrime_highZ[0] / _weightSum_Ups1);
         }
       }
 
-      //AIDA::IDataPointSet * mult_etaPrime_allZ = bookDataPointSet( 1,1,2);
-      //for (int i = 0; i < mult_etaPrime_allZ->size(); ++i) {
-      //  if ( fuzzyEquals( 9.905, mult_etaPrime_allZ->point(i)->coordinate(0)->value(), 0.001) &&
-      //       _weightSum_cont>0.) {
-      //    mult_etaPrime_allZ->point(i)->coordinate(1)->setValue( _count_etaPrime_allZ[2]/_weightSum_cont);
-      //  }
-      //  else if ( fuzzyEquals( 9.46, mult_etaPrime_allZ->point(i)->coordinate(0)->value(), 0.001) &&
-      //            _weightSum_Ups1>0.) {
-      //    mult_etaPrime_allZ->point(i)->coordinate(1)->setValue(_count_etaPrime_allZ[0]/_weightSum_Ups1);
-      //  }
-      //  else if ( fuzzyEquals( 10.02, mult_etaPrime_allZ->point(i)->coordinate(0)->value(), 0.001) &&
-      //            _weightSum_Ups2>0.) {
-      //    mult_etaPrime_allZ->point(i)->coordinate(1)->setValue(_count_etaPrime_allZ[1]/_weightSum_Ups2);
-      //  }
-      //}
-      //AIDA::IDataPointSet * mult_f0 = bookDataPointSet( 5,1,1);
-      //for (int i = 0; i < mult_f0->size(); ++i) {
-      //  if ( fuzzyEquals( 10.45, mult_f0->point(i)->coordinate(0)->value(), 0.001) &&
-      //       _weightSum_cont>0.) {
-      //    mult_f0->point(i)->coordinate(1)->setValue( _count_f0[2]/_weightSum_cont);
-      //  }
-      //  else if ( fuzzyEquals( 9.46, mult_f0->point(i)->coordinate(0)->value(), 0.001) &&
-      //            _weightSum_Ups1>0.) {
-      //    mult_f0->point(i)->coordinate(1)->setValue(_count_f0[0]/_weightSum_Ups1);
-      //  }
-      //  else if ( fuzzyEquals( 10.02, mult_f0->point(i)->coordinate(0)->value(), 0.001) &&
-      //            _weightSum_Ups2>0.) {
-      //    mult_f0->point(i)->coordinate(1)->setValue(_count_f0[1]/_weightSum_Ups2);
-      //  }
-      //}
+      // All-Z eta' multiplicity
+      foreach (Point2D& p, bookScatter2D(1, 1, 2)->points()) {
+        if (fuzzyEquals(9.905, p.x(), 1e-3) && _weightSum_cont > 0) {
+          p.setY(_count_etaPrime_allZ[2] / _weightSum_cont);
+        } else if (fuzzyEquals(9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
+          p.setY(_count_etaPrime_allZ[0] / _weightSum_Ups1);
+        } else if (fuzzyEquals(10.02, p.x(), 1e-3) && _weightSum_Ups2 > 0) {
+          p.setY(_count_etaPrime_allZ[1] / _weightSum_Ups2);
+        }
+      }
+
+      // f0 multiplicity
+      foreach (Point2D& p, bookScatter2D(5, 1, 1)->points()) {
+        if (fuzzyEquals(10.45, p.x(), 1e-3) && _weightSum_cont > 0) {
+          p.setY(_count_f0[2] / _weightSum_cont);
+        } else if (fuzzyEquals(9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
+          p.setY(_count_f0[0] / _weightSum_Ups1);
+        } else if (fuzzyEquals(10.02, p.x(), 1e-3) && _weightSum_Ups2 > 0) {
+          p.setY(_count_f0[1] / _weightSum_Ups2);
+        }
+      }
 
       if (_weightSum_cont > 0.) scale(_hist_cont_f0, 1./_weightSum_cont);
       if (_weightSum_Ups1 > 0.) scale(_hist_Ups1_f0, 1./_weightSum_Ups1);
       if (_weightSum_Ups2 > 0.) scale(_hist_Ups2_f0, 1./_weightSum_Ups2);
-
     }
 
 
