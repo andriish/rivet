@@ -16,7 +16,7 @@ namespace Rivet {
 
     BABAR_2007_S7266081()
       : Analysis("BABAR_2007_S7266081"), _weight_total(0.),
-        _weight_pipippi(0.),
+        _weight_pipipi(0.),
         _weight_Kpipi(0.),
         _weight_KpiK(0.),
         _weight_KKK(0.)
@@ -45,7 +45,7 @@ namespace Rivet {
         if (nstable != 4) continue;
         // pipipi
         if (pim.size() == 2 && pip.size() == 1) {
-          _weight_pipippi += 1.;
+          _weight_pipipi += 1.;
           _hist_pipipi_pipipi->
             fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass(),1.);
           _hist_pipipi_pipi->
@@ -85,42 +85,29 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_weight_pipippi > 0.) {
-        scale(_hist_pipipi_pipipi, 1./_weight_pipippi);
-        scale(_hist_pipipi_pipi  ,0.5/_weight_pipippi);
+      if (_weight_pipipi > 0.) {
+        scale(_hist_pipipi_pipipi, 1.0/_weight_pipipi);
+        scale(_hist_pipipi_pipi  , 0.5/_weight_pipipi);
       }
       if (_weight_Kpipi > 0.) {
-        scale(_hist_Kpipi_Kpipi  , 1./_weight_Kpipi);
-        scale(_hist_Kpipi_Kpi    , 1./_weight_Kpipi);
-        scale(_hist_Kpipi_pipi   , 1./_weight_Kpipi);
+        scale(_hist_Kpipi_Kpipi  , 1.0/_weight_Kpipi);
+        scale(_hist_Kpipi_Kpi    , 1.0/_weight_Kpipi);
+        scale(_hist_Kpipi_pipi   , 1.0/_weight_Kpipi);
       }
       if (_weight_KpiK > 0.) {
-        scale(_hist_KpiK_KpiK    , 1./_weight_KpiK);
-        scale(_hist_KpiK_KK      , 1./_weight_KpiK);
-        scale(_hist_KpiK_piK     , 1./_weight_KpiK);
+        scale(_hist_KpiK_KpiK    , 1.0/_weight_KpiK);
+        scale(_hist_KpiK_KK      , 1.0/_weight_KpiK);
+        scale(_hist_KpiK_piK     , 1.0/_weight_KpiK);
       }
       if (_weight_KKK > 0.) {
-        scale(_hist_KKK_KKK      , 1./_weight_KKK);
-        scale(_hist_KKK_KK       ,0.5/_weight_KKK);
+        scale(_hist_KKK_KKK      , 1.0/_weight_KKK);
+        scale(_hist_KKK_KK       , 0.5/_weight_KKK);
       }
-      // @todo YODA
-      //AIDA::IDataPointSet * br_pipipi = bookDataPointSet(11,1,1);
-      //br_pipipi->point(0)->coordinate(1)->setValue     ( 100.*_weight_pipippi/_weight_total);
-      //br_pipipi->point(0)->coordinate(1)->setErrorPlus ( 100.*sqrt(_weight_pipippi)/_weight_total);
-      //br_pipipi->point(0)->coordinate(1)->setErrorMinus( 100.*sqrt(_weight_pipippi)/_weight_total);
-      //AIDA::IDataPointSet * br_Kpipi  = bookDataPointSet(12,1,1);
-      //br_Kpipi->point(0)->coordinate(1)->setValue     ( 100.*_weight_Kpipi/_weight_total);
-      //br_Kpipi->point(0)->coordinate(1)->setErrorPlus ( 100.*sqrt(_weight_Kpipi)/_weight_total);
-      //br_Kpipi->point(0)->coordinate(1)->setErrorMinus( 100.*sqrt(_weight_Kpipi)/_weight_total);
-      //AIDA::IDataPointSet * br_KpiK   = bookDataPointSet(13,1,1);
-      //br_KpiK->point(0)->coordinate(1)->setValue     ( 100.*_weight_KpiK/_weight_total);
-      //br_KpiK->point(0)->coordinate(1)->setErrorPlus ( 100.*sqrt(_weight_KpiK)/_weight_total);
-      //br_KpiK->point(0)->coordinate(1)->setErrorMinus( 100.*sqrt(_weight_KpiK)/_weight_total);
-      //AIDA::IDataPointSet * br_KKK    = bookDataPointSet(14,1,1);
-      //br_KKK->point(0)->coordinate(1)->setValue     ( 100.*_weight_KKK/_weight_total);
-      //br_KKK->point(0)->coordinate(1)->setErrorPlus ( 100.*sqrt(_weight_KKK)/_weight_total);
-      //br_KKK->point(0)->coordinate(1)->setErrorMinus( 100.*sqrt(_weight_KKK)/_weight_total);
-    } // finalize
+      bookScatter2D(11, 1, 1)->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(_weight_pipipi)/_weight_total);
+      bookScatter2D(12, 1, 1)->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(_weight_Kpipi)/_weight_total);
+      bookScatter2D(13, 1, 1)->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(_weight_KpiK)/_weight_total);
+      bookScatter2D(14, 1, 1)->point(0).setY(100*_weight_KKK/_weight_total, 100*sqrt(_weight_KKK)/_weight_total);
+    }
 
 
     void init() {
@@ -153,7 +140,7 @@ namespace Rivet {
     Histo1DPtr _hist_KKK_KK       ;
 
     // count of weights
-    double _weight_total,_weight_pipippi,_weight_Kpipi,_weight_KpiK,_weight_KKK;
+    double _weight_total, _weight_pipipi, _weight_Kpipi, _weight_KpiK, _weight_KKK;
     //@}
 
     void findDecayProducts(const GenParticle* p,
