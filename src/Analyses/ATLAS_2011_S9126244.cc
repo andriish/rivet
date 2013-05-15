@@ -49,6 +49,7 @@ namespace Rivet {
 
 
   /// ATLAS dijet production with central jet veto
+  /// @todo Need work to make sure that temp histos are removed
   class ATLAS_2011_S9126244 : public Analysis {
   public:
 
@@ -113,40 +114,32 @@ namespace Rivet {
     }
 
 
+    /// @todo Replace with unregistered temp histos, maybe binned by YODA -- or use automatic discarding of TMP histos.
     void initializePlots(ATLAS_2011_S9126244_Plots& plots) {
 
       // Gap fraction vs DeltaY
-      for (int x=0; x<((int)plots.m_gapFractionDeltaYSlices.size()-1); x++) {
-        std::stringstream vetoHistName;
-        std::stringstream inclusiveHistName;
-
-        vetoHistName << "gapDeltaYVeto_" << plots.intermediateHistName << "_" << x;
-        inclusiveHistName << "gapDeltaYInclusive_" << plots.intermediateHistName << "_" << x;
-
+      for (size_t x = 0; x < plots.m_gapFractionDeltaYSlices.size()-1; x++) {
+        const string vetoHistName = "gapDeltaYVeto_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
+        const string inclusiveHistName = "gapDeltaYInclusive_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
         plots._h_gapVsDeltaYVeto.addHistogram(plots.m_gapFractionDeltaYSlices[x], plots.m_gapFractionDeltaYSlices[x+1],
-                                              bookHisto1D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType, vetoHistName.str()));
+                                              bookHisto1D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType, vetoHistName));
         plots._h_gapVsDeltaYInc.addHistogram(plots.m_gapFractionDeltaYSlices[x], plots.m_gapFractionDeltaYSlices[x+1],
-                                             bookHisto1D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType, inclusiveHistName.str()));
+                                             bookHisto1D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType, inclusiveHistName));
       }
 
       // Average njet vs DeltaY
-      for (int x=0; x<((int)plots.m_avgNJetDeltaYSlices.size()-1); x++) {
+      for (size_t x = 0; x < plots.m_avgNJetDeltaYSlices.size()-1; x++) {
         plots._p_avgJetVsDeltaY += bookProfile1D(plots.m_avgNJetDeltaYHistIndex+x, 1, plots.selectionType);
       }
 
       // Gap fraction vs PtBar
-      for (int x=0; x<((int)plots.m_gapFractionPtBarSlices.size()-1); x++) {
-
-        std::stringstream vetoHistName;
-        std::stringstream inclusiveHistName;
-
-        vetoHistName << "gapPtBarVeto_" << plots.intermediateHistName << "_" << x;
-        inclusiveHistName << "gapPtBarInclusive_" << plots.intermediateHistName << "_" << x;
-
+      for (size_t x = 0; x < plots.m_gapFractionPtBarSlices.size()-1; x++) {
+        const string vetoHistName = "gapPtBarVeto_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
+        const string inclusiveHistName = "gapPtBarInclusive_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
         plots._h_gapVsPtBarVeto.addHistogram(plots.m_gapFractionPtBarSlices[x], plots.m_gapFractionPtBarSlices[x+1],
-                                             bookHisto1D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType, vetoHistName.str()));
+                                             bookHisto1D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType, vetoHistName));
         plots._h_gapVsPtBarInc.addHistogram(plots.m_gapFractionPtBarSlices[x], plots.m_gapFractionPtBarSlices[x+1],
-                                            bookHisto1D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType, inclusiveHistName.str()));
+                                            bookHisto1D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType, inclusiveHistName));
       }
 
       // Average njet vs PtBar
@@ -156,16 +149,11 @@ namespace Rivet {
 
       // Gap fraction vs Q0
       int q0PlotCount = 0;
-      for (int x=0; x<((int)plots.m_gapFractionQ0SlicesPtBar.size()/2); x++) {
-        for (int y=0; y<((int)plots.m_gapFractionQ0SlicesDeltaY.size()/2); y++) {
-          std::stringstream vetoPtHistName;
-          std::stringstream vetoPtGapDataPointName;
-
-          vetoPtHistName << "vetoPt_" << plots.intermediateHistName << "_" << q0PlotCount;
-          vetoPtGapDataPointName << "gapQ0GapFractionDataPoints_" << plots.intermediateHistName << "_" << q0PlotCount;
-
-          plots._h_vetoPt += bookHisto1D(vetoPtHistName.str(),
-                                         m_q0BinEdges);
+      for (size_t x = 0; x < plots.m_gapFractionQ0SlicesPtBar.size()/2; x++) {
+        for (size_t y = 0; y < plots.m_gapFractionQ0SlicesDeltaY.size()/2; y++) {
+          const string vetoPtHistName = "vetoPt_" + plots.intermediateHistName + "_" + lexical_cast<string>(q0PlotCount);
+          const string vetoPtGapDataPointName = "gapQ0GapFractionDataPoints_" + plots.intermediateHistName + "_" + lexical_cast<string>(q0PlotCount);
+          plots._h_vetoPt += bookHisto1D(vetoPtHistName, m_q0BinEdges);
           plots._d_vetoPtGapFraction += bookScatter2D(plots.m_gapFractionQ0HistIndex+q0PlotCount, 1, plots.selectionType);
           plots._h_vetoPtTotalSum += 0.0;
           q0PlotCount++;
@@ -179,7 +167,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Get minimal list of jets needed to be considered
-      double minimumJetPtBar = 50.0*GeV; //of interval defining jets
+      double minimumJetPtBar = 50.0*GeV; // of interval defining jets
 
       vector<FourMomentum> acceptJets;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets06").jetsByPt(20.0*GeV)) {
@@ -189,54 +177,39 @@ namespace Rivet {
       }
 
       // If we can't form an interval, drop out of the analysis early
-      if (acceptJets.size() < 2) {
-        return;
-      }
+      if (acceptJets.size() < 2) vetoEvent;
 
       // Analyze leading jet case
-      if ((acceptJets[0].pT() + acceptJets[1].pT())/2.0 > minimumJetPtBar) {
+      if (acceptJets[0].pT() + acceptJets[1].pT() > 2*minimumJetPtBar) {
         analyzeJets(acceptJets, m_selectionPlots[0], weight, 20.0*GeV);
       }
 
-      // Re-order jets to have forward backward selection
-      unsigned int minRapidityJet = 0;
-      unsigned int maxRapidityJet = 0;
-
-      for (size_t j=1; j<acceptJets.size(); j++) {
-        if (acceptJets[j].rapidity() >
-            acceptJets[maxRapidityJet].rapidity()) {
-          maxRapidityJet=j;
-        }
-
-        if (acceptJets[j].rapidity() <
-            acceptJets[minRapidityJet].rapidity()) {
-          minRapidityJet=j;
-        }
+      // Find the most forward-backward jets
+      size_t minRapidityJet = 0, maxRapidityJet = 0;
+      for (size_t j = 1; j < acceptJets.size(); j++) {
+        if (acceptJets[j].rapidity() > acceptJets[maxRapidityJet].rapidity()) maxRapidityJet = j;
+        if (acceptJets[j].rapidity() < acceptJets[minRapidityJet].rapidity()) minRapidityJet = j;
       }
 
+      // Make a container of jet momenta with the extreme f/b jets at the front
       vector<FourMomentum> fwdBkwdJets;
       fwdBkwdJets.push_back(acceptJets[maxRapidityJet]);
       fwdBkwdJets.push_back(acceptJets[minRapidityJet]);
-
       for (size_t j = 0; j < acceptJets.size(); j++) {
-        if (j == minRapidityJet || j == maxRapidityJet) {
-          continue;
-        }
+        if (j == minRapidityJet || j == maxRapidityJet) continue;
         fwdBkwdJets.push_back(acceptJets[j]);
       }
 
-      if ((fwdBkwdJets[0].pT() + fwdBkwdJets[1].pT())/2.0 > minimumJetPtBar) {
+      if (fwdBkwdJets[0].pT() + fwdBkwdJets[1].pT() > 2*minimumJetPtBar) {
         // Use most forward/backward jets in rapidity to define the interval
         analyzeJets(fwdBkwdJets, m_selectionPlots[1], weight, 20.0*GeV);
-
         // As before but now using PtBar of interval to define veto threshold
-        analyzeJets(fwdBkwdJets, m_selectionPlots[2], weight,
-                    (fwdBkwdJets[0].pT()+fwdBkwdJets[1].pT())/2.0);
+        analyzeJets(fwdBkwdJets, m_selectionPlots[2], weight, (fwdBkwdJets[0].pT()+fwdBkwdJets[1].pT())/2.0);
       }
     }
 
 
-    // Fill plots!
+    /// Fill plots!
     void analyzeJets(vector<FourMomentum>& jets, ATLAS_2011_S9126244_Plots& plots,
                      const double weight, double vetoPtThreshold) {
 
@@ -314,76 +287,51 @@ namespace Rivet {
 
     /// Derive final distributions for each selection
     void finalize() {
-      /// \todo YODA divide and binEdges
-      /// foreach (const ATLAS_2011_S9126244_Plots& plots, m_selectionPlots) {
-      ///    // Calculate the gap fraction for each slice
-      ///    for (size_t x=0; x<plots._h_gapVsDeltaYVeto.getHistograms().size(); x++) {
-      ///      histogramFactory().divide(histoPath(makeAxisCode(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType)),
-      ///                                *(plots._h_gapVsDeltaYVeto.getHistograms()[x]),
-      ///                                *(plots._h_gapVsDeltaYInc.getHistograms()[x]));
-      ///      histogramFactory().destroy(plots._h_gapVsDeltaYVeto.getHistograms()[x]);
-      ///      histogramFactory().destroy(plots._h_gapVsDeltaYInc.getHistograms()[x]);
-      ///    }
+      foreach (const ATLAS_2011_S9126244_Plots& plots, m_selectionPlots) {
 
-      ///    for (size_t x=0; x<plots._h_gapVsPtBarVeto.getHistograms().size(); x++) {
-      ///      histogramFactory().divide(histoPath(makeAxisCode(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType)),
-      ///                                *(plots._h_gapVsPtBarVeto.getHistograms()[x]),
-      ///                                *(plots._h_gapVsPtBarInc.getHistograms()[x]));
-      ///      histogramFactory().destroy(plots._h_gapVsPtBarVeto.getHistograms()[x]);
-      ///      histogramFactory().destroy(plots._h_gapVsPtBarInc.getHistograms()[x]);
-      ///    }
+        /// @todo Clean up temp histos -- requires restructuring the temp histo struct
 
-      ///    for (size_t h=0; h<plots._d_vetoPtGapFraction.size(); h++) {
-      ///      //Get the number of bins needed for this slice
-      ///      const BinEdges q0Edges = binEdges(plots.m_gapFractionQ0HistIndex+h, 1, plots.selectionType);
-      ///      finalizeQ0GapFraction(plots._h_vetoPtTotalSum[h],
-      ///                            plots._d_vetoPtGapFraction[h],
-      ///                            plots._h_vetoPt[h],
-      ///                            q0Edges.size());
-      ///    }
-      /// }
+        for (size_t x = 0; x < plots._h_gapVsDeltaYVeto.getHistograms().size(); x++) {
+          divide(plots._h_gapVsDeltaYVeto.getHistograms()[x], plots._h_gapVsDeltaYInc.getHistograms()[x],
+                 bookScatter2D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType));
+        }
+        for (size_t x = 0; x < plots._h_gapVsPtBarVeto.getHistograms().size(); x++) {
+          divide(plots._h_gapVsPtBarVeto.getHistograms()[x], plots._h_gapVsPtBarInc.getHistograms()[x],
+                 bookScatter2D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType));
+        }
+
+        for (size_t h = 0; h < plots._d_vetoPtGapFraction.size(); h++) {
+          size_t numbins = refData(plots.m_gapFractionQ0HistIndex+h, 1, plots.selectionType).numPoints();
+          finalizeQ0GapFraction(plots._h_vetoPtTotalSum[h],
+                                plots._d_vetoPtGapFraction[h],
+                                plots._h_vetoPt[h], numbins);
+         }
+      }
     }
 
 
-    /// \todo YODA
-    /// void finalizeQ0GapFraction(double totalWeightSum,
-    ///                            Scatter2DPtr gapFractionDP,
-    ///                            Histo1DPtr vetoPtHist,
-    ///                            int binNumber) {
-    ///   double vetoPtWeightSum = 0.0;
-    ///   for (int x=0; x<binNumber-1; x++) {
-    ///    vetoPtWeightSum += vetoPtHist->bin(x).area();
+    /// Convert the differential histograms to an integral histo and assign binomial errors as a efficiency
+    /// @todo Should be convertible to a YODA ~one-liner
+    void finalizeQ0GapFraction(double totalWeightSum, Scatter2DPtr gapFractionDP, Histo1DPtr vetoPtHist, size_t numbins) {
+      double vetoPtWeightSum = 0.0;
+      for (size_t i = 0; i < numbins; i++) {
+        vetoPtWeightSum += vetoPtHist->bin(i).sumW();
 
-    ///     //Alternatively try saving as data points
-    ///     IDataPoint* currentPoint = gapFractionDP->point(x);
-    ///     IMeasurement* xCoord = currentPoint->coordinate(0);
-    ///     IMeasurement* yCoord = currentPoint->coordinate(1);
-
-    ///     //Calculate the efficiency uncertainty
-    ///     double efficiency = vetoPtWeightSum/totalWeightSum;
-    ///     double efficiencyError = std::sqrt(efficiency*(1.0-efficiency)/totalWeightSum);
-    ///     if (totalWeightSum==0.) efficiency = efficiencyError = 0.;
-
-    ///     xCoord->setValue(m_q0BinEdges[x+1]);
-    ///     xCoord->setErrorPlus(2.5);
-    ///     xCoord->setErrorMinus(2.5);
-    ///     yCoord->setValue(efficiency);
-    ///     yCoord->setErrorPlus(efficiencyError);
-    ///     yCoord->setErrorMinus(efficiencyError);
-    ///   }
-    ///   histogramFactory().destroy(vetoPtHist);
-    /// }
+        // Calculate the efficiency uncertainty
+        const double eff = (totalWeightSum != 0) ? vetoPtWeightSum/totalWeightSum : 0;
+        const double effErr = (totalWeightSum != 0) ? sqrt( eff*(1.0-eff)/totalWeightSum ) : 0;
+        gapFractionDP->point(i).setY(eff, effErr);
+      }
+      /// @todo Remove vetoPtHist somehow
+    }
 
 
   private:
 
     // Only need to define the q0 binning here
-    std::vector<double> m_q0BinEdges;
+    vector<double> m_q0BinEdges;
 
-
-  private:
-
-    // Structure containing complete set of plots
+    // Struct containing complete set of plots, times 3
     ATLAS_2011_S9126244_Plots m_selectionPlots[3];
 
   };
