@@ -1,5 +1,5 @@
 Name: ARGUS_1993_S2669951
-Summary: Production of the $\eta'(958)$ and $f_0(980)$ in $e^+e^-$ annihilation in the Upsilon region. 
+Summary: Production of the $\eta'(958)$ and $f_0(980)$ in $e^+e^-$ annihilation in the Upsilon region.
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
@@ -13,7 +13,7 @@ Beams: [e+, e-]
 Energies: [9.46,10.02,10.45]
 PtCuts: [0]
 Description: Measurement of the inclusive production of the $\eta'(958)$ and $f_0(980)$
-             mesons in $e^+e^-$ annihilation in the Upsilon region. 
+             mesons in $e^+e^-$ annihilation in the Upsilon region.
              Data are taken on the $\Upsilon(1S)$, $\Upsilon(2S)$ and $\Upsilon(4S)$
              resonances and in the nearby continuum (9.36 to 10.45 GeV cm energy)
 BibKey: Albrecht:1992nu
