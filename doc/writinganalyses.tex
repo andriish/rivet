@@ -258,13 +258,13 @@ and \code{Analysis} constructors.
   registered, nor whether the downcast to the requested concrete type is
   legal. These are very legitimate concerns!
 
-  In truth, we'd like to have this level of extra safety! But in the past, when
-  projections were held as members of \code{ProjectionApplier} classes rather
-  than in the central \code{ProjectionHandler} repository, the benefits of the
-  strong typing were outweighed by more serious and subtle bugs relating to
-  projection lifetime and object ``slicing''. At least when the current approach
-  goes wrong it will throw an unmissable \emph{runtime} error --- until it's
-  fixed, of course! --- rather than silently do the wrong thing.
+  In truth, we'd like to have this level of extra safety: who wouldn't? But in
+  the past, when projections were held as members of \code{ProjectionApplier}
+  classes rather than in the central \code{ProjectionHandler} repository, the
+  benefits of the strong typing were outweighed by more serious and subtle bugs
+  relating to projection lifetime and object ``slicing''. At least when the
+  current approach goes wrong it will throw an unmissable \emph{runtime} error
+  --- until it's fixed, of course! --- rather than silently do the wrong thing.
 
   Our problems here are a microcosm of the perpetual language battle between
   strict and dynamic typing, runtime versus compile time errors. In practice,
