@@ -1,3 +1,9 @@
+2013-05-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Doxy comments and a couple of useful convenience functions to Utils.hh.
+
+	* Final tweaks to ATLAS ttbar jet veto analysis (checked logic with Kiran Joshi).
+
 2013-05-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Many 1.0 -> weight bugfixes in ATLAS_2011_I945498.

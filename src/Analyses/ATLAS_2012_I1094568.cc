@@ -83,27 +83,25 @@ namespace Rivet {
       FastJets jets(jet_input, FastJets::ANTIKT, 0.4);
       addProjection(jets, "JETS");
 
-      for (size_t i = 0; i < 201; ++i) {
-        m_q0BinEdges += i*5.0;
-      }
-
+      // Initialise weight counter
       m_total_weight = 0.0;
 
+      // Init histogramming for the various regions
       m_plots[0].region_index = 1;
       m_plots[0].y_low = 0.0;
       m_plots[0].y_high = 0.8;
       initializePlots(m_plots[0]);
-
+      //
       m_plots[1].region_index = 2;
       m_plots[1].y_low = 0.8;
       m_plots[1].y_high = 1.5;
       initializePlots(m_plots[1]);
-
+      //
       m_plots[2].region_index = 3;
       m_plots[2].y_low = 1.5;
       m_plots[2].y_high = 2.1;
       initializePlots(m_plots[2]);
-
+      //
       m_plots[3].region_index = 4;
       m_plots[3].y_low = 0.0;
       m_plots[3].y_high = 2.1;
@@ -112,10 +110,11 @@ namespace Rivet {
 
 
     void initializePlots(ATLAS_2012_I1094568_Plots& plots) {
-      const string vetoPt_Q0_name = "vetoJetPt_Q0_" + lexical_cast<string>(plots.region_index);
-      const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + lexical_cast<string>(plots.region_index);
-      plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, m_q0BinEdges);
-      plots._h_vetoJetPt_Qsum = bookHisto1D(vetoPt_Qsum_name, m_q0BinEdges);
+      const string vetoPt_Q0_name = "vetoJetPt_Q0_" + to_str(plots.region_index);
+      const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + to_str(plots.region_index);
+
+      plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, 200, 0.0, 1000.0);
+      plots._h_vetoJetPt_Qsum = bookHisto1D(vetoPt_Qsum_name, 200, 0.0, 1000.0);
 
       plots._d_gapFraction_Q0   = bookScatter2D(plots.region_index, 1, 1);
       plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, 2, 1);
@@ -326,18 +325,18 @@ namespace Rivet {
      // Stores the cumulative frequency of the veto jet pT histogram
      double vetoPtWeightSum = 0.0;
 
-     // Keep track of which gap fraction point we're doing (#final_points != #tmp_bins)
+     // Keep track of which gap fraction point we're currently populating (#final_points != #tmp_bins)
      size_t fgap_point = 0;
-     for (size_t i = 0; i < m_q0BinEdges.size()-2; ++i) {
-       // If we've done the last point, stop.
+     for (size_t i = 0; i < vetoPt->numBins(); ++i) {
+       // If we've done the last "final" point, stop
        if (fgap_point == gapFraction->numPoints()) break;
 
        // Increment the cumulative vetoPt counter for this temp histo bin
        vetoPtWeightSum += vetoPt->bin(i).sumW();
 
-       // If this temp histo bin doesn't correspond to the edge of the reference scatter, read another histo bin
-       /// @todo Shouldn't this be equal to the upper error rather than the bin centre?
-       if ( !fuzzyEquals(m_q0BinEdges[i+1], gapFraction->point(fgap_point).x()) ) continue;
+       // If this temp histo bin's upper edge doesn't correspond to the reference point, don't finalise the scatter.
+       // Note that points are ON the bin edges and have no width: they represent the integral up to exactly that point.
+       if ( !fuzzyEquals(vetoPt->bin(i).xMax(), gapFraction->point(fgap_point).x()) ) continue;
 
        // Calculate the gap fraction and its uncertainty
        const double frac = (total_weight != 0.0) ? vetoPtWeightSum/total_weight : 0;
@@ -346,14 +345,13 @@ namespace Rivet {
 
        ++fgap_point;
      }
-     /// @todo Delete vetoPt temp histos
+     /// @todo Delete vetoPt temp histos: use /TMP system
     }
 
 
   private:
 
-    // Veto jet pT binning
-    std::vector<double> m_q0BinEdges;
+    // Weight counter
     double m_total_weight;
 
     // Structs containing all the plots, for each event selection
