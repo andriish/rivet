@@ -161,6 +161,13 @@ Good luck, and be careful!
 
 \section{Projections}
 
+\begin{figure}[p]
+  \centering
+  \includegraphics[height=0.98\textheight]{projections.png}
+  \caption{List of available projections and their inheritance structure.}
+  \label{fig:projections}
+\end{figure}
+
 The name ``projection'' is meant to evoke thoughts of projection operators,
 low-dimensional slices/views of high-dimensional spaces, and other things that
 might appeal to physicists who view the world through quantum-tinted lenses. A
@@ -183,6 +190,10 @@ recursively ``nested'' inside other projections\footnote{Provided there are no
   that will attempt to verify this restriction.} (provided there are no infinite
 loops in the nesting chain.) Calling a complex projection in an analysis may
 actually transparently execute many projections on each event.
+
+You can find a list of all existing projections and their inheritance structure
+in Fig.~\ref{fig:projections}. An up-to-date version of this listing can always
+be found in the code documentation at \url{http://rivet.hepforge.org}.
 
 
 \subsection{Projection caching}

@@ -213,14 +213,14 @@ the collider at which the measurement was made, references to the original
 publications, status and authors of the Rivet implementation as well as run
 details necessary for comparing a Monte-Carlo prediction with the data.
 
-\section{Selection of analyses available in the Rivet framework}
+{\scriptsize
 """
 
 body = ""
 for page in pages:
     body = body + page + "\n"
 
-outstr = prefix + body
+outstr = prefix + body + "}\n"
 
 ## Write out to TeX and BibTeX files
 f = open("%s.tex" % OUTNAME, "w")
