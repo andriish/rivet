@@ -7,13 +7,27 @@ RIVETPROGS = \
     rivet-mkanalysis rivet-buildplugin \
 	rivet-findid rivet-which \
     rivet-cmphistos rivet-mkhtml
-    # TODO: reinstate  rivet-rescale rivet-mergeruns rivet-merge-CDF_2012_NOTE10874
+    # TODO: reinstate rivet-rescale rivet-mergeruns rivet-merge-CDF_2012_NOTE10874
 if ENABLE_PYEXT
 dist_bin_SCRIPTS += $(RIVETPROGS)
 else
 EXTRA_DIST += $(RIVETPROGS)
 endif
 
+## bash completion
+if ENABLE_PYEXT
+dist_pkgdata_DATA = rivet-completion
+bashcomp_dir = $(prefix)/etc/bash_completion.d
+install-data-local:
+	if [[ -d "$(bashcomp_dir)" && -w "$(bashcomp_dir)" ]]; then \
+      install --mode 644 rivet-completion $(bashcomp_dir)/; fi
+uninstall-local:
+	rm -f $(bashcomp_dir)/rivet-completion
+else
+EXTRA_DIST = rivet-completion
+endif
+
+## No-Python Rivet program
 noinst_PROGRAMS = rivet-nopy
 rivet_nopy_SOURCES = rivet-nopy.cc
 rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)

@@ -1,5 +1,9 @@
 2013-05-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Moving the rivet-completion script from the data dir to bin (the
+	completion is for scripts in bin, and this makes development
+	easier).
+
 	* Updating bash completion scripts for YODA format and compare-histos -> rivet-cmphistos.
 
 2013-05-23  Andy Buckley  <andy.buckley@cern.ch>
