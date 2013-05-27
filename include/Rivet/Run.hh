@@ -2,15 +2,14 @@
 #ifndef RIVET_Run_HH
 #define RIVET_Run_HH
 
-#include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/RivetBoost.hh"
-
-namespace HepMC {
-  class IO_GenEvent;
-}
-
+#include "Rivet/RivetHepMC.hh"
 
 namespace Rivet {
+
+
+  // Forward declaration
+  class AnalysisHandler;
 
 
   /// @brief Interface to handle a run of events read from a HepMC stream or file.

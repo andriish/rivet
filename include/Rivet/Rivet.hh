@@ -29,8 +29,8 @@ namespace Rivet {
 }
 
 
-// AIDA headers
-#include "Rivet/RivetYODA.fhh"
+// YODA headers
+#include "Rivet/RivetYODA.hh"
 
 // HepMC headers and helper functions
 #include "Rivet/RivetHepMC.hh"

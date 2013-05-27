@@ -3,12 +3,12 @@
 #define RIVET_HistoHandler_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Tools/Logging.fhh"
-#include "Rivet/Analysis.fhh"
+#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
 
-  /// Forward declaration of Histo base class.
+  // Forward declarations
+  class Analysis;
   class AnalysisObject;
 
 

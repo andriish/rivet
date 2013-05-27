@@ -3,12 +3,15 @@
 #define RIVET_ProjectionApplier_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Event.fhh"
 #include "Rivet/Projection.fhh"
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
+
+
+  // Forward declarations
+  class Event;
 
 
   /// @brief Common base class for Projection and Analysis, used for internal polymorphism

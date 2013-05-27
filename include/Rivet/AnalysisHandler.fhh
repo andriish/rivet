@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  // Forward declaration of AnalysisHandler class
+  // Forward declaration
   class AnalysisHandler;
 
 }

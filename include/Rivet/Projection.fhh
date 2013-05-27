@@ -2,6 +2,8 @@
 #ifndef Rivet_Projection_FHH
 #define Rivet_Projection_FHH
 
+/// @todo Is there a reason that this stuff can't go into Projection.hh?
+
 #include "Rivet/Cmp.fhh"
 
 
@@ -13,7 +15,7 @@ namespace Rivet {
 
 
 namespace std {
-  
+
   /// This is the function called when comparing two (const) pointers to Rivet::Projection.
   template <>
   struct less<const Rivet::Projection*>
@@ -31,14 +33,14 @@ namespace Rivet {
   inline const PROJ& pcast(const Projection& p) {
     return dynamic_cast<const PROJ&>(p);
   }
-  
-  
+
+
   /// Convenience method for casting to a const Projection pointer.
   template <typename PROJ>
   inline const PROJ* pcast(const Projection* p) {
     return dynamic_cast<const PROJ*>(p);
   }
- 
+
 }
 
 #endif

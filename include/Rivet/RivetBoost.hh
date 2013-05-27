@@ -4,12 +4,12 @@
 #include "boost/smart_ptr.hpp"
 #include "boost/lexical_cast.hpp"
 #include "boost/assign.hpp"
+#include <boost/algorithm/string.hpp>
 
 #include "boost/foreach.hpp"
+#ifndef foreach
 #define foreach BOOST_FOREACH
-
-//#include <boost/random.hpp>
-#include <boost/algorithm/string.hpp>
+#endif
 
 namespace Rivet {
 
@@ -26,13 +26,6 @@ namespace Rivet {
 
   // Strings
   using namespace boost;
-
-  // Random numbers
-  // typedef boost::minstd_rand RngBase;
-  // typedef boost::uniform_real<> UniformRealDist;
-  // typedef boost::variate_generator<RngBase&, UniformRealDist> UniformRealRNG;
-  // typedef boost::uniform_int<> UniformIntDist;
-  // typedef boost::variate_generator<RngBase&, UniformIntDist> UniformIntRNG;
 
 
 }

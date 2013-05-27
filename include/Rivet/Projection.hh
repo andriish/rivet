@@ -8,12 +8,14 @@
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Constraints.hh"
 #include "Rivet/ParticleName.hh"
-#include "Rivet/Event.fhh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Cmp.fhh"
-
 
 namespace Rivet {
+
+
+  // Forward declaration
+  class Event;
+
 
   /// @brief Base class for all Rivet projections.
   ///
@@ -26,7 +28,6 @@ namespace Rivet {
   /// The main virtual functions to be overridden by concrete sub-classes
   /// are project(const Event &) and compare(const Projection &).
   class Projection : public ProjectionApplier {
-
   public:
 
     /// Event is a friend.

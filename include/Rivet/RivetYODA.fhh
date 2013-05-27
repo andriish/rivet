@@ -2,8 +2,7 @@
 #ifndef ANALYSIS_RIVETYODA_FHH
 #define ANALYSIS_RIVETYODA_FHH
 
-// \todo use something like RivetBoost.fhh here?
-#include "boost/smart_ptr.hpp"
+#include "Rivet/RivetBoost.hh"
 
 /// @author Andy Buckley
 /// @date   2009-01-30
@@ -20,19 +19,16 @@ namespace YODA {
 }
 
 namespace Rivet {
-  typedef boost::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
-  typedef boost::shared_ptr<YODA::Histo1D> Histo1DPtr;
-  typedef boost::shared_ptr<YODA::Profile1D> Profile1DPtr;
-  typedef boost::shared_ptr<YODA::Scatter2D> Scatter2DPtr;
+  typedef shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
+  typedef shared_ptr<YODA::Histo1D> Histo1DPtr;
+  typedef shared_ptr<YODA::Profile1D> Profile1DPtr;
+  typedef shared_ptr<YODA::Scatter2D> Scatter2DPtr;
 }
 
-#include <vector>
 #include <map>
 
 namespace Rivet {
-  /// Typedef for a collection of bin edges.
   typedef map<string, Scatter2DPtr> RefDataMap;
-  typedef vector<double> BinEdges;
 }
 
 #endif

@@ -3,17 +3,15 @@
 #define RIVET_Analysis_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Analysis.fhh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Constraints.hh"
-#include "Rivet/AnalysisHandler.fhh"
 #include "Rivet/AnalysisLoader.hh"
-#include "Rivet/Tools/Logging.fhh"
-#include "Rivet/RivetYODA.fhh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/RivetYODA.hh"
 
 
 /// @def vetoEvent
@@ -24,6 +22,9 @@
 
 namespace Rivet {
 
+
+  // Forward declaration
+  class AnalysisHandler;
 
   /// @brief This is the base class of all analysis classes in Rivet.
   ///
@@ -616,7 +617,7 @@ namespace Rivet {
 
     /// Collection of cached refdata to speed up many autobookings: the
     /// reference data file should only be read once.
-    mutable RefDataMap _refdata;
+    mutable std::map<std::string, Scatter2DPtr> _refdata;
 
   private:
 

@@ -3,7 +3,6 @@
 #include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ZFinder.hh"
-#include "Rivet/Particle.fhh"
 
 namespace Rivet {
 

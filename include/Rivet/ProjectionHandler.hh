@@ -4,7 +4,7 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetBoost.hh"
-#include "Rivet/Tools/Logging.fhh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projection.fhh"
 
 namespace Rivet {

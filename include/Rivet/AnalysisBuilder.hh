@@ -3,11 +3,14 @@
 #define RIVET_AnalysisBuilder_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Analysis.fhh"
 #include "Rivet/AnalysisLoader.hh"
-#include "Rivet/Tools/Logging.fhh"
+#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
+
+
+  // Forward declaration
+  class Analysis;
 
 
   /// @cond ANALYSIS_PLUGIN_DETAILS

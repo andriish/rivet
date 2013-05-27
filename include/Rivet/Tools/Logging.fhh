@@ -1,6 +1,5 @@
-// $Id: $
-#ifndef RIVET_LOGGING_FHH 
-#define RIVET_LOGGING_FHH 1
+#ifndef RIVET_LOGGING_FHH
+#define RIVET_LOGGING_FHH
 
 namespace Rivet {
   class Log;

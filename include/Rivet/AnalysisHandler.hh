@@ -4,16 +4,16 @@
 
 #include "Rivet/Rivet.hh"
 #include "Rivet/RivetBoost.hh"
-#include "Rivet/Tools/Logging.fhh"
-#include "Rivet/AnalysisHandler.fhh"
-#include "Rivet/Analysis.fhh"
-#include "Rivet/Event.fhh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisLoader.hh"
 
 namespace Rivet {
 
-  /// Typedef for Analysis (smart) pointer
+
+  // Forward declaration and smart pointer for Analysis
+  class Analysis;
   typedef shared_ptr<Analysis> AnaHandle;
+
 
   // Needed to make smart pointers compare equivalent in the STL set
   struct AnaHandleLess {
@@ -185,7 +185,7 @@ namespace Rivet {
     std::string _runname;
 
     /// Number of events seen.
-    size_t _numEvents;
+    unsigned int _numEvents;
 
     /// Sum of event weights seen.
     double _sumOfWeights;

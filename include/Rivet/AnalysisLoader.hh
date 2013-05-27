@@ -3,7 +3,6 @@
 #define RIVET_AnalysisLoader_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/Tools/Logging.fhh"
 #include <map>
 #include <string>
 
@@ -13,9 +12,10 @@ namespace Rivet {
   // Forward declarations
   class Analysis;
   class AnalysisBuilderBase;
+  class Log;
 
 
-  /// @brief Internal class which loads and registers analyses from plugin libs
+  /// Internal class which loads and registers analyses from plugin libs
   class AnalysisLoader {
   public:
 
