@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-%prog - generate comparison plots
+%prog - generate histogram comparison plots
 
 USAGE:
  %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value'] [path/to/yodafile2 ...]
@@ -243,19 +243,21 @@ if __name__ == '__main__':
     parser = getCommandLineOptions()
     opts, args = parser.parse_args()
 
-    ## split the input file names and the associated plotting options
+    ## Split the input file names and the associated plotting options
     ## given on the command line into two separate lists
     filelist, plotoptions = parseArgs(args)
 
-    ## read the .plot files
-    plotparser = initPlotparser(filelist)
+    ## Read the .plot files
+    plotparser = initPlotParser(filelist)
 
-    ## create a list of all histograms to be plotted
+    ## Create a list of all histograms to be plotted
     refhistos, mchistos, mchistolist = getHistos(filelist)
+    print mchistolist
 
-    ## read the reference data from the Rivet search paths and add them
+    ## Read the reference data from the Rivet search paths and add them
     ## to the list of reference histograms
-    if opts.RIVETREFS: getRefdata(refhistos)
+    if opts.RIVETREFS:
+        getRefdata(refhistos)
 
 
     ## Now loop over all MC histograms and plot them
