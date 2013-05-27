@@ -115,8 +115,7 @@ def getHistos(filelist):
     mchistos = {}
     mchistolist = []
     for infile in filelist:
-        if not mchistos.has_key(infile):
-            mchistos[infile] = {}
+        mchistos.setdefault(infile, {})
         analysisobjects = yoda.readYODA(infile)
         for ao in analysisobjects:
             path = ao.annotations()['Path']
@@ -252,7 +251,6 @@ if __name__ == '__main__':
 
     ## Create a list of all histograms to be plotted
     refhistos, mchistos, mchistolist = getHistos(filelist)
-    print mchistolist
 
     ## Read the reference data from the Rivet search paths and add them
     ## to the list of reference histograms

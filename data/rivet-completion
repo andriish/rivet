@@ -1,5 +1,5 @@
 ## -*- sh -*-
-## Analysis name completion for rivet scripts
+## Analysis name completion for Rivet scripts
 
 (type _filedir &> /dev/null) || \
 function _filedir() {
@@ -40,7 +40,7 @@ function _rivet() {
     fi
 
     if (echo ${prev} | egrep -- "--\<histo-file\>|\<-H\>" &> /dev/null); then
-        _filedir aida
+        _filedir yoda
         return 0
     fi
 
@@ -92,7 +92,7 @@ complete -F _rivet_config rivet-config
 ##############################
 
 
-function _compare_histos() {
+function _rivet_cmphistos() {
     local cur prev commands options command
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
@@ -126,12 +126,12 @@ function _compare_histos() {
         return 0
     fi
 
-    _filedir aida
+    _filedir yoda
     return 0
 }
 
 
-complete -F _compare_histos -o default compare-histos
+complete -F _rivet_cmphistos -o default rivet-cmphistos
 
 
 ##############################
@@ -209,73 +209,9 @@ function _rivet_mkhtml() {
         return 0
     fi
 
-    _filedir aida
+    _filedir yoda
     return 0
 }
 
 
 complete -F _rivet_mkhtml rivet-mkhtml
-
-
-##############################
-
-
-function _aida2flat() {
-    local cur prev commands options command
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-
-    opts="--help -h"
-    opts="$opts --split -s"
-    opts="$opts --gnuplot -g"
-    opts="$opts --plotinfodir"
-    opts="$opts --smart-output -S"
-    opts="$opts --match -m"
-    opts="$opts --quiet -q --verbose -v"
-
-    if [[ ${cur} == "--plotinfodir" ]] ; then
-        _filedir -d
-        return 0
-    fi
-
-    if [[ ${cur} == -* ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-        if test -n "$COMPREPLY"; then
-            return 0
-        fi
-    fi
-
-    _filedir aida
-    return 0
-}
-
-
-complete -F _aida2flat -o default aida2flat
-
-
-##############################
-
-
-function _flat2aida() {
-    local cur prev commands options command
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-
-    opts="--help -h"
-    opts="$opts --split -s"
-
-    if [[ ${cur} == -* ]] ; then
-        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-        if test -n "$COMPREPLY"; then
-            return 0
-        fi
-    fi
-
-    _filedir dat
-    return 0
-}
-
-
-complete -F _aida2flat -o default aida2flat
