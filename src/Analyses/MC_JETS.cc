@@ -2,8 +2,6 @@
 #include "Rivet/Analyses/MC_JetAnalysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 

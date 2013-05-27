@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 

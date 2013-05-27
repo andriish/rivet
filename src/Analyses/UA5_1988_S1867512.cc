@@ -1,7 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/Beam.hh"
@@ -10,8 +8,8 @@
 namespace Rivet {
 
   /// @brief helper function to fill correlation points into scatter plot
-  Point2D correlation_helper(double x, double xerr, 
-			     const vector<int> & nf, const vector<int> & nb, 
+  Point2D correlation_helper(double x, double xerr,
+			     const vector<int> & nf, const vector<int> & nb,
 			     double sumWPassed)
   {
     return Point2D( x, 	correlation(nf, nb),

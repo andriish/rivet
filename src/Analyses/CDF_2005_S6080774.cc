@@ -2,8 +2,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
 

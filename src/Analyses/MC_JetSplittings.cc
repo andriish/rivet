@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analyses/MC_JetSplittings.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 

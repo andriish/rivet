@@ -1,5 +1,9 @@
 2013-05-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Removing includes of Logging.hh, RivetYODA.hh, and
+	ParticleIdUtils.hh from analyses (and adding an include of
+	ParticleIdUtils.hh to Analysis.hh)
+
 	* Removing now-unused .fhh files.
 
 	* Removing lots of unnecessary .fhh includes from core classes:

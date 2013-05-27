@@ -4,8 +4,6 @@
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
 

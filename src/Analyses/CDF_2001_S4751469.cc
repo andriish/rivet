@@ -5,8 +5,6 @@
 // FNAL-PUB 01/211-E
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/ConstLossyFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"

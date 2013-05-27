@@ -1,9 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 

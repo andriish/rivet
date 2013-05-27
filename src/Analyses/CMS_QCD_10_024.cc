@@ -1,7 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Particle.hh"
 
@@ -15,7 +13,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    CMS_QCD_10_024() : Analysis("CMS_QCD_10_024"), 
+    CMS_QCD_10_024() : Analysis("CMS_QCD_10_024"),
 		       _weight_pt05_eta08(0.), _weight_pt10_eta08(0.),
 		       _weight_pt05_eta24(0.), _weight_pt10_eta24(0.) {  }
 
@@ -48,7 +46,7 @@ namespace Rivet {
       if(!cfs_24_05.particles().empty()) _weight_pt05_eta24 += weight;
       foreach (const Particle& p, cfs_24_05.particles()) {
         _hist_dNch_deta_pt05_eta24->fill(p.momentum().pseudorapidity(), weight);
-        if(!cfs_08_05.particles().empty()) 
+        if(!cfs_08_05.particles().empty())
 	  _hist_dNch_deta_pt05_eta08->fill(p.momentum().pseudorapidity(), weight);
       }
       if(!cfs_08_10.particles().empty()) _weight_pt10_eta08 += weight;

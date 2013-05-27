@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/Beam.hh"
 using namespace std;
 

@@ -1,9 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 

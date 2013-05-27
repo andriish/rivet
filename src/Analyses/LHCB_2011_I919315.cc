@@ -1,9 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
@@ -59,7 +57,7 @@ namespace Rivet {
           if (pT < 0.6*GeV || pT > 5.0*GeV || y < 2.44 || y > 4.06) {
             continue;
           }
-          
+
           _h_Phi_y->fill (y, weight);
           _h_Phi_pT->fill (pT/MeV, weight);
           _h_Phi_pT_y.fill(y, pT/GeV, weight);

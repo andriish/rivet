@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
@@ -184,7 +182,7 @@ namespace Rivet {
 	if ( ! mu_near_jet )
 	  recon_mu.push_back( mu );
       }
-      
+
       // pTmiss
       Particles vfs_particles
 	= applyProjection<VisibleFinalState>(event, "vfs").particles();

@@ -1,7 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
@@ -54,7 +52,7 @@ namespace Rivet {
       etaRangesMuons.push_back(make_pair(-2.4, 2.4));
       LeptonClusters muonClusters(fs, bareMuons, 0.1, true, etaRangesMuons, 20.0*GeV);
       addProjection(muonClusters, "muonClusters");
-      
+
       IdentifiedFinalState neutrinos(-MAXRAPIDITY, MAXRAPIDITY, 25.0*GeV);
       neutrinos.acceptNeutrinos();
       addProjection(neutrinos, "neutrinos");

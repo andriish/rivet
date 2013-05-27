@@ -1,15 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/RivetMT2.hh"
 
 namespace Rivet {

@@ -3,7 +3,6 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 

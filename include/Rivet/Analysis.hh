@@ -5,13 +5,14 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Event.hh"
+#include "Rivet/Constraints.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
-#include "Rivet/Constraints.hh"
 #include "Rivet/AnalysisLoader.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/RivetYODA.hh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 
 
 /// @def vetoEvent

@@ -1,9 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/WFinder.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
@@ -104,7 +101,7 @@ namespace Rivet {
              _h_asym);
 
       // // W charge asymmetry vs. pTW: dsig+/dpT / dsig-/dpT
-      divide(_h_Wplus_pT, _h_Wminus_pT, 
+      divide(_h_Wplus_pT, _h_Wminus_pT,
              _h_asym_pT);
 
       scale(_h_Wplus_pT, crossSection()/sumOfWeights());

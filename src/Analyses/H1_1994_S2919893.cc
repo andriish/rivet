@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/Math/Constants.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/DISKinematics.hh"
 

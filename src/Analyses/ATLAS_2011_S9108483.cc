@@ -1,10 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/Math/Constants.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/NonHadronicFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"

@@ -1,6 +1,4 @@
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 
@@ -33,7 +31,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
-      
+
       foreach (const Particle& p, ufs.particles()) {
         const double absrap = fabs(p.momentum().rapidity());
         const double pT = p.momentum().pT()/GeV;

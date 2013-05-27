@@ -3,9 +3,6 @@
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 

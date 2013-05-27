@@ -1,6 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/Projections/DISFinalState.hh"
 #include "Rivet/Projections/CentralEtHCM.hh"
 

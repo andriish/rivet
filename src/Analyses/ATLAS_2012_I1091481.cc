@@ -1,9 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 #include <iostream>
 #include <fstream>
 

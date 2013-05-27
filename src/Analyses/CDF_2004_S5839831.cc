@@ -3,8 +3,6 @@
 
 #include "Rivet/Analysis.hh"
 #include "Rivet/Jet.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"

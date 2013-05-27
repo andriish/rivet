@@ -1,8 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
@@ -345,7 +343,7 @@ namespace Rivet {
       }
 
       // 7j55
-      if(njet55>=7&&pass55DeltaR) 
+      if(njet55>=7&&pass55DeltaR)
         _count_7j55->fill( 0.5, weight) ;
       // 8j55
       if(njet55>=8&&pass55DeltaR)

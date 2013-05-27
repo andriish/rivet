@@ -5,7 +5,6 @@
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/AnalysisLoader.hh"
-#include "Rivet/RivetYODA.hh"
 
 namespace Rivet {
 

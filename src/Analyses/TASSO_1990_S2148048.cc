@@ -1,7 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 //#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/Sphericity.hh"

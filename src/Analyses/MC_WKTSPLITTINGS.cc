@@ -2,9 +2,6 @@
 #include "Rivet/Analyses/MC_JetSplittings.hh"
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 

@@ -2,8 +2,6 @@
 // ATLAS W pT analysis
 
 #include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/WFinder.hh"
 
 namespace Rivet {
