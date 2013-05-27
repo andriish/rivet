@@ -1,5 +1,7 @@
 2013-05-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Removing now-unused .fhh files.
+
 	* Removing lots of unnecessary .fhh includes from core classes:
 	everything still compiling ok. A good opportunity to tidy this up
 	before the release.

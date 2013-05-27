@@ -6,24 +6,19 @@ nobase_pkginclude_HEADERS =
 
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
-  Rivet.hh             Exceptions.hh \
-  RivetBoost.hh        RivetHepMC.hh       RivetSTL.hh \
-  Constraints.hh       BeamConstraint.hh \
-  Event.hh             Event.fhh \
-  ParticleBase.hh      Jet.hh \
-  Particle.hh          Particle.fhh \
-  RivetYODA.hh         RivetYODA.fhh \
-  Analysis.hh          Analysis.fhh  AnalysisBuilder.hh \
-  AnalysisHandler.hh   AnalysisHandler.fhh \
-  AnalysisInfo.hh      ProjectionHandler.hh \
-  ProjectionApplier.hh \
-  Projection.hh        Projection.fhh \
-  Cmp.hh               Cmp.fhh \
-  ParticleName.hh      AnalysisLoader.hh \
+  Rivet.hh             Exceptions.hh      Event.hh       Run.hh \
+  RivetBoost.hh        RivetHepMC.hh      RivetSTL.hh    RivetYODA.hh \
+  ParticleBase.hh      Particle.fhh       Particle.hh    Jet.hh \
+  ProjectionApplier.hh Projection.fhh     Projection.hh \
+  ParticleName.hh      Cmp.fhh            Cmp.hh \
+  Analysis.hh          AnalysisInfo.hh \
+  AnalysisBuilder.hh   AnalysisLoader.hh \
+  AnalysisHandler.hh   ProjectionHandler.hh \
   HistoHandler.hh      HistoFormat.hh \
-  Run.hh
+  Constraints.hh       BeamConstraint.hh
 
 
+## Build config stuff
 nobase_pkginclude_HEADERS += \
   Config/RivetConfig.hh \
   Config/BuildOptions.hh
@@ -87,7 +82,6 @@ nobase_pkginclude_HEADERS += \
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
-  Tools/Logging.fhh \
   Tools/Utils.hh \
   Tools/RivetPaths.hh \
   Tools/BinnedHistogram.hh \
