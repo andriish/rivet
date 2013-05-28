@@ -23,45 +23,38 @@ namespace Rivet {
   // Book histograms
   void MC_JetAnalysis::init() {
 
-    for (size_t i=0; i < m_njet; ++i) {
-      stringstream pTname;
-      pTname << "jet_pT_" << i+1;
+    for (size_t i = 0; i < m_njet; ++i) {
+      string pTname = "jet_pT_" + to_str(i+1);
       double pTmax = 1.0/(double(i)+2.0) * sqrtS()/GeV/2.0;
       int nbins_pT = 100/(i+1);
-      _h_pT_jet[i] = bookHisto1D(pTname.str(), logspace(nbins_pT, 10.0, pTmax));
+      _h_pT_jet[i] = bookHisto1D(pTname, logspace(nbins_pT, 10.0, pTmax));
 
-      stringstream massname;
-      massname << "jet_mass_" << i+1;
+      string massname = "jet_mass_" + to_str(i+1);
       double mmax = 100.0;
       int nbins_m = 100/(i+1);
-      _h_mass_jet[i] = bookHisto1D(massname.str(), logspace(nbins_m, 1.0, mmax));
+      _h_mass_jet[i] = bookHisto1D(massname, logspace(nbins_m, 1.0, mmax));
 
-      stringstream etaname;
-      etaname << "jet_eta_" << i+1;
-      _h_eta_jet[i] = bookHisto1D(etaname.str(), i > 1 ? 25 : 50, -5.0, 5.0);
+      string etaname = "jet_eta_" + to_str(i+1);
+      _h_eta_jet[i] = bookHisto1D(etaname, i > 1 ? 25 : 50, -5.0, 5.0);
       _h_eta_jet_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_eta_jet_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
-      stringstream rapname;
-      rapname << "jet_y_" << i+1;
-      _h_rap_jet[i] = bookHisto1D(rapname.str(), i>1 ? 25 : 50, -5.0, 5.0);
+      string rapname = "jet_y_" + to_str(i+1);
+      _h_rap_jet[i] = bookHisto1D(rapname, i>1 ? 25 : 50, -5.0, 5.0);
       _h_rap_jet_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_rap_jet_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
-      for (size_t j = i+1; j < min(size_t(3),m_njet); ++j) {
+      for (size_t j = i+1; j < min(size_t(3), m_njet); ++j) {
         std::pair<size_t, size_t> ij = std::make_pair(i, j);
 
-        stringstream detaname;
-        detaname << "jets_deta_" << i+1 << j+1;
-        _h_deta_jets.insert(make_pair(ij, bookHisto1D(detaname.str(), 25, -5.0, 5.0)));
+        string detaname = "jets_deta_" + to_str(i+1) + to_str(j+1);
+        _h_deta_jets.insert(make_pair(ij, bookHisto1D(detaname, 25, -5.0, 5.0)));
 
-        stringstream dphiname;
-        dphiname << "jets_dphi_" << i+1 << j+1;
-        _h_dphi_jets.insert(make_pair(ij, bookHisto1D(dphiname.str(), 25, 0.0, M_PI)));
+        string dphiname = "jets_dphi_" + to_str(i+1) + to_str(j+1);
+        _h_dphi_jets.insert(make_pair(ij, bookHisto1D(dphiname, 25, 0.0, M_PI)));
 
-        stringstream dRname;
-        dRname << "jets_dR_" << i+1 << j+1;
-        _h_dR_jets.insert(make_pair(ij, bookHisto1D(dRname.str(), 25, 0.0, 5.0)));
+        string dRname = "jets_dR_" + to_str(i+1) + to_str(j+1);
+        _h_dR_jets.insert(make_pair(ij, bookHisto1D(dRname, 25, 0.0, 5.0)));
       }
     }
 
