@@ -18,7 +18,6 @@ namespace Rivet {
     if (!path2.empty()) return path2;
     throw Rivet::Error("Couldn't find ref data file '" + papername + ".yoda/aida" +
                        " in $RIVET_REF_PATH, '" + getRivetDataPath() + "', or '.'");
-    //return "";
   }
 
 
@@ -38,7 +37,7 @@ namespace Rivet {
       if (!refdata) continue;
       string plotpath = refdata->path();
 
-      // split path at "/" and only return the last field, i.e. the histogram ID
+      // Split path at "/" and only return the last field, i.e. the histogram ID
       std::vector<string> pathvec;
       split( pathvec, plotpath, is_any_of("/"), token_compress_on );
       plotpath = pathvec.back();
