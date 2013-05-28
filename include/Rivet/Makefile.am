@@ -14,7 +14,6 @@ nobase_pkginclude_HEADERS += \
   Analysis.hh          AnalysisInfo.hh \
   AnalysisBuilder.hh   AnalysisLoader.hh \
   AnalysisHandler.hh   ProjectionHandler.hh \
-  HistoHandler.hh      HistoFormat.hh \
   Constraints.hh       BeamConstraint.hh
 
 

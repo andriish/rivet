@@ -1,3 +1,7 @@
+2013-05-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing defunct HistoFormat.hh and HistoHandler.{hh,cc}
+
 2013-05-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing includes of Logging.hh, RivetYODA.hh, and

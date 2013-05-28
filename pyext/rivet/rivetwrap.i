@@ -23,9 +23,6 @@
 %template(DblPair) std::pair<double, double>;
 %template(DblPairList) std::vector< std::pair<double, double> >;
 
-// Histo format enum
-%include "Rivet/HistoFormat.hh"
-
 // Particle ID stuff
 %include "Rivet/Particle.fhh"
 %include "Rivet/ParticleName.hh"
