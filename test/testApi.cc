@@ -5,16 +5,12 @@
 using namespace std;
 
 int main() {
-  // New type
-  Rivet::AnalysisHandler rivet;
+  Rivet::AnalysisHandler ah;
 
   // Specify the analyses to be used
-  rivet.addAnalysis("EXAMPLE");
-  // rivet.addAnalysis("D0_2008_S7554427");
-
-  //vector<string> moreanalyses(1, "D0_2007_S7075677");
+  ah.addAnalysis("EXAMPLE");
   vector<string> moreanalyses(1, "MC_JETS");
-  rivet.addAnalyses(moreanalyses);
+  ah.addAnalyses(moreanalyses);
 
   std::istream* file = new std::fstream("testApi.hepmc", std::ios::in);
   HepMC::IO_GenEvent hepmcio(*file);
@@ -22,7 +18,7 @@ int main() {
   double sum_of_weights = 0.0;
   while (evt) {
     // Analyse current event
-    rivet.analyze(*evt);
+    ah.analyze(*evt);
     sum_of_weights += evt->weights()[0];
 
     // Clean up and get next event
@@ -31,10 +27,10 @@ int main() {
   }
   delete file; file = 0;
 
-  rivet.setCrossSection(1.0);
-  rivet.setSumOfWeights(sum_of_weights); //< Not necessary, but allowed
-  rivet.finalize();
-  rivet.writeData("out.aida");
+  ah.setCrossSection(1.0);
+  ah.setSumOfWeights(sum_of_weights); //< Not necessary, but allowed
+  ah.finalize();
+  ah.writeData("out.yoda");
 
   return 0;
 }

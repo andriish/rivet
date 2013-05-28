@@ -1,25 +1,18 @@
 check_PROGRAMS = testMath testMatVec testBoost testCmp testApi testNaN
 
+AM_LDFLAGS = -L$(top_srcdir)/src -L$(prefix)/lib $(BOOST_LDFLAGS) $(YAMLCPP_LDFLAGS) $(YODA_LDFLAGS)
+LIBS = -lm $(GSL_LDFLAGS) -lYODA
+
 testBoost_SOURCES = testBoost.cc
-testBoost_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
-
 testMath_SOURCES = testMath.cc
-testMath_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
-
 testMatVec_SOURCES = testMatVec.cc
-testMatVec_LDADD   = -lm $(GSL_LDFLAGS)
-testMatVec_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
 
 testCmp_SOURCES = testCmp.cc
-testCmp_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
-
+testCmp_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
 testApi_SOURCES = testApi.cc
-testApi_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
-testApi_LDADD = ../src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
-
+testApi_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
 testNaN_SOURCES = testNaN.cc
-testNaN_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
-testNaN_LDADD = ../src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
+testNaN_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
 
 TESTS_ENVIRONMENT = \
   RIVET_REF_PATH=$(top_builddir)/data/refdata \
