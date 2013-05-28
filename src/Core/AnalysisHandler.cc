@@ -1,22 +1,21 @@
 // -*- C++ -*-
 #include "Rivet/Rivet.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/ParticleName.hh"
 #include "Rivet/AnalysisHandler.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/Analysis.hh"
-#include "Rivet/Event.hh"
+#include "Rivet/ParticleName.hh"
+#include "Rivet/RivetYODA.hh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/BeamConstraint.hh"
 #include "Rivet/Projections/Beam.hh"
 
-namespace {
-  bool AOSortByPath(const Rivet::AnalysisObjectPtr a,
-		    const Rivet::AnalysisObjectPtr b) {
-    return a->path() < b->path();
-  }
-}
-
-
 namespace Rivet {
+
+
+  namespace {
+    bool AOSortByPath(const AnalysisObjectPtr a, const AnalysisObjectPtr b) {
+      return a->path() < b->path();
+    }
+  }
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
@@ -102,9 +101,9 @@ namespace Rivet {
     const PdgIdPair beams = Rivet::beamIds(ge);
     const double sqrts = Rivet::sqrtS(ge);
     if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-      cerr     << "Event beams mismatch: "
-               << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-               << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+      cerr << "Event beams mismatch: "
+           << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+           << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
       exit(1);
     }
 

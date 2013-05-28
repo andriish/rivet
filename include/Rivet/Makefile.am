@@ -6,15 +6,19 @@ nobase_pkginclude_HEADERS =
 
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
-  Rivet.hh             Exceptions.hh      Event.hh       Run.hh \
-  RivetBoost.hh        RivetHepMC.hh      RivetSTL.hh    RivetYODA.hh \
-  ParticleBase.hh      Particle.fhh       Particle.hh    Jet.hh \
-  ProjectionApplier.hh Projection.fhh     Projection.hh \
-  ParticleName.hh      Cmp.fhh            Cmp.hh \
+  Rivet.hh             Exceptions.hh \
+  Event.hh             Run.hh \
+  RivetBoost.hh        RivetHepMC.hh \
+  RivetSTL.hh          RivetYODA.hh \
+  ParticleBase.hh      Jet.hh \
+  Particle.fhh         Particle.hh \
+  ParticleName.hh      BeamConstraint.hh \
+  ProjectionApplier.hh ProjectionHandler.hh \
+  Projection.fhh       Projection.hh \
+  Cmp.fhh              Cmp.hh \
   Analysis.hh          AnalysisInfo.hh \
   AnalysisBuilder.hh   AnalysisLoader.hh \
-  AnalysisHandler.hh   ProjectionHandler.hh \
-  Constraints.hh       BeamConstraint.hh
+  AnalysisHandler.hh
 
 
 ## Build config stuff

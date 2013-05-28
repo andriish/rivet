@@ -1,5 +1,7 @@
 2013-05-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Removing Constraints.hh header.
+
 	* Minor bugfixes and improvements in Scatter2D booking and MC_JetAnalysis.
 
 2013-05-28  Andy Buckley  <andy.buckley@cern.ch>

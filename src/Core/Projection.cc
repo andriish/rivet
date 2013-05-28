@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Projection.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/BeamConstraint.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Cmp.hh"
 

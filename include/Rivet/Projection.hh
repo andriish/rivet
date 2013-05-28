@@ -6,7 +6,6 @@
 #include "Rivet/Projection.fhh"
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
-#include "Rivet/Constraints.hh"
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Tools/Logging.hh"
 
@@ -92,10 +91,11 @@ namespace Rivet {
     /// the virtual compare(const Projection &) will be returned.
     bool before(const Projection& p) const;
 
-    /// Return the BeamConstraints for this projection, not including
-    /// recursion. Derived classes should ensure that all contained projections
-    /// are registered in the @a _projections set for the beam constraint
-    /// chaining to work.
+    /// Return the allowed beam pairs on which this projection can operate, not
+    /// including recursion. Derived classes should ensure that all contained
+    /// projections are registered in the @a _projections set for the beam
+    /// constraint chaining to work.
+    /// @todo Remove the beam constraints system from projections.
     virtual const std::set<PdgIdPair> beamPairs() const;
 
     /// Get the name of the projection.

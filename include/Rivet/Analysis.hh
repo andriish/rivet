@@ -5,7 +5,6 @@
 #include "Rivet/Rivet.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Event.hh"
-#include "Rivet/Constraints.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
