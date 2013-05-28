@@ -24,7 +24,7 @@ install-data-local:
 uninstall-local:
 	rm -f $(bashcomp_dir)/rivet-completion
 else
-EXTRA_DIST = rivet-completion
+EXTRA_DIST += rivet-completion
 endif
 
 ## No-Python Rivet program
