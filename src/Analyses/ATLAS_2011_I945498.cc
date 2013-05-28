@@ -116,7 +116,7 @@ namespace Rivet {
       /// is marked unvalidated!
 
       // Some silly weight counters for the njet-ratio histo
-      // --- not sure about the njet=0 case, the Figure ca[ption says
+      // --- not sure about the njet=0 case, the Figure caption says
       // that selected events require at least one jet with 20 GeV
       switch (jets.size()) {
       case 0:
