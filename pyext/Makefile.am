@@ -2,7 +2,7 @@ SUBDIRS = rivet .
 
 if ENABLE_PYEXT
 
-PYEXT_ENV = CC=$(CC) CXX=$(CXX)
+PYEXT_ENV = CC=$(CC) CXX=$(CXX) ARCHFLAGS=""
 
 all-local: rivet/rivetwrap_wrap.cc
 	$(PYEXT_ENV) $(PYTHON) setup.py build
