@@ -48,6 +48,8 @@ namespace Rivet {
 }
 //%include "Rivet/Tools/Logging.hh"
 
+//%include "Rivet/Tools/Logging.hh"
+
 // Rivet search paths
 %include "Rivet/Tools/RivetPaths.hh"
 
