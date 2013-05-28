@@ -377,13 +377,19 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-    Scatter2DPtr dps = bookScatter2D(hname, title, xtitle, ytitle);
+    const string path = histoPath(hname);
+    Scatter2DPtr s( new Scatter2D(path) );
     const double binwidth = (upper-lower)/npts;
     for (size_t pt = 0; pt < npts; ++pt) {
       const double bincentre = lower + (pt + 0.5) * binwidth;
-      dps->addPoint(bincentre, 0, binwidth/2.0, 0);
+      s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    return dps;
+    addPlot(s);
+    MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    return s;
   }
 
 
@@ -392,13 +398,19 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-    Scatter2DPtr dps = bookScatter2D(hname, title, xtitle, ytitle);
+    const string path = histoPath(hname);
+    Scatter2DPtr s( new Scatter2D(path) );
     for (size_t pt = 0; pt < binedges.size()-1; ++pt) {
       const double bincentre = (binedges[pt] + binedges[pt+1]) / 2.0;
       const double binwidth = binedges[pt+1] - binedges[pt];
-      dps->addPoint(bincentre, 0, binwidth/2.0, 0);
+      s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    return dps;
+    addPlot(s);
+    MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    s->setTitle(title);
+    s->setAnnotation("XLabel", xtitle);
+    s->setAnnotation("YLabel", ytitle);
+    return s;
   }
 
 
@@ -457,11 +469,11 @@ namespace Rivet {
       MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
       return;
     }
-    MSG_TRACE("Scaling histo " << histo->path() << "by factor " << scale);
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << scale);
     try {
       histo->scaleW(scale);
     } catch (YODA::WeightError& we) {
-      MSG_WARNING("Could not normalize histo " << histo->path());
+      MSG_WARNING("Could not scale histo " << histo->path());
       return;
     }
     // // Transforming the histo into a scatter after scaling
@@ -478,7 +490,7 @@ namespace Rivet {
   }
 
 
-  /// @todo 2D versions of scale and normalize... or ditch these completely?
+  /// @todo 2D versions of scale and normalize...
 
 
   void Analysis::addPlot(AnalysisObjectPtr ao) {

@@ -143,8 +143,11 @@ namespace Rivet {
       scale(_h_rap_jet[i], crossSection()/sumOfWeights());
 
       // Create eta/rapidity ratio plots
-      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], bookScatter2D("jet_eta_pmratio_" + lexical_cast<string>(i+1)));
-      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], bookScatter2D("jet_y_pmratio_" + lexical_cast<string>(i+1)));
+      /// @todo This should be neater: there should be a way to book an empty scatter by name.
+      Scatter2DPtr jet_eta_pmratio( new Scatter2D(histoPath("jet_eta_pmratio_" + to_str(i+1))) ); addPlot(jet_eta_pmratio);
+      Scatter2DPtr jet_rap_pmratio( new Scatter2D(histoPath("jet_y_pmratio_" + to_str(i+1))) ); addPlot(jet_rap_pmratio);
+      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], jet_eta_pmratio);
+      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], jet_rap_pmratio);
     }
 
     // Scale the d{eta,R} histograms
