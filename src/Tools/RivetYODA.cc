@@ -22,7 +22,7 @@ namespace Rivet {
   }
 
 
-  RefDataMap getRefData(const string& papername) {
+  std::map<std::string, Scatter2DPtr> getRefData(const string& papername) {
     const string datafile = getDatafilePath(papername);
 
     // Make an appropriate data file reader and read the data objects
@@ -32,7 +32,7 @@ namespace Rivet {
     reader.read(datafile, aovec);
 
     // Return value, to be populated
-    RefDataMap rtn;
+    std::map<std::string, Scatter2DPtr> rtn;
     foreach ( YODA::AnalysisObject* ao, aovec ) {
       Scatter2DPtr refdata( dynamic_cast<Scatter2D *>(ao) );
       if (!refdata) continue;
