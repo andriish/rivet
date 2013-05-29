@@ -1,3 +1,9 @@
+2013-05-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
+
+	* rivet-rmgaps bugfix
+
+	* added ATLAS_2012_I1094564 jet substructure analysis
+
 2013-04-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Rivet 1.8.3 release!
