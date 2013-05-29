@@ -248,39 +248,76 @@ namespace Rivet {
     return hist;
   }
 
-  // IHistogram2D*
-  // Analysis::bookHistogram2D(const string& hname,
-  //                size_t nxbins, double xlower, double xupper,
-  //                size_t nybins, double ylower, double yupper,
-  //                const string& title, const string& xtitle,
-  //                const string& ytitle, const string& ztitle) {
-  //   _makeHistoDir();
+
+  /////////////////
+
+
+  // Histo2DPtr Analysis::bookHisto2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle)
+  // {
+  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+  //   return bookHisto2D(axisCode, title, xtitle, ytitle);
+  // }
+
+
+  // Histo1DPtr Analysis::bookHisto1D(const string& hname,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle)
+  // {
+  //   const Scatter3D & refdata = refData(hname);
   //   const string path = histoPath(hname);
-  //   IHistogram2D* hist =
-  //     histogramFactory().createHistogram2D(path, title, nxbins, xlower, xupper,
-  //                       nybins, ylower, yupper);
-  //   MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
-  //   hist->setXTitle(xtitle);
-  //   hist->setYTitle(ytitle);
-  //   hist->setZTitle(ztitle);
+  //   Histo2DPtr hist( new Histo2D(refdata, path) );
+  //   addPlot(hist);
+  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
+  //   hist->setTitle(title);
+  //   hist->setAnnotation("XLabel", xtitle);
+  //   hist->setAnnotation("YLabel", ytitle);
+  //   hist->setAnnotation("ZLabel", ztitle);
   //   return hist;
   // }
 
 
-  // IHistogram2D*
-  // Analysis::bookHistogram2D(const string& hname,
-  //                const vector<double>& xbinedges,
-  //                const vector<double>& ybinedges,
-  //                const string& title, const string& xtitle,
-  //                const string& ytitle, const string& ztitle) {
-  //   _makeHistoDir();
+  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
+  //                                  size_t nxbins, double xlower, double xupper,
+  //                                  size_t nybins, double ylower, double yupper,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle)
+  // {
   //   const string path = histoPath(hname);
-  //   IHistogram2D* hist =
-  //     histogramFactory().createHistogram2D(path, title, xbinedges, ybinedges);
-  //   MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
-  //   hist->setXTitle(xtitle);
-  //   hist->setYTitle(ytitle);
-  //   hist->setZTitle(ztitle);
+  //   Histo2DPtr hist( new Histo2D(path, nxbins, xlower, xupper, nybins, ylower, yupper) );
+  //   addPlot(hist);
+  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
+  //   hist->setTitle(title);
+  //   hist->setAnnotation("XLabel", xtitle);
+  //   hist->setAnnotation("YLabel", ytitle);
+  //   hist->setAnnotation("ZLabel", ztitle);
+  //   return hist;
+  // }
+
+
+  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
+  //                                  const vector<double>& xbinedges,
+  //                                  const vector<double>& ybinedges,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle)
+  // {
+  //   const string path = histoPath(hname);
+  //   Histo2DPtr hist( new Histo2D(path, xbinedges, ybinedges) );
+  //   addPlot(hist);
+  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
+  //   hist->setTitle(title);
+  //   hist->setAnnotation("XLabel", xtitle);
+  //   hist->setAnnotation("YLabel", ytitle);
+  //   hist->setAnnotation("ZLabel", ztitle);
   //   return hist;
   // }
 
