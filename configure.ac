@@ -66,7 +66,7 @@ BOOST_FIND_HEADER([boost/assign.hpp])
 
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
-## TODO NEEDS TESTS HERE
+# TODO: NEEDS TESTS HERE, E.G. VERSION AND FEATURES
 
 
 ## HepMC event record library

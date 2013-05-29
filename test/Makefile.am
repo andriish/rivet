@@ -1,6 +1,6 @@
 check_PROGRAMS = testMath testMatVec testBoost testCmp testApi testNaN
 
-AM_LDFLAGS = -L$(top_srcdir)/src -L$(prefix)/lib $(BOOST_LDFLAGS) $(YAMLCPP_LDFLAGS) $(YODA_LDFLAGS)
+AM_LDFLAGS = -L$(top_srcdir)/src -L$(prefix)/lib $(BOOST_LDFLAGS) $(YAMLCPP_LDFLAGS) -L$(YODALIBPATH)
 LIBS = -lm $(GSL_LDFLAGS) -lYODA
 
 testBoost_SOURCES = testBoost.cc
