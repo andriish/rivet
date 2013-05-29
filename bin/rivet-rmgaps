@@ -213,7 +213,6 @@ if opts.USE_RIVETREFS:
         apath = rivet.findAnalysisRefFile(a+".aida")
         if apath:
             REFFILES.append(apath)
-            break
     #print REFFILES
 
 
