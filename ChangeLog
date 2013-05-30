@@ -1,3 +1,11 @@
+2013-05-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Reverting bookScatter2D behaviour to never look at ref data, and
+	updating a few affected analyses. This should fix some bugs with
+	doubled datapoints introduced by the previous behaviour+addPoint.
+
+	* Adding a couple of minor Utils.hh and MathUtils.hh features.
+
 2013-05-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing Constraints.hh header.
