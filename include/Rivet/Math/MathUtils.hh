@@ -174,6 +174,11 @@ namespace Rivet {
     return sqrt(a*a + b*b + c*c);
   }
 
+  /// Return a/b, or @a fail if b = 0
+  inline double divide(double num, double den, double fail=0.0) {
+    return (!isZero(den)) ? num/den : fail;
+  }
+
   /// A more efficient version of pow for raising numbers to integer powers.
   template <typename Num>
   inline Num intpow(Num val, unsigned int exp) {
@@ -270,7 +275,7 @@ namespace Rivet {
   /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space.
-  inline vector<double> BWspace(size_t nbins, double start, double end, 
+  inline vector<double> BWspace(size_t nbins, double start, double end,
 				double mu, double gamma) {
     assert(end >= start);
     assert(nbins > 0);

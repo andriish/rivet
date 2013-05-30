@@ -20,6 +20,14 @@ namespace Rivet {
     return lexical_cast<string>(x);
   }
 
+  /// @brief Convert any object to a string
+  ///
+  /// An alias for to_str() with a more "Rivety" mixedCase name.
+  template <typename T>
+  inline std::string toString(const T& x) {
+    return to_str(x);
+  }
+
 
   /// Case-insensitive string comparison function
   ///

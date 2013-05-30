@@ -60,10 +60,9 @@ namespace Rivet {
 
     _h_jet_multi_exclusive = bookHisto1D("jet_multi_exclusive", m_njet+3, -0.5, m_njet+3-0.5);
     _h_jet_multi_inclusive = bookHisto1D("jet_multi_inclusive", m_njet+3, -0.5, m_njet+3-0.5);
-    _h_jet_multi_ratio = bookScatter2D("jet_multi_ratio", m_njet+2, 0.5, m_njet+3-0.5);
+    _h_jet_multi_ratio = bookScatter2D("jet_multi_ratio");
     _h_jet_HT = bookHisto1D("jet_HT", logspace(50, m_jetptcut, sqrtS()/GeV/2.0));
   }
-
 
 
   // Do the analysis
@@ -143,36 +142,25 @@ namespace Rivet {
       scale(_h_rap_jet[i], crossSection()/sumOfWeights());
 
       // Create eta/rapidity ratio plots
-      /// @todo This should be neater: there should be a way to book an empty scatter by name.
-      Scatter2DPtr jet_eta_pmratio( new Scatter2D(histoPath("jet_eta_pmratio_" + to_str(i+1))) ); addPlot(jet_eta_pmratio);
-      Scatter2DPtr jet_rap_pmratio( new Scatter2D(histoPath("jet_y_pmratio_" + to_str(i+1))) ); addPlot(jet_rap_pmratio);
-      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], jet_eta_pmratio);
-      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], jet_rap_pmratio);
+      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], bookScatter2D("jet_eta_pmratio_" + to_str(i+1)));
+      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], bookScatter2D("jet_y_pmratio_" + to_str(i+1)));
     }
 
-    // Scale the d{eta,R} histograms
-    map<pair<size_t, size_t>, Histo1DPtr>::iterator it;
-    for (it = _h_deta_jets.begin(); it != _h_deta_jets.end(); ++it) {
-      scale(it->second, crossSection()/sumOfWeights());
-    }
-    for (it = _h_dphi_jets.begin(); it != _h_dphi_jets.end(); ++it) {
-      scale(it->second, crossSection()/sumOfWeights());
-    }
-    for (it = _h_dR_jets.begin(); it != _h_dR_jets.end(); ++it) {
-      scale(it->second, crossSection()/sumOfWeights());
-    }
+    // Scale the d{eta,phi,R} histograms
+    typedef map<pair<size_t, size_t>, Histo1DPtr> HistMap;
+    foreach (HistMap::value_type& it, _h_deta_jets) scale(it.second, crossSection()/sumOfWeights());
+    foreach (HistMap::value_type& it, _h_dphi_jets) scale(it.second, crossSection()/sumOfWeights());
+    foreach (HistMap::value_type& it, _h_dR_jets) scale(it.second, crossSection()/sumOfWeights());
 
     // Fill inclusive jet multi ratio
     int Nbins = _h_jet_multi_inclusive->numBins();
     for (int i = 0; i < Nbins-1; ++i) {
-      if (_h_jet_multi_inclusive->bin(i).area() > 0.0 && _h_jet_multi_inclusive->bin(i+1).area() > 0.0) {
-        double ratio = _h_jet_multi_inclusive->bin(i+1).area()/_h_jet_multi_inclusive->bin(i).area();
-        double relerr_i = _h_jet_multi_inclusive->bin(i).areaErr()/_h_jet_multi_inclusive->bin(i).area();
-        double relerr_j = _h_jet_multi_inclusive->bin(i+1).areaErr()/_h_jet_multi_inclusive->bin(i+1).area();
-        double err = ratio * (relerr_i + relerr_j);
-        Point2D & pt = _h_jet_multi_ratio->point(i);
-        pt.setY(ratio);
-        pt.setYErr(err);
+      if (_h_jet_multi_inclusive->bin(i).sumW() > 0.0) { //< Don't add a point if the division is invalid
+        const double ratio = _h_jet_multi_inclusive->bin(i+1).sumW()/_h_jet_multi_inclusive->bin(i).sumW();
+        const double relerr_i = _h_jet_multi_inclusive->bin(i).relErr();
+        const double relerr_j = _h_jet_multi_inclusive->bin(i+1).relErr();
+        const double err = ratio * (relerr_i + relerr_j);
+        _h_jet_multi_ratio->addPoint(i, ratio, 0.0, err);
       }
     }
 
