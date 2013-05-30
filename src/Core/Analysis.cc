@@ -396,17 +396,17 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-    const Scatter2D& refdata = refData(hname);
     const string path = histoPath(hname);
-    Scatter2DPtr s( new Scatter2D(refdata, path) );
-    foreach (Point2D& p, s->points()) p.setY(0, 0);
+    // const Scatter2D& refdata = refData(hname);
+    // Scatter2DPtr s( new Scatter2D(refdata, path) );
+    // foreach (Point2D& p, s->points()) p.setY(0, 0);
+    Scatter2DPtr s( new Scatter2D(path) );
     addPlot(s);
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
     return s;
-
   }
 
 

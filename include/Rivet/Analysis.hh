@@ -539,28 +539,43 @@ namespace Rivet {
     /// @name 2D scatter booking
     //@{
 
-    /// Book a 2-dimensional data point set, using the binnings in the reference data histogram.
+    /// @brief Book a 2-dimensional data point set with the given name.
+    ///
+    /// @note Unlike histogram booking, scatter booking makes no attempt to use
+    /// reference data to pre-fill the data object. If you want this (why!?)
+    /// then use the @a refData() function to retrieve the reference scatter and
+    /// copy its contents.
     Scatter2DPtr bookScatter2D(const std::string& name,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
-    /// Book a 2-dimensional data point set, using the binnings in the reference data histogram.
+    /// @brief Book a 2-dimensional data point set, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    ///
+    ///
+    /// @note Unlike histogram booking, scatter booking makes no attempt to use
+    /// reference data to pre-fill the data object. If you want this (why!?)
+    /// then use the @a refData() function to retrieve the reference scatter and
+    /// copy its contents.
     Scatter2DPtr bookScatter2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
-    /// Book a 2-dimensional data point set with equally spaced points in a range.
+    /// @brief Book a 2-dimensional data point set with equally spaced x-points in a range.
+    ///
+    /// The y values and errors will be set to 0.
     Scatter2DPtr bookScatter2D(const std::string& name,
                                size_t npts, double lower, double upper,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
-    /// Book a 2-dimensional data point set based on provided contiguous bin edges.
+    /// @brief Book a 2-dimensional data point set based on provided contiguous "bin edges".
+    ///
+    /// The y values and errors will be set to 0.
     Scatter2DPtr bookScatter2D(const std::string& hname,
                                const std::vector<double>& binedges,
                                const std::string& title,
