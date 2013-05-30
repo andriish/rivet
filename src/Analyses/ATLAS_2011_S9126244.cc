@@ -116,6 +116,7 @@ namespace Rivet {
     void initializePlots(ATLAS_2011_S9126244_Plots& plots) {
 
       // Gap fraction vs DeltaY
+      if (!plots.m_gapFractionDeltaYSlices.empty()) {
       for (size_t x = 0; x < plots.m_gapFractionDeltaYSlices.size()-1; x++) {
         const string vetoHistName = "gapDeltaYVeto_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
         const string inclusiveHistName = "gapDeltaYInclusive_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
@@ -124,13 +125,17 @@ namespace Rivet {
         plots._h_gapVsDeltaYInc.addHistogram(plots.m_gapFractionDeltaYSlices[x], plots.m_gapFractionDeltaYSlices[x+1],
                                              bookHisto1D(plots.m_gapFractionDeltaYHistIndex+x, 1, plots.selectionType, inclusiveHistName));
       }
+      }
 
       // Average njet vs DeltaY
+      if (!plots.m_avgNJetDeltaYSlices.empty()) {
       for (size_t x = 0; x < plots.m_avgNJetDeltaYSlices.size()-1; x++) {
         plots._p_avgJetVsDeltaY += bookProfile1D(plots.m_avgNJetDeltaYHistIndex+x, 1, plots.selectionType);
       }
+      }
 
       // Gap fraction vs PtBar
+      if (!plots.m_gapFractionPtBarSlices.empty()) {
       for (size_t x = 0; x < plots.m_gapFractionPtBarSlices.size()-1; x++) {
         const string vetoHistName = "gapPtBarVeto_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
         const string inclusiveHistName = "gapPtBarInclusive_" + plots.intermediateHistName + "_" + lexical_cast<string>(x);
@@ -139,10 +144,13 @@ namespace Rivet {
         plots._h_gapVsPtBarInc.addHistogram(plots.m_gapFractionPtBarSlices[x], plots.m_gapFractionPtBarSlices[x+1],
                                             bookHisto1D(plots.m_gapFractionPtBarHistIndex+x, 1, plots.selectionType, inclusiveHistName));
       }
+      }
 
       // Average njet vs PtBar
-      for (int x=0; x<((int)plots.m_avgNJetPtBarSlices.size()-1); x++) {
+      if (!plots.m_avgNJetPtBarSlices.empty()) {
+      for (size_t x=0; x<plots.m_avgNJetPtBarSlices.size()-1; x++) {
         plots._p_avgJetVsPtBar += bookProfile1D(plots.m_avgNJetPtBarHistIndex+x, 1, plots.selectionType);
+      }
       }
 
       // Gap fraction vs Q0
@@ -244,17 +252,21 @@ namespace Rivet {
       }
 
       // Fill the avg NJet, deltaY slices
+      if (!plots.m_avgNJetPtBarSlices.empty()) {
       for (size_t i = 0; i < plots.m_avgNJetPtBarSlices.size()-1; i++) {
         if (inRange(intervalSize, plots.m_avgNJetPtBarSlices[i], plots.m_avgNJetPtBarSlices[i+1])) {
           plots._p_avgJetVsPtBar[i]->fill(ptBar/GeV, vetoJetsCount, weight);
         }
       }
+      }
 
       // Fill the avg NJet, ptBar slices
+      if (!plots.m_avgNJetDeltaYSlices.empty()) {
       for (size_t i = 0; i < plots.m_avgNJetDeltaYSlices.size()-1; i++) {
         if (inRange(ptBar/GeV, plots.m_avgNJetDeltaYSlices[i], plots.m_avgNJetDeltaYSlices[i+1])) {
           plots._p_avgJetVsDeltaY[i]->fill(intervalSize, vetoJetsCount, weight);
         }
+      }
       }
 
       // Fill the veto pt plots
