@@ -1,40 +1,37 @@
 #! /usr/bin/env python
 
-"""\
-A simple wrapper on the main steering interface of the Rivet event simulation
-analysis library. It is used to create, query and use the Rivet C++ analysis
-classes from a Python program: the prime customer is Rivet's own command line
-interface and associated scripts.
-"""
+from distutils.core import setup
+from distutils.extension import Extension
+from Cython.Distutils import build_ext
+from glob import glob
 
-from distutils.core import setup, Extension
+PKGNAME = 'rivet'
 
 ## Extension definition
-import os
-wrapsrc = '@srcdir@/rivet/rivetwrap_wrap.cc'
-incdir_src = os.path.abspath('@top_srcdir@/include')
-incdir_build = os.path.abspath('@top_builddir@/include')
-libdir = os.path.abspath('@top_builddir@/src/.libs')
-libdir_yaml = '@YAML_CPPLIBPATH@'
+import os.path
+incdir = os.path.abspath('@top_srcdir@/include')
+srcdir = os.path.abspath('@top_srcdir@/src')
+libdir = os.path.abspath("@top_builddir@/src/.libs")
 
-ext = Extension('_rivetwrap', [wrapsrc],
-                include_dirs=[incdir_src, incdir_build, '@HEPMCINCPATH@', '@GSLINCPATH@', '@YODAINCPATH@'],
-                extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@".split(),
-                library_dirs=[libdir, libdir_yaml, '@HEPMCLIBPATH@', '@YODALIBPATH@'],
-                extra_link_args = "-L@prefix@/lib @LDFLAGS@".split(),
-                libraries=['Rivet']) # 'HepMC', 'fastjet', 'yaml-cpp', 'GSL', 'HepPID'
+## A helper function (since we have two modules now...)
+def ext(name, depends=[], statics=[]):
+    return Extension(
+        '%s.%s' % (PKGNAME, name),
+        ['%s/%s.pyx' % (PKGNAME, name)] + statics,
+        language='c++',
+        depends=depends,
+        include_dirs=[incdir, PKGNAME],
+        extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@ @PYEXT_CXXFLAGS@".split(),
+        library_dirs=[libdir],
+        extra_link_args = ["-L@prefix@/lib"],
+        libraries=['stdc++', 'Rivet'])
 
-## Setup definition
-setup(name = 'Rivet',
-      version = '@PACKAGE_VERSION@',
-      ext_package = 'rivet',
-      ext_modules = [ext],
-      py_modules = ['rivet.rivetwrap', 'rivet.__init__', 'rivet.plotinfo', 'rivet.util', 'rivet.spiresbib'],
-      author = ['Rivet collaboration'],
-      author_email = 'rivet@projects.hepforge.org',
-      url = 'http://rivet.hepforge.org',
-      description = 'A Python interface to the Rivet high-energy physics analysis library.',
-      long_description = __doc__,
-      keywords = 'generator montecarlo simulation data hep physics particle validation analysis tuning',
-      license = 'GPL'
-      )
+header_files = glob('../include/Rivet/*.h') + glob('../include/Rivet/Utils/*.h')
+
+extns = [ext('core', header_files)]
+#         ext('rootcompat')]
+
+setup(name = PKGNAME,
+      ext_modules = extns,
+      cmdclass = dict(build_ext=build_ext),
+      packages = [PKGNAME])
