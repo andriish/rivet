@@ -96,7 +96,7 @@ Cut operator ~ (const Cut cptr);
 Cut operator ^ (const Cut aptr, const Cut bptr);
 
     ////////////////////////////////////////////
-    /// MakeCuttable - allows specialisation
+    /// MakeCuttable - uses specialisation
     /// to deal with different access conventions
 
 template <typename T>

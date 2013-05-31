@@ -47,7 +47,7 @@ namespace Rivet {
       foreach(const Particle& p, ps) {
         const MakeCuttable<Particle> cuttable(p);
         if(ptcut->cut(cuttable))_histPt->fill(p.momentum().pT(), weight);
-        if(masscut->cut(cuttable))_histMass->fill(p.momentum().mass(),weight);
+        if(masscut->cut(cuttable))_histMass->fill(p.momentum().mass(), weight);
       }
 
     }
