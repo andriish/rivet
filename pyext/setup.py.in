@@ -13,6 +13,8 @@ incdir = os.path.abspath('@top_srcdir@/include')
 srcdir = os.path.abspath('@top_srcdir@/src')
 libdir = os.path.abspath("@top_builddir@/src/.libs")
 
+lookupdirs = [libdir, '@YAML_CPPLIBPATH@', '@HEPMCLIBPATH@', '@YODALIBPATH@']
+
 ## A helper function (since we have two modules now...)
 def ext(name, depends=[], statics=[]):
     return Extension(
@@ -22,9 +24,13 @@ def ext(name, depends=[], statics=[]):
         depends=depends,
         include_dirs=[incdir, PKGNAME],
         extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@ @PYEXT_CXXFLAGS@ @HEPMCCPPFLAGS@ @YODACPPFLAGS@".split(),
-        library_dirs=[libdir, '@YAML_CPPLIBPATH@', '@HEPMCLIBPATH@', '@YODALIBPATH@'],
-        extra_link_args = "-L@prefix@/lib @HEPMCLDFLAGS@ @YODALDFLAGS@".split(),
-        libraries=['stdc++', 'Rivet', 'HepMC', 'YODA'])
+        library_dirs=lookupdirs,
+        runtime_library_dirs=lookupdirs[1:],
+        libraries=['stdc++',
+	           'HepMC', 
+                   'YODA', 
+                   'Rivet',
+ ])
 
 header_files = glob('../include/Rivet/*.h') + glob('../include/Rivet/Utils/*.h')
 
