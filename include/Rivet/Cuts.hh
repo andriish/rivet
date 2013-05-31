@@ -13,83 +13,89 @@ using namespace std;
 
 namespace Rivet {
 
-/// Base class for all cut functors
+/// Base class for cuttables
+/// && base class for all cut functors
 
 class Cuttable {
     public:
     virtual double pT() const;
     virtual double m() const;
+    virtual double y() const;
+    virtual double eta() const;
     virtual ~Cuttable() {}
 };
-
 
 struct CutBase {
     virtual bool cut(const Cuttable& o) const = 0;
     virtual ~CutBase() {}
 };
 
-typedef boost::shared_ptr<CutBase> CutPtr; // Cut;
+typedef boost::shared_ptr<CutBase> Cut; // Cut;
 
 template <typename T>
-CutPtr make_cut(T t) {
+Cut make_cut(T t) {
     return boost::shared_ptr<T>(new T(t));
 }
 
 /// These pointers are used to access the cuts
 
-CutPtr PtGtr(double n);
+Cut ptGtr(double n);
+Cut ptLess(double n);
+Cut ptIn(double n, double m);
 
-CutPtr PtLess(double n);
+Cut massGtr(double n);
+Cut massLess(double n);
+Cut massIn(double n, double m);
 
-CutPtr PtIn(double n, double m);
+Cut rapGtr(double n);
+Cut rapLess(double n);
+Cut rapIn(double n, double m);
 
-CutPtr MassGtr(double n);
-
-CutPtr MassLess(double n);
-
-CutPtr MassIn(double n, double m);
+Cut etaGtr(double n);
+Cut etaLess(double n);
+Cut etaIn(double n, double m);
 
 
 /// AND, OR, NOT, and XOR objects for combining cuts
 
 struct CutsOr : public CutBase {
-    CutsOr(const CutPtr c1, const CutPtr c2);
+    CutsOr(const Cut c1, const Cut c2);
     bool cut(const Cuttable& o) const;
-    const CutPtr cut1;
-    const CutPtr cut2;
+    const Cut cut1;
+    const Cut cut2;
 };
 
 struct CutsAnd : public CutBase {
-    CutsAnd(const CutPtr c1, const CutPtr c2);
+    CutsAnd(const Cut c1, const Cut c2);
     bool cut(const Cuttable& o) const;
-    const CutPtr cut1;
-    const CutPtr cut2;
+    const Cut cut1;
+    const Cut cut2;
 };
 
 struct CutInvert : public CutBase {
-    CutInvert(const CutPtr c1);
+    CutInvert(const Cut c1);
     bool cut(const Cuttable& o) const;
-    const CutPtr poscut;
+    const Cut poscut;
 };
 
 struct CutsXor : public CutBase {
-    CutsXor(const CutPtr c1, const CutPtr c2);
+    CutsXor(const Cut c1, const Cut c2);
     bool cut(const Cuttable& o) const;
-    const CutPtr cut1;
-    const CutPtr cut2;
+    const Cut cut1;
+    const Cut cut2;
 };
 
 /// operator &, operator |, operator ~, and operator ^ overloads
 
-CutPtr operator & (const CutPtr aptr, const CutPtr bptr);
+Cut operator & (const Cut aptr, const Cut bptr);
 
-CutPtr operator | (const CutPtr aptr, const CutPtr bptr);
+Cut operator | (const Cut aptr, const Cut bptr);
 
-CutPtr operator ~ (const CutPtr cptr);
+Cut operator ~ (const Cut cptr);
 
-CutPtr operator ^ (const CutPtr aptr, const CutPtr bptr);
+Cut operator ^ (const Cut aptr, const Cut bptr);
 
-    /////////////////////////////////
+    ////////////////////////////////////////////
     /// MakeCuttable - allows specialisation
     /// to deal with different access conventions
 
@@ -102,6 +108,8 @@ class MakeCuttable <Particle> : public Cuttable {
     MakeCuttable(const Particle& p) : p_(p) {}
     double pT() const {return p_.momentum().pT();}
     double m() const {return p_.momentum().mass();}
+    double y() const {return p_.momentum().rapidity();}
+    double eta() const {return p_.momentum().pseudorapidity();}
     private:
     const Particle & p_;
 };
@@ -112,6 +120,8 @@ class MakeCuttable <FourMomentum> : public Cuttable {
     MakeCuttable(const FourMomentum& fm) : fm_(fm) {}
     double pT() const {return fm_.pT();}
     double m() const {return fm_.mass();}
+    double y() const {return fm_.rapidity();}
+    double eta() const {return fm_.pseudorapidity();}
     private:
     const FourMomentum & fm_;
 };
@@ -122,6 +132,8 @@ class MakeCuttable <Jet> : public Cuttable {
     MakeCuttable(const Jet& jet) : jet_(jet) {}
     double pT() const {return jet_.momentum().pT();}
     double m() const {return jet_.momentum().mass();}
+    double y() const {return jet_.momentum().rapidity();}
+    double eta() const {return jet_.momentum().pseudorapidity();}
     private:
     const Jet & jet_;
 };
@@ -132,6 +144,8 @@ class MakeCuttable <fastjet::PseudoJet> : public Cuttable {
     MakeCuttable(const fastjet::PseudoJet& pjet) : pjet_(pjet) {}
     double pT() const {return pjet_.perp();}
     double m() const {return pjet_.m();}
+    double y() const {return pjet_.rap();}
+    double eta() const {return pjet_.eta();}
     private:
     const fastjet::PseudoJet & pjet_;
 };
@@ -168,6 +182,40 @@ struct CutMassLess : public CutBase {
     private:
     double high_;
 };
+
+
+    /// Rapidity cut structs
+struct CutRapGtr : public CutBase {
+    CutRapGtr(const double rap_lowerlim);
+    bool cut (const Cuttable & o) const;
+    private:
+    double low_;
+};
+
+struct CutRapLess : public CutBase {
+    CutRapLess(const double rap_upperlim);
+    bool cut (const Cuttable& o) const;
+    private:
+    double high_;
+};
+
+
+    /// Pseudorapidity cut structs
+struct CutEtaGtr : public CutBase {
+    CutEtaGtr(const double eta_lowerlim);
+    bool cut (const Cuttable & o) const;
+    private:
+    double low_;
+};
+
+struct CutEtaLess : public CutBase {
+    CutEtaLess(const double eta_upperlim);
+    bool cut (const Cuttable& o) const;
+    private:
+    double high_;
+};
+
+
 
 }
 

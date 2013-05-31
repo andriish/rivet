@@ -13,7 +13,7 @@ int main() {
     Rivet::MakeCuttable<Rivet::FourMomentum> mom(fm);
 
     for(int i = 0; i < 10; i++) {
-        Rivet::CutPtr ptr = Rivet::PtIn(i*2.,i*6.);
+        Rivet::Cut ptr = Rivet::rapIn(i*2.,i*6.);
         cout << i << " ";
         cout << ptr->cut(mom) << endl;
     }
@@ -26,7 +26,7 @@ int main() {
     Rivet::MakeCuttable<fastjet::PseudoJet> jet(pjet);
 
     for(int i = 0; i < 10; i++) {
-        Rivet::CutPtr ptr = Rivet::PtIn(i*2.,i*6.);
+        Rivet::Cut ptr = Rivet::rapIn(i*2.,i*6.);
         cout << i << " ";
         cout << ptr->cut(jet) << endl;
     }
