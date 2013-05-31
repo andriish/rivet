@@ -8,18 +8,18 @@ testMath_SOURCES = testMath.cc
 testMatVec_SOURCES = testMatVec.cc
 
 testCmp_SOURCES = testCmp.cc
-testCmp_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
+testCmp_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(YODALDFLAGS) $(HEPMCLDLIBS) $(YODALDLIBS)
 testApi_SOURCES = testApi.cc
-testApi_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
+testApi_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(YODALDFLAGS) $(HEPMCLDLIBS) $(YODALDLIBS)
 testNaN_SOURCES = testNaN.cc
-testNaN_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(HEPMCLDLIBS)
+testNaN_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(YODALDFLAGS) $(HEPMCLDLIBS) $(YODALDLIBS)
 
 TESTS_ENVIRONMENT = \
   RIVET_REF_PATH=$(top_builddir)/data/refdata \
   RIVET_INFO_PATH=$(top_builddir)/data/anainfo \
   RIVET_ANALYSIS_PATH=$(top_builddir)/src/Analyses/.libs \
-  LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(LD_LIBRARY_PATH) \
-  DYLD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(DYLD_LIBRARY_PATH) \
+  LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(LD_LIBRARY_PATH) \
+  DYLD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(DYLD_LIBRARY_PATH) \
   PYTHON_BUILD_DIR=$(top_builddir)/pyext/build \
   PATH=$(top_builddir)/bin:$(PATH)
 
