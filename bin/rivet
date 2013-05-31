@@ -377,8 +377,7 @@ for a in opts.ANALYSES:
     if not a in all_analyses:
         logging.warning("'%s' is not a known Rivet analysis! Do you need to set RIVET_ANALYSIS_PATH or use the --pwd switch?\n" % a)
         # TODO: lay out more neatly, or even try for a "did you mean XXXX?" heuristic?
-        logging.warning("The currently available analyses are: " + ", ".join(all_analyses) + "\n")
-        logging.warning("Exiting...")
+        logging.warning("There are %d currently available analyses:\n" % len(all_analyses) + ", ".join(all_analyses))
         sys.exit(1)
     logging.debug("Adding analysis '%s'" % a)
     ah.addAnalysis(a)
