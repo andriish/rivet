@@ -2,7 +2,7 @@ SUBDIRS = rivet
 EXTRA_DIST = 
 
 if ENABLE_PYEXT
-PYEXT_ENV = CC="$(CC)" CXX="$(CXX)"
+PYEXT_ENV = CC="$(CC)" CXX="$(CXX)" ARCHFLAGS=""
 
 ## always force setup.py, it's not good at guessing what needs to rebuild
 all-local:
