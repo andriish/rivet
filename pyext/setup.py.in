@@ -22,7 +22,7 @@ def ext(name, depends=[], statics=[]):
         depends=depends,
         include_dirs=[incdir, PKGNAME],
         extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@ @PYEXT_CXXFLAGS@ @HEPMCCPPFLAGS@ @YODACPPFLAGS@".split(),
-        library_dirs=[libdir],
+        library_dirs=[libdir, '@YAML_CPPLIBPATH@', '@HEPMCLIBPATH@', '@YODALIBPATH@'],
         extra_link_args = "-L@prefix@/lib @HEPMCLDFLAGS@ @YODALDFLAGS@".split(),
         libraries=['stdc++', 'Rivet', 'HepMC', 'YODA'])
 
