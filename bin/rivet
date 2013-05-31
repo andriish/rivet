@@ -122,21 +122,9 @@ for l in opts.NATIVE_LOG_STRS:
         name = "Rivet." + name
     try:
         ## Get right error type
-        LEVEL = level.upper()
-        if LEVEL == "TRACE":
-            level = rivet.Log.TRACE
-        elif LEVEL == "DEBUG":
-            level = rivet.Log.DEBUG
-        elif LEVEL == "INFO":
-            level = rivet.Log.INFO
-        elif LEVEL == "WARNING" or LEVEL == "WARN":
-            level = rivet.Log.WARN
-        elif LEVEL == "ERROR":
-            level = rivet.Log.ERROR
-        else:
-            level = int(level)
+        level = rivet.LEVELS.get(level.upper(), int(level))
         logging.debug("Setting log level: %s %d" % (name, level))
-        rivet.Log.setLogLevel(name, level)
+        rivet.setLogLevel(name, level)
     except:
         logging.warning("Couldn't process logging string '%s'" % l)
 
