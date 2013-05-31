@@ -28,10 +28,6 @@ namespace Rivet {
 
 }
 
-
-// YODA headers
-#include "Rivet/RivetYODA.hh"
-
 // HepMC headers and helper functions
 #include "Rivet/RivetHepMC.hh"
 
