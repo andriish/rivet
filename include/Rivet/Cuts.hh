@@ -21,7 +21,6 @@ class Cuttable {
 
 
 struct Cut {
-    //virtual bool cut(double n) const = 0;
     virtual bool cut(const Cuttable& o) const = 0;
     virtual ~Cut() {}
 };
@@ -33,46 +32,8 @@ CutPtr make_cut(T t) {
     return boost::shared_ptr<T>(new T(t));
 }
 
-/// Various cut functors operating on doubles, not actually
-/// called by user.
-
-/*
-struct CutLess : public Cut {
-    CutLess(double n);
-    bool cut(double n) const;
-    bool cut(const Cuttable& o) const;
-    double val;
-};
-struct CutLessEq : public Cut {
-    CutLessEq(double n);
-    bool cut(double n) const;
-    bool cut(const Cuttable& o) const;
-    double val;
-};
-struct CutMore : public Cut {
-    CutMore(double n);
-    bool cut(double n) const;
-    bool cut(const Cuttable& o) const;
-    double val;
-};
-struct CutMoreEq : public Cut {
-    CutMoreEq(double n);
-    bool cut(double n) const;
-    bool cut(const Cuttable& o) const;
-    double val;
-};
-*/
-
 /// These pointers are used to access the cuts
-/*
-CutPtr Less(double n);
 
-CutPtr More(double n);
-
-CutPtr LessEq(double n);
-
-CutPtr MoreEq(double n);
-*/
 CutPtr PtGtr(double n);
 
 CutPtr PtLess(double n);
@@ -81,7 +42,6 @@ CutPtr PtLess(double n);
 
 struct CutsOr : public Cut {
     CutsOr(const CutPtr c1, const CutPtr c2);
-    //bool cut(double n) const;
     bool cut(const Cuttable& o) const;
     const CutPtr cut1;
     const CutPtr cut2;
@@ -89,7 +49,6 @@ struct CutsOr : public Cut {
 
 struct CutsAnd : public Cut {
     CutsAnd(const CutPtr c1, const CutPtr c2);
-    //bool cut(double n) const;
     bool cut(const Cuttable& o) const;
     const CutPtr cut1;
     const CutPtr cut2;
@@ -97,14 +56,12 @@ struct CutsAnd : public Cut {
 
 struct CutInvert : public Cut {
     CutInvert(const CutPtr c1);
-    //bool cut(double n) const;
     bool cut(const Cuttable& o) const;
     const CutPtr poscut;
 };
 
 struct CutsXor : public Cut {
     CutsXor(const CutPtr c1, const CutPtr c2);
-    //bool cut(double n) const;
     bool cut(const Cuttable& o) const;
     const CutPtr cut1;
     const CutPtr cut2;
@@ -148,7 +105,6 @@ class MakeCuttable <FourMomentum> : public Cuttable {
 struct CutPtGtr : public Cut {
     CutPtGtr(const double pt_lowerlim);
     bool cut(const Cuttable & o) const;
-    //bool cut(double n) const;
     private:
     double low_;
 };
@@ -156,7 +112,6 @@ struct CutPtGtr : public Cut {
 struct CutPtLess : public Cut {
     CutPtLess(const double pt_lowerlim);
     bool cut(const Cuttable & o) const;
-    //bool cut(double n) const;
     private:
     double high_;
 };
