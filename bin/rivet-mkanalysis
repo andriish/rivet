@@ -212,7 +212,7 @@ namespace Rivet {
       /// @todo Normalise, scale and otherwise manipulate histograms here
 
       // scale(_h_YYYY, crossSection()/sumOfWeights()); // norm to cross section
-      // normalize(_h_YYYY); # normalize to unity
+      // normalize(_h_YYYY); // normalize to unity
 
     }
 
