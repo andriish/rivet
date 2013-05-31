@@ -48,7 +48,7 @@ cdef class Run:
         return self._ptr.init(name, weight)
 
     def openFile(self, name, weight=1.0):
-        return self._ptr.init(name, weight)
+        return self._ptr.openFile(name, weight)
 
     def readEvent(self):
         return self._ptr.readEvent()
@@ -81,7 +81,7 @@ cdef class Analysis:
         return self._ptr.bibKey()
 
     def name(self):
-        return self._ptr.bibKey()
+        return self._ptr.name()
 
     def bibTeX(self):
         return self._ptr.bibTeX()

@@ -30,6 +30,7 @@ bin/rivet-config
 bin/rivet-nopy
 aclocal\.m4
 pyext/build
+pyext/rivet/core.cpp
 pyext/rivet/rivetwrap\.py
 pyext/rivet/rivetwrap_wrap\.cc
 pyext/setup\.py
