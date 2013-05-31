@@ -43,6 +43,7 @@ namespace Rivet {
 
       Cut ptcut = ptIn(5,20);
       Cut masscut = massIn(0.,0.2);
+      Cut combine = ptcut & masscut; //Possible to combine cuts
 
       foreach(const Particle& p, ps) {
         const MakeCuttable<Particle> cuttable(p);
