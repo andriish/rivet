@@ -1,3 +1,8 @@
+2013-05-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Reducing the TeX main memory to ~500MB. Turns out that it *can*
+	be too large with new versions of TeXLive!
+
 2013-05-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Reverting bookScatter2D behaviour to never look at ref data, and
