@@ -18,7 +18,8 @@ nobase_pkginclude_HEADERS += \
   Cmp.fhh              Cmp.hh \
   Analysis.hh          AnalysisInfo.hh \
   AnalysisBuilder.hh   AnalysisLoader.hh \
-  AnalysisHandler.hh   Cuts.hh
+  AnalysisHandler.hh   Cuts.hh \
+  Cuts_implementation.hh
 
 
 ## Build config stuff

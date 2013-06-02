@@ -1,6 +1,8 @@
-#include "Rivet/Cuts.hh"
+#include <Rivet/Cuts_implementation.hh>
+#include <Rivet/Cuts.hh>
 
 using namespace std;
+
 namespace Rivet {
 
     ///////////////////
@@ -66,6 +68,20 @@ namespace Rivet {
     return etaGtr(n) & etaLess(m);
   }
 
+  Cut phiGtr(double n) {
+    CutPhiGtr pg(n);
+    return make_cut(pg);
+  }
+
+  Cut phiLess(double n) {
+    CutPhiLess pl(n);
+    return make_cut(pl);
+  }
+
+  Cut phiIn(double n, double m) {
+    if(n > m) swap(n , m);
+    return phiGtr(n) & phiLess(m);
+  }
 
 
     //////////////
@@ -121,6 +137,7 @@ namespace Rivet {
   double Cuttable::m() const { assert(false); }
   double Cuttable::y() const { assert(false); }
   double Cuttable::eta() const { assert(false); }
+  double Cuttable::phi() const { assert(false); }
 
 
     /// pT
@@ -179,6 +196,18 @@ namespace Rivet {
     {return o.eta() < high_;}
 
 
+    /// Azimuthal angle
+  CutPhiGtr::CutPhiGtr(const double phi_lowerlim)
+      : low_(phi_lowerlim) { }
+
+  bool CutPhiGtr::cut(const Cuttable & o) const
+    {return o.phi() >= low_;}
+
+  CutPhiLess::CutPhiLess(const double phi_upperlim)
+      : high_(phi_upperlim) { }
+
+  bool CutPhiLess::cut(const Cuttable & o) const
+    {return o.phi() < high_;}
 
 
 }
