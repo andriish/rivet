@@ -259,48 +259,31 @@ if test x$enable_pyext == xyes; then
     enable_pyext=no
   fi
 fi
-## SWIG checks
+
+## Cython checks (Probably need some help...)
+# TODO: "Tarball users" should ideally not need to have Cython installed
 if test x$enable_pyext == xyes; then
-  AC_PROG_SWIG
-  if test x$SWIG == x; then
-    AC_MSG_ERROR([Can't build Python extension since swig could not be found])
+  AM_CHECK_CYTHON([0.17], [:], [:])
+  if test x$CYTHON_FOUND != xyes; then
+    AC_MSG_ERROR([Can't build Python extension since Cython >= 0.17 could not be found])
     enable_pyext=no
   else
-    ## Test that SWIG makes a compilable source file...
-    ## cf. g++ 4.x requires that string literal is "_const_ char*"
-    cat > conftest.i <<EOL
-%module conftest
-%{
-  void foo();
-%}
-void foo();
-EOL
-    AC_MSG_CHECKING([if $SWIG can make a Python function wrapper])
-    flag_ok=yes
-    stat_string=`$SWIG -c++ -python conftest.i 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
-    AC_MSG_RESULT([$flag_ok])
-    if test x$flag_ok != xyes; then
-      AC_MSG_ERROR([Can't build Python extension since $SWIG is not able to make a Python wrapper])
-      enable_pyext=no
-    else
-      swig_compiler=$CXX
-      AC_CEDAR_CHECKCXXFLAG([-Wno-format], [AC_MSG_NOTICE([adding -Wno-format to swig compilation test]);
-        swig_compiler="$swig_compiler -Wno-format"])
-      AC_MSG_CHECKING([if $SWIG is compatible with the $CXX compiler])
-      flag_ok=yes
-      if test x$flag_ok == xyes; then
-        stat_string=`$swig_compiler -c conftest_wrap.cxx $CPPFLAGS $CXXFLAGS -I$python_incpath 2>&1 1>&5` ; test -z "$stat_string" || flag_ok=no
-      fi
-      AC_MSG_RESULT([$flag_ok])
-      if test x$flag_ok != xyes; then
-        AC_MSG_ERROR([Can't build Python extension since $SWIG is not compatible with $CXX. Get a newer SWIG version!])
-        enable_pyext=no
-      fi
-    fi
+    cython_compiler=$CXX
   fi
-  rm -rf conftest*
 fi
-## Finish
+## Finish Python extension testing
+if test x$enable_pyext == xyes; then
+  AC_MSG_NOTICE([All Python build checks successful: 'yoda' Python extension will be built])
+fi
+AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
+
+## Set extra Python extension build flags (to cope with Cython output code oddities)
+PYEXT_CXXFLAGS=
+AC_CEDAR_CHECKCXXFLAG([-Wno-unused-but-set-variable], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-unused-but-set-variable"])
+AC_CEDAR_CHECKCXXFLAG([-Wno-sign-compare], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-sign-compare"])
+AC_SUBST(PYEXT_CXXFLAGS)
+
+
 if test x$enable_pyext == xyes; then
   AC_MSG_NOTICE([All Python build checks successful: 'rivet' Python extension will be built])
 fi

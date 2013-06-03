@@ -1,12 +1,7 @@
-EXTRA_DIST = __init__.py util.py plotinfo.py spiresbib.py rivetwrap.i
-
-all-local: rivetwrap_wrap.cc rivetwrap.py
-	@true
-
-rivetwrap_wrap.cc rivetwrap.py: rivetwrap.i
-	$(SWIG) -c++ -python -I$(top_srcdir)/include -o rivetwrap_wrap.cc $<
+SUBDIRS =
+EXTRA_DIST = __init__.py \
+    core.pyx rivet.pxd plotinfo.py \
+    util.py spiresbib.py
 
 clean-local:
-	@rm -f *.pyc
-	@rm -f rivetwrap.py
-	@rm -f rivetwrap_wrap.cc
+	@rm -f core.cpp
