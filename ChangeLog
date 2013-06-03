@@ -1,3 +1,9 @@
+2013-06-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding explicit protection against using inf/nan scalefactors in ATLAS_2011_S9131140.
+
+	* Making Analysis::scale noisly complain about invalid scalefactors.
+
 2013-05-31  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Reducing the TeX main memory to ~500MB. Turns out that it *can*
