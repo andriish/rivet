@@ -230,9 +230,9 @@ namespace Rivet {
     void finalize() {
       // Normalization of the Et distributions
       /// @todo Simplify by using normalize() instead? Are all these being normalized to area=1?
-      for (size_t ix = 0; ix < 17; ++ix) if (_weightETLowQa[ix] != 0) scale(_histETLowQa[ix], 1/_weightETLowQa[ix]);
+      for (size_t ix = 0; ix < 17; ++ix) if (_weightETLowQa[ix]  != 0) scale(_histETLowQa[ix],  1/_weightETLowQa[ix]);
       for (size_t ix = 0; ix <  7; ++ix) if (_weightETHighQa[ix] != 0) scale(_histETHighQa[ix], 1/_weightETHighQa[ix]);
-      for (size_t ix = 0; ix <  5; ++ix) if (_weightETLowQb[ix] != 0) scale(_histETLowQb[ix], 1/_weightETLowQb[ix]);
+      for (size_t ix = 0; ix <  5; ++ix) if (_weightETLowQb[ix]  != 0) scale(_histETLowQb[ix],  1/_weightETLowQb[ix]);
       for (size_t ix = 0; ix <  3; ++ix) if (_weightETHighQb[ix] != 0) scale(_histETHighQb[ix], 1/_weightETHighQb[ix]);
     }
 
