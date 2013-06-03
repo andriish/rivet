@@ -9,14 +9,14 @@ namespace Rivet {
 
   /// @brief H1 energy flow and charged particle spectra
   /// @author Peter Richardson
-  /// Based on the HZtool analysis hz99091
+  /// Based on the HZTOOL analysis HZ99091
   class H1_2000_S4129130 : public Analysis {
   public:
 
     /// Constructor
-    H1_2000_S4129130() : Analysis("H1_2000_S4129130")
-    {
-    }
+    H1_2000_S4129130()
+      : Analysis("H1_2000_S4129130")
+    {    }
 
 
     /// @name Analysis methods
@@ -59,16 +59,13 @@ namespace Rivet {
       // There are four possible selections for events
       bool evcut[4];
       // Low  Q2 selection a
-      evcut[0] = enel/GeV > 12. && w2 >= 4400.*GeV2 && efwd/GeV > 0.5 &&
-        inRange(thel,157.,176.);
+      evcut[0] = enel/GeV > 12. && w2 >= 4400.*GeV2 && efwd/GeV > 0.5 && inRange(thel,157.,176.);
       // Low  Q2 selection b
       evcut[1] = enel/GeV > 12. && inRange(y,0.3,0.5);
       // High Q2 selection a
-      evcut[2] = inRange(thel,12.,150.) && inRange(y,0.05,0.6) &&
-        w2 >= 4400.*GeV2 && efwd > 0.5;
+      evcut[2] = inRange(thel,12.,150.) && inRange(y,0.05,0.6) && w2 >= 4400.*GeV2 && efwd > 0.5;
       // High Q2 selection b
-      evcut[3] = inRange(thel,12.,150.) && inRange(y,0.05,0.6) &&
-	inRange(w2,27110.*GeV2,45182.*GeV2);
+      evcut[3] = inRange(thel,12.,150.) && inRange(y,0.05,0.6) && inRange(w2,27110.*GeV2,45182.*GeV2);
 
       // Veto if fails all cuts
       if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3]) ) {
@@ -84,19 +81,19 @@ namespace Rivet {
         if (x > 0.0002  && x <= 0.00035) bin[0] = 2;
         if (x > 0.00035 && x <= 0.0010 ) bin[0] = 3;
       }
-      else if(q2 > 5.*GeV && q2 <= 10.*GeV) {
+      else if (q2 > 5.*GeV && q2 <= 10.*GeV) {
         if (x > 0.0001  && x <= 0.0002 ) bin[0] = 4;
         if (x > 0.0002  && x <= 0.00035) bin[0] = 5;
         if (x > 0.00035 && x <= 0.0007 ) bin[0] = 6;
         if (x > 0.0007  && x <= 0.0020 ) bin[0] = 7;
       }
-      else if(q2 > 10.*GeV && q2 <= 20.*GeV) {
+      else if (q2 > 10.*GeV && q2 <= 20.*GeV) {
         if (x > 0.0002 && x <= 0.0005) bin[0] = 8;
         if (x > 0.0005 && x <= 0.0008) bin[0] = 9;
         if (x > 0.0008 && x <= 0.0015) bin[0] = 10;
         if (x > 0.0015 && x <= 0.040 ) bin[0] = 11;
       }
-      else if(q2 > 20.*GeV && q2 <= 50.*GeV) {
+      else if (q2 > 20.*GeV && q2 <= 50.*GeV) {
         if (x > 0.0005 && x <= 0.0014) bin[0] = 12;
         if (x > 0.0014 && x <= 0.0030) bin[0] = 13;
         if (x > 0.0030 && x <= 0.0100) bin[0] = 14;
@@ -232,18 +229,11 @@ namespace Rivet {
     // Finalize
     void finalize() {
       // Normalization of the Et distributions
-      for (size_t ix=0; ix<17; ++ix) {
-        scale(_histETLowQa[ix], 1./_weightETLowQa[ix]);
-      }
-      for(size_t ix=0; ix<7; ++ix) {
-        scale(_histETHighQa[ix], 1./_weightETHighQa[ix]);
-      }
-      for(size_t ix=0; ix<5; ++ix) {
-        scale(_histETLowQb[ix], 1./_weightETLowQb[ix]);
-      }
-      for(size_t ix=0; ix<3; ++ix) {
-        scale(_histETHighQb[ix], 1./_weightETHighQb[ix]);
-      }
+      /// @todo Simplify by using normalize() instead? Are all these being normalized to area=1?
+      for (size_t ix = 0; ix < 17; ++ix) if (_weightETLowQa[ix] != 0) scale(_histETLowQa[ix], 1/_weightETLowQa[ix]);
+      for (size_t ix = 0; ix <  7; ++ix) if (_weightETHighQa[ix] != 0) scale(_histETHighQa[ix], 1/_weightETHighQa[ix]);
+      for (size_t ix = 0; ix <  5; ++ix) if (_weightETLowQb[ix] != 0) scale(_histETLowQb[ix], 1/_weightETLowQb[ix]);
+      for (size_t ix = 0; ix <  3; ++ix) if (_weightETHighQb[ix] != 0) scale(_histETHighQb[ix], 1/_weightETHighQb[ix]);
     }
 
 
