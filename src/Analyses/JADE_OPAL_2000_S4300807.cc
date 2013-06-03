@@ -76,7 +76,6 @@ namespace Rivet {
             _h_R_Jade[0]->fill(ycut, weight*width);
           }
         }
-
         for (size_t i = 0; i < _h_R_Jade[1]->numBins(); ++i) {
           double ycut = _h_R_Jade[1]->bin(i).xMin();
           double width = _h_R_Jade[1]->bin(i).width();
@@ -98,7 +97,6 @@ namespace Rivet {
             _h_R_Jade[3]->fill(ycut, weight*width);
           }
         }
-
         for (size_t i = 0; i < _h_R_Jade[4]->numBins(); ++i) {
           double ycut = _h_R_Jade[4]->bin(i).xMin();
           double width = _h_R_Jade[4]->bin(i).width();
@@ -110,7 +108,6 @@ namespace Rivet {
 
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
-        /// @todo Put this in an index loop?
         const double y_23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
         const double y_34 = durjet.clusterSeq()->exclusive_ymerge_max(3);
         const double y_45 = durjet.clusterSeq()->exclusive_ymerge_max(4);
@@ -122,35 +119,35 @@ namespace Rivet {
         _h_y_Durham[3]->fill(y_56, weight);
 
         for (size_t i = 0; i < _h_R_Durham[0]->numBins(); ++i) {
-          double ycut = _h_R_Durham[0]->bin(i).midpoint();
+          double ycut = _h_R_Durham[0]->bin(i).xMin();
           double width = _h_R_Durham[0]->bin(i).width();
           if (y_23 < ycut) {
             _h_R_Durham[0]->fill(ycut, weight*width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[1]->numBins(); ++i) {
-          double ycut = _h_R_Durham[1]->bin(i).midpoint();
+          double ycut = _h_R_Durham[1]->bin(i).xMin();
           double width = _h_R_Durham[1]->bin(i).width();
           if (y_34 < ycut && y_23 > ycut) {
             _h_R_Durham[1]->fill(ycut, weight*width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[2]->numBins(); ++i) {
-          double ycut = _h_R_Durham[2]->bin(i).midpoint();
+          double ycut = _h_R_Durham[2]->bin(i).xMin();
           double width = _h_R_Durham[2]->bin(i).width();
           if (y_45 < ycut && y_34 > ycut) {
             _h_R_Durham[2]->fill(ycut, weight*width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[3]->numBins(); ++i) {
-          double ycut = _h_R_Durham[3]->bin(i).midpoint();
+          double ycut = _h_R_Durham[3]->bin(i).xMin();
           double width = _h_R_Durham[3]->bin(i).width();
           if (y_56 < ycut && y_45 > ycut) {
             _h_R_Durham[3]->fill(ycut, weight*width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[4]->numBins(); ++i) {
-          double ycut = _h_R_Durham[4]->bin(i).midpoint();
+          double ycut = _h_R_Durham[4]->bin(i).xMin();
           double width = _h_R_Durham[4]->bin(i).width();
           if (y_56 > ycut) {
             _h_R_Durham[4]->fill(ycut, weight*width);
