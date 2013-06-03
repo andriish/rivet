@@ -545,6 +545,9 @@ namespace Rivet {
     //@}
 
 
+    /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
+  public:
+
     /// @name Histogram manipulation
     //@{
 
