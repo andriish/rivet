@@ -21,28 +21,22 @@ typedef boost::shared_ptr<CutBase> Cut;
 /// These functions are used to build cuts
 
   namespace Cuts {
-    enum Token {
+    enum Quantity {
       pt, mass, rap, eta, phi
     };
   }
 
-  Cut operator < (Cuts::Token, double);
-  inline Cut operator < (Cuts::Token tk, int i) { return tk < double(i); }
-  Cut operator >= (Cuts::Token, double);
-  inline Cut operator >= (Cuts::Token tk, int i) { return tk >= double(i); }
+  Cut operator < (Cuts::Quantity, double);
+  Cut operator >= (Cuts::Quantity, double);
+  Cut In(Cuts::Quantity, double n, double m);
 
-
-Cut ptIn(double n, double m);
-
-Cut massIn(double n, double m);
-
-Cut rapIn(double n, double m);
-
-Cut etaIn(double n, double m);
-
-Cut phiIn(double n, double m);
-
-
+  // overload helpers
+  inline Cut operator < (Cuts::Quantity qty, int i) { 
+    return qty < double(i); 
+  }
+  inline Cut operator >= (Cuts::Quantity qty, int i) { 
+    return qty >= double(i); 
+  }
 
 
 /// operator &, operator |, operator ~, and operator ^ overloads

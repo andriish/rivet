@@ -8,12 +8,8 @@ namespace Rivet {
 
 class Cuttable {
 public:
-    virtual double pT() const;
-    virtual double m() const;
-    virtual double y() const;
-    virtual double eta() const;
-    virtual double phi() const;
-    virtual ~Cuttable() {}
+  virtual double getValue(Cuts::Quantity) const = 0;
+  virtual ~Cuttable() {}
 };
 
 
@@ -24,31 +20,25 @@ bool CutBase::accept<Cuttable>(const Cuttable & t) {
 
 
 
-#define CUTOPS(CUTNAME,CUTFN) \
-class Cut_ ## CUTNAME ## Gtr : public CutBase { \
-public: \
-    Cut_ ## CUTNAME ## Gtr(const double low) : low_(low) {} \
-protected: \
-    bool accept_(const Cuttable & o) const { return (CUTFN) >= low_; } \
-    private: \
-    double low_; \
-}; \
-\
-class Cut_ ## CUTNAME ## Less : public CutBase { \
-public: \
-    Cut_ ## CUTNAME ## Less(const double high) : high_(high) {} \
-protected: \
-    bool accept_(const Cuttable & o) const { return (CUTFN) < high_; } \
-    private: \
-    double high_; \
-}; \
-\
- Cut CUTNAME ## In(double m, double n) { \
-   if (m > n) swap(m,n); \
-   return (Cuts::CUTNAME >= m) & (Cuts::CUTNAME < n);	\
-} \
+class Cut_Gtr : public CutBase {
+public:
+  Cut_Gtr(const Cuts::Quantity qty, const double low) : qty_(qty), low_(low) {}
+protected:
+  bool accept_(const Cuttable & o) const { return o.getValue(qty_) >= low_; }
+private:
+  Cuts::Quantity qty_;
+  double low_;
+};
 
-
+class Cut_Less : public CutBase {
+public:
+  Cut_Less(const Cuts::Quantity qty, const double high) : qty_(qty), high_(high) {}
+protected:
+  bool accept_(const Cuttable & o) const { return o.getValue(qty_) < high_; }
+private:
+  Cuts::Quantity qty_;
+  double high_;
+};
 
 
   template <typename T>
@@ -56,37 +46,17 @@ protected: \
     return boost::shared_ptr<T>(new T(t));
   }
 
-
-
-  CUTOPS(pt, o.pT())
-
-  CUTOPS(mass, o.m())
-
-  CUTOPS(rap, o.y())
-
-  CUTOPS(eta, o.eta())
-
-  CUTOPS(phi, o.phi())
-
-
-  Cut operator < (Cuts::Token tk, double n) {
-    switch (tk) {
-    case Cuts::pt:  return make_cut(Cut_ptLess(n));
-    case Cuts::mass:return make_cut(Cut_massLess(n));
-    case Cuts::rap: return make_cut(Cut_rapLess(n));
-    case Cuts::eta: return make_cut(Cut_etaLess(n));
-    case Cuts::phi: return make_cut(Cut_phiLess(n));
-    }
+  Cut operator < (Cuts::Quantity qty, double n) {
+    return make_cut(Cut_Less(qty, n));
   }
 
-  Cut operator >= (Cuts::Token tk, double n) {
-    switch (tk) {
-    case Cuts::pt:  return make_cut(Cut_ptGtr(n));
-    case Cuts::mass:return make_cut(Cut_massGtr(n));
-    case Cuts::rap: return make_cut(Cut_rapGtr(n));
-    case Cuts::eta: return make_cut(Cut_etaGtr(n));
-    case Cuts::phi: return make_cut(Cut_phiGtr(n));
-    }
+  Cut operator >= (Cuts::Quantity qty, double n) {
+    return make_cut(Cut_Gtr(qty, n));
+  }
+
+  Cut In(Cuts::Quantity qty, double m, double n) {
+    if (m > n) swap(m,n);
+    return (qty >= m) & (qty < n);
   }
 
 
@@ -167,16 +137,6 @@ private:
   /// Cuts
 
 
-
-
-  double Cuttable::pT() const { assert(false); }
-  double Cuttable::m() const { assert(false); }
-  double Cuttable::y() const { assert(false); }
-  double Cuttable::eta() const { assert(false); }
-  double Cuttable::phi() const { assert(false); }
-
-
-
 template <typename T>
 class MakeCuttable : public Cuttable {};
 
@@ -188,16 +148,27 @@ bool CutBase::accept<TYPENAME>(const TYPENAME & t) { \
 } \
 
 
+void qty_not_found() {
+  throw Exception("Missing implementation for a Quantity.");
+}
+
 
 template<>
 class MakeCuttable <Particle> : public Cuttable {
     public:
     MakeCuttable(const Particle& p) : p_(p) {}
-    double pT() const {return p_.momentum().pT();}
-    double m() const {return p_.momentum().mass();}
-    double y() const {return p_.momentum().rapidity();}
-    double eta() const {return p_.momentum().pseudorapidity();}
-    double phi() const {return p_.momentum().phi();}
+    double getValue(Cuts::Quantity qty) const {
+      switch(qty) {
+      case Cuts::pt:   return p_.momentum().pT();
+      case Cuts::mass: return p_.momentum().mass();
+      case Cuts::rap:  return p_.momentum().rapidity();
+      case Cuts::eta:  return p_.momentum().pseudorapidity();
+      case Cuts::phi:  return p_.momentum().phi();
+      default: 
+	qty_not_found();
+      }
+      return -999.;
+    }
     private:
     const Particle & p_;
 };
@@ -208,11 +179,18 @@ template<>
 class MakeCuttable <FourMomentum> : public Cuttable {
     public:
     MakeCuttable(const FourMomentum& fm) : fm_(fm) {}
-    double pT() const {return fm_.pT();}
-    double m() const {return fm_.mass();}
-    double y() const {return fm_.rapidity();}
-    double eta() const {return fm_.pseudorapidity();}
-    double phi() const {return fm_.phi();}
+    double getValue(Cuts::Quantity qty) const {
+      switch(qty) {
+      case Cuts::pt:   return fm_.pT();
+      case Cuts::mass: return fm_.mass();
+      case Cuts::rap:  return fm_.rapidity();
+      case Cuts::eta:  return fm_.pseudorapidity();
+      case Cuts::phi:  return fm_.phi();
+      default: 
+	qty_not_found();
+      }
+      return -999.;
+    }
     private:
     const FourMomentum & fm_;
 };
@@ -222,11 +200,18 @@ template<>
 class MakeCuttable <Jet> : public Cuttable {
     public:
     MakeCuttable(const Jet& jet) : jet_(jet) {}
-    double pT() const {return jet_.momentum().pT();}
-    double m() const {return jet_.momentum().mass();}
-    double y() const {return jet_.momentum().rapidity();}
-    double eta() const {return jet_.momentum().pseudorapidity();}
-    double phi() const {return jet_.momentum().phi();}
+    double getValue(Cuts::Quantity qty) const {
+      switch(qty) {
+      case Cuts::pt:   return jet_.momentum().pT();
+      case Cuts::mass: return jet_.momentum().mass();
+      case Cuts::rap:  return jet_.momentum().rapidity();
+      case Cuts::eta:  return jet_.momentum().pseudorapidity();
+      case Cuts::phi:  return jet_.momentum().phi();
+      default: 
+	qty_not_found();
+      }
+      return -999.;
+    }
     private:
     const Jet & jet_;
 };
@@ -236,11 +221,18 @@ template<>
 class MakeCuttable <fastjet::PseudoJet> : public Cuttable {
     public:
     MakeCuttable(const fastjet::PseudoJet& pjet) : pjet_(pjet) {}
-    double pT() const {return pjet_.perp();}
-    double m() const {return pjet_.m();}
-    double y() const {return pjet_.rap();}
-    double eta() const {return pjet_.eta();}
-    double phi() const {return pjet_.phi();}
+    double getValue(Cuts::Quantity qty) const {
+      switch(qty) {
+      case Cuts::pt:   return pjet_.perp();
+      case Cuts::mass: return pjet_.m();
+      case Cuts::rap:  return pjet_.rap();
+      case Cuts::eta:  return pjet_.eta();
+      case Cuts::phi:  return pjet_.phi();
+      default: 
+	qty_not_found();
+      }
+      return -999.;
+    }
     private:
     const fastjet::PseudoJet & pjet_;
 };
