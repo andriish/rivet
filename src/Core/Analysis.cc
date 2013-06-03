@@ -507,7 +507,7 @@ namespace Rivet {
       MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
       return;
     }
-    if (std::isnan(scale) && std::isinf(scale)) {
+    if (std::isnan(scale) || std::isinf(scale)) {
       MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
       scale = 0;
     }
