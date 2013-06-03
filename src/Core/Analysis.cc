@@ -457,34 +457,30 @@ namespace Rivet {
 
   void Analysis::divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
     // preserve the path info
-    std::string path = s->path();
+    const string path = s->path();
     *s = *h1 / *h2;
-    s->setPath( path );
+    s->setPath(path);
   }
 
   void Analysis::divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const {
     // preserve the path info
-    std::string path = s->path();
+    const string path = s->path();
     *s = *p1 / *p2;
-    s->setPath( path );
+    s->setPath(path);
   }
 
-  void Analysis::divide(const Histo1D & h1,
-                        const Histo1D & h2,
-                        Scatter2DPtr s) const {
+  void Analysis::divide(const Histo1D& h1, const Histo1D& h2, Scatter2DPtr s) const {
     // preserve the path info
-    std::string path = s->path();
+    const string path = s->path();
     *s = h1 / h2;
-    s->setPath( path );
+    s->setPath(path);
   }
 
-  void Analysis::divide(const Profile1D & p1,
-                        const Profile1D & p2,
-                        Scatter2DPtr s) const {
+  void Analysis::divide(const Profile1D& p1, const Profile1D& p2, Scatter2DPtr s) const {
     // preserve the path info
-    std::string path = s->path();
+    const string path = s->path();
     *s = p1 / p2;
-    s->setPath( path );
+    s->setPath(path);
   }
 
   void Analysis::normalize(Histo1DPtr histo, double norm, bool includeoverflows) {
@@ -535,8 +531,31 @@ namespace Rivet {
   /// @todo 2D versions of scale and normalize...
 
 
+  // void Analysis::integrate(Histo1DPtr h, Scatter2DPtr s) const {
+  //   // preserve the path info
+  //   const string path = s->path();
+  //   *s = toIntegralHisto(*h);
+  //   s->setPath(path);
+  // }
+
+  // void Analysis::integrate(const Histo1D& h, Scatter2DPtr s) const {
+  //   // preserve the path info
+  //   const string path = s->path();
+  //   *s = toIntegralHisto(h);
+  //   s->setPath(path);
+  // }
+
+
+  /// @todo 2D versions of integrate... defined how, exactly?!?
+
+
+  //////////////////////////////////
+
+
+  /// @todo Change to just add() and add a get()... plus TMP versions
   void Analysis::addPlot(AnalysisObjectPtr ao) {
     _plotobjects.push_back(ao);
   }
+
 
 }
