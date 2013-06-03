@@ -6,7 +6,6 @@
 #include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/Sphericity.hh"
-#include "Rivet/Cuts.hh"
 
 namespace Rivet {
 

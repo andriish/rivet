@@ -5,6 +5,6 @@ libRivetCore_la_SOURCES = \
   ProjectionApplier.cc Projection.cc \
   Analysis.cc AnalysisLoader.cc AnalysisInfo.cc \
   AnalysisHandler.cc Run.cc ProjectionHandler.cc \
-  Cuts_implementation.cc
+  Cuts.cc
 
 libRivetCore_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(YAML_CPPINCPATH) -DYAMLCPP_API_VERSION=$(YAMLCPP_MAJOR_VERSION)

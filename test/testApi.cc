@@ -12,6 +12,7 @@ int main() {
   ah.addAnalysis("EXAMPLE");
   vector<string> moreanalyses(1, "MC_JETS");
   ah.addAnalyses(moreanalyses);
+  ah.addAnalysis("EXAMPLE_CUTS");
 
   std::istream* file = new std::fstream("testApi.hepmc", std::ios::in);
   HepMC::IO_GenEvent hepmcio(*file);

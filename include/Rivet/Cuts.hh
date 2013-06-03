@@ -1,13 +1,25 @@
 #ifndef RIVET_Cuts_HH
 #define RIVET_Cuts_HH
-
-#include <Rivet/Cuts_implementation.hh>
-
-using namespace std;
+#include <boost/smart_ptr.hpp>
 
 namespace Rivet {
 
-/// These pointers are used to build cuts
+  class Cuttable;
+
+  class CutBase {
+  public:
+    template <typename T>
+    bool accept(const T & t);
+  protected:
+    virtual bool accept_(const Cuttable & o) const = 0;
+  public:
+    virtual ~CutBase() {}
+  };
+
+typedef boost::shared_ptr<CutBase> Cut;
+
+/// These functions are used to build cuts
+
 
 Cut ptGtr(double n);
 Cut ptLess(double n);
@@ -28,6 +40,16 @@ Cut etaIn(double n, double m);
 Cut phiGtr(double n);
 Cut phiLess(double n);
 Cut phiIn(double n, double m);
+
+
+
+
+/// operator &, operator |, operator ~, and operator ^ overloads
+
+Cut operator & (const Cut aptr, const Cut bptr);
+Cut operator | (const Cut aptr, const Cut bptr);
+Cut operator ~ (const Cut cptr);
+Cut operator ^ (const Cut aptr, const Cut bptr);
 
 }
 
