@@ -281,51 +281,11 @@ namespace Rivet {
     //@}
 
 
-  public:
-
-    /// Access the controlling AnalysisHandler object.
-    AnalysisHandler& handler() const { return *_analysishandler; }
-
-    /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    void normalize(Histo1DPtr histo, double norm=1.0, bool includeoverflows=true);
-
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    void scale(Histo1DPtr histo, double scale);
-
-    /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    // void normalize(Histo2DPtr histo, double norm=1.0);
-
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    // void scale(Histo2DPtr histo, double scale);
-
     /// Set the cross section from the generator
     Analysis& setCrossSection(double xs);
 
-    /// Helper for histogram division. Preserves the path information
-    /// of the target.
-    void divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
-
-    /// Helper for profile histogram division. Preserves the path information
-    /// of the target.
-    void divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const;
-
-    /// Helper for histogram division. Preserves the path information
-    /// of the target.
-    void divide(const YODA::Histo1D & h1,
-                const YODA::Histo1D & h2, Scatter2DPtr s) const;
-
-    /// Helper for profile histogram division. Preserves the path information
-    /// of the target.
-    void divide(const YODA::Profile1D & p1,
-                const YODA::Profile1D & p2, Scatter2DPtr s) const;
+    /// Access the controlling AnalysisHandler object.
+    AnalysisHandler& handler() const { return *_analysishandler; }
 
 
   protected:
@@ -351,7 +311,7 @@ namespace Rivet {
 
   protected:
 
-    /// @name AIDA analysis infrastructure.
+    /// @name Histogram paths
     //@{
 
     /// Get the canonical histogram "directory" path for this analysis.
@@ -585,28 +545,82 @@ namespace Rivet {
     //@}
 
 
+    /// @name Histogram manipulation
+    //@{
+
+    /// Normalize the given histogram, @a histo, to area = @a norm.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    void normalize(Histo1DPtr histo, double norm=1.0, bool includeoverflows=true);
+
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    void scale(Histo1DPtr histo, double scale);
+
+    /// Normalize the given histogram, @a histo, to area = @a norm.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    // void normalize(Histo2DPtr histo, double norm=1.0);
+
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    // void scale(Histo2DPtr histo, double scale);
+
+
+    /// Helper for histogram division.
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
+
+    /// Helper for profile histogram division.
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const;
+
+    /// Helper for histogram division.
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(const YODA::Histo1D & h1,
+                const YODA::Histo1D & h2, Scatter2DPtr s) const;
+
+    /// Helper for profile histogram division
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(const YODA::Profile1D & p1,
+                const YODA::Profile1D & p2, Scatter2DPtr s) const;
+
+
+    /// Helper for converting a differential histo to an integral one.
+    ///
+    /// @note Preserves the path information of the target.
+    void integrate(Histo1DPtr h, Scatter2DPtr s) const;
+
+    /// Helper for converting a differential histo to an integral one.
+    ///
+    /// @note Preserves the path information of the target.
+    void integrate(const Histo1D& h, Scatter2DPtr s) const;
+
+
+    /// @todo Add integrate helpers for 2D histos (defined somehow...)
+
+    //@}
+
+
   public:
 
     /// List of registered plot objects
-    const vector<AnalysisObjectPtr> & plots() const {
+    /// @todo Rename since counters are not plots
+    const vector<AnalysisObjectPtr>& plots() const {
       return _plotobjects;
     }
-
-
-  private:
-
-    /// @name Utility functions
-    //@{
-
-    /// Get the reference data for this paper and cache it.
-    void _cacheRefData() const;
-
-    //@}
 
 
   protected:
 
     /// Add a plot object to the final output list
+    /// @todo Rename since counters are not plots
     void addPlot(AnalysisObjectPtr);
 
     /// Name passed to constructor (used to find .info analysis data file, and as a fallback)
@@ -634,7 +648,17 @@ namespace Rivet {
     /// reference data file should only be read once.
     mutable std::map<std::string, Scatter2DPtr> _refdata;
 
+
   private:
+
+    /// @name Utility functions
+    //@{
+
+    /// Get the reference data for this paper and cache it.
+    void _cacheRefData() const;
+
+    //@}
+
 
     /// The assignment operator is private and must never be called.
     /// In fact, it should not even be implemented.

@@ -531,19 +531,19 @@ namespace Rivet {
   /// @todo 2D versions of scale and normalize...
 
 
-  // void Analysis::integrate(Histo1DPtr h, Scatter2DPtr s) const {
-  //   // preserve the path info
-  //   const string path = s->path();
-  //   *s = toIntegralHisto(*h);
-  //   s->setPath(path);
-  // }
+  void Analysis::integrate(Histo1DPtr h, Scatter2DPtr s) const {
+    // preserve the path info
+    const string path = s->path();
+    *s = toIntegralHisto(*h);
+    s->setPath(path);
+  }
 
-  // void Analysis::integrate(const Histo1D& h, Scatter2DPtr s) const {
-  //   // preserve the path info
-  //   const string path = s->path();
-  //   *s = toIntegralHisto(h);
-  //   s->setPath(path);
-  // }
+  void Analysis::integrate(const Histo1D& h, Scatter2DPtr s) const {
+    // preserve the path info
+    const string path = s->path();
+    *s = toIntegralHisto(h);
+    s->setPath(path);
+  }
 
 
   /// @todo 2D versions of integrate... defined how, exactly?!?
