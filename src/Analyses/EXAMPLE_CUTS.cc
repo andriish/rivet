@@ -41,8 +41,8 @@ namespace Rivet {
 
       const Particles ps = applyProjection<FinalState>(event, "FS").particlesByPt();
 
-      Cut ptcut = ptIn(5,20);
-      Cut masscut = massIn(0.,0.2);
+      Cut ptcut = (Cuts::pt >= 5) & (Cuts::pt < 20); //ptIn(5,20);
+      Cut masscut = (Cuts::mass >= 0) & (Cuts::mass < 0.2); //massIn(0.,0.2);
       Cut combine = ptcut & masscut; //Possible to combine cuts
 
       foreach(const Particle& p, ps) {

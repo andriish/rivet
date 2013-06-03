@@ -24,30 +24,28 @@ bool CutBase::accept<Cuttable>(const Cuttable & t) {
 
 
 
-#define CUTOPS(CUTNAME,FNNAME,CUTFN)	       \
-class Cut ## CUTNAME ## Gtr : public CutBase { \
+#define CUTOPS(CUTNAME,CUTFN) \
+class Cut_ ## CUTNAME ## Gtr : public CutBase { \
 public: \
-    Cut ## CUTNAME ## Gtr(const double low) : low_(low) {} \
+    Cut_ ## CUTNAME ## Gtr(const double low) : low_(low) {} \
 protected: \
     bool accept_(const Cuttable & o) const { return (CUTFN) >= low_; } \
     private: \
     double low_; \
 }; \
 \
-class Cut ## CUTNAME ## Less : public CutBase { \
+class Cut_ ## CUTNAME ## Less : public CutBase { \
 public: \
-    Cut ## CUTNAME ## Less(const double high) : high_(high) {} \
+    Cut_ ## CUTNAME ## Less(const double high) : high_(high) {} \
 protected: \
     bool accept_(const Cuttable & o) const { return (CUTFN) < high_; } \
     private: \
     double high_; \
 }; \
 \
- Cut FNNAME ## Gtr(double n) { return make_cut(Cut ## CUTNAME ## Gtr(n));} \
- Cut FNNAME ## Less(double n) { return make_cut(Cut ## CUTNAME ## Less(n));} \
- Cut FNNAME ## In(double m, double n) { \
+ Cut CUTNAME ## In(double m, double n) { \
    if (m > n) swap(m,n); \
-   return FNNAME ## Gtr(m) & FNNAME ## Less(n); \
+   return (Cuts::CUTNAME >= m) & (Cuts::CUTNAME < n);	\
 } \
 
 
@@ -60,15 +58,37 @@ protected: \
 
 
 
-  CUTOPS(Pt, pt, o.pT())
+  CUTOPS(pt, o.pT())
 
-  CUTOPS(Mass, mass, o.m())
+  CUTOPS(mass, o.m())
 
-  CUTOPS(Rap, rap, o.y())
+  CUTOPS(rap, o.y())
 
-  CUTOPS(Eta, eta, o.eta())
+  CUTOPS(eta, o.eta())
 
-  CUTOPS(Phi, phi, o.phi())
+  CUTOPS(phi, o.phi())
+
+
+  Cut operator < (Cuts::Token tk, double n) {
+    switch (tk) {
+    case Cuts::pt:  return make_cut(Cut_ptLess(n));
+    case Cuts::mass:return make_cut(Cut_massLess(n));
+    case Cuts::rap: return make_cut(Cut_rapLess(n));
+    case Cuts::eta: return make_cut(Cut_etaLess(n));
+    case Cuts::phi: return make_cut(Cut_phiLess(n));
+    }
+  }
+
+  Cut operator >= (Cuts::Token tk, double n) {
+    switch (tk) {
+    case Cuts::pt:  return make_cut(Cut_ptGtr(n));
+    case Cuts::mass:return make_cut(Cut_massGtr(n));
+    case Cuts::rap: return make_cut(Cut_rapGtr(n));
+    case Cuts::eta: return make_cut(Cut_etaGtr(n));
+    case Cuts::phi: return make_cut(Cut_phiGtr(n));
+    }
+  }
+
 
     //////////////
     /// Combiners
