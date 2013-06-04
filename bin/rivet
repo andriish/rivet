@@ -122,7 +122,7 @@ for l in opts.NATIVE_LOG_STRS:
         name = "Rivet." + name
     try:
         ## Get right error type
-        level = rivet.LEVELS.get(level.upper(), int(level))
+        level = rivet.LEVELS.get(level.upper(), None)
         logging.debug("Setting log level: %s %d" % (name, level))
         rivet.setLogLevel(name, level)
     except:
