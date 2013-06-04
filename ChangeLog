@@ -1,5 +1,7 @@
 2013-06-04  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Updating the Cython version requirement to 0.18
+
 	* Adding Analysis::integrate() functions and tidying the Analysis.hh file a bit.
 
 2013-06-03  Andy Buckley  <andy.buckley@cern.ch>
