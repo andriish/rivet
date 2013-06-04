@@ -122,7 +122,7 @@ namespace Rivet {
       for (size_t i = 0;  i < 40; ++i) {
         const double yval = _tmphistJet3eta->bin(i).area() * (eta3_CDF_sim[i]/eta3_Ideal_sim[i]);
         const double yerr = _tmphistJet3eta->bin(i).areaErr() * (eta3_CDF_sim_err[i]/eta3_Ideal_sim[i]);
-	points.push_back(Point2D(0, yval/_sumw, 0, yerr/_sumw));
+        points.push_back(Point2D(0, yval/_sumw, 0, yerr/_sumw));
       }
       _histJet3eta->addPoints(points);
 
@@ -146,7 +146,7 @@ namespace Rivet {
       for (size_t i = 0;  i < 35; ++i) {
         const double yval = _tmphistR23->bin(i).area() * (R23_CDF_sim[i]/R23_Ideal_sim[i]);
         const double yerr = _tmphistR23->bin(i).areaErr() * (R23_CDF_sim_err[i]/R23_Ideal_sim[i]);
-	points.push_back(Point2D(0, yval/_sumw, 0, yerr/_sumw));
+        points.push_back(Point2D(0, yval/_sumw, 0, yerr/_sumw));
       }
       _histR23->addPoints(points);
 
