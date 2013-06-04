@@ -90,27 +90,25 @@ namespace Rivet {
 
 
     void finalize() {
-      // Bottom
+      Histo1D temphisto(refData(1, 1, 1));
+
       const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      foreach (Point2D& p, bookScatter2D(1, 1, 1)->points()) {
-        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsBottom);
-      }
-
-      // Charm
-      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      foreach (Point2D& p, bookScatter2D(1, 1, 2)->points()) {
-        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsCharm);
-      }
-
-      // Light
-      const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      foreach (Point2D& p, bookScatter2D(1, 1, 3)->points()) {
-        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsLight);
-      }
-
-      // Bottom-light
-      foreach (Point2D& p, bookScatter2D(1, 1, 4)->points()) {
-        if (fuzzyEquals(sqrtS()/GeV, p.x(), 0.01)) p.setY(avgNumPartsBottom - avgNumPartsLight);
+      const double avgNumPartsCharm  = _weightedTotalChargedPartNumCharm  / _weightCharm;
+      const double avgNumPartsLight  = _weightedTotalChargedPartNumLight  / _weightLight;
+      Scatter2DPtr h_bottom = bookScatter2D(1, 1, 1);
+      Scatter2DPtr h_charm  = bookScatter2D(1, 1, 2);
+      Scatter2DPtr h_light  = bookScatter2D(1, 1, 3);
+      Scatter2DPtr h_diff   = bookScatter2D(1, 1, 4);  // bottom minus light
+      for (size_t b = 0; b < temphisto.numBins(); b++) {
+        const double x  = temphisto.bin(b).midpoint();
+        const double ex = temphisto.bin(b).width()/2.;
+        if (fuzzyEquals(sqrtS()/GeV, x, 0.01)) {
+          // @TODO: Fix y-error:
+          h_bottom->addPoint(x, avgNumPartsBottom, ex, 0.);
+          h_charm->addPoint(x, avgNumPartsCharm, ex, 0.);
+          h_light->addPoint(x, avgNumPartsLight, ex, 0.);
+          h_diff->addPoint(x, avgNumPartsBottom-avgNumPartsLight, ex, 0.);
+        }
       }
     }
 
