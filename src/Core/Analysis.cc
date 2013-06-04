@@ -38,8 +38,8 @@ namespace Rivet {
 
 
   const string Analysis::histoDir() const {
-    // Caching...
-    static string _histoDir;
+    /// @todo Cache in a member variable
+    string _histoDir;
     if (_histoDir.empty()) {
       _histoDir = "/" + name();
       if (handler().runName().length() > 0) {
