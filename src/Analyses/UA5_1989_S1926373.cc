@@ -69,7 +69,7 @@ namespace Rivet {
       _hist_nch_eta15->fill(numP15, weight);
       _hist_nch_eta30->fill(numP30, weight);
       _hist_nch_eta50->fill(numP50, weight);
-      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMean(), numP50*weight);
+      _hist_mean_nch->fill(_hist_mean_nch->bin(0).midpoint(), numP50*weight);
     }
 
 
