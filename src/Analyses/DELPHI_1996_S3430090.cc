@@ -267,8 +267,10 @@ namespace Rivet {
           const double cosij = dot(mom3_i.unit(), mom3_j.unit());
           const double eec = (energy_i*energy_j) / Evis2;
           _histEEC->fill(cosij, eec*weight);
-          _histAEEC->fill( cosij,  eec*weight);
-          _histAEEC->fill(-cosij, -eec*weight);
+          if (cosij < 0)
+            _histAEEC->fill( cosij,  eec*weight);
+          else
+            _histAEEC->fill(-cosij, -eec*weight);
         }
       }
 
