@@ -2,7 +2,7 @@
 
 """%prog ID [ID ...]
 
-%prog -- ID lookup helper for Rivet
+%prog -- paper ID lookup helper for Rivet
 
 Looks up the Rivet analysis and other ID formats matching the given ID.
 
@@ -16,8 +16,6 @@ Arguments:
 import rivet, sys, os, re
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
-rivet.util.import_ET()
-
 
 def main():
 
@@ -147,6 +145,7 @@ def _search_inspire(url):
     result = {}
     import urllib2
     urlstream = urllib2.urlopen(url)
+    ET = rivet.util.import_ET()
     tree = ET.parse(urlstream)
     for i in tree.getiterator('{http://www.loc.gov/MARC21/slim}controlfield'):
         if i.get('tag') == '001':

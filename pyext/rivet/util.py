@@ -18,6 +18,7 @@ def set_process_name(name):
 
 def import_ET():
     "Try to import the ElementTree XML parser, which has many historical import signatures"
+    ET = None
     try:
         import xml.etree.cElementTree as ET
     except ImportError:
@@ -28,4 +29,4 @@ def import_ET():
                 import xml.etree.ElementTree as ET
             except:
                 raise ImportError("Can't load the ElementTree XML parser (any of three historical ways)")
-
+    return ET

@@ -1,5 +1,7 @@
 2013-06-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fixing attempted abstraction of import fallbacks in rivet.util.import_ET().
+
 	* Removing broken attempt at histoDir() caching which led to all
 	histograms being registered under the same analysis name.
 
