@@ -199,7 +199,7 @@ namespace Rivet {
                                    const string& ytitle) {
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(nbins, lower, upper, path, title) );
-    add(hist);
+    addAnalysisObject(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
@@ -214,7 +214,7 @@ namespace Rivet {
                                    const string& ytitle) {
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(binedges, path, title) );
-    add(hist);
+    addAnalysisObject(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
@@ -229,7 +229,7 @@ namespace Rivet {
                                    const string& ytitle) {
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(refscatter, path) );
-    add(hist);
+    addAnalysisObject(hist);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
@@ -272,7 +272,7 @@ namespace Rivet {
   // {
   //   const string path = histoPath(hname);
   //   Histo2DPtr hist( new Histo2D(path, nxbins, xlower, xupper, nybins, ylower, yupper) );
-  //   add(hist);
+  //   addAnalysisObject(hist);
   //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
   //   hist->setTitle(title);
   //   hist->setAnnotation("XLabel", xtitle);
@@ -292,7 +292,7 @@ namespace Rivet {
   // {
   //   const string path = histoPath(hname);
   //   Histo2DPtr hist( new Histo2D(path, xbinedges, ybinedges) );
-  //   add(hist);
+  //   addAnalysisObject(hist);
   //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
   //   hist->setTitle(title);
   //   hist->setAnnotation("XLabel", xtitle);
@@ -310,7 +310,7 @@ namespace Rivet {
   //                                  const string& ztitle="") {
   //   const string path = histoPath(hname);
   //   Histo2DPtr hist( new Histo2D(refscatter, path) );
-  //   add(hist);
+  //   addAnalysisObject(hist);
   //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
   //   hist->setTitle(title);
   //   hist->setAnnotation("XLabel", xtitle);
@@ -350,7 +350,7 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(nbins, lower, upper, path, title) );
-    add(prof);
+    addAnalysisObject(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
@@ -365,7 +365,7 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(binedges, path, title) );
-    add(prof);
+    addAnalysisObject(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
@@ -380,7 +380,7 @@ namespace Rivet {
                                        const string& ytitle) {
     const string path = histoPath(hname);
     Profile1DPtr prof( new Profile1D(refscatter, path) );
-    add(prof);
+    addAnalysisObject(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
@@ -428,7 +428,7 @@ namespace Rivet {
     // Scatter2DPtr s( new Scatter2D(refdata, path) );
     // foreach (Point2D& p, s->points()) p.setY(0, 0);
     Scatter2DPtr s( new Scatter2D(path) );
-    add(s);
+    addAnalysisObject(s);
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
@@ -449,7 +449,7 @@ namespace Rivet {
       const double bincentre = lower + (pt + 0.5) * binwidth;
       s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    add(s);
+    addAnalysisObject(s);
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
@@ -470,7 +470,7 @@ namespace Rivet {
       const double binwidth = binedges[pt+1] - binedges[pt];
       s->addPoint(bincentre, 0, binwidth/2.0, 0);
     }
-    add(s);
+    addAnalysisObject(s);
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
@@ -551,7 +551,7 @@ namespace Rivet {
     // }
     // string title = histo->title();
     // Scatter2DPtr dps( new Scatter2D(x, y, ex, ey, hpath, title) );
-    // add(dps);
+    // addAnalysisObject(dps);
   }
 
 
@@ -579,15 +579,14 @@ namespace Rivet {
   //////////////////////////////////
 
 
-  /// @todo Change to just add() and add a get()... plus TMP versions
-  void Analysis::add(AnalysisObjectPtr ao) {
-    _plotobjects.push_back(ao);
+  void Analysis::addAnalysisObject(AnalysisObjectPtr ao) {
+    _analysisobjects.push_back(ao);
   }
 
-  void Analysis::remove(const string& path) {
-    for (vector<AnalysisObjectPtr>::iterator it = _plotobjects.begin();  it != _plotobjects.end(); ++it) {
+  void Analysis::removeAnalysisObject(const string& path) {
+    for (vector<AnalysisObjectPtr>::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
       if ((*it)->path() == path) {
-        _plotobjects.erase(it);
+        _analysisobjects.erase(it);
         break;
       }
     }

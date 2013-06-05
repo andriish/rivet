@@ -642,10 +642,9 @@ namespace Rivet {
 
   public:
 
-    /// List of registered plot objects
-    /// @todo Rename since counters are not plots
-    const vector<AnalysisObjectPtr>& plots() const {
-      return _plotobjects;
+    /// List of registered analysis data objects
+    const vector<AnalysisObjectPtr>& analysisObjects() const {
+      return _analysisobjects;
     }
 
 
@@ -656,33 +655,138 @@ namespace Rivet {
 
     /// Register a data object in the histogram system
     /// @todo Rename as reg()? ("register" is a reserved C++ keyword)
-    void add(AnalysisObjectPtr);
+    void addAnalysisObject(AnalysisObjectPtr);
 
-    /// Remove a data object in the histogram system
+    /// Get a data object from the histogram system
     /// @todo Use this default function template arg in C++11
     // template <typename AO=AnalysisObjectPtr>
     template <typename AO>
-    const AO& get(const std::string& path) const {
-      foreach (const AnalysisObjectPtr& ao, _plotobjects) {
-        if (ao->path() == path) return dynamic_cast<AO&>(ao);
+    const shared_ptr<AO> getAnalysisObject(const std::string& name) const {
+      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
+        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
       }
-      throw Exception("Data object " + path + " not found");
+      throw Exception("Data object " + histoPath(name) + " not found");
     }
 
-    /// Remove a data object in the histogram system (non-const)
+    /// Get a data object from the histogram system (non-const)
     /// @todo Use this default function template arg in C++11
     // template <typename AO=AnalysisObjectPtr>
     template <typename AO>
-    AO& get(const std::string& path) {
-      foreach (const AnalysisObjectPtr& ao, _plotobjects) {
-        if (ao->path() == path) return dynamic_cast<AO&>(ao);
+    shared_ptr<AO> getAnalysisObject(const std::string& name) {
+      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
+        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
       }
-      throw Exception("Data object " + path + " not found");
+      throw Exception("Data object " + histoPath(name) + " not found");
     }
 
     /// Register a data object in the histogram system
     /// @todo Rename as unreg()?
-    void remove(const std::string& path);
+    void removeAnalysisObject(const std::string& path);
+
+
+    /// Get a named Histo1D object from the histogram system
+    const Histo1DPtr getHisto1D(const std::string& name) const {
+      return getAnalysisObject<Histo1D>(name);
+    }
+
+    /// Get a named Histo1D object from the histogram system (non-const)
+    Histo1DPtr getHisto1D(const std::string& name) {
+      return getAnalysisObject<Histo1D>(name);
+    }
+
+    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
+    const Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
+    Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+
+    // /// Get a named Histo2D object from the histogram system
+    // const Histo2DPtr getHisto2D(const std::string& name) const {
+    //   return getAnalysisObject<Histo2D>(name);
+    // }
+
+    // /// Get a named Histo2D object from the histogram system (non-const)
+    // Histo2DPtr getHisto2D(const std::string& name) {
+    //   return getAnalysisObject<Histo2D>(name);
+    // }
+
+    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    // const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    // Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+
+    /// Get a named Profile1D object from the histogram system
+    const Profile1DPtr getProfile1D(const std::string& name) const {
+      return getAnalysisObject<Profile1D>(name);
+    }
+
+    /// Get a named Profile1D object from the histogram system (non-const)
+    Profile1DPtr getProfile1D(const std::string& name) {
+      return getAnalysisObject<Profile1D>(name);
+    }
+
+    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
+    const Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
+    Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+
+    // /// Get a named Profile2D object from the histogram system
+    // const Profile2DPtr getProfile2D(const std::string& name) const {
+    //   return getAnalysisObject<Profile2D>(name);
+    // }
+
+    // /// Get a named Profile2D object from the histogram system (non-const)
+    // Profile2DPtr getProfile2D(const std::string& name) {
+    //   return getAnalysisObject<Profile2D>(name);
+    // }
+
+    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    // const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    // Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+
+    /// Get a named Scatter2D object from the histogram system
+    const Scatter2DPtr getScatter2D(const std::string& name) const {
+      return getAnalysisObject<Scatter2D>(name);
+    }
+
+    /// Get a named Scatter2D object from the histogram system (non-const)
+    Scatter2DPtr getScatter2D(const std::string& name) {
+      return getAnalysisObject<Scatter2D>(name);
+    }
+
+    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
+    const Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
+    Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
     //@}
 
@@ -697,7 +801,7 @@ namespace Rivet {
 
     /// Storage of all plot objects
     /// @todo Make this a map for fast lookup by path?
-    vector<AnalysisObjectPtr> _plotobjects;
+    vector<AnalysisObjectPtr> _analysisobjects;
 
     /// @name Cross-section variables
     //@{
