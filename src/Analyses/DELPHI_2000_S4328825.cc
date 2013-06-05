@@ -102,7 +102,7 @@ namespace Rivet {
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).midpoint();
         const double ex = temphisto.bin(b).width()/2.;
-        if (fuzzyEquals(sqrtS()/GeV, x, 0.01)) {
+        if (inRange(sqrtS()/GeV, x-ex, x+ex)) {
           // @TODO: Fix y-error:
           h_bottom->addPoint(x, avgNumPartsBottom, ex, 0.);
           h_charm->addPoint(x, avgNumPartsCharm, ex, 0.);
