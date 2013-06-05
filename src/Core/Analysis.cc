@@ -249,6 +249,9 @@ namespace Rivet {
   }
 
 
+  /// @todo Add booking methods which take a path, titles and *a reference Scatter from which to book*
+
+
   /////////////////
 
 
@@ -553,8 +556,19 @@ namespace Rivet {
 
 
   /// @todo Change to just add() and add a get()... plus TMP versions
-  void Analysis::addPlot(AnalysisObjectPtr ao) {
+  void Analysis::add(AnalysisObjectPtr ao) {
     _plotobjects.push_back(ao);
+  }
+
+  void remove(const string& path) {
+    size_t pos = 0;
+    foreach (const AnalysisObjectPtr& ao, _plotobjects) {
+      if (ao->path() == path) {
+        _plotobjects.erase(pos);
+        break;
+      }
+      pos += 1;
+    }
   }
 
 

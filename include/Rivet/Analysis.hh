@@ -622,9 +622,28 @@ namespace Rivet {
 
   protected:
 
-    /// Add a plot object to the final output list
-    /// @todo Rename since counters are not plots
-    void addPlot(AnalysisObjectPtr);
+    /// @name Data object registration, retrieval, and removal
+    //@{
+
+    /// Register a data object in the histogram system
+    void add(AnalysisObjectPtr);
+
+    /// Remove a data object in the histogram system
+    template <typename AO=AnalysisObjectPtr>
+    const AO& get(const std::string& path) {
+      foreach (const AnalysisObjectPtr& ao, _plotobjects) {
+        if (ao->path() == path) return dynamic_cast<AO&>(ao);
+      }
+      throw Exception("Data object " + path + " not found");
+    }
+
+    /// Register a data object in the histogram system
+    void remove(const std::string& path);
+
+    //@}
+
+
+  private:
 
     /// Name passed to constructor (used to find .info analysis data file, and as a fallback)
     string _defaultname;
@@ -632,10 +651,8 @@ namespace Rivet {
     /// Pointer to analysis metadata object
     shared_ptr<AnalysisInfo> _info;
 
-
-  private:
-
     /// Storage of all plot objects
+    /// @todo Make this a map for fast lookup by path?
     vector<AnalysisObjectPtr> _plotobjects;
 
     /// @name Cross-section variables
