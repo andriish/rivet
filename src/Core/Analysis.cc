@@ -222,11 +222,11 @@ namespace Rivet {
   }
 
 
-  Histo1DPtr Analysis::bookHisto1D(const std::string& hname,
+  Histo1DPtr Analysis::bookHisto1D(const string& hname,
                                    const Scatter2D& refscatter,
-                                   const std::string& title,
-                                   const std::string& xtitle,
-                                   const std::string& ytitle) {
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle) {
     const string path = histoPath(hname);
     Histo1DPtr hist( new Histo1D(refscatter, path) );
     add(hist);
@@ -302,12 +302,12 @@ namespace Rivet {
   // }
 
 
-  // Histo2DPtr Analysis::bookHisto2D(const std::string& hname,
+  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
   //                                  const Scatter3D& refscatter,
-  //                                  const std::string& title="",
-  //                                  const std::string& xtitle="",
-  //                                  const std::string& ytitle="",
-  //                                  const std::string& ztitle="") {
+  //                                  const string& title="",
+  //                                  const string& xtitle="",
+  //                                  const string& ytitle="",
+  //                                  const string& ztitle="") {
   //   const string path = histoPath(hname);
   //   Histo2DPtr hist( new Histo2D(refscatter, path) );
   //   add(hist);
