@@ -153,8 +153,8 @@ namespace Rivet {
           const string vetoPtHistName = "vetoPt_" + plots.intermediateHistName + "_" + lexical_cast<string>(q0PlotCount);
           const string vetoPtGapDataPointName = "gapQ0GapFractionDataPoints_" + plots.intermediateHistName + "_" + lexical_cast<string>(q0PlotCount);
 
-          // Make Q0 bins 0->20 then 20 to 195.0 in steps of 5
-          /// @todo Eliminate?
+          // Make Q0 bins 0->20 ("underflow" for integral plot) then 20 to 195.0 in steps of 5
+          // NB. This is enough bins for all selections but exactly corresponds to no final plot... argh
           vector<double> q0BinEdges; q0BinEdges += 0.0; for (size_t x = 0; x < 36; x++) q0BinEdges += 20.0 + x*5.0;
           plots._h_vetoPt += bookHisto1D(vetoPtHistName, q0BinEdges);
           plots._d_vetoPtGapFraction += bookScatter2D(plots.m_gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType);
