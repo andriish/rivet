@@ -34,8 +34,8 @@ namespace Rivet {
   };
 
 
+
   /// Top pair production with central jet veto
-  /// @todo Check correctness of conversion to efficiency scatter: binning mismatch?
   class ATLAS_2012_I1094568 : public Analysis {
   public:
 
@@ -106,16 +106,22 @@ namespace Rivet {
 
     void initializePlots(ATLAS_2012_I1094568_Plots& plots) {
       const string vetoPt_Q0_name = "vetoJetPt_Q0_" + to_str(plots.region_index);
-      const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + to_str(plots.region_index);
-
-      plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, 200, 0.0, 1000.0);
-      plots._h_vetoJetPt_Qsum = bookHisto1D(vetoPt_Qsum_name, 200, 0.0, 1000.0);
-
-      plots._d_gapFraction_Q0   = bookScatter2D(plots.region_index, 1, 1);
-      plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, 2, 1);
-
       plots.vetoJetPt_Q0 = 0.0;
+      plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, 200, 0.0, 1000.0);
+      plots._d_gapFraction_Q0 = bookScatter2D(plots.region_index, 1, 1);
+      foreach (Point2D p, refData(plots.region_index, 1, 1).points()) {
+        p.setY(0, 0);
+        plots._d_gapFraction_Q0->addPoint(p);
+      }
+
+      const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + to_str(plots.region_index);
+      plots._h_vetoJetPt_Qsum   = bookHisto1D(vetoPt_Qsum_name, 200, 0.0, 1000.0);
+      plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, 2, 1);
       plots.vetoJetPt_Qsum = 0.0;
+      foreach (Point2D p, refData(plots.region_index, 2, 1).points()) {
+        p.setY(0, 0);
+        plots._d_gapFraction_Qsum->addPoint(p);
+      }
     }
 
 
@@ -327,6 +333,7 @@ namespace Rivet {
        if (fgap_point == gapFraction->numPoints()) break;
 
        // Increment the cumulative vetoPt counter for this temp histo bin
+       /// @todo Get rid of this and use vetoPt->integral(i+1) when points and bins line up?
        vetoPtWeightSum += vetoPt->bin(i).sumW();
 
        // If this temp histo bin's upper edge doesn't correspond to the reference point, don't finalise the scatter.
