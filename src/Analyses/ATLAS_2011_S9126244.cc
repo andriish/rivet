@@ -31,7 +31,7 @@ namespace Rivet {
     vector<double> m_gapFractionQ0SlicesDeltaY;
     vector<Histo1DPtr> _h_vetoPt;
     vector<Scatter2DPtr> _d_vetoPtGapFraction;
-    vector<double> _h_vetoPtTotalSum;
+    vector<double> _h_vetoPtTotalSum; //< @todo Can this just be replaced with _h_vetoPt.integral()?
 
     // Average njet vs DeltaY setup
     int m_avgNJetDeltaYHistIndex;
@@ -148,17 +148,13 @@ namespace Rivet {
 
       // Gap fraction vs Q0
       int q0PlotCount = 0;
-      // Make Q0 bins 0->20 ("underflow" for integral plot) then 20 to 195.0 in steps of 5
-      // NB. This is enough bins for all selections but exactly corresponds to no final plot... argh
-      vector<double> q0BinEdges; q0BinEdges.reserve(37);
-      q0BinEdges += 0.0; for (size_t x = 0; x < 36; x++) q0BinEdges += (20.0 + x*5.0);
       for (size_t x = 0; x < plots.m_gapFractionQ0SlicesPtBar.size()/2; x++) {
         for (size_t y = 0; y < plots.m_gapFractionQ0SlicesDeltaY.size()/2; y++) {
           const string vetoPtHistName = "vetoPt_" + plots.intermediateHistName + "_" + lexical_cast<string>(q0PlotCount);
-          const string vetoPtGapDataPointName = "gapQ0GapFractionDataPoints_" + plots.intermediateHistName + "_" + lexical_cast<string>(q0PlotCount);
-          plots._h_vetoPt += bookHisto1D(vetoPtHistName, q0BinEdges);
+          //const string vetoPtGapDataPointName = "gapQ0GapFractionDataPoints_" + plots.intermediateHistName + "_" + lexical_cast<string>(q0PlotCount);
+          plots._h_vetoPt += bookHisto1D(vetoPtHistName, refData(plots.m_gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType));
           plots._d_vetoPtGapFraction += bookScatter2D(plots.m_gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType);
-          plots._h_vetoPtTotalSum += 0.0;
+          plots._h_vetoPtTotalSum += 0.0; //< @todo Can this just be replaced with _h_vetoPt.integral()?
           q0PlotCount += 1;
         }
       }
@@ -315,17 +311,15 @@ namespace Rivet {
 
 
     /// Convert the differential histograms to an integral histo and assign binomial errors as a efficiency
-    /// @todo Should be convertible to a YODA ~one-liner?
+    /// @todo Should be convertible to a YODA ~one-liner using toIntegralEfficiencyHisto
     void finalizeQ0GapFraction(double totalWeightSum, Scatter2DPtr gapFractionDP, Histo1DPtr vetoPtHist) {
-      double vetoPtWeightSum = 0.0;
       for (size_t i = 0; i < vetoPtHist->numBins(); ++i) {
-        vetoPtWeightSum += vetoPtHist->bin(i).sumW();
-        // Calculate the efficiency uncertainty
+        const double vetoPtWeightSum = vetoPtHist->integral(i); //< Integral (with underflow) up to but not including bin i
+        // Calculate the efficiency & binomial uncertainty
         const double eff = (totalWeightSum != 0) ? vetoPtWeightSum/totalWeightSum : 0;
         const double effErr = (totalWeightSum != 0) ? sqrt( eff*(1.0-eff)/totalWeightSum ) : 0;
         gapFractionDP->addPoint(eff, effErr);
       }
-      assert(vetoPtHist->numBins() == gapFractionDP->numPoints());
     }
 
 
