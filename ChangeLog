@@ -1,5 +1,9 @@
 2013-06-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding histo booking from an explicit reference Scatter2D (and more placeholders for 2D histos / 3D scatters) and rewriting existing autobooking to use this.
+
+	* Converting inappropriate uses of size_t to unsigned int in Analysis.
+
 	* Moving Analysis::addPlot to Analysis::add() (or reg()?) and adding get() and remove() (or unreg()?)
 
 	* Fixing attempted abstraction of import fallbacks in rivet.util.import_ET().

@@ -59,12 +59,12 @@ namespace Rivet {
   }
 
 
-  const string Analysis::histoPath(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+  const string Analysis::histoPath(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
     return histoDir() + "/" + makeAxisCode(datasetId, xAxisId, yAxisId);
   }
 
 
-  const string Analysis::makeAxisCode(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+  const string Analysis::makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
     stringstream axisCode;
     axisCode << "d";
     if (datasetId < 10) axisCode << 0;
@@ -176,7 +176,7 @@ namespace Rivet {
   }
 
 
-  const Scatter2D & Analysis::refData(const string& hname) const {
+  const Scatter2D& Analysis::refData(const string& hname) const {
     _cacheRefData();
     MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
     if (!_refdata[hname]) {
@@ -186,41 +186,14 @@ namespace Rivet {
   }
 
 
-  const Scatter2D & Analysis::refData(size_t datasetId, size_t xAxisId, size_t yAxisId) const {
+  const Scatter2D& Analysis::refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
     const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
     return refData(hname);
   }
 
 
-  Histo1DPtr Analysis::bookHisto1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle)
-  {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookHisto1D(axisCode, title, xtitle, ytitle);
-  }
-
-
   Histo1DPtr Analysis::bookHisto1D(const string& hname,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle)
-  {
-    const Scatter2D & refdata = refData(hname);
-    const string path = histoPath(hname);
-    Histo1DPtr hist( new Histo1D(refdata, path) );
-    addPlot(hist);
-    MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    hist->setTitle(title);
-    hist->setAnnotation("XLabel", xtitle);
-    hist->setAnnotation("YLabel", ytitle);
-    return hist;
-  }
-
-
-  Histo1DPtr Analysis::bookHisto1D(const string& hname,
-                                   size_t nbins, double lower, double upper,
+                                   unsigned int nbins, double lower, double upper,
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
@@ -249,40 +222,44 @@ namespace Rivet {
   }
 
 
+  Histo1DPtr Analysis::bookHisto1D(const std::string& hname,
+                                   const Scatter2D& refscatter,
+                                   const std::string& title="",
+                                   const std::string& xtitle="",
+                                   const std::string& ytitle="") {
+    const string path = histoPath(hname);
+    Histo1DPtr hist( new Histo1D(refscatter, path) );
+    addPlot(hist);
+    MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    hist->setTitle(title);
+    hist->setAnnotation("XLabel", xtitle);
+    hist->setAnnotation("YLabel", ytitle);
+    return hist;
+  }
+
+
+  Histo1DPtr Analysis::bookHisto1D(const string& hname,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle) {
+    const Scatter2D& refdata = refData(hname);
+    return bookHisto1D(hname, refdata, title, xtitle, ytitle);
+  }
+
+
+  Histo1DPtr Analysis::bookHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle) {
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    return bookHisto1D(axisCode, title, xtitle, ytitle);
+  }
+
+
   /// @todo Add booking methods which take a path, titles and *a reference Scatter from which to book*
 
 
   /////////////////
-
-
-  // Histo2DPtr Analysis::bookHisto2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle)
-  // {
-  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-  //   return bookHisto2D(axisCode, title, xtitle, ytitle);
-  // }
-
-
-  // Histo1DPtr Analysis::bookHisto1D(const string& hname,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle)
-  // {
-  //   const Scatter3D & refdata = refData(hname);
-  //   const string path = histoPath(hname);
-  //   Histo2DPtr hist( new Histo2D(refdata, path) );
-  //   addPlot(hist);
-  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
-  //   hist->setTitle(title);
-  //   hist->setAnnotation("XLabel", xtitle);
-  //   hist->setAnnotation("YLabel", ytitle);
-  //   hist->setAnnotation("ZLabel", ztitle);
-  //   return hist;
-  // }
 
 
   // Histo2DPtr Analysis::bookHisto2D(const string& hname,
@@ -325,32 +302,45 @@ namespace Rivet {
   // }
 
 
+  // Histo2DPtr Analysis::bookHisto2D(const std::string& hname,
+  //                                  const Scatter3D& refscatter,
+  //                                  const std::string& title="",
+  //                                  const std::string& xtitle="",
+  //                                  const std::string& ytitle="",
+  //                                  const std::string& ztitle="") {
+  //   const string path = histoPath(hname);
+  //   Histo2DPtr hist( new Histo2D(refscatter, path) );
+  //   addPlot(hist);
+  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
+  //   hist->setTitle(title);
+  //   hist->setAnnotation("XLabel", xtitle);
+  //   hist->setAnnotation("YLabel", ytitle);
+  //   hist->setAnnotation("ZLabel", ztitle);
+  //   return hist;
+  // }
+
+
+  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle) {
+  //   const Scatter3D& refdata = refData(hname);
+  //   return bookHisto2D(hname, refdata, title, xtitle, ytitle, ztitle);
+  // }
+
+
+  // Histo2DPtr Analysis::bookHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle) {
+  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+  //   return bookHisto2D(axisCode, title, xtitle, ytitle, ztitle);
+  // }
+
+
   /////////////////
-
-
-  Profile1DPtr Analysis::bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookProfile1D(axisCode, title, xtitle, ytitle);
-  }
-
-
-  Profile1DPtr Analysis::bookProfile1D(const string& hname,
-                                       const string& title,
-                                       const string& xtitle,
-                                       const string& ytitle) {
-    const Scatter2D & refdata = refData(hname);
-    const string path = histoPath(hname);
-    Profile1DPtr prof( new Profile1D(refdata, path) );
-    addPlot(prof);
-    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    prof->setTitle(title);
-    prof->setAnnotation("XLabel", xtitle);
-    prof->setAnnotation("YLabel", ytitle);
-    return prof;
-  }
 
 
   Profile1DPtr Analysis::bookProfile1D(const string& hname,
@@ -383,10 +373,44 @@ namespace Rivet {
   }
 
 
+  Profile1DPtr Analysis::bookProfile1D(const string& hname,
+                                       const Scatter2D& refscatter,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
+    const string path = histoPath(hname);
+    Profile1DPtr prof( new Profile1D(refscatter, path) );
+    addPlot(prof);
+    MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
+    prof->setTitle(title);
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
+    return prof;
+  }
+
+
+  Profile1DPtr Analysis::bookProfile1D(const string& hname,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
+    const Scatter2D& refdata = refData(hname);
+    return bookProfile1D(hname, refdata, title, xtitle, ytitle);
+  }
+
+
+  Profile1DPtr Analysis::bookProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    return bookProfile1D(axisCode, title, xtitle, ytitle);
+  }
+
+
   ///////////////////
 
 
-  Scatter2DPtr Analysis::bookScatter2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+  Scatter2DPtr Analysis::bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
