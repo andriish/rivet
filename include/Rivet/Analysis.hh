@@ -655,11 +655,25 @@ namespace Rivet {
     //@{
 
     /// Register a data object in the histogram system
+    /// @todo Rename as reg()? ("register" is a reserved C++ keyword)
     void add(AnalysisObjectPtr);
 
     /// Remove a data object in the histogram system
-    template <typename AO=AnalysisObjectPtr>
-    const AO& get(const std::string& path) {
+    /// @todo Use this default function template arg in C++11
+    // template <typename AO=AnalysisObjectPtr>
+    template <typename AO>
+    const AO& get(const std::string& path) const {
+      foreach (const AnalysisObjectPtr& ao, _plotobjects) {
+        if (ao->path() == path) return dynamic_cast<AO&>(ao);
+      }
+      throw Exception("Data object " + path + " not found");
+    }
+
+    /// Remove a data object in the histogram system (non-const)
+    /// @todo Use this default function template arg in C++11
+    // template <typename AO=AnalysisObjectPtr>
+    template <typename AO>
+    AO& get(const std::string& path) {
       foreach (const AnalysisObjectPtr& ao, _plotobjects) {
         if (ao->path() == path) return dynamic_cast<AO&>(ao);
       }
@@ -667,6 +681,7 @@ namespace Rivet {
     }
 
     /// Register a data object in the histogram system
+    /// @todo Rename as unreg()?
     void remove(const std::string& path);
 
     //@}
