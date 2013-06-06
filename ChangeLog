@@ -1,3 +1,7 @@
+2013-06-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Releasing 2.0.0b2 beta version.
+
 2013-06-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Renaming Analysis::add() etc. to very explicit
