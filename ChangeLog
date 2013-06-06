@@ -1,3 +1,9 @@
+2013-06-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Mark the OPAL 1993 analysis as UNVALIDATED: from the H++
+	benchmark runs it looks nothing like the data, and there are some
+	outstanding ambiguities.
+
 2013-06-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Releasing 2.0.0b2 beta version.

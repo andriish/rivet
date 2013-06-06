@@ -273,7 +273,6 @@ RivetLEPAnalyses_la_SOURCES = \
     DELPHI_1996_S3430090.cc \
     DELPHI_1999_S3960137.cc \
     DELPHI_2000_S4328825.cc \
-    OPAL_1993_S2692198.cc \
     OPAL_1994_S2927284.cc \
     OPAL_1995_S3198391.cc \
     OPAL_1996_S3257789.cc \
@@ -296,6 +295,7 @@ RivetLEPAnalyses_la_SOURCES += \
 endif
 if ENABLE_UNVALIDATED
 RivetLEPAnalyses_la_SOURCES += \
+    OPAL_1993_S2692198.cc \
     DELPHI_2003_WUD_03_11.cc
 endif
 
