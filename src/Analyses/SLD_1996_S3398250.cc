@@ -74,15 +74,15 @@ namespace Rivet {
       switch (flavour) {
       case 1: case 2: case 3:
         _weightLight  += weight;
-        _h_light->fill(_h_light->bin(0).midpoint(), numParticles*weight);
+        _h_light->fillBin(0, numParticles*weight);
         break;
       case 4:
         _weightCharm  += weight;
-        _h_charm->fill(_h_charm->bin(0).midpoint(), numParticles*weight);
+        _h_charm->fillBin(0, numParticles*weight);
         break;
       case 5:
         _weightBottom += weight;
-        _h_bottom->fill(_h_bottom->bin(0).midpoint(), numParticles*weight);
+        _h_bottom->fillBin(0, numParticles*weight);
         break;
       }
 
