@@ -155,12 +155,13 @@ namespace Rivet {
     // Fill inclusive jet multi ratio
     int Nbins = _h_jet_multi_inclusive->numBins();
     for (int i = 0; i < Nbins-1; ++i) {
-      if (_h_jet_multi_inclusive->bin(i).sumW() > 0.0) { //< Don't add a point if the division is invalid
+      _h_jet_multi_ratio->addPoint(i+1, 0, 0, 0);
+      if (_h_jet_multi_inclusive->bin(i).sumW() > 0.0) {
         const double ratio = _h_jet_multi_inclusive->bin(i+1).sumW()/_h_jet_multi_inclusive->bin(i).sumW();
         const double relerr_i = _h_jet_multi_inclusive->bin(i).relErr();
         const double relerr_j = _h_jet_multi_inclusive->bin(i+1).relErr();
         const double err = ratio * (relerr_i + relerr_j);
-        _h_jet_multi_ratio->addPoint(i, ratio, 0.0, err);
+        _h_jet_multi_ratio->point(i).setY(ratio, err);
       }
     }
 
