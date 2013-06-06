@@ -69,8 +69,8 @@ ifastjet="@FASTJETINCPATH@"
 test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
 igsl="@GSLINCPATH@"
 test -n "$igsl" && mycppflags="$mycppflags -I${igsl}"
-iboost="@BOOSTINCPATH@"
-test -n "$iboost" && mycppflags="$mycppflags -I${iboost}"
+iboost="@BOOST_CPPFLAGS@"
+test -n "$iboost" && mycppflags="$mycppflags ${iboost}"
 
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""

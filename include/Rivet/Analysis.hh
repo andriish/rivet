@@ -281,51 +281,11 @@ namespace Rivet {
     //@}
 
 
-  public:
-
-    /// Access the controlling AnalysisHandler object.
-    AnalysisHandler& handler() const { return *_analysishandler; }
-
-    /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    void normalize(Histo1DPtr histo, double norm=1.0, bool includeoverflows=true);
-
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    void scale(Histo1DPtr histo, double scale);
-
-    /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    // void normalize(Histo2DPtr histo, double norm=1.0);
-
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
-    ///
-    /// NB. The histogram is no longer invalidated by this procedure.
-    // void scale(Histo2DPtr histo, double scale);
-
     /// Set the cross section from the generator
     Analysis& setCrossSection(double xs);
 
-    /// Helper for histogram division. Preserves the path information
-    /// of the target.
-    void divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
-
-    /// Helper for profile histogram division. Preserves the path information
-    /// of the target.
-    void divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const;
-
-    /// Helper for histogram division. Preserves the path information
-    /// of the target.
-    void divide(const YODA::Histo1D & h1,
-                const YODA::Histo1D & h2, Scatter2DPtr s) const;
-
-    /// Helper for profile histogram division. Preserves the path information
-    /// of the target.
-    void divide(const YODA::Profile1D & p1,
-                const YODA::Profile1D & p2, Scatter2DPtr s) const;
+    /// Access the controlling AnalysisHandler object.
+    AnalysisHandler& handler() const { return *_analysishandler; }
 
 
   protected:
@@ -351,7 +311,7 @@ namespace Rivet {
 
   protected:
 
-    /// @name AIDA analysis infrastructure.
+    /// @name Histogram paths
     //@{
 
     /// Get the canonical histogram "directory" path for this analysis.
@@ -361,10 +321,10 @@ namespace Rivet {
     const std::string histoPath(const std::string& hname) const;
 
     /// Get the canonical histogram path for the numbered histogram in this analysis.
-    const std::string histoPath(size_t datasetId, size_t xAxisId, size_t yAxisId) const;
+    const std::string histoPath(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
 
     /// Get the internal histogram name for given d, x and y (cf. HepData)
-    const std::string makeAxisCode(size_t datasetId, size_t xAxisId, size_t yAxisId) const;
+    const std::string makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
 
     //@}
 
@@ -376,28 +336,13 @@ namespace Rivet {
     const YODA::Scatter2D & refData(const string& hname) const;
 
     /// Get reference data for a numbered histo
-    const YODA::Scatter2D & refData(size_t datasetId,
-                                    size_t xAxisId, size_t yAxisId) const;
+    const YODA::Scatter2D & refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
 
     //@}
 
 
     /// @name 1D histogram booking
     //@{
-
-    /// Book a 1D histogram, using the binnings in the reference data histogram.
-    Histo1DPtr bookHisto1D(const std::string& name,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
-
-    /// Book a 1D histogram, using the binnings in the reference data histogram.
-    ///
-    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo1DPtr bookHisto1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-                           const std::string& title="",
-                           const std::string& xtitle="",
-                           const std::string& ytitle="");
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     Histo1DPtr bookHisto1D(const std::string& name,
@@ -413,27 +358,32 @@ namespace Rivet {
                            const std::string& xtitle="",
                            const std::string& ytitle="");
 
+    /// Book a 1D histogram with binning from a reference scatter.
+    Histo1DPtr bookHisto1D(const std::string& name,
+                           const Scatter2D& refscatter,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
+
+    /// Book a 1D histogram, using the binnings in the reference data histogram.
+    Histo1DPtr bookHisto1D(const std::string& name,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
+
+    /// Book a 1D histogram, using the binnings in the reference data histogram.
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    Histo1DPtr bookHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
+
     //@}
 
 
     // /// @name 2D histogram booking
     // //@{
-
-    // /// Book a 2D histogram, using the binnings in the reference data histogram.
-    // Histogram2DPtr bookHisto2D(const std::string& name,
-    //                            const std::string& title="",
-    //                            const std::string& xtitle="",
-    //                            const std::string& ytitle="",
-    //                            const std::string& ztitle="");
-
-    // /// Book a 2D histogram, using the binnings in the reference data histogram.
-    // ///
-    // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    // Histogram2DPtr bookHisto2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-    //                            const std::string& title="",
-    //                            const std::string& xtitle="",
-    //                            const std::string& ytitle="",
-    //                            const std::string& ztitle="");
 
     // /// Book a 2D histogram with @a nxbins and @a nybins uniformly
     // /// distributed across the ranges @a xlower - @a xupper and @a
@@ -456,25 +406,35 @@ namespace Rivet {
     //                            const std::string& ytitle="",
     //                            const std::string& ztitle="");
 
+    /// Book a 2D histogram with binning from a reference scatter.
+    // Histogram2DPtr bookHisto2D(const std::string& name,
+    //                            const Scatter3D& refscatter,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D histogram, using the binnings in the reference data histogram.
+    // Histogram2DPtr bookHisto2D(const std::string& name,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D histogram, using the binnings in the reference data histogram.
+    // ///
+    // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    // Histogram2DPtr bookHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
     // //@}
 
 
     /// @name 1D profile histogram booking
     //@{
-
-    /// Book a 1D profile histogram, using the binnings in the reference data histogram.
-    Profile1DPtr bookProfile1D(const std::string& name,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
-
-    /// Book a 1D profile histogram, using the binnings in the reference data histogram.
-    ///
-    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Profile1DPtr bookProfile1D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-                               const std::string& title="",
-                               const std::string& xtitle="",
-                               const std::string& ytitle="");
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
     Profile1DPtr bookProfile1D(const std::string& name,
@@ -490,27 +450,32 @@ namespace Rivet {
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
+    /// Book a 1D profile histogram with binning from a reference scatter.
+    Profile1DPtr bookProfile1D(const std::string& name,
+                               const Scatter2D& refscatter,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
+
+    /// Book a 1D profile histogram, using the binnings in the reference data histogram.
+    Profile1DPtr bookProfile1D(const std::string& name,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
+
+    /// Book a 1D profile histogram, using the binnings in the reference data histogram.
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    Profile1DPtr bookProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
+
     //@}
 
 
     // /// @name 2D profile histogram booking
     // //@{
-
-    // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
-    // Profile2DPtr bookProfile2D(const std::string& name,
-    //                            const std::string& title="",
-    //                            const std::string& xtitle="",
-    //                            const std::string& ytitle="",
-    //                            const std::string& ztitle="");
-
-    // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
-    // ///
-    // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    // Profile2DPtr bookProfile2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
-    //                            const std::string& title="",
-    //                            const std::string& xtitle="",
-    //                            const std::string& ytitle="",
-    //                            const std::string& ztitle="");
 
     // /// Book a 2D profile histogram with @a nxbins and @a nybins uniformly
     // /// distributed across the ranges @a xlower - @a xupper and @a ylower - @a
@@ -528,6 +493,30 @@ namespace Rivet {
     // Profile2DPtr bookProfile2D(const std::string& name,
     //                            const std::vector<double>& xbinedges,
     //                            const std::vector<double>& ybinedges,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    /// Book a 2D profile histogram with binning from a reference scatter.
+    // Profile2DPtr bookProfile2D(const std::string& name,
+    //                            const Scatter3D& refscatter,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
+    // Profile2DPtr bookProfile2D(const std::string& name,
+    //                            const std::string& title="",
+    //                            const std::string& xtitle="",
+    //                            const std::string& ytitle="",
+    //                            const std::string& ztitle="");
+
+    // /// Book a 2D profile histogram, using the binnings in the reference data histogram.
+    // ///
+    // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    // Profile2DPtr bookProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
     //                            const std::string& title="",
     //                            const std::string& xtitle="",
     //                            const std::string& ytitle="",
@@ -559,7 +548,7 @@ namespace Rivet {
     /// reference data to pre-fill the data object. If you want this (why!?)
     /// then use the @a refData() function to retrieve the reference scatter and
     /// copy its contents.
-    Scatter2DPtr bookScatter2D(size_t datasetId, size_t xAxisId, size_t yAxisId,
+    Scatter2DPtr bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
@@ -585,29 +574,224 @@ namespace Rivet {
     //@}
 
 
+    /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
   public:
 
-    /// List of registered plot objects
-    const vector<AnalysisObjectPtr> & plots() const {
-      return _plotobjects;
-    }
-
-
-  private:
-
-    /// @name Utility functions
+    /// @name Histogram manipulation
     //@{
 
-    /// Get the reference data for this paper and cache it.
-    void _cacheRefData() const;
+    /// Normalize the given histogram, @a histo, to area = @a norm.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    void normalize(Histo1DPtr histo, double norm=1.0, bool includeoverflows=true);
+
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    void scale(Histo1DPtr histo, double scale);
+
+    /// Normalize the given histogram, @a histo, to area = @a norm.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    // void normalize(Histo2DPtr histo, double norm=1.0);
+
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    // void scale(Histo2DPtr histo, double scale);
+
+
+    /// Helper for histogram division.
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
+
+    /// Helper for profile histogram division.
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const;
+
+    /// Helper for histogram division.
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(const YODA::Histo1D & h1,
+                const YODA::Histo1D & h2, Scatter2DPtr s) const;
+
+    /// Helper for profile histogram division
+    ///
+    /// @note Preserves the path information of the target.
+    void divide(const YODA::Profile1D & p1,
+                const YODA::Profile1D & p2, Scatter2DPtr s) const;
+
+
+    /// Helper for converting a differential histo to an integral one.
+    ///
+    /// @note Preserves the path information of the target.
+    void integrate(Histo1DPtr h, Scatter2DPtr s) const;
+
+    /// Helper for converting a differential histo to an integral one.
+    ///
+    /// @note Preserves the path information of the target.
+    void integrate(const Histo1D& h, Scatter2DPtr s) const;
+
+
+    /// @todo Add integrate helpers for 2D histos (defined somehow...)
 
     //@}
 
 
+  public:
+
+    /// List of registered analysis data objects
+    const vector<AnalysisObjectPtr>& analysisObjects() const {
+      return _analysisobjects;
+    }
+
+
   protected:
 
-    /// Add a plot object to the final output list
-    void addPlot(AnalysisObjectPtr);
+    /// @name Data object registration, retrieval, and removal
+    //@{
+
+    /// Register a data object in the histogram system
+    /// @todo Rename as reg()? ("register" is a reserved C++ keyword)
+    void addAnalysisObject(AnalysisObjectPtr);
+
+    /// Get a data object from the histogram system
+    /// @todo Use this default function template arg in C++11
+    // template <typename AO=AnalysisObjectPtr>
+    template <typename AO>
+    const shared_ptr<AO> getAnalysisObject(const std::string& name) const {
+      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
+        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
+      }
+      throw Exception("Data object " + histoPath(name) + " not found");
+    }
+
+    /// Get a data object from the histogram system (non-const)
+    /// @todo Use this default function template arg in C++11
+    // template <typename AO=AnalysisObjectPtr>
+    template <typename AO>
+    shared_ptr<AO> getAnalysisObject(const std::string& name) {
+      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
+        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
+      }
+      throw Exception("Data object " + histoPath(name) + " not found");
+    }
+
+    /// Register a data object in the histogram system
+    /// @todo Rename as unreg()?
+    void removeAnalysisObject(const std::string& path);
+
+
+    /// Get a named Histo1D object from the histogram system
+    const Histo1DPtr getHisto1D(const std::string& name) const {
+      return getAnalysisObject<Histo1D>(name);
+    }
+
+    /// Get a named Histo1D object from the histogram system (non-const)
+    Histo1DPtr getHisto1D(const std::string& name) {
+      return getAnalysisObject<Histo1D>(name);
+    }
+
+    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
+    const Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
+    Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+
+    // /// Get a named Histo2D object from the histogram system
+    // const Histo2DPtr getHisto2D(const std::string& name) const {
+    //   return getAnalysisObject<Histo2D>(name);
+    // }
+
+    // /// Get a named Histo2D object from the histogram system (non-const)
+    // Histo2DPtr getHisto2D(const std::string& name) {
+    //   return getAnalysisObject<Histo2D>(name);
+    // }
+
+    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    // const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    // Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+
+    /// Get a named Profile1D object from the histogram system
+    const Profile1DPtr getProfile1D(const std::string& name) const {
+      return getAnalysisObject<Profile1D>(name);
+    }
+
+    /// Get a named Profile1D object from the histogram system (non-const)
+    Profile1DPtr getProfile1D(const std::string& name) {
+      return getAnalysisObject<Profile1D>(name);
+    }
+
+    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
+    const Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
+    Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+
+    // /// Get a named Profile2D object from the histogram system
+    // const Profile2DPtr getProfile2D(const std::string& name) const {
+    //   return getAnalysisObject<Profile2D>(name);
+    // }
+
+    // /// Get a named Profile2D object from the histogram system (non-const)
+    // Profile2DPtr getProfile2D(const std::string& name) {
+    //   return getAnalysisObject<Profile2D>(name);
+    // }
+
+    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    // const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    // Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    // }
+
+
+    /// Get a named Scatter2D object from the histogram system
+    const Scatter2DPtr getScatter2D(const std::string& name) const {
+      return getAnalysisObject<Scatter2D>(name);
+    }
+
+    /// Get a named Scatter2D object from the histogram system (non-const)
+    Scatter2DPtr getScatter2D(const std::string& name) {
+      return getAnalysisObject<Scatter2D>(name);
+    }
+
+    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
+    const Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
+    Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
+
+    //@}
+
+
+  private:
 
     /// Name passed to constructor (used to find .info analysis data file, and as a fallback)
     string _defaultname;
@@ -615,11 +799,9 @@ namespace Rivet {
     /// Pointer to analysis metadata object
     shared_ptr<AnalysisInfo> _info;
 
-
-  private:
-
     /// Storage of all plot objects
-    vector<AnalysisObjectPtr> _plotobjects;
+    /// @todo Make this a map for fast lookup by path?
+    vector<AnalysisObjectPtr> _analysisobjects;
 
     /// @name Cross-section variables
     //@{
@@ -634,7 +816,17 @@ namespace Rivet {
     /// reference data file should only be read once.
     mutable std::map<std::string, Scatter2DPtr> _refdata;
 
+
   private:
+
+    /// @name Utility functions
+    //@{
+
+    /// Get the reference data for this paper and cache it.
+    void _cacheRefData() const;
+
+    //@}
+
 
     /// The assignment operator is private and must never be called.
     /// In fact, it should not even be implemented.

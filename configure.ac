@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.0.0b1],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.0.0b2],[rivet@projects.hepforge.org],[Rivet])
 if test "$prefix" = "$PWD"; then
   AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
 fi
@@ -263,9 +263,9 @@ fi
 ## Cython checks (Probably need some help...)
 # TODO: "Tarball users" should ideally not need to have Cython installed
 if test x$enable_pyext == xyes; then
-  AM_CHECK_CYTHON([0.17], [:], [:])
+  AM_CHECK_CYTHON([0.18], [:], [:])
   if test x$CYTHON_FOUND != xyes; then
-    AC_MSG_ERROR([Can't build Python extension since Cython >= 0.17 could not be found])
+    AC_MSG_ERROR([Can't build Python extension since Cython >= 0.18 could not be found])
     enable_pyext=no
   else
     cython_compiler=$CXX

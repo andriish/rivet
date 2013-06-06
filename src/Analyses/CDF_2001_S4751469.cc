@@ -178,16 +178,16 @@ namespace Rivet {
       // Update the "proper" dphi profile histograms
       for (int i = 0; i < 50; i++) {
         if (ptLead/GeV > 2.0) {
-          _numvsDeltaPhi2->fill(hist_num_dphi_2.bin(i).xMean(), hist_num_dphi_2.bin(i).mean(), weight);
-          _pTvsDeltaPhi2->fill(hist_pt_dphi_2.bin(i).xMean(), hist_pt_dphi_2.bin(i).mean(), weight);
+          _numvsDeltaPhi2->fill(hist_num_dphi_2.bin(i).focus(), hist_num_dphi_2.bin(i).mean(), weight);
+          _pTvsDeltaPhi2->fill(hist_pt_dphi_2.bin(i).focus(), hist_pt_dphi_2.bin(i).mean(), weight);
         }
         if (ptLead/GeV > 5.0) {
-          _numvsDeltaPhi5->fill(hist_num_dphi_5.bin(i).xMean(), hist_num_dphi_5.bin(i).mean(), weight);
-          _pTvsDeltaPhi5->fill(hist_pt_dphi_5.bin(i).xMean(), hist_pt_dphi_5.bin(i).mean(), weight);
+          _numvsDeltaPhi5->fill(hist_num_dphi_5.bin(i).focus(), hist_num_dphi_5.bin(i).mean(), weight);
+          _pTvsDeltaPhi5->fill(hist_pt_dphi_5.bin(i).focus(), hist_pt_dphi_5.bin(i).mean(), weight);
         }
         if (ptLead/GeV > 30.0) {
-          _numvsDeltaPhi30->fill(hist_num_dphi_30.bin(i).xMean(), hist_num_dphi_30.bin(i).mean(), weight);
-          _pTvsDeltaPhi30->fill(hist_pt_dphi_30.bin(i).xMean(), hist_pt_dphi_30.bin(i).mean(), weight);
+          _numvsDeltaPhi30->fill(hist_num_dphi_30.bin(i).focus(), hist_num_dphi_30.bin(i).mean(), weight);
+          _pTvsDeltaPhi30->fill(hist_pt_dphi_30.bin(i).focus(), hist_pt_dphi_30.bin(i).mean(), weight);
         }
       }
 

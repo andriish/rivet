@@ -179,6 +179,8 @@ namespace Rivet {
     } else {
       MSG_WARNING("Analysis '" << analysisname << "' not found.");
     }
+    // MSG_WARNING(_analyses.size());
+    // foreach (const AnaHandle& a, _analyses) MSG_WARNING(a->name());
     return *this;
   }
 
@@ -199,13 +201,16 @@ namespace Rivet {
   }
 
   void AnalysisHandler::writeData(const string& filename) {
-    vector<AnalysisObjectPtr> allPlots;
+    vector<AnalysisObjectPtr> all_aos;
     foreach (const AnaHandle a, _analyses) {
-      vector<AnalysisObjectPtr> plots = a->plots();
-      sort(plots.begin(), plots.end(), AOSortByPath);
-      allPlots.insert(allPlots.end(), plots.begin(), plots.end());
+      vector<AnalysisObjectPtr> aos = a->analysisObjects();
+      sort(aos.begin(), aos.end(), AOSortByPath);
+      all_aos.insert(all_aos.end(), aos.begin(), aos.end());
+      // MSG_WARNING(a->name() << " " << plots.size());
     }
-    WriterYODA::write(filename, allPlots.begin(), allPlots.end());
+    // MSG_WARNING(allPlots.size());
+    // foreach (AnalysisObjectPtr ao, allPlots) MSG_WARNING(ao->path());
+    WriterYODA::write(filename, all_aos.begin(), all_aos.end());
   }
 
 

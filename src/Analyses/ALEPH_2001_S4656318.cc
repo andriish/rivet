@@ -73,7 +73,7 @@ namespace Rivet {
             }
             if (is_primary) {
               _histXbprim->fill(xp, weight);
-              _histMeanXbprim->fill(_histMeanXbprim->bin(0).xMean(), xp, weight);
+              _histMeanXbprim->fill(_histMeanXbprim->bin(0).midpoint(), xp, weight);
             }
           }
 
@@ -88,7 +88,7 @@ namespace Rivet {
             }
             if (is_weak) {
               _histXbweak->fill(xp, weight);
-              _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMean(), xp, weight);
+              _histMeanXbweak->fill(_histMeanXbweak->bin(0).midpoint(), xp, weight);
             }
           }
 

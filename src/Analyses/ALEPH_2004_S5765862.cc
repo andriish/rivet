@@ -262,11 +262,14 @@ namespace Rivet {
         }
       }
 
+      Histo1D temphisto(refData(1, 1, 1));
       const double avgNumParts = _weightedTotalChargedPartNum / sumOfWeights();
       Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
-      for (size_t i = 0; i < mult->numPoints(); ++i) {
-        if (fuzzyEquals(sqrtS(), mult->point(i).x(), 0.01)) {
-          mult->point(i).setY(avgNumParts);
+      for (size_t b = 0; b < temphisto.numBins(); b++) {
+        const double x  = temphisto.bin(b).midpoint();
+        const double ex = temphisto.bin(b).width()/2.;
+        if (inRange(sqrtS()/GeV, x-ex, x+ex)) {
+          mult->addPoint(x, avgNumParts, ex, 0.);
         }
       }
 

@@ -81,10 +81,10 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_hist_zpt_el_dressed, 1/_sumw_el_dressed);
-      scale(_hist_zpt_el_bare, 1/_sumw_el_bare);
-      scale(_hist_zpt_mu_dressed, 1/_sumw_mu_dressed);
-      scale(_hist_zpt_mu_bare, 1/_sumw_mu_bare);
+      if (_sumw_el_dressed != 0) scale(_hist_zpt_el_dressed, 1/_sumw_el_dressed);
+      if (_sumw_el_bare    != 0) scale(_hist_zpt_el_bare,    1/_sumw_el_bare);
+      if (_sumw_mu_dressed != 0) scale(_hist_zpt_mu_dressed, 1/_sumw_mu_dressed);
+      if (_sumw_mu_bare    != 0) scale(_hist_zpt_mu_bare,    1/_sumw_mu_bare);
     }
 
     //@}

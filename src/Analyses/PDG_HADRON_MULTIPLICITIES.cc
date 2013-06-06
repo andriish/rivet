@@ -46,104 +46,104 @@ namespace Rivet {
           const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
-                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).xMean(), weight);
+                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).midpoint(), weight);
                 break;
              case 111:
-                _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).xMean(), weight);
+                _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).midpoint(), weight);
                 break;
              case 321:
-                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).xMean(), weight);
+                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).midpoint(), weight);
                 break;
              case 130:
              case 310:
-                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).xMean(), weight);
+                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).midpoint(), weight);
                 break;
              case 221:
-                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).xMean(), weight);
+                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).midpoint(), weight);
                 break;
              case 331:
-                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).xMean(), weight);
+                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).midpoint(), weight);
                 break;
              case 411:
-                _histMeanMultiDPlus->fill(_histMeanMultiDPlus->bin(0).xMean(), weight);
+                _histMeanMultiDPlus->fill(_histMeanMultiDPlus->bin(0).midpoint(), weight);
                 break;
              case 421:
-                _histMeanMultiD0->fill(_histMeanMultiD0->bin(0).xMean(), weight);
+                _histMeanMultiD0->fill(_histMeanMultiD0->bin(0).midpoint(), weight);
                 break;
              case 431:
-                _histMeanMultiDPlus_s->fill(_histMeanMultiDPlus_s->bin(0).xMean(), weight);
+                _histMeanMultiDPlus_s->fill(_histMeanMultiDPlus_s->bin(0).midpoint(), weight);
                 break;
              case 9010221:
-                _histMeanMultiF0_980->fill(_histMeanMultiF0_980->bin(0).xMean(), weight);
+                _histMeanMultiF0_980->fill(_histMeanMultiF0_980->bin(0).midpoint(), weight);
                 break;
              case 113:
-                _histMeanMultiRho770_0->fill(_histMeanMultiRho770_0->bin(0).xMean(), weight);
+                _histMeanMultiRho770_0->fill(_histMeanMultiRho770_0->bin(0).midpoint(), weight);
                 break;
              case 223:
-                _histMeanMultiOmega782->fill(_histMeanMultiOmega782->bin(0).xMean(), weight);
+                _histMeanMultiOmega782->fill(_histMeanMultiOmega782->bin(0).midpoint(), weight);
                 break;
              case 323:
-                _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).xMean(), weight);
+                _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).midpoint(), weight);
                 break;
              case 313:
-                _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).xMean(), weight);
+                _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).midpoint(), weight);
                 break;
              case 333:
-                _histMeanMultiPhi1020->fill(_histMeanMultiPhi1020->bin(0).xMean(), weight);
+                _histMeanMultiPhi1020->fill(_histMeanMultiPhi1020->bin(0).midpoint(), weight);
                 break;
              case 413:
-                _histMeanMultiDStar2010Plus->fill(_histMeanMultiDStar2010Plus->bin(0).xMean(), weight);
+                _histMeanMultiDStar2010Plus->fill(_histMeanMultiDStar2010Plus->bin(0).midpoint(), weight);
                 break;
              case 423:
-                _histMeanMultiDStar2007_0->fill(_histMeanMultiDStar2007_0->bin(0).xMean(), weight);
+                _histMeanMultiDStar2007_0->fill(_histMeanMultiDStar2007_0->bin(0).midpoint(), weight);
                 break;
              case 433:
-                _histMeanMultiDStar_s2112Plus->fill(_histMeanMultiDStar_s2112Plus->bin(0).xMean(), weight);
+                _histMeanMultiDStar_s2112Plus->fill(_histMeanMultiDStar_s2112Plus->bin(0).midpoint(), weight);
                 break;
              case 443:
-                _histMeanMultiJPsi1S->fill(_histMeanMultiJPsi1S->bin(0).xMean(), weight);
+                _histMeanMultiJPsi1S->fill(_histMeanMultiJPsi1S->bin(0).midpoint(), weight);
                 break;
              case 225:
-                _histMeanMultiF2_1270->fill(_histMeanMultiF2_1270->bin(0).xMean(), weight);
+                _histMeanMultiF2_1270->fill(_histMeanMultiF2_1270->bin(0).midpoint(), weight);
                 break;
              case 2212:
-                _histMeanMultiP->fill(_histMeanMultiP->bin(0).xMean(), weight);
+                _histMeanMultiP->fill(_histMeanMultiP->bin(0).midpoint(), weight);
                 break;
              case 3122:
-                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).xMean(), weight);
+                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).midpoint(), weight);
                 break;
              case 3212:
-                _histMeanMultiSigma0->fill(_histMeanMultiSigma0->bin(0).xMean(), weight);
+                _histMeanMultiSigma0->fill(_histMeanMultiSigma0->bin(0).midpoint(), weight);
                 break;
              case 3312:
-                _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).xMean(), weight);
+                _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).midpoint(), weight);
                 break;
              case 2224:
-                _histMeanMultiDelta1232PlusPlus->fill(_histMeanMultiDelta1232PlusPlus->bin(0).xMean(), weight);
+                _histMeanMultiDelta1232PlusPlus->fill(_histMeanMultiDelta1232PlusPlus->bin(0).midpoint(), weight);
                 break;
              case 3114:
-                _histMeanMultiSigma1385Minus->fill(_histMeanMultiSigma1385Minus->bin(0).xMean(), weight);
-                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigma1385Minus->fill(_histMeanMultiSigma1385Minus->bin(0).midpoint(), weight);
+                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3224:
-                _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).xMean(), weight);
-                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).midpoint(), weight);
+                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3324:
-                _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->bin(0).xMean(), weight);
+                _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->bin(0).midpoint(), weight);
                 break;
              case 3334:
-                _histMeanMultiOmegaMinus->fill(_histMeanMultiOmegaMinus->bin(0).xMean(), weight);
+                _histMeanMultiOmegaMinus->fill(_histMeanMultiOmegaMinus->bin(0).midpoint(), weight);
                 break;
              case 4122:
-                _histMeanMultiLambda_c_Plus->fill(_histMeanMultiLambda_c_Plus->bin(0).xMean(), weight);
+                _histMeanMultiLambda_c_Plus->fill(_histMeanMultiLambda_c_Plus->bin(0).midpoint(), weight);
                 break;
              case 4222:
              case 4112:
-                _histMeanMultiSigma_c_PlusPlus_0->fill(_histMeanMultiSigma_c_PlusPlus_0->bin(0).xMean(), weight);
+                _histMeanMultiSigma_c_PlusPlus_0->fill(_histMeanMultiSigma_c_PlusPlus_0->bin(0).midpoint(), weight);
                 break;
              case 3124:
-                _histMeanMultiLambda1520->fill(_histMeanMultiLambda1520->bin(0).xMean(), weight);
+                _histMeanMultiLambda1520->fill(_histMeanMultiLambda1520->bin(0).midpoint(), weight);
                 break;
           }
         }
@@ -154,85 +154,85 @@ namespace Rivet {
           const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
-                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).xMean(), weight);
+                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).midpoint(), weight);
                 break;
              case 111:
-                _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).xMean(), weight);
+                _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).midpoint(), weight);
                 break;
              case 321:
-                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).xMean(), weight);
+                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).midpoint(), weight);
                 break;
              case 130:
              case 310:
-                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).xMean(), weight);
+                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).midpoint(), weight);
                 break;
              case 221:
-                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).xMean(), weight);
+                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).midpoint(), weight);
                 break;
              case 331:
-                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).xMean(), weight);
+                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).midpoint(), weight);
                 break;
              case 411:
-                _histMeanMultiDPlus->fill(_histMeanMultiDPlus->bin(0).xMean(), weight);
+                _histMeanMultiDPlus->fill(_histMeanMultiDPlus->bin(0).midpoint(), weight);
                 break;
              case 421:
-                _histMeanMultiD0->fill(_histMeanMultiD0->bin(0).xMean(), weight);
+                _histMeanMultiD0->fill(_histMeanMultiD0->bin(0).midpoint(), weight);
                 break;
              case 431:
-                _histMeanMultiDPlus_s->fill(_histMeanMultiDPlus_s->bin(0).xMean(), weight);
+                _histMeanMultiDPlus_s->fill(_histMeanMultiDPlus_s->bin(0).midpoint(), weight);
                 break;
              case 9010221:
-                _histMeanMultiF0_980->fill(_histMeanMultiF0_980->bin(0).xMean(), weight);
+                _histMeanMultiF0_980->fill(_histMeanMultiF0_980->bin(0).midpoint(), weight);
                 break;
              case 113:
-                _histMeanMultiRho770_0->fill(_histMeanMultiRho770_0->bin(0).xMean(), weight);
+                _histMeanMultiRho770_0->fill(_histMeanMultiRho770_0->bin(0).midpoint(), weight);
                 break;
              case 323:
-                _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).xMean(), weight);
+                _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).midpoint(), weight);
                 break;
              case 313:
-                _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).xMean(), weight);
+                _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).midpoint(), weight);
                 break;
              case 333:
-                _histMeanMultiPhi1020->fill(_histMeanMultiPhi1020->bin(0).xMean(), weight);
+                _histMeanMultiPhi1020->fill(_histMeanMultiPhi1020->bin(0).midpoint(), weight);
                 break;
              case 413:
-                _histMeanMultiDStar2010Plus->fill(_histMeanMultiDStar2010Plus->bin(0).xMean(), weight);
+                _histMeanMultiDStar2010Plus->fill(_histMeanMultiDStar2010Plus->bin(0).midpoint(), weight);
                 break;
              case 423:
-                _histMeanMultiDStar2007_0->fill(_histMeanMultiDStar2007_0->bin(0).xMean(), weight);
+                _histMeanMultiDStar2007_0->fill(_histMeanMultiDStar2007_0->bin(0).midpoint(), weight);
                 break;
              case 225:
-                _histMeanMultiF2_1270->fill(_histMeanMultiF2_1270->bin(0).xMean(), weight);
+                _histMeanMultiF2_1270->fill(_histMeanMultiF2_1270->bin(0).midpoint(), weight);
                 break;
              case 325:
-                _histMeanMultiK2Star1430Plus->fill(_histMeanMultiK2Star1430Plus->bin(0).xMean(), weight);
+                _histMeanMultiK2Star1430Plus->fill(_histMeanMultiK2Star1430Plus->bin(0).midpoint(), weight);
                 break;
              case 315:
-                _histMeanMultiK2Star1430_0->fill(_histMeanMultiK2Star1430_0->bin(0).xMean(), weight);
+                _histMeanMultiK2Star1430_0->fill(_histMeanMultiK2Star1430_0->bin(0).midpoint(), weight);
                 break;
              case 2212:
-                _histMeanMultiP->fill(_histMeanMultiP->bin(0).xMean(), weight);
+                _histMeanMultiP->fill(_histMeanMultiP->bin(0).midpoint(), weight);
                 break;
              case 3122:
-                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).xMean(), weight);
+                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).midpoint(), weight);
                 break;
              case 3312:
-                _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).xMean(), weight);
+                _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).midpoint(), weight);
                 break;
              case 3114:
-                _histMeanMultiSigma1385Minus->fill(_histMeanMultiSigma1385Minus->bin(0).xMean(), weight);
-                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigma1385Minus->fill(_histMeanMultiSigma1385Minus->bin(0).midpoint(), weight);
+                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3224:
-                _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).xMean(), weight);
-                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).midpoint(), weight);
+                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3334:
-                _histMeanMultiOmegaMinus->fill(_histMeanMultiOmegaMinus->bin(0).xMean(), weight);
+                _histMeanMultiOmegaMinus->fill(_histMeanMultiOmegaMinus->bin(0).midpoint(), weight);
                 break;
              case 4122:
-                _histMeanMultiLambda_c_Plus->fill(_histMeanMultiLambda_c_Plus->bin(0).xMean(), weight);
+                _histMeanMultiLambda_c_Plus->fill(_histMeanMultiLambda_c_Plus->bin(0).midpoint(), weight);
                 break;
           }
         }
@@ -243,162 +243,162 @@ namespace Rivet {
           const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
-                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).xMean(), weight);
+                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).midpoint(), weight);
                 break;
              case 111:
-                _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).xMean(), weight);
+                _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).midpoint(), weight);
                 break;
              case 321:
-                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).xMean(), weight);
+                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).midpoint(), weight);
                 break;
              case 130:
              case 310:
-                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).xMean(), weight);
+                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).midpoint(), weight);
                 break;
              case 221:
-                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).xMean(), weight);
+                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).midpoint(), weight);
                 break;
              case 331:
-                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).xMean(), weight);
+                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).midpoint(), weight);
                 break;
              case 411:
-                _histMeanMultiDPlus->fill(_histMeanMultiDPlus->bin(0).xMean(), weight);
+                _histMeanMultiDPlus->fill(_histMeanMultiDPlus->bin(0).midpoint(), weight);
                 break;
              case 421:
-                _histMeanMultiD0->fill(_histMeanMultiD0->bin(0).xMean(), weight);
+                _histMeanMultiD0->fill(_histMeanMultiD0->bin(0).midpoint(), weight);
                 break;
              case 431:
-                _histMeanMultiDPlus_s->fill(_histMeanMultiDPlus_s->bin(0).xMean(), weight);
+                _histMeanMultiDPlus_s->fill(_histMeanMultiDPlus_s->bin(0).midpoint(), weight);
                 break;
              case 511:
-                _histMeanMultiBPlus_B0_d->fill(_histMeanMultiBPlus_B0_d->bin(0).xMean(), weight);
+                _histMeanMultiBPlus_B0_d->fill(_histMeanMultiBPlus_B0_d->bin(0).midpoint(), weight);
                 break;
              case 521:
-                _histMeanMultiBPlus_B0_d->fill(_histMeanMultiBPlus_B0_d->bin(0).xMean(), weight);
-                _histMeanMultiBPlus_u->fill(_histMeanMultiBPlus_u->bin(0).xMean(), weight);
+                _histMeanMultiBPlus_B0_d->fill(_histMeanMultiBPlus_B0_d->bin(0).midpoint(), weight);
+                _histMeanMultiBPlus_u->fill(_histMeanMultiBPlus_u->bin(0).midpoint(), weight);
                 break;
              case 531:
-                _histMeanMultiB0_s->fill(_histMeanMultiB0_s->bin(0).xMean(), weight);
+                _histMeanMultiB0_s->fill(_histMeanMultiB0_s->bin(0).midpoint(), weight);
                 break;
              case 9010221:
-                _histMeanMultiF0_980->fill(_histMeanMultiF0_980->bin(0).xMean(), weight);
+                _histMeanMultiF0_980->fill(_histMeanMultiF0_980->bin(0).midpoint(), weight);
                 break;
              case 9000211:
-                _histMeanMultiA0_980Plus->fill(_histMeanMultiA0_980Plus->bin(0).xMean(), weight);
+                _histMeanMultiA0_980Plus->fill(_histMeanMultiA0_980Plus->bin(0).midpoint(), weight);
                 break;
              case 113:
-                _histMeanMultiRho770_0->fill(_histMeanMultiRho770_0->bin(0).xMean(), weight);
+                _histMeanMultiRho770_0->fill(_histMeanMultiRho770_0->bin(0).midpoint(), weight);
                 break;
              case 213:
-                _histMeanMultiRho770Plus->fill(_histMeanMultiRho770Plus->bin(0).xMean(), weight);
+                _histMeanMultiRho770Plus->fill(_histMeanMultiRho770Plus->bin(0).midpoint(), weight);
                 break;
              case 223:
-                _histMeanMultiOmega782->fill(_histMeanMultiOmega782->bin(0).xMean(), weight);
+                _histMeanMultiOmega782->fill(_histMeanMultiOmega782->bin(0).midpoint(), weight);
                 break;
              case 323:
-                _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).xMean(), weight);
+                _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).midpoint(), weight);
                 break;
              case 313:
-                _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).xMean(), weight);
+                _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).midpoint(), weight);
                 break;
              case 333:
-                _histMeanMultiPhi1020->fill(_histMeanMultiPhi1020->bin(0).xMean(), weight);
+                _histMeanMultiPhi1020->fill(_histMeanMultiPhi1020->bin(0).midpoint(), weight);
                 break;
              case 413:
-                _histMeanMultiDStar2010Plus->fill(_histMeanMultiDStar2010Plus->bin(0).xMean(), weight);
+                _histMeanMultiDStar2010Plus->fill(_histMeanMultiDStar2010Plus->bin(0).midpoint(), weight);
                 break;
              case 433:
-                _histMeanMultiDStar_s2112Plus->fill(_histMeanMultiDStar_s2112Plus->bin(0).xMean(), weight);
+                _histMeanMultiDStar_s2112Plus->fill(_histMeanMultiDStar_s2112Plus->bin(0).midpoint(), weight);
                 break;
              case 513:
              case 523:
              case 533:
-                _histMeanMultiBStar->fill(_histMeanMultiBStar->bin(0).xMean(), weight);
+                _histMeanMultiBStar->fill(_histMeanMultiBStar->bin(0).midpoint(), weight);
                 break;
              case 443:
-                _histMeanMultiJPsi1S->fill(_histMeanMultiJPsi1S->bin(0).xMean(), weight);
+                _histMeanMultiJPsi1S->fill(_histMeanMultiJPsi1S->bin(0).midpoint(), weight);
                 break;
              case 100443:
-                _histMeanMultiPsi2S->fill(_histMeanMultiPsi2S->bin(0).xMean(), weight);
+                _histMeanMultiPsi2S->fill(_histMeanMultiPsi2S->bin(0).midpoint(), weight);
                 break;
              case 553:
-                _histMeanMultiUpsilon1S->fill(_histMeanMultiUpsilon1S->bin(0).xMean(), weight);
+                _histMeanMultiUpsilon1S->fill(_histMeanMultiUpsilon1S->bin(0).midpoint(), weight);
                 break;
              case 20223:
-                _histMeanMultiF1_1285->fill(_histMeanMultiF1_1285->bin(0).xMean(), weight);
+                _histMeanMultiF1_1285->fill(_histMeanMultiF1_1285->bin(0).midpoint(), weight);
                 break;
              case 20333:
-                _histMeanMultiF1_1420->fill(_histMeanMultiF1_1420->bin(0).xMean(), weight);
+                _histMeanMultiF1_1420->fill(_histMeanMultiF1_1420->bin(0).midpoint(), weight);
                 break;
              case 445:
-                _histMeanMultiChi_c1_3510->fill(_histMeanMultiChi_c1_3510->bin(0).xMean(), weight);
+                _histMeanMultiChi_c1_3510->fill(_histMeanMultiChi_c1_3510->bin(0).midpoint(), weight);
                 break;
              case 225:
-                _histMeanMultiF2_1270->fill(_histMeanMultiF2_1270->bin(0).xMean(), weight);
+                _histMeanMultiF2_1270->fill(_histMeanMultiF2_1270->bin(0).midpoint(), weight);
                 break;
              case 335:
-                _histMeanMultiF2Prime1525->fill(_histMeanMultiF2Prime1525->bin(0).xMean(), weight);
+                _histMeanMultiF2Prime1525->fill(_histMeanMultiF2Prime1525->bin(0).midpoint(), weight);
                 break;
              case 315:
-                _histMeanMultiK2Star1430_0->fill(_histMeanMultiK2Star1430_0->bin(0).xMean(), weight);
+                _histMeanMultiK2Star1430_0->fill(_histMeanMultiK2Star1430_0->bin(0).midpoint(), weight);
                 break;
              case 515:
              case 525:
              case 535:
-                _histMeanMultiBStarStar->fill(_histMeanMultiBStarStar->bin(0).xMean(), weight);
+                _histMeanMultiBStarStar->fill(_histMeanMultiBStarStar->bin(0).midpoint(), weight);
                 break;
              case 10433:
              case 20433:
-                _histMeanMultiDs1Plus->fill(_histMeanMultiDs1Plus->bin(0).xMean(), weight);
+                _histMeanMultiDs1Plus->fill(_histMeanMultiDs1Plus->bin(0).midpoint(), weight);
                 break;
              case 435:
-                _histMeanMultiDs2Plus->fill(_histMeanMultiDs2Plus->bin(0).xMean(), weight);
+                _histMeanMultiDs2Plus->fill(_histMeanMultiDs2Plus->bin(0).midpoint(), weight);
                 break;
              case 2212:
-                _histMeanMultiP->fill(_histMeanMultiP->bin(0).xMean(), weight);
+                _histMeanMultiP->fill(_histMeanMultiP->bin(0).midpoint(), weight);
                 break;
              case 3122:
-                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).xMean(), weight);
+                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).midpoint(), weight);
                 break;
              case 3212:
-                _histMeanMultiSigma0->fill(_histMeanMultiSigma0->bin(0).xMean(), weight);
+                _histMeanMultiSigma0->fill(_histMeanMultiSigma0->bin(0).midpoint(), weight);
                 break;
              case 3112:
-                _histMeanMultiSigmaMinus->fill(_histMeanMultiSigmaMinus->bin(0).xMean(), weight);
-                _histMeanMultiSigmaPlusMinus->fill(_histMeanMultiSigmaPlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigmaMinus->fill(_histMeanMultiSigmaMinus->bin(0).midpoint(), weight);
+                _histMeanMultiSigmaPlusMinus->fill(_histMeanMultiSigmaPlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3222:
-                _histMeanMultiSigmaPlus->fill(_histMeanMultiSigmaPlus->bin(0).xMean(), weight);
-                _histMeanMultiSigmaPlusMinus->fill(_histMeanMultiSigmaPlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigmaPlus->fill(_histMeanMultiSigmaPlus->bin(0).midpoint(), weight);
+                _histMeanMultiSigmaPlusMinus->fill(_histMeanMultiSigmaPlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3312:
-                _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).xMean(), weight);
+                _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).midpoint(), weight);
                 break;
              case 2224:
-                _histMeanMultiDelta1232PlusPlus->fill(_histMeanMultiDelta1232PlusPlus->bin(0).xMean(), weight);
+                _histMeanMultiDelta1232PlusPlus->fill(_histMeanMultiDelta1232PlusPlus->bin(0).midpoint(), weight);
                 break;
              case 3114:
-                _histMeanMultiSigma1385Minus->fill(_histMeanMultiSigma1385Minus->bin(0).xMean(), weight);
-                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigma1385Minus->fill(_histMeanMultiSigma1385Minus->bin(0).midpoint(), weight);
+                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3224:
-                _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).xMean(), weight);
-                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).xMean(), weight);
+                _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).midpoint(), weight);
+                _histMeanMultiSigma1385PlusMinus->fill(_histMeanMultiSigma1385PlusMinus->bin(0).midpoint(), weight);
                 break;
              case 3324:
-                _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->bin(0).xMean(), weight);
+                _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->bin(0).midpoint(), weight);
                 break;
              case 3334:
-                _histMeanMultiOmegaMinus->fill(_histMeanMultiOmegaMinus->bin(0).xMean(), weight);
+                _histMeanMultiOmegaMinus->fill(_histMeanMultiOmegaMinus->bin(0).midpoint(), weight);
                 break;
              case 4122:
-                _histMeanMultiLambda_c_Plus->fill(_histMeanMultiLambda_c_Plus->bin(0).xMean(), weight);
+                _histMeanMultiLambda_c_Plus->fill(_histMeanMultiLambda_c_Plus->bin(0).midpoint(), weight);
                 break;
              case 5122:
-                _histMeanMultiLambda_b_0->fill(_histMeanMultiLambda_b_0->bin(0).xMean(), weight);
+                _histMeanMultiLambda_b_0->fill(_histMeanMultiLambda_b_0->bin(0).midpoint(), weight);
                 break;
              case 3124:
-                _histMeanMultiLambda1520->fill(_histMeanMultiLambda1520->bin(0).xMean(), weight);
+                _histMeanMultiLambda1520->fill(_histMeanMultiLambda1520->bin(0).midpoint(), weight);
                 break;
           }
         }
@@ -409,20 +409,20 @@ namespace Rivet {
           const PdgId id = abs(p.pdgId());
           switch (id) {
              case 211:
-                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).xMean(), weight);
+                _histMeanMultiPiPlus->fill(_histMeanMultiPiPlus->bin(0).midpoint(), weight);
                 break;
              case 321:
-                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).xMean(), weight);
+                _histMeanMultiKPlus->fill(_histMeanMultiKPlus->bin(0).midpoint(), weight);
                 break;
              case 130:
              case 310:
-                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).xMean(), weight);
+                _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).midpoint(), weight);
                 break;
              case 2212:
-                _histMeanMultiP->fill(_histMeanMultiP->bin(0).xMean(), weight);
+                _histMeanMultiP->fill(_histMeanMultiP->bin(0).midpoint(), weight);
                 break;
              case 3122:
-                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).xMean(), weight);
+                _histMeanMultiLambda->fill(_histMeanMultiLambda->bin(0).midpoint(), weight);
                 break;
           }
         }

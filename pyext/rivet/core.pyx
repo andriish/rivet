@@ -116,9 +116,12 @@ cdef class Analysis:
     def year(self):
         return self._ptr.year()
 
-cdef object LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
-                     WARN = 30, WARNING = 30, ERROR = 40,
-                     CRITICAL = 50, ALWAYS = 50)
+
+#cdef object
+LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
+                          WARN = 30, WARNING = 30, ERROR = 40,
+                          CRITICAL = 50, ALWAYS = 50)
+
 
 cdef class AnalysisLoader:
     @staticmethod
