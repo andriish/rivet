@@ -173,11 +173,11 @@ def parseArgs(args):
 
 def setStyle(ao, style):
     """Set default plot styles (color and line width) colors borrowed from Google Ngrams"""
-    LINECOLORS = ['{[HTML]{ee3311}}',  # red (Google uses 'dc3912')
-                  '{[HTML]{3366cc}}',  # blue
+    LINECOLORS = ['{[HTML]{EE3311}}',  # red (Google uses 'DC3912')
+                  '{[HTML]{3366FF}}',  # blue
                   '{[HTML]{109618}}',  # green
-                  '{[HTML]{ff9900}}',  # orange
-                  '{[HTML]{990099}}']  # lila
+                  '{[HTML]{FF9900}}',  # orange... weirdly this screws up if the F is lower-case!
+                  '{[HTML]{990099}}']  # lilac
     LINESTYLES = ['solid',
                   'dashed',
                   'dashdotted',
@@ -190,11 +190,11 @@ def setStyle(ao, style):
                       'black!50',
                       'black!30']
 
-    c = style%len(LINECOLORS)
-    s = style/len(LINECOLORS)
+    c = style % len(LINECOLORS)
+    s = style / len(LINECOLORS)
 
-    ao.setAnnotation('LineStyle', '%s' %LINESTYLES[s])
-    ao.setAnnotation('LineColor', '%s' %LINECOLORS[c])
+    ao.setAnnotation('LineStyle', '%s' % LINESTYLES[s])
+    ao.setAnnotation('LineColor', '%s' % LINECOLORS[c])
 
 
 def setOptions(ao, options):
