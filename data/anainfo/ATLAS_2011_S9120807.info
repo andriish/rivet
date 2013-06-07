@@ -16,7 +16,7 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [16]
 Description:
-  'A measurement of the cross section for inclusive isolated photon production at $sqrt{s} = 7$ TeV.
+  'A measurement of the cross section for inclusive isolated photon production at $\sqrt{s} = 7$ TeV.
   The measurement is done in bins of $M_{\gamma\gamma}$, $p_{T\gamma\gamma}$, and $\Delta\phi_{\gamma\gamma}$,
   for isolated photons with $|\eta|<2.37$ and $E_T^\gamma>16$~GeV.
   The measurement uses 37 pb$^{-1}$ of integrated luminosity collected with
