@@ -1,5 +1,7 @@
 2013-06-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Updating mk-analysis-html script to produce MathJax output
+
 	* Adding a version of Analysis::removeAnalysisObject() which takes
 	an AO pointer as its argument.
 
