@@ -135,12 +135,58 @@ def detex(tex):
     from distutils.spawn import find_executable
     if not find_executable("pandoc"):
         return tex
+    texheader = r"""
+    \newcommand{\text}[1]{#1}
+    \newcommand{\emph}[1]{_#1_}
+    \newcommand{\textrm}[1]{#1}
+    \newcommand{\textit}[1]{_#1_}
+    \newcommand{\textbf}[1]{*#1*}
+    \newcommand{\mathrm}[1]{#1}
+    \newcommand{\mathit}[1]{_#1_}
+    \newcommand{\mathbf}[1]{*#1*}
+    \newcommand{\bm}[1]{*#1*}
+    \newcommand{\frac}[2]{#1/#2}
+    \newcommand{\sqrt}[1]{sqrt(#1)}
+    \newcommand{\d}[1]{d#1}
+    \newcommand{\infty}{oo }
+    \newcommand{\sim}{~}
+    \newcommand{\neq}{!= }
+    \newcommand{\ge}{>= }
+    \newcommand{\gg}{>> }
+    \newcommand{\le}{<= }
+    \newcommand{\ll}{<< }
+    \newcommand{\langle}{<}
+    \newcommand{\rangle}{>}
+    \newcommand{\gets}{<- }
+    \newcommand{\to}{-> }
+    \newcommand{\leftarrow}{<- }
+    \newcommand{\rightarrow}{-> }
+    \newcommand{\leftrightarrow}{<-> }
+    \newcommand{\Leftarrow}{<= }
+    \newcommand{\Rightarrow}{=> }
+    \newcommand{\Leftrightarrow}{ }
+    \newcommand{\!}{}
+    \newcommand{\/}{}
+    \newcommand{\,}{ }
+    \newcommand{\;}{ }
+    \newcommand{\ }{ }
+    \newcommand{\unit}[2]{#1 #2}
+    \newcommand{\bar}[1]{#1bar}
+    \newcommand{\pT}{pT }
+    \newcommand{\perp}{T}
+    \newcommand{\MeV}{MeV }
+    \newcommand{\GeV}{GeV }
+    \newcommand{\TeV}{TeV }
+    """
     import subprocess, shlex
     p = subprocess.Popen(shlex.split("pandoc -f latex -t plain --no-wrap"),
                          stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    plain, err = p.communicate(tex)
+    plain, err = p.communicate((texheader + tex).replace("\n", ""))
+    plain = plain.replace(r"\&", "&")
+    # TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
     return plain[:-1] if plain[-1] == "\n" else plain
 
+#print detex(r"Foo \! $\int \text{bar} \d{x} \sim \; \frac{1}{3} \neq \emph{foo}$ \to \gg bar")
 
 ## Parse supplied cross-section
 if opts.CROSS_SECTION is not None:
