@@ -654,8 +654,7 @@ namespace Rivet {
     //@{
 
     /// Register a data object in the histogram system
-    /// @todo Rename as reg()? ("register" is a reserved C++ keyword)
-    void addAnalysisObject(AnalysisObjectPtr);
+    void addAnalysisObject(AnalysisObjectPtr ao);
 
     /// Get a data object from the histogram system
     /// @todo Use this default function template arg in C++11
@@ -679,9 +678,11 @@ namespace Rivet {
       throw Exception("Data object " + histoPath(name) + " not found");
     }
 
-    /// Register a data object in the histogram system
-    /// @todo Rename as unreg()?
+    /// Unregister a data object from the histogram system (by name)
     void removeAnalysisObject(const std::string& path);
+
+    /// Unregister a data object from the histogram system (by pointer)
+    void removeAnalysisObject(AnalysisObjectPtr ao);
 
 
     /// Get a named Histo1D object from the histogram system

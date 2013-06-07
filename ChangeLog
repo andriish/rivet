@@ -1,5 +1,8 @@
 2013-06-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding a version of Analysis::removeAnalysisObject() which takes
+	an AO pointer as its argument.
+
 	* bin/rivet: Adding pandoc-based conversion of TeX summary and
 	description strings to plain text on the terminal output.
 

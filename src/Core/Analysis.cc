@@ -592,5 +592,14 @@ namespace Rivet {
     }
   }
 
+  void Analysis::removeAnalysisObject(AnalysisObjectPtr ao) {
+    for (vector<AnalysisObjectPtr>::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
+      if (*it == ao) {
+        _analysisobjects.erase(it);
+        break;
+      }
+    }
+ }
+
 
 }
