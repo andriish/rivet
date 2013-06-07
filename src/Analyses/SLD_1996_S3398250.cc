@@ -89,23 +89,23 @@ namespace Rivet {
     }
 
 
+    void multiplicity_subract(const Histo1DPtr first, const Histo1DPtr second, int a, int b, int c) {
+      Scatter2DPtr scatter  = bookScatter2D(a, b, c);
+      const double x  = first->bin(0).midpoint();
+      const double ex = first->bin(0).width()/2.;
+      const double y  = first->bin(0).area() - second->bin(0).area();
+      const double ey = sqrt(sqr(first->bin(0).areaErr()) + sqr(second->bin(0).areaErr()));
+      scatter->addPoint(x, y, ex, ey);
+    }
+
+
     void finalize() {
       if (_weightBottom != 0) scale(_h_bottom, 1./_weightBottom);
       if (_weightCharm  != 0) scale(_h_charm,  1./_weightCharm );
       if (_weightLight  != 0) scale(_h_light,  1./_weightLight );
 
-      const double x  = _h_bottom->bin(0).midpoint();
-      const double ex = _h_bottom->bin(0).width()/2.;
-
-      Scatter2DPtr h_charm_minus_light  = bookScatter2D(4, 1, 1);
-      const double cl  = _h_charm->bin(0).area() - _h_light->bin(0).area();
-      const double ecl = sqrt(sqr(_h_charm->bin(0).areaErr()) + sqr(_h_light->bin(0).areaErr()));
-      h_charm_minus_light->addPoint(x, cl, ex, ecl);
-
-      Scatter2DPtr h_bottom_minus_light = bookScatter2D(5, 1, 1);
-      const double bl  = _h_bottom->bin(0).area() - _h_light->bin(0).area();
-      const double ebl = sqrt(sqr(_h_bottom->bin(0).areaErr()) + sqr(_h_light->bin(0).areaErr()));
-      h_bottom_minus_light->addPoint(x, bl, ex, ebl);
+      multiplicity_subract(_h_charm,  _h_light, 4, 1, 1);
+      multiplicity_subract(_h_bottom, _h_light, 5, 1, 1);
     }
 
     //@}
