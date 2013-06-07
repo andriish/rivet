@@ -190,8 +190,8 @@ def detex(tex):
     # TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
     # TODO: Replace e^+-
     return plain[:-1] if plain[-1] == "\n" else plain
-
 #print detex(r"Foo \! $\int \text{bar} \d{x} \sim \; \frac{1}{3} \neq \emph{foo}$ \to \gg bar")
+
 
 ## Parse supplied cross-section
 if opts.CROSS_SECTION is not None:
