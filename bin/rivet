@@ -129,6 +129,19 @@ for l in opts.NATIVE_LOG_STRS:
         logging.warning("Couldn't process logging string '%s'" % l)
 
 
+## Use pandoc (if available) to make the TeX strings in
+## summary and description more readable on the text terminal
+def detex(tex):
+    from distutils.spawn import find_executable
+    if not find_executable("pandoc"):
+        return tex
+    import subprocess, shlex
+    p = subprocess.Popen(shlex.split("pandoc -f latex -t plain --no-wrap"),
+                         stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    plain, err = p.communicate(tex)
+    return plain[:-1] if plain[-1] == "\n" else plain
+
+
 ## Parse supplied cross-section
 if opts.CROSS_SECTION is not None:
     xsstr = opts.CROSS_SECTION
@@ -219,7 +232,7 @@ if opts.LIST_ANALYSES:
             msg = aname
             if opts.LOGLEVEL <= logging.INFO:
                 a = rivet.AnalysisLoader.getAnalysis(aname)
-                msg = "%-25s   %s" % (aname, a.summary())
+                msg = "%-25s   %s" % (aname, detex(a.summary()))
             print msg
     sys.exit(0)
 
@@ -247,7 +260,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         print name
         print len(name) * "="
         print ""
-        print ana.summary()
+        print detex(ana.summary())
         print ""
         print "Status: %s" % ana.status()
         print ""
@@ -277,7 +290,7 @@ if len(opts.SHOW_ANALYSES) > 0:
 
         print "Description:"
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
-        print twrap.fill(ana.description())
+        print twrap.fill(detex(ana.description()))
 
         print ""
 

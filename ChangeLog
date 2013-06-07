@@ -1,5 +1,8 @@
 2013-06-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* bin/rivet: Adding pandoc-based conversion of TeX summary and
+	description strings to plain text on the terminal output.
+
 	* Add MathJax to rivet-mkhtml output, set up so the .info entries should render ok.
 
 	* Mark the OPAL 1993 analysis as UNVALIDATED: from the H++
