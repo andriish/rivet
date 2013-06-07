@@ -155,6 +155,8 @@ def detex(tex):
     \newcommand{\gg}{>> }
     \newcommand{\le}{<= }
     \newcommand{\ll}{<< }
+    \newcommand{\pm}{+- }
+    \newcommand{\mp}{-+ }
     \newcommand{\langle}{<}
     \newcommand{\rangle}{>}
     \newcommand{\gets}{<- }
@@ -186,6 +188,7 @@ def detex(tex):
     plain, err = p.communicate((texheader + tex).replace("\n", ""))
     plain = plain.replace(r"\&", "&")
     # TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
+    # TODO: Replace e^+-
     return plain[:-1] if plain[-1] == "\n" else plain
 
 #print detex(r"Foo \! $\int \text{bar} \d{x} \sim \; \frac{1}{3} \neq \emph{foo}$ \to \gg bar")
