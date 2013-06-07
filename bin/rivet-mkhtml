@@ -155,11 +155,24 @@ Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
 ## a browser to view the output before all plots are made
-style = """<style>
+style = '''<style>
   html { font-family: sans-serif; }
   img { border: 0; }
   a { text-decoration: none; font-weight: bold; }
-</style>"""
+</style>
+'''
+
+## Include MathJax configuration
+script = '''\
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [["$","$"]]}
+});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+'''
 
 
 ## A timestamp HTML fragment to be used on each page:
@@ -170,7 +183,7 @@ def _htmlify(s):
     return s.replace("<","&lt;").replace(">","&gt;")
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
-index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.TITLE, style))
+index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.TITLE, style + script))
 if opts.BOOKLET and opts.VECTORFORMAT == "PDF":
     index.write('<h2><a href="booklet.pdf">%s</a></h2>\n\n' % opts.TITLE)
 else:
@@ -226,7 +239,7 @@ for analysis in analyses:
     if not opts.SINGLE:
         anaindex = open(os.path.join(anapath, "index.html"), 'w')
         anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>\n' %
-                       (opts.OUTPUTDIR, analysis, style))
+                       (opts.OUTPUTDIR, analysis, style + script))
         anaindex.write('<h3>%s</h3>\n' % analysis)
         anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
         anaindex.write('<p>\n  %s\n</p>\n' % _htmlify(description))
