@@ -167,6 +167,8 @@ def detex(tex):
     \newcommand{\Leftrightarrow}{ }
     \newcommand{\!}{}
     \newcommand{\/}{}
+    \newcommand{\rm}{}
+    \newcommand{\it}{}
     \newcommand{\,}{ }
     \newcommand{\;}{ }
     \newcommand{\ }{ }

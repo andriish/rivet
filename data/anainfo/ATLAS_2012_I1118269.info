@@ -1,6 +1,6 @@
 Name: ATLAS_2012_I1118269
 Year: 2012
-Summary: Measurement of the b-hadron production cross section using decays to $D^{*}\mu^-X$ final states in pp collisions at sqrt(s) = 7 TeV with the ATLAS detector
+Summary: $b$-hadron production cross-section using decays to $D^*\mu^-X$ at $\sqrt(s) = 7$\;TeV
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 9626190
@@ -20,14 +20,14 @@ Energies: [7000]
 PtCuts: [0]
 Description:
   'Measurement of $b$-hadron production cross section using 3.3 pb$^{-1}$ of integrated luminosity, collected during the 2010 LHC run.
-   The $b$-hadrons are selected by partially reconstructing $D^{*}\mu^-X$ final states using only direct semileptonic decays of $b$ to $D^{*}\mu^-X$.
+   The $b$-hadrons are selected by partially reconstructing $D^{*}\mu^-X$ final states using only direct semileptonic decays of $b$ to $D^*\mu^-X$.
    Differential cross sections as functions of $p_\perp$ and $|\eta|$.'
 BibKey: :2012fc
 BibTeX: '@article{:2012fc,
       author         = "Aad, Georges and others",
-      title          = "{Measurement of the b-hadron production cross section
-                        using decays to $D^{*}\mu^-X$ final states in pp
-                        collisions at sqrt(s) = 7 TeV with the ATLAS detector}",
+      title          = "{Measurement of the $b$-hadron production cross section
+                        using decays to $D^*\mu^-X$ final states in $pp$
+                        collisions at $\sqrt{s} = 7$\;TeV with the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       journal        = "Nucl.Phys.",
       volume         = "B864",
