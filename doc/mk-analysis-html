@@ -33,14 +33,11 @@ import rivet
 
 
 def htmlify(s, para=False):
-    # TODO: also replace LaTeX like \text, $$, \le, \ge, \mathrm, \emph, etc.
-    # TODO: replace the &, <, > etc. with .encode("xmlcharrefreplace")? Or does that encode *all* characters?
-    t = s \
-        .replace("&", "&amp;") \
-        .replace(">", "&gt;") \
-        .replace("<", "&lt;") \
-        .replace("$", "") \
-        .replace("\\pm", "+-")
+    t = s.replace("&", "&amp;")\
+        .replace("\pT", "p_\perp")\
+        .replace("\MeV", "\text{MeV}")\
+        .replace("\GeV", "\text{GeV}")\
+        .replace("\TeV", "\text{TeV}")
     if para:
         t = t.replace("\n\n", "</p><p>")
     return t
@@ -153,7 +150,7 @@ for aname in sorted(list(all_analyses)):
 
 
 ## Write out HTML
-head = """\
+head = '''\
 <html>
 <head>
   <title>Rivet analyses reference</title>
@@ -163,11 +160,19 @@ head = """\
     h2 { margin-left:-1em; margin-bottom:1.5em; }
     h3 { color:#349; margin-top:2em; }
   </style>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"]]}
+  });
+  </script>
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
 </head>
 <body>
   <h2>Rivet analyses reference</h2>
 
-"""
+'''
 
 toc = "<h3>Contents</h3>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"
