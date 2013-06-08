@@ -34,14 +34,14 @@ import rivet
 
 def htmlify(s, para=False):
     t = s.replace("&", "&amp;")\
-        .replace("\pT", "p_\perp")\
-        .replace("\;", " ")\
-        .replace("\,", " ")\
-        .replace("~", " ")\
-        .replace("\!", "")\
-        .replace("\MeV", "\text{MeV}")\
-        .replace("\GeV", "\text{GeV}")\
-        .replace("\TeV", "\text{TeV}")
+        .replace(r"\pT", r"p_\perp")\
+        .replace(r"\MeV", r"\text{MeV}")\
+        .replace(r"\GeV", r"\text{GeV}")\
+        .replace(r"\TeV", r"\text{TeV}")
+    # t = t.replace(r"\;", " ")\
+    #     .replace(r"\,", " ")\
+    #     .replace(r"~", " ")\
+    #     .replace(r"\!", "")
     if para:
         t = t.replace("\n\n", "</p><p>")
     return t
