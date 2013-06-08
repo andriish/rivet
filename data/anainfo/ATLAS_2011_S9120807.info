@@ -10,7 +10,7 @@ Authors:
 References:
  - arXiv:1107.0581 [hep-ex]
 RunInfo:
-  Inclusive diphoton+X events at $\sqrt{s} = 7$~TeV.
+  Inclusive diphoton + $X$ events at $\sqrt{s} = 7$~TeV.
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
@@ -24,8 +24,7 @@ Description:
 NeedCrossSection: yes
 BibTeX: '@Article{Aad:2011mh,
       author         = "Aad, Georges and others",
-      title          = "{Measurement of the isolated di-photon cross-section in
-                        pp collisions at sqrt(s) = 7 TeV with the ATLAS detector}",
+      title          = "{Measurement of the isolated di-photon cross-section in $pp$ collisions at $\sqrt{s} = 7$ TeV with the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       year           = "2011",
       eprint         = "1107.0581",

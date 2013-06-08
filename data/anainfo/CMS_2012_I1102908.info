@@ -19,9 +19,9 @@ Authors:
  - Grigory Safronov
 References:
  - CMS-FWD-10-014
- - CERN-PH-EP-2012-088 
+ - CERN-PH-EP-2012-088
  - arXiv:1204.0696 [hep-ex]
- - Submitted to the EPJ C 
+ - Submitted to the EPJ C
 RunInfo:
    Inclusive QCD at 7TeV comEnergy, ptHat (or equivalent) greater than 15 GeV
 NumEvents: 500M with ptHat > 15
@@ -34,7 +34,7 @@ Description:
    rapidity, $\Delta y$, between jets. The ratio of the
    Mueller-Navelet to exclusive dijet production is also
    measured.  These measurements were performed with the CMS
-   detector in proton-proton collisions at $\sqrt s = 7$ TeV for
+   detector in proton-proton collisions at $\sqrt{s} = 7$ TeV for
    jets with $p_T > 35$ GeV and $|y| < 4.7$ taken from a mixture
    of two data samples, one of which containing dijets with
    moderate rapidity separation and the other containing dijets
@@ -46,7 +46,7 @@ BibTeX: '@article{Chatrchyan:2012pb,
       author         = "Chatrchyan, Serguei and others",
       title          = "{Ratios of dijet production cross sections as a function
                         of the absolute difference in rapidity between jets in
-                        proton-proton collisions at sqrt(s) = 7 TeV}",
+                        proton--proton collisions at $\sqrt{s} = 7$ TeV}",
       collaboration  = "CMS Collaboration",
       year           = "2012",
       eprint         = "1204.0696",

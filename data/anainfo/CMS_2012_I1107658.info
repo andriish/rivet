@@ -39,8 +39,7 @@ Description:
 BibKey: Chatrchyan:2012tb
 BibTeX: '@article{Chatrchyan:2012tb,
       author         = "Chatrchyan, Serguei and others",
-      title          = "{Measurement of the underlying event in the Drell-Yan
-                        process in proton-proton collisions at sqrt(s) = 7 TeV}",
+      title          = "{Measurement of the underlying event in the Drell-Yan process in proton-proton collisions at $\sqrt{s} = 7$ TeV}",
       collaboration  = "CMS Collaboration",
       year           = "2012",
       eprint         = "1204.1411",
@@ -49,4 +48,4 @@ BibTeX: '@article{Chatrchyan:2012tb,
       reportNumber   = "CMS-QCD-11-012, CERN-PH-EP-2012-085",
       SLACcitation   = "%%CITATION = ARXIV:1204.1411;%%",}'
 To do:
- - Update references once EPJ assignes numbers (it is accepted)
+ - Update references once EPJ assigns numbers (it is accepted)

@@ -18,15 +18,13 @@ PtCuts: [15]
 Description:
   'A measurement of the cross section for inclusive isolated photon production at $\sqrt{s} = 7$ TeV.
   The measurement covers three ranges in $|\eta|$: [0.00,0.60), [0.60,1.37), and [1.52,1.81), for
-  $E_T^\gamma>15$~GeV.  The measurement uses 880nb$^{-1}$ of integrated luminosity collected with
+  $E_T^\gamma>15$~GeV.  The measurement uses 880~nb$^{-1}$ of integrated luminosity collected with
   the ATLAS detector.'
 NeedCrossSection: yes
 BibKey: Collaboration:2010sp
 BibTeX: '@Article{Collaboration:2010sp,
      author    = "Collaboration, The ATLAS",
-     title     = "{Measurement of the inclusive isolated prompt photon cross
-                  section in pp collisions at sqrt(s) = 7 TeV with the ATLAS
-                  detector}",
+     title     = "{Measurement of the inclusive isolated prompt photon cross section in $pp$ collisions at $\sqrt{s} = 7$ TeV with the ATLAS detector}",
      year      = "2010",
      eprint    = "1012.4389",
      archivePrefix = "arXiv",

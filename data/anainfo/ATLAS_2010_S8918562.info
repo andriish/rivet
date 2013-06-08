@@ -11,7 +11,7 @@ Authors:
 References:
  - arXiv:1012.5104
 RunInfo:
-  pp QCD interactions at 0.9, 2.36, and 7 TeV. Diffractive events should
+  $pp$ QCD interactions at 0.9, 2.36, and 7 TeV. Diffractive events should
   be included. Multiple kinematic cuts should not be required.
 NumEvents: 1000000
 Beams: [p+, p+]
@@ -19,7 +19,7 @@ Energies: [900, 2360, 7000]
 PtCuts: [0]
 Description:
   Measurements from proton-proton collisions at centre-of-mass energies
-  of sqrt(s) = 0.9, 2.36, and 7 TeV recorded with the ATLAS detector at
+  of $\sqrt{s} = 0.9$, 2.36, and 7 TeV recorded with the ATLAS detector at
   the LHC. Events were collected using a single-arm minimum-bias
   trigger. The charged-particle multiplicity, its dependence on
   transverse momentum and pseudorapidity and the relationship between

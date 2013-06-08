@@ -1,7 +1,6 @@
 Name: CMS_2011_S8978280
 Year: 2011
-Summary: Kshort, Lambda, and Cascade- transverse momentum and rapidity spectra from
-  proton-proton collisions at 900 and 7000 GeV.
+Summary: $K_s$, $\Lambda$, and Cascade transverse momentum and rapidity spectra at 900 and 7000 GeV.
 Experiment: CMS
 Collider: LHC
 SpiresID: 8978280
@@ -20,7 +19,7 @@ RunInfo:
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [900, 7000]
-PtCuts: 
+PtCuts:
 Description:
    The spectra of Kshort, Lambda, and Cascade- particles were measured versus
    transverse-momentum (pT) and rapidity(y) in proton-proton collisions at center-of-mass
@@ -33,17 +32,16 @@ Description:
    Ratios of Lambda/Kshort and Cascade-/Lambda production versus pT and |y| are also given,
    with somewhat smaller systematic uncertainties than obtained from taking the ratio of
    the individual distributions.'
-   
+
    The data were corrected according to the SD/DD/ND content of the CMS
    trigger, as predicted by pythia6. The uncertainties connected with
    correct or uncorrect modelling of diffraction were included in the
-   systematic errors. 
+   systematic errors.
 BibKey: Khachatryan:2011tm
 BibTeX: 	'@Article{Khachatryan:2011tm,
      author    = "Khachatryan, Vardan and others",
- collaboration = "CMS",
-     title     = "{Strange Particle Production in pp Collisions at sqrt(s) =
-                  0.9 and 7 TeV}",
+     collaboration = "CMS",
+     title     = "{Strange particle production in $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV}",
      journal   = "JHEP",
      volume    = "05",
      year      = "2011",

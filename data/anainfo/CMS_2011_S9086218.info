@@ -26,8 +26,7 @@ NeedCrossSection: yes
 BibKey: :2011me
 BibTeX: '@article{:2011me,
       author         = "Chatrchyan, Serguei and others",
-      title          = "{Measurement of the Inclusive Jet Cross Section in pp
-                        Collisions at sqrt(s) = 7 TeV}",
+      title          = "{Measurement of the inclusive jet cross section in $pp$ collisions at $\sqrt{s} = 7$ TeV}",
       collaboration  = "CMS Collaboration",
       journal        = "Phys. Rev. Lett.",
       volume         = "107",

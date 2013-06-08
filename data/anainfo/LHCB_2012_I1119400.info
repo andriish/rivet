@@ -1,6 +1,6 @@
 Name: LHCB_2012_I1119400
 Year: 2012
-Summary: Measurement of prompt hadron production ratios in $pp$ collisions at $\sqrt{s} = $ 0.9 and 7 TeV
+Summary: Measurement of prompt hadron production ratios in $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV
 Experiment: LHCb
 Collider: LHC
 SpireID: 9635220
@@ -12,7 +12,7 @@ Authors:
 References:
  - arXiv:1206.5160 [hep-ex]
 RunInfo:
-   Minimum bias events at sqrt(s) = 0.9 and 7 TeV.
+   Minimum bias events at $\sqrt{s} = 0.9$ and 7 TeV.
 NumEvents: 500000
 NeedCrossSection: no
 Beams: [p+, p+]
@@ -26,8 +26,7 @@ Description:
 BibKey: Aaij:2012ut
 BibTeX: '@article{Aaij:2012ut,
       author         = "Aaij, R and others",
-      title          = "{Measurement of prompt hadron production ratios in $pp$
-                        collisions at $\sqrt{s} = $ 0.9 and 7 TeV}",
+      title          = "{Measurement of prompt hadron production ratios in $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV}",
       collaboration  = "LHCb Collaboration",
       journal        = "Eur.Phys.J.",
       volume         = "C72",

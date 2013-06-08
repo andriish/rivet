@@ -25,11 +25,10 @@ Description:
 BibKey: Abazov:2006gs
 BibTeX: '@Article{Abazov:2006gs,
      author    = "Abazov, V. M. and others",
- collaboration = "D0",
-     title     = "{Measurement of the ratios of the Z/G* + >= n jet
-                  production cross   sections to the total inclusive Z/G*
-                  cross section in ppbar collisions at   sqrt(s) = 1.96
-                  TeV}",
+     collaboration = "D0",
+     title     = "{Measurement of the ratios of the $Z/\gamma^* + \ge n$-jet
+                  production cross-sections to the total inclusive $Z/\gamma^*$
+                  cross section in $p \bar{p}$ collisions at $\sqrt{s} = 1.96$ TeV}",
      journal   = "Phys. Lett.",
      volume    = "B658",
      year      = "2008",

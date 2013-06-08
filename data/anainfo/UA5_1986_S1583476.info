@@ -1,6 +1,6 @@
 Name: UA5_1986_S1583476
 Year: 1986
-Summary: Pseudorapidity distributions in $p\bar{p}$ (NSD, NSD+SD) events at sqrt(s) = 200 and 900 GeV
+Summary: Pseudorapidity distributions in $p\bar{p}$ (NSD, NSD+SD) events at $\sqrt{s} = 200$ and 900 GeV
 Experiment: UA5
 Collider: CERN SPS
 SpiresID: 1583476
@@ -13,8 +13,8 @@ References:
  - Eur. Phys. J. C33, 1, 1986
 RunInfo:
   "* Single- and double-diffractive, plus non-diffractive inelastic, events.
-  * $p\\bar{p}$ collider, sqrt(s) = 200 or 900 GeV.
-  * The trigger implementation for NSD events is the same as in, e.g., 
+  * $p\\bar{p}$ collider, $\\sqrt{s} = 200$ or 900 GeV.
+  * The trigger implementation for NSD events is the same as in, e.g.,
     the UA5_1989 analysis. No further cuts are needed."
 NumEvents: 1000000
 Beams: [p-, p+]

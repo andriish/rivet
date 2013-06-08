@@ -11,8 +11,8 @@ References:
  - Phys.Rev.D41:2330,1990
  - doi:10.1103/PhysRevD.41.2330
 RunInfo:
-  QCD min bias events at sqrt(s) = 630 and 1800 GeV.
-  Particles with $c \tau > 10$mm should be set stable.
+  QCD min bias events at $\sqrt{s} = 630$ and 1800 GeV.
+  Particles with $c \tau > 10$\;mm should be set stable.
 NumEvents: 1000000
 Beams: [p-, p+]
 Energies: [630, 1800]
@@ -27,10 +27,8 @@ Description:
 BibKey: Abe:1989td
 BibTeX: '@Article{Abe:1989td,
      author    = "Abe, F. and others",
- collaboration = "CDF",
-     title     = "{Pseudorapidity distributions of charged particles produced
-                  in $\bar{p}p$ interactions at $\sqrt{s} = 630$ GeV and 1800
-                  GeV}",
+     collaboration = "CDF",
+     title     = "{Pseudorapidity distributions of charged particles produced in $\bar{p}p$ interactions at $\sqrt{s} = 630$ GeV and 1800 GeV}",
      journal   = "Phys. Rev.",
      volume    = "D41",
      year      = "1990",
