@@ -129,7 +129,7 @@ for aname in sorted(list(all_analyses)):
     page += "<b>Beam energies:</b> "
     if ana.requiredEnergies():
         page += "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
-        page += "GeV"
+        page += "&nbsp;GeV"
     else:
         page += "ANY"
     page += "<br/>\n"
