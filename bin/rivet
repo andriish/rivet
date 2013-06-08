@@ -131,12 +131,14 @@ for l in opts.NATIVE_LOG_STRS:
 
 ## Use pandoc (if available) to make the TeX strings in
 ## summary and description more readable on the text terminal
+# TODO: Maybe group many strings to be processed together, to save on system call / pandoc startup?
 def detex(tex):
     from distutils.spawn import find_executable
     if not find_executable("pandoc"):
         return tex
     texheader = r"""
     \newcommand{\text}[1]{#1}
+    \newcommand{\ensuremath}[1]{#1}
     \newcommand{\emph}[1]{_#1_}
     \newcommand{\textrm}[1]{#1}
     \newcommand{\textit}[1]{_#1_}
@@ -147,9 +149,21 @@ def detex(tex):
     \newcommand{\bm}[1]{*#1*}
     \newcommand{\frac}[2]{#1/#2}
     \newcommand{\sqrt}[1]{sqrt(#1)}
+    \newcommand{\hat}[1]{#1hat}
+    \newcommand{\bar}[1]{#1bar}
     \newcommand{\d}[1]{d#1}
     \newcommand{\infty}{oo }
+    \newcommand{\log}{log }
+    \newcommand{\ln}{ln }
+    \newcommand{\sin}{sin }
+    \newcommand{\cos}{cos }
+    \newcommand{\tan}{tan }
+    \newcommand{\sinh}{sinh }
+    \newcommand{\cosh}{cosh }
+    \newcommand{\tanh}{tanh }
     \newcommand{\sim}{~}
+    \newcommand{\lesssim}{<~ }
+    \newcommand{\gtrsim}{>~ }
     \newcommand{\neq}{!= }
     \newcommand{\ge}{>= }
     \newcommand{\gg}{>> }
@@ -157,6 +171,8 @@ def detex(tex):
     \newcommand{\ll}{<< }
     \newcommand{\pm}{+- }
     \newcommand{\mp}{-+ }
+    \newcommand{\times}{x }
+    \newcommand{\cdot}{. }
     \newcommand{\langle}{<}
     \newcommand{\rangle}{>}
     \newcommand{\gets}{<- }
@@ -167,6 +183,8 @@ def detex(tex):
     \newcommand{\Leftarrow}{<= }
     \newcommand{\Rightarrow}{=> }
     \newcommand{\Leftrightarrow}{ }
+    \newcommand{\left}{}
+    \newcommand{\right}{}
     \newcommand{\!}{}
     \newcommand{\/}{}
     \newcommand{\rm}{}
