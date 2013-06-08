@@ -35,6 +35,10 @@ import rivet
 def htmlify(s, para=False):
     t = s.replace("&", "&amp;")\
         .replace("\pT", "p_\perp")\
+        .replace("\;", " ")\
+        .replace("\,", " ")\
+        .replace("~", " ")\
+        .replace("\!", "")\
         .replace("\MeV", "\text{MeV}")\
         .replace("\GeV", "\text{GeV}")\
         .replace("\TeV", "\text{TeV}")
