@@ -36,6 +36,7 @@ def htmlify(s, para=False):
     t = s.replace("&", "&amp;")\
         .replace(r"~", " ")
     t = t.replace(r"\pT", r"p_\perp")\
+        .replace(r"\degree", r"^\circ")\
         .replace(r"\MeV", r"\text{MeV}")\
         .replace(r"\GeV", r"\text{GeV}")\
         .replace(r"\TeV", r"\text{TeV}")
@@ -103,7 +104,7 @@ for aname in sorted(list(all_analyses)):
                 page += "  <li>%s</li>\n" % htmlify(r)
         page += "</ul>\n"
     else:
-        page += "<b>No references listed</b>\n"
+        page += "<b>No references listed</b><br/>\n"
 
 
     if ana.requiredBeams():

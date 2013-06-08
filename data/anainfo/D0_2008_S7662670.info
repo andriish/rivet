@@ -13,7 +13,7 @@ References:
  - doi:10.1103/PhysRevLett.101.062001
  - arXiv:0802.2400v3 [hep-ex]
 RunInfo:
-  QCD events at $\sqrt{s} = 1960\;\GeV$. A $\pT_\text{min} cut is probably necessary since
+  QCD events at $\sqrt{s} = 1960\;\GeV$. A $\pT^\text{min} cut is probably necessary since
   the lowest jet $\pT$ bin is at 50\;GeV
 NumEvents: 1000000
 Beams: [p-, p+]

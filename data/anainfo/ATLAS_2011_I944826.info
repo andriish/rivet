@@ -18,7 +18,15 @@ NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [900, 7000]
 Description:
-  'The production of Kshort and Lambda hadrons is studied in inelastic $pp$ collisions at $\sqrt{s} = 0.9$ and 7 TeV collected with the ATLAS detector at the LHC using a minimum-bias trigger. The observed distributions of transverse momentum, rapidity, and multiplicity are corrected to hadron level in a model-independent way within well defined phase-space regions. The distribution of the production ratio of Lambdabar to Lambda baryons is also measured. The results are compared with various Monte Carlo simulation models. Although most of these models agree with data to within 15% in the Kshort distributions, substantial disagreements with data are found in the Lambda distributions of transverse momentum. '
+  'The production of $K_S$ and $\Lambda$ hadrons is studied in inelastic $pp$ collisions
+   at $\sqrt{s} = 0.9$ and 7 TeV collected with the ATLAS detector at the LHC using a
+   minimum-bias trigger. The observed distributions of transverse momentum, rapidity,
+   and multiplicity are corrected to hadron level in a model-independent way within
+   well defined phase-space regions. The distribution of the production ratio of $\bar{\Lambda}$
+   to $\Lambda$ baryons is also measured. The results are compared with various Monte
+   Carlo simulation models. Although most of these models agree with data to within
+   15 percent in the $K_S$ distributions, substantial disagreements with data are found
+   in the $\Lambda$ distributions of transverse momentum.'
 BibKey: Aad:2011hd
 BibTeX: '@article{Aad:2011hd,
       author         = "Aad, Georges and others",

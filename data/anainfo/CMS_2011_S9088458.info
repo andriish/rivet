@@ -10,7 +10,7 @@ Authors:
 References:
  - Phys. Lett. B 702 (2011) 336
 RunInfo:
-   Inclusive QCD at 7TeV comEnergy, ptHat (or equivalent) greater than 30 GeV
+   Inclusive QCD at 7 TeV. $\hat{\pT}$ (or equivalent) greater than 30 GeV
 NumEvents: 100k
 Beams: [p+, p+]
 Energies: [7000]
@@ -21,7 +21,7 @@ Description:
   transverse momentum, $H_T$, in the range $0.2 < H_T < 2.5$ TeV is presented. The data have been collected
   at a proton--proton centre-of-mass energy of 7\;TeV with the CMS detector at the LHC, and correspond
   to an integrated luminosity of 36/pb.
-  Jets are anti-$k_t$ with $R = 0.5$, $p_\perp > 50\;GeV$ and $|\eta| < 2.5$.
+  Jets are anti-$k_t$ with $R = 0.5$, $p_\perp > 50\;\GeV$ and $|\eta| < 2.5$.
 BibKey: Chatrchyan:2011wn
 BibTeX: '@article{Chatrchyan:2011wn,
       author         = "Chatrchyan, Serguei and others",

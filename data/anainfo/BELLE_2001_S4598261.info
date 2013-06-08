@@ -1,13 +1,16 @@
 Name: BELLE_2001_S4598261
 Summary: Measurement of inclusive production of neutral pions from $\Upsilon(4S)$ decays.
 Status: VALIDATED
+Experiment: Belle
+Collider: KEKB
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:
  - Phys.Rev. D64 (2001) 072001
  - hep-ex/0103041
 RunInfo:
-  $e^+ e^-$ analysis on the $\Upsilon(4S)$ resonance, with CoM boost -- 8.0~GeV~($e^−$) and 3.5~GeV~($e^+$)
+  $e^+ e^-$ analysis on the $\Upsilon(4S)$ resonance, with CoM boosts of
+  8.0~GeV~($e^-$) and 3.5~GeV~($e^+$)
 NumEvents: 1000000
 SpiresID: 4598261
 Beams: [e+, e-]

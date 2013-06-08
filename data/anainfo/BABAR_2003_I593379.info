@@ -1,5 +1,7 @@
 Name: BABAR_2003_I593379
 Summary: Measurement of inclusive charmonium production
+Experiment: BaBar
+Collider: PEP-II
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

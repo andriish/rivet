@@ -20,7 +20,7 @@ PtCuts: [0]
 Description:
   Pseudorapidity distributions based on the CDF 630 and 1800 GeV runs
   from 1987. All data is detector corrected. The data confirms the UA5
-  measurement of a $\d{N}/\d{\eta}$ rise with energy faster than
+  measurement of a $\mathrm{d}{N}/\mathrm{d}{\eta}$ rise with energy faster than
   $\ln{\sqrt{s}}$, and as such this analysis is important for
   constraining the energy evolution of minimum bias and underlying event
   characteristics in MC simulations.
@@ -28,7 +28,8 @@ BibKey: Abe:1989td
 BibTeX: '@Article{Abe:1989td,
      author    = "Abe, F. and others",
      collaboration = "CDF",
-     title     = "{Pseudorapidity distributions of charged particles produced in $\bar{p}p$ interactions at $\sqrt{s} = 630$ GeV and 1800 GeV}",
+     title     = "{Pseudorapidity distributions of charged particles produced in
+                   $\bar{p}p$ interactions at $\sqrt{s} = 630$ GeV and 1800 GeV}",
      journal   = "Phys. Rev.",
      volume    = "D41",
      year      = "1990",

@@ -11,12 +11,12 @@ References:
  - arXiv:1010.0262
 RunInfo:
   Inclusive $Z/\gamma^*$ production in both electron and muon channels.
-  Cut on invariant lepton mass should be wider than $70<m_{\ell\ell}<110$ GeV.
+  Cut on invariant lepton mass should be wider than $70 < m_{\ell\ell} < 110$ GeV.
 NumEvents: 1000000
 Beams: [p-, p+]
 Energies: [1960]
 Description:
-  Using 7.3 pb-1 the distribution of the variable $\phi^*$ is measured, which
+  Using 7.3 pb$^{-1}$ the distribution of the variable $\phi^*$ is measured, which
   probes the same physical effects as the $Z/\gamma^*$ boson transverse
   momentum, but is less susceptible to the effects of experimental resolution
   and efficiency. Results are presented for both the di-electron and di-muon

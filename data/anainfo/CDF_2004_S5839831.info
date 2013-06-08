@@ -12,7 +12,7 @@ References:
  - arXiv:hep-ex/0404004
 RunInfo:
   QCD events at $\sqrt{s} = 630$ \& 1800 GeV.
-  Several $\pT_\text{min}$ cutoffs are probably required to fill the
+  Several $\pT^\text{min}$ cutoffs are probably required to fill the
   profile histograms, e.g. 0 (min bias), 30, 90, 150 GeV at 1800 GeV,
   and 0 (min bias), 20, 90, 150 GeV at 630 GeV.
 NumEvents: 1000000

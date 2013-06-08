@@ -15,7 +15,13 @@ NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
 Description:
-  'Distributions sensitive to the underlying event are studied in events containing one or more charged-particle. Jets are reconstructed using the antikt algorithm with radius parameter R varying between 0.2 and 1.0. Distributions of the charged-particle multiplicity, the scalar sum of the transverse momentum of charged particles, and the average charged-particle pT are measured as functions of pT^JET in regions transverse to and opposite the leading jet for 4 GeV < pT^JET < 100 GeV. In addition, the R-dependence of the mean values of these observables is studied.'
+  'Distributions sensitive to the underlying event are studied in events containing one
+   or more charged-particles. Jets are reconstructed using the anti-$k_t$ algorithm with radius
+   parameter $R$ varying between 0.2 and 1.0. Distributions of the charged-particle multiplicity,
+   the scalar sum of the transverse momentum of charged particles, and the average
+   charged-particle $\pT$ are measured as functions of $\pT^\text{jet}$ in regions transverse
+   to and opposite the leading jet for $4 < \pT^\text{jet} < 100$ GeV. In addition, the
+   $R$-dependence of the mean values of these observables is studied.'
 BibKey: :2012fs
 BibTeX: '@article{:2012fs,
       author         = "Aad, Georges and others",

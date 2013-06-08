@@ -14,7 +14,7 @@ References:
  - arXiv:hep-ex/0505013
 RunInfo:
   QCD events at $\sqrt{s} = 1960$ GeV.
-  Jet $\pT_\text{min}$ in plots is 37 GeV/$c$ -- choose a
+  Jet $\pT^\text{min}$ in plots is 37 GeV/$c$ -- choose a
   generator min $\pT$ well below this.
 NumEvents: 1000000
 Beams: [p-, p+]

@@ -18,13 +18,13 @@ Energies: [91.2]
 PtCuts: [0]
 Description: Measurements of the differential production rates of stable charged particles in hadronic $Z^0$ decays, and of charged pions,
    kaons and protons identified over a wide momentum range. In addition to flavour-inclusive $Z^0$ decays, measurements are made for $Z^0$
-   decays into light ($u$, $d$, $\s$), $c$ and $b$ primary flavors.
+   decays into light ($u$, $d$, $s$), $c$ and $b$ primary flavors.
 BibKey: Abe:2003iy
 BibTeX: '@Article{Abe:2003iy,
      author    = "Abe, Koya and others",
      collaboration = "SLD",
      title     = "{Production of $\pi^+$, $\pi^-$, $K^+$, $K^-$, $p$ and $\bar p$ in light
-                  (uds), c and b  jets from $Z^0$ decays}",
+                  $(uds)$, $c$ and $b$ jets from $Z^0$ decays}",
      journal   = "Phys. Rev.",
      volume    = "D69",
      year      = "2004",

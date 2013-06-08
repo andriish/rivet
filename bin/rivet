@@ -152,7 +152,9 @@ def detex(tex):
     \newcommand{\hat}[1]{#1hat}
     \newcommand{\bar}[1]{#1bar}
     \newcommand{\d}[1]{d#1}
+    \newcommand{\degree}{^\circ }
     \newcommand{\infty}{oo }
+    \newcommand{\exp}{exp }
     \newcommand{\log}{log }
     \newcommand{\ln}{ln }
     \newcommand{\sin}{sin }
@@ -161,6 +163,9 @@ def detex(tex):
     \newcommand{\sinh}{sinh }
     \newcommand{\cosh}{cosh }
     \newcommand{\tanh}{tanh }
+    \newcommand{\ell}{l}
+    \newcommand{\varphi}{\phi}
+    \newcommand{\varepsilon}{\epsilon}
     \newcommand{\sim}{~}
     \newcommand{\lesssim}{<~ }
     \newcommand{\gtrsim}{>~ }

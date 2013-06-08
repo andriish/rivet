@@ -19,8 +19,8 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [0]
 Description:
-  'This is a measurement of $WZ$ production in 1.02 $fb^{-1}$ of
-   pp collision data at $\sqrt{s} = $7 TeV collected by the ATLAS experiment
+  'This is a measurement of $WZ$ production in 1.02 fb$^{-1}$ of
+   $pp$ collision data at $\sqrt{s} = $7 TeV collected by the ATLAS experiment
    in 2011. Doubly leptonic decay events are selected with electrons,
    muons and missing transverse momentum in the final state.
    The measurement of the combined fiducial cross section for the $WZ$

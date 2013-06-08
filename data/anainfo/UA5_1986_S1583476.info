@@ -12,10 +12,10 @@ Authors:
 References:
  - Eur. Phys. J. C33, 1, 1986
 RunInfo:
-  "* Single- and double-diffractive, plus non-diffractive inelastic, events.
-  * $p\\bar{p}$ collider, $\\sqrt{s} = 200$ or 900 GeV.
+  '* Single- and double-diffractive, plus non-diffractive inelastic, events.
+  * $p\bar{p}$ collider, $\sqrt{s} = 200$ or 900 GeV.
   * The trigger implementation for NSD events is the same as in, e.g.,
-    the UA5_1989 analysis. No further cuts are needed."
+    the UA5_1989 analysis. No further cuts are needed.'
 NumEvents: 1000000
 Beams: [p-, p+]
 Energies: [200, 900]
