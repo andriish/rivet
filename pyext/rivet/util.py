@@ -137,7 +137,7 @@ def detex(tex):
     plain, err = p.communicate((texheader + tex).replace("\n", ""))
     plain = plain.replace(r"\&", "&")
     # TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
-    # TODO: Replace e^+-
+    # TODO: Replace e^+- -> e+-?
     if plain[-1] == "\n":
         return plain[:-1]
     else:
