@@ -141,7 +141,7 @@ for configfile in opts.CONFIGFILES:
 # TODO: Pass rivet-mkhtml -m and -M args to rivet-cmphistos
 
 if opts.VERBOSE:
-    ch_cmd.append("--verbose")
+    # ch_cmd.append("--verbose")
     print "Calling rivet-cmphistos with the following command:"
     print " ".join(ch_cmd)
 
@@ -206,10 +206,10 @@ for analysis in analyses:
     references = []
     summary = analysis
     description = "NONE"
-    if analysis.find("_S")>0:
+    if analysis.find("_S") > 0:
         spiresid = analysis[analysis.rfind('_S')+2:len(analysis)]
         inspireid = "NONE"
-    elif analysis.find("_I")>0:
+    elif analysis.find("_I") > 0:
         inspireid = analysis[analysis.rfind('_I')+2:len(analysis)]
     else:
         inspireid = "NONE"
@@ -223,6 +223,7 @@ for analysis in analyses:
         spiresid = ana.spiresId()
         if opts.IGNORE_UNVALIDATED and ana.status().upper() != "VALIDATED":
             continue
+
     if opts.SINGLE:
         index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, _htmlify(summary)) )
     else:
@@ -237,6 +238,7 @@ for analysis in analyses:
     index.write('<p style="font-size:smaller;">%s</p>\n' % _htmlify(description))
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     if not opts.SINGLE:
+        # os.makedirs(anapath)
         anaindex = open(os.path.join(anapath, "index.html"), 'w')
         anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>\n' %
                        (opts.OUTPUTDIR, analysis, style + script))
@@ -300,7 +302,7 @@ if datfiles:
     if opts.VERBOSE:
         mp_cmd.append("--verbose")
         print "Calling make-plots with the following options:"
-        print mp_cmd
+        print " ".join(mp_cmd)
     Popen(mp_cmd).wait()
     if opts.BOOKLET and opts.VECTORFORMAT=="PDF":
         bookletcmd = ["pdftk"]

@@ -46,8 +46,8 @@ def getCommandLineOptions():
                       'to standard Rivet search paths)')
 
     stygroup = OptionGroup(parser, "Plot style")
-#    stygroup.add_option("--refid", dest="REF_ID",
-#                        default="REF", help="ID of reference data set (file path for non-REF data)")
+    # stygroup.add_option("--refid", dest="REF_ID",
+    #                     default="REF", help="ID of reference data set (file path for non-REF data)")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
                         default=False, help="plot with linear scale")
     stygroup.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
@@ -65,36 +65,37 @@ def getCommandLineOptions():
                         help="additional plot config file(s). Settings will be included in the output configuration.")
     parser.add_option_group(stygroup)
 
-#    selgroup = OptionGroup(parser, "Selective plotting")
-#    selgroup.add_option("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
-#                        default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
-#                        "[default=%default]. If the value is 'no', single plots are always skipped, for 'ref' and 'mc', "
-#                        "the plot will be written only if the single plot is a reference plot or an MC "
-#                        "plot respectively, and 'all' will always create single plot files.\n The 'ref' and 'all' values "
-#                        "should be used with great care, as they will also write out plot files for all reference "
-#                        "histograms without MC traces: combined with the -R/--rivet-refs flag, this is a great way to "
-#                        "write out several thousand irrelevant reference data histograms!")
-#    selgroup.add_option("--show-mc-only", "--all", action="store_true", dest="SHOW_IF_MC_ONLY",
-#                        default=False, help="make a plot file even if there is only one dataset to be plotted and "
-#                        "it is an MC one. Deprecated and will be removed: use --show-single instead, which overrides this.")
-#    # selgroup.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
-#    #                     default=None, help="specify a file containing a list of histograms to plot, in the format "
-#    #                     "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
-#    selgroup.add_option("-m", "--match", action="append",
-#                        help="Only write out histograms whose $path/$name string matches these regexes. The argument "
-#                        "may also be a text file.",
-#                        dest="PATHPATTERNS")
-#    selgroup.add_option("-M", "--unmatch", action="append",
-#                        help="Exclude histograms whose $path/$name string matches these regexes",
-#                        dest="PATHUNPATTERNS")
-#    parser.add_option_group(selgroup)
+    # selgroup = OptionGroup(parser, "Selective plotting")
+    # selgroup.add_option("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
+    #                     default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
+    #                     "[default=%default]. If the value is 'no', single plots are always skipped, for 'ref' and 'mc', "
+    #                     "the plot will be written only if the single plot is a reference plot or an MC "
+    #                     "plot respectively, and 'all' will always create single plot files.\n The 'ref' and 'all' values "
+    #                     "should be used with great care, as they will also write out plot files for all reference "
+    #                     "histograms without MC traces: combined with the -R/--rivet-refs flag, this is a great way to "
+    #                     "write out several thousand irrelevant reference data histograms!")
+    # selgroup.add_option("--show-mc-only", "--all", action="store_true", dest="SHOW_IF_MC_ONLY",
+    #                     default=False, help="make a plot file even if there is only one dataset to be plotted and "
+    #                     "it is an MC one. Deprecated and will be removed: use --show-single instead, which overrides this.")
+    # # selgroup.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
+    # #                     default=None, help="specify a file containing a list of histograms to plot, in the format "
+    # #                     "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
+    # selgroup.add_option("-m", "--match", action="append",
+    #                     help="Only write out histograms whose $path/$name string matches these regexes. The argument "
+    #                     "may also be a text file.",
+    #                     dest="PATHPATTERNS")
+    # selgroup.add_option("-M", "--unmatch", action="append",
+    #                     help="Exclude histograms whose $path/$name string matches these regexes",
+    #                     dest="PATHUNPATTERNS")
+    # parser.add_option_group(selgroup)
 
-#    verbgrp = OptionGroup(parser, "Verbosity control")
-#    verbgrp.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
-#                       action="store_const", default=logging.INFO, const=logging.WARNING)
-#    verbgrp.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
-#                       action="store_const", default=logging.INFO, const=logging.DEBUG)
-#    parser.add_option_group(verbgrp)
+    # verbgrp = OptionGroup(parser, "Verbosity control")
+    # verbgrp.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
+    #                    action="store_const", default=logging.INFO, const=logging.WARNING)
+    # verbgrp.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
+    #                    action="store_const", default=logging.INFO, const=logging.DEBUG)
+    # parser.add_option_group(verbgrp)
+
     return parser
 
 
