@@ -1,5 +1,7 @@
 2013-06-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add HepData URL for Inspire ID lookup to the rivet script.
+
 	* Fix analyses' info files which accidentally listed the Inspire
 	ID under the SpiresID metadata key.
 
