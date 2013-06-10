@@ -28,25 +28,10 @@ if os.environ.has_key("DYLD_LIBRARY_PATH"):
 ## Set up analysis plugin directory
 anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
+
 ## Finally do the rivet module import!
 import rivet
-
-
-def htmlify(s, para=False):
-    t = s.replace("&", "&amp;")\
-        .replace(r"~", " ")
-    t = t.replace(r"\pT", r"p_\perp")\
-        .replace(r"\degree", r"^\circ")\
-        .replace(r"\MeV", r"\text{MeV}")\
-        .replace(r"\GeV", r"\text{GeV}")\
-        .replace(r"\TeV", r"\text{TeV}")
-    # t = t.replace(r"\;", " ")\
-    #     .replace(r"\,", " ")\
-    #     .replace(r"\!", "")
-    if para:
-        t = t.replace("\n\n", "</p><p>")
-    return t
-
+from rivet.util import htmlify
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()

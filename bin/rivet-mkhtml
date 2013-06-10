@@ -152,6 +152,7 @@ for var in ("RIVET_ANALYSIS_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_P
         os.environ[var] = ":".join(abspaths)
 Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
 
+
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
 ## a browser to view the output before all plots are made
@@ -174,13 +175,12 @@ MathJax.Hub.Config({
 </script>
 '''
 
+## A helper function for metadata LaTeX -> HTML conversion
+from rivet.util import htmlify
 
 ## A timestamp HTML fragment to be used on each page:
 import datetime
 timestamp = '<p>Generated at %s</p>\n' % datetime.datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
-
-def _htmlify(s):
-    return s.replace("<","&lt;").replace(">","&gt;")
 
 index = open(os.path.join(opts.OUTPUTDIR, "index.html"), "w")
 index.write('<html>\n<head>\n<title>%s</title>\n%s</head>\n<body>' % (opts.TITLE, style + script))
@@ -199,7 +199,7 @@ if opts.SINGLE:
             summary = "%s (%s)" % (ana.summary(), analysis)
             if opts.IGNORE_UNVALIDATED and ana.status() != "VALIDATED":
                 continue
-        index.write('<li><a href="#%s">%s</a>\n' % (analysis, _htmlify(summary)) )
+        index.write('<li><a href="#%s">%s</a>\n' % (analysis, htmlify(summary)) )
     index.write('</ul>\n')
 
 for analysis in analyses:
@@ -225,9 +225,9 @@ for analysis in analyses:
             continue
 
     if opts.SINGLE:
-        index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, _htmlify(summary)) )
+        index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, htmlify(summary)) )
     else:
-        index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, _htmlify(summary)))
+        index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, htmlify(summary)))
     reflist = []
     if inspireid and inspireid !="NONE":
         reflist.append('<a href="http://inspirehep.net/record/%s">Spires</a>' % inspireid)
@@ -235,7 +235,7 @@ for analysis in analyses:
         reflist.append('<a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
     reflist += references
     index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
-    index.write('<p style="font-size:smaller;">%s</p>\n' % _htmlify(description))
+    index.write('<p style="font-size:smaller;">%s</p>\n' % htmlify(description))
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     if not opts.SINGLE:
         # os.makedirs(anapath)
@@ -244,7 +244,7 @@ for analysis in analyses:
                        (opts.OUTPUTDIR, analysis, style + script))
         anaindex.write('<h3>%s</h3>\n' % analysis)
         anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
-        anaindex.write('<p>\n  %s\n</p>\n' % _htmlify(description))
+        anaindex.write('<p>\n  %s\n</p>\n' % htmlify(description))
     else:
         anaindex = index
 

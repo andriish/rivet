@@ -1,5 +1,7 @@
 2013-06-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Moving htmlify() and detex() Python functions into rivet.util.
+
 	* Add HepData URL for Inspire ID lookup to the rivet script.
 
 	* Fix analyses' info files which accidentally listed the Inspire
