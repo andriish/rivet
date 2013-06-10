@@ -54,7 +54,7 @@ def htmlify(s, para=False):
 
 def detex(tex):
     """Use pandoc (if available) to modify LaTeX text strings from
-    analysis metadata for use as pain text, e.g. as printed to the terminal.
+    analysis metadata for use as plain text, e.g. as printed to the terminal.
 
     TODO: Maybe group many strings to be processed together, to save on system call / pandoc startup?
     """
@@ -138,6 +138,9 @@ def detex(tex):
     plain = plain.replace(r"\&", "&")
     # TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
     # TODO: Replace e^+-
-    return plain[:-1] if plain[-1] == "\n" else plain
+    if plain[-1] == "\n":
+        return plain[:-1]
+    else:
+        return plain
 
 #print detex(r"Foo \! $\int \text{bar} \d{x} \sim \; \frac{1}{3} \neq \emph{foo}$ \to \gg bar")
