@@ -86,10 +86,10 @@ for ANANAME in ANANAMES:
         ANAYEAR = match.group(2)
         INSPIRE_SPIRES = match.group(3)
         ANAINSPIREID = match.group(4)
-    if INSPIRE_SPIRES == "S":
-        ANAREFREPO = "Spires"
-    else:
+    if INSPIRE_SPIRES == "I":
         ANAREFREPO = "Inspire"
+    else:
+        ANAREFREPO = "Spires"
     KEYWORDS = {
         "ANANAME" : ANANAME,
         "ANAEXPT" : ANAEXPT,
