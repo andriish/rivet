@@ -3,7 +3,7 @@ Year: 2012
 Summary: Rapidity gap cross sections measured with the ATLAS detector in $pp$ collisions at $\sqrt{s} = 7$ TeV.
 Experiment: ATLAS
 Collider: LHC 7TeV
-SpiresID: 1084540
+InspireID: 1084540
 Status: VALIDATED
 Authors:
  - Oldrich Kepka <kepkao@fzu.cz>

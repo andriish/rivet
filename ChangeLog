@@ -1,3 +1,8 @@
+2013-06-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix analyses' info files which accidentally listed the Inspire
+	ID under the SpiresID metadata key.
+
 2013-06-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Updating mk-analysis-html script to produce MathJax output

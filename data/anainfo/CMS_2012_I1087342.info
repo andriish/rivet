@@ -3,7 +3,7 @@ Year: 2011
 Summary: Measurement of forward and forward+central jets at $\sqrt{s} = 7$ TeV
 Experiment: CMS
 Collider: LHC
-SpiresID: 1087342
+InspireID: 1087342
 Status: VALIDATED
 Authors:
   - Albert Knutsson <albert.knutsson@cern.ch>

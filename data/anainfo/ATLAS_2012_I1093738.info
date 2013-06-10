@@ -3,7 +3,7 @@ Year: 2012
 Summary: Isolated prompt photon + jet cross-section
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1093738
+InspireID: 1093738
 Status: VALIDATED
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>

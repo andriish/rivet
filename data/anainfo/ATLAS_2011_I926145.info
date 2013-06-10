@@ -3,7 +3,7 @@ Year: 2011
 Summary: Measurement of electron and muon differential cross-section from heavy-flavour decays
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 9185208
+InspireID: 9185208
 Status: VALIDATED
 Authors:
  - Paul Bell <paul.bell@cern.ch>
