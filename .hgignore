@@ -1,5 +1,5 @@
 .*~
-.*\.(o|Po|lo|Plo|la|a|so|dylib|pyc|tar\.bz|tar\.gz)
+.*\.(o|Po|lo|Plo|la|a|so|dylib|pyc|tar\.bz|tar\.gz|fifo|hepmc)
 config\.guess
 config\.status
 config\.sub
