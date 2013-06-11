@@ -152,7 +152,6 @@ for var in ("RIVET_ANALYSIS_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_P
         os.environ[var] = ":".join(abspaths)
 Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
 
-
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
 ## a browser to view the output before all plots are made
@@ -214,6 +213,7 @@ for analysis in analyses:
     else:
         inspireid = "NONE"
         spiresid = "NONE"
+
     ana = rivet.AnalysisLoader.getAnalysis(analysis)
     if ana:
         if ana.summary() and ana.summary() != "NONE":
@@ -262,7 +262,8 @@ for analysis in analyses:
             srcfile = os.path.join(analysis, srcfile)
 
         anaindex.write('  <div style="float:left; font-size:smaller; font-weight:bold;">\n')
-        anaindex.write('    <a href="#%s-%s">&#9875;</a><a href="%s">&#8984</a> %s:<br>\n' % (analysis, obsname, srcfile, vecfile) )
+        anaindex.write('    <a href="#%s-%s">&#9875;</a><a href="%s">&#8984</a> %s:<br/>\n' %
+                       (analysis, obsname, srcfile, os.path.splitext(vecfile)[0]) )
         anaindex.write('    <a name="%s-%s"><a href="%s">\n' % (analysis, obsname, vecfile) )
         anaindex.write('      <img src="%s">\n' % pngfile )
         anaindex.write('    </a></a>\n')
