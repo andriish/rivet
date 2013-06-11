@@ -92,7 +92,7 @@ namespace Rivet {
 
 
   /// Get the direct parents or all-ancestors of GenParticle @a gp
-  inline std::vector<GenParticle*> particles_in(GenParticle* gp, HepMC::IteratorRange range=HepMC::ancestors) {
+  inline std::vector<GenParticle*> particles_in(const GenParticle* gp, HepMC::IteratorRange range=HepMC::ancestors) {
     if (range != HepMC::parents && range != HepMC::ancestors)
       throw UserError("Requested particles_in(GenParticle*) with a non-'in' iterator range");
     return (gp->production_vertex()) ? particles(gp->production_vertex(), range) : std::vector<GenParticle*>();
@@ -100,7 +100,7 @@ namespace Rivet {
 
 
   /// Get the direct children or all-descendents of GenParticle @a gp
-  inline std::vector<GenParticle*> particles_out(GenParticle* gp, HepMC::IteratorRange range=HepMC::descendants) {
+  inline std::vector<GenParticle*> particles_out(const GenParticle* gp, HepMC::IteratorRange range=HepMC::descendants) {
     if (range != HepMC::children && range != HepMC::descendants)
       throw UserError("Requested particles_out(GenParticle*) with a non-'out' iterator range");
     return (gp->end_vertex()) ? particles(gp->end_vertex(), range) : std::vector<GenParticle*>();
