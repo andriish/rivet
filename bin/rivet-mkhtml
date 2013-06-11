@@ -122,7 +122,7 @@ if opts.REF_ID is not None:
     ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
 ch_cmd.append("--hier-out")
 # TODO: Need to be able to override this: provide a --plotinfodir cmd line option?
-ch_cmd.append("--plotinfodir=../")
+ch_cmd.append("--plotinfodir=%s" % os.path.abspath("../"))
 for af in yodafiles:
     yodafilepath = os.path.abspath(af.split(":")[0])
     if not os.access(yodafilepath, os.R_OK):
