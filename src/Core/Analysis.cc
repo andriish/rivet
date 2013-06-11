@@ -3,8 +3,8 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisInfo.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/BeamConstraint.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {

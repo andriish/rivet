@@ -3,7 +3,7 @@
 #define RIVET_RivetHandler_HH
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetBoost.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/AnalysisLoader.hh"
 

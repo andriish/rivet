@@ -2,12 +2,13 @@
 #ifndef RIVET_RivetHepMC_HH
 #define RIVET_RivetHepMC_HH
 
-#include "Rivet/RivetSTL.hh"
-#include "Rivet/Exceptions.hh"
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
 #include "HepMC/GenVertex.h"
 #include "HepMC/IO_GenEvent.h"
+#include "Rivet/Tools/RivetSTL.hh"
+#include "Rivet/Tools/RivetBoost.hh"
+#include "Rivet/Exceptions.hh"
 
 namespace Rivet {
 

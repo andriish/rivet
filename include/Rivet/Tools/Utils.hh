@@ -3,8 +3,8 @@
 #define RIVET_Utils_HH
 
 #include <Rivet/Math/Math.hh>
-#include <Rivet/RivetBoost.hh>
-#include <Rivet/RivetSTL.hh>
+#include <Rivet/Tools/RivetSTL.hh>
+#include <Rivet/Tools/RivetBoost.hh>
 #include <cctype>
 #include <algorithm>
 #include <cerrno>

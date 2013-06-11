@@ -1,20 +1,20 @@
 // -*- C++ -*-
 #include "Rivet/Tools/BinnedHistogram.hh"
-#include "Rivet/RivetBoost.hh"
-#include "Rivet/RivetYODA.hh"
+#include "Rivet/Tools/RivetBoost.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Analysis.hh"
 
 namespace Rivet {
 
 
   template<typename T>
-  const BinnedHistogram<T>& BinnedHistogram<T>::addHistogram(const T& binMin, 
-                                                             const T& binMax, 
+  const BinnedHistogram<T>& BinnedHistogram<T>::addHistogram(const T& binMin,
+                                                             const T& binMax,
                                                              Histo1DPtr histo){
     if (binMin > binMax) {
       throw Error
         ("Cannot add a binned histogram where the lower bin edge is above the upper edge");
-    } 
+    }
     _histosByUpperBound[binMax] = histo;
     _histosByLowerBound[binMin] = histo;
     bool found = false;
@@ -24,12 +24,12 @@ namespace Rivet {
         break;
       }
     }
-    
+
     if (!found){
       _histos.push_back(histo);
       _binWidths[histo]=binMax-binMin;
     }
-    
+
     return *this;
   }
 
@@ -46,7 +46,7 @@ namespace Rivet {
     if (histIt == _histosByUpperBound.end()) {
       return Histo1DPtr();
     }
- 
+
     Histo1DPtr histo = histIt->second;
     histIt = _histosByLowerBound.lower_bound(bin);
 
@@ -59,17 +59,17 @@ namespace Rivet {
     // By-lower-bound actually gives us the iterator one above the nearest element,
     // so decrement it. This is safe because we already checked we're not at the start!
     --histIt;
- 
+
     if (histo != histIt->second) {
       return Histo1DPtr();
     }
-    
+
     histo->fill(val, weight);
-    
+
     return histo;
   }
-  
-  
+
+
   template<typename T>
   void BinnedHistogram<T>::scale(const T& scale, Analysis* ana) {
     foreach (Histo1DPtr hist, getHistograms()) {

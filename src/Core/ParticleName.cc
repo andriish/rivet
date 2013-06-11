@@ -1,5 +1,5 @@
 #include "Rivet/ParticleName.hh"
-#include "Rivet/RivetBoost.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/Tools/Utils.hh"
 
 namespace Rivet {

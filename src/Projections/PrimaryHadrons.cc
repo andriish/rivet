@@ -1,6 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/PrimaryHadrons.hh"
-#include "Rivet/RivetHepMC.hh"
 
 namespace Rivet {
 

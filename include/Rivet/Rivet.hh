@@ -5,7 +5,7 @@
 #include "Rivet/Config/BuildOptions.hh"
 
 // Bring selected STL classes into the Rivet namespace
-#include "Rivet/RivetSTL.hh"
+#include "Rivet/Tools/RivetSTL.hh"
 
 // Macro to help with overzealous compiler warnings
 #ifdef UNUSED
@@ -29,7 +29,7 @@ namespace Rivet {
 }
 
 // HepMC headers and helper functions
-#include "Rivet/RivetHepMC.hh"
+#include "Rivet/Tools/RivetHepMC.hh"
 
 // Now import some Rivet classes
 #include "Rivet/Exceptions.hh"

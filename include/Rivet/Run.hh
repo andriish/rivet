@@ -2,8 +2,8 @@
 #ifndef RIVET_Run_HH
 #define RIVET_Run_HH
 
-#include "Rivet/RivetBoost.hh"
-#include "Rivet/RivetHepMC.hh"
+#include "Rivet/Tools/RivetBoost.hh"
+#include "Rivet/Tools/RivetHepMC.hh"
 
 namespace Rivet {
 

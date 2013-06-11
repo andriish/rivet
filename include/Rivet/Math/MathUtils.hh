@@ -3,7 +3,7 @@
 #define RIVET_MathUtils_HH
 
 #include "Rivet/Math/MathHeader.hh"
-#include "Rivet/RivetBoost.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 #include <cassert>
 
 namespace Rivet {
