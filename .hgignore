@@ -24,7 +24,8 @@ Makefile\.in
 Doxyfile
 \.libs
 \.deps
-test/Rivet\.yoda
+Rivet.yoda
+.*/Rivet\.yoda
 bin/rivet-buildplugin
 bin/rivet-config
 bin/rivet-nopy
