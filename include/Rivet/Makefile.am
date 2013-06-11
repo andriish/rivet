@@ -63,9 +63,10 @@ nobase_pkginclude_HEADERS +=   \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/ParisiTensor.hh   \
-  Projections/Sphericity.hh     \
-  Projections/Spherocity.hh     \
-  Projections/Thrust.hh         \
+  Projections/PrimaryHadrons.hh \
+  Projections/Sphericity.hh \
+  Projections/Spherocity.hh \
+  Projections/Thrust.hh \
   Projections/TriggerCDFRun0Run1.hh \
   Projections/TriggerCDFRun2.hh \
   Projections/TriggerUA5.hh \

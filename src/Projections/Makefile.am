@@ -28,6 +28,7 @@ libRivetProjections_la_SOURCES = \
   Multiplicity.cc \
   NeutralFinalState.cc \
   ParisiTensor.cc \
+  PrimaryHadrons.cc \
   Sphericity.cc \
   Spherocity.cc \
   Thrust.cc \
