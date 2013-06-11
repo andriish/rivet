@@ -1,5 +1,7 @@
 2013-06-11  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding PrimaryHadrons projection.
+
 	* Adding particles_in/out functions on GenParticle to RivetHepMC.
 
 	* Moved STL extensions from Utils.hh to RivetSTL.hh and tidying.
