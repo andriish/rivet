@@ -295,7 +295,7 @@ Description:
   '<Insert a fairly long description, including what is measured
   and if possible what it is useful for in terms of MC validation
   and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.
-  Use single quotes around the block if required (see YAML 1.2 manual)>'
+  Use single quotes around the block if required (see http://www.yaml.org)'
 BibKey: %(ANABIBKEY)s
 BibTeX: '%(ANABIBTEX)s'
 ToDo:
