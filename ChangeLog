@@ -1,5 +1,7 @@
 2013-06-11  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Moved STL extensions from Utils.hh to RivetSTL.hh and tidying.
+
 	* Tidying, improving, extending, and documenting in RivetSTL.hh.
 
 	* Adding a #include of Logging.hh into Projection.hh, and removing
