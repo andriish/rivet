@@ -4,13 +4,16 @@
 
 #include <Rivet/Math/Math.hh>
 #include <Rivet/RivetBoost.hh>
+#include <Rivet/RivetSTL.hh>
 #include <cctype>
 #include <algorithm>
 #include <cerrno>
 
-
 namespace Rivet {
 
+
+  /// @name String utils
+  //@{
 
   /// @brief Convert any object to a string
   ///
@@ -19,6 +22,7 @@ namespace Rivet {
   inline std::string to_str(const T& x) {
     return lexical_cast<string>(x);
   }
+
 
   /// @brief Convert any object to a string
   ///
@@ -91,7 +95,35 @@ namespace Rivet {
   }
 
 
-  /// @brief Split a path string with colon delimiters.
+  /// Make a string containing the string representations of each item in v, separated by sep
+  template <typename T>
+  inline std::string join(const vector<T>& v, const std::string& sep = " ") {
+    string rtn;
+    for (size_t i = 0; i < v.size(); ++i) {
+      if (i != 0) rtn += sep;
+      rtn += to_str(v[i]);
+    }
+    return rtn;
+  }
+
+  /// Make a string containing the string representations of each item in s, separated by sep
+  template <typename T>
+  inline std::string join(const set<T>& s, const std::string& sep = " ") {
+    string rtn;
+    foreach (const T& x, s) {
+      if (rtn.size() > 0) rtn += sep;
+      rtn += to_str(x);
+    }
+    return rtn;
+  }
+
+  //@}
+
+
+  /// @name Path utils
+  //@{
+
+  /// @brief Split a path string with colon delimiters
   ///
   /// Ignores zero-length substrings. Designed for getting elements of filesystem paths, naturally.
   inline vector<std::string> pathsplit(const std::string& path) {
@@ -110,96 +142,17 @@ namespace Rivet {
   }
 
 
-  /// @brief Join several filesystem paths together with a delimiter character.
+  /// @brief Join several filesystem paths together with the standard ':' delimiter
   ///
   /// Note that this does NOT join path elements together with a platform-portable
   /// directory delimiter, cf. the Python @c {os.path.join}!
   inline std::string pathjoin(const vector<std::string>& paths) {
-    const string delim = ":";
-    string rtn;
-    for (vector<string>::const_iterator is = paths.begin(); is != paths.end(); ++is) {
-      if (rtn.size() > 0) rtn += delim;
-      rtn += *is;
-    }
-    return rtn;
-  }
-
-
-}
-#endif
-
-
-
-#ifndef CEDARSTD
-#define CEDARSTD
-namespace std {
-
-
-  /// @name Standard library enhancements
-  //@{
-
-
-  /// @todo Add a "contains" function for vectors, maps and strings (returns bool rather than iterator)
-
-  /// @todo Merge in nice ideas from mili: https://code.google.com/p/mili/
-
-
-  template <typename T>
-  inline void operator+=(set<T>& s1, const set<T>& s2) {
-    for (typename set<T>::const_iterator s = s2.begin(); s != s2.end(); ++s) {
-      s1.insert(*s);
-    }
-  }
-
-  template <typename T>
-  inline set<T> operator+(const set<T>& s1, const set<T>& s2) {
-    set<T> rtn(s1);
-    rtn += s2;
-    return rtn;
-  }
-
-  template <typename T>
-  inline std::string join(const set<T>& s, const std::string& sep = " ") {
-    stringstream out;
-    bool first = false;
-    for (typename set<T>::const_iterator it = s.begin(); it != s.end(); ++it) {
-      if (first) {
-        first = false;
-      } else {
-        out << sep;
-      }
-      out << *it;
-    }
-    return out.str();
-  }
-
-
-  template <typename T>
-  inline void operator+=(vector<T>& v1, const vector<T>& v2) {
-    for (typename vector<T>::const_iterator s = v2.begin(); s != v2.end(); ++s) {
-      v1.push_back(*s);
-    }
-  }
-
-  template <typename T>
-  inline vector<T> operator+(const vector<T>& v1, const vector<T>& v2) {
-    vector<T> rtn(v1);
-    rtn += v2;
-    return rtn;
-  }
-
-  template <typename T>
-  inline string join(const vector<T>& v, const std::string& sep = " ") {
-    stringstream out;
-    for (size_t i = 0; i < v.size(); ++i) {
-      if (i != 0) out << sep;
-      out << v[i];
-    }
-    return out.str();
+    return join(paths, ":");
   }
 
   //@}
 
 
 }
+
 #endif
