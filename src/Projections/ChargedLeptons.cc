@@ -1,8 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/ChargedLeptons.hh"
-#include "Rivet/Cmp.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 

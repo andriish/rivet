@@ -1,7 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/InvMassFinalState.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 

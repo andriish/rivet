@@ -1,7 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 

@@ -1,3 +1,8 @@
+2013-06-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a #include of Logging.hh into Projection.hh, and removing
+	unnecessary #includes from all Projection headers.
+
 2013-06-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Moving htmlify() and detex() Python functions into rivet.util.

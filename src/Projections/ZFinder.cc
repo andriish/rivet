@@ -3,9 +3,6 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/LeptonClusters.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 

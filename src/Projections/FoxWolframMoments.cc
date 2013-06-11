@@ -1,7 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FoxWolframMoments.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 
