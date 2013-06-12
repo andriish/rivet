@@ -31,7 +31,6 @@ namespace Rivet {
       addProjection(UnstableFinalState(mineta, maxeta, minpt), "UFS");
     }
 
-
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new HeavyHadrons(*this);
@@ -39,13 +38,30 @@ namespace Rivet {
 
     //@}
 
+
+    /// @name Particle accessors
+    //@{
+
+    /// Get the pre-decay b hadrons
+    const Particles& bHadrons() const {
+      return _theBs;
+    }
+
+    /// Get the pre-decay c hadrons
+    const Particles& cHadrons() const {
+      return _theCs;
+    }
+
+    //@}
+
+
   protected:
 
     /// Apply the projection to the event.
     virtual void project(const Event& e);
 
     /// b and c hadron containers
-    std::vector<Particle> _theBs, _theCs;
+    Particles _theBs, _theCs;
 
   };
 
