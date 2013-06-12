@@ -217,7 +217,7 @@ namespace Rivet {
   ///
   /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version.
-  inline vector<double> linspace(size_t nbins, double start, double end) {
+  inline vector<double> linspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(nbins > 0);
     vector<double> rtn;
@@ -228,6 +228,7 @@ namespace Rivet {
       edge += interval;
     }
     assert(rtn.size() == nbins+1);
+    if (!include_end) rtn.pop_back();
     return rtn;
   }
 
@@ -237,7 +238,7 @@ namespace Rivet {
   /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space, rather than as the logarithms of the start/end values as in Numpy/Matlab.
-  inline vector<double> logspace(size_t nbins, double start, double end) {
+  inline vector<double> logspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(start > 0);
     assert(nbins > 0);
@@ -250,6 +251,7 @@ namespace Rivet {
       rtn.push_back(std::exp(logval));
     }
     assert(rtn.size() == nbins+1);
+    if (!include_end) rtn.pop_back();
     return rtn;
   }
 
