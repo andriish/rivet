@@ -1,5 +1,7 @@
 2013-06-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding a new HeavyHadrons projection.
+
 	* Adding optional extra include_end args to logspace() and linspace().
 
 2013-06-11  Andy Buckley  <andy.buckley@cern.ch>

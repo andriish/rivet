@@ -43,6 +43,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FoxWolframMoments.hh \
   Projections/FParameter.hh \
   Projections/HadronicFinalState.hh \
+  Projections/HeavyHadrons.hh \
   Projections/Hemispheres.hh    \
   Projections/IdentifiedFinalState.hh \
   Projections/InitialQuarks.hh \

@@ -10,7 +10,10 @@
 namespace Rivet {
 
 
-  /// @brief Project out the first hadrons (and taus) from hadronisation.
+  /// @brief Project out the first hadrons from hadronisation.
+  ///
+  /// @todo Also be able to return taus? Prefer a separate tau finder.
+  /// @todo This assumes that the primary hadrons are unstable... should we also look for stable primary hadrons?
   class PrimaryHadrons : public FinalState {
   public:
 
