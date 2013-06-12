@@ -120,8 +120,8 @@ cdef class Analysis:
 
 #cdef object
 LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
-                          WARN = 30, WARNING = 30, ERROR = 40,
-                          CRITICAL = 50, ALWAYS = 50)
+              WARN = 30, WARNING = 30, ERROR = 40,
+              CRITICAL = 50, ALWAYS = 50)
 
 
 cdef class AnalysisLoader:
@@ -138,6 +138,7 @@ cdef class AnalysisLoader:
         pyobj._ptr = ptr
         # Create python object
         return pyobj
+
 
 def addAnalysisLibPath(path):
     c.addAnalysisLibPath(path)
