@@ -69,12 +69,13 @@ fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
 if test -n "$tmp"; then
+    OUT="$OUT -Wl,--no-as-needed"
     lrivet="@libdir@"
     test -n "$lrivet" && OUT="$OUT -L${lrivet}"
     lhepmc="@HEPMCLIBPATH@"
     test -n "$lhepmc" && OUT="$OUT -L${lhepmc}"
-    lfastjet="@FASTJETLIBPATH@"
-    test -n "$lfastjet" && OUT="$OUT -L${lfastjet}"
+    lfastjet="@FASTJETCONFIGLIBADD@"
+    test -n "$lfastjet" && OUT="$OUT ${lfastjet}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<libs\>|--\<ldadd\>')

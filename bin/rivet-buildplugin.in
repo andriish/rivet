@@ -78,8 +78,8 @@ lrivet="@libdir@"
 test -n "$lrivet" && myldflags="$myldflags -L${lrivet}"
 lhepmc="@HEPMCLIBPATH@"
 test -n "$lhepmc" && myldflags="$myldflags -L${lhepmc}"
-lfastjet="@FASTJETLIBPATH@"
-test -n "$lfastjet" && myldflags="$myldflags -L${lfastjet}"
+lfastjet="@FASTJETCONFIGLIBADD@"
+test -n "$lfastjet" && myldflags="$myldflags ${lfastjet}"
 
 ## Link against ROOT if requested
 with_root=$(echo $* | egrep -- '--\<with-root\>')
