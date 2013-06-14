@@ -100,7 +100,7 @@ namespace std {
   /// Does the map @a m contain the value @a val?
   template <typename K, typename T>
   inline bool has_value(const map<K, T>& m, const T& val) {
-    for (typename map<K,T>::const_iterator it = m.begin(); it = m.end(); ++it) {
+    for (typename map<K,T>::const_iterator it = m.begin(); it != m.end(); ++it) {
       if (it->second == val) return true;
     }
     return false;
