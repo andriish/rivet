@@ -11,13 +11,13 @@ References:
  - Phys.Rev.D65:072005,2002
  - doi:10.1103/PhysRevD.65.072005
 RunInfo:
-  QCD events at sqrt(s) = 630 and 1800 GeV.
+  QCD events at $\sqrt{s} = 630$ and 1800 GeV.
 NumEvents: 1000000
 Beams: [p-, p+]
 Energies: [630, 1800]
 PtCuts: [0]
 Description:
-  A study of $p\bar{p}$ collisions at sqrt(s) = 1800 and 630 GeV collected
+  A study of $p\bar{p}$ collisions at $\sqrt{s} = 1800$ and 630 GeV collected
   using a minimum bias trigger in which the data set is divided into two
   classes corresponding to `soft' and `hard' interactions. For each
   subsample, the analysis includes measurements of the multiplicity,
@@ -37,8 +37,7 @@ BibKey: Acosta:2001rm
 BibTeX: '@Article{Acosta:2001rm,
      author    = "Acosta, Darin E. and others",
      collaboration = "CDF",
-     title     = "{Soft and hard interactions in $p\bar{p}$ collisions at
-                  $\sqrt{s}=$ 1800-GeV and 630-GeV}",
+     title     = "{Soft and hard interactions in $p\bar{p}$ collisions at $\sqrt{s} = $ 1800~GeV and 630~GeV}",
      journal   = "Phys. Rev.",
      volume    = "D65",
      year      = "2002",

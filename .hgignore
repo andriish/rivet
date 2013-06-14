@@ -1,5 +1,5 @@
 .*~
-.*\.(o|Po|lo|Plo|la|a|so|dylib|pyc)
+.*\.(o|Po|lo|Plo|la|a|so|dylib|pyc|tar\.bz|tar\.gz|fifo|hepmc)
 config\.guess
 config\.status
 config\.sub
@@ -24,7 +24,8 @@ Makefile\.in
 Doxyfile
 \.libs
 \.deps
-test/Rivet\.yoda
+Rivet.yoda
+.*/Rivet\.yoda
 bin/rivet-buildplugin
 bin/rivet-config
 bin/rivet-nopy
@@ -47,3 +48,4 @@ test/testBoost
 test/.*\.trs
 test/testMatVec
 test/testMath
+dev

@@ -3,7 +3,7 @@ Year: 2012
 Summary: Measurement of ttbar production with a veto on additional central jet activity
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1094568
+InspireID: 1094568
 Status: VALIDATED
 Authors:
  - Kiran Joshi <kiran.joshi@cern.ch>

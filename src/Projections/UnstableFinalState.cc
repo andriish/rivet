@@ -1,8 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Cmp.hh"
 
 #define IS_PARTON_PDGID(id) ( abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18) )
 

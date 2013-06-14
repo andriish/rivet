@@ -24,9 +24,7 @@ Description:
    integrated luminosity of 4.7 fb$^{-1}$.'
 BibTeX: '@article{Aad:2012kr,
       author         = "Aad, Georges and others",
-      title          = "{Search for R-parity-violating supersymmetry in events
-                        with four or more leptons in sqrt(s) = 7 TeV pp collisions
-                        with the ATLAS detector}",
+      title          = "{Search for R-parity-violating supersymmetry in events with four or more leptons in $\sqrt{s} = 7$ TeV $pp$ collisions with the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       year           = "2012",
       eprint         = "1210.4457",

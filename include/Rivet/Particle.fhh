@@ -2,7 +2,7 @@
 #ifndef RIVET_Particle_FHH
 #define RIVET_Particle_FHH
 
-#include "Rivet/RivetSTL.hh"
+#include "Rivet/Tools/RivetSTL.hh"
 
 namespace Rivet {
 

@@ -11,7 +11,7 @@ References:
  - CDF public note 9351
 RunInfo:
   "ppbar collisions at 1960 GeV.
-  * Drell-Yan events with $Z/\\gamma* -> e e$ and $Z/\\gamma* -> \\mu\\mu$.
+  * Drell-Yan events with $Z/\\gamma* \\to e e$ and $Z/\\gamma* \\to \\mu\\mu$.
   * A mass cut $m_{ll} > 70~\\text{GeV}$ can be applied on generator level.
   * Particles with $c \\tau > 10~\\text{mm}$ should be set stable."
 NumEvents: 1000000
@@ -20,7 +20,7 @@ Energies: [1960]
 PtCuts: [0]
 Description:
   Deepak Kar and Rick Field's measurement of the underlying event in
-  Drell-Yan events. $Z -> ee$ and $Z -> \mu\mu$ events are selected using
+  Drell-Yan events. $Z \to ee$ and $Z \to \mu\mu$ events are selected using
   a $Z$ mass window cut between 70 and 110~GeV. ``Toward'', ``away'' and
   ``transverse'' regions are defined in the same way as in the original
   (2001) CDF underlying event analysis. The reconstructed $Z$ defines the

@@ -1,6 +1,6 @@
 Name: ATLAS_2010_S8919674
 Year: 2010
-Summary: W+jets jet multiplicities and pT
+Summary: $W$ + jets jet multiplicities and $\pT$
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 8919674
@@ -30,9 +30,7 @@ NeedCrossSection: yes
 BibKey: Aad:2010pg
 BibTeX: '@Article{Aad:2010pg,
      author    = "Collaboration, The ATLAS",
-     title     = "{Measurement of the production cross section for W-bosons
-                  in association with jets in pp collisions at sqrt(s) = 7
-                  TeV with the ATLAS detector}",
+     title     = "{Measurement of the production cross section for W-bosons in association with jets in $pp$ collisions at $\sqrt{s} = 7$ TeV with the ATLAS detector}",
      year      = "2010",
      eprint    = "1012.5382",
      archivePrefix = "arXiv",
@@ -41,4 +39,4 @@ BibTeX: '@Article{Aad:2010pg,
 }'
 ToDo:
  - Implement jet multiplicity ratio plots.
- - Export original AIDA file from HepForge.
+ - Export original data file from HepForge.

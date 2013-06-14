@@ -1,6 +1,8 @@
 Name: BABAR_2007_S7266081
 Summary: Measurements of Semi-Leptonic Tau Decays into Three Charged Hadrons
 Status: VALIDATED
+Experiment: BaBar
+Collider: PEP-II
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:
@@ -8,14 +10,16 @@ References:
  - arXiv:0707.2981
  - SLAC-R-936
 RunInfo:
-  Tau production, can be any process but original data was in  $e^+ e^-$ at the $\Upsilon(4S)$ resonance, with CoM boost -- 8.0~GeV~($e^−$) and 3.5~GeV~($e^+$)
+  Tau production, can be any process but original data was in
+  $e^+ e^-$ at the $\Upsilon(4S)$ resonance, with CoM boosts of
+  8.0 GeV~($e^-$) and 3.5~GeV~($e^+$)
 NumEvents: 1000000
 SpiresID: 7266081
 Beams: [e+, e-]
 Energies: [[3.5, 8.0]]
 PtCuts: [0]
 Description: Measurement of tau decays to three charged hadrons using
- a data sample corresponding to an integrated luminosity of 342 $fb^{-1}$ collected
+ a data sample corresponding to an integrated luminosity of 342 fb$^{-1}$ collected
  with the BABAR detector at the SLAC PEP-II electron-positron storage ring operating
  at a center-of-mass energy near 10.58 GeV.
 BibKey: Aubert:2007mh

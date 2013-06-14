@@ -13,24 +13,23 @@ References:
  - doi:10.1103/PhysRevD.71.112002
  - arXiv:hep-ex/0505013
 RunInfo:
-  QCD events at sqrt(s) = 1960 GeV.
-  Jet pTmin in plots is 37 GeV/c --- choose generator min pT somewhere 
-  well below this.
+  QCD events at $\sqrt{s} = 1960$ GeV.
+  Jet $\pT^\text{min}$ in plots is 37 GeV/$c$ -- choose a
+  generator min $\pT$ well below this.
 NumEvents: 1000000
 Beams: [p-, p+]
 Energies: [1960]
 PtCuts: [30]
 Description:
-  Measurement of jet shapes in inclusive jet production in p pbar
-  collisions at center-of-mass energy sqrt(s) = 1.96 TeV. The data cover
+  Measurement of jet shapes in inclusive jet production in $p \bar{p}$
+  collisions at center-of-mass energy $\sqrt{s} = 1.96$ TeV. The data cover
   jet transverse momenta from 37--380 GeV and absolute jet rapidities in
   the range 0.1--0.7.
 BibKey: Acosta:2005ix
 BibTeX: '@Article{Acosta:2005ix,
      author    = "Acosta, Darin E. and others",
- collaboration = "CDF",
-     title     = "{Study of jet shapes in inclusive jet production in
-                  $p\bar{p}$ collisions  at $\sqrt{s}=1.96$ TeV}",
+     collaboration = "CDF",
+     title     = "{Study of jet shapes in inclusive jet production in $p\bar{p}$ collisions  at $\sqrt{s} = 1.96$ TeV}",
      journal   = "Phys. Rev.",
      volume    = "D71",
      year      = "2005",

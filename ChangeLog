@@ -1,4 +1,44 @@
+2013-06-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a new HeavyHadrons projection.
+
+	* Adding optional extra include_end args to logspace() and linspace().
+
+2013-06-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Moving Rivet/RivetXXX.hh tools headers into Rivet/Tools/.
+
+	* Adding PrimaryHadrons projection.
+
+	* Adding particles_in/out functions on GenParticle to RivetHepMC.
+
+	* Moved STL extensions from Utils.hh to RivetSTL.hh and tidying.
+
+	* Tidying, improving, extending, and documenting in RivetSTL.hh.
+
+	* Adding a #include of Logging.hh into Projection.hh, and removing
+	unnecessary #includes from all Projection headers.
+
+2013-06-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Moving htmlify() and detex() Python functions into rivet.util.
+
+	* Add HepData URL for Inspire ID lookup to the rivet script.
+
+	* Fix analyses' info files which accidentally listed the Inspire
+	ID under the SpiresID metadata key.
+
 2013-06-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updating mk-analysis-html script to produce MathJax output
+
+	* Adding a version of Analysis::removeAnalysisObject() which takes
+	an AO pointer as its argument.
+
+	* bin/rivet: Adding pandoc-based conversion of TeX summary and
+	description strings to plain text on the terminal output.
+
+	* Add MathJax to rivet-mkhtml output, set up so the .info entries should render ok.
 
 	* Mark the OPAL 1993 analysis as UNVALIDATED: from the H++
 	benchmark runs it looks nothing like the data, and there are some

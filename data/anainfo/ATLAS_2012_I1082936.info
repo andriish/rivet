@@ -23,8 +23,7 @@ Description:
 BibKey: Aad:2011fc
 BibTeX: '@article{Aad:2011fc,
       author         = "Aad, Georges and others",
-      title          = "{Measurement of inclusive jet and dijet production in pp
-                        collisions at sqrt(s) = 7 TeV using the ATLAS detector}",
+      title          = "{Measurement of inclusive jet and dijet production in $pp$ collisions at $\sqrt{s} = 7$ TeV using the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       year           = "2011",
       eprint         = "1112.6297",

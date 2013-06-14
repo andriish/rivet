@@ -1,9 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Cmp.hh"
-#include "Rivet/Tools/Utils.hh"
-#include <algorithm>
 
 namespace Rivet {
 

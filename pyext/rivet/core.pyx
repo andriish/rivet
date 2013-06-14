@@ -1,6 +1,7 @@
 cimport rivet as c
 # Need to be careful with memory management -- perhaps use the base object that
 # we used in YODA?
+
 cdef class AnalysisHandler:
     cdef c.AnalysisHandler *_ptr
 
@@ -119,8 +120,8 @@ cdef class Analysis:
 
 #cdef object
 LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
-                          WARN = 30, WARNING = 30, ERROR = 40,
-                          CRITICAL = 50, ALWAYS = 50)
+              WARN = 30, WARNING = 30, ERROR = 40,
+              CRITICAL = 50, ALWAYS = 50)
 
 
 cdef class AnalysisLoader:
@@ -132,11 +133,12 @@ cdef class AnalysisLoader:
     def getAnalysis(name):
         cdef c.Analysis* ptr = c.AnalysisLoader_getAnalysis(name)
         cdef Analysis pyobj = Analysis.__new__(Analysis)
+        if not ptr:
+            return None
         pyobj._ptr = ptr
         # Create python object
         return pyobj
 
-    #getAnalysis
 
 def addAnalysisLibPath(path):
     c.addAnalysisLibPath(path)

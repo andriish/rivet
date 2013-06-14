@@ -1,8 +1,8 @@
 #include "Rivet/AnalysisHandler.hh"
+#include "Rivet/Analysis.hh"
 #include "HepMC/GenEvent.h"
 #include "HepMC/IO_GenEvent.h"
-#include "Rivet/Analysis.hh"
-#include "Rivet/RivetYODA.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 
 using namespace std;
 

@@ -1,7 +1,6 @@
 Name: CMS_2010_S8547297
 Year: 2010
-Summary: Charged particle transverse momentum and pseudorapidity spectra from 
-  proton-proton collisions at 900 and 2360 GeV.
+Summary: Charged particle transverse momentum and pseudorapidity spectra from proton-proton collisions at 900 and 2360 GeV.
 Experiment: CMS
 Collider: LHC
 SpiresID: 8547297
@@ -12,10 +11,10 @@ References:
  - JHEP 02 (2010) 041
  - doi:10.1007/JHEP02(2010)041
  - arXiv:1002.0621 [hep-ex]
-RunInfo: 
-   Non-single-diffractive (NSD) events only. Should include double-diffractive (DD) 
+RunInfo:
+   Non-single-diffractive (NSD) events only. Should include double-diffractive (DD)
    events and non-diffractive (ND) events but NOT single-diffractive (SD) events. Examples,
-   in Pythia6 the SD processes to be turned off are 92 and 93, and in Pythia8 the SD processes 
+   in Pythia6 the SD processes to be turned off are 92 and 93, and in Pythia8 the SD processes
    are 103 and 104 (also called SoftQCD:singleDiffractive).
 NumEvents: 200000
 Beams: [p+, p+]
@@ -29,17 +28,17 @@ Description:
    of pseudorapidity (eta) and pT spectra from 0.1 to 4 GeV for |eta|<2.4.  The eta spectra
    come from the average of three methods and cover |eta|<2.5 and are corrected to include
    all pT.
-   
+
    The data were corrected according to the SD/DD/ND content of the CMS
-   trigger, as predicted by pythia6. The uncertainties connected with
-   correct or uncorrect modelling of diffraction were included in the
-   systematic errors. 
+   trigger, as predicted by PYTHIA6. The uncertainties connected with
+   correct or incorrect modelling of diffraction were included in the
+   systematic errors.
 BibKey: Khachatryan:2010xs
 BibTeX: '@Article{Khachatryan:2010xs,
      author    ="Khachatryan, Vardan and others",
      collaboration ="CMS",
-     title     ="{Transverse momentum and pseudorapidity distributions of 
-                  charged hadrons in pp collisions at sqrt(s) = 0.9 and 2.36TeV}",
+     title     ="{Transverse momentum and pseudorapidity distributions of
+                  charged hadrons in $pp$ collisions at $\sqrt{s} = 0.9$ and 2.36 TeV}",
      journal   ="JHEP",
      volume    ="02",
      year      ="2010",

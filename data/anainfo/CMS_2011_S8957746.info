@@ -18,16 +18,15 @@ Energies: [7000]
 PtCuts: [30.0]
 Description:
    Central transverse Thrust and Minor have been measured in proton-proton
-   collisions at sqrt(s)=7 TeV, with a data sample collected with the CMS
+   collisions at $\sqrt{s} = 7$ TeV, with a data sample collected with the CMS
    detector at the LHC. The sample corresponds to an integrated luminosity of
    3.2 inverse picobarns.
-   Input for the variables are anti-kt jets with $R=0.5$.
+   Input for the variables are anti-$k_t$ jets with $R = 0.5$.
 BibKey: Khachatryan:2011dx
 BibTeX: '@Article{Khachatryan:2011dx,
      author    = "Khachatryan, Vardan and others",
- collaboration = "CMS",
-     title     = "{First Measurement of Hadronic Event Shapes in $pp$
-                  Collisions at $\sqrt{s}=7$ TeV}",
+     collaboration = "CMS",
+     title     = "{First measurement of hadronic event shapes in $pp$ collisions at $\sqrt{s} = 7$ TeV}",
      journal   = "Phys. Lett.",
      volume    = "B699",
      year      = "2011",
@@ -38,4 +37,3 @@ BibTeX: '@Article{Khachatryan:2011dx,
      doi       = "10.1016/j.physletb.2011.03.060",
      SLACcitation  = "%%CITATION = 1102.0068;%%"
 }'
-ToDo:

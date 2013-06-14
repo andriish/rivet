@@ -9,7 +9,7 @@ Authors:
 References:
  - DELPHI note 2002-069-CONF-603 (ICHEP 2002)
 RunInfo:
-  Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
+  Hadronic Z decay events generated on the Z pole ($\sqrt{s} = 91.2$ GeV)
 NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]

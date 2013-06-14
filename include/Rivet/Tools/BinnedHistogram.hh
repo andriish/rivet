@@ -2,7 +2,7 @@
 #ifndef RIVET_BINNEDHISTOGRAM_HH
 #define RIVET_BINNEDHISTOGRAM_HH
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetYODA.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 
 namespace Rivet {
 

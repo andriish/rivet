@@ -1,8 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/ClusteredPhotons.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 

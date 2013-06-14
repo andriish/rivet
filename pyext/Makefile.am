@@ -1,10 +1,10 @@
 SUBDIRS = rivet
-EXTRA_DIST = 
+EXTRA_DIST =
 
 if ENABLE_PYEXT
 PYEXT_ENV = CC="$(CC)" CXX="$(CXX)" ARCHFLAGS=""
 
-## always force setup.py, it's not good at guessing what needs to rebuild
+## Always force setup.py, it's not good at guessing what needs to rebuild
 all-local:
 	$(PYEXT_ENV) $(PYTHON) setup.py install --install-lib=build/ --force
 

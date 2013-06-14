@@ -15,7 +15,7 @@ PtCuts: [0]
 Description: Measurement of the inclusive production of the $\eta'(958)$ and $f_0(980)$
              mesons in $e^+e^-$ annihilation in the Upsilon region.
              Data are taken on the $\Upsilon(1S)$, $\Upsilon(2S)$ and $\Upsilon(4S)$
-             resonances and in the nearby continuum (9.36 to 10.45 GeV cm energy)
+             resonances and in the nearby continuum (9.36 to 10.45 GeV center-of-mass energy)
 BibKey: Albrecht:1992nu
 BibTeX: '@article{Albrecht:1992nu,
       author         = "Albrecht, H. and others",

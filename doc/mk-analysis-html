@@ -28,23 +28,10 @@ if os.environ.has_key("DYLD_LIBRARY_PATH"):
 ## Set up analysis plugin directory
 anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
+
 ## Finally do the rivet module import!
 import rivet
-
-
-def htmlify(s, para=False):
-    # TODO: also replace LaTeX like \text, $$, \le, \ge, \mathrm, \emph, etc.
-    # TODO: replace the &, <, > etc. with .encode("xmlcharrefreplace")? Or does that encode *all* characters?
-    t = s \
-        .replace("&", "&amp;") \
-        .replace(">", "&gt;") \
-        .replace("<", "&lt;") \
-        .replace("$", "") \
-        .replace("\\pm", "+-")
-    if para:
-        t = t.replace("\n\n", "</p><p>")
-    return t
-
+from rivet.util import htmlify
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
@@ -102,7 +89,7 @@ for aname in sorted(list(all_analyses)):
                 page += "  <li>%s</li>\n" % htmlify(r)
         page += "</ul>\n"
     else:
-        page += "<b>No references listed</b>\n"
+        page += "<b>No references listed</b><br/>\n"
 
 
     if ana.requiredBeams():
@@ -128,7 +115,7 @@ for aname in sorted(list(all_analyses)):
     page += "<b>Beam energies:</b> "
     if ana.requiredEnergies():
         page += "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
-        page += "GeV"
+        page += "&nbsp;GeV"
     else:
         page += "ANY"
     page += "<br/>\n"
@@ -153,7 +140,7 @@ for aname in sorted(list(all_analyses)):
 
 
 ## Write out HTML
-head = """\
+head = '''\
 <html>
 <head>
   <title>Rivet analyses reference</title>
@@ -163,11 +150,19 @@ head = """\
     h2 { margin-left:-1em; margin-bottom:1.5em; }
     h3 { color:#349; margin-top:2em; }
   </style>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"]]}
+  });
+  </script>
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
 </head>
 <body>
   <h2>Rivet analyses reference</h2>
 
-"""
+'''
 
 toc = "<h3>Contents</h3>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"

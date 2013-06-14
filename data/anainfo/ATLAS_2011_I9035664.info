@@ -3,19 +3,19 @@ Year: 2011
 Summary: Measurement of J/Psi production
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 9035664
+InspireID: 9035664
 Status: VALIDATED
 Authors:
- - 
+ -
 References:
- - 
+ -
  - arXiv:1104.3038 [hep-ex]
 RunInfo:
-  pp to hadrons including both prompt J/Psi production and the production in B decays  
+  pp to hadrons including both prompt J/Psi production and the production in B decays
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
-PtCuts: 
+PtCuts:
 Description:
   'The inclusive $J/\psi$ production cross-section and fraction of $J/\psi$ mesons produced in B-hadron decays are measured
    in proton-proton collisions at $\sqrt{s} = 7$ TeV with the ATLAS detector at the LHC, as a function of the transverse momentum

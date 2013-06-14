@@ -1,8 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/FParameter.hh"
-#include "Rivet/Cmp.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/Utils.hh"
 
 namespace Rivet {
 

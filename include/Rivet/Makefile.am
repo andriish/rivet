@@ -8,8 +8,6 @@ nobase_pkginclude_HEADERS =
 nobase_pkginclude_HEADERS += \
   Rivet.hh             Exceptions.hh \
   Event.hh             Run.hh \
-  RivetBoost.hh        RivetHepMC.hh \
-  RivetSTL.hh          RivetYODA.hh \
   ParticleBase.hh      Jet.hh \
   Particle.fhh         Particle.hh \
   ParticleName.hh      BeamConstraint.hh \
@@ -45,6 +43,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/FoxWolframMoments.hh \
   Projections/FParameter.hh \
   Projections/HadronicFinalState.hh \
+  Projections/HeavyHadrons.hh \
   Projections/Hemispheres.hh    \
   Projections/IdentifiedFinalState.hh \
   Projections/InitialQuarks.hh \
@@ -63,9 +62,10 @@ nobase_pkginclude_HEADERS +=   \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/ParisiTensor.hh   \
-  Projections/Sphericity.hh     \
-  Projections/Spherocity.hh     \
-  Projections/Thrust.hh         \
+  Projections/PrimaryHadrons.hh \
+  Projections/Sphericity.hh \
+  Projections/Spherocity.hh \
+  Projections/Thrust.hh \
   Projections/TriggerCDFRun0Run1.hh \
   Projections/TriggerCDFRun2.hh \
   Projections/TriggerUA5.hh \
@@ -87,6 +87,10 @@ nobase_pkginclude_HEADERS += \
   Tools/Logging.hh  \
   Tools/Utils.hh \
   Tools/RivetPaths.hh \
+  Tools/RivetSTL.hh \
+  Tools/RivetBoost.hh \
+  Tools/RivetHepMC.hh \
+  Tools/RivetYODA.hh \
   Tools/BinnedHistogram.hh \
   Tools/ParticleIdUtils.hh \
   Tools/TypeTraits.hh \

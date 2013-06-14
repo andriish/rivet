@@ -11,7 +11,7 @@ References:
  - Phys.Rev.D69:072003,2004
  - arXiv:hep-ex/0310017
 RunInfo:
-  Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
+  Hadronic Z decay events generated on the Z pole ($\sqrt{s} = 91.2$ GeV)
 NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [91.2]
@@ -24,7 +24,7 @@ BibTeX: '@Article{Abe:2003iy,
      author    = "Abe, Koya and others",
      collaboration = "SLD",
      title     = "{Production of $\pi^+$, $\pi^-$, $K^+$, $K^-$, $p$ and $\bar p$ in light
-                  (uds), c and b  jets from $Z^0$ decays}",
+                  $(uds)$, $c$ and $b$ jets from $Z^0$ decays}",
      journal   = "Phys. Rev.",
      volume    = "D69",
      year      = "2004",

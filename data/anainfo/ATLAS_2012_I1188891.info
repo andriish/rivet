@@ -18,7 +18,7 @@ Beams: [p+, p+]
 Energies: [7000]
 Description:
   'The measurement of the flavour composition of dijet events produced
-   in pp collisions at $\sqrt{s}=7 TeV$ using the ATLAS detector.
+   in pp collisions at $\sqrt{s}=7\;\TeV$ using the ATLAS detector.
    Six possible combinations of light, charm and bottom jets are identified
    in the dijet events, where the jet flavour is defined by the presence
    of bottom, charm or solely light flavour hadrons in the jet.

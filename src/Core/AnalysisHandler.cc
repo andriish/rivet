@@ -3,9 +3,9 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/ParticleName.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/BeamConstraint.hh"
+#include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {

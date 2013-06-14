@@ -93,7 +93,7 @@ namespace Rivet {
                       RapScheme rapscheme=PSEUDORAPIDITY) const {
       const Jets rawjets = _jets(ptmin);
       Jets rtn;
-      MSG_DEBUG("Raw jet size (with pTmin cut = " << ptmin/GeV << "GeV) = " << rawjets.size());
+      MSG_DEBUG("Raw jet size (with pTmin cut = " << ptmin/GeV << " GeV) = " << rawjets.size());
       foreach (const Jet& j, rawjets) {
         const FourMomentum pj = j.momentum();
         if (!inRange(pj.pT(), ptmin, ptmax)) continue;
