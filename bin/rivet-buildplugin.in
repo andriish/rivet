@@ -73,13 +73,13 @@ iboost="@BOOST_CPPFLAGS@"
 test -n "$iboost" && mycppflags="$mycppflags ${iboost}"
 
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
-myldflags=""
+myldflags="-Wl,--no-as-needed"
 lrivet="@libdir@"
-test -n "$lrivet" && myldflags="$mycppflags -L${lrivet}"
+test -n "$lrivet" && myldflags="$myldflags -L${lrivet}"
 lhepmc="@HEPMCLIBPATH@"
-test -n "$lhepmc" && myldflags="$mycppflags -L${lhepmc}"
+test -n "$lhepmc" && myldflags="$myldflags -L${lhepmc}"
 lfastjet="@FASTJETLIBPATH@"
-test -n "$lfastjet" && myldflags="$mycppflags -L${lfastjet}"
+test -n "$lfastjet" && myldflags="$myldflags -L${lfastjet}"
 
 ## Link against ROOT if requested
 with_root=$(echo $* | egrep -- '--\<with-root\>')
