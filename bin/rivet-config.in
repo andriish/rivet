@@ -59,6 +59,8 @@ if test -n "$tmp"; then
     test -n "$irivet" && OUT="$OUT -I${irivet}"
     ihepmc="@HEPMCINCPATH@"
     test -n "$ihepmc" && OUT="$OUT -I${ihepmc}"
+    iyoda="@YODAINCPATH@"
+    test -n "$iyoda" && OUT="$OUT -I${iyoda}"
     ifastjet="@FASTJETINCPATH@"
     test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
     igsl="@GSLINCPATH@"
@@ -74,6 +76,8 @@ if test -n "$tmp"; then
     test -n "$lrivet" && OUT="$OUT -L${lrivet}"
     lhepmc="@HEPMCLIBPATH@"
     test -n "$lhepmc" && OUT="$OUT -L${lhepmc}"
+    lyoda="@YODALIBPATH@"
+    test -n "$lyoda" && OUT="$OUT -L${lyoda}"
     lfastjet="@FASTJETCONFIGLIBADD@"
     test -n "$lfastjet" && OUT="$OUT ${lfastjet}"
 fi
