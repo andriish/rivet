@@ -107,7 +107,7 @@ namespace Rivet {
 
       const fastjet::ClusterSequence* seq = applyProjection<FastJets>(e, "jets").clusterSeq();
       if (seq != NULL) {
-        for (size_t i = 0; i < m_njet; ++i) {
+        for (size_t i = 0; i < min(m_njet,seq->n_particles()); ++i) {
           double d_ij = sqrt(seq->exclusive_dmerge_max(i));
           _h_dI[flav][i]->fill(d_ij, weight);
 

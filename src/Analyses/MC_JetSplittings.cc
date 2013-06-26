@@ -40,7 +40,7 @@ namespace Rivet {
     const fastjet::ClusterSequence* seq = jetpro.clusterSeq();
     if (seq != NULL) {
       double previous_dij = 10.0;
-      for (size_t i = 0; i < m_njet; ++i) {
+      for (size_t i = 0; i < min(m_njet,seq->n_particles()); ++i) {
         // Jet resolution i -> j
         double d_ij = log10(sqrt(seq->exclusive_dmerge_max(i)));
 
