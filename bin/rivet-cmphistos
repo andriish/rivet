@@ -291,11 +291,15 @@ if __name__ == '__main__':
             refdata.setAnnotation('ErrorBars', '1')
             refdata.setAnnotation('PolyMarker', '*')
             refdata.setAnnotation('Title', 'Data')
-            if opts.RATIO:
-                plot['RatioPlot'] = '1'
-                plot['RatioPlotReference'] = '/REF'+h
+            ratioreference = '/REF'+h
             anaobjects.append(refdata)
             drawonly += '/REF' + h + ' '
+        else:
+            ratioreference = filelist[0]+h
+
+        if opts.RATIO:
+            plot['RatioPlot'] = '1'
+            plot['RatioPlotReference'] = ratioreference
 
         if opts.RATIO and opts.RATIO_DEVIATION:
             plot['RatioPlotMode'] = 'deviation'
