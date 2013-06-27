@@ -286,6 +286,7 @@ if __name__ == '__main__':
         drawonly = ''
 
         ## Check if we have reference data for the histogram
+        ratioreference=None
         if refhistos.has_key('/REF' + h):
             refdata = refhistos['/REF' + h]
             refdata.setAnnotation('ErrorBars', '1')
@@ -294,21 +295,17 @@ if __name__ == '__main__':
             ratioreference = '/REF'+h
             anaobjects.append(refdata)
             drawonly += '/REF' + h + ' '
-        else:
-            ratioreference = filelist[0]+h
-
-        if opts.RATIO:
-            plot['RatioPlot'] = '1'
-            plot['RatioPlotReference'] = ratioreference
 
         if opts.RATIO and opts.RATIO_DEVIATION:
             plot['RatioPlotMode'] = 'deviation'
 
         ## Loop over the MC files to plot all instances of the histogram
-        for i,infile in enumerate(filelist):
+        styleidx = 0
+        for infile in filelist:
             if mchistos.has_key(infile) and mchistos[infile].has_key(h):
                 ## default linecolor, linestyle
-                setStyle(mchistos[infile][h], i)
+                setStyle(mchistos[infile][h], styleidx)
+                styleidx += 1
                 if opts.MC_ERRS:
                     mchistos[infile][h].setAnnotation('ErrorBars', '1')
                 ## plot defaults from .plot files
@@ -319,8 +316,13 @@ if __name__ == '__main__':
                 mchistos[infile][h].setAnnotation('Path', infile + h)
                 anaobjects.append(mchistos[infile][h])
                 drawonly += infile + h + ' '
+                if ratioreference is None:
+                    ratioreference = infile+h
 
         plot['DrawOnly'] = drawonly.strip()
+        if opts.RATIO:
+            plot['RatioPlot'] = '1'
+            plot['RatioPlotReference'] = ratioreference
 
         ## Now create the output. We can't use "yoda.writeFLAT(anaobjects, 'foobar.dat')" because
         ## the PLOT and SPECIAL blocks don't have a corresponding analysis object.
