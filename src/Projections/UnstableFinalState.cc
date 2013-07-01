@@ -39,7 +39,7 @@ namespace Rivet {
       if (passed && pv) {
         for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
              pp != pv->particles_in_const_end() ; ++pp) {
-          if ( p->pdg_id() == (*pp)->pdg_id() ) {
+          if ( p->pdg_id() == (*pp)->pdg_id() && (*pp)->status() == 2 ) {
             passed = false;
             break;
           }
