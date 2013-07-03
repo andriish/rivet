@@ -112,16 +112,16 @@ namespace Rivet {
     double jetTauValue(double beta, double jet_rad,
                        PseudoJets& particles, PseudoJets& axes, double Rcut) const {
 
-      float tauNum = 0.0;
-      float tauDen = 0.0;
+      double tauNum = 0.0;
+      double tauDen = 0.0;
 
       if (particles.size() == 0) return 0.0;
 
       for (unsigned int i = 0; i < particles.size(); i++) {
         // find minimum distance (set R large to begin)
-        float minR = 10000.0;
+        double minR = 10000.0;
         for (unsigned int j = 0; j < axes.size(); j++) {
-          float tempR = sqrt(particles[i].squared_distance(axes[j]));
+          double tempR = sqrt(particles[i].squared_distance(axes[j]));
           if (tempR < minR) minR = tempR;
         }
         if (minR > Rcut) minR = Rcut;
