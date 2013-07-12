@@ -96,7 +96,7 @@ namespace Rivet {
     shared_ptr<std::istream> _istr;
 
     // input stream if we are using gzipped HepMC input
-    shared_ptr<std::ifstream> _zipped_stream;
+    shared_ptr<std::istream> _zipped_stream;
     
     /// HepMC I/O writer
     shared_ptr<HepMC::IO_GenEvent> _io;

@@ -13,9 +13,8 @@ namespace Rivet {
 
 
   Run::Run(AnalysisHandler& ah)
-    : _ah(ah), _fileweight(1.0), _xs(NAN)
-  { }
-
+  : _ah(ah), _fileweight(1.0), _xs(NAN)
+  {}
 
   Run::~Run() { }
 
@@ -64,21 +63,22 @@ namespace Rivet {
     if (evtfile == "-") {
       _io.reset(new HepMC::IO_GenEvent(std::cin));
     } else if(boost::algorithm::ends_with(evtfile, ".gz")){
-           
+                 
+      Log::getLog("Rivet.Run")
+      << Log::DEBUG << "Using gzipped HepMC input!" << endl;
+      
       boost::iostreams::filtering_istream *filter_istr = 
       new boost::iostreams::filtering_istream();
             
       filter_istr->push(boost::iostreams::gzip_decompressor());
       
-///      _zipped_stream.reset(new std::ifstream(evtfile.c_str(), std::ios::in));
-            
-      std::ifstream *zipped_stream = new std::ifstream(evtfile.c_str(), std::ios::in);
-      
-      filter_istr->push(*zipped_stream);
+      _zipped_stream.reset(new std::ifstream(evtfile.c_str(), std::ios::in));
+                  
+      filter_istr->push(*_zipped_stream);
       _istr.reset((std::istream*)filter_istr);
       _io.reset(new HepMC::IO_GenEvent(*_istr));
     }else {
-          
+
       // Ignore the HepMC::IO_GenEvent(filename, ios) constructor, since it's only available from HepMC 2.4
       _istr.reset(new std::fstream(evtfile.c_str(), std::ios::in));
       _io.reset(new HepMC::IO_GenEvent(*_istr));
@@ -152,7 +152,8 @@ namespace Rivet {
 
   bool Run::finalize() {
     _evt.reset();
-//    _istr.reset();
+    _zipped_stream.reset();
+    _istr.reset();
     _io.reset();
     return true;
   }
