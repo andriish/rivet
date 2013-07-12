@@ -142,8 +142,9 @@ namespace Rivet {
       scale(_h_rap_jet[i], crossSection()/sumOfWeights());
 
       // Create eta/rapidity ratio plots
-      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], bookScatter2D("jet_eta_pmratio_" + to_str(i+1)));
-      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], bookScatter2D("jet_y_pmratio_" + to_str(i+1)));
+      // @todo seems to crash when the divided histo happens to be unfilled
+      //divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], bookScatter2D("jet_eta_pmratio_" + to_str(i+1)));
+      //divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], bookScatter2D("jet_y_pmratio_" + to_str(i+1)));
     }
 
     // Scale the d{eta,phi,R} histograms
