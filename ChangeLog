@@ -1,3 +1,6 @@
+2013-07-12  James Monk  <jmonk@cern.ch>
+  * Added gzip support to HepMC file reading
+
 2013-06-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a new HeavyHadrons projection.
