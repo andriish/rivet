@@ -62,7 +62,7 @@ BOOST_SMART_PTR
 BOOST_FIND_HEADER([boost/lexical_cast.hpp])
 BOOST_FIND_HEADER([boost/range.hpp])
 BOOST_FIND_HEADER([boost/assign.hpp])
-
+BOOST_IOSTREAMS
 
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])

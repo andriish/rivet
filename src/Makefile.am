@@ -20,4 +20,5 @@ libRivet_la_LIBADD = \
   Tools/libRivetTools.la \
   Analyses/libRivetAnalysisTools.la \
   -ldl -lm -lYODA -lHepMC \
-  $(GSL_LDFLAGS) $(FASTJETCONFIGLIBADD)
+  $(GSL_LDFLAGS) $(FASTJETCONFIGLIBADD) \
+  $(BOOST_IOSTREAMS_LDFLAGS) $(BOOST_IOSTREAMS_LIBS)
