@@ -17,24 +17,28 @@ ENVIRONMENT:
      metadata files
 """
 
-## Try to bootstrap the Python path for rivet loading
-# TODO: Move this intorivet.__init__.py?
 import os, sys
-PROGPATH = sys.argv[0]
-PROGNAME = os.path.basename(PROGPATH)
-import commands
+
+## Load the rivet module
 try:
+    import rivet
+except:
+    ## If rivet loading failed, try to bootstrap the Python path!
+    # TODO: Is this a good idea? Maybe just notify the user that their PYTHONPATH is wrong?
+    import commands
     modname = sys.modules[__name__].__file__
     binpath = os.path.dirname(modname)
     rivetconfigpath = os.path.join(binpath, "rivet-config")
     rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
     sys.path.append(rivetpypath)
+    import rivet
 except:
-    pass
+    sys.stderr.write("The rivet Python module could not be loaded: is your PYTHONPATH set correctly?\n")
+    sys.exit(1)
 
-import rivet
 rivet.util.check_python_version()
 rivet.util.set_process_name("rivet")
+
 import time, logging, signal
 
 ## Parse command line options
