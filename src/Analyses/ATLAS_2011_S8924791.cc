@@ -39,12 +39,10 @@ namespace Rivet {
       // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 11; ++i) {
         for (size_t j = 0; j < 6; ++j) {
-          if (i==8 && j==4) continue;
-          if (i==9 && j==4) continue;
-          if (i==10 && j!=5) continue;
-          stringstream ss; ss << "JetShape" << i << j;
-          const string pname = ss.str();
-          _jsnames_pT[i][j] = pname;
+          if (i == 8  && j == 4) continue;
+          if (i == 9  && j == 4) continue;
+          if (i == 10 && j != 5) continue;
+          _jsnames_pT[i][j] = "JetShape" + to_str(i) + to_str(j);
 
           if (j < 5) {
             const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], _yedges[j], _yedges[j+1], RAPIDITY);
@@ -77,9 +75,9 @@ namespace Rivet {
 
       for (size_t ipt = 0; ipt < 11; ++ipt) {
         for (size_t jy = 0; jy < 6; ++jy) {
-          if (ipt==8 && jy==4) continue;
-          if (ipt==9 && jy==4) continue;
-          if (ipt==10 && jy!=5) continue;
+          if (ipt == 8 && jy == 4) continue;
+          if (ipt == 9 && jy == 4) continue;
+          if (ipt == 10 && jy != 5) continue;
           const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt][jy]);
           for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
             for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
