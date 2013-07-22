@@ -1,3 +1,9 @@
+2013-07-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add -std=c++11 or -std=c++0x to the Rivet compiler flags if supported.
+
+	* Various fixes to analyses with non-zero numerical diffs.
+
 2013-06-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a new HeavyHadrons projection.
