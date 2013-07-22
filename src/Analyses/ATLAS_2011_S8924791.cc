@@ -42,15 +42,17 @@ namespace Rivet {
           if (i == 8  && j == 4) continue;
           if (i == 9  && j == 4) continue;
           if (i == 10 && j != 5) continue;
-          _jsnames_pT[i][j] = "JetShape" + to_str(i) + to_str(j);
 
+          // Set up projections for each (pT,y) bin
+          _jsnames_pT[i][j] = "JetShape" + to_str(i) + to_str(j);
+          const double ylow = (j < 5) ? _yedges[j] : _yedges.front();
+          const double yhigh = (j < 5) ? _yedges[j+1] : _yedges.back();
           if (j < 5) {
-            const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], _yedges[j], _yedges[j+1], RAPIDITY);
-            addProjection(jsp, pname);
-          } else {
-            const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], _yedges.front(), _yedges.back(), RAPIDITY);
-            addProjection(jsp, pname);
+            const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], ylow, yhigh, RAPIDITY);
+            addProjection(jsp, _jsnames_pT[i][j]);
           }
+
+          // Book profile histograms for each (pT,y) bin
           _profhistRho_pT[i][j] = bookProfile1D(i+1, j+1, 1);
           _profhistPsi_pT[i][j] = bookProfile1D(i+1, j+1, 2);
         }
@@ -63,8 +65,8 @@ namespace Rivet {
     void analyze(const Event& evt) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets jets = applyProjection<FastJets>(evt, "Jets").jetsByPt(_ptedges.front()*GeV, _ptedges.back()*GeV,
-                                                                        -2.8, 2.8, RAPIDITY);
+      const Jets jets = applyProjection<FastJets>(evt, "Jets")
+        .jetsByPt(_ptedges.front()*GeV, _ptedges.back()*GeV, -2.8, 2.8, RAPIDITY);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT & rapidity range");
