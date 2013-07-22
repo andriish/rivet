@@ -10,6 +10,7 @@
 namespace Rivet {
 
 
+  /// ATLAS W + jets production at 7 TeV
   class ATLAS_2012_I1083318 : public Analysis {
   public:
 
@@ -178,12 +179,12 @@ namespace Rivet {
       for (size_t i = 0; i < 2; ++i) {
 
         // Construct jet multiplicity ratio
-        for (size_t n = 0; n < _h_NjetIncl[i]->numBins()-1; ++n) {
-          YODA::HistoBin1D& b0 = _h_NjetIncl[i]->bin(n);
-          YODA::HistoBin1D& b1 = _h_NjetIncl[i]->bin(n+1);
+        for (size_t n = 1; n < _h_NjetIncl[i]->numBins(); ++n) {
+          YODA::HistoBin1D& b0 = _h_NjetIncl[i]->bin(n-1);
+          YODA::HistoBin1D& b1 = _h_NjetIncl[i]->bin(n);
           if (b0.height() == 0.0 || b1.height() == 0.0) continue;
-          _h_RatioNjetIncl[i]->point(n).setY(b1.height()/b0.height());
-          _h_RatioNjetIncl[i]->point(n).setYErr(b1.height()/b0.height() * (b0.relErr() + b1.relErr()));
+          _h_RatioNjetIncl[i]->addPoint(n, b1.height()/b0.height(), 0,
+                                        b1.height()/b0.height() * (b0.relErr() + b1.relErr()));
         }
 
         // Scale all histos to the cross section
