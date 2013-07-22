@@ -118,13 +118,12 @@ namespace Rivet {
           0.0351, 0.0413, 0.0520, 0.0497, 0.0448, 0.0446, 0.0375, 0.0329, 0.0291, 0.0272,
           0.0233, 0.0288, 0.0384, 0.0396, 0.0468, 0.0419, 0.0459, 0.0399, 0.0355, 0.0329,
           0.0274, 0.0230, 0.0201, 0.0120, 0.0100, 0.0080, 0.0051, 0.0051, 0.0010, 0.0010 };
-      vector<Point2D> points;
       for (size_t i = 0;  i < 40; ++i) {
         const double yval = _tmphistJet3eta->bin(i).area() * (eta3_CDF_sim[i]/eta3_Ideal_sim[i]);
         const double yerr = _tmphistJet3eta->bin(i).areaErr() * (eta3_CDF_sim_err[i]/eta3_Ideal_sim[i]);
-        points.push_back(Point2D(0, yval/_sumw, 0, yerr/_sumw));
+        _histJet3eta->addPoint(_tmphistJet3eta->bin(i).midpoint(), yval/_sumw,
+                               _tmphistJet3eta->bin(i).width()/2.0, yerr/_sumw);
       }
-      _histJet3eta->addPoints(points);
 
       // R23 correction
       const double R23_CDF_sim[] =
@@ -142,13 +141,12 @@ namespace Rivet {
           0.0565, 0.0515, 0.0466, 0.0472, 0.0349, 0.0349, 0.0266, 0.0254, 0.0204, 0.0179,
           0.0142, 0.0134, 0.0101, 0.0090, 0.0080, 0.0034, 0.0030, 0.0033, 0.0027, 0.0021,
           0.0012, 0.0006, 0.0004, 0.0005, 0.0003 };
-      points.clear();
       for (size_t i = 0;  i < 35; ++i) {
         const double yval = _tmphistR23->bin(i).area() * (R23_CDF_sim[i]/R23_Ideal_sim[i]);
         const double yerr = _tmphistR23->bin(i).areaErr() * (R23_CDF_sim_err[i]/R23_Ideal_sim[i]);
-        points.push_back(Point2D(0, yval/_sumw, 0, yerr/_sumw));
+        _histR23->addPoint(_tmphistR23->bin(i).midpoint(), yval/_sumw,
+                           _tmphistR23->bin(i).width()/2.0, yerr/_sumw);
       }
-      _histR23->addPoints(points);
 
       // alpha correction
       const double alpha_CDF_sim[] =
@@ -166,13 +164,12 @@ namespace Rivet {
           0.0258, 0.0196, 0.0171, 0.0179, 0.0174, 0.0141, 0.0114, 0.0096, 0.0076, 0.0087,
           0.0099, 0.0079, 0.0102, 0.0114, 0.0124, 0.0130, 0.0165, 0.0160, 0.0177, 0.0190,
           0.0232, 0.0243, 0.0238, 0.0248, 0.0235, 0.0298, 0.0292, 0.0291, 0.0268, 0.0316 };
-      points.clear();
       for (size_t i = 0;  i < 40; ++i) {
         const double yval = _tmphistAlpha->bin(i).area() * (alpha_CDF_sim[i]/alpha_Ideal_sim[i]);
         const double yerr = _tmphistAlpha->bin(i).areaErr() * (alpha_CDF_sim_err[i]/alpha_Ideal_sim[i]);
-        points.push_back(Point2D(0, yval/_sumw, 0, yerr/_sumw));
+        _histAlpha->addPoint(_tmphistAlpha->bin(i).midpoint(), yval/_sumw,
+                             _tmphistAlpha->bin(i).width()/2.0, yerr/_sumw);
       }
-      _histAlpha->addPoints(points);
     }
 
     //@}
