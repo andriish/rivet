@@ -1,3 +1,7 @@
+2013-07-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improvements and fixes to HepData lookup with rivet-mkanalysis.
+
 2013-07-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add -std=c++11 or -std=c++0x to the Rivet compiler flags if supported.
