@@ -74,8 +74,9 @@ test -n "$igsl" && mycppflags="$mycppflags -I${igsl}"
 iboost="@BOOST_CPPFLAGS@"
 test -n "$iboost" && mycppflags="$mycppflags ${iboost}"
 
+
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
-myldflags="-Wl,--no-as-needed"
+myldflags=""
 lrivet="@libdir@"
 test -n "$lrivet" && myldflags="$myldflags -L${lrivet}"
 lhepmc="@HEPMCLIBPATH@"
@@ -84,6 +85,11 @@ lyoda="@YODALIBPATH@"
 test -n "$lyoda" && myldflags="$myldflags -L${lyoda}"
 lfastjet="@FASTJETCONFIGLIBADD@"
 test -n "$lfastjet" && myldflags="$myldflags ${lfastjet}"
+## Detect whether the linker accepts the --no-as-needed flag and prepend the linker flag with it if possible
+if (cd /tmp && echo -e 'int main() { return 0; }' > $$.cc; $mycxx -Wl,--no-as-needed $$.cc -o $$ 2> /dev/null); then
+  myldflags="-Wl,--no-as-needed $myldflags"
+fi
+
 
 ## Link against ROOT if requested
 with_root=$(echo $* | egrep -- '--\<with-root\>')
