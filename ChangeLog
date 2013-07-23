@@ -1,5 +1,7 @@
 2013-07-23  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Make rivet-cmphistos _not_ draw a ratio plot if there is only one line.
+
 	* Improvements and fixes to HepData lookup with rivet-mkanalysis.
 
 2013-07-22  Andy Buckley  <andy.buckley@cern.ch>

@@ -283,10 +283,10 @@ if __name__ == '__main__':
 
         ## DrawOnly is needed to keep the order in the Legend equal to the
         ## order of the files on the command line
-        drawonly = ''
+        drawonly = []
 
         ## Check if we have reference data for the histogram
-        ratioreference=None
+        ratioreference = None
         if refhistos.has_key('/REF' + h):
             refdata = refhistos['/REF' + h]
             refdata.setAnnotation('ErrorBars', '1')
@@ -294,7 +294,7 @@ if __name__ == '__main__':
             refdata.setAnnotation('Title', 'Data')
             ratioreference = '/REF'+h
             anaobjects.append(refdata)
-            drawonly += '/REF' + h + ' '
+            drawonly.append('/REF' + h)
 
         if opts.RATIO and opts.RATIO_DEVIATION:
             plot['RatioPlotMode'] = 'deviation'
@@ -315,12 +315,12 @@ if __name__ == '__main__':
                 setOptions(mchistos[infile][h], plotoptions[infile])
                 mchistos[infile][h].setAnnotation('Path', infile + h)
                 anaobjects.append(mchistos[infile][h])
-                drawonly += infile + h + ' '
+                drawonly.append(infile + h)
                 if ratioreference is None:
                     ratioreference = infile+h
 
-        plot['DrawOnly'] = drawonly.strip()
-        if opts.RATIO:
+        plot['DrawOnly'] = ' '.join(drawonly).strip()
+        if opts.RATIO and len(drawonly) > 1:
             plot['RatioPlot'] = '1'
             plot['RatioPlotReference'] = ratioreference
 
