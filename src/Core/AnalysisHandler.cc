@@ -141,8 +141,8 @@ namespace Rivet {
       try {
         a->finalize();
       } catch (const Error& err) {
-        cerr     << "Error in " << a->name() << "::finalize method: "
-                 << err.what() << endl;
+        cerr << "Error in " << a->name() << "::finalize method: "
+             << err.what() << endl;
         exit(1);
       }
     }
@@ -200,16 +200,20 @@ namespace Rivet {
     return *this;
   }
 
+
   void AnalysisHandler::writeData(const string& filename) {
     vector<AnalysisObjectPtr> all_aos;
     foreach (const AnaHandle a, _analyses) {
       vector<AnalysisObjectPtr> aos = a->analysisObjects();
+      // MSG_WARNING(a->name() << " " << aos.size());
       sort(aos.begin(), aos.end(), AOSortByPath);
-      all_aos.insert(all_aos.end(), aos.begin(), aos.end());
-      // MSG_WARNING(a->name() << " " << plots.size());
+      foreach (const AnalysisObjectPtr ao, aos) {
+        if (ao->path().find("/TMP/") == string::npos) continue;
+        all_aos.push_back(ao);
+      }
     }
-    // MSG_WARNING(allPlots.size());
-    // foreach (AnalysisObjectPtr ao, allPlots) MSG_WARNING(ao->path());
+    // MSG_WARNING("Number of output analysis objects = " << all_aos.size());
+    // foreach (const AnalysisObjectPtr ao, all_aos) MSG_WARNING(ao->path());
     WriterYODA::write(filename, all_aos.begin(), all_aos.end());
   }
 

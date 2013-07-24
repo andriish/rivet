@@ -1,3 +1,9 @@
+2013-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a rejection of histo paths containing /TMP/ from the
+	writeData function. Use this to handle booked temporary
+	histograms... for now.
+
 2013-07-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Make rivet-cmphistos _not_ draw a ratio plot if there is only one line.
