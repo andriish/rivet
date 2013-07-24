@@ -18,14 +18,14 @@ namespace Rivet {
       const UnstableFinalState ufs(-15, 15);
       addProjection(ufs, "UFS");
 
-      _histPtK0s        = bookHisto1D("d01-x01-y01");
-      _histPtLambda     = bookHisto1D("d02-x01-y01");
-      _histPtAntiLambda = bookHisto1D("d03-x01-y01");
-      _histPtXi         = bookHisto1D("d04-x01-y01");
-      _histPtPhi        = bookHisto1D("d05-x01-y01");
-      _temp_h_Lambdas   = bookHisto1D(6, 1, 1, "TMP/h_Lambdas");
-      _temp_h_Kzeros    = bookHisto1D(6, 1, 1, "TMP/h_Kzeros");
-      _h_LamKzero       = bookScatter2D(6, 1, 1, "_h_LamKzero");
+      _histPtK0s        = bookHisto1D(1, 1, 1);
+      _histPtLambda     = bookHisto1D(2, 1, 1);
+      _histPtAntiLambda = bookHisto1D(3, 1, 1);
+      _histPtXi         = bookHisto1D(4, 1, 1);
+      _histPtPhi        = bookHisto1D(5, 1, 1);
+      _temp_h_Lambdas   = bookHisto1D("TMP/h_Lambdas", refData(6, 1, 1));
+      _temp_h_Kzeros    = bookHisto1D("TMP/h_Kzeros", refData(6, 1, 1));
+      _h_LamKzero       = bookScatter2D(6, 1, 1);
     }
 
 
