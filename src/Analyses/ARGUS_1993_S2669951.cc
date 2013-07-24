@@ -121,36 +121,32 @@ namespace Rivet {
 
     void finalize() {
 
+      /// @todo Better to group these by coherent 'if (weightSum_X)' statements?
+
       // High-Z eta' multiplicity
-      foreach (Point2D& p, bookScatter2D(1, 1, 1)->points()) {
-        if (fuzzyEquals(9.905, p.x(), 1e-3) && _weightSum_cont > 0) {
-          p.setY(_count_etaPrime_highZ[1] / _weightSum_cont);
-        } else if (fuzzyEquals(9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
-          p.setY(_count_etaPrime_highZ[0] / _weightSum_Ups1);
-        }
-      }
+      Scatter2DPtr s111 = bookScatter2D(1, 1, 1);
+      if (_weightSum_cont > 0)
+        s111->addPoint(9.905, _count_etaPrime_highZ[1] / _weightSum_cont, 0, 0);
+      if (_weightSum_Ups1 > 0)
+        s111->addPoint(9.460, _count_etaPrime_highZ[0] / _weightSum_Ups1, 0, 0);
 
       // All-Z eta' multiplicity
-      foreach (Point2D& p, bookScatter2D(1, 1, 2)->points()) {
-        if (fuzzyEquals(9.905, p.x(), 1e-3) && _weightSum_cont > 0) {
-          p.setY(_count_etaPrime_allZ[2] / _weightSum_cont);
-        } else if (fuzzyEquals(9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
-          p.setY(_count_etaPrime_allZ[0] / _weightSum_Ups1);
-        } else if (fuzzyEquals(10.02, p.x(), 1e-3) && _weightSum_Ups2 > 0) {
-          p.setY(_count_etaPrime_allZ[1] / _weightSum_Ups2);
-        }
-      }
+      Scatter2DPtr s112 = bookScatter2D(1, 1, 2);
+      if (_weightSum_cont > 0)
+        s112->addPoint(9.905, _count_etaPrime_allZ[2] / _weightSum_cont, 0, 0);
+      if (_weightSum_Ups1 > 0)
+        s112->addPoint(9.460, _count_etaPrime_allZ[0] / _weightSum_Ups1, 0, 0);
+      if (_weightSum_Ups2 > 0)
+        s112->addPoint(10.02, _count_etaPrime_allZ[1] / _weightSum_Ups2, 0, 0);
 
       // f0 multiplicity
-      foreach (Point2D& p, bookScatter2D(5, 1, 1)->points()) {
-        if (fuzzyEquals(10.45, p.x(), 1e-3) && _weightSum_cont > 0) {
-          p.setY(_count_f0[2] / _weightSum_cont);
-        } else if (fuzzyEquals(9.46, p.x(), 1e-3) && _weightSum_Ups1 > 0) {
-          p.setY(_count_f0[0] / _weightSum_Ups1);
-        } else if (fuzzyEquals(10.02, p.x(), 1e-3) && _weightSum_Ups2 > 0) {
-          p.setY(_count_f0[1] / _weightSum_Ups2);
-        }
-      }
+      Scatter2DPtr s511 = bookScatter2D(5, 1, 1);
+      if (_weightSum_cont > 0)
+        s112->addPoint(10.45, _count_f0[2] / _weightSum_cont, 0, 0);
+      if (_weightSum_Ups1 > 0)
+        s112->addPoint(9.460, _count_f0[0] / _weightSum_Ups1, 0, 0);
+      if (_weightSum_Ups2 > 0)
+        s112->addPoint(10.02, _count_f0[1] / _weightSum_Ups2, 0, 0);
 
       if (_weightSum_cont > 0.) scale(_hist_cont_f0, 1./_weightSum_cont);
       if (_weightSum_Ups1 > 0.) scale(_hist_Ups1_f0, 1./_weightSum_Ups1);
