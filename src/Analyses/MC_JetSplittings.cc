@@ -49,10 +49,8 @@ namespace Rivet {
 
         // Fill integrated jet resolution
         for (size_t ibin = 0; ibin < _h_log10_R[i]->numPoints(); ++ibin) {
-          Point2D & dp = _h_log10_R[i]->point(ibin);
-          /// @todo Could inRange be used here (avoiding the temporary variable)?
-          double dcut = dp.x();
-          if (d_ij < dcut && previous_dij > dcut) {
+          Point2D& dp = _h_log10_R[i]->point(ibin);
+          if (dp.x() > d_ij && dp.x() < previous_dij) {
             dp.setY(dp.y() + weight);
           }
         }
@@ -61,8 +59,7 @@ namespace Rivet {
       // One remaining integrated jet resolution
       for (size_t ibin = 0; ibin<_h_log10_R[m_njet]->numPoints(); ++ibin) {
         Point2D & dp = _h_log10_R[m_njet]->point(ibin);
-        double dcut = dp.x();
-        if (previous_dij > dcut) {
+        if (dp.x() < previous_dij) {
           dp.setY(dp.y() + weight);
         }
       }
