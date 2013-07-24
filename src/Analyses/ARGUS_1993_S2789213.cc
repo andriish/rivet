@@ -19,6 +19,45 @@ namespace Rivet {
     { }
 
 
+    void init() {
+      addProjection(Beam(), "Beams");
+      addProjection(UnstableFinalState(), "UFS");
+
+      _mult_cont_Omega     = bookHisto1D( 1, 1, 1);
+      _mult_cont_Rho0      = bookHisto1D( 1, 1, 2);
+      _mult_cont_KStar0    = bookHisto1D( 1, 1, 3);
+      _mult_cont_KStarPlus = bookHisto1D( 1, 1, 4);
+      _mult_cont_Phi       = bookHisto1D( 1, 1, 5);
+
+      _mult_Ups1_Omega     = bookHisto1D( 2, 1, 1);
+      _mult_Ups1_Rho0      = bookHisto1D( 2, 1, 2);
+      _mult_Ups1_KStar0    = bookHisto1D( 2, 1, 3);
+      _mult_Ups1_KStarPlus = bookHisto1D( 2, 1, 4);
+      _mult_Ups1_Phi       = bookHisto1D( 2, 1, 5);
+
+      _mult_Ups4_Omega     = bookHisto1D( 3, 1, 1);
+      _mult_Ups4_Rho0      = bookHisto1D( 3, 1, 2);
+      _mult_Ups4_KStar0    = bookHisto1D( 3, 1, 3);
+      _mult_Ups4_KStarPlus = bookHisto1D( 3, 1, 4);
+      _mult_Ups4_Phi       = bookHisto1D( 3, 1, 5);
+
+      _hist_cont_KStarPlus = bookHisto1D( 4, 1, 1);
+      _hist_Ups1_KStarPlus = bookHisto1D( 5, 1, 1);
+      _hist_Ups4_KStarPlus = bookHisto1D( 6, 1, 1);
+
+      _hist_cont_KStar0    = bookHisto1D( 7, 1, 1);
+      _hist_Ups1_KStar0    = bookHisto1D( 8, 1, 1);
+      _hist_Ups4_KStar0    = bookHisto1D( 9, 1, 1);
+
+      _hist_cont_Rho0      = bookHisto1D(10, 1, 1);
+      _hist_Ups1_Rho0      = bookHisto1D(11, 1, 1);
+      _hist_Ups4_Rho0      = bookHisto1D(12, 1, 1);
+
+      _hist_cont_Omega     = bookHisto1D(13, 1, 1);
+      _hist_Ups1_Omega     = bookHisto1D(14, 1, 1);
+    } // init
+
+
     void analyze(const Event& e) {
       const double weight = e.weight();
 
@@ -79,6 +118,7 @@ namespace Rivet {
             ++nPhi;
           }
         }
+        /// @todo Replace with Counters and fill one-point Scatters at the end
         _mult_cont_Omega    ->fill(10.45,weight*nOmega    );
         _mult_cont_Rho0     ->fill(10.45,weight*nRho0     );
         _mult_cont_KStar0   ->fill(10.45,weight*nKStar0   );
@@ -86,7 +126,7 @@ namespace Rivet {
         _mult_cont_Phi      ->fill(10.45,weight*nPhi      );
       }
       else {
-        // find an upsilons
+        // find an upsilon
         foreach (const Particle& ups, upsilons) {
           int parentId = ups.pdgId();
           if (parentId == 553)
@@ -147,8 +187,10 @@ namespace Rivet {
       }
     } // analyze
 
+
     void finalize() {
       if (_weightSum_cont > 0.) {
+        /// @todo Replace with Counters and fill one-point Scatters at the end
         scale(_mult_cont_Omega    , 1./_weightSum_cont);
         scale(_mult_cont_Rho0     , 1./_weightSum_cont);
         scale(_mult_cont_KStar0   , 1./_weightSum_cont);
@@ -160,6 +202,7 @@ namespace Rivet {
         scale(_hist_cont_Omega    , 1./_weightSum_cont);
       }
       if (_weightSum_Ups1 > 0.) {
+        /// @todo Replace with Counters and fill one-point Scatters at the end
         scale(_mult_Ups1_Omega    , 1./_weightSum_Ups1);
         scale(_mult_Ups1_Rho0     , 1./_weightSum_Ups1);
         scale(_mult_Ups1_KStar0   , 1./_weightSum_Ups1);
@@ -171,6 +214,7 @@ namespace Rivet {
         scale(_hist_Ups1_Omega    , 1./_weightSum_Ups1);
       }
       if (_weightSum_Ups4 > 0.) {
+        /// @todo Replace with Counters and fill one-point Scatters at the end
         scale(_mult_Ups4_Omega    , 1./_weightSum_Ups4);
         scale(_mult_Ups4_Rho0     , 1./_weightSum_Ups4);
         scale(_mult_Ups4_KStar0   , 1./_weightSum_Ups4);
@@ -182,45 +226,6 @@ namespace Rivet {
       }
     } // finalize
 
-
-    void init() {
-      addProjection(Beam(), "Beams");
-      addProjection(UnstableFinalState(), "UFS");
-
-      _mult_cont_Omega     = bookHisto1D( 1,1,1);
-      _mult_cont_Rho0      = bookHisto1D( 1,1,2);
-      _mult_cont_KStar0    = bookHisto1D( 1,1,3);
-      _mult_cont_KStarPlus = bookHisto1D( 1,1,4);
-      _mult_cont_Phi       = bookHisto1D( 1,1,5);
-
-      _mult_Ups1_Omega     = bookHisto1D( 2,1,1);
-      _mult_Ups1_Rho0      = bookHisto1D( 2,1,2);
-      _mult_Ups1_KStar0    = bookHisto1D( 2,1,3);
-      _mult_Ups1_KStarPlus = bookHisto1D( 2,1,4);
-      _mult_Ups1_Phi       = bookHisto1D( 2,1,5);
-
-      _mult_Ups4_Omega     = bookHisto1D( 3,1,1);
-      _mult_Ups4_Rho0      = bookHisto1D( 3,1,2);
-      _mult_Ups4_KStar0    = bookHisto1D( 3,1,3);
-      _mult_Ups4_KStarPlus = bookHisto1D( 3,1,4);
-      _mult_Ups4_Phi       = bookHisto1D( 3,1,5);
-
-      _hist_cont_KStarPlus = bookHisto1D( 4,1,1);
-      _hist_Ups1_KStarPlus = bookHisto1D( 5,1,1);
-      _hist_Ups4_KStarPlus = bookHisto1D( 6,1,1);
-
-      _hist_cont_KStar0    = bookHisto1D( 7,1,1);
-      _hist_Ups1_KStar0    = bookHisto1D( 8,1,1);
-      _hist_Ups4_KStar0    = bookHisto1D( 9,1,1);
-
-      _hist_cont_Rho0      = bookHisto1D(10,1,1);
-      _hist_Ups1_Rho0      = bookHisto1D(11,1,1);
-      _hist_Ups4_Rho0      = bookHisto1D(12,1,1);
-
-      _hist_cont_Omega     = bookHisto1D(13,1,1);
-      _hist_Ups1_Omega     = bookHisto1D(14,1,1);
-
-    } // init
 
   private:
 
