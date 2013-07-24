@@ -59,23 +59,23 @@ namespace Rivet {
           int id = abs(p.pdgId());
           double xp = 2.*p.momentum().t()/roots;
           double beta = p.momentum().vector3().mod()/p.momentum().t();
-          if(id==113) {
+          if (id == 113) {
             _hist_cont_Rho0->fill(xp,weight/beta);
             ++nRho0;
           }
-          else if(id==313) {
+          else if (id == 313) {
             _hist_cont_KStar0->fill(xp,weight/beta);
             ++nKStar0;
           }
-          else if(id==223) {
+          else if (id == 223) {
             _hist_cont_Omega->fill(xp,weight/beta);
             ++nOmega;
           }
-          else if(id==323) {
+          else if (id == 323) {
             _hist_cont_KStarPlus->fill(xp,weight/beta);
             ++nKStarPlus;
           }
-          else if(id==333) {
+          else if (id == 333) {
             ++nPhi;
           }
         }
@@ -89,7 +89,7 @@ namespace Rivet {
         // find an upsilons
         foreach (const Particle& ups, upsilons) {
           int parentId = ups.pdgId();
-          if(parentId==553)
+          if (parentId == 553)
             _weightSum_Ups1 += weight;
           else
             _weightSum_Ups4 += weight;
@@ -97,7 +97,7 @@ namespace Rivet {
           // find the decay products we want
           findDecayProducts(ups.genParticle(),unstable);
           LorentzTransform cms_boost;
-          if(ups.momentum().vector3().mod()>0.001)
+          if (ups.momentum().vector3().mod() > 0.001)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
           double mass = ups.momentum().mass();
           unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
@@ -106,30 +106,30 @@ namespace Rivet {
             FourMomentum p2 = cms_boost.transform(p.momentum());
             double xp = 2.*p2.t()/mass;
             double beta = p2.vector3().mod()/p2.t();
-            if(id==113) {
-              if(parentId==553) _hist_Ups1_Rho0->fill(xp,weight/beta);
+            if (id == 113) {
+              if (parentId == 553) _hist_Ups1_Rho0->fill(xp,weight/beta);
               else                 _hist_Ups4_Rho0->fill(xp,weight/beta);
               ++nRho0;
             }
-            else if(id==313) {
-              if(parentId==553) _hist_Ups1_KStar0->fill(xp,weight/beta);
+            else if (id == 313) {
+              if (parentId == 553) _hist_Ups1_KStar0->fill(xp,weight/beta);
               else                 _hist_Ups4_KStar0->fill(xp,weight/beta);
               ++nKStar0;
             }
-            else if(id==223) {
-              if(parentId==553) _hist_Ups1_Omega->fill(xp,weight/beta);
+            else if (id == 223) {
+              if (parentId == 553) _hist_Ups1_Omega->fill(xp,weight/beta);
               ++nOmega;
             }
-            else if(id==323) {
-              if(parentId==553) _hist_Ups1_KStarPlus->fill(xp,weight/beta);
+            else if (id == 323) {
+              if (parentId == 553) _hist_Ups1_KStarPlus->fill(xp,weight/beta);
               else                 _hist_Ups4_KStarPlus->fill(xp,weight/beta);
               ++nKStarPlus;
             }
-            else if(id==333) {
+            else if (id == 333) {
               ++nPhi;
             }
           }
-          if(parentId==553) {
+          if (parentId == 553) {
             _mult_Ups1_Omega    ->fill(9.46,weight*nOmega    );
             _mult_Ups1_Rho0     ->fill(9.46,weight*nRho0     );
             _mult_Ups1_KStar0   ->fill(9.46,weight*nKStar0   );
@@ -148,7 +148,7 @@ namespace Rivet {
     } // analyze
 
     void finalize() {
-      if(_weightSum_cont>0.) {
+      if (_weightSum_cont > 0.) {
         scale(_mult_cont_Omega    , 1./_weightSum_cont);
         scale(_mult_cont_Rho0     , 1./_weightSum_cont);
         scale(_mult_cont_KStar0   , 1./_weightSum_cont);
@@ -159,7 +159,7 @@ namespace Rivet {
         scale(_hist_cont_Rho0     , 1./_weightSum_cont);
         scale(_hist_cont_Omega    , 1./_weightSum_cont);
       }
-      if(_weightSum_Ups1>0.) {
+      if (_weightSum_Ups1 > 0.) {
         scale(_mult_Ups1_Omega    , 1./_weightSum_Ups1);
         scale(_mult_Ups1_Rho0     , 1./_weightSum_Ups1);
         scale(_mult_Ups1_KStar0   , 1./_weightSum_Ups1);
@@ -170,7 +170,7 @@ namespace Rivet {
         scale(_hist_Ups1_Rho0     , 1./_weightSum_Ups1);
         scale(_hist_Ups1_Omega    , 1./_weightSum_Ups1);
       }
-      if(_weightSum_Ups4>0.) {
+      if (_weightSum_Ups4 > 0.) {
         scale(_mult_Ups4_Omega    , 1./_weightSum_Ups4);
         scale(_mult_Ups4_Rho0     , 1./_weightSum_Ups4);
         scale(_mult_Ups4_KStar0   , 1./_weightSum_Ups4);
