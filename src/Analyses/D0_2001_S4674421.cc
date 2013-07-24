@@ -145,28 +145,21 @@ namespace Rivet {
         const double MW_MZ = 0.8820; // Ratio M_W/M_Z
         const double BRZEE_BRWENU = 0.033632 / 0.1073; // Ratio of branching fractions
         const double scalefactor = (xSecW / wpt_integral) / (xSecZ / zpt_integral) * MW_MZ * BRZEE_BRWENU;
-        for (size_t ibin=0; ibin<_h_dsigdpt_scaled_z->numPoints(); ibin++) {
-          if (_h_dsigdpt_w->bin(ibin).area() == 0 || _h_dsigdpt_z->bin(ibin).area() == 0) {
-            _h_dsigdpt_scaled_z->point(ibin) = Point2D(_h_dsigdpt_w->bin(ibin).midpoint(), 0.,
-                                                       _h_dsigdpt_w->bin(ibin).width(), 0.);
-          } else {
-            double yval = scalefactor * _h_dsigdpt_w->bin(ibin).area() / _h_dsigdpt_z->bin(ibin).area();
-            double dy2 = 0.;
-            // binWidth(ibin) is needed because binHeight is actually sumofweights. It's AIDA. Don't ask.  :-((((
-            dy2 += pow(_h_dsigdpt_w->bin(ibin).areaErr()/_h_dsigdpt_w->bin(ibin).height(),2);
-            dy2 += pow(_h_dsigdpt_z->bin(ibin).areaErr()/_h_dsigdpt_z->bin(ibin).height(),2);
-            double dy = scalefactor * _h_dsigdpt_w->bin(ibin).area()/_h_dsigdpt_z->bin(ibin).area() * sqrt(dy2);
-
-            _h_dsigdpt_scaled_z->point(ibin) = Point2D(_h_dsigdpt_w->bin(ibin).midpoint(), yval,
-                                                       _h_dsigdpt_w->bin(ibin).width(), dy);
+        for (size_t ibin = 0; ibin < _h_dsigdpt_w->numBins(); ibin++) {
+          const double xval = _h_dsigdpt_w->bin(ibin).midpoint();
+          const double xerr = _h_dsigdpt_w->bin(ibin).width() / 2.;
+          double yval(0), yerr(0);
+          if (_h_dsigdpt_w->bin(ibin).sumW() != 0 && _h_dsigdpt_z->bin(ibin).sumW() != 0) {
+            yval = scalefactor * _h_dsigdpt_w->bin(ibin).sumW() / _h_dsigdpt_z->bin(ibin).sumW();
+            yerr = yval * sqrt( sqr(_h_dsigdpt_w->bin(ibin).relErr()) + sqr(_h_dsigdpt_z->bin(ibin).areaErr()) );
           }
+          _h_dsigdpt_scaled_z->addPoint(xval, yval, xerr, yerr);
         }
       }
 
       // Normalize non-ratio histos
       normalize(_h_dsigdpt_w, xSecW);
       normalize(_h_dsigdpt_z, xSecZ);
-
     }
 
 
