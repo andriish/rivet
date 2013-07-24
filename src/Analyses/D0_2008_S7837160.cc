@@ -12,7 +12,6 @@ namespace Rivet {
   /// @author Andy Buckley
   /// @author Gavin Hesketh
   class D0_2008_S7837160 : public Analysis {
-
   public:
 
     /// Default constructor.
@@ -42,9 +41,9 @@ namespace Rivet {
       _h_dsigplus_deta_25     = bookHisto1D(1,1,1,"/dsigplus_deta_25");
       _h_dsigminus_deta_25    = bookHisto1D(1,1,1,"/dsigminus_deta_25");
 
-      _h_asym1		= bookScatter2D(1, 1, 1);
-      _h_asym2		= bookScatter2D(1, 1, 2);
-      _h_asym3		= bookScatter2D(1, 1, 3);
+      _h_asym1 = bookScatter2D(1, 1, 1);
+      _h_asym2 = bookScatter2D(1, 1, 2);
+      _h_asym3 = bookScatter2D(1, 1, 3);
     }
 
 
@@ -97,16 +96,16 @@ namespace Rivet {
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta
       // + dsig-/deta) for each Et region
       divide(*_h_dsigplus_deta_25_35 - *_h_dsigminus_deta_25_35,
-	     *_h_dsigplus_deta_25_35 + *_h_dsigminus_deta_25_35,
-	     _h_asym1);
+             *_h_dsigplus_deta_25_35 + *_h_dsigminus_deta_25_35,
+             _h_asym1);
 
       divide(*_h_dsigplus_deta_35 - *_h_dsigminus_deta_35,
-	     *_h_dsigplus_deta_35 + *_h_dsigminus_deta_35,
-	     _h_asym2);
+             *_h_dsigplus_deta_35 + *_h_dsigminus_deta_35,
+             _h_asym2);
 
       divide(*_h_dsigplus_deta_25 - *_h_dsigminus_deta_25,
-	     *_h_dsigplus_deta_25 + *_h_dsigminus_deta_25,
-	     _h_asym3);
+             *_h_dsigplus_deta_25 + *_h_dsigminus_deta_25,
+             _h_asym3);
 
     }
 
