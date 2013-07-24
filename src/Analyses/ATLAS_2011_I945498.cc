@@ -111,7 +111,7 @@ namespace Rivet {
 
       Jets jets = selectJets(zfs[chn], event);
 
-      /// TODO: Holger wrote in his commit message that the njet_ratio
+      /// @todo Holger wrote in his commit message that the njet_ratio
       /// histograms need fixing/checking, and therefore the analysis
       /// is marked unvalidated!
 
@@ -225,15 +225,15 @@ namespace Rivet {
 
       // Fill ratio histograms
       for (size_t chn = 0; chn < 2; ++chn) {
-        _h_njet_ratio[chn]->point(0).setY( ratio(weights_nj1[chn], weights_nj0[chn]), ratio_err(weights_nj1[chn], weights_nj0[chn]) );
-        _h_njet_ratio[chn]->point(1).setY( ratio(weights_nj2[chn], weights_nj1[chn]), ratio_err(weights_nj2[chn], weights_nj1[chn]) );
-        _h_njet_ratio[chn]->point(2).setY( ratio(weights_nj3[chn], weights_nj2[chn]), ratio_err(weights_nj3[chn], weights_nj2[chn]) );
-        _h_njet_ratio[chn]->point(3).setY( ratio(weights_nj4[chn], weights_nj3[chn]), ratio_err(weights_nj4[chn], weights_nj3[chn]) );
+        _h_njet_ratio[chn]->addPoint(1, ratio(weights_nj1[chn], weights_nj0[chn]), 0, ratio_err(weights_nj1[chn], weights_nj0[chn]));
+        _h_njet_ratio[chn]->addPoint(2, ratio(weights_nj2[chn], weights_nj1[chn]), 0, ratio_err(weights_nj2[chn], weights_nj1[chn]));
+        _h_njet_ratio[chn]->addPoint(3, ratio(weights_nj3[chn], weights_nj2[chn]), 0, ratio_err(weights_nj3[chn], weights_nj2[chn]));
+        _h_njet_ratio[chn]->addPoint(4, ratio(weights_nj4[chn], weights_nj3[chn]), 0, ratio_err(weights_nj4[chn], weights_nj3[chn]));
       }
-      _h_njet_ratio[2]->point(0).setY( comb_ratio(weights_nj1, weights_nj0), comb_ratio_err(weights_nj1, weights_nj0) );
-      _h_njet_ratio[2]->point(1).setY( comb_ratio(weights_nj2, weights_nj1), comb_ratio_err(weights_nj2, weights_nj1) );
-      _h_njet_ratio[2]->point(2).setY( comb_ratio(weights_nj3, weights_nj2), comb_ratio_err(weights_nj3, weights_nj2) );
-      _h_njet_ratio[2]->point(3).setY( comb_ratio(weights_nj4, weights_nj3), comb_ratio_err(weights_nj4, weights_nj3) );
+      _h_njet_ratio[2]->addPoint(1, comb_ratio(weights_nj1, weights_nj0), 0, comb_ratio_err(weights_nj1, weights_nj0));
+      _h_njet_ratio[2]->addPoint(2, comb_ratio(weights_nj2, weights_nj1), 0, comb_ratio_err(weights_nj2, weights_nj1));
+      _h_njet_ratio[2]->addPoint(3, comb_ratio(weights_nj3, weights_nj2), 0, comb_ratio_err(weights_nj3, weights_nj2));
+      _h_njet_ratio[2]->addPoint(4, comb_ratio(weights_nj4, weights_nj3), 0, comb_ratio_err(weights_nj4, weights_nj3));
 
       // Scale other histos
       const double xs = crossSectionPerEvent()/picobarn;
