@@ -58,13 +58,12 @@ namespace Rivet {
       _h_forward_same_cross_section = bookHisto1D(3, 1, 1);
       _h_forward_opp_cross_section  = bookHisto1D(4, 1, 1);
 
-      _h_cen_opp_same	= bookScatter2D(5, 1, 1);
-      _h_fwd_opp_same	= bookScatter2D(8, 1, 1);
+      _h_cen_opp_same = bookScatter2D(5, 1, 1);
+      _h_fwd_opp_same = bookScatter2D(8, 1, 1);
       _h_cen_same_fwd_same = bookScatter2D(6, 1, 1);
       _h_cen_opp_fwd_same = bookScatter2D(7, 1, 1);
       _h_cen_same_fwd_opp = bookScatter2D(9, 1, 1);
       _h_cen_opp_fwd_opp = bookScatter2D(10, 1, 1);
-
     }
 
 
@@ -86,8 +85,7 @@ namespace Rivet {
       double phi_P = photon.azimuthalAngle();
       double econe = 0.0;
       foreach (const Particle& p, applyProjection<FinalState>(event, "JetFS").particles()) {
-        if (deltaR(eta_P, phi_P,
-                   p.momentum().pseudorapidity(), p.momentum().azimuthalAngle()) < 0.4) {
+        if (deltaR(eta_P, phi_P, p.momentum().pseudorapidity(), p.momentum().azimuthalAngle()) < 0.4) {
           econe += p.momentum().E();
           // Veto as soon as E_cone gets larger
           if (econe/egamma > 0.07) {
@@ -98,11 +96,10 @@ namespace Rivet {
       }
 
       Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(15.0*GeV);
-      if (jets.size()==0) {
-        vetoEvent;
-      }
+      if (jets.empty()) vetoEvent;
+
       FourMomentum leadingJet = jets[0].momentum();
-      if (deltaR(eta_P, phi_P, leadingJet.eta(), leadingJet.phi())<0.7) {
+      if (deltaR(eta_P, phi_P, leadingJet.eta(), leadingJet.phi()) < 0.7) {
         vetoEvent;
       }
 
@@ -111,24 +108,17 @@ namespace Rivet {
       // Veto if leading jet is outside plotted rapidity regions
       const double abs_y1 = fabs(leadingJet.rapidity());
       if (inRange(abs_y1, 0.8, 1.5) || abs_y1 > 2.5) {
-        MSG_DEBUG("Leading jet falls outside acceptance range; |y1| = "
-                  << abs_y1);
+        MSG_DEBUG("Leading jet falls outside acceptance range; |y1| = " << abs_y1);
         vetoEvent;
       }
 
       // Fill histos
       if (fabs(leadingJet.rapidity()) < 0.8) {
-        if (photon_jet_sign >= 1) {
-          _h_central_same_cross_section->fill(photon.pT(), weight);
-        } else {
-          _h_central_opp_cross_section->fill(photon.pT(), weight);
-        }
+        Histo1DPtr h = (photon_jet_sign >= 1) ? _h_central_same_cross_section : _h_central_opp_cross_section;
+        h->fill(photon.pT(), weight);
       } else if (inRange( fabs(leadingJet.rapidity()), 1.5, 2.5)) {
-        if (photon_jet_sign >= 1) {
-          _h_forward_same_cross_section->fill(photon.pT(), weight);
-        } else {
-          _h_forward_opp_cross_section->fill(photon.pT(), weight);
-        }
+        Histo1DPtr h = (photon_jet_sign >= 1) ? _h_forward_same_cross_section : _h_forward_opp_cross_section;
+        h->fill(photon.pT(), weight);
       }
 
     }
@@ -142,30 +132,15 @@ namespace Rivet {
       const double dy_jet_central = 1.6;
       const double dy_jet_forward = 2.0;
 
-
       // Cross-section ratios (6 plots)
       // Central/central and forward/forward ratios
-
-      divide(_h_central_opp_cross_section,_h_central_same_cross_section,
-	     _h_cen_opp_same);
-
-      divide(_h_forward_opp_cross_section,_h_forward_same_cross_section,
-	     _h_fwd_opp_same);
-
-
+      divide(_h_central_opp_cross_section, _h_central_same_cross_section, _h_cen_opp_same);
+      divide(_h_forward_opp_cross_section, _h_forward_same_cross_section, _h_fwd_opp_same);
       // Central/forward ratio combinations
-
-      divide(_h_central_same_cross_section,_h_forward_same_cross_section,
-	     _h_cen_same_fwd_same);
-
-      divide(_h_central_opp_cross_section,_h_forward_same_cross_section,
-	     _h_cen_opp_fwd_same);
-
-      divide(_h_central_same_cross_section,_h_forward_opp_cross_section,
-	     _h_cen_same_fwd_opp);
-
-      divide(_h_central_opp_cross_section,_h_forward_opp_cross_section,
-	     _h_cen_opp_fwd_opp);
+      divide(_h_central_same_cross_section, _h_forward_same_cross_section, _h_cen_same_fwd_same);
+      divide(_h_central_opp_cross_section,  _h_forward_same_cross_section, _h_cen_opp_fwd_same);
+      divide(_h_central_same_cross_section, _h_forward_opp_cross_section,  _h_cen_same_fwd_opp);
+      divide(_h_central_opp_cross_section,  _h_forward_opp_cross_section,  _h_cen_opp_fwd_opp);
 
       // Use generator cross section for remaining histograms
       // Each of these needs the additional factor 2 because the
