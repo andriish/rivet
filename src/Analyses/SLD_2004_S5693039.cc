@@ -246,6 +246,7 @@ namespace Rivet {
       _histRProton  = bookHisto1D(11, 1, 1);
       _histRPBar    = bookHisto1D(11, 1, 2);
 
+      // Ratios: used as target of divide() later
       _h_PiM_PiP	= bookScatter2D(9, 1, 3);
       _h_KM_KP		= bookScatter2D(10, 1, 3);
       _h_Pr_PBar	= bookScatter2D(11, 1, 3);
@@ -257,20 +258,15 @@ namespace Rivet {
     void finalize() {
 
       // Multiplicities
-      /// @todo Errors
-      // Bottom
-      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      bookScatter2D(8, 2, 3)->point(0).setY(avgNumPartsBottom);
-      // Charm
-      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      bookScatter2D(8, 2, 2)->point(0).setY(avgNumPartsCharm);
-      // Light
+      /// @todo Include errors
       const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      bookScatter2D(8, 2, 1)->point(0).setY(avgNumPartsLight);
-      // Charm - light
-      bookScatter2D(8, 3, 2)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
-      // Bottom - light
-      bookScatter2D(8, 3, 3)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
+      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
+      bookScatter2D(8, 2, 1)->addPoint(91.2, avgNumPartsLight);
+      bookScatter2D(8, 2, 2)->addPoint(91.2, avgNumPartsCharm);
+      bookScatter2D(8, 2, 3)->addPoint(91.2, avgNumPartsBottom);
+      bookScatter2D(8, 3, 2)->addPoint(91.2, avgNumPartsCharm - avgNumPartsLight);
+      bookScatter2D(8, 3, 3)->addPoint(91.2, avgNumPartsBottom - avgNumPartsLight);
 
       // Do divisions
       divide(*_histRPiMinus - *_histRPiPlus, *_histRPiMinus + *_histRPiPlus, _h_PiM_PiP);
