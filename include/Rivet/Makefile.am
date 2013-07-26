@@ -58,7 +58,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
   Projections/MissingMomentum.hh \
-  Projections/Multiplicity.hh   \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/ParisiTensor.hh   \

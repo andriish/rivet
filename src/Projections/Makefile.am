@@ -25,7 +25,6 @@ libRivetProjections_la_SOURCES = \
   LeptonClusters.cc \
   MergedFinalState.cc \
   MissingMomentum.cc \
-  Multiplicity.cc \
   NeutralFinalState.cc \
   NonHadronicFinalState.cc \
   ParisiTensor.cc \

@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/Multiplicity.hh"
 
 namespace Rivet {
 
@@ -24,8 +23,7 @@ namespace Rivet {
     /// Book projections and histogram
     void init() {
       const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(Multiplicity(cfs), "Mult");
+      addProjection(cfs, "CFS");
 
       _histChTot = bookHisto1D(1, 1, 1);
     }
@@ -33,9 +31,9 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const Multiplicity& m = applyProjection<Multiplicity>(event, "Mult");
-      MSG_DEBUG("Total charged multiplicity = " << m.totalMultiplicity());
-      _histChTot->fill(m.totalMultiplicity(), event.weight());
+      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
+      MSG_DEBUG("Total charged multiplicity = " << cfs.size());
+      _histChTot->fill(cfs.size(), event.weight());
     }
 
 

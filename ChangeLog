@@ -1,3 +1,9 @@
+2013-07-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removed the semi-demo Multiplicity projection -- only the
+	EXAMPLE analysis and the trivial ALEPH_1991_S2435284 needed
+	adaptation.
+
 2013-07-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a rejection of histo paths containing /TMP/ from the
