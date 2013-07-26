@@ -201,11 +201,9 @@ RivetCDFAnalyses_la_SOURCES += \
     CDF_2009_NOTE_9936.cc \
     CDF_2012_NOTE10874.cc
 endif
-if ENABLE_OBSOLETE
-RivetCDFAnalyses_la_SOURCES += \
-    CDF_2008_LEADINGJETS.cc \
-    CDF_2008_NOTE_9351.cc
-endif
+# if ENABLE_OBSOLETE
+# RivetCDFAnalyses_la_SOURCES +=
+# endif
 if ENABLE_UNVALIDATED
 RivetCDFAnalyses_la_SOURCES += \
     CDF_1993_S2742446.cc \

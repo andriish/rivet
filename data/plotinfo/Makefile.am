@@ -99,8 +99,6 @@ dist_pkgdata_DATA = \
   CDF_2006_S6450792.plot \
   CDF_2006_S6653332.plot \
   CDF_2007_S7057202.plot \
-  CDF_2008_LEADINGJETS.plot \
-  CDF_2008_NOTE_9351.plot \
   CDF_2008_S7540469.plot \
   CDF_2008_S7541902.plot \
   CDF_2008_S7782535.plot \

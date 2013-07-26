@@ -162,8 +162,6 @@ dist_pkgdata_DATA = \
   CDF_2008_S7828950.yoda \
   CDF_2008_S8093652.yoda \
   CDF_2008_S8095620.yoda \
-  CDF_2008_NOTE_9351.yoda \
-  CDF_2008_LEADINGJETS.yoda \
   CDF_2009_S8233977.yoda \
   CDF_2009_NOTE_9936.yoda \
   CDF_2009_S8383952.yoda \
