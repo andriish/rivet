@@ -208,7 +208,7 @@ namespace Rivet {
       // MSG_WARNING(a->name() << " " << aos.size());
       sort(aos.begin(), aos.end(), AOSortByPath);
       foreach (const AnalysisObjectPtr ao, aos) {
-        if (ao->path().find("/TMP/") == string::npos) continue;
+        if (ao->path().find("/TMP/") != string::npos) continue;
         all_aos.push_back(ao);
       }
     }
