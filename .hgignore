@@ -5,6 +5,7 @@ config\.status
 config\.sub
 configure
 depcomp
+compile
 install-sh
 libtool
 test-driver
