@@ -6,7 +6,9 @@ config\.sub
 configure
 depcomp
 compile
+ar-lib
 install-sh
+INSTALL
 libtool
 test-driver
 ltmain\.sh

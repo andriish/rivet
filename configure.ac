@@ -7,8 +7,9 @@ if test "$prefix" = "$PWD"; then
 fi
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
-AM_INIT_AUTOMAKE(dist-bzip2)
+AM_INIT_AUTOMAKE([dist-bzip2 -Wall])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST(LT_OBJDIR)
 
