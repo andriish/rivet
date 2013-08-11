@@ -1,5 +1,8 @@
 2013-08-11  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fixing remaining issues with booking in BABAR_2007_S7266081
+	using the feature below (far nicer than hard-coding).
+
 	* Adding a copy_pts param to some Analysis::bookScatter2D methods:
 	pre-setting the points with x values is sometimes genuinely
 	useful.
