@@ -530,11 +530,16 @@ namespace Rivet {
 
     /// @brief Book a 2-dimensional data point set with the given name.
     ///
-    /// @note Unlike histogram booking, scatter booking makes no attempt to use
-    /// reference data to pre-fill the data object. If you want this (why!?)
-    /// then use the @a refData() function to retrieve the reference scatter and
-    /// copy its contents.
+    /// @note Unlike histogram booking, scatter booking by default makes no
+    /// attempt to use reference data to pre-fill the data object. If you want
+    /// this, which is sometimes useful e.g. when the x-position is not really
+    /// meaningful and can't be extracted from the data, then set the @a
+    /// copy_pts parameter to true. This creates points to match the reference
+    /// data's x values and errors, but with the y values and errors zeroed...
+    /// assuming that there is a reference histo with the same name: if there
+    /// isn't, an exception will be thrown.
     Scatter2DPtr bookScatter2D(const std::string& name,
+                               bool copy_pts=false,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
@@ -543,12 +548,14 @@ namespace Rivet {
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
     ///
-    ///
-    /// @note Unlike histogram booking, scatter booking makes no attempt to use
-    /// reference data to pre-fill the data object. If you want this (why!?)
-    /// then use the @a refData() function to retrieve the reference scatter and
-    /// copy its contents.
+    /// @note Unlike histogram booking, scatter booking by default makes no
+    /// attempt to use reference data to pre-fill the data object. If you want
+    /// this, which is sometimes useful e.g. when the x-position is not really
+    /// meaningful and can't be extracted from the data, then set the @a
+    /// copy_pts parameter to true. This creates points to match the reference
+    /// data's x values and errors, but with the y values and errors zeroed.
     Scatter2DPtr bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                               bool copy_pts=false,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");

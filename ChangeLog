@@ -1,3 +1,9 @@
+2013-08-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a copy_pts param to some Analysis::bookScatter2D methods:
+	pre-setting the points with x values is sometimes genuinely
+	useful.
+
 2013-07-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removed the (officially) obsolete CDF 2008 LEADINGJETS and
@@ -4009,4 +4015,3 @@
 
 	* .: Made a number of changes to implement handling of RivetInfo
 	objects.
-

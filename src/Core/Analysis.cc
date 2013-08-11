@@ -411,23 +411,29 @@ namespace Rivet {
 
 
   Scatter2DPtr Analysis::bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                       bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookScatter2D(axisCode, title, xtitle, ytitle);
+    return bookScatter2D(axisCode, copy_pts, title, xtitle, ytitle);
   }
 
 
   Scatter2DPtr Analysis::bookScatter2D(const string& hname,
+                                       bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
+    Scatter2DPtr s;
     const string path = histoPath(hname);
-    // const Scatter2D& refdata = refData(hname);
-    // Scatter2DPtr s( new Scatter2D(refdata, path) );
-    // foreach (Point2D& p, s->points()) p.setY(0, 0);
-    Scatter2DPtr s( new Scatter2D(path) );
+    if (copy_pts) {
+      const Scatter2D& refdata = refData(hname);
+      s.reset( new Scatter2D(refdata, path) );
+      foreach (Point2D& p, s->points()) p.setY(0, 0);
+    } else {
+      s.reset( new Scatter2D(path) );
+    }
     addAnalysisObject(s);
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
