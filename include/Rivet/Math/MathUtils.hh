@@ -162,13 +162,17 @@ namespace Rivet {
     return a*a;
   }
 
-  /// Named number-type addition in quadrature operation.
+  /// @brief Named number-type addition in quadrature operation.
+  ///
+  /// @note Result has the sqrt operation applied.
   template <typename Num>
   inline Num add_quad(Num a, Num b) {
     return sqrt(a*a + b*b);
   }
 
   /// Named number-type addition in quadrature operation.
+  ///
+  /// @note Result has the sqrt operation applied.
   template <typename Num>
   inline Num add_quad(Num a, Num b, Num c) {
     return sqrt(a*a + b*b + c*c);
