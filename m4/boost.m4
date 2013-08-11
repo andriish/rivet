@@ -22,7 +22,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 m4_define([_BOOST_SERIAL], [m4_translit([
-# serial 17
+# serial 18
 ], [#
 ], [])])
 
@@ -410,7 +410,7 @@ dnl generated only once above (before we start the for loops).
         AC_CACHE_VAL([boost_cv_rpath_link_ldflag],
           [for boost_cv_rpath_link_ldflag in -Wl,-R, -Wl,-rpath,; do
             LDFLAGS="$boost_save_LDFLAGS -L$boost_ldpath $boost_cv_rpath_link_ldflag$boost_ldpath"
-            LIBS="$Boost_lib_LIBS $boost_save_LIBS"
+            LIBS="$boost_save_LIBS $Boost_lib_LIBS"
             _BOOST_AC_LINK_IFELSE([],
               [boost_rpath_link_ldflag_found=yes
               break],
