@@ -114,10 +114,11 @@ namespace Rivet {
         scale(_hist_KKK_KKK      , 1.0/_weight_KKK);
         scale(_hist_KKK_KK       , 0.5/_weight_KKK);
       }
-      bookScatter2D(11, 1, 1)->addPoint(100*_weight_pipipi/_weight_total, 100*sqrt(_weight_pipipi)/_weight_total);
-      bookScatter2D(12, 1, 1)->addPoint(100*_weight_Kpipi/_weight_total, 100*sqrt(_weight_Kpipi)/_weight_total);
-      bookScatter2D(13, 1, 1)->addPoint(100*_weight_KpiK/_weight_total, 100*sqrt(_weight_KpiK)/_weight_total);
-      bookScatter2D(14, 1, 1)->addPoint(100*_weight_KKK/_weight_total, 100*sqrt(_weight_KKK)/_weight_total);
+      /// @note Using autobooking for these scatters since their x values are not really obtainable from the MC data
+      bookScatter2D(11, 1, 1, true)->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(_weight_pipipi)/_weight_total);
+      bookScatter2D(12, 1, 1, true)->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(_weight_Kpipi)/_weight_total);
+      bookScatter2D(13, 1, 1, true)->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(_weight_KpiK)/_weight_total);
+      bookScatter2D(14, 1, 1, true)->point(0).setY(100*_weight_KKK/_weight_total, 100*sqrt(_weight_KKK)/_weight_total);
     }
 
 
