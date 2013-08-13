@@ -1586,9 +1586,9 @@ class Histogram(DrawableObject):
                     # TODO: This forces separation of data points... check with Hendrik
                     if (i+1 < len(self.data)):
                         out += ('\\psline')
-                    if not (self.description.has_key('ConnectGaps') and self.description['ConnectGaps']=='1'):
-                        if (i+1 < len(self.data)) and (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
-                            out += ('\\psline')
+                    # if not (self.description.has_key('ConnectGaps') and self.description['ConnectGaps']=='1'):
+                    #     if (i+1 < len(self.data)) and (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
+                    #         out += ('\\psline')
             if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
                 if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
                     out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
