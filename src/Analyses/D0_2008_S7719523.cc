@@ -8,6 +8,15 @@
 namespace Rivet {
 
 
+  // A local scope function for division, handling the div-by-zero case
+  /// @todo Why isn't the math divide() function being found?
+  namespace {
+    inline double _safediv(double a, double b, double result_if_err) {
+      return (b != 0) ? a/b : result_if_err;
+    }
+  }
+
+
   /// @brief Measurement of isolated gamma + jet + X differential cross-sections
   ///
   /// Inclusive isolated gamma + jet cross-sections, differential in pT(gamma), for
@@ -58,12 +67,14 @@ namespace Rivet {
       _h_forward_same_cross_section = bookHisto1D(3, 1, 1);
       _h_forward_opp_cross_section  = bookHisto1D(4, 1, 1);
 
+      // Ratio histos to be filled by divide()
       _h_cen_opp_same = bookScatter2D(5, 1, 1);
       _h_fwd_opp_same = bookScatter2D(8, 1, 1);
-      _h_cen_same_fwd_same = bookScatter2D(6, 1, 1);
-      _h_cen_opp_fwd_same = bookScatter2D(7, 1, 1);
-      _h_cen_same_fwd_opp = bookScatter2D(9, 1, 1);
-      _h_cen_opp_fwd_opp = bookScatter2D(10, 1, 1);
+      // Ratio histos to be filled manually, since the num/denom inputs don't match
+      _h_cen_same_fwd_same = bookScatter2D(6, 1, 1, true);
+      _h_cen_opp_fwd_same = bookScatter2D(7, 1, 1, true);
+      _h_cen_same_fwd_opp = bookScatter2D(9, 1, 1, true);
+      _h_cen_opp_fwd_opp = bookScatter2D(10, 1, 1, true);
     }
 
 
@@ -124,7 +135,6 @@ namespace Rivet {
     }
 
 
-
     /// Finalize
     void finalize() {
       const double lumi_gen = sumOfWeights()/crossSection();
@@ -137,11 +147,21 @@ namespace Rivet {
       divide(_h_central_opp_cross_section, _h_central_same_cross_section, _h_cen_opp_same);
       divide(_h_forward_opp_cross_section, _h_forward_same_cross_section, _h_fwd_opp_same);
       // Central/forward ratio combinations
-      /// @todo The binnings are not the same... need to do these by hand?
-      divide(_h_central_same_cross_section, _h_forward_same_cross_section, _h_cen_same_fwd_same);
-      divide(_h_central_opp_cross_section,  _h_forward_same_cross_section, _h_cen_opp_fwd_same);
-      divide(_h_central_same_cross_section, _h_forward_opp_cross_section,  _h_cen_same_fwd_opp);
-      divide(_h_central_opp_cross_section,  _h_forward_opp_cross_section,  _h_cen_opp_fwd_opp);
+      /// @note The central/forward histo binnings are not the same! Hence the need to do these by hand :-(
+      for (size_t i = 0; i < _h_cen_same_fwd_same->numPoints(); ++i) {
+        const YODA::HistoBin1D& cen_same_bini = _h_central_same_cross_section->bin(i);
+        const YODA::HistoBin1D& cen_opp_bini = _h_central_opp_cross_section->bin(i);
+        const YODA::HistoBin1D& fwd_same_bini = _h_central_same_cross_section->bin(i);
+        const YODA::HistoBin1D& fwd_opp_bini = _h_central_opp_cross_section->bin(i);
+        _h_cen_same_fwd_same->point(i).setY(_safediv(cen_same_bini.sumW(), fwd_same_bini.sumW(), 0),
+                                            add_quad(cen_same_bini.relErr(), fwd_same_bini.relErr()));
+        _h_cen_opp_fwd_same->point(i).setY(_safediv(cen_opp_bini.sumW(), fwd_same_bini.sumW(), 0),
+                                           add_quad(cen_opp_bini.relErr(), fwd_same_bini.relErr()));
+        _h_cen_same_fwd_opp->point(i).setY(_safediv(cen_same_bini.sumW(), fwd_opp_bini.sumW(), 0),
+                                           add_quad(cen_same_bini.relErr(), fwd_opp_bini.relErr()));
+        _h_cen_opp_fwd_opp->point(i).setY(_safediv(cen_opp_bini.sumW(), fwd_opp_bini.sumW(), 0),
+                                          add_quad(cen_opp_bini.relErr(), fwd_opp_bini.relErr()));
+      }
 
       // Use generator cross section for remaining histograms
       // Each of these needs the additional factor 2 because the
