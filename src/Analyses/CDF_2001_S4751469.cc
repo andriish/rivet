@@ -176,16 +176,25 @@ namespace Rivet {
       // Update the "proper" dphi profile histograms
       for (int i = 0; i < 50; i++) { //< @todo Should really explicitly iterate over nbins for each temp histo
         if (ptLead/GeV > 2.0) {
-          _numvsDeltaPhi2->fill(htmp_num_dphi_2.bin(i).focus(), htmp_num_dphi_2.bin(i).mean(), weight);
-          _pTvsDeltaPhi2->fill(htmp_pt_dphi_2.bin(i).focus(), htmp_pt_dphi_2.bin(i).mean(), weight);
+          const double x2 = htmp_pt_dphi_2.bin(i).midpoint();
+          const double num2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_num_dphi_2.bin(i).mean() : 0.0;
+          const double pt2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_pt_dphi_2.bin(i).mean() : 0.0;
+          _numvsDeltaPhi2->fill(x2, num2, weight);
+          _pTvsDeltaPhi2->fill(x2, pt2, weight);
         }
         if (ptLead/GeV > 5.0) {
-          _numvsDeltaPhi5->fill(htmp_num_dphi_5.bin(i).focus(), htmp_num_dphi_5.bin(i).mean(), weight);
-          _pTvsDeltaPhi5->fill(htmp_pt_dphi_5.bin(i).focus(), htmp_pt_dphi_5.bin(i).mean(), weight);
+          const double x5 = htmp_pt_dphi_5.bin(i).midpoint();
+          const double num5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_num_dphi_5.bin(i).mean() : 0.0;
+          const double pt5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_pt_dphi_5.bin(i).mean() : 0.0;
+          _numvsDeltaPhi5->fill(x5, num5, weight);
+          _pTvsDeltaPhi5->fill(x5, pt5, weight);
         }
         if (ptLead/GeV > 30.0) {
-          _numvsDeltaPhi30->fill(htmp_num_dphi_30.bin(i).focus(), htmp_num_dphi_30.bin(i).mean(), weight);
-          _pTvsDeltaPhi30->fill(htmp_pt_dphi_30.bin(i).focus(), htmp_pt_dphi_30.bin(i).mean(), weight);
+          const double x30 = htmp_pt_dphi_30.bin(i).midpoint();
+          const double num30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_num_dphi_30.bin(i).mean() : 0.0;
+          const double pt30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_pt_dphi_30.bin(i).mean() : 0.0;
+          _numvsDeltaPhi30->fill(x30, num30, weight);
+          _pTvsDeltaPhi30->fill(x30, pt30, weight);
         }
       }
 

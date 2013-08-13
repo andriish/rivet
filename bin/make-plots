@@ -1583,6 +1583,9 @@ class Histogram(DrawableObject):
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
                                 + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                    # TODO: This forces separation of data points... check with Hendrik
+                    if (i+1 < len(self.data)):
+                        out += ('\\psline')
                     if not (self.description.has_key('ConnectGaps') and self.description['ConnectGaps']=='1'):
                         if (i+1 < len(self.data)) and (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
                             out += ('\\psline')
