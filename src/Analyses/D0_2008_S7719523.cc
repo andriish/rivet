@@ -137,6 +137,7 @@ namespace Rivet {
       divide(_h_central_opp_cross_section, _h_central_same_cross_section, _h_cen_opp_same);
       divide(_h_forward_opp_cross_section, _h_forward_same_cross_section, _h_fwd_opp_same);
       // Central/forward ratio combinations
+      /// @todo The binnings are not the same... need to do these by hand?
       divide(_h_central_same_cross_section, _h_forward_same_cross_section, _h_cen_same_fwd_same);
       divide(_h_central_opp_cross_section,  _h_forward_same_cross_section, _h_cen_opp_fwd_same);
       divide(_h_central_same_cross_section, _h_forward_opp_cross_section,  _h_cen_same_fwd_opp);
