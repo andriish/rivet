@@ -65,8 +65,10 @@ namespace Rivet {
         /// @todo Commented eccentricity out for now: reinstate
         // if (fabs(eta) < 0.7 && m > 100*GeV) _hs_eccentricity[alg]->fill(getEcc(jet), weight);
 
-        if (alg == 1 && fabs(eta) < 0.7 && inRange(m/GeV, 130., 210.)) _h_planarFlow->fill(getPFlow(jet), weight);
-        if (alg == 0 && fabs(eta) < 0.7 && inRange(m/GeV, 100., 130.)) _h_angularity->fill(getAngularity(jet), weight);
+        if (fabs(eta) < 0.7) {
+          if (alg == 0 && inRange(m/GeV, 100., 130.)) _h_angularity->fill(getAngularity(jet), weight);
+          if (alg == 1 && inRange(m/GeV, 130., 210.)) _h_planarFlow->fill(getPFlow(jet), weight);
+        }
       }
     }
 
@@ -104,9 +106,9 @@ namespace Rivet {
     // Adapted code from Lily
     /// @todo Convert to use the Rivet rotation matrix code (should be simpler)
     FourMomentum RotateAxes(const Rivet::FourMomentum& p, double M[3][3]){
-      double px_rot=M[0][0]*(p.px())+M[0][1]*(p.py())+M[0][2]*(p.pz());
-      double py_rot=M[1][0]*(p.px())+M[1][1]*(p.py())+M[1][2]*(p.pz());
-      double pz_rot=M[2][0]*(p.px())+M[2][1]*(p.py())+M[2][2]*(p.pz());
+      double px_rot = M[0][0]*(p.px()) + M[0][1]*(p.py()) + M[0][2]*(p.pz());
+      double py_rot = M[1][0]*(p.px()) + M[1][1]*(p.py()) + M[1][2]*(p.pz());
+      double pz_rot = M[2][0]*(p.px()) + M[2][1]*(p.py()) + M[2][2]*(p.pz());
       return FourMomentum(p.E(), px_rot, py_rot, pz_rot);
     }
 
@@ -116,11 +118,11 @@ namespace Rivet {
       // clear momentum tensor
       for (size_t i = 0; i < 3; i++) {
         for (size_t j = 0; j < 3; j++) {
-          rot_mat[i][j]=0.;
+          rot_mat[i][j] = 0.;
         }
       }
-      double mag3=sqrt(nvec[0]*nvec[0] + nvec[1]*nvec[1]+ nvec[2]*nvec[2]);
-      double mag2=sqrt(nvec[0]*nvec[0] + nvec[1]*nvec[1]);
+      double mag3 = sqrt(nvec[0]*nvec[0] + nvec[1]*nvec[1]+ nvec[2]*nvec[2]);
+      double mag2 = sqrt(nvec[0]*nvec[0] + nvec[1]*nvec[1]);
       /// @todo cout is not a valid response to a numerical error! Is the error condition reported?!? Assert added by AB for Rivet 1.8.2
       assert(mag3 > 0);
       if (mag3 <= 0) {
@@ -157,7 +159,8 @@ namespace Rivet {
         width += sqrt(pow(phi_jet - phi,2) + pow(eta_jet - eta, 2)) * pT;
         pTsum += pT;
       }
-      return (pTsum != 0.0) ? width/pTsum : -1;
+      const double rtn = (pTsum != 0.0) ? width/pTsum : -1;
+      return rtn;
     }
 
 
@@ -278,7 +281,8 @@ namespace Rivet {
         double e_theta_i = e_i * pow(sin(theta_i), a) * pow(1-cos(theta_i), 1-a);
         sum_a += e_theta_i;
       }
-      return (jet.momentum().mass() != 0.0) ? sum_a/jet.momentum().mass() : -1;
+      const double rtn = (jet.momentum().mass() != 0.0 && !std::isnan(sum_a)) ? sum_a/jet.momentum().mass() : -1;
+      return rtn;
     }
 
   }
