@@ -95,8 +95,9 @@ namespace Rivet {
         Profile1DPtr ph_i = _profhistPsi_pT[i];
         const double ex = 0.5*(_ptedges[i+1] - _ptedges[i]);
         const double x  = _ptedges[i] + ex;
-        const double y  = ph_i->bin(2).mean();
-        const double ey = ph_i->bin(2).stdErr();
+        /// @note Not a great handling of empty bins...
+        const double y  = (ph_i->bin(2).numEntries() > 0) ? ph_i->bin(2).mean() : 0;
+        const double ey = (ph_i->bin(2).numEntries() > 0) ? ph_i->bin(2).stdErr() : 0;
         _profhistPsi_vs_pT->addPoint(x, y, ex, ey);
       }
     }
