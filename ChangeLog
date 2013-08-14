@@ -1,3 +1,9 @@
+2013-08-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Making 2.0.0beta3 -- just a few remaining analysis migration
+	issues remaining but it's worth making another beta since there
+	were lots of framework fixes/improvements.
+
 2013-08-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* ARGUS_1993_S2669951 also fixed using scatter autobooking.
