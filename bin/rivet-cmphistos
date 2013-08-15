@@ -291,6 +291,7 @@ if __name__ == '__main__':
             refdata = refhistos['/REF' + h]
             refdata.setAnnotation('ErrorBars', '1')
             refdata.setAnnotation('PolyMarker', '*')
+            refdata.setAnnotation('ConnectBins', '0')
             refdata.setAnnotation('Title', 'Data')
             ratioreference = '/REF'+h
             anaobjects.append(refdata)

@@ -1,3 +1,10 @@
+2013-08-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a ConnectBins flag in make-plots, to decide whether to
+	connect adjacent, gapless bins with a vertical line. Enabled by
+	default (good for the step-histo default look of MC lines), but
+	now rivet-cmphistos disables it for the reference data.
+
 2013-08-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Making 2.0.0beta3 -- just a few remaining analysis migration

@@ -1583,12 +1583,16 @@ class Histogram(DrawableObject):
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
                                 + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                    # TODO: This forces separation of data points... check with Hendrik
-                    if (i+1 < len(self.data)):
-                        out += ('\\psline')
-                    # if not (self.description.has_key('ConnectGaps') and self.description['ConnectGaps']=='1'):
-                    #     if (i+1 < len(self.data)) and (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
-                    #         out += ('\\psline')
+                    ## Join/separate data points, with vertical/diagonal lines
+                    if (i+1 < len(self.data)): #< If this is not the last point
+                        if self.description.get('ConnectBins', '1') != '1':
+                            out += ('\\psline')
+                        else:
+                            ## If bins are joined, but there is a gap in binning, choose whether to fill the gap
+                            if (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
+                                if self.description.get('ConnectGaps', '0') != '1':
+                                    out += ('\\psline')
+                                    # TODO: Perhaps use a new dashed line to fill the gap?
             if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
                 if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
                     out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
