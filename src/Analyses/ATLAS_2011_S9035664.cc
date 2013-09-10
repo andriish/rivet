@@ -9,12 +9,12 @@ namespace Rivet {
 
 
   /// @brief  J/psi production at ATLAS
-  class ATLAS_2011_I9035664: public Analysis {
+  class ATLAS_2011_S9035664: public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_I9035664()
-      : Analysis("ATLAS_2011_I9035664")
+    ATLAS_2011_S9035664()
+      : Analysis("ATLAS_2011_S9035664")
     {}
 
 
@@ -133,6 +133,6 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2011_I9035664);
+  DECLARE_RIVET_PLUGIN(ATLAS_2011_S9035664);
 
 }
