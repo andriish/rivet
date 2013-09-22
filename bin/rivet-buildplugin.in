@@ -116,7 +116,7 @@ fi
 
 
 ## Get the source files (and more flags)
-sources_and_flags="$@"
+sources_and_flags="$@ -lRivet"
 if [[ -n $with_root ]]; then
     root_flags=$(root-config --libs --cflags 2> /dev/null)
     # echo $root_flags
