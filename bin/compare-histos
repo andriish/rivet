@@ -60,7 +60,7 @@ def mkoutdir(outdir):
         raise Exception(msg)
 
 class AIDAreadException(Exception): pass
-    
+
 def getHistos(aidafile):
     '''Get a dictionary of histograms indexed by name.'''
     if not re.match(r'.*\.aida$', aidafile):
@@ -77,7 +77,7 @@ def getHistos(aidafile):
     except:
         logging.error("Error: Cannot parse input file '%s' as AIDA file" % aidafile)
         raise AIDAreadException
-       
+
     for dps in tree.findall("dataPointSet"):
         ## Get this histogram's path name
         dpsname = os.path.join(dps.get("path"), dps.get("name"))
@@ -545,6 +545,7 @@ if __name__ == "__main__":
                 histstr += HISTSTYLES
                 histstr += "ErrorBars=1\n"
                 histstr += "PolyMarker=*\n"
+                histstr += "ConnectBins=0"
                 histstr += "Title=%s\n" % LABELS[hfile][name]
             else:
                 histstr += HISTSTYLES
