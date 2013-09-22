@@ -17,9 +17,7 @@ namespace Rivet {
     /// Default constructor.
     D0_2008_S7837160()
       : Analysis("D0_2008_S7837160")
-    {
-      // Run II W charge asymmetry
-    }
+    {    }
 
 
     /// @name Analysis methods
@@ -28,16 +26,16 @@ namespace Rivet {
     // Book histograms and set up projections
     void init() {
       // Projections
-      /// @todo Use separate pT and ETmiss cuts in WFinder
       FinalState fs;
+      /// @todo Use separate pT and ETmiss cuts in WFinder
       const WFinder wfe(fs, -5, 5, 25.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
       // Cross-section histograms
       for (size_t pmindex = 0; pmindex <= 1; ++pmindex) {
         _hs_dsigpm_deta_25_35[pmindex] = bookHisto1D(1, 1, 1, "/TMP/dsigpm_deta_25_35_" + to_str(pmindex));
-        _hs_dsigpm_deta_35[pmindex] = bookHisto1D(1, 1, 1, "/TMP/dsigpm_deta_35_" + to_str(pmindex));
-        _hs_dsigpm_deta_25[pmindex] = bookHisto1D(1, 1, 1, "/TMP/dsigpm_deta_25_" + to_str(pmindex));
+        _hs_dsigpm_deta_35[pmindex] = bookHisto1D(1, 1, 2, "/TMP/dsigpm_deta_35_" + to_str(pmindex));
+        _hs_dsigpm_deta_25[pmindex] = bookHisto1D(1, 1, 3, "/TMP/dsigpm_deta_25_" + to_str(pmindex));
       }
 
       _h_asym1 = bookScatter2D(1, 1, 1);
@@ -84,22 +82,11 @@ namespace Rivet {
     }
     //@}
 
-    /// Finalize
+
+    /// @brief Finalize
+    ///
+    /// Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each ET region
     void finalize() {
-
-      // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each ET region
-      // divide(*_h_dsigpm_deta_25_35[0] - *_h_dsigpm_deta_25_35[1],
-      //        *_h_dsigpm_deta_25_35 + *_h_dsigminus_deta_25_35[1],
-      //        _h_asym1);
-
-      // divide(*_h_dsigpm_deta_35 - *_h_dsigminus_deta_35,
-      //        *_h_dsigpm_deta_35 + *_h_dsigminus_deta_35,
-      //        _h_asym2);
-
-      // divide(*_h_dsigpm_deta_25 - *_h_dsigminus_deta_25,
-      //        *_h_dsigpm_deta_25 + *_h_dsigminus_deta_25,
-      //        _h_asym3);
-
       calc_asymm(_hs_dsigpm_deta_25_35, _h_asym1);
       calc_asymm(_hs_dsigpm_deta_35, _h_asym2);
       calc_asymm(_hs_dsigpm_deta_25, _h_asym3);
@@ -112,9 +99,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _hs_dsigpm_deta_25_35[2];
-    Histo1DPtr _hs_dsigpm_deta_35[2];
-    Histo1DPtr _hs_dsigpm_deta_25[2];
+    Histo1DPtr _hs_dsigpm_deta_25_35[2], _hs_dsigpm_deta_35[2], _hs_dsigpm_deta_25[2];
     Scatter2DPtr _h_asym1, _h_asym2, _h_asym3;
     //@}
 
