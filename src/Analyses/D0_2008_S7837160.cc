@@ -31,13 +31,13 @@ namespace Rivet {
       const WFinder wfe(fs, -5, 5, 25.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
-      // Cross-section histograms
-      for (size_t pmindex = 0; pmindex <= 1; ++pmindex) {
-        _hs_dsigpm_deta_25_35[pmindex] = bookHisto1D(1, 1, 1, "/TMP/dsigpm_deta_25_35_" + to_str(pmindex));
-        _hs_dsigpm_deta_35[pmindex] = bookHisto1D(1, 1, 2, "/TMP/dsigpm_deta_35_" + to_str(pmindex));
-        _hs_dsigpm_deta_25[pmindex] = bookHisto1D(1, 1, 3, "/TMP/dsigpm_deta_25_" + to_str(pmindex));
+      // Histograms (temporary +- charge histos and scatters to store the calculated asymmetries)
+      for (size_t pmindex = 0; pmindex < 2; ++pmindex) {
+        const string suffix = (pmindex == 0) ? "plus" : "minus";
+        _hs_dsigpm_deta_25_35[pmindex] = bookHisto1D("TMP/dsigpm_deta_25_35_" + suffix, refData(1, 1, 1));
+        _hs_dsigpm_deta_35[pmindex] = bookHisto1D("TMP/dsigpm_deta_35_" + suffix, refData(1, 1, 2));
+        _hs_dsigpm_deta_25[pmindex] = bookHisto1D("TMP/dsigpm_deta_25_" + suffix, refData(1, 1, 3));
       }
-
       _h_asym1 = bookScatter2D(1, 1, 1);
       _h_asym2 = bookScatter2D(1, 1, 2);
       _h_asym3 = bookScatter2D(1, 1, 3);
