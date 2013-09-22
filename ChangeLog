@@ -1,3 +1,9 @@
+2013-09-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updating Rivet 1.x bundled yaml-cpp version to 0.3.0, for
+	compatibility with Rivet 2.x, in anticipation of *one* last 1.x
+	release.
+
 2013-05-29  Hendrik Hoeth <hendrik.hoeth@cern.ch>
 
 	* rivet-rmgaps bugfix
@@ -3746,4 +3752,3 @@
 
 	* .: Made a number of changes to implement handling of RivetInfo
 	objects.
-

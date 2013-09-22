@@ -1,7 +1,8 @@
 #include "emitterutils.h"
 #include "exp.h"
 #include "indentation.h"
-#include "exceptions.h"
+#include "yaml-cpp/binary.h"
+#include "yaml-cpp/exceptions.h"
 #include "stringsource.h"
 #include <sstream>
 #include <iomanip>
@@ -128,6 +129,9 @@ namespace YAML
 			}
 			
 			bool IsValidPlainScalar(const std::string& str, bool inFlow, bool allowOnlyAscii) {
+				if(str.empty())
+					return false;
+				
 				// first check the start
 				const RegEx& start = (inFlow ? Exp::PlainScalarInFlow() : Exp::PlainScalar());
 				if(!start.Matches(str))
@@ -265,9 +269,29 @@ namespace YAML
 			return true;
 		}
 		
+		bool WriteChar(ostream& out, char ch)
+		{
+			if(('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z'))
+				out << ch;
+			else if((0x20 <= ch && ch <= 0x7e) || ch == ' ')
+				out << "\"" << ch << "\"";
+			else if(ch == '\t')
+				out << "\"\\t\"";
+			else if(ch == '\n')
+				out << "\"\\n\"";
+			else if(ch == '\b')
+				out << "\"\\b\"";
+			else {
+				out << "\"";
+				WriteDoubleQuoteEscapeSequence(out, ch);
+				out << "\"";
+			}
+			return true;
+		}
+
 		bool WriteComment(ostream& out, const std::string& str, int postCommentIndent)
 		{
-			unsigned curIndent = out.col();
+			const unsigned curIndent = out.col();
 			out << "#" << Indentation(postCommentIndent);
 			int codePoint;
 			for(std::string::const_iterator i = str.begin();
@@ -294,12 +318,13 @@ namespace YAML
 			return WriteAliasName(out, str);
 		}
 
-		bool WriteTag(ostream& out, const std::string& str)
+		bool WriteTag(ostream& out, const std::string& str, bool verbatim)
 		{
-			out << "!<";
+			out << (verbatim ? "!<" : "!");
 			StringCharSource buffer(str.c_str(), str.size());
+			const RegEx& reValid = verbatim ? Exp::URI() : Exp::Tag();
 			while(buffer) {
-				int n = Exp::URI().Match(buffer);
+				int n = reValid.Match(buffer);
 				if(n <= 0)
 					return false;
 
@@ -308,8 +333,45 @@ namespace YAML
 					++buffer;
 				}
 			}
-			out << ">";
+			if (verbatim)
+				out << ">";
 			return true;
+		}
+
+		bool WriteTagWithPrefix(ostream& out, const std::string& prefix, const std::string& tag)
+		{
+			out << "!";
+			StringCharSource prefixBuffer(prefix.c_str(), prefix.size());
+			while(prefixBuffer) {
+				int n = Exp::URI().Match(prefixBuffer);
+				if(n <= 0)
+					return false;
+				
+				while(--n >= 0) {
+					out << prefixBuffer[0];
+					++prefixBuffer;
+				}
+			}
+
+			out << "!";
+			StringCharSource tagBuffer(tag.c_str(), tag.size());
+			while(tagBuffer) {
+				int n = Exp::Tag().Match(tagBuffer);
+				if(n <= 0)
+					return false;
+				
+				while(--n >= 0) {
+					out << tagBuffer[0];
+					++tagBuffer;
+				}
+			}
+			return true;
+		}
+
+		bool WriteBinary(ostream& out, const Binary& binary)
+		{
+            WriteDoubleQuotedString(out, EncodeBase64(binary.data(), binary.size()), false);
+            return true;
 		}
 	}
 }
