@@ -34,12 +34,11 @@ namespace Rivet {
       addProjection(wfe, "WFe");
 
       // Cross-section histograms
-      _h_dsigplus_deta_25_35  = bookHisto1D(1,1,1,"/dsigplus_deta_25_35");
-      _h_dsigminus_deta_25_35 = bookHisto1D(1,1,1,"/dsigminus_deta_25_35");
-      _h_dsigplus_deta_35     = bookHisto1D(1,1,1,"/dsigplus_deta_35");
-      _h_dsigminus_deta_35    = bookHisto1D(1,1,1,"/dsigminus_deta_35");
-      _h_dsigplus_deta_25     = bookHisto1D(1,1,1,"/dsigplus_deta_25");
-      _h_dsigminus_deta_25    = bookHisto1D(1,1,1,"/dsigminus_deta_25");
+      for (size_t pmindex = 0; pmindex <= 1; ++pmindex) {
+        _hs_dsigpm_deta_25_35[pmindex] = bookHisto1D(1, 1, 1, "/TMP/dsigpm_deta_25_35_" + to_str(pmindex));
+        _hs_dsigpm_deta_35[pmindex] = bookHisto1D(1, 1, 1, "/TMP/dsigpm_deta_35_" + to_str(pmindex));
+        _hs_dsigpm_deta_25[pmindex] = bookHisto1D(1, 1, 1, "/TMP/dsigpm_deta_25_" + to_str(pmindex));
+      }
 
       _h_asym1 = bookScatter2D(1, 1, 1);
       _h_asym2 = bookScatter2D(1, 1, 2);
@@ -58,7 +57,7 @@ namespace Rivet {
       // Require that leptons have Et >= 25 GeV
       /// @todo Use pT cut in WFinder
       /// @todo Any ETmiss cut?
-      FourMomentum p_e=wf.constituentLeptons()[0].momentum();
+      FourMomentum p_e = wf.constituentLeptons()[0].momentum();
       int chg_e = PID::threeCharge(wf.constituentLeptons()[0].pdgId());
       if (p_e.eta() < 0) chg_e *= -1;
       assert(chg_e != 0);
@@ -66,47 +65,44 @@ namespace Rivet {
       const double weight = event.weight();
       const double eta_e = fabs(p_e.eta());
       const double et_e = p_e.Et();
-      if (et_e < 35*GeV) {
-        // 25 <= ET < 35
-        if (chg_e < 0) {
-          _h_dsigminus_deta_25_35->fill(eta_e, weight);
-        } else {
-          _h_dsigplus_deta_25_35->fill(eta_e, weight);
-        }
-      } else {
-        // ET >= 35
-        if (chg_e < 0) {
-          _h_dsigminus_deta_35->fill(eta_e, weight);
-        } else {
-          _h_dsigplus_deta_35->fill(eta_e, weight);
-        }
-      }
-      // Inclusive: ET >= 25
-      if (chg_e < 0) {
-        _h_dsigminus_deta_25->fill(eta_e, weight);
-      } else {
-        _h_dsigplus_deta_25->fill(eta_e, weight);
-      }
+
+      // Fill histos with appropriate +- indexing
+      const size_t pmindex = (chg_e > 0) ? 0 : 1;
+      if (et_e < 35*GeV) _hs_dsigpm_deta_25_35[pmindex]->fill(eta_e, weight);
+      else _hs_dsigpm_deta_35[pmindex]->fill(eta_e, weight);
+      _hs_dsigpm_deta_25[pmindex]->fill(eta_e, weight);
     }
 
+
+    /// @name Helper functions for constructing asymmetry histograms in finalize()
+    //@{
+    void calc_asymm(const Histo1DPtr plus, const Histo1DPtr minus, Scatter2DPtr target) {
+      divide(*plus - *minus, *plus + *minus, target);
+    }
+    void calc_asymm(const Histo1DPtr histos[2], Scatter2DPtr target) {
+      calc_asymm(histos[0], histos[1], target);
+    }
+    //@}
 
     /// Finalize
     void finalize() {
 
-      // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta
-      // + dsig-/deta) for each Et region
-      divide(*_h_dsigplus_deta_25_35 - *_h_dsigminus_deta_25_35,
-             *_h_dsigplus_deta_25_35 + *_h_dsigminus_deta_25_35,
-             _h_asym1);
+      // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta) for each ET region
+      // divide(*_h_dsigpm_deta_25_35[0] - *_h_dsigpm_deta_25_35[1],
+      //        *_h_dsigpm_deta_25_35 + *_h_dsigminus_deta_25_35[1],
+      //        _h_asym1);
 
-      divide(*_h_dsigplus_deta_35 - *_h_dsigminus_deta_35,
-             *_h_dsigplus_deta_35 + *_h_dsigminus_deta_35,
-             _h_asym2);
+      // divide(*_h_dsigpm_deta_35 - *_h_dsigminus_deta_35,
+      //        *_h_dsigpm_deta_35 + *_h_dsigminus_deta_35,
+      //        _h_asym2);
 
-      divide(*_h_dsigplus_deta_25 - *_h_dsigminus_deta_25,
-             *_h_dsigplus_deta_25 + *_h_dsigminus_deta_25,
-             _h_asym3);
+      // divide(*_h_dsigpm_deta_25 - *_h_dsigminus_deta_25,
+      //        *_h_dsigpm_deta_25 + *_h_dsigminus_deta_25,
+      //        _h_asym3);
 
+      calc_asymm(_hs_dsigpm_deta_25_35, _h_asym1);
+      calc_asymm(_hs_dsigpm_deta_35, _h_asym2);
+      calc_asymm(_hs_dsigpm_deta_25, _h_asym3);
     }
 
     //@}
@@ -116,14 +112,10 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _h_dsigplus_deta_25_35, _h_dsigminus_deta_25_35;
-    Histo1DPtr _h_dsigplus_deta_35, _h_dsigminus_deta_35;
-    Histo1DPtr _h_dsigplus_deta_25, _h_dsigminus_deta_25;
-
-
-    Scatter2DPtr _h_asym1;
-    Scatter2DPtr _h_asym2;
-    Scatter2DPtr _h_asym3;
+    Histo1DPtr _hs_dsigpm_deta_25_35[2];
+    Histo1DPtr _hs_dsigpm_deta_35[2];
+    Histo1DPtr _hs_dsigpm_deta_25[2];
+    Scatter2DPtr _h_asym1, _h_asym2, _h_asym3;
     //@}
 
   };
