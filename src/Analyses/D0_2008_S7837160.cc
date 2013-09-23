@@ -52,13 +52,12 @@ namespace Rivet {
         vetoEvent;
       }
 
-      // Require that leptons have Et >= 25 GeV
-      /// @todo Use pT cut in WFinder
-      /// @todo Any ETmiss cut?
-      const FourMomentum p_e = wf.constituentLeptons()[0].momentum();
+      // Get the e+- momentum, and an effective charge including the eta sign
       /// @todo Is it correct to multiply the eta sign into the charge to "fold" the plot?
+      const FourMomentum p_e = wf.constituentLeptons()[0].momentum();
       const int chg_e = sign(p_e.eta()) * sign(PID::charge(wf.constituentLeptons()[0]));
       assert(chg_e == 1 || chg_e == -1);
+      MSG_TRACE("Charged lepton sign = " << chg_e);
 
       // Fill histos with appropriate +- indexing
       const double weight = event.weight();
