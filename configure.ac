@@ -20,11 +20,6 @@ AC_DEFINE_UNQUOTED(RIVET_STRING, "$PACKAGE_STRING", "Rivet name and version stri
 AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
 
-## Set library version info code
-## Set for version 2.0.0
-VERSIONINFOFLAGS="-version-info 13:0:0"
-AC_SUBST(VERSIONINFOFLAGS)
-
 ## OS X
 AC_CEDAR_OSX
 

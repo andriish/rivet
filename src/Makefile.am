@@ -12,7 +12,7 @@ libRivet_la_LDFLAGS = \
   -L$(prefix)/lib \
   -L$(YODALIBPATH) -R$(YODALIBPATH) \
   -L$(HEPMCLIBPATH) -R$(HEPMCLIBPATH) \
-  -export-dynamic $(VERSIONINFOFLAGS)
+  -export-dynamic -avoid-version
 
 libRivet_la_LIBADD = \
   Core/libRivetCore.la \
