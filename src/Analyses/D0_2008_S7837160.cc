@@ -55,20 +55,17 @@ namespace Rivet {
       // Require that leptons have Et >= 25 GeV
       /// @todo Use pT cut in WFinder
       /// @todo Any ETmiss cut?
-      FourMomentum p_e = wf.constituentLeptons()[0].momentum();
-      int chg_e = PID::threeCharge(wf.constituentLeptons()[0].pdgId());
-      if (p_e.eta() < 0) chg_e *= -1;
-      assert(chg_e != 0);
-
-      const double weight = event.weight();
-      const double eta_e = fabs(p_e.eta());
-      const double et_e = p_e.Et();
+      const FourMomentum p_e = wf.constituentLeptons()[0].momentum();
+      /// @todo Is it correct to multiply the eta sign into the charge to "fold" the plot?
+      const int chg_e = sign(p_e.eta()) * sign(PID::charge(wf.constituentLeptons()[0]));
+      assert(chg_e == 1 || chg_e == -1);
 
       // Fill histos with appropriate +- indexing
+      const double weight = event.weight();
       const size_t pmindex = (chg_e > 0) ? 0 : 1;
-      if (et_e < 35*GeV) _hs_dsigpm_deta_25_35[pmindex]->fill(eta_e, weight);
-      else _hs_dsigpm_deta_35[pmindex]->fill(eta_e, weight);
-      _hs_dsigpm_deta_25[pmindex]->fill(eta_e, weight);
+      if (p_e.Et() < 35*GeV) _hs_dsigpm_deta_25_35[pmindex]->fill(fabs(p_e.eta()), weight);
+      else _hs_dsigpm_deta_35[pmindex]->fill(fabs(p_e.eta()), weight);
+      _hs_dsigpm_deta_25[pmindex]->fill(fabs(p_e.eta()), weight);
     }
 
 
