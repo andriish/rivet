@@ -80,12 +80,12 @@ namespace Rivet {
 
       double HT = ep.pT() + mm.pT() + FourMomentum(enu+mnu).pT();
       foreach (const Jet& jet, jets) HT += jet.pT();
-      if (HT > 0.0) _h_HT->fill(HT, weight);
+      if (HT > 0.0) _h_HT->fill(HT/GeV, weight);
 
       if (jets.size() > 1) {
         const FourMomentum jet1 = jets[0].momentum();
         const FourMomentum jet2 = jets[1].momentum();
-        _h_jets_m_12->fill(FourMomentum(jet1+jet2).mass(), weight);
+        _h_jets_m_12->fill((jet1+jet2).mass()/GeV, weight);
       }
 
       MC_JetAnalysis::analyze(e);
