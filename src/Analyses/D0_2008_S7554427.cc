@@ -43,7 +43,7 @@ namespace Rivet {
 
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 1) {
-        double yZ = fabs(zfinder.bosons()[0].momentum().rapidity());
+        double yZ = fabs(zfinder.bosons()[0].rapidity());
         double pTZ = zfinder.bosons()[0].pT();
         _h_ZpT->fill(pTZ, weight);
         if (yZ > 2.0) {

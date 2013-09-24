@@ -265,7 +265,7 @@ namespace Rivet {
             vetoEvent;
         }
         foreach ( const Jet & jet, recon_jets ) {
-          double eta = jet.momentum().rapidity();
+          double eta = jet.rapidity();
           double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
           if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;

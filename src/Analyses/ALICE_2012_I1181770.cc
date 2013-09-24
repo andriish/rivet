@@ -65,7 +65,7 @@ namespace Rivet {
       // Mx calculation
       FourMomentum p4lead;
       if (pslowest.pdgId() == PID::PROTON && pfastest.pdgId() == PID::PROTON) {
-        p4lead = (fabs(pslowest.momentum().rapidity()) > fabs(pfastest.momentum().rapidity())) ? pslowest.momentum() : pfastest.momentum();
+        p4lead = (fabs(pslowest.rapidity()) > fabs(pfastest.rapidity())) ? pslowest.momentum() : pfastest.momentum();
       } else if (pslowest.pdgId() == PID::PROTON) {
         p4lead = pslowest.momentum();
       } else if (pfastest.pdgId() == PID::PROTON) {

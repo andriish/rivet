@@ -38,7 +38,7 @@ namespace Rivet {
 
       // Fill the relevant histograms:
       foreach(const Jet &j, jets) {
-        _hist_sigma.fill(fabs(j.momentum().rapidity()), j.pT(), weight);
+        _hist_sigma.fill(fabs(j.rapidity()), j.pT(), weight);
       }
     }
 

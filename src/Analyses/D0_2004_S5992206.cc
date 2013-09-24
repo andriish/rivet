@@ -72,8 +72,8 @@ namespace Rivet {
       } else {
         vetoEvent;
       }
-      const double rap1 = jets[0].momentum().rapidity();
-      const double rap2 = jets[1].momentum().rapidity();
+      const double rap1 = jets[0].rapidity();
+      const double rap2 = jets[1].rapidity();
       if (fabs(rap1) > 0.5 || fabs(rap2) > 0.5) {
         vetoEvent;
       }

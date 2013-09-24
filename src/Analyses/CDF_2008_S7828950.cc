@@ -41,7 +41,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       foreach (const Jet& jet, applyProjection<FastJets>(event, "JetsM07").jets(62.0*GeV)) {
-        _binnedHistosR07.fill(fabs(jet.momentum().rapidity()), jet.pT(), weight);
+        _binnedHistosR07.fill(fabs(jet.rapidity()), jet.pT(), weight);
       }
     }
 

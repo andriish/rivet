@@ -156,13 +156,13 @@ namespace Rivet {
       for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
         _h_ptjet[chn]->fill(jets[ijet].pT()/GeV, weight);
         _h_ptjet[2]  ->fill(jets[ijet].pT()/GeV, weight);
-        _h_yjet[chn] ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
-        _h_yjet[2]   ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
+        _h_yjet[chn] ->fill(fabs(jets[ijet].rapidity()), weight);
+        _h_yjet[2]   ->fill(fabs(jets[ijet].rapidity()), weight);
       }
 
       // Leading jet histos
       const double ptlead = jets[0].pT()/GeV;
-      const double yabslead = fabs(jets[0].momentum().rapidity());
+      const double yabslead = fabs(jets[0].rapidity());
       _h_ptlead[chn]->fill(ptlead,   weight);
       _h_ptlead[2]  ->fill(ptlead,   weight);
       _h_ylead[chn] ->fill(yabslead, weight);
@@ -171,7 +171,7 @@ namespace Rivet {
       if (jets.size() >= 2) {
         // Second jet histos
         const double pt2ndlead   = jets[1].pT()/GeV;
-        const double yabs2ndlead = fabs(jets[1].momentum().rapidity());
+        const double yabs2ndlead = fabs(jets[1].rapidity());
         _h_ptseclead[chn] ->fill(pt2ndlead,   weight);
         _h_ptseclead[2]   ->fill(pt2ndlead,   weight);
         _h_yseclead[chn]  ->fill(yabs2ndlead, weight);
@@ -179,7 +179,7 @@ namespace Rivet {
 
         // Dijet histos
         const double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
-        const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
+        const double deltarap = fabs(jets[0].rapidity() - jets[1].rapidity()) ;
         const double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
         const double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
         _h_mass[chn]    ->fill(mass,     weight);

@@ -117,7 +117,7 @@ namespace Rivet {
         vector<FourMomentum> jets;
         double HT = lepton.pT() + p_miss.pT();
         foreach (const Jet& jet, jetpro.jetsByPt(jetcuts[i])) {
-          if (fabs(jet.momentum().rapidity()) < 4.4 && deltaR(lepton, jet.momentum()) > 0.5) {
+          if (fabs(jet.rapidity()) < 4.4 && deltaR(lepton, jet.momentum()) > 0.5) {
             jets.push_back(jet.momentum());
             HT += jet.pT();
           }

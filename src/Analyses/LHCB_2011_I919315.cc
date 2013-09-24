@@ -51,7 +51,7 @@ namespace Rivet {
         const PdgId id = abs(p.pdgId());
 
         if (id == 333) { // id 333 = phi-meson
-          double y  = p.momentum().rapidity();
+          double y  = p.rapidity();
           double pT = p.momentum().perp();
 
           if (pT < 0.6*GeV || pT > 5.0*GeV || y < 2.44 || y > 4.06) {

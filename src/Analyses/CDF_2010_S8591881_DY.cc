@@ -109,7 +109,7 @@ namespace Rivet {
         if (abs(p->pdgId()) < 20) continue;
 
         const double dPhi = deltaPhi(p->momentum().phi(), phiZ);
-        const double pT = p->momentum().pT();
+        const double pT = p->pT();
         double rotatedphi = p->momentum().phi() - phiZ;
         while (rotatedphi < 0) rotatedphi += 2*PI;
 

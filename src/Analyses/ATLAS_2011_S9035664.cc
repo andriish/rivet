@@ -60,7 +60,7 @@ namespace Rivet {
             }
           }
         }
-        double rapidity = p.momentum().rapidity();
+        double rapidity = p.rapidity();
         double xp = p.momentum().perp();
 
         if (rapidity<=2.4 and rapidity>2.) {

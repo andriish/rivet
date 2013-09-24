@@ -82,7 +82,7 @@ namespace Rivet {
         if (eta > 0) _tmphistEtaPlus.fill(fabs(eta), weight);
         else _tmphistEtaMinus.fill(fabs(eta), weight);
         //
-        const double rapidity = p.momentum().rapidity();
+        const double rapidity = p.rapidity();
         _histRapidity->fill(rapidity, weight);
         if (rapidity > 0) _tmphistRapPlus.fill(fabs(rapidity), weight);
         else _tmphistRapMinus.fill(fabs(rapidity), weight);
@@ -103,7 +103,7 @@ namespace Rivet {
         } else {
           _tmphistEtaChMinus.fill(fabs(eta), weight);
         }
-        const double rapidity = p.momentum().rapidity();
+        const double rapidity = p.rapidity();
         _histRapidityCh->fill(rapidity, weight);
         if (rapidity > 0) {
           _tmphistRapChPlus.fill(fabs(rapidity), weight);

@@ -97,7 +97,7 @@ namespace Rivet {
       }
 
       // Jet rapidity
-      const double rap_i = jets[i].momentum().rapidity();
+      const double rap_i = jets[i].rapidity();
       _h_rap_jet[i]->fill(rap_i, weight);
       if (rap_i > 0.0) {
         _h_rap_jet_plus[i]->fill(rap_i, weight);

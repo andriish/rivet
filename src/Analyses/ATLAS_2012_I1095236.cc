@@ -179,7 +179,7 @@ namespace Rivet {
       // ATLAS calo problem
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
         foreach ( const Jet & jet, recon_jets ) {
-          double eta = jet.momentum().rapidity();
+          double eta = jet.rapidity();
           double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
           if(jet.momentum().perp()>50 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;

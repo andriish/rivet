@@ -79,7 +79,7 @@ namespace Rivet {
       double dymax = 0;
       int gap_pos  = -1;
       for (size_t i=0; i < parts.size()-1; ++i) {
-        double dy = parts[i+1].momentum().rapidity() - parts[i].momentum().rapidity();
+        double dy = parts[i+1].rapidity() - parts[i].rapidity();
         if (dy > dymax) {
           dymax     = dy;
           gap_pos = i;

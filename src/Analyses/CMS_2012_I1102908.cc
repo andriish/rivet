@@ -51,7 +51,7 @@ namespace Rivet {
     double deltaY_MN = 0.0;
     for (size_t ij1 = 0; ij1 < jets.size(); ++ij1) {
       for (size_t ij2 = ij1 + 1; ij2 < jets.size(); ++ij2) {
-        const double deltaY = fabs(jets[ij1].momentum().rapidity() - jets[ij1].momentum().rapidity());
+        const double deltaY = fabs(jets[ij1].rapidity() - jets[ij1].rapidity());
         // Exclusive dijet case:
         if (jets.size() == 2) _h_DeltaY_exclusive.fill(deltaY, weight);
         // Inclusive jets case:

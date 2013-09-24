@@ -75,8 +75,8 @@ namespace Rivet {
         // In jet pT
         _h_jet_pT_cross_section->fill( jets_cut[0].pT(), weight);
         _h_jet_pT_normalised->fill( jets_cut[0].pT(), weight);
-        _h_jet_y_cross_section->fill( fabs(jets_cut[0].momentum().rapidity()), weight);
-        _h_jet_y_normalised->fill( fabs(jets_cut[0].momentum().rapidity()), weight);
+        _h_jet_y_cross_section->fill( fabs(jets_cut[0].rapidity()), weight);
+        _h_jet_y_normalised->fill( fabs(jets_cut[0].rapidity()), weight);
 
         // In Z pT
         _h_Z_pT_cross_section->fill(Zmom.pT(), weight);

@@ -92,7 +92,7 @@ namespace Rivet {
 
       foreach (const Particle& p, charged.particles()) {
         double pT = p.pT()/GeV;
-        double y = p.momentum().rapidity();
+        double y = p.rapidity();
         if (fabs(y) < 0.1) {
           nCutsPassed += weight;
           const PdgId id = p.pdgId();
