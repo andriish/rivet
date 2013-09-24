@@ -53,44 +53,38 @@ namespace Rivet {
 
 
     /// Do the analysis
-    void analyze(const Event & e) {
+    void analyze(const Event& e) {
       const double weight = e.weight();
 
       const WFinder& wenufinder = applyProjection<WFinder>(e, "WenuFinder");
-      if (wenufinder.bosons().size()!=1) {
-        vetoEvent;
-      }
+      if (wenufinder.bosons().size() !=1 ) vetoEvent;
 
       const WFinder& wmnufinder = applyProjection<WFinder>(e, "WmnuFinder");
-      if (wmnufinder.bosons().size()!=1) {
-        vetoEvent;
-      }
+      if (wmnufinder.bosons().size() !=1 ) vetoEvent;
 
-      FourMomentum wenu(wenufinder.bosons()[0].momentum());
-      FourMomentum wmnu(wmnufinder.bosons()[0].momentum());
-      FourMomentum ww(wenu+wmnu);
+      FourMomentum wenu = wenufinder.bosons()[0].momentum();
+      FourMomentum wmnu = wmnufinder.bosons()[0].momentum();
+      FourMomentum ww = wenu + wmnu;
       // find leptons
-      FourMomentum ep=wenufinder.constituentLeptons()[0].momentum();
-      FourMomentum enu=wenufinder.constituentNeutrinos()[0].momentum();
-      FourMomentum mm=wmnufinder.constituentLeptons()[0].momentum();
-      FourMomentum mnu=wmnufinder.constituentNeutrinos()[0].momentum();
+      FourMomentum ep = wenufinder.constituentLeptons()[0].momentum();
+      FourMomentum enu = wenufinder.constituentNeutrinos()[0].momentum();
+      FourMomentum mm = wmnufinder.constituentLeptons()[0].momentum();
+      FourMomentum mnu = wmnufinder.constituentNeutrinos()[0].momentum();
 
       const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
       if (jets.size() > 0) {
-        _h_WW_jet1_deta->fill(ww.eta()-jets[0].momentum().eta(), weight);
+        _h_WW_jet1_deta->fill(ww.eta()-jets[0].eta(), weight);
         _h_WW_jet1_dR->fill(deltaR(ww, jets[0].momentum()), weight);
         _h_We_jet1_dR->fill(deltaR(ep, jets[0].momentum()), weight);
       }
 
-      double HT=ep.pT()+mm.pT()+FourMomentum(enu+mnu).pT();
-      foreach (const Jet& jet, jets) {
-        HT+=jet.momentum().pT();
-      }
-      if (HT>0.0) _h_HT->fill(HT, weight);
+      double HT = ep.pT() + mm.pT() + FourMomentum(enu+mnu).pT();
+      foreach (const Jet& jet, jets) HT += jet.pT();
+      if (HT > 0.0) _h_HT->fill(HT, weight);
 
-      if (jets.size()>1) {
-        FourMomentum jet1(jets[0].momentum());
-        FourMomentum jet2(jets[1].momentum());
+      if (jets.size() > 1) {
+        const FourMomentum jet1 = jets[0].momentum();
+        const FourMomentum jet2 = jets[1].momentum();
         _h_jets_m_12->fill(FourMomentum(jet1+jet2).mass(), weight);
       }
 
@@ -100,13 +94,12 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      double norm=crossSection()/sumOfWeights();
+      const double norm = crossSection()/sumOfWeights();
       scale(_h_WW_jet1_deta, norm);
       scale(_h_WW_jet1_dR, norm);
       scale(_h_We_jet1_dR, norm);
       scale(_h_jets_m_12, norm);
       scale(_h_HT, norm);
-
       MC_JetAnalysis::finalize();
     }
 
