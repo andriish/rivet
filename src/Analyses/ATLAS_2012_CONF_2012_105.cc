@@ -84,7 +84,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach (const Jet& jet,
                applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 2.8 ) {
+        if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -122,10 +122,10 @@ namespace Rivet {
         }
         if ( e_near_jet ) continue;
         // check the isolation
-        double pTinCone = -e.momentum().pT();
+        double pTinCone = -e.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 0.1*e.momentum().perp() )
           recon_leptons.push_back(e);
@@ -145,10 +145,10 @@ namespace Rivet {
         }
         if ( mu_near_jet ) continue;
         // isolation
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV )
           recon_leptons.push_back(mu);

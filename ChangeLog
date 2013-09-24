@@ -1,5 +1,8 @@
 2013-09-24  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Removing unnecessary uses of a momentum() indirection when
+	accessing kinematic variables.
+
 	* Clean-up in Jet, Particle, and ParticleBase, in particular
 	splitting PID functions on Particle from those on PID codes, and
 	adding convenience kinematic functions to ParticleBase.

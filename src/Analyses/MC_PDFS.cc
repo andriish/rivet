@@ -55,10 +55,10 @@ namespace Rivet {
 
       // const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       // foreach (const Particle& p, cfs.particles()) {
-      //   if (fabs(eta) < 2.5 && p.momentum().pT() > 10*GeV) {
-      //     _histPdfTrackptVsX->fill(pdfi.x1(), p.momentum().pT()/GeV, weight);
-      //     _histPdfTrackptVsX->fill(pdfi.x2(), p.momentum().pT()/GeV, weight);
-      //     _histPdfTrackptVsQ->fill(pdfi.scalePDF(), p.momentum().pT()/GeV, weight);
+      //   if (fabs(eta) < 2.5 && p.pT() > 10*GeV) {
+      //     _histPdfTrackptVsX->fill(pdfi.x1(), p.pT()/GeV, weight);
+      //     _histPdfTrackptVsX->fill(pdfi.x2(), p.pT()/GeV, weight);
+      //     _histPdfTrackptVsQ->fill(pdfi.scalePDF(), p.pT()/GeV, weight);
       //   }
       // }
 

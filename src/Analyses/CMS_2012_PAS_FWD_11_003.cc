@@ -119,7 +119,7 @@ namespace Rivet {
       passedSumOfWeights += weight;
 
       foreach (const Particle& p, fsv.particles()) {
-        if (-5.2 > p.momentum().eta() && p.momentum().eta() > -6.6) inclEflow += weight*p.momentum().E()/GeV;
+        if (-5.2 > p.eta() && p.eta() > -6.6) inclEflow += weight*p.momentum().E()/GeV;
       }
 
       //  ============================== JET EVENTS
@@ -128,13 +128,13 @@ namespace Rivet {
       const Jets& jets = jetpro.jetsByPt(1.0*GeV);
       if (jets.size()<1) vetoEvent;
 
-      if (fabs(jets[0].momentum().eta()) < 2.0) {
-        _tmp_njet->fill(jets[0].momentum().pT()/GeV, weight);
+      if (fabs(jets[0].eta()) < 2.0) {
+        _tmp_njet->fill(jets[0].pT()/GeV, weight);
 
         // energy flow
         foreach (const Particle& p, fsv.particles()) {
-          if (p.momentum().eta() > -6.6 && p.momentum().eta() < -5.2) {  // ask for the CASTOR region
-            _tmp_jet->fill(jets[0].momentum().pT()/GeV, weight * p.momentum().E()/GeV);
+          if (p.eta() > -6.6 && p.eta() < -5.2) {  // ask for the CASTOR region
+            _tmp_jet->fill(jets[0].pT()/GeV, weight * p.momentum().E()/GeV);
           }
         }
       }

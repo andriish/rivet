@@ -51,8 +51,8 @@ namespace Rivet {
       _h_Z_y->fill(zmom.rapidity(),weight);
       _h_Z_phi->fill(zmom.azimuthalAngle(),weight);
       foreach (const Particle& l, zfinder.constituents()) {
-        _h_lepton_pT->fill(l.momentum().pT(), weight);
-        _h_lepton_eta->fill(l.momentum().eta(), weight);
+        _h_lepton_pT->fill(l.pT(), weight);
+        _h_lepton_eta->fill(l.eta(), weight);
       }
     }
 

@@ -73,7 +73,7 @@ namespace Rivet {
 
     for (size_t i = 0; i < m_njet; ++i) {
       if (jets.size() < i+1) continue;
-      _h_pT_jet[i]->fill(jets[i].momentum().pT()/GeV, weight);
+      _h_pT_jet[i]->fill(jets[i].pT()/GeV, weight);
       // Check for numerical precision issues with jet masses
       double m2_i = jets[i].momentum().mass2();
       if (m2_i < 0) {
@@ -88,7 +88,7 @@ namespace Rivet {
       _h_mass_jet[i]->fill(sqrt(m2_i)/GeV, weight);
 
       // Jet eta
-      const double eta_i = jets[i].momentum().eta();
+      const double eta_i = jets[i].eta();
       _h_eta_jet[i]->fill(eta_i, weight);
       if (eta_i > 0.0) {
         _h_eta_jet_plus[i]->fill(eta_i, weight);
@@ -109,7 +109,7 @@ namespace Rivet {
       for (size_t j = i+1; j < min(size_t(3),m_njet); ++j) {
         if (jets.size() < j+1) continue;
         std::pair<size_t, size_t> ij = std::make_pair(i, j);
-        double deta = jets[i].momentum().eta()-jets[j].momentum().eta();
+        double deta = jets[i].eta()-jets[j].eta();
         double dphi = deltaPhi(jets[i].momentum(),jets[j].momentum());
         double dR = deltaR(jets[i].momentum(), jets[j].momentum());
         _h_deta_jets[ij]->fill(deta, weight);
@@ -127,7 +127,7 @@ namespace Rivet {
 
     double HT=0.0;
     foreach (const Jet& jet, jets) {
-      HT += jet.momentum().pT();
+      HT += jet.pT();
     }
     _h_jet_HT->fill(HT, weight);
   }

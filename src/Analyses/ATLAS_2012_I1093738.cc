@@ -192,10 +192,10 @@ namespace Rivet {
       float cluster_phi_width = (PI/128.)*5.0;
       foreach (const Particle& p, fs) {
         // check if it's in the cone of .4
-        if (deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) >= iso_dR) continue;
+        if (deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) >= iso_dR) continue;
 
         // check if it's in the 5x7 central core
-        if (fabs(eta_P-p.momentum().eta()) < cluster_eta_width*0.5 &&
+        if (fabs(eta_P-p.eta()) < cluster_eta_width*0.5 &&
             fabs(phi_P-p.momentum().phi()) < cluster_phi_width*0.5) continue;
 
         mom_in_EtCone += p.momentum();

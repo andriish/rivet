@@ -34,12 +34,12 @@ namespace Rivet {
 
       const Jets jets = applyProjection<FastJets>(event, "AntiKtJets05").jetsByPt(20.*GeV);
       if (jets.size() < 2) vetoEvent;  // require a dijet system with a 20 GeV cut on both jets
-      if (fabs(jets[0].momentum().eta()) > 4.4 || fabs(jets[1].momentum().eta()) > 4.4) vetoEvent;
+      if (fabs(jets[0].eta()) > 4.4 || fabs(jets[1].eta()) > 4.4) vetoEvent;
 
       const FinalState& fsp = applyProjection<FinalState>(event, "FS");
 
       foreach (const Particle& p, fsp.particlesByEta()) {
-        double eta = p.momentum().eta();
+        double eta = p.eta();
         double energy = p.momentum().E();
         double costheta = cos(p.momentum().theta());
 

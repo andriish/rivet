@@ -101,7 +101,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach (const Jet& jet,
                applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 2.5 ) {
+        if ( fabs( jet.eta() ) < 2.5 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -215,7 +215,7 @@ namespace Rivet {
         foreach ( const Particle & track, chg_tracks ) {
           if(track.momentum().perp()>0.4 &&
              deltaR(e.momentum(),track.momentum()) <= 0.3 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if (pTinCone/e.momentum().perp()>0.16) continue;
         // all particles isolation
@@ -223,7 +223,7 @@ namespace Rivet {
         foreach ( const Particle & p, vfs_particles ) {
           if(abs(p.pdgId())!=PID::MUON &&
              deltaR(e.momentum(),p.momentum()) <= 0.3 )
-            pTinCone += p.momentum().pT();
+            pTinCone += p.pT();
         }
         if (pTinCone/e.momentum().perp()<0.18) {
           cand4_e.push_back(e);
@@ -237,7 +237,7 @@ namespace Rivet {
         foreach ( const Particle & track, chg_tracks ) {
           if(track.momentum().perp()>1.0 &&
              deltaR(mu.momentum(),track.momentum()) <= 0.3 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if (pTinCone/mu.momentum().perp()<0.12) {
           cand4_mu.push_back(mu);

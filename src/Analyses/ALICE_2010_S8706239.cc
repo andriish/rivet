@@ -51,14 +51,14 @@ namespace Rivet {
       int Nch_015 = 0;
       int Nch_05  = 0;
       foreach (const Particle& p, charged.particles()) {
-        double pT = p.momentum().pT()/GeV;
+        double pT = p.pT()/GeV;
         if (pT < 4.0) Nch_015++;
         if (pT > 0.5  && pT < 4.0) Nch_05++;
       }
 
       // Now we can fill histograms
       foreach (const Particle& p, charged.particles()) {
-        double pT = p.momentum().pT()/GeV;
+        double pT = p.pT()/GeV;
         if (pT < 4.0) _h_pT_Nch_015 ->fill(Nch_015, pT, weight);
         if (pT > 0.5  && pT < 4.0) _h_pT_Nch_05  ->fill(Nch_05,  pT, weight);
 

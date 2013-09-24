@@ -49,8 +49,8 @@ namespace Rivet {
 
       // Find the leading jet pT and eta
       if (jets.size() == 0) vetoEvent;
-      const double ljpT = jets[0].momentum().pT();
-      const double ljeta = jets[0].momentum().eta();
+      const double ljpT = jets[0].pT();
+      const double ljeta = jets[0].eta();
       MSG_DEBUG("Leading jet pT / eta: " << ljpT << " / " << ljeta);
 
       // Minimum requirement for event
@@ -70,13 +70,13 @@ namespace Rivet {
               // No B decaying to B
               if (aid != 5222 && aid != 5112 && aid != 5212 && aid != 5322) {
                 if (nb==0) {
-                  etaB1 = p.momentum().eta();
+                  etaB1 = p.eta();
                   phiB1 = p.momentum().phi();
-                  pTB1 = p.momentum().pT();
+                  pTB1 = p.pT();
                 } else if (nb==1) {
-                  etaB2 = p.momentum().eta();
+                  etaB2 = p.eta();
                   phiB2 = p.momentum().phi();
-                  pTB2 = p.momentum().pT();
+                  pTB2 = p.pT();
                 }
                 nb++;
               }

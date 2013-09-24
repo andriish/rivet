@@ -154,14 +154,14 @@ namespace Rivet {
 
       // Loop over selected jets, fill inclusive jet distributions
       for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
-        _h_ptjet[chn]->fill(jets[ijet].momentum().pT()/GeV, weight);
-        _h_ptjet[2]  ->fill(jets[ijet].momentum().pT()/GeV, weight);
+        _h_ptjet[chn]->fill(jets[ijet].pT()/GeV, weight);
+        _h_ptjet[2]  ->fill(jets[ijet].pT()/GeV, weight);
         _h_yjet[chn] ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
         _h_yjet[2]   ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
       }
 
       // Leading jet histos
-      const double ptlead = jets[0].momentum().pT()/GeV;
+      const double ptlead = jets[0].pT()/GeV;
       const double yabslead = fabs(jets[0].momentum().rapidity());
       _h_ptlead[chn]->fill(ptlead,   weight);
       _h_ptlead[2]  ->fill(ptlead,   weight);
@@ -170,7 +170,7 @@ namespace Rivet {
 
       if (jets.size() >= 2) {
         // Second jet histos
-        const double pt2ndlead   = jets[1].momentum().pT()/GeV;
+        const double pt2ndlead   = jets[1].pT()/GeV;
         const double yabs2ndlead = fabs(jets[1].momentum().rapidity());
         _h_ptseclead[chn] ->fill(pt2ndlead,   weight);
         _h_ptseclead[2]   ->fill(pt2ndlead,   weight);

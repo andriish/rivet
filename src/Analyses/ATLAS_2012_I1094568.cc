@@ -269,8 +269,8 @@ namespace Rivet {
         if (PID::charge(elecFS.at(0)) != PID::charge(muonFS.at(0))) {
           // Calculate HT: scalar sum of the pTs of the leptons and all good jets
           double HT = 0;
-          HT += elecFS[0].momentum().pT();
-          HT += muonFS[0].momentum().pT();
+          HT += elecFS[0].pT();
+          HT += muonFS[0].pT();
           foreach (const Jet* j, good_jets)
             HT += fabs(j->momentum().pT());
           // Keep events with HT > 130 GeV

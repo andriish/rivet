@@ -52,12 +52,12 @@ namespace Rivet {
       Particles particles = cfs.particlesByPt();
       Particle p_lead = particles[0];
       const double philead = p_lead.momentum().phi();
-      const double pTlead  = p_lead.momentum().pT();
+      const double pTlead  = p_lead.pT();
 
       int    tNch = 0;
       double ptSum = 0.0;
       foreach (const Particle& p, particles) {
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
         const double dPhi = deltaPhi(philead, p.momentum().phi());
         const int ir = region_index(dPhi);
         if (ir==1) {

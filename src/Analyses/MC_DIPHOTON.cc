@@ -49,10 +49,10 @@ namespace Rivet {
       Particles fs = applyProjection<FinalState>(event, "FS").particlesByPt();
       foreach (const Particle& photon, photons) {
         FourMomentum mom_in_cone;
-        double eta_P = photon.momentum().eta();
+        double eta_P = photon.eta();
         double phi_P = photon.momentum().phi();
         foreach (const Particle& p, fs) {
-          if (deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) < 0.4) {
+          if (deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) < 0.4) {
             mom_in_cone += p.momentum();
           }
         }
@@ -65,8 +65,8 @@ namespace Rivet {
         vetoEvent;
       }
 
-      _h_pT_P1->fill(isolated_photons[0].momentum().pT(), weight);
-      _h_pT_P2->fill(isolated_photons[1].momentum().pT(), weight);
+      _h_pT_P1->fill(isolated_photons[0].pT(), weight);
+      _h_pT_P2->fill(isolated_photons[1].pT(), weight);
       FourMomentum mom_PP = isolated_photons[0].momentum() + isolated_photons[1].momentum();
       _h_m_PP->fill(mom_PP.mass(), weight);
       _h_pT_PP->fill(mom_PP.pT(), weight);

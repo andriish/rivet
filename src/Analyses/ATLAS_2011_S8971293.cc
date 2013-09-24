@@ -57,7 +57,7 @@ namespace Rivet {
       if (jets06.size()>1){
         if (fabs(jets06[0].momentum().rapidity())<0.8 && fabs(jets06[1].momentum().rapidity())<0.8) {
           double observable = mapAngle0ToPi(jets06[0].momentum().phi()-jets06[1].momentum().phi()) / M_PI;
-          _h_deltaPhi.fill(jets06[0].momentum().pT(), observable, weight);
+          _h_deltaPhi.fill(jets06[0].pT(), observable, weight);
         }
       }
     }

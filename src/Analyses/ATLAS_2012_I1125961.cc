@@ -88,7 +88,7 @@ namespace Rivet {
       Jets cand_jets;
       const Jets jets = applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV);
       foreach (const Jet& jet, jets) {
-        if ( fabs( jet.momentum().eta() ) < 4.9 ) {
+        if ( fabs( jet.eta() ) < 4.9 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -100,10 +100,10 @@ namespace Rivet {
       const Particles chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
       const Particles muons = applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt();
       foreach (const Particle& mu, muons) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach (const Particle& track, chg_tracks) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 ) {
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
           }
         }
         if ( pTinCone < 1.8*GeV ) cand_mu.push_back(mu);
@@ -112,7 +112,7 @@ namespace Rivet {
       // Resolve jet-lepton overlap for jets with |eta| < 2.8
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-        if ( fabs( jet.momentum().eta() ) >= 2.8 ) continue;
+        if ( fabs( jet.eta() ) >= 2.8 ) continue;
         bool away_from_e = true;
         foreach ( const Particle & e, cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
@@ -156,7 +156,7 @@ namespace Rivet {
         pTmiss -= p.momentum();
       }
       foreach ( const Jet& jet, cand_jets ) {
-        if ( fabs( jet.momentum().eta() ) > 4.5 ) pTmiss -= jet.momentum();
+        if ( fabs( jet.eta() ) > 4.5 ) pTmiss -= jet.momentum();
       }
       double eTmiss = pTmiss.pT();
 
@@ -172,8 +172,8 @@ namespace Rivet {
       }
 
       if ( recon_jets.size()<2 ||
-           recon_jets[0].momentum().pT() <= 130.0 * GeV ||
-           recon_jets[0].momentum().pT() <=  60.0 * GeV ) {
+           recon_jets[0].pT() <= 130.0 * GeV ||
+           recon_jets[0].pT() <=  60.0 * GeV ) {
         MSG_DEBUG("No hard leading jet in " << recon_jets.size() << " jets");
         vetoEvent;
       }
@@ -186,7 +186,7 @@ namespace Rivet {
       double min_dPhi_3   = 999.999;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-        if ( jet.momentum().pT() < 40 * GeV ) continue;
+        if ( jet.pT() < 40 * GeV ) continue;
         if ( Njets < 2 ) {
           min_dPhi_2 = min( min_dPhi_2, deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
         }
@@ -200,12 +200,12 @@ namespace Rivet {
       // inclusive meff
       double m_eff_inc =  eTmiss;
       foreach ( const Jet& jet, recon_jets ) {
-        double perp =  jet.momentum().pT();
+        double perp =  jet.pT();
         if(perp>40.) m_eff_inc += perp;
       }
 
       // region A
-      double m_eff_Nj = eTmiss + recon_jets[0].momentum().pT() + recon_jets[1].momentum().pT();
+      double m_eff_Nj = eTmiss + recon_jets[0].pT() + recon_jets[1].pT();
       if( min_dPhi_2 > 0.4 && eTmiss/m_eff_Nj > 0.3 ) {
         _hist_meff_A->fill(m_eff_inc,weight);
         if(m_eff_inc>1900.) _count_A_tight ->fill(0.5,weight);

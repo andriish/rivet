@@ -33,7 +33,7 @@ namespace Rivet {
       Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(1.0*GeV);
       if (jets.size() < 1) vetoEvent;
 
-      if (fabs(jets[0].momentum().eta()) >= 2) { // cuts on leading jets
+      if (fabs(jets[0].eta()) >= 2) { // cuts on leading jets
         vetoEvent;
       }
 
@@ -49,7 +49,7 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         double dphi = deltaPhi(p, p_lead);
-        double pT = p.momentum().pT();
+        double pT = p.pT();
         const PdgId id = abs(p.pdgId());
 
         if (dphi > PI/3. && dphi < 2./3.*PI) {

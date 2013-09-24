@@ -38,8 +38,8 @@ namespace Rivet {
 
       _h_dNevt_dNch->fill(charged.size(), weight);
       foreach (const Particle& p, charged.particles()) {
-        double pT = p.momentum().pT()/GeV;
-        _h_dNch_deta->fill(p.momentum().eta(), weight);
+        double pT = p.pT()/GeV;
+        _h_dNch_deta->fill(p.eta(), weight);
         _h_dNch_dpT->fill(pT, weight/pT);
         _p_meanpT_Nch->fill(charged.size(), pT, weight);
       }

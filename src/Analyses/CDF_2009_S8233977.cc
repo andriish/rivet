@@ -61,7 +61,7 @@ namespace Rivet {
       const ChargedFinalState& trackfs = applyProjection<ChargedFinalState>(evt, "CFS");
       const size_t numParticles = trackfs.size();
       foreach (const Particle& p, trackfs.particles()) {
-        const double pT = p.momentum().pT() / GeV;
+        const double pT = p.pT() / GeV;
         _hist_pt_vs_multiplicity->fill(numParticles, pT, weight);
 
         // The weight for entries in the pT distribution should be weight/(pT*dPhi*dy).

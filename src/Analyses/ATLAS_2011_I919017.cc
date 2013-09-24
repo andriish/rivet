@@ -307,7 +307,7 @@ namespace Rivet {
       if (!jets04.empty()) {
         _sumofweights04 += weight;
         foreach (const Jet& j, jets04) {
-          const double jetpt = j.momentum().pT();
+          const double jetpt = j.pT();
           if (fabs(j.momentum().rapidity()) < 0.5) {
             _h_pt04_00_05->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
@@ -554,7 +554,7 @@ namespace Rivet {
       if (!jets06.empty()) {
         _sumofweights06 += weight;
         foreach (const Jet& j, jets06) {
-          const double jetpt = j.momentum().pT();
+          const double jetpt = j.pT();
           if (fabs(j.momentum().rapidity()) < 0.5) {
             _h_pt06_00_05->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {

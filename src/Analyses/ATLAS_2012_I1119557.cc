@@ -58,7 +58,7 @@ namespace Rivet {
         // The leading jet
         const Jet& jet = jetAr[alg][0];
         const double m   = jet.momentum().mass();
-        const double eta = jet.momentum().eta();
+        const double eta = jet.eta();
 
         _hs_mass[alg]->fill(m/GeV, weight);
         _hs_width[alg]->fill(getWidth(jet), weight);
@@ -153,8 +153,8 @@ namespace Rivet {
       const double eta_jet = jet.eta();
       double width(0), pTsum(0);
       foreach (const Particle& p, jet.particles()) {
-        double pT = p.momentum().pT();
-        double eta = p.momentum().eta();
+        double pT = p.pT();
+        double eta = p.eta();
         double phi = p.momentum().phi();
         width += sqrt(pow(phi_jet - phi,2) + pow(eta_jet - eta, 2)) * pT;
         pTsum += pT;
@@ -173,10 +173,10 @@ namespace Rivet {
       double etaSum(0), phiSum(0), eTot(0);
       foreach (const Particle& p, jet.particles()) {
         const double E = p.momentum().E();
-        const double eta = p.momentum().eta();
+        const double eta = p.eta();
 
         energies.push_back(E);
-        etas.push_back(jet.momentum().eta() - eta);
+        etas.push_back(jet.eta() - eta);
 
         eTot   += E;
         etaSum += eta * E;
@@ -241,7 +241,7 @@ namespace Rivet {
     /// Planar flow calculation, copied and adapted from Lily's code
     double getPFlow(const Jet& jet) {
       const double phi0 = jet.momentum().phi();
-      const double eta0 = jet.momentum().eta();
+      const double eta0 = jet.eta();
 
       double nref[3]; //< @todo 3-vector to rotate x to? Use Rivet vector classes
       nref[0] = cos(phi0)/cosh(eta0);

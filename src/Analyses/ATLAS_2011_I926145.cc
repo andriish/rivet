@@ -128,8 +128,8 @@ namespace Rivet {
       // Electron histogram
       if (elecs.size() > 0) {
         foreach (const Particle& ele, elecs.particles()) {
-          if (ele.momentum().pT()*GeV < 26.0) {
-            _histPt_elecs->fill(ele.momentum().pT()*GeV, weight);
+          if (ele.pT()*GeV < 26.0) {
+            _histPt_elecs->fill(ele.pT()*GeV, weight);
           }
         }
       }
@@ -137,8 +137,8 @@ namespace Rivet {
       // Muon histogram
       if (muons.size() > 0) {
         foreach (const Particle& muo, muons.particles()) {
-          if (muo.momentum().pT()*GeV < 26.0) {
-            _histPt_muons->fill(muo.momentum().pT()*GeV, weight);
+          if (muo.pT()*GeV < 26.0) {
+            _histPt_muons->fill(muo.pT()*GeV, weight);
           }
         }
       }
@@ -146,8 +146,8 @@ namespace Rivet {
       // Muon full histogram
       if (muons_full.size() > 0) {
         foreach (const Particle& muo, muons_full.particles()) {
-          if (muo.momentum().pT()*GeV < 100.0) {
-            _histPt_muons_full->fill(muo.momentum().pT()*GeV, weight);
+          if (muo.pT()*GeV < 100.0) {
+            _histPt_muons_full->fill(muo.pT()*GeV, weight);
           }
         }
       }

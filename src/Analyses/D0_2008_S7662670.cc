@@ -66,7 +66,7 @@ namespace Rivet {
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
       // Fill histo for each jet
       foreach (const Jet& j, jetpro.jets(50.0*GeV)) {
-        const double pt = j.momentum().pT();
+        const double pt = j.pT();
         const double y = fabs(j.momentum().rapidity());
         MSG_TRACE("Filling histos: pT = " << pt/GeV
             << ", |y| = " << y);

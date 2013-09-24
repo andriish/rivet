@@ -64,7 +64,7 @@ namespace Rivet {
       const FinalState& trigfs = applyProjection<FinalState>(event, "TriggerFS");
       unsigned int n_minus(0), n_plus(0);
       foreach (const Particle& p, trigfs.particles()) {
-        const double eta = p.momentum().eta();
+        const double eta = p.eta();
         if (inRange(eta, -5.5, -1.5)) n_minus++;
         else if (inRange(eta, 1.5, 5.5)) n_plus++;
       }
@@ -91,7 +91,7 @@ namespace Rivet {
       const double dphi = TWOPI;
       const double dnch_deta = nch/deta;
       foreach (const Particle& p, cfs.particles()) {
-        const double pt = p.momentum().pT();
+        const double pt = p.pT();
         const double scaled_weight = weight/(deta*dphi*pt/GeV);
         if (!fuzzyEquals(sqrtS()/GeV, 500, 1E-3)) {
           _hist_Pt->fill(nch, pt/GeV, weight);

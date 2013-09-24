@@ -141,7 +141,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach ( const Jet& jet,
           applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 2.8 ) {
+        if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -160,12 +160,12 @@ namespace Rivet {
       // pTcone around muon track
       foreach ( const Particle & mu, candtemp_mu ) {
 ++tmpmu;
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, vfs_particles ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
-        if ( pTinCone/mu.momentum().pT() < 0.25 )
+        if ( pTinCone/mu.pT() < 0.25 )
 ++candmu;
           cand_mu.push_back(mu);
       }
@@ -173,12 +173,12 @@ namespace Rivet {
       // pTcone around electron
       foreach ( const Particle e, candtemp_e ) {
 ++tmpe;
-        double pTinCone = -e.momentum().pT();
+        double pTinCone = -e.pT();
         foreach ( const Particle & track, vfs_particles ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
-        if ( pTinCone/e.momentum().pT() < 0.2 )
+        if ( pTinCone/e.pT() < 0.2 )
 ++cande;
           cand_e.push_back(e);
       }
@@ -192,10 +192,10 @@ namespace Rivet {
 //DEBUG
 // else{
 // foreach (const Particle & mu,  cand_mu) {
-//   cerr << "cand mu: " << "Id " << mu.pdgId() << "      eta " << mu.momentum().eta() << "      pT " << mu.momentum().pT() << '\n';
+//   cerr << "cand mu: " << "Id " << mu.pdgId() << "      eta " << mu.eta() << "      pT " << mu.pT() << '\n';
 // }
 // foreach (const Particle & lepton,  cand_e) {
-//   cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.momentum().eta() << "      pT " << lepton.momentum().pT() << '\n';
+//   cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.eta() << "      pT " << lepton.pT() << '\n';
 // }} // debug
 
 
@@ -380,7 +380,7 @@ namespace Rivet {
         }
         // munujj, tt control region
         if ( recon_jets.size() >= 4 &&
-             recon_jets[0].momentum().pT() > 50*GeV && recon_jets[1].momentum().pT() > 40*GeV && recon_jets[2].momentum().pT() > 30*GeV ) {
+             recon_jets[0].pT() > 50*GeV && recon_jets[1].pT() > 40*GeV && recon_jets[2].pT() > 30*GeV ) {
 ++munuttCR;
           _hist_MLQ_munu_ttCR->fill(M_LQ, weight);
         }
@@ -394,7 +394,7 @@ namespace Rivet {
         }
         // enujj, tt control region
         if ( recon_jets.size() >= 4 &&
-             recon_jets[0].momentum().pT() > 50*GeV && recon_jets[1].momentum().pT() > 40*GeV && recon_jets[2].momentum().pT() > 30*GeV ) {
+             recon_jets[0].pT() > 50*GeV && recon_jets[1].pT() > 40*GeV && recon_jets[2].pT() > 30*GeV ) {
 ++enuttCR;
           _hist_MLQ_enu_ttCR->fill(M_LQ, weight);
         }

@@ -119,7 +119,7 @@ namespace Rivet {
         foreach (const Jet& jet, jetpro.jetsByPt(jetcuts[i])) {
           if (fabs(jet.momentum().rapidity()) < 4.4 && deltaR(lepton, jet.momentum()) > 0.5) {
             jets.push_back(jet.momentum());
-            HT += jet.momentum().pT();
+            HT += jet.pT();
           }
         }
 

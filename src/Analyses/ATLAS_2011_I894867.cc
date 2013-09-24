@@ -34,21 +34,21 @@ namespace Rivet {
       foreach(const Particle& p, fs.particlesByEta()) { // sorted from minus to plus
         if (first) { // First particle
           first = false;
-          etapre = p.momentum().eta();
+          etapre = p.eta();
         } else {
-          double gap = fabs(p.momentum().eta()-etapre);
+          double gap = fabs(p.eta()-etapre);
           if (gap > LRG) {
             LRG = gap; // largest gap
-            gapcenter = (p.momentum().eta()+etapre)/2.; // find the center of the gap to separate the X and Y systems.
+            gapcenter = (p.eta()+etapre)/2.; // find the center of the gap to separate the X and Y systems.
           }
-          etapre = p.momentum().eta();
+          etapre = p.eta();
         }
       }
 
 
       FourMomentum mxFourVector, myFourVector;
       foreach(const Particle& p, fs.particlesByEta()) {
-        if (p.momentum().eta() > gapcenter) {
+        if (p.eta() > gapcenter) {
           mxFourVector += p.momentum();
         } else {
           myFourVector += p.momentum();

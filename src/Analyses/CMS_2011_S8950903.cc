@@ -32,12 +32,12 @@ namespace Rivet {
       const Jets& jets = applyProjection<JetAlg>(event, "antikT").jetsByPt();
       if (jets.size() < 2) vetoEvent;
 
-      if (fabs(jets[0].momentum().eta()) > 1.1 || jets[0].momentum().pT() < 80.) vetoEvent;
-      if (fabs(jets[1].momentum().eta()) > 1.1 || jets[1].momentum().pT() < 30.) vetoEvent;
+      if (fabs(jets[0].eta()) > 1.1 || jets[0].pT() < 80.) vetoEvent;
+      if (fabs(jets[1].eta()) > 1.1 || jets[1].pT() < 30.) vetoEvent;
 
       double dphi = deltaPhi(jets[0].momentum(), jets[1].momentum().phi());
 
-      _h_deltaPhi.fill(jets[0].momentum().pT(), dphi, weight);
+      _h_deltaPhi.fill(jets[0].pT(), dphi, weight);
     }
 
 

@@ -66,8 +66,8 @@ namespace Rivet {
 
       // Check jet requirements
       if (jets.size() < 3) vetoEvent;
-      if (jets[0].momentum().pT() < 110*GeV) vetoEvent;
-      if (jets[2].momentum().pT() < 10*GeV) vetoEvent;
+      if (jets[0].pT() < 110*GeV) vetoEvent;
+      if (jets[2].pT() < 10*GeV) vetoEvent;
 
       // More jet 1,2,3 checks
       FourMomentum pj1(jets[0].momentum()), pj2(jets[1].momentum()), pj3(jets[2].momentum());

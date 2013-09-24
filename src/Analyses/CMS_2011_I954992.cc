@@ -42,7 +42,7 @@ namespace Rivet {
          const double dimuon_mass = (muonFS[0].momentum() + muonFS[1].momentum()).mass();
          const double v_angle     = muonFS[0].momentum().angle(muonFS[1].momentum());
          const double dPhi        = deltaPhi(muonFS[0], muonFS[1]);
-         const double deltaPt     = fabs(muonFS[0].momentum().pT() - muonFS[1].momentum().pT());
+         const double deltaPt     = fabs(muonFS[0].pT() - muonFS[1].pT());
 
          if (dimuon_mass >= 11.5*GeV &&
              v_angle < 0.95*PI       &&

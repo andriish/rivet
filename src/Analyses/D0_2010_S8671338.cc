@@ -40,7 +40,7 @@ namespace Rivet {
       const double weight = e.weight();
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size()==1) {
-        double ZpT = zfinder.bosons()[0].momentum().pT()/GeV;
+        double ZpT = zfinder.bosons()[0].pT()/GeV;
         _h_Z_pT_normalised->fill(ZpT, weight);
         _h_Z_pT_xs->fill(ZpT, weight);
       }

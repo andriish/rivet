@@ -32,7 +32,7 @@ namespace Rivet {
       foreach (const Jet& jet, jets) {
         double y = fabs(jet.momentum().rapidity());
         if (inRange(y, 0.1, 0.7)) {
-          _h_jet_pt->fill(jet.momentum().pT()/GeV, event.weight());
+          _h_jet_pt->fill(jet.pT()/GeV, event.weight());
         }
       }
     }

@@ -88,7 +88,7 @@ namespace Rivet {
       Jets cand_jets;
       const Jets jets = applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV);
       foreach (const Jet& jet, jets) {
-        if ( fabs( jet.momentum().eta() ) < 2.8 ) {
+        if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -99,7 +99,7 @@ namespace Rivet {
       // Resolve jet-lepton overlap for jets with |eta| < 2.8
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-        if ( fabs( jet.momentum().eta() ) >= 2.8 ) continue;
+        if ( fabs( jet.eta() ) >= 2.8 ) continue;
         bool away_from_e = true;
         foreach ( const Particle & e, cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
@@ -138,10 +138,10 @@ namespace Rivet {
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu, loose_mu) {
         if(mu.momentum().perp()<20.) continue;
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV )
           tight_mu.push_back(mu);
@@ -152,7 +152,7 @@ namespace Rivet {
         double pTinCone = -e.momentum().perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if (pTinCone/e.momentum().perp()<0.1) {
           tight_e.push_back(e);
@@ -171,7 +171,7 @@ namespace Rivet {
       // get the number of b-tagged jets
       unsigned int ntagged=0;
       foreach (const Jet & jet, recon_jets ) {
-        if(jet.momentum().perp()>50. && abs(jet.momentum().eta())<2.5 &&
+        if(jet.momentum().perp()>50. && abs(jet.eta())<2.5 &&
            jet.containsBottom() && rand()/static_cast<double>(RAND_MAX)<=0.60)
           ++ntagged;
       }
@@ -215,7 +215,7 @@ namespace Rivet {
         // jet charge cut
         bool jetCharge = true;
         for(unsigned int ix=0;ix<3;++ix) {
-          if(fabs(recon_jets[ix].momentum().eta())>2.) continue;
+          if(fabs(recon_jets[ix].eta())>2.) continue;
           double trackpT=0;
           foreach(const Particle & p, recon_jets[ix].particles()) {
             if(PID::threeCharge(p.pdgId())==0) continue;

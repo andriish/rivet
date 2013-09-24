@@ -72,7 +72,7 @@ namespace Rivet {
         // Identify dijets
         vector<FourMomentum> leadjets;
         foreach (const Jet& jet, jetAr[alg]) {
-          const double pT = jet.momentum().pT();
+          const double pT = jet.pT();
           const double absy = fabs(jet.momentum().rapidity());
           _pThistos[alg].fill(absy, pT/GeV, weight);
 

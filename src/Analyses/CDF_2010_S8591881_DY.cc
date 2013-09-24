@@ -87,7 +87,7 @@ namespace Rivet {
       if (leptons.size() != 2 || leptons[0].pdgId() != -leptons[1].pdgId() ) vetoEvent;
 
       // Lepton pT > 20 GeV
-      if (leptons[0].momentum().pT()/GeV <= 20 || leptons[1].momentum().pT()/GeV <= 20) vetoEvent;
+      if (leptons[0].pT()/GeV <= 20 || leptons[1].pT()/GeV <= 20) vetoEvent;
 
       // Lepton pair should have an invariant mass between 70 and 110 and |eta| < 6
       const FourMomentum dilepton = leptons[0].momentum() + leptons[1].momentum();

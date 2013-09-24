@@ -95,7 +95,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach ( const Jet& jet,
                 applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 4.5 ) {
+        if ( fabs( jet.eta() ) < 4.5 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -107,7 +107,7 @@ namespace Rivet {
       foreach( const Particle & e,
                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         double pT  = e.momentum().perp();
-        double eta = e.momentum().eta();
+        double eta = e.eta();
         // remove any leptons within 0.4 of any candidate jets
         bool e_near_jet = false;
         foreach ( const Jet& jet, cand_jets ) {
@@ -129,7 +129,7 @@ namespace Rivet {
       foreach( const Particle & mu,
                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         double pT  = mu.momentum().perp();
-        double eta = mu.momentum().eta();
+        double eta = mu.eta();
         // remove any leptons within 0.4 of any candidate jets
         bool mu_near_jet = false;
         foreach ( const Jet& jet, cand_jets ) {
@@ -149,44 +149,44 @@ namespace Rivet {
       // pTcone around muon track (hard)
       Particles recon_hard_mu;
       foreach ( const Particle & mu, cand_hard_mu ) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV ) recon_hard_mu.push_back(mu);
       }
       // pTcone around muon track (soft)
       Particles recon_soft_mu;
       foreach ( const Particle & mu, cand_soft_mu ) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         if(-pTinCone>20.) continue;
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV ) recon_soft_mu.push_back(mu);
       }
       // pTcone around electron track (hard)
       Particles recon_hard_e;
       foreach ( const Particle & e, cand_hard_e ) {
-        double pTinCone = -e.momentum().pT();
+        double pTinCone = -e.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
-        if ( pTinCone < 0.1 * e.momentum().pT() ) recon_hard_e.push_back(e);
+        if ( pTinCone < 0.1 * e.pT() ) recon_hard_e.push_back(e);
       }
       // pTcone around electron track (soft)
       Particles recon_soft_e;
       foreach ( const Particle & e, cand_soft_e ) {
-        double pTinCone = -e.momentum().pT();
+        double pTinCone = -e.pT();
         if(-pTinCone>25.) continue;
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
-        if ( pTinCone < 0.1 * e.momentum().pT() ) recon_soft_e.push_back(e);
+        if ( pTinCone < 0.1 * e.pT() ) recon_soft_e.push_back(e);
       }
 
       // pTmiss
@@ -202,7 +202,7 @@ namespace Rivet {
         // discard jets that overlap with electrons
         Jets recon_jets;
         foreach ( const Jet& jet, cand_jets ) {
-          if(fabs(jet.momentum().eta())>2.5||
+          if(fabs(jet.eta())>2.5||
              jet.momentum().perp()<25.) continue;
           bool away_from_e = true;
           foreach ( const Particle & e, cand_hard_e ) {
@@ -320,7 +320,7 @@ namespace Rivet {
         // discard jets that overlap with electrons
         Jets recon_jets;
         foreach ( const Jet& jet, cand_jets ) {
-          if(fabs(jet.momentum().eta())>2.5||
+          if(fabs(jet.eta())>2.5||
              jet.momentum().perp()<25.) continue;
           bool away_from_e = true;
           foreach ( const Particle & e, cand_soft_e ) {

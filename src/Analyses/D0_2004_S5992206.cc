@@ -78,7 +78,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Jet eta and pT requirements fulfilled");
-      const double pT1 = jets[0].momentum().pT();
+      const double pT1 = jets[0].pT();
 
       const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
       MSG_DEBUG("Missing vector Et = " << caloMissEt.vectorEt()/GeV << " GeV");

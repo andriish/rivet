@@ -42,7 +42,7 @@ namespace Rivet {
       const WFinder& wf = applyProjection<WFinder>(event, "WFinder");
       if (wf.bosons().size() == 0) vetoEvent;
 
-      _h_W_pT->fill(wf.bosons()[0].momentum().pT()/GeV, weight);
+      _h_W_pT->fill(wf.bosons()[0].pT()/GeV, weight);
     }
 
 

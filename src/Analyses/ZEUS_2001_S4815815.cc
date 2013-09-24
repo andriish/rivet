@@ -44,7 +44,7 @@ namespace Rivet {
       const JetAlg& jets = applyProjection<FastJets>(event, "Jets");
       MSG_INFO("Jet multiplicity = " << jets.size());
       foreach (const Jet& j, jets.jets()) {
-        _histJetEt1->fill(j.momentum().pT(), weight);
+        _histJetEt1->fill(j.pT(), weight);
       }
     }
 

@@ -63,7 +63,7 @@ namespace Rivet {
 	    const FourMomentum el = wfinder_dressed_el.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_dressed_el.constituentNeutrinos()[0].momentum();
 	    if (calcMT(el, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _hist_wpt_dressed_el->fill(wfinder_dressed_el.bosons()[0].momentum().pT()/GeV, event.weight());
+          _hist_wpt_dressed_el->fill(wfinder_dressed_el.bosons()[0].pT()/GeV, event.weight());
 	    }
       }
 
@@ -72,7 +72,7 @@ namespace Rivet {
 	    const FourMomentum el = wfinder_bare_el.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_bare_el.constituentNeutrinos()[0].momentum();
 	    if (calcMT(el, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _hist_wpt_bare_el->fill(wfinder_bare_el.bosons()[0].momentum().pT()/GeV, event.weight());
+          _hist_wpt_bare_el->fill(wfinder_bare_el.bosons()[0].pT()/GeV, event.weight());
 	    }
       }
 
@@ -81,7 +81,7 @@ namespace Rivet {
 	    const FourMomentum mu = wfinder_dressed_mu.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_dressed_mu.constituentNeutrinos()[0].momentum();
 	    if (calcMT(mu, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _hist_wpt_dressed_mu->fill(wfinder_dressed_mu.bosons()[0].momentum().pT()/GeV, event.weight());
+          _hist_wpt_dressed_mu->fill(wfinder_dressed_mu.bosons()[0].pT()/GeV, event.weight());
 	    }
       }
 
@@ -90,7 +90,7 @@ namespace Rivet {
 	    const FourMomentum mu = wfinder_bare_mu.constituentLeptons()[0].momentum();
 	    const FourMomentum nu = wfinder_bare_mu.constituentNeutrinos()[0].momentum();
 	    if (calcMT(mu, nu) > 40.0*GeV && nu.pT() > 25.0*GeV) {
-          _hist_wpt_bare_mu->fill(wfinder_bare_mu.bosons()[0].momentum().pT()/GeV, event.weight());
+          _hist_wpt_bare_mu->fill(wfinder_bare_mu.bosons()[0].pT()/GeV, event.weight());
 	    }
       }
 

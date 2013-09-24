@@ -104,7 +104,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach (const Jet& jet,
                applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 4.9 ) {
+        if ( fabs( jet.eta() ) < 4.9 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -116,10 +116,10 @@ namespace Rivet {
       Particles chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV )
           cand_mu.push_back(mu);
@@ -127,7 +127,7 @@ namespace Rivet {
 
       Jets cand_jets_2;
       foreach ( const Jet& jet, cand_jets ) {
-        if ( fabs( jet.momentum().eta() ) >= 2.5 )
+        if ( fabs( jet.eta() ) >= 2.5 )
           cand_jets_2.push_back( jet );
         else {
           bool away_from_e = true;
@@ -181,7 +181,7 @@ namespace Rivet {
       // final jet filter
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets_2 ) {
-        if ( fabs( jet.momentum().eta() ) <= 2.5 )
+        if ( fabs( jet.eta() ) <= 2.5 )
           recon_jets.push_back( jet );
       }
 
@@ -199,7 +199,7 @@ namespace Rivet {
       }
 
 
-      if ( recon_jets.empty() || recon_jets[0].momentum().pT() <= 120.0 * GeV ) {
+      if ( recon_jets.empty() || recon_jets[0].pT() <= 120.0 * GeV ) {
         MSG_DEBUG("No hard leading jet in " << recon_jets.size() << " jets");
         vetoEvent;
       }
@@ -212,7 +212,7 @@ namespace Rivet {
       double min_dPhi = 999.999;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-        if ( jet.momentum().pT() > 40 * GeV ) {
+        if ( jet.pT() > 40 * GeV ) {
           if ( Njets < 3 )
             min_dPhi = min( min_dPhi,
                             deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
@@ -233,10 +233,10 @@ namespace Rivet {
       // m_eff
 
       double m_eff_2j = eTmiss
-        + recon_jets[0].momentum().pT()
-        + recon_jets[1].momentum().pT();
+        + recon_jets[0].pT()
+        + recon_jets[1].pT();
 
-      double m_eff_3j = recon_jets.size() < 3 ? -999.0 : m_eff_2j + recon_jets[2].momentum().pT();
+      double m_eff_3j = recon_jets.size() < 3 ? -999.0 : m_eff_2j + recon_jets[2].pT();
 
       // etmiss / m_eff
 

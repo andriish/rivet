@@ -72,7 +72,7 @@ namespace Rivet {
       Particles isolated_photons;
       foreach (const Particle& photon, photons) {
         // remove photons in crack
-        double eta_P = photon.momentum().eta();
+        double eta_P = photon.eta();
         if (fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
 
         double phi_P = photon.momentum().phi();
@@ -80,7 +80,7 @@ namespace Rivet {
         FourMomentum mom_in_EtCone = -photon.momentum();
         foreach (const Particle& p, fs) {
           // check if it's in the cone of .2
-          if (deltaR(eta_P, phi_P, p.momentum().eta(),
+          if (deltaR(eta_P, phi_P, p.eta(),
                      p.momentum().phi()) >= 0.2) continue;
           mom_in_EtCone += p.momentum();
         }

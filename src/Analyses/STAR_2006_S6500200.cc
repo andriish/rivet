@@ -60,7 +60,7 @@ namespace Rivet {
       foreach (const Particle& p, pionfs.particles()) {
         if (fabs(p.momentum().rapidity()) < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
-          const double pT = p.momentum().pT() / GeV;
+          const double pT = p.pT() / GeV;
           ((p.pdgId() > 0) ? _h_pT_piplus : _h_pT_piminus)->fill(pT, weight/pT);
           ((p.pdgId() > 0) ? _tmp_pT_piplus : _tmp_pT_piminus)->fill(pT, weight/pT);
         }
@@ -70,7 +70,7 @@ namespace Rivet {
       foreach (const Particle& p, protonfs.particles()) {
         if (fabs(p.momentum().rapidity()) < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
-          const double pT = p.momentum().pT() / GeV;
+          const double pT = p.pT() / GeV;
           ((p.pdgId() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, weight/pT);
         }
       }

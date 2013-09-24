@@ -36,8 +36,8 @@ namespace Rivet {
         //selecting only charged hadrons
         if (! PID::isHadron(p.pdgId())) continue;
 
-        const double pT = p.momentum().pT();
-        const double eta = p.momentum().eta();
+        const double pT = p.pT();
+        const double eta = p.eta();
 
         // The data is actually a duplicated folded distribution.  This should mimic it.
         _h_dNch_dEta->fill(eta, 0.5*weight);

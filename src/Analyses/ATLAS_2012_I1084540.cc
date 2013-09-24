@@ -63,8 +63,8 @@ namespace Rivet {
         while (1) {
           checkEta += _etaBinSize;
           ++checkBin;
-          if (p.momentum().eta() < checkEta) {
-            energyMap[checkBin] = (p.momentum().pT() > pTcut * GeV);
+          if (p.eta() < checkEta) {
+            energyMap[checkBin] = (p.pT() > pTcut * GeV);
             break;
           }
         }

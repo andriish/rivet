@@ -57,7 +57,7 @@ namespace Rivet {
 
       vector<FourMomentum> finaljet_list;
       foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20.0*GeV)) {
-        const double jeta = j.momentum().eta();
+        const double jeta = j.eta();
         const double jphi = j.momentum().phi();
         if (fabs(jeta) < 2.5) {
           if (deltaR(e0eta, e0phi, jeta, jphi) > 0.4 &&

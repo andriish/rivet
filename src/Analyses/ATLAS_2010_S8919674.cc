@@ -116,11 +116,11 @@ namespace Rivet {
           _h_el_njet_inclusive->fill(0, weight);
           if (jets.size()>=1) {
             _h_el_njet_inclusive->fill(1, weight);
-            _h_el_pT_jet1->fill(jets[0].momentum().pT(), weight);
+            _h_el_pT_jet1->fill(jets[0].pT(), weight);
           }
           if (jets.size()>=2) {
             _h_el_njet_inclusive->fill(2, weight);
-            _h_el_pT_jet2->fill(jets[1].momentum().pT(), weight);
+            _h_el_pT_jet2->fill(jets[1].pT(), weight);
           }
           if (jets.size()>=3) {
             _h_el_njet_inclusive->fill(3, weight);
@@ -149,11 +149,11 @@ namespace Rivet {
           _h_mu_njet_inclusive->fill(0, weight);
           if (jets.size()>=1) {
             _h_mu_njet_inclusive->fill(1, weight);
-            _h_mu_pT_jet1->fill(jets[0].momentum().pT(), weight);
+            _h_mu_pT_jet1->fill(jets[0].pT(), weight);
           }
           if (jets.size()>=2) {
             _h_mu_njet_inclusive->fill(2, weight);
-            _h_mu_pT_jet2->fill(jets[1].momentum().pT(), weight);
+            _h_mu_pT_jet2->fill(jets[1].pT(), weight);
           }
           if (jets.size()>=3) {
             _h_mu_njet_inclusive->fill(3, weight);

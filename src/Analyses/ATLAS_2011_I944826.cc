@@ -158,7 +158,7 @@ namespace Rivet {
       foreach (const Particle& p, ufs.particles()) {
 
         // General particle quantities
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
         const double y = p.momentum().rapidity();
         const PdgId apid = abs(p.pdgId());
 

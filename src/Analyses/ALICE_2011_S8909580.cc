@@ -35,7 +35,7 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         const double absrap = fabs(p.momentum().rapidity());
-        const double pT = p.momentum().pT()/GeV;
+        const double pT = p.pT()/GeV;
 
         if (absrap < 0.8) {
           switch(p.pdgId()) {

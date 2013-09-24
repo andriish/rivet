@@ -71,7 +71,7 @@ namespace Rivet {
       //select dijet
       foreach (const Jet& jet, jetAr) {
 
-        const double pT   = jet.momentum().pT();
+        const double pT   = jet.pT();
         const double absy = fabs(jet.momentum().rapidity());
 
         bool isBjet = false;

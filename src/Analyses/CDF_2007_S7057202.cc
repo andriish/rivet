@@ -38,17 +38,17 @@ namespace Rivet {
 
       foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD07").jets(54.0*GeV)) {
         double y = fabs(jet.momentum().rapidity());
-        _binnedHistosD07.fill(y, jet.momentum().pT(), weight);
+        _binnedHistosD07.fill(y, jet.pT(), weight);
       }
 
       foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD05").jets(54.0*GeV)) {
         double y = fabs(jet.momentum().rapidity());
-        if (y >= 0.1 && y < 0.7) _histoD05->fill(jet.momentum().pT(), weight);
+        if (y >= 0.1 && y < 0.7) _histoD05->fill(jet.pT(), weight);
       }
 
       foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD10").jets(54.0*GeV)) {
         double y = fabs(jet.momentum().rapidity());
-        if (y >= 0.1 && y < 0.7) _histoD10->fill(jet.momentum().pT(), weight);
+        if (y >= 0.1 && y < 0.7) _histoD10->fill(jet.pT(), weight);
       }
     }
 

@@ -63,7 +63,7 @@ namespace Rivet {
       }
 
       const double jetphi = jets[0].momentum().phi();
-      const double jetpT  = jets[0].momentum().pT();
+      const double jetpT  = jets[0].pT();
       MSG_DEBUG("Leading jet: pT = " << jetpT/GeV << " GeV"
                 << ", eta = " << jets[0].momentum().pseudorapidity()
                 << ", phi = " << jetphi);
@@ -81,7 +81,7 @@ namespace Rivet {
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
         const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
         const double phi = p.momentum().azimuthalAngle();
         const double rotatedphi = phi - jetphi;
 

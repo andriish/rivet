@@ -79,7 +79,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach ( const Jet& jet,
                 applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 4.5 ) {
+        if ( fabs( jet.eta() ) < 4.5 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -119,22 +119,22 @@ namespace Rivet {
       // pTcone around muon track
       Particles recon_mu;
       foreach ( const Particle & mu, cand_mu ) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV ) recon_mu.push_back(mu);
       }
       // pTcone around electron track
       Particles recon_e;
       foreach ( const Particle & e, cand_e ) {
-        double pTinCone = -e.momentum().pT();
+        double pTinCone = -e.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
-        if ( pTinCone < 0.1 * e.momentum().pT() ) recon_e.push_back(e);
+        if ( pTinCone < 0.1 * e.pT() ) recon_e.push_back(e);
       }
 
       // pTmiss
@@ -147,7 +147,7 @@ namespace Rivet {
       // discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-        if(fabs(jet.momentum().eta())>2.5||
+        if(fabs(jet.eta())>2.5||
            jet.momentum().perp()<20.) continue;
 	bool away_from_e = true;
 	foreach ( const Particle & e, cand_e ) {

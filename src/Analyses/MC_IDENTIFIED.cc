@@ -62,7 +62,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         _histDecayedPIDs->fill(p.pdgId(), weight);
-        const double eta_abs = fabs(p.momentum().eta());
+        const double eta_abs = fabs(p.eta());
         const PdgId pid = abs(p.pdgId()); //if (PID::isMeson(pid) && PID::hasStrange()) {
         if (pid == 211 || pid == 111) _histEtaPi->fill(eta_abs, weight);
         else if (pid == 321 || pid == 130 || pid == 310) _histEtaK->fill(eta_abs, weight);

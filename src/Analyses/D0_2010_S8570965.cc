@@ -48,7 +48,7 @@ namespace Rivet {
 
       Particles photons = applyProjection<IdentifiedFinalState>(event, "IFS").particlesByPt();
       if (photons.size() < 2 ||
-          (photons[0].momentum().pT() < 21.0*GeV)) {
+          (photons[0].pT() < 21.0*GeV)) {
         vetoEvent;
       }
 
@@ -56,12 +56,12 @@ namespace Rivet {
       Particles isolated_photons;
       Particles fs = applyProjection<FinalState>(event, "FS").particles();
       foreach (const Particle& photon, photons) {
-        double eta_P = photon.momentum().eta();
+        double eta_P = photon.eta();
         double phi_P = photon.momentum().phi();
         double Etsum=0.0;
         foreach (const Particle& p, fs) {
           if (p.genParticle()->barcode() != photon.genParticle()->barcode() &&
-              deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) < 0.4) {
+              deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) < 0.4) {
             Etsum += p.momentum().Et();
           }
         }

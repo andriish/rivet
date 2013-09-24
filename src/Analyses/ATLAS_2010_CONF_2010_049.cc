@@ -52,12 +52,12 @@ namespace Rivet {
 
         // First we want to make sure that we only use jets within |eta|<0.57
         foreach (const Jet& jet, alljets[i]) {
-          if (fabs(jet.momentum().eta())<0.57) {
+          if (fabs(jet.eta())<0.57) {
             jets.push_back(jet);
           }
         }
         foreach (const Jet& jet, jets) {
-          const double pTjet = jet.momentum().pT();
+          const double pTjet = jet.pT();
           const double pjet = jet.momentum().p().mod();
           _h_xsec[i]->fill(pTjet, weight);
           if (pTjet > 24*GeV) continue;

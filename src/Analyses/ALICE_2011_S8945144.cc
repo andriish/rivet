@@ -36,20 +36,20 @@ namespace Rivet {
         if(fabs(p.momentum().rapidity())<0.5) {
           switch (p.pdgId()) {
             case 211:
-              _histPtPions->fill(p.momentum().pT()/GeV, weight);
-              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              _histPtPions->fill(p.pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
               break;
             case -211:
-              _histPtAntiPions->fill(p.momentum().pT()/GeV, weight);
-              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              _histPtAntiPions->fill(p.pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
               break;
             case 2212:
               if ( !(p.hasAncestor(3322) ||                             // Xi0
                      p.hasAncestor(3122) || p.hasAncestor(-3122) ||     // Lambda
                      p.hasAncestor(3222) || p.hasAncestor(-3222) ||     // Sigma+/-
                      p.hasAncestor(3312) || p.hasAncestor(-3312) ) ) {  // Xi-/+
-                _histPtProtons->fill(p.momentum().pT()/GeV, weight);
-                _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+                _histPtProtons->fill(p.pT()/GeV, weight);
+                _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
               }
               break;
             case -2212:
@@ -57,17 +57,17 @@ namespace Rivet {
                      p.hasAncestor(3122) || p.hasAncestor(-3122) ||     // Lambda
                      p.hasAncestor(3222) || p.hasAncestor(-3222) ||     // Sigma+/-
                      p.hasAncestor(3312) || p.hasAncestor(-3312) ) ) {  // Xi-/+
-                _histPtAntiProtons->fill(p.momentum().pT()/GeV, weight);
-                _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+                _histPtAntiProtons->fill(p.pT()/GeV, weight);
+                _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
               }
               break;
             case 321:
-              _histPtKaons->fill(p.momentum().pT()/GeV, weight);
-              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              _histPtKaons->fill(p.pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
               break;
             case -321:
-              _histPtAntiKaons->fill(p.momentum().pT()/GeV, weight);
-              _histAveragePt->fill(p.mass()/GeV, p.momentum().pT()/GeV, weight);
+              _histPtAntiKaons->fill(p.pT()/GeV, weight);
+              _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
               break;
           }
         }

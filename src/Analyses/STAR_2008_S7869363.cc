@@ -14,7 +14,7 @@ namespace Rivet {
     // Return true to throw away a particle
     bool operator()(const Particle& p) {
       /// @todo Use a better RNG?
-      size_t idx = int(floor(p.momentum().pT()/MeV/50));
+      size_t idx = int(floor(p.pT()/MeV/50));
       if (idx > 11) idx = 11;
       return (rand()/static_cast<double>(RAND_MAX) > _trkeff[idx]);
     }
@@ -91,7 +91,7 @@ namespace Rivet {
       const double weight = vtxeff * event.weight();
 
       foreach (const Particle& p, charged.particles()) {
-        double pT = p.momentum().pT()/GeV;
+        double pT = p.pT()/GeV;
         double y = p.momentum().rapidity();
         if (fabs(y) < 0.1) {
           nCutsPassed += weight;

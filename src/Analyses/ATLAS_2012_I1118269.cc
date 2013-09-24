@@ -43,8 +43,8 @@ namespace Rivet {
       }
 
       foreach (const Particle& particle, bhadrons) {
-        double eta = particle.momentum().eta();
-        double pt = particle.momentum().pT();
+        double eta = particle.eta();
+        double pt = particle.pT();
 
         if (!(inRange(eta, -2.5, 2.5))) continue;
         if (pt < 9.*GeV) continue;

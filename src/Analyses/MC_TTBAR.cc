@@ -84,7 +84,7 @@ namespace Rivet {
       const ChargedLeptons& lfs = applyProjection<ChargedLeptons>(event, "LFS");
       MSG_DEBUG("Charged lepton multiplicity = " << lfs.chargedLeptons().size());
       foreach (const Particle& lepton, lfs.chargedLeptons()) {
-        MSG_DEBUG("Lepton pT = " << lepton.momentum().pT());
+        MSG_DEBUG("Lepton pT = " << lepton.pT());
       }
       if (lfs.chargedLeptons().empty()) {
         MSG_DEBUG("Event failed lepton multiplicity cut");
@@ -112,22 +112,22 @@ namespace Rivet {
       }
 
       // Update passed-cuts counter and fill all-jets histograms
-      _h_jet_1_pT->fill(alljets[0].momentum().pT()/GeV, weight);
-      _h_jet_2_pT->fill(alljets[1].momentum().pT()/GeV, weight);
-      _h_jet_3_pT->fill(alljets[2].momentum().pT()/GeV, weight);
-      _h_jet_4_pT->fill(alljets[3].momentum().pT()/GeV, weight);
+      _h_jet_1_pT->fill(alljets[0].pT()/GeV, weight);
+      _h_jet_2_pT->fill(alljets[1].pT()/GeV, weight);
+      _h_jet_3_pT->fill(alljets[2].pT()/GeV, weight);
+      _h_jet_4_pT->fill(alljets[3].pT()/GeV, weight);
 
       // Insist that the hardest 4 jets pass pT hardness cuts. If we don't find
       // at least 4 such jets, we abandon this event.
       const Jets jets = jetpro.jetsByPt(30*GeV);
       _h_njets->fill(jets.size(), weight);
       double ht = 0.0;
-      foreach (const Jet& j, jets) { ht += j.momentum().pT(); }
+      foreach (const Jet& j, jets) { ht += j.pT(); }
       _h_jet_HT->fill(ht/GeV, weight);
       if (jets.size() < 4 ||
-          jets[0].momentum().pT() < 60*GeV ||
-          jets[1].momentum().pT() < 50*GeV ||
-          jets[3].momentum().pT() < 30*GeV) {
+          jets[0].pT() < 60*GeV ||
+          jets[1].pT() < 50*GeV ||
+          jets[3].pT() < 30*GeV) {
         MSG_DEBUG("Event failed jet cuts");
         vetoEvent;
       }
@@ -168,10 +168,10 @@ namespace Rivet {
       }
 
       // Plot the pTs of the identified jets.
-      _h_bjet_1_pT->fill(bjets[0].momentum().pT(), weight);
-      _h_bjet_2_pT->fill(bjets[1].momentum().pT(), weight);
-      _h_ljet_1_pT->fill(ljets[0].momentum().pT(), weight);
-      _h_ljet_2_pT->fill(ljets[1].momentum().pT(), weight);
+      _h_bjet_1_pT->fill(bjets[0].pT(), weight);
+      _h_bjet_2_pT->fill(bjets[1].pT(), weight);
+      _h_ljet_1_pT->fill(ljets[0].pT(), weight);
+      _h_ljet_2_pT->fill(ljets[1].pT(), weight);
 
       // Construct the hadronically decaying W momentum 4-vector from pairs of
       // non-b-tagged jets. The pair which best matches the W mass is used. We start
@@ -207,24 +207,24 @@ namespace Rivet {
         _h_t_mass_W_cut->fill(t2.mass(), weight);
 
         _h_jetb_1_jetb_2_dR->fill(deltaR(bjets[0].momentum(), bjets[1].momentum()),weight);
-        _h_jetb_1_jetb_2_deta->fill(fabs(bjets[0].momentum().eta()-bjets[1].momentum().eta()),weight);
+        _h_jetb_1_jetb_2_deta->fill(fabs(bjets[0].eta()-bjets[1].eta()),weight);
         _h_jetb_1_jetb_2_dphi->fill(deltaPhi(bjets[0].momentum(),bjets[1].momentum()),weight);
 
         _h_jetb_1_jetl_1_dR->fill(deltaR(bjets[0].momentum(), ljets[0].momentum()),weight);
-        _h_jetb_1_jetl_1_deta->fill(fabs(bjets[0].momentum().eta()-ljets[0].momentum().eta()),weight);
+        _h_jetb_1_jetl_1_deta->fill(fabs(bjets[0].eta()-ljets[0].eta()),weight);
         _h_jetb_1_jetl_1_dphi->fill(deltaPhi(bjets[0].momentum(),ljets[0].momentum()),weight);
 
         _h_jetl_1_jetl_2_dR->fill(deltaR(ljets[0].momentum(), ljets[1].momentum()),weight);
-        _h_jetl_1_jetl_2_deta->fill(fabs(ljets[0].momentum().eta()-ljets[1].momentum().eta()),weight);
+        _h_jetl_1_jetl_2_deta->fill(fabs(ljets[0].eta()-ljets[1].eta()),weight);
         _h_jetl_1_jetl_2_dphi->fill(deltaPhi(ljets[0].momentum(),ljets[1].momentum()),weight);
 
         _h_jetb_1_W_dR->fill(deltaR(bjets[0].momentum(), W),weight);
-        _h_jetb_1_W_deta->fill(fabs(bjets[0].momentum().eta()-W.eta()),weight);
+        _h_jetb_1_W_deta->fill(fabs(bjets[0].eta()-W.eta()),weight);
         _h_jetb_1_W_dphi->fill(deltaPhi(bjets[0].momentum(),W),weight);
 
         FourMomentum l=lfs.chargedLeptons()[0].momentum();
         _h_jetb_1_l_dR->fill(deltaR(bjets[0].momentum(), l),weight);
-        _h_jetb_1_l_deta->fill(fabs(bjets[0].momentum().eta()-l.eta()),weight);
+        _h_jetb_1_l_deta->fill(fabs(bjets[0].eta()-l.eta()),weight);
         _h_jetb_1_l_dphi->fill(deltaPhi(bjets[0].momentum(),l),weight);
         _h_jetb_1_l_mass->fill(FourMomentum(bjets[0].momentum()+l).mass(), weight);
       }
