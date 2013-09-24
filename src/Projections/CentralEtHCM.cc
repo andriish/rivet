@@ -9,7 +9,7 @@ namespace Rivet {
     _sumet = 0.0;
     foreach (const Particle& p, fs.particles()) {
       /// @todo Generalise rapidity cut value
-      if (fabs(p.momentum().rapidity()) < 0.5) _sumet += p.momentum().Et();
+      if (fabs(p.rapidity()) < 0.5) _sumet += p.Et();
     }
   }
 

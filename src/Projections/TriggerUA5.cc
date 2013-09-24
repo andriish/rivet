@@ -10,7 +10,7 @@ namespace Rivet {
 
   TriggerUA5::TriggerUA5() {
     setName("TriggerUA5");
-    
+
     addProjection(Beam(), "Beam");
     addProjection(ChargedFinalState(-5.6, 5.6), "CFS");
   }
@@ -32,9 +32,8 @@ namespace Rivet {
     // Count hodoscope hits
     const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(evt, "CFS");
     foreach (const Particle& p, cfs.particles()) {
-      const double eta = p.momentum().pseudorapidity();
-      if (inRange(eta, -5.6, -2.0)) _n_minus++;
-      else if (inRange(eta, 2.0, 5.6)) _n_plus++;
+      if (inRange(p.eta(), -5.6, -2.0)) _n_minus++;
+      else if (inRange(p.eta(), 2.0, 5.6)) _n_plus++;
     }
     MSG_DEBUG("Trigger -: " << _n_minus << ", Trigger +: " << _n_plus);
 
