@@ -17,14 +17,16 @@ Beams: [e+, e-]
 Energies: [35, 44, 91.2, 133, 161, 172, 183, 189]
 PtCuts: [0]
 Description:
-  Differential and integrated jet rates for Durham and JADE jet
-  algorithms. Note that the integration cut value used for the
+  'Differential and integrated jet rates for Durham and JADE jet
+  algorithms.
+
+  Note that the integration cut value used for the
   integrated rate observables is not well-defined in the paper: is
   it the low edge, high edge or midpoint of the differential bin?
   We have implemented the low edge here, but the results are quite
   sensitive to this choice. We recommend (as we would anyway, due
   to correlation issues) that the differential plots be preferred
-  for MC generator validation and tuning.
+  for MC generator validation and tuning.'
 BibKey: Pfeifenschneider:1999rz
 BibTeX: '@Article{Pfeifenschneider:1999rz,
      author    = "Pfeifenschneider, P. and others",

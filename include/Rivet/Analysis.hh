@@ -11,7 +11,7 @@
 #include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
+#include "Rivet/Tools/ParticleUtils.hh"
 
 
 /// @def vetoEvent

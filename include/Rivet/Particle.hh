@@ -8,6 +8,7 @@
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Math/Vectors.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
@@ -46,51 +47,45 @@ namespace Rivet {
 
   public:
 
+    /// @name Basic particle specific properties
+    //@{
+
     /// Get a const reference to the original GenParticle.
     const GenParticle* genParticle() const {
       return _original;
     }
 
-
-    /// The PDG ID code for this Particle.
-    PdgId pdgId() const {
-      return _id;
+    /// The momentum.
+    const FourMomentum& momentum() const {
+      return _momentum;
     }
-
-
-    /// Set the momentum of this Particle.
+    /// Set the momentum.
     Particle& setMomentum(const FourMomentum& momentum) {
       _momentum = momentum;
       return *this;
     }
 
-    /// The momentum of this Particle.
-    const FourMomentum& momentum() const {
-      return _momentum;
+    /// This Particle's PDG ID code.
+    PdgId pdgId() const {
+      return _id;
     }
 
-    /// The energy of this Particle.
-    double energy() const {
-      return momentum().E();
+    /// The charge of this Particle.
+    double charge() const {
+      return PID::charge(pdgId());
+    }
+    /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
+    int threeCharge() const {
+      return PID::threeCharge(pdgId());
     }
 
-    /// The mass of this Particle.
-    double mass() const {
-      return momentum().mass();
-    }
+    /// @todo Add isHadron, etc. PID-based properties as methods?
+
+    //@}
 
 
-    /// @todo Enable?
-    // /// The charge of this Particle.
-    // double charge() const {
-    //   return PID::charge(*this);
-    // }
-
-    /// @todo Enable?
-    // /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
-    // int threeCharge() const {
-    //   return PID::threeCharge(*this);
-    // }
+    /// @name Ancestry properties
+    //@{
 
     /// Check whether a given PID is found in the GenParticle's ancestor list
     ///
@@ -110,6 +105,8 @@ namespace Rivet {
     bool fromDecay() const;
 
     /// @todo Add methods like fromS/C/BHadron(), fromTau()?
+
+    //@}
 
 
   private:

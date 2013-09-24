@@ -23,12 +23,6 @@ namespace Rivet {
       setState(particles, pjet);
     }
 
-    // /// Set all the jet data, without particle ID information.
-    // Jet(const vector<FourMomentum>& momenta, const FourMomentum& pjet)
-    //   : ParticleBase() {
-    //   setState(momenta, pjet);
-    // }
-
     //@}
 
 
@@ -37,42 +31,6 @@ namespace Rivet {
 
     /// Number of particles in this jet.
     size_t size() const { return _particles.size(); }
-
-    // /// Define a Jet::iterator via a typedef.
-    // typedef vector<FourMomentum>::iterator iterator;
-
-    // /// Define a Jet::const_iterator via a typedef.
-    // typedef vector<FourMomentum>::const_iterator const_iterator;
-
-    // /// Get a begin iterator over the particle/track four-momenta in this jet.
-    // iterator begin() {
-    //   return _momenta.begin();
-    // }
-
-    // /// Get an end iterator over the particle/track four-momenta in this jet.
-    // iterator end() {
-    //   return _momenta.end();
-    // }
-
-    // /// Get a const begin iterator over the particle/track four-momenta in this jet.
-    // const_iterator begin() const {
-    //   return _momenta.begin();
-    // }
-
-    // /// Get a const end iterator over the particle/track four-momenta in this jet.
-    // const_iterator end() const {
-    //   return _momenta.end();
-    // }
-
-    // /// Get the track momenta in this jet.
-    // vector<FourMomentum>& momenta() {
-    //   return _momenta;
-    // }
-
-    // /// Get the track momenta in this jet (const version).
-    // const vector<FourMomentum>& momenta() const {
-    //   return _momenta;
-    // }
 
     /// Get the particles in this jet.
     vector<Particle>& particles() { return _particles; }
@@ -98,17 +56,11 @@ namespace Rivet {
     //@}
 
 
-    /// @name Access the effective jet 4-vector properties
+    /// @name Access additional effective jet 4-vector properties
     //@{
 
     /// Get equivalent single momentum four-vector.
     const FourMomentum& momentum() const { return _momentum; }
-
-    /// Get the unweighted average \f$ \eta \f$ for this jet. (caches)
-    double eta() const { return momentum().eta(); }
-
-    /// Get the unweighted average \f$ \phi \f$ for this jet. (caches)
-    double phi() const { return momentum().phi(); }
 
     /// Get the total energy of this jet.
     double totalEnergy() const { return momentum().E(); }
@@ -119,12 +71,6 @@ namespace Rivet {
     /// Get the energy carried in this jet by hadrons.
     double hadronicEnergy() const;
 
-    /// Get the sum of the \f$ p_T \f$ values of the constituent tracks. (caches)
-    double ptSum() const { return momentum().pT(); }
-
-    /// Get the sum of the \f$ E_T \f$ values of the constituent tracks. (caches)
-    double EtSum() const { return momentum().Et(); }
-
     //@}
 
 
@@ -134,23 +80,11 @@ namespace Rivet {
     /// Set all the jet data, with full particle information.
     Jet& setState(const vector<Particle>& particles, const FourMomentum& pjet);
 
-    // /// Set all the jet data, without particle ID information.
-    // Jet& setState(const vector<FourMomentum>& momenta, const FourMomentum& pjet);
-
     /// Set the effective 4-momentum of the jet.
     Jet& setMomentum(const FourMomentum& momentum);
 
     /// Set the particles collection with full particle information.
     Jet& setParticles(const vector<Particle>& particles);
-
-    // /// Set the particles collection with momentum information only.
-    // Jet& setParticles(const vector<FourMomentum>& momenta);
-
-    // /// Add a particle/track to this jet.
-    // Jet& addParticle(const FourMomentum& particle);
-
-    // /// Add a particle/track to this jet.
-    // Jet& addParticle(const Particle& particle);
 
     /// Reset this jet as empty.
     Jet& clear();
@@ -162,10 +96,6 @@ namespace Rivet {
 
     /// Full particle information including tracks, ID etc
     Particles _particles;
-
-    // /// The particle momenta.
-    // /// @todo Eliminate this to ensure consistency.
-    // std::vector<FourMomentum> _momenta;
 
     /// Effective jet 4-vector
     FourMomentum _momentum;
@@ -183,12 +113,12 @@ namespace Rivet {
   /// @brief Compare jets by \f$ p_\perp \f$ (descending - usual sorting for HEP)
   /// Use this so that highest \f$ p_\perp \f$ is at the front of the list
   inline bool cmpJetsByPt(const Jet& a, const Jet& b) {
-    return a.ptSum() > b.ptSum();
+    return a.pT() > b.pT();
   }
   /// @brief Compare jets by \f$ p_\perp \f$ (ascending)
   /// Use this so that lowest \f$ p_\perp \f$ is at the front of the list
   inline bool cmpJetsByAscPt(const Jet& a, const Jet& b) {
-    return a.ptSum() < b.ptSum();
+    return a.pT() < b.pT();
   }
 
   /// @brief Compare jets by descending momentum, \f$ p \f$
@@ -203,67 +133,67 @@ namespace Rivet {
   // @brief Compare jets by \f$ E_\perp \f$ (descending - usual sorting for HEP)
   /// Use this so that highest \f$ E_\perp \f$ is at the front of the list
   inline bool cmpJetsByEt(const Jet& a, const Jet& b) {
-    return a.EtSum() > b.EtSum();
+    return a.Et() > b.Et();
   }
   // @brief Compare jets by \f$ E_\perp \f$ (ascending)
   /// Use this so that lowest \f$ E_\perp \f$ is at the front of the list
   inline bool cmpJetsByEtDesc(const Jet& a, const Jet& b) {
-    return a.EtSum() < b.EtSum();
+    return a.Et() < b.Et();
   }
 
   /// @brief Compare jets by \f$ E \f$ (descending - usual sorting for HEP)
   /// Use this so that highest \f$ E \f$ is at the front of the list
   inline bool cmpJetsByE(const Jet& a, const Jet& b) {
-    return a.momentum().E() > b.momentum().E();
+    return a.E() > b.E();
   }
   /// @brief Compare jets by \f$ E \f$ (ascending)
   /// Use this so that lowest \f$ E \f$ is at the front of the list
   inline bool cmpJetsByAscE(const Jet& a, const Jet& b) {
-    return a.momentum().E() < b.momentum().E();
+    return a.E() < b.E();
   }
 
   /// @brief Compare jets by \f$ \eta \f$ (descending)
   /// Use this so that highest \f$ \eta \f$ is at the front of the list
   inline bool cmpJetsByDescPseudorapidity(const Jet& a, const Jet& b) {
-    return a.momentum().pseudorapidity() > b.momentum().pseudorapidity();
+    return a.eta() > b.eta();
   }
   /// @brief Compare jets by \f$ \eta \f$ (ascending)
   /// Use this so that lowest \f$ \eta \f$ is at the front of the list
   inline bool cmpJetsByAscPseudorapidity(const Jet& a, const Jet& b) {
-    return a.momentum().pseudorapidity() < b.momentum().pseudorapidity();
+    return a.eta() < b.eta();
   }
 
   /// @brief Compare jets by \f$ |\eta| \f$ (descending)
   /// Use this so that highest \f$ |\eta| \f$ is at the front of the list
   inline bool cmpJetsByDescAbsPseudorapidity(const Jet& a, const Jet& b) {
-    return fabs(a.momentum().pseudorapidity()) > fabs(b.momentum().pseudorapidity());
+    return fabs(a.eta()) > fabs(b.eta());
   }
   /// @brief Compare jets by \f$ |\eta| \f$ (ascending)
   /// Use this so that lowest \f$ |\eta| \f$ is at the front of the list
   inline bool cmpJetsByAscAbsPseudorapidity(const Jet& a, const Jet& b) {
-    return fabs(a.momentum().pseudorapidity()) < fabs(b.momentum().pseudorapidity());
+    return fabs(a.eta()) < fabs(b.eta());
   }
 
   /// @brief Compare jets by \f$ y \f$ (descending)
   /// Use this so that highest \f$ y \f$ is at the front of the list
   inline bool cmpJetsByDescRapidity(const Jet& a, const Jet& b) {
-    return a.momentum().rapidity() > b.momentum().rapidity();
+    return a.rapidity() > b.rapidity();
   }
   /// @brief Compare jets by \f$ y \f$ (ascending)
   /// Use this so that lowest \f$ y \f$ is at the front of the list
   inline bool cmpJetsByAscRapidity(const Jet& a, const Jet& b) {
-    return a.momentum().rapidity() < b.momentum().rapidity();
+    return a.rapidity() < b.rapidity();
   }
 
   /// @brief Compare jets by \f$ |y| \f$ (descending)
   /// Use this so that highest \f$ |y| \f$ is at the front of the list
   inline bool cmpJetsByDescAbsRapidity(const Jet& a, const Jet& b) {
-    return fabs(a.momentum().rapidity()) > fabs(b.momentum().rapidity());
+    return fabs(a.rapidity()) > fabs(b.rapidity());
   }
   /// @brief Compare jets by \f$ |y| \f$ (ascending)
   /// Use this so that lowest \f$ |y| \f$ is at the front of the list
   inline bool cmpJetsByAscAbsRapidity(const Jet& a, const Jet& b) {
-    return fabs(a.momentum().rapidity()) < fabs(b.momentum().rapidity());
+    return fabs(a.rapidity()) < fabs(b.rapidity());
   }
 
   //@}

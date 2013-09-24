@@ -7,8 +7,8 @@
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/ParticleName.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 #include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/ParticleUtils.hh"
 
 namespace Rivet {
 

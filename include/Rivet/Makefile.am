@@ -90,10 +90,11 @@ nobase_pkginclude_HEADERS += \
   Tools/RivetBoost.hh \
   Tools/RivetHepMC.hh \
   Tools/RivetYODA.hh \
+  Tools/RivetMT2.hh \
   Tools/BinnedHistogram.hh \
+  Tools/ParticleUtils.hh \
   Tools/ParticleIdUtils.hh \
-  Tools/TypeTraits.hh \
-  Tools/RivetMT2.hh
+  Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
 

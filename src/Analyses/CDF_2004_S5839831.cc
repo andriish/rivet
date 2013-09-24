@@ -164,7 +164,7 @@ namespace Rivet {
           const Jet leadingjet = jets.front();
           const double etaLead = leadingjet.momentum().eta();
           // Get Et of the leading jet: used to bin histograms
-          const double ETlead = leadingjet.EtSum();
+          const double ETlead = leadingjet.Et();
           MSG_DEBUG("Leading Et = " << ETlead/GeV << " GeV");
           if (fabs(etaLead) > 0.5 && ETlead < 15*GeV) {
             MSG_DEBUG("Leading jet eta = " << etaLead
