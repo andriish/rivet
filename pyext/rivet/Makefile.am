@@ -1,7 +1,8 @@
 EXTRA_DIST = \
 	__init__.py util.py \
     plotinfo.py spiresbib.py \
-    core.pyx rivet.pxd
+    core.pyx rivet.pxd \
+    core.cpp
 
 
 if WITH_CYTHON
