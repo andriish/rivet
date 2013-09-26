@@ -1,3 +1,8 @@
+2013-09-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Now bundling Cython-generated files in the tarballs, so Cython
+	is not a build requirement for non-developers.
+
 2013-09-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing unnecessary uses of a momentum() indirection when

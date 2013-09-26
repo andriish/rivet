@@ -1,5 +1,6 @@
-SUBDIRS = rivet
+SUBDIRS = rivet .
 EXTRA_DIST =
+
 
 if ENABLE_PYEXT
 PYEXT_ENV = CC="$(CC)" CXX="$(CXX)" ARCHFLAGS=""

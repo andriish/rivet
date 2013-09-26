@@ -5,41 +5,38 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 from glob import glob
 
-PKGNAME = 'rivet'
-
 ## Extension definition
 import os.path
-incdir = os.path.abspath('@top_srcdir@/include')
-srcdir = os.path.abspath('@top_srcdir@/src')
+incdir = os.path.abspath("@top_srcdir@/include")
+srcdir = os.path.abspath("@top_srcdir@/src")
 libdir = os.path.abspath("@top_builddir@/src/.libs")
 
 lookupdirs = [
-    libdir, 
-    '@YAML_CPPLIBPATH@', 
-    '@HEPMCLIBPATH@', 
-    '@YODALIBPATH@',
-    '@GSL_LDFLAGS@'.split()[0].replace('-L','')
+    libdir,
+    "@YAML_CPPLIBPATH@",
+    "@HEPMCLIBPATH@",
+    "@YODALIBPATH@",
+    "@GSL_LDFLAGS@".split()[0].replace("-L","")
 ]
 
 ## A helper function (since we have two modules now...)
 def ext(name, depends=[], statics=[]):
     return Extension(
-        '%s.%s' % (PKGNAME, name),
-        ['%s/%s.pyx' % (PKGNAME, name)] + statics,
-        language='c++',
+        "%s.%s" % ("rivet", name),
+        ["%s/%s.core" % ("rivet", name)] + statics,
+        language="C++",
         depends=depends,
-        include_dirs=[incdir, PKGNAME],
+        include_dirs=[incdir, "rivet"],
         extra_compile_args= "-I@prefix@/include @BOOST_CPPFLAGS@ @PYEXT_CXXFLAGS@ @HEPMCCPPFLAGS@ @YODACPPFLAGS@ @GSLCPPFLAGS@".split(),
         library_dirs=lookupdirs,
         runtime_library_dirs=lookupdirs[1:],
-        libraries=['stdc++', 'gsl', 'HepMC', 'YODA', 'Rivet'])
+        libraries=["stdc++", "gsl", "HepMC", "YODA", "Rivet"])
 
-header_files = glob('../include/Rivet/*.h') + glob('../include/Rivet/Utils/*.h')
+header_files = glob("../include/Rivet/*.h") + glob("../include/Rivet/Utils/*.h")
 
-extns = [ext('core', header_files)]
-#         ext('rootcompat')]
+extns = [ext("core", header_files)]
 
-setup(name = PKGNAME,
+setup(name = "rivet",
       ext_modules = extns,
       cmdclass = dict(build_ext=build_ext),
-      packages = [PKGNAME])
+      packages = ["rivet"])
