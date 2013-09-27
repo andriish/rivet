@@ -98,7 +98,7 @@ for yodafile in yodafiles:
             sys.exit(2)
     analysisobjects = yoda.readYODA(yodafilepath)
     for ao in analysisobjects:
-        path = ao.annotations()['Path']
+        path = ao.path
         if path.startswith('/REF/'):
             path = path[5:]
         analyses.add(path.strip('/').split('/')[0])

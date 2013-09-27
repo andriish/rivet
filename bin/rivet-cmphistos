@@ -119,7 +119,7 @@ def getHistos(filelist):
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.readYODA(infile)
         for ao in analysisobjects:
-            path = ao.annotations()['Path']
+            path = ao.path
             if path.startswith('/REF/'):
                 if not refhistos.has_key(path):
                     refhistos[path] = ao
@@ -142,7 +142,7 @@ def getRefdata(refhistos):
         for infile in filelist:
             analysisobjects = yoda.readYODA(infile)
             for ao in analysisobjects:
-                path = ao.annotations()['Path']
+                path = ao.path
                 if path.startswith('/REF/'):
                     if not refhistos.has_key(path):
                         refhistos[path] = ao
