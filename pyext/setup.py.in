@@ -2,7 +2,6 @@
 
 from distutils.core import setup
 from distutils.extension import Extension
-from Cython.Distutils import build_ext
 from glob import glob
 
 ## Extension definition
@@ -22,8 +21,8 @@ lookupdirs = [
 ## A helper function (since we have two modules now...)
 def ext(name, depends=[], statics=[]):
     return Extension(
-        "%s.%s" % ("rivet", name),
-        ["%s/%s.core" % ("rivet", name)] + statics,
+        "rivet.%s" % name,
+        ["rivet/%s.cpp" % name] + statics,
         language="C++",
         depends=depends,
         include_dirs=[incdir, "rivet"],
@@ -38,5 +37,4 @@ extns = [ext("core", header_files)]
 
 setup(name = "rivet",
       ext_modules = extns,
-      cmdclass = dict(build_ext=build_ext),
       packages = ["rivet"])

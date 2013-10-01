@@ -18,4 +18,4 @@ all-local: core.cpp
 	@true
 
 clean-local:
-	@rm -f core.cpp
+	rm -f core.cpp
