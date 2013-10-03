@@ -1,21 +1,23 @@
 lib_LTLIBRARIES = libyaml-cpp.la
 libyaml_cpp_la_SOURCES = \
-  aliascontent.cpp emitterstate.cpp map.cpp parser.cpp scanscalar.cpp \
-  sequence.cpp stream.cpp parserstate.cpp scalar.cpp emitterutils.cpp \
-  iterator.cpp node.cpp scantag.cpp conversion.cpp null.cpp regex.cpp \
-  scanner.cpp simplekey.cpp tag.cpp emitter.cpp exp.cpp ostream.cpp scantoken.cpp
+  aliasmanager.cpp binary.cpp conversion.cpp directives.cpp emitfromevents.cpp \
+  emitter.cpp emitterstate.cpp emitterutils.cpp exp.cpp iterator.cpp \
+  nodebuilder.cpp node.cpp nodeownership.cpp null.cpp ostream.cpp parser.cpp \
+  regex.cpp scanner.cpp scanscalar.cpp scantag.cpp scantoken.cpp simplekey.cpp \
+  singledocparser.cpp stream.cpp tag.cpp
 
 yamlincludedir = $(includedir)/yaml-cpp
 yamlinclude_HEADERS = \
-  conversion.h emittermanip.h iterator.h node.h nodereadimpl.h  \
-  noncopyable.h ostream.h stlemitter.h traits.h emitter.h exceptions.h \
-  mark.h nodeimpl.h nodeutil.h null.h parser.h stlnode.h yaml.h
+ aliasmanager.h anchor.h binary.h conversion.h dll.h emitfromevents.h emitter.h \
+ emittermanip.h eventhandler.h exceptions.h iterator.h ltnode.h mark.h node.h \
+ nodeimpl.h nodereadimpl.h nodeutil.h noncopyable.h null.h ostream.h parser.h \
+ stlemitter.h stlnode.h traits.h yaml.h
 
 dist_noinst_HEADERS = \
-  exp.h regeximpl.h token.h aliascontent.h emitterstate.h indentation.h map.h \
-  scanscalar.h sequence.h stream.h content.h parserstate.h scalar.h setting.h \
-  stringsource.h emitterutils.h iterpriv.h scantag.h ltnode.h regex.h scanner.h \
-  streamcharsource.h tag.h
+  collectionstack.h emitterstate.h exp.h iterpriv.h nodeownership.h ptr_vector.h \
+  regeximpl.h scanscalar.h setting.h streamcharsource.h stringsource.h token.h \
+  directives.h emitterutils.h indentation.h nodebuilder.h ptr_stack.h regex.h \
+  scanner.h scantag.h singledocparser.h stream.h tag.h
 
 check_PROGRAMS = testYAML
 testYAML_SOURCES = test.cc

@@ -49,3 +49,4 @@ test/testBoost
 test/.*\.trs
 test/testMatVec
 test/testMath
+src/Tools/yaml-cpp/testYAML
