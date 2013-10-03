@@ -19,7 +19,10 @@ dist_noinst_HEADERS = \
   directives.h emitterutils.h indentation.h nodebuilder.h ptr_stack.h regex.h \
   scanner.h scantag.h singledocparser.h stream.h tag.h
 
+libyaml_cpp_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/..
+
 check_PROGRAMS = testYAML
 testYAML_SOURCES = test.cc
+testYAML_CPPFLAGS = -I$(builddir)/..
 testYAML_LDADD = -L$(builddir) -lyaml-cpp
 TESTS = testYAML
