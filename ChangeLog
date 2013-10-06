@@ -1,3 +1,7 @@
+2013-10-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improvements to the root2flat script from Karl Nordstrom.
+
 2013-09-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Backporting the Rivet ref bin connection line fix from trunk.

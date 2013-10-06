@@ -19,22 +19,23 @@ if sys.version_info[:3] < (2,4,0):
     print "rivet scripts require Python version >= 2.4.0... exiting"
     sys.exit(1)
 
-
 import os, optparse, logging, ROOT
 
 
 ## Parse options
 parser = optparse.OptionParser(usage = __doc__)
 parser.add_option("-a", dest="ANALYSIS", default=None,
-                  help = "Optionally add analysis name to histogram keys")
+                  help = "optionally add analysis name to histogram keys")
 parser.add_option("-e", dest="ENUM", default=False, action='store_true',
-                  help = "Enumerate histos hepdata style")
+                  help = "enumerate histos hepdata style")
 parser.add_option("-f", dest="FILENAME", default=None,
-                  help = "Force output of all histos in single file")
+                  help = "force output of all histos into a single file")
 parser.add_option("-x", dest="XCLUDE", default=None,
-                  help = "Exclude histos from conversion based on string pattern")
+                  help = "exclude histos from conversion based on string pattern")
 parser.add_option("-o", dest="OUTDIR", default=".",
                   help = "specify directory in which to write out converted files")
+parser.add_option("-s", dest="SAME", default=None, action='store_true',
+                  help = "print all histos in the same directory instead of respecting ROOT file folder structure")
 (opts, args) = parser.parse_args()
 
 
@@ -49,12 +50,12 @@ def readROOT(rootfile):
     # Initial browse to see the structure
     subdirs, histonames, tgraphnames, tcanvases = browse(f)
 
-    # Keep browsing if there are subdirectories TODO: Make this work for
-    # arbitrarily deep directory structures
-    if len(subdirs) > 0:
-        for sd in subdirs:
-            t_s, t_h = browse(f, sd)
-            histonames.extend(t_h)
+    # Keep browsing through subdirs recursively
+    for sd in subdirs:
+        subhist, subtgraph, subcanvas = readSubDir(f, sd)
+        histonames.extend(subhist)
+        tgraphnames.extend(subtgraph)
+        tcanvases.extend(subcanvas)
 
     # This will convert and write the histos
     for num, histoname in enumerate(histonames):
@@ -68,7 +69,19 @@ def readROOT(rootfile):
     nobs += len(histonames)
     nobs += len(tgraphnames)
 
+def readSubDir(f, subdir):
+    """ Used for reading sub directories recursively
+    """
 
+    t_s, t_h, t_g, t_c = browse(f, subdir)
+
+    for subd in t_s:
+        temphist, temptgraph, tempcanvas = readSubDir(f, subd)
+        t_h.extend(temphist)
+        t_g.extend(temptgraph)
+        t_c.extend(tempcanvas)
+
+    return t_h, t_g, t_c
 
 
 def browse(f, branch=None):
@@ -88,8 +101,14 @@ def browse(f, branch=None):
     primary_keys = ROOT.gDirectory.GetListOfKeys()
     iter_primaries = ROOT.TListIter(primary_keys)
 
+    # Count the depth of the branch we dived into by the number of /'s
+    # If it is the first subbranch there's not a single one so run
+    # while > -1
     if branch:
-        f.Cd('..')
+        depth = branch.count('/')
+        while depth > -1:
+            f.Cd('..')
+            depth -= 1
 
     # Iterate over iterator
     for i in xrange(len(primary_keys)):
@@ -189,27 +208,43 @@ def writeHisto(name, R_histo, rivetid, tgraph=False):
     head = "# BEGIN PLOT\nTitle=%s\nLegend=1\nLogY=1\nDrawOnly=%s\n" % (title, name)
     head += "XLabel=%s\nYLabel=%s\n# END PLOT\n" % (xlabel, ylabel)
 
-    if opts.ANALYSIS and opts.ENUM:
-        name = os.path.join(opts.ANALYSIS, "d"+str(rivetid).zfill(2)+"-x01-y01")
-    elif opts.ANALYSIS and not opts.ENUM:
-        name = os.path.join(opts.ANALYSIS, name)
-
     histo = getFlatHisto(bins, name, title)
-    flatname = name.replace("/","_") + ".dat"
 
-    if flatname.startswith("_"):
-        flatname = flatname[1:]
-    flatfile = os.path.join(opts.OUTDIR, flatname)
+    # Here we need to
+    # 1. join the given output dir to the full path in the root file
+    # 2. create the correct filename
+    # 3. create the correct folder structure
+    # THEN we can save the file!
+
+    name = os.path.join(opts.OUTDIR, name)
+    names = name.split("/")
+    filename = names[-1] + ".dat"
+    if opts.ANALYSIS and opts.ENUM:
+        filename = opts.ANALYSIS + "_" + "d"+str(rivetid).zfill(2) + "-x01-y01"
+    elif opts.ANALYSIS and not opts.ENUM:
+        filename = opts.ANALYSIS + "_" + filename
+
+    del names[-1]
+
+    directory = ""
+
+    for dir in names:
+        directory += dir
+        directory += "/"
+
+    if not os.path.exists(directory) and not opts.FILENAME and not opts.SAME:
+        os.makedirs(directory)
+
+    if opts.SAME:
+        finalname = os.path.join(opts.OUTDIR, filename)
+    else:
+        finalname = directory + filename
 
     if not opts.FILENAME:
-        f = open(flatfile, "w")
+        f = open(finalname, "w")
     else:
         global nobs
-        if os.path.exists(opts.FILENAME) and rivetid == 1:
-            print "Error, outputfile '%s' exists! Exiting..."%opts.FILENAME
-            sys.exit(1)
-        else:
-            f = open(opts.FILENAME, "a")
+        f = open(os.path.join(opts.OUTDIR, opts.FILENAME), "a")
 
     f.write(head)
     f.write("\n")
@@ -233,11 +268,14 @@ def getFlatHisto(bins, name, title):
 
 if __name__ == "__main__":
     nobs = 1
+    dest = opts.OUTDIR
+    if opts.FILENAME:
+        dest = os.path.join(dest, opts.FILENAME)
+        if os.path.exists(dest):
+            print "Error, outputfile '%s' exists! Exiting..."%opts.FILENAME
+            sys.exit(1)
     for infile in args:
         if not os.path.exists(opts.OUTDIR):
             os.mkdir(opts.OUTDIR)
         readROOT(infile)
-    dest = opts.OUTDIR
-    if opts.FILENAME:
-        dest=opts.FILENAME
     print  "Done. Written all converted histos to %s" % dest
