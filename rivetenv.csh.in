@@ -11,9 +11,9 @@ YODA_PYTHONPATH=""
     echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
 
 if ($?@LIBPATHVARNAME@) then
-setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"
+setenv @LIBPATHVARNAME@ "@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"
 else
-setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@"
+setenv @LIBPATHVARNAME@ "@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@"
 endif
 
 if ($?PYTHONPATH) then

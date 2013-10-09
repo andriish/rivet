@@ -8,7 +8,7 @@ datarootdir=@datarootdir@
     echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
 
 export PATH="$exec_prefix/bin:$PATH"
-export @LIBPATHVARNAME@="@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"
+export @LIBPATHVARNAME@="@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"
 export PYTHONPATH="@RIVET_PYTHONPATH@:$YODA_PYTHONPATH:$PYTHONPATH"
 
 export TEXMFHOME="@datadir@/Rivet/texmf:$TEXMFHOME"
