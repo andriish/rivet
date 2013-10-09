@@ -1,9 +1,14 @@
-# These variables need to exist
+## These variables need to exist
 set prefix=@prefix@
 set exec_prefix=@exec_prefix@
 set datarootdir=@datarootdir@
 
 setenv PATH "$exec_prefix/bin:$PATH"
+
+## Try to automatically work out the YODA Python path
+YODA_PYTHONPATH=""
+(which yoda-config > /dev/null) && YODA_PYTHONPATH=`yoda-config --pythonpath` || \
+    echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
 
 if ($?@LIBPATHVARNAME@) then
 setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"
@@ -12,9 +17,9 @@ setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPA
 endif
 
 if ($?PYTHONPATH) then
-setenv PYTHONPATH "@RIVET_PYTHONPATH@:$PYTHONPATH"
+setenv PYTHONPATH "@RIVET_PYTHONPATH@:$YODA_PYTHONPATH:$PYTHONPATH"
 else
-setenv PYTHONPATH "@RIVET_PYTHONPATH@"
+setenv PYTHONPATH "@RIVET_PYTHONPATH@:$YODA_PYTHONPATH"
 endif
 
 if ($?TEXMFHOME) then
