@@ -1,3 +1,7 @@
+2013-10-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* 2.0.0 release!!!!!!
+
 2013-09-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Now bundling Cython-generated files in the tarballs, so Cython
