@@ -1,6 +1,10 @@
-2013-10-09  Andy Buckley  <andy.buckley@cern.ch>
+2013-10-XX  Andy Buckley  <andy.buckley@cern.ch>
 
 	* 2.0.0 release!!!!!!
+
+2013-10-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updates to configure and the rivetenv scripts to try harder to discover YODA.
 
 2013-09-26  Andy Buckley  <andy.buckley@cern.ch>
 

@@ -62,7 +62,15 @@ BOOST_FIND_HEADER([boost/assign.hpp])
 
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
-# TODO: NEEDS TESTS HERE, E.G. VERSION AND FEATURES
+AC_PATH_PROG(YODACONFIG, yoda-config, [], $YODAPATH/bin:$PATH)
+YODA_PYTHONPATH=""
+if test -f "$YODACONFIG"; then
+  AC_MSG_CHECKING([YODA Python path using yoda-config])
+  YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
+  AC_MSG_RESULT([$YODA_PYTHONPATH])
+fi
+AC_SUBST(YODA_PYTHONPATH)
+# TODO: NEED TESTS, E.G. VERSION AND FEATURES
 
 
 ## HepMC event record library
@@ -102,7 +110,7 @@ AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 AC_PATH_PROG(FJCONFIG, fastjet-config, [], $FASTJETPATH/bin:$PATH)
 if test -f "$FJCONFIG"; then
   AC_MSG_CHECKING([FastJet version using fastjet-config])
-  fjversion=$($FJCONFIG --version)
+  fjversion=`$FJCONFIG --version`
   AC_MSG_RESULT([$fjversion])
 
   fjmajor=$(echo $fjversion | cut -f1 -d.)

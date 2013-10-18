@@ -4,8 +4,9 @@ exec_prefix=@exec_prefix@
 datarootdir=@datarootdir@
 
 ## Try to automatically work out the YODA Python path
-(which yoda-config > /dev/null) && YODA_PYTHONPATH=`yoda-config --pythonpath` || \
-    echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
+YODA_PYTHONPATH="@YODA_PYTHONPATH@"
+test -n "$YODA_PYTHONPATH" || { (which yoda-config > /dev/null) && YODA_PYTHONPATH=`yoda-config --pythonpath`; }
+test -n "$YODA_PYTHONPATH" || echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
 
 export PATH="$exec_prefix/bin:$PATH"
 export @LIBPATHVARNAME@="@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"
@@ -20,3 +21,5 @@ export LATEXINPUTS="@datadir@/Rivet/texmf/tex:$LATEXINPUTS"
 if (complete &> /dev/null); then
     test -e "@datadir@/Rivet/rivet-completion" && source "@datadir@/Rivet/rivet-completion"
 fi
+
+unset YODA_PYTHONPATH
