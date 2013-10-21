@@ -2,6 +2,11 @@
 
 	* 2.0.0 release!!!!!!
 
+2013-10-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Several small fixes in jet shape analyses, SFM_1984, etc. found
+	in the last H++ validation run.
+
 2013-10-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Updates to configure and the rivetenv scripts to try harder to discover YODA.

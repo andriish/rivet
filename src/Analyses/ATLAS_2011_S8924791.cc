@@ -16,8 +16,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2011_S8924791()
       : Analysis("ATLAS_2011_S8924791")
-    {
-    }
+    {    }
 
 
     /// @name Analysis methods
@@ -35,7 +34,6 @@ namespace Rivet {
       _ptedges += 30.0, 40.0, 60.0, 80.0, 110.0, 160.0, 210.0, 260.0, 310.0, 400.0, 500.0, 600.0;
       _yedges  += 0.0, 0.3, 0.8, 1.2, 2.1, 2.8;
 
-
       // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 11; ++i) {
         for (size_t j = 0; j < 6; ++j) {
@@ -47,10 +45,8 @@ namespace Rivet {
           _jsnames_pT[i][j] = "JetShape" + to_str(i) + to_str(j);
           const double ylow = (j < 5) ? _yedges[j] : _yedges.front();
           const double yhigh = (j < 5) ? _yedges[j+1] : _yedges.back();
-          if (j < 5) {
-            const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], ylow, yhigh, RAPIDITY);
-            addProjection(jsp, _jsnames_pT[i][j]);
-          }
+          const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], ylow, yhigh, RAPIDITY);
+          addProjection(jsp, _jsnames_pT[i][j]);
 
           // Book profile histograms for each (pT,y) bin
           _profhistRho_pT[i][j] = bookProfile1D(i+1, j+1, 1);

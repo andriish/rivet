@@ -16,8 +16,7 @@ namespace Rivet {
     /// Constructor
     CDF_2005_S6217184()
       : Analysis("CDF_2005_S6217184")
-    {
-    }
+    {    }
 
 
     /// @name Analysis methods
@@ -75,7 +74,7 @@ namespace Rivet {
           for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
             const double r_rho = jsipt.rBinMid(rbin);
             MSG_DEBUG(ipt << " " << rbin << " (" << r_rho << ") " << jsipt.diffJetShape(ijet, rbin));
-            // Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
+            /// @note Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
             _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin), weight);
             const double r_Psi = jsipt.rBinMax(rbin);
             _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin), weight);
@@ -96,8 +95,8 @@ namespace Rivet {
         const double ex = 0.5*(_ptedges[i+1] - _ptedges[i]);
         const double x  = _ptedges[i] + ex;
         /// @note Not a great handling of empty bins...
-        const double y  = (ph_i->bin(2).numEntries() > 0) ? ph_i->bin(2).mean() : 0;
-        const double ey = (ph_i->bin(2).numEntries() > 0) ? ph_i->bin(2).stdErr() : 0;
+        const double y  = (ph_i->bin(2).effNumEntries() > 0) ? ph_i->bin(2).mean() : 0;
+        const double ey = (ph_i->bin(2).effNumEntries() > 1) ? ph_i->bin(2).stdErr() : 0;
         _profhistPsi_vs_pT->addPoint(x, y, ex, ey);
       }
     }

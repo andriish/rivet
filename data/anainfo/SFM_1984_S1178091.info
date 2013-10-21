@@ -19,7 +19,7 @@ PtCuts: [0]
 Description:
   Charged multiplicities are measured at $\sqrt{s} = 30.4$, 44.5, 52.2
   and 62.2 GeV using a minimum-bias trigger. The data is sub-divided
-  into inleastic as well as non-single-diffractive events. However,
+  into inelastic as well as non-single-diffractive events. However,
   the implementation of the diffractive events will require some work.
 BibKey: Breakstone:1983ns
 BibTeX: '@Article{Breakstone:1983ns,

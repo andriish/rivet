@@ -44,7 +44,7 @@ namespace Rivet {
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
     foreach (const AnaHandle a, _analyses) {
-      if ((!a->isCompatible(beams())) && (!_ignoreBeams)) {
+      if (!_ignoreBeams && !a->isCompatible(beams())) {
         //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
         anamestodelete.push_back(a->name());
       }
@@ -53,7 +53,7 @@ namespace Rivet {
       MSG_WARNING("Analysis '" << aname << "' is incompatible with the provided beams: removing");
       removeAnalysis(aname);
     }
-    if (num_anas_requested > 0 && analysisNames().size() == 0) {
+    if (num_anas_requested > 0 && analysisNames().empty()) {
       cerr << "All analyses were incompatible with the first event's beams\n"
            << "Exiting, since this probably wasn't intentional!" << endl;
       exit(1);
