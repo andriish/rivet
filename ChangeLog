@@ -4,6 +4,8 @@
 
 2013-10-22  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Updating the manual to describe YODA rather than AIDA and the new rivet-cmphistos script.
+
 	* bin/make-plots: Adding paths to error messages in histogram combination.
 
 	* CDF_2005_S6217184: fixes to low stats errors and final scatter plot binning.

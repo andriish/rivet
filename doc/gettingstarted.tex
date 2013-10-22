@@ -280,10 +280,10 @@ slake your thirst for danger.
 %     above, incompatible analyses will be removed before the main analysis run
 %     begins.}
 
-\item \textbf{Histogramming: }{\kbd{rivet fifo.hepmc -H~foo.aida} will read all the
+\item \textbf{Histogramming: }{\kbd{rivet fifo.hepmc -H~foo.yoda} will read all the
     events in the \kbd{fifo.hepmc} file. The \kbd{-H} switch is used to
-    specify that the output histogram file will be named \kbd{foo.aida}. By
-    default the output file is called \kbd{Rivet.aida}.}
+    specify that the output histogram file will be named \kbd{foo.yoda}. By
+    default the output file is called \kbd{Rivet.yoda}.}
 
 \item \textbf{Fine-grained logging: }
 
@@ -310,50 +310,145 @@ plotting, validation and tuning.
 
 \subsection{Histogram formats}
 
-Rivet currently produces output histogram data in the AIDA XML format. Most
-people aren't familiar with AIDA (and we recommend that you remain that way!),
-and it will disappear entirely from Rivet in version 2.0. If you do not want to
-use the plotting tools that come with Rivet (cf.\ Sec.~\ref{sec:plotting}), you might
-wish to cast the AIDA files to a different format for plotting, and for this we
-supply several scripts.
+Rivet produces output data in the YODA text-based format. This is a significant
+change from versions of Rivet before 2.0.0, which used the AIDA programming
+interface and XML format. If you do not want to use the plotting tools that come
+with Rivet (cf.\ Sec.~\ref{sec:plotting}), you might wish to convert the YODA
+files to a different format for plotting: the YODA package itself provides
+several scripts for this purpose.
 
 \paragraph{Conversion to ROOT}
 
-% Your knee-jerk reaction is probably to want to know how to plot your Rivet
-% histograms in ROOT\cite{Antcheva:2009zz}. Don't worry: a few months of therapy
-% can work wonders. For unrepentant ROOT junkies, 
-Rivet installs an
-\kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
-full of ROOT \texttt{TGraph}s. One word of warning: a bug in ROOT means that
-\texttt{TGraph}s do not render properly from file because the axis is not drawn by
-default. To display the plots correctly in ROOT you will need to pass the
-\kbd{"AP"} drawing option string to either the \kbd{TGraph::Draw()} method, or
-in the options box in the \kbd{TBrowser} GUI interface.
-Alternatively you can also use the \kbd{-t} option with which \kbd{aida2root}
-produces \texttt{TH1}s instead.
+For many people, the first question will be ``how do I plot my Rivet histograms
+using ROOT?''\,\cite{Antcheva:2009zz}. Setting aside the suggestion of masochism
+that this raises, be assured that the \kbd{yoda2root} script (installed by YODA
+if built with ROOT support enabled) will do a direct conversion of a \kbd{.yoda}
+file into an equivalent \kbd{.root} file. Equivalent, that is, as far as ROOT
+can represent the information in a YODA histogram: YODA stores far more
+information about weights and distribution moments within bins than ROOT can
+handle. For programmatic conversion, both the C++ and Python interfaces to YODA
+can convert YODA objects into their ROOT equivalents (and vice~versa).
+
+% Rivet installs an
+% \kbd{aida2root} script, which converts the AIDA records to a \kbd{.root} file
+% full of ROOT \texttt{TGraph}s. One word of warning: a bug in ROOT means that
+% \texttt{TGraph}s do not render properly from file because the axis is not drawn by
+% default. To display the plots correctly in ROOT you will need to pass the
+% \kbd{"AP"} drawing option string to either the \kbd{TGraph::Draw()} method, or
+% in the options box in the \kbd{TBrowser} GUI interface.
+% Alternatively you can also use the \kbd{-t} option with which \kbd{aida2root}
+% produces \texttt{TH1}s instead.
 
 \paragraph{Conversion to ``flat format''}
 
 Most of our histogramming is based around a ``flat'' plain text format,
-which can easily be read (and written) by hand. We provide a script called
-\kbd{aida2flat} to do this conversion. Run \kbd{aida2flat -h} to get usage
-instructions; in particular the Gnuplot and ``split output'' options are useful
-for further visualisation. Aside from anything else, this is useful for simply
-checking the contents of an AIDA file, with \kbd{aida2flat Rivet.aida | less}.
+which can easily be read (and written) by hand. YODA provides a script called
+\kbd{yoda2flat} to do this conversion. Run \kbd{yoda2flat -h} to get usage
+instructions. Aside from anything else, this is useful for simply
+checking the contents of an YODA file, with \kbd{yoda2flat Rivet.yoda - | less}.
 
 \vspace{1.8em}
 
 \begin{detail}
-  We get asked a lot about why we don't use ROOT internally: aside from a
-  general unhappiness about the design and quality of the data objects in ROOT,
-  the monolithic nature of the system makes it a big dependency for a system as
-  small as Rivet. While not an issue for experimentalists, most theorists and
-  generator developers do not use ROOT and we preferred to embed the AIDA
-  system, which in its LWH implementation requires no external package. The
-  replacement for AIDA will be another lightweight system rather than ROOT, with
-  an emphasis on friendly, intuitive data object design, and correct handling of
-  sample merging statistics for all data objects.
+  We're aften asked why we don't use ROOT internally. It's a natural question,
+  given how dominant ROOT is in (experimental) particle physics data analysis
+  and plotting. Rivet's not using ROOT was originally historical, but is now a
+  matter of our requirements. ROOT is a very monolithic system, and when we
+  started writing Rivet, many theorists (who we needed to be on-side) were
+  unhappy about introducing such a large dependency -- so we settled on using
+  the AIDA/LWH system, which could be fully embedded in the Rivet code.
+
+  Eventually we decided that AIDA had run its course, due to such things as the
+  awkwardness of histogram addition and division, confusion between bin heights
+  and areas, and lack of support for gaps in binning (needed by several
+  analyses). ROOT was the obvious replacement, but after detailed consideration
+  we decided that it wouldn't solve the problems: we would re-encounter many of
+  the same weighted statistics issues we had already dealt with in AIDA (as well
+  as weight-handling not being enabled by default), binning gaps still wouldn't
+  be supported, and we would block future development thanks to ROOT's notorious
+  thread-unsafety and object ownership issues. Plus, how hard can histogramming
+  be? Having thought a lot about histogramming over the years, we decided to
+  write YODA.
+
+  It's taken several years (admittedly with very low manpower fractions on that
+  task!) to iterate to a design that we're really happy with, but we think YODA
+  is a \emph{really} pleasant way to do histogramming. It's object oriented but
+  without the global state issues of ROOT, or the factory-based weirdnesses of
+  AIDA. Weights are handled naturally, bins store enough distribution moments to
+  do some pretty advanced stuff, overflows are handled by default, scalings (of
+  weights or axes) and histogram arithmetic are easy and natural, and it's
+  computationally efficient. It's also not finished -- completed 2D
+  histogramming and abstract binning ideas are still to be implemented -- but
+  that means that your desired enhancements stand a chance of getting
+  implemented. So let us know your thoughts!
 \end{detail}
+
+
+\subsection{Plotting and comparing data}
+\label{sec:plotting}
+Rivet comes with three commands --- \kbd{rivet-mkhtml}, \kbd{rivet-cmphistos} and
+\kbd{make-plots} --- for comparing and plotting data files. These commands
+produce nice comparison plots of publication quality from the YODA format text
+files.
+
+The high level program \kbd{rivet-mkhtml} will automatically create a plot
+webpage from the given YODA files. It searches for reference data automatically
+and uses the other two commands internally. Example:\\
+\inp{rivet-mkhtml withUE.yoda:'Title=With UE' withoutUE.yoda:'LineColor=blue'}\\
+Run \kbd{rivet-mkhtml --help} to find out about all features and options.
+
+You can also run the other two commands separately:
+%
+\begin{itemize}
+\item \kbd{rivet-cmphistos} will accept a number of YODA files as input (ending in
+\kbd{.yoda}), identify which plots are available in them, and combine the MC
+and reference plots appropriately into a set of plot data files ending with
+\kbd{.dat}. More options are described by running \kbd{rivet-cmphistos --help}.
+
+Incidentally, the reference files for each Rivet analysis are to be found in the
+installed Rivet shared data directory, \kbd{\val{installdir}/share/Rivet}. You
+can find the location of this by using the \kbd{rivet-config} command:\\
+\inp{rivet-config --datadir}
+
+\item You can plot the created data files using the \kbd{make-plots} command:\\
+\inp{make-plots --pdf *.dat}\\
+The \kbd{--pdf} flag makes the output plots in PDF format: by default the output
+is in PostScript (\kbd{.ps}), and flags for conversion to EPS and PNG are also
+available.
+\end{itemize}
+
+
+\subsection{Merging histograms from different Rivet runs}
+The \kbd{yodamerge} script will take several YODA files and merge them together
+into a single one. If a histogram path only occurs in one of the input files, it
+is copied directly to the output. If it occurs more than once, the statistics of
+those histograms will be merged with full accuracy, producing the same output as
+would have been obtained from a single long run containing all the same
+events. Run \kbd{yodamerge -h} to get instructions on using the script.
+
+\begin{warning}
+  This exact merging only applies for \emph{histograms}, of either normal or
+  profile type. There are heuristics in the merging script to detect whether or
+  not there should be a common normalization, but as with all heuristics they
+  are not 100\% guaranteed. Also, more complex objects such as histogrammed
+  asymmetries, of the form $H_1 - H_2 / H_1 + H_2$, are not really histograms:
+  in YODA the division operation will automatically convert them to the
+  \kbd{Scatter2D} type, for which no moments are stored. It's not possible to
+  combine the statistics of such objects in a straightforward way -- so for now
+  only one of the input copies will be output. Watch Rivet 2.x for developments
+  which will finally \emph{properly} solve the run combination problem, by
+  allowing the \kbd{finalize()} step to be re-run on combined Rivet run outputs!
+\end{warning}
+
+
+\section{Outdated information for AIDA in Rivet 1.x}
+
+\begin{change}
+  The following information applies to the Rivet 1.x series and the tools
+  provided for AIDA histogramming. YODA should make many of these features
+  unnecessary, since its Python interface is far more powerful and precise\dots
+  but this is subject to evolution.
+\end{change}
 
 \subsection{Chopping histograms}
 \newcommand{\chophisto}{\kbd{rivet-chopbins}\xspace} In some cases you don't
@@ -426,37 +521,3 @@ normalised to 1.0, and
 \noindent will chop off the bins with $x<2$ and $x>35$ of the histogram\\
 \kbd{/CDF\_2000\_S4155203/d01-x01-y01} first and normalise the remaining
 histogram to one.
-
-
-\subsection{Plotting and comparing data}
-\label{sec:plotting}
-Rivet comes with three commands --- \kbd{rivet-mkhtml}, \kbd{compare-histos} and
-\kbd{make-plots} --- for comparing and plotting data files. These commands
-produce nice comparison plots of publication quality from the AIDA format text
-files.
-
-The high level program \kbd{rivet-mkhtml} will automatically create a plot
-webpage from the given AIDA files. It searches for reference data automatically
-and uses the other two commands internally. Example:\\
-\inp{rivet-mkhtml withUE.aida:'Title=With UE' withoutUE.aida:'LineColor=blue'}\\
-Run \kbd{rivet-mkhtml --help} to find out about all features and options.
-
-You can also run the other two commands separately:
-%
-\begin{itemize}
-\item \kbd{compare-histos} will accept a number of AIDA files as input (ending in
-\kbd{.aida}), identify which plots are available in them, and combine the MC
-and reference plots appropriately into a set of plot data files ending with
-\kbd{.dat}. More options are described by running \kbd{compare-histos --help}.
-
-Incidentally, the reference files for each Rivet analysis are to be found in the
-installed Rivet shared data directory, \kbd{\val{installdir}/share/Rivet}. You
-can find the location of this by using the \kbd{rivet-config} command:\\
-\inp{rivet-config --datadir}
-
-\item You can plot the created data files using the \kbd{make-plots} command:\\
-\inp{make-plots --pdf *.dat}\\
-The \kbd{--pdf} flag makes the output plots in PDF format: by default the output
-is in PostScript (\kbd{.ps}), and flags for conversion to EPS and PNG are also
-available.
-\end{itemize}
