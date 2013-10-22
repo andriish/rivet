@@ -49,7 +49,7 @@ namespace Rivet {
       }
 
       // Final histo
-      _profhistPsi_vs_pT = bookScatter2D(13, 1, 1);
+      _profhistPsi_vs_pT = bookScatter2D(13, 1, 1, true);
     }
 
 
@@ -88,16 +88,13 @@ namespace Rivet {
     // Finalize
     void finalize() {
       // Construct final 1-Psi(0.3/0.7) profile from Psi profiles
-      vector<Point2D> points;
       for (size_t i = 0; i < _ptedges.size()-1; ++i) {
         // Get entry for rad_Psi = 0.2 bin
+        /// @note Not a great handling of empty bins!
         Profile1DPtr ph_i = _profhistPsi_pT[i];
-        const double ex = 0.5*(_ptedges[i+1] - _ptedges[i]);
-        const double x  = _ptedges[i] + ex;
-        /// @note Not a great handling of empty bins...
         const double y  = (ph_i->bin(2).effNumEntries() > 0) ? ph_i->bin(2).mean() : 0;
         const double ey = (ph_i->bin(2).effNumEntries() > 1) ? ph_i->bin(2).stdErr() : 0;
-        _profhistPsi_vs_pT->addPoint(x, y, ex, ey);
+        _profhistPsi_vs_pT->point(i).setY(y, ey);
       }
     }
 

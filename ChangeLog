@@ -2,6 +2,12 @@
 
 	* 2.0.0 release!!!!!!
 
+2013-10-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/make-plots: Adding paths to error messages in histogram combination.
+
+	* CDF_2005_S6217184: fixes to low stats errors and final scatter plot binning.
+
 2013-10-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Several small fixes in jet shape analyses, SFM_1984, etc. found
