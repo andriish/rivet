@@ -38,6 +38,7 @@ namespace Rivet {
     const double mom2 = pb.pz();
     const double e2 = pb.E();
     double sqrts = sqrt( sqr(e1+e2) - sqr(mom1+mom2) );
+    if (sqrts==0.0) return 8000.0*GeV;
     return sqrts;
   }
 
