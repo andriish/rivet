@@ -83,6 +83,6 @@ test -n "$tmp" && OUT="$OUT -lRivet"
 
 ## Version
 tmp=$( echo "$*" | egrep -- '--\<version\>')
-test -n "$tmp" && echo @PACKAGE_VERSION@
+test -n "$tmp" && echo @PACKAGE_VERSION@ && exit 0
 
 echo $OUT
