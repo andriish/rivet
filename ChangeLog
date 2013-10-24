@@ -1,3 +1,7 @@
+2013-10-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding zsh completion via the bash completion compatibility mechanism.
+
 2013-10-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improvements to the root2flat script from Karl Nordstrom.
