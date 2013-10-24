@@ -2,6 +2,10 @@
 
 	* 2.0.0 release!!!!!!
 
+2013-10-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Supporting zsh completion via bash completion compatibility.
+
 2013-10-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Updating the manual to describe YODA rather than AIDA and the new rivet-cmphistos script.
