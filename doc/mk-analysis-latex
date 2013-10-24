@@ -28,6 +28,7 @@ if os.environ.has_key("DYLD_LIBRARY_PATH"):
 ## Set up analysis plugin directory
 anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
 os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
+
 ## Finally do the rivet module import!
 import rivet
 
