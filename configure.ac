@@ -42,24 +42,6 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 
-## GNU Scientific Library
-AC_SEARCH_GSL
-AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
-oldCPPFLAGS=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
-AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
-CPPFLAGS=$oldCPPFLAGS
-
-
-## Boost utility library
-BOOST_REQUIRE([1.40.0])
-BOOST_FOREACH
-BOOST_SMART_PTR
-BOOST_FIND_HEADER([boost/lexical_cast.hpp])
-BOOST_FIND_HEADER([boost/range.hpp])
-BOOST_FIND_HEADER([boost/assign.hpp])
-
-
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
 YODABINPATH=$YODALIBPATH/../bin
@@ -160,6 +142,27 @@ AC_MSG_NOTICE([yaml-cpp API version = $YAMLCPP_MAJOR_VERSION])
 AC_SUBST(YAMLCPP_MAJOR_VERSION)
 CPPFLAGS=$oldCPPFLAGS
 LDFLAGS=$oldLDFLAGS
+
+
+## GNU Scientific Library
+AC_SEARCH_GSL
+AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
+oldCPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
+AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
+CPPFLAGS=$oldCPPFLAGS
+
+
+## Boost utility library
+BOOST_REQUIRE([1.40.0])
+BOOST_FOREACH
+BOOST_SMART_PTR
+BOOST_FIND_HEADER([boost/lexical_cast.hpp])
+BOOST_FIND_HEADER([boost/range.hpp])
+BOOST_FIND_HEADER([boost/assign.hpp])
+
+
+# TODO: EIGEN3
 
 
 ## Disable build/install of standard analyses
