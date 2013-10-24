@@ -15,8 +15,8 @@ DOCS =
 if ENABLE_PYEXT
 DOCS += analyses.html
 analyses.html: $(top_srcdir)/src/Analyses mk-analysis-html
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
-DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH):$(prefix)/lib \
+DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH):$(prefix)/lib \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
 PYTHONPATH=$(top_builddir)/pyext:$(YODA_PYTHONPATH):$(PYTHONPATH) \
 $(PYTHON) mk-analysis-html analyses.html
@@ -34,6 +34,7 @@ analyses.bib analyses.tex: $(top_srcdir)/src/Analyses $(top_srcdir)/data/plotinf
 	LD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
 DYLD_LIBRARY_PATH=$(top_srcdir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
 RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
+PYTHONPATH=$(top_builddir)/pyext:$(YODA_PYTHONPATH):$(PYTHONPATH) \
 $(PYTHON) mk-analysis-latex
 else
 analyses.bib analyses.tex:
