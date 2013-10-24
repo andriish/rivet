@@ -3,12 +3,12 @@ set prefix=@prefix@
 set exec_prefix=@exec_prefix@
 set datarootdir=@datarootdir@
 
-setenv PATH "$exec_prefix/bin:$PATH"
-
 ## Try to automatically work out the YODA Python path
 set YODA_PYTHONPATH="@YODA_PYTHONPATH@"
 test -n "$YODA_PYTHONPATH" || (which yoda-config > /dev/null) && set YODA_PYTHONPATH="`yoda-config --pythonpath`"
 test -n "$YODA_PYTHONPATH" || echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
+
+setenv PATH "$exec_prefix/bin:@YODABINPATH@:$PATH"
 
 if ($?@LIBPATHVARNAME@) then
 setenv @LIBPATHVARNAME@ "@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"

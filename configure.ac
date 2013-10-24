@@ -62,7 +62,9 @@ BOOST_FIND_HEADER([boost/assign.hpp])
 
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
-AC_PATH_PROG(YODACONFIG, yoda-config, [], $YODAPATH/bin:$PATH)
+YODABINPATH=$YODALIBPATH/../bin
+AC_SUBST(YODABINPATH)
+AC_PATH_PROG(YODACONFIG, yoda-config, [], [$YODALIBPATH/../bin:$PATH])
 YODA_PYTHONPATH=""
 if test -f "$YODACONFIG"; then
   AC_MSG_CHECKING([YODA Python path using yoda-config])
