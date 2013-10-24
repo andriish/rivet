@@ -18,8 +18,7 @@ namespace Rivet {
     /// Constructor
     CDF_2005_S6217184()
       : Analysis("CDF_2005_S6217184")
-    {
-    }
+    {    }
 
 
     /// @name Analysis methods
@@ -61,8 +60,8 @@ namespace Rivet {
     void analyze(const Event& evt) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets jets = applyProjection<FastJets>(evt, "Jets").jetsByPt(_ptedges.front()*GeV, _ptedges.back()*GeV,
-                                                                        -0.7, 0.7, RAPIDITY);
+      const Jets jets = applyProjection<FastJets>(evt, "Jets")
+        .jetsByPt(_ptedges.front()*GeV, _ptedges.back()*GeV, -0.7, 0.7, RAPIDITY);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT & rapidity range");
@@ -78,7 +77,7 @@ namespace Rivet {
           for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
             const double r_rho = jsipt.rBinMid(rbin);
             MSG_DEBUG(ipt << " " << rbin << " (" << r_rho << ") " << jsipt.diffJetShape(ijet, rbin));
-            /// Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
+            /// @note Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
             _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin), weight);
             const double r_Psi = jsipt.rBinMax(rbin);
             _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin), weight);
@@ -91,7 +90,6 @@ namespace Rivet {
 
     // Finalize
     void finalize() {
-
       // Construct final 1-Psi(0.3/0.7) profile from Psi profiles
       vector<double> y, ey;
       for (size_t i = 0; i < _ptedges.size()-1; ++i) {
@@ -101,7 +99,6 @@ namespace Rivet {
         ey.push_back(ph_i->binError(2));
       }
       _profhistPsi_vs_pT->setCoordinate(1, y, ey);
-
     }
 
     //@}
