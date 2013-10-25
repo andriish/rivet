@@ -1,7 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 

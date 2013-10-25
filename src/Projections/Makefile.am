@@ -14,7 +14,7 @@ libRivetProjections_la_SOURCES = \
   FoxWolframMoments.cc \
   FParameter.cc \
   HadronicFinalState.cc \
-  NonHadronicFinalState.cc \
+  HeavyHadrons.cc \
   Hemispheres.cc \
   IdentifiedFinalState.cc \
   InitialQuarks.cc \
@@ -25,9 +25,10 @@ libRivetProjections_la_SOURCES = \
   LeptonClusters.cc \
   MergedFinalState.cc \
   MissingMomentum.cc \
-  Multiplicity.cc \
   NeutralFinalState.cc \
+  NonHadronicFinalState.cc \
   ParisiTensor.cc \
+  PrimaryHadrons.cc \
   Sphericity.cc \
   Spherocity.cc \
   Thrust.cc \

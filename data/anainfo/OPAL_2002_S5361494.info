@@ -11,7 +11,7 @@ References:
  - Phys.Lett. B550 (2002) 33-46
  - hep-ex/0211007
 RunInfo:
-  Hadronic Z decay events generated on the Z pole (sqrt(s) = 91.2 GeV)
+  Hadronic Z decay events generated on the Z pole ($\sqrt{s} = 91.2$ GeV)
 NumEvents: 1000000
 Beams: [e+, e-]
 Energies: [130,136,161,172,183,189,192,196,200,202,206]

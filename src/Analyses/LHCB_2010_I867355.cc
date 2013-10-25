@@ -49,7 +49,7 @@ namespace Rivet {
       foreach (const Particle& particle, bhadrons) {
 
         // take fabs() to use full statistics and then multiply weight by 0.5 because LHCb is single-sided
-        double eta = fabs(particle.momentum().eta());
+        double eta = fabs(particle.eta());
 
         _h_sigma_vs_eta_lep->fill( eta, 0.5*weight );
         _h_sigma_vs_eta_tvt->fill( eta, 0.5*weight );

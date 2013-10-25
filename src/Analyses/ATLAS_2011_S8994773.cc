@@ -52,8 +52,8 @@ namespace Rivet {
       Particles particles500 = chargedNeutral500.particlesByPt();
       Particle p_lead = particles500[0];
       const double philead = p_lead.momentum().phi();
-      const double etalead = p_lead.momentum().eta();
-      const double pTlead  = p_lead.momentum().pT();
+      const double etalead = p_lead.eta();
+      const double pTlead  = p_lead.pT();
       MSG_DEBUG("Leading object: pT = " << pTlead << ", eta = " << etalead << ", phi = " << philead);
 
       // Iterate over all > 500 MeV particles and count particles and scalar pTsum in the three regions
@@ -62,7 +62,7 @@ namespace Rivet {
       // NB. Only one of each needed since binnings are the same for the energies and pT cuts
       Histo1D hist_num_dphi_500(refData(13+isqrts,1,1));
       foreach (const Particle& p, particles500) {
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
         const double dPhi = deltaPhi(philead, p.momentum().phi());
         const int ir = region_index(dPhi);
         num500[ir] += 1;

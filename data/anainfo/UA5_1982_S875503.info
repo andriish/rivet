@@ -5,7 +5,7 @@ Status: VALIDATED
 Experiment: UA5
 Collider: SPS
 Year: 1982
-RunInfo: Min bias QCD events at sqrt(s) = 53~GeV. Run with both $pp$ and $p\bar{p}$ beams.
+RunInfo: Min bias QCD events at $\sqrt{s} = 53$\;GeV. Run with both $pp$ and $p\bar{p}$ beams.
 Beams: [[p-, p+], [p+, p+]]
 Energies: [53]
 PtCuts: [0]
@@ -22,8 +22,7 @@ BibKey: Alpgard:1982zx
 BibTeX: '@Article{Alpgard:1982zx,
      author    = "Alpgard, K. and others",
  collaboration = "UA5",
-     title     = "{Comparison of $p\bar{p}$ and $pp$ interactions at
-                  $\sqrt{s}=53$ GeV}",
+     title     = "{Comparison of $p\bar{p}$ and $pp$ interactions at $\sqrt{s} = 53$ GeV}",
      journal   = "Phys. Lett.",
      volume    = "B112",
      year      = "1982",

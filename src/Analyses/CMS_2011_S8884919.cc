@@ -69,8 +69,8 @@ namespace Rivet {
         // Selecting only charged hadrons
         if (! PID::isHadron(p.pdgId())) continue;
 
-        double pT = p.momentum().pT();
-        double eta = p.momentum().eta();
+        double pT = p.pT();
+        double eta = p.eta();
         sumpt += pT;
         for (int ietabin = _etabins.size()-1; ietabin >= 0; --ietabin) {
           if (fabs(eta) <= _etabins[ietabin]){

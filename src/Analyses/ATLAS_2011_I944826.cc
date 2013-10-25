@@ -20,8 +20,6 @@ namespace Rivet {
     }
 
 
-  public:
-
     /// Book histograms and initialise projections before the run
     void init() {
 
@@ -74,8 +72,9 @@ namespace Rivet {
       }
     }
 
+
     // This function is required to impose the flight time cuts on Kaons and Lambdas
-    inline double getPerpFlightDistance(const Rivet::Particle& p) {
+    double getPerpFlightDistance(const Rivet::Particle& p) {
       const HepMC::GenParticle* genp = p.genParticle();
       HepMC::GenVertex* prodV = genp->production_vertex();
       HepMC::GenVertex* decV  = genp->end_vertex();
@@ -86,13 +85,13 @@ namespace Rivet {
         double dx = prodPos.x() - decPos.x();
         return add_quad(dx, dy);
       }
-      /// @todo Yuck... prefer limits<double>::max()
-      else return 9999999.;
+      return numeric_limits<double>::max();
     }
 
-    inline bool daughtersSurviveCuts(const Rivet::Particle& p) {
+
+    bool daughtersSurviveCuts(const Rivet::Particle& p) {
       // We require the Kshort or Lambda to decay into two charged
-      // particles with at least 100MeV pT inside acceptance region
+      // particles with at least pT = 100 MeV inside acceptance region
       const HepMC::GenParticle* genp = p.genParticle();
       HepMC::GenVertex* decV  = genp->end_vertex();
       bool decision = true;
@@ -102,12 +101,11 @@ namespace Rivet {
         std::vector<double> pTs;
         std::vector<int> charges;
         std::vector<double> etas;
-        for (HepMC::GenVertex::particles_out_const_iterator pp = decV->particles_out_const_begin() ;
-             pp != decV->particles_out_const_end() ; ++pp) {
-          pTs.push_back((*pp)->momentum().perp());
-          etas.push_back(fabs((*pp)->momentum().eta()));
-          charges.push_back( Rivet::PID::threeCharge((*pp)->pdg_id()));
-          //(*pp)->print();
+        foreach (HepMC::GenParticle* gp, particles(decV, HepMC::children)) {
+          pTs.push_back(gp->momentum().perp());
+          etas.push_back(fabs(gp->momentum().eta()));
+          charges.push_back( Rivet::PID::threeCharge(gp->pdg_id()) );
+          // gp->print();
         }
         if ( (pTs[0]/Rivet::GeV < 0.1) || (pTs[1]/Rivet::GeV < 0.1) ) {
           decision = false;
@@ -158,8 +156,8 @@ namespace Rivet {
       foreach (const Particle& p, ufs.particles()) {
 
         // General particle quantities
-        const double pT = p.momentum().pT();
-        const double y = p.momentum().rapidity();
+        const double pT = p.pT();
+        const double y = p.rapidity();
         const PdgId apid = abs(p.pdgId());
 
         double flightd = 0.0;

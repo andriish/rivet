@@ -3,7 +3,6 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/Multiplicity.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/Sphericity.hh"
 
@@ -33,8 +32,6 @@ namespace Rivet {
       addProjection(cnfs, "FS");
       addProjection(cfs, "CFS");
       addProjection(FastJets(cnfs, FastJets::KT, 0.7), "Jets");
-      addProjection(Multiplicity(cfs), "CMult");
-      addProjection(Multiplicity(cnfs), "CNMult");
       addProjection(Thrust(cfs), "Thrust");
       addProjection(Sphericity(cfs), "Sphericity");
 
@@ -59,17 +56,21 @@ namespace Rivet {
       // Make sure to always include the event weight in histogram fills!
       const double weight = event.weight();
 
-      const Multiplicity& cnm = applyProjection<Multiplicity>(event, "CNMult");
-      MSG_DEBUG("Total multiplicity = " << cnm.totalMultiplicity());
-      _histTot->fill(cnm.totalMultiplicity(), weight);
-      MSG_DEBUG("Hadron multiplicity = " << cnm.hadronMultiplicity());
-      _histHadrTot->fill(cnm.hadronMultiplicity(), weight);
+      const Particles& cnparticles = applyProjection<FinalState>(event, "FS").particles();
+      MSG_DEBUG("Total multiplicity = " << cnparticles.size());
+      _histTot->fill(cnparticles.size(), weight);
+      int cnhadronmult = 0;
+      foreach (const Particle& p, cnparticles) if (PID::isHadron(p)) cnhadronmult += 1;
+      MSG_DEBUG("Hadron multiplicity = " << cnhadronmult);
+      _histHadrTot->fill(cnhadronmult, weight);
 
-      const Multiplicity& cm = applyProjection<Multiplicity>(event, "CMult");
-      MSG_DEBUG("Total charged multiplicity = " << cm.totalMultiplicity());
-      _histChTot->fill(cm.totalMultiplicity(), weight);
-      MSG_DEBUG("Hadron charged multiplicity = " << cm.hadronMultiplicity());
-      _histHadrChTot->fill(cm.hadronMultiplicity(), weight);
+      const Particles& cparticles = applyProjection<FinalState>(event, "CFS").particles();
+      MSG_DEBUG("Total charged multiplicity = " << cparticles.size());
+      _histChTot->fill(cparticles.size(), weight);
+      int chadronmult = 0;
+      foreach (const Particle& p, cparticles) if (PID::isHadron(p)) chadronmult += 1;
+      MSG_DEBUG("Hadron charged multiplicity = " << chadronmult);
+      _histHadrChTot->fill(chadronmult, weight);
 
       const Thrust& t = applyProjection<Thrust>(event, "Thrust");
       MSG_DEBUG("Thrust = " << t.thrust());

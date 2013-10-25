@@ -1,9 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
 #include "Rivet/Projections/NeutralFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Cmp.hh"
-#include <algorithm>
 
 namespace Rivet {
 
@@ -18,12 +14,12 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     foreach (const Particle& p, fs.particles()){
-      if ((PID::threeCharge(p.pdgId()) == 0) && (p.momentum().Et() > _Etmin)) {
+      if ((PID::threeCharge(p.pdgId()) == 0) && (p.Et() > _Etmin)) {
         _theParticles.push_back(p);
         MSG_TRACE("Selected: ID = " << p.pdgId()
-                  << ", Et = " << p.momentum().Et()
-                  << ", eta = " << p.momentum().eta()
-                  << ", charge = " << PID::threeCharge(p.pdgId())/3.0);
+                  << ", Et = " << p.Et()
+                  << ", eta = " << p.eta()
+                  << ", charge = " << p.charge());
       }
     }
     MSG_DEBUG("Number of neutral final-state particles = " << _theParticles.size());

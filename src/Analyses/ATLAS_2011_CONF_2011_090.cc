@@ -106,7 +106,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach ( const Jet& jet,
        	  applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 2.8 ) {
+        if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -123,10 +123,10 @@ namespace Rivet {
 
       // pTcone around muon track
       foreach ( const Particle & mu, candtemp_mu ) {
-	double pTinCone = -mu.momentum().pT();
+	double pTinCone = -mu.pT();
 	foreach ( const Particle & track, chg_tracks ) {
 	  if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
+	    pTinCone += track.pT();
 	}
 	if ( pTinCone < 1.8*GeV )
 	  cand_mu.push_back(mu);
@@ -135,12 +135,12 @@ namespace Rivet {
 
       // pTcone around electron
       foreach ( const Particle e, candtemp_e ) {
-	double pTinCone = -e.momentum().pT();
+	double pTinCone = -e.pT();
 	foreach ( const Particle & track, chg_tracks ) {
 	  if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
-	    pTinCone += track.momentum().pT();
+	    pTinCone += track.pT();
 	}
-	if ( pTinCone < 0.10 * e.momentum().pT() )
+	if ( pTinCone < 0.10 * e.pT() )
 	  cand_e.push_back(e);
       }
 
@@ -210,7 +210,7 @@ namespace Rivet {
       int Njets = 0;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-	if ( fabs(jet.momentum().eta()) < 2.8 )
+	if ( fabs(jet.eta()) < 2.8 )
 	  Njets+=1;
       }
       if ( Njets < 3 ) {
@@ -218,12 +218,12 @@ namespace Rivet {
 	vetoEvent;
       }
 
-      if ( recon_jets[0].momentum().pT() <= 60.0 * GeV ) {
+      if ( recon_jets[0].pT() <= 60.0 * GeV ) {
 	MSG_DEBUG("No hard leading jet in " << recon_jets.size() << " jets");
 	vetoEvent;
       }
       for ( int i = 1; i < 3; ++i ) {
-	if ( recon_jets[i].momentum().pT() <= 25*GeV ) {
+	if ( recon_jets[i].pT() <= 25*GeV ) {
 	  vetoEvent;
 	}
       }
@@ -257,22 +257,22 @@ namespace Rivet {
 
       // one hard leading lepton cut
       if ( fabs(lepton[0].pdgId()) == e_id &&
-           lepton[0].momentum().pT() <= 25*GeV ) {
+           lepton[0].pT() <= 25*GeV ) {
 	vetoEvent;
       }
       else if ( fabs(lepton[0].pdgId()) == mu_id &&
-                lepton[0].momentum().pT() <= 20*GeV ) {
+                lepton[0].pT() <= 20*GeV ) {
 	vetoEvent;
       }
 
       // exactly one hard leading lepton cut
       if(lepton.size()>1) {
 	if ( fabs(lepton[1].pdgId()) == e_id &&
-	     lepton[1].momentum().pT() > 20*GeV ) {
+	     lepton[1].pT() > 20*GeV ) {
 	  vetoEvent;
 	}
 	else if ( fabs(lepton[1].pdgId()) == mu_id &&
-		  lepton[1].momentum().pT() > 10*GeV ) {
+		  lepton[1].pT() > 10*GeV ) {
 	  vetoEvent;
 	}
       }
@@ -290,9 +290,9 @@ namespace Rivet {
 
       // effective mass
       double m_eff = eTmiss + pT_l.pT()
-	+ recon_jets[0].momentum().pT()
-	+ recon_jets[1].momentum().pT()
-	+ recon_jets[2].momentum().pT();
+	+ recon_jets[0].pT()
+	+ recon_jets[1].pT()
+	+ recon_jets[2].pT();
 
 
       // Electron channel signal region

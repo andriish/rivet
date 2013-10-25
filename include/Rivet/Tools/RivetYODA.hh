@@ -7,7 +7,7 @@
 /// @date   2011-07-18
 
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetBoost.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 
 #include "YODA/AnalysisObject.h"
 #include "YODA/WriterYODA.h"

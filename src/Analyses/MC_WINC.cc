@@ -61,8 +61,8 @@ namespace Rivet {
       _h_W_y->fill(wmom.rapidity(), weight);
       _h_W_phi->fill(wmom.azimuthalAngle(), weight);
       Particle l=wfinder.constituentLeptons()[0];
-      _h_lepton_pT->fill(l.momentum().pT(), weight);
-      _h_lepton_eta->fill(l.momentum().eta(), weight);
+      _h_lepton_pT->fill(l.pT(), weight);
+      _h_lepton_eta->fill(l.eta(), weight);
       if (PID::threeCharge(l.pdgId()) != 0) {
         emom = l.momentum();
         charge3_x_eta = PID::threeCharge(l.pdgId()) * emom.eta();

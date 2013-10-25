@@ -13,12 +13,25 @@ namespace Rivet {
   public:
 
     BABAR_2007_S7266081()
-      : Analysis("BABAR_2007_S7266081"), _weight_total(0.),
-        _weight_pipipi(0.),
-        _weight_Kpipi(0.),
-        _weight_KpiK(0.),
-        _weight_KKK(0.)
+      : Analysis("BABAR_2007_S7266081"),
+        _weight_total(0),
+        _weight_pipipi(0), _weight_Kpipi(0), _weight_KpiK(0), _weight_KKK(0)
     {   }
+
+
+    void init() {
+      addProjection(UnstableFinalState(), "UFS");
+      _hist_pipipi_pipipi = bookHisto1D( 1, 1, 1);
+      _hist_pipipi_pipi   = bookHisto1D( 2, 1, 1);
+      _hist_Kpipi_Kpipi   = bookHisto1D( 3, 1, 1);
+      _hist_Kpipi_Kpi     = bookHisto1D( 4, 1, 1);
+      _hist_Kpipi_pipi    = bookHisto1D( 5, 1, 1);
+      _hist_KpiK_KpiK     = bookHisto1D( 6, 1, 1);
+      _hist_KpiK_KK       = bookHisto1D( 7, 1, 1);
+      _hist_KpiK_piK      = bookHisto1D( 8, 1, 1);
+      _hist_KKK_KKK       = bookHisto1D( 9, 1, 1);
+      _hist_KKK_KK        = bookHisto1D(10, 1, 1);
+    }
 
 
     void analyze(const Event& e) {
@@ -101,50 +114,33 @@ namespace Rivet {
         scale(_hist_KKK_KKK      , 1.0/_weight_KKK);
         scale(_hist_KKK_KK       , 0.5/_weight_KKK);
       }
-      bookScatter2D(11, 1, 1)->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(_weight_pipipi)/_weight_total);
-      bookScatter2D(12, 1, 1)->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(_weight_Kpipi)/_weight_total);
-      bookScatter2D(13, 1, 1)->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(_weight_KpiK)/_weight_total);
-      bookScatter2D(14, 1, 1)->point(0).setY(100*_weight_KKK/_weight_total, 100*sqrt(_weight_KKK)/_weight_total);
-    }
-
-
-    void init() {
-      addProjection(UnstableFinalState(), "UFS");
-      _hist_pipipi_pipipi = bookHisto1D( 1,1,1);
-      _hist_pipipi_pipi   = bookHisto1D( 2,1,1);
-      _hist_Kpipi_Kpipi   = bookHisto1D( 3,1,1);
-      _hist_Kpipi_Kpi     = bookHisto1D( 4,1,1);
-      _hist_Kpipi_pipi    = bookHisto1D( 5,1,1);
-      _hist_KpiK_KpiK     = bookHisto1D( 6,1,1);
-      _hist_KpiK_KK       = bookHisto1D( 7,1,1);
-      _hist_KpiK_piK      = bookHisto1D( 8,1,1);
-      _hist_KKK_KKK       = bookHisto1D( 9,1,1);
-      _hist_KKK_KK        = bookHisto1D(10,1,1);
+      /// @note Using autobooking for these scatters since their x values are not really obtainable from the MC data
+      bookScatter2D(11, 1, 1, true)->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(_weight_pipipi)/_weight_total);
+      bookScatter2D(12, 1, 1, true)->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(_weight_Kpipi)/_weight_total);
+      bookScatter2D(13, 1, 1, true)->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(_weight_KpiK)/_weight_total);
+      bookScatter2D(14, 1, 1, true)->point(0).setY(100*_weight_KKK/_weight_total, 100*sqrt(_weight_KKK)/_weight_total);
     }
 
 
   private:
 
     //@{
-    Histo1DPtr _hist_pipipi_pipipi;
-    Histo1DPtr _hist_pipipi_pipi  ;
-    Histo1DPtr _hist_Kpipi_Kpipi  ;
-    Histo1DPtr _hist_Kpipi_Kpi    ;
-    Histo1DPtr _hist_Kpipi_pipi   ;
-    Histo1DPtr _hist_KpiK_KpiK    ;
-    Histo1DPtr _hist_KpiK_KK      ;
-    Histo1DPtr _hist_KpiK_piK     ;
-    Histo1DPtr _hist_KKK_KKK      ;
-    Histo1DPtr _hist_KKK_KK       ;
 
-    // count of weights
+    // Histograms
+    Histo1DPtr _hist_pipipi_pipipi, _hist_pipipi_pipi;
+    Histo1DPtr _hist_Kpipi_Kpipi, _hist_Kpipi_Kpi, _hist_Kpipi_pipi;
+    Histo1DPtr _hist_KpiK_KpiK, _hist_KpiK_KK, _hist_KpiK_piK;
+    Histo1DPtr _hist_KKK_KKK, _hist_KKK_KK;
+
+    // Weights counters
     double _weight_total, _weight_pipipi, _weight_Kpipi, _weight_KpiK, _weight_KKK;
+
     //@}
 
     void findDecayProducts(const GenParticle* p,
                            unsigned int & nstable,
                            Particles& pip, Particles& pim,
-                           Particles&  Kp, Particles& Km) {
+                           Particles& Kp, Particles& Km) {
       const GenVertex* dv = p->end_vertex();
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {

@@ -20,9 +20,8 @@ NeedCrossSection: yes
 BibKey: Aad:2011hz
 BibTeX: '@Article{Aad:2011hz,
      author    = "Aad, Georges and others",
- collaboration = "ATLAS",
-     title     = "{Search for Heavy Long-Lived Charged Particles with the
-                  ATLAS detector in pp collisions at sqrt(s) = 7 TeV}",
+     collaboration = "ATLAS",
+     title     = "{Search for Heavy Long-Lived Charged Particles with the ATLAS detector in $pp$ collisions at $\sqrt{s} = 7$ TeV}",
      journal   = "Phys. Lett.",
      volume    = "B703",
      year      = "2011",
@@ -32,5 +31,4 @@ BibTeX: '@Article{Aad:2011hz,
      primaryClass  =  "hep-ex",
      doi       = "10.1016/j.physletb.2011.08.042",
      SLACcitation  = "%%CITATION = 1106.4495;%%"
-}
-'
+}'

@@ -14,7 +14,7 @@ References:
  - doi:10.1016/j.physletb.2006.04.048
  - arXiv:hep-ex/0511054 (plus erratum)
 RunInfo:
-  ppbar collisions at sqrt(s) = 1960 GeV. Requires gamma + jet (q,qbar,g)
+  ppbar collisions at $\sqrt{s} = 1960$ GeV. Requires gamma + jet (q,qbar,g)
   hard processes, which for Pythia 6 means MSEL=10 for with MSUB indices
   14, 18, 29, 114, 115 enabled.
 NumEvents: 1000000
@@ -23,7 +23,7 @@ Energies: [1960]
 PtCuts: [15]
 Description:
   Measurement of differential cross section for inclusive production of
-  isolated photons in p pbar collisions at sqrt(s) = 1.96 TeV with the
+  isolated photons in p pbar collisions at $\sqrt{s} = 1.96$ TeV with the
   D\O detector at the Fermilab Tevatron collider. The photons span
   transverse momenta 23--300 GeV and have pseudorapidity $|\eta| < 0.9$.
   Isolated direct photons are probes of pQCD via the annihilation ($q
@@ -35,9 +35,8 @@ NeedCrossSection: yes
 BibKey: Abazov:2005wc
 BibTeX: '@Article{Abazov:2005wc,
      author    = "Abazov, V. M. and others",
- collaboration = "D0",
-     title     = "{Measurement of the isolated photon cross section in $p
-                  \bar{p}$ collisions at $\sqrt{s}$ = 1.96-TeV}",
+     collaboration = "D0",
+     title     = "{Measurement of the isolated photon cross section in $p \bar{p}$ collisions at $\sqrt{s} = 1.96$ TeV}",
      journal   = "Phys. Lett.",
      volume    = "B639",
      year      = "2006",

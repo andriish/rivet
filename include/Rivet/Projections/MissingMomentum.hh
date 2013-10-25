@@ -47,9 +47,11 @@ namespace Rivet {
   public:
 
     /// The vector-summed visible four-momentum in the event.
+    /// @note Reverse this vector with operator- to get the missing momentum vector.
     const FourMomentum& visibleMomentum() const { return _momentum; }
 
-    /// The vector-summed (in)visible transverse energy in the event
+    /// The vector-summed visible transverse energy in the event
+    /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
 
     /// The scalar-summed visible transverse energy in the event.

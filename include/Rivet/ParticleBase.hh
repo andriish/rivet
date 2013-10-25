@@ -11,13 +11,55 @@ namespace Rivet {
   class ParticleBase {
   public:
 
+    /// Default constructor
     ParticleBase() { }
 
+    /// Virtual destructor
     virtual ~ParticleBase() { }
 
+
+    /// @name Effective momentum accessors
+    //@{
+
+    /// Get equivalent single momentum four-vector.
     // virtual FourMomentum& momentum() = 0;
 
+    /// Get equivalent single momentum four-vector (const).
     virtual const FourMomentum& momentum() const = 0;
+
+    //@}
+
+
+    /// @name Convenience access to the effective 4-vector properties
+    //@{
+
+    /// Get the energy directly.
+    double energy() const { return momentum().E(); }
+    /// Get the energy directly.
+    double E() const { return momentum().E(); }
+
+    /// Get the \f$ p_T \f$ directly.
+    double pT() const { return momentum().pT(); }
+
+    /// Get the \f$ E_T \f$ directly.
+    double Et() const { return momentum().Et(); }
+
+    /// Get the mass directly.
+    double mass() const { return momentum().mass(); }
+
+    /// Get the \f$ \eta \f$ directly.
+    double pseudorapidity() const { return momentum().eta(); }
+    /// Get the \f$ \eta \f$ directly.
+    double eta() const { return momentum().eta(); }
+
+    /// Get the \f$ \eta \f$ directly.
+    double rapidity() const { return momentum().rapidity(); }
+
+    /// Get the \f$ \phi \f$ directly.
+    double phi() const { return momentum().phi(); }
+
+    //@}
+
 
 
     /// Struct for sorting by increasing transverse momentum in STL set, sort, etc.

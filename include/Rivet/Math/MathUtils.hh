@@ -3,7 +3,7 @@
 #define RIVET_MathUtils_HH
 
 #include "Rivet/Math/MathHeader.hh"
-#include "Rivet/RivetBoost.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 #include <cassert>
 
 namespace Rivet {
@@ -162,13 +162,17 @@ namespace Rivet {
     return a*a;
   }
 
-  /// Named number-type addition in quadrature operation.
+  /// @brief Named number-type addition in quadrature operation.
+  ///
+  /// @note Result has the sqrt operation applied.
   template <typename Num>
   inline Num add_quad(Num a, Num b) {
     return sqrt(a*a + b*b);
   }
 
   /// Named number-type addition in quadrature operation.
+  ///
+  /// @note Result has the sqrt operation applied.
   template <typename Num>
   inline Num add_quad(Num a, Num b, Num c) {
     return sqrt(a*a + b*b + c*c);
@@ -217,7 +221,7 @@ namespace Rivet {
   ///
   /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version.
-  inline vector<double> linspace(size_t nbins, double start, double end) {
+  inline vector<double> linspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(nbins > 0);
     vector<double> rtn;
@@ -228,6 +232,7 @@ namespace Rivet {
       edge += interval;
     }
     assert(rtn.size() == nbins+1);
+    if (!include_end) rtn.pop_back();
     return rtn;
   }
 
@@ -237,7 +242,7 @@ namespace Rivet {
   /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space, rather than as the logarithms of the start/end values as in Numpy/Matlab.
-  inline vector<double> logspace(size_t nbins, double start, double end) {
+  inline vector<double> logspace(size_t nbins, double start, double end, bool include_end=true) {
     assert(end >= start);
     assert(start > 0);
     assert(nbins > 0);
@@ -250,6 +255,7 @@ namespace Rivet {
       rtn.push_back(std::exp(logval));
     }
     assert(rtn.size() == nbins+1);
+    if (!include_end) rtn.pop_back();
     return rtn;
   }
 

@@ -61,8 +61,8 @@ namespace Rivet {
       for (size_t alg = 0; alg < 2; ++alg) {
         vector<FourMomentum> leadjets;
         foreach (const Jet& jet, jetAr[alg]) {
-          const double pT = jet.momentum().pT();
-          const double absy = fabs(jet.momentum().rapidity());
+          const double pT = jet.pT();
+          const double absy = fabs(jet.rapidity());
           _pThistos[alg].fill(absy, pT/GeV, evt.weight());
 
           if (absy < 2.8 && leadjets.size() < 2) {

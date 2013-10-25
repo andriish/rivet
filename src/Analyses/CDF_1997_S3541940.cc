@@ -54,11 +54,11 @@ namespace Rivet {
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jetsByEt()) {
         double Et = jet.momentum().Et();
-        double eta = fabs(jet.momentum().eta());
-        if (Et > 20.0*GeV && eta<3.0) {
+        double eta = fabs(jet.eta());
+        if (Et > 20.0*GeV && eta < 3.0) {
           bool separated=true;
           foreach (const Jet& ref, jets) {
-            if (deltaR(jet.momentum(), ref.momentum())<0.9) {
+            if (deltaR(jet.momentum(), ref.momentum()) < 0.9) {
               separated=false;
               break;
             }
@@ -68,19 +68,19 @@ namespace Rivet {
           sumEt += Et;
           jetsystem += jet.momentum();
         }
-        if (jets.size()>=6) break;
+        if (jets.size() >= 6) break;
       }
 
-      if (jets.size()<6) {
+      if (jets.size() < 6) {
         vetoEvent;
       }
 
-      if (sumEt<320.0*GeV) {
+      if (sumEt < 320.0*GeV) {
         vetoEvent;
       }
 
-      double m6J=_safeMass(jetsystem);
-      if (m6J<520.0*GeV) {
+      double m6J = _safeMass(jetsystem);
+      if (m6J < 520.0*GeV) {
         vetoEvent;
       }
 
@@ -107,13 +107,13 @@ namespace Rivet {
       FourMomentum p5ppp(jets3[2]);
 
       double X3ppp = 2.0*p3ppp.E()/m6J;
-      if (X3ppp>0.9) {
+      if (X3ppp > 0.9) {
         vetoEvent;
       }
 
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m6J, jetsystem.rapidity()));
-      double costheta3ppp=pAV.vector3().unit().dot(p3ppp.vector3().unit());
-      if (fabs(costheta3ppp)>0.9) {
+      double costheta3ppp = pAV.vector3().unit().dot(p3ppp.vector3().unit());
+      if (fabs(costheta3ppp) > 0.9) {
         vetoEvent;
       }
 
@@ -122,7 +122,7 @@ namespace Rivet {
       _h_X3ppp->fill(X3ppp, weight);
       _h_X4ppp->fill(2.0*p4ppp.E()/m6J, weight);
       _h_costheta3ppp->fill(costheta3ppp, weight);
-      double psi3ppp=_psi(p3ppp, pAV, p4ppp, p5ppp);
+      double psi3ppp = _psi(p3ppp, pAV, p4ppp, p5ppp);
       _h_psi3ppp->fill(psi3ppp, weight);
       _h_f3ppp->fill(_safeMass(p3ppp)/m6J, weight);
       _h_f4ppp->fill(_safeMass(p4ppp)/m6J, weight);
@@ -132,27 +132,26 @@ namespace Rivet {
       _h_fApp->fill(_safeMass(pApp)/m6J, weight);
       _h_fBpp->fill(_safeMass(pApp)/m6J, weight);
       _h_XApp->fill(pApp.E()/(pApp.E()+pBpp.E()), weight);
-      double psiAppBpp=_psi(pApp, pBpp, pApp+pBpp, pAV);
+      double psiAppBpp = _psi(pApp, pBpp, pApp+pBpp, pAV);
       _h_psiAppBpp->fill(psiAppBpp, weight);
 
       // 5 -> 4 jet variables
       _h_fCp->fill(_safeMass(pCp)/m6J, weight);
       _h_fDp->fill(_safeMass(pDp)/m6J, weight);
       _h_XCp->fill(pCp.E()/(pCp.E()+pDp.E()), weight);
-      double psiCpDp=_psi(pCp, pDp, pCp+pDp, pAV);
+      double psiCpDp = _psi(pCp, pDp, pCp+pDp, pAV);
       _h_psiCpDp->fill(psiCpDp, weight);
 
       // 6 -> 5 jet variables
       _h_fE->fill(_safeMass(pE)/m6J, weight);
       _h_fF->fill(_safeMass(pF)/m6J, weight);
       _h_XE->fill(pE.E()/(pE.E()+pF.E()), weight);
-      double psiEF=_psi(pE, pF, pE+pF, pAV);
+      double psiEF = _psi(pE, pF, pE+pF, pAV);
       _h_psiEF->fill(psiEF, weight);
     }
 
 
     void finalize() {
-
       normalize(_h_m6J);
       normalize(_h_X3ppp);
       normalize(_h_X4ppp);
@@ -173,9 +172,7 @@ namespace Rivet {
       normalize(_h_fDp);
       normalize(_h_fE);
       normalize(_h_fF);
-
     }
-
 
 
   private:
@@ -185,43 +182,45 @@ namespace Rivet {
                                  FourMomentum& combined2) {
       double minMass2 = 1e9;
       size_t idx1(jets.size()), idx2(jets.size());
-      for (size_t i=0; i<jets.size(); ++i) {
-        for (size_t j=i+1; j<jets.size(); ++j) {
-          double mass2 = FourMomentum(jets[i]+jets[j]).mass2();
-          if (mass2<minMass2) {
-            idx1=i;
-            idx2=j;
+      for (size_t i = 0; i < jets.size(); ++i) {
+        for (size_t j = i+1; j < jets.size(); ++j) {
+          double mass2 = FourMomentum(jets[i] + jets[j]).mass2();
+          if (mass2 < minMass2) {
+            idx1 = i;
+            idx2 = j;
           }
         }
       }
       vector<FourMomentum> newjets;
-      for (size_t i=0; i<jets.size(); ++i) {
-        if (i!=idx1 && i!=idx2) newjets.push_back(jets[i]);
+      for (size_t i = 0; i < jets.size(); ++i) {
+        if (i != idx1 && i != idx2) newjets.push_back(jets[i]);
       }
-      newjets.push_back(jets[idx1]+jets[idx2]);
+      newjets.push_back(jets[idx1] + jets[idx2]);
       combined1 = jets[idx1];
       combined2 = jets[idx2];
       return newjets;
     }
 
+
     FourMomentum _avg_beam_in_lab(const double& m, const double& y) {
       const double mt = m/2.0;
-      FourMomentum beam1(mt, 0, 0, mt);
+      FourMomentum beam1(mt, 0, 0,  mt);
       FourMomentum beam2(mt, 0, 0, -mt);
-      if (fabs(y)>1e-3) {
+      if (fabs(y) > 1e-3) {
         FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
         LorentzTransform cms_boost(-boostvec.boostVector());
         cms_boost = cms_boost.inverse();
-        beam1=cms_boost.transform(beam1);
-        beam2=cms_boost.transform(beam2);
+        beam1 = cms_boost.transform(beam1);
+        beam2 = cms_boost.transform(beam2);
       }
-      if (beam1.E()>beam2.E()) {
-        return beam1-beam2;
+      if (beam1.E() > beam2.E()) {
+        return beam1 - beam2;
       }
       else {
-        return beam2-beam1;
+        return beam2 - beam1;
       }
     }
+
 
     double _psi(const FourMomentum& p1, const FourMomentum& p2,
                 const FourMomentum& p3, const FourMomentum& p4) {
@@ -230,39 +229,25 @@ namespace Rivet {
       return mapAngle0ToPi(acos(p1xp2.unit().dot(p3xp4.unit())));
     }
 
+
     double _safeMass(const FourMomentum& p) {
-      double mass2=p.mass2();
-      if (mass2>0.0) return sqrt(mass2);
-      else if (mass2<-1.0e-5) {
-        MSG_WARNING("m2 = " << m2 << ". Assuming m2=0.");
-        return 0.0;
-      }
-      else return 0.0;
+      double mass2 = p.mass2();
+      if (mass2 > 0.0) return sqrt(mass2);
+      if (mass2 < -1e-5) MSG_WARNING("m2 = " << m2 << ". Assuming m2=0.");
+      return 0.0;
     }
 
 
   private:
 
     Histo1DPtr _h_m6J;
-    Histo1DPtr _h_X3ppp;
-    Histo1DPtr _h_X4ppp;
+    Histo1DPtr _h_X3ppp, _h_X4ppp;
     Histo1DPtr _h_costheta3ppp;
     Histo1DPtr _h_psi3ppp;
-    Histo1DPtr _h_f3ppp;
-    Histo1DPtr _h_f4ppp;
-    Histo1DPtr _h_f5ppp;
-    Histo1DPtr _h_XApp;
-    Histo1DPtr _h_XCp;
-    Histo1DPtr _h_XE;
-    Histo1DPtr _h_psiAppBpp;
-    Histo1DPtr _h_psiCpDp;
-    Histo1DPtr _h_psiEF;
-    Histo1DPtr _h_fApp;
-    Histo1DPtr _h_fBpp;
-    Histo1DPtr _h_fCp;
-    Histo1DPtr _h_fDp;
-    Histo1DPtr _h_fE;
-    Histo1DPtr _h_fF;
+    Histo1DPtr _h_f3ppp, _h_f4ppp, _h_f5ppp;
+    Histo1DPtr _h_XApp, _h_XCp, _h_XE;
+    Histo1DPtr _h_psiAppBpp, _h_psiCpDp, _h_psiEF;
+    Histo1DPtr _h_fApp, _h_fBpp, _h_fCp, _h_fDp, _h_fE, _h_fF;
 
   };
 

@@ -35,14 +35,14 @@ namespace Rivet {
       const double weight = event.weight();
       const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
       if (jets.size() < 2 ||
-          fabs(jets[0].momentum().eta()) >= 1.3 ||
-          fabs(jets[1].momentum().eta()) >= 1.3 ||
-          jets[0].momentum().pT() < 90*GeV) {
+          fabs(jets[0].eta()) >= 1.3 ||
+          fabs(jets[1].eta()) >= 1.3 ||
+          jets[0].pT() < 90*GeV) {
         vetoEvent;
       }
       std::vector<Vector3> momenta;
       foreach (const Jet& j, jets) {
-        if (fabs(j.momentum().eta()) < 1.3) {
+        if (fabs(j.eta()) < 1.3) {
           Vector3 mom = j.momentum().vector3();
           mom.setZ(0.0);
           momenta.push_back(mom);
@@ -58,13 +58,13 @@ namespace Rivet {
       // The lowest bin also includes the underflow:
       const double T = max(log(1-thrust.thrust()), -12.0);
       const double M = max(log(thrust.thrustMajor()), -6.0);
-      if (jets[0].momentum().pT()/GeV > 200) {
+      if (jets[0].pT()/GeV > 200) {
         _hist_T_200->fill(T, weight);
         _hist_m_200->fill(M, weight);
-      } else if (jets[0].momentum().pT()/GeV > 125) {
+      } else if (jets[0].pT()/GeV > 125) {
         _hist_T_125->fill(T, weight);
         _hist_m_125->fill(M, weight);
-      } else if (jets[0].momentum().pT()/GeV > 90) {
+      } else if (jets[0].pT()/GeV > 90) {
         _hist_T_90->fill(T, weight);
         _hist_m_90->fill(M, weight);
       }

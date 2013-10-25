@@ -52,7 +52,7 @@ namespace Rivet {
       for (size_t ip = 1; ip < num_particles; ++ip) {
         const Particle& p1 = particlesByEta[ip-1];
         const Particle& p2 = particlesByEta[ip];
-        const double gap = p2.momentum().eta() - p1.momentum().eta();
+        const double gap = p2.eta() - p1.eta();
         assert(gap >= 0);
         gaps.push_back(gap);
       }
@@ -65,7 +65,7 @@ namespace Rivet {
       // Mx calculation
       FourMomentum p4lead;
       if (pslowest.pdgId() == PID::PROTON && pfastest.pdgId() == PID::PROTON) {
-        p4lead = (fabs(pslowest.momentum().rapidity()) > fabs(pfastest.momentum().rapidity())) ? pslowest.momentum() : pfastest.momentum();
+        p4lead = (fabs(pslowest.rapidity()) > fabs(pfastest.rapidity())) ? pslowest.momentum() : pfastest.momentum();
       } else if (pslowest.pdgId() == PID::PROTON) {
         p4lead = pslowest.momentum();
       } else if (pfastest.pdgId() == PID::PROTON) {

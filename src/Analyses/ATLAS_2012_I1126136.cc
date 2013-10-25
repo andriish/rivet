@@ -88,7 +88,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach ( const Jet& jet,
                 applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 4.5 ) {
+        if ( fabs( jet.eta() ) < 4.5 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -133,7 +133,7 @@ namespace Rivet {
       // discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-        if(fabs(jet.momentum().eta())>2.8 ||
+        if(fabs(jet.eta())>2.8 ||
            jet.momentum().perp()<30.) continue;
       	bool away_from_e = true;
       	foreach ( const Particle & e, cand_e ) {
@@ -148,7 +148,7 @@ namespace Rivet {
       // find b jets
       Jets tight_bjets,loose_bjets;
       foreach(const Jet & jet, recon_jets) {
-	if(!jet.containsBottom() && jet.momentum().eta()>2.5) continue;
+	if(!jet.containsBottom() && jet.eta()>2.5) continue;
 	double prob = rand()/static_cast<double>(RAND_MAX);
 	if(prob <= 0.60) tight_bjets.push_back(jet);
 	if(prob <= 0.75) loose_bjets.push_back(jet);

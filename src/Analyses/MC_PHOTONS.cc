@@ -67,7 +67,7 @@ namespace Rivet {
       double sumPtgamma(0), sumEgamma(0);
       foreach (const Particle& p, photons) {
         // Individual and summed pTs and energies
-        double pTgamma = p.momentum().pT()/GeV;
+        double pTgamma = p.pT()/GeV;
         double Egamma = p.momentum().E()/GeV;
         _h_Ptgamma->fill(pTgamma, weight);
         _h_Egamma->fill(Egamma, weight);
@@ -89,10 +89,10 @@ namespace Rivet {
           _h_DelR_weighted->fill(delR, weight*pTgamma/GeV);
           _h_DelR_R->fill(delR, weight/(delR+1e-5));
           _h_DelR_R_weighted->fill(delR, weight*pTgamma/GeV/(delR+1e-5));
-          _p_DelR_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight);
-          _p_DelR_weighted_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight*pTgamma/GeV);
-          _p_DelR_R_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight/(delR+1e-5));
-          _p_DelR_R_weighted_vs_pTl->fill(leptons[ilep].momentum().pT()/GeV, delR, weight*pTgamma/GeV/(delR+1e-5));
+          _p_DelR_vs_pTl->fill(leptons[ilep].pT()/GeV, delR, weight);
+          _p_DelR_weighted_vs_pTl->fill(leptons[ilep].pT()/GeV, delR, weight*pTgamma/GeV);
+          _p_DelR_R_vs_pTl->fill(leptons[ilep].pT()/GeV, delR, weight/(delR+1e-5));
+          _p_DelR_R_weighted_vs_pTl->fill(leptons[ilep].pT()/GeV, delR, weight*pTgamma/GeV/(delR+1e-5));
           sumpT_per_lep[ilep] += pTgamma;
         }
       }
@@ -103,7 +103,7 @@ namespace Rivet {
 
       // Histogram per-lepton sum(pT)
       for (size_t il = 0; il < leptons.size(); ++il) {
-        _p_sumPtgamma_vs_pTl->fill(leptons[il].momentum().pT()/GeV, sumpT_per_lep[il]/GeV, weight);
+        _p_sumPtgamma_vs_pTl->fill(leptons[il].pT()/GeV, sumpT_per_lep[il]/GeV, weight);
       }
 
     }

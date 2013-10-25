@@ -1,8 +1,8 @@
 #include "Rivet/Rivet.hh"
-#include "Rivet/RivetBoost.hh"
 #include "Rivet/AnalysisInfo.hh"
-#include "Rivet/Tools/Utils.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/Tools/RivetPaths.hh"
+#include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "yaml-cpp/yaml.h"
 #include <iostream>

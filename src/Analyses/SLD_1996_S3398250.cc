@@ -22,9 +22,6 @@ namespace Rivet {
     /// Constructor
     SLD_1996_S3398250()
       : Analysis("SLD_1996_S3398250"),
-        _weightedTotalChargedPartNumLight(0.),
-        _weightedTotalChargedPartNumCharm(0.),
-        _weightedTotalChargedPartNumBottom(0.),
         _weightLight(0.),_weightCharm(0.),_weightBottom(0.)
     {}
 
@@ -38,6 +35,9 @@ namespace Rivet {
       addProjection(ChargedFinalState(), "CFS");
       addProjection(InitialQuarks(), "IQF");
 
+      _h_bottom = bookHisto1D(1, 1, 1);
+      _h_charm  = bookHisto1D(2, 1, 1);
+      _h_light  = bookHisto1D(3, 1, 1);
     }
 
 
@@ -74,35 +74,38 @@ namespace Rivet {
       switch (flavour) {
       case 1: case 2: case 3:
         _weightLight  += weight;
-        _weightedTotalChargedPartNumLight  += numParticles * weight;
+        _h_light->fillBin(0, numParticles*weight);
         break;
       case 4:
         _weightCharm  += weight;
-        _weightedTotalChargedPartNumCharm  += numParticles * weight;
+        _h_charm->fillBin(0, numParticles*weight);
         break;
       case 5:
         _weightBottom += weight;
-        _weightedTotalChargedPartNumBottom += numParticles * weight;
+        _h_bottom->fillBin(0, numParticles*weight);
         break;
       }
 
     }
 
 
+    void multiplicity_subtract(const Histo1DPtr first, const Histo1DPtr second, int a, int b, int c) {
+      const double x  = first->bin(0).midpoint();
+      const double ex = first->bin(0).width()/2.;
+      const double y  = first->bin(0).area() - second->bin(0).area();
+      const double ey = sqrt(sqr(first->bin(0).areaErr()) + sqr(second->bin(0).areaErr()));
+      Scatter2DPtr scatter = bookScatter2D(a, b, c);
+      scatter->addPoint(x, y, ex, ey);
+    }
+
+
     void finalize() {
-      // Bottom
-      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      bookScatter2D(1, 1, 1)->point(0).setY(avgNumPartsBottom);
-      // Charm
-      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      bookScatter2D(2, 1, 1)->point(0).setY(avgNumPartsCharm);
-      // Light
-      const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      bookScatter2D(3, 1, 1)->point(0).setY(avgNumPartsLight);
-      // Charm - light
-      bookScatter2D(4, 1, 1)->point(0).setY(avgNumPartsCharm -avgNumPartsLight);
-      // bottom - light
-      bookScatter2D(5, 1, 1)->point(0).setY(avgNumPartsBottom-avgNumPartsLight);
+      if (_weightBottom != 0) scale(_h_bottom, 1./_weightBottom);
+      if (_weightCharm  != 0) scale(_h_charm,  1./_weightCharm );
+      if (_weightLight  != 0) scale(_h_light,  1./_weightLight );
+
+      multiplicity_subtract(_h_charm,  _h_light, 4, 1, 1);
+      multiplicity_subtract(_h_bottom, _h_light, 5, 1, 1);
     }
 
     //@}
@@ -123,6 +126,10 @@ namespace Rivet {
     double _weightCharm;
     double _weightBottom;
     //@}
+
+    Histo1DPtr _h_bottom;
+    Histo1DPtr _h_charm;
+    Histo1DPtr _h_light;
 
   };
 

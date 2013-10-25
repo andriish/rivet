@@ -1,20 +1,25 @@
-# These variables need to exist
+## These variables need to exist
 set prefix=@prefix@
 set exec_prefix=@exec_prefix@
 set datarootdir=@datarootdir@
 
-setenv PATH "$exec_prefix/bin:$PATH"
+## Try to automatically work out the YODA Python path
+set YODA_PYTHONPATH="@YODA_PYTHONPATH@"
+test -n "$YODA_PYTHONPATH" || (which yoda-config > /dev/null) && set YODA_PYTHONPATH="`yoda-config --pythonpath`"
+test -n "$YODA_PYTHONPATH" || echo "yoda-config could not be found: you may need to manually set paths to libYODA and the yoda Python package" 1>&2
+
+setenv PATH "$exec_prefix/bin:@YODABINPATH@:$PATH"
 
 if ($?@LIBPATHVARNAME@) then
-setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:$@LIBPATHVARNAME@"
+setenv @LIBPATHVARNAME@ "@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@:$@LIBPATHVARNAME@"
 else
-setenv @LIBPATHVARNAME@ "@libdir@:@HEPMCLIBPATH@:@FASTJETLIBPATH@"
+setenv @LIBPATHVARNAME@ "@libdir@:@YODALIBPATH@:@HEPMCLIBPATH@:@FASTJETLIBPATH@:@YAML_CPPLIBPATH@"
 endif
 
 if ($?PYTHONPATH) then
-setenv PYTHONPATH "@RIVET_PYTHONPATH@:$PYTHONPATH"
+setenv PYTHONPATH "@RIVET_PYTHONPATH@:${YODA_PYTHONPATH}:$PYTHONPATH"
 else
-setenv PYTHONPATH "@RIVET_PYTHONPATH@"
+setenv PYTHONPATH "@RIVET_PYTHONPATH@:$YODA_PYTHONPATH"
 endif
 
 if ($?TEXMFHOME) then
@@ -46,3 +51,5 @@ setenv LATEXINPUTS "@datadir@/Rivet/texmf/tex:$LATEXINPUTS"
 else
 setenv LATEXINPUTS "@datadir@/Rivet/texmf/tex:"
 endif
+
+unset YODA_PYTHONPATH

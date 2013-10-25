@@ -1,7 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 
@@ -81,10 +79,10 @@ namespace Rivet {
     const Particles allstable = applyProjection<FinalState>(e, "OpenFS").particles();
     foreach (const Particle& p, allstable) {
       const bool passed = accept(p);
-      // MSG_TRACE("Choosing: ID = " << p.pdgId()
-      //           << ", pT = " << p.momentum().pT()
-      //           << ", eta = " << p.momentum().eta()
-      //           << ": result = " << std::boolalpha << passed);
+      MSG_TRACE("Choosing: ID = " << p.pdgId()
+                << ", pT = " << p.pT()
+                << ", eta = " << p.eta()
+                << ": result = " << std::boolalpha << passed);
       if (passed) _theParticles.push_back(p);
     }
     //MSG_DEBUG("Number of final-state particles = " << _theParticles.size());
@@ -98,17 +96,15 @@ namespace Rivet {
 
     // Check pT cut
     if (_ptmin > 0.0) {
-      const double pT = p.momentum().pT();
-      if (pT < _ptmin) return false;
+      if (p.pT() < _ptmin) return false;
     }
 
     // Check eta cuts
     if (!_etaRanges.empty()) {
       bool eta_pass = false;
-      const double eta = p.momentum().eta();
       typedef pair<double,double> EtaPair;
       foreach (const EtaPair& etacuts, _etaRanges) {
-        if (eta > etacuts.first && eta < etacuts.second) {
+        if (inRange(p.eta(), etacuts.first, etacuts.second)) {
           eta_pass = true;
           break;
         }

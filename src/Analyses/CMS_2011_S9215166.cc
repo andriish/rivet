@@ -54,8 +54,8 @@ namespace Rivet {
       double count_chrg_backward = 0;
       const FinalState& fschrgdv = applyProjection<FinalState>(event, "fschrgdv");
       foreach (const Particle& p, fschrgdv.particles()) {
-        if (3.9 < p.momentum().eta() && p.momentum().eta() < 4.4) count_chrg_forward++;
-        if (-4.4 < p.momentum().eta() && p.momentum().eta() < -3.9) count_chrg_backward++;
+        if (3.9 < p.eta() && p.eta() < 4.4) count_chrg_forward++;
+        if (-4.4 < p.eta() && p.eta() < -3.9) count_chrg_backward++;
       }
       if (count_chrg_forward == 0 || count_chrg_backward == 0) vetoEvent;
       /// @todo "Diffractive" veto should really also veto dijet events?
@@ -64,7 +64,7 @@ namespace Rivet {
       // MINIMUM BIAS EVENTS
       _weightMB += weight;
       foreach (const Particle& p, fsv.particles()) {
-        _hist_mb->fill(fabs(p.momentum().eta()), weight*p.momentum().E()/GeV);
+        _hist_mb->fill(fabs(p.eta()), weight*p.momentum().E()/GeV);
       }
 
 
@@ -76,13 +76,13 @@ namespace Rivet {
       const Jets jets = jetpro.jetsByPt(PTCUT);
       if (jets.size() >= 2) {
         // eta cut for the central jets
-        if (fabs(jets[0].momentum().eta()) < 2.5 && fabs(jets[1].momentum().eta()) < 2.5) {
+        if (fabs(jets[0].eta()) < 2.5 && fabs(jets[1].eta()) < 2.5) {
           // Back to back condition of the jets
           const double diffphi = deltaPhi(jets[1].momentum().phi(), jets[0].momentum().phi());
           if (diffphi-PI < 1.0) {
 	    _weightDiJet += weight;
             foreach (const Particle& p, fsv.particles()) {
-              _hist_dijet->fill(fabs(p.momentum().eta()), weight*p.momentum().E()/GeV);
+              _hist_dijet->fill(fabs(p.eta()), weight*p.momentum().E()/GeV);
             }
           }
         }

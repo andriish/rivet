@@ -162,9 +162,9 @@ namespace Rivet {
         if (!jets.empty()) {
           // Leading jet must be in central |eta| < 0.5 region
           const Jet leadingjet = jets.front();
-          const double etaLead = leadingjet.momentum().eta();
+          const double etaLead = leadingjet.eta();
           // Get Et of the leading jet: used to bin histograms
-          const double ETlead = leadingjet.EtSum();
+          const double ETlead = leadingjet.Et();
           MSG_DEBUG("Leading Et = " << ETlead/GeV << " GeV");
           if (fabs(etaLead) > 0.5 && ETlead < 15*GeV) {
             MSG_DEBUG("Leading jet eta = " << etaLead

@@ -53,14 +53,14 @@ namespace Rivet {
       const double angle = fabs(jets[1].momentum().azimuthalAngle() - jets[0].momentum().azimuthalAngle());
       const double prapidity = fabs(jets[1].momentum().pseudorapidity() - jets[0].momentum().pseudorapidity());
       _hist_jetcount->fill(jets.size(), weight);
-      _hist_leadingjetpt->fill(jets[0].momentum().pT(), weight);
-      _hist_secondleadingjetpt->fill(jets[1].momentum().pT(), weight);
+      _hist_leadingjetpt->fill(jets[0].pT(), weight);
+      _hist_secondleadingjetpt->fill(jets[1].pT(), weight);
       _hist_jetdphi->fill(angle , weight);
       _hist_jetdeta->fill(prapidity, weight);
 
       foreach(Jet j, fastjets.jetsByPt(20.*GeV)) {
-        _hist_jetpt->fill(j.momentum().pT(), weight);
-        _hist_jetptlog->fill(log(j.momentum().pT()), weight);
+        _hist_jetpt->fill(j.pT(), weight);
+        _hist_jetptlog->fill(log(j.pT()), weight);
         _hist_jetphi->fill(j.momentum().azimuthalAngle(), weight);
         _hist_jeteta->fill(j.momentum().pseudorapidity(), weight);
       }
@@ -72,10 +72,10 @@ namespace Rivet {
       // foreach(Jet cj, cfastjets.jetsByPt(20.*GeV)){
       _hist_chargemultiplicity->fill(cfs.particles().size(), weight);
       foreach(Particle cp, cfs.particles()) {
-        meanpt= meanpt + cp.momentum().pT();
-        rmspt = rmspt + (cp.momentum().pT()*cp.momentum().pT());
-        _hist_chargept->fill(cp.momentum().pT(), weight);
-        _hist_chargelogpt->fill(log(cp.momentum().pT()), weight);
+        meanpt= meanpt + cp.pT();
+        rmspt = rmspt + (cp.pT()*cp.pT());
+        _hist_chargept->fill(cp.pT(), weight);
+        _hist_chargelogpt->fill(log(cp.pT()), weight);
       }
       meanpt = meanpt / cfs.particles().size();
       _hist_chargemeanpt->fill(meanpt, weight);

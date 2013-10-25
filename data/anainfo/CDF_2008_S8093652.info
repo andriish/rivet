@@ -24,8 +24,7 @@ BibKey: Aaltonen:2008dn
 BibTeX: '@Article{Aaltonen:2008dn,
      author    = "Aaltonen, T. and others",
  collaboration = "CDF",
-     title     = "{Search for new particles decaying into dijets in proton-
-                  antiproton collisions at sqrt(s) = 1.96 TeV}",
+     title     = "{Search for new particles decaying into dijets in proton-antiproton collisions at $\sqrt{s} = 1.96$ TeV}",
      journal   = "Phys. Rev.",
      volume    = "D79",
      year      = "2009",

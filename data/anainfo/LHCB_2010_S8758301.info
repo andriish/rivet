@@ -1,7 +1,7 @@
 Name: LHCB_2010_S8758301
 Year: 2010
 Summary: LHCb differential cross section measurement of prompt $K^0_S$ production in three
-  rapidity windows at $\sqrt{s}$=0.9 TeV
+  rapidity windows at $\sqrt{s} = 0.9$ TeV
 Experiment: LHCB
 Collider: LHC 900 GeV
 SpiresID: 8758301
@@ -20,7 +20,7 @@ Energies: [900]
 PtCuts: [0, 1.6]
 Description:
   The paper presents the cross-section and double differential cross-section measurement
-  for prompt $K^0_S$ production in pp collisions at $\sqrt{s}$=0.9 TeV. The data were taken
+  for prompt $K^0_S$ production in pp collisions at $\sqrt{s} = 0.9\;TeV$. The data were taken
   during the LHCb run in December 2009 and cover a transversal momentum range from 0 to 1.6 GeV/c.
   The differential production cross-section is calculated for three rapidity windows
   $2.5 < y < 3.0$, $3.0 < y < 3.5$ and $3.5 < y < 4.0$ as well as the whole rapidity domain
@@ -28,9 +28,8 @@ Description:
 BibKey: Aaij:2010nx
 BibTeX: '@Article{Aaij:2010nx,
      author    = "Aaij, R and others",
- collaboration = "LHCb",
-     title     = "{Prompt K_short production in pp collisions at sqrt(s)=0.9
-                  TeV}",
+     collaboration = "LHCb",
+     title     = "{Prompt $K_s$ production in $pp$ collisions at $\sqrt{s} = 0.9\;\TeV$}",
      journal   = "Phys. Lett.",
      volume    = "B693",
      year      = "2010",

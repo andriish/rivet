@@ -1,3 +1,146 @@
+2013-10-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* 2.0.0 release!!!!!!
+
+2013-10-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Supporting zsh completion via bash completion compatibility.
+
+2013-10-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updating the manual to describe YODA rather than AIDA and the new rivet-cmphistos script.
+
+	* bin/make-plots: Adding paths to error messages in histogram combination.
+
+	* CDF_2005_S6217184: fixes to low stats errors and final scatter plot binning.
+
+2013-10-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Several small fixes in jet shape analyses, SFM_1984, etc. found
+	in the last H++ validation run.
+
+2013-10-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updates to configure and the rivetenv scripts to try harder to discover YODA.
+
+2013-09-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Now bundling Cython-generated files in the tarballs, so Cython
+	is not a build requirement for non-developers.
+
+2013-09-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing unnecessary uses of a momentum() indirection when
+	accessing kinematic variables.
+
+	* Clean-up in Jet, Particle, and ParticleBase, in particular
+	splitting PID functions on Particle from those on PID codes, and
+	adding convenience kinematic functions to ParticleBase.
+
+2013-09-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add the -avoid-version flag to libtool.
+
+	* Final analysis histogramming issues resolved.
+
+2013-08-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a ConnectBins flag in make-plots, to decide whether to
+	connect adjacent, gapless bins with a vertical line. Enabled by
+	default (good for the step-histo default look of MC lines), but
+	now rivet-cmphistos disables it for the reference data.
+
+2013-08-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Making 2.0.0beta3 -- just a few remaining analysis migration
+	issues remaining but it's worth making another beta since there
+	were lots of framework fixes/improvements.
+
+2013-08-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* ARGUS_1993_S2669951 also fixed using scatter autobooking.
+
+	* Fixing remaining issues with booking in BABAR_2007_S7266081
+	using the feature below (far nicer than hard-coding).
+
+	* Adding a copy_pts param to some Analysis::bookScatter2D methods:
+	pre-setting the points with x values is sometimes genuinely
+	useful.
+
+2013-07-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removed the (officially) obsolete CDF 2008 LEADINGJETS and
+	NOTE_9351 underlying event analyses -- superseded by the proper
+	versions of these analyses based on the final combined paper.
+
+	* Removed the semi-demo Multiplicity projection -- only the
+	EXAMPLE analysis and the trivial ALEPH_1991_S2435284 needed
+	adaptation.
+
+2013-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a rejection of histo paths containing /TMP/ from the
+	writeData function. Use this to handle booked temporary
+	histograms... for now.
+
+2013-07-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make rivet-cmphistos _not_ draw a ratio plot if there is only one line.
+
+	* Improvements and fixes to HepData lookup with rivet-mkanalysis.
+
+2013-07-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add -std=c++11 or -std=c++0x to the Rivet compiler flags if supported.
+
+	* Various fixes to analyses with non-zero numerical diffs.
+
+2013-06-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a new HeavyHadrons projection.
+
+	* Adding optional extra include_end args to logspace() and linspace().
+
+2013-06-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Moving Rivet/RivetXXX.hh tools headers into Rivet/Tools/.
+
+	* Adding PrimaryHadrons projection.
+
+	* Adding particles_in/out functions on GenParticle to RivetHepMC.
+
+	* Moved STL extensions from Utils.hh to RivetSTL.hh and tidying.
+
+	* Tidying, improving, extending, and documenting in RivetSTL.hh.
+
+	* Adding a #include of Logging.hh into Projection.hh, and removing
+	unnecessary #includes from all Projection headers.
+
+2013-06-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Moving htmlify() and detex() Python functions into rivet.util.
+
+	* Add HepData URL for Inspire ID lookup to the rivet script.
+
+	* Fix analyses' info files which accidentally listed the Inspire
+	ID under the SpiresID metadata key.
+
+2013-06-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updating mk-analysis-html script to produce MathJax output
+
+	* Adding a version of Analysis::removeAnalysisObject() which takes
+	an AO pointer as its argument.
+
+	* bin/rivet: Adding pandoc-based conversion of TeX summary and
+	description strings to plain text on the terminal output.
+
+	* Add MathJax to rivet-mkhtml output, set up so the .info entries should render ok.
+
+	* Mark the OPAL 1993 analysis as UNVALIDATED: from the H++
+	benchmark runs it looks nothing like the data, and there are some
+	outstanding ambiguities.
+
 2013-06-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Releasing 2.0.0b2 beta version.
@@ -3935,4 +4078,3 @@
 
 	* .: Made a number of changes to implement handling of RivetInfo
 	objects.
-

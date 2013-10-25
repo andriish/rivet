@@ -1,17 +1,12 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
 #include "Rivet/Projections/DISLepton.hh"
-#include "Rivet/Cmp.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
 
   int DISLepton::compare(const Projection& p) const {
     const DISLepton& other = pcast<DISLepton>(p);
-    return
-      mkNamedPCmp(other, "Beam") ||
-      mkNamedPCmp(other, "FS");
+    return mkNamedPCmp(other, "Beam") || mkNamedPCmp(other, "FS");
   }
 
 
@@ -23,13 +18,13 @@ namespace Rivet {
     bool firstIsLepton = PID::isLepton(inc.first.pdgId());
     bool secondIsLepton = PID::isLepton(inc.second.pdgId());
 
-    if(firstIsLepton && !secondIsLepton){
+    if (firstIsLepton && !secondIsLepton) {
       _incoming = inc.first;
-    }else if(!firstIsLepton && secondIsLepton){
+    } else if (!firstIsLepton && secondIsLepton) {
       _incoming = inc.second;
-    }else{
+    } else {
       //eek!
-      throw	Error("DISLepton projector could not find the correct beam. ");
+      throw	Error("DISLepton projector could not find the correct beam.");
     }
 
     _sign = (_incoming.momentum().pz() > 0.0)? 1.0: -1.0;
@@ -40,7 +35,7 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     foreach (const Particle& p, fs.particles()) {
       double pz = _sign * p.momentum().pz();
-      if(p.pdgId() == id && pz > pzMax){
+      if (p.pdgId() == id && pz > pzMax) {
         _outgoing = p;
         pzMax = pz;
       }

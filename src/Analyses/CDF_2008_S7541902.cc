@@ -53,7 +53,7 @@ namespace Rivet {
       // Book histograms
       for (int i = 0 ; i < 4 ; ++i) {
         _histJetEt[i] = bookHisto1D(1+i, 1, 1);
-        _histJetMultRatio[i] = bookScatter2D(5, 1, i+1);
+        _histJetMultRatio[i] = bookScatter2D(5, 1, i+1, true);
         /// @todo These would be better off as YODA::Counter until finalize()
         _histJetMult[i] = bookHisto1D(6+i, 1, 1); // _sumW is essentially the 0th "histo" counter
       }
@@ -127,8 +127,7 @@ namespace Rivet {
         double ratio = b0.area()/_sumW;
         double frac_err = 1/_sumW; //< This 1/sqrt{N} error treatment isn't right for weighted events: use YODA::Counter
         if (b0.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b0.areaErr()/b0.area()) );
-        _histJetMultRatio[0]->point(0).setY(ratio);
-        _histJetMultRatio[0]->point(0).setYErr(ratio*frac_err);
+        _histJetMultRatio[0]->point(0).setY(ratio, ratio*frac_err);
       }
 
       // Loop over the non-zero multiplicities
@@ -139,8 +138,7 @@ namespace Rivet {
         double ratio = b2.area()/b1.area();
         double frac_err = b1.areaErr()/b1.area();
         if (b2.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b2.areaErr()/b2.area()) );
-        _histJetMultRatio[i+1]->point(0).setY(ratio);
-        _histJetMultRatio[i+1]->point(0).setYErr(ratio*frac_err);
+        _histJetMultRatio[i+1]->point(0).setY(ratio, ratio*frac_err);
       }
 
       // Normalize the non-ratio histograms

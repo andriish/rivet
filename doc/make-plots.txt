@@ -493,9 +493,16 @@ An example for a dash-dotted line is `LineDash=3pt 3pt .8pt 3pt`. You can use
 `LineStyle=dashed` with `LineDash=3pt 3pt .8pt 3pt`.
 
 --------------------
+ConnectBins=<0|1>
+--------------------
+Choose whether to connect adjacent bins' horizontal lines together by a vertical
+line on the bin edge. This is enabled by default, but you may wish to disable
+it when plotting reference data with error bars and point markers.
+
+--------------------
 ConnectGaps=<0|1>
 --------------------
-If error bars are disabled and you want to bridge gaps in a histogram, you
+If ConnectBins is enabled and you want to bridge gaps in a histogram, you
 can set this parameter. By default it is off. Setting it in the `PLOT` section
 affects all histograms, but you can also set it in the `HISTOGRAM` section for
 individual histograms. The local setting overrides the global setting.
@@ -677,4 +684,3 @@ An example of a `SPECIAL` section might look like this:
 \endpsclip
 # END SPECIAL
 --------------------
-

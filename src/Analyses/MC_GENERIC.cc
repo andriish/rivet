@@ -76,18 +76,18 @@ namespace Rivet {
       MSG_DEBUG("Total multiplicity = " << cnfs.size());
       _histMult->fill(cnfs.size(), weight);
       foreach (const Particle& p, cnfs.particles()) {
-        const double eta = p.momentum().eta();
+        const double eta = p.eta();
         _histEta->fill(eta, weight);
         _histEtaSumEt->fill(fabs(eta), p.momentum().Et(), weight);
         if (eta > 0) _tmphistEtaPlus.fill(fabs(eta), weight);
         else _tmphistEtaMinus.fill(fabs(eta), weight);
         //
-        const double rapidity = p.momentum().rapidity();
+        const double rapidity = p.rapidity();
         _histRapidity->fill(rapidity, weight);
         if (rapidity > 0) _tmphistRapPlus.fill(fabs(rapidity), weight);
         else _tmphistRapMinus.fill(fabs(rapidity), weight);
         //
-        _histPt->fill(p.momentum().pT()/GeV, weight);
+        _histPt->fill(p.pT()/GeV, weight);
         _histE->fill(p.momentum().E()/GeV, weight);
         _histPhi->fill(p.momentum().phi(), weight);
       }
@@ -96,21 +96,21 @@ namespace Rivet {
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
       _histMultCh->fill(cfs.size(), weight);
       foreach (const Particle& p, cfs.particles()) {
-        const double eta = p.momentum().eta();
+        const double eta = p.eta();
         _histEtaCh->fill(eta, weight);
         if (eta > 0) {
           _tmphistEtaChPlus.fill(fabs(eta), weight);
         } else {
           _tmphistEtaChMinus.fill(fabs(eta), weight);
         }
-        const double rapidity = p.momentum().rapidity();
+        const double rapidity = p.rapidity();
         _histRapidityCh->fill(rapidity, weight);
         if (rapidity > 0) {
           _tmphistRapChPlus.fill(fabs(rapidity), weight);
         } else {
           _tmphistRapChMinus.fill(fabs(rapidity), weight);
         }
-        _histPtCh->fill(p.momentum().pT()/GeV, weight);
+        _histPtCh->fill(p.pT()/GeV, weight);
         _histECh->fill(p.momentum().E()/GeV, weight);
         _histPhiCh->fill(p.momentum().phi(), weight);
       }

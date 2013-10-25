@@ -36,8 +36,8 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         if (p.pdgId() == 111) {
-          double pT = p.momentum().pT();
-          double y  = p.momentum().rapidity();
+          double pT = p.pT();
+          double y  = p.rapidity();
 
           if (pT > 0.6*GeV) continue;
 

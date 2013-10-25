@@ -1,8 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Cmp.hh"
 
 #define IS_PARTON_PDGID(id) ( abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18) )
 
@@ -42,7 +39,7 @@ namespace Rivet {
       if (passed && pv) {
         for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ;
              pp != pv->particles_in_const_end() ; ++pp) {
-          if ( p->pdg_id() == (*pp)->pdg_id() ) {
+          if ( p->pdg_id() == (*pp)->pdg_id() && (*pp)->status() == 2 ) {
             passed = false;
             break;
           }

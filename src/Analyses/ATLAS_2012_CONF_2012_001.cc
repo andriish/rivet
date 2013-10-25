@@ -92,7 +92,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach (const Jet& jet,
                applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 2.8 ) {
+        if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -103,10 +103,10 @@ namespace Rivet {
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV )
           cand_mu.push_back(mu);
@@ -116,14 +116,14 @@ namespace Rivet {
       Particles cand_e;
       foreach ( const Particle & e,
                 applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
-        double eta = e.momentum().eta();
+        double eta = e.eta();
         // remove electrons with pT<15 in old veto region
         if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.momentum().perp()< 15.*GeV)
           continue;
         double pTinCone = -e.momentum().perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if (pTinCone/e.momentum().perp()<0.1) {
           cand_e.push_back(e);
@@ -259,13 +259,13 @@ namespace Rivet {
       // ATLAS calo problem
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
         foreach ( const Particle & e, recon_e ) {
-          double eta = e.momentum().eta();
+          double eta = e.eta();
           double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
           if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
         foreach ( const Jet & jet, recon_jets ) {
-          double eta = jet.momentum().rapidity();
+          double eta = jet.rapidity();
           double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
           if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;

@@ -1,14 +1,15 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.0.0b2],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.0.0],[rivet@projects.hepforge.org],[Rivet])
 if test "$prefix" = "$PWD"; then
   AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
 fi
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
-AM_INIT_AUTOMAKE(dist-bzip2)
+AM_INIT_AUTOMAKE([dist-bzip2 -Wall])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST(LT_OBJDIR)
 
@@ -18,11 +19,6 @@ AC_DEFINE_UNQUOTED(RIVET_NAME, "$PACKAGE_NAME", "Rivet name string")
 AC_DEFINE_UNQUOTED(RIVET_STRING, "$PACKAGE_STRING", "Rivet name and version string")
 AC_DEFINE_UNQUOTED(RIVET_TARNAME, "$PACKAGE_TARNAME", "Rivet short name string")
 AC_DEFINE_UNQUOTED(RIVET_BUGREPORT, "$PACKAGE_BUGREPORT", "Rivet contact email address")
-
-## Set library version info code
-## Set for version 2.0.0
-VERSIONINFOFLAGS="-version-info 13:0:0"
-AC_SUBST(VERSIONINFOFLAGS)
 
 ## OS X
 AC_CEDAR_OSX
@@ -46,27 +42,19 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 
-## GNU Scientific Library
-AC_SEARCH_GSL
-AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
-oldCPPFLAGS=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
-AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
-CPPFLAGS=$oldCPPFLAGS
-
-
-## Boost utility library
-BOOST_REQUIRE([1.40.0])
-BOOST_FOREACH
-BOOST_SMART_PTR
-BOOST_FIND_HEADER([boost/lexical_cast.hpp])
-BOOST_FIND_HEADER([boost/range.hpp])
-BOOST_FIND_HEADER([boost/assign.hpp])
-
-
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
-# TODO: NEEDS TESTS HERE, E.G. VERSION AND FEATURES
+YODABINPATH=$YODALIBPATH/../bin
+AC_SUBST(YODABINPATH)
+AC_PATH_PROG(YODACONFIG, yoda-config, [], [$YODALIBPATH/../bin:$PATH])
+YODA_PYTHONPATH=""
+if test -f "$YODACONFIG"; then
+  AC_MSG_CHECKING([YODA Python path using yoda-config])
+  YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
+  AC_MSG_RESULT([$YODA_PYTHONPATH])
+fi
+AC_SUBST(YODA_PYTHONPATH)
+# TODO: NEED TESTS, E.G. VERSION AND FEATURES
 
 
 ## HepMC event record library
@@ -106,7 +94,7 @@ AC_CEDAR_LIBRARYANDHEADERS([fastjet], , , [AC_MSG_ERROR([FastJet is required])])
 AC_PATH_PROG(FJCONFIG, fastjet-config, [], $FASTJETPATH/bin:$PATH)
 if test -f "$FJCONFIG"; then
   AC_MSG_CHECKING([FastJet version using fastjet-config])
-  fjversion=$($FJCONFIG --version)
+  fjversion=`$FJCONFIG --version`
   AC_MSG_RESULT([$fjversion])
 
   fjmajor=$(echo $fjversion | cut -f1 -d.)
@@ -154,6 +142,27 @@ AC_MSG_NOTICE([yaml-cpp API version = $YAMLCPP_MAJOR_VERSION])
 AC_SUBST(YAMLCPP_MAJOR_VERSION)
 CPPFLAGS=$oldCPPFLAGS
 LDFLAGS=$oldLDFLAGS
+
+
+## GNU Scientific Library
+AC_SEARCH_GSL
+AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
+oldCPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
+AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
+CPPFLAGS=$oldCPPFLAGS
+
+
+## Boost utility library
+BOOST_REQUIRE([1.40.0])
+BOOST_FOREACH
+BOOST_SMART_PTR
+BOOST_FIND_HEADER([boost/lexical_cast.hpp])
+BOOST_FIND_HEADER([boost/range.hpp])
+BOOST_FIND_HEADER([boost/assign.hpp])
+
+
+# TODO: EIGEN3
 
 
 ## Disable build/install of standard analyses
@@ -236,7 +245,7 @@ AZ_PYTHON_DEFAULT
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
   AZ_PYTHON_PATH
-  AZ_PYTHON_VERSION_ENSURE([2.4])
+  AZ_PYTHON_VERSION_ENSURE([2.5])
   PYTHON_VERSION=`$PYTHON -c "import sys; print '.'.join(map(str, sys.version_info@<:@:2@:>@));"`
   AC_SUBST(PYTHON_VERSION)
   RIVET_PYTHONPATH=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True);"`
@@ -259,29 +268,28 @@ if test x$enable_pyext == xyes; then
     enable_pyext=no
   fi
 fi
-
-## Cython checks (Probably need some help...)
-# TODO: "Tarball users" should ideally not need to have Cython installed
-if test x$enable_pyext == xyes; then
-  AM_CHECK_CYTHON([0.18], [:], [:])
-  if test x$CYTHON_FOUND != xyes; then
-    AC_MSG_ERROR([Can't build Python extension since Cython >= 0.18 could not be found])
-    enable_pyext=no
-  else
-    cython_compiler=$CXX
-  fi
-fi
-## Finish Python extension testing
 if test x$enable_pyext == xyes; then
   AC_MSG_NOTICE([All Python build checks successful: 'yoda' Python extension will be built])
 fi
 AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
+
 
 ## Set extra Python extension build flags (to cope with Cython output code oddities)
 PYEXT_CXXFLAGS=
 AC_CEDAR_CHECKCXXFLAG([-Wno-unused-but-set-variable], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-unused-but-set-variable"])
 AC_CEDAR_CHECKCXXFLAG([-Wno-sign-compare], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-sign-compare"])
 AC_SUBST(PYEXT_CXXFLAGS)
+
+
+## Cython checks
+if test x$enable_pyext == xyes; then
+  AM_CHECK_CYTHON([0.18], [:], [:])
+  if test x$CYTHON_FOUND = xyes; then
+    AC_MSG_NOTICE([Cython >= 0.18 found: Python extension source can be rebuilt (for developers)])
+    cython_compiler=$CXX
+  fi
+fi
+AM_CONDITIONAL(WITH_CYTHON, [test x$CYTHON_FOUND = xyes])
 
 
 if test x$enable_pyext == xyes; then
@@ -298,11 +306,15 @@ AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(YODAINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
+AC_CEDAR_CHECKCXXFLAG([-std=c++11], [AM_CXXFLAGS="$AM_CXXFLAGS -std=c++11"],
+  AC_CEDAR_CHECKCXXFLAG([-std=c++0x], [AM_CXXFLAGS="$AM_CXXFLAGS -std=c++0x"]))
 AC_CEDAR_CHECKCXXFLAG([-pedantic], [AM_CXXFLAGS="$AM_CXXFLAGS -pedantic"])
 AC_CEDAR_CHECKCXXFLAG([-ansi], [AM_CXXFLAGS="$AM_CXXFLAGS -ansi"])
 AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall"])
 AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long"])
 AC_CEDAR_CHECKCXXFLAG([-Wno-format], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-format"])
+AC_CEDAR_CHECKCXXFLAG([-Werror=uninitialized], [AM_CXXFLAGS="$AM_CXXFLAGS -Werror=uninitialized"])
+AC_CEDAR_CHECKCXXFLAG([-Werror=delete-non-virtual-dtor], [AM_CXXFLAGS="$AM_CXXFLAGS -Werror=delete-non-virtual-dtor"])
 
 
 ## Debug flag (default=none)

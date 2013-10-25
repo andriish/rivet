@@ -1,6 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/DISFinalState.hh"
-#include "Rivet/Cmp.hh"
 
 namespace Rivet {
 

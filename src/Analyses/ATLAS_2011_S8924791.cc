@@ -16,8 +16,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2011_S8924791()
       : Analysis("ATLAS_2011_S8924791")
-    {
-    }
+    {    }
 
 
     /// @name Analysis methods
@@ -35,24 +34,21 @@ namespace Rivet {
       _ptedges += 30.0, 40.0, 60.0, 80.0, 110.0, 160.0, 210.0, 260.0, 310.0, 400.0, 500.0, 600.0;
       _yedges  += 0.0, 0.3, 0.8, 1.2, 2.1, 2.8;
 
-
       // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 11; ++i) {
         for (size_t j = 0; j < 6; ++j) {
-          if (i==8 && j==4) continue;
-          if (i==9 && j==4) continue;
-          if (i==10 && j!=5) continue;
-          stringstream ss; ss << "JetShape" << i << j;
-          const string pname = ss.str();
-          _jsnames_pT[i][j] = pname;
+          if (i == 8  && j == 4) continue;
+          if (i == 9  && j == 4) continue;
+          if (i == 10 && j != 5) continue;
 
-          if (j < 5) {
-            const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], _yedges[j], _yedges[j+1], RAPIDITY);
-            addProjection(jsp, pname);
-          } else {
-            const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], _yedges.front(), _yedges.back(), RAPIDITY);
-            addProjection(jsp, pname);
-          }
+          // Set up projections for each (pT,y) bin
+          _jsnames_pT[i][j] = "JetShape" + to_str(i) + to_str(j);
+          const double ylow = (j < 5) ? _yedges[j] : _yedges.front();
+          const double yhigh = (j < 5) ? _yedges[j+1] : _yedges.back();
+          const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], ylow, yhigh, RAPIDITY);
+          addProjection(jsp, _jsnames_pT[i][j]);
+
+          // Book profile histograms for each (pT,y) bin
           _profhistRho_pT[i][j] = bookProfile1D(i+1, j+1, 1);
           _profhistPsi_pT[i][j] = bookProfile1D(i+1, j+1, 2);
         }
@@ -65,8 +61,8 @@ namespace Rivet {
     void analyze(const Event& evt) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets jets = applyProjection<FastJets>(evt, "Jets").jetsByPt(_ptedges.front()*GeV, _ptedges.back()*GeV,
-                                                                        -2.8, 2.8, RAPIDITY);
+      const Jets jets = applyProjection<FastJets>(evt, "Jets")
+        .jetsByPt(_ptedges.front()*GeV, _ptedges.back()*GeV, -2.8, 2.8, RAPIDITY);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT & rapidity range");
@@ -77,9 +73,9 @@ namespace Rivet {
 
       for (size_t ipt = 0; ipt < 11; ++ipt) {
         for (size_t jy = 0; jy < 6; ++jy) {
-          if (ipt==8 && jy==4) continue;
-          if (ipt==9 && jy==4) continue;
-          if (ipt==10 && jy!=5) continue;
+          if (ipt == 8 && jy == 4) continue;
+          if (ipt == 9 && jy == 4) continue;
+          if (ipt == 10 && jy != 5) continue;
           const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt][jy]);
           for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
             for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {

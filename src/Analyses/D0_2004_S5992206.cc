@@ -72,13 +72,13 @@ namespace Rivet {
       } else {
         vetoEvent;
       }
-      const double rap1 = jets[0].momentum().rapidity();
-      const double rap2 = jets[1].momentum().rapidity();
+      const double rap1 = jets[0].rapidity();
+      const double rap2 = jets[1].rapidity();
       if (fabs(rap1) > 0.5 || fabs(rap2) > 0.5) {
         vetoEvent;
       }
       MSG_DEBUG("Jet eta and pT requirements fulfilled");
-      const double pT1 = jets[0].momentum().pT();
+      const double pT1 = jets[0].pT();
 
       const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
       MSG_DEBUG("Missing vector Et = " << caloMissEt.vectorEt()/GeV << " GeV");

@@ -17,16 +17,17 @@ namespace Rivet {
 
 
     void init() {
-      IdentifiedFinalState Muons(-2.4,2.4,20.*GeV);
+      IdentifiedFinalState Muons(-2.4, 2.4, 20*GeV);
       Muons.acceptIdPair(PID::MUON);
       addProjection(Muons, "muons");
 
-      ChargedFinalState CFS(-2.8,2.8,0.*GeV);
+      ChargedFinalState CFS(-2.8, 2.8, 0*GeV);
       addProjection(CFS, "tracks");
 
-      MissingMomentum missmom(FinalState(-5.,5.,0.*GeV));
+      MissingMomentum missmom(FinalState(-5,5, 0*GeV));
       addProjection(missmom, "MissingMomentum");
 
+      /// @todo Will need to register TMP histograms for future histogramming
       _tmp_h_plus  = Histo1D(refData(1,1,1));
       _tmp_h_minus = Histo1D(refData(1,1,1));
       _h_asym = bookScatter2D(1, 1, 1);
@@ -63,23 +64,21 @@ namespace Rivet {
       double MTW = sqrt( 2 * missvec.pT() * muonmom.pT() * (1 - cos( deltaPhi(missvec.phi(), muonmom.phi()) )) );
       if (MTW < 40*GeV) vetoEvent;
 
-      if (selected_muons[0].pdgId() > 0) {
-        _tmp_h_minus.fill(muonmom.eta(), event.weight());
-      } else {
-        _tmp_h_plus.fill(muonmom.eta(), event.weight());
-      }
+      Histo1D& htmp = (selected_muons[0].pdgId() > 0) ? _tmp_h_minus : _tmp_h_plus;
+      htmp.fill(muonmom.eta(), event.weight());
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for (size_t i = 0; i < _h_asym->numPoints(); i++) {
+      assert(_tmp_h_plus.numBins() == _tmp_h_minus.numBins());
+      for (size_t i = 0; i < _tmp_h_plus.numBins(); ++i) {
         const double num   = _tmp_h_plus.bin(i).sumW() - _tmp_h_minus.bin(i).sumW();
         const double denom = _tmp_h_plus.bin(i).sumW() + _tmp_h_minus.bin(i).sumW();
         const double relerr = _tmp_h_plus.bin(i).relErr()  + _tmp_h_minus.bin(i).relErr();
         const double asym = (num != 0 && denom != 0) ? num / denom : 0;
         const double asym_err = (num != 0 && denom != 0) ? asym*relerr : 0;
-        _h_asym->point(i).setY(asym, asym_err);
+        _h_asym->addPoint(_tmp_h_plus.bin(i).midpoint(), asym, _tmp_h_plus.bin(i).width()/2.0, asym_err);
       }
     }
 
@@ -87,6 +86,7 @@ namespace Rivet {
   private:
 
     Scatter2DPtr _h_asym;
+    /// @todo Will need to register TMP histograms for future histogramming
     Histo1D  _tmp_h_plus, _tmp_h_minus;
 
   };

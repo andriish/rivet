@@ -68,8 +68,8 @@ namespace Rivet {
       //
       double Lep1Pt = ZDecayProducts[0].momentum().perp();
       double Lep2Pt = ZDecayProducts[1].momentum().perp();
-      double Lep1Eta = fabs(ZDecayProducts[0].momentum().rapidity());
-      double Lep2Eta = fabs(ZDecayProducts[1].momentum().rapidity());
+      double Lep1Eta = fabs(ZDecayProducts[0].rapidity());
+      double Lep2Eta = fabs(ZDecayProducts[1].rapidity());
 
       if (Lep1Eta > _LepEtaCut && Lep2Eta > _LepEtaCut) vetoEvent;
 
@@ -114,7 +114,7 @@ namespace Rivet {
 
           bool bjet = false;
           foreach (const Particle& bquark,  bquarks) {
-            if (deltaR(jt->rapidity(), jt->phi(), bquark.momentum().rapidity(),bquark.momentum().azimuthalAngle()) <= _Rjet) {
+            if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(),bquark.momentum().azimuthalAngle()) <= _Rjet) {
               bjet = true;
               break;
             }

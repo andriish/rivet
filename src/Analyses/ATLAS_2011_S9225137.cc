@@ -131,7 +131,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach (const Jet& jet,
                applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 4.9 ) {
+        if ( fabs( jet.eta() ) < 4.9 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -142,10 +142,10 @@ namespace Rivet {
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV )
           cand_mu.push_back(mu);
@@ -160,7 +160,7 @@ namespace Rivet {
       Jets cand_jets_2;
       foreach ( const Jet& jet, cand_jets ) {
         // candidates above eta=2.8 are jets
-        if ( fabs( jet.momentum().eta() ) >= 2.8 )
+        if ( fabs( jet.eta() ) >= 2.8 )
           cand_jets_2.push_back( jet );
         // otherwise more the R=0.2 from an electrons
         else {
@@ -216,7 +216,7 @@ namespace Rivet {
       // final jet filter
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets_2 ) {
-        if ( fabs( jet.momentum().eta() ) <= 2.8 )
+        if ( fabs( jet.eta() ) <= 2.8 )
           recon_jets.push_back( jet );
       }
 
@@ -231,8 +231,8 @@ namespace Rivet {
       // calculate H_T
       double HT=0;
       foreach ( const Jet& jet, recon_jets ) {
-        if ( jet.momentum().pT() > 40 * GeV )
-          HT += jet.momentum().pT() ;
+        if ( jet.pT() > 40 * GeV )
+          HT += jet.pT() ;
       }
 
       // number of jets and deltaR
@@ -241,16 +241,16 @@ namespace Rivet {
       bool pass80DeltaR=true;
       unsigned int njet80=0;
       for (unsigned int ix=0;ix<recon_jets.size();++ix) {
-        if(recon_jets[ix].momentum().pT()>80.*GeV) ++njet80;
-        if(recon_jets[ix].momentum().pT()>55.*GeV) ++njet55;
+        if(recon_jets[ix].pT()>80.*GeV) ++njet80;
+        if(recon_jets[ix].pT()>55.*GeV) ++njet55;
 
         for (unsigned int iy=ix+1;iy<recon_jets.size();++iy) {
-          if(recon_jets[ix].momentum().pT()>55.*GeV &&
-             recon_jets[iy].momentum().pT()>55.*GeV &&
+          if(recon_jets[ix].pT()>55.*GeV &&
+             recon_jets[iy].pT()>55.*GeV &&
              deltaR(recon_jets[ix],recon_jets[iy]) <0.6 )
             pass55DeltaR = false;
-          if(recon_jets[ix].momentum().pT()>80.*GeV &&
-             recon_jets[iy].momentum().pT()>80.*GeV &&
+          if(recon_jets[ix].pT()>80.*GeV &&
+             recon_jets[iy].pT()>80.*GeV &&
              deltaR(recon_jets[ix],recon_jets[iy]) <0.6 )
             pass80DeltaR = false;
         }

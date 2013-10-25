@@ -1,6 +1,6 @@
 Name: ATLAS_2011_I894867
 Year: 2011
-Summary: Measurement of the inelastic proton-proton cross-section at sqrt{s}=7 TeV.
+Summary: Measurement of the inelastic proton-proton cross-section at $\sqrt{s} = $7 TeV.
 Experiment: ATLAS
 Collider: LHC
 SpireID: 9021310
@@ -23,8 +23,8 @@ Description:
 BibKey: Aad:2011eu
 BibTeX: '@Article{Aad:2011eu,
       author         = "Aad, Georges and others",
-      title          = "{Measurement of the Inelastic Proton-Proton Cross-Section
-                        at $\sqrt{s}=7$ TeV with the ATLAS Detector}",
+      title          = "{Measurement of the inelastic proton--proton cross-section
+                        at $\sqrt{s}=7$ TeV with the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       journal        = "Nature Commun.",
       volume         = "2",

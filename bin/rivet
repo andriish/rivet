@@ -17,24 +17,29 @@ ENVIRONMENT:
      metadata files
 """
 
-## Try to bootstrap the Python path for rivet loading
-# TODO: Move this intorivet.__init__.py?
 import os, sys
-PROGPATH = sys.argv[0]
-PROGNAME = os.path.basename(PROGPATH)
-import commands
-try:
-    modname = sys.modules[__name__].__file__
-    binpath = os.path.dirname(modname)
-    rivetconfigpath = os.path.join(binpath, "rivet-config")
-    rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
-    sys.path.append(rivetpypath)
-except:
-    pass
 
-import rivet
+## Load the rivet module
+try:
+    import rivet
+except:
+    ## If rivet loading failed, try to bootstrap the Python path!
+    try:
+        # TODO: Is this a good idea? Maybe just notify the user that their PYTHONPATH is wrong?
+        import commands
+        modname = sys.modules[__name__].__file__
+        binpath = os.path.dirname(modname)
+        rivetconfigpath = os.path.join(binpath, "rivet-config")
+        rivetpypath = commands.getoutput(rivetconfigpath + " --pythonpath")
+        sys.path.append(rivetpypath)
+        import rivet
+    except:
+        sys.stderr.write("The rivet Python module could not be loaded: is your PYTHONPATH set correctly?\n")
+        sys.exit(1)
+
 rivet.util.check_python_version()
 rivet.util.set_process_name("rivet")
+
 import time, logging, signal
 
 ## Parse command line options
@@ -45,8 +50,6 @@ anagroup = OptionGroup(parser, "Analysis handling")
 anagroup.add_option("-a", "--analysis", dest="ANALYSES", action="append",
                     default=[], metavar="ANA",
                     help="add an analysis to the processing list.")
-# anagroup.add_option("-A", "--all-analyses", dest="ALL_ANALYSES", action="store_true",
-#                     default=False, help="add all analyses to the processing list.")
 anagroup.add_option("--list-analyses", dest="LIST_ANALYSES", action="store_true",
                     default=False, help="show the list of available analyses' names. With -v, it shows the descriptions, too")
 anagroup.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES",
@@ -127,7 +130,6 @@ for l in opts.NATIVE_LOG_STRS:
         rivet.setLogLevel(name, level)
     except:
         logging.warning("Couldn't process logging string '%s'" % l)
-
 
 ## Parse supplied cross-section
 if opts.CROSS_SECTION is not None:
@@ -219,7 +221,7 @@ if opts.LIST_ANALYSES:
             msg = aname
             if opts.LOGLEVEL <= logging.INFO:
                 a = rivet.AnalysisLoader.getAnalysis(aname)
-                msg = "%-25s   %s" % (aname, a.summary())
+                msg = "%-25s   %s" % (aname, rivet.util.detex(a.summary()))
             print msg
     sys.exit(0)
 
@@ -247,7 +249,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         print name
         print len(name) * "="
         print ""
-        print ana.summary()
+        print rivet.util.detex(ana.summary())
         print ""
         print "Status: %s" % ana.status()
         print ""
@@ -255,7 +257,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         if ana.inspireId():
             print "Inspire ID: %s" % ana.inspireId()
             print "Inspire URL: http://inspire-hep.net/record/%s" % ana.inspireId()
-            # TODO: Need a way to get to HepData from an Inspire record
+            print "HepData URL: http://hepdata.cedar.ac.uk/view/ins%s" % ana.inspireId()
         elif ana.spiresId():
             print "Spires ID: %s" % ana.spiresId()
             print "Inspire URL: http://inspire-hep.net/search?p=find+key+%s" % ana.spiresId()
@@ -277,7 +279,7 @@ if len(opts.SHOW_ANALYSES) > 0:
 
         print "Description:"
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
-        print twrap.fill(ana.description())
+        print twrap.fill(rivet.util.detex(ana.description()))
 
         print ""
 
@@ -341,19 +343,14 @@ else:
 
 ## Event number logging
 def logNEvt(n, starttime, maxevtnum):
-    nevtloglevel = logging.DEBUG
-    if n % 10 == 0:
-        nevtloglevel = logging.DEBUG + 5
-    if n % 100 == 0:
-        nevtloglevel = logging.INFO
-    if n % 200 == 0:
-        nevtloglevel = logging.INFO + 5
-    if n % 500 == 0:
-        nevtloglevel = logging.WARNING
-    if n % 1000 == 0:
-        nevtloglevel = logging.WARNING + 5
     if n % 10000 == 0:
         nevtloglevel = logging.CRITICAL
+    elif n % 1000 == 0:
+        nevtloglevel = logging.WARNING
+    elif n % 100 == 0:
+        nevtloglevel = logging.INFO
+    else:
+        nevtloglevel = logging.DEBUG
     timecurrent = time.time()
     timeelapsed = timecurrent - starttime
     if maxevtnum is None:
@@ -361,16 +358,14 @@ def logNEvt(n, starttime, maxevtnum):
     else:
         timeleft = (maxevtnum-n)*timeelapsed/n
         eta = time.strftime("%a %b %d %H:%M", time.localtime(timecurrent + timeleft))
-        logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s"
-                    % (n, timeelapsed, timeleft, eta))
+        logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s" %
+                    (n, timeelapsed, timeleft, eta))
 
 
 ## Set up analysis handler
 RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(opts.IGNORE_BEAMS)
-# if opts.ALL_ANALYSES:
-#     opts.ANALYSES = all_analyses
 for a in opts.ANALYSES:
     #a_up = a.upper()
     ## Print warning message and exit if not a valid analysis name

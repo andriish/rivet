@@ -55,7 +55,7 @@ namespace Rivet {
       _mc_xs = crossSection();
       _mc_error = 0.0;
       #endif
-      _h_XS->addPoint(0, _mc_xs, 0, _mc_error);
+      _h_XS->addPoint(0, _mc_xs, 0.5, _mc_error);
     }
 
     //@}

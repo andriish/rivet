@@ -57,7 +57,7 @@ namespace Rivet {
 
       if (zfinder.bosons().size() != 1) vetoEvent;
 
-      double Zpt = zfinder.bosons()[0].momentum().pT()/GeV;
+      double Zpt = zfinder.bosons()[0].pT()/GeV;
       double Zphi = zfinder.bosons()[0].momentum().phi();
       double Zmass = zfinder.bosons()[0].momentum().mass()/GeV;
 
@@ -72,7 +72,7 @@ namespace Rivet {
 
       foreach (const Particle& p, particles) {
         double dphi = fabs(deltaPhi(Zphi, p.momentum().phi()));
-        double pT = p.momentum().pT();
+        double pT = p.pT();
 
         if ( dphi < M_PI/3.0 ) {
           nTowards++;

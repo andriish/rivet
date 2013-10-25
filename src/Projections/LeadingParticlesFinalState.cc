@@ -40,7 +40,7 @@ namespace Rivet {
         map < long, Particles::const_iterator >::const_iterator itmp = tmp.find(ifs->pdgId());
         if (itmp != tmp.end()) {  // if a particle with this type has been already selected
           // If the new pT is higher than the previous one, then substitute...
-          if (ifs->momentum().pT() > itmp->second->momentum().pT()) {
+          if (ifs->pT() > itmp->second->pT()) {
             tmp[ifs->pdgId()] = ifs;
           }
           // ...otherwise insert in the container
@@ -63,8 +63,8 @@ namespace Rivet {
       Particle pmax;
 
       foreach (const Particle& p, _theParticles) {
-        if (p.momentum().pT() > ptmax) {
-          ptmax = p.momentum().pT();
+        if (p.pT() > ptmax) {
+          ptmax = p.pT();
           pmax = p;
         }
       }

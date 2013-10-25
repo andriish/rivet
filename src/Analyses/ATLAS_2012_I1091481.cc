@@ -58,7 +58,7 @@ namespace Rivet {
     double getSeta(const Particles& part, double xi) {
       std::complex<double> c_eta (0.0, 0.0);
       foreach (const Particle& p, part) {
-        double eta = p.momentum().eta();
+        double eta = p.eta();
         double phi = p.momentum().phi();
         double arg = xi*eta-phi;
          std::complex<double> temp(cos(arg), sin(arg));
@@ -110,7 +110,7 @@ namespace Rivet {
 
       // Veto event if the most inclusive phase space has less than 10 particles and the max pT is > 10 GeV
       if (part100.size() < 11) vetoEvent;
-      double ptmax = cfs100.particlesByPt()[0].momentum().pT()/GeV;
+      double ptmax = cfs100.particlesByPt()[0].pT()/GeV;
       if (ptmax > 10.0) vetoEvent;
 
       // Fill the pt>100, pTmax<10 GeV histos

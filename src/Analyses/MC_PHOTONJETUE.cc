@@ -149,7 +149,7 @@ namespace Rivet {
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
         ++numOverall;
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
         ptSumOverall += pT;
         if (pT > ptMaxOverall) ptMaxOverall = pT;
 

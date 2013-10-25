@@ -34,14 +34,14 @@ namespace Rivet {
       double fjet_pt = 0.0;
 
       foreach(const Jet& j, jets) {
-        double pT = j.momentum().pT();
-        if (j.momentum().eta() > 3.2 || j.momentum().eta() < -3.2) {
-          _hist_jetpt_fwdincl->fill(j.momentum().pT()/GeV, weight);
+        double pT = j.pT();
+        if (j.eta() > 3.2 || j.eta() < -3.2) {
+          _hist_jetpt_fwdincl->fill(j.pT()/GeV, weight);
         }
-        if (fabs(j.momentum().eta()) < 2.8) {
+        if (fabs(j.eta()) < 2.8) {
           if (cjet_pt < pT) cjet_pt = pT;
         }
-        if (fabs(j.momentum().eta()) < 4.7  && fabs(j.momentum().eta()) > 3.2) {
+        if (fabs(j.eta()) < 4.7  && fabs(j.eta()) > 3.2) {
           if (fjet_pt < pT) fjet_pt = pT;
         }
       }

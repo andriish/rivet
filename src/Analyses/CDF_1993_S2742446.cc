@@ -44,7 +44,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
-      if (photons.size()!=1 || photons[0].momentum().pT()>45.0*GeV) {
+      if (photons.size()!=1 || photons[0].pT()>45.0*GeV) {
         vetoEvent;
       }
       FourMomentum leadingPhoton = photons[0].momentum();
@@ -55,7 +55,7 @@ namespace Rivet {
       double Etsum=0.0;
       foreach (const Particle& p, applyProjection<VetoedFinalState>(event, "VFS").particles()) {
         if (PID::threeCharge(p.pdgId())!=0 &&
-            deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) < 0.7) {
+            deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) < 0.7) {
           Etsum += p.momentum().Et();
         }
       }

@@ -71,7 +71,7 @@ namespace Rivet {
 
       // Fill histos for <pT> vs. charged multiplicity
       foreach (const Particle& p, fs.particles()) {
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
         _hist_pt_vs_multiplicity->fill(numParticles, pT/GeV, weight);
       }
 

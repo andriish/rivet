@@ -23,9 +23,9 @@ namespace Rivet {
       h_nch->fill(nch, weight);
       // Loop over particles, fill pT, eta and ptnch
       foreach (const Particle& p, cfs.particles()) {
-        const double pt = p.momentum().pT();
+        const double pt = p.pT();
         h_pt->fill(pt/GeV, weight/pt);
-        h_eta->fill(p.momentum().eta(), weight);
+        h_eta->fill(p.eta(), weight);
         if (h_ptnch != 0) h_ptnch->fill(nch, pt/GeV, weight);
       }
     }

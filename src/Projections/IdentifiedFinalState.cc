@@ -1,9 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Cmp.hh"
-#include "Rivet/Tools/Utils.hh"
-#include <algorithm>
 
 namespace Rivet {
 
@@ -12,16 +8,16 @@ namespace Rivet {
     setName("IdentifiedFinalState");
     addProjection(fsp, "FS");
   }
-  
-  
+
+
   IdentifiedFinalState::IdentifiedFinalState(double etamin, double etamax, double ptMin)
     : FinalState(etamin, etamax, ptMin)
   {
     setName("IdentifiedFinalState");
     addProjection(FinalState(etamin, etamax, ptMin), "FS");
   }
-  
-  
+
+
   IdentifiedFinalState::IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
                                              double ptMin)
     : FinalState(etaRanges, ptMin)
@@ -29,7 +25,7 @@ namespace Rivet {
     setName("IdentifiedFinalState");
     addProjection(FinalState(etaRanges, ptMin), "FS");
   }
-  
+
 
   int IdentifiedFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");

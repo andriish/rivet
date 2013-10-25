@@ -25,8 +25,8 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo "  --includedir  : show the path to the directory containing the Rivet headers"
     echo "  --libdir      : show the path to the directory containing the Rivet libraries"
     echo "  --datadir     : show the path to the directory containing Rivet data"
+    echo "  --pythonpath  : show the path(s) to the directory containing Rivet's Python package"
     echo
-    echo "  --pythonpath  : show the path(s) to the directory containing Rivet Python modules"
     echo "  --cppflags    : returns a Rivet '-I' string for insertion into CPPFLAGS"
     echo "  --ldflags     : returns a Rivet '-L' string for insertion into LDFLAGS"
     echo "  --libs        : returns a Rivet '-l' string for insertion into LIBS or LIBADD"
@@ -59,6 +59,8 @@ if test -n "$tmp"; then
     test -n "$irivet" && OUT="$OUT -I${irivet}"
     ihepmc="@HEPMCINCPATH@"
     test -n "$ihepmc" && OUT="$OUT -I${ihepmc}"
+    iyoda="@YODAINCPATH@"
+    test -n "$iyoda" && OUT="$OUT -I${iyoda}"
     ifastjet="@FASTJETINCPATH@"
     test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
     igsl="@GSLINCPATH@"
@@ -69,12 +71,15 @@ fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
 if test -n "$tmp"; then
+    OUT="$OUT -Wl,--no-as-needed"
     lrivet="@libdir@"
     test -n "$lrivet" && OUT="$OUT -L${lrivet}"
     lhepmc="@HEPMCLIBPATH@"
     test -n "$lhepmc" && OUT="$OUT -L${lhepmc}"
-    lfastjet="@FASTJETLIBPATH@"
-    test -n "$lfastjet" && OUT="$OUT -L${lfastjet}"
+    lyoda="@YODALIBPATH@"
+    test -n "$lyoda" && OUT="$OUT -L${lyoda}"
+    lfastjet="@FASTJETCONFIGLIBADD@"
+    test -n "$lfastjet" && OUT="$OUT ${lfastjet}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<libs\>|--\<ldadd\>')
@@ -83,6 +88,6 @@ test -n "$tmp" && OUT="$OUT -lRivet"
 
 ## Version
 tmp=$( echo "$*" | egrep -- '--\<version\>')
-test -n "$tmp" && echo @PACKAGE_VERSION@
+test -n "$tmp" && echo @PACKAGE_VERSION@ && exit 0
 
 echo $OUT

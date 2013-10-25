@@ -94,7 +94,7 @@ namespace Rivet {
       Matrix3 xrot(Vector3(xref.x(), xref.y(), 0.0), Vector3(1.0, 0.0, 0.0));
       pl3=xrot*pl3;
 
-      double ptw(wfinder.bosons()[0].momentum().pT()/GeV);
+      double ptw(wfinder.bosons()[0].pT()/GeV);
       double thetas(pl3.theta()), phis(pl3.phi());
       double costhetas(cos(thetas)), sinthetas(sin(thetas));
       double cosphis(cos(phis)), sinphis(sin(phis));

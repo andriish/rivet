@@ -11,21 +11,20 @@ References:
  - Phys. Rev. Lett. 106 (2011) 122003
  - arXiv:1101.5029 [hep-ex]
 RunInfo:
-   Inclusive QCD at sqrt(s) = 7~TeV, ptHat (or equivalent) greater than 20 GeV
+   Inclusive QCD at $\sqrt{s} = 7\;\TeV$, $\hat{\pT} (or equivalent) greater than 20 GeV
 NumEvents: 100k
 Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [20]
 Description:
-  Measurements of dijet azimuthal decorrelations in pp collisions at sqrt(s) = 7 TeV using the CMS
+  Measurements of dijet azimuthal decorrelations in $pp$ collisions at $\sqrt{s} = 7$ TeV using the CMS
   detector at the CERN LHC are presented. The analysis is based on an inclusive dijet event sample
   corresponding to an integrated luminosity of 2.9/pb.
-  Jets are anti-kt with $R=0.5$, $p_\perp>80(30)$ GeV and $|\eta|<1.1$.
+  Jets are anti-$k_t$ with $R = 0.5$, $p_\perp > 80 (30)$ GeV and $|\eta| < 1.1$.
 BibKey: Khachatryan:2011zj
 BibTeX: '@article{Khachatryan:2011zj,
       author         = "Khachatryan, Vardan and others",
-      title          = "{Dijet Azimuthal Decorrelations in $pp$ Collisions at
-                        $\sqrt{s} = 7$~TeV}",
+      title          = "{Dijet azimuthal decorrelations in $pp$ collisions at $\sqrt{s} = 7$~TeV}",
       collaboration  = "CMS Collaboration",
       journal        = "Phys.Rev.Lett.",
       volume         = "106",

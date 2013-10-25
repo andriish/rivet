@@ -55,36 +55,30 @@ namespace Rivet {
       const double weight = e.weight();
 
       const ZFinder& zeefinder = applyProjection<ZFinder>(e, "ZeeFinder");
-      if (zeefinder.bosons().size()!=1) {
-        vetoEvent;
-      }
+      if (zeefinder.bosons().size() != 1) vetoEvent;
 
       const ZFinder& zmmfinder = applyProjection<ZFinder>(e, "ZmmFinder");
-      if (zmmfinder.bosons().size()!=1) {
-        vetoEvent;
-      }
+      if (zmmfinder.bosons().size() != 1) vetoEvent;
 
-      FourMomentum zee(zeefinder.bosons()[0].momentum());
-      FourMomentum zmm(zmmfinder.bosons()[0].momentum());
-      FourMomentum zz(zee+zmm);
+      FourMomentum zee = zeefinder.bosons()[0].momentum();
+      FourMomentum zmm = zmmfinder.bosons()[0].momentum();
+      FourMomentum zz = zee + zmm;
       // find leptons
-      FourMomentum ep(zeefinder.constituents()[0].momentum()),
-        em(zeefinder.constituents()[1].momentum()),
-        mp(zmmfinder.constituents()[0].momentum()),
-        mm(zmmfinder.constituents()[1].momentum());
+      FourMomentum ep = zeefinder.constituents()[0].momentum();
+      FourMomentum em = zeefinder.constituents()[1].momentum();
+      FourMomentum mp = zmmfinder.constituents()[0].momentum();
+      FourMomentum mm = zmmfinder.constituents()[1].momentum();
 
       const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
       if (jets.size() > 0) {
-        _h_ZZ_jet1_deta->fill(zz.eta()-jets[0].momentum().eta(), weight);
+        _h_ZZ_jet1_deta->fill(zz.eta()-jets[0].eta(), weight);
         _h_ZZ_jet1_dR->fill(deltaR(zz, jets[0].momentum()), weight);
         _h_Ze_jet1_dR->fill(deltaR(ep, jets[0].momentum()), weight);
       }
 
-      double HT=ep.pT()+em.pT()+mp.pT()+mm.pT();
-      foreach (const Jet& jet, jets) {
-        HT+=jet.momentum().pT();
-      }
-      if (HT>0.0) _h_HT->fill(HT, weight);
+      double HT = ep.pT() + em.pT() + mp.pT() + mm.pT();
+      foreach (const Jet& jet, jets) HT += jet.pT();
+      if (HT > 0.0) _h_HT->fill(HT/GeV, weight);
 
       MC_JetAnalysis::analyze(e);
     }
@@ -92,12 +86,11 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      double norm=crossSection()/sumOfWeights();
+      const double norm = crossSection()/sumOfWeights();
       scale(_h_ZZ_jet1_deta, norm);
       scale(_h_ZZ_jet1_dR, norm);
       scale(_h_Ze_jet1_dR, norm);
       scale(_h_HT, norm);
-
       MC_JetAnalysis::finalize();
     }
 

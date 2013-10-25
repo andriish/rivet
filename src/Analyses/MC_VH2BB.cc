@@ -142,14 +142,14 @@ namespace Rivet {
       // Identify the b-jets
       Jets bjets;
       foreach (const Jet& jet, jets) {
-        const double jetEta = jet.momentum().eta();
+        const double jetEta = jet.eta();
         const double jetPhi = jet.momentum().phi();
-        const double jetPt = jet.momentum().pT();
+        const double jetPt = jet.pT();
         _h_jet_eta->fill(jetEta, weight);
         _h_jet_phi->fill(jetPhi, weight);
         _h_jet_pT->fill(jetPt/GeV, weight);
 
-        if (jet.containsBottom() && jet.momentum().pT() > JETPTCUT) {
+        if (jet.containsBottom() && jet.pT() > JETPTCUT) {
           bjets.push_back(jet);
           _h_jet_b_jet_eta->fill( jetEta , weight );
           _h_jet_b_jet_phi->fill( jetPhi , weight );
@@ -161,8 +161,8 @@ namespace Rivet {
       // Plot vector boson properties
       foreach (const Particle& v, vectorBosons) {
         _h_VB_phi->fill(v.momentum().phi(), weight);
-        _h_VB_pT->fill(v.momentum().pT(), weight);
-        _h_VB_eta->fill(v.momentum().eta(), weight);
+        _h_VB_pT->fill(v.pT(), weight);
+        _h_VB_eta->fill(v.eta(), weight);
         _h_VB_mass->fill(v.momentum().mass(), weight);
       }
 
@@ -175,10 +175,10 @@ namespace Rivet {
           const Jet& jet1 = bjets[i];
           const Jet& jet2 = bjets[j];
 
-          const double deltaEtaJJ = fabs(jet1.momentum().eta() - jet2.momentum().eta());
+          const double deltaEtaJJ = fabs(jet1.eta() - jet2.eta());
           const double deltaPhiJJ = deltaPhi(jet1.momentum(), jet2.momentum());
           const double deltaRJJ = deltaR(jet1.momentum(), jet2.momentum());
-          const double deltaPtJJ = fabs(jet1.momentum().pT() - jet2.momentum().pT());
+          const double deltaPtJJ = fabs(jet1.pT() - jet2.pT());
           _h_jet_bb_Delta_eta->fill(deltaEtaJJ, weight);
           _h_jet_bb_Delta_phi->fill(deltaPhiJJ, weight);
           _h_jet_bb_Delta_pT->fill(deltaPtJJ, weight);
@@ -191,10 +191,10 @@ namespace Rivet {
           _h_jet_H_pT_using_bb->fill(phiggs.pT(), weight);
 
           foreach (const Particle& v, vectorBosons) {
-            const double deltaEtaVH = fabs(phiggs.eta() - v.momentum().eta());
+            const double deltaEtaVH = fabs(phiggs.eta() - v.eta());
             const double deltaPhiVH = deltaPhi(phiggs, v.momentum());
             const double deltaRVH = deltaR(phiggs, v.momentum());
-            const double deltaPtVH = fabs(phiggs.pT() - v.momentum().pT());
+            const double deltaPtVH = fabs(phiggs.pT() - v.pT());
             _h_jet_VBbb_Delta_eta->fill(deltaEtaVH, weight);
             _h_jet_VBbb_Delta_phi->fill(deltaPhiVH, weight);
             _h_jet_VBbb_Delta_pT->fill(deltaPtVH, weight);

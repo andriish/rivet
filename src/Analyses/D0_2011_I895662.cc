@@ -35,7 +35,7 @@ namespace Rivet {
       Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(40.*GeV);
 
       // Need three jets, leading jet above 150 GeV
-      if (jets.size() < 3 || jets[0].momentum().pT() <= 150.*GeV) vetoEvent;
+      if (jets.size() < 3 || jets[0].pT() <= 150.*GeV) vetoEvent;
 
       std::vector<FourMomentum> p;
       for (size_t i=0; i<3; i++) {

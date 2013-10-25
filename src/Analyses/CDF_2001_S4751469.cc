@@ -48,7 +48,6 @@ namespace Rivet {
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       const ConstLossyFinalState lfs(cfs, 0.08);
 
-      // const LossyFinalState<StarRandomFilter> lfs(cfs, StarRandomFilter());
       addProjection(lfs, "FS");
       addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
 
@@ -99,7 +98,7 @@ namespace Rivet {
 
       Jet leadingJet = jets.front();
       const double phiLead = leadingJet.phi();
-      const double ptLead = leadingJet.ptSum();
+      const double ptLead = leadingJet.pT();
 
       // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
       if (ptLead/GeV < 0.5) vetoEvent;
@@ -124,14 +123,13 @@ namespace Rivet {
       size_t numToward(0), numTrans(0), numAway(0);
 
       // Temporary histos that bin N and pT in dphi
-      /// @todo Copy the permanent histos to get the binnings more robustly
-      Profile1D hist_num_dphi_2(50, 0, 180), hist_num_dphi_5(50, 0, 180), hist_num_dphi_30(50, 0, 180);
-      Profile1D hist_pt_dphi_2(50, 0, 180), hist_pt_dphi_5(50, 0, 180), hist_pt_dphi_30(50, 0, 180);
+      Profile1D htmp_num_dphi_2(refData(1, 1, 1)), htmp_num_dphi_5(refData(1, 1, 2)), htmp_num_dphi_30(refData(1, 1, 3));
+      Profile1D htmp_pt_dphi_2(refData(2, 1, 1)), htmp_pt_dphi_5(refData(2, 1, 2)), htmp_pt_dphi_30(refData(2, 1, 3));
 
       foreach (const Particle& p, fs.particles()) {
         // Calculate DeltaPhi(p,leadingJet)
         const double dPhi = deltaPhi(p.momentum().phi(), phiLead);
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
 
         if (dPhi < PI/3.0) {
           ptSumToward += pT;
@@ -162,32 +160,41 @@ namespace Rivet {
         // Fill tmp histos to bin event's track Nch & pT in dphi
         const double dPhideg = 180*dPhi/PI;
         if (ptLead/GeV > 2.0) {
-          hist_num_dphi_2.fill(dPhideg, 1);
-          hist_pt_dphi_2.fill (dPhideg, pT/GeV);
+          htmp_num_dphi_2.fill(dPhideg, 1);
+          htmp_pt_dphi_2.fill (dPhideg, pT/GeV);
         }
         if (ptLead/GeV > 5.0) {
-          hist_num_dphi_5.fill(dPhideg, 1);
-          hist_pt_dphi_5.fill (dPhideg, pT/GeV);
+          htmp_num_dphi_5.fill(dPhideg, 1);
+          htmp_pt_dphi_5.fill (dPhideg, pT/GeV);
         }
         if (ptLead/GeV > 30.0) {
-          hist_num_dphi_30.fill(dPhideg, 1);
-          hist_pt_dphi_30.fill (dPhideg, pT/GeV);
+          htmp_num_dphi_30.fill(dPhideg, 1);
+          htmp_pt_dphi_30.fill (dPhideg, pT/GeV);
         }
       }
 
       // Update the "proper" dphi profile histograms
-      for (int i = 0; i < 50; i++) {
+      for (int i = 0; i < 50; i++) { //< @todo Should really explicitly iterate over nbins for each temp histo
         if (ptLead/GeV > 2.0) {
-          _numvsDeltaPhi2->fill(hist_num_dphi_2.bin(i).focus(), hist_num_dphi_2.bin(i).mean(), weight);
-          _pTvsDeltaPhi2->fill(hist_pt_dphi_2.bin(i).focus(), hist_pt_dphi_2.bin(i).mean(), weight);
+          const double x2 = htmp_pt_dphi_2.bin(i).midpoint();
+          const double num2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_num_dphi_2.bin(i).mean() : 0.0;
+          const double pt2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_pt_dphi_2.bin(i).mean() : 0.0;
+          _numvsDeltaPhi2->fill(x2, num2, weight);
+          _pTvsDeltaPhi2->fill(x2, pt2, weight);
         }
         if (ptLead/GeV > 5.0) {
-          _numvsDeltaPhi5->fill(hist_num_dphi_5.bin(i).focus(), hist_num_dphi_5.bin(i).mean(), weight);
-          _pTvsDeltaPhi5->fill(hist_pt_dphi_5.bin(i).focus(), hist_pt_dphi_5.bin(i).mean(), weight);
+          const double x5 = htmp_pt_dphi_5.bin(i).midpoint();
+          const double num5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_num_dphi_5.bin(i).mean() : 0.0;
+          const double pt5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_pt_dphi_5.bin(i).mean() : 0.0;
+          _numvsDeltaPhi5->fill(x5, num5, weight);
+          _pTvsDeltaPhi5->fill(x5, pt5, weight);
         }
         if (ptLead/GeV > 30.0) {
-          _numvsDeltaPhi30->fill(hist_num_dphi_30.bin(i).focus(), hist_num_dphi_30.bin(i).mean(), weight);
-          _pTvsDeltaPhi30->fill(hist_pt_dphi_30.bin(i).focus(), hist_pt_dphi_30.bin(i).mean(), weight);
+          const double x30 = htmp_pt_dphi_30.bin(i).midpoint();
+          const double num30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_num_dphi_30.bin(i).mean() : 0.0;
+          const double pt30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_pt_dphi_30.bin(i).mean() : 0.0;
+          _numvsDeltaPhi30->fill(x30, num30, weight);
+          _pTvsDeltaPhi30->fill(x30, pt30, weight);
         }
       }
 
@@ -242,15 +249,10 @@ namespace Rivet {
 
     /// @name Histogram collections
     //@{
-    // These histos (binned in dphi) are filled per event and then reset
-    // TODO: use LWH
-    Profile1DPtr _hist_num_dphi_2, _hist_num_dphi_5, _hist_num_dphi_30;
-    Profile1DPtr _hist_pt_dphi_2, _hist_pt_dphi_5, _hist_pt_dphi_30;
 
     // The sumpt vs. dphi and Nch vs. dphi histos
     Profile1DPtr _numvsDeltaPhi2, _numvsDeltaPhi5, _numvsDeltaPhi30;
     Profile1DPtr _pTvsDeltaPhi2, _pTvsDeltaPhi5, _pTvsDeltaPhi30;
-
 
     /// Profile histograms, binned in the \f$ p_T \f$ of the leading jet, for
     /// the \f$ p_T \f$ sum in the toward, transverse and away regions.

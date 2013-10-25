@@ -77,22 +77,32 @@ for ANANAME in ANANAMES:
     match = re_stdana.match(ANANAME)
     STDANA = False
     ANAEXPT = "<Insert the experiment name>"
+    ANACOLLIDER = "<Insert the collider name>"
     ANAYEAR = "<Insert year of publication>"
     INSPIRE_SPIRES = None
     ANAINSPIREID = "<Insert the Inspire ID>"
     if match:
         STDANA = True
         ANAEXPT = match.group(1)
+        if ANAEXPT.upper() in ("ALICE", "ATLAS", "CMS", "LHCB"):
+            ANACOLLIDER = "LHC"
+        elif ANAEXPT.upper() in ("CDF", "D0"):
+            ANACOLLIDER = "Tevatron"
+        elif ANAEXPT.upper() == "BABAR":
+            ANACOLLIDER = "PEP-II"
+        elif ANAEXPT.upper() == "BELLE":
+            ANACOLLIDER = "KEKB"
         ANAYEAR = match.group(2)
         INSPIRE_SPIRES = match.group(3)
         ANAINSPIREID = match.group(4)
-    if INSPIRE_SPIRES == "S":
-        ANAREFREPO = "Spires"
-    else:
+    if INSPIRE_SPIRES == "I":
         ANAREFREPO = "Inspire"
+    else:
+        ANAREFREPO = "Spires"
     KEYWORDS = {
         "ANANAME" : ANANAME,
         "ANAEXPT" : ANAEXPT,
+        "ANACOLLIDER" : ANACOLLIDER,
         "ANAYEAR" : ANAYEAR,
         "ANAREFREPO" : ANAREFREPO,
         "ANAINSPIREID" : ANAINSPIREID
@@ -119,17 +129,24 @@ for ANANAME in ANANAMES:
     if STDANA:
         try:
             import urllib
-            hdurl = "http://hepdata.cedar.ac.uk/view/irn%s/yoda" % ANAINSPIREID
-            logging.debug("Getting data file from HepData at %s" % hdurl)
-            httpstream = urllib.urlopen(hdurl)
-            yodastr = httpstream.read()
-            if "<html>" in yodastr:
-                logging.warning("Problem encountered when getting data from HepData (%s). No reference data file written." % hdurl)
+            hdurl = None
+            if INSPIRE_SPIRES == "I":
+                hdurl = "http://hepdata.cedar.ac.uk/view/ins%s/yoda" % ANAINSPIREID
+            elif INSPIRE_SPIRES == "S":
+                hdurl = "http://hepdata.cedar.ac.uk/view/irn%s/yoda" % ANAINSPIREID
+            if hdurl:
+                logging.debug("Getting data file from HepData at %s" % hdurl)
+                httpstream = urllib.urlopen(hdurl)
+                yodastr = httpstream.read()
+                if not yodastr or "<html>" in yodastr:
+                    logging.warning("Problem encountered when getting data from HepData (%s). No reference data file written." % hdurl)
+                else:
+                    f = open("%s.yoda" % ANANAME, "w")
+                    f.write(yodastr)
+                    f.close()
+                httpstream.close()
             else:
-                f = open("%s.yoda" % ANANAME, "w")
-                f.write(yodastr)
-                f.close()
-            httpstream.close()
+                logging.warning("Could not identify a URL for getting reference data from HepData. No reference data file written.")
         except Exception, e:
             logging.error("HepData oops: %s" % e)
 
@@ -271,7 +288,7 @@ Name: %(ANANAME)s
 Year: %(ANAYEAR)s
 Summary: <Insert short %(ANANAME)s description>
 Experiment: %(ANAEXPT)s
-Collider: <Insert %(ANANAME)s collider>
+Collider: %(ANACOLLIDER)s
 %(ANAREFREPO)sID: %(ANAINSPIREID)s
 Status: UNVALIDATED
 Authors:
@@ -294,8 +311,8 @@ NeedCrossSection: no
 Description:
   '<Insert a fairly long description, including what is measured
   and if possible what it is useful for in terms of MC validation
-  and tuning. Use \LaTeX for maths like $\pT > \unit{50}{\GeV}$.
-  Use single quotes around the block if required (see YAML 1.2 manual)>'
+  and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.
+  Use single quotes around the block if required (see http://www.yaml.org)>'
 BibKey: %(ANABIBKEY)s
 BibTeX: '%(ANABIBTEX)s'
 ToDo:

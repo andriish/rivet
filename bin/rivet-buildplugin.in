@@ -65,6 +65,8 @@ irivet="@includedir@"
 test -n "$irivet" && mycppflags="$mycppflags -I${irivet}"
 ihepmc="@HEPMCINCPATH@"
 test -n "$ihepmc" && mycppflags="$mycppflags -I${ihepmc}"
+iyoda="@YODAINCPATH@"
+test -n "$iyoda" && mycppflags="$mycppflags -I${iyoda}"
 ifastjet="@FASTJETINCPATH@"
 test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
 igsl="@GSLINCPATH@"
@@ -72,14 +74,22 @@ test -n "$igsl" && mycppflags="$mycppflags -I${igsl}"
 iboost="@BOOST_CPPFLAGS@"
 test -n "$iboost" && mycppflags="$mycppflags ${iboost}"
 
+
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""
 lrivet="@libdir@"
-test -n "$lrivet" && myldflags="$mycppflags -L${lrivet}"
+test -n "$lrivet" && myldflags="$myldflags -L${lrivet}"
 lhepmc="@HEPMCLIBPATH@"
-test -n "$lhepmc" && myldflags="$mycppflags -L${lhepmc}"
-lfastjet="@FASTJETLIBPATH@"
-test -n "$lfastjet" && myldflags="$mycppflags -L${lfastjet}"
+test -n "$lhepmc" && myldflags="$myldflags -L${lhepmc}"
+lyoda="@YODALIBPATH@"
+test -n "$lyoda" && myldflags="$myldflags -L${lyoda}"
+lfastjet="@FASTJETCONFIGLIBADD@"
+test -n "$lfastjet" && myldflags="$myldflags ${lfastjet}"
+## Detect whether the linker accepts the --no-as-needed flag and prepend the linker flag with it if possible
+if (cd /tmp && echo -e 'int main() { return 0; }' > $$.cc; $mycxx -Wl,--no-as-needed $$.cc -o $$ 2> /dev/null); then
+  myldflags="-Wl,--no-as-needed $myldflags"
+fi
+
 
 ## Link against ROOT if requested
 with_root=$(echo $* | egrep -- '--\<with-root\>')
@@ -106,7 +116,7 @@ fi
 
 
 ## Get the source files (and more flags)
-sources_and_flags="$@"
+sources_and_flags="$@ -lRivet"
 if [[ -n $with_root ]]; then
     root_flags=$(root-config --libs --cflags 2> /dev/null)
     # echo $root_flags

@@ -42,7 +42,7 @@ namespace Rivet {
 
       Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt(40.0*GeV);
       foreach (const Jet& jet, jets) {
-        double eta = fabs(jet.momentum().eta());
+        double eta = fabs(jet.eta());
         if (eta>0.1 && eta<0.7) {
           _h_ET->fill(jet.momentum().Et(), weight);
         }

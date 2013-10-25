@@ -141,7 +141,7 @@ namespace Rivet {
       // Keep any jets that pass the initial rapidity cut
       vector<const Jet*> central_jets;
       foreach(const Jet& j, jets) {
-        if (fabs(j.momentum().rapidity()) < 2.4) central_jets.push_back(&j);
+        if (fabs(j.rapidity()) < 2.4) central_jets.push_back(&j);
       }
 
       // For each of the jets that pass the rapidity cut, only keep those that are not
@@ -269,10 +269,10 @@ namespace Rivet {
         if (PID::charge(elecFS.at(0)) != PID::charge(muonFS.at(0))) {
           // Calculate HT: scalar sum of the pTs of the leptons and all good jets
           double HT = 0;
-          HT += elecFS[0].momentum().pT();
-          HT += muonFS[0].momentum().pT();
+          HT += elecFS[0].pT();
+          HT += muonFS[0].pT();
           foreach (const Jet* j, good_jets)
-            HT += fabs(j->momentum().pT());
+            HT += fabs(j->pT());
           // Keep events with HT > 130 GeV
           if (HT > 130.0*GeV) {
             // And again we want 2 or more b-jets
@@ -289,8 +289,8 @@ namespace Rivet {
 
         // Loop over each veto jet
         foreach (const Jet* j, veto_jets) {
-          const double pt = j->momentum().pT();
-          const double rapidity = fabs(j->momentum().rapidity());
+          const double pt = j->pT();
+          const double rapidity = fabs(j->rapidity());
           // Loop over each region
           for (size_t i = 0; i < 4; ++i) {
             // If the jet falls into this region, get its pT and increment sum(pT)

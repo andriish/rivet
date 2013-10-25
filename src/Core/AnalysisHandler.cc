@@ -3,9 +3,9 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Analysis.hh"
 #include "Rivet/ParticleName.hh"
-#include "Rivet/RivetYODA.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/BeamConstraint.hh"
+#include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
@@ -44,7 +44,7 @@ namespace Rivet {
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
     foreach (const AnaHandle a, _analyses) {
-      if ((!a->isCompatible(beams())) && (!_ignoreBeams)) {
+      if (!_ignoreBeams && !a->isCompatible(beams())) {
         //MSG_DEBUG(a->name() << " requires beams " << a->requiredBeams() << " @ " << a->requiredEnergies() << " GeV");
         anamestodelete.push_back(a->name());
       }
@@ -53,7 +53,7 @@ namespace Rivet {
       MSG_WARNING("Analysis '" << aname << "' is incompatible with the provided beams: removing");
       removeAnalysis(aname);
     }
-    if (num_anas_requested > 0 && analysisNames().size() == 0) {
+    if (num_anas_requested > 0 && analysisNames().empty()) {
       cerr << "All analyses were incompatible with the first event's beams\n"
            << "Exiting, since this probably wasn't intentional!" << endl;
       exit(1);
@@ -141,8 +141,8 @@ namespace Rivet {
       try {
         a->finalize();
       } catch (const Error& err) {
-        cerr     << "Error in " << a->name() << "::finalize method: "
-                 << err.what() << endl;
+        cerr << "Error in " << a->name() << "::finalize method: "
+             << err.what() << endl;
         exit(1);
       }
     }
@@ -200,16 +200,20 @@ namespace Rivet {
     return *this;
   }
 
+
   void AnalysisHandler::writeData(const string& filename) {
     vector<AnalysisObjectPtr> all_aos;
     foreach (const AnaHandle a, _analyses) {
       vector<AnalysisObjectPtr> aos = a->analysisObjects();
+      // MSG_WARNING(a->name() << " " << aos.size());
       sort(aos.begin(), aos.end(), AOSortByPath);
-      all_aos.insert(all_aos.end(), aos.begin(), aos.end());
-      // MSG_WARNING(a->name() << " " << plots.size());
+      foreach (const AnalysisObjectPtr ao, aos) {
+        if (ao->path().find("/TMP/") != string::npos) continue;
+        all_aos.push_back(ao);
+      }
     }
-    // MSG_WARNING(allPlots.size());
-    // foreach (AnalysisObjectPtr ao, allPlots) MSG_WARNING(ao->path());
+    // MSG_WARNING("Number of output analysis objects = " << all_aos.size());
+    // foreach (const AnalysisObjectPtr ao, all_aos) MSG_WARNING(ao->path());
     WriterYODA::write(filename, all_aos.begin(), all_aos.end());
   }
 

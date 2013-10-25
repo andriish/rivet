@@ -3,8 +3,8 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisInfo.hh"
-#include "Rivet/RivetYODA.hh"
 #include "Rivet/BeamConstraint.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
@@ -122,12 +122,15 @@ namespace Rivet {
     }
     if (!beamIdsOk) return false;
 
-    // Next check that the energies are compatible (within 1%, to give a bit of UI forgiveness)
-    bool beamEnergiesOk = requiredEnergies().size()>0 ? false : true;
+    // Next check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
+    /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
+    bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
     typedef pair<double,double> DoublePair;
     foreach (const DoublePair& ep, requiredEnergies()) {
       if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
-          (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01))) {
+          (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
+          ((ep.first - energies.first) < 1*GeV && (ep.second - energies.second) < 1*GeV) ||
+          ((ep.first - energies.second) < 1*GeV && (ep.second - energies.first) < 1*GeV)) {
         beamEnergiesOk =  true;
         break;
       }
@@ -411,23 +414,29 @@ namespace Rivet {
 
 
   Scatter2DPtr Analysis::bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                       bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookScatter2D(axisCode, title, xtitle, ytitle);
+    return bookScatter2D(axisCode, copy_pts, title, xtitle, ytitle);
   }
 
 
   Scatter2DPtr Analysis::bookScatter2D(const string& hname,
+                                       bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
+    Scatter2DPtr s;
     const string path = histoPath(hname);
-    // const Scatter2D& refdata = refData(hname);
-    // Scatter2DPtr s( new Scatter2D(refdata, path) );
-    // foreach (Point2D& p, s->points()) p.setY(0, 0);
-    Scatter2DPtr s( new Scatter2D(path) );
+    if (copy_pts) {
+      const Scatter2D& refdata = refData(hname);
+      s.reset( new Scatter2D(refdata, path) );
+      foreach (Point2D& p, s->points()) p.setY(0, 0);
+    } else {
+      s.reset( new Scatter2D(path) );
+    }
     addAnalysisObject(s);
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
@@ -591,6 +600,15 @@ namespace Rivet {
       }
     }
   }
+
+  void Analysis::removeAnalysisObject(AnalysisObjectPtr ao) {
+    for (vector<AnalysisObjectPtr>::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
+      if (*it == ao) {
+        _analysisobjects.erase(it);
+        break;
+      }
+    }
+ }
 
 
 }

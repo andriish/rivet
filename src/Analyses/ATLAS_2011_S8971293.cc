@@ -50,14 +50,14 @@ namespace Rivet {
 
       Jets jets06;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets06").jetsByPt(100.0*GeV)) {
-        if (fabs(jet.momentum().rapidity()) < 2.8) {
+        if (fabs(jet.rapidity()) < 2.8) {
           jets06.push_back(jet);
         }
       }
       if (jets06.size()>1){
-        if (fabs(jets06[0].momentum().rapidity())<0.8 && fabs(jets06[1].momentum().rapidity())<0.8) {
+        if (fabs(jets06[0].rapidity())<0.8 && fabs(jets06[1].rapidity())<0.8) {
           double observable = mapAngle0ToPi(jets06[0].momentum().phi()-jets06[1].momentum().phi()) / M_PI;
-          _h_deltaPhi.fill(jets06[0].momentum().pT(), observable, weight);
+          _h_deltaPhi.fill(jets06[0].pT(), observable, weight);
         }
       }
     }

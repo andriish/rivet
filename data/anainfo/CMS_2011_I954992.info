@@ -13,7 +13,7 @@ Authors:
 References:
  - arXiv:1111.5536 [hep-ex]
 RunInfo:
-  gamma gamma TO mu+ mu- process. 
+  gamma gamma TO mu+ mu- process.
 NumEvents: 50000
 NeedCrossSection: no
 Beams: [p+, p+]
@@ -30,8 +30,7 @@ Description:
 BibKey: Chatrchyan:2011ci
 BibTeX: '@article{Chatrchyan:2011ci,
       author         = "Chatrchyan, Serguei and others",
-      title          = "{Exclusive photon-photon production of muon pairs in
-                        proton-proton collisions at sqrt(s) = 7 TeV}",
+      title          = "{Exclusive photon--photon production of muon pairs in proton--proton collisions at $\sqrt{s} = 7$ TeV}",
       collaboration  = "CMS Collaboration",
       journal        = "JHEP",
       volume         = "1201",

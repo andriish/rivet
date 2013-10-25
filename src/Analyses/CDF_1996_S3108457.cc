@@ -86,7 +86,7 @@ namespace Rivet {
 
       if (costheta0 < 2.0/3.0 && mass > 600.0*GeV) {
         foreach (const Jet jet, jets) {
-          _h_pT[jets.size()-2]->fill(jet.momentum().pT(), weight);
+          _h_pT[jets.size()-2]->fill(jet.pT(), weight);
         }
       }
     }

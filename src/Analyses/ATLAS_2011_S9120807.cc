@@ -130,7 +130,7 @@ namespace Rivet {
         ///
         /// remove photons in crack
         ///
-        double eta_P = photon.momentum().eta();
+        double eta_P = photon.eta();
         if (fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
 
         double phi_P = photon.momentum().phi();
@@ -144,10 +144,10 @@ namespace Rivet {
         FourMomentum mom_in_EtCone;
         foreach (const Particle& p, fs) {
           /// check if it's in the cone of .4
-          if (deltaR(eta_P, phi_P, p.momentum().eta(), p.momentum().phi()) >= 0.4) continue;
+          if (deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) >= 0.4) continue;
 
           /// check if it's in the 5x7 central core
-          if (fabs(eta_P-p.momentum().eta()) < .025*7.0*0.5 &&
+          if (fabs(eta_P-p.eta()) < .025*7.0*0.5 &&
               fabs(phi_P-p.momentum().phi()) < (M_PI/128.)*5.0*0.5) continue;
 
           mom_in_EtCone += p.momentum();

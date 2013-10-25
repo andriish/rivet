@@ -209,7 +209,7 @@ namespace Rivet {
       FourMomentum peplus, peminus, pmuplus, pmuminus;
       foreach (const Particle& p, lpfs.particles()) {
         // Only use leptons above 20 GeV
-        if (p.momentum().pT()/GeV < 20) continue;
+        if (p.pT()/GeV < 20) continue;
         // Identify the PID
         const PdgId pid = p.pdgId();
         if (pid == PID::ELECTRON) {

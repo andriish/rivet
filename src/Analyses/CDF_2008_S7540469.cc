@@ -120,7 +120,7 @@ namespace Rivet {
       const Jets& jets = jetpro.jets();
       Jets jets_cut;
       foreach (const Jet& j, jets) {
-        if (j.momentum().pT()/GeV > 30.0 && fabs(j.momentum().pseudorapidity()) < 2.1) {
+        if (j.pT()/GeV > 30.0 && fabs(j.momentum().pseudorapidity()) < 2.1) {
           jets_cut.push_back(j);
         }
       }
@@ -154,10 +154,10 @@ namespace Rivet {
       }
       foreach (const Jet& j, jets_cut) {
         if (jets_cut.size()>0) {
-          _h_jet_pT_cross_section_incl_1jet->fill(j.momentum().pT(), weight);
+          _h_jet_pT_cross_section_incl_1jet->fill(j.pT(), weight);
         }
         if (jets_cut.size()>1) {
-          _h_jet_pT_cross_section_incl_2jet->fill(j.momentum().pT(), weight);
+          _h_jet_pT_cross_section_incl_2jet->fill(j.pT(), weight);
         }
       }
     }

@@ -1,4 +1,5 @@
 #include "Rivet/AnalysisHandler.hh"
+#include "Rivet/AnalysisLoader.hh"
 #include "HepMC/IO_GenEvent.h"
 
 using namespace std;
@@ -8,6 +9,9 @@ int main(int argc, char** argv) {
     cerr << "Usage: " << argv[0] << " <hepmcfile> <ana1> [<ana2> ...]" << endl;
     return 1;
   }
+
+  foreach (const string& a, Rivet::AnalysisLoader::analysisNames())
+    cout << a << endl;
 
   Rivet::AnalysisHandler ah;
   for (int i = 2; i < argc; ++i) {
@@ -26,7 +30,7 @@ int main(int argc, char** argv) {
 
   ah.setCrossSection(1.0);
   ah.finalize();
-  ah.writeData("out.aida");
+  ah.writeData("Rivet.yoda");
 
   return 0;
 }

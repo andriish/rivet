@@ -41,8 +41,8 @@ namespace Rivet {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 1) {
         const Particles& el(zfinder.constituents());
-        if (el[0].momentum().pT() > 25.0*GeV || el[1].momentum().pT() > 25.0*GeV) {
-          double yZ = fabs(zfinder.bosons()[0].momentum().rapidity());
+        if (el[0].pT() > 25.0*GeV || el[1].pT() > 25.0*GeV) {
+          double yZ = fabs(zfinder.bosons()[0].rapidity());
           _h_yZ->fill(yZ, weight);
         }
       }

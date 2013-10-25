@@ -75,13 +75,13 @@ namespace Rivet {
         }
 
         if (jets_cut.size()>0) {
-          _h_jet1_pT->fill(jets_cut[0].momentum().pT()/GeV, weight);
+          _h_jet1_pT->fill(jets_cut[0].pT()/GeV, weight);
         }
         if (jets_cut.size()>1) {
-          _h_jet2_pT->fill(jets_cut[1].momentum().pT()/GeV, weight);
+          _h_jet2_pT->fill(jets_cut[1].pT()/GeV, weight);
         }
         if (jets_cut.size()>2) {
-          _h_jet3_pT->fill(jets_cut[2].momentum().pT()/GeV, weight);
+          _h_jet3_pT->fill(jets_cut[2].pT()/GeV, weight);
         }
       }
       else {
@@ -103,13 +103,13 @@ namespace Rivet {
         }
 
         if (jets_cut.size()>0) {
-          _h_jet1_pT_constrained->fill(jets_cut[0].momentum().pT()/GeV, weight);
+          _h_jet1_pT_constrained->fill(jets_cut[0].pT()/GeV, weight);
         }
         if (jets_cut.size()>1) {
-          _h_jet2_pT_constrained->fill(jets_cut[1].momentum().pT()/GeV, weight);
+          _h_jet2_pT_constrained->fill(jets_cut[1].pT()/GeV, weight);
         }
         if (jets_cut.size()>2) {
-          _h_jet3_pT_constrained->fill(jets_cut[2].momentum().pT()/GeV, weight);
+          _h_jet3_pT_constrained->fill(jets_cut[2].pT()/GeV, weight);
         }
       }
       else {

@@ -4,7 +4,7 @@ Summary: Measurement of photon production at LEP 1
 Experiment: OPAL
 Collider: LEP Run 1
 SpiresID: 2692198
-Status: VALIDATED
+Status: UNVALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>
 References:
@@ -21,7 +21,7 @@ Description:
 BibKey: Acton:1992jk
 BibTeX: '@Article{Acton:1992jk,
      author    = "Acton, P. D. and others",
- collaboration = "OPAL",
+     collaboration = "OPAL",
      title     = "{Studies of strong and electroweak interactions using final
                   state photon emission in hadronic Z0 decays}",
      journal   = "Z. Phys.",
@@ -30,5 +30,6 @@ BibTeX: '@Article{Acton:1992jk,
      pages     = "405-418",
      doi       = "10.1007/BF01557697",
      SLACcitation  = "%%CITATION = ZEPYA,C58,405;%%"
-}
-'
+}'
+ToDo:
+ - Fix this! It looks nothing like the data, at least in the H++ benchmark tests.

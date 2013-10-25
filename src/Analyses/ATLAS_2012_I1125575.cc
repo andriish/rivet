@@ -128,7 +128,7 @@ namespace Rivet {
           if (all_jets[i]->size() < 1) continue;
 
           // Find the lead jet pT
-          lead_jet_pts[i] = all_jets[i]->at(0).momentum().pT();
+          lead_jet_pts[i] = all_jets[i]->at(0).pT();
 
           // Loop over each of the charged particles
           const Particles& tracks = applyProjection<ChargedFinalState>(event, "TRACK_INPUT").particlesByPt();
@@ -146,7 +146,7 @@ namespace Rivet {
 
             // Otherwise, increment the relevant counters
             ++n_ch[i][region];
-            sumpt[i][region] += t.momentum().pT();
+            sumpt[i][region] += t.pT();
 
           }
           // Calculate the pT_avg for the away and transverse regions.

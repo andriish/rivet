@@ -474,7 +474,7 @@ namespace Rivet {
       return *this;
     }
 
-    /// Subtract from this 4-vector. NB time as well as space components are subtracted.
+    /// Add to this 4-vector. NB time as well as space components are added.
     FourMomentum& operator+=(const FourMomentum& v) {
       _vec = add(*this, v)._vec;
       return *this;

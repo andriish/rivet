@@ -106,7 +106,7 @@ namespace Rivet {
 
           ///calculate variables
           double ET = p.momentum().Et()/GeV;
-          double eta = fabs(p.momentum().eta());
+          double eta = fabs(p.eta());
 
           // fill histograms
           _h_ETflowEta->fill(eta, weight*ET);
@@ -133,8 +133,8 @@ namespace Rivet {
       if ( jets.size() >= 2                       && // require at least two jets
            jets[0].momentum().Et() >= 20.*GeV     && // require two leading jets to pass ET cuts
            jets[1].momentum().Et() >= 20.*GeV     &&
-           fabs(jets[0].momentum().eta()) < 2.5   && // require leading jets to be central
-           fabs(jets[1].momentum().eta()) < 2.5   &&
+           fabs(jets[0].eta()) < 2.5   && // require leading jets to be central
+           fabs(jets[1].eta()) < 2.5   &&
            deltaPhi(jets[0], jets[1]) > 2.5       && // require back-to-back topology
            jets[1].momentum().Et()/jets[0].momentum().Et() >= 0.5) { //require ET-balance
 
@@ -155,7 +155,7 @@ namespace Rivet {
           // calculate variables
           double dPhi = deltaPhi( jets[0], particle.momentum() );
           double ET   = particle.momentum().Et()/GeV;
-          double eta  = fabs(particle.momentum().eta());
+          double eta  = fabs(particle.eta());
 
           // Transverse region
           if ( dPhi > 1./3.*M_PI && dPhi < 2./3.*M_PI ) {

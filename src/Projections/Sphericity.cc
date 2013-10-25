@@ -1,8 +1,5 @@
 // -*- C++ -*-
 #include "Rivet/Projections/Sphericity.hh"
-#include "Rivet/Cmp.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/Utils.hh"
 
 namespace Rivet {
 
@@ -45,8 +42,7 @@ namespace Rivet {
     vector<Vector3> threeMomenta;
     threeMomenta.reserve(fsparticles.size());
     foreach (const Particle& p, fsparticles) {
-      const Vector3 p3 = p.momentum().vector3();
-      threeMomenta.push_back(p3);
+      threeMomenta.push_back( p.momentum().vector3() );
     }
     _calcSphericity(threeMomenta);
   }

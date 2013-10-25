@@ -73,7 +73,7 @@ namespace Rivet {
 
     for (size_t i = 0; i < m_njet; ++i) {
       if (jets.size() < i+1) continue;
-      _h_pT_jet[i]->fill(jets[i].momentum().pT()/GeV, weight);
+      _h_pT_jet[i]->fill(jets[i].pT()/GeV, weight);
       // Check for numerical precision issues with jet masses
       double m2_i = jets[i].momentum().mass2();
       if (m2_i < 0) {
@@ -88,7 +88,7 @@ namespace Rivet {
       _h_mass_jet[i]->fill(sqrt(m2_i)/GeV, weight);
 
       // Jet eta
-      const double eta_i = jets[i].momentum().eta();
+      const double eta_i = jets[i].eta();
       _h_eta_jet[i]->fill(eta_i, weight);
       if (eta_i > 0.0) {
         _h_eta_jet_plus[i]->fill(eta_i, weight);
@@ -97,7 +97,7 @@ namespace Rivet {
       }
 
       // Jet rapidity
-      const double rap_i = jets[i].momentum().rapidity();
+      const double rap_i = jets[i].rapidity();
       _h_rap_jet[i]->fill(rap_i, weight);
       if (rap_i > 0.0) {
         _h_rap_jet_plus[i]->fill(rap_i, weight);
@@ -109,7 +109,7 @@ namespace Rivet {
       for (size_t j = i+1; j < min(size_t(3),m_njet); ++j) {
         if (jets.size() < j+1) continue;
         std::pair<size_t, size_t> ij = std::make_pair(i, j);
-        double deta = jets[i].momentum().eta()-jets[j].momentum().eta();
+        double deta = jets[i].eta()-jets[j].eta();
         double dphi = deltaPhi(jets[i].momentum(),jets[j].momentum());
         double dR = deltaR(jets[i].momentum(), jets[j].momentum());
         _h_deta_jets[ij]->fill(deta, weight);
@@ -127,7 +127,7 @@ namespace Rivet {
 
     double HT=0.0;
     foreach (const Jet& jet, jets) {
-      HT += jet.momentum().pT();
+      HT += jet.pT();
     }
     _h_jet_HT->fill(HT, weight);
   }
@@ -142,8 +142,9 @@ namespace Rivet {
       scale(_h_rap_jet[i], crossSection()/sumOfWeights());
 
       // Create eta/rapidity ratio plots
-      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], bookScatter2D("jet_eta_pmratio_" + to_str(i+1)));
-      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], bookScatter2D("jet_y_pmratio_" + to_str(i+1)));
+      // @todo seems to crash when the divided histo happens to be unfilled
+      //divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], bookScatter2D("jet_eta_pmratio_" + to_str(i+1)));
+      //divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], bookScatter2D("jet_y_pmratio_" + to_str(i+1)));
     }
 
     // Scale the d{eta,phi,R} histograms
@@ -155,12 +156,13 @@ namespace Rivet {
     // Fill inclusive jet multi ratio
     int Nbins = _h_jet_multi_inclusive->numBins();
     for (int i = 0; i < Nbins-1; ++i) {
-      if (_h_jet_multi_inclusive->bin(i).sumW() > 0.0) { //< Don't add a point if the division is invalid
+      _h_jet_multi_ratio->addPoint(i+1, 0, 0, 0);
+      if (_h_jet_multi_inclusive->bin(i).sumW() > 0.0) {
         const double ratio = _h_jet_multi_inclusive->bin(i+1).sumW()/_h_jet_multi_inclusive->bin(i).sumW();
         const double relerr_i = _h_jet_multi_inclusive->bin(i).relErr();
         const double relerr_j = _h_jet_multi_inclusive->bin(i+1).relErr();
         const double err = ratio * (relerr_i + relerr_j);
-        _h_jet_multi_ratio->addPoint(i, ratio, 0.0, err);
+        _h_jet_multi_ratio->point(i).setY(ratio, err);
       }
     }
 

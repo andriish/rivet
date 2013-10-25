@@ -169,7 +169,7 @@ namespace Rivet {
 
       vector<FourMomentum> acceptJets;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets06").jetsByPt(20.0*GeV)) {
-        if (fabs(jet.momentum().rapidity()) < 4.4) {
+        if (fabs(jet.rapidity()) < 4.4) {
           acceptJets.push_back(jet.momentum());
         }
       }

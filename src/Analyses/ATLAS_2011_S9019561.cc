@@ -105,7 +105,7 @@ namespace Rivet {
       Jets cand_jets;
       foreach (const Jet& jet,
         applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 2.5 ) {
+        if ( fabs( jet.eta() ) < 2.5 ) {
           cand_jets.push_back(jet);
         }
       }
@@ -122,10 +122,10 @@ namespace Rivet {
       // pTcone around muon track
       foreach ( const Particle & mu,
                 applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt() ) {
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
         if ( pTinCone < 1.8*GeV )
           cand_mu.push_back(mu);
@@ -162,7 +162,7 @@ namespace Rivet {
             if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
               EtinCone += track.momentum().Et();
           }
-          if ( EtinCone/e.momentum().pT() <= 0.15 )
+          if ( EtinCone/e.pT() <= 0.15 )
             recon_e.push_back( e );
         }
       }

@@ -25,9 +25,8 @@ Description:
 BibKey: ATLAS2012:1095236
 BibTeX: '@article{ATLAS2012:1095236,
       author         = "Aad, Georges and others",
-      title          = "{Search for supersymmetry in pp collisions at sqrt(s) = 7
-                        TeV in final states with missing transverse momentum and
-                        b-jets with the ATLAS detector}",
+      title          = "{Search for supersymmetry in $pp$ collisions at $\sqrt{s} = 7$ TeV in final states
+                        with missing transverse momentum and $b$-jets with the ATLAS detector}",
       collaboration  = "ATLAS Collaboration",
       year           = "2012",
       note           = "15 pages plus author list (28 pages total), 11 figures, 8

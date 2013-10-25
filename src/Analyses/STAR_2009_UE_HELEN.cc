@@ -72,7 +72,7 @@ namespace Rivet {
       Jets jets;
       foreach (const Jet jet, alljets) {
         if (jet.neutralEnergy()/jet.totalEnergy() < 0.7 &&
-	    fabs(jet.momentum().eta()) < 0.3)
+	    fabs(jet.eta()) < 0.3)
           jets.push_back(jet);
       }
 
@@ -89,7 +89,7 @@ namespace Rivet {
       // - delta(Phi) between the jets is > 150 degrees
       // - Pt_awayjet/Pt_towards_jet > 0.7
       if (deltaPhi(jets[0].momentum().phi(), jets[1].momentum().phi()) <= 5*PI/6 ||
-          jets[1].momentum().pT()/jets[0].momentum().pT() <= 0.7)
+          jets[1].pT()/jets[0].pT() <= 0.7)
       {
         MSG_DEBUG("Failed di-jet criteria");
         vetoEvent;
@@ -97,7 +97,7 @@ namespace Rivet {
 
       // Now lets start ...
       const double jetphi = jets[0].momentum().phi();
-      const double jetpT  = jets[0].momentum().pT();
+      const double jetpT  = jets[0].pT();
 
       // Get the event weight
       const double weight = e.weight();
@@ -107,7 +107,7 @@ namespace Rivet {
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
         const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
-        const double pT = p.momentum().pT();
+        const double pT = p.pT();
         const double phi = p.momentum().phi();
         double rotatedphi = phi - jetphi;
         while (rotatedphi < 0) rotatedphi += 2*PI;

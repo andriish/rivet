@@ -92,7 +92,7 @@ namespace Rivet {
       Jets tmp_cand_jets;
       foreach (const Jet& jet,
                applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.momentum().eta() ) < 2.8 ) {
+        if ( fabs( jet.eta() ) < 2.8 ) {
           tmp_cand_jets.push_back(jet);
         }
       }
@@ -109,7 +109,7 @@ namespace Rivet {
 
       Jets cand_jets;
       foreach ( const Jet& jet, tmp_cand_jets ) {
-        if ( fabs( jet.momentum().eta() ) >= 2.8 )
+        if ( fabs( jet.eta() ) >= 2.8 )
           cand_jets.push_back( jet );
         else {
           bool away_from_e = true;
@@ -163,9 +163,9 @@ namespace Rivet {
       // bjets
       Jets bjets,recon_jets;
       foreach (const Jet& j, cand_jets) {
-	if(fabs( j.momentum().eta() ) <= 2.8) {
+	if(fabs( j.eta() ) <= 2.8) {
 	  recon_jets.push_back(j);
-	  if ( fabs( j.momentum().eta() ) <= 2.5 && j.momentum().perp()>50. &&
+	  if ( fabs( j.eta() ) <= 2.5 && j.momentum().perp()>50. &&
 	       j.containsBottom() && rand()/static_cast<double>(RAND_MAX) < 0.5 )
 	    bjets.push_back(j);
 	}
@@ -183,10 +183,10 @@ namespace Rivet {
       // Jets event selection
       if ( recon_jets.size() < 3 )
         vetoEvent;
-      if ( recon_jets[0].momentum().pT() <= 130*GeV )
+      if ( recon_jets[0].pT() <= 130*GeV )
         vetoEvent;
-      if ( recon_jets[1].momentum().pT() <= 50*GeV ||
-	   recon_jets[2].momentum().pT() <= 50*GeV )
+      if ( recon_jets[1].pT() <= 50*GeV ||
+	   recon_jets[2].pT() <= 50*GeV )
         vetoEvent;
       ++jets;
 
@@ -203,9 +203,9 @@ namespace Rivet {
 
       // m_eff cut
       double m_eff = eTmiss
-        + recon_jets[0].momentum().pT()
-        + recon_jets[1].momentum().pT()
-        + recon_jets[2].momentum().pT();
+        + recon_jets[0].pT()
+        + recon_jets[1].pT()
+        + recon_jets[2].pT();
 
       if ( eTmiss / m_eff <= 0.25 )
         vetoEvent;
@@ -231,7 +231,7 @@ namespace Rivet {
 
         _hist_meff_1bjet->fill(m_eff, weight);
         _hist_eTmiss_1bjet->fill(eTmiss, weight);
-        _hist_pTj_1bjet->fill(recon_jets[0].momentum().pT(), weight);
+        _hist_pTj_1bjet->fill(recon_jets[0].pT(), weight);
 
         // 3JA region
         if ( m_eff > 200*GeV ) {
@@ -251,7 +251,7 @@ namespace Rivet {
 
         _hist_meff_2bjet->fill(m_eff, weight);
         _hist_eTmiss_2bjet->fill(eTmiss, weight);
-        _hist_pTj_2bjet->fill(recon_jets[0].momentum().pT(), weight);
+        _hist_pTj_2bjet->fill(recon_jets[0].pT(), weight);
 
         // 3JC region
         if ( m_eff > 500*GeV ) {

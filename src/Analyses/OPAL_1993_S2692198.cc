@@ -68,11 +68,10 @@ namespace Rivet {
         // Cluster the jets
         for (size_t j = 0; j < _nPhotonDurham->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonDurham->bin(j).midpoint();
+          double ycut = _nPhotonDurham->bin(j).midpoint(); //< @todo Should this be xMin?
           double dcut = sqr(evis)*ycut;
-          vector<fastjet::PseudoJet> exclusive_jets =
-            sorted_by_E(clust_seq.exclusive_jets(dcut));
-          for(unsigned int iy=0;iy<exclusive_jets.size();++iy) {
+          vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq.exclusive_jets(dcut));
+          for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
             double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
             double ygamma = 2 * min(sqr(pjet.E()/evis), sqr(pgamma.E()/evis)) * (1 - cost);
@@ -83,19 +82,18 @@ namespace Rivet {
           }
           if (!accept) continue;
           _nPhotonDurham->fill(ycut, weight*_nPhotonDurham->bin(j).width());
-          int njet = min(4,int(exclusive_jets.size())) - 1;
-          if(j<_nPhotonJetDurham[njet]->numBins()) {
-            _nPhotonJetDurham[njet]->fill(_nPhotonJetDurham[njet]->bin(j).midpoint(), weight*_nPhotonJetDurham[njet]->bin(j).width());
+          size_t njet = min(size_t(4), exclusive_jets.size()) - 1;
+          if (j < _nPhotonJetDurham[njet]->numBins()) {
+            _nPhotonJetDurham[njet]->fillBin(j, weight*_nPhotonJetDurham[njet]->bin(j).width());
           }
         }
         // Run the jet clustering JADE
         fastjet::ClusterSequence clust_seq2(input_particles, jade_def);
         for (size_t j = 0; j < _nPhotonJade->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonJade->bin(j).midpoint();
+          double ycut = _nPhotonJade->bin(j).midpoint(); //< @todo Should this be xMin?
           double dcut = sqr(evis)*ycut;
-          vector<fastjet::PseudoJet> exclusive_jets =
-            sorted_by_E(clust_seq2.exclusive_jets(dcut));
+          vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq2.exclusive_jets(dcut));
           for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
             double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
@@ -106,10 +104,11 @@ namespace Rivet {
             }
           }
           if (!accept) continue;
+          /// @todo Really want to use a "bar graph" here (i.e. ignore bin width)
           _nPhotonJade->fill(ycut, weight*_nPhotonJade->bin(j).width());
-          int njet = min(4,int(exclusive_jets.size())) - 1;
+          size_t njet = min(size_t(4), exclusive_jets.size()) - 1;
           if (j < _nPhotonJetJade[njet]->numBins()) {
-            _nPhotonJetJade[njet]->fill(_nPhotonJetJade[njet]->bin(j).midpoint(), weight*_nPhotonJetJade[njet]->bin(j).width());
+            _nPhotonJetJade[njet]->fillBin(j, weight*_nPhotonJetJade[njet]->bin(j).width());
           }
         }
         // Add this photon back in for the next iteration of the loop
@@ -123,12 +122,11 @@ namespace Rivet {
     void init() {
       // Projections
       addProjection(FinalState(), "FS");
-//       addProjection(ChargedFinalState(), "CFS");
 
-      // Book data sets
-      _nPhotonJade       = bookHisto1D(1, 1, 1);
-      _nPhotonDurham     = bookHisto1D(2, 1, 1);
-      for(unsigned int ix=0;ix<4;++ix) {
+      // Book datasets
+      _nPhotonJade   = bookHisto1D(1, 1, 1);
+      _nPhotonDurham = bookHisto1D(2, 1, 1);
+      for (size_t ix = 0; ix < 4; ++ix) {
         _nPhotonJetJade  [ix] = bookHisto1D(3 , 1, 1+ix);
         _nPhotonJetDurham[ix] = bookHisto1D(4 , 1, 1+ix);
       }
@@ -137,10 +135,10 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double fact = 1000./sumOfWeights();
-      scale(_nPhotonJade  ,fact);
-      scale(_nPhotonDurham,fact);
-      for(unsigned int ix=0;ix<4;++ix) {
+      const double fact = 1000/sumOfWeights();
+      scale(_nPhotonJade, fact);
+      scale(_nPhotonDurham, fact);
+      for (size_t ix = 0; ix < 4; ++ix) {
         scale(_nPhotonJetJade  [ix],fact);
         scale(_nPhotonJetDurham[ix],fact);
       }

@@ -46,8 +46,8 @@ def getCommandLineOptions():
                       'to standard Rivet search paths)')
 
     stygroup = OptionGroup(parser, "Plot style")
-#    stygroup.add_option("--refid", dest="REF_ID",
-#                        default="REF", help="ID of reference data set (file path for non-REF data)")
+    # stygroup.add_option("--refid", dest="REF_ID",
+    #                     default="REF", help="ID of reference data set (file path for non-REF data)")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
                         default=False, help="plot with linear scale")
     stygroup.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
@@ -65,36 +65,37 @@ def getCommandLineOptions():
                         help="additional plot config file(s). Settings will be included in the output configuration.")
     parser.add_option_group(stygroup)
 
-#    selgroup = OptionGroup(parser, "Selective plotting")
-#    selgroup.add_option("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
-#                        default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
-#                        "[default=%default]. If the value is 'no', single plots are always skipped, for 'ref' and 'mc', "
-#                        "the plot will be written only if the single plot is a reference plot or an MC "
-#                        "plot respectively, and 'all' will always create single plot files.\n The 'ref' and 'all' values "
-#                        "should be used with great care, as they will also write out plot files for all reference "
-#                        "histograms without MC traces: combined with the -R/--rivet-refs flag, this is a great way to "
-#                        "write out several thousand irrelevant reference data histograms!")
-#    selgroup.add_option("--show-mc-only", "--all", action="store_true", dest="SHOW_IF_MC_ONLY",
-#                        default=False, help="make a plot file even if there is only one dataset to be plotted and "
-#                        "it is an MC one. Deprecated and will be removed: use --show-single instead, which overrides this.")
-#    # selgroup.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
-#    #                     default=None, help="specify a file containing a list of histograms to plot, in the format "
-#    #                     "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
-#    selgroup.add_option("-m", "--match", action="append",
-#                        help="Only write out histograms whose $path/$name string matches these regexes. The argument "
-#                        "may also be a text file.",
-#                        dest="PATHPATTERNS")
-#    selgroup.add_option("-M", "--unmatch", action="append",
-#                        help="Exclude histograms whose $path/$name string matches these regexes",
-#                        dest="PATHUNPATTERNS")
-#    parser.add_option_group(selgroup)
+    # selgroup = OptionGroup(parser, "Selective plotting")
+    # selgroup.add_option("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
+    #                     default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
+    #                     "[default=%default]. If the value is 'no', single plots are always skipped, for 'ref' and 'mc', "
+    #                     "the plot will be written only if the single plot is a reference plot or an MC "
+    #                     "plot respectively, and 'all' will always create single plot files.\n The 'ref' and 'all' values "
+    #                     "should be used with great care, as they will also write out plot files for all reference "
+    #                     "histograms without MC traces: combined with the -R/--rivet-refs flag, this is a great way to "
+    #                     "write out several thousand irrelevant reference data histograms!")
+    # selgroup.add_option("--show-mc-only", "--all", action="store_true", dest="SHOW_IF_MC_ONLY",
+    #                     default=False, help="make a plot file even if there is only one dataset to be plotted and "
+    #                     "it is an MC one. Deprecated and will be removed: use --show-single instead, which overrides this.")
+    # # selgroup.add_option("-l", "--histogram-list", dest="HISTOGRAMLIST",
+    # #                     default=None, help="specify a file containing a list of histograms to plot, in the format "
+    # #                     "/ANALYSIS_ID/histoname, one per line, e.g. '/DELPHI_1996_S3430090/d01-x01-y01'.")
+    # selgroup.add_option("-m", "--match", action="append",
+    #                     help="Only write out histograms whose $path/$name string matches these regexes. The argument "
+    #                     "may also be a text file.",
+    #                     dest="PATHPATTERNS")
+    # selgroup.add_option("-M", "--unmatch", action="append",
+    #                     help="Exclude histograms whose $path/$name string matches these regexes",
+    #                     dest="PATHUNPATTERNS")
+    # parser.add_option_group(selgroup)
 
-#    verbgrp = OptionGroup(parser, "Verbosity control")
-#    verbgrp.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
-#                       action="store_const", default=logging.INFO, const=logging.WARNING)
-#    verbgrp.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
-#                       action="store_const", default=logging.INFO, const=logging.DEBUG)
-#    parser.add_option_group(verbgrp)
+    # verbgrp = OptionGroup(parser, "Verbosity control")
+    # verbgrp.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
+    #                    action="store_const", default=logging.INFO, const=logging.WARNING)
+    # verbgrp.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
+    #                    action="store_const", default=logging.INFO, const=logging.DEBUG)
+    # parser.add_option_group(verbgrp)
+
     return parser
 
 
@@ -118,7 +119,7 @@ def getHistos(filelist):
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.readYODA(infile)
         for ao in analysisobjects:
-            path = ao.annotations()['Path']
+            path = ao.path
             if path.startswith('/REF/'):
                 if not refhistos.has_key(path):
                     refhistos[path] = ao
@@ -141,7 +142,7 @@ def getRefdata(refhistos):
         for infile in filelist:
             analysisobjects = yoda.readYODA(infile)
             for ao in analysisobjects:
-                path = ao.annotations()['Path']
+                path = ao.path
                 if path.startswith('/REF/'):
                     if not refhistos.has_key(path):
                         refhistos[path] = ao
@@ -173,11 +174,11 @@ def parseArgs(args):
 
 def setStyle(ao, style):
     """Set default plot styles (color and line width) colors borrowed from Google Ngrams"""
-    LINECOLORS = ['{[HTML]{ee3311}}',  # red (Google uses 'dc3912')
-                  '{[HTML]{3366cc}}',  # blue
+    LINECOLORS = ['{[HTML]{EE3311}}',  # red (Google uses 'DC3912')
+                  '{[HTML]{3366FF}}',  # blue
                   '{[HTML]{109618}}',  # green
-                  '{[HTML]{ff9900}}',  # orange
-                  '{[HTML]{990099}}']  # lila
+                  '{[HTML]{FF9900}}',  # orange... weirdly this screws up if the F is lower-case!
+                  '{[HTML]{990099}}']  # lilac
     LINESTYLES = ['solid',
                   'dashed',
                   'dashdotted',
@@ -190,11 +191,11 @@ def setStyle(ao, style):
                       'black!50',
                       'black!30']
 
-    c = style%len(LINECOLORS)
-    s = style/len(LINECOLORS)
+    c = style % len(LINECOLORS)
+    s = style / len(LINECOLORS)
 
-    ao.setAnnotation('LineStyle', '%s' %LINESTYLES[s])
-    ao.setAnnotation('LineColor', '%s' %LINECOLORS[c])
+    ao.setAnnotation('LineStyle', '%s' % LINESTYLES[s])
+    ao.setAnnotation('LineColor', '%s' % LINECOLORS[c])
 
 
 def setOptions(ao, options):
@@ -282,28 +283,30 @@ if __name__ == '__main__':
 
         ## DrawOnly is needed to keep the order in the Legend equal to the
         ## order of the files on the command line
-        drawonly = ''
+        drawonly = []
 
         ## Check if we have reference data for the histogram
+        ratioreference = None
         if refhistos.has_key('/REF' + h):
             refdata = refhistos['/REF' + h]
             refdata.setAnnotation('ErrorBars', '1')
             refdata.setAnnotation('PolyMarker', '*')
+            refdata.setAnnotation('ConnectBins', '0')
             refdata.setAnnotation('Title', 'Data')
-            if opts.RATIO:
-                plot['RatioPlot'] = '1'
-                plot['RatioPlotReference'] = '/REF'+h
+            ratioreference = '/REF'+h
             anaobjects.append(refdata)
-            drawonly += '/REF' + h + ' '
+            drawonly.append('/REF' + h)
 
         if opts.RATIO and opts.RATIO_DEVIATION:
             plot['RatioPlotMode'] = 'deviation'
 
         ## Loop over the MC files to plot all instances of the histogram
-        for i,infile in enumerate(filelist):
+        styleidx = 0
+        for infile in filelist:
             if mchistos.has_key(infile) and mchistos[infile].has_key(h):
                 ## default linecolor, linestyle
-                setStyle(mchistos[infile][h], i)
+                setStyle(mchistos[infile][h], styleidx)
+                styleidx += 1
                 if opts.MC_ERRS:
                     mchistos[infile][h].setAnnotation('ErrorBars', '1')
                 ## plot defaults from .plot files
@@ -313,9 +316,14 @@ if __name__ == '__main__':
                 setOptions(mchistos[infile][h], plotoptions[infile])
                 mchistos[infile][h].setAnnotation('Path', infile + h)
                 anaobjects.append(mchistos[infile][h])
-                drawonly += infile + h + ' '
+                drawonly.append(infile + h)
+                if ratioreference is None:
+                    ratioreference = infile+h
 
-        plot['DrawOnly'] = drawonly.strip()
+        plot['DrawOnly'] = ' '.join(drawonly).strip()
+        if opts.RATIO and len(drawonly) > 1:
+            plot['RatioPlot'] = '1'
+            plot['RatioPlotReference'] = ratioreference
 
         ## Now create the output. We can't use "yoda.writeFLAT(anaobjects, 'foobar.dat')" because
         ## the PLOT and SPECIAL blocks don't have a corresponding analysis object.

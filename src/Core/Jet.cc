@@ -1,8 +1,8 @@
 #include "Rivet/Jet.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/ParticleName.hh"
-#include "Rivet/RivetBoost.hh"
 
 namespace Rivet {
 
@@ -14,45 +14,16 @@ namespace Rivet {
   }
 
 
-  // Jet& Jet::setState(const vector<FourMomentum>& momenta, const FourMomentum& pjet) {
-  //   setParticles(momenta);
-  //   setMomentum(pjet);
-  //   return *this;
-  // }
-
-
   Jet& Jet::setMomentum(const FourMomentum& momentum) {
     _momentum = momentum;
     return *this;
   }
 
 
- Jet& Jet::setParticles(const vector<Particle>& particles) {
-   _particles = particles;
-   // foreach (const Particle& p, particles) {
-   //   _momenta.push_back(p.momentum());
-   // }
-   return *this;
- }
-
-
-  // Jet& Jet::setParticles(const vector<FourMomentum>& momenta) {
-  //   _momenta = momenta;
-  //   return *this;
-  // }
-
-
-  // Jet& Jet::addParticle(const FourMomentum& particle) {
-  //   _momenta.push_back(particle);
-  //   return *this;
-  // }
-
-
-  // Jet& Jet::addParticle(const Particle& particle) {
-  //   _particles.push_back(particle);
-  //   _momenta.push_back(particle.momentum());
-  //   return *this;
-  // }
+  Jet& Jet::setParticles(const vector<Particle>& particles) {
+    _particles = particles;
+    return *this;
+  }
 
 
   bool Jet::containsParticle(const Particle& particle) const {
@@ -90,7 +61,7 @@ namespace Rivet {
     foreach (const Particle& p, particles()) {
       const PdgId pid = p.pdgId();
       if (PID::threeCharge(pid) == 0) {
-        e_neutral += p.momentum().E();
+        e_neutral += p.E();
       }
     }
     return e_neutral;
@@ -102,7 +73,7 @@ namespace Rivet {
     foreach (const Particle& p, particles()) {
       const PdgId pid = p.pdgId();
       if (PID::isHadron(pid)) {
-        e_hadr += p.momentum().E();
+        e_hadr += p.E();
       }
     }
     return e_hadr;

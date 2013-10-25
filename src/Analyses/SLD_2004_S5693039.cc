@@ -107,93 +107,93 @@ namespace Rivet {
         // if in quark or antiquark hemisphere
         bool quark = p.momentum().vector3().dot(axis)*dot>0.;
 
-        _histPCharged ->fill(pcm     , weight);
+        _h_PCharged ->fill(pcm     , weight);
         // all charged
         switch (flavour) {
         case PID::DQUARK:
         case PID::UQUARK:
         case PID::SQUARK:
-          _histXpChargedL->fill(xp, weight);
+          _h_XpChargedL->fill(xp, weight);
           break;
         case PID::CQUARK:
-          _histXpChargedC->fill(xp, weight);
+          _h_XpChargedC->fill(xp, weight);
           break;
         case PID::BQUARK:
-          _histXpChargedB->fill(xp, weight);
+          _h_XpChargedB->fill(xp, weight);
           break;
         }
 
         int id = abs(p.pdgId());
         // charged pions
         if (id == PID::PIPLUS) {
-          _histXpPiPlus->fill(xp, weight);
-          _histXpPiPlusTotal->fill(xp, weight);
+          _h_XpPiPlus->fill(xp, weight);
+          _h_XpPiPlusTotal->fill(xp, weight);
           switch (flavour) {
           case PID::DQUARK:
           case PID::UQUARK:
           case PID::SQUARK:
-            _histXpPiPlusL->fill(xp, weight);
-            _multPiPlusL->fill(sqrtS(), weight);
+            _h_XpPiPlusL->fill(xp, weight);
+            _h_NPiPlusL->fill(sqrtS(), weight);
             if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
-              _histRPiPlus->fill(xp, weight);
+              _h_RPiPlus->fill(xp, weight);
             else
-              _histRPiMinus->fill(xp, weight);
+              _h_RPiMinus->fill(xp, weight);
             break;
           case PID::CQUARK:
-            _histXpPiPlusC->fill(xp, weight);
-            _multPiPlusC->fill(sqrtS(), weight);
+            _h_XpPiPlusC->fill(xp, weight);
+            _h_NPiPlusC->fill(sqrtS(), weight);
             break;
           case PID::BQUARK:
-            _histXpPiPlusB->fill(xp, weight);
-            _multPiPlusB->fill(sqrtS(), weight);
+            _h_XpPiPlusB->fill(xp, weight);
+            _h_NPiPlusB->fill(sqrtS(), weight);
             break;
           }
         }
         else if (id == PID::KPLUS) {
-          _histXpKPlus->fill(xp, weight);
-          _histXpKPlusTotal->fill(xp, weight);
+          _h_XpKPlus->fill(xp, weight);
+          _h_XpKPlusTotal->fill(xp, weight);
           switch (flavour) {
           case PID::DQUARK:
           case PID::UQUARK:
           case PID::SQUARK:
-            _histXpKPlusL->fill(xp, weight);
-            _multKPlusL->fill(sqrtS(), weight);
+            _h_XpKPlusL->fill(xp, weight);
+            _h_NKPlusL->fill(sqrtS(), weight);
             if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
-              _histRKPlus->fill(xp, weight);
+              _h_RKPlus->fill(xp, weight);
             else
-              _histRKMinus->fill(xp, weight);
+              _h_RKMinus->fill(xp, weight);
             break;
           case PID::CQUARK:
-            _histXpKPlusC->fill(xp, weight);
-            _multKPlusC->fill(sqrtS(), weight);
+            _h_XpKPlusC->fill(xp, weight);
+            _h_NKPlusC->fill(sqrtS(), weight);
             break;
           case PID::BQUARK:
-            _histXpKPlusB->fill(xp, weight);
-            _multKPlusB->fill(sqrtS(), weight);
+            _h_XpKPlusB->fill(xp, weight);
+            _h_NKPlusB->fill(sqrtS(), weight);
             break;
           }
         }
         else if (id == PID::PROTON) {
-          _histXpProton->fill(xp, weight);
-          _histXpProtonTotal->fill(xp, weight);
+          _h_XpProton->fill(xp, weight);
+          _h_XpProtonTotal->fill(xp, weight);
           switch (flavour) {
           case PID::DQUARK:
           case PID::UQUARK:
           case PID::SQUARK:
-            _histXpProtonL->fill(xp, weight);
-            _multProtonL->fill(sqrtS(), weight);
+            _h_XpProtonL->fill(xp, weight);
+            _h_NProtonL->fill(sqrtS(), weight);
             if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
-              _histRProton->fill(xp, weight);
+              _h_RProton->fill(xp, weight);
             else
-              _histRPBar  ->fill(xp, weight);
+              _h_RPBar  ->fill(xp, weight);
             break;
           case PID::CQUARK:
-            _histXpProtonC->fill(xp, weight);
-            _multProtonC->fill(sqrtS(), weight);
+            _h_XpProtonC->fill(xp, weight);
+            _h_NProtonC->fill(sqrtS(), weight);
             break;
           case PID::BQUARK:
-            _histXpProtonB->fill(xp, weight);
-            _multProtonB->fill(sqrtS(), weight);
+            _h_XpProtonB->fill(xp, weight);
+            _h_NProtonB->fill(sqrtS(), weight);
             break;
           }
         }
@@ -209,46 +209,47 @@ namespace Rivet {
       addProjection(Thrust(FinalState()), "Thrust");
 
       // Book histograms
-      _histPCharged   = bookHisto1D( 1, 1, 1);
-      _histXpPiPlus   = bookHisto1D( 2, 1, 2);
-      _histXpKPlus    = bookHisto1D( 3, 1, 2);
-      _histXpProton   = bookHisto1D( 4, 1, 2);
-      _histXpPiPlusTotal = bookHisto1D( 2, 2, 2);
-      _histXpKPlusTotal  = bookHisto1D( 3, 2, 2);
-      _histXpProtonTotal = bookHisto1D( 4, 2, 2);
-      _histXpPiPlusL  = bookHisto1D( 5, 1, 1);
-      _histXpPiPlusC  = bookHisto1D( 5, 1, 2);
-      _histXpPiPlusB  = bookHisto1D( 5, 1, 3);
-      _histXpKPlusL   = bookHisto1D( 6, 1, 1);
-      _histXpKPlusC   = bookHisto1D( 6, 1, 2);
-      _histXpKPlusB   = bookHisto1D( 6, 1, 3);
-      _histXpProtonL  = bookHisto1D( 7, 1, 1);
-      _histXpProtonC  = bookHisto1D( 7, 1, 2);
-      _histXpProtonB  = bookHisto1D( 7, 1, 3);
-      _histXpChargedL = bookHisto1D( 8, 1, 1);
-      _histXpChargedC = bookHisto1D( 8, 1, 2);
-      _histXpChargedB = bookHisto1D( 8, 1, 3);
+      _h_PCharged   = bookHisto1D( 1, 1, 1);
+      _h_XpPiPlus   = bookHisto1D( 2, 1, 2);
+      _h_XpKPlus    = bookHisto1D( 3, 1, 2);
+      _h_XpProton   = bookHisto1D( 4, 1, 2);
+      _h_XpPiPlusTotal = bookHisto1D( 2, 2, 2);
+      _h_XpKPlusTotal  = bookHisto1D( 3, 2, 2);
+      _h_XpProtonTotal = bookHisto1D( 4, 2, 2);
+      _h_XpPiPlusL  = bookHisto1D( 5, 1, 1);
+      _h_XpPiPlusC  = bookHisto1D( 5, 1, 2);
+      _h_XpPiPlusB  = bookHisto1D( 5, 1, 3);
+      _h_XpKPlusL   = bookHisto1D( 6, 1, 1);
+      _h_XpKPlusC   = bookHisto1D( 6, 1, 2);
+      _h_XpKPlusB   = bookHisto1D( 6, 1, 3);
+      _h_XpProtonL  = bookHisto1D( 7, 1, 1);
+      _h_XpProtonC  = bookHisto1D( 7, 1, 2);
+      _h_XpProtonB  = bookHisto1D( 7, 1, 3);
+      _h_XpChargedL = bookHisto1D( 8, 1, 1);
+      _h_XpChargedC = bookHisto1D( 8, 1, 2);
+      _h_XpChargedB = bookHisto1D( 8, 1, 3);
 
-      _multPiPlusL  = bookHisto1D( 5, 2, 1);
-      _multPiPlusC  = bookHisto1D( 5, 2, 2);
-      _multPiPlusB  = bookHisto1D( 5, 2, 3);
-      _multKPlusL   = bookHisto1D( 6, 2, 1);
-      _multKPlusC   = bookHisto1D( 6, 2, 2);
-      _multKPlusB   = bookHisto1D( 6, 2, 3);
-      _multProtonL  = bookHisto1D( 7, 2, 1);
-      _multProtonC  = bookHisto1D( 7, 2, 2);
-      _multProtonB  = bookHisto1D( 7, 2, 3);
+      _h_NPiPlusL  = bookHisto1D( 5, 2, 1);
+      _h_NPiPlusC  = bookHisto1D( 5, 2, 2);
+      _h_NPiPlusB  = bookHisto1D( 5, 2, 3);
+      _h_NKPlusL   = bookHisto1D( 6, 2, 1);
+      _h_NKPlusC   = bookHisto1D( 6, 2, 2);
+      _h_NKPlusB   = bookHisto1D( 6, 2, 3);
+      _h_NProtonL  = bookHisto1D( 7, 2, 1);
+      _h_NProtonC  = bookHisto1D( 7, 2, 2);
+      _h_NProtonB  = bookHisto1D( 7, 2, 3);
 
-      _histRPiPlus  = bookHisto1D( 9, 1, 1);
-      _histRPiMinus = bookHisto1D( 9, 1, 2);
-      _histRKPlus   = bookHisto1D(10, 1, 1);
-      _histRKMinus  = bookHisto1D(10, 1, 2);
-      _histRProton  = bookHisto1D(11, 1, 1);
-      _histRPBar    = bookHisto1D(11, 1, 2);
+      _h_RPiPlus  = bookHisto1D( 9, 1, 1);
+      _h_RPiMinus = bookHisto1D( 9, 1, 2);
+      _h_RKPlus   = bookHisto1D(10, 1, 1);
+      _h_RKMinus  = bookHisto1D(10, 1, 2);
+      _h_RProton  = bookHisto1D(11, 1, 1);
+      _h_RPBar    = bookHisto1D(11, 1, 2);
 
-      _h_PiM_PiP	= bookScatter2D(9, 1, 3);
-      _h_KM_KP		= bookScatter2D(10, 1, 3);
-      _h_Pr_PBar	= bookScatter2D(11, 1, 3);
+      // Ratios: used as target of divide() later
+      _s_PiM_PiP  = bookScatter2D(9, 1, 3);
+	  _s_KM_KP	  = bookScatter2D(10, 1, 3);
+	  _s_Pr_PBar  = bookScatter2D(11, 1, 3);
 
     }
 
@@ -257,65 +258,60 @@ namespace Rivet {
     void finalize() {
 
       // Multiplicities
-      /// @todo Errors
-      // Bottom
-      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      bookScatter2D(8, 2, 3)->point(0).setY(avgNumPartsBottom);
-      // Charm
-      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      bookScatter2D(8, 2, 2)->point(0).setY(avgNumPartsCharm);
-      // Light
+      /// @todo Include errors
       const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      bookScatter2D(8, 2, 1)->point(0).setY(avgNumPartsLight);
-      // Charm - light
-      bookScatter2D(8, 3, 2)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
-      // Bottom - light
-      bookScatter2D(8, 3, 3)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
+      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
+      bookScatter2D(8, 2, 1, true)->point(0).setY(avgNumPartsLight);
+	  bookScatter2D(8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
+	  bookScatter2D(8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
+	  bookScatter2D(8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+	  bookScatter2D(8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
 
       // Do divisions
-      divide(*_histRPiMinus - *_histRPiPlus, *_histRPiMinus + *_histRPiPlus, _h_PiM_PiP);
-      divide(*_histRKMinus - *_histRKPlus, *_histRKMinus + *_histRKPlus, _h_KM_KP);
-      divide(*_histRProton - *_histRPBar, *_histRProton + *_histRPBar, _h_Pr_PBar);
+      divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);
+      divide(*_h_RKMinus - *_h_RKPlus, *_h_RKMinus + *_h_RKPlus, _s_KM_KP);
+      divide(*_h_RProton - *_h_RPBar, *_h_RProton + *_h_RPBar, _s_Pr_PBar);
 
       // Scale histograms
-      scale(_histPCharged,      1./sumOfWeights());
-      scale(_histXpPiPlus,      1./sumOfWeights());
-      scale(_histXpKPlus,       1./sumOfWeights());
-      scale(_histXpProton,      1./sumOfWeights());
-      scale(_histXpPiPlusTotal, 1./sumOfWeights());
-      scale(_histXpKPlusTotal,  1./sumOfWeights());
-      scale(_histXpProtonTotal, 1./sumOfWeights());
-      scale(_histXpPiPlusL,     1./_weightLight);
-      scale(_histXpPiPlusC,     1./_weightCharm);
-      scale(_histXpPiPlusB,     1./_weightBottom);
-      scale(_histXpKPlusL,      1./_weightLight);
-      scale(_histXpKPlusC,      1./_weightCharm);
-      scale(_histXpKPlusB,      1./_weightBottom);
-      scale(_histXpProtonL,     1./_weightLight);
-      scale(_histXpProtonC,     1./_weightCharm);
-      scale(_histXpProtonB,     1./_weightBottom);
+      scale(_h_PCharged,      1./sumOfWeights());
+      scale(_h_XpPiPlus,      1./sumOfWeights());
+      scale(_h_XpKPlus,       1./sumOfWeights());
+      scale(_h_XpProton,      1./sumOfWeights());
+      scale(_h_XpPiPlusTotal, 1./sumOfWeights());
+      scale(_h_XpKPlusTotal,  1./sumOfWeights());
+      scale(_h_XpProtonTotal, 1./sumOfWeights());
+      scale(_h_XpPiPlusL,     1./_weightLight);
+      scale(_h_XpPiPlusC,     1./_weightCharm);
+      scale(_h_XpPiPlusB,     1./_weightBottom);
+      scale(_h_XpKPlusL,      1./_weightLight);
+      scale(_h_XpKPlusC,      1./_weightCharm);
+      scale(_h_XpKPlusB,      1./_weightBottom);
+      scale(_h_XpProtonL,     1./_weightLight);
+      scale(_h_XpProtonC,     1./_weightCharm);
+      scale(_h_XpProtonB,     1./_weightBottom);
 
-      scale(_histXpChargedL, 1./_weightLight);
-      scale(_histXpChargedC, 1./_weightCharm);
-      scale(_histXpChargedB, 1./_weightBottom);
+      scale(_h_XpChargedL, 1./_weightLight);
+      scale(_h_XpChargedC, 1./_weightCharm);
+      scale(_h_XpChargedB, 1./_weightBottom);
 
-      scale(_multPiPlusL, 1./_weightLight);
-      scale(_multPiPlusC, 1./_weightCharm);
-      scale(_multPiPlusB, 1./_weightBottom);
-      scale(_multKPlusL,  1./_weightLight);
-      scale(_multKPlusC,  1./_weightCharm);
-      scale(_multKPlusB,  1./_weightBottom);
-      scale(_multProtonL, 1./_weightLight);
-      scale(_multProtonC, 1./_weightCharm);
-      scale(_multProtonB, 1./_weightBottom);
+      scale(_h_NPiPlusL, 1./_weightLight);
+      scale(_h_NPiPlusC, 1./_weightCharm);
+      scale(_h_NPiPlusB, 1./_weightBottom);
+      scale(_h_NKPlusL,  1./_weightLight);
+      scale(_h_NKPlusC,  1./_weightCharm);
+      scale(_h_NKPlusB,  1./_weightBottom);
+      scale(_h_NProtonL, 1./_weightLight);
+      scale(_h_NProtonC, 1./_weightCharm);
+      scale(_h_NProtonB, 1./_weightBottom);
 
       // Paper suggests this should be 0.5/weight but it has to be 1.0 to get normalisations right...
-      scale(_histRPiPlus,  1./_weightLight);
-      scale(_histRPiMinus, 1./_weightLight);
-      scale(_histRKPlus,   1./_weightLight);
-      scale(_histRKMinus,  1./_weightLight);
-      scale(_histRProton,  1./_weightLight);
-      scale(_histRPBar,    1./_weightLight);
+      scale(_h_RPiPlus,  1./_weightLight);
+      scale(_h_RPiMinus, 1./_weightLight);
+      scale(_h_RKPlus,   1./_weightLight);
+      scale(_h_RKMinus,  1./_weightLight);
+      scale(_h_RProton,  1./_weightLight);
+      scale(_h_RPBar,    1./_weightLight);
     }
 
     //@}
@@ -332,26 +328,24 @@ namespace Rivet {
 
     /// @name Weights
     //@{
-    double _weightLight;
-    double _weightCharm;
-    double _weightBottom;
+    double _weightLight, _weightCharm, _weightBottom;
     //@}
 
     // Histograms
     //@{
-    Histo1DPtr _histPCharged;
-    Histo1DPtr _histXpPiPlus, _histXpKPlus, _histXpProton;
-    Histo1DPtr _histXpPiPlusTotal, _histXpKPlusTotal, _histXpProtonTotal;
-    Histo1DPtr _histXpPiPlusL, _histXpPiPlusC, _histXpPiPlusB;
-    Histo1DPtr _histXpKPlusL, _histXpKPlusC, _histXpKPlusB;
-    Histo1DPtr _histXpProtonL, _histXpProtonC, _histXpProtonB;
-    Histo1DPtr _histXpChargedL, _histXpChargedC, _histXpChargedB;
-    Histo1DPtr _multPiPlusL, _multPiPlusC, _multPiPlusB;
-    Histo1DPtr _multKPlusL, _multKPlusC, _multKPlusB;
-    Histo1DPtr _multProtonL, _multProtonC, _multProtonB;
-    Histo1DPtr _histRPiPlus, _histRPiMinus, _histRKPlus;
-    Histo1DPtr _histRKMinus, _histRProton, _histRPBar;
-    Scatter2DPtr _h_PiM_PiP, _h_KM_KP, _h_Pr_PBar;
+    Histo1DPtr _h_PCharged;
+    Histo1DPtr _h_XpPiPlus, _h_XpKPlus, _h_XpProton;
+    Histo1DPtr _h_XpPiPlusTotal, _h_XpKPlusTotal, _h_XpProtonTotal;
+    Histo1DPtr _h_XpPiPlusL, _h_XpPiPlusC, _h_XpPiPlusB;
+    Histo1DPtr _h_XpKPlusL, _h_XpKPlusC, _h_XpKPlusB;
+    Histo1DPtr _h_XpProtonL, _h_XpProtonC, _h_XpProtonB;
+    Histo1DPtr _h_XpChargedL, _h_XpChargedC, _h_XpChargedB;
+    Histo1DPtr _h_NPiPlusL, _h_NPiPlusC, _h_NPiPlusB;
+    Histo1DPtr _h_NKPlusL, _h_NKPlusC, _h_NKPlusB;
+    Histo1DPtr _h_NProtonL, _h_NProtonC, _h_NProtonB;
+    Histo1DPtr _h_RPiPlus, _h_RPiMinus, _h_RKPlus;
+    Histo1DPtr _h_RKMinus, _h_RProton, _h_RPBar;
+    Scatter2DPtr _s_PiM_PiP, _s_KM_KP, _s_Pr_PBar;
     //@}
 
   };
