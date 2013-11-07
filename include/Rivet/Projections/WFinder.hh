@@ -46,6 +46,15 @@ namespace Rivet {
             double masstarget=80.4,
             bool useTransverseMass=false);
 
+    WFinder(const FinalState& inputfs,
+            Cut cuts,
+            PdgId pid,
+            double minmass, double maxmass,
+            double missingET,
+            double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
+            double masstarget=80.4,
+            bool useTransverseMass=false);
+
 
     /// Constructor taking multiple eta/pT bounds
     /// @param inputfs Input final state
@@ -60,26 +69,26 @@ namespace Rivet {
     /// @param trackPhotons whether such photons should be added to _theParticles
     ///  (cf. _trackPhotons)
     /// @param useTransverseMass whether mass window should be applied using mT
-    WFinder(const FinalState& inputfs,
-            const std::vector<std::pair<double, double> >& etaRanges,
-            double pTmin,
-            PdgId pid,
-            double minmass, const double maxmass,
-            double missingET,
-            double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4,
-            bool useTransverseMass=false);
+    // WFinder(const FinalState& inputfs,
+    //         const std::vector<std::pair<double, double> >& etaRanges,
+    //         double pTmin,
+    //         PdgId pid,
+    //         double minmass, const double maxmass,
+    //         double missingET,
+    //         double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
+    //         double masstarget=80.4,
+    //         bool useTransverseMass=false);
 
 
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    WFinder(double, double, double, PdgId, double, double, double, double,
-            bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4, bool useTransverseMass=false);
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    WFinder(const std::vector<std::pair<double, double> >&, double,
-            PdgId, double, double, double, double,
-            bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4, bool useTransverseMass=false);
+    // /// @deprecated Constructors without inputfs -- only for backwards compatibility
+    // WFinder(double, double, double, PdgId, double, double, double, double,
+    //         bool clusterPhotons=true, bool trackPhotons=false,
+    //         double masstarget=80.4, bool useTransverseMass=false);
+    // /// @deprecated Constructors without inputfs -- only for backwards compatibility
+    // WFinder(const std::vector<std::pair<double, double> >&, double,
+    //         PdgId, double, double, double, double,
+    //         bool clusterPhotons=true, bool trackPhotons=false,
+    //         double masstarget=80.4, bool useTransverseMass=false);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -127,9 +136,10 @@ namespace Rivet {
   private:
 
     /// Common implementation of constructor operation, taking FS params.
-    void _init(const FinalState& inputfs,
-               const std::vector<std::pair<double, double> >& etaRanges,
-               double pTmin,  PdgId pid,
+    void _init(const FinalState& inputfs, Cut fsCut,
+	       // const std::vector<std::pair<double, double> >& etaRanges,
+               // double pTmin,
+	       PdgId pid,
                double minmass, double maxmass,
                double missingET,
                double dRmax, bool clusterPhotons, bool trackPhotons,

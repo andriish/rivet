@@ -36,6 +36,13 @@ namespace Rivet {
     /// @param trackPhotons whether such photons should be added to _theParticles
     ///  (cf. _trackPhotons)
     ZFinder(const FinalState& inputfs,
+            Cut cuts,
+            PdgId pid,
+            double minmass, double maxmass,
+            double dRmax, bool clusterPhotons, bool trackPhotons,
+            double masstarget=91.2*GeV);
+
+    ZFinder(const FinalState& inputfs,
             double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
@@ -55,21 +62,21 @@ namespace Rivet {
     ///  clustered to the lepton objects and thus Z mom
     /// @param trackPhotons whether such photons should be added to _theParticles
     ///  (cf. _trackPhotons)
-    ZFinder(const FinalState& inputfs,
-            const std::vector<std::pair<double, double> >& etaRanges,
-            double pTmin,
-            PdgId pid,
-            double minmass, const double maxmass,
-            double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
+    // ZFinder(const FinalState& inputfs,
+    //         const std::vector<std::pair<double, double> >& etaRanges,
+    //         double pTmin,
+    //         PdgId pid,
+    //         double minmass, const double maxmass,
+    //         double dRmax, bool clusterPhotons, bool trackPhotons,
+    //         double masstarget=91.2*GeV);
 
 
     /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    ZFinder(double, double, double, PdgId, double, double, double,
-            bool, bool, double masstarget=91.2*GeV);
+    // ZFinder(double, double, double, PdgId, double, double, double,
+    //         bool, bool, double masstarget=91.2*GeV);
     /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    ZFinder(const std::vector<std::pair<double, double> >&, double, PdgId,
-            double, double, double, bool, bool, double masstarget=91.2*GeV);
+    // ZFinder(const std::vector<std::pair<double, double> >&, double, PdgId,
+    //         double, double, double, bool, bool, double masstarget=91.2*GeV);
 
 
     /// Clone on the heap.
@@ -114,9 +121,10 @@ namespace Rivet {
 
   private:
     /// Common implementation of constructor operation, taking FS params.
-    void _init(const FinalState& inputfs,
-               const std::vector<std::pair<double, double> >& etaRanges,
-               double pTmin,  PdgId pid,
+    void _init(const FinalState& inputfs, Cut fsCut,
+               //const std::vector<std::pair<double, double> >& etaRanges,
+               //double pTmin,  
+	       PdgId pid,
                double minmass, double maxmass,
                double dRmax, bool clusterPhotons, bool trackPhotons,
                double masstarget);

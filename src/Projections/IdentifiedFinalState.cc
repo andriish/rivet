@@ -18,13 +18,13 @@ namespace Rivet {
   }
 
 
-  IdentifiedFinalState::IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
-                                             double ptMin)
-    : FinalState(etaRanges, ptMin)
-  {
-    setName("IdentifiedFinalState");
-    addProjection(FinalState(etaRanges, ptMin), "FS");
-  }
+  // IdentifiedFinalState::IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
+  //                                            double ptMin)
+  //   : FinalState(etaRanges, ptMin)
+  // {
+  //   setName("IdentifiedFinalState");
+  //   addProjection(FinalState(etaRanges, ptMin), "FS");
+  // }
 
 
   int IdentifiedFinalState::compare(const Projection& p) const {

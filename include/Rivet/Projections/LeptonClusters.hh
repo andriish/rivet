@@ -7,6 +7,7 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
+#include "Rivet/Cuts.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 
@@ -44,9 +45,9 @@ namespace Rivet {
   public:
 
     LeptonClusters(const FinalState& photons, const FinalState& signal,
-                   double dRmax, bool cluster,
-                   const std::vector<std::pair<double, double> >& etaRanges,
-                   double pTmin);
+                   double dRmax, bool cluster, Cut c);
+                   // const std::vector<std::pair<double, double> >& etaRanges,
+                   // double pTmin);
 
     virtual const Projection* clone() const {
       return new LeptonClusters(*this);

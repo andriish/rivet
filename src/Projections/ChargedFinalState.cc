@@ -16,11 +16,11 @@ namespace Rivet {
   }
 
 
-  ChargedFinalState::ChargedFinalState(const vector<pair<double, double> >& etaRanges,
-                                       double minpt) {
-    setName("ChargedFinalState");
-    addProjection(FinalState(etaRanges, minpt), "FS");
-  }
+  // ChargedFinalState::ChargedFinalState(const vector<pair<double, double> >& etaRanges,
+  //                                      double minpt) {
+  //   setName("ChargedFinalState");
+  //   addProjection(FinalState(etaRanges, minpt), "FS");
+  // }
 
 
   int ChargedFinalState::compare(const Projection& p) const {

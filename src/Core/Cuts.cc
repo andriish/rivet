@@ -19,6 +19,15 @@ bool CutBase::accept<Cuttable>(const Cuttable & t) {
 }
 
 
+class Open_Cut : public CutBase {
+protected:
+  bool accept_(const Cuttable &) const { return true; }
+};
+
+const Cut & Cuts::open() {
+  static const Cut open = boost::shared_ptr<Open_Cut>(new Open_Cut);
+  return open;
+}
 
 class Cut_Gtr : public CutBase {
 public:
@@ -54,7 +63,7 @@ private:
     return make_cut(Cut_Gtr(qty, n));
   }
 
-  Cut In(Cuts::Quantity qty, double m, double n) {
+  Cut Range(Cuts::Quantity qty, double m, double n) {
     if (m > n) swap(m,n);
     return (qty >= m) & (qty < n);
   }

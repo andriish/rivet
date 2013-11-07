@@ -21,21 +21,32 @@ namespace Rivet {
     }
   }
 
-
-  FinalState::FinalState(const vector<pair<double, double> >& etaRanges, double minpt)
-    : _etaRanges(etaRanges), _ptmin(minpt)
+  FinalState::FinalState(Cut c)
+    : _ptmin(), _cuts(c)
   {
     setName("FinalState");
-    const bool openpt = isZero(minpt);
-    /// @todo Properly check whether any of these eta ranges (or their combination) are actually open
-    const bool openeta = etaRanges.empty();
-    MSG_TRACE("Check for open FS conditions:" << std::boolalpha
-              << " eta=" << openeta
-              << ", pt=" << openpt);
-    if (!openeta || !openpt) {
+    const bool open = ( c == Cuts::open() );
+    MSG_TRACE("Check for open FS conditions: " << std::boolalpha << open);
+    if ( !open ) {
       addProjection(FinalState(), "OpenFS");
     }
   }
+
+
+  // FinalState::FinalState(const vector<pair<double, double> >& etaRanges, double minpt)
+  //   : _etaRanges(etaRanges), _ptmin(minpt)
+  // {
+  //   setName("FinalState");
+  //   const bool openpt = isZero(minpt);
+  //   /// @todo Properly check whether any of these eta ranges (or their combination) are actually open
+  //   const bool openeta = etaRanges.empty();
+  //   MSG_TRACE("Check for open FS conditions:" << std::boolalpha
+  //             << " eta=" << openeta
+  //             << ", pt=" << openpt);
+  //   if (!openeta || !openpt) {
+  //     addProjection(FinalState(), "OpenFS");
+  //   }
+  // }
 
 
 
@@ -93,6 +104,8 @@ namespace Rivet {
   bool FinalState::accept(const Particle& p) const {
     // Not having s.c. == 1 should never happen!
     assert(p.genParticle() == NULL || p.genParticle()->status() == 1);
+
+    if ( _cuts ) return _cuts->accept(p);
 
     // Check pT cut
     if (_ptmin > 0.0) {

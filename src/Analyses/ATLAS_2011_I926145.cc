@@ -30,11 +30,10 @@ namespace Rivet {
     void init() {
 
       ///projection for electrons
-      std::vector<std::pair<double, double> > eta_e;
-      eta_e.push_back(make_pair(-2.00,-1.52));
-      eta_e.push_back(make_pair(-1.37,1.37));
-      eta_e.push_back(make_pair(1.52,2.00));
-      IdentifiedFinalState elecs(eta_e, 7.0*GeV);
+      Cut cuts = (   Range(Cuts::eta, -2.00, -1.52)
+		   | Range(Cuts::eta, -1.37,  1.37)
+		   | Range(Cuts::eta,  1.52,  2.00) ) & (Cuts::pt >= 7.0*GeV);
+      IdentifiedFinalState elecs(cuts);
       elecs.acceptId(PID::ELECTRON);
       elecs.acceptId(PID::POSITRON);
       addProjection(elecs, "elecs");
@@ -46,36 +45,43 @@ namespace Rivet {
       //eta_m.push_back(make_pair(-1.37,1.37));
       //eta_m.push_back(make_pair(1.52,2.00));
       //IdentifiedFinalState muons(eta_m, 7.0*GeV);
-      IdentifiedFinalState muons(-2.0, 2.0, 7.0*GeV);
+      
+      IdentifiedFinalState muons(Range(Cuts::eta,-2.0,2.0) & (Cuts::pt >= 7.0*GeV));
       muons.acceptId(PID::MUON);
       muons.acceptId(PID::ANTIMUON);
       addProjection(muons, "muons");
 
       //projection for muons full range
-      IdentifiedFinalState muons_full(-2.5, 2.5, 4.0*GeV);
+      IdentifiedFinalState muons_full(Range(Cuts::eta,-2.5,2.5) & (Cuts::pt >= 4.0*GeV));
       muons_full.acceptId(PID::MUON);
       muons_full.acceptId(PID::ANTIMUON);
       addProjection(muons_full, "muons_full");
 
       //// ZFinder: etaMin, etaMax, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons
-      ZFinder zfinder_e(-2.0, 2.0, 0.0, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      ZFinder zfinder_e(FinalState(), Range(Cuts::eta,-2.0,2.0), 
+			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
       addProjection(zfinder_e, "ZFinder_e");
 
-      ZFinder zfinder_mu(-2.0, 2.0, 0.0, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      ZFinder zfinder_mu(FinalState(), Range(Cuts::eta,-2.0,2.0), 
+			 PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
       addProjection(zfinder_mu, "ZFinder_mu");
 
-      ZFinder zfinder_mufull(-2.5, 2.5, 0.0, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      ZFinder zfinder_mufull(FinalState(), Range(Cuts::eta,-2.5,2.5), 
+			     PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
       addProjection(zfinder_mufull, "ZFinder_mufull");
 
 
       //// WFinder: etaMin, etaMax, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons
-      WFinder wfinder_e(-2.0, 2.0, 0.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder_e(FinalState(), Range(Cuts::eta,-2.0,2.0), 
+			PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_e, "WFinder_e");
 
-      WFinder wfinder_mu(-2.0, 2.0, 0.0*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder_mu(FinalState(), Range(Cuts::eta,-2.0,2.0), 
+			 PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_mu, "WFinder_mu");
 
-      WFinder wfinder_mufull(-2.5, 2.5, 0.0*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder_mufull(FinalState(), Range(Cuts::eta,-2.5,2.5), 
+			     PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_mufull, "WFinder_mufull");
 
 

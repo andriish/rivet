@@ -24,7 +24,7 @@ namespace Rivet {
     /// Set up projections and book histograms
     void init() {
       // Projections
-      const FinalState cnfs(-4, 4, 0*GeV);
+      const FinalState cnfs( Range(Cuts::eta, -4, 4) );
       addProjection(cnfs, "FS");
 
       // Histograms
@@ -41,8 +41,8 @@ namespace Rivet {
 
       const Particles ps = applyProjection<FinalState>(event, "FS").particlesByPt();
 
-      Cut ptcut = (Cuts::pt >= 5) & (Cuts::pt < 20); //ptIn(5,20);
-      Cut masscut = (Cuts::mass >= 0) & (Cuts::mass < 0.2); //massIn(0.,0.2);
+      Cut ptcut = Range( Cuts::pt, 5, 20 );
+      Cut masscut = Range( Cuts::mass, 0, 0.2);
       Cut combine = ptcut & masscut; //Possible to combine cuts
 
       foreach(const Particle& p, ps) {

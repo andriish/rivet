@@ -5,6 +5,8 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
+#include "Rivet/Cuts.hh"
+
 
 namespace Rivet {
 
@@ -22,10 +24,13 @@ namespace Rivet {
                double maxeta =  MAXRAPIDITY,
                double minpt  =  0.0*GeV);
 
-    /// A constructor which allows to specify multiple eta ranges
-    /// and the min \f$ p_T \f$ (in GeV).
-    FinalState(const vector<pair<double, double> >& etaRanges,
-               double minpt = 0.0*GeV);
+    /// Testing construction using Cuts object
+    FinalState(Cut c); // = Cuts::open());
+
+    // /// A constructor which allows to specify multiple eta ranges
+    // /// and the min \f$ p_T \f$ (in GeV).
+    // FinalState(const vector<pair<double, double> >& etaRanges,
+    //            double minpt = 0.0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -127,6 +132,9 @@ namespace Rivet {
 
     /// The minimum allowed transverse momentum.
     double _ptmin;
+
+    /// The applicable cuts
+    Cut _cuts;
 
     /// The final-state particles.
     mutable Particles _theParticles;

@@ -35,16 +35,12 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      std::vector<std::pair<double, double> > eta_e;
-      eta_e.push_back(make_pair(-2.47,2.47));
-      IdentifiedFinalState elecs(eta_e, 20.0*GeV);
+      IdentifiedFinalState elecs(Range(Cuts::eta, -2.47, 2.47) & (Cuts::pt >= 20.0*GeV));
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
-      std::vector<std::pair<double, double> > eta_m;
-      eta_m.push_back(make_pair(-2.4,2.4));
-      IdentifiedFinalState muons(eta_m, 10.0*GeV);
+      IdentifiedFinalState muons(Range(Cuts::eta, -2.4, 2.4) & (Cuts::pt >= 10.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
@@ -58,7 +54,7 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.0,3.0,0.5*GeV),"cfs");
 
       // for pTmiss
-      addProjection(VisibleFinalState(-4.5,4.5),"vfs");
+      addProjection(VisibleFinalState(Range(Cuts::eta, -4.5, 4.5)),"vfs");
 
       // book histograms
 

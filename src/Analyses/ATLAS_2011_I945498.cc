@@ -42,14 +42,16 @@ namespace Rivet {
     void init() {
 
       // Set up projections
-      ZFinder zfinder_mu(-2.4, 2.4, 20, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      ZFinder zfinder_mu(FinalState(), Range(Cuts::eta, -2.4, 2.4) & (Cuts::pt >= 20), 
+			 PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
       addProjection(zfinder_mu, "ZFinder_mu");
 
-      std::vector<std::pair<double, double> > eta_e;
-      eta_e.push_back(make_pair(-2.47, -1.52));
-      eta_e.push_back(make_pair(-1.37, 1.37));
-      eta_e.push_back(make_pair(1.52, 2.47));
-      ZFinder zfinder_el(eta_e, 20, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      Cut cuts = ( Range(Cuts::eta, -2.47, -1.52)
+		   | Range(Cuts::eta, -1.37,  1.37)
+		   | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pt >= 20.0*GeV);
+
+      ZFinder zfinder_el(FinalState(), cuts,
+			 PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
       addProjection(zfinder_el, "ZFinder_el");
 
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm

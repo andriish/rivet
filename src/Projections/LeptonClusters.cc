@@ -5,10 +5,10 @@ namespace Rivet {
 
 
   LeptonClusters::LeptonClusters(const FinalState& photons, const FinalState& signal,
-                 double dRmax, bool cluster,
-                 const std::vector<std::pair<double, double> >& etaRanges,
-                 double pTmin) :
-    FinalState(etaRanges, pTmin),
+				 double dRmax, bool cluster, Cut cut) :
+                 // const std::vector<std::pair<double, double> >& etaRanges,
+                 // double pTmin) :
+    FinalState(cut),//etaRanges, pTmin),
     _dRmax(dRmax), _cluster(cluster)
   {
     setName("LeptonClusters");

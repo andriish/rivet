@@ -24,15 +24,25 @@ typedef boost::shared_ptr<CutBase> Cut;
     enum Quantity {
       pt, mass, rap, eta, phi
     };
+    
+    const Cut & open();
   }
 
   Cut operator < (Cuts::Quantity, double);
+  Cut operator > (Cuts::Quantity, double);
+  Cut operator <= (Cuts::Quantity, double);
   Cut operator >= (Cuts::Quantity, double);
-  Cut In(Cuts::Quantity, double n, double m);
+  Cut Range(Cuts::Quantity, double n, double m);
 
   // overload helpers
   inline Cut operator < (Cuts::Quantity qty, int i) { 
     return qty < double(i); 
+  }
+  inline Cut operator > (Cuts::Quantity qty, int i) { 
+    return qty > double(i); 
+  }
+  inline Cut operator <= (Cuts::Quantity qty, int i) { 
+    return qty <= double(i); 
   }
   inline Cut operator >= (Cuts::Quantity qty, int i) { 
     return qty >= double(i); 

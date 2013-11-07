@@ -37,21 +37,25 @@ namespace Rivet {
 
       if (_mode==1) {
         // combined
-        ZFinder zfinder(-2.5, 2.5, 20, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+	Cut cuts = Range(Cuts::eta,-2.5,2.5) & (Cuts::pt >= 20.0*GeV);
+        ZFinder zfinder(FinalState(), cuts,
+			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
         addProjection(zfinder, "zfinder");
       }
       else if (_mode==2) {
         // electron
-        std::vector<std::pair<double, double> > eta_e;
-        eta_e.push_back(make_pair(-2.47, -1.52));
-        eta_e.push_back(make_pair(-1.37,  1.37));
-        eta_e.push_back(make_pair( 1.52,  2.47));
-        ZFinder zfinder(eta_e, 20, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+	Cut cuts = ( Range(Cuts::eta, -2.47, -1.52)
+		     | Range(Cuts::eta, -1.37,  1.37)
+		     | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pt >= 20.0*GeV);
+        ZFinder zfinder(FinalState(), cuts,
+			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
         addProjection(zfinder, "zfinder");
       }
       else if (_mode==3) {
         // muon
-        ZFinder zfinder(-2.4, 2.4, 20, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+	Cut mucuts = Range(Cuts::eta,-2.4,2.4) & (Cuts::pt >= 20.0*GeV);
+        ZFinder zfinder(FinalState(), mucuts,
+			PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
         addProjection(zfinder, "zfinder");
       }
 

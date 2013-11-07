@@ -37,9 +37,8 @@ namespace Rivet {
       IdentifiedFinalState allleptons;
       allleptons.acceptIdPair(PID::ELECTRON);
       allleptons.acceptIdPair(PID::MUON);
-      vector< pair<double, double> > etaRanges;
-      etaRanges.push_back(make_pair(-2.5, 2.5));
-      LeptonClusters leptons(fs, allleptons, 0.1, true, etaRanges, 20.0*GeV);
+      Cut cuts = Range(Cuts::eta, -2.5, 2.5) & (Cuts::pt >= 20.0*GeV);
+      LeptonClusters leptons(fs, allleptons, 0.1, true, cuts);
       addProjection(leptons, "leptons");
 
       // Leading neutrinos for Etmiss

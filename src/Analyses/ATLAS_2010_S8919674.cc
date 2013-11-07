@@ -34,11 +34,10 @@ namespace Rivet {
 
       /// Initialise and register projections (selections on the final state)
       // projection to find the electrons
-      std::vector<std::pair<double, double> > eta_e;
-      eta_e.push_back(make_pair(-2.47,-1.52));
-      eta_e.push_back(make_pair(-1.37,1.37));
-      eta_e.push_back(make_pair(1.52,2.47));
-      IdentifiedFinalState elecs(eta_e, 20.0*GeV);
+      Cut cuts = ( Range(Cuts::eta, -2.47, -1.52)
+		   | Range(Cuts::eta, -1.37,  1.37)
+		   | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pt >= 20.0*GeV);
+      IdentifiedFinalState elecs(cuts);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
       // projection for finding the photons which have to be clustered into
@@ -47,9 +46,7 @@ namespace Rivet {
       addProjection(cphotons_e, "cphotons_e");
 
       // projection to find the muons
-      std::vector<std::pair<double, double> > eta_m;
-      eta_m.push_back(make_pair(-2.4,2.4));
-      IdentifiedFinalState muons(eta_m, 20.0*GeV);
+      IdentifiedFinalState muons(Range(Cuts::eta,-2.4,2.4) & (Cuts::pt >= 20.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
       // projection for finding the photons which have to be clustered into

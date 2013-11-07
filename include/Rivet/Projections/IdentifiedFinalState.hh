@@ -27,10 +27,10 @@ namespace Rivet {
                          double etamax=MAXRAPIDITY,
                          double ptMin=0.0*GeV);
 
-    /// Constructor which allows to specify multiple eta ranges
-    /// and the min \f$ p_T \f$.
-    IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
-                         double ptMin=0.0*GeV);
+    // /// Constructor which allows to specify multiple eta ranges
+    // /// and the min \f$ p_T \f$.
+    // IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
+    //                      double ptMin=0.0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
