@@ -4,14 +4,14 @@
 
 namespace Rivet {
 
-  class Cuttable;
+  class CuttableBase;
 
   class CutBase {
   public:
     template <typename T>
     bool accept(const T & t);
   protected:
-    virtual bool accept_(const Cuttable & o) const = 0;
+    virtual bool accept_(const CuttableBase & o) const = 0;
   public:
     virtual ~CutBase() {}
   };
@@ -32,7 +32,8 @@ typedef boost::shared_ptr<CutBase> Cut;
   Cut operator > (Cuts::Quantity, double);
   Cut operator <= (Cuts::Quantity, double);
   Cut operator >= (Cuts::Quantity, double);
-  Cut Range(Cuts::Quantity, double n, double m);
+
+  Cut Range(Cuts::Quantity, double m, double n);
 
   // overload helpers
   inline Cut operator < (Cuts::Quantity qty, int i) { 

@@ -3,29 +3,30 @@
 #include <Rivet/Math/Vectors.hh>
 #include <fastjet/PseudoJet.hh>
 #include <Rivet/Cuts.hh>
+#include <boost/make_shared.hpp>
 
 namespace Rivet {
 
-class Cuttable {
+class CuttableBase {
 public:
   virtual double getValue(Cuts::Quantity) const = 0;
-  virtual ~Cuttable() {}
+  virtual ~CuttableBase() {}
 };
 
 
 template <>
-bool CutBase::accept<Cuttable>(const Cuttable & t) {
+bool CutBase::accept<CuttableBase>(const CuttableBase & t) {
   return accept_(t);
 }
 
 
 class Open_Cut : public CutBase {
 protected:
-  bool accept_(const Cuttable &) const { return true; }
+  bool accept_(const CuttableBase &) const { return true; }
 };
 
 const Cut & Cuts::open() {
-  static const Cut open = boost::shared_ptr<Open_Cut>(new Open_Cut);
+  static const Cut open = boost::make_shared<Open_Cut>();
   return open;
 }
 
@@ -33,7 +34,7 @@ class Cut_Gtr : public CutBase {
 public:
   Cut_Gtr(const Cuts::Quantity qty, const double low) : qty_(qty), low_(low) {}
 protected:
-  bool accept_(const Cuttable & o) const { return o.getValue(qty_) >= low_; }
+  bool accept_(const CuttableBase & o) const { return o.getValue(qty_) >= low_; }
 private:
   Cuts::Quantity qty_;
   double low_;
@@ -43,7 +44,7 @@ class Cut_Less : public CutBase {
 public:
   Cut_Less(const Cuts::Quantity qty, const double high) : qty_(qty), high_(high) {}
 protected:
-  bool accept_(const Cuttable & o) const { return o.getValue(qty_) < high_; }
+  bool accept_(const CuttableBase & o) const { return o.getValue(qty_) < high_; }
 private:
   Cuts::Quantity qty_;
   double high_;
@@ -51,8 +52,8 @@ private:
 
 
   template <typename T>
-  Cut make_cut(T t) {
-    return boost::shared_ptr<T>(new T(t));
+  inline Cut make_cut(T t) {
+    return boost::make_shared<T>(t);
   }
 
   Cut operator < (Cuts::Quantity qty, double n) {
@@ -78,7 +79,7 @@ class CutsOr : public CutBase {
 public:
     CutsOr(const Cut c1, const Cut c2) : cut1(c1), cut2(c2) {}
 protected:
-    bool accept_(const Cuttable & o) const {
+    bool accept_(const CuttableBase & o) const {
       return cut1->accept(o) || cut2->accept(o);
     }
 private:
@@ -90,7 +91,7 @@ class CutsAnd : public CutBase {
 public:
     CutsAnd(const Cut c1, const Cut c2) : cut1(c1), cut2(c2) {}
 protected:
-    bool accept_(const Cuttable & o) const {
+    bool accept_(const CuttableBase & o) const {
       return cut1->accept(o) && cut2->accept(o);
     }
 private:
@@ -100,20 +101,20 @@ private:
 
 class CutInvert : public CutBase {
 public:
-    CutInvert(const Cut c1) : poscut(c1) {}
+    CutInvert(const Cut c1) : cut(c1) {}
 protected:
-    bool accept_(const Cuttable & o) const {
-      return !poscut->accept(o);
+    bool accept_(const CuttableBase & o) const {
+      return !cut->accept(o);
     }
 private:
-    const Cut poscut;
+    const Cut cut;
 };
 
 class CutsXor : public CutBase {
 public:
     CutsXor(const Cut c1, const Cut c2) : cut1(c1), cut2(c2) {}
 protected:
-    bool accept_(const Cuttable & o) const {
+    bool accept_(const CuttableBase & o) const {
       bool A_and_B = cut1->accept(o) && cut2->accept(o);
       bool A_or_B  = cut1->accept(o) || cut2->accept(o);
       return A_or_B && (! A_and_B);
@@ -147,13 +148,13 @@ private:
 
 
 template <typename T>
-class MakeCuttable : public Cuttable {};
+class Cuttable : public CuttableBase {};
 
 
 #define SPECIALISE_ACCEPT(TYPENAME) \
 template <> \
 bool CutBase::accept<TYPENAME>(const TYPENAME & t) { \
-  return accept_(MakeCuttable<TYPENAME>(t)); \
+  return accept_(Cuttable<TYPENAME>(t)); \
 } \
 
 
@@ -163,9 +164,9 @@ void qty_not_found() {
 
 
 template<>
-class MakeCuttable <Particle> : public Cuttable {
+class Cuttable <Particle> : public CuttableBase {
     public:
-    MakeCuttable(const Particle& p) : p_(p) {}
+    Cuttable(const Particle& p) : p_(p) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
       case Cuts::pt:   return p_.momentum().pT();
@@ -185,9 +186,9 @@ SPECIALISE_ACCEPT(Particle)
 
 
 template<>
-class MakeCuttable <FourMomentum> : public Cuttable {
+class Cuttable <FourMomentum> : public CuttableBase {
     public:
-    MakeCuttable(const FourMomentum& fm) : fm_(fm) {}
+    Cuttable(const FourMomentum& fm) : fm_(fm) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
       case Cuts::pt:   return fm_.pT();
@@ -206,9 +207,9 @@ class MakeCuttable <FourMomentum> : public Cuttable {
 SPECIALISE_ACCEPT(FourMomentum)
 
 template<>
-class MakeCuttable <Jet> : public Cuttable {
+class Cuttable <Jet> : public CuttableBase {
     public:
-    MakeCuttable(const Jet& jet) : jet_(jet) {}
+    Cuttable(const Jet& jet) : jet_(jet) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
       case Cuts::pt:   return jet_.momentum().pT();
@@ -227,9 +228,9 @@ class MakeCuttable <Jet> : public Cuttable {
 SPECIALISE_ACCEPT(Jet)
 
 template<>
-class MakeCuttable <fastjet::PseudoJet> : public Cuttable {
+class Cuttable <fastjet::PseudoJet> : public CuttableBase {
     public:
-    MakeCuttable(const fastjet::PseudoJet& pjet) : pjet_(pjet) {}
+    Cuttable(const fastjet::PseudoJet& pjet) : pjet_(pjet) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
       case Cuts::pt:   return pjet_.perp();
