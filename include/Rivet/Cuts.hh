@@ -22,7 +22,7 @@ typedef boost::shared_ptr<CutBase> Cut;
 
   namespace Cuts {
     enum Quantity {
-      pt, mass, rap, eta, phi
+      pT, mass, rap, eta, phi
     };
     
     const Cut & open();

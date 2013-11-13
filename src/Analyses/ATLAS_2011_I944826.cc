@@ -31,7 +31,7 @@ namespace Rivet {
       addProjection(mbts, "MBTS");
 
       IdentifiedFinalState nstable( Range(Cuts::eta, -2.5, 2.5) 
-				    & (Cuts::pt >= 100*MeV) );
+				    & (Cuts::pT >= 100*MeV) );
       nstable.acceptIdPair(PID::ELECTRON)
         .acceptIdPair(PID::MUON)
         .acceptIdPair(PID::PIPLUS)

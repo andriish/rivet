@@ -37,7 +37,7 @@ namespace Rivet {
       IdentifiedFinalState allleptons;
       allleptons.acceptIdPair(PID::ELECTRON);
       allleptons.acceptIdPair(PID::MUON);
-      Cut cuts = Range(Cuts::eta, -2.5, 2.5) & (Cuts::pt >= 20.0*GeV);
+      Cut cuts = Range(Cuts::eta, -2.5, 2.5) & (Cuts::pT >= 20.0*GeV);
       LeptonClusters leptons(fs, allleptons, 0.1, true, cuts);
       addProjection(leptons, "leptons");
 

@@ -41,7 +41,7 @@ namespace Rivet {
 
       const Particles ps = applyProjection<FinalState>(event, "FS").particlesByPt();
 
-      Cut ptcut = Range( Cuts::pt, 5, 20 );
+      Cut ptcut = Range( Cuts::pT, 5, 20 );
       Cut masscut = Range( Cuts::mass, 0, 0.2);
       Cut combine = ptcut & masscut; //Possible to combine cuts
 

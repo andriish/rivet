@@ -37,14 +37,14 @@ namespace Rivet {
 
       // projection to find the electrons
       IdentifiedFinalState elecs(Range(Cuts::eta, -2.47, 2.47) 
-				 & (Cuts::pt >= 20.0*GeV));
+				 & (Cuts::pT >= 20.0*GeV));
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
 
       // projection to find the muons
       IdentifiedFinalState muons(Range(Cuts::eta, -2.4, 2.4) 
-				 & (Cuts::pt >= 10.0*GeV));
+				 & (Cuts::pT >= 10.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 

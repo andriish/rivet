@@ -32,7 +32,7 @@ namespace Rivet {
       Cut cuts = (   Range(Cuts::eta, -2.5, -1.5)
 		   | Range(Cuts::eta, -1.1,  1.1)
 		   | Range(Cuts::eta,  1.5,  2.5) )
-	& (Cuts::pt >= 25.0*GeV);
+	& (Cuts::pT >= 25.0*GeV);
 
       ZFinder zfinder_constrained(fs, cuts, PID::ELECTRON,
                                   65.0*GeV, 115.0*GeV, 0.2, true, true);

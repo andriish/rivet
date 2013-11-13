@@ -169,7 +169,7 @@ class Cuttable <Particle> : public CuttableBase {
     Cuttable(const Particle& p) : p_(p) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
-      case Cuts::pt:   return p_.momentum().pT();
+      case Cuts::pT:   return p_.momentum().pT();
       case Cuts::mass: return p_.momentum().mass();
       case Cuts::rap:  return p_.momentum().rapidity();
       case Cuts::eta:  return p_.momentum().pseudorapidity();
@@ -191,7 +191,7 @@ class Cuttable <FourMomentum> : public CuttableBase {
     Cuttable(const FourMomentum& fm) : fm_(fm) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
-      case Cuts::pt:   return fm_.pT();
+      case Cuts::pT:   return fm_.pT();
       case Cuts::mass: return fm_.mass();
       case Cuts::rap:  return fm_.rapidity();
       case Cuts::eta:  return fm_.pseudorapidity();
@@ -212,7 +212,7 @@ class Cuttable <Jet> : public CuttableBase {
     Cuttable(const Jet& jet) : jet_(jet) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
-      case Cuts::pt:   return jet_.momentum().pT();
+      case Cuts::pT:   return jet_.momentum().pT();
       case Cuts::mass: return jet_.momentum().mass();
       case Cuts::rap:  return jet_.momentum().rapidity();
       case Cuts::eta:  return jet_.momentum().pseudorapidity();
@@ -233,7 +233,7 @@ class Cuttable <fastjet::PseudoJet> : public CuttableBase {
     Cuttable(const fastjet::PseudoJet& pjet) : pjet_(pjet) {}
     double getValue(Cuts::Quantity qty) const {
       switch(qty) {
-      case Cuts::pt:   return pjet_.perp();
+      case Cuts::pT:   return pjet_.perp();
       case Cuts::mass: return pjet_.m();
       case Cuts::rap:  return pjet_.rap();
       case Cuts::eta:  return pjet_.eta();

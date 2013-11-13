@@ -35,7 +35,7 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      Cut pt10 = Cuts::pt > 10.0*GeV;
+      Cut pt10 = Cuts::pT > 10.0*GeV;
 
       IdentifiedFinalState elecs( Range(Cuts::eta, -2.47, 2.47) & pt10 );
       elecs.acceptIdPair(PID::ELECTRON);

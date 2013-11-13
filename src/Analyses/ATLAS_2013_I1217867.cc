@@ -42,14 +42,14 @@ namespace Rivet {
 
       Cut cuts = ( Range(Cuts::eta, -2.47, -1.52)
 		   | Range(Cuts::eta, -1.37,  1.37)
-		   | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pt >= 20.0*GeV);
+		   | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
 
       LeptonClusters electronClusters(fs, bareElectrons, 0.1, true, cuts);
       addProjection(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
-      Cut mucuts = Range(Cuts::eta,-2.4,2.4) & (Cuts::pt >= 20.0*GeV);
+      Cut mucuts = Range(Cuts::eta,-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
 
       LeptonClusters muonClusters(fs, bareMuons, 0.1, true, mucuts);
       addProjection(muonClusters, "muonClusters");

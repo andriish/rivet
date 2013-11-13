@@ -32,7 +32,7 @@ namespace Rivet {
       ///projection for electrons
       Cut cuts = (   Range(Cuts::eta, -2.00, -1.52)
 		   | Range(Cuts::eta, -1.37,  1.37)
-		   | Range(Cuts::eta,  1.52,  2.00) ) & (Cuts::pt >= 7.0*GeV);
+		   | Range(Cuts::eta,  1.52,  2.00) ) & (Cuts::pT >= 7.0*GeV);
       IdentifiedFinalState elecs(cuts);
       elecs.acceptId(PID::ELECTRON);
       elecs.acceptId(PID::POSITRON);
@@ -46,13 +46,13 @@ namespace Rivet {
       //eta_m.push_back(make_pair(1.52,2.00));
       //IdentifiedFinalState muons(eta_m, 7.0*GeV);
       
-      IdentifiedFinalState muons(Range(Cuts::eta,-2.0,2.0) & (Cuts::pt >= 7.0*GeV));
+      IdentifiedFinalState muons(Range(Cuts::eta,-2.0,2.0) & (Cuts::pT >= 7.0*GeV));
       muons.acceptId(PID::MUON);
       muons.acceptId(PID::ANTIMUON);
       addProjection(muons, "muons");
 
       //projection for muons full range
-      IdentifiedFinalState muons_full(Range(Cuts::eta,-2.5,2.5) & (Cuts::pt >= 4.0*GeV));
+      IdentifiedFinalState muons_full(Range(Cuts::eta,-2.5,2.5) & (Cuts::pT >= 4.0*GeV));
       muons_full.acceptId(PID::MUON);
       muons_full.acceptId(PID::ANTIMUON);
       addProjection(muons_full, "muons_full");

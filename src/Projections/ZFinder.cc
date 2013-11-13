@@ -25,7 +25,7 @@ namespace Rivet {
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget) {
     Cut eta = Range( Cuts::eta, etaMin, etaMax );
-    Cut pt  = Cuts::pt >= pTmin;
+    Cut pt  = Cuts::pT >= pTmin;
     _init(inputfs, eta & pt, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
   }
 

@@ -50,14 +50,14 @@ namespace Rivet {
 
       // projection to find the electrons
       IdentifiedFinalState elecs(Range(Cuts::eta, -2.47, 2.47) 
-				 & (Cuts::pt >= 20.0*GeV));
+				 & (Cuts::pT >= 20.0*GeV));
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
 
       // veto region electrons
       Cut vetocut = Range(Cuts::eta, -1.52, -1.35) | Range(Cuts::eta,  1.35,  1.52);
-      IdentifiedFinalState veto_elecs(vetocut & (Cuts::pt >= 10.0*GeV));
+      IdentifiedFinalState veto_elecs(vetocut & (Cuts::pT >= 10.0*GeV));
       veto_elecs.acceptIdPair(PID::ELECTRON);
       addProjection(veto_elecs, "veto_elecs");
 
@@ -72,7 +72,7 @@ namespace Rivet {
 
       // projection to find the muons
       IdentifiedFinalState muons(Range(Cuts::eta, -2.4, 2.4) 
-				 & (Cuts::pt >= 20.0*GeV));
+				 & (Cuts::pT >= 20.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 

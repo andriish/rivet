@@ -19,7 +19,7 @@ namespace Rivet {
                    double masstarget,
                    bool useTransverseMass) {
     Cut eta = Range( Cuts::eta, etaMin, etaMax );
-    Cut pt  = Cuts::pt >= pTmin;
+    Cut pt  = Cuts::pT >= pTmin;
     _init(inputfs, eta & pt, pid, minmass, maxmass, missingET,
           dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
   }
@@ -60,7 +60,7 @@ namespace Rivet {
   //                  double masstarget,
   //                  bool useTransverseMass) {
   //   Cut eta = Range( Cuts::eta, etaMin, etaMax );
-  //   Cut pt  = Cuts::pt >= pTmin;
+  //   Cut pt  = Cuts::pT >= pTmin;
   //   FinalState inputfs;
   //   _init(inputfs, eta & pt, pTmin, pid, minmass, maxmass, missingET,
   //         dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
