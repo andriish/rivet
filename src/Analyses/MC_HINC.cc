@@ -21,7 +21,8 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      ZFinder hfinder(fs, -3.5, 3.5, 25.0*GeV, PID::TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
+      Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
+      ZFinder hfinder(fs, cut, PID::TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
       addProjection(hfinder, "Hfinder");
 
       _h_H_mass = bookHisto1D("H_mass", 50, 119.7, 120.3);

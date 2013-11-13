@@ -64,14 +64,15 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      ZFinder zeefinder(fs, -3.5, 3.5, 25.0*GeV, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
+      ZFinder zeefinder(fs, cut, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zeefinder, "ZeeFinder");
-      ZFinder zmmfinder(fs, -3.5, 3.5, 25.0*GeV, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zmmfinder(fs, cut, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
       addProjection(zmmfinder, "ZmmFinder");
 
-      WFinder wefinder(fs, -3.5, 3.5, 25.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wefinder(fs, cut, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wefinder, "WeFinder");
-      WFinder wmfinder(fs, -3.5, 3.5, 25.0*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wmfinder(fs, cut, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wmfinder, "WmFinder");
 
       addProjection(fs, "FinalState");

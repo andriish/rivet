@@ -55,41 +55,6 @@ namespace Rivet {
             double masstarget=80.4,
             bool useTransverseMass=false);
 
-
-    /// Constructor taking multiple eta/pT bounds
-    /// @param inputfs Input final state
-    /// @param etaRanges,pTmin charged lepton cuts
-    /// @param pid type of the charged lepton
-    /// @param minmass,maxmass (transverse) mass window
-    /// @param missingET minimal amount of missing ET (neutrinos) required
-    /// @param dRmax maximum dR of photons around charged lepton to take into account
-    ///  for W reconstruction (only relevant if one of the following are true)
-    /// @param clusterPhotons whether such photons are supposed to be
-    ///  clustered to the lepton object and thus W mom
-    /// @param trackPhotons whether such photons should be added to _theParticles
-    ///  (cf. _trackPhotons)
-    /// @param useTransverseMass whether mass window should be applied using mT
-    // WFinder(const FinalState& inputfs,
-    //         const std::vector<std::pair<double, double> >& etaRanges,
-    //         double pTmin,
-    //         PdgId pid,
-    //         double minmass, const double maxmass,
-    //         double missingET,
-    //         double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
-    //         double masstarget=80.4,
-    //         bool useTransverseMass=false);
-
-
-    // /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    // WFinder(double, double, double, PdgId, double, double, double, double,
-    //         bool clusterPhotons=true, bool trackPhotons=false,
-    //         double masstarget=80.4, bool useTransverseMass=false);
-    // /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    // WFinder(const std::vector<std::pair<double, double> >&, double,
-    //         PdgId, double, double, double, double,
-    //         bool clusterPhotons=true, bool trackPhotons=false,
-    //         double masstarget=80.4, bool useTransverseMass=false);
-
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new WFinder(*this);
@@ -131,21 +96,6 @@ namespace Rivet {
       _constituentLeptons.clear();
       _constituentNeutrinos.clear();
     }
-
-
-  private:
-
-    /// Common implementation of constructor operation, taking FS params.
-    void _init(const FinalState& inputfs, Cut fsCut,
-	       // const std::vector<std::pair<double, double> >& etaRanges,
-               // double pTmin,
-	       PdgId pid,
-               double minmass, double maxmass,
-               double missingET,
-               double dRmax, bool clusterPhotons, bool trackPhotons,
-               double masstarget,
-               bool useTransverseMass);
-
 
   private:
 

@@ -42,43 +42,6 @@ namespace Rivet {
             double dRmax, bool clusterPhotons, bool trackPhotons,
             double masstarget=91.2*GeV);
 
-    ZFinder(const FinalState& inputfs,
-            double etaMin, double etaMax,
-            double pTmin,
-            PdgId pid,
-            double minmass, double maxmass,
-            double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
-
-
-    /// Constructor taking multiple eta/pT bounds
-    /// @param inputfs Input final state
-    /// @param etaRanges,pTmin lepton cuts
-    /// @param pid type of the leptons
-    /// @param minmass,maxmass mass window
-    /// @param dRmax maximum dR of photons around leptons to take into account
-    ///  for Z reconstruction (only relevant if one of the following are true)
-    /// @param clusterPhotons whether such photons are supposed to be
-    ///  clustered to the lepton objects and thus Z mom
-    /// @param trackPhotons whether such photons should be added to _theParticles
-    ///  (cf. _trackPhotons)
-    // ZFinder(const FinalState& inputfs,
-    //         const std::vector<std::pair<double, double> >& etaRanges,
-    //         double pTmin,
-    //         PdgId pid,
-    //         double minmass, const double maxmass,
-    //         double dRmax, bool clusterPhotons, bool trackPhotons,
-    //         double masstarget=91.2*GeV);
-
-
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    // ZFinder(double, double, double, PdgId, double, double, double,
-    //         bool, bool, double masstarget=91.2*GeV);
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    // ZFinder(const std::vector<std::pair<double, double> >&, double, PdgId,
-    //         double, double, double, bool, bool, double masstarget=91.2*GeV);
-
-
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new ZFinder(*this);
@@ -120,15 +83,6 @@ namespace Rivet {
 
 
   private:
-    /// Common implementation of constructor operation, taking FS params.
-    void _init(const FinalState& inputfs, Cut fsCut,
-               //const std::vector<std::pair<double, double> >& etaRanges,
-               //double pTmin,  
-	       PdgId pid,
-               double minmass, double maxmass,
-               double dRmax, bool clusterPhotons, bool trackPhotons,
-               double masstarget);
-
     /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
     double _minmass, _maxmass, _masstarget;
 

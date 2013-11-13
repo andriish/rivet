@@ -8,89 +8,14 @@
 
 namespace Rivet {
 
-
   WFinder::WFinder(const FinalState& inputfs,
-                   double etaMin, double etaMax,
-                   double pTmin,
+                   Cut fsCut,
                    PdgId pid,
                    double minmass, double maxmass,
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass) {
-    Cut eta = Range( Cuts::eta, etaMin, etaMax );
-    Cut pt  = Cuts::pT >= pTmin;
-    _init(inputfs, eta & pt, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  }
-
-  WFinder::WFinder(const FinalState& inputfs,
-                   Cut cuts,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double missingET,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   bool useTransverseMass) {
-    _init(inputfs, cuts, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  }
-
-
-  // WFinder::WFinder(const FinalState& inputfs,
-  //                  const std::vector<std::pair<double, double> >& etaRanges,
-  //                  double pTmin,
-  //                  PdgId pid,
-  //                  double minmass, double maxmass,
-  //                  double missingET,
-  //                  double dRmax, bool clusterPhotons, bool trackPhotons,
-  //                  double masstarget,
-  //                  bool useTransverseMass) {
-  //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-  //         dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  // }
-
-
-  // WFinder::WFinder(double etaMin, double etaMax,
-  //                  double pTmin,
-  //                  PdgId pid,
-  //                  double minmass, double maxmass,
-  //                  double missingET,
-  //                  double dRmax, bool clusterPhotons, bool trackPhotons,
-  //                  double masstarget,
-  //                  bool useTransverseMass) {
-  //   Cut eta = Range( Cuts::eta, etaMin, etaMax );
-  //   Cut pt  = Cuts::pT >= pTmin;
-  //   FinalState inputfs;
-  //   _init(inputfs, eta & pt, pTmin, pid, minmass, maxmass, missingET,
-  //         dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  // }
-
-
-  // WFinder::WFinder(const std::vector<std::pair<double, double> >& etaRanges,
-  //                  double pTmin,
-  //                  PdgId pid,
-  //                  double minmass, double maxmass,
-  //                  double missingET,
-  //                  double dRmax, bool clusterPhotons, bool trackPhotons,
-  //                  double masstarget,
-  //                  bool useTransverseMass) {
-  //   FinalState inputfs;
-  //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-  //         dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  // }
-
-
-  void WFinder::_init(const FinalState& inputfs,
-		      Cut fsCut,
-		      //  const std::vector<std::pair<double, double> >& etaRanges,
-		      //  double pTmin,
-                      PdgId pid,
-                      double minmass, double maxmass,
-                      double missingET,
-                      double dRmax, bool clusterPhotons, bool trackPhotons,
-                      double masstarget,
-                      bool useTransverseMass)
+                   bool useTransverseMass)
   {
     setName("WFinder");
 

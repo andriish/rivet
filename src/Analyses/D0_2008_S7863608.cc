@@ -27,7 +27,8 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      ZFinder zfinder(fs, -1.7, 1.7, 15.0*GeV, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, false, true);
+      Cut cut = EtaIn(-1.7,1.7) & (Cuts::pT >= 15.0*GeV);
+      ZFinder zfinder(fs, cut, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, false, true);
       addProjection(zfinder, "ZFinder");
 
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);

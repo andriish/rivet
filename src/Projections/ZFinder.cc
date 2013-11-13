@@ -8,69 +8,11 @@ namespace Rivet {
 
 
   ZFinder::ZFinder(const FinalState& inputfs,
-		   Cut cuts,
+		   Cut fsCut,
                    PdgId pid,
                    double minmass, double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    _init(inputfs, cuts, 
-	  pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  }
-
-  ZFinder::ZFinder(const FinalState& inputfs,
-                   double etaMin, double etaMax,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    Cut eta = Range( Cuts::eta, etaMin, etaMax );
-    Cut pt  = Cuts::pT >= pTmin;
-    _init(inputfs, eta & pt, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  }
-
-
-  // ZFinder::ZFinder(const FinalState& inputfs,
-  //                  const std::vector<std::pair<double, double> >& etaRanges,
-  //                  double pTmin,
-  //                  PdgId pid,
-  //                  double minmass, const double maxmass,
-  //                  double dRmax, bool clusterPhotons, bool trackPhotons,
-  //                  double masstarget) {
-  //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  // }
-
-
-  // ZFinder::ZFinder(double etaMin, double etaMax,
-  //                  double pTmin,
-  //                  PdgId pid,
-  //                  double minmass, double maxmass,
-  //                  double dRmax, bool clusterPhotons, bool trackPhotons,
-  //                  double masstarget) {
-  //   vector<pair<double, double> > etaRanges;
-  //   etaRanges += std::make_pair(etaMin, etaMax);
-  //   FinalState inputfs;
-  //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  // }
-
-
-  // ZFinder::ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
-  //                  double pTmin,
-  //                  PdgId pid,
-  //                  double minmass, const double maxmass,
-  //                  double dRmax, bool clusterPhotons, bool trackPhotons,
-  //                  double masstarget) {
-  //   FinalState inputfs;
-  //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  // }
-
-  void ZFinder::_init(const FinalState& inputfs, Cut fsCut,
-		      // const std::vector<std::pair<double, double> >& etaRanges,
-                      // double pTmin,  
-		      PdgId pid,
-                      double minmass, double maxmass,
-                      double dRmax, bool clusterPhotons, bool trackPhotons,
-                      double masstarget)
+                   double masstarget)
   {
     setName("ZFinder");
 
@@ -84,7 +26,6 @@ namespace Rivet {
     bareleptons.acceptIdPair(pid);
     LeptonClusters leptons(inputfs, bareleptons, dRmax,
                            clusterPhotons, fsCut);
-    //                           etaRanges, pTmin);
     addProjection(leptons, "LeptonClusters");
 
     VetoedFinalState remainingFS;

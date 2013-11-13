@@ -19,7 +19,8 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      ZFinder zfinder(fs, -2.4, 2.4, 20.0*GeV, PID::MUON, 4.0*GeV, 140.0*GeV, 0.2, false, false);
+      Cut cut = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
+      ZFinder zfinder(fs, cut, PID::MUON, 4.0*GeV, 140.0*GeV, 0.2, false, false);
       addProjection(zfinder, "ZFinder");
 
       ChargedFinalState cfs(-2.0, 2.0, 500*MeV); // For charged particles
