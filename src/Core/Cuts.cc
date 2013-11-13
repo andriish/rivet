@@ -1,9 +1,13 @@
+#include <Rivet/Cuts.hh>
+#include <boost/make_shared.hpp>
+
+// headers for converters
 #include <Rivet/Particle.hh>
 #include <Rivet/Jet.hh>
 #include <Rivet/Math/Vectors.hh>
 #include <fastjet/PseudoJet.hh>
-#include <Rivet/Cuts.hh>
-#include <boost/make_shared.hpp>
+#include <HepMC/SimpleVector.h>
+
 
 namespace Rivet {
 
@@ -247,5 +251,27 @@ class Cuttable <fastjet::PseudoJet> : public CuttableBase {
     const fastjet::PseudoJet & pjet_;
 };
 SPECIALISE_ACCEPT(fastjet::PseudoJet)
+
+
+template<>
+class Cuttable <HepMC::FourVector> : public CuttableBase {
+    public:
+    Cuttable(const HepMC::FourVector & vec) : vec_(vec) {}
+    double getValue(Cuts::Quantity qty) const {
+      switch(qty) {
+      case Cuts::pT:   return vec_.perp();
+      case Cuts::mass: return vec_.m();
+	//      case Cuts::rap:  return vec_.rap(); // needs conversion
+      case Cuts::eta:  return vec_.pseudoRapidity();
+      case Cuts::phi:  return vec_.phi();
+      default: 
+	qty_not_found();
+      }
+      return -999.;
+    }
+    private:
+    const HepMC::FourVector & vec_;
+};
+SPECIALISE_ACCEPT(HepMC::FourVector)
 
 }
