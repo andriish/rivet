@@ -29,9 +29,9 @@ namespace Rivet {
     void init() {
       FinalState fs;
       // Leptons in constrained tracking acceptance
-      Cut cuts = (   Range(Cuts::eta, -2.5, -1.5)
-		   | Range(Cuts::eta, -1.1,  1.1)
-		   | Range(Cuts::eta,  1.5,  2.5) )
+      Cut cuts = (   EtaIn(-2.5, -1.5)
+		   | EtaIn(-1.1,  1.1)
+		   | EtaIn( 1.5,  2.5) )
 	& (Cuts::pT >= 25.0*GeV);
 
       ZFinder zfinder_constrained(fs, cuts, PID::ELECTRON,

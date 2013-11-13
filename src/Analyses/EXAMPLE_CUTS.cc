@@ -24,7 +24,7 @@ namespace Rivet {
     /// Set up projections and book histograms
     void init() {
       // Projections
-      const FinalState cnfs( Range(Cuts::eta, -4, 4) );
+      const FinalState cnfs( EtaIn(-4, 4) );
       addProjection(cnfs, "FS");
 
       // Histograms

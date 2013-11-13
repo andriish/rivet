@@ -34,9 +34,9 @@ namespace Rivet {
 
       /// Initialise and register projections (selections on the final state)
       // projection to find the electrons
-      Cut cuts = ( Range(Cuts::eta, -2.47, -1.52)
-		   | Range(Cuts::eta, -1.37,  1.37)
-		   | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = ( EtaIn(-2.47, -1.52)
+		   | EtaIn(-1.37,  1.37)
+		   | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
       IdentifiedFinalState elecs(cuts);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
@@ -46,7 +46,7 @@ namespace Rivet {
       addProjection(cphotons_e, "cphotons_e");
 
       // projection to find the muons
-      IdentifiedFinalState muons(Range(Cuts::eta,-2.4,2.4) & (Cuts::pT >= 20.0*GeV));
+      IdentifiedFinalState muons(EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
       // projection for finding the photons which have to be clustered into

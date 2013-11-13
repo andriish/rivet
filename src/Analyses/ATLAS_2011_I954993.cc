@@ -27,11 +27,11 @@ namespace Rivet {
 
       //// ZFinder: etaMin,etaMax,pTmin,pid,m2_min,m2_max,dRmax,clusterPhotons,excludePhotonsFromRFS
       ZFinder zfinder_e( FinalState(),
-			 Range(Cuts::eta, -2.5, 2.5) & (Cuts::pT >= 15*GeV),
+			 EtaIn(-2.5, 2.5) & (Cuts::pT >= 15*GeV),
 			 PID::ELECTRON, 81.1876*GeV, 101.1876*GeV, 0.1, true, true);
       addProjection(zfinder_e, "ZFinder_e");
       ZFinder zfinder_mu(FinalState(),
-			 Range(Cuts::eta, -2.5, 2.5) & (Cuts::pT >= 15*GeV),
+			 EtaIn(-2.5, 2.5) & (Cuts::pT >= 15*GeV),
 			 PID::MUON, 81.1876*GeV, 101.1876*GeV, 0.1, true, true);
       addProjection(zfinder_mu, "ZFinder_mu");
 
@@ -39,14 +39,14 @@ namespace Rivet {
       VetoedFinalState weinput;
       weinput.addVetoOnThisFinalState(zfinder_e);
       WFinder wfinder_e(weinput,
-			Range(Cuts::eta, -2.5, 2.5) & (Cuts::pT >= 15*GeV),
+			EtaIn(-2.5, 2.5) & (Cuts::pT >= 15*GeV),
 			PID::ELECTRON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.1);
       addProjection(wfinder_e, "WFinder_e");
 
       VetoedFinalState wminput;
       wminput.addVetoOnThisFinalState(zfinder_mu);
       WFinder wfinder_mu(wminput,
-			 Range(Cuts::eta, -2.5, 2.5) & (Cuts::pT >= 15*GeV),
+			 EtaIn(-2.5, 2.5) & (Cuts::pT >= 15*GeV),
 			 PID::MUON, 0.0*GeV, 1000.0*GeV, 25.0*GeV, 0.1);
       addProjection(wfinder_mu, "WFinder_mu");
 

@@ -37,23 +37,23 @@ namespace Rivet {
 
       if (_mode==1) {
         // combined
-	Cut cuts = Range(Cuts::eta,-2.5,2.5) & (Cuts::pT >= 20.0*GeV);
+	Cut cuts = EtaIn(-2.5,2.5) & (Cuts::pT >= 20.0*GeV);
         ZFinder zfinder(FinalState(), cuts,
 			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
         addProjection(zfinder, "zfinder");
       }
       else if (_mode==2) {
         // electron
-	Cut cuts = ( Range(Cuts::eta, -2.47, -1.52)
-		     | Range(Cuts::eta, -1.37,  1.37)
-		     | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
+	Cut cuts = ( EtaIn(-2.47, -1.52)
+		     | EtaIn(-1.37,  1.37)
+		     | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
         ZFinder zfinder(FinalState(), cuts,
 			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
         addProjection(zfinder, "zfinder");
       }
       else if (_mode==3) {
         // muon
-	Cut mucuts = Range(Cuts::eta,-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
+	Cut mucuts = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
         ZFinder zfinder(FinalState(), mucuts,
 			PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
         addProjection(zfinder, "zfinder");

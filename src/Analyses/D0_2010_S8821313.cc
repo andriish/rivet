@@ -32,9 +32,9 @@ namespace Rivet {
 
       /// Initialise and register projections
       FinalState fs;
-      Cut cuts = (   Range(Cuts::eta, -3.0, -1.5)
-		   | Range(Cuts::eta, -1.1,  1.1)
-		   | Range(Cuts::eta,  1.5,  3.0) )
+      Cut cuts = (   EtaIn(-3.0, -1.5)
+		   | EtaIn(-1.1,  1.1)
+		   | EtaIn( 1.5,  3.0) )
 	& (Cuts::pT >= 20.0*GeV);
 
       ZFinder zfinder_ee(fs, cuts, 
@@ -42,7 +42,7 @@ namespace Rivet {
       addProjection(zfinder_ee, "zfinder_ee");
 
       ZFinder zfinder_mm(fs, 
-			 Range(Cuts::eta, -2.0, 2.0) & (Cuts::pT >= 15.0*GeV),
+			 EtaIn(-2.0, 2.0) & (Cuts::pT >= 15.0*GeV),
 			 PID::MUON, 70.0*GeV, 110.0*GeV, 0.0, false, false);
       addProjection(zfinder_mm, "zfinder_mm");
 

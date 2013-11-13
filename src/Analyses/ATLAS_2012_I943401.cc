@@ -35,12 +35,12 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      IdentifiedFinalState elecs(Range(Cuts::eta, -2.47, 2.47) & (Cuts::pT >= 20.0*GeV));
+      IdentifiedFinalState elecs(EtaIn(-2.47, 2.47) & (Cuts::pT >= 20.0*GeV));
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
-      IdentifiedFinalState muons(Range(Cuts::eta, -2.4, 2.4) & (Cuts::pT >= 10.0*GeV));
+      IdentifiedFinalState muons(EtaIn(-2.4, 2.4) & (Cuts::pT >= 10.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
@@ -54,7 +54,7 @@ namespace Rivet {
       addProjection(ChargedFinalState(-3.0,3.0,0.5*GeV),"cfs");
 
       // for pTmiss
-      addProjection(VisibleFinalState(Range(Cuts::eta, -4.5, 4.5)),"vfs");
+      addProjection(VisibleFinalState(EtaIn(-4.5, 4.5)),"vfs");
 
       // book histograms
 

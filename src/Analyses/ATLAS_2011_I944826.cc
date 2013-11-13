@@ -26,11 +26,11 @@ namespace Rivet {
       UnstableFinalState ufs(-MAXRAPIDITY, MAXRAPIDITY, 100*MeV);
       addProjection(ufs, "UFS");
 
-      ChargedFinalState  mbts(   Range(Cuts::eta, -3.84, -2.09) 
-			       | Range(Cuts::eta,  2.09,  3.84) );
+      ChargedFinalState  mbts(   EtaIn(-3.84, -2.09) 
+			       | EtaIn( 2.09,  3.84) );
       addProjection(mbts, "MBTS");
 
-      IdentifiedFinalState nstable( Range(Cuts::eta, -2.5, 2.5) 
+      IdentifiedFinalState nstable( EtaIn(-2.5, 2.5) 
 				    & (Cuts::pT >= 100*MeV) );
       nstable.acceptIdPair(PID::ELECTRON)
         .acceptIdPair(PID::MUON)

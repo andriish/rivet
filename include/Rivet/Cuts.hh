@@ -34,6 +34,8 @@ typedef boost::shared_ptr<CutBase> Cut;
   Cut operator >= (Cuts::Quantity, double);
 
   Cut Range(Cuts::Quantity, double m, double n);
+  // very common
+  inline Cut EtaIn(double m, double n) { return Range(Cuts::eta,m,n); }
 
   // overload helpers
   inline Cut operator < (Cuts::Quantity qty, int i) { 

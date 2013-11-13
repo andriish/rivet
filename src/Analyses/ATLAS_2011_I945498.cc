@@ -42,13 +42,13 @@ namespace Rivet {
     void init() {
 
       // Set up projections
-      ZFinder zfinder_mu(FinalState(), Range(Cuts::eta, -2.4, 2.4) & (Cuts::pT >= 20), 
+      ZFinder zfinder_mu(FinalState(), EtaIn(-2.4, 2.4) & (Cuts::pT >= 20), 
 			 PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
       addProjection(zfinder_mu, "ZFinder_mu");
 
-      Cut cuts = ( Range(Cuts::eta, -2.47, -1.52)
-		   | Range(Cuts::eta, -1.37,  1.37)
-		   | Range(Cuts::eta,  1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = ( EtaIn(-2.47, -1.52)
+		   | EtaIn(-1.37,  1.37)
+		   | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
 
       ZFinder zfinder_el(FinalState(), cuts,
 			 PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
