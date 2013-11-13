@@ -20,17 +20,12 @@ namespace Rivet {
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    FinalState(double mineta = -MAXRAPIDITY,
-               double maxeta =  MAXRAPIDITY,
-               double minpt  =  0.0*GeV);
+    FinalState(double mineta,
+               double maxeta,
+               double minpt = 0.0);
 
     /// Testing construction using Cuts object
-    FinalState(Cut c); // = Cuts::open());
-
-    // /// A constructor which allows to specify multiple eta ranges
-    // /// and the min \f$ p_T \f$ (in GeV).
-    // FinalState(const vector<pair<double, double> >& etaRanges,
-    //            double minpt = 0.0*GeV);
+    FinalState(Cut c = Cuts::open());
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -99,7 +94,7 @@ namespace Rivet {
     virtual bool isEmpty() const { return _theParticles.empty(); }
 
     /// Minimum-\f$ p_\perp \f$ requirement.
-    virtual double ptMin() const { return _ptmin; }
+    //virtual double ptMin() const { return _ptmin; }
 
 
   public:
@@ -126,13 +121,6 @@ namespace Rivet {
 
 
   protected:
-
-    /// The ranges allowed for pseudorapidity.
-    vector<pair<double,double> > _etaRanges;
-
-    /// The minimum allowed transverse momentum.
-    double _ptmin;
-
     /// The applicable cuts
     Cut _cuts;
 

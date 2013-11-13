@@ -5,7 +5,6 @@ namespace Rivet {
 
 
   FinalState::FinalState(double mineta, double maxeta, double minpt)
-    : _ptmin(minpt)
   {
     setName("FinalState");
     const bool openpt = isZero(minpt);
@@ -13,16 +12,22 @@ namespace Rivet {
     MSG_TRACE("Check for open FS conditions:" << std::boolalpha
               << " eta=" << openeta
               << ", pt=" << openpt);
-    if (!openeta || !openpt) {
+    if ( openpt && openeta ) {
+      _cuts = Cuts::open();
+    }
+    else {
       addProjection(FinalState(), "OpenFS");
-      if (!openeta) {
-        _etaRanges.push_back(make_pair(mineta, maxeta));
-      }
+      if ( openeta ) 
+	_cuts = Cuts::pT >= minpt;
+      else if ( openpt )
+	_cuts = EtaIn(mineta,maxeta);
+      else
+	_cuts = EtaIn(mineta,maxeta) & (Cuts::pT >= minpt);
     }
   }
 
   FinalState::FinalState(Cut c)
-    : _ptmin(), _cuts(c)
+    : _cuts(c)
   {
     setName("FinalState");
     const bool open = ( c == Cuts::open() );
@@ -49,22 +54,23 @@ namespace Rivet {
   // }
 
 
-
+  /// @todo HOW DO WE COMPARE CUTS OBJECTS?
   int FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
 
     //MSG_TRACE("FS::compare: " << 1 << " " << this << " " << &p);
-    std::vector<std::pair<double, double> > eta1(_etaRanges);
-    std::vector<std::pair<double, double> > eta2(other._etaRanges);
-    std::sort(eta1.begin(), eta1.end());
-    std::sort(eta2.begin(), eta2.end());
+    //    std::vector<std::pair<double, double> > eta1(_etaRanges);
+    //std::vector<std::pair<double, double> > eta2(other._etaRanges);
+    //std::sort(eta1.begin(), eta1.end());
+    //std::sort(eta2.begin(), eta2.end());
 
     //MSG_TRACE("FS::compare: " << 2 << " " << this << " " << &p);
-    if (eta1 < eta2) return ORDERED;
-    else if (eta2 < eta1) return UNORDERED;
+    //if (eta1 < eta2) return ORDERED;
+    //else if (eta2 < eta1) return UNORDERED;
 
     //MSG_TRACE("FS::compare: " << 3 << " " << this << " " << &p);
-    return cmp(_ptmin, other._ptmin);
+    //return cmp(_ptmin, other._ptmin);
+    return _cuts == other._cuts;
   }
 
 
@@ -73,7 +79,7 @@ namespace Rivet {
     _theParticles.clear();
 
     // Handle "open FS" special case
-    if (_etaRanges.empty() && _ptmin == 0) {
+    if ( _cuts == Cuts::open() ) {
       //MSG_TRACE("Open FS processing: should only see this once per event ("
       //           << e.genEvent().event_number() << ")");
       foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
@@ -105,27 +111,7 @@ namespace Rivet {
     // Not having s.c. == 1 should never happen!
     assert(p.genParticle() == NULL || p.genParticle()->status() == 1);
 
-    if ( _cuts ) return _cuts->accept(p);
-
-    // Check pT cut
-    if (_ptmin > 0.0) {
-      if (p.pT() < _ptmin) return false;
-    }
-
-    // Check eta cuts
-    if (!_etaRanges.empty()) {
-      bool eta_pass = false;
-      typedef pair<double,double> EtaPair;
-      foreach (const EtaPair& etacuts, _etaRanges) {
-        if (inRange(p.eta(), etacuts.first, etacuts.second)) {
-          eta_pass = true;
-          break;
-        }
-      }
-      if (!eta_pass) return false;
-    }
-
-    return true;
+    return _cuts->accept(p);
   }
 
 
