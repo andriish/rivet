@@ -1,3 +1,7 @@
+2013-11-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding the GSL lib path to the library path in the env scripts and the rivet-config --ldflags output.
+
 2013-10-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* 2.0.0 release!!!!!!

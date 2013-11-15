@@ -80,6 +80,8 @@ if test -n "$tmp"; then
     test -n "$lyoda" && OUT="$OUT -L${lyoda}"
     lfastjet="@FASTJETCONFIGLIBADD@"
     test -n "$lfastjet" && OUT="$OUT ${lfastjet}"
+    lgsl="@GSLLIBPATH@"
+    test -n "$lgsl" && OUT="$OUT -L${lgsl}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<libs\>|--\<ldadd\>')
