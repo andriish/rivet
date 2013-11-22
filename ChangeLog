@@ -1,3 +1,7 @@
+2013-11-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding an empty() member to the JetAlg interface.
+
 2013-11-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding the GSL lib path to the library path in the env scripts and the rivet-config --ldflags output.

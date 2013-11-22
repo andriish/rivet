@@ -163,8 +163,10 @@ namespace Rivet {
 
     /// Number of jets.
     virtual size_t size() const = 0;
+    /// Determine if the jet collection is empty.
+    bool empty() const { return size() != 0; }
 
-    /// Clear the projection
+    /// Clear the projection.
     virtual void reset() = 0;
 
     typedef Jet entity_type;
