@@ -7,14 +7,11 @@
 #include "Rivet/Particle.fhh"
 
 #include "Rivet/Projections/FastJets.hh"
-
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
-
 #include "Rivet/Projections/ClusteredPhotons.hh"
-
 
 namespace Rivet {
 
@@ -28,9 +25,19 @@ namespace Rivet {
     /// Constructor
     ATLAS_2011_I945498()
       : Analysis("ATLAS_2011_I945498")
-    {
-      /// @todo Set whether your finalize method needs the generator cross section
-      setNeedsCrossSection(true);
+    {    }
+
+    //@}
+
+
+  public:
+
+    /// Book histograms and initialise projections before the run
+    void init() {
+
+      // Variable initialisation
+      fIsZeeSample = false;
+      fIsZmmSample = false;
       for (size_t chn = 0; chn < 3; ++chn) {
         weights_nj0[chn] = 0.0;
         weights_nj1[chn] = 0.0;
@@ -38,219 +45,243 @@ namespace Rivet {
         weights_nj3[chn] = 0.0;
         weights_nj4[chn] = 0.0;
       }
-    }
-
-    //@}
-
-
-  public:
-
-
-    /// Book histograms and initialise projections before the run
-    void init() {
 
       // Set up projections
-      ZFinder zfinder_mu(-2.4, 2.4, 20, MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      // Fiducial phase space + Born level
+      ZFinder zfinder_mu(-2.4, 2.4, 20, MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
       addProjection(zfinder_mu, "ZFinder_mu");
-
       std::vector<std::pair<double, double> > eta_e;
-      eta_e.push_back(make_pair(-2.47,-1.52));
-      eta_e.push_back(make_pair(-1.37,1.37));
-      eta_e.push_back(make_pair(1.52,2.47));
-      ZFinder zfinder_el(eta_e, 20, ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      eta_e.push_back(make_pair(-2.47, -1.52));
+      eta_e.push_back(make_pair(-1.37,  1.37));
+      eta_e.push_back(make_pair( 1.52,  2.47));
+      ZFinder zfinder_el(eta_e, 20, ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
       addProjection(zfinder_el, "ZFinder_el");
+
+      // For combined cross-sections (combined phase space + dressed level)
+      ZFinder zfinder_comb_mu(-2.5, 2.5, 20, MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      addProjection(zfinder_comb_mu, "ZFinder_comb_mu");
+      ZFinder zfinder_comb_el(-2.5, 2.5, 20, ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      addProjection(zfinder_comb_el, "ZFinder_comb_el");
 
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
       VetoedFinalState remfs;
       remfs.addVetoOnThisFinalState(zfinder_el);
       remfs.addVetoOnThisFinalState(zfinder_mu);
+      VetoedFinalState remfs_comb;
+      remfs_comb.addVetoOnThisFinalState(zfinder_comb_el);
+      remfs_comb.addVetoOnThisFinalState(zfinder_comb_mu);
 
       FastJets jets(remfs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles();
       addProjection(jets, "jets");
+      FastJets jets_comb(remfs_comb, FastJets::ANTIKT, 0.4);
+      jets_comb.useInvisibles();
+      addProjection(jets_comb, "jets_comb");
 
       // 0=el, 1=mu, 2=comb
       for (size_t chn = 0; chn < 3; ++chn) {
-        _h_njet_incl[chn]  = bookHistogram1D(1, 1, chn+1);
-        _h_njet_ratio[chn] = bookDataPointSet(2, 1, chn+1);
-        _h_ptjet[chn]      = bookHistogram1D(3, 1, chn+1);
-        _h_ptlead[chn]     = bookHistogram1D(4, 1, chn+1);
-        _h_ptseclead[chn]  = bookHistogram1D(5, 1, chn+1);
-        _h_yjet[chn]       = bookHistogram1D(6, 1, chn+1);
-        _h_ylead[chn]      = bookHistogram1D(7, 1, chn+1);
-        _h_yseclead[chn]   = bookHistogram1D(8, 1, chn+1);
-        _h_mass[chn]       = bookHistogram1D(9, 1, chn+1);
-        _h_deltay[chn]     = bookHistogram1D(10, 1, chn+1);
-        _h_deltaphi[chn]   = bookHistogram1D(11, 1, chn+1);
-        _h_deltaR[chn]     = bookHistogram1D(12, 1, chn+1);
+        _h_njet_incl[chn]  = bookHistogram1D (1,  1, chn+1);
+        _h_njet_ratio[chn] = bookDataPointSet(2,  1, chn+1);
+        _h_ptjet[chn]      = bookHistogram1D (3,  1, chn+1);
+        _h_ptlead[chn]     = bookHistogram1D (4,  1, chn+1);
+        _h_ptseclead[chn]  = bookHistogram1D (5,  1, chn+1);
+        _h_yjet[chn]       = bookHistogram1D (6,  1, chn+1);
+        _h_ylead[chn]      = bookHistogram1D (7,  1, chn+1);
+        _h_yseclead[chn]   = bookHistogram1D (8,  1, chn+1);
+        _h_mass[chn]       = bookHistogram1D (9,  1, chn+1);
+        _h_deltay[chn]     = bookHistogram1D (10, 1, chn+1);
+        _h_deltaphi[chn]   = bookHistogram1D (11, 1, chn+1);
+        _h_deltaR[chn]     = bookHistogram1D (12, 1, chn+1);
       }
     }
 
-    // Jet selection criteria universal for electron and muon channel
-    Jets selectJets(const ZFinder* zf, const Event& event) {
-      FourMomentum l1=zf->constituents()[0].momentum();
-      FourMomentum l2=zf->constituents()[1].momentum();
-      Jets jets;
 
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30.0*GeV)) {
+    // Jet selection criteria universal for electron and muon channel
+    /// @todo Replace with a Cut passed to jetsByPt
+    Jets selectJets(const ZFinder* zf, const FastJets* allJets) {
+      FourMomentum l1 = zf->constituents()[0].momentum();
+      FourMomentum l2 = zf->constituents()[1].momentum();
+      Jets jets;
+      foreach (const Jet& jet, allJets->jetsByPt(30.0*GeV)) {
         FourMomentum jmom = jet.momentum();
-        if (fabs(jmom.rapidity()) < 4.4 && deltaR(l1, jmom) > 0.5  && deltaR(l2, jmom) > 0.5) {
+        if (fabs(jmom.rapidity()) < 4.4 &&
+            deltaR(l1, jmom) > 0.5 &&
+            deltaR(l2, jmom) > 0.5)
           jets.push_back(jet);
-        }
       }
       return jets;
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
       const double weight = event.weight();
 
       vector<const ZFinder*> zfs;
       zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_el")));
       zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_mu")));
+      zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_comb_el")));
+      zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_comb_mu")));
 
+      vector<const FastJets*> fjs;
+      fjs.push_back(& (applyProjection<FastJets>(event, "jets")));
+      fjs.push_back(& (applyProjection<FastJets>(event, "jets_comb")));
+
+      // Determine what kind of MC sample this is
+      bool isZee = (zfs[0]->bosons().size() == 1) || (zfs[2]->bosons().size() == 1);
+      bool isZmm = (zfs[1]->bosons().size() == 1) || (zfs[3]->bosons().size() == 1);
+
+      if (isZee) fIsZeeSample = true;
+      if (isZmm) fIsZmmSample = true;
 
       // Require exactly one electronic or muonic Z-decay in the event
-      if (!( (zfs[0]->bosons().size()==1 && zfs[1]->bosons().size()!=1) || (zfs[1]->bosons().size()==1 && zfs[0]->bosons().size()!=1) )) vetoEvent;
+      bool isZeemm = ( (zfs[0]->bosons().size() == 1 && zfs[1]->bosons().size() != 1) ||
+                       (zfs[1]->bosons().size() == 1 && zfs[0]->bosons().size() != 1) );
+      bool isZcomb = ( (zfs[2]->bosons().size() == 1 && zfs[3]->bosons().size() != 1) ||
+                       (zfs[3]->bosons().size() == 1 && zfs[2]->bosons().size() != 1) );
+      if (!isZeemm && !isZcomb) vetoEvent;
 
-      int chn = (zfs[0]->bosons().size()==1 ? 0:1);
-
-      Jets jets=selectJets(zfs[chn], event);
-
-
-      // Some silly weight counters for the njet-ratio histo
-      // --- not sure about the njet=0 case, the Figure ca[ption says
-      // that selected events require at least one jet with 20 GeV
-      if (jets.size() == 0) {
-        weights_nj0[chn] += 1.0;
+      vector<int> zfIDs;
+      vector<int> fjIDs;
+      if (isZeemm) {
+        int chn = zfs[0]->bosons().size() == 1 ? 0 : 1;
+        zfIDs.push_back(chn);
+        fjIDs.push_back(0);
       }
-      else if (jets.size() == 1) {
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
-      }
-      else if (jets.size() == 2) {
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
-        weights_nj2[chn] += 1.0;
-      }
-      else if (jets.size() == 3) {
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
-        weights_nj2[chn] += 1.0;
-        weights_nj3[chn] += 1.0;
-      }
-      else if (jets.size() >= 4) {
-        weights_nj0[chn] += 1.0;
-        weights_nj1[chn] += 1.0;
-        weights_nj2[chn] += 1.0;
-        weights_nj3[chn] += 1.0;
-        weights_nj4[chn] += 1.0;
+      if (isZcomb) {
+        int chn = zfs[2]->bosons().size() == 1 ? 2 : 3;
+        zfIDs.push_back(chn);
+        fjIDs.push_back(1);
       }
 
-      if (jets.size() <1) vetoEvent;
+      for (size_t izf = 0; izf < zfIDs.size(); ++izf) {
+        int zfID = zfIDs[izf];
+        int fjID = fjIDs[izf];
 
-      _h_njet_incl[chn]    ->fill(jets.size(), weight);
-      _h_njet_incl[2]      ->fill(jets.size(), weight);
+        int chn = zfID;
+        if (zfID == 2 || zfID == 3) chn = 2;
 
-      // Loop over selected jets, fill inclusive jet distributions
-      for (unsigned int ijet=0; ijet<jets.size(); ijet++){
-        _h_ptjet[chn]     ->fill(jets[ijet].momentum().pT()/GeV, weight);
-        _h_ptjet[2]       ->fill(jets[ijet].momentum().pT()/GeV, weight);
-        _h_yjet[chn]      ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
-        _h_yjet[2]        ->fill(fabs(jets[ijet].momentum().rapidity()), weight);
-      }
+        Jets jets = selectJets(zfs[zfID], fjs[fjID]);
 
-      // The leading jet histos
-      if (jets.size()>=1) {
-        double ptlead = jets[0].momentum().pT()/GeV;
-        double yabslead = fabs(jets[0].momentum().rapidity());
-        _h_ptlead[chn]   ->fill(ptlead,   weight);
-        _h_ptlead[2]     ->fill(ptlead,   weight);
+        switch (jets.size()) {
+        case 0:
+          weights_nj0[chn] += weight;
+          break;
+        case 1:
+          weights_nj0[chn] += weight;
+          weights_nj1[chn] += weight;
+          break;
+        case 2:
+          weights_nj0[chn] += weight;
+          weights_nj1[chn] += weight;
+          weights_nj2[chn] += weight;
+          break;
+        case 3:
+          weights_nj0[chn] += weight;
+          weights_nj1[chn] += weight;
+          weights_nj2[chn] += weight;
+          weights_nj3[chn] += weight;
+          break;
+        default: // >= 4
+          weights_nj0[chn] += weight;
+          weights_nj1[chn] += weight;
+          weights_nj2[chn] += weight;
+          weights_nj3[chn] += weight;
+          weights_nj4[chn] += weight;
+        }
 
-        _h_ylead[chn]    ->fill(yabslead, weight);
-        _h_ylead[2]      ->fill(yabslead, weight);
-      }
+        // Require at least one jet
+        if (jets.empty()) continue;
 
-      if (jets.size()>=2) {
-        // The second to leading jet histos
-        double pt2ndlead   = jets[1].momentum().pT()/GeV;
-        double yabs2ndlead = fabs(jets[1].momentum().rapidity());
+        // Fill jet multiplicities
+        for (size_t ijet = 1; ijet <= jets.size(); ++ijet) {
+          _h_njet_incl[chn]->fill(ijet, weight);
+        }
 
-        _h_ptseclead[chn]   ->fill(pt2ndlead,   weight);
-        _h_ptseclead[2]     ->fill(pt2ndlead,   weight);
-        _h_yseclead[chn]    ->fill(yabs2ndlead, weight);
-        _h_yseclead[2]      ->fill(yabs2ndlead, weight);
+        // Loop over selected jets, fill inclusive jet distributions
+        for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
+          _h_ptjet[chn]->fill(jets[ijet].momentum().pT()/GeV, weight);
+          _h_yjet [chn]->fill(fabs(jets[ijet].momentum().rapidity()), weight);
+        }
 
-        // Dijet histos
-        double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
-        double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
-        double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
-        double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
+        // Leading jet histos
+        const double ptlead   = jets[0].momentum().pT()/GeV;
+        const double yabslead = fabs(jets[0].momentum().rapidity());
+        _h_ptlead[chn]->fill(ptlead,   weight);
+        _h_ylead [chn]->fill(yabslead, weight);
 
-        _h_mass[chn]       ->fill(mass,     weight);
-        _h_mass[2]         ->fill(mass,     weight);
-        _h_deltay[chn]     ->fill(deltarap, weight);
-        _h_deltay[2]       ->fill(deltarap, weight);
-        _h_deltaphi[chn]   ->fill(deltaphi, weight);
-        _h_deltaphi[2]     ->fill(deltaphi, weight);
-        _h_deltaR[chn]     ->fill(deltar,   weight);
-        _h_deltaR[2]       ->fill(deltar,   weight);
+        if (jets.size() >= 2) {
+          // Second jet histos
+          const double pt2ndlead   = jets[1].momentum().pT()/GeV;
+          const double yabs2ndlead = fabs(jets[1].momentum().rapidity());
+          _h_ptseclead[chn] ->fill(pt2ndlead,   weight);
+          _h_yseclead [chn] ->fill(yabs2ndlead, weight);
+
+          // Dijet histos
+          const double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
+          const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
+          const double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
+          const double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
+          _h_mass    [chn] ->fill(mass/GeV, weight);
+          _h_deltay  [chn] ->fill(deltarap, weight);
+          _h_deltaphi[chn] ->fill(deltaphi, weight);
+          _h_deltaR  [chn] ->fill(deltar,   weight);
+        }
       }
     }
 
-    /// Normalise histograms etc., after the run
 
+    /// @name Ratio calculator util functions
+    //@{
 
-    std::vector<double> ratio(double a, double b) {
-      double ratio=0.0;
-      double ratio_err=0.0;
-      std::vector<double> temp;
-      cout << "a: " << a << " b: " << b << endl;
-      if (b>0. && a>0.) {
-        ratio = a/b;
-        ratio_err = sqrt(a/pow(b,2) + pow(a,2)*b/pow(b,4));
-      }
-      temp.push_back(ratio);
-      temp.push_back(ratio_err);
-      return temp;
+    /// Calculate the ratio, being careful about div-by-zero
+    double ratio(double a, double b) {
+      return (b != 0) ? a/b : 0;
     }
+
+    /// Calculate the ratio error, being careful about div-by-zero
+    double ratio_err(double a, double b) {
+      return (b != 0) ? sqrt(a/b*(1-a/b)/b) : 0;
+    }
+
+    //@}
+
 
     void finalize() {
-
       // Fill RATIO histograms (DataPointSets)
       vector<double> yvals_ratio[3];
       vector<double> yerrs_ratio[3];
-
-      for (size_t chn = 0; chn < 2; ++chn) {
-        yvals_ratio[chn].push_back(ratio(weights_nj1[chn], weights_nj0[chn])[0]);
-        yvals_ratio[chn].push_back(ratio(weights_nj2[chn], weights_nj1[chn])[0]);
-        yvals_ratio[chn].push_back(ratio(weights_nj3[chn], weights_nj2[chn])[0]);
-        yvals_ratio[chn].push_back(ratio(weights_nj4[chn], weights_nj3[chn])[0]);
-        // Errors
-        yerrs_ratio[chn].push_back(ratio(weights_nj1[chn], weights_nj0[chn])[1]);
-        yerrs_ratio[chn].push_back(ratio(weights_nj2[chn], weights_nj1[chn])[1]);
-        yerrs_ratio[chn].push_back(ratio(weights_nj3[chn], weights_nj2[chn])[1]);
-        yerrs_ratio[chn].push_back(ratio(weights_nj4[chn], weights_nj3[chn])[1]);
+      for (size_t chn = 0; chn < 3; ++chn) {
+        yvals_ratio[chn].push_back( ratio(weights_nj1[chn], weights_nj0[chn]) );
+        yvals_ratio[chn].push_back( ratio(weights_nj2[chn], weights_nj1[chn]) );
+        yvals_ratio[chn].push_back( ratio(weights_nj3[chn], weights_nj2[chn]) );
+        yvals_ratio[chn].push_back( ratio(weights_nj4[chn], weights_nj3[chn]) );
+        //errors
+        yerrs_ratio[chn].push_back( ratio_err(weights_nj1[chn], weights_nj0[chn]) );
+        yerrs_ratio[chn].push_back( ratio_err(weights_nj2[chn], weights_nj1[chn]) );
+        yerrs_ratio[chn].push_back( ratio_err(weights_nj3[chn], weights_nj2[chn]) );
+        yerrs_ratio[chn].push_back( ratio_err(weights_nj4[chn], weights_nj3[chn]) );
         // Actually fill histo
         _h_njet_ratio[chn]  ->setCoordinate(1, yvals_ratio[chn],   yerrs_ratio[chn]);
-        // Combined histos
-        yvals_ratio[2].push_back(ratio(weights_nj1[chn], weights_nj0[chn])[0]);
-        yvals_ratio[2].push_back(ratio(weights_nj2[chn], weights_nj1[chn])[0]);
-        yvals_ratio[2].push_back(ratio(weights_nj3[chn], weights_nj2[chn])[0]);
-        yvals_ratio[2].push_back(ratio(weights_nj4[chn], weights_nj3[chn])[0]);
-        // Errors
-        yerrs_ratio[2].push_back(ratio(weights_nj1[chn], weights_nj0[chn])[1]);
-        yerrs_ratio[2].push_back(ratio(weights_nj2[chn], weights_nj1[chn])[1]);
-        yerrs_ratio[2].push_back(ratio(weights_nj3[chn], weights_nj2[chn])[1]);
-        yerrs_ratio[2].push_back(ratio(weights_nj4[chn], weights_nj3[chn])[1]);
       }
-      _h_njet_ratio[2]  ->setCoordinate(1, yvals_ratio[2],   yerrs_ratio[2]);
 
-
-      const double xs = crossSectionPerEvent()/picobarn;
+      // Scale other histos
+      double xs = 1;
       for (size_t chn = 0; chn < 3; ++chn) {
-        scale(_h_njet_incl[chn], xs);
+        // For ee and mumu channels: normalize to Njet inclusive cross-section
+        if (chn == 0 || chn == 1) xs = 1 / weights_nj0[chn];
+
+        // For combination: just differential cross-sections
+        if (chn == 2) {
+          xs = crossSectionPerEvent()/picobarn;
+          // For inclusive MC sample(ee/mmu channels together) we want the single-lepton-flavor xsec
+          if (fIsZeeSample && fIsZmmSample) xs /= 2;
+        }
+
+        // Special case histogram: always not normalized
+        if (chn == 0 || chn == 1) scale(_h_njet_incl[chn], crossSectionPerEvent()/picobarn);
+        else scale(_h_njet_incl[chn], xs);
+
         scale(_h_ptjet[chn]    , xs);
         scale(_h_ptlead[chn]   , xs);
         scale(_h_ptseclead[chn], xs);
@@ -262,6 +293,7 @@ namespace Rivet {
         scale(_h_deltaR[chn]   , xs);
         scale(_h_mass[chn]     , xs);
       }
+
     }
 
     //@}
@@ -269,13 +301,15 @@ namespace Rivet {
 
   private:
 
+    bool fIsZeeSample;
+    bool fIsZmmSample;
+
     double weights_nj0[3];
     double weights_nj1[3];
     double weights_nj2[3];
     double weights_nj3[3];
     double weights_nj4[3];
 
-    //
     AIDA::IDataPointSet *_h_njet_ratio[3];
     AIDA::IHistogram1D  *_h_njet_incl[3];
     AIDA::IHistogram1D  *_h_ptjet[3];
@@ -291,6 +325,8 @@ namespace Rivet {
 
   };
 
-  // This global object acts as a hook for the plugin system
+
+  // Plugin system hook
   DECLARE_RIVET_PLUGIN(ATLAS_2011_I945498);
+
 }
