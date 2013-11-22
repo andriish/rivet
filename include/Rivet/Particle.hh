@@ -99,12 +99,44 @@ namespace Rivet {
     /// Specifically, walk up the ancestor chain until a status 2 hadron or
     /// tau is found, if at all.
     ///
-    /// @note This question is valid in MC, but may not be answerable
+    /// @note This question is valid in MC, but may not be perfectly answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
     bool fromDecay() const;
 
-    /// @todo Add methods like fromS/C/BHadron(), fromTau()?
+    // /// @brief Determine whether the particle is from a s-hadron decay
+    // ///
+    // /// @note If a hadron contains b or c quarks as well as strange it is
+    // /// considered a b or c hadron, but NOT a strange hadron.
+    // ///
+    // /// @note This question is valid in MC, but may not be perfectly answerable
+    // /// experimentally -- use this function with care when replicating
+    // /// experimental analyses!
+    // bool fromStrange() const;
+
+    /// @brief Determine whether the particle is from a c-hadron decay
+    ///
+    /// @note If a hadron contains b and c quarks it is considered a bottom
+    /// hadron and NOT a charm hadron.
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromCharm() const;
+
+    /// @brief Determine whether the particle is from a b-hadron decay
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromBottom() const;
+
+    /// @brief Determine whether the particle is from a tau decay
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromTau() const;
 
     //@}
 

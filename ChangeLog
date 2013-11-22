@@ -1,5 +1,10 @@
 2013-11-22  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding Particle::fromBottom/Charm/Tau() members. LHCb were
+	aready mocking this up, so it seemed sensible to add it to the
+	interface as a more popular (and even less dangerous) version of
+	hasAncestor().
+
 	* Adding an empty() member to the JetAlg interface.
 
 2013-11-07  Andy Buckley  <andy.buckley@cern.ch>
