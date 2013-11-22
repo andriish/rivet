@@ -24,6 +24,7 @@ namespace Rivet {
     //@{
 
     /// Constructor taking single eta/pT bounds
+    ///
     /// @param inputfs Input final state
     /// @param etaMin,etaMax,pTmin charged lepton cuts
     /// @param pid type of the charged lepton
@@ -48,6 +49,7 @@ namespace Rivet {
 
 
     /// Constructor taking multiple eta/pT bounds
+    ///
     /// @param inputfs Input final state
     /// @param etaRanges,pTmin charged lepton cuts
     /// @param pid type of the charged lepton
@@ -88,21 +90,26 @@ namespace Rivet {
     //@}
 
 
-    /// Access to the found bosons (currently either 0 or 1)
+    /// Access to the found bosons
+    ///
+    /// @note Currently either 0 or 1 boson can be found.
     const Particles& bosons() const { return _bosons; }
 
-    /// Access to the W constituent clustered leptons (currently either of
-    /// size 0 if no boson was found or 1 if one boson was found)
+    /// Access to the W constituent clustered leptons
+    ///
+    /// @note Either size 0 if no boson was found or 1 if one boson was found
     const vector<Particle>& constituentLeptons() const { return _constituentLeptons; }
 
-    /// Access to the W constituent neutrinos (currently either of size 0 if no
-    /// boson was found or 1 if one boson was found)
+    /// Access to the W constituent neutrinos
+    ///
+    /// @note Either size 0 if no boson was found or 1 if one boson was found
     const vector<Particle>& constituentNeutrinos() const { return _constituentNeutrinos; }
 
-    /// Access to the remaining particles, after the W and clustered photons
-    /// have been removed from the full final state
-    /// (e.g. for running a jet finder on it)
+    /// Access to the particles other than the W leptons and clustered photons
+    ///
+    /// Useful for e.g. input to a jet finder
     const FinalState& remainingFinalState() const;
+
 
   protected:
 

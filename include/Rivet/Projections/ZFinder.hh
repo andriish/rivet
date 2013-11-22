@@ -18,7 +18,6 @@ namespace Rivet {
   /// Chain together different projections as convenience for finding Z's
   /// from two leptons in the final state, including photon clustering.
   class ZFinder : public FinalState {
-
   public:
 
     /// @name Constructors
@@ -79,17 +78,21 @@ namespace Rivet {
     //@}
 
 
-    /// Access to the found bosons (currently either 0 or 1)
+    /// Access to the found bosons
+    ///
+    /// @note Currently either 0 or 1 boson can be found.
     const Particles& bosons() const { return _bosons; }
 
     /// Access to the Z constituent clustered leptons
-    /// (e.g. for more fine-grained cuts on the clustered leptons)
-    /// The order is going to be: positive charge constituent 1st, negative 2nd
+    ///
+    /// For example, to make more fine-grained cuts on the clustered leptons.
+    /// The positive charge constituent is first in the list (if not empty), and
+    /// the negative one second.
     const vector<Particle>& constituents() const { return _constituents; }
 
-    /// Access to the remaining particles, after the Z and clustered photons
-    /// have been removed from the full final state
-    /// (e.g. for running a jet finder on it)
+    /// Access to the particles other than the Z leptons and clustered photons
+    ///
+    /// Useful for e.g. input to a jet finder
     const FinalState& remainingFinalState() const;
 
 
