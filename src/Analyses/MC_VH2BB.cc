@@ -53,8 +53,7 @@ namespace Rivet {
       double angle1 = b1BOOSTED.angle(virtualVBMomentumBOOSTED);
       double angle2 = b2BOOSTED.angle(virtualVBMomentumBOOSTED);
 
-      double cosbb = b1BOOSTED.vector3().unit().dot(b2BOOSTED.vector3().unit());
-      double test = 1.+cosbb;
+      //double cosbb = b1BOOSTED.vector3().unit().dot(b2BOOSTED.vector3().unit());
       double anglebb = b1BOOSTED.angle(b2BOOSTED);
 
       vector<double> toReturn;
