@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.0" package="HepData"/>
+  <dataPointSet name="d03-x01-y01" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="55.56" errorPlus="11.996507825196465" errorMinus="11.996507825196465"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="29.86" errorPlus="5.002439404930359" errorMinus="5.002439404930359"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="14.97" errorPlus="2.3793276361190783" errorMinus="2.3793276361190783"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="7.26" errorPlus="1.145294721894762" errorMinus="1.145294721894762"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.37" errorPlus="0.6576473218982952" errorMinus="0.6576473218982952"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.93" errorPlus="0.3744329045369811" errorMinus="0.3744329045369811"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.22" errorPlus="0.2780287754891569" errorMinus="0.2780287754891569"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y02" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="42.11" errorPlus="7.778849529332727" errorMinus="7.778849529332727"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="52.72" errorPlus="8.614464579995673" errorMinus="8.614464579995673"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="31.79" errorPlus="4.698191141279801" errorMinus="4.698191141279801"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="15.69" errorPlus="2.175982536694631" errorMinus="2.175982536694631"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="7.44" errorPlus="1.0151354589413177" errorMinus="1.0151354589413177"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.51" errorPlus="0.5056678751908212" errorMinus="0.5056678751908212"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.73" errorPlus="0.26925824035672524" errorMinus="0.26925824035672524"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.94" errorPlus="0.17029386365926402" errorMinus="0.17029386365926402"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y03" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="34.0" errorPlus="6.537010019879119" errorMinus="6.537010019879119"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="50.74" errorPlus="7.857353243936536" errorMinus="7.857353243936536"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="29.03" errorPlus="4.083748278236552" errorMinus="4.083748278236552"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="13.53" errorPlus="1.776091213873882" errorMinus="1.776091213873882"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="5.89" errorPlus="0.7877182237323191" errorMinus="0.7877182237323191"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.81" errorPlus="0.40249223594996214" errorMinus="0.40249223594996214"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.81" errorPlus="0.3862641583165593" errorMinus="0.3862641583165593"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.7" errorPlus="0.1664331697709324" errorMinus="0.1664331697709324"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y04" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="29.32" errorPlus="5.834595101633017" errorMinus="5.834595101633017"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="45.26" errorPlus="7.748780549221922" errorMinus="7.748780549221922"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="23.09" errorPlus="3.5507886447942805" errorMinus="3.5507886447942805"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="10.15" errorPlus="1.5564703659241317" errorMinus="1.5564703659241317"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="4.12" errorPlus="0.7000714249274855" errorMinus="0.7000714249274855"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.9" errorPlus="0.34885527085024814" errorMinus="0.34885527085024814"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.8" errorPlus="0.1972308292331602" errorMinus="0.1972308292331602"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.32" errorPlus="0.09899494936611666" errorMinus="0.09899494936611666"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y05" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="24.01" errorPlus="6.192422789183568" errorMinus="6.192422789183568"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="32.87" errorPlus="7.037684278226752" errorMinus="7.037684278226752"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="15.79" errorPlus="3.624058498424108" errorMinus="3.624058498424108"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="5.84" errorPlus="1.3656500283747663" errorMinus="1.3656500283747663"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.31" errorPlus="0.5936328831862332" errorMinus="0.5936328831862332"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.64" errorPlus="0.2280350850198276" errorMinus="0.2280350850198276"/>
+    </dataPoint>
+  </dataPointSet>
+
+  <dataPointSet name="d01-x01-y01" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="89.6" errorPlus="37.14296703280447" errorMinus="37.14296703280447"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="49.8" errorPlus="17.219175357722566" errorMinus="17.219175357722566"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="22.5" errorPlus="7.5643902596309776" errorMinus="7.5643902596309776"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="8.5" errorPlus="2.95296461204668" errorMinus="2.95296461204668"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="4.9" errorPlus="1.7492855684535902" errorMinus="1.7492855684535902"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.4" errorPlus="1.0" errorMinus="1.0"/>
+    </dataPoint>
+  </dataPointSet>
+
+  <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="15.31" errorPlus="3.7638411231081474" errorMinus="3.7638411231081474"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="9.9" errorPlus="2.1010949526377907" errorMinus="2.1010949526377907"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.92" errorPlus="1.004041831797859" errorMinus="1.004041831797859"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.4" errorPlus="0.6911584478250989" errorMinus="0.6911584478250989"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.74" errorPlus="0.6529931086925803" errorMinus="0.6529931086925803"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y02" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="62.56" errorPlus="11.552683670905214" errorMinus="11.552683670905214"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="30.6" errorPlus="4.638760610335481" errorMinus="4.638760610335481"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="17.11" errorPlus="2.457335955867655" errorMinus="2.457335955867655"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="6.28" errorPlus="1.04484448603608" errorMinus="1.04484448603608"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.81" errorPlus="0.6862215385719105" errorMinus="0.6862215385719105"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.78" errorPlus="0.4" errorMinus="0.4"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.1" errorPlus="0.3535533905932738" errorMinus="0.3535533905932738"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y03" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="26.17" errorPlus="6.10666848617149" errorMinus="6.10666848617149"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="49.02" errorPlus="6.529150021250852" errorMinus="6.529150021250852"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="24.93" errorPlus="3.292369967060203" errorMinus="3.292369967060203"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="13.9" errorPlus="1.8766459442313566" errorMinus="1.8766459442313566"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="6.2" errorPlus="0.9340770846134702" errorMinus="0.9340770846134702"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.43" errorPlus="0.6155485358604957" errorMinus="0.6155485358604957"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.05" errorPlus="0.291547594742265" errorMinus="0.291547594742265"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y04" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="36.67" errorPlus="7.5340095566703384" errorMinus="7.5340095566703384"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="39.27" errorPlus="5.591681321391626" errorMinus="5.591681321391626"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="24.11" errorPlus="3.3634060117684275" errorMinus="3.3634060117684275"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="10.44" errorPlus="1.6197839362087774" errorMinus="1.6197839362087774"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="4.51" errorPlus="0.7930952023559341" errorMinus="0.7930952023559341"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.96" errorPlus="0.44204072210600687" errorMinus="0.44204072210600687"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.68" errorPlus="0.26" errorMinus="0.26"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y05" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="46.6" errorPlus="14.505423123783737" errorMinus="14.505423123783737"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="32.4" errorPlus="5.994305631180311" errorMinus="5.994305631180311"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="18.55" errorPlus="3.4087241014784406" errorMinus="3.4087241014784406"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="5.13" errorPlus="1.2702755606560334" errorMinus="1.2702755606560334"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.41" errorPlus="1.144901742508937" errorMinus="1.144901742508937"/>
+    </dataPoint>
+  </dataPointSet>
+
+  <dataPointSet name="d02-x01-y01" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="113.58" errorPlus="11.785796536509528" errorMinus="11.785796536509528"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="147.06" errorPlus="13.726285003598022" errorMinus="13.726285003598022"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="85.95" errorPlus="7.506823562599563" errorMinus="7.506823562599563"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="41.79" errorPlus="4.214356415871824" errorMinus="4.214356415871824"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="18.61" errorPlus="1.9882907232092595" errorMinus="1.9882907232092595"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="9.35" errorPlus="1.1160645142642964" errorMinus="1.1160645142642964"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="4.92" errorPlus="0.7072481884034769" errorMinus="0.7072481884034769"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.34" errorPlus="0.4939635614091388" errorMinus="0.4939635614091388"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y02" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="96.51" errorPlus="8.819869613548716" errorMinus="8.819869613548716"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="146.54" errorPlus="12.826223138554857" errorMinus="12.826223138554857"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="82.07" errorPlus="6.906981974784646" errorMinus="6.906981974784646"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="34.86" errorPlus="3.026945655276949" errorMinus="3.026945655276949"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="16.11" errorPlus="1.6337074401495515" errorMinus="1.6337074401495515"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="8.85" errorPlus="0.9674709297958259" errorMinus="0.9674709297958259"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="4.31" errorPlus="0.5738466694161429" errorMinus="0.5738466694161429"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.41" errorPlus="0.4440720662234903" errorMinus="0.4440720662234903"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y03" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="90.99" errorPlus="8.11704995672689" errorMinus="8.11704995672689"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="129.43" errorPlus="10.907254466638248" errorMinus="10.907254466638248"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="68.48" errorPlus="5.724508712544685" errorMinus="5.724508712544685"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="31.3" errorPlus="2.683915050816624" errorMinus="2.683915050816624"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="14.36" errorPlus="1.3259336333316234" errorMinus="1.3259336333316234"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="6.23" errorPlus="0.7267048919609665" errorMinus="0.7267048919609665"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.99" errorPlus="0.4459820624195552" errorMinus="0.4459820624195552"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.25" errorPlus="0.304138126514911" errorMinus="0.304138126514911"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y04" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="80.41" errorPlus="7.5661152515673455" errorMinus="7.5661152515673455"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="112.64" errorPlus="10.026609596468788" errorMinus="10.026609596468788"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="58.25" errorPlus="5.115701320444735" errorMinus="5.115701320444735"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="22.65" errorPlus="2.3530618351416095" errorMinus="2.3530618351416095"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="9.89" errorPlus="1.1260550608207398" errorMinus="1.1260550608207398"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="4.88" errorPlus="0.644437739428721" errorMinus="0.644437739428721"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.33" errorPlus="0.4220189569201839" errorMinus="0.4220189569201839"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.14" errorPlus="0.38483762809787714" errorMinus="0.38483762809787714"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y05" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="57.37" errorPlus="7.405869294012689" errorMinus="7.405869294012689"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="81.57" errorPlus="8.73615476053395" errorMinus="8.73615476053395"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="39.87" errorPlus="4.565303932927138" errorMinus="4.565303932927138"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="15.5" errorPlus="1.98600100704909" errorMinus="1.98600100704909"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="5.69" errorPlus="1.0568348972285122" errorMinus="1.0568348972285122"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.22" errorPlus="1.0825894882179485" errorMinus="1.0825894882179485"/>
+    </dataPoint>
+  </dataPointSet>
+
+  <dataPointSet name="d05-x01-y01" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="22.5" errorPlus="9.887982605162692" errorMinus="9.887982605162692"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="6.03" errorPlus="2.3620541907416097" errorMinus="2.3620541907416097"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.38" errorPlus="1.132254388377453" errorMinus="1.132254388377453"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.79" errorPlus="0.5883026432033092" errorMinus="0.5883026432033092"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.91" errorPlus="0.3944616584663204" errorMinus="0.3944616584663204"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.68" errorPlus="0.2745906043549196" errorMinus="0.2745906043549196"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.6" errorPlus="0.25238858928247926" errorMinus="0.25238858928247926"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y02" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="20.41" errorPlus="4.678226159560907" errorMinus="4.678226159560907"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="8.34" errorPlus="1.654629867976521" errorMinus="1.654629867976521"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="5.57" errorPlus="1.0904127658827183" errorMinus="1.0904127658827183"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.18" errorPlus="0.47634021455258213" errorMinus="0.47634021455258213"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.11" errorPlus="0.29410882339705485" errorMinus="0.29410882339705485"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.51" errorPlus="0.17888543819998318" errorMinus="0.17888543819998318"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y03" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="0.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="11.23" errorPlus="4.404543109109048" errorMinus="4.404543109109048"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="12.04" errorPlus="3.159050490258109" errorMinus="3.159050490258109"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="10.37" errorPlus="1.8772320048411704" errorMinus="1.8772320048411704"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="4.78" errorPlus="1.0489041900955491" errorMinus="1.0489041900955491"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.49" errorPlus="0.3580502757993631" errorMinus="0.3580502757993631"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.88" errorPlus="0.2469817807045694" errorMinus="0.2469817807045694"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="6.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.62" errorPlus="0.20591260281974" errorMinus="0.20591260281974"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="7.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.23" errorPlus="0.1077032961426901" errorMinus="0.1077032961426901"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y04" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="1.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="11.0" errorPlus="4.044774406564598" errorMinus="4.044774406564598"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="7.34" errorPlus="1.790111728356641" errorMinus="1.790111728356641"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="3.83" errorPlus="0.9406912352095135" errorMinus="0.9406912352095135"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="4.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="1.62" errorPlus="0.4687216658103186" errorMinus="0.4687216658103186"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="5.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="0.67" errorPlus="0.2469817807045694" errorMinus="0.2469817807045694"/>
+    </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y05" dimension="2" path="/REF/LHCB_2013_I1218996" title="D(SIG)/PT IN MUB/GEV" >
+    <dataPoint>
+      <measurement value="2.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="5.89" errorPlus="2.635298844533576" errorMinus="2.635298844533576"/>
+    </dataPoint>
+    <dataPoint>
+      <measurement value="3.5" errorPlus="0.5" errorMinus="0.5"/>
+      <measurement value="2.08" errorPlus="1.0247438704378768" errorMinus="1.0247438704378768"/>
+    </dataPoint>
+  </dataPointSet>
+</aida>

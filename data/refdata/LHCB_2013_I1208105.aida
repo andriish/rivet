@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE aida
+  SYSTEM 'http://aida.freehep.org/schemas/3.3/aida.dtd'>
+<aida version="3.3">
+	<implementation package="LhcbGaussRivet" version="1.0"/>
+	<dataPointSet dimension="2" name="d01-x01-y01" path="/REF/LHCB_2013_I1208105" title="Charged EF - Inclusive minimum bias events">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="1.20000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="1.60000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="2.10000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="2.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="3.50000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="4.60000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="5.80000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="7.30000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="8.80000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="5.00000000e+00" errorPlus="5.00000000e+00" value="1.12000000e+02"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d02-x01-y01" path="/REF/LHCB_2013_I1208105" title="Charged EF - Hard scattering events ($p_T &gt; 3$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="3.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="5.00000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="6.40000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="5.00000000e+00" errorPlus="5.00000000e+00" value="8.30000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="6.00000000e+00" errorPlus="6.00000000e+00" value="1.05000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="6.00000000e+00" errorPlus="6.00000000e+00" value="1.32000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="8.00000000e+00" errorPlus="8.00000000e+00" value="1.61000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="1.00000000e+01" errorPlus="1.00000000e+01" value="1.94000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="1.20000000e+01" errorPlus="1.20000000e+01" value="2.19000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="1.30000000e+01" errorPlus="1.30000000e+01" value="2.56000000e+02"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d03-x01-y01" path="/REF/LHCB_2013_I1208105" title="Charged EF - Diffractive enriched events">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="4.00000000e+00"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="5.00000000e+00"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="6.00000000e+00"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="9.00000000e+00"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="1.20000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="1.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="5.00000000e+00" errorPlus="5.00000000e+00" value="2.20000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="7.00000000e+00" errorPlus="7.00000000e+00" value="3.10000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="7.00000000e+00" errorPlus="7.00000000e+00" value="4.10000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="9.00000000e+00" errorPlus="9.00000000e+00" value="5.70000000e+01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d04-x01-y01" path="/REF/LHCB_2013_I1208105" title="Charged EF - Non-diffractive enriched events">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="1.30000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="1.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="2.20000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="1.00000000e+00" errorPlus="1.00000000e+00" value="2.90000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="3.80000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="4.90000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="6.10000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="7.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="9.30000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="6.00000000e+00" errorPlus="6.00000000e+00" value="1.18000000e+02"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d05-x01-y01" path="/REF/LHCB_2013_I1208105" title="Total EF - Inclusive minimum bias events">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="1.80000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="2.60000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="3.60000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="4.80000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="6.00000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="7.50000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="9.50000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="5.00000000e+00" errorPlus="5.00000000e+00" value="1.18000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="7.00000000e+00" errorPlus="7.00000000e+00" value="1.44000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="9.00000000e+00" errorPlus="9.00000000e+00" value="1.82000000e+02"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d06-x01-y01" path="/REF/LHCB_2013_I1208105" title="Total EF - Hard scattering events ($p_T &gt; 3$ GeV/c)">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="6.00000000e+00" errorPlus="6.00000000e+00" value="5.50000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="7.00000000e+00" errorPlus="7.00000000e+00" value="7.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="7.00000000e+00" errorPlus="7.00000000e+00" value="1.02000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="8.00000000e+00" errorPlus="8.00000000e+00" value="1.33000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="9.00000000e+00" errorPlus="9.00000000e+00" value="1.64000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="1.10000000e+01" errorPlus="1.10000000e+01" value="2.03000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="1.50000000e+01" errorPlus="1.50000000e+01" value="2.46000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="1.70000000e+01" errorPlus="1.70000000e+01" value="2.96000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="2.00000000e+01" errorPlus="2.00000000e+01" value="3.29000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="2.10000000e+01" errorPlus="2.10000000e+01" value="3.80000000e+02"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d07-x01-y01" path="/REF/LHCB_2013_I1208105" title="Total EF - Diffractive enriched events">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="4.00000000e+00"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="6.00000000e+00"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="1.00000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="5.00000000e+00" errorPlus="5.00000000e+00" value="1.50000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="5.00000000e+00" errorPlus="5.00000000e+00" value="2.00000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="6.00000000e+00" errorPlus="6.00000000e+00" value="2.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="9.00000000e+00" errorPlus="9.00000000e+00" value="3.70000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="1.10000000e+01" errorPlus="1.10000000e+01" value="5.00000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="1.10000000e+01" errorPlus="1.10000000e+01" value="6.50000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="1.50000000e+01" errorPlus="1.50000000e+01" value="8.90000000e+01"/>
+		</dataPoint>
+	</dataPointSet>
+	<dataPointSet dimension="2" name="d08-x01-y01" path="/REF/LHCB_2013_I1208105" title="Total EF - Non-diffractive enriched events">
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.05"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="1.90000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.35"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="2.80000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.65"/>
+			<measurement errorMinus="2.00000000e+00" errorPlus="2.00000000e+00" value="3.80000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="2.95"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="5.10000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.25"/>
+			<measurement errorMinus="3.00000000e+00" errorPlus="3.00000000e+00" value="6.40000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.55"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="8.00000000e+01"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="3.85"/>
+			<measurement errorMinus="4.00000000e+00" errorPlus="4.00000000e+00" value="1.00000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.15"/>
+			<measurement errorMinus="6.00000000e+00" errorPlus="6.00000000e+00" value="1.25000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.45"/>
+			<measurement errorMinus="7.00000000e+00" errorPlus="7.00000000e+00" value="1.51000000e+02"/>
+		</dataPoint>
+		<dataPoint>
+			<measurement errorMinus="0.15" errorPlus="0.15" value="4.75"/>
+			<measurement errorMinus="1.00000000e+01" errorPlus="1.00000000e+01" value="1.91000000e+02"/>
+		</dataPoint>
+	</dataPointSet>
+</aida>

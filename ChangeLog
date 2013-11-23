@@ -1,3 +1,9 @@
+2013-11-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* New analyses: ATLAS_2011_I930220, ATLAS_2012_I1093734,
+	ATLAS_2012_I1204784, CMS_2013_I1224539_{DIJET,WJET,ZJET},
+	CMS_2013_I1258128, LHCB_2013_I1208105, and LHCB_2013_I1218996.
+
 2013-11-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Updated version of ATLAS_2011_I945498.

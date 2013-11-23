@@ -119,6 +119,10 @@ if test -f "$FJCONFIG"; then
     -o "$fjmajor" -eq 2 -a "$fjminor" -eq 4 -a "$fjmicro" -lt 2; then
     AC_MSG_ERROR([FastJet version 2.4.2 or later is required])
   fi
+  if test "$fjmajor" -lt 3; then
+    AC_MSG_WARN([FastJet version 2 found... some analyses requiring FJ3 will not be built])
+  fi
+  AM_CONDITIONAL(WITH_FASTJET3, [test "$fjmajor" -eq 3])
   FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\-\-rpath/-rpath/g')"
   #FASTJETLIBPATH="$($FJCONFIG --libs | sed 's/.*\-L\([^\ ]\+\).*/\1/')"
 else
