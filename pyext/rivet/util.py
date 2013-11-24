@@ -114,6 +114,8 @@ def detex(tex):
     \newcommand{\mp}{-+ }
     \newcommand{\times}{x }
     \newcommand{\cdot}{. }
+    \newcommand{\dots}{... }
+    \newcommand{\ldots}{... }
     \newcommand{\langle}{<}
     \newcommand{\rangle}{>}
     \newcommand{\gets}{<- }
