@@ -41,8 +41,7 @@ namespace Rivet {
       FinalState fs(-2.4, 2.4, 0*GeV);
       addProjection(fs, "FS");
 
-      // Find Zs with pT > 125 GeV
-            /// @todo Cut made in analyze is actually 120 GeV... which is correct?
+      // Find Zs with pT > 120 GeV
       ZFinder zfinder(fs, -2.4, 2.4, 30.0*GeV, ELECTRON, 80*GeV, 100*GeV, 0.2, true, true);
       addProjection(zfinder, "ZFinder");
 
@@ -179,7 +178,6 @@ namespace Rivet {
     /// @name Histograms
     //@{
 
-    /// @todo Can just replace with a const size_t N_PT_BINS_vj, but ok...
     enum { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj } BINS_vj;
     AIDA::IHistogram1D* _h_ungroomedJetMass_AK7_zj[N_PT_BINS_vj];
     AIDA::IHistogram1D* _h_filteredJetMass_AK7_zj[N_PT_BINS_vj];

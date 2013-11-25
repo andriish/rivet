@@ -41,8 +41,7 @@ namespace Rivet {
       FinalState fs(-2.4, 2.4, 0*GeV);
       addProjection(fs, "FS");
 
-      // Find W's with pT > 125, MET > 50
-      /// @todo Cut made in analyze is actually 120 GeV... which is correct?
+      // Find W's with pT > 120, MET > 50
       WFinder wfinder(fs, -2.4, 2.4, 80.0*GeV, ELECTRON, 50*GeV, 1000*GeV, 50.0*GeV, 0.2, true, false, 80.4, true);
       addProjection(wfinder, "WFinder");
 
@@ -179,8 +178,6 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
-    /// @todo Can just replace with a const size_t N_PT_BINS_vj, but ok...
     enum { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj } BINS_vj;
     AIDA::IHistogram1D* _h_ungroomedJetMass_AK7_wj[N_PT_BINS_vj];
     AIDA::IHistogram1D* _h_filteredJetMass_AK7_wj[N_PT_BINS_vj];
@@ -188,7 +185,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_prunedJetMass_AK7_wj[N_PT_BINS_vj];
     AIDA::IHistogram1D* _h_prunedJetMass_CA8_wj[N_PT_BINS_vj];
     AIDA::IHistogram1D* _h_filteredJetMass_CA12_wj[N_PT_BINS_vj-1];
-
     //@}
 
   };

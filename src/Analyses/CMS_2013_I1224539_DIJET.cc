@@ -133,7 +133,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_filteredAvgJetMass_dj[N_PT_BINS_dj];
     AIDA::IHistogram1D* _h_trimmedAvgJetMass_dj[N_PT_BINS_dj];
     AIDA::IHistogram1D* _h_prunedAvgJetMass_dj[N_PT_BINS_dj];
-
     //@}
 
 
