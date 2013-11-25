@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// @brief Typedef for the structure used to contain named projections for a
     /// particular containing Analysis or Projection.
-    typedef map<const string, ProjHandle> NamedProjs;
+    typedef map<string, ProjHandle> NamedProjs;
 
     /// Enum to specify depth of projection search.
     enum ProjDepth { SHALLOW, DEEP };
