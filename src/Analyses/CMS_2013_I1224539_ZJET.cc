@@ -69,7 +69,7 @@ namespace Rivet {
       const FourMomentum& l1 = zf.constituents()[0].momentum();
       const FourMomentum& l2 = zf.constituents()[1].momentum();
       /// @todo We should make FourMomentum know how to construct itself from a PseudoJet
-      const FourMomentum jmom(psjet.px(), psjet.py(), psjet.pz(), psjet.e());
+      const FourMomentum jmom(psjet.e(), psjet.px(), psjet.py(), psjet.pz());
       return (deltaPhi(z, jmom) > 2.0 && deltaR(l1, jmom) > 1.0 && deltaR(l2, jmom) > 1.0);
     }
 
@@ -177,7 +177,6 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
     enum { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj } BINS_vj;
     AIDA::IHistogram1D* _h_ungroomedJetMass_AK7_zj[N_PT_BINS_vj];
     AIDA::IHistogram1D* _h_filteredJetMass_AK7_zj[N_PT_BINS_vj];
@@ -185,7 +184,6 @@ namespace Rivet {
     AIDA::IHistogram1D* _h_prunedJetMass_AK7_zj[N_PT_BINS_vj];
     AIDA::IHistogram1D* _h_prunedJetMass_CA8_zj[N_PT_BINS_vj];
     AIDA::IHistogram1D* _h_filteredJetMass_CA12_zj[N_PT_BINS_vj-1];
-
     //@}
 
   };

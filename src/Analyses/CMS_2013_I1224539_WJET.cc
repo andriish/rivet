@@ -69,7 +69,7 @@ namespace Rivet {
       const FourMomentum& l1 = wf.constituentLeptons()[0].momentum();
       const FourMomentum& l2 = wf.constituentNeutrinos()[0].momentum();
       /// @todo We should make FourMomentum know how to construct itself from a PseudoJet
-      const FourMomentum jmom(psjet.px(), psjet.py(), psjet.pz(), psjet.e());
+      const FourMomentum jmom(psjet.e(), psjet.px(), psjet.py(), psjet.pz());
       return (deltaPhi(w, jmom) > 2.0 && deltaR(l1, jmom) > 1.0 && deltaPhi(l2, jmom) > 0.4);
     }
 
