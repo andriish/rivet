@@ -1,5 +1,7 @@
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding deltaRap() etc. function variations
+
 	* Adding no-decay photon clustering option to WFinder and ZFinder,
 	and replacing opaque bool args with enums.
 

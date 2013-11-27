@@ -778,62 +778,62 @@ namespace Rivet {
   /// @name \f$ \Delta phi \f$ calculations from 4-vectors
   //@{
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& a, const FourMomentum& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& v, double phi2) {
     return deltaPhi(v.vector3(), phi2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(double phi1, const FourMomentum& v) {
     return deltaPhi(phi1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& a, const FourVector& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& v, double phi2) {
     return deltaPhi(v.vector3(), phi2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(double phi1, const FourVector& v) {
     return deltaPhi(phi1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& a, const FourMomentum& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& a, const FourVector& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& a, const Vector3& b) {
     return deltaPhi(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const Vector3& a, const FourVector& b) {
     return deltaPhi(a, b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& a, const Vector3& b) {
     return deltaPhi(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const Vector3& a, const FourMomentum& b) {
     return deltaPhi(a, b.vector3());
   }
@@ -843,64 +843,85 @@ namespace Rivet {
   /// @name \f$ |\Delta eta| \f$ calculations from 4-vectors
   //@{
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& a, const FourMomentum& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& v, double eta2) {
     return deltaEta(v.vector3(), eta2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(double eta1, const FourMomentum& v) {
     return deltaEta(eta1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& a, const FourVector& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& v, double eta2) {
     return deltaEta(v.vector3(), eta2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(double eta1, const FourVector& v) {
     return deltaEta(eta1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& a, const FourMomentum& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& a, const FourVector& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& a, const Vector3& b) {
     return deltaEta(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const Vector3& a, const FourVector& b) {
     return deltaEta(a, b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& a, const Vector3& b) {
     return deltaEta(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const Vector3& a, const FourMomentum& b) {
     return deltaEta(a, b.vector3());
+  }
+
+  //@}
+
+
+  /// @name \f$ |\Delta y| \f$ calculations from 4-momentum vectors
+  //@{
+
+  /// Calculate the difference in rapidity between two 4-momentum vectors.
+  inline double deltaRap(const FourMomentum& a, const FourMomentum& b) {
+    return deltaRap(a.rapidity(), b.rapidity());
+  }
+
+  /// Calculate the difference in rapidity between two 4-momentum vectors.
+  inline double deltaRap(const FourMomentum& v, double y2) {
+    return deltaRap(v.rapidity(), y2);
+  }
+
+  /// Calculate the difference in rapidity between two 4-momentum vectors.
+  inline double deltaRap(double y1, const FourMomentum& v) {
+    return deltaRap(y1, v.rapidity());
   }
 
   //@}
