@@ -18,7 +18,6 @@ namespace Rivet {
   /// Chain together different projections as convenience for finding Z's
   /// from two leptons in the final state, including photon clustering.
   class ZFinder : public FinalState {
-
   public:
 
     /// @name Constructors
@@ -41,7 +40,7 @@ namespace Rivet {
             PdgId pid,
             double minmass, double maxmass,
             double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
+            double masstarget=91.2*GeV, bool useDecayPhotons=false);
 
 
     /// Constructor taking multiple eta/pT bounds
@@ -61,15 +60,15 @@ namespace Rivet {
             PdgId pid,
             double minmass, const double maxmass,
             double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
+            double masstarget=91.2*GeV, bool useDecayPhotons=false);
 
 
     /// @deprecated Constructors without inputfs -- only for backwards compatibility
     ZFinder(double, double, double, PdgId, double, double, double,
-            bool, bool, double masstarget=91.2*GeV);
+            bool, bool, double masstarget=91.2*GeV, bool useDecayPhotons=false);
     /// @deprecated Constructors without inputfs -- only for backwards compatibility
     ZFinder(const std::vector<std::pair<double, double> >&, double, PdgId,
-            double, double, double, bool, bool, double masstarget=91.2*GeV);
+            double, double, double, bool, bool, double masstarget=91.2*GeV, bool useDecayPhotons=false);
 
 
     /// Clone on the heap.
@@ -119,10 +118,11 @@ namespace Rivet {
                double pTmin,  PdgId pid,
                double minmass, double maxmass,
                double dRmax, bool clusterPhotons, bool trackPhotons,
-               double masstarget);
+               double masstarget, bool useDecayPhotons);
 
     /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
     double _minmass, _maxmass, _masstarget;
+    bool _useDecayPhotons;
 
     /// Switch for tracking of photons (whether to add them to _theParticles)
     /// This is relevant when the ZFinder::_theParticles are to be excluded

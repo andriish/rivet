@@ -20,11 +20,11 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass) {
+                   bool useTransverseMass, bool useDecayPhotons) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
     _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, useDecayPhotons);
   }
 
 
@@ -36,9 +36,9 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass) {
+                   bool useTransverseMass, bool useDecayPhotons) {
     _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, useDecayPhotons);
   }
 
 
@@ -49,12 +49,12 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass) {
+                   bool useTransverseMass, bool useDecayPhotons) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
     FinalState inputfs;
     _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, useDecayPhotons);
   }
 
 
@@ -65,10 +65,10 @@ namespace Rivet {
                    double missingET,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
                    double masstarget,
-                   bool useTransverseMass) {
+                   bool useTransverseMass, bool useDecayPhotons) {
     FinalState inputfs;
     _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
+          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass, useDecayPhotons);
   }
 
 
@@ -80,7 +80,7 @@ namespace Rivet {
                       double missingET,
                       double dRmax, bool clusterPhotons, bool trackPhotons,
                       double masstarget,
-                      bool useTransverseMass)
+                      bool useTransverseMass, bool useDecayPhotons)
   {
     setName("WFinder");
 
@@ -90,6 +90,7 @@ namespace Rivet {
     _pid = pid;
     _trackPhotons = trackPhotons;
     _useTransverseMass = useTransverseMass;
+    _useDecayPhotons = useDecayPhotons;
 
     // Check that the arguments are legal
     assert(abs(_pid) == ELECTRON || abs(_pid) == MUON);
@@ -106,7 +107,7 @@ namespace Rivet {
     bareleptons.acceptIdPair(pid);
     LeptonClusters leptons(inputfs, bareleptons, dRmax,
                            clusterPhotons,
-                           etaRanges, pTmin);
+                           etaRanges, pTmin, _useDecayPhotons);
     addProjection(leptons, "LeptonClusters");
 
     // Add MissingMomentum proj to calc MET
@@ -128,15 +129,19 @@ namespace Rivet {
     return getProjection<FinalState>("RFS");
   }
 
+
   int WFinder::compare(const Projection& p) const {
     PCmp LCcmp = mkNamedPCmp(p, "LeptonClusters");
     if (LCcmp != EQUIVALENT) return LCcmp;
 
     const WFinder& other = dynamic_cast<const WFinder&>(p);
-    return (cmp(_minmass, other._minmass) || cmp(_maxmass, other._maxmass) ||
+    return (cmp(_minmass, other._minmass) ||
+            cmp(_maxmass, other._maxmass) ||
             cmp(_useTransverseMass, other._useTransverseMass) ||
             cmp(_etMiss, other._etMiss) ||
-            cmp(_pid, other._pid) || cmp(_trackPhotons, other._trackPhotons));
+            cmp(_pid, other._pid) ||
+            cmp(_trackPhotons, other._trackPhotons) ||
+            cmp(_useDecayPhotons, other._useDecayPhotons));
   }
 
 

@@ -8,14 +8,13 @@ namespace Rivet {
 
 
   LeptonClusters::LeptonClusters(const FinalState& photons, const FinalState& signal,
-                 double dRmax, bool cluster,
-                 const std::vector<std::pair<double, double> >& etaRanges,
-                 double pTmin) :
-    FinalState(etaRanges, pTmin),
-    _dRmax(dRmax), _cluster(cluster)
+                                 double dRmax, bool cluster,
+                                 const vector<pair<double, double> >& etaRanges,
+                                 double pTmin, bool useDecayPhotons)
+    : FinalState(etaRanges, pTmin),
+      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
   {
     setName("LeptonClusters");
-
     IdentifiedFinalState photonfs(photons);
     photonfs.acceptId(PHOTON);
     addProjection(photonfs, "Photons");
@@ -35,7 +34,9 @@ namespace Rivet {
     const PCmp sigcmp = mkNamedPCmp(p, "Signal");
     if (sigcmp != EQUIVALENT) return sigcmp;
 
-    return (cmp(_dRmax, other._dRmax) || cmp(_cluster, other._cluster));
+    return (cmp(_dRmax, other._dRmax) ||
+            cmp(_cluster, other._cluster) ||
+            cmp(_fromDecay, other._fromDecay));
   }
 
 
@@ -52,19 +53,22 @@ namespace Rivet {
       allClusteredLeptons.push_back(ClusteredLepton(bareleptons[i]));
     }
 
+    // Match each photon to its closest charged lepton within the dR cone
     const FinalState& photons = applyProjection<FinalState>(e, "Photons");
     foreach (const Particle& photon, photons.particles()) {
+      // Ignore photon if it's from a hadron/tau decay and we're avoiding those
+      if (!_fromDecay && photon.fromDecay()) continue;
       const FourMomentum p_P = photon.momentum();
-      double dRmin=_dRmax;
+      double dRmin = _dRmax;
       int idx = -1;
       for (size_t i = 0; i < bareleptons.size(); ++i) {
-        FourMomentum p_l = bareleptons[i].momentum();
         // Only cluster photons around *charged* signal particles
         if (PID::threeCharge(bareleptons[i].pdgId()) == 0) continue;
-        // Geometrically match momentum vectors
-        double dR=deltaR(p_l, p_P);
+        // Find the closest lepton
+        const FourMomentum& p_l = bareleptons[i].momentum();
+        double dR = deltaR(p_l, p_P);
         if (dR < dRmin) {
-          dRmin=dR;
+          dRmin = dR;
           idx = i;
         }
       }

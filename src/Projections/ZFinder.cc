@@ -16,10 +16,11 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
+                   double masstarget, bool useDecayPhotons) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useDecayPhotons);
   }
 
 
@@ -29,8 +30,9 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, const double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+                   double masstarget, bool useDecayPhotons) {
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useDecayPhotons);
   }
 
 
@@ -39,11 +41,12 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
+                   double masstarget, bool useDecayPhotons) {
     vector<pair<double, double> > etaRanges;
     etaRanges += std::make_pair(etaMin, etaMax);
     FinalState inputfs;
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useDecayPhotons);
   }
 
 
@@ -52,16 +55,17 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, const double maxmass,
                    double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
+                   double masstarget, bool useDecayPhotons) {
     FinalState inputfs;
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass,
+          dRmax, clusterPhotons, trackPhotons, masstarget, useDecayPhotons);
   }
   void ZFinder::_init(const FinalState& inputfs,
                       const std::vector<std::pair<double, double> >& etaRanges,
                       double pTmin,  PdgId pid,
                       double minmass, double maxmass,
                       double dRmax, bool clusterPhotons, bool trackPhotons,
-                      double masstarget)
+                      double masstarget, bool useDecayPhotons)
   {
     setName("ZFinder");
 
@@ -70,12 +74,13 @@ namespace Rivet {
     _masstarget = masstarget;
     _pid = pid;
     _trackPhotons = trackPhotons;
+    _useDecayPhotons = useDecayPhotons;
 
     IdentifiedFinalState bareleptons(inputfs);
     bareleptons.acceptIdPair(pid);
     LeptonClusters leptons(inputfs, bareleptons, dRmax,
                            clusterPhotons,
-                           etaRanges, pTmin);
+                           etaRanges, pTmin, _useDecayPhotons);
     addProjection(leptons, "LeptonClusters");
 
     VetoedFinalState remainingFS;
@@ -87,8 +92,7 @@ namespace Rivet {
   /////////////////////////////////////////////////////
 
 
-  const FinalState& ZFinder::remainingFinalState() const
-  {
+  const FinalState& ZFinder::remainingFinalState() const {
     return getProjection<FinalState>("RFS");
   }
 
@@ -98,8 +102,11 @@ namespace Rivet {
     if (LCcmp != EQUIVALENT) return LCcmp;
 
     const ZFinder& other = dynamic_cast<const ZFinder&>(p);
-    return (cmp(_minmass, other._minmass) || cmp(_maxmass, other._maxmass) ||
-            cmp(_pid, other._pid) || cmp(_trackPhotons, other._trackPhotons));
+    return (cmp(_minmass, other._minmass) ||
+            cmp(_maxmass, other._maxmass) ||
+            cmp(_pid, other._pid) ||
+            cmp(_trackPhotons, other._trackPhotons) ||
+            cmp(_useDecayPhotons, other._useDecayPhotons));
   }
 
 

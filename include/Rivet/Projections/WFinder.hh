@@ -44,7 +44,7 @@ namespace Rivet {
             double missingET,
             double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
             double masstarget=80.4,
-            bool useTransverseMass=false);
+            bool useTransverseMass=false, bool useDecayPhotons=false);
 
 
     /// Constructor taking multiple eta/pT bounds
@@ -68,18 +68,20 @@ namespace Rivet {
             double missingET,
             double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
             double masstarget=80.4,
-            bool useTransverseMass=false);
+            bool useTransverseMass=false, bool useDecayPhotons=false);
 
 
     /// @deprecated Constructors without inputfs -- only for backwards compatibility
     WFinder(double, double, double, PdgId, double, double, double, double,
             bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4, bool useTransverseMass=false);
+            double masstarget=80.4, bool useTransverseMass=false,
+            bool useDecayPhotons=false);
     /// @deprecated Constructors without inputfs -- only for backwards compatibility
     WFinder(const std::vector<std::pair<double, double> >&, double,
             PdgId, double, double, double, double,
             bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4, bool useTransverseMass=false);
+            double masstarget=80.4, bool useTransverseMass=false,
+            bool useDecayPhotons=false);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
@@ -103,6 +105,7 @@ namespace Rivet {
     /// have been removed from the full final state
     /// (e.g. for running a jet finder on it)
     const FinalState& remainingFinalState() const;
+
 
   protected:
 
@@ -134,15 +137,15 @@ namespace Rivet {
                double missingET,
                double dRmax, bool clusterPhotons, bool trackPhotons,
                double masstarget,
-               bool useTransverseMass);
+               bool useTransverseMass,
+               bool useDecayPhotons);
 
 
   private:
 
     /// Transverse mass cuts
     double _minmass, _maxmass, _masstarget;
-    bool _useTransverseMass;
-
+    bool _useTransverseMass, _useDecayPhotons;
     /// Missing ET cut
     double _etMiss;
 
