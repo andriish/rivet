@@ -1,5 +1,8 @@
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* More momentum method forwarding on ParticleBase and adding
+	abseta(), absrap() etc. functions.
+
 	* Adding the DEFAULT_RIVET_ANA_CONSTRUCTOR cosmetic macro.
 
 	* Adding deltaRap() etc. function variations

@@ -40,20 +40,34 @@ namespace Rivet {
 
     /// Get the \f$ p_T \f$ directly.
     double pT() const { return momentum().pT(); }
+    /// Get the \f$ p_T \f$ directly (alias).
+    double perp() const { return momentum().pT(); }
 
     /// Get the \f$ E_T \f$ directly.
     double Et() const { return momentum().Et(); }
 
     /// Get the mass directly.
     double mass() const { return momentum().mass(); }
+    /// Get the mass**2 directly.
+    double mass2() const { return momentum().mass2(); }
 
     /// Get the \f$ \eta \f$ directly.
     double pseudorapidity() const { return momentum().eta(); }
-    /// Get the \f$ \eta \f$ directly.
+    /// Get the \f$ \eta \f$ directly (alias).
     double eta() const { return momentum().eta(); }
+    /// Get the \f$ |\eta| \f$ directly.
+    double abspseudorapidity() const { return fabs(momentum().eta()); }
+    /// Get the \f$ |\eta| \f$ directly (alias).
+    double abseta() const { return fabs(momentum().eta()); }
 
-    /// Get the \f$ \eta \f$ directly.
+    /// Get the \f$ y \f$ directly.
     double rapidity() const { return momentum().rapidity(); }
+    /// Get the \f$ y \f$ directly (alias).
+    double rap() const { return momentum().rapidity(); }
+    /// Get the \f$ |y| \f$ directly.
+    double absrapidity() const { return fabs(momentum().rapidity()); }
+    /// Get the \f$ |y| \f$ directly (alias).
+    double absrap() const { return fabs(momentum().rapidity()); }
 
     /// Get the \f$ \phi \f$ directly.
     double phi() const { return momentum().phi(); }
