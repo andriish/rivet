@@ -32,13 +32,13 @@ NumEvents: 2500000 for each process
 Beams: [p+, p+]
 Energies: [7000]
 PtCuts:
-     '$Z$+jet: lepton $pT > 20$ GeV and lepton $|\eta| < 2.1$;
-               jet $pT > 30$ GeV, jet $|\eta| < 2.1$, exclusive 1 jet;
-               $Z pT > 40$ GeV, $76 < M_Z < 106$ GeV'
-      $\gamma+jet: jet $pT > 30$ GeV, jet $|\eta| < 2.1$, exclusive 1 jet;
-               photon $pT > 40$ GeV, photon $|\eta| < 1.4442$'
+  '$Z$+jet: lepton $pT > 20$ GeV and lepton $|\eta| < 2.1$;
+            jet $pT > 30$ GeV, jet $|\eta| < 2.1$, exclusive 1 jet;
+            $Z pT > 40$ GeV, $76 < M_Z < 106$ GeV
+   $\gamma+jet: jet $pT > 30$ GeV, jet $|\eta| < 2.1$, exclusive 1 jet;
+            photon $pT > 40$ GeV, photon $|\eta| < 1.4442$'
 Description:
-  Rapidity distributions are presented for events containing either a
+  'Rapidity distributions are presented for events containing either a
   $Z$ boson or a photon in association with a single jet in proton-proton
   collisions produced at the CERN LHC. The data, collected with the CMS
   detector at $\sqrt{s} = 7$ TeV, correspond to an integrated luminosity of 5.0/fb.
@@ -49,7 +49,7 @@ Description:
   particular, next-to-leading-order QCD calculations, and two Monte Carlo
   event generators using different methods to merge matrix-element
   partons with evolved parton showers, appear inconsistent with the data
-  as well as with each other.
+  as well as with each other.'
 BibKey: Chatrchyan:2013oda
 BibTeX: '@article{Chatrchyan:2013oda,
       author         = "Chatrchyan, Serguei and others",
