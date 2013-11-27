@@ -12,7 +12,7 @@ References:
  - CERN-PH-EP-2011-108
  - arXiv:1109.0525 [hep-ex]
 RunInfo:
-  pp to ele + X or mu + X at 7 TeV, heavy-flavour (bb and cc) production with B/D -> ele or muon
+  $pp$ to electron $+ X$ or muon $+ X$ at 7 TeV, heavy-flavour ($bb$ and $cc$) production with $B/D \to e/\mu$
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
