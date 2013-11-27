@@ -13,6 +13,7 @@
 namespace Rivet {
 
 
+  /// A charged lepton meta-particle created by clustering photons close to the bare lepton
   class ClusteredLepton : public Particle {
   public:
 
@@ -35,24 +36,25 @@ namespace Rivet {
   };
 
 
-  /// @brief Cluster photons from a given FS to all charged particles (typically
-  /// leptons) from signal and store the original charged particles and photons
-  /// as particles() while the newly created clustered lepton objects are
-  /// accessible as clusteredLeptons()
+  /// @brief Cluster photons from a given FS to all charged particles (typically leptons)
+  ///
+  /// This stores the original charged particles and photons as particles()
+  /// while the newly created clustered lepton objects are accessible as
+  /// clusteredLeptons().
   class LeptonClusters : public FinalState {
-
   public:
 
     LeptonClusters(const FinalState& photons, const FinalState& signal,
                    double dRmax, bool cluster,
-                   const std::vector<std::pair<double, double> >& etaRanges,
-                   double pTmin);
+                   const vector<pair<double, double> >& etaRanges,
+                   double pTmin, bool useDecayPhotons=false);
 
     virtual const Projection* clone() const {
       return new LeptonClusters(*this);
     }
 
     const vector<ClusteredLepton>& clusteredLeptons() const { return _clusteredLeptons; }
+
 
   protected:
 
@@ -62,15 +64,19 @@ namespace Rivet {
     /// Compare projections.
     int compare(const Projection& p) const;
 
+
   private:
 
     /// Maximum cone radius to find photons in
     double _dRmax;
     /// Whether to actually add the photon momenta to clusteredLeptons
     bool _cluster;
+    /// Whether to include photons from hadron (particularly pi0) decays
+    bool _fromDecay;
 
     /// Container which stores the clustered lepton objects
     vector<ClusteredLepton> _clusteredLeptons;
+
   };
 
 

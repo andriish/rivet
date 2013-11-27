@@ -1,3 +1,7 @@
+2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding an option for ignoring photons from hadron/tau decays in LeptonClusters.
+
 2013-11-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding Particle::fromBottom/Charm/Tau() members. LHCb were
