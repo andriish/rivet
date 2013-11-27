@@ -22,16 +22,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2011_I945498()
       : Analysis("ATLAS_2011_I945498")
-    {
-      setNeedsCrossSection(true);
-      for (size_t chn = 0; chn < 3; ++chn) {
-        weights_nj0[chn] = 0.0;
-        weights_nj1[chn] = 0.0;
-        weights_nj2[chn] = 0.0;
-        weights_nj3[chn] = 0.0;
-        weights_nj4[chn] = 0.0;
-      }
-    }
+    {    }
 
     //@}
 
@@ -40,16 +31,24 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+      // Zero counters
+      for (size_t chn = 0; chn < 3; ++chn) {
+        weights_nj0[chn] = 0;
+        weights_nj1[chn] = 0;
+        weights_nj2[chn] = 0;
+        weights_nj3[chn] = 0;
+        weights_nj4[chn] = 0;
+      }
 
       // Set up projections
-      ZFinder zfinder_mu(-2.4, 2.4, 20, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      ZFinder zfinder_mu(FinalState(-2.4, 2.4, 0*GeV), -2.4, 2.4, 20*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_mu, "ZFinder_mu");
 
-      std::vector<std::pair<double, double> > eta_e;
+      vector<pair<double, double> > eta_e;
       eta_e.push_back(make_pair(-2.47, -1.52));
       eta_e.push_back(make_pair(-1.37, 1.37));
       eta_e.push_back(make_pair(1.52, 2.47));
-      ZFinder zfinder_el(eta_e, 20, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      ZFinder zfinder_el(FinalState(eta_e, 0*GeV), -3, 3, 20, PID::ELECTRON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_el, "ZFinder_el");
 
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
@@ -85,7 +84,7 @@ namespace Rivet {
       FourMomentum l1 = zf->constituents()[0].momentum();
       FourMomentum l2 = zf->constituents()[1].momentum();
       Jets jets;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30.0*GeV)) {
+      foreach (const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30*GeV)) {
         FourMomentum jmom = jet.momentum();
         if (fabs(jmom.rapidity()) < 4.4 && deltaR(l1, jmom) > 0.5  && deltaR(l2, jmom) > 0.5) {
           jets.push_back(jet);

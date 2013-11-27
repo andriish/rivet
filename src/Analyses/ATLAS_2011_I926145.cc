@@ -30,10 +30,10 @@ namespace Rivet {
     void init() {
 
       ///projection for electrons
-      std::vector<std::pair<double, double> > eta_e;
-      eta_e.push_back(make_pair(-2.00,-1.52));
-      eta_e.push_back(make_pair(-1.37,1.37));
-      eta_e.push_back(make_pair(1.52,2.00));
+      vector<pair<double, double> > eta_e;
+      eta_e.push_back(std::make_pair(-2.00, -1.52));
+      eta_e.push_back(std::make_pair(-1.37, 1.37));
+      eta_e.push_back(std::make_pair(1.52, 2.00));
       IdentifiedFinalState elecs(eta_e, 7.0*GeV);
       elecs.acceptId(PID::ELECTRON);
       elecs.acceptId(PID::POSITRON);
@@ -51,35 +51,31 @@ namespace Rivet {
       muons.acceptId(PID::ANTIMUON);
       addProjection(muons, "muons");
 
-      //projection for muons full range
+      // Projection for muons full range
       IdentifiedFinalState muons_full(-2.5, 2.5, 4.0*GeV);
       muons_full.acceptId(PID::MUON);
       muons_full.acceptId(PID::ANTIMUON);
       addProjection(muons_full, "muons_full");
+      const FinalState fs20(-2.0, 2.0, 0.0*GeV);
+      const FinalState fs25(-2.5, 2.5, 0.0*GeV);
 
-      //// ZFinder: etaMin, etaMax, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons
-      ZFinder zfinder_e(-2.0, 2.0, 0.0, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      /// @todo Bare Zs ...
+      ZFinder zfinder_e(fs20, -2.0, 2.0, 0.0*GeV, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
       addProjection(zfinder_e, "ZFinder_e");
-
-      ZFinder zfinder_mu(-2.0, 2.0, 0.0, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      ZFinder zfinder_mu(fs20, -2.0, 2.0, 0.0*GeV, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
       addProjection(zfinder_mu, "ZFinder_mu");
-
-      ZFinder zfinder_mufull(-2.5, 2.5, 0.0, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      ZFinder zfinder_mufull(fs25, -2.5, 2.5, 0.0*GeV, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
       addProjection(zfinder_mufull, "ZFinder_mufull");
 
-
-      //// WFinder: etaMin, etaMax, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons
-      WFinder wfinder_e(-2.0, 2.0, 0.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      /// @todo ... but dressed Ws?
+      WFinder wfinder_e(fs20, -2.0, 2.0, 0.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_e, "WFinder_e");
-
-      WFinder wfinder_mu(-2.0, 2.0, 0.0*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder_mu(fs20, -2.0, 2.0, 0.0*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_mu, "WFinder_mu");
-
-      WFinder wfinder_mufull(-2.5, 2.5, 0.0*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder_mufull(fs25, -2.5, 2.5, 0.0*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_mufull, "WFinder_mufull");
 
-
-      // Book histograms  - use autobooking
+      // Book histograms
       _histPt_elecs      = bookHisto1D(1 ,1 ,1);
       _histPt_muons      = bookHisto1D(2 ,1 ,1);
       _histPt_muons_full = bookHisto1D(3 ,1 ,1);

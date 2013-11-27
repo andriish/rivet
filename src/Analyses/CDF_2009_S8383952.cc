@@ -32,9 +32,8 @@ namespace Rivet {
       /// Initialise and register projections here
       // this seems to have been corrected completely for all selection cuts,
       // i.e. eta cuts and pT cuts on leptons.
-      FinalState fs;
-      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, PID::ELECTRON,
-                      66.0*GeV, 116.0*GeV, 0.2, true, true);
+      ZFinder zfinder(FinalState(), -MAXRAPIDITY, MAXRAPIDITY, 0*GeV, PID::ELECTRON,
+                      66*GeV, 116*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 
 
@@ -47,15 +46,12 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() == 1) {
-        double yZ = fabs(zfinder.bosons()[0].rapidity());
-        _h_yZ->fill(yZ, weight);
-        _h_xs->fill(1960.0, weight);
-      }
-      else {
+        const double weight = event.weight();
+        _h_yZ->fill(fabs(zfinder.bosons()[0].rapidity()), weight);
+        _h_xs->fill(1960, weight);
+      } else {
         MSG_DEBUG("no unique lepton pair found.");
       }
 

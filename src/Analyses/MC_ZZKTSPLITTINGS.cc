@@ -21,13 +21,14 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      FinalState fs;
-      ZFinder zeefinder(fs, -3.5, 3.5, 25.0*GeV, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zeefinder(FinalState(), -3.5, 3.5, 25*GeV, PID::ELECTRON, 65*GeV, 115*GeV,
+                        0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zeefinder, "ZeeFinder");
 
       VetoedFinalState zmminput;
       zmminput.addVetoOnThisFinalState(zeefinder);
-      ZFinder zmmfinder(zmminput, -3.5, 3.5, 25.0*GeV, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zmmfinder(zmminput, -3.5, 3.5, 25*GeV, PID::MUON, 65*GeV, 115*GeV,
+                        0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zmmfinder, "ZmmFinder");
 
       VetoedFinalState jetinput;
@@ -44,15 +45,9 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const ZFinder& zeefinder = applyProjection<ZFinder>(e, "ZeeFinder");
-      if (zeefinder.bosons().size()!=1) {
-        vetoEvent;
-      }
-
+      if (zeefinder.bosons().size() != 1) vetoEvent;
       const ZFinder& zmmfinder = applyProjection<ZFinder>(e, "ZmmFinder");
-      if (zmmfinder.bosons().size()!=1) {
-        vetoEvent;
-      }
-
+      if (zmmfinder.bosons().size() != 1) vetoEvent;
       MC_JetSplittings::analyze(e);
     }
 
