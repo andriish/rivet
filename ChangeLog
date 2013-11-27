@@ -1,5 +1,8 @@
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding no-as-needed linker flag in rivet-buildplugin if it's
+	supported by the linker used to build Rivet.
+
 	* Bumping version to 1.9.0a0, since we have API and behaviour
 	changes for this final Rivet 1.x release.
 

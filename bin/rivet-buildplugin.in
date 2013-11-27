@@ -80,6 +80,10 @@ lhepmc="@HEPMCLIBPATH@"
 test -n "$lhepmc" && myldflags="$mycppflags -L${lhepmc}"
 lfastjet="@FASTJETLIBPATH@"
 test -n "$lfastjet" && myldflags="$mycppflags -L${lfastjet}"
+## Detect whether the linker accepts the --no-as-needed flag and prepend the linker flag with it if possible
+if (cd /tmp && echo -e 'int main() { return 0; }' > $$.cc; $mycxx -Wl,--no-as-needed $$.cc -o $$ 2> /dev/null); then
+  myldflags="-Wl,--no-as-needed $myldflags"
+fi
 
 ## Link against ROOT if requested
 with_root=$(echo $* | egrep -- '--\<with-root\>')
