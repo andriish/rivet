@@ -20,6 +20,10 @@ namespace Rivet {
   class WFinder : public FinalState {
   public:
 
+    enum ClusterPhotons { NOCLUSTER=0, CLUSTERNODECAY=1, CLUSTERALL };
+    enum PhotonTracking { NOTRACK=0, TRACK=1 };
+    enum MassWindow { MASS=0, TRANSMASS=1 };
+
     /// @name Constructors
     //@{
 
@@ -35,17 +39,20 @@ namespace Rivet {
     /// @param clusterPhotons whether such photons are supposed to be
     ///  clustered to the lepton object and thus W mom
     /// @param trackPhotons whether such photons should be added to _theParticles
-    ///  (cf. _trackPhotons)
-    /// @param useTransverseMass whether mass window should be applied using mT
+    /// @param masstype whether mass window should be applied using m or mT
     WFinder(const FinalState& inputfs,
             double etaMin, double etaMax,
             double pTmin,
             PdgId pid,
             double minmass, double maxmass,
             double missingET,
-            double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4,
-            bool useTransverseMass=false);
+            double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+      vector<pair<double, double> > etaRanges;
+      etaRanges += std::make_pair(etaMin, etaMax);
+      _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
+            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+    }
 
 
     /// Constructor taking multiple eta/pT bounds
@@ -60,35 +67,58 @@ namespace Rivet {
     /// @param clusterPhotons whether such photons are supposed to be
     ///  clustered to the lepton object and thus W mom
     /// @param trackPhotons whether such photons should be added to _theParticles
-    ///  (cf. _trackPhotons)
-    /// @param useTransverseMass whether mass window should be applied using mT
+    /// @param masstype whether mass window should be applied using mT
     WFinder(const FinalState& inputfs,
-            const std::vector<std::pair<double, double> >& etaRanges,
+            const vector<pair<double, double> >& etaRanges,
             double pTmin,
             PdgId pid,
-            double minmass, const double maxmass,
+            double minmass, double maxmass,
             double missingET,
-            double dRmax, bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4,
-            bool useTransverseMass=false);
+            double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+      _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
+            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+    }
 
 
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    WFinder(double, double, double, PdgId, double, double, double, double,
-            bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4, bool useTransverseMass=false);
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    WFinder(const std::vector<std::pair<double, double> >&, double,
-            PdgId, double, double, double, double,
-            bool clusterPhotons=true, bool trackPhotons=false,
-            double masstarget=80.4, bool useTransverseMass=false);
+    // /// @deprecated Compatibility constructor for boolean clustering args
+    // WFinder(const FinalState& inputfs,
+    //         double etaMin, double etaMax,
+    //         double pTmin,
+    //         PdgId pid,
+    //         double minmass, double maxmass,
+    //         double missingET,
+    //         double dRmax=0.1, bool clusterPhotons=true, bool trackPhotons=false,
+    //         double masstarget=80.4*GeV, bool useTransMass=false) {
+    //   vector<pair<double, double> > etaRanges;
+    //   etaRanges += std::make_pair(etaMin, etaMax);
+    //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET, dRmax,
+    //         (clusterPhotons ? CLUSTERNODECAY : NOCLUSTER),
+    //         (trackPhotons ? TRACK : NOTRACK), masstarget,
+    //         (useTransMass ? TRANSMASS : MASS));
+    // }
+
+    // /// @deprecated Compatibility constructor for boolean clustering args
+    // WFinder(const FinalState& inputfs,
+    //         const vector<pair<double, double> >& etaRanges,
+    //         double pTmin,
+    //         PdgId pid,
+    //         double minmass, double maxmass,
+    //         double missingET,
+    //         double dRmax=0.1, bool clusterPhotons=true, bool trackPhotons=false,
+    //         double masstarget=80.4*GeV, bool useTransMass=false) {
+    //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET, dRmax,
+    //         (clusterPhotons ? CLUSTERNODECAY : NOCLUSTER),
+    //         (trackPhotons ? TRACK : NOTRACK), masstarget,
+    //         (useTransMass ? TRANSMASS : MASS));
+    // }
+
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new WFinder(*this);
     }
     //@}
-
 
     /// Access to the found bosons
     ///
@@ -109,6 +139,16 @@ namespace Rivet {
     ///
     /// Useful for e.g. input to a jet finder
     const FinalState& remainingFinalState() const;
+
+    /// @brief Calculate the transverse mass of the W, from the charged lepton and neutrino
+    ///
+    /// Defined as sqrt(2 pT_l pT_nu (1.0 - cos(dphi_lnu))). Return -1 if no boson found.
+    double mT() const {
+      if (bosons().empty()) return -1;
+      const FourMomentum& l = constituentLeptons()[0].momentum();
+      const FourMomentum& nu = constituentNeutrinos()[0].momentum();
+      return sqrt( 2 * l.pT() * nu.pT() * (1 - cos(deltaPhi(l, nu))) );
+    }
 
 
   protected:
@@ -135,13 +175,12 @@ namespace Rivet {
 
     /// Common implementation of constructor operation, taking FS params.
     void _init(const FinalState& inputfs,
-               const std::vector<std::pair<double, double> >& etaRanges,
+               const vector<pair<double, double> >& etaRanges,
                double pTmin,  PdgId pid,
                double minmass, double maxmass,
                double missingET,
-               double dRmax, bool clusterPhotons, bool trackPhotons,
-               double masstarget,
-               bool useTransverseMass);
+               double dRmax, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+               double masstarget=80.4*GeV, MassWindow masstype=MASS);
 
 
   private:
@@ -159,7 +198,7 @@ namespace Rivet {
     /// photons are to be excluded as well.
     /// (Yes, some experiments make a difference between clusterPhotons and
     /// trackPhotons!)
-    bool _trackPhotons;
+    PhotonTracking _trackPhotons;
 
     /// Lepton flavour
     PdgId _pid;

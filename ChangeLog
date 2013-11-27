@@ -1,5 +1,8 @@
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding no-decay photon clustering option to WFinder and ZFinder,
+	and replacing opaque bool args with enums.
+
 	* Adding an option for ignoring photons from hadron/tau decays in LeptonClusters.
 
 2013-11-22  Andy Buckley  <andy.buckley@cern.ch>
@@ -13,7 +16,8 @@
 
 2013-11-07  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Adding the GSL lib path to the library path in the env scripts and the rivet-config --ldflags output.
+	* Adding the GSL lib path to the library path in the env scripts
+	and the rivet-config --ldflags output.
 
 2013-10-25  Andy Buckley  <andy.buckley@cern.ch>
 

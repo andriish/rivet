@@ -7,57 +7,14 @@
 namespace Rivet {
 
 
-  ZFinder::ZFinder(const FinalState& inputfs,
-                   double etaMin, double etaMax,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    vector<pair<double, double> > etaRanges;
-    etaRanges += std::make_pair(etaMin, etaMax);
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  }
-
-
-  ZFinder::ZFinder(const FinalState& inputfs,
-                   const std::vector<std::pair<double, double> >& etaRanges,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, const double maxmass,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  }
-
-
-  ZFinder::ZFinder(double etaMin, double etaMax,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    vector<pair<double, double> > etaRanges;
-    etaRanges += std::make_pair(etaMin, etaMax);
-    FinalState inputfs;
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  }
-
-
-  ZFinder::ZFinder(const std::vector<std::pair<double, double> >& etaRanges,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, const double maxmass,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget) {
-    FinalState inputfs;
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
-  }
+  /// @todo Not necessary in C++11, where constructors can be chained
   void ZFinder::_init(const FinalState& inputfs,
-                      const std::vector<std::pair<double, double> >& etaRanges,
+                      const vector<pair<double, double> >& etaRanges,
                       double pTmin,  PdgId pid,
                       double minmass, double maxmass,
-                      double dRmax, bool clusterPhotons, bool trackPhotons,
+                      double dRmax,
+                      ClusterPhotons clusterPhotons,
+                      PhotonTracking trackPhotons,
                       double masstarget)
   {
     setName("ZFinder");
@@ -70,9 +27,9 @@ namespace Rivet {
 
     IdentifiedFinalState bareleptons(inputfs);
     bareleptons.acceptIdPair(pid);
-    LeptonClusters leptons(inputfs, bareleptons, dRmax,
-                           clusterPhotons,
-                           etaRanges, pTmin);
+    const bool doClustering = (clusterPhotons != NOCLUSTER);
+    const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
+    LeptonClusters leptons(inputfs, bareleptons, dRmax, doClustering, etaRanges, pTmin, useDecayPhotons);
     addProjection(leptons, "LeptonClusters");
 
     VetoedFinalState remainingFS;
@@ -84,8 +41,7 @@ namespace Rivet {
   /////////////////////////////////////////////////////
 
 
-  const FinalState& ZFinder::remainingFinalState() const
-  {
+  const FinalState& ZFinder::remainingFinalState() const {
     return getProjection<FinalState>("RFS");
   }
 

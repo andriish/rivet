@@ -20,6 +20,9 @@ namespace Rivet {
   class ZFinder : public FinalState {
   public:
 
+    enum ClusterPhotons { NOCLUSTER=0, CLUSTERNODECAY=1, CLUSTERALL };
+    enum PhotonTracking { NOTRACK=0, TRACK=1 };
+
     /// @name Constructors
     //@{
 
@@ -39,8 +42,12 @@ namespace Rivet {
             double pTmin,
             PdgId pid,
             double minmass, double maxmass,
-            double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
+            double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+            double masstarget=91.2*GeV) {
+      vector<pair<double, double> > etaRanges;
+      etaRanges += std::make_pair(etaMin, etaMax);
+      _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+    }
 
 
     /// Constructor taking multiple eta/pT bounds
@@ -59,16 +66,39 @@ namespace Rivet {
             double pTmin,
             PdgId pid,
             double minmass, const double maxmass,
-            double dRmax, bool clusterPhotons, bool trackPhotons,
-            double masstarget=91.2*GeV);
+            double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+            double masstarget=91.2*GeV) {
+      _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons, masstarget);
+    }
 
 
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    ZFinder(double, double, double, PdgId, double, double, double,
-            bool, bool, double masstarget=91.2*GeV);
-    /// @deprecated Constructors without inputfs -- only for backwards compatibility
-    ZFinder(const std::vector<std::pair<double, double> >&, double, PdgId,
-            double, double, double, bool, bool, double masstarget=91.2*GeV);
+    // /// @deprecated Compatibility constructor for boolean clustering args
+    // ZFinder(const FinalState& inputfs,
+    //         double etaMin, double etaMax,
+    //         double pTmin,
+    //         PdgId pid,
+    //         double minmass, double maxmass,
+    //         double dRmax=0.1, bool clusterPhotons=true, bool trackPhotons=false,
+    //         double masstarget=91.2*GeV) {
+    //   vector<pair<double, double> > etaRanges;
+    //   etaRanges += std::make_pair(etaMin, etaMax);
+    //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax,
+    //         (clusterPhotons ? CLUSTERNODECAY : NOCLUSTER),
+    //         (trackPhotons ? TRACK : NOTRACK), masstarget);
+    // }
+
+    // /// @deprecated Compatibility constructor for boolean clustering args
+    // ZFinder(const FinalState& inputfs,
+    //         const vector<pair<double, double> >& etaRanges,
+    //         double pTmin,
+    //         PdgId pid,
+    //         double minmass, double maxmass,
+    //         double dRmax=0.1, bool clusterPhotons=true, bool trackPhotons=false,
+    //         double masstarget=91.2*GeV) {
+    //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, dRmax,
+    //         (clusterPhotons ? CLUSTERNODECAY : NOCLUSTER),
+    //         (trackPhotons ? TRACK : NOTRACK), masstarget);
+    // }
 
 
     /// Clone on the heap.
@@ -82,6 +112,7 @@ namespace Rivet {
     ///
     /// @note Currently either 0 or 1 boson can be found.
     const Particles& bosons() const { return _bosons; }
+
 
     /// Access to the Z constituent clustered leptons
     ///
@@ -121,8 +152,8 @@ namespace Rivet {
                const std::vector<std::pair<double, double> >& etaRanges,
                double pTmin,  PdgId pid,
                double minmass, double maxmass,
-               double dRmax, bool clusterPhotons, bool trackPhotons,
-               double masstarget);
+               double dRmax, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+               double masstarget=91.2*GeV);
 
     /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
     double _minmass, _maxmass, _masstarget;
@@ -133,7 +164,7 @@ namespace Rivet {
     /// photons are to be excluded as well.
     /// (Yes, some experiments make a difference between clusterPhotons and
     /// trackPhotons!)
-    bool _trackPhotons;
+    PhotonTracking _trackPhotons;
 
     /// Lepton flavour
     PdgId _pid;

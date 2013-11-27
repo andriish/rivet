@@ -9,76 +9,18 @@
 namespace Rivet {
 
 
-  WFinder::WFinder(const FinalState& inputfs,
-                   double etaMin, double etaMax,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double missingET,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   bool useTransverseMass) {
-    vector<pair<double, double> > etaRanges;
-    etaRanges += std::make_pair(etaMin, etaMax);
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  }
-
-
-  WFinder::WFinder(const FinalState& inputfs,
-                   const std::vector<std::pair<double, double> >& etaRanges,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double missingET,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   bool useTransverseMass) {
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  }
-
-
-  WFinder::WFinder(double etaMin, double etaMax,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double missingET,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   bool useTransverseMass) {
-    vector<pair<double, double> > etaRanges;
-    etaRanges += std::make_pair(etaMin, etaMax);
-    FinalState inputfs;
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  }
-
-
-  WFinder::WFinder(const std::vector<std::pair<double, double> >& etaRanges,
-                   double pTmin,
-                   PdgId pid,
-                   double minmass, double maxmass,
-                   double missingET,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   bool useTransverseMass) {
-    FinalState inputfs;
-    _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-          dRmax, clusterPhotons, trackPhotons, masstarget, useTransverseMass);
-  }
-
-
+  /// @todo Not necessary in C++11, where constructors can be chained
   void WFinder::_init(const FinalState& inputfs,
-                      const std::vector<std::pair<double, double> >& etaRanges,
+                      const vector<pair<double, double> >& etaRanges,
                       double pTmin,
                       PdgId pid,
                       double minmass, double maxmass,
                       double missingET,
-                      double dRmax, bool clusterPhotons, bool trackPhotons,
+                      double dRmax,
+                      ClusterPhotons clusterPhotons,
+                      PhotonTracking trackPhotons,
                       double masstarget,
-                      bool useTransverseMass)
-  {
+                      MassWindow masstype) {
     setName("WFinder");
 
     _minmass = minmass;
@@ -86,7 +28,7 @@ namespace Rivet {
     _masstarget = masstarget;
     _pid = pid;
     _trackPhotons = trackPhotons;
-    _useTransverseMass = useTransverseMass;
+    _useTransverseMass = (masstype == MASS);
 
     // Check that the arguments are legal
     assert(abs(_pid) == PID::ELECTRON || abs(_pid) == PID::MUON);
@@ -101,8 +43,9 @@ namespace Rivet {
     // Lepton clusters
     IdentifiedFinalState bareleptons(inputfs);
     bareleptons.acceptIdPair(pid);
-    LeptonClusters leptons(inputfs, bareleptons, dRmax,
-                           clusterPhotons, etaRanges, pTmin);
+    const bool doClustering = (clusterPhotons != NOCLUSTER);
+    const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
+    LeptonClusters leptons(inputfs, bareleptons, dRmax, doClustering, etaRanges, pTmin, useDecayPhotons);
     addProjection(leptons, "LeptonClusters");
 
     // Add MissingMomentum proj to calc MET
@@ -123,6 +66,7 @@ namespace Rivet {
   const FinalState& WFinder::remainingFinalState() const {
     return getProjection<FinalState>("RFS");
   }
+
 
   int WFinder::compare(const Projection& p) const {
     PCmp LCcmp = mkNamedPCmp(p, "LeptonClusters");
@@ -158,7 +102,7 @@ namespace Rivet {
     ParticlePair Wconstituents(imfs.particlePairs()[0]);
     Particle p1(Wconstituents.first), p2(Wconstituents.second);
 
-    if (PID::threeCharge(p1)==0) {
+    if (PID::threeCharge(p1) == 0) {
       _constituentLeptons += p2;
       _constituentNeutrinos += p1;
     } else {
@@ -199,11 +143,10 @@ namespace Rivet {
     }
     foreach (const Particle& p, _constituentLeptons) {
       foreach (const ClusteredLepton& l, leptons.clusteredLeptons()) {
-        if (p.pdgId()==l.pdgId() && p.momentum()==l.momentum()) {
+        if (p.pdgId() == l.pdgId() && p.momentum() == l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
-            _theParticles.insert(_theParticles.end(),
-                                 l.constituentPhotons().begin(), l.constituentPhotons().end());
+            _theParticles.insert(_theParticles.end(), l.constituentPhotons().begin(), l.constituentPhotons().end());
           }
         }
       }
