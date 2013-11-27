@@ -1,5 +1,7 @@
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding the DEFAULT_RIVET_ANA_CONSTRUCTOR cosmetic macro.
+
 	* Adding deltaRap() etc. function variations
 
 	* Adding no-decay photon clustering option to WFinder and ZFinder,
