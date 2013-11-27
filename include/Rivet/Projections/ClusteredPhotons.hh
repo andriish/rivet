@@ -13,7 +13,7 @@
 namespace Rivet {
 
 
-  /// @brief Find final state photons which in a cone around any particle in the "signal" final state
+  /// @brief Find final state photons which in a cone around any particle in the final state
   class ClusteredPhotons : public FinalState {
   public:
 
