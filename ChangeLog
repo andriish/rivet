@@ -1,5 +1,7 @@
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Removing accidentally still-present no-as-needed linker flag from rivet-config.
+
 	* Lots of analysis clean-up and migration to use new features and W/Z finder APIs.
 
 	* More momentum method forwarding on ParticleBase and adding
