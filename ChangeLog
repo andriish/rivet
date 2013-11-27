@@ -1,5 +1,8 @@
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Bumping version to 1.9.0a0, since we have API and behaviour
+	changes for this final Rivet 1.x release.
+
 	* Adding a default=false useDecayPhotons argument to the
 	LeptonClusters, ZFinder, and WFinder constructors (Z/WFinder pass
 	it on to LeptonClusters) and using it in the LeptonClusters
