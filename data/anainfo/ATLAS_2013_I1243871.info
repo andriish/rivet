@@ -13,7 +13,7 @@ RunInfo: Top quark pair production in $pp$ collisions at $\sqrt{s} = 7$ TeV
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]
-Energies: [3500, 3500]
+Energies: [7000]
 PtCuts: pT(jets) > 30 GeV
 Description:
   'Measurement of jet shapes in top pair events in the ATLAS 7 TeV run. b-jets are shown to
