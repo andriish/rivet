@@ -111,10 +111,10 @@ namespace Rivet {
         const double y_boost = 0.5 * (leadingJet.rapidity() + subleadingJet.rapidity());
         const double chi = exp( fabs( leadingJet.rapidity() - subleadingJet.rapidity() ) );
         if ( fabs(y_boost) < 1.1 ) {
-          if (inRange(mass/GeV, 110, 370)) {
+          if (inRange(mass/GeV, 110., 370.)) {
             _chiCounter1 += weight;
             _dijet_chi_110_370->fill(chi, weight);
-          } else if (inRange(mass/GeV, 370, 850)) {
+          } else if (inRange(mass/GeV, 370., 850.)) {
             _chiCounter2 += weight;
             _dijet_chi_370_850->fill(chi, weight);
           }
