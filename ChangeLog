@@ -1,3 +1,7 @@
+2013-11-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS_2013_I1243871 ttbar jet shapes analysis.
+
 2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding no-as-needed linker flag in rivet-buildplugin if it's

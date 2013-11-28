@@ -1,0 +1,985 @@
+<?xml version="1.0" ?>
+<!DOCTYPE aida SYSTEM "http://aida.freehep.org/schemas/3.3/aida.dtd">
+<aida version="3.3">
+  <implementation version="1.1" package="Rivet"/>
+  <dataPointSet name="d01-x01-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for $b$-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for $b$-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d01-x01-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.840000e+00" errorPlus="3.900000e-01" errorMinus="3.300000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.060000e+00" errorPlus="3.900000e-01" errorMinus="3.400000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.200000e+00" errorPlus="2.600000e-01" errorMinus="2.700000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.450000e+00" errorPlus="1.500000e-01" errorMinus="1.500000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.210000e+00" errorPlus="1.200000e-01" errorMinus="1.400000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.580000e+00" errorPlus="1.200000e-01" errorMinus="1.100000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.150000e+00" errorPlus="1.300000e-01" errorMinus="1.300000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.000000e-01" errorPlus="8.000000e-02" errorMinus="8.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.000000e-01" errorPlus="6.000000e-02" errorMinus="6.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.200000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for $b$-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for $b$-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d02-x01-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.660000e+00" errorPlus="6.200000e-01" errorMinus="6.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.230000e+00" errorPlus="3.800000e-01" errorMinus="3.600000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.220000e+00" errorPlus="2.900000e-01" errorMinus="2.800000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.120000e+00" errorPlus="1.700000e-01" errorMinus="1.700000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.830000e+00" errorPlus="1.700000e-01" errorMinus="1.500000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.120000e+00" errorPlus="7.000000e-02" errorMinus="7.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.300000e-01" errorPlus="1.000000e-01" errorMinus="1.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.900000e-01" errorPlus="6.000000e-02" errorMinus="6.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.600000e-01" errorPlus="5.000000e-02" errorMinus="5.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.600000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for $b$-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for $b$-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d03-x01-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.190000e+00" errorPlus="4.600000e-01" errorMinus="4.800000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.140000e+00" errorPlus="3.100000e-01" errorMinus="2.900000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.620000e+00" errorPlus="1.900000e-01" errorMinus="1.800000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.500000e+00" errorPlus="2.100000e-01" errorMinus="2.100000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.400000e+00" errorPlus="1.000000e-01" errorMinus="1.100000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.700000e-01" errorPlus="4.000000e-02" errorMinus="6.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.000000e-01" errorPlus="5.000000e-02" errorMinus="5.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.500000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.600000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.100000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for $b$-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for $b$-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d04-x01-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.980000e+00" errorPlus="5.600000e-01" errorMinus="5.700000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.140000e+00" errorPlus="2.000000e-01" errorMinus="2.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.800000e+00" errorPlus="2.500000e-01" errorMinus="2.600000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.740000e+00" errorPlus="1.100000e-01" errorMinus="1.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="4.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.600000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.700000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.400000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.600000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.700000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for $b$-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for $b$-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d05-x01-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.148000e+01" errorPlus="7.700000e-01" errorMinus="7.400000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.080000e+00" errorPlus="2.800000e-01" errorMinus="2.600000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.940000e+00" errorPlus="2.400000e-01" errorMinus="2.400000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.370000e+00" errorPlus="7.000000e-02" errorMinus="7.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.500000e-01" errorPlus="5.000000e-02" errorMinus="5.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.800000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.900000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.900000e-01" errorPlus="2.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.100000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x02-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for light-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for light-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d01-x02-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.640000e+00" errorPlus="1.100000e+00" errorMinus="9.600000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.100000e+00" errorPlus="4.900000e-01" errorMinus="5.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.750000e+00" errorPlus="3.500000e-01" errorMinus="3.400000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.280000e+00" errorPlus="1.700000e-01" errorMinus="1.600000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.500000e+00" errorPlus="1.200000e-01" errorMinus="1.500000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.080000e+00" errorPlus="1.100000e-01" errorMinus="1.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.300000e-01" errorPlus="9.000000e-02" errorMinus="1.100000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.400000e-01" errorPlus="8.000000e-02" errorMinus="8.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.300000e-01" errorPlus="8.000000e-02" errorMinus="7.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.800000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x02-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for light-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for light-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d02-x02-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.390000e+00" errorPlus="1.130000e+00" errorMinus="1.160000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.140000e+00" errorPlus="4.700000e-01" errorMinus="4.700000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.270000e+00" errorPlus="2.900000e-01" errorMinus="2.800000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.850000e+00" errorPlus="1.400000e-01" errorMinus="1.800000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.280000e+00" errorPlus="1.200000e-01" errorMinus="1.200000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.500000e-01" errorPlus="1.200000e-01" errorMinus="1.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.900000e-01" errorPlus="6.000000e-02" errorMinus="9.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.600000e-01" errorPlus="6.000000e-02" errorMinus="6.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.100000e-01" errorPlus="5.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.300000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x02-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for light-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for light-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d03-x02-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.082000e+01" errorPlus="8.900000e-01" errorMinus="7.100000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.170000e+00" errorPlus="4.600000e-01" errorMinus="4.700000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.920000e+00" errorPlus="1.700000e-01" errorMinus="1.600000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.560000e+00" errorPlus="8.000000e-02" errorMinus="7.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.040000e+00" errorPlus="9.000000e-02" errorMinus="9.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.500000e-01" errorPlus="5.000000e-02" errorMinus="6.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.400000e-01" errorPlus="7.000000e-02" errorMinus="7.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.400000e-01" errorPlus="4.000000e-02" errorMinus="5.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.400000e-01" errorPlus="5.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.300000e-01" errorPlus="4.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x02-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for light-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for light-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d04-x02-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.237000e+01" errorPlus="1.110000e+00" errorMinus="1.010000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.440000e+00" errorPlus="4.200000e-01" errorMinus="4.100000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.420000e+00" errorPlus="2.200000e-01" errorMinus="2.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.520000e+00" errorPlus="1.400000e-01" errorMinus="1.300000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.900000e-01" errorPlus="6.000000e-02" errorMinus="6.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.800000e-01" errorPlus="5.000000e-02" errorMinus="6.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.500000e-01" errorPlus="4.000000e-02" errorMinus="5.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.800000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.800000e-01" errorPlus="3.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.800000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x02-y01" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Differential jet shape for light-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\rho(r)$"/>
+    <annotation>
+      <item key="Title" value="Differential jet shape for light-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d05-x02-y01" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.389000e+01" errorPlus="1.770000e+00" errorMinus="1.640000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.680000e+00" errorPlus="4.200000e-01" errorMinus="5.400000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.310000e+00" errorPlus="3.100000e-01" errorMinus="3.000000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.270000e+00" errorPlus="1.300000e-01" errorMinus="1.200000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.400000e-01" errorPlus="9.000000e-02" errorMinus="9.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.800000e-01" errorPlus="1.100000e-01" errorMinus="1.200000e-01"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.900000e-01" errorPlus="7.000000e-02" errorMinus="8.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.100000e-01" errorPlus="4.000000e-02" errorMinus="5.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.400000e-01" errorPlus="4.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.500000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x01-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for $b$-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for $b$-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d01-x01-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.500000e-01" errorPlus="2.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.900000e-01" errorPlus="3.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.000000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.400000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.900000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.300000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.600000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x01-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for $b$-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for $b$-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d02-x01-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.900000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.800000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.800000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.100000e-01" errorPlus="3.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.500000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.700000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x01-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for $b$-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for $b$-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d03-x01-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="2.500000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.700000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.500000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.500000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.100000e-01" errorPlus="2.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.400000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.600000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.800000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x01-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for $b$-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for $b$-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d04-x01-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.300000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.900000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.300000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.500000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.700000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.800000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x01-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for $b$-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for $b$-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d05-x01-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.600000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.300000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.500000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.000000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.400000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.600000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.700000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d01-x02-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for light-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for light-jets with $30$ GeV $&lt; p_{T} &lt; 40$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d01-x02-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.100000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.500000e-01" errorPlus="4.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.100000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.000000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.600000e-01" errorPlus="3.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.100000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.400000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.700000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d02-x02-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for light-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for light-jets with $40$ GeV $&lt; p_{T} &lt; 50$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d02-x02-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="3.800000e-01" errorPlus="5.000000e-02" errorMinus="5.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.200000e-01" errorPlus="4.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.600000e-01" errorPlus="3.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.300000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.200000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.500000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.800000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d03-x02-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for light-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for light-jets with $50$ GeV $&lt; p_{T} &lt; 70$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d03-x02-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.300000e-01" errorPlus="4.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="6.900000e-01" errorPlus="3.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.100000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.700000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.100000e-01" errorPlus="2.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.400000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.600000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.800000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d04-x02-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for light-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for light-jets with $70$ GeV $&lt; p_{T} &lt; 100$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d04-x02-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="4.900000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.200000e-01" errorPlus="4.000000e-02" errorMinus="3.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.800000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.200000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.500000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.700000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.800000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+  <dataPointSet name="d05-x02-y02" dimension="2"
+      path="/REF/ATLAS_2013_I1243871" title="Integrated jet shape for light-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV">
+    <dimension dim="0" title="$r$"/>
+    <dimension dim="1" title="$\Psi(r)$"/>
+    <annotation>
+      <item key="Title" value="Integrated jet shape for light-jets with $100$ GeV $&lt; p_{T} &lt; 150$ GeV" sticky="true"/>
+      <item key="AidaPath" value="/REF/ATLAS_2013_I1243871/d05-x02-y02" sticky="true"/>
+    </annotation>
+  <dataPoint>
+    <measurement value="2.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="5.600000e-01" errorPlus="7.000000e-02" errorMinus="7.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="6.000000e-02" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="7.400000e-01" errorPlus="4.000000e-02" errorMinus="4.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="8.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="1.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.300000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.200000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.500000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="2.600000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.700000e-01" errorPlus="1.000000e-02" errorMinus="1.000000e-02"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.000000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.800000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.400000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="9.900000e-01" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  <dataPoint>
+    <measurement value="3.800000e-01" errorPlus="2.000000e-02" errorMinus="2.000000e-02"/>
+    <measurement value="1.000000e+00" errorPlus="0.000000e+00" errorMinus="0.000000e+00"/>
+  </dataPoint>
+  </dataPointSet>
+</aida>
