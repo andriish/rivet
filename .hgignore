@@ -2,6 +2,7 @@
 .*\.(o|Po|lo|Plo|la|a|so|dylib|pyc)$
 Rivet-.*\.tar\..*$
 a.out$
+tmp$
 config\.guess$
 config\.status$
 config\.sub$
