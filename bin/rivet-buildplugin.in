@@ -75,11 +75,11 @@ test -n "$iboost" && mycppflags="$mycppflags -I${iboost}"
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""
 lrivet="@libdir@"
-test -n "$lrivet" && myldflags="$mycppflags -L${lrivet}"
+test -n "$lrivet" && myldflags="$myldflags -L${lrivet}"
 lhepmc="@HEPMCLIBPATH@"
-test -n "$lhepmc" && myldflags="$mycppflags -L${lhepmc}"
+test -n "$lhepmc" && myldflags="$myldflags -L${lhepmc}"
 lfastjet="@FASTJETLIBPATH@"
-test -n "$lfastjet" && myldflags="$mycppflags -L${lfastjet}"
+test -n "$lfastjet" && myldflags="$myldflags -L${lfastjet}"
 ## Detect whether the linker accepts the --no-as-needed flag and prepend the linker flag with it if possible
 if (cd /tmp && echo -e 'int main() { return 0; }' > $$.cc; $mycxx -Wl,--no-as-needed $$.cc -o $$ 2> /dev/null); then
   myldflags="-Wl,--no-as-needed $myldflags"
