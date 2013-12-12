@@ -9,7 +9,7 @@ Authors:
  - Javier Llorente <javier.llorente.merino@cern.ch>
 References:
  - arXiv:1307.5749 [hep-ex]
-RunInfo: Top quark pair production in $pp$ collisions at $\sqrt{s} = 7$ TeV
+RunInfo: Top quark pair production in $pp$ collisions at $\sqrt{s} = 7$ TeV, with dileptonic and semileptonic decay channels (including taus).
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]

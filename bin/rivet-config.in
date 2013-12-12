@@ -65,8 +65,8 @@ if test -n "$tmp"; then
     test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
     igsl="@GSLINCPATH@"
     test -n "$igsl" && OUT="$OUT -I${igsl}"
-    iboost="@BOOSTINCPATH@"
-    test -n "$iboost" && OUT="$OUT -I${iboost}"
+    iboost="@BOOST_CPPFLAGS@"
+    test -n "$iboost" && OUT="$OUT ${iboost}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
