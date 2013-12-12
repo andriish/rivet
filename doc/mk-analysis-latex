@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+import sys, os, re
+
 ## Get output filename
 OUTNAME = "analyses"
 import sys
@@ -9,39 +11,19 @@ if len(sys.argv) < 2:
 else:
     OUTNAME = sys.argv[1]
 
-
-## Get input paths to allow rivet module to be imported from the src dir
-import os, re, glob
 ## Add the rivet Python module build dir(s) to the Python module path
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
-pydirs = []
-for d in os.listdir(pybuild):
-    if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d):
-        pydirs.append(os.path.join(pybuild, d))
+pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
+          if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
 sys.path = pydirs + sys.path
 ## Set up libRivet directory in shared lib runtime search paths
 libpath = os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
-if os.environ.has_key("LD_LIBRARY_PATH"):
-    os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + libpath
-if os.environ.has_key("DYLD_LIBRARY_PATH"):
-    os.environ["DYLD_LIBRARY_PATH"] = os.environ["DYLD_LIBRARY_PATH"] + ":" + libpath
-## Set up analysis plugin directory
-anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
-os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
-
+for env in ["LD_LIBRARY_PATH", "DYLD_LIBRARY_PATH"]:
+    if os.environ.has_key(env):
+        os.environ[env] = os.environ[env] + ":" + libpath
 ## Finally do the rivet module import!
 import rivet
-
-
-def texify(s):
-    "Insert required TeX escapes"
-    t = s \
-        .replace(r"&", r"\&") \
-        .replace(r"\\&", r"\&") \
-        .replace(r"#", r"\#") \
-        # .replace(r"_", r"\_") \
-        # .replace(r"^", r"") \
-    return t
+from rivet.util import texify
 
 def niceify(s):
     "Replace informal symbols in titles and descriptions with nice LaTeX forms"
@@ -51,6 +33,9 @@ def niceify(s):
         .replace(r"sqrt(s)", r"\ensuremath{\sqrt{s}}")
     return t
 
+## Set up Rivet analysis plugin and info file path variables
+os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("/../src/Analyses/.libs") + "::"
+os.environ["RIVET_INFO_PATH"] = os.path.abspath("/../data/anainfo") + "::"
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()

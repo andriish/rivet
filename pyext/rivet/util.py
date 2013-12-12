@@ -62,6 +62,17 @@ def htmlify(s, para=False):
     return t
 
 
+def texify(s):
+    "Insert required TeX escapes"
+    t = s \
+        .replace(r"&", r"\&") \
+        .replace(r"\\&", r"\&") \
+        .replace(r"#", r"\#") \
+        # .replace(r"_", r"\_") \
+        # .replace(r"^", r"") \
+    return t
+
+
 def detex(tex):
     """Use pandoc (if available) to modify LaTeX text strings from
     analysis metadata for use as plain text, e.g. as printed to the terminal.
