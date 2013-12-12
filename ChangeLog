@@ -1,5 +1,9 @@
 2013-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fixing a problem with --disable-analyses (thanks to David Hall)
+
+	* Require FastJet version 3.
+
 	* Bumped version to 2.1.0a0
 
 	* Adding -DNDEBUG to the default build flags, unless in --enable-debug mode.
