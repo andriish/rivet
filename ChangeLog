@@ -1,5 +1,9 @@
 2013-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Bumped version to 2.1.0a0
+
+	* Adding -DNDEBUG to the default build flags, unless in --enable-debug mode.
+
 	* Adding a special treatment of RIVET_*_PATH variables: if they
 	end in :: the default search paths will not be appended. Used
 	primarily to restrict the doc builds to look only inside the build
