@@ -59,8 +59,10 @@ namespace Rivet {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
     }
-    // ... otherwise fall back to the Rivet library install path
-    dirs += getLibPath();
+    // ... otherwise fall back to the Rivet library install path unless the path ends in ::
+    if (!env || string(env).substr(strlen(env)-2) != "::") {
+      dirs += getLibPath();
+    }
     return dirs;
   }
 
@@ -77,10 +79,13 @@ namespace Rivet {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
     }
-    // Then fall back to the Rivet data install path...
-    dirs += getRivetDataPath();
-    // ... and also add any analysis plugin search dirs for convenience
-    dirs += getAnalysisLibPaths();
+    // ... then, unless the path ends in :: ...
+    if (!env || string(env).substr(strlen(env)-2) != "::") {
+      // ... fall back to the Rivet data install path...
+      dirs += getRivetDataPath();
+      // ... and also add any analysis plugin search dirs for convenience
+      dirs += getAnalysisLibPaths();
+    }
     return dirs;
   }
 
@@ -99,10 +104,13 @@ namespace Rivet {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
     }
-    // Then fall back to the Rivet data install path...
-    dirs += getRivetDataPath();
-    // ... and also add any analysis plugin search dirs for convenience
-    dirs += getAnalysisLibPaths();
+    // ... then, unless the path ends in :: ...
+    if (!env || string(env).substr(strlen(env)-2) != "::") {
+      // ... fall back to the Rivet data install path...
+      dirs += getRivetDataPath();
+      // ... and also add any analysis plugin search dirs for convenience
+      dirs += getAnalysisLibPaths();
+    }
     return dirs;
   }
 
@@ -121,10 +129,13 @@ namespace Rivet {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
     }
-    // Then fall back to the Rivet data install path...
-    dirs += getRivetDataPath();
-    // ... and also add any analysis plugin search dirs for convenience
-    dirs += getAnalysisLibPaths();
+    // ... then, unless the path ends in :: ...
+    if (!env || string(env).substr(strlen(env)-2) != "::") {
+      // ... fall back to the Rivet data install path...
+      dirs += getRivetDataPath();
+      // ... and also add any analysis plugin search dirs for convenience
+      dirs += getAnalysisLibPaths();
+    }
     return dirs;
   }
 

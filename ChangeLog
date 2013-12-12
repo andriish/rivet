@@ -1,5 +1,10 @@
 2013-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding a special treatment of RIVET_*_PATH variables: if they
+	end in :: the default search paths will not be appended. Used
+	primarily to restrict the doc builds to look only inside the build
+	dirs, but potentially also useful in other special circumstances.
+
 	* Adding a definition of exec_prefix to rivet-buildplugin.
 
 	* Adding -DNDEBUG to the default non-debug build flags.
