@@ -33,7 +33,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/CentralEtHCM.hh   \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
-  Projections/ClusteredPhotons.hh \
   Projections/ConstLossyFinalState.hh \
   Projections/DISFinalState.hh  \
   Projections/DISKinematics.hh  \

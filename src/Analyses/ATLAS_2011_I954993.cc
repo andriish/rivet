@@ -22,16 +22,14 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
-    /// Book histograms
+    /// Projection and histogram setup
     void init() {
 
-      //// ZFinder: etaMin,etaMax,pTmin,pid,m2_min,m2_max,dRmax,clusterPhotons,excludePhotonsFromRFS
-      ZFinder zfinder_e( -2.5, 2.5, 15*GeV, PID::ELECTRON, 81.1876*GeV, 101.1876*GeV, 0.1, ZFinder::CLUSTERNODECAY);
+      ZFinder zfinder_e(-2.5, 2.5, 15*GeV, PID::ELECTRON, 81.1876*GeV, 101.1876*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_e, "ZFinder_e");
       ZFinder zfinder_mu(-2.5, 2.5, 15*GeV, PID::MUON, 81.1876*GeV, 101.1876*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_mu, "ZFinder_mu");
 
-      //// WFinder: etaRanges,pTmin,pid,m2_min,m2_max,missingET,dRmax
       VetoedFinalState weinput;
       weinput.addVetoOnThisFinalState(zfinder_e);
       WFinder wfinder_e(weinput, -2.5, 2.5, 15*GeV, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.1, WFinder::CLUSTERNODECAY);
@@ -42,9 +40,8 @@ namespace Rivet {
       WFinder wfinder_mu(wminput,-2.5, 2.5, 15*GeV, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.1, WFinder::CLUSTERNODECAY);
       addProjection(wfinder_mu, "WFinder_mu");
 
-      //// Histograms
+      // Histograms
       _h_fiducial = bookHisto1D(1,1,1);
-
     }
 
 

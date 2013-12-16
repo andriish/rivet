@@ -1,3 +1,7 @@
+2013-12-16  Andy Buckley  <andy@duality>
+
+	* Removing ClusteredPhotons and converting ATLAS_2010_S8919674.
+
 2013-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fixing a problem with --disable-analyses (thanks to David Hall)
