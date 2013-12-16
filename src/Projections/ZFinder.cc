@@ -76,8 +76,7 @@ namespace Rivet {
       _constituents += l2, l1;
     }
     FourMomentum pZ = l1.momentum() + l2.momentum();
-    const int z3charge = PID::threeCharge(l1.pdgId()) + PID::threeCharge(l2.pdgId());
-    assert(z3charge == 0);
+    assert(PID::threeCharge(l1.pdgId()) + PID::threeCharge(l2.pdgId()) == 0);
 
     stringstream msg;
     msg << "Z reconstructed from: \n"

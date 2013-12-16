@@ -125,15 +125,27 @@ namespace Rivet {
     /// @note Currently either 0 or 1 boson can be found.
     const Particles& bosons() const { return _bosons; }
 
+    /// Access to the found boson (assuming it exists)
+    const Particle& boson() const { return _bosons[0]; }
+
+
     /// Access to the W constituent clustered leptons
     ///
     /// @note Either size 0 if no boson was found or 1 if one boson was found
-    const vector<Particle>& constituentLeptons() const { return _constituentLeptons; }
+    const Particles& constituentLeptons() const { return _constituentLeptons; }
+
+    /// Access to the W constituent clustered lepton (assuming it exists)
+    const Particle& constituentLepton() const { return _constituentLeptons[0]; }
+
 
     /// Access to the W constituent neutrinos
     ///
     /// @note Either size 0 if no boson was found or 1 if one boson was found
-    const vector<Particle>& constituentNeutrinos() const { return _constituentNeutrinos; }
+    const Particles& constituentNeutrinos() const { return _constituentNeutrinos; }
+
+    /// Access to the W constituent neutrinos
+    const Particle& constituentNeutrino() const { return _constituentNeutrinos[0]; }
+
 
     /// Access to the particles other than the W leptons and clustered photons
     ///

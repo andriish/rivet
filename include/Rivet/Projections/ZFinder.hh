@@ -113,13 +113,15 @@ namespace Rivet {
     /// @note Currently either 0 or 1 boson can be found.
     const Particles& bosons() const { return _bosons; }
 
+    /// Access to the found boson (assuming it exists).
+    const Particle boson() const { return _bosons[0]; }
 
     /// Access to the Z constituent clustered leptons
     ///
     /// For example, to make more fine-grained cuts on the clustered leptons.
     /// The positive charge constituent is first in the list (if not empty), and
     /// the negative one second.
-    const vector<Particle>& constituents() const { return _constituents; }
+    const Particles& constituents() const { return _constituents; }
 
     /// Access to the particles other than the Z leptons and clustered photons
     ///
