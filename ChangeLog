@@ -1,5 +1,7 @@
 2013-12-16  Andy Buckley  <andy@duality>
 
+	* LeptonClusters renamed to DressedLeptons.
+
 	* Adding singular particle accessor functions to WFinder and ZFinder.
 
 	* Removing ClusteredPhotons and converting ATLAS_2010_S8919674.

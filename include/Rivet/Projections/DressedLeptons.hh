@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_LeptonClusters_HH
-#define RIVET_LeptonClusters_HH
+#ifndef RIVET_DressedLeptons_HH
+#define RIVET_DressedLeptons_HH
 
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Rivet.hh"
@@ -41,16 +41,16 @@ namespace Rivet {
   /// This stores the original charged particles and photons as particles()
   /// while the newly created clustered lepton objects are accessible as
   /// clusteredLeptons().
-  class LeptonClusters : public FinalState {
+  class DressedLeptons : public FinalState {
   public:
 
-    LeptonClusters(const FinalState& photons, const FinalState& signal,
+    DressedLeptons(const FinalState& photons, const FinalState& signal,
                    double dRmax, bool cluster,
                    const vector<pair<double, double> >& etaRanges,
                    double pTmin, bool useDecayPhotons=false);
 
     virtual const Projection* clone() const {
-      return new LeptonClusters(*this);
+      return new DressedLeptons(*this);
     }
 
     const vector<ClusteredLepton>& clusteredLeptons() const { return _clusteredLeptons; }

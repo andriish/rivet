@@ -1,17 +1,17 @@
 // -*- C++ -*-
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 
 namespace Rivet {
 
 
-  LeptonClusters::LeptonClusters(const FinalState& photons, const FinalState& signal,
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& signal,
                                  double dRmax, bool cluster,
                                  const vector<pair<double, double> >& etaRanges,
                                  double pTmin, bool useDecayPhotons)
     : FinalState(etaRanges, pTmin),
       _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
   {
-    setName("LeptonClusters");
+    setName("DressedLeptons");
     IdentifiedFinalState photonfs(photons);
     photonfs.acceptId(PID::PHOTON);
     addProjection(photonfs, "Photons");
@@ -19,9 +19,9 @@ namespace Rivet {
   }
 
 
-  int LeptonClusters::compare(const Projection& p) const {
+  int DressedLeptons::compare(const Projection& p) const {
     // Compare the two as final states (for pT and eta cuts)
-    const LeptonClusters& other = dynamic_cast<const LeptonClusters&>(p);
+    const DressedLeptons& other = dynamic_cast<const DressedLeptons&>(p);
     int fscmp = FinalState::compare(other);
     if (fscmp != EQUIVALENT) return fscmp;
 
@@ -37,7 +37,7 @@ namespace Rivet {
   }
 
 
-  void LeptonClusters::project(const Event& e) {
+  void DressedLeptons::project(const Event& e) {
     _theParticles.clear();
     _clusteredLeptons.clear();
 

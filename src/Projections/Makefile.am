@@ -8,6 +8,7 @@ libRivetProjections_la_SOURCES = \
   DISFinalState.cc \
   DISKinematics.cc \
   DISLepton.cc \
+  DressedLeptons.cc \
   FastJets.cc \
   FinalState.cc \
   FoxWolframMoments.cc \
@@ -21,7 +22,6 @@ libRivetProjections_la_SOURCES = \
   JetAlg.cc \
   JetShape.cc \
   LeadingParticlesFinalState.cc \
-  LeptonClusters.cc \
   MergedFinalState.cc \
   MissingMomentum.cc \
   NeutralFinalState.cc \

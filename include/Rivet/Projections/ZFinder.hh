@@ -8,7 +8,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 
 namespace Rivet {
 

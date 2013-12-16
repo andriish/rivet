@@ -1,7 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
@@ -29,8 +29,8 @@ namespace Rivet {
     bareleptons.acceptIdPair(pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
-    LeptonClusters leptons(inputfs, bareleptons, dRmax, doClustering, etaRanges, pTmin, useDecayPhotons);
-    addProjection(leptons, "LeptonClusters");
+    DressedLeptons leptons(inputfs, bareleptons, dRmax, doClustering, etaRanges, pTmin, useDecayPhotons);
+    addProjection(leptons, "DressedLeptons");
 
     VetoedFinalState remainingFS;
     remainingFS.addVetoOnThisFinalState(*this);
@@ -47,7 +47,7 @@ namespace Rivet {
 
 
   int ZFinder::compare(const Projection& p) const {
-    PCmp LCcmp = mkNamedPCmp(p, "LeptonClusters");
+    PCmp LCcmp = mkNamedPCmp(p, "DressedLeptons");
     if (LCcmp != EQUIVALENT) return LCcmp;
 
     const ZFinder& other = dynamic_cast<const ZFinder&>(p);
@@ -59,7 +59,7 @@ namespace Rivet {
   void ZFinder::project(const Event& e) {
     clear();
 
-    const LeptonClusters& leptons = applyProjection<LeptonClusters>(e, "LeptonClusters");
+    const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
 
     InvMassFinalState imfs(std::make_pair(_pid, -_pid), _minmass, _maxmass, _masstarget);
     Particles tmp;
@@ -85,7 +85,7 @@ namespace Rivet {
     MSG_DEBUG(msg.str());
     _bosons.push_back(Particle(PID::ZBOSON, pZ));
 
-    // Find the LeptonClusters which survived the IMFS cut such that we can
+    // Find the DressedLeptons which survived the IMFS cut such that we can
     // extract their original particles
     foreach (const Particle& p, _constituents) {
       foreach (const ClusteredLepton& l, leptons.clusteredLeptons()) {
