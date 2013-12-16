@@ -316,7 +316,7 @@ AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
 if test x$enable_debug == xyes; then
   AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g"])
 else
-  AM_CXXFLAGS="$AM_CXXFLAGS -DNDEBUG"
+  AM_CPPFLAGS="$AM_CPPFLAGS -DNDEBUG"
 fi
 
 
