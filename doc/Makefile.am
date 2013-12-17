@@ -83,7 +83,6 @@ endif
 doc: $(DOCS)
 	@true
 
-# TODO: Put Rivet version string in PDF filename for upload?
 RSH=rsync
 DEST=login.hepforge.org:rivet/public_html/
 upload: $(DOCS)
@@ -94,7 +93,7 @@ arxivtar: $(DOCSOURCES) rivet-manual.bbl
 	tar czf rivet-manual.tar.gz \
 rivet-manual.tex $(LATEXSUBSOURCES) rivetversion.sty rivet-manual.bbl \
 hepnames.sty hepnicenames.sty hepparticles.sty heppennames.sty hepunits.sty maybemath.sty microtype.sty underscore.sty \
-bend.eps cone.eps thinker.eps warning.eps \
+bend.eps cone.eps thinker.eps slip.eps \
 h-physrev3.bst JHEP3.cls JHEP.bst
 
 mostlyclean-local:
