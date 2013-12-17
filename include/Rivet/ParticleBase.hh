@@ -27,6 +27,11 @@ namespace Rivet {
     /// Get equivalent single momentum four-vector (const).
     virtual const FourMomentum& momentum() const = 0;
 
+    /// Cast operator for conversion to FourMomentum
+    operator const FourMomentum& () const { return momentum(); }
+
+    /// @todo Add a cast operator to FJ3 PseudoJet
+
     //@}
 
 
@@ -34,14 +39,16 @@ namespace Rivet {
     //@{
 
     /// Get the energy directly.
-    double energy() const { return momentum().E(); }
-    /// Get the energy directly.
     double E() const { return momentum().E(); }
+    /// Get the energy directly (alias).
+    double energy() const { return momentum().E(); }
 
     /// Get the \f$ p_T \f$ directly.
-    double pT() const { return momentum().pT(); }
+    double pt() const { return momentum().pt(); }
     /// Get the \f$ p_T \f$ directly (alias).
-    double perp() const { return momentum().pT(); }
+    double pT() const { return pt(); }
+    /// Get the \f$ p_T \f$ directly (alias).
+    double perp() const { return pt(); }
 
     /// Get the \f$ E_T \f$ directly.
     double Et() const { return momentum().Et(); }
@@ -73,10 +80,6 @@ namespace Rivet {
     double phi() const { return momentum().phi(); }
 
     //@}
-
-
-    /// Cast operator for conversion to FourMomentum
-    operator FourMomentum() const { return momentum(); }
 
 
     /// Struct for sorting by increasing transverse momentum in STL set, sort, etc.

@@ -20,7 +20,7 @@ namespace Rivet {
         _theParticles += Particle(p);
       }
     }
-    std::sort(_theParticles.begin(), _theParticles.end(), cmpParticleByPt);
+    std::sort(_theParticles.begin(), _theParticles.end(), cmpMomByPt);
   }
 
 

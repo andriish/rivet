@@ -437,8 +437,18 @@ namespace Rivet {
       return vector3().polarRadius2();
     }
 
+    /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
+    double pt2() const {
+      return vector3().polarRadius2();
+    }
+
     /// Calculate the transverse momentum \f$ p_T \f$.
     double pT() const {
+      return sqrt(pT2());
+    }
+
+    /// Calculate the transverse momentum \f$ p_T \f$.
+    double pt() const {
       return sqrt(pT2());
     }
 
@@ -814,6 +824,10 @@ namespace Rivet {
 
   //@}
 
+
+  //////////////////////////////////////////////////////
+
+
   /// @name \f$ \Delta phi \f$ calculations from 4-vectors
   //@{
 
@@ -878,6 +892,10 @@ namespace Rivet {
   }
 
   //@}
+
+
+  //////////////////////////////////////////////////////
+
 
   /// @name \f$ |\Delta eta| \f$ calculations from 4-vectors
   //@{
@@ -964,6 +982,65 @@ namespace Rivet {
   }
 
   //@}
+
+
+  //////////////////////////////////////////////////////
+
+
+  /// @name 4-vector comparison functions (for sorting)
+  //@{
+
+  inline bool cmpMomByPt(const FourMomentum& a, const FourMomentum& b) {
+    return a.pt() > b.pt();
+  }
+  inline bool cmpMomByAscPt(const FourMomentum& a, const FourMomentum& b) {
+    return a.pt() < b.pt();
+  }
+  inline bool cmpMomByP(const FourMomentum& a, const FourMomentum& b) {
+    return a.vector3().mod() > b.vector3().mod();
+  }
+  inline bool cmpMomByAscP(const FourMomentum& a, const FourMomentum& b) {
+    return a.vector3().mod() < b.vector3().mod();
+  }
+  inline bool cmpMomByEt(const FourMomentum& a, const FourMomentum& b) {
+    return a.Et() > b.Et();
+  }
+  inline bool cmpMomByAscEt(const FourMomentum& a, const FourMomentum& b) {
+    return a.Et() < b.Et();
+  }
+  inline bool cmpMomByE(const FourMomentum& a, const FourMomentum& b) {
+    return a.E() > b.E();
+  }
+  inline bool cmpMomByAscE(const FourMomentum& a, const FourMomentum& b) {
+    return a.E() < b.E();
+  }
+  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.pseudorapidity() > b.pseudorapidity();
+  }
+  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.pseudorapidity() < b.pseudorapidity();
+  }
+  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.pseudorapidity()) > fabs(b.pseudorapidity());
+  }
+  inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.pseudorapidity()) < fabs(b.pseudorapidity());
+  }
+  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.rapidity() > b.rapidity();
+  }
+  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.rapidity() < b.rapidity();
+  }
+  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.rapidity()) > fabs(b.rapidity());
+  }
+  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.rapidity()) < fabs(b.rapidity());
+  }
+
+  //@}
+
 
   //////////////////////////////////////////////////////
 

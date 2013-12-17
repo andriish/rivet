@@ -49,7 +49,7 @@ namespace Rivet {
       const ZFinder& zfinder_ee = applyProjection<ZFinder>(event, "zfinder_ee");
       if (zfinder_ee.bosons().size() == 1) {
         Particles ee = zfinder_ee.constituents();
-        std::sort(ee.begin(), ee.end(), cmpParticleByPt);
+        std::sort(ee.begin(), ee.end(), cmpMomByPt);
         const FourMomentum& eminus = PID::threeCharge(ee[0].pdgId()) < 0 ? ee[0].momentum() : ee[1].momentum();
         const FourMomentum& eplus  = PID::threeCharge(ee[0].pdgId()) < 0 ? ee[1].momentum() : ee[0].momentum();
         double phi_acop = M_PI - mapAngle0ToPi(eminus.phi() - eplus.phi());
@@ -64,7 +64,7 @@ namespace Rivet {
       const ZFinder& zfinder_mm = applyProjection<ZFinder>(event, "zfinder_mm");
       if (zfinder_mm.bosons().size() == 1) {
         Particles mm = zfinder_mm.constituents();
-        std::sort(mm.begin(), mm.end(), cmpParticleByPt);
+        std::sort(mm.begin(), mm.end(), cmpMomByPt);
         const FourMomentum& mminus = PID::threeCharge(mm[0].pdgId()) < 0 ? mm[0].momentum() : mm[1].momentum();
         const FourMomentum& mplus  = PID::threeCharge(mm[0].pdgId()) < 0 ? mm[1].momentum() : mm[0].momentum();
         double phi_acop = M_PI - mapAngle0ToPi(mminus.phi() - mplus.phi());

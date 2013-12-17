@@ -1,3 +1,10 @@
+2013-12-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a GenParticle* cast operator to Particle, removing the
+	Particle and Jet copies of the momentum cmp functors, and general
+	tidying/improvement/unification of the momentum properties of jets
+	and particles.
+
 2013-12-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Using SFINAE techniques to improve the math util functions.

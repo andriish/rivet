@@ -133,7 +133,7 @@ namespace Rivet {
       }
 
       // Sort by pT:
-      sort(jets_cut.begin(), jets_cut.end(), cmpJetsByPt);
+      sort(jets_cut.begin(), jets_cut.end(), cmpMomByPt);
 
       // cut on Delta R between jet and electrons
       foreach (const Jet& j, jets_cut) {

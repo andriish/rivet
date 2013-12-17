@@ -55,6 +55,9 @@ namespace Rivet {
       return _original;
     }
 
+    /// Cast operator for conversion to GenParticle*
+    operator const GenParticle* () const { return genParticle(); }
+
     /// The momentum.
     const FourMomentum& momentum() const {
       return _momentum;
@@ -69,6 +72,11 @@ namespace Rivet {
     PdgId pdgId() const {
       return _id;
     }
+
+    //@}
+
+    /// @name Particle species properties
+    //@{
 
     /// The charge of this Particle.
     double charge() const {
@@ -193,73 +201,8 @@ namespace Rivet {
   //@}
 
 
-  /// @name Comparison functors
+  /// @name deltaR, deltaEta, deltaPhi functions specifically for Particle arguments
   //@{
-  /// Sort by descending transverse momentum, \f$ p_\perp \f$
-  inline bool cmpParticleByPt(const Particle& a, const Particle& b) {
-    return a.momentum().pT() > b.momentum().pT();
-  }
-  /// Sort by ascending transverse momentum, \f$ p_\perp \f$
-  inline bool cmpParticleByAscPt(const Particle& a, const Particle& b) {
-    return a.momentum().pT() < b.momentum().pT();
-  }
-  /// Sort by descending momentum, \f$ p \f$
-  inline bool cmpParticleByP(const Particle& a, const Particle& b) {
-    return a.momentum().vector3().mod() > b.momentum().vector3().mod();
-  }
-  /// Sort by ascending momentum, \f$ p \f$
-  inline bool cmpParticleByAscP(const Particle& a, const Particle& b) {
-    return a.momentum().vector3().mod() < b.momentum().vector3().mod();
-  }
-  /// Sort by descending transverse energy, \f$ E_\perp \f$
-  inline bool cmpParticleByEt(const Particle& a, const Particle& b) {
-    return a.momentum().Et() > b.momentum().Et();
-  }
-  /// Sort by ascending transverse energy, \f$ E_\perp \f$
-  inline bool cmpParticleByAscEt(const Particle& a, const Particle& b) {
-    return a.momentum().Et() < b.momentum().Et();
-  }
-  /// Sort by descending energy, \f$ E \f$
-  inline bool cmpParticleByE(const Particle& a, const Particle& b) {
-    return a.momentum().E() > b.momentum().E();
-  }
-  /// Sort by ascending energy, \f$ E \f$
-  inline bool cmpParticleByAscE(const Particle& a, const Particle& b) {
-    return a.momentum().E() < b.momentum().E();
-  }
-  /// Sort by descending pseudorapidity, \f$ \eta \f$
-  inline bool cmpParticleByDescPseudorapidity(const Particle& a, const Particle& b) {
-    return a.momentum().pseudorapidity() > b.momentum().pseudorapidity();
-  }
-  /// Sort by ascending pseudorapidity, \f$ \eta \f$
-  inline bool cmpParticleByAscPseudorapidity(const Particle& a, const Particle& b) {
-    return a.momentum().pseudorapidity() < b.momentum().pseudorapidity();
-  }
-  /// Sort by descending absolute pseudorapidity, \f$ |\eta| \f$
-  inline bool cmpParticleByDescAbsPseudorapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().pseudorapidity()) > fabs(b.momentum().pseudorapidity());
-  }
-  /// Sort by ascending absolute pseudorapidity, \f$ |\eta| \f$
-  inline bool cmpParticleByAscAbsPseudorapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().pseudorapidity()) < fabs(b.momentum().pseudorapidity());
-  }
-  /// Sort by descending rapidity, \f$ y \f$
-  inline bool cmpParticleByDescRapidity(const Particle& a, const Particle& b) {
-    return a.momentum().rapidity() > b.momentum().rapidity();
-  }
-  /// Sort by ascending rapidity, \f$ y \f$
-  inline bool cmpParticleByAscRapidity(const Particle& a, const Particle& b) {
-    return a.momentum().rapidity() < b.momentum().rapidity();
-  }
-  /// Sort by descending absolute rapidity, \f$ |y| \f$
-  inline bool cmpParticleByDescAbsRapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().rapidity()) > fabs(b.momentum().rapidity());
-  }
-  /// Sort by ascending absolute rapidity, \f$ |y| \f$
-  inline bool cmpParticleByAscAbsRapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().rapidity()) < fabs(b.momentum().rapidity());
-  }
-  //@}
 
   inline double deltaR(const Particle& p1, const Particle& p2,
                        RapScheme scheme = PSEUDORAPIDITY) {
@@ -375,6 +318,9 @@ namespace Rivet {
   inline double deltaEta(double eta, const Particle& p) {
     return deltaEta(eta, p.momentum());
   }
+
+  //@}
+
 
 }
 
