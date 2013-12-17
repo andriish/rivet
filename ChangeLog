@@ -1,5 +1,7 @@
 2013-12-17  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Using SFINAE techniques to improve the math util functions.
+
 	* Adding isNeutrino to ParticleIdUtils, and
 	isHadron/isMeson/isBaryon/isLepton/isNeutrino methods to Particle.
 
