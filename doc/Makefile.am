@@ -1,12 +1,12 @@
 dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex
 
 LATEXSUBSOURCES = preamble.tex intro.tex gettingstarted.tex writinganalyses.tex agilerunmc.tex acknowledgements.tex analyses.tex
-DOCSOURCES = compare-histos.txt  heppennames.sty warning.png thinker.png cone.png \
-  h-physrev3.bst hepnames.sty JHEP3.cls bend.png hepnicenames.sty JHEP.bst \
-  make-plots.txt rivet-manual.tex $(LATEXSUBSOURCES) hepparticles.sty maybemath.sty \
-  rivet-manual.pdf hepunits.sty underscore.sty microtype.sty
+DOCSOURCES = compare-histos.txt warning.png thinker.png cone.png bend.png \
+  h-physrev3.bst hepnames.sty JHEP3.cls JHEP.bst make-plots.txt rivet-manual.tex \
+  $(LATEXSUBSOURCES) heppennames.sty hepnicenames.sty hepparticles.sty maybemath.sty \
+  hepunits.sty underscore.sty microtype.sty
 
-EXTRA_DIST = $(DOCSOURCES)
+EXTRA_DIST = $(DOCSOURCES) rivet-manual.pdf
 DOCS =
 
 
