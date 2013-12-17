@@ -12,25 +12,52 @@ namespace Rivet {
   /// @name Comparison functions for safe (floating point) equality tests
   //@{
 
-  /// Compare a number to zero with a degree
-  /// of fuzziness expressed by the absolute @a tolerance parameter.
+  /// @brief Compare a number to zero
+  ///
+  /// This version for floating point types has a degree of fuzziness expressed
+  /// by the absolute @a tolerance parameter, for floating point safety.
   template <typename NUM>
-  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, bool>::type
+  inline typename boost::enable_if_c<boost::is_floating_point<NUM>::value, bool>::type
   isZero(NUM val, double tolerance=1e-8) {
     return fabs(val) < tolerance;
   }
 
+  /// @brief Compare a number to zero
+  ///
+  /// SFINAE template specialisation for integers, since there is no FP
+  /// precision issue.
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_integral<NUM>::value, bool>::type
+    isZero(NUM val, double UNUSED(tolerance)=1e-8) {
+    return val == 0;
+  }
+
+
   /// @brief Compare two numbers for equality with a degree of fuzziness
   ///
-  /// The @a tolerance parameter is fractional, based on absolute values of the args.
+  /// This version for floating point types (if any argument is FP) has a degree
+  /// of fuzziness expressed by the fractional @a tolerance parameter, for
+  /// floating point safety.
   template <typename N1, typename N2>
   inline typename boost::enable_if_c<
-    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value, bool>::type
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value &&
+   (boost::is_floating_point<N1>::value || boost::is_floating_point<N2>::value), bool>::type
   fuzzyEquals(N1 a, N2 b, double tolerance=1e-5) {
     const double absavg = (fabs(a) + fabs(b))/2.0;
     const double absdiff = fabs(a - b);
     const bool rtn = (isZero(a) && isZero(b)) || absdiff < tolerance*absavg;
     return rtn;
+  }
+
+  /// @brief Compare two numbers for equality with a degree of fuzziness
+  ///
+  /// Simpler SFINAE template specialisation for integers, since there is no FP
+  /// precision issue.
+  template <typename N1, typename N2>
+  inline typename boost::enable_if_c<
+    boost::is_integral<N1>::value && boost::is_integral<N2>::value, bool>::type
+  fuzzyEquals(N1 a, N2 b, double UNUSED(tolerance)=1e-5) {
+    return a == b;
   }
 
 
