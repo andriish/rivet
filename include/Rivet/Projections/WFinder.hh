@@ -29,6 +29,31 @@ namespace Rivet {
 
     /// Constructor taking single eta/pT bounds
     ///
+    /// @param etaMin,etaMax,pTmin charged lepton cuts
+    /// @param pid type of the charged lepton
+    /// @param minmass,maxmass (transverse) mass window
+    /// @param missingET minimal amount of missing ET (neutrinos) required
+    /// @param dRmax maximum dR of photons around charged lepton to take into account
+    ///  for W reconstruction (only relevant if one of the following are true)
+    /// @param clusterPhotons whether such photons are supposed to be
+    ///  clustered to the lepton object and thus W mom
+    /// @param trackPhotons whether such photons should be added to _theParticles
+    /// @param masstype whether mass window should be applied using m or mT
+    WFinder(double etaMin, double etaMax,
+            double pTmin,
+            PdgId pid,
+            double minmass, double maxmass,
+            double missingET,
+            double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+      vector<pair<double, double> > etaRanges;
+      etaRanges += std::make_pair(etaMin, etaMax);
+      _init(FinalState(), etaRanges, pTmin, pid, minmass, maxmass, missingET,
+            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+    }
+
+    /// Constructor taking single eta/pT bounds and an input FS
+    ///
     /// @param inputfs Input final state
     /// @param etaMin,etaMax,pTmin charged lepton cuts
     /// @param pid type of the charged lepton
@@ -57,6 +82,30 @@ namespace Rivet {
 
     /// Constructor taking multiple eta/pT bounds
     ///
+    /// @param etaRanges,pTmin charged lepton cuts
+    /// @param pid type of the charged lepton
+    /// @param minmass,maxmass (transverse) mass window
+    /// @param missingET minimal amount of missing ET (neutrinos) required
+    /// @param dRmax maximum dR of photons around charged lepton to take into account
+    ///  for W reconstruction (only relevant if one of the following are true)
+    /// @param clusterPhotons whether such photons are supposed to be
+    ///  clustered to the lepton object and thus W mom
+    /// @param trackPhotons whether such photons should be added to _theParticles
+    /// @param masstype whether mass window should be applied using mT
+    WFinder(const vector<pair<double, double> >& etaRanges,
+            double pTmin,
+            PdgId pid,
+            double minmass, double maxmass,
+            double missingET,
+            double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
+            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+      _init(FinalState(), etaRanges, pTmin, pid, minmass, maxmass, missingET,
+            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+    }
+
+
+    /// Constructor taking multiple eta/pT bounds and an input FS
+    ///
     /// @param inputfs Input final state
     /// @param etaRanges,pTmin charged lepton cuts
     /// @param pid type of the charged lepton
@@ -80,45 +129,13 @@ namespace Rivet {
             dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
     }
 
-
-    // /// @deprecated Compatibility constructor for boolean clustering args
-    // WFinder(const FinalState& inputfs,
-    //         double etaMin, double etaMax,
-    //         double pTmin,
-    //         PdgId pid,
-    //         double minmass, double maxmass,
-    //         double missingET,
-    //         double dRmax=0.1, bool clusterPhotons=true, bool trackPhotons=false,
-    //         double masstarget=80.4*GeV, bool useTransMass=false) {
-    //   vector<pair<double, double> > etaRanges;
-    //   etaRanges += std::make_pair(etaMin, etaMax);
-    //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET, dRmax,
-    //         (clusterPhotons ? CLUSTERNODECAY : NOCLUSTER),
-    //         (trackPhotons ? TRACK : NOTRACK), masstarget,
-    //         (useTransMass ? TRANSMASS : MASS));
-    // }
-
-    // /// @deprecated Compatibility constructor for boolean clustering args
-    // WFinder(const FinalState& inputfs,
-    //         const vector<pair<double, double> >& etaRanges,
-    //         double pTmin,
-    //         PdgId pid,
-    //         double minmass, double maxmass,
-    //         double missingET,
-    //         double dRmax=0.1, bool clusterPhotons=true, bool trackPhotons=false,
-    //         double masstarget=80.4*GeV, bool useTransMass=false) {
-    //   _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET, dRmax,
-    //         (clusterPhotons ? CLUSTERNODECAY : NOCLUSTER),
-    //         (trackPhotons ? TRACK : NOTRACK), masstarget,
-    //         (useTransMass ? TRANSMASS : MASS));
-    // }
-
-
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new WFinder(*this);
     }
+
     //@}
+
 
     /// Access to the found bosons
     ///
