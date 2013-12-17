@@ -135,6 +135,12 @@ namespace Rivet {
       return vector3().eta();
     }
 
+    /// Get the \f$ |\eta| \f$ directly.
+    double abspseudorapidity() const { return fabs(eta()); }
+
+    /// Get the \f$ |\eta| \f$ directly (alias).
+    double abseta() const { return fabs(eta()); }
+
     /// Get the spatial part of the 4-vector as a 3-vector.
     Vector3 vector3() const {
       return Vector3(get(1), get(2), get(3));
@@ -315,6 +321,16 @@ namespace Rivet {
   }
 
 
+  /// Calculate absolute pseudorapidity of a Lorentz vector.
+  inline double abspseudorapidity(const FourVector& v) {
+    return v.abspseudorapidity();
+  }
+  /// Synonym for absolute pseudorapidity.
+  inline double abseta(const FourVector& v) {
+    return v.abseta();
+  }
+
+
 
   ////////////////////////////////////////////////
 
@@ -399,6 +415,21 @@ namespace Rivet {
     /// Calculate the rapidity.
     double rapidity() const {
       return 0.5 * std::log( (E() + pz()) / (E() - pz()) );
+    }
+
+    /// Alias for rapidity.
+    double rap() const {
+      return rapidity();
+    }
+
+    /// Absolute rapidity.
+    double absrapidity() const {
+      return fabs(rapidity());
+    }
+
+    /// Absolute rapidity.
+    double absrap() const {
+      return fabs(rap());
     }
 
     /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
@@ -548,6 +579,21 @@ namespace Rivet {
   /// Calculate the rapidity of a momentum 4-vector.
   inline double rapidity(const FourMomentum& v) {
     return v.rapidity();
+  }
+
+  /// Calculate the rapidity of a momentum 4-vector.
+  inline double rap(const FourMomentum& v) {
+    return v.rap();
+  }
+
+  /// Calculate the absolute rapidity of a momentum 4-vector.
+  inline double absrapidity(const FourMomentum& v) {
+    return v.absrapidity();
+  }
+
+  /// Calculate the absolute rapidity of a momentum 4-vector.
+  inline double absrap(const FourMomentum& v) {
+    return v.absrap();
   }
 
   /// Calculate the squared transverse momentum \f$ p_T^2 \f$ of a momentum 4-vector.
@@ -739,14 +785,7 @@ namespace Rivet {
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourVector& a, const FourMomentum& b,
                        RapScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY:
-      return deltaR(a.vector3(), b.vector3());
-    case RAPIDITY:
-      return deltaR(FourMomentum(a).rapidity(), a.azimuthalAngle(), b.rapidity(), b.azimuthalAngle());
-    default:
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
+    return deltaR(b, a, scheme);
   }
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a

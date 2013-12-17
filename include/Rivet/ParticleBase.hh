@@ -56,24 +56,27 @@ namespace Rivet {
     /// Get the \f$ \eta \f$ directly (alias).
     double eta() const { return momentum().eta(); }
     /// Get the \f$ |\eta| \f$ directly.
-    double abspseudorapidity() const { return fabs(momentum().eta()); }
+    double abspseudorapidity() const { return momentum().abspseudorapidity(); }
     /// Get the \f$ |\eta| \f$ directly (alias).
-    double abseta() const { return fabs(momentum().eta()); }
+    double abseta() const { return momentum().abseta(); }
 
     /// Get the \f$ y \f$ directly.
     double rapidity() const { return momentum().rapidity(); }
     /// Get the \f$ y \f$ directly (alias).
     double rap() const { return momentum().rapidity(); }
     /// Get the \f$ |y| \f$ directly.
-    double absrapidity() const { return fabs(momentum().rapidity()); }
+    double absrapidity() const { return momentum().absrapidity(); }
     /// Get the \f$ |y| \f$ directly (alias).
-    double absrap() const { return fabs(momentum().rapidity()); }
+    double absrap() const { return momentum().absrap(); }
 
     /// Get the \f$ \phi \f$ directly.
     double phi() const { return momentum().phi(); }
 
     //@}
 
+
+    /// Cast operator for conversion to FourMomentum
+    operator FourMomentum() const { return momentum(); }
 
 
     /// Struct for sorting by increasing transverse momentum in STL set, sort, etc.
@@ -152,7 +155,6 @@ namespace Rivet {
         return (*this)(*left, *right);
       }
     };
-
 
   };
 
