@@ -79,7 +79,20 @@ namespace Rivet {
       return PID::threeCharge(pdgId());
     }
 
-    /// @todo Add isHadron, etc. PID-based properties as methods?
+    /// Is this a hadron?
+    bool isHadron() const { return PID::isHadron(pdgId()); }
+
+    /// Is this a meson?
+    bool isMeson() const { return PID::isMeson(pdgId()); }
+
+    /// Is this a baryon?
+    bool isBaryon() const { return PID::isBaryon(pdgId()); }
+
+    /// Is this a lepton?
+    bool isLepton() const { return PID::isLepton(pdgId()); }
+
+    /// Is this a neutrino?
+    bool isNeutrino() const { return PID::isNeutrino(pdgId()); }
 
     //@}
 

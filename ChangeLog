@@ -1,5 +1,8 @@
 2013-12-17  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding isNeutrino to ParticleIdUtils, and
+	isHadron/isMeson/isBaryon/isLepton/isNeutrino methods to Particle.
+
 	* Adding a FourMomentum cast operator to ParticleBase, so that
 	Particle and Jet objects can be used directly as FourMomentums.
 
