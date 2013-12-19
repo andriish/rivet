@@ -1,5 +1,7 @@
 2013-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding pid() and abspid() methods to Particle.
+
 	* Adding hasCharm and hasBottom methods to Particle.
 
 	* Adding a sorting functor arg version of the ZFinder::constituents() method.

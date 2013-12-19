@@ -68,12 +68,23 @@ namespace Rivet {
       return *this;
     }
 
+    //@}
+
+
+    /// @name Particle ID code accessors
+    //@{
+
     /// This Particle's PDG ID code.
-    PdgId pdgId() const {
-      return _id;
-    }
+    PdgId pid() const { return _id; }
+    /// Absolute value of the PDG ID code.
+    PdgId abspid() const { return _id; }
+    /// This Particle's PDG ID code (alias).
+    /// @deprecatedThe pid/abspid form is nicer (don't need to remember
+    ///    lower/upper case, doesn't visually stick out in the code, etc. ...)
+    PdgId pdgId() const { return _id; }
 
     //@}
+
 
     /// @name Particle species properties
     //@{
