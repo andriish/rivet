@@ -140,6 +140,16 @@ namespace Rivet {
     /// the negative one second.
     const Particles& constituents() const { return _constituents; }
 
+    /// Access to the Z constituent clustered leptons, sorted by a comparison functor
+    ///
+    /// Unlike the no-arg version, this returns by value (i.e. is less efficient)
+    template <typename CMP>
+    Particles constituents(const CMP& cmp) const {
+      Particles rtn = constituents();
+      std::sort(rtn.begin(), rtn.end(), cmp);
+      return rtn;
+    }
+
     /// Access to the particles other than the Z leptons and clustered photons
     ///
     /// Useful for e.g. input to a jet finder

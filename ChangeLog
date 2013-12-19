@@ -1,5 +1,7 @@
 2013-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding a sorting functor arg version of the ZFinder::constituents() method.
+
 	* Adding pTmin cut accessors to HeavyHadrons.
 
 	* Tweak to the WFinder constructor to place the target W (trans) mass argument last.
