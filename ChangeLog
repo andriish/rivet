@@ -1,3 +1,7 @@
+2013-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tweak to the WFinder constructor to place the target W (trans) mass argument last.
+
 2013-12-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a GenParticle* cast operator to Particle, removing the

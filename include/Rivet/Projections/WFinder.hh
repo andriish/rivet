@@ -45,11 +45,11 @@ namespace Rivet {
             double minmass, double maxmass,
             double missingET,
             double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
-            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+            MassWindow masstype=MASS, double masstarget=80.4*GeV) {
       vector<pair<double, double> > etaRanges;
       etaRanges += std::make_pair(etaMin, etaMax);
       _init(FinalState(), etaRanges, pTmin, pid, minmass, maxmass, missingET,
-            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+            dRmax, clusterPhotons, trackPhotons, masstype, masstarget);
     }
 
     /// Constructor taking single eta/pT bounds and an input FS
@@ -72,11 +72,11 @@ namespace Rivet {
             double minmass, double maxmass,
             double missingET,
             double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
-            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+            MassWindow masstype=MASS, double masstarget=80.4*GeV) {
       vector<pair<double, double> > etaRanges;
       etaRanges += std::make_pair(etaMin, etaMax);
       _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+            dRmax, clusterPhotons, trackPhotons, masstype, masstarget);
     }
 
 
@@ -98,9 +98,9 @@ namespace Rivet {
             double minmass, double maxmass,
             double missingET,
             double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
-            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+            MassWindow masstype=MASS, double masstarget=80.4*GeV) {
       _init(FinalState(), etaRanges, pTmin, pid, minmass, maxmass, missingET,
-            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+            dRmax, clusterPhotons, trackPhotons, masstype, masstarget);
     }
 
 
@@ -124,9 +124,9 @@ namespace Rivet {
             double minmass, double maxmass,
             double missingET,
             double dRmax=0.1, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
-            double masstarget=80.4*GeV, MassWindow masstype=MASS) {
+            MassWindow masstype=MASS, double masstarget=80.4*GeV) {
       _init(inputfs, etaRanges, pTmin, pid, minmass, maxmass, missingET,
-            dRmax, clusterPhotons, trackPhotons, masstarget, masstype);
+            dRmax, clusterPhotons, trackPhotons, masstype, masstarget);
     }
 
     /// Clone on the heap.
@@ -209,7 +209,7 @@ namespace Rivet {
                double minmass, double maxmass,
                double missingET,
                double dRmax, ClusterPhotons clusterPhotons=CLUSTERNODECAY, PhotonTracking trackPhotons=NOTRACK,
-               double masstarget=80.4*GeV, MassWindow masstype=MASS);
+               MassWindow masstype=MASS, double masstarget=80.4*GeV);
 
 
   private:

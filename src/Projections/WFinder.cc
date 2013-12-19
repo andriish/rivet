@@ -19,8 +19,8 @@ namespace Rivet {
                       double dRmax,
                       ClusterPhotons clusterPhotons,
                       PhotonTracking trackPhotons,
-                      double masstarget,
-                      MassWindow masstype) {
+                      MassWindow masstype,
+                      double masstarget) {
     setName("WFinder");
 
     _minmass = minmass;
