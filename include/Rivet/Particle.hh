@@ -102,6 +102,15 @@ namespace Rivet {
     /// Is this a neutrino?
     bool isNeutrino() const { return PID::isNeutrino(pdgId()); }
 
+    /// Does this (hadron) contain a b quark?
+    bool hasBottom() const { return PID::hasBottom(pdgId()); }
+
+    /// Does this (hadron) contain a c quark?
+    bool hasCharm() const { return PID::hasCharm(pdgId()); }
+
+    // /// Does this (hadron) contain an s quark?
+    // bool hasStrange() const { return PID::hasStrange(pdgId()); }
+
     //@}
 
 
@@ -125,15 +134,12 @@ namespace Rivet {
     /// experimental analyses!
     bool fromDecay() const;
 
-    // /// @brief Determine whether the particle is from a s-hadron decay
-    // ///
-    // /// @note If a hadron contains b or c quarks as well as strange it is
-    // /// considered a b or c hadron, but NOT a strange hadron.
-    // ///
-    // /// @note This question is valid in MC, but may not be perfectly answerable
-    // /// experimentally -- use this function with care when replicating
-    // /// experimental analyses!
-    // bool fromStrange() const;
+    /// @brief Determine whether the particle is from a b-hadron decay
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromBottom() const;
 
     /// @brief Determine whether the particle is from a c-hadron decay
     ///
@@ -145,12 +151,15 @@ namespace Rivet {
     /// experimental analyses!
     bool fromCharm() const;
 
-    /// @brief Determine whether the particle is from a b-hadron decay
-    ///
-    /// @note This question is valid in MC, but may not be perfectly answerable
-    /// experimentally -- use this function with care when replicating
-    /// experimental analyses!
-    bool fromBottom() const;
+    // /// @brief Determine whether the particle is from a s-hadron decay
+    // ///
+    // /// @note If a hadron contains b or c quarks as well as strange it is
+    // /// considered a b or c hadron, but NOT a strange hadron.
+    // ///
+    // /// @note This question is valid in MC, but may not be perfectly answerable
+    // /// experimentally -- use this function with care when replicating
+    // /// experimental analyses!
+    // bool fromStrange() const;
 
     /// @brief Determine whether the particle is from a tau decay
     ///
