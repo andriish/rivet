@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/HeavyHadrons.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
 
 namespace Rivet {
@@ -18,10 +19,10 @@ namespace Rivet {
     void init() {
       FinalState fs(-3.5, 3.5);
       addProjection(fs, "FinalState");
-
       FastJets fj(fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();
       addProjection(fj, "Jets");
+      addProjection(HeavyHadrons(-3.5, 3.5, 5*GeV), "BHadrons");
 
       double ybins[] = { 0.0, 0.3, 0.8, 1.2, 2.1 };
       for (size_t i = 0; i < 4; ++i)
@@ -43,47 +44,30 @@ namespace Rivet {
     void analyze(const Event& evt) {
       const double weight = evt.weight();
 
-      // Finding all b-hadrons within event
-      /// @todo Rewrite via UnstableFinalState or HeavyHadrons
-      vector<HepMC::GenParticle*> bHadrons;
-      vector<HepMC::GenParticle*> allParticles = particles(evt.genEvent());
-      foreach (HepMC::GenParticle* p, allParticles) {
-        if ( !Rivet::PID::isHadron(p->pdg_id()) || !Rivet::PID::hasBottom(p->pdg_id()) ) continue;
-        if ( p->momentum().perp() < 5*GeV ) continue;
-        bHadrons.push_back(p);
-      }
-
-      const Jets jets = applyProjection<JetAlg>(evt, "Jets").jetsByPt(15.0*GeV);
+      const Particles& bHadrons = applyProjection<HeavyHadrons>(evt, "BHadrons").bHadrons();
+      const Jets& jets = applyProjection<JetAlg>(evt, "Jets").jetsByPt(15*GeV);
 
       FourMomentum leadingJet, subleadingJet;
       int leadJet = 0, subJet = 0;
       foreach (const Jet& j, jets) {
-        const FourMomentum jet = j.momentum();
         bool hasB = false;
-        /// @todo Convert this to Rivet Particle
-        foreach (HepMC::GenParticle* bgp, bHadrons) {
-          HepMC::FourVector b = bgp->momentum();
-          double dR = deltaR(jet.eta(), jet.phi(), b.eta(), b.phi());
-          if (dR < 0.3) {
-            hasB = true;
-            break;
-          }
-        }
+        foreach (const Particle& b, bHadrons)
+          if (deltaR(j, b) < 0.3) { hasB = true; break; }
 
         // Identify and classify the leading and subleading jets
-        if (fabs(jet.rapidity()) < 2.1) { //< Move this into the jets defn
+        if (j.absrap() < 2.1) { //< Move this into the jets defn
           if (!leadJet) {
-            leadingJet = jet;
-            leadJet = (hasB && jet.pT() > 40*GeV) ? 2 : 1;
+            leadingJet = j.momentum();
+            leadJet = (hasB && j.pT() > 40*GeV) ? 2 : 1;
           }
           if (leadJet && !subJet) {
-            subleadingJet = jet;
-            subJet = (hasB && jet.pT() > 40*GeV) ? 2 : 1;
+            subleadingJet = j.momentum();
+            subJet = (hasB && j.pT() > 40*GeV) ? 2 : 1;
           }
           if (hasB) {
-            _bjetpT_SV0.fill(fabs(jet.rapidity()), jet.pT()/GeV, weight);
-            _bjetpT_SV0_All->fill(jet.pT()/GeV, weight);
-            _bjetpT_pTRel->fill(jet.pT()/GeV, weight);
+            _bjetpT_SV0.fill(j.absrap(), j.pT()/GeV, weight);
+            _bjetpT_SV0_All->fill(j.pT()/GeV, weight);
+            _bjetpT_pTRel->fill(j.pT()/GeV, weight);
           }
         }
       }
