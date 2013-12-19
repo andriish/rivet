@@ -162,7 +162,7 @@ namespace Rivet {
 
   /// Return a/b, or @a fail if b = 0
   /// @todo When std::common_type can be used, generalise to multiple numeric types with appropriate return type.
-  inline double divide(double num, double den, double fail=0.0) {
+  inline double safediv(double num, double den, double fail=0.0) {
     return (!isZero(den)) ? num/den : fail;
   }
 
