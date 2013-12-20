@@ -136,6 +136,7 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2011_S9088458.cc \
     CMS_2011_S9120041.cc \
     CMS_2011_S9215166.cc \
+    CMS_2012_I941555.cc  \
     CMS_2011_I954992.cc  \
     CMS_2012_I1087342.cc \
     CMS_2012_I1102908.cc \
