@@ -18,12 +18,12 @@
 namespace Rivet {
 
 
-  class CMS_2012_PAS_FWD_11_003 : public Analysis {
+  class CMS_2013_I1218372 : public Analysis {
   public:
 
   /// Constructor
-  CMS_2012_PAS_FWD_11_003()
-    : Analysis("CMS_2012_PAS_FWD_11_003")
+  CMS_2013_I1218372()
+    : Analysis("CMS_2013_I1218372")
     { }
 
     void init() {
@@ -159,6 +159,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CMS_2012_PAS_FWD_11_003);
+  DECLARE_RIVET_PLUGIN(CMS_2013_I1218372);
 
 }

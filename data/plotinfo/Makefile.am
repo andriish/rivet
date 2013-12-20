@@ -142,7 +142,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I1107658.plot \
   CMS_2012_I1184941.plot \
   CMS_2012_I1193338.plot \
-  CMS_2012_PAS_FWD_11_003.plot \
+  CMS_2013_I1218372.plot \
   CMS_2012_PAS_QCD_11_010.plot \
   CMS_QCD_10_024.plot \
   CMS_2013_I1224539_DIJET.plot \

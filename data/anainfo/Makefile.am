@@ -146,7 +146,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I1107658.info \
   CMS_2012_I1184941.info \
   CMS_2012_I1193338.info \
-  CMS_2012_PAS_FWD_11_003.info \
+  CMS_2013_I1218372.info \
   CMS_2012_PAS_QCD_11_010.info \
   CMS_QCD_10_024.info \
   CMS_2013_I1224539_DIJET.info \
