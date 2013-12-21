@@ -95,9 +95,6 @@ namespace Rivet {
         mj.setZ(0);
         momenta.push_back(mj);
       }
-      // // If necessary, add a ghost so that Thrust.calc() doesn't return exactly 1, since we take log(1-T)
-      // if (momenta.size() < 3)
-      //   momenta.push_back(Vector3(1e-7, 1e-7, 0));
 
       // Define a macro to appropriately fill both unboosted and boosted histo versions
       #define FILLx2(HNAME, VAL) do { double x = VAL; for (size_t i = 0; i < 2; ++i) { \
