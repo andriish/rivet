@@ -34,7 +34,6 @@ libRivetAnalysisTools_la_SOURCES = \
 ## 1.5.0. Obsolete analyses will not be available if Rivet is built with the
 ## --disable-obsolete configure flag.
 
-
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
     ALICE_2010_S8624100.cc \
@@ -143,6 +142,7 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2012_I1107658.cc \
     CMS_2012_I1184941.cc \
     CMS_2012_I1193338.cc \
+    CMS_2013_I1209721.cc \
     CMS_2013_I1218372.cc \
     CMS_2013_I1224539_DIJET.cc \
 	CMS_2013_I1224539_WJET.cc \
