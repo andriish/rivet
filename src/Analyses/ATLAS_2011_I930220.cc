@@ -60,7 +60,7 @@ namespace Rivet {
             leadingJet = j.momentum();
             leadJet = (hasB && j.pT() > 40*GeV) ? 2 : 1;
           }
-          if (leadJet && !subJet) {
+          else if (leadJet && !subJet) {
             subleadingJet = j.momentum();
             subJet = (hasB && j.pT() > 40*GeV) ? 2 : 1;
           }
