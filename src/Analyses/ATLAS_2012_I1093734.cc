@@ -229,7 +229,7 @@ namespace Rivet {
         _s_NchCorr_vsEta[ipt]->point(ieta).setYErr(error_on_slope(_vecsNchF[ipt][ieta], _vecsNchB[ipt][ieta], _vecWeight[ipt][ieta]));
         }
         // There is just one plot at 900 GeV so exit the loop here
-        if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3) && ipt > 0) break;
+        if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3) && ipt == 0) break;
       }
 
       if (!fuzzyEquals(sqrtS(),  900*GeV, 1e-3)) { //< No plots at 900 GeV
