@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#ifndef RIVET_Sphericity_HH
+#ifndef RIVET_FParameter_HH
 #define RIVET_FParameter_HH
 
 #include "Rivet/Projection.hh"
