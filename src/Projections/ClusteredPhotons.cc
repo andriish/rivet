@@ -19,7 +19,7 @@ namespace Rivet {
 
   void ClusteredPhotons::project(const Event& e) {
     _theParticles.clear();
-    if (!_dRmax > 0.0) return;
+    if (_dRmax <= 0.0) return;
 
     const FinalState& photons = applyProjection<FinalState>(e, "Photons");
     const FinalState& signal = applyProjection<FinalState>(e, "Signal");
