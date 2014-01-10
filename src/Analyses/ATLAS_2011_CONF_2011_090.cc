@@ -246,7 +246,7 @@ namespace Rivet {
 	    lepton.push_back(e);
       }
 
-      std::sort(lepton.begin(), lepton.end(), cmpParticleByPt);
+      std::sort(lepton.begin(), lepton.end(), cmpMomByPt);
 
       double e_id = 11;
       double mu_id = 13;

@@ -11,14 +11,12 @@ namespace Rivet {
   /// @author Gavin Hesketh
   /// @author Frank Siegert
   class D0_2008_S7554427 : public Analysis {
-
   public:
 
     /// Default constructor.
-    D0_2008_S7554427() : Analysis("D0_2008_S7554427")
-    {
-      // Run II Z pT
-    }
+    D0_2008_S7554427()
+      : Analysis("D0_2008_S7554427")
+    {    }
 
 
     /// @name Analysis methods
@@ -28,7 +26,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
-                      40.0*GeV, 200.0*GeV, 0.2, true, true);
+                      40*GeV, 200*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 
       _h_ZpT         = bookHisto1D(1, 1, 1);
@@ -36,26 +34,21 @@ namespace Rivet {
     }
 
 
-
     /// Do the analysis
-    void analyze(const Event & e) {
+    void analyze(const Event& e) {
       const double weight = e.weight();
 
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 1) {
-        double yZ = fabs(zfinder.bosons()[0].rapidity());
-        double pTZ = zfinder.bosons()[0].pT();
+        const double yZ = fabs(zfinder.bosons()[0].rapidity());
+        const double pTZ = zfinder.bosons()[0].pT();
         _h_ZpT->fill(pTZ, weight);
-        if (yZ > 2.0) {
-          _h_forward_ZpT->fill(pTZ, weight);
-        }
-      }
-      else {
+        if (yZ > 2) _h_forward_ZpT->fill(pTZ, weight);
+      } else {
         MSG_DEBUG("No unique lepton pair found.");
       }
 
     }
-
 
 
     // Finalize

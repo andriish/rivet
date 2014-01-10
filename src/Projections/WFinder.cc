@@ -3,7 +3,7 @@
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
@@ -13,10 +13,11 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, double maxmass,
                    double missingET,
-                   double dRmax, bool clusterPhotons, bool trackPhotons,
-                   double masstarget,
-                   bool useTransverseMass)
-  {
+                   double dRmax,
+                   ClusterPhotons clusterPhotons,
+                   PhotonTracking trackPhotons,
+                   MassWindow masstype,
+                   double masstarget) {
     setName("WFinder");
 
     _minmass = minmass;
@@ -24,7 +25,7 @@ namespace Rivet {
     _masstarget = masstarget;
     _pid = pid;
     _trackPhotons = trackPhotons;
-    _useTransverseMass = useTransverseMass;
+    _useTransverseMass = (masstype == MASS);
 
     // Check that the arguments are legal
     assert(abs(_pid) == PID::ELECTRON || abs(_pid) == PID::MUON);
@@ -39,9 +40,10 @@ namespace Rivet {
     // Lepton clusters
     IdentifiedFinalState bareleptons(inputfs);
     bareleptons.acceptIdPair(pid);
-    LeptonClusters leptons(inputfs, bareleptons, dRmax,
-                           clusterPhotons, fsCut); //etaRanges, pTmin);
-    addProjection(leptons, "LeptonClusters");
+    const bool doClustering = (clusterPhotons != NOCLUSTER);
+    const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
+    DressedLeptons leptons(inputfs, bareleptons, dRmax, doClustering, fsCut, useDecayPhotons);
+    addProjection(leptons, "DressedLeptons");
 
     // Add MissingMomentum proj to calc MET
     MissingMomentum vismom(inputfs);
@@ -62,8 +64,9 @@ namespace Rivet {
     return getProjection<FinalState>("RFS");
   }
 
+
   int WFinder::compare(const Projection& p) const {
-    PCmp LCcmp = mkNamedPCmp(p, "LeptonClusters");
+    PCmp LCcmp = mkNamedPCmp(p, "DressedLeptons");
     if (LCcmp != EQUIVALENT) return LCcmp;
 
     const WFinder& other = dynamic_cast<const WFinder&>(p);
@@ -77,7 +80,7 @@ namespace Rivet {
   void WFinder::project(const Event& e) {
     clear();
 
-    const LeptonClusters& leptons = applyProjection<LeptonClusters>(e, "LeptonClusters");
+    const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
     const FinalState& neutrinos = applyProjection<FinalState>(e, "Neutrinos");
 
     // Make and register an invariant mass final state for the W decay leptons
@@ -96,7 +99,7 @@ namespace Rivet {
     ParticlePair Wconstituents(imfs.particlePairs()[0]);
     Particle p1(Wconstituents.first), p2(Wconstituents.second);
 
-    if (PID::threeCharge(p1)==0) {
+    if (PID::threeCharge(p1) == 0) {
       _constituentLeptons += p2;
       _constituentNeutrinos += p1;
     } else {
@@ -130,18 +133,17 @@ namespace Rivet {
     const PdgId wpid = (wcharge == 1) ? PID::WPLUSBOSON : PID::WMINUSBOSON;
     _bosons.push_back(Particle(wpid, pW));
 
-    // Find the LeptonClusters and neutrinos which survived the IMFS cut such that we can
+    // Find the DressedLeptons and neutrinos which survived the IMFS cut such that we can
     // extract their original particles
     foreach (const Particle& p, _constituentNeutrinos) {
       _theParticles.push_back(p);
     }
     foreach (const Particle& p, _constituentLeptons) {
       foreach (const ClusteredLepton& l, leptons.clusteredLeptons()) {
-        if (p.pdgId()==l.pdgId() && p.momentum()==l.momentum()) {
+        if (p.pdgId() == l.pdgId() && p.momentum() == l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
-            _theParticles.insert(_theParticles.end(),
-                                 l.constituentPhotons().begin(), l.constituentPhotons().end());
+            _theParticles.insert(_theParticles.end(), l.constituentPhotons().begin(), l.constituentPhotons().end());
           }
         }
       }

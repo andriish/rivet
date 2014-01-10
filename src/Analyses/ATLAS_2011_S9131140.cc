@@ -30,16 +30,13 @@ namespace Rivet {
       FinalState fs;
       Cut cut = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
 
-      ZFinder zfinder_dressed_el(fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      ZFinder zfinder_dressed_el(fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_dressed_el, "ZFinder_dressed_el");
-
-      ZFinder zfinder_bare_el(fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.0, true, false);
+      ZFinder zfinder_bare_el(fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.0, ZFinder::NOCLUSTER);
       addProjection(zfinder_bare_el, "ZFinder_bare_el");
-
-      ZFinder zfinder_dressed_mu(fs, cut, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      ZFinder zfinder_dressed_mu(fs, cut, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_dressed_mu, "ZFinder_dressed_mu");
-
-      ZFinder zfinder_bare_mu(fs, cut, PID::MUON, 66.0*GeV, 116.0*GeV, 0.0, true, false);
+      ZFinder zfinder_bare_mu(fs, cut, PID::MUON, 66.0*GeV, 116.0*GeV, 0.0, ZFinder::NOCLUSTER);
       addProjection(zfinder_bare_mu, "ZFinder_bare_mu");
 
       // Book histograms

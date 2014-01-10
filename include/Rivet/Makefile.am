@@ -32,11 +32,11 @@ nobase_pkginclude_HEADERS +=   \
   Projections/CentralEtHCM.hh   \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
-  Projections/ClusteredPhotons.hh \
   Projections/ConstLossyFinalState.hh \
   Projections/DISFinalState.hh  \
   Projections/DISKinematics.hh  \
   Projections/DISLepton.hh      \
+  Projections/DressedLeptons.hh \
   Projections/FastJets.hh       \
   Projections/FinalState.hh     \
   Projections/FoxWolframMoments.hh \
@@ -53,7 +53,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
   Projections/LeadingParticlesFinalState.hh \
-  Projections/LeptonClusters.hh \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
   Projections/MissingMomentum.hh \

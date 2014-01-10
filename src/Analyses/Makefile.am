@@ -34,7 +34,6 @@ libRivetAnalysisTools_la_SOURCES = \
 ## 1.5.0. Obsolete analyses will not be available if Rivet is built with the
 ## --disable-obsolete configure flag.
 
-
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
     ALICE_2010_S8624100.cc \
@@ -69,6 +68,7 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2011_I919017.cc \
     ATLAS_2011_I925932.cc \
     ATLAS_2011_I926145.cc \
+	ATLAS_2011_I930220.cc \
     ATLAS_2011_I944826.cc \
     ATLAS_2011_I945498.cc \
     ATLAS_2011_I954993.cc \
@@ -77,6 +77,7 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2012_I1084540.cc \
     ATLAS_2012_I1091481.cc \
     ATLAS_2012_I1093738.cc \
+    ATLAS_2012_I1094564.cc \
     ATLAS_2012_I1094568.cc \
     ATLAS_2012_I1112263.cc \
     ATLAS_2012_I1117704.cc \
@@ -86,8 +87,10 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2012_I1125961.cc \
     ATLAS_2012_I1183818.cc \
     ATLAS_2012_I1188891.cc \
+    ATLAS_2012_I1204784.cc \
     ATLAS_2013_I1217867.cc \
-    ATLAS_2013_I1230812.cc
+    ATLAS_2013_I1230812.cc \
+    ATLAS_2013_I1243871.cc
 if ENABLE_PRELIMINARY
 RivetATLASAnalyses_la_SOURCES += \
     ATLAS_2012_CONF_2012_001.cc
@@ -132,23 +135,30 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2011_S9088458.cc \
     CMS_2011_S9120041.cc \
     CMS_2011_S9215166.cc \
+    CMS_2012_I941555.cc  \
     CMS_2011_I954992.cc  \
     CMS_2012_I1087342.cc \
     CMS_2012_I1102908.cc \
     CMS_2012_I1107658.cc \
     CMS_2012_I1184941.cc \
-    CMS_2012_I1193338.cc
+    CMS_2012_I1193338.cc \
+    CMS_2013_I1209721.cc \
+    CMS_2013_I1218372.cc \
+    CMS_2013_I1224539_DIJET.cc \
+	CMS_2013_I1224539_WJET.cc \
+	CMS_2013_I1224539_ZJET.cc \
+    CMS_2013_I1258128.cc
 if ENABLE_PRELIMINARY
 RivetCMSAnalyses_la_SOURCES += \
     CMS_QCD_10_024.cc \
-    CMS_2012_PAS_FWD_11_003.cc \
     CMS_2012_PAS_QCD_11_010.cc
 endif
 
 
 lib_LTLIBRARIES += RivetLHCbAnalyses.la
 RivetLHCbAnalyses_la_SOURCES = \
-    LHCB_2010_I867355.cc
+    LHCB_2010_I867355.cc \
+    LHCB_2013_I1218996.cc
 if ENABLE_UNVALIDATED
 RivetLHCbAnalyses_la_SOURCES += \
     LHCB_2010_S8758301.cc \

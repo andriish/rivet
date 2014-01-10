@@ -65,14 +65,13 @@ namespace Rivet {
 
       FinalState fs;
       Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
-      ZFinder zeefinder(fs, cut, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zeefinder(fs, cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2);
       addProjection(zeefinder, "ZeeFinder");
-      ZFinder zmmfinder(fs, cut, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zmmfinder(fs, cut, PID::MUON, 65*GeV, 115*GeV, 0.2);
       addProjection(zmmfinder, "ZmmFinder");
-
-      WFinder wefinder(fs, cut, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wefinder(fs, cut, PID::ELECTRON, 60*GeV, 100*GeV, 25*GeV, 0.2);
       addProjection(wefinder, "WeFinder");
-      WFinder wmfinder(fs, cut, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wmfinder(fs, cut, PID::MUON, 60*GeV, 100*GeV, 25*GeV, 0.2);
       addProjection(wmfinder, "WmFinder");
 
       addProjection(fs, "FinalState");
@@ -124,20 +123,13 @@ namespace Rivet {
 
       const ZFinder& zeefinder = applyProjection<ZFinder>(event, "ZeeFinder");
       const ZFinder& zmmfinder = applyProjection<ZFinder>(event, "ZmmFinder");
-
       const WFinder& wefinder = applyProjection<WFinder>(event, "WeFinder");
       const WFinder& wmfinder = applyProjection<WFinder>(event, "WmFinder");
-
-      Jets jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(JETPTCUT);
-
-      Particles vectorBosons = zeefinder.bosons();
-      /// @todo Don't we have a neater vector concatenation?
-      vectorBosons.insert(vectorBosons.end(), zmmfinder.bosons().begin(), zmmfinder.bosons().end());
-      vectorBosons.insert(vectorBosons.end(), wefinder.bosons().begin(), wefinder.bosons().end());
-      vectorBosons.insert(vectorBosons.end(), wmfinder.bosons().begin(), wmfinder.bosons().end());
-
+      const Particles vectorBosons = zeefinder.bosons() + zmmfinder.bosons() + wefinder.bosons() + wmfinder.bosons();
       _h_Z_multiplicity->fill(zeefinder.bosons().size() + zmmfinder.bosons().size(), weight);
       _h_W_multiplicity->fill(wefinder.bosons().size() + wmfinder.bosons().size(), weight);
+
+      const Jets jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(JETPTCUT);
       _h_jet_multiplicity->fill(jets.size(), weight);
 
       // Identify the b-jets

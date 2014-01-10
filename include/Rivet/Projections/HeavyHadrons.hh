@@ -42,14 +42,28 @@ namespace Rivet {
     /// @name Particle accessors
     //@{
 
-    /// Get the pre-decay b hadrons
+    /// Get the pre-decay b hadrons (return by reference)
     const Particles& bHadrons() const {
       return _theBs;
     }
 
-    /// Get the pre-decay c hadrons
+    /// Get pre-decay b hadrons with a pTmin cut (return by value)
+    Particles bHadrons(double pTmin) const {
+      Particles rtn;
+      foreach (const Particle& p, bHadrons()) rtn += p;
+      return rtn;
+    }
+
+    /// Get the pre-decay c hadrons (return by reference)
     const Particles& cHadrons() const {
       return _theCs;
+    }
+
+    /// Get the pre-decay c hadrons with a pTmin cut (return by value)
+    const Particles cHadrons(double pTmin) const {
+      Particles rtn;
+      foreach (const Particle& p, cHadrons()) rtn += p;
+      return rtn;
     }
 
     //@}

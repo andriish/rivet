@@ -11,14 +11,10 @@ namespace Rivet {
   class D0_2010_S8671338 : public Analysis {
   public:
 
-    /// @name Construction
-    //@{
-
     /// Constructor
-    D0_2010_S8671338() : Analysis("D0_2010_S8671338")
+    D0_2010_S8671338()
+      : Analysis("D0_2010_S8671338")
     {    }
-
-    //@}
 
 
     ///@name Analysis methods
@@ -26,9 +22,9 @@ namespace Rivet {
 
     /// Add projections and book histograms
     void init() {
-      FinalState fs;
       Cut cut = EtaIn(-1.7,1.7) & (Cuts::pT >= 15.0*GeV);
-      ZFinder zfinder(fs, cut, PID::MUON, 65.0*GeV, 115.0*GeV, 0.2, false, true);
+      ZFinder zfinder(FinalState(), cut, PID::MUON, 65*GeV, 115*GeV,
+                      0.2, ZFinder::NOCLUSTER, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 
       _h_Z_pT_normalised = bookHisto1D(1, 1, 1);
@@ -50,8 +46,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_h_Z_pT_normalised, 1.0);
-      scale(_h_Z_pT_xs, crossSectionPerEvent());
+      normalize(_h_Z_pT_normalised);
+      normalize(_h_Z_pT_xs, crossSection());
     }
 
     //@}

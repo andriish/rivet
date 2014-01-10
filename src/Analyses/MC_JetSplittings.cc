@@ -15,17 +15,16 @@ namespace Rivet {
   }
 
 
-
   // Book histograms
   void MC_JetSplittings::init() {
     for (size_t i = 0; i < m_njet; ++i) {
       string dname = "log10_d_" + to_str(i) + to_str(i+1);
-      _h_log10_d[i] = bookHisto1D(dname, 100, 0.2, log10(0.5*sqrtS()));
+      _h_log10_d[i] = bookHisto1D(dname, 100, 0.2, log10(0.5*sqrtS()/GeV));
       string Rname = "log10_R_" + to_str(i);
-      _h_log10_R[i] = bookScatter2D(Rname, 50, 0.2, log10(0.5*sqrtS()));
+      _h_log10_R[i] = bookScatter2D(Rname, 50, 0.2, log10(0.5*sqrtS()/GeV));
     }
     string Rname = "log10_R_" + to_str(m_njet);
-    _h_log10_R[m_njet] = bookScatter2D(Rname, 50, 0.2, log10(0.5*sqrtS()));
+    _h_log10_R[m_njet] = bookScatter2D(Rname, 50, 0.2, log10(0.5*sqrtS()/GeV));
   }
 
 
@@ -70,17 +69,18 @@ namespace Rivet {
 
   // Finalize
   void MC_JetSplittings::finalize() {
+    const double xsec_unitw = crossSection()/picobarn/sumOfWeights();
     for (size_t i = 0; i < m_njet; ++i) {
-      scale(_h_log10_d[i], crossSection()/sumOfWeights());
+      scale(_h_log10_d[i], xsec_unitw);
       for (size_t ibin = 0; ibin<_h_log10_R[i]->numPoints(); ++ibin) {
-        Point2D & dp = _h_log10_R[i]->point(ibin);
-        dp.setY(dp.y()*crossSection()/sumOfWeights());
+        Point2D& dp = _h_log10_R[i]->point(ibin);
+        dp.setY(dp.y()*xsec_unitw);
       }
     }
 
     for (size_t ibin = 0; ibin < _h_log10_R[m_njet]->numPoints(); ++ibin) {
-      Point2D & dp =_h_log10_R[m_njet]->point(ibin);
-      dp.setY(dp.y()*crossSection()/sumOfWeights());
+      Point2D& dp =_h_log10_R[m_njet]->point(ibin);
+      dp.setY(dp.y()*xsec_unitw);
     }
   }
 

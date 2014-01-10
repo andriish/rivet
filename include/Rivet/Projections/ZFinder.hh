@@ -8,7 +8,7 @@
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 
 namespace Rivet {
 
@@ -18,15 +18,17 @@ namespace Rivet {
   /// Chain together different projections as convenience for finding Z's
   /// from two leptons in the final state, including photon clustering.
   class ZFinder : public FinalState {
-
   public:
+
+    enum ClusterPhotons { NOCLUSTER=0, CLUSTERNODECAY=1, CLUSTERALL };
+    enum PhotonTracking { NOTRACK=0, TRACK=1 };
 
     /// @name Constructors
     //@{
 
-    /// Constructor taking single eta/pT bounds
+    /// Constructor taking cuts object
     /// @param inputfs Input final state
-    /// @param etaMin,etaMax,pTmin lepton cuts
+    /// @param cuts lepton cuts
     /// @param pid type of the leptons
     /// @param minmass,maxmass mass window
     /// @param dRmax maximum dR of photons around leptons to take into account
@@ -39,27 +41,47 @@ namespace Rivet {
             Cut cuts,
             PdgId pid,
             double minmass, double maxmass,
-            double dRmax, bool clusterPhotons, bool trackPhotons,
+            double dRmax=0.1, 
+            ClusterPhotons clusterPhotons=CLUSTERNODECAY, 
+            PhotonTracking trackPhotons=NOTRACK,
             double masstarget=91.2*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new ZFinder(*this);
     }
+
     //@}
 
 
-    /// Access to the found bosons (currently either 0 or 1)
+    /// Access to the found bosons
+    ///
+    /// @note Currently either 0 or 1 boson can be found.
     const Particles& bosons() const { return _bosons; }
 
-    /// Access to the Z constituent clustered leptons
-    /// (e.g. for more fine-grained cuts on the clustered leptons)
-    /// The order is going to be: positive charge constituent 1st, negative 2nd
-    const vector<Particle>& constituents() const { return _constituents; }
+    /// Access to the found boson (assuming it exists).
+    const Particle boson() const { return _bosons[0]; }
 
-    /// Access to the remaining particles, after the Z and clustered photons
-    /// have been removed from the full final state
-    /// (e.g. for running a jet finder on it)
+    /// Access to the Z constituent clustered leptons
+    ///
+    /// For example, to make more fine-grained cuts on the clustered leptons.
+    /// The positive charge constituent is first in the list (if not empty), and
+    /// the negative one second.
+    const Particles& constituents() const { return _constituents; }
+
+    /// Access to the Z constituent clustered leptons, sorted by a comparison functor
+    ///
+    /// Unlike the no-arg version, this returns by value (i.e. is less efficient)
+    template <typename CMP>
+    Particles constituents(const CMP& cmp) const {
+      Particles rtn = constituents();
+      std::sort(rtn.begin(), rtn.end(), cmp);
+      return rtn;
+    }
+
+    /// Access to the particles other than the Z leptons and clustered photons
+    ///
+    /// Useful for e.g. input to a jet finder
     const FinalState& remainingFinalState() const;
 
 
@@ -92,7 +114,7 @@ namespace Rivet {
     /// photons are to be excluded as well.
     /// (Yes, some experiments make a difference between clusterPhotons and
     /// trackPhotons!)
-    bool _trackPhotons;
+    PhotonTracking _trackPhotons;
 
     /// Lepton flavour
     PdgId _pid;

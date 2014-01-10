@@ -115,9 +115,9 @@ namespace Rivet {
 
     /// @name Multiplicities
     //@{
-    double _weightedTotalChargedPartNumLight;
-    double _weightedTotalChargedPartNumCharm;
-    double _weightedTotalChargedPartNumBottom;
+    //double _weightedTotalChargedPartNumLight;
+    //double _weightedTotalChargedPartNumCharm;
+    //double _weightedTotalChargedPartNumBottom;
     //@}
 
     /// @name Weights

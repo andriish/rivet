@@ -47,42 +47,42 @@ namespace Rivet {
 
     /// Get the final-state particles, ordered by decreasing \f$ p_T \f$.
     const Particles& particlesByPt() const {
-      return particles(cmpParticleByPt);
+      return particles(cmpMomByPt);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ p \f$.
     const Particles& particlesByP() const {
-      return particles(cmpParticleByP);
+      return particles(cmpMomByP);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E \f$.
     const Particles& particlesByE() const {
-      return particles(cmpParticleByE);
+      return particles(cmpMomByE);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E_T \f$.
     const Particles& particlesByEt() const {
-      return particles(cmpParticleByEt);
+      return particles(cmpMomByEt);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ \eta \f$.
     const Particles& particlesByEta() const {
-      return particles(cmpParticleByAscPseudorapidity);
+      return particles(cmpMomByAscPseudorapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |\eta| \f$.
     const Particles& particlesByModEta() const {
-      return particles(cmpParticleByAscAbsPseudorapidity);
+      return particles(cmpMomByAscAbsPseudorapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ y \f$.
     const Particles& particlesByRapidity() const {
-      return particles(cmpParticleByAscRapidity);
+      return particles(cmpMomByAscRapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |y| \f$.
     const Particles& particlesByModRapidity() const {
-      return particles(cmpParticleByAscAbsRapidity);
+      return particles(cmpMomByAscAbsRapidity);
     }
 
     /// Access the projected final-state particles.

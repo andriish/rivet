@@ -10,14 +10,12 @@ namespace Rivet {
   /// @author Gavin Hesketh
   /// @author Frank Siegert
   class D0_2007_S7075677 : public Analysis {
-
   public:
 
     /// Default constructor.
-    D0_2007_S7075677() : Analysis("D0_2007_S7075677")
-    {
-      // Run II Z rapidity
-    }
+    D0_2007_S7075677()
+      : Analysis("D0_2007_S7075677")
+    {    }
 
 
     /// @name Analysis methods
@@ -25,9 +23,8 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      FinalState fs;
-      ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
-                      71.0*GeV, 111.0*GeV, 0.2, true, true);
+      ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON,
+                      71*GeV, 111*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 
       _h_yZ = bookHisto1D(1, 1, 1);
@@ -41,12 +38,10 @@ namespace Rivet {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 1) {
         const Particles& el(zfinder.constituents());
-        if (el[0].pT() > 25.0*GeV || el[1].pT() > 25.0*GeV) {
-          double yZ = fabs(zfinder.bosons()[0].rapidity());
-          _h_yZ->fill(yZ, weight);
+        if (el[0].pT() > 25*GeV || el[1].pT() > 25*GeV) {
+          _h_yZ->fill(fabs(zfinder.bosons()[0].rapidity()), weight);
         }
-      }
-      else {
+      } else {
         MSG_DEBUG("No unique lepton pair found.");
       }
     }

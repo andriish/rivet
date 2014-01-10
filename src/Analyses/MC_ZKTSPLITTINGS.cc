@@ -23,7 +23,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
-      ZFinder zfinder(fs, cut, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zfinder(fs, cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
       FastJets jetpro(zfinder.remainingFinalState(), FastJets::KT, 0.6);
       addProjection(jetpro, "Jets");
@@ -36,9 +36,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-      if (zfinder.bosons().size()!=1) {
-        vetoEvent;
-      }
+      if (zfinder.bosons().size() != 1) vetoEvent;
 
       MC_JetSplittings::analyze(e);
     }

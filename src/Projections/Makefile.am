@@ -5,10 +5,10 @@ libRivetProjections_la_SOURCES = \
   ChargedFinalState.cc \
   ChargedLeptons.cc \
   CentralEtHCM.cc \
-  ClusteredPhotons.cc \
   DISFinalState.cc \
   DISKinematics.cc \
   DISLepton.cc \
+  DressedLeptons.cc \
   FastJets.cc \
   FinalState.cc \
   FoxWolframMoments.cc \
@@ -22,7 +22,6 @@ libRivetProjections_la_SOURCES = \
   JetAlg.cc \
   JetShape.cc \
   LeadingParticlesFinalState.cc \
-  LeptonClusters.cc \
   MergedFinalState.cc \
   MissingMomentum.cc \
   NeutralFinalState.cc \

@@ -22,7 +22,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      WFinder wfinder(fs, -3.5, 3.5, 25.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder(fs, EtaIn(-3.5, 3.5) & (Cuts::pT >= 25.0*GeV), PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder, "WFinder");
       FastJets jetpro(wfinder.remainingFinalState(), FastJets::KT, 0.6);
       addProjection(jetpro, "Jets");

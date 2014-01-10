@@ -196,8 +196,7 @@ namespace Rivet {
             break;
           }
         }
-        if ( away )
-          recon_mu.push_back( mu );
+        if ( away ) recon_mu.push_back( mu );
       }
 
       // pTmiss
@@ -211,9 +210,8 @@ namespace Rivet {
 
       // final jet filter
       Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets_2 ) {
-        if ( fabs( jet.eta() ) <= 2.8 )
-          recon_jets.push_back( jet );
+      foreach (const Jet& jet, cand_jets_2) {
+        if (jet.abseta() <= 2.8 ) recon_jets.push_back( jet );
       }
 
       // now only use recon_jets, recon_mu, recon_e
@@ -225,100 +223,90 @@ namespace Rivet {
       }
 
       // calculate H_T
-      double HT=0;
-      foreach ( const Jet& jet, recon_jets ) {
-        if ( jet.pT() > 40 * GeV )
-          HT += jet.pT() ;
+      double HT = 0;
+      foreach (const Jet& jet, recon_jets) {
+        if (jet.pT() > 40*GeV) HT += jet.pT() ;
       }
 
       // number of jets and deltaR
-      bool pass55DeltaR=true;
-      unsigned int njet55=0;
-      bool pass80DeltaR=true;
-      unsigned int njet80=0;
-      for (unsigned int ix=0;ix<recon_jets.size();++ix) {
-        if(recon_jets[ix].pT()>80.*GeV) ++njet80;
-        if(recon_jets[ix].pT()>55.*GeV) ++njet55;
-
-        for (unsigned int iy=ix+1;iy<recon_jets.size();++iy) {
-          if(recon_jets[ix].pT()>55.*GeV &&
-             recon_jets[iy].pT()>55.*GeV &&
-             deltaR(recon_jets[ix],recon_jets[iy]) <0.6 )
+      bool pass55DeltaR=true, pass80DeltaR=true;
+      size_t njet55=0, njet80=0;
+      for (size_t ix=0; ix < recon_jets.size(); ++ix) {
+        if (recon_jets[ix].pT() > 80*GeV) ++njet80;
+        if (recon_jets[ix].pT() > 55*GeV) ++njet55;
+        for (size_t iy = ix + 1; iy < recon_jets.size(); ++iy) {
+          if (recon_jets[ix].pT() > 55*GeV &&
+              recon_jets[iy].pT() > 55*GeV &&
+              deltaR(recon_jets[ix], recon_jets[iy]) < 0.6)
             pass55DeltaR = false;
-          if(recon_jets[ix].pT()>80.*GeV &&
-             recon_jets[iy].pT()>80.*GeV &&
-             deltaR(recon_jets[ix],recon_jets[iy]) <0.6 )
-            pass80DeltaR = false;
+          // if (recon_jets[ix].pT() > 80*GeV &&
+          //     recon_jets[iy].pT() > 80*GeV &&
+          //     deltaR(recon_jets[ix], recon_jets[iy]) < 0.6)
+          //   pass80DeltaR = false;
         }
       }
 
       // require at least four jets with et > 55
-      if(njet55<=3) vetoEvent;
+      if (njet55 <= 3) vetoEvent;
 
       // plots of etmiss/ht
       double etht = eTmiss/sqrt(HT);
-      if(njet55==6) {
+      if (njet55 == 6) {
         _etmisspT_55_NJ_6_obs->fill(etht,weight);
         _etmisspT_55_NJ_6_bac->fill(etht,weight);
         _etmisspT_55_NJ_6_sig->fill(etht,weight);
-      }
-      else if(njet55==7) {
+      } else if (njet55 == 7) {
         _etmisspT_55_NJ_7_obs->fill(etht,weight);
         _etmisspT_55_NJ_7_bac->fill(etht,weight);
         _etmisspT_55_NJ_7_sig->fill(etht,weight);
-      }
-      else if(njet55==8) {
+      } else if (njet55 == 8) {
         _etmisspT_55_NJ_8_obs->fill(etht,weight);
         _etmisspT_55_NJ_8_bac->fill(etht,weight);
         _etmisspT_55_NJ_8_sig->fill(etht,weight);
       }
-      if(njet80==5) {
+      if (njet80 == 5) {
         _etmisspT_80_NJ_5_obs->fill(etht,weight);
         _etmisspT_80_NJ_5_bac->fill(etht,weight);
         _etmisspT_80_NJ_5_sig->fill(etht,weight);
-      }
-      else if(njet80==6) {
+      } else if (njet80 == 6) {
         _etmisspT_80_NJ_6_obs->fill(etht,weight);
         _etmisspT_80_NJ_6_bac->fill(etht,weight);
         _etmisspT_80_NJ_6_sig->fill(etht,weight);
-      }
-      else if(njet80==7) {
+      } else if (njet80 == 7) {
         _etmisspT_80_NJ_7_obs->fill(etht,weight);
         _etmisspT_80_NJ_7_bac->fill(etht,weight);
         _etmisspT_80_NJ_7_sig->fill(etht,weight);
       }
 
-      if(etht>1.5&&etht<2. ) {
-        if(njet55>3) {
+      if (etht > 1.5 && etht < 2.) {
+        if (njet55 > 3) {
           _njet55A_obs->fill(njet55,weight);
           _njet55A_bac->fill(njet55,weight);
           _njet55A_sig->fill(njet55,weight);
         }
-        if(njet80>3) {
+        if (njet80 > 3) {
           _njet80A_obs->fill(njet80,weight);
           _njet80A_bac->fill(njet80,weight);
           _njet80A_sig->fill(njet80,weight);
         }
-      }
-      else if(etht>2. &&etht<3. ) {
-        if(njet55>3) {
+      } else if (etht > 2. && etht < 3.) {
+        if (njet55 > 3) {
           _njet55B_obs->fill(njet55,weight);
           _njet55B_bac->fill(njet55,weight);
           _njet55B_sig->fill(njet55,weight);
         }
-        if(njet80>3) {
+        if (njet80 > 3) {
           _njet80B_obs->fill(njet80,weight);
           _njet80B_bac->fill(njet80,weight);
           _njet80B_sig->fill(njet80,weight);
         }
-      }
-      else {
-        if(njet55>3) {
+      } else {
+        if (njet55 > 3) {
           _njet55C_obs->fill(njet55,weight);
           _njet55C_bac->fill(njet55,weight);
           _njet55C_sig->fill(njet55,weight);
         }
-        if(njet80>3) {
+        if (njet80 > 3) {
           _njet80C_obs->fill(njet80,weight);
           _njet80C_bac->fill(njet80,weight);
           _njet80C_sig->fill(njet80,weight);
@@ -326,37 +314,31 @@ namespace Rivet {
       }
 
       // apply E_T/sqrt(H_T) cut
-      if(etht<=3.5*GeV) {
+      if (etht <= 3.5*GeV) {
         MSG_DEBUG("Fails ET/sqrt(HT) cut ");
         vetoEvent;
       }
 
       // check passes at least one delta5/ njet number cut
-      if(!(pass55DeltaR && njet55 >= 7) &&
-         !(pass80DeltaR && njet80 >= 6) ) {
+      if (!(pass55DeltaR && njet55 >= 7) && !(pass80DeltaR && njet80 >= 6) ) {
         MSG_DEBUG("Fails DeltaR cut or jet number cuts");
         vetoEvent;
       }
 
       // 7j55
-      if(njet55>=7&&pass55DeltaR)
-        _count_7j55->fill( 0.5, weight) ;
+      if (njet55 >= 7 && pass55DeltaR) _count_7j55->fill( 0.5, weight);
       // 8j55
-      if(njet55>=8&&pass55DeltaR)
-        _count_8j55->fill( 0.5, weight) ;
+      if (njet55 >= 8 && pass55DeltaR) _count_8j55->fill( 0.5, weight);
       // 6j80
-      if(njet80>=6&&pass80DeltaR)
-        _count_6j80->fill( 0.5, weight) ;
+      if (njet80 >= 6 && pass80DeltaR) _count_6j80->fill( 0.5, weight);
       // 7j80
-      if(njet80>=7&&pass80DeltaR)
-        _count_7j80->fill( 0.5, weight) ;
-
+      if (njet80 >= 7 && pass80DeltaR) _count_7j80->fill( 0.5, weight);
     }
 
     //@}
 
     void finalize() {
-      double norm = crossSection()/femtobarn*1.34/sumOfWeights();
+      const double norm = crossSection()/femtobarn*1.34/sumOfWeights();
       scale(_etmisspT_55_NJ_6_obs,norm);
       scale(_etmisspT_55_NJ_6_bac,norm);
       scale(_etmisspT_55_NJ_6_sig,norm);

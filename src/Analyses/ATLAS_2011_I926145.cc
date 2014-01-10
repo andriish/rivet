@@ -45,7 +45,6 @@ namespace Rivet {
       //eta_m.push_back(make_pair(-1.37,1.37));
       //eta_m.push_back(make_pair(1.52,2.00));
       //IdentifiedFinalState muons(eta_m, 7.0*GeV);
-      
       IdentifiedFinalState muons(EtaIn(-2.0,2.0) & (Cuts::pT >= 7.0*GeV));
       muons.acceptId(PID::MUON);
       muons.acceptId(PID::ANTIMUON);
@@ -56,36 +55,28 @@ namespace Rivet {
       muons_full.acceptId(PID::MUON);
       muons_full.acceptId(PID::ANTIMUON);
       addProjection(muons_full, "muons_full");
+	  Cut cut20 = EtaIn(-2.0,2.0);
+	  Cut cut25 = EtaIn(-2.5,2.5);
+      const FinalState fs20(cut20);
+      const FinalState fs25(cut25);
 
-      //// ZFinder: etaMin, etaMax, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons
-      ZFinder zfinder_e(FinalState(), EtaIn(-2.0,2.0), 
-			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      /// @todo Bare Zs ...
+      ZFinder zfinder_e(fs20, cut20, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
       addProjection(zfinder_e, "ZFinder_e");
-
-      ZFinder zfinder_mu(FinalState(), EtaIn(-2.0,2.0), 
-			 PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      ZFinder zfinder_mu(fs20, cut20, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
       addProjection(zfinder_mu, "ZFinder_mu");
-
-      ZFinder zfinder_mufull(FinalState(), EtaIn(-2.5,2.5), 
-			     PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, false, false);
+      ZFinder zfinder_mufull(fs25, cut25, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
       addProjection(zfinder_mufull, "ZFinder_mufull");
 
-
-      //// WFinder: etaMin, etaMax, pid, minmass, maxmass, dRmax, clusterPhotons, trackPhotons
-      WFinder wfinder_e(FinalState(), EtaIn(-2.0,2.0), 
-			PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      /// @todo ... but dressed Ws?
+      WFinder wfinder_e(fs20, cut20, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_e, "WFinder_e");
-
-      WFinder wfinder_mu(FinalState(), EtaIn(-2.0,2.0), 
-			 PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder_mu(fs20, cut20, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_mu, "WFinder_mu");
-
-      WFinder wfinder_mufull(FinalState(), EtaIn(-2.5,2.5), 
-			     PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder_mufull(fs25, cut25, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder_mufull, "WFinder_mufull");
 
-
-      // Book histograms  - use autobooking
+      // Book histograms
       _histPt_elecs      = bookHisto1D(1 ,1 ,1);
       _histPt_muons      = bookHisto1D(2 ,1 ,1);
       _histPt_muons_full = bookHisto1D(3 ,1 ,1);

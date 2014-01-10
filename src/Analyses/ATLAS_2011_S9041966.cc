@@ -23,8 +23,8 @@ namespace Rivet {
     ATLAS_2011_S9041966()
       : Analysis("ATLAS_2011_S9041966"),
         // DEBUG
-        count(0), vetoe(0), Njetscut(0), dilept(0),
-        candmumujj(0), candeejj(0), onelept(0),
+        count(0), vetoe(0), Njetscut(0), //dilept(0),
+        candmumujj(0), candeejj(0), //onelept(0),
         eTmisscut(0), candmvjj(0), candevjj(0),
         mumujj(0), eejj(0),
         mTonelept(0), MLQonelept(0), MtLQonelept(0), Stvonelept(0),
@@ -646,10 +646,10 @@ scale( _hist_eTmiss_mu, binwidth*luminosity* crossSection()/sumOfWeights() );
     int count;
     int vetoe;
     int Njetscut;
-    int dilept;
+    //int dilept;
     int candmumujj;
     int candeejj;
-    int onelept;
+    //int onelept;
     int eTmisscut;
     int candmvjj;
     int candevjj;

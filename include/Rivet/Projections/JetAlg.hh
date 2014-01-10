@@ -11,56 +11,6 @@
 namespace Rivet {
 
 
-  inline bool cmpMomByPt(const FourMomentum& a, const FourMomentum& b) {
-    return a.pT() > b.pT();
-  }
-  inline bool cmpMomByAscPt(const FourMomentum& a, const FourMomentum& b) {
-    return a.pT() < b.pT();
-  }
-  inline bool cmpMomByP(const FourMomentum& a, const FourMomentum& b) {
-    return a.vector3().mod() > b.vector3().mod();
-  }
-  inline bool cmpMomByAscP(const FourMomentum& a, const FourMomentum& b) {
-    return a.vector3().mod() < b.vector3().mod();
-  }
-  inline bool cmpMomByEt(const FourMomentum& a, const FourMomentum& b) {
-    return a.Et() > b.Et();
-  }
-  inline bool cmpMomByAscEt(const FourMomentum& a, const FourMomentum& b) {
-    return a.Et() < b.Et();
-  }
-  inline bool cmpMomByE(const FourMomentum& a, const FourMomentum& b) {
-    return a.E() > b.E();
-  }
-  inline bool cmpMomByAscE(const FourMomentum& a, const FourMomentum& b) {
-    return a.E() < b.E();
-  }
-  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return a.pseudorapidity() > b.pseudorapidity();
-  }
-  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return a.pseudorapidity() < b.pseudorapidity();
-  }
-  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return fabs(a.pseudorapidity()) > fabs(b.pseudorapidity());
-  }
-  inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return fabs(a.pseudorapidity()) < fabs(b.pseudorapidity());
-  }
-  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return a.rapidity() > b.rapidity();
-  }
-  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return a.rapidity() < b.rapidity();
-  }
-  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return fabs(a.rapidity()) > fabs(b.rapidity());
-  }
-  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return fabs(a.rapidity()) < fabs(b.rapidity());
-  }
-
-
   /// Abstract base class for projections which can return a set of {@link Jet}s.
   class JetAlg : public Projection {
   public:
@@ -122,7 +72,7 @@ namespace Rivet {
     Jets jetsByPt(double ptmin=0.0, double ptmax=MAXDOUBLE,
                   double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                   RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpJetsByPt, ptmin, ptmax, rapmin, rapmax, rapscheme);
+      return jets(cmpMomByPt, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
 
     /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
@@ -130,7 +80,7 @@ namespace Rivet {
     Jets jetsByP(double ptmin=0.0, double ptmax=MAXDOUBLE,
                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                  RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpJetsByP, ptmin, ptmax, rapmin, rapmax, rapscheme);
+      return jets(cmpMomByP, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
 
     /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
@@ -138,7 +88,7 @@ namespace Rivet {
     Jets jetsByE(double ptmin=0.0, double ptmax=MAXDOUBLE,
                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                  RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpJetsByE, ptmin, ptmax, rapmin, rapmax, rapscheme);
+      return jets(cmpMomByE, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
 
     /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
@@ -146,7 +96,7 @@ namespace Rivet {
     Jets jetsByEt(double ptmin=0.0, double ptmax=MAXDOUBLE,
                   double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                   RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpJetsByEt, ptmin, ptmax, rapmin, rapmax, rapscheme);
+      return jets(cmpMomByEt, ptmin, ptmax, rapmin, rapmax, rapscheme);
     }
 
 
@@ -163,8 +113,10 @@ namespace Rivet {
 
     /// Number of jets.
     virtual size_t size() const = 0;
+    /// Determine if the jet collection is empty.
+    bool empty() const { return size() != 0; }
 
-    /// Clear the projection
+    /// Clear the projection.
     virtual void reset() = 0;
 
     typedef Jet entity_type;

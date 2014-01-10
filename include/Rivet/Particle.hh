@@ -55,6 +55,9 @@ namespace Rivet {
       return _original;
     }
 
+    /// Cast operator for conversion to GenParticle*
+    operator const GenParticle* () const { return genParticle(); }
+
     /// The momentum.
     const FourMomentum& momentum() const {
       return _momentum;
@@ -65,10 +68,26 @@ namespace Rivet {
       return *this;
     }
 
+    //@}
+
+
+    /// @name Particle ID code accessors
+    //@{
+
     /// This Particle's PDG ID code.
-    PdgId pdgId() const {
-      return _id;
-    }
+    PdgId pid() const { return _id; }
+    /// Absolute value of the PDG ID code.
+    PdgId abspid() const { return _id; }
+    /// This Particle's PDG ID code (alias).
+    /// @deprecatedThe pid/abspid form is nicer (don't need to remember
+    ///    lower/upper case, doesn't visually stick out in the code, etc. ...)
+    PdgId pdgId() const { return _id; }
+
+    //@}
+
+
+    /// @name Particle species properties
+    //@{
 
     /// The charge of this Particle.
     double charge() const {
@@ -79,7 +98,29 @@ namespace Rivet {
       return PID::threeCharge(pdgId());
     }
 
-    /// @todo Add isHadron, etc. PID-based properties as methods?
+    /// Is this a hadron?
+    bool isHadron() const { return PID::isHadron(pdgId()); }
+
+    /// Is this a meson?
+    bool isMeson() const { return PID::isMeson(pdgId()); }
+
+    /// Is this a baryon?
+    bool isBaryon() const { return PID::isBaryon(pdgId()); }
+
+    /// Is this a lepton?
+    bool isLepton() const { return PID::isLepton(pdgId()); }
+
+    /// Is this a neutrino?
+    bool isNeutrino() const { return PID::isNeutrino(pdgId()); }
+
+    /// Does this (hadron) contain a b quark?
+    bool hasBottom() const { return PID::hasBottom(pdgId()); }
+
+    /// Does this (hadron) contain a c quark?
+    bool hasCharm() const { return PID::hasCharm(pdgId()); }
+
+    // /// Does this (hadron) contain an s quark?
+    // bool hasStrange() const { return PID::hasStrange(pdgId()); }
 
     //@}
 
@@ -99,12 +140,44 @@ namespace Rivet {
     /// Specifically, walk up the ancestor chain until a status 2 hadron or
     /// tau is found, if at all.
     ///
-    /// @note This question is valid in MC, but may not be answerable
+    /// @note This question is valid in MC, but may not be perfectly answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
     bool fromDecay() const;
 
-    /// @todo Add methods like fromS/C/BHadron(), fromTau()?
+    /// @brief Determine whether the particle is from a b-hadron decay
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromBottom() const;
+
+    /// @brief Determine whether the particle is from a c-hadron decay
+    ///
+    /// @note If a hadron contains b and c quarks it is considered a bottom
+    /// hadron and NOT a charm hadron.
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromCharm() const;
+
+    // /// @brief Determine whether the particle is from a s-hadron decay
+    // ///
+    // /// @note If a hadron contains b or c quarks as well as strange it is
+    // /// considered a b or c hadron, but NOT a strange hadron.
+    // ///
+    // /// @note This question is valid in MC, but may not be perfectly answerable
+    // /// experimentally -- use this function with care when replicating
+    // /// experimental analyses!
+    // bool fromStrange() const;
+
+    /// @brief Determine whether the particle is from a tau decay
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromTau() const;
 
     //@}
 
@@ -148,73 +221,8 @@ namespace Rivet {
   //@}
 
 
-  /// @name Comparison functors
+  /// @name deltaR, deltaEta, deltaPhi functions specifically for Particle arguments
   //@{
-  /// Sort by descending transverse momentum, \f$ p_\perp \f$
-  inline bool cmpParticleByPt(const Particle& a, const Particle& b) {
-    return a.momentum().pT() > b.momentum().pT();
-  }
-  /// Sort by ascending transverse momentum, \f$ p_\perp \f$
-  inline bool cmpParticleByAscPt(const Particle& a, const Particle& b) {
-    return a.momentum().pT() < b.momentum().pT();
-  }
-  /// Sort by descending momentum, \f$ p \f$
-  inline bool cmpParticleByP(const Particle& a, const Particle& b) {
-    return a.momentum().vector3().mod() > b.momentum().vector3().mod();
-  }
-  /// Sort by ascending momentum, \f$ p \f$
-  inline bool cmpParticleByAscP(const Particle& a, const Particle& b) {
-    return a.momentum().vector3().mod() < b.momentum().vector3().mod();
-  }
-  /// Sort by descending transverse energy, \f$ E_\perp \f$
-  inline bool cmpParticleByEt(const Particle& a, const Particle& b) {
-    return a.momentum().Et() > b.momentum().Et();
-  }
-  /// Sort by ascending transverse energy, \f$ E_\perp \f$
-  inline bool cmpParticleByAscEt(const Particle& a, const Particle& b) {
-    return a.momentum().Et() < b.momentum().Et();
-  }
-  /// Sort by descending energy, \f$ E \f$
-  inline bool cmpParticleByE(const Particle& a, const Particle& b) {
-    return a.momentum().E() > b.momentum().E();
-  }
-  /// Sort by ascending energy, \f$ E \f$
-  inline bool cmpParticleByAscE(const Particle& a, const Particle& b) {
-    return a.momentum().E() < b.momentum().E();
-  }
-  /// Sort by descending pseudorapidity, \f$ \eta \f$
-  inline bool cmpParticleByDescPseudorapidity(const Particle& a, const Particle& b) {
-    return a.momentum().pseudorapidity() > b.momentum().pseudorapidity();
-  }
-  /// Sort by ascending pseudorapidity, \f$ \eta \f$
-  inline bool cmpParticleByAscPseudorapidity(const Particle& a, const Particle& b) {
-    return a.momentum().pseudorapidity() < b.momentum().pseudorapidity();
-  }
-  /// Sort by descending absolute pseudorapidity, \f$ |\eta| \f$
-  inline bool cmpParticleByDescAbsPseudorapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().pseudorapidity()) > fabs(b.momentum().pseudorapidity());
-  }
-  /// Sort by ascending absolute pseudorapidity, \f$ |\eta| \f$
-  inline bool cmpParticleByAscAbsPseudorapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().pseudorapidity()) < fabs(b.momentum().pseudorapidity());
-  }
-  /// Sort by descending rapidity, \f$ y \f$
-  inline bool cmpParticleByDescRapidity(const Particle& a, const Particle& b) {
-    return a.momentum().rapidity() > b.momentum().rapidity();
-  }
-  /// Sort by ascending rapidity, \f$ y \f$
-  inline bool cmpParticleByAscRapidity(const Particle& a, const Particle& b) {
-    return a.momentum().rapidity() < b.momentum().rapidity();
-  }
-  /// Sort by descending absolute rapidity, \f$ |y| \f$
-  inline bool cmpParticleByDescAbsRapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().rapidity()) > fabs(b.momentum().rapidity());
-  }
-  /// Sort by ascending absolute rapidity, \f$ |y| \f$
-  inline bool cmpParticleByAscAbsRapidity(const Particle& a, const Particle& b) {
-    return fabs(a.momentum().rapidity()) < fabs(b.momentum().rapidity());
-  }
-  //@}
 
   inline double deltaR(const Particle& p1, const Particle& p2,
                        RapScheme scheme = PSEUDORAPIDITY) {
@@ -330,6 +338,9 @@ namespace Rivet {
   inline double deltaEta(double eta, const Particle& p) {
     return deltaEta(eta, p.momentum());
   }
+
+  //@}
+
 
 }
 

@@ -160,7 +160,7 @@ namespace Rivet {
       // put leptons into 1 vector and order by pT
       Particles leptons(recon_e.begin(),recon_e.end());
       leptons.insert(leptons.begin(),recon_mu.begin(),recon_mu.end());
-      sort(leptons.begin(),leptons.end(),cmpParticleByPt);
+      sort(leptons.begin(),leptons.end(),cmpMomByPt);
 
       // exactly two leptons
       if(leptons.size() !=2) vetoEvent;

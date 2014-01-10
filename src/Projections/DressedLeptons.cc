@@ -1,18 +1,16 @@
 // -*- C++ -*-
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 
 namespace Rivet {
 
 
-  LeptonClusters::LeptonClusters(const FinalState& photons, const FinalState& signal,
-				 double dRmax, bool cluster, Cut cut) :
-                 // const std::vector<std::pair<double, double> >& etaRanges,
-                 // double pTmin) :
-    FinalState(cut),//etaRanges, pTmin),
-    _dRmax(dRmax), _cluster(cluster)
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& signal,
+                                 double dRmax, bool cluster, Cut cut,
+                                 bool useDecayPhotons)
+    : FinalState(cut),
+      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
   {
-    setName("LeptonClusters");
-
+    setName("DressedLeptons");
     IdentifiedFinalState photonfs(photons);
     photonfs.acceptId(PID::PHOTON);
     addProjection(photonfs, "Photons");
@@ -20,9 +18,9 @@ namespace Rivet {
   }
 
 
-  int LeptonClusters::compare(const Projection& p) const {
+  int DressedLeptons::compare(const Projection& p) const {
     // Compare the two as final states (for pT and eta cuts)
-    const LeptonClusters& other = dynamic_cast<const LeptonClusters&>(p);
+    const DressedLeptons& other = dynamic_cast<const DressedLeptons&>(p);
     int fscmp = FinalState::compare(other);
     if (fscmp != EQUIVALENT) return fscmp;
 
@@ -32,11 +30,13 @@ namespace Rivet {
     const PCmp sigcmp = mkNamedPCmp(p, "Signal");
     if (sigcmp != EQUIVALENT) return sigcmp;
 
-    return (cmp(_dRmax, other._dRmax) || cmp(_cluster, other._cluster));
+    return (cmp(_dRmax, other._dRmax) ||
+            cmp(_cluster, other._cluster) ||
+            cmp(_fromDecay, other._fromDecay));
   }
 
 
-  void LeptonClusters::project(const Event& e) {
+  void DressedLeptons::project(const Event& e) {
     _theParticles.clear();
     _clusteredLeptons.clear();
 
@@ -49,16 +49,19 @@ namespace Rivet {
       allClusteredLeptons.push_back(ClusteredLepton(bareleptons[i]));
     }
 
+    // Match each photon to its closest charged lepton within the dR cone
     const FinalState& photons = applyProjection<FinalState>(e, "Photons");
     foreach (const Particle& photon, photons.particles()) {
+      // Ignore photon if it's from a hadron/tau decay and we're avoiding those
+      if (!_fromDecay && photon.fromDecay()) continue;
       const FourMomentum p_P = photon.momentum();
-      double dRmin=_dRmax;
+      double dRmin = _dRmax;
       int idx = -1;
       for (size_t i = 0; i < bareleptons.size(); ++i) {
-        FourMomentum p_l = bareleptons[i].momentum();
         // Only cluster photons around *charged* signal particles
         if (PID::threeCharge(bareleptons[i].pdgId()) == 0) continue;
-        // Geometrically match momentum vectors
+        // Find the closest lepton
+        const FourMomentum& p_l = bareleptons[i].momentum();
         double dR = deltaR(p_l, p_P);
         if (dR < dRmin) {
           dRmin = dR;

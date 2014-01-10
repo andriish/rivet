@@ -1,37 +1,32 @@
 #! /usr/bin/env python
 
+import sys, os, re
+
 ## Get output filename
 OUTFILE = "analyses.html"
-import sys
 if len(sys.argv) < 2:
     pass
     #print "Using output name '%s'" % OUTNAME
 else:
     OUTFILE = sys.argv[1]
 
-
-## Get input paths to allow rivet module to be imported from the src dir
-import os, re, glob
 ## Add the rivet Python module build dir(s) to the Python module path
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
-pydirs = []
-for d in os.listdir(pybuild):
-    if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d):
-        pydirs.append(os.path.join(pybuild, d))
+pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
+          if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
 sys.path = pydirs + sys.path
 ## Set up libRivet directory in shared lib runtime search paths
 libpath = os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
-if os.environ.has_key("LD_LIBRARY_PATH"):
-    os.environ["LD_LIBRARY_PATH"] = os.environ["LD_LIBRARY_PATH"] + ":" + libpath
-if os.environ.has_key("DYLD_LIBRARY_PATH"):
-    os.environ["DYLD_LIBRARY_PATH"] = os.environ["DYLD_LIBRARY_PATH"] + ":" + libpath
-## Set up analysis plugin directory
-anadirs = glob.glob(os.path.join(os.getcwd(), "..", "src", "Analyses", ".libs"))
-os.environ["RIVET_ANALYSIS_PATH"] = ":".join(anadirs)
-
+for env in ["LD_LIBRARY_PATH", "DYLD_LIBRARY_PATH"]:
+    if os.environ.has_key(env):
+        os.environ[env] = os.environ[env] + ":" + libpath
 ## Finally do the rivet module import!
 import rivet
 from rivet.util import htmlify
+
+## Set up Rivet analysis plugin and info file path variables
+os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("/../src/Analyses/.libs") + "::"
+os.environ["RIVET_INFO_PATH"] = os.path.abspath("/../data/anainfo") + "::"
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
@@ -41,6 +36,7 @@ pages = []
 for aname in sorted(list(all_analyses)):
     page = ""
     ana = rivet.AnalysisLoader.getAnalysis(aname)
+
     summaries[aname] = ana.summary()
     page += "<h3 id='%s'>%s</h3>\n" % (aname, aname)
     page += "<b>%s</b><br/>\n" %  htmlify(ana.summary())
@@ -54,7 +50,6 @@ for aname in sorted(list(all_analyses)):
         page += "<b>Spires ID:</b> <a href='%s+%s'>%s</a><br/>\n" % \
             (spiresbase, ana.spiresId(), ana.spiresId())
     page += "<b>Status:</b> %s<br/>\n" % ana.status()
-
 
     if ana.authors():
         page += "<b>Authors:</b>\n"

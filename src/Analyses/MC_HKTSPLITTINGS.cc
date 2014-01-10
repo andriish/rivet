@@ -21,9 +21,9 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      FinalState fs;
+      /// @todo Urk, abuse! Need explicit HiggsFinder (and TauFinder?)
       Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
-      ZFinder hfinder(fs, cut, PID::TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
+      ZFinder hfinder(FinalState(), cut, PID::TAU, 115*GeV, 125*GeV, 0.0, ZFinder::NOCLUSTER);
       addProjection(hfinder, "Hfinder");
       FastJets jetpro(hfinder.remainingFinalState(), FastJets::KT, 0.6);
       addProjection(jetpro, "Jets");
@@ -36,10 +36,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const ZFinder& hfinder = applyProjection<ZFinder>(e, "Hfinder");
-      if (hfinder.bosons().size()!=1) {
-        vetoEvent;
-      }
-
+      if (hfinder.bosons().size() != 1) vetoEvent;
       MC_JetSplittings::analyze(e);
     }
 

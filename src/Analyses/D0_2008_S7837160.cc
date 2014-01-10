@@ -28,7 +28,7 @@ namespace Rivet {
       // Projections
       FinalState fs;
       /// @todo Use separate pT and ETmiss cuts in WFinder
-      const WFinder wfe(fs, -5, 5, 25.0*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      const WFinder wfe(fs, EtaIn(-5, 5) & (Cuts::pT >= 25.0*GeV), PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfe, "WFe");
 
       // Histograms (temporary +- charge histos and scatters to store the calculated asymmetries)

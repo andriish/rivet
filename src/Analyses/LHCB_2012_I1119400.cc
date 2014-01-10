@@ -29,7 +29,7 @@ namespace Rivet {
     LHCB_2012_I1119400() : Analysis("LHCB_2012_I1119400"),
       _p_min(5.0),
       _pt_min(0.0),_pt1_edge(0.8), _pt2_edge(1.2),
-      _eta_nbins(4),
+      //_eta_nbins(4),
       _eta_min(2.5),
       _eta_max(4.5)
     {   }
@@ -227,7 +227,7 @@ namespace Rivet {
     double _pt2_edge;
 
     // The limits of the pseudorapidity window
-    int    _eta_nbins;
+    //int    _eta_nbins;
     double _eta_min;
     double _eta_max;
 

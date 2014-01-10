@@ -4,12 +4,11 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
-#include<iostream>
-
-
 namespace Rivet {
 
 
+  /// Z + jets in pp at 7 TeV (combined channel / base class)
+  /// @note This base class contains a "mode" variable for combined, e, and mu channel derived classes
   class ATLAS_2013_I1230812 : public Analysis {
   public:
 
@@ -17,46 +16,42 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    ATLAS_2013_I1230812(std::string name="ATLAS_2013_I1230812")
+    ATLAS_2013_I1230812(string name="ATLAS_2013_I1230812")
       : Analysis(name),
         _weights_incl(7, 0.0),
         _weights_excl(7, 0.0),
         _weights_excl_pt150(7, 0.0),
         _weights_excl_vbf(7, 0.0)
     {
+      // This class uses the combined e+mu mode
       _mode = 1;
     }
 
     //@}
 
 
-  public:
-
     /// Book histograms and initialise projections before the run
     void init() {
-
-      if (_mode==1) {
-        // combined
-	Cut cuts = EtaIn(-2.5,2.5) & (Cuts::pT >= 20.0*GeV);
-        ZFinder zfinder(FinalState(), cuts,
-			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      // Determine the e/mu decay channels used
+      /// @todo Note that Zs are accepted with any rapidity: the cuts are on the e/mu: is this correct?
+	  Cut pt20 = Cuts::pT >= 20.0*GeV;
+      if (_mode == 1) {
+        // Combined
+        ZFinder zfinder(FinalState(-2.5, 2.5), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         addProjection(zfinder, "zfinder");
-      }
-      else if (_mode==2) {
-        // electron
-	Cut cuts = ( EtaIn(-2.47, -1.52)
+      } else if (_mode == 2) {
+        // Electron
+	    Cut eta_e = ( EtaIn(-2.47, -1.52)
 		     | EtaIn(-1.37,  1.37)
-		     | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
-        ZFinder zfinder(FinalState(), cuts,
-			PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+		     | EtaIn( 1.52,  2.47) );
+        ZFinder zfinder(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         addProjection(zfinder, "zfinder");
-      }
-      else if (_mode==3) {
-        // muon
-	Cut mucuts = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
-        ZFinder zfinder(FinalState(), mucuts,
-			PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, true, false);
+      } else if (_mode == 3) {
+        // Muon
+        ZFinder zfinder(FinalState(-2.4, 2.4), pt20, PID::MUON, 66*GeV, 116*GeV);
         addProjection(zfinder, "zfinder");
+      } else {
+        MSG_ERROR("Unknown decay channel mode!!!");
       }
 
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
@@ -110,122 +105,116 @@ namespace Rivet {
 
       Jets jets;
       /// @todo Replace with a Cut passed to jetsByPt
-      foreach(const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30.0*GeV)) {
+      foreach(const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30*GeV)) {
         FourMomentum jmom = jet.momentum();
         if (fabs(jmom.rapidity()) < 4.4 && deltaR(lp, jmom) > 0.5  && deltaR(lm, jmom) > 0.5) {
           jets.push_back(jet);
         }
       }
 
-
       const double weight = event.weight();
 
-      if (jets.size()<7) _weights_excl[jets.size()] += weight;
-      for (size_t i=0; i<7; ++i) {
-        if (jets.size()>=i) _weights_incl[i] += weight;
+      if (jets.size() < 7) _weights_excl[jets.size()] += weight;
+      for (size_t i = 0; i < 7; ++i) {
+        if (jets.size() >= i) _weights_incl[i] += weight;
       }
-      
+
       // Fill jet multiplicities
-      for (size_t ijet=1; ijet<=jets.size(); ++ijet) {
-	_h_njet_incl->fill(ijet, weight);
+      for (size_t ijet = 1; ijet <= jets.size(); ++ijet) {
+        _h_njet_incl->fill(ijet, weight);
       }
       _h_njet_excl->fill(jets.size(), weight);
 
       // Require at least one jet
-      if (jets.size() >= 1)
-	{            
-	  // Leading jet histos
-	  const double ptlead   = jets[0].momentum().pT()/GeV;
-	  const double yabslead = fabs(jets[0].momentum().rapidity());
-	  const double ptz   = z.pT()/GeV;
-	  _h_ptlead->fill(ptlead,   weight);
-	  _h_ylead ->fill(yabslead, weight);
-	  _h_pt_z  ->fill(ptz, weight);
-	  // Fill jet multiplicities
-	  if(ptlead>150)
-	    {
-	      _h_njet_excl_pt150->fill(jets.size(), weight);
-              if (jets.size()<7) _weights_excl_pt150[jets.size()] += weight;
-	    }
-	  
-	  // Loop over selected jets, fill inclusive distributions
-	  double st=0;
-	  double ht=lp.pT()/GeV+lm.pT()/GeV;
-	  for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
-	    ht+=jets[ijet].momentum().pT()/GeV;
-	    st+=jets[ijet].momentum().pT()/GeV;
-	  }
-	  _h_ht->fill(ht, weight);
-	  _h_st->fill(st, weight);
+      if (jets.size() >= 1) {
+        // Leading jet histos
+        const double ptlead   = jets[0].momentum().pT()/GeV;
+        const double yabslead = fabs(jets[0].momentum().rapidity());
+        const double ptz   = z.pT()/GeV;
+        _h_ptlead->fill(ptlead,   weight);
+        _h_ylead ->fill(yabslead, weight);
+        _h_pt_z  ->fill(ptz, weight);
+        // Fill jet multiplicities
+        if (ptlead > 150) {
+          _h_njet_excl_pt150->fill(jets.size(), weight);
+          if (jets.size()<7) _weights_excl_pt150[jets.size()] += weight;
+        }
 
-	  // Require exactly one jet
-	  if (jets.size() == 1)
-	    {
-	      _h_ptlead_excl->fill(ptlead,   weight);
-	      _h_pt_z_excl  ->fill(ptz, weight);
-	    }
-	}
-    
+        // Loop over selected jets, fill inclusive distributions
+        double st=0;
+        double ht=lp.pT()/GeV+lm.pT()/GeV;
+        for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
+          ht+=jets[ijet].momentum().pT()/GeV;
+          st+=jets[ijet].momentum().pT()/GeV;
+        }
+        _h_ht->fill(ht, weight);
+        _h_st->fill(st, weight);
+
+        // Require exactly one jet
+        if (jets.size() == 1) {
+          _h_ptlead_excl->fill(ptlead,   weight);
+          _h_pt_z_excl  ->fill(ptz, weight);
+        }
+      }
+
 
       // Require at least two jets
       if (jets.size() >= 2) {
-	// Second jet histos
-	const double ptlead      = jets[0].momentum().pT()/GeV;
-	const double pt2ndlead   = jets[1].momentum().pT()/GeV;
-	const double ptratio     = pt2ndlead/ptlead;
-	const double yabs2ndlead = fabs(jets[1].momentum().rapidity());
-	_h_ptseclead ->fill(pt2ndlead,   weight);
-	_h_yseclead  ->fill(yabs2ndlead, weight);
-	_h_pt_ratio  ->fill(ptratio, weight);
-	
-	// Dijet histos
-	const double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
-	const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
-	const double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
-	const double mass     = (jets[0].momentum() + jets[1].momentum()).mass()/GeV;
-	_h_mass     ->fill(mass,     weight);
-	_h_deltay   ->fill(deltarap, weight);
-	_h_deltaphi ->fill(deltaphi, weight);
-	_h_deltaR   ->fill(deltar,   weight);
+        // Second jet histos
+        const double ptlead      = jets[0].momentum().pT()/GeV;
+        const double pt2ndlead   = jets[1].momentum().pT()/GeV;
+        const double ptratio     = pt2ndlead/ptlead;
+        const double yabs2ndlead = fabs(jets[1].momentum().rapidity());
+        _h_ptseclead ->fill(pt2ndlead,   weight);
+        _h_yseclead  ->fill(yabs2ndlead, weight);
+        _h_pt_ratio  ->fill(ptratio, weight);
 
-	if(mass>350&&deltarap>3.0)
-	  {
-	    _h_njet_excl_vbf->fill(jets.size(), weight);
-            if (jets.size()<7) _weights_excl_vbf[jets.size()] += weight;
-	  }
+        // Dijet histos
+        const double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
+        const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
+        const double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
+        const double mass     = (jets[0].momentum() + jets[1].momentum()).mass()/GeV;
+        _h_mass     ->fill(mass,     weight);
+        _h_deltay   ->fill(deltarap, weight);
+        _h_deltaphi ->fill(deltaphi, weight);
+        _h_deltaR   ->fill(deltar,   weight);
+
+        if (mass > 350 && deltarap > 3) {
+          _h_njet_excl_vbf->fill(jets.size(), weight);
+          if (jets.size()<7) _weights_excl_vbf[jets.size()] += weight;
+        }
       }
 
       // Require at least three jets
       if (jets.size() >= 3) {
-	// Third jet histos
-	const double pt3rdlead   = jets[2].momentum().pT()/GeV;
-	const double yabs3rdlead = fabs(jets[2].momentum().rapidity());
-	_h_ptthirdlead ->fill(pt3rdlead,   weight);
-	_h_ythirdlead  ->fill(yabs3rdlead, weight);
+        // Third jet histos
+        const double pt3rdlead   = jets[2].momentum().pT()/GeV;
+        const double yabs3rdlead = fabs(jets[2].momentum().rapidity());
+        _h_ptthirdlead ->fill(pt3rdlead,   weight);
+        _h_ythirdlead  ->fill(yabs3rdlead, weight);
 
-	//Histos after VBF preselection
-	const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
-	const double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
-	if(mass>350&&deltarap>3.0)
-	  {
-	    _h_ptthirdlead_vbf ->fill(pt3rdlead,   weight);
-	    _h_ythirdlead_vbf  ->fill(yabs3rdlead, weight);
-	  }
+        //Histos after VBF preselection
+        const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
+        const double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
+        if (mass > 350 && deltarap > 3) {
+          _h_ptthirdlead_vbf ->fill(pt3rdlead,   weight);
+          _h_ythirdlead_vbf  ->fill(yabs3rdlead, weight);
+        }
       }
 
       // Require at least four jets
       if (jets.size() >= 4) {
-	// Fourth jet histos
-	const double pt4thlead   = jets[3].momentum().pT()/GeV;
-	const double yabs4thlead = fabs(jets[3].momentum().rapidity());
-	_h_ptfourthlead ->fill(pt4thlead,   weight);
-	_h_yfourthlead  ->fill(yabs4thlead, weight);
+        // Fourth jet histos
+        const double pt4thlead   = jets[3].momentum().pT()/GeV;
+        const double yabs4thlead = fabs(jets[3].momentum().rapidity());
+        _h_ptfourthlead ->fill(pt4thlead,   weight);
+        _h_yfourthlead  ->fill(yabs4thlead, weight);
       }
     }
 
     /// @name Ratio calculator util functions
     //@{
-    
+
     /// Calculate the ratio, being careful about div-by-zero
     double ratio(double a, double b) {
       return (b != 0) ? a/b : 0;
@@ -242,24 +231,23 @@ namespace Rivet {
     }
 
     //@}
-    
-    void finalize() {
 
-      for (size_t i=0; i<6; ++i) {
+    void finalize() {
+      for (size_t i = 0; i < 6; ++i) {
         _h_njet_incl_ratio->point(i).setY(ratio(_weights_incl[i+1], _weights_incl[i]),
-                                         ratio_err_incl(_weights_incl[i+1], _weights_incl[i]));
+                                          ratio_err_incl(_weights_incl[i+1], _weights_incl[i]));
         _h_njet_excl_ratio->point(i).setY(ratio(_weights_excl[i+1], _weights_excl[i]),
-                                         ratio_err_excl(_weights_excl[i+1], _weights_excl[i]));
+                                          ratio_err_excl(_weights_excl[i+1], _weights_excl[i]));
         if (i>=1) _h_njet_excl_pt150_ratio->point(i-1).setY
                     (ratio(_weights_excl_pt150[i+1], _weights_excl_pt150[i]),
                      ratio_err_excl(_weights_excl_pt150[i+1], _weights_excl_pt150[i]));
-          
+
         if (i>=2) _h_njet_excl_vbf_ratio->point(i-2).setY
                     (ratio(_weights_excl_vbf[i+1], _weights_excl_vbf[i]),
                      ratio_err_excl(_weights_excl_vbf[i+1], _weights_excl_vbf[i]));
       }
-      
-      double xs = crossSectionPerEvent()/picobarn;
+
+      const double xs = crossSectionPerEvent()/picobarn;
       scale(_h_njet_incl      , xs);
       scale(_h_njet_excl      , xs);
       scale(_h_njet_excl_pt150, xs);
@@ -285,7 +273,7 @@ namespace Rivet {
       scale(_h_ht             , xs);
       scale(_h_st             , xs);
     }
-      
+
     //@}
 
 
@@ -293,14 +281,14 @@ namespace Rivet {
 
     size_t _mode;
 
+
   private:
 
-    std::vector<double> _weights_incl;
-    std::vector<double> _weights_excl;
-    std::vector<double> _weights_excl_pt150;
-    std::vector<double> _weights_excl_vbf;
+    vector<double> _weights_incl;
+    vector<double> _weights_excl;
+    vector<double> _weights_excl_pt150;
+    vector<double> _weights_excl_vbf;
 
-    //
     Scatter2DPtr _h_njet_incl_ratio;
     Scatter2DPtr _h_njet_excl_ratio;
     Scatter2DPtr _h_njet_excl_pt150_ratio;
@@ -326,7 +314,7 @@ namespace Rivet {
     Histo1DPtr _h_deltaphi;
     Histo1DPtr _h_deltaR;
     Histo1DPtr _h_ptthirdlead_vbf;
-    Histo1DPtr _h_ythirdlead_vbf; 
+    Histo1DPtr _h_ythirdlead_vbf;
     Histo1DPtr _h_ht;
     Histo1DPtr _h_st;
   };

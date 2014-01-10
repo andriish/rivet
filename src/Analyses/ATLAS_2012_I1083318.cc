@@ -4,7 +4,7 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 
 namespace Rivet {
@@ -38,7 +38,7 @@ namespace Rivet {
       allleptons.acceptIdPair(PID::ELECTRON);
       allleptons.acceptIdPair(PID::MUON);
       Cut cuts = EtaIn(-2.5, 2.5) & (Cuts::pT >= 20.0*GeV);
-      LeptonClusters leptons(fs, allleptons, 0.1, true, cuts);
+      DressedLeptons leptons(fs, allleptons, 0.1, true, cuts);
       addProjection(leptons, "leptons");
 
       // Leading neutrinos for Etmiss
@@ -91,7 +91,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const vector<ClusteredLepton>& leptons = applyProjection<LeptonClusters>(event, "leptons").clusteredLeptons();
+      const vector<ClusteredLepton>& leptons = applyProjection<DressedLeptons>(event, "leptons").clusteredLeptons();
       Particles neutrinos = applyProjection<FinalState>(event, "neutrinos").particlesByPt();
 
       if (leptons.size() != 1 || (neutrinos.size() == 0)) {

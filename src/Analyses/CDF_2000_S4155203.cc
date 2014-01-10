@@ -21,9 +21,8 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      FinalState fs;
-      ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
-                      66.0*GeV, 116.0*GeV, 0.0, false, false);
+      ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON,
+                      66*GeV, 116*GeV, 0.0, ZFinder::NOCLUSTER);
       addProjection(zfinder, "ZFinder");
 
       // Book histogram

@@ -135,6 +135,12 @@ namespace Rivet {
       return vector3().eta();
     }
 
+    /// Get the \f$ |\eta| \f$ directly.
+    double abspseudorapidity() const { return fabs(eta()); }
+
+    /// Get the \f$ |\eta| \f$ directly (alias).
+    double abseta() const { return fabs(eta()); }
+
     /// Get the spatial part of the 4-vector as a 3-vector.
     Vector3 vector3() const {
       return Vector3(get(1), get(2), get(3));
@@ -315,6 +321,16 @@ namespace Rivet {
   }
 
 
+  /// Calculate absolute pseudorapidity of a Lorentz vector.
+  inline double abspseudorapidity(const FourVector& v) {
+    return v.abspseudorapidity();
+  }
+  /// Synonym for absolute pseudorapidity.
+  inline double abseta(const FourVector& v) {
+    return v.abseta();
+  }
+
+
 
   ////////////////////////////////////////////////
 
@@ -401,13 +417,38 @@ namespace Rivet {
       return 0.5 * std::log( (E() + pz()) / (E() - pz()) );
     }
 
+    /// Alias for rapidity.
+    double rap() const {
+      return rapidity();
+    }
+
+    /// Absolute rapidity.
+    double absrapidity() const {
+      return fabs(rapidity());
+    }
+
+    /// Absolute rapidity.
+    double absrap() const {
+      return fabs(rap());
+    }
+
     /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
     double pT2() const {
       return vector3().polarRadius2();
     }
 
+    /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
+    double pt2() const {
+      return vector3().polarRadius2();
+    }
+
     /// Calculate the transverse momentum \f$ p_T \f$.
     double pT() const {
+      return sqrt(pT2());
+    }
+
+    /// Calculate the transverse momentum \f$ p_T \f$.
+    double pt() const {
       return sqrt(pT2());
     }
 
@@ -548,6 +589,21 @@ namespace Rivet {
   /// Calculate the rapidity of a momentum 4-vector.
   inline double rapidity(const FourMomentum& v) {
     return v.rapidity();
+  }
+
+  /// Calculate the rapidity of a momentum 4-vector.
+  inline double rap(const FourMomentum& v) {
+    return v.rap();
+  }
+
+  /// Calculate the absolute rapidity of a momentum 4-vector.
+  inline double absrapidity(const FourMomentum& v) {
+    return v.absrapidity();
+  }
+
+  /// Calculate the absolute rapidity of a momentum 4-vector.
+  inline double absrap(const FourMomentum& v) {
+    return v.absrap();
   }
 
   /// Calculate the squared transverse momentum \f$ p_T^2 \f$ of a momentum 4-vector.
@@ -739,14 +795,7 @@ namespace Rivet {
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourVector& a, const FourMomentum& b,
                        RapScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY:
-      return deltaR(a.vector3(), b.vector3());
-    case RAPIDITY:
-      return deltaR(FourMomentum(a).rapidity(), a.azimuthalAngle(), b.rapidity(), b.azimuthalAngle());
-    default:
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
+    return deltaR(b, a, scheme);
   }
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
@@ -775,135 +824,223 @@ namespace Rivet {
 
   //@}
 
+
+  //////////////////////////////////////////////////////
+
+
   /// @name \f$ \Delta phi \f$ calculations from 4-vectors
   //@{
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& a, const FourMomentum& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& v, double phi2) {
     return deltaPhi(v.vector3(), phi2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(double phi1, const FourMomentum& v) {
     return deltaPhi(phi1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& a, const FourVector& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& v, double phi2) {
     return deltaPhi(v.vector3(), phi2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(double phi1, const FourVector& v) {
     return deltaPhi(phi1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& a, const FourMomentum& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& a, const FourVector& b) {
     return deltaPhi(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourVector& a, const Vector3& b) {
     return deltaPhi(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const Vector3& a, const FourVector& b) {
     return deltaPhi(a, b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const FourMomentum& a, const Vector3& b) {
     return deltaPhi(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in azimuthal angle between two vectors.
   inline double deltaPhi(const Vector3& a, const FourMomentum& b) {
     return deltaPhi(a, b.vector3());
   }
 
   //@}
 
+
+  //////////////////////////////////////////////////////
+
+
   /// @name \f$ |\Delta eta| \f$ calculations from 4-vectors
   //@{
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& a, const FourMomentum& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& v, double eta2) {
     return deltaEta(v.vector3(), eta2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(double eta1, const FourMomentum& v) {
     return deltaEta(eta1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& a, const FourVector& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& v, double eta2) {
     return deltaEta(v.vector3(), eta2);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(double eta1, const FourVector& v) {
     return deltaEta(eta1, v.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& a, const FourMomentum& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& a, const FourVector& b) {
     return deltaEta(a.vector3(), b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourVector& a, const Vector3& b) {
     return deltaEta(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const Vector3& a, const FourVector& b) {
     return deltaEta(a, b.vector3());
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const FourMomentum& a, const Vector3& b) {
     return deltaEta(a.vector3(), b);
   }
 
-  /// Calculate the difference in azimuthal angle between two spatial vectors.
+  /// Calculate the difference in pseudorapidity between two vectors.
   inline double deltaEta(const Vector3& a, const FourMomentum& b) {
     return deltaEta(a, b.vector3());
   }
 
   //@}
+
+
+  /// @name \f$ |\Delta y| \f$ calculations from 4-momentum vectors
+  //@{
+
+  /// Calculate the difference in rapidity between two 4-momentum vectors.
+  inline double deltaRap(const FourMomentum& a, const FourMomentum& b) {
+    return deltaRap(a.rapidity(), b.rapidity());
+  }
+
+  /// Calculate the difference in rapidity between two 4-momentum vectors.
+  inline double deltaRap(const FourMomentum& v, double y2) {
+    return deltaRap(v.rapidity(), y2);
+  }
+
+  /// Calculate the difference in rapidity between two 4-momentum vectors.
+  inline double deltaRap(double y1, const FourMomentum& v) {
+    return deltaRap(y1, v.rapidity());
+  }
+
+  //@}
+
+
+  //////////////////////////////////////////////////////
+
+
+  /// @name 4-vector comparison functions (for sorting)
+  //@{
+
+  inline bool cmpMomByPt(const FourMomentum& a, const FourMomentum& b) {
+    return a.pt() > b.pt();
+  }
+  inline bool cmpMomByAscPt(const FourMomentum& a, const FourMomentum& b) {
+    return a.pt() < b.pt();
+  }
+  inline bool cmpMomByP(const FourMomentum& a, const FourMomentum& b) {
+    return a.vector3().mod() > b.vector3().mod();
+  }
+  inline bool cmpMomByAscP(const FourMomentum& a, const FourMomentum& b) {
+    return a.vector3().mod() < b.vector3().mod();
+  }
+  inline bool cmpMomByEt(const FourMomentum& a, const FourMomentum& b) {
+    return a.Et() > b.Et();
+  }
+  inline bool cmpMomByAscEt(const FourMomentum& a, const FourMomentum& b) {
+    return a.Et() < b.Et();
+  }
+  inline bool cmpMomByE(const FourMomentum& a, const FourMomentum& b) {
+    return a.E() > b.E();
+  }
+  inline bool cmpMomByAscE(const FourMomentum& a, const FourMomentum& b) {
+    return a.E() < b.E();
+  }
+  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.pseudorapidity() > b.pseudorapidity();
+  }
+  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.pseudorapidity() < b.pseudorapidity();
+  }
+  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.pseudorapidity()) > fabs(b.pseudorapidity());
+  }
+  inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.pseudorapidity()) < fabs(b.pseudorapidity());
+  }
+  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.rapidity() > b.rapidity();
+  }
+  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return a.rapidity() < b.rapidity();
+  }
+  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.rapidity()) > fabs(b.rapidity());
+  }
+  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.rapidity()) < fabs(b.rapidity());
+  }
+
+  //@}
+
 
   //////////////////////////////////////////////////////
 

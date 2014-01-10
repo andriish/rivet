@@ -27,6 +27,11 @@ namespace Rivet {
     /// Get equivalent single momentum four-vector (const).
     virtual const FourMomentum& momentum() const = 0;
 
+    /// Cast operator for conversion to FourMomentum
+    operator const FourMomentum& () const { return momentum(); }
+
+    /// @todo Add a cast operator to FJ3 PseudoJet
+
     //@}
 
 
@@ -34,32 +39,47 @@ namespace Rivet {
     //@{
 
     /// Get the energy directly.
-    double energy() const { return momentum().E(); }
-    /// Get the energy directly.
     double E() const { return momentum().E(); }
+    /// Get the energy directly (alias).
+    double energy() const { return momentum().E(); }
 
     /// Get the \f$ p_T \f$ directly.
-    double pT() const { return momentum().pT(); }
+    double pt() const { return momentum().pt(); }
+    /// Get the \f$ p_T \f$ directly (alias).
+    double pT() const { return pt(); }
+    /// Get the \f$ p_T \f$ directly (alias).
+    double perp() const { return pt(); }
 
     /// Get the \f$ E_T \f$ directly.
     double Et() const { return momentum().Et(); }
 
     /// Get the mass directly.
     double mass() const { return momentum().mass(); }
+    /// Get the mass**2 directly.
+    double mass2() const { return momentum().mass2(); }
 
     /// Get the \f$ \eta \f$ directly.
     double pseudorapidity() const { return momentum().eta(); }
-    /// Get the \f$ \eta \f$ directly.
+    /// Get the \f$ \eta \f$ directly (alias).
     double eta() const { return momentum().eta(); }
+    /// Get the \f$ |\eta| \f$ directly.
+    double abspseudorapidity() const { return momentum().abspseudorapidity(); }
+    /// Get the \f$ |\eta| \f$ directly (alias).
+    double abseta() const { return momentum().abseta(); }
 
-    /// Get the \f$ \eta \f$ directly.
+    /// Get the \f$ y \f$ directly.
     double rapidity() const { return momentum().rapidity(); }
+    /// Get the \f$ y \f$ directly (alias).
+    double rap() const { return momentum().rapidity(); }
+    /// Get the \f$ |y| \f$ directly.
+    double absrapidity() const { return momentum().absrapidity(); }
+    /// Get the \f$ |y| \f$ directly (alias).
+    double absrap() const { return momentum().absrap(); }
 
     /// Get the \f$ \phi \f$ directly.
     double phi() const { return momentum().phi(); }
 
     //@}
-
 
 
     /// Struct for sorting by increasing transverse momentum in STL set, sort, etc.
@@ -138,7 +158,6 @@ namespace Rivet {
         return (*this)(*left, *right);
       }
     };
-
 
   };
 

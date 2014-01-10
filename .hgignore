@@ -21,6 +21,7 @@
 ^missing$
 ^autom4te\.cache$
 ^include/Rivet/Config/stamp-h.$
+^tmp$
 Makefile$
 Makefile\.in$
 \.(pdf|toc|bbl|blg|sty|bib|html|tex)$
@@ -57,4 +58,5 @@ Doxyfile$
 ^dev$
 ^devval$
 ^newanalyses$
-^a.out$
+^a\.out$
+^a\.out\.dSYM$
