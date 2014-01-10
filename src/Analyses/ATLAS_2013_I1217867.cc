@@ -3,7 +3,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
@@ -43,14 +43,14 @@ namespace Rivet {
       etaRangesElectrons.push_back(make_pair(-2.47, -1.52));
       etaRangesElectrons.push_back(make_pair(-1.37, 1.37));
       etaRangesElectrons.push_back(make_pair(1.52, 2.47));
-      LeptonClusters electronClusters(fs, bareElectrons, 0.1, true, etaRangesElectrons, 20.0*GeV);
+      DressedLeptons electronClusters(fs, bareElectrons, 0.1, true, etaRangesElectrons, 20.0*GeV);
       addProjection(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
       vector<pair<double, double> > etaRangesMuons;
       etaRangesMuons.push_back(make_pair(-2.4, 2.4));
-      LeptonClusters muonClusters(fs, bareMuons, 0.1, true, etaRangesMuons, 20.0*GeV);
+      DressedLeptons muonClusters(fs, bareMuons, 0.1, true, etaRangesMuons, 20.0*GeV);
       addProjection(muonClusters, "muonClusters");
 
       IdentifiedFinalState neutrinos(-MAXRAPIDITY, MAXRAPIDITY, 25.0*GeV);
@@ -77,8 +77,8 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const LeptonClusters& electronClusters = applyProjection<LeptonClusters>(e, "electronClusters");
-      const LeptonClusters& muonClusters = applyProjection<LeptonClusters>(e, "muonClusters");
+      const DressedLeptons& electronClusters = applyProjection<DressedLeptons>(e, "electronClusters");
+      const DressedLeptons& muonClusters = applyProjection<DressedLeptons>(e, "muonClusters");
       int ne = electronClusters.clusteredLeptons().size();
       int nmu = muonClusters.clusteredLeptons().size();
 

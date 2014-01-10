@@ -276,7 +276,7 @@ namespace Rivet {
           // get all the leptons and sort them by pT
           Particles leptons(recon_hard_e.begin(),recon_hard_e.end());
           leptons.insert(leptons.begin(),recon_hard_mu.begin(),recon_hard_mu.end());
-          std::sort(leptons.begin(),leptons.end(),cmpParticleByPt);
+          std::sort(leptons.begin(),leptons.end(),cmpMomByPt);
           double m_eff(0.0);
           for (size_t ix = 0; ix < leptons.size(); ++ix)
             m_eff += leptons[ix].momentum().perp();

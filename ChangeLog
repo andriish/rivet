@@ -1,3 +1,91 @@
+2013-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding pid() and abspid() methods to Particle.
+
+	* Adding hasCharm and hasBottom methods to Particle.
+
+	* Adding a sorting functor arg version of the ZFinder::constituents() method.
+
+	* Adding pTmin cut accessors to HeavyHadrons.
+
+	* Tweak to the WFinder constructor to place the target W (trans) mass argument last.
+
+2013-12-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a GenParticle* cast operator to Particle, removing the
+	Particle and Jet copies of the momentum cmp functors, and general
+	tidying/improvement/unification of the momentum properties of jets
+	and particles.
+
+2013-12-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Using SFINAE techniques to improve the math util functions.
+
+	* Adding isNeutrino to ParticleIdUtils, and
+	isHadron/isMeson/isBaryon/isLepton/isNeutrino methods to Particle.
+
+	* Adding a FourMomentum cast operator to ParticleBase, so that
+	Particle and Jet objects can be used directly as FourMomentums.
+
+2013-12-16  Andy Buckley  <andy@duality>
+
+	* LeptonClusters renamed to DressedLeptons.
+
+	* Adding singular particle accessor functions to WFinder and ZFinder.
+
+	* Removing ClusteredPhotons and converting ATLAS_2010_S8919674.
+
+2013-12-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fixing a problem with --disable-analyses (thanks to David Hall)
+
+	* Require FastJet version 3.
+
+	* Bumped version to 2.1.0a0
+
+	* Adding -DNDEBUG to the default build flags, unless in --enable-debug mode.
+
+	* Adding a special treatment of RIVET_*_PATH variables: if they
+	end in :: the default search paths will not be appended. Used
+	primarily to restrict the doc builds to look only inside the build
+	dirs, but potentially also useful in other special circumstances.
+
+	* Adding a definition of exec_prefix to rivet-buildplugin.
+
+	* Adding -DNDEBUG to the default non-debug build flags.
+
+2013-11-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing accidentally still-present no-as-needed linker flag from rivet-config.
+
+	* Lots of analysis clean-up and migration to use new features and W/Z finder APIs.
+
+	* More momentum method forwarding on ParticleBase and adding
+	abseta(), absrap() etc. functions.
+
+	* Adding the DEFAULT_RIVET_ANA_CONSTRUCTOR cosmetic macro.
+
+	* Adding deltaRap() etc. function variations
+
+	* Adding no-decay photon clustering option to WFinder and ZFinder,
+	and replacing opaque bool args with enums.
+
+	* Adding an option for ignoring photons from hadron/tau decays in LeptonClusters.
+
+2013-11-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Particle::fromBottom/Charm/Tau() members. LHCb were
+	aready mocking this up, so it seemed sensible to add it to the
+	interface as a more popular (and even less dangerous) version of
+	hasAncestor().
+
+	* Adding an empty() member to the JetAlg interface.
+
+2013-11-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding the GSL lib path to the library path in the env scripts
+	and the rivet-config --ldflags output.
+
 2013-10-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* 2.0.0 release!!!!!!

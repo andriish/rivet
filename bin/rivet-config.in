@@ -65,13 +65,12 @@ if test -n "$tmp"; then
     test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
     igsl="@GSLINCPATH@"
     test -n "$igsl" && OUT="$OUT -I${igsl}"
-    iboost="@BOOSTINCPATH@"
-    test -n "$iboost" && OUT="$OUT -I${iboost}"
+    iboost="@BOOST_CPPFLAGS@"
+    test -n "$iboost" && OUT="$OUT ${iboost}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>')
 if test -n "$tmp"; then
-    OUT="$OUT -Wl,--no-as-needed"
     lrivet="@libdir@"
     test -n "$lrivet" && OUT="$OUT -L${lrivet}"
     lhepmc="@HEPMCLIBPATH@"
@@ -80,6 +79,8 @@ if test -n "$tmp"; then
     test -n "$lyoda" && OUT="$OUT -L${lyoda}"
     lfastjet="@FASTJETCONFIGLIBADD@"
     test -n "$lfastjet" && OUT="$OUT ${lfastjet}"
+    lgsl="@GSLLIBPATH@"
+    test -n "$lgsl" && OUT="$OUT -L${lgsl}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<libs\>|--\<ldadd\>')

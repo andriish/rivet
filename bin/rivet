@@ -77,7 +77,8 @@ extragroup.add_option("-n", "--nevts", dest="MAXEVTNUM", type="int",
 extragroup.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                       help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_option("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
-                      help="Ignore input event beams when checking analysis compatibility.")
+                      help="Ignore input event beams when checking analysis compatibility. "
+                      "Warning: some analyses may not work with incorrect beams")
 parser.add_option_group(extragroup)
 
 

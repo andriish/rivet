@@ -125,7 +125,7 @@ namespace Rivet {
       }
 
       // Sort by transverse momentum
-      std::sort(cand_e.begin(), cand_e.end(), cmpParticleByPt);
+      std::sort(cand_e.begin(), cand_e.end(), cmpMomByPt);
 
       // resolve jet/lepton ambiguity
       Jets recon_jets;

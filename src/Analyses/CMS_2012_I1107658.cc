@@ -10,19 +10,24 @@
 namespace Rivet {
 
 
+  /// Underlying event activity in the Drell-Yan process at 7 TeV
   class CMS_2012_I1107658 : public Analysis {
   public:
 
     /// Constructor
-    CMS_2012_I1107658() : Analysis("CMS_2012_I1107658") {}
+    CMS_2012_I1107658()
+      : Analysis("CMS_2012_I1107658")
+    {   }
 
+
+    /// Initialization
     void init() {
 
-      FinalState fs;
-      ZFinder zfinder(fs, -2.4, 2.4, 20.0*GeV, PID::MUON, 4.0*GeV, 140.0*GeV, 0.2, false, false);
+      /// @note Using a bare muon Z (but with a clustering radius!?)
+      ZFinder zfinder(FinalState(), -2.4, 2.4, 20*GeV, PID::MUON, 4*GeV, 140*GeV, 0.2, ZFinder::NOCLUSTER);
       addProjection(zfinder, "ZFinder");
 
-      ChargedFinalState cfs(-2.0, 2.0, 500*MeV); // For charged particles
+      ChargedFinalState cfs(-2, 2, 500*MeV);
       VetoedFinalState nonmuons(cfs);
       nonmuons.addVetoPairId(PID::MUON);
       addProjection(nonmuons, "nonmuons");
@@ -66,19 +71,19 @@ namespace Rivet {
       int nTowards = 0;
       int nTransverse = 0;
       int nAway = 0;
-      double ptSumTowards = 0.0;
-      double ptSumTransverse = 0.0;
-      double ptSumAway = 0.0;
+      double ptSumTowards = 0;
+      double ptSumTransverse = 0;
+      double ptSumAway = 0;
 
       foreach (const Particle& p, particles) {
         double dphi = fabs(deltaPhi(Zphi, p.momentum().phi()));
         double pT = p.pT();
 
-        if ( dphi < M_PI/3.0 ) {
+        if ( dphi < M_PI/3 ) {
           nTowards++;
           ptSumTowards += pT;
           if (Zmass > 81. && Zmass < 101.) _h_pT_towards_zmass_81_101->fill(pT, weight);
-        } else if ( dphi < 2.*M_PI/3.0 ) {
+        } else if ( dphi < 2.*M_PI/3 ) {
           nTransverse++;
           ptSumTransverse += pT;
           if (Zmass > 81. && Zmass < 101.) _h_pT_transverse_zmass_81_101->fill(pT, weight);
@@ -120,10 +125,10 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      if (integral(_h_Nchg_towards_zmass_81_101)    > 0) scale(_h_pT_towards_zmass_81_101,    1.0/integral(_h_Nchg_towards_zmass_81_101));
-      if (integral(_h_Nchg_transverse_zmass_81_101) > 0) scale(_h_pT_transverse_zmass_81_101, 1.0/integral(_h_Nchg_transverse_zmass_81_101));
-      if (integral(_h_Nchg_away_zmass_81_101)       > 0) scale(_h_pT_away_zmass_81_101,       1.0/integral(_h_Nchg_away_zmass_81_101));
-      if (integral(_h_Nchg_transverse_zpt_5)        > 0) scale(_h_pT_transverse_zpt_5,        1.0/integral(_h_Nchg_transverse_zpt_5));
+      if (integral(_h_Nchg_towards_zmass_81_101)    > 0) scale(_h_pT_towards_zmass_81_101,    1/integral(_h_Nchg_towards_zmass_81_101));
+      if (integral(_h_Nchg_transverse_zmass_81_101) > 0) scale(_h_pT_transverse_zmass_81_101, 1/integral(_h_Nchg_transverse_zmass_81_101));
+      if (integral(_h_Nchg_away_zmass_81_101)       > 0) scale(_h_pT_away_zmass_81_101,       1/integral(_h_Nchg_away_zmass_81_101));
+      if (integral(_h_Nchg_transverse_zpt_5)        > 0) scale(_h_pT_transverse_zpt_5,        1/integral(_h_Nchg_transverse_zpt_5));
       normalize(_h_Nchg_towards_zmass_81_101);
       normalize(_h_Nchg_transverse_zmass_81_101);
       normalize(_h_Nchg_away_zmass_81_101);
@@ -160,7 +165,8 @@ namespace Rivet {
 
   };
 
-  // This global object acts as a hook for the plugin system
+
+  // Hook for the plugin system
   DECLARE_RIVET_PLUGIN(CMS_2012_I1107658);
 
 }

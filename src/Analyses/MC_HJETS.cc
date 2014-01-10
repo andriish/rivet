@@ -21,8 +21,8 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      FinalState fs;
-      ZFinder hfinder(fs, -3.5, 3.5, 25.0*GeV, PID::TAU, 115.0*GeV, 125.0*GeV, 0.0, false, false);
+      /// @todo Urk, abuse! Need explicit HiggsFinder (and TauFinder?)
+      ZFinder hfinder(FinalState(), -3.5, 3.5, 25*GeV, PID::TAU, 115*GeV, 125*GeV, 0.0, ZFinder::NOCLUSTER);
       addProjection(hfinder, "Hfinder");
       FastJets jetpro(hfinder.remainingFinalState(), FastJets::ANTIKT, 0.4);
       addProjection(jetpro, "Jets");
@@ -38,9 +38,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const ZFinder& hfinder = applyProjection<ZFinder>(e, "Hfinder");
-      if (hfinder.bosons().size()!=1) {
-        vetoEvent;
-      }
+      if (hfinder.bosons().size() != 1) vetoEvent;
       const double weight = e.weight();
 
       FourMomentum hmom(hfinder.bosons()[0].momentum());
@@ -56,9 +54,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      scale(_h_H_jet1_deta, crossSection()/sumOfWeights());
-      scale(_h_H_jet1_dR, crossSection()/sumOfWeights());
-
+      normalize(_h_H_jet1_deta, crossSection()/picobarn);
+      normalize(_h_H_jet1_dR, crossSection()/picobarn);
       MC_JetAnalysis::finalize();
     }
 

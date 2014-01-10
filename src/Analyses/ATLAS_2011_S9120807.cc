@@ -177,7 +177,7 @@ namespace Rivet {
       ///
       /// select leading pT pair
       ///
-      std::sort(isolated_photons.begin(), isolated_photons.end(), cmpParticleByPt);
+      std::sort(isolated_photons.begin(), isolated_photons.end(), cmpMomByPt);
       FourMomentum y1=isolated_photons[0].momentum();
       FourMomentum y2=isolated_photons[1].momentum();
 

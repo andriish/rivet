@@ -11,10 +11,10 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    D0_2008_S6879055() : Analysis("D0_2008_S6879055")
-    {
-    }
-
+    D0_2008_S6879055()
+      : Analysis("D0_2008_S6879055")
+    {    }
+    // DEFAULT_RIVET_ANA_CONSTRUCTOR(D0_2008_S6879055);
 
     /// @name Analysis methods
     //@{
@@ -22,8 +22,8 @@ namespace Rivet {
     // Book histograms
     void init() {
       FinalState fs;
-      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0.0*GeV, PID::ELECTRON,
-                      40.0*GeV, 200.0*GeV, 0.2, true, true);
+      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0*GeV, PID::ELECTRON,
+                      40*GeV, 200*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
@@ -56,7 +56,7 @@ namespace Rivet {
       const double e1phi = e1.phi();
 
       vector<FourMomentum> finaljet_list;
-      foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20.0*GeV)) {
+      foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
         const double jeta = j.eta();
         const double jphi = j.momentum().phi();
         if (fabs(jeta) < 2.5) {
@@ -93,14 +93,14 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       // Now divide by the inclusive result
-      scale(_crossSectionRatio,1.0/_crossSectionRatio->bin(0).area());
+      scale(_crossSectionRatio,1/_crossSectionRatio->bin(0).area());
 
       // Normalise jet pTs to integrals of data
-      // NB. There is no other way to do this, because these quantities are not
-      // detector-corrected
-      normalize(_pTjet1, 10439.0); // fixed norm OK
+      // @note There is no other way to do this, because these quantities are not detector-corrected
+      /// @todo Use integrals of refData()?
+      normalize(_pTjet1, 10439); // fixed norm OK
       normalize(_pTjet2, 1461.5); // fixed norm OK
-      normalize(_pTjet3, 217.0); // fixed norm OK
+      normalize(_pTjet3, 217); // fixed norm OK
     }
 
     //@}

@@ -18,10 +18,8 @@ namespace Rivet {
   public:
 
     void init() {
-      FinalState fs;
-      FastJets jetpro(fs, FastJets::KT, 0.6);
+      FastJets jetpro(FinalState(), FastJets::KT, 0.6);
       addProjection(jetpro, "Jets");
-
       MC_JetSplittings::init();
     }
 

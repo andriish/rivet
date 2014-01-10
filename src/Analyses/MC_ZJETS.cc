@@ -19,15 +19,15 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
-    /// Book histograms
+    /// Initialize
     void init() {
       FinalState fs;
-      ZFinder zfinder(fs, -3.5, 3.5, 25.0*GeV, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, true, true);
+      ZFinder zfinder(fs, -3.5, 3.5, 25*GeV, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
       FastJets jetpro(zfinder.remainingFinalState(), FastJets::ANTIKT, 0.4);
       addProjection(jetpro, "Jets");
 
-      _h_Z_jet1_deta = bookHisto1D("Z_jet1_deta", 50, -5.0, 5.0);
+      _h_Z_jet1_deta = bookHisto1D("Z_jet1_deta", 50, -5, 5);
       _h_Z_jet1_dR = bookHisto1D("Z_jet1_dR", 25, 0.5, 7.0);
 
       MC_JetAnalysis::init();
@@ -38,15 +38,12 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
-      if (zfinder.bosons().size()!=1) {
-        vetoEvent;
-      }
-      const double weight = e.weight();
-
-      FourMomentum zmom(zfinder.bosons()[0].momentum());
+      if (zfinder.bosons().size() != 1) vetoEvent;
+      const FourMomentum& zmom = zfinder.bosons()[0].momentum();
 
       const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
       if (jets.size() > 0) {
+        const double weight = e.weight();
         _h_Z_jet1_deta->fill(zmom.eta()-jets[0].eta(), weight);
         _h_Z_jet1_dR->fill(deltaR(zmom, jets[0].momentum()), weight);
       }
@@ -57,9 +54,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      scale(_h_Z_jet1_deta, crossSection()/sumOfWeights());
-      scale(_h_Z_jet1_dR, crossSection()/sumOfWeights());
-
+      normalize(_h_Z_jet1_deta, crossSection()/picobarn);
+      normalize(_h_Z_jet1_dR, crossSection()/picobarn);
       MC_JetAnalysis::finalize();
     }
 

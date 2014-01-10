@@ -11,33 +11,6 @@
 namespace Rivet {
 
 
-// // GSL forward declarations (avoids need for GSL header files)
-// extern "C" {
-//   struct gsl_vector;
-//   gsl_vector* gsl_vector_alloc(size_t);
-//   double gsl_vector_get(gsl_vector*, size_t);
-//   void gsl_vector_set(gsl_vector*, size_t, double);
-//   void gsl_vector_free(gsl_vector*);
-//   struct gsl_matrix;
-//   gsl_matrix* gsl_matrix_alloc(size_t, size_t);
-//   double gsl_matrix_get(gsl_matrix*, size_t, size_t);
-//   void gsl_matrix_set(gsl_matrix*, size_t, size_t, double);
-//   void gsl_matrix_free(gsl_matrix*);
-//   struct gsl_eigen_symmv_workspace;
-//   gsl_eigen_symmv_workspace* gsl_eigen_symmv_alloc(size_t);
-//   void gsl_eigen_symmv(gsl_matrix*, gsl_vector*, gsl_matrix*, gsl_eigen_symmv_workspace*);
-//   void gsl_eigen_symmv_free(gsl_eigen_symmv_workspace*);
-//   typedef enum {
-//     GSL_EIGEN_SORT_VAL_ASC,
-//     GSL_EIGEN_SORT_VAL_DESC,
-//     GSL_EIGEN_SORT_ABS_ASC,
-//     GSL_EIGEN_SORT_ABS_DESC
-//   }
-//   gsl_eigen_sort_t;
-//   int gsl_eigen_symmv_sort(gsl_vector * eval, gsl_matrix * evec, gsl_eigen_sort_t sort_type);
-// }
-
-
 template <size_t N>
 class EigenSystem;
 template <size_t N>
@@ -51,6 +24,7 @@ class EigenSystem {
   friend EigenSystem<M> diagonalize(const Matrix<M>&);
 
 public:
+
   typedef pair<double, Vector<N> > EigenPair;
   typedef vector<EigenPair> EigenPairs;
 
@@ -90,7 +64,9 @@ public:
   }
 
 private:
+
   EigenPairs _eigenPairs;
+
 };
 
 

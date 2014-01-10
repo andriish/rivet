@@ -1,15 +1,13 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/ClusteredPhotons.hh"
-#include "Rivet/Projections/LeadingParticlesFinalState.hh"
+#include "Rivet/Projections/WFinder.hh"
 
 namespace Rivet {
 
 
+  /// W + jets jet multiplicities and pT
   class ATLAS_2010_S8919674 : public Analysis {
   public:
 
@@ -32,60 +30,32 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      /// Initialise and register projections (selections on the final state)
-      // projection to find the electrons
-      std::vector<std::pair<double, double> > eta_e;
-      eta_e.push_back(make_pair(-2.47,-1.52));
-      eta_e.push_back(make_pair(-1.37,1.37));
-      eta_e.push_back(make_pair(1.52,2.47));
-      IdentifiedFinalState elecs(eta_e, 20.0*GeV);
-      elecs.acceptIdPair(PID::ELECTRON);
-      addProjection(elecs, "elecs");
-      // projection for finding the photons which have to be clustered into
-      // the lepton later
-      ClusteredPhotons cphotons_e(FinalState(), elecs, 0.1);
-      addProjection(cphotons_e, "cphotons_e");
-
-      // projection to find the muons
-      std::vector<std::pair<double, double> > eta_m;
-      eta_m.push_back(make_pair(-2.4,2.4));
-      IdentifiedFinalState muons(eta_m, 20.0*GeV);
-      muons.acceptIdPair(PID::MUON);
-      addProjection(muons, "muons");
-      // projection for finding the photons which have to be clustered into
-      // the lepton later
-      ClusteredPhotons cphotons_m(FinalState(), muons, 0.1);
-      addProjection(cphotons_m, "cphotons_m");
-
-      // Leading neutrinos for Etmiss
+      // Set up projections to find the electron and muon Ws
       FinalState fs;
-      LeadingParticlesFinalState muon_neutrino(fs);
-      muon_neutrino.addParticleIdPair(PID::NU_MU);
-      muon_neutrino.setLeadingOnly(true);
-      addProjection(muon_neutrino, "muon_neutrino");
-      LeadingParticlesFinalState elec_neutrino(fs);
-      elec_neutrino.addParticleIdPair(PID::NU_E);
-      elec_neutrino.setLeadingOnly(true);
-      addProjection(elec_neutrino, "elec_neutrino");
+      vector<pair<double, double> > eta_e;
+      /// @todo Use C++11 uniform init list
+      eta_e.push_back(make_pair(-2.47, -1.52));
+      eta_e.push_back(make_pair(-1.37, 1.37));
+      eta_e.push_back(make_pair(1.52, 2.47));
+      WFinder wfinder_e(fs, eta_e, 20*GeV, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV);
+      addProjection(wfinder_e, "W_e");
+      WFinder wfinder_mu(fs, -2.4, 2.4, 20*GeV, PID::MUON, 0*GeV, 1000*GeV, 25*GeV);
+      addProjection(wfinder_mu, "W_mu");
 
-      // Input for the jets: No neutrinos, no muons, and no electron which
-      // passed the electron cuts ("elecs" finalstate from above)
+      // Input for the jets: no neutrinos, no muons, and no electron which passed the electron cuts
       VetoedFinalState veto;
-      veto.addVetoOnThisFinalState(elecs);
+      veto.addVetoOnThisFinalState(wfinder_e);
+      veto.addVetoOnThisFinalState(wfinder_mu);
       veto.addVetoPairId(PID::MUON);
       veto.vetoNeutrinos();
       FastJets jets(veto, FastJets::ANTIKT, 0.4);
       addProjection(jets, "jets");
 
-
-
-      /// book histograms
+      /// Book histograms
       _h_el_njet_inclusive = bookHisto1D(1,1,1);
       _h_mu_njet_inclusive = bookHisto1D(2,1,1);
-
       _h_el_pT_jet1 = bookHisto1D(5,1,1);
       _h_mu_pT_jet1 = bookHisto1D(6,1,1);
-
       _h_el_pT_jet2 = bookHisto1D(7,1,1);
       _h_mu_pT_jet2 = bookHisto1D(8,1,1);
     }
@@ -95,70 +65,56 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const FinalState& elecs = applyProjection<FinalState>(event, "elecs");
-      Particles elec_neutrino=applyProjection<FinalState>(event, "elec_neutrino").particles();
-      if (elecs.size()==1 && elec_neutrino.size()>0) {
-        FourMomentum lepton=elecs.particles()[0].momentum();
-        foreach (const Particle& photon,
-                 applyProjection<FinalState>(event, "cphotons_e").particles()) {
-          lepton+=photon.momentum();
-        }
-        FourMomentum p_miss = elec_neutrino[0].momentum();
-        double mT=sqrt(2.0*lepton.pT()*p_miss.Et()*(1.0-cos(lepton.phi()-p_miss.phi())));
-        if (p_miss.Et()>25.0*GeV && mT>40.0*GeV) {
-          Jets jets;
-          foreach (const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(20.0*GeV)) {
-            if (fabs(jet.eta())<2.8 && deltaR(lepton, jet.momentum())>0.5) {
-              jets.push_back(jet);
-            }
-          }
+      const Jets& jets = applyProjection<FastJets>(event, "jets").jetsByPt(20.0*GeV);
 
+      const WFinder& We = applyProjection<WFinder>(event, "W_e");
+      if (We.bosons().size() == 1) {
+        const FourMomentum& p_miss = We.constituentNeutrinos()[0].momentum();
+        const FourMomentum& p_lept = We.constituentLeptons()[0].momentum();
+        if (p_miss.Et() > 25*GeV && We.mT() > 40*GeV) {
+          Jets js;
+          foreach (const Jet& j, jets) {
+            if (fabs(j.eta()) < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
+              js.push_back(j);
+          }
           _h_el_njet_inclusive->fill(0, weight);
-          if (jets.size()>=1) {
+          if (js.size() >= 1) {
             _h_el_njet_inclusive->fill(1, weight);
-            _h_el_pT_jet1->fill(jets[0].pT(), weight);
+            _h_el_pT_jet1->fill(js[0].pT(), weight);
           }
-          if (jets.size()>=2) {
+          if (js.size() >= 2) {
             _h_el_njet_inclusive->fill(2, weight);
-            _h_el_pT_jet2->fill(jets[1].pT(), weight);
+            _h_el_pT_jet2->fill(js[1].pT(), weight);
           }
-          if (jets.size()>=3) {
+          if (js.size() >= 3) {
             _h_el_njet_inclusive->fill(3, weight);
           }
         }
       }
 
-      const FinalState& muons = applyProjection<FinalState>(event, "muons");
-      Particles muon_neutrino=applyProjection<FinalState>(event, "muon_neutrino").particles();
-      if (muons.size()==1 && muon_neutrino.size()>0) {
-        FourMomentum lepton=muons.particles()[0].momentum();
-        foreach (const Particle& photon,
-                 applyProjection<FinalState>(event, "cphotons_m").particles()) {
-          lepton+=photon.momentum();
-        }
-        FourMomentum p_miss = muon_neutrino[0].momentum();
-        double mT=sqrt(2.0*lepton.pT()*p_miss.Et()*(1.0-cos(lepton.phi()-p_miss.phi())));
-        if (p_miss.Et()>25.0*GeV && mT>40.0*GeV) {
-          Jets jets;
-          foreach (const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(20.0*GeV)) {
-            if (fabs(jet.eta())<2.8 && deltaR(lepton, jet.momentum())>0.5) {
-              jets.push_back(jet);
-            }
+      const WFinder& Wm = applyProjection<WFinder>(event, "W_mu");
+      if (Wm.bosons().size() == 1) {
+        const FourMomentum& p_miss = Wm.constituentNeutrinos()[0].momentum();
+        const FourMomentum& p_lept = Wm.constituentLeptons()[0].momentum();
+        if (p_miss.Et() > 25*GeV && Wm.mT() > 40*GeV) {
+          Jets js;
+          foreach (const Jet& j, jets) {
+            if (fabs(j.eta()) < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
+              js.push_back(j);
           }
-
           _h_mu_njet_inclusive->fill(0, weight);
-          if (jets.size()>=1) {
+          if (js.size() >= 1) {
             _h_mu_njet_inclusive->fill(1, weight);
-            _h_mu_pT_jet1->fill(jets[0].pT(), weight);
+            _h_mu_pT_jet1->fill(js[0].pT(), weight);
           }
-          if (jets.size()>=2) {
+          if (js.size() >= 2) {
             _h_mu_njet_inclusive->fill(2, weight);
-            _h_mu_pT_jet2->fill(jets[1].pT(), weight);
+            _h_mu_pT_jet2->fill(js[1].pT(), weight);
           }
-          if (jets.size()>=3) {
+          if (js.size() >= 3) {
             _h_mu_njet_inclusive->fill(3, weight);
           }
-          if (jets.size()>=4) {
+          if (js.size() >= 4) {
             _h_mu_njet_inclusive->fill(4, weight);
           }
         }
@@ -169,7 +125,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double normfac=crossSection()/sumOfWeights();
+      double normfac = crossSection()/sumOfWeights();
       scale(_h_el_njet_inclusive, normfac);
       scale(_h_mu_njet_inclusive, normfac);
       scale(_h_el_pT_jet1, normfac);

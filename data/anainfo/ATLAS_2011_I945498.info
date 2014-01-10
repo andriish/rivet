@@ -1,18 +1,19 @@
 Name: ATLAS_2011_I945498
 Year: 2011
-Summary: Z+jets in pp at 7TeV
+Summary: $Z$+jets in $pp$ at 7~\TeV
 Experiment: ATLAS
 Collider: LHC
 InspireID: 945498
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
- - Evelin Meoni evelin.meoni@cern.ch
+ - Evelin Meoni <evelin.meoni@cern.ch>
  - Holger Schulz
+ - Roman Lysak <roman.lysak@cern.ch>
 References:
  - arXiv:1111.2690v1 [hep-ex]
  - CERN-PH-EP-2011-162
 RunInfo:
-  Z+jets, electronic and muonic Z-decays. Jets with transverse momentum $p_T > 30$ GeV and jet rapidity $|y| < 4.4$.
+  Z+jets, electronic and/or muonic Z-decays. Jets with transverse momentum $p_T > 30$ GeV and jet rapidity $|y| < 4.4$.
 NumEvents: 1000000
 Beams: [p+, p+]
 Energies: [7000]
@@ -38,7 +39,3 @@ BibTeX: '@article{Aad:2011qv,
       reportNumber   = "CERN-PH-EP-2011-162",
       SLACcitation   = "%%CITATION = ARXIV:1111.2690;%%",
 }'
-Todo:
- - Njet-ratio histo (d02-x01... )
- - Find out what kind of events contribute to the Njet=0 case (contradiction with Figure caption).
- - Improve/remove weight counters.

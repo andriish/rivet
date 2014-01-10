@@ -6,7 +6,7 @@
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Projections/HadronicFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/Projections/LeptonClusters.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {

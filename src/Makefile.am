@@ -17,7 +17,11 @@ libRivet_la_LDFLAGS = \
 libRivet_la_LIBADD = \
   Core/libRivetCore.la \
   Projections/libRivetProjections.la \
-  Tools/libRivetTools.la \
-  Analyses/libRivetAnalysisTools.la \
+  Tools/libRivetTools.la
+if ENABLE_ANALYSES
+libRivet_la_LIBADD += \
+  Analyses/libRivetAnalysisTools.la
+endif
+libRivet_la_LIBADD += \
   -ldl -lm -lYODA -lHepMC \
   $(GSL_LDFLAGS) $(FASTJETCONFIGLIBADD)

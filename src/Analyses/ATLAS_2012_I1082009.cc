@@ -4,7 +4,6 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/ClusteredPhotons.hh"
 #include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 

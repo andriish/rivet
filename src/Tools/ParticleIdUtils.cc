@@ -212,6 +212,13 @@ namespace Rivet {
         if( fundamentalID(pid) >= 11 && fundamentalID(pid) <= 18 ) { return true; }
         return false;
     }
+    // is this a neutrino ID?
+    bool isNeutrino( const int & pid )
+    {
+        if( extraBits(pid) > 0 ) { return false; }
+        if( fundamentalID(pid) == 12 || fundamentalID(pid) == 14 || fundamentalID(pid) == 16 ) { return true; }
+        return false;
+    }
 
     //
     // This implements the 2006 Monte Carlo nuclear code scheme.

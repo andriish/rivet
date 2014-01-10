@@ -152,6 +152,9 @@ def getAnalysisPlotPaths():
 def getAnalysisRefPaths():
     return c.getAnalysisRefPaths()
 
+def getAnalysisLibPaths():
+    return c.getAnalysisLibPaths()
+
 def setAnalysisLibPaths(xs):
     c.setAnalysisLibPaths(xs)
 

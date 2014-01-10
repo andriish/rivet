@@ -6,6 +6,8 @@
 #include "boost/lexical_cast.hpp"
 #include "boost/assign.hpp"
 #include "boost/algorithm/string.hpp"
+#include "boost/type_traits.hpp"
+#include "boost/utility.hpp"
 
 #include "boost/foreach.hpp"
 #ifndef foreach

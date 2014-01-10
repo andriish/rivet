@@ -52,6 +52,8 @@ namespace Rivet {
     bool isHadron( const int & pid );
     /// Is this a valid lepton ID?
     bool isLepton( const int & pid );
+    /// Is this a neutrino ID?
+    bool isNeutrino( const int & pid );
     /// Is this a valid ion ID?
     bool isNucleus( const int & pid );
     /// Is this a valid pentaquark ID?

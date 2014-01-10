@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.0.0],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.1.0a0],[rivet@projects.hepforge.org],[Rivet])
 if test "$prefix" = "$PWD"; then
   AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
 fi
@@ -97,14 +97,11 @@ if test -f "$FJCONFIG"; then
   AC_MSG_CHECKING([FastJet version using fastjet-config])
   fjversion=`$FJCONFIG --version`
   AC_MSG_RESULT([$fjversion])
-
   fjmajor=$(echo $fjversion | cut -f1 -d.)
   fjminor=$(echo $fjversion | cut -f2 -d.)
   fjmicro=$(echo $fjversion | cut -f3 -d.)
-  if test "$fjmajor" -lt 2 \
-    -o "$fjmajor" -eq 2 -a "$fjminor" -lt 4 \
-    -o "$fjmajor" -eq 2 -a "$fjminor" -eq 4 -a "$fjmicro" -lt 2; then
-    AC_MSG_ERROR([FastJet version 2.4.2 or later is required])
+  if test "$fjmajor" -lt 3; then
+    AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
   FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\-\-rpath/-rpath/g')"
   #FASTJETLIBPATH="$($FJCONFIG --libs | sed 's/.*\-L\([^\ ]\+\).*/\1/')"
@@ -161,9 +158,6 @@ BOOST_SMART_PTR
 BOOST_FIND_HEADER([boost/lexical_cast.hpp])
 BOOST_FIND_HEADER([boost/range.hpp])
 BOOST_FIND_HEADER([boost/assign.hpp])
-
-
-# TODO: EIGEN3
 
 
 ## Disable build/install of standard analyses
@@ -316,11 +310,13 @@ AC_CEDAR_CHECKCXXFLAG([-Werror=uninitialized], [AM_CXXFLAGS="$AM_CXXFLAGS -Werro
 AC_CEDAR_CHECKCXXFLAG([-Werror=delete-non-virtual-dtor], [AM_CXXFLAGS="$AM_CXXFLAGS -Werror=delete-non-virtual-dtor"])
 
 
-## Debug flag (default=none)
+## Debug flag (default=-DNDEBUG, enabled=-g)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
-  AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g "])
+  AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g"])
+else
+  AM_CPPFLAGS="$AM_CPPFLAGS -DNDEBUG"
 fi
 
 

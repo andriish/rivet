@@ -120,24 +120,18 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      scale(_histMult, 1/sumOfWeights());
-      scale(_histMultCh, 1/sumOfWeights());
-
-      scale(_histEta, 1/sumOfWeights());
-      scale(_histEtaCh, 1/sumOfWeights());
-
-      scale(_histRapidity, 1/sumOfWeights());
-      scale(_histRapidityCh, 1/sumOfWeights());
-
-      scale(_histPt, 1/sumOfWeights());
-      scale(_histPtCh, 1/sumOfWeights());
-
-      scale(_histE, 1/sumOfWeights());
-      scale(_histECh, 1/sumOfWeights());
-
-      scale(_histPhi, 1/sumOfWeights());
-      scale(_histPhiCh, 1/sumOfWeights());
-
+      normalize(_histMult);
+      normalize(_histMultCh);
+      normalize(_histEta);
+      normalize(_histEtaCh);
+      normalize(_histRapidity);
+      normalize(_histRapidityCh);
+      normalize(_histPt);
+      normalize(_histPtCh);
+      normalize(_histE);
+      normalize(_histECh);
+      normalize(_histPhi);
+      normalize(_histPhiCh);
       divide(_tmphistEtaPlus, _tmphistEtaMinus, _histEtaPMRatio);
       divide(_tmphistEtaChPlus, _tmphistEtaChMinus, _histEtaChPMRatio);
       divide(_tmphistRapPlus, _tmphistRapMinus, _histRapidityPMRatio);

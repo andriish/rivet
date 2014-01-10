@@ -23,7 +23,10 @@ TESTS_ENVIRONMENT = \
   PYTHON_BUILD_DIR=$(top_builddir)/pyext/build \
   PATH=$(top_builddir)/bin:$(PATH)
 
-TESTS = testMath testMatVec testBoost testCmp testApi testNaN testCmdLine.sh
+TESTS = testMath testMatVec testBoost testCmp testApi testNaN
+if ENABLE_ANALYSES
+TESTS += testCmdLine.sh
+endif
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh
 

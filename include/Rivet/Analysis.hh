@@ -853,5 +853,9 @@ namespace Rivet {
 /// Preprocessor define to prettify the global-object plugin hook mechanism.
 #define DECLARE_RIVET_PLUGIN(clsname) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
 
+/// @def DEFAULT_RIVET_ANA_CONSTRUCTOR
+/// Preprocessor define to prettify the manky constructor with name string argument
+#define DEFAULT_RIVET_ANA_CONSTRUCTOR(clsname) clsname() : Analysis(# clsname) {}
+
 
 #endif

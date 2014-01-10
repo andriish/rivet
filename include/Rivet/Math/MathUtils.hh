@@ -9,83 +9,77 @@
 namespace Rivet {
 
 
-  /// @name Comparison functions for safe floating point equality tests
+  /// @name Comparison functions for safe (floating point) equality tests
   //@{
 
-  /// Compare a floating point number to zero with a degree
-  /// of fuzziness expressed by the absolute @a tolerance parameter.
-  inline bool isZero(double val, double tolerance=1E-8) {
-    return (fabs(val) < tolerance);
+  /// @brief Compare a number to zero
+  ///
+  /// This version for floating point types has a degree of fuzziness expressed
+  /// by the absolute @a tolerance parameter, for floating point safety.
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_floating_point<NUM>::value, bool>::type
+  isZero(NUM val, double tolerance=1e-8) {
+    return fabs(val) < tolerance;
   }
 
-  /// Compare an integral-type number to zero.
+  /// @brief Compare a number to zero
   ///
-  /// Since there is no risk of floating point error, this function just exists
-  /// in case @c isZero is accidentally used on an integer type, to avoid
-  /// implicit type conversion. The @a tolerance parameter is ignored.
-  inline bool isZero(long val, double UNUSED(tolerance)=1E-8) {
+  /// SFINAE template specialisation for integers, since there is no FP
+  /// precision issue.
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_integral<NUM>::value, bool>::type
+    isZero(NUM val, double UNUSED(tolerance)=1e-8) {
     return val == 0;
   }
 
 
-  /// @brief Compare two floating point numbers for equality with a degree of fuzziness
+  /// @brief Compare two numbers for equality with a degree of fuzziness
   ///
-  /// The @a tolerance parameter is fractional, based on absolute values of the args.
-  inline bool fuzzyEquals(double a, double b, double tolerance=1E-5) {
+  /// This version for floating point types (if any argument is FP) has a degree
+  /// of fuzziness expressed by the fractional @a tolerance parameter, for
+  /// floating point safety.
+  template <typename N1, typename N2>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value &&
+   (boost::is_floating_point<N1>::value || boost::is_floating_point<N2>::value), bool>::type
+  fuzzyEquals(N1 a, N2 b, double tolerance=1e-5) {
     const double absavg = (fabs(a) + fabs(b))/2.0;
     const double absdiff = fabs(a - b);
     const bool rtn = (isZero(a) && isZero(b)) || absdiff < tolerance*absavg;
-    // cout << a << " == " << b << "? " << rtn << endl;
     return rtn;
   }
 
-  /// @brief Compare two integral-type numbers for equality with a degree of fuzziness.
+  /// @brief Compare two numbers for equality with a degree of fuzziness
   ///
-  /// Since there is no risk of floating point error with integral types,
-  /// this function just exists in case @c fuzzyEquals is accidentally
-  /// used on an integer type, to avoid implicit type conversion. The @a
-  /// tolerance parameter is ignored, even if it would have an
-  /// absolute magnitude greater than 1.
-  inline bool fuzzyEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
+  /// Simpler SFINAE template specialisation for integers, since there is no FP
+  /// precision issue.
+  template <typename N1, typename N2>
+  inline typename boost::enable_if_c<
+    boost::is_integral<N1>::value && boost::is_integral<N2>::value, bool>::type
+  fuzzyEquals(N1 a, N2 b, double UNUSED(tolerance)=1e-5) {
     return a == b;
   }
 
 
-  /// @brief Compare two floating point numbers for >= with a degree of fuzziness
+  /// @brief Compare two numbers for >= with a degree of fuzziness
   ///
   /// The @a tolerance parameter on the equality test is as for @c fuzzyEquals.
-  inline bool fuzzyGtrEquals(double a, double b, double tolerance=1E-5) {
+  template <typename N1, typename N2>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value, bool>::type
+  fuzzyGtrEquals(N1 a, N2 b, double tolerance=1e-5) {
     return a > b || fuzzyEquals(a, b, tolerance);
-  }
-
-  /// @brief Compare two integral-type numbers for >= with a degree of fuzziness.
-  ///
-  /// Since there is no risk of floating point error with integral types,
-  /// this function just exists in case @c fuzzyGtrEquals is accidentally
-  /// used on an integer type, to avoid implicit type conversion. The @a
-  /// tolerance parameter is ignored, even if it would have an
-  /// absolute magnitude greater than 1.
-  inline bool fuzzyGtrEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
-    return a >= b;
   }
 
 
   /// @brief Compare two floating point numbers for <= with a degree of fuzziness
   ///
   /// The @a tolerance parameter on the equality test is as for @c fuzzyEquals.
-  inline bool fuzzyLessEquals(double a, double b, double tolerance=1E-5) {
+  template <typename N1, typename N2>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value, bool>::type
+  fuzzyLessEquals(N1 a, N2 b, double tolerance=1e-5) {
     return a < b || fuzzyEquals(a, b, tolerance);
-  }
-
-  /// @brief Compare two integral-type numbers for <= with a degree of fuzziness.
-  ///
-  /// Since there is no risk of floating point error with integral types,
-  /// this function just exists in case @c fuzzyLessEquals is accidentally
-  /// used on an integer type, to avoid implicit type conversion. The @a
-  /// tolerance parameter is ignored, even if it would have an
-  /// absolute magnitude greater than 1.
-  inline bool fuzzyLessEquals(long a, long b, double UNUSED(tolerance)=1E-5) {
-    return a <= b;
   }
 
   //@}
@@ -104,10 +98,11 @@ namespace Rivet {
   /// @brief Determine if @a value is in the range @a low to @a high, for floating point numbers
   ///
   /// Interval boundary types are defined by @a lowbound and @a highbound.
-  /// @todo Optimise to one-line at compile time?
-  template<typename NUM>
-  inline bool inRange(NUM value, NUM low, NUM high,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  inRange(N1 value, N2 low, N3 high,
+          RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
     if (lowbound == OPEN && highbound == OPEN) {
       return (value > low && value < high);
     } else if (lowbound == OPEN && highbound == CLOSED) {
@@ -119,34 +114,12 @@ namespace Rivet {
     }
   }
 
-  /// Alternative version of inRange for doubles, which accepts a pair for the range arguments.
-  template<typename NUM>
-  inline bool inRange(NUM value, pair<NUM, NUM> lowhigh,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
-    return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
-  }
-
-
-  /// @brief Determine if @a value is in the range @a low to @a high, for integer types
-  ///
-  /// Interval boundary types are defined by @a lowbound and @a highbound.
-  /// @todo Optimise to one-line at compile time?
-  inline bool inRange(int value, int low, int high,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=CLOSED) {
-    if (lowbound == OPEN && highbound == OPEN) {
-      return (value > low && value < high);
-    } else if (lowbound == OPEN && highbound == CLOSED) {
-      return (value > low && value <= high);
-    } else if (lowbound == CLOSED && highbound == OPEN) {
-      return (value >= low && value < high);
-    } else { // if (lowbound == CLOSED && highbound == CLOSED) {
-      return (value >= low && value <= high);
-    }
-  }
-
-  /// Alternative version of @c inRange for ints, which accepts a pair for the range arguments.
-  inline bool inRange(int value, pair<int, int> lowhigh,
-                      RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+  /// Alternative version of inRange which accepts a pair for the range arguments.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  inRange(N1 value, pair<N2, N3> lowhigh,
+          RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
     return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
   }
 
@@ -158,57 +131,58 @@ namespace Rivet {
 
   /// Named number-type squaring operation.
   template <typename NUM>
-  inline NUM sqr(NUM a) {
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, NUM>::type
+  sqr(NUM a) {
     return a*a;
   }
 
   /// @brief Named number-type addition in quadrature operation.
   ///
   /// @note Result has the sqrt operation applied.
-  template <typename Num>
-  inline Num add_quad(Num a, Num b) {
+  /// @todo When std::common_type can be used, generalise to multiple numeric types with appropriate return type.
+  // template <typename N1, typename N2>
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, NUM>::type
+  //std::common_type<N1, N2>::type
+  add_quad(NUM a, NUM b) {
     return sqrt(a*a + b*b);
   }
 
   /// Named number-type addition in quadrature operation.
   ///
   /// @note Result has the sqrt operation applied.
-  template <typename Num>
-  inline Num add_quad(Num a, Num b, Num c) {
+  /// @todo When std::common_type can be used, generalise to multiple numeric types with appropriate return type.
+  // template <typename N1, typename N2>
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, NUM>::type
+  //std::common_type<N1, N2, N3>::type
+  add_quad(NUM a, NUM b, NUM c) {
     return sqrt(a*a + b*b + c*c);
   }
 
   /// Return a/b, or @a fail if b = 0
-  inline double divide(double num, double den, double fail=0.0) {
+  /// @todo When std::common_type can be used, generalise to multiple numeric types with appropriate return type.
+  inline double safediv(double num, double den, double fail=0.0) {
     return (!isZero(den)) ? num/den : fail;
   }
 
   /// A more efficient version of pow for raising numbers to integer powers.
-  template <typename Num>
-  inline Num intpow(Num val, unsigned int exp) {
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, NUM>::type
+  intpow(NUM val, unsigned int exp) {
     assert(exp >= 0);
-    if (exp == 0) return (Num) 1;
+    if (exp == 0) return (NUM) 1;
     else if (exp == 1) return val;
     return val * intpow(val, exp-1);
   }
 
   /// Find the sign of a number
-  inline int sign(double val) {
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, int>::type
+  sign(NUM val) {
     if (isZero(val)) return ZERO;
     const int valsign = (val > 0) ? PLUS : MINUS;
     return valsign;
-  }
-
-  /// Find the sign of a number
-  inline int sign(int val) {
-    if (val == 0) return ZERO;
-    return (val > 0) ? PLUS : MINUS;
-  }
-
-  /// Find the sign of a number
-  inline int sign(long val) {
-    if (val == 0) return ZERO;
-    return (val > 0) ? PLUS : MINUS;
   }
 
   //@}
@@ -259,7 +233,9 @@ namespace Rivet {
     return rtn;
   }
 
+
   namespace BWHelpers {
+
     /// @brief CDF for the Breit-Wigner distribution
     inline double CDF(double x, double mu, double gamma) {
       // normalize to (0;1) distribution
@@ -272,6 +248,7 @@ namespace Rivet {
       const double xn = std::tan(M_PI*(p-0.5));
       return gamma*xn + mu;
     }
+
   }
 
   /// @brief Make a list of @a nbins + 1 values spaced for equal area
@@ -281,8 +258,7 @@ namespace Rivet {
   /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space.
-  inline vector<double> BWspace(size_t nbins, double start, double end,
-				double mu, double gamma) {
+  inline vector<double> BWspace(size_t nbins, double start, double end, double mu, double gamma) {
     assert(end >= start);
     assert(nbins > 0);
     const double pmin = BWHelpers::CDF(start,mu,gamma);
@@ -475,10 +451,18 @@ namespace Rivet {
     return mapAngle0ToPi(phi1 - phi2);
   }
 
-  /// Calculate the difference between two pseudorapidities,
-  /// returning the unsigned value.
+  /// Calculate the abs difference between two pseudorapidities
+  ///
+  /// @note Just a cosmetic name for analysis code clarity.
   inline double deltaEta(double eta1, double eta2) {
     return fabs(eta1 - eta2);
+  }
+
+  /// Calculate the abs difference between two rapidities
+  ///
+  /// @note Just a cosmetic name for analysis code clarity.
+  inline double deltaRap(double y1, double y2) {
+    return fabs(y1 - y2);
   }
 
   /// Calculate the distance between two points in 2D rapidity-azimuthal

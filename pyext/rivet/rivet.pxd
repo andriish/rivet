@@ -64,6 +64,7 @@ cdef extern from "Rivet/Tools/RivetPaths.hh" namespace "Rivet":
     string findAnalysisRefFile(string)
     vector[string] getAnalysisPlotPaths()
     vector[string] getAnalysisRefPaths()
+    vector[string] getAnalysisLibPaths()
     void setAnalysisLibPaths(vector[string])
 
 cdef extern from "Rivet/Rivet.hh" namespace "Rivet":
