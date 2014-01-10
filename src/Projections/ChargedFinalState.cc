@@ -15,24 +15,18 @@ namespace Rivet {
     addProjection(FinalState(mineta, maxeta, minpt), "FS");
   }
 
-
-  // ChargedFinalState::ChargedFinalState(const vector<pair<double, double> >& etaRanges,
-  //                                      double minpt) {
-  //   setName("ChargedFinalState");
-  //   addProjection(FinalState(etaRanges, minpt), "FS");
-  // }
-
-
   int ChargedFinalState::compare(const Projection& p) const {
     return mkNamedPCmp(p, "FS");
   }
+}
 
-
-  bool chargedParticleFilter(const Particle& p) {
-    return PID::threeCharge(p.pdgId()) == 0;
+namespace {
+  inline bool chargedParticleFilter(const Rivet::Particle& p) {
+    return Rivet::PID::threeCharge(p.pdgId()) == 0;
   }
+}
 
-
+namespace Rivet {
   void ChargedFinalState::project(const Event& e) {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();

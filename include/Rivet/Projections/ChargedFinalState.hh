@@ -25,11 +25,6 @@ namespace Rivet {
                       double maxeta =  MAXRAPIDITY,
                       double minpt  =  0.0*GeV);
 
-    // /// A constructor which allows to specify multiple eta ranges
-    // /// and the min \f$ p_T \f$.
-    // ChargedFinalState(const vector<pair<double, double> >& etaRanges,
-    //                   double minpt = 0.0*GeV);
-
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new ChargedFinalState(*this);
