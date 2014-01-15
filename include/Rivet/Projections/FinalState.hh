@@ -18,13 +18,14 @@ namespace Rivet {
 
     /// @name Standard constructors and destructors.
     //@{
+    /// @deprecated Keep for backwards compatibility for now
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     FinalState(double mineta,
                double maxeta,
                double minpt = 0.0);
 
-    /// Testing construction using Cuts object
+    /// Construction using Cuts object
     FinalState(Cut c = Cuts::open());
 
     /// Clone on the heap.

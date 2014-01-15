@@ -3,7 +3,7 @@
 
 namespace Rivet {
 
-
+  // @deprecated, keep for backwards compatibility for now.
   FinalState::FinalState(double mineta, double maxeta, double minpt)
   {
     setName("FinalState");
@@ -70,7 +70,7 @@ namespace Rivet {
 
     //MSG_TRACE("FS::compare: " << 3 << " " << this << " " << &p);
     //return cmp(_ptmin, other._ptmin);
-    return _cuts == other._cuts;
+    return _cuts == other._cuts ? EQUIVALENT : UNDEFINED;
   }
 
 
