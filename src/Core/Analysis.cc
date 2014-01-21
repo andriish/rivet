@@ -123,14 +123,15 @@ namespace Rivet {
     if (!beamIdsOk) return false;
 
     // Next check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
+
     /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
     bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
     typedef pair<double,double> DoublePair;
     foreach (const DoublePair& ep, requiredEnergies()) {
       if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
           (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
-          ((ep.first - energies.first) < 1*GeV && (ep.second - energies.second) < 1*GeV) ||
-          ((ep.first - energies.second) < 1*GeV && (ep.second - energies.first) < 1*GeV)) {
+          (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||
+          (abs(ep.first - energies.second) < 1*GeV && abs(ep.second - energies.first) < 1*GeV)) {
         beamEnergiesOk =  true;
         break;
       }

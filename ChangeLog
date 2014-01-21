@@ -4,6 +4,15 @@
 	becomes mandatory (in version 2.2.0?). Anyone who wants C++11 can
 	explicitly set the CXXFLAGS (and DYLDFLAGS for pre-Mavericks Macs)
 
+2014-01-21  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Core/Analysis.cc: Fixed bug in Analysis::isCompatible where
+	an 'abs' was left out when checking that beam energes does not
+	differ by more than 1GeV.
+
+	* src/Analyses/CMS_2011_S8978280.cc: Fixed checking of beam energy
+	and booking corresponding histograms.
+
 2013-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding pid() and abspid() methods to Particle.
