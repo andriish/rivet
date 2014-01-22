@@ -1,3 +1,9 @@
+2014-01-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* configure.ac: Remove opportunistic C++11 build, until this
+	becomes mandatory (in version 2.2.0?). Anyone who wants C++11 can
+	explicitly set the CXXFLAGS (and DYLDFLAGS for pre-Mavericks Macs)
+
 2013-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding pid() and abspid() methods to Particle.
