@@ -1,3 +1,19 @@
+2014-01-25  David Grellscheid <david.grellscheid@durham.ac.uk>
+
+	* src/Core/Cuts.cc: New Cuts machinery, already used in FinalState.
+	Old-style "mineta, maxeta, minpt" constructors kept around for ease of
+	transition. Minimal set of convenience functions available, like EtaIn(),
+	should be expanded as needed.
+
+2014-01-21  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+
+	* src/Core/Analysis.cc: Fixed bug in Analysis::isCompatible where
+	an 'abs' was left out when checking that beam energes does not
+	differ by more than 1GeV.
+
+	* src/Analyses/CMS_2011_S8978280.cc: Fixed checking of beam energy
+	and booking corresponding histograms.
+
 2013-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding pid() and abspid() methods to Particle.
