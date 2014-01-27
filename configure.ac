@@ -211,10 +211,10 @@ AC_PATH_PROG(PDFLATEX, pdflatex)
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
 ## ... unless told otherwise!
 AC_ARG_ENABLE([pdfmanual],
-  [AC_HELP_STRING(--disable-pdfmanual, [don't try to build or install the PDF manual])],
-  [], [enable_pdfmanual=yes])
-if test x$enable_pdfmanual != xyes; then
-   AC_MSG_WARN([Not building Rivet PDF manual, by request])
+  [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
+  [], [enable_pdfmanual=no])
+if test x$enable_pdfmanual = xyes; then
+   AC_MSG_WARN([Building Rivet manual, by request])
 fi
 AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
 

@@ -9,6 +9,7 @@ DOCSOURCES = compare-histos.txt warning.png thinker.png cone.png bend.png \
 EXTRA_DIST = $(DOCSOURCES) rivet-manual.pdf
 DOCS =
 
+if ENABLE_PDFMANUAL
 
 if ENABLE_PYEXT
 DOCS += analyses.html
@@ -20,7 +21,6 @@ analyses.html: $(top_srcdir)/src/Analyses mk-analysis-html
 endif
 
 
-if ENABLE_PDFMANUAL
 if WITH_PDFLATEX
 
 DOCS += rivet-manual.pdf
