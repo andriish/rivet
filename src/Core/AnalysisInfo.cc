@@ -9,6 +9,10 @@
 #include <fstream>
 #include <unistd.h>
 
+#ifdef YAML_NAMESPACE
+#define YAML YAML_NAMESPACE
+#endif
+
 namespace Rivet {
 
 
@@ -37,11 +41,11 @@ namespace Rivet {
     MSG_DEBUG("Reading analysis data from " << datapath);
     YAML::Node doc;
     try {
-      #if YAMLCPP_API_VERSION == 3
+      #if YAMLCPP_API == 3
       std::ifstream file(datapath.c_str());
       YAML::Parser parser(file);
       parser.GetNextDocument(doc);
-      #elif YAMLCPP_API_VERSION == 5
+      #elif YAMLCPP_API == 5
       doc = YAML::LoadFile(datapath);
       #endif
     } catch (const YAML::ParserException& ex) {
@@ -52,10 +56,9 @@ namespace Rivet {
     #define THROW_INFOERR(KEY) throw InfoError("Problem in info parsing while accessing key " + string(KEY) + " in file " + datapath)
 
     // Simple scalars (test for nullness before casting)
-    #if YAMLCPP_API_VERSION == 3
-    /// @todo Fix
+    #if YAMLCPP_API == 3
     #define TRY_GETINFO(KEY, VAR) try { if (doc.FindValue(KEY)) { string val; doc[KEY] >> val; ai->_ ## VAR = val; } } catch (...) { THROW_INFOERR(KEY); }
-    #elif YAMLCPP_API_VERSION == 5
+    #elif YAMLCPP_API == 5
     #define TRY_GETINFO(KEY, VAR) try { if (doc[KEY] && !doc[KEY].IsNull()) ai->_ ## VAR = doc[KEY].as<string>(); } catch (...) { THROW_INFOERR(KEY); }
     #endif
     TRY_GETINFO("Name", name);
@@ -73,14 +76,13 @@ namespace Rivet {
     #undef TRY_GETINFO
 
     // Sequences (test the seq *and* each entry for nullness before casting)
-    #if YAMLCPP_API_VERSION == 3
-    /// @todo Fix
+    #if YAMLCPP_API == 3
     #define TRY_GETINFO_SEQ(KEY, VAR) try { \
         if (const YAML::Node* VAR = doc.FindValue(KEY)) {               \
-          for (size_t i = 0; i < VAR->size(); ++i) {                     \
+          for (size_t i = 0; i < VAR->size(); ++i) {                    \
             string val; (*VAR)[i] >> val; ai->_ ## VAR += val;          \
           } } } catch (...) { THROW_INFOERR(KEY); }
-    #elif YAMLCPP_API_VERSION == 5
+    #elif YAMLCPP_API == 5
     #define TRY_GETINFO_SEQ(KEY, VAR) try { \
         if (doc[KEY] && !doc[KEY].IsNull()) {                           \
           const YAML::Node& VAR = doc[KEY];                             \
@@ -96,11 +98,11 @@ namespace Rivet {
 
     // A boolean with some name flexibility
     try {
-      #if YAMLCPP_API_VERSION == 3
+      #if YAMLCPP_API == 3
       bool val;
       if (const YAML::Node* n = doc.FindValue("NeedsCrossSection")) { *n >> val; ai->_needsCrossSection = val; }
       if (const YAML::Node* n = doc.FindValue("NeedCrossSection")) { *n >> val; ai->_needsCrossSection = val; }
-      #elif YAMLCPP_API_VERSION == 5
+      #elif YAMLCPP_API == 5
       if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
       else if (doc["NeedCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
       #endif
@@ -111,7 +113,7 @@ namespace Rivet {
 
     // Beam particle identities
     try {
-      #if YAMLCPP_API_VERSION == 3
+      #if YAMLCPP_API == 3
 
       if (const YAML::Node* pbeampairs = doc.FindValue("Beams")) {
         const YAML::Node& beampairs = *pbeampairs;
@@ -141,7 +143,7 @@ namespace Rivet {
         ai->_beams = beam_pairs;
       }
 
-      #elif YAMLCPP_API_VERSION == 5
+      #elif YAMLCPP_API == 5
 
       if (doc["Beams"]) {
         const YAML::Node& beams = doc["Beams"];
@@ -165,7 +167,7 @@ namespace Rivet {
 
     // Beam energies
     try {
-      #if YAMLCPP_API_VERSION == 3
+      #if YAMLCPP_API == 3
 
       if (const YAML::Node* penergies = doc.FindValue("Energies")) {
         const YAML::Node& energies = *penergies;
@@ -199,7 +201,7 @@ namespace Rivet {
         ai->_energies = beam_energy_pairs;
       }
 
-      #elif YAMLCPP_API_VERSION == 5
+      #elif YAMLCPP_API == 5
 
       if (doc["Energies"]) {
         vector< pair<double,double> > beam_energy_pairs;
