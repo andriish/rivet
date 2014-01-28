@@ -35,15 +35,22 @@ dnl AC_CEDAR_CXXFILTER
 ## Checks for programs.
 AC_LANG(C++)
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11([noext],[optional])
+# TODO: reinstate when mandatory: AX_CXX_COMPILE_STDCXX_11([noext],[optional])
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
+## Replace libtool with a wrapper that clobbers dependency_libs in *.la files
+## http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
+## Taken from https://gitorious.org/libguestfs/libguestfs/source/c46bedf925cd9c6c9a9cbaee115358fd1dffcbfe:
+## Required to read symbols from the bundled yaml-cpp static lib without propagating the tmp lib to final libRivet deps
+LIBTOOL='$(SHELL) $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
+AC_SUBST([LIBTOOL])
 
 ## YODA histogramming library
+# TODO: we could download, configure, and install YODA automatically... but that is NASTY
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
 YODABINPATH=$YODALIBPATH/../bin
 AC_SUBST(YODABINPATH)
@@ -123,23 +130,48 @@ AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG]
 CPPFLAGS=$oldCPPFLAGS
 
 
-## yaml-cpp metadata file parsing library
-AC_CEDAR_LIBRARYANDHEADERS([yaml-cpp], , , [AC_MSG_ERROR([yaml-cpp is required])])
-YAMLCPP_LIBS="-lyaml-cpp"
-oldCPPFLAGS=$CPPFLAGS
-oldLDFLAGS=$LDFLAGS
-CPPFLAGS="$AM_CPPFLAGS $CPPFLAGS -I$YAML_CPPINCPATH"
-LDFLAGS="$AM_LDFLAGS $LDFLAGS -L$YAML_CPP_LIBPATH"
-dnl AC_CHECK_HEADER([yaml-cpp/yaml.h], [], [AC_MSG_ERROR([yaml-cpp/yaml.h header not found.])])
-AC_CHECK_HEADER([yaml-cpp/node.h], [YAMLCPP_MAJOR_VERSION=3])
-AC_CHECK_HEADER([yaml-cpp/node/node.h], [YAMLCPP_MAJOR_VERSION=5])
-if test "x$YAMLCPP_MAJOR_VERSION" = x; then
-  AC_MSG_ERROR([yaml-cpp API version could not be determined])
+# yaml-cpp parser library (taken from a static internally bundled version if no --with flag specified)
+AC_ARG_WITH([yaml-cpp], AS_HELP_STRING([--with-yaml-cpp], [indicate the position of the yaml-cpp installation (should contain both lib and include dirs]))
+AC_ARG_WITH([yaml-cpp-lib], AS_HELP_STRING([--with-yaml-cpp-lib], [indicate the position of the yaml-cpp lib directory (the one containing libyaml-cpp.so)]))
+AC_ARG_WITH([yaml-cpp-inc], AS_HELP_STRING([--with-yaml-cpp-inc], [indicate the position of the yaml-cpp include directory (the one *containing* the 'yaml-cpp' directory)]))
+if test -z "$with_yaml_cpp" && test -z "$with_yaml_cpp_lib" && test -z "$with_yaml_cpp_inc"; then
+    AC_MSG_NOTICE([Using built-in yaml-cpp 0.3.0])
+    AC_CHECK_TOOL(CMAKE, cmake)
+    test x$CMAKE = x && AC_MSG_ERROR([Built-in yaml-cpp build requires cmake])
+    YAMLCPP_BUILTIN=yes
+    YAMLCPP_CPPFLAGS=
+    YAMLCPP_LDFLAGS=
+    YAMLCPP_LIBS=
+    YAMLCPP_MAJOR_VERSION=
+else
+    YAMLCPP_BUILTIN=no
+    YAMLCPP_CPPFLAGS=
+    test "$with_yaml_cpp" && YAMLCPP_CPPFLAGS="-I$with_yaml_cpp/include"
+    test "$with_yaml_cpp_inc" && YAMLCPP_CPPFLAGS="-I$with_yaml_cpp_inc"
+    YAMLCPP_LDFLAGS=
+    test "$with_yaml_cpp" && test -d $with_yaml_cpp/lib && YAMLCPP_LDFLAGS="-L$with_yaml_cpp/lib"
+    test "$with_yaml_cpp" && test -d $with_yaml_cpp/lib64 && YAMLCPP_LDFLAGS="-L$with_yaml_cpp/lib64"
+    test "$with_yaml_cpp_lib" && YAMLCPP_LDFLAGS="-L$with_yaml_cpp_lib"
+    YAMLCPP_LIBS="-lyaml-cpp"
+    oldCPPFLAGS=$CPPFLAGS
+    oldLDFLAGS=$LDFLAGS
+    CPPFLAGS="$YAMLCPP_CPPFLAGS $BOOST_CPPFLAGS $AM_CPPFLAGS $CPPFLAGS"
+    LDFLAGS="$YAMLCPP_LDFLAGS $AM_LDFLAGS $LDFLAGS"
+    AC_CHECK_HEADER([yaml-cpp/yaml.h], [], [AC_MSG_ERROR([yaml-cpp/yaml.h header not found.])])
+    AC_CHECK_HEADER([yaml-cpp/node.h], [YAMLCPP_MAJOR_VERSION=3])
+    AC_CHECK_HEADER([yaml-cpp/node/node.h], [YAMLCPP_MAJOR_VERSION=5])
+    if test "x$YAMLCPP_MAJOR_VERSION" = x; then
+      AC_MSG_ERROR([yaml-cpp API version could not be determined])
+    fi
+    AC_MSG_NOTICE([yaml-cpp API version = $YAMLCPP_MAJOR_VERSION])
+    CPPFLAGS=$oldCPPFLAGS
+    LDFLAGS=$oldLDFLAGS
 fi
-AC_MSG_NOTICE([yaml-cpp API version = $YAMLCPP_MAJOR_VERSION])
+AM_CONDITIONAL(USE_BUILTIN_YAMLCPP, [test $YAMLCPP_BUILTIN = yes])
 AC_SUBST(YAMLCPP_MAJOR_VERSION)
-CPPFLAGS=$oldCPPFLAGS
-LDFLAGS=$oldLDFLAGS
+AC_SUBST(YAMLCPP_CPPFLAGS)
+AC_SUBST(YAMLCPP_LDFLAGS)
+AC_SUBST(YAMLCPP_LIBS)
 
 
 ## GNU Scientific Library
@@ -211,10 +243,10 @@ AC_PATH_PROG(PDFLATEX, pdflatex)
 AM_CONDITIONAL(WITH_PDFLATEX, [test x$PDFLATEX != x])
 ## ... unless told otherwise!
 AC_ARG_ENABLE([pdfmanual],
-  [AC_HELP_STRING(--disable-pdfmanual, [don't try to build or install the PDF manual])],
-  [], [enable_pdfmanual=yes])
-if test x$enable_pdfmanual != xyes; then
-   AC_MSG_WARN([Not building Rivet PDF manual, by request])
+  [AC_HELP_STRING(--enable-pdfmanual, [build and install the manual])],
+  [], [enable_pdfmanual=no])
+if test x$enable_pdfmanual = xyes; then
+   AC_MSG_WARN([Building Rivet manual, by request])
 fi
 AM_CONDITIONAL(ENABLE_PDFMANUAL, [test x$enable_pdfmanual = xyes])
 
@@ -334,7 +366,7 @@ AC_SUBST(AM_CXXFLAGS)
 AC_EMPTY_SUBST
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
-AC_CONFIG_FILES(src/Core/Makefile)
+AC_CONFIG_FILES(src/Core/Makefile src/Core/yamlcpp/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
 AC_CONFIG_FILES(src/Analyses/Makefile)

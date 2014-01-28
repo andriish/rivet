@@ -40,20 +40,23 @@ namespace Rivet {
     if (seq != NULL) {
       double previous_dij = 10.0;
       for (size_t i = 0; i < min(m_njet,(size_t)seq->n_particles()); ++i) {
-        // Jet resolution i -> j
-        double d_ij = log10(sqrt(seq->exclusive_dmerge_max(i)));
+        double d_ij2 = seq->exclusive_dmerge_max(i);
+        if (d_ij2>0.0) {
+          // Jet resolution i -> j
+          double d_ij = log10(sqrt(d_ij2));
 
-        // Fill differential jet resolution
-        _h_log10_d[i]->fill(d_ij, weight);
+          // Fill differential jet resolution
+          _h_log10_d[i]->fill(d_ij, weight);
 
-        // Fill integrated jet resolution
-        for (size_t ibin = 0; ibin < _h_log10_R[i]->numPoints(); ++ibin) {
-          Point2D& dp = _h_log10_R[i]->point(ibin);
-          if (dp.x() > d_ij && dp.x() < previous_dij) {
-            dp.setY(dp.y() + weight);
+          // Fill integrated jet resolution
+          for (size_t ibin = 0; ibin < _h_log10_R[i]->numPoints(); ++ibin) {
+            Point2D& dp = _h_log10_R[i]->point(ibin);
+            if (dp.x() > d_ij && dp.x() < previous_dij) {
+              dp.setY(dp.y() + weight);
+            }
           }
+          previous_dij = d_ij;
         }
-        previous_dij = d_ij;
       }
       // One remaining integrated jet resolution
       for (size_t ibin = 0; ibin<_h_log10_R[m_njet]->numPoints(); ++ibin) {

@@ -652,11 +652,21 @@ directories in which analysis plugin libraries may be found. If it is
 unspecified, the Rivet loader system will assume that the only entry is the
 \kbd{lib} directory in the Rivet installation area. Specifying the variable adds
 new paths for searching \emph{before} the standard library area, and they will
-be searched in the left-to-right order in the path variable. If analyses with
-duplicate names are found, a warning message is issued and the first version to
-have been found will be used. This allows you to override standard analyses
-with same-named variants of your own, provided they are loaded from different
-directories.
+be searched in the left-to-right order in the path variable.
+
+If analyses with duplicate names are found, a warning message is issued and the
+first version to have been found will be used. This allows you to override
+standard analyses with same-named variants of your own, provided they are loaded
+from different directories.
+
+\begin{change}
+  In Rivet 2.1.0 and later, this \var{RIVET_ANALYSIS_PATH} variable (and the
+  others described below) have an special extra syntax feature: if the
+  environment variable ends with a double separator, i.e. \kbd{::}, then the
+  default path will not be appended at all. This can be useful if you want to
+  make absolutely certain not to fall back to the default locations, for example
+  to avoid the ``duplicate analysis'' warnings if you are getting a lot of them.
+\end{change}
 
 Several further environment variables are used to load analysis reference data
 and metadata files:
@@ -675,12 +685,16 @@ and metadata files:
   \kbd{.plot} presentation style files. The search fallbacks again work as for
   \var{RIVET_REF_PATH}.
 \end{description}
+%
 
 These paths can be accessed from the API using the
 \kbd{Rivet::getAnalysisLibPaths()} etc. functions, and can be searched for files
-using the Rivet lookup rules via the \kbd{Rivet::find\-Analysis\-LibFile(filename)}
-etc. functions. These functions are also available in the Python \kbd{rivet}
-module. See the Doxygen documentation for more details.
+using the Rivet lookup rules via the
+\kbd{Rivet::find\-Analysis\-LibFile(filename)} etc. functions. See the Doxygen
+documentation for more details. In the lookups using these paths, if the
+variable ends with a double separator, i.e. \kbd{::}, then the default path will
+not be appended: this may be useful in some situations. These functions are also
+available in the Python \kbd{rivet} module, with the same behaviours.
 
 
 

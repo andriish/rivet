@@ -7,4 +7,11 @@ libRivetCore_la_SOURCES = \
   AnalysisHandler.cc ProjectionHandler.cc \
   Cuts.cc
 
-libRivetCore_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(YAML_CPPINCPATH) -DYAMLCPP_API_VERSION=$(YAMLCPP_MAJOR_VERSION)
+if USE_BUILTIN_YAMLCPP
+  SUBDIRS = yamlcpp
+  libRivetCore_la_CPPFLAGS = -I$(srcdir)/yamlcpp/yaml-cpp/include -DYAMLCPP_API=3 -DYAML_NAMESPACE=RIVET_YAML $(AM_CPPFLAGS)
+else
+  libRivetCore_la_CPPFLAGS = $(AM_CPPFLAGS) $(YAMLCPP_CPPFLAGS) -DYAMLCPP_API=$(YAMLCPP_MAJOR_VERSION)
+  libRivetCore_la_LDFLAGS = $(AM_LDFLAGS) $(YAMLCPP_LDFLAGS)
+  libRivetCore_la_LIBADD = $(YAMLCPP_LIBS)
+endif

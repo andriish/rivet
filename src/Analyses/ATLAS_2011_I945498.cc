@@ -38,7 +38,7 @@ namespace Rivet {
 
       // Set up projections
 	  FinalState fs;
-      ZFinder zfinder_mu(fs, EtaIn(-2.4, 2.4) & (Cuts::pT >= 20), PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
+      ZFinder zfinder_mu(fs, EtaIn(-2.4, 2.4) & (Cuts::pT >= 20*GeV), PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_mu, "ZFinder_mu");
 
       Cut cuts = ( EtaIn(-2.47, -1.52)
