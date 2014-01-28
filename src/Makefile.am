@@ -14,6 +14,6 @@ libRivet_la_LIBADD = Core/libRivetCore.la Projections/libRivetProjections.la Too
   -lYODA -lHepMC -ldl -lm  $(FASTJETCONFIGLIBADD) $(GSL_LDFLAGS)
 
 if USE_BUILTIN_YAMLCPP
-libRivet_la_LDFLAGS += -L$(srcdir)/Core/yamlcpp/yaml-cpp
-libRivet_la_LIBADD += -lrivet-yaml-cpp
+libRivet_la_LIBTOOLFLAGS = --silent
+libRivet_la_LIBADD += $(builddir)/Core/yamlcpp/yaml-cpp/librivet-yaml-cpp.a
 endif

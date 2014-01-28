@@ -42,12 +42,12 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
-## Replace libtool with a wrapper that clobbers dependency_libs in *.la files
-## http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
-## Taken from https://gitorious.org/libguestfs/libguestfs/source/c46bedf925cd9c6c9a9cbaee115358fd1dffcbfe:
-## Required to read symbols from the bundled yaml-cpp static lib without propagating the tmp lib to final libRivet deps
-LIBTOOL='$(SHELL) $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
-AC_SUBST([LIBTOOL])
+dnl ## Replace libtool with a wrapper that clobbers dependency_libs in *.la files
+dnl ## http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
+dnl ## Taken from https://gitorious.org/libguestfs/libguestfs/source/c46bedf925cd9c6c9a9cbaee115358fd1dffcbfe:
+dnl ## Required to read symbols from the bundled yaml-cpp static lib without propagating the tmp lib to final libRivet deps
+dnl LIBTOOL='$(SHELL) $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
+dnl AC_SUBST([LIBTOOL])
 
 
 ## YODA histogramming library
