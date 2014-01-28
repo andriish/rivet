@@ -163,7 +163,7 @@ namespace Rivet {
       const FastJets& durjet = applyProjection<FastJets>(e, "DurhamJets");
       if (durjet.clusterSeq()) {
         double y3 = durjet.clusterSeq()->exclusive_ymerge_max(2);
-        _histY3->fill(-1. * std::log(y3), weight);
+        if (y3>0.0) _histY3->fill(-1. * std::log(y3), weight);
       }
 
       // Sphericities
