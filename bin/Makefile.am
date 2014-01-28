@@ -30,4 +30,4 @@ endif
 noinst_PROGRAMS = rivet-nopy
 rivet_nopy_SOURCES = rivet-nopy.cc
 rivet_nopy_CPPFLAGS = -I$(top_srcdir)/include $(AM_CPPFLAGS)
-rivet_nopy_LDFLAGS = -L$(top_builddir)/src -lRivet -lHepMC
+rivet_nopy_LDFLAGS = -L$(top_builddir)/src -lRivet -L$(HEPMCLIBPATH) -lHepMC
