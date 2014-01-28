@@ -34,7 +34,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::init(const GenEvent& ge) {
-    if (!_initialised)
+    if (_initialised)
       throw UserError("AnalysisHandler::init has already been called: cannot re-initialize!");
 
     setRunBeams(Rivet::beams(ge));
