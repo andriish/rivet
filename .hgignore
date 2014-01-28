@@ -1,4 +1,5 @@
 ~$
+src/Core/yamlcpp/yaml-cpp$
 \.orig$
 \.(o|Po|lo|Plo|la|a|so|dylib|pyc|tar\.bz|tar\.gz|fifo|hepmc)$
 ^config\.guess$

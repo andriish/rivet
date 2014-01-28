@@ -39,7 +39,7 @@ namespace Rivet {
       // Set up projections
       ZFinder zfinder_mu(-2.4, 2.4, 20*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_mu, "ZFinder_mu");
-      vector<pair<double, double>> eta_e; /// @todo Use C++11 {{-2.47, -1.52}, {-1.37, 1.37}, {1.52, 2.47}};
+      vector<pair<double, double> > eta_e; /// @todo Use C++11 {{-2.47, -1.52}, {-1.37, 1.37}, {1.52, 2.47}};
       eta_e.push_back(make_pair(-2.47, -1.52));
       eta_e.push_back(make_pair(-1.37, 1.37));
       eta_e.push_back(make_pair(1.52, 2.47));

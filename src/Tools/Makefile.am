@@ -13,12 +13,4 @@ libRivetTools_la_SOURCES = \
 
 dist_noinst_HEADERS = binreloc.h mt2_bisect.hh
 
-libRivetTools_la_CPPFLAGS = \
-  $(AM_CPPFLAGS) \
-  -DENABLE_BINRELOC \
-  -DDEFAULTDATADIR=\"$(datadir)\" \
-  -DDEFAULTLIBDIR=\"$(libdir)\" \
-  -I$(YAML_CPPINCDIR)
-
-libRivetTools_la_LDFLAGS = $(AM_LDFLAGS) -L$(YAML_CPPLIBPATH)
-libRivetTools_la_LIBADD = -lyaml-cpp
+libRivetTools_la_CPPFLAGS = -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"
