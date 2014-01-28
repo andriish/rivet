@@ -174,7 +174,9 @@ namespace Rivet {
           double logynm1=0.;
           double logyn;
           for (size_t i=0; i<5; ++i) {
-            logyn = -log(durjet.clusterSeq()->exclusive_ymerge_max(i+1));
+            double yn = durjet.clusterSeq()->exclusive_ymerge_max(i+1);
+            if (yn<=0.0) continue;
+            logyn = -log(yn);
             if (_h_y_Durham[i]) {
               _h_y_Durham[i]->fill(logyn, weight);
             }
