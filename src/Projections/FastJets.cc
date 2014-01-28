@@ -8,6 +8,7 @@ namespace Rivet {
 
   void FastJets::_init1(JetAlgName alg, double rparameter, double seed_threshold) {
     setName("FastJets");
+    MSG_DEBUG("JetAlg = " << alg);
     MSG_DEBUG("R parameter = " << rparameter);
     MSG_DEBUG("Seed threshold = " << seed_threshold);
     if (alg == KT) {
@@ -69,6 +70,7 @@ namespace Rivet {
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
+      cmp(_useInvisibles, other._useInvisibles) ||
       (_useInvisibles ? mkNamedPCmp(other, "FS") : mkNamedPCmp(other, "VFS")) ||
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
