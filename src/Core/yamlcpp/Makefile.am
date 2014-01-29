@@ -13,3 +13,6 @@ yaml-cpp/librivet-yaml-cpp.a: yaml-cpp-0.3.0.tar.gz
         test -e tmp && mv tmp $$i; } done; true
 	cd yaml-cpp && CXX="$(CXX)" CXXFLAGS="$(CPPFLAGS) $(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" DYLDFLAGS="$(DYLDFLAGS)" $(CMAKE) . && \
       $(MAKE) && mv libyaml-cpp.a librivet-yaml-cpp.a
+
+clean-local:
+	@rm -rf yaml-cpp

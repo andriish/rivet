@@ -13,7 +13,6 @@ libdir = os.path.abspath("@top_builddir@/src/.libs")
 ## Assemble the library search dirs
 lookupdirs = [
     libdir,
-    "@YAML_CPPLIBPATH@",
     "@HEPMCLIBPATH@",
     "@YODALIBPATH@" ]
 
