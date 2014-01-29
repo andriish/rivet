@@ -1,8 +1,8 @@
-2014-01-27  Andy Buckley  <andy.buckley@cern.ch>
+2014-01-29  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Adding libtool-kill-dependency_libs.sh, to allow use of a
-	temporary static librivet-yaml-cpp.a without screwing up
-	dependencies.
+	* Removing unused/overrestrictive Isolation* headers.
+
+2014-01-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-bundling yaml-cpp, now built as a mangled static lib based on
 	the LHAPDF6 experience.
