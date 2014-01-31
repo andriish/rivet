@@ -57,6 +57,16 @@ AC_SUBST(YODABINPATH)
 AC_PATH_PROG(YODACONFIG, yoda-config, [], [$YODALIBPATH/../bin:$PATH])
 YODA_PYTHONPATH=""
 if test -f "$YODACONFIG"; then
+  AC_MSG_CHECKING([YODA version using yoda-config])
+  YODA_VERSION=`$YODACONFIG --version`
+  AC_MSG_RESULT([$YODA_VERSION])
+  YODA_VERSION1=[`echo $YODA_VERSION | cut -d. -f1 | sed -e 's/\([0-9]*\).*/\1/g'`]
+  YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
+  YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
+  let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
+  if test $YODA_VERSION_INT -lt 10005; then
+    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.0.5 required])
+  fi
   AC_MSG_CHECKING([YODA Python path using yoda-config])
   YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
   AC_MSG_RESULT([$YODA_PYTHONPATH])
