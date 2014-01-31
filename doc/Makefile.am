@@ -1,7 +1,7 @@
 dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex
 
 LATEXSUBSOURCES = preamble.tex intro.tex gettingstarted.tex writinganalyses.tex agilerunmc.tex acknowledgements.tex analyses.tex
-DOCSOURCES = compare-histos.txt warning.png thinker.png cone.png bend.png \
+DOCSOURCES = compare-histos.txt slip.eps thinker.eps cone.eps bend.eps \
   h-physrev3.bst hepnames.sty JHEP3.cls JHEP.bst make-plots.txt rivet-manual.tex \
   $(LATEXSUBSOURCES) heppennames.sty hepnicenames.sty hepparticles.sty maybemath.sty \
   hepunits.sty underscore.sty microtype.sty
