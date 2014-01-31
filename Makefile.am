@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src pyext data include bin doc test
 
-EXTRA_DIST = GUIDELINES libtool-kill-dependency_libs.sh
+EXTRA_DIST = GUIDELINES
 
 doc:
 	cd doc && $(MAKE) doc
