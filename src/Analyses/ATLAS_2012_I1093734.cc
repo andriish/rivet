@@ -153,29 +153,20 @@ namespace Rivet {
       addProjection(ChargedFinalState(-1.0, 1.0, ptmin), "ChargedTracks10");
       // Histos
       /// @todo Declare/book as temporary
-      _th_dphi[0] = YODA::Histo1D(50, 0.0, PI);
-      _th_same[0] = YODA::Histo1D(50, 0.0, PI);
-      _th_oppo[0] = YODA::Histo1D(50, 0.0, PI);
-      _th_dphi[1] = YODA::Histo1D(50, 0.0, PI);
-      _th_same[1] = YODA::Histo1D(50, 0.0, PI);
-      _th_oppo[1] = YODA::Histo1D(50, 0.0, PI);
-      _th_dphi[2] = YODA::Histo1D(50, 0.0, PI);
-      _th_same[2] = YODA::Histo1D(50, 0.0, PI);
-      _th_oppo[2] = YODA::Histo1D(50, 0.0, PI);
-      if (fuzzyEquals(sqrtS(), 7000*GeV, 1e-3)) {
-        _s_dphiMin[0] = bookScatter2D(2, 1, 1, true);
-        _s_dphiMin[1] = bookScatter2D(4, 1, 1, true);
-        _s_dphiMin[2] = bookScatter2D(6, 1, 1, true);
-        _h_diffSO[0] = bookHisto1D(8, 1, 1);
-        _h_diffSO[1] = bookHisto1D(10, 1, 1);
-        _h_diffSO[2] = bookHisto1D(12, 1, 1);
-      } else if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3)) {
-        _s_dphiMin[0] = bookScatter2D(1, 1, 1, true);
-        _s_dphiMin[1] = bookScatter2D(3, 1, 1, true);
-        _s_dphiMin[2] = bookScatter2D(5, 1, 1, true);
-        _h_diffSO[0] = bookHisto1D(7, 1, 1);
-        _h_diffSO[1] = bookHisto1D(9, 1, 1);
-        _h_diffSO[2] = bookHisto1D(11, 1, 1);
+      for (size_t ieta = 0; ieta < 3; ++ieta) {
+        if (fuzzyEquals(sqrtS(), 7000*GeV, 1e-3)) {
+          _s_dphiMin[ieta] = bookScatter2D(2+2*ieta, 1, 1, true);
+          _h_diffSO[ieta] = bookHisto1D(8+2*ieta, 1, 1);
+          _th_dphi[ieta] = YODA::Histo1D(refData(2+2*ieta, 1, 1));
+          _th_same[ieta] = YODA::Histo1D(refData(8+2*ieta, 1, 1));
+          _th_oppo[ieta] = YODA::Histo1D(refData(8+2*ieta, 1, 1));
+        } else if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3)) {
+          _s_dphiMin[ieta] = bookScatter2D(1+2*ieta, 1, 1, true);
+          _h_diffSO[ieta] = bookHisto1D(7+2*ieta, 1, 1);
+          _th_dphi[ieta] = YODA::Histo1D(refData(1+2*ieta, 1, 1));
+          _th_same[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));
+          _th_oppo[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));
+        }
       }
     }
 
