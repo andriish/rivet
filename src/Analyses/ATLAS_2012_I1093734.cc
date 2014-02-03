@@ -136,8 +136,8 @@ namespace Rivet {
       }
       // Histos
       if (fuzzyEquals(sqrtS(), 7000*GeV, 1e-3)) {
-        for (int ipt  = 0; ipt  < NPTBINS ; ++ipt ) _s_NchCorr_vsEta[ipt ]= bookScatter2D(1+ipt,  2, 1, true);
-        for (int ieta = 0; ieta < NETABINS; ++ieta) _s_NchCorr_vsPt [ieta]= bookScatter2D(8+ieta, 2, 1, true);
+        for (int ipt  = 0; ipt  < NPTBINS ; ++ipt ) _s_NchCorr_vsEta[ipt]  = bookScatter2D(1+ipt,  2, 1, true);
+        for (int ieta = 0; ieta < NETABINS; ++ieta) _s_NchCorr_vsPt [ieta] = bookScatter2D(8+ieta, 2, 1, true);
         _s_PtsumCorr = bookScatter2D(13, 2, 1, true);
       } else if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3)) {
         _s_NchCorr_vsEta[0] = bookScatter2D(14, 2, 1, true);
@@ -261,7 +261,10 @@ namespace Rivet {
 
       // Azimuthal part
       for (int ieta = 0; ieta < 3; ieta++) {
+        /// @todo YUCK re. path overwriting :-(
+        const string p = _h_diffSO[ieta]->path(); // save path
         *_h_diffSO[ieta] = subtract(_th_same[ieta], _th_oppo[ieta]);
+        _h_diffSO[ieta]->setPath(p); // restore path
         normalize(_h_diffSO[ieta], _h_diffSO[ieta]->bin(0).width()); //< @todo Correct normalization?
 
         // Extract minimal value

@@ -31,7 +31,8 @@ namespace Rivet {
       _s_totEF_diff = bookScatter2D(7, 1, 1, true);
       _s_totEF_nondiff = bookScatter2D(8, 1, 1, true);
 
-      // Temporary profiles and histos (could be values rather than newed?)
+      // Temporary profiles and histos
+      /// @todo Convert to declared/registered temp histos
       _tp_chEF_minbias.reset(new YODA::Profile1D(refData(1,1,1)));
       _tp_chEF_hard.reset(new YODA::Profile1D(refData(2,1,1)));
       _tp_chEF_diff.reset(new YODA::Profile1D(refData(3,1,1)));

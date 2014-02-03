@@ -118,15 +118,14 @@ def getHistos(filelist):
     for infile in filelist:
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.readYODA(infile)
-        for ao in analysisobjects:
-            path = ao.path
+        for path, ao in analysisobjects.iteritems():
             if path.startswith('/REF/'):
                 if not refhistos.has_key(path):
                     refhistos[path] = ao
             else:
                 if not mchistos[infile].has_key(path):
                     mchistos[infile][path] = ao
-                    if path not in mchistolist:
+                    if path and path not in mchistolist:
                         mchistolist.append(path)
     return refhistos, mchistos, mchistolist
 
@@ -141,8 +140,7 @@ def getRefdata(refhistos):
     for filelist in dirlist:
         for infile in filelist:
             analysisobjects = yoda.readYODA(infile)
-            for ao in analysisobjects:
-                path = ao.path
+            for path, ao in analysisobjects.iteritems():
                 if path.startswith('/REF/'):
                     if not refhistos.has_key(path):
                         refhistos[path] = ao
@@ -258,7 +256,6 @@ if __name__ == '__main__':
     if opts.RIVETREFS:
         getRefdata(refhistos)
 
-
     ## Now loop over all MC histograms and plot them
     for h in mchistolist:
 
@@ -278,7 +275,7 @@ if __name__ == '__main__':
 
         if opts.STYLE == 'talk':
             plot['PlotSize'] = '8,6'
-        if opts.STYLE == 'bw':
+        elif opts.STYLE == 'bw':
             plot['RatioPlotErrorBandColor'] = 'black!10'
 
         ## DrawOnly is needed to keep the order in the Legend equal to the
@@ -304,15 +301,15 @@ if __name__ == '__main__':
         styleidx = 0
         for infile in filelist:
             if mchistos.has_key(infile) and mchistos[infile].has_key(h):
-                ## default linecolor, linestyle
+                ## Default linecolor, linestyle
                 setStyle(mchistos[infile][h], styleidx)
                 styleidx += 1
                 if opts.MC_ERRS:
                     mchistos[infile][h].setAnnotation('ErrorBars', '1')
-                ## plot defaults from .plot files
+                ## Plot defaults from .plot files
                 for key, val in plotparser.getHistogramOptions(h).iteritems():
                     mchistos[infile][h].setAnnotation(key, val)
-                ## command line plot options
+                ## Command line plot options
                 setOptions(mchistos[infile][h], plotoptions[infile])
                 mchistos[infile][h].setAnnotation('Path', infile + h)
                 anaobjects.append(mchistos[infile][h])

@@ -97,8 +97,7 @@ for yodafile in yodafiles:
         else:
             sys.exit(2)
     analysisobjects = yoda.readYODA(yodafilepath)
-    for ao in analysisobjects:
-        path = ao.path
+    for path, ao in analysisobjects.iteritems():
         if path.startswith('/REF/'):
             path = path[5:]
         analyses.add(path.strip('/').split('/')[0])
@@ -238,7 +237,8 @@ for analysis in analyses:
     index.write('<p style="font-size:smaller;">%s</p>\n' % htmlify(description))
     anapath = os.path.join(opts.OUTPUTDIR, analysis)
     if not opts.SINGLE:
-        # os.makedirs(anapath)
+        if not os.path.exists(anapath):
+            os.makedirs(anapath)
         anaindex = open(os.path.join(anapath, "index.html"), 'w')
         anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>\n' %
                        (opts.OUTPUTDIR, analysis, style + script))
