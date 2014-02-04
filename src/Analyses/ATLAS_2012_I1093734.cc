@@ -156,13 +156,13 @@ namespace Rivet {
       for (size_t ieta = 0; ieta < 3; ++ieta) {
         if (fuzzyEquals(sqrtS(), 7000*GeV, 1e-3)) {
           _s_dphiMin[ieta] = bookScatter2D(2+2*ieta, 1, 1, true);
-          _h_diffSO[ieta] = bookHisto1D(8+2*ieta, 1, 1);
+          _s_diffSO[ieta] = bookScatter2D(8+2*ieta, 1, 1, true);
           _th_dphi[ieta] = YODA::Histo1D(refData(2+2*ieta, 1, 1));
           _th_same[ieta] = YODA::Histo1D(refData(8+2*ieta, 1, 1));
           _th_oppo[ieta] = YODA::Histo1D(refData(8+2*ieta, 1, 1));
         } else if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3)) {
           _s_dphiMin[ieta] = bookScatter2D(1+2*ieta, 1, 1, true);
-          _h_diffSO[ieta] = bookHisto1D(7+2*ieta, 1, 1);
+          _s_diffSO[ieta] = bookScatter2D(7+2*ieta, 1, 1, true);
           _th_dphi[ieta] = YODA::Histo1D(refData(1+2*ieta, 1, 1));
           _th_same[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));
           _th_oppo[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));
@@ -252,11 +252,16 @@ namespace Rivet {
 
       // Azimuthal part
       for (int ieta = 0; ieta < 3; ieta++) {
-        /// @todo YUCK re. path overwriting :-(
-        const string p = _h_diffSO[ieta]->path(); // save path
-        *_h_diffSO[ieta] = subtract(_th_same[ieta], _th_oppo[ieta]);
-        _h_diffSO[ieta]->setPath(p); // restore path
-        normalize(_h_diffSO[ieta], _h_diffSO[ieta]->bin(0).width()); //< @todo Correct normalization?
+        /// @note We don't just do a subtraction because of the risk of negative values and negative errors
+        /// @todo Should the difference always be shown as positive?, i.e. y -> abs(y), etc.
+        /// @todo Should the normalization be done _after_ the -ve value treatment?
+        YODA::Histo1D hdiffSO = _th_same[ieta] - _th_oppo[ieta];
+        hdiffSO.normalize(hdiffSO.bin(0).width());
+        for (size_t i = 0; i < hdiffSO.numBins(); ++i) {
+          const double y = hdiffSO.bin(i).height() >= 0 ? hdiffSO.bin(i).height() : 0;
+          const double yerr = hdiffSO.bin(i).heightErr() >= 0 ? hdiffSO.bin(i).heightErr() : 0;
+          _s_diffSO[ieta]->point(i).setY(y, yerr);
+        }
 
         // Extract minimal value
         double histMin = _th_dphi[ieta].bin(0).height();
@@ -296,8 +301,8 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Scatter2DPtr _s_NchCorr_vsEta[NPTBINS], _s_NchCorr_vsPt[NETABINS], _s_PtsumCorr, _s_dphiMin[3];
-    Histo1DPtr _h_diffSO[3];
+    Scatter2DPtr _s_NchCorr_vsEta[NPTBINS], _s_NchCorr_vsPt[NETABINS], _s_PtsumCorr;
+    Scatter2DPtr _s_dphiMin[3], _s_diffSO[3];
     YODA::Histo1D _th_dphi[3], _th_same[3], _th_oppo[3];
     //@}
 
