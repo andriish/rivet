@@ -146,60 +146,52 @@ namespace Rivet {
 
     void finalize() {
       for (size_t i = 0; i < _s_totEF_minbias->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_mbSumW;
-        const double val = norm * _tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).height();
-        const double err = norm * (_tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).heightErr() +
-                                   _tp_totEF_minbias->bin(i).stdErr() * _th_totN_minbias->bin(i).height());
-        _s_totEF_minbias->point(i).setY(val, err);
+        const double val = _tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).height();
+        const double err = (_tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).heightErr() +
+                            _tp_totEF_minbias->bin(i).stdErr() * _th_totN_minbias->bin(i).height());
+        _s_totEF_minbias->point(i).setY(val/_mbSumW, err/_mbSumW);
       }
       for (size_t i = 0; i < _s_totEF_hard->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_hdSumW;
-        const double val = norm * _tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).height();
-        const double err = norm * (_tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).heightErr() +
-                                   _tp_totEF_hard->bin(i).stdErr() * _th_totN_hard->bin(i).height());
-        _s_totEF_hard->point(i).setY(val, err);
+        const double val = _tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).height();
+        const double err = (_tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).heightErr() +
+                            _tp_totEF_hard->bin(i).stdErr() * _th_totN_hard->bin(i).height());
+        _s_totEF_hard->point(i).setY(val/_hdSumW, err/_hdSumW);
       }
       for (size_t i = 0; i < _s_totEF_diff->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_dfSumW;
-        const double val = norm * _tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).height();
-        const double err = norm * (_tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).heightErr() +
+        const double val = _tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).height();
+        const double err = (_tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).heightErr() +
                                    _tp_totEF_diff->bin(i).stdErr() * _th_totN_diff->bin(i).height());
-        _s_totEF_diff->point(i).setY(val, err);
+        _s_totEF_diff->point(i).setY(val/_dfSumW, err/_dfSumW);
       }
       for (size_t i = 0; i < _s_totEF_nondiff->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_ndSumW;
-        const double val = norm * _tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).height();
-        const double err = norm * (_tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).heightErr() +
-                                   _tp_totEF_nondiff->bin(i).stdErr() * _th_totN_nondiff->bin(i).height());
-        _s_totEF_nondiff->point(i).setY(val, err);
+        const double val = _tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).height();
+        const double err = (_tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).heightErr() +
+                            _tp_totEF_nondiff->bin(i).stdErr() * _th_totN_nondiff->bin(i).height());
+        _s_totEF_nondiff->point(i).setY(val/_ndSumW, err/_ndSumW);
       }
       for (size_t i = 0; i < _s_chEF_minbias->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_mbchSumW;
-        const double val = norm * _tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).height();
-        const double err = norm * (_tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).heightErr() +
-                                   _tp_chEF_minbias->bin(i).stdErr() * _th_chN_minbias->bin(i).height());
-        _s_chEF_minbias->point(i).setY(val, err);
+        const double val = _tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).height();
+        const double err = (_tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).heightErr() +
+                            _tp_chEF_minbias->bin(i).stdErr() * _th_chN_minbias->bin(i).height());
+        _s_chEF_minbias->point(i).setY(val/_mbchSumW, err/_mbchSumW);
       }
       for (size_t i = 0; i < _s_chEF_hard->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_hdchSumW;
-        const double val = norm * _tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).height();
-        const double err = norm * (_tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).heightErr() +
-                                   _tp_chEF_hard->bin(i).stdErr() * _th_chN_hard->bin(i).height());
-        _s_chEF_hard->point(i).setY(val, err);
+        const double val = _tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).height();
+        const double err = (_tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).heightErr() +
+                            _tp_chEF_hard->bin(i).stdErr() * _th_chN_hard->bin(i).height());
+        _s_chEF_hard->point(i).setY(val/_hdchSumW, err/_hdchSumW);
       }
       for (size_t i = 0; i < _s_chEF_diff->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_dfchSumW;
-        const double val = norm * _tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).height();
-        const double err = norm * (_tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).heightErr() +
-                                   _tp_chEF_diff->bin(i).stdErr() * _th_chN_diff->bin(i).height());
-        _s_chEF_diff->point(i).setY(val, err);
+        const double val = _tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).height();
+        const double err = (_tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).heightErr() +
+                            _tp_chEF_diff->bin(i).stdErr() * _th_chN_diff->bin(i).height());
+        _s_chEF_diff->point(i).setY(val/_dfchSumW, err/_dfchSumW);
       }
       for (size_t i = 0; i < _s_chEF_nondiff->numPoints(); ++i) {
-        const double norm = 1.0/0.3/_ndchSumW;
-        const double val = norm * _tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).height();
-        const double err = norm * (_tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).heightErr() +
-                                   _tp_chEF_nondiff->bin(i).stdErr() * _th_chN_nondiff->bin(i).height());
-        _s_chEF_nondiff->point(i).setY(val, err);
+        const double val = _tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).height();
+        const double err = (_tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).heightErr() +
+                            _tp_chEF_nondiff->bin(i).stdErr() * _th_chN_nondiff->bin(i).height());
+        _s_chEF_nondiff->point(i).setY(val/_ndchSumW, err/_ndchSumW);
       }
     }
 
