@@ -1,3 +1,7 @@
+2014-02-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect against invalid prefix value if the --prefix configure option is unused.
+
 2014-02-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding the ATLAS_2012_I1093734 fwd-bwd / azimuthal minbias correlations analysis.
