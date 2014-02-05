@@ -41,5 +41,6 @@ header_files = glob("../include/Rivet/*.h") + glob("../include/Rivet/Utils/*.h")
 extns = [ext("core", header_files)]
 
 setup(name = "rivet",
+      version="@PACKAGE_VERSION@",
       ext_modules = extns,
       packages = ["rivet"])
