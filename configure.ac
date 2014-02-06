@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.1.0a0],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[trunk],[rivet@projects.hepforge.org],[Rivet])
 if test "$prefix" = "$PWD"; then
   AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
 fi
@@ -32,22 +32,42 @@ if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
 ## Make compiler error messages more readable if gfilt is installed.
 dnl AC_CEDAR_CXXFILTER
 
+
 ## Checks for programs.
 AC_LANG(C++)
 AC_PROG_CXX
-# TODO: reinstate when mandatory: AX_CXX_COMPILE_STDCXX_11([noext],[optional])
+
+dnl this block can go once we decide to have C++11 always on
+AC_MSG_CHECKING([whether to include C++11 flag for testing])
+AC_ARG_ENABLE(stdcxx11,
+        AC_HELP_STRING([--enable-stdcxx11],
+        [turn on C++11 flag (only for testing, do not use in production!)]),
+        [],
+        [enable_stdcxx11=no]
+        )
+
+
+if test "x$enable_stdcxx11" = "xyes"; then
+AC_MSG_RESULT([yes])
+dnl remove the wrapper if block and "optional" once we decide to have C++11 always on
+AX_CXX_COMPILE_STDCXX_11([noext],[optional])
+if test "x$HAVE_CXX11" != "x1"; then
+AC_MSG_ERROR([compiler does not recognize requested c++11 option])
+fi
+else
+AC_MSG_RESULT([no])
+fi
+
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
-dnl ## Replace libtool with a wrapper that clobbers dependency_libs in *.la files
-dnl ## http://lists.fedoraproject.org/pipermail/devel/2010-November/146343.html
-dnl ## Taken from https://gitorious.org/libguestfs/libguestfs/source/c46bedf925cd9c6c9a9cbaee115358fd1dffcbfe:
-dnl ## Required to read symbols from the bundled yaml-cpp static lib without propagating the tmp lib to final libRivet deps
-dnl LIBTOOL='$(SHELL) $(top_srcdir)/libtool-kill-dependency_libs.sh $(top_builddir)/libtool'
-dnl AC_SUBST([LIBTOOL])
+
+## Find CMake, which is needed internally to build yaml-cpp
+AC_CHECK_TOOL(CMAKE, cmake)
+test x$CMAKE = x && AC_MSG_ERROR([Built-in yaml-cpp build requires cmake])
 
 
 ## YODA histogramming library
@@ -58,6 +78,16 @@ AC_SUBST(YODABINPATH)
 AC_PATH_PROG(YODACONFIG, yoda-config, [], [$YODALIBPATH/../bin:$PATH])
 YODA_PYTHONPATH=""
 if test -f "$YODACONFIG"; then
+  AC_MSG_CHECKING([YODA version using yoda-config])
+  YODA_VERSION=`$YODACONFIG --version`
+  AC_MSG_RESULT([$YODA_VERSION])
+  YODA_VERSION1=[`echo $YODA_VERSION | cut -d. -f1 | sed -e 's/\([0-9]*\).*/\1/g'`]
+  YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
+  YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
+  let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
+  if test $YODA_VERSION_INT -lt 10005; then
+    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.0.5 required])
+  fi
   AC_MSG_CHECKING([YODA Python path using yoda-config])
   YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
   AC_MSG_RESULT([$YODA_PYTHONPATH])
@@ -129,50 +159,6 @@ CPPFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
 AC_CHECK_HEADER([fastjet/D0RunIIConePlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 CPPFLAGS=$oldCPPFLAGS
-
-
-# yaml-cpp parser library (taken from a static internally bundled version if no --with flag specified)
-AC_ARG_WITH([yaml-cpp], AS_HELP_STRING([--with-yaml-cpp], [indicate the position of the yaml-cpp installation (should contain both lib and include dirs]))
-AC_ARG_WITH([yaml-cpp-lib], AS_HELP_STRING([--with-yaml-cpp-lib], [indicate the position of the yaml-cpp lib directory (the one containing libyaml-cpp.so)]))
-AC_ARG_WITH([yaml-cpp-inc], AS_HELP_STRING([--with-yaml-cpp-inc], [indicate the position of the yaml-cpp include directory (the one *containing* the 'yaml-cpp' directory)]))
-if test -z "$with_yaml_cpp" && test -z "$with_yaml_cpp_lib" && test -z "$with_yaml_cpp_inc"; then
-    AC_MSG_NOTICE([Using built-in yaml-cpp 0.3.0])
-    AC_CHECK_TOOL(CMAKE, cmake)
-    test x$CMAKE = x && AC_MSG_ERROR([Built-in yaml-cpp build requires cmake])
-    YAMLCPP_BUILTIN=yes
-    YAMLCPP_CPPFLAGS=
-    YAMLCPP_LDFLAGS=
-    YAMLCPP_LIBS=
-    YAMLCPP_MAJOR_VERSION=
-else
-    YAMLCPP_BUILTIN=no
-    YAMLCPP_CPPFLAGS=
-    test "$with_yaml_cpp" && YAMLCPP_CPPFLAGS="-I$with_yaml_cpp/include"
-    test "$with_yaml_cpp_inc" && YAMLCPP_CPPFLAGS="-I$with_yaml_cpp_inc"
-    YAMLCPP_LDFLAGS=
-    test "$with_yaml_cpp" && test -d $with_yaml_cpp/lib && YAMLCPP_LDFLAGS="-L$with_yaml_cpp/lib"
-    test "$with_yaml_cpp" && test -d $with_yaml_cpp/lib64 && YAMLCPP_LDFLAGS="-L$with_yaml_cpp/lib64"
-    test "$with_yaml_cpp_lib" && YAMLCPP_LDFLAGS="-L$with_yaml_cpp_lib"
-    YAMLCPP_LIBS="-lyaml-cpp"
-    oldCPPFLAGS=$CPPFLAGS
-    oldLDFLAGS=$LDFLAGS
-    CPPFLAGS="$YAMLCPP_CPPFLAGS $BOOST_CPPFLAGS $AM_CPPFLAGS $CPPFLAGS"
-    LDFLAGS="$YAMLCPP_LDFLAGS $AM_LDFLAGS $LDFLAGS"
-    AC_CHECK_HEADER([yaml-cpp/yaml.h], [], [AC_MSG_ERROR([yaml-cpp/yaml.h header not found.])])
-    AC_CHECK_HEADER([yaml-cpp/node.h], [YAMLCPP_MAJOR_VERSION=3])
-    AC_CHECK_HEADER([yaml-cpp/node/node.h], [YAMLCPP_MAJOR_VERSION=5])
-    if test "x$YAMLCPP_MAJOR_VERSION" = x; then
-      AC_MSG_ERROR([yaml-cpp API version could not be determined])
-    fi
-    AC_MSG_NOTICE([yaml-cpp API version = $YAMLCPP_MAJOR_VERSION])
-    CPPFLAGS=$oldCPPFLAGS
-    LDFLAGS=$oldLDFLAGS
-fi
-AM_CONDITIONAL(USE_BUILTIN_YAMLCPP, [test $YAMLCPP_BUILTIN = yes])
-AC_SUBST(YAMLCPP_MAJOR_VERSION)
-AC_SUBST(YAMLCPP_CPPFLAGS)
-AC_SUBST(YAMLCPP_LDFLAGS)
-AC_SUBST(YAMLCPP_LIBS)
 
 
 ## GNU Scientific Library

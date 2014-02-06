@@ -1,8 +1,21 @@
-2014-01-27  Andy Buckley  <andy.buckley@cern.ch>
+2014-02-03  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Adding libtool-kill-dependency_libs.sh, to allow use of a
-	temporary static librivet-yaml-cpp.a without screwing up
-	dependencies.
+	* Adding the ATLAS_2012_I1093734 fwd-bwd / azimuthal minbias correlations analysis.
+
+	* Adding the LHCB_2013_I1208105 forward energy flow analysis.
+
+2014-01-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Checking the YODA minimum version in the configure script.
+
+	* Fixing the JADE_OPAL analysis ycut values to the midpoints,
+	thanks to information from Christoph Pahl / Stefan Kluth.
+
+2014-01-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing unused/overrestrictive Isolation* headers.
+
+2014-01-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Re-bundling yaml-cpp, now built as a mangled static lib based on
 	the LHAPDF6 experience.

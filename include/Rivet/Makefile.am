@@ -47,9 +47,6 @@ nobase_pkginclude_HEADERS +=   \
   Projections/IdentifiedFinalState.hh \
   Projections/InitialQuarks.hh \
   Projections/InvMassFinalState.hh \
-  Projections/IsolationEstimators.hh \
-  Projections/IsolationProjection.hh \
-  Projections/IsolationTools.hh \
   Projections/JetAlg.hh         \
   Projections/JetShape.hh       \
   Projections/LeadingParticlesFinalState.hh \

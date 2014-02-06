@@ -11,5 +11,8 @@ yaml-cpp/librivet-yaml-cpp.a: yaml-cpp-0.3.0.tar.gz
 	for i in `find yaml-cpp -type f -name "*.h" -o -name "*.cpp"`; do (grep RIVET_YAML $$i > /dev/null) || \
       { $(SED) -e 's/namespace YAML/namespace RIVET_YAML/' -e 's/YAML::/RIVET_YAML::/g' $$i > tmp; \
         test -e tmp && mv tmp $$i; } done; true
-	cd yaml-cpp && CXX="$(CXX)" CXXFLAGS="$(CPPFLAGS) $(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" DYLDFLAGS="$(DYLDFLAGS)" cmake . && \
+	cd yaml-cpp && CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) $(DYLDFLAGS)" $(CMAKE) . && \
       $(MAKE) && mv libyaml-cpp.a librivet-yaml-cpp.a
+
+clean-local:
+	@rm -rf yaml-cpp
