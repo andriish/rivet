@@ -1,3 +1,7 @@
+2014-02-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* 2.1.0 release!
+
 2014-02-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Protect against invalid prefix value if the --prefix configure option is unused.
