@@ -1,7 +1,7 @@
 #ifndef RIVET_ParticleBase_HH
 #define RIVET_ParticleBase_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Jet.fhh"
 #include "Rivet/Math/Vectors.hh"
 

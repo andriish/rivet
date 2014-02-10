@@ -1,5 +1,5 @@
 // -*- C++ -*-
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Tools/Logging.hh"
 

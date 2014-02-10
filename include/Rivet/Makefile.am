@@ -16,7 +16,7 @@ nobase_pkginclude_HEADERS += \
   Cmp.fhh              Cmp.hh \
   BeamConstraint.hh    AnalysisHandler.hh \
   Analysis.hh          AnalysisInfo.hh \
-  AnalysisBuilder.hh   AnalysisLoader.hh \
+  AnalysisBuilder.hh   AnalysisLoader.hh
 
 
 ## Build config stuff

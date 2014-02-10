@@ -12,8 +12,8 @@ namespace Rivet {
     // @todo We should really implement the FinalState algorithm here instead
     double etamin, etamax;
     if ( _etaRanges.empty() ) {
-      etamin = -MAXRAPIDITY;
-      etamax = MAXRAPIDITY;
+      etamin = -MAXDOUBLE;
+      etamax = MAXDOUBLE;
     } else {
       // With our current constructor choice, we can only ever have one entry
       assert( _etaRanges.size() == 1 );

@@ -3,7 +3,7 @@
 #define RIVET_NeutralFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
@@ -24,8 +24,8 @@ namespace Rivet {
       addProjection(fsp, "FS");
     }
 
-    NeutralFinalState(double mineta = -MAXRAPIDITY,
-                      double maxeta =  MAXRAPIDITY,
+    NeutralFinalState(double mineta = -MAXDOUBLE,
+                      double maxeta =  MAXDOUBLE,
                       double minEt  =  0.0*GeV) : _Etmin(minEt)
     {
       setName("NeutralFinalState");

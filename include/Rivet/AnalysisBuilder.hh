@@ -2,7 +2,7 @@
 #ifndef RIVET_AnalysisBuilder_HH
 #define RIVET_AnalysisBuilder_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/AnalysisLoader.hh"
 #include "Rivet/Tools/Logging.hh"
 

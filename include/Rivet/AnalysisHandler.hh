@@ -2,9 +2,8 @@
 #ifndef RIVET_RivetHandler_HH
 #define RIVET_RivetHandler_HH
 
-#include "Rivet/Rivet.hh"
-#include "Rivet/Tools/RivetBoost.hh"
-#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Particle.hh"
 #include "Rivet/AnalysisLoader.hh"
 
 namespace Rivet {

@@ -24,8 +24,8 @@ namespace Rivet {
 
     /// Constructor with specification of the minimum and maximum pseudorapidity
     /// \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    HeavyHadrons(double mineta = -MAXRAPIDITY,
-                 double maxeta =  MAXRAPIDITY,
+    HeavyHadrons(double mineta = -MAXDOUBLE,
+                 double maxeta =  MAXDOUBLE,
                  double minpt  =  0.0*GeV) {
       setName("HeavyHadrons");
       addProjection(UnstableFinalState(mineta, maxeta, minpt), "UFS");

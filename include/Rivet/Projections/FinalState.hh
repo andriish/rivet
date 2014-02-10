@@ -18,8 +18,8 @@ namespace Rivet {
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    FinalState(double mineta = -MAXRAPIDITY,
-               double maxeta =  MAXRAPIDITY,
+    FinalState(double mineta = -MAXDOUBLE,
+               double maxeta =  MAXDOUBLE,
                double minpt  =  0.0*GeV);
 
     /// A constructor which allows to specify multiple eta ranges

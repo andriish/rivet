@@ -9,7 +9,7 @@ namespace Rivet {
   {
     setName("FinalState");
     const bool openpt = isZero(minpt);
-    const bool openeta = (mineta <= -MAXRAPIDITY && maxeta >= MAXRAPIDITY);
+    const bool openeta = (mineta <= -MAXDOUBLE && maxeta >= MAXDOUBLE);
     MSG_TRACE("Check for open FS conditions:" << std::boolalpha
               << " eta=" << openeta
               << ", pt=" << openpt);

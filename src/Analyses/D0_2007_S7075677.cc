@@ -23,7 +23,7 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      ZFinder zfinder(FinalState(), -MAXRAPIDITY, MAXRAPIDITY, 0*GeV, PID::ELECTRON,
+      ZFinder zfinder(FinalState(), -MAXDOUBLE, MAXDOUBLE, 0*GeV, PID::ELECTRON,
                       71*GeV, 111*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 

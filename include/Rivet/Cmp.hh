@@ -2,7 +2,7 @@
 #ifndef RIVET_Cmp_HH
 #define RIVET_Cmp_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.hh"
 #include "Cmp.fhh"
 #include <typeinfo>

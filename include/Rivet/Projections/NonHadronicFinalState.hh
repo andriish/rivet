@@ -3,7 +3,7 @@
 #define RIVET_NonHadronicFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
@@ -24,8 +24,8 @@ namespace Rivet {
       addProjection(fsp, "FS");
     }
 
-    NonHadronicFinalState(double mineta = -MAXRAPIDITY,
-			  double maxeta = MAXRAPIDITY,
+    NonHadronicFinalState(double mineta = -MAXDOUBLE,
+			  double maxeta = MAXDOUBLE,
 			  double minpt = 0.0*GeV)
     {
       setName("NonHadronicFinalState");

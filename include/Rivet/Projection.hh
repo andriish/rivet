@@ -2,7 +2,7 @@
 #ifndef RIVET_Projection_HH
 #define RIVET_Projection_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.fhh"
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"

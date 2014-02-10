@@ -3,7 +3,7 @@
 #define RIVET_IdentifiedFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
@@ -23,8 +23,8 @@ namespace Rivet {
     IdentifiedFinalState(const FinalState& fsp);
 
     /// Constructor with a single eta range argument.
-    IdentifiedFinalState(double etamin=-MAXRAPIDITY,
-                         double etamax=MAXRAPIDITY,
+    IdentifiedFinalState(double etamin=-MAXDOUBLE,
+                         double etamax=MAXDOUBLE,
                          double ptMin=0.0*GeV);
 
     /// Constructor which allows to specify multiple eta ranges

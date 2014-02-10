@@ -3,7 +3,7 @@
 #define RIVET_ConstLossyFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
@@ -57,8 +57,8 @@ namespace Rivet {
 
     /// Stand-alone constructor. Initialises the base FinalState projection.
     ConstLossyFinalState(double lossfraction,
-                         double mineta = -MAXRAPIDITY,
-                         double maxeta = MAXRAPIDITY,
+                         double mineta = -MAXDOUBLE,
+                         double maxeta = MAXDOUBLE,
                          double minpt = 0.0)
       : LossyFinalState<ConstRandomFilter>(ConstRandomFilter(lossfraction), mineta, maxeta, minpt)
     {

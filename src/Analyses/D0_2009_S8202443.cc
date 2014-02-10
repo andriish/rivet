@@ -37,7 +37,7 @@ namespace Rivet {
       addProjection(conefinder_constrained, "ConeFinderConstrained");
 
       // Unconstrained leptons
-      ZFinder zfinder(fs, -MAXRAPIDITY, MAXRAPIDITY, 0*GeV, PID::ELECTRON,
+      ZFinder zfinder(fs, -MAXDOUBLE, MAXDOUBLE, 0*GeV, PID::ELECTRON,
                       65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);

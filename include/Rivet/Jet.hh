@@ -2,8 +2,9 @@
 #ifndef RIVET_Jet_HH
 #define RIVET_Jet_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Jet.fhh"
+#include "Rivet/Particle.hh"
 #include "fastjet/PseudoJet.hh"
 #include <numeric>
 

@@ -1,6 +1,12 @@
 2014-02-10  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Adding isStable, children, allDescendants, stableDescendants, and flightLength functions to Particle.
+	* Replacing internal uses of #include Rivet/Rivet.hh with
+	Rivet/Config/RivetCommon.hh, removing the MAXRAPIDITY const, and
+	repurposing Rivet/Rivet.hh as a convenience include for external
+	API users.
+
+	* Adding isStable, children, allDescendants, stableDescendants,
+	and flightLength functions to Particle.
 
 	* Replacing Particle and Jet deltaX functions with generic ones on
 	ParticleBase, and adding deltaRap variants.

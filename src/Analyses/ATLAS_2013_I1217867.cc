@@ -53,7 +53,7 @@ namespace Rivet {
       DressedLeptons muonClusters(fs, bareMuons, 0.1, true, etaRangesMuons, 20.0*GeV);
       addProjection(muonClusters, "muonClusters");
 
-      IdentifiedFinalState neutrinos(-MAXRAPIDITY, MAXRAPIDITY, 25.0*GeV);
+      IdentifiedFinalState neutrinos(-MAXDOUBLE, MAXDOUBLE, 25.0*GeV);
       neutrinos.acceptNeutrinos();
       addProjection(neutrinos, "neutrinos");
 
