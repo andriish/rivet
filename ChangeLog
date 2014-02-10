@@ -1,5 +1,10 @@
 2014-02-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding isStable, children, allDescendants, stableDescendants, and flightLength functions to Particle.
+
+	* Replacing Particle and Jet deltaX functions with generic ones on
+	ParticleBase, and adding deltaRap variants.
+
 	* Adding a Jet.fhh forward declaration header, including fastjet::PseudoJet.
 
 	* Adding a RivetCommon.hh header to allow Rivet.hh to be used externally.
