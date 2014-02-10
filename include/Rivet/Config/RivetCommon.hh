@@ -26,8 +26,9 @@
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/Logging.hh"
 
-#include "Rivet/ParticleName.hh"
 #include "Rivet/Math/Units.hh"
+#include "Rivet/ParticleName.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
 
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
