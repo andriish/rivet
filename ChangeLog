@@ -1,3 +1,7 @@
+2014-02-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fixing HeavyHadrons to apply pT cuts if specified.
+
 2014-02-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* 2.1.0 release!
