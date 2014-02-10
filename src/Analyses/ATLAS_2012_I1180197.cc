@@ -105,20 +105,20 @@ namespace Rivet {
       Particles cand_soft_e,cand_hard_e;
       foreach( const Particle & e,
                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
-        double pT  = e.momentum().perp();
+        double pT  = e.momentum().pT();
         double eta = e.eta();
         // remove any leptons within 0.4 of any candidate jets
         bool e_near_jet = false;
         foreach ( const Jet& jet, cand_jets ) {
           double dR = deltaR(e.momentum(),jet.momentum());
-          if ( dR < 0.4 && dR > 0.2 ) {
+          if ( inRange(dR, 0.2, 0.4) ) {
             e_near_jet = true;
             break;
           }
         }
         if ( e_near_jet ) continue;
         // soft selection
-        if(pT>7.&&!(fabs(eta)>1.37&&fabs(eta)<1.52)) {
+        if(pT>7.&&!(fabs(eta)>1.37&&fabs(eta) < 1.52)) {
           cand_soft_e.push_back(e);
         }
         // hard selection
@@ -127,7 +127,7 @@ namespace Rivet {
       Particles cand_soft_mu,cand_hard_mu;
       foreach( const Particle & mu,
                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
-        double pT  = mu.momentum().perp();
+        double pT  = mu.momentum().pT();
         double eta = mu.eta();
         // remove any leptons within 0.4 of any candidate jets
         bool mu_near_jet = false;
@@ -139,11 +139,11 @@ namespace Rivet {
         }
         if ( mu_near_jet ) continue;
         // soft selection
-        if(pT>6.&&!(fabs(eta)>1.37&&fabs(eta)<1.52)) {
+        if (pT > 6*GeV && !inRange(fabs(eta), 1.37, 1.52)) {
           cand_soft_mu.push_back(mu);
         }
         // hard selection
-        if(pT>10.) cand_hard_mu.push_back(mu);
+        if (pT > 10*GeV) cand_hard_mu.push_back(mu);
       }
       // pTcone around muon track (hard)
       Particles recon_hard_mu;
@@ -202,7 +202,7 @@ namespace Rivet {
         Jets recon_jets;
         foreach ( const Jet& jet, cand_jets ) {
           if(fabs(jet.eta())>2.5||
-             jet.momentum().perp()<25.) continue;
+             jet.momentum().pT() < 25*GeV) continue;
           bool away_from_e = true;
           foreach ( const Particle & e, cand_hard_e ) {
             if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
@@ -216,7 +216,7 @@ namespace Rivet {
         // meff calculation
         double HT=0.;
         foreach( const Jet & jet, recon_jets) {
-          HT += jet.momentum().perp();
+          HT += jet.momentum().pT();
         }
         double m_eff_inc  = HT+eTmiss;
         unsigned int njet = recon_jets.size();
@@ -226,7 +226,7 @@ namespace Rivet {
           Particle lepton = recon_hard_e.empty() ?
             recon_hard_mu[0] : recon_hard_e[0];
           // lepton variables
-          double pT = lepton.momentum().perp();
+          double pT = lepton.momentum().pT();
           double mT  = 2.*(pT*eTmiss -
                            lepton.momentum().x()*pTmiss.x() -
                            lepton.momentum().y()*pTmiss.y());
@@ -238,34 +238,34 @@ namespace Rivet {
                 ( abs(lepton.pdgId()) == PID::MUON     && pT > 20. ) ) &&
               mT > 100. && eTmiss > 250. ) {
             double m_eff = pT+eTmiss;
-            for(unsigned int ix=0;ix<3;++ix)
-              m_eff += recon_jets[ix].momentum().perp();
+            for (size_t ix = 0; ix < 3; ++ix)
+              m_eff += recon_jets[ix].momentum().pT();
             // 3 jet channel
-            if( (njet == 3 || recon_jets[3].momentum().perp() < 80. ) &&
-                recon_jets[0].momentum().perp()>100. ) {
-              if(eTmiss/m_eff>0.3) {
-                if(m_eff_inc>1200.) {
+            if ( (njet == 3 || recon_jets[3].momentum().pT() < 80*GeV ) &&
+                recon_jets[0].momentum().pT() > 100*GeV ) {
+              if (eTmiss/m_eff > 0.3) {
+                if (m_eff_inc > 1200*GeV) {
                   _count_1l_3jet_all_channel->fill(0.5,weight);
-                  if(abs(lepton.pdgId()) == PID::ELECTRON )
-                    _count_1l_3jet_e_channel->fill(0.5,weight);
+                  if (abs(lepton.pdgId()) == PID::ELECTRON )
+                    _count_1l_3jet_e_channel->fill(0.5, weight);
                   else
-                    _count_1l_3jet_mu_channel->fill(0.5,weight);
+                    _count_1l_3jet_mu_channel->fill(0.5, weight);
                 }
-                _hist_1l_m_eff_3jet->fill(min(1599.,m_eff_inc),weight);
+                _hist_1l_m_eff_3jet->fill(min(1599., m_eff_inc), weight);
               }
             }
             // 4 jet channel
-            else if (njet >=4 && recon_jets[3].momentum().perp()>80.) {
-              m_eff += recon_jets[3].momentum().perp();
-              if(eTmiss/m_eff>0.2) {
-                if(m_eff_inc>800.) {
-                  _count_1l_4jet_all_channel->fill(0.5,weight);
+            else if (njet >=4 && recon_jets[3].momentum().pT() > 80*GeV) {
+              m_eff += recon_jets[3].momentum().pT();
+              if (eTmiss/m_eff>0.2) {
+                if (m_eff_inc > 800*GeV) {
+                  _count_1l_4jet_all_channel->fill(0.5, weight);
                   if(abs(lepton.pdgId()) == PID::ELECTRON )
-                    _count_1l_4jet_e_channel->fill(0.5,weight);
+                    _count_1l_4jet_e_channel->fill(0.5, weight);
                   else
-                    _count_1l_4jet_mu_channel->fill(0.5,weight);
+                    _count_1l_4jet_mu_channel->fill(0.5, weight);
                 }
-                _hist_1l_m_eff_4jet->fill(min(1599.,m_eff_inc),weight);
+                _hist_1l_m_eff_4jet->fill(min(1599., m_eff_inc), weight);
               }
             }
           }
@@ -275,41 +275,41 @@ namespace Rivet {
           // get all the leptons and sort them by pT
           Particles leptons(recon_hard_e.begin(),recon_hard_e.end());
           leptons.insert(leptons.begin(),recon_hard_mu.begin(),recon_hard_mu.end());
-          std::sort(leptons.begin(),leptons.end(),cmpMomByPt);
+          std::sort(leptons.begin(), leptons.end(), cmpMomByPt);
           double m_eff(0.0);
           for (size_t ix = 0; ix < leptons.size(); ++ix)
-            m_eff += leptons[ix].momentum().perp();
+            m_eff += leptons[ix].momentum().pT();
           m_eff_inc += m_eff;
           m_eff += eTmiss;
           for (size_t ix = 0; ix < (size_t) min(4, int(recon_jets.size())); ++ix)
-            m_eff += recon_jets[ix].momentum().perp();
+            m_eff += recon_jets[ix].momentum().pT();
           // require opposite sign leptons
           if (leptons[0].pdgId()*leptons[1].pdgId()<0) {
             // 2 jet
-            if (recon_jets[1].momentum().perp()>200 &&
-               ( njet<4 || (njet>=4 && recon_jets[3].momentum().perp()<50.)) && eTmiss>300.) {
-              _count_2l_2jet_all_channel->fill(0.5,weight);
+            if (recon_jets[1].momentum().pT()>200 &&
+               ( njet<4 || (njet>=4 && recon_jets[3].momentum().pT() < 50*GeV)) && eTmiss > 300*GeV) {
+              _count_2l_2jet_all_channel->fill(0.5, weight);
               if (abs(leptons[0].pdgId()) == PID::ELECTRON && abs(leptons[1].pdgId()) == PID::ELECTRON )
-                _count_2l_2jet_ee_channel->fill(0.5,weight);
+                _count_2l_2jet_ee_channel->fill(0.5, weight);
               else if (abs(leptons[0].pdgId()) == PID::MUON && abs(leptons[1].pdgId()) == PID::MUON )
-                _count_2l_2jet_mumu_channel->fill(0.5,weight);
+                _count_2l_2jet_mumu_channel->fill(0.5, weight);
               else
-                _count_2l_2jet_emu_channel->fill(0.5,weight);
-              _hist_2l_m_eff_2jet->fill(min(1699.,m_eff_inc),weight);
+                _count_2l_2jet_emu_channel->fill(0.5, weight);
+              _hist_2l_m_eff_2jet->fill(min(1699., m_eff_inc), weight);
             }
             // 4 jet
-            else if (njet>=4&& recon_jets[3].momentum().perp()>=50.&&
-                     eTmiss>100. && eTmiss/m_eff>0.2) {
-              if ( m_eff_inc>650. ) {
-                _count_2l_4jet_all_channel->fill(0.5,weight);
+            else if (njet >= 4 && recon_jets[3].momentum().pT() > 50*GeV &&
+                     eTmiss > 100*GeV && eTmiss/m_eff > 0.2) {
+              if ( m_eff_inc > 650*GeV ) {
+                _count_2l_4jet_all_channel->fill(0.5, weight);
                 if (abs(leptons[0].pdgId()) == PID::ELECTRON && abs(leptons[1].pdgId()) == PID::ELECTRON )
-                  _count_2l_4jet_ee_channel->fill(0.5,weight);
+                  _count_2l_4jet_ee_channel->fill(0.5, weight);
                 else if (abs(leptons[0].pdgId()) == PID::MUON && abs(leptons[1].pdgId()) == PID::MUON )
-                  _count_2l_4jet_mumu_channel->fill(0.5,weight);
+                  _count_2l_4jet_mumu_channel->fill(0.5, weight);
                 else
-                  _count_2l_4jet_emu_channel->fill(0.5,weight);
+                  _count_2l_4jet_emu_channel->fill(0.5, weight);
               }
-              _hist_2l_m_eff_4jet->fill(min(1599.,m_eff_inc),weight);
+              _hist_2l_m_eff_4jet->fill(min(1599., m_eff_inc), weight);
             }
           }
         }
@@ -319,11 +319,10 @@ namespace Rivet {
         // discard jets that overlap with electrons
         Jets recon_jets;
         foreach ( const Jet& jet, cand_jets ) {
-          if (fabs(jet.eta())>2.5||
-             jet.momentum().perp()<25.) continue;
+          if (fabs(jet.eta()) > 2.5 || jet.momentum().pT() < 25*GeV) continue;
           bool away_from_e = true;
           foreach ( const Particle & e, cand_soft_e ) {
-            if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
+            if ( deltaR(e.momentum(), jet.momentum()) < 0.2 ) {
               away_from_e = false;
               break;
             }
@@ -333,14 +332,14 @@ namespace Rivet {
         // meff calculation
         double HT=0.;
         foreach (const Jet & jet, recon_jets) {
-          HT += jet.momentum().perp();
+          HT += jet.momentum().pT();
         }
         double m_eff_inc  = HT+eTmiss;
         // get the lepton
         Particle lepton = recon_soft_e.empty() ?
           recon_soft_mu[0] : recon_soft_e[0];
         // lepton variables
-        double pT = lepton.momentum().perp();
+        double pT = lepton.momentum().pT();
         double mT  = 2.*(pT*eTmiss -
                          lepton.momentum().x()*pTmiss.x() -
                          lepton.momentum().y()*pTmiss.y());
@@ -348,17 +347,17 @@ namespace Rivet {
         m_eff_inc += pT;
         double m_eff = pT+eTmiss;
         // apply final cuts
-        if(recon_jets.size() >= 2 && recon_jets[0].momentum().perp()>130. &&
-           mT>100. && eTmiss>250.) {
-          for (size_t ix=0;ix<2;++ix) m_eff += recon_jets[0].momentum().perp();
+        if (recon_jets.size() >= 2 && recon_jets[0].momentum().pT()>130*GeV && mT > 100*GeV && eTmiss > 250*GeV) {
+          for (size_t ix = 0; ix < 2; ++ix)
+            m_eff += recon_jets[0].momentum().pT();
           if (eTmiss/m_eff > 0.3) {
-            _count_1l_soft_all_channel->fill(0.5,weight);
+            _count_1l_soft_all_channel->fill(0.5, weight);
             if (abs(lepton.pdgId()) == PID::ELECTRON )
-              _count_1l_soft_e_channel->fill(0.5,weight);
+              _count_1l_soft_e_channel->fill(0.5, weight);
             else
-              _count_1l_soft_mu_channel->fill(0.5,weight);
+              _count_1l_soft_mu_channel->fill(0.5, weight);
           }
-          _hist_1l_eTmiss_m_eff_soft->fill( eTmiss/m_eff_inc,weight);
+          _hist_1l_eTmiss_m_eff_soft->fill( eTmiss/m_eff_inc, weight);
         }
       }
     }
@@ -422,6 +421,7 @@ namespace Rivet {
     //@}
 
   };
+
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2012_I1180197);

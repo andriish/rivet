@@ -1,5 +1,7 @@
 2014-02-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Removing unused HT increment and units in ATLAS_2012_I1180197 (unvalidated SUSY).
+
 	* Fixing photon isolation logic bug in CMS_2013_I1258128 (Z rapidity).
 
 	* Replacing internal uses of #include Rivet/Rivet.hh with
