@@ -69,7 +69,7 @@ namespace Rivet {
       Jets jets = jetfs.jetsByPt(30.*GeV, MAXDOUBLE, -2.4, 2.4);
       if (jets.empty()) return;
 
-      // Clean the jets against the lepton candidates with a DeltaR cut of 0.4
+      // Clean the jets against the lepton candidates with a DeltaR cut of 0.5
       std::vector<const Jet*> cleanedJets;
       foreach (const Jet& j, jets) {
         bool isolated = true;
@@ -110,14 +110,9 @@ namespace Rivet {
 
       // Clean the jets against the photon candidate with a DeltaR cut of 0.5
       std::vector<const Jet*> cleanedJets;
-      foreach (const Jet& j, jets) {
-        bool isolated = true;
-        if (deltaR(photon.momentum(), j.momentum()) < 0.5) {
-          isolated = false;
-          break;
-        }
-        if (isolated) cleanedJets.push_back(&j);
-      }
+      foreach (const Jet& j, jets)
+        if (deltaR(photon.momentum(), j.momentum()) < 0.5)
+          cleanedJets.push_back(&j);
       // Require exactly 1 jet
       if (cleanedJets.size() != 1) return;
 

@@ -1,5 +1,7 @@
 2014-02-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fixing photon isolation logic bug in CMS_2013_I1258128 (Z rapidity).
+
 	* Replacing internal uses of #include Rivet/Rivet.hh with
 	Rivet/Config/RivetCommon.hh, removing the MAXRAPIDITY const, and
 	repurposing Rivet/Rivet.hh as a convenience include for external
