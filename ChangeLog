@@ -1,5 +1,9 @@
 2014-02-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding a Jet.fhh forward declaration header, including fastjet::PseudoJet.
+
+	* Adding a RivetCommon.hh header to allow Rivet.hh to be used externally.
+
 	* Fixing HeavyHadrons to apply pT cuts if specified.
 
 2014-02-06  Andy Buckley  <andy.buckley@cern.ch>

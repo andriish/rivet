@@ -1,6 +1,9 @@
 #ifndef RIVET_RivetCommon_HH
 #define RIVET_RivetCommon_HH
 
+// Convenience build-setup header for Rivet internal use
+
+// Automatic build info from autoconf
 #include "Rivet/Config/RivetConfig.hh"
 #include "Rivet/Config/BuildOptions.hh"
 
@@ -29,7 +32,7 @@
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 
+// #include "Rivet/Particle.hh"
 // #include "Rivet/Event.hh"
-#include "Rivet/Particle.hh"
 
 #endif
