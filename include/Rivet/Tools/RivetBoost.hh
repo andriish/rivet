@@ -27,7 +27,7 @@ namespace Rivet {
   // Clever assignment shortcuts
   using namespace boost::assign;
 
-  // Strings
+  // General Boost namespace
   using namespace boost;
 
 

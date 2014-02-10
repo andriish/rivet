@@ -43,34 +43,4 @@ namespace Rivet {
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Particle.hh"
 
-
-namespace Rivet {
-
-
-  /// Convenient function for streaming out vectors of any streamable object.
-  template<typename T>
-  inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
-    os << "[ ";
-    for (size_t i=0; i<vec.size(); ++i) {
-      os << vec[i] << " ";
-    }
-    os << "]";
-    return os;
-  }
-
-
-  /// Convenient function for streaming out lists of any streamable object.
-  template<typename T>
-  inline std::ostream& operator<<(std::ostream& os, const std::list<T>& vec) {
-    os << "[ ";
-    for (size_t i=0; i<vec.size(); ++i) {
-      os << vec[i] << " ";
-    }
-    os << "]";
-    return os;
-  }
-
-
-}
-
 #endif
