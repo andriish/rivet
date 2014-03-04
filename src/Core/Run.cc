@@ -86,7 +86,7 @@ namespace Rivet {
     _ah.init(*_evt);
 
     // Set cross-section from command line
-    if (_xs >= 0.0) {
+    if (!isnan(_xs)) {
       Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
       _ah.setCrossSection(_xs);
@@ -133,6 +133,10 @@ namespace Rivet {
     _evt.reset();
     _istr.reset();
     _io.reset();
+
+    if (!isnan(_xs)) _ah.setCrossSection(_xs);
+    _ah.finalize();
+
     return true;
   }
 

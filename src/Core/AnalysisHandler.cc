@@ -19,7 +19,7 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname), _numEvents(0),
-      _sumOfWeights(0.0), _xs(-1.0),
+      _sumOfWeights(0.0), _xs(NAN),
       _initialised(false), _ignoreBeams(false)
   {}
 
@@ -117,8 +117,7 @@ namespace Rivet {
     MSG_DEBUG("Event #" << _numEvents << " weight = " << weight);
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
-      const double xs = ge.cross_section()->cross_section();
-      setCrossSection(xs);
+      _xs = ge.cross_section()->cross_section();
     }
     #endif
     foreach (AnaHandle a, _analyses) {
@@ -139,6 +138,7 @@ namespace Rivet {
     if (!_initialised) return;
     MSG_INFO("Finalising analyses");
     foreach (AnaHandle a, _analyses) {
+      a->setCrossSection(_xs);
       try {
         a->finalize();
       } catch (const Error& err) {
@@ -273,9 +273,6 @@ namespace Rivet {
 
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs) {
     _xs = xs;
-    foreach (AnaHandle a, _analyses) {
-      a->setCrossSection(xs);
-    }
     return *this;
   }
 
