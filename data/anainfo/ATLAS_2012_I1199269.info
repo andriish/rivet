@@ -29,7 +29,7 @@ Description:
   and next-to-leading-order and next-to-next-to-leading-order
   parton-level generators.'
 BibTeX:
-  @article{Aad:2012tba,
+  '@article{Aad:2012tba,
         author         = "Aad, Georges and others",
         title          = "{Measurement of isolated-photon pair production in $pp$
                           collisions at $\sqrt{s}=7$ TeV with the ATLAS detector}",
@@ -44,4 +44,4 @@ BibTeX:
         primaryClass   = "hep-ex",
         reportNumber   = "CERN-PH-EP-2012-300",
         SLACcitation   = "%%CITATION = ARXIV:1211.1913;%%",
-  }
+  }'
