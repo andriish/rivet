@@ -1,5 +1,8 @@
 2014-03-04  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Improving the index_between function so the numeric types don't
+	have to exactly match.
+
 	* Adding better momentum comparison functors and sortBy, sortByX
 	functions to use them easily on containers of Particle, Jet, and
 	FourMomentum.
