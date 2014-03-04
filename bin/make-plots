@@ -51,7 +51,7 @@ pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 
 def fuzzyeq(a, b, tolerance=1e-6):
     "Fuzzy equality comparison function for floats, with given fractional tolerance"
-    if a == 0 and b == 0:
+    if (a == 0 and abs(b) < 1e-12) or (b==0 and abs(a) < 1e-12):
         return True
     return 2.0*abs(a-b)/abs(a+b) < tolerance
 
