@@ -102,6 +102,7 @@ dist_pkgdata_DATA = \
   CMS_2013_I1224539_ZJET.yoda \
   CMS_2013_I1258128.yoda \
   CMS_2013_I1272853.yoda \
+  CMS_2013_I1273574.yoda \
   CMS_2012_PAS_QCD_11_010.yoda \
   CMS_QCD_10_024.yoda \
   LHCB_2010_S8758301.yoda \
