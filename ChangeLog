@@ -1,5 +1,7 @@
 2014-03-04  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding ATLAS isolated diphoton measurement, ATLAS_2012_I1199269.
+
 	* Improving the index_between function so the numeric types don't
 	have to exactly match.
 
