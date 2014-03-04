@@ -4,7 +4,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/ParticleName.hh"
 #include "Rivet/BeamConstraint.hh"
-#include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 
@@ -12,7 +11,7 @@ namespace Rivet {
 
 
   namespace {
-    bool AOSortByPath(const AnalysisObjectPtr a, const AnalysisObjectPtr b) {
+    inline bool cmpAOByPath(const AnalysisObjectPtr a, const AnalysisObjectPtr b) {
       return a->path() < b->path();
     }
   }
@@ -203,20 +202,26 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::writeData(const string& filename) {
-    vector<AnalysisObjectPtr> all_aos;
-    foreach (const AnaHandle a, _analyses) {
+  vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
+    vector<AnalysisObjectPtr> rtn;
+    foreach (const AnaHandle a, analyses()) {
       vector<AnalysisObjectPtr> aos = a->analysisObjects();
       // MSG_WARNING(a->name() << " " << aos.size());
-      sort(aos.begin(), aos.end(), AOSortByPath);
       foreach (const AnalysisObjectPtr ao, aos) {
+        // Exclude paths starting with /TMP/ from final write-out
+        /// @todo This needs to be much more nuanced for re-entrant histogramming
         if (ao->path().find("/TMP/") != string::npos) continue;
-        all_aos.push_back(ao);
+        rtn.push_back(ao);
       }
     }
-    // MSG_WARNING("Number of output analysis objects = " << all_aos.size());
-    // foreach (const AnalysisObjectPtr ao, all_aos) MSG_WARNING(ao->path());
-    WriterYODA::write(filename, all_aos.begin(), all_aos.end());
+    sort(rtn.begin(), rtn.end(), cmpAOByPath);
+    return rtn;
+  }
+
+
+  void AnalysisHandler::writeData(const string& filename) const {
+    const vector<AnalysisObjectPtr> aos = getData();
+    WriterYODA::write(filename, aos.begin(), aos.end());
   }
 
 

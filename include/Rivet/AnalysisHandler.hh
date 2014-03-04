@@ -5,6 +5,7 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/AnalysisLoader.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 
 namespace Rivet {
 
@@ -15,8 +16,8 @@ namespace Rivet {
 
 
   // Needed to make smart pointers compare equivalent in the STL set
-  struct AnaHandleLess {
-    bool operator()(const AnaHandle& a, const AnaHandle& b) {
+  struct CmpAnaHandle {
+    inline bool operator() (const AnaHandle& a, const AnaHandle& b) {
       return a.get() < b.get();
     }
   };
@@ -117,7 +118,7 @@ namespace Rivet {
     std::vector<std::string> analysisNames() const;
 
     /// Get the collection of currently registered analyses.
-    const std::set<AnaHandle, AnaHandleLess>& analyses() const {
+    const std::set<AnaHandle, CmpAnaHandle>& analyses() const {
       return _analyses;
     }
 
@@ -141,7 +142,6 @@ namespace Rivet {
     /// Remove analyses from the run list using their names.
     AnalysisHandler& removeAnalyses(const std::vector<std::string>& analysisnames);
 
-
     /// Add an analysis to the run list by object
     AnalysisHandler& addAnalysis(Analysis* analysis);
 
@@ -154,11 +154,9 @@ namespace Rivet {
     /// Initialize a run, with the run beams taken from the example event.
     void init(const GenEvent& event);
 
-
     /// Analyze the given \a event. This function will call the
     /// AnalysisBase::analyze() function of all included analysis objects.
     void analyze(const GenEvent& event);
-
 
     /// Finalize a run. This function calls the AnalysisBase::finalize()
     /// functions of all included analysis objects.
@@ -167,14 +165,22 @@ namespace Rivet {
     //@}
 
 
+    /// @name Histogram / data object access
+    //@{
+
+    /// Get all analyses' plots as a vector of analysis objects.
+    std::vector<AnalysisObjectPtr> getData() const;
+
     /// Write all analyses' plots to the named file.
-    void writeData(const std::string& filename);
+    void writeData(const std::string& filename) const;
+
+    //@}
 
 
   private:
 
     /// The collection of Analysis objects to be used.
-    set<AnaHandle, AnaHandleLess> _analyses;
+    set<AnaHandle, CmpAnaHandle> _analyses;
 
 
     /// @name Run properties
