@@ -86,7 +86,7 @@ namespace Rivet {
         const double pt = jet.perp();
         const double area = clust_seq_area->area(jet);
         if (area < 1e-3) continue;
-        const int ieta = index_between(aeta, _eta_bins_areaoffset);
+        const int ieta = binIndex(aeta, _eta_bins_areaoffset);
         if (ieta != -1) ptDensities[ieta].push_back(pt/area);
       }
 
@@ -130,7 +130,7 @@ namespace Rivet {
         }
         // Now figure out the correction (area*density)
         const double EtCone_area = PI*sqr(0.4) - (7*.025)*(5*PI/128.); // cone area - central core rectangle
-        const double correction = _ptDensity[index_between(fabs(eta_P), _eta_bins_areaoffset)] * EtCone_area;
+        const double correction = _ptDensity[binIndex(fabs(eta_P), _eta_bins_areaoffset)] * EtCone_area;
 
         // Discard the photon if there is more than 4 GeV of cone activity
         // NOTE: Shouldn't need to subtract photon itself (it's in the central core)
