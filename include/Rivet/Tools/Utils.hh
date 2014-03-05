@@ -23,7 +23,6 @@ namespace Rivet {
     return lexical_cast<string>(x);
   }
 
-
   /// @brief Convert any object to a string
   ///
   /// An alias for to_str() with a more "Rivety" mixedCase name.

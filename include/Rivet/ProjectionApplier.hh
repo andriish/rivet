@@ -48,8 +48,8 @@ namespace Rivet {
 
 
     /// Get the named projection, specifying return type via a template argument.
-    template <typename PROJ>
-    const PROJ& getProjection(const std::string& name) const {
+    template <typename PROJ, typename KEY>
+    const PROJ& getProjection(const KEY& name) const {
       const Projection& p = getProjHandler().getProjection(*this, name);
       return pcast<PROJ>(p);
     }
@@ -57,8 +57,9 @@ namespace Rivet {
 
     /// Get the named projection (non-templated, so returns as a reference to a
     /// Projection base class).
-    const Projection& getProjection(const std::string& name) const {
-      return getProjHandler().getProjection(*this, name);
+    template <typename KEY>
+    const Projection& getProjection(const KEY& name) const {
+      return getProjHandler().getProjection(*this, toString(name));
     }
     //@}
 
@@ -80,10 +81,11 @@ namespace Rivet {
 
 
     /// Apply the named projection on @a event.
-    template <typename PROJ>
-    const PROJ& applyProjection(const Event& evt, const std::string& name) const {
-      return pcast<PROJ>(_applyProjection(evt, name));
+    template <typename PROJ, typename KEY>
+    const PROJ& applyProjection(const Event& evt, const KEY& name) const {
+      return pcast<PROJ>(_applyProjection(evt, toString(name)));
     }
+
     //@}
 
 
@@ -112,9 +114,9 @@ namespace Rivet {
     /// constructors, and to avoid polymorphism (e.g. handling @c ConcreteProjection
     /// via a pointer or reference to type @c Projection) since this will screw
     /// up the internal type management.
-    template <typename PROJ>
-    const PROJ& addProjection(const PROJ& proj, const std::string& name) {
-      const Projection& reg = _addProjection(proj, name);
+    template <typename PROJ, typename KEY>
+    const PROJ& addProjection(const PROJ& proj, const KEY& name) {
+      const Projection& reg = _addProjection(proj, toString(name));
       const PROJ& rtn = dynamic_cast<const PROJ&>(reg);
       return rtn;
     }
