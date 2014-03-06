@@ -11,11 +11,13 @@
 namespace Rivet {
 
 
+  /// CMS W + 2 jet double parton scattering analysis
   class CMS_2013_I1272853 : public Analysis {
   public:
 
     /// Constructor
-    CMS_2013_I1272853() : Analysis("CMS_2013_I1272853") {}
+    CMS_2013_I1272853()
+      : Analysis("CMS_2013_I1272853") { }
 
 
     /// Book histograms and initialise projections before the run
