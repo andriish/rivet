@@ -48,6 +48,7 @@ Doxyfile$
 ^include/Rivet/Config/DummyConfig\.hh$
 ^include/Rivet/Config/RivetConfig\.hh$
 ^doc/.*\.(log|aux|out)$
+^doc/diffanas$
 ^test/log$
 ^test/.*\.log$
 ^test/out\.yoda$
