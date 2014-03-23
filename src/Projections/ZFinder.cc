@@ -88,7 +88,7 @@ namespace Rivet {
     // Find the DressedLeptons which survived the IMFS cut such that we can
     // extract their original particles
     foreach (const Particle& p, _constituents) {
-      foreach (const ClusteredLepton& l, leptons.clusteredLeptons()) {
+      foreach (const DressedLepton& l, leptons.clusteredLeptons()) {
         if (p.pdgId()==l.pdgId() && p.momentum()==l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {

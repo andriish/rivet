@@ -142,7 +142,7 @@ namespace Rivet {
       _theParticles.push_back(p);
     }
     foreach (const Particle& p, _constituentLeptons) {
-      foreach (const ClusteredLepton& l, leptons.clusteredLeptons()) {
+      foreach (const DressedLepton& l, leptons.clusteredLeptons()) {
         if (p.pdgId() == l.pdgId() && p.momentum() == l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {

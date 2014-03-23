@@ -14,10 +14,10 @@ namespace Rivet {
 
 
   /// A charged lepton meta-particle created by clustering photons close to the bare lepton
-  class ClusteredLepton : public Particle {
+  class DressedLepton : public Particle {
   public:
 
-    ClusteredLepton(Particle lepton) :
+    DressedLepton(const Particle& lepton) :
       Particle(lepton.pdgId(), lepton.momentum()),
       _constituentLepton(lepton) {}
 
@@ -44,16 +44,30 @@ namespace Rivet {
   class DressedLeptons : public FinalState {
   public:
 
+    /// Constructor with a single eta range
+    DressedLeptons(const FinalState& photons, const FinalState& signal,
+                   double dRmax, bool cluster,
+                   double etaMin, double etaMax,
+                   double pTmin, bool useDecayPhotons=false);
+
+    /// Constructor with multiple eta ranges
     DressedLeptons(const FinalState& photons, const FinalState& signal,
                    double dRmax, bool cluster,
                    const vector<pair<double, double> >& etaRanges,
                    double pTmin, bool useDecayPhotons=false);
 
+
+    /// Clone this projection
     virtual const Projection* clone() const {
       return new DressedLeptons(*this);
     }
 
-    const vector<ClusteredLepton>& clusteredLeptons() const { return _clusteredLeptons; }
+    /// Retrieve the dressed leptons
+    const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }
+
+    /// Retrieve the dressed leptons (synonym)
+    /// @deprecated Use dressedLeptons()
+    const vector<DressedLepton>& clusteredLeptons() const { return _clusteredLeptons; }
 
 
   protected:
@@ -75,10 +89,9 @@ namespace Rivet {
     bool _fromDecay;
 
     /// Container which stores the clustered lepton objects
-    vector<ClusteredLepton> _clusteredLeptons;
+    vector<DressedLepton> _clusteredLeptons;
 
   };
-
 
 
 

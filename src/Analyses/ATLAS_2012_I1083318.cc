@@ -92,7 +92,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const vector<ClusteredLepton>& leptons = applyProjection<DressedLeptons>(event, "leptons").clusteredLeptons();
+      const vector<DressedLepton>& leptons = applyProjection<DressedLeptons>(event, "leptons").dressedLeptons();
       Particles neutrinos = applyProjection<FinalState>(event, "neutrinos").particlesByPt();
 
       if (leptons.size() != 1 || (neutrinos.size() == 0)) {
