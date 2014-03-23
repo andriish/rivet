@@ -1,3 +1,9 @@
+2014-03-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing need for cmake and unportable yaml-cpp trickery by
+	using libtool to build an embedded symbol-mangled copy of yaml-cpp
+	rather than trying to mangle and build direct from the tarball.
+
 2014-03-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Rivet 2.1.1 release.
