@@ -11,12 +11,10 @@ TODO
 """
 
 ##
-## This program is copyright by Hendrik Hoeth <hoeth@linta.de>. It may be used
+## This program is copyright by Hendrik Hoeth <hoeth@linta.de> and
+## the Rivet team https://rivet.hepforge.org. It may be used
 ## for scientific and private purposes. Patches are welcome, but please don't
 ## redistribute changed versions yourself.
-##
-## $Date$
-## $Revision$
 ##
 
 ## Check the Python version
@@ -2072,7 +2070,20 @@ class Coordinates(object):
 ####################
 
 
-import shutil
+def try_cmd(args):
+    "Run the given command + args and return True/False if it succeeds or not"
+    import subprocess
+    try:
+        subprocess.check_output(args, stderr=subprocess.STDOUT)
+        return True
+    except:
+        return False
+
+def have_cmd(cmd):
+    return try_cmd(["which", cmd])
+
+
+import shutil, subprocess
 def process_datfile(datfile):
     global opts
     if not os.access(datfile, os.R_OK):
@@ -2105,7 +2116,31 @@ def process_datfile(datfile):
     texfile.close()
 
     if opts.OUTPUT_FORMAT != "TEX":
-        import subprocess
+
+        ## Check for the required programs
+        latexavailable = have_cmd("latex")
+        dvipsavailable = have_cmd("dvips")
+        convertavailable = have_cmd("convert")
+        ps2pnmavailable = have_cmd("ps2pnm")
+        pnm2pngavailable = have_cmd("pnm2png")
+
+        # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
+        #   currently defaults (and is used below) to a size suitable for thumbnails
+        def mkpng(infile, outfile, density=100):
+            if convertavailable:
+                pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
+                logging.debug(" ".join(pngcmd))
+                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+                pngproc.wait()
+            else:
+                raise Exception("Required PNG maker program (convert) not found")
+            # elif ps2pnmavailable and pnm2pngavailable:
+            #     pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait " + infile
+            #     p1 = subprocess.Popen(pstopnm.split(), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
+            #     p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, outfile), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
+            #     p2.wait()
+            # else:
+            #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
 
         ## Run LaTeX (in no-stop mode)
         logging.debug(os.listdir(tempdir))
@@ -2124,8 +2159,7 @@ def process_datfile(datfile):
             dvcmd.append('-Pminion')
 
         ## Choose format
-        # TODO: Rationalise this monstrosity!
-        # TODO: Use a multi-format string and object handler cf. slhaplot (see, SUSY *is* useful...)
+        # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
         if opts.OUTPUT_FORMAT == "PS":
             dvcmd += ["-o", "%s.ps" % filename]
             logging.debug(" ".join(dvcmd))
@@ -2151,7 +2185,7 @@ def process_datfile(datfile):
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            pngcmd = ["convert", "-density", "200", "-", "%s.png" % filename]
+            pngcmd = ["convert", "-flatten", "-density", "100", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
@@ -2160,20 +2194,7 @@ def process_datfile(datfile):
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             dvproc.wait()
-            convertavailable = True
-            testconvert = subprocess.Popen(["which", "convert"], stdout=open("/dev/null", "w"), stderr=subprocess.STDOUT)
-            if testconvert.wait() != 0:
-                convertavailable = False
-            if convertavailable:
-                pngcmd = ["convert", "-density", "85", "%s.ps" % filename, "%s.png" % filename]
-                logging.debug(" ".join(pngcmd))
-                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-                pngproc.wait()
-            else:
-                pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait %s.ps" % filename
-                p1 = subprocess.Popen(pstopnm.split(" "), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
-                p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, filename), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
-                p2.wait()
+            mkpng("%s.ps" % filename, "%s.png" % filename)
         elif opts.OUTPUT_FORMAT == "PDFPNG":
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
@@ -2183,10 +2204,7 @@ def process_datfile(datfile):
             f.write(cnvproc.communicate()[0])
             f.close()
             logging.debug(os.listdir(tempdir))
-            pngcmd = ["convert", "-density", "85", "%s.pdf" % filename, "%s.png" % filename]
-            logging.debug(" ".join(pngcmd))
-            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            pngproc.wait()
+            mkpng("%s.pdf" % filename, "%s.png" % filename)
         elif opts.OUTPUT_FORMAT == "EPSPNG":
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
@@ -2195,10 +2213,7 @@ def process_datfile(datfile):
             f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
             f.write(cnvproc.communicate()[0])
             f.close()
-            pngcmd = ["convert", "-density", "85", "%s.eps" % filename, "%s.png" % filename]
-            logging.debug(" ".join(pngcmd))
-            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            pngproc.wait()
+            mkpng("%s.eps" % filename, "%s.png" % filename)
         else:
             logging.error("Unknown format: %s" % opts.OUTPUT_FORMAT)
             sys.exit(1)
@@ -2348,45 +2363,32 @@ if __name__ == '__main__':
     opts.LATEXPKGS = []
     if opts.OUTPUT_FORMAT != "TEX":
         try:
-            import subprocess
             ## latex
-            p = subprocess.Popen(["which", "latex"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            rtn = p.wait()
-            if rtn != 0:
+            if not have_cmd("latex"):
                 logging.error("ERROR: required program 'latex' could not be found. Exiting...")
                 sys.exit(1)
             ## dvips
-            p = subprocess.Popen(["which", "dvips"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            rtn = p.wait()
-            if rtn != 0:
+            if not have_cmd("dvips"):
                 logging.error("ERROR: required program 'dvips' could not be found. Exiting...")
                 sys.exit(1)
 
             ## ps2pdf / ps2eps
             if "PDF" in opts.OUTPUT_FORMAT:
-                p = subprocess.Popen(["which", "ps2pdf"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                rtn = p.wait()
-                if rtn != 0:
+                if not have_cmd("ps2pdf"):
                     logging.error("ERROR: required program 'ps2pdf' (for PDF output) could not be found. Exiting...")
                     sys.exit(1)
             elif "EPS" in opts.OUTPUT_FORMAT:
-                p = subprocess.Popen(["which", "ps2eps"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                rtn = p.wait()
-                if rtn != 0:
+                if not have_cmd("ps2eps"):
                     logging.error("ERROR: required program 'ps2eps' (for EPS output) could not be found. Exiting...")
                     sys.exit(1)
             ## PNG output converter
             if "PNG" in opts.OUTPUT_FORMAT:
-                p = subprocess.Popen(["which", "convert"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                rtn = p.wait()
-                if rtn != 0:
+                if not have_cmd("convert"):
                     logging.error("ERROR: required program 'convert' (for PNG output) could not be found. Exiting...")
                     sys.exit(1)
 
             ## kpsewhich: required for LaTeX package testing
-            p = subprocess.Popen(["which", "kpsewhich"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            rtn = p.wait()
-            if rtn != 0:
+            if not have_cmd("kpsewhich"):
                 logging.warning("WARNING: required program 'kpsewhich' (for LaTeX package checks) could not be found")
             else:
                 ## Check minion font
@@ -2398,6 +2400,7 @@ if __name__ == '__main__':
                         opts.OUTPUT_FONT = "PALATINO"
 
                 ## Check for HEP LaTeX packages
+                # TODO: remove HEP-specifics/non-standards?
                 for pkg in ["hepnicenames", "hepunits", "underscore"]:
                     p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
                     p.wait()
