@@ -23,6 +23,7 @@
 ^autom4te\.cache$
 ^include/Rivet/Config/stamp-h.$
 ^tmp$
+^rivet.pc$
 Makefile$
 Makefile\.in$
 \.(pdf|toc|bbl|blg|sty|bib|html|tex)$

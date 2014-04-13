@@ -3,6 +3,9 @@ SUBDIRS = src pyext data include bin doc test
 
 EXTRA_DIST = GUIDELINES
 
+pkgconfigdir = $(libdir)/pkgconfig
+dist_pkgconfig_DATA = rivet.pc
+
 doc:
 	cd doc && $(MAKE) doc
 

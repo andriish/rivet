@@ -147,8 +147,7 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\-\-rpath/-rpath/g')"
-  #FASTJETLIBPATH="$($FJCONFIG --libs | sed 's/.*\-L\([^\ ]\+\).*/\1/')"
+  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs)"
 else
   FASTJETCONFIGLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
@@ -370,7 +369,7 @@ AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(doc/rivetversion.sty doc/diffanas)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
 AC_CONFIG_FILES(Makefile Doxyfile)
-AC_CONFIG_FILES(rivetenv.sh rivetenv.csh)
+AC_CONFIG_FILES(rivetenv.sh rivetenv.csh rivet.pc)
 
 AC_OUTPUT
 
