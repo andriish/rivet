@@ -1,3 +1,8 @@
+2014-04-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding the namespace protection workaround for Boost described
+	at http://www.boost.org/doc/libs/1_55_0/doc/html/foreach.html
+
 2014-04-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding a rivet.pc template file and installation rule for pkg-config to use.

@@ -11,6 +11,10 @@
 
 #include "boost/foreach.hpp"
 #ifndef foreach
+namespace boost {
+  // Suggested work-around for https://svn.boost.org/trac/boost/ticket/6131
+  namespace BOOST_FOREACH = foreach;
+}
 #define foreach BOOST_FOREACH
 #endif
 
