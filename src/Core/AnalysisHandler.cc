@@ -96,9 +96,9 @@ namespace Rivet {
     if (!_initialised) {
       init(ge);
     }
-    // Proceed with event analysis
     assert(_initialised);
-    // Ensure that beam details match those from first event
+
+    // Ensure that beam details match those from the first event
     const PdgIdPair beams = Rivet::beamIds(ge);
     const double sqrts = Rivet::sqrtS(ge);
     if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
@@ -108,28 +108,32 @@ namespace Rivet {
       exit(1);
     }
 
-
+    // Create the Rivet event wrapper
     Event event(ge);
-    _numEvents++;
+
     // Weights
-    const double weight = event.weight();
-    _sumOfWeights += weight;
-    MSG_DEBUG("Event #" << _numEvents << " weight = " << weight);
+    /// @todo Drop this / just report first weight when we support multiweight events
+    _numEvents += 1;
+    _sumOfWeights += event.weight();
+    MSG_DEBUG("Event #" << _numEvents << " weight = " << event.weight());
+
+    // Cross-section
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
       _xs = ge.cross_section()->cross_section();
     }
     #endif
+
+    // Run the analyses
     foreach (AnaHandle a, _analyses) {
-      //MSG_DEBUG("About to run analysis " << a->name());
+      MSG_TRACE("About to run analysis " << a->name());
       try {
         a->analyze(event);
       } catch (const Error& err) {
-        cerr     << "Error in " << a->name() << "::analyze method: "
-                 << err.what() << endl;
+        cerr << "Error in " << a->name() << "::analyze method: " << err.what() << endl;
         exit(1);
       }
-      //MSG_DEBUG("Finished running analysis " << a->name());
+      MSG_TRACE("Finished running analysis " << a->name());
     }
   }
 
