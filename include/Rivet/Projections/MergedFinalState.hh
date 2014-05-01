@@ -3,7 +3,7 @@
 #define RIVET_MergedFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"

@@ -2,7 +2,7 @@
 #ifndef RIVET_Analysis_HH
 #define RIVET_Analysis_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"

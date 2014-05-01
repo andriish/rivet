@@ -33,7 +33,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const ChargedFinalState cfs(-MAXRAPIDITY, MAXRAPIDITY, 0.1/GeV);
+      const ChargedFinalState cfs(-MAXDOUBLE, MAXDOUBLE, 0.1/GeV);
       addProjection(cfs, "CFS");
 
       //// Beams -- needed for x_p calculation

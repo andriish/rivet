@@ -4,6 +4,24 @@
 namespace Rivet {
 
 
+  /// @todo Reduce the cut & paste duplication between these two constructors
+
+
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& signal,
+                                 double dRmax, bool cluster,
+                                 double etaMin, double etaMax,
+                                 double pTmin, bool useDecayPhotons)
+    : FinalState(etaMin, etaMax, pTmin),
+      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
+  {
+    setName("DressedLeptons");
+    IdentifiedFinalState photonfs(photons);
+    photonfs.acceptId(PID::PHOTON);
+    addProjection(photonfs, "Photons");
+    addProjection(signal, "Signal");
+  }
+
+
   DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& signal,
                                  double dRmax, bool cluster, Cut cut,
                                  bool useDecayPhotons)
@@ -44,9 +62,9 @@ namespace Rivet {
     Particles bareleptons = signal.particles();
     if (bareleptons.empty()) return;
 
-    vector<ClusteredLepton> allClusteredLeptons;
+    vector<DressedLepton> allClusteredLeptons;
     for (size_t i = 0; i < bareleptons.size(); ++i) {
-      allClusteredLeptons.push_back(ClusteredLepton(bareleptons[i]));
+      allClusteredLeptons.push_back(DressedLepton(bareleptons[i]));
     }
 
     // Match each photon to its closest charged lepton within the dR cone
@@ -73,7 +91,7 @@ namespace Rivet {
       }
     }
 
-    foreach (const ClusteredLepton& lepton, allClusteredLeptons) {
+    foreach (const DressedLepton& lepton, allClusteredLeptons) {
       if (accept(lepton)) {
         _clusteredLeptons.push_back(lepton);
         _theParticles.push_back(lepton.constituentLepton());

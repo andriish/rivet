@@ -1,4 +1,4 @@
-#include "Rivet/Rivet.hh"
+// -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 

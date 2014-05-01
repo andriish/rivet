@@ -1,6 +1,5 @@
 ~$
 ^run.*$
-^src/Core/yamlcpp/yaml-cpp$
 \.orig$
 \.(o|Po|lo|Plo|la|a|so|dylib|pyc|tar\.bz2|tar\.gz|fifo|hepmc)$
 ^config\.guess$
@@ -24,6 +23,7 @@
 ^autom4te\.cache$
 ^include/Rivet/Config/stamp-h.$
 ^tmp$
+^rivet.pc$
 Makefile$
 Makefile\.in$
 \.(pdf|toc|bbl|blg|sty|bib|html|tex)$
@@ -48,6 +48,7 @@ Doxyfile$
 ^include/Rivet/Config/DummyConfig\.hh$
 ^include/Rivet/Config/RivetConfig\.hh$
 ^doc/.*\.(log|aux|out)$
+^doc/diffanas$
 ^test/log$
 ^test/.*\.log$
 ^test/out\.yoda$

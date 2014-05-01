@@ -95,7 +95,7 @@ namespace Rivet {
       const Particle& l2 = zfinder.constituents()[1];
 
       // Require a high-pT Z (and constituents)
-      if (l1.momentum().pT() < 30*GeV || l2.momentum().pT() < 30*GeV || z.momentum().pT() > 120*GeV) vetoEvent;
+      if (l1.momentum().pT() < 30*GeV || l2.momentum().pT() < 30*GeV || z.momentum().pT() < 120*GeV) vetoEvent;
 
       // AK7 jets
       const PseudoJets& psjetsAK7_zj = applyProjection<FastJets>(event, "JetsAK7_zj").pseudoJetsByPt(50.0*GeV);
@@ -137,7 +137,7 @@ namespace Rivet {
         const fastjet::PseudoJet& j0 = psjetsCA12_zj[0];
         if (isBackToBack_zj(zfinder, j0)) {
           const size_t njetBin = findPtBin(j0.pt()/GeV);
-          if (njetBin < N_PT_BINS_vj) {
+          if (njetBin>0 && njetBin < N_PT_BINS_vj) {
             fastjet::PseudoJet filtered0 = _filter(j0);
             _h_filteredJetMass_CA12_zj[njetBin]->fill( filtered0.m() / GeV, weight);
           }

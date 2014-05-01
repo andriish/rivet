@@ -50,16 +50,39 @@ namespace Rivet {
 
   //@}
 
+
+  /// @name Streaming containers as string reps
+  /// @todo Make these named toStr rather than operator<<
+  //@{
+
+  /// Convenient function for streaming out vectors of any streamable object.
+  template<typename T>
+  inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) {
+    os << "[ ";
+    for (size_t i=0; i<vec.size(); ++i) {
+      os << vec[i] << " ";
+    }
+    os << "]";
+    return os;
+  }
+
+  /// Convenient function for streaming out lists of any streamable object.
+  template<typename T>
+  inline std::ostream& operator<<(std::ostream& os, const std::list<T>& vec) {
+    os << "[ ";
+    for (size_t i=0; i<vec.size(); ++i) {
+      os << vec[i] << " ";
+    }
+    os << "]";
+    return os;
+  }
+
+  //@}
+
 }
 
-#endif
-
-
-#ifndef CEDARSTD
-#define CEDARSTD
 
 namespace std {
-
 
   /// @name Standard library enhancements
   /// @todo Merge in nice ideas from mili: https://code.google.com/p/mili/
@@ -112,7 +135,14 @@ namespace std {
   /// @name Container filling and merging
   //@{
 
-  /// Append all the items from vector v2 to vector v1
+  /// @note This is provided by Boost Assignment
+  // /// Append an item @a t to vector @a v
+  // template <typename T>
+  // inline void operator+=(vector<T>& v, const T& t) {
+  //   v.push_back(t);
+  // }
+
+  /// Append all the items from vector @a v2 to vector @a v1
   template <typename T>
   inline void operator+=(vector<T>& v1, const vector<T>& v2) {
     for (typename vector<T>::const_iterator s = v2.begin(); s != v2.end(); ++s) {
@@ -120,7 +150,7 @@ namespace std {
     }
   }
 
-  /// Create a new vector from the concatenated items in vectors v1 and v2
+  /// Create a new vector from the concatenated items in vectors @a v1 and @a v2
   template <typename T>
   inline vector<T> operator+(const vector<T>& v1, const vector<T>& v2) {
     vector<T> rtn(v1);
@@ -128,6 +158,13 @@ namespace std {
     return rtn;
   }
 
+
+  /// @note This is provided by Boost Assignment
+  // /// Add an item @t to set @a s
+  // template <typename T>
+  // inline void operator+=(set<T>& s, const T& t) {
+  //   s.insert(t);
+  // }
 
   /// Merge the contents of set @a s2 into @a s1
   template <typename T>

@@ -492,5 +492,4 @@ run.finalize()
 
 ## Finalize and write out data file
 print "Cross-section = %e pb" % ah.crossSection()
-ah.finalize()
 ah.writeData(opts.HISTOFILE)

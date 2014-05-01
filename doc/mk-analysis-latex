@@ -23,7 +23,6 @@ for env in ["LD_LIBRARY_PATH", "DYLD_LIBRARY_PATH"]:
         os.environ[env] = os.environ[env] + ":" + libpath
 ## Finally do the rivet module import!
 import rivet
-from rivet.util import texify
 
 def niceify(s):
     "Replace informal symbols in titles and descriptions with nice LaTeX forms"
@@ -34,8 +33,8 @@ def niceify(s):
     return t
 
 ## Set up Rivet analysis plugin and info file path variables
-os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("/../src/Analyses/.libs") + "::"
-os.environ["RIVET_INFO_PATH"] = os.path.abspath("/../data/anainfo") + "::"
+os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("../src/Analyses/.libs") + "::"
+os.environ["RIVET_INFO_PATH"] = os.path.abspath("../data/anainfo") + "::"
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
@@ -144,7 +143,7 @@ for aname in sorted(list(all_analyses)):
         page += "\n\\noindent " + niceify(para) + "\n"
 
 
-# If we can see yoda, include histogram lists
+    ## If we can see yoda, include histogram lists
     try:
         import yoda
     except:
@@ -153,8 +152,7 @@ for aname in sorted(list(all_analyses)):
         anarefpath = os.path.join("..", "data", "refdata", ana.name()+".yoda")
         hpaths = None
         if os.path.exists(anarefpath):
-            aos = yoda.readYODA(anarefpath)
-            hpaths = [ao.path for ao in aos]
+            hpaths = yoda.read(anarefpath).keys()
         paths_titles = {}
         if hpaths:
             pp = rivet.PlotParser([os.path.join("..", "data", "plotinfo")])
@@ -173,7 +171,7 @@ for aname in sorted(list(all_analyses)):
 
     page += "\n\\clearpage\n"
 
-    page = texify(page)
+    page = rivet.util.texify(page)
 
 
     if "MC_" in ana.name().upper():

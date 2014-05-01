@@ -2,9 +2,16 @@
 
 AC_PREREQ(2.59)
 AC_INIT([Rivet],[trunk],[rivet@projects.hepforge.org],[Rivet])
+
+## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
   AC_MSG_ERROR([Installation into the build directory is not supported: use a different --prefix argument])
 fi
+## Force default prefix to have a path value rather than NONE
+if test "$prefix" = "NONE"; then
+   prefix=/usr/local
+fi
+
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
 AM_INIT_AUTOMAKE([dist-bzip2 -Wall])
@@ -65,11 +72,6 @@ AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
 
-## Find CMake, which is needed internally to build yaml-cpp
-AC_CHECK_TOOL(CMAKE, cmake)
-test x$CMAKE = x && AC_MSG_ERROR([Built-in yaml-cpp build requires cmake])
-
-
 ## YODA histogramming library
 # TODO: we could download, configure, and install YODA automatically... but that is NASTY
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
@@ -85,15 +87,14 @@ if test -f "$YODACONFIG"; then
   YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
   let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
-  if test $YODA_VERSION_INT -lt 10005; then
-    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.0.5 required])
+  if test $YODA_VERSION_INT -lt 10006; then
+    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.0.6 required])
   fi
   AC_MSG_CHECKING([YODA Python path using yoda-config])
   YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
   AC_MSG_RESULT([$YODA_PYTHONPATH])
 fi
 AC_SUBST(YODA_PYTHONPATH)
-# TODO: NEED TESTS, E.G. VERSION AND FEATURES
 
 
 ## HepMC event record library
@@ -141,8 +142,7 @@ if test -f "$FJCONFIG"; then
   if test "$fjmajor" -lt 3; then
     AC_MSG_ERROR([FastJet version 3.0.0 or later is required])
   fi
-  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\-\-rpath/-rpath/g')"
-  #FASTJETLIBPATH="$($FJCONFIG --libs | sed 's/.*\-L\([^\ ]\+\).*/\1/')"
+  FASTJETCONFIGLIBADD="$($FJCONFIG --plugins --shared --libs)"
 else
   FASTJETCONFIGLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME"
   FASTJETCONFIGLIBADD="$FASTJETCONFIGLIBADD -lSISConePlugin -lsiscone -lsiscone_spherical"
@@ -361,10 +361,10 @@ AC_CONFIG_FILES(test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
 AC_CONFIG_FILES(data/Makefile data/refdata/Makefile data/anainfo/Makefile data/plotinfo/Makefile data/texmf/Makefile)
 AC_CONFIG_FILES(doc/Makefile)
-AC_CONFIG_FILES(doc/rivetversion.sty)
+AC_CONFIG_FILES(doc/rivetversion.sty doc/diffanas)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
 AC_CONFIG_FILES(Makefile Doxyfile)
-AC_CONFIG_FILES(rivetenv.sh rivetenv.csh)
+AC_CONFIG_FILES(rivetenv.sh rivetenv.csh rivet.pc)
 
 AC_OUTPUT
 

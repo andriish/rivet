@@ -2,13 +2,9 @@
 #ifndef RIVET_Particle_HH
 #define RIVET_Particle_HH
 
-#include "Rivet/Rivet.hh"
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
-#include "Rivet/ParticleName.hh"
-#include "Rivet/Math/Vectors.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
+#include "Rivet/Config/RivetCommon.hh"
 
 namespace Rivet {
 
@@ -182,6 +178,75 @@ namespace Rivet {
     //@}
 
 
+    /// @name Decay info
+    //@{
+
+    /// Whether this particle is stable according to the generator
+    bool isStable() const {
+      return genParticle() != NULL && genParticle()->status() == 1 && genParticle()->end_vertex() == NULL;
+    }
+
+    /// Get a list of the direct descendants from the current particle
+    vector<Particle> children() const {
+      vector<Particle> rtn;
+      if (isStable()) return rtn;
+      /// @todo Remove this const mess crap when HepMC doesn't suck
+      HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
+      /// @todo Would like to do this, but the range objects are broken
+      // foreach (const GenParticle* gp, gv->particles(HepMC::children))
+      //   rtn += Particle(gp);
+      for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it)
+        rtn += Particle(*it);
+      return rtn;
+    }
+
+    /// Get a list of all the descendants (including duplication of parents and children) from the current particle
+    /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
+    /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
+    vector<Particle> allDescendants() const {
+      vector<Particle> rtn;
+      if (isStable()) return rtn;
+      /// @todo Remove this const mess crap when HepMC doesn't suck
+      HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
+      /// @todo Would like to do this, but the range objects are broken
+      // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
+      //   rtn += Particle(gp);
+      for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it)
+        rtn += Particle(*it);
+      return rtn;
+    }
+
+    /// Get a list of all the stable descendants from the current particle
+    /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
+    /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
+    vector<Particle> stableDescendants() const {
+      vector<Particle> rtn;
+      if (isStable()) return rtn;
+      /// @todo Remove this const mess crap when HepMC doesn't suck
+      HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
+      /// @todo Would like to do this, but the range objects are broken
+      // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
+      //   if (gp->status() == 1 && gp->end_vertex() == NULL)
+      //     rtn += Particle(gp);
+      for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it)
+        if ((*it)->status() == 1 && (*it)->end_vertex() == NULL)
+          rtn += Particle(*it);
+      return rtn;
+    }
+
+    /// Flight length (divide by mm or cm to get the appropriate units)
+    double flightLength() const {
+      if (isStable()) return -1;
+      if (genParticle() == NULL) return 0;
+      if (genParticle()->production_vertex() == NULL) return 0;
+      const HepMC::FourVector v1 = genParticle()->production_vertex()->position();
+      const HepMC::FourVector v2 = genParticle()->end_vertex()->position();
+      return sqrt(sqr(v2.x()-v1.x()) + sqr(v2.y()-v1.y()) + sqr(v2.z()-v1.z()));
+    }
+
+    //@}
+
+
   private:
 
     /// A pointer to the original GenParticle from which this Particle is projected.
@@ -193,8 +258,6 @@ namespace Rivet {
     /// The momentum of this projection of the Particle.
     FourMomentum _momentum;
 
-    /// @todo Also store production and decay positions and make them available.
-
   };
 
 
@@ -202,7 +265,7 @@ namespace Rivet {
   //@{
 
   /// Print a ParticlePair as a string.
-  inline std::string toString(const ParticlePair& pair) {
+  inline std::string to_str(const ParticlePair& pair) {
     stringstream out;
     out << "["
         << PID::toParticleName(pair.first.pdgId()) << " @ "
@@ -214,129 +277,8 @@ namespace Rivet {
 
   /// Allow ParticlePair to be passed to an ostream.
   inline std::ostream& operator<<(std::ostream& os, const ParticlePair& pp) {
-    os << toString(pp);
+    os << to_str(pp);
     return os;
-  }
-
-  //@}
-
-
-  /// @name deltaR, deltaEta, deltaPhi functions specifically for Particle arguments
-  //@{
-
-  inline double deltaR(const Particle& p1, const Particle& p2,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(p1.momentum(), p2.momentum(), scheme);
-  }
-
-  inline double deltaR(const Particle& p, const FourMomentum& v,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(p.momentum(), v, scheme);
-  }
-
-  inline double deltaR(const Particle& p, const FourVector& v,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(p.momentum(), v, scheme);
-  }
-
-  inline double deltaR(const Particle& p, const Vector3& v) {
-    return deltaR(p.momentum(), v);
-  }
-
-  inline double deltaR(const Particle& p, double eta, double phi) {
-    return deltaR(p.momentum(), eta, phi);
-  }
-
-  inline double deltaR(const FourMomentum& v, const Particle& p,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(v, p.momentum(), scheme);
-  }
-
-  inline double deltaR(const FourVector& v, const Particle& p,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(v, p.momentum(), scheme);
-  }
-
-  inline double deltaR(const Vector3& v, const Particle& p) {
-    return deltaR(v, p.momentum());
-  }
-
-  inline double deltaR(double eta, double phi, const Particle& p) {
-    return deltaR(eta, phi, p.momentum());
-  }
-
-
-  inline double deltaPhi(const Particle& p1, const Particle& p2) {
-    return deltaPhi(p1.momentum(), p2.momentum());
-  }
-
-  inline double deltaPhi(const Particle& p, const FourMomentum& v) {
-    return deltaPhi(p.momentum(), v);
-  }
-
-  inline double deltaPhi(const Particle& p, const FourVector& v) {
-    return deltaPhi(p.momentum(), v);
-  }
-
-  inline double deltaPhi(const Particle& p, const Vector3& v) {
-    return deltaPhi(p.momentum(), v);
-  }
-
-  inline double deltaPhi(const Particle& p, double phi) {
-    return deltaPhi(p.momentum(), phi);
-  }
-
-  inline double deltaPhi(const FourMomentum& v, const Particle& p) {
-    return deltaPhi(v, p.momentum());
-  }
-
-  inline double deltaPhi(const FourVector& v, const Particle& p) {
-    return deltaPhi(v, p.momentum());
-  }
-
-  inline double deltaPhi(const Vector3& v, const Particle& p) {
-    return deltaPhi(v, p.momentum());
-  }
-
-  inline double deltaPhi(double phi, const Particle& p) {
-    return deltaPhi(phi, p.momentum());
-  }
-
-
-  inline double deltaEta(const Particle& p1, const Particle& p2) {
-    return deltaEta(p1.momentum(), p2.momentum());
-  }
-
-  inline double deltaEta(const Particle& p, const FourMomentum& v) {
-    return deltaEta(p.momentum(), v);
-  }
-
-  inline double deltaEta(const Particle& p, const FourVector& v) {
-    return deltaEta(p.momentum(), v);
-  }
-
-  inline double deltaEta(const Particle& p, const Vector3& v) {
-    return deltaEta(p.momentum(), v);
-  }
-
-  inline double deltaEta(const Particle& p, double eta) {
-    return deltaEta(p.momentum(), eta);
-  }
-
-  inline double deltaEta(const FourMomentum& v, const Particle& p) {
-    return deltaEta(v, p.momentum());
-  }
-
-  inline double deltaEta(const FourVector& v, const Particle& p) {
-    return deltaEta(v, p.momentum());
-  }
-
-  inline double deltaEta(const Vector3& v, const Particle& p) {
-    return deltaEta(v, p.momentum());
-  }
-
-  inline double deltaEta(double eta, const Particle& p) {
-    return deltaEta(eta, p.momentum());
   }
 
   //@}

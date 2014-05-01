@@ -66,7 +66,7 @@ namespace Rivet {
       Jets bjets_ptbinned[4];
       foreach (const Jet& bj, bjets) {
         const FourMomentum pbj = bj.momentum();
-        const int ipt = index_between(pbj.pT(), _ptedges);
+        const int ipt = binIndex(pbj.pT(), _ptedges);
         if (ipt == -1) continue; //< Out of pT range (somehow!)
         bjets_ptbinned[ipt] += bj;
       }

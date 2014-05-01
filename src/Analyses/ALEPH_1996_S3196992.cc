@@ -26,7 +26,7 @@ namespace Rivet {
       // Set up projections
       FinalState fs;
       addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
-      IdentifiedFinalState ifs(-MAXRAPIDITY, +MAXRAPIDITY, 0.0);
+      IdentifiedFinalState ifs(-MAXDOUBLE, +MAXDOUBLE, 0.0);
       ifs.acceptId(PID::PHOTON);
       addProjection(ifs, "Photons");
       addProjection(Thrust(fs), "Thrust");

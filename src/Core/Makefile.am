@@ -1,6 +1,7 @@
 SUBDIRS = yamlcpp
 
 noinst_LTLIBRARIES  = libRivetCore.la
+libRivetCore_la_LIBADD = $(builddir)/yamlcpp/librivet-yaml-cpp.la
 
 libRivetCore_la_SOURCES = \
   Run.cc Event.cc Jet.cc Particle.cc ParticleName.cc \
@@ -9,5 +10,4 @@ libRivetCore_la_SOURCES = \
   AnalysisHandler.cc ProjectionHandler.cc \
   Cuts.cc
 
-libRivetCore_la_CPPFLAGS = -I$(srcdir)/yamlcpp/yaml-cpp/include \
-  -DYAMLCPP_API=3 -DYAML_NAMESPACE=RIVET_YAML $(AM_CPPFLAGS)
+libRivetCore_la_CPPFLAGS = -I$(srcdir)/yamlcpp -DYAMLCPP_API=3 -DYAML_NAMESPACE=RIVET_YAML $(AM_CPPFLAGS)

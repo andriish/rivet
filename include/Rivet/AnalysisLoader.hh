@@ -2,7 +2,7 @@
 #ifndef RIVET_AnalysisLoader_HH
 #define RIVET_AnalysisLoader_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include <map>
 #include <string>
 

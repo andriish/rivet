@@ -1,13 +1,13 @@
 Name: CMS_2013_I1218372
 Year: 2013
-Summary: Study of the Underlying Event at Forward Rapidity in Proton-Proton Collisions at the LHC
+Summary: Study of the underlying event at forward rapidity in proton--proton collisions at the LHC
 Experiment: CMS
 Collider: LHC
 SpiresID: 1218372
 Status: VALIDATED
 Authors:
  - Samantha Dooling <samantha.dooling@desy.de>
-References: 
+References:
  - JHEP 1304 (2013) 072
  - 10.1007/JHEP04(2013)072
  - CMS-FWD-11-003
@@ -40,4 +40,3 @@ BibTeX: '@article{Chatrchyan:2013gfi,
       reportNumber   = "CMS-FWD-11-003, CERN-PH-EP-2013-012",
       SLACcitation   = "%%CITATION = ARXIV:1302.2394;%%",
 }'
-

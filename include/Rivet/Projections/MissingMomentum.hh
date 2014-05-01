@@ -2,7 +2,7 @@
 #ifndef RIVET_MissingMomentum_HH
 #define RIVET_MissingMomentum_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/VisibleFinalState.hh"
 #include "Rivet/Particle.hh"

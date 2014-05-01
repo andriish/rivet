@@ -8,18 +8,20 @@ nobase_pkginclude_HEADERS =
 nobase_pkginclude_HEADERS += \
   Rivet.hh             Exceptions.hh \
   Event.hh             Run.hh \
-  ParticleBase.hh      Jet.hh \
+  ParticleBase.hh      ParticleName.hh \
   Particle.fhh         Particle.hh \
-  ParticleName.hh      BeamConstraint.hh \
+  Jet.fhh              Jet.hh \
   ProjectionApplier.hh ProjectionHandler.hh \
   Projection.fhh       Projection.hh \
   Cmp.fhh              Cmp.hh \
+  BeamConstraint.hh    AnalysisHandler.hh \
   Analysis.hh          AnalysisInfo.hh \
   AnalysisBuilder.hh   AnalysisLoader.hh \
-  AnalysisHandler.hh   Cuts.hh
+  Cuts.hh
 
 ## Build config stuff
 nobase_pkginclude_HEADERS += \
+  Config/RivetCommon.hh \
   Config/RivetConfig.hh \
   Config/BuildOptions.hh
 

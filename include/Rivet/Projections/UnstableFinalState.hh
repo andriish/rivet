@@ -29,8 +29,8 @@ namespace Rivet {
 
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    UnstableFinalState(double mineta = -MAXRAPIDITY,
-                       double maxeta =  MAXRAPIDITY,
+    UnstableFinalState(double mineta = -MAXDOUBLE,
+                       double maxeta =  MAXDOUBLE,
                        double minpt  =  0.0*GeV)
       : FinalState(mineta,maxeta,minpt)
     {

@@ -2,7 +2,7 @@
 #ifndef RIVET_JetShape_HH
 #define RIVET_JetShape_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/JetAlg.hh"
 #include "Rivet/Particle.hh"

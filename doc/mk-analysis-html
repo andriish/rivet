@@ -25,11 +25,12 @@ import rivet
 from rivet.util import htmlify
 
 ## Set up Rivet analysis plugin and info file path variables
-os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("/../src/Analyses/.libs") + "::"
-os.environ["RIVET_INFO_PATH"] = os.path.abspath("/../data/anainfo") + "::"
+os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("../src/Analyses/.libs") + "::"
+os.environ["RIVET_INFO_PATH"] = os.path.abspath("../data/anainfo") + "::"
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
+
 summaries = {}
 pages = []
 ## Use list(...) ctor for 2.3 compatibility

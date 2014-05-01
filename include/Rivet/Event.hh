@@ -2,8 +2,9 @@
 #ifndef RIVET_Event_HH
 #define RIVET_Event_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.hh"
+#include "Rivet/Tools/RivetBoost.hh"
 
 namespace Rivet {
 

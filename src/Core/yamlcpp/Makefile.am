@@ -1,18 +1,24 @@
-EXTRA_DIST = yaml-cpp-0.3.0.tar.gz
+## How to make our mangled yaml-cpp from the yaml-cpp-0.3.0.tar.gz tarball
+# tar xf yaml-cpp-0.3.0.tar.gz
+# for i in `find yaml-cpp -type f -name "*.h" -o -name "*.cpp"`; do \
+#   sed -e 's/namespace YAML/namespace RIVET_YAML/' -e 's/YAML::/RIVET_YAML::/g' -i; done
+# mv yaml-cpp{,.bak} && cp yaml-cpp.bak/include/yaml-cpp . -r && cp yaml-cpp.bak/src/*.{h,cpp} .
 
-all: yaml-cpp/librivet-yaml-cpp.a
-	@true
-
-## Horrible complicated rule to force a -fPIC build, rename the library, and work around OS X sed issues
-yaml-cpp/librivet-yaml-cpp.a: yaml-cpp-0.3.0.tar.gz
-	test -d yaml-cpp || tar xf $^; true
-	grep COMPILE_FLAGS yaml-cpp/CMakeLists.txt || $(SED) -e $$'s/LABEL_SUFFIX}"/LABEL_SUFFIX}"\\\n\\\tCOMPILE_FLAGS "-fPIC"/' \
-      yaml-cpp/CMakeLists.txt > tmp; test -e tmp && mv tmp yaml-cpp/CMakeLists.txt; true
-	for i in `find yaml-cpp -type f -name "*.h" -o -name "*.cpp"`; do (grep RIVET_YAML $$i > /dev/null) || \
-      { $(SED) -e 's/namespace YAML/namespace RIVET_YAML/' -e 's/YAML::/RIVET_YAML::/g' $$i > tmp; \
-        test -e tmp && mv tmp $$i; } done; true
-	cd yaml-cpp && CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) $(DYLDFLAGS)" $(CMAKE) . && \
-      $(MAKE) && mv libyaml-cpp.a librivet-yaml-cpp.a
-
-clean-local:
-	@rm -rf yaml-cpp
+EXTRA_DIST = yaml-cpp
+noinst_LTLIBRARIES = librivet-yaml-cpp.la
+librivet_yaml_cpp_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)
+librivet_yaml_cpp_la_SOURCES = \
+  aliasmanager.cpp    emitterutils.cpp   ostream.cpp     simplekey.cpp \
+  binary.cpp          exp.cpp            parser.cpp      singledocparser.cpp \
+  conversion.cpp      iterator.cpp       regex.cpp       stream.cpp \
+  directives.cpp      nodebuilder.cpp    scanner.cpp     tag.cpp \
+  emitfromevents.cpp  node.cpp           scanscalar.cpp \
+  emitter.cpp         nodeownership.cpp  scantag.cpp \
+  emitterstate.cpp    null.cpp           scantoken.cpp
+dist_noinst_HEADERS = \
+  collectionstack.h  iterpriv.h       regeximpl.h        streamcharsource.h \
+  directives.h       nodebuilder.h    scanner.h          stream.h \
+  emitterstate.h     nodeownership.h  scanscalar.h       stringsource.h \
+  emitterutils.h     ptr_stack.h      scantag.h          tag.h \
+  exp.h              ptr_vector.h     setting.h          token.h \
+  indentation.h      regex.h          singledocparser.h

@@ -2,7 +2,7 @@
 #ifndef RIVET_BeamConstraint_HH
 #define RIVET_BeamConstraint_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/ParticleName.hh"
 #include "Rivet/Particle.hh"
 #include <iostream>

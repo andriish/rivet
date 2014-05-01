@@ -1,7 +1,7 @@
 #ifndef RIVET_LOGGING_HH
 #define RIVET_LOGGING_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 
 namespace Rivet {
 

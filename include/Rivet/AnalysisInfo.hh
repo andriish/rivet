@@ -2,7 +2,7 @@
 #ifndef RIVET_AnalysisInfo_HH
 #define RIVET_AnalysisInfo_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include <ostream>
 
 namespace Rivet {

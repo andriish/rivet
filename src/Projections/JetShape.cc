@@ -66,7 +66,7 @@ namespace Rivet {
       // Apply jet cuts
       const FourMomentum& pj = j.momentum();
       if (!inRange(pj.pT(), _ptcuts)) continue;
-      /// @todo Introduce a better (i.e. more safe and general) eta/y selection mechanism: MomentumFilter
+      /// @todo Use Cut for better eta/y selection
       if (_rapscheme == PSEUDORAPIDITY && !inRange(fabs(pj.eta()), _rapcuts)) continue;
       if (_rapscheme == RAPIDITY && !inRange(fabs(pj.rapidity()), _rapcuts)) continue;
 
@@ -74,7 +74,7 @@ namespace Rivet {
       vector<double> bins(numBins(), 0.0);
       foreach (const Particle& p, j.particles()) {
         const double dR = deltaR(pj, p.momentum(), _rapscheme);
-        const int dRindex = index_between(dR, _binedges);
+        const int dRindex = binIndex(dR, _binedges);
         if (dRindex == -1) continue; //< Out of histo range
         bins[dRindex] += p.pT();
       }

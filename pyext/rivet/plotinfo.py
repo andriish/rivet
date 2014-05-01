@@ -188,3 +188,17 @@ class PlotParser(object):
             hist.xlabel = headers["XLabel"]
         if headers.has_key("YLabel"):
             hist.ylabel = headers["YLabel"]
+
+
+def mkStdPlotParser(dirs=None, addfiles=[]):
+    """
+    Make a PlotParser with the standard Rivet .plot locations automatically added to
+    the manually set plot info dirs and additional files.
+    """
+    if dirs is None:
+        dirs = []
+    from .core import getAnalysisPlotPaths
+    dirs += getAnalysisPlotPaths()
+    seen = set()
+    dirs = [d for d in dirs if d not in seen and not seen.add(d)]
+    return PlotParser(dirs, addfiles)

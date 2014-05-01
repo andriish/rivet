@@ -1,3 +1,92 @@
+2014-04-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding the namespace protection workaround for Boost described
+	at http://www.boost.org/doc/libs/1_55_0/doc/html/foreach.html
+
+2014-04-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a rivet.pc template file and installation rule for pkg-config to use.
+
+	* Updating data/refdata/ALEPH_2001_S4656318.yoda to corrected version in HepData.
+
+2014-03-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Flattening PNG output of make-plots (i.e. no transparency) and other tweaks.
+
+2014-03-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Renaming the internal meta-particle class in DressedLeptons (and
+	exposed in the W/ZFinders) from ClusteredLepton to DressedLepton
+	for consistency with the change in name of its containing class.
+
+	* Removing need for cmake and unportable yaml-cpp trickery by
+	using libtool to build an embedded symbol-mangled copy of yaml-cpp
+	rather than trying to mangle and build direct from the tarball.
+
+2014-03-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rivet 2.1.1 release.
+
+2014-03-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS multilepton search (no ref data file), ATLAS_2012_I1204447.
+
+2014-03-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Also renaming Breit-Wigner functions to cdfBW, invcdfBW and bwspace.
+
+	* Renaming index_between() to the more Rivety binIndex(), since that's the only real use of such a function... plus a bit of SFINAE type relaxation trickery.
+
+2014-03-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding programmatic access to final histograms via AnalysisHandler::getData().
+
+	* Adding CMS 4 jet correlations analysis, CMS_2013_I1273574.
+
+	* Adding CMS W + 2 jet double parton scattering analysis, CMS_2013_I1272853.
+
+	* Adding ATLAS isolated diphoton measurement, ATLAS_2012_I1199269.
+
+	* Improving the index_between function so the numeric types don't
+	have to exactly match.
+
+	* Adding better momentum comparison functors and sortBy, sortByX
+	functions to use them easily on containers of Particle, Jet, and
+	FourMomentum.
+
+2014-02-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing duplicate and unused ParticleBase sorting functors.
+
+	* Removing unused HT increment and units in ATLAS_2012_I1180197 (unvalidated SUSY).
+
+	* Fixing photon isolation logic bug in CMS_2013_I1258128 (Z rapidity).
+
+	* Replacing internal uses of #include Rivet/Rivet.hh with
+	Rivet/Config/RivetCommon.hh, removing the MAXRAPIDITY const, and
+	repurposing Rivet/Rivet.hh as a convenience include for external
+	API users.
+
+	* Adding isStable, children, allDescendants, stableDescendants,
+	and flightLength functions to Particle.
+
+	* Replacing Particle and Jet deltaX functions with generic ones on
+	ParticleBase, and adding deltaRap variants.
+
+	* Adding a Jet.fhh forward declaration header, including fastjet::PseudoJet.
+
+	* Adding a RivetCommon.hh header to allow Rivet.hh to be used externally.
+
+	* Fixing HeavyHadrons to apply pT cuts if specified.
+
+2014-02-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* 2.1.0 release!
+
+2014-02-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect against invalid prefix value if the --prefix configure option is unused.
+
 2014-02-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding the ATLAS_2012_I1093734 fwd-bwd / azimuthal minbias correlations analysis.

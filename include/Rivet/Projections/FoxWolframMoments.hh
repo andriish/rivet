@@ -2,7 +2,7 @@
 #ifndef RIVET_FoxWolframMoments_HH
 #define RIVET_FoxWolframMoments_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"

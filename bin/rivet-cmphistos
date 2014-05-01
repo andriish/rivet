@@ -41,7 +41,7 @@ def getCommandLineOptions():
                       default='.', help='write data files into this directory')
     parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
                       help="write output dat files into a directory hierarchy which matches the analysis paths")
-    parser.add_option('--plotinfodir', dest='PLOTINFODIR', action='append',
+    parser.add_option('--plotinfodir', dest='PLOTINFODIRS', action='append',
                       default=['.'], help='directory which may contain plot header information (in addition '
                       'to standard Rivet search paths)')
 
@@ -99,22 +99,11 @@ def getCommandLineOptions():
     return parser
 
 
-def initPlotParser(filelist):
-    "Add standard locations and the input files' dirs to the PLOTINFO search paths"
-    opts.PLOTINFODIR += rivet.getAnalysisPlotPaths()
-    for infile in filelist:
-        adir = os.path.abspath(os.path.split(infile)[0])
-        if not adir in opts.PLOTINFODIR:
-            opts.PLOTINFODIR.append(adir)
-    return rivet.PlotParser(opts.PLOTINFODIR, opts.CONFIGFILES)
-
-
 def getHistos(filelist):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
     refhistos = {}
     mchistos = {}
-    mchistolist = []
     for infile in filelist:
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.readYODA(infile)
@@ -125,18 +114,19 @@ def getHistos(filelist):
             else:
                 if not mchistos[infile].has_key(path):
                     mchistos[infile][path] = ao
-                    if path and path not in mchistolist:
-                        mchistolist.append(path)
-    return refhistos, mchistos, mchistolist
+    return refhistos, mchistos
 
 
-def getRefdata(refhistos):
+def getRivetRefData(refhistos, anas=None):
     "Find all Rivet reference data files"
     rivet_data_dirs = rivet.getAnalysisRefPaths()
     dirlist = []
     for d in rivet_data_dirs:
-        import glob
-        dirlist.append(glob.glob(os.path.join(d, '*.yoda')))
+        if anas is None:
+            import glob
+            dirlist.append(glob.glob(os.path.join(d, '*.yoda')))
+        else:
+            dirlist.append([os.path.join(d, a+'.yoda') for a in anas])
     for filelist in dirlist:
         for infile in filelist:
             analysisobjects = yoda.readYODA(infile)
@@ -166,7 +156,7 @@ def parseArgs(args):
                 has_title = True
             plotoptions[path].append(asplit[i])
         if not has_title:
-            plotoptions[path].append('Title=%s' %sanitiseString(path.split('/')[-1].replace('.yoda', '')))
+            plotoptions[path].append('Title=%s' % sanitiseString(path.split('/')[-1].replace('.yoda', '')))
     return filelist, plotoptions
 
 
@@ -199,8 +189,7 @@ def setStyle(ao, style):
 def setOptions(ao, options):
     "Set arbitrary annotations"
     for opt in options:
-        key = opt.split('=', 1)[0]
-        val = opt.split('=', 1)[1]
+        key, val = opt.split('=', 1)
         ao.setAnnotation(key, val)
 
 
@@ -246,18 +235,24 @@ if __name__ == '__main__':
     filelist, plotoptions = parseArgs(args)
 
     ## Read the .plot files
-    plotparser = initPlotParser(filelist)
+    plotdirs = opts.PLOTINFODIRS + [os.path.abspath(os.path.dirname(f)) for f in filelist]
+    plotparser = rivet.mkStdPlotParser(plotdirs, opts.CONFIGFILES)
 
     ## Create a list of all histograms to be plotted
-    refhistos, mchistos, mchistolist = getHistos(filelist)
+    refhistos, mchistos = getHistos(filelist)
+    hpaths = []
+    for aos in mchistos.values():
+        for p in aos.keys():
+            if p and p not in hpaths:
+                hpaths.append(p)
 
     ## Read the reference data from the Rivet search paths and add them
     ## to the list of reference histograms
     if opts.RIVETREFS:
-        getRefdata(refhistos)
+        getRivetRefData(refhistos)
 
     ## Now loop over all MC histograms and plot them
-    for h in mchistolist:
+    for h in hpaths:
 
         ## A list of all analysis objects to be plotted
         anaobjects = []
@@ -276,7 +271,8 @@ if __name__ == '__main__':
         if opts.STYLE == 'talk':
             plot['PlotSize'] = '8,6'
         elif opts.STYLE == 'bw':
-            plot['RatioPlotErrorBandColor'] = 'black!10'
+            if opts.RATIO:
+                plot['RatioPlotErrorBandColor'] = 'black!10'
 
         ## DrawOnly is needed to keep the order in the Legend equal to the
         ## order of the files on the command line
@@ -290,7 +286,8 @@ if __name__ == '__main__':
             refdata.setAnnotation('PolyMarker', '*')
             refdata.setAnnotation('ConnectBins', '0')
             refdata.setAnnotation('Title', 'Data')
-            ratioreference = '/REF'+h
+            if opts.RATIO:
+                ratioreference = '/REF'+h
             anaobjects.append(refdata)
             drawonly.append('/REF' + h)
 
@@ -314,8 +311,8 @@ if __name__ == '__main__':
                 mchistos[infile][h].setAnnotation('Path', infile + h)
                 anaobjects.append(mchistos[infile][h])
                 drawonly.append(infile + h)
-                if ratioreference is None:
-                    ratioreference = infile+h
+                if opts.RATIO and ratioreference is None:
+                    ratioreference = infile + h
 
         plot['DrawOnly'] = ' '.join(drawonly).strip()
         if opts.RATIO and len(drawonly) > 1:

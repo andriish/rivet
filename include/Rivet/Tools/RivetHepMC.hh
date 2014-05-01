@@ -5,9 +5,9 @@
 #include "HepMC/GenEvent.h"
 #include "HepMC/GenParticle.h"
 #include "HepMC/GenVertex.h"
+#include "HepMC/GenRanges.h"
 #include "HepMC/IO_GenEvent.h"
 #include "Rivet/Tools/RivetSTL.hh"
-#include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/Exceptions.hh"
 
 namespace Rivet {

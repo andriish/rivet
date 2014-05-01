@@ -94,10 +94,6 @@ namespace Rivet {
     /// @deprecated Is this final state empty?
     virtual bool isEmpty() const { return _theParticles.empty(); }
 
-    /// Minimum-\f$ p_\perp \f$ requirement.
-    //virtual double ptMin() const { return _ptmin; }
-
-
   public:
 
     typedef Particle entity_type;

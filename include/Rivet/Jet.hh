@@ -2,7 +2,10 @@
 #ifndef RIVET_Jet_HH
 #define RIVET_Jet_HH
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Jet.fhh"
+#include "Rivet/Particle.hh"
+#include "fastjet/PseudoJet.hh"
 #include <numeric>
 
 namespace Rivet {
@@ -24,6 +27,7 @@ namespace Rivet {
     }
 
     /// @todo Add a constructor from PseudoJet
+    // operator Jet(const PseudoJet&) { ... }
 
     //@}
 
@@ -76,6 +80,18 @@ namespace Rivet {
     //@}
 
 
+    // /// @name Interaction with FastJet
+    // //@{
+
+    // /// @todo Add a cast operator to FJ3 PseudoJet
+    // operator const PseudoJet& () const { return pseudojet(); }
+
+    // /// @todo Add a cast operator to FJ3 PseudoJet
+    // const PseudoJet& pseudojet() const { return _pseudojet; }
+
+    // //@}
+
+
     /// @name Set the jet constituents and properties
     //@{
 
@@ -96,166 +112,16 @@ namespace Rivet {
 
   private:
 
-    /// Full particle information including tracks, ID etc
+    /// @todo Add a FJ3 PseudoJet member to unify PseudoJet and Jet
+    // PseudoJet _pseudojet;
+
+    /// Full particle information including tracks, ID etc. (caching PseudoJet properties)
     Particles _particles;
 
-    /// Effective jet 4-vector
+    /// Effective jet 4-vector (caching PseudoJet properties)
     FourMomentum _momentum;
 
-    /// @todo Add a FJ3 PseudoJet member to unify PseudoJet and Jet
-
   };
-
-
-  /// Typedef for a collection of Jet objects.
-  typedef vector<Jet> Jets;
-
-
-  /// @name deltaR, deltaEta, deltaPhi functions specifically for Jet arguments
-  //@{
-
-  inline double deltaR(const Jet& j1, const Jet& j2,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(j1.momentum(), j2.momentum(), scheme);
-  }
-
-  inline double deltaR(const Jet& j, const Particle& p,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(j.momentum(), p.momentum(), scheme);
-  }
-
-  inline double deltaR(const Particle& p, const Jet& j,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(p.momentum(), j.momentum(), scheme);
-  }
-
-  inline double deltaR(const Jet& j, const FourMomentum& v,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(j.momentum(), v, scheme);
-  }
-
-  inline double deltaR(const Jet& j, const FourVector& v,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(j.momentum(), v, scheme);
-  }
-
-  inline double deltaR(const Jet& j, const Vector3& v) {
-    return deltaR(j.momentum(), v);
-  }
-
-  inline double deltaR(const Jet& j, double eta, double phi) {
-    return deltaR(j.momentum(), eta, phi);
-  }
-
-  inline double deltaR(const FourMomentum& v, const Jet& j,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(v, j.momentum(), scheme);
-  }
-
-  inline double deltaR(const FourVector& v, const Jet& j,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(v, j.momentum(), scheme);
-  }
-
-  inline double deltaR(const Vector3& v, const Jet& j) {
-    return deltaR(v, j.momentum());
-  }
-
-  inline double deltaR(double eta, double phi, const Jet& j) {
-    return deltaR(eta, phi, j.momentum());
-  }
-
-
-  inline double deltaPhi(const Jet& j1, const Jet& j2) {
-    return deltaPhi(j1.momentum(), j2.momentum());
-  }
-
-  inline double deltaPhi(const Jet& j, const Particle& p) {
-    return deltaPhi(j.momentum(), p.momentum());
-  }
-
-  inline double deltaPhi(const Particle& p, const Jet& j) {
-    return deltaPhi(p.momentum(), j.momentum());
-  }
-
-  inline double deltaPhi(const Jet& j, const FourMomentum& v) {
-    return deltaPhi(j.momentum(), v);
-  }
-
-  inline double deltaPhi(const Jet& j, const FourVector& v) {
-    return deltaPhi(j.momentum(), v);
-  }
-
-  inline double deltaPhi(const Jet& j, const Vector3& v) {
-    return deltaPhi(j.momentum(), v);
-  }
-
-  inline double deltaPhi(const Jet& j, double phi) {
-    return deltaPhi(j.momentum(), phi);
-  }
-
-  inline double deltaPhi(const FourMomentum& v, const Jet& j) {
-    return deltaPhi(v, j.momentum());
-  }
-
-  inline double deltaPhi(const FourVector& v, const Jet& j) {
-    return deltaPhi(v, j.momentum());
-  }
-
-  inline double deltaPhi(const Vector3& v, const Jet& j) {
-    return deltaPhi(v, j.momentum());
-  }
-
-  inline double deltaPhi(double phi, const Jet& j) {
-    return deltaPhi(phi, j.momentum());
-  }
-
-
-  inline double deltaEta(const Jet& j1, const Jet& j2) {
-    return deltaEta(j1.momentum(), j2.momentum());
-  }
-
-  inline double deltaEta(const Jet& j, const Particle& p) {
-    return deltaEta(j.momentum(), p.momentum());
-  }
-
-  inline double deltaEta(const Particle& p, const Jet& j) {
-    return deltaEta(p.momentum(), j.momentum());
-  }
-
-  inline double deltaEta(const Jet& j, const FourMomentum& v) {
-    return deltaEta(j.momentum(), v);
-  }
-
-  inline double deltaEta(const Jet& j, const FourVector& v) {
-    return deltaEta(j.momentum(), v);
-  }
-
-  inline double deltaEta(const Jet& j, const Vector3& v) {
-    return deltaEta(j.momentum(), v);
-  }
-
-  inline double deltaEta(const Jet& j, double eta) {
-    return deltaEta(j.momentum(), eta);
-  }
-
-  inline double deltaEta(const FourMomentum& v, const Jet& j) {
-    return deltaEta(v, j.momentum());
-  }
-
-  inline double deltaEta(const FourVector& v, const Jet& j) {
-    return deltaEta(v, j.momentum());
-  }
-
-  inline double deltaEta(const Vector3& v, const Jet& j) {
-    return deltaEta(v, j.momentum());
-  }
-
-  inline double deltaEta(double eta, const Jet& j) {
-    return deltaEta(eta, j.momentum());
-  }
-
-  //@}
 
 
 }

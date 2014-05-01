@@ -3,7 +3,7 @@
 #define RIVET_VisibleFinalState_HH
 
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
@@ -20,8 +20,8 @@ namespace Rivet {
     //@{
 
     /// Constructor with min and max pseudorapidity \f$ \eta \f$ and min \f$ p_T \f$ (in GeV).
-    VisibleFinalState(double mineta = -MAXRAPIDITY,
-                      double maxeta =  MAXRAPIDITY,
+    VisibleFinalState(double mineta = -MAXDOUBLE,
+                      double maxeta =  MAXDOUBLE,
                       double minpt  =  0.0*GeV)
     {
       setName("VisibleFinalState");

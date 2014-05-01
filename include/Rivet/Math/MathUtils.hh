@@ -188,6 +188,25 @@ namespace Rivet {
   //@}
 
 
+  /// @name Physics statistical distributions
+  //@{
+
+  /// @brief CDF for the Breit-Wigner distribution
+  inline double cdfBW(double x, double mu, double gamma) {
+    // normalize to (0;1) distribution
+    const double xn = (x - mu)/gamma;
+    return std::atan(xn)/M_PI + 0.5;
+  }
+
+  /// @brief Inverse CDF for the Breit-Wigner distribution
+  inline double invcdfBW(double p, double mu, double gamma) {
+    const double xn = std::tan(M_PI*(p-0.5));
+    return gamma*xn + mu;
+  }
+
+  //@}
+
+
   /// @name Binning helper functions
   //@{
 
@@ -234,40 +253,23 @@ namespace Rivet {
   }
 
 
-  namespace BWHelpers {
-
-    /// @brief CDF for the Breit-Wigner distribution
-    inline double CDF(double x, double mu, double gamma) {
-      // normalize to (0;1) distribution
-      const double xn = (x - mu)/gamma;
-      return std::atan(xn)/M_PI + 0.5;
-    }
-
-    /// @brief inverse CDF for the Breit-Wigner distribution
-    inline double antiCDF(double p, double mu, double gamma) {
-      const double xn = std::tan(M_PI*(p-0.5));
-      return gamma*xn + mu;
-    }
-
-  }
-
   /// @brief Make a list of @a nbins + 1 values spaced for equal area
   /// Breit-Wigner binning between @a start and @a end inclusive. @a
   /// mu and @a gamma are the Breit-Wigner parameters.
   ///
-  /// NB. The arg ordering and the meaning of the nbins variable is "histogram-like",
+  /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space.
-  inline vector<double> BWspace(size_t nbins, double start, double end, double mu, double gamma) {
+  inline vector<double> bwspace(size_t nbins, double start, double end, double mu, double gamma) {
     assert(end >= start);
     assert(nbins > 0);
-    const double pmin = BWHelpers::CDF(start,mu,gamma);
-    const double pmax = BWHelpers::CDF(end,  mu,gamma);
+    const double pmin = cdfBW(start, mu, gamma);
+    const double pmax = cdfBW(end,   mu, gamma);
     const vector<double> edges = linspace(nbins, pmin, pmax);
     assert(edges.size() == nbins+1);
     vector<double> rtn;
     foreach (double edge, edges) {
-      rtn.push_back(BWHelpers::antiCDF(edge,mu,gamma));
+      rtn.push_back(invcdfBW(edge, mu, gamma));
     }
     assert(rtn.size() == nbins+1);
     return rtn;
@@ -277,8 +279,11 @@ namespace Rivet {
   /// @brief Return the bin index of the given value, @a val, given a vector of bin edges
   ///
   /// NB. The @a binedges vector must be sorted
-  template <typename NUM>
-  inline int index_between(const NUM& val, const vector<NUM>& binedges) {
+  template <typename NUM1, typename NUM2>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM1>::value && boost::is_floating_point<NUM2>::value, int>::type
+  binIndex(NUM1 val, const vector<NUM2>& binedges) {
+    /// @todo Use std::common_type<NUM1, NUM2>::type x = val; ?
+    /// @todo Add linear & log guesses, and binary split via upper_bound for large binnings
     if (!inRange(val, binedges.front(), binedges.back())) return -1; //< Out of histo range
     int index = -1;
     for (size_t i = 1; i < binedges.size(); ++i) {
@@ -294,13 +299,13 @@ namespace Rivet {
   //@}
 
 
-  /// @name Statistics functions
+  /// @name Discrete statistics functions
   //@{
 
   /// Calculate the mean of a sample
   inline double mean(const vector<int>& sample) {
     double mean = 0.0;
-    for (size_t i=0; i<sample.size(); ++i) {
+    for (size_t i = 0; i < sample.size(); ++i) {
       mean += sample[i];
     }
     return mean/sample.size();
@@ -309,7 +314,7 @@ namespace Rivet {
   // Calculate the error on the mean, assuming poissonian errors
   inline double mean_err(const vector<int>& sample) {
     double mean_e = 0.0;
-    for (size_t i=0; i<sample.size(); ++i) {
+    for (size_t i = 0; i < sample.size(); ++i) {
       mean_e += sqrt(sample[i]);
     }
     return mean_e/sample.size();
@@ -379,6 +384,7 @@ namespace Rivet {
 
     return corr_strength_err;
   }
+
   //@}
 
 

@@ -6,7 +6,7 @@
 /// @author David Grellscheid
 /// @date   2011-07-18
 
-#include "Rivet/Rivet.hh"
+#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/RivetBoost.hh"
 
 #include "YODA/AnalysisObject.h"

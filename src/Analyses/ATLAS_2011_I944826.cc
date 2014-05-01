@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      UnstableFinalState ufs(-MAXRAPIDITY, MAXRAPIDITY, 100*MeV);
+      UnstableFinalState ufs(-MAXDOUBLE, MAXDOUBLE, 100*MeV);
       addProjection(ufs, "UFS");
 
       ChargedFinalState  mbts(   EtaIn(-3.84, -2.09) 

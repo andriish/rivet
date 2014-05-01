@@ -990,53 +990,170 @@ namespace Rivet {
   /// @name 4-vector comparison functions (for sorting)
   //@{
 
+  /// Comparison to give a sorting by decreasing pT
   inline bool cmpMomByPt(const FourMomentum& a, const FourMomentum& b) {
     return a.pt() > b.pt();
   }
+  /// Comparison to give a sorting by increasing pT
   inline bool cmpMomByAscPt(const FourMomentum& a, const FourMomentum& b) {
     return a.pt() < b.pt();
   }
+
+  /// Comparison to give a sorting by decreasing 3-momentum magnitude |p|
   inline bool cmpMomByP(const FourMomentum& a, const FourMomentum& b) {
     return a.vector3().mod() > b.vector3().mod();
   }
+  /// Comparison to give a sorting by increasing 3-momentum magnitude |p|
   inline bool cmpMomByAscP(const FourMomentum& a, const FourMomentum& b) {
     return a.vector3().mod() < b.vector3().mod();
   }
+
+  /// Comparison to give a sorting by decreasing transverse energy
   inline bool cmpMomByEt(const FourMomentum& a, const FourMomentum& b) {
     return a.Et() > b.Et();
   }
+  /// Comparison to give a sorting by increasing transverse energy
   inline bool cmpMomByAscEt(const FourMomentum& a, const FourMomentum& b) {
     return a.Et() < b.Et();
   }
+
+  /// Comparison to give a sorting by decreasing energy
   inline bool cmpMomByE(const FourMomentum& a, const FourMomentum& b) {
     return a.E() > b.E();
   }
+  /// Comparison to give a sorting by increasing energy
   inline bool cmpMomByAscE(const FourMomentum& a, const FourMomentum& b) {
     return a.E() < b.E();
   }
-  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+
+  /// Comparison to give a sorting by increasing eta (pseudorapidity)
+  inline bool cmpMomByEta(const FourMomentum& a, const FourMomentum& b) {
+    return a.eta() < b.eta();
+  }
+  /// Comparison to give a sorting by increasing eta (pseudorapidity)
+  /// @deprecated Use cmpMomByEta
+  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return cmpMomByEta(a,b);
+  }
+
+  /// Comparison to give a sorting by decreasing eta (pseudorapidity)
+  inline bool cmpMomByDescEta(const FourMomentum& a, const FourMomentum& b) {
     return a.pseudorapidity() > b.pseudorapidity();
   }
-  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return a.pseudorapidity() < b.pseudorapidity();
+  /// Comparison to give a sorting by decreasing eta (pseudorapidity)
+  /// @deprecated Use cmpMomByDescEta
+  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return cmpMomByDescEta(a,b);
   }
-  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return fabs(a.pseudorapidity()) > fabs(b.pseudorapidity());
+
+  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
+  inline bool cmpMomByAbsEta(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.eta()) < fabs(b.eta());
   }
+  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
+  /// @deprecated Use cmpMomByAbsEta
   inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return fabs(a.pseudorapidity()) < fabs(b.pseudorapidity());
+    return cmpMomByAbsEta(a,b);
   }
-  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return a.rapidity() > b.rapidity();
+
+  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
+  inline bool cmpMomByDescAbsEta(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.eta()) > fabs(b.eta());
   }
-  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
+  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
+  /// @deprecated Use cmpMomByDescAbsEta
+  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
+    return cmpMomByDescAbsEta(a,b);
+  }
+
+  /// Comparison to give a sorting by increasing rapidity
+  inline bool cmpMomByRap(const FourMomentum& a, const FourMomentum& b) {
     return a.rapidity() < b.rapidity();
   }
-  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+  /// Comparison to give a sorting by increasing rapidity
+  /// @deprecated Use cmpMomByRap
+  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return cmpMomByRap(a,b);
+  }
+
+  /// Comparison to give a sorting by decreasing rapidity
+  inline bool cmpMomByDescRap(const FourMomentum& a, const FourMomentum& b) {
+    return a.rapidity() > b.rapidity();
+  }
+  /// Comparison to give a sorting by decreasing rapidity
+  /// @deprecated Use cmpMomByDescRap
+  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return cmpMomByDescRap(a,b);
+  }
+
+  /// Comparison to give a sorting by increasing absolute rapidity
+  inline bool cmpMomByAbsRap(const FourMomentum& a, const FourMomentum& b) {
+    return fabs(a.rapidity()) < fabs(b.rapidity());
+  }
+  /// Comparison to give a sorting by increasing absolute rapidity
+  /// @deprecated Use cmpMomByAbsRap
+  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return cmpMomByAbsRap(a,b);
+  }
+
+  /// Comparison to give a sorting by decreasing absolute rapidity
+  inline bool cmpMomByDescAbsRap(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.rapidity()) > fabs(b.rapidity());
   }
-  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return fabs(a.rapidity()) < fabs(b.rapidity());
+  /// Comparison to give a sorting by decreasing absolute rapidity
+  /// @deprecated Use cmpMomByDescAbsRap
+  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
+    return cmpMomByDescAbsRap(a,b);
+  }
+
+  /// @todo Add sorting by phi [0..2PI]
+
+
+  /// Sort a container of momenta by cmp and return by reference for non-const inputs
+  template<typename MOMS, typename CMP>
+  inline MOMS& sortBy(MOMS& pbs, const CMP& cmp) {
+    std::sort(pbs.begin(), pbs.end(), cmp);
+    return pbs;
+  }
+  /// Sort a container of momenta by cmp and return by value for const inputs
+  template<typename MOMS, typename CMP>
+  inline MOMS sortBy(const MOMS& pbs, const CMP& cmp) {
+    MOMS rtn = pbs;
+    std::sort(rtn.begin(), rtn.end(), cmp);
+    return rtn;
+  }
+
+  /// Sort a container of momenta by pT (decreasing) and return by reference for non-const inputs
+  template<typename MOMS>
+  inline MOMS& sortByPt(MOMS& pbs) {
+    return sortBy(pbs, cmpMomByPt);
+  }
+  /// Sort a container of momenta by pT (decreasing) and return by value for const inputs
+  template<typename MOMS>
+  inline MOMS sortByPt(const MOMS& pbs) {
+    return sortBy(pbs, cmpMomByPt);
+  }
+
+  /// Sort a container of momenta by E (decreasing) and return by reference for non-const inputs
+  template<typename MOMS>
+  inline MOMS& sortByE(MOMS& pbs) {
+    return sortBy(pbs, cmpMomByE);
+  }
+  /// Sort a container of momenta by E (decreasing) and return by value for const inputs
+  template<typename MOMS>
+  inline MOMS sortByE(const MOMS& pbs) {
+    return sortBy(pbs, cmpMomByE);
+  }
+
+  /// Sort a container of momenta by Et (decreasing) and return by reference for non-const inputs
+  template<typename MOMS>
+  inline MOMS& sortByEt(MOMS& pbs) {
+    return sortBy(pbs, cmpMomByEt);
+  }
+  /// Sort a container of momenta by Et (decreasing) and return by value for const inputs
+  template<typename MOMS>
+  inline MOMS sortByEt(const MOMS& pbs) {
+    return sortBy(pbs, cmpMomByEt);
   }
 
   //@}

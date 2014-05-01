@@ -93,7 +93,7 @@ namespace Rivet {
       const Particle& l = wfinder.constituentLeptons()[0];
 
       // Require a fairly high-pT W and charged lepton
-      if (l.momentum().pT() < 80*GeV || w.momentum().pT() > 120*GeV) vetoEvent;
+      if (l.momentum().pT() < 80*GeV || w.momentum().pT() < 120*GeV) vetoEvent;
 
       // Get the pseudojets.
       const PseudoJets& psjetsCA8_wj = applyProjection<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );
@@ -137,7 +137,7 @@ namespace Rivet {
         const fastjet::PseudoJet& j0 = psjetsCA12_wj[0];
         if (isBackToBack_wj(wfinder, j0)) {
           const size_t njetBin = findPtBin(j0.pt()/GeV);
-          if (njetBin < N_PT_BINS_vj) {
+          if (njetBin < N_PT_BINS_vj&&njetBin>0) {
             fastjet::PseudoJet filtered0 = _filter(j0);
             _h_filteredJetMass_CA12_wj[njetBin]->fill( filtered0.m() / GeV, weight);
           }
