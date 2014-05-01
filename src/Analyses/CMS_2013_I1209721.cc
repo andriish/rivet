@@ -24,7 +24,7 @@ namespace Rivet {
       addProjection(fs, "FS");
       // Z finders for electrons and muons
       const ZFinder zfe(fs, -2.4, 2.4, 20*GeV, PID::ELECTRON, 71*GeV, 111*GeV);
-      const ZFinder zfm(fs, -2.4, 2.4, 20*GeV, PID::ELECTRON, 71*GeV, 111*GeV);
+      const ZFinder zfm(fs, -2.4, 2.4, 20*GeV, PID::MUON,     71*GeV, 111*GeV);
       addProjection(zfe, "ZFE");
       addProjection(zfm, "ZFM");
       // Jets
@@ -55,8 +55,8 @@ namespace Rivet {
 
       // Choose the Z candidate (there must be one)
       if (zfe.empty() && zfm.empty()) vetoEvent;
-      const ParticleVector& z = !zfm.empty() ? zfm.bosons() : zfe.bosons();
-      const ParticleVector& leptons = !zfm.empty() ? zfm.constituents() : zfe.constituents();
+      const ParticleVector& z = zfm.empty() ? zfe.bosons() : zfm.bosons();
+      const ParticleVector& leptons = zfm.empty() ? zfe.constituents() : zfm.constituents();
 
       // Determine whether we are in the boosted regime
       const bool is_boosted = (z[0].momentum().pT() > 150*GeV);
