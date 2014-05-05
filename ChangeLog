@@ -1,3 +1,7 @@
+2014-05-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix missing abs() in Particle::abspid()!!!!
+
 2014-04-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding the namespace protection workaround for Boost described
