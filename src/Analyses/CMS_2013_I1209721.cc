@@ -33,15 +33,15 @@ namespace Rivet {
 
       // Book histograms from data
       for (size_t i = 0; i < 2; ++i) {
-        _histDeltaPhiZJ1_1[i]  = bookHisto1D(1, 1, 1);
-        _histDeltaPhiZJ1_2[i]  = bookHisto1D(2, 1, 1);
-        _histDeltaPhiZJ1_3[i]  = bookHisto1D(4, 1, 1);
-        _histDeltaPhiZJ2_3[i]  = bookHisto1D(5, 1, 1);
-        _histDeltaPhiZJ3_3[i]  = bookHisto1D(3, 1, 1);
-        _histDeltaPhiJ1J2_3[i] = bookHisto1D(6, 1, 1);
-        _histDeltaPhiJ1J3_3[i] = bookHisto1D(7, 1, 1);
-        _histDeltaPhiJ2J3_3[i] = bookHisto1D(8, 1, 1);
-        _histTransvThrust[i]   = bookHisto1D(9, 1, 1);
+        _histDeltaPhiZJ1_1[i]  = bookHisto1D(1+i*9, 1, 1);
+        _histDeltaPhiZJ1_2[i]  = bookHisto1D(2+i*9, 1, 1);
+        _histDeltaPhiZJ1_3[i]  = bookHisto1D(4+i*9, 1, 1);
+        _histDeltaPhiZJ2_3[i]  = bookHisto1D(5+i*9, 1, 1);
+        _histDeltaPhiZJ3_3[i]  = bookHisto1D(3+i*9, 1, 1);
+        _histDeltaPhiJ1J2_3[i] = bookHisto1D(6+i*9, 1, 1);
+        _histDeltaPhiJ1J3_3[i] = bookHisto1D(7+i*9, 1, 1);
+        _histDeltaPhiJ2J3_3[i] = bookHisto1D(8+i*9, 1, 1);
+        _histTransvThrust[i]   = bookHisto1D(9+i*9, 1, 1);
       }
     }
 
@@ -55,8 +55,8 @@ namespace Rivet {
 
       // Choose the Z candidate (there must be one)
       if (zfe.empty() && zfm.empty()) vetoEvent;
-      const ParticleVector& z = zfm.empty() ? zfe.bosons() : zfm.bosons();
-      const ParticleVector& leptons = zfm.empty() ? zfe.constituents() : zfm.constituents();
+      const ParticleVector& z = !zfm.empty() ? zfm.bosons() : zfe.bosons();
+      const ParticleVector& leptons = !zfm.empty() ? zfm.constituents() : zfe.constituents();
 
       // Determine whether we are in the boosted regime
       const bool is_boosted = (z[0].momentum().pT() > 150*GeV);
@@ -94,6 +94,11 @@ namespace Rivet {
         Vector3 mj = cleanedJets[i]->momentum().vector3();
         mj.setZ(0);
         momenta.push_back(mj);
+      }
+
+      if (momenta.size() <= 2){
+        // We need to use a ghost so that Thrust.calc() doesn't return 1.
+        momenta.push_back(Vector3(0.0000001,0.0000001,0.));
       }
 
       // Define a macro to appropriately fill both unboosted and boosted histo versions
