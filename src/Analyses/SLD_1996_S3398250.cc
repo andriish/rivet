@@ -113,12 +113,12 @@ namespace Rivet {
 
   private:
 
-    /// @name Multiplicities
-    //@{
-    double _weightedTotalChargedPartNumLight;
-    double _weightedTotalChargedPartNumCharm;
-    double _weightedTotalChargedPartNumBottom;
-    //@}
+    // /// @name Multiplicities
+    // //@{
+    // double _weightedTotalChargedPartNumLight;
+    // double _weightedTotalChargedPartNumCharm;
+    // double _weightedTotalChargedPartNumBottom;
+    // //@}
 
     /// @name Weights
     //@{

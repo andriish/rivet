@@ -175,7 +175,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    enum { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj } BINS_vj;
+    enum BINS_vj { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj };
     Histo1DPtr _h_ungroomedJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_filteredJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_trimmedJetMass_AK7_zj[N_PT_BINS_vj];

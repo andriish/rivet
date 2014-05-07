@@ -7,14 +7,6 @@
 namespace Rivet {
 
 
-  namespace {
-    /// @todo Correct this in Rivet
-    inline double calcMT(const FourMomentum& a, const FourMomentum& b) {
-      return sqrt(2.0 * a.pT() * b.pT() * (1.0 - cos(a.phi() - b.phi())) );
-    }
-  }
-
-
   class ATLAS_2011_I925932 : public Analysis {
   public:
 

@@ -1,3 +1,8 @@
+2014-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fixing compiler warnings from clang, including one which
+	indicated a misapplied cut bug in CDF_2006_S6653332.
+
 2014-05-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix missing abs() in Particle::abspid()!!!!
