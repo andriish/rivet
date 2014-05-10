@@ -22,7 +22,7 @@ namespace Rivet {
       addProjection(FastJets(cnfs, FastJets::ANTIKT, 0.5), "Jets");
 
       _h_jetetas[0]     = bookHisto1D(1,1,1);
-      _h_jetetas[0]     = bookHisto1D(2,1,1);
+      _h_jetpts[0]      = bookHisto1D(2,1,1);
       _h_DeltaS         = bookHisto1D(3,1,1);
       _h_DeltaPhiSoft   = bookHisto1D(4,1,1);
       _h_DeltaPtRelSoft = bookHisto1D(5,1,1);
