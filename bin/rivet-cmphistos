@@ -65,6 +65,8 @@ def getCommandLineOptions():
                         help="additional plot config file(s). Settings will be included in the output configuration.")
     parser.add_option_group(stygroup)
 
+    # TODO: re-enable the pattern matching, and _maybe_ the variants on ref-only plotting if we don't have a plotting system via YODA soon
+    #
     # selgroup = OptionGroup(parser, "Selective plotting")
     # selgroup.add_option("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
     #                     default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
@@ -88,13 +90,6 @@ def getCommandLineOptions():
     #                     help="Exclude histograms whose $path/$name string matches these regexes",
     #                     dest="PATHUNPATTERNS")
     # parser.add_option_group(selgroup)
-
-    # verbgrp = OptionGroup(parser, "Verbosity control")
-    # verbgrp.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
-    #                    action="store_const", default=logging.INFO, const=logging.WARNING)
-    # verbgrp.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
-    #                    action="store_const", default=logging.INFO, const=logging.DEBUG)
-    # parser.add_option_group(verbgrp)
 
     return parser
 

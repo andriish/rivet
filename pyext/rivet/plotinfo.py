@@ -59,20 +59,23 @@ class PlotParser(object):
 
         ## Decompose the histo path and remove the /REF prefix if necessary
         parts = hpath.split("/")
-        if parts[1] == "REF":
-            del parts[1]
-            hpath = "/".join(parts)
-        if len(parts) != 3:
-            raise ValueError("hpath '%s' has wrong number of parts (%i) -- should be 3" % (hpath, len(parts)))
+        if len(parts[0]) == 0:
+            del parts[0]
+        if parts[0] == "REF":
+            del parts[0]
+        hpath = "/".join(parts[-2:])
+        if len(parts) < 2:
+            raise ValueError("hpath '%s' has wrong number of parts (%i) -- should be at least 2" % (hpath, len(parts)))
 
         ## Assemble the list of headers from any matching plotinfo paths and additional style files
-        base = parts[1] + ".plot"
+        base = parts[0] + ".plot"
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
             plotfile = os.path.join(pidir, base)
             self.readHeadersFromFile(plotfile, ret, section, hpath)
             ## Don't break here: we can collect settings from multiple .plot files
             # TODO: So the *last* path wins? Hmm... reverse the loop order?
+        # TODO: Also, is it good that the user-specific extra files override the official ones? Depends on the point of the extra files...
         for extrafile in self.addfiles:
             self.readHeadersFromFile(extrafile, ret, section, hpath)
         return ret[section]

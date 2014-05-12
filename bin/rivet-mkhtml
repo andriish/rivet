@@ -135,8 +135,7 @@ for af in yodafiles:
 for configfile in opts.CONFIGFILES:
     configfile = os.path.abspath(os.path.expanduser(configfile))
     if os.access(configfile, os.R_OK):
-        ch_cmd.append("-c")
-        ch_cmd.append(configfile)
+        ch_cmd += ["-c", configfile]
 # TODO: Pass rivet-mkhtml -m and -M args to rivet-cmphistos
 
 if opts.VERBOSE:
