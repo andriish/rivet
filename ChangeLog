@@ -1,3 +1,8 @@
+2014-05-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Writing out [UNVALIDATED], [PRELIMINARY], etc. in the
+	--list-analyses output if analysis is not VALIDATED.
+
 2014-05-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding CMS_2013_I1265659 colour coherence analysis.
