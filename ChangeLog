@@ -1,3 +1,7 @@
+2014-05-15  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Fix some bugs in identified hadron PIDs in OPAL_1998_S3749908.
+
 2014-05-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Writing out [UNVALIDATED], [PRELIMINARY], etc. in the

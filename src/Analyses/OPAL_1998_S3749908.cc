@@ -72,31 +72,31 @@ namespace Rivet {
         double xi = -log(p.momentum().vector3().mod()/meanBeamMom);
         double xE = p.momentum().t()/meanBeamMom;
         switch (id) {
-        case 22:
+        case 22: // Photons
           _histXePhoton->fill(xE, weight);
           _histXiPhoton->fill(xi, weight);
           break;
-        case 111:
+        case 111: // Neutral pions
           _histXePi->fill(xE, weight);
           _histXiPi->fill(xi, weight);
           break;
-        case 211:
+        case 221: // eta 
           _histXeEta->fill(xE, weight);
           _histXiEta->fill(xi, weight);
           break;
-        case 213:
+        case 213: // Charged rho (770)
           _histXeRho->fill(xE, weight);
           _histXiRho->fill(xi, weight);
           break;
-        case 223:
+        case 223: // omega (782)
           _histXeOmega->fill(xE, weight);
           _histXiOmega->fill(xi, weight);
           break;
-        case 331:
+        case 331: // eta' (958)
           _histXeEtaPrime->fill(xE, weight);
           _histXiEtaPrime->fill(xi, weight);
           break;
-        case 9000111:
+        case 9000211: // Charged a_0 (980)
           _histXeA0->fill(xE, weight);
           _histXiA0->fill(xi, weight);
           break;
