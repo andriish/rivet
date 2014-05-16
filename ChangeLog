@@ -1,3 +1,7 @@
+2014-05-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding any(iterable, fn) and all(iterable, fn) template functions for convenience.
+
 2014-05-15  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Fix some bugs in identified hadron PIDs in OPAL_1998_S3749908.

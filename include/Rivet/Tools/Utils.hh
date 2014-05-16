@@ -152,6 +152,32 @@ namespace Rivet {
   //@}
 
 
+  /// @name Container utils
+  //@{
+
+  /// Return true if f(x) is true for any x in container c, otherwise false.
+  template <typename CONTAINER, typename FN>
+  inline bool any(const CONTAINER& c, const FN& f) {
+    //for (const typename CONTAINER::value_type& val : c) {
+    foreach (const typename CONTAINER::value_type& val, c) {
+      if (f(val)) return true;
+    }
+    return false;
+  }
+
+  /// Return true if f(x) is true for all x in container c, otherwise false.
+  template <typename CONTAINER, typename FN>
+  inline bool all(const CONTAINER& c, const FN& f) {
+    //for (const typename CONTAINER::value_type& val : c) {
+    foreach (const typename CONTAINER::value_type& val, c) {
+      if (!f(val)) return false;
+    }
+    return true;
+  }
+
+  //@}
+
+
 }
 
 #endif
