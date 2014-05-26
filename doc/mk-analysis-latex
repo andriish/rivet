@@ -26,11 +26,11 @@ import rivet
 
 def niceify(s):
     "Replace informal symbols in titles and descriptions with nice LaTeX forms"
-    t = s \
+    t = rivet.util.texpand(s) \
         .replace(r"->", r"\ensuremath{\to}") \
         .replace(r"pT", r"\pT") \
         .replace(r"sqrt(s)", r"\ensuremath{\sqrt{s}}")
-    return t
+    return rivet.util.texpand(t)
 
 ## Set up Rivet analysis plugin and info file path variables
 os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("../src/Analyses/.libs") + "::"
@@ -197,14 +197,27 @@ for aname in sorted(list(all_analyses)):
 ## Write out LaTeX
 prefix = """\
 \\makeatletter
-\\renewcommand{\\d}[1]{\\ensuremath{\\mathrm{#1}}}
+
 \\let\\old@eta\\eta
 \\renewcommand{\\eta}{\\ensuremath{\\old@eta}\\xspace}
 \\let\\old@phi\\phi
 \\renewcommand{\\phi}{\\ensuremath{\\old@phi}\\xspace}
+
+\\providecommand{\\kT}{\\ensuremath{k_\\perp}\\xspace}
 \\providecommand{\\pT}{\\ensuremath{p_\\perp}\\xspace}
 \\providecommand{\\pTmin}{\\ensuremath{p_\\perp^\\text{min}}\\xspace}
+\\providecommand{\\kt}{\\ensuremath{k_\\mathrm{T}}\\xspace}
+\\providecommand{\\pt}{\\ensuremath{p_\\mathrm{T}}\\xspace}
+\\providecommand{\\ptmin}{\\ensuremath{p_\\mathrm{T}^\\text{min}}\\xspace}
+
+%\\renewcommand{\\d}[1]{\\ensuremath{\\mathrm{#1}}}
 \\renewcommand{\\d}{\\ensuremath{\\mathrm{d}}\\xspace}
+
+\\providecommand{\\eV}{\\ensuremath{\\text{e\\kern-0.15ex{}V}}\\xspace}
+\\providecommand{\\MeV}{\\ensuremath{\\text{M\\eV}}\\xspace}
+\\providecommand{\\GeV}{\\ensuremath{\\text{G\\eV}}\\xspace}
+\\providecommand{\\TeV}{\\ensuremath{\\text{T\\eV}}\\xspace}
+
 \\makeatother
 
 """

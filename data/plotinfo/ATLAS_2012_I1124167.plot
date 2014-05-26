@@ -145,7 +145,7 @@ YLabel= $\langle S_\perp^\text{ch} \rangle$
 
 
 # BEGIN PLOT /ATLAS_2012_I1124167/d08-.*
-XLabel= $\sum \pt$
+XLabel= $\sum \pt$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2012_I1124167/d08-x01-y01

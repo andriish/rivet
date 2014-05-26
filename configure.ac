@@ -330,13 +330,14 @@ AC_CEDAR_CHECKCXXFLAG([-Werror=delete-non-virtual-dtor], [AM_CXXFLAGS="$AM_CXXFL
 
 
 ## Debug flag (default=-DNDEBUG, enabled=-g)
-AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
-  [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
-if test x$enable_debug == xyes; then
-  AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g"])
-else
-  AM_CPPFLAGS="$AM_CPPFLAGS -DNDEBUG"
-fi
+dnl autotools default is -g -O2 : --enable-debug doesn't work (anymore)
+dnl AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
+dnl   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
+dnl if test x$enable_debug == xyes; then
+dnl   AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g"])
+dnl else
+dnl   AM_CPPFLAGS="$AM_CPPFLAGS -DNDEBUG"
+dnl fi
 
 
 ## Extra warnings flag (default=none)

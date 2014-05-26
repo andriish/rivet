@@ -1,5 +1,9 @@
 2014-05-26  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fixing a bug in plot file handling, and adding a texpand()
+	routine to rivet.util, to be used to expand some 'standard'
+	physics TeX macros.
+
 	* Adding ATLAS_2012_I1124167 (min bias event shapes),
 	ATLAS_2012_I1203852 (ZZ cross-section), and ATLAS_2013_I1190187
 	(WW cross-section) analyses.

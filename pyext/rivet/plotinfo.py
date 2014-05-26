@@ -1,4 +1,5 @@
 import os, re
+from .util import texpand
 
 class PlotParser(object):
 #class PlotStyler(object) or class PlotInfo(object):
@@ -63,7 +64,7 @@ class PlotParser(object):
             del parts[0]
         if parts[0] == "REF":
             del parts[0]
-        hpath = "/".join(parts[-2:])
+        hpath = "/" + "/".join(parts[-2:])
         if len(parts) < 2:
             raise ValueError("hpath '%s' has wrong number of parts (%i) -- should be at least 2" % (hpath, len(parts)))
 
@@ -72,49 +73,51 @@ class PlotParser(object):
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
             plotfile = os.path.join(pidir, base)
-            self.readHeadersFromFile(plotfile, ret, section, hpath)
+            #print plotfile
+            self._readHeadersFromFile(plotfile, ret, section, hpath)
             ## Don't break here: we can collect settings from multiple .plot files
             # TODO: So the *last* path wins? Hmm... reverse the loop order?
         # TODO: Also, is it good that the user-specific extra files override the official ones? Depends on the point of the extra files...
         for extrafile in self.addfiles:
-            self.readHeadersFromFile(extrafile, ret, section, hpath)
+            self._readHeadersFromFile(extrafile, ret, section, hpath)
         return ret[section]
 
 
-    def readHeadersFromFile(self, plotfile, ret, section, hpath):
+    def _readHeadersFromFile(self, plotfile, ret, section, hpath):
         """Get a section for a histogram from a .plot file."""
-        if os.access(plotfile, os.R_OK):
-            startreading = False
-            f = open(plotfile)
-            for line in f:
-                m = self.pat_begin_block.match(line)
-                if m:
-                    tag, pathpat = m.group(1,2)
-                    # pathpat could be a regex
-                    if not self.pat_paths.has_key(pathpat):
-                        self.pat_paths[pathpat] = re.compile(pathpat)
-                    if tag == section:
-                        if self.pat_paths[pathpat].match(hpath):
-                            startreading = True
-                            if section in ['SPECIAL']:
-                                ret[section] = ''
-                            continue
-                if not startreading:
-                    continue
-                if self.isEndMarker(line, section):
-                    startreading = False
-                    continue
-                elif self.isComment(line):
-                    continue
-                if section in ['PLOT', 'HISTOGRAM']:
-                    vm = self.pat_property.match(line)
-                    if vm:
-                        prop, value = vm.group(1,2)
-                        #print prop, value
-                        ret[section][prop] = value
-                elif section in ['SPECIAL']:
-                    ret[section] += line
-            f.close()
+        if not os.access(plotfile, os.R_OK):
+            return
+        startreading = False
+        f = open(plotfile)
+        for line in f:
+            m = self.pat_begin_block.match(line)
+            if m:
+                tag, pathpat = m.group(1,2)
+                # pathpat could be a regex
+                if not self.pat_paths.has_key(pathpat):
+                    self.pat_paths[pathpat] = re.compile(pathpat)
+                if tag == section:
+                    if self.pat_paths[pathpat].match(hpath):
+                        startreading = True
+                        if section in ['SPECIAL']:
+                            ret[section] = ''
+                        continue
+            if not startreading:
+                continue
+            if self.isEndMarker(line, section):
+                startreading = False
+                continue
+            elif self.isComment(line):
+                continue
+            if section in ['PLOT', 'HISTOGRAM']:
+                vm = self.pat_property.match(line)
+                if vm:
+                    prop, value = vm.group(1,2)
+                    # print prop, value
+                    ret[section][prop] = texpand(value)
+            elif section in ['SPECIAL']:
+                ret[section] += line
+        f.close()
 
 
     def getHeaders(self, hpath):
