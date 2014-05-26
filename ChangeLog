@@ -1,3 +1,9 @@
+2014-05-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS_2012_I1124167 (min bias event shapes),
+	ATLAS_2012_I1203852 (ZZ cross-section), and ATLAS_2013_I1190187
+	(WW cross-section) analyses.
+
 2014-05-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding any(iterable, fn) and all(iterable, fn) template functions for convenience.
