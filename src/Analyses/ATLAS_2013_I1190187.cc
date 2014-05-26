@@ -108,8 +108,7 @@ namespace Rivet {
                 }
               }
               // e/mu overlap removal
-              /// @todo Should be abspid()?
-              if (l1.constituentLepton().pid() == PID::MUON) isolated_lepton.push_back(l1); //keep mu
+              if (l1.constituentLepton().abspid() == PID::MUON) isolated_lepton.push_back(l1); //keep mu
             }
           }
         }
