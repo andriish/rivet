@@ -1,3 +1,10 @@
+2014-05-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding CMS_2012_I1090423 (dijet angular distributions),
+	CMS_2013_I1256943 (Zbb xsec and angular correlations),
+	CMS_2013_I1261026 (jet and UE properties vs. Nch) and
+	D0_2000_I499943 (bbbar production xsec and angular correlations).
+
 2014-05-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fixing a bug in plot file handling, and adding a texpand()

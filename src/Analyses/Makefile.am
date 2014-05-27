@@ -144,6 +144,7 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2012_I941555.cc  \
     CMS_2011_I954992.cc  \
     CMS_2012_I1087342.cc \
+    CMS_2012_I1090423.cc \
     CMS_2012_I1102908.cc \
     CMS_2012_I1107658.cc \
     CMS_2012_I1184941.cc \
@@ -153,7 +154,9 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2013_I1224539_DIJET.cc \
 	CMS_2013_I1224539_WJET.cc \
 	CMS_2013_I1224539_ZJET.cc \
+    CMS_2013_I1256943.cc \
     CMS_2013_I1258128.cc \
+    CMS_2013_I1261026.cc \
     CMS_2013_I1265659.cc \
     CMS_2013_I1272853.cc \
     CMS_2013_I1273574.cc
@@ -239,6 +242,7 @@ endif
 lib_LTLIBRARIES += RivetD0Analyses.la
 RivetD0Analyses_la_SOURCES = \
     D0_2000_S4480767.cc \
+    D0_2000_I499943.cc \
     D0_2001_S4674421.cc \
     D0_2004_S5992206.cc \
     D0_2006_S6438750.cc \

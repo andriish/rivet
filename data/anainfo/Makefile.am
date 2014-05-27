@@ -147,6 +147,7 @@ dist_pkgdata_DATA = \
   CMS_2011_S9088458.info \
   CMS_2011_S9120041.info \
   CMS_2012_I1087342.info \
+  CMS_2012_I1090423.info \
   CMS_2012_I1102908.info \
   CMS_2012_I1107658.info \
   CMS_2012_I1184941.info \
@@ -156,7 +157,9 @@ dist_pkgdata_DATA = \
   CMS_2013_I1224539_DIJET.info \
   CMS_2013_I1224539_WJET.info \
   CMS_2013_I1224539_ZJET.info \
+  CMS_2013_I1256943.info \
   CMS_2013_I1258128.info \
+  CMS_2013_I1261026.info \
   CMS_2013_I1265659.info \
   CMS_2013_I1272853.info \
   CMS_2013_I1273574.info \
@@ -165,6 +168,7 @@ dist_pkgdata_DATA = \
   D0_1996_S3214044.info \
   D0_1996_S3324664.info \
   D0_2000_S4480767.info \
+  D0_2000_I499943.info  \
   D0_2001_S4674421.info \
   D0_2004_S5992206.info \
   D0_2006_S6438750.info \

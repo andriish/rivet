@@ -94,6 +94,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I941555.yoda \
   CMS_2011_I954992.yoda \
   CMS_2012_I1087342.yoda \
+  CMS_2012_I1090423.yoda \
   CMS_2012_I1102908.yoda \
   CMS_2012_I1107658.yoda \
   CMS_2012_I1184941.yoda \
@@ -103,7 +104,9 @@ dist_pkgdata_DATA = \
   CMS_2013_I1224539_DIJET.yoda \
   CMS_2013_I1224539_WJET.yoda \
   CMS_2013_I1224539_ZJET.yoda \
+  CMS_2013_I1256943.yoda \
   CMS_2013_I1258128.yoda \
+  CMS_2013_I1261026.yoda \
   CMS_2013_I1265659.yoda \
   CMS_2013_I1272853.yoda \
   CMS_2013_I1273574.yoda \
@@ -196,6 +199,7 @@ dist_pkgdata_DATA = \
   D0_1996_S3214044.yoda \
   D0_1996_S3324664.yoda \
   D0_2000_S4480767.yoda \
+  D0_2000_I499943.yoda \
   D0_2001_S4674421.yoda \
   D0_2004_S5992206.yoda \
   D0_2006_S6438750.yoda \
