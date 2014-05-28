@@ -15,8 +15,8 @@ namespace Rivet {
 
     Particle inLepton;
 
-    bool firstIsLepton = PID::isLepton(inc.first.pdgId());
-    bool secondIsLepton = PID::isLepton(inc.second.pdgId());
+    bool firstIsLepton = PID::isLepton(inc.first.pid());
+    bool secondIsLepton = PID::isLepton(inc.second.pid());
 
     if (firstIsLepton && !secondIsLepton) {
       _incoming = inc.first;
@@ -28,14 +28,14 @@ namespace Rivet {
     }
 
     _sign = (_incoming.momentum().pz() > 0.0)? 1.0: -1.0;
-    long id = _incoming.pdgId();
+    long id = _incoming.pid();
 
     double pzMax = -1000000000.0;
 
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     foreach (const Particle& p, fs.particles()) {
       double pz = _sign * p.momentum().pz();
-      if (p.pdgId() == id && pz > pzMax) {
+      if (p.pid() == id && pz > pzMax) {
         _outgoing = p;
         pzMax = pz;
       }

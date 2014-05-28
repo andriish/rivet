@@ -56,7 +56,7 @@ namespace Rivet {
     MSG_DEBUG("Number of initial quarks = " << _theParticles.size());
     if (!_theParticles.empty()) {
       for (size_t i = 0; i < _theParticles.size(); i++) {
-        MSG_DEBUG("Initial quark[" << i << "] = " << _theParticles[i].pdgId());
+        MSG_DEBUG("Initial quark[" << i << "] = " << _theParticles[i].pid());
       }
     }
   }

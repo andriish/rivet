@@ -90,7 +90,7 @@ namespace Rivet {
       Particles jetparts;
       foreach (const Particle& p, fs.particles()) {
         bool copy = true;
-        if (p.pdgId() == PID::PHOTON) {
+        if (p.pid() == PID::PHOTON) {
           FourMomentum p_e0 = Z_candidates[0].first.momentum();
           FourMomentum p_e1 = Z_candidates[0].second.momentum();
           FourMomentum p_P = p.momentum();

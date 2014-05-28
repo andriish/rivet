@@ -54,13 +54,13 @@ namespace Rivet {
       // If we only have two quarks (qqbar), just take the flavour.
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = abs( iqf.particles().front().pid() );
       }
       else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap[p.pdgId()] < p.momentum().E()) {
-            quarkmap[p.pdgId()] = p.momentum().E();
+          if (quarkmap[p.pid()] < p.momentum().E()) {
+            quarkmap[p.pid()] = p.momentum().E();
           }
         }
         double maxenergy = 0.;

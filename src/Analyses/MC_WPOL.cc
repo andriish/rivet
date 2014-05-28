@@ -76,7 +76,7 @@ namespace Rivet {
       FourMomentum pb1(beams.second.momentum()), pb2(beams.first.momentum());
       Particle lepton=wfinder.constituentLeptons()[0];
       FourMomentum pl(lepton.momentum());
-      size_t idx = (PID::threeCharge(lepton.pdgId())>0 ? 0 : 1);
+      size_t idx = (PID::threeCharge(lepton.pid())>0 ? 0 : 1);
       FourMomentum plnu(wfinder.bosons()[0].momentum());
 
       LorentzTransform cms(-plnu.boostVector());

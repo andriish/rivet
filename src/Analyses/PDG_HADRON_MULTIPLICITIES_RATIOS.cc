@@ -44,7 +44,7 @@ namespace Rivet {
 
       if (sqrtS()/GeV >= 9.5 && sqrtS()/GeV <= 10.5) {
         foreach (const Particle& p, ufs.particles()) {
-          const PdgId id = abs(p.pdgId());
+          const PdgId id = p.abspid();
           switch (id) {
              case 211:
                 _weightedTotalNumPiPlus += weight;
@@ -152,7 +152,7 @@ namespace Rivet {
 
       if (sqrtS()/GeV >= 29 && sqrtS()/GeV <= 35) {
         foreach (const Particle& p, ufs.particles()) {
-          const PdgId id = abs(p.pdgId());
+          const PdgId id = p.abspid();
           switch (id) {
              case 211:
                 _weightedTotalNumPiPlus += weight;
@@ -241,7 +241,7 @@ namespace Rivet {
 
       if (sqrtS()/GeV >= 89.5 && sqrtS()/GeV <= 91.8) {
         foreach (const Particle& p, ufs.particles()) {
-          const PdgId id = abs(p.pdgId());
+          const PdgId id = p.abspid();
           switch (id) {
              case 211:
                 _weightedTotalNumPiPlus += weight;
@@ -407,7 +407,7 @@ namespace Rivet {
 
       if (sqrtS()/GeV >= 130 && sqrtS()/GeV <= 200) {
         foreach (const Particle& p, ufs.particles()) {
-          const PdgId id = abs(p.pdgId());
+          const PdgId id = p.abspid();
           switch (id) {
              case 211:
                 _weightedTotalNumPiPlus += weight;

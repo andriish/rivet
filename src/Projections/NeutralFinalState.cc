@@ -14,9 +14,9 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     foreach (const Particle& p, fs.particles()){
-      if ((PID::threeCharge(p.pdgId()) == 0) && (p.Et() > _Etmin)) {
+      if ((PID::threeCharge(p.pid()) == 0) && (p.Et() > _Etmin)) {
         _theParticles.push_back(p);
-        MSG_TRACE("Selected: ID = " << p.pdgId()
+        MSG_TRACE("Selected: ID = " << p.pid()
                   << ", Et = " << p.Et()
                   << ", eta = " << p.eta()
                   << ", charge = " << p.charge());

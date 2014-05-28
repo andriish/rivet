@@ -10,7 +10,7 @@ namespace Rivet {
 
 
   bool nonHadronFilter(const Particle& p) {
-    return PID::isHadron(p.pdgId());
+    return PID::isHadron(p.pid());
   }
 
   void NonHadronicFinalState::project(const Event& e) {

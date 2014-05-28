@@ -119,8 +119,8 @@ namespace Rivet {
     string wsign = (wcharge == 1) ? "+" : "-";
     string wstr = "W" + wsign;
     msg << wstr << " reconstructed from: " << "\n"
-        << "   " << p1.momentum() << " " << p1.pdgId() << "\n"
-        << " + " << p2.momentum() << " " << p2.pdgId();
+        << "   " << p1.momentum() << " " << p1.pid() << "\n"
+        << " + " << p2.momentum() << " " << p2.pid();
     MSG_DEBUG(msg.str());
 
     // Check missing ET
@@ -143,7 +143,7 @@ namespace Rivet {
     }
     foreach (const Particle& p, _constituentLeptons) {
       foreach (const DressedLepton& l, leptons.clusteredLeptons()) {
-        if (p.pdgId() == l.pdgId() && p.momentum() == l.momentum()) {
+        if (p.pid() == l.pid() && p.momentum() == l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
             _theParticles.insert(_theParticles.end(), l.constituentPhotons().begin(), l.constituentPhotons().end());

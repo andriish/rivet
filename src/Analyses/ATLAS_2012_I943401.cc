@@ -250,7 +250,7 @@ namespace Rivet {
       if(mll < 12.) vetoEvent;
 
       // same sign or opposite sign event
-      int sign = recon_leptons[0].pdgId()*recon_leptons[1].pdgId();
+      int sign = recon_leptons[0].pid()*recon_leptons[1].pid();
 
       // same sign leptons
       if(sign>0) {
@@ -336,10 +336,10 @@ namespace Rivet {
         static const double tau_e  = 0.96;
         static const double tau_mu = 0.816;
         double fs_weight = weight;
-        if(abs(recon_leptons[0].pdgId())==PID::ELECTRON && abs(recon_leptons[1].pdgId())==PID::ELECTRON) {
+        if(abs(recon_leptons[0].pid())==PID::ELECTRON && abs(recon_leptons[1].pid())==PID::ELECTRON) {
           fs_weight /= beta*(1.-sqr(1.-tau_e));
         }
-        else if(abs(recon_leptons[0].pdgId())==PID::MUON && abs(recon_leptons[1].pdgId())==PID::MUON) {
+        else if(abs(recon_leptons[0].pid())==PID::MUON && abs(recon_leptons[1].pid())==PID::MUON) {
           fs_weight *= beta/(1.-sqr(1.-tau_mu));
         }
         else {

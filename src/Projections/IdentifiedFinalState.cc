@@ -43,7 +43,7 @@ namespace Rivet {
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
     foreach (const Particle& p, fs.particles()) {
-      if (acceptedIds().find(p.pdgId()) != acceptedIds().end()) {
+      if (acceptedIds().find(p.pid()) != acceptedIds().end()) {
         _theParticles.push_back(p);
       }
     }

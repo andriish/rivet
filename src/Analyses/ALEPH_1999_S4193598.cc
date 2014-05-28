@@ -76,7 +76,7 @@ namespace Rivet {
                                    beams.second.momentum().vector3().mod() ) / 2.0/GeV;
 
       foreach (const Particle& p, ufs.particles()) {
-        const PdgId pid = abs(p.pdgId());
+        const PdgId pid = p.abspid();
 
         switch (pid) {
         case 413:

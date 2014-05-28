@@ -48,7 +48,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        if (abs(p.pdgId()) != 443) continue;
+        if (p.abspid() != 443) continue;
         HepMC::GenVertex* gv = p.genParticle()->production_vertex();
         bool nonPrompt = false;
         if (gv) {

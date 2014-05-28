@@ -103,7 +103,7 @@ namespace Rivet {
         } else {
           _histEnergyFlowHighX->fill(eta, et*weight);
         }
-        if (PID::threeCharge(p.pdgId()) != 0) {
+        if (PID::threeCharge(p.pid()) != 0) {
           /// @todo Use units in w comparisons... what are the units?
           if (w > 50. && w <= 200.) {
             double xf= 2 * hcmMom.z() / w;

@@ -34,7 +34,7 @@ namespace Rivet {
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
         if(fabs(p.rapidity())<0.5) {
-          switch (p.pdgId()) {
+          switch (p.pid()) {
             case 211:
               _histPtPions->fill(p.pT()/GeV, weight);
               _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);

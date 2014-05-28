@@ -34,7 +34,7 @@ namespace Rivet {
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       foreach (const Particle& p, fs.particles()) {
         ptotal+= p.momentum();
-        if (p.pdgId() == PID::PHOTON) {
+        if (p.pid() == PID::PHOTON) {
           photons.push_back(p);
         } else {
           nonPhotons.push_back(p);

@@ -61,8 +61,8 @@ namespace Rivet {
         if (fabs(p.rapidity()) < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;
-          ((p.pdgId() > 0) ? _h_pT_piplus : _h_pT_piminus)->fill(pT, weight/pT);
-          ((p.pdgId() > 0) ? _tmp_pT_piplus : _tmp_pT_piminus)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _h_pT_piplus : _h_pT_piminus)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _tmp_pT_piplus : _tmp_pT_piminus)->fill(pT, weight/pT);
         }
       }
 
@@ -71,7 +71,7 @@ namespace Rivet {
         if (fabs(p.rapidity()) < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;
-          ((p.pdgId() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, weight/pT);
         }
       }
       _sumWeightSelected += event.weight();

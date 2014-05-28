@@ -84,7 +84,7 @@ namespace Rivet {
 
       // We want exactly two leptons of the same flavour.
       MSG_DEBUG("lepton multiplicity = " << leptons.size());
-      if (leptons.size() != 2 || leptons[0].pdgId() != -leptons[1].pdgId() ) vetoEvent;
+      if (leptons.size() != 2 || leptons[0].pid() != -leptons[1].pid() ) vetoEvent;
 
       // Lepton pT > 20 GeV
       if (leptons[0].pT()/GeV <= 20 || leptons[1].pT()/GeV <= 20) vetoEvent;
@@ -106,7 +106,7 @@ namespace Rivet {
       for (Particles::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
         // Don't use the leptons
         /// @todo Replace with PID::isLepton
-        if (abs(p->pdgId()) < 20) continue;
+        if (abs(p->pid()) < 20) continue;
 
         const double dPhi = deltaPhi(p->momentum().phi(), phiZ);
         const double pT = p->pT();

@@ -64,7 +64,7 @@ namespace Rivet {
       double MTW = sqrt( 2 * missvec.pT() * muonmom.pT() * (1 - cos( deltaPhi(missvec.phi(), muonmom.phi()) )) );
       if (MTW < 40*GeV) vetoEvent;
 
-      Histo1D& htmp = (selected_muons[0].pdgId() > 0) ? _tmp_h_minus : _tmp_h_plus;
+      Histo1D& htmp = (selected_muons[0].pid() > 0) ? _tmp_h_minus : _tmp_h_plus;
       htmp.fill(muonmom.eta(), event.weight());
     }
 

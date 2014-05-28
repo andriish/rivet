@@ -168,12 +168,12 @@ namespace Rivet {
       if(leptons.size() !=2) vetoEvent;
 
       // hardest lepton pT greater the 25 (20) e(mu)
-      if( (abs(leptons[0].pdgId())==PID::ELECTRON && leptons[0].momentum().perp()<25.) ||
-	  (abs(leptons[0].pdgId())==PID::ELECTRON && leptons[0].momentum().perp()<20.))
+      if( (abs(leptons[0].pid())==PID::ELECTRON && leptons[0].momentum().perp()<25.) ||
+	  (abs(leptons[0].pid())==PID::ELECTRON && leptons[0].momentum().perp()<20.))
 	vetoEvent;
 
       // require opposite sign
-      if(leptons[0].pdgId()*leptons[1].pdgId()>0) vetoEvent;
+      if(leptons[0].pid()*leptons[1].pid()>0) vetoEvent;
 
       // and invariant mass > 20
       double mll = (leptons[0].momentum()+leptons[1].momentum()).mass();
@@ -188,7 +188,7 @@ namespace Rivet {
 			      pTmiss,0.0 ); // zero mass invisibles
 
       // same flavour region
-      if(leptons[0].pdgId()==-leptons[1].pdgId()) {
+      if(leptons[0].pid()==-leptons[1].pid()) {
 	// remove Z region
 	if(mll>71.&&mll<111.) vetoEvent;
 	// require at least 1 b jet

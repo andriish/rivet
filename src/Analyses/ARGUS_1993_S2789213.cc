@@ -70,7 +70,7 @@ namespace Rivet {
       // First in unstable final state
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())
-        if (p.pdgId() == 300553 || p.pdgId() == 553) upsilons.push_back(p);
+        if (p.pid() == 300553 || p.pid() == 553) upsilons.push_back(p);
       // Then in whole event if that failed
       if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
@@ -95,7 +95,7 @@ namespace Rivet {
         _weightSum_cont += weight;
         unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
         foreach (const Particle& p, ufs.particles()) {
-          int id = abs(p.pdgId());
+          int id = p.abspid();
           double xp = 2.*p.momentum().t()/roots;
           double beta = p.momentum().vector3().mod()/p.momentum().t();
           if (id == 113) {
@@ -128,7 +128,7 @@ namespace Rivet {
       else {
         // find an upsilon
         foreach (const Particle& ups, upsilons) {
-          int parentId = ups.pdgId();
+          int parentId = ups.pid();
           if (parentId == 553)
             _weightSum_Ups1 += weight;
           else
@@ -142,7 +142,7 @@ namespace Rivet {
           double mass = ups.momentum().mass();
           unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
           foreach(const Particle & p , unstable) {
-            int id = abs(p.pdgId());
+            int id = p.abspid();
             FourMomentum p2 = cms_boost.transform(p.momentum());
             double xp = 2.*p2.t()/mass;
             double beta = p2.vector3().mod()/p2.t();

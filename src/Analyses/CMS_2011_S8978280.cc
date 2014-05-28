@@ -56,7 +56,7 @@ namespace Rivet {
       foreach (const Particle& p, parts.particles()) {
         const double pT = p.pT();
         const double y = fabs(p.rapidity());
-        const PdgId pid = abs(p.pdgId());
+        const PdgId pid = p.abspid();
 
         if (y < 2.0) {
           switch (pid) {

@@ -1,5 +1,9 @@
 2014-05-28  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Updating analysis and project routines to use Particle::pid() by
+	preference to Particle::pdgId(), and Particle::abspid() by
+	preference to abs(Particle::pdgId()), etc.
+
 	* Adding interfacing of smart pointer types and booking etc. for
 	YODA 2D histograms and profiles.
 

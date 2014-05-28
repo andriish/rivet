@@ -38,7 +38,7 @@ namespace Rivet {
         const double pT = p.pT()/GeV;
 
         if (absrap < 0.8) {
-          switch(p.pdgId()) {
+          switch(p.pid()) {
           case 3312:
           case -3312:
             if ( !( p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {

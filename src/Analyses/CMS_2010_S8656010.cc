@@ -34,7 +34,7 @@ namespace Rivet {
 
       foreach (const Particle& p, charged.particles()) {
         //selecting only charged hadrons
-        if (! PID::isHadron(p.pdgId())) continue;
+        if (! PID::isHadron(p.pid())) continue;
 
         const double pT = p.pT();
         const double eta = p.eta();

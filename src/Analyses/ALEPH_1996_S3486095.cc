@@ -242,7 +242,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       for (Particles::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
         const Vector3 mom3 = p->momentum().vector3();
-        int id = abs(p->pdgId());
+        int id = abs(p->pid());
         const double mom = mom3.mod();
         const double energy = p->momentum().E();
         const double scaledMom = mom/meanBeamMom;

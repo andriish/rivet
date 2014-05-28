@@ -79,7 +79,7 @@ namespace Rivet {
     const Particles allstable = applyProjection<FinalState>(e, "OpenFS").particles();
     foreach (const Particle& p, allstable) {
       const bool passed = accept(p);
-      MSG_TRACE("Choosing: ID = " << p.pdgId()
+      MSG_TRACE("Choosing: ID = " << p.pid()
                 << ", pT = " << p.pT()
                 << ", eta = " << p.eta()
                 << ": result = " << std::boolalpha << passed);

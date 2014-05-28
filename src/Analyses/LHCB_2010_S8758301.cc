@@ -61,7 +61,7 @@ using namespace std;
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
       double ancestor_lftime;
       foreach (const Particle& p, ufs.particles()) {
-        id = p.pdgId();
+        id = p.pid();
         if ((id != 310) && (id != -310)) continue;
         sumKs0_all ++;
         ancestor_lftime = 0.;

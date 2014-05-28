@@ -40,7 +40,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       foreach (const Particle& p, fs.particles()) {
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {
           _histXpPiPlus->fill(p.momentum().vector3().mod(), weight);

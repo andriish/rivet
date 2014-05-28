@@ -200,7 +200,7 @@ namespace Rivet {
 
       // calculate total 'flavour' charge
       double totalcharge = 0;
-      foreach (Particle& l, leptons_sel4l) totalcharge += l.pdgId();
+      foreach (Particle& l, leptons_sel4l) totalcharge += l.pid();
 
       // Analyze 4 lepton events
       if (leptons_sel4l.size() == 4 && totalcharge == 0  ) {

@@ -37,7 +37,7 @@ namespace Rivet {
 
   bool Jet::containsParticleId(PdgId pid) const {
     foreach (const Particle& p, particles()) {
-      if (p.pdgId() == pid) return true;
+      if (p.pid() == pid) return true;
     }
     return false;
   }
@@ -46,7 +46,7 @@ namespace Rivet {
   bool Jet::containsParticleId(const vector<PdgId>& pids) const {
     foreach (const Particle& p, particles()) {
       foreach (PdgId pid, pids) {
-        if (p.pdgId() == pid) return true;
+        if (p.pid() == pid) return true;
       }
     }
     return false;
@@ -59,7 +59,7 @@ namespace Rivet {
   double Jet::neutralEnergy() const {
     double e_neutral = 0.0;
     foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pdgId();
+      const PdgId pid = p.pid();
       if (PID::threeCharge(pid) == 0) {
         e_neutral += p.E();
       }
@@ -71,7 +71,7 @@ namespace Rivet {
   double Jet::hadronicEnergy() const {
     double e_hadr = 0.0;
     foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pdgId();
+      const PdgId pid = p.pid();
       if (PID::isHadron(pid)) {
         e_hadr += p.E();
       }
@@ -82,7 +82,7 @@ namespace Rivet {
 
   bool Jet::containsCharm() const {
     foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pdgId();
+      const PdgId pid = p.pid();
       if (abs(pid) == PID::CQUARK) return true;
       if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
       HepMC::GenVertex* gv = p.genParticle()->production_vertex();
@@ -99,7 +99,7 @@ namespace Rivet {
 
   bool Jet::containsBottom() const {
     foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pdgId();
+      const PdgId pid = p.pid();
       if (abs(pid) == PID::BQUARK) return true;
       if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
       HepMC::GenVertex* gv = p.genParticle()->production_vertex();

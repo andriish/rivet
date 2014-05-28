@@ -90,7 +90,7 @@ namespace Rivet {
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
 
       foreach (const Particle& p, cfs.particles()) {
-        int id = p.pdgId();
+        int id = p.pid();
         // continue if particle not a proton, a kaon or a pion
         if ( !( (abs(id) == 211) || (abs(id) == 321) || (abs(id) == 2212)))  {
           continue;

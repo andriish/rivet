@@ -181,7 +181,7 @@ namespace Rivet {
       for(unsigned int ie=0;ie<cand2_e.size();++ie) {
 	bool pass = true;
 	for(unsigned int ie2=0;ie2<cand2_e.size();++ie2) {
-	  if(cand2_e[ie].pdgId()*cand2_e[ie2].pdgId()>0) continue;
+	  if(cand2_e[ie].pid()*cand2_e[ie2].pid()>0) continue;
 	  double mtest = (cand2_e[ie].momentum()+cand2_e[ie2].momentum()).mass();
 	  if(mtest<=20.) {
 	    pass = false;
@@ -229,7 +229,7 @@ namespace Rivet {
       for(unsigned int imu=0;imu<cand2_mu.size();++imu) {
 	bool pass = true;
 	for(unsigned int imu2=0;imu2<cand2_mu.size();++imu2) {
-	  if(cand2_mu[imu].pdgId()*cand2_mu[imu2].pdgId()>0) continue;
+	  if(cand2_mu[imu].pid()*cand2_mu[imu2].pid()>0) continue;
 	  double mtest = (cand2_mu[imu].momentum()+cand2_mu[imu2].momentum()).mass();
 	  if(mtest<=20.) {
 	    pass = false;
@@ -294,7 +294,7 @@ namespace Rivet {
       // mass of SFOS pairs closest to the Z mass
       for(unsigned int ix=0;ix<recon_e.size();++ix) {
         for(unsigned int iy=ix+1;iy<recon_e.size();++iy) {
-          if(recon_e[ix].pdgId()*recon_e[iy].pdgId()>0) continue;
+          if(recon_e[ix].pid()*recon_e[iy].pid()>0) continue;
           double mtest = (recon_e[ix].momentum()+recon_e[iy].momentum()).mass();
           if(fabs(mtest-90.)<mdiff) {
             mSFOS = mtest;
@@ -304,7 +304,7 @@ namespace Rivet {
       }
       for(unsigned int ix=0;ix<recon_mu.size();++ix) {
         for(unsigned int iy=ix+1;iy<recon_mu.size();++iy) {
-          if(recon_mu[ix].pdgId()*recon_mu[iy].pdgId()>0) continue;
+          if(recon_mu[ix].pid()*recon_mu[iy].pid()>0) continue;
           double mtest = (recon_mu[ix].momentum()+recon_mu[iy].momentum()).mass();
           if(fabs(mtest-91.118)<mdiff) {
             mSFOS = mtest;

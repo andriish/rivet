@@ -67,7 +67,7 @@ namespace Rivet {
       // Loop over particles in event
       foreach (const Particle& p, charged.particles()) {
         // Selecting only charged hadrons
-        if (! PID::isHadron(p.pdgId())) continue;
+        if (! PID::isHadron(p.pid())) continue;
 
         double pT = p.pT();
         double eta = p.eta();

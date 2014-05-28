@@ -13,7 +13,7 @@ namespace Rivet {
       if (!PID::isHadron(p)) continue;
       // A spontaneously appearing hadron: this is weird, but I guess is allowed... and is primary
       if (!p.genParticle() || !p.genParticle()->production_vertex()) {
-        MSG_DEBUG("Hadron " << p.pdgId() << " with no GenParticle or parent found: treating as primary");
+        MSG_DEBUG("Hadron " << p.pid() << " with no GenParticle or parent found: treating as primary");
         _theParticles.push_back(p);
         continue;
       }

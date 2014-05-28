@@ -1005,7 +1005,7 @@ namespace Rivet {
           double mass_difference_2_new = fabs(91.0 - (p1.momentum() + p2.momentum()).mass()/GeV);
 
           // If particle combination is OSSF pair calculate mass difference to Z mass
-          if ( (p1.pdgId()*p2.pdgId() == -121 || p1.pdgId()*p2.pdgId() == -169) )  {
+          if ( (p1.pid()*p2.pid() == -121 || p1.pid()*p2.pid() == -169) )  {
 
             // Get invariant mass closest to Z mass
             if (mass_difference_2_new < mass_difference_2_old)

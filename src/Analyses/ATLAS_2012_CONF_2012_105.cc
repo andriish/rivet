@@ -169,26 +169,26 @@ namespace Rivet {
       if(recon_leptons[0].momentum().perp()<recon_leptons[1].momentum().perp())
         std::swap(recon_leptons[0],recon_leptons[1]);
       // only keep same sign
-      if(recon_leptons[0].pdgId()*recon_leptons[1].pdgId()<0)
+      if(recon_leptons[0].pid()*recon_leptons[1].pid()<0)
         vetoEvent;
       // at least 4 jets pt>50
       if(recon_jets.size()<4||recon_jets[3].momentum().perp()<50.)
         vetoEvent;
 
-      if(recon_leptons[0].pdgId()!=recon_leptons[1].pdgId())
+      if(recon_leptons[0].pid()!=recon_leptons[1].pid())
         _hist_eTmiss_emu ->fill(eTmiss,weight);
-      else if(abs(recon_leptons[0].pdgId())==PID::ELECTRON)
+      else if(abs(recon_leptons[0].pid())==PID::ELECTRON)
         _hist_eTmiss_ee ->fill(eTmiss,weight);
-      else if(abs(recon_leptons[0].pdgId())==PID::MUON)
+      else if(abs(recon_leptons[0].pid())==PID::MUON)
         _hist_eTmiss_mumu->fill(eTmiss,weight);
       _hist_eTmiss_ll->fill(eTmiss,weight);
 
       if(eTmiss>150.) {
-        if(recon_leptons[0].pdgId()!=recon_leptons[1].pdgId())
+        if(recon_leptons[0].pid()!=recon_leptons[1].pid())
           _count_emu ->fill(0.5,weight);
-        else if(abs(recon_leptons[0].pdgId())==PID::ELECTRON)
+        else if(abs(recon_leptons[0].pid())==PID::ELECTRON)
           _count_ee  ->fill(0.5,weight);
-        else if(abs(recon_leptons[0].pdgId())==PID::MUON)
+        else if(abs(recon_leptons[0].pid())==PID::MUON)
           _count_mumu->fill(0.5,weight);
         _count_ll->fill(0.5,weight);
       }

@@ -78,7 +78,7 @@ namespace Rivet {
       int idx = -1;
       for (size_t i = 0; i < bareleptons.size(); ++i) {
         // Only cluster photons around *charged* signal particles
-        if (PID::threeCharge(bareleptons[i].pdgId()) == 0) continue;
+        if (PID::threeCharge(bareleptons[i].pid()) == 0) continue;
         // Find the closest lepton
         const FourMomentum& p_l = bareleptons[i].momentum();
         double dR = deltaR(p_l, p_P);

@@ -14,11 +14,11 @@ namespace Rivet {
       // Exclude non-b/c-hadrons
       if (!PID::isHadron(p)) continue;
       if (!PID::hasCharm(p) && !PID::hasBottom(p)) continue;
-      MSG_DEBUG("Found a heavy (b or c) unstable hadron: " << p.pdgId());
+      MSG_DEBUG("Found a heavy (b or c) unstable hadron: " << p.pid());
 
       // An unbound, or undecayed status 2 hadron: this is weird, but I guess is allowed...
       if (!p.genParticle() || !p.genParticle()->end_vertex()) {
-        MSG_DEBUG("Heavy hadron " << p.pdgId() << " with no GenParticle or decay found");
+        MSG_DEBUG("Heavy hadron " << p.pid() << " with no GenParticle or decay found");
         _theParticles.push_back(p);
         if (PID::hasBottom(p)) _theBs.push_back(p); else _theCs.push_back(p);
         continue;

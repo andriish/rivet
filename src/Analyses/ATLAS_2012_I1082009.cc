@@ -65,7 +65,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
       Particles Dstar;
       foreach (const Particle& p, ufs.particles()) {
-        const int id = abs(p.pdgId());
+        const int id = p.abspid();
         if(id==413) Dstar.push_back(p);
       }
 

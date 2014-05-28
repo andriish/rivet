@@ -218,7 +218,7 @@ namespace Rivet {
           if(fabs(recon_jets[ix].eta())>2.) continue;
           double trackpT=0;
           foreach(const Particle & p, recon_jets[ix].particles()) {
-            if(PID::threeCharge(p.pdgId())==0) continue;
+            if(PID::threeCharge(p.pid())==0) continue;
             trackpT += p.momentum().perp();
           }
           if(trackpT/recon_jets[ix].momentum().perp()<0.05)
@@ -263,7 +263,7 @@ namespace Rivet {
         if(mT>100.&&m_eff>700.) {
           // D region
           _count_SR1_D->fill(0.5,weight);
-          if(abs(lepton.pdgId())==PID::ELECTRON) {
+          if(abs(lepton.pid())==PID::ELECTRON) {
             _hist_meff_SR1_D_e->fill(m_eff,weight);
             _hist_met_SR0_D_e->fill(eTmiss,weight);
           }

@@ -56,13 +56,13 @@ namespace Rivet {
       /// @todo Can we make this based on hadron flavour instead?
       Particles quarks;
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = abs( iqf.particles().front().pid() );
         quarks = iqf.particles();
       } else {
         map<int, Particle > quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap.find(p.pdgId()) == quarkmap.end()) quarkmap[p.pdgId()] = p;
-          else if (quarkmap[p.pdgId()].momentum().E() < p.momentum().E()) quarkmap[p.pdgId()] = p;
+          if (quarkmap.find(p.pid()) == quarkmap.end()) quarkmap[p.pid()] = p;
+          else if (quarkmap[p.pid()].momentum().E() < p.momentum().E()) quarkmap[p.pid()] = p;
         }
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
@@ -97,7 +97,7 @@ namespace Rivet {
       double dot(0.);
       if (!quarks.empty()) {
         dot = quarks[0].momentum().vector3().dot(axis);
-        if (quarks[0].pdgId() < 0) dot *= -1;
+        if (quarks[0].pid() < 0) dot *= -1;
       }
 
       foreach (const Particle& p, fs.particles()) {
@@ -108,7 +108,7 @@ namespace Rivet {
         _temp_XpChargedN1->fill(xp, weight);
         _temp_XpChargedN2->fill(xp, weight);
         _temp_XpChargedN3->fill(xp, weight);
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {
           _h_XpPiPlusN->fill(xp, weight);
@@ -119,7 +119,7 @@ namespace Rivet {
           case PID::SQUARK:
             _multPiPlus[1] += weight;
             _h_XpPiPlusLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RPiPlus->fill(xp, weight);
             else
               _h_RPiMinus->fill(xp, weight);
@@ -144,7 +144,7 @@ namespace Rivet {
             _multKPlus[1] += weight;
             _temp_XpKPlusLight->fill(xp, weight);
             _h_XpKPlusLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RKPlus->fill(xp, weight);
             else
               _h_RKMinus->fill(xp, weight);
@@ -171,7 +171,7 @@ namespace Rivet {
             _multProton[1] += weight;
             _temp_XpProtonLight->fill(xp, weight);
             _h_XpProtonLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RProton->fill(xp, weight);
             else
               _h_RPBar  ->fill(xp, weight);
@@ -195,7 +195,7 @@ namespace Rivet {
         const double xp = p.momentum().vector3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
         bool quark = p.momentum().vector3().dot(axis)*dot>0.;
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         if (id == PID::LAMBDA) {
           _multLambda[0] += weight;
           _h_XpLambdaN->fill(xp, weight);
@@ -205,7 +205,7 @@ namespace Rivet {
           case PID::SQUARK:
             _multLambda[1] += weight;
             _h_XpLambdaLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RLambda->fill(xp, weight);
             else
               _h_RLBar  ->fill(xp, weight);
@@ -230,7 +230,7 @@ namespace Rivet {
             _multKStar0[1] += weight;
             _temp_XpKStar0Light->fill(xp, weight);
             _h_XpKStar0Light->fill(xp, weight);
-            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RKS0   ->fill(xp, weight);
             else
               _h_RKSBar0->fill(xp, weight);

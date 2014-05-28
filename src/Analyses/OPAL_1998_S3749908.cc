@@ -68,7 +68,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        const int id = abs(p.pdgId());
+        const int id = p.abspid();
         double xi = -log(p.momentum().vector3().mod()/meanBeamMom);
         double xE = p.momentum().t()/meanBeamMom;
         switch (id) {

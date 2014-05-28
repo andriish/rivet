@@ -39,7 +39,7 @@ namespace Rivet {
         // 3-momentum in CMS frame
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
 
-        const int PdgId = abs(p.pdgId());
+        const int PdgId = p.abspid();
         MSG_DEBUG("pdgID = " << PdgId << "  mom = " << mom);
         switch (PdgId) {
 

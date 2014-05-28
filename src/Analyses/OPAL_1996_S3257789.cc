@@ -57,13 +57,13 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        if(abs(p.pdgId())==443) {
+        if(p.abspid()==443) {
           double xp = p.momentum().vector3().mod()/meanBeamMom;
           _histXpJPsi->fill(xp, weight);
           _multJPsi->fill(91.2,weight);
           _weightSum += weight;
         }
-        else if(abs(p.pdgId())==100443) {
+        else if(p.abspid()==100443) {
           _multPsiPrime->fill(91.2,weight);
         }
       }

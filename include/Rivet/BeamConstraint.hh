@@ -32,8 +32,8 @@ namespace Rivet {
   /// Check particle compatibility of Particle pairs
   inline bool compatible(const ParticlePair& ppair,
                          const PdgIdPair& allowedpair) {
-    return compatible(PID::make_pdgid_pair(ppair.first.pdgId(),
-                                           ppair.second.pdgId()), allowedpair);
+    return compatible(PID::make_pdgid_pair(ppair.first.pid(),
+                                           ppair.second.pid()), allowedpair);
   }
   /// Check particle compatibility of Particle pairs (for symmetric completeness)
   inline bool compatible(const PdgIdPair& allowedpair,

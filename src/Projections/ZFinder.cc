@@ -76,12 +76,12 @@ namespace Rivet {
       _constituents += l2, l1;
     }
     FourMomentum pZ = l1.momentum() + l2.momentum();
-    assert(PID::threeCharge(l1.pdgId()) + PID::threeCharge(l2.pdgId()) == 0);
+    assert(PID::threeCharge(l1.pid()) + PID::threeCharge(l2.pid()) == 0);
 
     stringstream msg;
     msg << "Z reconstructed from: \n"
-        << "   " << l1.momentum() << " " << l1.pdgId() << "\n"
-        << " + " << l2.momentum() << " " << l2.pdgId();
+        << "   " << l1.momentum() << " " << l1.pid() << "\n"
+        << " + " << l2.momentum() << " " << l2.pid();
     MSG_DEBUG(msg.str());
     _bosons.push_back(Particle(PID::ZBOSON, pZ));
 
@@ -89,7 +89,7 @@ namespace Rivet {
     // extract their original particles
     foreach (const Particle& p, _constituents) {
       foreach (const DressedLepton& l, leptons.clusteredLeptons()) {
-        if (p.pdgId()==l.pdgId() && p.momentum()==l.momentum()) {
+        if (p.pid()==l.pid() && p.momentum()==l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
             _theParticles.insert(_theParticles.end(),

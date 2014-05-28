@@ -54,7 +54,7 @@ namespace Rivet {
       // photon isolation: less than 2 GeV EM E_T
       double Etsum=0.0;
       foreach (const Particle& p, applyProjection<VetoedFinalState>(event, "VFS").particles()) {
-        if (PID::threeCharge(p.pdgId())!=0 &&
+        if (PID::threeCharge(p.pid())!=0 &&
             deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) < 0.7) {
           Etsum += p.momentum().Et();
         }

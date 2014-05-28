@@ -64,11 +64,11 @@ namespace Rivet {
 
       // Mx calculation
       FourMomentum p4lead;
-      if (pslowest.pdgId() == PID::PROTON && pfastest.pdgId() == PID::PROTON) {
+      if (pslowest.pid() == PID::PROTON && pfastest.pid() == PID::PROTON) {
         p4lead = (fabs(pslowest.rapidity()) > fabs(pfastest.rapidity())) ? pslowest.momentum() : pfastest.momentum();
-      } else if (pslowest.pdgId() == PID::PROTON) {
+      } else if (pslowest.pid() == PID::PROTON) {
         p4lead = pslowest.momentum();
-      } else if (pfastest.pdgId() == PID::PROTON) {
+      } else if (pfastest.pid() == PID::PROTON) {
         p4lead = pfastest.momentum();
       }
       const double Mx = sqrt( (sqrtS()-p4lead.E()-p4lead.vector3().mod()) * (sqrtS()-p4lead.E()+p4lead.vector3().mod()) );

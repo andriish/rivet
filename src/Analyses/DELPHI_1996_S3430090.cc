@@ -281,7 +281,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         switch (id) {
         case 211:
           _histMultiPiPlus->fill(_histMultiPiPlus->bin(0).midpoint(), weight);

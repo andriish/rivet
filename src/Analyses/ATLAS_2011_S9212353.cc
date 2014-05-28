@@ -242,22 +242,22 @@ namespace Rivet {
       double mu_id = 13;
 
       // one hard leading lepton cut
-      if ( fabs(lepton[0].pdgId()) == e_id &&
+      if ( fabs(lepton[0].pid()) == e_id &&
            lepton[0].pT() <= 25*GeV ) {
         vetoEvent;
       }
-      else if ( fabs(lepton[0].pdgId()) == mu_id &&
+      else if ( fabs(lepton[0].pid()) == mu_id &&
                 lepton[0].pT() <= 20*GeV ) {
         vetoEvent;
       }
 
       // exactly one hard leading lepton cut
       if(lepton.size()>1) {
-        if ( fabs(lepton[1].pdgId()) == e_id &&
+        if ( fabs(lepton[1].pid()) == e_id &&
              lepton[1].pT() > 20*GeV ) {
           vetoEvent;
         }
-        else if ( fabs(lepton[1].pdgId()) == mu_id &&
+        else if ( fabs(lepton[1].pid()) == mu_id &&
                   lepton[1].pT() > 10*GeV ) {
           vetoEvent;
         }
@@ -279,7 +279,7 @@ namespace Rivet {
           + recon_jets[1].pT()
           + recon_jets[2].pT();
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if ( fabs( lepton[0].pid() ) == e_id ) {
           _3j_hist_mT_e->fill(mT, weight);
           _3j_hist_eTmiss_e->fill(eTmiss, weight);
           _3j_hist_m_eff_e->fill(m_eff, weight);
@@ -291,7 +291,7 @@ namespace Rivet {
           }
         }
 
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if ( fabs( lepton[0].pid() ) == mu_id ) {
           _3j_hist_mT_mu->fill(mT, weight);
           _3j_hist_eTmiss_mu->fill(eTmiss, weight);
           _3j_hist_m_eff_mu->fill(m_eff, weight);
@@ -322,7 +322,7 @@ namespace Rivet {
           + recon_jets[2].pT();
 
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if ( fabs( lepton[0].pid() ) == e_id ) {
           if ( mT > 100*GeV && eTmiss > 240*GeV ) {
             _3jt_hist_m_eff_e_final->fill(m_eff, weight);
             if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
@@ -331,7 +331,7 @@ namespace Rivet {
           }
         }
 
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if ( fabs( lepton[0].pid() ) == mu_id ) {
           if ( mT > 100*GeV && eTmiss > 240*GeV ) {
             _3jt_hist_m_eff_mu_final->fill(m_eff, weight);
             if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
@@ -369,7 +369,7 @@ namespace Rivet {
           + recon_jets[3].pT();
 
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if ( fabs( lepton[0].pid() ) == e_id ) {
           _4j_hist_mT_e->fill(mT, weight);
           _4j_hist_eTmiss_e->fill(eTmiss, weight);
           _4j_hist_m_eff_e->fill(m_eff, weight);
@@ -382,7 +382,7 @@ namespace Rivet {
         }
 
         // Muon channel signal region
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if ( fabs( lepton[0].pid() ) == mu_id ) {
           _4j_hist_mT_mu->fill(mT, weight);
           _4j_hist_eTmiss_mu->fill(eTmiss, weight);
           _4j_hist_m_eff_mu->fill(m_eff, weight);
@@ -415,7 +415,7 @@ namespace Rivet {
           + recon_jets[3].pT();
 
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if ( fabs( lepton[0].pid() ) == e_id ) {
           if ( eTmiss > 200*GeV ) {
             _4jt_hist_m_eff_e_final->fill(m_eff, weight);
             if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {
@@ -425,7 +425,7 @@ namespace Rivet {
         }
 
         // Muon channel signal region
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if ( fabs( lepton[0].pid() ) == mu_id ) {
           if ( eTmiss > 200*GeV ) {
             _4jt_hist_m_eff_mu_final->fill(m_eff, weight);
             if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {

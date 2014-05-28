@@ -67,7 +67,7 @@ namespace Rivet {
 
       // Loop over the unstable particles
       foreach (const Particle& p, ufs.particles()) {
-        const PdgId pid = p.pdgId();
+        const PdgId pid = p.pid();
 
         // Look for particles with a bottom quark
         if (PID::hasBottom(pid)) {

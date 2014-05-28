@@ -25,7 +25,7 @@ namespace Rivet {
       // First in unstable final state
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())
-        if (p.pdgId()==300553) upsilons.push_back(p);
+        if (p.pid()==300553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {

@@ -50,16 +50,16 @@ namespace Rivet {
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       Particles quarks;
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = abs( iqf.particles().front().pid() );
         quarks = iqf.particles();
       }
       else {
         map<int, Particle > quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap.find(p.pdgId())==quarkmap.end())
-            quarkmap[p.pdgId()] = p;
-          else if (quarkmap[p.pdgId()].momentum().E() < p.momentum().E())
-            quarkmap[p.pdgId()] = p;
+          if (quarkmap.find(p.pid())==quarkmap.end())
+            quarkmap[p.pid()] = p;
+          else if (quarkmap[p.pid()].momentum().E() < p.momentum().E())
+            quarkmap[p.pid()] = p;
         }
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
@@ -97,7 +97,7 @@ namespace Rivet {
       double dot(0.);
       if(!quarks.empty()) {
         dot = quarks[0].momentum().vector3().dot(axis);
-        if(quarks[0].pdgId()<0) dot *= -1.;
+        if(quarks[0].pid()<0) dot *= -1.;
       }
       // spectra and individual multiplicities
       foreach (const Particle& p, fs.particles()) {
@@ -123,7 +123,7 @@ namespace Rivet {
           break;
         }
 
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {
           _h_XpPiPlus->fill(xp, weight);
@@ -134,7 +134,7 @@ namespace Rivet {
           case PID::SQUARK:
             _h_XpPiPlusL->fill(xp, weight);
             _h_NPiPlusL->fill(sqrtS(), weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RPiPlus->fill(xp, weight);
             else
               _h_RPiMinus->fill(xp, weight);
@@ -158,7 +158,7 @@ namespace Rivet {
           case PID::SQUARK:
             _h_XpKPlusL->fill(xp, weight);
             _h_NKPlusL->fill(sqrtS(), weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RKPlus->fill(xp, weight);
             else
               _h_RKMinus->fill(xp, weight);
@@ -182,7 +182,7 @@ namespace Rivet {
           case PID::SQUARK:
             _h_XpProtonL->fill(xp, weight);
             _h_NProtonL->fill(sqrtS(), weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RProton->fill(xp, weight);
             else
               _h_RPBar  ->fill(xp, weight);

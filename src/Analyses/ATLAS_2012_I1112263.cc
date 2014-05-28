@@ -235,7 +235,7 @@ namespace Rivet {
       unsigned int nSFOS=0;
       for(unsigned int ix=0;ix<recon_e.size();++ix) {
         for(unsigned int iy=ix+1;iy<recon_e.size();++iy) {
-          if(recon_e[ix].pdgId()*recon_e[iy].pdgId()>0) continue;
+          if(recon_e[ix].pid()*recon_e[iy].pid()>0) continue;
           ++nSFOS;
           double mtest = (recon_e[ix].momentum()+recon_e[iy].momentum()).mass();
           // veto is mass<20
@@ -248,7 +248,7 @@ namespace Rivet {
       }
       for(unsigned int ix=0;ix<recon_mu.size();++ix) {
         for(unsigned int iy=ix+1;iy<recon_mu.size();++iy) {
-          if(recon_mu[ix].pdgId()*recon_mu[iy].pdgId()>0) continue;
+          if(recon_mu[ix].pid()*recon_mu[iy].pid()>0) continue;
           ++nSFOS;
           double mtest = (recon_mu[ix].momentum()+recon_mu[iy].momentum()).mass();
           // veto is mass<20

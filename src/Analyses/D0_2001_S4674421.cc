@@ -73,7 +73,7 @@ namespace Rivet {
         const Particles& Zdaughters = eeFS.particles();
         for(unsigned int ix=0;ix<Zdaughters.size();++ix) {
           for(unsigned int iy=ix+1;iy<Zdaughters.size();++iy) {
-            if(Zdaughters[ix].pdgId()!=-Zdaughters[iy].pdgId()) continue;
+            if(Zdaughters[ix].pid()!=-Zdaughters[iy].pid()) continue;
             const FourMomentum pmom = Zdaughters[ix].momentum() + Zdaughters[iy].momentum();
             double mz2 = pmom.mass2();
             double dm2 = abs(mz2-sqr(91.118*GeV));
@@ -103,7 +103,7 @@ namespace Rivet {
         Wdaughters = iw==0 ? enuFS.particles() : enubFS.particles();
         for(unsigned int ix=0;ix<Wdaughters.size();++ix) {
           for(unsigned int iy=ix+1;iy<Wdaughters.size();++iy) {
-            if(Wdaughters[ix].pdgId()==Wdaughters[iy].pdgId())  continue;
+            if(Wdaughters[ix].pid()==Wdaughters[iy].pid())  continue;
             const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
             double dm2 = abs(pmom.mass2()-sqr(80.4*GeV));
             if(dm2<deltaM2) {

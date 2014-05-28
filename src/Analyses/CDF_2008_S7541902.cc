@@ -70,11 +70,11 @@ namespace Rivet {
       bool gotElectron(false), gotNeutrino(false);
       foreach (const Particle& p, wDecayProducts) {
         FourMomentum p4 = p.momentum();
-        if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && abs(p.pdgId()) == PID::ELECTRON) {
+        if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && p.abspid() == PID::ELECTRON) {
           electronP = p4;
           gotElectron = true;
         }
-        else if (p4.Et() > _eTmissCut && abs(p.pdgId()) == PID::NU_E) {
+        else if (p4.Et() > _eTmissCut && p.abspid() == PID::NU_E) {
           neutrinoP = p4;
           gotNeutrino = true;
         }
