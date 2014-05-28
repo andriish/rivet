@@ -1,5 +1,8 @@
 2014-05-28  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding interfacing of smart pointer types and booking etc. for
+	YODA 2D histograms and profiles.
+
 	* Improving ParticleIdUtils and ParticleUtils functions based on
 	merging of improved function collections from MCUtils, and
 	dropping the compiled ParticleIdUtils.cc file.
