@@ -94,7 +94,6 @@ namespace Rivet {
   /// boundary) at 0, and open (a non-inclusive boundary) at \f$ \pi \f$.
   enum RangeBoundary { OPEN=0, SOFT=0, CLOSED=1, HARD=1 };
 
-
   /// @brief Determine if @a value is in the range @a low to @a high, for floating point numbers
   ///
   /// Interval boundary types are defined by @a lowbound and @a highbound.
@@ -122,6 +121,41 @@ namespace Rivet {
           RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
     return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
   }
+
+
+  // Alternative forms, with snake_case names and boundary types in names rather than as args -- from MCUtils
+
+  /// @brief Boolean function to determine if @a value is within the given range
+  ///
+  /// @note The interval is closed (inclusive) at the low end, and open (exclusive) at the high end.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  in_range(N1 val, N2 low, N3 high) {
+    return inRange(val, low, high, CLOSED, OPEN);
+  }
+
+  /// @brief Boolean function to determine if @a value is within the given range
+  ///
+  /// @note The interval is closed at both ends.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  in_closed_range(N1 val, N2 low, N3 high) {
+    return inRange(val, low, high, CLOSED, CLOSED);
+  }
+
+  /// @brief Boolean function to determine if @a value is within the given range
+  ///
+  /// @note The interval is open at both ends.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  in_open_range(N1 val, N2 low, N3 high) {
+    return inRange(val, low, high, OPEN, OPEN);
+  }
+
+  /// @todo Add pair-based versions of the named range-boundary functions
 
   //@}
 

@@ -1,80 +1,234 @@
-#ifndef RIVET_PARTICLE_UTILS_HH
-#define RIVET_PARTICLE_UTILS_HH
+#ifndef RIVET_PARTICLEUTILS_HH
+#define RIVET_PARTICLEUTILS_HH
 
 #include "Rivet/Particle.hh"
+#include "Rivet/Tools/ParticleIdUtils.hh"
+
+// Macros to map Rivet::Particle functions to PID:: functions of the same name
+/// @todo Can leave return type out of the macro and put that on each line where it's used?
+#define PARTICLE_TO_PID_BOOLFN(fname) inline bool fname (const Particle& p) { return PID:: fname (p.pid()); }
+#define PARTICLE_TO_PID_INTFN(fname) inline int fname (const Particle& p) { return PID:: fname (p.pid()); }
+#define PARTICLE_TO_PID_DBLFN(fname) inline double fname (const Particle& p) { return PID:: fname (p.pid()); }
 
 namespace Rivet {
-
-  namespace PID {
-
-
-    /// @name PID operations on Rivet::Particle wrapper
-    //@{
-
-    /// if this is a nucleus (ion), get A
-    /// Ion numbers are +/- 10LZZZAAAI.
-    // int A(const Particle& p) { return A(p.pdgId()); }
-
-    /// if this is a nucleus (ion), get Z
-    /// Ion numbers are +/- 10LZZZAAAI.
-    // int Z(const Particle& p) { return Z(p.pdgId()); }
-
-    /// if this is a nucleus (ion), get nLambda
-    /// Ion numbers are +/- 10LZZZAAAI.
-    // int lambda( const Particle& p) { return lambda(p.pdgId()); }
-
-    /// Absolute value of particle ID
-    inline int abspid( const Particle& p) { return abspid(p.pdgId()); }
-
-    /// Is this a valid meson ID?
-    inline bool isMeson( const Particle& p ) { return isMeson(p.pdgId()); }
-    /// Is this a valid baryon ID?
-    inline bool isBaryon( const Particle& p ) { return isBaryon(p.pdgId()); }
-    /// Is this a valid diquark ID?
-    inline bool isDiQuark( const Particle& p ) { return isDiQuark(p.pdgId()); }
-    /// Is this a valid hadron ID?
-    inline bool isHadron( const Particle& p ) { return isHadron(p.pdgId()); }
-    /// Is this a valid lepton ID?
-    inline bool isLepton( const Particle& p ) { return isLepton(p.pdgId()); }
-    /// Is this a valid ion ID?
-    inline bool isNucleus( const Particle& p ) { return isNucleus(p.pdgId()); }
-    /// Is this a valid pentaquark ID?
-    inline bool isPentaquark( const Particle& p ) { return isPentaquark(p.pdgId()); }
-    /// Is this a valid SUSY ID?
-    inline bool isSUSY( const Particle& p ) { return isSUSY(p.pdgId()); }
-    /// Is this a valid R-hadron ID?
-    inline bool isRhadron( const Particle& p ) { return isRhadron(p.pdgId()); }
-
-    /// Does this particle contain an up quark?
-    inline bool hasUp( const Particle& p ) { return hasUp(p.pdgId()); }
-    /// Does this particle contain a down quark?
-    inline bool hasDown( const Particle& p ) { return hasDown(p.pdgId()); }
-    /// Does this particle contain a strange quark?
-    inline bool hasStrange( const Particle& p ) { return hasStrange(p.pdgId()); }
-    /// Does this particle contain a charm quark?
-    inline bool hasCharm( const Particle& p ) { return hasCharm(p.pdgId()); }
-    /// Does this particle contain a bottom quark?
-    inline bool hasBottom( const Particle& p ) { return hasBottom(p.pdgId()); }
-    /// Does this particle contain a top quark?
-    inline bool hasTop( const Particle& p ) { return hasTop(p.pdgId()); }
-
-    /// jSpin returns 2J+1, where J is the total spin
-    inline int jSpin( const Particle& p ) { return jSpin(p.pdgId()); }
-    /// sSpin returns 2S+1, where S is the spin
-    inline int sSpin( const Particle& p ) { return sSpin(p.pdgId()); }
-    /// lSpin returns 2L+1, where L is the orbital angular momentum
-    inline int lSpin( const Particle& p ) { return lSpin(p.pdgId()); }
-
-    /// Return 3 times the charge (3 x quark charge is an int)
-    inline int threeCharge( const Particle& p ) { return threeCharge(p.pdgId()); }
-    /// Return the charge
-    inline double charge( const Particle& p ) { return threeCharge(p)/3.0; }
-
-    //@}
+namespace PID {
 
 
-  }
+  /// @name Particle classifier functions
+  //@{
 
+  /// Is this particle species charged?
+  PARTICLE_TO_PID_BOOLFN(isCharged)
+
+  /// Is this particle species neutral?
+  PARTICLE_TO_PID_BOOLFN(isNeutral)
+
+
+  /// Is this a neutrino?
+  PARTICLE_TO_PID_BOOLFN(isNeutrino)
+
+  /// Determine if the PID is that of a charged lepton
+  PARTICLE_TO_PID_BOOLFN(isChLepton)
+
+  /// Determine if the PID is that of a photon
+  PARTICLE_TO_PID_BOOLFN(isPhoton)
+
+  /// Determine if the PID is that of an electron or positron
+  PARTICLE_TO_PID_BOOLFN(isElectron)
+
+  /// Determine if the PID is that of an muon or antimuon
+  PARTICLE_TO_PID_BOOLFN(isMuon)
+
+  /// Determine if the PID is that of an tau or antitau
+  PARTICLE_TO_PID_BOOLFN(isTau)
+
+  /// Determine if the PID is that of a hadron
+  PARTICLE_TO_PID_BOOLFN(isHadron)
+
+  /// Determine if the PID is that of a meson
+  PARTICLE_TO_PID_BOOLFN(isMeson)
+
+  /// Determine if the PID is that of a baryon
+  PARTICLE_TO_PID_BOOLFN(isBaryon)
+
+  /// Determine if the PID is that of a quark
+  PARTICLE_TO_PID_BOOLFN(isQuark)
+
+  /// Determine if the PID is that of a parton (quark or gluon)
+  PARTICLE_TO_PID_BOOLFN(isParton)
+
+
+
+  /// Determine if the PID is that of a W+
+  PARTICLE_TO_PID_BOOLFN(isWplus)
+
+  /// Determine if the PID is that of a W-
+  PARTICLE_TO_PID_BOOLFN(isWminus)
+
+  /// Determine if the PID is that of a W+-
+  PARTICLE_TO_PID_BOOLFN(isW)
+
+  /// Determine if the PID is that of a Z0
+  PARTICLE_TO_PID_BOOLFN(isZ)
+
+  /// Determine if the PID is that of an SM/lightest SUSY Higgs
+  PARTICLE_TO_PID_BOOLFN(isHiggs)
+
+  /// Determine if the PID is that of a t/tbar
+  PARTICLE_TO_PID_BOOLFN(isTop)
+
+
+  /// Determine if the particle is a heavy flavour hadron or parton
+  PARTICLE_TO_PID_BOOLFN(isHeavyFlavour)
+
+  /// Determine if the PID is that of a heavy parton (c,b,t)
+  PARTICLE_TO_PID_BOOLFN(isHeavyParton)
+
+  /// Determine if the PID is that of a light parton (u,d,s)
+  PARTICLE_TO_PID_BOOLFN(isLightParton)
+
+
+  /// Determine if the PID is that of a heavy flavour (b or c) meson
+  PARTICLE_TO_PID_BOOLFN(isHeavyMeson)
+
+  /// Determine if the PID is that of a heavy flavour (b or c) baryon
+  PARTICLE_TO_PID_BOOLFN(isHeavyBaryon)
+
+  /// Determine if the PID is that of a heavy flavour (b or c) hadron
+  PARTICLE_TO_PID_BOOLFN(isHeavyHadron)
+
+
+  /// Determine if the PID is that of a light flavour (not b or c) meson
+  PARTICLE_TO_PID_BOOLFN(isLightMeson)
+
+  /// Determine if the PID is that of a light flavour (not b or c) baryon
+  PARTICLE_TO_PID_BOOLFN(isLightBaryon)
+
+  /// Determine if the PID is that of a light flavour (not b or c) hadron
+  PARTICLE_TO_PID_BOOLFN(isLightHadron)
+
+
+  /// Determine if the PID is that of a b-meson.
+  PARTICLE_TO_PID_BOOLFN(isBottomMeson)
+
+  /// Determine if the PID is that of a b-baryon.
+  PARTICLE_TO_PID_BOOLFN(isBottomBaryon)
+
+  /// Determine if the PID is that of a b-hadron.
+  PARTICLE_TO_PID_BOOLFN(isBottomHadron)
+
+
+  /// @brief Determine if the PID is that of a c-meson.
+  ///
+  /// Specifically, the _heaviest_ quark is a c: a B_c is a b-meson and NOT a c-meson.
+  /// Charmonia (closed charm) are counted as c-mesons here.
+  PARTICLE_TO_PID_BOOLFN(isCharmMeson)
+
+  /// @brief Determine if the PID is that of a c-baryon.
+  ///
+  /// Specifically, the _heaviest_ quark is a c: a baryon containing a b & c
+  /// is a b-baryon and NOT a c-baryon. To test for the simpler case, just use
+  /// a combination of hasCharm() and isBaryon().
+  PARTICLE_TO_PID_BOOLFN(isCharmBaryon)
+
+  /// Determine if the PID is that of a c-hadron.
+  PARTICLE_TO_PID_BOOLFN(isCharmHadron)
+
+
+  /// Determine if the PID is that of a strange meson
+  PARTICLE_TO_PID_BOOLFN(isStrangeMeson)
+
+  /// Determine if the PID is that of a strange baryon
+  PARTICLE_TO_PID_BOOLFN(isStrangeBaryon)
+
+  /// Determine if the PID is that of a strange hadron
+  PARTICLE_TO_PID_BOOLFN(isStrangeHadron)
+
+
+
+  /// Is this a pomeron, odderon, or generic reggeon?
+  PARTICLE_TO_PID_BOOLFN(isReggeon)
+
+  /// Determine if the PID is that of a diquark (used in hadronization models)
+  PARTICLE_TO_PID_BOOLFN(isDiquark)
+
+  /// Determine if the PID is that of a pentaquark (hypothetical hadron)
+  PARTICLE_TO_PID_BOOLFN(isPentaquark)
+
+  /// Is this a fundamental SUSY particle?
+  PARTICLE_TO_PID_BOOLFN(isSUSY)
+
+  /// Is this an R-hadron?
+  PARTICLE_TO_PID_BOOLFN(isRhadron)
+
+  /// Is this a technicolor particle?
+  PARTICLE_TO_PID_BOOLFN(isTechnicolor)
+
+  /// Is this an excited (composite) quark or lepton?
+  PARTICLE_TO_PID_BOOLFN(isExcited)
+
+  /// Is this a Kaluza-Klein excitation?
+  PARTICLE_TO_PID_BOOLFN(isKK)
+
+  /// Is this a graviton?
+  PARTICLE_TO_PID_BOOLFN(isGraviton)
+
+  /// Is this a BSM particle (including graviton)?
+  PARTICLE_TO_PID_BOOLFN(isBSM)
+
+
+
+  /// Determine if the PID is in the generator-specific range
+  PARTICLE_TO_PID_BOOLFN(isGenSpecific)
+
+  /// Determine if the PID is that of an EW scale resonance
+  PARTICLE_TO_PID_BOOLFN(isResonance)
+
+  /// Check the PID for usability in transport codes like Geant4
+  PARTICLE_TO_PID_BOOLFN(isTransportable)
+
+
+
+  /// Does this particle contain an up quark?
+  PARTICLE_TO_PID_BOOLFN(hasUp)
+
+  /// Does this particle contain a down quark?
+  PARTICLE_TO_PID_BOOLFN(hasDown)
+
+  /// Does this particle contain a strange quark?
+  PARTICLE_TO_PID_BOOLFN(hasStrange)
+
+  /// Does this particle contain a charm quark?
+  PARTICLE_TO_PID_BOOLFN(hasCharm)
+
+  /// Does this particle contain a bottom quark?
+  PARTICLE_TO_PID_BOOLFN(hasBottom)
+
+  /// Does this particle contain a top quark?
+  PARTICLE_TO_PID_BOOLFN(hasTop)
+
+
+
+  /// jSpin returns 2J+1, where J is the total spin
+  PARTICLE_TO_PID_INTFN(jSpin)
+
+  /// sSpin returns 2S+1, where S is the spin
+  PARTICLE_TO_PID_INTFN(sSpin)
+
+  /// lSpin returns 2L+1, where L is the orbital angular momentum
+  PARTICLE_TO_PID_INTFN(lSpin)
+
+
+  /// Return 3 times the charge (3 x quark charge is an int)
+  PARTICLE_TO_PID_INTFN(threeCharge)
+
+  /// Return the charge
+  PARTICLE_TO_PID_DBLFN(charge)
+
+  //@}
+
+
+}
 }
 
 #endif

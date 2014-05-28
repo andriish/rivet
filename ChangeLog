@@ -1,3 +1,9 @@
+2014-05-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improving ParticleIdUtils and ParticleUtils functions based on
+	merging of improved function collections from MCUtils, and
+	dropping the compiled ParticleIdUtils.cc file.
+
 2014-05-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding CMS_2012_I1090423 (dijet angular distributions),

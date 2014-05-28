@@ -61,5 +61,6 @@ Doxyfile$
 ^dev$
 ^devval$
 ^newanalyses$
+^.*plots$
 ^a\.out$
 ^a\.out\.dSYM$
