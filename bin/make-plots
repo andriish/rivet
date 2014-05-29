@@ -87,7 +87,8 @@ class Inputdata(object):
                     self.read_input(f);
                 elif name == 'SPECIAL':
                     self.special[path] = Special(f)
-                elif name == 'HISTOGRAM':
+                # HS: change YODA_SCATTER_2D to HISTOGRAM in yodaWriterFLAT?
+                elif name == 'HISTOGRAM' or name == 'YODA_SCATTER3D':
                     self.histos[path] = Histogram(f)
                     self.histos[path].path = path
                     self.description['is2dim'] = self.histos[path].is2dimensional()
@@ -1537,7 +1538,7 @@ class Histogram(DrawableObject):
                     color=129
                 if self.data[i]['Content']<coors.zmin():
                     color=0
-                out += ('[linewidth=0pt, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
+                out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
                 out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
                             + coors.strphys2frameY(self.data[i]['LowEdge'][1]) + ')(' \
                             + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \

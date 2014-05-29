@@ -1,6 +1,16 @@
+2014-05-30  Holger Schulz  <hschulz@physik.hu-berlin.de>
+
+	* Actually fill the XQ 2D histo, .plot decorations.
+
+	* Have make-plots produce colourmaps using YODA_3D_SCATTER
+	objects. Remove the grid in colourmaps.
+
+	* Some tweaks for the SFM analysis, trying to contact Martin Wunsch
+	who did the unfolding back then.
+
 2014-05-29  Holger Schulz  <hschulz@physik.hu-berlin.de>
 
-        * Re-enable 2D histo in MC_PDFS
+	* Re-enable 2D histo in MC_PDFS
 
 2014-05-28  Andy Buckley  <andy.buckley@cern.ch>
 

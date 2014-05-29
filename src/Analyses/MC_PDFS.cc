@@ -52,6 +52,8 @@ namespace Rivet {
       _histPdfXmin->fill(std::min(pdfi.x1(), pdfi.x2()), weight);
       _histPdfXmax->fill(std::max(pdfi.x1(), pdfi.x2()), weight);
       _histPdfQ->fill(pdfi.scalePDF(), weight); // always in GeV?
+      _histPdfXQ->fill(pdfi.x1(), pdfi.scalePDF(), weight); // always in GeV?
+      _histPdfXQ->fill(pdfi.x2(), pdfi.scalePDF(), weight); // always in GeV?
 
       // const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
       // foreach (const Particle& p, cfs.particles()) {

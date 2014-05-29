@@ -31,10 +31,17 @@ FullRange=1
 LegendYPos=0.9
 # END PLOT
 
-# # BEGIN PLOT /MC_PDFS/PdfXQ
-# Title=PDF sampling $x, Q$ value distribution
-# XLabel=$x$
-# YLabel=$Q$
-# LogX=0
-# LogY=0
-# # END PLOT
+# BEGIN PLOT /MC_PDFS/PdfXQ
+Title=PDF sampling $x, Q$ value distribution
+XLabel=$x$
+YLabel=$Q$
+ZLabel=$N$
+LogX=1
+LogY=0
+LogZ=1
+#XMin=0.000001
+#XMax=1
+#YMin=0.0
+#YMax=30
+#ZMin=0
+# END PLOT
