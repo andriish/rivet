@@ -266,44 +266,42 @@ namespace Rivet {
   /////////////////
 
 
-  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
-  //                                  size_t nxbins, double xlower, double xupper,
-  //                                  size_t nybins, double ylower, double yupper,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle)
-  // {
-  //   const string path = histoPath(hname);
-  //   Histo2DPtr hist( new Histo2D(path, nxbins, xlower, xupper, nybins, ylower, yupper) );
-  //   addAnalysisObject(hist);
-  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
-  //   hist->setTitle(title);
-  //   hist->setAnnotation("XLabel", xtitle);
-  //   hist->setAnnotation("YLabel", ytitle);
-  //   hist->setAnnotation("ZLabel", ztitle);
-  //   return hist;
-  // }
+  Histo2DPtr Analysis::bookHisto2D(const string& hname,
+                                   size_t nxbins, double xlower, double xupper,
+                                   size_t nybins, double ylower, double yupper,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle)
+  {
+    const string path = histoPath(hname);
+    Histo2DPtr hist( new Histo2D(nxbins, xlower, xupper, nybins, ylower, yupper, path, title) );
+    addAnalysisObject(hist);
+    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
+    hist->setAnnotation("XLabel", xtitle);
+    hist->setAnnotation("YLabel", ytitle);
+    hist->setAnnotation("ZLabel", ztitle);
+    return hist;
+  }
 
 
-  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
-  //                                  const vector<double>& xbinedges,
-  //                                  const vector<double>& ybinedges,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle)
-  // {
-  //   const string path = histoPath(hname);
-  //   Histo2DPtr hist( new Histo2D(path, xbinedges, ybinedges) );
-  //   addAnalysisObject(hist);
-  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
-  //   hist->setTitle(title);
-  //   hist->setAnnotation("XLabel", xtitle);
-  //   hist->setAnnotation("YLabel", ytitle);
-  //   hist->setAnnotation("ZLabel", ztitle);
-  //   return hist;
-  // }
+  Histo2DPtr Analysis::bookHisto2D(const string& hname,
+                                   const vector<double>& xbinedges,
+                                   const vector<double>& ybinedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle)
+  {
+    const string path = histoPath(hname);
+    Histo2DPtr hist( new Histo2D(xbinedges, ybinedges, path, title) );
+    addAnalysisObject(hist);
+    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
+    hist->setAnnotation("XLabel", xtitle);
+    hist->setAnnotation("YLabel", ytitle);
+    hist->setAnnotation("ZLabel", ztitle);
+    return hist;
+  }
 
 
   // Histo2DPtr Analysis::bookHisto2D(const string& hname,
@@ -315,7 +313,7 @@ namespace Rivet {
   //   const string path = histoPath(hname);
   //   Histo2DPtr hist( new Histo2D(refscatter, path) );
   //   addAnalysisObject(hist);
-  //   MSG_TRACE("Made histogram " << hname <<  " for " << name());
+  //   MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
   //   hist->setTitle(title);
   //   hist->setAnnotation("XLabel", xtitle);
   //   hist->setAnnotation("YLabel", ytitle);
@@ -412,6 +410,86 @@ namespace Rivet {
 
 
   ///////////////////
+
+
+
+  Profile2DPtr Analysis::bookProfile2D(const string& hname,
+                                   size_t nxbins, double xlower, double xupper,
+                                   size_t nybins, double ylower, double yupper,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle)
+  {
+    const string path = histoPath(hname);
+    Profile2DPtr prof( new Profile2D(nxbins, xlower, xupper, nybins, ylower, yupper, path, title) );
+    addAnalysisObject(prof);
+    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
+    prof->setAnnotation("ZLabel", ztitle);
+    return prof;
+  }
+
+
+  Profile2DPtr Analysis::bookProfile2D(const string& hname,
+                                   const vector<double>& xbinedges,
+                                   const vector<double>& ybinedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle)
+  {
+    const string path = histoPath(hname);
+    Profile2DPtr prof( new Profile2D(xbinedges, ybinedges, path, title) );
+    addAnalysisObject(prof);
+    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
+    prof->setAnnotation("ZLabel", ztitle);
+    return prof;
+  }
+
+
+  // Profile2DPtr Analysis::bookProfile2D(const string& hname,
+  //                                  const Scatter3D& refscatter,
+  //                                  const string& title="",
+  //                                  const string& xtitle="",
+  //                                  const string& ytitle="",
+  //                                  const string& ztitle="") {
+  //   const string path = histoPath(hname);
+  //   Profile2DPtr prof( new Profile2D(refscatter, path) );
+  //   addAnalysisObject(prof);
+  //   MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
+  //   prof->setTitle(title);
+  //   prof->setAnnotation("XLabel", xtitle);
+  //   prof->setAnnotation("YLabel", ytitle);
+  //   prof->setAnnotation("ZLabel", ztitle);
+  //   return prof;
+  // }
+
+
+  // Profile2DPtr Analysis::bookProfile2D(const string& hname,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle) {
+  //   const Scatter3D& refdata = refData(hname);
+  //   return bookProfile2D(hname, refdata, title, xtitle, ytitle, ztitle);
+  // }
+
+
+  // Profile2DPtr Analysis::bookProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  //                                  const string& title,
+  //                                  const string& xtitle,
+  //                                  const string& ytitle,
+  //                                  const string& ztitle) {
+  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+  //   return bookProfile2D(axisCode, title, xtitle, ytitle, ztitle);
+  // }
+
+
+  /////////////////
 
 
   Scatter2DPtr Analysis::bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
