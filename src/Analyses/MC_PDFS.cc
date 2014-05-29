@@ -30,7 +30,7 @@ namespace Rivet {
       _histPdfXmin = bookHisto1D("PdfXmin", logspace(50, 0.000001, 1.0));
       _histPdfXmax = bookHisto1D("PdfXmax", logspace(50, 0.000001, 1.0));
       _histPdfQ = bookHisto1D("PdfQ", 50, 0.0, 30.0);
-      // _histPdfXQ = bookHisto2D("PdfXQ", logspace(50, 0.000001, 1.0), linspace(50, 0.0, 30.0));
+      _histPdfXQ = bookHisto2D("PdfXQ", logspace(50, 0.000001, 1.0), linspace(50, 0.0, 30.0));
       // _histPdfTrackptVsX = bookProfile1D("PdfTrackptVsX", logspace(50, 0.000001, 1.0));
       // _histPdfTrackptVsQ = bookProfile1D("PdfTrackptVsQ", 50, 0.0, 30.0);
     }
@@ -82,6 +82,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _histPdfX, _histPdfXmin, _histPdfXmax, _histPdfQ;
+    Histo2DPtr _histPdfXQ;
     // Profile1DPtr   _histPdfTrackptVsX, _histPdfTrackptVsQ;
     //@}
 

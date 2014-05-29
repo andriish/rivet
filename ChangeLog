@@ -1,3 +1,7 @@
+2014-05-29  Holger Schulz  <hschulz@physik.hu-berlin.de>
+
+        * Re-enable 2D histo in MC_PDFS
+
 2014-05-28  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Updating analysis and project routines to use Particle::pid() by
