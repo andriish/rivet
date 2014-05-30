@@ -371,7 +371,9 @@ namespace Rivet {
     double E() const { return t(); }
 
     /// Get 3-momentum part, \f$ p \f$.
-    Vector3 p() const { return vector3(); }
+    Vector3 p3() const { return vector3(); }
+    /// Get 3-momentum part, \f$ p \f$ (alias).
+    // Vector3 p() const { return vector3(); }
 
     /// Get x-component of momentum \f$ p_x \f$.
     double px() const { return x(); }

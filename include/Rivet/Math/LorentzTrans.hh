@@ -62,8 +62,8 @@ namespace Rivet {
       //cout << "!!!" << boost << endl;
       if (boost.isZero()) return boost;
       assert(boost.E() > 0);
-      const double beta = boost.p().mod() / boost.E();
-      return boost.p().unit() * beta;
+      const double beta = boost.p3().mod() / boost.E();
+      return boost.p3().unit() * beta;
     }
 
     double beta() const {

@@ -79,6 +79,17 @@ namespace Rivet {
     /// Get the \f$ \phi \f$ directly.
     double phi() const { return momentum().phi(); }
 
+
+    /// Get the 3-momentum directly.
+    Vector3 p3() const { return momentum().vector3(); }
+    // /// Get the 3-momentum directly (alias).
+    // Vector3 p() const { return momentum().vector3(); }
+
+    /// Angle subtended by the 3-vector and the z-axis.
+    double polarAngle() const { return momentum().polarAngle(); }
+    /// Synonym for polarAngle.
+    double theta() const { return momentum().theta(); }
+
     //@}
 
   };

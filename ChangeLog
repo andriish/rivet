@@ -1,3 +1,11 @@
+2014-05-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding p3() accessors to the 3-momentum on FourMomentum, Particle, and Jet.
+
+	* Using Jet and Particle kinematics methods directly (without momentum()) where possible.
+
+	* More tweaks to make-plots 2D histo parsing behaviour.
+
 2014-05-30  Holger Schulz  <hschulz@physik.hu-berlin.de>
 
 	* Actually fill the XQ 2D histo, .plot decorations.
