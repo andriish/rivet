@@ -49,8 +49,8 @@ namespace Rivet {
       }
       FourMomentum jet1 = jets[0].momentum();
       FourMomentum jet2 = jets[1].momentum();
-      double eta1 = fabs(jet1.eta());
-      double eta2 = fabs(jet2.eta());
+      double eta1 = jet1.abseta();
+      double eta2 = jet2.abseta();
       double ET1 = jet1.Et();
       double ET2 = jet2.Et();
       if (eta1<0.1 || eta1>0.7 || ET1<40.0*GeV) {
