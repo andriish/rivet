@@ -1,5 +1,7 @@
 2014-05-30  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Using Particle absrap(), abseta() and abspid() where automatic conversion was feasible.
+
 	* Adding a few extra kinematics mappings to ParticleBase.
 
 	* Adding p3() accessors to the 3-momentum on FourMomentum, Particle, and Jet.
