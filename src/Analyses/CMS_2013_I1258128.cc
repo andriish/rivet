@@ -62,7 +62,7 @@ namespace Rivet {
       const ParticleVector& clusteredConstituents = (!zfm.empty()) ? zfm.constituents() : zfe.constituents();
 
       // Insist that the Z is in a high-pT (boosted) regime
-      if (z[0].momentum().pT() < 40*GeV) return;
+      if (z[0].pT() < 40*GeV) return;
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
@@ -86,7 +86,7 @@ namespace Rivet {
 
       // Fill histos
       const double weight = event.weight();
-      const double yz = z[0].momentum().rapidity();
+      const double yz = z[0].rapidity();
       const double yjet = cleanedJets[0]->momentum().rapidity();
       _hist1YZ->fill(fabs(yz), weight);
       _hist1YJet->fill(fabs(yjet), weight);
@@ -100,8 +100,8 @@ namespace Rivet {
         const FinalState& photonfs = applyProjection<FinalState>(event, "LeadingPhoton");
         if (photonfs.particles().size() < 1) return;
         const Particle& photon = photonfs.particles().front();
-        if (photon.momentum().pT() < 40*GeV) return;
-        if (fabs(photon.momentum().eta()) > 1.4442 ) return;
+        if (photon.pT() < 40*GeV) return;
+        if (fabs(photon.eta()) > 1.4442 ) return;
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
@@ -118,7 +118,7 @@ namespace Rivet {
 
       // Fill histos
       const double weight = event.weight();
-      const double ypho = photon.momentum().rapidity();
+      const double ypho = photon.rapidity();
       const double yjet = cleanedJets[0]->momentum().rapidity();
       _hist2YPhoton->fill(fabs(ypho), weight);
       _hist2YJet->fill(fabs(yjet), weight);

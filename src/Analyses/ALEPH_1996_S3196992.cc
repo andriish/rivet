@@ -55,7 +55,7 @@ namespace Rivet {
       const Particles allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
       Particles photons;
       foreach (const Particle& photon, allphotons) {
-        if (fabs(cos(photon.momentum().theta()))<0.95 && photon.momentum().E()>5.0*GeV) {
+        if (fabs(cos(photon.theta()))<0.95 && photon.E()>5.0*GeV) {
           photons.push_back(photon);
         }
       }
@@ -75,7 +75,7 @@ namespace Rivet {
         PseudoJets jets_001 = durjet.clusterSeq()->exclusive_jets_ycut(0.01);
         foreach (const fastjet::PseudoJet& jet, jets_001) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
-            double zgamma = photon.momentum().E()/jet.E();
+            double zgamma = photon.E()/jet.E();
             if (jets_001.size() == 2) _h_z_2jet_001->fill(zgamma, weight);
             else if (jets_001.size() == 3) _h_z_3jet_001->fill(zgamma, weight);
             else if (jets_001.size() > 3) _h_z_4jet_001->fill(zgamma, weight);
@@ -86,7 +86,7 @@ namespace Rivet {
         PseudoJets jets_006 = durjet.clusterSeq()->exclusive_jets_ycut(0.06);
         foreach (const fastjet::PseudoJet& jet, jets_006) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
-            double zgamma = photon.momentum().E()/jet.E();
+            double zgamma = photon.E()/jet.E();
             if (jets_006.size() == 2) _h_z_2jet_006->fill(zgamma, weight);
             else if (jets_006.size() == 3) _h_z_3jet_006->fill(zgamma, weight);
             break;
@@ -96,7 +96,7 @@ namespace Rivet {
         PseudoJets jets_01 = durjet.clusterSeq()->exclusive_jets_ycut(0.1);
         foreach (const fastjet::PseudoJet& jet, jets_01) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
-            double zgamma = photon.momentum().E()/jet.E();
+            double zgamma = photon.E()/jet.E();
             if (jets_01.size() == 2) _h_z_2jet_01->fill(zgamma, weight);
             else if (jets_01.size() == 3) _h_z_3jet_01->fill(zgamma, weight);
             break;
@@ -106,7 +106,7 @@ namespace Rivet {
         PseudoJets jets_033 = durjet.clusterSeq()->exclusive_jets_ycut(0.33);
         foreach (const fastjet::PseudoJet& jet, jets_033) {
           if (particleInJet(photon, jet, durjet.clusterSeq())) {
-            double zgamma = photon.momentum().E()/jet.E();
+            double zgamma = photon.E()/jet.E();
             if (jets_033.size() == 2) _h_z_2jet_033->fill(zgamma, weight);
             break;
           }
@@ -119,10 +119,10 @@ namespace Rivet {
     bool particleInJet(const Particle& p, const fastjet::PseudoJet& jet,
                        const fastjet::ClusterSequence* cseq ) {
       foreach (const fastjet::PseudoJet& jetpart, cseq->constituents(jet)) {
-        if (fuzzyEquals(jetpart.E(), p.momentum().E()) &&
-            fuzzyEquals(jetpart.px(), p.momentum().x()) &&
-            fuzzyEquals(jetpart.py(), p.momentum().y()) &&
-            fuzzyEquals(jetpart.pz(), p.momentum().z())) {
+        if (fuzzyEquals(jetpart.E(), p.E()) &&
+            fuzzyEquals(jetpart.px(), p.px()) &&
+            fuzzyEquals(jetpart.py(), p.py()) &&
+            fuzzyEquals(jetpart.pz(), p.pz())) {
           return true;
         }
       }

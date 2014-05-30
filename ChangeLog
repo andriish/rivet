@@ -1,5 +1,7 @@
 2014-05-30  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding a few extra kinematics mappings to ParticleBase.
+
 	* Adding p3() accessors to the 3-momentum on FourMomentum, Particle, and Jet.
 
 	* Using Jet and Particle kinematics methods directly (without momentum()) where possible.

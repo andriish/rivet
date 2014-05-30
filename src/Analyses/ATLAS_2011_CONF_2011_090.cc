@@ -229,7 +229,7 @@ namespace Rivet {
       }
 
       for ( int i = 0; i < 3; ++i ) {
-	double dPhi = deltaPhi( pTmiss_phi, recon_jets[i].momentum().phi() );
+	double dPhi = deltaPhi( pTmiss_phi, recon_jets[i].phi() );
 	if ( dPhi <= 0.2 ) {
 	  MSG_DEBUG("dPhi too small");
 	  vetoEvent;

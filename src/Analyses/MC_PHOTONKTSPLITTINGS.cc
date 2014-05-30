@@ -62,7 +62,7 @@ namespace Rivet {
       double econe = 0.0;
       foreach (const Particle& p, fs.particles()) {
         if (deltaR(photon, p.momentum()) < 0.4) {
-          econe += p.momentum().E();
+          econe += p.E();
           // Veto as soon as E_cone gets larger
           if (econe/egamma > 0.07) {
             vetoEvent;

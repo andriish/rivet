@@ -54,7 +54,7 @@ namespace Rivet {
         const Jets& jets = jetpro.jetsByPt(20*GeV);
         Jets jets_cut;
         foreach (const Jet& j, jets) {
-          if (fabs(j.momentum().pseudorapidity()) < 2.8) {
+          if (fabs(j.eta()) < 2.8) {
             jets_cut.push_back(j);
           }
         }

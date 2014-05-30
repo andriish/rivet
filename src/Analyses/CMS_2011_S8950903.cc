@@ -35,7 +35,7 @@ namespace Rivet {
       if (fabs(jets[0].eta()) > 1.1 || jets[0].pT() < 80.) vetoEvent;
       if (fabs(jets[1].eta()) > 1.1 || jets[1].pT() < 30.) vetoEvent;
 
-      double dphi = deltaPhi(jets[0].momentum(), jets[1].momentum().phi());
+      double dphi = deltaPhi(jets[0].momentum(), jets[1].phi());
 
       _h_deltaPhi.fill(jets[0].pT(), dphi, weight);
     }

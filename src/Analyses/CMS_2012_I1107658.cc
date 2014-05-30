@@ -63,8 +63,8 @@ namespace Rivet {
       if (zfinder.bosons().size() != 1) vetoEvent;
 
       double Zpt = zfinder.bosons()[0].pT()/GeV;
-      double Zphi = zfinder.bosons()[0].momentum().phi();
-      double Zmass = zfinder.bosons()[0].momentum().mass()/GeV;
+      double Zphi = zfinder.bosons()[0].phi();
+      double Zmass = zfinder.bosons()[0].mass()/GeV;
 
       Particles particles = applyProjection<VetoedFinalState>(event, "nonmuons").particles();
 
@@ -76,7 +76,7 @@ namespace Rivet {
       double ptSumAway = 0;
 
       foreach (const Particle& p, particles) {
-        double dphi = fabs(deltaPhi(Zphi, p.momentum().phi()));
+        double dphi = fabs(deltaPhi(Zphi, p.phi()));
         double pT = p.pT();
 
         if ( dphi < M_PI/3 ) {

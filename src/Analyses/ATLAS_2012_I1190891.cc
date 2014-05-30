@@ -100,12 +100,12 @@ namespace Rivet {
       Particles cand_e;
       foreach ( const Particle & e,
                 applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
-        double pTinCone = -e.momentum().perp();
+        double pTinCone = -e.perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.pT();
         }
-        if (pTinCone/e.momentum().perp()<0.1) {
+        if (pTinCone/e.perp()<0.1) {
           cand_e.push_back(e);
         }
       }
@@ -149,7 +149,7 @@ namespace Rivet {
         for(unsigned int ie2=0;ie2<cand_e.size();++ie2) {
           if(ie==ie2) continue;
           if ( deltaR(e.momentum(),cand_e[ie2].momentum()) < 0.1 &&
-               e.momentum().E() < cand_e[ie2].momentum().E() ) {
+               e.E() < cand_e[ie2].E() ) {
             away = false;
             break;
           }
@@ -233,15 +233,15 @@ namespace Rivet {
 
       // check if passes single lepton trigger
       bool passSingle =
-        ( !recon_e .empty() && recon_e[0] .momentum().perp()>25. )||
-        ( !recon_mu.empty() && recon_mu[0].momentum().perp()>20.);
+        ( !recon_e .empty() && recon_e[0] .perp()>25. )||
+        ( !recon_mu.empty() && recon_mu[0].perp()>20.);
 
       // or two lepton trigger
       bool passDouble =
-        ( recon_mu.size()>=2 && recon_mu[1].momentum().perp()>12.) ||
-        ( recon_e .size()>=2 && recon_e [1].momentum().perp()>17.) ||
+        ( recon_mu.size()>=2 && recon_mu[1].perp()>12.) ||
+        ( recon_e .size()>=2 && recon_e [1].perp()>17.) ||
         ( !recon_e.empty() && !recon_mu.empty() &&
-          recon_e[0].momentum().perp()>15. &&  recon_mu[0].momentum().perp()>10.);
+          recon_e[0].perp()>15. &&  recon_mu[0].perp()>10.);
 
       // must pass a trigger
       if( !passSingle && !passDouble ) {
@@ -252,11 +252,11 @@ namespace Rivet {
       // calculate meff
       double meff = eTmiss;
       foreach ( const Particle & e , recon_e  )
-        meff += e.momentum().perp();
+        meff += e.perp();
       foreach ( const Particle & mu, recon_mu )
-        meff += mu.momentum().perp();
+        meff += mu.perp();
       foreach ( const Jet & jet, recon_jets ) {
-        double pT = jet.momentum().perp();
+        double pT = jet.perp();
         if(pT>40.) meff += pT;
       }
 

@@ -61,8 +61,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
@@ -70,7 +70,7 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         const int id = p.abspid();
-        double xp = p.momentum().vector3().mod()/meanBeamMom;
+        double xp = p.p3().mod()/meanBeamMom;
         double xi = -log(xp);
         switch (id) {
         case 3312:

@@ -56,9 +56,9 @@ namespace Rivet {
       double et_cosphi_sum = 0;
       double et_sum = 0;
       for (size_t i = 0; i< jets.size(); ++i) {
-        et_sinphi_sum += jets[i].momentum().Et() * sin(jets[i].phi());
-        et_cosphi_sum += jets[i].momentum().Et() * cos(jets[i].phi());
-        et_sum += jets[i].momentum().Et();
+        et_sinphi_sum += jets[i].Et() * sin(jets[i].phi());
+        et_cosphi_sum += jets[i].Et() * cos(jets[i].phi());
+        et_sum += jets[i].Et();
       }
 
       // ET requirement

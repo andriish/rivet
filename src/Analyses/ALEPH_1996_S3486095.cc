@@ -147,8 +147,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Thrusts
@@ -192,8 +192,8 @@ namespace Rivet {
       MSG_DEBUG("About to iterate over charged FS particles");
       foreach (const Particle& p, fs.particles()) {
         // Get momentum and energy of each particle.
-        const Vector3 mom3 = p.momentum().vector3();
-        const double energy = p.momentum().E();
+        const Vector3 mom3 = p.p3();
+        const double energy = p.E();
         Evis += energy;
         _numChParticles += weight;
 
@@ -241,7 +241,7 @@ namespace Rivet {
       //// Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       for (Particles::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-        const Vector3 mom3 = p->momentum().vector3();
+        const Vector3 mom3 = p->momentum().p3();
         int id = abs(p->pid());
         const double mom = mom3.mod();
         const double energy = p->momentum().E();

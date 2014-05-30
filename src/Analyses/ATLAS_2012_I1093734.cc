@@ -189,8 +189,8 @@ namespace Rivet {
             if (ipt == 0) {
               double sumptF = 0;
               double sumptB = 0;
-              foreach (const Particle& p, particlesF) sumptF += p.momentum().pT();
-              foreach (const Particle& p, particlesB) sumptB += p.momentum().pT();
+              foreach (const Particle& p, particlesF) sumptF += p.pT();
+              foreach (const Particle& p, particlesB) sumptB += p.pT();
               _vecsSumptF[ieta].push_back(sumptF);
               _vecsSumptB[ieta].push_back(sumptB);
             }
@@ -211,7 +211,7 @@ namespace Rivet {
           if (&plead == &p) continue; //< Don't compare the lead particle to itself
           const double dphi = deltaPhi(p.momentum(), plead.momentum());
           _th_dphi[ieta].fill(dphi, weight);
-          const bool sameside = (plead.momentum().eta() * p.momentum().eta() > 0);
+          const bool sameside = (plead.eta() * p.eta() > 0);
           (sameside ? _th_same : _th_oppo)[ieta].fill(dphi, weight);
         }
       }

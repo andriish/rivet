@@ -68,7 +68,7 @@ namespace Rivet {
       foreach (const Particle& p, photons) {
         // Individual and summed pTs and energies
         double pTgamma = p.pT()/GeV;
-        double Egamma = p.momentum().E()/GeV;
+        double Egamma = p.E()/GeV;
         _h_Ptgamma->fill(pTgamma, weight);
         _h_Egamma->fill(Egamma, weight);
         sumPtgamma += pTgamma;

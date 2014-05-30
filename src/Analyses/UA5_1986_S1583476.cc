@@ -70,7 +70,7 @@ namespace Rivet {
 
       // Fill histos
       foreach (const Particle& p, cfs50.particles()) {
-        const double eta = fabs(p.momentum().pseudorapidity());
+        const double eta = fabs(p.eta());
         _hist_eta_inelastic->fill(eta, weight);
         if (isNSD) {
           _hist_eta_nsd->fill(eta, weight);

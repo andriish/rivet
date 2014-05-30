@@ -49,13 +49,13 @@ namespace Rivet {
       foreach (const Particle& photon, photons) {
         FourMomentum mom_in_cone;
         double eta_P = photon.eta();
-        double phi_P = photon.momentum().phi();
+        double phi_P = photon.phi();
         foreach (const Particle& p, fs) {
-          if (deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) < 0.4) {
+          if (deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.4) {
             mom_in_cone += p.momentum();
           }
         }
-        if (mom_in_cone.Et()-photon.momentum().Et() < 1.0*GeV) {
+        if (mom_in_cone.Et()-photon.Et() < 1.0*GeV) {
           isolated_photons.push_back(photon);
         }
       }
@@ -68,8 +68,8 @@ namespace Rivet {
       for (size_t i=0; i<4; ++i) {
         _h_m_PP[i]->fill(mom_PP.mass(), weight);
         _h_pT_PP[i]->fill(mom_PP.pT(), weight);
-        _h_dphi_PP[i]->fill(mapAngle0ToPi(isolated_photons[0].momentum().phi()-
-                                          isolated_photons[1].momentum().phi())/M_PI, weight);
+        _h_dphi_PP[i]->fill(mapAngle0ToPi(isolated_photons[0].phi()-
+                                          isolated_photons[1].phi())/M_PI, weight);
       }
     }
 

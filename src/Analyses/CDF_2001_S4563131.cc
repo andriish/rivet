@@ -44,7 +44,7 @@ namespace Rivet {
       foreach (const Jet& jet, jets) {
         double eta = fabs(jet.eta());
         if (eta>0.1 && eta<0.7) {
-          _h_ET->fill(jet.momentum().Et(), weight);
+          _h_ET->fill(jet.Et(), weight);
         }
       }
 

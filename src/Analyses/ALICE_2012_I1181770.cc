@@ -71,7 +71,7 @@ namespace Rivet {
       } else if (pfastest.pid() == PID::PROTON) {
         p4lead = pfastest.momentum();
       }
-      const double Mx = sqrt( (sqrtS()-p4lead.E()-p4lead.vector3().mod()) * (sqrtS()-p4lead.E()+p4lead.vector3().mod()) );
+      const double Mx = sqrt( (sqrtS()-p4lead.E()-p4lead.p3().mod()) * (sqrtS()-p4lead.E()+p4lead.p3().mod()) );
 
       // Fill SD (and escape) if Mx is sufficiently low
       if (Mx < 200*GeV) {

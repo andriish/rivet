@@ -55,8 +55,8 @@ namespace Rivet {
       double Etsum=0.0;
       foreach (const Particle& p, applyProjection<VetoedFinalState>(event, "VFS").particles()) {
         if (PID::threeCharge(p.pid())!=0 &&
-            deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) < 0.7) {
-          Etsum += p.momentum().Et();
+            deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.7) {
+          Etsum += p.Et();
         }
       }
       if (Etsum > 2.0*GeV) {
@@ -66,7 +66,7 @@ namespace Rivet {
       // sum all jets in the opposite hemisphere in phi from the photon
       FourMomentum jetsum;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(10.0*GeV)) {
-        if (fabs(jet.momentum().phi()-phi_P) > M_PI) {
+        if (fabs(jet.phi()-phi_P) > M_PI) {
           jetsum+=jet.momentum();
         }
       }

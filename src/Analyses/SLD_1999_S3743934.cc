@@ -45,8 +45,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       int flavour = 0;
       const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
@@ -62,15 +62,15 @@ namespace Rivet {
         map<int, Particle > quarkmap;
         foreach (const Particle& p, iqf.particles()) {
           if (quarkmap.find(p.pid()) == quarkmap.end()) quarkmap[p.pid()] = p;
-          else if (quarkmap[p.pid()].momentum().E() < p.momentum().E()) quarkmap[p.pid()] = p;
+          else if (quarkmap[p.pid()].E() < p.E()) quarkmap[p.pid()] = p;
         }
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
           double energy(0.);
           if (quarkmap.find( i) != quarkmap.end())
-            energy += quarkmap[ i].momentum().E();
+            energy += quarkmap[ i].E();
           if (quarkmap.find(-i) != quarkmap.end())
-            energy += quarkmap[-i].momentum().E();
+            energy += quarkmap[-i].E();
           if (energy > maxenergy)
             flavour = i;
         }
@@ -96,14 +96,14 @@ namespace Rivet {
       Vector3 axis = applyProjection<Thrust>(e, "Thrust").thrustAxis();
       double dot(0.);
       if (!quarks.empty()) {
-        dot = quarks[0].momentum().vector3().dot(axis);
+        dot = quarks[0].p3().dot(axis);
         if (quarks[0].pid() < 0) dot *= -1;
       }
 
       foreach (const Particle& p, fs.particles()) {
-        const double xp = p.momentum().vector3().mod()/meanBeamMom;
+        const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
-        bool quark = p.momentum().vector3().dot(axis)*dot > 0.;
+        bool quark = p.p3().dot(axis)*dot > 0.;
         _h_XpChargedN->fill(xp, weight);
         _temp_XpChargedN1->fill(xp, weight);
         _temp_XpChargedN2->fill(xp, weight);
@@ -192,9 +192,9 @@ namespace Rivet {
 
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
-        const double xp = p.momentum().vector3().mod()/meanBeamMom;
+        const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
-        bool quark = p.momentum().vector3().dot(axis)*dot>0.;
+        bool quark = p.p3().dot(axis)*dot>0.;
         int id = p.abspid();
         if (id == PID::LAMBDA) {
           _multLambda[0] += weight;

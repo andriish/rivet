@@ -57,12 +57,12 @@ namespace Rivet {
       Particles fs = applyProjection<FinalState>(event, "FS").particles();
       foreach (const Particle& photon, photons) {
         double eta_P = photon.eta();
-        double phi_P = photon.momentum().phi();
+        double phi_P = photon.phi();
         double Etsum=0.0;
         foreach (const Particle& p, fs) {
           if (p.genParticle()->barcode() != photon.genParticle()->barcode() &&
-              deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) < 0.4) {
-            Etsum += p.momentum().Et();
+              deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.4) {
+            Etsum += p.Et();
           }
         }
         if (Etsum < 2.5*GeV) {

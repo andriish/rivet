@@ -157,10 +157,10 @@ namespace Rivet {
         }
         // Electron isolation criterion
         if ( ! e_near_jet ) {
-          double EtinCone = -e.momentum().Et();
+          double EtinCone = -e.Et();
           foreach ( const Particle & track, chg_tracks) {
             if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
-              EtinCone += track.momentum().Et();
+              EtinCone += track.Et();
           }
           if ( EtinCone/e.pT() <= 0.15 )
             recon_e.push_back( e );

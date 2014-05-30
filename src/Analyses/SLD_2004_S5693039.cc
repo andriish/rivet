@@ -40,8 +40,8 @@ namespace Rivet {
       const double weight = e.weight();
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       int flavour = 0;
       const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
@@ -58,16 +58,16 @@ namespace Rivet {
         foreach (const Particle& p, iqf.particles()) {
           if (quarkmap.find(p.pid())==quarkmap.end())
             quarkmap[p.pid()] = p;
-          else if (quarkmap[p.pid()].momentum().E() < p.momentum().E())
+          else if (quarkmap[p.pid()].E() < p.E())
             quarkmap[p.pid()] = p;
         }
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
           double energy(0.);
           if(quarkmap.find( i)!=quarkmap.end())
-            energy += quarkmap[ i].momentum().E();
+            energy += quarkmap[ i].E();
           if(quarkmap.find(-i)!=quarkmap.end())
-            energy += quarkmap[-i].momentum().E();
+            energy += quarkmap[-i].E();
           if (energy > maxenergy) flavour = i;
         }
         if(quarkmap.find( flavour)!=quarkmap.end())
@@ -96,16 +96,16 @@ namespace Rivet {
       Vector3 axis = applyProjection<Thrust>(e, "Thrust").thrustAxis();
       double dot(0.);
       if(!quarks.empty()) {
-        dot = quarks[0].momentum().vector3().dot(axis);
+        dot = quarks[0].p3().dot(axis);
         if(quarks[0].pid()<0) dot *= -1.;
       }
       // spectra and individual multiplicities
       foreach (const Particle& p, fs.particles()) {
-        double pcm = p.momentum().vector3().mod();
+        double pcm = p.p3().mod();
         const double xp = pcm/meanBeamMom;
 
         // if in quark or antiquark hemisphere
-        bool quark = p.momentum().vector3().dot(axis)*dot>0.;
+        bool quark = p.p3().dot(axis)*dot>0.;
 
         _h_PCharged ->fill(pcm     , weight);
         // all charged

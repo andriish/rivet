@@ -211,26 +211,26 @@ namespace Rivet {
         const size_t numParticles = cfs.particles().size();
         _weightedTotalChargedPartNum += numParticles * weight;
         const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-        const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                     beams.second.momentum().vector3().mod() ) / 2.0;
+        const double meanBeamMom = ( beams.first.p3().mod() +
+                                     beams.second.p3().mod() ) / 2.0;
         foreach (const Particle& p, cfs.particles()) {
-          const double xp = p.momentum().vector3().mod()/meanBeamMom;
+          const double xp = p.p3().mod()/meanBeamMom;
           _h_xp->fill(xp   , weight);
           const double logxp = -std::log(xp);
           _h_xi->fill(logxp, weight);
-          const double xe = p.momentum().E()/meanBeamMom;
+          const double xe = p.E()/meanBeamMom;
           _h_xe->fill(xe   , weight);
-          const double pTinT  = dot(p.momentum().vector3(), thrust.thrustMajorAxis());
-          const double pToutT = dot(p.momentum().vector3(), thrust.thrustMinorAxis());
+          const double pTinT  = dot(p.p3(), thrust.thrustMajorAxis());
+          const double pToutT = dot(p.p3(), thrust.thrustMinorAxis());
           _h_pTin->fill(fabs(pTinT/GeV), weight);
           if(_h_pTout) _h_pTout->fill(fabs(pToutT/GeV), weight);
-          const double momT = dot(thrust.thrustAxis()        ,p.momentum().vector3());
-          const double rapidityT = 0.5 * std::log((p.momentum().E() + momT) /
-                                                  (p.momentum().E() - momT));
+          const double momT = dot(thrust.thrustAxis()        ,p.p3());
+          const double rapidityT = 0.5 * std::log((p.E() + momT) /
+                                                  (p.E() - momT));
           _h_rapidityT->fill(fabs(rapidityT), weight);
-          const double momS = dot(sphericity.sphericityAxis(),p.momentum().vector3());
-          const double rapidityS = 0.5 * std::log((p.momentum().E() + momS) /
-                                                  (p.momentum().E() - momS));
+          const double momS = dot(sphericity.sphericityAxis(),p.p3());
+          const double rapidityS = 0.5 * std::log((p.E() + momS) /
+                                                  (p.E() - momS));
           _h_rapidityS->fill(fabs(rapidityS), weight);
         }
       }

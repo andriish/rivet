@@ -83,7 +83,7 @@ namespace Rivet {
       Jets jets;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jetsByEt()) {
-        double Et = jet.momentum().Et();
+        double Et = jet.Et();
         if (Et > 20.0*GeV) {
           bool separated=true;
           foreach (const Jet& ref, jets) {
@@ -120,7 +120,7 @@ namespace Rivet {
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, jets) {
-        sumEt+=jet.momentum().Et();
+        sumEt+=jet.Et();
         jetsystem+=jet.momentum();
       }
       if (sumEt < 420.0*GeV) return;
@@ -141,7 +141,7 @@ namespace Rivet {
       FourMomentum p5(jets3[2]);
 
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m3J, jetsystem.rapidity()));
-      double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
+      double costheta3=pAV.p3().unit().dot(p3.p3().unit());
       if (fabs(costheta3)>0.6) {
         return;
       }
@@ -177,7 +177,7 @@ namespace Rivet {
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, jets) {
-        sumEt+=jet.momentum().Et();
+        sumEt+=jet.Et();
         jetsystem+=jet.momentum();
       }
       if (sumEt < 420.0*GeV) return;
@@ -200,7 +200,7 @@ namespace Rivet {
       FourMomentum p5(jets3[2]);
 
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m4J, jetsystem.rapidity()));
-      double costheta3=pAV.vector3().unit().dot(p3.vector3().unit());
+      double costheta3=pAV.p3().unit().dot(p3.p3().unit());
       if (fabs(costheta3)>0.8) {
         return;
       }
@@ -244,7 +244,7 @@ namespace Rivet {
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, jets) {
-        sumEt+=jet.momentum().Et();
+        sumEt+=jet.Et();
         jetsystem+=jet.momentum();
       }
       if (sumEt < 420.0*GeV) return;
@@ -272,7 +272,7 @@ namespace Rivet {
 
       // fill histograms
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m5J, jetsystem.rapidity()));
-      const double costheta3 = pAV.vector3().unit().dot(p3.vector3().unit());
+      const double costheta3 = pAV.p3().unit().dot(p3.p3().unit());
       const double X3 = 2.0*p3.E()/m5J;
       const double X4 = 2.0*p4.E()/m5J;
       const double psi3 = _psi(p3, pAV, p4, p5);
@@ -401,8 +401,8 @@ namespace Rivet {
 
     double _psi(const FourMomentum& p1, const FourMomentum& p2,
                 const FourMomentum& p3, const FourMomentum& p4) {
-      Vector3 p1xp2 = p1.vector3().cross(p2.vector3());
-      Vector3 p3xp4 = p3.vector3().cross(p4.vector3());
+      Vector3 p1xp2 = p1.p3().cross(p2.p3());
+      Vector3 p3xp4 = p3.p3().cross(p4.p3());
       return mapAngle0ToPi(acos(p1xp2.unit().dot(p3xp4.unit())));
     }
 

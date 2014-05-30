@@ -135,7 +135,7 @@ namespace Rivet {
       Jets bjets;
       foreach (const Jet& jet, jets) {
         const double jetEta = jet.eta();
-        const double jetPhi = jet.momentum().phi();
+        const double jetPhi = jet.phi();
         const double jetPt = jet.pT();
         _h_jet_eta->fill(jetEta, weight);
         _h_jet_phi->fill(jetPhi, weight);
@@ -152,10 +152,10 @@ namespace Rivet {
 
       // Plot vector boson properties
       foreach (const Particle& v, vectorBosons) {
-        _h_VB_phi->fill(v.momentum().phi(), weight);
+        _h_VB_phi->fill(v.phi(), weight);
         _h_VB_pT->fill(v.pT(), weight);
         _h_VB_eta->fill(v.eta(), weight);
-        _h_VB_mass->fill(v.momentum().mass(), weight);
+        _h_VB_mass->fill(v.mass(), weight);
       }
 
       // rest of analysis requires at least 1 b jets

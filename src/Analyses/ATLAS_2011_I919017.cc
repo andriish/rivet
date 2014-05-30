@@ -10,19 +10,19 @@ namespace Rivet {
   namespace {
 
     inline double calcz(const Jet& j, const Particle& p) {
-      const double num = j.momentum().vector3().dot(p.momentum().vector3());
-      const double den = j.momentum().vector3().mod2();
+      const double num = j.p3().dot(p.p3());
+      const double den = j.p3().mod2();
       return num/den;
     }
 
     inline double calcptrel(const Jet& j, const Particle& p) {
-      const double num = j.momentum().vector3().cross(p.momentum().vector3()).mod();
-      const double den = j.momentum().vector3().mod();
+      const double num = j.p3().cross(p.p3()).mod();
+      const double den = j.p3().mod();
       return num/den;
     }
 
     inline double calcr(const Jet& j, const Particle& p) {
-      return deltaR(j.rapidity(), j.momentum().phi(), p.rapidity(), p.momentum().phi());
+      return deltaR(j.rapidity(), j.phi(), p.rapidity(), p.phi());
     }
 
     // For annulus area kludge

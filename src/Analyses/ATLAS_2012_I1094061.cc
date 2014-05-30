@@ -247,8 +247,8 @@ namespace Rivet {
     void fillHistos(const Particle &p1, const Particle &p2, double weight,
                     HistoPair::HistoType type, bool inclusive){
 
-      double dEta = fabs(p1.momentum().eta() - p2.momentum().eta());
-      double dPhi = mapAngle0ToPi(p1.momentum().phi() - p2.momentum().phi());
+      double dEta = fabs(p1.eta() - p2.eta());
+      double dPhi = mapAngle0ToPi(p1.phi() - p2.phi());
       double dPhiShift = TWOPI - dPhi;
 
       HistoPair &dEta_0_pi   = (inclusive)? _hp_DEta_0_pi   :_hp_N20_DEta_0_pi;

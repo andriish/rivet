@@ -107,9 +107,9 @@ namespace Rivet {
       // Identify leading track and its phi and pT (this is the same for both the 100 MeV and 500 MeV track cuts)
       Particles particles500 = charged500.particlesByPt();
       Particle p_lead = particles500[0];
-      const double philead = p_lead.momentum().phi();
+      const double philead = p_lead.phi();
       const double etalead = p_lead.eta();
-      const double pTlead  = p_lead.momentum().perp();
+      const double pTlead  = p_lead.perp();
       MSG_DEBUG("Leading track: pT = " << pTlead << ", eta = " << etalead << ", phi = " << philead);
 
       // Iterate over all > 500 MeV particles and count particles and scalar pTsum in the three regions
@@ -120,7 +120,7 @@ namespace Rivet {
       Histo1D hist_pt_dphi_500(refData(15,1,1));
       foreach (const Particle& p, particles500) {
         const double pT = p.pT();
-        const double dPhi = deltaPhi(philead, p.momentum().phi());
+        const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);
         num500[ir] += 1;
         ptSum500[ir] += pT;
@@ -137,7 +137,7 @@ namespace Rivet {
       // This is necessary since the Nch are region-specific and so are only known after the first loop
       foreach (const Particle& p, particles500) {
         const double pT = p.pT();
-        const double dPhi = deltaPhi(philead, p.momentum().phi());
+        const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);
         switch (ir) {
         case 0:
@@ -226,7 +226,7 @@ namespace Rivet {
       vector<double> num100(3, 0), ptSum100(3, 0.0);
       foreach (const Particle& p, charged100.particles()) {
         const double pT = p.pT();
-        const double dPhi = deltaPhi(philead, p.momentum().phi());
+        const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);
         num100[ir] += 1;
         ptSum100[ir] += pT;

@@ -50,8 +50,8 @@ namespace Rivet {
       const double weight = event.weight();
 
       if (jets.size() < 2 || jets.size() >= 3) vetoEvent;
-      const double angle = fabs(jets[1].momentum().azimuthalAngle() - jets[0].momentum().azimuthalAngle());
-      const double prapidity = fabs(jets[1].momentum().pseudorapidity() - jets[0].momentum().pseudorapidity());
+      const double angle = fabs(jets[1].phi() - jets[0].phi());
+      const double prapidity = fabs(jets[1].eta() - jets[0].eta());
       _hist_jetcount->fill(jets.size(), weight);
       _hist_leadingjetpt->fill(jets[0].pT(), weight);
       _hist_secondleadingjetpt->fill(jets[1].pT(), weight);
@@ -61,8 +61,8 @@ namespace Rivet {
       foreach(Jet j, fastjets.jetsByPt(20.*GeV)) {
         _hist_jetpt->fill(j.pT(), weight);
         _hist_jetptlog->fill(log(j.pT()), weight);
-        _hist_jetphi->fill(j.momentum().azimuthalAngle(), weight);
-        _hist_jeteta->fill(j.momentum().pseudorapidity(), weight);
+        _hist_jetphi->fill(j.phi(), weight);
+        _hist_jeteta->fill(j.eta(), weight);
       }
 
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");

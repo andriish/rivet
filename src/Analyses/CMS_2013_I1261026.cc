@@ -87,9 +87,9 @@ namespace Rivet {
 
           for (size_t ijets = 0; ijets < jets.size(); ijets++) {
             if (jets[ijets].abseta() < 1.9) {
-              _h_JetSpectrum[ibin]->fill(jets[ijets].momentum().pT()/GeV, weight);
-              if (jets[ijets].momentum().pT() > 5*GeV) _jetCounter5GeV[ibin] += weight;
-              if (jets[ijets].momentum().pT() > 30*GeV) _jetCounter30GeV[ibin] += weight;
+              _h_JetSpectrum[ibin]->fill(jets[ijets].pT()/GeV, weight);
+              if (jets[ijets].pT() > 5*GeV) _jetCounter5GeV[ibin] += weight;
+              if (jets[ijets].pT() > 30*GeV) _jetCounter30GeV[ibin] += weight;
             }
           }
         }
@@ -167,28 +167,28 @@ namespace Rivet {
       // Start event decomp
 
       for (size_t ijets = 0; ijets < jets.size(); ijets++) {
-        jetsEv[ijets].pt = jets[ijets].momentum().pT();
-        jetsEv[ijets].eta = jets[ijets].momentum().eta();
-        jetsEv[ijets].phi = jets[ijets].momentum().phi();
+        jetsEv[ijets].pt = jets[ijets].pT();
+        jetsEv[ijets].eta = jets[ijets].eta();
+        jetsEv[ijets].phi = jets[ijets].phi();
         jCount++;
       }
 
       const ChargedFinalState& cfsp = applyProjection<ChargedFinalState>(event, "CFS250");
       foreach (const Particle& p, cfsp.particles()) {
-        _th_AllTrkSpectrum[ibin].fill(p.momentum().pT()/GeV, weight);
+        _th_AllTrkSpectrum[ibin].fill(p.pT()/GeV, weight);
         int flag = 0;
         for (size_t i = 0; i < jCount; i++) {
-          const double delta_phi = deltaPhi(jetsEv[i].phi, p.momentum().phi());
-          const double delta_eta = jetsEv[i].eta - p.momentum().eta();
+          const double delta_phi = deltaPhi(jetsEv[i].phi, p.phi());
+          const double delta_eta = jetsEv[i].eta - p.eta();
           const double R = sqrt(delta_phi * delta_phi + delta_eta * delta_eta);
           if (R <= 0.5) {
             flag++;
-            jetConstituents[i][j[i]].pt = p.momentum().pT();
+            jetConstituents[i][j[i]].pt = p.pT();
             jetConstituents[i][j[i]].R = R;
             j[i]++;
           }
         }
-        if (flag == 0) _th_SoftTrkSpectrum[ibin].fill(p.momentum().pT()/GeV, weight);
+        if (flag == 0) _th_SoftTrkSpectrum[ibin].fill(p.pT()/GeV, weight);
       }
 
       for (size_t i = 0; i < jCount; i++) {

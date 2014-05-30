@@ -267,9 +267,9 @@ namespace Rivet {
       if ( recon_jets[0].pT() > 60.0*GeV &&
            recon_jets[1].pT() > 25.0*GeV &&
            recon_jets[2].pT() > 25.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
         double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
@@ -309,9 +309,9 @@ namespace Rivet {
       if ( recon_jets[0].pT() > 80.0*GeV &&
            recon_jets[1].pT() > 25.0*GeV &&
            recon_jets[2].pT() > 25.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
         double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
@@ -354,10 +354,10 @@ namespace Rivet {
            recon_jets[1].pT() > 25.0*GeV &&
            recon_jets[2].pT() > 25.0*GeV &&
            recon_jets[3].pT() > 25.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[3].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
         double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
@@ -401,10 +401,10 @@ namespace Rivet {
            recon_jets[1].pT() > 40.0*GeV &&
            recon_jets[2].pT() > 40.0*GeV &&
            recon_jets[3].pT() > 40.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[3].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
 

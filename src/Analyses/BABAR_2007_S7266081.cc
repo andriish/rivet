@@ -45,7 +45,7 @@ namespace Rivet {
         unsigned int nstable = 0;
         // get the boost to the rest frame
         LorentzTransform cms_boost;
-        if (p.momentum().vector3().mod() > 1*MeV)
+        if (p.p3().mod() > 1*MeV)
           cms_boost = LorentzTransform(-p.momentum().boostVector());
         // find the decay products we want
         findDecayProducts(p.genParticle(), nstable, pip, pim, Kp, Km);

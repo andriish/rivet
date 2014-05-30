@@ -103,16 +103,15 @@ namespace Rivet {
       // now find the candidates
       // loop over the particles and find muons and heavy charged particles
       map<double,Particle> muonCandidates;
-      foreach ( const Particle & mu,charged ) {
+      foreach (const Particle& mu, charged) {
         // calculate the smeared momentum
-        double pT     = mu.momentum().perp2();
-        double pmag   = sqrt(pT+sqr(mu.momentum().z()));
-        double deltap = sqrt( sqr(csag*sqr(pmag)) +
-                              sqr(cms*mu.momentum().t()/GeV));
+        double pT     = mu.pT2();
+        double pmag   = sqrt(pT+sqr(mu.pz()));
+        double deltap = sqrt( sqr(csag*sqr(pmag)) + sqr(cms*mu.E()/GeV));
         double psmear = rndGauss(deltap,pmag);
         // keep particles with pT>40
-        if(psmear/pmag*mu.momentum().perp()<40.*GeV||
-           psmear/pmag*mu.momentum().perp()>1000.*GeV) continue;
+        if(psmear/pmag*mu.perp()<40.*GeV||
+           psmear/pmag*mu.perp()>1000.*GeV) continue;
         muonCandidates.insert(make_pair(psmear,mu));
       }
       // require two candidates
@@ -124,11 +123,11 @@ namespace Rivet {
       for(map<double,Particle>::const_iterator it=muonCandidates.begin();
           it!=muonCandidates.end();++it) {
         // true magnitude and pT of momentum
-        double pT     = it->second.momentum().perp2();
-        double pmag   = sqrt(pT+sqr(it->second.momentum().z()));
+        double pT     = it->second.pT2();
+        double pmag   = sqrt(pT+sqr(it->second.pz()));
         pT = sqrt(pT);
         // true time difference in ns
-        double deltaT  =tr *(it->second.momentum().t()-pmag)/pT;
+        double deltaT  =tr *(it->second.E()-pmag)/pT;
         // smear it
         deltaT = rndGauss(tsmear,deltaT);
         // beta

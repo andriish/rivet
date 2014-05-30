@@ -74,7 +74,7 @@ namespace Rivet {
       int nTransverse = 0;
       double ptSumTransverse = 0.;
       foreach (const Particle& p, particles) {
-        double dphi = fabs(deltaPhi(philead, p.momentum().phi()));
+        double dphi = fabs(deltaPhi(philead, p.phi()));
         if (dphi>PI/3. && dphi<PI*2./3.) {   // Transverse region
           nTransverse++;
 

@@ -63,7 +63,7 @@ namespace Rivet {
       if (zfindermu.empty() && zfinderel.empty()) vetoEvent;
 
       const Particles& z = !zfindermu.empty() ? zfindermu.bosons() : zfinderel.bosons();
-      const bool is_boosted = ( z[0].momentum().pT() > 50*GeV );
+      const bool is_boosted = ( z[0].pT() > 50*GeV );
 
       // Loop over the unstable particles
       foreach (const Particle& p, ufs.particles()) {

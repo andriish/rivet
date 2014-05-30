@@ -40,8 +40,8 @@ namespace Rivet {
 
       foreach (const Particle& p, fsp.particlesByEta()) {
         double eta = p.eta();
-        double energy = p.momentum().E();
-        double costheta = cos(p.momentum().theta());
+        double energy = p.E();
+        double costheta = cos(p.theta());
 
         // Yes, they really correct to +/- infinity, using Pythia 8 ...
         if ( eta < 4.9 )  xiP += (energy + energy*costheta);

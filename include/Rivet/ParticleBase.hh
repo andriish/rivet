@@ -24,6 +24,8 @@ namespace Rivet {
 
     /// Get equivalent single momentum four-vector (const).
     virtual const FourMomentum& momentum() const = 0;
+    /// Get equivalent single momentum four-vector (const) (alias).
+    const FourMomentum& mom() const { return momentum(); };
 
     /// Cast operator for conversion to FourMomentum
     operator const FourMomentum& () const { return momentum(); }
@@ -49,6 +51,13 @@ namespace Rivet {
     double pT() const { return pt(); }
     /// Get the \f$ p_T \f$ directly (alias).
     double perp() const { return pt(); }
+
+    /// Get the \f$ p_T^2 \f$ directly.
+    double pt2() const { return momentum().pt2(); }
+    /// Get the \f$ p_T^2 \f$ directly (alias).
+    double pT2() const { return pt2(); }
+    /// Get the \f$ p_T^2 \f$ directly (alias).
+    double perp2() const { return pt2(); }
 
     /// Get the \f$ E_T \f$ directly.
     double Et() const { return momentum().Et(); }
@@ -76,8 +85,10 @@ namespace Rivet {
     /// Get the \f$ |y| \f$ directly (alias).
     double absrap() const { return momentum().absrap(); }
 
+    /// Azimuthal angle \f$ \phi \f$.
+    double azimuthalAngle(const PhiMapping mapping=ZERO_2PI) const { return momentum().azimuthalAngle(mapping); }
     /// Get the \f$ \phi \f$ directly.
-    double phi() const { return momentum().phi(); }
+    double phi(const PhiMapping mapping=ZERO_2PI) const { return momentum().phi(mapping); }
 
 
     /// Get the 3-momentum directly.
@@ -85,10 +96,24 @@ namespace Rivet {
     // /// Get the 3-momentum directly (alias).
     // Vector3 p() const { return momentum().vector3(); }
 
+    /// x component of momentum.
+    double px() const { return momentum().x(); }
+    /// y component of momentum.
+    double py() const { return momentum().y(); }
+    /// z component of momentum.
+    double pz() const { return momentum().z(); }
+
     /// Angle subtended by the 3-vector and the z-axis.
     double polarAngle() const { return momentum().polarAngle(); }
     /// Synonym for polarAngle.
     double theta() const { return momentum().theta(); }
+
+    /// Angle between this vector and another
+    double angle(const ParticleBase& v) const { return momentum().angle(v.momentum()); }
+    /// Angle between this vector and another
+    double angle(const FourVector& v) const { return momentum().angle(v); }
+    /// Angle between this vector and another (3-vector)
+    double angle(const Vector3& v3) const { return momentum().angle(v3); }
 
     //@}
 

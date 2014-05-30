@@ -93,17 +93,17 @@ namespace Rivet {
       const Particles visible_particles = applyProjection<VisibleFinalState>(event, "VFS").particles();
       foreach (const Particle& mu, applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         // Calculate pTCone30 variable (pT of all tracks within dR<0.3 - pT of muon itself)
-        double pTinCone = -mu.momentum().pT();
+        double pTinCone = -mu.pT();
         foreach (const Particle& track, charged_tracks) {
           if (deltaR(mu.momentum(), track.momentum()) < 0.3)
-            pTinCone += track.momentum().pT();
+            pTinCone += track.pT();
         }
 
         // Calculate eTCone30 variable (pT of all visible particles within dR<0.3)
         double eTinCone = 0.;
         foreach (const Particle& visible_particle, visible_particles) {
           if (visible_particle.abspid() != PID::MUON && inRange(deltaR(mu.momentum(), visible_particle.momentum()), 0.1, 0.3))
-            eTinCone += visible_particle.momentum().pT();
+            eTinCone += visible_particle.pT();
         }
 
         // Apply reconstruction efficiency and simulate reco
@@ -125,16 +125,16 @@ namespace Rivet {
         if (inRange(e.abseta(), 1.37, 1.52)) continue;
 
         // Calculate pTCone30 variable (pT of all tracks within dR<0.3 - pT of electron itself)
-        double pTinCone = -e.momentum().pT();
+        double pTinCone = -e.pT();
         foreach (const Particle& track, charged_tracks) {
-          if (deltaR(e.momentum(), track.momentum()) < 0.3) pTinCone += track.momentum().pT();
+          if (deltaR(e.momentum(), track.momentum()) < 0.3) pTinCone += track.pT();
         }
 
         // Calculate eTCone30 variable (pT of all visible particles (except muons) within dR<0.3)
         double eTinCone = 0.;
         foreach (const Particle& visible_particle, visible_particles) {
           if (visible_particle.abspid() != PID::MUON && inRange(deltaR(e.momentum(), visible_particle.momentum()), 0.1, 0.3))
-            eTinCone += visible_particle.momentum().pT();
+            eTinCone += visible_particle.pT();
         }
 
         // Apply reconstruction efficiency and simulate reco
@@ -325,7 +325,7 @@ namespace Rivet {
       if (rand()/static_cast<double>(RAND_MAX) <= 0.42) {
         foreach (const Jet& jet, recon_jets) {
           const double eta = jet.rapidity();
-          const double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          const double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
           if (jet.pT() > 25*GeV && inRange(eta, -0.1, 1.5) && inRange(phi, -0.9, -0.5)) vetoEvent;
         }
       }
@@ -356,18 +356,18 @@ namespace Rivet {
       double HTlep = 0.;
       Particles chosen_leptons;
       if ( recon_leptons.size() > 2 ) {
-        _h_pt_1_3l->fill(recon_leptons[0].momentum().perp()/GeV, weight);
-        _h_pt_2_3l->fill(recon_leptons[1].momentum().perp()/GeV, weight);
-        _h_pt_3_3l->fill(recon_leptons[2].momentum().perp()/GeV, weight);
+        _h_pt_1_3l->fill(recon_leptons[0].perp()/GeV, weight);
+        _h_pt_2_3l->fill(recon_leptons[1].perp()/GeV, weight);
+        _h_pt_3_3l->fill(recon_leptons[2].perp()/GeV, weight);
         HTlep = (recon_leptons[0].pT() + recon_leptons[1].pT() + recon_leptons[2].pT())/GeV;
         chosen_leptons.push_back( recon_leptons[0] );
         chosen_leptons.push_back( recon_leptons[1] );
         chosen_leptons.push_back( recon_leptons[2] );
       }
       else {
-        _h_pt_1_2ltau->fill(recon_leptons[0].momentum().perp()/GeV, weight);
-        _h_pt_2_2ltau->fill(recon_leptons[1].momentum().perp()/GeV, weight);
-        _h_pt_3_2ltau->fill(recon_tau[0].momentum().perp()/GeV,     weight);
+        _h_pt_1_2ltau->fill(recon_leptons[0].perp()/GeV, weight);
+        _h_pt_2_2ltau->fill(recon_leptons[1].perp()/GeV, weight);
+        _h_pt_3_2ltau->fill(recon_tau[0].perp()/GeV,     weight);
         HTlep = (recon_leptons[0].pT() + recon_leptons[1].pT() + recon_tau[0].pT())/GeV ;
         chosen_leptons.push_back( recon_leptons[0] );
         chosen_leptons.push_back( recon_leptons[1] );
@@ -382,21 +382,21 @@ namespace Rivet {
       // Calculate HTjets
       double HTjets = 0.;
       foreach ( const Jet & jet, recon_jets )
-        HTjets += jet.momentum().perp()/GeV;
+        HTjets += jet.perp()/GeV;
 
       // Calculate meff
       double meff = eTmiss + HTjets;
       Particles all_leptons;
       foreach ( const Particle & e , recon_e  )  {
-        meff += e.momentum().perp()/GeV;
+        meff += e.perp()/GeV;
         all_leptons.push_back( e );
       }
       foreach ( const Particle & mu, recon_mu )  {
-        meff += mu.momentum().perp()/GeV;
+        meff += mu.perp()/GeV;
         all_leptons.push_back( mu );
       }
       foreach ( const Particle & tau, recon_tau )  {
-        meff += tau.momentum().perp()/GeV;
+        meff += tau.perp()/GeV;
         all_leptons.push_back( tau );
       }
 

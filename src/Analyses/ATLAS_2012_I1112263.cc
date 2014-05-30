@@ -114,14 +114,14 @@ namespace Rivet {
         // remove electrons with pT<15 in old veto region
         // (NOT EXPLICIT IN THIS PAPER BUT IN SIMILAR 4 LEPTON PAPER and THIS DESCRPITION
         //  IS MUCH WORSE SO ASSUME THIS IS DONE)
-        if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.momentum().perp()< 15.*GeV)
+        if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.perp()< 15.*GeV)
           continue;
-        double pTinCone = -e.momentum().perp();
+        double pTinCone = -e.perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.pT();
         }
-        if (pTinCone/e.momentum().perp()<0.1) {
+        if (pTinCone/e.perp()<0.1) {
           cand_e.push_back(e);
         }
       }
@@ -208,21 +208,21 @@ namespace Rivet {
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
         foreach ( const Particle & e, recon_e ) {
           double eta = e.eta();
-          double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          double phi = e.azimuthalAngle(MINUSPI_PLUSPI);
           if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
         foreach ( const Jet & jet, recon_jets ) {
           double eta = jet.rapidity();
-          double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-          if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+          double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
+          if(jet.perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
       }
 
       // check at least one e/mu passing trigger
-      if( !( !recon_e .empty() && recon_e[0] .momentum().perp()>25.)  &&
-          !( !recon_mu.empty() && recon_mu[0].momentum().perp()>20.) ) {
+      if( !( !recon_e .empty() && recon_e[0] .perp()>25.)  &&
+          !( !recon_mu.empty() && recon_mu[0].perp()>20.) ) {
         MSG_DEBUG("Hardest lepton fails trigger");
         vetoEvent;
       }
@@ -289,9 +289,9 @@ namespace Rivet {
         Histo1DPtr hist = mdiff>10. ?
           _hist_leptonpT_SR1[ix] :  _hist_leptonpT_SR2[ix];
         double pTe  = ie <recon_e .size() ?
-          recon_e [ie ].momentum().perp() : -1*GeV;
+          recon_e [ie ].perp() : -1*GeV;
         double pTmu = imu<recon_mu.size() ?
-          recon_mu[imu].momentum().perp() : -1*GeV;
+          recon_mu[imu].perp() : -1*GeV;
         if(pTe>pTmu) {
           hist->fill(pTe ,weight);
           ++ie;

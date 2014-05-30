@@ -72,8 +72,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0/GeV;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0/GeV;
 
       foreach (const Particle& p, ufs.particles()) {
         const PdgId pid = p.abspid();
@@ -84,7 +84,7 @@ namespace Rivet {
           // Accept all D*+- decays. Normalisation to D0 + pi+- in finalize()
 
           // Scaled energy.
-          const double energy = p.momentum().E()/GeV;
+          const double energy = p.E()/GeV;
           const double scaledEnergy = energy/meanBeamMom;
           _h_Xe_Ds->fill(scaledEnergy, weight);
 

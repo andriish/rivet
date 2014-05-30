@@ -90,7 +90,7 @@ namespace Rivet {
       _h_WW_pT->fill(ww.pT(),weight);
       _h_WW_pT_peak->fill(ww.pT(),weight);
       _h_WW_eta->fill(ww.eta(),weight);
-      _h_WW_phi->fill(ww.azimuthalAngle(),weight);
+      _h_WW_phi->fill(ww.phi(),weight);
       double mww2=ww.mass2();
       if (mww2>0.0) _h_WW_m->fill(sqrt(mww2), weight);
 
@@ -99,8 +99,8 @@ namespace Rivet {
       _h_WW_dR->fill(deltaR(wenu,wmnu), weight);
       _h_WW_dpT->fill(fabs(wenu.pT()-wmnu.pT()), weight);
 
-      Vector3 crossWenu = ep.vector3().cross(enu.vector3());
-      Vector3 crossWmnu = mm.vector3().cross(mnu.vector3());
+      Vector3 crossWenu = ep.p3().cross(enu.p3());
+      Vector3 crossWmnu = mm.p3().cross(mnu.p3());
       double costheta = crossWenu.dot(crossWmnu)/crossWenu.mod()/crossWmnu.mod();
       _h_WW_costheta_planes->fill(costheta, weight);
 

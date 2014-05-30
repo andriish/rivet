@@ -55,7 +55,7 @@ namespace Rivet {
 
 
       foreach (const Particle& p, charged.particles()) {
-        const double eta = p.momentum().pseudorapidity();
+        const double eta = p.eta();
         _h_dN_deta->fill(eta, weight);
       }
 

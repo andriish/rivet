@@ -71,15 +71,15 @@ namespace Rivet {
 
       // loop over the jobs
       foreach (const Jet& jet, jets ) {
-        double perp = jet.momentum().perp();
+        double perp = jet.perp();
         bool found = false;
         double z(0.);
         if(perp<25.||perp>70.) continue;
         foreach(const Particle & p, Dstar) {
-          if(p.momentum().perp()<7.5) continue;
+          if(p.perp()<7.5) continue;
           if(deltaR(p, jet.momentum())<0.6) {
-            Vector3 axis = jet.momentum().vector3().unit();
-            z = axis.dot(p.momentum().vector3())/jet.momentum().E();
+            Vector3 axis = jet.p3().unit();
+            z = axis.dot(p.p3())/jet.E();
             if(z<0.3) continue;
             found = true;
             break;

@@ -96,8 +96,8 @@ namespace Rivet {
         unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
         foreach (const Particle& p, ufs.particles()) {
           int id = p.abspid();
-          double xp = 2.*p.momentum().t()/roots;
-          double beta = p.momentum().vector3().mod()/p.momentum().t();
+          double xp = 2.*p.E()/roots;
+          double beta = p.p3().mod()/p.E();
           if (id == 113) {
             _hist_cont_Rho0->fill(xp,weight/beta);
             ++nRho0;
@@ -137,15 +137,15 @@ namespace Rivet {
           // find the decay products we want
           findDecayProducts(ups.genParticle(),unstable);
           LorentzTransform cms_boost;
-          if (ups.momentum().vector3().mod() > 0.001)
+          if (ups.p3().mod() > 0.001)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
-          double mass = ups.momentum().mass();
+          double mass = ups.mass();
           unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
           foreach(const Particle & p , unstable) {
             int id = p.abspid();
             FourMomentum p2 = cms_boost.transform(p.momentum());
-            double xp = 2.*p2.t()/mass;
-            double beta = p2.vector3().mod()/p2.t();
+            double xp = 2.*p2.E()/mass;
+            double beta = p2.p3().mod()/p2.E();
             if (id == 113) {
               if (parentId == 553) _hist_Ups1_Rho0->fill(xp,weight/beta);
               else                 _hist_Ups4_Rho0->fill(xp,weight/beta);

@@ -128,7 +128,7 @@ namespace Rivet {
 
       foreach (const Particle& p, fs.particles()) {
         // Calculate DeltaPhi(p,leadingJet)
-        const double dPhi = deltaPhi(p.momentum().phi(), phiLead);
+        const double dPhi = deltaPhi(p.phi(), phiLead);
         const double pT = p.pT();
 
         if (dPhi < PI/3.0) {

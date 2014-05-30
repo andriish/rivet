@@ -197,7 +197,7 @@ namespace Rivet {
       foreach ( const Jet& jet, recon_jets ) {
         if ( jet.pT() > 40 * GeV ) {
           if ( Njets < 3 ) {
-            min_dPhi = min( min_dPhi, deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
+            min_dPhi = min( min_dPhi, deltaPhi( pTmiss_phi, jet.phi() ) );
           }
           ++Njets;
         }

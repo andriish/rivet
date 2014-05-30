@@ -75,7 +75,7 @@ namespace Rivet {
       if (jets.size() < i+1) continue;
       _h_pT_jet[i]->fill(jets[i].pT()/GeV, weight);
       // Check for numerical precision issues with jet masses
-      double m2_i = jets[i].momentum().mass2();
+      double m2_i = jets[i].mass2();
       if (m2_i < 0) {
         if (m2_i < -1e-4) {
           MSG_WARNING("Jet mass2 is negative: " << m2_i << " GeV^2. "

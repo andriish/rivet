@@ -64,13 +64,13 @@ namespace Rivet {
       int n_left(0), n_right(0), n_large_x(0);
       foreach (const Particle& p, fs.particles()) {
         // Calculate the particles' Feynman x
-        if (p.momentum().pT() <=3*GeV) {
+        if (p.pT() <=3*GeV) {
           N++;
-          const double x_feyn = 2.0 * fabs(p.momentum().pz())/sqrtS();
+          const double x_feyn = 2.0 * fabs(p.pz())/sqrtS();
           if (x_feyn > 0.8 ) n_large_x += 1;
 
           // Pseudorapidity
-          const double eta = p.momentum().pseudorapidity();
+          const double eta = p.eta();
           if (eta > 0.0) n_right += 1;
           else if (eta < 0.0) n_left += 1;
         }

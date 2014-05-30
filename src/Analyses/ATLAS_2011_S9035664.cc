@@ -61,7 +61,7 @@ namespace Rivet {
           }
         }
         double rapidity = p.rapidity();
-        double xp = p.momentum().perp();
+        double xp = p.perp();
 
         if (rapidity<=2.4 and rapidity>2.) {
           if (nonPrompt) _nonPrRapHigh->fill(xp, weight);

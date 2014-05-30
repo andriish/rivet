@@ -118,14 +118,14 @@ namespace Rivet {
                 applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
         double eta = e.eta();
         // remove electrons with pT<15 in old veto region
-        if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.momentum().perp()< 15.*GeV)
+        if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.perp()< 15.*GeV)
           continue;
-        double pTinCone = -e.momentum().perp();
+        double pTinCone = -e.perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.pT();
         }
-        if (pTinCone/e.momentum().perp()<0.1) {
+        if (pTinCone/e.perp()<0.1) {
           cand_e.push_back(e);
         }
       }
@@ -260,21 +260,21 @@ namespace Rivet {
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
         foreach ( const Particle & e, recon_e ) {
           double eta = e.eta();
-          double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          double phi = e.azimuthalAngle(MINUSPI_PLUSPI);
           if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
         foreach ( const Jet & jet, recon_jets ) {
           double eta = jet.rapidity();
-          double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-          if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+          double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
+          if(jet.perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
       }
 
       // check at least one e/mu passing trigger
-      if( !( !recon_e .empty() && recon_e[0] .momentum().perp()>25.)  &&
-          !( !recon_mu.empty() && recon_mu[0].momentum().perp()>20.) ) {
+      if( !( !recon_e .empty() && recon_e[0] .perp()>25.)  &&
+          !( !recon_mu.empty() && recon_mu[0].perp()>20.) ) {
         MSG_DEBUG("Hardest lepton fails trigger");
         vetoEvent;
       }
@@ -282,11 +282,11 @@ namespace Rivet {
       // calculate meff
       double meff = eTmiss;
       foreach ( const Particle & e , recon_e  )
-        meff += e.momentum().perp();
+        meff += e.perp();
       foreach ( const Particle & mu, recon_mu )
-        meff += mu.momentum().perp();
+        meff += mu.perp();
       foreach ( const Jet & jet, recon_jets ) {
-        double pT = jet.momentum().perp();
+        double pT = jet.perp();
         if(pT>40.) meff += pT;
       }
 
@@ -318,9 +318,9 @@ namespace Rivet {
       unsigned int ie=0,imu=0;
       for(unsigned int ix=0;ix<4;++ix) {
         double pTe  = ie <recon_e .size() ?
-          recon_e [ie ].momentum().perp() : -1*GeV;
+          recon_e [ie ].perp() : -1*GeV;
         double pTmu = imu<recon_mu.size() ?
-          recon_mu[imu].momentum().perp() : -1*GeV;
+          recon_mu[imu].perp() : -1*GeV;
         if(pTe>pTmu) {
           _hist_leptonpT   [ix]->fill(pTe ,weight);
           _hist_leptonpT_MC[ix]->fill(pTe ,weight);

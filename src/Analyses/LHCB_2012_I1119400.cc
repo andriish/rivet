@@ -98,7 +98,7 @@ namespace Rivet {
 
         // cut in momentum
         const FourMomentum& qmom = p.momentum();
-        if (qmom.p().mod() < _p_min) continue;
+        if (qmom.p3().mod() < _p_min) continue;
 
         // Lifetime cut: ctau sum of all particle ancestors < 10^-9 m according to the paper (see eq. 5)
         const double MAX_CTAU = 1.0e-9; // [m]

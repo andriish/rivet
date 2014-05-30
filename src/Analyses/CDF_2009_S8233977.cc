@@ -88,7 +88,7 @@ namespace Rivet {
       const FinalState& etfs = applyProjection<FinalState>(evt, "EtFS");
       double sumEt = 0.0;
       foreach (const Particle& p, etfs.particles()) {
-        sumEt += p.momentum().Et();
+        sumEt += p.Et();
       }
       _hist_sumEt->fill(sumEt, weight);
       _sumWeightSelected += evt.weight();

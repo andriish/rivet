@@ -51,7 +51,7 @@ namespace Rivet {
       // Identify leading object and its phi and pT
       Particles particles500 = chargedNeutral500.particlesByPt();
       Particle p_lead = particles500[0];
-      const double philead = p_lead.momentum().phi();
+      const double philead = p_lead.phi();
       const double etalead = p_lead.eta();
       const double pTlead  = p_lead.pT();
       MSG_DEBUG("Leading object: pT = " << pTlead << ", eta = " << etalead << ", phi = " << philead);
@@ -63,7 +63,7 @@ namespace Rivet {
       Histo1D hist_num_dphi_500(refData(13+isqrts,1,1));
       foreach (const Particle& p, particles500) {
         const double pT = p.pT();
-        const double dPhi = deltaPhi(philead, p.momentum().phi());
+        const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);
         num500[ir] += 1;
         ptSum500[ir] += pT;

@@ -47,7 +47,7 @@ namespace Rivet {
     // Recalculate particle energy assuming pion mass
     double getPionEnergy(const Particle& p) {
       double m_pi = 0.1396*GeV;
-      double p2  = p.momentum().vector3().mod2()/(GeV*GeV);
+      double p2  = p.p3().mod2()/(GeV*GeV);
       return sqrt(pow(m_pi,2) + p2);
     }
 
@@ -59,7 +59,7 @@ namespace Rivet {
       std::complex<double> c_eta (0.0, 0.0);
       foreach (const Particle& p, part) {
         double eta = p.eta();
-        double phi = p.momentum().phi();
+        double phi = p.phi();
         double arg = xi*eta-phi;
          std::complex<double> temp(cos(arg), sin(arg));
          c_eta += temp;
@@ -76,7 +76,7 @@ namespace Rivet {
       std::complex<double> c_E (0.0, 0.0);
       for (unsigned int i=0; i<part.size(); i++) {
         Xj += 0.5*getPionEnergy(part[i]);
-        double phi = part[i].momentum().phi();
+        double phi = part[i].phi();
         double arg = omega*Xj - phi;
          std::complex<double> temp(cos(arg), sin(arg));
          c_E += temp;

@@ -188,12 +188,12 @@ namespace Rivet {
       foreach ( const Jet& jet, recon_jets ) {
         if ( jet.pT() < 40 * GeV ) continue;
         if ( Njets < 2 ) {
-          min_dPhi_2 = min( min_dPhi_2, deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
+          min_dPhi_2 = min( min_dPhi_2, deltaPhi( pTmiss_phi, jet.phi() ) );
         }
         if( Njets < 3) {
-          min_dPhi_3 = min( min_dPhi_3, deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
+          min_dPhi_3 = min( min_dPhi_3, deltaPhi( pTmiss_phi, jet.phi() ) );
         }
-        min_dPhi_All = min( min_dPhi_All, deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
+        min_dPhi_All = min( min_dPhi_All, deltaPhi( pTmiss_phi, jet.phi() ) );
         ++Njets;
       }
 
@@ -219,22 +219,22 @@ namespace Rivet {
       }
 
       // for rest of regions 3 jets pT> 60 needed
-      if(recon_jets.size()<3 || recon_jets[2].momentum().perp()<60.)
+      if(recon_jets.size()<3 || recon_jets[2].perp()<60.)
         vetoEvent;
 
       // region B
-      m_eff_Nj +=  recon_jets[2].momentum().perp();
+      m_eff_Nj +=  recon_jets[2].perp();
       if( min_dPhi_3 > 0.4 && eTmiss/m_eff_Nj > 0.25 ) {
         _hist_meff_B->fill(m_eff_inc,weight);
         if(m_eff_inc>1900.) _count_B_tight ->fill(0.5,weight);
       }
 
       // for rest of regions 4 jets pT> 60 needed
-      if(recon_jets.size()<4 || recon_jets[3].momentum().perp()<60.)
+      if(recon_jets.size()<4 || recon_jets[3].perp()<60.)
         vetoEvent;
 
       // region C
-      m_eff_Nj +=  recon_jets[3].momentum().perp();
+      m_eff_Nj +=  recon_jets[3].perp();
       if( min_dPhi_3 > 0.4 && min_dPhi_All > 0.2 && eTmiss/m_eff_Nj > 0.25 ) {
         _hist_meff_C->fill(m_eff_inc,weight);
         if(m_eff_inc>1500.) _count_C_tight ->fill(0.5,weight);
@@ -243,22 +243,22 @@ namespace Rivet {
       }
 
       // for rest of regions 5 jets pT> 40 needed
-      if(recon_jets.size()<5 || recon_jets[4].momentum().perp()<40.)
+      if(recon_jets.size()<5 || recon_jets[4].perp()<40.)
         vetoEvent;
 
       // region D
-      m_eff_Nj +=  recon_jets[4].momentum().perp();
+      m_eff_Nj +=  recon_jets[4].perp();
       if( min_dPhi_3 > 0.4 && min_dPhi_All > 0.2 && eTmiss/m_eff_Nj > 0.2 ) {
         _hist_meff_D->fill(m_eff_inc,weight);
         if(m_eff_inc>1500.) _count_D_tight ->fill(0.5,weight);
       }
 
       // for rest of regions 6 jets pT> 40 needed
-      if(recon_jets.size()<6 || recon_jets[5].momentum().perp()<40.)
+      if(recon_jets.size()<6 || recon_jets[5].perp()<40.)
         vetoEvent;
 
       // region E
-      m_eff_Nj +=  recon_jets[5].momentum().perp();
+      m_eff_Nj +=  recon_jets[5].perp();
       if( min_dPhi_3 > 0.4 && min_dPhi_All > 0.2 && eTmiss/m_eff_Nj > 0.15 ) {
         _hist_meff_E->fill(m_eff_inc,weight);
         if(m_eff_inc>1400.) _count_E_tight ->fill(0.5,weight);

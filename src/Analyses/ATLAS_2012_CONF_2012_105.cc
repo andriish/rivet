@@ -127,7 +127,7 @@ namespace Rivet {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
-        if ( pTinCone < 0.1*e.momentum().perp() )
+        if ( pTinCone < 0.1*e.perp() )
           recon_leptons.push_back(e);
       }
 
@@ -166,13 +166,13 @@ namespace Rivet {
       // Exactly two leptons for each event
       if ( recon_leptons.size() != 2) vetoEvent;
       // ensure 1st hardest
-      if(recon_leptons[0].momentum().perp()<recon_leptons[1].momentum().perp())
+      if(recon_leptons[0].perp()<recon_leptons[1].perp())
         std::swap(recon_leptons[0],recon_leptons[1]);
       // only keep same sign
       if(recon_leptons[0].pid()*recon_leptons[1].pid()<0)
         vetoEvent;
       // at least 4 jets pt>50
-      if(recon_jets.size()<4||recon_jets[3].momentum().perp()<50.)
+      if(recon_jets.size()<4||recon_jets[3].perp()<50.)
         vetoEvent;
 
       if(recon_leptons[0].pid()!=recon_leptons[1].pid())

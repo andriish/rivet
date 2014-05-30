@@ -60,9 +60,9 @@ namespace Rivet {
       // Cut on the forward energy
       double efwd = 0.0;
       foreach (const Particle& p, particles) {
-        double th = p.momentum().angle(dk.beamHadron().momentum())/degree;
+        double th = p.angle(dk.beamHadron().momentum())/degree;
         if (th > 4.4 && th < 15.) {
-          efwd += p.momentum().E();
+          efwd += p.E();
         }
       }
 
@@ -89,7 +89,7 @@ namespace Rivet {
       for (size_t ip1 = 0; ip1 < particles.size(); ++ip1) {
         const Particle& p = particles[ip1];
 
-        double th = p.momentum().angle(dk.beamHadron().momentum()) / degree;
+        double th = p.angle(dk.beamHadron().momentum()) / degree;
         // Boost momentum to lab
         const FourMomentum hcmMom = hcmboost.transform(p.momentum());
         // Angular cut
@@ -97,7 +97,7 @@ namespace Rivet {
 
         // Energy flow histogram
         double et = fabs(Et(hcmMom));
-        double eta = hcmMom.pseudorapidity();
+        double eta = hcmMom.eta();
         if (x < 1e-3) {
           _histEnergyFlowLowX ->fill(eta, et*weight);
         } else {
@@ -125,22 +125,22 @@ namespace Rivet {
 
         // Energy-energy correlation
         if (th <= 8.) continue;
-        double phi1 = p.momentum().azimuthalAngle(ZERO_2PI);
-        double eta1 = p.momentum().pseudorapidity();
+        double phi1 = p.phi(ZERO_2PI);
+        double eta1 = p.eta();
         double et1 = fabs(Et(p.momentum()));
         for (size_t ip2 = ip1+1; ip2 < particles.size(); ++ip2) {
           const Particle& p2 = particles[ip2];
 
           //double th2 = beamAngle(p2.momentum(), order);
-          double th2 = p2.momentum().angle(dk.beamHadron().momentum()) / degree;
+          double th2 = p2.angle(dk.beamHadron().momentum()) / degree;
           if (th2 <= 8.) continue;
-          double phi2 = p2.momentum().azimuthalAngle(ZERO_2PI);
+          double phi2 = p2.phi(ZERO_2PI);
 
           /// @todo Use angle function
           double deltaphi = phi1 - phi2;
           if (fabs(deltaphi) > PI)
             deltaphi = fabs(fabs(deltaphi) - TWOPI);
-          double eta2 = p2.momentum().pseudorapidity();
+          double eta2 = p2.eta();
           double omega = sqrt(sqr(eta1-eta2) + sqr(deltaphi));
           double et2 = fabs(Et(p2.momentum()));
           double wt = et1*et2 / sqr(ptel) * weight;

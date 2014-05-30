@@ -135,7 +135,7 @@ namespace Rivet {
         fiducial_lepton.insert(fiducial_lepton.end(), isolated_lepton.begin(), isolated_lepton.end());
       }
       if (fiducial_lepton.size() == 0) vetoEvent;
-      double pT_l1 = fiducial_lepton[0].momentum().pT();
+      double pT_l1 = fiducial_lepton[0].pT();
       double M_l1l2 = (fiducial_lepton[0].momentum() + fiducial_lepton[1].momentum()).mass();
       double pT_l1l2 = (fiducial_lepton[0].momentum() + fiducial_lepton[1].momentum()).pT();
 
@@ -148,7 +148,7 @@ namespace Rivet {
       /////////////////////////////////////////////////////////////////////////
       Jets alljets, vetojets;
       foreach (const Jet& j, applyProjection<FastJets>(e, "jet").jetsByPt(25)) {
-        if (j.momentum().absrap() > 4.5 ) continue;
+        if (j.absrap() > 4.5 ) continue;
         alljets.push_back(j);
         bool deltaRcontrol = true;
         foreach (DressedLepton& fl,fiducial_lepton) {

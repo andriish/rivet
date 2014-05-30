@@ -134,7 +134,7 @@ namespace Rivet {
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
         if(fabs(jet.eta())>2.8 ||
-           jet.momentum().perp()<30.) continue;
+           jet.perp()<30.) continue;
       	bool away_from_e = true;
       	foreach ( const Particle & e, cand_e ) {
       	  if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
@@ -162,7 +162,7 @@ namespace Rivet {
       if(recon_jets.size()<6 ) vetoEvent;
 
       // hardest > 130
-      if(recon_jets[0].momentum().perp() < 130. ) vetoEvent;
+      if(recon_jets[0].perp() < 130. ) vetoEvent;
 
       // three hardest jets must be separated from etmiss
       for(unsigned int ix=0;ix<3;++ix) {
@@ -182,9 +182,9 @@ namespace Rivet {
 	}
 	if(ncharged==0 || ncharged>4) continue;
 	// calculate transverse mass and reject if < 100
-	double mT = 2.*recon_jets[ix].momentum().perp()*ETmiss
-	  -recon_jets[ix].momentum().x()*pTmiss.x()
-	  -recon_jets[ix].momentum().y()*pTmiss.y();
+	double mT = 2.*recon_jets[ix].perp()*ETmiss
+	  -recon_jets[ix].px()*pTmiss.px()
+	  -recon_jets[ix].py()*pTmiss.py();
 	if(mT<100.) vetoEvent;
       }
 
@@ -200,18 +200,18 @@ namespace Rivet {
 	    ijet = ix;
 	  }
 	}
-	double  mT = 2.*loose_bjets[ijet].momentum().perp()*ETmiss
-	  -loose_bjets[ijet].momentum().x()*pTmiss.x()
-	  -loose_bjets[ijet].momentum().y()*pTmiss.y();
+	double  mT = 2.*loose_bjets[ijet].perp()*ETmiss
+	  -loose_bjets[ijet].px()*pTmiss.px()
+	  -loose_bjets[ijet].py()*pTmiss.py();
 	if(mT<170.) vetoEvent;
       }
 
       // 1 tight b-jet apply mT cut
       if(tight_bjets.size()==1) {
 	for(unsigned int ix=0;ix<4;++ix) {
-	  double mT = 2.*recon_jets[ix].momentum().perp()*ETmiss
-	    -recon_jets[ix].momentum().x()*pTmiss.x()
-	    -recon_jets[ix].momentum().y()*pTmiss.y();
+	  double mT = 2.*recon_jets[ix].perp()*ETmiss
+	    -recon_jets[ix].px()*pTmiss.px()
+	    -recon_jets[ix].py()*pTmiss.py();
 	  if(mT<175.) vetoEvent;
 	}
       }

@@ -59,8 +59,8 @@ namespace Rivet {
       else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap[p.pid()] < p.momentum().E()) {
-            quarkmap[p.pid()] = p.momentum().E();
+          if (quarkmap[p.pid()] < p.E()) {
+            quarkmap[p.pid()] = p.E();
           }
         }
         double maxenergy = 0.;

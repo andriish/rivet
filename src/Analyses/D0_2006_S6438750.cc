@@ -55,13 +55,13 @@ namespace Rivet {
 
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 10% of the photon's energy
       double E_P   = photon.E();
-      double eta_P = photon.pseudorapidity();
-      double phi_P = photon.azimuthalAngle();
+      double eta_P = photon.eta();
+      double phi_P = photon.phi();
       double econe = 0.0;
       foreach (const Particle& p, applyProjection<FinalState>(event, "AllFS").particles()) {
         if (deltaR(eta_P, phi_P,
-                   p.momentum().pseudorapidity(), p.momentum().azimuthalAngle()) < 0.4) {
-          econe += p.momentum().E();
+                   p.eta(), p.phi()) < 0.4) {
+          econe += p.E();
           if (econe/E_P > 1.1) {
             vetoEvent;
           }

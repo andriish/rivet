@@ -59,7 +59,7 @@ namespace Rivet {
       _h_W_pT->fill(wmom.pT(), weight);
       _h_W_pT_peak->fill(wmom.pT(), weight);
       _h_W_y->fill(wmom.rapidity(), weight);
-      _h_W_phi->fill(wmom.azimuthalAngle(), weight);
+      _h_W_phi->fill(wmom.phi(), weight);
       Particle l=wfinder.constituentLeptons()[0];
       _h_lepton_pT->fill(l.pT(), weight);
       _h_lepton_eta->fill(l.eta(), weight);

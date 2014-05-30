@@ -73,7 +73,7 @@ namespace Rivet {
           vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq.exclusive_jets(dcut));
           for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
-            double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
+            double cost = pjet.p3().unit().dot(pgamma.p3().unit());
             double ygamma = 2 * min(sqr(pjet.E()/evis), sqr(pgamma.E()/evis)) * (1 - cost);
             if (ygamma < ycut) {
               accept = false;
@@ -96,7 +96,7 @@ namespace Rivet {
           vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq2.exclusive_jets(dcut));
           for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
-            double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
+            double cost = pjet.p3().unit().dot(pgamma.p3().unit());
             double ygamma = 2.*pjet.E()*pgamma.E()/sqr(evis)*(1.-cost);
             if (ygamma < ycut) {
               accept = false;

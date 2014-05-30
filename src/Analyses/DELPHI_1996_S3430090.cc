@@ -159,8 +159,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Thrusts
@@ -220,8 +220,8 @@ namespace Rivet {
       MSG_DEBUG("About to iterate over charged FS particles");
       foreach (const Particle& p, fs.particles()) {
         // Get momentum and energy of each particle.
-        const Vector3 mom3 = p.momentum().vector3();
-        const double energy = p.momentum().E();
+        const Vector3 mom3 = p.p3();
+        const double energy = p.E();
         Evis += energy;
 
         // Scaled momenta.
@@ -260,8 +260,8 @@ namespace Rivet {
       for (Particles::const_iterator p_i = fs.particles().begin(); p_i != fs.particles().end(); ++p_i) {
         for (Particles::const_iterator p_j = p_i; p_j != fs.particles().end(); ++p_j) {
           if (p_i == p_j) continue;
-          const Vector3 mom3_i = p_i->momentum().vector3();
-          const Vector3 mom3_j = p_j->momentum().vector3();
+          const Vector3 mom3_i = p_i->momentum().p3();
+          const Vector3 mom3_j = p_j->momentum().p3();
           const double energy_i = p_i->momentum().E();
           const double energy_j = p_j->momentum().E();
           const double cosij = dot(mom3_i.unit(), mom3_j.unit());

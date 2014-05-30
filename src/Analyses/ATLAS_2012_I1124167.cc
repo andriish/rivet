@@ -83,15 +83,15 @@ namespace Rivet {
       double num500 = 0;
       double ptSum500 = 0;
 
-      double pTlead = particles500[0].momentum().pT()/GeV;
+      double pTlead = particles500[0].pT()/GeV;
 
       // Loop over particles
       foreach (const Particle& p, particles500) {
         num500 += 1;
-        ptSum500 += p.momentum().pT()/GeV;
+        ptSum500 += p.pT()/GeV;
 
         // Transverse Thrust calculation requires p_z to be set to 0
-        Vector3 mom = p.momentum().vector3();
+        Vector3 mom = p.p3();
         mom.setZ(0.0);
         momenta.push_back(mom);
       }

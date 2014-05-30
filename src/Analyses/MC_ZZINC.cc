@@ -83,7 +83,7 @@ namespace Rivet {
       _h_ZZ_pT->fill(zz.pT()/GeV, weight);
       _h_ZZ_pT_peak->fill(zz.pT()/GeV, weight);
       _h_ZZ_eta->fill(zz.eta(), weight);
-      _h_ZZ_phi->fill(zz.azimuthalAngle(), weight);
+      _h_ZZ_phi->fill(zz.phi(), weight);
       if (zz.mass2() > 0.0) //< @todo Protection still needed?
         _h_ZZ_m->fill(zz.mass()/GeV, weight);
 
@@ -92,8 +92,8 @@ namespace Rivet {
       _h_ZZ_dR->fill(deltaR(zee,zmm), weight);
       _h_ZZ_dpT->fill(fabs(zee.pT()-zmm.pT()), weight);
 
-      const Vector3 crossZee = ep.vector3().cross(em.vector3());
-      const Vector3 crossZmm = mp.vector3().cross(mm.vector3());
+      const Vector3 crossZee = ep.p3().cross(em.p3());
+      const Vector3 crossZmm = mp.p3().cross(mm.p3());
       const double costheta = crossZee.dot(crossZmm)/crossZee.mod()/crossZmm.mod();
       _h_ZZ_costheta_planes->fill(costheta, weight);
 

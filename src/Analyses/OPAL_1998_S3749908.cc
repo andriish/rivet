@@ -60,8 +60,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Final state of unstable particles to get particle spectra
@@ -69,8 +69,8 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         const int id = p.abspid();
-        double xi = -log(p.momentum().vector3().mod()/meanBeamMom);
-        double xE = p.momentum().t()/meanBeamMom;
+        double xi = -log(p.p3().mod()/meanBeamMom);
+        double xE = p.E()/meanBeamMom;
         switch (id) {
         case 22: // Photons
           _histXePhoton->fill(xE, weight);
@@ -80,7 +80,7 @@ namespace Rivet {
           _histXePi->fill(xE, weight);
           _histXiPi->fill(xi, weight);
           break;
-        case 221: // eta 
+        case 221: // eta
           _histXeEta->fill(xE, weight);
           _histXiEta->fill(xi, weight);
           break;

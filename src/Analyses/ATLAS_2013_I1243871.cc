@@ -218,7 +218,7 @@ namespace Rivet {
         foreach (const Particle& p, bJet->particles()) {
           const double dR = deltaR(bJet->momentum(), p.momentum());
           const size_t idR = (size_t) floor(dR/binWidth);
-          for (size_t i = idR; i < 10; ++i) rings[i] += p.momentum().pT();
+          for (size_t i = idR; i < 10; ++i) rings[i] += p.pT();
         }
 
         // Fill each dR bin of the histos for this jet pT
@@ -248,7 +248,7 @@ namespace Rivet {
         foreach (const Particle& p, lJet->particles()) {
           const double dR = deltaR(lJet->momentum(), p.momentum());
           const size_t idR = (size_t) floor(dR/binWidth);
-          for (size_t i = idR; i < 10; ++i) rings[i] += p.momentum().pT();
+          for (size_t i = idR; i < 10; ++i) rings[i] += p.pT();
         }
 
         // Fill each dR bin of the histos for this jet pT

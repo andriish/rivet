@@ -95,7 +95,7 @@ namespace Rivet {
       const Particle& l2 = zfinder.constituents()[1];
 
       // Require a high-pT Z (and constituents)
-      if (l1.momentum().pT() < 30*GeV || l2.momentum().pT() < 30*GeV || z.momentum().pT() < 120*GeV) vetoEvent;
+      if (l1.pT() < 30*GeV || l2.pT() < 30*GeV || z.pT() < 120*GeV) vetoEvent;
 
       // AK7 jets
       const PseudoJets& psjetsAK7_zj = applyProjection<FastJets>(event, "JetsAK7_zj").pseudoJetsByPt(50.0*GeV);

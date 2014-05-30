@@ -88,8 +88,8 @@ namespace Rivet {
 
     ConesInfo _calcTransCones(const FourMomentum& leadvec,
                               const Particles& tracks) {
-      const double etaLead = leadvec.pseudorapidity();
-      const double phiLead = leadvec.azimuthalAngle();
+      const double etaLead = leadvec.eta();
+      const double phiLead = leadvec.phi();
       return _calcTransCones(etaLead, phiLead, tracks);
     }
 
@@ -242,16 +242,16 @@ namespace Rivet {
           return;
         }
         if (cheesejets.size() > 1 &&
-            fabs(cheesejets[0].momentum().pseudorapidity()) <= 0.5 &&
-            cheesejets[0].momentum().Et()/GeV > 5.0 &&
-            cheesejets[1].momentum().Et()/GeV > 5.0) {
+            fabs(cheesejets[0].eta()) <= 0.5 &&
+            cheesejets[0].Et()/GeV > 5.0 &&
+            cheesejets[1].Et()/GeV > 5.0) {
 
-          const double cheeseETlead = cheesejets[0].momentum().Et();
+          const double cheeseETlead = cheesejets[0].Et();
 
-          const double eta1 = cheesejets[0].momentum().pseudorapidity();
-          const double phi1 = cheesejets[0].momentum().azimuthalAngle();
-          const double eta2 = cheesejets[1].momentum().pseudorapidity();
-          const double phi2 = cheesejets[1].momentum().azimuthalAngle();
+          const double eta1 = cheesejets[0].eta();
+          const double phi1 = cheesejets[0].phi();
+          const double eta2 = cheesejets[1].eta();
+          const double phi2 = cheesejets[1].phi();
 
           double ptSumSub2(0), ptSumSub3(0);
           foreach (const Particle& t, cheesetracks) {
@@ -262,22 +262,22 @@ namespace Rivet {
             const double deltaR1 = deltaR(trackMom, eta1, phi1);
             const double deltaR2 = deltaR(trackMom, eta2, phi2);
             MSG_TRACE("Track vs jet(1): "
-                     << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
+                     << "|(" << trackMom.eta() << ", " << trackMom.phi() << ") - "
                      << "|(" << eta1 << ", " << phi1 << ")| = " << deltaR1);
             MSG_TRACE("Track vs jet(2): "
-                     << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
+                     << "|(" << trackMom.eta() << ", " << trackMom.phi() << ") - "
                      << "|(" << eta2 << ", " << phi2 << ")| = " << deltaR2);
             if (deltaR1 > 0.7 && deltaR2 > 0.7) {
               ptSumSub2 += pt;
 
               // Subtracting 3rd leading jet
               if (cheesejets.size() > 2 &&
-                  cheesejets[2].momentum().Et()/GeV > 5.0) {
-                const double eta3 = cheesejets[2].momentum().pseudorapidity();
-                const double phi3 = cheesejets[2].momentum().azimuthalAngle();
+                  cheesejets[2].Et()/GeV > 5.0) {
+                const double eta3 = cheesejets[2].eta();
+                const double phi3 = cheesejets[2].phi();
                 const double deltaR3 = deltaR(trackMom, eta3, phi3);
                 MSG_TRACE("Track vs jet(3): "
-                         << "|(" << trackMom.pseudorapidity() << ", " << trackMom.azimuthalAngle() << ") - "
+                         << "|(" << trackMom.eta() << ", " << trackMom.phi() << ") - "
                          << "|(" << eta3 << ", " << phi3 << ")| = " << deltaR3);
                 if (deltaR3 > 0.7) {
                   ptSumSub3 += pt;

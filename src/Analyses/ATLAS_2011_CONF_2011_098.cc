@@ -165,7 +165,7 @@ namespace Rivet {
       foreach (const Jet& j, cand_jets) {
 	if(fabs( j.eta() ) <= 2.8) {
 	  recon_jets.push_back(j);
-	  if ( fabs( j.eta() ) <= 2.5 && j.momentum().perp()>50. &&
+	  if ( fabs( j.eta() ) <= 2.5 && j.perp()>50. &&
 	       j.containsBottom() && rand()/static_cast<double>(RAND_MAX) < 0.5 )
 	    bjets.push_back(j);
 	}
@@ -214,7 +214,7 @@ namespace Rivet {
       // min_dPhi
       double min_dPhi = 999.999;
       for ( int i = 0; i < 3; ++i ) {
-        double dPhi = deltaPhi( pTmiss.phi(), recon_jets[i].momentum().phi() );
+        double dPhi = deltaPhi( pTmiss.phi(), recon_jets[i].phi() );
         min_dPhi = min( min_dPhi, dPhi );
       }
 

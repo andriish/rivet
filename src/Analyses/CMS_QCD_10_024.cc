@@ -45,16 +45,16 @@ namespace Rivet {
       if(!cfs_08_05.particles().empty()) _weight_pt05_eta08 += weight;
       if(!cfs_24_05.particles().empty()) _weight_pt05_eta24 += weight;
       foreach (const Particle& p, cfs_24_05.particles()) {
-        _hist_dNch_deta_pt05_eta24->fill(p.momentum().pseudorapidity(), weight);
+        _hist_dNch_deta_pt05_eta24->fill(p.eta(), weight);
         if(!cfs_08_05.particles().empty())
-	  _hist_dNch_deta_pt05_eta08->fill(p.momentum().pseudorapidity(), weight);
+	  _hist_dNch_deta_pt05_eta08->fill(p.eta(), weight);
       }
       if(!cfs_08_10.particles().empty()) _weight_pt10_eta08 += weight;
       if(!cfs_24_10.particles().empty()) _weight_pt10_eta24 += weight;
       foreach (const Particle& p, cfs_24_10.particles()) {
-        _hist_dNch_deta_pt10_eta24->fill(p.momentum().pseudorapidity(), weight);
+        _hist_dNch_deta_pt10_eta24->fill(p.eta(), weight);
 	if(!cfs_08_10.particles().empty())
-	  _hist_dNch_deta_pt10_eta08->fill(p.momentum().pseudorapidity(), weight);
+	  _hist_dNch_deta_pt10_eta08->fill(p.eta(), weight);
       }
     }
 

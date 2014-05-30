@@ -106,12 +106,12 @@ namespace Rivet {
     }
 
     /// Angle subtended by the 3-vector's projection in x-y and the x-axis.
-    double azimuthalAngle(const PhiMapping mapping = ZERO_2PI) const {
+    double azimuthalAngle(const PhiMapping mapping=ZERO_2PI) const {
       return vector3().azimuthalAngle(mapping);
     }
 
     /// Synonym for azimuthalAngle.
-    double phi(const PhiMapping mapping = ZERO_2PI) const {
+    double phi(const PhiMapping mapping=ZERO_2PI) const {
       return vector3().phi(mapping);
     }
 

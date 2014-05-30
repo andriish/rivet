@@ -21,8 +21,9 @@ namespace Rivet {
   struct Zstate : public ParticlePair {
     Zstate() { }
     Zstate(ParticlePair _particlepair) : ParticlePair(_particlepair) { }
-    FourMomentum momentum() const { return first.momentum() + second.momentum(); }
-    static bool cmppT(const Zstate& lx, const Zstate& rx) { return lx.momentum().pT() < rx.momentum().pT(); }
+    FourMomentum mom() const { return first.momentum() + second.momentum(); }
+    operator FourMomentum() const { return mom(); }
+    static bool cmppT(const Zstate& lx, const Zstate& rx) { return lx.mom().pT() < rx.mom().pT(); }
   };
 
 
@@ -66,8 +67,8 @@ namespace Rivet {
 
       // We can have the following pairs: (Z1 + Z4) || (Z2 + Z3)
       double minValue_1, minValue_2;
-      minValue_1 = fabs( Zcand_1.momentum().mass() - ZMASS ) + fabs( Zcand_4.momentum().mass() - ZMASS);
-      minValue_2 = fabs( Zcand_2.momentum().mass() - ZMASS ) + fabs( Zcand_3.momentum().mass() - ZMASS);
+      minValue_1 = fabs( Zcand_1.mom().mass() - ZMASS ) + fabs( Zcand_4.mom().mass() - ZMASS);
+      minValue_2 = fabs( Zcand_2.mom().mass() - ZMASS ) + fabs( Zcand_3.mom().mass() - ZMASS);
       if (minValue_1 < minValue_2 ) {
         Z1 = Zcand_1;
         Z2 = Zcand_4;
@@ -217,12 +218,12 @@ namespace Rivet {
 
         Zstate leadPtZ = std::max(Z1, Z2, Zstate::cmppT);
 
-        double mZ1   = Z1.momentum().mass();
-        double mZ2   = Z2.momentum().mass();
-        double ZpT   = leadPtZ.momentum().pT();
+        double mZ1   = Z1.mom().mass();
+        double mZ2   = Z2.mom().mass();
+        double ZpT   = leadPtZ.mom().pT();
         double phill = fabs(deltaPhi(leadPtZ.first, leadPtZ.second));
         if (phill > M_PI) phill = 2*M_PI-phill;
-        double mZZ   = (Z1.momentum() + Z2.momentum()).mass();
+        double mZZ   = (Z1.mom() + Z2.mom()).mass();
 
         if (mZ1 > 20*GeV && mZ2 > 20*GeV) {
           // ZZ* selection

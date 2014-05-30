@@ -154,7 +154,7 @@ namespace Rivet {
         if (pT > ptMaxOverall) ptMaxOverall = pT;
 
         // Increment jet-oriented variables
-        const double dPhi_jet = jetphi - p.momentum().phi();
+        const double dPhi_jet = jetphi - p.phi();
         if (fabs(dPhi_jet) < PI/3.0) {
           ptSumToward_jet += pT;
           ++numToward_jet;
@@ -179,7 +179,7 @@ namespace Rivet {
 
 
         // Increment photon-oriented variables
-        const double dPhi_gamma = gammaphi - p.momentum().phi();
+        const double dPhi_gamma = gammaphi - p.phi();
         if (fabs(dPhi_gamma) < PI/3.0) {
           ptSumToward_gamma += pT;
           ++numToward_gamma;

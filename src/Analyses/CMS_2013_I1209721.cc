@@ -59,7 +59,7 @@ namespace Rivet {
       const ParticleVector& leptons = !zfm.empty() ? zfm.constituents() : zfe.constituents();
 
       // Determine whether we are in the boosted regime
-      const bool is_boosted = (z[0].momentum().pT() > 150*GeV);
+      const bool is_boosted = (z[0].pT() > 150*GeV);
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
@@ -86,12 +86,12 @@ namespace Rivet {
       // Collect Z and jets transverse momenta to calculate transverse thrust
       vector<Vector3> momenta;
       momenta.clear();
-      Vector3 mom = z[0].momentum().p();
+      Vector3 mom = z[0].p3();
       mom.setZ(0);
       momenta.push_back(mom);
 
       for (size_t i = 0; i < cleanedJets.size(); ++i) {
-        Vector3 mj = cleanedJets[i]->momentum().vector3();
+        Vector3 mj = cleanedJets[i]->momentum().p3();
         mj.setZ(0);
         momenta.push_back(mj);
       }

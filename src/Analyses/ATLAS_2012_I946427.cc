@@ -75,13 +75,13 @@ namespace Rivet {
         double eta_P = photon.eta();
         if (fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
 
-        double phi_P = photon.momentum().phi();
+        double phi_P = photon.phi();
 
         FourMomentum mom_in_EtCone = -photon.momentum();
         foreach (const Particle& p, fs) {
           // check if it's in the cone of .2
           if (deltaR(eta_P, phi_P, p.eta(),
-                     p.momentum().phi()) >= 0.2) continue;
+                     p.phi()) >= 0.2) continue;
           mom_in_EtCone += p.momentum();
         }
         // apply isolation
@@ -105,7 +105,7 @@ namespace Rivet {
       }
       double eTmiss = pTmiss.pT();
 
-      _hist_ET_photon->fill(isolated_photons[0].momentum().Et(),weight);
+      _hist_ET_photon->fill(isolated_photons[0].Et(),weight);
       _hist_met      ->fill(eTmiss                             ,weight);
 
       if(eTmiss>125.) _count_SR->fill(0.5,weight);

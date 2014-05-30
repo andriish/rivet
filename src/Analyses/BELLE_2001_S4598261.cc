@@ -46,27 +46,27 @@ namespace Rivet {
         }
       }
 
-      // find an upsilons
+      // Find upsilons
       foreach (const Particle& p, upsilons) {
         _weightSum += weight;
-        // find the neutral pions from the decay
+        // Find the neutral pions from the decay
         vector<GenParticle *> pions;
         findDecayProducts(p.genParticle(), pions);
         LorentzTransform cms_boost(-p.momentum().boostVector());
-        for(unsigned int ix=0;ix<pions.size();++ix) {
+        for (size_t ix=0; ix<pions.size(); ++ix) {
           double pcm =
             cms_boost.transform(FourMomentum(pions[ix]->momentum())).vector3().mod();
           _histdSigDp->fill(pcm,weight);
         }
-        _histMult->fill(0.,double(pions.size())*weight);
+        _histMult->fill(0., pions.size()*weight);
       }
-    } // analyze
+    }
+
 
     void finalize() {
-
       scale(_histdSigDp, 1./_weightSum);
       scale(_histMult  , 1./_weightSum);
-    } // finalize
+    }
 
 
     void init() {
@@ -76,7 +76,8 @@ namespace Rivet {
       _histdSigDp = bookHisto1D(1, 1, 1);
       // multiplicity
       _histMult   = bookHisto1D(2, 1, 1);
-    } // init
+    }
+
 
   private:
 

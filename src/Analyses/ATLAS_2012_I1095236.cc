@@ -137,7 +137,7 @@ namespace Rivet {
       Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu, loose_mu) {
-        if(mu.momentum().perp()<20.) continue;
+        if(mu.perp()<20.) continue;
         double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
@@ -148,13 +148,13 @@ namespace Rivet {
       }
       Particles tight_e;
       foreach ( const Particle & e, loose_e ) {
-        if(e.momentum().perp()<25.) continue;
-        double pTinCone = -e.momentum().perp();
+        if(e.perp()<25.) continue;
+        double pTinCone = -e.perp();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.pT();
         }
-        if (pTinCone/e.momentum().perp()<0.1) {
+        if (pTinCone/e.perp()<0.1) {
           tight_e.push_back(e);
         }
       }
@@ -171,7 +171,7 @@ namespace Rivet {
       // get the number of b-tagged jets
       unsigned int ntagged=0;
       foreach (const Jet & jet, recon_jets ) {
-        if(jet.momentum().perp()>50. && abs(jet.eta())<2.5 &&
+        if(jet.perp()>50. && abs(jet.eta())<2.5 &&
            jet.containsBottom() && rand()/static_cast<double>(RAND_MAX)<=0.60)
           ++ntagged;
       }
@@ -180,8 +180,8 @@ namespace Rivet {
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
         foreach ( const Jet & jet, recon_jets ) {
           double eta = jet.rapidity();
-          double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-          if(jet.momentum().perp()>50 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+          double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
+          if(jet.perp()>50 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
       }
@@ -193,24 +193,24 @@ namespace Rivet {
       if(eTmiss<80.) vetoEvent;
 
       // at least 3 jets pT > 50
-      if(recon_jets.size()<3 || recon_jets[2].momentum().perp()<50.)
+      if(recon_jets.size()<3 || recon_jets[2].perp()<50.)
         vetoEvent;
 
       // m_eff
       double m_eff =  eTmiss;
       for(unsigned int ix=0;ix<3;++ix)
-        m_eff += recon_jets[ix].momentum().perp();
+        m_eff += recon_jets[ix].perp();
 
       // delta Phi
       double min_dPhi = 999.999;
       double pTmiss_phi = pTmiss.phi();
       for(unsigned int ix=0;ix<3;++ix) {
-        min_dPhi = min( min_dPhi, deltaPhi( pTmiss_phi, recon_jets[ix].momentum().phi() ) );
+        min_dPhi = min( min_dPhi, deltaPhi( pTmiss_phi, recon_jets[ix].phi() ) );
       }
 
       // 0-lepton channels
       if(loose_e.empty() && loose_mu.empty() &&
-         recon_jets[0].momentum().perp()>130.  && eTmiss>130. &&
+         recon_jets[0].perp()>130.  && eTmiss>130. &&
          eTmiss/m_eff>0.25 && min_dPhi>0.4) {
         // jet charge cut
         bool jetCharge = true;
@@ -219,9 +219,9 @@ namespace Rivet {
           double trackpT=0;
           foreach(const Particle & p, recon_jets[ix].particles()) {
             if(PID::threeCharge(p.pid())==0) continue;
-            trackpT += p.momentum().perp();
+            trackpT += p.perp();
           }
-          if(trackpT/recon_jets[ix].momentum().perp()<0.05)
+          if(trackpT/recon_jets[ix].perp()<0.05)
             jetCharge = false;
         }
         if(jetCharge) {
@@ -251,14 +251,14 @@ namespace Rivet {
 
       // 1-lepton channels
       if(tight_e.size() + tight_mu.size() == 1 &&
-         recon_jets.size()>=4 && recon_jets[3].momentum().perp()>50.&&
-         recon_jets[0].momentum().perp()>60.) {
+         recon_jets.size()>=4 && recon_jets[3].perp()>50.&&
+         recon_jets[0].perp()>60.) {
         Particle lepton = tight_e.empty() ? tight_mu[0] : tight_e[0];
-        m_eff += lepton.momentum().perp() + recon_jets[3].momentum().perp();
+        m_eff += lepton.perp() + recon_jets[3].perp();
         // transverse mass cut
-        double mT = 2.*(lepton.momentum().perp()*eTmiss-
-                        lepton.momentum().x()*pTmiss.x()-
-                        lepton.momentum().y()*pTmiss.y());
+        double mT = 2.*(lepton.perp()*eTmiss-
+                        lepton.px()*pTmiss.px()-
+                        lepton.py()*pTmiss.py());
         mT = sqrt(mT);
         if(mT>100.&&m_eff>700.) {
           // D region

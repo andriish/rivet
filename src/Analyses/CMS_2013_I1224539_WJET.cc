@@ -93,7 +93,7 @@ namespace Rivet {
       const Particle& l = wfinder.constituentLeptons()[0];
 
       // Require a fairly high-pT W and charged lepton
-      if (l.momentum().pT() < 80*GeV || w.momentum().pT() < 120*GeV) vetoEvent;
+      if (l.pT() < 80*GeV || w.pT() < 120*GeV) vetoEvent;
 
       // Get the pseudojets.
       const PseudoJets& psjetsCA8_wj = applyProjection<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );

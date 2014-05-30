@@ -109,7 +109,7 @@ namespace Rivet {
           /// @todo Use jet contents rather than accessing quarks directly
           bool bjet = false;
           foreach (const Particle& bquark,  bquarks) {
-            if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(), bquark.momentum().azimuthalAngle()) <= _Rjet) {
+            if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(), bquark.phi()) <= _Rjet) {
               bjet = true;
               break;
             }

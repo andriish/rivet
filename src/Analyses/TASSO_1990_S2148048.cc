@@ -76,8 +76,8 @@ namespace Rivet {
 
       //// Get beams and average beam momentum
       //const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
-      //const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   //beams.second.momentum().vector3().mod() ) / 2.0;
+      //const double meanBeamMom = ( beams.first.p3().mod() +
+                                   //beams.second.p3().mod() ) / 2.0;
 
       // TASSO hadronic event selection TODO: move this into a trigger definition
       // See page 2 in publication
@@ -91,7 +91,7 @@ namespace Rivet {
       // Condition 5) --- scalar momentum (not pT!!!) sum >= 0.265*s
       double momsum = 0.0;
       foreach (const Particle& p, cfs.particles()) {
-        const double mom = p.momentum().vector3().mod();
+        const double mom = p.p3().mod();
         momsum += mom;
       }
       if (momsum <=0.265 * sqrtS()/GeV) {
@@ -115,7 +115,7 @@ namespace Rivet {
       //// Fill histograms in order of appearance in paper
       //foreach (const Particle& p, cfs.particles()) {
         //// Get momentum and energy of each particle.
-        //const Vector3 mom3 = p.momentum().vector3();
+        //const Vector3 mom3 = p.p3();
         //// Scaled momenta.
         //const double mom = mom3.mod();
         //const double scaledMom = mom/meanBeamMom;

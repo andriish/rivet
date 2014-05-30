@@ -80,13 +80,13 @@ namespace Rivet {
       FourMomentum plnu(wfinder.bosons()[0].momentum());
 
       LorentzTransform cms(-plnu.boostVector());
-      Matrix3 zrot(plnu.vector3(), Vector3(0.0, 0.0, 1.0));
+      Matrix3 zrot(plnu.p3(), Vector3(0.0, 0.0, 1.0));
       pl=cms.transform(pl);
       pb1=cms.transform(pb1);
       pb2=cms.transform(pb2);
-      Vector3 pl3=pl.vector3();
-      Vector3 pb13=pb1.vector3();
-      Vector3 pb23=pb2.vector3();
+      Vector3 pl3=pl.p3();
+      Vector3 pb13=pb1.p3();
+      Vector3 pb23=pb2.p3();
       pl3=zrot*pl3;
       pb13=zrot*pb13;
       pb23=zrot*pb23;

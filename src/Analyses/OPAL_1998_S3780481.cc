@@ -44,8 +44,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       int flavour = 0;
@@ -59,8 +59,8 @@ namespace Rivet {
       } else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap[p.pid()] < p.momentum().E()) {
-            quarkmap[p.pid()] = p.momentum().E();
+          if (quarkmap[p.pid()] < p.E()) {
+            quarkmap[p.pid()] = p.E();
           }
         }
         double maxenergy = 0.;
@@ -86,7 +86,7 @@ namespace Rivet {
       }
 
       foreach (const Particle& p, fs.particles()) {
-        const double xp = p.momentum().vector3().mod()/meanBeamMom;
+        const double xp = p.p3().mod()/meanBeamMom;
         const double logxp = -std::log(xp);
         _histXpall->fill(xp, weight);
         _histLogXpall->fill(logxp, weight);
