@@ -55,7 +55,7 @@ namespace Rivet {
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       /// @todo Yuck... does this *really* have to be quark-based?!?
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pid() );
+        flavour = iqf.particles().front().abspid();
       } else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {

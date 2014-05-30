@@ -168,8 +168,8 @@ namespace Rivet {
       if(leptons.size() !=2) vetoEvent;
 
       // hardest lepton pT greater the 25 (20) e(mu)
-      if( (abs(leptons[0].pid())==PID::ELECTRON && leptons[0].perp()<25.) ||
-	  (abs(leptons[0].pid())==PID::ELECTRON && leptons[0].perp()<20.))
+      if( (leptons[0].abspid()==PID::ELECTRON && leptons[0].perp()<25.) ||
+	  (leptons[0].abspid()==PID::ELECTRON && leptons[0].perp()<20.))
 	vetoEvent;
 
       // require opposite sign

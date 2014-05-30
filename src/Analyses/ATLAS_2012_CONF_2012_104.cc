@@ -194,14 +194,14 @@ namespace Rivet {
       if(mT>100.&& eTmiss/m_eff_4>0.2 &&
          m_eff_inc > 800.) {
         if( eTmiss > 250. ) {
-          if(abs(lepton.pid())==PID::ELECTRON)
+          if(lepton.abspid()==PID::ELECTRON)
             _count_e->fill(0.5,weight);
-          else if(abs(lepton.pid())==PID::MUON)
+          else if(lepton.abspid()==PID::MUON)
             _count_mu->fill(0.5,weight);
         }
-        if(abs(lepton.pid())==PID::ELECTRON)
+        if(lepton.abspid()==PID::ELECTRON)
           _hist_eTmiss_e ->fill(eTmiss,weight);
-        else if(abs(lepton.pid())==PID::MUON)
+        else if(lepton.abspid()==PID::MUON)
           _hist_eTmiss_mu->fill(eTmiss,weight);
       }
     }

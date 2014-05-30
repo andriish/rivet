@@ -234,8 +234,8 @@ namespace Rivet {
           HT += pT;
           m_eff_inc += pT;
           // apply the cuts on the leptons and min no. of jets
-          if( ( ( abs(lepton.pid()) == PID::ELECTRON && pT > 25. ) ||
-                ( abs(lepton.pid()) == PID::MUON     && pT > 20. ) ) &&
+          if( ( ( lepton.abspid() == PID::ELECTRON && pT > 25. ) ||
+                ( lepton.abspid() == PID::MUON     && pT > 20. ) ) &&
               mT > 100. && eTmiss > 250. ) {
             double m_eff = pT+eTmiss;
             for (size_t ix = 0; ix < 3; ++ix)
@@ -246,7 +246,7 @@ namespace Rivet {
               if (eTmiss/m_eff > 0.3) {
                 if (m_eff_inc > 1200*GeV) {
                   _count_1l_3jet_all_channel->fill(0.5,weight);
-                  if (abs(lepton.pid()) == PID::ELECTRON )
+                  if (lepton.abspid() == PID::ELECTRON )
                     _count_1l_3jet_e_channel->fill(0.5, weight);
                   else
                     _count_1l_3jet_mu_channel->fill(0.5, weight);
@@ -260,7 +260,7 @@ namespace Rivet {
               if (eTmiss/m_eff>0.2) {
                 if (m_eff_inc > 800*GeV) {
                   _count_1l_4jet_all_channel->fill(0.5, weight);
-                  if(abs(lepton.pid()) == PID::ELECTRON )
+                  if(lepton.abspid() == PID::ELECTRON )
                     _count_1l_4jet_e_channel->fill(0.5, weight);
                   else
                     _count_1l_4jet_mu_channel->fill(0.5, weight);
@@ -289,9 +289,9 @@ namespace Rivet {
             if (recon_jets[1].pT()>200 &&
                ( njet<4 || (njet>=4 && recon_jets[3].pT() < 50*GeV)) && eTmiss > 300*GeV) {
               _count_2l_2jet_all_channel->fill(0.5, weight);
-              if (abs(leptons[0].pid()) == PID::ELECTRON && abs(leptons[1].pid()) == PID::ELECTRON )
+              if (leptons[0].abspid() == PID::ELECTRON && leptons[1].abspid() == PID::ELECTRON )
                 _count_2l_2jet_ee_channel->fill(0.5, weight);
-              else if (abs(leptons[0].pid()) == PID::MUON && abs(leptons[1].pid()) == PID::MUON )
+              else if (leptons[0].abspid() == PID::MUON && leptons[1].abspid() == PID::MUON )
                 _count_2l_2jet_mumu_channel->fill(0.5, weight);
               else
                 _count_2l_2jet_emu_channel->fill(0.5, weight);
@@ -302,9 +302,9 @@ namespace Rivet {
                      eTmiss > 100*GeV && eTmiss/m_eff > 0.2) {
               if ( m_eff_inc > 650*GeV ) {
                 _count_2l_4jet_all_channel->fill(0.5, weight);
-                if (abs(leptons[0].pid()) == PID::ELECTRON && abs(leptons[1].pid()) == PID::ELECTRON )
+                if (leptons[0].abspid() == PID::ELECTRON && leptons[1].abspid() == PID::ELECTRON )
                   _count_2l_4jet_ee_channel->fill(0.5, weight);
-                else if (abs(leptons[0].pid()) == PID::MUON && abs(leptons[1].pid()) == PID::MUON )
+                else if (leptons[0].abspid() == PID::MUON && leptons[1].abspid() == PID::MUON )
                   _count_2l_4jet_mumu_channel->fill(0.5, weight);
                 else
                   _count_2l_4jet_emu_channel->fill(0.5, weight);
@@ -352,7 +352,7 @@ namespace Rivet {
             m_eff += recon_jets[0].pT();
           if (eTmiss/m_eff > 0.3) {
             _count_1l_soft_all_channel->fill(0.5, weight);
-            if (abs(lepton.pid()) == PID::ELECTRON )
+            if (lepton.abspid() == PID::ELECTRON )
               _count_1l_soft_e_channel->fill(0.5, weight);
             else
               _count_1l_soft_mu_channel->fill(0.5, weight);

@@ -263,7 +263,7 @@ namespace Rivet {
         if(mT>100.&&m_eff>700.) {
           // D region
           _count_SR1_D->fill(0.5,weight);
-          if(abs(lepton.pid())==PID::ELECTRON) {
+          if(lepton.abspid()==PID::ELECTRON) {
             _hist_meff_SR1_D_e->fill(m_eff,weight);
             _hist_met_SR0_D_e->fill(eTmiss,weight);
           }

@@ -50,7 +50,7 @@ namespace Rivet {
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       Particles quarks;
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pid() );
+        flavour = iqf.particles().front().abspid();
         quarks = iqf.particles();
       }
       else {

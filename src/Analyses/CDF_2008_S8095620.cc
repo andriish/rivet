@@ -70,7 +70,7 @@ namespace Rivet {
 
       if (Lep1Eta > _LepEtaCut || Lep2Eta > _LepEtaCut) vetoEvent;
 
-      if (abs(ZDecayProducts[0].pid())==13 &&
+      if (ZDecayProducts[0].abspid()==13 &&
           ((Lep1Eta > 1.5 || Lep2Eta > 1.5) || (Lep1Eta > 1.0 && Lep2Eta > 1.0))) {
         vetoEvent;
       }

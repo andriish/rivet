@@ -177,18 +177,18 @@ namespace Rivet {
 
       if(recon_leptons[0].pid()!=recon_leptons[1].pid())
         _hist_eTmiss_emu ->fill(eTmiss,weight);
-      else if(abs(recon_leptons[0].pid())==PID::ELECTRON)
+      else if(recon_leptons[0].abspid()==PID::ELECTRON)
         _hist_eTmiss_ee ->fill(eTmiss,weight);
-      else if(abs(recon_leptons[0].pid())==PID::MUON)
+      else if(recon_leptons[0].abspid()==PID::MUON)
         _hist_eTmiss_mumu->fill(eTmiss,weight);
       _hist_eTmiss_ll->fill(eTmiss,weight);
 
       if(eTmiss>150.) {
         if(recon_leptons[0].pid()!=recon_leptons[1].pid())
           _count_emu ->fill(0.5,weight);
-        else if(abs(recon_leptons[0].pid())==PID::ELECTRON)
+        else if(recon_leptons[0].abspid()==PID::ELECTRON)
           _count_ee  ->fill(0.5,weight);
-        else if(abs(recon_leptons[0].pid())==PID::MUON)
+        else if(recon_leptons[0].abspid()==PID::MUON)
           _count_mumu->fill(0.5,weight);
         _count_ll->fill(0.5,weight);
       }

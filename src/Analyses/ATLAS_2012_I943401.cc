@@ -336,13 +336,11 @@ namespace Rivet {
         static const double tau_e  = 0.96;
         static const double tau_mu = 0.816;
         double fs_weight = weight;
-        if(abs(recon_leptons[0].pid())==PID::ELECTRON && abs(recon_leptons[1].pid())==PID::ELECTRON) {
+        if (recon_leptons[0].abspid() == PID::ELECTRON && recon_leptons[1].abspid() == PID::ELECTRON) {
           fs_weight /= beta*(1.-sqr(1.-tau_e));
-        }
-        else if(abs(recon_leptons[0].pid())==PID::MUON && abs(recon_leptons[1].pid())==PID::MUON) {
+        } else if (recon_leptons[0].abspid() == PID::MUON && recon_leptons[1].abspid()==PID::MUON) {
           fs_weight *= beta/(1.-sqr(1.-tau_mu));
-        }
-        else {
+        } else {
           fs_weight /= -(1.-(1.-tau_e)*(1.-tau_mu));
         }
         // FS-SR1

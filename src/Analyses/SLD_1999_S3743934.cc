@@ -56,7 +56,7 @@ namespace Rivet {
       /// @todo Can we make this based on hadron flavour instead?
       Particles quarks;
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pid() );
+        flavour = iqf.particles().front().abspid();
         quarks = iqf.particles();
       } else {
         map<int, Particle > quarkmap;

@@ -191,7 +191,7 @@ namespace Rivet {
             recon_jets[ix].eta() > 2.) continue; //< @todo Should be |eta|?
         double fch(0.), fem(0.), eTotal(0.);
         foreach(const Particle & part, recon_jets[ix].particles()) {
-          long id = abs(part.pid());
+          long id = part.abspid();
           if(PID::threeCharge(id)!=0)
             fch += part.E();
           if (id == PID::PHOTON || id == PID::ELECTRON || id == PID::PI0)
