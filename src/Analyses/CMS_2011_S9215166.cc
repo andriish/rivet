@@ -64,7 +64,7 @@ namespace Rivet {
       // MINIMUM BIAS EVENTS
       _weightMB += weight;
       foreach (const Particle& p, fsv.particles()) {
-        _hist_mb->fill(fabs(p.eta()), weight*p.E()/GeV);
+        _hist_mb->fill(p.abseta(), weight*p.E()/GeV);
       }
 
 
@@ -82,7 +82,7 @@ namespace Rivet {
           if (diffphi-PI < 1.0) {
 	    _weightDiJet += weight;
             foreach (const Particle& p, fsv.particles()) {
-              _hist_dijet->fill(fabs(p.eta()), weight*p.E()/GeV);
+              _hist_dijet->fill(p.abseta(), weight*p.E()/GeV);
             }
           }
         }

@@ -106,7 +106,7 @@ namespace Rivet {
 
           ///calculate variables
           double ET = p.Et()/GeV;
-          double eta = fabs(p.eta());
+          double eta = p.abseta();
 
           // fill histograms
           _h_ETflowEta->fill(eta, weight*ET);

@@ -120,7 +120,7 @@ namespace Rivet {
       const Jets& jets = jetpro.jets();
       Jets jets_cut;
       foreach (const Jet& j, jets) {
-        if (j.pT()/GeV > 30.0 && fabs(j.eta()) < 2.1) {
+        if (j.pT()/GeV > 30.0 && j.abseta() < 2.1) {
           jets_cut.push_back(j);
         }
       }

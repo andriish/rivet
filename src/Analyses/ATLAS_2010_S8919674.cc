@@ -74,7 +74,7 @@ namespace Rivet {
         if (p_miss.Et() > 25*GeV && We.mT() > 40*GeV) {
           Jets js;
           foreach (const Jet& j, jets) {
-            if (fabs(j.eta()) < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
+            if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
               js.push_back(j);
           }
           _h_el_njet_inclusive->fill(0, weight);
@@ -99,7 +99,7 @@ namespace Rivet {
         if (p_miss.Et() > 25*GeV && Wm.mT() > 40*GeV) {
           Jets js;
           foreach (const Jet& j, jets) {
-            if (fabs(j.eta()) < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
+            if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
               js.push_back(j);
           }
           _h_mu_njet_inclusive->fill(0, weight);

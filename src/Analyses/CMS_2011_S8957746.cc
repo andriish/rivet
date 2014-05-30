@@ -42,7 +42,7 @@ namespace Rivet {
       }
       std::vector<Vector3> momenta;
       foreach (const Jet& j, jets) {
-        if (fabs(j.eta()) < 1.3) {
+        if (j.abseta() < 1.3) {
           Vector3 mom = j.p3();
           mom.setZ(0.0);
           momenta.push_back(mom);

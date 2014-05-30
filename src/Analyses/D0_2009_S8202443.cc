@@ -68,7 +68,7 @@ namespace Rivet {
       /// @todo Replace this explicit selection with a Cut
       Jets jets_cut;
       foreach (const Jet& j, jets) {
-        if (fabs(j.eta()) < 2.5) jets_cut.push_back(j);
+        if (j.abseta() < 2.5) jets_cut.push_back(j);
       }
       if (jets_cut.size() > 0)
         _h_jet1_pT->fill(jets_cut[0].pT()/GeV, weight);
@@ -89,7 +89,7 @@ namespace Rivet {
       /// @todo Replace this explicit selection with a Cut
       Jets jets_cut_constrained;
       foreach (const Jet& j, jets_constrained) {
-        if (fabs(j.eta()) < 2.5) jets_cut_constrained.push_back(j);
+        if (j.abseta() < 2.5) jets_cut_constrained.push_back(j);
       }
       if (jets_cut_constrained.size() > 0)
         _h_jet1_pT_constrained->fill(jets_cut_constrained[0].pT()/GeV, weight);
