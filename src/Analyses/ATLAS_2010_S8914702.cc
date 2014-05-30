@@ -121,7 +121,7 @@ namespace Rivet {
 
       const fastjet::ClusterSequenceArea* clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
       foreach (const fastjet::PseudoJet& jet, applyProjection<FastJets>(event, "KtJetsD05").pseudoJets(0.0*GeV)) {
-        //const double y = fabs(jet.rapidity());
+        //const double y = jet.absrap();
         const double eta = fabs(jet.eta());
         const double pt = fabs(jet.perp());
 

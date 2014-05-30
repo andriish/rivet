@@ -72,7 +72,7 @@ namespace Rivet {
       foreach (const Jet& jet, jetAr) {
 
         const double pT   = jet.pT();
-        const double absy = fabs(jet.rapidity());
+        const double absy = jet.absrap();
 
         bool isBjet = false;
         //not using this

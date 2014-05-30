@@ -107,7 +107,7 @@ namespace Rivet {
       /// @todo Replace with a Cut passed to jetsByPt
       foreach(const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30*GeV)) {
         FourMomentum jmom = jet.momentum();
-        if (fabs(jmom.rapidity()) < 4.4 && deltaR(lp, jmom) > 0.5  && deltaR(lm, jmom) > 0.5) {
+        if (jmom.absrap() < 4.4 && deltaR(lp, jmom) > 0.5  && deltaR(lm, jmom) > 0.5) {
           jets.push_back(jet);
         }
       }

@@ -76,8 +76,8 @@ namespace Rivet {
         // In Z pT
         _h_Z_pT_cross_section->fill(Zmom.pT(), weight);
         _h_Z_pT_normalised->fill(Zmom.pT(), weight);
-        _h_Z_y_cross_section->fill(fabs(Zmom.rapidity()), weight);
-        _h_Z_y_normalised->fill(fabs(Zmom.rapidity()), weight);
+        _h_Z_y_cross_section->fill(Zmom.absrap(), weight);
+        _h_Z_y_normalised->fill(Zmom.absrap(), weight);
 
         _h_total_cross_section->fill(1960, weight);
       }

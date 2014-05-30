@@ -141,7 +141,7 @@ namespace Rivet {
       // Keep any jets that pass the initial rapidity cut
       vector<const Jet*> central_jets;
       foreach(const Jet& j, jets) {
-        if (fabs(j.rapidity()) < 2.4) central_jets.push_back(&j);
+        if (j.absrap() < 2.4) central_jets.push_back(&j);
       }
 
       // For each of the jets that pass the rapidity cut, only keep those that are not

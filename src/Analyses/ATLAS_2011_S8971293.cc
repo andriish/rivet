@@ -50,7 +50,7 @@ namespace Rivet {
 
       Jets jets06;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets06").jetsByPt(100.0*GeV)) {
-        if (fabs(jet.rapidity()) < 2.8) {
+        if (jet.absrap() < 2.8) {
           jets06.push_back(jet);
         }
       }

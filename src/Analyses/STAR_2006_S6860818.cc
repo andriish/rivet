@@ -62,7 +62,7 @@ namespace Rivet {
 
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {
-        if (fabs(p.rapidity()) < 0.5) {
+        if (p.absrap() < 0.5) {
           const PdgId pid = p.pid();
           const double pT = p.pT() / GeV;
           switch (abs(pid)) {

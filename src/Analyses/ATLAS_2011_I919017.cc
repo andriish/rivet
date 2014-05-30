@@ -308,7 +308,7 @@ namespace Rivet {
         _sumofweights04 += weight;
         foreach (const Jet& j, jets04) {
           const double jetpt = j.pT();
-          if (fabs(j.rapidity()) < 0.5) {
+          if (j.absrap() < 0.5) {
             _h_pt04_00_05->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets04_00_05_04_06 += weight;
@@ -356,7 +356,7 @@ namespace Rivet {
               }
             }
           }
-          if (fabs(j.rapidity()) > 0.5 && fabs(j.rapidity()) < 1.0) {
+          if (j.absrap() > 0.5 && j.absrap() < 1.0) {
             _h_pt04_05_10->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets04_05_10_04_06 += weight;
@@ -404,7 +404,7 @@ namespace Rivet {
               }
             }
           }
-          if (fabs(j.rapidity()) > 1.0 && fabs(j.rapidity()) < 1.5) {
+          if (j.absrap() > 1.0 && j.absrap() < 1.5) {
             _h_pt04_10_15->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets04_10_15_04_06 += weight;
@@ -452,7 +452,7 @@ namespace Rivet {
               }
             }
           }
-          if (fabs(j.rapidity()) > 1.5 && fabs(j.rapidity()) < 1.9) {
+          if (j.absrap() > 1.5 && j.absrap() < 1.9) {
             _h_pt04_15_19->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets04_15_19_04_06 += weight;
@@ -500,7 +500,7 @@ namespace Rivet {
               }
             }
           } // 1.5 < rapidity < 1.9
-          if (fabs(j.rapidity()) < 1.9) {
+          if (j.absrap() < 1.9) {
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets04_00_19_04_06 += weight;
               _h_N04_00_19_04_06->fill(j.particles().size(),weight);
@@ -555,7 +555,7 @@ namespace Rivet {
         _sumofweights06 += weight;
         foreach (const Jet& j, jets06) {
           const double jetpt = j.pT();
-          if (fabs(j.rapidity()) < 0.5) {
+          if (j.absrap() < 0.5) {
             _h_pt06_00_05->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets06_00_05_04_06 += weight;
@@ -603,7 +603,7 @@ namespace Rivet {
               }
             }
           }
-          if (fabs(j.rapidity()) > 0.5 && fabs(j.rapidity()) < 1.0) {
+          if (j.absrap() > 0.5 && j.absrap() < 1.0) {
             _h_pt06_05_10->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets06_05_10_04_06 += weight;
@@ -651,7 +651,7 @@ namespace Rivet {
               }
             }
           }
-          if (fabs(j.rapidity()) > 1.0 && fabs(j.rapidity()) < 1.5) {
+          if (j.absrap() > 1.0 && j.absrap() < 1.5) {
             _h_pt06_10_15->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets06_10_15_04_06 += weight;
@@ -699,7 +699,7 @@ namespace Rivet {
               }
             }
           }
-          if (fabs(j.rapidity()) > 1.5 && fabs(j.rapidity()) < 1.9) {
+          if (j.absrap() > 1.5 && j.absrap() < 1.9) {
             _h_pt06_15_19->fill(jetpt/GeV, weight);
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets06_15_19_04_06 += weight;
@@ -747,7 +747,7 @@ namespace Rivet {
               }
             }
           } // 1.5 < rapidity < 1.9
-          if (fabs(j.rapidity()) < 1.9) {
+          if (j.absrap() < 1.9) {
             if (inRange(jetpt/GeV, 4., 6.)) {
               _numjets06_00_19_04_06 += weight;
               _h_N06_00_19_04_06->fill(j.particles().size(),weight);
