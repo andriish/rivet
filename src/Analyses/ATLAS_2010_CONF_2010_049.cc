@@ -52,7 +52,7 @@ namespace Rivet {
 
         // First we want to make sure that we only use jets within |eta|<0.57
         foreach (const Jet& jet, alljets[i]) {
-          if (fabs(jet.eta())<0.57) {
+          if (jet.abseta()<0.57) {
             jets.push_back(jet);
           }
         }

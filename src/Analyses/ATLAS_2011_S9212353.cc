@@ -215,7 +215,7 @@ namespace Rivet {
       int Njets = 0;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-        if ( fabs(jet.eta()) < 2.8 )
+        if ( jet.abseta() < 2.8 )
           Njets+=1;
       }
       if ( Njets < 3 ) {

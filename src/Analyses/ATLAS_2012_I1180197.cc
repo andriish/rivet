@@ -201,7 +201,7 @@ namespace Rivet {
         // discard jets that overlap with electrons
         Jets recon_jets;
         foreach ( const Jet& jet, cand_jets ) {
-          if(fabs(jet.eta())>2.5||
+          if(jet.abseta()>2.5||
              jet.pT() < 25*GeV) continue;
           bool away_from_e = true;
           foreach ( const Particle & e, cand_hard_e ) {
@@ -319,7 +319,7 @@ namespace Rivet {
         // discard jets that overlap with electrons
         Jets recon_jets;
         foreach ( const Jet& jet, cand_jets ) {
-          if (fabs(jet.eta()) > 2.5 || jet.pT() < 25*GeV) continue;
+          if (jet.abseta() > 2.5 || jet.pT() < 25*GeV) continue;
           bool away_from_e = true;
           foreach ( const Particle & e, cand_soft_e ) {
             if ( deltaR(e.momentum(), jet.momentum()) < 0.2 ) {

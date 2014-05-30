@@ -133,7 +133,7 @@ namespace Rivet {
       // discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-        if(fabs(jet.eta())>2.8 ||
+        if(jet.abseta()>2.8 ||
            jet.perp()<30.) continue;
       	bool away_from_e = true;
       	foreach ( const Particle & e, cand_e ) {

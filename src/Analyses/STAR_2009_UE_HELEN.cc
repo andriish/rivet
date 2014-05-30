@@ -72,7 +72,7 @@ namespace Rivet {
       Jets jets;
       foreach (const Jet jet, alljets) {
         if (jet.neutralEnergy()/jet.totalEnergy() < 0.7 &&
-	    fabs(jet.eta()) < 0.3)
+	    jet.abseta() < 0.3)
           jets.push_back(jet);
       }
 

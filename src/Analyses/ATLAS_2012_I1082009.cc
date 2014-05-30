@@ -59,7 +59,7 @@ namespace Rivet {
       // get the jets
       Jets jets;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(25.0*GeV)) {
-        if ( fabs(jet.eta()) < 2.5 ) jets.push_back(jet);
+        if ( jet.abseta() < 2.5 ) jets.push_back(jet);
       }
       // get the D* mesons
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");

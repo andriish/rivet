@@ -41,7 +41,7 @@ namespace Rivet {
 
       Jets jets;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jets(20.0*GeV)) {
-        if (fabs(jet.eta()) < 3.0) {
+        if (jet.abseta() < 3.0) {
           jets.push_back(jet);
         }
       }

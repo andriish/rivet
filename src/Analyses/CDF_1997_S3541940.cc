@@ -54,7 +54,7 @@ namespace Rivet {
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jetsByEt()) {
         double Et = jet.Et();
-        double eta = fabs(jet.eta());
+        double eta = jet.abseta();
         if (Et > 20.0*GeV && eta < 3.0) {
           bool separated=true;
           foreach (const Jet& ref, jets) {
