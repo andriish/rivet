@@ -152,7 +152,7 @@ namespace Rivet {
         alljets.push_back(j);
         bool deltaRcontrol = true;
         foreach (DressedLepton& fl,fiducial_lepton) {
-          if (fabs(fl.constituentLepton().pid()) == PID::ELECTRON) { //electrons
+          if (fl.constituentLepton().abspid() == PID::ELECTRON) { //electrons
             double deltaRjets = deltaR(fl.constituentLepton().momentum(), j.momentum(), RAPIDITY);
             if (deltaRjets <= 0.3) deltaRcontrol = false; //false if at least one electron is in the overlap region
           }
