@@ -1,3 +1,7 @@
+2014-06-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rivet 2.1.2 release!
+
 2014-05-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Using Particle absrap(), abseta() and abspid() where automatic conversion was feasible.
