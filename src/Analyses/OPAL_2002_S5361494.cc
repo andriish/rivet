@@ -92,9 +92,9 @@ namespace Rivet {
     void finalize() {
       Histo1D temphisto(refData(1, 1, 1));
 
-      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      const double avgNumPartsCharm  = _weightedTotalChargedPartNumCharm  / _weightCharm;
-      const double avgNumPartsLight  = _weightedTotalChargedPartNumLight  / _weightLight;
+      const double avgNumPartsBottom = _weightBottom != 0. ? _weightedTotalChargedPartNumBottom / _weightBottom : 0.;
+      const double avgNumPartsCharm  = _weightCharm  != 0. ? _weightedTotalChargedPartNumCharm  / _weightCharm  : 0.;
+      const double avgNumPartsLight  =  _weightLight != 0. ? _weightedTotalChargedPartNumLight  / _weightLight  : 0.;
       Scatter2DPtr h_bottom = bookScatter2D(1, 1, 1);
       Scatter2DPtr h_charm  = bookScatter2D(1, 1, 2);
       Scatter2DPtr h_light  = bookScatter2D(1, 1, 3);
