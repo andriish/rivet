@@ -86,6 +86,9 @@ namespace Rivet {
       calc_asymm(_hs_dsigpm_deta_25_35, _h_asym1);
       calc_asymm(_hs_dsigpm_deta_35, _h_asym2);
       calc_asymm(_hs_dsigpm_deta_25, _h_asym3);
+      _h_asym1->scale(1.,100.);
+      _h_asym2->scale(1.,100.);
+      _h_asym3->scale(1.,100.);
     }
 
     //@}
