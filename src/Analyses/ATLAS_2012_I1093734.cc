@@ -1,11 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
-#include "Rivet/Math/MathUtils.hh"
 
 namespace Rivet {
 
