@@ -100,7 +100,27 @@ for yodafile in yodafiles:
     for path, ao in analysisobjects.iteritems():
         if path.startswith('/REF/'):
             path = path[5:]
-        analyses.add(path.strip('/').split('/')[0])
+        ## If regexes have been provided, only add analyses which
+        ##  match and don't unmatch
+        analysis = path.strip('/').split('/')[0]
+        if analysis in analyses.union(blocked_analyses):
+            continue
+        if opts.PATHPATTERNS:
+            import re
+            matched = False
+            for patt in opts.PATHPATTERNS:
+                if re.search(patt, analysis) is not None:
+                    matched = True
+                    break
+            if matched and opts.PATHUNPATTERNS:
+                for patt in opts.PATHUNPATTERNS:
+                    if re.search(patt, analysis):
+                        matched = False
+                        break
+            if not matched:
+                blocked_analyses.add(analysis)
+                continue
+        analyses.add(analysis)
 
 def anasort(name):
     if name.startswith("MC"):
