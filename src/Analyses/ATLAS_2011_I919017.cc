@@ -2,7 +2,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Math/MathUtils.hh"
 
 namespace Rivet {
 

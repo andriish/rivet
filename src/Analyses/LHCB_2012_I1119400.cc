@@ -1,20 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Math/MathUtils.hh"
-#include "Rivet/Math/Constants.hh"
-
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/SimpleVector.h"
-
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <map>
-#include <utility>
 
 namespace Rivet {
 
