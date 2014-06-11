@@ -69,12 +69,13 @@ namespace Rivet {
         for (v_iter=0; v_iter < (int)_eta_bins.size()-1; ++v_iter) {
           if (eta >= _eta_bins.at(v_iter) && eta < _eta_bins.at(v_iter+1)) break;
         }
+	return min(v_iter,(int)_eta_bins.size()-2);
       } else {
         for (v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; ++v_iter) {
           if (eta >= _eta_bins_areaoffset.at(v_iter) && eta < _eta_bins_areaoffset.at(v_iter+1)) break;
         }
+	return v_iter;
       }
-      return v_iter;
     }
 
 
