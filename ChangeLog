@@ -1,3 +1,7 @@
+2014-06-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix use of the install command for bash completion installation on Macs.
+
 2014-06-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing direct includes of MathUtils.hh and others from analysis code files.
