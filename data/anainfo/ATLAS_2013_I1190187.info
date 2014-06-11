@@ -28,12 +28,12 @@ Description:
    region contains dressed leptons in restricted $p_T$ and $\eta$ ranges. The selection
    has specific requirements for each production channel. A measurement of the normalized
    fiducial cross section as a function of the leading lepton transverse momentum is also presented.'
-BibKey: Aad:2012mec
+BibKey: ATLAS:2012mec
 BibTeX: '@article{ATLAS:2012mec,
       author         = "Aad, Georges and others",
       title          = "{Measurement of $W^+W^-$ production in $pp$ collisions at
                         $\sqrt{s}$=7  TeV with the ATLAS detector and limits
-                        on anomalous $WWZ$ and $WWγ$ couplings}",
+                        on anomalous $WWZ$ and $WW\gamma$ couplings}",
       collaboration  = "ATLAS Collaboration",
       journal        = "Phys.Rev.",
       number         = "11",
