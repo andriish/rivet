@@ -75,6 +75,7 @@ namespace Rivet {
         if(quarkmap.find(-flavour)!=quarkmap.end())
           quarks.push_back(quarkmap[-flavour]);
       }
+
       // total multiplicities
       switch (flavour) {
       case PID::DQUARK:
@@ -248,8 +249,8 @@ namespace Rivet {
 
       // Ratios: used as target of divide() later
       _s_PiM_PiP  = bookScatter2D(9, 1, 3);
-	  _s_KM_KP	  = bookScatter2D(10, 1, 3);
-	  _s_Pr_PBar  = bookScatter2D(11, 1, 3);
+      _s_KM_KP	  = bookScatter2D(10, 1, 3);
+      _s_Pr_PBar  = bookScatter2D(11, 1, 3);
 
     }
 
@@ -263,10 +264,10 @@ namespace Rivet {
       const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
       const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
       bookScatter2D(8, 2, 1, true)->point(0).setY(avgNumPartsLight);
-	  bookScatter2D(8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
-	  bookScatter2D(8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
-	  bookScatter2D(8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
-	  bookScatter2D(8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      bookScatter2D(8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
+      bookScatter2D(8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
+      bookScatter2D(8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      bookScatter2D(8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
 
       // Do divisions
       divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);
@@ -312,6 +313,11 @@ namespace Rivet {
       scale(_h_RKMinus,  1./_weightLight);
       scale(_h_RProton,  1./_weightLight);
       scale(_h_RPBar,    1./_weightLight);
+
+      // convert ratio to %
+      _s_PiM_PiP->scale(1.,100.);
+      _s_KM_KP  ->scale(1.,100.);
+      _s_Pr_PBar->scale(1.,100.);
     }
 
     //@}

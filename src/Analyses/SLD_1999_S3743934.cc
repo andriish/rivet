@@ -299,9 +299,9 @@ namespace Rivet {
       addProjection(InitialQuarks(), "IQF");
       addProjection(Thrust(FinalState()), "Thrust");
 
-      _temp_XpChargedN1 = bookHisto1D( 1, 1, 1);
-      _temp_XpChargedN2 = bookHisto1D( 2, 1, 1);
-      _temp_XpChargedN3 = bookHisto1D( 3, 1, 1);
+      _temp_XpChargedN1 = bookHisto1D("TMP/XpChargedN1", refData( 1, 1, 1));
+      _temp_XpChargedN2 = bookHisto1D("TMP/XpChargedN2", refData( 2, 1, 1));
+      _temp_XpChargedN3 = bookHisto1D("TMP/XpChargedN3", refData( 3, 1, 1));
 
       _h_XpPiPlusN      = bookHisto1D( 1, 1, 2);
       _h_XpKPlusN       = bookHisto1D( 2, 1, 2);
@@ -385,19 +385,33 @@ namespace Rivet {
       divide(_h_XpKPlusN, _temp_XpChargedN2, _s_Xp_KPl_Ch);
       divide(_h_XpProtonN, _temp_XpChargedN3, _s_Xp_Pr_Ch);
       divide(_h_XpPiPlusCharm, _h_XpPiPlusLight, _s_Xp_PiPlCh_PiPlLi);
+      _s_Xp_PiPlCh_PiPlLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpPiPlusBottom, _h_XpPiPlusLight, _s_Xp_PiPlBo_PiPlLi);
+       _s_Xp_PiPlBo_PiPlLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_temp_XpKPlusCharm , _temp_XpKPlusLight, _s_Xp_KPlCh_KPlLi);
+      _s_Xp_KPlCh_KPlLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpKPlusBottom, _h_XpKPlusLight, _s_Xp_KPlBo_KPlLi);
+       _s_Xp_KPlBo_KPlLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_temp_XpKStar0Charm, _temp_XpKStar0Light, _s_Xp_KS0Ch_KS0Li);
+      _s_Xp_KS0Ch_KS0Li->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpKStar0Bottom, _h_XpKStar0Light, _s_Xp_KS0Bo_KS0Li);
+      _s_Xp_KS0Bo_KS0Li->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_temp_XpProtonCharm, _temp_XpProtonLight, _s_Xp_PrCh_PrLi);
+      _s_Xp_PrCh_PrLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpProtonBottom, _h_XpProtonLight, _s_Xp_PrBo_PrLi);
+      _s_Xp_PrBo_PrLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_h_XpLambdaCharm, _h_XpLambdaLight, _s_Xp_LaCh_LaLi);
+      _s_Xp_LaCh_LaLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpLambdaBottom, _h_XpLambdaLight, _s_Xp_LaBo_LaLi);
+      _s_Xp_LaBo_LaLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_h_XpK0Charm, _h_XpK0Light, _s_Xp_K0Ch_K0Li);
+      _s_Xp_K0Ch_K0Li->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpK0Bottom, _h_XpK0Light, _s_Xp_K0Bo_K0Li);
+      _s_Xp_K0Bo_K0Li->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_h_XpPhiCharm, _h_XpPhiLight, _s_Xp_PhiCh_PhiLi);
+      _s_Xp_PhiCh_PhiLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpPhiBottom, _h_XpPhiLight, _s_Xp_PhiBo_PhiLi);
+      _s_Xp_PhiBo_PhiLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
 
       // Then the leading particles
       divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);

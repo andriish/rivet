@@ -143,8 +143,8 @@ namespace Rivet {
 
       // Normalize the non-ratio histograms
       for (size_t i = 0; i < 4; ++i) {
-        normalize(_histJetEt[i], crossSection()/picobarn);
-        normalize(_histJetMult[i], crossSection()/picobarn);
+        scale(_histJetEt[i], crossSection()/picobarn/sumOfWeights());
+        scale(_histJetMult[i], crossSection()/picobarn/sumOfWeights());
       }
 
     }

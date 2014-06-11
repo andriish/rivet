@@ -66,10 +66,11 @@ namespace Rivet {
 
 
   void finalize() {
-    *_h_dijet_ratio = YODA::efficiency(_h_DeltaY_inclusive, _h_DeltaY_exclusive);
-    *_h_MN_dijet_ratio = YODA::efficiency(_h_DeltaY_MN, _h_DeltaY_exclusive);
+    *_h_dijet_ratio = YODA::efficiency(_h_DeltaY_exclusive, _h_DeltaY_inclusive);
+    // this has to be divide as the MN sample is not a subset of exclusive but of inclusive
+    *_h_MN_dijet_ratio = YODA::divide(_h_DeltaY_MN, _h_DeltaY_exclusive);
     transformY(*_h_dijet_ratio, _invert);
-    transformY(*_h_MN_dijet_ratio, _invert);
+    //transformY(*_h_MN_dijet_ratio, _invert);
   }
 
 

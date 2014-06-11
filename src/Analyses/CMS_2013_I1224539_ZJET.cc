@@ -181,7 +181,7 @@ namespace Rivet {
     Histo1DPtr _h_trimmedJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_prunedJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_prunedJetMass_CA8_zj[N_PT_BINS_vj];
-    Histo1DPtr _h_filteredJetMass_CA12_zj[N_PT_BINS_vj-1];
+    Histo1DPtr _h_filteredJetMass_CA12_zj[N_PT_BINS_vj];
     //@}
 
   };

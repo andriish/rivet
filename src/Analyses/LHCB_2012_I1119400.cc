@@ -58,12 +58,12 @@ namespace Rivet {
         _h_ratio_lowpt [it->first] = bookScatter2D(_hepdataid[it->first], 1, 1);
         _h_ratio_midpt [it->first] = bookScatter2D(_hepdataid[it->first], 1, 2);
         _h_ratio_highpt[it->first] = bookScatter2D(_hepdataid[it->first], 1, 3);
-        _h_num_lowpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 1, "num_l_"+it->first);
-        _h_num_midpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 2, "num_m_"+it->first);
-        _h_num_highpt  [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 3, "num_h_"+it->first);
-        _h_den_lowpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 1, "den_l_"+it->first);
-        _h_den_midpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 2, "den_m_"+it->first);
-        _h_den_highpt  [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 3, "den_h_"+it->first);
+        _h_num_lowpt   [it->first] = bookHisto1D  ("TMP/num_l_"+it->first,refData(_hepdataid[it->first], 1, 1));
+        _h_num_midpt   [it->first] = bookHisto1D  ("TMP/num_m_"+it->first,refData(_hepdataid[it->first], 1, 2));
+        _h_num_highpt  [it->first] = bookHisto1D  ("TMP/num_h_"+it->first,refData(_hepdataid[it->first], 1, 3));
+        _h_den_lowpt   [it->first] = bookHisto1D  ("TMP/den_l_"+it->first,refData(_hepdataid[it->first], 1, 1));
+        _h_den_midpt   [it->first] = bookHisto1D  ("TMP/den_m_"+it->first,refData(_hepdataid[it->first], 1, 2));
+	_h_den_highpt  [it->first] = bookHisto1D  ("TMP/den_h_"+it->first,refData(_hepdataid[it->first], 1, 3));
       }
 
       addProjection(ChargedFinalState(_eta_min, _eta_max, _pt_min*GeV), "CFS");
