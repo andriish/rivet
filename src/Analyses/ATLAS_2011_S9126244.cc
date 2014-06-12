@@ -111,12 +111,12 @@ namespace Rivet {
       // Gap fraction vs DeltaY
       if (!plots._gapFractionDeltaYSlices.empty()) {
         for (size_t x = 0; x < plots._gapFractionDeltaYSlices.size()-1; x++) {
-          const string vetoHistName = "gapDeltaYVeto_" + plots.intermediateHistName + "_" + to_str(x);
-          const string inclusiveHistName = "gapDeltaYInclusive_" + plots.intermediateHistName + "_" + to_str(x);
+          const string vetoHistName = "TMP/gapDeltaYVeto_" + plots.intermediateHistName + "_" + to_str(x);
+          const string inclusiveHistName = "TMP/gapDeltaYInclusive_" + plots.intermediateHistName + "_" + to_str(x);
           plots._h_gapVsDeltaYVeto.addHistogram(plots._gapFractionDeltaYSlices[x], plots._gapFractionDeltaYSlices[x+1],
-                                                bookHisto1D(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType, vetoHistName));
+                                                bookHisto1D(vetoHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1,plots.selectionType)));
           plots._h_gapVsDeltaYInc.addHistogram(plots._gapFractionDeltaYSlices[x], plots._gapFractionDeltaYSlices[x+1],
-                                               bookHisto1D(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType, inclusiveHistName));
+                                               bookHisto1D(inclusiveHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType)));
         }
       }
 
@@ -130,12 +130,12 @@ namespace Rivet {
       // Gap fraction vs PtBar
       if (!plots._gapFractionPtBarSlices.empty()) {
         for (size_t x = 0; x < plots._gapFractionPtBarSlices.size()-1; x++) {
-          const string vetoHistName = "gapPtBarVeto_" + plots.intermediateHistName + "_" + to_str(x);
-          const string inclusiveHistName = "gapPtBarInclusive_" + plots.intermediateHistName + "_" + to_str(x);
+          const string vetoHistName = "TMP/gapPtBarVeto_" + plots.intermediateHistName + "_" + to_str(x);
+          const string inclusiveHistName = "TMP/gapPtBarInclusive_" + plots.intermediateHistName + "_" + to_str(x);
           plots._h_gapVsPtBarVeto.addHistogram(plots._gapFractionPtBarSlices[x], plots._gapFractionPtBarSlices[x+1],
-                                               bookHisto1D(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType, vetoHistName));
+                                               bookHisto1D(vetoHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
           plots._h_gapVsPtBarInc.addHistogram(plots._gapFractionPtBarSlices[x], plots._gapFractionPtBarSlices[x+1],
-                                              bookHisto1D(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType, inclusiveHistName));
+                                              bookHisto1D(inclusiveHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
         }
       }
 
@@ -150,7 +150,7 @@ namespace Rivet {
       int q0PlotCount = 0;
       for (size_t x = 0; x < plots._gapFractionQ0SlicesPtBar.size()/2; x++) {
         for (size_t y = 0; y < plots._gapFractionQ0SlicesDeltaY.size()/2; y++) {
-          const string vetoPtHistName = "vetoPt_" + plots.intermediateHistName + "_" + to_str(q0PlotCount);
+          const string vetoPtHistName = "TMP/vetoPt_" + plots.intermediateHistName + "_" + to_str(q0PlotCount);
           plots._h_vetoPt += bookHisto1D(vetoPtHistName, refData(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType));
           plots._d_vetoPtGapFraction += bookScatter2D(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType);
           plots._vetoPtTotalSum += 0.0; //< @todo Can this just be replaced with _h_vetoPt.integral()?
