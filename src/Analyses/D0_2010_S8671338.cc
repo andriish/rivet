@@ -46,7 +46,7 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       normalize(_h_Z_pT_normalised);
-      normalize(_h_Z_pT_xs, crossSection());
+      scale(_h_Z_pT_xs, crossSection()/sumOfWeights());
     }
 
     //@}
