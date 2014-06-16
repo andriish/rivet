@@ -156,7 +156,7 @@ namespace Rivet {
     // Fill inclusive jet multi ratio
     int Nbins = _h_jet_multi_inclusive->numBins();
     for (int i = 0; i < Nbins-1; ++i) {
-      _h_jet_multi_ratio->addPoint(i+1, 0, 0, 0);
+      _h_jet_multi_ratio->addPoint(i+1, 0, 0.5, 0);
       if (_h_jet_multi_inclusive->bin(i).sumW() > 0.0) {
         const double ratio = _h_jet_multi_inclusive->bin(i+1).sumW()/_h_jet_multi_inclusive->bin(i).sumW();
         const double relerr_i = _h_jet_multi_inclusive->bin(i).relErr();
