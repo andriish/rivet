@@ -105,7 +105,7 @@ namespace Rivet {
 
 
     void initializePlots(ATLAS_2012_I1094568_Plots& plots) {
-      const string vetoPt_Q0_name = "vetoJetPt_Q0_" + to_str(plots.region_index);
+      const string vetoPt_Q0_name = "TMP/vetoJetPt_Q0_" + to_str(plots.region_index);
       plots.vetoJetPt_Q0 = 0.0;
       plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, 200, 0.0, 1000.0);
       plots._d_gapFraction_Q0 = bookScatter2D(plots.region_index, 1, 1);
@@ -114,7 +114,7 @@ namespace Rivet {
         plots._d_gapFraction_Q0->addPoint(p);
       }
 
-      const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + to_str(plots.region_index);
+      const string vetoPt_Qsum_name = "TMP/vetoJetPt_Qsum_" + to_str(plots.region_index);
       plots._h_vetoJetPt_Qsum   = bookHisto1D(vetoPt_Qsum_name, 200, 0.0, 1000.0);
       plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, 2, 1);
       plots.vetoJetPt_Qsum = 0.0;
