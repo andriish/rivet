@@ -32,7 +32,7 @@ namespace Rivet {
 
       string histotitle[7]={"BBfraction","BCfraction","CCfraction","BUfraction","CUfraction","UUfraction","Total"};
       for (int i = 0 ; i < 7 ; i++){
-        _h_temp[i] = bookHisto1D(1, 1, 1, histotitle[i]);
+        _h_temp[i] = bookHisto1D("TMP/"+histotitle[i],refData(1,1,1));
         if (i < 6) {
           _h_results[i] = bookScatter2D(i+1, 1, 1);
         }
