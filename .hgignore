@@ -64,3 +64,4 @@ Doxyfile$
 ^.*plots$
 ^a\.out$
 ^a\.out\.dSYM$
+^Rivet-.\..\..$
