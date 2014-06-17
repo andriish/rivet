@@ -1,3 +1,8 @@
+2014-06-17  David Grellscheid  <David.Grellscheid@durham.ac.uk>
+
+	* pyext/rivet/Makefile.am: 'make distcheck' and out-of-source
+	builds should work now.
+
 2014-06-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix use of the install command for bash completion installation on Macs.

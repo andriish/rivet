@@ -22,7 +22,7 @@ function _clean() {
 
 function _setup() {
     _clean
-    cp testApi.hepmc file2.hepmc
+    cp ${RIVET_TESTS_SRC}/testApi.hepmc file2.hepmc
     mkfifo fifo.hepmc
 }
 
@@ -39,15 +39,15 @@ _setup
 
 rivet --list-analyses > log || exit $?
 
-rivet -a D0_2008_S7554427 testApi.hepmc file2.hepmc > log || exit $?
+rivet -a D0_2008_S7554427 ${RIVET_TESTS_SRC}/testApi.hepmc file2.hepmc > log || exit $?
 grep -q "20 events" log
 _check
 
-cat testApi.hepmc | rivet -a D0_2008_S7554427 > log || exit $?
+cat ${RIVET_TESTS_SRC}/testApi.hepmc | rivet -a D0_2008_S7554427 > log || exit $?
 grep -q "10 events" log
 _check
 
-cat testApi.hepmc > fifo.hepmc &
+cat ${RIVET_TESTS_SRC}/testApi.hepmc > fifo.hepmc &
 rivet -a D0_2008_S7554427 fifo.hepmc > log || exit $?
 grep -q "10 events" log
 _check
