@@ -317,7 +317,10 @@ namespace Rivet {
         // Calculate the efficiency & binomial uncertainty
         const double eff = (totalWeightSum != 0) ? vetoPtWeightSum/totalWeightSum : 0;
         const double effErr = (totalWeightSum != 0) ? sqrt( eff*(1.0-eff)/totalWeightSum ) : 0;
-        gapFractionDP->addPoint(eff, effErr);
+	// get the x coord and bin width
+	const double x    = vetoPtHist->bin(i).xMid();
+	const double xerr = 0.5*vetoPtHist->bin(i).width(); 
+	gapFractionDP->addPoint(x, eff, xerr, effErr);
       }
     }
 
