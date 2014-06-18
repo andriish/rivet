@@ -42,9 +42,14 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
+    _remainingParticles.clear();
+    _remainingParticles.reserve(fs.particles().size());
     foreach (const Particle& p, fs.particles()) {
       if (acceptedIds().find(p.pid()) != acceptedIds().end()) {
-        _theParticles.push_back(p);
+        _theParticles.push_back(p);       // Identified
+      }
+      else {
+        _remainingParticles.push_back(p); // Remaining
       }
     }
   }

@@ -97,6 +97,11 @@ namespace Rivet {
       _pids.clear();
     }
 
+    // The remaining particles
+    virtual const Particles& remainingParticles() const {
+      return _remainingParticles;
+    }
+
 
   protected:
 
@@ -111,6 +116,9 @@ namespace Rivet {
 
     /// The final-state particles.
     set<PdgId> _pids;
+
+    // A vector of all other particles in the final state
+    Particles _remainingParticles;
 
   };
 
