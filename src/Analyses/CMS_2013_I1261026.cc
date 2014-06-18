@@ -14,8 +14,9 @@ namespace Rivet {
   public:
 
     CMS_2013_I1261026()
-      : Analysis("CMS_2013_I1261026")
-    {    }
+      : Analysis("CMS_2013_I1261026"), _jetStructNorm(5,0.), _multBinCent(5,0.),
+	_jetCounter5GeV(5,0.), _jetCounter30GeV(5,0.), _passedEv(5,0.)
+    {  }
 
 
     void init() {
@@ -81,8 +82,7 @@ namespace Rivet {
       int multbin[6] = { 10, 30, 50, 80, 110, 140 };
       for (int ibin = 0; ibin < 5; ++ibin) {
         if (mult > multbin[ibin] && mult <= multbin[ibin + 1]) {
-          _passedEv[ibin]++; /// @todo Needs weights?
-
+          _passedEv[ibin] += weight;
           eventDecomp(event, ibin, weight);
 
           for (size_t ijets = 0; ijets < jets.size(); ijets++) {
@@ -118,14 +118,18 @@ namespace Rivet {
         _h_MeanJetPt->fill(_multBinCent[i], _h_JetSpectrum[i]->mean(), sem);
 
         // Jet rates
-        _avJetRate5[i]  = _jetCounter5GeV[i]  / _passedEv[i];
-        _avJetRate30[i] = _jetCounter30GeV[i] / _passedEv[i];
+	double avJetRate5  = _jetCounter5GeV[i]  / _passedEv[i];
+        double avJetRate30 = _jetCounter30GeV[i] / _passedEv[i];
+
+	cerr << "testing average rates " << i << " " << _jetCounter5GeV[i] << " " << _jetCounter30GeV[i] << " " 
+	     <<  _passedEv[i] << "\n";
+	cerr << "testing rates " << avJetRate5 << " " << avJetRate30 << "\n";
 
         const double sem5 = (_jetCounter5GeV[i] != 0) ? 1 / sqrt(_jetCounter5GeV[i]) : 0;
-        _h_JetRate5GeV->fill(_multBinCent[i], _avJetRate5[i], sem5);
+        _h_JetRate5GeV->fill(_multBinCent[i], avJetRate5, sem5);
 
         const double sem30 = (_jetCounter30GeV[i] != 0) ?  1 / sqrt(_jetCounter30GeV[i]) : 0;
-        _h_JetRate30GeV->fill(_multBinCent[i], _avJetRate30[i], sem30);
+        _h_JetRate30GeV->fill(_multBinCent[i], avJetRate30, sem30);
 
         scale(_h_JetSpectrum[i], 4.0 / _jetCounter5GeV[i]);
         scale(_h_JetStruct[i], 0.08 / _jetStructNorm[i]);
@@ -195,7 +199,7 @@ namespace Rivet {
         double ptInjetLeader = 0;
         if (!inRange(jetsEv[i].eta, -1.9, 1.9)) continue; // only fully reconstructed jets for internal jet studies
         for (size_t k = 0; k < j[i]; k++) {
-          _th_JetTrkSpectrum[ibin].fill(jetConstituents[i][k].pt * weight);
+          _th_JetTrkSpectrum[ibin].fill(jetConstituents[i][k].pt , weight);
           _h_JetStruct[ibin]->fill(jetConstituents[i][k].R, jetConstituents[i][k].pt/jetsEv[i].pt);
           _jetStructNorm[ibin] += jetConstituents[i][k].pt / jetsEv[i].pt;
           if (ptInjetLeader < jetConstituents[i][k].pt) ptInjetLeader = jetConstituents[i][k].pt;
@@ -209,11 +213,10 @@ namespace Rivet {
   private:
 
     // Counters etc.
-    double _jetStructNorm[5];
-    double _multBinCent[5];
-    double _avJetRate5[5], _avJetRate30[5];
+    vector<double> _jetStructNorm;
+    vector<double> _multBinCent;
     /// @todo Need to handle weights
-    double _jetCounter5GeV[5], _jetCounter30GeV[5], _passedEv[5];
+    vector<double> _jetCounter5GeV, _jetCounter30GeV, _passedEv;
 
     Profile1DPtr _h_AllTrkMeanPt, _h_SoftTrkMeanPt;
     Profile1DPtr _h_IntrajetTrkMeanPt, _h_IntrajetLeaderTrkMeanPt;
