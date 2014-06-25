@@ -91,7 +91,6 @@ DrawOnly=/REF/ATLAS_2012_I1203852/d08-x01-y01 Rivet_ZZ2l2nu.yoda/ATLAS_2012_I120
 Title=Differential cross-section for $ZZ\to \ell\ell\nu\nu$ vs. $M_{T}^{ZZ}$
 XLabel=$m^{ZZ}_T$~[GeV]
 YLabel=1/$\sigma^{fid}_{ZZ}$ $\times$ d$\sigma^{fid}_{ZZ}$/d$m^{ZZ}_T$~[GeV$^{-1}$]
-YMax=11000
 LogY=0
 RatioPlotMode=datamc
 RatioPlotYMax=1.8

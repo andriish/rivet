@@ -1838,22 +1838,31 @@ class Ticks(object):
     def draw_ticks(self, min, max, plotlog=False, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
         out = ""
         if plotlog:
-            x=int(log10(min))
-            while (x<log10(max)+1):
-                if 10**x>=min:
-                    ticklabel=10**x
-                    if ticklabel>min and ticklabel<max:
-                        out += self.draw_majortick(ticklabel,twosided)
-                        if drawlabels:
-                            out += self.draw_majorticklabel(ticklabel)
-                    if ticklabel==min or ticklabel==max:
-                        if drawlabels:
-                            out += self.draw_majorticklabel(ticklabel)
-                    for i in range(2,10):
-                        ticklabel=i*10**(x-1)
+            if len(custommajorticks) ==0:
+                x=int(log10(min))
+                n_labels=0
+                while (x<log10(max)+1):
+                    if 10**x>=min:
+                        ticklabel=10**x
                         if ticklabel>min and ticklabel<max:
-                            out += self.draw_minortick(ticklabel,twosided)
-                x+=1
+                            out += self.draw_majortick(ticklabel,twosided)
+                            if drawlabels:
+                                out += self.draw_majorticklabel(ticklabel)
+                                n_labels+=1
+                        if ticklabel==min or ticklabel==max:
+                            if drawlabels:
+                                out += self.draw_majorticklabel(ticklabel)
+                                n_labels+=1
+                        for i in range(2,10):
+                            ticklabel=i*10**(x-1)
+                            if ticklabel>min and ticklabel<max:
+                                out += self.draw_minortick(ticklabel,twosided)
+                                if drawlabels and n_labels==0:
+                                    if (i+1)*10**(x-1)<max: # some special care for the last minor tick
+                                        out += self.draw_minorticklabel(ticklabel)
+                                    else:
+                                        out += self.draw_minorticklabel(ticklabel, last=True)
+                    x+=1
         elif (custommajorticks!=[] or customminorticks!=[]):
             for i in range(len(custommajorticks)):
                 value=custommajorticks[i]['Value']
@@ -1929,18 +1938,28 @@ class Ticks(object):
     def draw_majorticklabel(self, ticklabel):
         pass
 
-    def get_ticklabel(self, value, plotlog=False):
+    def draw_minorticklabel(self, ticklabel):
+        pass
+
+    def get_ticklabel(self, value, plotlog=False, minor=False, lastminor=False):
         label=''
+        prefix = ""
         if plotlog:
             bar = int(log10(value))
-            if bar<0:
-                sign='-'
+	    if bar<0:
+	        sign='-'
+	    else:
+	        sign='\\,'
+            if minor: # The power of ten is only to be added to the last minor tick label
+                if lastminor:
+                    label = str(int(value/(10**bar))) + "\cdot" + '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
+                else:
+                    label = str(int(value/(10**bar))) # The naked prefactor
             else:
-                sign='\\,'
-            if bar==0:
-                label = '1'
-            else:
-                label = '10$^{'+sign+'\\text{'+str(abs(int(log10(value))))+'}}$'
+                if bar==0:
+                    label = '1'
+                else:
+                    label = '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
         else:
             if fabs(value) < 1e-10: value=0
             label=str(value)
@@ -1973,6 +1992,14 @@ class XTicks(Ticks):
         if twosided:
             out += '\\rput{180}('+self.coors.strphys2frameX(ticklabel)+', 1){\\minortickmarkx}\n'
         return out
+
+    def draw_minorticklabel(self, value, label='', last=False):
+        if label=='':
+            label=self.get_ticklabel(value,self.description['LogX'], minor=True, lastminor=last)
+        if last: # Some more indentation for the last minor label
+            return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](1.9\\labelsep,-2.3\\labelsep){\\strut{}'+label+'}}\n')
+        else:
+            return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut{}'+label+'}}\n')
 
     def draw_majortick(self, ticklabel, twosided):
         out = ''
