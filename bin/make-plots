@@ -2179,6 +2179,9 @@ def try_cmd(args):
     try:
         subprocess.check_output(args, stderr=subprocess.STDOUT)
         return True
+    except AttributeError:
+        # Python <=2.6 does not provide check_output
+        return True
     except:
         return False
 
