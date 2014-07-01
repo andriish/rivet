@@ -4,6 +4,7 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/VectorN.hh"
+#include <cfloat>
 
 namespace Rivet {
 
@@ -148,8 +149,14 @@ namespace Rivet {
 
     /// Purely geometric approximation to rapidity; exact for massless particles
     /// and in the central region.
+    // cut-off such that |eta| < log(2/DBL_EPSILON)
     double pseudorapidity() const {
-      return -std::log(tan( 0.5 * polarAngle() ));
+      const double epsilon = DBL_EPSILON;
+      double m = mod();
+      if ( m == 0.0 ) return  0.0;
+      double pt = max(epsilon*m, perp());
+      double rap = std::log((m + fabs(z()))/pt);
+      return z() > 0.0 ? rap: -rap;
     }
 
     /// Synonym for pseudorapidity.
