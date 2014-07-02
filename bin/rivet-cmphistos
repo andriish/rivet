@@ -4,7 +4,7 @@
 %prog - generate histogram comparison plots
 
 USAGE:
- %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value'] [path/to/yodafile2 ...]
+ %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value':...] [path/to/yodafile2 ...]
 
 where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
@@ -101,7 +101,7 @@ def getHistos(filelist):
     mchistos = {}
     for infile in filelist:
         mchistos.setdefault(infile, {})
-        analysisobjects = yoda.readYODA(infile)
+        analysisobjects = yoda.read(infile)
         for path, ao in analysisobjects.iteritems():
             if path.startswith('/REF/'):
                 if not refhistos.has_key(path):
@@ -124,7 +124,7 @@ def getRivetRefData(refhistos, anas=None):
             dirlist.append([os.path.join(d, a+'.yoda') for a in anas])
     for filelist in dirlist:
         for infile in filelist:
-            analysisobjects = yoda.readYODA(infile)
+            analysisobjects = yoda.read(infile)
             for path, ao in analysisobjects.iteritems():
                 if path.startswith('/REF/'):
                     if not refhistos.has_key(path):
