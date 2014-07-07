@@ -178,6 +178,7 @@ BOOST_FIND_HEADER([boost/lexical_cast.hpp])
 BOOST_FIND_HEADER([boost/range.hpp])
 BOOST_FIND_HEADER([boost/assign.hpp])
 
+BOOST_BUG_IN_FOREACH
 
 ## Disable build/install of standard analyses
 AC_ARG_ENABLE([analyses],
