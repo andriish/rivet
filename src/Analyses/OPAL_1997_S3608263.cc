@@ -57,8 +57,8 @@ namespace Rivet {
       foreach (const Particle& p, ufs.particles()) {
         const int id = p.abspid();
         if (id==313) {
-          double xE = p.E()/meanBeamMom;
-          _histXeK0->fill(xE, weight);
+          double xp = p.p3().mod()/meanBeamMom;
+          _histXeK0->fill(xp, weight);
         }
       }
     }
