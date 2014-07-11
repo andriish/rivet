@@ -19,7 +19,7 @@ rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 
 import glob, shutil
-from subprocess import Popen, PIPE
+from subprocess import Popen,PIPE
 
 
 from optparse import OptionParser
@@ -168,8 +168,16 @@ for var in ("RIVET_ANALYSIS_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_P
     if var in os.environ:
         abspaths = map(os.path.abspath, os.environ[var].split(":"))
         os.environ[var] = ":".join(abspaths)
-Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
-
+subproc = Popen(ch_cmd, cwd=opts.OUTPUTDIR,stdout=PIPE,stderr=PIPE)
+out,err = subproc.communicate()
+retcode = subproc.returncode
+if (opts.VERBOSE or retcode !=0)  and out :
+    print 'Output from rivet-cmphistos\n',out
+if err :
+    print 'Errors from rivet-cmphistos\n',err
+if(retcode != 0) :
+    print 'Crash in rivet-cmphistos code = ',retcode,' exiting'
+    exit(retcode)
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
 ## a browser to view the output before all plots are made

@@ -248,7 +248,7 @@ if __name__ == '__main__':
 
     ## Now loop over all MC histograms and plot them
     for h in hpaths:
-
+        print 'Currently looking at',h
         ## A list of all analysis objects to be plotted
         anaobjects = []
 
@@ -332,6 +332,5 @@ if __name__ == '__main__':
         sio = StringIO()
         yoda.writeFLAT(anaobjects, sio)
         output += sio.getvalue()
-
         ## Write everything into a file
         writeOutput(output, h)
