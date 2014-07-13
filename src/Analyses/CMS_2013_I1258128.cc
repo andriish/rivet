@@ -111,7 +111,7 @@ namespace Rivet {
       // Clean the jets against the photon candidate with a DeltaR cut of 0.5
       std::vector<const Jet*> cleanedJets;
       foreach (const Jet& j, jets)
-        if (deltaR(photon.momentum(), j.momentum()) < 0.5)
+        if (deltaR(photon.momentum(), j.momentum()) > 0.5)
           cleanedJets.push_back(&j);
       // Require exactly 1 jet
       if (cleanedJets.size() != 1) return;
