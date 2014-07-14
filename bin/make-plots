@@ -1938,8 +1938,8 @@ class Ticks(object):
     def draw_majorticklabel(self, ticklabel):
         pass
 
-    def draw_minorticklabel(self, ticklabel):
-        pass
+    def draw_minorticklabel(self, value, label='', last=False):
+        return ''
 
     def get_ticklabel(self, value, plotlog=False, minor=False, lastminor=False):
         label=''
