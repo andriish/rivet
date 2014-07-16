@@ -1,3 +1,10 @@
+2014-07-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix setting of library paths for doc building: Python can't
+	influence the dynamic loader in its own process by setting an
+	environment variable because the loader only looks at the variable
+	once, when it starts.
+
 2014-07-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* rivet-cmphistos now uses the generic yoda.read() function rather
