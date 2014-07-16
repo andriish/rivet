@@ -1,7 +1,7 @@
 "Python utility functions for use by Rivet scripts (and anyone else who wants to)"
 
 
-def check_python_version(req_version=(2,4,0)):
+def check_python_version(req_version=(2,6,0)):
     "Enforce the Rivet scripts' minimal Python version requirement"
     import sys
     if sys.version_info[:3] < req_version:
