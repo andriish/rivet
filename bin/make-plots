@@ -19,8 +19,8 @@ TODO
 
 ## Check the Python version
 import sys
-if sys.version_info[:3] < (2,4,0):
-    print "make-plots requires Python version >= 2.4.0... exiting"
+if sys.version_info[:3] < (2,6,0):
+    print "make-plots requires Python version >= 2.6.0... exiting"
     sys.exit(1)
 
 ## Try to rename the process on Linux
