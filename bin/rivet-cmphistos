@@ -151,7 +151,7 @@ def parseArgs(args):
                 has_title = True
             plotoptions[path].append(asplit[i])
         if not has_title:
-            plotoptions[path].append('Title=%s' % sanitiseString(path.split('/')[-1].replace('.yoda', '')))
+            plotoptions[path].append('Title=%s' % sanitiseString(os.path.basename( os.path.splitext(path)[0] )) )
     return filelist, plotoptions
 
 
