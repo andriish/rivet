@@ -1,3 +1,8 @@
+2014-07-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix to logspace: make sure that start and end values are exact,
+	not the result of exp(log(x)).
+
 2014-07-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix setting of library paths for doc building: Python can't
