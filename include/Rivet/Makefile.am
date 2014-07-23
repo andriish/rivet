@@ -61,6 +61,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/PrimaryHadrons.hh \
   Projections/Sphericity.hh \
   Projections/Spherocity.hh \
+  Projections/TauFinder.hh \
   Projections/Thrust.hh \
   Projections/TriggerCDFRun0Run1.hh \
   Projections/TriggerCDFRun2.hh \

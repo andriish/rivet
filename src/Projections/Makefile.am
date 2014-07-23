@@ -30,6 +30,7 @@ libRivetProjections_la_SOURCES = \
   PrimaryHadrons.cc \
   Sphericity.cc \
   Spherocity.cc \
+  TauFinder.cc \
   Thrust.cc \
   TriggerCDFRun0Run1.cc \
   TriggerCDFRun2.cc \
