@@ -1,5 +1,8 @@
 2014-07-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* ATLAS_2012_I1093734: fix a loop index error which led to the
+	first bin value being unfilled for half the dphi plots.
+
 	* Fix accidental passing of a GenParticle pointer as a PID code
 	int in HeavyHadrons.cc. Effect limited to incorrect deductions
 	about excited HF decay chains and should be small. Thanks to

@@ -164,6 +164,7 @@ namespace Rivet {
           _th_oppo[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));
         }
       }
+
     }
 
 
@@ -266,7 +267,7 @@ namespace Rivet {
         }
         // Build scatter of differences
         double sumDiff = 0;
-        for (size_t iphi = 1; iphi < _th_dphi[ieta].numBins(); ++iphi) {
+        for (size_t iphi = 0; iphi < _th_dphi[ieta].numBins(); ++iphi) {
           const double diff = _th_dphi[ieta].bin(iphi).height() - histMin;
           _s_dphiMin[ieta]->point(iphi).setY(diff, _th_dphi[ieta].bin(iphi).heightErr());
           sumDiff += diff;
