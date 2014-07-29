@@ -1,5 +1,8 @@
 2014-07-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* MC_JetAnalysis.cc: re-enable +- ratios for eta and y, now that
+	YODA divide doesn't throw an exception.
+
 	* ATLAS_2012_I1093734: fix a loop index error which led to the
 	first bin value being unfilled for half the dphi plots.
 
