@@ -1,3 +1,11 @@
+2014-07-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix accidental passing of a GenParticle pointer as a PID code
+	int in HeavyHadrons.cc. Effect limited to incorrect deductions
+	about excited HF decay chains and should be small. Thanks to
+	Tomasz Przedzinski for finding and reporting the issue during
+	HepMC3 design work!
+
 2014-07-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix to logspace: make sure that start and end values are exact,

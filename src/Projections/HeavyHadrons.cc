@@ -29,7 +29,7 @@ namespace Rivet {
       if (PID::hasBottom(p)) {
         bool has_b_child = false;
         foreach (const GenParticle* p2, children) {
-          if (PID::hasBottom(p2)) {
+          if (PID::hasBottom(p2->pdg_id())) {
             has_b_child = true;
             break;
           }
@@ -41,7 +41,7 @@ namespace Rivet {
       } else if (PID::hasCharm(p)) {
         bool has_c_child = false;
         foreach (const GenParticle* p2, children) {
-          if (PID::hasCharm(p2)) {
+          if (PID::hasCharm(p2->pdg_id())) {
             has_c_child = true;
             break;
           }
