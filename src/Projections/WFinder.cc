@@ -69,8 +69,8 @@ namespace Rivet {
 
 
   int WFinder::compare(const Projection& p) const {
-    PCmp LCcmp = mkNamedPCmp(p, "DressedLeptons");
-    if (LCcmp != EQUIVALENT) return LCcmp;
+    PCmp dlcmp = mkNamedPCmp(p, "DressedLeptons");
+    if (dlcmp != EQUIVALENT) return dlcmp;
 
     const WFinder& other = dynamic_cast<const WFinder&>(p);
     return (cmp(_minmass, other._minmass) || cmp(_maxmass, other._maxmass) ||
@@ -102,7 +102,7 @@ namespace Rivet {
     ParticlePair Wconstituents(imfs.particlePairs()[0]);
     Particle p1(Wconstituents.first), p2(Wconstituents.second);
 
-    if (PID::threeCharge(p1) == 0) {
+    if (threeCharge(p1) == 0) {
       _constituentLeptons += p2;
       _constituentNeutrinos += p1;
     } else {
@@ -111,7 +111,7 @@ namespace Rivet {
     }
 
     FourMomentum pW = p1.momentum() + p2.momentum();
-    const int w3charge = PID::threeCharge(p1) + PID::threeCharge(p2);
+    const int w3charge = threeCharge(p1) + threeCharge(p2);
     assert(abs(w3charge) == 3);
     const int wcharge = w3charge/3;
 

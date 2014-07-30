@@ -11,7 +11,6 @@
 #define PARTICLE_TO_PID_DBLFN(fname) inline double fname (const Particle& p) { return PID:: fname (p.pid()); }
 
 namespace Rivet {
-namespace PID {
 
 
   /// @name Particle classifier functions
@@ -228,7 +227,6 @@ namespace PID {
   //@}
 
 
-}
 }
 
 #endif

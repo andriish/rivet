@@ -100,11 +100,11 @@ namespace Rivet {
       } else if (nElec == 0 && nMuon == 1) {
         isSemilepton = true;
       } else if (nElec == 2 && nMuon == 0) {
-        if (PID::charge(elecFS[0]) != PID::charge(elecFS[1])) isDilepton = true;
+        if (charge(elecFS[0]) != charge(elecFS[1])) isDilepton = true;
       } else if (nElec == 1 && nMuon == 1) {
-        if (PID::charge(elecFS[0]) != PID::charge(muonFS[0])) isDilepton = true;
+        if (charge(elecFS[0]) != charge(muonFS[0])) isDilepton = true;
       } else if (nElec == 0 && nMuon == 2) {
-        if (PID::charge(muonFS[0]) != PID::charge(muonFS[1])) isDilepton = true;
+        if (charge(muonFS[0]) != charge(muonFS[1])) isDilepton = true;
       }
       const bool isGoodEvent = (isSemilepton && good_jets.size() >= 4) || (isDilepton && good_jets.size() >= 2);
       if (!isGoodEvent) vetoEvent;
@@ -115,7 +115,7 @@ namespace Rivet {
       vector<HepMC::GenParticle*> allParticles = particles(event.genEvent());
       for(unsigned int i = 0; i < allParticles.size(); i++) {
         GenParticle* p = allParticles.at(i);
-        if ( !(Rivet::PID::isHadron( p->pdg_id() ) && Rivet::PID::hasBottom( p->pdg_id() )) ) continue;
+        if ( !(PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
         if (p->momentum().perp() < 5*GeV) continue;
         b_hadrons.push_back(p);
       }

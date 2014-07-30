@@ -131,7 +131,7 @@ namespace Rivet {
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (isolated_lepton.size() != 2) vetoEvent;
       sort(isolated_lepton.begin(), isolated_lepton.end(), cmpMomByPt);
-      if (isolated_lepton[0].pT() > 25*GeV && PID::threeCharge(isolated_lepton[0]) != PID::threeCharge(isolated_lepton[1])) {
+      if (isolated_lepton[0].pT() > 25*GeV && threeCharge(isolated_lepton[0]) != threeCharge(isolated_lepton[1])) {
         fiducial_lepton.insert(fiducial_lepton.end(), isolated_lepton.begin(), isolated_lepton.end());
       }
       if (fiducial_lepton.size() == 0) vetoEvent;

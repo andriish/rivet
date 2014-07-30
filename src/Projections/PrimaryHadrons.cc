@@ -10,7 +10,7 @@ namespace Rivet {
     const Particles& unstables = applyProjection<FinalState>(e, "UFS").particles();
     foreach (const Particle& p, unstables) {
       // Exclude taus etc.
-      if (!PID::isHadron(p)) continue;
+      if (!isHadron(p)) continue;
       // A spontaneously appearing hadron: this is weird, but I guess is allowed... and is primary
       if (!p.genParticle() || !p.genParticle()->production_vertex()) {
         MSG_DEBUG("Hadron " << p.pid() << " with no GenParticle or parent found: treating as primary");

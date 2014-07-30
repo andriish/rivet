@@ -1,3 +1,8 @@
+2014-07-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove classifier functions accepting a Particle from the PID
+	inner namespace.
+
 2014-07-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* MC_JetAnalysis.cc: re-enable +- ratios for eta and y, now that

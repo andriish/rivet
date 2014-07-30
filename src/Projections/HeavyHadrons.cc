@@ -12,21 +12,21 @@ namespace Rivet {
     const Particles& unstables = applyProjection<FinalState>(e, "UFS").particles();
     foreach (const Particle& p, unstables) {
       // Exclude non-b/c-hadrons
-      if (!PID::isHadron(p)) continue;
-      if (!PID::hasCharm(p) && !PID::hasBottom(p)) continue;
+      if (!isHadron(p)) continue;
+      if (!hasCharm(p) && !hasBottom(p)) continue;
       MSG_DEBUG("Found a heavy (b or c) unstable hadron: " << p.pid());
 
       // An unbound, or undecayed status 2 hadron: this is weird, but I guess is allowed...
       if (!p.genParticle() || !p.genParticle()->end_vertex()) {
         MSG_DEBUG("Heavy hadron " << p.pid() << " with no GenParticle or decay found");
         _theParticles.push_back(p);
-        if (PID::hasBottom(p)) _theBs.push_back(p); else _theCs.push_back(p);
+        if (hasBottom(p)) _theBs.push_back(p); else _theCs.push_back(p);
         continue;
       }
       // There are descendants -- check them for b or c content
       /// @todo What about charm hadrons coming from bottom hadron decays?
       const vector<GenParticle*> children = particles_out(p.genParticle(), HepMC::children);
-      if (PID::hasBottom(p)) {
+      if (hasBottom(p)) {
         bool has_b_child = false;
         foreach (const GenParticle* p2, children) {
           if (PID::hasBottom(p2->pdg_id())) {
@@ -38,7 +38,7 @@ namespace Rivet {
           _theParticles.push_back(p);
           _theBs.push_back(p);
         }
-      } else if (PID::hasCharm(p)) {
+      } else if (hasCharm(p)) {
         bool has_c_child = false;
         foreach (const GenParticle* p2, children) {
           if (PID::hasCharm(p2->pdg_id())) {

@@ -218,7 +218,7 @@ namespace Rivet {
       // We want exactly 2 electrons...
       if (elecFS.size() == 2) {
         // ... with opposite sign charges.
-        if (PID::charge(elecFS[0]) != PID::charge(elecFS[1])) {
+        if (charge(elecFS[0]) != charge(elecFS[1])) {
           // Check the MET
           if (MET >= 40*GeV) {
             // Do some dilepton mass cuts
@@ -242,7 +242,7 @@ namespace Rivet {
       // So we now want 2 good muons...
       if (muonFS.size() == 2) {
         // ...with opposite sign charges.
-        if (PID::charge(muonFS.at(0)) != PID::charge(muonFS.at(1))) {
+        if (charge(muonFS[0]) != charge(muonFS[1])) {
           // Check the MET
           if (MET >= 40*GeV) {
             // and do some di-muon mass cuts
@@ -266,7 +266,7 @@ namespace Rivet {
       // We want exactly 1 electron and 1 muon
       if (elecFS.size() == 1 && muonFS.size() == 1) {
         // With opposite sign charges
-        if (PID::charge(elecFS.at(0)) != PID::charge(muonFS.at(0))) {
+        if (charge(elecFS[0]) != charge(muonFS[0])) {
           // Calculate HT: scalar sum of the pTs of the leptons and all good jets
           double HT = 0;
           HT += elecFS[0].pT();
