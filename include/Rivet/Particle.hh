@@ -5,6 +5,7 @@
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Tools/Utils.hh"
 
 namespace Rivet {
 
@@ -247,6 +248,16 @@ namespace Rivet {
     //@}
 
 
+    // Return true if particle with PID is found in children
+    bool hasPIDDaughter(const int pdgID) { 
+      return _hasPIDDaughter(*this, pdgID) ;
+    }
+    
+    // Return true if particle with absolute PID is found in children
+    bool hasAbsPIDDaughter(const int pdgID) { 
+      return _hasAbsPIDDaughter(*this, pdgID) ;
+    }
+
   private:
 
     /// A pointer to the original GenParticle from which this Particle is projected.
@@ -258,6 +269,32 @@ namespace Rivet {
     /// The momentum of this projection of the Particle.
     FourMomentum _momentum;
 
+  // Functor to be passed to Utils.hh <any>
+    struct MatchPDGid
+    {
+     MatchPDGid(const int target, bool abs=false) : target_(target), abs_(abs) {}
+     bool operator()(const Particle& p) const
+     {
+       if (abs_) {
+         return ((p.abspid() == target_));
+       }
+       else {
+         return ((p.pid() == target_));
+       }
+     }
+     private:
+       const int  target_;
+       const bool    abs_;
+    };
+    
+    // Return true if particle with PID is found in children
+    inline bool _hasPIDDaughter(const Particle& p, const int pdgID) { 
+      return any(p.children(), MatchPDGid(pdgID)) ;
+    }
+    // Return true if particle with abs(PID) is found in children
+    inline bool _hasAbsPIDDaughter(const Particle& p, const int pdgID) { 
+      return any(p.children(), MatchPDGid(pdgID, true)) ;
+    }
   };
 
 
