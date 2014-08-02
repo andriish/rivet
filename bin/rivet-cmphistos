@@ -203,12 +203,14 @@ def mkoutdir(outdir):
 
 def writeOutput(output, h):
     "Choose output file name and dir"
+    hparts = h.strip("/").split("/")
     if opts.HIER_OUTPUT:
-        outdir = os.path.dirname(os.path.join(opts.OUTDIR, h[1:]))
-        outfile = '%s.dat' % os.path.basename(h)
+        ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
+        outdir = os.path.join(opts.OUTDIR, ana)
+        outfile = '%s.dat' % hparts[-1]
     else:
         outdir = opts.OUTDIR
-        outfile = '%s.dat' % h.replace('/', "_")[1:]
+        outfile = '%s.dat' % "_".join(hparts)
     mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfile)
     f = open(outfilepath, 'w')
@@ -248,7 +250,7 @@ if __name__ == '__main__':
 
     ## Now loop over all MC histograms and plot them
     for h in hpaths:
-        print 'Currently looking at',h
+        #print 'Currently looking at', h
         ## A list of all analysis objects to be plotted
         anaobjects = []
 

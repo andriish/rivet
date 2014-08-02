@@ -59,14 +59,16 @@ class PlotParser(object):
             raise ValueError("Can't parse section \'%s\'" % section)
 
         ## Decompose the histo path and remove the /REF prefix if necessary
-        parts = hpath.split("/")
-        if len(parts[0]) == 0:
-            del parts[0]
+        parts = hpath.strip('/').split('/')
+        #if len(parts[0]) == 0:
+        #    del parts[0]
         if parts[0] == "REF":
             del parts[0]
+        if not parts:
+            raise ValueError("Found empty histo path (or equal to /REF). Shouldn't be posible...")
+        # if len(parts) == 1:
+        #     parts.insert(0, "ANALYSIS")
         hpath = "/" + "/".join(parts[-2:])
-        if len(parts) < 2:
-            raise ValueError("hpath '%s' has wrong number of parts (%i) -- should be at least 2" % (hpath, len(parts)))
 
         ## Assemble the list of headers from any matching plotinfo paths and additional style files
         base = parts[0] + ".plot"

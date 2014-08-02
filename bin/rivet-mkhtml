@@ -98,11 +98,12 @@ for yodafile in yodafiles:
             sys.exit(2)
     analysisobjects = yoda.read(yodafilepath)
     for path, ao in analysisobjects.iteritems():
-        if path.startswith('/REF/'):
-            path = path[5:]
-        ## If regexes have been provided, only add analyses which
-        ##  match and don't unmatch
-        analysis = path.strip('/').split('/')[0]
+        ## If regexes have been provided, only add analyses which match and don't unmatch
+        pathparts = path.strip('/').split('/')
+        if pathparts[0] == "REF":
+            del pathparts[0]
+        # TODO: What if there are more than two parts (other than REF)?
+        analysis = "_".join(pathparts[:-1]) if len(pathparts) > 1 else "ANALYSIS"
         if analysis in analyses.union(blocked_analyses):
             continue
         if opts.PATHPATTERNS:
@@ -122,6 +123,8 @@ for yodafile in yodafiles:
                 continue
         analyses.add(analysis)
 
+## Sort analyses
+# TODO: Review the reverse-sorting: it makes CMS always appear before ATLAS, for example, which is not what's intended
 def anasort(name):
     if name.startswith("MC"):
         return "0"+name
@@ -178,6 +181,9 @@ if err :
 if(retcode != 0) :
     print 'Crash in rivet-cmphistos code = ',retcode,' exiting'
     exit(retcode)
+
+
+
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in
 ## a browser to view the output before all plots are made
