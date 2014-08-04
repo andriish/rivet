@@ -227,6 +227,15 @@ namespace Rivet {
   //@}
 
 
+  // PID matching functor to be passed to any() e.g. any(p.children(), HasPID(PID::MUON, true))
+  struct HasPID {
+    HasPID(PdgId pid, bool abs=false) : targetpid(pid), useabspid(abs) { }
+    bool operator()(const Particle& p) const { return (useabspid ? p.abspid() : p.pid()) == targetpid; }
+    PdgId targetpid;
+    bool useabspid;
+  };
+
+
 }
 
 #endif

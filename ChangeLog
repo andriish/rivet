@@ -1,3 +1,9 @@
+2014-08-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge new HasPID functor from Holger Schulz into
+	Rivet/Tools/ParticleUtils.hh, mainly for use with the any()
+	function in Rivet/Tools/Utils.hh
+
 2014-08-04  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ghost tagging of charms, bottoms and taus to FastJets, and
