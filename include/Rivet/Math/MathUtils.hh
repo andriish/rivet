@@ -105,6 +105,26 @@ namespace Rivet {
     if (lowbound == OPEN && highbound == OPEN) {
       return (value > low && value < high);
     } else if (lowbound == OPEN && highbound == CLOSED) {
+      return (value > low && value <= high);
+    } else if (lowbound == CLOSED && highbound == OPEN) {
+      return (value >= low && value < high);
+    } else { // if (lowbound == CLOSED && highbound == CLOSED) {
+      return (value >= low && value <= high);
+    }
+  }
+
+  /// @brief Determine if @a value is in the range @a low to @a high, for floating point numbers
+  ///
+  /// Interval boundary types are defined by @a lowbound and @a highbound.
+  /// Closed intervals are compared fuzzily.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  fuzzyInRange(N1 value, N2 low, N3 high,
+               RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+    if (lowbound == OPEN && highbound == OPEN) {
+      return (value > low && value < high);
+    } else if (lowbound == OPEN && highbound == CLOSED) {
       return (value > low && fuzzyLessEquals(value, high));
     } else if (lowbound == CLOSED && highbound == OPEN) {
       return (fuzzyGtrEquals(value, low) && value < high);

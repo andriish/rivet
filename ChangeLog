@@ -1,3 +1,8 @@
+2014-08-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Convert inRange to not use fuzzy comparisons on closed
+	intervals, providing old version as fuzzyInRange.
+
 2014-07-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove classifier functions accepting a Particle from the PID
