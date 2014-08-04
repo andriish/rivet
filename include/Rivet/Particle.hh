@@ -5,6 +5,8 @@
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Config/RivetCommon.hh"
+// NOTE: Rivet/Tools/ParticleUtils.hh included at the end
+#include "fastjet/PseudoJet.hh"
 
 namespace Rivet {
 
@@ -39,6 +41,17 @@ namespace Rivet {
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum())
     { }
+
+
+  public:
+
+    /// Converter to FastJet3 PseudoJet
+    virtual fastjet::PseudoJet pseudojet() const {
+      return fastjet::PseudoJet(mom().px(), mom().py(), mom().pz(), mom().E());
+    }
+
+    /// Cast operator to FastJet3 PseudoJet
+    operator PseudoJet () const { return pseudojet(); }
 
 
   public:
@@ -285,5 +298,8 @@ namespace Rivet {
 
 
 }
+
+
+#include "Rivet/Tools/ParticleUtils.hh"
 
 #endif

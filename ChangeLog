@@ -1,5 +1,11 @@
 2014-08-04  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add ghost tagging of charms, bottoms and taus to FastJets, and
+	tag info accessors to Jet.
+
+	* Add constructors from and cast operators to FastJet's PseudoJet
+	object from Particle and Jet.
+
 	* Convert inRange to not use fuzzy comparisons on closed
 	intervals, providing old version as fuzzyInRange.
 

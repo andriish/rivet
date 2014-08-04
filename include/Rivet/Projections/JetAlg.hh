@@ -126,7 +126,7 @@ namespace Rivet {
     collection_type entities() const { return jets(); }
 
     /// Do the calculation locally (no caching).
-    virtual void calc(const Particles& ps) = 0;
+    virtual void calc(const Particles& constituents, const Particles& tagparticles=Particles()) = 0;
 
 
   protected:

@@ -2,6 +2,8 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/HeavyHadrons.hh"
+#include "Rivet/Projections/TauFinder.hh"
 
 namespace Rivet {
 
@@ -50,12 +52,16 @@ namespace Rivet {
       }
       _jdef = fastjet::JetDefinition(_plugin.get());
     }
+    addProjection(HeavyHadrons(), "HFHadrons");
+    addProjection(TauFinder(), "Taus");
   }
 
   void FastJets::_init2(fastjet::JetAlgorithm type,
                         fastjet::RecombinationScheme recom, double rparameter) {
     setName("FastJets");
     _jdef = fastjet::JetDefinition(type, rparameter, recom);
+    addProjection(HeavyHadrons(), "HFHadrons");
+    addProjection(TauFinder(), "Taus");
   }
 
   void FastJets::_init3(fastjet::JetDefinition::Plugin* plugin) {
@@ -63,6 +69,8 @@ namespace Rivet {
     /// @todo Should we be copying the plugin?
     _plugin.reset(plugin);
     _jdef = fastjet::JetDefinition(_plugin.get());
+    addProjection(HeavyHadrons(), "HFHadrons");
+    addProjection(TauFinder(), "Taus");
   }
 
 
@@ -82,58 +90,51 @@ namespace Rivet {
 
 
   void FastJets::project(const Event& e) {
-    Particles particles;
-    if (_useInvisibles) {
-      particles = applyProjection<FinalState>(e, "FS").particles();
-    } else {
-      particles = applyProjection<FinalState>(e, "VFS").particles();
-    }
-    calc(particles);
+    // Final state particles
+    const string fskey = _useInvisibles ? "FS" : "VFS";
+    const Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
+    // Tagging particles
+    const Particles chadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").cHadrons();
+    const Particles bhadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").bHadrons();
+    const Particles taus = applyProjection<FinalState>(e, "Taus").particles();
+    calc(fsparticles, chadrons+bhadrons+taus);
   }
 
 
-  void FastJets::calc(const Particles& ps) {
+  void FastJets::calc(const Particles& fsparticles, const Particles& tagparticles) {
     _particles.clear();
-    vector<fastjet::PseudoJet> vecs;
-    // Store 4 vector data about each particle into vecs
+    vector<fastjet::PseudoJet> pjs;
+
+    /// @todo Use FastJet3's UserInfo system
+
+    // Store 4 vector data about each particle into FastJet's PseudoJets
     int counter = 1;
-    foreach (const Particle& p, ps) {
+    foreach (const Particle& p, fsparticles) {
       const FourMomentum fv = p.momentum();
-      fastjet::PseudoJet pJet(fv.px(), fv.py(), fv.pz(), fv.E());
-      pJet.set_user_index(counter);
-      vecs.push_back(pJet);
+      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); //< @todo Eliminate?
+      pj.set_user_index(counter);
+      pjs.push_back(pj);
       _particles[counter] = p;
-      ++counter;
+      counter += 1;
     }
+    // And the same for ghost tagging particles (with negative user indices)
+    counter = 1;
+    foreach (const Particle& p, tagparticles) {
+      const FourMomentum fv = 1e-20 * p.momentum(); //< Ghostify the momentum
+      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); //< @todo Eliminate?
+      pj.set_user_index(-counter);
+      pjs.push_back(pj);
+      _particles[counter] = p;
+      counter += 1;
+    }
+
     MSG_DEBUG("Running FastJet ClusterSequence construction");
-
-    // Choose CSeq as basic or area-calculating depending on whether _adef pointer is non-null.
-    if (_adef == 0) {
-      _cseq.reset(new fastjet::ClusterSequence(vecs, _jdef));
+    // Choose cseq as basic or area-calculating
+    if (_adef == NULL) {
+      _cseq.reset(new fastjet::ClusterSequence(pjs, _jdef));
     } else {
-      _cseq.reset(new fastjet::ClusterSequenceArea(vecs, _jdef, *_adef));
+      _cseq.reset(new fastjet::ClusterSequenceArea(pjs, _jdef, *_adef));
     }
-  }
-
-
-  Jets FastJets::_pseudojetsToJets(const PseudoJets& pjets) const {
-    Jets rtn;
-    foreach (const fastjet::PseudoJet& pj, pjets) {
-      assert(clusterSeq());
-      const PseudoJets parts = clusterSeq()->constituents(pj);
-      vector<Particle> constituents;
-      constituents.reserve(parts.size());
-      foreach (const fastjet::PseudoJet& p, parts) {
-        map<int, Particle>::const_iterator found = _particles.find(p.user_index());
-        assert(found != _particles.end());
-        constituents.push_back(found->second);
-      }
-      FourMomentum pjet(pj.E(), pj.px(), pj.py(), pj.pz());
-      Jet j(constituents, pjet);
-      rtn.push_back(j);
-    }
-    /// @todo Cache?
-    return rtn;
   }
 
 
@@ -145,33 +146,31 @@ namespace Rivet {
 
 
   size_t FastJets::numJets(double ptmin) const {
-    if (_cseq.get() != 0) {
-      return _cseq->inclusive_jets(ptmin).size();
-    } else {
-      return 0;
-    }
+    if (_cseq.get() == NULL) return 0;
+    return _cseq->inclusive_jets(ptmin).size();
   }
 
 
   Jets FastJets::_jets(double ptmin) const {
-    Jets rtn = _pseudojetsToJets(pseudoJets(ptmin));
+    Jets rtn;
+    foreach (const fastjet::PseudoJet& pj, pseudojets()) {
+      assert(clusterSeq());
+      const PseudoJets parts = clusterSeq()->constituents(pj);
+      vector<Particle> constituents, tags;
+      constituents.reserve(parts.size());
+      foreach (const fastjet::PseudoJet& p, parts) {
+        map<int, Particle>::const_iterator found = _particles.find(p.user_index());
+        assert(found != _particles.end());
+        assert(found->first != 0);
+        if (found->first > 0) constituents.push_back(found->second);
+        else if (found->first < 0) tags.push_back(found->second);
+      }
+      Jet j(pj, constituents, tags);
+      rtn.push_back(j);
+    }
+    /// @todo Cache?
     return rtn;
   }
-
-
-  // Jets FastJets::jetsByPt(double ptmin) const {
-  //   return _pseudojetsToJets(pseudoJetsByPt(ptmin));
-  // }
-
-
-  // Jets FastJets::jetsByE(double ptmin) const {
-  //   return _pseudojetsToJets(pseudoJetsByE(ptmin));
-  // }
-
-
-  // Jets FastJets::jetsByRapidity(double ptmin) const {
-  //   return _pseudojetsToJets(pseudoJetsByRapidity(ptmin));
-  // }
 
 
   PseudoJets FastJets::pseudoJets(double ptmin) const {

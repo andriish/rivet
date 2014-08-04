@@ -30,10 +30,6 @@ namespace Rivet {
     /// Cast operator for conversion to FourMomentum
     operator const FourMomentum& () const { return momentum(); }
 
-    /// @todo Add a converter and cast operator to FJ3 PseudoJet
-    // virtual PseudoJet pseudojet() const { ... }
-    // operator PseudoJet () const { return pseudojet(); }
-
     //@}
 
 

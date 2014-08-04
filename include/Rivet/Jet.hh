@@ -5,6 +5,7 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Jet.fhh"
 #include "Rivet/Particle.hh"
+#include "Rivet/Tools/ParticleUtils.hh"
 #include "fastjet/PseudoJet.hh"
 #include <numeric>
 
@@ -18,16 +19,24 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    Jet() : ParticleBase() { clear(); }
+    /// Constructor from a FastJet PseudoJet, with optional full particle constituents information.
+    Jet(const fastjet::PseudoJet& pj, const Particles& particles=Particles(), const Particles& tags=Particles()) {
+      setState(pj, particles, tags);
+    }
+
+    /// Set the jet data, with optional full particle information.
+    Jet(const FourMomentum& pjet, const Particles& particles=Particles(), const Particles& tags=Particles()) {
+      setState(pjet, particles, tags);
+    }
 
     /// Set all the jet data, with full particle information.
-    Jet(const vector<Particle>& particles, const FourMomentum& pjet)
-      : ParticleBase() {
+    /// @deprecated Prefer the form where the 4-vec comes first and the particles list is optional.
+    Jet(const Particles& particles, const FourMomentum& pjet) {
       setState(particles, pjet);
     }
 
-    /// @todo Add a constructor from PseudoJet
-    // operator Jet(const PseudoJet&) { ... }
+    /// Default constructor -- only for STL storability
+    Jet() { clear(); }
 
     //@}
 
@@ -40,24 +49,84 @@ namespace Rivet {
 
     /// Get the particles in this jet.
     vector<Particle>& particles() { return _particles; }
-
     /// Get the particles in this jet (const version)
     const vector<Particle>& particles() const { return _particles; }
 
+    /// Get the particles in this jet (FastJet-like alias)
+    vector<Particle>& constituents() { return particles(); }
+    /// Get the particles in this jet (FastJet-like alias, const version)
+    const vector<Particle>& constituents() const { return particles(); }
+
     /// Check whether this jet contains a particular particle.
     bool containsParticle(const Particle& particle) const;
+    /// Nicer alias for containsParticleId
+    bool containsPID(const Particle& particle) const { return containsParticle(particle); }
 
     /// Check whether this jet contains a certain particle type.
     bool containsParticleId(PdgId pid) const;
+    /// Nicer alias for containsParticleId
+    bool containsPID(PdgId pid) const { return containsParticleId(pid); }
 
     /// Check whether this jet contains at least one of certain particle types.
     bool containsParticleId(const vector<PdgId>& pids) const;
+    /// Nicer alias for containsParticleId
+    bool containsPID(const vector<PdgId>& pids) const { return containsParticleId(pids); }
 
-    /// Check whether this jet contains a charm-flavoured hadron (or decay products from one).
-    bool containsCharm() const;
+    /// Check whether this jet contains a charm-flavoured hadron.
+    ///
+    /// @note The cTags() function is probably what you want for tagging. This one
+    /// ignores the tags() property and draws conclusions based directly on the jet
+    /// constituents; the other should be a better match to experimental methods.
+    ///
+    /// Decision is made using ghost clustering by default, falling back to
+    /// actually finding a charm-flavoured particle in the particles list. If @a
+    /// include_decay_products is true, a final fallback is attempted, using the
+    /// post-hadronization ancestor history of all constituents.
+    bool containsCharm(bool include_decay_products=false) const;
 
-    /// Check whether this jet contains a bottom-flavoured hadron (or decay products from one).
-    bool containsBottom() const;
+    /// Check whether this jet contains a bottom-flavoured hadron.
+    ///
+    /// @note The bTags() function is probably what you want for tagging. This one
+    /// ignores the tags() property and draws conclusions based directly on the jet
+    /// constituents; the other should be a better match to experimental methods.
+    ///
+    /// Decision is made using ghost clustering by default, falling back to
+    /// actually finding a bottom-flavoured particle in the particles list. If @a
+    /// include_decay_products is true, a final fallback is attempted, using the
+    /// post-hadronization ancestor history of all constituents.
+    bool containsBottom(bool include_decay_products=false) const;
+
+    /// Particles which have been tag-matched to this jet by some external means
+    Particles& tags() { return _tags; }
+    /// Particles which have been tag-matched to this jet by some external means (const version)
+    const Particles& tags() const { return _tags; }
+
+    /// b particles which have been tag-matched to this jet by some external means
+    Particles bTags() const {
+      Particles rtn;
+      foreach (const Particle& tp, _tags) {
+        if (hasBottom(tp)) rtn.push_back(tp);
+      }
+      return rtn;
+    }
+
+    /// c particles which have been tag-matched to this jet by some external means
+    Particles cTags() const {
+      Particles rtn;
+      foreach (const Particle& tp, _tags) {
+        if (hasCharm(tp)) rtn.push_back(tp);
+      }
+      return rtn;
+    }
+
+    /// Tau particles which have been tag-matched to this jet by some external means
+    Particles tauTags() const {
+      Particles rtn;
+      foreach (const Particle& tp, _tags) {
+        if (isTau(tp)) rtn.push_back(tp);
+      }
+      return rtn;
+    }
 
     //@}
 
@@ -80,29 +149,42 @@ namespace Rivet {
     //@}
 
 
-    // /// @name Interaction with FastJet
-    // //@{
+    /// @name Interaction with FastJet
+    //@{
 
-    // /// @todo Add a cast operator to FJ3 PseudoJet
-    // operator const PseudoJet& () const { return pseudojet(); }
+    /// Access the internal FastJet3 PseudoJet (as a const reference)
+    const fastjet::PseudoJet& pseudojet() const { return _pseudojet; }
 
-    // /// @todo Add a cast operator to FJ3 PseudoJet
-    // const PseudoJet& pseudojet() const { return _pseudojet; }
+    /// Cast operator to FastJet3 PseudoJet (as a const reference)
+    operator const fastjet::PseudoJet& () const { return pseudojet(); }
 
-    // //@}
+    //@}
 
 
     /// @name Set the jet constituents and properties
     //@{
 
-    /// Set all the jet data, with full particle information.
-    Jet& setState(const vector<Particle>& particles, const FourMomentum& pjet);
+    /// @brief Set the jet data from a FastJet PseudoJet, with optional particle constituents and tags lists.
+    ///
+    /// @note The particles() list will be extracted from PseudoJet constituents
+    /// by default, making use of an attached user info if one is found.
+    Jet& setState(const fastjet::PseudoJet& pj, const Particles& particles=Particles(), const Particles& tags=Particles());
 
-    /// Set the effective 4-momentum of the jet.
-    Jet& setMomentum(const FourMomentum& momentum);
+    /// Set all the jet data, with optional full particle constituent and tag information.
+    Jet& setState(const FourMomentum& mom, const Particles& particles, const Particles& tags=Particles());
 
-    /// Set the particles collection with full particle information.
-    Jet& setParticles(const vector<Particle>& particles);
+    /// @deprecated Prefer the 4-mom first-arg versions
+    Jet& setState(const Particles& particles, const FourMomentum& mom) { return setState(mom, particles); }
+
+    // /// Set the effective 4-momentum of the jet.
+    // /// @todo Update for PseudoJet -- should momentum be separated from the cseq, etc.?
+    // Jet& setMomentum(const FourMomentum& momentum);
+
+    /// @brief Set the particles collection with full particle information.
+    ///
+    /// If set, this overrides particle info extracted from the PseudoJet
+    Jet& setParticles(const Particles& particles);
+    Jet& setConstituents(const Particles& particles) { return setParticles(particles); }
 
     /// Reset this jet as empty.
     Jet& clear();
@@ -112,14 +194,18 @@ namespace Rivet {
 
   private:
 
-    /// @todo Add a FJ3 PseudoJet member to unify PseudoJet and Jet
-    // PseudoJet _pseudojet;
+    /// FJ3 PseudoJet member to unify PseudoJet and Jet
+    fastjet::PseudoJet _pseudojet;
 
-    /// Full particle information including tracks, ID etc. (caching PseudoJet properties)
+    /// Full constituent particle information. (Filled from PseudoJet if possible.)
+    /// @todo Make these mutable or similar? Add a flag to force a cache rebuild?
     Particles _particles;
 
-    /// Effective jet 4-vector (caching PseudoJet properties)
-    FourMomentum _momentum;
+    /// Particles used to tag this jet (can be anything, but c and b hadrons are the most common)
+    Particles _tags;
+
+    /// Effective jet 4-vector (just for caching)
+    mutable FourMomentum _momentum;
 
   };
 
