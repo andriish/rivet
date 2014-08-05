@@ -30,7 +30,7 @@ namespace Rivet {
       bool passed =
         (st == 1 || (st == 2 && find(vetoIds.begin(), vetoIds.end(), abs(p->pdg_id())) == vetoIds.end())) &&
         !IS_PARTON_PDGID(p->pdg_id()) && //< Always veto partons?
-        !isZero(p->momentum().perp()) && p->momentum().perp() >= _ptmin &&
+         p->momentum().perp() >= _ptmin && !p->is_beam() && // Filter beam particles
         inRange(p->momentum().eta(), etamin, etamax);
 
       // Avoid double counting by re-marking as unpassed if particle ID == parent ID
