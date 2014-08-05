@@ -274,12 +274,12 @@ namespace Rivet {
     vector<double> rtn;
     const double interval = (end-start)/static_cast<double>(nbins);
     double edge = start;
-    while (inRange(edge, start, end, CLOSED, CLOSED)) {
+    for (size_t i = 0; i < nbins; ++i) {
       rtn.push_back(edge);
       edge += interval;
     }
-    assert(rtn.size() == nbins+1);
-    if (!include_end) rtn.pop_back();
+    assert(rtn.size() == nbins);
+    if (include_end) rtn.push_back(end); // exact end, not result of n * interval
     return rtn;
   }
 
