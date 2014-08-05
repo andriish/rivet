@@ -90,8 +90,8 @@ namespace Rivet {
 
 
     void multiplicity_subtract(const Histo1DPtr first, const Histo1DPtr second, int a, int b, int c) {
-      const double x  = first->bin(0).midpoint();
-      const double ex = first->bin(0).width()/2.;
+      const double x  = first->bin(0).xMid();
+      const double ex = first->bin(0).xWidth()/2.;
       const double y  = first->bin(0).area() - second->bin(0).area();
       const double ey = sqrt(sqr(first->bin(0).areaErr()) + sqr(second->bin(0).areaErr()));
       Scatter2DPtr scatter = bookScatter2D(a, b, c);

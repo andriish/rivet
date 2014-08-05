@@ -191,11 +191,11 @@ namespace Rivet {
       assert(ptcut.size() == 4);
       for (size_t i = 0; i < nbins; ++i) {
         // First Nch
-        double mean = hist_num_dphi_500.bin(i).midpoint();
+        double mean = hist_num_dphi_500.bin(i).xMid();
         double value = 0.;
         if (hist_num_dphi_500.bin(i).numEntries() > 0) {
           mean = hist_num_dphi_500.bin(i).xMean();
-          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
+          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).xWidth()/10.0;
         }
         if (pTlead/GeV >= ptcut[0]) _hist_N_vs_dPhi_1_500->fill(mean, value, weight);
         if (pTlead/GeV >= ptcut[1]) _hist_N_vs_dPhi_2_500->fill(mean, value, weight);
@@ -203,11 +203,11 @@ namespace Rivet {
         if (pTlead/GeV >= ptcut[3]) _hist_N_vs_dPhi_5_500->fill(mean, value, weight);
 
         // Then pT
-        mean = hist_pt_dphi_500.bin(i).midpoint();
+        mean = hist_pt_dphi_500.bin(i).xMid();
         value = 0.;
         if (hist_pt_dphi_500.bin(i).numEntries() > 0) {
           mean = hist_pt_dphi_500.bin(i).xMean();
-          value = hist_pt_dphi_500.bin(i).area()/hist_pt_dphi_500.bin(i).width()/10.0;
+          value = hist_pt_dphi_500.bin(i).area()/hist_pt_dphi_500.bin(i).xWidth()/10.0;
         }
         if (pTlead/GeV >= ptcut[0]) _hist_pT_vs_dPhi_1_500->fill(mean, value, weight);
         if (pTlead/GeV >= ptcut[1]) _hist_pT_vs_dPhi_2_500->fill(mean, value, weight);
@@ -264,8 +264,8 @@ namespace Rivet {
       for (size_t b = 0; b < moment_profiles[0]->numBins(); ++b) { // loop over points
         /// @todo Assuming unit weights here! Should use N_effective = sumW**2/sumW2?
         const double numentries = moment_profiles[0]->bin(b).numEntries();
-        const double x = moment_profiles[0]->bin(b).midpoint();
-        const double ex = moment_profiles[0]->bin(b).width()/2.;
+        const double x = moment_profiles[0]->bin(b).xMid();
+        const double ex = moment_profiles[0]->bin(b).xWidth()/2.;
         double var = 0.;
         double sd = 0.;
         if (numentries > 0) {

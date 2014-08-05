@@ -90,7 +90,7 @@ namespace Rivet {
     void fillS(Histo1DPtr h, const Particles& part, double weight, bool SE=true) {
       // Loop over bins, take bin centers as parameter values
       for (size_t i=0; i< h->numBins(); i++) {
-        double x = h->bin(i).midpoint();
+        double x = h->bin(i).xMid();
         double y;
         if (SE) y = getSE(part, x);
         else    y = getSeta(part, x);

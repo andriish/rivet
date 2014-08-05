@@ -46,7 +46,7 @@ namespace Rivet {
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
 
       // Fill mean charged multiplicity histos
-      _hist_nch->fill(_hist_nch->bin(0).midpoint(), cfs.size()*weight);
+      _hist_nch->fill(_hist_nch->bin(0).xMid(), cfs.size()*weight);
 
       // Iterate over all tracks and fill eta histograms
       foreach (const Particle& p, cfs.particles()) {

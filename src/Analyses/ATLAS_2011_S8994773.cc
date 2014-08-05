@@ -88,11 +88,11 @@ namespace Rivet {
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
       const size_t nbins = refData(13+isqrts,1,1).numPoints();
       for (size_t i = 0; i < nbins; ++i) {
-        double mean = hist_num_dphi_500.bin(i).midpoint();
+        double mean = hist_num_dphi_500.bin(i).xMid();
         double value = 0.;
         if (hist_num_dphi_500.bin(i).numEntries() > 0) {
           mean = hist_num_dphi_500.bin(i).xMean();
-          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
+          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).xWidth()/10.0;
         }
         if (pTlead/GeV >= 1.0) _hist_N_vs_dPhi_1_500->fill(mean, value, weight);
         if (pTlead/GeV >= 2.0) _hist_N_vs_dPhi_2_500->fill(mean, value, weight);

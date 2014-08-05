@@ -102,26 +102,26 @@ namespace Rivet {
     void finalize() {
       for (size_t i = 0; i < 5; ++i) {
         // All trk mean pT vs Nch
-        _h_AllTrkMeanPt->fill(_multBinCent[i], _th_AllTrkSpectrum[i].mean(), getMeanError(_th_AllTrkSpectrum[i]));
+        _h_AllTrkMeanPt->fill(_multBinCent[i], _th_AllTrkSpectrum[i].xMean(), getMeanError(_th_AllTrkSpectrum[i]));
 
         // Soft trk mean pT vs Nch
-        _h_SoftTrkMeanPt->fill(_multBinCent[i], _th_SoftTrkSpectrum[i].mean(), getMeanError(_th_SoftTrkSpectrum[i]));
+        _h_SoftTrkMeanPt->fill(_multBinCent[i], _th_SoftTrkSpectrum[i].xMean(), getMeanError(_th_SoftTrkSpectrum[i]));
 
         // Intrajet trk mean pT vs Nch
-        _h_IntrajetTrkMeanPt->fill(_multBinCent[i], _th_JetTrkSpectrum[i].mean(), getMeanError(_th_JetTrkSpectrum[i]));
+        _h_IntrajetTrkMeanPt->fill(_multBinCent[i], _th_JetTrkSpectrum[i].xMean(), getMeanError(_th_JetTrkSpectrum[i]));
 
         // Intrajet leader trk mean pT vs Nch
-        _h_IntrajetLeaderTrkMeanPt->fill(_multBinCent[i], _th_JetLTrkSpectrum[i].mean(), getMeanError(_th_JetLTrkSpectrum[i]));
+        _h_IntrajetLeaderTrkMeanPt->fill(_multBinCent[i], _th_JetLTrkSpectrum[i].xMean(), getMeanError(_th_JetLTrkSpectrum[i]));
 
         // Jet mean pT vs Nch
-        const double sem = (_h_JetSpectrum[i]->stdDev())/(sqrt(_h_JetSpectrum[i]->sumW())) / _h_JetSpectrum[i]->mean();
-        _h_MeanJetPt->fill(_multBinCent[i], _h_JetSpectrum[i]->mean(), sem);
+        const double sem = (_h_JetSpectrum[i]->xStdDev())/(sqrt(_h_JetSpectrum[i]->sumW())) / _h_JetSpectrum[i]->xMean();
+        _h_MeanJetPt->fill(_multBinCent[i], _h_JetSpectrum[i]->xMean(), sem);
 
         // Jet rates
 	double avJetRate5  = _jetCounter5GeV[i]  / _passedEv[i];
         double avJetRate30 = _jetCounter30GeV[i] / _passedEv[i];
 
-	cerr << "testing average rates " << i << " " << _jetCounter5GeV[i] << " " << _jetCounter30GeV[i] << " " 
+	cerr << "testing average rates " << i << " " << _jetCounter5GeV[i] << " " << _jetCounter30GeV[i] << " "
 	     <<  _passedEv[i] << "\n";
 	cerr << "testing rates " << avJetRate5 << " " << avJetRate30 << "\n";
 
@@ -139,8 +139,8 @@ namespace Rivet {
 
 
     double getMeanError(const Histo1D& hist) {
-      double SEM = hist.stdDev() / sqrt(hist.numEntries()); // Standard error of the mean
-      return SEM / hist.mean(); // relative SEM
+      double sem = hist.xStdErr(); // Standard error of the mean
+      return sem / hist.xMean(); // relative SEM
     }
 
 

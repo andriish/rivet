@@ -151,8 +151,8 @@ namespace Rivet {
       Histo1D temphisto(refData(2, 1, 1));
       for (size_t b = 0; b < temphisto.numBins(); ++b) {
         if (_h_jet_multi_inclusive->bin(b).sumW() != 0) {
-          const double x   = temphisto.bin(b).midpoint();
-          const double ex  = temphisto.bin(b).width()/2.;
+          const double x   = temphisto.bin(b).xMid();
+          const double ex  = temphisto.bin(b).xWidth()/2.;
           const double val = _h_jet_multi_inclusive->bin(b+1).sumW() / _h_jet_multi_inclusive->bin(b).sumW();
           const double err = ( _h_jet_multi_inclusive->bin(b+1).relErr() + _h_jet_multi_inclusive->bin(b).relErr() ) * val;
           _h_jet_multi_ratio->addPoint(x, val, ex, err);

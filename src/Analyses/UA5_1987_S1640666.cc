@@ -42,7 +42,7 @@ namespace Rivet {
 
       // Fill histograms
       _hist_nch->fill(Nch, weight);
-      _hist_mean_nch->fill(_hist_mean_nch->bin(0).midpoint(), Nch*weight);
+      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMid(), Nch*weight);
 
     }
 

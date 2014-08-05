@@ -60,7 +60,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      const double width = _h_hTotD->bin(0).width();
+      const double width = _h_hTotD->bin(0).xWidth();
       normalize(_h_hTotD, width);
       normalize(_h_hTotDF, width);
     }

@@ -121,8 +121,8 @@ namespace Rivet {
       for (size_t i = 0;  i < 40; ++i) {
         const double yval = _tmphistJet3eta->bin(i).area() * (eta3_CDF_sim[i]/eta3_Ideal_sim[i]);
         const double yerr = _tmphistJet3eta->bin(i).areaErr() * (eta3_CDF_sim_err[i]/eta3_Ideal_sim[i]);
-        _histJet3eta->addPoint(_tmphistJet3eta->bin(i).midpoint(), yval/_sumw,
-                               _tmphistJet3eta->bin(i).width()/2.0, yerr/_sumw);
+        _histJet3eta->addPoint(_tmphistJet3eta->bin(i).xMid(), yval/_sumw,
+                               _tmphistJet3eta->bin(i).xWidth()/2.0, yerr/_sumw);
       }
 
       // R23 correction
@@ -144,8 +144,8 @@ namespace Rivet {
       for (size_t i = 0;  i < 35; ++i) {
         const double yval = _tmphistR23->bin(i).area() * (R23_CDF_sim[i]/R23_Ideal_sim[i]);
         const double yerr = _tmphistR23->bin(i).areaErr() * (R23_CDF_sim_err[i]/R23_Ideal_sim[i]);
-        _histR23->addPoint(_tmphistR23->bin(i).midpoint(), yval/_sumw,
-                           _tmphistR23->bin(i).width()/2.0, yerr/_sumw);
+        _histR23->addPoint(_tmphistR23->bin(i).xMid(), yval/_sumw,
+                           _tmphistR23->bin(i).xWidth()/2.0, yerr/_sumw);
       }
 
       // alpha correction
@@ -167,8 +167,8 @@ namespace Rivet {
       for (size_t i = 0;  i < 40; ++i) {
         const double yval = _tmphistAlpha->bin(i).area() * (alpha_CDF_sim[i]/alpha_Ideal_sim[i]);
         const double yerr = _tmphistAlpha->bin(i).areaErr() * (alpha_CDF_sim_err[i]/alpha_Ideal_sim[i]);
-        _histAlpha->addPoint(_tmphistAlpha->bin(i).midpoint(), yval/_sumw,
-                             _tmphistAlpha->bin(i).width()/2.0, yerr/_sumw);
+        _histAlpha->addPoint(_tmphistAlpha->bin(i).xMid(), yval/_sumw,
+                             _tmphistAlpha->bin(i).xWidth()/2.0, yerr/_sumw);
       }
     }
 

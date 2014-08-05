@@ -146,8 +146,8 @@ namespace Rivet {
         const double BRZEE_BRWENU = 0.033632 / 0.1073; // Ratio of branching fractions
         const double scalefactor = (xSecW / wpt_integral) / (xSecZ / zpt_integral) * MW_MZ * BRZEE_BRWENU;
         for (size_t ibin = 0; ibin < _h_dsigdpt_w->numBins(); ibin++) {
-          const double xval = _h_dsigdpt_w->bin(ibin).midpoint();
-          const double xerr = _h_dsigdpt_w->bin(ibin).width() / 2.;
+          const double xval = _h_dsigdpt_w->bin(ibin).xMid();
+          const double xerr = _h_dsigdpt_w->bin(ibin).xWidth() / 2.;
           double yval(0), yerr(0);
           if (_h_dsigdpt_w->bin(ibin).sumW() != 0 && _h_dsigdpt_z->bin(ibin).sumW() != 0) {
             yval = scalefactor * _h_dsigdpt_w->bin(ibin).sumW() / _h_dsigdpt_z->bin(ibin).sumW();

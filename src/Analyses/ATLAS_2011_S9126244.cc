@@ -319,7 +319,7 @@ namespace Rivet {
         const double effErr = (totalWeightSum != 0) ? sqrt( eff*(1.0-eff)/totalWeightSum ) : 0;
 	// get the x coord and bin width
 	const double x    = vetoPtHist->bin(i).xMid();
-	const double xerr = 0.5*vetoPtHist->bin(i).width(); 
+	const double xerr = 0.5*vetoPtHist->bin(i).xWidth(); 
 	gapFractionDP->addPoint(x, eff, xerr, effErr);
       }
     }

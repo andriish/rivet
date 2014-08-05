@@ -149,7 +149,7 @@ namespace Rivet {
     // is equal to 1. This function normalizes to area = area*bin_width.  /
     // @note This is a strange definition... why?
     void normalizeByContents(Histo1DPtr h) {
-      normalize(h, h->bin(0).width());
+      normalize(h, h->bin(0).xWidth());
     }
 
 

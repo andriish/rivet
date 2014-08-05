@@ -183,7 +183,7 @@ namespace Rivet {
             if(!LEP1) logyn *= log10e;
             for (size_t j = 0; j < _h_R_Durham[i]->numBins(); ++j) {
               double val   = _h_R_Durham[i]->bin(j).xMin();
-              double width = _h_R_Durham[i]->bin(j).width();
+              double width = _h_R_Durham[i]->bin(j).xWidth();
               if(-val<=logynm1) break;
               if(-val<logyn) {
                 _h_R_Durham[i]->fill(val+0.5*width, weight*width);
@@ -193,7 +193,7 @@ namespace Rivet {
           }
           for (size_t j = 0; j < _h_R_Durham[5]->numBins(); ++j) {
             double val   = _h_R_Durham[5]->bin(j).xMin();
-            double width = _h_R_Durham[5]->bin(j).width();
+            double width = _h_R_Durham[5]->bin(j).xWidth();
             if(-val<=logynm1) break;
             _h_R_Durham[5]->fill(val+0.5*width, weight*width);
           }
@@ -268,8 +268,8 @@ namespace Rivet {
       const double avgNumParts = _weightedTotalChargedPartNum / sumOfWeights();
       Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
       for (size_t b = 0; b < temphisto.numBins(); b++) {
-        const double x  = temphisto.bin(b).midpoint();
-        const double ex = temphisto.bin(b).width()/2.;
+        const double x  = temphisto.bin(b).xMid();
+        const double ex = temphisto.bin(b).xWidth()/2.;
         if (inRange(sqrtS()/GeV, x-ex, x+ex)) {
           mult->addPoint(x, avgNumParts, ex, 0.);
         }

@@ -78,7 +78,7 @@ namespace Rivet {
         const double relerr = _tmp_h_plus.bin(i).relErr()  + _tmp_h_minus.bin(i).relErr();
         const double asym = (num != 0 && denom != 0) ? num / denom : 0;
         const double asym_err = (num != 0 && denom != 0) ? asym*relerr : 0;
-        _h_asym->addPoint(_tmp_h_plus.bin(i).midpoint(), asym, _tmp_h_plus.bin(i).width()/2.0, asym_err);
+        _h_asym->addPoint(_tmp_h_plus.bin(i).xMid(), asym, _tmp_h_plus.bin(i).xWidth()/2.0, asym_err);
       }
     }
 

@@ -90,7 +90,7 @@ namespace Rivet {
         const double logxp = -std::log(xp);
         _histXpall->fill(xp, weight);
         _histLogXpall->fill(logxp, weight);
-        _histMultiChargedall->fill(_histMultiChargedall->bin(0).midpoint(), weight);
+        _histMultiChargedall->fill(_histMultiChargedall->bin(0).xMid(), weight);
         switch (flavour) {
           /// @todo Use PDG code enums
         case PID::DQUARK:
@@ -98,17 +98,17 @@ namespace Rivet {
         case PID::SQUARK:
           _histXpuds->fill(xp, weight);
           _histLogXpuds->fill(logxp, weight);
-          _histMultiChargeduds->fill(_histMultiChargeduds->bin(0).midpoint(), weight);
+          _histMultiChargeduds->fill(_histMultiChargeduds->bin(0).xMid(), weight);
           break;
         case PID::CQUARK:
           _histXpc->fill(xp, weight);
           _histLogXpc->fill(logxp, weight);
-          _histMultiChargedc->fill(_histMultiChargedc->bin(0).midpoint(), weight);
+          _histMultiChargedc->fill(_histMultiChargedc->bin(0).xMid(), weight);
           break;
         case PID::BQUARK:
           _histXpb->fill(xp, weight);
           _histLogXpb->fill(logxp, weight);
-          _histMultiChargedb->fill(_histMultiChargedb->bin(0).midpoint(), weight);
+          _histMultiChargedb->fill(_histMultiChargedb->bin(0).xMid(), weight);
           break;
         }
       }

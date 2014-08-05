@@ -1,5 +1,9 @@
 2014-08-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Update all analyses to use the xMin/Max/Mid, xMean, xWidth,
+	etc. methods on YODA classes rather than the deprecated lowEdge
+	etc.
+
 	* Merge new HasPID functor from Holger Schulz into
 	Rivet/Tools/ParticleUtils.hh, mainly for use with the any()
 	function in Rivet/Tools/Utils.hh
