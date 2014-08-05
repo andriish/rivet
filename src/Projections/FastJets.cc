@@ -124,7 +124,7 @@ namespace Rivet {
       fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); //< @todo Eliminate?
       pj.set_user_index(-counter);
       pjs.push_back(pj);
-      _particles[counter] = p;
+      _particles[-counter] = p;
       counter += 1;
     }
 
@@ -154,7 +154,7 @@ namespace Rivet {
   Jets FastJets::_jets(double ptmin) const {
     Jets rtn;
     foreach (const fastjet::PseudoJet& pj, pseudojets()) {
-      assert(clusterSeq());
+      assert(clusterSeq() != NULL);
       const PseudoJets parts = clusterSeq()->constituents(pj);
       vector<Particle> constituents, tags;
       constituents.reserve(parts.size());
@@ -180,6 +180,9 @@ namespace Rivet {
       return PseudoJets();
     }
   }
+
+
+
 
 
   vector<double> FastJets::ySubJet(const fastjet::PseudoJet& jet) const {
