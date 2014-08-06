@@ -1,3 +1,7 @@
+2014-08-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding MC_HFJETS and MC_JETTAGS analyses.
+
 2014-08-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update all analyses to use the xMin/Max/Mid, xMean, xWidth,

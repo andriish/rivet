@@ -208,6 +208,7 @@ dist_pkgdata_DATA = \
   LHCB_2013_I1218996.plot \
   LHCF_2012_I1115479.plot \
   MC_GENERIC.plot \
+  MC_HFJETS.plot \
   MC_IDENTIFIED.plot \
   MC_LEADJETUE.plot \
   MC_DIJET.plot \
@@ -216,6 +217,7 @@ dist_pkgdata_DATA = \
   MC_SUSY.plot \
   MC_TTBAR.plot \
   MC_JETS.plot \
+  MC_JETTAGS.plot \
   MC_KTSPLITTINGS.plot \
   MC_PHOTONINC.plot \
   MC_PHOTONJETS.plot \

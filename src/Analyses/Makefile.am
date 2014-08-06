@@ -385,6 +385,8 @@ RivetMCAnalyses_la_SOURCES = \
     MC_HKTSPLITTINGS.cc \
     MC_IDENTIFIED.cc \
     MC_JETS.cc \
+    MC_JETTAGS.cc \
+    MC_HFJETS.cc \
     MC_LEADJETUE.cc \
     MC_PDFS.cc \
     MC_PHOTONINC.cc \
