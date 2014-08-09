@@ -1,3 +1,8 @@
+2014-08-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding PromptFinalState, based on code submitted by Alex
+	Grohsjean and Will Bell. Thanks!
+
 2014-08-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding MC_HFJETS and MC_JETTAGS analyses.

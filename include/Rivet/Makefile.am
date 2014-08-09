@@ -59,6 +59,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/NonHadronicFinalState.hh \
   Projections/ParisiTensor.hh   \
   Projections/PrimaryHadrons.hh \
+  Projections/PromptFinalState.hh \
   Projections/Sphericity.hh \
   Projections/Spherocity.hh \
   Projections/TauFinder.hh \

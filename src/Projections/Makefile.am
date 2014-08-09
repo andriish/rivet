@@ -28,6 +28,7 @@ libRivetProjections_la_SOURCES = \
   NonHadronicFinalState.cc \
   ParisiTensor.cc \
   PrimaryHadrons.cc \
+  PromptFinalState.cc \
   Sphericity.cc \
   Spherocity.cc \
   TauFinder.cc \
