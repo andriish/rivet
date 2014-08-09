@@ -50,7 +50,7 @@ namespace Rivet {
 
     //MSG_TRACE("FS::compare: " << 2 << " " << this << " " << &p);
     if (eta1 < eta2) return ORDERED;
-    else if (eta2 < eta1) return UNORDERED;
+    else if (eta2 < eta1) return ANTIORDERED;
 
     //MSG_TRACE("FS::compare: " << 3 << " " << this << " " << &p);
     return cmp(_ptmin, other._ptmin);

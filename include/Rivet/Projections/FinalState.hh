@@ -10,7 +10,9 @@ namespace Rivet {
 
 
   /// @brief Project out all final-state particles in an event.
+  ///
   /// Probably the most important projection in Rivet!
+  /// @todo Add a ParticleFinder base class for this and others -- not all particle finders return final state particles
   class FinalState : public Projection {
   public:
 
@@ -18,14 +20,11 @@ namespace Rivet {
     //@{
     /// The default constructor. May specify the minimum and maximum
     /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    FinalState(double mineta = -MAXDOUBLE,
-               double maxeta =  MAXDOUBLE,
-               double minpt  =  0.0*GeV);
+    FinalState(double mineta=-MAXDOUBLE, double maxeta=MAXDOUBLE, double minpt=0.0*GeV);
 
     /// A constructor which allows to specify multiple eta ranges
     /// and the min \f$ p_T \f$ (in GeV).
-    FinalState(const vector<pair<double, double> >& etaRanges,
-               double minpt = 0.0*GeV);
+    FinalState(const vector<pair<double, double> >& etaRanges, double minpt=0.0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
