@@ -347,7 +347,6 @@ namespace Rivet {
 
        ++fgap_point;
      }
-     /// @todo Delete vetoPt temp histos: use /TMP system
     }
 
 
