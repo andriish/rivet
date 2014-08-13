@@ -1,3 +1,11 @@
+2014-08-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* New analyses:
+	ATLAS_2014_I1268975 (high mass dijet cross-section at 7 TeV)
+	ATLAS_2014_I1304688 (jet multiplicity and pT at 7 TeV)
+	ATLAS_2014_I1307756 (scalar diphoton resonance search at 8 TeV -- no histograms!)
+	CMSTOTEM_2014_I1294140 (charged particle pseudorapidity at 8 TeV)
+
 2014-08-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding PromptFinalState, based on code submitted by Alex
