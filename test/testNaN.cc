@@ -1,10 +1,12 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/Analysis.hh"
-#include "HepMC/GenEvent.h"
-#include "HepMC/IO_GenEvent.h"
 #include "Rivet/Tools/RivetYODA.hh"
+#include <limits>
+#include <cmath>
+#include <iostream>
 
 using namespace std;
+
 
 class Test : public Rivet::Analysis {
 public:
@@ -15,28 +17,30 @@ public:
   }
 
   void analyze(const Rivet::Event & e) {
-    _h_test->fill(90.,1.);
+    cout << "Normal fill" << endl;
+    _h_test->fill(90., 1.);
 
-    try {
-      _h_test->fill(1./0.,1.);
-    }
-    catch (YODA::RangeError e) {
-      cerr << e.what() << '\n';
-      if ( string(e.what()) != string("X is Inf") )
-	throw;
-    }
-
-    try {
-      _h_test->fill(sqrt(-1.),1.);
-    }
-    catch (YODA::RangeError e) {
-      cerr << e.what() << '\n';
-      if ( string(e.what()) != string("X is NaN") )
-	throw;
-    }
-
+    cout << "Underflow fill" << endl;
     _h_test->fill(30.,1.);
+
+    cout << "Overflow fill" << endl;
     _h_test->fill(130.,1.);
+
+     cout << "Inf fill" << endl;
+    try {
+      _h_test->fill(numeric_limits<double>::infinity(), 1.);
+    } catch (YODA::RangeError e) {
+      cerr << e.what() << '\n';
+      if ( string(e.what()) != string("X is Inf") ) throw;
+    }
+
+    cout << "NaN fill" << endl;
+    try {
+      _h_test->fill(numeric_limits<double>::quiet_NaN(), 1.);
+    } catch (YODA::RangeError e) {
+      cerr << e.what() << '\n';
+      if ( string(e.what()) != string("X is NaN") ) throw;
+    }
   }
 
 private:

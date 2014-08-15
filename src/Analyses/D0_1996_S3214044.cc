@@ -70,28 +70,22 @@ namespace Rivet {
 
       Jets jets_in;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jetsByEt(20.0*GeV)) {
-        if (jet.abseta() < 3.0) {
-          jets_in.push_back(jet);
-        }
+        if (jet.abseta() < 3.0) jets_in.push_back(jet);
       }
 
       Jets jets_isolated;
       for (size_t i = 0; i < jets_in.size(); ++i) {
-        bool isolated=true;
+        bool isolated = true;
         for (size_t j = 0; j < jets_in.size(); ++j) {
           if (i != j && deltaR(jets_in[i].momentum(), jets_in[j].momentum()) < 1.4) {
             isolated = false;
             break;
           }
         }
-        if (isolated) {
-          jets_isolated.push_back(jets_in[i]);
-        }
+        if (isolated) jets_isolated.push_back(jets_in[i]);
       }
 
-      if (jets_isolated.size() == 0 || jets_isolated[0].Et() < 60.0*GeV) {
-        vetoEvent;
-      }
+      if (jets_isolated.size() == 0 || jets_isolated[0].Et() < 60.0*GeV) vetoEvent;
 
       if (jets_isolated.size() > 2) _threeJetAnalysis(jets_isolated, weight);
       if (jets_isolated.size() > 3) _fourJetAnalysis(jets_isolated, weight);
