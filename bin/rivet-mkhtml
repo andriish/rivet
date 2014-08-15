@@ -123,22 +123,32 @@ for yodafile in yodafiles:
                 continue
         analyses.add(analysis)
 
+
 ## Sort analyses: group ascending by analysis name (could specialise grouping by collider), then
 ## descending by year, and finally descending by bibliographic archive ID code (INSPIRE first).
 def anasort(name):
+    rtn = (1, name)
     if name.startswith("MC"):
-        return (99999999, name)
+        rtn = (99999999, name)
     else:
         stdparts = name.split("_")
         try:
-            assert len(stdparts) == 3
             year = int(stdparts[1])
+            rtn = (0, stdparts[0], -year, 0)
             idcode = (0 if stdparts[2][0] == "I" else 1e10) - int(stdparts[2][1:])
-            return (0, stdparts[0], -year, idcode)
+            rtn = (0, stdparts[0], -year, idcode)
+            if len(stdparts) > 3:
+                rtn += stdparts[3:]
         except:
-            return (1, name)
+            pass
+    return rtn
 
 analyses = sorted(analyses, key=anasort)
+
+## Uncomment to test analysis ordering on index page
+# print analyses
+# sys.exit(0)
+
 
 ## Run rivet-cmphistos to get plain .dat files from .yoda
 ## We do this here since it also makes the necessary directories
