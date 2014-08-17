@@ -78,7 +78,7 @@ namespace Rivet {
         }
       }
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
+      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size()>0) {
         _h_photon_jet1_deta->fill(photon.eta()-jets[0].eta(), weight);
         _h_photon_jet1_dphi->fill(mapAngle0ToPi(photon.phi()-jets[0].phi()), weight);

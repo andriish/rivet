@@ -71,7 +71,7 @@ namespace Rivet {
       const FourMomentum& mp = zmmfinder.constituents()[0].momentum();
       const FourMomentum& mm = zmmfinder.constituents()[1].momentum();
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
+      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
         const FourMomentum j0 = jets[0].momentum();
         _h_ZZ_jet1_deta->fill(zz.eta()-j0.eta(), weight);

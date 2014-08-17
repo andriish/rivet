@@ -9,7 +9,7 @@ namespace Rivet {
                                  size_t njet,
                                  const string& jetpro_name,
                                  double jetptcut)
-    : Analysis(name), m_njet(njet), m_jetpro_name(jetpro_name), m_jetptcut(jetptcut),
+    : Analysis(name), _njet(njet), _jetpro_name(jetpro_name), _jetptcut(jetptcut),
       _h_pT_jet(njet),
       _h_eta_jet(njet), _h_eta_jet_plus(njet), _h_eta_jet_minus(njet),
       _h_rap_jet(njet), _h_rap_jet_plus(njet), _h_rap_jet_minus(njet),
@@ -23,29 +23,29 @@ namespace Rivet {
   // Book histograms
   void MC_JetAnalysis::init() {
 
-    for (size_t i = 0; i < m_njet; ++i) {
-      string pTname = "jet_pT_" + to_str(i+1);
-      double pTmax = 1.0/(double(i)+2.0) * sqrtS()/GeV/2.0;
-      int nbins_pT = 100/(i+1);
+    for (size_t i = 0; i < _njet; ++i) {
+      const string pTname = "jet_pT_" + to_str(i+1);
+      const double pTmax = 1.0/(double(i)+2.0) * sqrtS()/GeV/2.0;
+      const int nbins_pT = 100/(i+1);
       _h_pT_jet[i] = bookHisto1D(pTname, logspace(nbins_pT, 10.0, pTmax));
 
-      string massname = "jet_mass_" + to_str(i+1);
-      double mmax = 100.0;
-      int nbins_m = 100/(i+1);
+      const string massname = "jet_mass_" + to_str(i+1);
+      const double mmax = 100.0;
+      const int nbins_m = 100/(i+1);
       _h_mass_jet[i] = bookHisto1D(massname, logspace(nbins_m, 1.0, mmax));
 
-      string etaname = "jet_eta_" + to_str(i+1);
+      const string etaname = "jet_eta_" + to_str(i+1);
       _h_eta_jet[i] = bookHisto1D(etaname, i > 1 ? 25 : 50, -5.0, 5.0);
       _h_eta_jet_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_eta_jet_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
-      string rapname = "jet_y_" + to_str(i+1);
+      const string rapname = "jet_y_" + to_str(i+1);
       _h_rap_jet[i] = bookHisto1D(rapname, i>1 ? 25 : 50, -5.0, 5.0);
       _h_rap_jet_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_rap_jet_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
-      for (size_t j = i+1; j < min(size_t(3), m_njet); ++j) {
-        std::pair<size_t, size_t> ij = std::make_pair(i, j);
+      for (size_t j = i+1; j < min(size_t(3), _njet); ++j) {
+        const std::pair<size_t, size_t> ij = std::make_pair(i, j);
 
         string detaname = "jets_deta_" + to_str(i+1) + to_str(j+1);
         _h_deta_jets.insert(make_pair(ij, bookHisto1D(detaname, 25, -5.0, 5.0)));
@@ -58,10 +58,10 @@ namespace Rivet {
       }
     }
 
-    _h_jet_multi_exclusive = bookHisto1D("jet_multi_exclusive", m_njet+3, -0.5, m_njet+3-0.5);
-    _h_jet_multi_inclusive = bookHisto1D("jet_multi_inclusive", m_njet+3, -0.5, m_njet+3-0.5);
+    _h_jet_multi_exclusive = bookHisto1D("jet_multi_exclusive", _njet+3, -0.5, _njet+3-0.5);
+    _h_jet_multi_inclusive = bookHisto1D("jet_multi_inclusive", _njet+3, -0.5, _njet+3-0.5);
     _h_jet_multi_ratio = bookScatter2D("jet_multi_ratio");
-    _h_jet_HT = bookHisto1D("jet_HT", logspace(50, m_jetptcut, sqrtS()/GeV/2.0));
+    _h_jet_HT = bookHisto1D("jet_HT", logspace(50, _jetptcut, sqrtS()/GeV/2.0));
   }
 
 
@@ -69,9 +69,9 @@ namespace Rivet {
   void MC_JetAnalysis::analyze(const Event & e) {
     const double weight = e.weight();
 
-    const Jets& jets = applyProjection<FastJets>(e, m_jetpro_name).jetsByPt(m_jetptcut);
+    const Jets& jets = applyProjection<FastJets>(e, _jetpro_name).jetsByPt(_jetptcut);
 
-    for (size_t i = 0; i < m_njet; ++i) {
+    for (size_t i = 0; i < _njet; ++i) {
       if (jets.size() < i+1) continue;
       _h_pT_jet[i]->fill(jets[i].pT()/GeV, weight);
       // Check for numerical precision issues with jet masses
@@ -90,23 +90,15 @@ namespace Rivet {
       // Jet eta
       const double eta_i = jets[i].eta();
       _h_eta_jet[i]->fill(eta_i, weight);
-      if (eta_i > 0.0) {
-        _h_eta_jet_plus[i]->fill(eta_i, weight);
-      } else {
-        _h_eta_jet_minus[i]->fill(fabs(eta_i), weight);
-      }
+      (eta_i > 0.0 ? _h_eta_jet_plus : _h_eta_jet_minus)[i]->fill(fabs(eta_i), weight);
 
       // Jet rapidity
       const double rap_i = jets[i].rapidity();
       _h_rap_jet[i]->fill(rap_i, weight);
-      if (rap_i > 0.0) {
-        _h_rap_jet_plus[i]->fill(rap_i, weight);
-      } else {
-        _h_rap_jet_minus[i]->fill(fabs(rap_i), weight);
-      }
+      (rap_i > 0.0 ? _h_rap_jet_plus : _h_rap_jet_minus)[i]->fill(fabs(rap_i), weight);
 
       // Inter-jet properties
-      for (size_t j = i+1; j < min(size_t(3),m_njet); ++j) {
+      for (size_t j = i+1; j < min(size_t(3),_njet); ++j) {
         if (jets.size() < j+1) continue;
         std::pair<size_t, size_t> ij = std::make_pair(i, j);
         double deta = jets[i].eta()-jets[j].eta();
@@ -117,15 +109,17 @@ namespace Rivet {
         _h_dR_jets[ij]->fill(dR, weight);
       }
     }
-    _h_jet_multi_exclusive->fill(jets.size(), weight);
 
-    for (size_t i = 0; i < m_njet+2; ++i) {
+    // Multiplicities
+    _h_jet_multi_exclusive->fill(jets.size(), weight);
+    for (size_t i = 0; i < _njet+2; ++i) {
       if (jets.size() >= i) {
         _h_jet_multi_inclusive->fill(i, weight);
       }
     }
 
-    double HT=0.0;
+    // HT
+    double HT = 0.0;
     foreach (const Jet& jet, jets) {
       HT += jet.pT();
     }
@@ -135,7 +129,7 @@ namespace Rivet {
 
   // Finalize
   void MC_JetAnalysis::finalize() {
-    for (size_t i = 0; i < m_njet; ++i) {
+    for (size_t i = 0; i < _njet; ++i) {
       scale(_h_pT_jet[i], crossSection()/sumOfWeights());
       scale(_h_mass_jet[i], crossSection()/sumOfWeights());
       scale(_h_eta_jet[i], crossSection()/sumOfWeights());
