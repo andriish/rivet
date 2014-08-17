@@ -7,6 +7,8 @@
 namespace Rivet {
 
 
+  /// @brief MC validation analysis for photons
+  /// @todo Rename to MC_DRESSEDPHOTONS, or add these plots to the generic particle analysis photons
   class MC_PHOTONS : public Analysis {
   public:
 
@@ -27,10 +29,11 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       IdentifiedFinalState leptons(-5.0, 5.0, 10*GeV);
-      IdentifiedFinalState photons(-5.0, 5.0);
       leptons.acceptChLeptons();
-      photons.acceptId(PID::PHOTON);
       addProjection(leptons, "lFS");
+
+      IdentifiedFinalState photons(-5.0, 5.0);
+      photons.acceptId(PID::PHOTON);
       addProjection(photons, "gammaFS");
 
       _h_Ptgamma = bookHisto1D("Ptgamma", logspace(50, 0.01, 30));

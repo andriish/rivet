@@ -2,13 +2,11 @@
 #ifndef RIVET_Projection_HH
 #define RIVET_Projection_HH
 
-#include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.fhh"
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
-#include "Rivet/ParticleName.hh"
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Tools/ParticleUtils.hh"
+#include "Rivet/Config/RivetCommon.hh"
+// NOTE: Cmp.hh, Event.hh and Particle.hh included at the bottom
 
 namespace Rivet {
 
@@ -157,8 +155,9 @@ inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projec
 }
 
 
-// Definition of the comparison objects and functions
-#include "Rivet/Cmp.hh"
-
-
 #endif
+
+
+#include "Rivet/Cmp.hh"
+#include "Rivet/Event.hh"
+#include "Rivet/Particle.hh"

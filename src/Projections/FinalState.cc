@@ -4,10 +4,9 @@
 namespace Rivet {
 
 
-  FinalState::FinalState(double mineta, double maxeta, double minpt)
-    : _ptmin(minpt)
-  {
+  FinalState::FinalState(double mineta, double maxeta, double minpt) {
     setName("FinalState");
+    _ptmin = minpt;
     const bool openpt = isZero(minpt);
     const bool openeta = (mineta <= -MAXDOUBLE && maxeta >= MAXDOUBLE);
     MSG_TRACE("Check for open FS conditions:" << std::boolalpha
@@ -23,9 +22,10 @@ namespace Rivet {
 
 
   FinalState::FinalState(const vector<pair<double, double> >& etaRanges, double minpt)
-    : _etaRanges(etaRanges), _ptmin(minpt)
   {
     setName("FinalState");
+    _ptmin = minpt;
+    _etaRanges = etaRanges;
     const bool openpt = isZero(minpt);
     /// @todo Properly check whether any of these eta ranges (or their combination) are actually open
     const bool openeta = etaRanges.empty();
@@ -40,20 +40,7 @@ namespace Rivet {
 
 
   int FinalState::compare(const Projection& p) const {
-    const FinalState& other = dynamic_cast<const FinalState&>(p);
-
-    //MSG_TRACE("FS::compare: " << 1 << " " << this << " " << &p);
-    std::vector<std::pair<double, double> > eta1(_etaRanges);
-    std::vector<std::pair<double, double> > eta2(other._etaRanges);
-    std::sort(eta1.begin(), eta1.end());
-    std::sort(eta2.begin(), eta2.end());
-
-    //MSG_TRACE("FS::compare: " << 2 << " " << this << " " << &p);
-    if (eta1 < eta2) return ORDERED;
-    else if (eta2 < eta1) return ANTIORDERED;
-
-    //MSG_TRACE("FS::compare: " << 3 << " " << this << " " << &p);
-    return cmp(_ptmin, other._ptmin);
+    return ParticleFinder::compare(p);
   }
 
 

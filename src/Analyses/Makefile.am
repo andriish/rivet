@@ -384,6 +384,7 @@ RivetMCAnalyses_la_SOURCES = \
     EXAMPLE.cc \
     MC_QCD_PARTONS.cc \
     MC_DIPHOTON.cc \
+    MC_ELECTRONS.cc \
     MC_GENERIC.cc \
     MC_HINC.cc \
     MC_HJETS.cc \
@@ -393,6 +394,7 @@ RivetMCAnalyses_la_SOURCES = \
     MC_JETTAGS.cc \
     MC_HFJETS.cc \
     MC_LEADJETUE.cc \
+    MC_MUONS.cc \
     MC_PDFS.cc \
     MC_PHOTONINC.cc \
     MC_PHOTONJETS.cc \

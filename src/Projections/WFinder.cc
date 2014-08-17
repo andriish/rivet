@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Projections/WFinder.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/MergedFinalState.hh"

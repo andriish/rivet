@@ -7,6 +7,7 @@ namespace Rivet {
 
 
   /// Generic analysis looking at various distributions of final state particles
+  /// @todo Rename as MC_HADRONS
   class MC_IDENTIFIED : public Analysis {
   public:
 

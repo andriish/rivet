@@ -57,6 +57,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/MissingMomentum.hh \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
+  Projections/ParticleFinder.hh   \
   Projections/ParisiTensor.hh   \
   Projections/PrimaryHadrons.hh \
   Projections/PromptFinalState.hh \

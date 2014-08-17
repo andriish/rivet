@@ -1,3 +1,17 @@
+2014-08-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improvements to the particles methods on
+	ParticleFinder/FinalState, in particular adding the range of cuts
+	arguments cf. JetAlg (and tweaking the sorted jets equivalent) and
+	returning as a copy rather than a reference if cut/sorted to avoid
+	accidentally messing up the cached copy.
+
+	* Creating ParticleFinder projection base class, and moving
+	Particles-accessing methods from FinalState into it.
+
+	* Adding basic forms of MC_ELECTRONS, MC_MUONS, and MC_TAUS
+	analyses.
+
 2014-08-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version bump to 2.2.0beta1 for use at BOOST and MCnet school.
