@@ -211,28 +211,31 @@ dist_pkgdata_DATA = \
   LHCB_2013_I1208105.plot \
   LHCB_2013_I1218996.plot \
   LHCF_2012_I1115479.plot \
-  MC_GENERIC.plot \
-  MC_HFJETS.plot \
-  MC_IDENTIFIED.plot \
-  MC_LEADJETUE.plot \
   MC_DIJET.plot \
   MC_DIPHOTON.plot \
-  MC_PHOTONJETUE.plot \
-  MC_SUSY.plot \
-  MC_TTBAR.plot \
+  MC_ELECTRONS.plot \
+  MC_GENERIC.plot \
+  MC_HFJETS.plot \
+  MC_HINC.plot \
+  MC_HJETS.plot \
+  MC_HKTSPLITTINGS.plot \
+  MC_IDENTIFIED.plot \
   MC_JETS.plot \
   MC_JETTAGS.plot \
   MC_KTSPLITTINGS.plot \
+  MC_LEADJETUE.plot \
+  MC_MUONS.plot \
+  MC_PDFS.plot \
   MC_PHOTONINC.plot \
   MC_PHOTONJETS.plot \
   MC_PHOTONKTSPLITTINGS.plot \
   MC_PHOTONS.plot \
+  MC_PHOTONJETUE.plot \
   MC_QCD_PARTONS.plot \
+  MC_SUSY.plot \
+  MC_TAUS.plot \
+  MC_TTBAR.plot \
   MC_VH2BB.plot \
-  MC_HINC.plot \
-  MC_HJETS.plot \
-  MC_HKTSPLITTINGS.plot \
-  MC_PDFS.plot \
   MC_WINC.plot \
   MC_WJETS.plot \
   MC_WKTSPLITTINGS.plot \

@@ -217,14 +217,18 @@ dist_pkgdata_DATA = \
   LHCF_2012_I1115479.info \
   MC_DIJET.info \
   MC_DIPHOTON.info \
+  MC_ELECTRONS.info \
   MC_GENERIC.info \
+  MC_HFJETS.info \
   MC_HINC.info \
   MC_HJETS.info \
   MC_HKTSPLITTINGS.info \
   MC_IDENTIFIED.info \
   MC_JETS.info \
+  MC_JETTAGS.info \
   MC_KTSPLITTINGS.info \
   MC_LEADJETUE.info \
+  MC_MUONS.info \
   MC_PDFS.info \
   MC_PHOTONINC.info \
   MC_PHOTONJETS.info \
@@ -234,6 +238,7 @@ dist_pkgdata_DATA = \
   MC_PRINTEVENT.info \
   MC_QCD_PARTONS.info \
   MC_SUSY.info \
+  MC_TAUS.info \
   MC_TTBAR.info \
   MC_VH2BB.info \
   MC_WINC.info \

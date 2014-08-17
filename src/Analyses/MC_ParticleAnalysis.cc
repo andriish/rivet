@@ -60,6 +60,9 @@ namespace Rivet {
   // Do the analysis
   void MC_ParticleAnalysis::_analyze(const Event& event, const Particles& particles) {
     const double weight = event.weight();
+    Particles promptparticles;
+    foreach (const Particle& p, particles)
+      if (!p.fromDecay()) promptparticles += p;
 
     for (size_t i = 0; i < _nparts; ++i) {
       if (particles.size() < i+1) continue;
@@ -90,12 +93,10 @@ namespace Rivet {
 
     // Multiplicities
     _h_multi_exclusive->fill(particles.size(), weight);
-    /// @todo Prompt excl multiplicity
+    _h_multi_exclusive_prompt->fill(promptparticles.size(), weight);
     for (size_t i = 0; i < _nparts+2; ++i) {
-      if (particles.size() >= i) {
-        _h_multi_inclusive->fill(i, weight);
-        /// @todo Prompt incl multiplicity
-      }
+      if (particles.size() >= i) _h_multi_inclusive->fill(i, weight);
+      if (promptparticles.size() >= i) _h_multi_inclusive_prompt->fill(i, weight);
     }
 
   }
@@ -119,9 +120,8 @@ namespace Rivet {
     foreach (HistMap::value_type& it, _h_dphi) scale(it.second, crossSection()/sumOfWeights());
     foreach (HistMap::value_type& it, _h_dR) scale(it.second, crossSection()/sumOfWeights());
 
-    // Fill inclusive multi ratio
-    int Nbins = _h_multi_inclusive->numBins();
-    for (int i = 0; i < Nbins-1; ++i) {
+    // Fill inclusive multi ratios
+    for (int i = 0; i < _h_multi_inclusive->numBins()-1; ++i) {
       _h_multi_ratio->addPoint(i+1, 0, 0.5, 0);
       if (_h_multi_inclusive->bin(i).sumW() > 0.0) {
         const double ratio = _h_multi_inclusive->bin(i+1).sumW() / _h_multi_inclusive->bin(i).sumW();
@@ -131,9 +131,21 @@ namespace Rivet {
         _h_multi_ratio->point(i).setY(ratio, err);
       }
     }
+    for (int i = 0; i < _h_multi_inclusive_prompt->numBins()-1; ++i) {
+      _h_multi_ratio_prompt->addPoint(i+1, 0, 0.5, 0);
+      if (_h_multi_inclusive_prompt->bin(i).sumW() > 0.0) {
+        const double ratio = _h_multi_inclusive_prompt->bin(i+1).sumW() / _h_multi_inclusive_prompt->bin(i).sumW();
+        const double relerr_i = _h_multi_inclusive_prompt->bin(i).relErr();
+        const double relerr_j = _h_multi_inclusive_prompt->bin(i+1).relErr();
+        const double err = ratio * (relerr_i + relerr_j);
+        _h_multi_ratio_prompt->point(i).setY(ratio, err);
+      }
+    }
 
     scale(_h_multi_exclusive, crossSection()/sumOfWeights());
+    scale(_h_multi_exclusive_prompt, crossSection()/sumOfWeights());
     scale(_h_multi_inclusive, crossSection()/sumOfWeights());
+    scale(_h_multi_inclusive_prompt, crossSection()/sumOfWeights());
   }
 
 

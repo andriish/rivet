@@ -54,8 +54,8 @@ namespace Rivet {
     std::map<std::pair<size_t, size_t>, Histo1DPtr> _h_dphi;
     std::map<std::pair<size_t, size_t>, Histo1DPtr> _h_dR;
     Histo1DPtr _h_multi_exclusive, _h_multi_inclusive;
-    /// @todo Prompt multiplicities
-    Scatter2DPtr _h_multi_ratio;
+    Histo1DPtr _h_multi_exclusive_prompt, _h_multi_inclusive_prompt;
+    Scatter2DPtr _h_multi_ratio, _h_multi_ratio_prompt;
     //@}
 
   };
