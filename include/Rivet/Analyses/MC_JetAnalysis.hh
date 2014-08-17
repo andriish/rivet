@@ -9,6 +9,7 @@ namespace Rivet {
 
 
   /// @brief Base class providing common functionality for MC jet validation analyses
+  /// @todo Could reduce duplication by inheriting this from MC_ParticleAnalysis, with minor tweaking
   class MC_JetAnalysis : public Analysis {
   public:
 
