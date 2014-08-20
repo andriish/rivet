@@ -174,11 +174,7 @@ namespace Rivet {
 
 
   PseudoJets FastJets::pseudoJets(double ptmin) const {
-    if (_cseq.get() != 0) {
-      return _cseq->inclusive_jets(ptmin);
-    } else {
-      return PseudoJets();
-    }
+    return (clusterSeq() != NULL) ? clusterSeq()->inclusive_jets(ptmin) : PseudoJets();
   }
 
 
