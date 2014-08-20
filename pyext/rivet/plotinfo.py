@@ -5,8 +5,8 @@ class PlotParser(object):
 #class PlotStyler(object) or class PlotInfo(object):
     """Reads Rivet's .plot files and determines which attributes to apply to each histo path."""
 
-    pat_begin_block = re.compile('^#+ BEGIN ([A-Z0-9_]+) ?(\S+)?')
-    pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
+    pat_begin_block = re.compile('^#*\s*BEGIN ([A-Z0-9_]+) ?(\S+)?')
+    pat_end_block =   re.compile('^#*\s*END ([A-Z0-9_]+)')
     pat_comment = re.compile('^#|^\s*$')
     pat_property = re.compile('^(\w+?)=(.*)$')
     pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
@@ -95,6 +95,7 @@ class PlotParser(object):
             m = self.pat_begin_block.match(line)
             if m:
                 tag, pathpat = m.group(1,2)
+                #print tag, pathpat
                 # pathpat could be a regex
                 if not self.pat_paths.has_key(pathpat):
                     self.pat_paths[pathpat] = re.compile(pathpat)
@@ -115,7 +116,7 @@ class PlotParser(object):
                 vm = self.pat_property.match(line)
                 if vm:
                     prop, value = vm.group(1,2)
-                    # print prop, value
+                    #print prop, value
                     ret[section][prop] = texpand(value)
             elif section in ['SPECIAL']:
                 ret[section] += line
