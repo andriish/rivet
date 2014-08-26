@@ -1,3 +1,9 @@
+2014-08-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add calc() methods to Hemispheres as requested, to allow it to
+	be used with Jet or FourMomentum inputs outside the normal
+	projection system.
+
 2014-08-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improvements to the particles methods on

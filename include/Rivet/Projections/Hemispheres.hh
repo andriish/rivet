@@ -2,10 +2,8 @@
 #ifndef RIVET_Hemispheres_HH
 #define RIVET_Hemispheres_HH
 
-#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/AxesDefinition.hh"
-#include "Rivet/Event.hh"
 
 
 namespace Rivet {
@@ -70,7 +68,7 @@ namespace Rivet {
       return new Hemispheres(*this);
     }
 
-    // Reset the projection
+    /// Reset the projection
     void clear() {
       _E2vis = -1;
       _M2high = -1;
@@ -79,6 +77,13 @@ namespace Rivet {
       _Bmin = -1;
       _highMassEqMaxBroad = true;
     }
+
+    /// Use the projection manually (i.e. outside the projection mechanism) with raw 4-momentum inputs.
+    void calc(const Vector3& n, const std::vector<FourMomentum>& p4s);
+    /// Use the projection manually (i.e. outside the projection mechanism) with particle inputs.
+    void calc(const Vector3& n, const Particles& particles);
+    /// Use the projection manually (i.e. outside the projection mechanism) with jet inputs.
+    void calc(const Vector3& n, const Jets& jets);
 
 
   protected:
