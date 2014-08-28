@@ -114,6 +114,9 @@ namespace Rivet {
     double M2diff() const { return _M2high -_M2low; }
     double Mdiff() const { return sqrt(M2diff()); }
 
+    double M2sum() const { return _M2high +_M2low; }
+    double Msum() const { return sqrt(M2sum()); }
+
     double scaledM2high() const {
       if (isZero(_M2high)) return 0.0;
       if (!isZero(_E2vis)) return _M2high/_E2vis;
