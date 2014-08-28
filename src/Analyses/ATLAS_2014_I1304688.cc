@@ -210,9 +210,9 @@ namespace Rivet {
       cutBits += 1 << 2; if (_vetodressedmuons.size() > 0) return false;
       // 4. total neutrino pT > 30 GeV
       cutBits += 1 << 3; if (_met_et <= 30.0*GeV) return false;
-      // 5. MTW > 30 GeV
+      // 5. MTW > 35 GeV
       cutBits += 1 << 4;
-      if (_transMass(_dressedelectrons[0].pT(), _dressedelectrons[0].phi(), _met_et, _met_phi) <= 30*GeV) return false;
+      if (_transMass(_dressedelectrons[0].pT(), _dressedelectrons[0].phi(), _met_et, _met_phi) <= 35*GeV) return false;
       // 6. At least one b-tagged jet
       cutBits += 1 << 5; if (_jet_ntag < 1) return false;
       // 7. At least three good jets
@@ -230,9 +230,9 @@ namespace Rivet {
       cutBits += 1 << 2; if (_vetodressedelectrons.size() > 0) return false;
       // 4. total neutrino pT > 30 GeV
       cutBits += 1 << 3; if (_met_et <= 30*GeV) return false;
-      // 5. MTW > 30 GeV
+      // 5. MTW > 35 GeV
       cutBits += 1 << 4;
-      if (_transMass(_dressedmuons[0].pT(), _dressedmuons[0].phi(), _met_et, _met_phi) <= 30*GeV) return false;
+      if (_transMass(_dressedmuons[0].pT(), _dressedmuons[0].phi(), _met_et, _met_phi) <= 35*GeV) return false;
       // 6. At least one b-tagged jet
       cutBits += 1 << 5; if (_jet_ntag < 1) return false;
       // 7. At least three good jets
