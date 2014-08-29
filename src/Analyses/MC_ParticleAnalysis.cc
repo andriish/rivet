@@ -121,7 +121,7 @@ namespace Rivet {
     foreach (HistMap::value_type& it, _h_dR) scale(it.second, crossSection()/sumOfWeights());
 
     // Fill inclusive multi ratios
-    for (int i = 0; i < _h_multi_inclusive->numBins()-1; ++i) {
+    for (size_t i = 0; i < _h_multi_inclusive->numBins()-1; ++i) {
       _h_multi_ratio->addPoint(i+1, 0, 0.5, 0);
       if (_h_multi_inclusive->bin(i).sumW() > 0.0) {
         const double ratio = _h_multi_inclusive->bin(i+1).sumW() / _h_multi_inclusive->bin(i).sumW();
@@ -131,7 +131,7 @@ namespace Rivet {
         _h_multi_ratio->point(i).setY(ratio, err);
       }
     }
-    for (int i = 0; i < _h_multi_inclusive_prompt->numBins()-1; ++i) {
+    for (size_t i = 0; i < _h_multi_inclusive_prompt->numBins()-1; ++i) {
       _h_multi_ratio_prompt->addPoint(i+1, 0, 0.5, 0);
       if (_h_multi_inclusive_prompt->bin(i).sumW() > 0.0) {
         const double ratio = _h_multi_inclusive_prompt->bin(i+1).sumW() / _h_multi_inclusive_prompt->bin(i).sumW();
