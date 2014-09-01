@@ -72,10 +72,10 @@ namespace Rivet {
         double pT = p.pT();
         double eta = p.eta();
         sumpt += pT;
-        for (size_t ietabin = _etabins.size()-1; ietabin >= 0; --ietabin) {
-          if (fabs(eta) > _etabins[ietabin]) break;
-          ++_nch_in_Evt[ietabin];
-          if (pT > 0.5/GeV) ++_nch_in_Evt_pt500[ietabin];
+        for (size_t ietabin = _etabins.size(); ietabin > 0; --ietabin) {
+          if (fabs(eta) > _etabins[ietabin-1]) break;
+          ++_nch_in_Evt[ietabin-1];
+          if (pT > 0.5/GeV) ++_nch_in_Evt_pt500[ietabin-1];
         }
       }
 
