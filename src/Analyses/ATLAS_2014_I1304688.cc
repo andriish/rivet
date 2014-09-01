@@ -23,7 +23,7 @@ namespace Rivet {
       _met_et(0.),
       _met_phi(0.),
       _hMap(),
-      _chanLimit(3),
+      //_chanLimit(3),
       _histLimit(6)
     { }
 
@@ -265,8 +265,8 @@ namespace Rivet {
       const unsigned int hInd = (histId == 0) ? thresholdId : (_thresholdLimit(0) + (histId-1) + thresholdId);
       if (_hMap.find(hInd) != _hMap.end()) return _hMap[hInd];
 
-      if (histId == 0) _hMap.insert(make_pair<unsigned int, Histo1DPtr>(hInd,bookHisto1D(1,thresholdId+1,1)));
-      else _hMap.insert(make_pair<unsigned int, Histo1DPtr>(hInd,bookHisto1D(2,histId,1)));
+      if (histId == 0) _hMap.insert(make_pair(hInd,bookHisto1D(1,thresholdId+1,1)));
+      else _hMap.insert(make_pair(hInd,bookHisto1D(2,histId,1)));
       return _hMap[hInd];
     }
 
@@ -311,7 +311,7 @@ namespace Rivet {
     bool _overlap;
 
     map<unsigned int, Histo1DPtr> _hMap;
-    unsigned int _chanLimit;
+    //unsigned int _chanLimit;
     unsigned int _histLimit;
     //@}
 
