@@ -70,11 +70,11 @@ namespace Rivet {
       bool gotElectron(false), gotNeutrino(false);
       foreach (const Particle& p, wDecayProducts) {
         FourMomentum p4 = p.momentum();
-        if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && abs(p.pdgId()) == PID::ELECTRON) {
+        if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && p.abspid() == PID::ELECTRON) {
           electronP = p4;
           gotElectron = true;
         }
-        else if (p4.Et() > _eTmissCut && abs(p.pdgId()) == PID::NU_E) {
+        else if (p4.Et() > _eTmissCut && p.abspid() == PID::NU_E) {
           neutrinoP = p4;
           gotNeutrino = true;
         }
@@ -143,8 +143,8 @@ namespace Rivet {
 
       // Normalize the non-ratio histograms
       for (size_t i = 0; i < 4; ++i) {
-        normalize(_histJetEt[i], crossSection()/picobarn);
-        normalize(_histJetMult[i], crossSection()/picobarn);
+        scale(_histJetEt[i], crossSection()/picobarn/sumOfWeights());
+        scale(_histJetMult[i], crossSection()/picobarn/sumOfWeights());
       }
 
     }

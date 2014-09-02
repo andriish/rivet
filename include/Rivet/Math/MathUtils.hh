@@ -94,7 +94,6 @@ namespace Rivet {
   /// boundary) at 0, and open (a non-inclusive boundary) at \f$ \pi \f$.
   enum RangeBoundary { OPEN=0, SOFT=0, CLOSED=1, HARD=1 };
 
-
   /// @brief Determine if @a value is in the range @a low to @a high, for floating point numbers
   ///
   /// Interval boundary types are defined by @a lowbound and @a highbound.
@@ -103,6 +102,26 @@ namespace Rivet {
     boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
   inRange(N1 value, N2 low, N3 high,
           RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
+    if (lowbound == OPEN && highbound == OPEN) {
+      return (value > low && value < high);
+    } else if (lowbound == OPEN && highbound == CLOSED) {
+      return (value > low && value <= high);
+    } else if (lowbound == CLOSED && highbound == OPEN) {
+      return (value >= low && value < high);
+    } else { // if (lowbound == CLOSED && highbound == CLOSED) {
+      return (value >= low && value <= high);
+    }
+  }
+
+  /// @brief Determine if @a value is in the range @a low to @a high, for floating point numbers
+  ///
+  /// Interval boundary types are defined by @a lowbound and @a highbound.
+  /// Closed intervals are compared fuzzily.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  fuzzyInRange(N1 value, N2 low, N3 high,
+               RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
     if (lowbound == OPEN && highbound == OPEN) {
       return (value > low && value < high);
     } else if (lowbound == OPEN && highbound == CLOSED) {
@@ -122,6 +141,41 @@ namespace Rivet {
           RangeBoundary lowbound=CLOSED, RangeBoundary highbound=OPEN) {
     return inRange(value, lowhigh.first, lowhigh.second, lowbound, highbound);
   }
+
+
+  // Alternative forms, with snake_case names and boundary types in names rather than as args -- from MCUtils
+
+  /// @brief Boolean function to determine if @a value is within the given range
+  ///
+  /// @note The interval is closed (inclusive) at the low end, and open (exclusive) at the high end.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  in_range(N1 val, N2 low, N3 high) {
+    return inRange(val, low, high, CLOSED, OPEN);
+  }
+
+  /// @brief Boolean function to determine if @a value is within the given range
+  ///
+  /// @note The interval is closed at both ends.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  in_closed_range(N1 val, N2 low, N3 high) {
+    return inRange(val, low, high, CLOSED, CLOSED);
+  }
+
+  /// @brief Boolean function to determine if @a value is within the given range
+  ///
+  /// @note The interval is open at both ends.
+  template <typename N1, typename N2, typename N3>
+  inline typename boost::enable_if_c<
+    boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value && boost::is_arithmetic<N3>::value, bool>::type
+  in_open_range(N1 val, N2 low, N3 high) {
+    return inRange(val, low, high, OPEN, OPEN);
+  }
+
+  /// @todo Add pair-based versions of the named range-boundary functions
 
   //@}
 
@@ -220,12 +274,12 @@ namespace Rivet {
     vector<double> rtn;
     const double interval = (end-start)/static_cast<double>(nbins);
     double edge = start;
-    while (inRange(edge, start, end, CLOSED, CLOSED)) {
+    for (size_t i = 0; i < nbins; ++i) {
       rtn.push_back(edge);
       edge += interval;
     }
-    assert(rtn.size() == nbins+1);
-    if (!include_end) rtn.pop_back();
+    assert(rtn.size() == nbins);
+    if (include_end) rtn.push_back(end); // exact end, not result of n * interval
     return rtn;
   }
 
@@ -243,12 +297,13 @@ namespace Rivet {
     const double logend = std::log(end);
     const vector<double> logvals = linspace(nbins, logstart, logend);
     assert(logvals.size() == nbins+1);
-    vector<double> rtn;
-    foreach (double logval, logvals) {
-      rtn.push_back(std::exp(logval));
+    vector<double> rtn; rtn.reserve(logvals.size());
+    rtn.push_back(start);
+    for (size_t i = 1; i < logvals.size()-1; ++i) {
+      rtn.push_back(std::exp(logvals[i]));
     }
-    assert(rtn.size() == nbins+1);
-    if (!include_end) rtn.pop_back();
+    assert(rtn.size() == nbins);
+    if (include_end) rtn.push_back(end);
     return rtn;
   }
 

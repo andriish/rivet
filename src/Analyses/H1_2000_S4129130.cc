@@ -38,7 +38,7 @@ namespace Rivet {
       FourMomentum leptonMom = dl.out().momentum();
       // pT energy and angle
       double enel = leptonMom.E();
-      double thel = 180.-leptonMom.angle(dl.in().momentum())/degree;
+      double thel = 180 - leptonMom.angle(dl.in().momentum())/degree;
 
       // Extract the particles other than the lepton
       Particles particles;
@@ -53,8 +53,8 @@ namespace Rivet {
       // Cut on the forward energy
       double efwd = 0.;
       foreach (const Particle& p, particles) {
-        double th = 180.-p.momentum().angle(dl.in().momentum())/degree;
-        if (th > 4.4 && th < 15.0) efwd += p.momentum().E();
+        double th = 180.-p.angle(dl.in().momentum())/degree;
+        if (th > 4.4 && th < 15.0) efwd += p.E();
       }
       // There are four possible selections for events
       bool evcut[4];
@@ -157,7 +157,7 @@ namespace Rivet {
         // Boost momentum to CMS
         const FourMomentum hcmMom = hcmboost.transform(p.momentum());
         double et = fabs(Et(hcmMom));
-        double eta = hcmMom.pseudorapidity();
+        double eta = hcmMom.eta();
         // Averages in central and forward region
         if (fabs(eta) < .5 ) etcent += et;
         if (eta > 2 && eta <= 3.) etfrag += et;

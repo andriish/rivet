@@ -33,7 +33,7 @@ namespace Rivet {
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
       foreach (const Particle& p, ufs.particles()) {
         // only looking at Lambda_c
-        if(abs(p.pdgId())!=4122) continue;
+        if(p.abspid()!=4122) continue;
         MSG_DEBUG("Lambda_c found");
         double mH2 = 5.22780; // 2.28646^2
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();

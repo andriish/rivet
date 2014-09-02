@@ -39,17 +39,17 @@ namespace Rivet {
       Particles taus;
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
-        if (abs(p.pdgId()) != PID::TAU) continue;
+        if (p.abspid() != PID::TAU) continue;
         _weight_total += 1.;
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;
         // get the boost to the rest frame
         LorentzTransform cms_boost;
-        if (p.momentum().vector3().mod() > 1*MeV)
+        if (p.p3().mod() > 1*MeV)
           cms_boost = LorentzTransform(-p.momentum().boostVector());
         // find the decay products we want
         findDecayProducts(p.genParticle(), nstable, pip, pim, Kp, Km);
-        if (p.pdgId() < 0) {
+        if (p.pid() < 0) {
           swap(pip, pim);
           swap(Kp, Km );
         }

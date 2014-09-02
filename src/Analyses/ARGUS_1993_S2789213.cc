@@ -70,7 +70,7 @@ namespace Rivet {
       // First in unstable final state
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles())
-        if (p.pdgId() == 300553 || p.pdgId() == 553) upsilons.push_back(p);
+        if (p.pid() == 300553 || p.pid() == 553) upsilons.push_back(p);
       // Then in whole event if that failed
       if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
@@ -95,9 +95,9 @@ namespace Rivet {
         _weightSum_cont += weight;
         unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
         foreach (const Particle& p, ufs.particles()) {
-          int id = abs(p.pdgId());
-          double xp = 2.*p.momentum().t()/roots;
-          double beta = p.momentum().vector3().mod()/p.momentum().t();
+          int id = p.abspid();
+          double xp = 2.*p.E()/roots;
+          double beta = p.p3().mod()/p.E();
           if (id == 113) {
             _hist_cont_Rho0->fill(xp,weight/beta);
             ++nRho0;
@@ -128,7 +128,7 @@ namespace Rivet {
       else {
         // find an upsilon
         foreach (const Particle& ups, upsilons) {
-          int parentId = ups.pdgId();
+          int parentId = ups.pid();
           if (parentId == 553)
             _weightSum_Ups1 += weight;
           else
@@ -137,15 +137,15 @@ namespace Rivet {
           // find the decay products we want
           findDecayProducts(ups.genParticle(),unstable);
           LorentzTransform cms_boost;
-          if (ups.momentum().vector3().mod() > 0.001)
+          if (ups.p3().mod() > 0.001)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
-          double mass = ups.momentum().mass();
+          double mass = ups.mass();
           unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
           foreach(const Particle & p , unstable) {
-            int id = abs(p.pdgId());
+            int id = p.abspid();
             FourMomentum p2 = cms_boost.transform(p.momentum());
-            double xp = 2.*p2.t()/mass;
-            double beta = p2.vector3().mod()/p2.t();
+            double xp = 2.*p2.E()/mass;
+            double beta = p2.p3().mod()/p2.E();
             if (id == 113) {
               if (parentId == 553) _hist_Ups1_Rho0->fill(xp,weight/beta);
               else                 _hist_Ups4_Rho0->fill(xp,weight/beta);

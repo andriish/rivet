@@ -9,6 +9,7 @@ namespace Rivet {
 
 
   /// @brief Base class providing common functionality for MC jet validation analyses
+  /// @todo Could reduce duplication by inheriting this from MC_ParticleAnalysis, with minor tweaking
   class MC_JetAnalysis : public Analysis {
   public:
 
@@ -30,14 +31,14 @@ namespace Rivet {
   protected:
 
     /// The number of jets for which histograms are to be initialised
-    size_t m_njet;
+    size_t _njet;
 
     /// The name of the jet projection to be used for this analysis
     /// (this projection has to be registered by the derived analysis!)
-    const std::string m_jetpro_name;
+    const std::string _jetpro_name;
 
     /// Jet pT cutoff
-    double m_jetptcut;
+    double _jetptcut;
 
     /// @todo Add jet masses and d(rap)
 

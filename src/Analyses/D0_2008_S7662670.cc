@@ -67,7 +67,7 @@ namespace Rivet {
       // Fill histo for each jet
       foreach (const Jet& j, jetpro.jets(50.0*GeV)) {
         const double pt = j.pT();
-        const double y = fabs(j.rapidity());
+        const double y = j.absrap();
         MSG_TRACE("Filling histos: pT = " << pt/GeV
             << ", |y| = " << y);
         if (y < 0.4) {

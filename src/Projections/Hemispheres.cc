@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Projections/Hemispheres.hh"
+#include "Rivet/Jet.hh"
 
 namespace Rivet {
 
@@ -10,23 +11,40 @@ namespace Rivet {
     // Get thrust axes.
     const AxesDefinition& ax = applyProjection<AxesDefinition>(e, "Axes");
     const Vector3 n = ax.axis1();
-    MSG_DEBUG("Thrust axis = " << n);
+    const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
+    const Particles& particles = fs.particles();
+    calc(n, particles);
+  }
+
+
+  void Hemispheres::calc(const Vector3& n, const Particles& particles) {
+    vector<FourMomentum> p4s; p4s.reserve(particles.size());
+    foreach (const Particle& p, particles) p4s.push_back(p.mom());
+    calc(n, p4s);
+  }
+
+
+  void Hemispheres::calc(const Vector3& n, const Jets& jets) {
+    vector<FourMomentum> p4s; p4s.reserve(jets.size());
+    foreach (const Jet& j, jets) p4s.push_back(j.mom());
+    calc(n, p4s);
+  }
+
+
+  void Hemispheres::calc(const Vector3& n, const vector<FourMomentum>& p4s) {
+    MSG_DEBUG("Hemisphere axis = " << n);
+    MSG_DEBUG("Number of constituents = " << p4s.size());
 
     FourMomentum p4With, p4Against;
     double Evis(0), broadWith(0), broadAgainst(0), broadDenom(0);
-    const FinalState& fs = applyProjection<FinalState>(e, ax.getProjection("FS"));
-    const Particles& particles = fs.particles();
-    MSG_DEBUG("Number of particles = " << particles.size());
-    foreach (const Particle& p, particles) {
-      const FourMomentum p4 = p.momentum();
+    foreach (const FourMomentum& p4, p4s) {
       const Vector3 p3 = p4.vector3();
-      const double p3Mag = mod(p3);
       const double p3Para = dot(p3, n);
       const double p3Trans = mod(p3 - p3Para * n);
 
       // Update normalisations
       Evis += p4.E();
-      broadDenom += 2.0 * p3Mag;
+      broadDenom += 2.0 * p3.mod();
 
       // Update the mass and broadening variables
       if (p3Para > 0) {
@@ -47,7 +65,7 @@ namespace Rivet {
     }
 
     // Visible energy squared.
-    _E2vis = Evis * Evis;
+    _E2vis = sqr(Evis);
 
     // Calculate masses.
     const double mass2With = p4With.mass2();

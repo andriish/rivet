@@ -70,28 +70,22 @@ namespace Rivet {
 
       Jets jets_in;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jetsByEt(20.0*GeV)) {
-        if (fabs(jet.eta()) < 3.0) {
-          jets_in.push_back(jet);
-        }
+        if (jet.abseta() < 3.0) jets_in.push_back(jet);
       }
 
       Jets jets_isolated;
       for (size_t i = 0; i < jets_in.size(); ++i) {
-        bool isolated=true;
+        bool isolated = true;
         for (size_t j = 0; j < jets_in.size(); ++j) {
           if (i != j && deltaR(jets_in[i].momentum(), jets_in[j].momentum()) < 1.4) {
             isolated = false;
             break;
           }
         }
-        if (isolated) {
-          jets_isolated.push_back(jets_in[i]);
-        }
+        if (isolated) jets_isolated.push_back(jets_in[i]);
       }
 
-      if (jets_isolated.size() == 0 || jets_isolated[0].momentum().Et() < 60.0*GeV) {
-        vetoEvent;
-      }
+      if (jets_isolated.size() == 0 || jets_isolated[0].Et() < 60.0*GeV) vetoEvent;
 
       if (jets_isolated.size() > 2) _threeJetAnalysis(jets_isolated, weight);
       if (jets_isolated.size() > 3) _fourJetAnalysis(jets_isolated, weight);
@@ -157,8 +151,8 @@ namespace Rivet {
       FourMomentum p5(jets_boosted[2]);
 
       Vector3 beam1(0.0, 0.0, 1.0);
-      Vector3 p1xp3 = beam1.cross(p3.vector3());
-      Vector3 p4xp5 = p4.vector3().cross(p5.vector3());
+      Vector3 p1xp3 = beam1.cross(p3.p3());
+      Vector3 p4xp5 = p4.p3().cross(p5.p3());
       const double cospsi = p1xp3.dot(p4xp5)/p1xp3.mod()/p4xp5.mod();
 
       _h_3j_x3->fill(2.0*p3.E()/sqrts, weight);
@@ -188,11 +182,11 @@ namespace Rivet {
       FourMomentum p5(jets_boosted[2]);
       FourMomentum p6(jets_boosted[3]);
 
-      Vector3 p3xp4 = p3.vector3().cross(p4.vector3());
-      Vector3 p5xp6 = p5.vector3().cross(p6.vector3());
+      Vector3 p3xp4 = p3.p3().cross(p4.p3());
+      Vector3 p5xp6 = p5.p3().cross(p6.p3());
       const double costheta_BZ = p3xp4.dot(p5xp6)/p3xp4.mod()/p5xp6.mod();
-      const double costheta_NR = (p3.vector3()-p4.vector3()).dot(p5.vector3()-p6.vector3())/
-        (p3.vector3()-p4.vector3()).mod()/(p5.vector3()-p6.vector3()).mod();
+      const double costheta_NR = (p3.p3()-p4.p3()).dot(p5.p3()-p6.p3())/
+        (p3.p3()-p4.p3()).mod()/(p5.p3()-p6.p3()).mod();
 
       _h_4j_x3->fill(2.0*p3.E()/sqrts, weight);
       _h_4j_x4->fill(2.0*p4.E()/sqrts, weight);

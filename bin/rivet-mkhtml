@@ -19,7 +19,7 @@ rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
 
 import glob, shutil
-from subprocess import Popen, PIPE
+from subprocess import Popen,PIPE
 
 
 from optparse import OptionParser
@@ -69,7 +69,7 @@ opts, yodafiles = parser.parse_args()
 
 ## Check that there are some arguments!
 if not yodafiles:
-    print "Error: You need to specify some .yoda files to be plotted!"
+    print "Error: You need to specify some YODA files to be plotted!"
     sys.exit(1)
 
 
@@ -96,18 +96,58 @@ for yodafile in yodafiles:
             continue
         else:
             sys.exit(2)
-    analysisobjects = yoda.readYODA(yodafilepath)
+    analysisobjects = yoda.read(yodafilepath)
     for path, ao in analysisobjects.iteritems():
-        if path.startswith('/REF/'):
-            path = path[5:]
-        analyses.add(path.strip('/').split('/')[0])
+        ## If regexes have been provided, only add analyses which match and don't unmatch
+        pathparts = path.strip('/').split('/')
+        if pathparts[0] == "REF":
+            del pathparts[0]
+        # TODO: What if there are more than two parts (other than REF)?
+        analysis = "_".join(pathparts[:-1]) if len(pathparts) > 1 else "ANALYSIS"
+        if analysis in analyses.union(blocked_analyses):
+            continue
+        if opts.PATHPATTERNS:
+            import re
+            matched = False
+            for patt in opts.PATHPATTERNS:
+                if re.search(patt, analysis) is not None:
+                    matched = True
+                    break
+            if matched and opts.PATHUNPATTERNS:
+                for patt in opts.PATHUNPATTERNS:
+                    if re.search(patt, analysis):
+                        matched = False
+                        break
+            if not matched:
+                blocked_analyses.add(analysis)
+                continue
+        analyses.add(analysis)
 
+
+## Sort analyses: group ascending by analysis name (could specialise grouping by collider), then
+## descending by year, and finally descending by bibliographic archive ID code (INSPIRE first).
 def anasort(name):
+    rtn = (1, name)
     if name.startswith("MC"):
-        return "0"+name
+        rtn = (99999999, name)
     else:
-        return name
-analyses = sorted(analyses, key=anasort, reverse=True)
+        stdparts = name.split("_")
+        try:
+            year = int(stdparts[1])
+            rtn = (0, stdparts[0], -year, 0)
+            idcode = (0 if stdparts[2][0] == "I" else 1e10) - int(stdparts[2][1:])
+            rtn = (0, stdparts[0], -year, idcode)
+            if len(stdparts) > 3:
+                rtn += stdparts[3:]
+        except:
+            pass
+    return rtn
+
+analyses = sorted(analyses, key=anasort)
+
+## Uncomment to test analysis ordering on index page
+# print analyses
+# sys.exit(0)
 
 
 ## Run rivet-cmphistos to get plain .dat files from .yoda
@@ -135,8 +175,7 @@ for af in yodafiles:
 for configfile in opts.CONFIGFILES:
     configfile = os.path.abspath(os.path.expanduser(configfile))
     if os.access(configfile, os.R_OK):
-        ch_cmd.append("-c")
-        ch_cmd.append(configfile)
+        ch_cmd += ["-c", configfile]
 # TODO: Pass rivet-mkhtml -m and -M args to rivet-cmphistos
 
 if opts.VERBOSE:
@@ -149,7 +188,18 @@ for var in ("RIVET_ANALYSIS_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_P
     if var in os.environ:
         abspaths = map(os.path.abspath, os.environ[var].split(":"))
         os.environ[var] = ":".join(abspaths)
-Popen(ch_cmd, cwd=opts.OUTPUTDIR, stderr=PIPE).wait()
+subproc = Popen(ch_cmd, cwd=opts.OUTPUTDIR,stdout=PIPE,stderr=PIPE)
+out,err = subproc.communicate()
+retcode = subproc.returncode
+if (opts.VERBOSE or retcode !=0)  and out :
+    print 'Output from rivet-cmphistos\n',out
+if err :
+    print 'Errors from rivet-cmphistos\n',err
+if(retcode != 0) :
+    print 'Crash in rivet-cmphistos code = ',retcode,' exiting'
+    exit(retcode)
+
+
 
 ## Write web page containing all (matched) plots
 ## Make web pages first so that we can load it locally in

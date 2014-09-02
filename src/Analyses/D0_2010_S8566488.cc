@@ -52,7 +52,7 @@ namespace Rivet {
 
       FourMomentum j0(jets[0].momentum());
       FourMomentum j1(jets[1].momentum());
-      double ymax = std::max(fabs(j0.rapidity()), fabs(j1.rapidity()));
+      double ymax = std::max(j0.absrap(), j1.absrap());
       double mjj = FourMomentum(j0+j1).mass();
 
       _h_m_dijet.fill(ymax, mjj/TeV, weight);

@@ -2,13 +2,7 @@
 #ifndef RIVET_WFinder_HH
 #define RIVET_WFinder_HH
 
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Particle.hh"
-#include "Rivet/Event.hh"
-#include "Rivet/Projection.hh"
-#include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/DressedLeptons.hh"
+#include "Rivet/Projections/FinalState.hh"
 
 namespace Rivet {
 
@@ -17,6 +11,8 @@ namespace Rivet {
   ///
   /// Chain together different projections as convenience for finding W's
   /// from two leptons in the final state, including photon clustering.
+  ///
+  /// @todo Inherit directly from ParticleFinder, not FinalState
   class WFinder : public FinalState {
   public:
 

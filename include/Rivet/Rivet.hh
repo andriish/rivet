@@ -1,10 +1,12 @@
 #ifndef RIVET_Rivet_HH
 #define RIVET_Rivet_HH
 
+#include <string>
+
 namespace Rivet {
 
   /// A function to get the Rivet version string
-  string version();
+  std::string version();
 
 }
 

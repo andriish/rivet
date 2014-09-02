@@ -35,7 +35,7 @@ namespace Rivet {
         // 3-momentum in CMS frame
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
         // only looking at Xi_c^0
-        if(abs(p.pdgId()) != 4132 ) continue;
+        if(p.abspid() != 4132 ) continue;
         if (onresonance) {
           _histOnResonanceA_norm->fill(mom,weight);
           _histOnResonanceB_norm->fill(mom,weight);

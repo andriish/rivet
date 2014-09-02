@@ -55,8 +55,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
 
@@ -74,7 +74,7 @@ namespace Rivet {
             }
             if (is_primary) {
               _histXbprim->fill(xp, weight);
-              _histMeanXbprim->fill(_histMeanXbprim->bin(0).midpoint(), xp, weight);
+              _histMeanXbprim->fill(_histMeanXbprim->bin(0).xMid(), xp, weight);
             }
           }
 
@@ -89,7 +89,7 @@ namespace Rivet {
             }
             if (is_weak) {
               _histXbweak->fill(xp, weight);
-              _histMeanXbweak->fill(_histMeanXbweak->bin(0).midpoint(), xp, weight);
+              _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp, weight);
             }
           }
 

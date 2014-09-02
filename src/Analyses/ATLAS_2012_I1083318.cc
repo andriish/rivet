@@ -116,7 +116,7 @@ namespace Rivet {
         vector<FourMomentum> jets;
         double HT = lepton.pT() + p_miss.pT();
         foreach (const Jet& jet, jetpro.jetsByPt(jetcuts[i])) {
-          if (fabs(jet.rapidity()) < 4.4 && deltaR(lepton, jet.momentum()) > 0.5) {
+          if (jet.absrap() < 4.4 && deltaR(lepton, jet.momentum()) > 0.5) {
             jets.push_back(jet.momentum());
             HT += jet.pT();
           }
@@ -182,7 +182,7 @@ namespace Rivet {
           YODA::HistoBin1D& b0 = _h_NjetIncl[i]->bin(n-1);
           YODA::HistoBin1D& b1 = _h_NjetIncl[i]->bin(n);
           if (b0.height() == 0.0 || b1.height() == 0.0) continue;
-          _h_RatioNjetIncl[i]->addPoint(n, b1.height()/b0.height(), 0,
+          _h_RatioNjetIncl[i]->addPoint(n, b1.height()/b0.height(), 0.5,
                                         b1.height()/b0.height() * (b0.relErr() + b1.relErr()));
         }
 

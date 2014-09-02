@@ -45,7 +45,7 @@ namespace Rivet {
       _h_H_pT->fill(hmom.pT()/GeV, weight);
       _h_H_pT_peak->fill(hmom.pT()/GeV, weight);
       _h_H_y->fill(hmom.rapidity(), weight);
-      _h_H_phi->fill(hmom.azimuthalAngle(), weight);
+      _h_H_phi->fill(hmom.phi(), weight);
       foreach (const Particle& l, hfinder.constituents()) {
         _h_lepton_pT->fill(l.pT()/GeV, weight);
         _h_lepton_eta->fill(l.eta(), weight);

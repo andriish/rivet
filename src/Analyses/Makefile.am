@@ -5,6 +5,7 @@ lib_LTLIBRARIES =
 
 noinst_LTLIBRARIES = libRivetAnalysisTools.la
 libRivetAnalysisTools_la_SOURCES = \
+    MC_ParticleAnalysis.cc \
     MC_JetAnalysis.cc \
     MC_JetSplittings.cc
 
@@ -84,16 +85,22 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2012_I1117704.cc \
     ATLAS_2012_I1118269.cc \
     ATLAS_2012_I1119557.cc \
+    ATLAS_2012_I1124167.cc \
     ATLAS_2012_I1125575.cc \
     ATLAS_2012_I1125961.cc \
     ATLAS_2012_I1183818.cc \
     ATLAS_2012_I1188891.cc \
     ATLAS_2012_I1199269.cc \
+    ATLAS_2012_I1203852.cc \
     ATLAS_2012_I1204447.cc \
     ATLAS_2012_I1204784.cc \
+    ATLAS_2013_I1190187.cc \
     ATLAS_2013_I1217867.cc \
     ATLAS_2013_I1230812.cc \
-    ATLAS_2013_I1243871.cc
+    ATLAS_2013_I1243871.cc \
+    ATLAS_2014_I1268975.cc \
+    ATLAS_2014_I1304688.cc \
+    ATLAS_2014_I1307756.cc
 if ENABLE_PRELIMINARY
 RivetATLASAnalyses_la_SOURCES += \
     ATLAS_2012_CONF_2012_001.cc
@@ -141,6 +148,7 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2012_I941555.cc  \
     CMS_2011_I954992.cc  \
     CMS_2012_I1087342.cc \
+    CMS_2012_I1090423.cc \
     CMS_2012_I1102908.cc \
     CMS_2012_I1107658.cc \
     CMS_2012_I1184941.cc \
@@ -150,9 +158,13 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2013_I1224539_DIJET.cc \
 	CMS_2013_I1224539_WJET.cc \
 	CMS_2013_I1224539_ZJET.cc \
+    CMS_2013_I1256943.cc \
     CMS_2013_I1258128.cc \
+    CMS_2013_I1261026.cc \
+    CMS_2013_I1265659.cc \
     CMS_2013_I1272853.cc \
-    CMS_2013_I1273574.cc
+    CMS_2013_I1273574.cc \
+    CMSTOTEM_2014_I1294140.cc
 if ENABLE_PRELIMINARY
 RivetCMSAnalyses_la_SOURCES += \
     CMS_QCD_10_024.cc \
@@ -235,6 +247,7 @@ endif
 lib_LTLIBRARIES += RivetD0Analyses.la
 RivetD0Analyses_la_SOURCES = \
     D0_2000_S4480767.cc \
+    D0_2000_I499943.cc \
     D0_2001_S4674421.cc \
     D0_2004_S5992206.cc \
     D0_2006_S6438750.cc \
@@ -353,8 +366,11 @@ RivetMiscAnalyses_la_SOURCES = \
     BABAR_2005_S6181155.cc \
     BABAR_2007_S6895344.cc \
     BABAR_2007_S7266081.cc \
+    BABAR_2013_I1238276.cc \
     BELLE_2001_S4598261.cc \
     BELLE_2006_S6265367.cc \
+    BELLE_2008_I786560.cc \
+    BELLE_2013_I1216515.cc \
     CLEO_2004_S5809304.cc
 if ENABLE_UNVALIDATED
 RivetMiscAnalyses_la_SOURCES += \
@@ -369,13 +385,17 @@ RivetMCAnalyses_la_SOURCES = \
     EXAMPLE_CUTS.cc \
     MC_QCD_PARTONS.cc \
     MC_DIPHOTON.cc \
+    MC_ELECTRONS.cc \
     MC_GENERIC.cc \
     MC_HINC.cc \
     MC_HJETS.cc \
     MC_HKTSPLITTINGS.cc \
     MC_IDENTIFIED.cc \
     MC_JETS.cc \
+    MC_JETTAGS.cc \
+    MC_HFJETS.cc \
     MC_LEADJETUE.cc \
+    MC_MUONS.cc \
     MC_PDFS.cc \
     MC_PHOTONINC.cc \
     MC_PHOTONJETS.cc \

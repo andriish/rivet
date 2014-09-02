@@ -1,20 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Math/MathUtils.hh"
-#include "Rivet/Math/Constants.hh"
-
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/SimpleVector.h"
-
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <map>
-#include <utility>
 
 namespace Rivet {
 
@@ -72,12 +58,12 @@ namespace Rivet {
         _h_ratio_lowpt [it->first] = bookScatter2D(_hepdataid[it->first], 1, 1);
         _h_ratio_midpt [it->first] = bookScatter2D(_hepdataid[it->first], 1, 2);
         _h_ratio_highpt[it->first] = bookScatter2D(_hepdataid[it->first], 1, 3);
-        _h_num_lowpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 1, "num_l_"+it->first);
-        _h_num_midpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 2, "num_m_"+it->first);
-        _h_num_highpt  [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 3, "num_h_"+it->first);
-        _h_den_lowpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 1, "den_l_"+it->first);
-        _h_den_midpt   [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 2, "den_m_"+it->first);
-        _h_den_highpt  [it->first] = bookHisto1D  (_hepdataid[it->first], 1, 3, "den_h_"+it->first);
+        _h_num_lowpt   [it->first] = bookHisto1D  ("TMP/num_l_"+it->first,refData(_hepdataid[it->first], 1, 1));
+        _h_num_midpt   [it->first] = bookHisto1D  ("TMP/num_m_"+it->first,refData(_hepdataid[it->first], 1, 2));
+        _h_num_highpt  [it->first] = bookHisto1D  ("TMP/num_h_"+it->first,refData(_hepdataid[it->first], 1, 3));
+        _h_den_lowpt   [it->first] = bookHisto1D  ("TMP/den_l_"+it->first,refData(_hepdataid[it->first], 1, 1));
+        _h_den_midpt   [it->first] = bookHisto1D  ("TMP/den_m_"+it->first,refData(_hepdataid[it->first], 1, 2));
+	_h_den_highpt  [it->first] = bookHisto1D  ("TMP/den_h_"+it->first,refData(_hepdataid[it->first], 1, 3));
       }
 
       addProjection(ChargedFinalState(_eta_min, _eta_max, _pt_min*GeV), "CFS");
@@ -90,7 +76,7 @@ namespace Rivet {
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
 
       foreach (const Particle& p, cfs.particles()) {
-        int id = p.pdgId();
+        int id = p.pid();
         // continue if particle not a proton, a kaon or a pion
         if ( !( (abs(id) == 211) || (abs(id) == 321) || (abs(id) == 2212)))  {
           continue;
@@ -98,7 +84,7 @@ namespace Rivet {
 
         // cut in momentum
         const FourMomentum& qmom = p.momentum();
-        if (qmom.p().mod() < _p_min) continue;
+        if (qmom.p3().mod() < _p_min) continue;
 
         // Lifetime cut: ctau sum of all particle ancestors < 10^-9 m according to the paper (see eq. 5)
         const double MAX_CTAU = 1.0e-9; // [m]

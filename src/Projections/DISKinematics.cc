@@ -8,8 +8,8 @@ namespace Rivet {
   void DISKinematics::project(const Event& e) {
     // Identify beam hadron
     const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
-    bool firstIsHadron  = PID::isHadron(inc.first.pdgId());
-    bool secondIsHadron = PID::isHadron(inc.second.pdgId());
+    bool firstIsHadron  = PID::isHadron(inc.first.pid());
+    bool secondIsHadron = PID::isHadron(inc.second.pid());
     if (firstIsHadron && !secondIsHadron) {
       _inHadron = inc.first;
     } else if (!firstIsHadron && secondIsHadron) {

@@ -136,8 +136,8 @@ namespace Rivet {
       // discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-        if(fabs(jet.eta())>2.5||
-           jet.momentum().perp()<25.) continue;
+        if(jet.abseta()>2.5||
+           jet.perp()<25.) continue;
         bool away_from_e = true;
         foreach ( const Particle & e, cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
@@ -157,7 +157,7 @@ namespace Rivet {
       double eTmiss = pTmiss.pT();
 
       // at least 4 jets with pT>80.
-      if(recon_jets.size()<4 || recon_jets[3].momentum().perp()<80.) vetoEvent;
+      if(recon_jets.size()<4 || recon_jets[3].perp()<80.) vetoEvent;
 
       // only 1 signal lepton
       if( recon_e.size() + recon_mu.size() != 1 )
@@ -168,7 +168,7 @@ namespace Rivet {
       // start of meff calculation
       double HT=0.;
       foreach( const Jet & jet, recon_jets) {
-        double pT = jet.momentum().perp();
+        double pT = jet.perp();
         if(pT>40.) HT += pT;
       }
 
@@ -176,30 +176,30 @@ namespace Rivet {
       Particle lepton = recon_e.empty() ? recon_mu[0] : recon_e[0];
 
       // lepton variables
-      double pT = lepton.momentum().perp();
+      double pT = lepton.perp();
 
       double mT  = 2.*(pT*eTmiss -
-                       lepton.momentum().x()*pTmiss.x() -
-                       lepton.momentum().y()*pTmiss.y());
+                       lepton.px()*pTmiss.px() -
+                       lepton.py()*pTmiss.py());
       mT = sqrt(mT);
       HT += pT;
       double m_eff_inc  = HT + eTmiss + pT;
       double m_eff_4 = eTmiss + pT;
       for(unsigned int ix=0;ix<4;++ix)
-        m_eff_4 +=  recon_jets[ix].momentum().perp();
+        m_eff_4 +=  recon_jets[ix].perp();
 
       // four jet selecton
       if(mT>100.&& eTmiss/m_eff_4>0.2 &&
          m_eff_inc > 800.) {
         if( eTmiss > 250. ) {
-          if(abs(lepton.pdgId())==PID::ELECTRON)
+          if(lepton.abspid()==PID::ELECTRON)
             _count_e->fill(0.5,weight);
-          else if(abs(lepton.pdgId())==PID::MUON)
+          else if(lepton.abspid()==PID::MUON)
             _count_mu->fill(0.5,weight);
         }
-        if(abs(lepton.pdgId())==PID::ELECTRON)
+        if(lepton.abspid()==PID::ELECTRON)
           _hist_eTmiss_e ->fill(eTmiss,weight);
-        else if(abs(lepton.pdgId())==PID::MUON)
+        else if(lepton.abspid()==PID::MUON)
           _hist_eTmiss_mu->fill(eTmiss,weight);
       }
     }

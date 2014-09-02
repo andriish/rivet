@@ -157,7 +157,7 @@ namespace Rivet {
         // General particle quantities
         const double pT = p.pT();
         const double y = p.rapidity();
-        const PdgId apid = abs(p.pdgId());
+        const PdgId apid = p.abspid();
 
         double flightd = 0.0;
 
@@ -189,14 +189,14 @@ namespace Rivet {
             break;
           }
           if ( daughtersSurviveCuts(p) ) {
-            if (p.pdgId() == PID::LAMBDA) {
+            if (p.pid() == PID::LAMBDA) {
               _temp_lambda_v_y.fill(fabs(y), weight);
               _temp_lambda_v_pT.fill(pT/GeV, weight);
               _hist_L_y->fill(y, weight);
               _hist_L_pT->fill(pT/GeV, weight);
               _sum_w_lambda += weight;
               n_LAMBDA++;
-            } else if (p.pdgId() == -PID::LAMBDA) {
+            } else if (p.pid() == -PID::LAMBDA) {
              _temp_lambdabar_v_y.fill(fabs(y), weight);
               _temp_lambdabar_v_pT.fill(pT/GeV, weight);
             }

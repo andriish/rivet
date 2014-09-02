@@ -19,7 +19,7 @@ namespace Rivet {
   }
 
   PdgIdPair beamIds(const ParticlePair& beams) {
-    return make_pair(beams.first.pdgId(), beams.second.pdgId());
+    return make_pair(beams.first.pid(), beams.second.pid());
   }
 
   double sqrtS(const Event& e) {

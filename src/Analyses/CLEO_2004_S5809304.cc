@@ -27,8 +27,8 @@ namespace Rivet {
       const ParticlePair& beams = beamproj.beams();
       FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
       LorentzTransform cms_boost;
-      if(mom_tot.vector3().mod()>0.001)
-	cms_boost = LorentzTransform(-mom_tot.boostVector());
+      if (mom_tot.p3().mod() > 0.001)
+        cms_boost = LorentzTransform(-mom_tot.boostVector());
       const double s = sqr(beamproj.sqrtS());
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
@@ -39,7 +39,7 @@ namespace Rivet {
         // 3-momentum in CMS frame
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
 
-        const int PdgId = abs(p.pdgId());
+        const int PdgId = p.abspid();
         MSG_DEBUG("pdgID = " << PdgId << "  mom = " << mom);
         switch (PdgId) {
 

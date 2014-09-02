@@ -84,7 +84,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double jetphi = jets[0].momentum().phi();
+      const double jetphi = jets[0].phi();
       const double jeteta = jets[0].eta();
       const double jetpT  = jets[0].pT();
       MSG_DEBUG("Leading jet: pT = " << jetpT
@@ -103,9 +103,9 @@ namespace Rivet {
 
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
-        const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
+        const double dPhi = deltaPhi(p.phi(), jetphi);
         const double pT = p.pT();
-        const double phi = p.momentum().phi();
+        const double phi = p.phi();
         double rotatedphi = phi - jetphi;
         while (rotatedphi < 0) rotatedphi += 2*PI;
 

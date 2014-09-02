@@ -70,7 +70,7 @@ namespace Rivet {
 
         Jets jets;
         foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
-          if (fabs(j.momentum().pseudorapidity()) < 2.8) {
+          if (j.abseta() < 2.8) {
             jets.push_back(j);
             break;
           }

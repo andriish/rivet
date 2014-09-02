@@ -106,12 +106,12 @@ namespace Rivet {
     }
 
     /// Angle subtended by the 3-vector's projection in x-y and the x-axis.
-    double azimuthalAngle(const PhiMapping mapping = ZERO_2PI) const {
+    double azimuthalAngle(const PhiMapping mapping=ZERO_2PI) const {
       return vector3().azimuthalAngle(mapping);
     }
 
     /// Synonym for azimuthalAngle.
-    double phi(const PhiMapping mapping = ZERO_2PI) const {
+    double phi(const PhiMapping mapping=ZERO_2PI) const {
       return vector3().phi(mapping);
     }
 
@@ -371,7 +371,9 @@ namespace Rivet {
     double E() const { return t(); }
 
     /// Get 3-momentum part, \f$ p \f$.
-    Vector3 p() const { return vector3(); }
+    Vector3 p3() const { return vector3(); }
+    /// Get 3-momentum part, \f$ p \f$ (alias).
+    // Vector3 p() const { return vector3(); }
 
     /// Get x-component of momentum \f$ p_x \f$.
     double px() const { return x(); }

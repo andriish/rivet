@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Projections/WFinder.hh"
+#include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
@@ -66,8 +67,8 @@ namespace Rivet {
 
 
   int WFinder::compare(const Projection& p) const {
-    PCmp LCcmp = mkNamedPCmp(p, "DressedLeptons");
-    if (LCcmp != EQUIVALENT) return LCcmp;
+    PCmp dlcmp = mkNamedPCmp(p, "DressedLeptons");
+    if (dlcmp != EQUIVALENT) return dlcmp;
 
     const WFinder& other = dynamic_cast<const WFinder&>(p);
     return (cmp(_minmass, other._minmass) || cmp(_maxmass, other._maxmass) ||
@@ -99,7 +100,7 @@ namespace Rivet {
     ParticlePair Wconstituents(imfs.particlePairs()[0]);
     Particle p1(Wconstituents.first), p2(Wconstituents.second);
 
-    if (PID::threeCharge(p1) == 0) {
+    if (threeCharge(p1) == 0) {
       _constituentLeptons += p2;
       _constituentNeutrinos += p1;
     } else {
@@ -108,7 +109,7 @@ namespace Rivet {
     }
 
     FourMomentum pW = p1.momentum() + p2.momentum();
-    const int w3charge = PID::threeCharge(p1) + PID::threeCharge(p2);
+    const int w3charge = threeCharge(p1) + threeCharge(p2);
     assert(abs(w3charge) == 3);
     const int wcharge = w3charge/3;
 
@@ -116,8 +117,8 @@ namespace Rivet {
     string wsign = (wcharge == 1) ? "+" : "-";
     string wstr = "W" + wsign;
     msg << wstr << " reconstructed from: " << "\n"
-        << "   " << p1.momentum() << " " << p1.pdgId() << "\n"
-        << " + " << p2.momentum() << " " << p2.pdgId();
+        << "   " << p1.momentum() << " " << p1.pid() << "\n"
+        << " + " << p2.momentum() << " " << p2.pid();
     MSG_DEBUG(msg.str());
 
     // Check missing ET
@@ -140,7 +141,7 @@ namespace Rivet {
     }
     foreach (const Particle& p, _constituentLeptons) {
       foreach (const DressedLepton& l, leptons.clusteredLeptons()) {
-        if (p.pdgId() == l.pdgId() && p.momentum() == l.momentum()) {
+        if (p.pid() == l.pid() && p.momentum() == l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
             _theParticles.insert(_theParticles.end(), l.constituentPhotons().begin(), l.constituentPhotons().end());

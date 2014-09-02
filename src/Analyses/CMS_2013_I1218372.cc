@@ -55,8 +55,8 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS()/GeV, 2760, 1e-3)) id=2;
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1e-3)) id=3;
       _h_ratio  = bookScatter2D(id, 1, 1);
-      _tmp_jet  = bookHisto1D  (id, 1, 1, "eflow_jet");  // Leading jet energy flow in pt
-      _tmp_njet = bookHisto1D  (id, 1, 1, "number_jet"); // Number of events in pt
+      _tmp_jet  = bookHisto1D  ("TMP/eflow_jet"  ,refData(id, 1, 1));  // Leading jet energy flow in pt
+      _tmp_njet = bookHisto1D  ("TMP/number_jet" ,refData(id, 1, 1)); // Number of events in pt
     }
 
 
@@ -119,7 +119,7 @@ namespace Rivet {
       passedSumOfWeights += weight;
 
       foreach (const Particle& p, fsv.particles()) {
-        if (-5.2 > p.eta() && p.eta() > -6.6) inclEflow += weight*p.momentum().E()/GeV;
+        if (-5.2 > p.eta() && p.eta() > -6.6) inclEflow += weight*p.E()/GeV;
       }
 
       //  ============================== JET EVENTS
@@ -134,7 +134,7 @@ namespace Rivet {
         // energy flow
         foreach (const Particle& p, fsv.particles()) {
           if (p.eta() > -6.6 && p.eta() < -5.2) {  // ask for the CASTOR region
-            _tmp_jet->fill(jets[0].pT()/GeV, weight * p.momentum().E()/GeV);
+            _tmp_jet->fill(jets[0].pT()/GeV, weight * p.E()/GeV);
           }
         }
       }

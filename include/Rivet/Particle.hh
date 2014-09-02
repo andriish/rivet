@@ -5,6 +5,9 @@
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Tools/Utils.hh"
+// NOTE: Rivet/Tools/ParticleUtils.hh included at the end
+#include "fastjet/PseudoJet.hh"
 
 namespace Rivet {
 
@@ -43,6 +46,17 @@ namespace Rivet {
 
   public:
 
+    /// Converter to FastJet3 PseudoJet
+    virtual fastjet::PseudoJet pseudojet() const {
+      return fastjet::PseudoJet(mom().px(), mom().py(), mom().pz(), mom().E());
+    }
+
+    /// Cast operator to FastJet3 PseudoJet
+    operator PseudoJet () const { return pseudojet(); }
+
+
+  public:
+
     /// @name Basic particle specific properties
     //@{
 
@@ -73,7 +87,7 @@ namespace Rivet {
     /// This Particle's PDG ID code.
     PdgId pid() const { return _id; }
     /// Absolute value of the PDG ID code.
-    PdgId abspid() const { return _id; }
+    PdgId abspid() const { return std::abs(_id); }
     /// This Particle's PDG ID code (alias).
     /// @deprecatedThe pid/abspid form is nicer (don't need to remember
     ///    lower/upper case, doesn't visually stick out in the code, etc. ...)
@@ -87,36 +101,36 @@ namespace Rivet {
 
     /// The charge of this Particle.
     double charge() const {
-      return PID::charge(pdgId());
+      return PID::charge(pid());
     }
     /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
     int threeCharge() const {
-      return PID::threeCharge(pdgId());
+      return PID::threeCharge(pid());
     }
 
     /// Is this a hadron?
-    bool isHadron() const { return PID::isHadron(pdgId()); }
+    bool isHadron() const { return PID::isHadron(pid()); }
 
     /// Is this a meson?
-    bool isMeson() const { return PID::isMeson(pdgId()); }
+    bool isMeson() const { return PID::isMeson(pid()); }
 
     /// Is this a baryon?
-    bool isBaryon() const { return PID::isBaryon(pdgId()); }
+    bool isBaryon() const { return PID::isBaryon(pid()); }
 
     /// Is this a lepton?
-    bool isLepton() const { return PID::isLepton(pdgId()); }
+    bool isLepton() const { return PID::isLepton(pid()); }
 
     /// Is this a neutrino?
-    bool isNeutrino() const { return PID::isNeutrino(pdgId()); }
+    bool isNeutrino() const { return PID::isNeutrino(pid()); }
 
     /// Does this (hadron) contain a b quark?
-    bool hasBottom() const { return PID::hasBottom(pdgId()); }
+    bool hasBottom() const { return PID::hasBottom(pid()); }
 
     /// Does this (hadron) contain a c quark?
-    bool hasCharm() const { return PID::hasCharm(pdgId()); }
+    bool hasCharm() const { return PID::hasCharm(pid()); }
 
     // /// Does this (hadron) contain an s quark?
-    // bool hasStrange() const { return PID::hasStrange(pdgId()); }
+    // bool hasStrange() const { return PID::hasStrange(pid()); }
 
     //@}
 
@@ -268,9 +282,9 @@ namespace Rivet {
   inline std::string to_str(const ParticlePair& pair) {
     stringstream out;
     out << "["
-        << PID::toParticleName(pair.first.pdgId()) << " @ "
+        << PID::toParticleName(pair.first.pid()) << " @ "
         << pair.first.momentum().E()/GeV << " GeV, "
-        << PID::toParticleName(pair.second.pdgId()) << " @ "
+        << PID::toParticleName(pair.second.pid()) << " @ "
         << pair.second.momentum().E()/GeV << " GeV]";
     return out.str();
   }
@@ -285,5 +299,8 @@ namespace Rivet {
 
 
 }
+
+
+#include "Rivet/Tools/ParticleUtils.hh"
 
 #endif

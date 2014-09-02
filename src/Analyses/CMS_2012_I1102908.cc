@@ -31,9 +31,9 @@ namespace Rivet {
     _h_MN_dijet_ratio = bookScatter2D(2, 1, 1);
 
     // Temporary histograms (directly instantiated)
-    _h_DeltaY_exclusive = Histo1D(refData(1, 1, 1));
-    _h_DeltaY_inclusive = Histo1D(refData(1, 1, 1));
-    _h_DeltaY_MN = Histo1D(refData(1, 1, 1));
+    _h_DeltaY_exclusive = bookHisto1D("TMP/excl",refData(1, 1, 1));
+    _h_DeltaY_inclusive = bookHisto1D("TMP/incl",refData(1, 1, 1));
+    _h_DeltaY_MN = bookHisto1D("TMP/YMN",refData(1, 1, 1));
   }
 
 
@@ -51,23 +51,23 @@ namespace Rivet {
     double deltaY_MN = 0.0;
     for (size_t ij1 = 0; ij1 < jets.size(); ++ij1) {
       for (size_t ij2 = ij1 + 1; ij2 < jets.size(); ++ij2) {
-        const double deltaY = fabs(jets[ij1].rapidity() - jets[ij1].rapidity());
+        const double deltaY = fabs(jets[ij1].rapidity() - jets[ij2].rapidity());
         // Exclusive dijet case:
-        if (jets.size() == 2) _h_DeltaY_exclusive.fill(deltaY, weight);
+        if (jets.size() == 2) _h_DeltaY_exclusive->fill(deltaY, weight);
         // Inclusive jets case:
-        _h_DeltaY_inclusive.fill(deltaY, weight);
+        _h_DeltaY_inclusive->fill(deltaY, weight);
         // Mueller-Navelet:
         if (deltaY > deltaY_MN) deltaY_MN = deltaY;
       }
     }
-    _h_DeltaY_MN.fill(deltaY_MN, weight);
+    _h_DeltaY_MN->fill(deltaY_MN, weight);
   }
 
 
 
   void finalize() {
-    *_h_dijet_ratio = YODA::efficiency(_h_DeltaY_inclusive, _h_DeltaY_exclusive);
-    *_h_MN_dijet_ratio = YODA::efficiency(_h_DeltaY_MN, _h_DeltaY_exclusive);
+    *_h_dijet_ratio    = YODA::efficiency(*_h_DeltaY_exclusive, *_h_DeltaY_inclusive);
+    *_h_MN_dijet_ratio = YODA::efficiency(*_h_DeltaY_exclusive, *_h_DeltaY_MN);
     transformY(*_h_dijet_ratio, _invert);
     transformY(*_h_MN_dijet_ratio, _invert);
   }
@@ -78,7 +78,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Scatter2DPtr _h_dijet_ratio, _h_MN_dijet_ratio;
-    Histo1D _h_DeltaY_inclusive, _h_DeltaY_exclusive, _h_DeltaY_MN;
+    Histo1DPtr _h_DeltaY_inclusive, _h_DeltaY_exclusive, _h_DeltaY_MN;
     //@}
 
   };

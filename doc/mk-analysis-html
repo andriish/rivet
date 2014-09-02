@@ -10,17 +10,11 @@ if len(sys.argv) < 2:
 else:
     OUTFILE = sys.argv[1]
 
-## Add the rivet Python module build dir(s) to the Python module path
+## Add the rivet Python module build dir(s) to the Python module path, then import
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
 pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
           if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
 sys.path = pydirs + sys.path
-## Set up libRivet directory in shared lib runtime search paths
-libpath = os.path.abspath(os.path.join(os.getcwd(), "..", "src", ".libs"))
-for env in ["LD_LIBRARY_PATH", "DYLD_LIBRARY_PATH"]:
-    if os.environ.has_key(env):
-        os.environ[env] = os.environ[env] + ":" + libpath
-## Finally do the rivet module import!
 import rivet
 from rivet.util import htmlify
 

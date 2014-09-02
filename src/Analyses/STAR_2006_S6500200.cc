@@ -58,20 +58,20 @@ namespace Rivet {
 
       const IdentifiedFinalState& pionfs = applyProjection<IdentifiedFinalState>(event, "PionFS");
       foreach (const Particle& p, pionfs.particles()) {
-        if (fabs(p.rapidity()) < 0.5) {
+        if (p.absrap() < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;
-          ((p.pdgId() > 0) ? _h_pT_piplus : _h_pT_piminus)->fill(pT, weight/pT);
-          ((p.pdgId() > 0) ? _tmp_pT_piplus : _tmp_pT_piminus)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _h_pT_piplus : _h_pT_piminus)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _tmp_pT_piplus : _tmp_pT_piminus)->fill(pT, weight/pT);
         }
       }
 
       const IdentifiedFinalState& protonfs = applyProjection<IdentifiedFinalState>(event, "ProtonFS");
       foreach (const Particle& p, protonfs.particles()) {
-        if (fabs(p.rapidity()) < 0.5) {
+        if (p.absrap() < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;
-          ((p.pdgId() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, weight/pT);
         }
       }
       _sumWeightSelected += event.weight();

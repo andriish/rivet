@@ -76,17 +76,17 @@ namespace Rivet {
       FourMomentum pb1(beams.second.momentum()), pb2(beams.first.momentum());
       Particle lepton=wfinder.constituentLeptons()[0];
       FourMomentum pl(lepton.momentum());
-      size_t idx = (PID::threeCharge(lepton.pdgId())>0 ? 0 : 1);
+      size_t idx = (PID::threeCharge(lepton.pid())>0 ? 0 : 1);
       FourMomentum plnu(wfinder.bosons()[0].momentum());
 
       LorentzTransform cms(-plnu.boostVector());
-      Matrix3 zrot(plnu.vector3(), Vector3(0.0, 0.0, 1.0));
+      Matrix3 zrot(plnu.p3(), Vector3(0.0, 0.0, 1.0));
       pl=cms.transform(pl);
       pb1=cms.transform(pb1);
       pb2=cms.transform(pb2);
-      Vector3 pl3=pl.vector3();
-      Vector3 pb13=pb1.vector3();
-      Vector3 pb23=pb2.vector3();
+      Vector3 pl3=pl.p3();
+      Vector3 pb13=pb1.p3();
+      Vector3 pb23=pb2.p3();
       pl3=zrot*pl3;
       pb13=zrot*pb13;
       pb23=zrot*pb23;

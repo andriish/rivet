@@ -15,13 +15,14 @@ testNaN_SOURCES = testNaN.cc
 testNaN_LDADD = $(top_builddir)/src/libRivet.la $(HEPMCLDFLAGS) $(YODALDFLAGS) $(HEPMCLDLIBS) $(YODALDLIBS)
 
 TESTS_ENVIRONMENT = \
-  RIVET_REF_PATH=$(top_builddir)/data/refdata \
-  RIVET_INFO_PATH=$(top_builddir)/data/anainfo \
+  RIVET_REF_PATH=$(top_srcdir)/data/refdata \
+  RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
   RIVET_ANALYSIS_PATH=$(top_builddir)/src/Analyses/.libs \
   LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(LD_LIBRARY_PATH) \
   DYLD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(DYLD_LIBRARY_PATH) \
   PYTHON_BUILD_DIR=$(top_builddir)/pyext/build \
-  PATH=$(top_builddir)/bin:$(PATH)
+  PATH=$(top_builddir)/bin:$(top_srcdir)/bin:$(PATH) \
+  RIVET_TESTS_SRC=$(srcdir)
 
 TESTS = testMath testMatVec testBoost testCmp testApi testNaN
 if ENABLE_ANALYSES
@@ -30,5 +31,4 @@ endif
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh
 
-clean-local:
-	@rm -f out.aida log a.out fifo.hepmc file2.hepmc
+CLEANFILES = out.aida log a.out fifo.hepmc file2.hepmc out.yoda NaN.aida Rivet.yoda

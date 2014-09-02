@@ -209,21 +209,21 @@ namespace Rivet {
       Particles cand4_e;
       foreach ( const Particle & e, cand3_e ) {
         // charge isolation
-        double pTinCone = -e.momentum().perp();
+        double pTinCone = -e.perp();
         foreach ( const Particle & track, chg_tracks ) {
-          if(track.momentum().perp()>0.4 &&
+          if(track.perp()>0.4 &&
              deltaR(e.momentum(),track.momentum()) <= 0.3 )
             pTinCone += track.pT();
         }
-        if (pTinCone/e.momentum().perp()>0.16) continue;
+        if (pTinCone/e.perp()>0.16) continue;
         // all particles isolation
-        pTinCone = -e.momentum().perp();
+        pTinCone = -e.perp();
         foreach ( const Particle & p, vfs_particles ) {
-          if(abs(p.pdgId())!=PID::MUON &&
+          if(p.abspid()!=PID::MUON &&
              deltaR(e.momentum(),p.momentum()) <= 0.3 )
             pTinCone += p.pT();
         }
-        if (pTinCone/e.momentum().perp()<0.18) {
+        if (pTinCone/e.perp()<0.18) {
           cand4_e.push_back(e);
         }
       }
@@ -231,13 +231,13 @@ namespace Rivet {
       // apply muon isolation
       Particles cand4_mu;
       foreach ( const Particle & mu, cand3_mu ) {
-        double pTinCone = -mu.momentum().perp();
+        double pTinCone = -mu.perp();
         foreach ( const Particle & track, chg_tracks ) {
-          if(track.momentum().perp()>1.0 &&
+          if(track.perp()>1.0 &&
              deltaR(mu.momentum(),track.momentum()) <= 0.3 )
             pTinCone += track.pT();
         }
-        if (pTinCone/mu.momentum().perp()<0.12) {
+        if (pTinCone/mu.perp()<0.12) {
           cand4_mu.push_back(mu);
         }
       }
@@ -247,7 +247,7 @@ namespace Rivet {
       foreach(const Particle & e, cand4_e) {
         bool veto=false;
         foreach(const Particle & e2, cand4_e) {
-          if(e.pdgId()*e2.pdgId()<0&&(e.momentum()+e2.momentum()).mass()<12.) {
+          if(e.pid()*e2.pid()<0&&(e.momentum()+e2.momentum()).mass()<12.) {
             veto=true;
             break;
           }
@@ -258,7 +258,7 @@ namespace Rivet {
       foreach(const Particle & mu, cand4_mu) {
         bool veto=false;
         foreach(const Particle & mu2, cand4_mu) {
-          if(mu.pdgId()*mu2.pdgId()<0&&(mu.momentum()+mu2.momentum()).mass()<12.) {
+          if(mu.pid()*mu2.pid()<0&&(mu.momentum()+mu2.momentum()).mass()<12.) {
             veto=true;
             break;
           }
@@ -283,13 +283,13 @@ namespace Rivet {
 
       // or two lepton trigger
       bool passDouble =
-        (recon_mu.size()>=2 && ( (recon_mu[1].momentum().perp()>14.) ||
-                                 (recon_mu[0].momentum().perp()>18. && recon_mu[1].momentum().perp()>10.) )) ||
-        (recon_e.size() >=2 && ( (recon_e [1].momentum().perp()>14.) ||
-                                 (recon_e [0].momentum().perp()>25. && recon_e [1].momentum().perp()>10.) )) ||
+        (recon_mu.size()>=2 && ( (recon_mu[1].perp()>14.) ||
+                                 (recon_mu[0].perp()>18. && recon_mu[1].perp()>10.) )) ||
+        (recon_e.size() >=2 && ( (recon_e [1].perp()>14.) ||
+                                 (recon_e [0].perp()>25. && recon_e [1].perp()>10.) )) ||
         (!recon_e.empty() && !recon_mu.empty() &&
-         ( (recon_e[0].momentum().perp()>14. && recon_mu[0].momentum().perp()>10.)||
-           (recon_e[0].momentum().perp()>10. && recon_mu[0].momentum().perp()>18.) ));
+         ( (recon_e[0].perp()>14. && recon_mu[0].perp()>10.)||
+           (recon_e[0].perp()>10. && recon_mu[0].perp()>18.) ));
 
       // must pass a trigger
        if(!passDouble ) {
@@ -301,11 +301,11 @@ namespace Rivet {
       // calculate meff
       double meff = eTmiss;
       foreach ( const Particle & e , recon_e  )
-        meff += e.momentum().perp();
+        meff += e.perp();
       foreach ( const Particle & mu, recon_mu )
-        meff += mu.momentum().perp();
+        meff += mu.perp();
       foreach ( const Jet & jet, recon_jets ) {
-        double pT = jet.momentum().perp();
+        double pT = jet.perp();
         if(pT>40.) meff += pT;
       }
 
@@ -313,7 +313,7 @@ namespace Rivet {
       // 4+  leptons --> find 2 SFOS pairs and in range veto event
       for(unsigned int ix=0;ix<recon_e.size();++ix) {
         for(unsigned int iy=ix+1;iy<recon_e.size();++iy) {
-          if(recon_e[ix].pdgId()*recon_e[iy].pdgId()>0) continue;
+          if(recon_e[ix].pid()*recon_e[iy].pid()>0) continue;
           FourMomentum ppair = recon_e[ix].momentum()+recon_e[iy].momentum();
           double mtest = ppair.mass();
           if(mtest>81.2 && mtest<101.2) vetoEvent;
@@ -335,7 +335,7 @@ namespace Rivet {
           for(unsigned int iz=0;iz<recon_e.size();++iz) {
             for(unsigned int iw=iz+1;iw<recon_e.size();++iw) {
               if(iz==ix||iz==iy||iw==ix||iw==iy) continue;
-              if(recon_e[iz].pdgId()*recon_e[iw].pdgId()>0) continue;
+              if(recon_e[iz].pid()*recon_e[iw].pid()>0) continue;
               mtest = (ppair+recon_e[iz].momentum()+recon_e[iw].momentum()).mass();
               if(mtest>81.2 && mtest<101.2) vetoEvent;
             }
@@ -343,7 +343,7 @@ namespace Rivet {
           // check quadruplets with muons
           for(unsigned int iz=0;iz<recon_mu.size();++iz) {
             for(unsigned int iw=iz+1;iw<recon_mu.size();++iw) {
-              if(recon_mu[iz].pdgId()*recon_mu[iw].pdgId()>0) continue;
+              if(recon_mu[iz].pid()*recon_mu[iw].pid()>0) continue;
               mtest = (ppair+recon_mu[iz].momentum()+recon_mu[iw].momentum()).mass();
               if(mtest>81.2 && mtest<101.2) vetoEvent;
             }
@@ -354,7 +354,7 @@ namespace Rivet {
       // Muon pairs
       for(unsigned int ix=0;ix<recon_mu.size();++ix) {
         for(unsigned int iy=ix+1;iy<recon_mu.size();++iy) {
-          if(recon_mu[ix].pdgId()*recon_mu[iy].pdgId()>0) continue;
+          if(recon_mu[ix].pid()*recon_mu[iy].pid()>0) continue;
           FourMomentum ppair = recon_mu[ix].momentum()+recon_mu[iy].momentum();
           double mtest = ppair.mass();
           if(mtest>81.2 && mtest<101.2) vetoEvent;
@@ -376,7 +376,7 @@ namespace Rivet {
           for(unsigned int iz=0;iz<recon_mu.size();++iz) {
             for(unsigned int iw=iz+1;iy<recon_mu.size();++iy) {
               if(iz==ix||iz==iy||iw==ix||iw==iy) continue;
-              if(recon_mu[iz].pdgId()*recon_mu[iw].pdgId()>0) continue;
+              if(recon_mu[iz].pid()*recon_mu[iw].pid()>0) continue;
               mtest = (ppair+recon_mu[iz].momentum()+recon_mu[iw].momentum()).mass();
               if(mtest>81.2 && mtest<101.2) vetoEvent;
             }

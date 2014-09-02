@@ -13,19 +13,19 @@ namespace Rivet {
   // we need a filter where invisible --> true
   bool isInvisibleFilter(const Particle& p) {
     // Charged particles are visible
-    if ( PID::threeCharge( p.pdgId() ) != 0 )
+    if ( PID::threeCharge( p.pid() ) != 0 )
       return false;
 
     // Neutral hadrons are visible
-    if ( PID::isHadron( p.pdgId() ) )
+    if ( PID::isHadron( p.pid() ) )
       return false;
 
     // Photons are visible
-    if ( p.pdgId() == PID::PHOTON )
+    if ( p.pid() == PID::PHOTON )
       return false;
 
     // Gluons are visible (for parton level analyses)
-    if ( p.pdgId() == PID::GLUON )
+    if ( p.pid() == PID::GLUON )
       return false;
 
     // Everything else is invisible

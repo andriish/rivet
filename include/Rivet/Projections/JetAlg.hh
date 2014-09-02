@@ -37,7 +37,8 @@ namespace Rivet {
     }
 
     /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    /// @note Returns a copy rather than a reference, due to cuts
+    /// @todo Update to use Cuts
     virtual Jets jets(double ptmin=0.0, double ptmax=MAXDOUBLE,
                       double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                       RapScheme rapscheme=PSEUDORAPIDITY) const {
@@ -55,11 +56,13 @@ namespace Rivet {
     }
 
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// @todo Update to use Cuts
     template <typename F>
-    Jets jets(F sorter, double ptmin, double ptmax,
-              double rapmin, double rapmax,
-              RapScheme rapscheme) const {
+    Jets jets(F sorter,
+              double ptmin=0.0, double ptmax=MAXDOUBLE,
+              double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
+              RapScheme rapscheme=PSEUDORAPIDITY) const {
       Jets js = jets(ptmin, ptmax, rapmin, rapmax, rapscheme);
       if (sorter != 0) {
         std::sort(js.begin(), js.end(), sorter);
@@ -68,7 +71,8 @@ namespace Rivet {
     }
 
     /// Get the jets, ordered by \f$ p_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// @todo Update to use Cuts
     Jets jetsByPt(double ptmin=0.0, double ptmax=MAXDOUBLE,
                   double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                   RapScheme rapscheme=PSEUDORAPIDITY) const {
@@ -76,7 +80,8 @@ namespace Rivet {
     }
 
     /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// @todo Update to use Cuts
     Jets jetsByP(double ptmin=0.0, double ptmax=MAXDOUBLE,
                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                  RapScheme rapscheme=PSEUDORAPIDITY) const {
@@ -84,7 +89,8 @@ namespace Rivet {
     }
 
     /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// @todo Update to use Cuts
     Jets jetsByE(double ptmin=0.0, double ptmax=MAXDOUBLE,
                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                  RapScheme rapscheme=PSEUDORAPIDITY) const {
@@ -92,7 +98,8 @@ namespace Rivet {
     }
 
     /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @todo Introduce MomentumFilter objects for pT, ET, eta, y, etc. filtering, to avoid double-arg ambiguities
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// @todo Update to use Cuts
     Jets jetsByEt(double ptmin=0.0, double ptmax=MAXDOUBLE,
                   double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
                   RapScheme rapscheme=PSEUDORAPIDITY) const {
@@ -106,6 +113,7 @@ namespace Rivet {
     /// An optional cut on min \f$ p_\perp \f$ is applied in this function, since that is
     /// directly supported by FastJet and it seems a shame to not make use of that. But
     /// all other jet cuts are applied at the @c ::jets() function level.
+    /// @todo Update to use Cuts?
     virtual Jets _jets(double ptmin) const = 0;
 
 
@@ -126,7 +134,7 @@ namespace Rivet {
     collection_type entities() const { return jets(); }
 
     /// Do the calculation locally (no caching).
-    virtual void calc(const Particles& ps) = 0;
+    virtual void calc(const Particles& constituents, const Particles& tagparticles=Particles()) = 0;
 
 
   protected:

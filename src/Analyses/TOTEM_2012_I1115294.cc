@@ -37,7 +37,7 @@ namespace Rivet {
       _sumofweights += weight;
 
       foreach (const Particle& p, cfsm.particles() + cfsp.particles()) {
-        _h_eta->fill(fabs(p.eta()), weight);
+        _h_eta->fill(p.abseta(), weight);
       }
 
     }

@@ -3,8 +3,6 @@
 #define RIVET_UnstableFinalState_HH
 
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Particle.hh"
-#include "Rivet/Event.hh"
 
 namespace Rivet {
 
@@ -21,6 +19,8 @@ namespace Rivet {
   /// ancestor/descendent relations between the particles. Duplicate particles
   /// in the event record, i.e. those which differ only in bookkeeping details
   /// or photon emissions, are stripped from the returned particles collection.
+  ///
+  /// @todo Inherit directly from ParticleFinder, rename as UnstableFinder, and make TauFinder inherit/use
   class UnstableFinalState : public FinalState {
   public:
 
@@ -32,7 +32,7 @@ namespace Rivet {
     UnstableFinalState(double mineta = -MAXDOUBLE,
                        double maxeta =  MAXDOUBLE,
                        double minpt  =  0.0*GeV)
-      : FinalState(mineta,maxeta,minpt)
+      : FinalState(mineta, maxeta, minpt)
     {
       setName("UnstableFinalState");
     }

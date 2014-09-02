@@ -27,11 +27,11 @@ namespace Rivet {
           codes.push_back(code->first);
         }
         const string codestr = "{ " + join(codes) + " }";
-        MSG_TRACE(p.pdgId() << " vs. veto codes = " << codestr << " (" << codes.size() << ")");
+        MSG_TRACE(p.pid() << " vs. veto codes = " << codestr << " (" << codes.size() << ")");
       }
-      VetoDetails::iterator iter = _vetoCodes.find(p.pdgId());
+      VetoDetails::iterator iter = _vetoCodes.find(p.pid());
       if (iter == _vetoCodes.end()) {
-        MSG_TRACE("Storing with PDG code = " << p.pdgId() << ", pT = " << p.pT());
+        MSG_TRACE("Storing with PDG code = " << p.pid() << ", pT = " << p.pT());
         _theParticles.push_back(p);
       } else {
         // This particle code is listed as a possible veto... check pT.
@@ -42,9 +42,9 @@ namespace Rivet {
         if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
         rangess << " - ";
         if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
-        MSG_TRACE("ID = " << p.pdgId() << ", pT range = " << rangess.str());
+        MSG_TRACE("ID = " << p.pid() << ", pT range = " << rangess.str());
         stringstream debugline;
-        debugline << "with PDG code = " << p.pdgId() << " pT = " << p.pT();
+        debugline << "with PDG code = " << p.pid() << " pT = " << p.pT();
         if (p.pT() < ptrange.first || p.pT() > ptrange.second) {
           MSG_TRACE("Storing " << debugline.str());
           _theParticles.push_back(p);

@@ -53,8 +53,8 @@ namespace Rivet {
       double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jetsByEt()) {
-        double Et = jet.momentum().Et();
-        double eta = fabs(jet.eta());
+        double Et = jet.Et();
+        double eta = jet.abseta();
         if (Et > 20.0*GeV && eta < 3.0) {
           bool separated=true;
           foreach (const Jet& ref, jets) {
@@ -112,7 +112,7 @@ namespace Rivet {
       }
 
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m6J, jetsystem.rapidity()));
-      double costheta3ppp = pAV.vector3().unit().dot(p3ppp.vector3().unit());
+      double costheta3ppp = pAV.p3().unit().dot(p3ppp.p3().unit());
       if (fabs(costheta3ppp) > 0.9) {
         vetoEvent;
       }
@@ -224,8 +224,8 @@ namespace Rivet {
 
     double _psi(const FourMomentum& p1, const FourMomentum& p2,
                 const FourMomentum& p3, const FourMomentum& p4) {
-      Vector3 p1xp2 = p1.vector3().cross(p2.vector3());
-      Vector3 p3xp4 = p3.vector3().cross(p4.vector3());
+      Vector3 p1xp2 = p1.p3().cross(p2.p3());
+      Vector3 p3xp4 = p3.p3().cross(p4.p3());
       return mapAngle0ToPi(acos(p1xp2.unit().dot(p3xp4.unit())));
     }
 

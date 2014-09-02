@@ -26,7 +26,7 @@ namespace Rivet {
       // First in unstable final state
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
-        if (p.pdgId() == 300553) upsilons.push_back(p);
+        if (p.pid() == 300553) upsilons.push_back(p);
       }
       // Then in whole event if that failed
       if (upsilons.empty()) {
@@ -54,7 +54,7 @@ namespace Rivet {
         // Find the decay products we want
         findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
-        if (p.momentum().vector3().mod() > 1*MeV)
+        if (p.p3().mod() > 1*MeV)
           cms_boost = LorentzTransform(-p.momentum().boostVector());
         for (size_t ix = 0; ix < pionsA.size(); ++ix) {
           FourMomentum ptemp(pionsA[ix]->momentum());

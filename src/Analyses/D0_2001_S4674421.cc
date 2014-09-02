@@ -73,7 +73,7 @@ namespace Rivet {
         const Particles& Zdaughters = eeFS.particles();
         for(unsigned int ix=0;ix<Zdaughters.size();++ix) {
           for(unsigned int iy=ix+1;iy<Zdaughters.size();++iy) {
-            if(Zdaughters[ix].pdgId()!=-Zdaughters[iy].pdgId()) continue;
+            if(Zdaughters[ix].pid()!=-Zdaughters[iy].pid()) continue;
             const FourMomentum pmom = Zdaughters[ix].momentum() + Zdaughters[iy].momentum();
             double mz2 = pmom.mass2();
             double dm2 = abs(mz2-sqr(91.118*GeV));
@@ -103,7 +103,7 @@ namespace Rivet {
         Wdaughters = iw==0 ? enuFS.particles() : enubFS.particles();
         for(unsigned int ix=0;ix<Wdaughters.size();++ix) {
           for(unsigned int iy=ix+1;iy<Wdaughters.size();++iy) {
-            if(Wdaughters[ix].pdgId()==Wdaughters[iy].pdgId())  continue;
+            if(Wdaughters[ix].pid()==Wdaughters[iy].pid())  continue;
             const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
             double dm2 = abs(pmom.mass2()-sqr(80.4*GeV));
             if(dm2<deltaM2) {
@@ -146,8 +146,8 @@ namespace Rivet {
         const double BRZEE_BRWENU = 0.033632 / 0.1073; // Ratio of branching fractions
         const double scalefactor = (xSecW / wpt_integral) / (xSecZ / zpt_integral) * MW_MZ * BRZEE_BRWENU;
         for (size_t ibin = 0; ibin < _h_dsigdpt_w->numBins(); ibin++) {
-          const double xval = _h_dsigdpt_w->bin(ibin).midpoint();
-          const double xerr = _h_dsigdpt_w->bin(ibin).width() / 2.;
+          const double xval = _h_dsigdpt_w->bin(ibin).xMid();
+          const double xerr = _h_dsigdpt_w->bin(ibin).xWidth() / 2.;
           double yval(0), yerr(0);
           if (_h_dsigdpt_w->bin(ibin).sumW() != 0 && _h_dsigdpt_z->bin(ibin).sumW() != 0) {
             yval = scalefactor * _h_dsigdpt_w->bin(ibin).sumW() / _h_dsigdpt_z->bin(ibin).sumW();

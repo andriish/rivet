@@ -67,18 +67,15 @@ namespace Rivet {
       // Loop over particles in event
       foreach (const Particle& p, charged.particles()) {
         // Selecting only charged hadrons
-        if (! PID::isHadron(p.pdgId())) continue;
+        if (! PID::isHadron(p.pid())) continue;
 
         double pT = p.pT();
         double eta = p.eta();
         sumpt += pT;
-        for (int ietabin = _etabins.size()-1; ietabin >= 0; --ietabin) {
-          if (fabs(eta) <= _etabins[ietabin]){
-            ++(_nch_in_Evt[ietabin]);
-            if (pT > 0.5/GeV) ++(_nch_in_Evt_pt500[ietabin]);
-          }
-          else
-            break;
+        for (size_t ietabin = _etabins.size(); ietabin > 0; --ietabin) {
+          if (fabs(eta) > _etabins[ietabin-1]) break;
+          ++_nch_in_Evt[ietabin-1];
+          if (pT > 0.5/GeV) ++_nch_in_Evt_pt500[ietabin-1];
         }
       }
 

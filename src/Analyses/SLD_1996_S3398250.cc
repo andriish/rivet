@@ -54,13 +54,13 @@ namespace Rivet {
       // If we only have two quarks (qqbar), just take the flavour.
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = iqf.particles().front().abspid();
       }
       else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap[p.pdgId()] < p.momentum().E()) {
-            quarkmap[p.pdgId()] = p.momentum().E();
+          if (quarkmap[p.pid()] < p.E()) {
+            quarkmap[p.pid()] = p.E();
           }
         }
         double maxenergy = 0.;
@@ -90,8 +90,8 @@ namespace Rivet {
 
 
     void multiplicity_subtract(const Histo1DPtr first, const Histo1DPtr second, int a, int b, int c) {
-      const double x  = first->bin(0).midpoint();
-      const double ex = first->bin(0).width()/2.;
+      const double x  = first->bin(0).xMid();
+      const double ex = first->bin(0).xWidth()/2.;
       const double y  = first->bin(0).area() - second->bin(0).area();
       const double ey = sqrt(sqr(first->bin(0).areaErr()) + sqr(second->bin(0).areaErr()));
       Scatter2DPtr scatter = bookScatter2D(a, b, c);
@@ -113,12 +113,6 @@ namespace Rivet {
 
   private:
 
-    /// @name Multiplicities
-    //@{
-    //double _weightedTotalChargedPartNumLight;
-    //double _weightedTotalChargedPartNumCharm;
-    //double _weightedTotalChargedPartNumBottom;
-    //@}
 
     /// @name Weights
     //@{

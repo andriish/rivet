@@ -78,7 +78,7 @@ namespace Rivet {
       foreach (const Particle& p, cnfs.particles()) {
         const double eta = p.eta();
         _histEta->fill(eta, weight);
-        _histEtaSumEt->fill(fabs(eta), p.momentum().Et(), weight);
+        _histEtaSumEt->fill(fabs(eta), p.Et(), weight);
         if (eta > 0) _tmphistEtaPlus.fill(fabs(eta), weight);
         else _tmphistEtaMinus.fill(fabs(eta), weight);
         //
@@ -88,8 +88,8 @@ namespace Rivet {
         else _tmphistRapMinus.fill(fabs(rapidity), weight);
         //
         _histPt->fill(p.pT()/GeV, weight);
-        _histE->fill(p.momentum().E()/GeV, weight);
-        _histPhi->fill(p.momentum().phi(), weight);
+        _histE->fill(p.E()/GeV, weight);
+        _histPhi->fill(p.phi(), weight);
       }
 
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
@@ -111,8 +111,8 @@ namespace Rivet {
           _tmphistRapChMinus.fill(fabs(rapidity), weight);
         }
         _histPtCh->fill(p.pT()/GeV, weight);
-        _histECh->fill(p.momentum().E()/GeV, weight);
-        _histPhiCh->fill(p.momentum().phi(), weight);
+        _histECh->fill(p.E()/GeV, weight);
+        _histPhiCh->fill(p.phi(), weight);
       }
 
     }

@@ -188,10 +188,10 @@ namespace Rivet {
 //DEBUG
 // else{
 // foreach (const Particle & mu,  cand_mu) {
-//   cerr << "cand mu: " << "Id " << mu.pdgId() << "      eta " << mu.eta() << "      pT " << mu.pT() << '\n';
+//   cerr << "cand mu: " << "Id " << mu.pid() << "      eta " << mu.eta() << "      pT " << mu.pT() << '\n';
 // }
 // foreach (const Particle & lepton,  cand_e) {
-//   cerr << "cand e: " << "Id " << lepton.pdgId() << "      eta " << lepton.eta() << "      pT " << lepton.pT() << '\n';
+//   cerr << "cand e: " << "Id " << lepton.pid() << "      eta " << lepton.eta() << "      pT " << lepton.pT() << '\n';
 // }} // debug
 
 

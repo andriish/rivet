@@ -92,12 +92,12 @@ namespace Rivet {
 
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       double egamma = photon.E();
-      double eta_P = photon.pseudorapidity();
-      double phi_P = photon.azimuthalAngle();
+      double eta_P = photon.eta();
+      double phi_P = photon.phi();
       double econe = 0.0;
       foreach (const Particle& p, applyProjection<FinalState>(event, "JetFS").particles()) {
-        if (deltaR(eta_P, phi_P, p.momentum().pseudorapidity(), p.momentum().azimuthalAngle()) < 0.4) {
-          econe += p.momentum().E();
+        if (deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.4) {
+          econe += p.E();
           // Veto as soon as E_cone gets larger
           if (econe/egamma > 0.07) {
             MSG_DEBUG("Vetoing event because photon is insufficiently isolated");

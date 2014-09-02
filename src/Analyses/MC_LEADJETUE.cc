@@ -57,15 +57,15 @@ namespace Rivet {
       MSG_DEBUG("Jet multiplicity = " << jets.size());
 
       // Require the leading jet to be within |eta| < 2
-      if (jets.size() < 1 || fabs(jets[0].momentum().pseudorapidity()) > 2) {
+      if (jets.size() < 1 || fabs(jets[0].eta()) > 2) {
         MSG_DEBUG("Failed jet cut");
         vetoEvent;
       }
 
-      const double jetphi = jets[0].momentum().phi();
+      const double jetphi = jets[0].phi();
       const double jetpT  = jets[0].pT();
       MSG_DEBUG("Leading jet: pT = " << jetpT/GeV << " GeV"
-                << ", eta = " << jets[0].momentum().pseudorapidity()
+                << ", eta = " << jets[0].eta()
                 << ", phi = " << jetphi);
 
       // Get the event weight
@@ -80,9 +80,9 @@ namespace Rivet {
 
       // Calculate all the charged stuff
       foreach (const Particle& p, cfs.particles()) {
-        const double dPhi = deltaPhi(p.momentum().phi(), jetphi);
+        const double dPhi = deltaPhi(p.phi(), jetphi);
         const double pT = p.pT();
-        const double phi = p.momentum().azimuthalAngle();
+        const double phi = p.phi();
         const double rotatedphi = phi - jetphi;
 
         ptSumOverall += pT;

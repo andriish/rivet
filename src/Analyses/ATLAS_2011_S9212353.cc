@@ -211,7 +211,7 @@ namespace Rivet {
       int Njets = 0;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-        if ( fabs(jet.eta()) < 2.8 )
+        if ( jet.abseta() < 2.8 )
           Njets+=1;
       }
       if ( Njets < 3 ) {
@@ -238,22 +238,22 @@ namespace Rivet {
       double mu_id = 13;
 
       // one hard leading lepton cut
-      if ( fabs(lepton[0].pdgId()) == e_id &&
+      if ( lepton[0].abspid() == e_id &&
            lepton[0].pT() <= 25*GeV ) {
         vetoEvent;
       }
-      else if ( fabs(lepton[0].pdgId()) == mu_id &&
+      else if ( lepton[0].abspid() == mu_id &&
                 lepton[0].pT() <= 20*GeV ) {
         vetoEvent;
       }
 
       // exactly one hard leading lepton cut
       if(lepton.size()>1) {
-        if ( fabs(lepton[1].pdgId()) == e_id &&
+        if ( lepton[1].abspid() == e_id &&
              lepton[1].pT() > 20*GeV ) {
           vetoEvent;
         }
-        else if ( fabs(lepton[1].pdgId()) == mu_id &&
+        else if ( lepton[1].abspid() == mu_id &&
                   lepton[1].pT() > 10*GeV ) {
           vetoEvent;
         }
@@ -263,9 +263,9 @@ namespace Rivet {
       if ( recon_jets[0].pT() > 60.0*GeV &&
            recon_jets[1].pT() > 25.0*GeV &&
            recon_jets[2].pT() > 25.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
         double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
@@ -275,7 +275,7 @@ namespace Rivet {
           + recon_jets[1].pT()
           + recon_jets[2].pT();
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if (  lepton[0].abspid() == e_id ) {
           _3j_hist_mT_e->fill(mT, weight);
           _3j_hist_eTmiss_e->fill(eTmiss, weight);
           _3j_hist_m_eff_e->fill(m_eff, weight);
@@ -287,7 +287,7 @@ namespace Rivet {
           }
         }
 
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if (  lepton[0].abspid() == mu_id ) {
           _3j_hist_mT_mu->fill(mT, weight);
           _3j_hist_eTmiss_mu->fill(eTmiss, weight);
           _3j_hist_m_eff_mu->fill(m_eff, weight);
@@ -305,9 +305,9 @@ namespace Rivet {
       if ( recon_jets[0].pT() > 80.0*GeV &&
            recon_jets[1].pT() > 25.0*GeV &&
            recon_jets[2].pT() > 25.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
         double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
@@ -318,7 +318,7 @@ namespace Rivet {
           + recon_jets[2].pT();
 
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if (  lepton[0].abspid() == e_id ) {
           if ( mT > 100*GeV && eTmiss > 240*GeV ) {
             _3jt_hist_m_eff_e_final->fill(m_eff, weight);
             if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
@@ -327,7 +327,7 @@ namespace Rivet {
           }
         }
 
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if (  lepton[0].abspid() == mu_id ) {
           if ( mT > 100*GeV && eTmiss > 240*GeV ) {
             _3jt_hist_m_eff_mu_final->fill(m_eff, weight);
             if ( m_eff > 600*GeV && eTmiss > 0.15*m_eff ) {
@@ -350,10 +350,10 @@ namespace Rivet {
            recon_jets[1].pT() > 25.0*GeV &&
            recon_jets[2].pT() > 25.0*GeV &&
            recon_jets[3].pT() > 25.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[3].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
         double dPhi = deltaPhi( pT_l.phi(), pTmiss_phi);
@@ -365,7 +365,7 @@ namespace Rivet {
           + recon_jets[3].pT();
 
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if (  lepton[0].abspid() == e_id ) {
           _4j_hist_mT_e->fill(mT, weight);
           _4j_hist_eTmiss_e->fill(eTmiss, weight);
           _4j_hist_m_eff_e->fill(m_eff, weight);
@@ -378,7 +378,7 @@ namespace Rivet {
         }
 
         // Muon channel signal region
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if (  lepton[0].abspid() == mu_id ) {
           _4j_hist_mT_mu->fill(mT, weight);
           _4j_hist_eTmiss_mu->fill(eTmiss, weight);
           _4j_hist_m_eff_mu->fill(m_eff, weight);
@@ -397,10 +397,10 @@ namespace Rivet {
            recon_jets[1].pT() > 40.0*GeV &&
            recon_jets[2].pT() > 40.0*GeV &&
            recon_jets[3].pT() > 40.0*GeV &&
-           deltaPhi( pTmiss_phi, recon_jets[0].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[1].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[2].momentum().phi() ) > 0.2 &&
-           deltaPhi( pTmiss_phi, recon_jets[3].momentum().phi() ) > 0.2 ) {
+           deltaPhi( pTmiss_phi, recon_jets[0].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[1].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[2].phi() ) > 0.2 &&
+           deltaPhi( pTmiss_phi, recon_jets[3].phi() ) > 0.2 ) {
 
         FourMomentum pT_l = lepton[0].momentum();
 
@@ -411,7 +411,7 @@ namespace Rivet {
           + recon_jets[3].pT();
 
 
-        if ( fabs( lepton[0].pdgId() ) == e_id ) {
+        if (  lepton[0].abspid() == e_id ) {
           if ( eTmiss > 200*GeV ) {
             _4jt_hist_m_eff_e_final->fill(m_eff, weight);
             if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {
@@ -421,7 +421,7 @@ namespace Rivet {
         }
 
         // Muon channel signal region
-        else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+        else if (  lepton[0].abspid() == mu_id ) {
           if ( eTmiss > 200*GeV ) {
             _4jt_hist_m_eff_mu_final->fill(m_eff, weight);
             if ( m_eff > 500*GeV && eTmiss > 0.15*m_eff ) {

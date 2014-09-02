@@ -1,11 +1,9 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
-#include "Rivet/Math/MathUtils.hh"
 
 namespace Rivet {
 
@@ -166,6 +164,7 @@ namespace Rivet {
           _th_oppo[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));
         }
       }
+
     }
 
 
@@ -189,8 +188,8 @@ namespace Rivet {
             if (ipt == 0) {
               double sumptF = 0;
               double sumptB = 0;
-              foreach (const Particle& p, particlesF) sumptF += p.momentum().pT();
-              foreach (const Particle& p, particlesB) sumptB += p.momentum().pT();
+              foreach (const Particle& p, particlesF) sumptF += p.pT();
+              foreach (const Particle& p, particlesB) sumptB += p.pT();
               _vecsSumptF[ieta].push_back(sumptF);
               _vecsSumptB[ieta].push_back(sumptB);
             }
@@ -211,7 +210,7 @@ namespace Rivet {
           if (&plead == &p) continue; //< Don't compare the lead particle to itself
           const double dphi = deltaPhi(p.momentum(), plead.momentum());
           _th_dphi[ieta].fill(dphi, weight);
-          const bool sameside = (plead.momentum().eta() * p.momentum().eta() > 0);
+          const bool sameside = (plead.eta() * p.eta() > 0);
           (sameside ? _th_same : _th_oppo)[ieta].fill(dphi, weight);
         }
       }
@@ -254,7 +253,7 @@ namespace Rivet {
         /// @todo Should the difference always be shown as positive?, i.e. y -> abs(y), etc.
         /// @todo Should the normalization be done _after_ the -ve value treatment?
         YODA::Histo1D hdiffSO = _th_same[ieta] - _th_oppo[ieta];
-        hdiffSO.normalize(hdiffSO.bin(0).width());
+        hdiffSO.normalize(hdiffSO.bin(0).xWidth());
         for (size_t i = 0; i < hdiffSO.numBins(); ++i) {
           const double y = hdiffSO.bin(i).height() >= 0 ? hdiffSO.bin(i).height() : 0;
           const double yerr = hdiffSO.bin(i).heightErr() >= 0 ? hdiffSO.bin(i).heightErr() : 0;
@@ -268,7 +267,7 @@ namespace Rivet {
         }
         // Build scatter of differences
         double sumDiff = 0;
-        for (size_t iphi = 1; iphi < _th_dphi[ieta].numBins(); ++iphi) {
+        for (size_t iphi = 0; iphi < _th_dphi[ieta].numBins(); ++iphi) {
           const double diff = _th_dphi[ieta].bin(iphi).height() - histMin;
           _s_dphiMin[ieta]->point(iphi).setY(diff, _th_dphi[ieta].bin(iphi).heightErr());
           sumDiff += diff;

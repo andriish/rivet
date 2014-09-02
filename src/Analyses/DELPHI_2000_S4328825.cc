@@ -54,13 +54,13 @@ namespace Rivet {
       // If we only have two quarks (qqbar), just take the flavour.
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = iqf.particles().front().abspid();
       }
       else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap[p.pdgId()] < p.momentum().E()) {
-            quarkmap[p.pdgId()] = p.momentum().E();
+          if (quarkmap[p.pid()] < p.E()) {
+            quarkmap[p.pid()] = p.E();
           }
         }
         double maxenergy = 0.;
@@ -100,8 +100,8 @@ namespace Rivet {
       Scatter2DPtr h_light  = bookScatter2D(1, 1, 3);
       Scatter2DPtr h_diff   = bookScatter2D(1, 1, 4);  // bottom minus light
       for (size_t b = 0; b < temphisto.numBins(); b++) {
-        const double x  = temphisto.bin(b).midpoint();
-        const double ex = temphisto.bin(b).width()/2.;
+        const double x  = temphisto.bin(b).xMid();
+        const double ex = temphisto.bin(b).xWidth()/2.;
         if (inRange(sqrtS()/GeV, x-ex, x+ex)) {
           // @TODO: Fix y-error:
           h_bottom->addPoint(x, avgNumPartsBottom, ex, 0.);

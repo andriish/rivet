@@ -40,7 +40,7 @@ namespace Rivet {
 
       const FourMomentum j0(jets[0].momentum());
       const FourMomentum j1(jets[1].momentum());
-      if (fabs(j1.rapidity()) > 1.0 || fabs(j0.rapidity()) > 1.0) {
+      if (j1.absrap() > 1.0 || j0.absrap() > 1.0) {
         vetoEvent;
       }
 

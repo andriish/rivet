@@ -159,8 +159,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Thrusts
@@ -220,8 +220,8 @@ namespace Rivet {
       MSG_DEBUG("About to iterate over charged FS particles");
       foreach (const Particle& p, fs.particles()) {
         // Get momentum and energy of each particle.
-        const Vector3 mom3 = p.momentum().vector3();
-        const double energy = p.momentum().E();
+        const Vector3 mom3 = p.p3();
+        const double energy = p.E();
         Evis += energy;
 
         // Scaled momenta.
@@ -260,8 +260,8 @@ namespace Rivet {
       for (Particles::const_iterator p_i = fs.particles().begin(); p_i != fs.particles().end(); ++p_i) {
         for (Particles::const_iterator p_j = p_i; p_j != fs.particles().end(); ++p_j) {
           if (p_i == p_j) continue;
-          const Vector3 mom3_i = p_i->momentum().vector3();
-          const Vector3 mom3_j = p_j->momentum().vector3();
+          const Vector3 mom3_i = p_i->momentum().p3();
+          const Vector3 mom3_j = p_j->momentum().p3();
           const double energy_i = p_i->momentum().E();
           const double energy_j = p_j->momentum().E();
           const double cosij = dot(mom3_i.unit(), mom3_j.unit());
@@ -274,92 +274,92 @@ namespace Rivet {
         }
       }
 
-      _histMultiCharged->fill(_histMultiCharged->bin(0).midpoint(), numParticles*weight);
+      _histMultiCharged->fill(_histMultiCharged->bin(0).xMid(), numParticles*weight);
 
 
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         switch (id) {
         case 211:
-          _histMultiPiPlus->fill(_histMultiPiPlus->bin(0).midpoint(), weight);
+          _histMultiPiPlus->fill(_histMultiPiPlus->bin(0).xMid(), weight);
           break;
         case 111:
-          _histMultiPi0->fill(_histMultiPi0->bin(0).midpoint(), weight);
+          _histMultiPi0->fill(_histMultiPi0->bin(0).xMid(), weight);
           break;
         case 321:
-          _histMultiKPlus->fill(_histMultiKPlus->bin(0).midpoint(), weight);
+          _histMultiKPlus->fill(_histMultiKPlus->bin(0).xMid(), weight);
           break;
         case 130:
         case 310:
-          _histMultiK0->fill(_histMultiK0->bin(0).midpoint(), weight);
+          _histMultiK0->fill(_histMultiK0->bin(0).xMid(), weight);
           break;
         case 221:
-          _histMultiEta->fill(_histMultiEta->bin(0).midpoint(), weight);
+          _histMultiEta->fill(_histMultiEta->bin(0).xMid(), weight);
           break;
         case 331:
-          _histMultiEtaPrime->fill(_histMultiEtaPrime->bin(0).midpoint(), weight);
+          _histMultiEtaPrime->fill(_histMultiEtaPrime->bin(0).xMid(), weight);
           break;
         case 411:
-          _histMultiDPlus->fill(_histMultiDPlus->bin(0).midpoint(), weight);
+          _histMultiDPlus->fill(_histMultiDPlus->bin(0).xMid(), weight);
           break;
         case 421:
-          _histMultiD0->fill(_histMultiD0->bin(0).midpoint(), weight);
+          _histMultiD0->fill(_histMultiD0->bin(0).xMid(), weight);
           break;
         case 511:
         case 521:
         case 531:
-          _histMultiBPlus0->fill(_histMultiBPlus0->bin(0).midpoint(), weight);
+          _histMultiBPlus0->fill(_histMultiBPlus0->bin(0).xMid(), weight);
           break;
         case 9010221:
-          _histMultiF0->fill(_histMultiF0->bin(0).midpoint(), weight);
+          _histMultiF0->fill(_histMultiF0->bin(0).xMid(), weight);
           break;
         case 113:
-          _histMultiRho->fill(_histMultiRho->bin(0).midpoint(), weight);
+          _histMultiRho->fill(_histMultiRho->bin(0).xMid(), weight);
           break;
         case 323:
-          _histMultiKStar892Plus->fill(_histMultiKStar892Plus->bin(0).midpoint(), weight);
+          _histMultiKStar892Plus->fill(_histMultiKStar892Plus->bin(0).xMid(), weight);
           break;
         case 313:
-          _histMultiKStar892_0->fill(_histMultiKStar892_0->bin(0).midpoint(), weight);
+          _histMultiKStar892_0->fill(_histMultiKStar892_0->bin(0).xMid(), weight);
           break;
         case 333:
-          _histMultiPhi->fill(_histMultiPhi->bin(0).midpoint(), weight);
+          _histMultiPhi->fill(_histMultiPhi->bin(0).xMid(), weight);
           break;
         case 413:
-          _histMultiDStar2010Plus->fill(_histMultiDStar2010Plus->bin(0).midpoint(), weight);
+          _histMultiDStar2010Plus->fill(_histMultiDStar2010Plus->bin(0).xMid(), weight);
           break;
         case 225:
-          _histMultiF2->fill(_histMultiF2->bin(0).midpoint(), weight);
+          _histMultiF2->fill(_histMultiF2->bin(0).xMid(), weight);
           break;
         case 315:
-          _histMultiK2Star1430_0->fill(_histMultiK2Star1430_0->bin(0).midpoint(), weight);
+          _histMultiK2Star1430_0->fill(_histMultiK2Star1430_0->bin(0).xMid(), weight);
           break;
         case 2212:
-          _histMultiP->fill(_histMultiP->bin(0).midpoint(), weight);
+          _histMultiP->fill(_histMultiP->bin(0).xMid(), weight);
           break;
         case 3122:
-          _histMultiLambda0->fill(_histMultiLambda0->bin(0).midpoint(), weight);
+          _histMultiLambda0->fill(_histMultiLambda0->bin(0).xMid(), weight);
           break;
         case 3312:
-          _histMultiXiMinus->fill(_histMultiXiMinus->bin(0).midpoint(), weight);
+          _histMultiXiMinus->fill(_histMultiXiMinus->bin(0).xMid(), weight);
           break;
         case 3334:
-          _histMultiOmegaMinus->fill(_histMultiOmegaMinus->bin(0).midpoint(), weight);
+          _histMultiOmegaMinus->fill(_histMultiOmegaMinus->bin(0).xMid(), weight);
           break;
         case 2224:
-          _histMultiDeltaPlusPlus->fill(_histMultiDeltaPlusPlus->bin(0).midpoint(), weight);
+          _histMultiDeltaPlusPlus->fill(_histMultiDeltaPlusPlus->bin(0).xMid(), weight);
           break;
         case 3114:
-          _histMultiSigma1385Plus->fill(_histMultiSigma1385Plus->bin(0).midpoint(), weight);
+          _histMultiSigma1385Plus->fill(_histMultiSigma1385Plus->bin(0).xMid(), weight);
           break;
         case 3324:
-          _histMultiXi1530_0->fill(_histMultiXi1530_0->bin(0).midpoint(), weight);
+          _histMultiXi1530_0->fill(_histMultiXi1530_0->bin(0).xMid(), weight);
           break;
         case 5122:
-          _histMultiLambdaB0->fill(_histMultiLambdaB0->bin(0).midpoint(), weight);
+          _histMultiLambdaB0->fill(_histMultiLambdaB0->bin(0).xMid(), weight);
           break;
         }
       }

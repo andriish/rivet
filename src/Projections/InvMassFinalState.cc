@@ -94,11 +94,11 @@ namespace Rivet {
     foreach (const Particle& ipart, inparticles) {
       // Loop around possible particle pairs (typedef needed to keep BOOST_FOREACH happy)
       foreach (const PdgIdPair& ipair, _decayids) {
-        if (ipart.pdgId() == ipair.first) {
+        if (ipart.pid() == ipair.first) {
           if (accept(ipart)) {
             type1 += &ipart;
           }
-        } else if (ipart.pdgId() == ipair.second) {
+        } else if (ipart.pid() == ipair.second) {
           if (accept(ipart)) {
             type2 += &ipart;
           }
@@ -121,7 +121,7 @@ namespace Rivet {
         // (if more than one pair in vector particles can be unrelated)
         bool found = false;
         foreach (const PdgIdPair& ipair, _decayids) {
-          if (i1->pdgId() == ipair.first && i2->pdgId() == ipair.second) {
+          if (i1->pid() == ipair.first && i2->pid() == ipair.second) {
             found = true;
             break;
           }
@@ -141,7 +141,7 @@ namespace Rivet {
         }
 
         if (passedMassCut) {
-          MSG_DEBUG("Selecting particles with IDs " << i1->pdgId() << " & " << i2->pdgId()
+          MSG_DEBUG("Selecting particles with IDs " << i1->pid() << " & " << i2->pid()
                     << " and mass = " << v4.mass()/GeV << " GeV");
           // Store accepted particles, avoiding duplicates
           if (find(tmp.begin(), tmp.end(), i1) == tmp.end()) {
@@ -175,7 +175,7 @@ namespace Rivet {
     MSG_DEBUG("Selected " << _theParticles.size() << " particles " << "(" << _particlePairs.size() << " pairs)");
     if (getLog().isActive(Log::TRACE)) {
       foreach (const Particle& p, _theParticles) {
-        MSG_TRACE("ID: " << p.pdgId() << ", barcode: " << p.genParticle()->barcode());
+        MSG_TRACE("ID: " << p.pid() << ", barcode: " << p.genParticle()->barcode());
       }
     }
   }

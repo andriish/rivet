@@ -35,7 +35,7 @@ namespace Rivet {
       const double dphi = TWOPI;
 
       foreach (const Particle& p, ufs.particles()) {
-        if (p.pdgId() == 111) {
+        if (p.pid() == 111) {
           double pT = p.pT();
           double y  = p.rapidity();
 

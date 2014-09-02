@@ -64,7 +64,7 @@ namespace Rivet {
       double MTW = sqrt( 2 * missvec.pT() * muonmom.pT() * (1 - cos( deltaPhi(missvec.phi(), muonmom.phi()) )) );
       if (MTW < 40*GeV) vetoEvent;
 
-      Histo1D& htmp = (selected_muons[0].pdgId() > 0) ? _tmp_h_minus : _tmp_h_plus;
+      Histo1D& htmp = (selected_muons[0].pid() > 0) ? _tmp_h_minus : _tmp_h_plus;
       htmp.fill(muonmom.eta(), event.weight());
     }
 
@@ -78,7 +78,7 @@ namespace Rivet {
         const double relerr = _tmp_h_plus.bin(i).relErr()  + _tmp_h_minus.bin(i).relErr();
         const double asym = (num != 0 && denom != 0) ? num / denom : 0;
         const double asym_err = (num != 0 && denom != 0) ? asym*relerr : 0;
-        _h_asym->addPoint(_tmp_h_plus.bin(i).midpoint(), asym, _tmp_h_plus.bin(i).width()/2.0, asym_err);
+        _h_asym->addPoint(_tmp_h_plus.bin(i).xMid(), asym, _tmp_h_plus.bin(i).xWidth()/2.0, asym_err);
       }
     }
 

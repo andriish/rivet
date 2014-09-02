@@ -33,7 +33,7 @@ namespace Rivet {
        Jets highpT_jets;
        double HT = 0;
        foreach(const Jet & jet, applyProjection<JetAlg>(event, "antikT").jetsByPt(50.0*GeV)) {
-         if (fabs(jet.eta()) < 2.5) {
+         if (jet.abseta() < 2.5) {
            highpT_jets.push_back(jet);
            HT += jet.pT();
          }

@@ -95,7 +95,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_h_fiducial, crossSection()/femtobarn);
+      scale(_h_fiducial, crossSection()/femtobarn/sumOfWeights());
     }
 
     //@}

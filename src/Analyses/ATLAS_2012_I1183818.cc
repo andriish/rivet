@@ -79,9 +79,9 @@ namespace Rivet {
       Particles particles;
       foreach( const Particle& p, cnfs.particles() ) {
         // enforce truth selection representing detected particle sensitivity
-        double pp = p.momentum().p().mod();
-        if (PID::threeCharge(p.pdgId()) != 0 && pp < 0.5*GeV) continue;
-        if (PID::threeCharge(p.pdgId()) == 0 && pp < 0.2*GeV) continue;
+        double pp = p.p3().mod();
+        if (PID::threeCharge(p.pid()) != 0 && pp < 0.5*GeV) continue;
+        if (PID::threeCharge(p.pid()) == 0 && pp < 0.2*GeV) continue;
 
         particles.push_back(p);
       }
@@ -105,8 +105,8 @@ namespace Rivet {
         foreach( const Particle& p, particles ) {
 
           ///calculate variables
-          double ET = p.momentum().Et()/GeV;
-          double eta = fabs(p.eta());
+          double ET = p.Et()/GeV;
+          double eta = p.abseta();
 
           // fill histograms
           _h_ETflowEta->fill(eta, weight*ET);
@@ -131,12 +131,12 @@ namespace Rivet {
       // --- do dijet analysis ---
 
       if ( jets.size() >= 2                       && // require at least two jets
-           jets[0].momentum().Et() >= 20.*GeV     && // require two leading jets to pass ET cuts
-           jets[1].momentum().Et() >= 20.*GeV     &&
+           jets[0].Et() >= 20.*GeV     && // require two leading jets to pass ET cuts
+           jets[1].Et() >= 20.*GeV     &&
            fabs(jets[0].eta()) < 2.5   && // require leading jets to be central
            fabs(jets[1].eta()) < 2.5   &&
            deltaPhi(jets[0], jets[1]) > 2.5       && // require back-to-back topology
-           jets[1].momentum().Et()/jets[0].momentum().Et() >= 0.5) { //require ET-balance
+           jets[1].Et()/jets[0].Et() >= 0.5) { //require ET-balance
 
         // found an event that satisfies dijet selection, now fill histograms...
         // initialise dijet sumET variables
@@ -154,7 +154,7 @@ namespace Rivet {
 
           // calculate variables
           double dPhi = deltaPhi( jets[0], particle.momentum() );
-          double ET   = particle.momentum().Et()/GeV;
+          double ET   = particle.Et()/GeV;
           double eta  = fabs(particle.eta());
 
           // Transverse region

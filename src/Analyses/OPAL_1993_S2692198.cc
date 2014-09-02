@@ -34,7 +34,7 @@ namespace Rivet {
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
       foreach (const Particle& p, fs.particles()) {
         ptotal+= p.momentum();
-        if (p.pdgId() == PID::PHOTON) {
+        if (p.pid() == PID::PHOTON) {
           photons.push_back(p);
         } else {
           nonPhotons.push_back(p);
@@ -68,12 +68,12 @@ namespace Rivet {
         // Cluster the jets
         for (size_t j = 0; j < _nPhotonDurham->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonDurham->bin(j).midpoint(); //< @todo Should this be xMin?
+          double ycut = _nPhotonDurham->bin(j).xMid(); //< @todo Should this be xMin?
           double dcut = sqr(evis)*ycut;
           vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq.exclusive_jets(dcut));
           for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
-            double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
+            double cost = pjet.p3().unit().dot(pgamma.p3().unit());
             double ygamma = 2 * min(sqr(pjet.E()/evis), sqr(pgamma.E()/evis)) * (1 - cost);
             if (ygamma < ycut) {
               accept = false;
@@ -81,22 +81,22 @@ namespace Rivet {
             }
           }
           if (!accept) continue;
-          _nPhotonDurham->fill(ycut, weight*_nPhotonDurham->bin(j).width());
+          _nPhotonDurham->fill(ycut, weight*_nPhotonDurham->bin(j).xWidth());
           size_t njet = min(size_t(4), exclusive_jets.size()) - 1;
           if (j < _nPhotonJetDurham[njet]->numBins()) {
-            _nPhotonJetDurham[njet]->fillBin(j, weight*_nPhotonJetDurham[njet]->bin(j).width());
+            _nPhotonJetDurham[njet]->fillBin(j, weight*_nPhotonJetDurham[njet]->bin(j).xWidth());
           }
         }
         // Run the jet clustering JADE
         fastjet::ClusterSequence clust_seq2(input_particles, jade_def);
         for (size_t j = 0; j < _nPhotonJade->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonJade->bin(j).midpoint(); //< @todo Should this be xMin?
+          double ycut = _nPhotonJade->bin(j).xMid(); //< @todo Should this be xMin?
           double dcut = sqr(evis)*ycut;
           vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq2.exclusive_jets(dcut));
           for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
             FourMomentum pjet(momentum(exclusive_jets[iy]));
-            double cost = pjet.vector3().unit().dot(pgamma.vector3().unit());
+            double cost = pjet.p3().unit().dot(pgamma.p3().unit());
             double ygamma = 2.*pjet.E()*pgamma.E()/sqr(evis)*(1.-cost);
             if (ygamma < ycut) {
               accept = false;
@@ -105,10 +105,10 @@ namespace Rivet {
           }
           if (!accept) continue;
           /// @todo Really want to use a "bar graph" here (i.e. ignore bin width)
-          _nPhotonJade->fill(ycut, weight*_nPhotonJade->bin(j).width());
+          _nPhotonJade->fill(ycut, weight*_nPhotonJade->bin(j).xWidth());
           size_t njet = min(size_t(4), exclusive_jets.size()) - 1;
           if (j < _nPhotonJetJade[njet]->numBins()) {
-            _nPhotonJetJade[njet]->fillBin(j, weight*_nPhotonJetJade[njet]->bin(j).width());
+            _nPhotonJetJade[njet]->fillBin(j, weight*_nPhotonJetJade[njet]->bin(j).xWidth());
           }
         }
         // Add this photon back in for the next iteration of the loop

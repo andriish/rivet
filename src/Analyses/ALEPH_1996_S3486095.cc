@@ -147,8 +147,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       // Thrusts
@@ -192,8 +192,8 @@ namespace Rivet {
       MSG_DEBUG("About to iterate over charged FS particles");
       foreach (const Particle& p, fs.particles()) {
         // Get momentum and energy of each particle.
-        const Vector3 mom3 = p.momentum().vector3();
-        const double energy = p.momentum().E();
+        const Vector3 mom3 = p.p3();
+        const double energy = p.E();
         Evis += energy;
         _numChParticles += weight;
 
@@ -231,18 +231,18 @@ namespace Rivet {
 
       _histChMult->fill(numParticles, weight);
 
-      _histMeanChMultRapt05->fill(_histMeanChMultRapt05->bin(0).midpoint(), rapt05 * weight);
-      _histMeanChMultRapt10->fill(_histMeanChMultRapt10->bin(0).midpoint(), rapt10 * weight);
-      _histMeanChMultRapt15->fill(_histMeanChMultRapt15->bin(0).midpoint(), rapt15 * weight);
-      _histMeanChMultRapt20->fill(_histMeanChMultRapt20->bin(0).midpoint(), rapt20 * weight);
-      _histMeanChMult->fill(_histMeanChMult->bin(0).midpoint(), numParticles*weight);
+      _histMeanChMultRapt05->fill(_histMeanChMultRapt05->bin(0).xMid(), rapt05 * weight);
+      _histMeanChMultRapt10->fill(_histMeanChMultRapt10->bin(0).xMid(), rapt10 * weight);
+      _histMeanChMultRapt15->fill(_histMeanChMultRapt15->bin(0).xMid(), rapt15 * weight);
+      _histMeanChMultRapt20->fill(_histMeanChMultRapt20->bin(0).xMid(), rapt20 * weight);
+      _histMeanChMult->fill(_histMeanChMult->bin(0).xMid(), numParticles*weight);
 
 
       //// Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       for (Particles::const_iterator p = ufs.particles().begin(); p != ufs.particles().end(); ++p) {
-        const Vector3 mom3 = p->momentum().vector3();
-        int id = abs(p->pdgId());
+        const Vector3 mom3 = p->momentum().p3();
+        int id = abs(p->pid());
         const double mom = mom3.mod();
         const double energy = p->momentum().E();
         const double scaledMom = mom/meanBeamMom;
@@ -269,70 +269,70 @@ namespace Rivet {
               break;
            case 111:
               _histMultiPi0->fill(scaledMom, weight);
-              _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).midpoint(), weight);
+              _histMeanMultiPi0->fill(_histMeanMultiPi0->bin(0).xMid(), weight);
               _weightedTotalNumPi0 += weight;
               break;
            case 221:
               if (scaledMom >= 0.1) {
                 _histMultiEta->fill(scaledEnergy, weight);
-                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).midpoint(), weight);
+                _histMeanMultiEta->fill(_histMeanMultiEta->bin(0).xMid(), weight);
                 _weightedTotalNumEta += weight;
               }
               break;
            case 331:
               if (scaledMom >= 0.1) {
                 _histMultiEtaPrime->fill(scaledEnergy, weight);
-                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).midpoint(), weight);
+                _histMeanMultiEtaPrime->fill(_histMeanMultiEtaPrime->bin(0).xMid(), weight);
                 _weightedTotalNumEtaPrime += weight;
               }
               break;
            case 130: //klong
            case 310: //kshort
               _histMultiK0->fill(scaledMom, weight);
-              _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).midpoint(), weight);
+              _histMeanMultiK0->fill(_histMeanMultiK0->bin(0).xMid(), weight);
               _weightedTotalNumK0 += weight;
               break;
            case 113:
               _histMultiRho->fill(scaledMom, weight);
-              _histMeanMultiRho->fill(_histMeanMultiRho->bin(0).midpoint(), weight);
+              _histMeanMultiRho->fill(_histMeanMultiRho->bin(0).xMid(), weight);
               _weightedTotalNumRho += weight;
               break;
            case 223:
               _histMultiOmega782->fill(scaledMom, weight);
-              _histMeanMultiOmega782->fill(_histMeanMultiOmega782->bin(0).midpoint(), weight);
+              _histMeanMultiOmega782->fill(_histMeanMultiOmega782->bin(0).xMid(), weight);
               _weightedTotalNumOmega782 += weight;
               break;
            case 333:
               _histMultiPhi->fill(scaledMom, weight);
-              _histMeanMultiPhi->fill(_histMeanMultiPhi->bin(0).midpoint(), weight);
+              _histMeanMultiPhi->fill(_histMeanMultiPhi->bin(0).xMid(), weight);
               _weightedTotalNumPhi += weight;
               break;
            case 313:
            case -313:
               _histMultiKStar892_0->fill(scaledMom, weight);
-              _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).midpoint(), weight);
+              _histMeanMultiKStar892_0->fill(_histMeanMultiKStar892_0->bin(0).xMid(), weight);
               _weightedTotalNumKStar892_0 += weight;
               break;
            case 323:
            case -323:
               _histMultiKStar892Plus->fill(scaledEnergy, weight);
-              _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).midpoint(), weight);
+              _histMeanMultiKStar892Plus->fill(_histMeanMultiKStar892Plus->bin(0).xMid(), weight);
               _weightedTotalNumKStar892Plus += weight;
               break;
            case 3122:
            case -3122:
               _histMultiLambda0->fill(scaledMom, weight);
-              _histMeanMultiLambda0->fill(_histMeanMultiLambda0->bin(0).midpoint(), weight);
+              _histMeanMultiLambda0->fill(_histMeanMultiLambda0->bin(0).xMid(), weight);
               _weightedTotalNumLambda0 += weight;
               break;
            case 3212:
            case -3212:
-              _histMeanMultiSigma0->fill(_histMeanMultiSigma0->bin(0).midpoint(), weight);
+              _histMeanMultiSigma0->fill(_histMeanMultiSigma0->bin(0).xMid(), weight);
               break;
            case 3312:
            case -3312:
               _histMultiXiMinus->fill(scaledEnergy, weight);
-              _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).midpoint(), weight);
+              _histMeanMultiXiMinus->fill(_histMeanMultiXiMinus->bin(0).xMid(), weight);
               _weightedTotalNumXiMinus += weight;
               break;
            case 3114:
@@ -340,17 +340,17 @@ namespace Rivet {
            case 3224:
            case -3224:
               _histMultiSigma1385Plus->fill(scaledEnergy, weight);
-              _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).midpoint(), weight);
+              _histMeanMultiSigma1385Plus->fill(_histMeanMultiSigma1385Plus->bin(0).xMid(), weight);
               _weightedTotalNumSigma1385Plus += weight;
               break;
            case 3324:
            case -3324:
               _histMultiXi1530_0->fill(scaledEnergy, weight);
-              _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->bin(0).midpoint(), weight);
+              _histMeanMultiXi1530_0->fill(_histMeanMultiXi1530_0->bin(0).xMid(), weight);
               _weightedTotalNumXi1530_0 += weight;
               break;
            case 3334:
-              _histMeanMultiOmegaOmegaBar->fill(_histMeanMultiOmegaOmegaBar->bin(0).midpoint(), weight);
+              _histMeanMultiOmegaOmegaBar->fill(_histMeanMultiOmegaOmegaBar->bin(0).xMid(), weight);
               break;
         }
       }

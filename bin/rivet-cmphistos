@@ -4,7 +4,7 @@
 %prog - generate histogram comparison plots
 
 USAGE:
- %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value'] [path/to/yodafile2 ...]
+ %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value':...] [path/to/yodafile2 ...]
 
 where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
@@ -65,6 +65,8 @@ def getCommandLineOptions():
                         help="additional plot config file(s). Settings will be included in the output configuration.")
     parser.add_option_group(stygroup)
 
+    # TODO: re-enable the pattern matching, and _maybe_ the variants on ref-only plotting if we don't have a plotting system via YODA soon
+    #
     # selgroup = OptionGroup(parser, "Selective plotting")
     # selgroup.add_option("--show-single", dest="SHOW_SINGLE", choices=("no", "ref", "mc", "all"),
     #                     default="mc", help="control if a plot file is made if there is only one dataset to be plotted "
@@ -89,13 +91,6 @@ def getCommandLineOptions():
     #                     dest="PATHUNPATTERNS")
     # parser.add_option_group(selgroup)
 
-    # verbgrp = OptionGroup(parser, "Verbosity control")
-    # verbgrp.add_option("-q", "--quiet", help="Suppress normal messages", dest="LOGLEVEL",
-    #                    action="store_const", default=logging.INFO, const=logging.WARNING)
-    # verbgrp.add_option("-v", "--verbose", help="Add extra debug messages", dest="LOGLEVEL",
-    #                    action="store_const", default=logging.INFO, const=logging.DEBUG)
-    # parser.add_option_group(verbgrp)
-
     return parser
 
 
@@ -106,7 +101,7 @@ def getHistos(filelist):
     mchistos = {}
     for infile in filelist:
         mchistos.setdefault(infile, {})
-        analysisobjects = yoda.readYODA(infile)
+        analysisobjects = yoda.read(infile)
         for path, ao in analysisobjects.iteritems():
             if path.startswith('/REF/'):
                 if not refhistos.has_key(path):
@@ -129,7 +124,7 @@ def getRivetRefData(refhistos, anas=None):
             dirlist.append([os.path.join(d, a+'.yoda') for a in anas])
     for filelist in dirlist:
         for infile in filelist:
-            analysisobjects = yoda.readYODA(infile)
+            analysisobjects = yoda.read(infile)
             for path, ao in analysisobjects.iteritems():
                 if path.startswith('/REF/'):
                     if not refhistos.has_key(path):
@@ -156,7 +151,7 @@ def parseArgs(args):
                 has_title = True
             plotoptions[path].append(asplit[i])
         if not has_title:
-            plotoptions[path].append('Title=%s' % sanitiseString(path.split('/')[-1].replace('.yoda', '')))
+            plotoptions[path].append('Title=%s' % sanitiseString(os.path.basename( os.path.splitext(path)[0] )) )
     return filelist, plotoptions
 
 
@@ -208,12 +203,14 @@ def mkoutdir(outdir):
 
 def writeOutput(output, h):
     "Choose output file name and dir"
+    hparts = h.strip("/").split("/")
     if opts.HIER_OUTPUT:
-        outdir = os.path.dirname(os.path.join(opts.OUTDIR, h[1:]))
-        outfile = '%s.dat' % os.path.basename(h)
+        ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
+        outdir = os.path.join(opts.OUTDIR, ana)
+        outfile = '%s.dat' % hparts[-1]
     else:
         outdir = opts.OUTDIR
-        outfile = '%s.dat' % h.replace('/', "_")[1:]
+        outfile = '%s.dat' % "_".join(hparts)
     mkoutdir(outdir)
     outfilepath = os.path.join(outdir, outfile)
     f = open(outfilepath, 'w')
@@ -253,7 +250,7 @@ if __name__ == '__main__':
 
     ## Now loop over all MC histograms and plot them
     for h in hpaths:
-
+        #print 'Currently looking at', h
         ## A list of all analysis objects to be plotted
         anaobjects = []
 
@@ -337,6 +334,5 @@ if __name__ == '__main__':
         sio = StringIO()
         yoda.writeFLAT(anaobjects, sio)
         output += sio.getvalue()
-
         ## Write everything into a file
         writeOutput(output, h)

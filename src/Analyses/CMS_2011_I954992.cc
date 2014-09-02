@@ -23,7 +23,7 @@ namespace Rivet {
       /// Get muons which pass the initial kinematic cuts
       IdentifiedFinalState muon_fs(-2.1, 2.1, 4.0*GeV);
       muon_fs.acceptIdPair(PID::MUON);
-      addProjection(muon_fs, "PID::MUON_FS");
+      addProjection(muon_fs, "MUON_FS");
 
       _h_sigma = bookHisto1D(1,1,1);
     }
@@ -35,10 +35,10 @@ namespace Rivet {
       const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
       if (cfs.size() != 2) vetoEvent; // no other charged particles in 2.4
 
-      const Particles& muonFS = applyProjection<IdentifiedFinalState>(event, "PID::MUON_FS").particles();
-      if(muonFS.size() != 2) vetoEvent;
+      const Particles& muonFS = applyProjection<IdentifiedFinalState>(event, "MUON_FS").particles();
+      if (muonFS.size() != 2) vetoEvent;
 
-      if(PID::charge(muonFS[0]) != PID::charge(muonFS[1])) {
+      if (charge(muonFS[0]) != charge(muonFS[1])) {
          const double dimuon_mass = (muonFS[0].momentum() + muonFS[1].momentum()).mass();
          const double v_angle     = muonFS[0].momentum().angle(muonFS[1].momentum());
          const double dPhi        = deltaPhi(muonFS[0], muonFS[1]);

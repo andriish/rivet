@@ -42,7 +42,7 @@ namespace Rivet {
       Particles upsilons;
       // First in unstable final state
       foreach (const Particle& p, ufs.particles())
-        if (p.pdgId() == 553 || p.pdgId() == 100553 ) upsilons.push_back(p);
+        if (p.pid() == 553 || p.pid() == 100553 ) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
         foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
@@ -65,9 +65,9 @@ namespace Rivet {
         _weightSum_cont += weight;
         unsigned int nEtaA(0),nEtaB(0),nf0(0);
         foreach (const Particle& p, ufs.particles()) {
-          int id = abs(p.pdgId());
-          double xp = 2.*p.momentum().t()/roots;
-          double beta = p.momentum().vector3().mod() / p.momentum().t();
+          int id = p.abspid();
+          double xp = 2.*p.E()/roots;
+          double beta = p.p3().mod() / p.E();
           if (id == 9010221) {
             _hist_cont_f0->fill(xp, weight/beta);
             ++nf0;
@@ -83,21 +83,21 @@ namespace Rivet {
       else {
         // Find an Upsilon
         foreach (const Particle& ups, upsilons) {
-          int parentId = ups.pdgId();
+          int parentId = ups.pid();
           ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2) += weight;
           Particles unstable;
           // Find the decay products we want
           findDecayProducts(ups.genParticle(), unstable);
           LorentzTransform cms_boost;
-          if (ups.momentum().vector3().mod() > 1*MeV)
+          if (ups.p3().mod() > 1*MeV)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
-          double mass = ups.momentum().mass();
+          double mass = ups.mass();
           unsigned int nEtaA(0), nEtaB(0), nf0(0);
           foreach(const Particle& p , unstable) {
-            const int id = abs(p.pdgId());
+            const int id = p.abspid();
             FourMomentum p2 = cms_boost.transform(p.momentum());
-            double xp = 2.*p2.t()/mass;
-            double beta = p2.vector3().mod()/p2.t();
+            double xp = 2.*p2.E()/mass;
+            double beta = p2.p3().mod()/p2.E();
             if (id == 9010221) {
               ((parentId == 553) ? _hist_Ups1_f0 : _hist_Ups2_f0)->fill(xp, weight/beta);
               ++nf0;

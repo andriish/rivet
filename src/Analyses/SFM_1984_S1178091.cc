@@ -22,7 +22,7 @@ namespace Rivet {
     void init() {
       // Projections
       /// @todo Corrected to full phase space?
-      addProjection(ChargedFinalState(), "FS");
+      addProjection(ChargedFinalState(-10,10,250*MeV), "FS");
 
       // Histograms
       if (fuzzyEquals(sqrtS()/GeV, 30.4, 1E-1)) {
@@ -46,9 +46,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       const ChargedFinalState& fs = applyProjection<ChargedFinalState>(event, "FS");
-      const size_t numParticles = fs.particles().size();
+      //const size_t numParticles = fs.particles().size();
+      size_t N=0;
 
       /// @todo Any trigger?
+      //
+      // Trigger
+      //if (numParticles <1 ) vetoEvent;
 
       // Decide whether event is of diffractive type or not
       // @todo It is not so clear in the paper how this distinction is made.
@@ -60,18 +64,22 @@ namespace Rivet {
       int n_left(0), n_right(0), n_large_x(0);
       foreach (const Particle& p, fs.particles()) {
         // Calculate the particles' Feynman x
-        const double x_feyn = 2.0 * fabs(p.momentum().pz())/sqrtS();
-        if (x_feyn > 0.8 ) n_large_x += 1;
+        if (p.pT() <=3*GeV) {
+          N++;
+          const double x_feyn = 2.0 * fabs(p.pz())/sqrtS();
+          if (x_feyn > 0.8 ) n_large_x += 1;
 
-        // Pseudorapidity
-        const double eta = p.momentum().pseudorapidity();
-        if (eta > 0.0) n_right += 1;
-        else if (eta < 0.0) n_left += 1;
+          // Pseudorapidity
+          const double eta = p.eta();
+          if (eta > 0.0) n_right += 1;
+          else if (eta < 0.0) n_left += 1;
+        }
       }
       MSG_DEBUG("N_left: " << n_left << ", "
                 << "N_right: " << n_right << ", "
                 << "N_large_x: " << n_large_x);
 
+      if ( N < 1 ) vetoEvent;
       // Not sure about the "=="!
       // @todo Not sure about the "== 1", the paper says no charged particle
       // that was reconstructed so the incoming protons must run down the beam
@@ -79,15 +87,19 @@ namespace Rivet {
       // reconstructed should be equal to one particle (proton) in each
       // hemisphere.  The "< 8" is also not certain.
       const bool isDiffractive = (n_large_x == 1) ||
-        ((n_left == 1 || n_right == 1) && numParticles < 8 );
+        (( (n_left + n_right) == 1) && (N < 7) );
+        //((n_left == 1 || n_right == 1) && N < 8 );
+        //((n_left == 1 || n_right == 1) && numParticles < 8 );
 
       // Increment weight counters
       _sumW += weight;
       _sumWDiff += weight;
 
       // Fill histos of charged multiplicity distributions
-      _hist_multiplicity_inel->fill(numParticles, weight);
-      if (!isDiffractive) _hist_multiplicity_nsd->fill(numParticles, weight);
+      //_hist_multiplicity_inel->fill(numParticles, weight);
+      //if (!isDiffractive) _hist_multiplicity_nsd->fill(numParticles, weight);
+      _hist_multiplicity_inel->fill(N, weight);
+      if (!isDiffractive) _hist_multiplicity_nsd->fill(N, weight);
     }
 
 

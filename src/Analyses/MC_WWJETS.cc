@@ -71,7 +71,7 @@ namespace Rivet {
       FourMomentum mm = wmnufinder.constituentLeptons()[0].momentum();
       FourMomentum mnu = wmnufinder.constituentNeutrinos()[0].momentum();
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(m_jetptcut);
+      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
         _h_WW_jet1_deta->fill(ww.eta()-jets[0].eta(), weight);
         _h_WW_jet1_dR->fill(deltaR(ww, jets[0].momentum()), weight);

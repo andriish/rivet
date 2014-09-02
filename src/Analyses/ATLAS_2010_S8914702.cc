@@ -69,12 +69,13 @@ namespace Rivet {
         for (v_iter=0; v_iter < (int)_eta_bins.size()-1; ++v_iter) {
           if (eta >= _eta_bins.at(v_iter) && eta < _eta_bins.at(v_iter+1)) break;
         }
+	return min(v_iter,(int)_eta_bins.size()-2);
       } else {
         for (v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; ++v_iter) {
           if (eta >= _eta_bins_areaoffset.at(v_iter) && eta < _eta_bins_areaoffset.at(v_iter+1)) break;
         }
+	return v_iter;
       }
-      return v_iter;
     }
 
 
@@ -101,11 +102,11 @@ namespace Rivet {
       FourMomentum mom_in_EtCone;
       foreach (const Particle& p, fs) {
         // check if it's in the cone of .4
-        if (deltaR(eta_P, phi_P, p.eta(), p.momentum().phi()) >= 0.4) continue;
+        if (deltaR(eta_P, phi_P, p.eta(), p.phi()) >= 0.4) continue;
 
         // check if it's in the 5x7 central core
         if (fabs(eta_P-p.eta()) < .025*7.0*0.5 &&
-            fabs(phi_P-p.momentum().phi()) < (PI/128.)*5.0*0.5) continue;
+            fabs(phi_P-p.phi()) < (PI/128.)*5.0*0.5) continue;
         mom_in_EtCone += p.momentum();
       }
       MSG_DEBUG("Done with initial EtCone.");
@@ -121,7 +122,7 @@ namespace Rivet {
 
       const fastjet::ClusterSequenceArea* clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
       foreach (const fastjet::PseudoJet& jet, applyProjection<FastJets>(event, "KtJetsD05").pseudoJets(0.0*GeV)) {
-        //const double y = fabs(jet.rapidity());
+        //const double y = jet.absrap();
         const double eta = fabs(jet.eta());
         const double pt = fabs(jet.perp());
 

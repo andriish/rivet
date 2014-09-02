@@ -60,7 +60,7 @@ namespace Rivet {
       MSG_DEBUG("Total multiplicity = " << cnparticles.size());
       _histTot->fill(cnparticles.size(), weight);
       int cnhadronmult = 0;
-      foreach (const Particle& p, cnparticles) if (PID::isHadron(p)) cnhadronmult += 1;
+      foreach (const Particle& p, cnparticles) if (isHadron(p)) cnhadronmult += 1;
       MSG_DEBUG("Hadron multiplicity = " << cnhadronmult);
       _histHadrTot->fill(cnhadronmult, weight);
 
@@ -68,7 +68,7 @@ namespace Rivet {
       MSG_DEBUG("Total charged multiplicity = " << cparticles.size());
       _histChTot->fill(cparticles.size(), weight);
       int chadronmult = 0;
-      foreach (const Particle& p, cparticles) if (PID::isHadron(p)) chadronmult += 1;
+      foreach (const Particle& p, cparticles) if (isHadron(p)) chadronmult += 1;
       MSG_DEBUG("Hadron charged multiplicity = " << chadronmult);
       _histHadrChTot->fill(chadronmult, weight);
 

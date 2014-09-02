@@ -1,17 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/Math/MathUtils.hh"
-#include "Rivet/Math/Constants.hh"
-
-#include "HepMC/GenEvent.h"
-#include "HepMC/GenParticle.h"
-#include "HepMC/GenVertex.h"
-#include "HepMC/SimpleVector.h"
-
-#include <iostream>
-#include <sstream>
-#include <string>
 
 namespace Rivet {
 
@@ -75,7 +64,7 @@ namespace Rivet {
       int id;
       int partIdx = -1;
       foreach (const Particle& p, ufs.particles()) {
-        id = p.pdgId();
+        id = p.pid();
         // continue if particle not a K0s nor (anti-)Lambda
         if ( (id == 310) || (id == -310) )  {
           partIdx = 2;

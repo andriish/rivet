@@ -48,11 +48,11 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState> (event, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        const PdgId id = abs(p.pdgId());
+        const PdgId id = p.abspid();
 
         if (id == 333) { // id 333 = phi-meson
           double y  = p.rapidity();
-          double pT = p.momentum().perp();
+          double pT = p.perp();
 
           if (pT < 0.6*GeV || pT > 5.0*GeV || y < 2.44 || y > 4.06) {
             continue;

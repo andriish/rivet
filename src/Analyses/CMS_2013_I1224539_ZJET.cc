@@ -95,7 +95,7 @@ namespace Rivet {
       const Particle& l2 = zfinder.constituents()[1];
 
       // Require a high-pT Z (and constituents)
-      if (l1.momentum().pT() < 30*GeV || l2.momentum().pT() < 30*GeV || z.momentum().pT() < 120*GeV) vetoEvent;
+      if (l1.pT() < 30*GeV || l2.pT() < 30*GeV || z.pT() < 120*GeV) vetoEvent;
 
       // AK7 jets
       const PseudoJets& psjetsAK7_zj = applyProjection<FastJets>(event, "JetsAK7_zj").pseudoJetsByPt(50.0*GeV);
@@ -175,13 +175,13 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    enum { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj } BINS_vj;
+    enum BINS_vj { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj };
     Histo1DPtr _h_ungroomedJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_filteredJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_trimmedJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_prunedJetMass_AK7_zj[N_PT_BINS_vj];
     Histo1DPtr _h_prunedJetMass_CA8_zj[N_PT_BINS_vj];
-    Histo1DPtr _h_filteredJetMass_CA12_zj[N_PT_BINS_vj-1];
+    Histo1DPtr _h_filteredJetMass_CA12_zj[N_PT_BINS_vj];
     //@}
 
   };

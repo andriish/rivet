@@ -20,13 +20,13 @@ namespace Rivet {
       const GenVertex* pv = p->production_vertex();
       const GenVertex* dv = p->end_vertex();
       const PdgId pid = abs(p->pdg_id());
-      bool passed = inRange((long)pid, 1, 5);
+      bool passed = inRange((long)pid, 1, 6);
       if (passed) {
         if (pv != 0) {
           foreach (const GenParticle* pp, particles_in(pv)) {
             // Only accept if parent is electron or Z0
             const PdgId pid = abs(pp->pdg_id());
-            passed = (pid == PID::ELECTRON || abs(pp->pdg_id()) == PID::ZBOSON);
+            passed = (pid == PID::ELECTRON || abs(pp->pdg_id()) == PID::ZBOSON || abs(pp->pdg_id()) == PID::GAMMA);
           }
         } else {
           passed = false;
@@ -56,7 +56,7 @@ namespace Rivet {
     MSG_DEBUG("Number of initial quarks = " << _theParticles.size());
     if (!_theParticles.empty()) {
       for (size_t i = 0; i < _theParticles.size(); i++) {
-        MSG_DEBUG("Initial quark[" << i << "] = " << _theParticles[i].pdgId());
+        MSG_DEBUG("Initial quark[" << i << "] = " << _theParticles[i].pid());
       }
     }
   }

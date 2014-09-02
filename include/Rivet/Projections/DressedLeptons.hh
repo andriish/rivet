@@ -19,7 +19,7 @@ namespace Rivet {
   public:
 
     DressedLepton(const Particle& lepton) :
-      Particle(lepton.pdgId(), lepton.momentum()),
+      Particle(lepton.pid(), lepton.momentum()),
       _constituentLepton(lepton) {}
 
     void addPhoton(const Particle& p, bool cluster) {

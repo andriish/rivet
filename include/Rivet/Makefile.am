@@ -57,10 +57,13 @@ nobase_pkginclude_HEADERS +=   \
   Projections/MissingMomentum.hh \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
+  Projections/ParticleFinder.hh   \
   Projections/ParisiTensor.hh   \
   Projections/PrimaryHadrons.hh \
+  Projections/PromptFinalState.hh \
   Projections/Sphericity.hh \
   Projections/Spherocity.hh \
+  Projections/TauFinder.hh \
   Projections/Thrust.hh \
   Projections/TriggerCDFRun0Run1.hh \
   Projections/TriggerCDFRun2.hh \
@@ -74,6 +77,7 @@ nobase_pkginclude_HEADERS +=   \
 
 ## Analysis base class headers
 nobase_pkginclude_HEADERS += \
+  Analyses/MC_ParticleAnalysis.hh \
   Analyses/MC_JetAnalysis.hh \
   Analyses/MC_JetSplittings.hh
 

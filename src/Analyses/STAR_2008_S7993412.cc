@@ -44,7 +44,7 @@ namespace Rivet {
           int n_associated = 0;
           foreach (const Particle& ap, fs.particles()) {
             if (!inRange(ap.pT()/GeV, 1.5, triggerpT)) continue;
-            if (deltaPhi(tp.momentum().phi(), ap.momentum().phi()) > 1) continue;
+            if (deltaPhi(tp.phi(), ap.phi()) > 1) continue;
             if (fabs(tp.eta() - ap.eta()) > 1.75) continue;
             n_associated += 1;
           }

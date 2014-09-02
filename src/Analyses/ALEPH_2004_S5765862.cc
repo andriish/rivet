@@ -183,7 +183,7 @@ namespace Rivet {
             if(!LEP1) logyn *= log10e;
             for (size_t j = 0; j < _h_R_Durham[i]->numBins(); ++j) {
               double val   = _h_R_Durham[i]->bin(j).xMin();
-              double width = _h_R_Durham[i]->bin(j).width();
+              double width = _h_R_Durham[i]->bin(j).xWidth();
               if(-val<=logynm1) break;
               if(-val<logyn) {
                 _h_R_Durham[i]->fill(val+0.5*width, weight*width);
@@ -193,7 +193,7 @@ namespace Rivet {
           }
           for (size_t j = 0; j < _h_R_Durham[5]->numBins(); ++j) {
             double val   = _h_R_Durham[5]->bin(j).xMin();
-            double width = _h_R_Durham[5]->bin(j).width();
+            double width = _h_R_Durham[5]->bin(j).xWidth();
             if(-val<=logynm1) break;
             _h_R_Durham[5]->fill(val+0.5*width, weight*width);
           }
@@ -211,26 +211,26 @@ namespace Rivet {
         const size_t numParticles = cfs.particles().size();
         _weightedTotalChargedPartNum += numParticles * weight;
         const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-        const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                     beams.second.momentum().vector3().mod() ) / 2.0;
+        const double meanBeamMom = ( beams.first.p3().mod() +
+                                     beams.second.p3().mod() ) / 2.0;
         foreach (const Particle& p, cfs.particles()) {
-          const double xp = p.momentum().vector3().mod()/meanBeamMom;
+          const double xp = p.p3().mod()/meanBeamMom;
           _h_xp->fill(xp   , weight);
           const double logxp = -std::log(xp);
           _h_xi->fill(logxp, weight);
-          const double xe = p.momentum().E()/meanBeamMom;
+          const double xe = p.E()/meanBeamMom;
           _h_xe->fill(xe   , weight);
-          const double pTinT  = dot(p.momentum().vector3(), thrust.thrustMajorAxis());
-          const double pToutT = dot(p.momentum().vector3(), thrust.thrustMinorAxis());
+          const double pTinT  = dot(p.p3(), thrust.thrustMajorAxis());
+          const double pToutT = dot(p.p3(), thrust.thrustMinorAxis());
           _h_pTin->fill(fabs(pTinT/GeV), weight);
           if(_h_pTout) _h_pTout->fill(fabs(pToutT/GeV), weight);
-          const double momT = dot(thrust.thrustAxis()        ,p.momentum().vector3());
-          const double rapidityT = 0.5 * std::log((p.momentum().E() + momT) /
-                                                  (p.momentum().E() - momT));
+          const double momT = dot(thrust.thrustAxis()        ,p.p3());
+          const double rapidityT = 0.5 * std::log((p.E() + momT) /
+                                                  (p.E() - momT));
           _h_rapidityT->fill(fabs(rapidityT), weight);
-          const double momS = dot(sphericity.sphericityAxis(),p.momentum().vector3());
-          const double rapidityS = 0.5 * std::log((p.momentum().E() + momS) /
-                                                  (p.momentum().E() - momS));
+          const double momS = dot(sphericity.sphericityAxis(),p.p3());
+          const double rapidityS = 0.5 * std::log((p.E() + momS) /
+                                                  (p.E() - momS));
           _h_rapidityS->fill(fabs(rapidityS), weight);
         }
       }
@@ -268,8 +268,8 @@ namespace Rivet {
       const double avgNumParts = _weightedTotalChargedPartNum / sumOfWeights();
       Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
       for (size_t b = 0; b < temphisto.numBins(); b++) {
-        const double x  = temphisto.bin(b).midpoint();
-        const double ex = temphisto.bin(b).width()/2.;
+        const double x  = temphisto.bin(b).xMid();
+        const double ex = temphisto.bin(b).xWidth()/2.;
         if (inRange(sqrtS()/GeV, x-ex, x+ex)) {
           mult->addPoint(x, avgNumParts, ex, 0.);
         }

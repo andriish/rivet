@@ -38,10 +38,10 @@ namespace Rivet {
         if (j.eta() > 3.2 || j.eta() < -3.2) {
           _hist_jetpt_fwdincl->fill(j.pT()/GeV, weight);
         }
-        if (fabs(j.eta()) < 2.8) {
+        if (j.abseta() < 2.8) {
           if (cjet_pt < pT) cjet_pt = pT;
         }
-        if (fabs(j.eta()) < 4.7  && fabs(j.eta()) > 3.2) {
+        if (j.abseta() < 4.7  && j.abseta() > 3.2) {
           if (fjet_pt < pT) fjet_pt = pT;
         }
       }

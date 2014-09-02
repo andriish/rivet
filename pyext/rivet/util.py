@@ -1,7 +1,7 @@
 "Python utility functions for use by Rivet scripts (and anyone else who wants to)"
 
 
-def check_python_version(req_version=(2,4,0)):
+def check_python_version(req_version=(2,6,0)):
     "Enforce the Rivet scripts' minimal Python version requirement"
     import sys
     if sys.version_info[:3] < req_version:
@@ -70,6 +70,22 @@ def texify(s):
         .replace(r"#", r"\#") \
         # .replace(r"_", r"\_") \
         # .replace(r"^", r"") \
+    return t
+
+
+def texpand(s):
+    "Expand some physics-specific TeX macros."
+    t = s \
+        .replace(r"\kT", r"\ensuremath{k_\perp}\xspace") \
+        .replace(r"\kt", r"\ensuremath{k_\mathrm{T}}\xspace") \
+        .replace(r"\pT", r"\ensuremath{p_\perp}\xspace") \
+        .replace(r"\pt", r"\ensuremath{p_\mathrm{T}}\xspace") \
+        .replace(r"\sqrts", r"\ensuremath{\sqrt{s}}\xspace") \
+        .replace(r"\sqrtS", r"\ensuremath{\sqrt{s}}\xspace") \
+        .replace(r"\MeV", r"\ensuremath{\text{M\eV}}\xspace") \
+        .replace(r"\GeV", r"\ensuremath{\text{G\eV}}\xspace") \
+        .replace(r"\TeV", r"\ensuremath{\text{T\eV}}\xspace") \
+        .replace(r"\eV", r"\ensuremath{\text{e\kern-0.15ex{}V}}\xspace")
     return t
 
 

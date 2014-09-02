@@ -1,3 +1,213 @@
+2014-08-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add calc() methods to Hemispheres as requested, to allow it to
+	be used with Jet or FourMomentum inputs outside the normal
+	projection system.
+
+2014-08-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improvements to the particles methods on
+	ParticleFinder/FinalState, in particular adding the range of cuts
+	arguments cf. JetAlg (and tweaking the sorted jets equivalent) and
+	returning as a copy rather than a reference if cut/sorted to avoid
+	accidentally messing up the cached copy.
+
+	* Creating ParticleFinder projection base class, and moving
+	Particles-accessing methods from FinalState into it.
+
+	* Adding basic forms of MC_ELECTRONS, MC_MUONS, and MC_TAUS
+	analyses.
+
+2014-08-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version bump to 2.2.0beta1 for use at BOOST and MCnet school.
+
+2014-08-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* New analyses:
+	ATLAS_2014_I1268975 (high mass dijet cross-section at 7 TeV)
+	ATLAS_2014_I1304688 (jet multiplicity and pT at 7 TeV)
+	ATLAS_2014_I1307756 (scalar diphoton resonance search at 8 TeV -- no histograms!)
+	CMSTOTEM_2014_I1294140 (charged particle pseudorapidity at 8 TeV)
+
+2014-08-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding PromptFinalState, based on code submitted by Alex
+	Grohsjean and Will Bell. Thanks!
+
+2014-08-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding MC_HFJETS and MC_JETTAGS analyses.
+
+2014-08-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update all analyses to use the xMin/Max/Mid, xMean, xWidth,
+	etc. methods on YODA classes rather than the deprecated lowEdge
+	etc.
+
+	* Merge new HasPID functor from Holger Schulz into
+	Rivet/Tools/ParticleUtils.hh, mainly for use with the any()
+	function in Rivet/Tools/Utils.hh
+
+2014-08-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ghost tagging of charms, bottoms and taus to FastJets, and
+	tag info accessors to Jet.
+
+	* Add constructors from and cast operators to FastJet's PseudoJet
+	object from Particle and Jet.
+
+	* Convert inRange to not use fuzzy comparisons on closed
+	intervals, providing old version as fuzzyInRange.
+
+2014-07-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove classifier functions accepting a Particle from the PID
+	inner namespace.
+
+2014-07-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* MC_JetAnalysis.cc: re-enable +- ratios for eta and y, now that
+	YODA divide doesn't throw an exception.
+
+	* ATLAS_2012_I1093734: fix a loop index error which led to the
+	first bin value being unfilled for half the dphi plots.
+
+	* Fix accidental passing of a GenParticle pointer as a PID code
+	int in HeavyHadrons.cc. Effect limited to incorrect deductions
+	about excited HF decay chains and should be small. Thanks to
+	Tomasz Przedzinski for finding and reporting the issue during
+	HepMC3 design work!
+
+2014-07-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix to logspace: make sure that start and end values are exact,
+	not the result of exp(log(x)).
+
+2014-07-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix setting of library paths for doc building: Python can't
+	influence the dynamic loader in its own process by setting an
+	environment variable because the loader only looks at the variable
+	once, when it starts.
+
+2014-07-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* rivet-cmphistos now uses the generic yoda.read() function rather
+	than readYODA() -- AIDA files can also be compared and plotted
+	directly now.
+
+2014-06-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add stupid missing <string> include and std:: prefix in Rivet.hh
+
+2014-06-20  Holger Schulz  <hschulz@physik.hu-berlin.de>
+
+	* bin/make-plots: Automatic generation of minor xtick labels if LogX is requested
+	but data resides e.g. in [200, 700]. Fixes m_12 plots of, e.g.
+	ATLAS_2010_S8817804
+
+2014-06-17  David Grellscheid  <David.Grellscheid@durham.ac.uk>
+
+	* pyext/rivet/Makefile.am: 'make distcheck' and out-of-source
+	builds should work now.
+
+2014-06-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix use of the install command for bash completion installation on Macs.
+
+2014-06-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing direct includes of MathUtils.hh and others from analysis code files.
+
+2014-06-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rivet 2.1.2 release!
+
+2014-05-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Using Particle absrap(), abseta() and abspid() where automatic conversion was feasible.
+
+	* Adding a few extra kinematics mappings to ParticleBase.
+
+	* Adding p3() accessors to the 3-momentum on FourMomentum, Particle, and Jet.
+
+	* Using Jet and Particle kinematics methods directly (without momentum()) where possible.
+
+	* More tweaks to make-plots 2D histo parsing behaviour.
+
+2014-05-30  Holger Schulz  <hschulz@physik.hu-berlin.de>
+
+	* Actually fill the XQ 2D histo, .plot decorations.
+
+	* Have make-plots produce colourmaps using YODA_3D_SCATTER
+	objects. Remove the grid in colourmaps.
+
+	* Some tweaks for the SFM analysis, trying to contact Martin Wunsch
+	who did the unfolding back then.
+
+2014-05-29  Holger Schulz  <hschulz@physik.hu-berlin.de>
+
+	* Re-enable 2D histo in MC_PDFS
+
+2014-05-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updating analysis and project routines to use Particle::pid() by
+	preference to Particle::pdgId(), and Particle::abspid() by
+	preference to abs(Particle::pdgId()), etc.
+
+	* Adding interfacing of smart pointer types and booking etc. for
+	YODA 2D histograms and profiles.
+
+	* Improving ParticleIdUtils and ParticleUtils functions based on
+	merging of improved function collections from MCUtils, and
+	dropping the compiled ParticleIdUtils.cc file.
+
+2014-05-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding CMS_2012_I1090423 (dijet angular distributions),
+	CMS_2013_I1256943 (Zbb xsec and angular correlations),
+	CMS_2013_I1261026 (jet and UE properties vs. Nch) and
+	D0_2000_I499943 (bbbar production xsec and angular correlations).
+
+2014-05-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fixing a bug in plot file handling, and adding a texpand()
+	routine to rivet.util, to be used to expand some 'standard'
+	physics TeX macros.
+
+	* Adding ATLAS_2012_I1124167 (min bias event shapes),
+	ATLAS_2012_I1203852 (ZZ cross-section), and ATLAS_2013_I1190187
+	(WW cross-section) analyses.
+
+2014-05-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding any(iterable, fn) and all(iterable, fn) template functions for convenience.
+
+2014-05-15  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Fix some bugs in identified hadron PIDs in OPAL_1998_S3749908.
+
+2014-05-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Writing out [UNVALIDATED], [PRELIMINARY], etc. in the
+	--list-analyses output if analysis is not VALIDATED.
+
+2014-05-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding CMS_2013_I1265659 colour coherence analysis.
+
+2014-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Bug fixes in CMS_2013_I1209721 from Giulio Lenzi.
+
+	* Fixing compiler warnings from clang, including one which
+	indicated a misapplied cut bug in CDF_2006_S6653332.
+
+2014-05-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix missing abs() in Particle::abspid()!!!!
+
 2014-04-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding the namespace protection workaround for Boost described

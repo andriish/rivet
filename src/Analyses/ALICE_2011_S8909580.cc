@@ -34,11 +34,11 @@ namespace Rivet {
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
-        const double absrap = fabs(p.rapidity());
+        const double absrap = p.absrap();
         const double pT = p.pT()/GeV;
 
         if (absrap < 0.8) {
-          switch(p.pdgId()) {
+          switch(p.pid()) {
           case 3312:
           case -3312:
             if ( !( p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {

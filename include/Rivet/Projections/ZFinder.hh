@@ -2,13 +2,7 @@
 #ifndef RIVET_ZFinder_HH
 #define RIVET_ZFinder_HH
 
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Particle.hh"
-#include "Rivet/Event.hh"
-#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/DressedLeptons.hh"
 
 namespace Rivet {
 
@@ -17,6 +11,8 @@ namespace Rivet {
   ///
   /// Chain together different projections as convenience for finding Z's
   /// from two leptons in the final state, including photon clustering.
+  ///
+  /// @todo Inherit directly from ParticleFinder, not FinalState
   class ZFinder : public FinalState {
   public:
 

@@ -3,6 +3,8 @@ SUBDIRS = src pyext data include bin doc test
 
 EXTRA_DIST = GUIDELINES
 
+DISTCHECK_CONFIGURE_FLAGS = --enable-debug --with-yoda=$(YODAPATH) --with-hepmc=$(HEPMCPATH) --with-fastjet=$(FASTJETPATH)
+
 pkgconfigdir = $(libdir)/pkgconfig
 dist_pkgconfig_DATA = rivet.pc
 

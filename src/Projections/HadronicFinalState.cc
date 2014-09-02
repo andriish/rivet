@@ -10,7 +10,7 @@ namespace Rivet {
 
 
   bool hadronFilter(const Particle& p) {
-    return ! PID::isHadron(p.pdgId());
+    return ! PID::isHadron(p.pid());
   }
 
 

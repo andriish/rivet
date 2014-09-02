@@ -74,7 +74,7 @@ namespace Rivet {
         // Decide empirically if this is a "hard" or "diffractive" event
         bool ishardEvt = false;
         foreach (const Particle& p, ffs.particles()) {
-          if (p.momentum().pT() > 3.0*GeV) { ishardEvt = true; break; }
+          if (p.pT() > 3.0*GeV) { ishardEvt = true; break; }
         }
         // Decide empirically if this is a "diffractive" event
         /// @todo Can be "diffractive" *and* "hard"?
@@ -87,8 +87,8 @@ namespace Rivet {
 
         // Plot energy flow
         foreach (const Particle& p, ffs.particles()) {
-          const double eta = p.momentum().eta();
-          const double energy = p.momentum().E();
+          const double eta = p.eta();
+          const double energy = p.E();
           _tp_totEF_minbias->fill(eta, energy, weight);
           _th_totN_minbias->fill(eta, weight);
           if (ishardEvt) {
@@ -110,7 +110,7 @@ namespace Rivet {
       {
         bool ishardEvt = false;
         foreach (const Particle& p, fcfs.particles()) {
-          if (p.momentum().pT() > 3.0*GeV) { ishardEvt = true; break; }
+          if (p.pT() > 3.0*GeV) { ishardEvt = true; break; }
         }
         // Decide empirically if this is a "diffractive" event
         /// @todo Can be "diffractive" *and* "hard"?
@@ -123,8 +123,8 @@ namespace Rivet {
 
         // Plot energy flow
         foreach (const Particle& p, fcfs.particles()) {
-          const double eta = p.momentum().eta();
-          const double energy = p.momentum().E();
+          const double eta = p.eta();
+          const double energy = p.E();
           _tp_chEF_minbias->fill(eta, energy, weight);
           _th_chN_minbias->fill(eta, weight);
           if (ishardEvt) {

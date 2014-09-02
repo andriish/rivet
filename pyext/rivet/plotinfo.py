@@ -1,11 +1,12 @@
 import os, re
+from .util import texpand
 
 class PlotParser(object):
 #class PlotStyler(object) or class PlotInfo(object):
     """Reads Rivet's .plot files and determines which attributes to apply to each histo path."""
 
-    pat_begin_block = re.compile('^#+ BEGIN ([A-Z0-9_]+) ?(\S+)?')
-    pat_end_block =   re.compile('^#+ END ([A-Z0-9_]+)')
+    pat_begin_block = re.compile('^#*\s*BEGIN ([A-Z0-9_]+) ?(\S+)?')
+    pat_end_block =   re.compile('^#*\s*END ([A-Z0-9_]+)')
     pat_comment = re.compile('^#|^\s*$')
     pat_property = re.compile('^(\w+?)=(.*)$')
     pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
@@ -58,60 +59,68 @@ class PlotParser(object):
             raise ValueError("Can't parse section \'%s\'" % section)
 
         ## Decompose the histo path and remove the /REF prefix if necessary
-        parts = hpath.split("/")
-        if parts[1] == "REF":
-            del parts[1]
-            hpath = "/".join(parts)
-        if len(parts) != 3:
-            raise ValueError("hpath '%s' has wrong number of parts (%i) -- should be 3" % (hpath, len(parts)))
+        parts = hpath.strip('/').split('/')
+        #if len(parts[0]) == 0:
+        #    del parts[0]
+        if parts[0] == "REF":
+            del parts[0]
+        if not parts:
+            raise ValueError("Found empty histo path (or equal to /REF). Shouldn't be posible...")
+        # if len(parts) == 1:
+        #     parts.insert(0, "ANALYSIS")
+        hpath = "/" + "/".join(parts[-2:])
 
         ## Assemble the list of headers from any matching plotinfo paths and additional style files
-        base = parts[1] + ".plot"
+        base = parts[0] + ".plot"
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
             plotfile = os.path.join(pidir, base)
-            self.readHeadersFromFile(plotfile, ret, section, hpath)
+            #print plotfile
+            self._readHeadersFromFile(plotfile, ret, section, hpath)
             ## Don't break here: we can collect settings from multiple .plot files
             # TODO: So the *last* path wins? Hmm... reverse the loop order?
+        # TODO: Also, is it good that the user-specific extra files override the official ones? Depends on the point of the extra files...
         for extrafile in self.addfiles:
-            self.readHeadersFromFile(extrafile, ret, section, hpath)
+            self._readHeadersFromFile(extrafile, ret, section, hpath)
         return ret[section]
 
 
-    def readHeadersFromFile(self, plotfile, ret, section, hpath):
+    def _readHeadersFromFile(self, plotfile, ret, section, hpath):
         """Get a section for a histogram from a .plot file."""
-        if os.access(plotfile, os.R_OK):
-            startreading = False
-            f = open(plotfile)
-            for line in f:
-                m = self.pat_begin_block.match(line)
-                if m:
-                    tag, pathpat = m.group(1,2)
-                    # pathpat could be a regex
-                    if not self.pat_paths.has_key(pathpat):
-                        self.pat_paths[pathpat] = re.compile(pathpat)
-                    if tag == section:
-                        if self.pat_paths[pathpat].match(hpath):
-                            startreading = True
-                            if section in ['SPECIAL']:
-                                ret[section] = ''
-                            continue
-                if not startreading:
-                    continue
-                if self.isEndMarker(line, section):
-                    startreading = False
-                    continue
-                elif self.isComment(line):
-                    continue
-                if section in ['PLOT', 'HISTOGRAM']:
-                    vm = self.pat_property.match(line)
-                    if vm:
-                        prop, value = vm.group(1,2)
-                        #print prop, value
-                        ret[section][prop] = value
-                elif section in ['SPECIAL']:
-                    ret[section] += line
-            f.close()
+        if not os.access(plotfile, os.R_OK):
+            return
+        startreading = False
+        f = open(plotfile)
+        for line in f:
+            m = self.pat_begin_block.match(line)
+            if m:
+                tag, pathpat = m.group(1,2)
+                #print tag, pathpat
+                # pathpat could be a regex
+                if not self.pat_paths.has_key(pathpat):
+                    self.pat_paths[pathpat] = re.compile(pathpat)
+                if tag == section:
+                    if self.pat_paths[pathpat].match(hpath):
+                        startreading = True
+                        if section in ['SPECIAL']:
+                            ret[section] = ''
+                        continue
+            if not startreading:
+                continue
+            if self.isEndMarker(line, section):
+                startreading = False
+                continue
+            elif self.isComment(line):
+                continue
+            if section in ['PLOT', 'HISTOGRAM']:
+                vm = self.pat_property.match(line)
+                if vm:
+                    prop, value = vm.group(1,2)
+                    #print prop, value
+                    ret[section][prop] = texpand(value)
+            elif section in ['SPECIAL']:
+                ret[section] += line
+        f.close()
 
 
     def getHeaders(self, hpath):

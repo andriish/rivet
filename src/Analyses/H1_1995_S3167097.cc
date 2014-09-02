@@ -72,7 +72,7 @@ namespace Rivet {
 
       for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {
         const double rap = fs.particles()[i].rapidity();
-        const double et = fs.particles()[i].momentum().Et();
+        const double et = fs.particles()[i].Et();
         _hEtFlow[ibin]->fill(rap, weight * et/GeV);
       }
 

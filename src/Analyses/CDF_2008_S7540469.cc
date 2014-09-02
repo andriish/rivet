@@ -62,8 +62,8 @@ namespace Rivet {
           if (mZ < 66.0 || mZ > 116.0) {
             candidate = false;
           }
-          double abs_eta_0 = fabs(all_els[i].momentum().pseudorapidity());
-          double abs_eta_1 = fabs(all_els[j].momentum().pseudorapidity());
+          double abs_eta_0 = fabs(all_els[i].eta());
+          double abs_eta_1 = fabs(all_els[j].eta());
           if (abs_eta_1 < abs_eta_0) {
             double tmp = abs_eta_0;
             abs_eta_0 = abs_eta_1;
@@ -90,16 +90,16 @@ namespace Rivet {
       Particles jetparts;
       foreach (const Particle& p, fs.particles()) {
         bool copy = true;
-        if (p.pdgId() == PID::PHOTON) {
+        if (p.pid() == PID::PHOTON) {
           FourMomentum p_e0 = Z_candidates[0].first.momentum();
           FourMomentum p_e1 = Z_candidates[0].second.momentum();
           FourMomentum p_P = p.momentum();
-          if (deltaR(p_e0.pseudorapidity(), p_e0.azimuthalAngle(),
-                     p_P.pseudorapidity(), p_P.azimuthalAngle()) < 0.2) {
+          if (deltaR(p_e0.eta(), p_e0.phi(),
+                     p_P.eta(), p_P.phi()) < 0.2) {
             copy = false;
           }
-          if (deltaR(p_e1.pseudorapidity(), p_e1.azimuthalAngle(),
-                     p_P.pseudorapidity(), p_P.azimuthalAngle()) < 0.2) {
+          if (deltaR(p_e1.eta(), p_e1.phi(),
+                     p_P.eta(), p_P.phi()) < 0.2) {
             copy = false;
           }
         } else {
@@ -120,7 +120,7 @@ namespace Rivet {
       const Jets& jets = jetpro.jets();
       Jets jets_cut;
       foreach (const Jet& j, jets) {
-        if (j.pT()/GeV > 30.0 && fabs(j.momentum().pseudorapidity()) < 2.1) {
+        if (j.pT()/GeV > 30.0 && j.abseta() < 2.1) {
           jets_cut.push_back(j);
         }
       }
@@ -138,13 +138,13 @@ namespace Rivet {
       // cut on Delta R between jet and electrons
       foreach (const Jet& j, jets_cut) {
         Particle el = Z_candidates[0].first;
-        if (deltaR(el.momentum().pseudorapidity(), el.momentum().azimuthalAngle(),
-                   j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.7) {
+        if (deltaR(el.eta(), el.phi(),
+                   j.eta(), j.phi()) < 0.7) {
           vetoEvent;
         }
         el = Z_candidates[0].second;
-        if (deltaR(el.momentum().pseudorapidity(), el.momentum().azimuthalAngle(),
-                   j.momentum().pseudorapidity(), j.momentum().azimuthalAngle()) < 0.7) {
+        if (deltaR(el.eta(), el.phi(),
+                   j.eta(), j.phi()) < 0.7) {
           vetoEvent;
         }
       }

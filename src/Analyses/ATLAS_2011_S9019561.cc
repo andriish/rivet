@@ -153,10 +153,10 @@ namespace Rivet {
         }
         // Electron isolation criterion
         if ( ! e_near_jet ) {
-          double EtinCone = -e.momentum().Et();
+          double EtinCone = -e.Et();
           foreach ( const Particle & track, chg_tracks) {
             if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
-              EtinCone += track.momentum().Et();
+              EtinCone += track.Et();
           }
           if ( EtinCone/e.pT() <= 0.15 )
             recon_e.push_back( e );
@@ -209,7 +209,7 @@ namespace Rivet {
       if (recon_e.size() == 2 ) {
 
         // SS ee
-        if ( recon_e[0].pdgId() * recon_e[1].pdgId() > 0 ) {
+        if ( recon_e[0].pid() * recon_e[1].pid() > 0 ) {
           _hist_eTmiss_SS->fill(eTmiss, weight);
           if ( eTmiss > 100 ) {
             MSG_DEBUG("Hits SS e+/-e+/-");
@@ -218,7 +218,7 @@ namespace Rivet {
         }
 
         // OS ee
-        else if ( recon_e[0].pdgId() * recon_e[1].pdgId() < 0) {
+        else if ( recon_e[0].pid() * recon_e[1].pid() < 0) {
           _hist_eTmiss_OS->fill(eTmiss, weight);
           if ( eTmiss > 150 ) {
             MSG_DEBUG("Hits OS e+e-");
@@ -232,7 +232,7 @@ namespace Rivet {
       else if ( recon_e.size() == 1 ) {
 
         // SS mu_e
-        if ( recon_e[0].pdgId() * recon_mu[0].pdgId() > 0 ) {
+        if ( recon_e[0].pid() * recon_mu[0].pid() > 0 ) {
           _hist_eTmiss_SS->fill(eTmiss, weight);
           if ( eTmiss > 100 ) {
             MSG_DEBUG("Hits SS e+/-mu+/-");
@@ -241,7 +241,7 @@ namespace Rivet {
         }
 
         // OS mu_e
-        else if ( recon_e[0].pdgId() * recon_mu[0].pdgId() < 0) {
+        else if ( recon_e[0].pid() * recon_mu[0].pid() < 0) {
           _hist_eTmiss_OS->fill(eTmiss, weight);
           if ( eTmiss > 150 ) {
             MSG_DEBUG("Hits OS e+mu-");
@@ -255,7 +255,7 @@ namespace Rivet {
       else if ( recon_mu.size() == 2 ) {
 
         // SS mu_mu
-        if ( recon_mu[0].pdgId() * recon_mu[1].pdgId() > 0 ) {
+        if ( recon_mu[0].pid() * recon_mu[1].pid() > 0 ) {
           _hist_eTmiss_SS->fill(eTmiss, weight);
           if ( eTmiss > 100 ) {
             MSG_DEBUG("Hits SS mu+/-mu+/-");
@@ -264,7 +264,7 @@ namespace Rivet {
         }
 
         // OS mu_mu
-        else if ( recon_mu[0].pdgId() * recon_mu[1].pdgId() < 0) {
+        else if ( recon_mu[0].pid() * recon_mu[1].pid() < 0) {
           _hist_eTmiss_OS->fill(eTmiss, weight);
           if ( eTmiss > 150 ) {
             MSG_DEBUG("Hits OS mu+mu-");

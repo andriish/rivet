@@ -25,7 +25,7 @@ namespace Rivet {
       // Z finders for electrons and muons
       Cut cuts = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
       const ZFinder zfe(fs, cuts, PID::ELECTRON, 71*GeV, 111*GeV);
-      const ZFinder zfm(fs, cuts, PID::ELECTRON, 71*GeV, 111*GeV);
+      const ZFinder zfm(fs, cuts, PID::MUON,     71*GeV, 111*GeV);
       addProjection(zfe, "ZFE");
       addProjection(zfm, "ZFM");
       // Jets
@@ -34,15 +34,15 @@ namespace Rivet {
 
       // Book histograms from data
       for (size_t i = 0; i < 2; ++i) {
-        _histDeltaPhiZJ1_1[i]  = bookHisto1D(1, 1, 1);
-        _histDeltaPhiZJ1_2[i]  = bookHisto1D(2, 1, 1);
-        _histDeltaPhiZJ1_3[i]  = bookHisto1D(4, 1, 1);
-        _histDeltaPhiZJ2_3[i]  = bookHisto1D(5, 1, 1);
-        _histDeltaPhiZJ3_3[i]  = bookHisto1D(3, 1, 1);
-        _histDeltaPhiJ1J2_3[i] = bookHisto1D(6, 1, 1);
-        _histDeltaPhiJ1J3_3[i] = bookHisto1D(7, 1, 1);
-        _histDeltaPhiJ2J3_3[i] = bookHisto1D(8, 1, 1);
-        _histTransvThrust[i]   = bookHisto1D(9, 1, 1);
+        _histDeltaPhiZJ1_1[i]  = bookHisto1D(1+i*9, 1, 1);
+        _histDeltaPhiZJ1_2[i]  = bookHisto1D(2+i*9, 1, 1);
+        _histDeltaPhiZJ1_3[i]  = bookHisto1D(4+i*9, 1, 1);
+        _histDeltaPhiZJ2_3[i]  = bookHisto1D(5+i*9, 1, 1);
+        _histDeltaPhiZJ3_3[i]  = bookHisto1D(3+i*9, 1, 1);
+        _histDeltaPhiJ1J2_3[i] = bookHisto1D(6+i*9, 1, 1);
+        _histDeltaPhiJ1J3_3[i] = bookHisto1D(7+i*9, 1, 1);
+        _histDeltaPhiJ2J3_3[i] = bookHisto1D(8+i*9, 1, 1);
+        _histTransvThrust[i]   = bookHisto1D(9+i*9, 1, 1);
       }
     }
 
@@ -60,7 +60,7 @@ namespace Rivet {
       const ParticleVector& leptons = !zfm.empty() ? zfm.constituents() : zfe.constituents();
 
       // Determine whether we are in the boosted regime
-      const bool is_boosted = (z[0].momentum().pT() > 150*GeV);
+      const bool is_boosted = (z[0].pT() > 150*GeV);
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
@@ -87,14 +87,19 @@ namespace Rivet {
       // Collect Z and jets transverse momenta to calculate transverse thrust
       vector<Vector3> momenta;
       momenta.clear();
-      Vector3 mom = z[0].momentum().p();
+      Vector3 mom = z[0].p3();
       mom.setZ(0);
       momenta.push_back(mom);
 
       for (size_t i = 0; i < cleanedJets.size(); ++i) {
-        Vector3 mj = cleanedJets[i]->momentum().vector3();
+        Vector3 mj = cleanedJets[i]->momentum().p3();
         mj.setZ(0);
         momenta.push_back(mj);
+      }
+
+      if (momenta.size() <= 2){
+        // We need to use a ghost so that Thrust.calc() doesn't return 1.
+        momenta.push_back(Vector3(0.0000001,0.0000001,0.));
       }
 
       // Define a macro to appropriately fill both unboosted and boosted histo versions

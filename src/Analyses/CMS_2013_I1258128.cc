@@ -63,7 +63,7 @@ namespace Rivet {
       const ParticleVector& clusteredConstituents = (!zfm.empty()) ? zfm.constituents() : zfe.constituents();
 
       // Insist that the Z is in a high-pT (boosted) regime
-      if (z[0].momentum().pT() < 40*GeV) return;
+      if (z[0].pT() < 40*GeV) return;
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
@@ -87,7 +87,7 @@ namespace Rivet {
 
       // Fill histos
       const double weight = event.weight();
-      const double yz = z[0].momentum().rapidity();
+      const double yz = z[0].rapidity();
       const double yjet = cleanedJets[0]->momentum().rapidity();
       _hist1YZ->fill(fabs(yz), weight);
       _hist1YJet->fill(fabs(yjet), weight);
@@ -101,8 +101,8 @@ namespace Rivet {
         const FinalState& photonfs = applyProjection<FinalState>(event, "LeadingPhoton");
         if (photonfs.particles().size() < 1) return;
         const Particle& photon = photonfs.particles().front();
-        if (photon.momentum().pT() < 40*GeV) return;
-        if (fabs(photon.momentum().eta()) > 1.4442 ) return;
+        if (photon.pT() < 40*GeV) return;
+        if (fabs(photon.eta()) > 1.4442 ) return;
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
@@ -112,14 +112,14 @@ namespace Rivet {
       // Clean the jets against the photon candidate with a DeltaR cut of 0.5
       std::vector<const Jet*> cleanedJets;
       foreach (const Jet& j, jets)
-        if (deltaR(photon.momentum(), j.momentum()) < 0.5)
+        if (deltaR(photon.momentum(), j.momentum()) > 0.5)
           cleanedJets.push_back(&j);
       // Require exactly 1 jet
       if (cleanedJets.size() != 1) return;
 
       // Fill histos
       const double weight = event.weight();
-      const double ypho = photon.momentum().rapidity();
+      const double ypho = photon.rapidity();
       const double yjet = cleanedJets[0]->momentum().rapidity();
       _hist2YPhoton->fill(fabs(ypho), weight);
       _hist2YJet->fill(fabs(yjet), weight);
@@ -150,7 +150,7 @@ namespace Rivet {
     // is equal to 1. This function normalizes to area = area*bin_width.  /
     // @note This is a strange definition... why?
     void normalizeByContents(Histo1DPtr h) {
-      normalize(h, h->bin(0).width());
+      normalize(h, h->bin(0).xWidth());
     }
 
 

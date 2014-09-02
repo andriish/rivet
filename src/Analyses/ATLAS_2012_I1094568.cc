@@ -105,7 +105,7 @@ namespace Rivet {
 
 
     void initializePlots(ATLAS_2012_I1094568_Plots& plots) {
-      const string vetoPt_Q0_name = "vetoJetPt_Q0_" + to_str(plots.region_index);
+      const string vetoPt_Q0_name = "TMP/vetoJetPt_Q0_" + to_str(plots.region_index);
       plots.vetoJetPt_Q0 = 0.0;
       plots._h_vetoJetPt_Q0   = bookHisto1D(vetoPt_Q0_name, 200, 0.0, 1000.0);
       plots._d_gapFraction_Q0 = bookScatter2D(plots.region_index, 1, 1);
@@ -114,7 +114,7 @@ namespace Rivet {
         plots._d_gapFraction_Q0->addPoint(p);
       }
 
-      const string vetoPt_Qsum_name = "vetoJetPt_Qsum_" + to_str(plots.region_index);
+      const string vetoPt_Qsum_name = "TMP/vetoJetPt_Qsum_" + to_str(plots.region_index);
       plots._h_vetoJetPt_Qsum   = bookHisto1D(vetoPt_Qsum_name, 200, 0.0, 1000.0);
       plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, 2, 1);
       plots.vetoJetPt_Qsum = 0.0;
@@ -141,7 +141,7 @@ namespace Rivet {
       // Keep any jets that pass the initial rapidity cut
       vector<const Jet*> central_jets;
       foreach(const Jet& j, jets) {
-        if (fabs(j.rapidity()) < 2.4) central_jets.push_back(&j);
+        if (j.absrap() < 2.4) central_jets.push_back(&j);
       }
 
       // For each of the jets that pass the rapidity cut, only keep those that are not
@@ -218,7 +218,7 @@ namespace Rivet {
       // We want exactly 2 electrons...
       if (elecFS.size() == 2) {
         // ... with opposite sign charges.
-        if (PID::charge(elecFS[0]) != PID::charge(elecFS[1])) {
+        if (charge(elecFS[0]) != charge(elecFS[1])) {
           // Check the MET
           if (MET >= 40*GeV) {
             // Do some dilepton mass cuts
@@ -242,7 +242,7 @@ namespace Rivet {
       // So we now want 2 good muons...
       if (muonFS.size() == 2) {
         // ...with opposite sign charges.
-        if (PID::charge(muonFS.at(0)) != PID::charge(muonFS.at(1))) {
+        if (charge(muonFS[0]) != charge(muonFS[1])) {
           // Check the MET
           if (MET >= 40*GeV) {
             // and do some di-muon mass cuts
@@ -266,7 +266,7 @@ namespace Rivet {
       // We want exactly 1 electron and 1 muon
       if (elecFS.size() == 1 && muonFS.size() == 1) {
         // With opposite sign charges
-        if (PID::charge(elecFS.at(0)) != PID::charge(muonFS.at(0))) {
+        if (charge(elecFS[0]) != charge(muonFS[0])) {
           // Calculate HT: scalar sum of the pTs of the leptons and all good jets
           double HT = 0;
           HT += elecFS[0].pT();
@@ -347,7 +347,6 @@ namespace Rivet {
 
        ++fgap_point;
      }
-     /// @todo Delete vetoPt temp histos: use /TMP system
     }
 
 

@@ -40,8 +40,8 @@ namespace Rivet {
       const double weight = e.weight();
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       int flavour = 0;
       const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
@@ -50,24 +50,24 @@ namespace Rivet {
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       Particles quarks;
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = iqf.particles().front().abspid();
         quarks = iqf.particles();
       }
       else {
         map<int, Particle > quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap.find(p.pdgId())==quarkmap.end())
-            quarkmap[p.pdgId()] = p;
-          else if (quarkmap[p.pdgId()].momentum().E() < p.momentum().E())
-            quarkmap[p.pdgId()] = p;
+          if (quarkmap.find(p.pid())==quarkmap.end())
+            quarkmap[p.pid()] = p;
+          else if (quarkmap[p.pid()].E() < p.E())
+            quarkmap[p.pid()] = p;
         }
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
           double energy(0.);
           if(quarkmap.find( i)!=quarkmap.end())
-            energy += quarkmap[ i].momentum().E();
+            energy += quarkmap[ i].E();
           if(quarkmap.find(-i)!=quarkmap.end())
-            energy += quarkmap[-i].momentum().E();
+            energy += quarkmap[-i].E();
           if (energy > maxenergy) flavour = i;
         }
         if(quarkmap.find( flavour)!=quarkmap.end())
@@ -75,6 +75,7 @@ namespace Rivet {
         if(quarkmap.find(-flavour)!=quarkmap.end())
           quarks.push_back(quarkmap[-flavour]);
       }
+
       // total multiplicities
       switch (flavour) {
       case PID::DQUARK:
@@ -96,16 +97,16 @@ namespace Rivet {
       Vector3 axis = applyProjection<Thrust>(e, "Thrust").thrustAxis();
       double dot(0.);
       if(!quarks.empty()) {
-        dot = quarks[0].momentum().vector3().dot(axis);
-        if(quarks[0].pdgId()<0) dot *= -1.;
+        dot = quarks[0].p3().dot(axis);
+        if(quarks[0].pid()<0) dot *= -1.;
       }
       // spectra and individual multiplicities
       foreach (const Particle& p, fs.particles()) {
-        double pcm = p.momentum().vector3().mod();
+        double pcm = p.p3().mod();
         const double xp = pcm/meanBeamMom;
 
         // if in quark or antiquark hemisphere
-        bool quark = p.momentum().vector3().dot(axis)*dot>0.;
+        bool quark = p.p3().dot(axis)*dot>0.;
 
         _h_PCharged ->fill(pcm     , weight);
         // all charged
@@ -123,7 +124,7 @@ namespace Rivet {
           break;
         }
 
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {
           _h_XpPiPlus->fill(xp, weight);
@@ -134,7 +135,7 @@ namespace Rivet {
           case PID::SQUARK:
             _h_XpPiPlusL->fill(xp, weight);
             _h_NPiPlusL->fill(sqrtS(), weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RPiPlus->fill(xp, weight);
             else
               _h_RPiMinus->fill(xp, weight);
@@ -158,7 +159,7 @@ namespace Rivet {
           case PID::SQUARK:
             _h_XpKPlusL->fill(xp, weight);
             _h_NKPlusL->fill(sqrtS(), weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RKPlus->fill(xp, weight);
             else
               _h_RKMinus->fill(xp, weight);
@@ -182,7 +183,7 @@ namespace Rivet {
           case PID::SQUARK:
             _h_XpProtonL->fill(xp, weight);
             _h_NProtonL->fill(sqrtS(), weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RProton->fill(xp, weight);
             else
               _h_RPBar  ->fill(xp, weight);
@@ -248,8 +249,8 @@ namespace Rivet {
 
       // Ratios: used as target of divide() later
       _s_PiM_PiP  = bookScatter2D(9, 1, 3);
-	  _s_KM_KP	  = bookScatter2D(10, 1, 3);
-	  _s_Pr_PBar  = bookScatter2D(11, 1, 3);
+      _s_KM_KP	  = bookScatter2D(10, 1, 3);
+      _s_Pr_PBar  = bookScatter2D(11, 1, 3);
 
     }
 
@@ -263,10 +264,10 @@ namespace Rivet {
       const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
       const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
       bookScatter2D(8, 2, 1, true)->point(0).setY(avgNumPartsLight);
-	  bookScatter2D(8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
-	  bookScatter2D(8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
-	  bookScatter2D(8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
-	  bookScatter2D(8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      bookScatter2D(8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
+      bookScatter2D(8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
+      bookScatter2D(8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      bookScatter2D(8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
 
       // Do divisions
       divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);
@@ -312,6 +313,11 @@ namespace Rivet {
       scale(_h_RKMinus,  1./_weightLight);
       scale(_h_RProton,  1./_weightLight);
       scale(_h_RPBar,    1./_weightLight);
+
+      // convert ratio to %
+      _s_PiM_PiP->scale(1.,100.);
+      _s_KM_KP  ->scale(1.,100.);
+      _s_Pr_PBar->scale(1.,100.);
     }
 
     //@}

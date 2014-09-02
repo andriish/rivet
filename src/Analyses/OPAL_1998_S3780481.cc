@@ -44,8 +44,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       int flavour = 0;
@@ -55,12 +55,12 @@ namespace Rivet {
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
       /// @todo Yuck... does this *really* have to be quark-based?!?
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = iqf.particles().front().abspid();
       } else {
         map<int, double> quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap[p.pdgId()] < p.momentum().E()) {
-            quarkmap[p.pdgId()] = p.momentum().E();
+          if (quarkmap[p.pid()] < p.E()) {
+            quarkmap[p.pid()] = p.E();
           }
         }
         double maxenergy = 0.;
@@ -86,11 +86,11 @@ namespace Rivet {
       }
 
       foreach (const Particle& p, fs.particles()) {
-        const double xp = p.momentum().vector3().mod()/meanBeamMom;
+        const double xp = p.p3().mod()/meanBeamMom;
         const double logxp = -std::log(xp);
         _histXpall->fill(xp, weight);
         _histLogXpall->fill(logxp, weight);
-        _histMultiChargedall->fill(_histMultiChargedall->bin(0).midpoint(), weight);
+        _histMultiChargedall->fill(_histMultiChargedall->bin(0).xMid(), weight);
         switch (flavour) {
           /// @todo Use PDG code enums
         case PID::DQUARK:
@@ -98,17 +98,17 @@ namespace Rivet {
         case PID::SQUARK:
           _histXpuds->fill(xp, weight);
           _histLogXpuds->fill(logxp, weight);
-          _histMultiChargeduds->fill(_histMultiChargeduds->bin(0).midpoint(), weight);
+          _histMultiChargeduds->fill(_histMultiChargeduds->bin(0).xMid(), weight);
           break;
         case PID::CQUARK:
           _histXpc->fill(xp, weight);
           _histLogXpc->fill(logxp, weight);
-          _histMultiChargedc->fill(_histMultiChargedc->bin(0).midpoint(), weight);
+          _histMultiChargedc->fill(_histMultiChargedc->bin(0).xMid(), weight);
           break;
         case PID::BQUARK:
           _histXpb->fill(xp, weight);
           _histLogXpb->fill(logxp, weight);
-          _histMultiChargedb->fill(_histMultiChargedb->bin(0).midpoint(), weight);
+          _histMultiChargedb->fill(_histMultiChargedb->bin(0).xMid(), weight);
           break;
         }
       }

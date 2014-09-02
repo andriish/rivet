@@ -145,8 +145,8 @@ namespace Rivet {
       // discard jets that overlap with electrons
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
-        if(fabs(jet.eta())>2.5||
-           jet.momentum().perp()<20.) continue;
+        if(jet.abseta()>2.5||
+           jet.perp()<20.) continue;
 	bool away_from_e = true;
 	foreach ( const Particle & e, cand_e ) {
 	  if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
@@ -166,27 +166,27 @@ namespace Rivet {
       if(leptons.size() !=2) vetoEvent;
 
       // hardest lepton pT greater the 25 (20) e(mu)
-      if( (abs(leptons[0].pdgId())==PID::ELECTRON && leptons[0].momentum().perp()<25.) ||
-	  (abs(leptons[0].pdgId())==PID::ELECTRON && leptons[0].momentum().perp()<20.))
+      if( (leptons[0].abspid()==PID::ELECTRON && leptons[0].perp()<25.) ||
+	  (leptons[0].abspid()==PID::ELECTRON && leptons[0].perp()<20.))
 	vetoEvent;
 
       // require opposite sign
-      if(leptons[0].pdgId()*leptons[1].pdgId()>0) vetoEvent;
+      if(leptons[0].pid()*leptons[1].pid()>0) vetoEvent;
 
       // and invariant mass > 20
       double mll = (leptons[0].momentum()+leptons[1].momentum()).mass();
       if(mll<20.) vetoEvent;
 
       // two jets 1st pT > 50 and second pT> 25
-      if(recon_jets.size()<2 || recon_jets[0].momentum().perp()<50. ||
-	 recon_jets[1].momentum().perp()<25.) vetoEvent;
+      if(recon_jets.size()<2 || recon_jets[0].perp()<50. ||
+	 recon_jets[1].perp()<25.) vetoEvent;
 
       // calculate mT2
       double m_T2 = mT2::mT2( leptons[0].momentum(),leptons[1].momentum(),
 			      pTmiss,0.0 ); // zero mass invisibles
 
       // same flavour region
-      if(leptons[0].pdgId()==-leptons[1].pdgId()) {
+      if(leptons[0].pid()==-leptons[1].pid()) {
 	// remove Z region
 	if(mll>71.&&mll<111.) vetoEvent;
 	// require at least 1 b jet

@@ -50,7 +50,7 @@ namespace Rivet {
       foreach (const Particle& p, ufs.particles()) {
         double dphi = deltaPhi(p, p_lead);
         double pT = p.pT();
-        const PdgId id = abs(p.pdgId());
+        const PdgId id = p.abspid();
 
         if (dphi > PI/3. && dphi < 2./3.*PI) {
           if (id == 310 && pT > 0.6*GeV) {

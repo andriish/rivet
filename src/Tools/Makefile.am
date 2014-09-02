@@ -6,7 +6,6 @@ libRivetTools_la_SOURCES = \
   RivetPaths.cc \
   binreloc.c \
   Utils.cc \
-  ParticleIdUtils.cc \
   mt2_bisect.cc \
   RivetMT2.cc \
   BinnedHistogram.cc

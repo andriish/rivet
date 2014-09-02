@@ -7,6 +7,7 @@ namespace Rivet {
 
 
   /// Generic analysis looking at various distributions of final state particles
+  /// @todo Rename as MC_HADRONS
   class MC_IDENTIFIED : public Analysis {
   public:
 
@@ -55,15 +56,15 @@ namespace Rivet {
       // Charged + neutral final state PIDs
       const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
       foreach (const Particle& p, cnfs.particles()) {
-        _histStablePIDs->fill(abs(p.pdgId()), weight);
+        _histStablePIDs->fill(p.abspid(), weight);
       }
 
       // Unstable PIDs and identified particle eta spectra
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {
-        _histDecayedPIDs->fill(p.pdgId(), weight);
-        const double eta_abs = fabs(p.eta());
-        const PdgId pid = abs(p.pdgId()); //if (PID::isMeson(pid) && PID::hasStrange()) {
+        _histDecayedPIDs->fill(p.pid(), weight);
+        const double eta_abs = p.abseta();
+        const PdgId pid = p.abspid(); //if (PID::isMeson(pid) && PID::hasStrange()) {
         if (pid == 211 || pid == 111) _histEtaPi->fill(eta_abs, weight);
         else if (pid == 321 || pid == 130 || pid == 310) _histEtaK->fill(eta_abs, weight);
         else if (pid == 3122) _histEtaLambda->fill(eta_abs, weight);

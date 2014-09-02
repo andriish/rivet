@@ -53,7 +53,7 @@ namespace Rivet {
       double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jetsByEt()) {
-        double Et = jet.momentum().Et();
+        double Et = jet.Et();
         if (Et > 20.0*GeV) {
           jets.push_back(jet);
           sumEt += Et;

@@ -206,7 +206,7 @@ namespace Rivet {
       int Njets = 0;
       double pTmiss_phi = pTmiss.phi();
       foreach ( const Jet& jet, recon_jets ) {
-	if ( fabs(jet.eta()) < 2.8 )
+	if ( jet.abseta() < 2.8 )
 	  Njets+=1;
       }
       if ( Njets < 3 ) {
@@ -225,7 +225,7 @@ namespace Rivet {
       }
 
       for ( int i = 0; i < 3; ++i ) {
-	double dPhi = deltaPhi( pTmiss_phi, recon_jets[i].momentum().phi() );
+	double dPhi = deltaPhi( pTmiss_phi, recon_jets[i].phi() );
 	if ( dPhi <= 0.2 ) {
 	  MSG_DEBUG("dPhi too small");
 	  vetoEvent;
@@ -252,22 +252,22 @@ namespace Rivet {
       double mu_id = 13;
 
       // one hard leading lepton cut
-      if ( fabs(lepton[0].pdgId()) == e_id &&
+      if ( lepton[0].abspid() == e_id &&
            lepton[0].pT() <= 25*GeV ) {
 	vetoEvent;
       }
-      else if ( fabs(lepton[0].pdgId()) == mu_id &&
+      else if ( lepton[0].abspid() == mu_id &&
                 lepton[0].pT() <= 20*GeV ) {
 	vetoEvent;
       }
 
       // exactly one hard leading lepton cut
       if(lepton.size()>1) {
-	if ( fabs(lepton[1].pdgId()) == e_id &&
+	if ( lepton[1].abspid() == e_id &&
 	     lepton[1].pT() > 20*GeV ) {
 	  vetoEvent;
 	}
-	else if ( fabs(lepton[1].pdgId()) == mu_id &&
+	else if ( lepton[1].abspid() == mu_id &&
 		  lepton[1].pT() > 10*GeV ) {
 	  vetoEvent;
 	}
@@ -293,7 +293,7 @@ namespace Rivet {
 
       // Electron channel signal region
 
-      if ( fabs( lepton[0].pdgId() ) == e_id ) {
+      if (  lepton[0].abspid() == e_id ) {
 
         _hist_eTmiss_e->fill(eTmiss, weight);
         _hist_m_eff_e->fill(m_eff, weight);
@@ -308,7 +308,7 @@ namespace Rivet {
 
       // Muon channel signal region
 
-      else if ( fabs( lepton[0].pdgId() ) == mu_id ) {
+      else if (  lepton[0].abspid() == mu_id ) {
 
         _hist_eTmiss_mu->fill(eTmiss, weight);
         _hist_m_eff_mu->fill(m_eff, weight);

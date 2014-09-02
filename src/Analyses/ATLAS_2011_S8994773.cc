@@ -51,7 +51,7 @@ namespace Rivet {
       // Identify leading object and its phi and pT
       Particles particles500 = chargedNeutral500.particlesByPt();
       Particle p_lead = particles500[0];
-      const double philead = p_lead.momentum().phi();
+      const double philead = p_lead.phi();
       const double etalead = p_lead.eta();
       const double pTlead  = p_lead.pT();
       MSG_DEBUG("Leading object: pT = " << pTlead << ", eta = " << etalead << ", phi = " << philead);
@@ -63,7 +63,7 @@ namespace Rivet {
       Histo1D hist_num_dphi_500(refData(13+isqrts,1,1));
       foreach (const Particle& p, particles500) {
         const double pT = p.pT();
-        const double dPhi = deltaPhi(philead, p.momentum().phi());
+        const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);
         num500[ir] += 1;
         ptSum500[ir] += pT;
@@ -88,11 +88,11 @@ namespace Rivet {
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
       const size_t nbins = refData(13+isqrts,1,1).numPoints();
       for (size_t i = 0; i < nbins; ++i) {
-        double mean = hist_num_dphi_500.bin(i).midpoint();
+        double mean = hist_num_dphi_500.bin(i).xMid();
         double value = 0.;
         if (hist_num_dphi_500.bin(i).numEntries() > 0) {
           mean = hist_num_dphi_500.bin(i).xMean();
-          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).width()/10.0;
+          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).xWidth()/10.0;
         }
         if (pTlead/GeV >= 1.0) _hist_N_vs_dPhi_1_500->fill(mean, value, weight);
         if (pTlead/GeV >= 2.0) _hist_N_vs_dPhi_2_500->fill(mean, value, weight);

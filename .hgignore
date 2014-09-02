@@ -40,6 +40,7 @@ Doxyfile$
 ^pyext/rivet/core.cpp$
 ^pyext/rivet/rivetwrap\.py$
 ^pyext/rivet/rivetwrap_wrap\.cc$
+^pyext/rivet/fix-out-of-source$
 ^pyext/setup\.py$
 ^rivetenv\.(sh|csh)$
 ^test/test(Api|Cmp|NaN)$
@@ -61,5 +62,8 @@ Doxyfile$
 ^dev$
 ^devval$
 ^newanalyses$
+^.*plots$
 ^a\.out$
 ^a\.out\.dSYM$
+^Rivet-.\..\..$
+^local/.*$

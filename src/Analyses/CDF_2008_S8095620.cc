@@ -63,14 +63,14 @@ namespace Rivet {
       // make sure we have 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
       //new cuts
-      double Lep1Pt = ZDecayProducts[0].momentum().perp();
-      double Lep2Pt = ZDecayProducts[1].momentum().perp();
+      double Lep1Pt = ZDecayProducts[0].perp();
+      double Lep2Pt = ZDecayProducts[1].perp();
       double Lep1Eta = fabs(ZDecayProducts[0].rapidity());
       double Lep2Eta = fabs(ZDecayProducts[1].rapidity());
 
       if (Lep1Eta > _LepEtaCut || Lep2Eta > _LepEtaCut) vetoEvent;
 
-      if (abs(ZDecayProducts[0].pdgId())==13 &&
+      if (ZDecayProducts[0].abspid()==13 &&
           ((Lep1Eta > 1.5 || Lep2Eta > 1.5) || (Lep1Eta > 1.0 && Lep2Eta > 1.0))) {
         vetoEvent;
       }
@@ -113,7 +113,7 @@ namespace Rivet {
           // does the jet contain a b-quark?
           bool bjet = false;
           foreach (const Particle& bquark,  bquarks) {
-            if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(),bquark.momentum().azimuthalAngle()) <= _Rjet) {
+            if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(),bquark.phi()) <= _Rjet) {
               bjet = true;
               break;
             }

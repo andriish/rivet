@@ -43,7 +43,7 @@ namespace Rivet {
       Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt(20.0*GeV);
       double sumET_20(0.0), sumET_100(0.0);
       foreach (const Jet& jet, jets) {
-        double ET = jet.momentum().Et()/GeV;
+        double ET = jet.Et()/GeV;
         sumET_20 += ET;
         if (ET>100.0) sumET_100 += ET;
       }

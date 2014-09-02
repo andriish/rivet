@@ -9,7 +9,8 @@ namespace Rivet {
   namespace { // unnamed namespace
     // Forward declarations of calculator functions: implementations at bottom of file
     double getWidth(const Jet& jet);
-    double getEcc(const Jet& jet);
+    /// @todo Re-enable eccentricity calculation
+    // double getEcc(const Jet& jet);
     double getPFlow(const Jet& jet);
     double getAngularity(const Jet& jet);
   }
@@ -57,7 +58,7 @@ namespace Rivet {
 
         // The leading jet
         const Jet& jet = jetAr[alg][0];
-        const double m   = jet.momentum().mass();
+        const double m   = jet.mass();
         const double eta = jet.eta();
 
         _hs_mass[alg]->fill(m/GeV, weight);
@@ -155,7 +156,7 @@ namespace Rivet {
       foreach (const Particle& p, jet.particles()) {
         double pT = p.pT();
         double eta = p.eta();
-        double phi = p.momentum().phi();
+        double phi = p.phi();
         width += sqrt(pow(phi_jet - phi,2) + pow(eta_jet - eta, 2)) * pT;
         pTsum += pT;
       }
@@ -165,82 +166,83 @@ namespace Rivet {
 
 
     /// Eccentricity calculation, copied and adapted from Lily's code
-    double getEcc(const Jet& jet) {
-      vector<double> phis;
-      vector<double> etas;
-      vector<double> energies;
+    /// @todo Re-enable eccentricity calculation
+    // double getEcc(const Jet& jet) {
+    //   vector<double> phis;
+    //   vector<double> etas;
+    //   vector<double> energies;
 
-      double etaSum(0), phiSum(0), eTot(0);
-      foreach (const Particle& p, jet.particles()) {
-        const double E = p.momentum().E();
-        const double eta = p.eta();
+    //   double etaSum(0), phiSum(0), eTot(0);
+    //   foreach (const Particle& p, jet.particles()) {
+    //     const double E = p.E();
+    //     const double eta = p.eta();
 
-        energies.push_back(E);
-        etas.push_back(jet.eta() - eta);
+    //     energies.push_back(E);
+    //     etas.push_back(jet.eta() - eta);
 
-        eTot   += E;
-        etaSum += eta * E;
+    //     eTot   += E;
+    //     etaSum += eta * E;
 
-        /// @todo Replace with the Rivet deltaPhi function (or the mapAngleTo* functions)
-        double dPhi = jet.momentum().phi() - p.momentum().phi();
-        //if DPhi does not lie within 0 < DPhi < PI take 2*PI off DPhi
-        //this covers cases where DPhi is greater than PI
-        if( fabs( dPhi - TWOPI ) < fabs(dPhi) ) dPhi -= TWOPI;
-        //if DPhi does not lie within -PI < DPhi < 0 add 2*PI to DPhi
-        //this covers cases where DPhi is less than -PI
-        else if( fabs(dPhi + TWOPI) < fabs(dPhi) ) dPhi += TWOPI;
-        phis.push_back(dPhi);
+    //     /// @todo Replace with the Rivet deltaPhi function (or the mapAngleTo* functions)
+    //     double dPhi = jet.phi() - p.phi();
+    //     //if DPhi does not lie within 0 < DPhi < PI take 2*PI off DPhi
+    //     //this covers cases where DPhi is greater than PI
+    //     if( fabs( dPhi - TWOPI ) < fabs(dPhi) ) dPhi -= TWOPI;
+    //     //if DPhi does not lie within -PI < DPhi < 0 add 2*PI to DPhi
+    //     //this covers cases where DPhi is less than -PI
+    //     else if( fabs(dPhi + TWOPI) < fabs(dPhi) ) dPhi += TWOPI;
+    //     phis.push_back(dPhi);
 
-        phiSum += dPhi * E;
-      }
+    //     phiSum += dPhi * E;
+    //   }
 
-      //these are the "pull" away from the jet axis
-      etaSum = etaSum/eTot;
-      phiSum = phiSum/eTot;
+    //   //these are the "pull" away from the jet axis
+    //   etaSum = etaSum/eTot;
+    //   phiSum = phiSum/eTot;
 
-      // now for every cluster we alter its position by moving it:
-      // away from the new axis if it is in the direction of -ve pull
-      // closer to the new axis if it is in the direction of +ve pull
-      // the effect of this will be that the new energy weighted center will be on the old jet axis.
-      double little_x(0), little_y(0);
-      for (size_t k = 0; k < jet.particles().size(); ++k) {
-        little_x+= etas[k]-etaSum;
-        little_y+= phis[k]-phiSum;
-        etas[k] = etas[k]-etaSum;
-        phis[k] = phis[k]-phiSum;
-      }
+    //   // now for every cluster we alter its position by moving it:
+    //   // away from the new axis if it is in the direction of -ve pull
+    //   // closer to the new axis if it is in the direction of +ve pull
+    //   // the effect of this will be that the new energy weighted center will be on the old jet axis.
+    //   double little_x(0), little_y(0);
+    //   for (size_t k = 0; k < jet.particles().size(); ++k) {
+    //     little_x+= etas[k]-etaSum;
+    //     little_y+= phis[k]-phiSum;
+    //     etas[k] = etas[k]-etaSum;
+    //     phis[k] = phis[k]-phiSum;
+    //   }
 
-      double x1(0), x2(0);
-      for (size_t i = 0; i < jet.particles().size(); ++i) {
-        x1 += 2. * energies[i]* etas[i] * phis[i]; // this is 2*X*Y
-        x2 += energies[i]*(phis[i] * phis[i] - etas[i] * etas[i] ); // this is X^2 - Y^2
-      }
+    //   double x1(0), x2(0);
+    //   for (size_t i = 0; i < jet.particles().size(); ++i) {
+    //     x1 += 2. * energies[i]* etas[i] * phis[i]; // this is 2*X*Y
+    //     x2 += energies[i]*(phis[i] * phis[i] - etas[i] * etas[i] ); // this is X^2 - Y^2
+    //   }
 
-      // Variance calculations
-      double theta = .5*atan2(x1, x2);
-      double sinTheta =sin(theta);
-      double cosTheta = cos(theta);
-      double theta2 = theta + 0.5*PI;
-      double sinThetaPrime = sin(theta2);
-      double cosThetaPrime = cos(theta2);
+    //   // Variance calculations
+    //   double theta = .5*atan2(x1, x2);
+    //   double sinTheta =sin(theta);
+    //   double cosTheta = cos(theta);
+    //   double theta2 = theta + 0.5*PI;
+    //   double sinThetaPrime = sin(theta2);
+    //   double cosThetaPrime = cos(theta2);
 
-      double varX(0), varY(0);
-      for (size_t i = 0; i < jet.particles().size(); i++) {
-        const double x = sinTheta*etas[i] + cosTheta*phis[i];
-        const double y = sinThetaPrime*etas[i] + cosThetaPrime*phis[i];
-        varX += energies[i]* sqr(x);
-        varY += energies[i]* sqr(y);
-      }
-      const double varianceMax = max(varX, varY);
-      const double varianceMin = min(varX, varY);
-      const double ecc = (varianceMax != 0.0) ? 1 - varianceMin/varianceMax : -1;
-      return ecc;
-    }
+    //   double varX(0), varY(0);
+    //   for (size_t i = 0; i < jet.particles().size(); i++) {
+    //     const double x = sinTheta*etas[i] + cosTheta*phis[i];
+    //     const double y = sinThetaPrime*etas[i] + cosThetaPrime*phis[i];
+    //     varX += energies[i]* sqr(x);
+    //     varY += energies[i]* sqr(y);
+    //   }
+    //   const double varianceMax = max(varX, varY);
+    //   const double varianceMin = min(varX, varY);
+    //   const double ecc = (varianceMax != 0.0) ? 1 - varianceMin/varianceMax : -1;
+    //   return ecc;
+    // }
 
 
     /// Planar flow calculation, copied and adapted from Lily's code
     double getPFlow(const Jet& jet) {
-      const double phi0 = jet.momentum().phi();
+      const double phi0 = jet.phi();
       const double eta0 = jet.eta();
 
       double nref[3]; //< @todo 3-vector to rotate x to? Use Rivet vector classes
@@ -254,7 +256,7 @@ namespace Rivet {
 
       double iw00(0.), iw01(0.), iw11(0.), iw10(0.);
       foreach (const Particle& p, jet.particles()) {
-        double a = 1./(p.momentum().E()*jet.momentum().mass());
+        double a = 1./(p.E()*jet.mass());
         FourMomentum rotclus = RotateAxes(p.momentum(), rotationMatrix);
         iw00 += a*pow(rotclus.px(), 2);
         iw01 += a*rotclus.px()*rotclus.py();
@@ -276,12 +278,12 @@ namespace Rivet {
       // a can take any value < 2 (e.g. 1,0,-0.5 etc) for infrared safety
       const double a = -2.;
       foreach (const Particle& p, jet.particles()) {
-        double e_i       = p.momentum().E();
+        double e_i       = p.E();
         double theta_i   = jet.momentum().angle(p.momentum());
         double e_theta_i = e_i * pow(sin(theta_i), a) * pow(1-cos(theta_i), 1-a);
         sum_a += e_theta_i;
       }
-      const double rtn = (jet.momentum().mass() != 0.0 && !std::isnan(sum_a)) ? sum_a/jet.momentum().mass() : -1;
+      const double rtn = (jet.mass() != 0.0 && !std::isnan(sum_a)) ? sum_a/jet.mass() : -1;
       return rtn;
     }
 

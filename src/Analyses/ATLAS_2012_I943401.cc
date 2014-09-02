@@ -161,7 +161,7 @@ namespace Rivet {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
-        if ( pTinCone < 0.1*e.momentum().perp() )
+        if ( pTinCone < 0.1*e.perp() )
           recon_e.push_back(e);
       }
 
@@ -202,14 +202,14 @@ namespace Rivet {
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
         foreach ( const Particle & e, recon_e ) {
           double eta = e.eta();
-          double phi = e.momentum().azimuthalAngle(MINUSPI_PLUSPI);
+          double phi = e.azimuthalAngle(MINUSPI_PLUSPI);
           if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
         foreach ( const Jet & jet, recon_jets ) {
           double eta = jet.rapidity();
-          double phi = jet.momentum().azimuthalAngle(MINUSPI_PLUSPI);
-          if(jet.momentum().perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
+          double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
+          if(jet.perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
       }
@@ -219,16 +219,16 @@ namespace Rivet {
         vetoEvent;
       // two electrons highest pT > 25
       Particles recon_leptons;
-      if(recon_e.size()==2&&recon_e[0].momentum().perp()>25.) {
+      if(recon_e.size()==2&&recon_e[0].perp()>25.) {
         recon_leptons = recon_e;
       }
       // two muons highest pT > 20
-      else if(recon_mu.size()==2&&recon_mu[0].momentum().perp()>20.) {
+      else if(recon_mu.size()==2&&recon_mu[0].perp()>20.) {
         recon_leptons = recon_mu;
       }
       else if(recon_e.size()==1 && recon_mu.size()==1 &&
-              (recon_e[0].momentum().perp()>25. ||recon_mu[0].momentum().perp()>20. )) {
-        if(recon_mu[0].momentum().perp()<recon_e[0].momentum().perp()) {
+              (recon_e[0].perp()>25. ||recon_mu[0].perp()>20. )) {
+        if(recon_mu[0].perp()<recon_e[0].perp()) {
           recon_leptons.push_back(recon_e [0]);
           recon_leptons.push_back(recon_mu[0]);
         }
@@ -246,7 +246,7 @@ namespace Rivet {
       if(mll < 12.) vetoEvent;
 
       // same sign or opposite sign event
-      int sign = recon_leptons[0].pdgId()*recon_leptons[1].pdgId();
+      int sign = recon_leptons[0].pid()*recon_leptons[1].pid();
 
       // same sign leptons
       if(sign>0) {
@@ -261,24 +261,24 @@ namespace Rivet {
         _hist_njet_SS_D ->fill(recon_jets.size(),weight);
         _hist_njet_SS_B ->fill(recon_jets.size(),weight);
         if(!recon_jets.empty()) {
-          _hist_pT_j1_SS_D->fill(recon_jets[0].momentum().perp(),weight);
-          _hist_pT_j1_SS_B->fill(recon_jets[0].momentum().perp(),weight);
+          _hist_pT_j1_SS_D->fill(recon_jets[0].perp(),weight);
+          _hist_pT_j1_SS_B->fill(recon_jets[0].perp(),weight);
         }
         if(recon_jets.size()>2) {
-          _hist_pT_j2_SS_D->fill(recon_jets[1].momentum().perp(),weight);
-          _hist_pT_j2_SS_B->fill(recon_jets[1].momentum().perp(),weight);
+          _hist_pT_j2_SS_D->fill(recon_jets[1].perp(),weight);
+          _hist_pT_j2_SS_B->fill(recon_jets[1].perp(),weight);
         }
-        _hist_pT_l1_SS_D->fill(recon_leptons[0].momentum().perp(),weight);
-        _hist_pT_l1_SS_B->fill(recon_leptons[0].momentum().perp(),weight);
-        _hist_pT_l2_SS_D->fill(recon_leptons[1].momentum().perp(),weight);
-        _hist_pT_l2_SS_B->fill(recon_leptons[1].momentum().perp(),weight);
+        _hist_pT_l1_SS_D->fill(recon_leptons[0].perp(),weight);
+        _hist_pT_l1_SS_B->fill(recon_leptons[0].perp(),weight);
+        _hist_pT_l2_SS_D->fill(recon_leptons[1].perp(),weight);
+        _hist_pT_l2_SS_B->fill(recon_leptons[1].perp(),weight);
         // SS-SR1
         if(eTmiss>100.) {
           _count_SS_SR1->fill(0.5,weight);
         }
         // SS-SR2
         if(eTmiss>80. && recon_jets.size()>=2 &&
-           recon_jets[1].momentum().perp()>50.) {
+           recon_jets[1].perp()>50.) {
           _count_SS_SR2->fill(0.5,weight);
         }
       }
@@ -299,17 +299,17 @@ namespace Rivet {
         _hist_njet_OS_D->fill(recon_jets.size(),weight);
         _hist_njet_OS_B->fill(recon_jets.size(),weight);
         if(!recon_jets.empty()) {
-          _hist_pT_j1_OS_D->fill(recon_jets[0].momentum().perp(),weight);
-          _hist_pT_j1_OS_B->fill(recon_jets[0].momentum().perp(),weight);
+          _hist_pT_j1_OS_D->fill(recon_jets[0].perp(),weight);
+          _hist_pT_j1_OS_B->fill(recon_jets[0].perp(),weight);
         }
         if(recon_jets.size()>2) {
-          _hist_pT_j2_OS_D->fill(recon_jets[1].momentum().perp(),weight);
-          _hist_pT_j2_OS_B->fill(recon_jets[1].momentum().perp(),weight);
+          _hist_pT_j2_OS_D->fill(recon_jets[1].perp(),weight);
+          _hist_pT_j2_OS_B->fill(recon_jets[1].perp(),weight);
         }
-        _hist_pT_l1_OS_D->fill(recon_leptons[0].momentum().perp(),weight);
-        _hist_pT_l1_OS_B->fill(recon_leptons[0].momentum().perp(),weight);
-        _hist_pT_l2_OS_D->fill(recon_leptons[1].momentum().perp(),weight);
-        _hist_pT_l2_OS_B->fill(recon_leptons[1].momentum().perp(),weight);
+        _hist_pT_l1_OS_D->fill(recon_leptons[0].perp(),weight);
+        _hist_pT_l1_OS_B->fill(recon_leptons[0].perp(),weight);
+        _hist_pT_l2_OS_D->fill(recon_leptons[1].perp(),weight);
+        _hist_pT_l2_OS_B->fill(recon_leptons[1].perp(),weight);
         // different signal regions
         // OS-SR1
         if(eTmiss>250.) {
@@ -317,14 +317,14 @@ namespace Rivet {
         }
         // OS-SR2
         if(eTmiss>220. && recon_jets.size()>=3 &&
-           recon_jets[0].momentum().perp()>80. &&
-           recon_jets[2].momentum().perp()>40.) {
+           recon_jets[0].perp()>80. &&
+           recon_jets[2].perp()>40.) {
           _count_OS_SR2->fill(0.5,weight);
         }
         // OS-SR3
         if(eTmiss>100. && recon_jets.size()>=4 &&
-           recon_jets[0].momentum().perp()>100. &&
-           recon_jets[3].momentum().perp()>70.) {
+           recon_jets[0].perp()>100. &&
+           recon_jets[3].perp()>70.) {
           _count_OS_SR3->fill(0.5,weight);
         }
         // same flavour analysis
@@ -332,13 +332,11 @@ namespace Rivet {
         static const double tau_e  = 0.96;
         static const double tau_mu = 0.816;
         double fs_weight = weight;
-        if(abs(recon_leptons[0].pdgId())==PID::ELECTRON && abs(recon_leptons[1].pdgId())==PID::ELECTRON) {
+        if (recon_leptons[0].abspid() == PID::ELECTRON && recon_leptons[1].abspid() == PID::ELECTRON) {
           fs_weight /= beta*(1.-sqr(1.-tau_e));
-        }
-        else if(abs(recon_leptons[0].pdgId())==PID::MUON && abs(recon_leptons[1].pdgId())==PID::MUON) {
+        } else if (recon_leptons[0].abspid() == PID::MUON && recon_leptons[1].abspid()==PID::MUON) {
           fs_weight *= beta/(1.-sqr(1.-tau_mu));
-        }
-        else {
+        } else {
           fs_weight /= -(1.-(1.-tau_e)*(1.-tau_mu));
         }
         // FS-SR1

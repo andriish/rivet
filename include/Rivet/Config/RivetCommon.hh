@@ -32,6 +32,7 @@
 
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
+#include "Rivet/Math/Constants.hh"
 
 // #include "Rivet/Particle.hh"
 // #include "Rivet/Event.hh"

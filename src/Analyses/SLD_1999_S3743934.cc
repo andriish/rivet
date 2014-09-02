@@ -45,8 +45,8 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       int flavour = 0;
       const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
@@ -56,21 +56,21 @@ namespace Rivet {
       /// @todo Can we make this based on hadron flavour instead?
       Particles quarks;
       if (iqf.particles().size() == 2) {
-        flavour = abs( iqf.particles().front().pdgId() );
+        flavour = iqf.particles().front().abspid();
         quarks = iqf.particles();
       } else {
         map<int, Particle > quarkmap;
         foreach (const Particle& p, iqf.particles()) {
-          if (quarkmap.find(p.pdgId()) == quarkmap.end()) quarkmap[p.pdgId()] = p;
-          else if (quarkmap[p.pdgId()].momentum().E() < p.momentum().E()) quarkmap[p.pdgId()] = p;
+          if (quarkmap.find(p.pid()) == quarkmap.end()) quarkmap[p.pid()] = p;
+          else if (quarkmap[p.pid()].E() < p.E()) quarkmap[p.pid()] = p;
         }
         double maxenergy = 0.;
         for (int i = 1; i <= 5; ++i) {
           double energy(0.);
           if (quarkmap.find( i) != quarkmap.end())
-            energy += quarkmap[ i].momentum().E();
+            energy += quarkmap[ i].E();
           if (quarkmap.find(-i) != quarkmap.end())
-            energy += quarkmap[-i].momentum().E();
+            energy += quarkmap[-i].E();
           if (energy > maxenergy)
             flavour = i;
         }
@@ -96,19 +96,19 @@ namespace Rivet {
       Vector3 axis = applyProjection<Thrust>(e, "Thrust").thrustAxis();
       double dot(0.);
       if (!quarks.empty()) {
-        dot = quarks[0].momentum().vector3().dot(axis);
-        if (quarks[0].pdgId() < 0) dot *= -1;
+        dot = quarks[0].p3().dot(axis);
+        if (quarks[0].pid() < 0) dot *= -1;
       }
 
       foreach (const Particle& p, fs.particles()) {
-        const double xp = p.momentum().vector3().mod()/meanBeamMom;
+        const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
-        bool quark = p.momentum().vector3().dot(axis)*dot > 0.;
+        bool quark = p.p3().dot(axis)*dot > 0.;
         _h_XpChargedN->fill(xp, weight);
         _temp_XpChargedN1->fill(xp, weight);
         _temp_XpChargedN2->fill(xp, weight);
         _temp_XpChargedN3->fill(xp, weight);
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {
           _h_XpPiPlusN->fill(xp, weight);
@@ -119,7 +119,7 @@ namespace Rivet {
           case PID::SQUARK:
             _multPiPlus[1] += weight;
             _h_XpPiPlusLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RPiPlus->fill(xp, weight);
             else
               _h_RPiMinus->fill(xp, weight);
@@ -144,7 +144,7 @@ namespace Rivet {
             _multKPlus[1] += weight;
             _temp_XpKPlusLight->fill(xp, weight);
             _h_XpKPlusLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RKPlus->fill(xp, weight);
             else
               _h_RKMinus->fill(xp, weight);
@@ -171,7 +171,7 @@ namespace Rivet {
             _multProton[1] += weight;
             _temp_XpProtonLight->fill(xp, weight);
             _h_XpProtonLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RProton->fill(xp, weight);
             else
               _h_RPBar  ->fill(xp, weight);
@@ -192,10 +192,10 @@ namespace Rivet {
 
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
-        const double xp = p.momentum().vector3().mod()/meanBeamMom;
+        const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
-        bool quark = p.momentum().vector3().dot(axis)*dot>0.;
-        int id = abs(p.pdgId());
+        bool quark = p.p3().dot(axis)*dot>0.;
+        int id = p.abspid();
         if (id == PID::LAMBDA) {
           _multLambda[0] += weight;
           _h_XpLambdaN->fill(xp, weight);
@@ -205,7 +205,7 @@ namespace Rivet {
           case PID::SQUARK:
             _multLambda[1] += weight;
             _h_XpLambdaLight->fill(xp, weight);
-            if( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RLambda->fill(xp, weight);
             else
               _h_RLBar  ->fill(xp, weight);
@@ -230,7 +230,7 @@ namespace Rivet {
             _multKStar0[1] += weight;
             _temp_XpKStar0Light->fill(xp, weight);
             _h_XpKStar0Light->fill(xp, weight);
-            if ( ( quark && p.pdgId()>0 ) || ( !quark && p.pdgId()<0 ))
+            if ( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
               _h_RKS0   ->fill(xp, weight);
             else
               _h_RKSBar0->fill(xp, weight);
@@ -299,9 +299,9 @@ namespace Rivet {
       addProjection(InitialQuarks(), "IQF");
       addProjection(Thrust(FinalState()), "Thrust");
 
-      _temp_XpChargedN1 = bookHisto1D( 1, 1, 1);
-      _temp_XpChargedN2 = bookHisto1D( 2, 1, 1);
-      _temp_XpChargedN3 = bookHisto1D( 3, 1, 1);
+      _temp_XpChargedN1 = bookHisto1D("TMP/XpChargedN1", refData( 1, 1, 1));
+      _temp_XpChargedN2 = bookHisto1D("TMP/XpChargedN2", refData( 2, 1, 1));
+      _temp_XpChargedN3 = bookHisto1D("TMP/XpChargedN3", refData( 3, 1, 1));
 
       _h_XpPiPlusN      = bookHisto1D( 1, 1, 2);
       _h_XpKPlusN       = bookHisto1D( 2, 1, 2);
@@ -385,19 +385,33 @@ namespace Rivet {
       divide(_h_XpKPlusN, _temp_XpChargedN2, _s_Xp_KPl_Ch);
       divide(_h_XpProtonN, _temp_XpChargedN3, _s_Xp_Pr_Ch);
       divide(_h_XpPiPlusCharm, _h_XpPiPlusLight, _s_Xp_PiPlCh_PiPlLi);
+      _s_Xp_PiPlCh_PiPlLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpPiPlusBottom, _h_XpPiPlusLight, _s_Xp_PiPlBo_PiPlLi);
+       _s_Xp_PiPlBo_PiPlLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_temp_XpKPlusCharm , _temp_XpKPlusLight, _s_Xp_KPlCh_KPlLi);
+      _s_Xp_KPlCh_KPlLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpKPlusBottom, _h_XpKPlusLight, _s_Xp_KPlBo_KPlLi);
+       _s_Xp_KPlBo_KPlLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_temp_XpKStar0Charm, _temp_XpKStar0Light, _s_Xp_KS0Ch_KS0Li);
+      _s_Xp_KS0Ch_KS0Li->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpKStar0Bottom, _h_XpKStar0Light, _s_Xp_KS0Bo_KS0Li);
+      _s_Xp_KS0Bo_KS0Li->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_temp_XpProtonCharm, _temp_XpProtonLight, _s_Xp_PrCh_PrLi);
+      _s_Xp_PrCh_PrLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpProtonBottom, _h_XpProtonLight, _s_Xp_PrBo_PrLi);
+      _s_Xp_PrBo_PrLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_h_XpLambdaCharm, _h_XpLambdaLight, _s_Xp_LaCh_LaLi);
+      _s_Xp_LaCh_LaLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpLambdaBottom, _h_XpLambdaLight, _s_Xp_LaBo_LaLi);
+      _s_Xp_LaBo_LaLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_h_XpK0Charm, _h_XpK0Light, _s_Xp_K0Ch_K0Li);
+      _s_Xp_K0Ch_K0Li->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpK0Bottom, _h_XpK0Light, _s_Xp_K0Bo_K0Li);
+      _s_Xp_K0Bo_K0Li->scale(1.,_SumOfudsWeights/_SumOfbWeights);
       divide(_h_XpPhiCharm, _h_XpPhiLight, _s_Xp_PhiCh_PhiLi);
+      _s_Xp_PhiCh_PhiLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
       divide(_h_XpPhiBottom, _h_XpPhiLight, _s_Xp_PhiBo_PhiLi);
+      _s_Xp_PhiBo_PhiLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
 
       // Then the leading particles
       divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);

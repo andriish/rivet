@@ -41,35 +41,28 @@ namespace Rivet {
 
       Jets jets;
       foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jets(20.0*GeV)) {
-        if (fabs(jet.eta()) < 3.0) {
-          jets.push_back(jet);
-        }
+        if (jet.abseta() < 3.0) jets.push_back(jet);
       }
 
-      if (jets.size() < 2) {
-        vetoEvent;
-      }
+      if (jets.size() < 2) vetoEvent;
 
       FourMomentum minjet = jets[0].momentum();
       FourMomentum maxjet = jets[1].momentum();
       double mineta = minjet.eta();
       double maxeta = maxjet.eta();
 
-      foreach(const Jet& jet, jets) {
+      foreach (const Jet& jet, jets) {
         double eta = jet.eta();
         if (eta < mineta) {
           minjet = jet.momentum();
           mineta = eta;
-        }
-        else if (eta > maxeta) {
+        } else if (eta > maxeta) {
           maxjet = jet.momentum();
           maxeta = eta;
         }
       }
 
-      if (minjet.Et()<50*GeV && maxjet.Et()<50.0*GeV) {
-        vetoEvent;
-      }
+      if (minjet.Et() < 50*GeV && maxjet.Et() < 50.0*GeV) vetoEvent;
 
       double deta = maxjet.eta()-minjet.eta();
       double dphi = mapAngle0To2Pi(maxjet.phi()-minjet.phi());
@@ -77,7 +70,6 @@ namespace Rivet {
       _h_deta->fill(deta, weight);
       _h_dphi.fill(deta, 1.0-dphi/M_PI, weight);
       _h_cosdphi_deta->fill(deta, cos(M_PI-dphi), weight);
-
     }
 
 
@@ -101,7 +93,6 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-
     Histo1DPtr _h_deta;
     BinnedHistogram<double> _h_dphi;
     Profile1DPtr _h_cosdphi_deta;

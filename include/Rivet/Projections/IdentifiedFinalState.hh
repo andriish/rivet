@@ -2,11 +2,6 @@
 #ifndef RIVET_IdentifiedFinalState_HH
 #define RIVET_IdentifiedFinalState_HH
 
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Particle.hh"
-#include "Rivet/Event.hh"
-#include "Rivet/Projection.hh"
 #include "Rivet/Projections/FinalState.hh"
 
 namespace Rivet {
@@ -97,6 +92,11 @@ namespace Rivet {
       _pids.clear();
     }
 
+    // The remaining particles
+    virtual const Particles& remainingParticles() const {
+      return _remainingParticles;
+    }
+
 
   protected:
 
@@ -111,6 +111,9 @@ namespace Rivet {
 
     /// The final-state particles.
     set<PdgId> _pids;
+
+    // A vector of all other particles in the final state
+    Particles _remainingParticles;
 
   };
 

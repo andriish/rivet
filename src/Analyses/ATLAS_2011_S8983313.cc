@@ -211,7 +211,7 @@ namespace Rivet {
         if ( jet.pT() > 40 * GeV ) {
           if ( Njets < 3 )
             min_dPhi = min( min_dPhi,
-                            deltaPhi( pTmiss_phi, jet.momentum().phi() ) );
+                            deltaPhi( pTmiss_phi, jet.phi() ) );
           ++Njets;
         }
       }

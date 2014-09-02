@@ -62,7 +62,7 @@ namespace Rivet {
 
       double mjj = FourMomentum(j0+j1).mass();
       double chi = exp(fabs(y0-y1));
-      _h_chi_dijet.fill(mjj, chi, weight);
+      if(chi<16.)  _h_chi_dijet.fill(mjj, chi, weight);
     }
 
 

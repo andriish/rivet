@@ -95,7 +95,7 @@ namespace Rivet {
         double y = p.rapidity();
         if (fabs(y) < 0.1) {
           nCutsPassed += weight;
-          const PdgId id = p.pdgId();
+          const PdgId id = p.pid();
           switch (id) {
           case -211:
             _h_dpT_Pi->fill(pT, weight/(TWOPI*pT*0.2));

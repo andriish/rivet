@@ -27,7 +27,7 @@ namespace Rivet {
   }
 
   FinalState::FinalState(Cut c)
-    : _cuts(c)
+    : ParticleFinder(c)
   {
     setName("FinalState");
     const bool open = ( c == Cuts::open() );
@@ -38,20 +38,6 @@ namespace Rivet {
   }
 
 
-  // FinalState::FinalState(const vector<pair<double, double> >& etaRanges, double minpt)
-  //   : _etaRanges(etaRanges), _ptmin(minpt)
-  // {
-  //   setName("FinalState");
-  //   const bool openpt = isZero(minpt);
-  //   /// @todo Properly check whether any of these eta ranges (or their combination) are actually open
-  //   const bool openeta = etaRanges.empty();
-  //   MSG_TRACE("Check for open FS conditions:" << std::boolalpha
-  //             << " eta=" << openeta
-  //             << ", pt=" << openpt);
-  //   if (!openeta || !openpt) {
-  //     addProjection(FinalState(), "OpenFS");
-  //   }
-  // }
 
 
   /// @todo HOW DO WE COMPARE CUTS OBJECTS?

@@ -37,15 +37,15 @@ namespace Rivet {
     for (ifs = particles.begin(); ifs != particles.end(); ++ifs) {
       if (inList(*ifs) && FinalState::accept(*ifs->genParticle())) {
         // Look for an existing particle in tmp container
-        map < long, Particles::const_iterator >::const_iterator itmp = tmp.find(ifs->pdgId());
+        map < long, Particles::const_iterator >::const_iterator itmp = tmp.find(ifs->pid());
         if (itmp != tmp.end()) {  // if a particle with this type has been already selected
           // If the new pT is higher than the previous one, then substitute...
           if (ifs->pT() > itmp->second->pT()) {
-            tmp[ifs->pdgId()] = ifs;
+            tmp[ifs->pid()] = ifs;
           }
           // ...otherwise insert in the container
         } else {
-          tmp[ifs->pdgId()] = ifs;
+          tmp[ifs->pid()] = ifs;
         }
       }
     }
@@ -53,7 +53,7 @@ namespace Rivet {
     // Loop on the tmp container and fill _theParticles
     map<long, Particles::const_iterator>::const_iterator i;
     for (i = tmp.begin(); i != tmp.end(); ++i) {
-      MSG_DEBUG("LeadingParticlesFinalState is accepting particle ID " << i->second->pdgId()
+      MSG_DEBUG("LeadingParticlesFinalState is accepting particle ID " << i->second->pid()
                << " with momentum " << i->second->momentum());
       _theParticles.push_back(*(i->second));
     }
@@ -76,7 +76,7 @@ namespace Rivet {
 
 
   bool LeadingParticlesFinalState::inList(const Particle & particle) const {
-    std::set < long >::const_iterator ilist = _ids.find(particle.pdgId());
+    std::set < long >::const_iterator ilist = _ids.find(particle.pid());
     if (ilist != _ids.end()) return true;
     return false;
   }

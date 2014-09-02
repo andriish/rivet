@@ -40,14 +40,14 @@ namespace Rivet {
   /////////////////////////////////////////////////
 
 
-  //// Do the general case spherocity calculation
+  /// @brief Do the general case spherocity calculation
+  ///
+  /// According to the Salam paper, p5, footnote 4, the
+  /// axis n that minimises the Spherocity value ALWAYS coincides with the
+  /// direction of one of the transverse momentum vectors of the events particles.
+  /// Thus we carry out the calculation of S for all particles and pick the
+  /// one that yields the smallest values
   void _calcS(const vector<Vector3 >& perpmomenta, double& sphero, Vector3& saxis) {
-    // According to the Salam paper, p5, footnote 4, the
-    // axis n that minimises the Spherocity value ALWAYS coincides with the
-    // direction of one of the transverse momentum vectors of the events particles.
-    // Thus we carry out the calculation of Sphero for all particles and pick the
-    // one that yields the smallerst values
-
     vector<Vector3> p = perpmomenta;
     vector<double> sval;
 
@@ -73,6 +73,7 @@ namespace Rivet {
       }
     }
   }
+
 
   // Do the full calculation
   void Spherocity::_calcSpherocity(const vector<Vector3>& fsmomenta) {
@@ -119,7 +120,7 @@ namespace Rivet {
     MSG_DEBUG("Sperocity axis = " << axis);
 
     _spherocityAxes.push_back(axis);
-
-
   }
+
+
 }

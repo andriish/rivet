@@ -81,7 +81,7 @@ namespace Rivet {
 
 }
 
-
+\
 namespace std {
 
   /// @name Standard library enhancements
@@ -135,13 +135,6 @@ namespace std {
   /// @name Container filling and merging
   //@{
 
-  /// @note This is provided by Boost Assignment
-  // /// Append an item @a t to vector @a v
-  // template <typename T>
-  // inline void operator+=(vector<T>& v, const T& t) {
-  //   v.push_back(t);
-  // }
-
   /// Append all the items from vector @a v2 to vector @a v1
   template <typename T>
   inline void operator+=(vector<T>& v1, const vector<T>& v2) {
@@ -158,13 +151,6 @@ namespace std {
     return rtn;
   }
 
-
-  /// @note This is provided by Boost Assignment
-  // /// Add an item @t to set @a s
-  // template <typename T>
-  // inline void operator+=(set<T>& s, const T& t) {
-  //   s.insert(t);
-  // }
 
   /// Merge the contents of set @a s2 into @a s1
   template <typename T>

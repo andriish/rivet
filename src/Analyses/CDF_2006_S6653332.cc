@@ -22,7 +22,7 @@ namespace Rivet {
     /// Constructor
     CDF_2006_S6653332()
       : Analysis("CDF_2006_S6653332"),
-        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _LepEtaCut(1.1),
+        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(1.1),
         _sumWeightsWithZ(0.0), _sumWeightsWithZJet(0.0)
     {    }
 
@@ -66,22 +66,18 @@ namespace Rivet {
       // Make sure we have at least 2 Z decay products (mumu or ee)
       if (ZDecayProducts.size() < 2) vetoEvent;
       //
-      double Lep1Pt = ZDecayProducts[0].momentum().perp();
-      double Lep2Pt = ZDecayProducts[1].momentum().perp();
-      double Lep1Eta = fabs(ZDecayProducts[0].rapidity());
-      double Lep2Eta = fabs(ZDecayProducts[1].rapidity());
+      double Lep1Pt = ZDecayProducts[0].pT();
+      double Lep2Pt = ZDecayProducts[1].pT();
+      double Lep1Eta = ZDecayProducts[0].absrap(); //< @todo This is y... should be abseta()?
+      double Lep2Eta = ZDecayProducts[1].absrap(); //< @todo This is y... should be abseta()?
 
       if (Lep1Eta > _LepEtaCut && Lep2Eta > _LepEtaCut) vetoEvent;
-
-      if (abs(ZDecayProducts[0].pdgId())==13 && (Lep1Eta > 1.0 && Lep2Eta > 1.)) {
-        vetoEvent;
-      }
-      if (Lep1Pt < _Lep1PtCut && Lep2Pt < _Lep1PtCut) vetoEvent;
-
-      //
+      if (ZDecayProducts[0].abspid()==13 && Lep1Eta > 1. && Lep2Eta > 1.) vetoEvent;
+      if (Lep1Pt < _Lep1PtCut && Lep2Pt < _Lep2PtCut) vetoEvent;
 
       _sumWeightsWithZ += event.weight();
-      // @todo: write out a warning if there are more than two decay products
+
+      /// @todo Write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
 
       // Put all b-quarks in a vector
@@ -111,10 +107,9 @@ namespace Rivet {
           ++numJet;
           // Does the jet contain a b-quark?
           /// @todo Use jet contents rather than accessing quarks directly
-
           bool bjet = false;
           foreach (const Particle& bquark,  bquarks) {
-            if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(),bquark.momentum().azimuthalAngle()) <= _Rjet) {
+            if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(), bquark.phi()) <= _Rjet) {
               bjet = true;
               break;
             }
@@ -125,7 +120,7 @@ namespace Rivet {
         }
       } // end loop around jets
 
-      if (numJet > 0)    _sumWeightsWithZJet += event.weight();
+      if (numJet > 0) _sumWeightsWithZJet += event.weight();
       if (numBJet > 0) {
         _sigmaBJet->fill(1960.0,event.weight());
         _ratioBJetToZ->fill(1960.0,event.weight());
@@ -141,24 +136,23 @@ namespace Rivet {
       MSG_DEBUG("Sum of weights for Z production in mass range = " << _sumWeightsWithZ);
       MSG_DEBUG("Sum of weights for Z+jet production in mass range = " << _sumWeightsWithZJet);
 
-      scale(_sigmaBJet,crossSection()/sumOfWeights());
-      scale(_ratioBJetToZ,1.0/_sumWeightsWithZ);
-      scale(_ratioBJetToJet,1.0/_sumWeightsWithZJet);
+      scale(_sigmaBJet, crossSection()/sumOfWeights());
+      scale(_ratioBJetToZ, 1.0/_sumWeightsWithZ);
+      scale(_ratioBJetToJet, 1.0/_sumWeightsWithZJet);
     }
 
-        //@}
+    //@}
 
 
   private:
 
     /// @name Cuts and counters
     //@{
-
     double _Rjet;
     double _JetPtCut;
     double _JetEtaCut;
     double _Lep1PtCut;
-    //double _Lep2PtCut;
+    double _Lep2PtCut;
     double _LepEtaCut;
 
     double _sumWeightsWithZ;

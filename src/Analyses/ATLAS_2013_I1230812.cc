@@ -107,7 +107,7 @@ namespace Rivet {
       /// @todo Replace with a Cut passed to jetsByPt
       foreach(const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30*GeV)) {
         FourMomentum jmom = jet.momentum();
-        if (fabs(jmom.rapidity()) < 4.4 && deltaR(lp, jmom) > 0.5  && deltaR(lm, jmom) > 0.5) {
+        if (jmom.absrap() < 4.4 && deltaR(lp, jmom) > 0.5  && deltaR(lm, jmom) > 0.5) {
           jets.push_back(jet);
         }
       }
@@ -128,8 +128,8 @@ namespace Rivet {
       // Require at least one jet
       if (jets.size() >= 1) {
         // Leading jet histos
-        const double ptlead   = jets[0].momentum().pT()/GeV;
-        const double yabslead = fabs(jets[0].momentum().rapidity());
+        const double ptlead   = jets[0].pT()/GeV;
+        const double yabslead = fabs(jets[0].rapidity());
         const double ptz   = z.pT()/GeV;
         _h_ptlead->fill(ptlead,   weight);
         _h_ylead ->fill(yabslead, weight);
@@ -144,8 +144,8 @@ namespace Rivet {
         double st=0;
         double ht=lp.pT()/GeV+lm.pT()/GeV;
         for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
-          ht+=jets[ijet].momentum().pT()/GeV;
-          st+=jets[ijet].momentum().pT()/GeV;
+          ht+=jets[ijet].pT()/GeV;
+          st+=jets[ijet].pT()/GeV;
         }
         _h_ht->fill(ht, weight);
         _h_st->fill(st, weight);
@@ -161,17 +161,17 @@ namespace Rivet {
       // Require at least two jets
       if (jets.size() >= 2) {
         // Second jet histos
-        const double ptlead      = jets[0].momentum().pT()/GeV;
-        const double pt2ndlead   = jets[1].momentum().pT()/GeV;
+        const double ptlead      = jets[0].pT()/GeV;
+        const double pt2ndlead   = jets[1].pT()/GeV;
         const double ptratio     = pt2ndlead/ptlead;
-        const double yabs2ndlead = fabs(jets[1].momentum().rapidity());
+        const double yabs2ndlead = fabs(jets[1].rapidity());
         _h_ptseclead ->fill(pt2ndlead,   weight);
         _h_yseclead  ->fill(yabs2ndlead, weight);
         _h_pt_ratio  ->fill(ptratio, weight);
 
         // Dijet histos
         const double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
-        const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
+        const double deltarap = fabs(jets[0].rapidity() - jets[1].rapidity()) ;
         const double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
         const double mass     = (jets[0].momentum() + jets[1].momentum()).mass()/GeV;
         _h_mass     ->fill(mass,     weight);
@@ -188,13 +188,13 @@ namespace Rivet {
       // Require at least three jets
       if (jets.size() >= 3) {
         // Third jet histos
-        const double pt3rdlead   = jets[2].momentum().pT()/GeV;
-        const double yabs3rdlead = fabs(jets[2].momentum().rapidity());
+        const double pt3rdlead   = jets[2].pT()/GeV;
+        const double yabs3rdlead = fabs(jets[2].rapidity());
         _h_ptthirdlead ->fill(pt3rdlead,   weight);
         _h_ythirdlead  ->fill(yabs3rdlead, weight);
 
         //Histos after VBF preselection
-        const double deltarap = fabs(jets[0].momentum().rapidity() - jets[1].momentum().rapidity()) ;
+        const double deltarap = fabs(jets[0].rapidity() - jets[1].rapidity()) ;
         const double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
         if (mass > 350 && deltarap > 3) {
           _h_ptthirdlead_vbf ->fill(pt3rdlead,   weight);
@@ -205,8 +205,8 @@ namespace Rivet {
       // Require at least four jets
       if (jets.size() >= 4) {
         // Fourth jet histos
-        const double pt4thlead   = jets[3].momentum().pT()/GeV;
-        const double yabs4thlead = fabs(jets[3].momentum().rapidity());
+        const double pt4thlead   = jets[3].pT()/GeV;
+        const double yabs4thlead = fabs(jets[3].rapidity());
         _h_ptfourthlead ->fill(pt4thlead,   weight);
         _h_yfourthlead  ->fill(yabs4thlead, weight);
       }

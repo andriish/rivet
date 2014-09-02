@@ -93,7 +93,7 @@ namespace Rivet {
       const Particle& l = wfinder.constituentLeptons()[0];
 
       // Require a fairly high-pT W and charged lepton
-      if (l.momentum().pT() < 80*GeV || w.momentum().pT() < 120*GeV) vetoEvent;
+      if (l.pT() < 80*GeV || w.pT() < 120*GeV) vetoEvent;
 
       // Get the pseudojets.
       const PseudoJets& psjetsCA8_wj = applyProjection<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );
@@ -175,13 +175,13 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    enum { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj } BINS_vj;
+    enum BINS_vj { PT_125_150_vj=0, PT_150_220_vj, PT_220_300_vj, PT_300_450_vj, N_PT_BINS_vj };
     Histo1DPtr _h_ungroomedJetMass_AK7_wj[N_PT_BINS_vj];
     Histo1DPtr _h_filteredJetMass_AK7_wj[N_PT_BINS_vj];
     Histo1DPtr _h_trimmedJetMass_AK7_wj[N_PT_BINS_vj];
     Histo1DPtr _h_prunedJetMass_AK7_wj[N_PT_BINS_vj];
     Histo1DPtr _h_prunedJetMass_CA8_wj[N_PT_BINS_vj];
-    Histo1DPtr _h_filteredJetMass_CA12_wj[N_PT_BINS_vj-1];
+    Histo1DPtr _h_filteredJetMass_CA12_wj[N_PT_BINS_vj];
     //@}
 
   };

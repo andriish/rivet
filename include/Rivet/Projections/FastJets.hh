@@ -27,12 +27,12 @@
 namespace Rivet {
 
 
-  /// Make a 3-momentum vector from a FastJet pseudo-jet
+  /// Make a 3-momentum vector from a FastJet pseudojet
   inline Vector3 momentum3(const fastjet::PseudoJet& pj) {
     return Vector3(pj.px(), pj.py(), pj.pz());
   }
 
-  /// Make a 4-momentum vector from a FastJet pseudo-jet
+  /// Make a 4-momentum vector from a FastJet pseudojet
   inline FourMomentum momentum(const fastjet::PseudoJet& pj) {
     return FourMomentum(pj.E(), pj.px(), pj.py(), pj.pz());
   }
@@ -45,8 +45,8 @@ namespace Rivet {
 
   /// Project out jets found using the FastJet package jet algorithms.
   class FastJets : public JetAlg {
-
   public:
+
     /// Wrapper enum for selected Fastjet jet algorithms.
     enum JetAlgName { KT, CAM, SISCONE, ANTIKT,
                       PXCONE,
@@ -107,11 +107,16 @@ namespace Rivet {
     void reset();
 
     /// @brief Use provided jet area definition
-    /// @warning adef is NOT copied, the user must ensure that it remains valid!
+    ///
+    /// @warning @a adef is NOT copied, the user must ensure that it remains valid!
+    ///
     /// Provide an adef null pointer to re-disable jet area calculation
     void useJetArea(fastjet::AreaDefinition* adef) {
       _adef = adef;
     }
+
+    /// @name Access to the jets
+    //@{
 
     /// Number of jets above the \f$ p_\perp \f$ cut.
     size_t numJets(double ptmin = 0.0) const;
@@ -126,63 +131,79 @@ namespace Rivet {
 
     /// Get the pseudo jets (unordered).
     PseudoJets pseudoJets(double ptmin = 0.0) const;
+    /// Alias
+    PseudoJets pseudojets(double ptmin = 0.0) const { return pseudoJets(ptmin); }
 
     /// Get the pseudo jets, ordered by \f$ p_T \f$.
     PseudoJets pseudoJetsByPt(double ptmin = 0.0) const {
       return sorted_by_pt(pseudoJets(ptmin));
     }
+    /// Alias
+    PseudoJets pseudojetsByPt(double ptmin = 0.0) const { return pseudoJetsByPt(ptmin); }
 
     /// Get the pseudo jets, ordered by \f$ E \f$.
     PseudoJets pseudoJetsByE(double ptmin = 0.0) const {
       return sorted_by_E(pseudoJets(ptmin));
     }
+    /// Alias
+    PseudoJets pseudojetsByE(double ptmin = 0.0) const { return pseudoJetsByE(ptmin); }
 
     /// Get the pseudo jets, ordered by rapidity.
     PseudoJets pseudoJetsByRapidity(double ptmin = 0.0) const {
       return sorted_by_rapidity(pseudoJets(ptmin));
     }
+    /// Alias
+    PseudoJets pseudojetsByRapidity(double ptmin = 0.0) const { return pseudoJetsByRapidity(ptmin); }
 
-    /// Return the cluster sequence (FastJet-specific).
+    //@}
+
+
+    /// @name Access to the cluster sequence and splitting info
+    //@{
+
+    /// Return the cluster sequence.
     const fastjet::ClusterSequence* clusterSeq() const {
       return _cseq.get();
     }
 
-    /// Return the cluster sequence (FastJet-specific).
+    /// Return the area-enabled cluster sequence (if an area defn exists, otherwise returns a null ptr).
     const fastjet::ClusterSequenceArea* clusterSeqArea() const {
-      /// @todo Throw error if no area def? Or just blindly call dynamic_cast?
-      if (_adef == 0) return (fastjet::ClusterSequenceArea*) 0;
+      if (areaDef() == NULL) return (fastjet::ClusterSequenceArea*) 0;
       return dynamic_cast<fastjet::ClusterSequenceArea*>(_cseq.get());
     }
 
-    /// Return the jet definition (FastJet-specific).
+    /// Return the jet definition.
     const fastjet::JetDefinition& jetDef() const {
       return _jdef;
     }
 
-    /// Return the area definition (FastJet-specific). May be null.
+    /// Return the area definition.. May be null.
     const fastjet::AreaDefinition* areaDef() const {
       return _adef;
     }
+
 
     /// Get the subjet splitting variables for the given jet.
     vector<double> ySubJet(const fastjet::PseudoJet& jet) const;
 
     /// @brief Split a jet a la PRL100,242001(2008).
+    ///
     /// Based on code from G.Salam, A.Davison.
     fastjet::PseudoJet splitJet(fastjet::PseudoJet jet, double& last_R) const;
 
     /// @brief Filter a jet a la PRL100,242001(2008).
+    ///
     /// Based on code from G.Salam, A.Davison.
     fastjet::PseudoJet filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const;
 
-  private:
+    //@}
 
-    Jets _pseudojetsToJets(const PseudoJets& pjets) const;
+
+  private:
 
     /// Shared utility functions to implement constructor behaviour
     void _init1(JetAlgName alg, double rparameter, double seed_threshold);
-    void _init2(fastjet::JetAlgorithm type,
-                fastjet::RecombinationScheme recom, double rparameter);
+    void _init2(fastjet::JetAlgorithm type, fastjet::RecombinationScheme recom, double rparameter);
     void _init3(fastjet::JetDefinition::Plugin* plugin);
 
   protected:
@@ -196,7 +217,7 @@ namespace Rivet {
   public:
 
     /// Do the calculation locally (no caching).
-    void calc(const Particles& ps);
+    void calc(const Particles& fsparticles, const Particles& tagparticles=Particles());
 
 
   private:

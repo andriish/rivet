@@ -64,7 +64,7 @@ namespace Rivet {
       // MINIMUM BIAS EVENTS
       _weightMB += weight;
       foreach (const Particle& p, fsv.particles()) {
-        _hist_mb->fill(fabs(p.eta()), weight*p.momentum().E()/GeV);
+        _hist_mb->fill(p.abseta(), weight*p.E()/GeV);
       }
 
 
@@ -78,11 +78,11 @@ namespace Rivet {
         // eta cut for the central jets
         if (fabs(jets[0].eta()) < 2.5 && fabs(jets[1].eta()) < 2.5) {
           // Back to back condition of the jets
-          const double diffphi = deltaPhi(jets[1].momentum().phi(), jets[0].momentum().phi());
+          const double diffphi = deltaPhi(jets[1].phi(), jets[0].phi());
           if (diffphi-PI < 1.0) {
 	    _weightDiJet += weight;
             foreach (const Particle& p, fsv.particles()) {
-              _hist_dijet->fill(fabs(p.eta()), weight*p.momentum().E()/GeV);
+              _hist_dijet->fill(p.abseta(), weight*p.E()/GeV);
             }
           }
         }

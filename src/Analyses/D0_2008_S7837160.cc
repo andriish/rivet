@@ -55,7 +55,7 @@ namespace Rivet {
       // Get the e+- momentum, and an effective charge including the eta sign
       /// @todo Is it correct to multiply the eta sign into the charge to "fold" the plot?
       const FourMomentum p_e = wf.constituentLeptons()[0].momentum();
-      const int chg_e = sign(p_e.eta()) * sign(PID::charge(wf.constituentLeptons()[0]));
+      const int chg_e = sign(p_e.eta()) * sign(charge(wf.constituentLeptons()[0]));
       assert(chg_e == 1 || chg_e == -1);
       MSG_TRACE("Charged lepton sign = " << chg_e);
 
@@ -86,6 +86,9 @@ namespace Rivet {
       calc_asymm(_hs_dsigpm_deta_25_35, _h_asym1);
       calc_asymm(_hs_dsigpm_deta_35, _h_asym2);
       calc_asymm(_hs_dsigpm_deta_25, _h_asym3);
+      _h_asym1->scale(1.,100.);
+      _h_asym2->scale(1.,100.);
+      _h_asym3->scale(1.,100.);
     }
 
     //@}

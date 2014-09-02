@@ -35,19 +35,19 @@ namespace Rivet {
 
       // Get beams and average beam momentum
       const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
-      const double meanBeamMom = ( beams.first.momentum().vector3().mod() +
-                                   beams.second.momentum().vector3().mod() ) / 2.0;
+      const double meanBeamMom = ( beams.first.p3().mod() +
+                                   beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
       foreach (const Particle& p, fs.particles()) {
-        int id = abs(p.pdgId());
+        int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {
-          _histXpPiPlus->fill(p.momentum().vector3().mod(), weight);
+          _histXpPiPlus->fill(p.p3().mod(), weight);
         } else if(id == PID::KPLUS) {
-          _histXpKPlus->fill(p.momentum().vector3().mod(), weight);
+          _histXpKPlus->fill(p.p3().mod(), weight);
         } else if(id == PID::PROTON) {
-          _histXpProton->fill(p.momentum().vector3().mod(), weight);
+          _histXpProton->fill(p.p3().mod(), weight);
         }
       }
     }

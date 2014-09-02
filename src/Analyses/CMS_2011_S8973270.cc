@@ -62,7 +62,7 @@ namespace Rivet {
         double pTB1 = 7.7, pTB2 = 7.7;
 
         foreach (const Particle& p, ufs.particles()) {
-          int aid = abs(p.pdgId());
+          int aid = p.abspid();
           if (aid/100 == 5 || aid/1000==5) {
             nab++;
             // 2J+1 == 1 (mesons) or 2 (baryons)
@@ -71,11 +71,11 @@ namespace Rivet {
               if (aid != 5222 && aid != 5112 && aid != 5212 && aid != 5322) {
                 if (nb==0) {
                   etaB1 = p.eta();
-                  phiB1 = p.momentum().phi();
+                  phiB1 = p.phi();
                   pTB1 = p.pT();
                 } else if (nb==1) {
                   etaB2 = p.eta();
-                  phiB2 = p.momentum().phi();
+                  phiB2 = p.phi();
                   pTB2 = p.pT();
                 }
                 nb++;

@@ -55,14 +55,14 @@ AC_ARG_ENABLE(stdcxx11,
 
 
 if test "x$enable_stdcxx11" = "xyes"; then
-AC_MSG_RESULT([yes])
-dnl remove the wrapper if block and "optional" once we decide to have C++11 always on
-AX_CXX_COMPILE_STDCXX_11([noext],[optional])
-if test "x$HAVE_CXX11" != "x1"; then
-AC_MSG_ERROR([compiler does not recognize requested c++11 option])
-fi
+  AC_MSG_RESULT([yes])
+  dnl remove the wrapper if block and "optional" once we decide to have C++11 always on
+  AX_CXX_COMPILE_STDCXX_11([noext],[optional])
+  if test "x$HAVE_CXX11" != "x1"; then
+  AC_MSG_ERROR([compiler does not recognize requested c++11 option])
+  fi
 else
-AC_MSG_RESULT([no])
+  AC_MSG_RESULT([no])
 fi
 
 AC_PROG_INSTALL
@@ -87,8 +87,8 @@ if test -f "$YODACONFIG"; then
   YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
   let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
-  if test $YODA_VERSION_INT -lt 10006; then
-    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.0.6 required])
+  if test $YODA_VERSION_INT -lt 10100; then
+    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.1.0 required])
   fi
   AC_MSG_CHECKING([YODA Python path using yoda-config])
   YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
@@ -178,6 +178,7 @@ BOOST_FIND_HEADER([boost/lexical_cast.hpp])
 BOOST_FIND_HEADER([boost/range.hpp])
 BOOST_FIND_HEADER([boost/assign.hpp])
 
+BOOST_BUG_IN_FOREACH
 
 ## Disable build/install of standard analyses
 AC_ARG_ENABLE([analyses],
@@ -333,9 +334,7 @@ AC_CEDAR_CHECKCXXFLAG([-Werror=delete-non-virtual-dtor], [AM_CXXFLAGS="$AM_CXXFL
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
-  AC_CEDAR_CHECKCXXFLAG([-g], [AM_CXXFLAGS="$AM_CXXFLAGS -g"])
-else
-  AM_CPPFLAGS="$AM_CPPFLAGS -DNDEBUG"
+  AM_CXXFLAGS="$AM_CXXFLAGS -g"
 fi
 
 

@@ -1,6 +1,6 @@
 Name: ATLAS_2012_I1125575
 Year: 2012
-Summary: Distributions sensitive to the underlying event are studied in events containing one or more charged-particle.
+Summary: Studies of the underlying event at 7 TeV with track-jets
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1125575
@@ -41,4 +41,3 @@ BibTeX: '@article{:2012fs,
       reportNumber   = "CERN-PH-EP-2012-148",
       SLACcitation   = "%%CITATION = ARXIV:1208.0563;%%",
 }'
-
