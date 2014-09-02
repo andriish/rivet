@@ -1,10 +1,10 @@
-bin_SCRIPTS = rivet-config
+bin_SCRIPTS = rivet-config rivet-buildplugin
 dist_bin_SCRIPTS = make-plots
 EXTRA_DIST =
 
 RIVETPROGS = \
     rivet \
-    rivet-mkanalysis rivet-buildplugin \
+    rivet-mkanalysis \
 	rivet-findid rivet-which \
     rivet-cmphistos rivet-mkhtml
 if ENABLE_PYEXT
