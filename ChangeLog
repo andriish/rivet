@@ -1,3 +1,8 @@
+2014-09-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix wrong behaviour of LorentzTransform with a null boost vector
+	-- thanks to Michael Grosse.
+
 2014-08-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add calc() methods to Hemispheres as requested, to allow it to

@@ -44,7 +44,7 @@ namespace Rivet {
       // Positive coeff since these are active boosts
       _boostMatrix.set(0, 1, +beta*gamma);
       _boostMatrix.set(1, 0, +beta*gamma);
-      _boostMatrix = rotate(Vector3::mkX(), boost)._boostMatrix;
+      if (beta > 0) _boostMatrix = rotate(Vector3::mkX(), boost)._boostMatrix;
       return *this;
     }
 

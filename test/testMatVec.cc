@@ -140,5 +140,16 @@ int main() {
   cout << (ltY * ltX).boost() << endl;
   cout << (ltX * ltX.inverse()).boost() << endl;
 
+  // If we are already in the rest frame and there is no boost, then LT is trivial/identity
+  LorentzTransform noBoost(0.0,0.0,0.0);
+  cout << "Element  0,0 should be 1 and is " << noBoost.toMatrix().get(0,0) << endl;
+  assert(noBoost.toMatrix().get(0,0)==1);
+  cout << "Element  0,1 should be 0 and is " << noBoost.toMatrix().get(0,1) << endl;
+  assert(noBoost.toMatrix().get(0,1)==0);
+  cout << "Element  1,0 should be 0 and is " << noBoost.toMatrix().get(1,0) << endl;
+  assert(noBoost.toMatrix().get(1,0)==0);
+  cout << "Element  1,1 should be 1 and is " << noBoost.toMatrix().get(1,1) << endl;
+  assert(noBoost.toMatrix().get(1,1)==1);
+
   return EXIT_SUCCESS;
 }
