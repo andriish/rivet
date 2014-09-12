@@ -1,5 +1,12 @@
 2014-09-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding 5 new ATLAS analyses:
+	ATLAS_2011_I921594: Inclusive isolated prompt photon analysis with full 2010 LHC data
+	ATLAS_2013_I1263495: Inclusive isolated prompt photon analysis with 2011 LHC data
+	ATLAS_2014_I1279489: Measurements of electroweak production of dijets + $Z$ boson, and distributions sensitive to vector boson fusion
+	ATLAS_2014_I1282441: The differential production cross section of the $\phi(1020)$ meson in $\sqrt{s}=7$ TeV $pp$ collisions measured with the ATLAS detector
+	ATLAS_2014_I1298811: Leading jet underlying event at 7 TeV in ATLAS
+
 	* Adding a median(vector<NUM>) function and fixing the other stats
 	functions to operate on vector<NUM> rather than vector<int>.
 
