@@ -1,3 +1,8 @@
+2014-09-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a median(vector<NUM>) function and fixing the other stats
+	functions to operate on vector<NUM> rather than vector<int>.
+
 2014-09-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix wrong behaviour of LorentzTransform with a null boost vector

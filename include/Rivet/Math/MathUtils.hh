@@ -357,8 +357,22 @@ namespace Rivet {
   /// @name Discrete statistics functions
   //@{
 
+  /// Calculate the median of a sample
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, NUM>::type
+  median(const vector<NUM>& sample) {
+    vector<NUM> tmp = sample;
+    std::sort(tmp.begin(), tmp.end());
+    const size_t imid = (size_t) floor(tmp.size()/2.0); // len1->idx0, len2->idx1, len3->idx1, len4->idx2, ...
+    if (sample.size() % 2 == 0) return (tmp.at(imid-1) + tmp.at(imid)) / 2.0;
+    else return tmp.at(imid);
+  }
+
+
   /// Calculate the mean of a sample
-  inline double mean(const vector<int>& sample) {
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, double>::type
+  mean(const vector<NUM>& sample) {
     double mean = 0.0;
     for (size_t i = 0; i < sample.size(); ++i) {
       mean += sample[i];
@@ -366,8 +380,10 @@ namespace Rivet {
     return mean/sample.size();
   }
 
-  // Calculate the error on the mean, assuming poissonian errors
-  inline double mean_err(const vector<int>& sample) {
+  // Calculate the error on the mean, assuming Poissonian errors
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, double>::type
+  mean_err(const vector<NUM>& sample) {
     double mean_e = 0.0;
     for (size_t i = 0; i < sample.size(); ++i) {
       mean_e += sqrt(sample[i]);
@@ -375,8 +391,11 @@ namespace Rivet {
     return mean_e/sample.size();
   }
 
+
   /// Calculate the covariance (variance) between two samples
-  inline double covariance(const vector<int>& sample1, const vector<int>& sample2) {
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, double>::type
+  covariance(const vector<NUM>& sample1, const vector<NUM>& sample2) {
     const double mean1 = mean(sample1);
     const double mean2 = mean(sample2);
     const size_t N = sample1.size();
@@ -390,7 +409,9 @@ namespace Rivet {
   }
 
   /// Calculate the error on the covariance (variance) of two samples, assuming poissonian errors
-  inline double covariance_err(const vector<int>& sample1, const vector<int>& sample2) {
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, double>::type
+  covariance_err(const vector<NUM>& sample1, const vector<NUM>& sample2) {
     const double mean1 = mean(sample1);
     const double mean2 = mean(sample2);
     const double mean1_e = mean_err(sample1);
@@ -408,7 +429,9 @@ namespace Rivet {
 
 
   /// Calculate the correlation strength between two samples
-  inline double correlation(const vector<int>& sample1, const vector<int>& sample2) {
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, double>::type
+  correlation(const vector<NUM>& sample1, const vector<NUM>& sample2) {
     const double cov = covariance(sample1, sample2);
     const double var1 = covariance(sample1, sample1);
     const double var2 = covariance(sample2, sample2);
@@ -418,7 +441,9 @@ namespace Rivet {
   }
 
   /// Calculate the error of the correlation strength between two samples assuming Poissonian errors
-  inline double correlation_err(const vector<int>& sample1, const vector<int>& sample2) {
+  template <typename NUM>
+  inline typename boost::enable_if_c<boost::is_arithmetic<NUM>::value, double>::type
+  correlation_err(const vector<NUM>& sample1, const vector<NUM>& sample2) {
     const double cov = covariance(sample1, sample2);
     const double var1 = covariance(sample1, sample1);
     const double var2 = covariance(sample2, sample2);
@@ -431,7 +456,6 @@ namespace Rivet {
     // Calculate the error on the correlation
     const double correlation_err = cov_e/sqrt(var1*var2) -
       cov/(2*pow(3./2., var1*var2)) * (var1_e * var2 + var1 * var2_e);
-
 
     // Calculate the error on the correlation strength
     const double corr_strength_err = correlation_err*sqrt(var2/var1) +
