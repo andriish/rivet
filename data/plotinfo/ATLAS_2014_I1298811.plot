@@ -95,15 +95,15 @@ YLabel=$\langle \sum E_T^\text{ch+neut} / \delta\eta\,\delta\phi \rangle$ [GeV]
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1298811/d09-x01-y01
-Title=Transverse $\langle \sum E_T^\text{ch+neut} / \sum p_T^\text{ch} \rangle$ vs. $p_T^\text{lead}$ in $|\eta| < 2.5$ in incl jet events
+Title=Transverse $\langle \sum p_T^\text{ch} / \sum E_T^\text{ch+neut} \rangle$ vs. $p_T^\text{lead}$ in $|\eta| < 2.5$ in incl jet events
 XLabel=$p_T^\text{lead}$ [GeV]
-YLabel=$\langle \sum E_T^\text{ch+neut} / \sum p_T^\text{ch} \rangle$
+YLabel=$\langle \sum p_T^\text{ch} / \sum E_T^\text{ch+neut} \rangle$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1298811/d09-x01-y02
-Title=Transverse $\langle \sum E_T^\text{ch+neut} / \sum p_T^\text{ch} \rangle$ vs. $p_T^\text{lead}$ in $|\eta| < 2.5$ in excl dijet events
+Title=Transverse $\langle \sum p_T^\text{ch} / \sum E_T^\text{ch+neut} \rangle$ vs. $p_T^\text{lead}$ in $|\eta| < 2.5$ in excl dijet events
 XLabel=$p_T^\text{lead}$ [GeV]
-YLabel=$\langle \sum E_T^\text{ch+neut} / \sum p_T^\text{ch} \rangle$
+YLabel=$\langle \sum p_T^\text{ch} / \sum E_T^\text{ch+neut} \rangle$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1298811/d10-x01-y01
