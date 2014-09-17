@@ -85,7 +85,7 @@ namespace Rivet {
       Particles bquarks;
       /// @todo Use nicer looping
       for (GenEvent::particle_const_iterator p = event.genEvent()->particles_begin(); p != event.genEvent()->particles_end(); ++p) {
-        if ( fabs((*p)->pdg_id()) == PID::BQUARK ) {
+        if ( std::abs((*p)->pdg_id()) == PID::BQUARK ) {
           bquarks.push_back(Particle(**p));
         }
       }

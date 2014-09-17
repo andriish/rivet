@@ -43,8 +43,8 @@ namespace Rivet {
     boost::is_arithmetic<N1>::value && boost::is_arithmetic<N2>::value &&
    (boost::is_floating_point<N1>::value || boost::is_floating_point<N2>::value), bool>::type
   fuzzyEquals(N1 a, N2 b, double tolerance=1e-5) {
-    const double absavg = (fabs(a) + fabs(b))/2.0;
-    const double absdiff = fabs(a - b);
+    const double absavg = (std::abs(a) + std::abs(b))/2.0;
+    const double absdiff = std::abs(a - b);
     const bool rtn = (isZero(a) && isZero(b)) || absdiff < tolerance*absavg;
     return rtn;
   }
@@ -363,7 +363,7 @@ namespace Rivet {
   median(const vector<NUM>& sample) {
     vector<NUM> tmp = sample;
     std::sort(tmp.begin(), tmp.end());
-    const size_t imid = (size_t) floor(tmp.size()/2.0); // len1->idx0, len2->idx1, len3->idx1, len4->idx2, ...
+    const size_t imid = tmp.size()/2; // len1->idx0, len2->idx1, len3->idx1, len4->idx2, ...
     if (sample.size() % 2 == 0) return (tmp.at(imid-1) + tmp.at(imid)) / 2.0;
     else return tmp.at(imid);
   }
