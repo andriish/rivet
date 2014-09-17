@@ -572,32 +572,82 @@ namespace Rivet {
 
 
   void Analysis::divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
-    // preserve the path info
     const string path = s->path();
     *s = *h1 / *h2;
     s->setPath(path);
   }
 
-  void Analysis::divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const {
-    // preserve the path info
-    const string path = s->path();
-    *s = *p1 / *p2;
-    s->setPath(path);
-  }
-
   void Analysis::divide(const Histo1D& h1, const Histo1D& h2, Scatter2DPtr s) const {
-    // preserve the path info
     const string path = s->path();
     *s = h1 / h2;
     s->setPath(path);
   }
 
+
+  void Analysis::divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const {
+    const string path = s->path();
+    *s = *p1 / *p2;
+    s->setPath(path);
+  }
+
   void Analysis::divide(const Profile1D& p1, const Profile1D& p2, Scatter2DPtr s) const {
-    // preserve the path info
     const string path = s->path();
     *s = p1 / p2;
     s->setPath(path);
   }
+
+
+  void Analysis::divide(Histo2DPtr h1, Histo2DPtr h2, Scatter3DPtr s) const {
+    const string path = s->path();
+    *s = *h1 / *h2;
+    s->setPath(path);
+  }
+
+  void Analysis::divide(const Histo2D& h1, const Histo2D& h2, Scatter3DPtr s) const {
+    const string path = s->path();
+    *s = h1 / h2;
+    s->setPath(path);
+  }
+
+
+  void Analysis::divide(Profile2DPtr p1, Profile2DPtr p2, Scatter3DPtr s) const {
+    const string path = s->path();
+    *s = *p1 / *p2;
+    s->setPath(path);
+  }
+
+  void Analysis::divide(const Profile2D& p1, const Profile2D& p2, Scatter3DPtr s) const {
+    const string path = s->path();
+    *s = p1 / p2;
+    s->setPath(path);
+  }
+
+
+  void Analysis::efficiency(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
+    const string path = s->path();
+    *s = YODA::efficiency(*h1, *h2);
+    s->setPath(path);
+  }
+
+  void Analysis::efficiency(const Histo1D& h1, const Histo1D& h2, Scatter2DPtr s) const {
+    const string path = s->path();
+    *s = YODA::efficiency(h1, h2);
+    s->setPath(path);
+  }
+
+
+  void Analysis::asymm(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
+    const string path = s->path();
+    *s = YODA::asymm(*h1, *h2);
+    s->setPath(path);
+  }
+
+  void Analysis::asymm(const Histo1D& h1, const Histo1D& h2, Scatter2DPtr s) const {
+    const string path = s->path();
+    *s = YODA::asymm(h1, h2);
+    s->setPath(path);
+  }
+
 
   void Analysis::normalize(Histo1DPtr histo, double norm, bool includeoverflows) {
     if (!histo) {

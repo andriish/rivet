@@ -582,7 +582,7 @@ namespace Rivet {
     //@}
 
 
-    /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
+    /// @todo What follows should really be protected: only public to keep BinnedHistogram happy for now...
   public:
 
     /// @name Histogram manipulation
@@ -601,49 +601,90 @@ namespace Rivet {
     /// Normalize the given histogram, @a histo, to area = @a norm.
     ///
     /// @note The histogram is no longer invalidated by this procedure.
-    // void normalize(Histo2DPtr histo, double norm=1.0);
+    void normalize(Histo2DPtr histo, double norm=1.0, bool includeoverflows=true);
 
     /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
     ///
     /// @note The histogram is no longer invalidated by this procedure.
-    // void scale(Histo2DPtr histo, double scale);
+    void scale(Histo2DPtr histo, double scale);
 
 
     /// Helper for histogram division.
     ///
-    /// @note Preserves the path information of the target.
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
     void divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
+
+    /// Helper for histogram division with raw YODA objects.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(const YODA::Histo1D& h1,
+                const YODA::Histo1D& h2, Scatter2DPtr s) const;
+
 
     /// Helper for profile histogram division.
     ///
-    /// @note Preserves the path information of the target.
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
     void divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const;
 
-    /// Helper for histogram division.
+    /// Helper for profile histogram division with raw YODA objects.
     ///
-    /// @note Preserves the path information of the target.
-    void divide(const YODA::Histo1D & h1,
-                const YODA::Histo1D & h2, Scatter2DPtr s) const;
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(const YODA::Profile1D& p1, const YODA::Profile1D& p2, Scatter2DPtr s) const;
 
-    /// Helper for profile histogram division
+
+    /// Helper for 2D histogram division.
     ///
-    /// @note Preserves the path information of the target.
-    void divide(const YODA::Profile1D & p1,
-                const YODA::Profile1D & p2, Scatter2DPtr s) const;
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(Histo2DPtr h1, Histo2DPtr h2, Scatter3DPtr s) const;
+
+    /// Helper for 2D histogram division with raw YODA objects.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(const YODA::Histo2D& h1, const YODA::Histo2D& h2, Scatter3DPtr s) const;
+
+
+    /// Helper for 2D profile histogram division.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(Profile2DPtr p1, Profile2DPtr p2, Scatter3DPtr s) const;
+
+    /// Helper for 2D profile histogram division with raw YODA objects
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s.  Preserves the path information of the target.
+    void divide(const YODA::Profile2D& p1, const YODA::Profile2D& p2, Scatter3DPtr s) const;
+
+
+    /// Helper for histogram efficiency calculation.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void efficiency(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
+
+    /// Helper for histogram efficiency calculation.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void efficiency(const YODA::Histo1D& h1, const YODA::Histo1D& h2, Scatter2DPtr s) const;
+
+
+    /// Helper for histogram asymmetry calculation.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void asymm(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const;
+
+    /// Helper for histogram asymmetry calculation.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void asymm(const YODA::Histo1D& h1, const YODA::Histo1D& h2, Scatter2DPtr s) const;
 
 
     /// Helper for converting a differential histo to an integral one.
     ///
-    /// @note Preserves the path information of the target.
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
     void integrate(Histo1DPtr h, Scatter2DPtr s) const;
 
     /// Helper for converting a differential histo to an integral one.
     ///
-    /// @note Preserves the path information of the target.
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
     void integrate(const Histo1D& h, Scatter2DPtr s) const;
-
-
-    /// @todo Add integrate helpers for 2D histos (defined somehow...)
 
     //@}
 

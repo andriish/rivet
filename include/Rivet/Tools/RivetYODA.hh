@@ -30,6 +30,7 @@ namespace Rivet {
   typedef shared_ptr<YODA::Profile1D> Profile1DPtr;
   typedef shared_ptr<YODA::Profile2D> Profile2DPtr;
   typedef shared_ptr<YODA::Scatter2D> Scatter2DPtr;
+  typedef shared_ptr<YODA::Scatter3D> Scatter3DPtr;
 
   using YODA::WriterYODA;
   using YODA::Counter;
@@ -41,12 +42,12 @@ namespace Rivet {
   using YODA::ProfileBin1D;
   using YODA::Profile2D;
   using YODA::ProfileBin2D;
-  // using YODA::Scatter1D;
-  // using YODA::Point1D;
+  using YODA::Scatter1D;
+  using YODA::Point1D;
   using YODA::Scatter2D;
   using YODA::Point2D;
-  // using YODA::Scatter3D;
-  // using YODA::Point3D;
+  using YODA::Scatter3D;
+  using YODA::Point3D;
 
   /// Function to get a map of all the refdata in a paper with the
   /// given @a papername.

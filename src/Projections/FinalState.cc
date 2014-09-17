@@ -3,6 +3,7 @@
 
 namespace Rivet {
 
+
   // @deprecated, keep for backwards compatibility for now.
   FinalState::FinalState(double mineta, double maxeta, double minpt)
   {
@@ -17,7 +18,7 @@ namespace Rivet {
     }
     else {
       addProjection(FinalState(), "OpenFS");
-      if ( openeta ) 
+      if ( openeta )
 	_cuts = Cuts::pT >= minpt;
       else if ( openpt )
 	_cuts = EtaIn(mineta,maxeta);
@@ -25,6 +26,7 @@ namespace Rivet {
 	_cuts = EtaIn(mineta,maxeta) & (Cuts::pT >= minpt);
     }
   }
+
 
   FinalState::FinalState(Cut c)
     : ParticleFinder(c)
