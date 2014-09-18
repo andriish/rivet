@@ -9,6 +9,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief ATLAS 7 TeV jets in ttbar events analysis
   ///
@@ -30,8 +32,8 @@ namespace Rivet {
 
     void init() {
       // Eta ranges
-      Cut eta_full = EtaIn(-5.0, 5.0) & Cuts::pT >= 1.0*MeV;
-      Cut eta_lep = EtaIn(-2.5, 2.5);
+      Cut eta_full = etaIn(-5.0, 5.0) & pT >= 1.0*MeV;
+      Cut eta_lep = etaIn(-2.5, 2.5);
 
       // All final state particles
       FinalState fs(eta_full);
@@ -46,9 +48,9 @@ namespace Rivet {
       PromptFinalState electrons(el_id);
       electrons.acceptTauDecays(true);
       addProjection(electrons, "electrons");
-      DressedLeptons dressedelectrons(photons, electrons, 0.1, true, eta_lep & Cuts::pT >= 25.0*GeV,true);
+      DressedLeptons dressedelectrons(photons, electrons, 0.1, true, eta_lep & pT >= 25.0*GeV,true);
       addProjection(dressedelectrons, "dressedelectrons");
-      DressedLeptons vetodressedelectrons(photons, electrons, 0.1, true, eta_lep & Cuts::pT >= 15.0*GeV,true);
+      DressedLeptons vetodressedelectrons(photons, electrons, 0.1, true, eta_lep & pT >= 15.0*GeV,true);
       addProjection(vetodressedelectrons, "vetodressedelectrons");
       DressedLeptons ewdressedelectrons(photons, electrons, 0.1, true, eta_full, true);
       addProjection(ewdressedelectrons, "ewdressedelectrons");
@@ -60,9 +62,9 @@ namespace Rivet {
       muons.acceptTauDecays(true);
       addProjection(muons, "muons");
       vector<pair<double, double> > eta_muon;
-      DressedLeptons dressedmuons(photons, muons, 0.1, true, eta_lep & Cuts::pT >= 25.0*GeV,true);
+      DressedLeptons dressedmuons(photons, muons, 0.1, true, eta_lep & pT >= 25.0*GeV,true);
       addProjection(dressedmuons, "dressedmuons");
-      DressedLeptons vetodressedmuons(photons, muons, 0.1, true, eta_lep & Cuts::pT >= 15.0*GeV,true);
+      DressedLeptons vetodressedmuons(photons, muons, 0.1, true, eta_lep & pT >= 15.0*GeV,true);
       addProjection(vetodressedmuons, "vetodressedmuons");
       DressedLeptons ewdressedmuons(photons, muons, 0.1, true, eta_full, true);
       addProjection(ewdressedmuons, "ewdressedmuons");

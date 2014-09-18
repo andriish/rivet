@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief Measurement of Z(->muon muon) pT differential cross-section
   /// @author Flavia Dias
@@ -22,7 +24,7 @@ namespace Rivet {
 
     /// Add projections and book histograms
     void init() {
-      Cut cut = EtaIn(-1.7,1.7) & (Cuts::pT >= 15.0*GeV);
+      Cut cut = etaIn(-1.7,1.7) & (pT >= 15.0*GeV);
       ZFinder zfinder(FinalState(), cut, PID::MUON, 65*GeV, 115*GeV,
                       0.2, ZFinder::NOCLUSTER, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");

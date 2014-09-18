@@ -4,7 +4,6 @@
 
 namespace Rivet {
 
-
   /// Generic analysis looking at various distributions of final state particles
   class MC_PDFS : public Analysis {
   public:

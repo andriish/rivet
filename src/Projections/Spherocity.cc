@@ -92,7 +92,7 @@ namespace Rivet {
     // This returns the scalar sum of (transverse) momenta
     double perpmomentumSum(0.0);
     foreach (const Vector3& p, fsperpmomenta) {
-      perpmomentumSum += mod(p);
+      perpmomentumSum += p.mod();
     }
 
     // Clear the caches

@@ -11,6 +11,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// ATLAS Z+jets in pp at 7 TeV
   class ATLAS_2011_I945498 : public Analysis {
@@ -38,17 +40,17 @@ namespace Rivet {
 
       // Set up projections
 	  FinalState fs;
-      ZFinder zfinder_mu(fs, EtaIn(-2.4, 2.4) & (Cuts::pT >= 20*GeV), PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
+      ZFinder zfinder_mu(fs, etaIn(-2.4, 2.4) & (pT >= 20*GeV), PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_mu, "ZFinder_mu");
 
-      Cut cuts = ( EtaIn(-2.47, -1.52)
-		   | EtaIn(-1.37,  1.37)
-		   | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = ( etaIn(-2.47, -1.52)
+		   | etaIn(-1.37,  1.37)
+		   | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
 
       ZFinder zfinder_el(fs, cuts, PID::ELECTRON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_el, "ZFinder_el");
 
-	  Cut cuts25_20 = EtaIn(-2.5,2.5) & (Cuts::pT >= 20.0*GeV);
+	  Cut cuts25_20 = etaIn(-2.5,2.5) & (pT >= 20.0*GeV);
       // For combined cross-sections (combined phase space + dressed level)
       ZFinder zfinder_comb_mu(fs, cuts25_20, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_comb_mu, "ZFinder_comb_mu");

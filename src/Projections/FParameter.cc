@@ -69,7 +69,7 @@ namespace Rivet {
     MSG_DEBUG("Number of particles = " << fsperpmomenta.size());
     foreach (const Vector3& p3, fsperpmomenta) {
 
-      double prefactor = 1.0/mod(p3);
+      double prefactor = 1.0/p3.mod();
 
       Matrix<2> mMomPart;
       for (size_t i = 0; i < 2; ++i) {

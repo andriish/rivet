@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for photons
   /// @todo Rename to MC_DRESSEDPHOTONS, or add these plots to the generic particle analysis photons

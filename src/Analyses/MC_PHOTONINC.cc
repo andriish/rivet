@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for single photon events
   class MC_PHOTONINC : public Analysis {

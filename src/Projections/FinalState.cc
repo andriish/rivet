@@ -7,6 +7,7 @@ namespace Rivet {
   // @deprecated, keep for backwards compatibility for now.
   FinalState::FinalState(double mineta, double maxeta, double minpt)
   {
+    using namespace Cuts;
     setName("FinalState");
     const bool openpt = isZero(minpt);
     const bool openeta = (mineta <= -MAXDOUBLE && maxeta >= MAXDOUBLE);
@@ -14,16 +15,16 @@ namespace Rivet {
               << " eta=" << openeta
               << ", pt=" << openpt);
     if ( openpt && openeta ) {
-      _cuts = Cuts::open();
+      _cuts = open();
     }
     else {
       addProjection(FinalState(), "OpenFS");
       if ( openeta )
-	_cuts = Cuts::pT >= minpt;
+        _cuts = pT >= minpt;
       else if ( openpt )
-	_cuts = EtaIn(mineta,maxeta);
+        _cuts = etaIn(mineta,maxeta);
       else
-	_cuts = EtaIn(mineta,maxeta) & (Cuts::pT >= minpt);
+        _cuts = etaIn(mineta,maxeta) & (pT >= minpt);
     }
   }
 

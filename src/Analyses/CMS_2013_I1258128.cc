@@ -8,6 +8,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// CMS Z rapidity measurement
   class CMS_2013_I1258128 : public Analysis {
@@ -25,7 +27,7 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       // Z finders for electrons and muons
-      Cut cuts = EtaIn(-2.1,2.1) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = etaIn(-2.1,2.1) & (pT >= 20.0*GeV);
       const ZFinder zfe(fs, cuts, PID::ELECTRON, 76*GeV, 106*GeV);
       const ZFinder zfm(fs, cuts, PID::MUON, 76*GeV, 106*GeV);
       addProjection(zfe, "ZFE");

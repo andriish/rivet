@@ -136,22 +136,6 @@ namespace Rivet {
   };
 
 
-
-  /// Calculate the modulus-squared of a vector.
-  /// \f$ \sum_{i=1}^N x_i^2 \f$.
-  template <size_t N>
-  inline double mod2(const Vector<N>& v) {
-    return v.mod2();
-  }
-
-  /// Calculate the modulus of a vector.
-  /// \f$ \sqrt{\sum_{i=1}^N x_i^2} \f$.
-  template <size_t N>
-  inline double mod(const Vector<N>& v) {
-    return v.mod();
-  }
-
-
   /////////////////////////////////////////////////
 
 

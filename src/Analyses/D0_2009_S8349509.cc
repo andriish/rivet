@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief D0 Z+jets angular distributions
   class D0_2009_S8349509 : public Analysis {
@@ -28,7 +30,7 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      Cut cut = EtaIn(-1.7,1.7) & (Cuts::pT >= 15.0*GeV);
+      Cut cut = etaIn(-1.7,1.7) & (pT >= 15.0*GeV);
       ZFinder zfinder(FinalState(), cut, PID::MUON, 65*GeV, 115*GeV, 0.2, ZFinder::NOCLUSTER, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 

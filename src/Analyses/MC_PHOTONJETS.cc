@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for photon + jets events
   class MC_PHOTONJETS : public MC_JetAnalysis {

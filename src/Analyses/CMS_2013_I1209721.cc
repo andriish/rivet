@@ -7,6 +7,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// CMS Z+jets delta(phi) and jet thrust measurement at 7 TeV
   class CMS_2013_I1209721 : public Analysis {
@@ -23,7 +25,7 @@ namespace Rivet {
       const FinalState fs(-5.0,5.0);
       addProjection(fs, "FS");
       // Z finders for electrons and muons
-      Cut cuts = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
       const ZFinder zfe(fs, cuts, PID::ELECTRON, 71*GeV, 111*GeV);
       const ZFinder zfm(fs, cuts, PID::MUON,     71*GeV, 111*GeV);
       addProjection(zfe, "ZFE");

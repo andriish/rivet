@@ -9,6 +9,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// ATLAS Wee Wemu Wmumu analysis at Z TeV
   class ATLAS_2013_I1190187 : public Analysis {
@@ -24,11 +26,11 @@ namespace Rivet {
       FinalState fs;
 
       Cut etaRanges_EL 
-      	= ( EtaIn(-2.47, -1.52)
-	  | EtaIn(-1.37,  1.37)
-	  | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
+      	= ( etaIn(-2.47, -1.52)
+	  | etaIn(-1.37,  1.37)
+	  | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
 
-      Cut etaRanges_MU = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
+      Cut etaRanges_MU = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
 
       MissingMomentum met(fs);
       addProjection(met, "MET");

@@ -11,6 +11,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class ATLAS_2011_S8983313 : public Analysis {
   public:
@@ -35,16 +37,16 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      Cut pt10 = Cuts::pT > 10.0*GeV;
+      Cut pt10 = pT > 10.0*GeV;
 
-      IdentifiedFinalState elecs( EtaIn(-2.47, 2.47) & pt10 );
+      IdentifiedFinalState elecs( etaIn(-2.47, 2.47) & pt10 );
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
 
 
       // veto region electrons
-      Cut vetocut = EtaIn(-1.52, -1.37) | EtaIn( 1.37,  1.52);
+      Cut vetocut = etaIn(-1.52, -1.37) | etaIn( 1.37,  1.52);
       IdentifiedFinalState veto_elecs(vetocut & pt10);
       veto_elecs.acceptIdPair(PID::ELECTRON);
       addProjection(veto_elecs, "veto_elecs");
@@ -52,7 +54,7 @@ namespace Rivet {
 
 
       // projection to find the muons
-      IdentifiedFinalState muons( EtaIn(-2.4, 2.4) & pt10 );
+      IdentifiedFinalState muons( etaIn(-2.4, 2.4) & pt10 );
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 

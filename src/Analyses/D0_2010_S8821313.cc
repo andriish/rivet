@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class D0_2010_S8821313 : public Analysis {
   public:
@@ -23,15 +25,15 @@ namespace Rivet {
     void init() {
 
       /// Initialise and register projections
-      Cut cuts = (   EtaIn(-3.0, -1.5)
-		   | EtaIn(-1.1,  1.1)
-		   | EtaIn( 1.5,  3.0) )
-	& (Cuts::pT >= 20.0*GeV);
+      Cut cuts = (   etaIn(-3.0, -1.5)
+		   | etaIn(-1.1,  1.1)
+		   | etaIn( 1.5,  3.0) )
+	& (pT >= 20.0*GeV);
       FinalState fs; //< @todo Should the eta cuts be on the electrons or the resulting Z? I'd have thought the electrons
       ZFinder zfinder_ee(fs, cuts, PID::ELECTRON, 70*GeV, 110*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder_ee, "zfinder_ee");
       ZFinder zfinder_mm(fs, 
-             EtaIn(-2.0, 2.0) & (Cuts::pT >= 15.0*GeV),
+             etaIn(-2.0, 2.0) & (pT >= 15.0*GeV),
              PID::MUON, 70*GeV, 110*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK);
       addProjection(zfinder_mm, "zfinder_mm");
 

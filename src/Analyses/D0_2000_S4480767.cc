@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class D0_2000_S4480767 : public Analysis {
   public:
@@ -28,7 +30,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs;
-      WFinder wf(fs, EtaIn(-5,5), PID::ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
+      WFinder wf(fs, etaIn(-5,5), PID::ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
       addProjection(wf, "WFinder");
 
       _h_W_pT = bookHisto1D(1, 1, 1);

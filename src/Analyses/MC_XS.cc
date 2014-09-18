@@ -4,7 +4,6 @@
 
 namespace Rivet {
 
-
   /// @brief Analysis for the generated cross section
   class MC_XS : public Analysis {
   public:

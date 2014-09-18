@@ -135,7 +135,7 @@ private:
     return make_cut(Cut_Gtr(qty, n));
   }
 
-  Cut Range(Cuts::Quantity qty, double m, double n) {
+  Cut Cuts::range(Cuts::Quantity qty, double m, double n) {
     if (m > n) swap(m,n);
     return (qty >= m) & (qty < n);
   }
@@ -258,11 +258,13 @@ class Cuttable <Particle> : public CuttableBase {
     Cuttable(const Particle& p) : p_(p) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
-      case Cuts::pT:   return p_.momentum().pT();
-      case Cuts::mass: return p_.momentum().mass();
-      case Cuts::rap:  return p_.momentum().rapidity();
-      case Cuts::eta:  return p_.momentum().pseudorapidity();
-      case Cuts::phi:  return p_.momentum().phi();
+      case Cuts::pT:     return p_.momentum().pT();
+      case Cuts::mass:   return p_.momentum().mass();
+      case Cuts::rap:    return p_.momentum().rapidity();
+      case Cuts::absrap: return std::abs(p_.momentum().rapidity());
+      case Cuts::eta:    return p_.momentum().pseudorapidity();
+      case Cuts::abseta: return std::abs(p_.momentum().pseudorapidity());
+      case Cuts::phi:    return p_.momentum().phi();
       default: qty_not_found();
       }
       return -999.;
@@ -279,11 +281,13 @@ class Cuttable <FourMomentum> : public CuttableBase {
     Cuttable(const FourMomentum& fm) : fm_(fm) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
-      case Cuts::pT:   return fm_.pT();
-      case Cuts::mass: return fm_.mass();
-      case Cuts::rap:  return fm_.rapidity();
-      case Cuts::eta:  return fm_.pseudorapidity();
-      case Cuts::phi:  return fm_.phi();
+      case Cuts::pT:     return fm_.pT();
+      case Cuts::mass:   return fm_.mass();
+      case Cuts::rap:    return fm_.rapidity();
+      case Cuts::absrap: return std::abs(fm_.rapidity());
+      case Cuts::eta:    return fm_.pseudorapidity();
+      case Cuts::abseta: return std::abs(fm_.pseudorapidity());
+      case Cuts::phi:    return fm_.phi();
       default: qty_not_found();
       }
       return -999.;
@@ -299,11 +303,13 @@ class Cuttable <Jet> : public CuttableBase {
     Cuttable(const Jet& jet) : jet_(jet) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
-      case Cuts::pT:   return jet_.momentum().pT();
-      case Cuts::mass: return jet_.momentum().mass();
-      case Cuts::rap:  return jet_.momentum().rapidity();
-      case Cuts::eta:  return jet_.momentum().pseudorapidity();
-      case Cuts::phi:  return jet_.momentum().phi();
+      case Cuts::pT:     return jet_.momentum().pT();
+      case Cuts::mass:   return jet_.momentum().mass();
+      case Cuts::rap:    return jet_.momentum().rapidity();
+      case Cuts::absrap: return std::abs(jet_.momentum().rapidity());
+      case Cuts::eta:    return jet_.momentum().pseudorapidity();
+      case Cuts::abseta: return std::abs(jet_.momentum().pseudorapidity());
+      case Cuts::phi:    return jet_.momentum().phi();
       default: qty_not_found();
       }
       return -999.;
@@ -319,11 +325,13 @@ class Cuttable <fastjet::PseudoJet> : public CuttableBase {
     Cuttable(const fastjet::PseudoJet& pjet) : pjet_(pjet) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
-      case Cuts::pT:   return pjet_.perp();
-      case Cuts::mass: return pjet_.m();
-      case Cuts::rap:  return pjet_.rap();
-      case Cuts::eta:  return pjet_.eta();
-      case Cuts::phi:  return pjet_.phi();
+      case Cuts::pT:     return pjet_.perp();
+      case Cuts::mass:   return pjet_.m();
+      case Cuts::rap:    return pjet_.rap();
+      case Cuts::absrap: return std::abs(pjet_.rap());
+      case Cuts::eta:    return pjet_.eta();
+      case Cuts::abseta: return std::abs(pjet_.eta());
+      case Cuts::phi:    return pjet_.phi();
       default: qty_not_found();
       }
       return -999.;
@@ -340,11 +348,13 @@ class Cuttable <HepMC::FourVector> : public CuttableBase {
     Cuttable(const HepMC::FourVector & vec) : vec_(vec) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
-      case Cuts::pT:   return vec_.perp();
-      case Cuts::mass: return vec_.m();
-	//      case Cuts::rap:  return vec_.rap(); // needs calculated conversion
-      case Cuts::eta:  return vec_.pseudoRapidity();
-      case Cuts::phi:  return vec_.phi();
+      case Cuts::pT:     return vec_.perp();
+      case Cuts::mass:   return vec_.m();
+	    case Cuts::rap:    return 0.5*std::log((vec_.t()+vec_.z())/(vec_.t()-vec_.z()));
+      case Cuts::absrap: return std::abs(getValue(Cuts::rap));
+      case Cuts::eta:    return vec_.pseudoRapidity();
+      case Cuts::abseta: return std::abs(vec_.pseudoRapidity());
+      case Cuts::phi:    return vec_.phi();
       default: qty_not_found();
       }
       return -999.;

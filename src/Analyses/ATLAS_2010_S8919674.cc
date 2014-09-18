@@ -6,6 +6,7 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
 
   /// W + jets jet multiplicities and pT
   class ATLAS_2010_S8919674 : public Analysis {
@@ -32,12 +33,12 @@ namespace Rivet {
 
       // Set up projections to find the electron and muon Ws
       FinalState fs;
-      Cut cuts = ( EtaIn(-2.47, -1.52)
-		   | EtaIn(-1.37,  1.37)
-		   | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = ( etaIn(-2.47, -1.52)
+		   | etaIn(-1.37,  1.37)
+		   | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
       WFinder wfinder_e(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV);
       addProjection(wfinder_e, "W_e");
-      WFinder wfinder_mu(fs, EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV), PID::MUON, 0*GeV, 1000*GeV, 25*GeV);
+      WFinder wfinder_mu(fs, etaIn(-2.4,2.4) & (pT >= 20.0*GeV), PID::MUON, 0*GeV, 1000*GeV, 25*GeV);
       addProjection(wfinder_mu, "W_mu");
 
       // Input for the jets: no neutrinos, no muons, and no electron which passed the electron cuts

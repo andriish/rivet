@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for W^+[enu]W^-[munu] events
   class MC_WWINC : public Analysis {
@@ -22,12 +24,12 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      WFinder wenufinder(fs, EtaIn(-3.5, 3.5) & (Cuts::pT >= 25.0*GeV), PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wenufinder(fs, etaIn(-3.5, 3.5) & (pT >= 25.0*GeV), PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wenufinder, "WenuFinder");
 
       VetoedFinalState wmnuinput;
       wmnuinput.addVetoOnThisFinalState(wenufinder);
-      WFinder wmnufinder(wmnuinput, EtaIn(-3.5, 3.5) & (Cuts::pT >= 25.0*GeV), PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wmnufinder(wmnuinput, etaIn(-3.5, 3.5) & (pT >= 25.0*GeV), PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wmnufinder, "WmnuFinder");
 
       // properties of the pair momentum

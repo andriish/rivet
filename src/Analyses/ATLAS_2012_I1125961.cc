@@ -10,6 +10,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
   /// @author Peter Richardson
   class ATLAS_2012_I1125961 : public Analysis {
   public:
@@ -34,14 +36,14 @@ namespace Rivet {
     void init() {
 
       // Projection to find the electrons
-      IdentifiedFinalState elecs(EtaIn(-2.47, 2.47) 
-				 & (Cuts::pT >= 20.0*GeV));
+      IdentifiedFinalState elecs(etaIn(-2.47, 2.47) 
+				 & (pT >= 20.0*GeV));
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // Projection to find the muons
-      IdentifiedFinalState muons(EtaIn(-2.4, 2.4) 
-				 & (Cuts::pT >= 10.0*GeV));
+      IdentifiedFinalState muons(etaIn(-2.4, 2.4) 
+				 & (pT >= 10.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 

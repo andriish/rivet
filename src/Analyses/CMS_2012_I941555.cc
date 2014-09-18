@@ -4,6 +4,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief CMS Z pT and rapidity in Drell-Yan events at 7 TeV
   /// @author Justin Hugon, Luca Perrozzi
@@ -30,7 +32,7 @@ namespace Rivet {
       // Set up projections
       /// @todo Really?: ZFinder zfinder_dressed_mu_pt(-2.1, 2.1, 20, PID::MUON, 60*GeV, 120*GeV, 0.2, false, true);
       FinalState fs;
-      Cut cuts = EtaIn(-2.1,2.1) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = etaIn(-2.1,2.1) & (pT >= 20.0*GeV);
       ZFinder zfinder_dressed_mu_pt(fs, cuts, PID::MUON, 60*GeV, 120*GeV, 0.2);
       addProjection(zfinder_dressed_mu_pt, "ZFinder_dressed_mu_pt");
       ZFinder zfinder_dressed_el_pt(fs, cuts, PID::ELECTRON, 60*GeV, 120*GeV, 0.1);

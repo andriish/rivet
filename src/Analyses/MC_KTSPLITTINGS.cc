@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for jet events
   class MC_KTSPLITTINGS : public MC_JetSplittings {

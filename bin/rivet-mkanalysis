@@ -187,6 +187,7 @@ for ANANAME in ANANAMES:
 
 namespace Rivet {
 
+  using namespace Cuts;
 
   class %(ANANAME)s : public Analysis {
   public:

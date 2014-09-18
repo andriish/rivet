@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief Just measures a few random things as an example.
   class EXAMPLE_CUTS : public Analysis {
@@ -24,7 +26,7 @@ namespace Rivet {
     /// Set up projections and book histograms
     void init() {
       // Projections
-      const FinalState cnfs( EtaIn(-4, 4) );
+      const FinalState cnfs( etaIn(-4, 4) );
       addProjection(cnfs, "FS");
 
       // Histograms
@@ -41,8 +43,8 @@ namespace Rivet {
 
       const Particles ps = applyProjection<FinalState>(event, "FS").particlesByPt();
 
-      Cut ptcut = Range( Cuts::pT, 5, 20 );
-      Cut masscut = Range( Cuts::mass, 0, 0.2);
+      Cut ptcut = range( pT, 5, 20 );
+      Cut masscut = range( Cuts::mass, 0, 0.2);
       Cut combine = ptcut & masscut; //Possible to combine cuts
 
       foreach(const Particle& p, ps) {

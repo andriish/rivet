@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for W polarisation
   class MC_WPOL : public Analysis {

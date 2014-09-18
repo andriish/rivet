@@ -102,7 +102,7 @@ namespace Rivet {
     // Make a vector of the three-momenta in the final state
     double momentumSum(0.0);
     foreach (const Vector3& p3, fsmomenta) {
-      momentumSum += mod(p3);
+      momentumSum += p3.mod();
     }
     MSG_DEBUG("Number of particles = " << fsmomenta.size());
 

@@ -9,6 +9,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// Underlying event activity in the Drell-Yan process at 7 TeV
   class CMS_2012_I1107658 : public Analysis {
@@ -24,7 +26,7 @@ namespace Rivet {
     void init() {
 
       /// @note Using a bare muon Z (but with a clustering radius!?)
-      Cut cut = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
+      Cut cut = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
       ZFinder zfinder(FinalState(), cut, PID::MUON, 4*GeV, 140*GeV, 0.2, ZFinder::NOCLUSTER);
       addProjection(zfinder, "ZFinder");
 
