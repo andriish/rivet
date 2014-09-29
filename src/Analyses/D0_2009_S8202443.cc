@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief D0 Z + jet + \f$ X \f$ cross-section / \f$ p_\perp \f$ distributions
   class D0_2009_S8202443 : public Analysis {
@@ -25,10 +27,10 @@ namespace Rivet {
     void init() {
       FinalState fs;
       // Leptons in constrained tracking acceptance
-      Cut cuts = (   EtaIn(-2.5, -1.5)
-		   | EtaIn(-1.1,  1.1)
-		   | EtaIn( 1.5,  2.5) )
-	& (Cuts::pT >= 25.0*GeV);
+      Cut cuts = (   etaIn(-2.5, -1.5)
+		   | etaIn(-1.1,  1.1)
+		   | etaIn( 1.5,  2.5) )
+	& (pT >= 25.0*GeV);
       ZFinder zfinder_constrained(fs, cuts, PID::ELECTRON,
                                   65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder_constrained, "ZFinderConstrained");

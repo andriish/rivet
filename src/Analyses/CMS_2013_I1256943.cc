@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// CMS cross-section and angular correlations in Z boson + b-hadrons events at 7 TeV
   class CMS_2013_I1256943 : public Analysis {
@@ -29,7 +31,7 @@ namespace Rivet {
       UnstableFinalState ufs(-2, 2, 15.0*GeV);
       addProjection(ufs, "UFS");
 
-      Cut etacut = EtaIn(-2.4, 2.4);
+      Cut etacut = etaIn(-2.4, 2.4);
 
       ZFinder zfindermu(fs, etacut, PID::MUON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
       addProjection(zfindermu, "ZFinderMu");

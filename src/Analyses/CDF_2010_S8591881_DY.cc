@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief CDF Run II underlying event in Drell-Yan
   /// @author Hendrik Hoeth
@@ -92,16 +94,16 @@ namespace Rivet {
       // Lepton pair should have an invariant mass between 70 and 110 and |eta| < 6
       const FourMomentum dilepton = leptons[0].momentum() + leptons[1].momentum();
       if (!inRange(dilepton.mass()/GeV, 70., 110.) || fabs(dilepton.eta()) >= 6) vetoEvent;
-      MSG_DEBUG("Dilepton mass = " << mass(dilepton)/GeV << " GeV");
-      MSG_DEBUG("Dilepton pT   = " << pT(dilepton)/GeV << " GeV");
+      MSG_DEBUG("Dilepton mass = " << dilepton.mass()/GeV << " GeV");
+      MSG_DEBUG("Dilepton pT   = " << dilepton.pT()/GeV << " GeV");
 
       // Calculate the observables
       size_t   numToward(0),     numAway(0);
       long int numTrans1(0),     numTrans2(0);
       double ptSumToward(0.0), ptSumTrans1(0.0), ptSumTrans2(0.0), ptSumAway(0.0);
       double ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
-      const double phiZ = azimuthalAngle(dilepton);
-      const double pTZ  = pT(dilepton);
+      const double phiZ = dilepton.azimuthalAngle();
+      const double pTZ  = dilepton.pT();
       /// @todo Replace with foreach
       for (Particles::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
         // Don't use the leptons

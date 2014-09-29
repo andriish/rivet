@@ -40,7 +40,7 @@ namespace Rivet {
     foreach (const FourMomentum& p4, p4s) {
       const Vector3 p3 = p4.vector3();
       const double p3Para = dot(p3, n);
-      const double p3Trans = mod(p3 - p3Para * n);
+      const double p3Trans = (p3 - p3Para * n).mod();
 
       // Update normalisations
       Evis += p4.E();

@@ -4,6 +4,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for higgs [-> tau tau] events
   class MC_HINC : public Analysis {
@@ -21,7 +23,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       /// @todo Urk, abuse! Need explicit HiggsFinder (and TauFinder?)
-      Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
+      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
       ZFinder hfinder(FinalState(), cut, PID::TAU, 115*GeV, 125*GeV, 0.0, ZFinder::NOCLUSTER);
       addProjection(hfinder, "Hfinder");
       _h_H_mass = bookHisto1D("H_mass", 50, 119.7, 120.3);

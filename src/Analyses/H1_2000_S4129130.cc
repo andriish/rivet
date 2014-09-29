@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief H1 energy flow and charged particle spectra
   /// @author Peter Richardson
@@ -156,7 +158,7 @@ namespace Rivet {
       foreach (const Particle& p, particles) {
         // Boost momentum to CMS
         const FourMomentum hcmMom = hcmboost.transform(p.momentum());
-        double et = fabs(Et(hcmMom));
+        double et = fabs(hcmMom.Et());
         double eta = hcmMom.eta();
         // Averages in central and forward region
         if (fabs(eta) < .5 ) etcent += et;

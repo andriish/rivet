@@ -9,6 +9,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class CMS_2013_I1224539_WJET : public Analysis {
   public:
@@ -38,7 +40,7 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       // Find W's with pT > 120, MET > 50
-      WFinder wfinder(fs, EtaIn(-2.4,2.4) & (Cuts::pT >= 80.0*GeV), PID::ELECTRON, 50*GeV, 1000*GeV, 50.0*GeV,
+      WFinder wfinder(fs, etaIn(-2.4,2.4) & (pT >= 80.0*GeV), PID::ELECTRON, 50*GeV, 1000*GeV, 50.0*GeV,
                       0.2, WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
       addProjection(wfinder, "WFinder");
 

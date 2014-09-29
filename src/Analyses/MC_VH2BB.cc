@@ -12,6 +12,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class MC_VH2BB : public Analysis {
   public:
@@ -64,7 +66,7 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
+      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
       ZFinder zeefinder(fs, cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2);
       addProjection(zeefinder, "ZeeFinder");
       ZFinder zmmfinder(fs, cut, PID::MUON, 65*GeV, 115*GeV, 0.2);

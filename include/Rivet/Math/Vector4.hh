@@ -266,74 +266,8 @@ namespace Rivet {
     return a.angle(b);
   }
 
-  /// Calculate transverse length sq. \f$ \rho^2 \f$ of a Lorentz vector.
-  inline double polarRadius2(const FourVector& v) {
-    return v.polarRadius2();
-  }
-  /// Synonym for polarRadius2.
-  inline double perp2(const FourVector& v) {
-    return v.perp2();
-  }
-  /// Synonym for polarRadius2.
-  inline double rho2(const FourVector& v) {
-    return v.rho2();
-  }
-
-  /// Calculate transverse length \f$ \rho \f$ of a Lorentz vector.
-  inline double polarRadius(const FourVector& v) {
-    return v.polarRadius();
-  }
-  /// Synonym for polarRadius.
-  inline double perp(const FourVector& v) {
-    return v.perp();
-  }
-  /// Synonym for polarRadius.
-  inline double rho(const FourVector& v) {
-    return v.rho();
-  }
-
-  /// Calculate azimuthal angle of a Lorentz vector.
-  inline double azimuthalAngle(const FourVector& v, const PhiMapping mapping = ZERO_2PI) {
-    return v.azimuthalAngle(mapping);
-  }
-  /// Synonym for azimuthalAngle.
-  inline double phi(const FourVector& v, const PhiMapping mapping = ZERO_2PI) {
-    return v.phi(mapping);
-  }
-
-
-  /// Calculate polar angle of a Lorentz vector.
-  inline double polarAngle(const FourVector& v) {
-    return v.polarAngle();
-  }
-  /// Synonym for polarAngle.
-  inline double theta(const FourVector& v) {
-    return v.theta();
-  }
-
-  /// Calculate pseudorapidity of a Lorentz vector.
-  inline double pseudorapidity(const FourVector& v) {
-    return v.pseudorapidity();
-  }
-  /// Synonym for pseudorapidity.
-  inline double eta(const FourVector& v) {
-    return v.eta();
-  }
-
-
-  /// Calculate absolute pseudorapidity of a Lorentz vector.
-  inline double abspseudorapidity(const FourVector& v) {
-    return v.abspseudorapidity();
-  }
-  /// Synonym for absolute pseudorapidity.
-  inline double abseta(const FourVector& v) {
-    return v.abseta();
-  }
-
-
 
   ////////////////////////////////////////////////
-
 
 
   /// Specialized version of the FourVector with momentum/energy functionality.
@@ -574,62 +508,6 @@ namespace Rivet {
 
   inline FourMomentum operator-(const FourMomentum& a, const FourMomentum& b) {
     return add(a, -b);
-  }
-
-
-
-  /// Get the mass \f$ m = \sqrt{E^2 - p^2} \f$ (the Lorentz self-invariant) of a momentum 4-vector.
-  inline double mass(const FourMomentum& v) {
-    return v.mass();
-  }
-
-  /// Get the squared mass \f$ m^2 = E^2 - p^2 \f$ (the Lorentz self-invariant) of a momentum 4-vector.
-  inline double mass2(const FourMomentum& v) {
-    return v.mass2();
-  }
-
-  /// Calculate the rapidity of a momentum 4-vector.
-  inline double rapidity(const FourMomentum& v) {
-    return v.rapidity();
-  }
-
-  /// Calculate the rapidity of a momentum 4-vector.
-  inline double rap(const FourMomentum& v) {
-    return v.rap();
-  }
-
-  /// Calculate the absolute rapidity of a momentum 4-vector.
-  inline double absrapidity(const FourMomentum& v) {
-    return v.absrapidity();
-  }
-
-  /// Calculate the absolute rapidity of a momentum 4-vector.
-  inline double absrap(const FourMomentum& v) {
-    return v.absrap();
-  }
-
-  /// Calculate the squared transverse momentum \f$ p_T^2 \f$ of a momentum 4-vector.
-  inline double pT2(const FourMomentum& v) {
-    return v.pT2();
-  }
-
-  /// Calculate the transverse momentum \f$ p_T \f$ of a momentum 4-vector.
-  inline double pT(const FourMomentum& v) {
-    return v.pT();
-  }
-
-  /// Calculate the transverse energy squared, \f$ E_T^2 = E^2 \sin^2{\theta} \f$ of a momentum 4-vector.
-  inline double Et2(const FourMomentum& v) {
-    return v.Et2();}
-
-  /// Calculate the transverse energy \f$ E_T = E \sin{\theta} \f$ of a momentum 4-vector.
-  inline double Et(const FourMomentum& v) {
-    return v.Et();
-  }
-
-  /// Calculate the velocity boost vector of a momentum 4-vector.
-  inline Vector3 boostVector(const FourMomentum& v) {
-    return v.boostVector();
   }
 
 

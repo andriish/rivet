@@ -9,6 +9,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class CMS_2013_I1224539_ZJET : public Analysis {
   public:
@@ -38,7 +40,7 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       // Find Zs with pT > 120 GeV
-      ZFinder zfinder(fs, EtaIn(-2.4,2.4) & (Cuts::pT >= 30.0*GeV), PID::ELECTRON, 80*GeV, 100*GeV,
+      ZFinder zfinder(fs, etaIn(-2.4,2.4) & (pT >= 30.0*GeV), PID::ELECTRON, 80*GeV, 100*GeV,
                       0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
 
       addProjection(zfinder, "ZFinder");

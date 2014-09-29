@@ -16,6 +16,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// Generic Z candidate
   struct Zstate : public ParticlePair {
@@ -117,7 +119,7 @@ namespace Rivet {
 
 
       // Selection 1: ZZ-> llll selection
-      Cut etaranges_lep = EtaIn(-3.16, 3.16) & Cuts::pT > 7*GeV;
+      Cut etaranges_lep = etaIn(-3.16, 3.16) & pT > 7*GeV;
 
       DressedLeptons electron_sel4l(Photon, bare_EL, 0.1, true/*Do clustering*/,
                                     etaranges_lep, false/*false = ignore photons from hadron or tau*/);
@@ -127,7 +129,7 @@ namespace Rivet {
 
 
       // Selection 2: ZZ-> llnunu selection
-      Cut etaranges_lep2 = EtaIn(-2.5, 2.5) & Cuts::pT > 10*GeV;
+      Cut etaranges_lep2 = etaIn(-2.5, 2.5) & pT > 10*GeV;
 
       DressedLeptons electron_sel2l2nu(Photon, bare_EL, 0.1,true, etaranges_lep2, false);
       addProjection(electron_sel2l2nu, "ELECTRON_sel2l2nu");

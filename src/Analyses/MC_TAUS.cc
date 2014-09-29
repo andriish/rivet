@@ -4,6 +4,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for electrons
   class MC_TAUS : public MC_ParticleAnalysis {

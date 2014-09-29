@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// ATLAS Z phi* measurement
   class ATLAS_2012_I1204784 : public Analysis {
@@ -21,7 +23,7 @@ namespace Rivet {
       /// Book histograms and initialise projections before the run
       void init() {
         FinalState fs;
-        Cut cuts = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
+        Cut cuts = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
         ZFinder zfinder_dressed_el(fs, cuts, PID::ELECTRON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
         addProjection(zfinder_dressed_el, "ZFinder_dressed_el");
         ZFinder zfinder_bare_el(fs, cuts, PID::ELECTRON, 66*GeV, 116*GeV, 0.0, ZFinder::NOCLUSTER);

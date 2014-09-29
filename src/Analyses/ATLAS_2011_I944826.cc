@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class ATLAS_2011_I944826 : public Analysis {
   public:
@@ -26,12 +28,12 @@ namespace Rivet {
       UnstableFinalState ufs(-MAXDOUBLE, MAXDOUBLE, 100*MeV);
       addProjection(ufs, "UFS");
 
-      ChargedFinalState  mbts(   EtaIn(-3.84, -2.09) 
-			       | EtaIn( 2.09,  3.84) );
+      ChargedFinalState  mbts(   etaIn(-3.84, -2.09) 
+			       | etaIn( 2.09,  3.84) );
       addProjection(mbts, "MBTS");
 
-      IdentifiedFinalState nstable( EtaIn(-2.5, 2.5) 
-				    & (Cuts::pT >= 100*MeV) );
+      IdentifiedFinalState nstable( etaIn(-2.5, 2.5) 
+				    & (pT >= 100*MeV) );
       nstable.acceptIdPair(PID::ELECTRON)
         .acceptIdPair(PID::MUON)
         .acceptIdPair(PID::PIPLUS)

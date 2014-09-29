@@ -252,62 +252,6 @@ namespace Rivet {
     return a.angle(b);
   }
 
-  /// Calculate transverse length sq. \f$ \rho^2 \f$ of a 3-vector.
-  inline double polarRadius2(const Vector3& v) {
-    return v.polarRadius2();
-  }
-  /// Synonym for polarRadius2.
-  inline double perp2(const Vector3& v) {
-    return v.perp2();
-  }
-  /// Synonym for polarRadius2.
-  inline double rho2(const Vector3& v) {
-    return v.rho2();
-  }
-
-  /// Calculate transverse length \f$ \rho \f$ of a 3-vector.
-  inline double polarRadius(const Vector3& v) {
-    return v.polarRadius();
-  }
-  /// Synonym for polarRadius.
-  inline double perp(const Vector3& v) {
-    return v.perp();
-  }
-  /// Synonym for polarRadius.
-  inline double rho(const Vector3& v) {
-    return v.rho();
-  }
-
-
-  /// @brief Calculate azimuthal angle of a 3-vector.
-  /// Returns a number in (-pi, pi] or in [0, 2pi) according to the mapping scheme selected
-  inline double azimuthalAngle(const Vector3& v, const PhiMapping mapping = ZERO_2PI) {
-    return v.azimuthalAngle(mapping);
-  }
-  /// Synonym for azimuthalAngle.
-  inline double phi(const Vector3& v, const PhiMapping mapping = ZERO_2PI) {
-    return v.phi(mapping);
-  }
-
-  /// Calculate polar angle of a 3-vector.
-  inline double polarAngle(const Vector3& v) {
-    return v.polarAngle();
-  }
-  /// Synonym for polarAngle.
-  inline double theta(const Vector3& v) {
-    return v.theta();
-  }
-
-  /// Calculate pseudorapidity of a 3-vector.
-  inline double pseudorapidity(const Vector3& v) {
-    return v.pseudorapidity();
-  }
-  /// Synonym for pseudorapidity.
-  inline double eta(const Vector3& v) {
-    return v.eta();
-  }
-
-
   /////////////////////////////////////////////////////
 
   /// @name \f$ |\Delta eta| \f$ calculations from 3-vectors

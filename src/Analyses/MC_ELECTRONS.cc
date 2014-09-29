@@ -4,6 +4,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for electrons
   class MC_ELECTRONS : public MC_ParticleAnalysis {
@@ -26,7 +28,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const Particles es = applyProjection<FinalState>(event, "Electrons").particlesByPt(Cuts::pT>=0.5*GeV);
+      const Particles es = applyProjection<FinalState>(event, "Electrons").particlesByPt(pT>=0.5*GeV);
       MC_ParticleAnalysis::_analyze(event, es);
     }
 

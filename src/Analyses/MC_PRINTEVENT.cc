@@ -4,6 +4,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @author Andy Buckley
   class MC_PRINTEVENT : public Analysis {

@@ -8,6 +8,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   class MC_HFJETS : public Analysis {
   public:

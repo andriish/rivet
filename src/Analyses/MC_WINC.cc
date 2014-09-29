@@ -4,6 +4,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for inclusive W events
   class MC_WINC : public Analysis {
@@ -21,7 +23,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      WFinder wfinder(fs, EtaIn(-3.5, 3.5) & (Cuts::pT >= 25.0*GeV), PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder(fs, etaIn(-3.5, 3.5) & (pT >= 25.0*GeV), PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder, "WFinder");
 
       _h_W_mass = bookHisto1D("W_mass", 50, 55.0, 105.0);

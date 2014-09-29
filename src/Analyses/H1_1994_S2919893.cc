@@ -6,6 +6,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief H1 energy flow and charged particle spectra
   /// @author Peter Richardson
@@ -43,7 +45,7 @@ namespace Rivet {
 
       // Momentum of the scattered lepton
       FourMomentum leptonMom = dl.out().momentum();
-      double ptel = pT(leptonMom);
+      double ptel = leptonMom.pT();
       double enel = leptonMom.E();
       double thel = leptonMom.angle(dk.beamHadron().momentum())/degree;
 
@@ -96,7 +98,7 @@ namespace Rivet {
         if (th <= 4.4) continue;
 
         // Energy flow histogram
-        double et = fabs(Et(hcmMom));
+        double et = fabs(hcmMom.Et());
         double eta = hcmMom.eta();
         if (x < 1e-3) {
           _histEnergyFlowLowX ->fill(eta, et*weight);
@@ -107,7 +109,7 @@ namespace Rivet {
           /// @todo Use units in w comparisons... what are the units?
           if (w > 50. && w <= 200.) {
             double xf= 2 * hcmMom.z() / w;
-            double pt2 = pT2(hcmMom);
+            double pt2 = hcmMom.pT2();
             if (w > 50. && w <= 100.) {
               _histSpectraW77 ->fill(xf, weight);
             } else if (w > 100. && w <= 150.) {
@@ -127,7 +129,7 @@ namespace Rivet {
         if (th <= 8.) continue;
         double phi1 = p.phi(ZERO_2PI);
         double eta1 = p.eta();
-        double et1 = fabs(Et(p.momentum()));
+        double et1 = fabs(p.momentum().Et());
         for (size_t ip2 = ip1+1; ip2 < particles.size(); ++ip2) {
           const Particle& p2 = particles[ip2];
 
@@ -142,7 +144,7 @@ namespace Rivet {
             deltaphi = fabs(fabs(deltaphi) - TWOPI);
           double eta2 = p2.eta();
           double omega = sqrt(sqr(eta1-eta2) + sqr(deltaphi));
-          double et2 = fabs(Et(p2.momentum()));
+          double et2 = fabs(p2.momentum().Et());
           double wt = et1*et2 / sqr(ptel) * weight;
           if(x < 1e-3) {
             _histEECLowX ->fill(omega, wt);

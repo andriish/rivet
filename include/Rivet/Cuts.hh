@@ -28,18 +28,23 @@ namespace Rivet {
     virtual bool accept_(const CuttableBase &) const = 0;
   };
 
-  /// Main cut object
-  typedef boost::shared_ptr<CutBase> Cut;
-
   // compare two cuts for equality, forwards to the cut-specific implementation
   inline bool operator==(const Cut & a, const Cut & b) { return *a == b; }
 
   /// Namespace used for ambiguous identifiers.
   namespace Cuts {
     /// Available categories of cut objects
-    enum Quantity { pT, mass, rap, eta, phi };
+    enum Quantity { pT, mass, rap, absrap, eta, abseta, phi };
     /// Fully open cut singleton, accepts everything
     const Cut & open();
+
+    /// @name Shortcuts for common cuts
+    //@{
+    Cut range(Quantity, double m, double n);
+    inline Cut etaIn(double m, double n) { return range(eta,m,n); }
+    inline Cut rapIn(double m, double n) { return range(rap,m,n); }
+    /// @todo Can do more here: AbsEtaLess, PtGtr
+    //@}
   }
 
   /// @name Cut constructors
@@ -48,13 +53,6 @@ namespace Rivet {
   Cut operator > (Cuts::Quantity, double);
   Cut operator <= (Cuts::Quantity, double);
   Cut operator >= (Cuts::Quantity, double);
-
-  /// @name Shortcuts for common cuts
-  //@{
-  Cut Range(Cuts::Quantity, double m, double n);
-  inline Cut EtaIn(double m, double n) { return Range(Cuts::eta,m,n); }
-  /// @todo Can do more here: AbsEtaLess, PtGtr
-  //@}
 
   /// @internal Overload helpers for integer arguments
   //@{

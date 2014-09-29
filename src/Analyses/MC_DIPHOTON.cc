@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for isolated di-photon events
   class MC_DIPHOTON : public Analysis {

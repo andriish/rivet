@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for Z + jets events
   class MC_ZJETS : public MC_JetAnalysis {
@@ -22,7 +24,7 @@ namespace Rivet {
     /// Initialize
     void init() {
       FinalState fs;
-      Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
+      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
       ZFinder zfinder(fs, cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
       FastJets jetpro(zfinder.remainingFinalState(), FastJets::ANTIKT, 0.4);

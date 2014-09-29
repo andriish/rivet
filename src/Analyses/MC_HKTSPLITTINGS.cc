@@ -5,6 +5,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// @brief MC validation analysis for higgs [-> tau tau] + jets events
   class MC_HKTSPLITTINGS : public MC_JetSplittings {
@@ -22,7 +24,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       /// @todo Urk, abuse! Need explicit HiggsFinder (and TauFinder?)
-      Cut cut = EtaIn(-3.5,3.5) & (Cuts::pT >= 25.0*GeV);
+      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
       ZFinder hfinder(FinalState(), cut, PID::TAU, 115*GeV, 125*GeV, 0.0, ZFinder::NOCLUSTER);
       addProjection(hfinder, "Hfinder");
       FastJets jetpro(hfinder.remainingFinalState(), FastJets::KT, 0.6);

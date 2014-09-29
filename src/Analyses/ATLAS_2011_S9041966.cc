@@ -10,6 +10,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
 
   /// 1-lepton and 2-lepton search for first or second generation leptoquarks
   /// @todo Clean up the debug stuff
@@ -49,15 +51,15 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      IdentifiedFinalState elecs(EtaIn(-2.47, 2.47) 
-				 & (Cuts::pT >= 20.0*GeV));
+      IdentifiedFinalState elecs(etaIn(-2.47, 2.47) 
+				 & (pT >= 20.0*GeV));
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
 
       // veto region electrons
-      Cut vetocut = EtaIn(-1.52, -1.35) | EtaIn( 1.35,  1.52);
-      IdentifiedFinalState veto_elecs(vetocut & (Cuts::pT >= 10.0*GeV));
+      Cut vetocut = etaIn(-1.52, -1.35) | etaIn( 1.35,  1.52);
+      IdentifiedFinalState veto_elecs(vetocut & (pT >= 10.0*GeV));
       veto_elecs.acceptIdPair(PID::ELECTRON);
       addProjection(veto_elecs, "veto_elecs");
 
@@ -71,8 +73,8 @@ namespace Rivet {
 
 
       // projection to find the muons
-      IdentifiedFinalState muons(EtaIn(-2.4, 2.4) 
-				 & (Cuts::pT >= 20.0*GeV));
+      IdentifiedFinalState muons(etaIn(-2.4, 2.4) 
+				 & (pT >= 20.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 

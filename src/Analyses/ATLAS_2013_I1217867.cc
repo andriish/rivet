@@ -8,6 +8,8 @@
 
 namespace Rivet {
 
+  using namespace Cuts;
+
   class ATLAS_2013_I1217867 : public Analysis {
   public:
 
@@ -40,16 +42,16 @@ namespace Rivet {
       IdentifiedFinalState bareElectrons(fs);
       bareElectrons.acceptIdPair(PID::ELECTRON);
 
-      Cut cuts = ( EtaIn(-2.47, -1.52)
-		   | EtaIn(-1.37,  1.37)
-		   | EtaIn( 1.52,  2.47) ) & (Cuts::pT >= 20.0*GeV);
+      Cut cuts = ( etaIn(-2.47, -1.52)
+		   | etaIn(-1.37,  1.37)
+		   | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
 
       DressedLeptons electronClusters(fs, bareElectrons, 0.1, true, cuts);
       addProjection(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
-      Cut mucuts = EtaIn(-2.4,2.4) & (Cuts::pT >= 20.0*GeV);
+      Cut mucuts = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
       DressedLeptons muonClusters(fs, bareMuons, 0.1, true, mucuts);
       addProjection(muonClusters, "muonClusters");
 
