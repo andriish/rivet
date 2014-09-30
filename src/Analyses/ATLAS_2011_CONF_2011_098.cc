@@ -166,7 +166,7 @@ namespace Rivet {
 	if(fabs( j.eta() ) <= 2.8) {
 	  recon_jets.push_back(j);
 	  if ( fabs( j.eta() ) <= 2.5 && j.perp()>50. &&
-	       j.containsBottom() && rand()/static_cast<double>(RAND_MAX) < 0.5 )
+	       j.bTagged() && rand()/static_cast<double>(RAND_MAX) < 0.5 )
 	    bjets.push_back(j);
 	}
       }

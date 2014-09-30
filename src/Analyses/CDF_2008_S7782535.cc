@@ -55,7 +55,7 @@ namespace Rivet {
       // Filter to just get a vector of b-jets
       Jets bjets;
       foreach (const Jet& j, jets) {
-        if (j.containsBottom()) bjets += j;
+        if (j.bTagged()) bjets += j;
       }
       if (bjets.empty())  {
         MSG_DEBUG("No b-jet axes in acceptance");

@@ -76,7 +76,7 @@ namespace Rivet {
 
         bool isBjet = false;
         //not using this
-        //isBjet = !jet.bTags().empty();
+        //isBjet = jet.bTagged();
         foreach(HepMC::GenParticle* b, B_hadrons) {
           FourMomentum hadron = b->momentum();
           double hadron_jet_dR = deltaR(jet.momentum(), hadron);
@@ -84,7 +84,7 @@ namespace Rivet {
         }
 
         bool isCjet = false;
-        //bool isCjet = !jet.cTags().empty();
+        //bool isCjet = jet.cTagged();
         foreach(HepMC::GenParticle* c, C_hadrons) {
           FourMomentum hadron = c->momentum();
           double hadron_jet_dR = deltaR(jet.momentum(), hadron);

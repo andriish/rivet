@@ -148,7 +148,7 @@ namespace Rivet {
       // find b jets
       Jets tight_bjets,loose_bjets;
       foreach(const Jet & jet, recon_jets) {
-	if(!jet.containsBottom() && jet.eta()>2.5) continue;
+	if(!jet.bTagged() && jet.eta()>2.5) continue;
 	double prob = rand()/static_cast<double>(RAND_MAX);
 	if(prob <= 0.60) tight_bjets.push_back(jet);
 	if(prob <= 0.75) loose_bjets.push_back(jet);

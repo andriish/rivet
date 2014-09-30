@@ -86,7 +86,7 @@ namespace Rivet {
       unsigned int num_b_jets = 0;
       const Jets jets = applyProjection<FastJets>(event, "Jets").jets(5*GeV);
       foreach (const Jet& j, jets) {
-        if (j.containsBottom()) num_b_jets += 1;
+        if (j.bTagged()) num_b_jets += 1;
       }
       MSG_DEBUG("Num B-jets with pT > 5 GeV = " << num_b_jets);
     }
