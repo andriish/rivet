@@ -228,9 +228,9 @@ namespace Rivet {
       size_t nSFOS=0;
       for (size_t ix = 0; ix < recon_e.size(); ++ix) {
         for (size_t iy = ix+1; iy < recon_e.size(); ++iy) {
-          if (recon_e[ix].pid()*recon_e[iy].pid()>0) continue;
+          if (recon_e[ix].pid()*recon_e[iy].pid() > 0) continue;
           ++nSFOS;
-          double mtest = (recon_e[ix].momentum()+recon_e[iy].momentum()).mass();
+          double mtest = (recon_e[ix].momentum() + recon_e[iy].momentum()).mass();
           // Veto is mass<20
           if (mtest < 20*GeV) vetoEvent;
           if (fabs(mtest - 90*GeV) < mdiff) {
