@@ -7,9 +7,9 @@ InspireID: 1279489
 Status: VALIDATED
 Authors:
  - Kiran Joshi <kiran.joshi@cern.ch>
-#References:
-  - JHEP 1404 (2014) 031
-  - arXiv:1401.7610[hep-ex]
+References:
+ - "JHEP 1404 (2014) 031"
+ - "arXiv:1401.7610 [hep-ex]"
 RunInfo:
   Generate $Z$+jets events at 8 TeV, with $Z$ decaying to muons or electrons and $pT(j1)>55$ GeV, $pT(j2)>45$ GeV.
 NumEvents: 10000000
