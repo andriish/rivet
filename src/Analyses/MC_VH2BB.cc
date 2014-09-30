@@ -144,7 +144,7 @@ namespace Rivet {
         _h_jet_phi->fill(jetPhi, weight);
         _h_jet_pT->fill(jetPt/GeV, weight);
 
-        if (jet.containsBottom() && jet.pT() > JETPTCUT) {
+        if (jet.bTagged() && jet.pT() > JETPTCUT) {
           bjets.push_back(jet);
           _h_jet_b_jet_eta->fill( jetEta , weight );
           _h_jet_b_jet_phi->fill( jetPhi , weight );

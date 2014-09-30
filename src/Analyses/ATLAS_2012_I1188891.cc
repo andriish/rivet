@@ -74,22 +74,8 @@ namespace Rivet {
         const double pT   = jet.pT();
         const double absy = jet.absrap();
 
-        bool isBjet = false;
-        //not using this
-        //isBjet = jet.bTagged();
-        foreach(HepMC::GenParticle* b, B_hadrons) {
-          FourMomentum hadron = b->momentum();
-          double hadron_jet_dR = deltaR(jet.momentum(), hadron);
-          if(hadron_jet_dR < 0.3) isBjet = true;
-        }
-
-        bool isCjet = false;
-        //bool isCjet = jet.cTagged();
-        foreach(HepMC::GenParticle* c, C_hadrons) {
-          FourMomentum hadron = c->momentum();
-          double hadron_jet_dR = deltaR(jet.momentum(), hadron);
-          if(hadron_jet_dR < 0.3) isCjet = true;
-        }
+        bool isBjet = jet.bTagged();
+        bool isCjet = jet.cTagged();
 
         int jetflav=1;
         if      (isBjet)jetflav=5;

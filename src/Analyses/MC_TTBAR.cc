@@ -136,7 +136,7 @@ namespace Rivet {
 
       // Sort the jets into b-jets and light jets. We expect one hard b-jet from
       // each top decay, so our 4 hardest jets should include two b-jets. The
-      // Jet::containsBottom() method is equivalent to perfect experimental
+      // Jet::bTagged() method is equivalent to perfect experimental
       // b-tagging, in a generator-independent way.
       Jets bjets, ljets;
       foreach (const Jet& jet, jets) {
@@ -152,7 +152,7 @@ namespace Rivet {
           MSG_DEBUG("Jet failed lepton isolation cut");
           break;
         }
-        if (jet.containsBottom()) {
+        if (jet.bTagged()) {
           bjets.push_back(jet);
         } else {
           ljets.push_back(jet);
