@@ -1,6 +1,10 @@
 2014-09-30  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Mark Jet::containsBottom and Jet::containsCharm as deprecated methods: use !bTags().empty() etc.
+	* Mark Jet::containsBottom and Jet::containsCharm as deprecated
+	methods: use the new methods. Analyses updated.
+
+	* Add Jet::bTagged(), Jet::cTagged() and Jet::tauTagged() as
+	ghost-assoc-based replacements for the 'contains' tagging methods.
 
 2014-09-17  Andy Buckley  <andy.buckley@cern.ch>
 

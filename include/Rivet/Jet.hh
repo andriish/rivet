@@ -72,34 +72,12 @@ namespace Rivet {
     /// Nicer alias for containsParticleId
     bool containsPID(const vector<PdgId>& pids) const { return containsParticleId(pids); }
 
-    /// Check whether this jet contains a charm-flavoured hadron.
-    ///
-    /// @deprecated The cTags() function is probably what you want for tagging. This one
-    /// ignores the tags() property and draws conclusions based directly on the jet
-    /// constituents; the other should be a better match to experimental methods.
-    ///
-    /// Decision is made using ghost clustering by default, falling back to
-    /// actually finding a charm-flavoured particle in the particles list. If @a
-    /// include_decay_products is true, a final fallback is attempted, using the
-    /// post-hadronization ancestor history of all constituents.
-    bool containsCharm(bool include_decay_products=false) const;
-
-    /// Check whether this jet contains a bottom-flavoured hadron.
-    ///
-    /// @deprecated The bTags() function is probably what you want for tagging. This one
-    /// ignores the tags() property and draws conclusions based directly on the jet
-    /// constituents; the other should be a better match to experimental methods.
-    ///
-    /// Decision is made using ghost clustering by default, falling back to
-    /// actually finding a bottom-flavoured particle in the particles list. If @a
-    /// include_decay_products is true, a final fallback is attempted, using the
-    /// post-hadronization ancestor history of all constituents.
-    bool containsBottom(bool include_decay_products=false) const;
 
     /// Particles which have been tag-matched to this jet by some external means
     Particles& tags() { return _tags; }
     /// Particles which have been tag-matched to this jet by some external means (const version)
     const Particles& tags() const { return _tags; }
+
 
     /// b particles which have been tag-matched to this jet by some external means
     Particles bTags() const {
@@ -109,6 +87,11 @@ namespace Rivet {
       }
       return rtn;
     }
+    /// Does this jet have at least one b-tag?
+    bool bTagged() const {
+      return !bTags().empty();
+    }
+
 
     /// c particles which have been tag-matched to this jet by some external means
     Particles cTags() const {
@@ -118,6 +101,11 @@ namespace Rivet {
       }
       return rtn;
     }
+    /// Does this jet have at least one c-tag?
+    bool cTagged() const {
+      return !cTags().empty();
+    }
+
 
     /// Tau particles which have been tag-matched to this jet by some external means
     Particles tauTags() const {
@@ -127,6 +115,39 @@ namespace Rivet {
       }
       return rtn;
     }
+    /// Does this jet have at least one tau-tag?
+    bool tauTagged() const {
+      return !tauTags().empty();
+    }
+
+
+    /// @brief Check whether this jet contains a bottom-flavoured hadron.
+    ///
+    /// @deprecated The bTags() or bTagged() function is probably what you want
+    /// for tagging. This one ignores the tags() list and draws conclusions
+    /// based directly on the jet constituents; the other is a much better match
+    /// to experimental methods.
+    ///
+    /// @note The decision is made by first trying to find a bottom-flavoured particle
+    /// in the particles list. Most likely this will fail unless bottom hadrons
+    /// are set stable. If @a include_decay_products is true (the default), a
+    /// fallback is attempted, using the post-hadronization ancestor history of
+    /// all constituents.
+    bool containsBottom(bool include_decay_products=true) const;
+
+    /// @brief Check whether this jet contains a charm-flavoured hadron.
+    ///
+    /// @deprecated The cTags() or cTagged() function is probably what you want
+    /// for tagging. This one ignores the tags() list and draws conclusions
+    /// based directly on the jet constituents; the other is a much better match
+    /// to experimental methods.
+    ///
+    /// @note The decision is made by first trying to find a charm-flavoured particle
+    /// in the particles list. Most likely this will fail unless charmed hadrons
+    /// are set stable. If @a include_decay_products is true (the default), a
+    /// fallback is attempted, using the post-hadronization ancestor history of
+    /// all constituents.
+    bool containsCharm(bool include_decay_products=true) const;
 
     //@}
 
