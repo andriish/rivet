@@ -74,7 +74,7 @@ namespace Rivet {
 
     /// Check whether this jet contains a charm-flavoured hadron.
     ///
-    /// @note The cTags() function is probably what you want for tagging. This one
+    /// @deprecated The cTags() function is probably what you want for tagging. This one
     /// ignores the tags() property and draws conclusions based directly on the jet
     /// constituents; the other should be a better match to experimental methods.
     ///
@@ -86,7 +86,7 @@ namespace Rivet {
 
     /// Check whether this jet contains a bottom-flavoured hadron.
     ///
-    /// @note The bTags() function is probably what you want for tagging. This one
+    /// @deprecated The bTags() function is probably what you want for tagging. This one
     /// ignores the tags() property and draws conclusions based directly on the jet
     /// constituents; the other should be a better match to experimental methods.
     ///

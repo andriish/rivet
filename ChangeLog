@@ -1,3 +1,7 @@
+2014-09-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Mark Jet::containsBottom and Jet::containsCharm as deprecated methods: use !bTags().empty() etc.
+
 2014-09-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding support for 1D and 3D YODA scatters, and helper methods
