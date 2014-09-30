@@ -264,7 +264,7 @@ namespace Rivet {
       // b-jet veto in SR!
       if(mdiff>10.) {
         foreach (const Jet & jet, recon_jets ) {
-          if(jet.containsBottom() &&
+          if(jet.bTagged() &&
              rand()/static_cast<double>(RAND_MAX)<=0.60)
             vetoEvent;
         }
