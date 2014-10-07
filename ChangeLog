@@ -1,3 +1,7 @@
+2014-10-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix a bug in the isCharmHadron(pid) function and remove isStrange* functions.
+
 2014-09-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* 2.2.0 release!

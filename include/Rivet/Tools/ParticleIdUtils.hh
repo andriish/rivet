@@ -671,7 +671,7 @@ namespace Rivet {
     /// Specifically, the _heaviest_ quark is a c: a B_c is a b-meson and NOT a c-meson.
     /// Charmonia (closed charm) are counted as c-mesons here.
     inline bool isCharmMeson(int pid) {
-      return isMeson(pid) && (digit(nq2,pid) == 4);
+      return isMeson(pid) && hasCharm(pid) && !hasBottom(pid);
     }
 
     /// @brief Determine if the PID is that of a c-baryon.
@@ -680,29 +680,33 @@ namespace Rivet {
     /// is a b-baryon and NOT a c-baryon. To test for the simpler case, just use
     /// a combination of hasCharm() and isBaryon().
     inline bool isCharmBaryon(int pid) {
-      return isBaryon(pid) && (digit(nq1,pid) == 4);
+      return isBaryon(pid) && hasCharm(pid) && !hasBottom(pid);
     }
 
     /// Determine if the PID is that of a c-hadron.
+    ///
+    /// Specifically, the _heaviest_ quark is a c: a baryon containing a b & c
+    /// is a b-baryon and NOT a c-baryon. To test for the simpler case, just use
+    /// a combination of hasCharm() and isBaryon().
     inline bool isCharmHadron(int pid) {
-      return isHadron(pid) && (digit(nq1,pid) == 4);
+      return isHadron(pid) && hasCharm(pid) && !hasBottom(pid);
     }
 
 
-    /// Determine if the PID is that of a strange meson
-    inline bool isStrangeMeson(int pid) {
-      return isMeson(pid) && hasStrange(pid);
-    }
+    // /// Determine if the PID is that of a strange meson
+    // inline bool isStrangeMeson(int pid) {
+    //   return isMeson(pid) && hasStrange(pid);
+    // }
 
-    /// Determine if the PID is that of a strange baryon
-    inline bool isStrangeBaryon(int pid) {
-      return isBaryon(pid) && hasStrange(pid);
-    }
+    // /// Determine if the PID is that of a strange baryon
+    // inline bool isStrangeBaryon(int pid) {
+    //   return isBaryon(pid) && hasStrange(pid);
+    // }
 
-    /// Determine if the PID is that of a strange hadron
-    inline bool isStrangeHadron(int pid) {
-      return isHadron(pid) && hasStrange(pid);
-    }
+    // /// Determine if the PID is that of a strange hadron
+    // inline bool isStrangeHadron(int pid) {
+    //   return isHadron(pid) && hasStrange(pid);
+    // }
 
     //@}
 
