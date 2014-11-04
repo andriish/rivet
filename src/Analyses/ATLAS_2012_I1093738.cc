@@ -151,8 +151,10 @@ namespace Rivet {
       std::vector<double> emptyVec;
       ptDensities.assign(_eta_bins_areaoffset.size()-1,emptyVec);
 
-      const fastjet::ClusterSequenceArea* clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
-      foreach (const fastjet::PseudoJet& jet, applyProjection<FastJets>(event, "KtJetsD05").pseudoJets(0.0*GeV)) {
+      FastJets fast_jets = applyProjection<FastJets>(event, "KtJetsD05");
+
+      const fastjet::ClusterSequenceArea* clust_seq_area = fast_jets.clusterSeqArea();
+      foreach (const fastjet::PseudoJet& jet, fast_jets.pseudoJets(0.0*GeV)) {
         double eta = fabs(jet.eta());
         double pt = fabs(jet.perp());
         double area = clust_seq_area->area(jet);
