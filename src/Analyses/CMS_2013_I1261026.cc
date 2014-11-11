@@ -121,10 +121,6 @@ namespace Rivet {
 	double avJetRate5  = _jetCounter5GeV[i]  / _passedEv[i];
         double avJetRate30 = _jetCounter30GeV[i] / _passedEv[i];
 
-	cerr << "testing average rates " << i << " " << _jetCounter5GeV[i] << " " << _jetCounter30GeV[i] << " "
-	     <<  _passedEv[i] << "\n";
-	cerr << "testing rates " << avJetRate5 << " " << avJetRate30 << "\n";
-
         const double sem5 = (_jetCounter5GeV[i] != 0) ? 1 / sqrt(_jetCounter5GeV[i]) : 0;
         _h_JetRate5GeV->fill(_multBinCent[i], avJetRate5, sem5);
 

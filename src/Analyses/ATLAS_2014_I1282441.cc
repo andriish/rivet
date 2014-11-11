@@ -34,7 +34,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const Particles& ks_all = applyProjection<IdentifiedFinalState>(event, "K+-s").particles();
+      const Particles& ks_all = applyProjection<IdentifiedFinalState>(event, "Kpms").particles();
       Particles kp, km;
       foreach (const Particle& p, ks_all) {
         if (!p.hasAncestor(PID::PHI)) { MSG_DEBUG("-- K not from phi."); continue; }

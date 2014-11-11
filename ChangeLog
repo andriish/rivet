@@ -1,5 +1,7 @@
 2014-09-30  Andy Buckley  <andy.buckley@cern.ch>
 
+	* 2.2.0 release!
+
 	* Mark Jet::containsBottom and Jet::containsCharm as deprecated
 	methods: use the new methods. Analyses updated.
 

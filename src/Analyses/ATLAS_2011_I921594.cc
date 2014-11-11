@@ -91,8 +91,9 @@ namespace Rivet {
       // Get the area-filtered jet inputs for computing median energy density, etc.
       vector<double> ptDensity, ptSigma, nJets;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-      const fastjet::ClusterSequenceArea* clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "KtJetsD05").jets()) {
+      FastJets fast_jets = applyProjection<FastJets>(event, "KtJetsD05");
+      const fastjet::ClusterSequenceArea* clust_seq_area = fast_jets.clusterSeqArea();
+      foreach (const Jet& jet, fast_jets.jets()) {
         const double area = clust_seq_area->area(jet);
         if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back())
           ptDensities.at( _getEtaBin(jet.abseta(), true) ).push_back(jet.pT()/area);

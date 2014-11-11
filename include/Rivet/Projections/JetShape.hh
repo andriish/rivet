@@ -112,34 +112,34 @@ namespace Rivet {
 
     /// Central \f$ r \f$ value for bin @a rbin.
     double rBinMin(size_t rbin) const {
-      assert(inRange(rbin, 0, numBins()));
+      assert(inRange(rbin, 0u, numBins()));
       return _binedges[rbin];
     }
 
     /// Central \f$ r \f$ value for bin @a rbin.
     double rBinMax(size_t rbin) const {
-      assert(inRange(rbin, 0, numBins()));
+      assert(inRange(rbin, 0u, numBins()));
       return _binedges[rbin+1];
     }
 
     /// Central \f$ r \f$ value for bin @a rbin.
     double rBinMid(size_t rbin) const {
-      assert(inRange(rbin, 0, numBins()));
+      assert(inRange(rbin, 0u, numBins()));
       //cout << _binedges << endl;
       return (_binedges[rbin] + _binedges[rbin+1])/2.0;
     }
 
     /// Return value of differential jet shape profile histo bin.
     double diffJetShape(size_t ijet, size_t rbin) const {
-      assert(inRange(ijet, 0, numJets()));
-      assert(inRange(rbin, 0, numBins()));
+      assert(inRange(ijet, 0u, numJets()));
+      assert(inRange(rbin, 0u, numBins()));
       return _diffjetshapes[ijet][rbin];
     }
 
     /// Return value of integrated jet shape profile histo bin.
     double intJetShape(size_t ijet, size_t rbin) const {
-      assert(inRange(ijet, 0, numJets()));
-      assert(inRange(rbin, 0, numBins()));
+      assert(inRange(ijet, 0u, numJets()));
+      assert(inRange(rbin, 0u, numBins()));
       double rtn  = 0;
       for (size_t i = 0; i <= rbin; ++i) {
         rtn += _diffjetshapes[ijet][i];
