@@ -12,7 +12,7 @@
 
 namespace Rivet {
 
-// Base for all wrapper classes that translate ClassToCheck to Cuttable 
+// Base for all wrapper classes that translate ClassToCheck to Cuttable
 class CuttableBase {
 public:
   virtual double getValue(Cuts::Quantity) const = 0;
@@ -20,10 +20,10 @@ public:
 };
 
 
-// Cuttables can be directly passed to @ref accept_
+// Cuttables can be directly passed to @ref _accept
 template <>
 bool CutBase::accept<CuttableBase>(const CuttableBase & t) const {
-  return accept_(t);
+  return _accept(t);
 }
 
 // bool operator==(const Cut & a, const Cut & b) {
@@ -33,14 +33,14 @@ bool CutBase::accept<CuttableBase>(const CuttableBase & t) const {
 
 // Open Cut singleton
 class Open_Cut : public CutBase {
-public:  
+public:
   bool operator==(const Cut & c) const {
     shared_ptr<Open_Cut> cc = dynamic_pointer_cast<Open_Cut>(c);
     return bool(cc);
   }
 protected:
   // open cut accepts everything
-  bool accept_(const CuttableBase &) const { return true; }
+  bool _accept(const CuttableBase &) const { return true; }
 };
 
 const Cut & Cuts::open() {
@@ -62,7 +62,7 @@ public:
     return cc && qty_ == cc->qty_  &&  low_ == cc->low_;
   }
 protected:
-  bool accept_(const CuttableBase & o) const { return o.getValue(qty_) >= low_; }
+  bool _accept(const CuttableBase & o) const { return o.getValue(qty_) >= low_; }
 private:
   Cuts::Quantity qty_;
   double low_;
@@ -77,7 +77,7 @@ public:
     return cc && qty_ == cc->qty_  &&  high_ == cc->high_;
   }
 protected:
-  bool accept_(const CuttableBase & o) const { return o.getValue(qty_) < high_; }
+  bool _accept(const CuttableBase & o) const { return o.getValue(qty_) < high_; }
 private:
   Cuts::Quantity qty_;
   double high_;
@@ -92,7 +92,7 @@ public:
     return cc && qty_ == cc->qty_  &&  low_ == cc->low_;
   }
 protected:
-  bool accept_(const CuttableBase & o) const { return o.getValue(qty_) > low_; }
+  bool _accept(const CuttableBase & o) const { return o.getValue(qty_) > low_; }
 private:
   Cuts::Quantity qty_;
   double low_;
@@ -107,7 +107,7 @@ public:
     return cc && qty_ == cc->qty_  &&  high_ == cc->high_;
   }
 protected:
-  bool accept_(const CuttableBase & o) const { return o.getValue(qty_) <= high_; }
+  bool _accept(const CuttableBase & o) const { return o.getValue(qty_) <= high_; }
 private:
   Cuts::Quantity qty_;
   double high_;
@@ -155,7 +155,7 @@ public:
                   || ( cut1 == cc->cut2  &&  cut2 == cc->cut1 ));
   }
 protected:
-  bool accept_(const CuttableBase & o) const {
+  bool _accept(const CuttableBase & o) const {
     return cut1->accept(o) || cut2->accept(o);
   }
 private:
@@ -172,7 +172,7 @@ public:
                   || ( cut1 == cc->cut2  &&  cut2 == cc->cut1 ));
   }
 protected:
-    bool accept_(const CuttableBase & o) const {
+    bool _accept(const CuttableBase & o) const {
       return cut1->accept(o) && cut2->accept(o);
     }
 private:
@@ -188,7 +188,7 @@ public:
     return cc && cut == cc->cut;
   }
 protected:
-    bool accept_(const CuttableBase & o) const {
+    bool _accept(const CuttableBase & o) const {
       return !cut->accept(o);
     }
 private:
@@ -204,7 +204,7 @@ public:
                   || ( cut1 == cc->cut2  &&  cut2 == cc->cut1 ));
   }
 protected:
-    bool accept_(const CuttableBase & o) const {
+    bool _accept(const CuttableBase & o) const {
       bool A_and_B = cut1->accept(o) && cut2->accept(o);
       bool A_or_B  = cut1->accept(o) || cut2->accept(o);
       return A_or_B && (! A_and_B);
@@ -243,7 +243,7 @@ template <typename T> class Cuttable;
 #define SPECIALISE_ACCEPT(TYPENAME) \
 template <> \
 bool CutBase::accept<TYPENAME>(const TYPENAME & t) const { \
-  return accept_(Cuttable<TYPENAME>(t)); \
+  return _accept(Cuttable<TYPENAME>(t)); \
 } \
 
 
