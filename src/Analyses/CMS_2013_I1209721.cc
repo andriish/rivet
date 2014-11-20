@@ -66,7 +66,7 @@ namespace Rivet {
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
-      const Jets& jets = jetfs.jetsByPt(50.*GeV, MAXDOUBLE, -2.5, 2.5);
+      const Jets& jets = jetfs.jetsByPt((Cuts::pT > 50*GeV) & (Cuts::abseta < 2.5));
 
       // Clean the jets against the lepton candidates, as in the paper, with a deltaR cut of 0.4 against the clustered leptons
       vector<const Jet*> cleanedJets;

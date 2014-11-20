@@ -269,7 +269,7 @@ namespace Rivet {
 
       // Do lepton-jet overlap removal:
       vector<const Jet*> good_jets;
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(25.0*GeV, MAXDOUBLE, -4.4, 4.4, RAPIDITY);
+      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt((Cuts::pT > 25.0*GeV) & (Cuts::absrap < 4.4));
       foreach(const Jet& j, jets) {
         bool nearby_lepton = false;
         foreach (const Particle& m, muons)

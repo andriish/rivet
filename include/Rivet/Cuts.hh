@@ -34,7 +34,7 @@ namespace Rivet {
   /// Namespace used for ambiguous identifiers.
   namespace Cuts {
     /// Available categories of cut objects
-    enum Quantity { pT=0, pt=0, mass, rap, absrap, eta, abseta, phi };
+    enum Quantity { pT=0, pt=0, Et=1, et=1, mass, rap, absrap, eta, abseta, phi };
     /// Fully open cut singleton, accepts everything
     const Cut & open();
 
@@ -44,6 +44,8 @@ namespace Rivet {
     inline Cut etaIn(double m, double n) { return range(eta,m,n); }
     inline Cut rapIn(double m, double n) { return range(rap,m,n); }
     inline Cut ptIn(double m, double n) { return range(pT,m,n); }
+    inline Cut etIn(double m, double n) { return range(Et,m,n); }
+    inline Cut massIn(double m, double n) { return range(mass,m,n); }
     /// @todo Can do more here: absetaLess, ptGtr, ...?
     //@}
   }

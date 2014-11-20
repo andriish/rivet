@@ -1,6 +1,13 @@
 2014-11-20  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Adding Cuts::ptIn.
+	* Analysis updates (ATLAS, CMS, CDF, D0) to apply the changes below.
+
+	* Adding JetAlg jets(Cut, Sorter) methods, and other interface
+	improvements for cut and sorted ParticleBase retrieval from JetAlg
+	and ParticleFinder projections. Some old many-doubles versions
+	removed, syntactic sugar sorting methods deprecated.
+
+	* Adding Cuts::Et and Cuts::ptIn, Cuts::etIn, Cuts::massIn.
 
 	* Moving FastJet includes, conversions, uses etc. into Tools/RivetFastJet.hh
 

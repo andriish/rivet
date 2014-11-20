@@ -89,7 +89,7 @@ namespace Rivet {
 
       // Get the jets
       const JetAlg& jetProj = applyProjection<FastJets>(event, "Jets");
-      Jets theJets = jetProj.jetsByEt(_jetEtCutA);
+      Jets theJets = jetProj.jets(cmpMomByEt, Cuts::Et > _jetEtCutA);
       size_t njetsA(0), njetsB(0);
       foreach (const Jet& j, theJets) {
         const FourMomentum pj = j.momentum();

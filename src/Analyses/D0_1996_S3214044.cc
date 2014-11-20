@@ -68,16 +68,14 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets_in;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jetsByEt(20.0*GeV)) {
-        if (jet.abseta() < 3.0) jets_in.push_back(jet);
-      }
+      Jets jets_in = applyProjection<FastJets>(event, "ConeJets")
+        .jets(cmpMomByEt, (Cuts::pT > 20*GeV) & (Cuts::abseta < 3));
 
       Jets jets_isolated;
       for (size_t i = 0; i < jets_in.size(); ++i) {
         bool isolated = true;
         for (size_t j = 0; j < jets_in.size(); ++j) {
-          if (i != j && deltaR(jets_in[i].momentum(), jets_in[j].momentum()) < 1.4) {
+          if (i != j && deltaR(jets_in[i], jets_in[j]) < 1.4) {
             isolated = false;
             break;
           }

@@ -253,12 +253,13 @@ void qty_not_found() {
 
 
 template<>
-class Cuttable <Particle> : public CuttableBase {
+class Cuttable<Particle> : public CuttableBase {
     public:
     Cuttable(const Particle& p) : p_(p) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
       case Cuts::pT:     return p_.momentum().pT();
+      case Cuts::Et:     return p_.momentum().Et();
       case Cuts::mass:   return p_.momentum().mass();
       case Cuts::rap:    return p_.momentum().rapidity();
       case Cuts::absrap: return std::abs(p_.momentum().rapidity());
@@ -276,12 +277,13 @@ SPECIALISE_ACCEPT(Particle)
 
 
 template<>
-class Cuttable <FourMomentum> : public CuttableBase {
+class Cuttable<FourMomentum> : public CuttableBase {
     public:
     Cuttable(const FourMomentum& fm) : fm_(fm) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
       case Cuts::pT:     return fm_.pT();
+      case Cuts::Et:     return fm_.Et();
       case Cuts::mass:   return fm_.mass();
       case Cuts::rap:    return fm_.rapidity();
       case Cuts::absrap: return std::abs(fm_.rapidity());
@@ -297,13 +299,15 @@ class Cuttable <FourMomentum> : public CuttableBase {
 };
 SPECIALISE_ACCEPT(FourMomentum)
 
+
 template<>
-class Cuttable <Jet> : public CuttableBase {
+class Cuttable<Jet> : public CuttableBase {
     public:
     Cuttable(const Jet& jet) : jet_(jet) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
       case Cuts::pT:     return jet_.momentum().pT();
+      case Cuts::Et:     return jet_.momentum().Et();
       case Cuts::mass:   return jet_.momentum().mass();
       case Cuts::rap:    return jet_.momentum().rapidity();
       case Cuts::absrap: return std::abs(jet_.momentum().rapidity());
@@ -319,13 +323,15 @@ class Cuttable <Jet> : public CuttableBase {
 };
 SPECIALISE_ACCEPT(Jet)
 
+
 template<>
-class Cuttable <fastjet::PseudoJet> : public CuttableBase {
+class Cuttable<fastjet::PseudoJet> : public CuttableBase {
     public:
     Cuttable(const fastjet::PseudoJet& pjet) : pjet_(pjet) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
       case Cuts::pT:     return pjet_.perp();
+      case Cuts::Et:     return pjet_.Et();
       case Cuts::mass:   return pjet_.m();
       case Cuts::rap:    return pjet_.rap();
       case Cuts::absrap: return std::abs(pjet_.rap());
@@ -343,14 +349,15 @@ SPECIALISE_ACCEPT(fastjet::PseudoJet)
 
 
 template<>
-class Cuttable <HepMC::FourVector> : public CuttableBase {
+class Cuttable<HepMC::FourVector> : public CuttableBase {
     public:
     Cuttable(const HepMC::FourVector & vec) : vec_(vec) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
       case Cuts::pT:     return vec_.perp();
+      /// @todo case Cuts::Et:     return vec_.perp();
       case Cuts::mass:   return vec_.m();
-	    case Cuts::rap:    return 0.5*std::log((vec_.t()+vec_.z())/(vec_.t()-vec_.z()));
+	  case Cuts::rap:    return 0.5*std::log((vec_.t()+vec_.z())/(vec_.t()-vec_.z()));
       case Cuts::absrap: return std::abs(getValue(Cuts::rap));
       case Cuts::eta:    return vec_.pseudoRapidity();
       case Cuts::abseta: return std::abs(vec_.pseudoRapidity());
@@ -363,5 +370,6 @@ class Cuttable <HepMC::FourVector> : public CuttableBase {
     const HepMC::FourVector & vec_;
 };
 SPECIALISE_ACCEPT(HepMC::FourVector)
+
 
 }
