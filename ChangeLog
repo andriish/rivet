@@ -1,3 +1,7 @@
+2014-11-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Moving FastJet includes, conversions, uses etc. into Tools/RivetFastJet.hh
+
 2014-10-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix a bug in the isCharmHadron(pid) function and remove isStrange* functions.
