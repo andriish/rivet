@@ -106,7 +106,7 @@ namespace Rivet {
 
       _neutrinos = applyProjection<PromptFinalState>(event, "neutrinos").particlesByPt();
 
-      _jets = applyProjection<FastJets>(event, "jets").jetsByPt((Cuts::pT > 25) & (Cuts::abseta < 2.5));
+      _jets = applyProjection<FastJets>(event, "jets").jetsByPt((Cuts::pT > 25*GeV) & (Cuts::abseta < 2.5));
 
 
       // Calculate the missing ET, using the prompt neutrinos only (really?)
