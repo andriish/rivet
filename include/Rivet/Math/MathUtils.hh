@@ -347,7 +347,7 @@ namespace Rivet {
         break;
       }
     }
-    assert(inRange(index, -1, binedges.size()-1));
+    assert(inRange(index, -1, int(binedges.size())-1));
     return index;
   }
 
