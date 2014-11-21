@@ -34,7 +34,7 @@ namespace Rivet {
     /// @param trackPhotons whether such photons should be added to _theParticles
     ///  (cf. _trackPhotons)
     ZFinder(const FinalState& inputfs,
-            Cut cuts,
+            const Cut & cuts,
             PdgId pid,
             double minmass, double maxmass,
             double dRmax=0.1, 

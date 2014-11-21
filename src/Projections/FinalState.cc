@@ -29,7 +29,7 @@ namespace Rivet {
   }
 
 
-  FinalState::FinalState(Cut c)
+  FinalState::FinalState(const Cut & c)
     : ParticleFinder(c)
   {
     setName("FinalState");

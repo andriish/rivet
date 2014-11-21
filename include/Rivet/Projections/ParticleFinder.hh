@@ -16,7 +16,7 @@ namespace Rivet {
     //@{
 
     /// Construction using Cuts object
-    ParticleFinder(Cut c = Cuts::open()) : _cuts(c), _theParticles() {}
+    ParticleFinder(const Cut & c = Cuts::open()) : _cuts(c), _theParticles() {}
 
     /// Virtual destructor for inheritance
     virtual ~ParticleFinder() {}
@@ -45,7 +45,7 @@ namespace Rivet {
     /// @brief Get the final-state particles, with optional cuts.
     /// @note Returns a copy rather than a reference, due to cuts
     /// @todo Can't this be a const Cut& arg?
-    Particles particles(Cut c) const {
+    Particles particles(const Cut & c) const {
       // Just return a copy of particles() if the cut is open
       if (c == Cuts::open()) return particles();
       // If there is a non-trivial cut...
@@ -61,7 +61,7 @@ namespace Rivet {
     /// @todo Can't this be a const Cut& arg?
     /// @todo Use a std::function instead of typename F?
     template <typename F>
-    Particles particles(F sorter, Cut c=Cuts::open()) const {
+    Particles particles(F sorter, const Cut & c=Cuts::open()) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
@@ -71,7 +71,7 @@ namespace Rivet {
     /// @todo Can't this be a const Cut& arg?
     /// @todo Use a std::function instead of typename F?
     template <typename F>
-    Particles particles(Cut c, F sorter) const {
+    Particles particles(const Cut & c, F sorter) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
@@ -79,7 +79,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with optional cuts.
     ///
     /// This is a very common use-case, so is available as syntatic sugar for particles(c, cmpMomByPt).
-    Particles particlesByPt(Cut c=Cuts::open()) const {
+    Particles particlesByPt(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByPt);
     }
 
@@ -98,49 +98,49 @@ namespace Rivet {
     /// Get the final-state particles, ordered by decreasing \f$ p \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
-    Particles particlesByP(Cut c=Cuts::open()) const {
+    Particles particlesByP(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByP);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
-    Particles particlesByE(Cut c=Cuts::open()) const {
+    Particles particlesByE(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByE);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E_T \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
-    Particles particlesByEt(Cut c=Cuts::open()) const {
+    Particles particlesByEt(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByEt);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ \eta \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
-    Particles particlesByEta(Cut c=Cuts::open()) const {
+    Particles particlesByEta(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscPseudorapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |\eta| \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
-    Particles particlesByModEta(Cut c=Cuts::open()) const {
+    Particles particlesByModEta(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscAbsPseudorapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ y \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
-    Particles particlesByRapidity(Cut c=Cuts::open()) const {
+    Particles particlesByRapidity(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscRapidity);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |y| \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
-    Particles particlesByModRapidity(Cut c=Cuts::open()) const {
+    Particles particlesByModRapidity(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscAbsRapidity);
     }
 

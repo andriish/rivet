@@ -23,7 +23,7 @@ namespace Rivet {
                double minpt = 0.0);
 
     /// Construction using Cuts object
-    FinalState(Cut c = Cuts::open());
+    FinalState(const Cut & c = Cuts::open());
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

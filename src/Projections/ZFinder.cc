@@ -8,7 +8,7 @@ namespace Rivet {
 
 
   ZFinder::ZFinder(const FinalState& inputfs,
-		   Cut fsCut,
+		   const Cut & fsCut,
                    PdgId pid,
                    double minmass, double maxmass,
                    double dRmax,

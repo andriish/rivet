@@ -148,7 +148,7 @@ private:
 
 class CutsOr : public CutBase {
 public:
-  CutsOr(const Cut c1, const Cut c2) : cut1(c1), cut2(c2) {}
+  CutsOr(const Cut & c1, const Cut & c2) : cut1(c1), cut2(c2) {}
   bool operator==(const Cut & c) const {
     shared_ptr<CutsOr> cc = dynamic_pointer_cast<CutsOr>(c);
     return cc && (   ( cut1 == cc->cut1  &&  cut2 == cc->cut2 )
@@ -165,7 +165,7 @@ private:
 
 class CutsAnd : public CutBase {
 public:
-    CutsAnd(const Cut c1, const Cut c2) : cut1(c1), cut2(c2) {}
+    CutsAnd(const Cut & c1, const Cut & c2) : cut1(c1), cut2(c2) {}
   bool operator==(const Cut & c) const {
     shared_ptr<CutsAnd> cc = dynamic_pointer_cast<CutsAnd>(c);
     return cc && (   ( cut1 == cc->cut1  &&  cut2 == cc->cut2 )
@@ -182,7 +182,7 @@ private:
 
 class CutInvert : public CutBase {
 public:
-    CutInvert(const Cut c1) : cut(c1) {}
+    CutInvert(const Cut & c1) : cut(c1) {}
   bool operator==(const Cut & c) const {
     shared_ptr<CutInvert> cc = dynamic_pointer_cast<CutInvert>(c);
     return cc && cut == cc->cut;
@@ -197,7 +197,7 @@ private:
 
 class CutsXor : public CutBase {
 public:
-    CutsXor(const Cut c1, const Cut c2) : cut1(c1), cut2(c2) {}
+    CutsXor(const Cut & c1, const Cut & c2) : cut1(c1), cut2(c2) {}
   bool operator==(const Cut & c) const {
     shared_ptr<CutsXor> cc = dynamic_pointer_cast<CutsXor>(c);
     return cc && (   ( cut1 == cc->cut1  &&  cut2 == cc->cut2 )
@@ -217,19 +217,19 @@ private:
     ////////////
     ///Operators
 
-  Cut operator & (const Cut aptr, const Cut bptr) {
+  Cut operator & (const Cut & aptr, const Cut & bptr) {
     return make_cut(CutsAnd(aptr,bptr));
   }
 
-  Cut operator | (const Cut aptr, const Cut bptr) {
+  Cut operator | (const Cut & aptr, const Cut & bptr) {
     return make_cut(CutsOr(aptr,bptr));
   }
 
-  Cut operator ~ (const Cut cptr) {
+  Cut operator ~ (const Cut & cptr) {
     return make_cut(CutInvert(cptr));
   }
 
-  Cut operator ^ (const Cut aptr, const Cut bptr) {
+  Cut operator ^ (const Cut & aptr, const Cut & bptr) {
     return make_cut(CutsXor(aptr,bptr));
   }
 

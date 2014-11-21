@@ -70,13 +70,13 @@ namespace Rivet {
   /// @name Cut combiners
   //@{
   /// Logical AND operation on two cuts
-  Cut operator & (const Cut aptr, const Cut bptr);
+  Cut operator & (const Cut & aptr, const Cut & bptr);
   /// Logical OR operation on two cuts
-  Cut operator | (const Cut aptr, const Cut bptr);
+  Cut operator | (const Cut & aptr, const Cut & bptr);
   /// Logical NOT operation on a cut
-  Cut operator ~ (const Cut cptr);
+  Cut operator ~ (const Cut & cptr);
   /// Logical XOR operation on two cuts
-  Cut operator ^ (const Cut aptr, const Cut bptr);
+  Cut operator ^ (const Cut & aptr, const Cut & bptr);
   //@}
 }
 

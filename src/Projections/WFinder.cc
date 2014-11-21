@@ -10,7 +10,7 @@
 namespace Rivet {
 
   WFinder::WFinder(const FinalState& inputfs,
-                   Cut fsCut,
+                   const Cut & fsCut,
                    PdgId pid,
                    double minmass, double maxmass,
                    double missingET,

@@ -40,7 +40,7 @@ namespace Rivet {
     /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts
     /// @todo Can't this be a const Cut& arg?
-    virtual Jets jets(Cut c=Cuts::open()) const {
+    virtual Jets jets(const Cut & c = Cuts::open()) const {
       const Jets rawjets = _jets(0.0); // arg means no pT cut
       // Just return a copy of rawjets if the cut is open
       if (c == Cuts::open()) return rawjets;
@@ -55,7 +55,7 @@ namespace Rivet {
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     template <typename F>
-    Jets jets(F sorter, Cut c=Cuts::open()) const {
+    Jets jets(F sorter, const Cut & c = Cuts::open()) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(jets(c), sorter);
     }
@@ -63,7 +63,7 @@ namespace Rivet {
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     template <typename F>
-    Jets jets(Cut c, F sorter) const {
+    Jets jets(const Cut & c ,  F sorter) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(jets(c), sorter);
     }
@@ -75,7 +75,7 @@ namespace Rivet {
     ///
     /// This is a very common use-case, so is available as syntatic sugar for jets(c, cmpMomByPt).
     /// @todo The other sorted accessors should be removed in a cleanup.
-    Jets jetsByPt(Cut c=Cuts::open()) const {
+    Jets jetsByPt(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByPt);
     }
 
@@ -87,21 +87,21 @@ namespace Rivet {
     /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     /// @deprecated Use the version with a sorter function argument.
-    Jets jetsByP(Cut c=Cuts::open()) const {
+    Jets jetsByP(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByP);
     }
 
     /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     /// @deprecated Use the version with a sorter function argument.
-    Jets jetsByE(Cut c=Cuts::open()) const {
+    Jets jetsByE(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByE);
     }
 
     /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     /// @deprecated Use the version with a sorter function argument.
-    Jets jetsByEt(Cut c=Cuts::open()) const {
+    Jets jetsByEt(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByEt);
     }
 
