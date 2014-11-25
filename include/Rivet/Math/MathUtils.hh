@@ -485,8 +485,8 @@ namespace Rivet {
   inline double mapAngleMPiToPi(double angle) {
     double rtn = _mapAngleM2PITo2Pi(angle);
     if (isZero(rtn)) return 0;
-    rtn = (rtn >   PI ? rtn-TWOPI :
-           rtn <= -PI ? rtn+TWOPI : rtn);
+    if (rtn > PI) rtn -= TWOPI;
+    if (rtn <= -PI) rtn += TWOPI;
     assert(rtn > -PI && rtn <= PI);
     return rtn;
   }
