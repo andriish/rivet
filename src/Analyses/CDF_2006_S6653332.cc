@@ -68,8 +68,8 @@ namespace Rivet {
       //
       double Lep1Pt = ZDecayProducts[0].pT();
       double Lep2Pt = ZDecayProducts[1].pT();
-      double Lep1Eta = ZDecayProducts[0].absrap(); //< @todo This is y... should be abseta()?
-      double Lep2Eta = ZDecayProducts[1].absrap(); //< @todo This is y... should be abseta()?
+      double Lep1Eta = ZDecayProducts[0].absrap(); ///< @todo This is y... should be abseta()?
+      double Lep2Eta = ZDecayProducts[1].absrap(); ///< @todo This is y... should be abseta()?
 
       if (Lep1Eta > _LepEtaCut && Lep2Eta > _LepEtaCut) vetoEvent;
       if (ZDecayProducts[0].abspid()==13 && Lep1Eta > 1. && Lep2Eta > 1.) vetoEvent;

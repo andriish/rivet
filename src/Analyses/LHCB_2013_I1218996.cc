@@ -71,7 +71,7 @@ namespace Rivet {
         // We're only interested in charm hadrons
         if (!p.isHadron() || !p.hasCharm()) continue;
         // Kinematic acceptance
-        const double y = p.absrap(); //< Double analysis efficiency with a "two-sided LHCb"
+        const double y = p.absrap(); ///< Double analysis efficiency with a "two-sided LHCb"
         const double pT = p.pT();
 
         // Fiducial acceptance of the measurements

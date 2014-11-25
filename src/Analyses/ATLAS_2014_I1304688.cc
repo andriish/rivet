@@ -181,8 +181,8 @@ namespace Rivet {
     void finalize() {
       // Normalize to cross-section
       const double norm = crossSection()/sumOfWeights();
-      typedef map<unsigned int, Histo1DPtr>::value_type IDtoHisto1DPtr; //< @todo Remove when C++11 allowed
-      foreach (IDtoHisto1DPtr ihpair, _hMap) scale(ihpair.second, norm); //< @todo Use normalize(ihpair.second, crossSection())
+      typedef map<unsigned int, Histo1DPtr>::value_type IDtoHisto1DPtr; ///< @todo Remove when C++11 allowed
+      foreach (IDtoHisto1DPtr ihpair, _hMap) scale(ihpair.second, norm); ///< @todo Use normalize(ihpair.second, crossSection())
       // Calc averages
       for (unsigned int ihist = 0; ihist < _histLimit ; ihist++) {
         unsigned int threshLimit = _thresholdLimit(ihist);

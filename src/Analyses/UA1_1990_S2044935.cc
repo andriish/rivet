@@ -127,7 +127,7 @@ namespace Rivet {
       }
       const double xsec = crossSectionPerEvent();
       if (!fuzzyEquals(sqrtS()/GeV, 63, 1E-3)) {
-        scale(_hist_Nch, 2*xsec/millibarn); //< Factor of 2 for Nch bin widths?
+        scale(_hist_Nch, 2*xsec/millibarn); ///< Factor of 2 for Nch bin widths?
         scale(_hist_Esigd3p, xsec/millibarn);
         scale(_hist_Et, xsec/millibarn);
       }

@@ -245,7 +245,7 @@ namespace Rivet {
       const double phi0 = jet.phi();
       const double eta0 = jet.eta();
 
-      double nref[3]; //< @todo 3-vector to rotate x to? Use Rivet vector classes
+      double nref[3]; ///< @todo 3-vector to rotate x to? Use Rivet vector classes
       nref[0] = cos(phi0)/cosh(eta0);
       nref[1] = sin(phi0)/cosh(eta0);
       nref[2] = tanh(eta0);

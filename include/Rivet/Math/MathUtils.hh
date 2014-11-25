@@ -339,7 +339,7 @@ namespace Rivet {
   binIndex(NUM1 val, const vector<NUM2>& binedges) {
     /// @todo Use std::common_type<NUM1, NUM2>::type x = val; ?
     /// @todo Add linear & log guesses, and binary split via upper_bound for large binnings
-    if (!inRange(val, binedges.front(), binedges.back())) return -1; //< Out of histo range
+    if (!inRange(val, binedges.front(), binedges.back())) return -1; ///< Out of histo range
     int index = -1;
     for (size_t i = 1; i < binedges.size(); ++i) {
       if (val < binedges[i]) {

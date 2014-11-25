@@ -188,7 +188,7 @@ namespace Rivet {
       for (unsigned int ix = 0; ix < 2; ++ix) {
         // jets over 100 GeV
         if (recon_jets[ix].pT() < 100*GeV ||
-            recon_jets[ix].eta() > 2.) continue; //< @todo Should be |eta|?
+            recon_jets[ix].eta() > 2.) continue; ///< @todo Should be |eta|?
         double fch(0.), fem(0.), eTotal(0.);
         foreach(const Particle & part, recon_jets[ix].particles()) {
           long id = part.abspid();
@@ -206,9 +206,9 @@ namespace Rivet {
       // ==================== observables ====================
 
       int Njets = 0;
-      double min_dPhi_All = 999.999; //< @todo Use std::numeric_limits!
-      double min_dPhi_2   = 999.999; //< @todo Use std::numeric_limits!
-      double min_dPhi_3   = 999.999; //< @todo Use std::numeric_limits!
+      double min_dPhi_All = 999.999; ///< @todo Use std::numeric_limits!
+      double min_dPhi_2   = 999.999; ///< @todo Use std::numeric_limits!
+      double min_dPhi_3   = 999.999; ///< @todo Use std::numeric_limits!
       double pTmiss_phi = pTmiss.phi();
 
       foreach ( const Jet& jet, recon_jets ) {

@@ -10,7 +10,7 @@ namespace Rivet {
 
   struct ATLAS_2011_S9126244_Plots {
 
-    int selectionType; //< The HepData y-axis code
+    int selectionType; ///< The HepData y-axis code
     string intermediateHistName;
 
     // Gap fraction vs DeltaY plot setup
@@ -31,7 +31,7 @@ namespace Rivet {
     vector<double> _gapFractionQ0SlicesDeltaY;
     vector<Histo1DPtr> _h_vetoPt;
     vector<Scatter2DPtr> _d_vetoPtGapFraction;
-    vector<double> _vetoPtTotalSum; //< @todo Can this just be replaced with _h_vetoPt.integral()?
+    vector<double> _vetoPtTotalSum; ///< @todo Can this just be replaced with _h_vetoPt.integral()?
 
     // Average njet vs DeltaY setup
     int _avgNJetDeltaYHistIndex;
@@ -153,7 +153,7 @@ namespace Rivet {
           const string vetoPtHistName = "TMP/vetoPt_" + plots.intermediateHistName + "_" + to_str(q0PlotCount);
           plots._h_vetoPt += bookHisto1D(vetoPtHistName, refData(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType));
           plots._d_vetoPtGapFraction += bookScatter2D(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType);
-          plots._vetoPtTotalSum += 0.0; //< @todo Can this just be replaced with _h_vetoPt.integral()?
+          plots._vetoPtTotalSum += 0.0; ///< @todo Can this just be replaced with _h_vetoPt.integral()?
           q0PlotCount += 1;
         }
       }
@@ -313,7 +313,7 @@ namespace Rivet {
     /// @todo Should be convertible to a YODA ~one-liner using toIntegralEfficiencyHisto
     void finalizeQ0GapFraction(double totalWeightSum, Scatter2DPtr gapFractionDP, Histo1DPtr vetoPtHist) {
       for (size_t i = 0; i < vetoPtHist->numBins(); ++i) {
-        const double vetoPtWeightSum = vetoPtHist->integral(i); //< Integral (with underflow) up to but not including bin i
+        const double vetoPtWeightSum = vetoPtHist->integral(i); ///< Integral (with underflow) up to but not including bin i
         // Calculate the efficiency & binomial uncertainty
         const double eff = (totalWeightSum != 0) ? vetoPtWeightSum/totalWeightSum : 0;
         const double effErr = (totalWeightSum != 0) ? sqrt( eff*(1.0-eff)/totalWeightSum ) : 0;

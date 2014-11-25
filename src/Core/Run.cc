@@ -107,7 +107,7 @@ namespace Rivet {
     // Set cross-section if found in event and not from command line
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (std::isnan(_xs) && _evt->cross_section()) {
-      const double xs = _evt->cross_section()->cross_section(); //< in pb
+      const double xs = _evt->cross_section()->cross_section(); ///< in pb
       Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
       _ah.setCrossSection(xs);

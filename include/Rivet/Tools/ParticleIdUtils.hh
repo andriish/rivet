@@ -582,7 +582,7 @@ namespace Rivet {
 
     /// Determine if the PID is that of an SM/lightest SUSY Higgs
     inline bool isHiggs(int pid) {
-      return pid == HIGGSBOSON || pid == 26; //< @todo Check on 26 still needed? (used in HERWIG SUSY, for example)
+      return pid == HIGGSBOSON || pid == 26; ///< @todo Check on 26 still needed? (used in HERWIG SUSY, for example)
     }
 
     /// @todo isSUSYHiggs?

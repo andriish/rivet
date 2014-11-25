@@ -29,7 +29,7 @@ namespace Rivet {
 		   | etaIn(-1.1,  1.1)
 		   | etaIn( 1.5,  3.0) )
 	& (pT >= 20.0*GeV);
-      FinalState fs; //< @todo Should the eta cuts be on the electrons or the resulting Z? I'd have thought the electrons
+      FinalState fs; ///< @todo Should the eta cuts be on the electrons or the resulting Z? I'd have thought the electrons
       ZFinder zfinder_ee(fs, cuts, PID::ELECTRON, 70*GeV, 110*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder_ee, "zfinder_ee");
       ZFinder zfinder_mm(fs, 

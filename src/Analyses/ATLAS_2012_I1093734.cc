@@ -207,7 +207,7 @@ namespace Rivet {
         // Find the leading track and fill the temp histograms
         const Particle& plead = partTrks[0];
         foreach (const Particle& p, partTrks) {
-          if (&plead == &p) continue; //< Don't compare the lead particle to itself
+          if (&plead == &p) continue; ///< Don't compare the lead particle to itself
           const double dphi = deltaPhi(p.momentum(), plead.momentum());
           _th_dphi[ieta].fill(dphi, weight);
           const bool sameside = (plead.eta() * p.eta() > 0);
@@ -231,7 +231,7 @@ namespace Rivet {
         if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3) && ipt == 0) break;
       }
 
-      if (!fuzzyEquals(sqrtS(),  900*GeV, 1e-3)) { //< No plots at 900 GeV
+      if (!fuzzyEquals(sqrtS(),  900*GeV, 1e-3)) { ///< No plots at 900 GeV
         for (int ieta = 0; ieta < NETABINS; ++ieta) {
           for (int ipt = 0; ipt < NPTBINS; ++ipt) {
             _s_NchCorr_vsPt[ieta]->point(ipt).setY(a1_regression2(_vecsNchF[ipt][ieta], _vecsNchB[ipt][ieta], _vecWeight[ipt][ieta]));

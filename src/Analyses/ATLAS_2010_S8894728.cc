@@ -270,7 +270,7 @@ namespace Rivet {
         double sd = 0.;
         if (numentries > 0) {
           var = moment_profiles[1]->bin(b).mean() - intpow(moment_profiles[0]->bin(b).mean(), 2);
-          sd = fuzzyLessEquals(var,0.) ? 0 : sqrt(var); //< Numerical safety check
+          sd = fuzzyLessEquals(var,0.) ? 0 : sqrt(var); ///< Numerical safety check
         }
         if (sd == 0 || numentries < 3) {
           MSG_WARNING("Need at least 3 bin entries and a non-zero central value to calculate "

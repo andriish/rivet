@@ -136,7 +136,7 @@ namespace Rivet {
         if (etsum25[0] > 0) {
           _p_chratio_vs_ptlead_trans[itopo]->fill(ptlead/GeV, ptsum[0]/etsum25[0], weight);
         }
-        const double ptmean = safediv(ptsum[0], nch[0], -1); //< Return -1 if div by zero
+        const double ptmean = safediv(ptsum[0], nch[0], -1); ///< Return -1 if div by zero
         if (ptmean >= 0) {
           _p_ptmeanch_vs_ptlead_trans[itopo]->fill(ptlead/GeV, ptmean/GeV, weight);
           _p_ptmeanch_vs_nch_trans[itopo]->fill(nch[0], ptmean/GeV, weight);

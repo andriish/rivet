@@ -39,10 +39,10 @@ namespace Rivet {
       if (jet1.abseta() > 2.5 || jet2.abseta() > 2.5) vetoEvent;
 
       // Construct eta & phi distances between 2nd and 3rd jets
-      double dEta23 = jet3.eta() - jet2.eta(); //< Note not abs
-      double dPhi23 = jet3.phi() - jet2.phi(); //< Note not abs
-      if (dPhi23 > M_PI)  dPhi23 -= 2*M_PI; //< @todo Use mapTo... functions?
-      if (dPhi23 < -M_PI) dPhi23 += 2*M_PI; //< @todo Use mapTo... functions?
+      double dEta23 = jet3.eta() - jet2.eta(); ///< Note not abs
+      double dPhi23 = jet3.phi() - jet2.phi(); ///< Note not abs
+      if (dPhi23 > M_PI)  dPhi23 -= 2*M_PI; ///< @todo Use mapTo... functions?
+      if (dPhi23 < -M_PI) dPhi23 += 2*M_PI; ///< @todo Use mapTo... functions?
 
       // Cut on distance between 2nd and 3rd jets
       const double R23 = add_quad(dPhi23, dEta23);

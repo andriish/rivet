@@ -75,7 +75,7 @@ namespace Rivet {
       foreach (const Particle& p, j.particles()) {
         const double dR = deltaR(pj, p.momentum(), _rapscheme);
         const int dRindex = binIndex(dR, _binedges);
-        if (dRindex == -1) continue; //< Out of histo range
+        if (dRindex == -1) continue; ///< Out of histo range
         bins[dRindex] += p.pT();
       }
 
