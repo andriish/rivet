@@ -1,3 +1,8 @@
+2014-11-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Cut-based constructors, and various constructors with
+	lists of PDG codes to IdentifiedFinalState.
+
 2014-11-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Analysis updates (ATLAS, CMS, CDF, D0) to apply the changes below.
