@@ -4,10 +4,37 @@
 namespace Rivet {
 
 
-  /// @todo Reduce the cut & paste duplication between these two constructors
+  /// @todo Reduce the cut & paste duplication between the constructors. With C++11 constructors can chain...
 
 
-  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& signal,
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                                 double dRmax, const Cut& cut, bool cluster, bool useDecayPhotons)
+    : FinalState(cut),
+      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
+  {
+    setName("DressedLeptons");
+    IdentifiedFinalState photonfs(photons);
+    photonfs.acceptId(PID::PHOTON);
+    addProjection(photonfs, "Photons");
+    addProjection(bareleptons, "Leptons");
+  }
+
+
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                                 double dRmax, bool cluster, const Cut& cut,
+                                 bool useDecayPhotons)
+    : FinalState(cut),
+      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
+  {
+    setName("DressedLeptons");
+    IdentifiedFinalState photonfs(photons);
+    photonfs.acceptId(PID::PHOTON);
+    addProjection(photonfs, "Photons");
+    addProjection(bareleptons, "Leptons");
+  }
+
+
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                                  double dRmax, bool cluster,
                                  double etaMin, double etaMax,
                                  double pTmin, bool useDecayPhotons)
@@ -18,22 +45,9 @@ namespace Rivet {
     IdentifiedFinalState photonfs(photons);
     photonfs.acceptId(PID::PHOTON);
     addProjection(photonfs, "Photons");
-    addProjection(signal, "Signal");
+    addProjection(bareleptons, "Leptons");
   }
 
-
-  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& signal,
-                                 double dRmax, bool cluster, Cut cut,
-                                 bool useDecayPhotons)
-    : FinalState(cut),
-      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
-  {
-    setName("DressedLeptons");
-    IdentifiedFinalState photonfs(photons);
-    photonfs.acceptId(PID::PHOTON);
-    addProjection(photonfs, "Photons");
-    addProjection(signal, "Signal");
-  }
 
 
   int DressedLeptons::compare(const Projection& p) const {
