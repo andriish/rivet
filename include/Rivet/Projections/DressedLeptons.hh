@@ -41,7 +41,9 @@ namespace Rivet {
   ///
   /// This stores the original (bare) charged particles and photons as particles()
   /// while the newly created clustered lepton objects are accessible as
-  /// dressedLeptons(). The Rivet
+  /// dressedLeptons(). The clustering is done by a delta(R) cone around each bare
+  /// lepton, with double counting being avoided by only adding a photon to the _closest_
+  /// bare lepton if it happens to be within the capture radius of more than one.
   class DressedLeptons : public FinalState {
   public:
 

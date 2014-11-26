@@ -46,13 +46,13 @@ namespace Rivet {
 		   | etaIn(-1.37,  1.37)
 		   | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
 
-      DressedLeptons electronClusters(fs, bareElectrons, 0.1, true, cuts);
+      DressedLeptons electronClusters(fs, bareElectrons, 0.1, cuts);
       addProjection(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
       Cut mucuts = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
-      DressedLeptons muonClusters(fs, bareMuons, 0.1, true, mucuts);
+      DressedLeptons muonClusters(fs, bareMuons, 0.1, mucuts);
       addProjection(muonClusters, "muonClusters");
 
       IdentifiedFinalState neutrinos(-MAXDOUBLE, MAXDOUBLE, 25.0*GeV);
@@ -81,18 +81,18 @@ namespace Rivet {
 
       const DressedLeptons& electronClusters = applyProjection<DressedLeptons>(e, "electronClusters");
       const DressedLeptons& muonClusters = applyProjection<DressedLeptons>(e, "muonClusters");
-      int ne = electronClusters.clusteredLeptons().size();
-      int nmu = muonClusters.clusteredLeptons().size();
+      int ne = electronClusters.dressedLeptons().size();
+      int nmu = muonClusters.dressedLeptons().size();
 
       FourMomentum lepton;
       size_t flav = 2;
       if (ne==1) {
-        lepton=electronClusters.clusteredLeptons()[0].momentum();
+        lepton=electronClusters.dressedLeptons()[0].momentum();
         flav = 0;
         if (nmu > 0) vetoEvent;
       }
       else if (nmu == 1) {
-        lepton=muonClusters.clusteredLeptons()[0].momentum();
+        lepton=muonClusters.dressedLeptons()[0].momentum();
         flav = 1;
         if (ne > 0) vetoEvent;
       }
