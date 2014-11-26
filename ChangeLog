@@ -1,3 +1,9 @@
+2014-11-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding DEPRECATED macro to throw compiler deprecation warnings when using deprecated features.
+
+	* Interface improvements in DressedLeptons constructor.
+
 2014-11-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding Cut-based constructors, and various constructors with
