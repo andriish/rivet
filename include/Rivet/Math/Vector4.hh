@@ -912,6 +912,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by increasing eta (pseudorapidity)
   /// @deprecated Use cmpMomByEta
+  DEPRECATED("Use cmpMomByEta")
   inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByEta(a,b);
   }
@@ -922,6 +923,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by decreasing eta (pseudorapidity)
   /// @deprecated Use cmpMomByDescEta
+  DEPRECATED("Use cmpMomByDescEta")
   inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByDescEta(a,b);
   }
@@ -932,6 +934,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
   /// @deprecated Use cmpMomByAbsEta
+  DEPRECATED("Use cmpMomByAbsEta")
   inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByAbsEta(a,b);
   }
@@ -942,6 +945,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
   /// @deprecated Use cmpMomByDescAbsEta
+  DEPRECATED("Use cmpMomByDescAbsEta")
   inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByDescAbsEta(a,b);
   }
@@ -952,6 +956,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by increasing rapidity
   /// @deprecated Use cmpMomByRap
+  DEPRECATED("Use cmpMomByRap")
   inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByRap(a,b);
   }
@@ -962,6 +967,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by decreasing rapidity
   /// @deprecated Use cmpMomByDescRap
+  DEPRECATED("Use cmpMomByDescRap")
   inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByDescRap(a,b);
   }
@@ -972,6 +978,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by increasing absolute rapidity
   /// @deprecated Use cmpMomByAbsRap
+  DEPRECATED("Use cmpMomByAbsRap")
   inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByAbsRap(a,b);
   }
@@ -982,6 +989,7 @@ namespace Rivet {
   }
   /// Comparison to give a sorting by decreasing absolute rapidity
   /// @deprecated Use cmpMomByDescAbsRap
+  DEPRECATED("Use cmpMomByDescAbsRap")
   inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
     return cmpMomByDescAbsRap(a,b);
   }

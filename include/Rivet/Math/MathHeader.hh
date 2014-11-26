@@ -15,6 +15,7 @@
 
 
 // Macro to help with overzealous compiler warnings
+/// @note It's easier and better to just not give an arg name to args which won't be used, when possible.
 #ifdef UNUSED
 #elif defined(__GNUC__)
 # define UNUSED(x) UNUSED_ ## x __attribute__((unused))
@@ -22,6 +23,25 @@
 # define UNUSED(x) /*@unused@*/ x
 #else
 # define UNUSED(x) x
+#endif
+
+
+/// Macro to help mark code as deprecated to produce compiler warnings
+#ifndef DEPRECATED
+#if __GNUC__ && __cplusplus && RIVET_NO_DEPRECATION_WARNINGS == 0
+#define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#if GCC_VERSION >= 40500
+  #if __cplusplus > 201103L
+  #define DEPRECATED(x) [[deprecated(x)]]
+  #else
+  #define DEPRECATED(x) __attribute__((deprecated(x)))
+  #endif
+#else
+  #define DEPRECATED(x) __attribute__((deprecated))
+#endif
+#else
+  #define DEPRECATED(x)
+#endif
 #endif
 
 

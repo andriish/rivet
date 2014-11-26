@@ -39,6 +39,7 @@ namespace Rivet {
     /// Is this final state empty?
     bool empty() const { return particles().empty(); }
     /// @deprecated Is this final state empty?
+    DEPRECATED("Use empty()")
     bool isEmpty() const { return particles().empty(); }
 
 
@@ -98,6 +99,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by decreasing \f$ p \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByP(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByP);
     }
@@ -105,6 +107,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by decreasing \f$ E \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByE(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByE);
     }
@@ -112,6 +115,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by decreasing \f$ E_T \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByEt(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByEt);
     }
@@ -119,6 +123,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by increasing \f$ \eta \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByEta(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscPseudorapidity);
     }
@@ -126,6 +131,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by increasing \f$ |\eta| \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByModEta(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscAbsPseudorapidity);
     }
@@ -133,6 +139,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by increasing \f$ y \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByRapidity(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscRapidity);
     }
@@ -140,6 +147,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by increasing \f$ |y| \f$.
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
     /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByModRapidity(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByAscAbsRapidity);
     }

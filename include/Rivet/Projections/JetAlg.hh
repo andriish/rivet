@@ -87,6 +87,7 @@ namespace Rivet {
     /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     /// @deprecated Use the version with a sorter function argument.
+    DEPRECATED("Use the version with a sorter function argument.")
     Jets jetsByP(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByP);
     }
@@ -94,6 +95,7 @@ namespace Rivet {
     /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     /// @deprecated Use the version with a sorter function argument.
+    DEPRECATED("Use the version with a sorter function argument.")
     Jets jetsByE(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByE);
     }
@@ -101,6 +103,7 @@ namespace Rivet {
     /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     /// @deprecated Use the version with a sorter function argument.
+    DEPRECATED("Use the version with a sorter function argument.")
     Jets jetsByEt(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByEt);
     }
@@ -116,6 +119,7 @@ namespace Rivet {
     ///
     /// @deprecated Use the version with a Cut argument
     /// @note Returns a copy rather than a reference, due to cuts
+    DEPRECATED("Use the version with a Cut argument.")
     Jets jets(double ptmin, double ptmax=MAXDOUBLE,
               double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
               RapScheme rapscheme=PSEUDORAPIDITY) const {

@@ -21,6 +21,7 @@ namespace Rivet {
 
     /// Old constructor with numeric cut arguments, retained for compatibility
     /// @deprecated Use the versions with Cut arguments
+    //DEPRECATED("Use the versions with Cut arguments")
     FinalState(double mineta, double maxeta, double minpt=0.0*GeV);
 
     /// Clone on the heap.

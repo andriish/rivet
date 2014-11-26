@@ -42,6 +42,7 @@ namespace Rivet {
 
     /// Constructor with eta range and pT_min arguments and optional list of PDG ID codes.
     /// @deprecated Use the versions with Cut or FinalState arguments
+    DEPRECATED("Use the versions with Cut or FinalState arguments.")
     IdentifiedFinalState(double etamin, double etamax, double ptMin=0.0*GeV);
 
 
