@@ -28,7 +28,7 @@ namespace Rivet {
     bareleptons.acceptIdPair(pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
-    DressedLeptons leptons(inputfs, bareleptons, dRmax, doClustering, fsCut, useDecayPhotons);
+    DressedLeptons leptons(inputfs, bareleptons, dRmax, fsCut, doClustering, useDecayPhotons);
     addProjection(leptons, "DressedLeptons");
 
     VetoedFinalState remainingFS;
@@ -62,7 +62,7 @@ namespace Rivet {
 
     InvMassFinalState imfs(std::make_pair(_pid, -_pid), _minmass, _maxmass, _masstarget);
     Particles tmp;
-    tmp.insert(tmp.end(), leptons.clusteredLeptons().begin(), leptons.clusteredLeptons().end());
+    tmp.insert(tmp.end(), leptons.dressedLeptons().begin(), leptons.dressedLeptons().end());
     imfs.calc(tmp);
 
     if (imfs.particlePairs().size() < 1) return;
@@ -86,12 +86,11 @@ namespace Rivet {
     // Find the DressedLeptons which survived the IMFS cut such that we can
     // extract their original particles
     foreach (const Particle& p, _constituents) {
-      foreach (const DressedLepton& l, leptons.clusteredLeptons()) {
-        if (p.pid()==l.pid() && p.momentum()==l.momentum()) {
+      foreach (const DressedLepton& l, leptons.dressedLeptons()) {
+        if (p.pid() == l.pid() && p.momentum() == l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
-            _theParticles.insert(_theParticles.end(),
-                                 l.constituentPhotons().begin(), l.constituentPhotons().end());
+            _theParticles.insert(_theParticles.end(), l.constituentPhotons().begin(), l.constituentPhotons().end());
           }
         }
       }

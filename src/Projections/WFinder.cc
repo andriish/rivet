@@ -10,7 +10,7 @@
 namespace Rivet {
 
   WFinder::WFinder(const FinalState& inputfs,
-                   const Cut & fsCut,
+                   const Cut& fsCut,
                    PdgId pid,
                    double minmass, double maxmass,
                    double missingET,
@@ -43,7 +43,7 @@ namespace Rivet {
     bareleptons.acceptIdPair(pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
-    DressedLeptons leptons(inputfs, bareleptons, dRmax, doClustering, fsCut, useDecayPhotons);
+    DressedLeptons leptons(inputfs, bareleptons, dRmax, fsCut, doClustering, useDecayPhotons);
     addProjection(leptons, "DressedLeptons");
 
     // Add MissingMomentum proj to calc MET
@@ -91,7 +91,7 @@ namespace Rivet {
     InvMassFinalState imfs(l_nu_ids, _minmass, _maxmass, _masstarget);
     imfs.useTransverseMass(_useTransverseMass);
     Particles tmp;
-    tmp.insert(tmp.end(), leptons.clusteredLeptons().begin(), leptons.clusteredLeptons().end());
+    tmp.insert(tmp.end(), leptons.dressedLeptons().begin(), leptons.dressedLeptons().end());
     tmp.insert(tmp.end(), neutrinos.particles().begin(), neutrinos.particles().end());
     imfs.calc(tmp);
 
@@ -140,7 +140,7 @@ namespace Rivet {
       _theParticles.push_back(p);
     }
     foreach (const Particle& p, _constituentLeptons) {
-      foreach (const DressedLepton& l, leptons.clusteredLeptons()) {
+      foreach (const DressedLepton& l, leptons.dressedLeptons()) {
         if (p.pid() == l.pid() && p.momentum() == l.momentum()) {
           _theParticles.push_back(l.constituentLepton());
           if (_trackPhotons) {
