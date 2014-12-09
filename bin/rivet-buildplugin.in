@@ -103,7 +103,14 @@ fi
 with_root=$(echo $* | egrep -- '--\<with-root\>')
 # echo $with_root
 tmp=${@//--with-root/}
-set $tmp
+set $tmp #< Set positional params
+
+
+## Just show the compiler command rather than execute it, if requested
+only_show=$(echo $* | egrep -- '--\<cmd\>') #-\<n\>')
+# echo $only_show
+tmp=${@//--cmd/}
+set $tmp #< Set positional params
 
 
 ## Get and check the library name
@@ -118,7 +125,9 @@ if test -n "$match1"; then
     ## If we're using the first arg as the library name, shift it off the positional list
     shift
 else
-    echo "Using default library name 'RivetAnalysis.so'"
+    if [[ -z $only_show ]]; then
+        echo "Using default library name 'RivetAnalysis.so'"
+    fi
     libname="RivetAnalysis.so"
 fi
 
@@ -134,4 +143,6 @@ fi
 ## Build
 cmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $myldflags $sources_and_flags"
 echo $cmd
-eval $cmd
+if [[ -z $only_show ]]; then
+    eval $cmd
+fi

@@ -1,3 +1,11 @@
+2014-12-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a --cmd arg to rivet-buildplugin to allow the output
+	paths to be sed'ed (to help deal with naive Grid
+	distribution). For example BUILDROOT=`rivet-config --prefix`;
+	rivet-buildplugin PHOTONS.cc --cmd | sed -e
+	"s:$BUILDROOT:$SITEROOT:g"
+
 2014-11-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Interface improvements in DressedLeptons constructor.
