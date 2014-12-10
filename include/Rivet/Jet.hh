@@ -74,13 +74,21 @@ namespace Rivet {
     bool containsPID(const vector<PdgId>& pids) const { return containsParticleId(pids); }
 
 
-    /// Particles which have been tag-matched to this jet by some external means
+    /// @brief Particles which have been tag-matched to this jet
+    ///
+    /// General sources of tag particles are planned. The default jet finding
+    /// adds b-hadron, c-hadron, and tau tags by ghost association.
     Particles& tags() { return _tags; }
-    /// Particles which have been tag-matched to this jet by some external means (const version)
+    /// @brief Particles which have been tag-matched to this jet (const version)
+    ///
+    /// General sources of tag particles are planned. The default jet finding
+    /// adds b-hadron, c-hadron, and tau tags by ghost association.
     const Particles& tags() const { return _tags; }
 
 
-    /// b particles which have been tag-matched to this jet by some external means
+    /// @brief b particles which have been tag-matched to this jet
+    ///
+    /// The default jet finding adds b-hadron tags by ghost association.
     Particles bTags() const {
       Particles rtn;
       foreach (const Particle& tp, _tags) {
@@ -94,7 +102,9 @@ namespace Rivet {
     }
 
 
-    /// c particles which have been tag-matched to this jet by some external means
+    /// @brief c particles which have been tag-matched to this jet by some external means
+    ///
+    /// The default jet finding adds c-hadron tags by ghost association.
     Particles cTags() const {
       Particles rtn;
       foreach (const Particle& tp, _tags) {
@@ -108,7 +118,9 @@ namespace Rivet {
     }
 
 
-    /// Tau particles which have been tag-matched to this jet by some external means
+    /// @brief Tau particles which have been tag-matched to this jet by some external means
+    ///
+    /// The default jet finding adds tau tags by ghost association.
     Particles tauTags() const {
       Particles rtn;
       foreach (const Particle& tp, _tags) {
@@ -126,8 +138,8 @@ namespace Rivet {
     ///
     /// @deprecated The bTags() or bTagged() function is probably what you want
     /// for tagging. This one ignores the tags() list and draws conclusions
-    /// based directly on the jet constituents; the other is a much better match
-    /// to experimental methods.
+    /// based directly on the jet constituents; the other gives a much better match
+    /// to typical experimental methods.
     ///
     /// @note The decision is made by first trying to find a bottom-flavoured particle
     /// in the particles list. Most likely this will fail unless bottom hadrons
@@ -141,8 +153,8 @@ namespace Rivet {
     ///
     /// @deprecated The cTags() or cTagged() function is probably what you want
     /// for tagging. This one ignores the tags() list and draws conclusions
-    /// based directly on the jet constituents; the other is a much better match
-    /// to experimental methods.
+    /// based directly on the jet constituents; the other gives a much better match
+    /// to typical experimental methods.
     ///
     /// @note The decision is made by first trying to find a charm-flavoured particle
     /// in the particles list. Most likely this will fail unless charmed hadrons
