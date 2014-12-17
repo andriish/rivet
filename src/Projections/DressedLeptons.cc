@@ -59,7 +59,7 @@ namespace Rivet {
     const PCmp phcmp = mkNamedPCmp(p, "Photons");
     if (phcmp != EQUIVALENT) return phcmp;
 
-    const PCmp sigcmp = mkNamedPCmp(p, "Signal");
+    const PCmp sigcmp = mkNamedPCmp(p, "Leptons");
     if (sigcmp != EQUIVALENT) return sigcmp;
 
     return (cmp(_dRmax, other._dRmax) ||
@@ -72,7 +72,7 @@ namespace Rivet {
     _theParticles.clear();
     _clusteredLeptons.clear();
 
-    const FinalState& signal = applyProjection<FinalState>(e, "Signal");
+    const FinalState& signal = applyProjection<FinalState>(e, "Leptons");
     Particles bareleptons = signal.particles();
     if (bareleptons.empty()) return;
 
