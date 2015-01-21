@@ -136,7 +136,7 @@ private:
   }
 
   Cut Cuts::range(Cuts::Quantity qty, double m, double n) {
-    if (m > n) swap(m,n);
+    if (m > n) std::swap(m,n);
     return (qty >= m) & (qty < n);
   }
 
