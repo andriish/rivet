@@ -43,10 +43,11 @@ namespace Rivet {
     Cut range(Quantity, double m, double n);
     inline Cut etaIn(double m, double n) { return range(eta,m,n); }
     inline Cut rapIn(double m, double n) { return range(rap,m,n); }
+    inline Cut absetaIn(double m, double n) { return range(abseta,m,n); }
+    inline Cut absrapIn(double m, double n) { return range(absrap,m,n); }
     inline Cut ptIn(double m, double n) { return range(pT,m,n); }
     inline Cut etIn(double m, double n) { return range(Et,m,n); }
     inline Cut massIn(double m, double n) { return range(mass,m,n); }
-    /// @todo Can do more here: absetaLess, ptGtr, ...?
     //@}
   }
 
@@ -69,6 +70,16 @@ namespace Rivet {
 
   /// @name Cut combiners
   //@{
+
+  /// Logical AND operation on two cuts
+  /// @note No comparison short-circuiting for overloaded &&!
+  Cut operator && (const Cut & aptr, const Cut & bptr);
+  /// Logical OR operation on two cuts
+  /// @note No comparison short-circuiting for overloaded ||!
+  Cut operator || (const Cut & aptr, const Cut & bptr);
+  /// Logical NOT operation on a cut
+  Cut operator ! (const Cut & cptr);
+
   /// Logical AND operation on two cuts
   Cut operator & (const Cut & aptr, const Cut & bptr);
   /// Logical OR operation on two cuts
@@ -78,6 +89,7 @@ namespace Rivet {
   /// Logical XOR operation on two cuts
   Cut operator ^ (const Cut & aptr, const Cut & bptr);
   //@}
+
 }
 
 #endif
