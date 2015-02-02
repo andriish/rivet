@@ -1,5 +1,8 @@
 2015-02-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Use vector MET rather than scalar VET (doh...) in WFinder
+	cut. Thanks to Ines Ochoa for the bug report.
+
 	* Updating and tidying analyses with deprecation warnings.
 
 	* Adding more Cuts/FS constructors for Charged,Neutral,UnstableFinalState.
