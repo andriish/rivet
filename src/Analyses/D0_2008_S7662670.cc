@@ -65,11 +65,10 @@ namespace Rivet {
       // Find the jets
       const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
       // Fill histo for each jet
-      foreach (const Jet& j, jetpro.jets(50.0*GeV)) {
+      foreach (const Jet& j, jetpro.jets(Cuts::pT > 50*GeV)) {
         const double pt = j.pT();
         const double y = j.absrap();
-        MSG_TRACE("Filling histos: pT = " << pt/GeV
-            << ", |y| = " << y);
+        MSG_TRACE("Filling histos: pT = " << pt/GeV << ", |y| = " << y);
         if (y < 0.4) {
           _h_dsigdptdy_y00_04->fill(pt/GeV, weight);
         } else if (y < 0.8) {

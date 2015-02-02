@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs;
-      IdentifiedFinalState muons(-0.8, 0.8, 4.0*GeV);
+      IdentifiedFinalState muons((Cuts::etaIn(-0.8, 0.8)) & (Cuts::pT > 4.0*GeV));
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "Muons");
 

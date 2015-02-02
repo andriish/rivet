@@ -24,8 +24,8 @@ namespace Rivet {
       addProjection(bbc1, "BBC1");
       addProjection(bbc2, "BBC2");
 
-      IdentifiedFinalState pionfs(-2.5, 2.5, 0.3*GeV);
-      IdentifiedFinalState protonfs(-2.5, 2.5, 0.4*GeV);
+      IdentifiedFinalState pionfs((Cuts::abseta < 2.5) & (Cuts::pT > 0.3*GeV));
+      IdentifiedFinalState protonfs((Cuts::abseta < 2.5) & (Cuts::pT > 0.4*GeV));
       pionfs.acceptIdPair(PID::PIPLUS);
       protonfs.acceptIdPair(PID::PROTON);
       addProjection(pionfs, "PionFS");
