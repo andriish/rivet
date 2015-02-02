@@ -13,7 +13,6 @@ namespace Rivet {
       : Analysis("CMS_2012_I1184941")
     {   }
 
-  public:
 
     void init() {
       FinalState fs;
@@ -27,8 +26,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       double xiM = 0.;
       double xiP = 0.;
 
@@ -38,28 +35,28 @@ namespace Rivet {
 
       const FinalState& fsp = applyProjection<FinalState>(event, "FS");
 
-      foreach (const Particle& p, fsp.particlesByEta()) {
-        double eta = p.eta();
-        double energy = p.E();
-        double costheta = cos(p.theta());
-
+      foreach (const Particle& p, fsp.particles(cmpMomByEta)) {
+        const double eta = p.eta();
+        const double energy = p.E();
+        const double costheta = cos(p.theta());
         // Yes, they really correct to +/- infinity, using Pythia 8 ...
-        if ( eta < 4.9 )  xiP += (energy + energy*costheta);
-        if ( -4.9 < eta ) xiM += (energy - energy*costheta);
+        if (eta < 4.9)  xiP += (energy + energy*costheta);
+        if (eta > -4.9 ) xiM += (energy - energy*costheta);
       }
 
       xiP = xiP / (sqrtS()/GeV);
       xiM = xiM / (sqrtS()/GeV);
 
+      const double weight = event.weight();
       _h_xi->fill( xiM, weight ); // Fill the histogram both with xiP and xiM, and get the average in the endjob.
       _h_xi->fill( xiP, weight );
-
     }
 
 
     void finalize() {
       scale( _h_xi, crossSection()/microbarn/sumOfWeights() / 2.);
     }
+
 
   private:
 

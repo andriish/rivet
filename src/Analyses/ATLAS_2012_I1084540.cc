@@ -57,7 +57,7 @@ namespace Rivet {
     void fillMap(const FinalState& fs, bool* energyMap, double pTcut) {
       // Fill true/false array by iterating over particles and compare their
       // pT with pTcut
-      foreach (const Particle& p, fs.particlesByEta()) {
+      foreach (const Particle& p, fs.particles(cmpMomByEta)) {
         int checkBin = -1;
         double checkEta = -_etaMax;
         while (1) {

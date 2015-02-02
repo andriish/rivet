@@ -20,7 +20,7 @@ namespace Rivet {
     ATLAS_2013_I1217867()
       : Analysis("ATLAS_2013_I1217867")
     {
-      m_njet=4;
+      m_njet = 4;
       _h_dI.resize(2, std::vector<Histo1DPtr>(m_njet));
       _h_dI_ratio.resize(2, std::vector<Histo1DPtr>(m_njet-1));
     }
@@ -37,25 +37,23 @@ namespace Rivet {
     void init() {
       // Initialise projections
 
-      FinalState fs(-5.0, 5.0, 0.0*GeV);
+      FinalState fs(Cuts::abseta < 5.0);
 
       IdentifiedFinalState bareElectrons(fs);
       bareElectrons.acceptIdPair(PID::ELECTRON);
 
-      Cut cuts = ( etaIn(-2.47, -1.52)
-		   | etaIn(-1.37,  1.37)
-		   | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
+      Cut cuts = (Cuts::absetaIn(0, 1.37) || Cuts::absetaIn(1.52, 2.47)) && Cuts::pT > 20*GeV;
 
       DressedLeptons electronClusters(fs, bareElectrons, 0.1, cuts);
       addProjection(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
-      Cut mucuts = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
+      Cut mucuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       DressedLeptons muonClusters(fs, bareMuons, 0.1, mucuts);
       addProjection(muonClusters, "muonClusters");
 
-      IdentifiedFinalState neutrinos(-MAXDOUBLE, MAXDOUBLE, 25.0*GeV);
+      IdentifiedFinalState neutrinos(Cuts::pT > 25*GeV);
       neutrinos.acceptNeutrinos();
       addProjection(neutrinos, "neutrinos");
 
@@ -68,9 +66,9 @@ namespace Rivet {
       addProjection(jetpro, "jets");
 
       // Book histograms
-      for (size_t flav=0; flav < 2; ++flav) {
-        for (size_t i=0; i < m_njet; ++i) _h_dI[flav][i] = bookHisto1D(i+1, 1, flav+1);
-        for (size_t i=0; i < m_njet-1; ++i) _h_dI_ratio[flav][i] = bookHisto1D(4+i+1, 1, flav+1);
+      for (size_t flav = 0; flav < 2; ++flav) {
+        for (size_t i = 0; i < m_njet; ++i) _h_dI[flav][i] = bookHisto1D(i+1, 1, flav+1);
+        for (size_t i = 0; i < m_njet-1; ++i) _h_dI_ratio[flav][i] = bookHisto1D(4+i+1, 1, flav+1);
       }
     }
 

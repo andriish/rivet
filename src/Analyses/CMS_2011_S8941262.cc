@@ -20,7 +20,7 @@ namespace Rivet {
       _h_mueta = bookHisto1D(3, 1, 1);
       nbtot=0.;   nbmutot=0.;
 
-      IdentifiedFinalState ifs(-2.1, 2.1, 6.0*GeV);
+      IdentifiedFinalState ifs(Cuts::abseta < 2.1 && Cuts::pT > 6*GeV);
       ifs.acceptIdPair(PID::MUON);
       addProjection(ifs, "IFS");
     }
@@ -31,6 +31,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // a b-quark must have been produced
+      /// @todo Ouch. Use hadron tagging...
       int nb = 0;
       foreach (const GenParticle* p, particles(event.genEvent())) {
         if (abs(p->pdg_id()) == PID::BQUARK) nb += 1;

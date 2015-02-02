@@ -104,9 +104,9 @@ namespace Rivet {
 
       // Charged fs
       const ChargedFinalState& cfs100 = applyProjection<ChargedFinalState>(event, "CFS100");
-      const Particles    part100 = cfs100.particlesByEta();
+      const Particles part100 = cfs100.particles(cmpMomByEta);
       const ChargedFinalState& cfs500 = applyProjection<ChargedFinalState>(event, "CFS500");
-      const Particles&   part500 = cfs500.particlesByEta();
+      const Particles part500 = cfs500.particles(cmpMomByEta);
 
       // Veto event if the most inclusive phase space has less than 10 particles and the max pT is > 10 GeV
       if (part100.size() < 11) vetoEvent;

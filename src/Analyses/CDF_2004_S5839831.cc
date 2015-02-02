@@ -26,8 +26,7 @@ namespace Rivet {
     /// and \f$ p_T > 0.4 \f$ GeV.
     CDF_2004_S5839831()
       : Analysis("CDF_2004_S5839831")
-    {
-    }
+    {    }
 
 
   private:
@@ -158,7 +157,7 @@ namespace Rivet {
 
       {
         MSG_DEBUG("Running max/min analysis");
-        vector<Jet> jets = applyProjection<JetAlg>(event, "Jets").jetsByE();
+        Jets jets = applyProjection<JetAlg>(event, "Jets").jets(cmpMomByE);
         if (!jets.empty()) {
           // Leading jet must be in central |eta| < 0.5 region
           const Jet leadingjet = jets.front();
@@ -236,7 +235,7 @@ namespace Rivet {
       {
         MSG_DEBUG("Running Swiss Cheese analysis");
         const Particles cheesetracks = applyProjection<FinalState>(event, "CheeseFS").particles();
-        vector<Jet> cheesejets = applyProjection<JetAlg>(event, "Jets").jetsByE();
+        Jets cheesejets = applyProjection<JetAlg>(event, "Jets").jets(cmpMomByE);
         if (cheesejets.empty()) {
           MSG_DEBUG("No 'cheese' jets found in event");
           return;

@@ -22,18 +22,15 @@ namespace Rivet {
     void init() {
       FinalState fs;
       addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.7), "ConeFinder");
-
       _h_jet_pt = bookHisto1D(1, 1, 1);
     }
 
 
     void analyze(const Event& event) {
-      const Jets& jets = applyProjection<JetAlg>(event, "ConeFinder").jets(61.0*GeV);
+      const Jets& jets = applyProjection<JetAlg>(event, "ConeFinder").jets(Cuts::pT > 61*GeV);
       foreach (const Jet& jet, jets) {
-        double y = jet.absrap();
-        if (inRange(y, 0.1, 0.7)) {
+        if (inRange(jet.absrap(), 0.1, 0.7))
           _h_jet_pt->fill(jet.pT()/GeV, event.weight());
-        }
       }
     }
 

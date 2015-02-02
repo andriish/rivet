@@ -1,5 +1,15 @@
 2015-02-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Updating and tidying analyses with deprecation warnings.
+
+	* Adding more Cuts/FS constructors for Charged,Neutral,UnstableFinalState.
+
+	* Add &&, || and ! operators for without-parens-warnings Cut
+	combining. Note these don't short-circuit, but this is ok since
+	Cut comparisons don't have side-effects.
+
+	* Add absetaIn, absrapIn Cut range definitions.
+
 	* Updating use of sorted particle/jet access methods and cmp
 	functors in projections and analyses.
 

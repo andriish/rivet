@@ -128,10 +128,10 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      if (integral(_h_Nchg_towards_zmass_81_101)    > 0) scale(_h_pT_towards_zmass_81_101,    1/integral(_h_Nchg_towards_zmass_81_101));
-      if (integral(_h_Nchg_transverse_zmass_81_101) > 0) scale(_h_pT_transverse_zmass_81_101, 1/integral(_h_Nchg_transverse_zmass_81_101));
-      if (integral(_h_Nchg_away_zmass_81_101)       > 0) scale(_h_pT_away_zmass_81_101,       1/integral(_h_Nchg_away_zmass_81_101));
-      if (integral(_h_Nchg_transverse_zpt_5)        > 0) scale(_h_pT_transverse_zpt_5,        1/integral(_h_Nchg_transverse_zpt_5));
+      scale(_h_pT_towards_zmass_81_101,    safediv(1, _h_Nchg_towards_zmass_81_101->integral(), 0));
+      scale(_h_pT_transverse_zmass_81_101, safediv(1, _h_Nchg_transverse_zmass_81_101->integral(), 0));
+      scale(_h_pT_away_zmass_81_101,       safediv(1, _h_Nchg_away_zmass_81_101->integral(), 0));
+      scale(_h_pT_transverse_zpt_5,        safediv(1, _h_Nchg_transverse_zpt_5->integral(), 0));
       normalize(_h_Nchg_towards_zmass_81_101);
       normalize(_h_Nchg_transverse_zmass_81_101);
       normalize(_h_Nchg_away_zmass_81_101);

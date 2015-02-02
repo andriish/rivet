@@ -42,7 +42,7 @@ namespace Rivet {
 
     // Jets with  pT > 35.0, -4.7 < y < 4.7
     const JetAlg& jet_alg = applyProjection<JetAlg>(event, "antikT");
-    const Jets& jets = jet_alg.jets(35.0/GeV, Rivet::MAXDOUBLE, -4.7, 4.7, RAPIDITY);
+    const Jets& jets = jet_alg.jets(Cuts::pT > 35*GeV && Cuts::absrap < 4.7);
 
     // Veto event if number of jets less than 2
     if (jets.size() < 2) return;

@@ -39,9 +39,8 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "JetsM07").jets(62.0*GeV)) {
-        _binnedHistosR07.fill(jet.absrap(), jet.pT(), weight);
+      foreach (const Jet& jet, applyProjection<FastJets>(event, "JetsM07").jets(Cuts::pT < 62*GeV)) {
+        _binnedHistosR07.fill(jet.absrap(), jet.pT(), event.weight());
       }
     }
 

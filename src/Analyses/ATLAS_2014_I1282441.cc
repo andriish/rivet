@@ -12,19 +12,19 @@ namespace Rivet {
 
     ATLAS_2014_I1282441()
       : Analysis("ATLAS_2014_I1282441")
-    {}
+    { }
 
 
     void init() {
 
       // Use a large eta range such that we can discriminate on y
       /// @todo Convert to use a y-cut directly
-      UnstableFinalState ufs(-10, 10, 0.5*GeV);
+      UnstableFinalState ufs(Cuts::abseta < 10 && Cuts::pT > 500*MeV);
       IdentifiedFinalState phis(ufs);
       phis.acceptIdPair(PID::PHI);
       addProjection(phis, "Phis");
 
-      IdentifiedFinalState kpms(-2.0, 2.0, 230*MeV);
+      IdentifiedFinalState kpms(Cuts::abseta < 2.0 && Cuts::pT > 230*MeV);
       kpms.acceptIdPair(PID::KPLUS);
       addProjection(kpms, "Kpms");
 

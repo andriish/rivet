@@ -17,14 +17,14 @@ namespace Rivet {
 
 
     void init() {
-      IdentifiedFinalState Muons(-2.4, 2.4, 20*GeV);
+      IdentifiedFinalState Muons(Cuts::abseta < 2.4 && Cuts::pT > 20*GeV);
       Muons.acceptIdPair(PID::MUON);
       addProjection(Muons, "muons");
 
-      ChargedFinalState CFS(-2.8, 2.8, 0*GeV);
+      ChargedFinalState CFS(Cuts::abseta < 2.8);
       addProjection(CFS, "tracks");
 
-      MissingMomentum missmom(FinalState(-5,5, 0*GeV));
+      MissingMomentum missmom(FinalState(Cuts::abseta < 5));
       addProjection(missmom, "MissingMomentum");
 
       /// @todo Will need to register TMP histograms for future histogramming

@@ -40,10 +40,10 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       // Final state including all charged particles
-      addProjection(ChargedFinalState(-2.5,2.5, 1*GeV), "CFS");
+      addProjection(ChargedFinalState(Cuts::abseta < 2.5 && Cuts::pT > 1*GeV), "CFS");
 
       // Final state including all visible particles (to calculate MET, Jets etc.)
-      addProjection(VisibleFinalState(-5.0,5.0), "VFS");
+      addProjection(VisibleFinalState(Cuts::abseta < 5.0), "VFS");
 
       // Final state including all AntiKt 04 Jets
       VetoedFinalState vfs;
@@ -51,15 +51,15 @@ namespace Rivet {
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // Final state including all unstable particles (including taus)
-      addProjection(UnstableFinalState(-5.0,5.0, 5*GeV),"UFS");
+      addProjection(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 5*GeV), "UFS");
 
       // Final state including all electrons
-      IdentifiedFinalState elecs(-2.47,2.47, 10*GeV);
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 10*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // Final state including all muons
-      IdentifiedFinalState muons(-2.5,2.5, 10*GeV);
+      IdentifiedFinalState muons(Cuts::abseta < 2.5 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 

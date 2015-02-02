@@ -119,7 +119,7 @@ namespace Rivet {
 
 
       // Selection 1: ZZ-> llll selection
-      Cut etaranges_lep = etaIn(-3.16, 3.16) & (pT > 7*GeV);
+      Cut etaranges_lep = Cuts::abseta < 3.16 && Cuts::pT > 7*GeV;
 
       DressedLeptons electron_sel4l(Photon, bare_EL, 0.1, etaranges_lep);
       addProjection(electron_sel4l, "ELECTRON_sel4l");
@@ -138,7 +138,7 @@ namespace Rivet {
 
       /// Get all neutrinos. These will not be used to form jets.
       /// We'll use the highest 2 pT neutrinos to calculate the MET
-      IdentifiedFinalState neutrino_fs(-4.5, 4.5, 0.0*GeV);
+      IdentifiedFinalState neutrino_fs(Cuts::abseta < 4.5);
       neutrino_fs.acceptNeutrinos();
       addProjection(neutrino_fs, "NEUTRINO_FS");
 

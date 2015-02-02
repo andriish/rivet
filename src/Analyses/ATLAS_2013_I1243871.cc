@@ -27,12 +27,12 @@ namespace Rivet {
       addProjection(fs, "ALL_FS");
 
       /// Get electrons from truth record
-      IdentifiedFinalState elec_fs(-2.47, 2.47, 25.0*GeV);
+      IdentifiedFinalState elec_fs(Cuts::abseta < 2.47 && Cuts::pT > 25*GeV);
       elec_fs.acceptIdPair(PID::ELECTRON);
       addProjection(elec_fs, "ELEC_FS");
 
       /// Get muons which pass the initial kinematic cuts:
-      IdentifiedFinalState muon_fs(-2.5, 2.5, 20.0*GeV);
+      IdentifiedFinalState muon_fs(Cuts::abseta < 2.5 && Cuts::pT > 20*GeV);
       muon_fs.acceptIdPair(PID::MUON);
       addProjection(muon_fs, "MUON_FS");
 

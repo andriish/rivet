@@ -17,11 +17,11 @@ namespace Rivet {
   public:
 
     void init() {
-      ChargedFinalState cfs(-2.4, 2.4, 0.0*GeV);
+      ChargedFinalState cfs(Cuts::abseta < 2.4);
       addProjection(cfs,"CFS");
 
       /// Get muons which pass the initial kinematic cuts
-      IdentifiedFinalState muon_fs(-2.1, 2.1, 4.0*GeV);
+      IdentifiedFinalState muon_fs(Cuts::abseta < 2.1 && Cuts::pT > 4*GeV);
       muon_fs.acceptIdPair(PID::MUON);
       addProjection(muon_fs, "MUON_FS");
 
