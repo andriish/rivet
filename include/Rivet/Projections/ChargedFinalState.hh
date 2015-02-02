@@ -13,17 +13,21 @@ namespace Rivet {
 
     /// @name Constructors
     //@{
+
+    /// Construction from another FinalState
     ChargedFinalState(const FinalState& fsp);
 
+    /// Construction using Cuts object
+    ChargedFinalState(const Cut& c=Cuts::open());
+
     /// Single eta-range constructor.
-    ChargedFinalState(double mineta = -MAXDOUBLE,
-                      double maxeta =  MAXDOUBLE,
-                      double minpt  =  0.0*GeV);
+    ChargedFinalState(double mineta, double maxeta, double minpt=0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new ChargedFinalState(*this);
     }
+
     //@}
 
 

@@ -27,10 +27,18 @@ namespace Rivet {
     /// @name Standard constructors and destructors.
     //@{
 
-    /// The default constructor. May specify the minimum and maximum
-    /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    UnstableFinalState(double mineta = -MAXDOUBLE,
-                       double maxeta =  MAXDOUBLE,
+    /// Cut-based / default constructor
+    UnstableFinalState(const Cut& c=Cuts::open()) : FinalState(c)
+    {
+      setName("UnstableFinalState");
+    }
+
+    /// Constructor from cuts.
+    ///
+    /// May specify the minimum and maximum pseudorapidity \f$ \eta \f$ and the
+    /// min \f$ p_T \f$
+    UnstableFinalState(double mineta,
+                       double maxeta,
                        double minpt  =  0.0*GeV)
       : FinalState(mineta, maxeta, minpt)
     {

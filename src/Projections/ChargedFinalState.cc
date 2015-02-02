@@ -9,6 +9,10 @@ namespace Rivet {
     addProjection(fsp, "FS");
   }
 
+  ChargedFinalState::ChargedFinalState(const Cut& c) {
+    setName("ChargedFinalState");
+    addProjection(FinalState(c), "FS");
+  }
 
   ChargedFinalState::ChargedFinalState(double mineta, double maxeta, double minpt) {
     setName("ChargedFinalState");
