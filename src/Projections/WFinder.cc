@@ -123,6 +123,7 @@ namespace Rivet {
 
     // Check missing ET
     const MissingMomentum& vismom = applyProjection<MissingMomentum>(e, "MissingET");
+    MSG_DEBUG("Scalar ET = " << vismom.scalarEt() << " GeV vs. required = " << _etMiss << " GeV");
     /// @todo Restrict missing momentum eta range? Use vectorET()?
     if (vismom.scalarEt() < _etMiss) {
       MSG_DEBUG("Not enough missing ET: " << vismom.scalarEt()/GeV

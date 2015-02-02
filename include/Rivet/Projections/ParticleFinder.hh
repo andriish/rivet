@@ -125,7 +125,7 @@ namespace Rivet {
     /// @deprecated Use the version with a sorter function argument
     DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByEta(const Cut & c=Cuts::open()) const {
-      return particles(c, cmpMomByAscPseudorapidity);
+      return particles(c, cmpMomByEta);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |\eta| \f$.
@@ -133,7 +133,7 @@ namespace Rivet {
     /// @deprecated Use the version with a sorter function argument
     DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByModEta(const Cut & c=Cuts::open()) const {
-      return particles(c, cmpMomByAscAbsPseudorapidity);
+      return particles(c, cmpMomByAbsEta);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ y \f$.
@@ -141,7 +141,7 @@ namespace Rivet {
     /// @deprecated Use the version with a sorter function argument
     DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByRapidity(const Cut & c=Cuts::open()) const {
-      return particles(c, cmpMomByAscRapidity);
+      return particles(c, cmpMomByRap);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |y| \f$.
@@ -149,7 +149,7 @@ namespace Rivet {
     /// @deprecated Use the version with a sorter function argument
     DEPRECATED("Use the version with a sorter function argument")
     Particles particlesByModRapidity(const Cut & c=Cuts::open()) const {
-      return particles(c, cmpMomByAscAbsRapidity);
+      return particles(c, cmpMomByAbsRap);
     }
 
     //@}

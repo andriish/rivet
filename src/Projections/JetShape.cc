@@ -103,8 +103,10 @@ namespace Rivet {
 
 
   void JetShape::project(const Event& e) {
-    const Jets jets = applyProjection<JetAlg>(e, "Jets").jets(_ptcuts.first, _ptcuts.second,
-                                                              -_rapcuts.second, _rapcuts.second, _rapscheme);
+    const Jets jets = applyProjection<JetAlg>(e, "Jets").jets(Cuts::ptIn(_ptcuts.first, _ptcuts.second) &
+                                                              ((_rapscheme == PSEUDORAPIDITY) ?
+                                                               Cuts::etaIn(-_rapcuts.second, _rapcuts.second) :
+                                                               Cuts::rapIn(-_rapcuts.second, _rapcuts.second)) );
     calc(jets);
   }
 
