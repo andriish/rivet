@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief D0 differential Z/\f$ \gamma^* \f$ + jet + \f$ X \f$ cross sections

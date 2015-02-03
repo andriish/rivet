@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   class CMS_2013_I1224539_ZJET : public Analysis {

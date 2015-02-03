@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// Underlying event activity in the Drell-Yan process at 7 TeV

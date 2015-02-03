@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief MC validation analysis for W^+[enu]W^-[munu] + jets events

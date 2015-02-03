@@ -7,7 +7,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// CMS Z+jets delta(phi) and jet thrust measurement at 7 TeV

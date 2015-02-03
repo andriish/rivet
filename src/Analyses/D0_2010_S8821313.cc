@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   class D0_2010_S8821313 : public Analysis {

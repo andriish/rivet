@@ -4,7 +4,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   MC_JetAnalysis::MC_JetAnalysis(const string& name,

@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// CMS cross-section and angular correlations in Z boson + b-hadrons events at 7 TeV
   class CMS_2013_I1256943 : public Analysis {
@@ -31,7 +29,7 @@ namespace Rivet {
       UnstableFinalState ufs(-2, 2, 15.0*GeV);
       addProjection(ufs, "UFS");
 
-      Cut etacut = etaIn(-2.4, 2.4);
+      Cut etacut = Cuts::abseta < 2.4;
 
       ZFinder zfindermu(fs, etacut, PID::MUON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
       addProjection(zfindermu, "ZFinderMu");
@@ -39,13 +37,13 @@ namespace Rivet {
       ZFinder zfinderel(fs, etacut, PID::ELECTRON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
       addProjection(zfinderel, "ZFinderEl");
 
-      /// Histograms in non-boosted region of Z pT
+      // Histograms in non-boosted region of Z pT
       _h_dR_BB = bookHisto1D(1, 1, 1);
       _h_dphi_BB = bookHisto1D(2, 1, 1);
       _h_min_dR_ZB = bookHisto1D(3, 1, 1);
       _h_A_ZBB = bookHisto1D(4, 1, 1);
 
-      /// Histograms in boosted region of Z pT (pT > 50 GeV)
+      // Histograms in boosted region of Z pT (pT > 50 GeV)
       _h_dR_BB_boost = bookHisto1D(5, 1, 1);
       _h_dphi_BB_boost = bookHisto1D(6, 1, 1);
       _h_min_dR_ZB_boost = bookHisto1D(7, 1, 1);

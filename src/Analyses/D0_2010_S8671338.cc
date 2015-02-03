@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief Measurement of Z(->muon muon) pT differential cross-section

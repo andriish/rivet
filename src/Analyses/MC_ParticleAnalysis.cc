@@ -3,7 +3,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   MC_ParticleAnalysis::MC_ParticleAnalysis(const string& name,
