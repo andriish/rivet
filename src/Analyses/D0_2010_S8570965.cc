@@ -21,7 +21,7 @@ namespace Rivet {
       FinalState fs;
       addProjection(fs, "FS");
 
-      IdentifiedFinalState ifs((Cuts::abseta < 0.9) & (Cuts::pT > 20*GeV));
+      IdentifiedFinalState ifs(Cuts::abseta < 0.9 && Cuts::pT > 20*GeV);
       ifs.acceptId(PID::PHOTON);
       addProjection(ifs, "IFS");
 

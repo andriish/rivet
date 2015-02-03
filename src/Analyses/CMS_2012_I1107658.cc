@@ -26,7 +26,7 @@ namespace Rivet {
     void init() {
 
       /// @note Using a bare muon Z (but with a clustering radius!?)
-      Cut cut = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
+      Cut cut = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       ZFinder zfinder(FinalState(), cut, PID::MUON, 4*GeV, 140*GeV, 0.2, ZFinder::NOCLUSTER);
       addProjection(zfinder, "ZFinder");
 

@@ -6,7 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
 
   /// @brief MC validation analysis for Z[ee]Z[mumu] + jets events
   class MC_ZZJETS : public MC_JetAnalysis {
@@ -23,15 +22,13 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
-      ZFinder zeefinder(FinalState(), cut, PID::ELECTRON, 65*GeV, 115*GeV,
-                        0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
+      ZFinder zeefinder(FinalState(), cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zeefinder, "ZeeFinder");
 
       VetoedFinalState zmminput;
       zmminput.addVetoOnThisFinalState(zeefinder);
-      ZFinder zmmfinder(zmminput, cut, PID::MUON, 65*GeV, 115*GeV,
-                        0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      ZFinder zmmfinder(zmminput, cut, PID::MUON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zmmfinder, "ZmmFinder");
 
       VetoedFinalState jetinput;

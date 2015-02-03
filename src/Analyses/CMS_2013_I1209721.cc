@@ -25,7 +25,7 @@ namespace Rivet {
       const FinalState fs(-5.0,5.0);
       addProjection(fs, "FS");
       // Z finders for electrons and muons
-      Cut cuts = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
+      Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       const ZFinder zfe(fs, cuts, PID::ELECTRON, 71*GeV, 111*GeV);
       const ZFinder zfm(fs, cuts, PID::MUON,     71*GeV, 111*GeV);
       addProjection(zfe, "ZFE");
@@ -66,7 +66,7 @@ namespace Rivet {
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
-      const Jets& jets = jetfs.jetsByPt((Cuts::pT > 50*GeV) & (Cuts::abseta < 2.5));
+      const Jets& jets = jetfs.jetsByPt(Cuts::pT > 50*GeV && Cuts::abseta < 2.5);
 
       // Clean the jets against the lepton candidates, as in the paper, with a deltaR cut of 0.4 against the clustered leptons
       vector<const Jet*> cleanedJets;

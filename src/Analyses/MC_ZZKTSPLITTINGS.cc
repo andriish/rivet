@@ -6,7 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
 
   /// @brief MC validation analysis for Z[ee]Z[mumu] + jets events
   class MC_ZZKTSPLITTINGS : public MC_JetSplittings {
@@ -23,7 +22,7 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
+      Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zeefinder(FinalState(), cut, PID::ELECTRON, 65*GeV, 115*GeV,
                         0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zeefinder, "ZeeFinder");

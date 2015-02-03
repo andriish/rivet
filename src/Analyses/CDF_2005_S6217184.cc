@@ -59,10 +59,10 @@ namespace Rivet {
 
       // Get jets and require at least one to pass pT and y cuts
       const Jets jets = applyProjection<FastJets>(evt, "Jets")
-        .jetsByPt(Cuts::ptIn(_ptedges.front()*GeV, _ptedges.back()*GeV) & (Cuts::absrap < 0.7));
+        .jetsByPt(Cuts::ptIn(_ptedges.front()*GeV, _ptedges.back()*GeV) && Cuts::absrap < 0.7);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
-        MSG_DEBUG("No jets found in required pT & rapidity range");
+        MSG_DEBUG("No jets found in required pT and rapidity range");
         vetoEvent;
       }
 

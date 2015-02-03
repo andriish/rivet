@@ -30,7 +30,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      IdentifiedFinalState leptons((Cuts::abseta < 5.0) & (Cuts::pT > 10*GeV));
+      IdentifiedFinalState leptons(Cuts::abseta < 5.0 && Cuts::pT > 10*GeV);
       leptons.acceptChLeptons();
       addProjection(leptons, "lFS");
 

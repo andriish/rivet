@@ -27,7 +27,7 @@ namespace Rivet {
     /// Set up projections and book histograms
     void init() {
       // Projections
-      const FinalState cnfs((Cuts::abseta < 4) & (Cuts::pT > 2*GeV));
+      const FinalState cnfs(Cuts::abseta < 4 && Cuts::pT > 2*GeV);
       const ChargedFinalState cfs(cnfs);
       addProjection(cnfs, "FS");
       addProjection(cfs, "CFS");

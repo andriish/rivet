@@ -49,8 +49,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       Jets jetAr[2];
-      jetAr[0] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt((Cuts::pT > 300.*GeV) & (Cuts::abseta < 2.0));
-      jetAr[1] = applyProjection<FastJets>(event, "AntiKT10").jetsByPt((Cuts::pT > 300.*GeV) & (Cuts::abseta < 2.0));
+      jetAr[0] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT > 300*GeV && Cuts::abseta < 2.0);
+      jetAr[1] = applyProjection<FastJets>(event, "AntiKT10").jetsByPt(Cuts::pT > 300*GeV && Cuts::abseta < 2.0);
 
       for (size_t alg = 0; alg < 2; ++alg) {
         // Require at least one jet

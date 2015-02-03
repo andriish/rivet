@@ -16,8 +16,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// Generic Z candidate
   struct Zstate : public ParticlePair {
@@ -30,7 +28,7 @@ namespace Rivet {
 
 
   /// 4l to ZZ assignment -- algorithm
-  void identifyZstates(Zstate & Z1, Zstate &Z2, const Particles & leptons_sel4l) {
+  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l) {
 
     /////////////////////////////////////////////////////////////////////////////
     /// ZZ->4l pairing
@@ -128,7 +126,7 @@ namespace Rivet {
 
 
       // Selection 2: ZZ-> llnunu selection
-      Cut etaranges_lep2 = etaIn(-2.5, 2.5) & (pT > 10*GeV);
+      Cut etaranges_lep2 = Cuts::abseta < 2.5 && Cuts::pT > 10*GeV;
 
       DressedLeptons electron_sel2l2nu(Photon, bare_EL, 0.1, etaranges_lep2);
       addProjection(electron_sel2l2nu, "ELECTRON_sel2l2nu");

@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
+      Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zfinder(fs, cut, PID::ELECTRON, 65.0*GeV, 115.0*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 
