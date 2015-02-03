@@ -10,8 +10,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2011_S9019561 : public Analysis {
   public:
@@ -37,22 +35,20 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      IdentifiedFinalState elecs( etaIn(-2.47, 2.47) 
-				  & (pT >= 20.0*GeV) );
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
 
       // veto region electrons
-      Cut vetocut = etaIn(-1.52, -1.37) | etaIn( 1.37,  1.52);
-      IdentifiedFinalState veto_elecs(vetocut & (pT >= 10.0*GeV));
+      Cut vetocut = Cuts::absetaIn(1.37, 1.52);
+      IdentifiedFinalState veto_elecs(vetocut && Cuts::pT > 10*GeV);
       veto_elecs.acceptIdPair(PID::ELECTRON);
       addProjection(veto_elecs, "veto_elecs");
 
 
       // projection to find the muons
-      IdentifiedFinalState muons(etaIn(-2.4, 2.4) 
-				  & (pT >= 20.0*GeV) );
+      IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 20*GeV);
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
@@ -60,16 +56,15 @@ namespace Rivet {
       // jet finder
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
-                   "AntiKtJets04");
+      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
 
       // all tracks (to do deltaR with leptons)
-      addProjection(ChargedFinalState(-3.0,3.0,0.5*GeV),"cfs");
+      addProjection(ChargedFinalState(Cuts::abseta < 3 && Cuts::pT > 0.5*GeV), "cfs");
 
 
       // for pTmiss
-      addProjection(VisibleFinalState(-4.9,4.9),"vfs");
+      addProjection(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
 
       /// book histograms

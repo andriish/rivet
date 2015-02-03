@@ -6,7 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
 
   /// W + jets jet multiplicities and pT
   class ATLAS_2010_S8919674 : public Analysis {
@@ -33,12 +32,10 @@ namespace Rivet {
 
       // Set up projections to find the electron and muon Ws
       FinalState fs;
-      Cut cuts = ( etaIn(-2.47, -1.52)
-		   | etaIn(-1.37,  1.37)
-		   | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
+      Cut cuts = (Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47)) && Cuts::pT > 20*GeV;
       WFinder wfinder_e(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV);
       addProjection(wfinder_e, "W_e");
-      WFinder wfinder_mu(fs, etaIn(-2.4,2.4) & (pT >= 20.0*GeV), PID::MUON, 0*GeV, 1000*GeV, 25*GeV);
+      WFinder wfinder_mu(fs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::MUON, 0*GeV, 1000*GeV, 25*GeV);
       addProjection(wfinder_mu, "W_mu");
 
       // Input for the jets: no neutrinos, no muons, and no electron which passed the electron cuts
@@ -73,7 +70,7 @@ namespace Rivet {
         if (p_miss.Et() > 25*GeV && We.mT() > 40*GeV) {
           Jets js;
           foreach (const Jet& j, jets) {
-            if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
+            if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5)
               js.push_back(j);
           }
           _h_el_njet_inclusive->fill(0, weight);
@@ -98,7 +95,7 @@ namespace Rivet {
         if (p_miss.Et() > 25*GeV && Wm.mT() > 40*GeV) {
           Jets js;
           foreach (const Jet& j, jets) {
-            if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5) 
+            if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5)
               js.push_back(j);
           }
           _h_mu_njet_inclusive->fill(0, weight);

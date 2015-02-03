@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2011_I944826 : public Analysis {
   public:
@@ -25,15 +23,13 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      UnstableFinalState ufs(-MAXDOUBLE, MAXDOUBLE, 100*MeV);
+      UnstableFinalState ufs(Cuts::pT > 100*MeV);
       addProjection(ufs, "UFS");
 
-      ChargedFinalState  mbts(   etaIn(-3.84, -2.09) 
-			       | etaIn( 2.09,  3.84) );
+      ChargedFinalState  mbts(Cuts::absetaIn(2.09, 3.84));
       addProjection(mbts, "MBTS");
 
-      IdentifiedFinalState nstable( etaIn(-2.5, 2.5) 
-				    & (pT >= 100*MeV) );
+      IdentifiedFinalState nstable(Cuts::abseta < 2.5 && Cuts::pT >= 100*MeV);
       nstable.acceptIdPair(PID::ELECTRON)
         .acceptIdPair(PID::MUON)
         .acceptIdPair(PID::PIPLUS)
@@ -41,7 +37,7 @@ namespace Rivet {
         .acceptIdPair(PID::PROTON);
       addProjection(nstable, "nstable");
 
-      if (fuzzyEquals(sqrtS()*GeV, 7000, 1e-3)) {
+      if (fuzzyEquals(sqrtS()/GeV, 7000, 1e-3)) {
         _hist_Ks_pT      = bookHisto1D(1, 1, 1);
         _hist_Ks_y       = bookHisto1D(2, 1, 1);
         _hist_Ks_mult    = bookHisto1D(3, 1, 1);
@@ -56,7 +52,7 @@ namespace Rivet {
         _temp_lambda_v_pT = Histo1D(18, 0.5, 4.1);
         _temp_lambdabar_v_pT = Histo1D(18, 0.5, 4.1);
       }
-      else if (fuzzyEquals(sqrtS()*GeV, 900, 1E-3)) {
+      else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         _hist_Ks_pT   = bookHisto1D(4, 1, 1);
         _hist_Ks_y    = bookHisto1D(5, 1, 1);
         _hist_Ks_mult = bookHisto1D(6, 1, 1);

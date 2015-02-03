@@ -7,23 +7,19 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
 
   /// @brief Measurement of electron and muon differential cross section from heavy flavour production
   ///
-  /// lepton cross sections differential in pT
+  /// Lepton cross sections differential in pT
   ///
   /// @author Paul Bell, Holger Schulz
-
-
   class ATLAS_2011_I926145 : public Analysis {
   public:
 
     /// Constructor
     ATLAS_2011_I926145()
       : Analysis("ATLAS_2011_I926145")
-    {
-    }
+    {    }
 
 
   public:
@@ -32,9 +28,7 @@ namespace Rivet {
     void init() {
 
       ///projection for electrons
-      Cut cuts = (   etaIn(-2.00, -1.52)
-		   | etaIn(-1.37,  1.37)
-		   | etaIn( 1.52,  2.00) ) & (pT >= 7.0*GeV);
+      Cut cuts = (Cuts::abseta < 1.37 || Cuts::absetaIn(1.52,  2.00)) && Cuts::pT > 7*GeV;
       IdentifiedFinalState elecs(cuts);
       elecs.acceptId(PID::ELECTRON);
       elecs.acceptId(PID::POSITRON);
@@ -47,18 +41,18 @@ namespace Rivet {
       //eta_m.push_back(make_pair(-1.37,1.37));
       //eta_m.push_back(make_pair(1.52,2.00));
       //IdentifiedFinalState muons(eta_m, 7.0*GeV);
-      IdentifiedFinalState muons(etaIn(-2.0,2.0) & (pT >= 7.0*GeV));
+      IdentifiedFinalState muons(Cuts::abseta < 2 && Cuts::pT > 7*GeV);
       muons.acceptId(PID::MUON);
       muons.acceptId(PID::ANTIMUON);
       addProjection(muons, "muons");
 
       //projection for muons full range
-      IdentifiedFinalState muons_full(etaIn(-2.5,2.5) & (pT >= 4.0*GeV));
+      IdentifiedFinalState muons_full(Cuts::abseta < 2.5 && Cuts::pT > 4*GeV);
       muons_full.acceptId(PID::MUON);
       muons_full.acceptId(PID::ANTIMUON);
       addProjection(muons_full, "muons_full");
-	  Cut cut20 = etaIn(-2.0,2.0);
-	  Cut cut25 = etaIn(-2.5,2.5);
+	  Cut cut20 = Cuts::abseta < 2.0;
+	  Cut cut25 = Cuts::abseta < 2.5;
       const FinalState fs20(cut20);
       const FinalState fs25(cut25);
 

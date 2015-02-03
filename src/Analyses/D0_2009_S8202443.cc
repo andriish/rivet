@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// @brief D0 Z + jet + \f$ X \f$ cross-section / \f$ p_\perp \f$ distributions
   class D0_2009_S8202443 : public Analysis {
@@ -27,20 +25,14 @@ namespace Rivet {
     void init() {
       FinalState fs;
       // Leptons in constrained tracking acceptance
-      Cut cuts = (   etaIn(-2.5, -1.5)
-		   | etaIn(-1.1,  1.1)
-		   | etaIn( 1.5,  2.5) )
-	& (pT >= 25.0*GeV);
-      ZFinder zfinder_constrained(fs, cuts, PID::ELECTRON,
-                                  65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      Cut cuts = (Cuts::abseta < 1.1 || Cuts::absetaIn(1.5, 2.5)) && Cuts::pT > 25*GeV;
+      ZFinder zfinder_constrained(fs, cuts, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder_constrained, "ZFinderConstrained");
-      FastJets conefinder_constrained(zfinder_constrained.remainingFinalState(),
-                                      FastJets::D0ILCONE, 0.5);
+      FastJets conefinder_constrained(zfinder_constrained.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       addProjection(conefinder_constrained, "ConeFinderConstrained");
 
       // Unconstrained leptons
-      ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
-                      65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       addProjection(conefinder, "ConeFinder");
@@ -66,12 +58,7 @@ namespace Rivet {
         vetoEvent;
       }
       _sum_of_weights += weight;
-      const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt(20*GeV);
-      /// @todo Replace this explicit selection with a Cut
-      Jets jets_cut;
-      foreach (const Jet& j, jets) {
-        if (j.abseta() < 2.5) jets_cut.push_back(j);
-      }
+      const Jets jets_cut = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.5);
       if (jets_cut.size() > 0)
         _h_jet1_pT->fill(jets_cut[0].pT()/GeV, weight);
       if (jets_cut.size() > 1)
