@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief ATLAS 7 TeV jets in ttbar events analysis

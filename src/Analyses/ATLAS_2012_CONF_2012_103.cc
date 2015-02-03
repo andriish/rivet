@@ -11,24 +11,15 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2012_CONF_2012_103 : public Analysis {
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     ATLAS_2012_CONF_2012_103()
       : Analysis("ATLAS_2012_CONF_2012_103")
     {    }
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -37,26 +28,23 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      IdentifiedFinalState elecs(etaIn(-2.47, 2.47) 
-				 & (pT >= 20.0*GeV));
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
-      IdentifiedFinalState muons(etaIn(-2.4, 2.4) 
-				 & (pT >= 10.0*GeV));
+      IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // for pTmiss
-      addProjection(VisibleFinalState(-4.9,4.9),"vfs");
+      addProjection(VisibleFinalState(Cuts::abseta < 4.9), "vfs");
 
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
 
       /// Jet finder
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
-                    "AntiKtJets04");
+      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       /// Book histograms
       _etmiss_HT_7j55 = bookHisto1D("etmiss_HT_7j55", 8, 0., 16.);

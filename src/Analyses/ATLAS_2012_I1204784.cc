@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// ATLAS Z phi* measurement

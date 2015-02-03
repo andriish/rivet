@@ -8,7 +8,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
   class ATLAS_2013_I1217867 : public Analysis {
   public:

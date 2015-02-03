@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// ATLAS W + jets production at 7 TeV
