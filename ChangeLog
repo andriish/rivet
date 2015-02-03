@@ -1,3 +1,7 @@
+2015-02-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Converting 'bitwise' to 'logical' Cuts combinations in all analyses.
+
 2015-02-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use vector MET rather than scalar VET (doh...) in WFinder
