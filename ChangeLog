@@ -1,5 +1,7 @@
 2015-02-04  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add more protection against math domain errors with log axes.
+
 	* Add some protection against nan-valued points and error bars in make-plots.
 
 2015-02-03  Andy Buckley  <andy.buckley@cern.ch>

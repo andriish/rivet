@@ -1554,6 +1554,7 @@ class Histogram(DrawableObject):
         return distance
 
     def draw(self,coors):
+        seen_nan = False
         out = ""
         out += self.startclip()
         out += self.startpsset()
@@ -1572,7 +1573,6 @@ class Histogram(DrawableObject):
                             + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
                             + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
         else:
-            seen_nan = False
             if self.getErrorBands():
                 self.description['SmoothLine']=0
                 for i in range(len(self.data)):
@@ -1852,6 +1852,8 @@ class Ticks(object):
     def draw_ticks(self, min, max, plotlog=False, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
         out = ""
         if plotlog:
+            if min <= 0 or max <= 0:
+                raise Exception("Cannot place log axis min or max tick <= 0")
             if len(custommajorticks) ==0:
                 x=int(log10(min))
                 n_labels=0
@@ -1990,8 +1992,9 @@ class XTicks(Ticks):
         out += ('\n%\n% X-Ticks\n%\n')
         out += ('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
         out += ('\\def\\minortickmarkx{\\psline[linewidth='+self.minorticklinewidth+'](0,0)(0,'+self.minorticklength+')}%\n')
+        uselog = self.description['LogX'] and (self.coors.xmin() > 0 and self.coors.xmax() > 0)
         out += self.draw_ticks(self.coors.xmin(), self.coors.xmax(),\
-                                   plotlog=self.description['LogX'],\
+                                   plotlog=uselog,\
                                    custommajorticks=custommajorticks,\
                                    customminorticks=customminorticks,\
                                    custommajortickmarks=custommajortickmarks,\
@@ -2024,7 +2027,7 @@ class XTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value,self.description['LogX'])
+            label=self.get_ticklabel(value, self.description['LogX'] and (self.coors.xmin() > 0 and self.coors.xmax() > 0))
         return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut{}'+label+'}}\n')
 
 
@@ -2038,8 +2041,9 @@ class YTicks(Ticks):
         out += ('\n%\n% Y-Ticks\n%\n')
         out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
         out += ('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
+        uselog = self.description['LogY'] and (self.coors.ymin() > 0 and self.coors.ymax() > 0)
         out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),\
-                                   plotlog=self.description['LogY'],\
+                                   plotlog=uselog,\
                                    custommajorticks=custommajorticks,\
                                    customminorticks=customminorticks,\
                                    custommajortickmarks=custommajortickmarks,\
@@ -2063,7 +2067,7 @@ class YTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value,self.description['LogY'])
+            label=self.get_ticklabel(value, self.description['LogY'] and (self.coors.ymin() > 0 and self.coors.ymax() > 0))
         if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode']=='deviation' \
                 and self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']:
             return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n')
@@ -2130,7 +2134,7 @@ class Coordinates(object):
 
     def phys2frameY(self, y):
         if self.description['LogY']:
-            if y>0:
+            if y > 0 and self.ymin() > 0 and self.ymax() > 0:
                 result = 1.*(log10(y)-log10(self.ymin()))/(log10(self.ymax())-log10(self.ymin()))
             else:
                 return -10
