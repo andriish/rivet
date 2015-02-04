@@ -1572,6 +1572,7 @@ class Histogram(DrawableObject):
                             + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
                             + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
         else:
+            seen_nan = False
             if self.getErrorBands():
                 self.description['SmoothLine']=0
                 for i in range(len(self.data)):
@@ -1582,7 +1583,11 @@ class Histogram(DrawableObject):
                                 + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
             if self.getErrorBars():
                 for i in range(len(self.data)):
-                    if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]: continue
+                    if isnan(self.data[i]['Content']) or isnan(self.data[i]['Error'][0]) or isnan(self.data[i]['Error'][1]):
+                        seen_nan = True
+                        continue
+                    if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
+                        continue
                     out += ('\psline')
                     out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
@@ -1604,6 +1609,9 @@ class Histogram(DrawableObject):
                 else:
                     out += '(-0.1, -0.1)\n'
             for i in range(len(self.data)):
+                if isnan(self.data[i]['Content']):
+                    seen_nan = True
+                    continue
                 if self.getSmoothLine():
                     out += ('(' + coors.strphys2frameX(0.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
@@ -1630,12 +1638,18 @@ class Histogram(DrawableObject):
         #
         if self.getPolyMarker() != '':
             for i in range(len(self.data)):
-                if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]: continue
+                if isnan(self.data[i]['Content']):
+                    seen_nan = True
+                    continue
+                if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
+                    continue
                 out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
                             + coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
                             + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
         out += self.stoppsset()
         out += self.stopclip()
+        if seen_nan:
+            print "WARNING: NaN-valued value or error bar!"
         return out
 
     # def is2dimensional(self):
