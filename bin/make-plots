@@ -2399,11 +2399,11 @@ class MkPlotThread( threading.Thread ):
             except Queue.Empty, e:
                 #print "%s ending." % self.getName()
                 break
-            # except Exception, e:
-            #     print "Error: %s" % str(e)
-            #     import traceback
-            #     logging.debug(traceback.format_exc())
-            #     #exit(1)
+            except Exception, e:
+                print "Error: %s" % str(e)
+                import traceback
+                logging.debug(traceback.format_exc())
+                #exit(1)
 
 
 ####################
