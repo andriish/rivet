@@ -49,7 +49,9 @@ pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 
 def fuzzyeq(a, b, tolerance=1e-6):
     "Fuzzy equality comparison function for floats, with given fractional tolerance"
-    if (a == 0 and abs(b) < 1e-12) or (b==0 and abs(a) < 1e-12):
+    # if type(a) is not float or type(a) is not float:
+    #     print a, b
+    if (a == 0 and abs(b) < 1e-12) or (b == 0 and abs(a) < 1e-12):
         return True
     return 2.0*abs(a-b)/abs(a+b) < tolerance
 
@@ -2230,10 +2232,10 @@ def process_datfile(datfile):
     texfile = open(texpath, 'w')
     p = Plot(inputdata)
     texfile.write(p.write_header(inputdata))
-    if not (inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0'):
+    if inputdata.description.get('MainPlot', '1') == '1':
         mp = MainPlot(inputdata)
         texfile.write(mp.draw(inputdata))
-    if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
+    if not inputdata.description.get('is2dim', False) and inputdata.description.get('RatioPlot', '1') == '1':
         rp = RatioPlot(inputdata)
         texfile.write(rp.draw(inputdata))
     texfile.write(p.write_footer())
@@ -2397,11 +2399,11 @@ class MkPlotThread( threading.Thread ):
             except Queue.Empty, e:
                 #print "%s ending." % self.getName()
                 break
-            except Exception, e:
-                print "Error: %s" % str(e)
-                import traceback
-                logging.debug(traceback.format_exc())
-                #exit(1)
+            # except Exception, e:
+            #     print "Error: %s" % str(e)
+            #     import traceback
+            #     logging.debug(traceback.format_exc())
+            #     #exit(1)
 
 
 ####################
