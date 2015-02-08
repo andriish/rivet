@@ -174,7 +174,7 @@ namespace Rivet {
       }
 
       // Update the "proper" dphi profile histograms
-      for (int i = 0; i < 50; i++) { //< @todo Should really explicitly iterate over nbins for each temp histo
+      for (int i = 0; i < 50; i++) { ///< @todo Should really explicitly iterate over nbins for each temp histo
         if (ptLead/GeV > 2.0) {
           const double x2 = htmp_pt_dphi_2.bin(i).xMid();
           const double num2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_num_dphi_2.bin(i).mean() : 0.0;

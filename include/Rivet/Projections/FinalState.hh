@@ -13,17 +13,16 @@ namespace Rivet {
   class FinalState : public ParticleFinder {
   public:
 
-    /// @name Standard constructors and destructors.
+    /// @name Standard constructors etc.
     //@{
-    /// @deprecated Keep for backwards compatibility for now
-    /// The default constructor. May specify the minimum and maximum
-    /// pseudorapidity \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    FinalState(double mineta,
-               double maxeta,
-               double minpt = 0.0);
 
     /// Construction using Cuts object
-    FinalState(Cut c = Cuts::open());
+    FinalState(const Cut& c=Cuts::open());
+
+    /// Old constructor with numeric cut arguments, retained for compatibility
+    /// @deprecated Use the versions with Cut arguments
+    //DEPRECATED("Use the versions with Cut arguments")
+    FinalState(double mineta, double maxeta, double minpt=0.0*GeV);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

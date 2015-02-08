@@ -2,17 +2,12 @@
 #ifndef RIVET_FastJets_HH
 #define RIVET_FastJets_HH
 
+#include "Rivet/Jet.hh"
+#include "Rivet/Particle.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/JetAlg.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Particle.hh"
-#include "Rivet/Jet.hh"
-
-#include "fastjet/JetDefinition.hh"
-#include "fastjet/AreaDefinition.hh"
-#include "fastjet/ClusterSequence.hh"
-#include "fastjet/ClusterSequenceArea.hh"
-#include "fastjet/PseudoJet.hh"
+#include "Rivet/Tools/RivetFastJet.hh"
 
 #include "fastjet/SISConePlugin.hh"
 #include "fastjet/ATLASConePlugin.hh"
@@ -25,22 +20,6 @@
 //#include "fastjet/PxConePlugin.hh"
 
 namespace Rivet {
-
-
-  /// Make a 3-momentum vector from a FastJet pseudojet
-  inline Vector3 momentum3(const fastjet::PseudoJet& pj) {
-    return Vector3(pj.px(), pj.py(), pj.pz());
-  }
-
-  /// Make a 4-momentum vector from a FastJet pseudojet
-  inline FourMomentum momentum(const fastjet::PseudoJet& pj) {
-    return FourMomentum(pj.E(), pj.px(), pj.py(), pj.pz());
-  }
-
-
-
-  /////////////////////////
-
 
 
   /// Project out jets found using the FastJet package jet algorithms.
@@ -119,7 +98,7 @@ namespace Rivet {
     //@{
 
     /// Number of jets above the \f$ p_\perp \f$ cut.
-    size_t numJets(double ptmin = 0.0) const;
+    size_t numJets(double ptmin=0.0) const;
 
     /// Number of jets.
     size_t size() const {
@@ -127,33 +106,33 @@ namespace Rivet {
     }
 
     /// Get the jets (unordered).
-    Jets _jets(double ptmin = 0.0) const;
+    Jets _jets(double ptmin=0.0) const;
 
     /// Get the pseudo jets (unordered).
-    PseudoJets pseudoJets(double ptmin = 0.0) const;
+    PseudoJets pseudoJets(double ptmin=0.0) const;
     /// Alias
-    PseudoJets pseudojets(double ptmin = 0.0) const { return pseudoJets(ptmin); }
+    PseudoJets pseudojets(double ptmin=0.0) const { return pseudoJets(ptmin); }
 
     /// Get the pseudo jets, ordered by \f$ p_T \f$.
-    PseudoJets pseudoJetsByPt(double ptmin = 0.0) const {
+    PseudoJets pseudoJetsByPt(double ptmin=0.0) const {
       return sorted_by_pt(pseudoJets(ptmin));
     }
     /// Alias
-    PseudoJets pseudojetsByPt(double ptmin = 0.0) const { return pseudoJetsByPt(ptmin); }
+    PseudoJets pseudojetsByPt(double ptmin=0.0) const { return pseudoJetsByPt(ptmin); }
 
     /// Get the pseudo jets, ordered by \f$ E \f$.
-    PseudoJets pseudoJetsByE(double ptmin = 0.0) const {
+    PseudoJets pseudoJetsByE(double ptmin=0.0) const {
       return sorted_by_E(pseudoJets(ptmin));
     }
     /// Alias
-    PseudoJets pseudojetsByE(double ptmin = 0.0) const { return pseudoJetsByE(ptmin); }
+    PseudoJets pseudojetsByE(double ptmin=0.0) const { return pseudoJetsByE(ptmin); }
 
     /// Get the pseudo jets, ordered by rapidity.
-    PseudoJets pseudoJetsByRapidity(double ptmin = 0.0) const {
+    PseudoJets pseudoJetsByRapidity(double ptmin=0.0) const {
       return sorted_by_rapidity(pseudoJets(ptmin));
     }
     /// Alias
-    PseudoJets pseudojetsByRapidity(double ptmin = 0.0) const { return pseudoJetsByRapidity(ptmin); }
+    PseudoJets pseudojetsByRapidity(double ptmin=0.0) const { return pseudoJetsByRapidity(ptmin); }
 
     //@}
 

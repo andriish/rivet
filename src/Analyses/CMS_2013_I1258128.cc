@@ -8,8 +8,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// CMS Z rapidity measurement
   class CMS_2013_I1258128 : public Analysis {
@@ -23,11 +21,11 @@ namespace Rivet {
 
     void init() {
       // Full final state
-      const FinalState fs(-5.0, 5.0);
+      const FinalState fs(Cuts::abseta < 5);
       addProjection(fs, "FS");
 
       // Z finders for electrons and muons
-      Cut cuts = etaIn(-2.1,2.1) & (pT >= 20.0*GeV);
+      Cut cuts = Cuts::abseta < 2.1 && Cuts::pT > 20*GeV;
       const ZFinder zfe(fs, cuts, PID::ELECTRON, 76*GeV, 106*GeV);
       const ZFinder zfm(fs, cuts, PID::MUON, 76*GeV, 106*GeV);
       addProjection(zfe, "ZFE");
@@ -69,15 +67,15 @@ namespace Rivet {
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
-      Jets jets = jetfs.jetsByPt(30.*GeV, MAXDOUBLE, -2.4, 2.4);
+      Jets jets = jetfs.jetsByPt(Cuts::pT > 30*GeV && Cuts::abseta < 2.4);
       if (jets.empty()) return;
 
       // Clean the jets against the lepton candidates with a DeltaR cut of 0.5
-      std::vector<const Jet*> cleanedJets;
+      vector<const Jet*> cleanedJets;
       foreach (const Jet& j, jets) {
         bool isolated = true;
         foreach (const Particle& p, clusteredConstituents) {
-          if (deltaR(p.momentum(), j.momentum()) < 0.5) {
+          if (deltaR(p, j) < 0.5) {
             isolated = false;
             break;
           }
@@ -108,13 +106,13 @@ namespace Rivet {
 
       // Build the jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
-      Jets jets = jetfs.jetsByPt(30.*GeV, MAXDOUBLE, -2.4, 2.4);
+      Jets jets = jetfs.jetsByPt(Cuts::pT > 30*GeV && Cuts::abseta < 2.4);
       if (jets.empty()) return;
 
       // Clean the jets against the photon candidate with a DeltaR cut of 0.5
-      std::vector<const Jet*> cleanedJets;
+      vector<const Jet*> cleanedJets;
       foreach (const Jet& j, jets)
-        if (deltaR(photon.momentum(), j.momentum()) > 0.5)
+        if (deltaR(photon, j) > 0.5)
           cleanedJets.push_back(&j);
       // Require exactly 1 jet
       if (cleanedJets.size() != 1) return;

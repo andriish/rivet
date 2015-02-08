@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief D0 differential Z/\f$ \gamma^* \f$ + jet + \f$ X \f$ cross sections
@@ -25,7 +25,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       /// @todo These clustering arguments look odd: are they ok?
-      Cut cut = etaIn(-1.7,1.7) & (pT >= 15.0*GeV);
+      Cut cut = Cuts::abseta < 1.7 && Cuts::pT > 15*GeV;
       ZFinder zfinder(FinalState(), cut, PID::MUON, 65*GeV, 115*GeV, 0.2, ZFinder::NOCLUSTER, ZFinder::TRACK);
       addProjection(zfinder, "ZFinder");
 

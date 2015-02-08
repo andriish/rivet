@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief ATLAS 7 TeV jets in ttbar events analysis
@@ -27,13 +27,14 @@ namespace Rivet {
       _hMap(),
       //_chanLimit(3),
       _histLimit(6)
-    { }
+    {   }
 
 
     void init() {
       // Eta ranges
-      Cut eta_full = etaIn(-5.0, 5.0) & (pT >= 1.0*MeV);
-      Cut eta_lep = etaIn(-2.5, 2.5);
+      /// @todo 1 MeV? Really?
+      Cut eta_full = Cuts::abseta < 5.0 && Cuts::pT > 1.0*MeV;
+      Cut eta_lep = Cuts::abseta < 2.5;
 
       // All final state particles
       FinalState fs(eta_full);
@@ -48,11 +49,11 @@ namespace Rivet {
       PromptFinalState electrons(el_id);
       electrons.acceptTauDecays(true);
       addProjection(electrons, "electrons");
-      DressedLeptons dressedelectrons(photons, electrons, 0.1, true, eta_lep & (pT >= 25.0*GeV), true);
+      DressedLeptons dressedelectrons(photons, electrons, 0.1, eta_lep && Cuts::pT > 25*GeV, true, true);
       addProjection(dressedelectrons, "dressedelectrons");
-      DressedLeptons vetodressedelectrons(photons, electrons, 0.1, true, eta_lep & (pT >= 15.0*GeV), true);
+      DressedLeptons vetodressedelectrons(photons, electrons, 0.1, eta_lep && Cuts::pT >= 15*GeV, true, true);
       addProjection(vetodressedelectrons, "vetodressedelectrons");
-      DressedLeptons ewdressedelectrons(photons, electrons, 0.1, true, eta_full, true);
+      DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full, true, true);
       addProjection(ewdressedelectrons, "ewdressedelectrons");
 
       // Projection to find the muons
@@ -62,11 +63,11 @@ namespace Rivet {
       muons.acceptTauDecays(true);
       addProjection(muons, "muons");
       vector<pair<double, double> > eta_muon;
-      DressedLeptons dressedmuons(photons, muons, 0.1, true, eta_lep & (pT >= 25.0*GeV), true);
+      DressedLeptons dressedmuons(photons, muons, 0.1, eta_lep && Cuts::pT >= 25*GeV, true, true);
       addProjection(dressedmuons, "dressedmuons");
-      DressedLeptons vetodressedmuons(photons, muons, 0.1, true, eta_lep & (pT >= 15.0*GeV), true);
+      DressedLeptons vetodressedmuons(photons, muons, 0.1, eta_lep && Cuts::pT >= 15*GeV, true, true);
       addProjection(vetodressedmuons, "vetodressedmuons");
-      DressedLeptons ewdressedmuons(photons, muons, 0.1, true, eta_full, true);
+      DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full, true, true);
       addProjection(ewdressedmuons, "ewdressedmuons");
 
       // Projection to find neutrinos and produce MET
@@ -106,7 +107,7 @@ namespace Rivet {
 
       _neutrinos = applyProjection<PromptFinalState>(event, "neutrinos").particlesByPt();
 
-      _jets = applyProjection<FastJets>(event, "jets").jetsByPt(25.0, MAXDOUBLE, -2.5, 2.5);
+      _jets = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.5);
 
 
       // Calculate the missing ET, using the prompt neutrinos only (really?)
@@ -181,8 +182,8 @@ namespace Rivet {
     void finalize() {
       // Normalize to cross-section
       const double norm = crossSection()/sumOfWeights();
-      typedef map<unsigned int, Histo1DPtr>::value_type IDtoHisto1DPtr; //< @todo Remove when C++11 allowed
-      foreach (IDtoHisto1DPtr ihpair, _hMap) scale(ihpair.second, norm); //< @todo Use normalize(ihpair.second, crossSection())
+      typedef map<unsigned int, Histo1DPtr>::value_type IDtoHisto1DPtr; ///< @todo Remove when C++11 allowed
+      foreach (IDtoHisto1DPtr ihpair, _hMap) scale(ihpair.second, norm); ///< @todo Use normalize(ihpair.second, crossSection())
       // Calc averages
       for (unsigned int ihist = 0; ihist < _histLimit ; ihist++) {
         unsigned int threshLimit = _thresholdLimit(ihist);

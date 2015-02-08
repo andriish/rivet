@@ -39,22 +39,39 @@ namespace Rivet {
 
   /// @brief Cluster photons from a given FS to all charged particles (typically leptons)
   ///
-  /// This stores the original charged particles and photons as particles()
+  /// This stores the original (bare) charged particles and photons as particles()
   /// while the newly created clustered lepton objects are accessible as
-  /// clusteredLeptons().
+  /// dressedLeptons(). The clustering is done by a delta(R) cone around each bare
+  /// lepton, with double counting being avoided by only adding a photon to the _closest_
+  /// bare lepton if it happens to be within the capture radius of more than one.
   class DressedLeptons : public FinalState {
   public:
 
-    /// Constructor with a single eta range
-    DressedLeptons(const FinalState& photons, const FinalState& signal,
+    /// @brief Constructor with a general (and optional) Cut argument
+    ///
+    /// Provide final state projections used to select the photons and bare
+    /// leptons (wish we had put the first two args the other way around...),
+    /// a clustering delta(R) cone size around each bare lepton, and an optional
+    /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)
+    /// The final two arguments are rarely
+    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                   double dRmax, const Cut& cut=Cuts::open(),
+                   bool cluster=true, bool useDecayPhotons=false);
+
+    /// Constructor with a general (and optional) Cut argument
+    /// @deprecated Use the version with Cut c before cluster (i.e. with the most common non-default args first)
+    DEPRECATED("Use the version with Cut c before cluster")
+    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                   double dRmax, bool cluster=true, const Cut& cut=Cuts::open(),
+                   bool useDecayPhotons=false);
+
+    /// Constructor with numerical eta and pT cuts
+    /// @deprecated Use the Cut version
+    DEPRECATED("Use the Cut version")
+    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                    double dRmax, bool cluster,
                    double etaMin, double etaMax,
                    double pTmin, bool useDecayPhotons=false);
-
-    /// Constructor with multiple eta ranges
-    DressedLeptons(const FinalState& photons, const FinalState& signal,
-                   double dRmax, bool cluster, Cut c,
-                   bool useDecayPhotons=false);
 
 
     /// Clone this projection
@@ -67,6 +84,7 @@ namespace Rivet {
 
     /// Retrieve the dressed leptons (synonym)
     /// @deprecated Use dressedLeptons()
+    DEPRECATED("Use dressedLeptons()")
     const vector<DressedLepton>& clusteredLeptons() const { return _clusteredLeptons; }
 
 

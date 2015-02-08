@@ -55,7 +55,7 @@ namespace Rivet {
           if (deltaR(j, b) < 0.3) { hasB = true; break; }
 
         // Identify and classify the leading and subleading jets
-        if (j.absrap() < 2.1) { //< Move this into the jets defn
+        if (j.absrap() < 2.1) { ///< Move this into the jets defn
           if (!leadJet) {
             leadingJet = j.momentum();
             leadJet = (hasB && j.pT() > 40*GeV) ? 2 : 1;

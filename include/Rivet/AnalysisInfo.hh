@@ -202,7 +202,7 @@ namespace Rivet {
     std::vector<std::string> _references;
     std::string _bibKey;
     std::string _bibTeX;
-    //std::string _bibTeXBody; //< Was thinking of avoiding duplication of BibKey...
+    //std::string _bibTeXBody; ///< Was thinking of avoiding duplication of BibKey...
     std::string _status;
     std::vector<std::string> _todos;
     bool _needsCrossSection;

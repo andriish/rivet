@@ -141,10 +141,10 @@ namespace Rivet {
       IdentifiedFinalState muon_fs(fs);
       muon_fs.acceptIdPair(PID::MUON);
 
-      DressedLeptons dressed_electrons(photon_fs, electron_fs, 0.1, true, -2.47, 2.47, 25*GeV, false);
+      DressedLeptons dressed_electrons(photon_fs, electron_fs, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 25*GeV);
       addProjection(dressed_electrons, "DressedElectrons");
 
-      DressedLeptons dressed_muons(photon_fs, muon_fs, 0.1, true, -2.47, 2.47, 25*GeV, false);
+      DressedLeptons dressed_muons(photon_fs, muon_fs, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 25*GeV);
       addProjection(dressed_muons, "DressedMuons");
 
       FastJets jets(fs, FastJets::ANTIKT, 0.4);
@@ -269,7 +269,7 @@ namespace Rivet {
 
       // Do lepton-jet overlap removal:
       vector<const Jet*> good_jets;
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(25.0*GeV, MAXDOUBLE, -4.4, 4.4, RAPIDITY);
+      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::absrap < 4.4);
       foreach(const Jet& j, jets) {
         bool nearby_lepton = false;
         foreach (const Particle& m, muons)

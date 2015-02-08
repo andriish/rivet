@@ -43,22 +43,16 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt(10.0*GeV);
-      if (jets.size()<2) {
-        vetoEvent;
-      }
+      Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 10*GeV, cmpMomByEt);
+      if (jets.size() < 2) vetoEvent;
       FourMomentum jet1 = jets[0].momentum();
       FourMomentum jet2 = jets[1].momentum();
       double eta1 = jet1.abseta();
       double eta2 = jet2.abseta();
       double ET1 = jet1.Et();
       double ET2 = jet2.Et();
-      if (eta1<0.1 || eta1>0.7 || ET1<40.0*GeV) {
-        vetoEvent;
-      }
-      if (eta2<0.1 || eta2>3.0) {
-        vetoEvent;
-      }
+      if (!inRange(eta1, 0.1, 0.7) || ET1 < 40.0*GeV) vetoEvent;
+      if (!inRange(eta2, 0.1, 3.0)) vetoEvent;
       _h_ET.fill(eta2, ET1, weight);
       if (eta2<0.7 && ET2>40.0*GeV) _h_ET.fill(eta1, ET2, weight);
     }
@@ -66,7 +60,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double deta1 = 1.2;
+      const double deta1 = 1.2;
       _h_ET.scale(crossSection()/nanobarn/sumOfWeights()/deta1 / 2.0, this);
     }
 

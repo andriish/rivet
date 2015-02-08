@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// Z + jets in pp at 7 TeV (combined channel / base class)
   /// @note This base class contains a "mode" variable for combined, e, and mu channel derived classes
@@ -36,21 +34,19 @@ namespace Rivet {
     void init() {
       // Determine the e/mu decay channels used
       /// @todo Note that Zs are accepted with any rapidity: the cuts are on the e/mu: is this correct?
-	  Cut pt20 = pT >= 20.0*GeV;
+	  Cut pt20 = Cuts::pT >= 20.0*GeV;
       if (_mode == 1) {
         // Combined
         ZFinder zfinder(FinalState(-2.5, 2.5), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         addProjection(zfinder, "zfinder");
       } else if (_mode == 2) {
         // Electron
-	    Cut eta_e = ( etaIn(-2.47, -1.52)
-		     | etaIn(-1.37,  1.37)
-		     | etaIn( 1.52,  2.47) );
+	    Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
         ZFinder zfinder(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         addProjection(zfinder, "zfinder");
       } else if (_mode == 3) {
         // Muon
-        ZFinder zfinder(FinalState(-2.4, 2.4), pt20, PID::MUON, 66*GeV, 116*GeV);
+        ZFinder zfinder(FinalState(Cuts::abseta < 2.4), pt20, PID::MUON, 66*GeV, 116*GeV);
         addProjection(zfinder, "zfinder");
       } else {
         MSG_ERROR("Unknown decay channel mode!!!");

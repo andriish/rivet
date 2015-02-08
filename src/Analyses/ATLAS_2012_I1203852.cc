@@ -16,8 +16,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// Generic Z candidate
   struct Zstate : public ParticlePair {
@@ -30,7 +28,7 @@ namespace Rivet {
 
 
   /// 4l to ZZ assignment -- algorithm
-  void identifyZstates(Zstate & Z1, Zstate &Z2, const Particles & leptons_sel4l) {
+  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l) {
 
     /////////////////////////////////////////////////////////////////////////////
     /// ZZ->4l pairing
@@ -119,27 +117,26 @@ namespace Rivet {
 
 
       // Selection 1: ZZ-> llll selection
-      Cut etaranges_lep = etaIn(-3.16, 3.16) & (pT > 7*GeV);
+      Cut etaranges_lep = Cuts::abseta < 3.16 && Cuts::pT > 7*GeV;
 
-      DressedLeptons electron_sel4l(Photon, bare_EL, 0.1, true/*Do clustering*/,
-                                    etaranges_lep, false/*false = ignore photons from hadron or tau*/);
+      DressedLeptons electron_sel4l(Photon, bare_EL, 0.1, etaranges_lep);
       addProjection(electron_sel4l, "ELECTRON_sel4l");
-      DressedLeptons muon_sel4l(Photon, bare_MU, 0.1,true, etaranges_lep, false);
+      DressedLeptons muon_sel4l(Photon, bare_MU, 0.1, etaranges_lep);
       addProjection(muon_sel4l, "MUON_sel4l");
 
 
       // Selection 2: ZZ-> llnunu selection
-      Cut etaranges_lep2 = etaIn(-2.5, 2.5) & (pT > 10*GeV);
+      Cut etaranges_lep2 = Cuts::abseta < 2.5 && Cuts::pT > 10*GeV;
 
-      DressedLeptons electron_sel2l2nu(Photon, bare_EL, 0.1,true, etaranges_lep2, false);
+      DressedLeptons electron_sel2l2nu(Photon, bare_EL, 0.1, etaranges_lep2);
       addProjection(electron_sel2l2nu, "ELECTRON_sel2l2nu");
-      DressedLeptons muon_sel2l2nu(Photon, bare_MU, 0.1,true, etaranges_lep2, false);
+      DressedLeptons muon_sel2l2nu(Photon, bare_MU, 0.1, etaranges_lep2);
       addProjection(muon_sel2l2nu, "MUON_sel2l2nu");
 
 
       /// Get all neutrinos. These will not be used to form jets.
       /// We'll use the highest 2 pT neutrinos to calculate the MET
-      IdentifiedFinalState neutrino_fs(-4.5, 4.5, 0.0*GeV);
+      IdentifiedFinalState neutrino_fs(Cuts::abseta < 4.5);
       neutrino_fs.acceptNeutrinos();
       addProjection(neutrino_fs, "NEUTRINO_FS");
 
@@ -177,8 +174,8 @@ namespace Rivet {
 
       Particles leptons_sel4l;
 
-      const vector<DressedLepton>& mu_sel4l = applyProjection<DressedLeptons>(e, "MUON_sel4l").clusteredLeptons();
-      const vector<DressedLepton>& el_sel4l = applyProjection<DressedLeptons>(e, "ELECTRON_sel4l").clusteredLeptons();
+      const vector<DressedLepton>& mu_sel4l = applyProjection<DressedLeptons>(e, "MUON_sel4l").dressedLeptons();
+      const vector<DressedLepton>& el_sel4l = applyProjection<DressedLeptons>(e, "ELECTRON_sel4l").dressedLeptons();
 
       vector<DressedLepton> leptonsFS_sel4l;
       leptonsFS_sel4l.insert( leptonsFS_sel4l.end(), mu_sel4l.begin(), mu_sel4l.end() );
@@ -247,8 +244,8 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////
 
       Particles leptons_sel2l2nu; // output
-      const vector<DressedLepton>& mu_sel2l2nu = applyProjection<DressedLeptons>(e, "MUON_sel2l2nu").clusteredLeptons();
-      const vector<DressedLepton>& el_sel2l2nu = applyProjection<DressedLeptons>(e, "ELECTRON_sel2l2nu").clusteredLeptons();
+      const vector<DressedLepton>& mu_sel2l2nu = applyProjection<DressedLeptons>(e, "MUON_sel2l2nu").dressedLeptons();
+      const vector<DressedLepton>& el_sel2l2nu = applyProjection<DressedLeptons>(e, "ELECTRON_sel2l2nu").dressedLeptons();
 
       vector<DressedLepton> leptonsFS_sel2l2nu;
       leptonsFS_sel2l2nu.insert( leptonsFS_sel2l2nu.end(), mu_sel2l2nu.begin(), mu_sel2l2nu.end() );

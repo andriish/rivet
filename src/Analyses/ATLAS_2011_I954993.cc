@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// @brief WZ fiducial cross-section measurement
   class ATLAS_2011_I954993 : public Analysis {
@@ -27,7 +25,7 @@ namespace Rivet {
     /// Projection and histogram setup
     void init() {
       FinalState fs;
-      Cut cuts = etaIn(-2.5,2.5) & (pT >= 15.0*GeV);
+      Cut cuts = Cuts::abseta < 2.5 && Cuts::pT > 15*GeV;
 
       ZFinder zfinder_e(fs, cuts, PID::ELECTRON, 81.1876*GeV, 101.1876*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_e, "ZFinder_e");

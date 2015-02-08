@@ -54,34 +54,24 @@ namespace Rivet {
       // photon isolation: less than 2 GeV EM E_T
       double Etsum=0.0;
       foreach (const Particle& p, applyProjection<VetoedFinalState>(event, "VFS").particles()) {
-        if (PID::threeCharge(p.pid())!=0 &&
-            deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.7) {
-          Etsum += p.Et();
-        }
+        if (p.charge() != 0 && deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.7) Etsum += p.Et();
       }
-      if (Etsum > 2.0*GeV) {
-        vetoEvent;
-      }
+      if (Etsum > 2*GeV) vetoEvent;
 
       // sum all jets in the opposite hemisphere in phi from the photon
       FourMomentum jetsum;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(10.0*GeV)) {
-        if (fabs(jet.phi()-phi_P) > M_PI) {
-          jetsum+=jet.momentum();
-        }
+      foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 10*GeV)) {
+        if (fabs(jet.phi()-phi_P) > M_PI) jetsum+=jet.momentum();
       }
 
-      double costheta = fabs(tanh((eta_P-jetsum.eta())/2.0));
-
+      const double costheta = fabs(tanh((eta_P-jetsum.eta())/2.0));
       _h_costheta->fill(costheta, weight);
-
     }
 
 
     void finalize() {
-
+      /// @todo Take fixed norm direct from ref histo
       normalize(_h_costheta, 1.4271); // fixed norm ok
-
     }
 
 

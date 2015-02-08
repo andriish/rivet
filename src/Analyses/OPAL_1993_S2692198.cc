@@ -68,7 +68,7 @@ namespace Rivet {
         // Cluster the jets
         for (size_t j = 0; j < _nPhotonDurham->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonDurham->bin(j).xMid(); //< @todo Should this be xMin?
+          double ycut = _nPhotonDurham->bin(j).xMid(); ///< @todo Should this be xMin?
           double dcut = sqr(evis)*ycut;
           vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq.exclusive_jets(dcut));
           for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {
@@ -91,7 +91,7 @@ namespace Rivet {
         fastjet::ClusterSequence clust_seq2(input_particles, jade_def);
         for (size_t j = 0; j < _nPhotonJade->numBins(); ++j) {
           bool accept(true);
-          double ycut = _nPhotonJade->bin(j).xMid(); //< @todo Should this be xMin?
+          double ycut = _nPhotonJade->bin(j).xMid(); ///< @todo Should this be xMin?
           double dcut = sqr(evis)*ycut;
           vector<fastjet::PseudoJet> exclusive_jets = sorted_by_E(clust_seq2.exclusive_jets(dcut));
           for (size_t iy = 0; iy < exclusive_jets.size(); ++iy) {

@@ -101,15 +101,15 @@ namespace Rivet {
       const double weight = event.weight();
 
       vector<Jets*> all_jets;
-      Jets jets_02 = applyProjection<FastJets>(event, "JETS_02").jetsByPt(4.0*GeV, MAXDOUBLE, -1.5, 1.5, PSEUDORAPIDITY);
+      Jets jets_02 = applyProjection<FastJets>(event, "JETS_02").jetsByPt(Cuts::pT > 4*GeV && Cuts::abseta < 1.5);
       all_jets.push_back(&jets_02);
-      Jets jets_04 = applyProjection<FastJets>(event, "JETS_04").jetsByPt(4.0*GeV, MAXDOUBLE, -1.5, 1.5, PSEUDORAPIDITY);
+      Jets jets_04 = applyProjection<FastJets>(event, "JETS_04").jetsByPt(Cuts::pT > 4*GeV && Cuts::abseta < 1.5);
       all_jets.push_back(&jets_04);
-      Jets jets_06 = applyProjection<FastJets>(event, "JETS_06").jetsByPt(4.0*GeV, MAXDOUBLE, -1.5, 1.5, PSEUDORAPIDITY);
+      Jets jets_06 = applyProjection<FastJets>(event, "JETS_06").jetsByPt(Cuts::pT > 4*GeV && Cuts::abseta < 1.5);
       all_jets.push_back(&jets_06);
-      Jets jets_08 = applyProjection<FastJets>(event, "JETS_08").jetsByPt(4.0*GeV, MAXDOUBLE, -1.5, 1.5, PSEUDORAPIDITY);
+      Jets jets_08 = applyProjection<FastJets>(event, "JETS_08").jetsByPt(Cuts::pT > 4*GeV && Cuts::abseta < 1.5);
       all_jets.push_back(&jets_08);
-      Jets jets_10 = applyProjection<FastJets>(event, "JETS_10").jetsByPt(4.0*GeV, MAXDOUBLE, -1.5, 1.5, PSEUDORAPIDITY);
+      Jets jets_10 = applyProjection<FastJets>(event, "JETS_10").jetsByPt(Cuts::pT > 4*GeV && Cuts::abseta < 1.5);
       all_jets.push_back(&jets_10);
 
       // Count the number of tracks in the away and transverse regions, for each set of jets

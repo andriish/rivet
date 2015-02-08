@@ -9,8 +9,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// ATLAS Wee Wemu Wmumu analysis at Z TeV
   class ATLAS_2013_I1190187 : public Analysis {
@@ -25,12 +23,8 @@ namespace Rivet {
     void init() {
       FinalState fs;
 
-      Cut etaRanges_EL 
-      	= ( etaIn(-2.47, -1.52)
-	  | etaIn(-1.37,  1.37)
-	  | etaIn( 1.52,  2.47) ) & (pT >= 20.0*GeV);
-
-      Cut etaRanges_MU = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
+      Cut etaRanges_EL = (Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47)) && Cuts::pT > 20*GeV;
+      Cut etaRanges_MU = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
 
       MissingMomentum met(fs);
       addProjection(met, "MET");
@@ -55,10 +49,10 @@ namespace Rivet {
       //    7.arg: false    = ignore photons from hadron or tau
       //
       //////////////////////////////////////////////////////////
-      DressedLeptons electronFS(Photon, bare_EL, 0.1, true, etaRanges_EL, false);
+      DressedLeptons electronFS(Photon, bare_EL, 0.1, etaRanges_EL);
       addProjection(electronFS, "ELECTRON_FS");
 
-      DressedLeptons muonFS(Photon, bare_MU, 0.1, true, etaRanges_MU, false);
+      DressedLeptons muonFS(Photon, bare_MU, 0.1, etaRanges_MU);
       addProjection(muonFS, "MUON_FS");
 
       VetoedFinalState jetinput;
@@ -79,8 +73,8 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
 
-      const  vector<DressedLepton>& muonFS = applyProjection<DressedLeptons>(e, "MUON_FS").clusteredLeptons();
-      const  vector<DressedLepton>& electronFS = applyProjection<DressedLeptons>(e, "ELECTRON_FS").clusteredLeptons();
+      const  vector<DressedLepton>& muonFS = applyProjection<DressedLeptons>(e, "MUON_FS").dressedLeptons();
+      const  vector<DressedLepton>& electronFS = applyProjection<DressedLeptons>(e, "ELECTRON_FS").dressedLeptons();
       const MissingMomentum& met = applyProjection<MissingMomentum>(e, "MET");
 
       vector<DressedLepton> dressed_lepton, isolated_lepton, fiducial_lepton;

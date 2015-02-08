@@ -11,24 +11,15 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2011_S8983313 : public Analysis {
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     ATLAS_2011_S8983313()
       : Analysis("ATLAS_2011_S8983313")
     {    }
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -37,42 +28,33 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      Cut pt10 = pT > 10.0*GeV;
-
-      IdentifiedFinalState elecs( etaIn(-2.47, 2.47) & pt10 );
+      Cut pt10 = Cuts::pT > 10.0*GeV;
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && pt10);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
-
-
       // veto region electrons
-      Cut vetocut = etaIn(-1.52, -1.37) | etaIn( 1.37,  1.52);
-      IdentifiedFinalState veto_elecs(vetocut & pt10);
+      Cut vetocut = Cuts::absetaIn(1.37, 1.52);
+      IdentifiedFinalState veto_elecs(vetocut && pt10);
       veto_elecs.acceptIdPair(PID::ELECTRON);
       addProjection(veto_elecs, "veto_elecs");
 
-
-
       // projection to find the muons
-      IdentifiedFinalState muons( etaIn(-2.4, 2.4) & pt10 );
+      IdentifiedFinalState muons(Cuts::abseta < 2.4 && pt10 );
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
-
 
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
 
-
       /// Jet finder
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
-                    "AntiKtJets04");
+      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
-      addProjection(ChargedFinalState(-3.0,3.0),"cfs");
+      addProjection(ChargedFinalState(Cuts::abseta < 3.0),"cfs");
 
       // for pTmiss
-      addProjection(VisibleFinalState(-4.9,4.9),"vfs");
-
+      addProjection(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
       /// Book histograms
       _count_A = bookHisto1D("count_A", 1, 0., 1.);
@@ -91,46 +73,34 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Particles veto_e
-        = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
+      Particles veto_e = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
         vetoEvent;
       }
 
 
-      Jets cand_jets;
-      foreach (const Jet& jet,
-               applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
-        if ( fabs( jet.eta() ) < 4.9 ) {
-          cand_jets.push_back(jet);
-        }
-      }
-
+      Jets cand_jets = applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 4.9);
       Particles cand_e  = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-
 
       Particles cand_mu;
       Particles chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
-      foreach ( const Particle & mu,
-                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
+      foreach ( const Particle & mu, applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
         double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
-          if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
-            pTinCone += track.pT();
+          if ( deltaR(mu, track) <= 0.2 ) pTinCone += track.pT();
         }
-        if ( pTinCone < 1.8*GeV )
-          cand_mu.push_back(mu);
+        if ( pTinCone < 1.8*GeV ) cand_mu.push_back(mu);
       }
 
       Jets cand_jets_2;
-      foreach ( const Jet& jet, cand_jets ) {
-        if ( fabs( jet.eta() ) >= 2.5 )
-          cand_jets_2.push_back( jet );
+      foreach (const Jet& jet, cand_jets) {
+        if (jet.abseta() >= 2.5)
+          cand_jets_2.push_back(jet);
         else {
           bool away_from_e = true;
-          foreach ( const Particle & e, cand_e ) {
-            if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
+          foreach (const Particle& e, cand_e) {
+            if (deltaR(e, jet) <= 0.2 ) {
               away_from_e = false;
               break;
             }
@@ -141,11 +111,10 @@ namespace Rivet {
       }
 
       Particles recon_e, recon_mu;
-
       foreach ( const Particle & e, cand_e ) {
         bool away = true;
         foreach ( const Jet& jet, cand_jets_2 ) {
-          if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
+          if ( deltaR(e, jet) < 0.4 ) {
             away = false;
             break;
           }
@@ -157,7 +126,7 @@ namespace Rivet {
       foreach ( const Particle & mu, cand_mu ) {
         bool away = true;
         foreach ( const Jet& jet, cand_jets_2 ) {
-          if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
+          if ( deltaR(mu, jet) < 0.4 ) {
             away = false;
             break;
           }
@@ -179,8 +148,7 @@ namespace Rivet {
       // final jet filter
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets_2 ) {
-        if ( fabs( jet.eta() ) <= 2.5 )
-          recon_jets.push_back( jet );
+        if ( jet.abseta() <= 2.5 ) recon_jets.push_back( jet );
       }
 
 
@@ -191,13 +159,13 @@ namespace Rivet {
         vetoEvent;
       }
 
-      if ( eTmiss <= 100 * GeV ) {
+      if ( eTmiss <= 100*GeV ) {
         MSG_DEBUG("Not enough eTmiss: " << eTmiss << " < 100");
         vetoEvent;
       }
 
 
-      if ( recon_jets.empty() || recon_jets[0].pT() <= 120.0 * GeV ) {
+      if ( recon_jets.empty() || recon_jets[0].pT() <= 120.0*GeV ) {
         MSG_DEBUG("No hard leading jet in " << recon_jets.size() << " jets");
         vetoEvent;
       }
@@ -212,8 +180,7 @@ namespace Rivet {
       foreach ( const Jet& jet, recon_jets ) {
         if ( jet.pT() > 40 * GeV ) {
           if ( Njets < 3 )
-            min_dPhi = min( min_dPhi,
-                            deltaPhi( pTmiss_phi, jet.phi() ) );
+            min_dPhi = min( min_dPhi, deltaPhi( pTmiss_phi, jet.phi() ) );
           ++Njets;
         }
       }

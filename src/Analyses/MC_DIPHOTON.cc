@@ -5,7 +5,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief MC validation analysis for isolated di-photon events
@@ -25,7 +25,7 @@ namespace Rivet {
       FinalState fs;
       addProjection(fs, "FS");
 
-      IdentifiedFinalState ifs(-2.0, 2.0, 20.0*GeV);
+      IdentifiedFinalState ifs(Cuts::abseta < 2 && Cuts::pT > 20*GeV);
       ifs.acceptId(PID::PHOTON);
       addProjection(ifs, "IFS");
 
@@ -108,4 +108,3 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(MC_DIPHOTON);
 
 }
-

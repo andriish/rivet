@@ -10,8 +10,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2012_I943401 : public Analysis {
   public:
@@ -37,26 +35,25 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      IdentifiedFinalState elecs(etaIn(-2.47, 2.47) & (pT >= 20.0*GeV));
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
-      IdentifiedFinalState muons(etaIn(-2.4, 2.4) & (pT >= 10.0*GeV));
+      IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // jet finder
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
-                   "AntiKtJets04");
+      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
-      addProjection(ChargedFinalState(-3.0,3.0,0.5*GeV),"cfs");
+      addProjection(ChargedFinalState(Cuts::abseta < 3 && Cuts::pT > 0.5*GeV), "cfs");
 
       // for pTmiss
-      addProjection(VisibleFinalState(etaIn(-4.5, 4.5)),"vfs");
+      addProjection(VisibleFinalState(Cuts::abseta < 4.5), "vfs");
 
       // book histograms
 
@@ -133,7 +130,7 @@ namespace Rivet {
       Jets recon_jets;
       foreach ( const Jet& jet, cand_jets ) {
         bool away_from_e = true;
-          foreach ( const Particle & e, cand_e ) {
+          foreach ( const Particle& e, cand_e ) {
             if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
               away_from_e = false;
               break;
@@ -147,7 +144,7 @@ namespace Rivet {
 
       // Reconstructed electrons
       Particles recon_e;
-      foreach ( const Particle & e, cand_e ) {
+      foreach ( const Particle& e, cand_e ) {
         // check not near a jet
         bool e_near_jet = false;
         foreach ( const Jet& jet, recon_jets ) {
@@ -159,7 +156,7 @@ namespace Rivet {
         if ( e_near_jet ) continue;
         // check the isolation
         double pTinCone = -e.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        foreach ( const Particle& track, chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -171,7 +168,7 @@ namespace Rivet {
       Particles recon_mu;
       Particles cand_mu =
         applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
-      foreach ( const Particle & mu, cand_mu ) {
+      foreach ( const Particle& mu, cand_mu ) {
         // check not near a jet
         bool mu_near_jet = false;
         foreach ( const Jet& jet, recon_jets ) {
@@ -183,7 +180,7 @@ namespace Rivet {
         if ( mu_near_jet ) continue;
         // isolation
         double pTinCone = -mu.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        foreach ( const Particle& track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -195,57 +192,51 @@ namespace Rivet {
       Particles vfs_particles
         = applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      foreach ( const Particle& p, vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
 
       // ATLAS calo problem
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
-        foreach ( const Particle & e, recon_e ) {
+        foreach ( const Particle& e, recon_e ) {
           double eta = e.eta();
           double phi = e.azimuthalAngle(MINUSPI_PLUSPI);
-          if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
-            vetoEvent;
+          if (inRange(eta, -0.1, 1.5) && inRange(phi, -0.9, -0.5)) vetoEvent;
         }
-        foreach ( const Jet & jet, recon_jets ) {
+        foreach ( const Jet& jet, recon_jets ) {
           double eta = jet.rapidity();
           double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
-          if(jet.perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
-            vetoEvent;
+          if (jet.pT() > 40*GeV && inRange(eta, -0.1, 1.5) && inRange(phi, -0.9, -0.5)) vetoEvent;
         }
       }
 
       // Exactly two leptons for each event
-      if ( recon_mu.size() + recon_e.size() != 2)
-        vetoEvent;
+      if ( recon_mu.size() + recon_e.size() != 2) vetoEvent;
       // two electrons highest pT > 25
       Particles recon_leptons;
-      if(recon_e.size()==2&&recon_e[0].perp()>25.) {
+      if (recon_e.size()==2 && recon_e[0].pT()>25*GeV) {
         recon_leptons = recon_e;
       }
       // two muons highest pT > 20
-      else if(recon_mu.size()==2&&recon_mu[0].perp()>20.) {
+      else if (recon_mu.size()==2 && recon_mu[0].pT() > 20*GeV) {
         recon_leptons = recon_mu;
-      }
-      else if(recon_e.size()==1 && recon_mu.size()==1 &&
-              (recon_e[0].perp()>25. ||recon_mu[0].perp()>20. )) {
-        if(recon_mu[0].perp()<recon_e[0].perp()) {
+      } else if (recon_e.size()==1 && recon_mu.size()==1 &&
+                 (recon_e[0].pT() > 25*GeV || recon_mu[0].pT() > 20*GeV )) {
+        if (recon_mu[0].pT() < recon_e[0].pT()) {
           recon_leptons.push_back(recon_e [0]);
           recon_leptons.push_back(recon_mu[0]);
-        }
-        else {
+        } else {
           recon_leptons.push_back(recon_mu[0]);
           recon_leptons.push_back(recon_e [0]);
         }
       }
       // fails trigger
-      else
-        vetoEvent;
+      else vetoEvent;
 
       double mll = (recon_leptons[0].momentum()+recon_leptons[1].momentum()).mass();
       // lepton pair mass > 12.
-      if(mll < 12.) vetoEvent;
+      if (mll < 12*GeV) vetoEvent;
 
       // same sign or opposite sign event
       int sign = recon_leptons[0].pid()*recon_leptons[1].pid();

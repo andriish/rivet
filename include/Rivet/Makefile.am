@@ -89,6 +89,7 @@ nobase_pkginclude_HEADERS += \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \
   Tools/RivetBoost.hh \
+  Tools/RivetFastJet.hh \
   Tools/RivetHepMC.hh \
   Tools/RivetYODA.hh \
   Tools/RivetMT2.hh \

@@ -22,8 +22,6 @@ namespace Rivet {
     //@}
 
 
-  public:
-
     /// @name Analysis methods
     //@{
 
@@ -78,17 +76,15 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       Jets jets;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jetsByEt()) {
+      foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(cmpMomByEt)) {
         double Et = jet.Et();
         if (Et > 20.0*GeV) {
-          bool separated=true;
+          bool separated = true;
           foreach (const Jet& ref, jets) {
-            if (deltaR(jet.momentum(), ref.momentum())<0.9) {
-              separated=false;
+            if (deltaR(jet, ref) < 0.9) {
+              separated = false;
               break;
             }
           }
@@ -96,10 +92,11 @@ namespace Rivet {
           jets.push_back(jet);
           jetsystem += jet.momentum();
         }
-        if (jets.size()>=5) break;
+        if (jets.size() >= 5) break;
       }
       /// @todo include gaussian jet energy resolution smearing?
 
+      const double weight = event.weight();
       if (jets.size() > 4) {
         _fiveJetAnalysis(jets, weight);
         jets.resize(4);
@@ -108,10 +105,10 @@ namespace Rivet {
         _fourJetAnalysis(jets, weight);
         jets.resize(3);
       }
-      if (jets.size() > 2) _threeJetAnalysis(jets, weight);
+      if (jets.size() > 2) {
+        _threeJetAnalysis(jets, weight);
+      }
     }
-
-
 
 
     void _threeJetAnalysis(const Jets& jets, const double& weight) {

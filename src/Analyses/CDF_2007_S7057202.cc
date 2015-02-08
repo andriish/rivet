@@ -36,20 +36,14 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD07").jets(54.0*GeV)) {
-        double y = jet.absrap();
-        _binnedHistosD07.fill(y, jet.pT(), weight);
-      }
+      foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD07").jets(Cuts::pT > 54*GeV))
+        _binnedHistosD07.fill(jet.absrap(), jet.pT(), weight);
 
-      foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD05").jets(54.0*GeV)) {
-        double y = jet.absrap();
-        if (y >= 0.1 && y < 0.7) _histoD05->fill(jet.pT(), weight);
-      }
+      foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD05").jets(Cuts::pT > 54*GeV))
+        if (inRange(jet.absrap(), 0.1, 0.7)) _histoD05->fill(jet.pT(), weight);
 
-      foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD10").jets(54.0*GeV)) {
-        double y = jet.absrap();
-        if (y >= 0.1 && y < 0.7) _histoD10->fill(jet.pT(), weight);
-      }
+      foreach (const Jet& jet, applyProjection<JetAlg>(event, "JetsD10").jets(Cuts::pT > 54*GeV))
+        if (inRange(jet.absrap(), 0.1, 0.7)) _histoD10->fill(jet.pT(), weight);
     }
 
 

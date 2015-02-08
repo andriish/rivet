@@ -60,6 +60,7 @@ namespace Rivet {
 
   /// Return the integral over the histogram bins
   /// @deprecated Prefer to directly use the histo's integral() method.
+  DEPRECATED("Prefer to directly use the histo's integral() method.")
   inline double integral(Histo1DPtr histo) {
     return histo->integral();
   }

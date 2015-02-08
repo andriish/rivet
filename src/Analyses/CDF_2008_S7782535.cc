@@ -44,9 +44,8 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& event) {
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jets(_ptedges.front()*GeV, _ptedges.back()*GeV,
-                                                                       0.0, 0.7, RAPIDITY);
-      MSG_DEBUG("Jet multiplicity before any pT cut = " << jets.size());
+      const FastJets& fjs = applyProjection<FastJets>(event, "Jets");
+      const Jets& jets = fjs.jets(Cuts::ptIn(_ptedges.front()*GeV, _ptedges.back()*GeV) && Cuts::absrap < 0.7);
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT range");
         vetoEvent;
@@ -67,7 +66,7 @@ namespace Rivet {
       foreach (const Jet& bj, bjets) {
         const FourMomentum pbj = bj.momentum();
         const int ipt = binIndex(pbj.pT(), _ptedges);
-        if (ipt == -1) continue; //< Out of pT range (somehow!)
+        if (ipt == -1) continue; ///< Out of pT range (somehow!)
         bjets_ptbinned[ipt] += bj;
       }
 

@@ -16,7 +16,7 @@ namespace Rivet {
     //@{
 
     /// Construction using Cuts object
-    ParticleFinder(Cut c = Cuts::open()) : _cuts(c), _theParticles() {}
+    ParticleFinder(const Cut & c = Cuts::open()) : _cuts(c), _theParticles() {}
 
     /// Virtual destructor for inheritance
     virtual ~ParticleFinder() {}
@@ -30,101 +30,138 @@ namespace Rivet {
     /// @name Particle accessors
     //@{
 
-    /// Access the projected final-state particles.
-    virtual size_t size() const { return _theParticles.size(); }
-
-    /// Is this final state empty?
-    virtual bool empty() const { return _theParticles.empty(); }
-    /// @deprecated Is this final state empty?
-    virtual bool isEmpty() const { return _theParticles.empty(); }
-
     /// Get the final-state particles in no particular order, with no cuts.
     virtual const Particles& particles() const { return _theParticles; }
 
+    /// Access the projected final-state particles.
+    size_t size() const { return particles().size(); }
+
+    /// Is this final state empty?
+    bool empty() const { return particles().empty(); }
+    /// @deprecated Is this final state empty?
+    DEPRECATED("Use empty()")
+    bool isEmpty() const { return particles().empty(); }
+
+
     /// @brief Get the final-state particles, with optional cuts.
     /// @note Returns a copy rather than a reference, due to cuts
-    //virtual Particles particles(Cut c) const {  }
+    /// @todo Can't this be a const Cut& arg?
+    Particles particles(const Cut & c) const {
+      // Just return a copy of particles() if the cut is open
+      if (c == Cuts::open()) return particles();
+      // If there is a non-trivial cut...
+      Particles rtn;
+      rtn.reserve(size());
+      foreach (const Particle& p, particles())
+        if (c->accept(p)) rtn.push_back(p);
+      return rtn;
+    }
 
     /// Get the final-state particles, ordered by supplied sorting function object.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @todo Update to use Cuts
+    /// @todo Can't this be a const Cut& arg?
+    /// @todo Use a std::function instead of typename F?
     template <typename F>
-    Particles particles(Cut c, F sorter) const {
-      Particles result;
-      result.reserve(size());
-      if ( c == Cuts::open() )
-      	result.assign(_theParticles.begin(), _theParticles.end());
-      else 
-	foreach (const Particle& p, _theParticles)
-      	  if ( c->accept(p) ) result.push_back(p);
-      std::sort(result.begin(), result.end(), sorter);
-      return result;
+    Particles particles(F sorter, const Cut & c=Cuts::open()) const {
+      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
+      return sortBy(particles(c), sorter);
     }
 
-    /// Get the final-state particles, ordered by decreasing \f$ p_T \f$.
-    /// @todo Update to use Cuts
-    Particles particlesByPt(Cut c = Cuts::open()) const {
+    /// Get the final-state particles, ordered by supplied sorting function object.
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// @todo Can't this be a const Cut& arg?
+    /// @todo Use a std::function instead of typename F?
+    template <typename F>
+    Particles particles(const Cut & c, F sorter) const {
+      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
+      return sortBy(particles(c), sorter);
+    }
+
+    /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with optional cuts.
+    ///
+    /// This is a very common use-case, so is available as syntatic sugar for particles(c, cmpMomByPt).
+    Particles particlesByPt(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByPt);
     }
 
+    /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with a cut on minimum \f$ p_T \f$.
+    ///
+    /// This is a very common use-case, so is available as syntatic sugar for particles(Cuts::pT >= ptmin, cmpMomByPt).
+    Particles particlesByPt(double ptmin) const {
+      return particles(Cuts::pT >= ptmin, cmpMomByPt);
+    }
+
+
+    /// @name Little-used sorted accessors
+    /// @deprecated Use the versions with a sorter function argument
+    //@{
+
     /// Get the final-state particles, ordered by decreasing \f$ p \f$.
-    /// @todo Update to use Cuts
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
-    Particles particlesByP(Cut c = Cuts::open()) const {
+    /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
+    Particles particlesByP(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByP);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E \f$.
-    /// @todo Update to use Cuts
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
-    Particles particlesByE(Cut c = Cuts::open()) const {
+    /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
+    Particles particlesByE(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByE);
     }
 
     /// Get the final-state particles, ordered by decreasing \f$ E_T \f$.
-    /// @todo Update to use Cuts
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
-    Particles particlesByEt(Cut c = Cuts::open()) const {
+    /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
+    Particles particlesByEt(const Cut & c=Cuts::open()) const {
       return particles(c, cmpMomByEt);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ \eta \f$.
-    /// @todo Update to use Cuts
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
-    Particles particlesByEta(Cut c = Cuts::open()) const {
-      return particles(c, cmpMomByAscPseudorapidity);
+    /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
+    Particles particlesByEta(const Cut & c=Cuts::open()) const {
+      return particles(c, cmpMomByEta);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |\eta| \f$.
-    /// @todo Update to use Cuts
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
-    Particles particlesByModEta(Cut c = Cuts::open()) const {
-      return particles(c, cmpMomByAscAbsPseudorapidity);
+    /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
+    Particles particlesByModEta(const Cut & c=Cuts::open()) const {
+      return particles(c, cmpMomByAbsEta);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ y \f$.
-    /// @todo Update to use Cuts
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
-    Particles particlesByRapidity(Cut c = Cuts::open()) const {
-      return particles(c, cmpMomByAscRapidity);
+    /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
+    Particles particlesByRapidity(const Cut & c=Cuts::open()) const {
+      return particles(c, cmpMomByRap);
     }
 
     /// Get the final-state particles, ordered by increasing \f$ |y| \f$.
-    /// @todo Update to use Cuts
     /// @todo Remove, since there is the templated method or sortByX methods available for these unusual cases?
-    Particles particlesByModRapidity(Cut c = Cuts::open()) const {
-      return particles(c, cmpMomByAscAbsRapidity);
+    /// @deprecated Use the version with a sorter function argument
+    DEPRECATED("Use the version with a sorter function argument")
+    Particles particlesByModRapidity(const Cut & c=Cuts::open()) const {
+      return particles(c, cmpMomByAbsRap);
     }
 
     //@}
 
+    //@}
 
-    /// Minimum-\f$ p_\perp \f$ requirement.
+
     /// @todo Replace with cuts() accessor
     ///virtual Cut cuts() const { return _cuts; }
 
 
-    /// @name JetAlg compatibility
+    /// @name For JetAlg compatibility
     //@{
 
     typedef Particle entity_type;

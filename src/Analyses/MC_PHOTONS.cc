@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief MC validation analysis for photons
@@ -30,11 +30,11 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      IdentifiedFinalState leptons(-5.0, 5.0, 10*GeV);
+      IdentifiedFinalState leptons(Cuts::abseta < 5.0 && Cuts::pT > 10*GeV);
       leptons.acceptChLeptons();
       addProjection(leptons, "lFS");
 
-      IdentifiedFinalState photons(-5.0, 5.0);
+      IdentifiedFinalState photons(Cuts::abseta < 5.0);
       photons.acceptId(PID::PHOTON);
       addProjection(photons, "gammaFS");
 

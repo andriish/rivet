@@ -4,7 +4,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @author Andy Buckley

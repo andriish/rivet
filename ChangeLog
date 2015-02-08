@@ -1,3 +1,67 @@
+2015-02-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add more protection against math domain errors with log axes.
+
+	* Add some protection against nan-valued points and error bars in make-plots.
+
+2015-02-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Converting 'bitwise' to 'logical' Cuts combinations in all analyses.
+
+2015-02-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use vector MET rather than scalar VET (doh...) in WFinder
+	cut. Thanks to Ines Ochoa for the bug report.
+
+	* Updating and tidying analyses with deprecation warnings.
+
+	* Adding more Cuts/FS constructors for Charged,Neutral,UnstableFinalState.
+
+	* Add &&, || and ! operators for without-parens-warnings Cut
+	combining. Note these don't short-circuit, but this is ok since
+	Cut comparisons don't have side-effects.
+
+	* Add absetaIn, absrapIn Cut range definitions.
+
+	* Updating use of sorted particle/jet access methods and cmp
+	functors in projections and analyses.
+
+2014-12-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding a --cmd arg to rivet-buildplugin to allow the output
+	paths to be sed'ed (to help deal with naive Grid
+	distribution). For example BUILDROOT=`rivet-config --prefix`;
+	rivet-buildplugin PHOTONS.cc --cmd | sed -e
+	"s:$BUILDROOT:$SITEROOT:g"
+
+2014-11-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Interface improvements in DressedLeptons constructor.
+
+	* Adding DEPRECATED macro to throw compiler deprecation warnings when using deprecated features.
+
+2014-11-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Cut-based constructors, and various constructors with
+	lists of PDG codes to IdentifiedFinalState.
+
+2014-11-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Analysis updates (ATLAS, CMS, CDF, D0) to apply the changes below.
+
+	* Adding JetAlg jets(Cut, Sorter) methods, and other interface
+	improvements for cut and sorted ParticleBase retrieval from JetAlg
+	and ParticleFinder projections. Some old many-doubles versions
+	removed, syntactic sugar sorting methods deprecated.
+
+	* Adding Cuts::Et and Cuts::ptIn, Cuts::etIn, Cuts::massIn.
+
+	* Moving FastJet includes, conversions, uses etc. into Tools/RivetFastJet.hh
+
+2014-10-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix a bug in the isCharmHadron(pid) function and remove isStrange* functions.
+
 2014-09-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* 2.2.0 release!

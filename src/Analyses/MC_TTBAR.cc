@@ -8,7 +8,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   class MC_TTBAR : public Analysis {

@@ -30,30 +30,24 @@ namespace Rivet {
     void init() {
       FinalState fs(-4,2, 4.2);
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-
       _h_ET = bookHisto1D(1, 1, 1);
-
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt(40.0*GeV);
+      Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 40*GeV, cmpMomByEt);
       foreach (const Jet& jet, jets) {
-        double eta = jet.abseta();
-        if (eta>0.1 && eta<0.7) {
+        if (inRange(jet.abseta(), 0.1, 0.7))
           _h_ET->fill(jet.Et(), weight);
-        }
       }
-
     }
 
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double deta = 1.2;
+      const double deta = 1.2;
       scale(_h_ET, crossSection()/sumOfWeights()/deta/nanobarn);
     }
 

@@ -75,7 +75,7 @@ namespace Rivet {
       foreach (const Particle& p, j.particles()) {
         const double dR = deltaR(pj, p.momentum(), _rapscheme);
         const int dRindex = binIndex(dR, _binedges);
-        if (dRindex == -1) continue; //< Out of histo range
+        if (dRindex == -1) continue; ///< Out of histo range
         bins[dRindex] += p.pT();
       }
 
@@ -103,8 +103,10 @@ namespace Rivet {
 
 
   void JetShape::project(const Event& e) {
-    const Jets jets = applyProjection<JetAlg>(e, "Jets").jets(_ptcuts.first, _ptcuts.second,
-                                                              -_rapcuts.second, _rapcuts.second, _rapscheme);
+    const Jets jets = applyProjection<JetAlg>(e, "Jets").jets(Cuts::ptIn(_ptcuts.first, _ptcuts.second) &
+                                                              ((_rapscheme == PSEUDORAPIDITY) ?
+                                                               Cuts::etaIn(-_rapcuts.second, _rapcuts.second) :
+                                                               Cuts::rapIn(-_rapcuts.second, _rapcuts.second)) );
     calc(jets);
   }
 

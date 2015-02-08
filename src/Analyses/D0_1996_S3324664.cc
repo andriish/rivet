@@ -40,7 +40,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       Jets jets;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jets(20.0*GeV)) {
+      foreach (const Jet& jet, applyProjection<FastJets>(event, "ConeJets").jets(Cuts::pT > 20*GeV)) {
         if (jet.abseta() < 3.0) jets.push_back(jet);
       }
 

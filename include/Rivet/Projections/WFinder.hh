@@ -36,7 +36,7 @@ namespace Rivet {
     /// @param trackPhotons whether such photons should be added to _theParticles
     /// @param masstype whether mass window should be applied using m or mT
     WFinder(const FinalState& inputfs,
-            Cut cuts,
+            const Cut & cuts,
             PdgId pid,
             double minmass, double maxmass,
             double missingET,

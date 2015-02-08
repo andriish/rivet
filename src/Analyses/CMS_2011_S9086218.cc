@@ -33,11 +33,11 @@ namespace Rivet {
     // Analysis
     void analyze(const Event &event) {
       const double weight = event.weight();
-      const FastJets &fj = applyProjection<FastJets>(event,"Jets");
-      const Jets& jets = fj.jets(18.0*GeV, 1100.0*GeV, -4.7, 4.7, RAPIDITY);
+      const FastJets& fj = applyProjection<FastJets>(event,"Jets");
+      const Jets& jets = fj.jets(Cuts::ptIn(18*GeV, 1100.0*GeV) && Cuts::absrap < 4.7);
 
       // Fill the relevant histograms:
-      foreach(const Jet &j, jets) {
+      foreach(const Jet& j, jets) {
         _hist_sigma.fill(j.absrap(), j.pT(), weight);
       }
     }

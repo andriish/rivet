@@ -10,24 +10,16 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
 
   /// @author Peter Richardson
   class ATLAS_2012_I1095236 : public Analysis {
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     ATLAS_2012_I1095236()
       : Analysis("ATLAS_2012_I1095236")
     {    }
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -36,14 +28,12 @@ namespace Rivet {
     void init() {
 
       // Projection to find the electrons
-      IdentifiedFinalState elecs(etaIn(-2.47, 2.47) 
-				 & (pT >= 20.0*GeV));
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // Projection to find the muons
-      IdentifiedFinalState muons(etaIn(-2.4, 2.4) 
-				 & (pT >= 10.0*GeV));
+      IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
@@ -53,7 +43,7 @@ namespace Rivet {
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // All tracks (to do deltaR with leptons)
-      addProjection(ChargedFinalState(-3.0,3.0),"cfs");
+      addProjection(ChargedFinalState(Cuts::abseta < 3.0),"cfs");
 
       // Used for pTmiss
       addProjection(VisibleFinalState(-4.9,4.9),"vfs");

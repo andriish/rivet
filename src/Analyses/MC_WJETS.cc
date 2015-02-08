@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// @brief MC validation analysis for W + jets events
   class MC_WJETS : public MC_JetAnalysis {
@@ -25,7 +23,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      WFinder wfinder(fs, etaIn(-3.5, 3.5) & (pT >= 25.0*GeV), PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder(fs, Cuts::abseta < 3.5 && Cuts::pT > 25*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
       addProjection(wfinder, "WFinder");
       FastJets jetpro(wfinder.remainingFinalState(), FastJets::ANTIKT, 0.4);
       addProjection(jetpro, "Jets");

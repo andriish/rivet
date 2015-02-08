@@ -18,8 +18,8 @@ class PlotParser(object):
         ----------
         plotpaths : list of str, optional
             The directories to search for .plot files.
-            The default is to call :command:`rivet-config --datadir` to get
-            the directory where the .plot files can be found.
+            The default is to call the rivet.getAnalysisPlotPaths() function to get
+            the directory where the .plot files can be found. (Usually equivalent to calling :command:`rivet-config --datadir`)
 
         Raises
         ------

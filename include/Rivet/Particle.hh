@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     /// Default constructor.
-    /// @deprecated A particle without info is useless. This only exists to keep STL containers happy.
+    /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
         _original(0), _id(0), _momentum()
@@ -89,8 +89,7 @@ namespace Rivet {
     /// Absolute value of the PDG ID code.
     PdgId abspid() const { return std::abs(_id); }
     /// This Particle's PDG ID code (alias).
-    /// @deprecatedThe pid/abspid form is nicer (don't need to remember
-    ///    lower/upper case, doesn't visually stick out in the code, etc. ...)
+    /// @deprecated Prefer the pid/abspid form
     PdgId pdgId() const { return _id; }
 
     //@}

@@ -17,7 +17,7 @@ namespace Rivet {
       const int st = p->status();
       bool passed =
         (st == 1 || (st == 2 && find(vetoIds.begin(), vetoIds.end(), abs(p->pdg_id())) == vetoIds.end())) &&
-        !IS_PARTON_PDGID(p->pdg_id()) && //< Always veto partons?
+        !IS_PARTON_PDGID(p->pdg_id()) && ///< Always veto partons?
         !p->is_beam() && // Filter beam particles
 	_cuts->accept(p->momentum());
 

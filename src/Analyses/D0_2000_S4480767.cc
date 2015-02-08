@@ -5,24 +5,15 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class D0_2000_S4480767 : public Analysis {
   public:
-
-    /// @name Constructors etc.
-    //@{
 
     /// Constructor
     D0_2000_S4480767()
       : Analysis("D0_2000_S4480767")
     {    }
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -30,7 +21,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs;
-      WFinder wf(fs, etaIn(-5,5), PID::ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
+      WFinder wf(fs, Cuts::abseta < 5, PID::ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
       addProjection(wf, "WFinder");
 
       _h_W_pT = bookHisto1D(1, 1, 1);
@@ -50,9 +41,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
       scale(_h_W_pT, crossSection()/sumOfWeights());
-
     }
 
     //@}

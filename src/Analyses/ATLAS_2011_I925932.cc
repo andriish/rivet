@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2011_I925932 : public Analysis {
   public:
@@ -22,7 +20,7 @@ namespace Rivet {
     void init() {
       // Set up projections
       FinalState fs;
-      Cut cuts = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
+      Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       WFinder wfinder_dressed_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.2, WFinder::CLUSTERNODECAY);
       addProjection(wfinder_dressed_el, "WFinder_dressed_el");
       WFinder wfinder_bare_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.0, WFinder::NOCLUSTER);

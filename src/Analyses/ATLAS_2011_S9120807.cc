@@ -51,7 +51,7 @@ namespace Rivet {
       fj.useJetArea(_area_def);
       addProjection(fj, "KtJetsD05");
 
-      IdentifiedFinalState photonfs(-2.37, 2.37, 16.0*GeV);
+      IdentifiedFinalState photonfs(Cuts::abseta < 2.37 && Cuts::pT > 16*GeV);
       photonfs.acceptId(PID::PHOTON);
       addProjection(photonfs, "Photon");
 
@@ -61,13 +61,12 @@ namespace Rivet {
     }
 
 
-    int getEtaBin(double eta_w) const {
-      double eta = fabs(eta_w);
-
-      int v_iter=0;
-      for (v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++) {
-        if (inRange(eta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1]))
-          break;
+    /// @todo Prefer to use Rivet::binIndex()
+    size_t getEtaBin(double eta_w) const {
+      const double aeta = fabs(eta_w);
+      size_t v_iter = 0;
+      for (; v_iter+1 < _eta_bins_areaoffset.size(); ++v_iter) {
+        if (inRange(aeta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1])) break;
       }
       return v_iter;
     }

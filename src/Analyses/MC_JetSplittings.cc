@@ -4,7 +4,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   MC_JetSplittings::MC_JetSplittings(const string& name,

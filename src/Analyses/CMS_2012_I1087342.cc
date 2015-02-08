@@ -19,29 +19,29 @@ namespace Rivet {
       const FinalState fs;
       addProjection(FastJets(fs, FastJets::ANTIKT, 0.5),"Jets");
 
-      _hist_jetpt_fwdincl = bookHisto1D(1,1,1);
-      _hist_jetpt_forward = bookHisto1D(2,1,1);
-      _hist_jetpt_central = bookHisto1D(3,1,1);
+      _hist_jetpt_fwdincl = bookHisto1D(1, 1, 1);
+      _hist_jetpt_forward = bookHisto1D(2, 1, 1);
+      _hist_jetpt_central = bookHisto1D(3, 1, 1);
     }
 
     void analyze(const Event& event) {
       const double weight = event.weight();
 
       const FastJets& fj = applyProjection<FastJets>(event,"Jets");
-      const Jets jets = fj.jets(35*GeV, 150*GeV, -4.7, 4.7, ETARAP);
+      const Jets jets = fj.jets(Cuts::ptIn(35*GeV, 150*GeV) && Cuts::abseta < 4.7);
 
       double cjet_pt = 0.0;
       double fjet_pt = 0.0;
 
       foreach(const Jet& j, jets) {
         double pT = j.pT();
-        if (j.eta() > 3.2 || j.eta() < -3.2) {
+        if (j.abseta() > 3.2) {
           _hist_jetpt_fwdincl->fill(j.pT()/GeV, weight);
         }
         if (j.abseta() < 2.8) {
           if (cjet_pt < pT) cjet_pt = pT;
         }
-        if (j.abseta() < 4.7  && j.abseta() > 3.2) {
+        if (inRange(j.abseta(), 3.2, 4.7)) {
           if (fjet_pt < pT) fjet_pt = pT;
         }
       }
@@ -52,6 +52,7 @@ namespace Rivet {
       }
 
     }
+
 
     void finalize() {
       scale(_hist_jetpt_fwdincl, crossSection() / picobarn / sumOfWeights() / 3.0);
@@ -73,4 +74,3 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(CMS_2012_I1087342);
 
 }
-

@@ -5,7 +5,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
 
   /// @brief MC validation analysis for Z[ee]Z[mumu] events
   class MC_ZZINC : public Analysis {
@@ -22,7 +21,7 @@ namespace Rivet {
 
     /// Book histograms
     void init() {
-      Cut cut = etaIn(-3.5,3.5) & (pT >= 25.0*GeV);
+      Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zeefinder(FinalState(), cut, PID::ELECTRON, 65*GeV, 115*GeV,
                         0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       addProjection(zeefinder, "ZeeFinder");
@@ -87,7 +86,7 @@ namespace Rivet {
       _h_ZZ_pT_peak->fill(zz.pT()/GeV, weight);
       _h_ZZ_eta->fill(zz.eta(), weight);
       _h_ZZ_phi->fill(zz.phi(), weight);
-      if (zz.mass2() > 0.0) //< @todo Protection still needed?
+      if (zz.mass2() > 0.0) ///< @todo Protection still needed?
         _h_ZZ_m->fill(zz.mass()/GeV, weight);
 
       _h_ZZ_dphi->fill(deltaPhi(zee, zmm), weight);
@@ -118,7 +117,7 @@ namespace Rivet {
       _h_ZeZm_deta->fill(ep.eta()-mm.eta(), weight);
       _h_ZeZm_dR->fill(deltaR(ep, mm), weight);
       const FourMomentum epmm = ep + mm;
-      const double m_epmm = (epmm.mass2() > 0) ? epmm.mass() : 0; //< @todo Protection still needed?
+      const double m_epmm = (epmm.mass2() > 0) ? epmm.mass() : 0; ///< @todo Protection still needed?
       _h_ZeZm_m->fill(m_epmm/GeV, weight);
     }
 

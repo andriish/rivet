@@ -40,15 +40,15 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt(20.0*GeV);
+      Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 20*GeV, cmpMomByEt);
       double sumET_20(0.0), sumET_100(0.0);
       foreach (const Jet& jet, jets) {
         double ET = jet.Et()/GeV;
         sumET_20 += ET;
-        if (ET>100.0) sumET_100 += ET;
+        if (ET > 100.0) sumET_100 += ET;
       }
-      if (sumET_20>320.0) _h_sumET_20->fill(sumET_20, weight);
-      if (sumET_100>320.0) _h_sumET_100->fill(sumET_100, weight);
+      if (sumET_20 > 320.0) _h_sumET_20->fill(sumET_20, weight);
+      if (sumET_100 > 320.0) _h_sumET_100->fill(sumET_100, weight);
     }
 
 

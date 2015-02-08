@@ -30,7 +30,7 @@ namespace Rivet {
       addProjection(fs, "FS");
 
       // Leading electrons in tracking acceptance
-      IdentifiedFinalState elfs(-5.0, 5.0, 25.0*GeV);
+      IdentifiedFinalState elfs(Cuts::abseta < 5 && Cuts::pT < 25*GeV);
       elfs.acceptIdPair(PID::ELECTRON);
       addProjection(elfs, "LeadingElectrons");
 

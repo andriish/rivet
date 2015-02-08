@@ -134,14 +134,14 @@ namespace Rivet {
   PARTICLE_TO_PID_BOOLFN(isCharmHadron)
 
 
-  /// Determine if the PID is that of a strange meson
-  PARTICLE_TO_PID_BOOLFN(isStrangeMeson)
+  // /// Determine if the PID is that of a strange meson
+  // PARTICLE_TO_PID_BOOLFN(isStrangeMeson)
 
-  /// Determine if the PID is that of a strange baryon
-  PARTICLE_TO_PID_BOOLFN(isStrangeBaryon)
+  // /// Determine if the PID is that of a strange baryon
+  // PARTICLE_TO_PID_BOOLFN(isStrangeBaryon)
 
-  /// Determine if the PID is that of a strange hadron
-  PARTICLE_TO_PID_BOOLFN(isStrangeHadron)
+  // /// Determine if the PID is that of a strange hadron
+  // PARTICLE_TO_PID_BOOLFN(isStrangeHadron)
 
 
 

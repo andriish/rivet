@@ -11,8 +11,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2012_I1117704 : public Analysis {
   public:
@@ -37,27 +35,26 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      IdentifiedFinalState elecs(etaIn(-2.47, 2.47) & (pT >= 20.0*GeV));
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
-      IdentifiedFinalState muons(etaIn(-2.4, 2.4) & (pT >= 10.0*GeV));
+      IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
       // for pTmiss
-      addProjection(VisibleFinalState(-4.9,4.9),"vfs");
+      addProjection(VisibleFinalState(Cuts::abseta < 4.9), "vfs");
 
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
 
       /// Jet finder
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4),
-                    "AntiKtJets04");
+      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
-      addProjection(ChargedFinalState(-3.0,3.0),"cfs");
+      addProjection(ChargedFinalState(Cuts::abseta < 3),"cfs");
 
       /// Book histograms
       _etmiss_HT_7j55 = bookHisto1D("etmiss_HT_7j55", 8, 0., 16.);
@@ -97,10 +94,10 @@ namespace Rivet {
       Particles cand_mu;
       Particles chg_tracks =
         applyProjection<ChargedFinalState>(event, "cfs").particles();
-      foreach ( const Particle & mu,
+      foreach ( const Particle& mu,
                 applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
         double pTinCone = -mu.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        foreach ( const Particle& track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.pT();
         }
@@ -118,7 +115,7 @@ namespace Rivet {
         // candidates after |eta| < 2.8
         if ( fabs( jet.eta() ) >= 2.8 ) continue;
         bool away_from_e = true;
-        foreach ( const Particle & e, cand_e ) {
+        foreach ( const Particle& e, cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
             away_from_e = false;
             break;
@@ -129,7 +126,7 @@ namespace Rivet {
 
       // only keep electrons more than R=0.4 from jets
       Particles recon_e;
-      foreach ( const Particle & e, cand_e ) {
+      foreach ( const Particle& e, cand_e ) {
         bool away = true;
         foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
@@ -143,7 +140,7 @@ namespace Rivet {
 
       // only keep muons more than R=0.4 from jets
       Particles recon_mu;
-      foreach ( const Particle & mu, cand_mu ) {
+      foreach ( const Particle& mu, cand_mu ) {
         bool away = true;
         foreach ( const Jet& jet, recon_jets ) {
           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
@@ -159,7 +156,7 @@ namespace Rivet {
       Particles vfs_particles =
         applyProjection<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      foreach ( const Particle& p, vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();

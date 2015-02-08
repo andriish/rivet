@@ -4,8 +4,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   /// @brief ATLAS Z pT in Drell-Yan events at 7 TeV
   /// @author Elena Yatsenko, Judith Katzy
@@ -30,7 +28,7 @@ namespace Rivet {
 
       // Set up projections
       FinalState fs;
-      Cut cut = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
+      Cut cut = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
 
       ZFinder zfinder_dressed_el(fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       addProjection(zfinder_dressed_el, "ZFinder_dressed_el");

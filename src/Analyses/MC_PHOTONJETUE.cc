@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// @brief MC validation analysis for underlying event in jet + isolated photon events

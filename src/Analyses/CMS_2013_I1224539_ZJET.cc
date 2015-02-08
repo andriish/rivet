@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   class CMS_2013_I1224539_ZJET : public Analysis {
@@ -36,11 +36,11 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs(-2.4, 2.4, 0*GeV);
+      FinalState fs(Cuts::abseta < 2.4);
       addProjection(fs, "FS");
 
       // Find Zs with pT > 120 GeV
-      ZFinder zfinder(fs, etaIn(-2.4,2.4) & (pT >= 30.0*GeV), PID::ELECTRON, 80*GeV, 100*GeV,
+      ZFinder zfinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 30*GeV, PID::ELECTRON, 80*GeV, 100*GeV,
                       0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
 
       addProjection(zfinder, "ZFinder");

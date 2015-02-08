@@ -28,7 +28,7 @@ namespace Rivet {
     PromptFinalState(const FinalState& fsp);
 
     /// Cut constructor.
-    PromptFinalState(Cut c);
+    PromptFinalState(const Cut & c);
 
     /// Clone on the heap.
     virtual const Projection* clone() const {

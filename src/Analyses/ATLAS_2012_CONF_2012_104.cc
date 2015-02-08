@@ -10,25 +10,15 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
 
   class ATLAS_2012_CONF_2012_104 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-
     ATLAS_2012_CONF_2012_104()
       : Analysis("ATLAS_2012_CONF_2012_104")
     {    }
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -37,14 +27,12 @@ namespace Rivet {
     void init() {
 
       // projection to find the electrons
-      IdentifiedFinalState elecs(etaIn(-2.47, 2.47) 
-				 & (pT >= 10.0*GeV));
+      IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 10*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
       addProjection(elecs, "elecs");
 
       // projection to find the muons
-      IdentifiedFinalState muons(etaIn(-2.4, 2.4) 
-				 & (pT >= 10.0*GeV));
+      IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
       addProjection(muons, "muons");
 
@@ -54,10 +42,10 @@ namespace Rivet {
       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
-      addProjection(ChargedFinalState(-3.0,3.0,0.5*GeV),"cfs");
+      addProjection(ChargedFinalState(Cuts::abseta < 3 && Cuts::pT > 0.5*GeV), "cfs");
 
       // for pTmiss
-      addProjection(VisibleFinalState(-4.9,4.9),"vfs");
+      addProjection(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
       // Book histograms
       _count_e  = bookHisto1D("count_e" , 1, 0., 1.);

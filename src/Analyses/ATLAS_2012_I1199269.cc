@@ -43,7 +43,7 @@ namespace Rivet {
       fj.useJetArea(_area_def);
       addProjection(fj, "KtJetsD05");
 
-      IdentifiedFinalState photonfs(-2.37, 2.37, 22.0*GeV);
+      IdentifiedFinalState photonfs(Cuts::abseta < 2.37 && Cuts::pT > 22*GeV);
       photonfs.acceptId(PID::PHOTON);
       addProjection(photonfs, "Photon");
 

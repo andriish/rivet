@@ -14,23 +14,43 @@ namespace Rivet {
     /// @name Constructors
     //@{
 
-    /// Constructor with specific FinalState.
-    IdentifiedFinalState(const FinalState& fsp);
+    /// Constructor with a FinalState and optional list of PDG ID codes.
+    IdentifiedFinalState(const FinalState& fsp, const vector<PdgId>& pids=vector<PdgId>());
 
-    /// Constructor with a single eta range argument.
-    IdentifiedFinalState(double etamin=-MAXDOUBLE,
-                         double etamax=MAXDOUBLE,
-                         double ptMin=0.0*GeV);
+    /// Constructor with a list of PDG ID codes and a FinalState.
+    IdentifiedFinalState(const vector<PdgId>& pids, const FinalState& fsp);
 
-    // /// Constructor which allows to specify multiple eta ranges
-    // /// and the min \f$ p_T \f$.
-    // IdentifiedFinalState(const vector<pair<double, double> >& etaRanges,
-    //                      double ptMin=0.0*GeV);
+    /// Constructor with a FinalState and a single of PDG ID code.
+    IdentifiedFinalState(const FinalState& fsp, PdgId pid);
+
+    /// Constructor with a single PDG ID code and a FinalState.
+    IdentifiedFinalState(PdgId pid, const FinalState& fsp);
+
+
+    /// Construction using optional Cuts object and optional list of PDG ID codes
+    IdentifiedFinalState(const Cut& c=Cuts::open(), const vector<PdgId>& pids=vector<PdgId>());
+
+    /// Construction using list of PDG ID codes and an optional Cuts object
+    IdentifiedFinalState(const vector<PdgId>& pids, const Cut& c=Cuts::open());
+
+    /// Construction using Cuts object and a single PDG ID code
+    IdentifiedFinalState(const Cut& c, PdgId pid);
+
+    /// Construction using a single PDG ID code and an optional Cuts object
+    IdentifiedFinalState(PdgId pid, const Cut& c=Cuts::open());
+
+
+    /// Constructor with eta range and pT_min arguments and optional list of PDG ID codes.
+    /// @deprecated Use the versions with Cut or FinalState arguments
+    DEPRECATED("Use the versions with Cut or FinalState arguments.")
+    IdentifiedFinalState(double etamin, double etamax, double ptMin=0.0*GeV);
+
 
     /// Clone on the heap.
     virtual const Projection* clone() const {
       return new IdentifiedFinalState(*this);
     }
+
     //@}
 
 

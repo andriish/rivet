@@ -12,7 +12,7 @@ namespace Rivet {
   }
 
 
-  PromptFinalState::PromptFinalState(Cut c)
+  PromptFinalState::PromptFinalState(const Cut & c)
     : _acceptMuDecays(false), _acceptTauDecays(false)
   {
     setName("PromptFinalState");

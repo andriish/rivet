@@ -8,6 +8,7 @@ namespace Rivet {
 
   /// @brief D0 Run I differential W/Z boson cross-section analysis
   /// @author Lars Sonnenschein
+  /// @author Andy Buckley
   class D0_2001_S4674421 : public Analysis {
   public:
 
@@ -71,20 +72,20 @@ namespace Rivet {
         double deltaM2=1e30,mass2(0.);
         double pT=-1.;
         const Particles& Zdaughters = eeFS.particles();
-        for(unsigned int ix=0;ix<Zdaughters.size();++ix) {
-          for(unsigned int iy=ix+1;iy<Zdaughters.size();++iy) {
-            if(Zdaughters[ix].pid()!=-Zdaughters[iy].pid()) continue;
+        for (size_t ix = 0; ix < Zdaughters.size(); ++ix) {
+          for (size_t iy = ix+1; iy < Zdaughters.size(); ++iy) {
+            if (Zdaughters[ix].pid()!=-Zdaughters[iy].pid()) continue;
             const FourMomentum pmom = Zdaughters[ix].momentum() + Zdaughters[iy].momentum();
             double mz2 = pmom.mass2();
-            double dm2 = abs(mz2-sqr(91.118*GeV));
-            if(dm2<deltaM2) {
+            double dm2 = fabs(mz2 - sqr(91.118*GeV));
+            if (dm2 < deltaM2) {
               pT = pmom.pT();
               deltaM2 = dm2;
               mass2 = mz2;
             }
           }
         }
-        if (pT>0. && mass2 > 0. && inRange(sqrt(mass2)/GeV, 75.0, 105.0)) {
+        if (pT > 0. && mass2 > 0. && inRange(sqrt(mass2)/GeV, 75.0, 105.0)) {
           _eventsFilledZ += weight;
           MSG_DEBUG("Z pmom.pT() = " << pT/GeV << " GeV");
           _h_dsigdpt_z->fill(pT/GeV, weight);
@@ -98,22 +99,22 @@ namespace Rivet {
 
       double deltaM2=1e30;
       double pT=-1.;
-      for(unsigned int iw=0;iw<2;++iw) {
+      for (size_t iw = 0; iw < 2; ++iw) {
         Particles Wdaughters;
-        Wdaughters = iw==0 ? enuFS.particles() : enubFS.particles();
-        for(unsigned int ix=0;ix<Wdaughters.size();++ix) {
-          for(unsigned int iy=ix+1;iy<Wdaughters.size();++iy) {
-            if(Wdaughters[ix].pid()==Wdaughters[iy].pid())  continue;
+        Wdaughters = (iw == 0) ? enuFS.particles() : enubFS.particles();
+        for (size_t ix = 0; ix < Wdaughters.size(); ++ix) {
+          for (size_t iy = ix+1; iy < Wdaughters.size(); ++iy) {
+            if (Wdaughters[ix].pid() == Wdaughters[iy].pid())  continue;
             const FourMomentum pmom = Wdaughters[0].momentum() + Wdaughters[1].momentum();
-            double dm2 = abs(pmom.mass2()-sqr(80.4*GeV));
-            if(dm2<deltaM2) {
+            double dm2 = abs(pmom.mass2() - sqr(80.4*GeV));
+            if (dm2 < deltaM2) {
               pT = pmom.pT();
               deltaM2 = dm2;
             }
           }
         }
       }
-      if(pT>0.) {
+      if (pT > 0.) {
         _eventsFilledW += weight;
         _h_dsigdpt_w->fill(pT/GeV, weight);
       }
@@ -132,8 +133,8 @@ namespace Rivet {
       const double xSecZ = xSecPerEvent * _eventsFilledZ;
 
       // Get W and Z pT integrals
-      const double wpt_integral = integral(_h_dsigdpt_w);
-      const double zpt_integral = integral(_h_dsigdpt_z);
+      const double wpt_integral = _h_dsigdpt_w->integral();
+      const double zpt_integral = _h_dsigdpt_z->integral();
 
       // Divide and scale ratio histos
       if (xSecW == 0 || wpt_integral == 0 || xSecZ == 0 || zpt_integral == 0) {

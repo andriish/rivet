@@ -48,7 +48,7 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event & event) {
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt();
+      const Jets jets = applyProjection<FastJets>(event, "Jets").jets(cmpMomByEt);
       MSG_DEBUG("Jet multiplicity before any cuts = " << jets.size());
 
       // ETs only from jets:

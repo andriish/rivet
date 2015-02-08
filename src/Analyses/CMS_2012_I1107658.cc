@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// Underlying event activity in the Drell-Yan process at 7 TeV
@@ -26,7 +26,7 @@ namespace Rivet {
     void init() {
 
       /// @note Using a bare muon Z (but with a clustering radius!?)
-      Cut cut = etaIn(-2.4,2.4) & (pT >= 20.0*GeV);
+      Cut cut = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       ZFinder zfinder(FinalState(), cut, PID::MUON, 4*GeV, 140*GeV, 0.2, ZFinder::NOCLUSTER);
       addProjection(zfinder, "ZFinder");
 
@@ -128,10 +128,10 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      if (integral(_h_Nchg_towards_zmass_81_101)    > 0) scale(_h_pT_towards_zmass_81_101,    1/integral(_h_Nchg_towards_zmass_81_101));
-      if (integral(_h_Nchg_transverse_zmass_81_101) > 0) scale(_h_pT_transverse_zmass_81_101, 1/integral(_h_Nchg_transverse_zmass_81_101));
-      if (integral(_h_Nchg_away_zmass_81_101)       > 0) scale(_h_pT_away_zmass_81_101,       1/integral(_h_Nchg_away_zmass_81_101));
-      if (integral(_h_Nchg_transverse_zpt_5)        > 0) scale(_h_pT_transverse_zpt_5,        1/integral(_h_Nchg_transverse_zpt_5));
+      scale(_h_pT_towards_zmass_81_101,    safediv(1, _h_Nchg_towards_zmass_81_101->integral(), 0));
+      scale(_h_pT_transverse_zmass_81_101, safediv(1, _h_Nchg_transverse_zmass_81_101->integral(), 0));
+      scale(_h_pT_away_zmass_81_101,       safediv(1, _h_Nchg_away_zmass_81_101->integral(), 0));
+      scale(_h_pT_transverse_zpt_5,        safediv(1, _h_Nchg_transverse_zpt_5->integral(), 0));
       normalize(_h_Nchg_towards_zmass_81_101);
       normalize(_h_Nchg_transverse_zmass_81_101);
       normalize(_h_Nchg_away_zmass_81_101);

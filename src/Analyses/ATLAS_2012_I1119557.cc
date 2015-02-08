@@ -49,8 +49,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       Jets jetAr[2];
-      jetAr[0] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(300.*GeV, MAXDOUBLE, -2.0, 2.0);
-      jetAr[1] = applyProjection<FastJets>(event, "AntiKT10").jetsByPt(300.*GeV, MAXDOUBLE, -2.0, 2.0);
+      jetAr[0] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT > 300*GeV && Cuts::abseta < 2.0);
+      jetAr[1] = applyProjection<FastJets>(event, "AntiKT10").jetsByPt(Cuts::pT > 300*GeV && Cuts::abseta < 2.0);
 
       for (size_t alg = 0; alg < 2; ++alg) {
         // Require at least one jet
@@ -245,7 +245,7 @@ namespace Rivet {
       const double phi0 = jet.phi();
       const double eta0 = jet.eta();
 
-      double nref[3]; //< @todo 3-vector to rotate x to? Use Rivet vector classes
+      double nref[3]; ///< @todo 3-vector to rotate x to? Use Rivet vector classes
       nref[0] = cos(phi0)/cosh(eta0);
       nref[1] = sin(phi0)/cosh(eta0);
       nref[2] = tanh(eta0);

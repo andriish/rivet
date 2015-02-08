@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
+  
 
 
   /// ATLAS W + jets production at 7 TeV
@@ -39,8 +39,8 @@ namespace Rivet {
       IdentifiedFinalState allleptons;
       allleptons.acceptIdPair(PID::ELECTRON);
       allleptons.acceptIdPair(PID::MUON);
-      Cut cuts = etaIn(-2.5, 2.5) & (pT >= 20.0*GeV);
-      DressedLeptons leptons(fs, allleptons, 0.1, true, cuts);
+      Cut cuts = Cuts::abseta < 2.5 && Cuts::pT > 20*GeV;
+      DressedLeptons leptons(fs, allleptons, 0.1, cuts);
       addProjection(leptons, "leptons");
 
       // Leading neutrinos for Etmiss

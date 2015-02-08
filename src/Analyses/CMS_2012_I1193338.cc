@@ -13,7 +13,6 @@ namespace Rivet {
       : Analysis("CMS_2012_I1193338")
     {    }
 
-  public:
 
     void init() {
       addProjection(ChargedFinalState(-2.4, 2.4, 0.2*GeV), "CFS");
@@ -39,7 +38,7 @@ namespace Rivet {
       double etapre = 0.;
       bool first = true;
 
-      foreach(const Particle& p, fs.particlesByEta()) { // sorted from minus to plus
+      foreach(const Particle& p, fs.particles(cmpMomByEta)) { // sorted from minus to plus
         if (first) { // First particle
           first = false;
           etapre = p.eta();
@@ -55,12 +54,8 @@ namespace Rivet {
 
 
       FourMomentum mxFourVector, myFourVector;
-      foreach(const Particle& p, fs.particlesByEta()) {
-        if (p.eta() > gapcenter) {
-          mxFourVector += p.momentum();
-        } else {
-          myFourVector += p.momentum();
-        }
+      foreach(const Particle& p, fs.particles(cmpMomByEta)) {
+        ((p.eta() > gapcenter) ? mxFourVector : myFourVector) += p.momentum();
       }
       const double M2 = max(mxFourVector.mass2(), myFourVector.mass2());
       const double xi = M2/sqr(sqrtS()); // sqrt(s)=7000 GeV, note that units cancel

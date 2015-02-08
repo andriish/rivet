@@ -30,36 +30,23 @@ namespace Rivet {
     void init() {
       FinalState fs(-4.2, 4.2);
       addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-
       _h_mjj = bookHisto1D(1, 1, 1);
-
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByEt();
-      if (jets.size()<2) {
-        vetoEvent;
-      }
+      Jets jets = applyProjection<FastJets>(event, "Jets").jets(cmpMomByEt);
+      if (jets.size() < 2) vetoEvent;
       FourMomentum jet1 = jets[0].momentum();
       FourMomentum jet2 = jets[1].momentum();
       double eta1 = jet1.eta();
       double eta2 = jet2.eta();
-      if (fabs(eta1)>2.0 || fabs(eta2)>2.0) {
-        vetoEvent;
-      }
-      if (fabs(tanh((eta1-eta2)/2))>2.0/3.0) {
-        vetoEvent;
-      }
+      if (fabs(eta1) > 2.0 || fabs(eta2) > 2.0) vetoEvent;
+      if (fabs(tanh((eta1-eta2)/2)) > 2.0/3.0) vetoEvent;
       double mjj = FourMomentum(jet1+jet2).mass()/GeV;
-      if (mjj<180.0) {
-        vetoEvent;
-      }
-      _h_mjj->fill(mjj, weight);
-
+      if (mjj < 180) vetoEvent;
+      _h_mjj->fill(mjj, event.weight());
     }
 
 
@@ -69,12 +56,12 @@ namespace Rivet {
     }
 
     //@}
+
+
   private:
 
-    /// @name Histograms
-    //@{
+    /// Histogram
     Histo1DPtr _h_mjj;
-    //@}
 
   };
 
@@ -82,5 +69,6 @@ namespace Rivet {
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(CDF_2000_S4266730);
+
 
 }

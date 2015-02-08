@@ -31,15 +31,15 @@ namespace Rivet {
       double etapre = 0.;
       bool first = true;
 
-      foreach(const Particle& p, fs.particlesByEta()) { // sorted from minus to plus
+      foreach(const Particle& p, fs.particles(cmpMomByEta)) { // sorted from minus to plus
         if (first) { // First particle
           first = false;
           etapre = p.eta();
         } else {
-          double gap = fabs(p.eta()-etapre);
+          double gap = fabs(p.eta() - etapre);
           if (gap > LRG) {
             LRG = gap; // largest gap
-            gapcenter = (p.eta()+etapre)/2.; // find the center of the gap to separate the X and Y systems.
+            gapcenter = (p.eta() + etapre)/2.; // find the center of the gap to separate the X and Y systems.
           }
           etapre = p.eta();
         }
@@ -47,12 +47,8 @@ namespace Rivet {
 
 
       FourMomentum mxFourVector, myFourVector;
-      foreach(const Particle& p, fs.particlesByEta()) {
-        if (p.eta() > gapcenter) {
-          mxFourVector += p.momentum();
-        } else {
-          myFourVector += p.momentum();
-        }
+      foreach(const Particle& p, fs.particles(cmpMomByEta)) {
+        ((p.eta() > gapcenter) ? mxFourVector : myFourVector) += p.momentum();
       }
       const double M2 = max(mxFourVector.mass2(), myFourVector.mass2());
       const double xi = M2/sqr(sqrtS()); // sqrt(s)=7000 GeV, note that units cancel

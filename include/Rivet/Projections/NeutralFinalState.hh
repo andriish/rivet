@@ -14,14 +14,24 @@ namespace Rivet {
 
     /// @name Constructors
     //@{
-    NeutralFinalState(const FinalState& fsp)  : _Etmin(0.0*GeV) {
+
+    /// Construction from another FinalState
+    NeutralFinalState(const FinalState& fsp, double etmin=0*GeV)
+      : _Etmin(etmin)
+    {
       setName("NeutralFinalState");
       addProjection(fsp, "FS");
     }
 
-    NeutralFinalState(double mineta = -MAXDOUBLE,
-                      double maxeta =  MAXDOUBLE,
-                      double minEt  =  0.0*GeV) : _Etmin(minEt)
+    /// Construction using Cuts object
+    NeutralFinalState(const Cut& c=Cuts::open()) : _Etmin(0.0*GeV) {
+      setName("NeutralFinalState");
+      addProjection(FinalState(c), "FS");
+    }
+
+    /// Construction from explicit eta range and min ET cut values
+    NeutralFinalState(double mineta, double maxeta, double etmin=0*GeV)
+      : _Etmin(etmin)
     {
       setName("NeutralFinalState");
       addProjection(FinalState(mineta, maxeta, 0.0*GeV), "FS");
@@ -31,7 +41,9 @@ namespace Rivet {
     virtual const Projection* clone() const {
       return new NeutralFinalState(*this);
     }
+
     //@}
+
 
   protected:
 

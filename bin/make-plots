@@ -49,7 +49,9 @@ pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 
 def fuzzyeq(a, b, tolerance=1e-6):
     "Fuzzy equality comparison function for floats, with given fractional tolerance"
-    if (a == 0 and abs(b) < 1e-12) or (b==0 and abs(a) < 1e-12):
+    # if type(a) is not float or type(a) is not float:
+    #     print a, b
+    if (a == 0 and abs(b) < 1e-12) or (b == 0 and abs(a) < 1e-12):
         return True
     return 2.0*abs(a-b)/abs(a+b) < tolerance
 
@@ -1574,6 +1576,7 @@ class Histogram(DrawableObject):
         return distance
 
     def draw(self,coors):
+        seen_nan = False
         out = ""
         out += self.startclip()
         out += self.startpsset()
@@ -1602,7 +1605,11 @@ class Histogram(DrawableObject):
                                 + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
             if self.getErrorBars():
                 for i in range(len(self.data)):
-                    if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]: continue
+                    if isnan(self.data[i]['Content']) or isnan(self.data[i]['Error'][0]) or isnan(self.data[i]['Error'][1]):
+                        seen_nan = True
+                        continue
+                    if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
+                        continue
                     out += ('\psline')
                     out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
@@ -1624,6 +1631,9 @@ class Histogram(DrawableObject):
                 else:
                     out += '(-0.1, -0.1)\n'
             for i in range(len(self.data)):
+                if isnan(self.data[i]['Content']):
+                    seen_nan = True
+                    continue
                 if self.getSmoothLine():
                     out += ('(' + coors.strphys2frameX(0.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
@@ -1650,12 +1660,18 @@ class Histogram(DrawableObject):
         #
         if self.getPolyMarker() != '':
             for i in range(len(self.data)):
-                if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]: continue
+                if isnan(self.data[i]['Content']):
+                    seen_nan = True
+                    continue
+                if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
+                    continue
                 out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
                             + coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
                             + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
         out += self.stoppsset()
         out += self.stopclip()
+        if seen_nan:
+            print "WARNING: NaN-valued value or error bar!"
         return out
 
     # def is2dimensional(self):
@@ -1858,6 +1874,8 @@ class Ticks(object):
     def draw_ticks(self, min, max, plotlog=False, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
         out = ""
         if plotlog:
+            if min <= 0 or max <= 0:
+                raise Exception("Cannot place log axis min or max tick <= 0")
             if len(custommajorticks) ==0:
                 x=int(log10(min))
                 n_labels=0
@@ -1996,8 +2014,9 @@ class XTicks(Ticks):
         out += ('\n%\n% X-Ticks\n%\n')
         out += ('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
         out += ('\\def\\minortickmarkx{\\psline[linewidth='+self.minorticklinewidth+'](0,0)(0,'+self.minorticklength+')}%\n')
+        uselog = self.description['LogX'] and (self.coors.xmin() > 0 and self.coors.xmax() > 0)
         out += self.draw_ticks(self.coors.xmin(), self.coors.xmax(),\
-                                   plotlog=self.description['LogX'],\
+                                   plotlog=uselog,\
                                    custommajorticks=custommajorticks,\
                                    customminorticks=customminorticks,\
                                    custommajortickmarks=custommajortickmarks,\
@@ -2030,7 +2049,7 @@ class XTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value,self.description['LogX'])
+            label=self.get_ticklabel(value, self.description['LogX'] and (self.coors.xmin() > 0 and self.coors.xmax() > 0))
         return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut{}'+label+'}}\n')
 
 
@@ -2044,8 +2063,9 @@ class YTicks(Ticks):
         out += ('\n%\n% Y-Ticks\n%\n')
         out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
         out += ('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
+        uselog = self.description['LogY'] and (self.coors.ymin() > 0 and self.coors.ymax() > 0)
         out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),\
-                                   plotlog=self.description['LogY'],\
+                                   plotlog=uselog,\
                                    custommajorticks=custommajorticks,\
                                    customminorticks=customminorticks,\
                                    custommajortickmarks=custommajortickmarks,\
@@ -2069,7 +2089,7 @@ class YTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value,self.description['LogY'])
+            label=self.get_ticklabel(value, self.description['LogY'] and (self.coors.ymin() > 0 and self.coors.ymax() > 0))
         if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode']=='deviation' \
                 and self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']:
             return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n')
@@ -2136,7 +2156,7 @@ class Coordinates(object):
 
     def phys2frameY(self, y):
         if self.description['LogY']:
-            if y>0:
+            if y > 0 and self.ymin() > 0 and self.ymax() > 0:
                 result = 1.*(log10(y)-log10(self.ymin()))/(log10(self.ymax())-log10(self.ymin()))
             else:
                 return -10
@@ -2232,10 +2252,10 @@ def process_datfile(datfile):
     texfile = open(texpath, 'w')
     p = Plot(inputdata)
     texfile.write(p.write_header(inputdata))
-    if not (inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0'):
+    if inputdata.description.get('MainPlot', '1') == '1':
         mp = MainPlot(inputdata)
         texfile.write(mp.draw(inputdata))
-    if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
+    if not inputdata.description.get('is2dim', False) and inputdata.description.get('RatioPlot', '1') == '1':
         rp = RatioPlot(inputdata)
         texfile.write(rp.draw(inputdata))
     texfile.write(p.write_footer())

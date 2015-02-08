@@ -37,7 +37,7 @@ namespace Rivet {
       // Consider the final state jets for the energy density calculation
       FastJets fj(fs, FastJets::KT, 0.5);
       /// @todo Memory leak! (Once per run, not serious)
-      _area_def = new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()); //< @todo FastJets should deep copy the pointer if possible
+      _area_def = new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()); ///< @todo FastJets should deep copy the pointer if possible
       fj.useJetArea(_area_def);
       addProjection(fj, "KtJetsD05");
 

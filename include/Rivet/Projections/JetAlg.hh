@@ -36,75 +36,113 @@ namespace Rivet {
       _useInvisibles = useinvis;
     }
 
+
     /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts
-    /// @todo Update to use Cuts
-    virtual Jets jets(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                      double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-                      RapScheme rapscheme=PSEUDORAPIDITY) const {
-      const Jets rawjets = _jets(ptmin);
+    /// @todo Can't this be a const Cut& arg?
+    virtual Jets jets(const Cut & c = Cuts::open()) const {
+      const Jets rawjets = _jets(0.0); // arg means no pT cut
+      // Just return a copy of rawjets if the cut is open
+      if (c == Cuts::open()) return rawjets;
+      // If there is a non-trivial cut...
       Jets rtn;
-      MSG_DEBUG("Raw jet size (with pTmin cut = " << ptmin/GeV << " GeV) = " << rawjets.size());
-      foreach (const Jet& j, rawjets) {
-        const FourMomentum pj = j.momentum();
-        if (!inRange(pj.pT(), ptmin, ptmax)) continue;
-        if (rapscheme == PSEUDORAPIDITY && !inRange(pj.eta(), rapmin, rapmax)) continue;
-        if (rapscheme == RAPIDITY && !inRange(pj.rapidity(), rapmin, rapmax)) continue;
-        rtn += j;
-      }
+      rtn.reserve(size());
+      foreach (const Jet& j, rawjets)
+        if (c->accept(j)) rtn.push_back(j);
       return rtn;
     }
 
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @todo Update to use Cuts
     template <typename F>
-    Jets jets(F sorter,
-              double ptmin=0.0, double ptmax=MAXDOUBLE,
-              double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-              RapScheme rapscheme=PSEUDORAPIDITY) const {
-      Jets js = jets(ptmin, ptmax, rapmin, rapmax, rapscheme);
-      if (sorter != 0) {
-        std::sort(js.begin(), js.end(), sorter);
-      }
-      return js;
+    Jets jets(F sorter, const Cut & c = Cuts::open()) const {
+      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
+      return sortBy(jets(c), sorter);
     }
 
-    /// Get the jets, ordered by \f$ p_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @todo Update to use Cuts
-    Jets jetsByPt(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-                  RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpMomByPt, ptmin, ptmax, rapmin, rapmax, rapscheme);
+    template <typename F>
+    Jets jets(const Cut & c ,  F sorter) const {
+      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
+      return sortBy(jets(c), sorter);
     }
+
+
+    /// Get the jets, ordered by \f$ p_T \f$, with optional cuts.
+    ///
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    ///
+    /// This is a very common use-case, so is available as syntatic sugar for jets(c, cmpMomByPt).
+    /// @todo The other sorted accessors should be removed in a cleanup.
+    Jets jetsByPt(const Cut & c = Cuts::open()) const {
+      return jets(c, cmpMomByPt);
+    }
+
+
+    /// @name Old sorted jet accessors
+    /// @deprecated Use the versions with sorter function arguments
+    //@{
 
     /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @todo Update to use Cuts
-    Jets jetsByP(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                 double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-                 RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpMomByP, ptmin, ptmax, rapmin, rapmax, rapscheme);
+    /// @deprecated Use the version with a sorter function argument.
+    DEPRECATED("Use the version with a sorter function argument.")
+    Jets jetsByP(const Cut & c = Cuts::open()) const {
+      return jets(c, cmpMomByP);
     }
 
     /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @todo Update to use Cuts
-    Jets jetsByE(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                 double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-                 RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpMomByE, ptmin, ptmax, rapmin, rapmax, rapscheme);
+    /// @deprecated Use the version with a sorter function argument.
+    DEPRECATED("Use the version with a sorter function argument.")
+    Jets jetsByE(const Cut & c = Cuts::open()) const {
+      return jets(c, cmpMomByE);
     }
 
     /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @todo Update to use Cuts
-    Jets jetsByEt(double ptmin=0.0, double ptmax=MAXDOUBLE,
-                  double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-                  RapScheme rapscheme=PSEUDORAPIDITY) const {
-      return jets(cmpMomByEt, ptmin, ptmax, rapmin, rapmax, rapscheme);
+    /// @deprecated Use the version with a sorter function argument.
+    DEPRECATED("Use the version with a sorter function argument.")
+    Jets jetsByEt(const Cut & c = Cuts::open()) const {
+      return jets(c, cmpMomByEt);
     }
+
+    //@}
+
+
+    /// @name Old jet accessors
+    /// @deprecated Use the versions with Cut arguments
+    //@{
+
+    /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    ///
+    /// @deprecated Use the version with a Cut argument
+    /// @note Returns a copy rather than a reference, due to cuts
+    DEPRECATED("Use the version with a Cut argument.")
+    Jets jets(double ptmin, double ptmax=MAXDOUBLE,
+              double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
+              RapScheme rapscheme=PSEUDORAPIDITY) const {
+      if (rapscheme == PSEUDORAPIDITY) {
+        return jets((Cuts::pT >= ptmin) & (Cuts::pT < ptmax) & (Cuts::rapIn(rapmin, rapmax)));
+      } else if (rapscheme == RAPIDITY) {
+        return jets((Cuts::pT >= ptmin) & (Cuts::pT < ptmax) & (Cuts::etaIn(rapmin, rapmax)));
+      }
+      throw LogicError("Unknown rapidity scheme. This shouldn't be possible!");
+    }
+
+    /// Get the jets, ordered by \f$ p_T \f$, with a cut on \f$ p_\perp \f$.
+    ///
+    /// @deprecated Use the version with a Cut argument
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    ///
+    /// This is a very common use-case, so is available as syntatic sugar for jets(Cuts::pT >= ptmin, cmpMomByPt).
+    /// @todo The other sorted accessors should be removed in a cleanup.
+    Jets jetsByPt(double ptmin) const {
+      return jets(Cuts::pT >= ptmin, cmpMomByPt);
+    }
+
+    //@}
 
 
   protected:
@@ -113,8 +151,8 @@ namespace Rivet {
     /// An optional cut on min \f$ p_\perp \f$ is applied in this function, since that is
     /// directly supported by FastJet and it seems a shame to not make use of that. But
     /// all other jet cuts are applied at the @c ::jets() function level.
-    /// @todo Update to use Cuts?
-    virtual Jets _jets(double ptmin) const = 0;
+    /// @todo Remove the ptmin cut
+    virtual Jets _jets(double ptmin=0) const = 0;
 
 
   public:
