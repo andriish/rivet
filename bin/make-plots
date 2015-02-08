@@ -153,6 +153,26 @@ class Inputdata(object):
         self.description['DrawOnly']=sortedhistolist
 
 
+        # inherit various values from histograms if not explicitly
+        # set.
+        for k in ['LogX', 'LogY', 'LogZ', 'XLabel', 'YLabel', 'ZLabel']:
+            self.inherit_from_histos(k)
+
+        return
+
+
+    def inherit_from_histos(self, k):
+        # note: this will inherit the key from a random histogram:
+        # only use if you're sure all histograms have this key!
+        if not self.description.has_key(k):
+            h = self.histos.itervalues().next()
+            if h.description.has_key(k):
+                self.description[k] = h.description[k]
+
+        return
+
+
+
     def read_input(self, f):
         for line in f:
             if is_end_marker(line, 'PLOT'):
