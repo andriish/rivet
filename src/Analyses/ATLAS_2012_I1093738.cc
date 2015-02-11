@@ -191,7 +191,7 @@ namespace Rivet {
       FourMomentum mom_in_EtCone;
       float iso_dR = 0.4;
       float cluster_eta_width = 0.25*7.0;
-      float cluster_phi_width = (PI/128.)*5.0;
+      float cluster_phi_width = (PI/128.)*7.0;
       foreach (const Particle& p, fs) {
         // check if it's in the cone of .4
         if (deltaR(eta_P, phi_P, p.eta(), p.phi()) >= iso_dR) continue;
