@@ -123,7 +123,7 @@ namespace Rivet {
           // Reject if not in cone
           if (deltaR(photon.momentum(), p.momentum()) > 0.4) continue;
           // Reject if in the 5x7 cell central core
-          if (fabs(eta_P - p.eta()) < 0.025 * 7 * 0.5 &&
+          if (fabs(eta_P - p.eta()) < 0.025 * 5 * 0.5 &&
               fabs(phi_P - p.phi()) < PI/128. * 7 * 0.5) continue;
           // Sum momentum
           mom_in_EtCone += p.momentum();
