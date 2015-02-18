@@ -97,6 +97,7 @@ for yodafile in yodafiles:
         else:
             sys.exit(2)
     analysisobjects = yoda.read(yodafilepath)
+
     for path, ao in analysisobjects.iteritems():
         ## If regexes have been provided, only add analyses which match and don't unmatch
         pathparts = path.strip('/').split('/')
@@ -106,22 +107,23 @@ for yodafile in yodafiles:
         analysis = "_".join(pathparts[:-1]) if len(pathparts) > 1 else "ANALYSIS"
         if analysis in analyses.union(blocked_analyses):
             continue
+        import re
+        matched = True
         if opts.PATHPATTERNS:
-            import re
             matched = False
             for patt in opts.PATHPATTERNS:
                 if re.search(patt, analysis) is not None:
                     matched = True
                     break
-            if matched and opts.PATHUNPATTERNS:
-                for patt in opts.PATHUNPATTERNS:
-                    if re.search(patt, analysis):
-                        matched = False
-                        break
-            if not matched:
-                blocked_analyses.add(analysis)
-                continue
-        analyses.add(analysis)
+        if matched and opts.PATHUNPATTERNS:
+            for patt in opts.PATHUNPATTERNS:
+                if re.search(patt, analysis) is not None:
+                    matched = False
+                    break
+        if matched:
+            analyses.add(analysis)
+        else:
+            blocked_analyses.add(analysis)
 
 
 ## Sort analyses: group ascending by analysis name (could specialise grouping by collider), then
