@@ -144,16 +144,6 @@ namespace Rivet {
     /// experimental analyses!
     bool hasAncestor(PdgId pdg_id) const;
 
-    /// @brief Determine whether the particle is from a hadron or tau decay
-    ///
-    /// Specifically, walk up the ancestor chain until a status 2 hadron or
-    /// tau is found, if at all.
-    ///
-    /// @note This question is valid in MC, but may not be perfectly answerable
-    /// experimentally -- use this function with care when replicating
-    /// experimental analyses!
-    bool fromDecay() const;
-
     /// @brief Determine whether the particle is from a b-hadron decay
     ///
     /// @note This question is valid in MC, but may not be perfectly answerable
@@ -181,12 +171,36 @@ namespace Rivet {
     // /// experimental analyses!
     // bool fromStrange() const;
 
+    /// @brief Determine whether the particle is from a hadron decay
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromHadron() const;
+
     /// @brief Determine whether the particle is from a tau decay
     ///
     /// @note This question is valid in MC, but may not be perfectly answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    bool fromTau() const;
+    bool fromTau(bool prompt_taus_only=false) const;
+
+    /// @brief Determine whether the particle is from a prompt tau decay
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromPromptTau() const { return fromTau(true); }
+
+    /// @brief Determine whether the particle is from a hadron or tau decay
+    ///
+    /// Specifically, walk up the ancestor chain until a status 2 hadron or
+    /// tau is found, if at all.
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
     //@}
 

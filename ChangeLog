@@ -1,5 +1,8 @@
 2015-02-24  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add Particle::fromHadron and Particle::fromPromptTau, and add a
+	boolean 'prompt' argument to Particle::fromTau.
+
 	* Fix WFinder use-transverse-mass property setting. Thanks to Christian Gutschow.
 
 2015-02-04  Andy Buckley  <andy.buckley@cern.ch>
