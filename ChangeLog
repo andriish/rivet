@@ -1,3 +1,11 @@
+2015-03-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add support for a PLOT meta-file argument to rivet-cmphistos.
+
+2015-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improved time reporting.
+
 2015-02-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add Particle::fromHadron and Particle::fromPromptTau, and add a
