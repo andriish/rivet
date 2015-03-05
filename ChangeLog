@@ -1,3 +1,7 @@
+2015-03-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Cuts-based constructors and other tidying in UnstableFinalState and HeavyHadrons
+
 2015-03-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add support for a PLOT meta-file argument to rivet-cmphistos.
