@@ -16,7 +16,9 @@ namespace Rivet {
     //@{
 
     /// Construction using Cuts object
-    ParticleFinder(const Cut & c = Cuts::open()) : _cuts(c), _theParticles() {}
+    ParticleFinder(const Cut& c=Cuts::open())
+      : _cuts(c), _theParticles()
+    { }
 
     /// Virtual destructor for inheritance
     virtual ~ParticleFinder() {}
@@ -184,6 +186,7 @@ namespace Rivet {
     virtual int compare(const Projection& p) const;
 
   protected:
+
     /// The applicable cuts
     Cut _cuts;
 
