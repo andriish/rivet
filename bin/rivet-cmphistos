@@ -175,7 +175,7 @@ def setStyle(ao, style):
                       'black!30']
 
     c = style % len(LINECOLORS)
-    s = style / len(LINECOLORS)
+    s = (style / len(LINECOLORS)) % len(LINESTYLES)
 
     ao.setAnnotation('LineStyle', '%s' % LINESTYLES[s])
     ao.setAnnotation('LineColor', '%s' % LINECOLORS[c])
