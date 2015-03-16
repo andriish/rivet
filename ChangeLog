@@ -1,3 +1,7 @@
+2015-03-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding missing compare() method to HeavyHadrons projection.
+
 2015-03-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding Cuts-based constructors and other tidying in UnstableFinalState and HeavyHadrons

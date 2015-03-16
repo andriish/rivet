@@ -82,6 +82,11 @@ namespace Rivet {
     /// Apply the projection to the event.
     virtual void project(const Event& e);
 
+    /// Compare projections (only difference is in UFS definition)
+    virtual int compare(const Projection& p) const {
+      return mkNamedPCmp(p, "UFS");
+    }
+
     /// b and c hadron containers
     Particles _theBs, _theCs;
 
