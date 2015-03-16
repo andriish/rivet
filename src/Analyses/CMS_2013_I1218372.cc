@@ -4,7 +4,7 @@
 // -*- C++ -*-
 // =============================
 //
-// Ratio of the energy deposited in the pseudorapditiy range
+// Ratio of the energy deposited in the pseudorapidity range
 // -6.6 < eta < -5.2 for events with a charged particle jet
 //
 // =============================
@@ -72,16 +72,16 @@ namespace Rivet {
       // ====================== Minimum Bias selection
 
       const FinalState& sfsv = applyProjection<FinalState>(event, "sfsv");
-      Particles parts = sfsv.particlesByRapidity();
+      Particles parts = sfsv.particles(cmpMomByRap);
       if (parts.empty()) vetoEvent;
 
       // find dymax
       double dymax = 0;
       int gap_pos  = -1;
-      for (size_t i=0; i < parts.size()-1; ++i) {
+      for (size_t i = 0; i < parts.size()-1; ++i) {
         double dy = parts[i+1].rapidity() - parts[i].rapidity();
         if (dy > dymax) {
-          dymax     = dy;
+          dymax = dy;
           gap_pos = i;
         }
       }

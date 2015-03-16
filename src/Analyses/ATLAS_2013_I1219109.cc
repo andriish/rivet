@@ -25,11 +25,11 @@ namespace Rivet {
       FinalState fs;
       addProjection(fs, "FinalState");
 
-      Cut cuts = Cuts::etaIn(-2.5,2.5) & (Cuts::pT >= 25.0*GeV);
+      Cut cuts = Cuts::abseta < 2.5 && Cuts::pT >= 25*GeV;
 
       // W finder for electrons and muons
       WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, MAXDOUBLE, 0.0, 0.1,
-                           WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
+                 WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
       addProjection(wf, "WF");
 
       // jets
@@ -38,9 +38,9 @@ namespace Rivet {
       FastJets fj(jet_fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();
       addProjection(fj, "Jets");
-      addProjection(HeavyHadrons(-2.5, 2.5, 5.0*GeV), "BHadrons");
+      addProjection(HeavyHadrons(Cuts::abseta < 2.5 && Cuts::pT > 5*GeV), "BHadrons");
 
-      
+
       // book histograms
       _njet     = bookHisto1D(1, 1, _mode); // dSigma / dNjet
       _jet1_bPt = bookHisto1D(2, 1, _mode); // dSigma / dBjetPt for Njet = 1

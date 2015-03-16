@@ -23,19 +23,20 @@ namespace Rivet {
       _sumW50 = 0;
       _sumWpT = 0;
 
-      FinalState fs(-2.4, 2.4, 20.0*GeV);
+      FinalState fs(Cuts::abseta < 2.4 && Cuts::pT > 20*GeV);
       addProjection(fs, "FS");
 
-      UnstableFinalState ufs(-2, 2, 15.0*GeV);
+      UnstableFinalState ufs(Cuts::abseta < 2 && Cuts::pT > 15*GeV);
       addProjection(ufs, "UFS");
 
-      Cut etacut = Cuts::abseta < 2.4;
+      Cut zetacut = Cuts::abseta < 2.4;
 
-      ZFinder zfindermu(fs, etacut, PID::MUON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
+      ZFinder zfindermu(fs, zetacut, PID::MUON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
       addProjection(zfindermu, "ZFinderMu");
 
-      ZFinder zfinderel(fs, etacut, PID::ELECTRON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
+      ZFinder zfinderel(fs, zetacut, PID::ELECTRON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
       addProjection(zfinderel, "ZFinderEl");
+
 
       // Histograms in non-boosted region of Z pT
       _h_dR_BB = bookHisto1D(1, 1, 1);

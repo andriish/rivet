@@ -26,12 +26,12 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      ChargedFinalState bbc1(-5.0,-3.5, 0.0*GeV); // beam-beam-counter trigger
-      ChargedFinalState bbc2( 3.5, 5.0, 0.0*GeV); // beam-beam-counter trigger
+      ChargedFinalState bbc1(Cuts::etaIn(-5.0, -3.5)); // beam-beam-counter trigger
+      ChargedFinalState bbc2(Cuts::etaIn( 3.5,  5.0)); // beam-beam-counter trigger
       addProjection(bbc1, "BBC1");
       addProjection(bbc2, "BBC2");
 
-      UnstableFinalState ufs(-2.5, 2.5, 0.0*GeV);
+      UnstableFinalState ufs(Cuts::abseta < 2.5);
       addProjection(ufs, "UFS");
 
       _h_pT_k0s        = bookHisto1D(1, 1, 1);

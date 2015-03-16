@@ -15,7 +15,7 @@ namespace Rivet {
 
   public:
     void init() {
-      const UnstableFinalState ufs(-15, 15);
+      const UnstableFinalState ufs(Cuts::abseta < 15);
       addProjection(ufs, "UFS");
 
       _histPtK0s        = bookHisto1D(1, 1, 1);
