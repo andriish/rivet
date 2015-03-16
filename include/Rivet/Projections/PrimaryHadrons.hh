@@ -20,13 +20,17 @@ namespace Rivet {
     /// @name Constructors and destructors.
     //@{
 
+    /// Constructor with cuts argument
+    PrimaryHadrons(const Cut& c=Cuts::open()) {
+      setName("PrimaryHadrons");
+      addProjection(UnstableFinalState(c), "UFS");
+    }
+
     /// Constructor with specification of the minimum and maximum pseudorapidity
     /// \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    PrimaryHadrons(double mineta = -MAXDOUBLE,
-                   double maxeta =  MAXDOUBLE,
-                   double minpt  =  0.0*GeV) {
+    PrimaryHadrons(double mineta, double maxeta, double minpt=0.0*GeV) {
       setName("PrimaryHadrons");
-      addProjection(UnstableFinalState(mineta, maxeta, minpt), "UFS");
+      addProjection(UnstableFinalState(Cuts::etaIn(mineta, maxeta) && Cuts::pT > minpt), "UFS");
     }
 
 
@@ -36,6 +40,7 @@ namespace Rivet {
     }
 
     //@}
+
 
   protected:
 
