@@ -81,8 +81,8 @@ namespace Rivet {
 
     double angle(const Vector3& v) const {
       const double localDotOther = unit().dot(v.unit());
-      if (fuzzyEquals(localDotOther, 1.0)) return 0.0;
-      else if (fuzzyEquals(localDotOther, -1.0)) return M_PI;
+      if (localDotOther > 1.0) return 0.0;
+      if (localDotOther < -1.0) return M_PI;
       return acos(localDotOther);
     }
 
