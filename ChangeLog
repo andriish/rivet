@@ -1,3 +1,8 @@
+2015-03-17  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Update Taufinder to use decaytyoe (can be HADRONIC, LEPTONIC or
+	ANY), in FastJet.cc --- set TauFinder mode to hadronic for tau-tagging
+
 2015-03-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding Cuts-based constructors and other tidying in UnstableFinalState and HeavyHadrons

@@ -53,7 +53,7 @@ namespace Rivet {
       _jdef = fastjet::JetDefinition(_plugin.get());
     }
     addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(), "Taus");
+    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
   }
 
   void FastJets::_init2(fastjet::JetAlgorithm type,
@@ -61,7 +61,7 @@ namespace Rivet {
     setName("FastJets");
     _jdef = fastjet::JetDefinition(type, rparameter, recom);
     addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(), "Taus");
+    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
   }
 
   void FastJets::_init3(fastjet::JetDefinition::Plugin* plugin) {
@@ -70,7 +70,7 @@ namespace Rivet {
     _plugin.reset(plugin);
     _jdef = fastjet::JetDefinition(_plugin.get());
     addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(), "Taus");
+    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
   }
 
 
