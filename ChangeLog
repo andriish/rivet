@@ -1,3 +1,28 @@
+2015-03-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Cuts-based constructor to PrimaryHadrons.
+
+	* Adding missing compare() method to HeavyHadrons projection.
+
+2015-03-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Cuts-based constructors and other tidying in UnstableFinalState and HeavyHadrons
+
+2015-03-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add support for a PLOT meta-file argument to rivet-cmphistos.
+
+2015-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improved time reporting.
+
+2015-02-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Particle::fromHadron and Particle::fromPromptTau, and add a
+	boolean 'prompt' argument to Particle::fromTau.
+
+	* Fix WFinder use-transverse-mass property setting. Thanks to Christian Gutschow.
+
 2015-02-04  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add more protection against math domain errors with log axes.

@@ -40,7 +40,7 @@ except:
 rivet.util.check_python_version()
 rivet.util.set_process_name("rivet")
 
-import time, logging, signal
+import time, datetime, logging, signal
 
 ## Parse command line options
 from optparse import OptionParser, OptionGroup
@@ -356,15 +356,16 @@ def logNEvt(n, starttime, maxevtnum):
         nevtloglevel = logging.INFO
     else:
         nevtloglevel = logging.DEBUG
-    timecurrent = time.time()
-    timeelapsed = timecurrent - starttime
-    if maxevtnum is None:
-        logging.log(nevtloglevel, "Event %d (%d s elapsed)" % (n, timeelapsed))
-    else:
-        timeleft = (maxevtnum-n)*timeelapsed/n
-        eta = time.strftime("%a %b %d %H:%M", time.localtime(timecurrent + timeleft))
-        logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s" %
-                    (n, timeelapsed, timeleft, eta))
+    currenttime = datetime.datetime.now().replace(microsecond=0)
+    elapsedtime = currenttime - starttime
+    logging.log(nevtloglevel, "Event %d (%s elapsed)" % (n, str(elapsedtime)))
+    # if maxevtnum is None:
+    #     logging.log(nevtloglevel, "Event %d (%s elapsed)" % (n, str(elapsedtime)))
+    # else:
+    #     remainingtime = (maxevtnum-n) * elapsedtime.total_seconds() / float(n)
+    #     eta = time.strftime("%a %b %d %H:%M", datetime.localtime(currenttime + remainingtime))
+    #     logging.log(nevtloglevel, "Event %d (%d s elapsed / %d s left) -> ETA: %s" %
+    #                 (n, elapsedtime, remainingtime, eta))
 
 
 ## Set up analysis handler
@@ -392,7 +393,9 @@ if opts.LIST_USED_ANALYSES is not None:
 
 ## Print platform type
 import platform
-logging.info("Rivet %s running on machine %s (%s)" % (rivet.version(), platform.node(), platform.machine()))
+starttime = datetime.datetime.now().replace(microsecond=0)
+logging.info("Rivet %s running on machine %s (%s) at %s" % \
+             (rivet.version(), platform.node(), platform.machine(), str(starttime)))
 
 
 def min_nonnull(a, b):
@@ -438,7 +441,6 @@ except TimeoutException, te:
 
 ## Event loop
 evtnum = 0
-starttime = time.time()
 for fileidx, hepmcfile in enumerate(HEPMCFILES):
     ## Apply a file-level weight derived from the filename
     hepmcfileweight = 1.0
@@ -491,9 +493,14 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             if evtnum % opts.HISTO_WRITE_INTERVAL == 0:
                 ah.writeData(opts.HISTOFILE)
 
-logging.info("Finished event loop")
-run.finalize()
+loopendtime = datetime.datetime.now().replace(microsecond=0)
+logging.info("Finished event loop at %s" % str(loopendtime))
+logging.info("Cross-section = %e pb" % ah.crossSection())
+print
 
 ## Finalize and write out data file
-print "Cross-section = %e pb" % ah.crossSection()
+run.finalize()
 ah.writeData(opts.HISTOFILE)
+print
+endtime = datetime.datetime.now().replace(microsecond=0)
+logging.info("Rivet run completed at %s, time elapsed = %s" % (str(endtime), str(endtime-starttime)))

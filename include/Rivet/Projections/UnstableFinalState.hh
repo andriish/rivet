@@ -28,7 +28,8 @@ namespace Rivet {
     //@{
 
     /// Cut-based / default constructor
-    UnstableFinalState(const Cut& c=Cuts::open()) : FinalState(c)
+    UnstableFinalState(const Cut& c=Cuts::open())
+      : FinalState(c)
     {
       setName("UnstableFinalState");
     }
@@ -37,10 +38,9 @@ namespace Rivet {
     ///
     /// May specify the minimum and maximum pseudorapidity \f$ \eta \f$ and the
     /// min \f$ p_T \f$
-    UnstableFinalState(double mineta,
-                       double maxeta,
-                       double minpt  =  0.0*GeV)
-      : FinalState(mineta, maxeta, minpt)
+    DEPRECATED("Use the version with a Cut argument")
+    UnstableFinalState(double mineta, double maxeta, double minpt=0.0*GeV)
+    : FinalState(Cuts::etaIn(mineta, maxeta) && Cuts::pT > minpt)
     {
       setName("UnstableFinalState");
     }

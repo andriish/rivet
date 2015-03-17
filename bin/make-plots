@@ -622,13 +622,11 @@ class MainPlot(Plot):
         return out
 
     def calculate_gof(self, inputdata):
-        refdata = None
-        if inputdata.description.has_key('GofReference') and inputdata.description['GofReference']!='':
-            refdata = inputdata.description['GofReference']
-        elif inputdata.description.has_key('RatioPlotReference') and inputdata.description['RatioPlotReference']!='':
-            refdata = inputdata.description['RatioPlotReference']
+        refdata = inputdata.description.get('GofReference')
+        if refdata is None:
+            refdata = inputdata.description.get('RatioPlotReference')
 
-        if refdata==None:
+        if refdata is None:
             inputdata.description['GofLegend'] = '0'
             inputdata.description['GofFrame'] = ''
             return
@@ -2255,7 +2253,9 @@ def process_datfile(datfile):
     if inputdata.description.get('MainPlot', '1') == '1':
         mp = MainPlot(inputdata)
         texfile.write(mp.draw(inputdata))
-    if not inputdata.description.get('is2dim', False) and inputdata.description.get('RatioPlot', '1') == '1':
+    if not inputdata.description.get('is2dim', False) and \
+           inputdata.description.get('RatioPlot', '1') == '1' and \
+           inputdata.description.get('RatioPlotReference') is not None:
         rp = RatioPlot(inputdata)
         texfile.write(rp.draw(inputdata))
     texfile.write(p.write_footer())
@@ -2419,11 +2419,11 @@ class MkPlotThread( threading.Thread ):
             except Queue.Empty, e:
                 #print "%s ending." % self.getName()
                 break
-            except Exception, e:
-                print "Error: %s" % str(e)
-                import traceback
-                logging.debug(traceback.format_exc())
-                #exit(1)
+            # except Exception, e:
+            #     print "Error: %s" % str(e)
+            #     import traceback
+            #     logging.debug(traceback.format_exc())
+            #     #exit(1)
 
 
 ####################

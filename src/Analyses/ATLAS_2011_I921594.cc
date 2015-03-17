@@ -82,8 +82,8 @@ namespace Rivet {
         // Check if it's outside the cone of 0.4
         if (deltaR(leadingPhoton, p) >= 0.4) continue;
         // Don't count particles in the 5x7 central core
-        if (deltaEta(leadingPhoton, p) < .025*7.0*0.5 &&
-            deltaPhi(leadingPhoton, p) < (PI/128.)*5.0*0.5) continue;
+        if (deltaEta(leadingPhoton, p) < .025*5.0*0.5 &&
+            deltaPhi(leadingPhoton, p) < (PI/128.)*7.0*0.5) continue;
         // Increment isolation energy
         mom_in_EtCone += p.momentum();
       }

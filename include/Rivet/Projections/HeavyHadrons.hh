@@ -24,11 +24,17 @@ namespace Rivet {
 
     /// Constructor with specification of the minimum and maximum pseudorapidity
     /// \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
-    HeavyHadrons(double mineta = -MAXDOUBLE,
-                 double maxeta =  MAXDOUBLE,
-                 double minpt  =  0.0*GeV) {
+    HeavyHadrons(const Cut& c=Cuts::open()) {
       setName("HeavyHadrons");
-      addProjection(UnstableFinalState(mineta, maxeta, minpt), "UFS");
+      addProjection(UnstableFinalState(c), "UFS");
+    }
+
+    /// Constructor with specification of the minimum and maximum pseudorapidity
+    /// \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
+    DEPRECATED("Use the version with a Cut argument")
+    HeavyHadrons(double mineta, double maxeta, double minpt=0.0*GeV) {
+      setName("HeavyHadrons");
+      addProjection(UnstableFinalState(Cuts::etaIn(mineta, maxeta) && Cuts::pT > minpt), "UFS");
     }
 
     /// Clone on the heap.
@@ -75,6 +81,11 @@ namespace Rivet {
 
     /// Apply the projection to the event.
     virtual void project(const Event& e);
+
+    /// Compare projections (only difference is in UFS definition)
+    virtual int compare(const Projection& p) const {
+      return mkNamedPCmp(p, "UFS");
+    }
 
     /// b and c hadron containers
     Particles _theBs, _theCs;

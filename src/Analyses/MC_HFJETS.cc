@@ -8,7 +8,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   class MC_HFJETS : public Analysis {
@@ -31,7 +31,7 @@ namespace Rivet {
       FastJets fj(FinalState(-5, 5), FastJets::ANTIKT, 0.6);
       fj.useInvisibles();
       addProjection(fj, "Jets");
-      addProjection(HeavyHadrons(-5, 5, 500*MeV), "BCHadrons");
+      addProjection(HeavyHadrons(Cuts::abseta < 5 && Cuts::pT > 500*MeV), "BCHadrons");
 
       _h_ptCJetLead = bookHisto1D("ptCJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
       _h_ptCHadrLead = bookHisto1D("ptCHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));

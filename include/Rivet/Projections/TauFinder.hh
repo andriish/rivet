@@ -36,9 +36,7 @@ namespace Rivet {
     //@}
 
 
-    /// Access to the found bosons
-    ///
-    /// @note Currently either 0 or 1 boson can be found.
+    /// Access to the found taus
     const Particles& taus() const { return _taus; }
 
 

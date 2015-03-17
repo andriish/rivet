@@ -4,7 +4,7 @@
 %prog - generate histogram comparison plots
 
 USAGE:
- %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value':...] [path/to/yodafile2 ...]
+ %prog [options] yodafile1[:'PlotOption1=Value':'PlotOption2=Value':...] [path/to/yodafile2 ...] [PLOT:Key1=Val1:...]
 
 where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
@@ -145,12 +145,12 @@ def parseArgs(args):
         has_title = False
         for i in xrange(1, len(asplit)):
             ## Add 'Title' if there is no = sign before math mode
-            if not '=' in asplit[i] or ('$' in asplit[i] and asplit[i].index('$') < asplit[i].index('=')):
+            if '=' not in asplit[i] or ('$' in asplit[i] and asplit[i].index('$') < asplit[i].index('=')):
                 asplit[i] = 'Title=%s' % asplit[i]
             if asplit[i].startswith('Title='):
                 has_title = True
             plotoptions[path].append(asplit[i])
-        if not has_title:
+        if path != "PLOT" and not has_title:
             plotoptions[path].append('Title=%s' % sanitiseString(os.path.basename( os.path.splitext(path)[0] )) )
     return filelist, plotoptions
 
@@ -175,7 +175,7 @@ def setStyle(ao, style):
                       'black!30']
 
     c = style % len(LINECOLORS)
-    s = style / len(LINECOLORS)
+    s = (style / len(LINECOLORS)) % len(LINESTYLES)
 
     ao.setAnnotation('LineStyle', '%s' % LINESTYLES[s])
     ao.setAnnotation('LineColor', '%s' % LINECOLORS[c])
@@ -230,6 +230,9 @@ if __name__ == '__main__':
     ## Split the input file names and the associated plotting options
     ## given on the command line into two separate lists
     filelist, plotoptions = parseArgs(args)
+    ## Remove the PLOT dummy file from the file list
+    if "PLOT" in filelist:
+        filelist.remove("PLOT")
 
     ## Read the .plot files
     plotdirs = opts.PLOTINFODIRS + [os.path.abspath(os.path.dirname(f)) for f in filelist]
@@ -260,6 +263,10 @@ if __name__ == '__main__':
         plot['LogY'] = '1'
         for key, val in plotparser.getHeaders(h).iteritems():
             plot[key] = val
+        if plotoptions.has_key("PLOT"):
+            for key_val in plotoptions["PLOT"]:
+                key, val = [s.strip() for s in key_val.split("=")]
+                plot[key] = val
         if opts.LINEAR:
             plot['LogY'] = '0'
         if opts.NOPLOTTITLE:
@@ -294,6 +301,8 @@ if __name__ == '__main__':
         ## Loop over the MC files to plot all instances of the histogram
         styleidx = 0
         for infile in filelist:
+            # if infile == "PLOT":
+            #     continue  ##< This isn't a real file!
             if mchistos.has_key(infile) and mchistos[infile].has_key(h):
                 ## Default linecolor, linestyle
                 setStyle(mchistos[infile][h], styleidx)

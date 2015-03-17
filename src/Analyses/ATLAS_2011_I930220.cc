@@ -22,7 +22,7 @@ namespace Rivet {
       FastJets fj(fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();
       addProjection(fj, "Jets");
-      addProjection(HeavyHadrons(-3.5, 3.5, 5*GeV), "BHadrons");
+      addProjection(HeavyHadrons(Cuts::abseta < 3.5 && Cuts::pT > 5*GeV), "BHadrons");
 
       double ybins[] = { 0.0, 0.3, 0.8, 1.2, 2.1 };
       for (size_t i = 0; i < 4; ++i)

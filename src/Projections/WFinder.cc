@@ -9,6 +9,7 @@
 
 namespace Rivet {
 
+
   WFinder::WFinder(const FinalState& inputfs,
                    const Cut& fsCut,
                    PdgId pid,
@@ -26,7 +27,7 @@ namespace Rivet {
     _masstarget = masstarget;
     _pid = pid;
     _trackPhotons = trackPhotons;
-    _useTransverseMass = (masstype == MASS);
+    _useTransverseMass = (masstype == TRANSMASS);
 
     // Check that the arguments are legal
     assert(abs(_pid) == PID::ELECTRON || abs(_pid) == PID::MUON);
