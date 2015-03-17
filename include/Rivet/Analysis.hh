@@ -617,8 +617,7 @@ namespace Rivet {
     /// Helper for histogram division with raw YODA objects.
     ///
     /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
-    void divide(const YODA::Histo1D& h1,
-                const YODA::Histo1D& h2, Scatter2DPtr s) const;
+    void divide(const YODA::Histo1D& h1, const YODA::Histo1D& h2, Scatter2DPtr s) const;
 
 
     /// Helper for profile histogram division.

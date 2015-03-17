@@ -14,23 +14,19 @@ namespace Rivet {
     {   }
 
 
-  public:
-
     /// Book histograms and initialise projections before the run
     void init() {
 
-      /// @todo Initialise and register projections here
-      ChargedFinalState cfs100(-2.5, 2.5, 0.1*GeV);
+      ChargedFinalState cfs100(Cuts::abseta < 2.5 && Cuts::pT > 0.1*GeV);
       addProjection(cfs100,"CFS100");
-      ChargedFinalState cfs500(-2.5, 2.5, 0.5*GeV);
+      ChargedFinalState cfs500(Cuts::abseta < 2.5 && Cuts::pT > 0.5*GeV);
       addProjection(cfs500,"CFS500");
-
 
       // collision energy
       int isqrts = -1;
-      if(     fuzzyEquals(sqrtS(), 900*GeV))  isqrts = 2;
-      else if(fuzzyEquals(sqrtS(),   7*TeV))  isqrts = 1;
-      assert(isqrts >= 0);
+      if (fuzzyEquals(sqrtS(), 900*GeV)) isqrts = 2;
+      if (fuzzyEquals(sqrtS(),   7*TeV)) isqrts = 1;
+      assert(isqrts > 0);
 
       _sE_10_100   = bookHisto1D(isqrts, 1, 1);
       _sE_1_100    = bookHisto1D(isqrts, 1, 2);
@@ -42,16 +38,17 @@ namespace Rivet {
 
       norm_inclusive = 0.;
       norm_lowPt = 0.;
-      norm_pt500 = 0.; 
-
+      norm_pt500 = 0.;
     }
+
 
     // Recalculate particle energy assuming pion mass
     double getPionEnergy(const Particle& p) {
       double m_pi = 0.1396*GeV;
       double p2 = p.p3().mod2()/(GeV*GeV);
-      return sqrt(pow(m_pi,2) + p2);
+      return sqrt(sqr(m_pi) + p2);
     }
+
 
     // S_eta core for one event
     //
@@ -68,6 +65,7 @@ namespace Rivet {
       }
       return std::norm(c_eta)/part.size() - 1.0;
     }
+
 
     // S_E core for one event
     //
@@ -87,6 +85,7 @@ namespace Rivet {
       return std::norm(c_E)/part.size() - 1.0;
     }
 
+
     // Convenient fill function
     void fillS(Histo1DPtr h, const Particles& part, double weight, bool SE=true) {
       // Loop over bins, take bin centers as parameter values
@@ -99,14 +98,15 @@ namespace Rivet {
         h->fill(x, y * width * weight);
         // Histo1D objects will be converted to Scatter2D objects for plotting
         // As part of this conversion, Rivet will divide by bin width
-        // However, we want the (x,y) of the Scatter2D to be the (binCenter, sumW) of 
+        // However, we want the (x,y) of the Scatter2D to be the (binCenter, sumW) of
         // the current Histo1D. This is why in the above line we multiply by bin width,
-        // so as to undo later division by bin width. 
+        // so as to undo later division by bin width.
         //
         // Could have used Scatter2D objects in the first place, but they cannot be merged
         // as easily as Histo1Ds can using yodamerge (missing ScaledBy attribute)
         }
     }
+
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
@@ -114,14 +114,14 @@ namespace Rivet {
 
       // Charged fs
       const ChargedFinalState& cfs100  = applyProjection<ChargedFinalState>(event, "CFS100");
-      const Particles          part100 = cfs100.particlesByEta();
+      const Particles          part100 = cfs100.particles(cmpMomByEta);
       const ChargedFinalState& cfs500  = applyProjection<ChargedFinalState>(event, "CFS500");
-      const Particles&         part500 = cfs500.particlesByEta();
+      const Particles&         part500 = cfs500.particles(cmpMomByEta);
 
       // Veto event if the most inclusive phase space has less than 10 particles and the max pT is > 10 GeV
-      if(part100.size() < 11)  vetoEvent;
+      if (part100.size() < 11) vetoEvent;
       double ptmax = cfs100.particlesByPt()[0].pT()/GeV;
-      if(ptmax > 10.0)  vetoEvent;
+      if (ptmax > 10.0) vetoEvent;
 
       // Fill the pt>100, pTmax<10 GeV histos
       fillS(_sE_10_100, part100, weight, true);
@@ -129,17 +129,17 @@ namespace Rivet {
       norm_inclusive += weight;
 
       // Fill the pt>100, pTmax<1 GeV histos
-      if(ptmax < 1.0) {
+      if (ptmax < 1.0) {
         fillS(_sE_1_100,   part100, weight, true);
         fillS(_sEta_1_100, part100, weight, false);
         norm_lowPt += weight;
       }
 
       // Fill the pt>500, pTmax<10 GeV histos
-      if(part500.size() > 10) {
+      if (part500.size() > 10) {
         fillS(_sE_10_500,   part500, weight, true );
         fillS(_sEta_10_500, part500, weight, false);
-        norm_pt500 += weight; 
+        norm_pt500 += weight;
       }
     }
 
@@ -157,6 +157,7 @@ namespace Rivet {
 
     //@}
 
+
   private:
 
     Histo1DPtr _sE_10_100;
@@ -169,10 +170,10 @@ namespace Rivet {
 
     double norm_inclusive;
     double norm_lowPt;
-    double norm_pt500; 
+    double norm_pt500;
   };
 
-  // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1091481);
-}
 
+  DECLARE_RIVET_PLUGIN(ATLAS_2012_I1091481);
+
+}

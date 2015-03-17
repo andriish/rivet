@@ -40,6 +40,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/DISLepton.hh      \
   Projections/DressedLeptons.hh \
   Projections/FastJets.hh       \
+  Projections/FinalPartons.hh     \
   Projections/FinalState.hh     \
   Projections/FoxWolframMoments.hh \
   Projections/FParameter.hh \

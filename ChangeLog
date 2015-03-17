@@ -3,6 +3,12 @@
 	* Update Taufinder to use decaytyoe (can be HADRONIC, LEPTONIC or
 	ANY), in FastJet.cc --- set TauFinder mode to hadronic for tau-tagging
 
+2015-03-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding Cuts-based constructor to PrimaryHadrons.
+
+	* Adding missing compare() method to HeavyHadrons projection.
+
 2015-03-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding Cuts-based constructors and other tidying in UnstableFinalState and HeavyHadrons

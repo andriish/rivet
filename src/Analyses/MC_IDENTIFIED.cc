@@ -5,8 +5,6 @@
 
 namespace Rivet {
 
-  
-
 
   /// Generic analysis looking at various distributions of final state particles
   /// @todo Rename as MC_HADRONS
@@ -28,9 +26,9 @@ namespace Rivet {
     void init() {
 
       // Projections
-      const FinalState cnfs(-5.0, 5.0, 500*MeV);
+      const FinalState cnfs(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV);
       addProjection(cnfs, "FS");
-      addProjection(UnstableFinalState(-5.0, 5.0, 500*MeV), "UFS");
+      addProjection(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV), "UFS");
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
