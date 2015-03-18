@@ -1,3 +1,7 @@
+2015-03-18  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add PDG_TAUS analysis which makes use of the TauFinder.
+
 2015-03-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Change UnstableFinalState duplicate resolution to use the last
