@@ -1,3 +1,8 @@
+2015-03-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change UnstableFinalState duplicate resolution to use the last
+	in a chain rather than the first.
+
 2015-03-17  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Update Taufinder to use decaytyoe (can be HADRONIC, LEPTONIC or
