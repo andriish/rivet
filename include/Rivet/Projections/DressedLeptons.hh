@@ -53,7 +53,7 @@ namespace Rivet {
     /// leptons (wish we had put the first two args the other way around...),
     /// a clustering delta(R) cone size around each bare lepton, and an optional
     /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)
-    /// The final two arguments are rarely
+    /// The final two arguments are rarely used.
     DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool cluster=true, bool useDecayPhotons=false);

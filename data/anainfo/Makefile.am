@@ -180,6 +180,8 @@ dist_pkgdata_DATA = \
   CMS_2013_I1265659.info \
   CMS_2013_I1272853.info \
   CMS_2013_I1273574.info \
+  CMS_2014_I1298810.info \
+  CMS_2014_I1303894.info \
   CMSTOTEM_2014_I1294140.info \
   CMS_2012_PAS_QCD_11_010.info \
   CMS_QCD_10_024.info \

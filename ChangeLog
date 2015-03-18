@@ -1,6 +1,11 @@
+2015-03-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding CMS_2014_I1298810 and CMS_2014_I1303894 analyses.
+
 2015-03-18  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Add PDG_TAUS analysis which makes use of the TauFinder.
+
 	* Add ATLAS 'traditional' Underlying Event in Z->mumu analysis.
 
 2015-03-18  Andy Buckley  <andy.buckley@cern.ch>
