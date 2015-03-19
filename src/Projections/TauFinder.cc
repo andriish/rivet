@@ -14,7 +14,6 @@ namespace Rivet {
       if (p.abspid() != PID::TAU) {
         continue;
       }
-      //cout << _dectype << " vs. " <<  isHadronic(p) << " vs. " <<  isLeptonic(p) << endl;
       if ( (_dectype==ANY) || (_dectype==LEPTONIC && isLeptonic(p)) || (_dectype==HADRONIC && isHadronic(p)) ) {
         _theParticles.push_back(p);
       }
