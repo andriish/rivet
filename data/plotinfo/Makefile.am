@@ -224,8 +224,10 @@ dist_pkgdata_DATA = \
   LHCB_2011_I917009.plot \
   LHCB_2011_I919315.plot \
   LHCB_2012_I1119400.plot \
+  LHCB_2012_I1208102.plot \
   LHCB_2013_I1208105.plot \
   LHCB_2013_I1218996.plot \
+  LHCB_2014_I1281685.plot \
   LHCF_2012_I1115479.plot \
   MC_DIJET.plot \
   MC_DIPHOTON.plot \
