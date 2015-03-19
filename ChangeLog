@@ -1,3 +1,7 @@
+2015-03-19  Chris Pollard <cpollard@cern.ch>
+
+	* Add ATLAS W and Z angular analyses (ATLAS_2011_I928289)
+
 2015-03-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add LHCb charged particle multiplicities and densities analysis (LHCB_2014_I1281685)
@@ -11,6 +15,8 @@
 	* Add ATLAS Z pT analysis (ATLAS_2014_I1300647).
 
 	* Add ATLAS low-mass Drell-Yan analysis (ATLAS_2014_I1288706).
+
+	* Add ATLAS gap fractions analysis (ATLAS_2014_I1307243).
 
 2015-03-18  Andy Buckley  <andy.buckley@cern.ch>
 
