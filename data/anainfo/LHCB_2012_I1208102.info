@@ -23,8 +23,8 @@ PtCuts: [20.]
 Description:
   'Measurement of the $pp \to \mathrm{Z}^0$ cross-section in the $\mathrm{Z}/\gamma \to e^{+}e^{-}$ mode at
    $\sqrt{s} = 7$ TeV. Daughter electrons are required to have $p_T > 20$ GeV/$c$, $2 < \eta < 4.5$ and the
-   dielectron invariant mass in range 60-120 GeV/$c^2$. The cross-section is given as a function of Z rapidity
-   and an angular variable ($\phi^*$) closely related to Z transverse momentum (derived from the lepton
+   dielectron invariant mass in range 60-120 GeV/$c^2$. The cross-section is given as a function of $Z$ rapidity
+   and an angular variable ($\phi^*$) closely related to $Z$ transverse momentum (derived from the lepton
    pseudorapidity and azimuthal angle differences). For event generators implementing cross-section QCD
    corrections only at LO the distributions are normalized to the cross-section measured in data $76.0
    \pm 0.8 \pm 2.0 \pm 2.6 \pm 0.4$ pb, where the first uncertainty is statistical, the second is systematic,
