@@ -53,11 +53,20 @@
 	* Update Taufinder to use decaytyoe (can be HADRONIC, LEPTONIC or
 	ANY), in FastJet.cc --- set TauFinder mode to hadronic for tau-tagging
 
+2015-03-16  Chris Pollard  <cpollard@cern.ch>
+
+	* Removed fuzzyEquals() from Vector3::angle()
+
 2015-03-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding Cuts-based constructor to PrimaryHadrons.
 
 	* Adding missing compare() method to HeavyHadrons projection.
+
+2015-03-15  Chris Pollard  <cpollard@cern.ch>
+
+	* Adding FinalPartons projection which selects the quarks and
+	gluons immediately before hadronization
 
 2015-03-05  Andy Buckley  <andy.buckley@cern.ch>
 
