@@ -1,5 +1,8 @@
 2015-03-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding ATLAS R-jets analysis i.e. ratios of W+jets and Z+jets
+	observables (ATLAS_2014_I1312627 and _EL, _MU variants)
+
 	* include/Rivet/Tools/ParticleUtils.hh: Adding same/oppSign and
 	same/opp/diffCharge functions, operating on two Particles.
 
