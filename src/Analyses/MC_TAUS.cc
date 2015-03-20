@@ -4,10 +4,8 @@
 
 namespace Rivet {
 
-  
 
-
-  /// @brief MC validation analysis for electrons
+  /// @brief MC validation analysis for taus
   class MC_TAUS : public MC_ParticleAnalysis {
   public:
 
