@@ -105,7 +105,8 @@ namespace Rivet {
 
     // Short hand
     bool contains(Particle& mother, int id, bool abs=false) {
-      return any(mother.children(), (abs ? HasAbsPID(id) : HasPID(id)));
+      if (abs) return any(mother.children(), HasAbsPID(id));
+      return any(mother.children(), HasPID(id));
     }
 
 
@@ -137,7 +138,7 @@ namespace Rivet {
       // There is no point in looking for decays with less particles than to be analysed
       if (mother.children().size() == ids.size()) {
         bool decayfound = true;
-        foreach(int id, ids) {
+        foreach (int id, ids) {
           if (!contains(mother, id, absolute)) decayfound = false;
         }
         return decayfound;
@@ -155,19 +156,19 @@ namespace Rivet {
       // There is no point in looking for decays with less particles than to be analysed
       if (mother.children().size() >= ids.size()) {
         bool decayfound = true;
-        foreach(int id, ids) {
+        foreach (int id, ids) {
           if (!contains(mother, id, absolute)) decayfound = false;
         }
         // Do not increment counters if the specified decay products were not found
         if (decayfound) {
           w_incl += e_weight; // the (global) weight counter for leptonic decays
-          bool radiative = any(mother.children(), HasPID(22, true));
+          bool radiative = any(mother.children(), HasPID(PID::PHOTON));
 
           // Only fill the histo if there is a radiative decay
           if (radiative) {
             // Iterate over decay products to find photon with 5MeV energy
-            foreach(const Particle& son, mother.children()) {
-              if (son.pid() ==22) {
+            foreach (const Particle& son, mother.children()) {
+              if (son.pid() == PID::PHOTON) {
                 // Require photons to have at least 5 MeV energy in the rest frame of the tau
                 // boosted taus
                 if (!mother.momentum().boostVector().isZero()) {
@@ -205,7 +206,7 @@ namespace Rivet {
     //@}
 
     double _weights_had, _weights_mu, _weights_el;
-    std::map<std::string, vector<int> > decay_pids;
+    map<string, vector<int> > decay_pids;
 
   };
 

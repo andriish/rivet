@@ -269,18 +269,18 @@ namespace Rivet {
 
   /// Base type for Particle -> bool functors
   struct BoolParticleFunctor {
-    virtual bool operator()(const Particle& p) = 0;
+    virtual bool operator()(const Particle& p) const = 0;
   };
 
   /// PID matching functor
-  struct HasPID : BoolParticleFunctor {
+  struct HasPID : public BoolParticleFunctor {
     HasPID(PdgId pid) : targetpid(pid) { }
     bool operator()(const Particle& p) const { return p.pid() == targetpid; }
     PdgId targetpid;
   };
 
   /// |PID| matching functor
-  struct HasAbsPID : BoolParticleFunctor {
+  struct HasAbsPID : public BoolParticleFunctor {
     HasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
     bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
     PdgId targetpid;
