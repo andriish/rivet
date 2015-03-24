@@ -5,13 +5,13 @@
 namespace Rivet {
 
 
-  /// @todo Neaten this up with C++11, via one waliker function and several uses with lamba tests
+  /// @todo Neaten this up with C++11, via one walker function and several uses with lamba tests
 
 
   bool Particle::hasAncestor(PdgId pdg_id) const {
     /// @todo Shouldn't a const vertex be being returned? Ah, HepMC...
     GenVertex* prodVtx = genParticle()->production_vertex();
-    if (prodVtx == 0) return false;
+    if (prodVtx == NULL) return false;
     foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
       if (ancestor->pdg_id() == pdg_id) return true;
     }
