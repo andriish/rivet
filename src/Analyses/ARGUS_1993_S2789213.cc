@@ -73,14 +73,13 @@ namespace Rivet {
         if (p.pid() == 300553 || p.pid() == 553) upsilons.push_back(p);
       // Then in whole event if that failed
       if (upsilons.empty()) {
-        foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
+        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
           if (p->pdg_id() != 300553 && p->pdg_id() != 553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            /// @todo Use better looping
-            for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin() ; pp != pv->particles_in_const_end() ; ++pp) {
-              if ( p->pdg_id() == (*pp)->pdg_id() ) {
+            foreach (const GenParticle* pp, particles_in(pv)) {
+              if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
               }

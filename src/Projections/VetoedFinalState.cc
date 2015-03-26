@@ -105,7 +105,7 @@ namespace Rivet {
     /// @todo Improve!
     for (ParentVetos::const_iterator vIt = _parentVetoes.begin(); vIt != _parentVetoes.end(); ++vIt) {
       for (Particles::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
-        GenVertex* startVtx = p->genParticle()->production_vertex();
+        const GenVertex* startVtx = p->genParticle()->production_vertex();
         bool veto = false;
         if (startVtx!=0) {
           /// @todo Use better HepMC iteration

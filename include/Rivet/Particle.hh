@@ -60,7 +60,7 @@ namespace Rivet {
     /// @name Basic particle specific properties
     //@{
 
-    /// Get a const reference to the original GenParticle.
+    /// Get a const pointer to the original GenParticle.
     const GenParticle* genParticle() const {
       return _original;
     }

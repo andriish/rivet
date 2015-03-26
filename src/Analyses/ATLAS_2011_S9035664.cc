@@ -49,7 +49,7 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         if (p.abspid() != 443) continue;
-        HepMC::GenVertex* gv = p.genParticle()->production_vertex();
+        const GenVertex* gv = p.genParticle()->production_vertex();
         bool nonPrompt = false;
         if (gv) {
           foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
