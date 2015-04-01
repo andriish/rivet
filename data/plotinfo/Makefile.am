@@ -191,6 +191,7 @@ dist_pkgdata_DATA = \
   CMSTOTEM_2014_I1294140.plot \
   CMS_2012_PAS_QCD_11_010.plot \
   CMS_QCD_10_024.plot \
+  CMS_2015_I1356998.plot \
   D0_1996_S3214044.plot \
   D0_1996_S3324664.plot \
   D0_2000_S4480767.plot \

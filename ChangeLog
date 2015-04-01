@@ -1,3 +1,9 @@
+2015-04-01  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add CMS 7 TeV rapidity gap analysis (CMS_2015_I1356998).
+	
+	* Remove FinalState Projection
+
 2015-03-30  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Add ATLAS 7 TeV photon + jets analysis (ATLAS_2013_I1244522).
