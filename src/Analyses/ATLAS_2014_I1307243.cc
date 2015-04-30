@@ -3,12 +3,9 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Tools/BinnedHistogram.hh"
-// BOOST
-#include <boost/format.hpp>
-#include <boost/assign/list_of.hpp>
-// STL
-#include <algorithm>
-#include <map>
+// // STL
+// #include <algorithm>
+// #include <map>
 
 namespace Rivet {
 
@@ -25,10 +22,10 @@ namespace Rivet {
       , _sumOfAcceptedWeights(0.)
     {
       // Cannot do this in initialiser list without C++11
-      _fiducialRegions = boost::assign::list_of<unsigned int>(2010)(2011);
-      _vetoScale = boost::assign::list_of<double>(20.*GeV)(30.*GeV);
-      _yFiducial = boost::assign::list_of<double>(4.4)(2.4);
-      _gapCategories = boost::assign::list_of<std::string>("inclusive")("gap");
+      _fiducialRegions += 2010, 2011;
+      _vetoScale += 20*GeV, 30*GeV;
+      _yFiducial += 4.4, 2.4;
+      _gapCategories += "inclusive", "gap";
     }
 
     /// Book histograms and initialise projections before the run
@@ -46,9 +43,9 @@ namespace Rivet {
 
         // Temporary inclusive and gap histograms
         _h_tmp_events_dy[gapCategory] = bookHisto1D(1, 1, 1);
-        _h_tmp_events_dy[gapCategory]->setPath( (boost::format("/TMP/%s_events_dy") % gapCategory).str() );
+        _h_tmp_events_dy[gapCategory]->setPath("/TMP/" + toString(gapCategory) + "_events_dy");
         _h_tmp_events_pTbar[gapCategory] = bookHisto1D(2, 1, 1);
-        _h_tmp_events_pTbar[gapCategory]->setPath( (boost::format("/TMP/%s_events_pTbar") % gapCategory).str() );
+        _h_tmp_events_pTbar[gapCategory]->setPath("/TMP/" + toString(gapCategory) + "_events_pTbar");
 
 
         // Azimuthal moment histograms
@@ -60,10 +57,10 @@ namespace Rivet {
         _h_profiled_cosTwoDeltaPhi_pTbar[gapCategory] = bookProfile1D(38+2*gapCategoryOffset, 1, 1);
 
         // Gap fraction vs. Q0 and cross-section in dy slices
-        for( unsigned int dyLow = 0; dyLow < _dy_max; ++dyLow ) {
+        for (size_t dyLow = 0; dyLow < _dy_max; ++dyLow ) {
           Histo1DPtr _h_tmp_events_Q0_single_dySlice = bookHisto1D( 29+dyLow, 1, 1);
-          _h_tmp_events_Q0_single_dySlice->setPath((boost::format("/TMP/%s_events_dySlice_%s_%s_Q0")%gapCategory%dyLow%(dyLow+1)).str());
-              _h_tmp_events_Q0_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, _h_tmp_events_Q0_single_dySlice );
+          _h_tmp_events_Q0_single_dySlice->setPath("/TMP/" + toString(gapCategory) + "_events_dySlice_" + toString(dyLow) + "_" + toString(dyLow+1) + "_Q0");
+          _h_tmp_events_Q0_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, _h_tmp_events_Q0_single_dySlice );
           _h_crossSection_dphi_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, bookHisto1D( 13+(_dy_max*gapCategoryOffset)+dyLow, 1, 1));
         }
 
@@ -82,15 +79,15 @@ namespace Rivet {
       const double weight( event.weight() );
       bool eventAccepted( false );
 
-      for( unsigned int iFiducialRegion = 0; iFiducialRegion < 2; ++iFiducialRegion ) {
+      for (int iFiducialRegion = 0; iFiducialRegion < 2; ++iFiducialRegion ) {
 
         // Retrieve all anti-kt R=0.6 jets above _pTMin and inside |_yFiducial|
         const Jets akt6Jets = applyProjection<JetAlg>(event, "AntiKt6JetsWithInvisibles").jetsByPt( Cuts::absrap < _yFiducial.at(iFiducialRegion) );
         // If there are fewer than 2 jets then bail
-        if( akt6Jets.size() < 2 ) { vetoEvent; }
+        if ( akt6Jets.size() < 2 ) { vetoEvent; }
 
         // Require jets to be above {60, 50} GeV
-        if( akt6Jets.at(0).momentum().pT() < 60.*GeV || akt6Jets.at(1).momentum().pT() < 50.*GeV ) { vetoEvent; }
+        if ( akt6Jets.at(0).momentum().pT() < 60.*GeV || akt6Jets.at(1).momentum().pT() < 50.*GeV ) { vetoEvent; }
 
         // Identify gap boundaries
         double yMin( std::min( akt6Jets.at(0).momentum().rapidity(), akt6Jets.at(1).momentum().rapidity() ) );
@@ -100,14 +97,14 @@ namespace Rivet {
         const double dy( yMax - yMin );
         const double dphi( mapAngle0ToPi( akt6Jets.at(0).momentum().phi() - akt6Jets.at(1).momentum().phi() ) );
         const double pTbar( (akt6Jets.at(0).momentum().pT() + akt6Jets.at(1).momentum().pT())/2.0 );
-        
+
         // Impose minimum dy for the 2011 phase space
-        if( _fiducialRegions.at(iFiducialRegion) == 2011 && dy < 1.0 ) { vetoEvent; }
+        if ( _fiducialRegions.at(iFiducialRegion) == 2011 && dy < 1.0 ) { vetoEvent; }
 
         // Construct gap candidates sample
         Jets gapCandidates;
         foreach( const Jet &j, akt6Jets ) {
-          if( inRange( j.momentum().rapidity(), yMin, yMax, OPEN, OPEN ) ) {
+          if ( inRange( j.momentum().rapidity(), yMin, yMax, OPEN, OPEN ) ) {
             gapCandidates.push_back( j );
           }
         }
@@ -117,12 +114,12 @@ namespace Rivet {
         double maximumGapQ0( 0. );
         foreach( const Jet &jet, gapCandidates ) {
           const double pT( jet.momentum().pT() );
-          if( pT > _vetoScale.at(iFiducialRegion) ) { ++nJets_rapidity_interval; }
-          if( pT > maximumGapQ0 ) { maximumGapQ0 = pT; }
+          if ( pT > _vetoScale.at(iFiducialRegion) ) { ++nJets_rapidity_interval; }
+          if ( pT > maximumGapQ0 ) { maximumGapQ0 = pT; }
         }
 
         // Fill histograms
-        if( weight < 0.0 ) {
+        if ( weight < 0.0 ) {
           MSG_DEBUG( "Negative weight " << weight << "found!" );
         }
         fillHistograms( _fiducialRegions.at(iFiducialRegion), dy, pTbar, dphi, nJets_rapidity_interval, maximumGapQ0, weight );
@@ -130,7 +127,7 @@ namespace Rivet {
       }
 
       // Count number of accepted events
-      if( eventAccepted ) {
+      if ( eventAccepted ) {
         _nEventsInAcceptance++;
         _sumOfAcceptedWeights += weight;
       }
@@ -140,10 +137,10 @@ namespace Rivet {
     void fillHistograms( const unsigned int &fiducialRegion, const double &dy, const double &pTbar, const double &dphi, const double &nJets_rapidity_interval, const double &maximumGapQ0, const double &weight) {
       // Determine gap category
       std::vector<std::string> eventGapCategories = boost::assign::list_of("inclusive");
-      if( nJets_rapidity_interval == 0 ) { eventGapCategories.push_back("gap"); }
+      if ( nJets_rapidity_interval == 0 ) { eventGapCategories.push_back("gap"); }
 
       // Fill histograms relevant for comparison with 2010 data
-      if( fiducialRegion == _fiducialRegions.at(0) ) {
+      if ( fiducialRegion == _fiducialRegions.at(0) ) {
         // Fill inclusive and gap histograms
         foreach( const std::string &gapCategory, eventGapCategories ) {
           _h_tmp_events_dy[gapCategory]->fill( dy, weight );
@@ -157,11 +154,11 @@ namespace Rivet {
         foreach( const YODA::HistoBin1D Q0_bin, _h_tmp_events_Q0_dySlices["inclusive"].getHistograms().at(0)->bins() ) {
           const double Q0( Q0_bin.xMid() );
           _h_tmp_events_Q0_dySlices["inclusive"].fill(dy, Q0, weight);
-          if( maximumGapQ0 <= Q0 ) { _h_tmp_events_Q0_dySlices["gap"].fill(dy, Q0, weight); }
+          if ( maximumGapQ0 <= Q0 ) { _h_tmp_events_Q0_dySlices["gap"].fill(dy, Q0, weight); }
         }
 
       // Fill histograms relevant for comparison with 2011 data
-      } else if( fiducialRegion == _fiducialRegions.at(1) ) {
+      } else if ( fiducialRegion == _fiducialRegions.at(1) ) {
         // Fill inclusive and gap histograms
         foreach( const std::string &gapCategory, eventGapCategories ) {
           _h_tmp_events_pTbar[gapCategory]->fill( pTbar, weight );

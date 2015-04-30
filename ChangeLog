@@ -1,12 +1,15 @@
 2015-04-30  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Convert MC_Z* analysis finalize methods to use scale() rather than normalize()
+	* Removing uses of boost::assign::list_of, preferring the existing
+	comma-based assign override for now, for C++11 compatibility.
+
+	* Convert MC_Z* analysis finalize methods to use scale() rather than normalize().
 
 2015-04-01  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Add CMS 7 TeV rapidity gap analysis (CMS_2015_I1356998).
 
-	* Remove FinalState Projection
+	* Remove FinalState Projection.
 
 2015-03-30  Holger Schulz  <holger.schulz@durham.ac.uk>
 
