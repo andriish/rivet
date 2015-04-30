@@ -58,9 +58,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      scale(_h_W_jet1_deta, crossSection()/sumOfWeights());
-      scale(_h_W_jet1_dR, crossSection()/sumOfWeights());
-
+      scale(_h_W_jet1_deta, crossSection()/picobarn/sumOfWeights());
+      scale(_h_W_jet1_dR, crossSection()/picobarn/sumOfWeights());
       MC_JetAnalysis::finalize();
     }
 

@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for W^+[enu]W^-[munu] + jets events
@@ -96,7 +96,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double norm = crossSection()/sumOfWeights();
+      const double norm = crossSection()/picobarn/sumOfWeights();
       scale(_h_WW_jet1_deta, norm);
       scale(_h_WW_jet1_dR, norm);
       scale(_h_We_jet1_dR, norm);

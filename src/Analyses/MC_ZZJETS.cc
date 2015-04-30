@@ -89,11 +89,11 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double norm = crossSection()/picobarn;
-      normalize(_h_ZZ_jet1_deta, norm);
-      normalize(_h_ZZ_jet1_dR, norm);
-      normalize(_h_Ze_jet1_dR, norm);
-      normalize(_h_HT, norm);
+      const double s = crossSection()/picobarn/sumOfWeights();
+      scale(_h_ZZ_jet1_deta, s);
+      scale(_h_ZZ_jet1_dR, s);
+      scale(_h_Ze_jet1_dR, s);
+      scale(_h_HT, s);
       MC_JetAnalysis::finalize();
     }
 

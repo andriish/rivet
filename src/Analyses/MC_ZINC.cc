@@ -4,7 +4,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for Z events
@@ -62,14 +62,14 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double xsec = crossSection()/picobarn;
-      normalize(_h_Z_mass, xsec);
-      normalize(_h_Z_pT, xsec);
-      normalize(_h_Z_pT_peak, xsec);
-      normalize(_h_Z_y, xsec);
-      normalize(_h_Z_phi, xsec);
-      normalize(_h_lepton_pT, xsec);
-      normalize(_h_lepton_eta, xsec);
+      const double s = crossSection()/picobarn/sumOfWeights();
+      scale(_h_Z_mass, s);
+      scale(_h_Z_pT, s);
+      scale(_h_Z_pT_peak, s);
+      scale(_h_Z_y, s);
+      scale(_h_Z_phi, s);
+      scale(_h_lepton_pT, s);
+      scale(_h_lepton_eta, s);
     }
 
     //@}
