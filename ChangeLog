@@ -1,3 +1,9 @@
+2015-05-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix MC_HJETS/HINC/HKTSPLITTINGS analyses to (ab)use the ZFinder
+	with a mass range of 115-135 GeV and a mass target of 125 GeV (was
+	previously 115-125 and mass target of mZ)
+
 2015-04-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing uses of boost::assign::list_of, preferring the existing
