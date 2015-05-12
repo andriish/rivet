@@ -118,7 +118,7 @@ namespace Rivet {
       }
 
       // Fill jet multiplicities
-      for (size_t ijet = 1; ijet <= jets.size(); ++ijet) {
+      for (size_t ijet = 0; ijet <= jets.size(); ++ijet) {
         _h_njet_incl->fill(ijet, weight);
       }
       _h_njet_excl->fill(jets.size(), weight);
