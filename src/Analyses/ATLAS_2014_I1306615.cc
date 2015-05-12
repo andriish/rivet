@@ -32,8 +32,7 @@ namespace Rivet {
       addProjection(FS,"FS");
 
       // Project photons with pT > 25 GeV and |eta| < 2.37
-      //IdentifiedFinalState ph_FS(-2.37, 2.37, 25.0*GeV);
-      IdentifiedFinalState ph_FS(Cuts::abseta<2.47 && Cuts::pT>25.0*GeV);
+      IdentifiedFinalState ph_FS(Cuts::abseta<2.37 && Cuts::pT>25.0*GeV);
       ph_FS.acceptIdPair(PID::PHOTON);
       addProjection(ph_FS, "PH_FS");
 
