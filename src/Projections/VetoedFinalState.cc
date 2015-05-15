@@ -7,6 +7,7 @@ namespace Rivet {
   int VetoedFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
     if (fscmp != EQUIVALENT) return fscmp;
+    /// @todo We can do better than this...
     if (_vetofsnames.size() != 0) return UNDEFINED;
     const VetoedFinalState& other = dynamic_cast<const VetoedFinalState&>(p);
     return \

@@ -6,40 +6,39 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
-/// @todo Include more projections as required, e.g. ChargedFinalState, FastJets, ZFinder...
-
 namespace Rivet {
+
 
   class ATLAS_2013_I1217863_W : public Analysis {
   public:
 
-    /// @name Constructor
+    /// Constructor
     ATLAS_2013_I1217863_W(string name="ATLAS_2013_I1217863_W")
       : Analysis(name)
     {
       // the electron mode is used by default
       _mode = 1;
     }
-    //@}
+
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
     void init() {
-    
+
       FinalState fs;
       addProjection(fs, "FS");
 
-      Cut cuts = Cuts::etaIn(-2.47,2.47) & (Cuts::pT >= 25.0*GeV);
+      Cut cuts = Cuts::abseta < 2.47 && Cuts::pT > 25*GeV;
 
       // W finder for electrons and muons
-      WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, 1000.0*GeV, 35.0*GeV, 0.1, 
+      WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, 1000.0*GeV, 35.0*GeV, 0.1,
                                      WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
       addProjection(wf, "WF");
 
       // leading photon
-      LeadingParticlesFinalState photonfs(FinalState(-2.37, 2.37, 15.0*GeV));
+      LeadingParticlesFinalState photonfs(FinalState(Cuts::abseta < 2.37 && Cuts::pT > 15*GeV));
       photonfs.addParticleId(PID::PHOTON);
       addProjection(photonfs, "LeadingPhoton");
 
@@ -50,13 +49,13 @@ namespace Rivet {
       FastJets jets(jet_fs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
       addProjection(jets, "Jets");
-      
+
       // FS excluding the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
       addProjection(vfs, "isolatedFS");
 
-      
+
       // Book histograms
       _hist_EgammaT_incl   = bookHisto1D( 7, 1, _mode); // dSigma / dE^gamma_T for Njet >= 0
       _hist_EgammaT_excl   = bookHisto1D( 8, 1, _mode); // dSigma / dE^gamma_T for Njet = 0
@@ -74,44 +73,44 @@ namespace Rivet {
 
       // retrieve leading photon
       Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
-      if(photons.size() != 1)  vetoEvent;
+      if (photons.size() != 1)  vetoEvent;
       const Particle& leadingPhoton = photons[0];
-      if( !(leadingPhoton.Et() > 15.0*GeV) )  vetoEvent;
-      if( !(leadingPhoton.abseta() < 2.37) )  vetoEvent;
+      if (leadingPhoton.Et() < 15.0*GeV) vetoEvent;
+      if (leadingPhoton.abseta() > 2.37) vetoEvent;
 
       // check photon isolation
       double coneEnergy(0.0);
       Particles fs = applyProjection<VetoedFinalState>(event, "isolatedFS").particles();
       foreach(const Particle& p, fs) {
-        if( deltaR(leadingPhoton, p) < 0.4 )  coneEnergy += p.E();
+        if ( deltaR(leadingPhoton, p) < 0.4 )  coneEnergy += p.E();
       }
-      if( coneEnergy / leadingPhoton.E() >= 0.5 )  vetoEvent; 
-      
+      if ( coneEnergy / leadingPhoton.E() >= 0.5 )  vetoEvent;
+
       // retrieve W boson candidate
       const WFinder& wf = applyProjection<WFinder>(event, "WF");
-      if( wf.bosons().size() != 1 )  vetoEvent; // only one W boson candidate
+      if ( wf.bosons().size() != 1 )  vetoEvent; // only one W boson candidate
       //const Particle& Wboson  = wf.boson();
 
       // retrieve constituent neutrino
       const Particle& neutrino = wf.constituentNeutrino();
-      if( !(neutrino.pT() > 35.0*GeV) )  vetoEvent;
+      if ( !(neutrino.pT() > 35.0*GeV) )  vetoEvent;
 
       // retrieve constituent lepton
       const Particle& lepton = wf.constituentLepton();
-      if( !(lepton.pT() > 25.0*GeV && lepton.abseta() < 2.47) )  vetoEvent;
+      if ( !(lepton.pT() > 25.0*GeV && lepton.abseta() < 2.47) )  vetoEvent;
 
       // check photon-lepton overlap
-      if( !(deltaR(leadingPhoton, lepton) > 0.7) )  vetoEvent;
+      if ( !(deltaR(leadingPhoton, lepton) > 0.7) )  vetoEvent;
 
       // count jets
       const FastJets& jetfs = applyProjection<FastJets>(event, "Jets");
-      Jets jets = jetfs.jetsByEt();
+      Jets jets = jetfs.jets(cmpMomByEt);
       int goodJets = 0;
       foreach (const Jet& j, jets) {
-        if( !(j.Et() > 30.0*GeV) )  break;
-        if( (j.abseta() < 4.4) && \
-            (deltaR(leadingPhoton, j) > 0.3) && \
-            (deltaR(lepton,        j) > 0.3) )  ++goodJets;
+        if ( !(j.Et() > 30.0*GeV) )  break;
+        if ( (j.abseta() < 4.4) && \
+             (deltaR(leadingPhoton, j) > 0.3) &&            \
+             (deltaR(lepton,        j) > 0.3) )  ++goodJets;
       }
 
       double Njets = double(goodJets) + 0.5;
@@ -126,11 +125,11 @@ namespace Rivet {
 
       _hist_Njet_EgammaT15->fill(Njets, weight);
 
-      if( !goodJets )  _hist_EgammaT_excl->fill(photonEt, weight);
+      if ( !goodJets )  _hist_EgammaT_excl->fill(photonEt, weight);
 
-      if(photonEt > 40.0*GeV) {
+      if (photonEt > 40.0*GeV) {
         _hist_mWgammaT->fill(mWgammaT, weight);
-        if(photonEt > 60.0*GeV)  _hist_Njet_EgammaT60->fill(Njets, weight);
+        if (photonEt > 60.0*GeV)  _hist_Njet_EgammaT60->fill(Njets, weight);
       }
 
     }
@@ -138,7 +137,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-    
+
       /// Print summary info
       const double xs_pb(crossSection() / picobarn);
       const double sumw(sumOfWeights());
@@ -167,7 +166,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-  
+
     Histo1DPtr _hist_EgammaT_incl;
     Histo1DPtr _hist_EgammaT_excl;
     Histo1DPtr _hist_Njet_EgammaT15;
