@@ -157,7 +157,10 @@ class Inputdata(object):
 
         # inherit various values from histograms if not explicitly
         # set.
-        for k in ['LogX', 'LogY', 'LogZ', 'XLabel', 'YLabel', 'ZLabel']:
+        for k in ['LogX', 'LogY', 'LogZ',
+                'XLabel', 'YLabel', 'ZLabel',
+                'XCustomMajorTicks', 'YCustomMajorTicks',
+                'ZCustomMajorTicks']:
             self.inherit_from_histos(k)
 
         return
@@ -167,7 +170,7 @@ class Inputdata(object):
         # note: this will inherit the key from a random histogram:
         # only use if you're sure all histograms have this key!
         if not self.description.has_key(k):
-            h = self.histos.itervalues().next()
+            h = list(self.histos.itervalues())[0]
             if h.description.has_key(k):
                 self.description[k] = h.description[k]
 
