@@ -1,3 +1,7 @@
+2015-05-19  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Fix ATLAS_2014_I1325553 normalisation of histograms was wrong by factor of two |y| vs y problem
+
 2015-05-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix MC_HJETS/HINC/HKTSPLITTINGS analyses to (ab)use the ZFinder

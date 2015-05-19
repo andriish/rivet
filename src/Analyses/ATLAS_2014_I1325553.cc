@@ -80,7 +80,7 @@ namespace Rivet {
       /// Print summary info
       const double xs_pb( crossSection() / picobarn );
       const double sumW( sumOfWeights() );
-      const double xs_norm_factor( xs_pb / sumW );
+      const double xs_norm_factor( 0.5*xs_pb / sumW );
       MSG_INFO( "Cross-Section/pb     : " << xs_pb       );
       MSG_INFO( "Sum of weights       : " << sumW        );
       MSG_INFO( "nEvents              : " << numEvents() );
