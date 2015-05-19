@@ -1,3 +1,11 @@
+2015-05-19  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add (preliminary) ATLAS combined Higgs analysis
+	(ATLAS_2015_I1364361). Data will be updated and more
+	histos added as soon as paper is published in journal.
+	For now using data taken from public ressource
+	https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2014-11/
+
 2015-05-19  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Fix ATLAS_2014_I1325553 normalisation of histograms was wrong by factor of two |y| vs y problem
