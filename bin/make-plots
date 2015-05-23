@@ -573,15 +573,15 @@ class MainPlot(Plot):
             for i in range(len(FOO)):
                 xcustomminorticks.append({'Value': float(FOO[i])})
         xticks = XTicks(inputdata.description, self.coors)
-        if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1') or (inputdata.description.has_key('PlotTickLabels') and inputdata.description['PlotTickLabels']=='0'):
-            drawlabels=False
+        if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1') or (inputdata.description.has_key('PlotXTickLabels') and inputdata.description['PlotXTickLabels']=='0'):
+            drawxlabels=False
         else:
-            drawlabels=True
+            drawxlabels=True
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
                            customminortickmarks=xcustomminortickmarks,\
                            custommajorticks=xcustommajorticks,\
                            customminorticks=xcustomminorticks,\
-                           drawlabels=drawlabels)
+                           drawlabels=drawxlabels)
 
         if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks']!='':
             ycustommajortickmarks=int(inputdata.description['YMajorTickMarks'])
@@ -609,10 +609,15 @@ class MainPlot(Plot):
             for i in range(len(FOO)):
                 ycustomminorticks.append({'Value': float(FOO[i])})
         yticks = YTicks(inputdata.description, self.coors)
+        if (inputdata.description.has_key('PlotYTickLabels') and inputdata.description['PlotYTickLabels']=='0'):
+            drawylabels=False
+        else:
+            drawylabels=True
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
                            customminortickmarks=ycustomminortickmarks,\
                            custommajorticks=ycustommajorticks,\
-                           customminorticks=ycustomminorticks)
+                           customminorticks=ycustomminorticks,
+                           drawlabels=drawylabels)
 
         labels = Labels(inputdata.description)
         if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
@@ -2056,7 +2061,7 @@ class XTicks(Ticks):
 
 
 class YTicks(Ticks):
-    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1):
+    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
         twosided = False
         if self.description.has_key('YTwosidedTicks') and self.description['YTwosidedTicks']=='1':
             twosided = True
@@ -2071,7 +2076,8 @@ class YTicks(Ticks):
                                    customminorticks=customminorticks,\
                                    custommajortickmarks=custommajortickmarks,\
                                    customminortickmarks=customminortickmarks,\
-                                   twosided=twosided)
+                                   twosided=twosided,
+                                   drawlabels=drawlabels)
         return out
 
     def draw_minortick(self, ticklabel, twosided):
