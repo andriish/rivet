@@ -1,4 +1,4 @@
-// -*- C++ -*-
+
 #ifndef RIVET_TauFinder_HH
 #define RIVET_TauFinder_HH
 
@@ -8,23 +8,30 @@
 namespace Rivet {
 
 
+
   /// @brief Convenience finder of unstable taus
   /// @todo Inherit directly from ParticleFinder, not FinalState
   class TauFinder : public FinalState {
   public:
 
     enum DecayType { ANY=0, LEPTONIC=1, HADRONIC };
-
-    /// @name Constructors
-    //@{
-
-    /// @todo Why accept a FinalState? Find taus which decay to particles in this FS? Document the logic.
-    TauFinder(const FinalState& inputfs, DecayType decaytype=ANY) {
-      _init(inputfs, decaytype);
+    
+    static bool isHadronic(const Particle& tau) {
+      assert(tau.abspid() == PID::TAU);
+      return any(tau.stableDescendants(), isHadron);
+    }
+    
+    static bool isLeptonic(const Particle& tau) {
+      return !isHadronic(tau);
     }
 
-    TauFinder(DecayType decaytype=ANY) {
-      _init(UnstableFinalState(), decaytype);
+
+    TauFinder(DecayType decaytype, const Cut& cut=Cuts::open()) {
+      setName("TauFinder");
+      //_theParticles.clear();
+      _dectype=decaytype;
+      //cout << "Init tf with "<< _dectype << endl;
+      addProjection(UnstableFinalState(cut), "UFS");
     }
 
 
@@ -33,11 +40,8 @@ namespace Rivet {
       return new TauFinder(*this);
     }
 
-    //@}
 
-
-    /// Access to the found taus
-    const Particles& taus() const { return _taus; }
+    const Particles& taus() const { return _theParticles; }
 
 
   protected:
@@ -45,29 +49,15 @@ namespace Rivet {
     /// Apply the projection on the supplied event.
     void project(const Event& e);
 
-    /// Compare projections.
-    //int compare(const Projection& p) const;
-
-
-  public:
-
-    /// Clear the projection
-    void clear() {
-      _theParticles.clear();
-      _taus.clear();
-    }
-
+    /// Compare with other projections.
+    virtual int compare(const Projection& p) const;
 
 
   private:
 
-    /// Common implementation of constructor operation, taking FS params.
-    void _init(const FinalState& inputfs, DecayType decaytype);
-
-    /// List of found taus
-    /// @todo Fill _theParticles instead, when inheriting from ParticleFinder?
-    Particles _taus;
-
+    /// The decaytype enum
+    DecayType _dectype;
+  
   };
 
 

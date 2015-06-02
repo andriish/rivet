@@ -1,8 +1,133 @@
+2015-05-24  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Normalisation discussion concerning ATLAS_2014_I1325553
+	is resolved. Changed Ylabel accrodingly.
+
+
+2015-05-19  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add (preliminary) ATLAS combined Higgs analysis
+	(ATLAS_2015_I1364361). Data will be updated and more
+	histos added as soon as paper is published in journal.
+	For now using data taken from public ressource
+	https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/HIGG-2014-11/
+
+2015-05-19  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Fix ATLAS_2014_I1325553 normalisation of histograms was wrong by factor of two |y| vs y problem
+
+2015-05-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix MC_HJETS/HINC/HKTSPLITTINGS analyses to (ab)use the ZFinder
+	with a mass range of 115-135 GeV and a mass target of 125 GeV (was
+	previously 115-125 and mass target of mZ)
+
+2015-04-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing uses of boost::assign::list_of, preferring the existing
+	comma-based assign override for now, for C++11 compatibility.
+
+	* Convert MC_Z* analysis finalize methods to use scale() rather than normalize().
+
+2015-04-01  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add CMS 7 TeV rapidity gap analysis (CMS_2015_I1356998).
+
+	* Remove FinalState Projection.
+
+2015-03-30  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add ATLAS 7 TeV photon + jets analysis (ATLAS_2013_I1244522).
+
+2015-03-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Updates for HepMC 2.07 interface constness improvements.
+
+2015-03-25  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add ATLAS double parton scattering in W+2j analysis (ATLAS_2013_I1216670).
+
+2015-03-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* 2.2.1 release!
+
+2015-03-23  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add ATLAS differential Higgs analysis (ATLAS_2014_I1306615).
+
+2015-03-19  Chris Pollard <cpollard@cern.ch>
+
+	* Add ATLAS V+gamma analyses (ATLAS_2013_I1217863)
+
+2015-03-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS R-jets analysis i.e. ratios of W+jets and Z+jets
+	observables (ATLAS_2014_I1312627 and _EL, _MU variants)
+
+	* include/Rivet/Tools/ParticleUtils.hh: Adding same/oppSign and
+	same/opp/diffCharge functions, operating on two Particles.
+
+	* include/Rivet/Tools/ParticleUtils.hh: Adding HasAbsPID functor
+	and removing optional abs arg from HasPID.
+
+2015-03-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Mark ATLAS_2012_I1083318 as VALIDATED and fix d25-x01-y02 ref data.
+
+2015-03-19  Chris Pollard <cpollard@cern.ch>
+
+	* Add ATLAS W and Z angular analyses (ATLAS_2011_I928289)
+
+2015-03-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add LHCb charged particle multiplicities and densities analysis (LHCB_2014_I1281685)
+
+	* Add LHCb Z y and phi* analysis (LHCB_2012_I1208102)
+
+2015-03-19  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add ATLAS dijet analysis (ATLAS_2014_I1325553).
+
+	* Add ATLAS Z pT analysis (ATLAS_2014_I1300647).
+
+	* Add ATLAS low-mass Drell-Yan analysis (ATLAS_2014_I1288706).
+
+	* Add ATLAS gap fractions analysis (ATLAS_2014_I1307243).
+
+2015-03-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding CMS_2014_I1298810 and CMS_2014_I1303894 analyses.
+
+2015-03-18  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add PDG_TAUS analysis which makes use of the TauFinder.
+
+	* Add ATLAS 'traditional' Underlying Event in Z->mumu analysis (ATLAS_2014_I1315949).
+
+2015-03-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change UnstableFinalState duplicate resolution to use the last
+	in a chain rather than the first.
+
+2015-03-17  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Update Taufinder to use decaytyoe (can be HADRONIC, LEPTONIC or
+	ANY), in FastJet.cc --- set TauFinder mode to hadronic for tau-tagging
+
+2015-03-16  Chris Pollard  <cpollard@cern.ch>
+
+	* Removed fuzzyEquals() from Vector3::angle()
+
 2015-03-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding Cuts-based constructor to PrimaryHadrons.
 
 	* Adding missing compare() method to HeavyHadrons projection.
+
+2015-03-15  Chris Pollard  <cpollard@cern.ch>
+
+	* Adding FinalPartons projection which selects the quarks and
+	gluons immediately before hadronization
 
 2015-03-05  Andy Buckley  <andy.buckley@cern.ch>
 

@@ -55,8 +55,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_h_Z_jet1_deta, crossSection()/picobarn);
-      normalize(_h_Z_jet1_dR, crossSection()/picobarn);
+      scale(_h_Z_jet1_deta, crossSection()/picobarn/sumOfWeights());
+      scale(_h_Z_jet1_dR, crossSection()/picobarn/sumOfWeights());
       MC_JetAnalysis::finalize();
     }
 

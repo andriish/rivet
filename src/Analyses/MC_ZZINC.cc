@@ -124,25 +124,25 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double norm = crossSection()/picobarn;
-      normalize(_h_ZZ_pT, norm);
-      normalize(_h_ZZ_pT_peak, norm);
-      normalize(_h_ZZ_eta, norm);
-      normalize(_h_ZZ_phi, norm);
-      normalize(_h_ZZ_m, norm);
-      normalize(_h_ZZ_dphi, norm);
-      normalize(_h_ZZ_deta, norm);
-      normalize(_h_ZZ_dR, norm);
-      normalize(_h_ZZ_dpT, norm);
-      normalize(_h_ZZ_costheta_planes, norm);
-      normalize(_h_Z_pT, norm);
-      normalize(_h_Z_eta, norm);
-      normalize(_h_Zl_pT, norm);
-      normalize(_h_Zl_eta, norm);
-      normalize(_h_ZeZm_dphi, norm);
-      normalize(_h_ZeZm_deta, norm);
-      normalize(_h_ZeZm_dR, norm);
-      normalize(_h_ZeZm_m, norm);
+      const double s = crossSection()/picobarn/sumOfWeights();
+      scale(_h_ZZ_pT, s);
+      scale(_h_ZZ_pT_peak, s);
+      scale(_h_ZZ_eta, s);
+      scale(_h_ZZ_phi, s);
+      scale(_h_ZZ_m, s);
+      scale(_h_ZZ_dphi, s);
+      scale(_h_ZZ_deta, s);
+      scale(_h_ZZ_dR, s);
+      scale(_h_ZZ_dpT, s);
+      scale(_h_ZZ_costheta_planes, s);
+      scale(_h_Z_pT, s);
+      scale(_h_Z_eta, s);
+      scale(_h_Zl_pT, s);
+      scale(_h_Zl_eta, s);
+      scale(_h_ZeZm_dphi, s);
+      scale(_h_ZeZm_deta, s);
+      scale(_h_ZeZm_dR, s);
+      scale(_h_ZeZm_m, s);
     }
 
     //@}

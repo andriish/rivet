@@ -1,10 +1,10 @@
 Name: ATLAS_2012_I1083318
 Year: 2012
-Summary: W+jets production at 7 TeV
+Summary: $W$+jets production at 7 TeV
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1083318
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:
@@ -35,6 +35,3 @@ BibTeX: '
       reportNumber   = "CERN-PH-EP-2011-218",
       SLACcitation   = "%%CITATION = ARXIV:1201.1276;%%",
 }'
-ToDo:
- - Get data into Hepdata
- - Clarify remaining minor deviations in validation plots

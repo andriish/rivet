@@ -169,7 +169,7 @@ namespace Rivet {
     typedef Particle entity_type;
     typedef Particles collection_type;
 
-    /// Template-usable interface common to JetAlg.
+    /// Template-usable interface common to JetAlg
     const collection_type& entities() const {
       return particles();
     }
@@ -179,18 +179,16 @@ namespace Rivet {
 
   protected:
 
-    /// Apply the projection to the event.
+    /// Apply the projection to the event
     virtual void project(const Event& e) = 0;
 
-    /// Compare projections.
+    /// Compare projections
     virtual int compare(const Projection& p) const;
 
-  protected:
-
-    /// The applicable cuts
+    /// The kinematic cuts cuts
     Cut _cuts;
 
-    /// The final-state particles.
+    /// The found particles returned by the particles() methods
     Particles _theParticles;
 
   };

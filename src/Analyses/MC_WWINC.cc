@@ -125,7 +125,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      double norm=crossSection()/sumOfWeights();
+      const double norm = crossSection()/picobarn/sumOfWeights();
       scale(_h_WW_pT, norm);
       scale(_h_WW_pT_peak, norm);
       scale(_h_WW_eta, norm);

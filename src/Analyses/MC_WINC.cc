@@ -4,7 +4,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for inclusive W events
@@ -106,8 +106,8 @@ namespace Rivet {
       divide(_h_Wplus_pT, _h_Wminus_pT,
              _h_asym_pT);
 
-      scale(_h_Wplus_pT, crossSection()/sumOfWeights());
-      scale(_h_Wminus_pT, crossSection()/sumOfWeights());
+      scale(_h_Wplus_pT, crossSection()/picobarn/sumOfWeights());
+      scale(_h_Wminus_pT, crossSection()/picobarn/sumOfWeights());
     }
 
     //@}

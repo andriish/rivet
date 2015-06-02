@@ -166,6 +166,7 @@ def detex(tex):
     \newcommand{\bar}[1]{#1bar}
     \newcommand{\pT}{pT }
     \newcommand{\perp}{T}
+    \newcommand{\ast}{*}
     \newcommand{\MeV}{MeV }
     \newcommand{\GeV}{GeV }
     \newcommand{\TeV}{TeV }

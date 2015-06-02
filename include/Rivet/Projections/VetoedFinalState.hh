@@ -144,9 +144,7 @@ namespace Rivet {
 
     /// Veto particles from a supplied final state.
     VetoedFinalState& addVetoOnThisFinalState(const FinalState& fs) {
-      stringstream st_name;
-      st_name << "FS_" << _vetofsnames.size();
-      string name = st_name.str();
+      const string name = "FS_" + to_str(_vetofsnames.size());
       addProjection(fs, name);
       _vetofsnames.insert(name);
       return *this;

@@ -227,13 +227,66 @@ namespace Rivet {
   //@}
 
 
-  // PID matching functor to be passed to any() e.g. any(p.children(), HasPID(PID::MUON, true))
-  struct HasPID {
-    HasPID(PdgId pid, bool abs=false) : targetpid(pid), useabspid(abs) { }
-    bool operator()(const Particle& p) const { return (useabspid ? p.abspid() : p.pid()) == targetpid; }
-    PdgId targetpid;
-    bool useabspid;
+  /// @name Particle charge/sign comparison functions
+  //@{
+
+  /// @brief Return true if Particles @a a and @a b have the opposite charge sign
+  /// @note Two neutrals returns false
+  inline bool oppSign(const Particle& a, const Particle& b) {
+    return sign(a.threeCharge()) == -sign(b.threeCharge()) && sign(a.threeCharge()) != ZERO;
+  }
+
+  /// Return true if Particles @a a and @a b have the same charge sign
+  /// @note Two neutrals returns true
+  inline bool sameSign(const Particle& a, const Particle& b) {
+    return sign(a.threeCharge()) == sign(b.threeCharge());
+  }
+
+  /// Return true if Particles @a a and @a b have the exactly opposite charge
+  /// @note Two neutrals returns false
+  inline bool oppCharge(const Particle& a, const Particle& b) {
+    return a.threeCharge() == -b.threeCharge() && a.threeCharge() != 0;
+  }
+
+  /// Return true if Particles @a a and @a b have the same charge (including neutral)
+  /// @note Two neutrals returns true
+  inline bool sameCharge(const Particle& a, const Particle& b) {
+    return a.threeCharge() == b.threeCharge();
+  }
+
+  /// Return true if Particles @a a and @a b have a different (not necessarily opposite) charge
+  inline bool diffCharge(const Particle& a, const Particle& b) {
+    return a.threeCharge() != b.threeCharge();
+  }
+
+  //@}
+
+
+  /// @name Particle classifying functors
+  ///
+  /// To be passed to any() or all() e.g. any(p.children(), HasPID(PID::MUON))
+  //@{
+
+  /// Base type for Particle -> bool functors
+  struct BoolParticleFunctor {
+    virtual bool operator()(const Particle& p) const = 0;
   };
+
+  /// PID matching functor
+  struct HasPID : public BoolParticleFunctor {
+    HasPID(PdgId pid) : targetpid(pid) { }
+    bool operator()(const Particle& p) const { return p.pid() == targetpid; }
+    PdgId targetpid;
+  };
+
+  /// |PID| matching functor
+  struct HasAbsPID : public BoolParticleFunctor {
+    HasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
+    bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
+    PdgId targetpid;
+  };
+
+  //@}
 
 
 }

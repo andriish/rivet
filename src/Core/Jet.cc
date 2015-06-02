@@ -118,7 +118,7 @@ namespace Rivet {
       if (abs(pid) == PID::CQUARK) return true;
       if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
       if (include_decay_products) {
-        HepMC::GenVertex* gv = p.genParticle()->production_vertex();
+        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
         if (gv) {
           foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
             const PdgId pid2 = pi->pdg_id();
@@ -137,7 +137,7 @@ namespace Rivet {
       if (abs(pid) == PID::BQUARK) return true;
       if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
       if (include_decay_products) {
-        HepMC::GenVertex* gv = p.genParticle()->production_vertex();
+        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
         if (gv) {
           foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
             const PdgId pid2 = pi->pdg_id();

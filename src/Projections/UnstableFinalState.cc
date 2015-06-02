@@ -7,6 +7,9 @@
 namespace Rivet {
 
 
+  /// @todo Add a FIRST/LAST/ANY enum to specify the mode for uniquifying replica chains (default = LAST)
+
+
   void UnstableFinalState::project(const Event& e) {
     _theParticles.clear();
 
@@ -15,7 +18,7 @@ namespace Rivet {
     vetoIds += 22; // status 2 photons don't count!
     vetoIds += 110; vetoIds += 990; vetoIds += 9990; // Reggeons
     //vetoIds += 9902210; // something weird from PYTHIA6
-    foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
+    foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
       const int st = p->status();
       bool passed =
         (st == 1 || (st == 2 && !contains(vetoIds, abs(p->pdg_id())))) &&
@@ -23,12 +26,22 @@ namespace Rivet {
         !p->is_beam() && // Filter beam particles
         _cuts->accept(p->momentum());
 
-      // Avoid double counting by re-marking as unpassed if particle ID == parent ID
+      // Avoid double counting by re-marking as unpassed if ID == (any) parent ID
       const GenVertex* pv = p->production_vertex();
+      // if (passed && pv) {
+      //   for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end(); ++pp) {
+      //     if (p->pdg_id() == (*pp)->pdg_id() && (*pp)->status() == 2) {
+      //       passed = false;
+      //       break;
+      //     }
+      //   }
+      // }
+      //
+      // Avoid double counting by re-marking as unpassed if ID == any child ID
       const GenVertex* dv = p->end_vertex();
-      if (passed && pv) {
-        for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end(); ++pp) {
-          if (p->pdg_id() == (*pp)->pdg_id() && (*pp)->status() == 2) {
+      if (passed && dv) {
+        foreach (GenParticle* pp, particles_out(dv)) {
+          if (p->pdg_id() == pp->pdg_id() && pp->status() == 2) {
             passed = false;
             break;
           }

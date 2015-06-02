@@ -6,7 +6,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   /// @brief MC validation analysis for W polarisation
@@ -128,7 +128,7 @@ namespace Rivet {
 
       for (size_t i=0; i<_h_histos.size(); ++i) {
         foreach (Histo1DPtr histo, _h_histos[i]) {
-          scale(histo, crossSectionPerEvent());
+          scale(histo, crossSection()/picobarn/sumOfWeights());
         }
       }
 
@@ -142,8 +142,8 @@ namespace Rivet {
     /// @name Histograms
     //@{
 
-    std::vector<std::vector<Profile1DPtr> > _h_dists;
-    std::vector<std::vector<Histo1DPtr> > _h_histos;
+    vector<vector<Profile1DPtr> > _h_dists;
+    vector<vector<Histo1DPtr> > _h_histos;
     //@}
 
 

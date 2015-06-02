@@ -47,9 +47,9 @@ namespace Rivet {
     tmp.preMult(Matrix3(Vector3::mkY(), rot_angle));
     // Check that final HCM photon lies along +ve z as expected
     pGammaHCM = tmp.transform(pGamma);
-    assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkX())));
-    assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkY())));
-    assert(isZero(angle(pGammaHCM.vector3(), Vector3::mkZ())));
+    assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkX()), 1e-3));
+    assert(isZero(dot(pGammaHCM.vector3(), Vector3::mkY()), 1e-3));
+    assert(isZero(angle(pGammaHCM.vector3(), Vector3::mkZ()), 1e-3));
 
     // Finally rotate so outgoing lepton at phi = 0
     FourMomentum pLepOutHCM = tmp.transform(pLepOut);
@@ -61,8 +61,8 @@ namespace Rivet {
     tmp.preMult(Matrix3(Vector3::mkX(), PI));
     const double bz = 1 - 2*x();
     _breit = LorentzTransform(Vector3::mkZ() * bz).combine(tmp);
-    assert(isZero(angle(_breit.transform(pGamma).vector3(), -Vector3::mkZ())));
-    assert(isZero(_breit.transform(pLepOut).azimuthalAngle()));
+    assert(isZero(angle(_breit.transform(pGamma).vector3(), -Vector3::mkZ()), 1e-3));
+    assert(isZero(_breit.transform(pLepOut).azimuthalAngle(), 1e-3));
   }
 
 

@@ -41,7 +41,7 @@ YLabel=$\text{d}\sigma/\text{d}\Delta\eta(\text{jet 2, jet 3})$ [pb]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jets_dphi_
-Title=Pseudorapidity separation between jets
+Title=Azimuthal separation between jets
 LegendXPos=0.1
 # END PLOT
 
