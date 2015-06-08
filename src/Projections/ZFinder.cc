@@ -77,7 +77,7 @@ namespace Rivet {
     assert(threeCharge(l1) + threeCharge(l2) == 0);
 
     stringstream msg;
-    msg << "Z reconstructed from: \n"
+    msg << "Z " << pZ << " reconstructed from: \n"
         << "   " << l1.momentum() << " " << l1.pid() << "\n"
         << " + " << l2.momentum() << " " << l2.pid();
     MSG_DEBUG(msg.str());
