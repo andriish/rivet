@@ -1,8 +1,21 @@
+2015-06-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add handling of -m/-M flags on rivet-cmphistos and rivet-mkhtml,
+	moving current rivet-mkhtml -m/-M to -a/-A (for analysis name
+	pattern matching). Requires YODA head (will be YODA 1.3.2 of
+	1.4.0).
+
+	* src/Analyses/ATLAS_2015_I1364361.cc: Now use the built-in prompt
+	photon selecting functions.
+
+	* Tweak legend positions in MC_JETS .plot file.
+
+	* Add a bit more debug output from ZFinder and WFinder.
+
 2015-05-24  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Normalisation discussion concerning ATLAS_2014_I1325553
-	is resolved. Changed Ylabel accrodingly.
-
+	is resolved. Changed YLabel accordingly.
 
 2015-05-19  Holger Schulz  <holger.schulz@durham.ac.uk>
 
@@ -14,7 +27,8 @@
 
 2015-05-19  Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Fix ATLAS_2014_I1325553 normalisation of histograms was wrong by factor of two |y| vs y problem
+	* Fix ATLAS_2014_I1325553 normalisation of histograms was wrong by
+	factor of two |y| vs y problem
 
 2015-05-01  Andy Buckley  <andy.buckley@cern.ch>
 
