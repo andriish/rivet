@@ -290,7 +290,7 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 
 
 ## Set extra Python extension build flags (to cope with Cython output code oddities)
-PYEXT_CXXFLAGS=
+PYEXT_CXXFLAGS="$CXXFLAGS"
 AC_CEDAR_CHECKCXXFLAG([-Wno-unused-but-set-variable], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-unused-but-set-variable"])
 AC_CEDAR_CHECKCXXFLAG([-Wno-sign-compare], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-sign-compare"])
 AC_SUBST(PYEXT_CXXFLAGS)
