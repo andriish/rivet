@@ -1,3 +1,8 @@
+2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding isVisible method to Particle, taken from
+	VisibleFinalState (which now uses this).
+
 2015-06-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Marking many old & superseded ATLAS analyses as obsolete.
