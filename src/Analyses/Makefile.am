@@ -28,10 +28,10 @@ libRivetAnalysisTools_la_SOURCES = \
 ## Obsolete analyses: as mentioned above, when a preliminary analysis becomes
 ## permanent its name will change to reflect its newly published status via the
 ## publication's SPIRES ID. The previous form of the analysis, possibly with
-## different reference histograms, will be retained for one major version of
+## different reference histograms, will be retained for at least one major version of
 ## Rivet with a status of "obsolete" before being removed, to give users time to
 ## migrate their run scripts, i.e. if an analysis is marked as obsolete in
-## version 1.4.2, it will remain in Rivet's distribution until version
+## version 1.4.2, it will remain in Rivet's distribution until at least version
 ## 1.5.0. Obsolete analyses will not be available if Rivet is built with the
 ## --disable-obsolete configure flag.
 
@@ -132,9 +132,9 @@ endif
 if ENABLE_OBSOLETE
 RivetATLASAnalyses_la_SOURCES += \
     ATLAS_2010_CONF_2010_049.cc \
-    ATLAS_2011_S9041966.cc \
     ATLAS_2011_CONF_2011_090.cc \
     ATLAS_2011_CONF_2011_098.cc \
+    ATLAS_2011_S9041966.cc \
     ATLAS_2011_S9212353.cc \
     ATLAS_2012_CONF_2012_103.cc \
     ATLAS_2012_CONF_2012_104.cc \
@@ -144,24 +144,14 @@ RivetATLASAnalyses_la_SOURCES += \
 endif
 if ENABLE_UNVALIDATED
 RivetATLASAnalyses_la_SOURCES += \
-    ATLAS_2010_CONF_2010_049.cc \
-    ATLAS_2011_S9041966.cc \
-    ATLAS_2011_CONF_2011_090.cc \
-    ATLAS_2011_CONF_2011_098.cc \
     ATLAS_2011_S9108483.cc \
-    ATLAS_2011_S9212353.cc \
     ATLAS_2011_S9035664.cc \
     ATLAS_2012_I1095236.cc \
     ATLAS_2012_I1082009.cc \
-    ATLAS_2012_I946427.cc \
     ATLAS_2012_I1126136.cc \
     ATLAS_2012_I1180197.cc \
     ATLAS_2012_I1186556.cc \
     ATLAS_2012_I1190891.cc \
-    ATLAS_2012_CONF_2012_103.cc \
-    ATLAS_2012_CONF_2012_104.cc \
-    ATLAS_2012_CONF_2012_105.cc \
-    ATLAS_2012_CONF_2012_109.cc \
     ATLAS_2012_CONF_2012_153.cc
 endif
 
