@@ -43,7 +43,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 10*GeV, cmpMomByEt);
+      Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::Et > 10*GeV, cmpMomByEt);
       if (jets.size() < 2) vetoEvent;
       FourMomentum jet1 = jets[0].momentum();
       FourMomentum jet2 = jets[1].momentum();
