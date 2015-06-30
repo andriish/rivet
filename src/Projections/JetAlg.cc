@@ -4,8 +4,8 @@
 namespace Rivet {
 
 
-  JetAlg::JetAlg(const FinalState& fs)
-    : _useInvisibles(false)
+  JetAlg::JetAlg(const FinalState& fs, InvisiblesStrategy useinvis)
+    : _useInvisibles(useinvis)
   {
     setName("JetAlg");
     addProjection(fs, "FS");

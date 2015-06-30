@@ -15,9 +15,15 @@ namespace Rivet {
   class JetAlg : public Projection {
   public:
 
-    /// Constructor
-    JetAlg(const FinalState& fs);
+    /// Enums for the treatment of invisible particles: whether to include all, some, or none in jet-finding
+    enum InvisiblesStrategy { NO_INVISIBLES, NONPROMPT_INVISIBLES, ALL_INVISIBLES };
 
+
+
+    /// Constructor
+    JetAlg(const FinalState& fs, InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES);
+
+    /// Default constructor
     JetAlg() {};
 
     /// Clone on the heap.
@@ -26,14 +32,27 @@ namespace Rivet {
     /// Destructor
     virtual ~JetAlg() { }
 
+
     /// @brief Include invisible particles in jet construction.
+    ///
     /// The default behaviour is that jets are only constructed from visible
-    /// (i.e. charged under an SM gauge group) particles. Some jet studies,
-    /// including those from ATLAS, use a definition in which neutrinos from hadron
-    /// decays are included (via MC correction) in the experimental jet definition.
+    /// particles. Some jet studies, including those from ATLAS, use a definition
+    /// in which neutrinos from hadron decays are included via MC-based calibrations.
     /// Setting this flag to true avoids the automatic restriction to a VisibleFinalState.
-    void useInvisibles(bool useinvis=true) {
+    void useInvisibles(InvisiblesStrategy useinvis=NONPROMPT_INVISIBLES) {
       _useInvisibles = useinvis;
+    }
+
+    /// @brief Include invisible particles in jet construction.
+    ///
+    /// The default behaviour is that jets are only constructed from visible
+    /// particles. Some jet studies, including those from ATLAS, use a definition
+    /// in which neutrinos from hadron decays are included via MC-based calibrations.
+    /// Setting this flag to true avoids the automatic restriction to a VisibleFinalState.
+    ///
+    /// @deprecated Use the enum-arg version instead
+    void useInvisibles(bool useinvis) {
+      _useInvisibles = useinvis ? NONPROMPT_INVISIBLES : NO_INVISIBLES;
     }
 
 
@@ -186,8 +205,9 @@ namespace Rivet {
 
   protected:
 
-    /// Flag to determine whether or not the VFS wrapper is to be used.
-    bool _useInvisibles;
+    /// Flag to determine whether or not to exclude (some) invisible particles from the would-be constituents.
+    InvisiblesStrategy _useInvisibles;
+
 
   };
 

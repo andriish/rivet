@@ -79,7 +79,7 @@ namespace Rivet {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
       cmp(_useInvisibles, other._useInvisibles) ||
-      (_useInvisibles ? mkNamedPCmp(other, "FS") : mkNamedPCmp(other, "VFS")) ||
+      mkNamedPCmp(other, "FS") ||
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
       cmp(_jdef.recombination_scheme(), other._jdef.recombination_scheme()) ||
       cmp(_jdef.plugin(), other._jdef.plugin()) ||
@@ -88,11 +88,18 @@ namespace Rivet {
   }
 
 
+  namespace {
+    bool isPromptInvisible(const Particle& p) { return !(p.isVisible() || p.fromDecay()); }
+  }
+
 
   void FastJets::project(const Event& e) {
-    // Final state particles
-    const string fskey = _useInvisibles ? "FS" : "VFS";
-    const Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
+    // Assemble final state particles
+    const string fskey = (_useInvisibles == JetAlg::NO_INVISIBLES) ? "VFS" : "FS";
+    Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
+    if (_useInvisibles == JetAlg::NONPROMPT_INVISIBLES)
+      fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isPromptInvisible), fsparticles.end() );
+
     // Tagging particles
     const Particles chadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").cHadrons();
     const Particles bhadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").bHadrons();
@@ -111,7 +118,7 @@ namespace Rivet {
     int counter = 1;
     foreach (const Particle& p, fsparticles) {
       const FourMomentum fv = p.momentum();
-      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate?
+      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate with implicit cast?
       pj.set_user_index(counter);
       pjs.push_back(pj);
       _particles[counter] = p;
@@ -121,7 +128,7 @@ namespace Rivet {
     counter = 1;
     foreach (const Particle& p, tagparticles) {
       const FourMomentum fv = 1e-20 * p.momentum(); ///< Ghostify the momentum
-      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate?
+      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate with implicit cast?
       pj.set_user_index(-counter);
       pjs.push_back(pj);
       _particles[-counter] = p;

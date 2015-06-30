@@ -42,19 +42,21 @@ namespace Rivet {
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
     FastJets(const FinalState& fsp, JetAlgName alg,
-             double rparameter, double seed_threshold=1.0)
+             double rparameter, JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES,
+             double seed_threshold=1.0)
       : JetAlg(fsp), _adef(0) { _init1(alg, rparameter, seed_threshold); }
 
     /// Native argument constructor, using FastJet alg/scheme enums.
     FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
-             fastjet::RecombinationScheme recom, double rparameter)
+             fastjet::RecombinationScheme recom, double rparameter,
+             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
       : JetAlg(fsp), _adef(0) { _init2(type, recom, rparameter); }
 
     /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
-    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin* plugin)
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin* plugin, JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
       : JetAlg(fsp), _adef(0) { _init3(plugin); }
     /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
-    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin)
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin, JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
       : JetAlg(fsp), _adef(0) { _init3(&plugin); }
 
 
