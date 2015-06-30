@@ -1,5 +1,7 @@
 2015-06-30  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Marking many old & superseded ATLAS analyses as obsolete.
+
 	* Adding cmpMomByMass and cmpMomByAscMass sorting functors.
 
 	* Bump version to 2.3.0 and require YODA > 1.4.0 (current head at
