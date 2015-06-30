@@ -1,3 +1,8 @@
+2015-06-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Bump version to 2.3.0 and require YODA > 1.4.0 (current head at
+	time of development).
+
 2015-06-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add handling of -m/-M flags on rivet-cmphistos and rivet-mkhtml,

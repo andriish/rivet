@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet], [2.2.1], [rivet@projects.hepforge.org], [Rivet])
+AC_INIT([Rivet], [2.3.0], [rivet@projects.hepforge.org], [Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -87,8 +87,8 @@ if test -f "$YODACONFIG"; then
   YODA_VERSION2=[`echo $YODA_VERSION | cut -d. -f2 | sed -e 's/\([0-9]*\).*/\1/g'`]
   YODA_VERSION3=[`echo $YODA_VERSION | cut -d. -f3 | sed -e 's/\([0-9]*\).*/\1/g'`]
   let YODA_VERSION_INT=YODA_VERSION1*10000+YODA_VERSION2*100+YODA_VERSION3
-  if test $YODA_VERSION_INT -lt 10100; then
-    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.1.0 required])
+  if test $YODA_VERSION_INT -lt 10400; then
+    AC_MSG_ERROR([YODA version isn't sufficient: at least version 1.4.0 required])
   fi
   AC_MSG_CHECKING([YODA Python path using yoda-config])
   YODA_PYTHONPATH=`$YODACONFIG --pythonpath`
