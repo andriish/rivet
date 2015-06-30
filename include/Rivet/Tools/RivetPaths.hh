@@ -1,6 +1,8 @@
 // -*- C++ -*-
 #ifndef RIVET_RivetPaths_HH
 #define RIVET_RivetPaths_HH
+#include <string>
+#include <vector>
 
 namespace Rivet {
 
