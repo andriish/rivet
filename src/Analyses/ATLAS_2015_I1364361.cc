@@ -98,8 +98,8 @@ namespace Rivet {
 
       // If no stable Higgs found in event record, can't do anything (abort)
       if ( !stable_higgs ) {
-	printf("FATAL: No stable Higgs found in event record.\n");
-	abort();
+	MSG_WARNING("FATAL: No stable Higgs found in event record.\n");
+	vetoEvent;
       }
 
       ParticleVector leptons;
