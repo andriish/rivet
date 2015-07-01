@@ -117,7 +117,7 @@ namespace Rivet {
     stringstream msg;
     string wsign = (wcharge == 1) ? "+" : "-";
     string wstr = "W" + wsign;
-    msg << wstr << " reconstructed from: " << "\n"
+    msg << wstr << " " << pW << " reconstructed from: " << "\n"
         << "   " << p1.momentum() << " " << p1.pid() << "\n"
         << " + " << p2.momentum() << " " << p2.pid();
     MSG_DEBUG(msg.str());

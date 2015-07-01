@@ -1,11 +1,11 @@
 /*
  * Rivet routine for the Higgs differential cross sections combination
- * between the ATLAS measurements in the yy and 4l channels for 
+ * between the ATLAS measurements in the yy and 4l channels for
  * Higgs transverse momentum, rapidity, jet multiplicity and leading jet pT
  *
  * Author: Michaela Queitsch-Maitland (ATLAS Collaboration)
  * Contact: Michaela Queitsch-Maitland <michaela.queitsch-maitland@cern.ch>,
- *          Dag Gillberg <dag.gillberg@cern.ch>, 
+ *          Dag Gillberg <dag.gillberg@cern.ch>,
  *          Florian Bernlochner <florian.bernlochner@cern.ch>,
  *          Sarah Heim <sarah.heim@cern.ch>
  */
@@ -80,7 +80,7 @@ namespace Rivet {
       // Get event weight
       const double weight = event.weight();
       _weight = weight;
-      
+
       // Get the final state particles ordered by pT
       const ParticleVector& FS = applyProjection<FinalState>(event, "FS").particlesByPt();
 
@@ -95,7 +95,7 @@ namespace Rivet {
 	  break;
 	}
       }
-      
+
       // If no stable Higgs found in event record, can't do anything (abort)
       if ( !stable_higgs ) {
 	printf("FATAL: No stable Higgs found in event record.\n");
@@ -111,10 +111,10 @@ namespace Rivet {
 	// Do not include the Higgs in jet finding!
 	if ( ptcl.pid()==25 ) continue;
 	// Neutrinos not from hadronisation
-	if ( ptcl.isNeutrino() && !fromHadronDecay(ptcl) ) continue; 
+	if ( ptcl.isNeutrino() && !fromHadronDecay(ptcl) ) continue;
 	// Electrons and muons not from hadronisation
 	if ( ( ptcl.abspid() == 11 || ptcl.abspid() == 13 ) && !fromHadronDecay(ptcl) ) {
-	  leptons.push_back(ptcl); 
+	  leptons.push_back(ptcl);
 	  continue;
 	}
 	// Photons not from hadronisation
@@ -182,15 +182,15 @@ namespace Rivet {
 	//_h_yH_yH12->fill( fabs(_yH),weight);
 	//_h_Njets_yH12->fill(_Njets,weight);
 	//_h_pTj1_yH12->fill(_pTj1,weight);
-      //}      
+      //}
 
       //if ( fabs(_yH) < 2.0 ) {
 	//_h_pTH_yH2->fill(_pTH,weight);
 	//_h_yH_yH2->fill( fabs(_yH),weight);
 	//_h_Njets_yH2->fill(_Njets,weight);
 	//_h_pTj1_yH2->fill(_pTj1,weight);
-      //}      
-            
+      //}
+
     }
 
 
@@ -211,7 +211,7 @@ namespace Rivet {
       //scale( _h_yH_yH12, xs );
       //scale( _h_Njets_yH12, xs );
       //scale( _h_pTj1_yH12, xs );
-      
+
       //scale( _h_pTH, xs );
       //scale( _h_yH, xs );
       //scale( _h_pTj1, xs );
@@ -223,15 +223,17 @@ namespace Rivet {
       //scale( _h_dphi_H_jj, xs );
     }
 
+
     bool fromHadronDecay(const Particle& p ) {
-      GenVertex* prodVtx = p.genParticle()->production_vertex();
-      if (prodVtx == NULL) return false;
-      foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
-	const PdgId pid = ancestor->pdg_id();
-	if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
-	if (ancestor->status() == 2 && (abs(pid) == PID::TAU && fromHadronDecay(ancestor))) return true;
-      }
-      return false;
+      return p.fromHadron();
+      // const GenVertex* prodVtx = p.genParticle()->production_vertex();
+      // if (prodVtx == NULL) return false;
+      // foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+      //   const PdgId pid = ancestor->pdg_id();
+      //   if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
+      //   if (ancestor->status() == 2 && (abs(pid) == PID::TAU && fromHadronDecay(ancestor))) return true;
+      // }
+      // return false;
     }
 
 
@@ -264,7 +266,7 @@ namespace Rivet {
     //Histo1DPtr _h_yH_yH12;
     //Histo1DPtr _h_Njets_yH12;
     //Histo1DPtr _h_pTj1_yH12;
-        
+
     //Histo1DPtr _h_pTH;
     //Histo1DPtr _h_yH;
     //Histo1DPtr _h_pTj1;

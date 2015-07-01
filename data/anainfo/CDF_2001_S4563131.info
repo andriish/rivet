@@ -4,7 +4,7 @@ Summary: Inclusive jet cross section
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 4563131
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:

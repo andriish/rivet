@@ -26,50 +26,64 @@ import glob, shutil
 from subprocess import Popen,PIPE
 
 
-from optparse import OptionParser
+from optparse import OptionParser, OptionGroup
 parser = OptionParser(usage=__doc__)
 parser.add_option("-o", "--outputdir", dest="OUTPUTDIR",
                   default="./plots", help="directory for webpage output")
-parser.add_option("-t", "--title", dest="TITLE",
-                  default="Plots from Rivet analyses", help="title to be displayed on the main web page")
 parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=["~/.make-plots"],
                   help="plot config file(s) to be used with rivet-cmphistos.")
-parser.add_option("-s", "--single", dest="SINGLE", action="store_true",
-                  default=False, help="display plots on single webpage.")
-parser.add_option("--no-ratio", dest="SHOW_RATIO", action="store_false",
-                  default=True, help="don't draw a ratio plot under each main plot.")
-parser.add_option("--mc-errs", dest="MC_ERRS", action="store_true",
-                  default=False, help="plot error bars.")
-parser.add_option("--refid", dest="REF_ID",
-                  default=None, help="ID of reference data set (file path for non-REF data)")
 parser.add_option("-n", "--num-threads", metavar="NUMTHREADS", dest="NUMTHREADS", type=int,
                   default=None, help="request make-plots to use a specific number of threads.")
-parser.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
-                  default="PDF", help="use PDF as the vector plot format.")
-parser.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
-                  default="PDF", help="use PostScript as the vector plot format.")
-parser.add_option("--booklet", dest="BOOKLET", action="store_true",
-                  default=False, help="create booklet (currently only available for PDF with pdftk).")
-parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
-                  default=False, help="ignore unvalidated analyses.")
 parser.add_option("--ignore-missing", dest="IGNORE_MISSING", action="store_true",
                   default=False, help="ignore missing YODA files.")
-parser.add_option("-m", "--match", action="append", dest="PATHPATTERNS", default=[],
-                  help="only write out histograms from analyses whose name matches any of these regexes")
-parser.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS", default=[],
-                  help="Exclude histograms from analyses whose $path/$name string matches these regexes")
-parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
-                  help="Use Palatino as font (default).")
-parser.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
-                  help="Use Computer Modern as font.")
-parser.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
-                  help="Use Times as font.")
-parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
-                  help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
-parser.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERBOSE",
+parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
+                  default=False, help="ignore unvalidated analyses.")
+parser.add_option("--refid", dest="REF_ID",
+                  default=None, help="ID of reference data set (file path for non-REF data)")
+
+stygroup = OptionGroup(parser, "Style options")
+stygroup.add_option("-t", "--title", dest="TITLE",
+                    default="Plots from Rivet analyses", help="title to be displayed on the main web page")
+stygroup.add_option("-s", "--single", dest="SINGLE", action="store_true",
+                    default=False, help="display plots on single webpage.")
+stygroup.add_option("--no-ratio", dest="SHOW_RATIO", action="store_false",
+                    default=True, help="don't draw a ratio plot under each main plot.")
+stygroup.add_option("--mc-errs", dest="MC_ERRS", action="store_true",
+                    default=False, help="plot error bars.")
+stygroup.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
+                    default="PDF", help="use PDF as the vector plot format.")
+stygroup.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
+                    default="PDF", help="use PostScript as the vector plot format.")
+stygroup.add_option("--booklet", dest="BOOKLET", action="store_true",
+                    default=False, help="create booklet (currently only available for PDF with pdftk).")
+stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
+                    help="Use Palatino as font (default).")
+stygroup.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
+                    help="Use Computer Modern as font.")
+stygroup.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
+                    help="Use Times as font.")
+stygroup.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
+                    help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
+parser.add_option_group(stygroup)
+
+selgroup = OptionGroup(parser, "Selective plotting")
+selgroup.add_option("-m", "--match", action="append", dest="PATHPATTERNS", default=[],
+                    help="only write out histograms whose $path/$name string matches any of these regexes")
+selgroup.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS", default=[],
+                    help="exclude histograms whose $path/$name string matches any of these regexes")
+selgroup.add_option("-a", "--ana-match", action="append", dest="ANAPATTERNS", default=[],
+                    help="only write out histograms from analyses whose name matches any of these regexes")
+selgroup.add_option("-A", "--ana-unmatch", action="append", dest="ANAUNPATTERNS", default=[],
+                    help="exclude histograms from analyses whose name matches any of these regexes")
+parser.add_option_group(selgroup)
+
+vrbgroup = OptionGroup(parser, "Verbosity control")
+vrbgroup.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERBOSE",
                   action="store_true", default=False)
-parser.add_option("--dry-run", help="Don't actually do any plotting or HTML building", dest="DRY_RUN",
+vrbgroup.add_option("--dry-run", help="Don't actually do any plotting or HTML building", dest="DRY_RUN",
                   action="store_true", default=False)
+parser.add_option_group(vrbgroup)
+
 opts, yodafiles = parser.parse_args()
 
 
@@ -116,14 +130,14 @@ for yodafile in yodafiles:
             continue
         import re
         matched = True
-        if opts.PATHPATTERNS:
+        if opts.ANAPATTERNS:
             matched = False
-            for patt in opts.PATHPATTERNS:
+            for patt in opts.ANAPATTERNS:
                 if re.search(patt, analysis) is not None:
                     matched = True
                     break
-        if matched and opts.PATHUNPATTERNS:
-            for patt in opts.PATHUNPATTERNS:
+        if matched and opts.ANAUNPATTERNS:
+            for patt in opts.ANAUNPATTERNS:
                 if re.search(patt, analysis) is not None:
                     matched = False
                     break
@@ -168,6 +182,12 @@ if not opts.SHOW_RATIO:
     ch_cmd.append("--no-ratio")
 if opts.REF_ID is not None:
     ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
+if opts.PATHPATTERNS:
+    for patt in opts.PATHPATTERNS:
+        ch_cmd += ["-m", patt]
+if opts.PATHUNPATTERNS:
+    for patt in opts.PATHUNPATTERNS:
+        ch_cmd += ["-M", patt]
 ch_cmd.append("--hier-out")
 # TODO: Need to be able to override this: provide a --plotinfodir cmd line option?
 ch_cmd.append("--plotinfodir=%s" % os.path.abspath("../"))

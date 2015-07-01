@@ -120,24 +120,32 @@ YLabel=$|\eta(\text{jet 4}|$
 Title=Rapidity of first jet
 XLabel=$y(\text{jet 1})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 1})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.3
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_2
 Title=Rapidity of second jet
 XLabel=$y(\text{jet 2})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 2})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.3
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_3
 Title=Rapidity of third jet
 XLabel=$y(\text{jet 3})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 3})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.3
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_4
 Title=Rapidity of fourth jet
 XLabel=$y(\text{jet 4})$
 YLabel=$\text{d}\sigma/\text{d}y(\text{jet 4})$ [pb]
+LegendYPos=0.5
+LegendXPos=0.3
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_pmratio_1
@@ -221,8 +229,8 @@ Title=Transverse momentum of leading jet
 XLabel=$p_\perp(\text{jet 1})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 1})$ [pb/GeV]
 LogX=1
-LegendXPos=0.05
-LegendYPos=0.5
+#LegendXPos=0.05
+#LegendYPos=0.5
 XMin=20.0
 # END PLOT
 
@@ -231,8 +239,8 @@ Title=Transverse momentum of second jet
 XLabel=$p_\perp(\text{jet 2})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 2})$ [pb/GeV]
 LogX=1
-LegendXPos=0.05
-LegendYPos=0.5
+#LegendXPos=0.05
+#LegendYPos=0.5
 XMin=20.0
 # END PLOT
 
@@ -241,8 +249,8 @@ Title=Transverse momentum of third jet
 XLabel=$p_\perp(\text{jet 3})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 3})$ [pb/GeV]
 LogX=1
-LegendXPos=0.05
-LegendYPos=0.5
+#LegendXPos=0.05
+#LegendYPos=0.5
 XMin=20.0
 # END PLOT
 
@@ -251,8 +259,8 @@ Title=Transverse momentum of fourth jet
 XLabel=$p_\perp(\text{jet 4})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}p_\perp(\text{jet 4})$ [pb/GeV]
 LogX=1
-LegendXPos=0.05
-LegendYPos=0.5
+#LegendXPos=0.05
+#LegendYPos=0.5
 XMin=20.0
 # END PLOT
 

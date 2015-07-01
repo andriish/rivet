@@ -35,6 +35,8 @@ libRivetAnalysisTools_la_SOURCES = \
 ## 1.5.0. Obsolete analyses will not be available if Rivet is built with the
 ## --disable-obsolete configure flag.
 
+if ENABLE_ANALYSES
+
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
     ALICE_2010_S8624100.cc \
@@ -451,4 +453,6 @@ if ENABLE_UNVALIDATED
 RivetMCAnalyses_la_SOURCES += \
     MC_DIJET.cc \
     MC_PHOTONJETUE.cc
+endif
+
 endif
