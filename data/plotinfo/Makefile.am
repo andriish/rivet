@@ -223,6 +223,7 @@ dist_pkgdata_DATA = \
   D0_2010_S8671338.plot \
   D0_2010_S8821313.plot \
   D0_2011_I895662.plot \
+  D0_2015_I1324946.plot \
   E735_1998_S3905616.plot \
   DELPHI_1995_S3137023.plot \
   DELPHI_1996_S3430090.plot \
