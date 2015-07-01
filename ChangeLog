@@ -1,10 +1,45 @@
 2015-07-01  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Add D0 phi* measurement (D0_2015_I1324946).
+
 	* Remove WUD and MC_PHOTONJETUE analyses
+
 	* Don't abort ATLAS_2015_I1364361 if there is no stable Higgs
 	  print a warning instead and veto event
 
+2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add all, none, from-decay muon filtering options to JetAlg and
+	FastJets.
+
+	* Rename NONPROMPT_INVISIBLES to DECAY_INVISIBLES for clarity &
+	extensibility.
+
+	* Remove FastJets::ySubJet, splitJet, and filterJet methods --
+	they're BDRS-paper-specific and you can now use the FastJet
+	objects directly to do this and much more.
+
+	* Adding InvisiblesStrategy to JetAlg, using it rather than a bool
+	in the useInvisibles method, and updating FastJets to use this
+	approach for its particle filtering and to optionally use the enum
+	in the constructor arguments. The new default invisibles-using
+	behaviour is to still exclude _prompt_ invisibles, and the default
+	is still to exclude them all. Only one analysis
+	(src/Analyses/STAR_2006_S6870392.cc) required updating, since it
+	was the only one to be using the FastJets legacy seed_threshold
+	constructor argument.
+
+	* Adding isVisible method to Particle, taken from
+	VisibleFinalState (which now uses this).
+
+2015-06-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Marking many old & superseded ATLAS analyses as obsolete.
+
+	* Adding cmpMomByMass and cmpMomByAscMass sorting functors.
+
+	* Bump version to 2.3.0 and require YODA > 1.4.0 (current head at
+	time of development).
 2015-06-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add handling of -m/-M flags on rivet-cmphistos and rivet-mkhtml,

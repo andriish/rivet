@@ -128,6 +128,20 @@ namespace Rivet {
     /// Does this (hadron) contain a c quark?
     bool hasCharm() const { return PID::hasCharm(pid()); }
 
+    /// Is this particle potentially visible in a detector?
+    bool isVisible() const {
+      // Charged particles are visible
+      if ( PID::threeCharge(pid()) != 0 ) return true;
+      // Neutral hadrons are visible
+      if ( PID::isHadron(pid()) ) return true;
+      // Photons are visible
+      if ( pid() == PID::PHOTON ) return true;
+      // Gluons are visible (for parton level analyses)
+      if ( pid() == PID::GLUON ) return true;
+      // Everything else is invisible
+      return false;
+    }
+
     // /// Does this (hadron) contain an s quark?
     // bool hasStrange() const { return PID::hasStrange(pid()); }
 
