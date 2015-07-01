@@ -15,13 +15,16 @@ namespace Rivet {
   class JetAlg : public Projection {
   public:
 
-    /// Enums for the treatment of invisible particles: whether to include all, some, or none in jet-finding
-    enum InvisiblesStrategy { NO_INVISIBLES, NONPROMPT_INVISIBLES, ALL_INVISIBLES };
+    /// Enum for the treatment of muons: whether to include all, some, or none in jet-finding
+    enum MuonsStrategy { NO_MUONS, DECAY_MUONS, ALL_MUONS };
+
+    /// Enum for the treatment of invisible particles: whether to include all, some, or none in jet-finding
+    enum InvisiblesStrategy { NO_INVISIBLES, DECAY_INVISIBLES, ALL_INVISIBLES };
 
 
 
     /// Constructor
-    JetAlg(const FinalState& fs, InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES);
+    JetAlg(const FinalState& fs, MuonsStrategy usemuons=JetAlg::NO_MUONS, InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES);
 
     /// Default constructor
     JetAlg() {};
@@ -33,17 +36,33 @@ namespace Rivet {
     virtual ~JetAlg() { }
 
 
-    /// @brief Include invisible particles in jet construction.
+    /// @name Control the treatment of muons and invisible particles
+    ///
+    /// Since MC-based jet calibration (and/or particle flow) can add back in
+    /// particles that weren't seen in calorimeters/trackers.
+    //@{
+
+    /// @brief Include (some) muons in jet construction.
     ///
     /// The default behaviour is that jets are only constructed from visible
     /// particles. Some jet studies, including those from ATLAS, use a definition
     /// in which neutrinos from hadron decays are included via MC-based calibrations.
     /// Setting this flag to true avoids the automatic restriction to a VisibleFinalState.
-    void useInvisibles(InvisiblesStrategy useinvis=NONPROMPT_INVISIBLES) {
+    void useMuons(MuonsStrategy usemuons=ALL_MUONS) {
+      _useMuons = usemuons;
+    }
+
+    /// @brief Include (some) invisible particles in jet construction.
+    ///
+    /// The default behaviour is that jets are only constructed from visible
+    /// particles. Some jet studies, including those from ATLAS, use a definition
+    /// in which neutrinos from hadron decays are included via MC-based calibrations.
+    /// Setting this flag to true avoids the automatic restriction to a VisibleFinalState.
+    void useInvisibles(InvisiblesStrategy useinvis=DECAY_INVISIBLES) {
       _useInvisibles = useinvis;
     }
 
-    /// @brief Include invisible particles in jet construction.
+    /// @brief Include (some) invisible particles in jet construction.
     ///
     /// The default behaviour is that jets are only constructed from visible
     /// particles. Some jet studies, including those from ATLAS, use a definition
@@ -52,9 +71,14 @@ namespace Rivet {
     ///
     /// @deprecated Use the enum-arg version instead
     void useInvisibles(bool useinvis) {
-      _useInvisibles = useinvis ? NONPROMPT_INVISIBLES : NO_INVISIBLES;
+      _useInvisibles = useinvis ? DECAY_INVISIBLES : NO_INVISIBLES;
     }
 
+    //@}
+
+
+    /// @name Access to jet objects
+    //@{
 
     /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts
@@ -97,6 +121,8 @@ namespace Rivet {
     Jets jetsByPt(const Cut & c = Cuts::open()) const {
       return jets(c, cmpMomByPt);
     }
+
+    //@}
 
 
     /// @name Old sorted jet accessors
@@ -204,6 +230,9 @@ namespace Rivet {
 
 
   protected:
+
+    /// Flag to determine whether or not to exclude (some) muons from the would-be constituents.
+    MuonsStrategy _useMuons;
 
     /// Flag to determine whether or not to exclude (some) invisible particles from the would-be constituents.
     InvisiblesStrategy _useInvisibles;

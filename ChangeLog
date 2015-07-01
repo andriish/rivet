@@ -1,5 +1,11 @@
 2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add all, none, from-decay muon filtering options to JetAlg and
+	FastJets.
+
+	* Rename NONPROMPT_INVISIBLES to DECAY_INVISIBLES for clarity &
+	extensibility.
+
 	* Remove FastJets::ySubJet, splitJet, and filterJet methods --
 	they're BDRS-paper-specific and you can now use the FastJet
 	objects directly to do this and much more.

@@ -26,10 +26,10 @@ namespace Rivet {
       if (alg == SISCONE) {
         const double OVERLAP_THRESHOLD = 0.75;
         _plugin.reset(new fastjet::SISConePlugin(rparameter, OVERLAP_THRESHOLD));
-      } else if (alg == PXCONE) {
-        string msg = "PxCone currently not supported, since FastJet doesn't install it by default. ";
-        msg += "Please notify the Rivet authors if this behaviour should be changed.";
-        throw Error(msg);
+      // } else if (alg == PXCONE) {
+      //   string msg = "PxCone currently not supported, since FastJet doesn't install it by default. ";
+      //   msg += "Please notify the Rivet authors if this behaviour should be changed.";
+      //   throw Error(msg);
         //_plugin.reset(new fastjet::PxConePlugin(rparameter));
       } else if (alg == ATLASCONE) {
         const double OVERLAP_THRESHOLD = 0.5;
@@ -78,6 +78,7 @@ namespace Rivet {
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
+      cmp(_useMuons, other._useMuons) ||
       cmp(_useInvisibles, other._useInvisibles) ||
       mkNamedPCmp(other, "FS") ||
       cmp(_jdef.jet_algorithm(), other._jdef.jet_algorithm()) ||
@@ -90,6 +91,8 @@ namespace Rivet {
 
   namespace {
     bool isPromptInvisible(const Particle& p) { return !(p.isVisible() || p.fromDecay()); }
+    // bool isMuon(const Particle& p) { return p.abspid() == PID::MUON; }
+    bool isPromptMuon(const Particle& p) { return isMuon(p) && !p.fromDecay(); }
   }
 
 
@@ -97,8 +100,14 @@ namespace Rivet {
     // Assemble final state particles
     const string fskey = (_useInvisibles == JetAlg::NO_INVISIBLES) ? "VFS" : "FS";
     Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
-    if (_useInvisibles == JetAlg::NONPROMPT_INVISIBLES)
+    // Remove prompt invisibles if needed (already done by VFS if using NO_INVISIBLES)
+    if (_useInvisibles == JetAlg::DECAY_INVISIBLES)
       fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isPromptInvisible), fsparticles.end() );
+    // Remove prompt/all muons if needed
+    if (_useMuons == JetAlg::DECAY_MUONS)
+      fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isPromptMuon), fsparticles.end() );
+    else if (_useMuons == JetAlg::NO_MUONS)
+      fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isMuon), fsparticles.end() );
 
     // Tagging particles
     const Particles chadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").cHadrons();
