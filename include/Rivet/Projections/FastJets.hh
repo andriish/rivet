@@ -28,7 +28,7 @@ namespace Rivet {
 
     /// Wrapper enum for selected Fastjet jet algorithms.
     enum JetAlgName { KT, CAM, SISCONE, ANTIKT,
-                      PXCONE,
+                      // PXCONE,
                       ATLASCONE, CMSCONE,
                       CDFJETCLU, CDFMIDPOINT, D0ILCONE,
                       JADE, DURHAM, TRACKJET };
@@ -139,7 +139,7 @@ namespace Rivet {
     //@}
 
 
-    /// @name Access to the cluster sequence and splitting info
+    /// @name Access to the FastJet clustering objects such as jet def, area def, and cluster
     //@{
 
     /// Return the cluster sequence.
@@ -163,19 +163,24 @@ namespace Rivet {
       return _adef;
     }
 
+    //@}
 
-    /// Get the subjet splitting variables for the given jet.
-    vector<double> ySubJet(const fastjet::PseudoJet& jet) const;
 
-    /// @brief Split a jet a la PRL100,242001(2008).
-    ///
-    /// Based on code from G.Salam, A.Davison.
-    fastjet::PseudoJet splitJet(fastjet::PseudoJet jet, double& last_R) const;
+    /// @name Access to jet splitting variables: DISABLED FROM 2.3.0, USE FASTJET OBJECTS DIRECTLY INSTEAD
+    //@{
 
-    /// @brief Filter a jet a la PRL100,242001(2008).
-    ///
-    /// Based on code from G.Salam, A.Davison.
-    fastjet::PseudoJet filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const;
+    // /// Get the subjet splitting variables for the given jet.
+    // vector<double> ySubJet(const fastjet::PseudoJet& jet) const;
+
+    // /// @brief Split a jet a la PRL100,242001(2008).
+    // ///
+    // /// Based on code from G.Salam, A.Davison.
+    // fastjet::PseudoJet splitJet(fastjet::PseudoJet jet, double& last_R) const;
+
+    // /// @brief Filter a jet a la PRL100,242001(2008).
+    // ///
+    // /// Based on code from G.Salam, A.Davison.
+    // fastjet::PseudoJet filterJet(fastjet::PseudoJet jet, double& stingy_R, const double def_R) const;
 
     //@}
 

@@ -186,89 +186,89 @@ namespace Rivet {
 
 
 
+  // DISABLED FROM 2.3.0, USE FASTJET OBJECTS DIRECTLY INSTEAD
 
-
-  vector<double> FastJets::ySubJet(const fastjet::PseudoJet& jet) const {
-    assert(clusterSeq());
-    fastjet::ClusterSequence subjet_cseq(clusterSeq()->constituents(jet), _jdef);
-    vector<double> yMergeVals;
-    for (int i = 1; i < 4; ++i) {
-      // Multiply the dmerge value by R^2 so that it corresponds to a
-      // relative k_T (fastjet has 1/R^2 in the d_ij distance by default)
-      const double ktmerge = subjet_cseq.exclusive_dmerge(i) * _jdef.R()*_jdef.R();
-      yMergeVals.push_back(ktmerge/jet.perp2());
-    }
-    _yscales.insert(make_pair( jet.cluster_hist_index(), yMergeVals ));
-    return yMergeVals;
-  }
-
-
-
-  fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R) const {
-    // Sanity cuts
-    if (jet.E() <= 0 || _cseq->constituents(jet).size() <= 1) {
-      return jet;
-    }
-
-    // Build a new cluster sequence just using the consituents of this jet.
-    assert(clusterSeq());
-    fastjet::ClusterSequence cs(clusterSeq()->constituents(jet), _jdef);
-
-    // Get the jet back again
-    fastjet::PseudoJet remadeJet = cs.inclusive_jets()[0];
-    MSG_DEBUG("Jet2:" << remadeJet.m() << "," << remadeJet.e());
-
-    fastjet::PseudoJet parent1, parent2;
-    fastjet::PseudoJet split(0.0, 0.0, 0.0, 0.0);
-    while (cs.has_parents(remadeJet, parent1, parent2)) {
-      MSG_DEBUG("Parents:" << parent1.m() << "," << parent2.m());
-      if (parent1.m2() < parent2.m2()) {
-        fastjet::PseudoJet tmp;
-        tmp = parent1; parent1 = parent2; parent2 = tmp;
-      }
-
-      double ktdist = parent1.kt_distance(parent2);
-      double rtycut2 = 0.3*0.3;
-      if (parent1.m() < ((2.0*remadeJet.m())/3.0) && ktdist > rtycut2*remadeJet.m2()) {
-        break;
-      } else {
-        remadeJet = parent1;
-      }
-    }
-
-    last_R = 0.5 * sqrt(parent1.squared_distance(parent2));
-    split.reset(remadeJet.px(), remadeJet.py(), remadeJet.pz(), remadeJet.E());
-    return split;
-  }
+  // vector<double> FastJets::ySubJet(const fastjet::PseudoJet& jet) const {
+  //   assert(clusterSeq());
+  //   fastjet::ClusterSequence subjet_cseq(clusterSeq()->constituents(jet), _jdef);
+  //   vector<double> yMergeVals;
+  //   for (int i = 1; i < 4; ++i) {
+  //     // Multiply the dmerge value by R^2 so that it corresponds to a
+  //     // relative k_T (fastjet has 1/R^2 in the d_ij distance by default)
+  //     const double ktmerge = subjet_cseq.exclusive_dmerge(i) * _jdef.R()*_jdef.R();
+  //     yMergeVals.push_back(ktmerge/jet.perp2());
+  //   }
+  //   _yscales.insert(make_pair( jet.cluster_hist_index(), yMergeVals ));
+  //   return yMergeVals;
+  // }
 
 
 
-  fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet,
-                                         double& stingy_R, const double def_R) const {
-    assert(clusterSeq());
+  // fastjet::PseudoJet FastJets::splitJet(fastjet::PseudoJet jet, double& last_R) const {
+  //   // Sanity cuts
+  //   if (jet.E() <= 0 || _cseq->constituents(jet).size() <= 1) {
+  //     return jet;
+  //   }
 
-    if (jet.E() <= 0.0 || clusterSeq()->constituents(jet).size() == 0) {
-      return jet;
-    }
-    if (stingy_R == 0.0) {
-      stingy_R = def_R;
-    }
+  //   // Build a new cluster sequence just using the consituents of this jet.
+  //   assert(clusterSeq());
+  //   fastjet::ClusterSequence cs(clusterSeq()->constituents(jet), _jdef);
 
-    stingy_R = def_R < stingy_R ? def_R : stingy_R;
-    fastjet::JetDefinition stingy_jet_def(fastjet::cambridge_algorithm, stingy_R);
+  //   // Get the jet back again
+  //   fastjet::PseudoJet remadeJet = cs.inclusive_jets()[0];
+  //   MSG_DEBUG("Jet2:" << remadeJet.m() << "," << remadeJet.e());
 
-    //FlavourRecombiner recom;
-    //stingy_jet_def.set_recombiner(&recom);
-    fastjet::ClusterSequence scs(clusterSeq()->constituents(jet), stingy_jet_def);
-    std::vector<fastjet::PseudoJet> stingy_jets = sorted_by_pt(scs.inclusive_jets());
+  //   fastjet::PseudoJet parent1, parent2;
+  //   fastjet::PseudoJet split(0.0, 0.0, 0.0, 0.0);
+  //   while (cs.has_parents(remadeJet, parent1, parent2)) {
+  //     MSG_DEBUG("Parents:" << parent1.m() << "," << parent2.m());
+  //     if (parent1.m2() < parent2.m2()) {
+  //       fastjet::PseudoJet tmp;
+  //       tmp = parent1; parent1 = parent2; parent2 = tmp;
+  //     }
 
-    fastjet::PseudoJet reconst_jet(0.0, 0.0, 0.0, 0.0);
+  //     double ktdist = parent1.kt_distance(parent2);
+  //     double rtycut2 = 0.3*0.3;
+  //     if (parent1.m() < ((2.0*remadeJet.m())/3.0) && ktdist > rtycut2*remadeJet.m2()) {
+  //       break;
+  //     } else {
+  //       remadeJet = parent1;
+  //     }
+  //   }
 
-    for (unsigned isj = 0; isj < std::min(3U, (unsigned int) stingy_jets.size()); ++isj) {
-      reconst_jet += stingy_jets[isj];
-    }
-    return reconst_jet;
-  }
+  //   last_R = 0.5 * sqrt(parent1.squared_distance(parent2));
+  //   split.reset(remadeJet.px(), remadeJet.py(), remadeJet.pz(), remadeJet.E());
+  //   return split;
+  // }
+
+
+
+  // fastjet::PseudoJet FastJets::filterJet(fastjet::PseudoJet jet,
+  //                                        double& stingy_R, const double def_R) const {
+  //   assert(clusterSeq());
+
+  //   if (jet.E() <= 0.0 || clusterSeq()->constituents(jet).size() == 0) {
+  //     return jet;
+  //   }
+  //   if (stingy_R == 0.0) {
+  //     stingy_R = def_R;
+  //   }
+
+  //   stingy_R = def_R < stingy_R ? def_R : stingy_R;
+  //   fastjet::JetDefinition stingy_jet_def(fastjet::cambridge_algorithm, stingy_R);
+
+  //   //FlavourRecombiner recom;
+  //   //stingy_jet_def.set_recombiner(&recom);
+  //   fastjet::ClusterSequence scs(clusterSeq()->constituents(jet), stingy_jet_def);
+  //   std::vector<fastjet::PseudoJet> stingy_jets = sorted_by_pt(scs.inclusive_jets());
+
+  //   fastjet::PseudoJet reconst_jet(0.0, 0.0, 0.0, 0.0);
+
+  //   for (unsigned isj = 0; isj < std::min(3U, (unsigned int) stingy_jets.size()); ++isj) {
+  //     reconst_jet += stingy_jets[isj];
+  //   }
+  //   return reconst_jet;
+  // }
 
 
 }

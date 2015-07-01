@@ -1,5 +1,9 @@
 2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Remove FastJets::ySubJet, splitJet, and filterJet methods --
+	they're BDRS-paper-specific and you can now use the FastJet
+	objects directly to do this and much more.
+
 	* Adding InvisiblesStrategy to JetAlg, using it rather than a bool
 	in the useInvisibles method, and updating FastJets to use this
 	approach for its particle filtering and to optionally use the enum
