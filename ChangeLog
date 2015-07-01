@@ -1,5 +1,8 @@
 2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Define a private virtual operator= on Projection, to block
+	'sliced' accidental value copies of derived class instances.
+
 	* Add new muon-in-jet options to FastJet constructors, pass that
 	and invisibles enums correctly to JetAlg, tweak the default
 	strategies, and add a FastJets constructor from a

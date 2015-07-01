@@ -15,8 +15,10 @@ namespace Rivet {
   }
 
 
-  Projection:: ~Projection() {
-  }
+  Projection:: ~Projection() {  }
+
+
+  Projection& Projection::operator = (const Projection&) {  }
 
 
   bool Projection::before(const Projection& p) const {
