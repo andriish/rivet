@@ -1,3 +1,11 @@
+2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add new muon-in-jet options to FastJet constructors, pass that
+	and invisibles enums correctly to JetAlg, tweak the default
+	strategies, and add a FastJets constructor from a
+	fastjet::JetDefinition (while deprecating the plugin-by-reference
+	constructor).
+
 2015-07-01  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Add D0 phi* measurement (D0_2015_I1324946).

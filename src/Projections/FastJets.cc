@@ -8,8 +8,14 @@
 namespace Rivet {
 
 
-  void FastJets::_init1(JetAlgName alg, double rparameter, double seed_threshold) {
+  void FastJets::_initBase() {
     setName("FastJets");
+    addProjection(HeavyHadrons(), "HFHadrons");
+    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
+  }
+
+  void FastJets::_init1(JetAlgName alg, double rparameter, double seed_threshold) {
+    _initBase();
     MSG_DEBUG("JetAlg = " << alg);
     MSG_DEBUG("R parameter = " << rparameter);
     MSG_DEBUG("Seed threshold = " << seed_threshold);
@@ -52,25 +58,23 @@ namespace Rivet {
       }
       _jdef = fastjet::JetDefinition(_plugin.get());
     }
-    addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
   }
 
   void FastJets::_init2(fastjet::JetAlgorithm type,
                         fastjet::RecombinationScheme recom, double rparameter) {
-    setName("FastJets");
+    _initBase();
     _jdef = fastjet::JetDefinition(type, rparameter, recom);
-    addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
   }
 
-  void FastJets::_init3(fastjet::JetDefinition::Plugin* plugin) {
-    setName("FastJets");
-    /// @todo Should we be copying the plugin?
+  void FastJets::_init3(const fastjet::JetDefinition& jdef) {
+    _initBase();
+    _jdef = jdef;
+  }
+
+  void FastJets::_init4(fastjet::JetDefinition::Plugin* plugin) {
+    _initBase();
     _plugin.reset(plugin);
     _jdef = fastjet::JetDefinition(_plugin.get());
-    addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
   }
 
 

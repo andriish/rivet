@@ -24,7 +24,7 @@ namespace Rivet {
 
 
     /// Constructor
-    JetAlg(const FinalState& fs, MuonsStrategy usemuons=JetAlg::NO_MUONS, InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES);
+    JetAlg(const FinalState& fs, MuonsStrategy usemuons=JetAlg::ALL_MUONS, InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES);
 
     /// Default constructor
     JetAlg() {};

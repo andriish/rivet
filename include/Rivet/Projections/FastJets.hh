@@ -41,23 +41,37 @@ namespace Rivet {
     /// jet alg choices (including some plugins). For the built-in algs,
     /// E-scheme recombination is used. For full control of
     /// FastJet built-in jet algs, use the native arg constructor.
-    FastJets(const FinalState& fsp, JetAlgName alg,
-             double rparameter, JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES,
+    FastJets(const FinalState& fsp, JetAlgName alg, double rparameter,
+             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
+             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES,
              double seed_threshold=1.0)
-      : JetAlg(fsp), _adef(0) { _init1(alg, rparameter, seed_threshold); }
+      : JetAlg(fsp, usemuons, useinvis), _adef(0) { _init1(alg, rparameter, seed_threshold); }
 
     /// Native argument constructor, using FastJet alg/scheme enums.
     FastJets(const FinalState& fsp, fastjet::JetAlgorithm type,
              fastjet::RecombinationScheme recom, double rparameter,
+             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
              JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
-      : JetAlg(fsp), _adef(0) { _init2(type, recom, rparameter); }
+      : JetAlg(fsp, usemuons, useinvis), _adef(0) { _init2(type, recom, rparameter); }
+
+    /// Explicitly pass in a JetDefinition
+    FastJets(const FinalState& fsp, const fastjet::JetDefinition& jdef,
+             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
+             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
+      : JetAlg(fsp, usemuons, useinvis), _adef(0) { _init3(jdef); }
 
     /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
-    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin* plugin, JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
-      : JetAlg(fsp), _adef(0) { _init3(plugin); }
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin* plugin,
+             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
+             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
+      : JetAlg(fsp, usemuons, useinvis), _adef(0) { _init4(plugin); }
+
     /// Explicitly pass in an externally-constructed plugin (must be heap-allocated, Rivet will delete)
-    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin, JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
-      : JetAlg(fsp), _adef(0) { _init3(&plugin); }
+    /// @deprecated Use the pointer version -- it makes the lifetime & ownership more obvious
+    FastJets(const FinalState& fsp, fastjet::JetDefinition::Plugin& plugin,
+             JetAlg::MuonsStrategy usemuons=JetAlg::ALL_MUONS,
+             JetAlg::InvisiblesStrategy useinvis=JetAlg::NO_INVISIBLES)
+      : JetAlg(fsp, usemuons, useinvis), _adef(0) { _init4(&plugin); }
 
 
     /// Same thing as above, but without an FS (for when we want to pass the particles directly to the calc method)
@@ -188,9 +202,12 @@ namespace Rivet {
   private:
 
     /// Shared utility functions to implement constructor behaviour
+    /// @todo Replace with calls between constructors when C++11 available?
+    void _initBase();
     void _init1(JetAlgName alg, double rparameter, double seed_threshold);
     void _init2(fastjet::JetAlgorithm type, fastjet::RecombinationScheme recom, double rparameter);
-    void _init3(fastjet::JetDefinition::Plugin* plugin);
+    void _init3(const fastjet::JetDefinition& plugin);
+    void _init4(fastjet::JetDefinition::Plugin* plugin);
 
   protected:
 
