@@ -1015,11 +1015,16 @@ class Colorscale(object):
             FOO=self.description['ZCustomMinorTicks'].strip().split('\t')
             for i in range(len(FOO)):
                 zcustomminorticks.append({'Value': float(FOO[i])})
+        if (self.description.has_key('PlotZTickLabels') and self.description['PlotZTickLabels']=='0'):
+            drawzlabels=False
+        else:
+            drawzlabels=True
         zticks = ZTicks(self.description, self.coors)
         out += zticks.draw(custommajortickmarks=zcustommajortickmarks,\
                            customminortickmarks=zcustomminortickmarks,\
                            custommajorticks=zcustommajorticks,\
-                           customminorticks=zcustomminorticks)
+                           customminorticks=zcustomminorticks,
+                           drawlabels=drawzlabels)
         out += '  }\n'
         out += '}\n'
         return out
@@ -2113,7 +2118,9 @@ class ZTicks(Ticks):
         self.minorticklength    = '2.6pt'
         self.description = description
         self.coors = coors
-    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1):
+    def draw(self, custommajorticks=[], customminorticks=[],
+            custommajortickmarks=-1, customminortickmarks=-1,
+            drawlabels=True):
         out = ""
         out += ('\n%\n% Z-Ticks\n%\n')
         out += ('\\def\\majortickmarkz{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
@@ -2124,7 +2131,8 @@ class ZTicks(Ticks):
                                    customminorticks=customminorticks,\
                                    custommajortickmarks=custommajortickmarks,\
                                    customminortickmarks=customminortickmarks,\
-                                   twosided=False)
+                                   twosided=False,\
+                                   drawlabels=drawlabels)
         return out
 
     def draw_minortick(self, ticklabel, twosided):
