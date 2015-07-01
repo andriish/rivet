@@ -234,7 +234,6 @@ dist_pkgdata_DATA = \
   DELPHI_1999_S3960137.info \
   DELPHI_2000_S4328825.info \
   DELPHI_2002_069_CONF_603.info \
-  DELPHI_2003_WUD_03_11.info \
   EXAMPLE.info \
   EXAMPLE_CUTS.info \
   H1_1994_S2919893.info \
@@ -270,7 +269,6 @@ dist_pkgdata_DATA = \
   MC_PHOTONINC.info \
   MC_PHOTONJETS.info \
   MC_PHOTONKTSPLITTINGS.info \
-  MC_PHOTONJETUE.info \
   MC_PHOTONS.info \
   MC_PRINTEVENT.info \
   MC_QCD_PARTONS.info \

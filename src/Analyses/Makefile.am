@@ -352,8 +352,7 @@ RivetLEPAnalyses_la_SOURCES += \
 endif
 if ENABLE_UNVALIDATED
 RivetLEPAnalyses_la_SOURCES += \
-    OPAL_1993_S2692198.cc \
-    DELPHI_2003_WUD_03_11.cc
+    OPAL_1993_S2692198.cc 
 endif
 
 
@@ -452,8 +451,7 @@ RivetMCAnalyses_la_SOURCES = \
 
 if ENABLE_UNVALIDATED
 RivetMCAnalyses_la_SOURCES += \
-    MC_DIJET.cc \
-    MC_PHOTONJETUE.cc
+    MC_DIJET.cc 
 endif
 
 endif

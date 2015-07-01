@@ -230,7 +230,6 @@ dist_pkgdata_DATA = \
   DELPHI_1999_S3960137.plot \
   DELPHI_2000_S4328825.plot \
   DELPHI_2002_069_CONF_603.plot \
-  DELPHI_2003_WUD_03_11.plot \
   EXAMPLE.plot \
   H1_1994_S2919893.plot \
   H1_1995_S3167097.plot \
@@ -266,7 +265,6 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETS.plot \
   MC_PHOTONKTSPLITTINGS.plot \
   MC_PHOTONS.plot \
-  MC_PHOTONJETUE.plot \
   MC_QCD_PARTONS.plot \
   MC_SUSY.plot \
   MC_TAUS.plot \
