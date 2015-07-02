@@ -1,3 +1,8 @@
+2015-07-02  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Tidy up ATLAS higgs combination analysis.
+	* Add ALICE kaon, pion analysis (ALICE_2015_I1357424))
+
 2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Define a private virtual operator= on Projection, to block
