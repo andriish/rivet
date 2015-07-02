@@ -4,7 +4,7 @@ Summary: CDF measurement of the Z pT in the electron channel using 2.1 fb-1
 Experiment: CDF
 Collider: Tevatron
 InspireID: 1124333
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Simone Amoroso <amoroso@cern.ch>
 References:
