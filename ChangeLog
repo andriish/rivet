@@ -3,6 +3,7 @@
 	* Tidy up ATLAS higgs combination analysis.
 	* Add ALICE kaon, pion analysis (ALICE_2015_I1357424)
 	* Add ALICE strange baryon analysis (ALICE_2014_I1300380)
+	* Add CDF ZpT measurement in Z->ee events analysis (CDF_2012_I1124333)
 
 2015-07-01  Andy Buckley  <andy.buckley@cern.ch>
 
