@@ -906,6 +906,15 @@ namespace Rivet {
     return a.E() < b.E();
   }
 
+  /// Comparison to give a sorting by decreasing mass
+  inline bool cmpMomByMass(const FourMomentum& a, const FourMomentum& b) {
+    return a.mass() > b.mass();
+  }
+  /// Comparison to give a sorting by increasing mass
+  inline bool cmpMomByAscMass(const FourMomentum& a, const FourMomentum& b) {
+    return a.mass() < b.mass();
+  }
+
   /// Comparison to give a sorting by increasing eta (pseudorapidity)
   inline bool cmpMomByEta(const FourMomentum& a, const FourMomentum& b) {
     return a.eta() < b.eta();

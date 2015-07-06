@@ -12,6 +12,8 @@ dist_pkgdata_DATA = \
   ALICE_2011_S8909580.plot \
   ALICE_2011_S8945144.plot \
   ALICE_2012_I1181770.plot \
+  ALICE_2014_I1300380.plot \
+  ALICE_2015_I1357424.plot \
   ARGUS_1993_S2653028.plot \
   ARGUS_1993_S2669951.plot \
   ARGUS_1993_S2789213.plot \
@@ -121,6 +123,7 @@ dist_pkgdata_DATA = \
   ATLAS_2015_I1345452.plot \
   ATLAS_2013_I1216670.plot \
   ATLAS_2013_I1244522.plot \
+  ATLAS_2014_I1282447.plot \
   BABAR_2003_I593379.plot \
   BABAR_2005_S6181155.plot \
   BABAR_2007_S6895344.plot \
@@ -163,6 +166,7 @@ dist_pkgdata_DATA = \
   CDF_2010_S8591881_DY.plot \
   CDF_2010_S8591881_QCD.plot \
   CDF_2012_NOTE10874.plot \
+  CDF_2012_I1124333.plot \
   CLEO_2004_S5809304.plot \
   CMS_2010_S8547297.plot \
   CMS_2010_S8656010.plot \
@@ -202,6 +206,7 @@ dist_pkgdata_DATA = \
   CMS_2012_PAS_QCD_11_010.plot \
   CMS_QCD_10_024.plot \
   CMS_2015_I1356998.plot \
+  CMS_2013_I1208923.plot \
   D0_1996_S3214044.plot \
   D0_1996_S3324664.plot \
   D0_2000_S4480767.plot \
@@ -224,13 +229,13 @@ dist_pkgdata_DATA = \
   D0_2010_S8671338.plot \
   D0_2010_S8821313.plot \
   D0_2011_I895662.plot \
+  D0_2015_I1324946.plot \
   E735_1998_S3905616.plot \
   DELPHI_1995_S3137023.plot \
   DELPHI_1996_S3430090.plot \
   DELPHI_1999_S3960137.plot \
   DELPHI_2000_S4328825.plot \
   DELPHI_2002_069_CONF_603.plot \
-  DELPHI_2003_WUD_03_11.plot \
   EXAMPLE.plot \
   H1_1994_S2919893.plot \
   H1_1995_S3167097.plot \
@@ -266,7 +271,6 @@ dist_pkgdata_DATA = \
   MC_PHOTONJETS.plot \
   MC_PHOTONKTSPLITTINGS.plot \
   MC_PHOTONS.plot \
-  MC_PHOTONJETUE.plot \
   MC_QCD_PARTONS.plot \
   MC_SUSY.plot \
   MC_TAUS.plot \

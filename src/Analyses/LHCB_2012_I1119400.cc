@@ -175,8 +175,9 @@ namespace Rivet {
         lft = (*pPartLft).second;
       }
       if (lft < 0.0 && PID::isHadron(pid)) {
-        MSG_ERROR("Could not determine lifetime for particle with PID " << pid
-            << "... This will be considered unprompt!");
+        MSG_WARNING("Lifetime map imcomplete --- " << pid
+            << "... assume zero lifetime");
+        lft = 0.0;
       }
       return lft;
     }
