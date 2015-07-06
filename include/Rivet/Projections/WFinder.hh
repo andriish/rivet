@@ -7,10 +7,10 @@
 namespace Rivet {
 
 
-  /// @brief Convenience finder of leptonically decaying Ws
+  /// @brief Convenience finder of leptonically decaying W
   ///
-  /// Chain together different projections as convenience for finding W's
-  /// from two leptons in the final state, including photon clustering.
+  /// Chain together different projections as convenience for finding one W
+  /// from one lepton and the missing E 4-vector in the final state, including photon clustering.
   ///
   /// @todo Inherit directly from ParticleFinder, not FinalState
   class WFinder : public FinalState {
