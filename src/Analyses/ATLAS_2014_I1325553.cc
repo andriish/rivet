@@ -64,10 +64,6 @@ namespace Rivet {
 	            _pt[alg].fill(absrap, pt/GeV, event.weight());
 	          }
           }
-          else {
-            cout << "absrap: " << absrap << endl;
-            abort();
-          }
         }
       }
     }

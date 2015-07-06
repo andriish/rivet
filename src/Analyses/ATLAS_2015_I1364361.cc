@@ -68,7 +68,7 @@ namespace Rivet {
 	}
       }
 
-      // If no stable Higgs found in event record, can't do anything (abort)
+      // If no stable Higgs found in event record, can't do anything
       if ( !stable_higgs ) {
 	MSG_WARNING("FATAL: No stable Higgs found in event record.\n");
 	vetoEvent;
