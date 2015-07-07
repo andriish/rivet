@@ -269,9 +269,7 @@ RivetCDFAnalyses_la_SOURCES += \
     CDF_2009_NOTE_9936.cc \
     CDF_2012_NOTE10874.cc
 endif
-# if ENABLE_OBSOLETE
-# RivetCDFAnalyses_la_SOURCES +=
-# endif
+
 if ENABLE_UNVALIDATED
 RivetCDFAnalyses_la_SOURCES += \
     CDF_1993_S2742446.cc \
@@ -363,7 +361,7 @@ RivetLEPAnalyses_la_SOURCES += \
 endif
 if ENABLE_UNVALIDATED
 RivetLEPAnalyses_la_SOURCES += \
-    OPAL_1993_S2692198.cc \
+    OPAL_1993_S2692198.cc
 endif
 
 
