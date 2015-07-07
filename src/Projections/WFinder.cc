@@ -6,6 +6,7 @@
 #include "Rivet/Projections/MergedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/Beam.hh"
 
 namespace Rivet {
 
@@ -77,10 +78,13 @@ namespace Rivet {
   void WFinder::project(const Event& e) {
     clear();
 
+    Beam beam;
+    beam.project(e);
+    const double sqrtS = beam.sqrtS();
 
     // Check missing ET
     const MissingMomentum& vismom = applyProjection<MissingMomentum>(e, "MissingET");
-    const FourMomentum& Pmiss = -vismom.visibleMomentum();
+    const FourMomentum& Pmiss = FourMomentum(sqrtS,0,0,0) - vismom.visibleMomentum();
 
     const double met = vismom.vectorEt().mod();
     MSG_TRACE("MET = " << met/GeV << " GeV vs. required = " << _etMiss/GeV << " GeV");
@@ -92,23 +96,29 @@ namespace Rivet {
 
     const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
 
-    if ( leptons.dressedLeptons().empty() ) return;
-
-    if ( leptons.dressedLeptons().size() > 1 ) {
-    	MSG_DEBUG("More than one lepton in WFinder. Refusing to guess, therefore no W found.");
+    if ( leptons.dressedLeptons().empty() ) {
+    	MSG_DEBUG("No dressed leptons.");
     	return;
     }
 
+    if ( leptons.dressedLeptons().size() > 1 ) {
+    	MSG_DEBUG("More than one lepton. Refusing to guess, therefore no W found.");
+    	return;
+    }
+
+    MSG_DEBUG("Found one dressed lepton: " << leptons.dressedLeptons()[0].momentum() );
+    MSG_DEBUG("Found missing 4-momentum: " << Pmiss );
+
     // Make and register an invariant mass final state for the W decay leptons
     vector<pair<PdgId, PdgId> > l_nu_ids;
-    l_nu_ids += make_pair(abs(_pid), -abs(_nu_pid));
-    l_nu_ids += make_pair(-abs(_pid), abs(_nu_pid));
+    l_nu_ids += make_pair(abs(_pid), -_nu_pid);
+    l_nu_ids += make_pair(-abs(_pid), _nu_pid);
     InvMassFinalState imfs(l_nu_ids, _minmass, _maxmass, _masstarget);
     imfs.useTransverseMass(_useTransverseMass);
     Particles tmp;
     tmp.insert(tmp.end(), leptons.dressedLeptons().begin(), leptons.dressedLeptons().end());
-    tmp.push_back(Particle( abs(_pid)+1,Pmiss)); // fake neutrino from Et miss vector
-    tmp.push_back(Particle(-abs(_pid)-1,Pmiss)); // fake antineutrino from Et miss vector
+    tmp.push_back(Particle( _nu_pid,Pmiss)); // fake neutrino from Et miss vector
+    tmp.push_back(Particle(-_nu_pid,Pmiss)); // fake antineutrino from Et miss vector
     imfs.calc(tmp);
 
     if (imfs.particlePairs().size() < 1) return;
