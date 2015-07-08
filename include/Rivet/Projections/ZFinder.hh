@@ -3,6 +3,7 @@
 #define RIVET_ZFinder_HH
 
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
 
@@ -78,7 +79,7 @@ namespace Rivet {
     /// Access to the particles other than the Z leptons and clustered photons
     ///
     /// Useful for e.g. input to a jet finder
-    const FinalState& remainingFinalState() const;
+    const VetoedFinalState& remainingFinalState() const;
 
 
   protected:

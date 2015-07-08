@@ -3,6 +3,7 @@
 #define RIVET_WFinder_HH
 
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
 
@@ -84,7 +85,7 @@ namespace Rivet {
     /// Access to the particles other than the W leptons and clustered photons
     ///
     /// Useful for e.g. input to a jet finder
-    const FinalState& remainingFinalState() const;
+    const VetoedFinalState& remainingFinalState() const;
 
     /// @brief Calculate the transverse mass of the W, from the charged lepton and neutrino
     ///

@@ -58,8 +58,8 @@ namespace Rivet {
   /////////////////////////////////////////////////////
 
 
-  const FinalState& WFinder::remainingFinalState() const {
-    return getProjection<FinalState>("RFS");
+  const VetoedFinalState& WFinder::remainingFinalState() const {
+    return getProjection<VetoedFinalState>("RFS");
   }
 
 

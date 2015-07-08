@@ -40,8 +40,8 @@ namespace Rivet {
   /////////////////////////////////////////////////////
 
 
-  const FinalState& ZFinder::remainingFinalState() const {
-    return getProjection<FinalState>("RFS");
+  const VetoedFinalState& ZFinder::remainingFinalState() const {
+    return getProjection<VetoedFinalState>("RFS");
   }
 
 
