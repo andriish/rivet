@@ -28,10 +28,10 @@ libRivetAnalysisTools_la_SOURCES = \
 ## Obsolete analyses: as mentioned above, when a preliminary analysis becomes
 ## permanent its name will change to reflect its newly published status via the
 ## publication's SPIRES ID. The previous form of the analysis, possibly with
-## different reference histograms, will be retained for at least one major version of
+## different reference histograms, will be retained for one major version of
 ## Rivet with a status of "obsolete" before being removed, to give users time to
 ## migrate their run scripts, i.e. if an analysis is marked as obsolete in
-## version 1.4.2, it will remain in Rivet's distribution until at least version
+## version 1.4.2, it will remain in Rivet's distribution until version
 ## 1.5.0. Obsolete analyses will not be available if Rivet is built with the
 ## --disable-obsolete configure flag.
 
@@ -126,8 +126,11 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2014_I1306615.cc \
     ATLAS_2013_I1216670.cc \
     ATLAS_2013_I1244522.cc \
+    ATLAS_2014_I1282447.cc \
+	ATLAS_2015_I1345452.cc \
     ATLAS_2015_I1364361.cc \
-    ATLAS_2014_I1282447.cc
+	ATLAS_2014_I1298023 \
+	ATLAS_2014_I1319490
 if ENABLE_PRELIMINARY
 RivetATLASAnalyses_la_SOURCES += \
     ATLAS_2012_CONF_2012_001.cc
@@ -266,9 +269,7 @@ RivetCDFAnalyses_la_SOURCES += \
     CDF_2009_NOTE_9936.cc \
     CDF_2012_NOTE10874.cc
 endif
-# if ENABLE_OBSOLETE
-# RivetCDFAnalyses_la_SOURCES +=
-# endif
+
 if ENABLE_UNVALIDATED
 RivetCDFAnalyses_la_SOURCES += \
     CDF_1993_S2742446.cc \
@@ -360,7 +361,7 @@ RivetLEPAnalyses_la_SOURCES += \
 endif
 if ENABLE_UNVALIDATED
 RivetLEPAnalyses_la_SOURCES += \
-    OPAL_1993_S2692198.cc 
+    OPAL_1993_S2692198.cc
 endif
 
 
@@ -459,7 +460,7 @@ RivetMCAnalyses_la_SOURCES = \
 
 if ENABLE_UNVALIDATED
 RivetMCAnalyses_la_SOURCES += \
-    MC_DIJET.cc 
+    MC_DIJET.cc
 endif
 
 endif

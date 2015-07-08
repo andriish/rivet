@@ -101,12 +101,7 @@ namespace Rivet {
     	return;
     }
 
-//    if ( leptons.dressedLeptons().size() > 1 ) {
-//    	MSG_DEBUG("More than one lepton. Refusing to guess, therefore no W found.");
-//    	return;
-//    }
-
-    MSG_DEBUG("Found one dressed lepton: " << leptons.dressedLeptons()[0].momentum() );
+    MSG_DEBUG("Found at least one dressed lepton: " << leptons.dressedLeptons()[0].momentum() );
     MSG_DEBUG("Found missing 4-momentum: " << Pmiss );
 
     // Make and register an invariant mass final state for the W decay leptons
@@ -153,9 +148,9 @@ namespace Rivet {
 
     // Find the DressedLeptons which survived the IMFS cut such that we can
     // extract their original particles
-// broken    foreach (const Particle& p, _constituentNeutrinos) {
-// broken      _theParticles.push_back(p);
-// broken    }
+
+    // TODO: do we need to add all used invisibles to _theParticles ?
+
     foreach (const Particle& p, _constituentLeptons) {
       foreach (const DressedLepton& l, leptons.dressedLeptons()) {
         if (p.pid() == l.pid() && p.momentum() == l.momentum()) {
