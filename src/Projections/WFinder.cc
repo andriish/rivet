@@ -101,10 +101,10 @@ namespace Rivet {
     	return;
     }
 
-    if ( leptons.dressedLeptons().size() > 1 ) {
-    	MSG_DEBUG("More than one lepton. Refusing to guess, therefore no W found.");
-    	return;
-    }
+//    if ( leptons.dressedLeptons().size() > 1 ) {
+//    	MSG_DEBUG("More than one lepton. Refusing to guess, therefore no W found.");
+//    	return;
+//    }
 
     MSG_DEBUG("Found one dressed lepton: " << leptons.dressedLeptons()[0].momentum() );
     MSG_DEBUG("Found missing 4-momentum: " << Pmiss );
