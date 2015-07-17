@@ -154,8 +154,13 @@ namespace Rivet {
           for (unsigned int j = i + 1; j < jets.size(); ++j) {
             overlap |= deltaR(jet, jets[j]) < 0.5;
           }
-          // Count the number of b-tags
-          if ( !jet.bTags().empty() )  bjets += jet;
+          //// Count the number of b-tags
+          bool b_tagged = false;           //  This is closer to the
+          Particles bTags = jet.bTags();   //  analysis. Something 
+          foreach ( Particle b, bTags ) {  //  about ghost-associated
+            b_tagged |= b.pT() > 5*GeV;    //  B-hadrons
+          }                                //
+          if ( b_tagged )  bjets += jet;
           else lightjets += jet;
         }
 
