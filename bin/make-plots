@@ -1600,7 +1600,10 @@ class Histogram(DrawableObject):
                     color=129
                 if self.data[i]['Content']<coors.zmin():
                     color=0
-                out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
+                if self.data[i]['Content']<=coors.zmin():
+                    out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor=white]')
+                else:
+                    out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
                 out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
                             + coors.strphys2frameY(self.data[i]['LowEdge'][1]) + ')(' \
                             + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
