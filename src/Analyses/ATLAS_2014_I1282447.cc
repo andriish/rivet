@@ -363,7 +363,7 @@ namespace Rivet {
         if(fabs(p.eta()) > 2.2)  continue;
 	    
         // W+D 
-        if(fabs(part->pdg_id()) == 411) { 
+        if(abs(part->pdg_id()) == 411) { 
           if(lepton_charge * part->pdg_id() > 0)  charge_weight = -1;
           else                                    charge_weight = +1;
 	  
@@ -383,7 +383,7 @@ namespace Rivet {
         }
 	
         // W+Dstar 
-        if( fabs(part->pdg_id()) == 413 ) { 
+        if( abs(part->pdg_id()) == 413 ) { 
           if (lepton_charge*part->pdg_id() > 0) charge_weight = -1;
           else charge_weight = +1;
       
