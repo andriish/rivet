@@ -245,7 +245,6 @@ RivetCDFAnalyses_la_SOURCES = \
     CDF_2000_S4155203.cc \
     CDF_2000_S4266730.cc \
     CDF_2001_S4517016.cc \
-    CDF_2001_S4563131.cc \
     CDF_2001_S4751469.cc \
     CDF_2002_S4796047.cc \
     CDF_2004_S5839831.cc \
@@ -276,6 +275,7 @@ RivetCDFAnalyses_la_SOURCES += \
     CDF_1996_S3108457.cc \
     CDF_1996_S3349578.cc \
     CDF_1997_S3541940.cc \
+    CDF_2001_S4563131.cc \
     CDF_2008_S7541902.cc \
     CDF_2008_S7782535.cc
 endif
@@ -283,7 +283,6 @@ endif
 
 lib_LTLIBRARIES += RivetD0Analyses.la
 RivetD0Analyses_la_SOURCES = \
-    D0_2000_S4480767.cc \
     D0_2000_I499943.cc \
     D0_2001_S4674421.cc \
     D0_2004_S5992206.cc \
@@ -306,6 +305,7 @@ RivetD0Analyses_la_SOURCES = \
     D0_2015_I1324946.cc
 if ENABLE_UNVALIDATED
 RivetD0Analyses_la_SOURCES += \
+    D0_2000_S4480767.cc \
     D0_1996_S3214044.cc \
     D0_1996_S3324664.cc
 endif
