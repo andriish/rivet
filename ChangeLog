@@ -2,6 +2,14 @@
 
 	* Release version 2.3.0
 
+2015-07-08  David Grellscheid  <david.grellscheid@durham.ac.uk>
+
+	* Fix return type of remainingFinalState() to avoid projection slicing.
+
+	* WFinder changes to use full missing energy vector rather than a
+	specific neutrino. We have doubts about the usefulness of the
+	whole concept of a generic pseudo-W finder... watch this space.
+
 2015-07-02  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Tidy up ATLAS higgs combination analysis.
