@@ -225,7 +225,11 @@ namespace Rivet {
 
   void AnalysisHandler::writeData(const string& filename) const {
     const vector<AnalysisObjectPtr> aos = getData();
-    WriterYODA::write(filename, aos.begin(), aos.end());
+    try {
+      WriterYODA::write(filename, aos.begin(), aos.end());
+    } catch (YODA::WriteError e) {
+      throw UserError("Unexpected error in writing file to: " + filename);
+    }
   }
 
 

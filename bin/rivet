@@ -368,6 +368,18 @@ def logNEvt(n, starttime, maxevtnum):
     #                 (n, elapsedtime, remainingtime, eta))
 
 
+## Do some checks on output histo file, before we stat the event loop
+histo_parentdir = os.path.dirname(os.path.abspath(opts.HISTOFILE))
+
+if not os.path.exists(histo_parentdir):
+  logging.error('Parent path of output histogram file does not exist: %s\nExiting.' % histo_parentdir)
+  sys.exit(1)
+
+if not os.access(histo_parentdir,os.W_OK):
+  logging.error('Insufficient permissions to write output histogram file to directory %s\nExiting.' % histo_parentdir)
+  sys.exit(1)
+
+
 ## Set up analysis handler
 RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)

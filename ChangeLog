@@ -1,3 +1,9 @@
+2015-07-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add exception handling and pre-emptive testing for a
+	non-writeable output directory (based on patch from Lukas
+	Heinrich).
+
 2015-07-02  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Tidy up ATLAS higgs combination analysis.
