@@ -44,7 +44,7 @@ namespace Rivet {
       _h_Ze_jet1_dR = bookHisto1D("Ze_jet1_dR", 25, 0.0, 7.0);
 
       // Global stuff
-      _h_HT = bookHisto1D("HT", logspace(100, 100.0, 0.5*sqrtS()/GeV));
+      _h_HT = bookHisto1D("HT", logspace(100, 100.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
 
       MC_JetAnalysis::init();
     }

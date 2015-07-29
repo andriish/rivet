@@ -28,11 +28,11 @@ namespace Rivet {
       addProjection(zfinder, "ZFinder");
 
       _h_Z_mass = bookHisto1D("Z_mass", 50, 66.0, 116.0);
-      _h_Z_pT = bookHisto1D("Z_pT", logspace(100, 1.0, 0.5*sqrtS()/GeV));
+      _h_Z_pT = bookHisto1D("Z_pT", logspace(100, 1.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
       _h_Z_pT_peak = bookHisto1D("Z_pT_peak", 25, 0.0, 25.0);
       _h_Z_y = bookHisto1D("Z_y", 40, -4.0, 4.0);
       _h_Z_phi = bookHisto1D("Z_phi", 25, 0.0, TWOPI);
-      _h_lepton_pT = bookHisto1D("lepton_pT", logspace(100, 10.0, 0.25*sqrtS()/GeV));
+      _h_lepton_pT = bookHisto1D("lepton_pT", logspace(100, 10.0, 0.25*(sqrtS()>0.?sqrtS():14000.)/GeV));
       _h_lepton_eta = bookHisto1D("lepton_eta", 40, -4.0, 4.0);
 
     }

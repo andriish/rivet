@@ -25,7 +25,7 @@ namespace Rivet {
 
     for (size_t i = 0; i < _nparts; ++i) {
       const string ptname = _pname + "_pt_" + to_str(i+1);
-      const double ptmax = 1.0/(double(i)+2.0) * sqrtS()/GeV/2.0;
+      const double ptmax = 1.0/(double(i)+2.0) * (sqrtS()>0.?sqrtS():14000.)/GeV/2.0;
       const int nbins_pt = 100/(i+1);
       _h_pt[i] = bookHisto1D(ptname, logspace(nbins_pt, 1.0, ptmax));
 
