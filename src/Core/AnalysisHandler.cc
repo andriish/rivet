@@ -227,7 +227,7 @@ namespace Rivet {
     const vector<AnalysisObjectPtr> aos = getData();
     try {
       WriterYODA::write(filename, aos.begin(), aos.end());
-    } catch (YODA::WriteError e) {
+    } catch (...) { /// @todo Move to specific YODA::WriteError type when YODA >= 1.5.0 is well-established
       throw UserError("Unexpected error in writing file to: " + filename);
     }
   }
