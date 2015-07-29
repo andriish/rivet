@@ -114,6 +114,7 @@ namespace Rivet {
       fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isMuon), fsparticles.end() );
 
     // Tagging particles
+    /// @todo Allow the user to specify tag particle kinematic thresholds
     const Particles chadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").cHadrons();
     const Particles bhadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").bHadrons();
     const Particles taus = applyProjection<FinalState>(e, "Taus").particles();

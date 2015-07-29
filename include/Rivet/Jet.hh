@@ -78,17 +78,23 @@ namespace Rivet {
     ///
     /// General sources of tag particles are planned. The default jet finding
     /// adds b-hadron, c-hadron, and tau tags by ghost association.
+    ///
+    /// @todo Add a version with a Cut argument
     Particles& tags() { return _tags; }
     /// @brief Particles which have been tag-matched to this jet (const version)
     ///
     /// General sources of tag particles are planned. The default jet finding
     /// adds b-hadron, c-hadron, and tau tags by ghost association.
+    ///
+    /// @todo Add a version with a Cut argument
     const Particles& tags() const { return _tags; }
 
 
     /// @brief b particles which have been tag-matched to this jet
     ///
     /// The default jet finding adds b-hadron tags by ghost association.
+    ///
+    /// @todo Add a version with a Cut argument
     Particles bTags() const {
       Particles rtn;
       foreach (const Particle& tp, _tags) {
@@ -97,6 +103,8 @@ namespace Rivet {
       return rtn;
     }
     /// Does this jet have at least one b-tag?
+    ///
+    /// @todo Add an optional Cut argument
     bool bTagged() const {
       return !bTags().empty();
     }
@@ -105,6 +113,8 @@ namespace Rivet {
     /// @brief c particles which have been tag-matched to this jet by some external means
     ///
     /// The default jet finding adds c-hadron tags by ghost association.
+    ///
+    /// @todo Add a version with a Cut argument
     Particles cTags() const {
       Particles rtn;
       foreach (const Particle& tp, _tags) {
@@ -113,6 +123,8 @@ namespace Rivet {
       return rtn;
     }
     /// Does this jet have at least one c-tag?
+    ///
+    /// @todo Add an optional Cut argument
     bool cTagged() const {
       return !cTags().empty();
     }
@@ -121,6 +133,8 @@ namespace Rivet {
     /// @brief Tau particles which have been tag-matched to this jet by some external means
     ///
     /// The default jet finding adds tau tags by ghost association.
+    ///
+    /// @todo Add a version with a Cut argument
     Particles tauTags() const {
       Particles rtn;
       foreach (const Particle& tp, _tags) {
@@ -129,6 +143,8 @@ namespace Rivet {
       return rtn;
     }
     /// Does this jet have at least one tau-tag?
+    ///
+    /// @todo Add an optional Cut argument
     bool tauTagged() const {
       return !tauTags().empty();
     }
