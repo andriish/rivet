@@ -1,5 +1,7 @@
 2015-07-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add optional Cut arguments to all the Jet tag methods.
+
 	* Add exception handling and pre-emptive testing for a
 	non-writeable output directory (based on patch from Lukas
 	Heinrich).

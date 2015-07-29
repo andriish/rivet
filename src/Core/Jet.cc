@@ -150,4 +150,41 @@ namespace Rivet {
   }
 
 
+  Particles Jet::tags(const Cut& c) const {
+    Particles rtn;
+    foreach (const Particle& p, tags()) {
+      if (c->accept(p)) rtn.push_back(p);
+    }
+    return rtn;
+  }
+
+
+  Particles Jet::bTags(const Cut& c) const {
+    Particles rtn;
+    foreach (const Particle& tp, tags()) {
+      if (hasBottom(tp) && c->accept(tp)) rtn.push_back(tp);
+    }
+    return rtn;
+  }
+
+
+  Particles Jet::cTags(const Cut& c) const {
+    Particles rtn;
+    foreach (const Particle& tp, tags()) {
+      /// @todo Is making b and c tags exclusive the right thing to do?
+      if (hasCharm(tp) && !hasBottom(tp) && c->accept(tp)) rtn.push_back(tp);
+    }
+    return rtn;
+  }
+
+
+  Particles Jet::tauTags(const Cut& c) const {
+    Particles rtn;
+    foreach (const Particle& tp, tags()) {
+      if (isTau(tp) && c->accept(tp)) rtn.push_back(tp);
+    }
+    return rtn;
+  }
+
+
 }
