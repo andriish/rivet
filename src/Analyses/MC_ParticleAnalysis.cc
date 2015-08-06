@@ -73,12 +73,12 @@ namespace Rivet {
       // Eta
       const double eta_i = particles[i].eta();
       _h_eta[i]->fill(eta_i, weight);
-      (eta_i > 0.0 ? _h_eta_plus : _h_eta_minus)[i]->fill(eta_i, weight);
+      (eta_i > 0.0 ? _h_eta_plus : _h_eta_minus)[i]->fill(fabs(eta_i), weight);
 
       // Rapidity
       const double rap_i = particles[i].rapidity();
       _h_rap[i]->fill(rap_i, weight);
-      (rap_i > 0.0 ? _h_rap_plus : _h_rap_minus)[i]->fill(rap_i, weight);
+      (rap_i > 0.0 ? _h_rap_plus : _h_rap_minus)[i]->fill(fabs(rap_i), weight);
 
       // Inter-particle properties
       for (size_t j = i+1; j < min(size_t(3),_nparts); ++j) {
