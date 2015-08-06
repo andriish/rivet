@@ -56,6 +56,10 @@ namespace Rivet {
     _h_multi_exclusive = bookHisto1D(_pname + "_multi_exclusive", _nparts+3, -0.5, _nparts+3-0.5);
     _h_multi_inclusive = bookHisto1D(_pname + "_multi_inclusive", _nparts+3, -0.5, _nparts+3-0.5);
     _h_multi_ratio = bookScatter2D(_pname + "_multi_ratio");
+
+    _h_multi_exclusive_prompt = bookHisto1D(_pname + "_multi_exclusive_prompt", _nparts+3, -0.5, _nparts+3-0.5);
+    _h_multi_inclusive_prompt = bookHisto1D(_pname + "_multi_inclusive_prompt", _nparts+3, -0.5, _nparts+3-0.5);
+    _h_multi_ratio_prompt = bookScatter2D(_pname + "_multi_ratio_prompt");
   }
 
 
