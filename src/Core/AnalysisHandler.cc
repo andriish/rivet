@@ -6,6 +6,7 @@
 #include "Rivet/BeamConstraint.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "YODA/WriterYODA.h"
 
 namespace Rivet {
 
@@ -226,7 +227,7 @@ namespace Rivet {
   void AnalysisHandler::writeData(const string& filename) const {
     const vector<AnalysisObjectPtr> aos = getData();
     try {
-      WriterYODA::write(filename, aos.begin(), aos.end());
+      YODA::WriterYODA::write(filename, aos.begin(), aos.end());
     } catch (...) { /// @todo Move to specific YODA::WriteError type when YODA >= 1.5.0 is well-established
       throw UserError("Unexpected error in writing file to: " + filename);
     }
