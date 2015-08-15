@@ -21,7 +21,7 @@ namespace Rivet {
   }
 
 
-  std::map<std::string, Scatter2DPtr> getRefData(const string& papername) {
+  map<string, Scatter2DPtr> getRefData(const string& papername) {
     const string datafile = getDatafilePath(papername);
 
     // Make an appropriate data file reader and read the data objects

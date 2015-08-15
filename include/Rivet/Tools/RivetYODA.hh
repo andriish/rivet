@@ -51,7 +51,9 @@ namespace Rivet {
 
 
   /// Function to get a map of all the refdata in a paper with the given @a papername.
-  /// @todo How to access 1D and 3D ref data? Template arg on return type, defaulting to Scatter2DPtr?
+  // template<typename T=Scatter2DPtr>
+  // typename map<string, T>
+  /// @todo How about retrieving mixed collections of 1D, 2D and 3D ref data?
   map<string, Scatter2DPtr> getRefData(const string& papername);
 
   /// Get the file system path to the reference file for this paper.
