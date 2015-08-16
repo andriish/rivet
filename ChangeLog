@@ -1,3 +1,9 @@
+2015-08-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add templated versions of Analysis::refData() to use data types
+	other than Scatter2DPtr, and convert the cached ref data store to
+	generic AnalysisObjectPtrs to make it possible.
+
 2015-07-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add optional Cut arguments to all the Jet tag methods.

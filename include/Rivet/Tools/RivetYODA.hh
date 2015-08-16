@@ -1,11 +1,6 @@
 #ifndef RIVET_RIVETYODA_HH
 #define RIVET_RIVETYODA_HH
 
-/// @author Andy Buckley
-/// @date   2009-01-30
-/// @author David Grellscheid
-/// @date   2011-07-18
-
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/RivetBoost.hh"
 
@@ -51,10 +46,7 @@ namespace Rivet {
 
 
   /// Function to get a map of all the refdata in a paper with the given @a papername.
-  // template<typename T=Scatter2DPtr>
-  // typename map<string, T>
-  /// @todo How about retrieving mixed collections of 1D, 2D and 3D ref data?
-  map<string, Scatter2DPtr> getRefData(const string& papername);
+  map<string, AnalysisObjectPtr> getRefData(const string& papername);
 
   /// Get the file system path to the reference file for this paper.
   string getDatafilePath(const string& papername);

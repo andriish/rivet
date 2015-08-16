@@ -187,7 +187,7 @@ namespace Rivet {
       MSG_ERROR("Can't find reference histogram " << hname);
       throw Exception("Reference data " + hname + " not found.");
     }
-    return *_refdata[hname];
+    return dynamic_cast<Scatter2D&>(*_refdata[hname]);
   }
 
 
