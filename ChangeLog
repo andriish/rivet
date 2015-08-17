@@ -1,3 +1,9 @@
+2015-08-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add writing out of cross-section and total event counter by
+	default. Need to add some name protection to avoid them being
+	plotted.
+
 2015-08-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add templated versions of Analysis::refData() to use data types

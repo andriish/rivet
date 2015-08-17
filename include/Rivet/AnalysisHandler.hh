@@ -190,13 +190,14 @@ namespace Rivet {
     std::string _runname;
 
     /// Number of events seen.
+    /// @todo Replace by a counter
     unsigned int _numEvents;
-
     /// Sum of event weights seen.
-    double _sumOfWeights;
+    /// @todo Replace by a counter
+    double _sumOfWeights, _sumOfWeightsSq;
 
     /// Cross-section known to AH
-    double _xs;
+    double _xs, _xserr;
 
     /// Beams used by this run.
     ParticlePair _beams;
