@@ -1,3 +1,8 @@
+2015-08-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rename xs and counter AOs to start with underscores, and modify
+	rivet-cmphistos to skip AOs whose basenames start with _.
+
 2015-08-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add writing out of cross-section and total event counter by

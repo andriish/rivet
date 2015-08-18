@@ -101,6 +101,9 @@ def getHistos(filelist):
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
         for path, ao in analysisobjects.iteritems():
+            ## Conventionally don't plot data objects whose names start with an underscore
+            if os.path.basename(path).startswith("_"):
+                continue
             if path.startswith('/REF/'):
                 if not refhistos.has_key(path):
                     refhistos[path] = ao

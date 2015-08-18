@@ -212,9 +212,9 @@ namespace Rivet {
 
   vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
     vector<AnalysisObjectPtr> rtn;
-    rtn.push_back( AnalysisObjectPtr(new Counter(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/EVTCOUNT")) );
+    rtn.push_back( AnalysisObjectPtr(new Counter(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT")) );
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
-    rtn.push_back( AnalysisObjectPtr(new Scatter1D(pts, "/XSEC")) );
+    rtn.push_back( AnalysisObjectPtr(new Scatter1D(pts, "/_XSEC")) );
     foreach (const AnaHandle a, analyses()) {
       vector<AnalysisObjectPtr> aos = a->analysisObjects();
       // MSG_WARNING(a->name() << " " << aos.size());
