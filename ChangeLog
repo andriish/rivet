@@ -1,6 +1,14 @@
+2015-08-20  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Add function to ZFinder to retrieve all fiducial dressed leptons, e.g. to allow vetoing on a third one (proposed by Christian Gutschow).
+
 2015-07-24  Chris Pollard  <cpollard@cern.ch>
 
 	* Release version 2.3.0
+
+2015-07-14  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Hide copy constructor and operator= of FinalState to avoid accidental slicing of derived projections when one of these is used by a user.
 
 2015-07-08  David Grellscheid  <david.grellscheid@durham.ac.uk>
 
@@ -72,6 +80,13 @@
 
 	* Bump version to 2.3.0 and require YODA > 1.4.0 (current head at
 	time of development).
+
+2015-06-30  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Fallback for sqrtS if running without beams.
+
+	* Make MC_JetAnalysis et al. available even if configured with --disable-analyses.
+
 2015-06-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add handling of -m/-M flags on rivet-cmphistos and rivet-mkhtml,
