@@ -417,13 +417,13 @@ namespace Rivet {
     /// Struct for sorting by increasing energy
     struct byEAscending {
       bool operator()(const FourMomentum& left, const FourMomentum& right) const{
-        double pt2left = left.E();
-        double pt2right = right.E();
+        const double pt2left = left.E();
+        const double pt2right = right.E();
         return pt2left < pt2right;
       }
 
       bool operator()(const FourMomentum* left, const FourMomentum* right) const{
-        return (*this)(left, right);
+        return (*this)(*left, *right);
       }
     };
 
@@ -434,7 +434,7 @@ namespace Rivet {
       }
 
       bool operator()(const FourMomentum* left, const FourVector* right) const{
-        return (*this)(left, right);
+        return (*this)(*left, *right);
       }
     };
 
