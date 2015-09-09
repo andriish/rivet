@@ -1,6 +1,13 @@
+2015-09-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix factor of 2 in LHCB_2013_I1218996 normalisation, thanks to
+	Felix Riehn for the report.
+
 2015-08-20  Frank Siegert  <frank.siegert@cern.ch>
 
-	* Add function to ZFinder to retrieve all fiducial dressed leptons, e.g. to allow vetoing on a third one (proposed by Christian Gutschow).
+	* Add function to ZFinder to retrieve all fiducial dressed
+	leptons, e.g. to allow vetoing on a third one (proposed by
+	Christian Gutschow).
 
 2015-07-24  Chris Pollard  <cpollard@cern.ch>
 
@@ -8,7 +15,9 @@
 
 2015-07-14  Frank Siegert  <frank.siegert@cern.ch>
 
-	* Hide copy constructor and operator= of FinalState to avoid accidental slicing of derived projections when one of these is used by a user.
+	* Hide copy constructor and operator= of FinalState to avoid
+	accidental slicing of derived projections when one of these is
+	used by a user.
 
 2015-07-08  David Grellscheid  <david.grellscheid@durham.ac.uk>
 
