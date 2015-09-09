@@ -26,22 +26,22 @@ namespace Rivet {
 
     /// Constructor taking cuts object
     /// @param inputfs Input final state
-    /// @param cuts charged lepton cuts
-    /// @param pid type of the charged lepton
-    /// @param minmass,maxmass (transverse) mass window
-    /// @param missingET minimal amount of missing ET (neutrinos) required
-    /// @param dRmax maximum dR of photons around charged lepton to take into account
+    /// @param leptoncuts Charged lepton cuts
+    /// @param pid Type of the charged lepton
+    /// @param minmass,maxmass (Transverse) mass window
+    /// @param missingET Minimal amount of missing ET (neutrinos) required
+    /// @param dRmax Maximum dR of photons around charged lepton to take into account
     ///  for W reconstruction (only relevant if one of the following are true)
-    /// @param clusterPhotons whether such photons are supposed to be
+    /// @param clusterPhotons Whether such photons are supposed to be
     ///  clustered to the lepton object and thus W mom
-    /// @param trackPhotons whether such photons should be added to _theParticles
-    /// @param masstype whether mass window should be applied using m or mT
+    /// @param trackPhotons Whether such photons should be added to _theParticles
+    /// @param masstype Whether mass window should be applied using m or mT
     WFinder(const FinalState& inputfs,
-            const Cut & cuts,
+            const Cut& leptoncuts,
             PdgId pid,
             double minmass, double maxmass,
             double missingET,
-            double dRmax=0.1, 
+            double dRmax=0.1,
             ClusterPhotons clusterPhotons=CLUSTERNODECAY,
             PhotonTracking trackPhotons=NOTRACK,
             MassWindow masstype=MASS,

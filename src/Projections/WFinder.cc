@@ -12,7 +12,7 @@ namespace Rivet {
 
 
   WFinder::WFinder(const FinalState& inputfs,
-                   const Cut& fsCut,
+                   const Cut& leptoncuts,
                    PdgId pid,
                    double minmass, double maxmass,
                    double missingET,
@@ -40,7 +40,7 @@ namespace Rivet {
     bareleptons.acceptIdPair(pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
-    DressedLeptons leptons(inputfs, bareleptons, dRmax, fsCut, doClustering, useDecayPhotons);
+    DressedLeptons leptons(inputfs, bareleptons, dRmax, leptoncuts, doClustering, useDecayPhotons);
     addProjection(leptons, "DressedLeptons");
 
     // Add MissingMomentum proj to calc MET
