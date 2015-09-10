@@ -3,6 +3,7 @@
 #define RIVET_ZFinder_HH
 
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
@@ -76,6 +77,12 @@ namespace Rivet {
       return rtn;
     }
 
+    /// Access to all DressedLeptons in the fiducial region.
+    ///
+    /// This includes those DressedLeptons that could not
+    /// be paired up with any other DressedLepton to form a Z candidate.
+    const vector<DressedLepton>& allLeptons() const { return _allLeptons; }
+
     /// Access to the particles other than the Z leptons and clustered photons
     ///
     /// Useful for e.g. input to a jet finder
@@ -98,6 +105,7 @@ namespace Rivet {
       _theParticles.clear();
       _bosons.clear();
       _constituents.clear();
+      _allLeptons.clear();
     }
 
 
@@ -121,6 +129,9 @@ namespace Rivet {
 
     /// Clustered leptons
     vector<Particle> _constituents;
+
+    ///Dressed leptons
+    vector<DressedLepton> _allLeptons;
 
   };
 

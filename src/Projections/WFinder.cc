@@ -93,9 +93,7 @@ namespace Rivet {
       return;
     }
 
-
     const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
-
     if ( leptons.dressedLeptons().empty() ) {
     	MSG_DEBUG("No dressed leptons.");
     	return;
