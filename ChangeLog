@@ -1,3 +1,7 @@
+2015-09-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding extra methods to MissingMomentum, to make it more user-friendly.
+
 2015-08-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Rename xs and counter AOs to start with underscores, and modify

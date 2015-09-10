@@ -19,19 +19,17 @@ namespace Rivet {
   class MissingMomentum : public Projection {
   public:
 
-    /// Default constructor with uncritical FS.
-    MissingMomentum()
-    {
+    /// Default constructor with optional cut.
+    MissingMomentum(const Cut& c=Cuts::open()) {
       setName("MissingMomentum");
-      FinalState fs;
+      FinalState fs(c);
       addProjection(fs, "FS");
       addProjection(VisibleFinalState(fs), "VisibleFS");
     }
 
 
     /// Constructor.
-    MissingMomentum(const FinalState& fs)
-    {
+    MissingMomentum(const FinalState& fs) {
       setName("MissingMomentum");
       addProjection(fs, "FS");
       addProjection(VisibleFinalState(fs), "VisibleFS");
@@ -49,10 +47,20 @@ namespace Rivet {
     /// The vector-summed visible four-momentum in the event.
     /// @note Reverse this vector with operator- to get the missing momentum vector.
     const FourMomentum& visibleMomentum() const { return _momentum; }
+    /// Alias for visibleMomentum
+    const FourMomentum& visibleMom() const { return visibleMomentum(); }
 
-    /// The vector-summed visible transverse energy in the event
+    /// The missing four-momentum in the event, required to balance the final state.
+    const FourMomentum missingMomentum() const { return -visibleMomentum(); }
+    /// Alias for missingMomentum
+    const FourMomentum missingMom() const { return missingMomentum(); }
+
+    /// The vector-summed visible transverse energy in the event, as a 3-vector with z=0
     /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
+
+    /// The vector-summed missing transverse energy in the event.
+    double missingEt() const { return vectorEt().mod(); }
 
     /// The scalar-summed visible transverse energy in the event.
     double scalarEt() const { return _set; }
