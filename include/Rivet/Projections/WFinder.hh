@@ -3,6 +3,7 @@
 #define RIVET_WFinder_HH
 
 #include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
@@ -64,21 +65,23 @@ namespace Rivet {
     const Particle& boson() const { return _bosons[0]; }
 
 
-    /// Access to the W constituent clustered leptons
+    /// Access to the Ws' constituent clustered leptons
     ///
     /// @note Either size 0 if no boson was found or 1 if one boson was found
     const Particles& constituentLeptons() const { return _constituentLeptons; }
 
-    /// Access to the W constituent clustered lepton (assuming it exists)
+    /// Access to the W's constituent clustered lepton (assuming it exists)
     const Particle& constituentLepton() const { return _constituentLeptons[0]; }
 
 
-    /// Access to the W constituent neutrinos
+    /// Access to the Ws' constituent neutrinos
     ///
     /// @note Either size 0 if no boson was found or 1 if one boson was found
+    /// @note The neutrino can't be perfecly reconstructed -- this is a pseudo-nu from the MET.
     const Particles& constituentNeutrinos() const { return _constituentNeutrinos; }
 
-    /// Access to the W constituent neutrinos
+    /// Access to the W's constituent neutrino (assuming it exists)
+    /// @note The neutrino can't be perfecly reconstructed -- this is a pseudo-nu from the MET.
     const Particle& constituentNeutrino() const { return _constituentNeutrinos[0]; }
 
 
@@ -86,6 +89,9 @@ namespace Rivet {
     ///
     /// Useful for e.g. input to a jet finder
     const VetoedFinalState& remainingFinalState() const;
+
+    /// Access to the missing momentum projection used to find the "neutrino"
+    const MissingMomentum& missingMom() const;
 
     /// @brief Calculate the transverse mass of the W, from the charged lepton and neutrino
     ///

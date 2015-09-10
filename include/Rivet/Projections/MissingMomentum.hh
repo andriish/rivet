@@ -61,9 +61,13 @@ namespace Rivet {
 
     /// The vector-summed missing transverse energy in the event.
     double missingEt() const { return vectorEt().mod(); }
+    /// Alias for missingEt
+    double met() const { return missingEt(); }
 
     /// The scalar-summed visible transverse energy in the event.
     double scalarEt() const { return _set; }
+    /// Alias for scalarEt
+    double set() const { return scalarEt(); }
 
 
   protected:

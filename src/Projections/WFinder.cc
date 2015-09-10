@@ -2,7 +2,6 @@
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
-#include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
@@ -46,7 +45,7 @@ namespace Rivet {
     // Add MissingMomentum proj to calc MET
     MissingMomentum vismom(inputfs);
     addProjection(vismom, "MissingET");
-    // Set ETmiss
+    // Set ETmiss cut
     _etMiss = missingET;
 
     VetoedFinalState remainingFS;
@@ -60,6 +59,11 @@ namespace Rivet {
 
   const VetoedFinalState& WFinder::remainingFinalState() const {
     return getProjection<VetoedFinalState>("RFS");
+  }
+
+
+  const MissingMomentum& WFinder::missingMom() const {
+    return getProjection<MissingMomentum>("MissingET");
   }
 
 
