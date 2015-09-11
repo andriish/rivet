@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief CDF two jet tripply-differential cross-section
+  /// @brief CDF two-jet triply-differential cross-section
   class CDF_2001_S4517016 : public Analysis {
   public:
 
