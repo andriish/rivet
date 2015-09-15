@@ -45,15 +45,24 @@ namespace Rivet {
   public:
 
     /// The vector-summed visible four-momentum in the event.
+    ///
     /// @note Reverse this vector with operator- to get the missing momentum vector.
-    const FourMomentum& visibleMomentum() const { return _momentum; }
+    ///
+    /// @note The optional @a mass argument is used to set a mass on the 4-vector. By
+    ///   default it is zero (since missing momentum is really a 3-momentum quantity:
+    ///   adding the E components of visible momenta just gives a huge mass)
+    const FourMomentum visibleMomentum(double mass=0*GeV) const;
     /// Alias for visibleMomentum
-    const FourMomentum& visibleMom() const { return visibleMomentum(); }
+    const FourMomentum visibleMom(double mass=0*GeV) const { return visibleMomentum(mass); }
 
     /// The missing four-momentum in the event, required to balance the final state.
-    const FourMomentum missingMomentum() const { return -visibleMomentum(); }
+    ///
+    /// @note The optional @a mass argument is used to set a mass on the 4-vector. By
+    ///   default it is zero (since missing momentum is really a 3-momentum quantity:
+    ///   adding the E components of visible momenta just gives a huge mass)
+    const FourMomentum missingMomentum(double mass=0*GeV) const { return -visibleMomentum(mass); }
     /// Alias for missingMomentum
-    const FourMomentum missingMom() const { return missingMomentum(); }
+    const FourMomentum missingMom(double mass=0*GeV) const { return missingMomentum(mass); }
 
     /// The vector-summed visible transverse energy in the event, as a 3-vector with z=0
     /// @note Reverse this vector with operator- to get the missing ET vector.

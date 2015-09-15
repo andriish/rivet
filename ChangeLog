@@ -1,3 +1,12 @@
+2015-09-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* More MissingMomentum changes: add optional 'mass target'
+	argument when retrieving the vector sum as a 4-momentum, with the
+	mass defaulting to 0 rather than sqrt(sum(E)^2 - sum(p)^2).
+
+	* Require Boost 1.55 for robust compilation, as pointed out by
+	Andrii Verbytskyi.
+
 2015-09-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow access to MissingMomentum projection via WFinder.
