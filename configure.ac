@@ -171,7 +171,7 @@ CPPFLAGS=$oldCPPFLAGS
 
 
 ## Boost utility library
-BOOST_REQUIRE([1.40.0])
+BOOST_REQUIRE([1.55.0])
 BOOST_FOREACH
 BOOST_SMART_PTR
 BOOST_FIND_HEADER([boost/lexical_cast.hpp])
