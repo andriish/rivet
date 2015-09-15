@@ -82,15 +82,15 @@ namespace Rivet {
   void WFinder::project(const Event& e) {
     clear();
 
-    Beam beam;
-    beam.project(e);
-    const double sqrtS = beam.sqrtS();
+    // Beam beam;
+    // beam.project(e);
+    // const double sqrtS = beam.sqrtS();
 
     // Check missing ET
-    const MissingMomentum& vismom = applyProjection<MissingMomentum>(e, "MissingET");
-    const FourMomentum& Pmiss = FourMomentum(sqrtS,0,0,0) - vismom.visibleMomentum();
+    const MissingMomentum& missmom = applyProjection<MissingMomentum>(e, "MissingET");
+    //const FourMomentum& pmiss = FourMomentum(sqrtS,0,0,0) + missmom.missingMomentum();
 
-    const double met = vismom.vectorEt().mod();
+    const double met = missmom.vectorEt().mod();
     MSG_TRACE("MET = " << met/GeV << " GeV vs. required = " << _etMiss/GeV << " GeV");
     if (met < _etMiss) {
       MSG_DEBUG("Not enough missing ET: " << met/GeV << " GeV vs. " << _etMiss/GeV << " GeV");
@@ -99,12 +99,13 @@ namespace Rivet {
 
     const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
     if ( leptons.dressedLeptons().empty() ) {
-    	MSG_DEBUG("No dressed leptons.");
-    	return;
+      MSG_DEBUG("No dressed leptons.");
+      return;
     }
 
     MSG_DEBUG("Found at least one dressed lepton: " << leptons.dressedLeptons()[0].momentum() );
-    MSG_DEBUG("Found missing 4-momentum: " << Pmiss );
+    const FourMomentum pmiss = missmom.missingMomentum(0*GeV);
+    MSG_DEBUG("Found missing 4-momentum: " << pmiss);
 
     // Make and register an invariant mass final state for the W decay leptons
     vector<pair<PdgId, PdgId> > l_nu_ids;
@@ -114,8 +115,8 @@ namespace Rivet {
     imfs.useTransverseMass(_useTransverseMass);
     Particles tmp;
     tmp.insert(tmp.end(), leptons.dressedLeptons().begin(), leptons.dressedLeptons().end());
-    tmp.push_back(Particle( _nu_pid,Pmiss)); // fake neutrino from Et miss vector
-    tmp.push_back(Particle(-_nu_pid,Pmiss)); // fake antineutrino from Et miss vector
+    tmp.push_back(Particle( _nu_pid, pmiss)); // fake neutrino from Et miss vector
+    tmp.push_back(Particle(-_nu_pid, pmiss)); // fake antineutrino from Et miss vector
     imfs.calc(tmp);
 
     if (imfs.particlePairs().size() < 1) return;
