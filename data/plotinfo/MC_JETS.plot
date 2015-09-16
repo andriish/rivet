@@ -94,26 +94,26 @@ LegendXPos=0.30
 
 # BEGIN PLOT /MC_JETS/jet_eta_pmratio_1
 Title=Pseudorapidity $+/-$ ratio of first jet
-XLabel=$\eta(\text{jet 1})_+/\eta(\text{jet 1})_-$
-YLabel=$|\eta(\text{jet 1}|$
+XLabel=$|\eta(\text{jet 1}|$
+YLabel=$\eta(\text{jet 1})_+/\eta(\text{jet 1})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_pmratio_2
 Title=Pseudorapidity $+/-$ ratio of second jet
-XLabel=$\eta(\text{jet 2})_+/\eta(\text{jet 2})_-$
-YLabel=$|\eta(\text{jet 2}|$
+XLabel=$|\eta(\text{jet 2}|$
+YLabel=$\eta(\text{jet 2})_+/\eta(\text{jet 2})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_pmratio_3
 Title=Pseudorapidity $+/-$ ratio of third jet
-XLabel=$\eta(\text{jet 3})_+/\eta(\text{jet 3})_-$
-YLabel=$|\eta(\text{jet 3}|$
+XLabel=$|\eta(\text{jet 3}|$
+YLabel=$\eta(\text{jet 3})_+/\eta(\text{jet 3})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_eta_pmratio_4
 Title=Pseudorapidity $+/-$ ratio of fourth jet
-XLabel=$\eta(\text{jet 4})_+/\eta(\text{jet 4})_-$
-YLabel=$|\eta(\text{jet 4}|$
+XLabel=$|\eta(\text{jet 4}|$
+YLabel=$\eta(\text{jet 4})_+/\eta(\text{jet 4})_-$ 
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_1
@@ -150,26 +150,26 @@ LegendXPos=0.3
 
 # BEGIN PLOT /MC_JETS/jet_y_pmratio_1
 Title=Rapidity $+/-$ ratio of first jet
-XLabel=$y(\text{jet 1})_+/y(\text{jet 1})_-$
-YLabel=$|y(\text{jet 1}|$
+XLabel=$|y(\text{jet 1}|$
+YLabel=$y(\text{jet 1})_+/y(\text{jet 1})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_pmratio_2
 Title=Rapidity $+/-$ ratio of second jet
-XLabel=$y(\text{jet 2})_+/y(\text{jet 2})_-$
-YLabel=$|y(\text{jet 2}|$
+XLabel=$|y(\text{jet 2}|$
+YLabel=$y(\text{jet 2})_+/y(\text{jet 2})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_pmratio_3
 Title=Rapidity $+/-$ ratio of third jet
-XLabel=$y(\text{jet 3})_+/y(\text{jet 3})_-$
-YLabel=$|y(\text{jet 3}|$
+XLabel=$|y(\text{jet 3}|$
+YLabel=$y(\text{jet 3})_+/y(\text{jet 3})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_pmratio_4
 Title=Rapidity $+/-$ ratio of fourth jet
-XLabel=$y(\text{jet 4})_+/y(\text{jet 4})_-$
-YLabel=$|y(\text{jet 4}|$
+XLabel=$|y(\text{jet 4}|$
+YLabel=$y(\text{jet 4})_+/y(\text{jet 4})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_1
