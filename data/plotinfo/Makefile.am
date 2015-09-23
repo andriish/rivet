@@ -282,7 +282,15 @@ dist_pkgdata_DATA = \
   MC_TTBAR.plot \
   MC_VH2BB.plot \
   MC_WINC.plot \
+  MC_WINC_EL.info \
+  MC_WINC_MU.info \
+  MC_WINC_EL_BARE.info \
+  MC_WINC_MU_BARE.info \
   MC_WJETS.plot \
+  MC_WJETS_EL.info \
+  MC_WJETS_MU.info \
+  MC_WJETS_EL_BARE.info \
+  MC_WJETS_MU_BARE.info \
   MC_WKTSPLITTINGS.plot \
   MC_WPOL.plot \
   MC_WWINC.plot \
@@ -290,7 +298,15 @@ dist_pkgdata_DATA = \
   MC_WWKTSPLITTINGS.plot \
   MC_XS.plot \
   MC_ZINC.plot \
+  MC_ZINC_EL.info \
+  MC_ZINC_MU.info \
+  MC_ZINC_EL_BARE.info \
+  MC_ZINC_MU_BARE.info \
   MC_ZJETS.plot \
+  MC_ZJETS_EL.info \
+  MC_ZJETS_MU.info \
+  MC_ZJETS_EL_BARE.info \
+  MC_ZJETS_MU_BARE.info \
   MC_ZKTSPLITTINGS.plot \
   MC_ZZINC.plot \
   MC_ZZJETS.plot \
