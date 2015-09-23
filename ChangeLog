@@ -1,3 +1,8 @@
+2015-09-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow running MC_{W,Z}INC, MC_{W,Z}JETS as separate bare lepton
+	analyses.
+
 2015-09-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix factor of 2 in LHCB_2013_I1218996 normalisation, thanks to
