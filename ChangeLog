@@ -1,5 +1,7 @@
 2015-09-23  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add CMS_2015_I1310737 Z+jets analysis.
+
 	* Allow running MC_{W,Z}INC, MC_{W,Z}JETS as separate bare lepton
 	analyses.
 
