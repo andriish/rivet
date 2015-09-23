@@ -1,3 +1,9 @@
+2015-09-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* FastJets now allows use of FastJet pure ghosts, by excluding
+	them from the constituents of Rivet Jet objects. Thanks to James
+	Monk for raising the issue and providing a patch.
+
 2015-09-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* More MissingMomentum changes: add optional 'mass target'
