@@ -14,7 +14,7 @@ namespace Rivet {
     /// Default constructor
     MC_WJETS(string name="MC_WJETS")
       : MC_JetAnalysis(name, 4, "Jets")
-    { 
+    {
 		 _dR=0.2;
 		 _lepton=PID::ELECTRON;
    }
@@ -69,6 +69,15 @@ namespace Rivet {
     //@}
 
 
+  protected:
+
+    /// @name Parameters for specialised e/mu and dressed/bare subclassing
+    //@{
+    double _dR;
+    PdgId _lepton;
+    //@}
+
+
   private:
 
     /// @name Histograms
@@ -76,48 +85,42 @@ namespace Rivet {
     Histo1DPtr _h_W_jet1_deta;
     Histo1DPtr _h_W_jet1_dR;
     //@}
-  protected:
-	  float _dR;
-	  PdgId _lepton;
 
   };
 
 
-  class MC_WJETS_EL : public MC_WJETS {
-  public:
-	  MC_WJETS_EL() : MC_WJETS("MC_WJETS_EL"){
-		  _dR=0.2;
-		  _lepton=PID::ELECTRON;
-	  }
+
+  struct MC_WJETS_EL : public MC_WJETS {
+    MC_WJETS_EL() : MC_WJETS("MC_WJETS_EL") {
+      _dR = 0.2;
+      _lepton = PID::ELECTRON;
+    }
   };
 
-  class MC_WJETS_EL_BARE : public MC_WJETS {
-  public:
-	  MC_WJETS_EL_BARE() : MC_WJETS("MC_WJETS_EL_BARE"){
-		  _dR=0.0;
-		  _lepton=PID::ELECTRON;
-	  }
+  struct MC_WJETS_EL_BARE : public MC_WJETS {
+    MC_WJETS_EL_BARE() : MC_WJETS("MC_WJETS_EL_BARE") {
+      _dR = 0;
+      _lepton = PID::ELECTRON;
+    }
   };
 
-  class MC_WJETS_MU : public MC_WJETS {
-  public:
-	  MC_WJETS_MU() : MC_WJETS("MC_WJETS_MU"){
-		  _dR=0.2;
-		  _lepton=PID::MUON;
-	  }
+  struct MC_WJETS_MU : public MC_WJETS {
+    MC_WJETS_MU() : MC_WJETS("MC_WJETS_MU") {
+      _dR = 0.2;
+      _lepton = PID::MUON;
+    }
   };
 
-  class MC_WJETS_MU_BARE : public MC_WJETS {
-  public:
-	  MC_WJETS_MU_BARE() : MC_WJETS("MC_WJETS_MU_BARE"){
-		  _dR=0.0;
-		  _lepton=PID::MUON;
-	  }
+  struct MC_WJETS_MU_BARE : public MC_WJETS {
+    MC_WJETS_MU_BARE() : MC_WJETS("MC_WJETS_MU_BARE") {
+      _dR = 0;
+      _lepton = PID::MUON;
+    }
   };
 
 
 
-  // The hook for the plugin system
+  // The hooks for the plugin system
   DECLARE_RIVET_PLUGIN(MC_WJETS);
   DECLARE_RIVET_PLUGIN(MC_WJETS_EL);
   DECLARE_RIVET_PLUGIN(MC_WJETS_EL_BARE);

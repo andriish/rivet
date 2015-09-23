@@ -6,18 +6,17 @@ namespace Rivet {
 
 
 
-
   /// @brief MC validation analysis for Z events
   class MC_ZINC : public Analysis {
   public:
 
     /// Default constructor
     MC_ZINC(string name="MC_ZINC")
-		 : Analysis(name) { 
+		 : Analysis(name) {
 		 _dR=0.2;
 		 _lepton=PID::ELECTRON;
 	 }
-	  
+
 
     /// @name Analysis methods
     //@{
@@ -77,7 +76,17 @@ namespace Rivet {
     //@}
 
 
+  protected:
+
+    /// @name Parameters for specialised e/mu and dressed/bare subclassing
+    //@{
+    double _dR;
+    PdgId _lepton;
+    //@}
+
+
   private:
+
     /// @name Histograms
     //@{
     Histo1DPtr _h_Z_mass;
@@ -88,51 +97,47 @@ namespace Rivet {
     Histo1DPtr _h_lepton_pT;
     Histo1DPtr _h_lepton_eta;
     //@}
-  protected:
-	  float _dR;
-	  PdgId _lepton;
+
   };
 
 
 
-
-  class MC_ZINC_EL : public MC_ZINC {
-  public:
-	  MC_ZINC_EL() : MC_ZINC("MC_ZINC_EL"){
-		  _dR=0.2;
-		  _lepton=PID::ELECTRON;
-	  }
+  struct MC_ZINC_EL : public MC_ZINC {
+    MC_ZINC_EL() : MC_ZINC("MC_ZINC_EL") {
+      _dR = 0.2;
+      _lepton = PID::ELECTRON;
+    }
   };
 
-  class MC_ZINC_EL_BARE : public MC_ZINC {
-  public:
-	  MC_ZINC_EL_BARE() : MC_ZINC("MC_ZINC_EL_BARE"){
-		  _dR=0.0;
-		  _lepton=PID::ELECTRON;
-	  }
+  struct MC_ZINC_EL_BARE : public MC_ZINC {
+    MC_ZINC_EL_BARE() : MC_ZINC("MC_ZINC_EL_BARE") {
+      _dR = 0;
+      _lepton = PID::ELECTRON;
+    }
   };
 
-  class MC_ZINC_MU : public MC_ZINC {
-  public:
-	  MC_ZINC_MU() : MC_ZINC("MC_ZINC_MU"){
-		  _dR=0.2;
-		  _lepton=PID::MUON;
-	  }
+  struct MC_ZINC_MU : public MC_ZINC {
+    MC_ZINC_MU() : MC_ZINC("MC_ZINC_MU") {
+      _dR = 0.2;
+      _lepton = PID::MUON;
+    }
   };
 
-  class MC_ZINC_MU_BARE : public MC_ZINC {
-  public:
-	  MC_ZINC_MU_BARE() : MC_ZINC("MC_ZINC_MU_BARE"){
-		  _dR=0.0;
-		  _lepton=PID::MUON;
-	  }
+  struct MC_ZINC_MU_BARE : public MC_ZINC {
+    MC_ZINC_MU_BARE() : MC_ZINC("MC_ZINC_MU_BARE") {
+      _dR = 0;
+      _lepton = PID::MUON;
+    }
   };
 
-  // The hook for the plugin system
+
+
+  // The hooks for the plugin system
   DECLARE_RIVET_PLUGIN(MC_ZINC);
   DECLARE_RIVET_PLUGIN(MC_ZINC_EL);
   DECLARE_RIVET_PLUGIN(MC_ZINC_EL_BARE);
   DECLARE_RIVET_PLUGIN(MC_ZINC_MU);
   DECLARE_RIVET_PLUGIN(MC_ZINC_MU_BARE);
+
 
 }

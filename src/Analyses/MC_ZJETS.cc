@@ -13,7 +13,7 @@ namespace Rivet {
     /// Default constructor
     MC_ZJETS(string name = "MC_ZJETS")
       : MC_JetAnalysis(name, 4, "Jets")
-	  { 
+	  {
 		  _dR=0.2;
 		  _lepton=PID::ELECTRON;
 	  }
@@ -66,6 +66,15 @@ namespace Rivet {
     //@}
 
 
+  protected:
+
+    /// @name Parameters for specialised e/mu and dressed/bare subclassing
+    //@{
+    double _dR;
+    PdgId _lepton;
+    //@}
+
+
   private:
 
     /// @name Histograms
@@ -73,47 +82,42 @@ namespace Rivet {
     Histo1DPtr _h_Z_jet1_deta;
     Histo1DPtr _h_Z_jet1_dR;
     //@}
-  protected:
-	  float _dR;
-	  PdgId _lepton;
 
   };
 
-  class MC_ZJETS_EL : public MC_ZJETS {
-  public:
-	  MC_ZJETS_EL() : MC_ZJETS("MC_ZJETS_EL"){
-		  _dR=0.2;
-		  _lepton=PID::ELECTRON;
-	  }
+
+
+  struct MC_ZJETS_EL : public MC_ZJETS {
+    MC_ZJETS_EL() : MC_ZJETS("MC_ZJETS_EL") {
+      _dR = 0.2;
+      _lepton = PID::ELECTRON;
+    }
   };
 
-  class MC_ZJETS_EL_BARE : public MC_ZJETS {
-  public:
-	  MC_ZJETS_EL_BARE() : MC_ZJETS("MC_ZJETS_EL_BARE"){
-		  _dR=0.0;
-		  _lepton=PID::ELECTRON;
-	  }
+  struct MC_ZJETS_EL_BARE : public MC_ZJETS {
+    MC_ZJETS_EL_BARE() : MC_ZJETS("MC_ZJETS_EL_BARE") {
+      _dR = 0;
+      _lepton = PID::ELECTRON;
+    }
   };
 
-  class MC_ZJETS_MU : public MC_ZJETS {
-  public:
-	  MC_ZJETS_MU() : MC_ZJETS("MC_ZJETS_MU"){
-		  _dR=0.2;
-		  _lepton=PID::MUON;
-	  }
+  struct MC_ZJETS_MU : public MC_ZJETS {
+    MC_ZJETS_MU() : MC_ZJETS("MC_ZJETS_MU") {
+      _dR = 0.2;
+      _lepton = PID::MUON;
+    }
   };
 
-  class MC_ZJETS_MU_BARE : public MC_ZJETS {
-  public:
-	  MC_ZJETS_MU_BARE() : MC_ZJETS("MC_ZJETS_MU_BARE"){
-		  _dR=0.0;
-		  _lepton=PID::MUON;
-	  }
+  struct MC_ZJETS_MU_BARE : public MC_ZJETS {
+    MC_ZJETS_MU_BARE() : MC_ZJETS("MC_ZJETS_MU_BARE") {
+      _dR = 0;
+      _lepton = PID::MUON;
+    }
   };
 
 
 
-  // The hook for the plugin system
+  // The hooks for the plugin system
   DECLARE_RIVET_PLUGIN(MC_ZJETS);
   DECLARE_RIVET_PLUGIN(MC_ZJETS_EL);
   DECLARE_RIVET_PLUGIN(MC_ZJETS_EL_BARE);
