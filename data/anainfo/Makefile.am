@@ -287,7 +287,15 @@ dist_pkgdata_DATA = \
   MC_TTBAR.info \
   MC_VH2BB.info \
   MC_WINC.info \
+  MC_WINC_EL.info \
+  MC_WINC_MU.info \
+  MC_WINC_EL_BARE.info \
+  MC_WINC_MU_BARE.info \
   MC_WJETS.info \
+  MC_WJETS_EL.info \
+  MC_WJETS_MU.info \
+  MC_WJETS_EL_BARE.info \
+  MC_WJETS_MU_BARE.info \
   MC_WKTSPLITTINGS.info \
   MC_WPOL.info \
   MC_WWINC.info \
@@ -295,7 +303,15 @@ dist_pkgdata_DATA = \
   MC_WWKTSPLITTINGS.info \
   MC_XS.info \
   MC_ZINC.info \
+  MC_ZINC_EL.info \
+  MC_ZINC_MU.info \
+  MC_ZINC_EL_BARE.info \
+  MC_ZINC_MU_BARE.info \
   MC_ZJETS.info \
+  MC_ZJETS_EL.info \
+  MC_ZJETS_MU.info \
+  MC_ZJETS_EL_BARE.info \
+  MC_ZJETS_MU_BARE.info \
   MC_ZKTSPLITTINGS.info \
   MC_ZZINC.info \
   MC_ZZJETS.info \

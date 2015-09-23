@@ -6,15 +6,17 @@ namespace Rivet {
 
 
 
-
   /// @brief MC validation analysis for inclusive W events
   class MC_WINC : public Analysis {
   public:
 
     /// Default constructor
-    MC_WINC()
-      : Analysis("MC_WINC")
-    {    }
+    MC_WINC(string name="MC_WINC")
+      : Analysis(name)
+    {
+		 _dR=0.2;
+		 _lepton=PID::ELECTRON;
+	 }
 
 
     /// @name Analysis methods
@@ -23,7 +25,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       FinalState fs;
-      WFinder wfinder(fs, Cuts::abseta < 3.5 && Cuts::pT > 25*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
+      WFinder wfinder(fs, Cuts::abseta < 3.5 && Cuts::pT > 25*GeV, _lepton, 60.0*GeV, 100.0*GeV, 25.0*GeV, _dR);
       addProjection(wfinder, "WFinder");
 
       double sqrts = sqrtS()>0. ? sqrtS() : 14000.;
@@ -114,6 +116,15 @@ namespace Rivet {
     //@}
 
 
+  protected:
+
+    /// @name Parameters for specialised e/mu and dressed/bare subclassing
+    //@{
+    double _dR;
+    PdgId _lepton;
+    //@}
+
+
   private:
 
     /// @name Histograms
@@ -139,7 +150,42 @@ namespace Rivet {
 
 
 
-  // The hook for the plugin system
+  struct MC_WINC_EL : public MC_WINC {
+    MC_WINC_EL() : MC_WINC("MC_WINC_EL") {
+      _dR = 0.2;
+      _lepton = PID::ELECTRON;
+    }
+  };
+
+  struct MC_WINC_EL_BARE : public MC_WINC {
+    MC_WINC_EL_BARE() : MC_WINC("MC_WINC_EL_BARE") {
+      _dR = 0;
+      _lepton = PID::ELECTRON;
+    }
+  };
+
+  struct MC_WINC_MU : public MC_WINC {
+    MC_WINC_MU() : MC_WINC("MC_WINC_MU") {
+      _dR = 0.2;
+      _lepton = PID::MUON;
+    }
+  };
+
+  struct MC_WINC_MU_BARE : public MC_WINC {
+    MC_WINC_MU_BARE() : MC_WINC("MC_WINC_MU_BARE") {
+      _dR = 0;
+      _lepton = PID::MUON;
+    }
+  };
+
+
+
+  // The hooks for the plugin system
   DECLARE_RIVET_PLUGIN(MC_WINC);
+  DECLARE_RIVET_PLUGIN(MC_WINC_EL);
+  DECLARE_RIVET_PLUGIN(MC_WINC_EL_BARE);
+  DECLARE_RIVET_PLUGIN(MC_WINC_MU);
+  DECLARE_RIVET_PLUGIN(MC_WINC_MU_BARE);
+
 
 }
