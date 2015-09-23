@@ -1,4 +1,4 @@
-Name: MC_WJETS
+Name: MC_WJETS_MU_BARE
 Summary: Monte Carlo validation observables for $W[mu \, \nu]$ + jets production
 Status: VALIDATED
 Authors:
@@ -10,5 +10,5 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Monte Carlo validation observables for $W[mu \, \nu]$ + jets production
+  Monte Carlo validation observables for $W[mu \, \nu]$ + jets production, with bare leptons
 NeedCrossSection: yes

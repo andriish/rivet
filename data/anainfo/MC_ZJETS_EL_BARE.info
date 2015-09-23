@@ -14,5 +14,5 @@ Description:
   Available observables are the pT of jets 1-4, jet multiplicity,
   $\Delta\eta(Z, \text{jet1})$, $\Delta R(\text{jet2}, \text{jet3})$,
   differential jet rates 0->1, 1->2, 2->3, 3->4, and integrated 0--4
-  jet rates.
+  jet rates. Bare leptons are used.
 NeedCrossSection: yes

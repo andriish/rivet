@@ -10,5 +10,5 @@ RunInfo:
 NumEvents: 1000000
 PtCuts: [0]
 Description:
-  Monte Carlo validation observables for $W[e \, \nu]$ + jets production
+  Monte Carlo validation observables for $W[e \, \nu]$ + jets production, with bare leptons.
 NeedCrossSection: yes
