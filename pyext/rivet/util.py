@@ -180,7 +180,9 @@ def detex(tex):
     # TODO: Replace e^+- -> e+-?
     if plain[-1] == "\n":
         return plain[:-1]
-    else:
+    elif plain:
         return plain
+    else:
+        return tex
 
 #print detex(r"Foo \! $\int \text{bar} \d{x} \sim \; \frac{1}{3} \neq \emph{foo}$ \to \gg bar")
