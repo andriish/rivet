@@ -216,6 +216,7 @@ dist_pkgdata_DATA = \
   CMS_2012_PAS_QCD_11_010.info \
   CMS_QCD_10_024.info \
   CMSTOTEM_2014_I1294140.info \
+  TOTEM_2014_I1328627.info \
   D0_1996_S3214044.info \
   D0_1996_S3324664.info \
   D0_2000_S4480767.info \
