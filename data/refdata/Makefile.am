@@ -142,6 +142,7 @@ dist_pkgdata_DATA = \
   CMS_2012_I1107658.yoda \
   CMS_2012_I1184941.yoda \
   CMS_2012_I1193338.yoda \
+  CMS_2013_I1122847.yoda \
   CMS_2013_I1208923.yoda \
   CMS_2013_I1209721.yoda \
   CMS_2013_I1218372.yoda \
