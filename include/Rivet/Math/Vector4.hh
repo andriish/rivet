@@ -477,6 +477,13 @@ namespace Rivet {
       return result;
     }
 
+    /// Multiply space components only by -1.
+    FourMomentum flip3() const {
+      FourMomentum result = -*this;
+      result.setE(-result.E());
+      return result;
+    }
+
 
   };
 
