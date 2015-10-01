@@ -4,7 +4,7 @@ Summary: D0 RunI measurement of the Z pT in the electron channel
 Experiment: D0
 Collider: Tevatron
 InspireID: 503361
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Simone Amoroso <amoroso@cern.ch>
 References:
