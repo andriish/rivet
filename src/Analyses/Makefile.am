@@ -311,7 +311,8 @@ RivetD0Analyses_la_SOURCES = \
     D0_2010_S8671338.cc \
     D0_2010_S8821313.cc \
     D0_2011_I895662.cc \
-    D0_2015_I1324946.cc
+    D0_2015_I1324946.cc \
+    D0_2000_I503361.cc
 if ENABLE_UNVALIDATED
 RivetD0Analyses_la_SOURCES += \
     D0_2000_S4480767.cc \
