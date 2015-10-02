@@ -24,12 +24,10 @@ namespace Rivet {
     void init() {
 
       ///  Initialise and register projections here
-      ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON, 75*GeV, 105*GeV, 25.0*GeV, ZFinder::NOCLUSTER);
+      ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON, 75*GeV, 105*GeV, 0.0*GeV, ZFinder::NOCLUSTER);
       addProjection(zfinder, "ZFinder");
 
 
-      ///  Book histograms here, e.g.:
-      //      _hist_z_xs = bookHisto1D(1, 1, 1);
       _hist_zpt = bookHisto1D(1, 1, 1);
     }
 
@@ -53,14 +51,6 @@ namespace Rivet {
       MSG_DEBUG("Dilepton mass = " << pZ.mass()/GeV << " GeV");
       _hist_zpt->fill(pZ.pT(), weight);
 
-      /// A posteriori trigger on both electrons to have E_T > 25 GeV
-      if (zfinder.constituents()[0].Et()/GeV < 25 || 
-          zfinder.constituents()[1].Et()/GeV < 25 ) {
-        MSG_DEBUG("E_T trigger failed: l1 = " 
-            <<  zfinder.constituents()[0].Et()/GeV << " GeV"
-            << " l2 = " << zfinder.constituents()[1].Et()/GeV);
-        vetoEvent;
-      }
     }
 
 
