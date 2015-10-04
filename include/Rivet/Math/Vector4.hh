@@ -197,7 +197,7 @@ namespace Rivet {
     }
 
     /// Multiply space components only by -1.
-    FourVector flip3() const {
+    FourVector reverse() const {
       FourVector result = -*this;
       result.setT(-result.t());
       return result;
@@ -478,7 +478,7 @@ namespace Rivet {
     }
 
     /// Multiply space components only by -1.
-    FourMomentum flip3() const {
+    FourMomentum reverse() const {
       FourMomentum result = -*this;
       result.setE(-result.E());
       return result;

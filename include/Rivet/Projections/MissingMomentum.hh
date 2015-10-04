@@ -46,7 +46,7 @@ namespace Rivet {
 
     /// The vector-summed visible four-momentum in the event.
     ///
-    /// @note Reverse this vector with .flip3() to get the missing momentum vector.
+    /// @note Reverse this vector with .reverse() to get the missing momentum vector.
     ///
     /// @note The optional @a mass argument is used to set a mass on the 4-vector. By
     ///   default it is zero (since missing momentum is really a 3-momentum quantity:
@@ -60,7 +60,7 @@ namespace Rivet {
     /// @note The optional @a mass argument is used to set a mass on the 4-vector. By
     ///   default it is zero (since missing momentum is really a 3-momentum quantity:
     ///   adding the E components of visible momenta just gives a huge mass)
-    const FourMomentum missingMomentum(double mass=0*GeV) const { return visibleMomentum(mass).flip3(); }
+    const FourMomentum missingMomentum(double mass=0*GeV) const { return visibleMomentum(mass).reverse(); }
     /// Alias for missingMomentum
     const FourMomentum missingMom(double mass=0*GeV) const { return missingMomentum(mass); }
 

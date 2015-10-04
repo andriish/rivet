@@ -1,6 +1,6 @@
 2015-09-30  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Important improvement in FourVector & FourMomentum: new flip3()
+	* Important improvement in FourVector & FourMomentum: new reverse()
 	method to return a 4-vector in which only the spatial component
 	has been inverted cf. operator- which flips the t/E component as
 	well.
