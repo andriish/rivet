@@ -10,5 +10,7 @@ except:
 del sys
 
 from rivet.core import *
+__version__ = core.version()
+
 from rivet.plotinfo import *
 import spiresbib, util
