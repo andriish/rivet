@@ -1,9 +1,56 @@
+2015-10-03  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Adding CMS_2015_I1346843 Z+gamma
+
 2015-09-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Important improvement in FourVector & FourMomentum: new reverse()
 	method to return a 4-vector in which only the spatial component
 	has been inverted cf. operator- which flips the t/E component as
 	well.
+
+2015-09-28  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Adding D0_2000_I503361 ZPT at 1800 GeV
+
+2015-09-29  Chris Pollard  <cpollard@cern.ch>
+
+	* Adding ATLAS_2015_CONF_2015_041
+
+2015-09-29  Chris Pollard  <cpollard@cern.ch>
+
+	* Adding ATLAS_2015_I1387176
+
+2015-09-29  Chris Pollard  <cpollard@cern.ch>
+
+	* Adding ATLAS_2014_I1327229
+
+2015-09-28  Chris Pollard  <cpollard@cern.ch>
+
+	* Adding ATLAS_2014_I1326641
+
+2015-09-28  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Adding CMS_2013_I1122847 FB assymetry in DY analysis
+
+2015-09-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding CMS_2015_I1385107 LHA pp 2.76 TeV track-jet underlying event.
+
+2015-09-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding CMS_2015_I1384119 LHC Run 2 minimum bias dN/deta with no B field.
+
+2015-09-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding TOTEM_2014_I1328627 forward charged density in eta analysis.
+
+2015-09-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS_2015_I1310737 Z+jets analysis.
+
+	* Allow running MC_{W,Z}INC, MC_{W,Z}JETS as separate bare lepton
+	analyses.
 
 2015-09-23  Andy Buckley  <andy.buckley@cern.ch>
 
@@ -25,6 +72,17 @@
 	* Allow access to MissingMomentum projection via WFinder.
 
 	* Adding extra methods to MissingMomentum, to make it more user-friendly.
+
+2015-09-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix factor of 2 in LHCB_2013_I1218996 normalisation, thanks to
+	Felix Riehn for the report.
+
+2015-08-20  Frank Siegert  <frank.siegert@cern.ch>
+
+	* Add function to ZFinder to retrieve all fiducial dressed
+	leptons, e.g. to allow vetoing on a third one (proposed by
+	Christian Gutschow).
 
 2015-08-18  Andy Buckley  <andy.buckley@cern.ch>
 
