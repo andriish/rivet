@@ -57,13 +57,13 @@ stygroup.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS
 stygroup.add_option("--booklet", dest="BOOKLET", action="store_true",
                     default=False, help="create booklet (currently only available for PDF with pdftk).")
 stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
-                    help="Use Palatino as font (default).")
+                    help="use Palatino as font (default).")
 stygroup.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
-                    help="Use Computer Modern as font.")
+                    help="use Computer Modern as font.")
 stygroup.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
-                    help="Use Times as font.")
+                    help="use Times as font.")
 stygroup.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
-                    help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
+                    help="use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
 parser.add_option_group(stygroup)
 
 selgroup = OptionGroup(parser, "Selective plotting")
@@ -78,9 +78,9 @@ selgroup.add_option("-A", "--ana-unmatch", action="append", dest="ANAUNPATTERNS"
 parser.add_option_group(selgroup)
 
 vrbgroup = OptionGroup(parser, "Verbosity control")
-vrbgroup.add_option("-v", "--verbose", help="Add extra debug messages", dest="VERBOSE",
+vrbgroup.add_option("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
                   action="store_true", default=False)
-vrbgroup.add_option("--dry-run", help="Don't actually do any plotting or HTML building", dest="DRY_RUN",
+vrbgroup.add_option("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                   action="store_true", default=False)
 parser.add_option_group(vrbgroup)
 
