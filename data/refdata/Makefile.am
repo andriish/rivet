@@ -169,6 +169,7 @@ dist_pkgdata_DATA = \
   CMS_2012_PAS_QCD_11_010.yoda \
   CMS_QCD_10_024.yoda \
   CMS_2015_I1346843.yoda \
+  CMS_2015_I1327224.yoda \
   CMSTOTEM_2014_I1294140.yoda \
   TOTEM_2014_I1328627.yoda \
   LHCB_2010_S8758301.yoda \
