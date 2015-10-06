@@ -122,6 +122,8 @@ for yodafile in yodafiles:
     for path, ao in analysisobjects.iteritems():
         ## If regexes have been provided, only add analyses which match and don't unmatch
         pathparts = path.strip('/').split('/')
+        if pathparts[0].startswith("_"):
+            continue
         if pathparts[0] == "REF":
             del pathparts[0]
         # TODO: What if there are more than two parts (other than REF)?
