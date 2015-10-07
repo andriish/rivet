@@ -117,6 +117,10 @@
 	non-writeable output directory (based on patch from Lukas
 	Heinrich).
 
+2015-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.3.0 release.
+
 2015-07-02  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Tidy up ATLAS higgs combination analysis.
