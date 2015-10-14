@@ -694,7 +694,38 @@ namespace Rivet {
   }
 
 
-  /// @todo 2D versions of scale and normalize...
+  void Analysis::normalize(Histo2DPtr histo, double norm, bool includeoverflows) {
+    if (!histo) {
+      MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
+      return;
+    }
+    MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
+    try {
+      histo->normalize(norm, includeoverflows);
+    } catch (YODA::Exception& we) {
+      MSG_WARNING("Could not normalize histo " << histo->path());
+      return;
+    }
+  }
+
+
+  void Analysis::scale(Histo2DPtr histo, double scale) {
+    if (!histo) {
+      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
+      return;
+    }
+    if (std::isnan(scale) || std::isinf(scale)) {
+      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
+      scale = 0;
+    }
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << scale);
+    try {
+      histo->scaleW(scale);
+    } catch (YODA::Exception& we) {
+      MSG_WARNING("Could not scale histo " << histo->path());
+      return;
+    }
+  }
 
 
   void Analysis::integrate(Histo1DPtr h, Scatter2DPtr s) const {
