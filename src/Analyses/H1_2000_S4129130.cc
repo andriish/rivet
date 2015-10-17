@@ -171,8 +171,8 @@ namespace Rivet {
       }
       // Fill histograms for the average quantities
       if (evcut[1] || evcut[3]) {
-        _histAverETCentral->fill(q2, etcent*weight,weight);
-        _histAverETFrag   ->fill(q2, etfrag*weight,weight);
+        _histAverETCentral->fill(q2, etcent, weight);
+        _histAverETFrag   ->fill(q2, etfrag, weight);
       }
     }
 
