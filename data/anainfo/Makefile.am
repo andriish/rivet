@@ -274,6 +274,7 @@ dist_pkgdata_DATA = \
   LHCB_2013_I1208105.info \
   LHCB_2013_I1218996.info \
   LHCB_2014_I1281685.info \
+  LHCB_2015_I1333223.info \
   LHCF_2012_I1115479.info \
   MC_DIJET.info \
   MC_DIPHOTON.info \
