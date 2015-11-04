@@ -50,6 +50,8 @@ stygroup.add_option("--no-ratio", dest="SHOW_RATIO", action="store_false",
                     default=True, help="don't draw a ratio plot under each main plot.")
 stygroup.add_option("--mc-errs", dest="MC_ERRS", action="store_true",
                     default=False, help="plot error bars.")
+stygroup.add_option("--offline", dest="OFFLINE", action="store_true",
+                    default=False, help="generate HTML that does not use external URLs.")
 stygroup.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
                     default="PDF", help="use PDF as the vector plot format.")
 stygroup.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
@@ -260,9 +262,9 @@ if not opts.DRY_RUN:
     });
     </script>
     <script type="text/javascript"
-      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
-    '''
+    ''' if not opts.OFFLINE else ''
 
     ## A helper function for metadata LaTeX -> HTML conversion
     from rivet.util import htmlify
