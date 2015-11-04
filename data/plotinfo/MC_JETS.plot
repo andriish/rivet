@@ -113,7 +113,7 @@ YLabel=$\eta(\text{jet 3})_+/\eta(\text{jet 3})_-$
 # BEGIN PLOT /MC_JETS/jet_eta_pmratio_4
 Title=Pseudorapidity $+/-$ ratio of fourth jet
 XLabel=$|\eta(\text{jet 4}|$
-YLabel=$\eta(\text{jet 4})_+/\eta(\text{jet 4})_-$ 
+YLabel=$\eta(\text{jet 4})_+/\eta(\text{jet 4})_-$
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_y_1
@@ -174,25 +174,25 @@ YLabel=$y(\text{jet 4})_+/y(\text{jet 4})_-$
 
 # BEGIN PLOT /MC_JETS/jet_mass_1
 Title=Mass of first jet
-XLabel=$m(\text{jet 1})$
+XLabel=$m(\text{jet 1})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 1})$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_2
 Title=Mass of second jet
-XLabel=$m(\text{jet 2})$
+XLabel=$m(\text{jet 2})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 2})$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_3
 Title=Mass of third jet
-XLabel=$m(\text{jet 3})$
+XLabel=$m(\text{jet 3})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 3})$ [pb/GeV]
 # END PLOT
 
 # BEGIN PLOT /MC_JETS/jet_mass_4
 Title=Mass of fourth jet
-XLabel=$m(\text{jet 4})$
+XLabel=$m(\text{jet 4})$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}m(\text{jet 4})$ [pb/GeV]
 # END PLOT
 
