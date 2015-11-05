@@ -123,7 +123,7 @@ namespace Rivet {
         const double weight = event.weight();
         _sumW += weight;
 
-        _h_mult_total->fill(LHCbcountAll);
+        _h_mult_total->fill(LHCbcountAll, weight);
 
         _h_mult_eta[0]->fill(LHCbcountEta[0], weight);
         _h_mult_eta[1]->fill(LHCbcountEta[1], weight);

@@ -1,3 +1,19 @@
+2015-11-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Convert namespace-global const variables to be static, to suppress compiler warnings.
+
+	* Use standard MAX_DBL and MAX_INT macros as a source for MAXDOUBLE and MAXINT, to suppress GCC5 warnings.
+
+2015-11-04  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Adding LHCB inelastic xsection measurement (LHCB_2015_I1333223)
+
+	* Adding ATLAS colour flow in ttbar->semileptonic measurement (ATLAS_2015_I1376945)
+
+2015-10-07  Chris Pollard  <cpollard@cern.ch>
+
+	* Release 2.4.0
+
 2015-10-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding missing scale and normalize method bodies for 2D histograms.
