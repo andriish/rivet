@@ -47,7 +47,7 @@ from optparse import OptionParser, OptionGroup
 parser = OptionParser(usage=__doc__, version="rivet v%s" % rivet.version())
 
 anagroup = OptionGroup(parser, "Analysis handling")
-anagroup.add_option("-a", "--analysis", , "--analyses", dest="ANALYSES", action="append",
+anagroup.add_option("-a", "--analysis", "--analyses", dest="ANALYSES", action="append",
                     default=[], metavar="ANA",
                     help="add an analysis (or comma- or space-separated list of analyses) to the processing list.")
 anagroup.add_option("--list-analyses", "--list", dest="LIST_ANALYSES", action="store_true",
