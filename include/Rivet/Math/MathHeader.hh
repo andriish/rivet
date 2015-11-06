@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iostream>
 #include <limits>
+#include <climits>
 #include <cfloat>
 #include <cmath>
 #include <map>
