@@ -1,6 +1,6 @@
 2015-11-05  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Allow comma and space-separated analysis name lists to be passed to a single -a/--analysis/--analyses option.
+	* Allow comma-separated analysis name lists to be passed to a single -a/--analysis/--analyses option.
 
 	* Convert namespace-global const variables to be static, to suppress compiler warnings.
 

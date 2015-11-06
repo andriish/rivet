@@ -47,9 +47,9 @@ from optparse import OptionParser, OptionGroup
 parser = OptionParser(usage=__doc__, version="rivet v%s" % rivet.version())
 
 anagroup = OptionGroup(parser, "Analysis handling")
-anagroup.add_option("-a", "--analysis", , "--analyses", dest="ANALYSES", action="append",
+anagroup.add_option("-a", "--analysis", "--analyses", dest="ANALYSES", action="append",
                     default=[], metavar="ANA",
-                    help="add an analysis (or comma- or space-separated list of analyses) to the processing list.")
+                    help="add an analysis (or comma-separated list of analyses) to the processing list.")
 anagroup.add_option("--list-analyses", "--list", dest="LIST_ANALYSES", action="store_true",
                     default=False, help="show the list of available analyses' names. With -v, it shows the descriptions, too")
 anagroup.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES",
@@ -134,13 +134,11 @@ for l in opts.NATIVE_LOG_STRS:
         logging.warning("Couldn't process logging string '%s'" % l)
 
 
-## We allow comma-separated and space-separated lists of analysis names -- normalise the list here
+## We allow comma-separated lists of analysis names -- normalise the list here
 newanas = []
 for a in opts.ANALYSES:
     if "," in a:
         newanas += a.split(",")
-    elif " " in a:
-        newanas += a.split() #< default split is on any whitespace
     else:
         newanas.append(a)
 opts.ANALYSES = newanas
