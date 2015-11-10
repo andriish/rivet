@@ -342,6 +342,7 @@ if not opts.DRY_RUN:
             anaindex = index
 
         datfiles = glob.glob("%s/*.dat" % anapath)
+        #print datfiles
 
         anaindex.write('<div style="float:none; overflow:auto; width:100%">\n')
         for datfile in sorted(datfiles):

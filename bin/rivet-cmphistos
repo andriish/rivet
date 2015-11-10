@@ -230,11 +230,11 @@ def mkOutput(hpath, aos, plot=None, special=None):
 
 def writeOutput(output, h):
     "Choose output file name and dir"
-    hparts = h.strip("/").split("/")
+    hparts = h.strip("/").split("/", 1)
     if opts.HIER_OUTPUT:
         ana = "_".join(hparts[:-1]) if len(hparts) > 1 else "ANALYSIS"
         outdir = os.path.join(opts.OUTDIR, ana)
-        outfile = '%s.dat' % hparts[-1]
+        outfile = '%s.dat' % hparts[-1].replace("/", "_")
     else:
         outdir = opts.OUTDIR
         outfile = '%s.dat' % "_".join(hparts)
@@ -338,8 +338,9 @@ if __name__ == '__main__':
             anaobjects.append(refdata)
             drawonly.append('/REF'+hpath)
             ## For 2D
-            s = mkOutput(hpath, [refdata], plot, special)
-            writeOutput(s, hpath+"_REF")
+            if is2d:
+                s = mkOutput(hpath, [refdata], plot, special)
+                writeOutput(s, hpath+"/REF")
 
 
         ## Loop over the MC files to plot all instances of the histogram
@@ -364,8 +365,9 @@ if __name__ == '__main__':
                 if showratio and ratioreference is None:
                     ratioreference = infile + hpath
                 ## For 2D, plot each histo now
-                s = mkOutput(hpath, [hmc], plot, special)
-                writeOutput(s, hpath+"_"+infile)
+                if is2d:
+                    s = mkOutput(hpath, [hmc], plot, special)
+                    writeOutput(s, hpath+"/"+infile)
 
 
         ## Finally render the combined plots; only show the first one if it's 2D
