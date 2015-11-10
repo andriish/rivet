@@ -1,3 +1,7 @@
+2015-11-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Handle 2D histograms better in rivet-cmphistos (since they can't be overlaid)
+
 2015-11-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow comma-separated analysis name lists to be passed to a single -a/--analysis/--analyses option.

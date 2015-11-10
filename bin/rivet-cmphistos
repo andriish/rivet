@@ -204,6 +204,30 @@ def mkoutdir(outdir):
         raise Exception(msg)
 
 
+def mkOutput(hpath, aos, plot=None, special=None):
+    """
+    Make the .dat file string. We can't use "yoda.writeFLAT(anaobjects, 'foobar.dat')"
+    because the PLOT and SPECIAL blocks don't have a corresponding analysis object.
+    """
+    output = ''
+
+    if plot:
+        output += str(plot)
+
+    if special:
+        output += "\n"
+        output += "# BEGIN SPECIAL %s\n" % h
+        output += special
+        output += "# END SPECIAL\n\n"
+
+    from cStringIO import StringIO
+    sio = StringIO()
+    yoda.writeFLAT(aos, sio)
+    output += sio.getvalue()
+
+    return output
+
+
 def writeOutput(output, h):
     "Choose output file name and dir"
     hparts = h.strip("/").split("/")
@@ -241,31 +265,43 @@ if __name__ == '__main__':
     plotdirs = opts.PLOTINFODIRS + [os.path.abspath(os.path.dirname(f)) for f in filelist]
     plotparser = rivet.mkStdPlotParser(plotdirs, opts.CONFIGFILES)
 
-    ## Create a list of all histograms to be plotted
+    ## Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
     refhistos, mchistos = getHistos(filelist)
-    hpaths = []
+    hpaths, h2ds = [], []
     for aos in mchistos.values():
         for p in aos.keys():
             if p and p not in hpaths:
                 hpaths.append(p)
+            if aos[p].dim == 2 and p not in h2ds:
+                h2ds.append(p)
 
     ## Read the reference data from the Rivet search paths and add them
     ## to the list of reference histograms
     if opts.RIVETREFS:
         getRivetRefData(refhistos)
 
-    ## Now loop over all MC histograms and plot them
-    # TODO: factorize much of this into a rivet.utils mkplotfile(mchists, refhist, kwargs) function
-    for h in hpaths:
-        #print 'Currently looking at', h
-        ## A list of all analysis objects to be plotted
-        anaobjects = []
 
-        ## Plot object for the PLOT section in the .dat file
+    ## Now loop over all MC histograms and plot them
+    # TODO: factorize much of this into a rivet.utils mkplotfile(mchists, refhist, kwargs, is2d=False) function
+    for hpath in hpaths:
+        #print 'Currently looking at', h
+
+        ## The analysis objects to be plotted
+        anaobjects = []
+        ## List of histos to be drawn, to sync the legend and plotted lines
+        drawonly = []
+        ## Is this a 2D histo?
+        is2d = (hpath in h2ds)
+        ## Will we be drawing a ratio plot?
+        showratio = opts.RATIO and not is2d
+
+
+        ## A Plot object to represent the PLOT section in the .dat file
         plot = Plot()
-        plot['Legend'] = '1'
-        plot['LogY'] = '1'
-        for key, val in plotparser.getHeaders(h).iteritems():
+        if not is2d:
+            plot['Legend'] = '1'
+            plot['LogY'] = '1'
+        for key, val in plotparser.getHeaders(hpath).iteritems():
             plot[key] = val
         if plotoptions.has_key("PLOT"):
             for key_val in plotoptions["PLOT"]:
@@ -275,77 +311,72 @@ if __name__ == '__main__':
             plot['LogY'] = '0'
         if opts.NOPLOTTITLE:
             plot['Title'] = ''
-
+        if showratio and opts.RATIO_DEVIATION:
+            plot['RatioPlotMode'] = 'deviation'
         if opts.STYLE == 'talk':
             plot['PlotSize'] = '8,6'
-        elif opts.STYLE == 'bw':
-            if opts.RATIO:
-                plot['RatioPlotErrorBandColor'] = 'black!10'
+        elif opts.STYLE == 'bw' and showratio:
+            plot['RatioPlotErrorBandColor'] = 'black!10'
 
-        ## DrawOnly is needed to keep the order in the Legend equal to the
-        ## order of the files on the command line
-        drawonly = []
 
-        ## Check if we have reference data for the histogram
+        ## Get a special object, if there is one for this path
+        special = plotparser.getSpecial(hpath)
+
+
+        ## Handle reference data histogram, if there is one
         ratioreference = None
-        if refhistos.has_key('/REF' + h):
-            refdata = refhistos['/REF' + h]
-            refdata.setAnnotation('ErrorBars', '1')
-            refdata.setAnnotation('PolyMarker', '*')
-            refdata.setAnnotation('ConnectBins', '0')
+        if refhistos.has_key('/REF' + hpath):
+            refdata = refhistos['/REF' + hpath]
             refdata.setAnnotation('Title', 'Data')
-            if opts.RATIO:
-                ratioreference = '/REF'+h
+            if not is2d:
+                refdata.setAnnotation('ErrorBars', '1')
+                refdata.setAnnotation('PolyMarker', '*')
+                refdata.setAnnotation('ConnectBins', '0')
+                if showratio:
+                    ratioreference = '/REF'+hpath
+            ## For 1D
             anaobjects.append(refdata)
-            drawonly.append('/REF' + h)
+            drawonly.append('/REF'+hpath)
+            ## For 2D
+            s = mkOutput(hpath, [refdata], plot, special)
+            writeOutput(s, hpath+"_REF")
 
-        if opts.RATIO and opts.RATIO_DEVIATION:
-            plot['RatioPlotMode'] = 'deviation'
 
         ## Loop over the MC files to plot all instances of the histogram
         styleidx = 0
         for infile in filelist:
-            # if infile == "PLOT":
-            #     continue  ##< This isn't a real file!
-            if mchistos.has_key(infile) and mchistos[infile].has_key(h):
+            if mchistos.has_key(infile) and mchistos[infile].has_key(hpath):
+                hmc = mchistos[infile][hpath]
                 ## Default linecolor, linestyle
-                setStyle(mchistos[infile][h], styleidx)
-                styleidx += 1
-                if opts.MC_ERRS:
-                    mchistos[infile][h].setAnnotation('ErrorBars', '1')
+                if not is2d:
+                    setStyle(hmc, styleidx)
+                    styleidx += 1
+                    if opts.MC_ERRS:
+                        hmc.setAnnotation('ErrorBars', '1')
                 ## Plot defaults from .plot files
-                for key, val in plotparser.getHistogramOptions(h).iteritems():
-                    mchistos[infile][h].setAnnotation(key, val)
+                for key, val in plotparser.getHistogramOptions(hpath).iteritems():
+                    hmc.setAnnotation(key, val)
                 ## Command line plot options
-                setOptions(mchistos[infile][h], plotoptions[infile])
-                mchistos[infile][h].setAnnotation('Path', infile + h)
-                anaobjects.append(mchistos[infile][h])
-                drawonly.append(infile + h)
-                if opts.RATIO and ratioreference is None:
-                    ratioreference = infile + h
+                setOptions(hmc, plotoptions[infile])
+                hmc.setAnnotation('Path', infile+hpath)
+                anaobjects.append(hmc)
+                drawonly.append(infile+hpath)
+                if showratio and ratioreference is None:
+                    ratioreference = infile + hpath
+                ## For 2D, plot each histo now
+                s = mkOutput(hpath, [hmc], plot, special)
+                writeOutput(s, hpath+"_"+infile)
 
+
+        ## Finally render the combined plots; only show the first one if it's 2D
+        # TODO: Only show the first *MC* one if 2D?
+        if is2d:
+            anaobjects = anaobjects[:1]
+        ## Add final attrs to Plot
         plot['DrawOnly'] = ' '.join(drawonly).strip()
-        if opts.RATIO and len(drawonly) > 1:
+        if showratio and len(drawonly) > 1:
             plot['RatioPlot'] = '1'
             plot['RatioPlotReference'] = ratioreference
-
-        ## Now create the output. We can't use "yoda.writeFLAT(anaobjects, 'foobar.dat')" because
-        ## the PLOT and SPECIAL blocks don't have a corresponding analysis object.
-
-        output = ''
-        output += str(plot)
-
-        ## Special
-        special = plotparser.getSpecial(h)
-        if special:
-            output += "\n"
-            output += "# BEGIN SPECIAL %s\n" % h
-            output += special
-            output += "# END SPECIAL\n\n"
-
-        from cStringIO import StringIO
-        sio = StringIO()
-        yoda.writeFLAT(anaobjects, sio)
-        output += sio.getvalue()
-        ## Write everything into a file
-        writeOutput(output, h)
+        ## Make the output and write to file
+        o = mkOutput(hpath, anaobjects, plot, special)
+        writeOutput(o, hpath)
