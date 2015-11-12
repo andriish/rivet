@@ -273,7 +273,8 @@ if __name__ == '__main__':
         for p in aos.keys():
             if p and p not in hpaths:
                 hpaths.append(p)
-            if aos[p].dim == 2 and p not in h2ds:
+            # TODO: Would be nicer to test via isHisto and dim or similar, or yoda.Scatter/Histo/Profile base classes
+            if type(aos[p]) in (yoda.Histo2D, yoda.Profile2D) and p not in h2ds:
                 h2ds.append(p)
 
     ## Read the reference data from the Rivet search paths and add them
