@@ -90,13 +90,13 @@ class Inputdata(object):
                 elif name == 'SPECIAL':
                     self.special[path] = Special(f)
                 elif name == 'HISTOGRAM' or name == 'HISTOGRAM2D':
-                    self.histos[path] = Histogram(f)
-                    self.histos[path].path = path
+                    self.histos[path] = Histogram(f, p=path)
+                    # self.histos[path].path = path
                     self.description['is2dim'] = self.histos[path].is2dim
                 elif name == 'HISTO1D':
-                    self.histos[path] = Histo1D(f)
+                    self.histos[path] = Histo1D(f, p=path)
                 elif name == 'HISTO2D':
-                    self.histos[path] = Histo2D(f)
+                    self.histos[path] = Histo2D(f, p=path)
                     self.description['is2dim'] = True
                 elif name == 'FUNCTION':
                     self.functions[path] = Function(f)
@@ -117,9 +117,11 @@ class Inputdata(object):
             self.description['RatioPlot'] = '0'
 
         if self.description.has_key('PlotSize') and self.description['PlotSize']!='':
-            plotsizex,plotsizey = self.description['PlotSize'].split(',')
-            self.description['PlotSizeX'] = float(plotsizex)
-            self.description['PlotSizeY'] = float(plotsizey)
+            plotsizes = self.description['PlotSize'].split(',')
+            self.description['PlotSizeX'] = float(plotsizes[0])
+            self.description['PlotSizeY'] = float(plotsizes[1])
+            if len(plotsizes) == 3:
+                self.description['RatioPlotSizeY'] = float(plotsizes[2])
             del self.description['PlotSize']
 
         if self.description.get('MainPlot', '1') == '0':
@@ -1439,6 +1441,7 @@ class Histogram(DrawableObject):
                 print '+++ Error in Histogram.add() for %s: binning of histograms differs' % self.path
 
     def divide(self, name):
+        #print name.path, self.path
         if len(self.data) != len(name.data):
             print '+++ Error in Histogram.divide() for %s: different numbers of bins' % self.path
         for i in range(len(self.data)):
