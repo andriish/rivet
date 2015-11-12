@@ -1,3 +1,8 @@
+2015-11-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tweak plot and subplot sizing defaults in make-plots so the
+	total canvas is always the same size by default.
+
 2015-11-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Handle 2D histograms better in rivet-cmphistos (since they can't be overlaid)

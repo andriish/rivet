@@ -108,28 +108,32 @@ class Inputdata(object):
 
         self.apply_config_files(opts.CONFIGFILES)
 
-        self.description['PlotSizeX'] = 10.
+
+        ## Plot (and subplot) sizing
+        self.description.setdefault('PlotSizeX', 10.)
         if self.description['is2dim']:
             self.description['PlotSizeX'] -= 1.5
-        self.description['PlotSizeY'] = 6.
+            self.description['MainPlot'] = '1'
+            self.description['RatioPlot'] = '0'
+
         if self.description.has_key('PlotSize') and self.description['PlotSize']!='':
             plotsizex,plotsizey = self.description['PlotSize'].split(',')
             self.description['PlotSizeX'] = float(plotsizex)
             self.description['PlotSizeY'] = float(plotsizey)
             del self.description['PlotSize']
 
-        self.description['RatioPlotSizeY'] = 0.
-        if self.description.has_key('MainPlot') and self.description['MainPlot']=='0':
-            self.description['RatioPlot'] = '1'
+        if self.description.get('MainPlot', '1') == '0':
+            self.description['RatioPlot'] = '1' #< don't allow both to be zero!
             self.description['PlotSizeY'] = 0.
-        if self.description.has_key('RatioPlot') and self.description['RatioPlot']=='1':
-            if self.description.has_key('RatioPlotYSize') and self.description['RatioPlotYSize']!='':
-                self.description['RatioPlotSizeY'] = float(self.description['RatioPlotYSize'])
+            self.description.setdefault('RatioPlotSizeY', 9.)
+        else:
+            if self.description.get('RatioPlot', '0') == '1':
+                self.description.setdefault('PlotSizeY', 6.)
+                self.description.setdefault('RatioPlotSizeY', self.description.get('RatioPlotYSize', 3.))
             else:
-                if self.description.has_key('MainPlot') and self.description['MainPlot']=='0':
-                    self.description['RatioPlotSizeY'] = 6.
-                else:
-                    self.description['RatioPlotSizeY'] = 3.
+                self.description.setdefault('PlotSizeY', self.description.get('RatioPlotYSize', 9.))
+                self.description['RatioPlotSizeY'] = 0.
+
 
         self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
         self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
