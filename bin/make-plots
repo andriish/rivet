@@ -66,8 +66,9 @@ def is_comment(line):
 
 
 class Inputdata(object):
+
     def __init__(self, filename):
-        self.filename=filename+".dat"
+        self.filename = filename+".dat"
         self.histos = {}
         self.special = {}
         self.functions = {}
@@ -112,7 +113,7 @@ class Inputdata(object):
         ## Plot (and subplot) sizing
         self.description.setdefault('PlotSizeX', 10.)
         if self.description['is2dim']:
-            self.description['PlotSizeX'] -= 1.5
+            self.description['PlotSizeX'] -= 1.7
             self.description['MainPlot'] = '1'
             self.description['RatioPlot'] = '0'
 
@@ -239,6 +240,7 @@ class Inputdata(object):
 
 
 class Plot(object):
+
     def __init__(self,inputdata):
         pass
 
@@ -438,7 +440,7 @@ class Plot(object):
         else:
             inputdata.description['BottomMargin'] = 0.95
         if inputdata.description['is2dim']:
-            inputdata.description['RightMargin'] += 1.5
+            inputdata.description['RightMargin'] += 1.7
         papersizex = inputdata.description['PlotSizeX'] + 0.1 + \
                      inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
         papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + \
@@ -494,6 +496,7 @@ class Plot(object):
 
 
 class MainPlot(Plot):
+
     def __init__(self, inputdata):
         self.set_normalization(inputdata)
         self.stack_histograms(inputdata)
@@ -677,6 +680,7 @@ class MainPlot(Plot):
 
 
 class TaylorPlot(Plot):
+
     def __init__(self, inputdata):
         self.refdata = inputdata.description['TaylorPlotReference']
         self.calculate_taylorcoordinates(inputdata)
@@ -695,6 +699,7 @@ class TaylorPlot(Plot):
 
 
 class RatioPlot(Plot):
+
     def __init__(self, inputdata):
         self.refdata = inputdata.description['RatioPlotReference']
         self.yoffset = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY']
@@ -862,6 +867,7 @@ class RatioPlot(Plot):
 
 
 class Legend(object):
+
     def __init__(self, description, histos, functions):
         self.histos = histos
         self.functions = functions
@@ -978,9 +984,11 @@ class Legend(object):
 
 
 class Colorscale(object):
+
     def __init__(self, description, coors):
         self.description = description
         self.coors = coors
+
     def draw(self):
         out = ''
         out += '\n%\n% Colorscale\n%\n'
@@ -995,32 +1003,21 @@ class Colorscale(object):
         out += '  \\rput(0.5,0){\n'
         out += '    \\psframe[linewidth=0.3pt,dimen=middle](0,0)(1,1)\n'
 
-        # TODO: so much parsing duplication with MainPlot... yuck!
-        if self.description.has_key('ZMajorTickMarks') and self.description['ZMajorTickMarks']!='':
-            zcustommajortickmarks=int(self.description['ZMajorTickMarks'])
-        else:
-            zcustommajortickmarks=-1
-        if self.description.has_key('ZMinorTickMarks') and self.description['ZMinorTickMarks']!='':
-            zcustomminortickmarks=int(self.description['ZMinorTickMarks'])
-        else:
-            zcustomminortickmarks=-1
+        zcustommajortickmarks = int(self.description.get('ZMajorTickMarks', -1))
+        zcustomminortickmarks = int(self.description.get('ZMinorTickMarks', -1))
         zcustommajorticks=[]
         zcustomminorticks=[]
-        # # TODO: remove ZCustomTicks after 2011-12-31:
-        # if self.description.has_key('ZCustomTicks') and self.description['ZCustomTicks']!='':
-        #     logging.warning('Warning: ZCustomTicks is deprecated. Use ZCustomMajorTicks instead.')
-        #     self.description['ZCustomMajorTicks']=self.description['ZCustomTicks']
         if self.description.has_key('ZCustomMajorTicks') and self.description['ZCustomMajorTicks']!='':
             # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=self.description['ZCustomMajorTicks'].strip().split('\t')
-            if not len(FOO)%2:
-                for i in range(0,len(FOO),2):
-                    zcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+            ticks = self.description['ZCustomMajorTicks'].strip().split('\t')
+            if not len(ticks)%2:
+                for i in range(0,len(ticks),2):
+                    zcustommajorticks.append({'Value': float(ticks[i]), 'Label': ticks[i+1]})
         if self.description.has_key('ZCustomMinorTicks') and self.description['ZCustomMinorTicks']!='':
             # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=self.description['ZCustomMinorTicks'].strip().split('\t')
-            for i in range(len(FOO)):
-                zcustomminorticks.append({'Value': float(FOO[i])})
+            ticks = self.description['ZCustomMinorTicks'].strip().split('\t')
+            for i in range(len(ticks)):
+                zcustomminorticks.append({'Value': float(ticks[i])})
         if (self.description.has_key('PlotZTickLabels') and self.description['PlotZTickLabels']=='0'):
             drawzlabels=False
         else:
@@ -1038,6 +1035,7 @@ class Colorscale(object):
 
 
 class Labels(object):
+
     def __init__(self, description):
         self.description = description
 
@@ -1066,6 +1064,7 @@ class Labels(object):
 
 
 class Special(object):
+
     def __init__(self, f):
         self.description = {}
         self.data = []
@@ -1104,6 +1103,7 @@ class Special(object):
 
 
 class DrawableObject(object):
+
     def __init__(self, f):
         pass
 
@@ -1257,6 +1257,7 @@ class DrawableObject(object):
 
 
 class Function(DrawableObject):
+
     def __init__(self, f):
         self.description = {}
         self.read_input(f)
@@ -1317,6 +1318,7 @@ class Function(DrawableObject):
 
 
 class Histogram(DrawableObject):
+
     def __init__(self, f, p=None):
         self.description = {}
         self.is2dim = False
@@ -1772,6 +1774,7 @@ class Histogram(DrawableObject):
 
 
 class Histo1D(Histogram):
+
     def read_input_data(self, f):
         for line in f:
             if is_end_marker(line, 'HISTO1D'):
@@ -1809,6 +1812,7 @@ class Histo1D(Histogram):
 
 
 class Histo2D(Histogram):
+
     def read_input_data(self, f):
         self.is2dim = True #< Should really be done in a constructor, but this is easier for now...
 
@@ -1844,6 +1848,7 @@ class Histo2D(Histogram):
 
 
 class Frame(object):
+
     def __init__(self):
         self.framelinewidth = '0.3pt'
 
@@ -1884,6 +1889,7 @@ class Frame(object):
 
 
 class Ticks(object):
+
     def __init__(self, description, coors):
         self.majorticklinewidth = '0.3pt'
         self.minorticklinewidth = '0.3pt'
@@ -1897,7 +1903,7 @@ class Ticks(object):
         if plotlog:
             if min <= 0 or max <= 0:
                 raise Exception("Cannot place log axis min or max tick <= 0")
-            if len(custommajorticks) ==0:
+            if len(custommajorticks) == 0:
                 x=int(log10(min))
                 n_labels=0
                 while (x<log10(max)+1):
@@ -1922,7 +1928,7 @@ class Ticks(object):
                                     else:
                                         out += self.draw_minorticklabel(ticklabel, last=True)
                     x+=1
-        elif (custommajorticks!=[] or customminorticks!=[]):
+        elif custommajorticks or customminorticks:
             for i in range(len(custommajorticks)):
                 value=custommajorticks[i]['Value']
                 label=custommajorticks[i]['Label']
@@ -2002,16 +2008,16 @@ class Ticks(object):
 
     def get_ticklabel(self, value, plotlog=False, minor=False, lastminor=False):
         label=''
-        prefix = ""
+        prefix = ''
         if plotlog:
             bar = int(log10(value))
-	    if bar<0:
+	    if bar < 0:
 	        sign='-'
 	    else:
 	        sign='\\,'
             if minor: # The power of ten is only to be added to the last minor tick label
                 if lastminor:
-                    label = str(int(value/(10**bar))) + "\cdot" + '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
+                    label = str(int(value/(10**bar))) + "\\cdot" + '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
                 else:
                     label = str(int(value/(10**bar))) # The naked prefactor
             else:
@@ -2020,17 +2026,22 @@ class Ticks(object):
                 else:
                     label = '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
         else:
-            if fabs(value) < 1e-10: value=0
-            label=str(value)
+            if fabs(value) < 1e-10:
+                value = 0
+            label = str(value)
+            if "e" in label:
+                a, b = label.split("e")
+                astr = "%2.1f" % float(a)
+                bstr = str(int(b))
+                label = "\\smaller{%s $\\!\\cdot 10^{%s} $}" % (astr, bstr)
         return label
 
 
 
 class XTicks(Ticks):
+
     def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
-        twosided = False
-        if self.description.has_key('XTwosidedTicks') and self.description['XTwosidedTicks']=='1':
-            twosided = True
+        twosided = bool(int(self.description.get('XTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% X-Ticks\n%\n')
         out += ('\\def\\majortickmarkx{\\psline[linewidth='+self.majorticklinewidth+'](0,0)(0,'+self.majorticklength+')}%\n')
@@ -2055,7 +2066,7 @@ class XTicks(Ticks):
 
     def draw_minorticklabel(self, value, label='', last=False):
         if label=='':
-            label=self.get_ticklabel(value,self.description['LogX'], minor=True, lastminor=last)
+            label=self.get_ticklabel(value, int(self.description['LogX']), minor=True, lastminor=last)
         if last: # Some more indentation for the last minor label
             return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](1.9\\labelsep,-2.3\\labelsep){\\strut{}'+label+'}}\n')
         else:
@@ -2070,16 +2081,15 @@ class XTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value, self.description['LogX'] and (self.coors.xmin() > 0 and self.coors.xmax() > 0))
+            label = self.get_ticklabel(value, int(self.description['LogX']) and (self.coors.xmin() > 0 and self.coors.xmax() > 0))
         return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut{}'+label+'}}\n')
 
 
 
 class YTicks(Ticks):
+
     def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
-        twosided = False
-        if self.description.has_key('YTwosidedTicks') and self.description['YTwosidedTicks']=='1':
-            twosided = True
+        twosided = bool(int(self.description.get('YTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
         out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
@@ -2111,7 +2121,7 @@ class YTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value, self.description['LogY'] and (self.coors.ymin() > 0 and self.coors.ymax() > 0))
+            label = self.get_ticklabel(value, int(self.description['LogY']) and (self.coors.ymin() > 0 and self.coors.ymax() > 0))
         if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode']=='deviation' \
                 and self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']:
             return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n')
@@ -2121,6 +2131,7 @@ class YTicks(Ticks):
 
 
 class ZTicks(Ticks):
+
     def __init__(self, description, coors):
         self.majorticklinewidth = '0.3pt'
         self.minorticklinewidth = '0.3pt'
@@ -2128,6 +2139,7 @@ class ZTicks(Ticks):
         self.minorticklength    = '2.6pt'
         self.description = description
         self.coors = coors
+
     def draw(self, custommajorticks=[], customminorticks=[],
             custommajortickmarks=-1, customminortickmarks=-1,
             drawlabels=True):
@@ -2153,7 +2165,7 @@ class ZTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if label=='':
-            label=self.get_ticklabel(value,self.description['LogZ'])
+            label = self.get_ticklabel(value, int(self.description['LogZ']))
         if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode']=='deviation' \
                 and self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']:
             return ('\\uput[0]{0}(1, '+self.coors.strphys2frameZ(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n')
@@ -2163,6 +2175,7 @@ class ZTicks(Ticks):
 
 
 class Coordinates(object):
+
     def __init__(self, inputdata):
         self.description = inputdata.description
 
@@ -2428,6 +2441,7 @@ def process_datfile(datfile):
 ## Wrapper for a process thread which attempts to process datfiles until empty
 import threading, Queue
 class MkPlotThread( threading.Thread ):
+
     def run(self):
         global opts
         global datfiles
