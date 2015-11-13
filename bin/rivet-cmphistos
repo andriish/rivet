@@ -211,10 +211,10 @@ def mkOutput(hpath, aos, plot=None, special=None):
     """
     output = ''
 
-    if plot:
+    if plot is not None:
         output += str(plot)
 
-    if special:
+    if special is not None:
         output += "\n"
         output += "# BEGIN SPECIAL %s\n" % h
         output += special
