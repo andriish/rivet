@@ -384,9 +384,9 @@ if __name__ == '__main__':
             plot['RatioPlotReference'] = ratioreference
             if not hasdataref:
                 if plot.get('RatioPlotMode', '') == 'deviation':
-                    plot['RatioPlotYLabel'] = r'$\text{MC}-\text{MC}_\text{ref}$'
+                    plot['RatioPlotYLabel'] = 'Deviation' #r'$\text{MC}-\text{MC}_\text{ref}$'
                 else:
-                    plot['RatioPlotYLabel'] = r'$\text{MC}/\text{MC}_\text{ref}$'
+                    plot['RatioPlotYLabel'] = 'Ratio' #r'$\text{MC}/\text{MC}_\text{ref}$'
 
 
         ## Make the output and write to file
