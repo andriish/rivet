@@ -326,8 +326,9 @@ if __name__ == '__main__':
 
 
         ## Handle reference data histogram, if there is one
-        ratioreference = None
+        ratioreference, hasdataref = None, False
         if refhistos.has_key('/REF' + hpath):
+            hasdataref = True
             refdata = refhistos['/REF' + hpath]
             refdata.setAnnotation('Title', 'Data')
             if not is2d:
@@ -381,6 +382,13 @@ if __name__ == '__main__':
         if showratio and len(drawonly) > 1:
             plot['RatioPlot'] = '1'
             plot['RatioPlotReference'] = ratioreference
+            if not hasdataref:
+                if plot.get('RatioPlotMode', '') == 'deviation':
+                    plot['RatioPlotYLabel'] = r'$\text{MC}-\text{MC}_\text{ref}$'
+                else:
+                    plot['RatioPlotYLabel'] = r'$\text{MC}/\text{MC}_\text{ref}$'
+
+
         ## Make the output and write to file
         o = mkOutput(hpath, anaobjects, plot, special)
         writeOutput(o, hpath)

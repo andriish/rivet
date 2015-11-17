@@ -706,6 +706,7 @@ class RatioPlot(Plot):
         inputdata.description['RatioPlotStage'] = True
         inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
         inputdata.description['LogY'] = False
+        # TODO: It'd be nice it this wasn't so MC-specific
         if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
             inputdata.description['YLabel']='$(\\text{MC}-\\text{data})$'
             inputdata.description['YMin']=-3.5
@@ -719,7 +720,7 @@ class RatioPlot(Plot):
             inputdata.description['YMin']=0.5
             inputdata.description['YMax']=1.5
         if inputdata.description.has_key('RatioPlotYLabel'):
-            inputdata.description['YLabel']=inputdata.description['RatioPlotYLabel']
+            inputdata.description['YLabel'] = inputdata.description['RatioPlotYLabel']
         inputdata.description['YLabel']='\\rput(-%s,0){%s}'%(0.5*inputdata.description['PlotSizeY']/inputdata.description['PlotSizeX'],inputdata.description['YLabel'])
         if inputdata.description.has_key('RatioPlotYMin'):
             inputdata.description['YMin']=inputdata.description['RatioPlotYMin']
