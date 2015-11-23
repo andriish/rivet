@@ -1702,19 +1702,25 @@ class Histogram(DrawableObject):
     #     return self.is2dim
 
     def getXMin(self):
-        if self.is2dim:
+        if not self.data:
+            return 0
+        elif self.is2dim:
             return min([self.data[i]['LowEdge'][0] for i in range(len(self.data))])
         else:
             return min([self.data[i]['LowEdge'] for i in range(len(self.data))])
 
     def getXMax(self):
-        if self.is2dim:
+        if not self.data:
+            return 1
+        elif self.is2dim:
             return max([self.data[i]['UpEdge'][0] for i in range(len(self.data))])
         else:
             return max([self.data[i]['UpEdge'] for i in range(len(self.data))])
 
     def getYMin(self, xmin, xmax, logy):
-        if self.is2dim:
+        if not self.data:
+            return 0
+        elif self.is2dim:
             return min([self.data[i]['LowEdge'][1] for i in range(len(self.data))])
         else:
             yvalues = []
@@ -1736,7 +1742,9 @@ class Histogram(DrawableObject):
                 return self.data[0]['Content']
 
     def getYMax(self, xmin, xmax):
-        if self.is2dim:
+        if not self.data:
+            return 1
+        elif self.is2dim:
             return max([self.data[i]['UpEdge'][1] for i in range(len(self.data))])
         else:
             yvalues = []
