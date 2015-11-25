@@ -1601,97 +1601,101 @@ class Histogram(DrawableObject):
         out = ""
         out += self.startclip()
         out += self.startpsset()
-        #
-        if self.is2dim:
-            for i in range(len(self.data)):
-                out += ('\\psframe')
-                color=int(129*coors.phys2frameZ(self.data[i]['Content']))
-                if self.data[i]['Content']>coors.zmax():
-                    color=129
-                if self.data[i]['Content']<coors.zmin():
-                    color=0
-                if self.data[i]['Content']<=coors.zmin():
-                    out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor=white]')
+        if self.data:
+            out += "% START DATA\n"
+            if self.is2dim:
+                for i in xrange(len(self.data)):
+                    out += ('\\psframe')
+                    color=int(129*coors.phys2frameZ(self.data[i]['Content']))
+                    if self.data[i]['Content']>coors.zmax():
+                        color=129
+                    if self.data[i]['Content']<coors.zmin():
+                        color=0
+                    if self.data[i]['Content']<=coors.zmin():
+                        out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor=white]')
+                    else:
+                        out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
+                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
+                                + coors.strphys2frameY(self.data[i]['LowEdge'][1]) + ')(' \
+                                + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
+                                + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
+            else:
+                if self.getErrorBands():
+                    self.description['SmoothLine']=0
+                    for i in xrange(len(self.data)):
+                        out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
+                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
+                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
+                if self.getErrorBars():
+                    for i in xrange(len(self.data)):
+                        if isnan(self.data[i]['Content']) or isnan(self.data[i]['Error'][0]) or isnan(self.data[i]['Error'][1]):
+                            seen_nan = True
+                            continue
+                        if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
+                            continue
+                        out += ('\\psline')
+                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
+                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                        out += ('\\psline')
+                        bincenter = coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge']))
+                        out += ('(' + bincenter + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
+                                    + bincenter + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
+                if self.getSmoothLine():
+                    out += '\\psbezier'
                 else:
-                    out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
-                out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
-                            + coors.strphys2frameY(self.data[i]['LowEdge'][1]) + ')(' \
-                            + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
-                            + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
-        else:
-            if self.getErrorBands():
-                self.description['SmoothLine']=0
-                for i in range(len(self.data)):
-                    out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
-                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
-                                + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
-            if self.getErrorBars():
-                for i in range(len(self.data)):
-                    if isnan(self.data[i]['Content']) or isnan(self.data[i]['Error'][0]) or isnan(self.data[i]['Error'][1]):
+                    out += '\\psline'
+                if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
+                    if (coors.phys2frameX(self.data[0]['LowEdge']) > 1e-4):
+                        out += '(' + coors.strphys2frameX(self.data[0]['LowEdge']) + ', -0.1)\n'
+                    else:
+                        out += '(-0.1, -0.1)\n'
+                for i in xrange(len(self.data)):
+                    if isnan(self.data[i]['Content']):
+                        seen_nan = True
+                        continue
+                    if self.getSmoothLine():
+                        out += ('(' + coors.strphys2frameX(0.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                    else:
+                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
+                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                        ## Join/separate data points, with vertical/diagonal lines
+                        if (i+1 < len(self.data)): #< If this is not the last point
+                            if self.description.get('ConnectBins', '1') != '1':
+                                out += ('\\psline')
+                            else:
+                                ## If bins are joined, but there is a gap in binning, choose whether to fill the gap
+                                if (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
+                                    if self.description.get('ConnectGaps', '0') != '1':
+                                        out += ('\\psline')
+                                        # TODO: Perhaps use a new dashed line to fill the gap?
+                    if self.getFillStyle() != 'none':  # make sure that filled areas go all the way down to the x-axis
+                        if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
+                            out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
+                        else:
+                            out += '(1.1, -0.1)\n'
+            #
+            if self.getPolyMarker() != '':
+                for i in xrange(len(self.data)):
+                    if isnan(self.data[i]['Content']):
                         seen_nan = True
                         continue
                     if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
                         continue
-                    out += ('\psline')
-                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
-                                + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
+                    out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
+                                + coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
                                 + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                    out += ('\psline')
-                    bincenter = coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge']))
-                    out += ('(' + bincenter + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
-                                + bincenter + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
-            if self.getSmoothLine():
-                out += ('\psbezier')
-            else:
-                out += ('\psline')
-            if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
-                if (coors.phys2frameX(self.data[0]['LowEdge']) > 1e-4):
-                    out += '(' + coors.strphys2frameX(self.data[0]['LowEdge']) + ', -0.1)\n'
-                else:
-                    out += '(-0.1, -0.1)\n'
-            for i in range(len(self.data)):
-                if isnan(self.data[i]['Content']):
-                    seen_nan = True
-                    continue
-                if self.getSmoothLine():
-                    out += ('(' + coors.strphys2frameX(0.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                else:
-                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
-                                + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
-                    ## Join/separate data points, with vertical/diagonal lines
-                    if (i+1 < len(self.data)): #< If this is not the last point
-                        if self.description.get('ConnectBins', '1') != '1':
-                            out += ('\\psline')
-                        else:
-                            ## If bins are joined, but there is a gap in binning, choose whether to fill the gap
-                            if (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
-                                if self.description.get('ConnectGaps', '0') != '1':
-                                    out += ('\\psline')
-                                    # TODO: Perhaps use a new dashed line to fill the gap?
-            if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
-                if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
-                    out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
-                else:
-                    out += '(1.1, -0.1)\n'
-        #
-        if self.getPolyMarker() != '':
-            for i in range(len(self.data)):
-                if isnan(self.data[i]['Content']):
-                    seen_nan = True
-                    continue
-                if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
-                    continue
-                out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
-                            + coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
-                            + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+
+            out += "% END DATA\n"
+
         out += self.stoppsset()
         out += self.stopclip()
         if seen_nan:
@@ -2597,7 +2601,7 @@ if __name__ == '__main__':
 
                 ## Check for HEP LaTeX packages
                 # TODO: remove HEP-specifics/non-standards?
-                for pkg in ["hepnicenames", "hepunits", "underscore"]:
+                for pkg in ["hepnames", "hepunits", "underscore"]:
                     p = subprocess.Popen(["kpsewhich", "%s.sty" % pkg], stdout=subprocess.PIPE)
                     p.wait()
                     if p.returncode == 0:

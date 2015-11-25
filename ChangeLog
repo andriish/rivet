@@ -1,3 +1,7 @@
+2015-11-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect make-plots against lock-up due to partial pstricks command when there are no data points.
+
 2015-11-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* rivet-cmphistos: Use a ratio label that doesn't mention 'data' when plotting MC vs. MC.
