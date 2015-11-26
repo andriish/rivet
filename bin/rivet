@@ -94,8 +94,8 @@ timinggroup.add_option("--run-timeout", dest="RUN_TIMEOUT", type="int",
                        "as the LCG Grid where tokens expire on a fixed wall-clock and can render long Rivet runs unable to write "
                        "out the final histogram file (default = unlimited)")
 timinggroup.add_option("--histo-interval", dest="HISTO_WRITE_INTERVAL", type=int,
-                       default=None, help="[experimental!] specify the number of events between histogram file updates. "
-                       "Default is to only write out at the end of the run. Note that intermediate histograms will be those "
+                       default=10000, help="[experimental!] specify the number of events between histogram file updates. "
+                       "Set to 0 to only write out at the end of the run. Note that intermediate histograms will be those "
                        "from the analyze step only: analysis finalizing is currently not executed until the end of the run.")
 parser.add_option_group(timinggroup)
 
@@ -511,7 +511,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             sys.exit(3)
 
         ## Write a histo file snapshot if appropriate
-        if opts.HISTO_WRITE_INTERVAL is not None:
+        if opts.HISTO_WRITE_INTERVAL is not None and opts.HISTO_WRITE_INTERVAL > 0:
             if evtnum % opts.HISTO_WRITE_INTERVAL == 0:
                 ah.writeData(opts.HISTOFILE)
 
