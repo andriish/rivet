@@ -1,3 +1,9 @@
+2015-11-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Relax rivet/plotinfo.py pattern matching on .plot file
+	components, to allow leading whitespace and around = signs, and to
+	make the leading # optional on BEGIN/END blocks.
+
 2015-11-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Write out intermediate histogram files by default, with event interval of 10k.
