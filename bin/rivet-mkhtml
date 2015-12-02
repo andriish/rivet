@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-%prog [options] <yodafile1> [<yodafile2> <yodafile3>...]
+%prog [options] <yodafile1> [<yodafile2> <yodafile3>...] [PLOT:Key1=Val1:...]
 
 Make web pages from histogram files written out by Rivet.  You can specify
 multiple Monte Carlo YODA files to be compared in the same syntax as for
@@ -102,12 +102,15 @@ if not opts.DRY_RUN:
         print "Error: failed to make new directory '%s'" % opts.OUTPUTDIR
         sys.exit(1)
 
-
 ## Get set of analyses involved in the runs
+plotarg = None
 analyses = set()
 blocked_analyses = set()
 import yoda
 for yodafile in yodafiles:
+    if yodafile.startswith("PLOT:"):
+        plotarg = yodafile
+        continue
     yodafilepath = os.path.abspath(yodafile.split(":")[0])
     if not os.access(yodafilepath, os.R_OK):
         print "Error: cannot read from %s" % yodafilepath
@@ -200,12 +203,13 @@ ch_cmd.append("--hier-out")
 ch_cmd.append("--plotinfodir=%s" % os.path.abspath("../"))
 for af in yodafiles:
     yodafilepath = os.path.abspath(af.split(":")[0])
-    if not os.access(yodafilepath, os.R_OK):
+    if af.startswith("PLOT:"):
+        yodafilepath = "PLOT"
+    elif not os.access(yodafilepath, os.R_OK):
         continue
     newarg = yodafilepath
     if ":" in af:
-        for opt in af.split(":")[1:]:
-            newarg += ":%s" % opt
+        newarg += ":" + af.split(":", 1)[1]
     # print newarg
     ch_cmd.append(newarg)
 

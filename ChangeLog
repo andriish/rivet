@@ -1,5 +1,7 @@
 2015-12-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add handling of a command-line PLOT 'file' argument to rivet-mkhtml, cf. rivet-cmphistos
+
 	* Improvements to rivet-mkhtml behaviour re. consistency with
 	rivet-cmphistos in how muti-part histo paths are decomposed into
 	analysis-name + histo name, and removal of 'NONE' strings.
