@@ -11,11 +11,7 @@ Reference data, analysis metadata, and plot style information should be found
 automatically (if not, set the RIVET_ANALYSIS_PATH or similar variables
 appropriately).
 
-You can overwrite an existing output directory.
-
-TODO:
-  * Extend -m/-M options to veto histo names as well as analysis names, via
-  passing to rivet-cmphistos
+Any existing output directory will be overwritten.
 """
 
 import rivet, sys, os
@@ -38,7 +34,7 @@ parser.add_option("--ignore-missing", dest="IGNORE_MISSING", action="store_true"
                   default=False, help="ignore missing YODA files.")
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
                   default=False, help="ignore unvalidated analyses.")
-parser.add_option("--refid", dest="REF_ID",
+parser.add_option("--ref", "--refid", dest="REF_ID",
                   default=None, help="ID of reference data set (file path for non-REF data)")
 
 stygroup = OptionGroup(parser, "Style options")
@@ -124,12 +120,19 @@ for yodafile in yodafiles:
     for path, ao in analysisobjects.iteritems():
         ## If regexes have been provided, only add analyses which match and don't unmatch
         pathparts = path.strip('/').split('/')
+        ## Skip hidden paths, which start with an underscore
         if pathparts[0].startswith("_"):
             continue
+        ## Strip a leading /REF prefix
+        # TODO: Remove when Rivet has migrated to marking ref data via attributes
         if pathparts[0] == "REF":
             del pathparts[0]
-        # TODO: What if there are more than two parts (other than REF)?
-        analysis = "_".join(pathparts[:-1]) if len(pathparts) > 1 else "ANALYSIS"
+        ## Identify analysis/histo name parts
+        analysis = "ANALYSIS"
+        if len(pathparts) > 1:
+            analysis = pathparts[0] #< TODO: for compatibility with rivet-cmphistos... generalise?
+            #analysis = "_".join(pathparts[:-1]) #< TODO: would this be nicer? Currently incompatible with rivet-cmphistos
+        ## Optionally veto on analysis name pattern matching
         if analysis in analyses.union(blocked_analyses):
             continue
         import re
@@ -212,12 +215,6 @@ for configfile in opts.CONFIGFILES:
     if os.access(configfile, os.R_OK):
         ch_cmd += ["-c", configfile]
 
-## Pass rivet-mkhtml -m and -M args to rivet-cmphistos
-# for m in opts.PATHPATTERNS:
-#     ch_cmd += ["-m", m]
-# for u in opts.PATHUNPATTERNS:
-#     ch_cmd += ["-M", u]
-
 if opts.VERBOSE:
     # ch_cmd.append("--verbose")
     print "Calling rivet-cmphistos with the following command:"
@@ -232,12 +229,12 @@ if not opts.DRY_RUN:
     subproc = Popen(ch_cmd, cwd=opts.OUTPUTDIR,stdout=PIPE,stderr=PIPE)
     out,err = subproc.communicate()
     retcode = subproc.returncode
-    if (opts.VERBOSE or retcode !=0)  and out :
-        print 'Output from rivet-cmphistos\n',out
+    if (opts.VERBOSE or retcode != 0) and out:
+        print 'Output from rivet-cmphistos\n', out
     if err :
-        print 'Errors from rivet-cmphistos\n',err
-    if(retcode != 0) :
-        print 'Crash in rivet-cmphistos code = ',retcode,' exiting'
+        print 'Errors from rivet-cmphistos\n', err
+    if retcode != 0:
+        print 'Crash in rivet-cmphistos code = ', retcode, ' exiting'
         exit(retcode)
 
 
@@ -255,16 +252,18 @@ if not opts.DRY_RUN:
     '''
 
     ## Include MathJax configuration
-    script = '''\
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {inlineMath: [["$","$"]]}
-    });
-    </script>
-    <script type="text/javascript"
-      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-    ''' if not opts.OFFLINE else ''
+    script = ''
+    if not opts.OFFLINE:
+        script = '''\
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [["$","$"]]}
+        });
+        </script>
+        <script type="text/javascript"
+          src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+        '''
 
     ## A helper function for metadata LaTeX -> HTML conversion
     from rivet.util import htmlify
@@ -295,49 +294,51 @@ if not opts.DRY_RUN:
 
     for analysis in analyses:
         references = []
-        summary = analysis
-        description = "NONE"
-        if analysis.find("_S") > 0:
-            spiresid = analysis[analysis.rfind('_S')+2:len(analysis)]
-            inspireid = "NONE"
-        elif analysis.find("_I") > 0:
+        summary = htmlify(analysis)
+        description, inspireid, spiresid = None, None, None
+
+        if analysis.find("_I") > 0:
             inspireid = analysis[analysis.rfind('_I')+2:len(analysis)]
-        else:
-            inspireid = "NONE"
-            spiresid = "NONE"
+        elif analysis.find("_S") > 0:
+            spiresid = analysis[analysis.rfind('_S')+2:len(analysis)]
 
         ana = rivet.AnalysisLoader.getAnalysis(analysis)
         if ana:
-            if ana.summary() and ana.summary() != "NONE":
-                summary = "%s (%s)" % (ana.summary(), analysis)
+            if ana.summary():
+                summary = htmlify("%s (%s)" % (ana.summary(), analysis))
             references = ana.references()
-            description = ana.description()
+            description = htmlify(ana.description())
             spiresid = ana.spiresId()
             if opts.IGNORE_UNVALIDATED and ana.status().upper() != "VALIDATED":
                 continue
 
         if opts.SINGLE:
-            index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, htmlify(summary)) )
+            index.write('\n<h3 style="clear:left; padding-top:2em;"><a name="%s">%s</a></h3>\n' % (analysis, summary))
         else:
-            index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, htmlify(summary)))
+            index.write('\n<h3><a href="%s/index.html" style="text-decoration:none;">%s</a></h3>\n' % (analysis, summary))
+
         reflist = []
-        if inspireid and inspireid !="NONE":
+        if inspireid:
             reflist.append('<a href="http://inspirehep.net/record/%s">Spires</a>' % inspireid)
-        elif spiresid and spiresid != "NONE":
+        elif spiresid:
             reflist.append('<a href="http://durpdg.dur.ac.uk/cgi-bin/spiface/hep/www?irn+%s">Spires</a>' % spiresid)
         reflist += references
         index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
-        index.write('<p style="font-size:smaller;">%s</p>\n' % htmlify(description))
+
+        if description:
+            index.write('<p style="font-size:smaller;">%s</p>\n' % description)
+
         anapath = os.path.join(opts.OUTPUTDIR, analysis)
         if not opts.SINGLE:
             if not os.path.exists(anapath):
                 os.makedirs(anapath)
             anaindex = open(os.path.join(anapath, "index.html"), 'w')
-            anaindex.write('<html>\n<head>\n<title>%s - %s</title>\n%s</head>\n<body>\n' %
-                           (opts.OUTPUTDIR, analysis, style + script))
-            anaindex.write('<h3>%s</h3>\n' % analysis)
+            anaindex.write('<html>\n<head>\n<title>%s &ndash; %s</title>\n%s</head>\n<body>\n' %
+                           (htmlify(opts.TITLE), analysis, style + script))
+            anaindex.write('<h3>%s</h3>\n' % htmlify(analysis))
             anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
-            anaindex.write('<p>\n  %s\n</p>\n' % htmlify(description))
+            if description:
+                anaindex.write('<p>\n  %s\n</p>\n' % description)
         else:
             anaindex = index
 

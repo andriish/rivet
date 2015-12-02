@@ -1,3 +1,9 @@
+2015-12-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improvements to rivet-mkhtml behaviour re. consistency with
+	rivet-cmphistos in how muti-part histo paths are decomposed into
+	analysis-name + histo name, and removal of 'NONE' strings.
+
 2015-11-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Relax rivet/plotinfo.py pattern matching on .plot file
