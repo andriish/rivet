@@ -1,3 +1,12 @@
+2015-12-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding IsRef attributes to all YODA refdata files; this will be
+	used to replace the /REF prefix in Rivet v3 onwards. The migration
+	has also removed leading # characters from BEGIN/END blocks, as
+	per YODA format evolution: new YODA versions as required by
+	current Rivet releases are able to read both the old and new
+	formats.
+
 2015-12-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add handling of a command-line PLOT 'file' argument to rivet-mkhtml, cf. rivet-cmphistos
