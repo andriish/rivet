@@ -118,7 +118,8 @@ for yodafile in yodafiles:
             continue
         else:
             sys.exit(2)
-    analysisobjects = yoda.read(yodafilepath)
+    ## Note: use -m/-M flags here as well as when calling rivet-cmphistos, to potentially speed this initial loading
+    analysisobjects = yoda.read(yodafilepath, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
 
     for path, ao in analysisobjects.iteritems():
         ## If regexes have been provided, only add analyses which match and don't unmatch

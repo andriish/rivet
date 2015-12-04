@@ -1,3 +1,8 @@
+2015-12-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Pro-actively use -m/-M arguments when initially loading
+	histograms in mkhtml, *before* passing them to cmphistos.
+
 2015-12-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Move contains() and has_key() functions on STL containers from std to Rivet namespaces.
