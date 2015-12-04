@@ -36,6 +36,8 @@ parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", actio
                   default=False, help="ignore unvalidated analyses.")
 parser.add_option("--ref", "--refid", dest="REF_ID",
                   default=None, help="ID of reference data set (file path for non-REF data)")
+parser.add_option("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
+                  action="store_true", default=False)
 
 stygroup = OptionGroup(parser, "Style options")
 stygroup.add_option("-t", "--title", dest="TITLE",
@@ -77,8 +79,6 @@ parser.add_option_group(selgroup)
 
 vrbgroup = OptionGroup(parser, "Verbosity control")
 vrbgroup.add_option("-v", "--verbose", help="add extra debug messages", dest="VERBOSE",
-                  action="store_true", default=False)
-vrbgroup.add_option("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                   action="store_true", default=False)
 parser.add_option_group(vrbgroup)
 
