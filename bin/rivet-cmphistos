@@ -362,9 +362,9 @@ if __name__ == '__main__':
                     hmc.setAnnotation(key, val)
                 ## Command line plot options
                 setOptions(hmc, plotoptions[infile])
-                hmc.setAnnotation('Path', infile+hpath)
+                hmc.setAnnotation('Path', "/"+infile+hpath)
                 anaobjects.append(hmc)
-                drawonly.append(infile+hpath)
+                drawonly.append("/"+infile+hpath)
                 if showratio and ratioreference is None:
                     ratioreference = infile + hpath
                 ## For 2D, plot each histo now

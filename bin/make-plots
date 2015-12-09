@@ -126,17 +126,26 @@ class Inputdata(object):
             del self.description['PlotSize']
 
         if self.description.get('MainPlot', '1') == '0':
+            ## Ratio, no main
             self.description['RatioPlot'] = '1' #< don't allow both to be zero!
             self.description['PlotSizeY'] = 0.
             self.description.setdefault('RatioPlotSizeY', 9.)
         else:
             if self.description.get('RatioPlot', '0') == '1':
+                ## Main and ratio
                 self.description.setdefault('PlotSizeY', 6.)
                 self.description.setdefault('RatioPlotSizeY', self.description.get('RatioPlotYSize', 3.))
             else:
-                self.description.setdefault('PlotSizeY', self.description.get('RatioPlotYSize', 9.))
+                ## Main, no ratio
+                self.description.setdefault('PlotSizeY', self.description.get('PlotYSize', 9.))
                 self.description['RatioPlotSizeY'] = 0.
 
+        ## Ensure numbers, not strings
+        self.description['PlotSizeX'] = float(self.description['PlotSizeX'])
+        self.description['PlotSizeY'] = float(self.description['PlotSizeY'])
+        self.description['RatioPlotSizeY'] = float(self.description['RatioPlotSizeY'])
+        # self.description['TopMargin'] = float(self.description['TopMargin'])
+        # self.description['BottomMargin'] = float(self.description['BottomMargin'])
 
         self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
         self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
