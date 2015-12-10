@@ -573,23 +573,17 @@ class MainPlot(Plot):
             xcustomminortickmarks=int(inputdata.description['XMinorTickMarks'])
         else:
             xcustomminortickmarks=-1
-        xcustommajorticks=[]
-        xcustomminorticks=[]
-        # # TODO: remove XCustomTicks after 2011-12-31:
-        # if inputdata.description.has_key('XCustomTicks') and inputdata.description['XCustomTicks']!='':
-        #     logging.warning('Warning: XCustomTicks is deprecated. Use XCustomMajorTicks instead.')
-        #     inputdata.description['XCustomMajorTicks']=inputdata.description['XCustomTicks']
-        if inputdata.description.has_key('XCustomMajorTicks') and inputdata.description['XCustomMajorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['XCustomMajorTicks'].strip().split('\t')
-            if not len(FOO) % 2:
+        xcustommajorticks=None
+        xcustomminorticks=None
+        if inputdata.description.has_key('XCustomMajorTicks'): # and inputdata.description['XCustomMajorTicks']!='':
+            xcustommajorticks=[]
+            FOO=inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
+            if len(FOO) % 2 == 0:
                 for i in range(0,len(FOO),2):
                     xcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        if inputdata.description.has_key('XCustomMinorTicks') and inputdata.description['XCustomMinorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['XCustomMinorTicks'].strip().split('\t')
-            for i in range(len(FOO)):
-                xcustomminorticks.append({'Value': float(FOO[i])})
+        if inputdata.description.has_key('XCustomMinorTicks'): # and inputdata.description['XCustomMinorTicks']!='':
+            FOO=inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
+            xcustomminorticks=[{'Value': float(FOO[i])} for i in range(len(FOO))]
         xticks = XTicks(inputdata.description, self.coors)
         if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1') or (inputdata.description.has_key('PlotXTickLabels') and inputdata.description['PlotXTickLabels']=='0'):
             drawxlabels=False
@@ -609,23 +603,17 @@ class MainPlot(Plot):
             ycustomminortickmarks=int(inputdata.description['YMinorTickMarks'])
         else:
             ycustomminortickmarks=-1
-        ycustommajorticks=[]
-        ycustomminorticks=[]
-        # # TODO: remove YCustomTicks after 2011-12-31:
-        # if inputdata.description.has_key('YCustomTicks') and inputdata.description['YCustomTicks']!='':
-        #     logging.warning('Warning: YCustomTicks is deprecated. Use YCustomMajorTicks instead.')
-        #     inputdata.description['YCustomMajorTicks']=inputdata.description['YCustomTicks']
-        if inputdata.description.has_key('YCustomMajorTicks') and inputdata.description['YCustomMajorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['YCustomMajorTicks'].strip().split('\t')
-            if not len(FOO)%2:
+        ycustommajorticks=None
+        ycustomminorticks=None
+        if inputdata.description.has_key('YCustomMajorTicks'): # and inputdata.description['YCustomMajorTicks']!='':
+            ycustommajorticks=[]
+            FOO=inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
+            if len(FOO) % 2 == 0:
                 for i in range(0,len(FOO),2):
                     ycustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        if inputdata.description.has_key('YCustomMinorTicks') and inputdata.description['YCustomMinorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['YCustomMinorTicks'].strip().split('\t')
-            for i in range(len(FOO)):
-                ycustomminorticks.append({'Value': float(FOO[i])})
+        if inputdata.description.has_key('YCustomMinorTicks'): # and inputdata.description['YCustomMinorTicks']!='':
+            FOO=inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
+            ycustomminorticks=[{'Value': float(FOO[i])} for i in range(len(FOO))]
         yticks = YTicks(inputdata.description, self.coors)
         if (inputdata.description.has_key('PlotYTickLabels') and inputdata.description['PlotYTickLabels']=='0'):
             drawylabels=False
@@ -803,21 +791,17 @@ class RatioPlot(Plot):
             xcustomminortickmarks=int(inputdata.description['XMinorTickMarks'])
         else:
             xcustomminortickmarks=-1
-        xcustommajorticks=[]
-        xcustomminorticks=[]
-        # # TODO: remove XCustomTicks after 2011-12-31:
-        # if inputdata.description.has_key('XCustomTicks') and inputdata.description['XCustomTicks']!='':
-        #     logging.warning('Warning: XCustomTicks is deprecated. Use XCustomMajorTicks instead.')
-        #     inputdata.description['XCustomMajorTicks']=inputdata.description['XCustomTicks']
-        if inputdata.description.has_key('XCustomMajorTicks') and inputdata.description['XCustomMajorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['XCustomMajorTicks'].strip().split('\t')
+        xcustommajorticks=None
+        xcustomminorticks=None
+        if inputdata.description.has_key('XCustomMajorTicks'): # and inputdata.description['XCustomMajorTicks']!='':
+            xcustommajorticks=[]
+            FOO=inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     xcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        if inputdata.description.has_key('XCustomMinorTicks') and inputdata.description['XCustomMinorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['XCustomMinorTicks'].strip().split('\t')
+        if inputdata.description.has_key('XCustomMinorTicks'): # and inputdata.description['XCustomMinorTicks']!='':
+            xcustomminorticks=[]
+            FOO=inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
             for i in range(len(FOO)):
                 xcustomminorticks.append({'Value': float(FOO[i])})
         xticks = XTicks(inputdata.description, self.coors)
@@ -839,21 +823,17 @@ class RatioPlot(Plot):
             ycustomminortickmarks=int(inputdata.description['YMinorTickMarks'])
         else:
             ycustomminortickmarks=-1
-        ycustommajorticks=[]
-        ycustomminorticks=[]
-        # # TODO: remove YCustomTicks after 2011-12-31:
-        # if inputdata.description.has_key('YCustomTicks') and inputdata.description['YCustomTicks']!='':
-        #     logging.warning('Warning: YCustomTicks is deprecated. Use YCustomMajorTicks instead.')
-        #     inputdata.description['YCustomMajorTicks']=inputdata.description['YCustomTicks']
-        if inputdata.description.has_key('YCustomMajorTicks') and inputdata.description['YCustomMajorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['YCustomMajorTicks'].strip().split('\t')
+        ycustommajorticks=None
+        ycustomminorticks=None
+        if inputdata.description.has_key('YCustomMajorTicks'): # and inputdata.description['YCustomMajorTicks']!='':
+            ycustommajorticks=[]
+            FOO=inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
             if not len(FOO)%2:
                 for i in range(0,len(FOO),2):
                     ycustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
-        if inputdata.description.has_key('YCustomMinorTicks') and inputdata.description['YCustomMinorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            FOO=inputdata.description['YCustomMinorTicks'].strip().split('\t')
+        if inputdata.description.has_key('YCustomMinorTicks'): # and inputdata.description['YCustomMinorTicks']!='':
+            ycustomminorticks=[]
+            FOO=inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
             for i in range(len(FOO)):
                 ycustomminorticks.append({'Value': float(FOO[i])})
         yticks = YTicks(inputdata.description, self.coors)
@@ -1920,12 +1900,12 @@ class Ticks(object):
         self.description = description
         self.coors = coors
 
-    def draw_ticks(self, min, max, plotlog=False, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
+    def draw_ticks(self, min, max, plotlog=False, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
         out = ""
         if plotlog:
             if min <= 0 or max <= 0:
                 raise Exception("Cannot place log axis min or max tick <= 0")
-            if len(custommajorticks) == 0:
+            if custommajorticks is None:
                 x=int(log10(min))
                 n_labels=0
                 while (x<log10(max)+1):
@@ -1950,18 +1930,20 @@ class Ticks(object):
                                     else:
                                         out += self.draw_minorticklabel(ticklabel, last=True)
                     x+=1
-        elif custommajorticks or customminorticks:
-            for i in range(len(custommajorticks)):
-                value=custommajorticks[i]['Value']
-                label=custommajorticks[i]['Label']
-                if value>=min and value<=max:
-                    out += self.draw_majortick(value,twosided)
-                if drawlabels:
-                    out += self.draw_majorticklabel(value, label=label)
-            for i in range(len(customminorticks)):
-                value=customminorticks[i]['Value']
-                if value>=min and value<=max:
-                    out += self.draw_minortick(value,twosided)
+        elif custommajorticks is not None or customminorticks is not None:
+            if custommajorticks:
+                for i in range(len(custommajorticks)):
+                    value=custommajorticks[i]['Value']
+                    label=custommajorticks[i]['Label']
+                    if value>=min and value<=max:
+                        out += self.draw_majortick(value,twosided)
+                    if drawlabels:
+                        out += self.draw_majorticklabel(value, label=label)
+            if customminorticks:
+                for i in range(len(customminorticks)):
+                    value=customminorticks[i]['Value']
+                    if value>=min and value<=max:
+                        out += self.draw_minortick(value,twosided)
         else:
             xrange = max-min
             digits = int(log10(xrange))+1
