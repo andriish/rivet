@@ -366,7 +366,7 @@ if __name__ == '__main__':
                 anaobjects.append(hmc)
                 drawonly.append("/"+infile+hpath)
                 if showratio and ratioreference is None:
-                    ratioreference = infile + hpath
+                    ratioreference = "/" + infile + hpath
                 ## For 2D, plot each histo now
                 if is2d:
                     s = mkOutput(hpath, [hmc], plot, special)

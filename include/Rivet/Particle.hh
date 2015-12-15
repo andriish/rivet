@@ -24,9 +24,9 @@ namespace Rivet {
     { }
 
     /// Constructor without GenParticle.
-    Particle(PdgId pid, const FourMomentum& mom)
+    Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector())
       : ParticleBase(),
-        _original(0), _id(pid), _momentum(mom)
+        _original(0), _id(pid), _momentum(mom), _origin(pos)
     { }
 
     /// Constructor from a HepMC GenParticle.
@@ -34,14 +34,22 @@ namespace Rivet {
       : ParticleBase(),
         _original(&gp), _id(gp.pdg_id()),
         _momentum(gp.momentum())
-    { }
+    {
+      const GenVertex* vprod = gp.production_vertex();
+      if (vprod != NULL)
+        setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+    }
 
     /// Constructor from a HepMC GenParticle pointer.
     Particle(const GenParticle* gp)
       : ParticleBase(),
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum())
-    { }
+    {
+      const GenVertex* vprod = gp->production_vertex();
+      if (vprod != NULL)
+        setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+    }
 
 
   public:
@@ -75,6 +83,26 @@ namespace Rivet {
     /// Set the momentum.
     Particle& setMomentum(const FourMomentum& momentum) {
       _momentum = momentum;
+      return *this;
+    }
+    /// Set the momentum via components.
+    Particle& setMomentum(double E, double px, double py, double pz) {
+      _momentum = FourMomentum(E, px, py, pz);
+      return *this;
+    }
+
+    /// The origin position.
+    const FourVector& origin() const {
+      return _origin;
+    }
+    /// Set the origin position.
+    Particle& setOrigin(const FourVector& position) {
+      _origin = position;
+      return *this;
+    }
+    /// Set the origin position via components.
+    Particle& setOrigin(double t, double x, double y, double z) {
+      _momentum = FourMomentum(t, x, y, z);
       return *this;
     }
 
@@ -296,8 +324,11 @@ namespace Rivet {
     /// The PDG ID code for this Particle.
     PdgId _id;
 
-    /// The momentum of this projection of the Particle.
+    /// The momentum of this particle.
     FourMomentum _momentum;
+
+    /// The creation position of this particle.
+    FourVector _origin;
 
   };
 
