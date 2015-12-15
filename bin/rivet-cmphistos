@@ -97,19 +97,28 @@ def getHistos(filelist):
     and the first occurrence in each MC file for every MC-histogram."""
     refhistos = {}
     mchistos = {}
+    import re
+    re_path = re.compile(r"^/(REF/)?([\w/]+)(\[\d+\])?$")
     for infile in filelist:
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
         for path, ao in analysisobjects.iteritems():
-            ## Conventionally don't plot data objects whose names start with an underscore
-            if os.path.basename(path).startswith("_"):
+            m = re_path.match(path)
+            if m is None:
+                print "Found analysis object", path, "with non-standard path structure"
                 continue
-            if path.startswith('/REF/'):
-                if not refhistos.has_key(path):
-                    refhistos[path] = ao
-            else:
-                if not mchistos[infile].has_key(path):
-                    mchistos[infile][path] = ao
+            isref = bool(m.group(1))
+            basepath = m.group(2)
+            index = int(m.group(3)[1:-1]) if m.group(3) else 0
+
+            ## Conventionally don't plot data objects whose names start with an underscore
+            if os.path.basename(basepath).startswith("_"):
+                continue
+            if isref and not refhistos.has_key(path):
+                refhistos[path] = ao
+                continue
+            #if not mchistos[infile].has_key(basepath):
+            mchistos[infile].setdefault(basepath, {})[index] = ao
     return refhistos, mchistos
 
 
@@ -157,17 +166,15 @@ def parseArgs(args):
     return filelist, plotoptions
 
 
-def setStyle(ao, style):
+def setStyle(ao, istyle, variation=False):
     """Set default plot styles (color and line width) colors borrowed from Google Ngrams"""
-    LINECOLORS = ['{[HTML]{EE3311}}',  # red (Google uses 'DC3912')
-                  '{[HTML]{3366FF}}',  # blue
-                  '{[HTML]{109618}}',  # green
-                  '{[HTML]{FF9900}}',  # orange... weirdly this screws up if the F is lower-case!
-                  '{[HTML]{990099}}']  # lilac
-    LINESTYLES = ['solid',
-                  'dashed',
-                  'dashdotted',
-                  'dotted']
+    # LINECOLORS = ['{[HTML]{EE3311}}',  # red (Google uses 'DC3912')
+    #               '{[HTML]{3366FF}}',  # blue
+    #               '{[HTML]{109618}}',  # green
+    #               '{[HTML]{FF9900}}',  # orange
+    #               '{[HTML]{990099}}']  # lilac
+    LINECOLORS = ['red', 'blue', 'green', 'orange', 'lilac']
+    LINESTYLES = ['solid', 'dashed', 'dashdotted', 'dotted']
 
     if opts.STYLE == 'talk':
         ao.setAnnotation('LineWidth', '1pt')
@@ -176,11 +183,17 @@ def setStyle(ao, style):
                       'black!50',
                       'black!30']
 
-    c = style % len(LINECOLORS)
-    s = (style / len(LINECOLORS)) % len(LINESTYLES)
+    jc = istyle % len(LINECOLORS)
+    c = LINECOLORS[jc]
+    js = (istyle / len(LINECOLORS)) % len(LINESTYLES)
+    s = LINESTYLES[js]
 
-    ao.setAnnotation('LineStyle', '%s' % LINESTYLES[s])
-    ao.setAnnotation('LineColor', '%s' % LINECOLORS[c])
+    ## If plotting a variation (i.e. band), fade the colour
+    if variation:
+        c += "!30"
+
+    ao.setAnnotation('LineStyle', '%s' % s)
+    ao.setAnnotation('LineColor', '%s' % c)
 
 
 def setOptions(ao, options):
@@ -274,7 +287,7 @@ if __name__ == '__main__':
             if p and p not in hpaths:
                 hpaths.append(p)
             # TODO: Would be nicer to test via isHisto and dim or similar, or yoda.Scatter/Histo/Profile base classes
-            if type(aos[p]) in (yoda.Histo2D, yoda.Profile2D) and p not in h2ds:
+            if type(aos[p][0]) in (yoda.Histo2D, yoda.Profile2D) and p not in h2ds: #< TODO: assumes that there is a canonical index entry [0]
                 h2ds.append(p)
 
     ## Read the reference data from the Rivet search paths and add them
@@ -350,27 +363,34 @@ if __name__ == '__main__':
         styleidx = 0
         for infile in filelist:
             if mchistos.has_key(infile) and mchistos[infile].has_key(hpath):
-                hmc = mchistos[infile][hpath]
-                ## Default linecolor, linestyle
-                if not is2d:
-                    setStyle(hmc, styleidx)
-                    styleidx += 1
-                    if opts.MC_ERRS:
-                        hmc.setAnnotation('ErrorBars', '1')
-                ## Plot defaults from .plot files
-                for key, val in plotparser.getHistogramOptions(hpath).iteritems():
-                    hmc.setAnnotation(key, val)
-                ## Command line plot options
-                setOptions(hmc, plotoptions[infile])
-                hmc.setAnnotation('Path', "/"+infile+hpath)
-                anaobjects.append(hmc)
-                drawonly.append("/"+infile+hpath)
-                if showratio and ratioreference is None:
-                    ratioreference = "/" + infile + hpath
-                ## For 2D, plot each histo now
-                if is2d:
-                    s = mkOutput(hpath, [hmc], plot, special)
-                    writeOutput(s, hpath+"/"+infile)
+                hmcs = mchistos[infile][hpath]
+                ## For now, just plot all the different variation histograms (reversed, so [0] is on top)
+                # TODO: calculate and plot an appropriate error band, somehow...
+                for i in reversed(hmcs.keys()):
+                    hmc = hmcs[i]
+                    ## Default linecolor, linestyle
+                    if not is2d:
+                        setStyle(hmc, styleidx, i != 0)
+                        if opts.MC_ERRS:
+                            hmc.setAnnotation('ErrorBars', '1')
+                    ## Plot defaults from .plot files
+                    for key, val in plotparser.getHistogramOptions(hpath).iteritems():
+                        hmc.setAnnotation(key, val)
+                    ## Command line plot options
+                    setOptions(hmc, plotoptions[infile])
+                    fullpath = "/"+infile+hpath
+                    if i != 0:
+                        fullpath += "["+str(i)+"]"
+                    hmc.setAnnotation('Path', fullpath)
+                    anaobjects.append(hmc)
+                    drawonly.append(fullpath)
+                    if showratio and ratioreference is None:
+                        ratioreference = fullpath
+                    ## For 2D, plot each histo now
+                    if is2d:
+                        s = mkOutput(hpath, [hmc], plot, special)
+                        writeOutput(s, fullpath)
+                styleidx += 1
 
 
         ## Finally render the combined plots; only show the first one if it's 2D
@@ -379,6 +399,8 @@ if __name__ == '__main__':
             anaobjects = anaobjects[:1]
         ## Add final attrs to Plot
         plot['DrawOnly'] = ' '.join(drawonly).strip()
+        legonly = [d for d in drawonly if "[" not in d]
+        plot['LegendOnly'] = ' '.join(legonly).strip()
         if showratio and len(drawonly) > 1:
             plot['RatioPlot'] = '1'
             plot['RatioPlotReference'] = ratioreference

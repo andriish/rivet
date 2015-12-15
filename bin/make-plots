@@ -473,7 +473,13 @@ class Plot(object):
         for pkg in opts.LATEXPKGS:
             out += ('\\usepackage{%s}\n' % pkg)
         out += ('\\usepackage{pst-all}\n')
+        out += ('\\usepackage{xcolor}\n')
         out += ('\\selectcolormodel{rgb}\n')
+        out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
+        out += ('\\definecolor{blue}{HTML}{3366FF}')
+        out += ('\\definecolor{green}{HTML}{109618}')
+        out += ('\\definecolor{orange}{HTML}{FF9900}')
+        out += ('\\definecolor{lilac}{HTML}{990099}')
         out += ('\\usepackage{amsmath}\n')
         out += ('\\usepackage{amssymb}\n')
         out += ('\\usepackage{relsize}\n')
@@ -492,7 +498,7 @@ class Plot(object):
                 colorseries = inputdata.description['ColorSeries']
             else:
                 colorseries = '{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}'
-            out += ('\\definecolorseries{gradientcolors}%s\n' %colorseries)
+            out += ('\\definecolorseries{gradientcolors}%s\n' % colorseries)
             out += ('\\resetcolorseries[130]{gradientcolors}\n')
         return out
 
@@ -646,7 +652,7 @@ class MainPlot(Plot):
             return
 
         def pickcolor(gof):
-            color=None
+            color = None
             colordefs = {}
             for i in inputdata.description.setdefault('GofFrameColor', '0:green 3:yellow 6:red!70').strip().split():
                 foo = i.split(':')
@@ -668,7 +674,7 @@ class MainPlot(Plot):
             if inputdata.description.has_key('GofType') and inputdata.description['GofType']!='chi2':
                 return
             gof = inputdata.histos[i].getChi2(inputdata.histos[refdata])
-            if i==inputdata.description['GofFrame'] and inputdata.description['FrameColor']==None:
+            if i==inputdata.description['GofFrame'] and inputdata.description['FrameColor'] is None:
                 inputdata.description['FrameColor']=pickcolor(gof)
             if inputdata.histos[i].description.setdefault('Title', '')!='':
                 inputdata.histos[i].description['Title'] += ', '

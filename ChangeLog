@@ -1,5 +1,9 @@
 2015-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add cmphistos and make-plots machinery for handling 'suffix'
+	variations on plot paths, currently just by plotting every line,
+	with the variations in a 70% faded tint.
+
 	* Add Beam::pv() method for finding the beam interaction primary
 	vertex 4-position.
 
