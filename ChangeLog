@@ -1,5 +1,8 @@
 2015-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add Beam::pv() method for finding the beam interaction primary
+	vertex 4-position.
+
 	* Add a new Particle::setMomentum(E,x,y,z) method, and an origin
 	position member which is automatically populated from the
 	GenParticle, with access methods corresponding to the momentum
