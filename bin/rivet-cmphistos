@@ -286,8 +286,9 @@ if __name__ == '__main__':
         for p in aos.keys():
             if p and p not in hpaths:
                 hpaths.append(p)
+            firstaop = aos[p][sorted(aos[p].keys())[0]]
             # TODO: Would be nicer to test via isHisto and dim or similar, or yoda.Scatter/Histo/Profile base classes
-            if type(aos[p][0]) in (yoda.Histo2D, yoda.Profile2D) and p not in h2ds: #< TODO: assumes that there is a canonical index entry [0]
+            if type(firstaop) in (yoda.Histo2D, yoda.Profile2D) and p not in h2ds:
                 h2ds.append(p)
 
     ## Read the reference data from the Rivet search paths and add them
@@ -304,7 +305,8 @@ if __name__ == '__main__':
         ## The analysis objects to be plotted
         anaobjects = []
         ## List of histos to be drawn, to sync the legend and plotted lines
-        drawonly = []
+        mainlines = []
+        varlines = []
         ## Is this a 2D histo?
         is2d = (hpath in h2ds)
         ## Will we be drawing a ratio plot?
@@ -352,7 +354,7 @@ if __name__ == '__main__':
                     ratioreference = '/REF'+hpath
             ## For 1D
             anaobjects.append(refdata)
-            drawonly.append('/REF'+hpath)
+            mainlines.append('/REF'+hpath)
             ## For 2D
             if is2d:
                 s = mkOutput(hpath, [refdata], plot, special)
@@ -366,7 +368,7 @@ if __name__ == '__main__':
                 hmcs = mchistos[infile][hpath]
                 ## For now, just plot all the different variation histograms (reversed, so [0] is on top)
                 # TODO: calculate and plot an appropriate error band, somehow...
-                for i in reversed(hmcs.keys()):
+                for i in sorted(hmcs.keys(), reverse=True):
                     hmc = hmcs[i]
                     ## Default linecolor, linestyle
                     if not is2d:
@@ -383,7 +385,10 @@ if __name__ == '__main__':
                         fullpath += "["+str(i)+"]"
                     hmc.setAnnotation('Path', fullpath)
                     anaobjects.append(hmc)
-                    drawonly.append(fullpath)
+                    if i == 0:
+                        mainlines.append(fullpath)
+                    else:
+                        varlines.append(fullpath)
                     if showratio and ratioreference is None:
                         ratioreference = fullpath
                     ## For 2D, plot each histo now
@@ -398,10 +403,9 @@ if __name__ == '__main__':
         if is2d:
             anaobjects = anaobjects[:1]
         ## Add final attrs to Plot
-        plot['DrawOnly'] = ' '.join(drawonly).strip()
-        legonly = [d for d in drawonly if "[" not in d]
-        plot['LegendOnly'] = ' '.join(legonly).strip()
-        if showratio and len(drawonly) > 1:
+        plot['DrawOnly'] = ' '.join(varlines + mainlines).strip()
+        plot['LegendOnly'] = ' '.join(mainlines).strip()
+        if showratio and len(varlines + mainlines) > 1:
             plot['RatioPlot'] = '1'
             plot['RatioPlotReference'] = ratioreference
             if not hasdataref:
