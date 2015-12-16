@@ -109,7 +109,7 @@ def getHistos(filelist):
                 continue
             isref = bool(m.group(1))
             basepath = m.group(2)
-            index = int(m.group(3)[1:-1]) if m.group(3) else 0
+            index = m.group(3)[1:-1] if m.group(3) else 0
 
             ## Conventionally don't plot data objects whose names start with an underscore
             if os.path.basename(basepath).startswith("_"):
@@ -369,10 +369,11 @@ if __name__ == '__main__':
                 ## For now, just plot all the different variation histograms (reversed, so [0] is on top)
                 # TODO: calculate and plot an appropriate error band, somehow...
                 for i in sorted(hmcs.keys(), reverse=True):
+                    iscanonical = (str(i) == "0")
                     hmc = hmcs[i]
                     ## Default linecolor, linestyle
                     if not is2d:
-                        setStyle(hmc, styleidx, i != 0)
+                        setStyle(hmc, styleidx, not iscanonical)
                         if opts.MC_ERRS:
                             hmc.setAnnotation('ErrorBars', '1')
                     ## Plot defaults from .plot files
@@ -380,18 +381,20 @@ if __name__ == '__main__':
                         hmc.setAnnotation(key, val)
                     ## Command line plot options
                     setOptions(hmc, plotoptions[infile])
+                    ## Set path attribute
                     fullpath = "/"+infile+hpath
-                    if i != 0:
+                    if not iscanonical:
                         fullpath += "["+str(i)+"]"
                     hmc.setAnnotation('Path', fullpath)
+                    ## Add object / path to appropriate lists
                     anaobjects.append(hmc)
-                    if i == 0:
+                    if iscanonical:
                         mainlines.append(fullpath)
                     else:
                         varlines.append(fullpath)
-                    if showratio and ratioreference is None:
+                    if showratio and ratioreference is None and iscanonical:
                         ratioreference = fullpath
-                    ## For 2D, plot each histo now
+                    ## For 2D, plot each histo now (since overlay makes no sense)
                     if is2d:
                         s = mkOutput(hpath, [hmc], plot, special)
                         writeOutput(s, fullpath)
