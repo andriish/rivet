@@ -98,14 +98,14 @@ def getHistos(filelist):
     refhistos = {}
     mchistos = {}
     import re
-    re_path = re.compile(r"^/(REF/)?([^\[\]\@\#]+)(\[\d+\])?$")
+    re_path = re.compile(r"^(/REF)?(/[^\[\]\@\#]+)(\[\d+\])?$")
     for infile in filelist:
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
         for path, ao in analysisobjects.iteritems():
             m = re_path.match(path)
             if m is None:
-                print "Found analysis object", path, "with non-standard path structure"
+                print "Found analysis object with non-standard path structure:", path
                 continue
             isref = bool(m.group(1))
             basepath = m.group(2)
@@ -114,16 +114,20 @@ def getHistos(filelist):
             ## Conventionally don't plot data objects whose names start with an underscore
             if os.path.basename(basepath).startswith("_"):
                 continue
-            if isref and not refhistos.has_key(path):
-                refhistos[path] = ao
+            if isref and not refhistos.has_key(basepath):
+                # TODO: Update to the brave new world without /REF prefixes
+                if ao.path.startswith("/REF"):
+                    ao.path = ao.path[4:]
+                refhistos[basepath] = ao
                 continue
             #if not mchistos[infile].has_key(basepath):
             mchistos[infile].setdefault(basepath, {})[index] = ao
     return refhistos, mchistos
 
 
-def getRivetRefData(refhistos, anas=None):
+def getRivetRefData(anas=None):
     "Find all Rivet reference data files"
+    refhistos = {}
     rivet_data_dirs = rivet.getAnalysisRefPaths()
     dirlist = []
     for d in rivet_data_dirs:
@@ -137,9 +141,11 @@ def getRivetRefData(refhistos, anas=None):
         for infile in filelist:
             analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
             for path, ao in analysisobjects.iteritems():
-                if path.startswith('/REF/'):
-                    if not refhistos.has_key(path):
-                        refhistos[path] = ao
+                # TODO: Update to the brave new world without /REF prefixes
+                if ao.path.startswith("/REF"):
+                    ao.path = ao.path[4:]
+                    refhistos[ao.path] = ao
+    return refhistos
 
 
 def parseArgs(args):
@@ -297,10 +303,16 @@ if __name__ == '__main__':
             if type(firstaop) in (yoda.Histo2D, yoda.Profile2D) and p not in h2ds:
                 h2ds.append(p)
 
-    ## Read the reference data from the Rivet search paths and add them
-    ## to the list of reference histograms
+    ## Take reference data from the Rivet search paths, if there is not already
     if opts.RIVETREFS:
-        getRivetRefData(refhistos)
+        refhistos2 = getRivetRefData()
+        refhistos2.update(refhistos)
+        refhistos = refhistos2
+
+    ## Purge unmatched ref data entries to save memory
+    for refhpath in refhistos.keys():
+        if refhpath not in hpaths:
+            del refhistos[refhpath]
 
 
     ## Now loop over all MC histograms and plot them
@@ -348,23 +360,23 @@ if __name__ == '__main__':
 
         ## Handle reference data histogram, if there is one
         ratioreference, hasdataref = None, False
-        if refhistos.has_key('/REF' + hpath):
+        if refhistos.has_key(hpath):
             hasdataref = True
-            refdata = refhistos['/REF' + hpath]
+            refdata = refhistos[hpath]
             refdata.setAnnotation('Title', 'Data')
             if not is2d:
                 refdata.setAnnotation('ErrorBars', '1')
                 refdata.setAnnotation('PolyMarker', '*')
                 refdata.setAnnotation('ConnectBins', '0')
                 if showratio:
-                    ratioreference = '/REF'+hpath
+                    ratioreference = hpath
             ## For 1D
             anaobjects.append(refdata)
-            mainlines.append('/REF'+hpath)
+            mainlines.append(hpath)
             ## For 2D
             if is2d:
                 s = mkOutput(hpath, [refdata], plot, special)
-                writeOutput(s, hpath+"/REF")
+                writeOutput(s, hpath)
 
 
         ## Loop over the MC files to plot all instances of the histogram
