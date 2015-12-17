@@ -20,7 +20,7 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original(0), _id(0), _momentum()
+        _original(0), _id(0)
     { }
 
     /// Constructor without GenParticle.
@@ -102,7 +102,7 @@ namespace Rivet {
     }
     /// Set the origin position via components.
     Particle& setOrigin(double t, double x, double y, double z) {
-      _momentum = FourMomentum(t, x, y, z);
+      _origin = FourMomentum(t, x, y, z);
       return *this;
     }
 
