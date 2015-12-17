@@ -527,4 +527,4 @@ print
 endtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Rivet run completed at %s, time elapsed = %s" % (str(endtime), str(endtime-starttime)))
 print
-logging.info("Histograms written to" + os.path.abspath(opts.HISTOFILE))
+logging.info("Histograms written to %s" % os.path.abspath(opts.HISTOFILE))
