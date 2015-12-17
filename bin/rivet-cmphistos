@@ -98,7 +98,7 @@ def getHistos(filelist):
     refhistos = {}
     mchistos = {}
     import re
-    re_path = re.compile(r"^/(REF/)?([\w/]+)(\[\d+\])?$")
+    re_path = re.compile(r"^/(REF/)?([^\[\]\@\#]+)(\[\d+\])?$")
     for infile in filelist:
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
