@@ -275,6 +275,12 @@ if __name__ == '__main__':
     if "PLOT" in filelist:
         filelist.remove("PLOT")
 
+    ## Check that the files exist
+    for f in filelist:
+        if not os.access(f, os.R_OK):
+            print "Error: cannot read from %s" % f
+            sys.exit(1)
+
     ## Read the .plot files
     plotdirs = opts.PLOTINFODIRS + [os.path.abspath(os.path.dirname(f)) for f in filelist]
     plotparser = rivet.mkStdPlotParser(plotdirs, opts.CONFIGFILES)

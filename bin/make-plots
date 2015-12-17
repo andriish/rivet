@@ -2555,6 +2555,11 @@ if __name__ == '__main__':
         logging.error(parser.get_usage())
         sys.exit(2)
 
+    ## Check that the files exist
+    for f in args:
+        if not os.access(f, os.R_OK):
+            print "Error: cannot read from %s" % f
+            sys.exit(1)
 
     ## Test for external programs (kpsewhich, latex, dvips, ps2pdf/ps2eps, and convert)
     opts.LATEXPKGS = []
