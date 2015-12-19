@@ -143,11 +143,11 @@ namespace Rivet {
       // f0 multiplicity
       Scatter2DPtr s511 = bookScatter2D(5, 1, 1, true);
       if (_weightSum_Ups1 > 0) // Point at 9.46
-        s112->point(0).setY(_count_f0[0] / _weightSum_Ups1, 0);
+        s511->point(0).setY(_count_f0[0] / _weightSum_Ups1, 0);
       if (_weightSum_Ups2 > 0) // Point at 10.02
-        s112->point(1).setY(_count_f0[1] / _weightSum_Ups2, 0);
+        s511->point(1).setY(_count_f0[1] / _weightSum_Ups2, 0);
       if (_weightSum_cont > 0) // Point at 10.45
-        s112->point(2).setY(_count_f0[2] / _weightSum_cont, 0);
+        s511->point(2).setY(_count_f0[2] / _weightSum_cont, 0);
 
       if (_weightSum_cont > 0.) scale(_hist_cont_f0, 1./_weightSum_cont);
       if (_weightSum_Ups1 > 0.) scale(_hist_Ups1_f0, 1./_weightSum_Ups1);

@@ -5,11 +5,11 @@ class PlotParser(object):
 #class PlotStyler(object) or class PlotInfo(object):
     """Reads Rivet's .plot files and determines which attributes to apply to each histo path."""
 
-    pat_begin_block = re.compile('^#*\s*BEGIN ([A-Z0-9_]+) ?(\S+)?')
-    pat_end_block =   re.compile('^#*\s*END ([A-Z0-9_]+)')
-    pat_comment = re.compile('^#|^\s*$')
-    pat_property = re.compile('^(\w+?)=(.*)$')
-    pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
+    pat_begin_block = re.compile(r'^(#*\s*)?BEGIN ([A-Z0-9_]+) ?(\S+)?')
+    pat_end_block =   re.compile(r'^(#*\s*)?END ([A-Z0-9_]+)')
+    pat_comment = re.compile(r'^\s*#|^\s*$')
+    pat_property = re.compile(r'^(\w+?)\s*=\s*(.*)$')
+    pat_path_property  = re.compile(r'^(\S+?)::(\w+?)=(.*)$')
     pat_paths = {}
 
     def __init__(self, plotpaths=None, addfiles=[]):
@@ -94,7 +94,7 @@ class PlotParser(object):
         for line in f:
             m = self.pat_begin_block.match(line)
             if m:
-                tag, pathpat = m.group(1,2)
+                tag, pathpat = m.group(2,3)
                 #print tag, pathpat
                 # pathpat could be a regex
                 if not self.pat_paths.has_key(pathpat):
@@ -182,7 +182,7 @@ class PlotParser(object):
 
     def isEndMarker(self, line, blockname):
         m = self.pat_end_block.match(line)
-        return m and m.group(1) == blockname
+        return m and m.group(2) == blockname
 
 
     def isComment(self, line):

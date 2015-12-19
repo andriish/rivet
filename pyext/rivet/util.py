@@ -45,6 +45,8 @@ def import_ET():
 def htmlify(s, para=False):
     """Modify LaTeX text strings from analysis metadata for inclusion
     in MathJax-enabled web page source code."""
+    if not s:
+        return s
     t = s.replace("&", "&amp;")\
         .replace("<","&lt;")\
         .replace(">","&gt;")\
@@ -64,6 +66,8 @@ def htmlify(s, para=False):
 
 def texify(s):
     "Insert required TeX escapes"
+    if not s:
+        return s
     t = s \
         .replace(r"&", r"\&") \
         .replace(r"\\&", r"\&") \
@@ -75,6 +79,8 @@ def texify(s):
 
 def texpand(s):
     "Expand some physics-specific TeX macros."
+    if not s:
+        return s
     t = s \
         .replace(r"\kT", r"\ensuremath{k_\perp}\xspace") \
         .replace(r"\kt", r"\ensuremath{k_\mathrm{T}}\xspace") \
@@ -95,7 +101,8 @@ def detex(tex):
 
     TODO: Maybe group many strings to be processed together, to save on system call / pandoc startup?
     """
-
+    if not tex:
+        return tex
     from distutils.spawn import find_executable
     if not find_executable("pandoc"):
         return tex

@@ -126,6 +126,8 @@ namespace Rivet {
     _particles.clear();
     vector<fastjet::PseudoJet> pjs;
 
+    MSG_DEBUG("Finding jets from " << fsparticles.size() << " input particles");
+
     /// @todo Use FastJet3's UserInfo system
 
     // Store 4 vector data about each particle into FastJet's PseudoJets
@@ -149,7 +151,7 @@ namespace Rivet {
       counter += 1;
     }
 
-    MSG_DEBUG("Running FastJet ClusterSequence construction");
+    MSG_TRACE("Running FastJet ClusterSequence construction");
     // Choose cseq as basic or area-calculating
     if (_adef == NULL) {
       _cseq.reset(new fastjet::ClusterSequence(pjs, _jdef));

@@ -1,3 +1,75 @@
+2015-12-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add cmphistos and make-plots machinery for handling 'suffix'
+	variations on plot paths, currently just by plotting every line,
+	with the variations in a 70% faded tint.
+
+	* Add Beam::pv() method for finding the beam interaction primary
+	vertex 4-position.
+
+	* Add a new Particle::setMomentum(E,x,y,z) method, and an origin
+	position member which is automatically populated from the
+	GenParticle, with access methods corresponding to the momentum
+	ones.
+
+2015-12-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* make-plots: improve custom tick attribute handling, allowing
+	empty lists. Also, any whitespace now counts as a tick separator
+	-- explicit whitespace in labels should be done via ~ or similar
+	LaTeX markup.
+
+2015-12-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Pro-actively use -m/-M arguments when initially loading
+	histograms in mkhtml, *before* passing them to cmphistos.
+
+2015-12-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Move contains() and has_key() functions on STL containers from std to Rivet namespaces.
+
+	* Adding IsRef attributes to all YODA refdata files; this will be
+	used to replace the /REF prefix in Rivet v3 onwards. The migration
+	has also removed leading # characters from BEGIN/END blocks, as
+	per YODA format evolution: new YODA versions as required by
+	current Rivet releases are able to read both the old and new
+	formats.
+
+2015-12-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add handling of a command-line PLOT 'file' argument to rivet-mkhtml, cf. rivet-cmphistos.
+
+	* Improvements to rivet-mkhtml behaviour re. consistency with
+	rivet-cmphistos in how muti-part histo paths are decomposed into
+	analysis-name + histo name, and removal of 'NONE' strings.
+
+2015-11-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Relax rivet/plotinfo.py pattern matching on .plot file
+	components, to allow leading whitespace and around = signs, and to
+	make the leading # optional on BEGIN/END blocks.
+
+2015-11-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Write out intermediate histogram files by default, with event interval of 10k.
+
+2015-11-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect make-plots against lock-up due to partial pstricks command when there are no data points.
+
+2015-11-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* rivet-cmphistos: Use a ratio label that doesn't mention 'data' when plotting MC vs. MC.
+
+2015-11-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tweak plot and subplot sizing defaults in make-plots so the
+	total canvas is always the same size by default.
+
+2015-11-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Handle 2D histograms better in rivet-cmphistos (since they can't be overlaid)
+
 2015-11-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Change rivet-mkhtml output directory to 'rivet-plots', to avoid
@@ -139,6 +211,10 @@
 	* Add exception handling and pre-emptive testing for a
 	non-writeable output directory (based on patch from Lukas
 	Heinrich).
+
+2015-07-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.3.0 release.
 
 2015-07-02  Holger Schulz  <holger.schulz@durham.ac.uk>
 
