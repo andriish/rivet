@@ -1,3 +1,9 @@
+2015-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve linspace (and hence also logspace) precision errors by
+	using multiplication rather than repeated addition to build edge
+	list (thanks to Holger Schulz for the suggestion).
+
 2015-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add cmphistos and make-plots machinery for handling 'suffix'
