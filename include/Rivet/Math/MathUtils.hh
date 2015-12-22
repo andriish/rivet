@@ -294,7 +294,7 @@ namespace Rivet {
     const double logstart = std::log(start);
     const double logend = std::log(end);
     const vector<double> logvals = linspace(nbins, logstart, logend, false);
-    assert(logvals.size() == nbins+1);
+    assert(logvals.size() == nbins);
     vector<double> rtn; rtn.reserve(nbins+1);
     rtn.push_back(start); //< exact start, not exp(log(start))
     for (size_t i = 1; i < logvals.size(); ++i) {
