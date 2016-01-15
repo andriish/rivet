@@ -103,7 +103,7 @@ def getHistos(filelist):
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
         for path, ao in analysisobjects.iteritems():
-            m = re_path.match(path)
+            m = re_path.search(path)
             if m is None:
                 print "Found analysis object with non-standard path structure:", path
                 continue

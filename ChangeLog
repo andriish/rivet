@@ -1,3 +1,8 @@
+2016-01-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change rivet-cmphistos path matching logic from match to search
+	(user can add explicit ^ marker if they want match semantics).
+
 2015-12-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improve linspace (and hence also logspace) precision errors by
