@@ -292,7 +292,11 @@ if __name__ == '__main__':
     plotparser = rivet.mkStdPlotParser(plotdirs, opts.CONFIGFILES)
 
     ## Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
-    refhistos, mchistos = getHistos(filelist)
+    try:
+        refhistos, mchistos = getHistos(filelist)
+    except IOError, e:
+        print "File reading error: ", e.strerror
+        exit(1)
     hpaths, h2ds = [], []
     for aos in mchistos.values():
         for p in aos.keys():
@@ -305,7 +309,11 @@ if __name__ == '__main__':
 
     ## Take reference data from the Rivet search paths, if there is not already
     if opts.RIVETREFS:
-        refhistos2 = getRivetRefData()
+        try:
+            refhistos2 = getRivetRefData()
+        except IOError, e:
+            print "File reading error: ", e.strerror
+            exit(1)
         refhistos2.update(refhistos)
         refhistos = refhistos2
 
