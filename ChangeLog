@@ -1,3 +1,8 @@
+2016-02-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update ParticleIdUtils.hh (i.e. PID:: functions) to use the
+	functions from the latest version of MCUtils' PIDUtils.h.
+
 2016-01-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Change rivet-cmphistos path matching logic from match to search
