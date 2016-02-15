@@ -1,5 +1,8 @@
 2016-02-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add new plot styling options to rivet-cmphistos and
+	rivet-mkhtml. Thanks to Gavin Hesketh.
+
 	* Modify rivet-cmphistos and rivet-mkhtml to apply plot hiding if
 	*any* path component is hidden by an underscore prefix, as
 	implemented in AOPath, plus other tidying using new AOPath

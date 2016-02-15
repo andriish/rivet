@@ -35,8 +35,6 @@ def getCommandLineOptions():
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
 
-    parser.add_option("--no-rivet-refs", dest="RIVETREFS", action="store_false",
-                      default=True, help="don't use Rivet reference data files")
     parser.add_option('-o', '--outdir', dest='OUTDIR',
                       default='.', help='write data files into this directory')
     parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
@@ -44,10 +42,14 @@ def getCommandLineOptions():
     parser.add_option('--plotinfodir', dest='PLOTINFODIRS', action='append',
                       default=['.'], help='directory which may contain plot header information (in addition '
                       'to standard Rivet search paths)')
+    parser.add_option("--no-rivet-refs", dest="RIVETREFS", action="store_false",
+                      default=True, help="don't use Rivet reference data files")
+    # parser.add_option("--refid", dest="REF_ID",
+    #                   default="REF", help="ID of reference data set (file path for non-REF data)")
+    parser.add_option("--reftitle", dest="REFTITLE",
+                        default='Data', help="Reference data legend entry")
 
     stygroup = OptionGroup(parser, "Plot style")
-    # stygroup.add_option("--refid", dest="REF_ID",
-    #                     default="REF", help="ID of reference data set (file path for non-REF data)")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
                         default=False, help="plot with linear scale")
     stygroup.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
@@ -98,7 +100,6 @@ def getHistos(filelist):
     refhistos, mchistos = {}, {}
     for infile in filelist:
         mchistos.setdefault(infile, {})
-
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
         for path, ao in analysisobjects.iteritems():
             ## Make a path object and ensure the path is in standard form
@@ -369,7 +370,7 @@ if __name__ == '__main__':
         if refhistos.has_key(hpath):
             hasdataref = True
             refdata = refhistos[hpath]
-            refdata.setAnnotation('Title', 'Data')
+            refdata.setAnnotation('Title', opts.REFTITLE)
             if not is2d:
                 refdata.setAnnotation('ErrorBars', '1')
                 refdata.setAnnotation('PolyMarker', '*')
