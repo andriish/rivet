@@ -1,6 +1,7 @@
 EXTRA_DIST = \
-	__init__.py util.py \
-    plotinfo.py spiresbib.py \
+	__init__.py \
+    spiresbib.py util.py \
+    plotinfo.py aopaths.py \
     core.pyx rivet.pxd \
     core.cpp
 
@@ -21,7 +22,7 @@ endif
 
 all-local: fix-out-of-source
 
-FIXSOURCES = $(EXTRA_DIST) 
+FIXSOURCES = $(EXTRA_DIST)
 
 fix-out-of-source: $(FIXSOURCES)
 	rm -f $@

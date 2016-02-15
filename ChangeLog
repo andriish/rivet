@@ -1,3 +1,9 @@
+2016-02-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add pyext/rivet/aopaths.py, containing AOPath object for central
+	& standard decoding of Rivet-standard analysis object path
+	structures.
+
 2016-02-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update ParticleIdUtils.hh (i.e. PID:: functions) to use the
