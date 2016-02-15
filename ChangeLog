@@ -1,5 +1,8 @@
 2016-02-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add Analysis::bookCounter and some machinery in rivet-cmphistos
+	to avoid getting tripped up by unplottable (for now) data types.
+
 	* Add --font and --format options to rivet-mkhtml and make-plots,
 	to replace the individual flags used for that purpose. Not fully
 	cleaned up, but a necessary step.

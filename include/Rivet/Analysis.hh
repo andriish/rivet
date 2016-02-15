@@ -370,6 +370,18 @@ namespace Rivet {
     //@}
 
 
+    /// @name Counter booking
+    //@{
+
+    /// Book a counter.
+    CounterPtr bookCounter(const std::string& name,
+                           const std::string& title="");
+                           // const std::string& xtitle="",
+                           // const std::string& ytitle="");
+
+    //@}
+
+
     /// @name 1D histogram booking
     //@{
 

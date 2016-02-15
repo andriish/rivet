@@ -197,6 +197,20 @@ namespace Rivet {
   }
 
 
+  CounterPtr Analysis::bookCounter(const string& cname,
+                                   const string& title) {
+                                   // const string& xtitle,
+                                   // const string& ytitle) {
+    const string path = histoPath(cname);
+    CounterPtr ctr( new Counter(path, title) );
+    addAnalysisObject(ctr);
+    MSG_TRACE("Made counter " << cname << " for " << name());
+    // hist->setAnnotation("XLabel", xtitle);
+    // hist->setAnnotation("YLabel", ytitle);
+    return ctr;
+  }
+
+
   Histo1DPtr Analysis::bookHisto1D(const string& hname,
                                    size_t nbins, double lower, double upper,
                                    const string& title,
