@@ -1,5 +1,9 @@
 2016-02-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add --font and --format options to rivet-mkhtml and make-plots,
+	to replace the individual flags used for that purpose. Not fully
+	cleaned up, but a necessary step.
+
 	* Add new plot styling options to rivet-cmphistos and
 	rivet-mkhtml. Thanks to Gavin Hesketh.
 

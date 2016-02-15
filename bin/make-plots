@@ -2311,7 +2311,7 @@ def process_datfile(datfile):
     texfile.write(p.write_footer())
     texfile.close()
 
-    if opts.OUTPUT_FORMAT != "TEX":
+    if opts.OUTPUT_FORMAT != ["TEX"]:
 
         ## Check for the required programs
         latexavailable = have_cmd("latex")
@@ -2356,12 +2356,12 @@ def process_datfile(datfile):
 
         ## Choose format
         # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
-        if opts.OUTPUT_FORMAT == "PS":
+        if "PS" in opts.OUTPUT_FORMAT:
             dvcmd += ["-o", "%s.ps" % filename]
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             dvproc.wait()
-        elif opts.OUTPUT_FORMAT == "PDF":
+        if "PDF" in opts.OUTPUT_FORMAT:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
@@ -2369,7 +2369,7 @@ def process_datfile(datfile):
             f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
             f.write(cnvproc.communicate()[0])
             f.close()
-        elif opts.OUTPUT_FORMAT == "EPS":
+        if "EPS" in opts.OUTPUT_FORMAT:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
@@ -2377,7 +2377,7 @@ def process_datfile(datfile):
             f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
             f.write(cnvproc.communicate()[0])
             f.close()
-        elif opts.OUTPUT_FORMAT == "PNG":
+        if "PNG" in opts.OUTPUT_FORMAT:
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
@@ -2385,56 +2385,41 @@ def process_datfile(datfile):
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
-        elif opts.OUTPUT_FORMAT == "PSPNG":
-            dvcmd += ["-o", "%s.ps" % filename]
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            dvproc.wait()
-            mkpng("%s.ps" % filename, "%s.png" % filename)
-        elif opts.OUTPUT_FORMAT == "PDFPNG":
-            dvcmd.append("-f")
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-            f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
-            f.write(cnvproc.communicate()[0])
-            f.close()
-            logging.debug(os.listdir(tempdir))
-            mkpng("%s.pdf" % filename, "%s.png" % filename)
-        elif opts.OUTPUT_FORMAT == "EPSPNG":
-            dvcmd.append("-f")
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=tempdir)
-            f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
-            f.write(cnvproc.communicate()[0])
-            f.close()
-            mkpng("%s.eps" % filename, "%s.png" % filename)
-        else:
-            logging.error("Unknown format: %s" % opts.OUTPUT_FORMAT)
-            sys.exit(1)
+        # if opts.OUTPUT_FORMAT == "PSPNG":
+        #     dvcmd += ["-o", "%s.ps" % filename]
+        #     logging.debug(" ".join(dvcmd))
+        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+        #     dvproc.wait()
+        #     assert os.path.exists("%s.ps" % filename)
+        #     mkpng("%s.ps" % filename, "%s.png" % filename)
+        # if opts.OUTPUT_FORMAT == "PDFPNG":
+        #     dvcmd.append("-f")
+        #     logging.debug(" ".join(dvcmd))
+        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+        #     cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+        #     f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
+        #     f.write(cnvproc.communicate()[0])
+        #     f.close()
+        #     logging.debug(os.listdir(tempdir))
+        #     assert os.path.exists("%s.pdf" % filename)
+        #     mkpng("%s.pdf" % filename, "%s.png" % filename)
+        # if opts.OUTPUT_FORMAT == "EPSPNG":
+        #     dvcmd.append("-f")
+        #     logging.debug(" ".join(dvcmd))
+        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+        #     cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=tempdir)
+        #     f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
+        #     f.write(cnvproc.communicate()[0])
+        #     f.close()
+        #     mkpng("%s.eps" % filename, "%s.png" % filename)
+        # else:
+        #     logging.error("Unknown format: %s" % opts.OUTPUT_FORMAT)
+        #     sys.exit(1)
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
-    outbasename = filename
-    outname = outbasename + "." + opts.OUTPUT_FORMAT.lower()
-    ## TODO: Make this neater: if "PNG" in opts.OUTPUT_FORMAT: ...
-    if opts.OUTPUT_FORMAT == "PSPNG":
-        outpath = os.path.join(tempdir, outbasename+".ps")
-        shutil.copy(outpath, os.path.join(cwd,dirname))
-        outpath = os.path.join(tempdir, outbasename+".png")
-        shutil.copy(outpath, os.path.join(cwd,dirname))
-    elif opts.OUTPUT_FORMAT == "PDFPNG":
-        outpath = os.path.join(tempdir, outbasename+".pdf")
-        shutil.copy(outpath, os.path.join(cwd,dirname))
-        outpath = os.path.join(tempdir, outbasename+".png")
-        shutil.copy(outpath, os.path.join(cwd,dirname))
-    elif opts.OUTPUT_FORMAT == "EPSPNG":
-        outpath = os.path.join(tempdir, outbasename+".eps")
-        shutil.copy(outpath, os.path.join(cwd,dirname))
-        outpath = os.path.join(tempdir, outbasename+".png")
-        shutil.copy(outpath, os.path.join(cwd,dirname))
-    else:
+    for fmt in in opts.OUTPUT_FORMAT:
+        outname = "%s.%s" % (filename, fmt.lower())
         outpath = os.path.join(tempdir, outname)
         if os.path.exists(outpath):
             shutil.copy(outpath, os.path.join(cwd,dirname))
@@ -2507,30 +2492,34 @@ if __name__ == '__main__':
     parser = OptionParser(usage=__doc__)
     parser.add_option("-n", "-j", "--num-threads", dest="NUM_THREADS", type="int",
                       default=numcores, help="max number of threads to be used [%s]" % numcores)
+    parser.add_option("--font", dest="OUTPUT_FONT", action="choice", choices="palatino,cm,times,helvetica,minion",
+                      default="palatino", help="choose the font to be used in the plots")
     parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
-                      help="Use Palatino as font (default).")
+                      help="Use Palatino as font (default). DEPRECATED: Use --font")
     parser.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
-                      help="Use Computer Modern as font.")
+                      help="Use Computer Modern as font. DEPRECATED: Use --font")
     parser.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
-                      help="Use Times as font.")
+                      help="Use Times as font. DEPRECATED: Use --font")
     parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
-                      help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
+                      help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first. DEPRECATED: Use --font")
     parser.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="HELVETICA", default="PALATINO",
-                      help="Use Helvetica as font.")
+                      help="Use Helvetica as font. DEPRECATED: Use --font")
+    parser.add_option("--format", dest="OUTPUT_FORMAT", default="PDF",
+                      help="Choose plot format, perhaps multiple comma-separated formats e.g. 'pdf' or 'tex,pdf,png' (default = PDF).")
     parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PDF",
-                      help="Create PostScript output (default).")
+                      help="Create PostScript output (default). DEPRECATED")
     parser.add_option("--pdf", dest="OUTPUT_FORMAT", action="store_const", const="PDF", default="PDF",
-                      help="Create PDF output.")
+                      help="Create PDF output. DEPRECATED")
     parser.add_option("--eps", dest="OUTPUT_FORMAT", action="store_const", const="EPS", default="PDF",
-                      help="Create Encapsulated PostScript output.")
+                      help="Create Encapsulated PostScript output. DEPRECATED")
     parser.add_option("--png", dest="OUTPUT_FORMAT", action="store_const", const="PNG", default="PDF",
-                     help="Create PNG output.")
-    parser.add_option("--pspng", dest="OUTPUT_FORMAT", action="store_const", const="PSPNG", default="PDF",
-                     help="Create PS and PNG output.")
-    parser.add_option("--pdfpng", dest="OUTPUT_FORMAT", action="store_const", const="PDFPNG", default="PDF",
-                     help="Create PDF and PNG output.")
-    parser.add_option("--epspng", dest="OUTPUT_FORMAT", action="store_const", const="EPSPNG", default="PDF",
-                     help="Create EPS and PNG output.")
+                     help="Create PNG output. DEPRECATED")
+    parser.add_option("--pspng", dest="OUTPUT_FORMAT", action="store_const", const="PS,PNG", default="PDF",
+                     help="Create PS and PNG output. DEPRECATED")
+    parser.add_option("--pdfpng", dest="OUTPUT_FORMAT", action="store_const", const="PDF,PNG", default="PDF",
+                     help="Create PDF and PNG output. DEPRECATED")
+    parser.add_option("--epspng", dest="OUTPUT_FORMAT", action="store_const", const="EPS,PNG", default="PDF",
+                     help="Create EPS and PNG output. DEPRECATED")
     parser.add_option("--tex", dest="OUTPUT_FORMAT", action="store_const", const="TEX", default="PDF",
                       help="Create TeX/LaTeX output.")
     parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
@@ -2548,7 +2537,7 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-
+    opts.OUTPUT_FORMAT = opts.OUTPUT_FORMAT.upper().split(",")
 
     ## Check for no args
     if len(args) == 0:
@@ -2563,7 +2552,7 @@ if __name__ == '__main__':
 
     ## Test for external programs (kpsewhich, latex, dvips, ps2pdf/ps2eps, and convert)
     opts.LATEXPKGS = []
-    if opts.OUTPUT_FORMAT != "TEX":
+    if opts.OUTPUT_FORMAT != ["TEX"]:
         try:
             ## latex
             if not have_cmd("latex"):

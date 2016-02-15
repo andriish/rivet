@@ -58,19 +58,21 @@ stygroup.add_option("--offline", dest="OFFLINE", action="store_true",
 stygroup.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
                     default="PDF", help="use PDF as the vector plot format.")
 stygroup.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
-                    default="PDF", help="use PostScript as the vector plot format.")
+                    default="PDF", help="use PostScript as the vector plot format. DEPRECATED")
 stygroup.add_option("--booklet", dest="BOOKLET", action="store_true",
                     default=False, help="create booklet (currently only available for PDF with pdftk).")
+stygroup.add_option("--font", dest="OUTPUT_FONT", action="choice", choices="palatino,cm,times,helvetica,minion",
+                    default="palatino", help="choose the font to be used in the plots")
 stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
-                    help="use Palatino as font (default).")
+                    help="use Palatino as font (default). DEPRECATED: Use --font")
 stygroup.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
-                    help="use Computer Modern as font.")
+                    help="use Computer Modern as font. DEPRECATED: Use --font")
 stygroup.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
-                    help="use Times as font.")
+                    help="use Times as font. DEPRECATED: Use --font")
 stygroup.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="HELVETICA", default="PALATINO",
-                    help="use Helvetica as font.")
+                    help="use Helvetica as font. DEPRECATED: Use --font")
 stygroup.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
-                    help="use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
+                    help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
 parser.add_option_group(stygroup)
 
 selgroup = OptionGroup(parser, "Selective plotting")
@@ -405,13 +407,15 @@ if opts.VECTORFORMAT == "PDF":
     mp_cmd.append("--pdfpng")
 elif opts.VECTORFORMAT == "PS":
     mp_cmd.append("--pspng")
-if opts.OUTPUT_FONT == "CM":
+if opts.OUTPUT_FONT.upper() == "PALATINO":
+    mp_cmd.append("--palatino")
+if opts.OUTPUT_FONT.upper() == "CM":
     mp_cmd.append("--cm")
-elif opts.OUTPUT_FONT == "TIMES":
+elif opts.OUTPUT_FONT.upper() == "TIMES":
     mp_cmd.append("--times")
-elif opts.OUTPUT_FONT == "HELVETICA":
+elif opts.OUTPUT_FONT.upper() == "HELVETICA":
     mp_cmd.append("--helvetica")
-elif opts.OUTPUT_FONT == "MINION":
+elif opts.OUTPUT_FONT.upper() == "MINION":
     mp_cmd.append("--minion")
 datfiles = []
 for analysis in analyses:
