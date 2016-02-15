@@ -95,33 +95,31 @@ def getCommandLineOptions():
 def getHistos(filelist):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
-    refhistos = {}
-    mchistos = {}
-    import re
-    re_path = re.compile(r"^(/REF)?(/[^\[\]\@\#]+)(\[\d+\])?$")
+    refhistos, mchistos = {}, {}
     for infile in filelist:
         mchistos.setdefault(infile, {})
+
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
         for path, ao in analysisobjects.iteritems():
-            m = re_path.search(path)
-            if m is None:
-                print "Found analysis object with non-standard path structure:", path
+            ## Make a path object and ensure the path is in standard form
+            try:
+                aop = rivet.AOPath(path)
+            except:
+                print "Found analysis object with non-standard path structure:", path, "... skipping"
                 continue
-            isref = bool(m.group(1))
-            basepath = m.group(2)
-            index = m.group(3)[1:-1] if m.group(3) else 0
 
-            ## Conventionally don't plot data objects whose names start with an underscore
-            if os.path.basename(basepath).startswith("_"):
+            ## We don't plot data objects with path components hidden by an underscore prefix
+            if aop.istmp():
                 continue
-            if isref and not refhistos.has_key(basepath):
-                # TODO: Update to the brave new world without /REF prefixes
-                if ao.path.startswith("/REF"):
-                    ao.path = ao.path[4:]
+
+            ## Add it to the ref or mc paths, if this path isn't already known
+            basepath = aop.basepath(keepref=False)
+            if aop.isref() and not refhistos.has_key(basepath):
+                ao.path = aop.varpath(keepref=False, defaultvarid=0)
                 refhistos[basepath] = ao
-                continue
-            #if not mchistos[infile].has_key(basepath):
-            mchistos[infile].setdefault(basepath, {})[index] = ao
+            else: #if not mchistos[infile].has_key(basepath):
+                mchistos[infile].setdefault(basepath, {})[aop.varid(0)] = ao
+
     return refhistos, mchistos
 
 
@@ -141,9 +139,9 @@ def getRivetRefData(anas=None):
         for infile in filelist:
             analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
             for path, ao in analysisobjects.iteritems():
-                # TODO: Update to the brave new world without /REF prefixes
-                if ao.path.startswith("/REF"):
-                    ao.path = ao.path[4:]
+                aop = rivet.AOPath(ao.path)
+                if aop.isref():
+                    ao.path = aop.basepath(keepref=False)
                     refhistos[ao.path] = ao
     return refhistos
 

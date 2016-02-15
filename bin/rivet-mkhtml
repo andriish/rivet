@@ -127,20 +127,23 @@ for yodafile in yodafiles:
         exit(1)
 
     for path, ao in analysisobjects.iteritems():
-        ## If regexes have been provided, only add analyses which match and don't unmatch
-        pathparts = path.strip('/').split('/')
-        ## Skip hidden paths, which start with an underscore
-        if pathparts[0].startswith("_"):
+        ## Make a path object and ensure the path is in standard form
+        try:
+            aop = rivet.AOPath(path)
+        except:
+            print "Found analysis object with non-standard path structure:", path, "... skipping"
             continue
-        ## Strip a leading /REF prefix
-        # TODO: Remove when Rivet has migrated to marking ref data via attributes
-        if pathparts[0] == "REF":
-            del pathparts[0]
+
+        ## We don't plot data objects with path components hidden by an underscore prefix
+        if aop.istmp():
+            continue
+
         ## Identify analysis/histo name parts
         analysis = "ANALYSIS"
-        if len(pathparts) > 1:
-            analysis = pathparts[0] #< TODO: for compatibility with rivet-cmphistos... generalise?
-            #analysis = "_".join(pathparts[:-1]) #< TODO: would this be nicer? Currently incompatible with rivet-cmphistos
+        if aop.basepathparts(keepref=False):
+            analysis = aop.basepathparts(keepref=False)[0] #< TODO: for compatibility with rivet-cmphistos... generalise?
+            #analysis = "_".join(aop.dirnameparts(keepref=False)[:-1]) #< TODO: would this be nicer? Currently incompatible with rivet-cmphistos
+
         ## Optionally veto on analysis name pattern matching
         if analysis in analyses.union(blocked_analyses):
             continue

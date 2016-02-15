@@ -1,5 +1,10 @@
 2016-02-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Modify rivet-cmphistos and rivet-mkhtml to apply plot hiding if
+	*any* path component is hidden by an underscore prefix, as
+	implemented in AOPath, plus other tidying using new AOPath
+	methods.
+
 	* Add pyext/rivet/aopaths.py, containing AOPath object for central
 	& standard decoding of Rivet-standard analysis object path
 	structures.
