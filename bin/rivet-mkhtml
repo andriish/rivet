@@ -34,8 +34,8 @@ parser.add_option("--ignore-missing", dest="IGNORE_MISSING", action="store_true"
                   default=False, help="ignore missing YODA files.")
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
                   default=False, help="ignore unvalidated analyses.")
-parser.add_option("--ref", "--refid", dest="REF_ID",
-                  default=None, help="ID of reference data set (file path for non-REF data)")
+# parser.add_option("--ref", "--refid", dest="REF_ID",
+#                   default=None, help="ID of reference data set (file path for non-REF data)")
 parser.add_option("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                   action="store_true", default=False)
 
@@ -208,8 +208,8 @@ if not opts.SHOW_RATIO:
     ch_cmd.append("--no-ratio")
 if opts.NOPLOTTITLE:
     ch_cmd.append("--no-plottitle")
-if opts.REF_ID is not None:
-    ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
+# if opts.REF_ID is not None:
+#     ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
 if opts.REFTITLE:
     ch_cmd.append("--reftitle=%s" % opts.REFTITLE )
 if opts.PATHPATTERNS:
