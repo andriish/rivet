@@ -1,5 +1,8 @@
 2016-02-16  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Apply cross-section unit fixes and plot styling improvements to
+	ATLAS_2013_I1217863 analyses, thanks to Christian Gutschow.
+
 	* Fix to rivet-cmphistos to avoid overwriting RatioPlotYLabel if
 	already set via e.g. the PLOT pseudo-file. Thanks to Johann Felix
 	v. Soden-Fraunhofen.

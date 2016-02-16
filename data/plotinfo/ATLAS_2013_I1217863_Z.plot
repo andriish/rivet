@@ -1,7 +1,8 @@
 # BEGIN PLOT /ATLAS_2013_I1217863_Z/d..-x..-y..
-LogY=0
+LogY=1
 LegendYPos=0.90
-LegendXPos=0.75
+LegendXPos=0.90
+LegendAlign=r
 RatioPlotYMax=1.5
 RatioPlotYMin=0.5
 XTwosidedTicks=1
@@ -10,7 +11,7 @@ ErrorBars=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1217863_Z/d1[1-2]-x01-y..
-LogY=1
+LogX=1
 RatioPlotYMax=2.0
 RatioPlotYMin=0.0
 XLabel=$E^\gamma_\text{T}$ [GeV]
