@@ -441,7 +441,7 @@ if __name__ == '__main__':
         if showratio and len(varlines + mainlines) > 1:
             plot['RatioPlot'] = '1'
             plot['RatioPlotReference'] = ratioreference
-            if not hasdataref:
+            if not hasdataref and not plot.has_key("RatioPlotYLabel"):
                 if plot.get('RatioPlotMode', '') == 'deviation':
                     plot['RatioPlotYLabel'] = 'Deviation' #r'$\text{MC}-\text{MC}_\text{ref}$'
                 else:
