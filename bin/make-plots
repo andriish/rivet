@@ -2418,7 +2418,7 @@ def process_datfile(datfile):
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
-    for fmt in in opts.OUTPUT_FORMAT:
+    for fmt in opts.OUTPUT_FORMAT:
         outname = "%s.%s" % (filename, fmt.lower())
         outpath = os.path.join(tempdir, outname)
         if os.path.exists(outpath):
@@ -2492,17 +2492,17 @@ if __name__ == '__main__':
     parser = OptionParser(usage=__doc__)
     parser.add_option("-n", "-j", "--num-threads", dest="NUM_THREADS", type="int",
                       default=numcores, help="max number of threads to be used [%s]" % numcores)
-    parser.add_option("--font", dest="OUTPUT_FONT", action="choice", choices="palatino,cm,times,helvetica,minion",
+    parser.add_option("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
                       default="palatino", help="choose the font to be used in the plots")
-    parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
+    parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
                       help="Use Palatino as font (default). DEPRECATED: Use --font")
-    parser.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
+    parser.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="cm", default="palatino",
                       help="Use Computer Modern as font. DEPRECATED: Use --font")
-    parser.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
+    parser.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="times", default="palatino",
                       help="Use Times as font. DEPRECATED: Use --font")
-    parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
+    parser.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="minion", default="palatino",
                       help="Use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first. DEPRECATED: Use --font")
-    parser.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="HELVETICA", default="PALATINO",
+    parser.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="helvetica", default="palatino",
                       help="Use Helvetica as font. DEPRECATED: Use --font")
     parser.add_option("--format", dest="OUTPUT_FORMAT", default="PDF",
                       help="Choose plot format, perhaps multiple comma-separated formats e.g. 'pdf' or 'tex,pdf,png' (default = PDF).")

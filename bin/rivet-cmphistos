@@ -239,7 +239,7 @@ def mkOutput(hpath, aos, plot=None, special=None):
 
     if special is not None:
         output += "\n"
-        output += "# BEGIN SPECIAL %s\n" % h
+        output += "# BEGIN SPECIAL %s\n" % hpath
         output += special
         output += "# END SPECIAL\n\n"
 
@@ -348,8 +348,11 @@ if __name__ == '__main__':
         if not is2d:
             plot['Legend'] = '1'
             plot['LogY'] = '1'
-        for key, val in plotparser.getHeaders(hpath).iteritems():
-            plot[key] = val
+        headers = plotparser.getHeaders(hpath)
+        if headers:
+            plot.update(headers)
+        # for key, val in headers.iteritems():
+        #     plot[key] = val
         if plotoptions.has_key("PLOT"):
             for key_val in plotoptions["PLOT"]:
                 key, val = [s.strip() for s in key_val.split("=")]
@@ -407,8 +410,10 @@ if __name__ == '__main__':
                         if opts.MC_ERRS:
                             hmc.setAnnotation('ErrorBars', '1')
                     ## Plot defaults from .plot files
-                    for key, val in plotparser.getHistogramOptions(hpath).iteritems():
-                        hmc.setAnnotation(key, val)
+                    histopts = plotparser.getHistogramOptions(hpath)
+                    if histopts:
+                        for key, val in histopts.iteritems():
+                            hmc.setAnnotation(key, val)
                     ## Command line plot options
                     setOptions(hmc, plotoptions[infile])
                     ## Set path attribute
