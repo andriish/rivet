@@ -61,17 +61,17 @@ stygroup.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS
                     default="PDF", help="use PostScript as the vector plot format. DEPRECATED")
 stygroup.add_option("--booklet", dest="BOOKLET", action="store_true",
                     default=False, help="create booklet (currently only available for PDF with pdftk).")
-stygroup.add_option("--font", dest="OUTPUT_FONT", action="choice", choices="palatino,cm,times,helvetica,minion",
+stygroup.add_option("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
                     default="palatino", help="choose the font to be used in the plots")
-stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
+stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
                     help="use Palatino as font (default). DEPRECATED: Use --font")
-stygroup.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
+stygroup.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="cm", default="palatino",
                     help="use Computer Modern as font. DEPRECATED: Use --font")
-stygroup.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
+stygroup.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="times", default="palatino",
                     help="use Times as font. DEPRECATED: Use --font")
-stygroup.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="HELVETICA", default="PALATINO",
+stygroup.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="helvetica", default="palatino",
                     help="use Helvetica as font. DEPRECATED: Use --font")
-stygroup.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
+stygroup.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="minion", default="palatino",
                     help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
 parser.add_option_group(stygroup)
 
