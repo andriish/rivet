@@ -5,7 +5,7 @@ def isRefAO(ao):
     return int(ao.annotation("IsRef")) == 1 or isRefPath(ao.path)
 
 def isTmpPath(path):
-    return "/_" in ao.path #< match *any* underscore-prefixed path component
+    return "/_" in path #< match *any* underscore-prefixed path component
 
 def isTmpAO(ao):
     return isTmpPath(ao.path)
@@ -23,15 +23,13 @@ class AOPath(object):
     def __init__(self, path):
         import os
         self.origpath = path
-        m = re_aopath.match(path)
+        m = self.re_aopath.match(path)
         if not m:
             raise Exception("Supplied path '%s' does not meet required structure" % path)
         self._basepath = m.group(1)
-        self._isref = isRefPath(self._basepath)
-        self._dirname = os.path.dirname(self.basepath)
-        self._basename = os.path.basename(self._basepath)
         self._varid = m.group(2).lstrip("[").ristrip("]") if m.group(2) else None
         self._binid = int(m.group(3).lstrip("#")) if m.group(3) else None
+        self._isref = isRefPath(self._basepath)
 
     def basepath(self, keepref=False):
         "Main 'Unix-like' part of the AO path, optionally including a /REF prefix"
@@ -67,7 +65,7 @@ class AOPath(object):
 
     def basename(self):
         "The final (i.e. file-like) part of the basepath"
-        return self._basename
+        return os.path.basename(self._basepath)
 
     def varid(self, default=None):
         "The variation identifier (without brackets) if there is one, otherwise None"
