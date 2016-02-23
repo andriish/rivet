@@ -1,5 +1,10 @@
 2016-02-23  Andy Buckley  <andy.buckley@cern.ch>
 
+	* New MC_HHJETS analysis from Andreas Papaefstathiou.
+
+	* Ref data updates for ATLAS_2013_I1219109, ATLAS_2014_I1312627,
+	and ATLAS_2014_I1319490.
+
 	* Add automatic output paging to 'rivet --show-analyses'
 
 2016-02-16  Andy Buckley  <andy.buckley@cern.ch>
