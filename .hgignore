@@ -67,3 +67,4 @@ Doxyfile$
 ^a\.out\.dSYM$
 ^Rivet-.\..\..$
 ^local/.*$
+^analyses\d\d\d$
