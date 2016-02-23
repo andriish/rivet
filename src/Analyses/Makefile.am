@@ -135,7 +135,8 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2015_I1345452.cc \
     ATLAS_2015_I1364361.cc \
     ATLAS_2015_I1376945.cc \
-    ATLAS_2015_I1387176.cc
+    ATLAS_2015_I1387176.cc \
+    ATLAS_2015_I1394679.cc
 if ENABLE_PRELIMINARY
 RivetATLASAnalyses_la_SOURCES += \
     ATLAS_2012_CONF_2012_001.cc \
@@ -440,6 +441,7 @@ RivetMCAnalyses_la_SOURCES = \
     MC_GENERIC.cc \
     MC_HINC.cc \
     MC_HJETS.cc \
+    MC_HHJETS.cc \
     MC_HKTSPLITTINGS.cc \
     MC_IDENTIFIED.cc \
     MC_JETS.cc \

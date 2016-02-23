@@ -139,6 +139,7 @@ dist_pkgdata_DATA = \
   ATLAS_2015_CONF_2015_041_EL.info \
   ATLAS_2015_CONF_2015_041_MU.info \
   ATLAS_2015_I1376945.info \
+  ATLAS_2015_I1394679.info \
   BABAR_2003_I593379.info \
   BABAR_2005_S6181155.info \
   BABAR_2007_S6895344.info \
@@ -284,6 +285,7 @@ dist_pkgdata_DATA = \
   MC_HFJETS.info \
   MC_HINC.info \
   MC_HJETS.info \
+  MC_HHJETS.info \
   MC_HKTSPLITTINGS.info \
   MC_IDENTIFIED.info \
   MC_JETS.info \
