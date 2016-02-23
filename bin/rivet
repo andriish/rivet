@@ -358,11 +358,14 @@ if len(opts.SHOW_ANALYSES) > 0:
         try:
             import tempfile, subprocess
             tffd, tfpath = tempfile.mkstemp(prefix="rivet-show.")
-            #tf = os.fdopen(tffd)
             os.write(tffd, "\n\n".join(msgs))
-            # if os.path.getsize(tfpath) > 0:
-            pager = subprocess.Popen(["less", "-F", tfpath]) #, stdin=subprocess.PIPE)
-            pager.communicate()
+            if sys.stdout.isatty():
+                pager = subprocess.Popen(["less", "-F", tfpath]) #, stdin=subprocess.PIPE)
+                pager.communicate()
+            else:
+                f = open(tfpath)
+                print f.read()
+                f.close()
         finally:
             os.unlink(tfpath) #< always clean up
     sys.exit(0)
