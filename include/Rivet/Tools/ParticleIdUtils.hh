@@ -1,7 +1,7 @@
 // -*- C++ -*-
 //
 // This file is part of MCUtils -- https://bitbucket.org/andybuckley/mcutils
-// Copyright (C) 2013-2014 Andy Buckley <andy.buckley@cern.ch>
+// Copyright (C) 2013-2016 Andy Buckley <andy.buckley@cern.ch>
 //
 // Embedding of MCUtils code in other projects is permitted provided this
 // notice is retained and the MCUtils namespace and include path are changed.
@@ -404,8 +404,8 @@ namespace Rivet {
     /// @name Charge functions
     //@{
 
-    /// Three times the charge (as integer)
-    inline int threeCharge(int pid) {
+    /// Three times the EM charge (as integer)
+    inline int charge3(int pid) {
       static int ch100[100] = { -1, 2,-1, 2,-1, 2,-1, 2, 0, 0,
                                 -3, 0,-3, 0,-3, 0,-3, 0, 0, 0,
                                 0, 0, 0, 3, 0, 0, 0, 0, 0, 0,
@@ -449,9 +449,18 @@ namespace Rivet {
       return charge;
     }
 
+    /// Alias for charge3
+    /// @deprecated Prefer charge3
+    inline int threeCharge(int pid) { return charge3(pid); }
 
-    /// Return the charge (as floating point)
-    inline double charge(int pid) { return threeCharge(pid)/3.0; }
+    /// Return the absolute value of 3 times the EM charge
+    inline int abscharge3(int pid) { return std::abs(charge3(pid)); }
+
+    /// Return the EM charge (as floating point)
+    inline double charge(int pid) { return charge3(pid)/3.0; }
+
+    /// Return the EM charge (as floating point)
+    inline double abscharge(int pid) { return std::abs(charge(pid)); }
 
     //@}
 
@@ -461,12 +470,12 @@ namespace Rivet {
 
     /// Determine if the particle is electrically charged
     inline bool isCharged(int pid) {
-      return threeCharge(pid) != 0;
+      return charge3(pid) != 0;
     }
 
     /// Determine if the particle is electrically neutral
     inline bool isNeutral(int pid) {
-      return threeCharge(pid) == 0;
+      return charge3(pid) == 0;
     }
 
     //@}
