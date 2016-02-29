@@ -152,6 +152,8 @@ namespace Rivet {
 
     //@}
 
+    /// Trim (filter) a jet, keeping tag and constituent info in the resulting jet
+    Jet trimJet(const Jet& input, const fastjet::Filter& trimmer) const;
 
     /// @name Access to the FastJet clustering objects such as jet def, area def, and cluster
     //@{
@@ -209,6 +211,9 @@ namespace Rivet {
     void _init3(const fastjet::JetDefinition& plugin);
     void _init4(fastjet::JetDefinition::Plugin* plugin);
 
+    /// Function to make Rivet::Jet from fastjet::PseudoJet, including constituent and tag info
+    Jet _makeJetFromPseudoJet(const PseudoJet& pj) const;
+    
   protected:
 
     /// Perform the projection on the Event.

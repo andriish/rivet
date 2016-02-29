@@ -1,5 +1,8 @@
 2016-02-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add FastJets::trimJet method, thanks to James Monk for the
+	suggestion and patch.
+
 	* Add new preferred name PID::charge3 in place of
 	PID::threeCharge, and also convenience PID::abscharge and
 	PID::abscharge3 functions -- all derived from changes in external
