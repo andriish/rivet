@@ -2433,35 +2433,6 @@ def process_datfile(datfile):
         shutil.rmtree(tempdir, ignore_errors=True)
 
 
-## Wrapper for a process thread which attempts to process datfiles until empty
-import threading, Queue
-class MkPlotThread( threading.Thread ):
-
-    def run(self):
-        global opts
-        global datfiles
-        global RECVD_KILL_SIGNAL
-        while True:
-            if RECVD_KILL_SIGNAL is not None:
-                ## Empty the queue
-                while not datfiles.empty():
-                    dummy = datfiles.get_nowait()
-                break
-            try:
-                datfile = datfiles.get_nowait()
-                rem = datfiles.qsize()
-                logging.info("Plotting %s (%d remaining)" % (datfile, rem))
-                process_datfile(datfile)
-            except Queue.Empty, e:
-                #print "%s ending." % self.getName()
-                break
-            # except Exception, e:
-            #     print "Error: %s" % str(e)
-            #     import traceback
-            #     logging.debug(traceback.format_exc())
-            #     #exit(1)
-
-
 ####################
 
 
@@ -2608,15 +2579,6 @@ if __name__ == '__main__':
             logging.warning("Problem while testing for external packages. I'm going to try and continue without testing, but don't hold your breath...")
 
 
-    ## Fill queue
-    datfiles = Queue.Queue(maxsize=-1)
-    plotword = "plot"
-    if len(args) > 1:
-        plotword = "plots"
-    logging.info("Making %d %s" % (len(args), plotword))
-    for d in args:
-        datfiles.put(d)
-
     ## Set up signal handling
     import signal
     RECVD_KILL_SIGNAL = None
@@ -2633,11 +2595,10 @@ if __name__ == '__main__':
     signal.signal(signal.SIGUSR2, handleKillSignal)
 
     ## Run threads
-    for threadnum in range(opts.NUM_THREADS):
-        procthread = MkPlotThread()
-        #procthread.daemon = True
-        procthread.start()
-
-    import time
-    while not datfiles.empty() and not RECVD_KILL_SIGNAL:
-        time.sleep(0.25)
+    datfiles = args
+    plotword = "plots" if len(datfiles) > 1 else "plot"
+    logging.info("Making %d %s" % (len(datfiles), plotword))
+    import multiprocessing
+    p = multiprocessing.Pool(opts.NUM_THREADS)
+    for i, _ in enumerate(p.imap(process_datfile, datfiles)):
+        logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))

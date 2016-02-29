@@ -1,5 +1,7 @@
 2016-02-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Update make-plots to use multiprocessing rather than threading.
+
 	* Add FastJets::trimJet method, thanks to James Monk for the
 	suggestion and patch.
 
