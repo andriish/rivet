@@ -1,3 +1,8 @@
+2016-02-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add analyze(const GenEvent*) and analysis(string&) methods to
+	AnalysisHandler, plus some docstring improvements.
+
 2016-02-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* New ATLAS_2015_I1394679 analysis.
