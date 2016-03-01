@@ -27,7 +27,7 @@ class AOPath(object):
         if not m:
             raise Exception("Supplied path '%s' does not meet required structure" % path)
         self._basepath = m.group(1)
-        self._varid = m.group(2).lstrip("[").ristrip("]") if m.group(2) else None
+        self._varid = m.group(2).lstrip("[").rstrip("]") if m.group(2) else None
         self._binid = int(m.group(3).lstrip("#")) if m.group(3) else None
         self._isref = isRefPath(self._basepath)
 
