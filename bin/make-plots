@@ -2589,16 +2589,25 @@ if __name__ == '__main__':
         RECVD_KILL_SIGNAL = signum
         signal.signal(signum, signal.SIG_DFL)
     ## Signals to handle
-    signal.signal(signal.SIGINT,  handleKillSignal)
-    signal.signal(signal.SIGTERM, handleKillSignal)
-    signal.signal(signal.SIGHUP,  handleKillSignal)
-    signal.signal(signal.SIGUSR2, handleKillSignal)
+    # signal.signal(signal.SIGINT,  handleKillSignal)
+    # signal.signal(signal.SIGTERM, handleKillSignal)
+    # signal.signal(signal.SIGHUP,  handleKillSignal)
+    # signal.signal(signal.SIGUSR2, handleKillSignal)
+
+    def init_worker():
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
 
     ## Run threads
     datfiles = args
     plotword = "plots" if len(datfiles) > 1 else "plot"
     logging.info("Making %d %s" % (len(datfiles), plotword))
     import multiprocessing
-    p = multiprocessing.Pool(opts.NUM_THREADS)
-    for i, _ in enumerate(p.imap(process_datfile, datfiles)):
-        logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
+    pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
+    try:
+        for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
+            logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
+        pool.close()
+    except KeyboardInterrupt:
+        print "Caught KeyboardInterrupt, terminating workers"
+        pool.terminate()
+    pool.join()
