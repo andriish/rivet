@@ -73,7 +73,7 @@ class PlotParser(object):
         plotfile = aop.basepathparts()[0] + ".plot"
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
-            plotpath = os.path.join(pidir, base)
+            plotpath = os.path.join(pidir, plotfile)
             # self._readHeadersFromFile(plotpath, ret, section, hpath)
             self._readHeadersFromFile(plotpath, ret, section, aop.basepath())
             ## Don't break here: we can collect settings from multiple .plot files

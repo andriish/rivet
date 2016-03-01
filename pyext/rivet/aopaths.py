@@ -33,7 +33,10 @@ class AOPath(object):
 
     def basepath(self, keepref=False):
         "Main 'Unix-like' part of the AO path, optionally including a /REF prefix"
-        return self._basepath if keepref else self._basepath.lstrip("/REF").rstrip("/")
+        p = self._basepath.rstrip("/")
+        if not keepref and p.startswith("/REF"):
+            p = p[4:]
+        return p
 
     def varpath(self, keepref=False, defaultvarid=None):
         "The basepath, plus any bracketed variation identifier"
