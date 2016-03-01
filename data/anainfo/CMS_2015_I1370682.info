@@ -1,61 +1,42 @@
 Name: CMS_2015_I1370682
 Year: 2015
-Summary: Comparisons of Theory Predictions for the ttbar Process with Data from pp Collisions at $\sqrt{s}$ = 8 TeV
+Summary: Differential top quark pair production cross-sections in $pp$ collisions at $\sqrt{s} = 8$ TeV
 Experiment: CMS
 Collider: LHC
 InspireID: 1370682
 Status: VALIDATED
 Authors:
  - Javier Fernandez <Javier.Fernandez@cern.ch>
- - Jungwan John Goh <Junghwan.Goh@cern.ch>	
- - Efe Yazgan <efe.yazgan@cern.ch>	
- - Markus Seidel <markus.seidel@cern.ch>	
- - James Keaveney <james.keaveney@vub.ac.be>	
- - Elvire Bouvier <e.bouvier@cern.ch>	
- - Benedikt Maier <benedikt.maier@cern.ch>	
+ - Jungwan John Goh <Junghwan.Goh@cern.ch>
+ - Efe Yazgan <efe.yazgan@cern.ch>
+ - Markus Seidel <markus.seidel@cern.ch>
+ - James Keaveney <james.keaveney@vub.ac.be>
+ - Elvire Bouvier <e.bouvier@cern.ch>
+ - Benedikt Maier <benedikt.maier@cern.ch>
 References:
- - Eur.Phys.J. C75 (2015) 542: For the analysis
- - CMS-PAS-TOP-15-011 : For details about the Rivet implementation
+ - Eur.Phys.J. C75 (2015) 542 (the analysis)
+ - CMS-PAS-TOP-15-011 (Rivet implementation)
 RunInfo:
-  pp QCD interactions at $\sqrt{s} = 8$ TeV. Data collected by CMS during the year 2012.
+  $pp$ QCD interactions at $\sqrt{s} = 8$ TeV. Data collected by CMS during the year 2012.
 Luminosity: 19.7 /fb
 Beams: [p+, p+]
 Energies: [8000]
 Description:
-	'The reconstruction of particle-level top quarks and anti-quarks is implemented in this module. Measurements at $sqrt{s} = 8 TeV are based on parton-level information in the full phase space using MADGRAPH+PYTHIA6. To match the particle-level top quark distributions to the measurements unfolded to the parton-level, a correction function to the particle-level distributions, derived using the same MADGRAPH+PYTHIA6 configuration that was used for the original measurement of the data points, ias applied.  Using the same MC configuration as used for the unfolding to correct back the parton-level to particle-level,  the model dependence introduced in unfolding to parton-level and extrapolating the measurement to the full phase space is eliminated.
-
-In this analysis, the particle-level top quark is defined using the following particle definitions:
-\begin{itemize}
-\item{Dressed lepton} : An object constructed by applying the anti-$k_{T}$ jet clustering~\cite{antikt} with a distance parameter of $R=0.1$ to the collection of final state electrons, muons and photons that do not originate from hadron decays. 
-The clustered objects that pass the acceptance cuts (\pt $> 20$ GeV and $|\eta| < 2.4$) are considered.
-\item{Prompt neutrino} : A neutrino that does not originate from a hadronic decay. 
-\item{Ghost B hadron} : A weakly decaying hadron with B flavor and its decay products are selected. 
-Since both the B hadron and its decay products are included, the momenta of the B hadron is rescaled by a very small factor ($10^{-20}$) to be used in the jet clustering. This avoids double-counting, but retains information about the origin of the decay products. 
-\item{Jet} : A jet is constructed applying the anti-$k_{T}$ jet clustering algorithm with a distance parameter of $R=0.5$ to the collection of all particles except neutrinos and constituents of dressed leptons. For the generator level b-jet finding, ghost B hadrons are also added to the jet clustering. Jets are required to pass acceptance cuts of \pt$ > 30$ GeV and $|\eta| < 2.4$.
-\item{b-jets} : b-quark jets are defined as the jets with a Ghost B hadron among their constituents.
-\end{itemize}
-
-Based on the particle-level objects defined above, W bosons and top quarks are reconstructed using W boson and top quark mass constraints, respectively, as described below:  
-\begin{itemize}
-\item{particle-level W boson pair} : Combinations of dressed lepton and prompt neutrinos are made to reconstruct the particle-level $W$ boson candidate that decays to a lepton-neutrino pair. The same is done with jets without B hadrons to reconstruct the $W$ boson decaying hadronically. 
-The event is considered as lepton + jet channel if only one lepton + neutrino pair exists. If there are two lepton + neutrino pairs in the event, the event is considered in the dilepton channel. The pair that gives the minimum of $|M_W^a-80.4~{\rm GeV}| + |M_W^b-80.4~{\rm GeV}|$ is defined as the particle-level W boson pair.
-\item{particle-level top quark pair} : Combinations of particle-level W bosons and b jets are considered to reconstruct the top and the anti-top quarks in the event. The pair that yields the minimum of $|M_{top}^a-172.5$ GeV$|$ + $|M_{top}^b-172.5$ GeV$|$ is defined as the particle-level top quark pair.
-\end{itemize}
-
-Finally, decay channel dependent selections are made to mimic those applied on the reconstructed data. The existence of only one lepton with \pt $ > 33$ GeV and $|\eta| < 2.1$ for the lepton+jet channel, and two opposite charge leptons with \pt$ > 20$ GeV and $|\eta| < 2.4$ for the dilepton channel are required. 
-
-Using the particle-level definition above, bin-by-bin correction factors are derived
-\begin{equation}
-C_i = \frac{\sigma_i^\text{parton}({\rm full~phase~space})}{\sigma_i^\text{particle}({\rm fiducial~volume})},
-\end{equation}
-where $\sigma_i$ is the cross-section in bin $i$, ``parton'' refers to top quarks or anti-quarks before the decay, ``particle'' refers to top quarks or anti-quarks as defined in the RIVET implementation above.'
-
+  'The reconstruction of particle-level top quarks and anti-quarks is implemented in this module.
+  Measurements at $\sqrt{s} = 8~\TeV$ are based on parton-level information in the full phase
+  space using MADGRAPH+PYTHIA6. To match the particle-level top quark distributions to the
+  measurements unfolded to the parton-level, a correction function to the particle-level
+  distributions, derived using the same MADGRAPH+PYTHIA6 configuration that was used for the
+  original measurement of the data points, is applied.  Using the same MC configuration as used
+  for the unfolding to correct back the parton-level to particle-level, the model dependence
+  introduced in unfolding to parton-level and extrapolating the measurement to the full phase
+  space is eliminated. See the paper for full object selection and correction details.'
 BibKey: Khachatryan:2015oqa
 BibTeX: '@article{Khachatryan:2015oqa,
       author         = "Khachatryan, Vardan and others",
       title          = "{Measurement of the differential cross section for top
                         quark pair production in pp collisions at $\sqrt{s} =
-                        8\,\text {TeV} $}",
+                        8\,\TeV$}",
       collaboration  = "CMS",
       journal        = "Eur. Phys. J.",
       volume         = "C75",
