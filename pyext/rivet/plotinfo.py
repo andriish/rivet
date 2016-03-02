@@ -2,11 +2,12 @@ import os, re
 from .util import texpand
 
 class PlotParser(object):
-#class PlotStyler(object) or class PlotInfo(object):
-    """Reads Rivet's .plot files and determines which attributes to apply to each histo path."""
+    """
+    Reads Rivet's .plot files and determines which attributes to apply to each histo path.
+    """
 
-    pat_begin_block = re.compile(r'^(#*\s*)?BEGIN ([A-Z0-9_]+) ?(\S+)?')
-    pat_end_block =   re.compile(r'^(#*\s*)?END ([A-Z0-9_]+)')
+    pat_begin_block = re.compile(r'^(#*\s*)?BEGIN (\w+) ?(\S+)?')
+    pat_end_block =   re.compile(r'^(#*\s*)?END (\w+)')
     pat_comment = re.compile(r'^\s*#|^\s*$')
     pat_property = re.compile(r'^(\w+?)\s*=\s*(.*)$')
     pat_path_property  = re.compile(r'^(\S+?)::(\w+?)=(.*)$')
@@ -49,34 +50,32 @@ class PlotParser(object):
         hpath : str
             The histogram path, i.e. /AnalysisID/HistogramID .
 
-        Todo
-        ----
-        Caching!
-            At the moment the result of the lookup is not cached so every
-            call requires a file to be searched for and opened.
+        TODO:
+         * Caching! The result of the lookup is not cached so every call requires a file to be searched for and opened.
         """
         if section not in ['PLOT', 'SPECIAL', 'HISTOGRAM']:
             raise ValueError("Can't parse section \'%s\'" % section)
 
         ## Decompose the histo path and remove the /REF prefix if necessary
-        parts = hpath.strip('/').split('/')
-        #if len(parts[0]) == 0:
-        #    del parts[0]
-        if parts[0] == "REF":
-            del parts[0]
-        if not parts:
-            raise ValueError("Found empty histo path (or equal to /REF). Shouldn't be posible...")
+        from rivet.aopaths import AOPath
+        try:
+            aop = AOPath(hpath)
+        except:
+            print "Found analysis object with non-standard path structure:", hpath, "... skipping"
+            return None
+        # TODO: needed?
         # if len(parts) == 1:
         #     parts.insert(0, "ANALYSIS")
-        hpath = "/" + "/".join(parts[-2:])
+        # TODO: why only taking the last 2 parts?
+        # hpath = "/" + "/".join(aop.basepathparts[-2:])
 
         ## Assemble the list of headers from any matching plotinfo paths and additional style files
-        base = parts[0] + ".plot"
+        plotfile = aop.basepathparts()[0] + ".plot"
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
-            plotfile = os.path.join(pidir, base)
-            #print plotfile
-            self._readHeadersFromFile(plotfile, ret, section, hpath)
+            plotpath = os.path.join(pidir, plotfile)
+            # self._readHeadersFromFile(plotpath, ret, section, hpath)
+            self._readHeadersFromFile(plotpath, ret, section, aop.basepath())
             ## Don't break here: we can collect settings from multiple .plot files
             # TODO: So the *last* path wins? Hmm... reverse the loop order?
         # TODO: Also, is it good that the user-specific extra files override the official ones? Depends on the point of the extra files...
@@ -144,6 +143,8 @@ class PlotParser(object):
         :meth:`getSection`
         """
         return self.getSection('PLOT', hpath)
+    ## Alias
+    getPlot = getHeaders
 
 
     def getSpecial(self, hpath):

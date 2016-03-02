@@ -34,14 +34,19 @@ parser.add_option("--ignore-missing", dest="IGNORE_MISSING", action="store_true"
                   default=False, help="ignore missing YODA files.")
 parser.add_option("-i", "--ignore-unvalidated", dest="IGNORE_UNVALIDATED", action="store_true",
                   default=False, help="ignore unvalidated analyses.")
-parser.add_option("--ref", "--refid", dest="REF_ID",
-                  default=None, help="ID of reference data set (file path for non-REF data)")
+# parser.add_option("--ref", "--refid", dest="REF_ID",
+#                   default=None, help="ID of reference data set (file path for non-REF data)")
 parser.add_option("--dry-run", help="don't actually do any plotting or HTML building", dest="DRY_RUN",
                   action="store_true", default=False)
 
 stygroup = OptionGroup(parser, "Style options")
 stygroup.add_option("-t", "--title", dest="TITLE",
                     default="Plots from Rivet analyses", help="title to be displayed on the main web page")
+stygroup.add_option("--reftitle", dest="REFTITLE",
+                    default="Data", help="legend entry for reference data")
+stygroup.add_option("--no-plottitle", dest="NOPLOTTITLE", action="store_true",
+                    default=False, help="don't show the plot title on the plot "
+                        "(useful when the plot description should only be given in a caption)")
 stygroup.add_option("-s", "--single", dest="SINGLE", action="store_true",
                     default=False, help="display plots on single webpage.")
 stygroup.add_option("--no-ratio", dest="SHOW_RATIO", action="store_false",
@@ -53,17 +58,21 @@ stygroup.add_option("--offline", dest="OFFLINE", action="store_true",
 stygroup.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="PDF",
                     default="PDF", help="use PDF as the vector plot format.")
 stygroup.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
-                    default="PDF", help="use PostScript as the vector plot format.")
+                    default="PDF", help="use PostScript as the vector plot format. DEPRECATED")
 stygroup.add_option("--booklet", dest="BOOKLET", action="store_true",
                     default=False, help="create booklet (currently only available for PDF with pdftk).")
-stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="PALATINO", default="PALATINO",
-                    help="use Palatino as font (default).")
-stygroup.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="CM", default="PALATINO",
-                    help="use Computer Modern as font.")
-stygroup.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="TIMES", default="PALATINO",
-                    help="use Times as font.")
-stygroup.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="MINION", default="PALATINO",
-                    help="use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first.")
+stygroup.add_option("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
+                    default="palatino", help="choose the font to be used in the plots")
+stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
+                    help="use Palatino as font (default). DEPRECATED: Use --font")
+stygroup.add_option("--cm", dest="OUTPUT_FONT", action="store_const", const="cm", default="palatino",
+                    help="use Computer Modern as font. DEPRECATED: Use --font")
+stygroup.add_option("--times", dest="OUTPUT_FONT", action="store_const", const="times", default="palatino",
+                    help="use Times as font. DEPRECATED: Use --font")
+stygroup.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="helvetica", default="palatino",
+                    help="use Helvetica as font. DEPRECATED: Use --font")
+stygroup.add_option("--minion", dest="OUTPUT_FONT", action="store_const", const="minion", default="palatino",
+                    help="use Adobe Minion Pro as font. DEPRECATED: Use --font")
 parser.add_option_group(stygroup)
 
 selgroup = OptionGroup(parser, "Selective plotting")
@@ -118,24 +127,33 @@ for yodafile in yodafiles:
             continue
         else:
             sys.exit(2)
-    ## Note: use -m/-M flags here as well as when calling rivet-cmphistos, to potentially speed this initial loading
-    analysisobjects = yoda.read(yodafilepath, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
+
+    try:
+        ## Note: use -m/-M flags here as well as when calling rivet-cmphistos, to potentially speed this initial loading
+        analysisobjects = yoda.read(yodafilepath, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
+    except IOError, e:
+        print "File reading error: ", e.strerror
+        exit(1)
 
     for path, ao in analysisobjects.iteritems():
-        ## If regexes have been provided, only add analyses which match and don't unmatch
-        pathparts = path.strip('/').split('/')
-        ## Skip hidden paths, which start with an underscore
-        if pathparts[0].startswith("_"):
+        ## Make a path object and ensure the path is in standard form
+        try:
+            aop = rivet.AOPath(path)
+        except Exception, e:
+            #print e
+            print "Found analysis object with non-standard path structure:", path, "... skipping"
             continue
-        ## Strip a leading /REF prefix
-        # TODO: Remove when Rivet has migrated to marking ref data via attributes
-        if pathparts[0] == "REF":
-            del pathparts[0]
+
+        ## We don't plot data objects with path components hidden by an underscore prefix
+        if aop.istmp():
+            continue
+
         ## Identify analysis/histo name parts
         analysis = "ANALYSIS"
-        if len(pathparts) > 1:
-            analysis = pathparts[0] #< TODO: for compatibility with rivet-cmphistos... generalise?
-            #analysis = "_".join(pathparts[:-1]) #< TODO: would this be nicer? Currently incompatible with rivet-cmphistos
+        if aop.basepathparts(keepref=False):
+            analysis = aop.basepathparts(keepref=False)[0] #< TODO: for compatibility with rivet-cmphistos... generalise?
+            #analysis = "_".join(aop.dirnameparts(keepref=False)[:-1]) #< TODO: would this be nicer? Currently incompatible with rivet-cmphistos
+
         ## Optionally veto on analysis name pattern matching
         if analysis in analyses.union(blocked_analyses):
             continue
@@ -191,8 +209,12 @@ if opts.MC_ERRS:
     ch_cmd.append("--mc-errs")
 if not opts.SHOW_RATIO:
     ch_cmd.append("--no-ratio")
-if opts.REF_ID is not None:
-    ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
+if opts.NOPLOTTITLE:
+    ch_cmd.append("--no-plottitle")
+# if opts.REF_ID is not None:
+#     ch_cmd.append("--refid=%s" % os.path.abspath(opts.REF_ID))
+if opts.REFTITLE:
+    ch_cmd.append("--reftitle=%s" % opts.REFTITLE )
 if opts.PATHPATTERNS:
     for patt in opts.PATHPATTERNS:
         ch_cmd += ["-m", patt]
@@ -386,11 +408,15 @@ if opts.VECTORFORMAT == "PDF":
     mp_cmd.append("--pdfpng")
 elif opts.VECTORFORMAT == "PS":
     mp_cmd.append("--pspng")
-if opts.OUTPUT_FONT == "CM":
+if opts.OUTPUT_FONT.upper() == "PALATINO":
+    mp_cmd.append("--palatino")
+if opts.OUTPUT_FONT.upper() == "CM":
     mp_cmd.append("--cm")
-elif opts.OUTPUT_FONT == "TIMES":
+elif opts.OUTPUT_FONT.upper() == "TIMES":
     mp_cmd.append("--times")
-elif opts.OUTPUT_FONT == "minion":
+elif opts.OUTPUT_FONT.upper() == "HELVETICA":
+    mp_cmd.append("--helvetica")
+elif opts.OUTPUT_FONT.upper() == "MINION":
     mp_cmd.append("--minion")
 datfiles = []
 for analysis in analyses:

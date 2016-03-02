@@ -139,6 +139,7 @@ dist_pkgdata_DATA = \
   ATLAS_2015_CONF_2015_041_EL.info \
   ATLAS_2015_CONF_2015_041_MU.info \
   ATLAS_2015_I1376945.info \
+  ATLAS_2015_I1394679.info \
   BABAR_2003_I593379.info \
   BABAR_2005_S6181155.info \
   BABAR_2007_S6895344.info \
@@ -220,15 +221,16 @@ dist_pkgdata_DATA = \
   CMS_2014_I1298810.info \
   CMS_2014_I1303894.info \
   CMS_2015_I1310737.info \
+  CMS_2015_I1327224.info \
+  CMS_2015_I1346843.info \
   CMS_2015_I1356998.info \
+  CMS_2015_I1370682.info \
   CMS_2015_I1384119.info \
   CMS_2015_I1385107.info \
-  CMS_2012_PAS_QCD_11_010.info \
-  CMS_QCD_10_024.info \
-  CMS_2015_I1346843.info \
-  CMS_2015_I1327224.info \
   CMSTOTEM_2014_I1294140.info \
   TOTEM_2014_I1328627.info \
+  CMS_2012_PAS_QCD_11_010.info \
+  CMS_QCD_10_024.info \
   D0_1996_S3214044.info \
   D0_1996_S3324664.info \
   D0_2000_S4480767.info \
@@ -284,6 +286,7 @@ dist_pkgdata_DATA = \
   MC_HFJETS.info \
   MC_HINC.info \
   MC_HJETS.info \
+  MC_HHJETS.info \
   MC_HKTSPLITTINGS.info \
   MC_IDENTIFIED.info \
   MC_JETS.info \

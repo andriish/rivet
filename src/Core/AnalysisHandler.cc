@@ -143,6 +143,15 @@ namespace Rivet {
   }
 
 
+  void AnalysisHandler::analyze(const GenEvent* ge) {
+    if (ge == NULL) {
+      MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
+      //throw Error("AnalysisHandler received null pointer to GenEvent");
+    }
+    analyze(*ge);
+  }
+
+
   void AnalysisHandler::finalize() {
     if (!_initialised) return;
     MSG_INFO("Finalising analyses");
@@ -257,6 +266,13 @@ namespace Rivet {
       rtn.push_back(a->name());
     }
     return rtn;
+  }
+
+
+  const AnaHandle AnalysisHandler::analysis(const std::string& analysisname) const {
+    foreach (const AnaHandle a, analyses())
+      if (a->name() == analysisname) return a;
+    throw Error("No analysis named '" + analysisname + "' registered in AnalysisHandler");
   }
 
 

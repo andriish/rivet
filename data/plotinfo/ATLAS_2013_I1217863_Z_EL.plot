@@ -1,7 +1,8 @@
 # BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d..-x..-y..
-LogY=0
+LogY=1
 LegendYPos=0.90
-LegendXPos=0.75
+LegendXPos=0.90
+LegendAlign=r
 RatioPlotYMax=1.5
 RatioPlotYMin=0.5
 XTwosidedTicks=1
@@ -10,7 +11,7 @@ ErrorBars=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d1[1-2]-x01-y..
-LogY=1
+LogX=1
 RatioPlotYMax=2.0
 RatioPlotYMin=0.0
 XLabel=$E^\gamma_\text{T}$ [GeV]
@@ -27,23 +28,23 @@ XLabel=$m^{Z\gamma}$ [GeV]
 YLabel=$1/\sigma_{Z\gamma} \times \text{d}\sigma_{Z\gamma} / \text{d} m^{Z\gamma}$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d11-x01-y02
+# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d11-x01-y01
 Title=$N_\text{jet} \geq 0$, electron channel, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d12-x01-y02
+# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d12-x01-y01
 Title=$N_\text{jet} = 0$, electron channel, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d17-x01-y02
+# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d17-x01-y01
 Title=$E^\gamma_\text{T} \geq 15$ GeV, electron channel, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d18-x01-y02
+# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d18-x01-y01
 Title=$E^\gamma_\text{T} \geq 60$ GeV, electron channel, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d20-x01-y02
+# BEGIN PLOT /ATLAS_2013_I1217863_Z_EL/d20-x01-y01
 Title=$E^\gamma_\text{T} > 40$ GeV, electron channel, dressed level
 # END PLOT
 

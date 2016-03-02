@@ -222,22 +222,32 @@ if opts.LIST_ANALYSES:
     if args:
         import re
         regexes = [re.compile(arg, re.I) for arg in args]
-    for aname in all_analyses:
-        if not regexes:
-            toshow = True
-        else:
-            toshow = False
-            for regex in regexes:
-                if regex.search(aname):
-                    toshow = True
-                    break
-        if toshow:
-            msg = aname
-            if opts.LOGLEVEL <= logging.INFO:
-                a = rivet.AnalysisLoader.getAnalysis(aname)
-                st = "" if a.status() == "VALIDATED" else ("[" + a.status() + "] ")
-                msg = "%-25s   %s" % (aname, st + rivet.util.detex(a.summary()))
-            print msg
+    try:
+        # import tempfile, subprocess
+        # tf, tfpath = tempfile.mkstemp(prefix="rivet-list.")
+        for aname in all_analyses:
+            if not regexes:
+                toshow = True
+            else:
+                toshow = False
+                for regex in regexes:
+                    if regex.search(aname):
+                        toshow = True
+                        break
+            if toshow:
+                msg = aname
+                if opts.LOGLEVEL <= logging.INFO:
+                    a = rivet.AnalysisLoader.getAnalysis(aname)
+                    st = "" if a.status() == "VALIDATED" else ("[" + a.status() + "] ")
+                    msg = "%-25s   %s" % (aname, st + rivet.util.detex(a.summary()))
+                print msg
+                #os.write(tf, msg + "\n")
+        # if os.path.getsize(tfpath) > 0:
+        #     pager = subprocess.Popen(["less", "-F", tfpath]) #, stdin=subprocess.PIPE)
+        #     pager.communicate()
+    finally:
+        # os.unlink(tfpath) #< always clean up
+        pass
     sys.exit(0)
 
 
@@ -256,48 +266,46 @@ if len(opts.SHOW_ANALYSES) > 0:
                 if regex.search(ana) and a_up not in toshow:
                     toshow.append(ana)
 
-    ## Show the matching analyses' details
-    import textwrap
+    msgs = []
     for i, name in enumerate(sorted(toshow)):
+        import textwrap
         ana = rivet.AnalysisLoader.getAnalysis(name)
-        print ""
-        print name
-        print len(name) * "="
-        print ""
-        print rivet.util.detex(ana.summary())
-        print ""
-        print "Status: %s" % ana.status()
-        print ""
 
+        msg = ""
+        msg += name + "\n"
+        msg += (len(name) * "=") + "\n\n"
+        msg += rivet.util.detex(ana.summary()) + "\n\n"
+        msg += "Status: " + ana.status() + "\n\n"
+
+        # TODO: reduce to only show Inspire in v3
         if ana.inspireId():
-            print "Inspire ID: %s" % ana.inspireId()
-            print "Inspire URL: http://inspire-hep.net/record/%s" % ana.inspireId()
-            print "HepData URL: http://hepdata.cedar.ac.uk/view/ins%s" % ana.inspireId()
+            msg += "Inspire ID: " + ana.inspireId() + "\n"
+            msg += "Inspire URL: http://inspire-hep.net/record/" + ana.inspireId() + "\n"
+            msg += "HepData URL: http://hepdata.cedar.ac.uk/view/ins" + ana.inspireId() + "\n"
         elif ana.spiresId():
-            print "Spires ID: %s" % ana.spiresId()
-            print "Inspire URL: http://inspire-hep.net/search?p=find+key+%s" % ana.spiresId()
-            print "HepData URL: http://hepdata.cedar.ac.uk/view/irn%s" % ana.spiresId()
+            msg += "Spires ID: " + ana.spiresId() + "\n"
+            msg += "Inspire URL: http://inspire-hep.net/search?p=find+key+" + ana.spiresId() + "\n"
+            msg += "HepData URL: http://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
 
         if ana.experiment():
-            print "Experiment: %s" % ana.experiment(),
+            msg += "Experiment: " + ana.experiment()
             if ana.collider():
-                print "(%s)" % ana.collider()
+                msg += "(%s)" % ana.collider()
+            msg += "\n"
 
         if ana.year():
-            print "Year of publication: %s" % ana.year()
+            msg += "Year of publication: " + ana.year() + "\n"
 
-        print "Authors:"
+        msg += "Authors:\n"
         for a in ana.authors():
-            print "  " + a
+            msg += "  " + a + "\n"
+        msg += "\n"
 
-        print ""
-
-        print "Description:"
+        msg += "Description:\n"
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
-        print twrap.fill(rivet.util.detex(ana.description()))
+        msg += twrap.fill(rivet.util.detex(ana.description())) + "\n\n"
 
-        print ""
-
+        # TODO: move this formatting into Analysis or a helper function?
         if ana.requiredBeams():
             def pid_to_str(pid):
                 if pid == 11:
@@ -315,22 +323,21 @@ if len(opts.SHOW_ANALYSES) > 0:
             beamstrs = []
             for bp in ana.requiredBeams():
                 beamstrs.append(pid_to_str(bp[0]) + " " + pid_to_str(bp[1]))
-            print "Beams:", ", ".join(beamstrs)
+            msg += "Beams:" + ", ".join(beamstrs) + "\n"
 
         if ana.requiredEnergies():
-            print "Beam energies:", "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()]), "GeV"
+            msg += "Beam energies: %s GeV\n" + "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
         else:
-            print "Beam energies: ANY"
+            msg += "Beam energies: ANY\n"
 
         if ana.runInfo():
-            print "Run details:"
+            msg += "Run details:\n"
             twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
             for l in ana.runInfo().split("\n"):
-                print twrap.fill(l)
+                msg += twrap.fill(l) + "\n"
 
         if ana.references():
-            print ""
-            print "References:"
+            msg += "\n" + "References:"
             for r in ana.references():
                 url = None
                 if r.startswith("arXiv:"):
@@ -341,10 +348,26 @@ if len(opts.SHOW_ANALYSES) > 0:
                     url = "http://dx.doi.org/" + code
                 if url is not None:
                     r += " - " + url
-                print "  %s" % r
+                msg += "  " + r + "\n"
 
-        if i+1 < len(toshow):
-            print "\n"
+        ## Add to the output
+        msgs.append(msg)
+
+    ## Write the combined messages to a temporary file and page it
+    if msgs:
+        try:
+            import tempfile, subprocess
+            tffd, tfpath = tempfile.mkstemp(prefix="rivet-show.")
+            os.write(tffd, "\n\n".join(msgs))
+            if sys.stdout.isatty():
+                pager = subprocess.Popen(["less", "-F", tfpath]) #, stdin=subprocess.PIPE)
+                pager.communicate()
+            else:
+                f = open(tfpath)
+                print f.read()
+                f.close()
+        finally:
+            os.unlink(tfpath) #< always clean up
     sys.exit(0)
 
 

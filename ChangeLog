@@ -1,3 +1,75 @@
+2016-02-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update make-plots to use multiprocessing rather than threading.
+
+	* Add FastJets::trimJet method, thanks to James Monk for the
+	suggestion and patch.
+
+	* Add new preferred name PID::charge3 in place of
+	PID::threeCharge, and also convenience PID::abscharge and
+	PID::abscharge3 functions -- all derived from changes in external
+	HEPUtils.
+
+	* Add analyze(const GenEvent*) and analysis(string&) methods to
+	AnalysisHandler, plus some docstring improvements.
+
+2016-02-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* New ATLAS_2015_I1394679 analysis.
+
+	* New MC_HHJETS analysis from Andreas Papaefstathiou.
+
+	* Ref data updates for ATLAS_2013_I1219109, ATLAS_2014_I1312627,
+	and ATLAS_2014_I1319490.
+
+	* Add automatic output paging to 'rivet --show-analyses'
+
+2016-02-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Apply cross-section unit fixes and plot styling improvements to
+	ATLAS_2013_I1217863 analyses, thanks to Christian Gutschow.
+
+	* Fix to rivet-cmphistos to avoid overwriting RatioPlotYLabel if
+	already set via e.g. the PLOT pseudo-file. Thanks to Johann Felix
+	v. Soden-Fraunhofen.
+
+2016-02-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Analysis::bookCounter and some machinery in rivet-cmphistos
+	to avoid getting tripped up by unplottable (for now) data types.
+
+	* Add --font and --format options to rivet-mkhtml and make-plots,
+	to replace the individual flags used for that purpose. Not fully
+	cleaned up, but a necessary step.
+
+	* Add new plot styling options to rivet-cmphistos and
+	rivet-mkhtml. Thanks to Gavin Hesketh.
+
+	* Modify rivet-cmphistos and rivet-mkhtml to apply plot hiding if
+	*any* path component is hidden by an underscore prefix, as
+	implemented in AOPath, plus other tidying using new AOPath
+	methods.
+
+	* Add pyext/rivet/aopaths.py, containing AOPath object for central
+	& standard decoding of Rivet-standard analysis object path
+	structures.
+
+2016-02-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update ParticleIdUtils.hh (i.e. PID:: functions) to use the
+	functions from the latest version of MCUtils' PIDUtils.h.
+
+2016-01-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change rivet-cmphistos path matching logic from match to search
+	(user can add explicit ^ marker if they want match semantics).
+
+2015-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve linspace (and hence also logspace) precision errors by
+	using multiplication rather than repeated addition to build edge
+	list (thanks to Holger Schulz for the suggestion).
+
 2015-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add cmphistos and make-plots machinery for handling 'suffix'

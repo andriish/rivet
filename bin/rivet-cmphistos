@@ -35,8 +35,6 @@ def getCommandLineOptions():
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
 
-    parser.add_option("--no-rivet-refs", dest="RIVETREFS", action="store_false",
-                      default=True, help="don't use Rivet reference data files")
     parser.add_option('-o', '--outdir', dest='OUTDIR',
                       default='.', help='write data files into this directory')
     parser.add_option("--hier-out", action="store_true", dest="HIER_OUTPUT", default=False,
@@ -44,10 +42,14 @@ def getCommandLineOptions():
     parser.add_option('--plotinfodir', dest='PLOTINFODIRS', action='append',
                       default=['.'], help='directory which may contain plot header information (in addition '
                       'to standard Rivet search paths)')
+    parser.add_option("--no-rivet-refs", dest="RIVETREFS", action="store_false",
+                      default=True, help="don't use Rivet reference data files")
+    # parser.add_option("--refid", dest="REF_ID",
+    #                   default="REF", help="ID of reference data set (file path for non-REF data)")
+    parser.add_option("--reftitle", dest="REFTITLE",
+                        default='Data', help="Reference data legend entry")
 
     stygroup = OptionGroup(parser, "Plot style")
-    # stygroup.add_option("--refid", dest="REF_ID",
-    #                     default="REF", help="ID of reference data set (file path for non-REF data)")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
                         default=False, help="plot with linear scale")
     stygroup.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
@@ -95,33 +97,36 @@ def getCommandLineOptions():
 def getHistos(filelist):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
-    refhistos = {}
-    mchistos = {}
-    import re
-    re_path = re.compile(r"^(/REF)?(/[^\[\]\@\#]+)(\[\d+\])?$")
+    refhistos, mchistos = {}, {}
     for infile in filelist:
         mchistos.setdefault(infile, {})
         analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
         for path, ao in analysisobjects.iteritems():
-            m = re_path.match(path)
-            if m is None:
-                print "Found analysis object with non-standard path structure:", path
+            ## We can't plot non-histograms yet
+            # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
+            if ao.type not in ("Histo1D", "Histo2D", "Profile1D", "Profile2D", "Scatter2D", "Scatter3D"):
                 continue
-            isref = bool(m.group(1))
-            basepath = m.group(2)
-            index = m.group(3)[1:-1] if m.group(3) else 0
 
-            ## Conventionally don't plot data objects whose names start with an underscore
-            if os.path.basename(basepath).startswith("_"):
+            ## Make a path object and ensure the path is in standard form
+            try:
+                aop = rivet.AOPath(path)
+            except Exception, e:
+                #print e
+                print "Found analysis object with non-standard path structure:", path, "... skipping"
                 continue
-            if isref and not refhistos.has_key(basepath):
-                # TODO: Update to the brave new world without /REF prefixes
-                if ao.path.startswith("/REF"):
-                    ao.path = ao.path[4:]
+
+            ## We don't plot data objects with path components hidden by an underscore prefix
+            if aop.istmp():
+                continue
+
+            ## Add it to the ref or mc paths, if this path isn't already known
+            basepath = aop.basepath(keepref=False)
+            if aop.isref() and not refhistos.has_key(basepath):
+                ao.path = aop.varpath(keepref=False, defaultvarid=0)
                 refhistos[basepath] = ao
-                continue
-            #if not mchistos[infile].has_key(basepath):
-            mchistos[infile].setdefault(basepath, {})[index] = ao
+            else: #if not mchistos[infile].has_key(basepath):
+                mchistos[infile].setdefault(basepath, {})[aop.varid(0)] = ao
+
     return refhistos, mchistos
 
 
@@ -141,9 +146,9 @@ def getRivetRefData(anas=None):
         for infile in filelist:
             analysisobjects = yoda.read(infile, patterns=opts.PATHPATTERNS, unpatterns=opts.PATHUNPATTERNS)
             for path, ao in analysisobjects.iteritems():
-                # TODO: Update to the brave new world without /REF prefixes
-                if ao.path.startswith("/REF"):
-                    ao.path = ao.path[4:]
+                aop = rivet.AOPath(ao.path)
+                if aop.isref():
+                    ao.path = aop.basepath(keepref=False)
                     refhistos[ao.path] = ao
     return refhistos
 
@@ -235,7 +240,7 @@ def mkOutput(hpath, aos, plot=None, special=None):
 
     if special is not None:
         output += "\n"
-        output += "# BEGIN SPECIAL %s\n" % h
+        output += "# BEGIN SPECIAL %s\n" % hpath
         output += special
         output += "# END SPECIAL\n\n"
 
@@ -292,7 +297,11 @@ if __name__ == '__main__':
     plotparser = rivet.mkStdPlotParser(plotdirs, opts.CONFIGFILES)
 
     ## Create a list of all histograms to be plotted, and identify if they are 2D histos (which need special plotting)
-    refhistos, mchistos = getHistos(filelist)
+    try:
+        refhistos, mchistos = getHistos(filelist)
+    except IOError, e:
+        print "File reading error: ", e.strerror
+        exit(1)
     hpaths, h2ds = [], []
     for aos in mchistos.values():
         for p in aos.keys():
@@ -305,7 +314,11 @@ if __name__ == '__main__':
 
     ## Take reference data from the Rivet search paths, if there is not already
     if opts.RIVETREFS:
-        refhistos2 = getRivetRefData()
+        try:
+            refhistos2 = getRivetRefData()
+        except IOError, e:
+            print "File reading error: ", e.strerror
+            exit(1)
         refhistos2.update(refhistos)
         refhistos = refhistos2
 
@@ -336,8 +349,11 @@ if __name__ == '__main__':
         if not is2d:
             plot['Legend'] = '1'
             plot['LogY'] = '1'
-        for key, val in plotparser.getHeaders(hpath).iteritems():
-            plot[key] = val
+        headers = plotparser.getHeaders(hpath)
+        if headers:
+            plot.update(headers)
+        # for key, val in headers.iteritems():
+        #     plot[key] = val
         if plotoptions.has_key("PLOT"):
             for key_val in plotoptions["PLOT"]:
                 key, val = [s.strip() for s in key_val.split("=")]
@@ -363,7 +379,7 @@ if __name__ == '__main__':
         if refhistos.has_key(hpath):
             hasdataref = True
             refdata = refhistos[hpath]
-            refdata.setAnnotation('Title', 'Data')
+            refdata.setAnnotation('Title', opts.REFTITLE)
             if not is2d:
                 refdata.setAnnotation('ErrorBars', '1')
                 refdata.setAnnotation('PolyMarker', '*')
@@ -395,8 +411,10 @@ if __name__ == '__main__':
                         if opts.MC_ERRS:
                             hmc.setAnnotation('ErrorBars', '1')
                     ## Plot defaults from .plot files
-                    for key, val in plotparser.getHistogramOptions(hpath).iteritems():
-                        hmc.setAnnotation(key, val)
+                    histopts = plotparser.getHistogramOptions(hpath)
+                    if histopts:
+                        for key, val in histopts.iteritems():
+                            hmc.setAnnotation(key, val)
                     ## Command line plot options
                     setOptions(hmc, plotoptions[infile])
                     ## Set path attribute
@@ -429,7 +447,7 @@ if __name__ == '__main__':
         if showratio and len(varlines + mainlines) > 1:
             plot['RatioPlot'] = '1'
             plot['RatioPlotReference'] = ratioreference
-            if not hasdataref:
+            if not hasdataref and not plot.has_key("RatioPlotYLabel"):
                 if plot.get('RatioPlotMode', '') == 'deviation':
                     plot['RatioPlotYLabel'] = 'Deviation' #r'$\text{MC}-\text{MC}_\text{ref}$'
                 else:

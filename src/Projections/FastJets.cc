@@ -151,7 +151,7 @@ namespace Rivet {
       counter += 1;
     }
 
-    MSG_TRACE("Running FastJet ClusterSequence construction");
+    MSG_DEBUG("Running FastJet ClusterSequence construction");
     // Choose cseq as basic or area-calculating
     if (_adef == NULL) {
       _cseq.reset(new fastjet::ClusterSequence(pjs, _jdef));
@@ -177,24 +177,17 @@ namespace Rivet {
   Jets FastJets::_jets(double ptmin) const {
     Jets rtn;
     foreach (const fastjet::PseudoJet& pj, pseudojets()) {
-      assert(clusterSeq() != NULL);
-      const PseudoJets parts = clusterSeq()->constituents(pj);
-      vector<Particle> constituents, tags;
-      constituents.reserve(parts.size());
-      foreach (const fastjet::PseudoJet& p, parts) {
-        map<int, Particle>::const_iterator found = _particles.find(p.user_index());
-        // assert(found != _particles.end());
-        if (found == _particles.end() && p.is_pure_ghost()) continue; //< Pure FJ ghosts are ok
-        assert(found != _particles.end()); //< Anything else must be known
-        assert(found->first != 0); //< All mapping IDs are pos-def (particles) or neg-def (tags)
-        if (found->first > 0) constituents.push_back(found->second);
-        else if (found->first < 0) tags.push_back(found->second);
-      }
-      Jet j(pj, constituents, tags);
-      rtn.push_back(j);
+      rtn.push_back(_makeJetFromPseudoJet(pj));
     }
     /// @todo Cache?
     return rtn;
+  }
+
+
+  Jet FastJets::trimJet(const Jet &input, const fastjet::Filter &trimmer)const{
+    assert(input.pseudojet().associated_cluster_sequence() == clusterSeq());
+    PseudoJet pj = trimmer(input);
+    return _makeJetFromPseudoJet(pj);
   }
 
 
@@ -202,6 +195,29 @@ namespace Rivet {
     return (clusterSeq() != NULL) ? clusterSeq()->inclusive_jets(ptmin) : PseudoJets();
   }
 
+
+  Jet FastJets::_makeJetFromPseudoJet(const PseudoJet &pj)const{
+    assert(clusterSeq() != NULL);
+    
+    // take the constituents from the cluster sequence, unless the jet was not
+    // associated with the cluster sequence (could be the case for trimmed jets)
+    const PseudoJets parts = (pj.associated_cluster_sequence() == clusterSeq())?
+    clusterSeq()->constituents(pj): pj.constituents();
+    
+    vector<Particle> constituents, tags;
+    constituents.reserve(parts.size());
+    foreach (const fastjet::PseudoJet& p, parts) {
+      map<int, Particle>::const_iterator found = _particles.find(p.user_index());
+      // assert(found != _particles.end());
+      if (found == _particles.end() && p.is_pure_ghost()) continue; //< Pure FJ ghosts are ok
+      assert(found != _particles.end()); //< Anything else must be known
+      assert(found->first != 0); //< All mapping IDs are pos-def (particles) or neg-def (tags)
+      if (found->first > 0) constituents.push_back(found->second);
+      else if (found->first < 0) tags.push_back(found->second);
+    }
+    
+    return Jet(pj, constituents, tags);
+  }
 
 
 }
