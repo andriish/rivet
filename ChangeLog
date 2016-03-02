@@ -1,3 +1,7 @@
+2016-03-03  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add ATLAS 7 TeV event shapes in Z+jets analysis (ATLAS_2016_I1424838)
+
 2016-02-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update make-plots to use multiprocessing rather than threading.
