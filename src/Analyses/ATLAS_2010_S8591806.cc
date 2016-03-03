@@ -66,9 +66,7 @@ namespace Rivet {
   };
 
 
-
-  // The hook for the plugin system
   //DECLARE_RIVET_PLUGIN(ATLAS_2010_S8591806);
-  Rivet::AnalysisBuilder<ATLAS_2010_S8591806> plugin_ATLAS_2010_S8591806("FOOBAR");
+  DECLARE_ALIASED_RIVET_PLUGIN(ATLAS_2010_S8591806, ATLAS_2010_I849050);
 
 }

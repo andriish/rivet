@@ -934,6 +934,11 @@ namespace Rivet {
 /// Preprocessor define to prettify the global-object plugin hook mechanism.
 #define DECLARE_RIVET_PLUGIN(clsname) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname
 
+/// @def DECLARE_ALIASED_RIVET_PLUGIN
+/// Preprocessor define to prettify the global-object plugin hook mechanism, with an extra alias name for this analysis.
+// #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname ## ( ## #alias ## )
+#define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) DECLARE_RIVET_PLUGIN(clsname)( #alias )
+
 /// @def DEFAULT_RIVET_ANA_CONSTRUCTOR
 /// Preprocessor define to prettify the manky constructor with name string argument
 #define DEFAULT_RIVET_ANA_CONSTRUCTOR(clsname) clsname() : Analysis(# clsname) {}
