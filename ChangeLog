@@ -3,6 +3,10 @@
 	* Allow specifying an alias name by which an analysis can be
 	loaded, to allow migration from SPIRES to Inspire ID numberings.
 
+2016-03-03  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Add ATLAS 7 TeV event shapes in Z+jets analysis (ATLAS_2016_I1424838)
+
 2016-02-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update make-plots to use multiprocessing rather than threading.
@@ -147,11 +151,6 @@
 
 	* Handle 2D histograms better in rivet-cmphistos (since they can't be overlaid)
 
-2015-11-08  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Change rivet-mkhtml output directory to 'rivet-plots', to avoid
-	accidental overwriting of generic non-Rivet 'plots' dirs.
-
 2015-11-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow comma-separated analysis name lists to be passed to a single -a/--analysis/--analyses option.
@@ -169,10 +168,6 @@
 2015-10-07  Chris Pollard  <cpollard@cern.ch>
 
 	* Release 2.4.0
-
-2015-10-14  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Adding missing scale and normalize method bodies for 2D histograms.
 
 2015-10-06  Holger Schulz  <holger.schulz@durham.ac.uk>
 
