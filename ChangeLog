@@ -1,3 +1,8 @@
+2016-03-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow specifying an alias name by which an analysis can be
+	loaded, to allow migration from SPIRES to Inspire ID numberings.
+
 2016-02-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update make-plots to use multiprocessing rather than threading.

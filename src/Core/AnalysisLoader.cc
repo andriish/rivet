@@ -66,6 +66,17 @@ namespace Rivet {
       MSG_TRACE("Registering a plugin analysis called '" << name << "'");
       _ptrs[name] = ab;
     }
+
+    const string aname = ab->alias();
+    if (!aname.empty()) {
+      //MSG_WARNING("ALIAS!!! " << aname);
+      if (_ptrs.find(aname) != _ptrs.end()) {
+        MSG_WARNING("Ignoring duplicate plugin analysis alias '" << aname << "'");
+      } else {
+        MSG_TRACE("Registering a plugin analysis via alias '" << aname << "'");
+        _ptrs[aname] = ab;
+      }
+    }
   }
 
 

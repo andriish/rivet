@@ -418,7 +418,6 @@ RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(opts.IGNORE_BEAMS)
 for a in opts.ANALYSES:
-    #a_up = a.upper()
     ## Print warning message and exit if not a valid analysis name
     if not a in all_analyses:
         logging.warning("'%s' is not a known Rivet analysis! Do you need to set RIVET_ANALYSIS_PATH or use the --pwd switch?\n" % a)
