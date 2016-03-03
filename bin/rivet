@@ -491,16 +491,21 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
     if ":" in hepmcfile:
         hepmcfile, hepmcfileweight = hepmcfile.rsplit(":", 1)
         hepmcfileweight = float(hepmcfileweight)
+
     ## Open next HepMC file (NB. this doesn't apply to the first file: it was already used for the run init)
     if fileidx > 0:
         run.openFile(hepmcfile, hepmcfileweight)
         if not run.readEvent():
             logging.warning("Could not read events from '%s'" % hepmcfile)
             continue
+
+    ## Announce new file
     msg = "Reading events from '%s'" % hepmcfile
     if hepmcfileweight != 1.0:
         msg += " (file weight = %e)" % hepmcfileweight
     logging.info(msg)
+
+    ## The event loop
     while opts.MAXEVTNUM is None or evtnum < opts.MAXEVTNUM:
         evtnum += 1
         logNEvt(evtnum, starttime, opts.MAXEVTNUM)
