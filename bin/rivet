@@ -243,7 +243,7 @@ if opts.LIST_ANALYSES:
                 print msg
                 #os.write(tf, msg + "\n")
         # if os.path.getsize(tfpath) > 0:
-        #     pager = subprocess.Popen(["less", "-F", tfpath]) #, stdin=subprocess.PIPE)
+        #     pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
         #     pager.communicate()
     finally:
         # os.unlink(tfpath) #< always clean up
@@ -353,6 +353,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         ## Add to the output
         msgs.append(msg)
 
+
     ## Write the combined messages to a temporary file and page it
     if msgs:
         try:
@@ -360,7 +361,7 @@ if len(opts.SHOW_ANALYSES) > 0:
             tffd, tfpath = tempfile.mkstemp(prefix="rivet-show.")
             os.write(tffd, "\n\n".join(msgs))
             if sys.stdout.isatty():
-                pager = subprocess.Popen(["less", "-F", tfpath]) #, stdin=subprocess.PIPE)
+                pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
                 pager.communicate()
             else:
                 f = open(tfpath)
