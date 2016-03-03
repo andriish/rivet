@@ -1,5 +1,9 @@
 2016-03-03  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a --nskip flag to the rivet command-line tool, to allow
+	processing to begin in the middle of an event file (useful for
+	batched processing of large files, in combination with --nevts)
+
 	* Allow specifying an alias name by which an analysis can be
 	loaded, to allow migration from SPIRES to Inspire ID numberings.
 

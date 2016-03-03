@@ -75,12 +75,15 @@ extragroup.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                       help="specify the signal process cross-section in pb")
 extragroup.add_option("-n", "--nevts", dest="MAXEVTNUM", type="int",
                       default=None, metavar="NUM",
-                      help="restrict the max number of events to read.")
+                      help="restrict the max number of events to process")
+extragroup.add_option("--nskip", dest="EVTSKIPNUM", type="int",
+                      default=0, metavar="NUM",
+                      help="skip NUM events read from input before beginning processing")
 extragroup.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                       help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_option("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
                       help="Ignore input event beams when checking analysis compatibility. "
-                      "Warning: some analyses may not work with incorrect beams")
+                      "Warning: analyses may not work correctly, or at all, with inappropriate beams")
 parser.add_option_group(extragroup)
 
 
@@ -507,8 +510,14 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
     logging.info(msg)
 
     ## The event loop
-    while opts.MAXEVTNUM is None or evtnum < opts.MAXEVTNUM:
+    while opts.MAXEVTNUM is None or evtnum-opts.EVTSKIPNUM <= opts.MAXEVTNUM:
         evtnum += 1
+
+        ## Optional event skipping
+        if evtnum <= opts.EVTSKIPNUM:
+            continue
+
+        ## Only log the event number once we're actually processing
         logNEvt(evtnum, starttime, opts.MAXEVTNUM)
 
         ## Process this event
@@ -543,10 +552,13 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             if evtnum % opts.HISTO_WRITE_INTERVAL == 0:
                 ah.writeData(opts.HISTOFILE)
 
+
+## Print end-of-loop messages
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
 logging.info("Cross-section = %e pb" % ah.crossSection())
 print
+
 
 ## Finalize and write out data file
 run.finalize()
