@@ -55,22 +55,22 @@ namespace Rivet {
 
     /// Analyse each event
     void analyze(const Event& event) {
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
 
       // Get the DIS kinematics
+      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
       double x  = dk.x();
       double w2 = dk.W2();
       double w = sqrt(w2);
 
       // Momentum of the scattered lepton
+      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
       FourMomentum leptonMom = dl.out().momentum();
       double ptel = leptonMom.pT();
       double enel = leptonMom.E();
       double thel = leptonMom.angle(dk.beamHadron().momentum())/degree;
 
       // Extract the particles other than the lepton
+      const FinalState& fs = applyProjection<FinalState>(event, "FS");
       Particles particles;
       particles.reserve(fs.particles().size());
       const GenParticle* dislepGP = dl.out().genParticle();
