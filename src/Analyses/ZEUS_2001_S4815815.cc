@@ -15,9 +15,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ZEUS_2001_S4815815() : Analysis("ZEUS_2001_S4815815")
-    {
-    }
+    ZEUS_2001_S4815815()
+      : Analysis("ZEUS_2001_S4815815")
+    {    }
 
 
     /// @name Analysis methods
@@ -40,21 +40,21 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       const JetAlg& jets = applyProjection<FastJets>(event, "Jets");
-      MSG_INFO("Jet multiplicity = " << jets.size());
+      MSG_DEBUG("Jet multiplicity = " << jets.size());
       foreach (const Jet& j, jets.jets()) {
-        _histJetEt1->fill(j.pT(), weight);
+        _histJetEt1->fill(j.pT()/GeV, event.weight());
       }
     }
 
 
-    // Finalize
-    void finalize() {
-      //
-    }
+    // // Finalize
+    // void finalize() {
+    //   //
+    // }
 
     //@}
+
 
   private:
 
@@ -62,7 +62,6 @@ namespace Rivet {
     //@{
     Histo1DPtr _histJetEt1;
     //@}
-
 
   };
 

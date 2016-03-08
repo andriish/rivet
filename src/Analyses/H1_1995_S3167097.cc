@@ -9,6 +9,7 @@ namespace Rivet {
   /// H1 energy flow in DIS
   ///
   /// @todo Make histograms match those in HepData and use autobooking
+  ///
   /// @author Leif Lonnblad
   /// @author Andy Buckley
   class H1_1995_S3167097 : public Analysis {
@@ -34,7 +35,7 @@ namespace Rivet {
       _sumw.resize(9);
       _hEtFlow.resize(9);
       for (size_t i = 0; i < 9; ++i)
-        _hEtFlow[i] = bookHisto1D(lexical_cast<string>(i), 24, -6, 6);
+        _hEtFlow[i] = bookHisto1D(to_str(i), 24, -6, 6);
       _tmphAvEt = Histo1D(9, 1.0, 10.0);
       _tmphAvX  = Histo1D(9, 1.0, 10.0);
       _tmphAvQ2 = Histo1D(9, 1.0, 10.0);
@@ -43,6 +44,7 @@ namespace Rivet {
 
 
     /// Calculate the bin number from the DISKinematics projection
+    /// @todo Convert to use a HEPUtils Binning1D
     size_t _getbin(const DISKinematics& dk) {
       if (inRange(dk.Q2()/GeV2, 5.0, 10.0)) {
         if (inRange(dk.x(), 1e-4, 2e-4)) return 0;
@@ -64,11 +66,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const CentralEtHCM y1 = applyProjection<CentralEtHCM>(event, "Y1HCM");
+      const CentralEtHCM& y1 = applyProjection<CentralEtHCM>(event, "Y1HCM");
 
       const int ibin = _getbin(dk);
       if (ibin < 0) vetoEvent;
+
       const double weight = event.weight();
+      _sumw[ibin] += weight;
 
       for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {
         const double rap = fs.particles()[i].rapidity();
@@ -76,7 +80,7 @@ namespace Rivet {
         _hEtFlow[ibin]->fill(rap, weight * et/GeV);
       }
 
-      _sumw[ibin] += weight;
+      /// @todo Use fillBin?
       _tmphAvEt.fill(ibin + 1.5, weight * y1.sumEt()/GeV);
       _tmphAvX.fill(ibin + 1.5, weight * dk.x());
       _tmphAvQ2.fill(ibin + 1.5, weight * dk.Q2()/GeV2);
