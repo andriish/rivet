@@ -82,7 +82,7 @@ namespace Rivet {
       const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
       const FourMomentum leptonMom = dl.out();
       const double enel = leptonMom.E();
-      const double thel = 180 - leptonMom.angle(dl.in())/degree;
+      const double thel = 180 - leptonMom.angle(dl.in().mom())/degree;
 
       // Extract the particles other than the lepton
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
