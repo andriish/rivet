@@ -24,6 +24,7 @@ namespace Rivet {
     /// @name Analysis methods
     //@{
 
+    /// Initialise projections and histograms
     void init() {
       // Projections
       addProjection(DISLepton(), "Lepton");

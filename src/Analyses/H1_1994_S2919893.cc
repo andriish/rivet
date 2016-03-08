@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  
-
 
   /// @brief H1 energy flow and charged particle spectra
   /// @author Peter Richardson
@@ -29,10 +27,33 @@ namespace Rivet {
     }
 
 
-
     /// @name Analysis methods
     //@{
 
+    /// Initialise projections and histograms
+    void init() {
+      // Projections
+      addProjection(DISLepton(), "Lepton");
+      addProjection(DISKinematics(), "Kinematics");
+      addProjection(FinalState(), "FS");
+
+      // Histos
+      _histEnergyFlowLowX =  bookHisto1D(1, 1, 1);
+      _histEnergyFlowHighX = bookHisto1D(1, 1, 2);
+
+      _histEECLowX = bookHisto1D(2, 1, 1);
+      _histEECHighX = bookHisto1D(2, 1, 2);
+
+      _histSpectraW77 = bookHisto1D(3, 1, 1);
+      _histSpectraW122 = bookHisto1D(3, 1, 2);
+      _histSpectraW169 = bookHisto1D(3, 1, 3);
+      _histSpectraW117 = bookHisto1D(3, 1, 4);
+
+      _histPT2 = bookProfile1D(4, 1, 1);
+    }
+
+
+    /// Analyse each event
     void analyze(const Event& event) {
       const FinalState& fs = applyProjection<FinalState>(event, "FS");
       const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
@@ -172,30 +193,7 @@ namespace Rivet {
     }
 
 
-
-    void init() {
-      // Projections
-      addProjection(DISLepton(), "Lepton");
-      addProjection(DISKinematics(), "Kinematics");
-      addProjection(FinalState(), "FS");
-
-      // Histos
-      _histEnergyFlowLowX =  bookHisto1D(1, 1, 1);
-      _histEnergyFlowHighX = bookHisto1D(1, 1, 2);
-
-      _histEECLowX = bookHisto1D(2, 1, 1);
-      _histEECHighX = bookHisto1D(2, 1, 2);
-
-      _histSpectraW77 = bookHisto1D(3, 1, 1);
-      _histSpectraW122 = bookHisto1D(3, 1, 2);
-      _histSpectraW169 = bookHisto1D(3, 1, 3);
-      _histSpectraW117 = bookHisto1D(3, 1, 4);
-
-      _histPT2 = bookProfile1D(4, 1, 1);
-    }
-
-
-    /// Finalize
+    /// Histogram normalisation
     void finalize() {
       // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
