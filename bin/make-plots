@@ -174,9 +174,8 @@ class Inputdata(object):
         # inherit various values from histograms if not explicitly
         # set.
         for k in ['LogX', 'LogY', 'LogZ',
-                'XLabel', 'YLabel', 'ZLabel',
-                'XCustomMajorTicks', 'YCustomMajorTicks',
-                'ZCustomMajorTicks']:
+                  'XLabel', 'YLabel', 'ZLabel',
+                  'XCustomMajorTicks', 'YCustomMajorTicks', 'ZCustomMajorTicks']:
             self.inherit_from_histos(k)
 
         return
@@ -625,9 +624,9 @@ class MainPlot(Plot):
             drawylabels=False
         else:
             drawylabels=True
-        out += yticks.draw(custommajortickmarks=ycustommajortickmarks,\
-                           customminortickmarks=ycustomminortickmarks,\
-                           custommajorticks=ycustommajorticks,\
+        out += yticks.draw(custommajortickmarks=ycustommajortickmarks,
+                           customminortickmarks=ycustomminortickmarks,
+                           custommajorticks=ycustommajorticks,
                            customminorticks=ycustomminorticks,
                            drawlabels=drawylabels)
 
@@ -1936,6 +1935,8 @@ class Ticks(object):
                                     else:
                                         out += self.draw_minorticklabel(ticklabel, last=True)
                     x+=1
+            else:
+                print "Warning: custom major ticks not currently supported on log axes -- please contact the developers to request!"
         elif custommajorticks is not None or customminorticks is not None:
             if custommajorticks:
                 for i in range(len(custommajorticks)):
@@ -2075,7 +2076,7 @@ class XTicks(Ticks):
         return out
 
     def draw_minorticklabel(self, value, label='', last=False):
-        if label=='':
+        if not label:
             label=self.get_ticklabel(value, int(self.description['LogX']), minor=True, lastminor=last)
         if last: # Some more indentation for the last minor label
             return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](1.9\\labelsep,-2.3\\labelsep){\\strut{}'+label+'}}\n')
@@ -2090,29 +2091,32 @@ class XTicks(Ticks):
         return out
 
     def draw_majorticklabel(self, value, label=''):
-        if label=='':
+        if not label:
             label = self.get_ticklabel(value, int(self.description['LogX']) and (self.coors.xmin() > 0 and self.coors.xmax() > 0))
-        return ('\\rput('+self.coors.strphys2frameX(value)+', 0){\\rput[B](0,-2.3\\labelsep){\\strut{}'+label+'}}\n')
+        labelparts = label.split("\\n")
+        labelcode = label if len(labelparts) == 1 else ("\\shortstack{" + "\\\\ ".join(labelparts) +  "}")
+        rtn = "\\rput(" + self.coors.strphys2frameX(value) + ", 0){\\rput[t](0,-\\labelsep){" + labelcode + "}}\n"
+        return rtn
 
 
 
 class YTicks(Ticks):
 
-    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
+    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         twosided = bool(int(self.description.get('YTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
         out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
         out += ('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
         uselog = self.description['LogY'] and (self.coors.ymin() > 0 and self.coors.ymax() > 0)
-        out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),\
-                                   plotlog=uselog,\
-                                   custommajorticks=custommajorticks,\
-                                   customminorticks=customminorticks,\
-                                   custommajortickmarks=custommajortickmarks,\
-                                   customminortickmarks=customminortickmarks,\
-                                   twosided=twosided,
-                                   drawlabels=drawlabels)
+        out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),
+                               plotlog=uselog,
+                               custommajorticks=custommajorticks,
+                               customminorticks=customminorticks,
+                               custommajortickmarks=custommajortickmarks,
+                               customminortickmarks=customminortickmarks,
+                               twosided=twosided,
+                               drawlabels=drawlabels)
         return out
 
     def draw_minortick(self, ticklabel, twosided):
@@ -2130,13 +2134,19 @@ class YTicks(Ticks):
         return out
 
     def draw_majorticklabel(self, value, label=''):
-        if label=='':
+        if not label:
             label = self.get_ticklabel(value, int(self.description['LogY']) and (self.coors.ymin() > 0 and self.coors.ymax() > 0))
-        if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode']=='deviation' \
-                and self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']:
-            return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n')
+        if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode'] == 'deviation' and \
+           self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage'] == '1':
+            rtn = '\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n'
         else:
-            return ('\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'}\n')
+            labelparts = label.split("\\n")
+            labelcode = label if len(labelparts) == 1 else ("\\shortstack{" + "\\\\ ".join(labelparts) +  "}")
+            rtn = "\\rput(0, " + self.coors.strphys2frameY(value) + "){\\rput[r](-\\labelsep,0){" + labelcode + "}}\n"
+        return rtn
+
+
+
 
 
 
