@@ -26,7 +26,8 @@ namespace Rivet {
   class FastJets : public JetAlg {
   public:
 
-    /// Wrapper enum for selected Fastjet jet algorithms.
+    /// Wrapper enum for selected FastJet jet algorithms.
+    /// @todo Move to JetAlg and alias here?
     enum JetAlgName { KT, CAM, SISCONE, ANTIKT,
                       // PXCONE,
                       ATLASCONE, CMSCONE,
@@ -113,16 +114,8 @@ namespace Rivet {
     /// @name Access to the jets
     //@{
 
-    /// Number of jets above the \f$ p_\perp \f$ cut.
-    size_t numJets(double ptmin=0.0) const;
-
-    /// Number of jets.
-    size_t size() const {
-      return numJets();
-    }
-
-    /// Get the jets (unordered).
-    Jets _jets(double ptmin=0.0) const;
+    /// Get the jets (unordered) with pT > ptmin.
+    Jets _jets() const;
 
     /// Get the pseudo jets (unordered).
     PseudoJets pseudoJets(double ptmin=0.0) const;
@@ -213,7 +206,7 @@ namespace Rivet {
 
     /// Function to make Rivet::Jet from fastjet::PseudoJet, including constituent and tag info
     Jet _makeJetFromPseudoJet(const PseudoJet& pj) const;
-    
+
   protected:
 
     /// Perform the projection on the Event.

@@ -14,6 +14,7 @@ namespace Rivet {
     addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
   }
 
+
   void FastJets::_init1(JetAlgName alg, double rparameter, double seed_threshold) {
     _initBase();
     MSG_DEBUG("JetAlg = " << alg);
@@ -60,16 +61,19 @@ namespace Rivet {
     }
   }
 
+
   void FastJets::_init2(fastjet::JetAlgorithm type,
                         fastjet::RecombinationScheme recom, double rparameter) {
     _initBase();
     _jdef = fastjet::JetDefinition(type, rparameter, recom);
   }
 
+
   void FastJets::_init3(const fastjet::JetDefinition& jdef) {
     _initBase();
     _jdef = jdef;
   }
+
 
   void FastJets::_init4(fastjet::JetDefinition::Plugin* plugin) {
     _initBase();
@@ -94,6 +98,7 @@ namespace Rivet {
 
 
   namespace {
+    /// @todo Replace with C++11 lambdas
     bool isPromptInvisible(const Particle& p) { return !(p.isVisible() || p.fromDecay()); }
     // bool isMuon(const Particle& p) { return p.abspid() == PID::MUON; }
     bool isPromptMuon(const Particle& p) { return isMuon(p) && !p.fromDecay(); }
@@ -168,14 +173,8 @@ namespace Rivet {
   }
 
 
-  size_t FastJets::numJets(double ptmin) const {
-    if (_cseq.get() == NULL) return 0;
-    return _cseq->inclusive_jets(ptmin).size();
-  }
-
-
-  Jets FastJets::_jets(double ptmin) const {
-    Jets rtn;
+  Jets FastJets::_jets() const {
+    Jets rtn; rtn.reserve(pseudojets().size());
     foreach (const fastjet::PseudoJet& pj, pseudojets()) {
       rtn.push_back(_makeJetFromPseudoJet(pj));
     }
@@ -198,12 +197,12 @@ namespace Rivet {
 
   Jet FastJets::_makeJetFromPseudoJet(const PseudoJet &pj)const{
     assert(clusterSeq() != NULL);
-    
+
     // take the constituents from the cluster sequence, unless the jet was not
     // associated with the cluster sequence (could be the case for trimmed jets)
     const PseudoJets parts = (pj.associated_cluster_sequence() == clusterSeq())?
     clusterSeq()->constituents(pj): pj.constituents();
-    
+
     vector<Particle> constituents, tags;
     constituents.reserve(parts.size());
     foreach (const fastjet::PseudoJet& p, parts) {
@@ -215,7 +214,7 @@ namespace Rivet {
       if (found->first > 0) constituents.push_back(found->second);
       else if (found->first < 0) tags.push_back(found->second);
     }
-    
+
     return Jet(pj, constituents, tags);
   }
 
