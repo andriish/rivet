@@ -85,8 +85,8 @@ namespace Rivet {
     }
 
 
+    /// Perform the jet finding & smearing calculation
     void project(const Event& e) {
-
       // Copying and filtering
       const Jets& truthjets = applyProjection<JetAlg>(e, "TruthJets").jetsByPt();
       _recojets.clear(); _recojets.reserve(truthjets.size());
@@ -105,6 +105,7 @@ namespace Rivet {
     }
 
 
+    /// Return the full jet list for the JetAlg methods to use
     Jets _jets() const { return _recojets; }
 
 
