@@ -120,7 +120,8 @@ namespace Rivet {
 
     Jets _recojets;
     std::function<double(const Jet&)> _jetEffFn;
-    std::function<void(Jet&)> _jetSmearFn; //, _bTagEffFn, _bTagMistagFn, _cTagEffFn, _cTagMistagFn;
+    //, _bTagEffFn, _bTagMistagFn, _cTagEffFn, _cTagMistagFn;
+    std::function<void(Jet&)> _jetSmearFn;
 
   };
 
