@@ -45,7 +45,7 @@ namespace Rivet {
     /// Constructor with jet efficiency function arg
     template <typename J2DFN>
     SmearedJets(const JetAlg& ja, J2DFN jetEffFn)
-      : _jetEffFn(jetEffFn), _jetSmearFn(JET_SMEAR_IDENTITY)
+      : _jetEffFn(jetEffFn) //, _jetSmearFn(JET_SMEAR_IDENTITY)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
