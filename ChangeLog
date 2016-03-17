@@ -1,3 +1,12 @@
+2016-03-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow multi-line major tick labels on make-plots linear x and y
+	axes. Linebreaks are indicated by \n in the .dat file.
+
+2016-03-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release 2.4.1
+
 2016-03-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a --nskip flag to the rivet command-line tool, to allow

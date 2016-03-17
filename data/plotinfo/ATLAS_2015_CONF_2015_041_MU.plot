@@ -22,7 +22,7 @@ LegendYPos=0.3
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_CONF_2015_041_MU/d..-x01
-Title=$Z \rightarrow e^+ e^-$, dressed level
+Title=$Z \rightarrow \mu^+ \mu^-$, dressed level
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2015_CONF_2015_041_MU/d..-x02
