@@ -19,11 +19,17 @@ namespace Rivet {
 
   double JET_EFF_ZERO(const Jet& p) { return 0; }
   double JET_EFF_ONE(const Jet& p) { return 1; }
-  double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
-  double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
   Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
   double rand01() { return rand() / (double)RAND_MAX; }
 
+  double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
+  double JET_BTAG_ATLAS_RUN1C(const Jet& j) {
+    if (j.bTagged()) return 0.80*tanh(0.003*j.pT()/GeV)*(30/(1+0.086*j.pT()/GeV));
+    if (j.cTagged()) return 0.20*tanh(0.02*j.pT()/GeV)*(1/(1+0.0034*j.pT()/GeV));
+    return 0.002 + 7.3e-6*j.pT()/GeV;
+  }
+
+  double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
 
 
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
@@ -49,7 +55,7 @@ namespace Rivet {
     /// @brief Constructor with all-mandatory efficiency function args and no smearing
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
     template <typename J2DFN>
-    SmearedJets(const JetAlg& ja, J2DFN jetEffFn, J2DFN bTagEffFn, J2DFN cTagEffFn)
+    SmearedJets(const JetAlg& ja, J2DFN jetEffFn, J2DFN bTagEffFn, J2DFN cTagEffFn=JET_CTAG_PERFECT)
       : _jetEffFn(jetEffFn), _bTagEffFn(cTagEffFn), _cTagEffFn(cTagEffFn)
     {
       setName("SmearedJets");
