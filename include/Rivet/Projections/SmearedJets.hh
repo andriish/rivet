@@ -11,14 +11,17 @@
 namespace Rivet {
 
 
-  void JET_SMEAR_IDENTITY(Jet&) { cout << "JSMEAR!" << endl; }
-  void PARTICLE_SMEAR_IDENTITY(Particle&) { }
-  double JET_FN0(const Jet& p) { return 0; }
-  double JET_FN1(const Jet& p) { cout << "JEFF1" << endl; return 1; }
-  double PARTICLE_FN0(const Particle& p) { return 0; }
-  double PARTICLE_FN1(const Particle& p) { return 1; }
-  double P4_FN0(const FourMomentum& p) { return 0; }
-  double P4_FN1(const FourMomentum& p) { return 1; }
+  // double PARTICLE_FN0(const Particle& p) { return 0; }
+  // double PARTICLE_FN1(const Particle& p) { return 1; }
+  // double P4_FN0(const FourMomentum& p) { return 0; }
+  // double P4_FN1(const FourMomentum& p) { return 1; }
+  // Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
+
+  double JET_EFF_PERFECT(const Jet& p) { return 1; }
+  double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
+  double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
+  Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
+
 
 
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
@@ -37,24 +40,37 @@ namespace Rivet {
     // _cTagEffFn(cTagEffFn), _cTagMistagFn(cTagMistagFn)
 
 
-    /// Constructor with jet efficiency function arg
-    template <typename J2DFN>
-    SmearedJets(const JetAlg& ja, J2DFN jetEffFn)
-      : _jetEffFn(jetEffFn)
-    {
-      setName("SmearedJets");
-      addProjection(ja, "TruthJets");
-    }
+    // /// Constructor with jet efficiency function arg
+    // template <typename J2DFN>
+    // SmearedJets(const JetAlg& ja, J2DFN jetEffFn)
+    //   : _jetEffFn(jetEffFn)
+    // {
+    //   setName("SmearedJets");
+    //   addProjection(ja, "TruthJets");
+    // }
+
+
+    // /// Constructor with jet efficiency and smearing function args
+    // template <typename J2DFN, typename J2VFN>
+    // SmearedJets(const JetAlg& ja, J2DFN jetEffFn, J2VFN jetSmearFn)
+    //   : _jetEffFn(jetEffFn), _jetSmearFn(jetSmearFn)
+    // {
+    //   setName("SmearedJets");
+    //   addProjection(ja, "TruthJets");
+    // }
 
 
     /// Constructor with jet efficiency and smearing function args
     template <typename J2DFN, typename J2VFN>
-    SmearedJets(const JetAlg& ja, J2DFN jetEffFn, J2VFN jetSmearFn)
-      : _jetEffFn(jetEffFn), _jetSmearFn(jetSmearFn)
+    SmearedJets(const JetAlg& ja, J2DFN jetEffFn,
+                J2VFN jetSmearFn=JET_SMEAR_IDENTITY,
+                J2DFN bTagEffFn=JET_BTAG_PERFECT, J2DFN cTagEffFn=JET_CTAG_PERFECT)
+      : _jetEffFn(jetEffFn), _bTagEffFn(cTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
     }
+
 
 
     /// Clone on the heap.
@@ -119,9 +135,8 @@ namespace Rivet {
   private:
 
     Jets _recojets;
-    std::function<double(const Jet&)> _jetEffFn;
-    //, _bTagEffFn, _bTagMistagFn, _cTagEffFn, _cTagMistagFn;
-    std::function<void(Jet&)> _jetSmearFn;
+    boost::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
+    boost::function<void(Jet&)> _jetSmearFn;
 
   };
 
