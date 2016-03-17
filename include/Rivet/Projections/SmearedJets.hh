@@ -17,10 +17,10 @@ namespace Rivet {
   // double P4_FN1(const FourMomentum& p) { return 1; }
   // Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
 
+  double rand01() { return rand() / (double)RAND_MAX; }
+
   double JET_EFF_ZERO(const Jet& p) { return 0; }
   double JET_EFF_ONE(const Jet& p) { return 1; }
-  Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
-  double rand01() { return rand() / (double)RAND_MAX; }
 
   double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
   double JET_BTAG_ATLAS_RUN1C(const Jet& j) {
@@ -30,6 +30,9 @@ namespace Rivet {
   }
 
   double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
+
+  Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
+
 
 
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
