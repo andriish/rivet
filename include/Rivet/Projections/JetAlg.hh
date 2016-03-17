@@ -215,8 +215,8 @@ namespace Rivet {
     /// Template-usable interface common to FinalState.
     collection_type entities() const { return jets(); }
 
-    /// Do the calculation locally (no caching).
-    virtual void calc(const Particles& constituents, const Particles& tagparticles=Particles()) = 0;
+    // /// Do the calculation locally (no caching).
+    // virtual void calc(const Particles& constituents, const Particles& tagparticles=Particles()) = 0;
 
 
   protected:

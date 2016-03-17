@@ -22,6 +22,7 @@ namespace Rivet {
   double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
   double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
   Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
+  double rand01() { return rand() / (double)RAND_MAX; }
 
 
 
@@ -72,16 +73,10 @@ namespace Rivet {
     }
 
 
-    /// @todo Move!!! Improve random numbers...
-    double rand01() const {
-      return rand() / (double)RAND_MAX;
-    }
-
-
-    /// @todo Remove from JetAlg API? I *think* calc() doesn't work well on projections which chain others
-    void calc(const Particles& constituents, const Particles& tagparticles=Particles()) {
-      ///
-    }
+    // /// @todo Remove from JetAlg API? I *think* calc() doesn't work well on projections which chain others
+    // void calc(const Particles& constituents, const Particles& tagparticles=Particles()) {
+    //   ///
+    // }
 
 
     /// Perform the jet finding & smearing calculation
@@ -121,9 +116,6 @@ namespace Rivet {
 
     /// Reset the projection. Smearing functions will be unchanged.
     void reset() { _recojets.clear(); }
-
-
-    /// @todo Modified tagger?
 
 
   private:
