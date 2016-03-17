@@ -31,36 +31,8 @@ namespace Rivet {
     /// @name Constructors etc.
     //@{
 
-    // SmearedJets(const JetAlg& ja,
-    // boost::function<double(const Jet&)>& jetEffFn, boost::function<void(Jet&)>& jetSmearFn=jet_smear_identity)
-    // boost::function<double(const Jet&)>& bTagEffFn=fn1, boost::function<double(const Jet&)>& bTagMistagFn=fn0,
-    // boost::function<double(const Jet&)>& cTagEffFn=fn1, boost::function<double(const Jet&)>& cTagMistagFn=fn0)
-    //: _jetEffFn(jetEffFn), _jetSmearFn(jetSmearFn)
-    // _bTagEffFn(bTagEffFn), _bTagMistagFn(bTagMistagFn),
-    // _cTagEffFn(cTagEffFn), _cTagMistagFn(cTagMistagFn)
-
-
-    // /// Constructor with jet efficiency function arg
-    // template <typename J2DFN>
-    // SmearedJets(const JetAlg& ja, J2DFN jetEffFn)
-    //   : _jetEffFn(jetEffFn)
-    // {
-    //   setName("SmearedJets");
-    //   addProjection(ja, "TruthJets");
-    // }
-
-
-    // /// Constructor with jet efficiency and smearing function args
-    // template <typename J2DFN, typename J2VFN>
-    // SmearedJets(const JetAlg& ja, J2DFN jetEffFn, J2VFN jetSmearFn)
-    //   : _jetEffFn(jetEffFn), _jetSmearFn(jetSmearFn)
-    // {
-    //   setName("SmearedJets");
-    //   addProjection(ja, "TruthJets");
-    // }
-
-
-    /// Constructor with jet efficiency and smearing function args
+    /// @brief Constructor with smearing function args
+    /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
     template <typename J2DFN, typename J2VFN>
     SmearedJets(const JetAlg& ja, J2DFN jetEffFn,
                 J2VFN jetSmearFn=JET_SMEAR_IDENTITY,
@@ -71,6 +43,16 @@ namespace Rivet {
       addProjection(ja, "TruthJets");
     }
 
+
+    /// @brief Constructor with smearing function args
+    /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
+    template <typename J2DFN>
+    SmearedJets(const JetAlg& ja, J2DFN jetEffFn, J2DFN bTagEffFn, J2DFN cTagEffFn)
+      : _jetEffFn(jetEffFn), _bTagEffFn(cTagEffFn), _cTagEffFn(cTagEffFn)
+    {
+      setName("SmearedJets");
+      addProjection(ja, "TruthJets");
+    }
 
 
     /// Clone on the heap.
