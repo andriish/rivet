@@ -45,9 +45,9 @@ namespace Rivet {
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
     template <typename J2DFN, typename J2JFN>
-    SmearedJets(const JetAlg& ja, J2DFN jetEffFn,
-                J2JFN jetSmearFn=JET_SMEAR_IDENTITY,
-                J2DFN bTagEffFn=JET_BTAG_PERFECT, J2DFN cTagEffFn=JET_CTAG_PERFECT)
+    SmearedJets(const JetAlg& ja, const J2DFN& jetEffFn,
+                const J2JFN& jetSmearFn=JET_SMEAR_IDENTITY,
+                const J2DFN& bTagEffFn=JET_BTAG_PERFECT, const J2DFN& cTagEffFn=JET_CTAG_PERFECT)
       : _jetEffFn(jetEffFn), _bTagEffFn(cTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
@@ -58,7 +58,7 @@ namespace Rivet {
     /// @brief Constructor with all-mandatory efficiency function args and no smearing
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
     template <typename J2DFN>
-    SmearedJets(const JetAlg& ja, J2DFN jetEffFn, J2DFN bTagEffFn, J2DFN cTagEffFn=JET_CTAG_PERFECT)
+    SmearedJets(const JetAlg& ja, const J2DFN& jetEffFn, const J2DFN& bTagEffFn, const J2DFN& cTagEffFn=JET_CTAG_PERFECT)
       : _jetEffFn(jetEffFn), _bTagEffFn(cTagEffFn), _cTagEffFn(cTagEffFn)
     {
       setName("SmearedJets");
