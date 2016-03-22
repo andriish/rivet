@@ -79,7 +79,6 @@ namespace Rivet {
 
 
     int compare(const Projection& p) const {
-      /// @todo Maybe do the comparison via void* pointer comparisons, extracted before the function<> wrapping?
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
       return
         cmp(_jetEffFnPtr, other._jetEffFnPtr) || cmp(_jetSmearFnPtr, other._jetSmearFnPtr) ||
