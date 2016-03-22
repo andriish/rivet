@@ -11,6 +11,9 @@
 namespace Rivet {
 
 
+  /// @name Standard smearing functions
+  //@{
+
   // double PARTICLE_FN0(const Particle& p) { return 0; }
   // double PARTICLE_FN1(const Particle& p) { return 1; }
   // double P4_FN0(const FourMomentum& p) { return 0; }
@@ -35,6 +38,8 @@ namespace Rivet {
   /// @todo Modify constituent particle vectors for consistency
   /// @todo Set a null PseudoJet if the Jet is smeared?
   Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
+
+  //@}
 
 
 
