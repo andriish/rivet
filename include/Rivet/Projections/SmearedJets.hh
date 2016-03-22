@@ -111,12 +111,16 @@ namespace Rivet {
       foreach (Jet& j, _recojets) {
         const double beff = (_bTagEffFn) ? _bTagEffFn(j) : 1;
         const bool btag = beff == 1 || (beff != 0 && beff < rand01());
-        /// @todo Remove b-tags if needed, and add a dummy one if needed
-        //if (!btag && j.bTagged()) erase(remove_if(...)...);
-        //if (btag && !j.bTagged()) j.tags().push_back(Particle(...));
+        // Remove b-tags if needed, and add a dummy one if needed
+        if (!btag && j.bTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasBottom), j.tags().end());
+        if (btag && !j.bTagged()) j.tags().push_back(Particle(PID::BQUARK, j.mom()));
         const double ceff = (_cTagEffFn) ? _cTagEffFn(j) : 1;
         const bool ctag = ceff == 1 || (ceff != 0 && ceff < rand01());
-        /// @todo Remove c-tags if needed, and add a dummy one if needed
+        // Remove c-tags if needed, and add a dummy one if needed
+        if (!ctag && j.cTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasCharm), j.tags().end());
+        if (ctag && !j.cTagged()) j.tags().push_back(Particle(PID::CQUARK, j.mom()));
+
+
         //if (!ctag && j.cTagged()) erase(remove_if(...)...);
         //if (ctag && !j.cTagged()) j.tags().push_back(Particle(...));
       }
