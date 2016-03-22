@@ -48,7 +48,9 @@ namespace Rivet {
     SmearedJets(const JetAlg& ja, const J2DFN& jetEffFn,
                 const J2JFN& jetSmearFn=JET_SMEAR_IDENTITY,
                 const J2DFN& bTagEffFn=JET_BTAG_PERFECT, const J2DFN& cTagEffFn=JET_CTAG_PERFECT)
-      : _jetEffFn(jetEffFn), _bTagEffFn(cTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
+      : _jetEffFnPtr(reinterpret_cast<size_t>(jetEffFn)), _bTagEffFnPtr(reinterpret_cast<size_t>(bTagEffFn)),
+        _cTagEffFnPtr(reinterpret_cast<size_t>(cTagEffFn)), _jetSmearFnPtr(reinterpret_cast<size_t>(jetSmearFn)),
+        _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
@@ -59,7 +61,9 @@ namespace Rivet {
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
     template <typename J2DFN>
     SmearedJets(const JetAlg& ja, const J2DFN& jetEffFn, const J2DFN& bTagEffFn, const J2DFN& cTagEffFn=JET_CTAG_PERFECT)
-      : _jetEffFn(jetEffFn), _bTagEffFn(cTagEffFn), _cTagEffFn(cTagEffFn)
+      : _jetEffFnPtr(reinterpret_cast<size_t>(jetEffFn)), _bTagEffFnPtr(reinterpret_cast<size_t>(bTagEffFn)),
+        _cTagEffFnPtr(reinterpret_cast<size_t>(cTagEffFn)), _jetSmearFnPtr(0),
+        _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
@@ -76,9 +80,10 @@ namespace Rivet {
 
     int compare(const Projection& p) const {
       /// @todo Maybe do the comparison via void* pointer comparisons, extracted before the function<> wrapping?
-      //const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
-      //return cmp(_jetEffFn, other._jetEffFn) || cmp(_jetSmearFn, other._jetSmearFn);
-      return UNDEFINED;
+      const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
+      return
+        cmp(_jetEffFnPtr, other._jetEffFnPtr) || cmp(_jetSmearFnPtr, other._jetSmearFnPtr) ||
+        cmp(_bTagEffFnPtr, other._bTagEffFnPtr) || cmp(_cTagEffFnPtr, other._cTagEffFnPtr);
     }
 
 
@@ -130,6 +135,7 @@ namespace Rivet {
   private:
 
     Jets _recojets;
+    size_t _jetEffFnPtr, _bTagEffFnPtr, _cTagEffFnPtr, _jetSmearFnPtr;
     boost::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
     boost::function<Jet(const Jet&)> _jetSmearFn;
 
