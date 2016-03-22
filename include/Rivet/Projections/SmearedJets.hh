@@ -31,6 +31,8 @@ namespace Rivet {
 
   double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
 
+  /// @todo Modify constituent particle vectors for consistency
+  /// @todo Set a null PseudoJet if the Jet is smeared?
   Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
 
 
@@ -78,18 +80,13 @@ namespace Rivet {
     //@}
 
 
+    /// Compare to another SmearedJets
     int compare(const Projection& p) const {
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
       return
         cmp(_jetEffFnPtr, other._jetEffFnPtr) || cmp(_jetSmearFnPtr, other._jetSmearFnPtr) ||
         cmp(_bTagEffFnPtr, other._bTagEffFnPtr) || cmp(_cTagEffFnPtr, other._cTagEffFnPtr);
     }
-
-
-    // /// @todo Remove from JetAlg API? I *think* calc() doesn't work well on projections which chain others
-    // void calc(const Particles& constituents, const Particles& tagparticles=Particles()) {
-    //   ///
-    // }
 
 
     /// Perform the jet finding & smearing calculation
@@ -102,8 +99,6 @@ namespace Rivet {
         MSG_DEBUG("Efficiency of jet " << j.mom() << " = " << 100*jeff << "%");
         if (jeff == 0) continue; //< no need to roll expensive dice
         if (jeff == 1 || jeff < rand01()) {
-          /// @todo Modify constituent particle vectors for consistency
-          /// @todo Set a null PseudoJet if the Jet is smeared?
           _recojets.push_back(_jetSmearFn ? _jetSmearFn(j) : j); //< smearing
         }
       }
