@@ -119,10 +119,6 @@ namespace Rivet {
         // Remove c-tags if needed, and add a dummy one if needed
         if (!ctag && j.cTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasCharm), j.tags().end());
         if (ctag && !j.cTagged()) j.tags().push_back(Particle(PID::CQUARK, j.mom()));
-
-
-        //if (!ctag && j.cTagged()) erase(remove_if(...)...);
-        //if (ctag && !j.cTagged()) j.tags().push_back(Particle(...));
       }
     }
 
