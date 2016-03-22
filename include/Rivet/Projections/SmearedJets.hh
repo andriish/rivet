@@ -17,6 +17,7 @@ namespace Rivet {
   // double P4_FN1(const FourMomentum& p) { return 1; }
   // Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
 
+  /// @todo Move to (math?)utils
   double rand01() { return rand() / (double)RAND_MAX; }
 
   double JET_EFF_ZERO(const Jet& p) { return 0; }
