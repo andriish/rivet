@@ -1,5 +1,9 @@
 2016-03-23  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add basic forms of new SmearedJets and SmearedParticles
+	projections, and some standard efficiency and smearing functions
+	in Rivet/Tools/SmearingFunctions.hh
+
 	* Add (abs)charge(3) methods and functions for Particle objects.
 
 2016-03-12  Andy Buckley  <andy.buckley@cern.ch>
