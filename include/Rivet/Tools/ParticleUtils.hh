@@ -230,6 +230,10 @@ namespace Rivet {
   /// Return 3 times the abs charge (3 x quark charge is an int)
   PARTICLE_TO_PID_INTFN(abscharge3)
 
+  /// Alias for charge3
+  /// @deprecated Use charge3
+  PARTICLE_TO_PID_INTFN(threeCharge)
+
   //@}
 
 

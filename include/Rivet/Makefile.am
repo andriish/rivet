@@ -62,6 +62,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/ParisiTensor.hh   \
   Projections/PrimaryHadrons.hh \
   Projections/PromptFinalState.hh \
+  Projections/SmearedParticles.hh \
   Projections/SmearedJets.hh \
   Projections/Sphericity.hh \
   Projections/Spherocity.hh \
@@ -98,6 +99,7 @@ nobase_pkginclude_HEADERS += \
   Tools/BinnedHistogram.hh \
   Tools/ParticleUtils.hh \
   Tools/ParticleIdUtils.hh \
+  Tools/SmearingFunctions.hh \
   Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
