@@ -1,3 +1,7 @@
+2016-03-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add (abs)charge(3) methods and functions for Particle objects.
+
 2016-03-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow multi-line major tick labels on make-plots linear x and y

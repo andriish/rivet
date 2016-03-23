@@ -127,13 +127,21 @@ namespace Rivet {
     //@{
 
     /// The charge of this Particle.
-    double charge() const {
-      return PID::charge(pid());
-    }
+    double charge() const { return PID::charge(pid()); }
+
     /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
-    int threeCharge() const {
-      return PID::threeCharge(pid());
-    }
+    int charge3() const { return PID::charge3(pid()); }
+
+    /// The abs charge of this Particle.
+    double abscharge() const { return PID::absscharge(pid()); }
+
+    /// Three times the abs charge of this Particle (i.e. integer multiple of smallest quark charge).
+    int abscharge3() const { return PID::abscharge3(pid()); }
+
+    /// Alias for charge3
+    /// @deprecated Use charge3
+    int threeCharge() const { return charge3(pid()); }
+
 
     /// Is this a hadron?
     bool isHadron() const { return PID::isHadron(pid()); }
