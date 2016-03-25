@@ -48,7 +48,7 @@ fi
 
 ## Get Rivet system C++ compiler (fall back to $CXX and then g++ if needed)
 mycxx=g++
-rivetcxx=$(which "@CXX@" 2> /dev/null)
+rivetcxx=$(which "@RIVETCXX@" 2> /dev/null)
 abscxx=$(which "$CXX" 2> /dev/null)
 if [[ -x "$rivetcxx" ]]; then
     mycxx="@CXX@"
@@ -61,8 +61,8 @@ mycxxflags=""
 if [[ -n "@AM_CXXFLAGS@" ]]; then
     mycxxflags="@AM_CXXFLAGS@"
 fi
-if [[ -n "@CXXFLAGS@" ]]; then
-    mycxxflags="$mycxxflags @CXXFLAGS@"
+if [[ -n "@RIVETCXXFLAGS@" ]]; then
+    mycxxflags="$mycxxflags @RIVETCXXFLAGS@"
 fi
 
 ## Get Rivet system C preprocessor flags (duplicating that in rivet-config.in)
