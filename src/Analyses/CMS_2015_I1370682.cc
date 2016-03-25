@@ -518,7 +518,7 @@ namespace Rivet {
         w2dau2LVec = w2dau2.momentum();
       } else if (nWLepCand == 1) { // Semi-leptonic case
         const pair<size_t, size_t>& idPair1 = wLepCandIdxs.begin()->second;
-        const pair<size_t, size_t>& idPair2 = (++wHadCandIdxs.begin())->second;  ///< @todo Reinstate std::next
+        const pair<size_t, size_t>& idPair2 = wHadCandIdxs.begin()->second;
         const Jet& w1dau1 = leptons[idPair1.first];
         const Particle& w1dau2 = neutrinos[idPair1.second];
         const Jet& w2dau1 = _ljets[idPair2.first];
