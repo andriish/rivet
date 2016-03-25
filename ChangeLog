@@ -1,3 +1,7 @@
+2016-03-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Require C++11 support in Rivet compilation.
+
 2016-03-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add basic forms of new SmearedJets and SmearedParticles
