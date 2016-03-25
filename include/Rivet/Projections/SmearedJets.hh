@@ -13,6 +13,7 @@ namespace Rivet {
 
 
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
+  /// @todo Chain constructors?
   class SmearedJets : public JetAlg {
   public:
 
@@ -21,11 +22,63 @@ namespace Rivet {
 
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2DFN, typename J2JFN>
+    template <typename J2JFN>
     SmearedJets(const JetAlg& ja,
-                const J2JFN& jetSmearFn=JET_SMEAR_IDENTITY,
-                const J2DFN& bTagEffFn=JET_BTAG_PERFECT, const J2DFN& cTagEffFn=JET_CTAG_PERFECT,
-                const J2DFN& jetEffFn=JET_EFF_ONE)
+                const J2JFN& jetSmearFn)
+      : _jetEffFnHash(reinterpret_cast<size_t>(JET_EFF_ONE)),
+        _bTagEffFnHash(reinterpret_cast<size_t>(JET_BTAG_PERFECT)),
+        _cTagEffFnHash(reinterpret_cast<size_t>(JET_CTAG_PERFECT)),
+        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
+        _jetEffFn(JET_EFF_ONE), _bTagEffFn(JET_BTAG_PERFECT), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
+    {
+      setName("SmearedJets");
+      addProjection(ja, "TruthJets");
+    }
+
+
+    /// @brief Constructor with efficiency and smearing function args
+    /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
+    template <typename J2JFN, typename J2DFN>
+    SmearedJets(const JetAlg& ja,
+                const J2JFN& jetSmearFn,
+                const J2DFN& bTagEffFn)
+      : _jetEffFnHash(reinterpret_cast<size_t>(JET_EFF_ONE)),
+        _bTagEffFnHash(reinterpret_cast<size_t>(bTagEffFn)),
+        _cTagEffFnHash(reinterpret_cast<size_t>(JET_CTAG_PERFECT)),
+        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
+        _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
+    {
+      setName("SmearedJets");
+      addProjection(ja, "TruthJets");
+    }
+
+
+    /// @brief Constructor with efficiency and smearing function args
+    /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
+    template <typename J2JFN, typename J2DFN>
+    SmearedJets(const JetAlg& ja,
+                const J2JFN& jetSmearFn,
+                const J2DFN& bTagEffFn,
+                const J2DFN& cTagEffFn)
+      : _jetEffFnHash(reinterpret_cast<size_t>(JET_EFF_ONE)),
+        _bTagEffFnHash(reinterpret_cast<size_t>(bTagEffFn)),
+        _cTagEffFnHash(reinterpret_cast<size_t>(cTagEffFn)),
+        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
+        _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
+    {
+      setName("SmearedJets");
+      addProjection(ja, "TruthJets");
+    }
+
+
+    /// @brief Constructor with efficiency and smearing function args
+    /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
+    template <typename J2JFN, typename J2DFN>
+    SmearedJets(const JetAlg& ja,
+                const J2JFN& jetSmearFn,
+                const J2DFN& bTagEffFn,
+                const J2DFN& cTagEffFn,
+                const J2DFN& jetEffFn)
       : _jetEffFnHash(reinterpret_cast<size_t>(jetEffFn)),
         _bTagEffFnHash(reinterpret_cast<size_t>(bTagEffFn)),
         _cTagEffFnHash(reinterpret_cast<size_t>(cTagEffFn)),

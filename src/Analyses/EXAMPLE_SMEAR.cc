@@ -27,9 +27,9 @@ namespace Rivet {
       SmearedJets sj1(fj, JET_SMEAR_IDENTITY);
       addProjection(sj1, "Jets1");
 
-      // SmearedJets sj2(fj, JET_SMEAR_IDENTITY,
-      //                 [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0; } );
-      // addProjection(sj2, "Jets2");
+      SmearedJets sj2(fj, JET_SMEAR_IDENTITY,
+                      [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0; } );
+      addProjection(sj2, "Jets2");
 
       // SmearedJets sj3(fj,
       //                 [](const Jet& j) { return j; },
