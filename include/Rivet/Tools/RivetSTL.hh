@@ -1,24 +1,33 @@
 #ifndef RIVET_RivetSTL_HH
 #define RIVET_RivetSTL_HH
 
-#include <typeinfo>
+#include <string>
+#include <vector>
 #include <set>
 #include <list>
 #include <map>
 #include <utility>
-#include <string>
-#include <sstream>
-#include <vector>
+#include <algorithm>
 #include <stdexcept>
+#include <cassert>
+#include <memory>
+#include <typeinfo>
+#include <sstream>
+#include <fstream>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
 #include <limits>
-#include <cassert>
-#include <fstream>
-#include <algorithm>
+
+
+#ifndef foreach
+/// @decl A foreach macro for backward compatibility with BOOST_FOREACH
+#define foreach(value, container) for (value : container)
+#endif
+
 
 namespace Rivet {
+
 
   /// @name Convenient imports of common STL classes and functions
   //@{

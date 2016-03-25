@@ -1,30 +1,25 @@
 #ifndef RIVET_RIVETBOOST_HH
 #define RIVET_RIVETBOOST_HH
 
+/// @todo Replaced by C++11 std?
 #include "boost/smart_ptr.hpp"
 #include "boost/pointer_cast.hpp"
-#include "boost/lexical_cast.hpp"
-#include "boost/assign.hpp"
-#include "boost/algorithm/string.hpp"
 #include "boost/type_traits.hpp"
 #include "boost/utility.hpp"
 
-#include "boost/foreach.hpp"
-#ifndef foreach
-namespace boost {
-  // Suggested work-around for https://svn.boost.org/trac/boost/ticket/6131
-  namespace BOOST_FOREACH = foreach;
-}
-#define foreach BOOST_FOREACH
-#endif
+/// @todo Not in C++11 -- can be removed / mocked up easily?
+#include "boost/lexical_cast.hpp"
+#include "boost/assign.hpp"
+#include "boost/algorithm/string.hpp"
 
 namespace Rivet {
 
 
-  // Smart pointers
-  using boost::shared_ptr;
+  // // Smart pointers
+  // using boost::shared_ptr;
 
   // Clever casts
+  /// @todo Replace?
   using boost::lexical_cast;
   using boost::bad_lexical_cast;
 
@@ -32,6 +27,7 @@ namespace Rivet {
   using namespace boost::assign;
 
   // General Boost namespace
+  /// @todo Remove?
   using namespace boost;
 
 
