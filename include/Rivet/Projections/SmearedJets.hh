@@ -7,7 +7,7 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/JetAlg.hh"
 #include "Rivet/Tools/SmearingFunctions.hh"
-#include "boost/function.hpp"
+#include <functional>
 
 namespace Rivet {
 
@@ -22,25 +22,15 @@ namespace Rivet {
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
     template <typename J2DFN, typename J2JFN>
-    SmearedJets(const JetAlg& ja, const J2DFN& jetEffFn,
+    SmearedJets(const JetAlg& ja,
                 const J2JFN& jetSmearFn=JET_SMEAR_IDENTITY,
-                const J2DFN& bTagEffFn=JET_BTAG_PERFECT, const J2DFN& cTagEffFn=JET_CTAG_PERFECT)
-      : _jetEffFnPtr(reinterpret_cast<size_t>(jetEffFn)), _bTagEffFnPtr(reinterpret_cast<size_t>(bTagEffFn)),
-        _cTagEffFnPtr(reinterpret_cast<size_t>(cTagEffFn)), _jetSmearFnPtr(reinterpret_cast<size_t>(jetSmearFn)),
+                const J2DFN& bTagEffFn=JET_BTAG_PERFECT, const J2DFN& cTagEffFn=JET_CTAG_PERFECT,
+                const J2DFN& jetEffFn=JET_EFF_ONE)
+      : _jetEffFnHash(reinterpret_cast<size_t>(jetEffFn)),
+        _bTagEffFnHash(reinterpret_cast<size_t>(bTagEffFn)),
+        _cTagEffFnHash(reinterpret_cast<size_t>(cTagEffFn)),
+        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
         _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
-    {
-      setName("SmearedJets");
-      addProjection(ja, "TruthJets");
-    }
-
-
-    /// @brief Constructor with all-mandatory efficiency function args and no smearing
-    /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2DFN>
-    SmearedJets(const JetAlg& ja, const J2DFN& jetEffFn, const J2DFN& bTagEffFn, const J2DFN& cTagEffFn=JET_CTAG_PERFECT)
-      : _jetEffFnPtr(reinterpret_cast<size_t>(jetEffFn)), _bTagEffFnPtr(reinterpret_cast<size_t>(bTagEffFn)),
-        _cTagEffFnPtr(reinterpret_cast<size_t>(cTagEffFn)), _jetSmearFnPtr(0),
-        _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
@@ -59,8 +49,8 @@ namespace Rivet {
     int compare(const Projection& p) const {
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
       return
-        cmp(_jetEffFnPtr, other._jetEffFnPtr) || cmp(_jetSmearFnPtr, other._jetSmearFnPtr) ||
-        cmp(_bTagEffFnPtr, other._bTagEffFnPtr) || cmp(_cTagEffFnPtr, other._cTagEffFnPtr);
+        cmp(_jetEffFnHash, other._jetEffFnHash) || cmp(_jetSmearFnHash, other._jetSmearFnHash) ||
+        cmp(_bTagEffFnHash, other._bTagEffFnHash) || cmp(_cTagEffFnHash, other._cTagEffFnHash);
     }
 
 
@@ -104,9 +94,9 @@ namespace Rivet {
   private:
 
     Jets _recojets;
-    size_t _jetEffFnPtr, _bTagEffFnPtr, _cTagEffFnPtr, _jetSmearFnPtr;
-    boost::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
-    boost::function<Jet(const Jet&)> _jetSmearFn;
+    size_t _jetEffFnHash, _bTagEffFnHash, _cTagEffFnHash, _jetSmearFnHash;
+    std::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
+    std::function<Jet(const Jet&)> _jetSmearFn;
 
   };
 

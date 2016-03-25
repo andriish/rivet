@@ -6,7 +6,7 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/ParticleFinder.hh"
 #include "Rivet/Tools/SmearingFunctions.hh"
-#include "boost/function.hpp"
+#include <functional>
 
 namespace Rivet {
 
@@ -24,7 +24,8 @@ namespace Rivet {
                      const P2DFN& effFn, const P2PFN& smearFn=PARTICLE_SMEAR_IDENTITY,
                      const Cut& c=Cuts::open())
       : ParticleFinder(c),
-        _effFnPtr(reinterpret_cast<size_t>(effFn)), _smearFnPtr(reinterpret_cast<size_t>(smearFn)),
+        _effFnHash(reinterpret_cast<size_t>(effFn)),
+        _smearFnHash(reinterpret_cast<size_t>(smearFn)),
         _effFn(effFn), _smearFn(smearFn)
     {
       setName("SmearedParticles");
@@ -43,7 +44,7 @@ namespace Rivet {
     /// Compare to another SmearedParticles
     int compare(const Projection& p) const {
       const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
-      return cmp(_effFnPtr, other._effFnPtr) || cmp(_smearFnPtr, other._smearFnPtr);
+      return cmp(_effFnHash, other._effFnHash) || cmp(_smearFnHash, other._smearFnHash);
     }
 
 
@@ -70,9 +71,9 @@ namespace Rivet {
   private:
 
     // Particles _recoparticles;
-    size_t _effFnPtr, _smearFnPtr;
-    boost::function<double(const Particle&)> _effFn;
-    boost::function<Particle(const Particle&)> _smearFn;
+    size_t _effFnHash, _smearFnHash;
+    std::function<double(const Particle&)> _effFn;
+    std::function<Particle(const Particle&)> _smearFn;
 
   };
 
