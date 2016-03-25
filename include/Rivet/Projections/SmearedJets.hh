@@ -25,11 +25,7 @@ namespace Rivet {
     template <typename J2JFN>
     SmearedJets(const JetAlg& ja,
                 const J2JFN& jetSmearFn)
-      : _jetEffFnHash(reinterpret_cast<size_t>(JET_EFF_ONE)),
-        _bTagEffFnHash(reinterpret_cast<size_t>(JET_BTAG_PERFECT)),
-        _cTagEffFnHash(reinterpret_cast<size_t>(JET_CTAG_PERFECT)),
-        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
-        _jetEffFn(JET_EFF_ONE), _bTagEffFn(JET_BTAG_PERFECT), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
+      : _jetEffFn(JET_EFF_ONE), _bTagEffFn(JET_BTAG_PERFECT), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
@@ -42,11 +38,7 @@ namespace Rivet {
     SmearedJets(const JetAlg& ja,
                 const J2JFN& jetSmearFn,
                 const J2DFN& bTagEffFn)
-      : _jetEffFnHash(reinterpret_cast<size_t>(JET_EFF_ONE)),
-        _bTagEffFnHash(reinterpret_cast<size_t>(bTagEffFn)),
-        _cTagEffFnHash(reinterpret_cast<size_t>(JET_CTAG_PERFECT)),
-        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
-        _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
+      : _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
@@ -60,11 +52,7 @@ namespace Rivet {
                 const J2JFN& jetSmearFn,
                 const J2DFN& bTagEffFn,
                 const J2DFN& cTagEffFn)
-      : _jetEffFnHash(reinterpret_cast<size_t>(JET_EFF_ONE)),
-        _bTagEffFnHash(reinterpret_cast<size_t>(bTagEffFn)),
-        _cTagEffFnHash(reinterpret_cast<size_t>(cTagEffFn)),
-        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
-        _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
+      : _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
@@ -79,11 +67,7 @@ namespace Rivet {
                 const J2DFN& bTagEffFn,
                 const J2DFN& cTagEffFn,
                 const J2DFN& jetEffFn)
-      : _jetEffFnHash(reinterpret_cast<size_t>(jetEffFn)),
-        _bTagEffFnHash(reinterpret_cast<size_t>(bTagEffFn)),
-        _cTagEffFnHash(reinterpret_cast<size_t>(cTagEffFn)),
-        _jetSmearFnHash(reinterpret_cast<size_t>(jetSmearFn)),
-        _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
+      : _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
       addProjection(ja, "TruthJets");
@@ -101,9 +85,13 @@ namespace Rivet {
     /// Compare to another SmearedJets
     int compare(const Projection& p) const {
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
+      if (_mkhash(_jetEffFn) == 0) return UNDEFINED;
+      if (_mkhash(_bTagEffFn) == 0) return UNDEFINED;
+      if (_mkhash(_cTagEffFn) == 0) return UNDEFINED;
+      if (_mkhash(_jetSmearFn) == 0) return UNDEFINED;
       return
-        cmp(_jetEffFnHash, other._jetEffFnHash) || cmp(_jetSmearFnHash, other._jetSmearFnHash) ||
-        cmp(_bTagEffFnHash, other._bTagEffFnHash) || cmp(_cTagEffFnHash, other._cTagEffFnHash);
+        cmp(_mkhash(_jetEffFn), _mkhash(other._jetEffFn)) || cmp(_mkhash(_jetSmearFn), _mkhash(other._jetSmearFn)) ||
+        cmp(_mkhash(_bTagEffFn), _mkhash(other._bTagEffFn)) || cmp(_mkhash(_cTagEffFn), _mkhash(other._cTagEffFn));
     }
 
 
@@ -146,8 +134,16 @@ namespace Rivet {
 
   private:
 
+    size_t _mkhash(const std::function<double(const Jet&)>& fn) const {
+      return reinterpret_cast<size_t>(fn.target<double(*)(const Jet&)>());
+    }
+
+    size_t _mkhash(const std::function<Jet(const Jet&)>& fn) const {
+      return reinterpret_cast<size_t>(fn.target<Jet(*)(const Jet&)>());
+    }
+
+
     Jets _recojets;
-    size_t _jetEffFnHash, _bTagEffFnHash, _cTagEffFnHash, _jetSmearFnHash;
     std::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
     std::function<Jet(const Jet&)> _jetSmearFn;
 
