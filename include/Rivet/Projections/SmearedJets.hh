@@ -47,11 +47,11 @@ namespace Rivet {
 
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2JFN, typename J2DFN>
+    template <typename J2JFN, typename J2DFNa, typename J2DFNb>
     SmearedJets(const JetAlg& ja,
                 const J2JFN& jetSmearFn,
-                const J2DFN& bTagEffFn,
-                const J2DFN& cTagEffFn)
+                const J2DFNa& bTagEffFn,
+                const J2DFNb& cTagEffFn)
       : _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
@@ -61,12 +61,12 @@ namespace Rivet {
 
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2JFN, typename J2DFN>
+    template <typename J2JFN, typename J2DFNa, typename J2DFNb, typename J2DFNc>
     SmearedJets(const JetAlg& ja,
                 const J2JFN& jetSmearFn,
-                const J2DFN& bTagEffFn,
-                const J2DFN& cTagEffFn,
-                const J2DFN& jetEffFn)
+                const J2DFNa& bTagEffFn,
+                const J2DFNb& cTagEffFn,
+                const J2DFNc& jetEffFn)
       : _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
@@ -134,17 +134,26 @@ namespace Rivet {
 
   private:
 
+    /// Make a hash integer from the provided wrapped Jet -> double function
     size_t _mkhash(const std::function<double(const Jet&)>& fn) const {
-      return reinterpret_cast<size_t>(fn.target<double(*)(const Jet&)>());
+      const size_t rtn = reinterpret_cast<size_t>(fn.target<double(*)(const Jet&)>());
+      MSG_TRACE("J2D hash = " << rtn);
+      return rtn;
     }
 
+    /// Make a hash integer from the provided wrapped Jet -> Jet function
     size_t _mkhash(const std::function<Jet(const Jet&)>& fn) const {
-      return reinterpret_cast<size_t>(fn.target<Jet(*)(const Jet&)>());
+      const size_t rtn = reinterpret_cast<size_t>(fn.target<Jet(*)(const Jet&)>());
+      MSG_TRACE("J2D hash = " << rtn);
+      return rtn;
     }
 
 
     Jets _recojets;
+
+    /// Stored efficiency functions
     std::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
+    /// Stored smearing function
     std::function<Jet(const Jet&)> _jetSmearFn;
 
   };

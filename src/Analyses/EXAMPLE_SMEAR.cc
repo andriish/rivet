@@ -31,10 +31,12 @@ namespace Rivet {
                       [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0; } );
       addProjection(sj2, "Jets2");
 
-      // SmearedJets sj3(fj,
-      //                 [](const Jet& j) { return j; },
-      //                 [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0; } );
-      // addProjection(sj3, "Jets3");
+      SmearedJets sj3(fj,
+                      [](const Jet& j) { return j; },
+                      [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0; },
+                      JET_CTAG_PERFECT,
+                      JET_EFF_ZERO);
+      addProjection(sj3, "Jets3");
     }
 
 
