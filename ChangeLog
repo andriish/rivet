@@ -1,5 +1,7 @@
 2016-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Propagate identity and C++ dialect flags from Rivet to rivet-config.
+
 	* Require C++11 support in Rivet compilation.
 
 2016-03-23  Andy Buckley  <andy.buckley@cern.ch>

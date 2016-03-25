@@ -27,6 +27,7 @@ if test $# -eq 0 || test -n "$tmp"; then
     echo "  --datadir     : show the path to the directory containing Rivet data"
     echo "  --pythonpath  : show the path(s) to the directory containing Rivet's Python package"
     echo
+    echo "  --cxx         : returns a compiler string mathing that used to build Rivet"
     echo "  --cppflags    : returns a Rivet '-I' string for insertion into CPPFLAGS"
     echo "  --ldflags     : returns a Rivet '-L' string for insertion into LDFLAGS"
     echo "  --libs        : returns a Rivet '-l' string for insertion into LIBS or LIBADD"
@@ -52,7 +53,14 @@ test -n "$tmp" && OUT="$OUT @datadir@/@PACKAGE_TARNAME@"
 tmp=$( echo "$*" | egrep -- '--\<pythonpath\>')
 test -n "$tmp" && OUT="$OUT @RIVET_PYTHONPATH@"
 
+
 ## "Pre-rolled" build info
+tmp=$( echo "$*" | egrep -- '--\<cxx\>')
+test -n "$tmp" && OUT="$OUT @RIVETCXX@"
+
+tmp=$( echo "$*" | egrep -- '--\<cflags|cxxflags\>')
+test -n "$tmp" && OUT="$OUT @RIVETCXXFLAGS@"
+
 tmp=$( echo "$*" | egrep -- '--\<cppflags\>')
 if test -n "$tmp"; then
     irivet="@includedir@"

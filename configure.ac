@@ -36,11 +36,16 @@ AC_LCG_TAG
 ## Set default compiler flags
 if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
 
-
 ## Compiler setup
 AC_LANG(C++)
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+
+## Store and propagate the compiler identity and flags
+RIVETCXX="$CXX"
+AC_SUBST(RIVETCXX)
+RIVETCXXFLAGS="$CXXFLAGS"
+AC_SUBST(RIVETCXXFLAGS)
 
 ## Checks for programs.
 AC_PROG_INSTALL
@@ -155,8 +160,8 @@ BOOST_SMART_PTR
 BOOST_FIND_HEADER([boost/lexical_cast.hpp])
 BOOST_FIND_HEADER([boost/range.hpp])
 BOOST_FIND_HEADER([boost/assign.hpp])
-
 BOOST_BUG_IN_FOREACH
+
 
 ## Disable build/install of standard analyses
 AC_ARG_ENABLE([analyses],
