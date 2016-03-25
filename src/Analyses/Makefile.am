@@ -437,6 +437,7 @@ lib_LTLIBRARIES += RivetMCAnalyses.la
 RivetMCAnalyses_la_SOURCES = \
     EXAMPLE.cc \
     EXAMPLE_CUTS.cc \
+    EXAMPLE_SMEAR.cc \
     MC_QCD_PARTONS.cc \
     MC_DIPHOTON.cc \
     MC_ELECTRONS.cc \

@@ -264,6 +264,7 @@ dist_pkgdata_DATA = \
   DELPHI_2002_069_CONF_603.info \
   EXAMPLE.info \
   EXAMPLE_CUTS.info \
+  EXAMPLE_SMEAR.info \
   H1_1994_S2919893.info \
   H1_1995_S3167097.info \
   H1_2000_S4129130.info \
