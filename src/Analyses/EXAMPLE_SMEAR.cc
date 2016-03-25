@@ -7,12 +7,12 @@
 namespace Rivet {
 
 
-  class SMEAR : public Analysis {
+  class EXAMPLE_SMEAR : public Analysis {
   public:
 
     /// Constructor
-    SMEAR()
-      : Analysis("SMEAR")
+    EXAMPLE_SMEAR()
+      : Analysis("EXAMPLE_SMEAR")
     {    }
 
 
@@ -22,22 +22,30 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FastJets fj(FinalState(Cuts::abseta < 5), FastJets::ANTIKT, 0.4);
-      SmearedJets sj(fj, JET_EFF_ONE, JET_SMEAR_IDENTITY);
-      // SmearedJets sj(fj, [](const Jet& j) -> double { return 1 - exp(-j.pT()/(10*GeV)); });
-      // SmearedJets sj(fj,
-      //                [](const Jet& j) { return 1 - exp(-j.pT()/(10*GeV)); },
-      //                [](const Jet& j) { return j; });
-      addProjection(sj, "Jets");
-      SmearedJets sj2(fj, JET_EFF_ZERO, JET_SMEAR_IDENTITY);
-      addProjection(sj, "Jets0");
+      addProjection(fj, "Jets0");
+
+      // SmearedJets sj1(fj, JET_EFF_ONE, JET_SMEAR_IDENTITY);
+      SmearedJets sj1(fj, JET_EFF_ZERO, JET_SMEAR_IDENTITY);
+      addProjection(sj1, "Jets1");
+
+      SmearedJets sj2(fj, JET_EFF_ONE, JET_SMEAR_IDENTITY);
+      addProjection(sj2, "Jets2");
+
+      // SmearedJets sj3(fj,
+      //                 [](const Jet& j) { return 1 - exp(-j.pT()/(10*GeV)); },
+      //                 [](const Jet& j) { return j; });
+      // addProjection(sj3, "Jets3");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const Jets jets = applyProjection<JetAlg>(event, "Jets").jets(Cuts::pT > 10*GeV);
-      MSG_INFO("Number of jets = " << jets.size());
       const Jets jets0 = applyProjection<JetAlg>(event, "Jets0").jets(Cuts::pT > 10*GeV);
+      const Jets jets1 = applyProjection<JetAlg>(event, "Jets1").jets(Cuts::pT > 10*GeV);
+      const Jets jets2 = applyProjection<JetAlg>(event, "Jets2").jets(Cuts::pT > 10*GeV);
+      const Jets jets3 = applyProjection<JetAlg>(event, "Jets3").jets(Cuts::pT > 10*GeV);
+      MSG_INFO("Numbers of jets = " << jets0.size() << " true; "
+               << jets1.size() << ", " << jets2.size() << ", " << jets3.size());
     }
 
 
@@ -65,7 +73,7 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(SMEAR);
+  DECLARE_RIVET_PLUGIN(EXAMPLE_SMEAR);
 
 
 }

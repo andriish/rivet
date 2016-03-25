@@ -1,6 +1,6 @@
-Name: SMEAR
+Name: EXAMPLE_SMEAR
 Year: <Insert year of publication>
-Summary: <Insert short SMEAR description>
+Summary: <Insert short EXAMPLE_SMEAR description>
 Experiment: <Insert the experiment name>
 Collider: <Insert the collider name>
 SpiresID: <Insert the Inspire ID>
@@ -27,8 +27,7 @@ Description:
   and if possible what it is useful for in terms of MC validation
   and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.
   Use single quotes around the block if required (see http://www.yaml.org)>'
-BibKey: 
+BibKey:
 BibTeX: ''
 ToDo:
  - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
-
