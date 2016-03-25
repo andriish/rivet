@@ -1,5 +1,4 @@
 #include <Rivet/Cuts.hh>
-#include <boost/make_shared.hpp>
 
 // headers for converters
 #include <Rivet/Particle.hh>
@@ -36,7 +35,7 @@ namespace Rivet {
   class Open_Cut : public CutBase {
   public:
     bool operator==(const Cut & c) const {
-      shared_ptr<Open_Cut> cc = dynamic_pointer_cast<Open_Cut>(c);
+      std::shared_ptr<Open_Cut> cc = dynamic_pointer_cast<Open_Cut>(c);
       return bool(cc);
     }
   protected:
@@ -46,7 +45,7 @@ namespace Rivet {
 
   const Cut & Cuts::open() {
     // only ever need one static open cut object
-    static const Cut open = boost::make_shared<Open_Cut>();
+    static const Cut open = std::make_shared<Open_Cut>();
     return open;
   }
 
@@ -59,7 +58,7 @@ namespace Rivet {
   public:
     Cut_GtrEq(const Cuts::Quantity qty, const double low) : qty_(qty), low_(low) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<Cut_GtrEq> cc = dynamic_pointer_cast<Cut_GtrEq>(c);
+      std::shared_ptr<Cut_GtrEq> cc = dynamic_pointer_cast<Cut_GtrEq>(c);
       return cc && qty_ == cc->qty_  &&  low_ == cc->low_;
     }
   protected:
@@ -74,7 +73,7 @@ namespace Rivet {
   public:
     Cut_Less(const Cuts::Quantity qty, const double high) : qty_(qty), high_(high) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<Cut_Less> cc = dynamic_pointer_cast<Cut_Less>(c);
+      std::shared_ptr<Cut_Less> cc = dynamic_pointer_cast<Cut_Less>(c);
       return cc && qty_ == cc->qty_  &&  high_ == cc->high_;
     }
   protected:
@@ -89,7 +88,7 @@ namespace Rivet {
   public:
     Cut_Gtr(const Cuts::Quantity qty, const double low) : qty_(qty), low_(low) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<Cut_Gtr> cc = dynamic_pointer_cast<Cut_Gtr>(c);
+      std::shared_ptr<Cut_Gtr> cc = dynamic_pointer_cast<Cut_Gtr>(c);
       return cc && qty_ == cc->qty_  &&  low_ == cc->low_;
     }
   protected:
@@ -104,7 +103,7 @@ namespace Rivet {
   public:
     Cut_LessEq(const Cuts::Quantity qty, const double high) : qty_(qty), high_(high) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<Cut_LessEq> cc = dynamic_pointer_cast<Cut_LessEq>(c);
+      std::shared_ptr<Cut_LessEq> cc = dynamic_pointer_cast<Cut_LessEq>(c);
       return cc && qty_ == cc->qty_  &&  high_ == cc->high_;
     }
   protected:
@@ -117,7 +116,7 @@ namespace Rivet {
 
   template <typename T>
   inline Cut make_cut(T t) {
-    return boost::make_shared<T>(t);
+    return std::make_shared<T>(t);
   }
 
   Cut operator < (Cuts::Quantity qty, double n) {
@@ -151,7 +150,7 @@ namespace Rivet {
   public:
     CutsOr(const Cut & c1, const Cut & c2) : cut1(c1), cut2(c2) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<CutsOr> cc = dynamic_pointer_cast<CutsOr>(c);
+      std::shared_ptr<CutsOr> cc = dynamic_pointer_cast<CutsOr>(c);
       return cc && (   ( cut1 == cc->cut1  &&  cut2 == cc->cut2 )
                        || ( cut1 == cc->cut2  &&  cut2 == cc->cut1 ));
     }
@@ -168,7 +167,7 @@ namespace Rivet {
   public:
     CutsAnd(const Cut & c1, const Cut & c2) : cut1(c1), cut2(c2) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<CutsAnd> cc = dynamic_pointer_cast<CutsAnd>(c);
+      std::shared_ptr<CutsAnd> cc = dynamic_pointer_cast<CutsAnd>(c);
       return cc && (   ( cut1 == cc->cut1  &&  cut2 == cc->cut2 )
                        || ( cut1 == cc->cut2  &&  cut2 == cc->cut1 ));
     }
@@ -185,7 +184,7 @@ namespace Rivet {
   public:
     CutInvert(const Cut & c1) : cut(c1) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<CutInvert> cc = dynamic_pointer_cast<CutInvert>(c);
+      std::shared_ptr<CutInvert> cc = dynamic_pointer_cast<CutInvert>(c);
       return cc && cut == cc->cut;
     }
   protected:
@@ -200,7 +199,7 @@ namespace Rivet {
   public:
     CutsXor(const Cut & c1, const Cut & c2) : cut1(c1), cut2(c2) {}
     bool operator==(const Cut & c) const {
-      shared_ptr<CutsXor> cc = dynamic_pointer_cast<CutsXor>(c);
+      std::shared_ptr<CutsXor> cc = dynamic_pointer_cast<CutsXor>(c);
       return cc && (   ( cut1 == cc->cut1  &&  cut2 == cc->cut2 )
                        || ( cut1 == cc->cut2  &&  cut2 == cc->cut1 ));
     }

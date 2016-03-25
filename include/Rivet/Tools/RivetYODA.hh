@@ -17,15 +17,15 @@
 
 namespace Rivet {
 
-  typedef shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
-  typedef shared_ptr<YODA::Counter> CounterPtr;
-  typedef shared_ptr<YODA::Histo1D> Histo1DPtr;
-  typedef shared_ptr<YODA::Histo2D> Histo2DPtr;
-  typedef shared_ptr<YODA::Profile1D> Profile1DPtr;
-  typedef shared_ptr<YODA::Profile2D> Profile2DPtr;
-  typedef shared_ptr<YODA::Scatter1D> Scatter1DPtr;
-  typedef shared_ptr<YODA::Scatter2D> Scatter2DPtr;
-  typedef shared_ptr<YODA::Scatter3D> Scatter3DPtr;
+  typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
+  typedef std::shared_ptr<YODA::Counter> CounterPtr;
+  typedef std::shared_ptr<YODA::Histo1D> Histo1DPtr;
+  typedef std::shared_ptr<YODA::Histo2D> Histo2DPtr;
+  typedef std::shared_ptr<YODA::Profile1D> Profile1DPtr;
+  typedef std::shared_ptr<YODA::Profile2D> Profile2DPtr;
+  typedef std::shared_ptr<YODA::Scatter1D> Scatter1DPtr;
+  typedef std::shared_ptr<YODA::Scatter2D> Scatter2DPtr;
+  typedef std::shared_ptr<YODA::Scatter3D> Scatter3DPtr;
 
   using YODA::AnalysisObject;
   using YODA::Counter;

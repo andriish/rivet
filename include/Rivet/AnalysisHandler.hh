@@ -12,7 +12,7 @@ namespace Rivet {
 
   // Forward declaration and smart pointer for Analysis
   class Analysis;
-  typedef shared_ptr<Analysis> AnaHandle;
+  typedef std::shared_ptr<Analysis> AnaHandle;
 
 
   // Needed to make smart pointers compare equivalent in the STL set

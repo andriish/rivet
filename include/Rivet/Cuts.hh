@@ -1,6 +1,7 @@
 #ifndef RIVET_Cuts_HH
 #define RIVET_Cuts_HH
-#include <boost/smart_ptr.hpp>
+
+#include <memory>
 
 namespace Rivet {
 
@@ -13,11 +14,12 @@ namespace Rivet {
   class CutBase;
 
   /// Main cut object
-  typedef boost::shared_ptr<CutBase> Cut;
+  typedef std::shared_ptr<CutBase> Cut;
 
 
   class CutBase {
   public:
+
     /// Main work method.
     /// @internal Forwards the received object to @ref accept_, wrapped in the Cuttable converter
     template <typename ClassToCheck> bool accept(const ClassToCheck&) const;
@@ -25,9 +27,11 @@ namespace Rivet {
     virtual bool operator==(const Cut&) const = 0;
     /// Default destructor
     virtual ~CutBase() {}
+
   protected:
     /// @internal Actual accept implementation, overloadable by various cut combiners
     virtual bool _accept(const CuttableBase&) const = 0;
+
   };
 
 

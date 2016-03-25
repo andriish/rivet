@@ -209,12 +209,12 @@ namespace Rivet {
     Scatter2DPtr _s_chEF_minbias, _s_chEF_hard, _s_chEF_diff, _s_chEF_nondiff;
 
     // Temp profiles containing <E(eta)>
-    shared_ptr<YODA::Profile1D> _tp_totEF_minbias, _tp_totEF_hard, _tp_totEF_diff, _tp_totEF_nondiff;
-    shared_ptr<YODA::Profile1D> _tp_chEF_minbias, _tp_chEF_hard, _tp_chEF_diff, _tp_chEF_nondiff;
+    std::shared_ptr<YODA::Profile1D> _tp_totEF_minbias, _tp_totEF_hard, _tp_totEF_diff, _tp_totEF_nondiff;
+    std::shared_ptr<YODA::Profile1D> _tp_chEF_minbias, _tp_chEF_hard, _tp_chEF_diff, _tp_chEF_nondiff;
 
     // Temp profiles containing <N(eta)>
-    shared_ptr<YODA::Histo1D> _th_totN_minbias, _th_totN_hard, _th_totN_diff, _th_totN_nondiff;
-    shared_ptr<YODA::Histo1D> _th_chN_minbias, _th_chN_hard, _th_chN_diff, _th_chN_nondiff;
+    std::shared_ptr<YODA::Histo1D> _th_totN_minbias, _th_totN_hard, _th_totN_diff, _th_totN_nondiff;
+    std::shared_ptr<YODA::Histo1D> _th_chN_minbias, _th_chN_hard, _th_chN_diff, _th_chN_nondiff;
 
     // Sums of weights (~ #events) in each event class
     double _mbSumW, _hdSumW, _dfSumW, _ndSumW;

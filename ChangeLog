@@ -1,5 +1,7 @@
 2016-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Start replacing Boost foreach and shared_ptr with C++11 features.
+
 	* Add an EXAMPLE_SMEAR analysis.
 
 	* Propagate identity and C++ dialect flags from Rivet to

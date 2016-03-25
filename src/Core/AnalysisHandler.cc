@@ -204,7 +204,7 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::removeAnalysis(const string& analysisname) {
-    shared_ptr<Analysis> toremove;
+    std::shared_ptr<Analysis> toremove;
     foreach (const AnaHandle a, _analyses) {
       if (a->name() == analysisname) {
         toremove = a;

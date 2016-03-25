@@ -230,17 +230,17 @@ namespace Rivet {
     fastjet::AreaDefinition* _adef;
 
     /// Cluster sequence
-    shared_ptr<fastjet::ClusterSequence> _cseq;
+    std::shared_ptr<fastjet::ClusterSequence> _cseq;
 
     /// FastJet external plugin
-    shared_ptr<fastjet::JetDefinition::Plugin> _plugin;
+    std::shared_ptr<fastjet::JetDefinition::Plugin> _plugin;
 
     /// Map of vectors of y scales. This is mutable so we can use caching/lazy evaluation.
-    mutable map<int, vector<double> > _yscales;
+    mutable std::map<int, vector<double> > _yscales;
 
     /// set of particles sorted by their PT2
     //set<Particle, ParticleBase::byPTAscending> _particles;
-    map<int, Particle> _particles;
+    std::map<int, Particle> _particles;
 
   };
 

@@ -2,10 +2,10 @@
 #define RIVET_RIVETBOOST_HH
 
 /// @todo Replaced by C++11 std?
-#include "boost/smart_ptr.hpp"
-#include "boost/pointer_cast.hpp"
-#include "boost/type_traits.hpp"
-#include "boost/utility.hpp"
+// #include "boost/smart_ptr.hpp"
+// #include "boost/pointer_cast.hpp"
+// #include "boost/type_traits.hpp"
+// #include "boost/utility.hpp"
 
 /// @todo Not in C++11 -- can be removed / mocked up easily?
 #include "boost/lexical_cast.hpp"

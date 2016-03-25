@@ -8,6 +8,7 @@
 #include <map>
 #include <utility>
 #include <algorithm>
+#include <type_traits>
 #include <stdexcept>
 #include <cassert>
 #include <memory>
@@ -32,30 +33,31 @@ namespace Rivet {
   /// @name Convenient imports of common STL classes and functions
   //@{
 
-  using std::set;
-  using std::map;
-  using std::multimap;
-  using std::type_info;
-  using std::string;
-  using std::stringstream;
-  using std::less;
-  using std::list;
-  using std::vector;
-  using std::pair;
-  using std::make_pair;
-  using std::runtime_error;
-  using std::min;
-  using std::max;
-  using std::abs;
-  using std::numeric_limits;
-  using std::ostream;
-  using std::istream;
-  using std::cout;
-  using std::cin;
-  using std::cerr;
-  using std::setw;
-  using std::pow;
-  using std::endl;
+  using namespace std;
+  // using std::set;
+  // using std::map;
+  // using std::multimap;
+  // using std::type_info;
+  // using std::string;
+  // using std::stringstream;
+  // using std::less;
+  // using std::list;
+  // using std::vector;
+  // using std::pair;
+  // using std::make_pair;
+  // using std::runtime_error;
+  // using std::min;
+  // using std::max;
+  // using std::abs;
+  // using std::numeric_limits;
+  // using std::ostream;
+  // using std::istream;
+  // using std::cout;
+  // using std::cin;
+  // using std::cerr;
+  // using std::setw;
+  // using std::pow;
+  // using std::endl;
 
   //@}
 

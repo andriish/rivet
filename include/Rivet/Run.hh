@@ -2,7 +2,7 @@
 #ifndef RIVET_Run_HH
 #define RIVET_Run_HH
 
-#include "Rivet/Tools/RivetBoost.hh"
+#include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
 
 namespace Rivet {
@@ -90,13 +90,13 @@ namespace Rivet {
     //@{
 
     /// Current event
-    shared_ptr<GenEvent> _evt;
+    std::shared_ptr<GenEvent> _evt;
 
     /// Output stream for HepMC writer
-    shared_ptr<std::istream> _istr;
+    std::shared_ptr<std::istream> _istr;
 
     /// HepMC I/O writer
-    shared_ptr<HepMC::IO_GenEvent> _io;
+    std::shared_ptr<HepMC::IO_GenEvent> _io;
 
     //@}
 

@@ -748,7 +748,7 @@ namespace Rivet {
     /// @todo Use this default function template arg in C++11
     // template <typename AO=AnalysisObjectPtr>
     template <typename AO>
-    const shared_ptr<AO> getAnalysisObject(const std::string& name) const {
+    const std::shared_ptr<AO> getAnalysisObject(const std::string& name) const {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
       }
@@ -759,7 +759,7 @@ namespace Rivet {
     /// @todo Use this default function template arg in C++11
     // template <typename AO=AnalysisObjectPtr>
     template <typename AO>
-    shared_ptr<AO> getAnalysisObject(const std::string& name) {
+    std::shared_ptr<AO> getAnalysisObject(const std::string& name) {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
       }
@@ -886,7 +886,7 @@ namespace Rivet {
     string _defaultname;
 
     /// Pointer to analysis metadata object
-    shared_ptr<AnalysisInfo> _info;
+    std::shared_ptr<AnalysisInfo> _info;
 
     /// Storage of all plot objects
     /// @todo Make this a map for fast lookup by path?

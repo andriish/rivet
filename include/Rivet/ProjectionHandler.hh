@@ -11,7 +11,7 @@ namespace Rivet {
 
 
   /// Typedef for Projection (smart) pointer
-  typedef shared_ptr<const Projection> ProjHandle;
+  typedef std::shared_ptr<const Projection> ProjHandle;
 
   // Forward declaration.
   class ProjectionApplier;
