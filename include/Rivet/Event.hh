@@ -4,7 +4,6 @@
 
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Projection.hh"
-#include "Rivet/Tools/RivetBoost.hh"
 
 namespace Rivet {
 

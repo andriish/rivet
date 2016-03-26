@@ -2,8 +2,6 @@
 #define RIVET_RIVETYODA_HH
 
 #include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Tools/RivetBoost.hh"
-
 #include "YODA/AnalysisObject.h"
 #include "YODA/Counter.h"
 #include "YODA/Histo1D.h"
@@ -13,7 +11,6 @@
 #include "YODA/Scatter1D.h"
 #include "YODA/Scatter2D.h"
 #include "YODA/Scatter3D.h"
-#include <map>
 
 namespace Rivet {
 

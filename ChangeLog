@@ -1,5 +1,8 @@
 2016-03-26  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Remove Rivet/Tools/RivetBoost.hh and Boost references from
+	rivet-config, rivet-buildplugin, and configure.ac. It's gone ;-)
+
 	* Replace Boost assign usage with C++11 brace initialisers. All
 	Boost use is gone from Rivet!
 

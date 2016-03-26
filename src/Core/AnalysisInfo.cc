@@ -1,6 +1,5 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/AnalysisInfo.hh"
-#include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/Tools/RivetPaths.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/Logging.hh"

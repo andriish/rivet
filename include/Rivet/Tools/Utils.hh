@@ -4,7 +4,6 @@
 
 #include <Rivet/Math/Math.hh>
 #include <Rivet/Tools/RivetSTL.hh>
-// #include <Rivet/Tools/RivetBoost.hh>
 #include <sstream>
 #include <cctype>
 #include <algorithm>

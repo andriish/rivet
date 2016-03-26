@@ -43,7 +43,6 @@
 #include "Rivet/Exceptions.hh"
 
 #include "Rivet/Tools/RivetSTL.hh"
-#include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/Tools/RivetHepMC.hh"
 
 #include "Rivet/Tools/Utils.hh"
@@ -56,8 +55,5 @@
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 #include "Rivet/Math/Constants.hh"
-
-// #include "Rivet/Particle.hh"
-// #include "Rivet/Event.hh"
 
 #endif

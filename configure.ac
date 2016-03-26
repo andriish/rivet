@@ -153,14 +153,14 @@ AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])]
 CPPFLAGS=$oldCPPFLAGS
 
 
-## Boost utility library
-BOOST_REQUIRE([1.55.0])
-BOOST_FOREACH
-BOOST_SMART_PTR
-BOOST_FIND_HEADER([boost/lexical_cast.hpp])
-BOOST_FIND_HEADER([boost/range.hpp])
-BOOST_FIND_HEADER([boost/assign.hpp])
-BOOST_BUG_IN_FOREACH
+dnl ## Boost utility library
+dnl BOOST_REQUIRE([1.55.0])
+dnl BOOST_FOREACH
+dnl BOOST_SMART_PTR
+dnl BOOST_FIND_HEADER([boost/lexical_cast.hpp])
+dnl BOOST_FIND_HEADER([boost/range.hpp])
+dnl BOOST_FIND_HEADER([boost/assign.hpp])
+dnl BOOST_BUG_IN_FOREACH
 
 
 ## Disable build/install of standard analyses
@@ -300,7 +300,7 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
 #AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen3"
 AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
-AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
+dnl AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(YODAINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
