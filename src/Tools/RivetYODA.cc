@@ -3,7 +3,6 @@
 #include "Rivet/Tools/RivetPaths.hh"
 #include "YODA/ReaderYODA.h"
 #include "YODA/ReaderAIDA.h"
-#include "boost/algorithm/string/split.hpp"
 
 using namespace std;
 
@@ -39,8 +38,7 @@ namespace Rivet {
       string plotpath = refdata->path();
 
       // Split path at "/" and only return the last field, i.e. the histogram ID
-      vector<string> pathvec;
-      split( pathvec, plotpath, is_any_of("/"), token_compress_on );
+      const vector<string> pathvec = pathsplit(plotpath);
       plotpath = pathvec.back();
 
       rtn[plotpath] = refdata;

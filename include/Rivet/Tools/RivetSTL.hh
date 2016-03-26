@@ -30,36 +30,8 @@
 namespace Rivet {
 
 
-  /// @name Convenient imports of common STL classes and functions
-  //@{
-
+  /// We implicitly use STL entities in the Rivet namespace
   using namespace std;
-  // using std::set;
-  // using std::map;
-  // using std::multimap;
-  // using std::type_info;
-  // using std::string;
-  // using std::stringstream;
-  // using std::less;
-  // using std::list;
-  // using std::vector;
-  // using std::pair;
-  // using std::make_pair;
-  // using std::runtime_error;
-  // using std::min;
-  // using std::max;
-  // using std::abs;
-  // using std::numeric_limits;
-  // using std::ostream;
-  // using std::istream;
-  // using std::cout;
-  // using std::cin;
-  // using std::cerr;
-  // using std::setw;
-  // using std::pow;
-  // using std::endl;
-
-  //@}
 
 
   /// @name Streaming containers as string reps
