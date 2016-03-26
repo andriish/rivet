@@ -14,17 +14,15 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2014_I1307243()
-      : Analysis( "ATLAS_2014_I1307243" )
-      , _dy_max(8)
-      , _nEventsInAcceptance(0)
-      , _sumOfAcceptedWeights(0.)
-    {
-      // Cannot do this in initialiser list without C++11
-      _fiducialRegions += 2010, 2011;
-      _vetoScale += 20*GeV, 30*GeV;
-      _yFiducial += 4.4, 2.4;
-      _gapCategories += "inclusive", "gap";
-    }
+      : Analysis("ATLAS_2014_I1307243"),
+        _fiducialRegions{2010, 2011},
+        _vetoScale{20*GeV, 30*GeV},
+        _yFiducial{4.4, 2.4},
+        _gapCategories{"inclusive", "gap"},
+        _dy_max(8),
+        _nEventsInAcceptance(0),
+        _sumOfAcceptedWeights(0.)
+    {   }
 
 
     /// Book histograms and initialise projections before the run

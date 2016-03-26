@@ -10,7 +10,7 @@
 /// @todo Not in C++11 -- can be removed / mocked up easily?
 // #include "boost/lexical_cast.hpp"
 // #include "boost/algorithm/string.hpp"
-#include "boost/assign.hpp"
+// #include "boost/assign.hpp"
 
 namespace Rivet {
 
@@ -25,7 +25,7 @@ namespace Rivet {
 
   // Clever assignment shortcuts
   /// @todo Replace with universal brace init
-  using namespace boost::assign;
+  // using namespace boost::assign;
 
   // General Boost namespace
   /// @todo Remove?

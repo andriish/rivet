@@ -3,6 +3,7 @@
 #define RIVET_RivetPaths_HH
 #include <string>
 #include <vector>
+#include <unistd.h>
 
 namespace Rivet {
 

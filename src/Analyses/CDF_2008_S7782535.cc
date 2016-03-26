@@ -29,7 +29,7 @@ namespace Rivet {
       addProjection(jetproj, "Jets");
 
       // Book histograms and corresponding jet shape projections
-      _ptedges += 52, 80, 104, 142, 300;
+      _ptedges = {{ 52, 80, 104, 142, 300 }};
       for (size_t i = 0; i < 4; ++i) {
         stringstream ss; ss << "JetShape" << i;
         const string pname = ss.str();

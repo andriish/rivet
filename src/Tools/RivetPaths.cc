@@ -2,7 +2,9 @@
 #include "Rivet/Tools/RivetPaths.hh"
 #include "Rivet/Tools/RivetBoost.hh"
 #include "Rivet/Tools/Utils.hh"
+#include "Rivet/Tools/Utils.hh"
 #include "binreloc.h"
+#include <cstring>
 
 namespace Rivet {
 

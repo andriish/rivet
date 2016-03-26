@@ -200,7 +200,7 @@ namespace Rivet {
       // Calculate the jet shapes
       /// @todo Use C++11 vector/array initialization
       const double binWidth = 0.04; // -> 10 bins from 0.0-0.4
-      vector<double> ptEdges; ptEdges += 30, 40, 50, 70, 100, 150;
+      vector<double> ptEdges; ptEdges += {{ 30, 40, 50, 70, 100, 150 }};
 
       // b-jet shapes
       MSG_DEBUG("Filling b-jet shapes");

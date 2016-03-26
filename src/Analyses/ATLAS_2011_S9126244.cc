@@ -73,12 +73,12 @@ namespace Rivet {
       _selectionPlots[0]._gapFractionQ0HistIndex = 13;
       _selectionPlots[0]._avgNJetDeltaYHistIndex = 37;
       _selectionPlots[0]._avgNJetPtBarHistIndex = 26;
-      _selectionPlots[0]._gapFractionDeltaYSlices += 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0;
-      _selectionPlots[0]._gapFractionPtBarSlices += 1.0, 2.0, 3.0, 4.0, 5.0, 6.0;
-      _selectionPlots[0]._gapFractionQ0SlicesPtBar += 70.0, 90.0, 120.0, 150.0, 210.0, 240.0;
-      _selectionPlots[0]._gapFractionQ0SlicesDeltaY += 2.0, 3.0, 4.0, 5.0;
-      _selectionPlots[0]._avgNJetPtBarSlices += 1.0, 2.0, 3.0, 4.0, 5.0;
-      _selectionPlots[0]._avgNJetDeltaYSlices += 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0;
+      _selectionPlots[0]._gapFractionDeltaYSlices = {{ 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0 }};
+      _selectionPlots[0]._gapFractionPtBarSlices = {{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }};
+      _selectionPlots[0]._gapFractionQ0SlicesPtBar = {{ 70.0, 90.0, 120.0, 150.0, 210.0, 240.0 }};
+      _selectionPlots[0]._gapFractionQ0SlicesDeltaY = {{ 2.0, 3.0, 4.0, 5.0 }};
+      _selectionPlots[0]._avgNJetPtBarSlices = {{ 1.0, 2.0, 3.0, 4.0, 5.0 }};
+      _selectionPlots[0]._avgNJetDeltaYSlices = {{ 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0 }};
       initializePlots(_selectionPlots[0]);
 
       _selectionPlots[1].intermediateHistName = "forwardBackward";
@@ -88,20 +88,20 @@ namespace Rivet {
       _selectionPlots[1]._gapFractionQ0HistIndex = 13;
       _selectionPlots[1]._avgNJetDeltaYHistIndex = 37;
       _selectionPlots[1]._avgNJetPtBarHistIndex = 26;
-      _selectionPlots[1]._gapFractionDeltaYSlices += 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0;
-      _selectionPlots[1]._gapFractionPtBarSlices += 1.0, 2.0, 3.0, 4.0, 5.0, 6.0;
-      _selectionPlots[1]._gapFractionQ0SlicesPtBar += 70.0, 90.0, 120.0, 150.0, 210.0, 240.0;
-      _selectionPlots[1]._gapFractionQ0SlicesDeltaY += 2.0, 3.0, 4.0, 5.0;
-      _selectionPlots[1]._avgNJetPtBarSlices += 1.0, 2.0, 3.0, 4.0, 5.0;
-      _selectionPlots[1]._avgNJetDeltaYSlices += 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0;
+      _selectionPlots[1]._gapFractionDeltaYSlices = {{ 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0 }};
+      _selectionPlots[1]._gapFractionPtBarSlices = {{ 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 }};
+      _selectionPlots[1]._gapFractionQ0SlicesPtBar = {{ 70.0, 90.0, 120.0, 150.0, 210.0, 240.0 }};
+      _selectionPlots[1]._gapFractionQ0SlicesDeltaY = {{ 2.0, 3.0, 4.0, 5.0 }};
+      _selectionPlots[1]._avgNJetPtBarSlices = {{ 1.0, 2.0, 3.0, 4.0, 5.0 }};
+      _selectionPlots[1]._avgNJetDeltaYSlices = {{ 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0 }};
       initializePlots(_selectionPlots[1]);
 
       _selectionPlots[2].intermediateHistName = "forwardBackward_PtBarVeto";
       _selectionPlots[2].selectionType = 1;
       _selectionPlots[2]._gapFractionDeltaYHistIndex = 19;
       _selectionPlots[2]._avgNJetDeltaYHistIndex = 30;
-      _selectionPlots[2]._gapFractionDeltaYSlices += 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0;
-      _selectionPlots[2]._avgNJetDeltaYSlices += 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0;
+      _selectionPlots[2]._gapFractionDeltaYSlices = {{ 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0 }};
+      _selectionPlots[2]._avgNJetDeltaYSlices = {{ 70.0, 90.0, 120.0, 150.0, 180.0, 210.0, 240.0, 270.0 }};
       initializePlots(_selectionPlots[2]);
     }
 
@@ -319,7 +319,7 @@ namespace Rivet {
         const double effErr = (totalWeightSum != 0) ? sqrt( eff*(1.0-eff)/totalWeightSum ) : 0;
 	// get the x coord and bin width
 	const double x    = vetoPtHist->bin(i).xMid();
-	const double xerr = 0.5*vetoPtHist->bin(i).xWidth(); 
+	const double xerr = 0.5*vetoPtHist->bin(i).xWidth();
 	gapFractionDP->addPoint(x, eff, xerr, effErr);
       }
     }

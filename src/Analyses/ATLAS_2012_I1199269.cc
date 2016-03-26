@@ -2,13 +2,12 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-/// @todo These should be unnecessary from 2.2.0 onward when Rivet::Jet is rewritten
-#include "fastjet/internal/base.hh"
-#include "fastjet/JetDefinition.hh"
-#include "fastjet/AreaDefinition.hh"
-#include "fastjet/ClusterSequence.hh"
-#include "fastjet/ClusterSequenceArea.hh"
-#include "fastjet/PseudoJet.hh"
+// #include "fastjet/internal/base.hh"
+// #include "fastjet/JetDefinition.hh"
+// #include "fastjet/AreaDefinition.hh"
+// #include "fastjet/ClusterSequence.hh"
+// #include "fastjet/ClusterSequenceArea.hh"
+// #include "fastjet/PseudoJet.hh"
 
 namespace Rivet {
 
@@ -25,10 +24,9 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2012_I1199269()
-      : Analysis("ATLAS_2012_I1199269")
-    {
-      _eta_bins_areaoffset += 0.0, 1.5, 3.0;
-    }
+      : Analysis("ATLAS_2012_I1199269"),
+        _eta_bins_areaoffset{ 0.0, 1.5, 3.0 }
+    {    }
 
 
     /// Book histograms and initialise projections before the run

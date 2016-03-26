@@ -39,8 +39,7 @@ namespace Rivet {
       Beam beams;
       addProjection(beams, "Beams");
 
-      vector<string> tags;
-      tags += "_wplus", "_wminus";
+      vector<string> tags{"_wplus", "_wminus"};
       _h_dists.resize(tags.size());
       _h_histos.resize(tags.size());
       for (size_t i=0; i<tags.size(); ++i) {

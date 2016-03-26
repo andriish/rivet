@@ -6,13 +6,12 @@
 
 namespace Rivet {
 
-  /// @brief helper function to fill correlation points into scatter plot
-  Point2D correlation_helper(double x, double xerr,
-			     const vector<int> & nf, const vector<int> & nb,
-			     double sumWPassed)
-  {
-    return Point2D( x, 	correlation(nf, nb),
-		    xerr,	correlation_err(nf, nb)/sqrt(sumWPassed)  );
+
+  namespace {
+    /// @brief Helper function to fill correlation points into scatter plot
+    Point2D correlation_helper(double x, double xerr, const vector<int> & nf, const vector<int> & nb, double sumWPassed) {
+      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed));
+    }
   }
 
 
@@ -20,10 +19,9 @@ namespace Rivet {
   class UA5_1988_S1867512 : public Analysis {
   public:
 
-    UA5_1988_S1867512() : Analysis("UA5_1988_S1867512")
-    {
-      _sumWPassed = 0;
-    }
+    UA5_1988_S1867512()
+      : Analysis("UA5_1988_S1867512"), _sumWPassed(0)
+    {    }
 
 
     /// @name Analysis methods
@@ -77,24 +75,25 @@ namespace Rivet {
       _sumWPassed += event.weight();
 
       // Count forward/backward particles
-      n_10f += applyProjection<ChargedFinalState>(event, "CFS10F").size();
-      n_15f += applyProjection<ChargedFinalState>(event, "CFS15F").size();
-      n_20f += applyProjection<ChargedFinalState>(event, "CFS20F").size();
-      n_25f += applyProjection<ChargedFinalState>(event, "CFS25F").size();
-      n_30f += applyProjection<ChargedFinalState>(event, "CFS30F").size();
-      n_35f += applyProjection<ChargedFinalState>(event, "CFS35F").size();
-      n_40f += applyProjection<ChargedFinalState>(event, "CFS40F").size();
+      n_10f.push_back(applyProjection<ChargedFinalState>(event, "CFS10F").size());
+      n_15f.push_back(applyProjection<ChargedFinalState>(event, "CFS15F").size());
+      n_20f.push_back(applyProjection<ChargedFinalState>(event, "CFS20F").size());
+      n_25f.push_back(applyProjection<ChargedFinalState>(event, "CFS25F").size());
+      n_30f.push_back(applyProjection<ChargedFinalState>(event, "CFS30F").size());
+      n_35f.push_back(applyProjection<ChargedFinalState>(event, "CFS35F").size());
+      n_40f.push_back(applyProjection<ChargedFinalState>(event, "CFS40F").size());
       //
-      n_10b += applyProjection<ChargedFinalState>(event, "CFS10B").size();
-      n_15b += applyProjection<ChargedFinalState>(event, "CFS15B").size();
-      n_20b += applyProjection<ChargedFinalState>(event, "CFS20B").size();
-      n_25b += applyProjection<ChargedFinalState>(event, "CFS25B").size();
-      n_30b += applyProjection<ChargedFinalState>(event, "CFS30B").size();
-      n_35b += applyProjection<ChargedFinalState>(event, "CFS35B").size();
-      n_40b += applyProjection<ChargedFinalState>(event, "CFS40B").size();
+      n_10b.push_back(applyProjection<ChargedFinalState>(event, "CFS10B").size());
+      n_15b.push_back(applyProjection<ChargedFinalState>(event, "CFS15B").size());
+      n_20b.push_back(applyProjection<ChargedFinalState>(event, "CFS20B").size());
+      n_25b.push_back(applyProjection<ChargedFinalState>(event, "CFS25B").size());
+      n_30b.push_back(applyProjection<ChargedFinalState>(event, "CFS30B").size());
+      n_35b.push_back(applyProjection<ChargedFinalState>(event, "CFS35B").size());
+      n_40b.push_back(applyProjection<ChargedFinalState>(event, "CFS40B").size());
       //
-      n_05 += applyProjection<ChargedFinalState>(event, "CFS05").size();
+      n_05 .push_back(applyProjection<ChargedFinalState>(event, "CFS05").size());
     }
+
 
     void finalize() {
       // The correlation strength is defined in formulas

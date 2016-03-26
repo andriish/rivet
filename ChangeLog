@@ -1,7 +1,9 @@
 2016-03-26  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Replace Boost lexical_cast and string algorithms. Only Boost
-	assign remains, and that can be replaced with brace initialisers.
+	* Replace Boost assign usage with C++11 brace initialisers. All
+	Boost use is gone from Rivet!
+
+	* Replace Boost lexical_cast and string algorithms.
 
 2016-03-25  Andy Buckley  <andy.buckley@cern.ch>
 

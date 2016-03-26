@@ -120,16 +120,16 @@ namespace Rivet {
 
     // Set up a lookup table for decays
     void populateDecayMap() {
-      decay_pids["muids"]     += 13,14,16;
-      decay_pids["elids"]     += 11,12,16;
-      decay_pids["pinu"]      += 211,16;
-      decay_pids["Kpnu"]      += 321,16;
-      decay_pids["pipinu"]    += 111,211,16;
-      decay_pids["Kppinu"]    += 111,321,16;
-      decay_pids["pipipinu"]  += 111,111,211,16;
-      decay_pids["KSpinu"]    += 211,310,16;
-      decay_pids["KLpinu"]    += 211,130,16;
-      decay_pids["3pipipinu"] += 211,211,211,16;
+      decay_pids["muids"]     = {{ 13,14,16 }};
+      decay_pids["elids"]     = {{ 11,12,16 }};
+      decay_pids["pinu"]      = {{ 211,16 }};
+      decay_pids["Kpnu"]      = {{ 321,16 }};
+      decay_pids["pipinu"]    = {{ 111,211,16 }};
+      decay_pids["Kppinu"]    = {{ 111,321,16 }};
+      decay_pids["pipipinu"]  = {{ 111,111,211,16 }};
+      decay_pids["KSpinu"]    = {{ 211,310,16 }};
+      decay_pids["KLpinu"]    = {{ 211,130,16 }};
+      decay_pids["3pipipinu"] = {{ 211,211,211,16 }};
     }
 
 

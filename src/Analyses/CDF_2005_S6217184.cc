@@ -31,8 +31,8 @@ namespace Rivet {
       addProjection(fj, "Jets");
 
       // Specify pT bins
-      _ptedges += 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0,
-        148.0, 166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0;
+      _ptedges = {{ 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0,
+                    166.0, 186.0, 208.0, 229.0, 250.0, 277.0, 304.0, 340.0, 380.0 }};
 
       // Register a jet shape projection and histogram for each pT bin
       for (size_t i = 0; i < 6; ++i) {

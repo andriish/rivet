@@ -117,12 +117,14 @@ namespace std {
   /// @name Container filling and merging
   //@{
 
+  /// Append a single item to vector @a v
+  template <typename T>
+  inline void operator+=(std::vector<T>& v, const T& x) { v.push_back(x); }
+
   /// Append all the items from vector @a v2 to vector @a v1
   template <typename T>
   inline void operator+=(std::vector<T>& v1, const std::vector<T>& v2) {
-    for (typename vector<T>::const_iterator s = v2.begin(); s != v2.end(); ++s) {
-      v1.push_back(*s);
-    }
+    for (const auto& x : v2) v1.push_back(x);
   }
 
   /// Create a new vector from the concatenated items in vectors @a v1 and @a v2
@@ -137,9 +139,7 @@ namespace std {
   /// Merge the contents of set @a s2 into @a s1
   template <typename T>
   inline void operator+=(std::set<T>& s1, const std::set<T>& s2) {
-    for (typename std::set<T>::const_iterator s = s2.begin(); s != s2.end(); ++s) {
-      s1.insert(*s);
-    }
+    for (const auto& x : s2) s1.insert(x);
   }
 
   /// Merge the contents of sets @a s1 and @a s2
