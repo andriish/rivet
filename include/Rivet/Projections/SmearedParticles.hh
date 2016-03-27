@@ -19,13 +19,24 @@ namespace Rivet {
     //@{
 
     /// @brief Constructor with efficiency and smearing function args
-    template <typename P2DFN, typename P2PFN>
+    template <typename P2DFN>
     SmearedParticles(const ParticleFinder& pf,
-                     const P2DFN& effFn, const P2PFN& smearFn=PARTICLE_SMEAR_IDENTITY,
+                     const P2DFN& effFn,
                      const Cut& c=Cuts::open())
       : ParticleFinder(c),
-        _effFnHash(reinterpret_cast<size_t>(effFn)),
-        _smearFnHash(reinterpret_cast<size_t>(smearFn)),
+        _effFn(effFn), _smearFn(PARTICLE_SMEAR_IDENTITY)
+    {
+      setName("SmearedParticles");
+      addProjection(pf, "TruthParticles");
+    }
+
+
+        /// @brief Constructor with efficiency and smearing function args
+    template <typename P2DFN, typename P2PFN>
+    SmearedParticles(const ParticleFinder& pf,
+                     const P2DFN& effFn, const P2PFN& smearFn,
+                     const Cut& c=Cuts::open())
+      : ParticleFinder(c),
         _effFn(effFn), _smearFn(smearFn)
     {
       setName("SmearedParticles");
@@ -44,7 +55,9 @@ namespace Rivet {
     /// Compare to another SmearedParticles
     int compare(const Projection& p) const {
       const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
-      return cmp(_effFnHash, other._effFnHash) || cmp(_smearFnHash, other._smearFnHash);
+      if (_mkhash(_effFn) == 0) return UNDEFINED;
+      if (_mkhash(_smearFn) == 0) return UNDEFINED;
+      return cmp(_mkhash(_effFn), _mkhash(other._effFn)) || cmp(_mkhash(_smearFn), _mkhash(other._smearFn));
     }
 
 
@@ -70,9 +83,23 @@ namespace Rivet {
 
   private:
 
-    // Particles _recoparticles;
-    size_t _effFnHash, _smearFnHash;
+    /// Make a hash integer from the provided wrapped Particle -> double function
+    size_t _mkhash(const std::function<double(const Particle&)>& fn) const {
+      const size_t rtn = reinterpret_cast<size_t>(fn.target<double(*)(const Particle&)>());
+      MSG_TRACE("P2D hash = " << rtn);
+      return rtn;
+    }
+
+    /// Make a hash integer from the provided wrapped Particle -> Particle function
+    size_t _mkhash(const std::function<Particle(const Particle&)>& fn) const {
+      const size_t rtn = reinterpret_cast<size_t>(fn.target<Particle(*)(const Particle&)>());
+      MSG_TRACE("P2P hash = " << rtn);
+      return rtn;
+    }
+
+    /// Stored efficiency function
     std::function<double(const Particle&)> _effFn;
+    /// Stored smearing function
     std::function<Particle(const Particle&)> _smearFn;
 
   };

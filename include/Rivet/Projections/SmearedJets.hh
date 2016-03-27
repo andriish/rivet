@@ -144,7 +144,7 @@ namespace Rivet {
     /// Make a hash integer from the provided wrapped Jet -> Jet function
     size_t _mkhash(const std::function<Jet(const Jet&)>& fn) const {
       const size_t rtn = reinterpret_cast<size_t>(fn.target<Jet(*)(const Jet&)>());
-      MSG_TRACE("J2D hash = " << rtn);
+      MSG_TRACE("J2J hash = " << rtn);
       return rtn;
     }
 
