@@ -23,15 +23,11 @@ namespace Rivet {
     SmearedParticles(const ParticleFinder& pf,
                      const P2DFN& effFn,
                      const Cut& c=Cuts::open())
-      : ParticleFinder(c),
-        _effFn(effFn), _smearFn(PARTICLE_SMEAR_IDENTITY)
-    {
-      setName("SmearedParticles");
-      addProjection(pf, "TruthParticles");
-    }
+      : SmearedParticles(pf, effFn, PARTICLE_SMEAR_IDENTITY, c)
+    {    }
 
 
-        /// @brief Constructor with efficiency and smearing function args
+    /// @brief Constructor with efficiency and smearing function args
     template <typename P2DFN, typename P2PFN>
     SmearedParticles(const ParticleFinder& pf,
                      const P2DFN& effFn, const P2PFN& smearFn,
