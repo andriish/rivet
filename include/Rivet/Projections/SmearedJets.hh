@@ -25,11 +25,8 @@ namespace Rivet {
     template <typename J2JFN>
     SmearedJets(const JetAlg& ja,
                 const J2JFN& jetSmearFn)
-      : _jetEffFn(JET_EFF_ONE), _bTagEffFn(JET_BTAG_PERFECT), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
-    {
-      setName("SmearedJets");
-      addProjection(ja, "TruthJets");
-    }
+      : SmearedJets(ja, jetSmearFn, JET_BTAG_PERFECT, JET_CTAG_PERFECT, JET_EFF_ONE)
+    {    }
 
 
     /// @brief Constructor with efficiency and smearing function args
@@ -38,11 +35,8 @@ namespace Rivet {
     SmearedJets(const JetAlg& ja,
                 const J2JFN& jetSmearFn,
                 const J2DFN& bTagEffFn)
-      : _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(JET_CTAG_PERFECT), _jetSmearFn(jetSmearFn)
-    {
-      setName("SmearedJets");
-      addProjection(ja, "TruthJets");
-    }
+      : SmearedJets(ja, jetSmearFn, bTagEffFn, JET_CTAG_PERFECT, JET_EFF_ONE)
+    {    }
 
 
     /// @brief Constructor with efficiency and smearing function args
@@ -52,11 +46,8 @@ namespace Rivet {
                 const J2JFN& jetSmearFn,
                 const J2DFNa& bTagEffFn,
                 const J2DFNb& cTagEffFn)
-      : _jetEffFn(JET_EFF_ONE), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
-    {
-      setName("SmearedJets");
-      addProjection(ja, "TruthJets");
-    }
+      : SmearedJets(ja, jetSmearFn, bTagEffFn, cTagEffFn, JET_EFF_ONE)
+    {    }
 
 
     /// @brief Constructor with efficiency and smearing function args
