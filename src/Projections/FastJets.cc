@@ -144,8 +144,7 @@ namespace Rivet {
     // Store 4 vector data about each particle into FastJet's PseudoJets
     int counter = 1;
     for (const Particle& p : fsparticles) {
-      const FourMomentum fv = p.momentum();
-      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate with implicit cast?
+      fastjet::PseudoJet pj = p;
       pj.set_user_index(counter);
       pjs.push_back(pj);
       _particles[counter] = p;
@@ -154,8 +153,8 @@ namespace Rivet {
     // And the same for ghost tagging particles (with negative user indices)
     counter = 1;
     for (const Particle& p : tagparticles) {
-      const FourMomentum fv = 1e-20 * p.momentum(); ///< Ghostify the momentum
-      fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate with implicit cast?
+      fastjet::PseudoJet pj = p;
+      pj *= 1e-20; ///< Ghostify the momentum
       pj.set_user_index(-counter);
       pjs.push_back(pj);
       _particles[-counter] = p;
