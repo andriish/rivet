@@ -9,7 +9,7 @@ namespace Rivet {
 
 
   inline string _findFile(const string& filename, const vector<string>& paths) {
-    foreach (const string& dir, paths) {
+    for (const string& dir : paths) {
       const string path = dir + "/" + filename;
       if (fileexists(path)) return path;
     }
@@ -54,8 +54,7 @@ namespace Rivet {
 
   vector<string> getAnalysisLibPaths() {
     vector<string> dirs;
-    char* env = 0;
-    env = getenv("RIVET_ANALYSIS_PATH");
+    char* env = getenv("RIVET_ANALYSIS_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
@@ -74,8 +73,7 @@ namespace Rivet {
 
   vector<string> getAnalysisRefPaths() {
     vector<string> dirs;
-    char* env = 0;
-    env = getenv("RIVET_REF_PATH");
+    char* env = getenv("RIVET_REF_PATH");
     if (env) {
       // Use the Rivet analysis path variable if set...
       dirs += pathsplit(env);
