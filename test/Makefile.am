@@ -1,9 +1,8 @@
-check_PROGRAMS = testMath testMatVec testBoost testCmp testApi testNaN
+check_PROGRAMS = testMath testMatVec testCmp testApi testNaN
 
-AM_LDFLAGS = -L$(top_srcdir)/src -L$(prefix)/lib $(BOOST_LDFLAGS) $(YAMLCPP_LDFLAGS) -L$(YODALIBPATH)
+AM_LDFLAGS = -L$(top_srcdir)/src -L$(prefix)/lib $(YAMLCPP_LDFLAGS) -L$(YODALIBPATH)
 LIBS = -lm $(GSL_LDFLAGS) -lYODA
 
-testBoost_SOURCES = testBoost.cc
 testMath_SOURCES = testMath.cc
 testMatVec_SOURCES = testMatVec.cc
 
@@ -24,7 +23,7 @@ TESTS_ENVIRONMENT = \
   PATH=$(top_builddir)/bin:$(top_srcdir)/bin:$(PATH) \
   RIVET_TESTS_SRC=$(srcdir)
 
-TESTS = testMath testMatVec testBoost testCmp testApi testNaN
+TESTS = testMath testMatVec testCmp testApi testNaN
 if ENABLE_ANALYSES
 TESTS += testCmdLine.sh
 endif
