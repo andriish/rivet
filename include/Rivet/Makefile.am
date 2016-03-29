@@ -17,7 +17,7 @@ nobase_pkginclude_HEADERS += \
   BeamConstraint.hh    AnalysisHandler.hh \
   Analysis.hh          AnalysisInfo.hh \
   AnalysisBuilder.hh   AnalysisLoader.hh \
-  Cuts.hh
+  Cuts.fhh             Cuts.hh
 
 ## Build config stuff
 nobase_pkginclude_HEADERS += \

@@ -1,20 +1,10 @@
 #ifndef RIVET_Cuts_HH
 #define RIVET_Cuts_HH
 
+#include "Rivet/Cuts.fhh"
 #include <memory>
 
 namespace Rivet {
-
-
-  /// @internal Forward declaration of helper class. Not for end users.
-  class CuttableBase;
-
-  /// @internal Base class for cut objects.
-  /// @note End users should always use the @ref Cut typedef instead.
-  class CutBase;
-
-  /// Main cut object
-  typedef std::shared_ptr<CutBase> Cut;
 
 
   class CutBase {
@@ -44,8 +34,12 @@ namespace Rivet {
 
     /// Available categories of cut objects
     enum Quantity { pT=0, pt=0, Et=1, et=1, mass, rap, absrap, eta, abseta, phi };
+
     /// Fully open cut singleton, accepts everything
-    const Cut& open();
+    const Cut& open(); //< access by factory function
+
+    extern const Cut& OPEN; //= open(); //< access by constant
+    extern const Cut& NOCUT; //= open(); //< access by constant
 
     /// @name Shortcuts for common cuts
     //@{

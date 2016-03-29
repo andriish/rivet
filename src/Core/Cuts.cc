@@ -1,13 +1,13 @@
 #include <Rivet/Cuts.hh>
 
-// headers for converters
+// Headers for converters
 #include <Rivet/Particle.hh>
 #include <Rivet/Jet.hh>
 #include <Rivet/Math/Vectors.hh>
 #include <fastjet/PseudoJet.hh>
 #include <HepMC/SimpleVector.h>
 
-// todo Sort out what can go into anonymous namespace{}
+/// @todo Sort out what can go into anonymous namespace{}
 
 namespace Rivet {
 
@@ -43,13 +43,15 @@ namespace Rivet {
     bool _accept(const CuttableBase &) const { return true; }
   };
 
-  const Cut & Cuts::open() {
-    // only ever need one static open cut object
+  const Cut& Cuts::open() {
+    // Only ever need one static open cut object
     static const Cut open = std::make_shared<Open_Cut>();
     return open;
   }
 
-
+  // Constants for convenient access
+  const Cut& Cuts::OPEN = Cuts::open();
+  const Cut& Cuts::NOCUT = Cuts::open();
 
 
 
