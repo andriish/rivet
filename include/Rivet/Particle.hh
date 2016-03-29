@@ -341,6 +341,18 @@ namespace Rivet {
   };
 
 
+  /// @name Unbound functions for filtering particles
+  //@{
+
+  /// Filter a jet collection in-place to the subset that passes the supplied Cut
+  Particles& filterBy(Particles& particles, const Cut& c);
+
+  /// Get a subset of the supplied particles that passes the supplied Cut
+  Particles filterBy(const Particles& particles, const Cut& c);
+
+  //@}
+
+
   /// @name String representation
   //@{
 

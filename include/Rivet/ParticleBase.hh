@@ -3,6 +3,7 @@
 
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Jet.fhh"
+#include "Rivet/Cuts.fhh"
 #include "Rivet/Math/Vectors.hh"
 
 namespace Rivet {

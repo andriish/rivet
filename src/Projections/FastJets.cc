@@ -143,7 +143,7 @@ namespace Rivet {
 
     // Store 4 vector data about each particle into FastJet's PseudoJets
     int counter = 1;
-    foreach (const Particle& p, fsparticles) {
+    for (const Particle& p : fsparticles) {
       const FourMomentum fv = p.momentum();
       fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate with implicit cast?
       pj.set_user_index(counter);
@@ -153,7 +153,7 @@ namespace Rivet {
     }
     // And the same for ghost tagging particles (with negative user indices)
     counter = 1;
-    foreach (const Particle& p, tagparticles) {
+    for (const Particle& p : tagparticles) {
       const FourMomentum fv = 1e-20 * p.momentum(); ///< Ghostify the momentum
       fastjet::PseudoJet pj(fv.px(), fv.py(), fv.pz(), fv.E()); ///< @todo Eliminate with implicit cast?
       pj.set_user_index(-counter);
@@ -164,10 +164,10 @@ namespace Rivet {
 
     MSG_DEBUG("Running FastJet ClusterSequence construction");
     // Choose cseq as basic or area-calculating
-    if (_adef == NULL) {
-      _cseq.reset(new fastjet::ClusterSequence(pjs, _jdef));
-    } else {
+    if (_adef) {
       _cseq.reset(new fastjet::ClusterSequenceArea(pjs, _jdef, *_adef));
+    } else {
+      _cseq.reset(new fastjet::ClusterSequence(pjs, _jdef));
     }
   }
 

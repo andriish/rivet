@@ -7,7 +7,8 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Cuts.hh"
 #include "Rivet/Tools/ParticleUtils.hh"
-#include "fastjet/PseudoJet.hh"
+#include "Rivet/Tools/RivetFastJet.hh"
+// #include "fastjet/PseudoJet.hh"
 #include <numeric>
 
 namespace Rivet {
@@ -192,7 +193,7 @@ namespace Rivet {
     /// Set all the jet data, with optional full particle constituent and tag information.
     Jet& setState(const FourMomentum& mom, const Particles& particles, const Particles& tags=Particles());
 
-    /// @deprecated Prefer the 4-mom first-arg versions
+    /// @deprecated Prefer the 4-mom first-arg versions. Remove in Rivet v3
     DEPRECATED("Prefer the 4-mom first-arg versions")
     Jet& setState(const Particles& particles, const FourMomentum& mom) { return setState(mom, particles); }
 
@@ -224,6 +225,45 @@ namespace Rivet {
     mutable FourMomentum _momentum;
 
   };
+
+
+  /// @name Unbound functions for filtering jets
+  //@{
+
+  /// Filter a jet collection in-place to the subset that passes the supplied Cut
+  Jets& filterBy(Jets& jets, const Cut& c);
+
+  /// Get a subset of the supplied jets that passes the supplied Cut
+  Jets filterBy(const Jets& jets, const Cut& c);
+
+  //@}
+
+
+  /// @name Unbound functions for converting between Jets, Particles and PseudoJets
+  //@{
+
+  inline PseudoJets mkPseudoJets(const Particles& ps) {
+    PseudoJets rtn; rtn.reserve(ps.size());
+    for (const Particle& p : ps)
+      rtn.push_back(p);
+    return rtn;
+  }
+
+  inline PseudoJets mkPseudoJets(const Jets& js) {
+    PseudoJets rtn; rtn.reserve(js.size());
+    for (const Jet& j : js)
+      rtn.push_back(j);
+    return rtn;
+  }
+
+  inline Jets mkJets(const PseudoJets& pjs) {
+    Jets rtn; rtn.reserve(pjs.size());
+    for (const PseudoJet& pj : pjs)
+      rtn.push_back(pj);
+    return rtn;
+  }
+
+  //@}
 
 
 }

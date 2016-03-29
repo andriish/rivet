@@ -1,4 +1,5 @@
 #include "Rivet/Particle.hh"
+#include "Rivet/Cuts.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
@@ -72,6 +73,28 @@ namespace Rivet {
   //   }
   //   return false;
   // }
+
+
+  /////////////////////
+
+
+  Particles& filterBy(Particles& particles, const Cut& c) {
+    if (c != Cuts::OPEN) {
+      const auto newend = std::remove_if(particles.begin(), particles.end(), [&](const Particle& p){ return !c->accept(p); });
+      particles.erase(newend, particles.end());
+    }
+    return particles;
+  }
+
+  /// Get a subset of the supplied particles that passes the supplied Cut
+  Particles filterBy(const Particles& particles, const Cut& c) {
+    // Just return a copy if the cut is open
+    if (c == Cuts::OPEN) return particles;
+    // But if there is a non-trivial cut...
+    Particles rtn;
+    std::copy_if(particles.begin(), particles.end(), rtn.begin(), [&](const Particle& p){ return c->accept(p); });
+    return rtn;
+  }
 
 
 }

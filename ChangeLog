@@ -1,3 +1,14 @@
+2016-03-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* More improvements around jets, including unbound conversion and
+	filtering routines between collections of Particles, Jets, and
+	PseudoJets.
+
+	* Place 'Cut' forward declaration in a new Cuts.fhh header.
+
+	* Adding a Cuts::OPEN extern const (a bit more standard- and
+	constant-looking than Cuts::open())
+
 2016-03-28  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improvements to FastJets constructors, including specification

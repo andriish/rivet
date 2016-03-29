@@ -69,7 +69,7 @@ namespace Rivet {
     /// in which neutrinos from hadron decays are included via MC-based calibrations.
     /// Setting this flag to true avoids the automatic restriction to a VisibleFinalState.
     ///
-    /// @deprecated Use the enum-arg version instead
+    /// @deprecated Use the enum-arg version instead. Will be removed in Rivet v3
     void useInvisibles(bool useinvis) {
       _useInvisibles = useinvis ? DECAY_INVISIBLES : NO_INVISIBLES;
     }
@@ -83,16 +83,17 @@ namespace Rivet {
     /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts
     virtual Jets jets(const Cut& c=Cuts::open()) const {
-      const Jets rawjets = _jets();
-      // Just return a copy of rawjets if the cut is open
-      if (c == Cuts::open()) return rawjets;
-      // If there is a non-trivial cut...
-      /// @todo Use an STL erase(remove_if) and lambda function for this
-      Jets rtn;
-      rtn.reserve(size());
-      foreach (const Jet& j, rawjets)
-        if (c->accept(j)) rtn.push_back(j);
-      return rtn;
+      return filterBy(_jets(), c);
+      // const Jets rawjets = _jets();
+      // // Just return a copy of rawjets if the cut is open
+      // if (c == Cuts::open()) return rawjets;
+      // // If there is a non-trivial cut...
+      // /// @todo Use an STL erase(remove_if) and lambda function for this
+      // Jets rtn;
+      // rtn.reserve(size());
+      // foreach (const Jet& j, rawjets)
+      //   if (c->accept(j)) rtn.push_back(j);
+      // return rtn;
     }
 
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
@@ -126,7 +127,7 @@ namespace Rivet {
 
 
     /// @name Old sorted jet accessors
-    /// @deprecated Use the versions with sorter function arguments
+    /// @deprecated Use the versions with sorter function arguments. These will be removed in Rivet v3
     //@{
 
     /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
