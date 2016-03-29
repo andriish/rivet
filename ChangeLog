@@ -1,5 +1,17 @@
 2016-03-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* ALEPH_1996_S3196992.cc, ATLAS_2010_S8914702.cc,
+	ATLAS_2011_I921594.cc, ATLAS_2011_S9120807.cc,
+	ATLAS_2012_I1093738.cc, ATLAS_2012_I1199269.cc,
+	ATLAS_2013_I1217867.cc, ATLAS_2013_I1244522.cc,
+	ATLAS_2013_I1263495.cc, ATLAS_2014_I1307756.cc,
+	ATLAS_2015_I1364361.cc, CDF_2008_S7540469.cc,
+	CMS_2015_I1370682.cc, MC_JetSplittings.cc, STAR_2006_S6870392.cc:
+	Updates for new FastJets interface, and other cleaning.
+
+	* Deprecate 'standalone' FastJets constructors -- they are
+	misleading.
+
 	* More improvements around jets, including unbound conversion and
 	filtering routines between collections of Particles, Jets, and
 	PseudoJets.

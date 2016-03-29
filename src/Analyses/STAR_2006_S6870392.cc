@@ -23,7 +23,9 @@ namespace Rivet {
     void init() {
       FinalState fs(-2.0, 2.0);
       addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.4, JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES, 0.5), "MidpointJets");
+      addProjection(FastJets(fs, FastJets::CDFMIDPOINT, 0.4,
+                             JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES,
+                             nullptr, 0.5), "MidpointJets");
 
       _h_jet_pT_MB = bookHisto1D(1, 1, 1);
       _h_jet_pT_HT = bookHisto1D(2, 1, 1);

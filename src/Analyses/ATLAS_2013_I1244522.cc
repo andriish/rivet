@@ -15,14 +15,10 @@ namespace Rivet {
 
     // Constructor
     ATLAS_2013_I1244522()
-      : Analysis("ATLAS_2013_I1244522")
-    {  
-      _eta_bins_areaoffset.push_back(0.0);
-      _eta_bins_areaoffset.push_back(1.5);
-      _eta_bins_areaoffset.push_back(3.0);
-    }
+      : Analysis("ATLAS_2013_I1244522"),
+        _eta_bins_areaoffset{0.0, 1.5, 3.0}
+    {     }
 
-  public:
 
     // Book histograms and initialise projections before the run
     void init() {
@@ -30,8 +26,7 @@ namespace Rivet {
 
       // Voronoi eta-phi tassellation with KT jets, for ambient energy density calculation
       FastJets fj(fs, FastJets::KT, 0.5);
-      _area_def = new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec());
-      fj.useJetArea(_area_def);
+      fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
       addProjection(fj, "KtJetsD05");
 
       // Leading photon
@@ -58,12 +53,14 @@ namespace Rivet {
       _h_mass_phjet            = bookHisto1D(6, 1, 1);
       _h_costheta_phjet        = bookHisto1D(7, 1, 1);
 
-    }//init
+    }
+
 
     size_t getEtaBin(double eta_w) const {
       const double eta = fabs(eta_w);
       return binIndex(eta, _eta_bins_areaoffset);
     }
+
 
     // Perform the per-event analysis
     void analyze(const Event& event) {
@@ -79,28 +76,27 @@ namespace Rivet {
       //Compute isolation energy in cone of radius .4 around photon (all particles)
       FourMomentum mom_in_EtCone;
       const Particles& fs = applyProjection<VetoedFinalState>(event, "JetFS").particles();
-      foreach (const Particle& p, fs) {
+      for (const Particle& p : fs) {
         // Check if it's outside the cone of 0.4
         if (deltaR(photon, p) >= 0.4) continue;
         // Increment isolation energy
         mom_in_EtCone += p.momentum();
       }
 
-      // Get the jet
-      Jets jets, alljets = applyProjection<FastJets>(event, "Jets").jetsByPt(40.0*GeV);
-
-      foreach (Jet jet, alljets)
-        if (deltaR(photon, jet) > 1.0)  jets += jet;
-
+      // Get the jets
+      Jets alljets = applyProjection<FastJets>(event, "Jets").jetsByPt(40.0*GeV);
+      Jets jets;
+      for (const Jet& jet : alljets)
+        if (deltaR(photon, jet) > 1.0) jets += jet;
       if (jets.empty())  vetoEvent;
       Jet leadingJet = jets[0];
-      if (leadingJet.absrap() > 2.37)  vetoEvent;
+      if (leadingJet.absrap() > 2.37) vetoEvent;
 
       // Get the area-filtered jet inputs for computing median energy density, etc.
       vector<double> ptDensity, sigma, Njets;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
       FastJets fast_jets = applyProjection<FastJets>(event, "KtJetsD05");
-      const fastjet::ClusterSequenceArea* clust_seq_area = fast_jets.clusterSeqArea();
+      const auto clust_seq_area = fast_jets.clusterSeqArea();
       foreach (const Jet& jet, fast_jets.jets()) {
         const double area = clust_seq_area->area(jet);
         if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back())
@@ -125,18 +121,17 @@ namespace Rivet {
       if (mom_in_EtCone.Et() - correction >= 4*GeV)  vetoEvent;
 
       // Fill histos
-      float photon_pt = photon.pT() * GeV;
-      float jet_pt = leadingJet.pT() * GeV;
-      float jet_y = leadingJet.absrap();
-      float dphi_phj = deltaPhi(photon, leadingJet);
-      float dy = deltaRap(photon, leadingJet);
-      float mass_phj = (photon.momentum() + leadingJet.momentum()).mass() * GeV;
-      float costheta_phj = tanh(dy/2);
-      
-	    _h_ph_pt->fill(photon_pt, weight); 
+      const double photon_pt = photon.pT() / GeV;
+      const double jet_pt = leadingJet.pT() / GeV;
+      const double jet_y = leadingJet.absrap();
+      const double dphi_phj = deltaPhi(photon, leadingJet);
+      const double dy = deltaRap(photon, leadingJet);
+      const double mass_phj = (photon.momentum() + leadingJet.momentum()).mass() / GeV;
+      const double costheta_phj = tanh(dy/2);
+
+      _h_ph_pt->fill(photon_pt, weight);
       _h_jet_pt->fill(jet_pt,   weight);
       _h_jet_rap->fill(jet_y,   weight);
-
       _h_dphi_phjet->fill(dphi_phj, weight);
       _h_costheta_biased_phjet->fill(costheta_phj, weight);
 
@@ -152,7 +147,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      const double sf( crossSection() / sumOfWeights() );
+      const double sf = crossSection() / sumOfWeights();
       scale(_h_ph_pt,                 sf);
       scale(_h_jet_pt,                sf);
       scale(_h_jet_rap,               sf);
@@ -165,21 +160,15 @@ namespace Rivet {
 
   private:
 
-    Histo1DPtr _h_ph_pt;
-    Histo1DPtr _h_jet_pt;
-    Histo1DPtr _h_jet_rap;
-    Histo1DPtr _h_dphi_phjet;
-    Histo1DPtr _h_costheta_biased_phjet;
-    Histo1DPtr _h_mass_phjet;
-    Histo1DPtr _h_costheta_phjet;
+    Histo1DPtr _h_ph_pt, _h_jet_pt, _h_jet_rap, _h_dphi_phjet, _h_costheta_biased_phjet, _h_mass_phjet, _h_costheta_phjet;
 
-    fastjet::AreaDefinition* _area_def;
-
-    std::vector<float> _eta_bins_areaoffset;
+    vector<double> _eta_bins_areaoffset;
 
   };
 
+
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2013_I1244522);
+
 
 }

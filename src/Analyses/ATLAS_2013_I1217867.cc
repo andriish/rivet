@@ -8,7 +8,7 @@
 
 namespace Rivet {
 
-  
+
 
   class ATLAS_2013_I1217867 : public Analysis {
   public:
@@ -105,8 +105,8 @@ namespace Rivet {
       double mtW=sqrt(2.0*lepton.pT()*neutrino.pT()*(1-cos(lepton.phi()-neutrino.phi())));
       if (mtW<40.0*GeV) vetoEvent;
 
-      const fastjet::ClusterSequence* seq = applyProjection<FastJets>(e, "jets").clusterSeq();
-      if (seq != NULL) {
+      const shared_ptr<fastjet::ClusterSequence> seq = applyProjection<FastJets>(e, "jets").clusterSeq();
+      if (seq) {
         for (size_t i = 0; i < min(m_njet,(size_t)seq->n_particles()); ++i) {
           double d_ij = sqrt(seq->exclusive_dmerge_max(i));
           _h_dI[flav][i]->fill(d_ij, weight);
@@ -125,7 +125,6 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
       for (size_t flav = 0; flav < 2; ++flav) {
         for (size_t i = 0; i < m_njet; ++i) {
           normalize(_h_dI[flav][i], 1.0, false);
@@ -141,14 +140,12 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    std::vector<std::vector<Histo1DPtr> > _h_dI;
-    std::vector<std::vector<Histo1DPtr> > _h_dI_ratio;
-
+    vector< vector<Histo1DPtr> > _h_dI;
+    vector< vector<Histo1DPtr> > _h_dI_ratio;
     //@}
 
     size_t m_njet;
   };
-
 
 
   // The hook for the plugin system

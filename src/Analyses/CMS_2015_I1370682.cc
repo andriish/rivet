@@ -368,12 +368,12 @@ namespace Rivet {
       // Collect final state particles
       Particles pForLep, pForJet;
       Particles neutrinos; // Prompt neutrinos
-      //foreach (GenParticle* p, Rivet::particles(e.genEvent())) {
-      foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+      /// @todo Avoid this unsafe jump into HepMC -- all this can be done properly via VisibleFS and HeavyHadrons projections
+      for (const GenParticle* p : Rivet::particles(e.genEvent())) {
         const int status = p->status();
         const int pdgId = p->pdg_id();
         if (status == 1) {
-          Particle rp(*p);
+          Particle rp = *p;
           if (!PID::isHadron(pdgId) && !rp.fromHadron()) {
             // Collect particles not from hadron decay
             if (rp.isNeutrino()) {
@@ -394,7 +394,7 @@ namespace Rivet {
           // Do unstable particles, to be used in the ghost B clustering
           // Use last B hadrons only
           bool isLast = true;
-          foreach (GenParticle* pp, Rivet::particles(p->end_vertex(), HepMC::children)) {
+          for (GenParticle* pp : Rivet::particles(p->end_vertex(), HepMC::children)) {
             if (PID::hasBottom(pp->pdg_id())) {
               isLast = false;
               break;
@@ -409,24 +409,29 @@ namespace Rivet {
       }
 
       // Start object building from trivial thing - prompt neutrinos
-      sort(neutrinos.begin(), neutrinos.end(), cmpMomByPt);
+      sortByPt(neutrinos);
 
       // Proceed to lepton dressing
-      FastJets fjLep(FastJets::ANTIKT, _lepR);
-      fjLep.calc(pForLep);
+      const PseudoJets lep_pjs = mkPseudoJets(pForLep);
+      const fastjet::JetDefinition lep_jdef(fastjet::antikt_algorithm, _lepR);
+      const Jets leps_all = mkJets(fastjet::ClusterSequence(lep_pjs, lep_jdef).inclusive_jets());
+      const Jets leps_sel = sortByPt(filterBy(leps_all, Cuts::pT > _lepMinPt));
+      // FastJets fjLep(FastJets::ANTIKT, _lepR);
+      // fjLep.calc(pForLep);
+
       Jets leptons;
       vector<int> leptonsId;
       set<int> dressedIdxs;
-      foreach (const Jet& lep, fjLep.jetsByPt(_lepMinPt)) {
-        if (abs(lep.eta()) > _lepMaxEta) continue;
-
+      for (const Jet& lep : leps_sel) {
+        if (lep.abseta() > _lepMaxEta) continue;
         double leadingPt = -1;
         int leptonId = 0;
-        foreach (const Particle& p, lep.particles()) {
+        for (const Particle& p : lep.particles()) {
+          /// @warning Barcodes aren't future-proof in HepMC
           dressedIdxs.insert(p.genParticle()->barcode());
-          if (p.isLepton() && p.momentum().pt() > leadingPt) {
-            leadingPt = p.momentum().pt();
-            leptonId = p.pdgId();
+          if (p.isLepton() && p.pT() > leadingPt) {
+            leadingPt = p.pT();
+            leptonId = p.pid();
           }
         }
         if (leptonId == 0) continue;
@@ -435,32 +440,33 @@ namespace Rivet {
       }
 
       // Re-use particles not used in lepton dressing
-      foreach (const Particle& rp, pForLep) {
+      for (const Particle& rp : pForLep) {
+        /// @warning Barcodes aren't future-proof in HepMC
         const int barcode = rp.genParticle()->barcode();
         // Skip if the particle is used in dressing
         if (dressedIdxs.find(barcode) != dressedIdxs.end()) continue;
-
         // Put back to be used in jet clustering
         pForJet.push_back(rp);
       }
 
       // Then do the jet clustering
-      FastJets fjJet(FastJets::ANTIKT, _jetR);
-      //fjJet.useInvisibles(); // NOTE: CMS proposal to remove neutrinos
-      fjJet.calc(pForJet);
-      // Jets _bjets, _ljets; FIME
-      foreach (const Jet& jet, fjJet.jetsByPt(_jetMinPt)) {
-        if (abs(jet.eta()) > _jetMaxEta) continue;
+      const PseudoJets jet_pjs = mkPseudoJets(pForJet);
+      const fastjet::JetDefinition jet_jdef(fastjet::antikt_algorithm, _jetR);
+      const Jets jets_all = mkJets(fastjet::ClusterSequence(jet_pjs, jet_jdef).inclusive_jets());
+      const Jets jets_sel = sortByPt(filterBy(jets_all, Cuts::pT > _jetMinPt));
+      // FastJets fjJet(FastJets::ANTIKT, _jetR);
+      //fjJet.useInvisibles(); // NOTE: CMS proposal to remove neutrinos (AB: wouldn't work anyway, since they were excluded from clustering inputs)
+      // fjJet.calc(pForJet);
+      for (const Jet& jet : jets_sel) {
+        if (jet.abseta() > _jetMaxEta) continue;
         _jets.push_back(jet);
-
         bool isBJet = false;
-        foreach (const Particle& rp, jet.particles()) {
+        for (const Particle& rp : jet.particles()) {
           if (PID::hasBottom(rp.pdgId())) {
             isBJet = true;
             break;
           }
         }
-
         if ( isBJet ) _bjets.push_back(jet);
         else _ljets.push_back(jet);
       }
