@@ -179,7 +179,7 @@ def detex(tex):
     \newcommand{\TeV}{TeV }
     """
     import subprocess, shlex
-    p = subprocess.Popen(shlex.split("pandoc -f latex -t plain --no-wrap"),
+    p = subprocess.Popen(shlex.split("pandoc -f latex -t plain --wrap=none"),
                          stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     plain, err = p.communicate((texheader + tex).replace("\n", ""))
     plain = plain.replace(r"\&", "&")
