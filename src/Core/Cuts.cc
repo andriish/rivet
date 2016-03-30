@@ -7,7 +7,7 @@
 #include <fastjet/PseudoJet.hh>
 #include <HepMC/SimpleVector.h>
 
-/// @todo Sort out what can go into anonymous namespace{}
+/// @todo Sort out what can go into anonymous namespace
 
 namespace Rivet {
 
@@ -43,6 +43,7 @@ namespace Rivet {
     bool _accept(const CuttableBase &) const { return true; }
   };
 
+
   const Cut& Cuts::open() {
     // Only ever need one static open cut object
     static const Cut open = std::make_shared<Open_Cut>();
@@ -70,6 +71,7 @@ namespace Rivet {
     double low_;
   };
 
+
   // Cut constructor for <
   class Cut_Less : public CutBase {
   public:
@@ -85,6 +87,7 @@ namespace Rivet {
     double high_;
   };
 
+
   // Cut constructor for >=
   class Cut_Gtr : public CutBase {
   public:
@@ -99,6 +102,7 @@ namespace Rivet {
     Cuts::Quantity qty_;
     double low_;
   };
+
 
   // Cut constructor for <
   class Cut_LessEq : public CutBase {
@@ -165,6 +169,7 @@ namespace Rivet {
     const Cut cut2;
   };
 
+
   class CutsAnd : public CutBase {
   public:
     CutsAnd(const Cut & c1, const Cut & c2) : cut1(c1), cut2(c2) {}
@@ -182,6 +187,7 @@ namespace Rivet {
     const Cut cut2;
   };
 
+
   class CutInvert : public CutBase {
   public:
     CutInvert(const Cut & c1) : cut(c1) {}
@@ -196,6 +202,7 @@ namespace Rivet {
   private:
     const Cut cut;
   };
+
 
   class CutsXor : public CutBase {
   public:
@@ -215,6 +222,7 @@ namespace Rivet {
     const Cut cut1;
     const Cut cut2;
   };
+
 
   ////////////
   ///Operators
@@ -247,6 +255,7 @@ namespace Rivet {
   Cut operator ^ (const Cut & aptr, const Cut & bptr) {
     return make_cut(CutsXor(aptr, bptr));
   }
+
 
   ///////////////////////
   /// Cuts
