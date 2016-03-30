@@ -27,7 +27,7 @@ namespace Rivet {
     /// Set up projections and book histograms
     void init() {
       // Projections
-      const FinalState cnfs(Cuts::abseta < 4 && Cuts::pT > 2*GeV);
+      const FinalState cnfs(Cuts::abseta < 4 && Cuts::pT > 500*MeV);
       const ChargedFinalState cfs(cnfs);
       addProjection(cnfs, "FS");
       addProjection(cfs, "CFS");
@@ -83,11 +83,8 @@ namespace Rivet {
       MSG_DEBUG("Aplanarity = " << s.aplanarity());
       _histAplanarity->fill(s.aplanarity(), weight);
 
-      unsigned int num_b_jets = 0;
       const Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 5*GeV);
-      foreach (const Jet& j, jets) {
-        if (j.bTagged()) num_b_jets += 1;
-      }
+      size_t num_b_jets = count_if(jets.begin(), jets.end(), [](const Jet& j){ return j.bTagged(Cuts::pT > 500*MeV); });
       MSG_DEBUG("Num B-jets with pT > 5 GeV = " << num_b_jets);
     }
 
