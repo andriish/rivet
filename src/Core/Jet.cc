@@ -202,7 +202,7 @@ namespace Rivet {
     if (c == Cuts::OPEN) return jets;
     // But if there is a non-trivial cut...
     Jets rtn;
-    std::copy_if(jets.begin(), jets.end(), rtn.begin(), [&](const Jet& j){ return c->accept(j); });
+    std::copy_if(jets.begin(), jets.end(), back_inserter(rtn), [&](const Jet& j){ return c->accept(j); });
     return rtn;
   }
 
