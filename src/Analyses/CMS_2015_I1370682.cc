@@ -41,8 +41,8 @@ namespace Rivet {
       DecayMode mode2() const {return _mode2;}
 
       /// Clone on the heap.
-      virtual const Projection* clone() const {
-        return new PseudoTop(*this);
+      virtual unique_ptr<Projection> clone() const {
+        return unique_ptr<Projection>(new PseudoTop(*this));
       }
 
       //@}

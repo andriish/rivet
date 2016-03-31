@@ -24,8 +24,8 @@ namespace Rivet {
     }
 
     /// Clone on the heap.
-    virtual const Projection *clone() const {
-      return new LeadingParticlesFinalState(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new LeadingParticlesFinalState(*this));
     }
 
     /// Add a particle ID to the list of leading particles selected

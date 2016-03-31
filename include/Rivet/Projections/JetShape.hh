@@ -62,8 +62,8 @@ namespace Rivet {
              RapScheme rapscheme=RAPIDITY);
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new JetShape(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new JetShape(*this));
     }
 
     //@}

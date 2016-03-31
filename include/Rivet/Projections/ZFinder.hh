@@ -45,8 +45,8 @@ namespace Rivet {
             double masstarget=91.2*GeV);
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new ZFinder(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new ZFinder(*this));
     }
 
     //@}

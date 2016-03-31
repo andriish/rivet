@@ -42,7 +42,7 @@ namespace Rivet {
     Projection();
 
     /// Clone on the heap.
-    virtual const Projection* clone() const = 0;
+    virtual unique_ptr<Projection> clone() const = 0;
 
     /// The destructor.
     virtual ~Projection();

@@ -18,8 +18,8 @@ namespace Rivet {
     TriggerUA5();
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new TriggerUA5(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new TriggerUA5(*this));
     }
 
 

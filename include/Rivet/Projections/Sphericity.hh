@@ -61,8 +61,8 @@ namespace Rivet {
     Sphericity(const FinalState& fsp, double rparam=2.0);
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new Sphericity(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new Sphericity(*this));
     }
 
     //@}

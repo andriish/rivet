@@ -22,8 +22,8 @@ namespace Rivet {
     }
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new TriggerCDFRun0Run1(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new TriggerCDFRun0Run1(*this));
     }
 
 
