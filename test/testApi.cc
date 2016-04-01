@@ -14,8 +14,8 @@ int main() {
   ah.addAnalyses(moreanalyses);
   ah.addAnalysis("EXAMPLE_CUTS");
 
-  std::istream* file = new std::fstream("testApi.hepmc", std::ios::in);
-  HepMC::IO_GenEvent hepmcio(*file);
+  std::ifstream file("testApi.hepmc");
+  HepMC::IO_GenEvent hepmcio(file);
   HepMC::GenEvent* evt = hepmcio.read_next_event();
   double sum_of_weights = 0.0;
   while (evt) {
@@ -27,7 +27,7 @@ int main() {
     delete evt; evt = 0;
     hepmcio >> evt;
   }
-  delete file; file = 0;
+  file.close();
 
   ah.setCrossSection(1.0);
   ah.setSumOfWeights(sum_of_weights); ///< Not necessary, but allowed
