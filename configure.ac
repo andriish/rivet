@@ -39,7 +39,7 @@ if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
 ## Compiler setup
 AC_LANG(C++)
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11([noext], [mandatory])
+AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
 
 ## Store and propagate the compiler identity and flags
 RIVETCXX="$CXX"
@@ -305,7 +305,6 @@ AM_CPPFLAGS="$AM_CPPFLAGS -I\$(YODAINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(FASTJETINCPATH)"
 AC_CEDAR_CHECKCXXFLAG([-pedantic], [AM_CXXFLAGS="$AM_CXXFLAGS -pedantic"])
-AC_CEDAR_CHECKCXXFLAG([-ansi], [AM_CXXFLAGS="$AM_CXXFLAGS -ansi"])
 AC_CEDAR_CHECKCXXFLAG([-Wall], [AM_CXXFLAGS="$AM_CXXFLAGS -Wall"])
 AC_CEDAR_CHECKCXXFLAG([-Wno-long-long], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-long-long"])
 AC_CEDAR_CHECKCXXFLAG([-Wno-format], [AM_CXXFLAGS="$AM_CXXFLAGS -Wno-format"])
