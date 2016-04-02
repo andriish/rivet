@@ -20,8 +20,8 @@ namespace Rivet {
     FParameter(const FinalState& fsp);
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new FParameter(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new FParameter(*this));
     }
 
     //@}

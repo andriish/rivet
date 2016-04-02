@@ -8,13 +8,14 @@ namespace Rivet {
 
   // NB. Allow proj registration in constructor by default -- explicitly disable for Analysis
   ProjectionApplier::ProjectionApplier()
-    : _allowProjReg(true),
+    : _allowProjReg(true), _owned(false),
       _projhandler(ProjectionHandler::getInstance())
   {  }
 
 
   ProjectionApplier::~ProjectionApplier() {
-    getProjHandler().removeProjectionApplier(*this);
+    if ( ! _owned )
+      getProjHandler().removeProjectionApplier(*this);
   }
 
 

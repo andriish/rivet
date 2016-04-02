@@ -145,8 +145,8 @@ namespace Rivet {
 
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new FastJets(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new FastJets(*this));
     }
 
     //@}

@@ -142,8 +142,13 @@ namespace Rivet {
     /// Flag to forbid projection registration in analyses until the init phase
     bool _allowProjReg;
 
+  public:
+    void markAsOwned() const { _owned = true; }
 
   private:
+
+    /// mark object as owned by the projhandler
+    mutable bool _owned;
 
     /// Pointer to projection handler.
     ProjectionHandler& _projhandler;

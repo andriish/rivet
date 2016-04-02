@@ -39,8 +39,8 @@ namespace Rivet {
 
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new FoxWolframMoments(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new FoxWolframMoments(*this));
     }
 
 

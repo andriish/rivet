@@ -24,7 +24,7 @@ namespace Rivet {
     virtual ~AxesDefinition() { }
 
     /// Clone on the heap.
-    virtual const Projection* clone() const = 0;
+    virtual unique_ptr<Projection> clone() const = 0;
 
     ///@{ Axis accessors, in decreasing order of significance.
     /// The main axis.

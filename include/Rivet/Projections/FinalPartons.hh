@@ -15,8 +15,8 @@ namespace Rivet {
       : FinalState(c) { }
 
     /// Clone method
-    const Projection* clone() const {
-      return new FinalPartons(*this);
+    unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new FinalPartons(*this));
     }
 
     /// Do the calculation

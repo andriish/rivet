@@ -31,8 +31,8 @@ namespace Rivet {
     PromptFinalState(const Cut & c);
 
     /// Clone on the heap.
-    virtual const Projection* clone() const {
-      return new PromptFinalState(*this);
+    virtual unique_ptr<Projection> clone() const {
+      return unique_ptr<Projection>(new PromptFinalState(*this));
     }
     //@}
 
