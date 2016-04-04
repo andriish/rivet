@@ -10,9 +10,7 @@ int main() {
 
   // Specify the analyses to be used
   ah.addAnalysis("EXAMPLE");
-  vector<string> moreanalyses(1, "MC_JETS");
-  ah.addAnalyses(moreanalyses);
-  ah.addAnalysis("EXAMPLE_CUTS");
+  ah.addAnalyses({{ "MC_JETS", "EXAMPLE_CUTS", "EXAMPLE_SMEAR" }});
 
   std::ifstream file("testApi.hepmc");
   HepMC::IO_GenEvent hepmcio(file);
@@ -24,7 +22,7 @@ int main() {
     sum_of_weights += evt->weights()[0];
 
     // Clean up and get next event
-    delete evt; evt = 0;
+    delete evt; evt = nullptr;
     hepmcio >> evt;
   }
   file.close();
