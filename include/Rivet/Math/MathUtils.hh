@@ -331,22 +331,24 @@ namespace Rivet {
 
   /// @brief Return the bin index of the given value, @a val, given a vector of bin edges
   ///
-  /// NB. The @a binedges vector must be sorted
+  /// @note The @a binedges vector must be sorted
+  /// @todo Use std::common_type<NUM1, NUM2>::type x = val; ?
   template <typename NUM1, typename NUM2>
   inline typename std::enable_if<std::is_arithmetic<NUM1>::value && std::is_floating_point<NUM2>::value, int>::type
-  binIndex(NUM1 val, const vector<NUM2>& binedges) {
-    /// @todo Use std::common_type<NUM1, NUM2>::type x = val; ?
-    /// @todo Add linear & log guesses, and binary split via upper_bound for large binnings
-    if (!inRange(val, binedges.front(), binedges.back())) return -1; ///< Out of histo range
-    int index = -1;
-    for (size_t i = 1; i < binedges.size(); ++i) {
-      if (val < binedges[i]) {
-        index = i-1;
-        break;
-      }
-    }
-    assert(inRange(index, -1, int(binedges.size())-1));
-    return index;
+    binIndex(NUM1 val, const vector<NUM2>& binedges, bool allow_overflow=false) {
+    if (val < binedges.front()) return -1; ///< Below/out of histo range
+    if (val >= binedges.back()) return allow_overflow ? int(binedges.size())-1 : -1; ///< Above/out of histo range
+    return std::distance(binedges.begin(), --std::upper_bound(binedges.begin(), binedges.end(), val));
+    //
+    // int index = -1;
+    // for (size_t i = 1; i < binedges.size(); ++i) {
+    //   if (val < binedges[i]) {
+    //     index = i-1;
+    //     break;
+    //   }
+    // }
+    // assert(inRange(index, -1, int(binedges.size())-1));
+    // return index;
   }
 
   //@}

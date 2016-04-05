@@ -1,5 +1,8 @@
 2016-04-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Improve binIndex function, with an optional argument to allow
+	overflow lookup, and add it to testMath.
+
 	* Adding setPE, setPM, setPtEtaPhiM, etc. methods and
 	corresponding mk* static methods to FourMomentum, as well as
 	adding more convenience aliases and vector attributes for
