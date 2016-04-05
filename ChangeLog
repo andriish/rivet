@@ -1,3 +1,11 @@
+2016-04-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding setPE, setPM, setPtEtaPhiM, etc. methods and
+	corresponding mk* static methods to FourMomentum, as well as
+	adding more convenience aliases and vector attributes for
+	completeness. Coordinate conversion functions taken from
+	HEPUtils::P4. New attrs also mapped to ParticleBase.
+
 2016-03-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* ALEPH_1996_S3196992.cc, ATLAS_2010_S8914702.cc,
