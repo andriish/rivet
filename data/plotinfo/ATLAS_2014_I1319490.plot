@@ -16,7 +16,7 @@ LegendXPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d01
-XCustomMajorTicks=0.5	$\geq 0$	1.5	$\geq 1$	2.5	$\geq 2$	3.5	$\geq 3$	4.5	$\geq 4$	5.5	$\geq 5$	6.5	$\geq 6$	7.5	$\geq 7$
+XCustomMajorTicks=0.5	$\geq~0$	1.5	$\geq~1$	2.5	$\geq~2$	3.5	$\geq~3$	4.5	$\geq~4$	5.5	$\geq~5$	6.5	$\geq~6$	7.5	$\geq~7$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d04
