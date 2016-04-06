@@ -161,13 +161,15 @@ namespace Rivet {
       counter += 1;
     }
 
-    MSG_DEBUG("Running FastJet ClusterSequence construction");
     // Choose cseq as basic or area-calculating
     if (_adef) {
       _cseq.reset(new fastjet::ClusterSequenceArea(pjs, _jdef, *_adef));
     } else {
       _cseq.reset(new fastjet::ClusterSequence(pjs, _jdef));
     }
+    MSG_DEBUG("FastJet ClusterSequence constructed; Njets_tot = "
+              << _cseq->inclusive_jets().size() << ", Njets_10 = "
+              << _cseq->inclusive_jets(10*GeV).size()); //< only inefficient in debug mode
   }
 
 
