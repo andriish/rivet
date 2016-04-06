@@ -11,6 +11,7 @@ namespace Rivet {
 
   /// Return a uniformly sampled random number between 0 and 1
   /// @todo Move to (math?)utils
+  /// @todo Need to isolate random generators to a single thread
   inline double rand01() {
     //return rand() / (double)RAND_MAX;
     static random_device rd;
@@ -52,32 +53,33 @@ namespace Rivet {
   }
 
   inline Particle ELECTRON_SMEAR_ATLAS_RUN1(const Particle& e) {
+    /// @todo Need to isolate random generators to a single thread
     static random_device rd;
     static mt19937 gen(rd());
 
-    static const vector<double> edges_eta = {{0., 2.5, 3., 5.}};
-    static const vector<double> edges_pt = {{0., 0.1, 25.}};
-    static const vector<double> e2s = {{0.000, 0.015, 0.005,
-                                        0.005, 0.005, 0.005,
-                                        0.107, 0.107, 0.107}};
-    static const vector<double> es = {{0.00, 0.00, 0.05,
-                                       0.05, 0.05, 0.05,
-                                       2.08, 2.08, 2.08}};
-    static const vector<double> cs = {{0.00, 0.00, 0.25,
-                                       0.25, 0.25, 0.25,
-                                       0.00, 0.00, 0.00}};
+    static const vector<double> edges_eta = {0., 2.5, 3., 5.};
+    static const vector<double> edges_pt = {0., 0.1, 25.};
+    static const vector<double> e2s = {0.000, 0.015, 0.005,
+                                       0.005, 0.005, 0.005,
+                                       0.107, 0.107, 0.107};
+    static const vector<double> es = {0.00, 0.00, 0.05,
+                                      0.05, 0.05, 0.05,
+                                      2.08, 2.08, 2.08};
+    static const vector<double> cs = {0.00, 0.00, 0.25,
+                                      0.25, 0.25, 0.25,
+                                      0.00, 0.00, 0.00};
 
-    /// @todo Extract to helper function
-    const size_t i_eta = distance(edges_eta.begin(), --upper_bound(edges_eta.begin(), edges_eta.end(), e.abseta()));
-    const size_t i_pt = distance(edges_pt.begin(), --upper_bound(edges_pt.begin(), edges_pt.end(), e.pT()));
-    const size_t i = i_eta*edges_pt.size() + i_pt;
+    const int i_eta = binIndex(e.abseta(), edges_eta, true);
+    const int i_pt = binIndex(e.pT()/GeV, edges_pt, true);
+    const int i = i_eta*edges_pt.size() + i_pt;
 
     const double c1 = sqr(e2s[i]), c2 = sqr(es[i]), c3 = sqr(cs[i]);
     const double resolution = sqrt(c1*e.E2() + c2*e.E() + c3);
 
-    /// @todo Extract to helper function
+    /// @todo Extract to a smear_energy helper function
+    /// @todo Also make smear_direction and smear_pt functions, and jet versions that also update/smear constituents
     normal_distribution<> d(e.E(), resolution);
-    const double smeared_E = max(d(gen), 0.);
+    const double smeared_E = max(d(gen), e.mass()); //< can't let the energy go below the mass!
     return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), e.mass(), smeared_E));
   }
 
