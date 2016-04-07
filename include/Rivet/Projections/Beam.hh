@@ -9,26 +9,45 @@
 namespace Rivet {
 
 
-  /// @name Stand-alone functions
+  /// @name Standalone beam kinematics functions
   //@{
 
-  /// Function to get beam particles from an event
+  /// Get beam particles from an event
   ParticlePair beams(const Event& e);
 
-  /// Function to get beam particle IDs from an event
-  PdgIdPair beamIds(const Event& e);
 
-  /// Function to get beam particle IDs from a pair of particles
-  PdgIdPair beamIds(const ParticlePair& beams);
+  /// Get beam particle IDs from a pair of Particles
+  PdgIdPair beamIds(const ParticlePair& beams) {
+    return make_pair(beams.first.pid(), beams.second.pid());
+  }
 
-  /// Function to get beam centre of mass energy from an event
-  double sqrtS(const Event& e);
+  /// Get beam particle IDs from an event
+  PdgIdPair beamIds(const Event& e) {
+    return beamIds(beams(e));
+  }
 
-  /// Function to get beam centre of mass energy from a pair of particles
-  double sqrtS(const ParticlePair& beams);
 
-  /// Function to get beam centre of mass energy from a pair of beam momenta
+  /// Get beam centre-of-mass energy from a pair of beam momenta
   double sqrtS(const FourMomentum& pa, const FourMomentum& pb);
+
+  /// Get beam centre-of-mass energy from a pair of Particles
+  double sqrtS(const ParticlePair& beams) {
+    return sqrtS(beams.first.momentum(), beams.second.momentum());
+  }
+
+  /// Get beam centre-of-mass energy from an Event
+  double sqrtS(const Event& e) {
+    return sqrtS(beams(e));
+  }
+
+
+  /// Get per-nucleon beam centre-of-mass energy from a pair of Particles
+  double asqrtS(const ParticlePair& beams);
+
+  /// Get per-nucleon beam centre-of-mass energy from an Event
+  double asqrtS(const Event& e) {
+    return asqrtS(beams(e));
+  }
 
   //@}
 

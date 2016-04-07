@@ -1,3 +1,11 @@
+2016-04-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Restructure Beam projection functions for beam particle and
+	sqrtS extraction, and add asqrtS functions.
+
+	* Rename and improve PID and Particle Z,A,lambda functions ->
+	nuclZ,nuclA,nuclNlambda.
+
 2016-04-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Improve binIndex function, with an optional argument to allow
