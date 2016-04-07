@@ -17,12 +17,12 @@ namespace Rivet {
 
 
   /// Get beam particle IDs from a pair of Particles
-  PdgIdPair beamIds(const ParticlePair& beams) {
+  inline PdgIdPair beamIds(const ParticlePair& beams) {
     return make_pair(beams.first.pid(), beams.second.pid());
   }
 
   /// Get beam particle IDs from an event
-  PdgIdPair beamIds(const Event& e) {
+  inline PdgIdPair beamIds(const Event& e) {
     return beamIds(beams(e));
   }
 
@@ -31,22 +31,41 @@ namespace Rivet {
   double sqrtS(const FourMomentum& pa, const FourMomentum& pb);
 
   /// Get beam centre-of-mass energy from a pair of Particles
-  double sqrtS(const ParticlePair& beams) {
+  inline double sqrtS(const ParticlePair& beams) {
     return sqrtS(beams.first.momentum(), beams.second.momentum());
   }
 
   /// Get beam centre-of-mass energy from an Event
-  double sqrtS(const Event& e) {
+  inline double sqrtS(const Event& e) {
     return sqrtS(beams(e));
   }
 
 
+  /// Get per-nucleon beam centre-of-mass energy from a pair of beam momenta
+  /// @note Uses a nominal nucleon mass of 0.939 GeV to convert masses to A
+  double asqrtS(const FourMomentum& pa, const FourMomentum& pb);
+
   /// Get per-nucleon beam centre-of-mass energy from a pair of Particles
+  /// @note Uses the sum of nuclear mass numbers A for each beam
   double asqrtS(const ParticlePair& beams);
 
   /// Get per-nucleon beam centre-of-mass energy from an Event
-  double asqrtS(const Event& e) {
+  inline double asqrtS(const Event& e) {
     return asqrtS(beams(e));
+  }
+
+
+  /// Get an active Lorentz boost to the beam centre-of-mass from a pair of beam momenta
+  Vector3 comBoost(const FourMomentum& pa, const FourMomentum& pb);
+
+  /// Get an active Lorentz boost to the beam centre-of-mass from a pair of Particles
+  inline Vector3 comBoost(const ParticlePair& beams) {
+    return comBoost(beams.first, beams.second);
+  }
+
+  /// Get an active Lorentz boost to the beam centre-of-mass from an Event
+  inline Vector3 comBoost(const Event& e) {
+    return comBoost(beams(e));
   }
 
   //@}

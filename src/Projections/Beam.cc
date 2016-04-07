@@ -29,9 +29,21 @@ namespace Rivet {
   }
 
 
+  double asqrtS(const FourMomentum& pa, const FourMomentum& pb) {
+    const static double MNUCLEON = 939*MeV; //< nominal nucleon mass
+    return sqrtS(pa, pb) / (pa.mass()/MNUCLEON + pb.mass()/MNUCLEON);
+  }
+
   double asqrtS(const ParticlePair& beams) {
     return sqrtS(beams) / (nuclA(beams.first) + nuclA(beams.second));
   }
+
+
+  Vector3 comBoost(const FourMomentum& pa, const FourMomentum& pb) {
+    Vector3 rtn = -(pa.p3() + pb.p3()) / (pa.E() + pb.E());
+    return rtn;
+  }
+
 
 
 
