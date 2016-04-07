@@ -57,11 +57,6 @@ namespace Rivet {
   }
 
 
-  double Beam::sqrtS() const {
-    return Rivet::sqrtS(beams());
-  }
-
-
   FourVector Beam::pv() const {
     HepMC::FourVector v1, v2;
     const ParticlePair bpair = beams();

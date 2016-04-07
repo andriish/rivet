@@ -1,5 +1,8 @@
 2016-04-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add comBoost functions and methods to Beam.hh, and tidy
+	LorentzTransformation.
+
 	* Restructure Beam projection functions for beam particle and
 	sqrtS extraction, and add asqrtS functions.
 

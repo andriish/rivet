@@ -77,12 +77,12 @@ namespace Rivet {
   class Beam : public Projection {
   public:
 
-    /// The default constructor.
+    /// The default constructor
     Beam() {
       setName("Beam");
     }
 
-    /// Clone on the heap.
+    /// Clone on the heap
     virtual unique_ptr<Projection> clone() const {
       return unique_ptr<Projection>(new Beam(*this));
     }
@@ -90,20 +90,26 @@ namespace Rivet {
 
   public:
 
-    /// The pair of beam particles in the current collision.
+    /// The pair of beam particles in the current collision
     const ParticlePair& beams() const {
       return _theBeams;
     }
 
-    /// The pair of beam particle PDG codes in the current collision.
+    /// The pair of beam particle PDG codes in the current collision
     const PdgIdPair beamIds() const {
       return Rivet::beamIds(beams());
     }
 
-    /// Get centre of mass energy, \f$ \sqrt{s} \f$.
-    double sqrtS() const;
+    /// Get centre of mass energy, \f$ \sqrt{s} \f$
+    double sqrtS() const { return Rivet::sqrtS(beams()); }
 
-    /// Get the beam interaction primary vertex (PV) position.
+    /// Get per-nucleon centre of mass energy, \f$ \sqrt{s}/(A_1 + A_2) \f$
+    double asqrtS() const { return Rivet::asqrtS(beams()); }
+
+    /// Get an active Lorentz boost to the beam centre-of-mass
+    Vector3 comBoost() const { return Rivet::comBoost(beams()); }
+
+    /// Get the beam interaction primary vertex (PV) position
     FourVector pv() const;
 
 
@@ -113,15 +119,12 @@ namespace Rivet {
     virtual void project(const Event& e);
 
 
-  protected:
+  private:
 
-    /// Compare with other projections.
+    /// Compare with other projections -- it's always the same, since there are no params
     virtual int compare(const Projection& UNUSED(p)) const {
       return EQUIVALENT;
     }
-
-
-  private:
 
     /// The beam particles in the current collision
     ParticlePair _theBeams;
