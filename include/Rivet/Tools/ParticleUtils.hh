@@ -234,6 +234,16 @@ namespace Rivet {
   /// @deprecated Use charge3
   PARTICLE_TO_PID_INTFN(threeCharge)
 
+
+  /// Get the atomic number (number of protons) in a nucleus/ion
+  PARTICLE_TO_PID_INTFN(nuclZ)
+
+  /// Get the atomic weight (number of nucleons) in a nucleus/ion
+  PARTICLE_TO_PID_INTFN(nuclA)
+
+  /// If this is a nucleus (ion), get nLambda
+  PARTICLE_TO_PID_INTFN(nuclNlambda)
+
   //@}
 
 

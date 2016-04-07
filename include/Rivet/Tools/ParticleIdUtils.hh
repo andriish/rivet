@@ -83,30 +83,39 @@ namespace Rivet {
 
     /// Get the atomic number (number of protons) in a nucleus/ion
     /// @note Ion numbers are +/- 10LZZZAAAI.
-    inline int Z(int pid) {
+    inline int nuclZ(int pid) {
       // A proton can also be a Hydrogen nucleus
       if (abs(pid) == 2212) { return 1; }
-      if (isNucleus(pid)) return (abs(pid)/10000)%1000;
+      if (isNucleus(pid)) return (abs(pid)/10000) % 1000;
       return 0;
     }
+    /// Alias for nuclZ
+    /// @deprecated Use nuclZ
+    inline int Z(int pid) { return nuclZ(pid); }
 
     /// Get the atomic weight (number of nucleons) in a nucleus/ion
     /// @note Ion numbers are +/- 10LZZZAAAI.
-    inline int A(int pid) {
-      // a proton can also be a Hydrogen nucleus
-      if (abs(pid) == 2212) { return 1; }
-      if (isNucleus(pid)) return (abs(pid)/10)%1000;
+    inline int nuclA(int pid) {
+      // A proton can also be a Hydrogen nucleus, and we might as well also allow single neutrons
+      if (abs(pid) == 2212 || abs(pid) == 2112) { return 1; }
+      if (isNucleus(pid)) return (abs(pid)/10) % 1000;
       return 0;
     }
+    /// Alias for nuclA
+    /// @deprecated Use nuclA
+    inline int A(int pid) { return nuclA(pid); }
 
     /// If this is a nucleus (ion), get nLambda
     /// @note Ion numbers are +/- 10LZZZAAAI.
-    inline int lambda(int pid) {
+    inline int nuclNlambda(int pid) {
       // a proton can also be a Hydrogen nucleus
       if (abs(pid) == 2212) { return 0; }
       if (isNucleus(pid)) return _digit(n8,pid);
       return 0;
     }
+    /// Alias for nuclNlambda
+    /// @deprecated Use nuclNlambda
+    inline int lambda(int pid) { return nuclNlambda(pid); }
 
     //@}
 
