@@ -1,5 +1,8 @@
 2016-04-07  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Remove implicit conventional event rotation for HERA -- this
+	needs to be done explicitly from now.
+
 	* Add comBoost functions and methods to Beam.hh, and tidy
 	LorentzTransformation.
 
