@@ -1,5 +1,7 @@
 2016-04-08  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a --guess-prefix flag to rivet-config, cf. fastjet-config.
+
 	* Add RIVET_DATA_PATH variable and related functions in C++ and
 	Python as a common first-fallback for RIVET_REF_PATH,
 	RIVET_INFO_PATH, and RIVET_PLOT_PATH.
