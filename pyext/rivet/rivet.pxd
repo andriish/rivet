@@ -60,12 +60,21 @@ cdef extern from "Rivet/AnalysisLoader.hh":
     Analysis* AnalysisLoader_getAnalysis "Rivet::AnalysisLoader::getAnalysis" (string)
 
 cdef extern from "Rivet/Tools/RivetPaths.hh" namespace "Rivet":
-    void addAnalysisLibPath(string)
-    string findAnalysisRefFile(string)
-    vector[string] getAnalysisPlotPaths()
-    vector[string] getAnalysisRefPaths()
     vector[string] getAnalysisLibPaths()
     void setAnalysisLibPaths(vector[string])
+    void addAnalysisLibPath(string)
+
+    vector[string] getAnalysisDataPaths()
+    string findAnalysisRefFile(string)
+
+    vector[string] getAnalysisRefPaths()
+    string findAnalysisDataFile(string)
+
+    vector[string] getAnalysisInfoPaths()
+    string findAnalysisInfoFile(string)
+
+    vector[string] getAnalysisPlotPaths()
+    string findAnalysisPlotFile(string)
 
 cdef extern from "Rivet/Rivet.hh" namespace "Rivet":
     string version()

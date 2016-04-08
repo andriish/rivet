@@ -8,6 +8,11 @@ USAGE:
 
 where the plot options are described in the make-plots manual in the HISTOGRAM
 section.
+
+ENVIRONMENT:
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
+     analysis libraries at runtime
+ * RIVET_DATA_PATH: list of paths to be searched for data files
 """
 
 import rivet, yoda, sys, os

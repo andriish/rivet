@@ -1,5 +1,9 @@
 2016-04-08  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add RIVET_DATA_PATH variable and related functions in C++ and
+	Python as a common first-fallback for RIVET_REF_PATH,
+	RIVET_INFO_PATH, and RIVET_PLOT_PATH.
+
 	* Add --pwd options to rivet-mkhtml and rivet-cmphistos
 
 2016-03-25  Andy Buckley  <andy.buckley@cern.ch>

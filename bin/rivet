@@ -11,10 +11,7 @@ Examples:
 ENVIRONMENT:
  * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
      analysis libraries at runtime
- * RIVET_REF_PATH: list of paths to be searched for reference
-     data files
- * RIVET_INFO_PATH: list of paths to be searched for analysis
-     metadata files
+ * RIVET_DATA_PATH: list of paths to be searched for data files
 """
 
 import os, sys

@@ -12,6 +12,11 @@ automatically (if not, set the RIVET_ANALYSIS_PATH or similar variables
 appropriately).
 
 Any existing output directory will be overwritten.
+
+ENVIRONMENT:
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
+     analysis libraries at runtime
+ * RIVET_DATA_PATH: list of paths to be searched for data files
 """
 
 import rivet, sys, os
