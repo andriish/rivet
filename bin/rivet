@@ -62,7 +62,7 @@ anagroup.add_option("--analysis-path", dest="ANALYSIS_PATH", metavar="PATH", def
 anagroup.add_option("--analysis-path-append", dest="ANALYSIS_PATH_APPEND", metavar="PATH", default=None,
                     help="append to the analysis search path (cf. $RIVET_ANALYSIS_PATH).")
 anagroup.add_option("--pwd", dest="ANALYSIS_PATH_PWD", action="store_true", default=False,
-                    help="append the current directory (pwd) to the analysis search path (cf. $RIVET_ANALYSIS_PATH).")
+                    help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH).")
 # TODO: add control for more paths?
 parser.add_option_group(anagroup)
 

@@ -1,3 +1,7 @@
+2016-04-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add --pwd options to rivet-mkhtml and rivet-cmphistos
+
 2016-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Bug-fix in semi-leptonic top selection of CMS_2015_I1370682.

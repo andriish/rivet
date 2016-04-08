@@ -48,6 +48,8 @@ def getCommandLineOptions():
     #                   default="REF", help="ID of reference data set (file path for non-REF data)")
     parser.add_option("--reftitle", dest="REFTITLE",
                         default='Data', help="Reference data legend entry")
+    parser.add_option("--pwd", dest="PATH_PWD", action="store_true", default=False,
+                    help="append the current directory (pwd) to the analysis/data search paths (cf. $RIVET_ANALYSIS_PATH).")
 
     stygroup = OptionGroup(parser, "Plot style")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
@@ -278,6 +280,10 @@ if __name__ == '__main__':
     ## Command line parsing
     parser = getCommandLineOptions()
     opts, args = parser.parse_args()
+
+    ## Add pwd to search paths
+    if opts.PATH_PWD:
+        rivet.addAnalysisLibPath(".")
 
     ## Split the input file names and the associated plotting options
     ## given on the command line into two separate lists
