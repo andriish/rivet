@@ -23,9 +23,9 @@ namespace Rivet {
 
 
   /// Static factory method
-  AnalysisInfo* AnalysisInfo::make(const std::string& ananame) {
+  unique_ptr<AnalysisInfo> AnalysisInfo::make(const std::string& ananame) {
     // Returned AI, in semi-null state
-    AnalysisInfo* ai = new AnalysisInfo();
+    unique_ptr<AnalysisInfo> ai( new AnalysisInfo );
     ai->_beams += make_pair(PID::ANY, PID::ANY);
     ai->_name = ananame;
 
@@ -227,7 +227,7 @@ namespace Rivet {
     #undef THROW_INFOERR
 
 
-    MSG_TRACE("AnalysisInfo pointer = " << ai);
+    MSG_TRACE("AnalysisInfo pointer = " << ai.get());
     return ai;
   }
 

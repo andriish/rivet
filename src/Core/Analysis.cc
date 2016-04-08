@@ -18,10 +18,10 @@ namespace Rivet {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
 
-    AnalysisInfo* ai = AnalysisInfo::make(name);
-    assert(ai != 0);
-    _info.reset(ai);
-    assert(_info.get() != 0);
+    unique_ptr<AnalysisInfo> ai = AnalysisInfo::make(name);
+    assert(ai);
+    _info = move(ai);
+    assert(_info);
   }
 
   double Analysis::sqrtS() const {
