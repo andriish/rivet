@@ -140,23 +140,43 @@ cdef class AnalysisLoader:
         return pyobj
 
 
-def addAnalysisLibPath(path):
-    c.addAnalysisLibPath(path)
-
-def findAnalysisRefFile(q):
-    return c.findAnalysisRefFile(q)
-
-def getAnalysisPlotPaths():
-    return c.getAnalysisPlotPaths()
-
-def getAnalysisRefPaths():
-    return c.getAnalysisRefPaths()
-
 def getAnalysisLibPaths():
     return c.getAnalysisLibPaths()
 
 def setAnalysisLibPaths(xs):
     c.setAnalysisLibPaths(xs)
+
+def addAnalysisLibPath(path):
+    c.addAnalysisLibPath(path)
+
+
+def getAnalysisRefPaths():
+    return c.getAnalysisRefPaths()
+
+def findAnalysisRefFile(q):
+    return c.findAnalysisRefFile(q)
+
+
+def getAnalysisDataPaths():
+    return c.getAnalysisDataPaths()
+
+def findAnalysisDataFile(q):
+    return c.findAnalysisDataFile(q)
+
+
+def getAnalysisInfoPaths():
+    return c.getAnalysisInfoPaths()
+
+def findAnalysisInfoFile(q):
+    return c.findAnalysisInfoFile(q)
+
+
+def getAnalysisPlotPaths():
+    return c.getAnalysisPlotPaths()
+
+def findAnalysisPlotFile(q):
+    return c.findAnalysisPlotFile(q)
+
 
 def version():
     return c.version()

@@ -52,6 +52,15 @@ namespace Rivet {
   //@{
 
   /// Get Rivet analysis reference data search paths
+  std::vector<std::string> getAnalysisDataPaths();
+
+  /// @brief Find the first file of the given name in the general data file search dirs
+  /// @note If none found, returns an empty string
+  std::string findAnalysisDataFile(const std::string& filename,
+                                  const std::vector<std::string>& pathprepend=std::vector<std::string>(),
+                                  const std::vector<std::string>& pathappend=std::vector<std::string>());
+
+  /// Get Rivet analysis reference data search paths
   std::vector<std::string> getAnalysisRefPaths();
 
   /// @brief Find the first file of the given name in the ref data file search dirs

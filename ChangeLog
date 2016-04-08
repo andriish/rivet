@@ -1,3 +1,12 @@
+2016-04-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a --guess-prefix flag to rivet-config, cf. fastjet-config.
+
+	* Add RIVET_DATA_PATH variable and related functions in C++ and
+	Python as a common first-fallback for RIVET_REF_PATH,
+	RIVET_INFO_PATH, and RIVET_PLOT_PATH.
+
+	* Add --pwd options to rivet-mkhtml and rivet-cmphistos
 2016-04-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove implicit conventional event rotation for HERA -- this
@@ -83,6 +92,8 @@
 	in Rivet/Tools/SmearingFunctions.hh
 
 	* Add (abs)charge(3) methods and functions for Particle objects.
+
+	* Bug-fix in semi-leptonic top selection of CMS_2015_I1370682.
 
 2016-03-12  Andy Buckley  <andy.buckley@cern.ch>
 
