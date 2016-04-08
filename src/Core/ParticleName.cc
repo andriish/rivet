@@ -7,7 +7,7 @@ namespace Rivet {
 
 
     // Initialise ParticleNames singleton pointer
-    ParticleNames* ParticleNames::_instance = 0;
+    unique_ptr<ParticleNames> ParticleNames::_instance = nullptr;
 
 
     const std::string& ParticleNames::_particleName(PdgId pid) {

@@ -26,8 +26,7 @@ namespace Rivet {
   class ATLAS_2012_I1084540 : public Analysis {
   public:
 
-    ATLAS_2012_I1084540() : Analysis("ATLAS_2012_I1084540"), _etaBins(49), _etaMax(4.9) {
-    }
+    ATLAS_2012_I1084540() : Analysis("ATLAS_2012_I1084540") {}
 
 
     /// @name Analysis methods
@@ -83,10 +82,10 @@ namespace Rivet {
       const FinalState& fs8 = applyProjection<FinalState>(event, "CNFS8");
 
       // Set up Yes/No arrays for energy in each eta bin at each pT cut
-      bool* energyMap_200 = new bool[_etaBins];
-      bool* energyMap_400 = new bool[_etaBins];
-      bool* energyMap_600 = new bool[_etaBins];
-      bool* energyMap_800 = new bool[_etaBins];
+      bool energyMap_200[_etaBins];
+      bool energyMap_400[_etaBins];
+      bool energyMap_600[_etaBins];
+      bool energyMap_800[_etaBins];
       for (int i = 0; i < _etaBins; ++i) {
         energyMap_200[i] = false;
         energyMap_400[i] = false;
@@ -198,11 +197,6 @@ namespace Rivet {
           MSG_DEBUG(gapArrow);
         }
       }
-
-      delete[] energyMap_200;
-      delete[] energyMap_400;
-      delete[] energyMap_600;
-      delete[] energyMap_800;
     }
 
     /// Normalise histograms after the run, Scale to cross section
@@ -225,8 +219,8 @@ namespace Rivet {
     //@}
     /// @name Private variables
     //@{
-    int _etaBins;
-    double _etaMax;
+    static constexpr int _etaBins = 49;
+    static constexpr double _etaMax = 4.9;
     double _etaBinSize;
     //@}
   };
