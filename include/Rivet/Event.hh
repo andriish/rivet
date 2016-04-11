@@ -3,37 +3,40 @@
 #define RIVET_Event_HH
 
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Particle.hh"
 #include "Rivet/Projection.hh"
+#include "Rivet/Math/Vector3.hh"
+#include "Rivet/Math/LorentzTrans.hh"
 
 namespace Rivet {
 
 
   /// Rivet wrapper for HepMC event and Projection references.
   ///
-  /// Event is a concrete class representing an generated event in
-  /// Rivet. It is constructed given a HepMC::GenEvent, a pointer to
-  /// which is kept by the Event object throughout its lifetime. The user
-  /// must therefore make sure that the corresponding HepMC::GenEvent
-  /// will persist at least as long as the Event object.
+  /// Event is a concrete class representing an generated event in Rivet. It is
+  /// constructed given a HepMC::GenEvent, a pointer to which is kept by the
+  /// Event object throughout its lifetime. The user must therefore make sure
+  /// that the corresponding HepMC::GenEvent will persist at least as long as
+  /// the Event object.
   ///
-  /// In addition to the HepMC::GenEvent object the Event also keeps
-  /// track of all Projections object which have been applied to the
-  /// Event so far.
+  /// In addition to the HepMC::GenEvent object the Event also keeps track of
+  /// all Projection objects which have been applied to the Event so far.
   class Event {
   public:
 
-    /// @name Standard constructors and destructors.
+    /// @name Constructors and destructors.
     //@{
-
-    /// Constructor from a HepMC GenEvent reference
-    Event(const GenEvent& ge)
-      : _originalGenEvent(&ge), _genEvent(ge)
-    { _init(ge); }
 
     /// Constructor from a HepMC GenEvent pointer
     Event(const GenEvent* ge)
       : _originalGenEvent(ge), _genEvent(*ge)
     { assert(ge); _init(*ge); }
+
+    /// Constructor from a HepMC GenEvent reference
+    /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
+    Event(const GenEvent& ge)
+      : _originalGenEvent(&ge), _genEvent(ge)
+    { _init(ge); }
 
     /// Copy constructor
     Event(const Event& e)
@@ -43,12 +46,26 @@ namespace Rivet {
     //@}
 
 
-  public:
+    /// @name Major event properties
+    //@{
+
+    // /// Get the beam particles
+    // ParticlePair beams() const;
+
+    // /// Get the beam centre-of-mass energy
+    // double sqrtS() const;
+
+    // /// Get the beam centre-of-mass energy per nucleon
+    // double asqrtS() const;
+
+    // /// Get the boost to the beam centre-of-mass
+    // Vector3 beamCMSBoost() const;
+
+    // /// Get the boost to the beam centre-of-mass
+    // LorentzTransform beamCMSTransform();
 
     /// The generated event obtained from an external event generator
-    const GenEvent* genEvent() const {
-      return &_genEvent;
-    }
+    const GenEvent* genEvent() const { return &_genEvent; }
 
     /// @brief The generation weight associated with the event
     ///
@@ -58,8 +75,11 @@ namespace Rivet {
       return (!_genEvent.weights().empty()) ? _genEvent.weights()[0] : 1.0;
     }
 
+    //@}
 
-  public:
+
+    /// @name Projection running
+    //@{
 
     /// @brief Add a projection @a p to this Event.
     ///
@@ -84,28 +104,27 @@ namespace Rivet {
       return p;
     }
 
-
+    /// @brief Add a projection @a p to this Event by pointer.
     template <typename PROJ>
     const PROJ& applyProjection(PROJ* pp) const {
       if (!pp) throw Error("Event::applyProjection(PROJ*): Projection pointer is null.");
       return applyProjection(*pp);
     }
 
+    //@}
+
 
   private:
 
     /// @brief Actual (shared) implementation of the constructors from GenEvents
-    ///
-    /// @todo When we can require C++11, constructors can call each other and
-    /// this can be removed.
     void _init(const GenEvent& ge);
 
-    /// @brief Convert the GenEvent to use conventional alignment
-    ///
-    /// For example, FHerwig only produces DIS events in the unconventional
-    /// hadron-lepton orientation and has to be corrected for DIS analysis
-    /// portability.
-    void _geNormAlignment();
+    // /// @brief Convert the GenEvent to use conventional alignment
+    // ///
+    // /// For example, FHerwig only produces DIS events in the unconventional
+    // /// hadron-lepton orientation and has to be corrected for DIS analysis
+    // /// portability.
+    // void _geNormAlignment();
 
     /// @brief The generated event, as obtained from an external generator.
     ///
@@ -122,7 +141,8 @@ namespace Rivet {
     /// affected by these modifications, it is probably an unphysical analysis!
     ///
     /// Stored as a non-pointer since it may get overwritten, and memory for
-    /// copying and cleanup is much neater this way.
+    /// copying and cleanup is neater this way.
+    /// @todo Change needed for HepMC3?
     GenEvent _genEvent;
 
     /// The set of Projection objects applied so far.

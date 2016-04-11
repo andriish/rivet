@@ -7,6 +7,18 @@
 namespace Rivet {
 
 
+  // ParticlePair Event::beams() const { return Rivet::beams(*this); }
+
+  // double Event::sqrtS() const { return Rivet::sqrtS(*this); }
+
+  // double Event::asqrtS() const { return Rivet::asqrtS(*this); }
+
+  // Vector3 Event::beamCMSBoost() const { return Rivet::beamCMSBoost(*this); }
+
+  // LorentzTransform Event::beamCMSTransform() const { return Rivet::beamCMSTransform(*this); }
+
+
+
   void Event::_init(const GenEvent& ge) {
     // Use Rivet's preferred units if possible
     #ifdef HEPMC_HAS_UNITS

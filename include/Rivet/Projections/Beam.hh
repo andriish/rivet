@@ -5,6 +5,7 @@
 #include "Rivet/Projection.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
+#include "Rivet/Math/LorentzTrans.hh"
 
 namespace Rivet {
 
@@ -55,17 +56,31 @@ namespace Rivet {
   }
 
 
-  /// Get an active Lorentz boost to the beam centre-of-mass from a pair of beam momenta
-  Vector3 comBoost(const FourMomentum& pa, const FourMomentum& pb);
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of beam momenta
+  Vector3 cmsBoost(const FourMomentum& pa, const FourMomentum& pb);
 
-  /// Get an active Lorentz boost to the beam centre-of-mass from a pair of Particles
-  inline Vector3 comBoost(const ParticlePair& beams) {
-    return comBoost(beams.first, beams.second);
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of Particles
+  inline Vector3 cmsBoost(const ParticlePair& beams) {
+    return cmsBoost(beams.first, beams.second);
   }
 
-  /// Get an active Lorentz boost to the beam centre-of-mass from an Event
-  inline Vector3 comBoost(const Event& e) {
-    return comBoost(beams(e));
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from an Event
+  inline Vector3 beamCMSBoost(const Event& e) {
+    return cmsBoost(beams(e));
+  }
+
+
+  /// Get the Lorentz transformation to the beam centre-of-mass system (CMS) from a pair of beam momenta
+  LorentzTransform cmsTransform(const FourMomentum& pa, const FourMomentum& pb);
+
+  /// Get the Lorentz transformation to the beam centre-of-mass system (CMS) from a pair of Particles
+  inline LorentzTransform cmsTransform(const ParticlePair& beams) {
+    return cmsTransform(beams.first, beams.second);
+  }
+
+  /// Get the Lorentz transformation to the beam centre-of-mass system (CMS) from an Event
+  inline LorentzTransform beamCMSTransform(const Event& e) {
+    return cmsTransform(beams(e));
   }
 
   //@}
@@ -91,14 +106,10 @@ namespace Rivet {
   public:
 
     /// The pair of beam particles in the current collision
-    const ParticlePair& beams() const {
-      return _theBeams;
-    }
+    const ParticlePair& beams() const { return _theBeams; }
 
     /// The pair of beam particle PDG codes in the current collision
-    const PdgIdPair beamIds() const {
-      return Rivet::beamIds(beams());
-    }
+    const PdgIdPair beamIds() const { return Rivet::beamIds(beams()); }
 
     /// Get centre of mass energy, \f$ \sqrt{s} \f$
     double sqrtS() const { return Rivet::sqrtS(beams()); }
@@ -106,14 +117,15 @@ namespace Rivet {
     /// Get per-nucleon centre of mass energy, \f$ \sqrt{s}/(A_1 + A_2) \f$
     double asqrtS() const { return Rivet::asqrtS(beams()); }
 
-    /// Get an active Lorentz boost to the beam centre-of-mass
-    Vector3 comBoost() const { return Rivet::comBoost(beams()); }
+    /// Get the Lorentz boost to the beam centre-of-mass
+    Vector3 cmsBoost() const { return Rivet::cmsBoost(beams()); }
+
+    /// Get the Lorentz transform to the beam centre-of-mass
+    LorentzTransform cmsTransform() const { return Rivet::cmsTransform(beams()); }
 
     /// Get the beam interaction primary vertex (PV) position
     FourVector pv() const;
 
-
-  public:
 
     /// Project on to the Event
     virtual void project(const Event& e);
@@ -122,9 +134,7 @@ namespace Rivet {
   private:
 
     /// Compare with other projections -- it's always the same, since there are no params
-    virtual int compare(const Projection& UNUSED(p)) const {
-      return EQUIVALENT;
-    }
+    virtual int compare(const Projection& UNUSED(p)) const { return EQUIVALENT; }
 
     /// The beam particles in the current collision
     ParticlePair _theBeams;

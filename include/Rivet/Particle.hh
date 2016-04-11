@@ -12,7 +12,7 @@
 namespace Rivet {
 
 
-  /// Representation of particles from a HepMC::GenEvent.
+  /// Particle representation, either from a HepMC::GenEvent or reconstructed.
   class Particle : public ParticleBase {
   public:
 

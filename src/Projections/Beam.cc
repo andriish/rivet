@@ -39,11 +39,15 @@ namespace Rivet {
   }
 
 
-  Vector3 comBoost(const FourMomentum& pa, const FourMomentum& pb) {
-    Vector3 rtn = -(pa.p3() + pb.p3()) / (pa.E() + pb.E());
+  Vector3 cmsBoost(const FourMomentum& pa, const FourMomentum& pb) {
+    Vector3 rtn = (pa.p3() + pb.p3()) / (pa.E() + pb.E());
     return rtn;
   }
 
+
+  LorentzTransform cmsTransform(const FourMomentum& pa, const FourMomentum& pb) {
+    return LorentzTransform(-cmsBoost(pa, pb));
+  }
 
 
 
