@@ -10,15 +10,6 @@
 
 namespace Rivet {
 
-
-  /// @todo Replace with a lambda when we can use C++11
-  namespace {
-    inline bool cmpAOByPath(const AnalysisObjectPtr a, const AnalysisObjectPtr b) {
-      return a->path() < b->path();
-    }
-  }
-
-
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname), _numEvents(0),
       _sumOfWeights(0.0), _xs(NAN),
@@ -221,9 +212,9 @@ namespace Rivet {
 
   vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
     vector<AnalysisObjectPtr> rtn;
-    rtn.push_back( AnalysisObjectPtr(new Counter(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT")) );
+    rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
-    rtn.push_back( AnalysisObjectPtr(new Scatter1D(pts, "/_XSEC")) );
+    rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
     foreach (const AnaHandle a, analyses()) {
       vector<AnalysisObjectPtr> aos = a->analysisObjects();
       // MSG_WARNING(a->name() << " " << aos.size());
@@ -234,8 +225,11 @@ namespace Rivet {
         rtn.push_back(ao);
       }
     }
-    /// @todo Use lambda in C++11
-    sort(rtn.begin(), rtn.end(), cmpAOByPath);
+    sort(rtn.begin(), rtn.end(), 
+         [](AnalysisObjectPtr a, AnalysisObjectPtr b) {
+              return a->path() < b->path();
+          }
+        );
     return rtn;
   }
 

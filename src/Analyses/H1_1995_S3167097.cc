@@ -92,9 +92,9 @@ namespace Rivet {
       for (size_t ibin = 0; ibin < 9; ++ibin)
         scale(_hEtFlow[ibin], 0.5/_sumw[ibin]);
       /// @todo Improve this!
-      addAnalysisObject(Scatter2DPtr( new Scatter2D(_tmphAvEt/_tmphN, histoPath("21")) ));
-      addAnalysisObject(Scatter2DPtr( new Scatter2D(_tmphAvX/_tmphN,  histoPath("22")) ));
-      addAnalysisObject(Scatter2DPtr( new Scatter2D(_tmphAvQ2/_tmphN, histoPath("23")) ));
+      addAnalysisObject(make_shared<Scatter2D>(_tmphAvEt/_tmphN, histoPath("21")) );
+      addAnalysisObject(make_shared<Scatter2D>(_tmphAvX/_tmphN,  histoPath("22")) );
+      addAnalysisObject(make_shared<Scatter2D>(_tmphAvQ2/_tmphN, histoPath("23")) );
     }
 
     //@}

@@ -3,6 +3,7 @@ from libcpp.pair cimport pair
 from libcpp.vector cimport vector
 from libcpp cimport bool
 from libcpp.string cimport string
+from libcpp.memory cimport unique_ptr
 
 ctypedef int PdgId
 ctypedef pair[PdgId,PdgId] PdgIdPair
@@ -57,7 +58,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
 
 cdef extern from "Rivet/AnalysisLoader.hh":
     vector[string] AnalysisLoader_analysisNames "Rivet::AnalysisLoader::analysisNames" ()
-    Analysis* AnalysisLoader_getAnalysis "Rivet::AnalysisLoader::getAnalysis" (string)
+    unique_ptr[Analysis] AnalysisLoader_getAnalysis "Rivet::AnalysisLoader::getAnalysis" (string)
 
 cdef extern from "Rivet/Tools/RivetPaths.hh" namespace "Rivet":
     vector[string] getAnalysisLibPaths()

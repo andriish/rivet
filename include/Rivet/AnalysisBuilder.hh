@@ -20,24 +20,22 @@ namespace Rivet {
   public:
 
     /// Default constructor
-    AnalysisBuilderBase() { }
+    AnalysisBuilderBase() = default;
 
     /// Constructor with alias name
-    AnalysisBuilderBase(const string& alias) { _alias = alias; }
+    AnalysisBuilderBase(const string& alias) : _alias(alias) {}
 
     /// Destructor
-    virtual ~AnalysisBuilderBase() { }
+    virtual ~AnalysisBuilderBase() = default;
 
     /// Factory method, to be implemented by the analysis-specific derived class
-    virtual Analysis* mkAnalysis() const = 0;
+    virtual unique_ptr<Analysis> mkAnalysis() const = 0;
 
     /// Get the analysis' name, by asking it directly
     /// @todo Could avoid this slow lookup by passing it via the constructor... at the cost of potential inconsistency
     string name() const {
-      Analysis* a = mkAnalysis();
-      const string rtn = a->name();
-      delete a;
-      return rtn;
+      auto a = mkAnalysis();
+      return a->name();
     }
 
     /// @brief Get any optional alias name attached to this builder
@@ -77,8 +75,8 @@ namespace Rivet {
       _register();
     }
 
-    Analysis* mkAnalysis() const {
-      return new T();
+    unique_ptr<Analysis> mkAnalysis() const {
+      return unique_ptr<T>(new T);
     }
 
   };

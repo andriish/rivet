@@ -102,7 +102,7 @@ namespace Rivet {
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored.
     const AnalysisInfo& info() const {
-      assert(_info.get() != 0 && "No AnalysisInfo object :O");
+      assert(_info && "No AnalysisInfo object :O");
       return *_info;
     }
 
@@ -244,7 +244,7 @@ namespace Rivet {
 
     /// Get the actual AnalysisInfo object in which all this metadata is stored (non-const).
     AnalysisInfo& info() {
-      assert(_info.get() != 0 && "No AnalysisInfo object :O");
+      assert(_info && "No AnalysisInfo object :O");
       return *_info;
     }
 
@@ -886,7 +886,7 @@ namespace Rivet {
     string _defaultname;
 
     /// Pointer to analysis metadata object
-    std::shared_ptr<AnalysisInfo> _info;
+    unique_ptr<AnalysisInfo> _info;
 
     /// Storage of all plot objects
     /// @todo Make this a map for fast lookup by path?
