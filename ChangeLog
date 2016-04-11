@@ -1,3 +1,7 @@
+2016-04-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Actually implement ZEUS_2001_S4815815... only 10 years late!
+
 2016-04-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a --guess-prefix flag to rivet-config, cf. fastjet-config.
