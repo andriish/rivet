@@ -122,13 +122,13 @@ namespace Rivet {
     /// Check to see if this is a valid meson
     inline bool isMeson(int pid) {
       if (_extraBits(pid) > 0) return false;
-      if (abs(pid) <= 100) return false;
+      const int aid = abs(pid);
+      if (aid == 130 || aid == 310 || aid == 210) return true; //< special cases for kaons
+      if (aid <= 100) return false;
       if (_digit(nq1,pid) != 0) return false;
       if (_digit(nq2,pid) == 0) return false;
       if (_digit(nq3,pid) == 0) return false;
       if (_digit(nq2,pid) < _digit(nq3,pid)) return false;
-      const int aid = abs(pid);
-      if (aid == 130 || aid == 310 || aid == 210) return true;
       // EvtGen uses some odd numbers
       /// @todo Remove special-casing for EvtGen
       if (aid == 150 || aid == 350 || aid == 510 || aid == 530) return true;
@@ -146,14 +146,16 @@ namespace Rivet {
       if (_extraBits(pid) > 0) return false;
       if (abs(pid) <= 100) return false;
       if (_fundamentalID(pid) <= 100 && _fundamentalID(pid) > 0) return false;
-      if (abs(pid) == 2110 || abs(pid) == 2210) return true;
-      if (_digit(nq1,pid) == 0) return false;
-      if (_digit(nq2,pid) == 0) return false;
-      if (_digit(nq3,pid) == 0) return false;
-      if (_digit(nq1,pid) < _digit(nq2,pid)) return false;
-      if (_digit(nq2,pid) < _digit(nq3,pid)) return false;
-      if (_digit(nj,pid) > 0  && _digit(nq3,pid) > 0 && _digit(nq2,pid) > 0 && _digit(nq1,pid) > 0) return true;
-      return false;
+      if (abs(pid) == 2110 || abs(pid) == 2210) return true; ///< @todo Why this special case with nJ = 0? What are these? Not listed in RPP MC doc...
+      if (_digit(nj,pid) == 0) return false;
+      if (_digit(nq1,pid) == 0 || _digit(nq2,pid) == 0 || _digit(nq3,pid) == 0) return false;
+      return true;
+      /// @todo This is more correct by the definition, but the PDG's entries 1212, 1214, 1216, 1218 and 2122, 2124, 2126, 2128 come out as invalid
+      // if ((_digit(nq1,pid) >= _digit(nq2,pid) && _digit(nq2,pid) >= _digit(nq3,pid)) ||
+      //     (_digit(nq1,pid) > _digit(nq3,pid) && _digit(nq3,pid) > _digit(nq2,pid)) || //< case 6b for lighter quarks in J=1
+      //     (_digit(nq3,pid) > _digit(nq1,pid) && _digit(nq1,pid) > _digit(nq2,pid))) //< case 6e for extra states in excited multiplets
+      //   return true;
+      // return false;
     }
 
     // Check to see if this is a valid diquark
@@ -199,8 +201,8 @@ namespace Rivet {
     /// Is this a valid hadron ID?
     inline bool isHadron(int pid) {
       if (_extraBits(pid) > 0) return false;
-      if (isMeson(pid))   return true;
-      if (isBaryon(pid))  return true;
+      if (isMeson(pid)) return true;
+      if (isBaryon(pid)) return true;
       if (isPentaquark(pid)) return true;
       return false;
     }
@@ -285,7 +287,7 @@ namespace Rivet {
       // Check that it fits into a standard non-nucleus convention
       if (isBSM(pid)) return true;
       if (isHadron(pid)) return true;
-      if (_digit(n,pid) == 9 && _digit(nr,pid) == 0) return false; // could only have been a tentative hadron
+      if (_digit(n,pid) == 9 && _digit(nr,pid) == 0) return false; // could only have been a tentative hadron, but !isHadron
       if (isDiquark(pid)) return true;
       if (isReggeon(pid)) return true;
       // // Quark digit orderings required by the standard
