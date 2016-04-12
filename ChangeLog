@@ -1,3 +1,7 @@
+2016-04-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Patch PID utils for ordering issues in baryon decoding.
+
 2016-04-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Actually implement ZEUS_2001_S4815815... only 10 years late!
@@ -11,6 +15,7 @@
 	RIVET_INFO_PATH, and RIVET_PLOT_PATH.
 
 	* Add --pwd options to rivet-mkhtml and rivet-cmphistos
+
 2016-04-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove implicit conventional event rotation for HERA -- this
@@ -80,23 +85,6 @@
 
 2016-03-25  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Start replacing Boost foreach and shared_ptr with C++11 features.
-
-	* Add an EXAMPLE_SMEAR analysis.
-
-	* Propagate identity and C++ dialect flags from Rivet to
-	rivet-config and rivet-buildplugin.
-
-	* Require C++11 support in Rivet compilation.
-
-2016-03-23  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Add basic forms of new SmearedJets and SmearedParticles
-	projections, and some standard efficiency and smearing functions
-	in Rivet/Tools/SmearingFunctions.hh
-
-	* Add (abs)charge(3) methods and functions for Particle objects.
-
 	* Bug-fix in semi-leptonic top selection of CMS_2015_I1370682.
 
 2016-03-12  Andy Buckley  <andy.buckley@cern.ch>
@@ -113,9 +101,6 @@
 	* Add a --nskip flag to the rivet command-line tool, to allow
 	processing to begin in the middle of an event file (useful for
 	batched processing of large files, in combination with --nevts)
-
-	* Allow specifying an alias name by which an analysis can be
-	loaded, to allow migration from SPIRES to Inspire ID numberings.
 
 2016-03-03  Holger Schulz  <holger.schulz@durham.ac.uk>
 
