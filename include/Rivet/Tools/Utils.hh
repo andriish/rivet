@@ -101,7 +101,7 @@ namespace Rivet {
   /// Convert a string to lower-case
   inline string toLower(const string& s) {
     string out = s;
-    transform(out.begin(), out.end(), out.begin(), (int(*)(int)) tolower);
+    std::transform(out.begin(), out.end(), out.begin(), (int(*)(int)) tolower);
     return out;
   }
 
