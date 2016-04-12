@@ -3,10 +3,10 @@
 #define RIVET_Event_HH
 
 #include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Particle.hh"
 #include "Rivet/Projection.hh"
-#include "Rivet/Math/Vector3.hh"
-#include "Rivet/Math/LorentzTrans.hh"
+// #include "Rivet/Particle.hh"
+// #include "Rivet/Math/Vector3.hh"
+// #include "Rivet/Math/LorentzTrans.hh"
 
 namespace Rivet {
 
