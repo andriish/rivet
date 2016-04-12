@@ -21,7 +21,7 @@ namespace Rivet {
 
 
 
-  /// @name Standard particle efficiency and smearing functions
+  /// @name General particle efficiency and smearing functions
   //@{
 
   inline double PARTICLE_FN0(const Particle& p) { return 0; }
@@ -32,10 +32,14 @@ namespace Rivet {
 
   inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
 
+  //@}
 
-  ////////////////////////
 
+  /// @name Electron efficiency and smearing functions
+  //@{
 
+  /// ATLAS Run 1 electron tracking efficiency
+  /// @todo How to use this in combination with reco eff?
   inline double ELECTRON_TRKEFF_ATLAS_RUN1(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 0.1*GeV) return 0;
@@ -50,18 +54,37 @@ namespace Rivet {
     }
   }
 
+
+  /// ATLAS Run 2 electron tracking efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double ELECTRON_TRKEFF_ATLAS_RUN2(const Particle& e) {
+    return ELECTRON_TRKEFF_ATLAS_RUN1(e);
+  }
+
+  /// ATLAS Run 1 electron reconstruction efficiency
+  /// @todo Include reco eff (but no e/y discrimination) in forward region
+  /// @todo How to use this in combination with tracking eff?
   inline double ELECTRON_EFF_ATLAS_RUN1(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 10*GeV) return 0;
     return (e.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
+
+  /// ATLAS Run 2 electron reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double ELECTRON_EFF_ATLAS_RUN2(const Particle& e) {
+    return ELECTRON_EFF_ATLAS_RUN1(e);
+  }
+
+
+  /// ATLAS Run 1 electron reco smearing
   inline Particle ELECTRON_SMEAR_ATLAS_RUN1(const Particle& e) {
     /// @todo Need to isolate random generators to a single thread
     static random_device rd;
     static mt19937 gen(rd());
 
-    static const vector<double> edges_eta = {0., 2.5, 3., 5.};
+    static const vector<double> edges_eta = {0., 2.5, 3.};
     static const vector<double> edges_pt = {0., 0.1, 25.};
     static const vector<double> e2s = {0.000, 0.015, 0.005,
                                        0.005, 0.005, 0.005,
@@ -89,6 +112,18 @@ namespace Rivet {
   }
 
 
+  /// ATLAS Run 2 electron reco smearing
+  /// @todo Currently just a copy of the Run 1 version: fix!
+  inline Particle ELECTRON_SMEAR_ATLAS_RUN2(const Particle& e) {
+    return ELECTRON_SMEAR_ATLAS_RUN1(e);
+  }
+
+
+  /// @todo Add charge flip efficiency?
+
+
+  /// CMS Run 1 electron tracking efficiency
+  /// @todo How to use this in combination with reco eff?
   inline double ELECTRON_TRKEFF_CMS_RUN1(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 0.1*GeV) return 0;
@@ -99,10 +134,27 @@ namespace Rivet {
     }
   }
 
+
+  /// CMS Run 2 electron tracking efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double ELECTRON_TRKEFF_CMS_RUN2(const Particle& e) {
+    return ELECTRON_TRKEFF_CMS_RUN1(e);
+  }
+
+
+  /// CMS Run 1 electron reconstruction efficiency
+  /// @todo How to use this in combination with tracking eff?
   inline double ELECTRON_EFF_CMS_RUN1(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 10*GeV) return 0;
     return (e.abseta() < 1.5) ? 0.95 : 0.85;
+  }
+
+
+  /// CMS Run 2 electron reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double ELECTRON_EFF_CMS_RUN2(const Particle& e) {
+    return ELECTRON_EFF_CMS_RUN1(e);
   }
 
 
@@ -137,9 +189,30 @@ namespace Rivet {
   }
 
 
-  ///////////////////
+  /// CMS Run 2 electron reco smearing
+  /// @todo Currently just a copy of the Run 1 version: fix!
+  inline Particle ELECTRON_SMEAR_CMS_RUN2(const Particle& e) {
+    return ELECTRON_SMEAR_CMS_RUN1(e);
+  }
+
+  //@}
 
 
+
+  /// @name Photon efficiency and smearing functions
+  //@{
+
+  /// @todo Photon efficiency and smearing
+
+  //@}
+
+
+
+  /// @name Muon efficiency and smearing functions
+  //@{
+
+  /// ATLAS Run 1 muon tracking efficiency
+  /// @todo How to use this in combination with reco eff?
   inline double MUON_TRKEFF_ATLAS_RUN1(const Particle& m) {
     if (m.abseta() > 2.5) return 0;
     if (m.pT() < 0.1*GeV) return 0;
@@ -150,12 +223,29 @@ namespace Rivet {
     }
   }
 
+  /// ATLAS Run 2 muon tracking efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double MUON_TRKEFF_ATLAS_RUN2(const Particle& m) {
+    return MUON_TRKEFF_ATLAS_RUN1(m);
+  }
+
+
+  /// ATLAS Run 1 muon reco efficiency
+  /// @todo How to use this in combination with tracking eff?
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
     if (m.abseta() > 2.7) return 0;
     if (m.pT() < 10*GeV) return 0;
     return (m.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
+  /// ATLAS Run 2 muon reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double MUON_EFF_ATLAS_RUN2(const Particle& m) {
+    return MUON_EFF_ATLAS_RUN1(m);
+  }
+
+
+  /// ATLAS Run 1 muon reco smearing
   inline Particle MUON_SMEAR_ATLAS_RUN1(const Particle& m) {
     /// @todo Need to isolate random generators to a single thread
     static random_device rd;
@@ -179,7 +269,15 @@ namespace Rivet {
     return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), m.mass(), smeared_pt));
   }
 
+  /// ATLAS Run 2 muon reco smearing
+  /// @todo Currently just a copy of the Run 1 version: fix!
+  inline Particle MUON_SMEAR_ATLAS_RUN2(const Particle& m) {
+    return MUON_SMEAR_ATLAS_RUN1(m);
+  }
 
+
+  /// CMS Run 1 muon tracking efficiency
+  /// @todo How to use this in combination with reco eff?
   /// @note Eff values currently identical to those in ATLAS (AB, 2016-04-12)
   inline double MUON_TRKEFF_CMS_RUN1(const Particle& m) {
     if (m.abseta() > 2.5) return 0;
@@ -191,14 +289,29 @@ namespace Rivet {
     }
   }
 
+  /// CMS Run 2 muon tracking efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double MUON_TRKEFF_CMS_RUN2(const Particle& m) {
+    return MUON_TRKEFF_CMS_RUN1(m);
+  }
 
+
+  /// CMS Run 1 muon reco efficiency
+  /// @todo How to use this in combination with tracking eff?
   inline double MUON_EFF_CMS_RUN1(const Particle& m) {
     if (m.abseta() > 2.4) return 0;
     if (m.pT() < 10*GeV) return 0;
     return 0.95 * (m.abseta() < 1.5 ? 1 : exp(0.5 - 5e-4*m.pT()/GeV));
   }
 
+  /// CMS Run 2 muon reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double MUON_EFF_CMS_RUN2(const Particle& m) {
+    return MUON_EFF_CMS_RUN1(m);
+  }
 
+
+  /// CMS Run 1 muon reco smearing
   inline Particle MUON_SMEAR_CMS_RUN1(const Particle& m) {
     /// @todo Need to isolate random generators to a single thread
     static random_device rd;
@@ -227,9 +340,18 @@ namespace Rivet {
     return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), m.mass(), smeared_pt));
   }
 
+  /// CMS Run 2 muon reco smearing
+  /// @todo Currently just a copy of the Run 1 version: fix!
+  inline Particle MUON_SMEAR_CMS_RUN2(const Particle& m) {
+    return MUON_SMEAR_CMS_RUN1(m);
+  }
 
-  //////////////////////////
+  //@}
 
+
+
+  /// @name Tau efficiency and smearing functions
+  //@{
 
   /// @brief ATLAS Run 1 8 TeV tau efficiencies (medium working point)
   ///
@@ -302,6 +424,13 @@ namespace Rivet {
   }
 
 
+  /// ATLAS Run 2 tau smearing
+  /// @todo Currently a copy of the Run 1 version
+  inline Particle TAU_SMEAR_ATLAS_RUN2(const Particle& t) {
+    return TAU_SMEAR_ATLAS_RUN1(t);
+  }
+
+
   /// CMS Run 2 tau efficiency
   ///
   /// @todo Needs work; this is the dumb version from Delphes 3.3.2
@@ -309,11 +438,20 @@ namespace Rivet {
     return (t.abspid() == PID::TAU) ? 0.6 : 0;
   }
 
+  /// CMS Run 1 tau efficiency
+  ///
+  /// @todo Needs work; this is just a copy of the Run 2 version in Delphes 3.3.2
+  inline double TAU_EFF_CMS_RUN1(const Particle& t) {
+    return TAU_EFF_CMS_RUN2(t);
+  }
+
+
   /// CMS Run 1 tau smearing
   /// @todo Currently a copy of the crappy ATLAS one
   inline Particle TAU_SMEAR_CMS_RUN1(const Particle& t) {
     return TAU_SMEAR_ATLAS_RUN1(t);
   }
+
 
   /// CMS Run 2 tau smearing
   /// @todo Currently a copy of the Run 1 version
@@ -324,7 +462,7 @@ namespace Rivet {
   //@}
 
 
-  /// @name Standard jet efficiency and smearing functions
+  /// @name Jet efficiency and smearing functions
   //@{
 
   /// Return a constant 0 given a Jet as argument
