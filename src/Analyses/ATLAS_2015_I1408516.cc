@@ -9,11 +9,9 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2015_I1408516(string name="ATLAS_2015_I1408516")
-      : Analysis(name)
-    {
-      _mode = 0; // using electron channel for combined data by default
-    }
+    ATLAS_2015_I1408516(string name="ATLAS_2015_I1408516", size_t mode=0)
+      : Analysis(name), _mode(mode) // using electron channel for combined data
+    { }
 
 
     /// @name Analysis methods
@@ -99,7 +97,7 @@ namespace Rivet {
 
       // Get/cut on Z boson leptons
       const ParticleVector& leptons = zfinder.constituents();
-      if (leptons.size() != 2 || leptons[0].charge3() * leptons[1].charge3() > 0) vetoEvent;
+      if (leptons.size() != 2 || leptons[0].threeCharge() * leptons[1].threeCharge() > 0) vetoEvent;
       const Particle& lminus = leptons[0].charge() < 0 ? leptons[0] : leptons[1];
       const Particle& lplus  = leptons[0].charge() < 0 ? leptons[1] : leptons[0];
 
@@ -233,12 +231,12 @@ namespace Rivet {
 
   class ATLAS_2015_I1408516_EL : public ATLAS_2015_I1408516 {
   public:
-    ATLAS_2015_I1408516_EL() : ATLAS_2015_I1408516("ATLAS_2015_I1408516_EL"), _mode(0) { }
+    ATLAS_2015_I1408516_EL() : ATLAS_2015_I1408516("ATLAS_2015_I1408516_EL", 0) { }
   };
 
   class ATLAS_2015_I1408516_MU : public ATLAS_2015_I1408516 {
   public:
-    ATLAS_2015_I1408516_MU() : ATLAS_2015_I1408516("ATLAS_2015_I1408516_MU"), _mode(1) { }
+    ATLAS_2015_I1408516_MU() : ATLAS_2015_I1408516("ATLAS_2015_I1408516_MU", 1) { }
   };
 
 

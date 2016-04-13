@@ -12,23 +12,23 @@ References:
  - JHEP 09 (2015) 049
  - doi:10.1007/JHEP09(2015)049
 RunInfo:
-  Inclusive Z in the electron channel
+  Inclusive $Z$ in the electron channel
 Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [25,25]
 NeedCrossSection: True
 Description:
-  Measurements from the ATLAS experiment of the forward-backward asymmetry in the reaction
+  'Measurements from the ATLAS experiment of the forward-backward asymmetry in the reaction
   $pp \rightarrow Z / \gamma^\ast \rightarrow \ell^+\ell^-$, with $\ell$ being electrons or muons.
   The results are based on the full set of data collected in 2011 in $pp$ collisions at the LHC at
   $\sqrt{s} = 7$~TeV, corresponding to an integrated luminosity of 4.8~$\text{fb}^{-1}$. The measured
   asymmetry values are found to be in agreement with the corresponding Standard Model predictions.
   The default routine will pick up the electron decay channel of the $Z$ boson. Individual channels can
   be specified directly with the plugins ATLAS_2014_I1312627_EL and ATLAS_2014_I1312627_MU, respectively.
-  N.B.: When running on multiple files, the asymmetry might have to be reconstructed in a post-processing
+  N.B. When running on multiple files, the asymmetry might have to be reconstructed in a post-processing
   step. To that end, the necessary Histo1D objects are written out as well. The asymmetry is a Scatter2D
   objects ending in y01 and is constructed from the Histo1D objects (ending in y02 and y03) in the
-  following way: y01 = (y02 - y03) / (y02 + y03)
+  following way: y01 = (y02 - y03) / (y02 + y03)'
 BibKey: Aad:2015uau
 BibTeX: '@article{Aad:2015uau,
       author         = "Aad, Georges and others",
