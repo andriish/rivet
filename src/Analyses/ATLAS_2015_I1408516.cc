@@ -195,16 +195,14 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      const double sf(crossSection() / sumOfWeights());
-      /// @todo Tidy in C++11
-      for (map<string, Histo1DPtr>::iterator hit = _h.begin(); hit != _h.end(); ++hit) {
-        scale(hit->second, sf);
-        if ( hit->first.find("_xsec") == string::npos) normalize(hit->second);
+      // Scale non-xsec plots to cross-section
+      const double sf = crossSection() / picobarn / sumOfWeights();
+      for (const auto& key_hist : _h) {
+        scale(key_hist.second, sf);
+        if (!contains(key_hist.first, "_xsec")) normalize(key_hist.second);
       }
 
-      // M(ll) not differential cross section
-      // so shouldn't be divided by bin width
+      // M(ll) plot isn't a differential cross section so shouldn't be divided by bin width
       for (size_t i = 0; i < 6; ++i) {
         double bw = _h["mll_xsec"]->bin(i).xWidth();
         _h["mll_xsec"]->bin(i).scaleW(bw);

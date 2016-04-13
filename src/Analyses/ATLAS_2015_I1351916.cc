@@ -96,11 +96,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      const double sf = crossSectionPerEvent();
-      /// @todo Tidy in C++11 mode
-      for (map<string, Histo1DPtr>::iterator it = _h.begin(); it != _h.end(); ++it) {
-        scale(it->second, sf);
-      }
+      const double sf = crossSectionPerEvent() / picobarn;
+      for (const auto& key_hist : _h) scale(key_hist.second, sf);
       divide(*_h["NCC_pos"] - *_h["NCC_neg"], *_h["NCC_pos"] + *_h["NCC_neg"], _s["CC"]);
       if (!_mode)  divide(*_h["NCF_pos"] - *_h["NCF_neg"], *_h["NCF_pos"] + *_h["NCF_neg"], _s["CF"]);
     }
