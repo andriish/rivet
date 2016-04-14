@@ -67,6 +67,8 @@ parser.add_option_group(anagroup)
 extragroup = OptionGroup(parser, "Extra run settings")
 extragroup.add_option("-H", "--histo-file", dest="HISTOFILE",
                       default="Rivet.yoda", help="specify the output histo file path (default = %default)")
+extragroup.add_option("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
+                      help="don't write out any histogram file at the end of the run (default = write)")
 extragroup.add_option("-x", "--cross-section", dest="CROSS_SECTION",
                       default=None, metavar="XS",
                       help="specify the signal process cross-section in pb")
@@ -79,8 +81,8 @@ extragroup.add_option("--nskip", dest="EVTSKIPNUM", type="int",
 extragroup.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME",
                       help="give an optional run name, to be prepended as a 'top level directory' in histo paths")
 extragroup.add_option("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
-                      help="Ignore input event beams when checking analysis compatibility. "
-                      "Warning: analyses may not work correctly, or at all, with inappropriate beams")
+                      help="ignore input event beams when checking analysis compatibility. "
+                      "WARNING: analyses may not work correctly, or at all, with inappropriate beams")
 parser.add_option_group(extragroup)
 
 
@@ -559,7 +561,8 @@ print
 
 ## Finalize and write out data file
 run.finalize()
-ah.writeData(opts.HISTOFILE)
+if opts.WRITE_DATA:
+    ah.writeData(opts.HISTOFILE)
 print
 endtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Rivet run completed at %s, time elapsed = %s" % (str(endtime), str(endtime-starttime)))

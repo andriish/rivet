@@ -1,3 +1,7 @@
+2016-04-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a --no-histos argument to the rivet script.
+
 2016-04-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS_2015_I1351916 (8 TeV Z FB asymmetry) and
