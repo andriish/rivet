@@ -132,8 +132,8 @@ namespace Rivet {
       const Particles& muons1 = applyProjection<ParticleFinder>(event, "Muons1").particlesByPt();
       const Particles& muons2 = applyProjection<ParticleFinder>(event, "Muons2").particlesByPt();
       MSG_DEBUG("Numbers of muons = " << muons1.size() << " true; " << muons2.size() << " reco");
-      _h_ne_true->fill(muons1.size(), weight);
-      _h_ne_reco->fill(muons2.size(), weight);
+      _h_nm_true->fill(muons1.size(), weight);
+      _h_nm_reco->fill(muons2.size(), weight);
       if (!muons1.empty()) {
         _h_m1pt_true->fill(muons1.front().pT()/GeV, weight);
         _h_m1eta_true->fill(muons1.front().eta(), weight);
