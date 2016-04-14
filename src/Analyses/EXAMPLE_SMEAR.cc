@@ -3,6 +3,7 @@
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
+#include "Rivet/Projections/TauFinder.hh"
 #include "Rivet/Projections/SmearedJets.hh"
 #include "Rivet/Projections/SmearedParticles.hh"
 
@@ -30,14 +31,14 @@ namespace Rivet {
       addProjection(sj1, "Jets1");
 
       SmearedJets sj2(fj, JET_SMEAR_ATLAS_RUN1,
-                      [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0; } );
+                      [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0.01; } );
       addProjection(sj2, "Jets2");
 
       SmearedJets sj3(fj,
-                      [](const Jet& j) { return j; },
-                      [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0; },
+                      [](const Jet& j){ return j; },
+                      [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0.01; },
                       JET_CTAG_PERFECT,
-                      JET_EFF_ZERO);
+                      [](const Jet& j){ return 0.8; });
       addProjection(sj3, "Jets3");
 
       IdentifiedFinalState photons(Cuts::abseta < 5, {{PID::PHOTON}});
@@ -116,7 +117,7 @@ namespace Rivet {
 
       const Particles& elecs1 = applyProjection<ParticleFinder>(event, "Electrons1").particlesByPt();
       const Particles& elecs2 = applyProjection<ParticleFinder>(event, "Electrons2").particlesByPt();
-      MSG_DEBUG("Numbers of electrons = " << elecs1.size() << " true; " << elecs1.size() << " reco");
+      MSG_DEBUG("Numbers of electrons = " << elecs1.size() << " true; " << elecs2.size() << " reco");
       _h_ne_true->fill(elecs1.size(), weight);
       _h_ne_reco->fill(elecs2.size(), weight);
       if (!elecs1.empty()) {
@@ -130,16 +131,16 @@ namespace Rivet {
 
       const Particles& muons1 = applyProjection<ParticleFinder>(event, "Muons1").particlesByPt();
       const Particles& muons2 = applyProjection<ParticleFinder>(event, "Muons2").particlesByPt();
-      MSG_DEBUG("Numbers of muons = " << muons1.size() << " true; " << muons1.size() << " reco");
+      MSG_DEBUG("Numbers of muons = " << muons1.size() << " true; " << muons2.size() << " reco");
       _h_ne_true->fill(muons1.size(), weight);
       _h_ne_reco->fill(muons2.size(), weight);
       if (!muons1.empty()) {
-        _h_e1pt_true->fill(muons1.front().pT()/GeV, weight);
-        _h_e1eta_true->fill(muons1.front().eta(), weight);
+        _h_m1pt_true->fill(muons1.front().pT()/GeV, weight);
+        _h_m1eta_true->fill(muons1.front().eta(), weight);
       }
       if (!muons2.empty()) {
-        _h_e1pt_reco->fill(muons2.front().pT()/GeV, weight);
-        _h_e1eta_reco->fill(muons2.front().eta(), weight);
+        _h_m1pt_reco->fill(muons2.front().pT()/GeV, weight);
+        _h_m1eta_reco->fill(muons2.front().eta(), weight);
       }
 
       const Particles& taus1 = applyProjection<ParticleFinder>(event, "Taus1").particlesByPt();
