@@ -144,17 +144,16 @@ namespace Rivet {
         const double d12 = 1.5 * sqrt(kt_jets[0].exclusive_subdmerge(1));
         splittingScales += d12;
       }
-      /// @todo Convert to Jets and rename
-      PseudoJets trimmed_jets;
+      Jets trimmed_fat_jets;
       for (size_t i = 0; i < trimmed_fat_pjets.size(); ++i) {
         const Jet tj = trimmed_fat_pjets[i];
         if (tj.mass()          <= 100*GeV) continue;
         if (tj.pT()            <= 300*GeV) continue;
         if (splittingScales[i] <=  40*GeV) continue;
         if (tj.abseta()        >=     2.0) continue;
-        trimmed_jets += trimmed_fat_pjets[i];
+        trimmed_fat_jets += tj;
       }
-      if (trimmed_jets.empty()) vetoEvent;
+      if (trimmed_fat_jets.empty()) vetoEvent;
 
       // Jet b-tagging
       Jets bjets, non_bjets;
@@ -179,27 +178,27 @@ namespace Rivet {
 
       // Boosted selection: lepton-jet/fat-jet matching
       int fatJetIndex = -1;
-      for (size_t j = 0; j < trimmed_jets.size(); ++j) {
-        const Jet tjet = trimmed_jets[j];
-        const double dR_fatjet = deltaR(ljet, tjet);
-        const double dPhi_fatjet = deltaPhi(lepton, tjet);
+      for (size_t j = 0; j < trimmed_fat_jets.size(); ++j) {
+        const Jet& fjet = trimmed_fat_jets[j];
+        const double dR_fatjet = deltaR(ljet, fjet);
+        const double dPhi_fatjet = deltaPhi(lepton, fjet);
         if (dR_fatjet > 1.5 && dPhi_fatjet > 2.3) {
           fatJetIndex = j;
           break;
         }
       }
       if (fatJetIndex < 0) vetoEvent;
-      const Jet tjet = trimmed_jets[fatJetIndex];
+      const Jet& fjet = trimmed_fat_jets[fatJetIndex];
 
       // Boosted selection: b-tag matching
       const bool lepbtag = ljet.bTagged();
       bool hadbtag = false;
       foreach (const Jet& bjet, bjets) {
-        hadbtag |= (deltaR(tjet, bjet) < 1.0);
+        hadbtag |= (deltaR(fjet, bjet) < 1.0);
       }
 
       // Fill histo if selection passed
-      if (hadbtag || lepbtag) _h_pttop->fill(tjet.pT()/GeV, event.weight());
+      if (hadbtag || lepbtag) _h_pttop->fill(fjet.pT()/GeV, event.weight());
     }
 
 
