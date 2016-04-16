@@ -10,6 +10,7 @@
 
 namespace Rivet {
 
+
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname), _numEvents(0),
       _sumOfWeights(0.0), _xs(NAN),
