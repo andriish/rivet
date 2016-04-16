@@ -185,7 +185,7 @@ def detex(tex):
     plain = plain.replace(r"\&", "&")
     # TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
     # TODO: Replace e^+- -> e+-?
-    if plain[-1] == "\n":
+    if plain and plain[-1] == "\n":
         return plain[:-1]
     elif plain:
         return plain
