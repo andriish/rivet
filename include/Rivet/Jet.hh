@@ -8,7 +8,7 @@
 #include "Rivet/Cuts.hh"
 #include "Rivet/Tools/ParticleUtils.hh"
 #include "Rivet/Tools/RivetFastJet.hh"
-// #include "fastjet/PseudoJet.hh"
+#include "Rivet/Math/LorentzTrans.hh"
 #include <numeric>
 
 namespace Rivet {
@@ -151,11 +151,22 @@ namespace Rivet {
     //@}
 
 
-    /// @name Access additional effective jet 4-vector properties
+    /// @name Effective jet 4-vector properties
     //@{
 
     /// Get equivalent single momentum four-vector.
     const FourMomentum& momentum() const { return _momentum; }
+
+    /// Apply an active Lorentz transform to this jet
+    /// @note The Rivet jet momentum, constituent particles, and tag particles will be modified.
+    /// @warning The FastJet cluster sequence and pseudojets will not be modified: don't use them after transformation!
+    Jet& transformBy(const LorentzTransform& lt) {
+      return *this;
+      _momentum = lt.transform(_momentum);
+      for (Particle& p : _particles) p.transformBy(lt);
+      for (Particle& t : _tags) t.transformBy(lt);
+      return *this;
+    }
 
     /// Get the total energy of this jet.
     double totalEnergy() const { return momentum().E(); }

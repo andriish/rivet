@@ -6,6 +6,7 @@
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/Utils.hh"
+#include "Rivet/Math/LorentzTrans.hh"
 // NOTE: Rivet/Tools/ParticleUtils.hh included at the end
 #include "fastjet/PseudoJet.hh"
 
@@ -15,6 +16,9 @@ namespace Rivet {
   /// Particle representation, either from a HepMC::GenEvent or reconstructed.
   class Particle : public ParticleBase {
   public:
+
+    /// @name Constructors
+    //@{
 
     /// Default constructor.
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
@@ -51,8 +55,11 @@ namespace Rivet {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
     }
 
+    //@}
 
-  public:
+
+    /// @name Other representations and implicit casts
+    //@{
 
     /// Converter to FastJet3 PseudoJet
     virtual fastjet::PseudoJet pseudojet() const {
@@ -63,11 +70,6 @@ namespace Rivet {
     operator PseudoJet () const { return pseudojet(); }
 
 
-  public:
-
-    /// @name Basic particle specific properties
-    //@{
-
     /// Get a const pointer to the original GenParticle.
     const GenParticle* genParticle() const {
       return _original;
@@ -76,20 +78,40 @@ namespace Rivet {
     /// Cast operator for conversion to GenParticle*
     operator const GenParticle* () const { return genParticle(); }
 
+    //@}
+
+
+    /// @name Kinematic properties
+    //@{
+
     /// The momentum.
     const FourMomentum& momentum() const {
       return _momentum;
     }
+
     /// Set the momentum.
     Particle& setMomentum(const FourMomentum& momentum) {
       _momentum = momentum;
       return *this;
     }
+
     /// Set the momentum via components.
     Particle& setMomentum(double E, double px, double py, double pz) {
       _momentum = FourMomentum(E, px, py, pz);
       return *this;
     }
+
+    /// Apply an active Lorentz transform to this particle
+    Particle& transformBy(const LorentzTransform& lt) {
+      _momentum = lt.transform(_momentum);
+      return *this;
+    }
+
+    //@
+
+
+    /// @name Positional properties
+    //@{
 
     /// The origin position.
     const FourVector& origin() const {
@@ -244,15 +266,15 @@ namespace Rivet {
     bool isStable() const;
 
     /// Get a list of the direct descendants from the current particle
-    vector<Particle> children() const;
+    Particles children() const;
 
     /// Get a list of all the descendants (including duplication of parents and children) from the current particle
-    vector<Particle> allDescendants() const;
+    Particles allDescendants() const;
 
     /// Get a list of all the stable descendants from the current particle
     /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
     /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-    vector<Particle> stableDescendants() const;
+    Particles stableDescendants() const;
 
     /// Flight length (divide by mm or cm to get the appropriate units)
     double flightLength() const;

@@ -1,3 +1,9 @@
+2016-04-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add transformBy(LT) methods to Particle and Jet.
+
+	* Add mkObjectTransform and mkFrameTransform factory methods to LorentzTransform.
+
 2016-04-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add null GenVertex protection in Particle children & descendants methods.
