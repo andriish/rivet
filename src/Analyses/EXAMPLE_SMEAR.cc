@@ -41,7 +41,7 @@ namespace Rivet {
                       [](const Jet& j){ return 0.8; });
       addProjection(sj3, "Jets3");
 
-      IdentifiedFinalState photons(Cuts::abseta < 5, {{PID::PHOTON}});
+      IdentifiedFinalState photons(Cuts::abseta < 5, PID::PHOTON);
 
       IdentifiedFinalState truthelectrons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::ELECTRON, PID::POSITRON}});
       addProjection(truthelectrons, "Electrons0");
