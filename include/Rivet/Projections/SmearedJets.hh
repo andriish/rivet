@@ -91,16 +91,19 @@ namespace Rivet {
       // Copying and filtering
       const Jets& truthjets = applyProjection<JetAlg>(e, "TruthJets").jetsByPt();
       _recojets.clear(); _recojets.reserve(truthjets.size());
-      foreach (const Jet& j, truthjets) {
+      for (const Jet& j : truthjets) {
         const double jeff = (_jetEffFn) ? _jetEffFn(j) : 1;
         MSG_DEBUG("Efficiency of jet " << j.mom() << " = " << 100*jeff << "%");
+        MSG_DEBUG("Efficiency of jet with mom=" << j.mom()/GeV << "GeV, "
+                  << "pT=" << j.pT()/GeV << ", eta=" << j.eta()
+                  << " : " << 100*jeff << "%");
         if (jeff == 0) continue; //< no need to roll expensive dice
         if (jeff == 1 || jeff < rand01()) {
           _recojets.push_back(_jetSmearFn ? _jetSmearFn(j) : j); //< smearing
         }
       }
       // Tagging efficiencies
-      foreach (Jet& j, _recojets) {
+      for (Jet& j : _recojets) {
         const double beff = (_bTagEffFn) ? _bTagEffFn(j) : 1;
         const bool btag = beff == 1 || (beff != 0 && beff < rand01());
         // Remove b-tags if needed, and add a dummy one if needed

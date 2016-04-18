@@ -62,9 +62,12 @@ namespace Rivet {
       // Copying and filtering
       const Particles& truthparticles = applyProjection<ParticleFinder>(e, "TruthParticles").particlesByPt();
       _theParticles.clear(); _theParticles.reserve(truthparticles.size());
-      foreach (const Particle& p, truthparticles) {
+      for (const Particle& p : truthparticles) {
         const double peff = (_effFn) ? _effFn(p) : 1;
-        MSG_DEBUG("Efficiency of particle " << p.mom() << " = " << 100*peff << "%");
+        MSG_DEBUG("Efficiency of particle with pid=" << p.pid()
+                  << ", mom=" << p.mom()/GeV << "GeV, "
+                  << "pT=" << p.pT()/GeV << ", eta=" << p.eta()
+                  << " : " << 100*peff << "%");
         if (peff == 0) continue; //< no need to roll expensive dice
         if (peff == 1 || peff < rand01()) {
           _theParticles.push_back(_smearFn ? _smearFn(p) : p); //< smearing
