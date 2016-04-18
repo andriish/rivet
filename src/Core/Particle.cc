@@ -5,6 +5,12 @@
 namespace Rivet {
 
 
+  Particle& Particle::transformBy(const LorentzTransform& lt) {
+    _momentum = lt.transform(_momentum);
+    return *this;
+  }
+
+
   bool Particle::isVisible() const {
     // Charged particles are visible
     if ( PID::threeCharge(pid()) != 0 ) return true;

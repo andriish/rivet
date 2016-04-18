@@ -102,10 +102,7 @@ namespace Rivet {
     }
 
     /// Apply an active Lorentz transform to this particle
-    Particle& transformBy(const LorentzTransform& lt) {
-      _momentum = lt.transform(_momentum);
-      return *this;
-    }
+    Particle& transformBy(const LorentzTransform& lt);
 
     //@
 

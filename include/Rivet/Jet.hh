@@ -51,14 +51,14 @@ namespace Rivet {
     size_t size() const { return _particles.size(); }
 
     /// Get the particles in this jet.
-    vector<Particle>& particles() { return _particles; }
+    Particles& particles() { return _particles; }
     /// Get the particles in this jet (const version)
     const vector<Particle>& particles() const { return _particles; }
 
     /// Get the particles in this jet (FastJet-like alias)
-    vector<Particle>& constituents() { return particles(); }
+    Particles& constituents() { return particles(); }
     /// Get the particles in this jet (FastJet-like alias, const version)
-    const vector<Particle>& constituents() const { return particles(); }
+    const Particles& constituents() const { return particles(); }
 
     /// Check whether this jet contains a particular particle.
     bool containsParticle(const Particle& particle) const;
@@ -160,13 +160,7 @@ namespace Rivet {
     /// Apply an active Lorentz transform to this jet
     /// @note The Rivet jet momentum, constituent particles, and tag particles will be modified.
     /// @warning The FastJet cluster sequence and pseudojets will not be modified: don't use them after transformation!
-    Jet& transformBy(const LorentzTransform& lt) {
-      return *this;
-      _momentum = lt.transform(_momentum);
-      for (Particle& p : _particles) p.transformBy(lt);
-      for (Particle& t : _tags) t.transformBy(lt);
-      return *this;
-    }
+    Jet& transformBy(const LorentzTransform& lt);
 
     /// Get the total energy of this jet.
     double totalEnergy() const { return momentum().E(); }

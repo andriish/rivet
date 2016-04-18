@@ -25,7 +25,7 @@ namespace Rivet {
   }
 
 
-  Jet& Jet::setState(const fastjet::PseudoJet& pj, const vector<Particle>& particles, const Particles& tags) {
+  Jet& Jet::setState(const fastjet::PseudoJet& pj, const Particles& particles, const Particles& tags) {
     clear();
     _pseudojet = pj;
     _momentum = FourMomentum(pj.e(), pj.px(), pj.py(), pj.pz());
@@ -52,7 +52,7 @@ namespace Rivet {
   }
 
 
-  Jet& Jet::setParticles(const vector<Particle>& particles) {
+  Jet& Jet::setParticles(const Particles& particles) {
     _particles = particles;
     return *this;
   }
@@ -86,6 +86,15 @@ namespace Rivet {
 
 
   /// @todo Jet::containsMatch(Matcher m) { ... if m(pid) return true; ... }
+
+
+  Jet& Jet::transformBy(const LorentzTransform& lt) {
+    _momentum = lt.transform(_momentum);
+    for (Particle& p : _particles) p.transformBy(lt);
+    for (Particle& t : _tags) t.transformBy(lt);
+    _pseudojet.reset(_momentum.px(), _momentum.py(), _momentum.pz(), _momentum.E()); //< lose ClusterSeq etc.
+    return *this;
+  }
 
 
   double Jet::neutralEnergy() const {
