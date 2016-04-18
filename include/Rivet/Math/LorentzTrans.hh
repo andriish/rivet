@@ -37,19 +37,40 @@ namespace Rivet {
   class LorentzTransform {
   public:
 
-    // friend string toString(const LorentzTransform& lt); ///< @todo Ick!
+    /// @name Construction
+    //@{
 
+    /// Constructor for an active boost (i.e. object velocity += in boost direction)
+    static LorentzTransform mkObjectTransform(const Vector3& boost) {
+      return LorentzTransform(boost);
+    }
+
+    /// Constructor for a passive boost (i.e. object velocity -= in boost direction)
+    static LorentzTransform mkFrameTransform(const Vector3& boost) {
+      return LorentzTransform(-boost);
+    }
+
+
+    /// Default (identity) constructor
     LorentzTransform() {
       _boostMatrix = Matrix<4>::mkIdentity();
     }
 
+    /// Constructor for an active boost
     LorentzTransform(const Vector3& boost) {
       setBoost(boost);
     }
 
+    /// Constructor for an active boost, via Cartesian components
     LorentzTransform(double betaX, double betaY, double betaZ) {
       setBoost(betaX, betaY, betaZ);
     }
+
+    //@}
+
+
+    /// @name Boost vector and beta/gamma factors
+    //@{
 
     /// Set the \f$ \vec\beta \f$ vector for an active Lorentz boost
     LorentzTransform& setBoost(const Vector3& boost) {
@@ -91,25 +112,35 @@ namespace Rivet {
       return lorentzBeta2Gamma(beta());
     }
 
+    //@}
+
+
+    /// Apply this transformation to the given 4-vector
+    FourVector transform(const FourVector& v4) const {
+      return multiply(_boostMatrix, v4);
+    }
+
+
+    /// @name Transform modifications
+    //@{
+
+    /// Rotate the transformation cf. the difference between vectors @a from and @a to
     LorentzTransform rotate(const Vector3& from, const Vector3& to) const {
       return rotate(Matrix3(from, to));
     }
 
+    /// Rotate the transformation by @a angle radians about @a axis
     LorentzTransform rotate(const Vector3& axis, double angle) const {
       return rotate(Matrix3(axis, angle));
     }
 
+    /// Rotate the transformation by the 3D rotation matrix @a rot
     LorentzTransform rotate(const Matrix3& rot) const {
       LorentzTransform lt = *this;
       const Matrix4 rot4 = _mkMatrix4(rot);
       const Matrix4 newlt = rot4 * _boostMatrix * rot4.inverse();
       lt._boostMatrix = newlt;
       return lt;
-    }
-
-    /// Apply this transformation to the given 4-vector
-    FourVector transform(const FourVector& v4) const {
-      return multiply(_boostMatrix, v4);
     }
 
     /// Calculate the inverse transform
@@ -119,17 +150,11 @@ namespace Rivet {
       return rtn;
     }
 
-
     /// Combine LTs, treating @a this as the LH matrix.
     LorentzTransform combine(const LorentzTransform& lt) const {
       LorentzTransform rtn;
       rtn._boostMatrix = _boostMatrix * lt._boostMatrix;
       return rtn;
-    }
-
-    /// Return the matrix form
-    Matrix4 toMatrix() const {
-      return _boostMatrix;
     }
 
     /// Operator combination of two LTs
@@ -147,6 +172,14 @@ namespace Rivet {
     LorentzTransform postMult(const Matrix3& m3) {
       _boostMatrix *= _mkMatrix4(m3);
       return *this;
+    }
+
+    //@}
+
+
+    /// Return the matrix form
+    Matrix4 toMatrix() const {
+      return _boostMatrix;
     }
 
 
