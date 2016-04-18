@@ -100,7 +100,7 @@ namespace Rivet {
       if (Bmom.size() != 2 ) vetoEvent;
 
       // Calculate the observables
-      double dphiBB = fabs(Bmom[0].phi() - Bmom[1].phi());
+      double dphiBB = deltaPhi(Bmom[0], Bmom[1]);
       double dRBB = deltaR(Bmom[0], Bmom[1]);
 
       const FourMomentum& pZ = z[0].momentum();
