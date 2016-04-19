@@ -49,11 +49,6 @@ namespace Rivet {
       addProjection(dressedelectrons, "Electrons1");
       SmearedParticles recoelectrons(truthelectrons, ELECTRON_EFF_ATLAS_RUN1, ELECTRON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedelectrons yet...
       addProjection(recoelectrons, "Electrons2");
-      addProjection(recoelectrons, "Electrons3");
-      SmearedParticles recoelectrons4(truthelectrons, PARTICLE_FN1, ELECTRON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedelectrons yet...
-      addProjection(recoelectrons4, "Electrons4");
-      SmearedParticles recoelectrons5(truthelectrons, [](const Particle&){return 0.9;}, ELECTRON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedelectrons yet...
-      addProjection(recoelectrons5, "Electrons5");
 
       IdentifiedFinalState truthmuons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::MUON, PID::ANTIMUON}});
       addProjection(truthmuons, "Muons0");
@@ -122,9 +117,6 @@ namespace Rivet {
 
       const Particles& elecs1 = applyProjection<ParticleFinder>(event, "Electrons1").particlesByPt();
       const Particles& elecs2 = applyProjection<ParticleFinder>(event, "Electrons2").particlesByPt();
-      const Particles& elecs3 = applyProjection<ParticleFinder>(event, "Electrons3").particlesByPt();
-      const Particles& elecs4 = applyProjection<ParticleFinder>(event, "Electrons4").particlesByPt();
-      const Particles& elecs5 = applyProjection<ParticleFinder>(event, "Electrons5").particlesByPt();
       MSG_DEBUG("Numbers of electrons = " << elecs1.size() << " true; " << elecs2.size() << " reco");
       _h_ne_true->fill(elecs1.size(), weight);
       _h_ne_reco->fill(elecs2.size(), weight);
