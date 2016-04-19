@@ -9,6 +9,16 @@
 #include "Rivet/Tools/SmearingFunctions.hh"
 #include <functional>
 
+namespace {
+  /// Make a hash integer from an std::function
+  template<typename T, typename... U>
+  inline size_t getaddr2(std::function<T(U...)> f) {
+    typedef T(fnType)(U...);
+    fnType ** fnPointer = f.template target<fnType*>();
+    return (fnPointer != nullptr) ? reinterpret_cast<size_t>(*fnPointer) : 0;
+  }
+}
+
 namespace Rivet {
 
 
@@ -76,13 +86,17 @@ namespace Rivet {
     /// Compare to another SmearedJets
     int compare(const Projection& p) const {
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
-      if (_mkhash(_jetEffFn) == 0) return UNDEFINED;
-      if (_mkhash(_bTagEffFn) == 0) return UNDEFINED;
-      if (_mkhash(_cTagEffFn) == 0) return UNDEFINED;
-      if (_mkhash(_jetSmearFn) == 0) return UNDEFINED;
+      if (getaddr2(_jetEffFn) == 0) return UNDEFINED;
+      if (getaddr2(_bTagEffFn) == 0) return UNDEFINED;
+      if (getaddr2(_cTagEffFn) == 0) return UNDEFINED;
+      if (getaddr2(_jetSmearFn) == 0) return UNDEFINED;
+      MSG_TRACE("Eff hashes = " << getaddr2(_jetEffFn) << "," << getaddr2(other._jetEffFn) << "; " <<
+                "smear hashes = " << getaddr2(_jetSmearFn) << "," << getaddr2(other._jetSmearFn) << "; " <<
+                "b-tag hashes = " << getaddr2(_bTagEffFn) << "," << getaddr2(other._bTagEffFn) << "; " <<
+                "c-tag hashes = " << getaddr2(_cTagEffFn) << "," << getaddr2(other._cTagEffFn));
       return
-        cmp(_mkhash(_jetEffFn), _mkhash(other._jetEffFn)) || cmp(_mkhash(_jetSmearFn), _mkhash(other._jetSmearFn)) ||
-        cmp(_mkhash(_bTagEffFn), _mkhash(other._bTagEffFn)) || cmp(_mkhash(_cTagEffFn), _mkhash(other._cTagEffFn));
+        cmp(getaddr2(_jetEffFn), getaddr2(other._jetEffFn)) || cmp(getaddr2(_jetSmearFn), getaddr2(other._jetSmearFn)) ||
+        cmp(getaddr2(_bTagEffFn), getaddr2(other._bTagEffFn)) || cmp(getaddr2(_cTagEffFn), getaddr2(other._cTagEffFn));
     }
 
 
@@ -94,7 +108,7 @@ namespace Rivet {
       for (const Jet& j : truthjets) {
         const double jeff = (_jetEffFn) ? _jetEffFn(j) : 1;
         MSG_DEBUG("Efficiency of jet " << j.mom() << " = " << 100*jeff << "%");
-        MSG_DEBUG("Efficiency of jet with mom=" << j.mom()/GeV << "GeV, "
+        MSG_DEBUG("Efficiency of jet with mom=" << j.mom()/GeV << " GeV, "
                   << "pT=" << j.pT()/GeV << ", eta=" << j.eta()
                   << " : " << 100*jeff << "%");
         if (jeff == 0) continue; //< no need to roll expensive dice
@@ -128,25 +142,11 @@ namespace Rivet {
 
   private:
 
-    /// Make a hash integer from the provided wrapped Jet -> double function
-    size_t _mkhash(const std::function<double(const Jet&)>& fn) const {
-      const size_t rtn = reinterpret_cast<size_t>(fn.target<double(*)(const Jet&)>());
-      MSG_TRACE("J2D hash = " << rtn);
-      return rtn;
-    }
-
-    /// Make a hash integer from the provided wrapped Jet -> Jet function
-    size_t _mkhash(const std::function<Jet(const Jet&)>& fn) const {
-      const size_t rtn = reinterpret_cast<size_t>(fn.target<Jet(*)(const Jet&)>());
-      MSG_TRACE("J2J hash = " << rtn);
-      return rtn;
-    }
-
-
     Jets _recojets;
 
     /// Stored efficiency functions
     std::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
+
     /// Stored smearing function
     std::function<Jet(const Jet&)> _jetSmearFn;
 

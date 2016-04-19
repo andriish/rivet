@@ -8,6 +8,16 @@
 #include "Rivet/Tools/SmearingFunctions.hh"
 #include <functional>
 
+namespace {
+  /// Make a hash integer from an std::function
+  template<typename T, typename... U>
+  inline size_t getaddr(std::function<T(U...)> f) {
+    typedef T(fnType)(U...);
+    fnType ** fnPointer = f.template target<fnType*>();
+    return (fnPointer != nullptr) ? reinterpret_cast<size_t>(*fnPointer) : 0;
+  }
+}
+
 namespace Rivet {
 
 
@@ -51,9 +61,11 @@ namespace Rivet {
     /// Compare to another SmearedParticles
     int compare(const Projection& p) const {
       const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
-      if (_mkhash(_effFn) == 0) return UNDEFINED;
-      if (_mkhash(_smearFn) == 0) return UNDEFINED;
-      return cmp(_mkhash(_effFn), _mkhash(other._effFn)) || cmp(_mkhash(_smearFn), _mkhash(other._smearFn));
+      if (getaddr(_effFn) == 0) return UNDEFINED;
+      if (getaddr(_smearFn) == 0) return UNDEFINED;
+      MSG_TRACE("Eff hashes = " << getaddr(_effFn) << "," << getaddr(other._effFn) << "; " <<
+                "smear hashes = " << getaddr(_smearFn) << "," << getaddr(other._smearFn));
+      return cmp(getaddr(_effFn), getaddr(other._effFn)) || cmp(getaddr(_smearFn), getaddr(other._smearFn));
     }
 
 
@@ -65,7 +77,7 @@ namespace Rivet {
       for (const Particle& p : truthparticles) {
         const double peff = (_effFn) ? _effFn(p) : 1;
         MSG_DEBUG("Efficiency of particle with pid=" << p.pid()
-                  << ", mom=" << p.mom()/GeV << "GeV, "
+                  << ", mom=" << p.mom()/GeV << " GeV, "
                   << "pT=" << p.pT()/GeV << ", eta=" << p.eta()
                   << " : " << 100*peff << "%");
         if (peff == 0) continue; //< no need to roll expensive dice
@@ -82,22 +94,9 @@ namespace Rivet {
 
   private:
 
-    /// Make a hash integer from the provided wrapped Particle -> double function
-    size_t _mkhash(const std::function<double(const Particle&)>& fn) const {
-      const size_t rtn = reinterpret_cast<size_t>(fn.target<double(*)(const Particle&)>());
-      MSG_TRACE("P2D hash = " << rtn);
-      return rtn;
-    }
-
-    /// Make a hash integer from the provided wrapped Particle -> Particle function
-    size_t _mkhash(const std::function<Particle(const Particle&)>& fn) const {
-      const size_t rtn = reinterpret_cast<size_t>(fn.target<Particle(*)(const Particle&)>());
-      MSG_TRACE("P2P hash = " << rtn);
-      return rtn;
-    }
-
     /// Stored efficiency function
     std::function<double(const Particle&)> _effFn;
+
     /// Stored smearing function
     std::function<Particle(const Particle&)> _smearFn;
 
