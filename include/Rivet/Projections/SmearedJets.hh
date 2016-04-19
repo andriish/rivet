@@ -9,16 +9,6 @@
 #include "Rivet/Tools/SmearingFunctions.hh"
 #include <functional>
 
-namespace {
-  /// Make a hash integer from an std::function
-  template<typename T, typename... U>
-  inline size_t getaddr2(std::function<T(U...)> f) {
-    typedef T(fnType)(U...);
-    fnType ** fnPointer = f.template target<fnType*>();
-    return (fnPointer != nullptr) ? reinterpret_cast<size_t>(*fnPointer) : 0;
-  }
-}
-
 namespace Rivet {
 
 
@@ -86,17 +76,17 @@ namespace Rivet {
     /// Compare to another SmearedJets
     int compare(const Projection& p) const {
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
-      if (getaddr2(_jetEffFn) == 0) return UNDEFINED;
-      if (getaddr2(_bTagEffFn) == 0) return UNDEFINED;
-      if (getaddr2(_cTagEffFn) == 0) return UNDEFINED;
-      if (getaddr2(_jetSmearFn) == 0) return UNDEFINED;
-      MSG_TRACE("Eff hashes = " << getaddr2(_jetEffFn) << "," << getaddr2(other._jetEffFn) << "; " <<
-                "smear hashes = " << getaddr2(_jetSmearFn) << "," << getaddr2(other._jetSmearFn) << "; " <<
-                "b-tag hashes = " << getaddr2(_bTagEffFn) << "," << getaddr2(other._bTagEffFn) << "; " <<
-                "c-tag hashes = " << getaddr2(_cTagEffFn) << "," << getaddr2(other._cTagEffFn));
+      if (get_address(_jetEffFn) == 0) return UNDEFINED;
+      if (get_address(_bTagEffFn) == 0) return UNDEFINED;
+      if (get_address(_cTagEffFn) == 0) return UNDEFINED;
+      if (get_address(_jetSmearFn) == 0) return UNDEFINED;
+      MSG_TRACE("Eff hashes = " << get_address(_jetEffFn) << "," << get_address(other._jetEffFn) << "; " <<
+                "smear hashes = " << get_address(_jetSmearFn) << "," << get_address(other._jetSmearFn) << "; " <<
+                "b-tag hashes = " << get_address(_bTagEffFn) << "," << get_address(other._bTagEffFn) << "; " <<
+                "c-tag hashes = " << get_address(_cTagEffFn) << "," << get_address(other._cTagEffFn));
       return
-        cmp(getaddr2(_jetEffFn), getaddr2(other._jetEffFn)) || cmp(getaddr2(_jetSmearFn), getaddr2(other._jetSmearFn)) ||
-        cmp(getaddr2(_bTagEffFn), getaddr2(other._bTagEffFn)) || cmp(getaddr2(_cTagEffFn), getaddr2(other._cTagEffFn));
+        cmp(get_address(_jetEffFn), get_address(other._jetEffFn)) || cmp(get_address(_jetSmearFn), get_address(other._jetSmearFn)) ||
+        cmp(get_address(_bTagEffFn), get_address(other._bTagEffFn)) || cmp(get_address(_cTagEffFn), get_address(other._cTagEffFn));
     }
 
 

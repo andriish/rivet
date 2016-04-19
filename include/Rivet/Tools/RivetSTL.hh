@@ -36,6 +36,7 @@ namespace Rivet {
 
   /// @name Streaming containers as string reps
   /// @todo Make these named toStr rather than operator<<
+  /// @todo Make these generic to any iterable
   //@{
 
   /// Convenient function for streaming out vectors of any streamable object.
@@ -148,6 +149,20 @@ namespace std {
     std::set<T> rtn(s1);
     rtn += s2;
     return rtn;
+  }
+
+  //@}
+
+
+  /// @name Function helpers
+  //@{
+
+  /// Get a function pointer / hash integer from an std::function
+  template<typename T, typename... U>
+  inline size_t get_address(std::function<T(U...)> f) {
+    typedef T(fnType)(U...);
+    fnType ** fnPointer = f.template target<fnType*>();
+    return (fnPointer != nullptr) ? reinterpret_cast<size_t>(*fnPointer) : 0;
   }
 
   //@}

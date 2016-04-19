@@ -8,16 +8,6 @@
 #include "Rivet/Tools/SmearingFunctions.hh"
 #include <functional>
 
-namespace {
-  /// Make a hash integer from an std::function
-  template<typename T, typename... U>
-  inline size_t getaddr(std::function<T(U...)> f) {
-    typedef T(fnType)(U...);
-    fnType ** fnPointer = f.template target<fnType*>();
-    return (fnPointer != nullptr) ? reinterpret_cast<size_t>(*fnPointer) : 0;
-  }
-}
-
 namespace Rivet {
 
 
@@ -61,11 +51,11 @@ namespace Rivet {
     /// Compare to another SmearedParticles
     int compare(const Projection& p) const {
       const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
-      if (getaddr(_effFn) == 0) return UNDEFINED;
-      if (getaddr(_smearFn) == 0) return UNDEFINED;
-      MSG_TRACE("Eff hashes = " << getaddr(_effFn) << "," << getaddr(other._effFn) << "; " <<
-                "smear hashes = " << getaddr(_smearFn) << "," << getaddr(other._smearFn));
-      return cmp(getaddr(_effFn), getaddr(other._effFn)) || cmp(getaddr(_smearFn), getaddr(other._smearFn));
+      if (get_address(_effFn) == 0) return UNDEFINED;
+      if (get_address(_smearFn) == 0) return UNDEFINED;
+      MSG_TRACE("Eff hashes = " << get_address(_effFn) << "," << get_address(other._effFn) << "; " <<
+                "smear hashes = " << get_address(_smearFn) << "," << get_address(other._smearFn));
+      return cmp(get_address(_effFn), get_address(other._effFn)) || cmp(get_address(_smearFn), get_address(other._smearFn));
     }
 
 
