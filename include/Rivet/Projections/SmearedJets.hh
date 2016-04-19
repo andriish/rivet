@@ -102,7 +102,7 @@ namespace Rivet {
                   << "pT=" << j.pT()/GeV << ", eta=" << j.eta()
                   << " : " << 100*jeff << "%");
         if (jeff == 0) continue; //< no need to roll expensive dice
-        if (jeff == 1 || jeff < rand01()) {
+        if (jeff == 1 || rand01() < jeff) {
           _recojets.push_back(_jetSmearFn ? _jetSmearFn(j) : j); //< smearing
         }
       }

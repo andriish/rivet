@@ -71,7 +71,7 @@ namespace Rivet {
                   << "pT=" << p.pT()/GeV << ", eta=" << p.eta()
                   << " : " << 100*peff << "%");
         if (peff == 0) continue; //< no need to roll expensive dice
-        if (peff == 1 || peff < rand01()) {
+        if (peff == 1 || rand01() < peff) {
           _theParticles.push_back(_smearFn ? _smearFn(p) : p); //< smearing
         }
       }
