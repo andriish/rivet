@@ -18,8 +18,7 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2012_I1199269()
-      : Analysis("ATLAS_2012_I1199269"),
-        _eta_bins_areaoffset{ 0.0, 1.5, 3.0 }
+      : Analysis("ATLAS_2012_I1199269")
     {    }
 
 
@@ -64,19 +63,8 @@ namespace Rivet {
       // Compute median jet properties over the jets in the event
       vector<double> vptDensity; //, vsigma, vNjets;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
-        double median = 0.0;
-        // , sigma = 0.0;
-        // int Njets = 0;
-        if (ptDensities[b].size() > 0) {
-          std::sort(ptDensities[b].begin(), ptDensities[b].end());
-          int nDens = ptDensities[b].size();
-          median = (nDens % 2 == 0) ? (ptDensities[b][nDens/2]+ptDensities[b][(nDens-2)/2])/2 : ptDensities[b][(nDens-1)/2];
-          // sigma = ptDensities[b][(int)(.15865*nDens)];
-          // Njets = nDens;
-        }
-        vptDensity.push_back(median);
-        // vsigma.push_back(sigma);
-        // vNjets.push_back(Njets);
+        double ptmedian = (!ptDensities[b].empty()) ? median(ptDensities[b]) : 0;
+        vptDensity.push_back(ptmedian);
       }
 
 
@@ -85,24 +73,21 @@ namespace Rivet {
       for (const Particle& photon : photons) {
         /// Remove photons in ECAL crack region
         if (inRange(photon.abseta(), 1.37, 1.52)) continue;
-        const double eta_P = photon.eta();
-        const double phi_P = photon.phi();
-
         // Compute isolation via particles within an R=0.4 cone of the photon
-        Particles fs = applyProjection<FinalState>(event, "FS").particles();
+        const Particles& fs = applyProjection<FinalState>(event, "FS").particles();
         FourMomentum mom_in_EtCone;
         for (const Particle& p : fs) {
           // Reject if not in cone
-          if (deltaR(photon.momentum(), p.momentum()) > 0.4) continue;
+          if (deltaR(photon, p) > 0.4) continue;
           // Reject if in the 5x7 cell central core
-          if (fabs(eta_P - p.eta()) < 0.025 * 5 * 0.5 &&
-              fabs(phi_P - p.phi()) < PI/128. * 7 * 0.5) continue;
+          if (fabs(deltaEta(photon, p)) < 0.025 * 5 * 0.5 &&
+              fabs(deltaPhi(photon, p)) < PI/128. * 7 * 0.5) continue;
           // Sum momentum
           mom_in_EtCone += p.momentum();
         }
         // Now figure out the correction (area*density)
-        const double EtCone_area = PI*sqr(0.4) - (7*.025)*(5*PI/128.); // cone area - central core rectangle
-        const double correction = vptDensity[binIndex(fabs(eta_P), _eta_bins_areaoffset)] * EtCone_area;
+        const double ETCONE_AREA = PI*sqr(0.4) - (7*.025)*(5*PI/128.); // cone area - central core rectangle
+        const double correction = vptDensity[binIndex(photon.abseta(), _eta_bins_areaoffset)] * ETCONE_AREA;
 
         // Discard the photon if there is more than 4 GeV of cone activity
         // NOTE: Shouldn't need to subtract photon itself (it's in the central core)
@@ -115,8 +100,8 @@ namespace Rivet {
       // Require at least two isolated photons and select leading pT pair
       if (isolated_photons.size() < 2) vetoEvent;
       sortByPt(isolated_photons);
-      FourMomentum y1 = isolated_photons[0].momentum();
-      FourMomentum y2 = isolated_photons[1].momentum();
+      const FourMomentum& y1 = isolated_photons[0].momentum();
+      const FourMomentum& y2 = isolated_photons[1].momentum();
 
       // Leading photon should have pT > 25 GeV
       if (y1.pT() < 25*GeV) vetoEvent;
@@ -148,7 +133,7 @@ namespace Rivet {
 
     Histo1DPtr _h_M, _h_pT, _h_dPhi, _h_cosThetaStar;
 
-    vector<double> _eta_bins, _eta_bins_areaoffset;
+    const vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
 
   };
 

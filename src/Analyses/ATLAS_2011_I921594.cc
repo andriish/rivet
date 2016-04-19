@@ -13,9 +13,7 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2011_I921594()
-      : Analysis("ATLAS_2011_I921594"),
-        _eta_bins{0.00, 0.60, 1.37, 1.52, 1.81, 2.37},
-        _eta_bins_areaoffset{0.0, 1.5, 3.0}
+      : Analysis("ATLAS_2011_I921594")
     {    }
 
 
@@ -44,13 +42,9 @@ namespace Rivet {
 
 
     /// Return eta bin for either dsigma/dET histogram (area_eta=false) or energy density correction (area_eta=true)
-    size_t _getEtaBin(double eta_w, bool area_eta) const {
-      const double eta = fabs(eta_w);
-      if (!area_eta) {
-        return binIndex(eta, _eta_bins);
-      } else {
-        return binIndex(eta, _eta_bins_areaoffset);
-      }
+    size_t _getEtaBin(double eta, bool area_eta) const {
+      const double aeta = fabs(eta);
+      return (!area_eta) ? binIndex(aeta, _eta_bins) : binIndex(aeta, _eta_bins_areaoffset);
     }
 
 
@@ -78,7 +72,6 @@ namespace Rivet {
       }
 
       // Get the area-filtered jet inputs for computing median energy density, etc.
-      vector<double> ptDensity, ptSigma, nJets;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
       FastJets fast_jets = applyProjection<FastJets>(event, "KtJetsD05");
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fast_jets.clusterSeqArea();
@@ -88,18 +81,17 @@ namespace Rivet {
         if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back())
           ptDensities.at( _getEtaBin(jet.abseta(), true) ).push_back(jet.pT()/area);
       }
+
       // Compute the median energy density, etc.
+      vector<double> ptDensity;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; b++) {
-        const int njets = ptDensities[b].size();
-        const double ptmedian = (njets > 0) ? median(ptDensities[b]) : 0;
-        const double ptsigma = (njets > 0) ? ptDensities[b][(size_t)(0.15865*njets)] : 0;
-        nJets.push_back(njets);
+        const double ptmedian = (!ptDensities[b].empty()) ? median(ptDensities[b]) : 0;
         ptDensity.push_back(ptmedian);
-        ptSigma.push_back(ptsigma);
       }
+
       // Compute the isolation energy correction (cone area*energy density)
-      const double etCone_area = PI*sqr(0.4) - (7.0*.025)*(5.0*PI/128.);
-      const double correction = ptDensity[_getEtaBin(leadingPhoton.abseta(), true)]*etCone_area;
+      const double ETCONE_AREA = M_PI*sqr(0.4) - (7.0*.025)*(5.0*PI/128.);
+      const double correction = ptDensity[_getEtaBin(leadingPhoton.abseta(), true)] * ETCONE_AREA;
 
       // Apply isolation cut on area-corrected value
       if (mom_in_EtCone.Et() - correction > 4*GeV) vetoEvent;
@@ -123,7 +115,8 @@ namespace Rivet {
 
     Histo1DPtr _h_Et_photon[5];
 
-    vector<double> _eta_bins, _eta_bins_areaoffset;
+    const vector<double> _eta_bins = {0.00, 0.60, 1.37, 1.52, 1.81, 2.37};
+    const vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
 
   };
 

@@ -9,8 +9,7 @@ namespace Rivet {
 
   /// @brief Measurement of isolated diphoton + X differential cross-sections
   ///
-  /// Inclusive isolated gamma gamma cross-sections, differential in M(gg), pT(gg),
-  /// dphi(gg)
+  /// Inclusive isolated gamma gamma cross-sections, differential in M(gg), pT(gg), dphi(gg)
   ///
   /// @author Giovanni Marchiori
   class ATLAS_2011_S9120807 : public Analysis {
@@ -18,8 +17,7 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2011_S9120807()
-      : Analysis("ATLAS_2011_S9120807"),
-        _eta_bins_areaoffset{0.0, 1.5, 3.0}
+      : Analysis("ATLAS_2011_S9120807")
     {    }
 
 
@@ -42,14 +40,9 @@ namespace Rivet {
     }
 
 
-    /// @todo Prefer to use Rivet::binIndex()
-    size_t getEtaBin(double eta_w) const {
-      const double aeta = fabs(eta_w);
-      size_t v_iter = 0;
-      for (; v_iter+1 < _eta_bins_areaoffset.size(); ++v_iter) {
-        if (inRange(aeta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1])) break;
-      }
-      return v_iter;
+    size_t getEtaBin(double eta) const {
+      const double aeta = fabs(eta);
+      return binIndex(aeta, _eta_bins_areaoffset);
     }
 
 
@@ -59,10 +52,9 @@ namespace Rivet {
       Particles photons = applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
       if (photons.size() < 2) vetoEvent;
 
-      // Compute the median energy density
-      vector<double> _ptDensity;
+      // Compute jet pT densities
+      vector<double> ptDensity;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
       for (const Jet& jet : applyProjection<FastJets>(event, "KtJetsD05").jets()) {
         const double area = clust_seq_area->area(jet); // .pseudojet() called implicitly
@@ -72,18 +64,10 @@ namespace Rivet {
         }
       }
 
+      // Compute the median energy density
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
-        double median = 0.0;
-        if (!ptDensities[b].empty()) {
-          std::sort(ptDensities[b].begin(), ptDensities[b].end());
-          int nDens = ptDensities[b].size();
-          if (nDens % 2 == 0) {
-            median = (ptDensities[b][nDens/2] + ptDensities[b][(nDens-2)/2]) / 2;
-          } else {
-            median = ptDensities[b][(nDens-1)/2];
-          }
-        }
-        _ptDensity.push_back(median);
+        const double med = ptDensities[b].empty() ? 0.0 : median(ptDensities[b]);
+        ptDensity.push_back(med);
       }
 
       // Loop over photons and fill vector of isolated ones
@@ -107,8 +91,8 @@ namespace Rivet {
         }
 
         // Now figure out the correction (area*density)
-        const double EtCone_area = M_PI*.4*.4 - (7.0*.025)*(5.0*M_PI/128.);
-        const double correction = _ptDensity[getEtaBin(photon.abseta())]*EtCone_area;
+        const double ETCONE_AREA = M_PI*.4*.4 - (7.0*.025)*(5.0*M_PI/128.);
+        const double correction = ptDensity[getEtaBin(photon.abseta())] * ETCONE_AREA;
 
         // Shouldn't need to subtract photon
         // NB. Using expected cut at hadron/particle level, not cut at reco level
@@ -152,7 +136,7 @@ namespace Rivet {
   private:
 
     Histo1DPtr _h_M, _h_pT, _h_dPhi;
-    vector<double> _eta_bins_areaoffset;
+    const vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
 
   };
 

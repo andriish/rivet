@@ -19,9 +19,7 @@ namespace Rivet {
 
     // Constructor
     ATLAS_2012_I1093738()
-      : Analysis("ATLAS_2012_I1093738"),
-        _eta_bins_ph{0.0, 1.37, 1.52, 2.37},
-        _eta_bins_jet{0.0, 1.2, 2.8, 4.4}
+      : Analysis("ATLAS_2012_I1093738")
     {    }
 
 
@@ -61,29 +59,11 @@ namespace Rivet {
     }
 
 
-    /// @todo Use Rivet::binIndex()
-    int getEtaBin(double eta_w, int what) const {
-      double eta = fabs(eta_w);
-      int v_iter = 0;
-      if (what==0) {
-        for (v_iter=0; v_iter < (int)_eta_bins_ph.size()-1; v_iter++){
-          if (eta >= _eta_bins_ph.at(v_iter) && eta < _eta_bins_ph.at(v_iter+1))
-            break;
-        }
-      }
-      else if (what==1) {
-        for (v_iter=0; v_iter < (int)_eta_bins_jet.size()-1; v_iter++){
-          if (eta >= _eta_bins_jet.at(v_iter) && eta < _eta_bins_jet.at(v_iter+1))
-            break;
-        }
-      }
-      else {
-        for (v_iter=0; v_iter < (int)_eta_bins_areaoffset.size()-1; v_iter++){
-          if (eta >= _eta_bins_areaoffset.at(v_iter) && eta < _eta_bins_areaoffset.at(v_iter+1))
-            break;
-        }
-      }
-      return v_iter;
+    int getEtaBin(double eta, int what) const {
+      const double aeta = fabs(eta);
+      if (what == 0) return binIndex(aeta, _eta_bins_ph);
+      if (what == 1) return binIndex(aeta, _eta_bins_jet);
+      return binIndex(aeta, _eta_bins_areaoffset);
     }
 
 
@@ -106,41 +86,34 @@ namespace Rivet {
       // Veto if leading jet is outside plotted rapidity regions
       if (leadingJet.absrap() > 4.4) vetoEvent;
 
-      // Compute the median event energy density
-      const unsigned int skipnhardjets = 0;
-      _ptDensity.clear();
-      _sigma.clear();
-      _Njets.clear();
+      // Compute the jet pT densities
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-
       FastJets fastjets = applyProjection<FastJets>(event, "KtJetsD05");
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fastjets.clusterSeqArea();
       for (const Jet& jet : fastjets.jets()) {
         const double area = clust_seq_area->area(jet); //< Implicit call to pseudojet()
         /// @todo Should be 1e-4?
         if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
-          ptDensities.at(getEtaBin(jet.abseta(),2)).push_back(jet.pT()/area);
+          ptDensities.at(getEtaBin(jet.abseta(), 2)) += jet.pT()/area;
         }
       }
 
+      // Compute the median event energy density
+      /// @todo This looks equivalent to median(ptDensities[b]) -- isn't SKIPNHARDJETS meant to be used as an offset?
+      const unsigned int SKIPNHARDJETS = 0;
+      vector<double> ptDensity;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; b++) {
         double median = 0.0;
-        double sigma = 0.0;
-        int Njets = 0;
-        if (ptDensities[b].size() > skipnhardjets) {
+        if (ptDensities[b].size() > SKIPNHARDJETS) {
           std::sort(ptDensities[b].begin(), ptDensities[b].end());
-          int nDens = ptDensities[b].size() - skipnhardjets;
+          const int nDens = ptDensities[b].size() - SKIPNHARDJETS;
           if (nDens % 2 == 0) {
             median = (ptDensities[b][nDens/2]+ptDensities[b][(nDens-2)/2])/2;
           } else {
             median = ptDensities[b][(nDens-1)/2];
           }
-          sigma = ptDensities[b][(int)(.15865*nDens)];
-          Njets = nDens;
         }
-        _ptDensity.push_back(median);
-        _sigma.push_back(sigma);
-        _Njets.push_back(Njets);
+        ptDensity.push_back(median);
       }
 
       // Compute photon isolation with a standard ET cone
@@ -160,8 +133,8 @@ namespace Rivet {
       }
 
       // Figure out the correction (area*density)
-      const double EtCone_area = PI*ISO_DR*ISO_DR - CLUSTER_ETA_WIDTH*CLUSTER_PHI_WIDTH;
-      const double correction = _ptDensity[getEtaBin(photon.abseta(),2)]*EtCone_area;
+      const double ETCONE_AREA = PI*ISO_DR*ISO_DR - CLUSTER_ETA_WIDTH*CLUSTER_PHI_WIDTH;
+      const double correction = ptDensity[getEtaBin(photon.abseta(),2)] * ETCONE_AREA;
 
       // Require photon to be isolated
       if (mom_in_EtCone.Et()-correction > 4.0*GeV) vetoEvent;
@@ -214,8 +187,9 @@ namespace Rivet {
     Histo1DPtr _h_phbarrel_jetcentral_SS, _h_phbarrel_jetmedium_SS, _h_phbarrel_jetforward_SS;
     Histo1DPtr _h_phbarrel_jetcentral_OS, _h_phbarrel_jetmedium_OS, _h_phbarrel_jetforward_OS;
 
-    vector<float> _eta_bins_ph, _eta_bins_jet, _eta_bins_areaoffset;
-    vector<float> _ptDensity, _sigma, _Njets;
+    const vector<double> _eta_bins_ph = {0.0, 1.37, 1.52, 2.37};
+    const vector<double> _eta_bins_jet = {0.0, 1.2, 2.8, 4.4};
+    const vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
 
   };
 

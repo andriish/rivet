@@ -1,3 +1,8 @@
+2016-04-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Various clean-ups and fixes in ATLAS analyses using isolated
+	photons with median pT density correction.
+
 2016-04-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add transformBy(LT) methods to Particle and Jet.

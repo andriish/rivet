@@ -12,8 +12,7 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2014_I1307756()
-      : Analysis("ATLAS_2014_I1307756"),
-        _eta_bins_areaoffset{0.0, 1.5, 3.0}
+      : Analysis("ATLAS_2014_I1307756")
     {    }
 
 
@@ -40,16 +39,9 @@ namespace Rivet {
     }
 
 
-    /// Utility to compute ambiant energy density per eta bin
-    /// @todo Use bin index lookup util instead...
-    int getEtaBin(double eta_w) const {
-      double eta = fabs(eta_w);
-      int v_iter = 0;
-      for (v_iter = 0; v_iter < (int)_eta_bins_areaoffset.size()-1; ++v_iter) {
-        if (inRange(eta, _eta_bins_areaoffset[v_iter], _eta_bins_areaoffset[v_iter+1]))
-          break;
-      }
-      return v_iter;
+    int getEtaBin(double eta) const {
+      double aeta = fabs(eta);
+      return binIndex(aeta, _eta_bins_areaoffset);
     }
 
 
@@ -59,30 +51,21 @@ namespace Rivet {
       Particles photons = applyProjection<IdentifiedFinalState>(event, "photons").particlesByPt();
       if (photons.size() < 2) vetoEvent;
 
-      /// compute the median energy density per eta bin
-      vector<double> ptDensity;
+      // Get jet pT densities
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-
       const auto clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
       for (const Jet& jet : applyProjection<FastJets>(event, "KtJetsD05").jets()) {
         const double area = clust_seq_area->area(jet);
         if (area > 1e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
-          ptDensities.at(getEtaBin(jet.abseta())).push_back(jet.pT()/area);
+          ptDensities.at(getEtaBin(jet.abseta())) += jet.pT()/area;
         }
       }
 
+      /// Compute the median energy density per eta bin
+      vector<double> ptDensity;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
-        double median = 0.0;
-        if (ptDensities[b].size() > 0) {
-          std::sort(ptDensities[b].begin(), ptDensities[b].end());
-          const int nDens = ptDensities[b].size();
-          if (nDens % 2 == 0) {
-            median = (ptDensities[b][nDens/2] + ptDensities[b][(nDens-2)/2]) / 2;
-          } else {
-            median = ptDensities[b][(nDens-1)/2];
-          }
-        }
-        ptDensity.push_back(median);
+        const double ptmedian = (!ptDensities[b].empty()) ? median(ptDensities[b]) : 0.0;
+        ptDensity.push_back(ptmedian);
       }
 
       // Loop over photons and find isolated ones
@@ -107,8 +90,8 @@ namespace Rivet {
         }
 
         // Subtract the UE correction (area*density)
-        double EtCone_area = M_PI*.4*.4 - (7.0*.025)*(5.0*M_PI/128.);
-        double correction = ptDensity[getEtaBin(ph.eta())]*EtCone_area;
+        const double ETCONE_AREA = M_PI*.4*.4 - (7.0*.025)*(5.0*M_PI/128.);
+        const double correction = ptDensity[getEtaBin(ph.eta())] * ETCONE_AREA;
 
         // Add isolated photon to list
         if (mom_in_EtCone.Et() - correction > 12*GeV) continue;
@@ -120,15 +103,15 @@ namespace Rivet {
 
       // Select leading pT pair
       std::sort(isolated_photons.begin(), isolated_photons.end(), cmpMomByPt);
-      FourMomentum y1 = isolated_photons[0].momentum();
-      FourMomentum y2 = isolated_photons[1].momentum();
+      const FourMomentum& y1 = isolated_photons[0].momentum();
+      const FourMomentum& y2 = isolated_photons[1].momentum();
 
       // Compute invariant mass
-      FourMomentum yy = y1 + y2;
-      double Myy = yy.mass();
+      const FourMomentum yy = y1 + y2;
+      const double Myy = yy.mass();
 
       // If Myy >= 110 GeV, apply relative cuts
-      if (Myy/GeV >= 110 && (y1.Et()/Myy < 0.4 || y2.Et()/Myy < 0.3) ) vetoEvent;
+      if (Myy >= 110*GeV && (y1.Et()/Myy < 0.4 || y2.Et()/Myy < 0.3) ) vetoEvent;
 
       // Add to cross-section
       _fidWeights += event.weight();
@@ -159,8 +142,8 @@ namespace Rivet {
 
   private:
 
-    vector<double> _eta_bins_areaoffset;
-    float _fidWeights;
+    vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
+    double _fidWeights;
 
   };
 

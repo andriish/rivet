@@ -15,8 +15,7 @@ namespace Rivet {
 
     // Constructor
     ATLAS_2013_I1244522()
-      : Analysis("ATLAS_2013_I1244522"),
-        _eta_bins_areaoffset{0.0, 1.5, 3.0}
+      : Analysis("ATLAS_2013_I1244522")
     {     }
 
 
@@ -44,11 +43,11 @@ namespace Rivet {
       jetpro.useInvisibles();
       addProjection(jetpro, "Jets");
 
+      // Histograms
       _h_ph_pt      = bookHisto1D(1, 1, 1);
       _h_jet_pt     = bookHisto1D(2, 1, 1);
       _h_jet_rap    = bookHisto1D(3, 1, 1);
       _h_dphi_phjet = bookHisto1D(4, 1, 1);
-
       _h_costheta_biased_phjet = bookHisto1D(5, 1, 1);
       _h_mass_phjet            = bookHisto1D(6, 1, 1);
       _h_costheta_phjet        = bookHisto1D(7, 1, 1);
@@ -56,15 +55,14 @@ namespace Rivet {
     }
 
 
-    size_t getEtaBin(double eta_w) const {
-      const double eta = fabs(eta_w);
-      return binIndex(eta, _eta_bins_areaoffset);
+    size_t getEtaBin(double eta) const {
+      const double aeta = fabs(eta);
+      return binIndex(aeta, _eta_bins_areaoffset);
     }
 
 
     // Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
 
       // Get the photon
       Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
@@ -121,33 +119,29 @@ namespace Rivet {
       if (mom_in_EtCone.Et() - correction >= 4*GeV)  vetoEvent;
 
       // Fill histos
-      const double photon_pt = photon.pT() / GeV;
-      const double jet_pt = leadingJet.pT() / GeV;
-      const double jet_y = leadingJet.absrap();
-      const double dphi_phj = deltaPhi(photon, leadingJet);
+      const double weight = event.weight();
       const double dy = deltaRap(photon, leadingJet);
-      const double mass_phj = (photon.momentum() + leadingJet.momentum()).mass() / GeV;
-      const double costheta_phj = tanh(dy/2);
-
-      _h_ph_pt->fill(photon_pt, weight);
-      _h_jet_pt->fill(jet_pt,   weight);
-      _h_jet_rap->fill(jet_y,   weight);
-      _h_dphi_phjet->fill(dphi_phj, weight);
-      _h_costheta_biased_phjet->fill(costheta_phj, weight);
-
-      if (mass_phj > 160.939) {
-        if (fabs(photon.eta() + leadingJet.rap()) < 2.37) {
-          if (costheta_phj < 0.829022) {
-            _h_mass_phjet->fill(mass_phj,         weight);
-            _h_costheta_phjet->fill(costheta_phj, weight);
+      const double costheta_yj = tanh(dy/2);
+      _h_ph_pt->fill(photon.pT()/GeV, weight);
+      _h_jet_pt->fill(leadingJet.pT()/GeV, weight);
+      _h_jet_rap->fill(leadingJet.absrap(), weight);
+      _h_dphi_phjet->fill(deltaPhi(photon, leadingJet), weight);
+      _h_costheta_biased_phjet->fill(costheta_yj, weight);
+      if (costheta_yj < 0.829022) {
+        const FourMomentum yj = photon.momentum() + leadingJet.momentum();
+        if (yj.mass() > 160.939*GeV) {
+          if (fabs(photon.eta() + leadingJet.rap()) < 2.37) {
+            _h_mass_phjet->fill(yj.mass()/GeV, weight);
+            _h_costheta_phjet->fill(costheta_yj, weight);
           }
         }
       }
     }
 
+
     /// Normalise histograms etc., after the run
     void finalize() {
-      const double sf = crossSection() / sumOfWeights();
+      const double sf = crossSection() / picobarn / sumOfWeights();
       scale(_h_ph_pt,                 sf);
       scale(_h_jet_pt,                sf);
       scale(_h_jet_rap,               sf);
@@ -162,7 +156,7 @@ namespace Rivet {
 
     Histo1DPtr _h_ph_pt, _h_jet_pt, _h_jet_rap, _h_dphi_phjet, _h_costheta_biased_phjet, _h_mass_phjet, _h_costheta_phjet;
 
-    vector<double> _eta_bins_areaoffset;
+    const vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
 
   };
 
