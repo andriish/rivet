@@ -21,7 +21,10 @@ namespace Rivet {
 
       /// Constructor from vectors of four-vectors as input objects in the event to calculate the event shapes
       EventShape(const vector<double>& px_vector, const vector<double>& py_vector, const vector<double>& pz_vector,
-                 const vector<double>& e_vector, double eta_central, int rapidity, int nmn);
+                 const vector<double>& e_vector, double eta_central, int irap, int nmn)
+        : _object_px(px_vector), _object_py(py_vector), _object_pz(pz_vector),
+          _object_e(e_vector), _eta_c(eta_central), _irap(irap), _nmnjet(nmn)
+      {   }
 
       /// @brief Returns the values of the five event shapes
       ///
@@ -31,163 +34,150 @@ namespace Rivet {
       /// 2. central total jet mass
       /// 3. central total transverse jet mass
       /// 4. central three-jet resolution threshold
-      vector<double> getEventShapes();
+      vector<double> getEventShapes() {
+        _calculate(); ///< @todo There should be some test for success/failure!!
+        return _event_shapes;
+      }
 
-      // Returns the global thrust axis Nx, Ny, Nz=0
-      vector<double> getThrustAxis();
+      /// Returns the global thrust axis Nx, Ny, Nz=0
+      vector<double> getThrustAxis() {
+        _calculate(); ///< @todo There should be some test for success/failure!!
+        return _thrust_axis;
+      }
 
-      // Returns the central thrust axis Nx, Ny, Nz=0
-      vector<double> getThrustAxisC();
+      /// Returns the central thrust axis Nx, Ny, Nz=0
+      vector<double> getThrustAxisC() {
+        _calculate(); ///< @todo There should be some test for success/failure!!
+        return _thrust_axis_c;
+      }
 
-      // Choice of the central region
-      // Recommended: the two hardest jets should be within the central region
-      void setEtac(double eta_central) { eta_c = eta_central; }
+      /// @brief Choice of the central region
+      void setEtaC(double eta_central) { _eta_c = eta_central; }
 
-      // Whether to take the rapidity y (rap==1)  or the pseudorapidity eta (rap==0)
-      void setMethod(int rapidity) { rap = rapidity; }
+      // Whether to use the rapidity y (rap==1)  or the pseudorapidity eta (rap==0)
+      void setRapType(int irap) { _irap = irap; }
 
 
     private:
 
-      int calculate();
-      vector<double> object_px, object_py, object_pz, object_p;
-      vector<double> object_pt, object_e, object_phi, object_eta;
-      vector<double> event_shapes;
-      vector<double> thrust_axis, thrust_axis_c;
+      /// Calculate everything
+      int _calculate();
 
-      double eta_c;
-      int rap;
-      int y3_recom;
-      size_t nmnjet;
+      /// Returns the difference in phi between two vectors
+      double _delta_phi(double, double);
 
-      // Returns the difference in phi between two vectors
-      double delta_phi(double, double);
-
-      // The lorentz scalar product
-      double lorentz_sp(const vector<double>&, const vector<double>&);
+      /// The Lorentz scalar product
+      double _lorentz_sp(const vector<double>&, const vector<double>&);
 
       // Calculates the three-jet resolutions
-      double three_jet_res(const vector<double>&, const vector<double>&, const vector<double>&, const vector<double>&, int);
+      double _three_jet_res(const vector<double>&, const vector<double>&, const vector<double>&, const vector<double>&, int);
 
       // Calculates the thrust axis and the tau values
-      vector<double> thrust_calculate(const vector<double>&, const vector<double>&);
+      vector<double> _thrust(const vector<double>&, const vector<double>&);
+
+
+      vector<double> _object_px, _object_py, _object_pz, _object_p;
+      vector<double> _object_pt, _object_e, _object_phi, _object_eta;
+      vector<double> _event_shapes;
+      vector<double> _thrust_axis, _thrust_axis_c;
+
+      double _eta_c;
+      int _irap;
+      size_t _nmnjet;
 
     };
 
 
-    EventShape::EventShape(const vector<double>& px_vector, const vector<double>& py_vector, const vector<double>& pz_vector,
-                           const vector<double>& e_vector, double eta_central, int rapidity, int nmn)
-      : object_px(px_vector), object_py(py_vector), object_pz(pz_vector),
-        object_e(e_vector), eta_c(eta_central), rap(rapidity), nmnjet(nmn)
-    {   }
 
-    vector<double> EventShape::getEventShapes() {
-      calculate(); ///< @todo There should be some test for success/failure!!
-      return event_shapes;
-    }
 
-    vector<double> EventShape::getThrustAxis() {
-      calculate(); ///< @todo There should be some test for success/failure!!
-      return thrust_axis;
-    }
-
-    vector<double> EventShape::getThrustAxisC() {
-      calculate(); ///< @todo There should be some test for success/failure!!
-      return thrust_axis_c;
-    }
-
-    int EventShape::calculate() {
-      if (!event_shapes.empty() && !thrust_axis.empty() && !thrust_axis_c.empty())
+    int EventShape::_calculate() {
+      if (!_event_shapes.empty() && !_thrust_axis.empty() && !_thrust_axis_c.empty())
         return 1; //< return success if this appears to already have been run
 
-      const size_t length = (size_t) object_px.size();
+      const size_t length = (size_t) _object_px.size();
 
-      if (((size_t) object_py.size() != length) ||
-          ((size_t) object_pz.size() != length) ||
-          ((size_t) object_e.size() != length)) {
+      if (((size_t) _object_py.size() != length) ||
+          ((size_t) _object_pz.size() != length) ||
+          ((size_t) _object_e.size() != length)) {
         /// @todo Change to exception or assert
         // cout << "ERROR!!!! Input vectors differ in size! Change that please!" << endl;
-        // cout<<"py_size: "<<object_py.size()<<" ,pz_size: "<<object_pz.size()
-        //     <<" ,px_size: "<<object_px.size()<<" ,E_size: "<<object_e.size()<<endl;
+        // cout<<"py_size: "<<_object_py.size()<<" ,pz_size: "<<_object_pz.size()
+        //     <<" ,px_size: "<<_object_px.size()<<" ,E_size: "<<_object_e.size()<<endl;
         return 0;
       }
 
-      if (!object_p.empty()) {
-        object_p.clear();
-        object_pt.clear();
-        object_eta.clear();
-        object_phi.clear();
-        event_shapes.clear();
-        thrust_axis.clear();
-        thrust_axis_c.clear();
+      if (!_object_p.empty()) {
+        _object_p.clear();
+        _object_pt.clear();
+        _object_eta.clear();
+        _object_phi.clear();
+        _event_shapes.clear();
+        _thrust_axis.clear();
+        _thrust_axis_c.clear();
       }
 
       for (size_t j = 0; j < length; j++) {
-        object_p.push_back(0.);
-        object_pt.push_back(0.);
-        object_eta.push_back(0.);
-        object_phi.push_back(0.);
+        _object_p.push_back(0.);
+        _object_pt.push_back(0.);
+        _object_eta.push_back(0.);
+        _object_phi.push_back(0.);
       }
 
       for (int j = 0; j < NEVTVAR; j++) {
-        event_shapes.push_back(-50.);
+        _event_shapes.push_back(-50.);
       }
 
-      event_shapes.push_back(double(object_px.size())); //< WTF?
+      _event_shapes.push_back(double(_object_px.size())); //< WTF?
 
       for (size_t j = 0; j < 3; j++) {
-        thrust_axis.push_back(0.);
-        thrust_axis_c.push_back(0.);
+        _thrust_axis.push_back(0.);
+        _thrust_axis_c.push_back(0.);
       }
 
       double theta = 0;
 
       for (size_t k = 0; k < length; k++) {
-        object_p[k] = sqrt(pow(object_px[k],2) + pow(object_py[k],2) + pow(object_pz[k],2));
-        object_pt[k] = sqrt(pow(object_px[k],2) + pow(object_py[k],2));
-        if (object_p[k] > object_e[k] + 1e-4) {
+        _object_p[k] = sqrt(pow(_object_px[k],2) + pow(_object_py[k],2) + pow(_object_pz[k],2));
+        _object_pt[k] = sqrt(pow(_object_px[k],2) + pow(_object_py[k],2));
+        if (_object_p[k] > _object_e[k] + 1e-4) {
           /// @todo Change to exception or assert
-          // cout << "ERROR!!! object " << k <<" has P = " << object_p[k]
-          //      << " which is bigger than E = " << object_e[k] <<" "
-          //      << object_px[k] <<" "<< object_py[k] <<" "
-          //      << object_pz[k] <<" of total length "<< length
+          // cout << "ERROR!!! object " << k <<" has P = " << _object_p[k]
+          //      << " which is bigger than E = " << _object_e[k] <<" "
+          //      << _object_px[k] <<" "<< _object_py[k] <<" "
+          //      << _object_pz[k] <<" of total length "<< length
           //      << endl;
           return 0;
         }
 
         //to prevent a division by zero
-        if (rap == 0) {
-          if (fabs(object_pz[k]) > 1e-5) {
-            theta = atan(object_pt[k]/(object_pz[k]));
+        if (_irap == 0) {
+          if (fabs(_object_pz[k]) > 1e-5) {
+            theta = atan(_object_pt[k]/(_object_pz[k]));
           } else {
             theta = M_PI/2;
           }
           if (theta < 0.) theta = theta + M_PI;
-          object_eta[k] = -log(tan(0.5*theta));
+          _object_eta[k] = -log(tan(0.5*theta));
         }
-        if (rap == 1) {
-          if (object_pz[k] == object_e[k]) {
+        if (_irap == 1) {
+          if (_object_pz[k] == _object_e[k]) {
             /// @todo Change to exception or assert
-            // cout << "ERROR!!! object "<<k<<" has Pz "<< object_pz[k] <<" which is equal to E = "<< object_e[k] <<endl;
+            // cout << "ERROR!!! object "<<k<<" has Pz "<< _object_pz[k] <<" which is equal to E = "<< _object_e[k] <<endl;
             return 0;
           }
-          object_eta[k]=0.5*log((object_e[k]+object_pz[k])/(object_e[k]-object_pz[k]));
+          _object_eta[k]=0.5*log((_object_e[k]+_object_pz[k])/(_object_e[k]-_object_pz[k]));
         }
-        if (rap != 0 && rap != 1) {
+        if (_irap != 0 && _irap != 1) {
           /// @todo Change to exception or assert
           // cout << "ERROR!!!, The choice to use the rapidity y or the pseudorapidity eta is not set correctly! Change that please!" << endl;
           return 0;
         }
-        object_phi[k] = atan2(object_py[k], object_px[k]);
+        _object_phi[k] = atan2(_object_py[k], _object_px[k]);
       }
-
-      //||||||||||||||||||||||||||||||||||||||||||||||
-      //here the central event shape variables begin||
-      //||||||||||||||||||||||||||||||||||||||||||||||
 
       vector<double> object_px_in, object_py_in, object_pz_in, object_pt_in, object_e_in, object_et_in, object_eta_in;
       vector<double> object_px_out, object_py_out, object_pz_out, object_e_out, object_pt_out, object_eta_out;
-      if (!object_px_in.empty()){
+      if (!object_px_in.empty()) { //< FFS, this is impossible: it's only just been created!
         object_px_in.clear();
         object_py_in.clear();
         object_pz_in.clear();
@@ -205,23 +195,23 @@ namespace Rivet {
 
       size_t nin = 0;
 
-      for (size_t j=0;j<length; j++) {
-        if (fabs(object_eta[j])<eta_c) {
-          object_px_in.push_back(object_px[j]);
-          object_py_in.push_back(object_py[j]);
-          object_pz_in.push_back(object_pz[j]);
-          object_e_in.push_back(object_e[j]);
-          object_pt_in.push_back(sqrt(pow(object_px[j],2)+pow(object_py[j],2)));
-          object_et_in.push_back(sqrt((pow(object_e[j],2)*pow(object_pt[j],2))/(pow(object_pt[j],2)+pow(object_pz[j],2))));
-          object_eta_in.push_back(object_eta[j]);
-          nin+=1;
+      for (size_t j = 0; j < length; j++) {
+        if (fabs(_object_eta[j]) < _eta_c) {
+          object_px_in.push_back(_object_px[j]);
+          object_py_in.push_back(_object_py[j]);
+          object_pz_in.push_back(_object_pz[j]);
+          object_e_in.push_back(_object_e[j]);
+          object_pt_in.push_back(sqrt(pow(_object_px[j],2)+pow(_object_py[j],2)));
+          object_et_in.push_back(sqrt((pow(_object_e[j],2)*pow(_object_pt[j],2))/(pow(_object_pt[j],2)+pow(_object_pz[j],2))));
+          object_eta_in.push_back(_object_eta[j]);
+          nin += 1;
       } else {
-          object_px_out.push_back(object_px[j]);
-          object_py_out.push_back(object_py[j]);
-          object_pz_out.push_back(object_pz[j]);
-          object_e_out.push_back(object_e[j]);
-          object_pt_out.push_back(sqrt(pow(object_px[j],2)+pow(object_py[j],2)));
-          object_eta_out.push_back(object_eta[j]);
+          object_px_out.push_back(_object_px[j]);
+          object_py_out.push_back(_object_py[j]);
+          object_pz_out.push_back(_object_pz[j]);
+          object_e_out.push_back(_object_e[j]);
+          object_pt_out.push_back(sqrt(pow(_object_px[j],2)+pow(_object_py[j],2)));
+          object_eta_out.push_back(_object_eta[j]);
         }
       }
 
@@ -232,15 +222,15 @@ namespace Rivet {
       }
       const size_t nout = length - nin;
 
-      if (nin < nmnjet) {
+      if (nin < _nmnjet) {
         for (int i = 0; i < NEVTVAR; i++) {
-          event_shapes[i] = -50.0;
+          _event_shapes[i] = -50.0;
         }
       }
 
-      event_shapes[NEVTVAR] = nin;
+      _event_shapes[NEVTVAR] = nin;
 
-      if (nin >= nmnjet) {
+      if (nin >= _nmnjet) {
         double p_sum_c = 0; //GMA
         double pt_sum_c = 0;
         double eta_cw=0;
@@ -263,15 +253,15 @@ namespace Rivet {
 
         //the central global transverse thrust centrthr is calculated
         double centrthr = 0;
-        vector<double> thrust_central = thrust_calculate(object_px_in, object_py_in);
+        vector<double> thrust_central = _thrust(object_px_in, object_py_in);
 
-        for (size_t l=0; l<3; l++) thrust_axis_c[l] = thrust_central[l];
+        for (size_t l=0; l<3; l++) _thrust_axis_c[l] = thrust_central[l];
         //the variable which gets resummed is not thrust
         //but tau = 1 - thrust - see calculation
         centrthr = thrust_central[3];
-        event_shapes[0] = centrthr;
+        _event_shapes[0] = centrthr;
 
-        double alpha_c = atan2(thrust_axis_c[1], thrust_axis_c[0]);
+        double alpha_c = atan2(_thrust_axis_c[1], _thrust_axis_c[0]);
         //central jet masses
         //define two jet masses in region U and D
         double cenjm_up = 0;
@@ -285,7 +275,7 @@ namespace Rivet {
           down_sum.push_back(0.);
         }
         for (size_t i=0;i<nin;i++) {
-          dot_product = object_px_in[i] * thrust_axis_c[0] + object_py_in[i] * thrust_axis_c[1];
+          dot_product = object_px_in[i] * _thrust_axis_c[0] + object_py_in[i] * _thrust_axis_c[1];
           if (dot_product >= 0) {
             up_sum[0]+=object_px_in[i];
             up_sum[1]+=object_py_in[i];
@@ -298,14 +288,14 @@ namespace Rivet {
             down_sum[3]+=object_e_in[i];
           }
         }
-        cenjm_up = lorentz_sp(up_sum, up_sum) / pow(p_sum_c, 2.); //GMA pow(pt_sum_c,2);
-        cenjm_down = lorentz_sp(down_sum, down_sum) / pow(p_sum_c, 2.); //GMA pow(pt_sum_c,2);
+        cenjm_up = _lorentz_sp(up_sum, up_sum) / pow(p_sum_c, 2.); //GMA pow(pt_sum_c,2);
+        cenjm_down = _lorentz_sp(down_sum, down_sum) / pow(p_sum_c, 2.); //GMA pow(pt_sum_c,2);
 
         //central total jet mass centotjm
         double centotjm=0;
         centotjm = cenjm_up + cenjm_down;
 
-        event_shapes[2]=centotjm;
+        _event_shapes[2]=centotjm;
 
         double centrjm_up=0, centrjm_down=0;
         vector<double> upsum;
@@ -315,7 +305,7 @@ namespace Rivet {
           downsum.push_back(0.);
         }
         for (size_t i = 0; i < nin; i++) {
-          dot_product = object_px_in[i]*thrust_axis_c[0]+object_py_in[i]*thrust_axis_c[1];
+          dot_product = object_px_in[i]*_thrust_axis_c[0]+object_py_in[i]*_thrust_axis_c[1];
           if (dot_product >= 0) {
             upsum[0] += object_px_in[i];
             upsum[1] += object_py_in[i];
@@ -326,21 +316,21 @@ namespace Rivet {
             downsum[2] += object_et_in[i];
           }
         }
-        centrjm_up = lorentz_sp(upsum, upsum) / pow(pt_sum_c, 2);
-        centrjm_down = lorentz_sp(downsum, downsum) / pow(pt_sum_c, 2);
+        centrjm_up = _lorentz_sp(upsum, upsum) / pow(pt_sum_c, 2);
+        centrjm_down = _lorentz_sp(downsum, downsum) / pow(pt_sum_c, 2);
         double centottrjm = centrjm_up + centrjm_down;
 
-        event_shapes[3] = centottrjm;
+        _event_shapes[3] = centottrjm;
 
         //central three-jet resolution threshold
         double ceny3=0;
         if (nin < 3) {
           ceny3 = -1.0;
         } else {
-          ceny3 = three_jet_res(object_px_in, object_py_in, object_pz_in, object_e_in, rap);
+          ceny3 = _three_jet_res(object_px_in, object_py_in, object_pz_in, object_e_in, _irap);
         }
 
-        event_shapes[4] = ceny3;
+        _event_shapes[4] = ceny3;
 
         //the central jet broadenings in the up and down region
         double cenbroad_up=0;
@@ -367,7 +357,7 @@ namespace Rivet {
         }
 
         for (size_t i=0;i<nin;i++) {
-          dot_product_b =sqrt(object_px_in[i]*thrust_axis_c[0] + object_py_in[i]*thrust_axis_c[1]);
+          dot_product_b =sqrt(object_px_in[i]*_thrust_axis_c[0] + object_py_in[i]*_thrust_axis_c[1]);
           if (dot_product_b>=0){
             pt_sum_up += object_pt_in[i];
             //rotate the coordinate system so that
@@ -419,21 +409,21 @@ namespace Rivet {
 
         size_t index_up=0, index_down=0;
         for (size_t i = 0; i < nin; i++) {
-          dot_product_b = object_px_in[i]*thrust_axis_c[0] + object_py_in[i]*thrust_axis_c[1];
+          dot_product_b = object_px_in[i]*_thrust_axis_c[0] + object_py_in[i]*_thrust_axis_c[1];
           if (dot_product_b >= 0) {
             //calculate the broadenings of the regions with the rotated system
             //and the pt-weighted average of phi in the rotated system
             cenbroad_up += object_pt_in[i]*sqrt(pow(object_eta_in[i]-eta_up, 2) +
-                                                pow(delta_phi(phi_up[index_up], phi_up_aver), 2));
+                                                pow(_delta_phi(phi_up[index_up], phi_up_aver), 2));
             index_up += 1;
           } else {
             cenbroad_down += object_pt_in[i]*sqrt(pow(object_eta_in[i]-eta_down, 2)+
-                                                  pow(delta_phi(phi_down[index_down], phi_down_aver), 2));
+                                                  pow(_delta_phi(phi_down[index_down], phi_down_aver), 2));
             index_down += 1;
           }
         }
 
-        if (index_up == 0 || index_down ==0) event_shapes[NEVTVAR] *= -1;
+        if (index_up == 0 || index_down ==0) _event_shapes[NEVTVAR] *= -1;
 
         cenbroad_up=cenbroad_up/(2*pt_sum_c);
         cenbroad_down=cenbroad_down/(2*pt_sum_c);
@@ -442,11 +432,11 @@ namespace Rivet {
         double centotbroad = 0;
         centotbroad = cenbroad_up + cenbroad_down;
 
-        event_shapes[1] = centotbroad;
+        _event_shapes[1] = centotbroad;
 
         for (int ij = 0; ij < 5; ij++) {
-          if (event_shapes[ij] < 1.e-20) event_shapes[ij] = 1.e-20;
-          event_shapes[ij] = log(event_shapes[ij]);
+          if (_event_shapes[ij] < 1.e-20) _event_shapes[ij] = 1.e-20;
+          _event_shapes[ij] = log(_event_shapes[ij]);
         }
       }
 
@@ -454,12 +444,7 @@ namespace Rivet {
     }
 
 
-
-    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    //function which calculates the three-jet resolution thresholds|||
-    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    double EventShape::three_jet_res(const vector<double>& in_object_px, const vector<double>& in_object_py, const vector<double>& in_object_pz, const vector<double>& in_object_e, int rap){
+    double EventShape::_three_jet_res(const vector<double>& in_object_px, const vector<double>& in_object_py, const vector<double>& in_object_pz, const vector<double>& in_object_e, int irap) {
 
       size_t y3_length = (size_t)in_object_px.size();
       if (((size_t) in_object_py.size()!=y3_length) ||
@@ -490,7 +475,7 @@ namespace Rivet {
         in_object_pt[k] = sqrt(pow(in_object_px[k],2) + pow(in_object_py[k],2));
 
         //calculates the pseudorapidity to prevent a division by zero
-        if (rap == 0) {
+        if (irap == 0) {
           if (fabs(in_object_pz[k]) > 1E-5) {
             theta_y3_1st = atan(in_object_pt[k]/(in_object_pz[k]));
           } else {
@@ -500,7 +485,7 @@ namespace Rivet {
           in_object_eta[k] = - log(tan(0.5*theta_y3_1st));
         }
         //calculates the real rapidity
-        if (rap==1) {
+        if (irap == 1) {
           in_object_eta[k]=0.5*log((in_object_e[k]+in_object_pz[k])/(in_object_e[k]-in_object_pz[k]));
         }
         in_object_phi[k] = atan2(in_object_py[k], in_object_px[k]);
@@ -533,29 +518,29 @@ namespace Rivet {
       //to decide later if the minmum is a jB or jk
       int decide_jB = -1;
 
-      vector<double> input_Pt, input_Px, input_Py, input_Pz;
-      vector<double> input_P, input_E, input_Phi, input_Eta;
+      vector<double> input_pt, input_px, input_py, input_pz;
+      vector<double> input_p, input_e, input_phi, input_eta;
 
-      if (!input_Pt.empty()) {
-        input_Pt.clear();
-        input_Px.clear();
-        input_Px.clear();
-        input_Pz.clear();
-        input_P.clear();
-        input_E.clear();
-        input_Phi.clear();
-        input_Eta.clear();
+      if (!input_pt.empty()) {
+        input_pt.clear();
+        input_px.clear();
+        input_px.clear();
+        input_pz.clear();
+        input_p.clear();
+        input_e.clear();
+        input_phi.clear();
+        input_eta.clear();
       }
 
       for (size_t j = 0; j < y3_length; j++){
-        input_Pt.push_back(in_object_pt[j]);
-        input_Px.push_back(in_object_px[j]);
-        input_Py.push_back(in_object_py[j]);
-        input_Pz.push_back(in_object_pz[j]);
-        input_P.push_back(in_object_p[j]);
-        input_E.push_back(in_object_e[j]);
-        input_Phi.push_back(in_object_phi[j]);
-        input_Eta.push_back(in_object_eta[j]);
+        input_pt.push_back(in_object_pt[j]);
+        input_px.push_back(in_object_px[j]);
+        input_py.push_back(in_object_py[j]);
+        input_pz.push_back(in_object_pz[j]);
+        input_p.push_back(in_object_p[j]);
+        input_e.push_back(in_object_e[j]);
+        input_phi.push_back(in_object_phi[j]);
+        input_eta.push_back(in_object_eta[j]);
       }
       if (y3_length<3) {
         return -1;
@@ -564,16 +549,16 @@ namespace Rivet {
         for (size_t i = 0; i<y3_length; i++) {
           //make the minima at the initialization step
           //of each looping bigger than the first values
-          distance_jB_min = 0.36*pow(input_Pt[0],2) + 10;
+          distance_jB_min = 0.36*pow(input_pt[0],2) + 10;
           //DELTA PHIs wanted not the pure difference
-          distance_jk_min = min(pow(input_Pt[1], 2), pow(input_Pt[0], 2)) *
-            (pow(input_Eta[1]-input_Eta[0], 2) +
-             pow(delta_phi(input_Phi[1], input_Phi[0]), 2)) + 10;
+          distance_jk_min = min(pow(input_pt[1], 2), pow(input_pt[0], 2)) *
+            (pow(input_eta[1]-input_eta[0], 2) +
+             pow(_delta_phi(input_phi[1], input_phi[0]), 2)) + 10;
           //do the procedure only until we have only 2 objects left anymore
           if (rest > 2) {
             for (size_t j=0; j<rest;j++) {
               //calculate the distance between object j and the beam
-              distance_jB = 0.36*pow(input_Pt[j], 2);
+              distance_jB = 0.36*pow(input_pt[j], 2);
               if(distance_jB < distance_jB_min){
                 distance_jB_min = distance_jB;
                 index_jB = j;
@@ -581,9 +566,9 @@ namespace Rivet {
               if (j > 0) {
                 for(size_t k=0; k<j;k++){
                   //calculate the distance in delta eta and delta phi between object i and object j
-                  distance_jk = min(pow(input_Pt[j], 2),pow(input_Pt[k], 2))*
-                    (pow(input_Eta[j]-input_Eta[k], 2)+
-                     pow(delta_phi(input_Phi[j],input_Phi[k]), 2));
+                  distance_jk = min(pow(input_pt[j], 2),pow(input_pt[k], 2))*
+                    (pow(input_eta[j]-input_eta[k], 2)+
+                     pow(_delta_phi(input_phi[j],input_phi[k]), 2));
                   if (distance_jk<distance_jk_min) {
                     distance_jk_min = distance_jk;
                     index_j_jk = j;
@@ -607,58 +592,58 @@ namespace Rivet {
               //if index_jB is the last one nothing is to do
               if (index_jB != rest-1) {
                 for (size_t i=index_jB; i<rest-1;i++) {
-                  input_Pt[i]=input_Pt[i+1];
-                  input_Phi[i]=input_Phi[i+1];
-                  input_Eta[i]=input_Eta[i+1];
-                  input_Px[i]=input_Px[i+1];
-                  input_Py[i]=input_Py[i+1];
-                  input_Pz[i]=input_Pz[i+1];
-                  input_E[i]=input_E[i+1];
+                  input_pt[i]=input_pt[i+1];
+                  input_phi[i]=input_phi[i+1];
+                  input_eta[i]=input_eta[i+1];
+                  input_px[i]=input_px[i+1];
+                  input_py[i]=input_py[i+1];
+                  input_pz[i]=input_pz[i+1];
+                  input_e[i]=input_e[i+1];
                 }
               }
             }
             //if the minimum is a jk combine both input objects
             if(decide_jB==0) {
-              input_Px[index_k_jk] = input_Px[index_k_jk]+input_Px[index_j_jk];
-              input_Py[index_k_jk] = input_Py[index_k_jk]+input_Py[index_j_jk];
-              input_Pz[index_k_jk] = input_Pz[index_k_jk]+input_Pz[index_j_jk];
-              input_E[index_k_jk] = input_E[index_k_jk]+input_E[index_j_jk];
-              input_P[index_k_jk] = sqrt(pow(input_Px[index_k_jk], 2)+
-                                         pow(input_Py[index_k_jk], 2)+
-                                         pow(input_Pz[index_k_jk], 2));
+              input_px[index_k_jk] = input_px[index_k_jk]+input_px[index_j_jk];
+              input_py[index_k_jk] = input_py[index_k_jk]+input_py[index_j_jk];
+              input_pz[index_k_jk] = input_pz[index_k_jk]+input_pz[index_j_jk];
+              input_e[index_k_jk] = input_e[index_k_jk]+input_e[index_j_jk];
+              input_p[index_k_jk] = sqrt(pow(input_px[index_k_jk], 2)+
+                                         pow(input_py[index_k_jk], 2)+
+                                         pow(input_pz[index_k_jk], 2));
               //calculate the pt, eta and phi of the new combined momenta k_jk
-              input_Pt[index_k_jk] = sqrt(pow(input_Px[index_k_jk], 2)+
-                                          pow(input_Py[index_k_jk], 2));
+              input_pt[index_k_jk] = sqrt(pow(input_px[index_k_jk], 2)+
+                                          pow(input_py[index_k_jk], 2));
               //in the case of pseudorapidity
-              if (rap == 0) {
+              if (irap == 0) {
                 double theta_new =0;
-                if (fabs(input_Pz[index_k_jk]) > 1E-5){
-                  theta_new = atan(input_Pt[index_k_jk]/(input_Pz[index_k_jk]));
+                if (fabs(input_pz[index_k_jk]) > 1E-5){
+                  theta_new = atan(input_pt[index_k_jk]/(input_pz[index_k_jk]));
                 } else {
                   theta_new = M_PI/2;
                 }
                 if (theta_new < 0) {
                   theta_new = theta_new + M_PI;
                 }
-                input_Eta[index_k_jk] = - log(tan(0.5*theta_new));
+                input_eta[index_k_jk] = - log(tan(0.5*theta_new));
               }
               //in the real rapidity y is wanted
-              if (rap == 1) {
-                input_Eta[index_k_jk] = 0.5 * log((input_E[index_k_jk]+
-                                                   input_Pz[index_k_jk]) /
-                                                  (input_E[index_k_jk] -
-                                                   input_Pz[index_k_jk]));
+              if (irap == 1) {
+                input_eta[index_k_jk] = 0.5 * log((input_e[index_k_jk]+
+                                                   input_pz[index_k_jk]) /
+                                                  (input_e[index_k_jk] -
+                                                   input_pz[index_k_jk]));
               }
-              input_Phi[index_k_jk] = atan2(input_Py[index_k_jk], input_Px[index_k_jk]);
+              input_phi[index_k_jk] = atan2(input_py[index_k_jk], input_px[index_k_jk]);
               if (index_j_jk != rest-1) {
                 for (size_t i = index_j_jk; i<rest-1;i++) {
-                  input_Pt[i] = input_Pt[i+1];
-                  input_Phi[i] = input_Phi[i+1];
-                  input_Eta[i] = input_Eta[i+1];
-                  input_Px[i] = input_Px[i+1];
-                  input_Py[i] = input_Py[i+1];
-                  input_Pz[i] = input_Pz[i+1];
-                  input_E[i] = input_E[i+1];
+                  input_pt[i] = input_pt[i+1];
+                  input_phi[i] = input_phi[i+1];
+                  input_eta[i] = input_eta[i+1];
+                  input_px[i] = input_px[i+1];
+                  input_py[i] = input_py[i+1];
+                  input_pz[i] = input_pz[i+1];
+                  input_e[i] = input_e[i+1];
                 }
               }
             }
@@ -668,10 +653,9 @@ namespace Rivet {
         }
       }
 
-      double Et2=0;
-      Et2= input_Pt[0]+input_Pt[1];
-
-      y3=max_dmin/pow(Et2,2);
+      double et2 = 0;
+      et2 = input_pt[0] + input_pt[1];
+      y3 = max_dmin/pow(et2,2);
 
       return y3;
     }
@@ -682,7 +666,7 @@ namespace Rivet {
     //function which calculates the thrusts||||
     //|||||||||||||||||||||||||||||||||||||||||
 
-    vector<double> EventShape::thrust_calculate (const vector<double>& input_px, const vector<double>& input_py) {
+    vector<double> EventShape::_thrust(const vector<double>& input_px, const vector<double>& input_py) {
 
       double thrustmax_calc = 0;
       double temp_calc = 0;
@@ -774,7 +758,7 @@ namespace Rivet {
     }
 
 
-    double EventShape::delta_phi(double phi1, double phi2) {
+    double EventShape::_delta_phi(double phi1, double phi2) {
       double dphi = fabs(phi2 - phi1);
       if (dphi > M_PI) dphi = 2*M_PI - dphi;
       return dphi;
@@ -782,7 +766,7 @@ namespace Rivet {
 
 
     // Returns the scalar product between two 4 momenta
-    double EventShape::lorentz_sp(const vector<double>& a, const vector<double>& b) {
+    double EventShape::_lorentz_sp(const vector<double>& a, const vector<double>& b) {
       size_t dim = (size_t) a.size();
       if (a.size()!=b.size()) {
         cout<<"ERROR!!! Dimension of input vectors are different! Change that please!"<<endl;
