@@ -6,7 +6,6 @@
 namespace Rivet {
 
 
-  // Helper class (why a class?) etc. for event shape calculations in hidden namespace; analysis at bottom of file
   namespace {
 
 
@@ -15,29 +14,30 @@ namespace Rivet {
     const double LEADINGPTTHRESHOLD[NJETPTMN] = { 110.0, 170.0, 250.0, 320.0, 390.0 };
 
 
-    /// @todo Improve/remove this junk
+    // Helpers for event shape calculations in hidden namespace; analysis at bottom of file
+    /// @todo Why a class? Improve/remove this junk
     class EventShape {
     public:
 
-      // Constructor from vectors of four-vectors as input objects in the event to calculate the event shapes
+      /// Constructor from vectors of four-vectors as input objects in the event to calculate the event shapes
       EventShape(const vector<double>& px_vector, const vector<double>& py_vector, const vector<double>& pz_vector,
                  const vector<double>& e_vector, double eta_central, int rapidity, int nmn);
 
-      // Destructor
-      /// @todo Not needed: remove
-      ~EventShape() {}
-
-      // Returns the values of the event shapes
-      // 0. central transverse thrust
-      // 1. central total jet broadening
-      // 2. central total jet mass
-      // 3. central total transverse jet mass
-      // 4. central three-jet resolution threshold
+      /// @brief Returns the values of the five event shapes
+      ///
+      /// Event shape indices:
+      /// 0. central transverse thrust
+      /// 1. central total jet broadening
+      /// 2. central total jet mass
+      /// 3. central total transverse jet mass
+      /// 4. central three-jet resolution threshold
       vector<double> getEventShapes();
 
-      vector<double> getThrustAxis(); //returns the global thrust axis Nx, Ny, Nz=0
+      // Returns the global thrust axis Nx, Ny, Nz=0
+      vector<double> getThrustAxis();
 
-      vector<double> getThrustAxis_C();  //returns the central thrust axis Nx, Ny, Nz=0
+      // Returns the central thrust axis Nx, Ny, Nz=0
+      vector<double> getThrustAxisC();
 
       // Choice of the central region
       // Recommended: the two hardest jets should be within the central region
@@ -82,23 +82,25 @@ namespace Rivet {
     {   }
 
     vector<double> EventShape::getEventShapes() {
-      this->calculate();
+      calculate(); ///< @todo There should be some test for success/failure!!
       return event_shapes;
     }
 
     vector<double> EventShape::getThrustAxis() {
-      this->calculate();
+      calculate(); ///< @todo There should be some test for success/failure!!
       return thrust_axis;
     }
 
-    vector<double> EventShape::getThrustAxis_C() {
-      this->calculate();
+    vector<double> EventShape::getThrustAxisC() {
+      calculate(); ///< @todo There should be some test for success/failure!!
       return thrust_axis_c;
     }
 
     int EventShape::calculate() {
+      if (!event_shapes.empty() && !thrust_axis.empty() && !thrust_axis_c.empty())
+        return 1; //< return success if this appears to already have been run
 
-      size_t length = (size_t) object_px.size();
+      const size_t length = (size_t) object_px.size();
 
       if (((size_t) object_py.size() != length) ||
           ((size_t) object_pz.size() != length) ||
@@ -110,15 +112,16 @@ namespace Rivet {
         return 0;
       }
 
-      if (!object_p.empty()){
+      if (!object_p.empty()) {
         object_p.clear();
         object_pt.clear();
         object_eta.clear();
         object_phi.clear();
         event_shapes.clear();
         thrust_axis.clear();
-        //thrust_axis_c.clear();
+        thrust_axis_c.clear();
       }
+
       for (size_t j = 0; j < length; j++) {
         object_p.push_back(0.);
         object_pt.push_back(0.);
@@ -130,7 +133,7 @@ namespace Rivet {
         event_shapes.push_back(-50.);
       }
 
-      event_shapes.push_back(double(object_px.size()));
+      event_shapes.push_back(double(object_px.size())); //< WTF?
 
       for (size_t j = 0; j < 3; j++) {
         thrust_axis.push_back(0.);
@@ -139,40 +142,40 @@ namespace Rivet {
 
       double theta = 0;
 
-      for (size_t k =0; k<length; k++) {
+      for (size_t k = 0; k < length; k++) {
         object_p[k] = sqrt(pow(object_px[k],2) + pow(object_py[k],2) + pow(object_pz[k],2));
         object_pt[k] = sqrt(pow(object_px[k],2) + pow(object_py[k],2));
-        if (object_p[k]>object_e[k] + 1E-4) {
+        if (object_p[k] > object_e[k] + 1e-4) {
           /// @todo Change to exception or assert
-          cout << "ERROR!!! object " << k <<" has P = " << object_p[k]
-               << " which is bigger than E = " << object_e[k] <<" "
-               << object_px[k] <<" "<< object_py[k] <<" "
-               << object_pz[k] <<" of total length "<< length
-               << endl;
+          // cout << "ERROR!!! object " << k <<" has P = " << object_p[k]
+          //      << " which is bigger than E = " << object_e[k] <<" "
+          //      << object_px[k] <<" "<< object_py[k] <<" "
+          //      << object_pz[k] <<" of total length "<< length
+          //      << endl;
           return 0;
         }
 
         //to prevent a division by zero
-        if (rap==0) {
-          if (fabs(object_pz[k]) > 1E-5) {
+        if (rap == 0) {
+          if (fabs(object_pz[k]) > 1e-5) {
             theta = atan(object_pt[k]/(object_pz[k]));
           } else {
             theta = M_PI/2;
           }
-          if(theta<0.) {theta = theta + M_PI;}
-          object_eta[k] = - log(tan(0.5*theta));
+          if (theta < 0.) theta = theta + M_PI;
+          object_eta[k] = -log(tan(0.5*theta));
         }
-        if (rap==1) {
-          if(object_pz[k]==object_e[k]){
+        if (rap == 1) {
+          if (object_pz[k] == object_e[k]) {
             /// @todo Change to exception or assert
-            cout << "ERROR!!! object "<<k<<" has Pz "<< object_pz[k] <<" which is equal to E = "<< object_e[k] <<endl;
+            // cout << "ERROR!!! object "<<k<<" has Pz "<< object_pz[k] <<" which is equal to E = "<< object_e[k] <<endl;
             return 0;
           }
           object_eta[k]=0.5*log((object_e[k]+object_pz[k])/(object_e[k]-object_pz[k]));
         }
-        if ((rap!=0)&&(rap!=1)) {
+        if (rap != 0 && rap != 1) {
           /// @todo Change to exception or assert
-          cout << "ERROR!!!, The choice to use the rapidity y or the pseudorapidity eta is not set correctly! Change that please!" << endl;
+          // cout << "ERROR!!!, The choice to use the rapidity y or the pseudorapidity eta is not set correctly! Change that please!" << endl;
           return 0;
         }
         object_phi[k] = atan2(object_py[k], object_px[k]);
@@ -221,15 +224,16 @@ namespace Rivet {
           object_eta_out.push_back(object_eta[j]);
         }
       }
-      if (object_px_in.size() != nin){
-        /// @todo Change to exception or assert
-        cout<<"ERROR!!! wrong dimension of in momenta"<<endl;
-      }
 
-      size_t nout = length - nin;
+      if (object_px_in.size() != nin) {
+        /// @todo Change to exception or assert
+        cout<<"ERROR!!! wrong dimension of 'in' momenta"<<endl;
+        //return 0; ///< @todo Why not do this?
+      }
+      const size_t nout = length - nin;
 
       if (nin < nmnjet) {
-        for(int i=0; i<NEVTVAR; i++) {
+        for (int i = 0; i < NEVTVAR; i++) {
           event_shapes[i] = -50.0;
         }
       }
@@ -242,7 +246,7 @@ namespace Rivet {
         double eta_cw=0;
         double px_sum_in = 0;
         double py_sum_in = 0;
-        for(size_t j=0;j<nin;j++){
+        for (size_t j = 0; j < nin; j++) {
           pt_sum_c += object_pt_in[j];
           p_sum_c += sqrt(pow(object_pt_in[j],2.) + pow(object_pz_in[j], 2.0)); //GMA
           eta_cw += object_pt_in[j]*object_eta_in[j];
@@ -252,7 +256,7 @@ namespace Rivet {
         eta_cw /= pt_sum_c;
 
         double expTerm = 0;
-        for (size_t j=0; j<nout; j++) {
+        for (size_t j = 0; j < nout; j++) {
           expTerm += object_pt_out[j] * exp(-fabs(object_eta_out[j]-eta_cw));
         }
         expTerm /= pt_sum_c;
@@ -445,6 +449,7 @@ namespace Rivet {
           event_shapes[ij] = log(event_shapes[ij]);
         }
       }
+
       return 1;
     }
 
