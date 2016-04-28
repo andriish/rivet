@@ -8,13 +8,19 @@ namespace Rivet {
 
   namespace {
 
+    /// Number of event shape variables
+    /// @todo Move into the EventShape class
+    const int NEVTVAR = 5;
 
-    const int NEVTVAR = 5; // Number of event shape variables
-    const int NJETPTMN = 5; // Threshold of leading pt
+    /// Number of leading jet pT thresholds
+    /// @todo Move into the analysis class
+    const int NJETPTMN = 5;
+    /// Leading jet pT thresholds
+    /// @todo Move into the analysis class
     const double LEADINGPTTHRESHOLD[NJETPTMN] = { 110.0, 170.0, 250.0, 320.0, 390.0 };
 
 
-    // Helpers for event shape calculations in hidden namespace; analysis at bottom of file
+    // Helpers for event shape calculations in hidden namespace; implementation at bottom of file
     /// @todo Why a class? Improve/remove this junk
     class EventShape {
     public:
@@ -51,11 +57,11 @@ namespace Rivet {
         return _thrust_axis_c;
       }
 
-      /// @brief Choice of the central region
-      void setEtaC(double eta_central) { _eta_c = eta_central; }
+      // /// @brief Choice of the central region
+      // void setEtaC(double eta_central) { _eta_c = eta_central; }
 
-      // Whether to use the rapidity y (rap==1)  or the pseudorapidity eta (rap==0)
-      void setRapType(int irap) { _irap = irap; }
+      // // Whether to use the rapidity y (rap==1)  or the pseudorapidity eta (rap==0)
+      // void setRapType(int irap) { _irap = irap; }
 
 
     private:
@@ -87,8 +93,130 @@ namespace Rivet {
 
     };
 
+  }
 
 
+
+
+  class CMS_2014_I1305624 : public Analysis {
+  public:
+
+    /// Constructor
+    CMS_2014_I1305624()
+      : Analysis("CMS_2014_I1305624")
+    {    }
+
+
+    /// @name Analysis methods
+
+    /// Book histograms and initialise projections before the run
+    void init() {
+      const FastJets jets(FinalState(Cuts::abseta < 2.6), FastJets::ANTIKT, 0.5);
+      addProjection(jets, "Jets");
+
+      for (int ij=0; ij < NJETPTMN; ij++) {
+        _h_thrustc[ij] = bookHisto1D(1, 1, ij+1);
+        _h_broadt[ij] = bookHisto1D(1, 2, ij+1);
+        _h_tot3dmass[ij] = bookHisto1D(1, 3, ij+1);
+        _h_tottrnsmass[ij] = bookHisto1D(1, 4, ij+1);
+        _h_y23c[ij] = bookHisto1D(1, 5, ij+1);
+        //
+        _alow1[ij] = _h_thrustc[ij]->xMin();
+        _alow2[ij] = _h_broadt[ij]->xMin();
+        _alow3[ij] = _h_tot3dmass[ij]->xMin();
+        _alow4[ij] = _h_tottrnsmass[ij]->xMin();
+        _alow5[ij] = _h_y23c[ij]->xMin();
+        //
+        _ahgh1[ij] = _h_thrustc[ij]->xMax();
+        _ahgh2[ij] = _h_broadt[ij]->xMax();
+        _ahgh3[ij] = _h_tot3dmass[ij]->xMax();
+        _ahgh4[ij] = _h_tottrnsmass[ij]->xMax();
+        _ahgh5[ij] = _h_y23c[ij]->xMax();
+      }
+    }
+
+
+    /// Perform the per-event analysis
+    void analyze(const Event& event) {
+
+      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
+      if (jets.size() < 2) vetoEvent;
+      if (jets[0].abseta() > 2.4 || jets[1].abseta() > 2.4) vetoEvent;
+
+      const double leadingpt = jets[0].pT();
+      if (leadingpt < 110*GeV) vetoEvent;
+
+      vector<double> jtpx, jtpy, jtpz, jten;
+      foreach (const Jet& j, jets) {
+        if (j.abseta() < 2.4) {
+          jtpx.push_back(j.px());
+          jtpy.push_back(j.py());
+          jtpz.push_back(j.pz());
+          jten.push_back(j.E());
+        }
+      }
+
+      EventShape eventshape(jtpx, jtpy, jtpz, jten, 2.4, 0, 2);
+      const vector<double> eventvar = eventshape.getEventShapes();
+      if (eventvar[NEVTVAR] < 0) vetoEvent; // Jets are not only one hemisphere
+
+      const double weight = event.weight();
+      for (int ij = NJETPTMN-1; ij >= 0; --ij) {
+        if (leadingpt/GeV > LEADINGPTTHRESHOLD[ij]) {
+          if (inRange(eventvar[0], _alow1[ij], _ahgh1[ij])) _h_thrustc[ij]->fill(eventvar[0], weight);
+          if (inRange(eventvar[2], _alow3[ij], _ahgh3[ij])) _h_tot3dmass[ij]->fill(eventvar[2], weight);
+          if (inRange(eventvar[3], _alow4[ij], _ahgh4[ij])) _h_tottrnsmass[ij]->fill(eventvar[3], weight);
+          if (eventvar[NEVTVAR] >= 3) {
+            if (inRange(eventvar[1], _alow2[ij], _ahgh2[ij])) _h_broadt[ij]->fill(eventvar[1], weight);
+            if (inRange(eventvar[4], _alow5[ij], _ahgh5[ij])) _h_y23c[ij]->fill(eventvar[4], weight);
+          }
+          break;
+        }
+      }
+
+    }
+
+
+    /// Normalise histograms etc., after the run
+    void finalize() {
+      for (int ij = 0; ij < NJETPTMN; ij++) {
+        normalize(_h_thrustc[ij]);
+        normalize(_h_broadt[ij]);
+        normalize(_h_tot3dmass[ij]);
+        normalize(_h_tottrnsmass[ij]);
+        normalize(_h_y23c[ij]);
+      }
+    }
+
+
+  private:
+
+    /// @name Histograms
+    //@{
+    Histo1DPtr _h_thrustc[NJETPTMN];
+    Histo1DPtr _h_broadt[NJETPTMN];
+    Histo1DPtr _h_tot3dmass[NJETPTMN];
+    Histo1DPtr _h_tottrnsmass[NJETPTMN];
+    Histo1DPtr _h_y23c[NJETPTMN];
+    //@}
+
+    // Data members
+    double _alow1[NJETPTMN], _alow2[NJETPTMN], _alow3[NJETPTMN], _alow4[NJETPTMN], _alow5[NJETPTMN];
+    double _ahgh1[NJETPTMN], _ahgh2[NJETPTMN], _ahgh3[NJETPTMN], _ahgh4[NJETPTMN], _ahgh5[NJETPTMN];
+
+  };
+
+
+  DECLARE_RIVET_PLUGIN(CMS_2014_I1305624);
+
+
+
+  /////////////////////
+
+
+  namespace {
+
+    // EventShape helper class method implementations:
 
     int EventShape::_calculate() {
       if (!_event_shapes.empty() && !_thrust_axis.empty() && !_thrust_axis_c.empty())
@@ -661,11 +789,6 @@ namespace Rivet {
     }
 
 
-
-    //|||||||||||||||||||||||||||||||||||||||||
-    //function which calculates the thrusts||||
-    //|||||||||||||||||||||||||||||||||||||||||
-
     vector<double> EventShape::_thrust(const vector<double>& input_px, const vector<double>& input_py) {
 
       double thrustmax_calc = 0;
@@ -783,117 +906,5 @@ namespace Rivet {
 
   }
 
-
-  class CMS_2014_I1305624 : public Analysis {
-  public:
-
-    /// Constructor
-    CMS_2014_I1305624()
-      : Analysis("CMS_2014_I1305624")
-    {    }
-
-  public:
-
-    /// @name Analysis methods
-
-    /// Book histograms and initialise projections before the run
-    void init() {
-      const FastJets jets(FinalState(Cuts::abseta < 2.6), FastJets::ANTIKT, 0.5);
-      addProjection(jets, "Jets");
-
-      for (int ij=0; ij < NJETPTMN; ij++) {
-        _h_thrustc[ij] = bookHisto1D(1, 1, ij+1);
-        _h_broadt[ij] = bookHisto1D(1, 2, ij+1);
-        _h_tot3dmass[ij] = bookHisto1D(1, 3, ij+1);
-        _h_tottrnsmass[ij] = bookHisto1D(1, 4, ij+1);
-        _h_y23c[ij] = bookHisto1D(1, 5, ij+1);
-        //
-        _alow1[ij] = _h_thrustc[ij]->xMin();
-        _alow2[ij] = _h_broadt[ij]->xMin();
-        _alow3[ij] = _h_tot3dmass[ij]->xMin();
-        _alow4[ij] = _h_tottrnsmass[ij]->xMin();
-        _alow5[ij] = _h_y23c[ij]->xMin();
-        //
-        _ahgh1[ij] = _h_thrustc[ij]->xMax();
-        _ahgh2[ij] = _h_broadt[ij]->xMax();
-        _ahgh3[ij] = _h_tot3dmass[ij]->xMax();
-        _ahgh4[ij] = _h_tottrnsmass[ij]->xMax();
-        _ahgh5[ij] = _h_y23c[ij]->xMax();
-      }
-    }
-
-
-    /// Perform the per-event analysis
-    void analyze(const Event& event) {
-
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
-      if (jets.size() < 2) vetoEvent;
-      if (jets[0].abseta() > 2.4 || jets[1].abseta() > 2.4) vetoEvent;
-
-      const double leadingpt = jets[0].pT();
-      if (leadingpt < 110*GeV) vetoEvent;
-
-      vector<double> jtpx, jtpy, jtpz, jten;
-      foreach (const Jet& j, jets) {
-        if (j.abseta() < 2.4) {
-          jtpx.push_back(j.px());
-          jtpy.push_back(j.py());
-          jtpz.push_back(j.pz());
-          jten.push_back(j.E());
-        }
-      }
-
-      EventShape eventshape(jtpx, jtpy, jtpz, jten, 2.4, 0, 2);
-      const vector<double> eventvar = eventshape.getEventShapes();
-      if (eventvar[NEVTVAR] < 0) vetoEvent; // Jets are not only one hemisphere
-
-      const double weight = event.weight();
-      for (int ij = NJETPTMN-1; ij >= 0; ij--) {
-        if (leadingpt/GeV > LEADINGPTTHRESHOLD[ij]) {
-          if (inRange(eventvar[0], _alow1[ij], _ahgh1[ij])) _h_thrustc[ij]->fill(eventvar[0], weight);
-          if (inRange(eventvar[2], _alow3[ij], _ahgh3[ij])) _h_tot3dmass[ij]->fill(eventvar[2], weight);
-          if (inRange(eventvar[3], _alow4[ij], _ahgh4[ij])) _h_tottrnsmass[ij]->fill(eventvar[3], weight);
-          if (eventvar[NEVTVAR] >= 3) {
-            if (inRange(eventvar[1], _alow2[ij], _ahgh2[ij])) _h_broadt[ij]->fill(eventvar[1], weight);
-            if (inRange(eventvar[4], _alow5[ij], _ahgh5[ij])) _h_y23c[ij]->fill(eventvar[4], weight);
-          }
-          break;
-        }
-      }
-
-    }
-
-
-    /// Normalise histograms etc., after the run
-    void finalize() {
-      for (int ij = 0; ij < NJETPTMN; ij++) {
-        normalize(_h_thrustc[ij]);
-        normalize(_h_broadt[ij]);
-        normalize(_h_tot3dmass[ij]);
-        normalize(_h_tottrnsmass[ij]);
-        normalize(_h_y23c[ij]);
-      }
-    }
-
-
-  private:
-
-    /// @name Histograms
-    //@{
-    Histo1DPtr _h_thrustc[NJETPTMN];
-    Histo1DPtr _h_broadt[NJETPTMN];
-    Histo1DPtr _h_tot3dmass[NJETPTMN];
-    Histo1DPtr _h_tottrnsmass[NJETPTMN];
-    Histo1DPtr _h_y23c[NJETPTMN];
-    //@}
-
-    // Data members
-    double _alow1[NJETPTMN], _alow2[NJETPTMN], _alow3[NJETPTMN], _alow4[NJETPTMN], _alow5[NJETPTMN];
-    double _ahgh1[NJETPTMN], _ahgh2[NJETPTMN], _ahgh3[NJETPTMN], _ahgh4[NJETPTMN], _ahgh5[NJETPTMN];
-
-  };
-
-
-  DECLARE_RIVET_PLUGIN(CMS_2014_I1305624);
 
 }
