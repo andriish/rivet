@@ -461,8 +461,8 @@ namespace Rivet {
     /// Return the EM charge (as floating point)
     inline double charge(int pid) { return charge3(pid)/3.0; }
 
-    /// Return the EM charge (as floating point)
-    inline double abscharge(int pid) { return std::abs(charge(pid)); }
+    /// Return the absolute value of the EM charge (as floating point)
+    inline double abscharge(int pid) { return abscharge3(pid)/3.0; }
 
     //@}
 
