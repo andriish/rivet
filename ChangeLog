@@ -1,3 +1,9 @@
+2016-05-05  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update SLD_2002_S4869273 ref data to match publication erratum,
+	now updated in HepData. Thanks to Peter Skands for the report and
+	Mike Whalley / Graeme Watt for the quick fix and heads-up.
+
 2016-04-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS_2014_I1305624 event shapes analysis, with standalone
