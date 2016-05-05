@@ -1,5 +1,7 @@
 2016-05-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Version 2.4.2 release!
+
 	* Update SLD_2002_S4869273 ref data to match publication erratum,
 	now updated in HepData. Thanks to Peter Skands for the report and
 	Mike Whalley / Graeme Watt for the quick fix and heads-up.
