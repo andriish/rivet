@@ -1,9 +1,6 @@
 // -*- C++ -*-
-#include <iostream>
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/ParticleName.hh"
 
 namespace Rivet {
 
@@ -21,7 +18,6 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(Beam(), "Beams");
       addProjection(UnstableFinalState(), "UFS");
 
       _hist_cont_f0 = bookHisto1D(2, 1, 1);
@@ -31,22 +27,20 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = e.weight();
 
-      const Beam beamproj = applyProjection<Beam>(e, "Beams");
-      const double s = sqr(beamproj.sqrtS());
-      const double roots = sqrt(s);
+      // Find the Upsilons among the unstables
       const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-
-      // Find the upsilons
       Particles upsilons;
+
       // First in unstable final state
       foreach (const Particle& p, ufs.particles())
-        if (p.pid() == 553 || p.pid() == 100553 ) upsilons.push_back(p);
+        if (p.pid() == 553 || p.pid() == 100553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
+        /// @todo Understand -> eliminate HepMC digging
         foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
           if ( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
+          // Discard it if its parent has the same PDG ID code (avoid duplicates)
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
@@ -60,14 +54,18 @@ namespace Rivet {
           if (passed) upsilons.push_back(Particle(*p));
         }
       }
-      // Continuum
-      if (upsilons.empty()) {
+
+
+      // Finding done, now fill counters
+      const double weight = e.weight();
+      if (upsilons.empty()) { // Continuum
+
         _weightSum_cont += weight;
-        unsigned int nEtaA(0),nEtaB(0),nf0(0);
+        unsigned int nEtaA(0), nEtaB(0), nf0(0);
         foreach (const Particle& p, ufs.particles()) {
-          int id = p.abspid();
-          double xp = 2.*p.E()/roots;
-          double beta = p.p3().mod() / p.E();
+          const int id = p.abspid();
+          const double xp = 2.*p.E()/sqrtS();
+          const double beta = p.p3().mod() / p.E();
           if (id == 9010221) {
             _hist_cont_f0->fill(xp, weight/beta);
             ++nf0;
@@ -79,9 +77,9 @@ namespace Rivet {
         _count_f0[2]             += nf0*weight;
         _count_etaPrime_highZ[1] += nEtaA*weight;
         _count_etaPrime_allZ[2]  += nEtaB*weight;
-      }
-      else {
-        // Find an Upsilon
+
+      } else { // Upsilon(s) found
+
         foreach (const Particle& ups, upsilons) {
           int parentId = ups.pid();
           ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2) += weight;
@@ -91,17 +89,17 @@ namespace Rivet {
           LorentzTransform cms_boost;
           if (ups.p3().mod() > 1*MeV)
             cms_boost = LorentzTransform(-ups.momentum().boostVector());
-          double mass = ups.mass();
+          const double mass = ups.mass();
           unsigned int nEtaA(0), nEtaB(0), nf0(0);
-          foreach(const Particle& p , unstable) {
+          foreach(const Particle& p, unstable) {
             const int id = p.abspid();
-            FourMomentum p2 = cms_boost.transform(p.momentum());
-            double xp = 2.*p2.E()/mass;
-            double beta = p2.p3().mod()/p2.E();
-            if (id == 9010221) {
+            const FourMomentum p2 = cms_boost.transform(p.momentum());
+            const double xp = 2.*p2.E()/mass;
+            const double beta = p2.p3().mod()/p2.E();
+            if (id == 9010221) { //< ?
               ((parentId == 553) ? _hist_Ups1_f0 : _hist_Ups2_f0)->fill(xp, weight/beta);
               ++nf0;
-            } else if (id == 331) {
+            } else if (id == 331) { //< ?
               if (xp > 0.35) ++nEtaA;
               ++nEtaB;
             }
@@ -121,15 +119,12 @@ namespace Rivet {
 
     void finalize() {
 
-      /// @todo Better to group these by coherent 'if (weightSum_X)' statements?
-
       // High-Z eta' multiplicity
       Scatter2DPtr s111 = bookScatter2D(1, 1, 1, true);
       if (_weightSum_Ups1 > 0) // Point at 9.460
         s111->point(0).setY(_count_etaPrime_highZ[0] / _weightSum_Ups1, 0);
       if (_weightSum_cont > 0) // Point at 9.905
         s111->point(1).setY(_count_etaPrime_highZ[1] / _weightSum_cont, 0);
-
 
       // All-Z eta' multiplicity
       Scatter2DPtr s112 = bookScatter2D(1, 1, 2, true);
@@ -149,6 +144,7 @@ namespace Rivet {
       if (_weightSum_cont > 0) // Point at 10.45
         s511->point(2).setY(_count_f0[2] / _weightSum_cont, 0);
 
+      // Scale histos
       if (_weightSum_cont > 0.) scale(_hist_cont_f0, 1./_weightSum_cont);
       if (_weightSum_Ups1 > 0.) scale(_hist_Ups1_f0, 1./_weightSum_Ups1);
       if (_weightSum_Ups2 > 0.) scale(_hist_Ups2_f0, 1./_weightSum_Ups2);

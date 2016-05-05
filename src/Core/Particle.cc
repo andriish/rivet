@@ -24,6 +24,7 @@ namespace Rivet {
   }
 
 
+  /// @todo Use recursion through replica-avoiding functions to avoid bookkeeping duplicates
   vector<Particle> Particle::children() const {
     vector<Particle> rtn;
     if (isStable()) return rtn;

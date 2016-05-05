@@ -1,9 +1,6 @@
 // -*- C++ -*-
-#include <iostream>
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/ParticleName.hh"
 
 namespace Rivet {
 
@@ -14,7 +11,8 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2653028()
-      : Analysis("ARGUS_1993_S2653028"), _weightSum(0.)
+      : Analysis("ARGUS_1993_S2653028"),
+        _weightSum(0.)
     { }
 
 
@@ -134,6 +132,7 @@ namespace Rivet {
     Histo1DPtr _multPiA, _multPiB, _multK, _multpA, _multpB;
     //@}
 
+
     void findDecayProducts(const GenParticle* p,
                            vector<GenParticle*>& pionsA, vector<GenParticle*>& pionsB,
                            vector<GenParticle*>& protonsA, vector<GenParticle*>& protonsB,
@@ -167,6 +166,8 @@ namespace Rivet {
           findDecayProducts(*pp, pionsA, pionsB, protonsA, protonsB, kaons);
       }
     }
+
+
   };
 
 
