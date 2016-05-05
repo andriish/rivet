@@ -12,8 +12,12 @@ namespace Rivet {
 
     ARGUS_1993_S2669951()
       : Analysis("ARGUS_1993_S2669951"),
-        _count_etaPrime_highZ(2, 0.), _count_etaPrime_allZ(3, 0.), _count_f0(3, 0.),
-        _weightSum_cont(0.), _weightSum_Ups1(0.), _weightSum_Ups2(0.)
+        _count_etaPrime_highZ(2, 0.),
+        _count_etaPrime_allZ(3, 0.),
+        _count_f0(3, 0.),
+        _weightSum_cont(0.),
+        _weightSum_Ups1(0.),
+        _weightSum_Ups2(0.)
     {   }
 
 
@@ -37,7 +41,7 @@ namespace Rivet {
         if (p.pid() == 553 || p.pid() == 100553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
-        /// @todo Understand -> eliminate HepMC digging
+        /// @todo Replace HepMC digging with Particle::descendents etc. calls
         foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
           if ( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
           // Discard it if its parent has the same PDG ID code (avoid duplicates)
