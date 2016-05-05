@@ -38,7 +38,8 @@ namespace Rivet {
 
       // First in unstable final state
       foreach (const Particle& p, ufs.particles())
-        if (p.pid() == 553 || p.pid() == 100553) upsilons.push_back(p);
+        if (p.pid() == 553 || p.pid() == 100553)
+          upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
         /// @todo Replace HepMC digging with Particle::descendents etc. calls
@@ -63,6 +64,7 @@ namespace Rivet {
       // Finding done, now fill counters
       const double weight = e.weight();
       if (upsilons.empty()) { // Continuum
+        MSG_DEBUG("No Upsilons found => continuum event");
 
         _weightSum_cont += weight;
         unsigned int nEtaA(0), nEtaB(0), nf0(0);
@@ -72,10 +74,10 @@ namespace Rivet {
           const double beta = p.p3().mod() / p.E();
           if (id == 9010221) {
             _hist_cont_f0->fill(xp, weight/beta);
-            ++nf0;
+            nf0 += 1;
           } else if (id == 331) {
-            if (xp > 0.35) ++nEtaA;
-            ++nEtaB;
+            if (xp > 0.35) nEtaA += 1;
+            nEtaB += 1;
           }
         }
         _count_f0[2]             += nf0*weight;
@@ -83,9 +85,10 @@ namespace Rivet {
         _count_etaPrime_allZ[2]  += nEtaB*weight;
 
       } else { // Upsilon(s) found
+        MSG_DEBUG("Upsilons found => resonance event");
 
         foreach (const Particle& ups, upsilons) {
-          int parentId = ups.pid();
+          const int parentId = ups.pid();
           ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2) += weight;
           Particles unstable;
           // Find the decay products we want
@@ -102,10 +105,10 @@ namespace Rivet {
             const double beta = p2.p3().mod()/p2.E();
             if (id == 9010221) { //< ?
               ((parentId == 553) ? _hist_Ups1_f0 : _hist_Ups2_f0)->fill(xp, weight/beta);
-              ++nf0;
+              nf0 += 1;
             } else if (id == 331) { //< ?
-              if (xp > 0.35) ++nEtaA;
-              ++nEtaB;
+              if (xp > 0.35) nEtaA += 1;
+              nEtaB += 1;
             }
           }
           if (parentId == 553) {
