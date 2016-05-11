@@ -1,3 +1,9 @@
+2016-05-11  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Event::allParticles() to provide neater (but not *helpful*)
+	access to Rivet-wrapped versions of the raw particles in the
+	Event::genEvent() record, and hence reduce HepMC digging.
+
 2016-04-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Various clean-ups and fixes in ATLAS analyses using isolated

@@ -22,7 +22,7 @@ namespace Rivet {
   void Event::_init(const GenEvent& ge) {
     // Use Rivet's preferred units if possible
     #ifdef HEPMC_HAS_UNITS
-    _genEvent.use_units(HepMC::Units::GEV, HepMC::Units::MM);
+    _genevent.use_units(HepMC::Units::GEV, HepMC::Units::MM);
     #endif
 
     // Use the conventional alignment
@@ -35,7 +35,7 @@ namespace Rivet {
 
     // Debug printout to check that copying/mangling has worked
     /// @todo Enable this when HepMC has been fixed to allow printing to a stream like the Rivet logger.
-    //_genEvent.print();
+    //_genevent.print();
   }
 
 
@@ -58,9 +58,9 @@ namespace Rivet {
 
 
   // void Event::_geNormAlignment() {
-  //   if (!_genEvent.valid_beam_particles()) return;
+  //   if (!_genevent.valid_beam_particles()) return;
   //   typedef pair<HepMC::GenParticle*, HepMC::GenParticle*> GPPair;
-  //   GPPair bps = _genEvent.beam_particles();
+  //   GPPair bps = _genevent.beam_particles();
   //
   //   // Rotate e+- p and ppbar to put p along +z
   //   /// @todo Is there an e+ e- convention for longitudinal boosting, e.g. at B-factories? Different from LEP?
@@ -89,9 +89,24 @@ namespace Rivet {
   //                                  << bps.first->pdg_id() << "@pz=" << bps.first->momentum().pz()/GeV << ", "
   //                                  << bps.second->pdg_id() << "@pz=" << bps.second->momentum().pz()/GeV << endl;
   //     }
-  //     _geRot180x(_genEvent);
+  //     _geRot180x(_genevent);
   //   }
   // }
+
+
+  const Particles& Event::allParticles() const {
+    if (_particles.empty()) { //< assume that empty means no attempt yet made
+      for (const GenParticle* gp : particles(genEvent())) {
+        _particles += Particle(gp);
+      }
+    }
+    return _particles;
+  }
+
+
+  double Event::weight() const {
+    return (!_genevent.weights().empty()) ? _genevent.weights()[0] : 1.0;
+  }
 
 
 }
