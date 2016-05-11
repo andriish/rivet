@@ -100,6 +100,36 @@ function _rivet_config() {
 complete -F _rivet_config rivet-config
 
 
+##########################
+
+
+function _rivet_buildplugin() {
+    local cur prev commands options command
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    opts="--help -h --with-root --cmd"
+    if [[ ${cur} == -* ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+        if test -n "$COMPREPLY"; then
+            return 0
+        fi
+    fi
+
+    # COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
+    # if test -n "$COMPREPLY"; then
+    #     return 0
+    # fi
+
+    _filedir
+    return 0
+}
+
+
+complete -F _rivet_buildplugin rivet-buildplugin
+
+
 ##############################
 
 

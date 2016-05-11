@@ -21,6 +21,7 @@ if test $# -lt 1 || test -n "$tmp"; then
     echo "Options:"
     echo "  -h | --help: display this help message"
     echo "  --with-root: add ROOT link options (requires root-config on system)"
+    echo "  --cmd: just print the generated compiler command, do not execute it
     echo
     echo "TODO:"
     echo "  * is there a GCC option to parallelise the single-command compilation?"
