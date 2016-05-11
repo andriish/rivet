@@ -1,5 +1,8 @@
-2016-05-05  Andy Buckley  <andy.buckley@cern.ch>
+2016-05-11  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Specialise return error codes from the rivet script.
+
+2016-05-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version 2.4.2 release!
 

@@ -32,7 +32,7 @@ except:
         import rivet
     except:
         sys.stderr.write("The rivet Python module could not be loaded: is your PYTHONPATH set correctly?\n")
-        sys.exit(1)
+        sys.exit(5)
 
 rivet.util.check_python_version()
 rivet.util.set_process_name("rivet")
@@ -404,14 +404,12 @@ def logNEvt(n, starttime, maxevtnum):
 
 ## Do some checks on output histo file, before we stat the event loop
 histo_parentdir = os.path.dirname(os.path.abspath(opts.HISTOFILE))
-
 if not os.path.exists(histo_parentdir):
   logging.error('Parent path of output histogram file does not exist: %s\nExiting.' % histo_parentdir)
-  sys.exit(1)
-
+  sys.exit(4)
 if not os.access(histo_parentdir,os.W_OK):
   logging.error('Insufficient permissions to write output histogram file to directory %s\nExiting.' % histo_parentdir)
-  sys.exit(1)
+  sys.exit(4)
 
 
 ## Set up analysis handler
