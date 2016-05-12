@@ -1,3 +1,8 @@
+2016-05-12  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+        * Mark ATLAS_2012_I1082009 as validated after exhaustive tests with
+	Pythia8 and Sherpa in inclusive QCD mode.
+
 2016-05-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Specialise return error codes from the rivet script.
