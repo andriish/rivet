@@ -109,7 +109,7 @@ function _rivet_buildplugin() {
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    opts="--help -h --with-root --cmd"
+    opts="--help -h --with-root --cmd --dry-run"
     if [[ ${cur} == -* ]] ; then
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
         if test -n "$COMPREPLY"; then
