@@ -1,3 +1,9 @@
+2016-05-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove the last ref-data bin from table 16 of
+	ATLAS_2010_S8918562, due to data corruption. The corresponding
+	HepData record will be amended by ATLAS.
+
 2016-05-12  Holger Schulz  <holger.schulz@durham.ac.uk>
 
         * Mark ATLAS_2012_I1082009 as validated after exhaustive tests with
