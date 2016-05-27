@@ -48,7 +48,7 @@ dnl this block can go once we decide to have C++11 always on
 AC_MSG_CHECKING([whether to include C++11 flag for testing])
 AC_ARG_ENABLE(stdcxx11,
         AC_HELP_STRING([--enable-stdcxx11],
-        [turn on C++11 flag (only for testing, do not use in production!)]),
+        [turn on C++11 flag]),
         [],
         [enable_stdcxx11=no]
         )
