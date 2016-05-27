@@ -2464,8 +2464,10 @@ if __name__ == '__main__':
         pass
 
     ## Find number of (virtual) processing units
-    numcores = os.sysconf('SC_NPROCESSORS_ONLN')
-    if numcores is None:
+    import multiprocessing
+    try:
+        numcores = multiprocessing.cpu_count()
+    except:
         numcores = 1
 
     ## Parse command line options
@@ -2518,6 +2520,7 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
+    opts.OUTPUT_FONT = opts.OUTPUT_FONT.upper().split(",")
     opts.OUTPUT_FORMAT = opts.OUTPUT_FORMAT.upper().split(",")
 
     ## Check for no args
@@ -2611,7 +2614,6 @@ if __name__ == '__main__':
     datfiles = args
     plotword = "plots" if len(datfiles) > 1 else "plot"
     logging.info("Making %d %s" % (len(datfiles), plotword))
-    import multiprocessing
     pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
     try:
         for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
