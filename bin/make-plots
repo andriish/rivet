@@ -2520,7 +2520,7 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
-    opts.OUTPUT_FONT = opts.OUTPUT_FONT.upper().split(",")
+    opts.OUTPUT_FONT = opts.OUTPUT_FONT.upper()
     opts.OUTPUT_FORMAT = opts.OUTPUT_FORMAT.upper().split(",")
 
     ## Check for no args
