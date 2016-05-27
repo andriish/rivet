@@ -9,7 +9,7 @@ RatioPlotSameStyle=1
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d02-x01-y01
 Title=Gap fraction as a function of leading dijet scalar mean $p_T$
-XLabel=$\bar{p_T}$ [GeV]
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=Gap fraction
 ShowZero=0
 LogX=1
@@ -27,8 +27,8 @@ RatioPlotSameStyle=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d04-x01-y01
-Title=$\langle N_\text{jets}$ in rapidity interval $\rangle$ as a function of $\bar{p_T}$
-XLabel=$\bar{p_T}$ [GeV]
+Title=$\langle N_\text{jets}$ in rapidity interval $\rangle$ as a function of $\overline{p_T}$
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=$\langle N_\text{jets}$ in rapidity interval $\rangle$
 ShowZero=0
 LogX=1
@@ -46,8 +46,8 @@ RatioPlotSameStyle=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d06-x01-y01
-Title=$\langle \cos(\pi - \Delta\phi)\rangle$ for inclusive events as a function of $\bar{p_T}$
-XLabel=$\bar{p_T}$ [GeV]
+Title=$\langle \cos(\pi - \Delta\phi)\rangle$ for inclusive events as a function of $\overline{p_T}$
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=$\langle \cos(\pi - \Delta\phi)\rangle$
 ShowZero=0
 LogX=1
@@ -65,8 +65,8 @@ RatioPlotSameStyle=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d08-x01-y01
-Title=$\langle \cos(2\Delta\phi)\rangle$/$\langle \cos(\pi - \Delta\phi)\rangle$ for inclusive events as a function of $\bar{p_T}$
-XLabel=$\bar{p_T}$ [GeV]
+Title=$\langle \cos(2\Delta\phi)\rangle$/$\langle \cos(\pi - \Delta\phi)\rangle$ for inclusive events as a function of $\overline{p_T}$
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=$\langle \cos(2\Delta\phi)\rangle$/$\langle \cos(\pi - \Delta\phi)\rangle$
 ShowZero=0
 LogX=1
@@ -84,8 +84,8 @@ RatioPlotSameStyle=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d10-x01-y01
-Title=$\langle \cos(\pi - \Delta\phi)\rangle$ for gap events as a function of $\bar{p_T}$
-XLabel=$\bar{p_T}$ [GeV]
+Title=$\langle \cos(\pi - \Delta\phi)\rangle$ for gap events as a function of $\overline{p_T}$
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=$\langle \cos(\pi - \Delta\phi)\rangle$
 ShowZero=0
 LogX=1
@@ -103,8 +103,8 @@ RatioPlotSameStyle=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d12-x01-y01
-Title=$\langle \cos(2\Delta\phi)\rangle$/$\langle \cos(\pi - \Delta\phi)\rangle$ for gap events as a function of $\bar{p_T}$
-XLabel=$\bar{p_T}$ [GeV]
+Title=$\langle \cos(2\Delta\phi)\rangle$/$\langle \cos(\pi - \Delta\phi)\rangle$ for gap events as a function of $\overline{p_T}$
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=$\langle \cos(2\Delta\phi)\rangle$/$\langle \cos(\pi - \Delta\phi)\rangle$
 ShowZero=0
 LogX=1
@@ -338,8 +338,8 @@ RatioPlotSameStyle=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d38-x01-y01
-Title=$\langle \cos(2\Delta\phi)\rangle$ for inclusive events as a function of $\bar{p_T}$
-XLabel=$\bar{p_T}$ [GeV]
+Title=$\langle \cos(2\Delta\phi)\rangle$ for inclusive events as a function of $\overline{p_T}$
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=$\langle \cos(2\Delta\phi)\rangle$
 ShowZero=0
 LogX=1
@@ -357,8 +357,8 @@ RatioPlotSameStyle=1
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1307243/d40-x01-y01
-Title=$\langle \cos(2\Delta\phi)\rangle$ for gap events as a function of $\bar{p_T}$
-XLabel=$\bar{p_T}$ [GeV]
+Title=$\langle \cos(2\Delta\phi)\rangle$ for gap events as a function of $\overline{p_T}$
+XLabel=$\overline{p_T}$ [GeV]
 YLabel=$\langle \cos(2\Delta\phi)\rangle$
 ShowZero=0
 LogX=1
