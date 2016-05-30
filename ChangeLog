@@ -1,3 +1,7 @@
+2016-05-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/rivet: add -o as a more standard 'output' option flag alias to -H.
+
 2016-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove the last ref-data bin from table 16 of
