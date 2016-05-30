@@ -1,5 +1,8 @@
 2016-05-30  Andy Buckley  <andy.buckley@cern.ch>
 
+	* pyext/rivet/util.py: Add pandoc --wrap/--no-wrap CLI detection
+	and batch conversion.
+
 	* bin/rivet: add -o as a more standard 'output' option flag alias to -H.
 
 2016-05-23  Andy Buckley  <andy.buckley@cern.ch>

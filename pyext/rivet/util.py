@@ -88,10 +88,10 @@ def texpand(s):
         .replace(r"\pt", r"\ensuremath{p_\mathrm{T}}\xspace") \
         .replace(r"\sqrts", r"\ensuremath{\sqrt{s}}\xspace") \
         .replace(r"\sqrtS", r"\ensuremath{\sqrt{s}}\xspace") \
-        .replace(r"\MeV", r"\ensuremath{\text{M\eV}}\xspace") \
-        .replace(r"\GeV", r"\ensuremath{\text{G\eV}}\xspace") \
-        .replace(r"\TeV", r"\ensuremath{\text{T\eV}}\xspace") \
-        .replace(r"\eV", r"\ensuremath{\text{e\kern-0.15ex{}V}}\xspace")
+        .replace(r"\MeV", r"\text{M\eV}\xspace") \
+        .replace(r"\GeV", r"\text{G\eV}\xspace") \
+        .replace(r"\TeV", r"\text{T\eV}\xspace") \
+        .replace(r"\eV", r"\text{e\kern-0.15ex{}V}\xspace")
     return t
 
 
@@ -99,7 +99,10 @@ def detex(tex):
     """Use pandoc (if available) to modify LaTeX text strings from
     analysis metadata for use as plain text, e.g. as printed to the terminal.
 
-    TODO: Maybe group many strings to be processed together, to save on system call / pandoc startup?
+    The argument can either be a string or an iterable of strings.
+
+    TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
+    TODO: Replace e^+- -> e+-?
     """
     if not tex:
         return tex
@@ -179,17 +182,22 @@ def detex(tex):
     \newcommand{\TeV}{TeV }
     """
     import subprocess, shlex
-    p = subprocess.Popen(shlex.split("pandoc -f latex -t plain --no-wrap"),
+    nowrap_flags = "--wrap=none"
+    x = subprocess.Popen(["pandoc", nowrap_flags, "/dev/null"], stdout=subprocess.PIPE).wait()
+    if x != 0:
+        nowrap_flags = "--wrap=none"
+    p = subprocess.Popen(shlex.split("pandoc -f latex -t plain " + nowrap_flags),
                          stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    plain, err = p.communicate((texheader + tex).replace("\n", ""))
-    plain = plain.replace(r"\&", "&")
-    # TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
-    # TODO: Replace e^+- -> e+-?
-    if plain and plain[-1] == "\n":
-        return plain[:-1]
-    elif plain:
-        return plain
+    texbody = tex if type(tex) is str else "@@".join(tex)
+    # texbody = texbody.replace("$", "")
+    plain, err = p.communicate((texheader + texbody).replace("\n", ""))
+    plain = plain.replace("\n", "")
+    plains = plain.replace(r"\&", "&").split("@@")
+    if type(tex) is str:
+        assert len(plains) == 1
+        return plains[0] if plains[0] else tex
     else:
-        return tex
+        return plains if plains else tex
 
-#print detex(r"Foo \! $\int \text{bar} \d{x} \sim \; \frac{1}{3} \neq \emph{foo}$ \to \gg bar")
+# print detex(r"Foo \! $\int \text{bar} \d{x} \sim \; \frac{1}{3} \neq \emph{foo}$ \to \gg bar")
+# print detex([r"Foo \! $\int \text{bar} \d{x} \sim", r"\frac{1}{3} \neq \emph{foo}$ \to \gg bar"])
