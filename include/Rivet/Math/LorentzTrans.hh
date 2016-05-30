@@ -11,22 +11,6 @@
 namespace Rivet {
 
 
-  /// @name Simple Lorentz factor conversions
-  //@{
-
-  /// Calculate the gamma factor from beta
-  inline double lorentzBeta2Gamma(double beta) {
-    return 1.0 / sqrt(1 - sqr(beta));
-  }
-
-  /// Calculate beta from the gamma factor
-  inline double lorentzGamma2Beta(double gamma) {
-    return sqrt(1 - sqr(1/gamma));
-  }
-
-  //@}
-
-
   /// @brief Object implementing Lorentz transform calculations and boosts.
   ///
   /// @note These boosts are defined actively, i.e. as modifications of vectors
@@ -37,11 +21,37 @@ namespace Rivet {
   class LorentzTransform {
   public:
 
+    /// @name Simple Lorentz factor conversions
+    //@{
+
+    /// Calculate the \f$ \gamma \f$ factor from \f$ \beta \f$
+    static double beta2gamma(double beta) {
+      return 1.0 / sqrt(1 - sqr(beta));
+    }
+
+    /// Calculate \f$ \beta \f$ from the \f$ \gamma \f$ factor
+    static double gamma2beta(double gamma) {
+      return sqrt(1 - sqr(1/gamma));
+    }
+
+    /// Calculate the \f$ \gamma \f$ factor from \f$ \bar{\beta}^2 = 1-\beta^2 \f$
+    static double betabarsq2gamma(double betabarsq) {
+      return 1.0 / sqrt(betabarsq);
+    }
+
+    /// Calculate \f$ \bar{\beta}^2 = 1-\beta^2 \f$ from the \f$ \gamma \f$ factor
+    static double gamma2betabarsq(double gamma) {
+      return 1.0 / sqr(gamma);
+    }
+
+    //@}
+
+
     /// @name Construction
     //@{
 
     /// Constructor for an active boost (i.e. object velocity += in boost direction)
-    static LorentzTransform mkObjectTransform(const Vector3& boost) {
+    static LorentzTransform mkObjTransformFromBeta(const Vector3& boost) {
       return LorentzTransform(boost);
     }
 
@@ -56,15 +66,15 @@ namespace Rivet {
       _boostMatrix = Matrix<4>::mkIdentity();
     }
 
-    /// Constructor for an active boost
-    LorentzTransform(const Vector3& boost) {
-      setBoost(boost);
-    }
+    // /// Constructor for an active boost
+    // LorentzTransform(const Vector3& boost) {
+    //   setBoost(boost);
+    // }
 
-    /// Constructor for an active boost, via Cartesian components
-    LorentzTransform(double betaX, double betaY, double betaZ) {
-      setBoost(betaX, betaY, betaZ);
-    }
+    // /// Constructor for an active boost, via Cartesian components
+    // LorentzTransform(double betaX, double betaY, double betaZ) {
+    //   setBoost(betaX, betaY, betaZ);
+    // }
 
     //@}
 
@@ -76,27 +86,26 @@ namespace Rivet {
     LorentzTransform& setBoost(const Vector3& boost) {
       assert(boost.mod2() < 1);
       const double beta = boost.mod();
-      const double gamma = lorentzBeta2Gamma(beta);
+      const double gamma = beta2gamma(beta);
       _boostMatrix = Matrix<4>::mkIdentity();
       _boostMatrix.set(0, 0, gamma);
       _boostMatrix.set(1, 1, gamma);
-      // Positive coeff since these are active boosts
-      _boostMatrix.set(0, 1, +beta*gamma);
-      _boostMatrix.set(1, 0, +beta*gamma);
+      _boostMatrix.set(0, 1, +beta*gamma); //< +ve coeff since active boost
+      _boostMatrix.set(1, 0, +beta*gamma); //< +ve coeff since active boost
       if (beta > 0) _boostMatrix = rotate(Vector3::mkX(), boost)._boostMatrix;
       return *this;
     }
 
-    /// Set the \f$ \vec\beta \f$ vector for an active Lorentz boost, as 3-components
-    LorentzTransform& setBoost(double betaX, double betaY, double betaZ) {
-      return setBoost(Vector3(betaX, betaY, betaZ));
-    }
+    // /// Set the \f$ \vec\beta \f$ vector for an active Lorentz boost, as 3-components
+    // LorentzTransform& setBoost(double betaX, double betaY, double betaZ) {
+    //   return setBoost(Vector3(betaX, betaY, betaZ));
+    // }
 
     /// Get the \f$ \vec\beta \f$ vector for an active Lorentz boost
     Vector3 boost() const {
       FourMomentum boost(_boostMatrix.getColumn(0));
       //cout << "!!!" << boost << endl;
-      if (boost.isZero()) return boost;
+      if (boost.isZero()) return Vector3();
       assert(boost.E() > 0);
       const double beta = boost.p3().mod() / boost.E();
       return boost.p3().unit() * beta;
@@ -109,7 +118,7 @@ namespace Rivet {
 
     /// Get the \f$ \gamma \f$ factor
     double gamma() const {
-      return lorentzBeta2Gamma(beta());
+      return beta2gamma(beta());
     }
 
     //@}
