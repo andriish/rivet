@@ -39,34 +39,52 @@ namespace Rivet {
   }
 
 
-  Vector3 cmsBoost(const FourMomentum& pa, const FourMomentum& pb) {
-    /// @todo Rewrite for numerical precision in terms of 1-B^2
+  Vector3 cmsBoostBeta(const FourMomentum& pa, const FourMomentum& pb) {
     Vector3 rtn = (pa.p3() + pb.p3()) / (pa.E() + pb.E());
     return rtn;
   }
 
-
-  Vector3 acmsBoost(const FourMomentum& pa, const FourMomentum& pb) {
+  Vector3 acmsBoostBeta(const FourMomentum& pa, const FourMomentum& pb) {
     const static double MNUCLEON = 939*MeV; //< nominal nucleon mass
-    Vector3 rtn = cmsBoost(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
+    Vector3 rtn = cmsBoostBeta(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
     return rtn;
   }
 
-  Vector3 acmsBoost(const ParticlePair& beams) {
-    Vector3 rtn = cmsBoost(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
+  Vector3 acmsBoostBeta(const ParticlePair& beams) {
+    Vector3 rtn = cmsBoostBeta(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
+    return rtn;
+  }
+
+
+  Vector3 cmsBoostGamma(const FourMomentum& pa, const FourMomentum& pb) {
+    Vector3 rtn; // = (pa.p3() + pb.p3()) / (pa.E() + pb.E());
+    return rtn;
+  }
+
+  Vector3 acmsBoostGamma(const FourMomentum& pa, const FourMomentum& pb) {
+    const static double MNUCLEON = 939*MeV; //< nominal nucleon mass
+    Vector3 rtn = cmsBoostGamma(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
+    return rtn;
+  }
+
+  Vector3 acmsBoostGamma(const ParticlePair& beams) {
+    Vector3 rtn = cmsBoostGamma(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
     return rtn;
   }
 
 
   LorentzTransform cmsTransform(const FourMomentum& pa, const FourMomentum& pb) {
-    /// @todo Rewrite for numerical precision in terms of 1-B^2
-    return LorentzTransform(-cmsBoost(pa, pb));
+    /// @todo Automatically choose to construct from beta or gamma according to which is more precise?
+    return LorentzTransform::mkFrameTransformFromGamma(cmsBoostGamma(pa, pb));
   }
 
-
   LorentzTransform acmsTransform(const FourMomentum& pa, const FourMomentum& pb) {
-    /// @todo Rewrite for numerical precision in terms of 1-B^2
-    return LorentzTransform(-acmsBoost(pa, pb));
+    /// @todo Automatically choose to construct from beta or gamma according to which is more precise?
+    return LorentzTransform::mkFrameTransformFromGamma(acmsBoostGamma(pa, pb));
+  }
+
+  LorentzTransform acmsTransform(const ParticlePair& beams) {
+    return LorentzTransform::mkFrameTransformFromGamma(acmsBoostGamma(beams));
   }
 
 

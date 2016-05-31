@@ -184,4 +184,18 @@ namespace Rivet {
   }
 
 
+  //////////////////////
+
+
+  string to_str(const ParticlePair& pair) {
+    stringstream out;
+    out << "["
+        << PID::toParticleName(pair.first.pid()) << " @ "
+        << pair.first.momentum().E()/GeV << " GeV, "
+        << PID::toParticleName(pair.second.pid()) << " @ "
+        << pair.second.momentum().E()/GeV << " GeV]";
+    return out.str();
+  }
+
+
 }

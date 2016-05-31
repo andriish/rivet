@@ -308,19 +308,16 @@ namespace Rivet {
   //@}
 
 
-  /// @name String representation
+  /// @name Particle pair functions
   //@{
 
-  /// Print a ParticlePair as a string.
-  inline std::string to_str(const ParticlePair& pair) {
-    stringstream out;
-    out << "["
-        << PID::toParticleName(pair.first.pid()) << " @ "
-        << pair.first.momentum().E()/GeV << " GeV, "
-        << PID::toParticleName(pair.second.pid()) << " @ "
-        << pair.second.momentum().E()/GeV << " GeV]";
-    return out.str();
+  /// Get the PDG ID codes of a ParticlePair
+  inline PdgIdPair pids(const ParticlePair& pp) {
+    return make_pair(pp.first.pid(), pp.second.pid());
   }
+
+  /// Print a ParticlePair as a string.
+  std::string to_str(const ParticlePair& pair);
 
   /// Allow ParticlePair to be passed to an ostream.
   inline std::ostream& operator<<(std::ostream& os, const ParticlePair& pp) {

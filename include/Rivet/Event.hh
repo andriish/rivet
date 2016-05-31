@@ -47,14 +47,14 @@ namespace Rivet {
     /// @name Major event properties
     //@{
 
-    // /// Get the beam particles
-    // ParticlePair beams() const;
+    /// Get the beam particles
+    ParticlePair beams() const;
 
-    // /// Get the beam centre-of-mass energy
-    // double sqrtS() const;
+    /// Get the beam centre-of-mass energy
+    double sqrtS() const;
 
-    // /// Get the beam centre-of-mass energy per nucleon
-    // double asqrtS() const;
+    /// Get the beam centre-of-mass energy per nucleon
+    double asqrtS() const;
 
     // /// Get the boost to the beam centre-of-mass
     // Vector3 beamCMSBoost() const;

@@ -7,11 +7,13 @@
 namespace Rivet {
 
 
-  // ParticlePair Event::beams() const { return Rivet::beams(*this); }
+  ParticlePair Event::beams() const { return Rivet::beams(*this); }
 
-  // double Event::sqrtS() const { return Rivet::sqrtS(*this); }
+  // PdgIdPair Event::beamIds() const { return pids(beams()); }
 
-  // double Event::asqrtS() const { return Rivet::asqrtS(*this); }
+  double Event::sqrtS() const { return Rivet::sqrtS(beams()); }
+
+  double Event::asqrtS() const { return Rivet::asqrtS(beams()); }
 
   // Vector3 Event::beamCMSBoost() const { return Rivet::beamCMSBoost(*this); }
 
