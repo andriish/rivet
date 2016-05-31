@@ -65,7 +65,7 @@ def is_comment(line):
 
 
 
-class Inputdata(object):
+class InputData(object):
 
     def __init__(self, filename):
         self.filename = filename+".dat"
@@ -76,8 +76,8 @@ class Inputdata(object):
         self.description = {}
         self.pathdescriptions = []
 
-        self.description['is2dim'] = False
-        f = open(filename+'.dat')
+        self.is2dim = False
+        f = open(self.filename)
         for line in f:
             m = pat_begin_block.match(line)
             if m:
@@ -108,6 +108,21 @@ class Inputdata(object):
         f.close()
 
         self.apply_config_files(opts.CONFIGFILES)
+
+
+        @property
+        def is2dim(self):
+            return self.attr_bool("is2dim", False)
+        @is2dim.setter
+        def is2dim(self, val):
+            self.set_attr("is2dim", val)
+
+
+        # TODO: add more rw properties for plotsize(x,y), ratiosize(y),
+        #   show_mainplot, show_ratioplot, show_legend, log(x,y,z), rebin,
+        #   drawonly, legendonly, plotorder, stack,
+        #   label(x,y,z), majorticks(x,y,z), minorticks(x,y,z),
+        #   min(x,y,z), max(x,y,z), range(x,y,z)
 
 
         ## Plot (and subplot) sizing
@@ -168,11 +183,10 @@ class Inputdata(object):
         sortedhistolist = []
         for i in sorted(histoordermap.keys()):
             sortedhistolist.extend(histoordermap[i])
-        self.description['DrawOnly']=sortedhistolist
+        self.description['DrawOnly'] = sortedhistolist
 
 
-        # inherit various values from histograms if not explicitly
-        # set.
+        ## Inherit various values from histograms if not explicitly set
         for k in ['LogX', 'LogY', 'LogZ',
                   'XLabel', 'YLabel', 'ZLabel',
                   'XCustomMajorTicks', 'YCustomMajorTicks', 'ZCustomMajorTicks']:
@@ -181,16 +195,46 @@ class Inputdata(object):
         return
 
 
+    def has_attr(self, key):
+        return self.description.has_key(key)
+
+    def set_attr(self, key, val):
+        self.description[key] = str(val)
+
+    def attr(self, key, default=None):
+        return self.description.get(key, default)
+
+    def attr_bool(self, key, default=None):
+        x = self.attr(key, default)
+        if x is None: return x
+        if x.lower() in ["1", "true", "yes", "on"]: return True
+        if x.lower() in ["0", "false", "no", "off"]: return False
+        return None
+
+    def attr_int(self, key, default=None):
+        x = self.attr(key, default)
+        try:
+            x = int(x)
+        except:
+            x = None
+        return x
+
+    def attr_float(self, key, default=None):
+        x = self.attr(key)
+        try:
+            x = float(x)
+        except:
+            x = None
+        return x
+
+
     def inherit_from_histos(self, k):
-        # note: this will inherit the key from a random histogram:
-        # only use if you're sure all histograms have this key!
+        """Note: this will inherit the key from a random histogram:
+        only use if you're sure all histograms have this key!"""
         if not self.description.has_key(k):
             h = list(self.histos.itervalues())[0]
             if h.description.has_key(k):
                 self.description[k] = h.description[k]
-
-        return
-
 
 
     def read_input(self, f):
@@ -236,14 +280,13 @@ class Inputdata(object):
                         ## Then evaluate path-based settings, e.g. for HISTOGRAMs
                         m = pat_path_property.match(lines[i])
                         if m:
-                            regex, prop, value=m.group(1,2,3)
+                            regex, prop, value = m.group(1,2,3)
                             for obj_dict in [self.special, self.histos, self.functions]:
                                 for path, obj in obj_dict.iteritems():
                                     if re.match(regex, path):
                                         ## Use strip here to deal with DOS newlines containing \r
                                         obj.description.update({prop.strip() : value.strip()})
                 cf.close()
-
 
 
 
@@ -266,15 +309,12 @@ class Plot(object):
 
     def stack_histograms(self,inputdata):
         if inputdata.description.has_key('Stack'):
-            foo=[]
-            for i in inputdata.description['Stack'].strip().split():
-                if i in inputdata.histos.keys():
-                    foo.append(i)
-            previous=''
-            for i in foo:
-                if previous!='':
+            stackhists = [h for h in inputdata.attr('Stack').strip().split() if h in inputdata.histos)
+            previous = ''
+            for i in stackhists:
+                if previous != '':
                     inputdata.histos[i].add(inputdata.histos[previous])
-                previous=i
+                previous = i
 
     def set_histo_options(self,inputdata):
         if inputdata.description.has_key('ConnectGaps'):
@@ -289,146 +329,93 @@ class Plot(object):
         self.set_ymin(inputdata)
         self.set_zmax(inputdata)
         self.set_zmin(inputdata)
-        inputdata.description['Borders']=(self.xmin, self.xmax, self.ymin, self.ymax, self.zmin, self.zmax)
+        inputdata.description['Borders'] = (self.xmin, self.xmax, self.ymin, self.ymax, self.zmin, self.zmax)
 
     def set_xmin(self,inputdata):
-        if inputdata.description.has_key('XMin'):
-            self.xmin = float(inputdata.description['XMin'])
-        else:
-            self.xmin = min(inputdata.histos[i].getXMin() for i in inputdata.description['DrawOnly'])
+        self.xmin = self.attr_float("XMin")
+        if self.xmin is None:
+            self.xmin = min(inputdata.histos[h].getXMin() for h in inputdata.description['DrawOnly'])
 
     def set_xmax(self,inputdata):
-        #print inputdata.description
-        if inputdata.description.has_key('XMax'):
-            self.xmax = float(inputdata.description['XMax'])
-        else:
-            #print inputdata.description['DrawOnly']
-            self.xmax = max(inputdata.histos[i].getXMax() for i in inputdata.description['DrawOnly'])
+        self.xmax = self.attr_float("XMax")
+        if self.xmax is None:
+            self.xmax = min(inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly'])
 
     def set_ymin(self,inputdata):
         if inputdata.description.has_key('YMin'):
-            self.ymin = float(inputdata.description['YMin'])
+            self.ymin = inputdata.attr_float('YMin')
         else:
-            foo=[]
-            for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getYMin(self.xmin, self.xmax, inputdata.description['LogY']))
+            ymins = [inputdata.histos[i].getYMin(self.xmin, self.xmax, inputdata.description['LogY']) for i in inputdata.attr('DrawOnly')]
+            minymin = min(ymins)
             if inputdata.description['is2dim']:
-                self.ymin=min(foo)
+                self.ymin = minymin
             else:
-                showzero = True
-                if inputdata.description.has_key('ShowZero'):
-                    if inputdata.description['ShowZero']=='0':
-                        showzero = False
+                showzero = inputdata.attr_bool("ShowZero", True)
                 if showzero:
-                    if min(foo) > -1e-4:
-                        self.ymin = 0
-                    else:
-                        self.ymin = 1.1*min(foo)
+                    self.ymin = 0. if minymin > -1e-4 else 1.1*minymin
                 else:
-                    if min(foo) < -1e-4:
-                        self.ymin = 1.1*min(foo)
-                    elif min(foo) < 1e-4:
-                        self.ymin = 0
-                    else:
-                        self.ymin = 0.9*min(foo)
-
+                    self.ymin = 1.1*min(foo) if minymin < -1e-4 else 0 if minymin < 1e-4 else 0.9*minymin
                 if inputdata.description['LogY']:
-                    foo=[item for item in foo if item>0.0]
-                    if len(foo)==0:
-                        if self.ymax==0:
-                            self.ymax=1
-                        foo.append(2e-7*self.ymax)
+                    ymins = [ymin for ymin in ymins if ymin > 0.0]
+                    if not ymins:
+                        if self.ymax == 0:
+                            self.ymax = 1
+                        ymins.append(2e-7*self.ymax)
+                    minymin = min(ymins)
                     fullrange = opts.FULL_RANGE
-                    if inputdata.description.has_key('FullRange'):
-                        if inputdata.description['FullRange']=='1':
-                            fullrange = True
-                        else:
-                            fullrange = False
-                    if fullrange:
-                        self.ymin = min(foo)/1.7
-                    else:
-                        self.ymin = max(min(foo)/1.7, 2e-7*self.ymax)
-                if self.ymin==self.ymax:
-                    self.ymin-=1
-                    self.ymax+=1
+                    if inputdata.has_attr('FullRange'):
+                        fullrange = inputdata.attr_bool('FullRange')
+                    self.ymin = minymin/1.7 if fullrange else max(minymin/1.7, 2e-7*self.ymax)
+
+                if self.ymin == self.ymax:
+                    self.ymin -= 1
+                    self.ymax += 1
 
     def set_ymax(self,inputdata):
-        if inputdata.description.has_key('YMax'):
-            self.ymax = float(inputdata.description['YMax'])
+        if inputdata.has_attr('YMax'):
+            self.ymax = inputdata.attr_float('YMax')
         else:
-            foo=[]
-            for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getYMax(self.xmin, self.xmax))
-            if inputdata.description['is2dim']:
-                self.ymax=max(foo)
-            else:
-                if inputdata.description['LogY']:
-                    self.ymax=1.7*max(foo)
-                else:
-                    self.ymax=1.1*max(foo)
+            self.ymax = max(inputdata.histos[h].getYMax(self.xmin, self.xmax) for h in inputdata.attr('DrawOnly'))
+            if not inputdata.is2dim:
+                self.ymax *= (1.7 if inputdata.attr_bool('LogY') else 1.1)
 
     def set_zmin(self,inputdata):
-        if inputdata.description.has_key('ZMin'):
-            self.zmin = float(inputdata.description['ZMin'])
+        if inputdata.has_attr('ZMin'):
+            self.zmin = inputdata.attr_float('ZMin')
         else:
-            foo=[]
-            for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getZMin(self.xmin, self.xmax, self.ymin, self.ymax))
-            if not foo:
-                self.zmin = min(foo)
-            else:
-                showzero = True
-                if inputdata.description.has_key('ShowZero'):
-                    if inputdata.description['ShowZero']=='0':
-                        showzero = False
+            zmins = [inputdata.histos[i].getZMin(self.xmin, self.xmax, self.ymin, self.ymax) for i in inputdata.attr('DrawOnly')]
+            minzmin = min(zmins)
+            self.zmin = minzmin
+            if zmins:
+                showzero = inputdata.attr_bool('ShowZero', True)
                 if showzero:
-                    if min(foo) > -1e-4:
-                        self.zmin = 0
-                    else:
-                        self.zmin = 1.1*min(foo)
+                    self.zmin = 0 if minzmin > -1e-4 else 1.1*minzmin
                 else:
-                    if min(foo) < -1e-4:
-                        self.zmin = 1.1*min(foo)
-                    elif min(foo) < 1e-4:
-                        self.zmin = 0
-                    else:
-                        self.zmin = 0.9*min(foo)
+                    self.zmin = 1.1*minzmin if minzmin < -1e-4 else 0. if minzmin < 1e-4 else 0.9*minzmin
+                if inputdata.attr_bool('LogZ', False):
+                    zmins = [zmin for zmin in zmins if zmin > 0]
+                    if not zmins:
+                        if self.zmax == 0:
+                            self.zmax = 1
+                        zmins.append(2e-7*self.zmax)
+                    minzmin = min(zmins)
+                    fullrange = inputdata.attr_bool("FullRange", opts.FULL_RANGE)
+                    self.zmin = minzmin/1.7 if fullrange else max(minzmin/1.7, 2e-7*self.zmax)
 
-                if inputdata.description['LogZ']:
-                    foo=[item for item in foo if item>0.0]
-                    if len(foo)==0:
-                        if self.zmax==0:
-                            self.zmax=1
-                        foo.append(2e-7*self.zmax)
-                    fullrange = opts.FULL_RANGE
-                    if inputdata.description.has_key('FullRange'):
-                        if inputdata.description['FullRange']=='1':
-                            fullrange = True
-                        else:
-                            fullrange = False
-                    if fullrange:
-                        self.zmin = min(foo)/1.7
-                    else:
-                        self.zmin = max(min(foo)/1.7, 2e-7*self.zmax)
-                if self.zmin==self.zmax:
-                    self.zmin-=1
-                    self.zmax+=1
+                if self.zmin == self.zmax:
+                    self.zmin -= 1
+                    self.zmax += 1
 
     def set_zmax(self,inputdata):
-        if inputdata.description.has_key('ZMax'):
-            self.zmax = float(inputdata.description['ZMax'])
-        else:
-            foo=[]
-            for i in inputdata.description['DrawOnly']:
-                foo.append(inputdata.histos[i].getZMax(self.xmin, self.xmax, self.ymin, self.ymax))
-            if foo:
-                self.zmax = max(foo)
-            else:
-                self.zmax = 1
+        self.zmax = inputdata.attr_float('ZMax')
+        if self.zmax is None:
+            zmaxs = [inputdata.histos[h].getZMax(self.xmin, self.xmax, self.ymin, self.ymax) for h in inputdata.attr('DrawOnly')]
+            self.zmax = max(zmaxs) if zmaxs else 1
 
 
     def draw(self):
         pass
+
 
     def write_header(self,inputdata):
         if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
@@ -565,7 +552,7 @@ class MainPlot(Plot):
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
             out += legend.draw()
         if inputdata.description['is2dim']:
-            colorscale = Colorscale(inputdata.description,self.coors)
+            colorscale = ColorScale(inputdata.description,self.coors)
             out += colorscale.draw()
         frame = Frame()
         out += frame.draw(inputdata)
@@ -978,7 +965,7 @@ class Legend(object):
             return 'l'
 
 
-class Colorscale(object):
+class ColorScale(object):
 
     def __init__(self, description, coors):
         self.description = description
@@ -986,7 +973,7 @@ class Colorscale(object):
 
     def draw(self):
         out = ''
-        out += '\n%\n% Colorscale\n%\n'
+        out += '\n%\n% ColorScale\n%\n'
         out += '\\rput(1,0){\n'
         out += '  \\psset{xunit=4mm}\n'
         out += '  \\rput(0.5,0){\n'
@@ -1308,7 +1295,6 @@ class Function(DrawableObject):
         out += self.stoppsset()
         out += self.stopclip()
         return out
-
 
 
 
@@ -1818,6 +1804,7 @@ class Histo1D(Histogram):
                         raise Exception('Histo1D does not have 8 columns.'+line)
 
 
+
 class Histo2D(Histogram):
 
     def read_input_data(self, f):
@@ -2147,9 +2134,6 @@ class YTicks(Ticks):
 
 
 
-
-
-
 class ZTicks(Ticks):
 
     def __init__(self, description, coors):
@@ -2277,9 +2261,6 @@ def try_cmd(args):
     try:
         subprocess.check_output(args, stderr=subprocess.STDOUT)
         return True
-    except AttributeError:
-        # Python <=2.6 does not provide check_output
-        return True
     except:
         return False
 
@@ -2305,7 +2286,7 @@ def process_datfile(datfile):
     shutil.copy(datpath, tempdir)
 
     ## Make TeX file
-    inputdata = Inputdata(os.path.join(dirname,filename))
+    inputdata = InputData(os.path.join(dirname,filename))
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
     p = Plot(inputdata)
