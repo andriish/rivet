@@ -109,22 +109,6 @@ class InputData(object):
 
         self.apply_config_files(opts.CONFIGFILES)
 
-
-        @property
-        def is2dim(self):
-            return self.attr_bool("is2dim", False)
-        @is2dim.setter
-        def is2dim(self, val):
-            self.set_attr("is2dim", val)
-
-
-        # TODO: add more rw properties for plotsize(x,y), ratiosize(y),
-        #   show_mainplot, show_ratioplot, show_legend, log(x,y,z), rebin,
-        #   drawonly, legendonly, plotorder, stack,
-        #   label(x,y,z), majorticks(x,y,z), minorticks(x,y,z),
-        #   min(x,y,z), max(x,y,z), range(x,y,z)
-
-
         ## Plot (and subplot) sizing
         self.description.setdefault('PlotSizeX', 10.)
         if self.description['is2dim']:
@@ -199,7 +183,7 @@ class InputData(object):
         return self.description.has_key(key)
 
     def set_attr(self, key, val):
-        self.description[key] = str(val)
+        self.description[key] = val
 
     def attr(self, key, default=None):
         return self.description.get(key, default)
@@ -226,6 +210,120 @@ class InputData(object):
         except:
             x = None
         return x
+
+
+    @property
+    def is2dim(self):
+        return self.attr_bool("is2dim", False)
+    @is2dim.setter
+    def is2dim(self, val):
+        self.set_attr("is2dim", val)
+
+
+    @property
+    def drawonly(self):
+        x = self.attr("DrawOnly")
+        if type(x) is str:
+            self.drawonly = x #< use setter to listify
+        return x if x else []
+    @drawonly.setter
+    def drawonly(self, val):
+        if type(val) is str:
+            val = val.strip().split()
+        self.set_attr("DrawOnly", val)
+
+
+    @property
+    def stack(self):
+        x = self.attr("Stack")
+        if type(x) is str:
+            self.stack = x #< use setter to listify
+        return x if x else []
+    @stack.setter
+    def stack(self, val):
+        if type(val) is str:
+            val = val.strip().split()
+        self.set_attr("Stack", val)
+
+
+    @property
+    def plotorder(self):
+        x = self.attr("PlotOrder")
+        if type(x) is str:
+            self.plotorder = x #< use setter to listify
+        return x if x else []
+    @plotorder.setter
+    def plotorder(self, val):
+        if type(val) is str:
+            val = val.strip().split()
+        self.set_attr("PlotOrder", val)
+
+
+    @property
+    def scale(self):
+        return self.attr_float("Scale")
+    @scale.setter
+    def scale(self, val):
+        self.set_attr("Scale", val)
+
+
+    @property
+    def xmin(self):
+        return self.attr_float("XMin")
+    @xmin.setter
+    def xmin(self, val):
+        self.set_attr("XMin", val)
+
+    @property
+    def xmax(self):
+        return self.attr_float("XMax")
+    @xmax.setter
+    def xmax(self, val):
+        self.set_attr("XMax", val)
+
+    @property
+    def xrange(self):
+        return [self.xmin, self.xmax]
+    @xrange.setter
+    def xrange(self, val):
+        if type(val) is str:
+            val = [float(x) for x in val.split(",")]
+        assert len(val) == 2
+        self.xmin = val[0]
+        self.xmax = val[1]
+
+
+    @property
+    def ymin(self):
+        return self.attr_float("YMin")
+    @ymin.setter
+    def ymin(self, val):
+        self.set_attr("YMin", val)
+
+    @property
+    def ymax(self):
+        return self.attr_float("YMax")
+    @ymax.setter
+    def ymax(self, val):
+        self.set_attr("YMax", val)
+
+    @property
+    def yrange(self):
+        return [self.ymin, self.ymax]
+    @yrange.setter
+    def yrange(self, val):
+        if type(val) is str:
+            val = [float(y) for y in val.split(",")]
+        assert len(val) == 2
+        self.ymin = val[0]
+        self.ymax = val[1]
+
+
+    # TODO: add more rw properties for plotsize(x,y), ratiosize(y),
+    #   show_mainplot, show_ratioplot, show_legend, log(x,y,z), rebin,
+    #   drawonly, legendonly, plotorder, stack,
+    #   label(x,y,z), majorticks(x,y,z), minorticks(x,y,z),
+    #   min(x,y,z), max(x,y,z), range(x,y,z)
 
 
     def inherit_from_histos(self, k):
@@ -298,13 +396,13 @@ class Plot(object):
     def set_normalization(self,inputdata):
         for method in ['NormalizeToIntegral', 'NormalizeToSum']:
             if inputdata.description.has_key(method):
-                for i in inputdata.description['DrawOnly']:
-                    if not inputdata.histos[i].description.has_key(method):
-                        inputdata.histos[i].description[method] = inputdata.description[method]
-        if inputdata.description.has_key('Scale'):
-            for i in inputdata.description['DrawOnly']:
-                inputdata.histos[i].description['Scale'] = float(inputdata.description['Scale'])
-        for i in inputdata.description['DrawOnly']:
+                for i in inputdata.drawonly:
+                    if not inputdata.histos[i].has_attr(method):
+                        inputdata.histos[i].set_attr(method, inputdata.attr(method))
+        if inputdata.scale:
+            for i in inputdata.drawonly:
+                inputdata.histos[i].scale = inputdata.scale
+        for i in inputdata.drawonly:
             inputdata.histos[i].mangle_input()
 
     def stack_histograms(self,inputdata):
