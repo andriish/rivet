@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/ParticleName.hh"
 
 namespace Rivet {
 
@@ -43,11 +42,11 @@ namespace Rivet {
         _weight_total += 1.;
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;
-        // get the boost to the rest frame
+        // Get the boost to the rest frame
         LorentzTransform cms_boost;
         if (p.p3().mod() > 1*MeV)
-          cms_boost = LorentzTransform(-p.momentum().boostVector());
-        // find the decay products we want
+          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().boostVector());
+        // Find the decay products we want
         findDecayProducts(p.genParticle(), nstable, pip, pim, Kp, Km);
         if (p.pid() < 0) {
           swap(pip, pim);

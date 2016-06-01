@@ -127,7 +127,7 @@ namespace Rivet {
           /// @todo Update to new LT mk* functions
           LorentzTransform cms_boost;
           if (ups.p3().mod() > 0.001)
-            cms_boost = LorentzTransform(-ups.momentum().boostVector());
+            cms_boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().boostVector());
           double mass = ups.mass();
           unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
           foreach(const Particle & p , unstable) {

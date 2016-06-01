@@ -1,9 +1,7 @@
 // -*- C++ -*-
-#include <iostream>
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
 
@@ -26,9 +24,9 @@ namespace Rivet {
 
       const Beam beamproj = applyProjection<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
-      FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
-      LorentzTransform cms_boost(-mom_tot.boostVector());
-      MSG_DEBUG("CMS Energy sqrt s = " << beamproj.sqrtS());
+      const FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.boostVector());
+      MSG_DEBUG("CMS energy sqrt s = " << beamproj.sqrtS());
 
       foreach (const Particle& p, fs.particles()) {
         // energy in CMS frame

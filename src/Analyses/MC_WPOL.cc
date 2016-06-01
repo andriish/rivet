@@ -7,8 +7,6 @@
 namespace Rivet {
 
 
-
-
   /// @brief MC validation analysis for W polarisation
   class MC_WPOL : public Analysis {
   public:
@@ -76,12 +74,12 @@ namespace Rivet {
       const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
 
       FourMomentum pb1(beams.second.momentum()), pb2(beams.first.momentum());
-      Particle lepton=wfinder.constituentLeptons()[0];
+      Particle lepton = wfinder.constituentLeptons()[0];
       FourMomentum pl(lepton.momentum());
       size_t idx = (PID::threeCharge(lepton.pid())>0 ? 0 : 1);
       FourMomentum plnu(wfinder.bosons()[0].momentum());
 
-      LorentzTransform cms(-plnu.boostVector());
+      const LorentzTransform cms = LorentzTransform::mkFrameTransformFromBeta(plnu.boostVector());
       Matrix3 zrot(plnu.p3(), Vector3(0.0, 0.0, 1.0));
       pl=cms.transform(pl);
       pb1=cms.transform(pb1);

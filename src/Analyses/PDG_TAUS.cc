@@ -165,19 +165,17 @@ namespace Rivet {
 
           // Only fill the histo if there is a radiative decay
           if (radiative) {
-            // Iterate over decay products to find photon with 5MeV energy
+            // Iterate over decay products to find photon with 5 MeV energy
             foreach (const Particle& son, mother.children()) {
               if (son.pid() == PID::PHOTON) {
                 // Require photons to have at least 5 MeV energy in the rest frame of the tau
                 // boosted taus
                 if (!mother.momentum().boostVector().isZero()) {
-                  LorentzTransform cms_boost;
-                    Vector3 bv = -mother.momentum().boostVector();
-                    cms_boost = LorentzTransform(bv);
-                    if (cms_boost.transform(son.momentum())[0]/MeV > 5.) {
-                      h_ratio->fill(1, e_weight);
-                      break;
-                    }
+                  LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mother.momentum().boostVector());
+                  if (cms_boost.transform(son.momentum())[0]/MeV > 5.) {
+                    h_ratio->fill(1, e_weight);
+                    break;
+                  }
                 }
                 // not boosted taus
                 else {

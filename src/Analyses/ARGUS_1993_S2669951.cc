@@ -95,7 +95,7 @@ namespace Rivet {
           findDecayProducts(ups.genParticle(), unstable);
           LorentzTransform cms_boost;
           if (ups.p3().mod() > 1*MeV)
-            cms_boost = LorentzTransform(-ups.momentum().boostVector());
+            cms_boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().boostVector());
           const double mass = ups.mass();
           unsigned int nEtaA(0), nEtaB(0), nf0(0);
           foreach(const Particle& p, unstable) {

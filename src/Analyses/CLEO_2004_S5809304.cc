@@ -1,5 +1,4 @@
 // -*- C++ -*-
-#include <iostream>
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
@@ -25,10 +24,10 @@ namespace Rivet {
 
       const Beam beamproj = applyProjection<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
-      FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
+      const FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
       LorentzTransform cms_boost;
-      if (mom_tot.p3().mod() > 0.001)
-        cms_boost = LorentzTransform(-mom_tot.boostVector());
+      if (mom_tot.p3().mod() > 1*MeV)
+        cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.boostVector());
       const double s = sqr(beamproj.sqrtS());
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
