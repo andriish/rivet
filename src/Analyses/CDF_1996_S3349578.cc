@@ -114,39 +114,31 @@ namespace Rivet {
     void _threeJetAnalysis(const Jets& jets, const double& weight) {
       MSG_DEBUG("3 jet analysis");
 
-      double sumEt=0.0;
+      double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
       foreach (const Jet& jet, jets) {
-        sumEt+=jet.Et();
-        jetsystem+=jet.momentum();
+        sumEt += jet.Et();
+        jetsystem += jet.momentum();
       }
       if (sumEt < 420.0*GeV) return;
 
       const double m3J = _safeMass(jetsystem);
-      if (m3J<600*GeV) {
-        return;
-      }
+      if (m3J < 600*GeV) return;
 
-      LorentzTransform cms_boost(-jetsystem.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.boostVector());
       vector<FourMomentum> jets3;
       foreach (Jet jet, jets) {
         jets3.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
-      FourMomentum p3(jets3[0]);
-      FourMomentum p4(jets3[1]);
-      FourMomentum p5(jets3[2]);
+      FourMomentum p3(jets3[0]), p4(jets3[1]), p5(jets3[2]);
 
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m3J, jetsystem.rapidity()));
-      double costheta3=pAV.p3().unit().dot(p3.p3().unit());
-      if (fabs(costheta3)>0.6) {
-        return;
-      }
+      double costheta3 = pAV.p3().unit().dot(p3.p3().unit());
+      if (fabs(costheta3) > 0.6) return;
 
       double X3 = 2.0*p3.E()/m3J;
-      if (X3>0.9) {
-        return;
-      }
+      if (X3 > 0.9) return;
 
       const double X4 = 2.0*p4.E()/m3J;
       const double psi3 = _psi(p3, pAV, p4, p5);
@@ -182,7 +174,7 @@ namespace Rivet {
       const double m4J = _safeMass(jetsystem);
       if (m4J < 650*GeV) return;
 
-      LorentzTransform cms_boost(-jetsystem.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.boostVector());
       vector<FourMomentum> jets4;
       foreach (Jet jet, jets) {
         jets4.push_back(cms_boost.transform(jet.momentum()));
@@ -249,7 +241,7 @@ namespace Rivet {
       const double m5J = _safeMass(jetsystem);
       if (m5J < 750*GeV) return;
 
-      LorentzTransform cms_boost(-jetsystem.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.boostVector());
       vector<FourMomentum> jets5;
       foreach (Jet jet, jets) {
         jets5.push_back(cms_boost.transform(jet.momentum()));
@@ -383,17 +375,11 @@ namespace Rivet {
       FourMomentum beam2(mt, 0, 0, -mt);
       if (fabs(y)>1e-3) {
         FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
-        LorentzTransform cms_boost(-boostvec.boostVector());
-        cms_boost = cms_boost.inverse();
-        beam1=cms_boost.transform(beam1);
-        beam2=cms_boost.transform(beam2);
+        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(boostvec.boostVector()).inverse();
+        beam1 = cms_boost.transform(beam1);
+        beam2 = cms_boost.transform(beam2);
       }
-      if (beam1.E()>beam2.E()) {
-        return beam1-beam2;
-      }
-      else {
-        return beam2-beam1;
-      }
+      return (beam1.E() > beam2.E()) ? beam1-beam2 : beam2-beam1;
     }
 
     double _psi(const FourMomentum& p1, const FourMomentum& p2,

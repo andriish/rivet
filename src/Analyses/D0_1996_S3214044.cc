@@ -3,8 +3,6 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Math/LorentzTrans.hh"
-#include "Rivet/Math/Vector3.hh"
-#include "Rivet/Math/Units.hh"
 
 namespace Rivet {
 
@@ -138,7 +136,7 @@ namespace Rivet {
         return;
       }
 
-      LorentzTransform cms_boost(-jjj.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjj.boostVector());
       vector<FourMomentum> jets_boosted;
       foreach (Jet jet, jets) {
         jets_boosted.push_back(cms_boost.transform(jet.momentum()));
@@ -169,7 +167,7 @@ namespace Rivet {
       const double sqrts = _safeMass(jjjj);
       if (sqrts < 200*GeV) return;
 
-      LorentzTransform cms_boost(-jjjj.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjjj.boostVector());
       vector<FourMomentum> jets_boosted;
       foreach (Jet jet, jets) {
         jets_boosted.push_back(cms_boost.transform(jet.momentum()));

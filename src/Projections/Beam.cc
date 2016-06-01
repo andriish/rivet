@@ -40,7 +40,7 @@ namespace Rivet {
 
 
   Vector3 cmsBoostBeta(const FourMomentum& pa, const FourMomentum& pb) {
-    Vector3 rtn = (pa.p3() + pb.p3()) / (pa.E() + pb.E());
+    Vector3 rtn = (pa.p3() + pb.p3()) / (pa.E() + pb.E()); ///< @todo Is the vector part of this correct in general?
     return rtn;
   }
 
@@ -57,7 +57,8 @@ namespace Rivet {
 
 
   Vector3 cmsBoostGamma(const FourMomentum& pa, const FourMomentum& pb) {
-    Vector3 rtn; // = (pa.p3() + pb.p3()) / (pa.E() + pb.E());
+    const double gamma = ( sqr(pa.mass()) + sqr(pb.mass()) + 2*(pa.E()*pb.E() - dot(pa.p3(), pb.p3())) ) / sqr(pa.E() + pb.E());
+    Vector3 rtn = gamma * cmsBoostBeta(pa, pb).unit(); ///< @todo Duh. There must be a better way to get the unit vector of boost direction...
     return rtn;
   }
 

@@ -58,32 +58,22 @@ namespace Rivet {
           jetsystem += jet.momentum();
         }
       }
-      /// @todo include gaussian jet energy resolution smearing?
+      /// @todo Include Gaussian jet energy resolution smearing?
 
-      if (jets.size() < 2 || jets.size() > 6) {
-        vetoEvent;
-      }
+      if (jets.size() < 2 || jets.size() > 6) vetoEvent;
+      if (sumEt < 420.0*GeV) vetoEvent;
 
-      if (sumEt < 420.0*GeV) {
-        vetoEvent;
-      }
-
-      LorentzTransform cms_boost(-jetsystem.boostVector());
+      LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.boostVector());
       FourMomentum jet0boosted(cms_boost.transform(jets[0].momentum()));
 
       double mass = jetsystem.mass();
       double costheta0 = fabs(cos(jet0boosted.theta()));
 
-      if (costheta0 < 2.0/3.0) {
-        _h_m[jets.size()-2]->fill(mass, weight);
-      }
-
-      if (mass > 600.0*GeV) {
-        _h_costheta[jets.size()-2]->fill(costheta0, weight);
-      }
+      if (costheta0 < 2.0/3.0) _h_m[jets.size()-2]->fill(mass, weight);
+      if (mass > 600.0*GeV) _h_costheta[jets.size()-2]->fill(costheta0, weight);
 
       if (costheta0 < 2.0/3.0 && mass > 600.0*GeV) {
-        foreach (const Jet jet, jets) {
+        foreach (const Jet& jet, jets) {
           _h_pT[jets.size()-2]->fill(jet.pT(), weight);
         }
       }

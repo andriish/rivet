@@ -47,8 +47,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
-
       Jets jets;
       double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
@@ -58,7 +56,7 @@ namespace Rivet {
         if (Et > 20.0*GeV && eta < 3.0) {
           bool separated = true;
           foreach (const Jet& ref, jets) {
-            if (deltaR(jet.momentum(), ref.momentum()) < 0.9) {
+            if (deltaR(jet, ref) < 0.9) {
               separated = false;
               break;
             }
@@ -77,7 +75,7 @@ namespace Rivet {
       double m6J = _safeMass(jetsystem);
       if (m6J < 520.0*GeV) vetoEvent;
 
-      LorentzTransform cms_boost(-jetsystem.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.boostVector());
       vector<FourMomentum> jets6;
       foreach (Jet jet, jets) {
         jets6.push_back(cms_boost.transform(jet.momentum()));
@@ -100,15 +98,13 @@ namespace Rivet {
       FourMomentum p5ppp(jets3[2]);
 
       double X3ppp = 2.0*p3ppp.E()/m6J;
-      if (X3ppp > 0.9) {
-        vetoEvent;
-      }
+      if (X3ppp > 0.9) vetoEvent;
 
       FourMomentum pAV = cms_boost.transform(_avg_beam_in_lab(m6J, jetsystem.rapidity()));
       double costheta3ppp = pAV.p3().unit().dot(p3ppp.p3().unit());
-      if (fabs(costheta3ppp) > 0.9) {
-        vetoEvent;
-      }
+      if (fabs(costheta3ppp) > 0.9) vetoEvent;
+
+      const double weight = event.weight();
 
       // 3-jet-system variables
       _h_m6J->fill(m6J, weight);
@@ -201,17 +197,11 @@ namespace Rivet {
       FourMomentum beam2(mt, 0, 0, -mt);
       if (fabs(y) > 1e-3) {
         FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
-        LorentzTransform cms_boost(-boostvec.boostVector());
-        cms_boost = cms_boost.inverse();
+        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(boostvec.boostVector()).inverse();
         beam1 = cms_boost.transform(beam1);
         beam2 = cms_boost.transform(beam2);
       }
-      if (beam1.E() > beam2.E()) {
-        return beam1 - beam2;
-      }
-      else {
-        return beam2 - beam1;
-      }
+      return (beam1.E() > beam2.E()) ? beam1 - beam2 : beam2 - beam1;
     }
 
 
