@@ -667,45 +667,50 @@ class MainPlot(Plot):
         xcustomminorticks = None
         if inputdata.description.has_key('XCustomMajorTicks'): # and inputdata.description['XCustomMajorTicks']!='':
             xcustommajorticks = []
-            FOO = inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
-            if len(FOO) % 2 == 0:
-                for i in range(0, len(FOO), 2):
-                    xcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+            x_label_pairs = inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
+            if len(x_label_pairs) % 2 == 0:
+                for i in range(0, len(x_label_pairs), 2):
+                    xcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
+            else:
+                print "Warning: XCustomMajorTicks requires an even number of alternating pos/label entries"
         if inputdata.description.has_key('XCustomMinorTicks'): # and inputdata.description['XCustomMinorTicks']!='':
-            FOO = inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
-            xcustomminorticks = [{'Value': float(FOO[i])} for i in range(len(FOO))]
+            xs = inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
+            xcustomminorticks = [{'Value': float(x)} for x in xs]
         xticks = XTicks(inputdata.description, self.coors)
-        if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1') or (inputdata.description.has_key('PlotXTickLabels') and inputdata.description['PlotXTickLabels']=='0'):
-            drawxlabels=False
+        if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot'] == '1') or \
+           (inputdata.description.has_key('PlotXTickLabels') and inputdata.description['PlotXTickLabels'] == '0'):
+            drawxlabels = False
         else:
-            drawxlabels=True
+            drawxlabels = True
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
                            customminortickmarks=xcustomminortickmarks,\
                            custommajorticks=xcustommajorticks,\
                            customminorticks=xcustomminorticks,\
                            drawlabels=drawxlabels)
 
-        if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks']!='':
-            ycustommajortickmarks=int(inputdata.description['YMajorTickMarks'])
+        if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks'] != '':
+            ycustommajortickmarks = int(inputdata.description['YMajorTickMarks'])
         else:
-            ycustommajortickmarks=-1
+            ycustommajortickmarks = -1
         if inputdata.description.has_key('YMinorTickMarks') and inputdata.description['YMinorTickMarks']!='':
-            ycustomminortickmarks=int(inputdata.description['YMinorTickMarks'])
+            ycustomminortickmarks = int(inputdata.description['YMinorTickMarks'])
         else:
-            ycustomminortickmarks=-1
-        ycustommajorticks=None
-        ycustomminorticks=None
+            ycustomminortickmarks = -1
+        ycustommajorticks = None
+        ycustomminorticks = None
         if inputdata.description.has_key('YCustomMajorTicks'): # and inputdata.description['YCustomMajorTicks']!='':
-            ycustommajorticks=[]
-            FOO = inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
-            if len(FOO) % 2 == 0:
-                for i in range(0, len(FOO), 2):
-                    ycustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
+            ycustommajorticks = []
+            y_label_pairs = inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
+            if len(y_label_pairs) % 2 == 0:
+                for i in range(0, len(y_label_pairs), 2):
+                    ycustommajorticks.append({'Value': float(y_label_pairs[i]), 'Label': y_label_pairs[i+1]})
+            else:
+                print "Warning: YCustomMajorTicks requires an even number of alternating pos/label entries"
         if inputdata.description.has_key('YCustomMinorTicks'): # and inputdata.description['YCustomMinorTicks']!='':
-            FOO = inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
-            ycustomminorticks = [{'Value': float(FOO[i])} for i in range(len(FOO))]
+            ys = inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
+            ycustomminorticks = [{'Value': float(y)} for y in ys]
         yticks = YTicks(inputdata.description, self.coors)
-        if (inputdata.description.has_key('PlotYTickLabels') and inputdata.description['PlotYTickLabels']=='0'):
+        if inputdata.description.has_key('PlotYTickLabels') and inputdata.description['PlotYTickLabels'] == '0':
             drawylabels = False
         else:
             drawylabels = True
