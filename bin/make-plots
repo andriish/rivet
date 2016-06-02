@@ -190,9 +190,9 @@ class InputData(object):
 
     def attr_bool(self, key, default=None):
         x = self.attr(key, default)
-        if x is None: return x
-        if x.lower() in ["1", "true", "yes", "on"]: return True
-        if x.lower() in ["0", "false", "no", "off"]: return False
+        if x is None: return None
+        if str(x).lower() in ["1", "true", "yes", "on"]: return True
+        if str(x).lower() in ["0", "false", "no", "off"]: return False
         return None
 
     def attr_int(self, key, default=None):
@@ -407,7 +407,7 @@ class Plot(object):
 
     def stack_histograms(self,inputdata):
         if inputdata.description.has_key('Stack'):
-            stackhists = [h for h in inputdata.attr('Stack').strip().split() if h in inputdata.histos)
+            stackhists = [h for h in inputdata.attr('Stack').strip().split() if h in inputdata.histos]
             previous = ''
             for i in stackhists:
                 if previous != '':
@@ -418,7 +418,7 @@ class Plot(object):
         if inputdata.description.has_key('ConnectGaps'):
             for i in inputdata.histos.keys():
                 if not inputdata.histos[i].description.has_key('ConnectGaps'):
-                    inputdata.histos[i].description['ConnectGaps']=inputdata.description['ConnectGaps']
+                    inputdata.histos[i].description['ConnectGaps'] = inputdata.description['ConnectGaps']
 
     def set_borders(self,inputdata):
         self.set_xmax(inputdata)
@@ -430,12 +430,12 @@ class Plot(object):
         inputdata.description['Borders'] = (self.xmin, self.xmax, self.ymin, self.ymax, self.zmin, self.zmax)
 
     def set_xmin(self,inputdata):
-        self.xmin = self.attr_float("XMin")
+        self.xmin = inputdata.attr_float("XMin")
         if self.xmin is None:
             self.xmin = min(inputdata.histos[h].getXMin() for h in inputdata.description['DrawOnly'])
 
     def set_xmax(self,inputdata):
-        self.xmax = self.attr_float("XMax")
+        self.xmax = inputdata.attr_float("XMax")
         if self.xmax is None:
             self.xmax = min(inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly'])
 
@@ -655,25 +655,25 @@ class MainPlot(Plot):
         frame = Frame()
         out += frame.draw(inputdata)
 
-        if inputdata.description.has_key('XMajorTickMarks') and inputdata.description['XMajorTickMarks']!='':
+        if inputdata.description.has_key('XMajorTickMarks') and inputdata.description['XMajorTickMarks']:
             xcustommajortickmarks=int(inputdata.description['XMajorTickMarks'])
         else:
-            xcustommajortickmarks=-1
-        if inputdata.description.has_key('XMinorTickMarks') and inputdata.description['XMinorTickMarks']!='':
-            xcustomminortickmarks=int(inputdata.description['XMinorTickMarks'])
+            xcustommajortickmarks = -1
+        if inputdata.description.has_key('XMinorTickMarks') and inputdata.description['XMinorTickMarks']:
+            xcustomminortickmarks = int(inputdata.description['XMinorTickMarks'])
         else:
-            xcustomminortickmarks=-1
-        xcustommajorticks=None
-        xcustomminorticks=None
+            xcustomminortickmarks = -1
+        xcustommajorticks = None
+        xcustomminorticks = None
         if inputdata.description.has_key('XCustomMajorTicks'): # and inputdata.description['XCustomMajorTicks']!='':
-            xcustommajorticks=[]
-            FOO=inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
+            xcustommajorticks = []
+            FOO = inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
             if len(FOO) % 2 == 0:
-                for i in range(0,len(FOO),2):
+                for i in range(0, len(FOO), 2):
                     xcustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         if inputdata.description.has_key('XCustomMinorTicks'): # and inputdata.description['XCustomMinorTicks']!='':
-            FOO=inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
-            xcustomminorticks=[{'Value': float(FOO[i])} for i in range(len(FOO))]
+            FOO = inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
+            xcustomminorticks = [{'Value': float(FOO[i])} for i in range(len(FOO))]
         xticks = XTicks(inputdata.description, self.coors)
         if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1') or (inputdata.description.has_key('PlotXTickLabels') and inputdata.description['PlotXTickLabels']=='0'):
             drawxlabels=False
@@ -697,18 +697,18 @@ class MainPlot(Plot):
         ycustomminorticks=None
         if inputdata.description.has_key('YCustomMajorTicks'): # and inputdata.description['YCustomMajorTicks']!='':
             ycustommajorticks=[]
-            FOO=inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
+            FOO = inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
             if len(FOO) % 2 == 0:
-                for i in range(0,len(FOO),2):
+                for i in range(0, len(FOO), 2):
                     ycustommajorticks.append({'Value': float(FOO[i]), 'Label': FOO[i+1]})
         if inputdata.description.has_key('YCustomMinorTicks'): # and inputdata.description['YCustomMinorTicks']!='':
-            FOO=inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
-            ycustomminorticks=[{'Value': float(FOO[i])} for i in range(len(FOO))]
+            FOO = inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
+            ycustomminorticks = [{'Value': float(FOO[i])} for i in range(len(FOO))]
         yticks = YTicks(inputdata.description, self.coors)
         if (inputdata.description.has_key('PlotYTickLabels') and inputdata.description['PlotYTickLabels']=='0'):
-            drawylabels=False
+            drawylabels = False
         else:
-            drawylabels=True
+            drawylabels = True
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,
                            customminortickmarks=ycustomminortickmarks,
                            custommajorticks=ycustommajorticks,
