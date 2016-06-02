@@ -234,13 +234,13 @@ class InputData(object):
 
 
     @property
-    def stack(self):
+    def stacklist(self):
         x = self.attr("Stack")
         if type(x) is str:
-            self.stack = x #< use setter to listify
+            self.stacklist = x #< use setter to listify
         return x if x else []
-    @stack.setter
-    def stack(self, val):
+    @stacklist.setter
+    def stacklist(self, val):
         if type(val) is str:
             val = val.strip().split()
         self.set_attr("Stack", val)
@@ -257,6 +257,39 @@ class InputData(object):
         if type(val) is str:
             val = val.strip().split()
         self.set_attr("PlotOrder", val)
+
+
+    @property
+    def plotsizex(self):
+        return self.attr_float("PlotSizeX")
+    @plotsizex.setter
+    def plotsizex(self, val):
+        self.set_attr("PlotSizeX", val)
+
+    @property
+    def plotsizey(self):
+        return self.attr_float("PlotSizeY")
+    @plotsizey.setter
+    def plotsizey(self, val):
+        self.set_attr("PlotSizeY", val)
+
+    @property
+    def plotsize(self):
+        return [self.plotsizex, self.plotsizey]
+    @plotsize.setter
+    def plotsize(self, val):
+        if type(val) is str:
+            val = [float(x) for x in val.split(",")]
+        assert len(val) == 2
+        self.plotsizex = val[0]
+        self.plotsizey = val[1]
+
+    @property
+    def ratiosizey(self):
+        return self.attr_float("RatioPlotSizeY")
+    @ratiosizey.setter
+    def ratiosizey(self, val):
+        self.set_attr("RatioPlotSizeY", val)
 
 
     @property
