@@ -1,3 +1,7 @@
+2016-06-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS 13 TeV minimum bias analysis, ATLAS_2016_I1419652.
+
 2016-05-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* pyext/rivet/util.py: Add pandoc --wrap/--no-wrap CLI detection
