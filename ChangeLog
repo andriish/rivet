@@ -1,3 +1,25 @@
+2016-06-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS 13 TeV minimum bias analysis, ATLAS_2016_I1419652.
+
+2016-05-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* pyext/rivet/util.py: Add pandoc --wrap/--no-wrap CLI detection
+	and batch conversion.
+
+	* bin/rivet: add -o as a more standard 'output' option flag alias to -H.
+
+2016-05-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove the last ref-data bin from table 16 of
+	ATLAS_2010_S8918562, due to data corruption. The corresponding
+	HepData record will be amended by ATLAS.
+
+2016-05-12  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+        * Mark ATLAS_2012_I1082009 as validated after exhaustive tests with
+	Pythia8 and Sherpa in inclusive QCD mode.
+
 2016-05-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Specialise return error codes from the rivet script.
