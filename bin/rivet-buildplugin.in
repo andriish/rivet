@@ -49,7 +49,7 @@ fi
 
 ## Get Rivet system C++ compiler (fall back to $CXX and then g++ if needed)
 mycxx=g++
-rivetcxx=$(which "@RIVETCXX@" 2> /dev/null)
+rivetcxx=$(which $(echo "@RIVETCXX@" | awk '{print $1}') 2> /dev/null)
 abscxx=$(which "$CXX" 2> /dev/null)
 if [[ -x "$rivetcxx" ]]; then
     mycxx="@CXX@"
