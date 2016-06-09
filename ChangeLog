@@ -1,3 +1,10 @@
+2016-06-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Downgrade some non-fatal error messages from ERROR to WARNING
+	status, because *sigh* ATLAS's software treats any appearance of
+	the word 'ERROR' in its log file as a reason to report the job as
+	failed (facepalm).
+
 2016-06-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding ATLAS 13 TeV minimum bias analysis, ATLAS_2016_I1419652.
