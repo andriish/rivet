@@ -1,5 +1,9 @@
 2016-06-10  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a NonPromptFinalState projection, and tweak the
+	PromptFinalState and unbound Particle functions a little in
+	response. May need some more finessing.
+
 	* Add user-facing aliases to ProjectionApplier add, get, and apply
 	methods... the templated versions of which can now be called
 	without using the word 'projection', which makes the function

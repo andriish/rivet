@@ -165,6 +165,27 @@ namespace Rivet {
   /////////////////////
 
 
+  /// @todo Rewrite for consistency with bound functions -> make it a bound function?
+  bool isPrompt(const Particle& p, bool inclprompttaudecays, bool inclpromptmudecays) {
+    if (p.genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
+    const GenVertex* prodVtx = p.genParticle()->production_vertex();
+    if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
+    const pair<GenParticle*, GenParticle*> beams = prodVtx->parent_event()->beam_particles();
+
+    /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
+    foreach (const GenParticle* ancestor, Rivet::particles(prodVtx, HepMC::ancestors)) {
+      const PdgId pid = ancestor->pdg_id();
+      if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
+      if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
+      if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
+      if (PID::isHadron(pid)) return false; // prompt particles can't be from hadron decays
+      if (abs(pid) == PID::TAU && p.abspid() != PID::TAU && !inclprompttaudecays) return false; // allow or ban particles from tau decays (permitting tau copies)
+      if (abs(pid) == PID::MUON && p.abspid() != PID::MUON && !inclpromptmudecays) return false; // allow or ban particles from muon decays (permitting muon copies)
+    }
+    return true;
+  }
+
+
   Particles& filterBy(Particles& particles, const Cut& c) {
     if (c != Cuts::OPEN) {
       const auto newend = std::remove_if(particles.begin(), particles.end(), [&](const Particle& p){ return !c->accept(p); });

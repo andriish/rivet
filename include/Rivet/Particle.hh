@@ -296,6 +296,13 @@ namespace Rivet {
   };
 
 
+  /// @brief Decide if a given particle is prompt based on set definition flags
+  ///
+  /// @note This one doesn't make any judgements about final-stateness
+
+  bool isPrompt(const Particle& p, bool inclprompttaudecays=false, bool inclpromptmudecays=false);
+
+
   /// @name Unbound functions for filtering particles
   //@{
 

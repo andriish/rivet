@@ -1,40 +1,40 @@
 // -*- C++ -*-
-#include "Rivet/Projections/PromptFinalState.hh"
+#include "Rivet/Projections/NonPromptFinalState.hh"
 
 namespace Rivet {
 
 
-  PromptFinalState::PromptFinalState(const FinalState& fsp, bool accepttaudecays, bool acceptmudecays)
+  NonPromptFinalState::NonPromptFinalState(const FinalState& fsp, bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
-    setName("PromptFinalState");
+    setName("NonPromptFinalState");
     addProjection(fsp, "FS");
   }
 
 
-  PromptFinalState::PromptFinalState(const Cut& c, bool accepttaudecays, bool acceptmudecays)
+  NonPromptFinalState::NonPromptFinalState(const Cut& c, bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
-    setName("PromptFinalState");
+    setName("NonPromptFinalState");
     addProjection(FinalState(c), "FS");
   }
 
 
-  int PromptFinalState::compare(const Projection& p) const {
+  int NonPromptFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
     if (fscmp != EQUIVALENT) return fscmp;
-    const PromptFinalState& other = dynamic_cast<const PromptFinalState&>(p);
+    const NonPromptFinalState& other = dynamic_cast<const NonPromptFinalState&>(p);
     return cmp(_acceptMuDecays, other._acceptMuDecays) || cmp(_acceptTauDecays, other._acceptTauDecays);
   }
 
 
-  void PromptFinalState::project(const Event& e) {
+  void NonPromptFinalState::project(const Event& e) {
     _theParticles.clear();
 
     const Particles& particles = applyProjection<FinalState>(e, "FS").particles();
     foreach (const Particle& p, particles)
-      if (isPrompt(p, _acceptTauDecays, _acceptMuDecays)) _theParticles.push_back(p);
-    MSG_DEBUG("Number of final state particles not from hadron decays = " << _theParticles.size());
+      if (!isPrompt(p, !_acceptTauDecays, !_acceptMuDecays)) _theParticles.push_back(p);
+    MSG_DEBUG("Number of final state particles from hadron decays = " << _theParticles.size());
 
     if (getLog().isActive(Log::TRACE)) {
       foreach (const Particle& p, _theParticles)
