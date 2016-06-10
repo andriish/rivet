@@ -1,3 +1,10 @@
+2016-06-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add user-facing aliases to ProjectionApplier add, get, and apply
+	methods... the templated versions of which can now be called
+	without using the word 'projection', which makes the function
+	names a bit shorter and pithier, and reduces semantic repetition.
+
 2016-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove the last ref-data bin from table 16 of
