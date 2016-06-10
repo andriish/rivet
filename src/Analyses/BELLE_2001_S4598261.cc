@@ -18,10 +18,8 @@ namespace Rivet {
 
     void init() {
       addProjection(UnstableFinalState(), "UFS");
-      // spectrum
-      _histdSigDp = bookHisto1D(1, 1, 1);
-      // multiplicity
-      _histMult   = bookHisto1D(2, 1, 1);
+      _histdSigDp = bookHisto1D(1, 1, 1); // spectrum
+      _histMult   = bookHisto1D(2, 1, 1); // multiplicity
     }
 
 
@@ -61,7 +59,7 @@ namespace Rivet {
         findDecayProducts(p.genParticle(), pions);
         const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().boostVector());
         for (size_t ix=0; ix<pions.size(); ++ix) {
-          const double pcm = FourMomentum(cms_boost.transform(pions[ix]->momentum())).p();
+          const double pcm = cms_boost.transform(FourMomentum(pions[ix]->momentum())).p();
           _histdSigDp->fill(pcm,weight);
         }
         _histMult->fill(0., pions.size()*weight);

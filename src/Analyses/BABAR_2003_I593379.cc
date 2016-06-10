@@ -53,28 +53,28 @@ namespace Rivet {
                           all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
         const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.mom().boostVector());
         for (size_t i = 0; i < allJpsi.size(); i++) {
-          const double pcm = FourMomentum(cms_boost.transform(allJpsi[i]->momentum())).p();
+          const double pcm = cms_boost.transform(FourMomentum(allJpsi[i]->momentum())).p();
           _hist_all_Jpsi->fill(pcm, weight);
         }
         _mult_JPsi->fill(10.58, weight*double(allJpsi.size()));
         for (size_t i = 0; i < primaryJpsi.size(); i++) {
-          const double pcm = FourMomentum(cms_boost.transform(primaryJpsi[i]->momentum())).p();
+          const double pcm = cms_boost.transform(FourMomentum(primaryJpsi[i]->momentum())).p();
           _hist_primary_Jpsi->fill(pcm, weight);
         }
         _mult_JPsi_direct->fill(10.58, weight*double(primaryJpsi.size()));
         for (size_t i=0; i<Psiprime.size(); i++) {
-          const double pcm = FourMomentum(cms_boost.transform(Psiprime[i]->momentum())).p();
+          const double pcm = cms_boost.transform(FourMomentum(Psiprime[i]->momentum())).p();
           _hist_Psi_prime->fill(pcm, weight);
         }
         _mult_Psi2S->fill(10.58, weight*double(Psiprime.size()));
         for (size_t i = 0; i < all_chi_c1.size(); i++) {
-          const double pcm = FourMomentum(cms_boost.transform(all_chi_c1[i]->momentum())).p();
+          const double pcm = cms_boost.transform(FourMomentum(all_chi_c1[i]->momentum())).p();
           _hist_chi_c1->fill(pcm, weight);
         }
         _mult_chi_c1->fill(10.58, weight*double(all_chi_c1.size()));
         _mult_chi_c1_direct->fill(10.58, weight*double(primary_chi_c1.size()));
         for (size_t i = 0; i < all_chi_c2.size(); i++) {
-          const double pcm = FourMomentum(cms_boost.transform(all_chi_c2[i]->momentum())).p();
+          const double pcm = cms_boost.transform(FourMomentum(all_chi_c2[i]->momentum())).p();
           _hist_chi_c2->fill(pcm, weight);
         }
         _mult_chi_c2->fill(10.58, weight*double(all_chi_c2.size()));

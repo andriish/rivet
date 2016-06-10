@@ -151,6 +151,11 @@ namespace Rivet {
       return multiply(_boostMatrix, v4);
     }
 
+    /// Apply this transformation to the given 4-mometum
+    FourMomentum transform(const FourMomentum& v4) const {
+      return multiply(_boostMatrix, v4);
+    }
+
 
     /// @name Transform modifications
     //@{
