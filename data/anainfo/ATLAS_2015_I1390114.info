@@ -19,7 +19,7 @@ Energies: [8000]
 PtCuts: [25,20]
 NeedCrossSection: True
 Description:
-  Fiducial cross-sections for $t\bar{t}$ production with one or two additional $b$-jets are presented, using an integrated luminosity
+  'Fiducial cross-sections for $t\bar{t}$ production with one or two additional $b$-jets are presented, using an integrated luminosity
   of 20.3 fb${}^{-1}$ of proton-proton collisions at a centre-of-mass energy of 8 TeV at the Large Hadron Collider, collected with the
   ATLAS detector. The cross-section times branching ratio for $t\bar{t}$ events with at least one additional $b$-jet is measured to be
   950 $\pm$ 70 (stat.)~${}^{+240}_{-190}$ (syst.)~fb in the lepton-plus-jets channel and
@@ -29,7 +29,7 @@ Description:
   looser selection that allows the background normalisation to be extracted from data. The latter method also measures a value of
   1.30 $\pm$ 0.33 (stat.) $\pm$ 0.28 (syst.)$\%$ for the ratio of $t\bar{t}$ production with two additional $b$-jets to $t\bar{t}$
   production with any two additional jets.
-  NB: When merging several output YODA files, the ratio (d02-x01-y01) needs to be reconstructed in a post-processing step.
+  NB: When merging several output YODA files, the ratio (d02-x01-y01) needs to be reconstructed in a post-processing step.'
 BibKey: Aad:2015yja
 BibTeX: '@article{Aad:2015yja,
       author         = "Aad, Georges and others",
