@@ -1,5 +1,8 @@
 2016-06-13  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Start using the DEFAULT_RIVET_ANALYSIS_CTOR macro (newly created
+	preferred alias to long-present DEFAULT_RIVET_ANA_CONSTRUCTOR)
+
 	* Add a DEFAULT_RIVET_PROJ_CLONE macro for implementing the
 	clone() method boiler-plate code in projections.
 

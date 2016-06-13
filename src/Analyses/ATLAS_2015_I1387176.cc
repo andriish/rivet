@@ -10,8 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2015_I1387176()
-      : Analysis("ATLAS_2015_I1387176") {  }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1387176);
 
 
     /// Initialization, called once before running

@@ -9,18 +9,16 @@
 
 namespace Rivet {
 
+
   class ATLAS_2015_I1376945 : public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2015_I1376945()
-      : Analysis("ATLAS_2015_I1376945")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1376945);
 
-
-  public:
 
     /// @name Analysis methods
+    //@{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -207,14 +205,18 @@ namespace Rivet {
       normalize(h_pull_charged);
     }
 
-    private:
+    //@}
 
-    // Data members like post-cuts event weight counters go here
+
+  private:
+
     Histo1DPtr h_pull_all;
     Histo1DPtr h_pull_charged;
 
   };
 
+
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2015_I1376945);
+
 }

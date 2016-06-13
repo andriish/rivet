@@ -13,23 +13,8 @@ namespace Rivet {
   class ATLAS_2016_I1424838 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ATLAS_2016_I1424838()
-      : Analysis("ATLAS_2016_I1424838")
-    {    }
-
-    //@}
-
-
-    // Convenience method for histogram booking
-    string mkHistoName(int idDS, int channel, int i) {
-      std::stringstream s;
-      s << "d0"  << idDS << "-x0" << channel  << "-y0" << i+1;
-      return s.str();
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1424838);
 
 
     /// Book histograms and initialise projections before the run
@@ -41,10 +26,8 @@ namespace Rivet {
 
       // ZFinders
       ZFinder zfinder(cfs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::ELECTRON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-      //ZFinder zfinder(   -2.4, 2.4, 20.0, ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, true, true);
       addProjection(zfinder, "ZFinder");
       ZFinder zfinder_mu(cfs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-      //ZFinder zfinder_mu(-2.4, 2.4, 20.0, MUON,     66.0*GeV, 116.0*GeV, 0.1, true, true);
       addProjection(zfinder_mu, "ZFinderMu");
 
       // This CFS only contains charged particles inside the acceptance excluding the leptons
@@ -53,11 +36,9 @@ namespace Rivet {
       remfs.addVetoOnThisFinalState(zfinder_mu);
       addProjection(remfs, "REMFS");
 
-      //const FParameter fparam(zfinder.remainingFinalState());
       const FParameter fparam(remfs);
       addProjection(fparam, "FParameter_");
 
-      //const Spherocity sphero(zfinder.remainingFinalState());
       const Spherocity sphero(remfs);
       addProjection(sphero, "Spherocity_");
 
@@ -65,18 +46,18 @@ namespace Rivet {
       // Booking of ES histos
       for (size_t alg = 0; alg < 5; ++alg) {
         // Book the inclusive histograms
-        _h_Elec_Ntrk[alg]         = bookHisto1D(mkHistoName(1, 1, alg));
-        _h_Elec_SumPt[alg]        = bookHisto1D(mkHistoName(2, 1, alg));
-        _h_Elec_Beamthrust[alg]   = bookHisto1D(mkHistoName(3, 1, alg));
-        _h_Elec_Thrust[alg]       = bookHisto1D(mkHistoName(4, 1, alg));
-        _h_Elec_FParam[alg]       = bookHisto1D(mkHistoName(5, 1, alg));
-        _h_Elec_Spherocity[alg]   = bookHisto1D(mkHistoName(6, 1, alg));
-        _h_Muon_Ntrk[alg]         = bookHisto1D(mkHistoName(1, 2, alg));
-        _h_Muon_SumPt[alg]        = bookHisto1D(mkHistoName(2, 2, alg));
-        _h_Muon_Beamthrust[alg]   = bookHisto1D(mkHistoName(3, 2, alg));
-        _h_Muon_Thrust[alg]       = bookHisto1D(mkHistoName(4, 2, alg));
-        _h_Muon_FParam[alg]       = bookHisto1D(mkHistoName(5, 2, alg));
-        _h_Muon_Spherocity[alg]   = bookHisto1D(mkHistoName(6, 2, alg));
+        _h_Elec_Ntrk[alg]         = bookHisto1D(_mkHistoName(1, 1, alg));
+        _h_Elec_SumPt[alg]        = bookHisto1D(_mkHistoName(2, 1, alg));
+        _h_Elec_Beamthrust[alg]   = bookHisto1D(_mkHistoName(3, 1, alg));
+        _h_Elec_Thrust[alg]       = bookHisto1D(_mkHistoName(4, 1, alg));
+        _h_Elec_FParam[alg]       = bookHisto1D(_mkHistoName(5, 1, alg));
+        _h_Elec_Spherocity[alg]   = bookHisto1D(_mkHistoName(6, 1, alg));
+        _h_Muon_Ntrk[alg]         = bookHisto1D(_mkHistoName(1, 2, alg));
+        _h_Muon_SumPt[alg]        = bookHisto1D(_mkHistoName(2, 2, alg));
+        _h_Muon_Beamthrust[alg]   = bookHisto1D(_mkHistoName(3, 2, alg));
+        _h_Muon_Thrust[alg]       = bookHisto1D(_mkHistoName(4, 2, alg));
+        _h_Muon_FParam[alg]       = bookHisto1D(_mkHistoName(5, 2, alg));
+        _h_Muon_Spherocity[alg]   = bookHisto1D(_mkHistoName(6, 2, alg));
       }
     }
 
@@ -210,7 +191,13 @@ namespace Rivet {
       }
     }
 
+
   private:
+
+    // Convenience method for histogram booking
+    string _mkHistoName(int idDS, int channel, int i) {
+      return "d0" + toString(idDS) + "-x0" + toString(channel) + "-y0" + toString(i+1);
+    }
 
     Histo1DPtr _h_Elec_Ntrk[5];
     Histo1DPtr _h_Elec_SumPt[5];

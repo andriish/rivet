@@ -941,7 +941,10 @@ namespace Rivet {
 
 /// @def DEFAULT_RIVET_ANA_CONSTRUCTOR
 /// Preprocessor define to prettify the manky constructor with name string argument
-#define DEFAULT_RIVET_ANA_CONSTRUCTOR(clsname) clsname() : Analysis(# clsname) {}
+#define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) clsname() : Analysis(# clsname) {}
+
+// DEPRECATED ALIAS
+#define DEFAULT_RIVET_ANA_CONSTRUCTOR(clsname) DEFAULT_RIVET_ANALYSIS_CTOR(clsname)
 
 
 #endif

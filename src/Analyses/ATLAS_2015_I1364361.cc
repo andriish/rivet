@@ -18,9 +18,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2015_I1364361()
-      : Analysis("ATLAS_2015_I1364361")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1364361);
 
 
     /// Book histograms and initialise projections before the run

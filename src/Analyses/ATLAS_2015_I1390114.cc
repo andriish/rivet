@@ -13,9 +13,7 @@ namespace Rivet {
   class ATLAS_2015_I1390114 : public Analysis {
   public:
 
-    ATLAS_2015_I1390114()
-      : Analysis("ATLAS_2015_I1390114")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1390114);
 
 
     void init() {
