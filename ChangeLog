@@ -14,6 +14,30 @@
 	without using the word 'projection', which makes the function
 	names a bit shorter and pithier, and reduces semantic repetition.
 
+2016-06-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS_2015_I1397635 Wt at 8 TeV analysis.
+
+	* Adding ATLAS_2015_I1390114 tt+b(b) at 8 TeV analysis.
+
+2016-06-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Downgrade some non-fatal error messages from ERROR to WARNING
+	status, because *sigh* ATLAS's software treats any appearance of
+	the word 'ERROR' in its log file as a reason to report the job as
+	failed (facepalm).
+
+2016-06-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS 13 TeV minimum bias analysis, ATLAS_2016_I1419652.
+
+2016-05-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* pyext/rivet/util.py: Add pandoc --wrap/--no-wrap CLI detection
+	and batch conversion.
+
+	* bin/rivet: add -o as a more standard 'output' option flag alias to -H.
+
 2016-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove the last ref-data bin from table 16 of
@@ -1125,7 +1149,7 @@
 	becomes mandatory (in version 2.2.0?). Anyone who wants C++11 can
 	explicitly set the CXXFLAGS (and DYLDFLAGS for pre-Mavericks Macs)
 
-2014-01-21  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2014-01-21  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Core/Analysis.cc: Fixed bug in Analysis::isCompatible where
 	an 'abs' was left out when checking that beam energes does not
@@ -2513,7 +2537,7 @@
 	paths match a regex. Writing a negative lookahead regex with
 	positive matching was far too awkward!
 
-2011-03-18  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2011-03-18  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Core/AnalysisHandler.cc (AnalysisHandler::removeAnalysis):
 	Fixed strange shared pointer assignment that caused seg-fault.
@@ -4771,7 +4795,7 @@
 
 	* Added bash color escapes to the logger system.
 
-2007-12-21  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-12-21  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/LWH/ManagedObject.h: Fixed infinite loop in
 	encodeForXML cf. ticket #135.
@@ -4866,7 +4890,7 @@
 
 	* Merged replacement vectors, matrices and boosts into trunk.
 
-2007-11-15  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-11-15  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Analysis.cc, include/Rivet/Analysis.hh: Introduced normalize
 	function. See ticket #126.
@@ -5011,7 +5035,7 @@
 	* include/Rivet/Projections/*.hh: Removed the private restrictions
 	on copy-assignment operators.
 
-2007-06-18  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-06-18  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/LWH/Tree.h: Fixed minor bug in listObjectNames.
 
@@ -5022,7 +5046,7 @@
 	* include/LWH/DataPoint.h: Added constructor taking a vector of
 	measuremts.
 
-2007-06-16  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-06-16  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/LWH/Tree.h: Implemented the listObjectNames and ls
 	functions.
@@ -5035,7 +5059,7 @@
 	* include/Rivet/Projections/FinalState.hh: Made _theParticles
 	protected.
 
-2007-06-13  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-06-13  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Projections/FinalStateHCM.cc,
 	src/Projections/DISKinematics.cc: Equality checks using
@@ -5052,7 +5076,7 @@
 	final state projection to limit searching for scattered
 	lepton. Still not properly tested.
 
-2007-06-08  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-06-08  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/Rivet/Projections/PVertex.hh,
 	src/Projections/PVertex.cc: Fixed the projection to simply get the
@@ -5070,7 +5094,7 @@
 
 	* Fixed initialization of VetoedFinalStateProjection in ExampleTree
 
-2007-05-27  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-05-27  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/Rivet/Projections/KtJets.*: Make sure the KtEvent is
 	deleted properly.
@@ -5092,7 +5116,7 @@
 	* src/Analysis/Analysis.cc: Fixed a bug in the AIDA path building.
 	Histogram auto-booking now works.
 
-2007-05-23  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-05-23  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Analysis/HepEx9506012.cc: Now uses the histogram booking
 	function in the Analysis class.
@@ -5151,7 +5175,7 @@
 	* Added a preliminary version of the Rick Field UE analysis, under
 	the name PRD65092002.
 
-2007-04-19  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-04-19  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Analysis/HepEx0409040.cc: The reason this did not compile
 	under gcc-4 is that some iterators into a vector were wrongly
@@ -5176,7 +5200,7 @@
 	* Added "rivet" executable which can read in HepMC ASCII dump
 	files and apply Rivet analyses on the events.
 
-2007-02-24  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-02-24  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Projections/KtJets.cc: Added comparison of member variables
 	in compare() function
@@ -5184,7 +5208,7 @@
 	* all: Merged changes from polymorphic-projections branch into
 	trunk
 
-2007-02-17  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-02-17  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* all: projections and analysis handlers: All projections which
 	uses other projctions now has a pointer rather than a copy of
@@ -5192,14 +5216,14 @@
 	also been changed to require the used projections themselves,
 	rather than the arguments needed to construct them.
 
-2007-02-17  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-02-17  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Projections/FinalState.cc,
 	include/Rivet/Projections/FinalState.icc (Rivet),
 	include/Rivet/Projections/FinalState.hh: Added cut in transverse
 	momentum on the particles to be included in the final state.
 
-2007-02-06  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-02-06  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* include/LWH/HistogramFactory.h: Fixed divide-by-zero in divide
 	function. Also fixed bug in error calculation in divide
@@ -5209,7 +5233,7 @@
 	* include/LWH/Histogram1D.h: In normalize(double), do not do anything
 	if the sum of the bins are zero to avoid dividing by zero.
 
-2007-01-20  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2007-01-20  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* src/Test/testLWH.cc: Modified to output files using the Tree.
 
@@ -5258,7 +5282,7 @@
 
 	* Moving things around: all sources now in directories under src
 
-2006-06-04  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2006-06-04  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Analysis/Examples/HZ95108.*: Now uses CentralEtHCM. Also set GeV
 	units on the relevant histograms.
@@ -5267,7 +5291,7 @@
 	out one number - the summed Et in the central rapidity bin - may
 	seem like an overkill. But in case some one else might nees it...
 
-2006-06-03  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2006-06-03  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* Analysis/Examples/HZ95108.*: Added the hz95108 energy flow
 	analysis from HZtool.
@@ -5287,7 +5311,7 @@
 	* Analysis/AnalysisBase.*: Added access to the RivetHandler and
 	its AIDA factories.
 
-2005-12-27  Leif Lönnblad  <Leif.Lonnblad@thep.lu.se>
+2005-12-27  Leif Lonnblad  <Leif.Lonnblad@thep.lu.se>
 
 	* configure.ac: Added -I$THEPEGPATH/include to AM_CPPFLAGS.
 

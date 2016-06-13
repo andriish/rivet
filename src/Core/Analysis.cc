@@ -663,7 +663,7 @@ namespace Rivet {
 
   void Analysis::normalize(Histo1DPtr histo, double norm, bool includeoverflows) {
     if (!histo) {
-      MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
+      MSG_WARNING("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
       return;
     }
     MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
@@ -678,11 +678,11 @@ namespace Rivet {
 
   void Analysis::scale(Histo1DPtr histo, double scale) {
     if (!histo) {
-      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
+      MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
       return;
     }
     if (std::isnan(scale) || std::isinf(scale)) {
-      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
+      MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
       scale = 0;
     }
     MSG_TRACE("Scaling histo " << histo->path() << " by factor " << scale);

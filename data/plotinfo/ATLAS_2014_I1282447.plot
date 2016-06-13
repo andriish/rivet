@@ -25,42 +25,42 @@ LogY=0
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d02-x01-y01
 Title=$Wc$-jet
-YLabel=$\sigma_\text{fid}^\text{OS-SS} (W^+ \bar{c}\text{-jet}) / \sigma_\text{fid}^\text{OS-SS}(W^- c\text{-jet})$ 
+YLabel=$\sigma_\text{fid}^\text{OS-SS} (W^+ \bar{c}\text{-jet}) / \sigma_\text{fid}^\text{OS-SS}(W^- c\text{-jet})$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d02-x01-y02
 Title=$WD^{(*)}$
-YLabel=$\sigma_\text{fid}^\text{OS-SS} ($W^+ D^{(*)-}) / \sigma_\text{fid}^\text{OS-SS}(W^- D^{(*)+}$ 
+YLabel=$\sigma_\text{fid}^\text{OS-SS} ($W^+ D^{(*)-}) / \sigma_\text{fid}^\text{OS-SS}(W^- D^{(*)+}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d0[34]-.*
-XLabel=Lepton $|\eta|$ 
+XLabel=Lepton $|\eta|$
 YLabel=$\mathrm{d} \sigma_\text{fid}^\text{OS-SS} / \mathrm{d} |\eta|$ [pb]
 LogY=0
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d03-x01-y01
-Title=$W^+ + \bar{c}$-jet 
+Title=$W^+ + \bar{c}$-jet
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d03-x01-y02
-Title=$W^- + c$-jet 
+Title=$W^- + c$-jet
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d04-x01-y01
-Title=$W^+ + D^-$ 
+Title=$W^+ + D^-$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d04-x01-y02
-Title=$W^- + D^+$ 
+Title=$W^- + D^+$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d04-x01-y03
-Title=$W^+ + D^{*-}$ 
+Title=$W^+ + D^{*-}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d04-x01-y04
-Title=$W^- + D^{*+}$ 
+Title=$W^- + D^{*+}$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1282447/d05-x01-y01
@@ -115,7 +115,7 @@ Title=$W^- D^{*+}$ over inclusive $W^-$
 Title=$W + c$-jet
 XLabel=Jet multiplicity
 XMinorTickMarks=0
-XCustomMajorTicks=0	1 jet	1	2 jets
+XCustomMajorTicks=0	1~jet	1	2~jets
 YLabel=$\sigma_\text{fid}^\text{OS-SS}$ [pb]
 LogY=0
 # END PLOT
@@ -124,8 +124,7 @@ LogY=0
 Title=$R^\pm_c$
 XLabel=Jet multiplicity
 XMinorTickMarks=0
-XCustomMajorTicks=0	1 jet	1	2 jets
-YLabel=$\sigma_\text{fid}^\text{OS-SS}(W^+ \bar{c}\text{-jet}) / \sigma_\text{fid}^\text{OS-SS}(W^- c\text{-jet})$ 
+XCustomMajorTicks=0	1~jet	1	2~jets
+YLabel=$\sigma_\text{fid}^\text{OS-SS}(W^+ \bar{c}\text{-jet}) / \sigma_\text{fid}^\text{OS-SS}(W^- c\text{-jet})$
 LogY=0
 # END PLOT
-
