@@ -202,7 +202,7 @@ namespace Rivet {
     void init() {
 
       // Initialise and register projections
-      // addProjection(FinalState(Cuts::pT > 100*MeV), "FS");
+      // declare(FinalState(Cuts::pT > 100*MeV), "FS");
 
       // Book histograms
       // _h_XXXX = bookProfile1D(1, 1, 1);

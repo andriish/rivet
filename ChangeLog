@@ -1,5 +1,9 @@
 2016-06-13  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add and use projection handling methods declare(proj, pname) and
+	apply<PROJ>(evt, pname) rather than the longer and explicitly
+	'projectiony' addProjection & applyProjection.
+
 	* Start using the DEFAULT_RIVET_ANALYSIS_CTOR macro (newly created
 	preferred alias to long-present DEFAULT_RIVET_ANA_CONSTRUCTOR)
 
