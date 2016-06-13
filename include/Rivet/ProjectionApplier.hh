@@ -139,23 +139,24 @@ namespace Rivet {
     ///
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& addProjection(const PROJ& proj, const std::string& name) {
-      const Projection& reg = _addProjection(proj, name);
+    const PROJ& declareProjection(const PROJ& proj, const std::string& name) {
+      const Projection& reg = _declareProjection(proj, name);
       const PROJ& rtn = dynamic_cast<const PROJ&>(reg);
       return rtn;
     }
     /// @brief Register a contained projection (user-facing version)
+    /// @deprecated Use declareProjection() or declare()
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& add(const PROJ& proj, const std::string& name) { return addProjection(proj, name); }
+    const PROJ& addProjection(const PROJ& proj, const std::string& name) { return addProjection(proj, name); }
     /// @brief Register a contained projection (user-facing version)
     /// @todo Add SFINAE to require that PROJ inherit from Projection
     template <typename PROJ>
-    const PROJ& reg(const PROJ& proj, const std::string& name) { return addProjection(proj, name); }
+    const PROJ& declare(const PROJ& proj, const std::string& name) { return addProjection(proj, name); }
 
 
     /// Untemplated function to do the work...
-    const Projection& _addProjection(const Projection& proj, const std::string& name);
+    const Projection& _declareProjection(const Projection& proj, const std::string& name);
 
     //@}
 
