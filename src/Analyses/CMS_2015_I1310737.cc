@@ -1,3 +1,4 @@
+// -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
@@ -13,9 +14,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CMS_2015_I1310737()
-      : Analysis("CMS_2015_I1310737")
-    {  }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2015_I1310737);
 
 
     /// Book histograms and initialise projections before the run

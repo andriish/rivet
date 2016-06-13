@@ -4,12 +4,13 @@
 #include "Rivet/Tools/BinnedHistogram.hh"
 
 namespace Rivet {
+
+
   class CMS_2015_I1327224 : public Analysis {
   public:
 
-    CMS_2015_I1327224()
-      : Analysis("CMS_2015_I1327224")
-    { }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2015_I1327224);
+
 
     void init() {
       FinalState fs;
@@ -21,6 +22,7 @@ namespace Rivet {
       _h_chi_dijet.addHistogram(2400., 3000., bookHisto1D(4, 1, 1));
       _h_chi_dijet.addHistogram(1900., 2400., bookHisto1D(5, 1, 1));
     }
+
 
     void analyze(const Event& event) {
       const double weight = event.weight();
@@ -38,8 +40,8 @@ namespace Rivet {
 
       double chi = exp(fabs(y0 - y1));
       if (chi >= 16.) vetoEvent;
-     
-      // Fill the histogram 
+
+      // Fill the histogram
       _h_chi_dijet.fill(mjj/GeV, chi, weight);
     }
 
