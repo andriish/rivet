@@ -32,7 +32,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const WFinder& wf = applyProjection<WFinder>(event, "WFinder");
+      const WFinder& wf = apply<WFinder>(event, "WFinder");
       if (wf.bosons().size() == 0) vetoEvent;
 
       _h_W_pT->fill(wf.bosons()[0].pT()/GeV, weight);

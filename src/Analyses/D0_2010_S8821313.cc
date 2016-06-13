@@ -45,7 +45,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const ZFinder& zfinder_ee = applyProjection<ZFinder>(event, "zfinder_ee");
+      const ZFinder& zfinder_ee = apply<ZFinder>(event, "zfinder_ee");
       if (zfinder_ee.bosons().size() == 1) {
         Particles ee = zfinder_ee.constituents();
         std::sort(ee.begin(), ee.end(), cmpMomByPt);
@@ -60,7 +60,7 @@ namespace Rivet {
         _h_phistar_ee.fill(zmom.rapidity(), phistar, weight);
       }
 
-      const ZFinder& zfinder_mm = applyProjection<ZFinder>(event, "zfinder_mm");
+      const ZFinder& zfinder_mm = apply<ZFinder>(event, "zfinder_mm");
       if (zfinder_mm.bosons().size() == 1) {
         Particles mm = zfinder_mm.constituents();
         std::sort(mm.begin(), mm.end(), cmpMomByPt);

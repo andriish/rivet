@@ -242,7 +242,7 @@ namespace Rivet {
       // Make sure that we have a Z-candidate:
       const Particle *lep1 = NULL, *lep2 = NULL;
       //
-      const vector<DressedLepton>& muons = applyProjection<DressedLeptons>(event, "DressedMuons").dressedLeptons();
+      const vector<DressedLepton>& muons = apply<DressedLeptons>(event, "DressedMuons").dressedLeptons();
       if (muons.size() == 2) {
         const FourMomentum dimuon = muons[0].mom() + muons[1].mom();
         if ( inRange(dimuon.mass()/GeV, 81.0, 101.0) && muons[0].threeCharge() != muons[1].threeCharge() ) {
@@ -251,7 +251,7 @@ namespace Rivet {
         }
       }
       //
-      const vector<DressedLepton>& electrons = applyProjection<DressedLeptons>(event, "DressedElectrons").dressedLeptons();
+      const vector<DressedLepton>& electrons = apply<DressedLeptons>(event, "DressedElectrons").dressedLeptons();
       if (electrons.size() == 2) {
         const FourMomentum dielectron = electrons[0].mom() + electrons[1].mom();
         if ( inRange(dielectron.mass()/GeV, 81.0, 101.0) && electrons[0].threeCharge() != electrons[1].threeCharge() ) {
@@ -269,7 +269,7 @@ namespace Rivet {
 
       // Do lepton-jet overlap removal:
       vector<const Jet*> good_jets;
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::absrap < 4.4);
+      const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::absrap < 4.4);
       foreach(const Jet& j, jets) {
         bool nearby_lepton = false;
         foreach (const Particle& m, muons)

@@ -29,7 +29,7 @@ namespace Rivet {
     void analyze(const Event & event) {
       const double weight = event.weight();
 
-      const Jets& jets = applyProjection<JetAlg>(event, "antikT").jetsByPt();
+      const Jets& jets = apply<JetAlg>(event, "antikT").jetsByPt();
       if (jets.size() < 2) vetoEvent;
 
       if (fabs(jets[0].eta()) > 1.1 || jets[0].pT() < 80.) vetoEvent;

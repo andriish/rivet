@@ -33,7 +33,7 @@ namespace Rivet {
     void analyze(const Event & e) {
       const double weight = e.weight();
 
-      const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
+      const JetAlg& jetpro = apply<JetAlg>(e, "ConeFinder");
       const Jets& jets = jetpro.jetsByPt();
 
       if (jets.size() < 2) vetoEvent;

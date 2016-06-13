@@ -29,7 +29,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const double weight = event.weight();
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
 
       // A vector containing a lot of eta values
       vector<double> detparticles;

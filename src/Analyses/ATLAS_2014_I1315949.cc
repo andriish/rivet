@@ -70,7 +70,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       const double weight = event.weight();
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
 
       if (zfinder.bosons().size() != 1) vetoEvent;
 
@@ -85,7 +85,7 @@ namespace Rivet {
              ptSumTrmin(0.0), ptSumTrmax(0.0), ptSumAway(0.0);
      
       // The charged particles
-      ParticleVector particles = applyProjection<ChargedFinalState>(event, "cfs").particlesByPt(
+      ParticleVector particles = apply<ChargedFinalState>(event, "cfs").particlesByPt(
           Cuts::pT > 0.5*GeV && Cuts::abseta <2.5);
 
       // Loop over charged particles with pT>500 MeV and |eta|<2.5

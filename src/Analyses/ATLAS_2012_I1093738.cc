@@ -71,12 +71,12 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the photon
-      const FinalState& photonfs = applyProjection<FinalState>(event, "LeadingPhoton");
+      const FinalState& photonfs = apply<FinalState>(event, "LeadingPhoton");
       if (photonfs.particles().size() < 1) vetoEvent;
       const FourMomentum photon = photonfs.particles().front().momentum();
 
       // Get the jet
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(20.0*GeV);
+      Jets jets = apply<FastJets>(event, "Jets").jetsByPt(20.0*GeV);
       if (jets.empty()) vetoEvent;
       FourMomentum leadingJet = jets[0].momentum();
 
@@ -88,7 +88,7 @@ namespace Rivet {
 
       // Compute the jet pT densities
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-      FastJets fastjets = applyProjection<FastJets>(event, "KtJetsD05");
+      FastJets fastjets = apply<FastJets>(event, "KtJetsD05");
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fastjets.clusterSeqArea();
       for (const Jet& jet : fastjets.jets()) {
         const double area = clust_seq_area->area(jet); //< Implicit call to pseudojet()
@@ -117,7 +117,7 @@ namespace Rivet {
       }
 
       // Compute photon isolation with a standard ET cone
-      const Particles fs = applyProjection<FinalState>(event, "JetFS").particles();
+      const Particles fs = apply<FinalState>(event, "JetFS").particles();
       FourMomentum mom_in_EtCone;
       const double ISO_DR = 0.4;
       const double CLUSTER_ETA_WIDTH = 0.25*5.0;

@@ -61,7 +61,7 @@ namespace Rivet {
     void analyze(const Event& evt) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets jets = applyProjection<FastJets>(evt, "Jets")
+      const Jets jets = apply<FastJets>(evt, "Jets")
         .jetsByPt(Cuts::ptIn(_ptedges.front()*GeV, _ptedges.back()*GeV) && Cuts::absrap < 2.8);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
@@ -76,7 +76,7 @@ namespace Rivet {
           if (ipt == 8 && jy == 4) continue;
           if (ipt == 9 && jy == 4) continue;
           if (ipt == 10 && jy != 5) continue;
-          const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt][jy]);
+          const JetShape& jsipt = apply<JetShape>(evt, _jsnames_pT[ipt][jy]);
           for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
             for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
               const double r_rho = jsipt.rBinMid(rbin);

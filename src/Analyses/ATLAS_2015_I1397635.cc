@@ -74,14 +74,14 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the selected objects, using the projections.
-      vector<DressedLepton> electrons = applyProjection<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
-      vector<DressedLepton> muons = applyProjection<DressedLeptons>(event, "dressedmuons").dressedLeptons();
+      vector<DressedLepton> electrons = apply<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
+      vector<DressedLepton> muons = apply<DressedLeptons>(event, "dressedmuons").dressedLeptons();
       // also make basic event selection cuts for leptons
       if (electrons.empty() && muons.empty())  vetoEvent;
       if (electrons.size() + muons.size() != 2) vetoEvent;
 
       // next selection cuts for jets
-      const Jets jets = applyProjection<FastJets>(event, "jets").jets(Cuts::pT>20*GeV && Cuts::abseta < 2.5, cmpMomByPt);
+      const Jets jets = apply<FastJets>(event, "jets").jets(Cuts::pT>20*GeV && Cuts::abseta < 2.5, cmpMomByPt);
       if (jets.size() != 1) vetoEvent;
 
       // and selection cuts for b-tagging
@@ -106,7 +106,7 @@ namespace Rivet {
 
       // Now evaluate MET selection
       // Get the neutrinos from the event record (they have pT > 0.0 and |eta| < 4.5 at this stage
-      const Particles& neutrinos = applyProjection<PromptFinalState>(event, "neutrinos").particlesByPt();
+      const Particles& neutrinos = apply<PromptFinalState>(event, "neutrinos").particlesByPt();
       FourMomentum met;
       foreach (const Particle& nu, neutrinos)  met += nu.momentum();
       if (met.pT() <= 20*GeV)  vetoEvent;

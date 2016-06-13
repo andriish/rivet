@@ -70,28 +70,28 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       // Trigger
-      const bool trigger = applyProjection<TriggerUA5>(event, "Trigger").nsdDecision();
+      const bool trigger = apply<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
       _sumWPassed += event.weight();
 
       // Count forward/backward particles
-      n_10f.push_back(applyProjection<ChargedFinalState>(event, "CFS10F").size());
-      n_15f.push_back(applyProjection<ChargedFinalState>(event, "CFS15F").size());
-      n_20f.push_back(applyProjection<ChargedFinalState>(event, "CFS20F").size());
-      n_25f.push_back(applyProjection<ChargedFinalState>(event, "CFS25F").size());
-      n_30f.push_back(applyProjection<ChargedFinalState>(event, "CFS30F").size());
-      n_35f.push_back(applyProjection<ChargedFinalState>(event, "CFS35F").size());
-      n_40f.push_back(applyProjection<ChargedFinalState>(event, "CFS40F").size());
+      n_10f.push_back(apply<ChargedFinalState>(event, "CFS10F").size());
+      n_15f.push_back(apply<ChargedFinalState>(event, "CFS15F").size());
+      n_20f.push_back(apply<ChargedFinalState>(event, "CFS20F").size());
+      n_25f.push_back(apply<ChargedFinalState>(event, "CFS25F").size());
+      n_30f.push_back(apply<ChargedFinalState>(event, "CFS30F").size());
+      n_35f.push_back(apply<ChargedFinalState>(event, "CFS35F").size());
+      n_40f.push_back(apply<ChargedFinalState>(event, "CFS40F").size());
       //
-      n_10b.push_back(applyProjection<ChargedFinalState>(event, "CFS10B").size());
-      n_15b.push_back(applyProjection<ChargedFinalState>(event, "CFS15B").size());
-      n_20b.push_back(applyProjection<ChargedFinalState>(event, "CFS20B").size());
-      n_25b.push_back(applyProjection<ChargedFinalState>(event, "CFS25B").size());
-      n_30b.push_back(applyProjection<ChargedFinalState>(event, "CFS30B").size());
-      n_35b.push_back(applyProjection<ChargedFinalState>(event, "CFS35B").size());
-      n_40b.push_back(applyProjection<ChargedFinalState>(event, "CFS40B").size());
+      n_10b.push_back(apply<ChargedFinalState>(event, "CFS10B").size());
+      n_15b.push_back(apply<ChargedFinalState>(event, "CFS15B").size());
+      n_20b.push_back(apply<ChargedFinalState>(event, "CFS20B").size());
+      n_25b.push_back(apply<ChargedFinalState>(event, "CFS25B").size());
+      n_30b.push_back(apply<ChargedFinalState>(event, "CFS30B").size());
+      n_35b.push_back(apply<ChargedFinalState>(event, "CFS35B").size());
+      n_40b.push_back(apply<ChargedFinalState>(event, "CFS40B").size());
       //
-      n_05 .push_back(applyProjection<ChargedFinalState>(event, "CFS05").size());
+      n_05 .push_back(apply<ChargedFinalState>(event, "CFS05").size());
     }
 
 

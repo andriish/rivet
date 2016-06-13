@@ -70,7 +70,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // CFS projection and particles
-      const ChargedFinalState& cfs500 = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs500 = apply<ChargedFinalState>(event, "CFS");
       ParticleVector particles500 = cfs500.particlesByPt();
 
       // Require at least 6 charged particles

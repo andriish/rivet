@@ -47,7 +47,7 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const Jets& jets = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt(40.0*GeV);
+      const Jets& jets = apply<JetAlg>(e, "ConeFinder").jetsByPt(40.0*GeV);
       if (jets.size() < 2) vetoEvent;
 
       FourMomentum j0(jets[0].momentum());

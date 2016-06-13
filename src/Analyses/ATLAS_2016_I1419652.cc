@@ -65,7 +65,7 @@ namespace Rivet {
         case k_pt500_nch1_eta08:  fsName = "CFS500_08"; break;
         }
 
-        const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, fsName);
+        const ChargedFinalState& cfs = apply<ChargedFinalState>(event, fsName);
 
         /// What's the benefit in separating this code which is only called from one place?!
         fillPtEtaNch(cfs, iR, event.weight());

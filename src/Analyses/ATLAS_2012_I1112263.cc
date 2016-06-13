@@ -73,7 +73,7 @@ namespace Rivet {
 
       // Get the jet candidates
       Jets cand_jets;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
@@ -82,8 +82,8 @@ namespace Rivet {
       // Candidate muons
       Particles cand_mu;
       Particles chg_tracks =
-        applyProjection<ChargedFinalState>(event, "cfs").particles();
-      foreach ( const Particle & mu, applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
+        apply<ChargedFinalState>(event, "cfs").particles();
+      foreach ( const Particle & mu, apply<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
         double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
@@ -95,7 +95,7 @@ namespace Rivet {
 
       // Candidate electrons
       Particles cand_e;
-      foreach ( const Particle & e, applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
+      foreach ( const Particle & e, apply<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
         double eta = e.eta();
         // Remove electrons with pT<15 in old veto region
         // (NOT EXPLICIT IN THIS PAPER BUT IN SIMILAR 4 LEPTON PAPER and THIS DESCRPITION
@@ -175,7 +175,7 @@ namespace Rivet {
 
       // pTmiss
       Particles vfs_particles =
-        applyProjection<VisibleFinalState>(event, "vfs").particles();
+        apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
         pTmiss -= p.momentum();

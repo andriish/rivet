@@ -53,8 +53,8 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Apply the Z finders
-      const ZFinder& zfe = applyProjection<ZFinder>(event, "ZFE");
-      const ZFinder& zfm = applyProjection<ZFinder>(event, "ZFM");
+      const ZFinder& zfe = apply<ZFinder>(event, "ZFE");
+      const ZFinder& zfm = apply<ZFinder>(event, "ZFM");
 
       // Choose the Z candidate (there must be one)
       if (zfe.empty() && zfm.empty()) vetoEvent;
@@ -65,7 +65,7 @@ namespace Rivet {
       const bool is_boosted = (z[0].pT() > 150*GeV);
 
       // Build the jets
-      const FastJets& jetfs = applyProjection<FastJets>(event, "JETS");
+      const FastJets& jetfs = apply<FastJets>(event, "JETS");
       const Jets& jets = jetfs.jetsByPt(Cuts::pT > 50*GeV && Cuts::abseta < 2.5);
 
       // Clean the jets against the lepton candidates, as in the paper, with a deltaR cut of 0.4 against the clustered leptons

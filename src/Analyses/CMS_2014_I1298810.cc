@@ -53,8 +53,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const Jets& jetsak5 = applyProjection<FastJets>(event, "JetsAK5").jetsByPt(56*GeV);
-      const Jets& jetsak7 = applyProjection<FastJets>(event, "JetsAK7").jetsByPt(56*GeV);
+      const Jets& jetsak5 = apply<FastJets>(event, "JetsAK5").jetsByPt(56*GeV);
+      const Jets& jetsak7 = apply<FastJets>(event, "JetsAK7").jetsByPt(56*GeV);
       if (jetsak5.size() < 1 && jetsak7.size() < 1) vetoEvent;
 
       const double weight = event.weight();

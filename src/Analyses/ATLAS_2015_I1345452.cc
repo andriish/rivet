@@ -107,12 +107,12 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the selected objects, using the projections.
-      _dressedelectrons     = applyProjection<DressedLeptons>(  event, "dressedelectrons").dressedLeptons();
-      _vetodressedelectrons = applyProjection<DressedLeptons>(  event, "vetodressedelectrons").dressedLeptons();
-      _dressedmuons         = applyProjection<DressedLeptons>(  event, "dressedmuons").dressedLeptons();
-      _vetodressedmuons     = applyProjection<DressedLeptons>(  event, "vetodressedmuons").dressedLeptons();
-      _neutrinos            = applyProjection<PromptFinalState>(event, "neutrinos").particlesByPt();
-      const Jets& all_jets  = applyProjection<FastJets>(        event, "jets").jetsByPt(Cuts::pT > 25.0*GeV && Cuts::abseta < 2.5);
+      _dressedelectrons     = apply<DressedLeptons>(  event, "dressedelectrons").dressedLeptons();
+      _vetodressedelectrons = apply<DressedLeptons>(  event, "vetodressedelectrons").dressedLeptons();
+      _dressedmuons         = apply<DressedLeptons>(  event, "dressedmuons").dressedLeptons();
+      _vetodressedmuons     = apply<DressedLeptons>(  event, "vetodressedmuons").dressedLeptons();
+      _neutrinos            = apply<PromptFinalState>(event, "neutrinos").particlesByPt();
+      const Jets& all_jets  = apply<FastJets>(        event, "jets").jetsByPt(Cuts::pT > 25.0*GeV && Cuts::abseta < 2.5);
 
       //get true l+jets events by removing events with more than 1 electron||muon neutrino
       unsigned int n_elmu_neutrinos = 0;

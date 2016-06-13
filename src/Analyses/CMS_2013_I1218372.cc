@@ -66,12 +66,12 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Skip if the event is empty
-      const FinalState& fsv = applyProjection<FinalState>(event, "fsv");
+      const FinalState& fsv = apply<FinalState>(event, "fsv");
       if (fsv.empty()) vetoEvent;
 
       // ====================== Minimum Bias selection
 
-      const FinalState& sfsv = applyProjection<FinalState>(event, "sfsv");
+      const FinalState& sfsv = apply<FinalState>(event, "sfsv");
       Particles parts = sfsv.particles(cmpMomByRap);
       if (parts.empty()) vetoEvent;
 
@@ -124,7 +124,7 @@ namespace Rivet {
 
       //  ============================== JET EVENTS
 
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets& jets = jetpro.jetsByPt(1.0*GeV);
       if (jets.size()<1) vetoEvent;
 

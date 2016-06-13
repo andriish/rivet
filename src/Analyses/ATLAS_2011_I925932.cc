@@ -42,10 +42,10 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const WFinder& wfinder_dressed_el = applyProjection<WFinder>(event, "WFinder_dressed_el");
-      const WFinder& wfinder_bare_el    = applyProjection<WFinder>(event, "WFinder_bare_el");
-      const WFinder& wfinder_dressed_mu = applyProjection<WFinder>(event, "WFinder_dressed_mu");
-      const WFinder& wfinder_bare_mu    = applyProjection<WFinder>(event, "WFinder_bare_mu");
+      const WFinder& wfinder_dressed_el = apply<WFinder>(event, "WFinder_dressed_el");
+      const WFinder& wfinder_bare_el    = apply<WFinder>(event, "WFinder_bare_el");
+      const WFinder& wfinder_dressed_mu = apply<WFinder>(event, "WFinder_dressed_mu");
+      const WFinder& wfinder_bare_mu    = apply<WFinder>(event, "WFinder_bare_mu");
 
       if (wfinder_dressed_el.empty() && wfinder_bare_el.empty() &&
           wfinder_dressed_mu.empty() && wfinder_bare_mu.empty()) {

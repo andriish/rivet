@@ -61,9 +61,9 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const Jets& jets = applyProjection<FastJets>(event, "jets").jetsByPt(20.0*GeV);
+      const Jets& jets = apply<FastJets>(event, "jets").jetsByPt(20.0*GeV);
 
-      const WFinder& We = applyProjection<WFinder>(event, "W_e");
+      const WFinder& We = apply<WFinder>(event, "W_e");
       if (We.bosons().size() == 1) {
         const FourMomentum& p_miss = We.constituentNeutrinos()[0].momentum();
         const FourMomentum& p_lept = We.constituentLeptons()[0].momentum();
@@ -88,7 +88,7 @@ namespace Rivet {
         }
       }
 
-      const WFinder& Wm = applyProjection<WFinder>(event, "W_mu");
+      const WFinder& Wm = apply<WFinder>(event, "W_mu");
       if (Wm.bosons().size() == 1) {
         const FourMomentum& p_miss = Wm.constituentNeutrinos()[0].momentum();
         const FourMomentum& p_lept = Wm.constituentLeptons()[0].momentum();

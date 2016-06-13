@@ -37,7 +37,7 @@ namespace Rivet {
   void MC_JetSplittings::analyze(const Event & e) {
     const double weight = e.weight();
 
-    const FastJets& jetpro = applyProjection<FastJets>(e, m_jetpro_name);
+    const FastJets& jetpro = apply<FastJets>(e, m_jetpro_name);
     const auto seq = jetpro.clusterSeq();
     if (!seq) vetoEvent; //< the cseq is the whole point in this sort of analysis!!
 

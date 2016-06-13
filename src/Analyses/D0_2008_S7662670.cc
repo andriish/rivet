@@ -56,14 +56,14 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Skip if the event is empty
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
         MSG_DEBUG("Empty event!");
         vetoEvent;
       }
 
       // Find the jets
-      const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
+      const JetAlg& jetpro = apply<JetAlg>(event, "Jets");
       // Fill histo for each jet
       foreach (const Jet& j, jetpro.jets(Cuts::pT > 50*GeV)) {
         const double pt = j.pT();

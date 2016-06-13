@@ -79,7 +79,7 @@ namespace Rivet {
       for (int iFiducialRegion = 0; iFiducialRegion < 2; ++iFiducialRegion ) {
 
         // Retrieve all anti-kt R=0.6 jets above _pTMin and inside |_yFiducial|
-        const Jets akt6Jets = applyProjection<JetAlg>(event, "AntiKt6JetsWithInvisibles").jetsByPt( Cuts::absrap < _yFiducial.at(iFiducialRegion) );
+        const Jets akt6Jets = apply<JetAlg>(event, "AntiKt6JetsWithInvisibles").jetsByPt( Cuts::absrap < _yFiducial.at(iFiducialRegion) );
         // If there are fewer than 2 jets then bail
         if ( akt6Jets.size() < 2 ) { vetoEvent; }
 

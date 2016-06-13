@@ -29,11 +29,11 @@ namespace Rivet {
       double xiM = 0.;
       double xiP = 0.;
 
-      const Jets jets = applyProjection<FastJets>(event, "AntiKtJets05").jetsByPt(20.*GeV);
+      const Jets jets = apply<FastJets>(event, "AntiKtJets05").jetsByPt(20.*GeV);
       if (jets.size() < 2) vetoEvent;  // require a dijet system with a 20 GeV cut on both jets
       if (fabs(jets[0].eta()) > 4.4 || fabs(jets[1].eta()) > 4.4) vetoEvent;
 
-      const FinalState& fsp = applyProjection<FinalState>(event, "FS");
+      const FinalState& fsp = apply<FinalState>(event, "FS");
 
       foreach (const Particle& p, fsp.particles(cmpMomByEta)) {
         const double eta = p.eta();

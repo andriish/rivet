@@ -76,10 +76,10 @@ namespace Rivet {
       static unsigned int event_count = 0;
       ++event_count;
       const double weight = event.weight();
-      const FinalState& fs2 = applyProjection<FinalState>(event, "CNFS2");
-      const FinalState& fs4 = applyProjection<FinalState>(event, "CNFS4");
-      const FinalState& fs6 = applyProjection<FinalState>(event, "CNFS6");
-      const FinalState& fs8 = applyProjection<FinalState>(event, "CNFS8");
+      const FinalState& fs2 = apply<FinalState>(event, "CNFS2");
+      const FinalState& fs4 = apply<FinalState>(event, "CNFS4");
+      const FinalState& fs6 = apply<FinalState>(event, "CNFS6");
+      const FinalState& fs8 = apply<FinalState>(event, "CNFS8");
 
       // Set up Yes/No arrays for energy in each eta bin at each pT cut
       bool energyMap_200[_etaBins];

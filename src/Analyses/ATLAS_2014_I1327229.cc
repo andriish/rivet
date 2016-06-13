@@ -94,9 +94,9 @@ namespace Rivet {
 
       // Muons
       Particles muon_candidates;
-      const Particles charged_tracks = applyProjection<ChargedFinalState>(event, "CFS").particles();
-      const Particles visible_particles = applyProjection<VisibleFinalState>(event, "VFS").particles();
-      foreach (const Particle& mu, applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
+      const Particles charged_tracks = apply<ChargedFinalState>(event, "CFS").particles();
+      const Particles visible_particles = apply<VisibleFinalState>(event, "VFS").particles();
+      foreach (const Particle& mu, apply<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
 
         // Calculate pTCone30 variable (pT of all tracks within dR<0.3 - pT of muon itself)
         double pTinCone = -mu.pT();
@@ -125,7 +125,7 @@ namespace Rivet {
 
       // Electrons
       Particles electron_candidates;
-      foreach (const Particle& e, applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
+      foreach (const Particle& e, apply<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
         // Neglect electrons in crack regions
         if (inRange(e.abseta(), 1.37, 1.52)) continue;
 
@@ -156,7 +156,7 @@ namespace Rivet {
 
       // Taus
       Particles tau_candidates;
-      foreach (const Particle& tau, applyProjection<UnstableFinalState>(event, "UFS").particles() ) {
+      foreach (const Particle& tau, apply<UnstableFinalState>(event, "UFS").particles() ) {
         // Only pick taus out of all unstable particles
         if ( tau.abspid() != PID::TAU) continue;
         // Check that tau has decayed into daughter particles
@@ -188,12 +188,12 @@ namespace Rivet {
 
       // Jets (all anti-kt R=0.4 jets with pT > 30 GeV and eta < 4.9
       Jets jet_candidates;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(30.0*GeV) ) {
+      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(30.0*GeV) ) {
         if (jet.abseta() < 4.9 ) jet_candidates.push_back(jet);
       }
 
       // ETmiss
-      Particles vfs_particles = applyProjection<VisibleFinalState>(event, "VFS").particles();
+      Particles vfs_particles = apply<VisibleFinalState>(event, "VFS").particles();
       FourMomentum pTmiss;
       foreach (const Particle& p, vfs_particles ) pTmiss -= p.momentum();
       double eTmiss = pTmiss.pT()/GeV;

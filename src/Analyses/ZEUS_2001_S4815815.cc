@@ -71,7 +71,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Jet selection
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 11*GeV && Cuts::etaIn(-1, 2.4), cmpMomByEt);
+      const Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::pT > 11*GeV && Cuts::etaIn(-1, 2.4), cmpMomByEt);
       if (jets.size() < 2) vetoEvent;
       if (jets[0].pT() < 14*GeV) vetoEvent;
       MSG_DEBUG("Jet multiplicity = " << jets.size());
@@ -85,7 +85,7 @@ namespace Rivet {
       const double costhetastar = tanh(etabar);
 
       // Get the scattered positron candidate
-      const Particles positrons = applyProjection<FinalState>(event, "Positrons").particlesByPt();
+      const Particles positrons = apply<FinalState>(event, "Positrons").particlesByPt();
       if (positrons.empty()) vetoEvent;
       const Particle& positron = positrons[0];
       const double Eeprime = positron.E();

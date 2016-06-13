@@ -54,8 +54,8 @@ namespace Rivet {
 
     void analyze(const Event& evt) {
       Jets jetAr[2];
-      jetAr[AKT6] = applyProjection<FastJets>(evt, "AntiKT06").jetsByPt(30*GeV);
-      jetAr[AKT4] = applyProjection<FastJets>(evt, "AntiKT04").jetsByPt(30*GeV);
+      jetAr[AKT6] = apply<FastJets>(evt, "AntiKT06").jetsByPt(30*GeV);
+      jetAr[AKT4] = apply<FastJets>(evt, "AntiKT04").jetsByPt(30*GeV);
 
       // Identify the dijets
       for (size_t alg = 0; alg < 2; ++alg) {

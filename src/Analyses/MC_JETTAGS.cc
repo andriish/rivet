@@ -34,8 +34,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const Jets jets04 = applyProjection<FastJets>(event, "Jets04").jetsByPt(20*GeV);
-      const Jets jets06 = applyProjection<FastJets>(event, "Jets06").jetsByPt(20*GeV);
+      const Jets jets04 = apply<FastJets>(event, "Jets04").jetsByPt(20*GeV);
+      const Jets jets06 = apply<FastJets>(event, "Jets06").jetsByPt(20*GeV);
 
       foreach (const Jet& j, jets04) {
         _h_numBTagsPerJet[0]->fill(j.bTags().size(), weight);

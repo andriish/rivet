@@ -39,13 +39,13 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
-      const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
       const double weight = event.weight();
       _sumWTrig += weight;
 
       // Loop over final state charged particles to fill eta histos
-      const FinalState& fs = applyProjection<FinalState>(event, "CFS");
+      const FinalState& fs = apply<FinalState>(event, "CFS");
       foreach (const Particle& p, fs.particles()) {
         const double eta = p.eta();
         _hist_eta->fill(fabs(eta), weight);

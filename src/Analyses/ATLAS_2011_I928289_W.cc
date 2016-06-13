@@ -68,10 +68,10 @@ namespace Rivet {
       const double weight = event.weight();
 
       ///Do the event by event analysis here
-      const WFinder& wfinder_el_bare     = applyProjection<WFinder>(event, "WFinder_el_bare");
-      const WFinder& wfinder_el_dressed  = applyProjection<WFinder>(event, "WFinder_el_dressed");
-      const WFinder& wfinder_mu_bare     = applyProjection<WFinder>(event, "WFinder_mu_bare");
-      const WFinder& wfinder_mu_dressed  = applyProjection<WFinder>(event, "WFinder_mu_dressed");
+      const WFinder& wfinder_el_bare     = apply<WFinder>(event, "WFinder_el_bare");
+      const WFinder& wfinder_el_dressed  = apply<WFinder>(event, "WFinder_el_dressed");
+      const WFinder& wfinder_mu_bare     = apply<WFinder>(event, "WFinder_mu_bare");
+      const WFinder& wfinder_mu_dressed  = apply<WFinder>(event, "WFinder_mu_dressed");
 
       FillPlots1d(wfinder_el_bare   , _h_Wplus_lepton_eta_el_bare   , _h_Wminus_lepton_eta_el_bare   , weight);
       FillPlots1d(wfinder_el_dressed, _h_Wplus_lepton_eta_el_dressed, _h_Wminus_lepton_eta_el_dressed, weight);

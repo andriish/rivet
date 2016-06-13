@@ -39,7 +39,7 @@ namespace Rivet {
       double weight100 = event.weight() * 100.;  //to get results in %
 
       //keeps jets with pt>20 geV and ordered in decreasing pt
-      Jets jetAr = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(20*GeV);
+      Jets jetAr = apply<FastJets>(event, "AntiKT04").jetsByPt(20*GeV);
 
       int flav[2]={1,1};
       vector<FourMomentum> leadjets;

@@ -57,7 +57,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const vector<DressedLepton>& leptons = applyProjection<DressedLeptons>(event, "leptons").dressedLeptons();
+      const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
       if ( leptons.size() < 2 )  vetoEvent;
 
       double minDR_ll = MAXDOUBLE, mll = -1.0;
@@ -75,10 +75,10 @@ namespace Rivet {
 
       if ( leptons[0].charge() * leptons[1].charge() < 0.0 )  vetoEvent;
 
-      const MissingMomentum& met = applyProjection<MissingMomentum>(event, "MissingET");
+      const MissingMomentum& met = apply<MissingMomentum>(event, "MissingET");
       if ( met.vectorEt().mod() <= 40*GeV )  vetoEvent;
 
-      const Jets& all_jets = applyProjection<FastJets>(event, "jets").jetsByPt( (Cuts::abseta < 4.5) && (Cuts::pT > 30*GeV) );
+      const Jets& all_jets = apply<FastJets>(event, "jets").jetsByPt( (Cuts::abseta < 4.5) && (Cuts::pT > 30*GeV) );
       Jets jets;
       double minDR_overall = MAXDOUBLE;
       foreach (const Jet& jet, all_jets) {

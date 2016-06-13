@@ -54,13 +54,13 @@ namespace Rivet {
       }
 
       // Charged + neutral final state PIDs
-      const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
+      const FinalState& cnfs = apply<FinalState>(event, "FS");
       foreach (const Particle& p, cnfs.particles()) {
         _histStablePIDs->fill(p.abspid(), weight);
       }
 
       // Unstable PIDs and identified particle eta spectra
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         _histDecayedPIDs->fill(p.pid(), weight);
         const double eta_abs = p.abseta();

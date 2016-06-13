@@ -39,7 +39,7 @@ namespace Rivet {
       // Make sure to always include the event weight in histogram fills!
       const double weight = event.weight();
 
-      const Particles ps = applyProjection<FinalState>(event, "FS").particlesByPt();
+      const Particles ps = apply<FinalState>(event, "FS").particlesByPt();
 
       Cut ptcut = Cuts::range(Cuts::pT, 5, 20);
       Cut masscut = Cuts::range(Cuts::mass, 0, 0.2);

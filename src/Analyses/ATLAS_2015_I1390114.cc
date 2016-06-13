@@ -75,11 +75,11 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Get the selected objects, using the projections.
-      vector<DressedLepton> electrons = applyProjection<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
-      vector<DressedLepton> muons = applyProjection<DressedLeptons>(event, "dressedmuons").dressedLeptons();
+      vector<DressedLepton> electrons = apply<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
+      vector<DressedLepton> muons = apply<DressedLeptons>(event, "dressedmuons").dressedLeptons();
       if (electrons.empty() && muons.empty())  vetoEvent;
 
-      Jets jets = applyProjection<FastJets>(event, "jets").jets((Cuts::pT>20*GeV) && (Cuts::abseta < 2.5), cmpMomByPt);
+      Jets jets = apply<FastJets>(event, "jets").jets((Cuts::pT>20*GeV) && (Cuts::abseta < 2.5), cmpMomByPt);
       Jets bjets;
 
       // Check overlap of jets/leptons.

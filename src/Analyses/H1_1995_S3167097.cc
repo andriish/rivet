@@ -64,9 +64,9 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const CentralEtHCM& y1 = applyProjection<CentralEtHCM>(event, "Y1HCM");
+      const FinalState& fs = apply<FinalState>(event, "FS");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      const CentralEtHCM& y1 = apply<CentralEtHCM>(event, "Y1HCM");
 
       const int ibin = _getbin(dk);
       if (ibin < 0) vetoEvent;

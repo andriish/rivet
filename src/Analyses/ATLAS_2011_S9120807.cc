@@ -49,14 +49,14 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Require at least 2 photons in final state
-      Particles photons = applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
+      Particles photons = apply<IdentifiedFinalState>(event, "Photon").particlesByPt();
       if (photons.size() < 2) vetoEvent;
 
       // Compute jet pT densities
       vector<double> ptDensity;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-      const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
-      for (const Jet& jet : applyProjection<FastJets>(event, "KtJetsD05").jets()) {
+      const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = apply<FastJets>(event, "KtJetsD05").clusterSeqArea();
+      for (const Jet& jet : apply<FastJets>(event, "KtJetsD05").jets()) {
         const double area = clust_seq_area->area(jet); // .pseudojet() called implicitly
         /// @todo Should be 1e-4?
         if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
@@ -78,7 +78,7 @@ namespace Rivet {
         if (inRange(photon.abseta(), 1.37, 1.52)) continue;
 
         // Standard ET cone isolation
-        const Particles& fs = applyProjection<FinalState>(event, "FS").particles();
+        const Particles& fs = apply<FinalState>(event, "FS").particles();
         FourMomentum mom_in_EtCone;
         for (const Particle& p : fs) {
           // Check if it's in the cone of .4

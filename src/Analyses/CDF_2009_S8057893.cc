@@ -28,7 +28,7 @@ namespace Rivet {
 
 
     void CDF_2009_S8057893::analyze(const Event& event) {
-      const FastJets& jetpro = applyProjection<FastJets>(e, "MidpointJets");
+      const FastJets& jetpro = apply<FastJets>(e, "MidpointJets");
       const Jets& jets = jetpro.jetsByPt();
       MSG_DEBUG("Jet multiplicity = " << jets.size());
       if (jets.size() < 1) {

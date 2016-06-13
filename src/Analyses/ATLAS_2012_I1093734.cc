@@ -173,13 +173,13 @@ namespace Rivet {
       const double weight = event.weight();
 
       for (int ipt = 0; ipt < NPTBINS; ++ipt) {
-        const FinalState& charged = applyProjection<FinalState>(event, "CFS" + PTBINNAMES[ipt]);
+        const FinalState& charged = apply<FinalState>(event, "CFS" + PTBINNAMES[ipt]);
         if (charged.particles().size() >= 2) {
           for (int ieta = 0; ieta < NETABINS; ++ieta) {
             const string fname = "Tracks" + ETABINNAMES[ieta] + "F" + PTBINNAMES[ipt];
             const string bname = "Tracks" + ETABINNAMES[ieta] + "B" + PTBINNAMES[ipt];
-            const ParticleVector particlesF = applyProjection<FinalState>(event, fname).particles();
-            const ParticleVector particlesB = applyProjection<FinalState>(event, bname).particles();
+            const ParticleVector particlesF = apply<FinalState>(event, fname).particles();
+            const ParticleVector particlesB = apply<FinalState>(event, bname).particles();
             _vecsNchF[ipt][ieta].push_back((double) particlesF.size());
             _vecsNchB[ipt][ieta].push_back((double) particlesB.size());
             _vecWeight[ipt][ieta].push_back(weight);
@@ -202,7 +202,7 @@ namespace Rivet {
       string etabin[3] = { "10", "20", "25" };
       for (int ieta = 0; ieta < 3; ieta++) {
         const string fname = "ChargedTracks" + etabin[ieta];
-        const ParticleVector partTrks = applyProjection<FinalState>(event, fname).particlesByPt();
+        const ParticleVector partTrks = apply<FinalState>(event, fname).particlesByPt();
 
         // Find the leading track and fill the temp histograms
         const Particle& plead = partTrks[0];

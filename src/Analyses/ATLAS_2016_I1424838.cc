@@ -69,11 +69,11 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Check for Z boson in event
-      const ZFinder& zfinder    = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder    = apply<ZFinder>(event, "ZFinder");
       MSG_DEBUG("Num e+ e- pairs found = " << zfinder.bosons().size());
       const bool isElec = zfinder.bosons().size() == 1;
 
-      const ZFinder& zfinder_mu = applyProjection<ZFinder>(event, "ZFinderMu");
+      const ZFinder& zfinder_mu = apply<ZFinder>(event, "ZFinderMu");
       MSG_DEBUG("Num mu+ mu- pairs found = " << zfinder_mu.bosons().size());
       const bool isMuon = zfinder_mu.bosons().size() == 1;
 
@@ -94,7 +94,7 @@ namespace Rivet {
       assert(alg > 0);
 
       // All charged particles within |eta|<2.5 except the leptons from Z-decay
-      const VetoedFinalState& remfs = applyProjection<VetoedFinalState>(event, "REMFS");
+      const VetoedFinalState& remfs = apply<VetoedFinalState>(event, "REMFS");
       // sumPt and Beamthrust (the latter will only be filled if the min Nch criterion is met)
       // and Thrust preparation
       double sumPt = 0.0, beamThrust = 0.0;
@@ -142,9 +142,9 @@ namespace Rivet {
         double thrust = thrustC.thrust();
 
         // F-Parameter
-        const FParameter& fparam = applyProjection<FParameter>(event, "FParameter_");
+        const FParameter& fparam = apply<FParameter>(event, "FParameter_");
         // Spherocity
-        const Spherocity& sphero = applyProjection<Spherocity>(event, "Spherocity_");
+        const Spherocity& sphero = apply<Spherocity>(event, "Spherocity_");
 
         // Histos differential in NMPI
 

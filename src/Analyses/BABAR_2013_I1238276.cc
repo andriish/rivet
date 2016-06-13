@@ -33,9 +33,9 @@ namespace Rivet {
       const double weight = e.weight();
 
       // Loop through charged FS particles and look for charmed mesons/baryons
-      const ChargedFinalState& fs = applyProjection<ChargedFinalState>(e, "FS");
+      const ChargedFinalState& fs = apply<ChargedFinalState>(e, "FS");
 
-      const Beam beamproj = applyProjection<Beam>(e, "Beams");
+      const Beam beamproj = apply<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
       const FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.boostVector());

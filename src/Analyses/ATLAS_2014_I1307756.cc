@@ -48,13 +48,13 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       /// Require at least 2 photons in final state
-      Particles photons = applyProjection<IdentifiedFinalState>(event, "photons").particlesByPt();
+      Particles photons = apply<IdentifiedFinalState>(event, "photons").particlesByPt();
       if (photons.size() < 2) vetoEvent;
 
       // Get jet pT densities
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-      const auto clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
-      for (const Jet& jet : applyProjection<FastJets>(event, "KtJetsD05").jets()) {
+      const auto clust_seq_area = apply<FastJets>(event, "KtJetsD05").clusterSeqArea();
+      for (const Jet& jet : apply<FastJets>(event, "KtJetsD05").jets()) {
         const double area = clust_seq_area->area(jet);
         if (area > 1e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
           ptDensities.at(getEtaBin(jet.abseta())) += jet.pT()/area;
@@ -71,7 +71,7 @@ namespace Rivet {
       // Loop over photons and find isolated ones
       Particles isolated_photons;
       for (const Particle& ph : photons) {
-        Particles fs = applyProjection<FinalState>(event, "FS").particles();
+        Particles fs = apply<FinalState>(event, "FS").particles();
         FourMomentum mom_in_EtCone;
         for (const Particle& p : fs) {
 

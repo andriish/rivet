@@ -39,7 +39,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       /// @todo Do the event by event analysis here
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1) {
         MSG_DEBUG("Num e+ e- pairs found = " << zfinder.bosons().size());
 	vetoEvent;

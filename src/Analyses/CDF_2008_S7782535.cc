@@ -44,7 +44,7 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& event) {
-      const FastJets& fjs = applyProjection<FastJets>(event, "Jets");
+      const FastJets& fjs = apply<FastJets>(event, "Jets");
       const Jets& jets = fjs.jets(Cuts::ptIn(_ptedges.front()*GeV, _ptedges.back()*GeV) && Cuts::absrap < 0.7);
       if (jets.size() == 0) {
         MSG_DEBUG("No jets found in required pT range");
@@ -75,7 +75,7 @@ namespace Rivet {
       for (size_t ipt = 0; ipt < 4; ++ipt) {
         if (bjets_ptbinned[ipt].empty()) continue;
         // Don't use the cached result: copy construct and calculate for provided b-jets only
-        JetShape jsipt = applyProjection<JetShape>(event, _jsnames_pT[ipt]);
+        JetShape jsipt = apply<JetShape>(event, _jsnames_pT[ipt]);
         jsipt.calc(bjets_ptbinned[ipt]);
         for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
           for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {

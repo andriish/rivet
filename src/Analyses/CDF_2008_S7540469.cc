@@ -45,14 +45,14 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Skip if the event is empty
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
         MSG_DEBUG("Skipping event " << numEvents() << " because no final state pair found");
         vetoEvent;
       }
 
       // Find the Z candidates
-      const FinalState & electronfs = applyProjection<FinalState>(event, "LeadingElectrons");
+      const FinalState & electronfs = apply<FinalState>(event, "LeadingElectrons");
       std::vector<std::pair<Particle, Particle> > Z_candidates;
       Particles all_els=electronfs.particles();
       for (size_t i=0; i<all_els.size(); ++i) {

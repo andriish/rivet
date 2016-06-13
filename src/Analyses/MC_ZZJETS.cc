@@ -55,10 +55,10 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const ZFinder& zeefinder = applyProjection<ZFinder>(e, "ZeeFinder");
+      const ZFinder& zeefinder = apply<ZFinder>(e, "ZeeFinder");
       if (zeefinder.bosons().size() != 1) vetoEvent;
 
-      const ZFinder& zmmfinder = applyProjection<ZFinder>(e, "ZmmFinder");
+      const ZFinder& zmmfinder = apply<ZFinder>(e, "ZmmFinder");
       if (zmmfinder.bosons().size() != 1) vetoEvent;
 
       // Z momenta
@@ -71,7 +71,7 @@ namespace Rivet {
       const FourMomentum& mp = zmmfinder.constituents()[0].momentum();
       const FourMomentum& mm = zmmfinder.constituents()[1].momentum();
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
+      const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
         const FourMomentum j0 = jets[0].momentum();
         _h_ZZ_jet1_deta->fill(zz.eta()-j0.eta(), weight);

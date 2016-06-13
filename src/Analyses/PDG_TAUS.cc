@@ -48,8 +48,8 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const TauFinder& taulep = applyProjection<TauFinder>(e, "TauLeptonic");
-      const TauFinder& tauhad = applyProjection<TauFinder>(e, "TauHadronic");
+      const TauFinder& taulep = apply<TauFinder>(e, "TauLeptonic");
+      const TauFinder& tauhad = apply<TauFinder>(e, "TauHadronic");
 
       // Hadronic tau decays --- prong decays
       foreach(const Particle& tau, tauhad.taus()) {

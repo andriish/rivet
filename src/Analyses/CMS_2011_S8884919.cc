@@ -55,7 +55,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Get the charged particles
-      const ChargedFinalState& charged = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
 
       // Resetting the multiplicity for the event to 0;
       vector<int> _nch_in_Evt;

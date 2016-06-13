@@ -47,7 +47,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
+      const FastJets& fastjets = apply<FastJets>(event, "Jets");
       const Jets jets = fastjets.jetsByPt(20.*GeV);
       const double weight = event.weight();
 
@@ -67,8 +67,8 @@ namespace Rivet {
         _hist_jeteta->fill(j.eta(), weight);
       }
 
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
-      // const FastJets& cfastjets = applyProjection<FastJets>(event, "ChargedJets");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
+      // const FastJets& cfastjets = apply<FastJets>(event, "ChargedJets");
       double meanpt(0), rmspt(0);
       /// @todo Add jets
       // foreach(Jet cj, cfastjets.jetsByPt(20.*GeV)){

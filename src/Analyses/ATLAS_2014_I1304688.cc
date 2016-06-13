@@ -99,15 +99,15 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the selected objects, using the projections.
-      _dressedelectrons = sortByPt(applyProjection<DressedLeptons>(event, "dressedelectrons").dressedLeptons());
-      _vetodressedelectrons = applyProjection<DressedLeptons>(event, "vetodressedelectrons").dressedLeptons();
+      _dressedelectrons = sortByPt(apply<DressedLeptons>(event, "dressedelectrons").dressedLeptons());
+      _vetodressedelectrons = apply<DressedLeptons>(event, "vetodressedelectrons").dressedLeptons();
 
-      _dressedmuons = sortByPt(applyProjection<DressedLeptons>(event, "dressedmuons").dressedLeptons());
-      _vetodressedmuons = applyProjection<DressedLeptons>(event, "vetodressedmuons").dressedLeptons();
+      _dressedmuons = sortByPt(apply<DressedLeptons>(event, "dressedmuons").dressedLeptons());
+      _vetodressedmuons = apply<DressedLeptons>(event, "vetodressedmuons").dressedLeptons();
 
-      _neutrinos = applyProjection<PromptFinalState>(event, "neutrinos").particlesByPt();
+      _neutrinos = apply<PromptFinalState>(event, "neutrinos").particlesByPt();
 
-      _jets = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.5);
+      _jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.5);
 
 
       // Calculate the missing ET, using the prompt neutrinos only (really?)

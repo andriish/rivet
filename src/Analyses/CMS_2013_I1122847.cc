@@ -104,7 +104,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const ZFinder& zfinder_el = applyProjection<ZFinder>(event, "zfinder_el");
+      const ZFinder& zfinder_el = apply<ZFinder>(event, "zfinder_el");
       if (zfinder_el.bosons().size() > 0) {
         const Particle& z  = zfinder_el.bosons()[0];
         const Particle& l1 = zfinder_el.constituents()[0];
@@ -140,7 +140,7 @@ namespace Rivet {
         }
       }
 
-      const ZFinder& zfinder_mu = applyProjection<ZFinder>(event, "zfinder_mu");
+      const ZFinder& zfinder_mu = apply<ZFinder>(event, "zfinder_mu");
       if (zfinder_mu.bosons().size() > 0) {
         const Particle& z  = zfinder_mu.bosons()[0];
         const Particle& l1 = zfinder_mu.constituents()[0];

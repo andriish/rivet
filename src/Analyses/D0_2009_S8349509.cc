@@ -60,7 +60,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() == 1) {
         // count inclusive sum of weights for histogram normalisation
         _inclusive_Z_sumofweights += weight;
@@ -69,7 +69,7 @@ namespace Rivet {
         if (zmom.pT() < 25*GeV) vetoEvent;
 
         Jets jets;
-        foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
+        foreach (const Jet& j, apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
           if (j.abseta() < 2.8) {
             jets.push_back(j);
             break;

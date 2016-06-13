@@ -51,8 +51,8 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const ChargedFinalState& bbc1 = applyProjection<ChargedFinalState>(event, "BBC1");
-      const ChargedFinalState& bbc2 = applyProjection<ChargedFinalState>(event, "BBC2");
+      const ChargedFinalState& bbc1 = apply<ChargedFinalState>(event, "BBC1");
+      const ChargedFinalState& bbc2 = apply<ChargedFinalState>(event, "BBC2");
       if (bbc1.size()<1 || bbc2.size()<1) {
         MSG_DEBUG("Failed beam-beam-counter trigger");
         vetoEvent;
@@ -60,7 +60,7 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if (p.absrap() < 0.5) {
           const PdgId pid = p.pid();

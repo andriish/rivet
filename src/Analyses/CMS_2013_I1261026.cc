@@ -66,15 +66,15 @@ namespace Rivet {
       const double weight = event.weight();
 
       // MinBias trigger
-      const ChargedFinalState& cfsBSCplus = applyProjection<ChargedFinalState>(event, "cfsBSCplus");
+      const ChargedFinalState& cfsBSCplus = apply<ChargedFinalState>(event, "cfsBSCplus");
       if (cfsBSCplus.empty()) vetoEvent;
-      const ChargedFinalState& cfsBSCminus = applyProjection<ChargedFinalState>(event, "cfsBSCminus");
+      const ChargedFinalState& cfsBSCminus = apply<ChargedFinalState>(event, "cfsBSCminus");
       if (cfsBSCminus.empty()) vetoEvent;
 
-      const ChargedFinalState& cfsp = applyProjection<ChargedFinalState>(event, "CFS250");
+      const ChargedFinalState& cfsp = apply<ChargedFinalState>(event, "CFS250");
       if (cfsp.empty()) vetoEvent;
 
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets& jets = jetpro.jetsByPt(5.0*GeV);
 
       const int mult = cfsp.size();
@@ -161,7 +161,7 @@ namespace Rivet {
         }
       }
 
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets& jets = jetpro.jetsByPt(5.0*GeV);
 
       // Start event decomp
@@ -173,7 +173,7 @@ namespace Rivet {
         jCount++;
       }
 
-      const ChargedFinalState& cfsp = applyProjection<ChargedFinalState>(event, "CFS250");
+      const ChargedFinalState& cfsp = apply<ChargedFinalState>(event, "CFS250");
       foreach (const Particle& p, cfsp.particles()) {
         _th_AllTrkSpectrum[ibin].fill(p.pT()/GeV, weight);
         int flag = 0;

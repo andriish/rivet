@@ -78,7 +78,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       Jets jets;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(cmpMomByEt)) {
+      foreach (const Jet& jet, apply<FastJets>(event, "Jets").jets(cmpMomByEt)) {
         double Et = jet.Et();
         if (Et > 20.0*GeV) {
           bool separated = true;

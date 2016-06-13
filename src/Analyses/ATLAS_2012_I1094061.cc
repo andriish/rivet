@@ -138,7 +138,7 @@ namespace Rivet {
     ////////////////////////////////////////////////////////////////////////////
     void analyze(const Event &evt){
 
-      const ChargedFinalState &cfsProj = applyProjection<ChargedFinalState>(evt, "ChargedParticles");
+      const ChargedFinalState &cfsProj = apply<ChargedFinalState>(evt, "ChargedParticles");
 
       ParticleVector chargedParticles = cfsProj.particles();
 

@@ -59,9 +59,9 @@ namespace Rivet {
       const double weight = event.weight();
 
       /// Get photons and leptons
-      const Particles& photons = applyProjection<FinalState>(event, "gammaFS").particles();
+      const Particles& photons = apply<FinalState>(event, "gammaFS").particles();
       MSG_DEBUG("Photon multiplicity = " << photons.size());
-      const Particles& leptons = applyProjection<FinalState>(event, "lFS").particles();
+      const Particles& leptons = apply<FinalState>(event, "lFS").particles();
       MSG_DEBUG("Photon multiplicity = " << leptons.size());
 
       // Initialise a map of sumPtgamma for each lepton

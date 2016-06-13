@@ -89,7 +89,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "zfinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "zfinder");
       if (zfinder.constituents().size()!=2) vetoEvent;
 
       FourMomentum z = zfinder.bosons()[0].momentum();
@@ -99,7 +99,7 @@ namespace Rivet {
 
       Jets jets;
       /// @todo Replace with a Cut passed to jetsByPt
-      foreach(const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(30*GeV)) {
+      foreach(const Jet& jet, apply<FastJets>(event, "jets").jetsByPt(30*GeV)) {
         FourMomentum jmom = jet.momentum();
         if (jmom.absrap() < 4.4 && deltaR(lp, jmom) > 0.5  && deltaR(lm, jmom) > 0.5) {
           jets.push_back(jet);

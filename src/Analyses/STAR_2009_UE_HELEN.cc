@@ -58,13 +58,13 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& e) {
-      const FinalState& cfs = applyProjection<ChargedFinalState>(e, "CFS");
+      const FinalState& cfs = apply<ChargedFinalState>(e, "CFS");
       if (cfs.particles().size() < 1) {
         MSG_DEBUG("Failed multiplicity cut");
         vetoEvent;
       }
 
-      const Jets& alljets = applyProjection<FastJets>(e, "AllJets").jetsByPt();
+      const Jets& alljets = apply<FastJets>(e, "AllJets").jetsByPt();
       MSG_DEBUG("Total jet multiplicity = " << alljets.size());
 
       // The jet acceptance region is |eta|<(1-R)=0.3  (with R = jet radius)

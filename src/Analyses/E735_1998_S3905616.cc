@@ -32,12 +32,12 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const bool trigger = applyProjection<TriggerUA5>(event, "Trigger").nsdDecision();
+      const bool trigger = apply<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
       const double weight = event.weight();
       _sumWTrig += weight;
 
-      const ChargedFinalState& fs = applyProjection<ChargedFinalState>(event, "FS");
+      const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");
       const size_t numParticles = fs.particles().size();
       _hist_multiplicity->fill(numParticles, weight);
     }

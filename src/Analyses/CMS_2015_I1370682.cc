@@ -131,7 +131,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the ttbar candidate
-      const PseudoTop& ttbar = applyProjection<PseudoTop>(event, "ttbar");
+      const PseudoTop& ttbar = apply<PseudoTop>(event, "ttbar");
       if ( ttbar.mode() == PseudoTop::CH_NONE ) vetoEvent;
 
       const FourMomentum& t1P4 = ttbar.t1().momentum();

@@ -63,7 +63,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       // Get the W decay products (electron and neutrino)
-      const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
+      const InvMassFinalState& invMassFinalState = apply<InvMassFinalState>(event, "INVFS");
       const Particles&  wDecayProducts = invMassFinalState.particles();
 
       FourMomentum electronP, neutrinoP;
@@ -88,7 +88,7 @@ namespace Rivet {
       if (sqrt(mT2) < _mTCut ) vetoEvent;
 
       // Get the jets
-      const JetAlg& jetProj = applyProjection<FastJets>(event, "Jets");
+      const JetAlg& jetProj = apply<FastJets>(event, "Jets");
       Jets theJets = jetProj.jets(cmpMomByEt, Cuts::Et > _jetEtCutA);
       size_t njetsA(0), njetsB(0);
       foreach (const Jet& j, theJets) {

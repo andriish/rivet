@@ -79,17 +79,17 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      Particles veto_e = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
+      Particles veto_e = apply<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
         vetoEvent;
       }
 
-      Jets cand_jets = applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.8);
+      Jets cand_jets = apply<FastJets>(event, "AntiKtJets04").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.8);
 
-      Particles candtemp_e = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      Particles candtemp_mu = applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
-      Particles chg_tracks = applyProjection<ChargedFinalState>(event, "cfs").particles();
+      Particles candtemp_e = apply<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      Particles candtemp_mu = apply<IdentifiedFinalState>(event,"muons").particlesByPt();
+      Particles chg_tracks = apply<ChargedFinalState>(event, "cfs").particles();
       Particles cand_mu;
       Particles cand_e;
 
@@ -151,7 +151,7 @@ namespace Rivet {
 
       // pTmiss
       Particles vfs_particles
-        = applyProjection<VisibleFinalState>(event, "vfs").particles();
+        = apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
         pTmiss -= p.momentum();

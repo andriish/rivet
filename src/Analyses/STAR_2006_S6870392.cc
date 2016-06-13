@@ -37,14 +37,14 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Skip if the event is empty
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
         MSG_DEBUG("Skipping event " << numEvents() << " because no final state found ");
         vetoEvent;
       }
 
       // Find jets
-      const FastJets& jetpro = applyProjection<FastJets>(event, "MidpointJets");
+      const FastJets& jetpro = apply<FastJets>(event, "MidpointJets");
       const Jets& jets = jetpro.jetsByPt();
       if (!jets.empty()) {
         const Jet& j1 = jets.front();

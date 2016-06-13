@@ -66,7 +66,7 @@ namespace Rivet {
     void analyze(const Event& e) {
 
       // Get and cut on dressed leptons
-      const vector<DressedLepton>& leptons = applyProjection<DressedLeptons>(e, "leptons").dressedLeptons();
+      const vector<DressedLepton>& leptons = apply<DressedLeptons>(e, "leptons").dressedLeptons();
       if (leptons.size() != 2) vetoEvent; // require exactly two leptons
       if (leptons[0].threeCharge() * leptons[1].threeCharge() > 0) vetoEvent; // require opposite charge
 

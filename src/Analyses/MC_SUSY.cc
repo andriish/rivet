@@ -107,7 +107,7 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& evt) {
-      const FinalState& tracks = applyProjection<FinalState>(evt, "Tracks");
+      const FinalState& tracks = apply<FinalState>(evt, "Tracks");
       if (tracks.particles().empty()) {
         MSG_DEBUG("Failed multiplicity cut");
         vetoEvent;
@@ -126,7 +126,7 @@ namespace Rivet {
       }
 
       // Get jets and fill jet histos
-      const FastJets& jetpro = applyProjection<FastJets>(evt, "Jets");
+      const FastJets& jetpro = apply<FastJets>(evt, "Jets");
       const Jets jets = jetpro.jetsByPt();
       MSG_DEBUG("Jet multiplicity = " << jets.size());
       _hist_n_jet->fill(jets.size(), weight);
@@ -140,7 +140,7 @@ namespace Rivet {
       /// @todo Resum photons around electrons
 
       // Fill final state electron/positron histos
-      const FinalState& efs = applyProjection<FinalState>(evt, "Electrons");
+      const FinalState& efs = apply<FinalState>(evt, "Electrons");
       _hist_n_e->fill(efs.size(), weight);
       vector<FourMomentum> epluses, eminuses;
       foreach (const Particle& e, efs.particles()) {
@@ -157,7 +157,7 @@ namespace Rivet {
       /// @todo Resum photons around muons
 
       // Fill final state muon/antimuon histos
-      const FinalState& mufs = applyProjection<FinalState>(evt, "Muons");
+      const FinalState& mufs = apply<FinalState>(evt, "Muons");
       _hist_n_mu->fill(mufs.size(), weight);
       vector<FourMomentum> mupluses, muminuses;
       foreach (const Particle& mu, mufs.particles()) {
@@ -172,7 +172,7 @@ namespace Rivet {
       }
 
       // Fill final state non-isolated photon histos
-      const FinalState& allphotonfs = applyProjection<FinalState>(evt, "AllPhotons");
+      const FinalState& allphotonfs = apply<FinalState>(evt, "AllPhotons");
       _hist_n_gamma->fill(allphotonfs.size(), weight);
       Particles isolatedphotons;
       foreach (const Particle& ph, allphotonfs.particles()) {
@@ -202,11 +202,11 @@ namespace Rivet {
       }
 
       // Calculate and fill missing Et histos
-      const MissingMomentum& met = applyProjection<MissingMomentum>(evt, "MET");
+      const MissingMomentum& met = apply<MissingMomentum>(evt, "MET");
       _hist_met->fill(met.vectorEt().mod()/GeV);
 
       // Choose highest-pT leptons of each sign and flavour for dilepton mass edges
-      const FinalState& lpfs = applyProjection<FinalState>(evt, "LeadingParticles");
+      const FinalState& lpfs = apply<FinalState>(evt, "LeadingParticles");
       bool eplus_ok(false), eminus_ok(false), muplus_ok(false), muminus_ok(false);
       FourMomentum peplus, peminus, pmuplus, pmuminus;
       foreach (const Particle& p, lpfs.particles()) {

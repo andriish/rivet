@@ -33,7 +33,7 @@ namespace Rivet {
     void analyze(const Event& e) {
 
       // Find the Upsilons among the unstables
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
       Particles upsilons;
 
       // First in unstable final state

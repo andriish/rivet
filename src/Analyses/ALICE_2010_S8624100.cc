@@ -51,9 +51,9 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const ChargedFinalState& charged_05 = applyProjection<ChargedFinalState>(event, "CFS05");
-      const ChargedFinalState& charged_10 = applyProjection<ChargedFinalState>(event, "CFS10");
-      const ChargedFinalState& charged_13 = applyProjection<ChargedFinalState>(event, "CFS13");
+      const ChargedFinalState& charged_05 = apply<ChargedFinalState>(event, "CFS05");
+      const ChargedFinalState& charged_10 = apply<ChargedFinalState>(event, "CFS10");
+      const ChargedFinalState& charged_13 = apply<ChargedFinalState>(event, "CFS13");
 
       _h_dN_dNch_05->fill(charged_05.size(), weight);
       _h_dN_dNch_10->fill(charged_10.size(), weight);

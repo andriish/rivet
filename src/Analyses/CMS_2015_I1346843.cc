@@ -43,7 +43,7 @@ namespace Rivet {
     // Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const Particles muons = applyProjection<IdentifiedFinalState>(event, "MUFS").particlesByPt();
+      const Particles muons = apply<IdentifiedFinalState>(event, "MUFS").particlesByPt();
 
       if (muons.size() < 2) vetoEvent;
       if (muons[0].pT()/GeV < 31) vetoEvent;
@@ -51,7 +51,7 @@ namespace Rivet {
       const double mZ = (muons[0].momentum() + muons[1].momentum()).mass();
       if (!inRange(mZ, 30*GeV, 87*GeV)) vetoEvent;
 
-      const Particles photons = applyProjection<IdentifiedFinalState>(event, "PHOTFS").particlesByPt();
+      const Particles photons = apply<IdentifiedFinalState>(event, "PHOTFS").particlesByPt();
       // We want the photon with the highest pT that does not come from a decay
       foreach(const Particle& p, photons) {
         if (p.fromDecay() || !p.isStable()) continue;

@@ -64,8 +64,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
       Jets jetAr[2];
-      jetAr[AKT6] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(20*GeV);
-      jetAr[AKT4] = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(20*GeV);
+      jetAr[AKT6] = apply<FastJets>(event, "AntiKT06").jetsByPt(20*GeV);
+      jetAr[AKT4] = apply<FastJets>(event, "AntiKT04").jetsByPt(20*GeV);
 
       // Loop over jet "radii" used in analysis
       for (size_t alg = 0; alg < 2; ++alg) {

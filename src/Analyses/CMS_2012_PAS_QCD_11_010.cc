@@ -30,7 +30,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(1.0*GeV);
+      Jets jets = apply<FastJets>(event, "Jets").jetsByPt(1.0*GeV);
       if (jets.size() < 1) vetoEvent;
 
       if (fabs(jets[0].eta()) >= 2) { // cuts on leading jets
@@ -40,7 +40,7 @@ namespace Rivet {
       FourMomentum p_lead = jets[0].momentum();
       const double pTlead  = p_lead.pT();
 
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
 
       int numTrans_Kaon = 0;
       int numTrans_Lambda = 0;

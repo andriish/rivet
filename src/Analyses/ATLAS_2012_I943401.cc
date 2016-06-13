@@ -116,7 +116,7 @@ namespace Rivet {
       // get the jet candidates
       Jets cand_jets;
       foreach (const Jet& jet,
-        applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+        apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
@@ -124,7 +124,7 @@ namespace Rivet {
 
       // electron candidates
       Particles cand_e =
-        applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
+        apply<IdentifiedFinalState>(event, "elecs").particlesByPt();
 
       // Discard jets that overlap with electrons
       Jets recon_jets;
@@ -140,7 +140,7 @@ namespace Rivet {
       }
       // get the charged tracks for isolation
       Particles chg_tracks =
-        applyProjection<ChargedFinalState>(event, "cfs").particles();
+        apply<ChargedFinalState>(event, "cfs").particles();
 
       // Reconstructed electrons
       Particles recon_e;
@@ -167,7 +167,7 @@ namespace Rivet {
       // Reconstructed Muons
       Particles recon_mu;
       Particles cand_mu =
-        applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
+        apply<IdentifiedFinalState>(event,"muons").particlesByPt();
       foreach ( const Particle& mu, cand_mu ) {
         // check not near a jet
         bool mu_near_jet = false;
@@ -190,7 +190,7 @@ namespace Rivet {
 
       // pTmiss
       Particles vfs_particles
-        = applyProjection<VisibleFinalState>(event, "vfs").particles();
+        = apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle& p, vfs_particles ) {
         pTmiss -= p.momentum();

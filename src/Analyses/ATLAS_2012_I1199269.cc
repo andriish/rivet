@@ -47,13 +47,13 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Require at least 2 photons in final state
-      const Particles photons = applyProjection<IdentifiedFinalState>(event, "Photon").particlesByPt();
+      const Particles photons = apply<IdentifiedFinalState>(event, "Photon").particlesByPt();
       if (photons.size() < 2) vetoEvent;
 
       // Get jets, and corresponding jet areas
       vector<vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-      const auto clust_seq_area = applyProjection<FastJets>(event, "KtJetsD05").clusterSeqArea();
-      for (const Jet& jet : applyProjection<FastJets>(event, "KtJetsD05").jets()) {
+      const auto clust_seq_area = apply<FastJets>(event, "KtJetsD05").clusterSeqArea();
+      for (const Jet& jet : apply<FastJets>(event, "KtJetsD05").jets()) {
         const double area = clust_seq_area->area(jet); // implicit .pseudojet()
         if (area < 1e-3) continue;
         const int ieta = binIndex(jet.abseta(), _eta_bins_areaoffset);
@@ -74,7 +74,7 @@ namespace Rivet {
         /// Remove photons in ECAL crack region
         if (inRange(photon.abseta(), 1.37, 1.52)) continue;
         // Compute isolation via particles within an R=0.4 cone of the photon
-        const Particles& fs = applyProjection<FinalState>(event, "FS").particles();
+        const Particles& fs = apply<FinalState>(event, "FS").particles();
         FourMomentum mom_in_EtCone;
         for (const Particle& p : fs) {
           // Reject if not in cone

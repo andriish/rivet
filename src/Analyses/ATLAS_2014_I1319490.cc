@@ -167,11 +167,11 @@ namespace Rivet {
     // Perform the per-event analysis
     void analyze(const Event& event) {
       // Retrieve boson candidate
-      const WFinder& wf = applyProjection<WFinder>(event, "WF");
+      const WFinder& wf = apply<WFinder>(event, "WF");
       if (wf.empty()) vetoEvent;
 
       // Retrieve jets
-      const JetAlg& jetfs = applyProjection<JetAlg>(event, "Jets");
+      const JetAlg& jetfs = apply<JetAlg>(event, "Jets");
       Jets all_jets = jetfs.jetsByPt(Cuts::pT > 30.0*GeV && Cuts::absrap < 4.4);
 
       const Particles& leptons = wf.constituentLeptons();

@@ -30,7 +30,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       // Skip if the event is empty
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
         MSG_DEBUG("Skipping event " << numEvents() << " because no final state found ");
         vetoEvent;

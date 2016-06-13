@@ -33,7 +33,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       const double weight = event.weight();
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
+      const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
       if (jets.size() < 2 ||
           fabs(jets[0].eta()) >= 1.3 ||
           fabs(jets[1].eta()) >= 1.3 ||

@@ -88,15 +88,15 @@ namespace Rivet {
 
       const double JETPTCUT = 30*GeV;
 
-      const ZFinder& zeefinder = applyProjection<ZFinder>(event, "ZeeFinder");
-      const ZFinder& zmmfinder = applyProjection<ZFinder>(event, "ZmmFinder");
-      const WFinder& wefinder = applyProjection<WFinder>(event, "WeFinder");
-      const WFinder& wmfinder = applyProjection<WFinder>(event, "WmFinder");
+      const ZFinder& zeefinder = apply<ZFinder>(event, "ZeeFinder");
+      const ZFinder& zmmfinder = apply<ZFinder>(event, "ZmmFinder");
+      const WFinder& wefinder = apply<WFinder>(event, "WeFinder");
+      const WFinder& wmfinder = apply<WFinder>(event, "WmFinder");
       const Particles vectorBosons = zeefinder.bosons() + zmmfinder.bosons() + wefinder.bosons() + wmfinder.bosons();
       _h_Z_multiplicity->fill(zeefinder.bosons().size() + zmmfinder.bosons().size(), weight);
       _h_W_multiplicity->fill(wefinder.bosons().size() + wmfinder.bosons().size(), weight);
 
-      const Jets jets = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(JETPTCUT);
+      const Jets jets = apply<FastJets>(event, "AntiKT04").jetsByPt(JETPTCUT);
       _h_jet_multiplicity->fill(jets.size(), weight);
 
       // Identify the b-jets

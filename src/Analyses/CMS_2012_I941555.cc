@@ -60,7 +60,7 @@ namespace Rivet {
     void analyze(const Event& evt) {
       const double weight = evt.weight();
 
-      const ZFinder& zfinder_dressed_mu_rap = applyProjection<ZFinder>(evt, "ZFinder_dressed_mu_rap");
+      const ZFinder& zfinder_dressed_mu_rap = apply<ZFinder>(evt, "ZFinder_dressed_mu_rap");
       if (!zfinder_dressed_mu_rap.bosons().empty()) {
         _sumw_mu_dressed_rap += weight;
         const FourMomentum pZ = zfinder_dressed_mu_rap.bosons()[0].momentum();
@@ -68,7 +68,7 @@ namespace Rivet {
         _hist_zrap_comb_dressed->fill(pZ.rapidity()/GeV, weight);
       }
 
-      const ZFinder& zfinder_dressed_mu_pt = applyProjection<ZFinder>(evt, "ZFinder_dressed_mu_pt");
+      const ZFinder& zfinder_dressed_mu_pt = apply<ZFinder>(evt, "ZFinder_dressed_mu_pt");
       if (!zfinder_dressed_mu_pt.bosons().empty()) {
         _sumw_mu_dressed_pt += weight;
         const FourMomentum pZ = zfinder_dressed_mu_pt.bosons()[0].momentum();
@@ -81,7 +81,7 @@ namespace Rivet {
         }
       }
 
-      const ZFinder& zfinder_dressed_el_rap = applyProjection<ZFinder>(evt, "ZFinder_dressed_el_rap");
+      const ZFinder& zfinder_dressed_el_rap = apply<ZFinder>(evt, "ZFinder_dressed_el_rap");
       if (!zfinder_dressed_el_rap.bosons().empty()) {
         _sumw_el_dressed_rap += weight;
         const FourMomentum pZ = zfinder_dressed_el_rap.bosons()[0].momentum();
@@ -89,7 +89,7 @@ namespace Rivet {
         _hist_zrap_comb_dressed->fill(pZ.rapidity()/GeV, weight);
       }
 
-      const ZFinder& zfinder_dressed_el_pt = applyProjection<ZFinder>(evt, "ZFinder_dressed_el_pt");
+      const ZFinder& zfinder_dressed_el_pt = apply<ZFinder>(evt, "ZFinder_dressed_el_pt");
       if (!zfinder_dressed_el_pt.bosons().empty()) {
         _sumw_el_dressed_pt += weight;
         const FourMomentum pZ = zfinder_dressed_el_pt.bosons()[0].momentum();

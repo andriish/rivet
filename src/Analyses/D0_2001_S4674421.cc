@@ -64,7 +64,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const LeadingParticlesFinalState& eeFS = applyProjection<LeadingParticlesFinalState>(event, "eeFS");
+      const LeadingParticlesFinalState& eeFS = apply<LeadingParticlesFinalState>(event, "eeFS");
       // Z boson analysis
       if (eeFS.particles().size() >= 2) {
         // If there is a Z candidate:
@@ -94,8 +94,8 @@ namespace Rivet {
         }
       }
       // There is no Z -> ee candidate... so this might be a W event
-      const LeadingParticlesFinalState& enuFS = applyProjection<LeadingParticlesFinalState>(event, "enuFS");
-      const LeadingParticlesFinalState& enubFS = applyProjection<LeadingParticlesFinalState>(event, "enubFS");
+      const LeadingParticlesFinalState& enuFS = apply<LeadingParticlesFinalState>(event, "enuFS");
+      const LeadingParticlesFinalState& enubFS = apply<LeadingParticlesFinalState>(event, "enubFS");
 
       double deltaM2=1e30;
       double pT=-1.;

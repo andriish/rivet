@@ -50,7 +50,7 @@ namespace Rivet {
       Jets jets;
       double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "Jets").jets(cmpMomByEt)) {
+      foreach (const Jet& jet, apply<FastJets>(event, "Jets").jets(cmpMomByEt)) {
         double Et = jet.Et();
         double eta = jet.abseta();
         if (Et > 20.0*GeV && eta < 3.0) {

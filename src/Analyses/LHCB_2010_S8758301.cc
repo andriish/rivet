@@ -58,7 +58,7 @@ using namespace std;
       int id;
       double y, pT;
       const double weight = event.weight();
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftime;
       foreach (const Particle& p, ufs.particles()) {
         id = p.pid();

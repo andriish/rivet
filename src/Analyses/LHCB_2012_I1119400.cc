@@ -73,7 +73,7 @@ namespace Rivet {
     // Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       foreach (const Particle& p, cfs.particles()) {
         int id = p.pid();

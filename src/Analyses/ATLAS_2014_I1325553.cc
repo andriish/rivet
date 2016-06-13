@@ -49,8 +49,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       Jets jetAr[2];
-      jetAr[AKT4] = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT > 100*GeV && Cuts::absrap < 3.0);
-      jetAr[AKT6] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT > 100*GeV && Cuts::absrap < 3.0);
+      jetAr[AKT4] = apply<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT > 100*GeV && Cuts::absrap < 3.0);
+      jetAr[AKT6] = apply<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT > 100*GeV && Cuts::absrap < 3.0);
 
       // Loop over jet "radii" used in analysis
       for (size_t alg = 0; alg < 2; ++alg) {

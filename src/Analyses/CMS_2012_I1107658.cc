@@ -61,7 +61,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
 
       if (zfinder.bosons().size() != 1) vetoEvent;
 
@@ -69,7 +69,7 @@ namespace Rivet {
       double Zphi = zfinder.bosons()[0].phi();
       double Zmass = zfinder.bosons()[0].mass()/GeV;
 
-      Particles particles = applyProjection<VetoedFinalState>(event, "nonmuons").particles();
+      Particles particles = apply<VetoedFinalState>(event, "nonmuons").particles();
 
       int nTowards = 0;
       int nTransverse = 0;

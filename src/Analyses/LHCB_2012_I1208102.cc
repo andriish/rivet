@@ -31,7 +31,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const ZFinder& zeefinder = applyProjection<ZFinder>(e, "ZeeFinder");
+      const ZFinder& zeefinder = apply<ZFinder>(e, "ZeeFinder");
       if (zeefinder.empty()) vetoEvent;
       if (zeefinder.bosons().size() > 1)
         MSG_WARNING("Found multiple (" << zeefinder.bosons().size() << ") Z -> e+ e- decays!");

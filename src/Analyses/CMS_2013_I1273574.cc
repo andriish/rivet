@@ -38,7 +38,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       /// @todo Use jetsByPt(ptGtr(20*GeV) & absetaIn(4.7)), then no need for the lower loop;
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jetsByPt(20*GeV);
+      const Jets jets = apply<FastJets>(event, "Jets").jetsByPt(20*GeV);
       if (jets.size() < 4) vetoEvent;
 
       // Ensure that there are exactly 4 jets > 20 GeV, with two above 50 GeV

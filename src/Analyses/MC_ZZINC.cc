@@ -67,9 +67,9 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const ZFinder& zeefinder = applyProjection<ZFinder>(e, "ZeeFinder");
+      const ZFinder& zeefinder = apply<ZFinder>(e, "ZeeFinder");
       if (zeefinder.bosons().size() != 1) vetoEvent;
-      const ZFinder& zmmfinder = applyProjection<ZFinder>(e, "ZmmFinder");
+      const ZFinder& zmmfinder = apply<ZFinder>(e, "ZmmFinder");
       if (zmmfinder.bosons().size() != 1) vetoEvent;
 
       // Z momenta

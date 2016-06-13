@@ -49,7 +49,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& evt) {
       // MinBias Trigger
-      const bool trigger = applyProjection<TriggerCDFRun2>(evt, "Trigger").minBiasDecision();
+      const bool trigger = apply<TriggerCDFRun2>(evt, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
 
       // Get the event weight
@@ -58,7 +58,7 @@ namespace Rivet {
       /// @todo The pT and sum(ET) distributions look slightly different from
       ///       Niccolo's Monte Carlo plots. Still waiting for his answer.
 
-      const ChargedFinalState& trackfs = applyProjection<ChargedFinalState>(evt, "CFS");
+      const ChargedFinalState& trackfs = apply<ChargedFinalState>(evt, "CFS");
       const size_t numParticles = trackfs.size();
       foreach (const Particle& p, trackfs.particles()) {
         const double pT = p.pT() / GeV;
@@ -85,7 +85,7 @@ namespace Rivet {
       }
 
       // Calc sum(Et) from calo particles
-      const FinalState& etfs = applyProjection<FinalState>(evt, "EtFS");
+      const FinalState& etfs = apply<FinalState>(evt, "EtFS");
       double sumEt = 0.0;
       foreach (const Particle& p, etfs.particles()) {
         sumEt += p.Et();

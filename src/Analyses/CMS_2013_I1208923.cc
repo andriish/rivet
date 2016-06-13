@@ -41,7 +41,7 @@ namespace Rivet {
     // Analysis
     void analyze(const Event &event) {
       const double weight = event.weight();
-      const FastJets &fJets = applyProjection<FastJets>(event, "Jets");
+      const FastJets &fJets = apply<FastJets>(event, "Jets");
       
       // Fill the jet pT spectra
       const Jets& jets = fJets.jetsByPt(Cuts::pt>100.*GeV && Cuts::absrap <2.5);

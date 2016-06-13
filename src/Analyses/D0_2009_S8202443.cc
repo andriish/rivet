@@ -52,13 +52,13 @@ namespace Rivet {
       double weight = e.weight();
 
       // Unconstrained electrons
-      const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 0) {
         MSG_DEBUG("No unique lepton pair found.");
         vetoEvent;
       }
       _sum_of_weights += weight;
-      const Jets jets_cut = applyProjection<JetAlg>(e, "ConeFinder").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.5);
+      const Jets jets_cut = apply<JetAlg>(e, "ConeFinder").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.5);
       if (jets_cut.size() > 0)
         _h_jet1_pT->fill(jets_cut[0].pT()/GeV, weight);
       if (jets_cut.size() > 1)
@@ -68,13 +68,13 @@ namespace Rivet {
 
 
       // Constrained electrons
-      const ZFinder& zfinder_constrained = applyProjection<ZFinder>(e, "ZFinderConstrained");
+      const ZFinder& zfinder_constrained = apply<ZFinder>(e, "ZFinderConstrained");
       if (zfinder_constrained.bosons().size() == 0) {
         MSG_DEBUG("No unique constrained lepton pair found.");
         return; // Not really a "veto", since if we got this far there is an unconstrained Z
       }
       _sum_of_weights_constrained += weight;
-      const Jets& jets_constrained = applyProjection<JetAlg>(e, "ConeFinderConstrained").jetsByPt(20*GeV);
+      const Jets& jets_constrained = apply<JetAlg>(e, "ConeFinderConstrained").jetsByPt(20*GeV);
       /// @todo Replace this explicit selection with a Cut
       Jets jets_cut_constrained;
       foreach (const Jet& j, jets_constrained) {

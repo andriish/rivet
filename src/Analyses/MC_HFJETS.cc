@@ -50,9 +50,9 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Get jets and heavy hadrons
-      const Jets& jets = applyProjection<JetAlg>(event, "Jets").jetsByPt();
-      const Particles bhadrons = sortByPt(applyProjection<HeavyHadrons>(event, "BCHadrons").bHadrons());
-      const Particles chadrons = sortByPt(applyProjection<HeavyHadrons>(event, "BCHadrons").cHadrons());
+      const Jets& jets = apply<JetAlg>(event, "Jets").jetsByPt();
+      const Particles bhadrons = sortByPt(apply<HeavyHadrons>(event, "BCHadrons").bHadrons());
+      const Particles chadrons = sortByPt(apply<HeavyHadrons>(event, "BCHadrons").cHadrons());
       MSG_DEBUG("# b hadrons = " << bhadrons.size() << ", # c hadrons = " << chadrons.size());
 
       // Max HF hadron--jet axis dR to be regarded as a jet tag

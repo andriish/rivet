@@ -23,7 +23,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
       double gapcenter = 0.;

@@ -130,20 +130,20 @@ namespace Rivet {
       const double weight = event.weight();
 
       // ATLAS MBTS trigger requirement of at least one hit in either hemisphere
-      if (applyProjection<FinalState>(event, "MBTS").size() < 1) {
+      if (apply<FinalState>(event, "MBTS").size() < 1) {
         MSG_DEBUG("Failed trigger cut");
         vetoEvent;
       }
 
       // Veto event also when we find less than 2 particles in the acceptance region of type 211,2212,11,13,321
-      if (applyProjection<FinalState>(event, "nstable").size() < 2) {
+      if (apply<FinalState>(event, "nstable").size() < 2) {
         MSG_DEBUG("Failed stable particle cut");
         vetoEvent;
       }
       _sum_w_passed += weight;
 
       // This ufs holds all the Kaons and Lambdas
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
 
       // Some conters
       int n_KS0 = 0;

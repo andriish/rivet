@@ -53,7 +53,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
 
-      const IdentifiedFinalState& ifs = applyProjection<IdentifiedFinalState>(e, "IFS");
+      const IdentifiedFinalState& ifs = apply<IdentifiedFinalState>(e, "IFS");
       Particles allp = ifs.particlesByPt();
       if (allp.empty()) vetoEvent;
 
@@ -86,7 +86,7 @@ namespace Rivet {
 
 
       // Get the jet candidates
-      Jets jets = applyProjection<FastJets>(e, "Jets").jetsByPt(20.0*GeV);
+      Jets jets = apply<FastJets>(e, "Jets").jetsByPt(20.0*GeV);
       if (!jets.empty()) {
         _h_H_jet1_deta->fill(deltaEta(hmom, jets[0]), weight);
         _h_H_jet1_dR->fill(deltaR(hmom, jets[0]), weight);

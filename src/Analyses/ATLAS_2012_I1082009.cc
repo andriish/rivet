@@ -58,11 +58,11 @@ namespace Rivet {
 
       // get the jets
       Jets jets;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "jets").jetsByPt(25.0*GeV)) {
+      foreach (const Jet& jet, apply<FastJets>(event, "jets").jetsByPt(25.0*GeV)) {
         if ( jet.abseta() < 2.5 ) jets.push_back(jet);
       }
       // get the D* mesons
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       Particles Dstar;
       foreach (const Particle& p, ufs.particles()) {
         const int id = p.abspid();

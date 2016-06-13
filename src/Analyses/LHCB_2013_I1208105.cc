@@ -61,10 +61,10 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const FinalState& ffs = applyProjection<FinalState>(event, "forwardFS");
-      const FinalState& bfs = applyProjection<FinalState>(event, "backwardFS");
-      const ChargedFinalState& fcfs = applyProjection<ChargedFinalState>(event, "forwardCFS");
-      const ChargedFinalState& bcfs = applyProjection<ChargedFinalState>(event, "backwardCFS");
+      const FinalState& ffs = apply<FinalState>(event, "forwardFS");
+      const FinalState& bfs = apply<FinalState>(event, "backwardFS");
+      const ChargedFinalState& fcfs = apply<ChargedFinalState>(event, "forwardCFS");
+      const ChargedFinalState& bcfs = apply<ChargedFinalState>(event, "backwardCFS");
 
       // Veto this event completely if there are no forward *charged* particles
       if (fcfs.empty()) vetoEvent;

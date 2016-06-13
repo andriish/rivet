@@ -66,7 +66,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Jets jets_in = applyProjection<FastJets>(event, "ConeJets")
+      Jets jets_in = apply<FastJets>(event, "ConeJets")
         .jets(cmpMomByEt, Cuts::pT > 20*GeV && Cuts::abseta < 3);
 
       Jets jets_isolated;

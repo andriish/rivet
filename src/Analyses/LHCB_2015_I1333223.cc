@@ -41,7 +41,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double             weight  = event.weight();
-      const ChargedFinalState   &cfs    = applyProjection<ChargedFinalState> (event, "CFS");
+      const ChargedFinalState   &cfs    = apply<ChargedFinalState> (event, "CFS");
 
       // eliminate non-inelastic events and empty events in LHCb
       if (cfs.particles().size() == 0) vetoEvent;

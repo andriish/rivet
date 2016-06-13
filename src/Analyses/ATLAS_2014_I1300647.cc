@@ -59,10 +59,10 @@ namespace Rivet {
 
       const double weight = event.weight();
       
-      const ZFinder& zfinder_dressed_el = applyProjection<ZFinder>(event, "ZFinder_dressed_el");
-      const ZFinder& zfinder_bare_el    = applyProjection<ZFinder>(event, "ZFinder_bare_el");
-      const ZFinder& zfinder_dressed_mu = applyProjection<ZFinder>(event, "ZFinder_dressed_mu");
-      const ZFinder& zfinder_bare_mu    = applyProjection<ZFinder>(event, "ZFinder_bare_mu");	
+      const ZFinder& zfinder_dressed_el = apply<ZFinder>(event, "ZFinder_dressed_el");
+      const ZFinder& zfinder_bare_el    = apply<ZFinder>(event, "ZFinder_bare_el");
+      const ZFinder& zfinder_dressed_mu = apply<ZFinder>(event, "ZFinder_dressed_mu");
+      const ZFinder& zfinder_bare_mu    = apply<ZFinder>(event, "ZFinder_bare_mu");	
       
       FillPlots1d(zfinder_dressed_el, _hist_zpt_el_dressed, weight);
 

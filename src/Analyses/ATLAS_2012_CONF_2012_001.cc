@@ -80,7 +80,7 @@ namespace Rivet {
       // get the jet candidates
       Jets cand_jets;
       foreach (const Jet& jet,
-               applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+               apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
         }
@@ -89,9 +89,9 @@ namespace Rivet {
       // candidate muons
       Particles cand_mu;
       Particles chg_tracks =
-        applyProjection<ChargedFinalState>(event, "cfs").particles();
+        apply<ChargedFinalState>(event, "cfs").particles();
       foreach ( const Particle & mu,
-                applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
+                apply<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
         double pTinCone = -mu.pT();
         foreach ( const Particle & track, chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
@@ -104,7 +104,7 @@ namespace Rivet {
       // candidate electrons
       Particles cand_e;
       foreach ( const Particle & e,
-                applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
+                apply<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
         double eta = e.eta();
         // remove electrons with pT<15 in old veto region
         if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.perp()< 15.*GeV)
@@ -230,7 +230,7 @@ namespace Rivet {
 
       // pTmiss
       Particles vfs_particles =
-        applyProjection<VisibleFinalState>(event, "vfs").particles();
+        apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
       foreach ( const Particle & p, vfs_particles ) {
         pTmiss -= p.momentum();

@@ -41,8 +41,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const FastJets & jetsproj6 = applyProjection<FastJets>(event, "Jets6");
-      const FastJets & jetsproj4 = applyProjection<FastJets>(event, "Jets4");
+      const FastJets & jetsproj6 = apply<FastJets>(event, "Jets6");
+      const FastJets & jetsproj4 = apply<FastJets>(event, "Jets4");
       Jets alljets[2];
       alljets[0] = jetsproj6.jetsByPt(4.0*GeV);
       alljets[1] = jetsproj4.jetsByPt(4.0*GeV);

@@ -58,10 +58,10 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const WFinder& wenufinder = applyProjection<WFinder>(e, "WenuFinder");
+      const WFinder& wenufinder = apply<WFinder>(e, "WenuFinder");
       if (wenufinder.bosons().size() !=1 ) vetoEvent;
 
-      const WFinder& wmnufinder = applyProjection<WFinder>(e, "WmnuFinder");
+      const WFinder& wmnufinder = apply<WFinder>(e, "WmnuFinder");
       if (wmnufinder.bosons().size() !=1 ) vetoEvent;
 
       FourMomentum wenu = wenufinder.bosons()[0].momentum();
@@ -73,7 +73,7 @@ namespace Rivet {
       FourMomentum mm = wmnufinder.constituentLeptons()[0].momentum();
       FourMomentum mnu = wmnufinder.constituentNeutrinos()[0].momentum();
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
+      const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
         _h_WW_jet1_deta->fill(ww.eta()-jets[0].eta(), weight);
         _h_WW_jet1_dR->fill(deltaR(ww, jets[0].momentum()), weight);

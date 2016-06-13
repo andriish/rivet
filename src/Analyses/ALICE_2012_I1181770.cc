@@ -32,7 +32,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
       const double weight = event.weight();

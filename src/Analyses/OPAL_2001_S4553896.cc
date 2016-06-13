@@ -99,11 +99,11 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
-      if (applyProjection<FinalState>(event, "FS").particles().size() < 2) {
+      if (apply<FinalState>(event, "FS").particles().size() < 2) {
         vetoEvent;
       }
 
-      const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
+      const FastJets& fastjets = apply<FastJets>(event, "Jets");
       if (fastjets.clusterSeq()) {
         vector<fastjet::PseudoJet> jets;
         foreach (const fastjet::PseudoJet& jet,

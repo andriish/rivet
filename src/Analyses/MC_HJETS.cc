@@ -38,12 +38,12 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const ZFinder& hfinder = applyProjection<ZFinder>(e, "Hfinder");
+      const ZFinder& hfinder = apply<ZFinder>(e, "Hfinder");
       if (hfinder.bosons().size() != 1) vetoEvent;
       const double weight = e.weight();
 
       FourMomentum hmom(hfinder.bosons()[0].momentum());
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
+      const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
         _h_H_jet1_deta->fill(hmom.eta()-jets[0].eta(), weight);
         _h_H_jet1_dR->fill(deltaR(hmom, jets[0].momentum()), weight);

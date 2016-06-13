@@ -71,7 +71,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // retrieve leading photon
-      Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
+      Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size() != 1)  vetoEvent;
       const Particle& leadingPhoton = photons[0];
       if (leadingPhoton.Et() < 15.0*GeV) vetoEvent;
@@ -79,14 +79,14 @@ namespace Rivet {
 
       // check photon isolation
       double coneEnergy(0.0);
-      Particles fs = applyProjection<VetoedFinalState>(event, "isolatedFS").particles();
+      Particles fs = apply<VetoedFinalState>(event, "isolatedFS").particles();
       foreach(const Particle& p, fs) {
         if ( deltaR(leadingPhoton, p) < 0.4 )  coneEnergy += p.E();
       }
       if (coneEnergy / leadingPhoton.E() >= 0.5 )  vetoEvent;
 
       // retrieve Z boson candidate
-      const ZFinder& zf = applyProjection<ZFinder>(event, "ZF");
+      const ZFinder& zf = apply<ZFinder>(event, "ZF");
       if ( zf.bosons().size() != 1 )  vetoEvent; // only one Z boson candidate
       const Particle& Zboson  = zf.boson();
       if ( !(Zboson.mass() > 40.0*GeV) )  vetoEvent;
@@ -101,7 +101,7 @@ namespace Rivet {
       }
 
       // count jets
-      const FastJets& jetfs = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetfs = apply<FastJets>(event, "Jets");
       Jets jets = jetfs.jets(cmpMomByEt);
       int goodJets = 0;
       foreach (const Jet& j, jets) {

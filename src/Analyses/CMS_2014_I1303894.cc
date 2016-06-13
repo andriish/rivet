@@ -85,7 +85,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       // Get the dressed muon
-      const DressedLeptons& muonClusters = applyProjection<DressedLeptons>(event, "muonClusters");
+      const DressedLeptons& muonClusters = apply<DressedLeptons>(event, "muonClusters");
       int nmu = muonClusters.dressedLeptons().size();
       if (nmu < 1) vetoEvent;
       DressedLepton dressedmuon = muonClusters.dressedLeptons()[0];
@@ -93,7 +93,7 @@ namespace Rivet {
       if (dressedmuon.momentum().pT() < 25.0*GeV) vetoEvent;
 
       // Get the muon neutrino
-      const Particles& neutrinos = applyProjection<FinalState>(event, "neutrinos").particlesByPt();
+      const Particles& neutrinos = apply<FinalState>(event, "neutrinos").particlesByPt();
       if (neutrinos.empty()) vetoEvent;
 
       // Check that the muon and neutrino are not decay products of tau
@@ -110,7 +110,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Get the missing momentum
-      const MissingMomentum& met = applyProjection<MissingMomentum>(event, "MET");
+      const MissingMomentum& met = apply<MissingMomentum>(event, "MET");
       const double ptmet = met.visibleMomentum().pT();
       const double phimet = (-met.visibleMomentum()).phi();
 
@@ -123,7 +123,7 @@ namespace Rivet {
       if (mt_mumet < 50*GeV) vetoEvent;
 
       // Loop over jets and fill pt/eta/phi quantities in vectors
-      const Jets& jets_filtered = applyProjection<FastJets>(event, "Jets").jetsByPt(0.0*GeV);
+      const Jets& jets_filtered = apply<FastJets>(event, "Jets").jetsByPt(0.0*GeV);
       vector<float> finaljet_pT_list, finaljet_eta_list, finaljet_phi_list;
       double htjets = 0.0;
       for (size_t ii = 0; ii < jets_filtered.size(); ++ii) {

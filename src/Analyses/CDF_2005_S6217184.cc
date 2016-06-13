@@ -58,7 +58,7 @@ namespace Rivet {
     void analyze(const Event& evt) {
 
       // Get jets and require at least one to pass pT and y cuts
-      const Jets jets = applyProjection<FastJets>(evt, "Jets")
+      const Jets jets = apply<FastJets>(evt, "Jets")
         .jetsByPt(Cuts::ptIn(_ptedges.front()*GeV, _ptedges.back()*GeV) && Cuts::absrap < 0.7);
       MSG_DEBUG("Jet multiplicity before cuts = " << jets.size());
       if (jets.size() == 0) {
@@ -69,7 +69,7 @@ namespace Rivet {
       // Calculate and histogram jet shapes
       const double weight = evt.weight();
       for (size_t ipt = 0; ipt < 18; ++ipt) {
-        const JetShape& jsipt = applyProjection<JetShape>(evt, _jsnames_pT[ipt]);
+        const JetShape& jsipt = apply<JetShape>(evt, _jsnames_pT[ipt]);
         for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
           for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
             const double r_rho = jsipt.rBinMid(rbin);

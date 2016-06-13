@@ -45,14 +45,14 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
+      Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size() != 1) vetoEvent;
 
       const Particle& leadingPhoton = photons[0];
       if (inRange(leadingPhoton.abseta(), 1.37, 1.52)) vetoEvent;
       const int eta_bin = getEtaBin(leadingPhoton.abseta(), false);
 
-      const Particles& fs = applyProjection<FinalState>(event, "FS").particles();
+      const Particles& fs = apply<FinalState>(event, "FS").particles();
       FourMomentum mom_in_EtCone;
       for (const Particle& p : fs) {
         // Check if it's in the cone of .4
@@ -67,7 +67,7 @@ namespace Rivet {
 
       // Get the jet pT densities
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-      FastJets fastjets = applyProjection<FastJets>(event, "KtJetsD05");
+      FastJets fastjets = apply<FastJets>(event, "KtJetsD05");
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fastjets.clusterSeqArea();
       for (const Jet& jet : fastjets.jets()) {
         const double area = clust_seq_area->area(jet); //< Implicit call to pseudojet()

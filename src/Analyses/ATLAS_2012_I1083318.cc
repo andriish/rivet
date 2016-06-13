@@ -93,8 +93,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const vector<DressedLepton>& leptons = applyProjection<DressedLeptons>(event, "leptons").dressedLeptons();
-      Particles neutrinos = applyProjection<FinalState>(event, "neutrinos").particlesByPt();
+      const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
+      Particles neutrinos = apply<FinalState>(event, "neutrinos").particlesByPt();
 
       if (leptons.size() != 1 || (neutrinos.size() == 0)) {
         vetoEvent;
@@ -112,7 +112,7 @@ namespace Rivet {
       }
 
       double jetcuts[] = { 30.0*GeV, 20.0*GeV };
-      const FastJets& jetpro = applyProjection<FastJets>(event, "jets");
+      const FastJets& jetpro = apply<FastJets>(event, "jets");
 
       for (size_t i = 0; i < 2; ++i) {
         vector<FourMomentum> jets;

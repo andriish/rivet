@@ -105,18 +105,18 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Single lepton filter on bare leptons with no cuts
-      const Particles& bare_lep = applyProjection<PromptFinalState>(event, "bare_lep").particles();
-      const Particles& bare_tau = applyProjection<PromptFinalState>(event, "bare_tau").particles();
+      const Particles& bare_lep = apply<PromptFinalState>(event, "bare_lep").particles();
+      const Particles& bare_tau = apply<PromptFinalState>(event, "bare_tau").particles();
       if (bare_lep.size() + bare_tau.size() != 1) vetoEvent;
 
       // Electrons and muons
-      const vector<DressedLepton>& electrons = applyProjection<DressedLeptons>(event, "electrons").dressedLeptons();
-      const vector<DressedLepton>& muons = applyProjection<DressedLeptons>(event, "muons").dressedLeptons();
+      const vector<DressedLepton>& electrons = apply<DressedLeptons>(event, "electrons").dressedLeptons();
+      const vector<DressedLepton>& muons = apply<DressedLeptons>(event, "muons").dressedLeptons();
       if (electrons.size() + muons.size() != 1) vetoEvent;
       const DressedLepton& lepton = muons.empty() ? electrons[0] : muons[0];
 
       // Get the neutrinos from the event record (they have pT > 0.0 and |eta| < 4.5 at this stage
-      const Particles& neutrinos = applyProjection<PromptFinalState>(event, "neutrinos").particlesByPt();
+      const Particles& neutrinos = apply<PromptFinalState>(event, "neutrinos").particlesByPt();
       FourMomentum met;
       for (const Particle& nu : neutrinos) met += nu.momentum();
       if (met.pT() < 20*GeV) vetoEvent;
@@ -124,8 +124,8 @@ namespace Rivet {
 
       // Thin jets and trimmed fat jets
       /// @todo Use Rivet built-in FJ trimming support
-      const Jets& jets  = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.5);
-      const PseudoJets& fat_pjets = applyProjection<FastJets>(event, "fat_jets").pseudoJetsByPt();
+      const Jets& jets  = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.5);
+      const PseudoJets& fat_pjets = apply<FastJets>(event, "fat_jets").pseudoJetsByPt();
       const double Rfilt = 0.3, ptFrac_min = 0.05; ///< @todo Need to be careful about the units for the pT cut passed to FJ?
       PseudoJets trimmed_fat_pjets;
       fastjet::Filter trimmer(fastjet::JetDefinition(fastjet::kt_algorithm, Rfilt), fastjet::SelectorPtFractionMin(ptFrac_min));

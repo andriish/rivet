@@ -62,12 +62,12 @@ namespace Rivet {
       const double weight = event.weight();
 
       /// Get the various sets of final state particles
-      const ParticleVector& elecFS = applyProjection<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
-      const ParticleVector& muonFS = applyProjection<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
+      const ParticleVector& elecFS = apply<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
+      const ParticleVector& muonFS = apply<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
 
       // Get all jets with pT > 7 GeV (ATLAS standard jet collection)
       /// @todo Why rewrite the jets collection as a vector of pointers?
-      const Jets& jets = applyProjection<FastJets>(event, "JETS").jetsByPt(7*GeV);
+      const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(7*GeV);
       vector<const Jet*> allJets;
       foreach(const Jet& j, jets) allJets.push_back(&j);
 

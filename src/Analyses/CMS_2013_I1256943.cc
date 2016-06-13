@@ -58,9 +58,9 @@ namespace Rivet {
     void analyze(const Event& e) {
       vector<FourMomentum> Bmom;
 
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      const ZFinder& zfindermu = applyProjection<ZFinder>(e, "ZFinderMu");
-      const ZFinder& zfinderel = applyProjection<ZFinder>(e, "ZFinderEl");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
+      const ZFinder& zfindermu = apply<ZFinder>(e, "ZFinderMu");
+      const ZFinder& zfinderel = apply<ZFinder>(e, "ZFinderEl");
 
       // Look for a Z --> mu+ mu- event in the final state
       if (zfindermu.empty() && zfinderel.empty()) vetoEvent;

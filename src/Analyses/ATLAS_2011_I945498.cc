@@ -108,14 +108,14 @@ namespace Rivet {
       const double weight = event.weight();
 
       vector<const ZFinder*> zfs;
-      zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_el")));
-      zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_mu")));
-      zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_comb_el")));
-      zfs.push_back(& (applyProjection<ZFinder>(event, "ZFinder_comb_mu")));
+      zfs.push_back(& (apply<ZFinder>(event, "ZFinder_el")));
+      zfs.push_back(& (apply<ZFinder>(event, "ZFinder_mu")));
+      zfs.push_back(& (apply<ZFinder>(event, "ZFinder_comb_el")));
+      zfs.push_back(& (apply<ZFinder>(event, "ZFinder_comb_mu")));
 
       vector<const FastJets*> fjs;
-      fjs.push_back(& (applyProjection<FastJets>(event, "jets")));
-      fjs.push_back(& (applyProjection<FastJets>(event, "jets_comb")));
+      fjs.push_back(& (apply<FastJets>(event, "jets")));
+      fjs.push_back(& (apply<FastJets>(event, "jets_comb")));
 
       // Determine what kind of MC sample this is
       const bool isZee = (zfs[0]->bosons().size() == 1) || (zfs[2]->bosons().size() == 1);

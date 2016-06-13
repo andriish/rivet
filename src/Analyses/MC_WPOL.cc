@@ -67,11 +67,11 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const WFinder& wfinder = applyProjection<WFinder>(event, "WFinder");
+      const WFinder& wfinder = apply<WFinder>(event, "WFinder");
       if (wfinder.bosons().size() != 1) {
         vetoEvent;
       }
-      const ParticlePair& beams = applyProjection<Beam>(event, "Beams").beams();
+      const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
 
       FourMomentum pb1(beams.second.momentum()), pb2(beams.first.momentum());
       Particle lepton = wfinder.constituentLeptons()[0];

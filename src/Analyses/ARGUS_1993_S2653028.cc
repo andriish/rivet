@@ -22,7 +22,7 @@ namespace Rivet {
       // Find the upsilons
       Particles upsilons;
       // First in unstable final state
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if (p.pid() == 300553) upsilons.push_back(p);
       }

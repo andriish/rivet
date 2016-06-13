@@ -40,12 +40,12 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
-      const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
       const double weight = event.weight();
       _sumWTrig += weight;
 
-      const FinalState& trackfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const FinalState& trackfs = apply<ChargedFinalState>(event, "CFS");
       foreach (Particle p, trackfs.particles()) {
         const double pt = p.pT()/GeV;
         // Effective weight for d3sig/dp3 = weight / ( Delta eta * 2pi * pt ), with Delta(eta) = 2

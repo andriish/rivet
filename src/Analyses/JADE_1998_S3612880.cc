@@ -65,13 +65,13 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       // JADE hadronic event selection TODO: move this into a trigger definition
       if (cfs.particles().size() < 3 ) {
         vetoEvent;
       }
-      const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
+      const Thrust& thrust = apply<Thrust>(event, "Thrust");
       const Vector3 & thrustAxis = thrust.thrustAxis ();
       double theta = thrustAxis.theta();
       if ( fabs(cos(theta)) >= 0.8 ) {
@@ -80,8 +80,8 @@ namespace Rivet {
       }
       // TODO Evis, pmiss, pbal
 
-      const Hemispheres& hemi = applyProjection<Hemispheres>(event, "Hemispheres");
-      const FastJets& durjet = applyProjection<FastJets>(event, "DurhamJets");
+      const Hemispheres& hemi = apply<Hemispheres>(event, "Hemispheres");
+      const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
 
       double y23 = durjet.clusterSeq()->exclusive_ymerge_max(2);
 

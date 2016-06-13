@@ -63,7 +63,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Analyse and print some info
-      const JetAlg& jetpro = applyProjection<JetAlg>(event, "Jets");
+      const JetAlg& jetpro = apply<JetAlg>(event, "Jets");
       MSG_DEBUG("Jet multiplicity before any pT cut = " << jetpro.size());
 
       const Jets jets  = jetpro.jetsByPt(40.0*GeV);
@@ -80,7 +80,7 @@ namespace Rivet {
       MSG_DEBUG("Jet eta and pT requirements fulfilled");
       const double pT1 = jets[0].pT();
 
-      const MissingMomentum& caloMissEt = applyProjection<MissingMomentum>(event, "CalMET");
+      const MissingMomentum& caloMissEt = apply<MissingMomentum>(event, "CalMET");
       MSG_DEBUG("Missing vector Et = " << caloMissEt.vectorEt()/GeV << " GeV");
       if (caloMissEt.vectorEt().mod() > 0.7*pT1) {
         MSG_DEBUG("Vetoing event with too much missing ET: "

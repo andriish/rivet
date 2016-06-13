@@ -47,14 +47,14 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
       // Get the photon
-      const Particles photons = applyProjection<FinalState>(e, "LeadingPhoton").particles();
+      const Particles photons = apply<FinalState>(e, "LeadingPhoton").particles();
       if (photons.size() != 1) {
         vetoEvent;
       }
       const FourMomentum photon = photons.front().momentum();
 
       // Get all charged particles
-      const FinalState& fs = applyProjection<FinalState>(e, "JetFS");
+      const FinalState& fs = apply<FinalState>(e, "JetFS");
       if (fs.empty()) {
         vetoEvent;
       }

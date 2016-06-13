@@ -56,8 +56,8 @@ namespace Rivet {
             void analyze(const Event& event) {
 
                 Jets jetAr[2];
-                jetAr[AKT4] = applyProjection<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT > 50*GeV);
-                jetAr[AKT6] = applyProjection<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT > 50*GeV);
+                jetAr[AKT4] = apply<FastJets>(event, "AntiKT04").jetsByPt(Cuts::pT > 50*GeV);
+                jetAr[AKT6] = apply<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT > 50*GeV);
 
                 const size_t nJets = 3;
                 double ptCut[nJets] = { 150., 100., 50.};

@@ -81,14 +81,14 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       // Trigger
-      const bool trigger = applyProjection<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
+      const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
 
       // Analyse, with pT > 0.5 GeV AND |eta| < 1
-      const JetAlg& tj = applyProjection<JetAlg>(event, "TrackJet");
+      const JetAlg& tj = apply<JetAlg>(event, "TrackJet");
 
       // Final state (lossy) charged particles
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
 
       // Get jets, sorted by pT
       const Jets jets = tj.jetsByPt();

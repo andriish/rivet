@@ -60,7 +60,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Retrieve leading photon
-      Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
+      Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size() != 1) vetoEvent;
       const Particle& leadingPhoton = photons[0];
 
@@ -69,7 +69,7 @@ namespace Rivet {
 
       // Compute isolation energy in cone of radius .4 around photon (all particles)
       FourMomentum mom_in_EtCone;
-      Particles fs = applyProjection<FinalState>(event, "FS").particles();
+      Particles fs = apply<FinalState>(event, "FS").particles();
       for (const Particle& p : fs) {
         // Check if it's outside the cone of 0.4
         if (deltaR(leadingPhoton, p) >= 0.4) continue;
@@ -83,7 +83,7 @@ namespace Rivet {
       // Get the area-filtered jet inputs for computing median energy density, etc.
       vector<double> ptDensity, ptSigma, nJets;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
-      FastJets fast_jets =applyProjection<FastJets>(event, "KtJetsD05");
+      FastJets fast_jets =apply<FastJets>(event, "KtJetsD05");
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fast_jets.clusterSeqArea();
       foreach (const Jet& jet, fast_jets.jets()) {
         const double area = clust_seq_area->area(jet);

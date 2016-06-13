@@ -31,7 +31,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const Jets& jets = applyProjection<JetAlg>(event, "ANTIKT").jetsByPt();
+      const Jets& jets = apply<JetAlg>(event, "ANTIKT").jetsByPt();
       if (jets.size() < 2) vetoEvent;
 
       const double y0 = jets[0].rapidity();

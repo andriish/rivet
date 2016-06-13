@@ -36,7 +36,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      Jets jets = applyProjection<FastJets>(event, "Jets").jets(cmpMomByEt);
+      Jets jets = apply<FastJets>(event, "Jets").jets(cmpMomByEt);
       if (jets.size() < 2) vetoEvent;
       FourMomentum jet1 = jets[0].momentum();
       FourMomentum jet2 = jets[1].momentum();

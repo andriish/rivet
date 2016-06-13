@@ -104,12 +104,12 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Retrieve boson candidate
-      const WFinder& wf = applyProjection<WFinder>(event, "WF");
-      const ZFinder& zf = applyProjection<ZFinder>(event, "ZF");
+      const WFinder& wf = apply<WFinder>(event, "WF");
+      const ZFinder& zf = apply<ZFinder>(event, "ZF");
       if (wf.empty() && zf.empty())  vetoEvent;
 
       // Retrieve jets
-      const JetAlg& jetfs = applyProjection<JetAlg>(event, "Jets");
+      const JetAlg& jetfs = apply<JetAlg>(event, "Jets");
       Jets all_jets = jetfs.jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
 
       // Apply boson cuts and fill histograms

@@ -39,10 +39,10 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const Jets& jets = applyProjection<FastJets>(event, "Jets").jetsByPt(12*GeV);
+      const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(12*GeV);
       if (jets.size() < 2) vetoEvent;
 
-      const Particles& muons = applyProjection<IdentifiedFinalState>(event, "Muons").particlesByPt();
+      const Particles& muons = apply<IdentifiedFinalState>(event, "Muons").particlesByPt();
       if (muons.size() < 2) vetoEvent;
 
       // Muon selection: require the muons to be *close* to jets, not the usual overlap vetoing!

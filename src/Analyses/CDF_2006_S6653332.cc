@@ -60,7 +60,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       // Check we have an l+l- pair that passes the kinematic cuts
       // Get the Z decay products (mu+mu- or e+e- pair)
-      const InvMassFinalState& invMassFinalState = applyProjection<InvMassFinalState>(event, "INVFS");
+      const InvMassFinalState& invMassFinalState = apply<InvMassFinalState>(event, "INVFS");
       const Particles&  ZDecayProducts =  invMassFinalState.particles();
 
       // Make sure we have at least 2 Z decay products (mumu or ee)
@@ -91,7 +91,7 @@ namespace Rivet {
       }
 
       // Get jets
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       MSG_DEBUG("Jet multiplicity before any pT cut = " << jetpro.size());
 
       const PseudoJets& jets = jetpro.pseudoJetsByPt();

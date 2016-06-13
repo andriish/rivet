@@ -30,7 +30,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       //charged particles
-      const ChargedFinalState& charged = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
 
       foreach (const Particle& p, charged.particles()) {
         //selecting only charged hadrons

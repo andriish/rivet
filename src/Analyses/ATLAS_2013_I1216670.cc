@@ -51,8 +51,8 @@ namespace Rivet {
 
       double weight = e.weight();
 
-      const WFinder& w_e_finder  = applyProjection<WFinder>(e, "W_E_FINDER" );
-      const WFinder& w_mu_finder = applyProjection<WFinder>(e, "W_MU_FINDER");
+      const WFinder& w_e_finder  = apply<WFinder>(e, "W_E_FINDER" );
+      const WFinder& w_mu_finder = apply<WFinder>(e, "W_MU_FINDER");
       Particle lepton, neutrino;
       Jets all_jets, jets;
   
@@ -70,7 +70,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      all_jets = applyProjection<FastJets>(e, "JETS").jetsByPt(Cuts::pt>20.0*GeV && Cuts::absrap<2.8);
+      all_jets = apply<FastJets>(e, "JETS").jetsByPt(Cuts::pt>20.0*GeV && Cuts::absrap<2.8);
 
       // Remove jets DeltaR < 0.5 from W lepton
       for(Jets::iterator it = all_jets.begin(); it != all_jets.end(); ++it) {

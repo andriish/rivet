@@ -43,8 +43,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Particles fs = applyProjection<FinalState>(event, "FS").particles();
-      Particles photons = applyProjection<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
+      Particles fs = apply<FinalState>(event, "FS").particles();
+      Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size()!=1) {
         vetoEvent;
       }

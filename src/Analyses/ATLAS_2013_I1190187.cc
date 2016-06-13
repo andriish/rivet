@@ -73,9 +73,9 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
 
-      const  vector<DressedLepton>& muonFS = applyProjection<DressedLeptons>(e, "MUON_FS").dressedLeptons();
-      const  vector<DressedLepton>& electronFS = applyProjection<DressedLeptons>(e, "ELECTRON_FS").dressedLeptons();
-      const MissingMomentum& met = applyProjection<MissingMomentum>(e, "MET");
+      const  vector<DressedLepton>& muonFS = apply<DressedLeptons>(e, "MUON_FS").dressedLeptons();
+      const  vector<DressedLepton>& electronFS = apply<DressedLeptons>(e, "ELECTRON_FS").dressedLeptons();
+      const MissingMomentum& met = apply<MissingMomentum>(e, "MET");
 
       vector<DressedLepton> dressed_lepton, isolated_lepton, fiducial_lepton;
       dressed_lepton.insert(dressed_lepton.end(), muonFS.begin(), muonFS.end());
@@ -142,7 +142,7 @@ namespace Rivet {
       //
       /////////////////////////////////////////////////////////////////////////
       Jets alljets, vetojets;
-      foreach (const Jet& j, applyProjection<FastJets>(e, "jet").jetsByPt(25)) {
+      foreach (const Jet& j, apply<FastJets>(e, "jet").jetsByPt(25)) {
         if (j.absrap() > 4.5 ) continue;
         alljets.push_back(j);
         bool deltaRcontrol = true;

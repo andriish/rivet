@@ -36,7 +36,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
 
-      const WFinder& wfinder = applyProjection<WFinder>(e, "WFinder");
+      const WFinder& wfinder = apply<WFinder>(e, "WFinder");
       if (wfinder.bosons().size() != 1) {
         vetoEvent;
       }

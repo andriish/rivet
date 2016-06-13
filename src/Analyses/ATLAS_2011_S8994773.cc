@@ -40,13 +40,13 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Require at least one cluster in the event with pT >= 1 GeV
-      const FinalState& fslead = applyProjection<FinalState>(event, "FSlead");
+      const FinalState& fslead = apply<FinalState>(event, "FSlead");
       if (fslead.size() < 1) {
         vetoEvent;
       }
 
       // These are the particles  with pT > 500 MeV
-      const FinalState& chargedNeutral500 = applyProjection<FinalState>(event, "FS500");
+      const FinalState& chargedNeutral500 = apply<FinalState>(event, "FS500");
 
       // Identify leading object and its phi and pT
       Particles particles500 = chargedNeutral500.particlesByPt();

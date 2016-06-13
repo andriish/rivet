@@ -56,7 +56,7 @@ namespace Rivet {
       // Make sure to always include the event weight in histogram fills!
       const double weight = event.weight();
 
-      const Particles& cnparticles = applyProjection<FinalState>(event, "FS").particles();
+      const Particles& cnparticles = apply<FinalState>(event, "FS").particles();
       MSG_DEBUG("Total multiplicity = " << cnparticles.size());
       _histTot->fill(cnparticles.size(), weight);
       int cnhadronmult = 0;
@@ -64,7 +64,7 @@ namespace Rivet {
       MSG_DEBUG("Hadron multiplicity = " << cnhadronmult);
       _histHadrTot->fill(cnhadronmult, weight);
 
-      const Particles& cparticles = applyProjection<FinalState>(event, "CFS").particles();
+      const Particles& cparticles = apply<FinalState>(event, "CFS").particles();
       MSG_DEBUG("Total charged multiplicity = " << cparticles.size());
       _histChTot->fill(cparticles.size(), weight);
       int chadronmult = 0;
@@ -72,18 +72,18 @@ namespace Rivet {
       MSG_DEBUG("Hadron charged multiplicity = " << chadronmult);
       _histHadrChTot->fill(chadronmult, weight);
 
-      const Thrust& t = applyProjection<Thrust>(event, "Thrust");
+      const Thrust& t = apply<Thrust>(event, "Thrust");
       MSG_DEBUG("Thrust = " << t.thrust());
       _histThrust->fill(t.thrust(), weight);
       _histMajor->fill(t.thrustMajor(), weight);
 
-      const Sphericity& s = applyProjection<Sphericity>(event, "Sphericity");
+      const Sphericity& s = apply<Sphericity>(event, "Sphericity");
       MSG_DEBUG("Sphericity = " << s.sphericity());
       _histSphericity->fill(s.sphericity(), weight);
       MSG_DEBUG("Aplanarity = " << s.aplanarity());
       _histAplanarity->fill(s.aplanarity(), weight);
 
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 5*GeV);
+      const Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::pT > 5*GeV);
       size_t num_b_jets = count_if(jets.begin(), jets.end(), [](const Jet& j){ return j.bTagged(Cuts::pT > 500*MeV); });
       MSG_DEBUG("Num B-jets with pT > 5 GeV = " << num_b_jets);
     }

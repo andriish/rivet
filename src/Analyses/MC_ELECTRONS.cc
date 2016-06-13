@@ -26,7 +26,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const Particles es = applyProjection<FinalState>(event, "Electrons").particlesByPt(Cuts::pT > 0.5*GeV);
+      const Particles es = apply<FinalState>(event, "Electrons").particlesByPt(Cuts::pT > 0.5*GeV);
       MC_ParticleAnalysis::_analyze(event, es);
     }
 

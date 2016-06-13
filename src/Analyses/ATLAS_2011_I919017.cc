@@ -302,7 +302,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const Jets& jets04 = applyProjection<JetAlg>(event, "Jets04").jets();
+      const Jets& jets04 = apply<JetAlg>(event, "Jets04").jets();
       if (!jets04.empty()) {
         _sumofweights04 += weight;
         foreach (const Jet& j, jets04) {
@@ -549,7 +549,7 @@ namespace Rivet {
         } // each jet
       } // jets04 not empty
 
-      const Jets& jets06 = applyProjection<JetAlg>(event, "Jets06").jets();
+      const Jets& jets06 = apply<JetAlg>(event, "Jets06").jets();
       if (!jets06.empty()) {
         _sumofweights06 += weight;
         foreach (const Jet& j, jets06) {

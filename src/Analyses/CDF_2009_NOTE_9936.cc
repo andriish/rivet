@@ -39,13 +39,13 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // MinBias Trigger
-      const bool trigger = applyProjection<TriggerCDFRun2>(event, "Trigger").minBiasDecision();
+      const bool trigger = apply<TriggerCDFRun2>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
       //_sumWPassed += event.weight();
       const double weight = event.weight();
 
       // Get events charged multiplicity and fill histogram
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       _hist_nch->fill(cfs.size(), weight);
 
     }

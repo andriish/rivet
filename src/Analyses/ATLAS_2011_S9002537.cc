@@ -36,9 +36,9 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const IdentifiedFinalState& muons = applyProjection<IdentifiedFinalState>(event, "muons");
+      const IdentifiedFinalState& muons = apply<IdentifiedFinalState>(event, "muons");
       if (muons.size() < 1) vetoEvent;
-      const ChargedFinalState& tracks = applyProjection<ChargedFinalState>(event, "tracks");
+      const ChargedFinalState& tracks = apply<ChargedFinalState>(event, "tracks");
 
       Particles selected_muons;
       foreach (Particle muon, muons.particles()) {
@@ -57,7 +57,7 @@ namespace Rivet {
       if (selected_muons.size() < 1) vetoEvent;
 
       const FourMomentum muonmom = selected_muons[0].momentum();
-      const MissingMomentum& missmom = applyProjection<MissingMomentum>(event, "MissingMomentum");
+      const MissingMomentum& missmom = apply<MissingMomentum>(event, "MissingMomentum");
       FourMomentum missvec = -missmom.visibleMomentum();
       if (fabs(missvec.Et()) < 25*GeV) vetoEvent;
 

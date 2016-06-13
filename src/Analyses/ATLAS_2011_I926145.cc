@@ -82,9 +82,9 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const FinalState& elecs      = applyProjection<FinalState>(event, "elecs");
-      const FinalState& muons      = applyProjection<FinalState>(event, "muons");
-      const FinalState& muons_full = applyProjection<FinalState>(event, "muons_full");
+      const FinalState& elecs      = apply<FinalState>(event, "elecs");
+      const FinalState& muons      = apply<FinalState>(event, "muons");
+      const FinalState& muons_full = apply<FinalState>(event, "muons_full");
 
       // Veto event if no lepton is present
       if (elecs.size() == 0 && muons.size() == 0 && muons_full.size() == 0) {
@@ -94,9 +94,9 @@ namespace Rivet {
       // Check for W and or Z bosons in event
       //
       // Z veto
-      const ZFinder& zfinder_e      = applyProjection<ZFinder>(event, "ZFinder_e");
-      const ZFinder& zfinder_mu     = applyProjection<ZFinder>(event, "ZFinder_mu");
-      const ZFinder& zfinder_mufull = applyProjection<ZFinder>(event, "ZFinder_mufull");
+      const ZFinder& zfinder_e      = apply<ZFinder>(event, "ZFinder_e");
+      const ZFinder& zfinder_mu     = apply<ZFinder>(event, "ZFinder_mu");
+      const ZFinder& zfinder_mufull = apply<ZFinder>(event, "ZFinder_mufull");
 
       if (zfinder_e.bosons().size() > 0 || zfinder_mu.bosons().size() > 0 || zfinder_mufull.bosons().size() > 0) {
           MSG_DEBUG("Num elec Z-bosons found: " << zfinder_e.bosons().size());
@@ -106,9 +106,9 @@ namespace Rivet {
       }
 
       // W veto
-      const WFinder& wfinder_e      = applyProjection<WFinder>(event, "WFinder_e");
-      const WFinder& wfinder_mu     = applyProjection<WFinder>(event, "WFinder_mu");
-      const WFinder& wfinder_mufull = applyProjection<WFinder>(event, "WFinder_mufull");
+      const WFinder& wfinder_e      = apply<WFinder>(event, "WFinder_e");
+      const WFinder& wfinder_mu     = apply<WFinder>(event, "WFinder_mu");
+      const WFinder& wfinder_mufull = apply<WFinder>(event, "WFinder_mufull");
 
       if (wfinder_e.bosons().size() > 0 || wfinder_mu.bosons().size() > 0 || wfinder_mufull.bosons().size() > 0) {
           MSG_DEBUG("Num elec W-bosons found: " << wfinder_e.bosons().size());

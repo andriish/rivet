@@ -37,7 +37,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const ZFinder& hfinder = applyProjection<ZFinder>(e, "Hfinder");
+      const ZFinder& hfinder = apply<ZFinder>(e, "Hfinder");
       if (hfinder.bosons().size() != 1) vetoEvent;
       MC_JetSplittings::analyze(e);
     }

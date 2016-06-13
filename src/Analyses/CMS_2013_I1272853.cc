@@ -46,7 +46,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Find Ws
-      const InvMassFinalState& invMassFinalStateW = applyProjection<InvMassFinalState>(event, "INVFSW");
+      const InvMassFinalState& invMassFinalStateW = apply<InvMassFinalState>(event, "INVFSW");
       if (invMassFinalStateW.empty()) vetoEvent;
       const Particles& WDecayProducts = invMassFinalStateW.particles();
       if (WDecayProducts.size() < 2) vetoEvent;
@@ -63,7 +63,7 @@ namespace Rivet {
       if (mt < 50*GeV || pt1 < 35*GeV || eta1 > 2.1 || pt2 < 30*GeV) vetoEvent;
 
       // Get jets and make sure there are at least two of them in |y| < 2
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       /// @todo Collapse this into jetpro.jetsByPt(ptGtr(20*GeV) & rapIn(2.0))
       vector<FourMomentum> jets;
       foreach (const Jet& jet, jetpro.jetsByPt(20*GeV))

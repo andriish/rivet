@@ -43,13 +43,13 @@ namespace Rivet {
     void analyze(const Event & e) {
       const double weight = e.weight();
 
-      const WFinder& wfinder = applyProjection<WFinder>(e, "WFinder");
+      const WFinder& wfinder = apply<WFinder>(e, "WFinder");
       if (wfinder.bosons().size() != 1) {
         vetoEvent;
       }
       FourMomentum wmom(wfinder.bosons().front().momentum());
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
+      const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
         _h_W_jet1_deta->fill(wmom.eta()-jets[0].eta(), weight);
         _h_W_jet1_dR->fill(deltaR(wmom, jets[0].momentum()), weight);

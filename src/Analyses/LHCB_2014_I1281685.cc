@@ -70,7 +70,7 @@ namespace Rivet {
       val_dNdEta.clear();
       val_dNdPt.clear();
 
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
         int id = p.pdgId();
         // continue if particle is not a pion, kaon, proton, muon or electron

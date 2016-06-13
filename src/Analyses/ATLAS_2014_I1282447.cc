@@ -243,8 +243,8 @@ namespace Rivet {
       double lepton_eta    = 0.;
 
       /// Find leptons
-      const WFinder& wfinder_born_el = applyProjection<WFinder>(event, "WFinder_born_el");
-      const WFinder& wfinder_born_mu = applyProjection<WFinder>(event, "WFinder_born_mu");
+      const WFinder& wfinder_born_el = apply<WFinder>(event, "WFinder_born_el");
+      const WFinder& wfinder_born_mu = apply<WFinder>(event, "WFinder_born_mu");
 
       if(wfinder_born_el.empty() && wfinder_born_mu.empty() ) {
         MSG_DEBUG("No W bosons found");
@@ -294,12 +294,12 @@ namespace Rivet {
       }
 
       // Find hadrons in the event
-      const UnstableFinalState& fs = applyProjection<UnstableFinalState>(event, "hadrons");
+      const UnstableFinalState& fs = apply<UnstableFinalState>(event, "hadrons");
 
       /// FIND Different channels
       // 1: wcjet
       // get jets
-      const Jets& jets = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT>25.0*GeV && Cuts::abseta<2.5);
+      const Jets& jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT>25.0*GeV && Cuts::abseta<2.5);
       // loop over jets to select jets used to match to charm
       Jets js;
       int    matched_charmHadron = 0;

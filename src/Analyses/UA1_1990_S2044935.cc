@@ -61,7 +61,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       // Trigger
-      const FinalState& trigfs = applyProjection<FinalState>(event, "TriggerFS");
+      const FinalState& trigfs = apply<FinalState>(event, "TriggerFS");
       unsigned int n_minus(0), n_plus(0);
       foreach (const Particle& p, trigfs.particles()) {
         const double eta = p.eta();
@@ -74,9 +74,9 @@ namespace Rivet {
       _sumwTrig += weight;
 
       // Use good central detector tracks
-      const FinalState& cfs = applyProjection<FinalState>(event, "TrackFS");
-      const double Et25 = applyProjection<MissingMomentum>(event, "MET25").scalarEt();
-      const double Et60 = applyProjection<MissingMomentum>(event, "MET60").scalarEt();
+      const FinalState& cfs = apply<FinalState>(event, "TrackFS");
+      const double Et25 = apply<MissingMomentum>(event, "MET25").scalarEt();
+      const double Et60 = apply<MissingMomentum>(event, "MET60").scalarEt();
       const unsigned int nch = cfs.size();
 
       // Event level histos

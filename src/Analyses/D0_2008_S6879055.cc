@@ -43,7 +43,7 @@ namespace Rivet {
 
 
 
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size()!=1) {
         vetoEvent;
       }
@@ -56,7 +56,7 @@ namespace Rivet {
       const double e1phi = e1.phi();
 
       vector<FourMomentum> finaljet_list;
-      foreach (const Jet& j, applyProjection<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
+      foreach (const Jet& j, apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
         const double jeta = j.eta();
         const double jphi = j.phi();
         if (fabs(jeta) < 2.5) {

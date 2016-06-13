@@ -40,7 +40,7 @@ namespace Rivet {
       nbtot += weight;
 
       // Event must contain a muon
-      Particles muons = applyProjection<IdentifiedFinalState>(event, "IFS").particlesByPt();
+      Particles muons = apply<IdentifiedFinalState>(event, "IFS").particlesByPt();
       if (muons.size() < 1) vetoEvent;
       nbmutot += weight;
 

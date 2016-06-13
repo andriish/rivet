@@ -35,7 +35,7 @@ namespace Rivet {
     void analyze(const Event & e) {
       const double weight = e.weight();
 
-      const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 1) {
         const Particles& el(zfinder.constituents());
         if (el[0].pT() > 25*GeV || el[1].pT() > 25*GeV) {

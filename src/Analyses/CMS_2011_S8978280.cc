@@ -53,7 +53,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const UnstableFinalState& parts = applyProjection<UnstableFinalState>(event, "UFS");
+      const UnstableFinalState& parts = apply<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, parts.particles()) {
         switch (p.abspid()) {
         case PID::K0S:

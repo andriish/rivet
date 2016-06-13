@@ -46,13 +46,13 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Skip if the event is empty
-      const FinalState& fsv = applyProjection<FinalState>(event, "fsv");
+      const FinalState& fsv = apply<FinalState>(event, "fsv");
       if (fsv.empty()) vetoEvent;
 
       // Veto diffractive topologies according to defined hadron level
       double count_chrg_forward = 0;
       double count_chrg_backward = 0;
-      const FinalState& fschrgdv = applyProjection<FinalState>(event, "fschrgdv");
+      const FinalState& fschrgdv = apply<FinalState>(event, "fschrgdv");
       foreach (const Particle& p, fschrgdv.particles()) {
         if (3.9 < p.eta() && p.eta() < 4.4) count_chrg_forward++;
         if (-4.4 < p.eta() && p.eta() < -3.9) count_chrg_backward++;
@@ -72,7 +72,7 @@ namespace Rivet {
       double PTCUT = -1.0;
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) PTCUT = 8.0*GeV;
       else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) PTCUT = 20.0*GeV;
-      const FastJets& jetpro = applyProjection<FastJets>(event, "Jets");
+      const FastJets& jetpro = apply<FastJets>(event, "Jets");
       const Jets jets = jetpro.jetsByPt(PTCUT);
       if (jets.size() >= 2) {
         // eta cut for the central jets

@@ -26,7 +26,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const Particles taus = applyProjection<TauFinder>(event, "Taus").particlesByPt(0.5*GeV);
+      const Particles taus = apply<TauFinder>(event, "Taus").particlesByPt(0.5*GeV);
       MC_ParticleAnalysis::_analyze(event, taus);
     }
 

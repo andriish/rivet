@@ -114,20 +114,20 @@ namespace Rivet {
       count +=1; //cerr<< "Event " << count << '\n';
       // debug
 
-      Particles veto_e = applyProjection<IdentifiedFinalState>(event, "veto_elecs").particles();
+      Particles veto_e = apply<IdentifiedFinalState>(event, "veto_elecs").particles();
       if ( ! veto_e.empty() ) {
         MSG_DEBUG("electrons in veto region");
         vetoEvent;
       }
       ++vetoe;
 
-      Jets cand_jets = applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.8);
+      Jets cand_jets = apply<FastJets>(event, "AntiKtJets04").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.8);
 
-      Particles candtemp_e = applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt();
-      Particles candtemp_mu = applyProjection<IdentifiedFinalState>(event,"muons").particlesByPt();
+      Particles candtemp_e = apply<IdentifiedFinalState>(event, "elecs").particlesByPt();
+      Particles candtemp_mu = apply<IdentifiedFinalState>(event,"muons").particlesByPt();
       Particles cand_mu;
       Particles cand_e;
-      Particles vfs_particles = applyProjection<VisibleFinalState>(event, "vfs").particles();
+      Particles vfs_particles = apply<VisibleFinalState>(event, "vfs").particles();
 
 
       // pTcone around muon track

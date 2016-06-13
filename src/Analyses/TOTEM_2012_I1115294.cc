@@ -29,8 +29,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const ChargedFinalState cfsm = applyProjection<ChargedFinalState>(event, "CFSM");
-      const ChargedFinalState cfsp = applyProjection<ChargedFinalState>(event, "CFSP");
+      const ChargedFinalState cfsm = apply<ChargedFinalState>(event, "CFSM");
+      const ChargedFinalState cfsp = apply<ChargedFinalState>(event, "CFSP");
 
       if (cfsm.size() == 0 && cfsp.size() == 0) vetoEvent;
 

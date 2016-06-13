@@ -45,12 +45,12 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const WFinder& wenufinder = applyProjection<WFinder>(e, "WenuFinder");
+      const WFinder& wenufinder = apply<WFinder>(e, "WenuFinder");
       if (wenufinder.bosons().size()!=1) {
         vetoEvent;
       }
 
-      const WFinder& wmnufinder = applyProjection<WFinder>(e, "WmnuFinder");
+      const WFinder& wmnufinder = apply<WFinder>(e, "WmnuFinder");
       if (wmnufinder.bosons().size()!=1) {
         vetoEvent;
       }

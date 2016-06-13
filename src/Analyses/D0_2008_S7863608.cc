@@ -50,10 +50,10 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size()==1) {
         _sum_of_weights_inclusive += weight;
-        const JetAlg& jetpro = applyProjection<JetAlg>(e, "ConeFinder");
+        const JetAlg& jetpro = apply<JetAlg>(e, "ConeFinder");
         const Jets& jets = jetpro.jetsByPt(20*GeV);
         Jets jets_cut;
         foreach (const Jet& j, jets) {

@@ -37,13 +37,13 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       // Trigger
-      const TriggerUA5& trigger = applyProjection<TriggerUA5>(event, "Trigger");
+      const TriggerUA5& trigger = apply<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
       const double weight = event.weight();
       _sumWTrig += weight;
 
       // Get tracks
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       // Fill mean charged multiplicity histos
       _hist_nch->fill(_hist_nch->bin(0).xMid(), cfs.size()*weight);

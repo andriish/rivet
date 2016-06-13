@@ -31,7 +31,7 @@ namespace Rivet {
 
     void analyze(const Event& e) {
       // First, veto on leptonic events by requiring at least 4 charged FS particles
-      const FinalState& fs = applyProjection<FinalState>(e, "FS");
+      const FinalState& fs = apply<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
@@ -44,12 +44,12 @@ namespace Rivet {
       const double weight = e.weight();
 
       // Get beams and average beam momentum
-      const ParticlePair& beams = applyProjection<Beam>(e, "Beams").beams();
+      const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       int flavour = 0;
-      const InitialQuarks& iqf = applyProjection<InitialQuarks>(e, "IQF");
+      const InitialQuarks& iqf = apply<InitialQuarks>(e, "IQF");
 
       // If we only have two quarks (qqbar), just take the flavour.
       // If we have more than two quarks, look for the highest energetic q-qbar pair.
@@ -93,7 +93,7 @@ namespace Rivet {
         break;
       }
       // thrust axis for projections
-      Vector3 axis = applyProjection<Thrust>(e, "Thrust").thrustAxis();
+      Vector3 axis = apply<Thrust>(e, "Thrust").thrustAxis();
       double dot(0.);
       if (!quarks.empty()) {
         dot = quarks[0].p3().dot(axis);
@@ -190,7 +190,7 @@ namespace Rivet {
         }
       }
 
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere

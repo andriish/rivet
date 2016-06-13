@@ -87,7 +87,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Get the W
-      const WFinder& wfinder = applyProjection<WFinder>(event, "WFinder");
+      const WFinder& wfinder = apply<WFinder>(event, "WFinder");
       if (wfinder.bosons().size() != 1) vetoEvent;
       const Particle& w = wfinder.bosons()[0];
       const Particle& l = wfinder.constituentLeptons()[0];
@@ -96,11 +96,11 @@ namespace Rivet {
       if (l.pT() < 80*GeV || w.pT() < 120*GeV) vetoEvent;
 
       // Get the pseudojets.
-      const PseudoJets& psjetsCA8_wj = applyProjection<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );
-      const PseudoJets& psjetsCA12_wj = applyProjection<FastJets>(event, "JetsCA12_wj").pseudoJetsByPt( 50.0*GeV );
+      const PseudoJets& psjetsCA8_wj = apply<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );
+      const PseudoJets& psjetsCA12_wj = apply<FastJets>(event, "JetsCA12_wj").pseudoJetsByPt( 50.0*GeV );
 
       // AK7 jets
-      const PseudoJets& psjetsAK7_wj = applyProjection<FastJets>(event, "JetsAK7_wj").pseudoJetsByPt( 50.0*GeV );
+      const PseudoJets& psjetsAK7_wj = apply<FastJets>(event, "JetsAK7_wj").pseudoJetsByPt( 50.0*GeV );
       if (!psjetsAK7_wj.empty()) {
         // Get the leading jet and make sure it's back-to-back with the W
         const fastjet::PseudoJet& j0 = psjetsAK7_wj[0];

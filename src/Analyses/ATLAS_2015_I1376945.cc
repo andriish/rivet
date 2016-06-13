@@ -71,9 +71,9 @@ namespace Rivet {
       /**************
        *    JETS    *
        **************/
-      const Jets& allJets = applyProjection<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25.0*GeV && Cuts::absrap < 2.5);
-      const vector<DressedLepton>& all_elecs = applyProjection<DressedLeptons>(event, "ELECS").dressedLeptons();
-      const vector<DressedLepton>& all_muons = applyProjection<DressedLeptons>(event, "MUONS").dressedLeptons();
+      const Jets& allJets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 25.0*GeV && Cuts::absrap < 2.5);
+      const vector<DressedLepton>& all_elecs = apply<DressedLeptons>(event, "ELECS").dressedLeptons();
+      const vector<DressedLepton>& all_muons = apply<DressedLeptons>(event, "MUONS").dressedLeptons();
       Jets goodJets;
       foreach (const Jet j, allJets) {
         bool keep = true;
@@ -126,7 +126,7 @@ namespace Rivet {
       /****************
        *  NEUTRINOS   *
        ****************/
-      const Particles& neutrinos = applyProjection<IdentifiedFinalState>(event, "NEUTRINO_FS").particlesByPt();
+      const Particles& neutrinos = apply<IdentifiedFinalState>(event, "NEUTRINO_FS").particlesByPt();
       FourMomentum metVector = FourMomentum(0.,0.,0.,0.);
       foreach (const Particle& n, neutrinos) {
         metVector += n.momentum();

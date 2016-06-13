@@ -41,7 +41,7 @@ namespace Rivet {
 
 
       //70<Mmm<105
-      const ZFinder& zfinder_mm = applyProjection<ZFinder>(event, "zfinder_mm");
+      const ZFinder& zfinder_mm = apply<ZFinder>(event, "zfinder_mm");
       if (zfinder_mm.bosons().size() == 1) {
 	Particles mm = zfinder_mm.constituents();
 	std::sort(mm.begin(), mm.end(), cmpMomByPt);

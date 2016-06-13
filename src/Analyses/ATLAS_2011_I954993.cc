@@ -49,10 +49,10 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const ZFinder& zfinder_e = applyProjection<ZFinder>(e, "ZFinder_e");
-      const ZFinder& zfinder_mu = applyProjection<ZFinder>(e, "ZFinder_mu");
-      const WFinder& wfinder_e = applyProjection<WFinder>(e, "WFinder_e");
-      const WFinder& wfinder_mu = applyProjection<WFinder>(e, "WFinder_mu");
+      const ZFinder& zfinder_e = apply<ZFinder>(e, "ZFinder_e");
+      const ZFinder& zfinder_mu = apply<ZFinder>(e, "ZFinder_mu");
+      const WFinder& wfinder_e = apply<WFinder>(e, "WFinder_e");
+      const WFinder& wfinder_mu = apply<WFinder>(e, "WFinder_mu");
 
       // Looking for a Z, exit if not found
       if (zfinder_e.bosons().size() != 1 && zfinder_mu.bosons().size() != 1) {

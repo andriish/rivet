@@ -98,10 +98,10 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const Jets jets0 = applyProjection<JetAlg>(event, "Jets0").jetsByPt(Cuts::pT > 10*GeV);
-      const Jets jets1 = applyProjection<JetAlg>(event, "Jets1").jetsByPt(Cuts::pT > 10*GeV);
-      const Jets jets2 = applyProjection<JetAlg>(event, "Jets2").jetsByPt(Cuts::pT > 10*GeV);
-      const Jets jets3 = applyProjection<JetAlg>(event, "Jets3").jetsByPt(Cuts::pT > 10*GeV);
+      const Jets jets0 = apply<JetAlg>(event, "Jets0").jetsByPt(Cuts::pT > 10*GeV);
+      const Jets jets1 = apply<JetAlg>(event, "Jets1").jetsByPt(Cuts::pT > 10*GeV);
+      const Jets jets2 = apply<JetAlg>(event, "Jets2").jetsByPt(Cuts::pT > 10*GeV);
+      const Jets jets3 = apply<JetAlg>(event, "Jets3").jetsByPt(Cuts::pT > 10*GeV);
       MSG_DEBUG("Numbers of jets = " << jets0.size() << " true; "
                << jets1.size() << ", " << jets2.size() << ", " << jets3.size());
       _h_nj_true->fill(jets0.size(), weight);
@@ -115,8 +115,8 @@ namespace Rivet {
         _h_j1eta_reco->fill(jets2.front().eta(), weight);
       }
 
-      const Particles& elecs1 = applyProjection<ParticleFinder>(event, "Electrons1").particlesByPt();
-      const Particles& elecs2 = applyProjection<ParticleFinder>(event, "Electrons2").particlesByPt();
+      const Particles& elecs1 = apply<ParticleFinder>(event, "Electrons1").particlesByPt();
+      const Particles& elecs2 = apply<ParticleFinder>(event, "Electrons2").particlesByPt();
       MSG_DEBUG("Numbers of electrons = " << elecs1.size() << " true; " << elecs2.size() << " reco");
       _h_ne_true->fill(elecs1.size(), weight);
       _h_ne_reco->fill(elecs2.size(), weight);
@@ -129,8 +129,8 @@ namespace Rivet {
         _h_e1eta_reco->fill(elecs2.front().eta(), weight);
       }
 
-      const Particles& muons1 = applyProjection<ParticleFinder>(event, "Muons1").particlesByPt();
-      const Particles& muons2 = applyProjection<ParticleFinder>(event, "Muons2").particlesByPt();
+      const Particles& muons1 = apply<ParticleFinder>(event, "Muons1").particlesByPt();
+      const Particles& muons2 = apply<ParticleFinder>(event, "Muons2").particlesByPt();
       MSG_DEBUG("Numbers of muons = " << muons1.size() << " true; " << muons2.size() << " reco");
       _h_nm_true->fill(muons1.size(), weight);
       _h_nm_reco->fill(muons2.size(), weight);
@@ -143,8 +143,8 @@ namespace Rivet {
         _h_m1eta_reco->fill(muons2.front().eta(), weight);
       }
 
-      const Particles& taus1 = applyProjection<ParticleFinder>(event, "Taus1").particlesByPt();
-      const Particles& taus2 = applyProjection<ParticleFinder>(event, "Taus2").particlesByPt();
+      const Particles& taus1 = apply<ParticleFinder>(event, "Taus1").particlesByPt();
+      const Particles& taus2 = apply<ParticleFinder>(event, "Taus2").particlesByPt();
       MSG_DEBUG("Numbers of taus = " << taus1.size() << " true; " << taus2.size() << " reco");
       _h_nt_true->fill(taus1.size(), weight);
       _h_nt_reco->fill(taus2.size(), weight);

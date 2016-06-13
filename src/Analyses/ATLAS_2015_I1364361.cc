@@ -40,7 +40,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the final state particles ordered by pT
-      const Particles& fs = applyProjection<FinalState>(event, "FS").particlesByPt();
+      const Particles& fs = apply<FinalState>(event, "FS").particlesByPt();
 
       // Find a stable Higgs (mandatory)
       const auto higgsiter = std::find_if(fs.begin(), fs.end(), [](const Particle& p){ return p.pid() == PID::HIGGSBOSON; });

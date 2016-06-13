@@ -46,7 +46,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      Particles photons = applyProjection<IdentifiedFinalState>(event, "IFS").particlesByPt();
+      Particles photons = apply<IdentifiedFinalState>(event, "IFS").particlesByPt();
       if (photons.size() < 2 ||
           (photons[0].pT() < 21.0*GeV)) {
         vetoEvent;
@@ -54,7 +54,7 @@ namespace Rivet {
 
       // Isolate photons with ET_sum in cone
       Particles isolated_photons;
-      Particles fs = applyProjection<FinalState>(event, "FS").particles();
+      Particles fs = apply<FinalState>(event, "FS").particles();
       foreach (const Particle& photon, photons) {
         double eta_P = photon.eta();
         double phi_P = photon.phi();

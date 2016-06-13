@@ -62,7 +62,7 @@ namespace Rivet {
 
       // pTmiss
       FourMomentum pTmiss;
-      foreach (const Particle& p, applyProjection<VisibleFinalState>(event, "vfs").particles() ) {
+      foreach (const Particle& p, apply<VisibleFinalState>(event, "vfs").particles() ) {
         pTmiss -= p.momentum();
       }
       double ETmiss = pTmiss.pT();
@@ -72,13 +72,13 @@ namespace Rivet {
 
       // get the candiate jets
       Jets cand_jets;
-      foreach ( const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+      foreach ( const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if (jet.abseta() < 4.5) cand_jets.push_back(jet);
       }
 
       // find the electrons
       Particles cand_e;
-      foreach( const Particle& e, applyProjection<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
+      foreach( const Particle& e, apply<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets
         bool e_near_jet = false;
         foreach ( const Jet& jet, cand_jets ) {
@@ -94,7 +94,7 @@ namespace Rivet {
 
       // find the muons
       Particles cand_mu;
-      foreach( const Particle& mu, applyProjection<IdentifiedFinalState>(event, "muons").particlesByPt()) {
+      foreach( const Particle& mu, apply<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         // remove any leptons within 0.4 of any candidate jets
         bool mu_near_jet = false;
         foreach ( const Jet& jet, cand_jets ) {

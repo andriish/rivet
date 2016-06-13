@@ -32,10 +32,10 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "CFS");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() != 2) vetoEvent; // no other charged particles in 2.4
 
-      const Particles& muonFS = applyProjection<IdentifiedFinalState>(event, "MUON_FS").particles();
+      const Particles& muonFS = apply<IdentifiedFinalState>(event, "MUON_FS").particles();
       if (muonFS.size() != 2) vetoEvent;
 
       if (charge(muonFS[0]) != charge(muonFS[1])) {

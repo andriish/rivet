@@ -68,7 +68,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Look at events with >= 2 jets
-      const PseudoJets& psjetsAK7 = applyProjection<FastJets>(event, "JetsAK7").pseudoJetsByPt( 50.0*GeV );
+      const PseudoJets& psjetsAK7 = apply<FastJets>(event, "JetsAK7").pseudoJetsByPt( 50.0*GeV );
       if (psjetsAK7.size() < 2) vetoEvent;
 
       // Get the leading two jets and find their average pT

@@ -44,8 +44,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const Jets& jets = applyProjection<FastJets>(event,"Jets").jetsByPt();
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(event, "UFS");
+      const Jets& jets = apply<FastJets>(event,"Jets").jetsByPt();
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
 
       // Find the leading jet pT and eta
       if (jets.size() == 0) vetoEvent;

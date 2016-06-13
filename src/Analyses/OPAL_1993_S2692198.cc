@@ -31,7 +31,7 @@ namespace Rivet {
       Particles photons;
       Particles nonPhotons;
       FourMomentum ptotal;
-      const FinalState& fs = applyProjection<FinalState>(e, "FS");
+      const FinalState& fs = apply<FinalState>(e, "FS");
       foreach (const Particle& p, fs.particles()) {
         ptotal+= p.momentum();
         if (p.pid() == PID::PHOTON) {

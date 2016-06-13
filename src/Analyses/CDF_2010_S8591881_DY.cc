@@ -69,7 +69,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& e) {
 
-      const FinalState& fs = applyProjection<FinalState>(e, "FS");
+      const FinalState& fs = apply<FinalState>(e, "FS");
       const size_t numParticles = fs.particles().size();
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
@@ -82,7 +82,7 @@ namespace Rivet {
       const double weight = e.weight();
 
       // Get the leptons
-      const Particles& leptons = applyProjection<ChargedLeptons>(e, "CL").chargedLeptons();
+      const Particles& leptons = apply<ChargedLeptons>(e, "CL").chargedLeptons();
 
       // We want exactly two leptons of the same flavour.
       MSG_DEBUG("lepton multiplicity = " << leptons.size());

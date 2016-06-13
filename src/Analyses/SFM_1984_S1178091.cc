@@ -45,7 +45,7 @@ namespace Rivet {
     // Analyse each event
     void analyze(const Event& event) {
       const double weight = event.weight();
-      const ChargedFinalState& fs = applyProjection<ChargedFinalState>(event, "FS");
+      const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");
       //const size_t numParticles = fs.particles().size();
       size_t N=0;
 

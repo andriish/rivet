@@ -41,11 +41,11 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
       const FourMomentum& zmom = zfinder.bosons()[0].momentum();
 
-      const Jets& jets = applyProjection<FastJets>(e, "Jets").jetsByPt(_jetptcut);
+      const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
         const double weight = e.weight();
         _h_Z_jet1_deta->fill(zmom.eta()-jets[0].eta(), weight);

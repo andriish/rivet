@@ -57,13 +57,13 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& evt) {
       // Trigger
-      const bool trigger = applyProjection<TriggerCDFRun0Run1>(evt, "Trigger").minBiasDecision();
+      const bool trigger = apply<TriggerCDFRun0Run1>(evt, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
       const double weight = evt.weight();
       _sumWTrig += weight;
 
       // Get beam energy and tracks
-      const ChargedFinalState& fs = applyProjection<ChargedFinalState>(evt, "FS");
+      const ChargedFinalState& fs = apply<ChargedFinalState>(evt, "FS");
       const size_t numParticles = fs.particles().size();
 
       // Fill histos of charged multiplicity distributions

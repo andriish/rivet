@@ -72,20 +72,20 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // DIS kinematics
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
       double q2  = dk.Q2();
       double x   = dk.x();
       double y   = dk.y();
       double w2  = dk.W2();
 
       // Kinematics of the scattered lepton
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
       const FourMomentum leptonMom = dl.out();
       const double enel = leptonMom.E();
       const double thel = 180 - leptonMom.angle(dl.in().mom())/degree;
 
       // Extract the particles other than the lepton
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       Particles particles; particles.reserve(fs.size());
       const GenParticle* dislepGP = dl.out().genParticle(); ///< @todo Is the GenParticle stuff necessary? (Not included in Particle::==?)
       foreach (const Particle& p, fs.particles()) {

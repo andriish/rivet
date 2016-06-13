@@ -85,7 +85,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get leptonic Z boson
-      const ZFinder& zfinder = applyProjection<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1 ) vetoEvent;
       const Particle& Zboson = zfinder.boson();
 
