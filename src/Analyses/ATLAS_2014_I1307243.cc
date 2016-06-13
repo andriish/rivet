@@ -32,7 +32,7 @@ namespace Rivet {
       FinalState fs;
       FastJets fastJets(fs, FastJets::ANTIKT, 0.6);
       fastJets.useInvisibles(true);
-      addProjection(fastJets, "AntiKt6JetsWithInvisibles");
+      declare(fastJets, "AntiKt6JetsWithInvisibles");
 
 
       /// Book histograms

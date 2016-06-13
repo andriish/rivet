@@ -15,7 +15,7 @@ namespace Rivet {
 
     void init() {
 
-      addProjection(FinalState(),"FS");
+      declare(FinalState(),"FS");
 
       _h_noCASTORtag = bookHisto1D(1, 1, 1);
       _h_CASTORtag   = bookHisto1D(2, 1, 1);

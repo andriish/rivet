@@ -57,10 +57,10 @@ namespace Rivet {
       FinalState fs;
       WFinder wfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 40.0*GeV, MAXDOUBLE, 0.0*GeV, 0.1,
                       WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
-      addProjection(wfinder, "WF");
+      declare(wfinder, "WF");
 
       ZFinder zfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      addProjection(zfinder, "ZF");
+      declare(zfinder, "ZF");
 
       // Jets
       VetoedFinalState jet_fs(fs);
@@ -68,7 +68,7 @@ namespace Rivet {
       jet_fs.addVetoOnThisFinalState(getProjection<ZFinder>("ZF"));
       FastJets jets(jet_fs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
 
       // Book Rjets plots

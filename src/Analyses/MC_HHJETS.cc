@@ -24,11 +24,11 @@ namespace Rivet {
     void init() {
       IdentifiedFinalState ifs(Cuts::abseta < 10.0 && Cuts::pT > 0*GeV);
       ifs.acceptId(25);
-      addProjection(ifs,"IFS");
+      declare(ifs,"IFS");
 
       VetoedFinalState vfs;
       vfs.addVetoPairId(25);
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "Jets");
+      declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "Jets");
 
       _h_HH_mass = bookHisto1D("HH_mass", 250, 240, 4000.0);
       _h_HH_dR = bookHisto1D("HH_dR", 25, 0.5, 10.0);

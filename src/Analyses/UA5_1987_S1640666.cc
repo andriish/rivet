@@ -19,8 +19,8 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      addProjection(TriggerUA5(), "Trigger");
-      addProjection(ChargedFinalState(-5.0, 5.0), "CFS");
+      declare(TriggerUA5(), "Trigger");
+      declare(ChargedFinalState(-5.0, 5.0), "CFS");
 
       _hist_mean_nch = bookHisto1D(1, 1, 1);
       _hist_nch      = bookHisto1D(3, 1, 1);

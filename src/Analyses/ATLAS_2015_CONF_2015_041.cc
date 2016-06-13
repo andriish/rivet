@@ -33,14 +33,14 @@ namespace Rivet {
 
       Cut cuts = (Cuts::pT > 25*GeV) & (Cuts::abseta < 2.5);
       ZFinder zfinder(fs, cuts, _mode? PID::MUON : PID::ELECTRON, 66*GeV, 116*GeV);
-      addProjection(zfinder, "zfinder");
+      declare(zfinder, "zfinder");
 
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
       VetoedFinalState had_fs;
       had_fs.addVetoOnThisFinalState(zfinder);
       FastJets jets(had_fs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
       // individual channels
       _hNjets      = bookHisto1D(1, 1, _mode + 1);

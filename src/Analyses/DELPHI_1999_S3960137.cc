@@ -23,9 +23,9 @@ namespace Rivet {
     //@{
 
     void init() {
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "FS");
+      declare(UnstableFinalState(), "UFS");
       _histXpRho = bookHisto1D( 1, 1, 1);
       _histXpf0  = bookHisto1D( 1, 1, 2);
       _histXpf2  = bookHisto1D( 1, 1, 3);

@@ -27,7 +27,7 @@ namespace Rivet {
       Cut etaRanges_MU = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
 
       MissingMomentum met(fs);
-      addProjection(met, "MET");
+      declare(met, "MET");
 
       IdentifiedFinalState Photon(fs);
       Photon.acceptIdPair(PID::PHOTON);
@@ -40,7 +40,7 @@ namespace Rivet {
 
       IdentifiedFinalState neutrinoFS(fs);
       neutrinoFS.acceptNeutrinos();
-      addProjection(neutrinoFS, "Neutrinos");
+      declare(neutrinoFS, "Neutrinos");
 
       ////////////////////////////////////////////////////////
       // DRESSED LEPTONS
@@ -50,17 +50,17 @@ namespace Rivet {
       //
       //////////////////////////////////////////////////////////
       DressedLeptons electronFS(Photon, bare_EL, 0.1, etaRanges_EL);
-      addProjection(electronFS, "ELECTRON_FS");
+      declare(electronFS, "ELECTRON_FS");
 
       DressedLeptons muonFS(Photon, bare_MU, 0.1, etaRanges_MU);
-      addProjection(muonFS, "MUON_FS");
+      declare(muonFS, "MUON_FS");
 
       VetoedFinalState jetinput;
       jetinput.addVetoOnThisFinalState(bare_MU);
       jetinput.addVetoOnThisFinalState(neutrinoFS);
 
       FastJets jetpro(jetinput, FastJets::ANTIKT, 0.4);
-      addProjection(jetpro, "jet");
+      declare(jetpro, "jet");
 
       // Book histograms
       _h_Wl1_pT_mumu = bookHisto1D(1, 1, 2);

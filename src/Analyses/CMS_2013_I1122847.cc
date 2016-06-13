@@ -22,12 +22,12 @@ namespace Rivet {
       Cut cuts_mu = etaIn(-2.4, 2.4) & (pT >= 20.0*GeV);
       ZFinder zfinder_mu(fs, cuts_mu, PID::MUON, 40.0*GeV, MAXDOUBLE,
                          0.0, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      addProjection(zfinder_mu, "zfinder_mu");
+      declare(zfinder_mu, "zfinder_mu");
 
       Cut cuts_el = (pT >= 20.0*GeV) & ((abseta < 1.447) | ((abseta > 1.57) & (abseta < 2.4)));
       ZFinder zfinder_el(fs, cuts_el, PID::ELECTRON, 40.0*GeV, MAXDOUBLE,
                          0.0, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      addProjection(zfinder_el, "zfinder_el");
+      declare(zfinder_el, "zfinder_el");
 
 
       /// histograms

@@ -22,23 +22,23 @@ namespace Rivet {
     void init() {
       // Full final state
       const FinalState fs(Cuts::abseta < 5);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Z finders for electrons and muons
       Cut cuts = Cuts::abseta < 2.1 && Cuts::pT > 20*GeV;
       const ZFinder zfe(fs, cuts, PID::ELECTRON, 76*GeV, 106*GeV);
       const ZFinder zfm(fs, cuts, PID::MUON, 76*GeV, 106*GeV);
-      addProjection(zfe, "ZFE");
-      addProjection(zfm, "ZFM");
+      declare(zfe, "ZFE");
+      declare(zfm, "ZFM");
 
       // Try to get the leading photon
       LeadingParticlesFinalState photonfs(FinalState(-2.5, 2.5, 40.0*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // Jets
       const FastJets jets(fs, FastJets::ANTIKT, 0.5);
-      addProjection(jets, "JETS");
+      declare(jets, "JETS");
 
       // Histograms
       _hist1YZ      = bookHisto1D(1, 1, 1);

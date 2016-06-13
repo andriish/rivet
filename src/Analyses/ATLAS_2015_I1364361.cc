@@ -26,7 +26,7 @@ namespace Rivet {
 
       // All final state particles
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Histograms with data bins
       _h_pTH_incl   = bookHisto1D(1,1,1);

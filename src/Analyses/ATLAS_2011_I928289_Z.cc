@@ -38,10 +38,10 @@ namespace Rivet {
       ZFinder zfinder_mm_bare(   fs, cut, PID::MUON    , 66.0*GeV, 116.0*GeV, 0.0, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
       ZFinder zfinder_mm_dressed(fs, cut, PID::MUON    , 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
 
-      addProjection(zfinder_ee_bare   , "ZFinder_ee_bare"   );
-      addProjection(zfinder_ee_dressed, "ZFinder_ee_dressed");
-      addProjection(zfinder_mm_bare   , "ZFinder_mm_bare"   );
-      addProjection(zfinder_mm_dressed, "ZFinder_mm_dressed");
+      declare(zfinder_ee_bare   , "ZFinder_ee_bare"   );
+      declare(zfinder_ee_dressed, "ZFinder_ee_dressed");
+      declare(zfinder_mm_bare   , "ZFinder_mm_bare"   );
+      declare(zfinder_mm_dressed, "ZFinder_mm_dressed");
 
       //y(Z) cross-section dependence 
       _h_Z_y_ee_bare     = bookHisto1D(1, 1, 1);

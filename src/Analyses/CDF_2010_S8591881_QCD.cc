@@ -40,12 +40,12 @@ namespace Rivet {
     void init() {
       // Final state for the jet finding
       const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-      addProjection(fsj, "FSJ");
-      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
+      declare(fsj, "FSJ");
+      declare(FastJets(fsj, FastJets::CDFMIDPOINT, 0.7), "MidpointJets");
 
       // Charged final state for the distributions
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       // Book histograms
       _hist_tnchg      = bookProfile1D(10, 1, 1);

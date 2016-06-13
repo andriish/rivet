@@ -17,20 +17,20 @@ namespace Rivet {
 
     void init() {
       const FinalState fs(-6.0, 6.0, 0.0*GeV);
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.5), "Jets");
+      declare(fs, "FS");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.5), "Jets");
 
       VetoedFinalState fsv(fs);
       fsv.vetoNeutrinos();
       fsv.addVetoPairDetail(PID::MUON, 0.0*GeV, 99999.9*GeV);
-      addProjection(fsv, "fsv");
+      declare(fsv, "fsv");
 
       // For the MB ND selection
       const ChargedFinalState fschrgd(-6.0,6.0,0.0*GeV);
-      addProjection(fschrgd, "fschrgd");
+      declare(fschrgd, "fschrgd");
       VetoedFinalState fschrgdv(fschrgd);
       fschrgdv.vetoNeutrinos();
-      addProjection(fschrgdv, "fschrgdv");
+      declare(fschrgdv, "fschrgdv");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         _hist_mb      = bookHisto1D(1, 1, 1); // energy flow in MB, 0.9 TeV

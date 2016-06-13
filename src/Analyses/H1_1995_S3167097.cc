@@ -26,9 +26,9 @@ namespace Rivet {
 
     void init() {
       // Projections
-      const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
-      const DISFinalState& fshcm = addProjection(DISFinalState(diskin, DISFinalState::HCM), "FS");
-      addProjection(CentralEtHCM(fshcm), "Y1HCM");
+      const DISKinematics& diskin = declare(DISKinematics(), "Kinematics");
+      const DISFinalState& fshcm = declare(DISFinalState(diskin, DISFinalState::HCM), "FS");
+      declare(CentralEtHCM(fshcm), "Y1HCM");
 
       // Histograms
       /// @todo Convert to use autobooking and correspond to HepData data tables

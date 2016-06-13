@@ -24,9 +24,9 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
-      addProjection(fs, "FinalState");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.6), "AntiKT06");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.4), "AntiKT04");
+      declare(fs, "FinalState");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.6), "AntiKT06");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.4), "AntiKT04");
 
       double ybins[] = { 0.0, 0.3, 0.8, 1.2, 2.1, 2.8 };
       double massBinsForChi[] = { 340, 520, 800, 1200 };

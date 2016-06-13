@@ -18,7 +18,7 @@ namespace Rivet {
 
     void init() {
       ChargedFinalState cfs(-2.5, 2.5, 0.5*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       _h_dNch_deta = bookHisto1D(2, 1, 1);
       _h_dNch_dpT = bookHisto1D(3, 1, 1);

@@ -22,7 +22,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       ZFinder zeefinder(FinalState(), Cuts::etaIn(2.0, 4.5) && Cuts::pT > 20*GeV, PID::ELECTRON, 60*GeV, 120*GeV);
-      addProjection(zeefinder, "ZeeFinder");
+      declare(zeefinder, "ZeeFinder");
 
       _h_sigma_vs_y = bookHisto1D(2, 1, 1);
       _h_sigma_vs_phi = bookHisto1D(3, 1, 1);

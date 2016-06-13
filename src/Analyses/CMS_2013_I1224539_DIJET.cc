@@ -35,12 +35,12 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs(-2.4, 2.4, 0*GeV);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Jet collections
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.7), "JetsAK7");
-      addProjection(FastJets(fs, FastJets::CAM, 0.8), "JetsCA8");
-      addProjection(FastJets(fs, FastJets::CAM, 1.2), "JetsCA12");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.7), "JetsAK7");
+      declare(FastJets(fs, FastJets::CAM, 0.8), "JetsCA8");
+      declare(FastJets(fs, FastJets::CAM, 1.2), "JetsCA12");
 
       // Histograms
       for (size_t i = 0; i < N_PT_BINS_dj; ++i ) {

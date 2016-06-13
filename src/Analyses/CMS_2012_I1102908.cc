@@ -23,7 +23,7 @@ namespace Rivet {
 
   void init() {
     // Projections
-    addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.5), "antikT");
+    declare(FastJets(FinalState(), FastJets::ANTIKT, 0.5), "antikT");
 
     // Histograms
     /// @todo Can we manage to only register these as they are "really" created in the finalize()?

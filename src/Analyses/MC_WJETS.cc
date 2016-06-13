@@ -27,9 +27,9 @@ namespace Rivet {
     void init() {
       FinalState fs;
       WFinder wfinder(fs, Cuts::abseta < 3.5 && Cuts::pT > 25*GeV, _lepton, 60.0*GeV, 100.0*GeV, 25.0*GeV, _dR);
-      addProjection(wfinder, "WFinder");
+      declare(wfinder, "WFinder");
       FastJets jetpro(wfinder.remainingFinalState(), FastJets::ANTIKT, 0.4);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       _h_W_jet1_deta = bookHisto1D("W_jet1_deta", 50, -5.0, 5.0);
       _h_W_jet1_dR = bookHisto1D("W_jet1_dR", 25, 0.5, 7.0);

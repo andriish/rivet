@@ -15,9 +15,9 @@ namespace Rivet {
 
     void init() {
       const FinalState fs500(-2.5, 2.5, 500*MeV);
-      addProjection(fs500, "FS500");
+      declare(fs500, "FS500");
       const FinalState fslead(-2.5, 2.5, 1.0*GeV);
-      addProjection(fslead, "FSlead");
+      declare(fslead, "FSlead");
 
       // Get an index for the beam energy
       isqrts = -1;

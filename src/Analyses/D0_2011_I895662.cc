@@ -19,7 +19,7 @@ namespace Rivet {
     void init() {
       FastJets jets(FinalState(-3.6, 3.6, 0.*GeV), FastJets::D0ILCONE, 0.7);
       jets.useInvisibles();
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       _h_m3j_08_40  = bookHisto1D(1, 1, 1);
       _h_m3j_16_40  = bookHisto1D(2, 1, 1);

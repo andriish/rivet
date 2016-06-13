@@ -23,7 +23,7 @@ namespace Rivet {
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       /// @todo Urk, abuse! Need explicit HiggsFinder and TauFinder?
       ZFinder hfinder(FinalState(), cut, PID::TAU, 115*GeV, 135*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK, 125*GeV);
-      addProjection(hfinder, "Hfinder");
+      declare(hfinder, "Hfinder");
       _h_H_mass = bookHisto1D("H_mass", 50, 119.7, 120.3);
       _h_H_pT = bookHisto1D("H_pT", logspace(100, 1.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
       _h_H_pT_peak = bookHisto1D("H_pT_peak", 25, 0.0, 25.0);

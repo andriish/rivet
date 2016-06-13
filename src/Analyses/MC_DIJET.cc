@@ -24,10 +24,10 @@ namespace Rivet {
     void init() {
       FinalState fs(-4, 4, 0.5*GeV);
       ChargedFinalState cfs(fs);
-      addProjection(fs, "FS");
-      addProjection(cfs, "CFS");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
-      addProjection(FastJets(cfs, FastJets::ANTIKT, 0.7), "ChargedJets");
+      declare(fs, "FS");
+      declare(cfs, "CFS");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
+      declare(FastJets(cfs, FastJets::ANTIKT, 0.7), "ChargedJets");
 
       _hist_jetcount = bookHisto1D("d01-x01-y01", 5, 0., 10.);
       _hist_jetpt = bookHisto1D("d02-x01-y01", 30, 30.,100.);

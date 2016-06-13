@@ -15,7 +15,7 @@ namespace Rivet {
   public:
 
     void init() {
-      addProjection(FinalState(), "FS");
+      declare(FinalState(), "FS");
       _h_sigma = bookHisto1D(1, 1, 1);
     }
 

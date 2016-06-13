@@ -37,14 +37,14 @@ namespace Rivet {
       // photons
       IdentifiedFinalState photonfs(Cuts::abseta < 1.81 && Cuts::pT > 25*GeV);
       photonfs.acceptId(PID::PHOTON);
-      addProjection(photonfs, "Photon");
+      declare(photonfs, "Photon");
 
       //
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Used for pTmiss
-      addProjection(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
+      declare(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
       // Book histograms
       _count_SR = bookHisto1D("count_SR", 1, 0., 1.);

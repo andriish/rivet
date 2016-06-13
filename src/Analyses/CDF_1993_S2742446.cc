@@ -24,15 +24,15 @@ namespace Rivet {
       // The photon selection has been corrected to pTmin=22 GeV (vs. 23 in the trigger)
       LeadingParticlesFinalState photonfs(FinalState(-0.9, 0.9, 22.0*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon
       VetoedFinalState vfs(FinalState(-4.2, 4.2));
       vfs.addVetoOnThisFinalState(photonfs);
-      addProjection(vfs, "VFS");
+      declare(vfs, "VFS");
 
       // Jets
-      addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.7), "Jets");
+      declare(FastJets(vfs, FastJets::CDFJETCLU, 0.7), "Jets");
 
       _h_costheta = bookHisto1D(1, 1, 1);
 

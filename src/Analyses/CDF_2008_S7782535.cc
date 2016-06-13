@@ -23,10 +23,10 @@ namespace Rivet {
     void init() {
       // Set up projections
       const FinalState fs(-3.6, 3.6);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       FastJets jetproj(fs, FastJets::CDFMIDPOINT, 0.7);
       jetproj.useInvisibles();
-      addProjection(jetproj, "Jets");
+      declare(jetproj, "Jets");
 
       // Book histograms and corresponding jet shape projections
       _ptedges = {{ 52, 80, 104, 142, 300 }};
@@ -35,7 +35,7 @@ namespace Rivet {
         const string pname = ss.str();
         _jsnames_pT[i] = pname;
         const JetShape jsp(jetproj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], 0.0, 0.7, RAPIDITY);
-        addProjection(jsp, pname);
+        declare(jsp, pname);
         _h_Psi_pT[i] = bookProfile1D(i+1, 2, 1);
       }
       _h_OneMinusPsi_vs_pT = bookScatter2D(5, 1, 1);

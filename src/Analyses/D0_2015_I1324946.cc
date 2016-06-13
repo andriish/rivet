@@ -24,7 +24,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       ZFinder zfinder_mm(fs, Cuts::abseta < 2 && Cuts::pT > 15*GeV, PID::MUON, 30*GeV, 500*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK);
-      addProjection(zfinder_mm, "zfinder_mm");
+      declare(zfinder_mm, "zfinder_mm");
 
       _h_phistar_mm_peak_central = bookHisto1D(1, 1, 1);
       _h_phistar_mm_peak_forward = bookHisto1D(1, 1, 2);

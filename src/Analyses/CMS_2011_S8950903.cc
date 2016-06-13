@@ -16,7 +16,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       FastJets akt(fs, FastJets::ANTIKT, 0.5);
-      addProjection(akt, "antikT");
+      declare(akt, "antikT");
 
       _h_deltaPhi.addHistogram( 80.,  110., bookHisto1D(1, 1, 1));
       _h_deltaPhi.addHistogram(110.,  140., bookHisto1D(2, 1, 1));

@@ -25,7 +25,7 @@ namespace Rivet {
       Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       ZFinder zfinder_el(fs, cuts, (_mode ? PID::MUON : PID::ELECTRON),
                          12*GeV, 150*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      addProjection(zfinder_el, "ZFinder");
+      declare(zfinder_el, "ZFinder");
 
       // Book histograms
       const size_t offset = _mode ? 4 : 1;

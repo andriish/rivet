@@ -29,7 +29,7 @@ namespace Rivet {
     void init() {
 
       /// Initialise and register projections
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
 
       /// Book histograms
       _h_pdg411_Dplus_pT_y.addHistogram(  2.0, 2.5, bookHisto1D(3, 1, 1));

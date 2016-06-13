@@ -433,8 +433,8 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
+      declare(ChargedFinalState(), "FS");
+      declare(UnstableFinalState(), "UFS");
 
       if (sqrtS()/GeV >= 9.5 && sqrtS()/GeV <= 10.5) {
         _histMeanMultiPiPlus             = bookHisto1D( 1, 1, 1);

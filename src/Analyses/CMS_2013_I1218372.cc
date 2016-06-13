@@ -30,19 +30,19 @@ namespace Rivet {
 
       // gives the range of eta and min pT for the final state from which I get the jets
       FastJets jetpro (ChargedFinalState(-2.5, 2.5, 0.3*GeV), FastJets::ANTIKT, 0.5);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       // skip Neutrinos and Muons
       VetoedFinalState fsv(FinalState(-7.0, -4.0, 0.*GeV));
       fsv.vetoNeutrinos();
       fsv.addVetoPairId(PID::MUON);
-      addProjection(fsv, "fsv");
+      declare(fsv, "fsv");
 
       // for the hadron level selection
       VetoedFinalState sfsv(FinalState(-MAXDOUBLE, MAXDOUBLE, 0.*GeV));
       sfsv.vetoNeutrinos();
       sfsv.addVetoPairId(PID::MUON);
-      addProjection(sfsv, "sfsv");
+      declare(sfsv, "sfsv");
 
       //counters
       passedSumOfWeights = 0.;

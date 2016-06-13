@@ -34,7 +34,7 @@ namespace Rivet {
 
       const Cut cuts = (_mode == 0) ? (Cuts::pT > 25*GeV && Cuts::abseta < 4.9) : (Cuts::pT > 20*GeV && Cuts::abseta < 2.47);
       DressedLeptons leptons(fs, bareleptons, 0.1, cuts, true, true);
-      addProjection(leptons, "leptons");
+      declare(leptons, "leptons");
 
 
       // Book dummy histograms for heterogeneous merging

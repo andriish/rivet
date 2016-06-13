@@ -26,19 +26,19 @@ namespace Rivet {
     void init() {
       FinalState fs;
       WFinder wenufinder(fs, Cuts::abseta < 3.5 && Cuts::pT > 25*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
-      addProjection(wenufinder, "WenuFinder");
+      declare(wenufinder, "WenuFinder");
 
       VetoedFinalState wmnuinput;
       wmnuinput.addVetoOnThisFinalState(wenufinder);
       WFinder wmnufinder(wmnuinput, Cuts::abseta < 3.5 && Cuts::pT > 25*GeV, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
-      addProjection(wmnufinder, "WmnuFinder");
+      declare(wmnufinder, "WmnuFinder");
 
       VetoedFinalState jetinput;
       jetinput
           .addVetoOnThisFinalState(wenufinder)
           .addVetoOnThisFinalState(wmnufinder);
       FastJets jetpro(jetinput, FastJets::ANTIKT, 0.4);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       // correlations with jets
       _h_WW_jet1_deta = bookHisto1D("WW_jet1_deta", 70, -7.0, 7.0);

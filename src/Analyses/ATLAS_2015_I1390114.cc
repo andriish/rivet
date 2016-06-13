@@ -34,9 +34,9 @@ namespace Rivet {
       el_id.acceptIdPair(PID::ELECTRON);
       PromptFinalState electrons(el_id);
       electrons.acceptTauDecays(true);
-      addProjection(electrons, "electrons");
+      declare(electrons, "electrons");
       DressedLeptons dressedelectrons(photons, electrons, 0.1, eta_lep && (Cuts::pT >= 25*GeV), true, true);
-      addProjection(dressedelectrons, "dressedelectrons");
+      declare(dressedelectrons, "dressedelectrons");
       DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full, true, true);
 
       // Projection to find the muons
@@ -44,9 +44,9 @@ namespace Rivet {
       mu_id.acceptIdPair(PID::MUON);
       PromptFinalState muons(mu_id);
       muons.acceptTauDecays(true);
-      addProjection(muons, "muons");
+      declare(muons, "muons");
       DressedLeptons dressedmuons(photons, muons, 0.1, eta_lep && (Cuts::pT >= 25*GeV), true, true);
-      addProjection(dressedmuons, "dressedmuons");
+      declare(dressedmuons, "dressedmuons");
       DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full, true, true);
 
       // Projection to find neutrinos and produce MET
@@ -62,7 +62,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(neutrinos);
       FastJets jets(vfs,FastJets::ANTIKT, 0.4);
       jets.useInvisibles();
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
       _histo = bookHisto1D(1,1,1);
       _ratio = bookScatter2D(2,1,1, true);

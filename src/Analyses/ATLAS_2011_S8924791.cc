@@ -25,10 +25,10 @@ namespace Rivet {
     void init() {
       // Set up projections
       const FinalState fs(-5.0, 5.0);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       FastJets fj(fs, FastJets::ANTIKT, 0.6);
       fj.useInvisibles();
-      addProjection(fj, "Jets");
+      declare(fj, "Jets");
 
       // Specify pT bins
       _ptedges = {{ 30.0, 40.0, 60.0, 80.0, 110.0, 160.0, 210.0, 260.0, 310.0, 400.0, 500.0, 600.0 }};
@@ -46,7 +46,7 @@ namespace Rivet {
           const double ylow = (j < 5) ? _yedges[j] : _yedges.front();
           const double yhigh = (j < 5) ? _yedges[j+1] : _yedges.back();
           const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], ylow, yhigh, RAPIDITY);
-          addProjection(jsp, _jsnames_pT[i][j]);
+          declare(jsp, _jsnames_pT[i][j]);
 
           // Book profile histograms for each (pT,y) bin
           _profhistRho_pT[i][j] = bookProfile1D(i+1, j+1, 1);

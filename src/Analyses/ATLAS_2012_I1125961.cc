@@ -31,23 +31,23 @@ namespace Rivet {
       // Projection to find the electrons
       IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
-      addProjection(elecs, "elecs");
+      declare(elecs, "elecs");
 
       // Projection to find the muons
       IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
-      addProjection(muons, "muons");
+      declare(muons, "muons");
 
       // Jet finder
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
+      declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // All tracks (to do deltaR with leptons)
-      addProjection(ChargedFinalState(Cuts::abseta < 3.0), "cfs");
+      declare(ChargedFinalState(Cuts::abseta < 3.0), "cfs");
 
       // Used for pTmiss (N.B. the real 'vfs' extends beyond 4.5 to |eta| = 4.9)
-      addProjection(VisibleFinalState(Cuts::abseta < 4.5), "vfs");
+      declare(VisibleFinalState(Cuts::abseta < 4.5), "vfs");
 
       // Book histograms
       _count_A_tight   = bookHisto1D("count_A_tight"   , 1, 0., 1.);

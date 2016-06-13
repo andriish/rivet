@@ -25,12 +25,12 @@ namespace Rivet {
     void init() {
       // Set up projections
       FinalState fs;
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+      declare(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
       IdentifiedFinalState ifs; //(Cuts::pT > 0);
       ifs.acceptId(PID::PHOTON);
-      addProjection(ifs, "Photons");
-      addProjection(Thrust(fs), "Thrust");
-      addProjection(ChargedFinalState(), "CFS");
+      declare(ifs, "Photons");
+      declare(Thrust(fs), "Thrust");
+      declare(ChargedFinalState(), "CFS");
 
       // Book histograms
       _h_z_2jet_001 = bookHisto1D(1, 1, 1);

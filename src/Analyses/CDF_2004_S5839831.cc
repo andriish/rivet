@@ -98,20 +98,20 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      addProjection(TriggerCDFRun0Run1(), "Trigger");
-      addProjection(Beam(), "Beam");
+      declare(TriggerCDFRun0Run1(), "Trigger");
+      declare(Beam(), "Beam");
       const FinalState calofs(-1.2, 1.2);
-      addProjection(calofs, "CaloFS");
-      addProjection(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
+      declare(calofs, "CaloFS");
+      declare(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
       const ChargedFinalState trackfs(-1.2, 1.2, 0.4*GeV);
-      addProjection(trackfs, "TrackFS");
+      declare(trackfs, "TrackFS");
       // Restrict tracks to |eta| < 0.7 for the min bias part.
       const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
-      addProjection(mbfs, "MBFS");
+      declare(mbfs, "MBFS");
       // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
       const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
-      addProjection(cheesefs, "CheeseFS");
-      addProjection(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
+      declare(cheesefs, "CheeseFS");
+      declare(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
 
       // Book histograms
       if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {

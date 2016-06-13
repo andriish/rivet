@@ -31,7 +31,7 @@ namespace Rivet {
 
       IdentifiedFinalState neutrino_fs(promptFs);
       neutrino_fs.acceptNeutrinos();
-      addProjection(neutrino_fs, "NEUTRINO_FS");
+      declare(neutrino_fs, "NEUTRINO_FS");
 
       IdentifiedFinalState Photon(fs);
       Photon.acceptIdPair(PID::PHOTON);
@@ -44,10 +44,10 @@ namespace Rivet {
 
       Cut lep_cuts = (Cuts::abseta < 2.5) & (Cuts::pT > 1*MeV);
       DressedLeptons muons(Photon, bare_muons_fs, 0.1, lep_cuts, true, false);
-      addProjection(muons, "MUONS");
+      declare(muons, "MUONS");
 
       DressedLeptons elecs(Photon, bare_elecs_fs, 0.1, lep_cuts, true, false);
-      addProjection(elecs, "ELECS");
+      declare(elecs, "ELECS");
 
       VetoedFinalState vfs;
       vfs.addVetoOnThisFinalState(muons);
@@ -56,7 +56,7 @@ namespace Rivet {
 
       FastJets fjets(vfs, FastJets::ANTIKT, 0.4);
       fjets.useInvisibles();
-      addProjection(fjets, "jets");
+      declare(fjets, "jets");
 
       h_pull_all     = bookHisto1D(4,1,1);
       h_pull_charged = bookHisto1D(5,1,1);

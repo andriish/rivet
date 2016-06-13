@@ -29,7 +29,7 @@ namespace Rivet {
     void init() {
 
       ChargedFinalState cfs(-1.0, 1.0);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         _h_dN_deta    = bookHisto1D(4, 1, 1);

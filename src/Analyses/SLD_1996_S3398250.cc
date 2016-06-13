@@ -31,9 +31,9 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "CFS");
-      addProjection(InitialQuarks(), "IQF");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "CFS");
+      declare(InitialQuarks(), "IQF");
 
       _h_bottom = bookHisto1D(1, 1, 1);
       _h_charm  = bookHisto1D(2, 1, 1);

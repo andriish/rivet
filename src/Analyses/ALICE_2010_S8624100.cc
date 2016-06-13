@@ -30,9 +30,9 @@ namespace Rivet {
       ChargedFinalState cfs05(-0.5, 0.5);
       ChargedFinalState cfs10(-1.0, 1.0);
       ChargedFinalState cfs13(-1.3, 1.3);
-      addProjection(cfs05, "CFS05");
-      addProjection(cfs10, "CFS10");
-      addProjection(cfs13, "CFS13");
+      declare(cfs05, "CFS05");
+      declare(cfs10, "CFS10");
+      declare(cfs13, "CFS13");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         _h_dN_dNch_05    = bookHisto1D(11, 1, 1);

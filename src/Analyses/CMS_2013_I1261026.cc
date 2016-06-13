@@ -21,17 +21,17 @@ namespace Rivet {
 
     void init() {
       FastJets jetpro(ChargedFinalState(-2.4, 2.4, 0.25*GeV), FastJets::ANTIKT, 0.5);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       const ChargedFinalState cfs(-2.4, 2.4, 0.25*GeV);
-      addProjection(cfs, "CFS250");
+      declare(cfs, "CFS250");
 
       // For min bias trigger
       const ChargedFinalState cfsBSCplus(3.23, 4.65, 500*MeV);
-      addProjection(cfsBSCplus, "cfsBSCplus");
+      declare(cfsBSCplus, "cfsBSCplus");
 
       const ChargedFinalState cfsBSCminus(-4.65, -3.23, 500*MeV);
-      addProjection(cfsBSCminus, "cfsBSCminus");
+      declare(cfsBSCminus, "cfsBSCminus");
 
       // Histograms:
       _h_AllTrkMeanPt            = bookProfile1D(1, 1, 1);

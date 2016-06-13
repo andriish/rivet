@@ -25,12 +25,12 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      addProjection(ChargedFinalState(-5.5, 5.5), "TriggerFS");
-      addProjection(ChargedFinalState(-2.5, 2.5), "TrackFS");
+      declare(ChargedFinalState(-5.5, 5.5), "TriggerFS");
+      declare(ChargedFinalState(-2.5, 2.5), "TrackFS");
       const FinalState trkcalofs(-2.5, 2.5);
-      addProjection(MissingMomentum(trkcalofs), "MET25");
+      declare(MissingMomentum(trkcalofs), "MET25");
       const FinalState calofs(-6.0, 6.0);
-      addProjection(MissingMomentum(calofs), "MET60");
+      declare(MissingMomentum(calofs), "MET60");
 
       if (fuzzyEquals(sqrtS()/GeV, 63)) {
         _hist_Pt = bookProfile1D(8,1,1);

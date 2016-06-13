@@ -35,14 +35,14 @@ namespace Rivet {
       // bosons
       WFinder wfinder(fs, cuts, _mode > 1? PID::MUON : PID::ELECTRON, 40.0*GeV, MAXDOUBLE, 0.0*GeV, 0.1,
                       WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
-      addProjection(wfinder, "WF");
+      declare(wfinder, "WF");
 
       // jets
       VetoedFinalState jet_fs(fs);
       jet_fs.addVetoOnThisFinalState(getProjection<WFinder>("WF"));
       FastJets jets(jet_fs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       // book histograms
       histos["h_N_incl"]            = bookHisto1D(1,1,_mode+1);

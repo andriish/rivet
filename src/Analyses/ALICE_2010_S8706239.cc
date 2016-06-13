@@ -29,7 +29,7 @@ namespace Rivet {
     void init() {
 
       ChargedFinalState cfs(-0.8, 0.8, 0.15);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       _h_pT = bookHisto1D(4, 1, 1);
 

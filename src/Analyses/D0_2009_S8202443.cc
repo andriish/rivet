@@ -27,15 +27,15 @@ namespace Rivet {
       // Leptons in constrained tracking acceptance
       Cut cuts = (Cuts::abseta < 1.1 || Cuts::absetaIn(1.5, 2.5)) && Cuts::pT > 25*GeV;
       ZFinder zfinder_constrained(fs, cuts, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zfinder_constrained, "ZFinderConstrained");
+      declare(zfinder_constrained, "ZFinderConstrained");
       FastJets conefinder_constrained(zfinder_constrained.remainingFinalState(), FastJets::D0ILCONE, 0.5);
-      addProjection(conefinder_constrained, "ConeFinderConstrained");
+      declare(conefinder_constrained, "ConeFinderConstrained");
 
       // Unconstrained leptons
       ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
-      addProjection(conefinder, "ConeFinder");
+      declare(conefinder, "ConeFinder");
 
       _h_jet1_pT_constrained = bookHisto1D(1, 1, 1);
       _h_jet2_pT_constrained = bookHisto1D(3, 1, 1);

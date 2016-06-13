@@ -24,9 +24,9 @@ namespace Rivet {
 
     void init() {
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       /// @todo Use correct jet algorithm
-      addProjection(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
+      declare(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
 
       _h_deta = bookHisto1D(1, 1, 1);
       _h_dphi.addHistogram(0.0, 2.0, bookHisto1D(2, 1, 1));

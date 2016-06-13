@@ -204,10 +204,10 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(InitialQuarks(), "IQF");
-      addProjection(Thrust(FinalState()), "Thrust");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "FS");
+      declare(InitialQuarks(), "IQF");
+      declare(Thrust(FinalState()), "Thrust");
 
       // Book histograms
       _h_PCharged   = bookHisto1D( 1, 1, 1);

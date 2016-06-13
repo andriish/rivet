@@ -32,20 +32,20 @@ namespace Rivet {
       //       between 1 and 2 GeV. That correction is included in the systematic
       //       uncertainties and overly complicated to program, so we ignore it.
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       FastJets durhamjets(fs, FastJets::DURHAM, 0.7);
       durhamjets.useInvisibles(true);
-      addProjection(durhamjets, "DurhamJets");
+      declare(durhamjets, "DurhamJets");
 
       const Thrust thrust(fs);
-      addProjection(thrust, "Thrust");
-      addProjection(Sphericity(fs), "Sphericity");
-      addProjection(ParisiTensor(fs), "Parisi");
-      addProjection(Hemispheres(thrust), "Hemispheres");
+      declare(thrust, "Thrust");
+      declare(Sphericity(fs), "Sphericity");
+      declare(ParisiTensor(fs), "Parisi");
+      declare(Hemispheres(thrust), "Hemispheres");
 
       const ChargedFinalState cfs;
-      addProjection(Beam(), "Beams");
-      addProjection(cfs, "CFS");
+      declare(Beam(), "Beams");
+      declare(cfs, "CFS");
 
       // Histos
       // offset for the event shapes and jets

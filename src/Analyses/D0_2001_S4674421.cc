@@ -27,27 +27,27 @@ namespace Rivet {
     void init() {
       // Final state projection
       FinalState fs(-5.0, 5.0); // corrected for detector acceptance
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Z -> e- e+
       LeadingParticlesFinalState eeFS(FinalState(-5.0, 5.0, 0.)); //20.);
       eeFS.addParticleIdPair(PID::ELECTRON);
-      addProjection(eeFS, "eeFS");
+      declare(eeFS, "eeFS");
 
       // W- -> e- nu_e~
       LeadingParticlesFinalState enuFS(FinalState(-5.0, 5.0, 0.)); //25.);
       enuFS.addParticleId(PID::ELECTRON).addParticleId(PID::NU_EBAR);
-      addProjection(enuFS, "enuFS");
+      declare(enuFS, "enuFS");
 
       // W+ -> e+ nu_e
       LeadingParticlesFinalState enubFS(FinalState(-5.0, 5.0, 0.)); //25.);
       enubFS.addParticleId(PID::POSITRON).addParticleId(PID::NU_E);
-      addProjection(enubFS, "enubFS");
+      declare(enubFS, "enubFS");
 
       // Remove neutrinos for isolation of final state particles
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
-      addProjection(vfs, "VFS");
+      declare(vfs, "VFS");
 
       // Counters
       _eventsFilledW = 0.0;

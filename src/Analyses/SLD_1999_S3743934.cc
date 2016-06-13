@@ -293,11 +293,11 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(UnstableFinalState(), "UFS");
-      addProjection(InitialQuarks(), "IQF");
-      addProjection(Thrust(FinalState()), "Thrust");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "FS");
+      declare(UnstableFinalState(), "UFS");
+      declare(InitialQuarks(), "IQF");
+      declare(Thrust(FinalState()), "Thrust");
 
       _temp_XpChargedN1 = bookHisto1D("TMP/XpChargedN1", refData( 1, 1, 1));
       _temp_XpChargedN2 = bookHisto1D("TMP/XpChargedN2", refData( 2, 1, 1));

@@ -39,36 +39,36 @@ namespace Rivet {
 
       PromptFinalState electrons(el_id);
       electrons.acceptTauDecays(true);
-      addProjection(electrons, "electrons");
+      declare(electrons, "electrons");
 
       DressedLeptons dressedelectrons(photons, electrons, 0.1, eta_lep & (Cuts::pT >= 25.0*GeV), true, true);
-      addProjection(dressedelectrons, "dressedelectrons");
+      declare(dressedelectrons, "dressedelectrons");
 
       DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full, true, true);
-      addProjection(ewdressedelectrons, "ewdressedelectrons");
+      declare(ewdressedelectrons, "ewdressedelectrons");
 
       DressedLeptons vetodressedelectrons(photons, electrons, 0.1, eta_lep & (Cuts::pT >= 15.0*GeV), true, true);
-      addProjection(vetodressedelectrons, "vetodressedelectrons");
+      declare(vetodressedelectrons, "vetodressedelectrons");
 
       // Projection to find the muons
       IdentifiedFinalState mu_id(fs);
       mu_id.acceptIdPair(PID::MUON);
       PromptFinalState muons(mu_id);
       muons.acceptTauDecays(true);
-      addProjection(muons, "muons");
+      declare(muons, "muons");
       DressedLeptons dressedmuons(photons, muons, 0.1, eta_lep & (Cuts::pT >= 25.0*GeV), true, true);
-      addProjection(dressedmuons, "dressedmuons");
+      declare(dressedmuons, "dressedmuons");
       DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full, true, true);
-      addProjection(ewdressedmuons, "ewdressedmuons");
+      declare(ewdressedmuons, "ewdressedmuons");
       DressedLeptons vetodressedmuons(photons, muons, 0.1, eta_lep & (Cuts::pT >= 15.0*GeV), true, true);
-      addProjection(vetodressedmuons, "vetodressedmuons");
+      declare(vetodressedmuons, "vetodressedmuons");
 
       // Projection to find neutrinos and produce MET
       IdentifiedFinalState nu_id;
       nu_id.acceptNeutrinos();
       PromptFinalState neutrinos(nu_id);
       neutrinos.acceptTauDecays(true);
-      addProjection(neutrinos, "neutrinos");
+      declare(neutrinos, "neutrinos");
 
       // Jet clustering.
       VetoedFinalState vfs;
@@ -77,7 +77,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(neutrinos);
       FastJets jets(vfs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles();
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
       //pseudotop leptons and hadrons
       _h["ptpseudotophadron_mu"]     = bookHisto1D( 1, 1, 2);

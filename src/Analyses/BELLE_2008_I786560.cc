@@ -18,7 +18,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
       _hist_pipi = bookHisto1D( 1, 1, 1);
     }
 

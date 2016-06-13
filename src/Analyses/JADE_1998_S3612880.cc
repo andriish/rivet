@@ -27,13 +27,13 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       const ChargedFinalState cfs(-MAXDOUBLE, MAXDOUBLE, 0.1/GeV);
-      addProjection(cfs, "CFS");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+      declare(cfs, "CFS");
+      declare(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
 
       // Thrust
       const Thrust thrust(cfs);
-      addProjection(thrust, "Thrust");
-      addProjection(Hemispheres(thrust), "Hemispheres");
+      declare(thrust, "Thrust");
+      declare(Hemispheres(thrust), "Hemispheres");
 
       // Histos
       int offset = 0;

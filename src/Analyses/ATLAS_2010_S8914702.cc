@@ -19,15 +19,15 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       FastJets fj(fs, FastJets::KT, 0.5);
       fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
-      addProjection(fj, "KtJetsD05");
+      declare(fj, "KtJetsD05");
 
       LeadingParticlesFinalState photonfs(FinalState(Cuts::abseta < 1.81 && Cuts::pT > 15*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       size_t hist_bin = 0;
       for (size_t i = 0; i < _eta_bins.size()-1; ++i) {

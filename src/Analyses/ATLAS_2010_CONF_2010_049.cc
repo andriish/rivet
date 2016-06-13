@@ -16,13 +16,13 @@ namespace Rivet {
 
     void init() {
       ChargedFinalState cfs(-1.5, 1.5, 0.5*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       FastJets jetsproj6(cfs, FastJets::ANTIKT, 0.6);
-      addProjection(jetsproj6, "Jets6");
+      declare(jetsproj6, "Jets6");
 
       FastJets jetsproj4(cfs, FastJets::ANTIKT, 0.4);
-      addProjection(jetsproj4, "Jets4");
+      declare(jetsproj4, "Jets4");
 
       for (size_t i=0 ; i<2 ; i++) {
         _h_xsec[i]       = bookHisto1D(1+i, 1, 1);

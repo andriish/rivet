@@ -27,12 +27,12 @@ namespace Rivet {
     void init() {
       // Final state for the jet finding
       const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-      addProjection(fsj, "FSJ");
-      addProjection(FastJets(fsj, FastJets::KT, 0.7), "Jets");
+      declare(fsj, "FSJ");
+      declare(FastJets(fsj, FastJets::KT, 0.7), "Jets");
 
       // Charged final state for the distributions
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       const double maxpt1 = 500.0;
       _hist_pnchg      = bookProfile1D("trans-nchg", 50, 0.0, maxpt1);

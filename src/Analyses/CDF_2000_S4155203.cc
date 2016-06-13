@@ -23,7 +23,7 @@ namespace Rivet {
       // Set up projections
       ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON,
                       66*GeV, 116*GeV, 0.0, ZFinder::NOCLUSTER);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
       // Book histogram
       _hist_zpt = bookHisto1D(1, 1, 1);

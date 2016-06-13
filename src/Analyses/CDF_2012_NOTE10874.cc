@@ -19,7 +19,7 @@ namespace Rivet {
 
     void init() {
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       int isqrts = -1;
       if (fuzzyEquals(sqrtS(), 300*GeV)) isqrts = 1;

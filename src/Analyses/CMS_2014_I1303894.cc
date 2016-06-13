@@ -28,19 +28,19 @@ namespace Rivet {
     void init() {
       // Projections
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       MissingMomentum missing(fs);
-      addProjection(missing, "MET");
+      declare(missing, "MET");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
       DressedLeptons muonClusters(fs, bareMuons, 0.1, Cuts::open(), false, false);
-      addProjection(muonClusters, "muonClusters");
+      declare(muonClusters, "muonClusters");
 
       IdentifiedFinalState neutrinos;
       neutrinos.acceptIdPair(PID::NU_MU);
-      addProjection(neutrinos, "neutrinos");
+      declare(neutrinos, "neutrinos");
 
       VetoedFinalState jetFS(fs);
       jetFS.addVetoOnThisFinalState(muonClusters);
@@ -48,7 +48,7 @@ namespace Rivet {
       jetFS.vetoNeutrinos();
       FastJets JetProjection(jetFS, FastJets::ANTIKT, 0.5);
       JetProjection.useInvisibles(false);
-      addProjection(JetProjection, "Jets");
+      declare(JetProjection, "Jets");
 
       // Histograms
       _histDPhiMuJet1 = bookHisto1D(1,1,1);

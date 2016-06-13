@@ -38,10 +38,10 @@ namespace Rivet {
       const FinalState cnfs4(-_etaMax, _etaMax, 0.4 * GeV);
       const FinalState cnfs6(-_etaMax, _etaMax, 0.6 * GeV);
       const FinalState cnfs8(-_etaMax, _etaMax, 0.8 * GeV);
-      addProjection(cnfs2, "CNFS2");
-      addProjection(cnfs4, "CNFS4");
-      addProjection(cnfs6, "CNFS6");
-      addProjection(cnfs8, "CNFS8");
+      declare(cnfs2, "CNFS2");
+      declare(cnfs4, "CNFS4");
+      declare(cnfs6, "CNFS6");
+      declare(cnfs8, "CNFS8");
 
       _etaBinSize = (2. * _etaMax)/(double)_etaBins;
 

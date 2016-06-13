@@ -121,7 +121,7 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(FinalState(), "FS");
+      declare(FinalState(), "FS");
 
       // Book datasets
       _nPhotonJade   = bookHisto1D(1, 1, 1);

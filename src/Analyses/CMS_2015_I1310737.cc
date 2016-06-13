@@ -24,17 +24,17 @@ namespace Rivet {
       VisibleFinalState visfs(fs);
 
       ZFinder zeeFinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::ELECTRON, 71.0*GeV, 111.0*GeV);
-      addProjection(zeeFinder, "ZeeFinder");
+      declare(zeeFinder, "ZeeFinder");
 
       ZFinder zmumuFinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 20*GeV, PID::MUON, 71.0*GeV, 111.0*GeV);
-      addProjection(zmumuFinder, "ZmumuFinder");
+      declare(zmumuFinder, "ZmumuFinder");
 
       VetoedFinalState jetConstits(visfs);
       jetConstits.addVetoOnThisFinalState(zeeFinder);
       jetConstits.addVetoOnThisFinalState(zmumuFinder);
 
       FastJets akt05Jets(jetConstits, FastJets::ANTIKT, 0.5);
-      addProjection(akt05Jets, "AntiKt05Jets");
+      declare(akt05Jets, "AntiKt05Jets");
 
 
       _h_excmult_jets_tot = bookHisto1D(1, 1, 1);

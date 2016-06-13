@@ -27,8 +27,8 @@ namespace Rivet {
 
       // Projections
       const FinalState cnfs(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV);
-      addProjection(cnfs, "FS");
-      addProjection(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV), "UFS");
+      declare(cnfs, "FS");
+      declare(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 500*MeV), "UFS");
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though

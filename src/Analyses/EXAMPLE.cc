@@ -29,11 +29,11 @@ namespace Rivet {
       // Projections
       const FinalState cnfs(Cuts::abseta < 4 && Cuts::pT > 500*MeV);
       const ChargedFinalState cfs(cnfs);
-      addProjection(cnfs, "FS");
-      addProjection(cfs, "CFS");
-      addProjection(FastJets(cnfs, FastJets::KT, 0.7), "Jets");
-      addProjection(Thrust(cfs), "Thrust");
-      addProjection(Sphericity(cfs), "Sphericity");
+      declare(cnfs, "FS");
+      declare(cfs, "CFS");
+      declare(FastJets(cnfs, FastJets::KT, 0.7), "Jets");
+      declare(Thrust(cfs), "Thrust");
+      declare(Sphericity(cfs), "Sphericity");
 
       // Histograms
       _histTot         = bookHisto1D("TotalMult", 100, -0.5, 99.5);

@@ -26,9 +26,9 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      addProjection(Beam(), "Beams");
-      addProjection(UnstableFinalState(), "UFS");
-      addProjection(ChargedFinalState(), "CFS");
+      declare(Beam(), "Beams");
+      declare(UnstableFinalState(), "UFS");
+      declare(ChargedFinalState(), "CFS");
 
       _h_Xe_Ds = bookHisto1D(1, 1, 1);
     }

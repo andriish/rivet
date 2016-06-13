@@ -16,10 +16,10 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       const FastJets jets(FinalState(-4.9, 4.9, 0.0*GeV), FastJets::ANTIKT, 0.5);
-      addProjection(jets, "AntiKtJets05");
+      declare(jets, "AntiKtJets05");
 
       _h_xi = bookHisto1D(1, 1, 1);
     }

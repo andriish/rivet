@@ -39,9 +39,9 @@ namespace Rivet {
       veto.addVetoPairId(PID::MUON);
       veto.vetoNeutrinos();
       FastJets jets(veto, FastJets::ANTIKT, 0.6);
-      addProjection(jets, "jets");
+      declare(jets, "jets");
       // unstable final-state for D*
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
 
       _h_pt25_30 = bookHisto1D( 8,1,1);
       _h_pt30_40 = bookHisto1D( 9,1,1);

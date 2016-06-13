@@ -120,32 +120,32 @@ namespace Rivet {
       Cut etaranges_lep = Cuts::abseta < 3.16 && Cuts::pT > 7*GeV;
 
       DressedLeptons electron_sel4l(Photon, bare_EL, 0.1, etaranges_lep);
-      addProjection(electron_sel4l, "ELECTRON_sel4l");
+      declare(electron_sel4l, "ELECTRON_sel4l");
       DressedLeptons muon_sel4l(Photon, bare_MU, 0.1, etaranges_lep);
-      addProjection(muon_sel4l, "MUON_sel4l");
+      declare(muon_sel4l, "MUON_sel4l");
 
 
       // Selection 2: ZZ-> llnunu selection
       Cut etaranges_lep2 = Cuts::abseta < 2.5 && Cuts::pT > 10*GeV;
 
       DressedLeptons electron_sel2l2nu(Photon, bare_EL, 0.1, etaranges_lep2);
-      addProjection(electron_sel2l2nu, "ELECTRON_sel2l2nu");
+      declare(electron_sel2l2nu, "ELECTRON_sel2l2nu");
       DressedLeptons muon_sel2l2nu(Photon, bare_MU, 0.1, etaranges_lep2);
-      addProjection(muon_sel2l2nu, "MUON_sel2l2nu");
+      declare(muon_sel2l2nu, "MUON_sel2l2nu");
 
 
       /// Get all neutrinos. These will not be used to form jets.
       /// We'll use the highest 2 pT neutrinos to calculate the MET
       IdentifiedFinalState neutrino_fs(Cuts::abseta < 4.5);
       neutrino_fs.acceptNeutrinos();
-      addProjection(neutrino_fs, "NEUTRINO_FS");
+      declare(neutrino_fs, "NEUTRINO_FS");
 
       VetoedFinalState jetinput;
       jetinput.addVetoOnThisFinalState(bare_MU);
       jetinput.addVetoOnThisFinalState(neutrino_fs);
 
       FastJets jetpro(fs, FastJets::ANTIKT, 0.4);
-      addProjection(jetpro, "jet");
+      declare(jetpro, "jet");
 
       // Both ZZ on-shell histos
       _h_ZZ_xsect = bookHisto1D(1, 1, 1);

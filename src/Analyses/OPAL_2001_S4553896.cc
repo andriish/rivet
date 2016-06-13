@@ -82,8 +82,8 @@ namespace Rivet {
 
       /// Initialise and register projections here
       const FinalState fs;
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "Jets");
+      declare(fs, "FS");
+      declare(FastJets(fs, FastJets::DURHAM, 0.7), "Jets");
 
 
       /// @todo Book histograms here, e.g.:

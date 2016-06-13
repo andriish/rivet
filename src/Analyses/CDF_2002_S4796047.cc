@@ -39,9 +39,9 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      addProjection(TriggerCDFRun0Run1(), "Trigger");
+      declare(TriggerCDFRun0Run1(), "Trigger");
       const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
-      addProjection(cfs, "FS");
+      declare(cfs, "FS");
 
       // Histos
       if (fuzzyEquals(sqrtS()/GeV, 630)) {

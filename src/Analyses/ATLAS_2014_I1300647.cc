@@ -29,16 +29,16 @@ namespace Rivet {
       FinalState fs;
       
       ZFinder zfinder_dressed_el(fs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1);
-      addProjection(zfinder_dressed_el, "ZFinder_dressed_el");
+      declare(zfinder_dressed_el, "ZFinder_dressed_el");
       
       ZFinder zfinder_bare_el(fs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.0);
-      addProjection(zfinder_bare_el,	"ZFinder_bare_el");
+      declare(zfinder_bare_el,	"ZFinder_bare_el");
       
       ZFinder zfinder_dressed_mu(fs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::MUON,     66.0*GeV, 116.0*GeV, 0.1);
-      addProjection(zfinder_dressed_mu, "ZFinder_dressed_mu");
+      declare(zfinder_dressed_mu, "ZFinder_dressed_mu");
       
       ZFinder zfinder_bare_mu(fs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::MUON,     66.0*GeV, 116.0*GeV, 0.0);
-      addProjection(zfinder_bare_mu,	"ZFinder_bare_mu");
+      declare(zfinder_bare_mu,	"ZFinder_bare_mu");
       
       // Book histograms
       _hist_zpt_el_dressed = bookHisto1D(1, 1, 1);  // electron "dressed"

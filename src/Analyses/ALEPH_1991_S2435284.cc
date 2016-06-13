@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book projections and histogram
     void init() {
       const ChargedFinalState cfs;
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       _histChTot = bookHisto1D(1, 1, 1);
     }

@@ -25,10 +25,10 @@ namespace Rivet {
       const FinalState fs;
       FastJets j4(fs, FastJets::ANTIKT, 0.4);
       j4.useInvisibles();
-      addProjection(j4, "AntiKtJets04");
+      declare(j4, "AntiKtJets04");
       FastJets j6(fs, FastJets::ANTIKT, 0.6);
       j6.useInvisibles();
-      addProjection(j6, "AntiKtJets06");
+      declare(j6, "AntiKtJets06");
 
       // Persistent histograms
       _h_jet_multi_inclusive = bookHisto1D(1, 1, 1);

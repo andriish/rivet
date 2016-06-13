@@ -45,11 +45,11 @@ namespace Rivet {
     void init() {
       // Projections
       const ChargedFinalState cfs100(-2.5, 2.5, 100.0*MeV);
-      addProjection(cfs100, "CFS100");
+      declare(cfs100, "CFS100");
       const ChargedFinalState cfs500(-2.5, 2.5, 500.0*MeV);
-      addProjection(cfs500, "CFS500");
+      declare(cfs500, "CFS500");
       const ChargedFinalState cfs2500(-2.5, 2.5, 2500.0*MeV);
-      addProjection(cfs2500, "CFS2500");
+      declare(cfs2500, "CFS2500");
 
       // Book histograms
       if (fuzzyEquals(sqrtS()/GeV, 900)) {

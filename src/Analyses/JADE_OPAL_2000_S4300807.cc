@@ -28,13 +28,13 @@ namespace Rivet {
     void init() {
       // Projections
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       FastJets jadeJets = FastJets(fs, FastJets::JADE, 0.7);
       FastJets durhamJets = FastJets(fs, FastJets::DURHAM, 0.7);
       jadeJets.useInvisibles(true);
       durhamJets.useInvisibles(true);
-      addProjection(jadeJets, "JadeJets");
-      addProjection(durhamJets, "DurhamJets");
+      declare(jadeJets, "JadeJets");
+      declare(durhamJets, "DurhamJets");
 
       // Histos
       int offset = 0;

@@ -27,12 +27,12 @@ namespace Rivet {
     void init() {
       // Full final state
       FinalState fs(-5.0, 5.0);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Leading electrons in tracking acceptance
       IdentifiedFinalState elfs(Cuts::abseta < 5 && Cuts::pT > 25*GeV);
       elfs.acceptIdPair(PID::ELECTRON);
-      addProjection(elfs, "LeadingElectrons");
+      declare(elfs, "LeadingElectrons");
 
       _h_jet_multiplicity = bookHisto1D(1, 1, 1);
       _h_jet_pT_cross_section_incl_1jet = bookHisto1D(2, 1, 1);

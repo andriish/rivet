@@ -30,20 +30,20 @@ namespace Rivet {
       // projection to find the electrons
       IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
-      addProjection(elecs, "elecs");
+      declare(elecs, "elecs");
 
       // projection to find the muons
       IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
-      addProjection(muons, "muons");
+      declare(muons, "muons");
 
       // Jet finder
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
+      declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // for pTmiss
-      addProjection(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
+      declare(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
       // Book histograms
       _count_SR_A     = bookHisto1D("count_SR_A"    , 1, 0., 1.);

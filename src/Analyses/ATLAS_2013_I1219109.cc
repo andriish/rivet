@@ -23,22 +23,22 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
-      addProjection(fs, "FinalState");
+      declare(fs, "FinalState");
 
       Cut cuts = Cuts::abseta < 2.5 && Cuts::pT >= 25*GeV;
 
       // W finder for electrons and muons
       WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, MAXDOUBLE, 0.0, 0.1,
                  WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
-      addProjection(wf, "WF");
+      declare(wf, "WF");
 
       // jets
       VetoedFinalState jet_fs(fs);
       jet_fs.addVetoOnThisFinalState(getProjection<WFinder>("WF"));
       FastJets fj(jet_fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();
-      addProjection(fj, "Jets");
-      addProjection(HeavyHadrons(Cuts::abseta < 2.5 && Cuts::pT > 5*GeV), "BHadrons");
+      declare(fj, "Jets");
+      declare(HeavyHadrons(Cuts::abseta < 2.5 && Cuts::pT > 5*GeV), "BHadrons");
 
 
       // book histograms

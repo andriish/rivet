@@ -24,10 +24,10 @@ namespace Rivet {
     void init() {
 
       TauFinder tauleptonic(TauFinder::LEPTONIC); // open cuts, leptonic decays
-      addProjection(tauleptonic, "TauLeptonic");
+      declare(tauleptonic, "TauLeptonic");
 
       TauFinder tauhadronic(TauFinder::HADRONIC); // open cuts, hadronic decays
-      addProjection(tauhadronic, "TauHadronic");
+      declare(tauhadronic, "TauHadronic");
 
       populateDecayMap();
 

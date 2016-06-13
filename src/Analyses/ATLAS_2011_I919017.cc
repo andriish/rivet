@@ -79,8 +79,8 @@ namespace Rivet {
       ChargedFinalState cfs(-2.5, 2.5, 0.3*GeV);
       FastJets trkjets04(cfs, FastJets::ANTIKT, 0.4);
       FastJets trkjets06(cfs, FastJets::ANTIKT, 0.6);
-      addProjection(trkjets04, "Jets04");
-      addProjection(trkjets06, "Jets06");
+      declare(trkjets04, "Jets04");
+      declare(trkjets06, "Jets06");
 
       // Book histograms
       _h_pt04_00_05 = bookHisto1D(1, 1, 1);

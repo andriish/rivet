@@ -16,7 +16,7 @@ namespace Rivet {
 
     void init() {
       ChargedFinalState cfs(-2.4, 2.4, 0.0*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       // eta bins
       _etabins.push_back(0.5);

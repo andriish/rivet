@@ -21,12 +21,12 @@ namespace Rivet {
       Cut c_photons = Cuts::pT >= 5.0*GeV && (Cuts::etaIn(-2.5, 1.4) || Cuts::etaIn(1.6, 2.5));
       IdentifiedFinalState photons(c_photons);
       photons.acceptId(PID::PHOTON);
-      addProjection(photons, "PHOTFS");
+      declare(photons, "PHOTFS");
 
       Cut c_muons   = Cuts::pT > 9*GeV && Cuts::abseta < 2.4;
       IdentifiedFinalState muons(c_muons);
       muons.acceptIdPair(PID::MUON);
-      addProjection(muons, "MUFS");
+      declare(muons, "MUFS");
 
 
       _hist_pho_et           = bookHisto1D(1, 1, 1);  // photon transverse energy

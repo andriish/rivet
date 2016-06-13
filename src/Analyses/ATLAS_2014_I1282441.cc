@@ -22,11 +22,11 @@ namespace Rivet {
       UnstableFinalState ufs(Cuts::abseta < 10 && Cuts::pT > 500*MeV);
       IdentifiedFinalState phis(ufs);
       phis.acceptIdPair(PID::PHI);
-      addProjection(phis, "Phis");
+      declare(phis, "Phis");
 
       IdentifiedFinalState kpms(Cuts::abseta < 2.0 && Cuts::pT > 230*MeV);
       kpms.acceptIdPair(PID::KPLUS);
-      addProjection(kpms, "Kpms");
+      declare(kpms, "Kpms");
 
       _h_phi_rapidity = bookHisto1D(1,1,1);
       _h_phi_pT       = bookHisto1D(2,1,1);

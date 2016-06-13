@@ -61,7 +61,7 @@ namespace Rivet {
     void init() {
       const ChargedFinalState cfs(-0.5, 0.5, 0.2*GeV);
       const LossyFinalState<STARRandomFilter> lfs(cfs, STARRandomFilter());
-      addProjection(lfs, "FS");
+      declare(lfs, "FS");
 
       _h_dNch           = bookHisto1D(1, 1, 1);
       _h_dpT_Pi         = bookHisto1D(2, 1, 1);

@@ -28,9 +28,9 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      addProjection(TriggerCDFRun2(), "Trigger");
+      declare(TriggerCDFRun2(), "Trigger");
 
-      addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
+      declare(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
 
       _hist_nch = bookHisto1D(1, 1, 1);
     }

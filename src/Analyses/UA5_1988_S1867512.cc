@@ -29,29 +29,29 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(TriggerUA5(), "Trigger");
+      declare(TriggerUA5(), "Trigger");
 
       // Symmetric eta interval
-      addProjection(ChargedFinalState(-0.5, 0.5), "CFS05");
+      declare(ChargedFinalState(-0.5, 0.5), "CFS05");
 
       // Asymmetric intervals first
       // Forward eta intervals
-      addProjection(ChargedFinalState(0.0, 1.0), "CFS10F");
-      addProjection(ChargedFinalState(0.5, 1.5), "CFS15F");
-      addProjection(ChargedFinalState(1.0, 2.0), "CFS20F");
-      addProjection(ChargedFinalState(1.5, 2.5), "CFS25F");
-      addProjection(ChargedFinalState(2.0, 3.0), "CFS30F");
-      addProjection(ChargedFinalState(2.5, 3.5), "CFS35F");
-      addProjection(ChargedFinalState(3.0, 4.0), "CFS40F");
+      declare(ChargedFinalState(0.0, 1.0), "CFS10F");
+      declare(ChargedFinalState(0.5, 1.5), "CFS15F");
+      declare(ChargedFinalState(1.0, 2.0), "CFS20F");
+      declare(ChargedFinalState(1.5, 2.5), "CFS25F");
+      declare(ChargedFinalState(2.0, 3.0), "CFS30F");
+      declare(ChargedFinalState(2.5, 3.5), "CFS35F");
+      declare(ChargedFinalState(3.0, 4.0), "CFS40F");
 
       // Backward eta intervals
-      addProjection(ChargedFinalState(-1.0,  0.0), "CFS10B");
-      addProjection(ChargedFinalState(-1.5, -0.5), "CFS15B");
-      addProjection(ChargedFinalState(-2.0, -1.0), "CFS20B");
-      addProjection(ChargedFinalState(-2.5, -1.5), "CFS25B");
-      addProjection(ChargedFinalState(-3.0, -2.0), "CFS30B");
-      addProjection(ChargedFinalState(-3.5, -2.5), "CFS35B");
-      addProjection(ChargedFinalState(-4.0, -3.0), "CFS40B");
+      declare(ChargedFinalState(-1.0,  0.0), "CFS10B");
+      declare(ChargedFinalState(-1.5, -0.5), "CFS15B");
+      declare(ChargedFinalState(-2.0, -1.0), "CFS20B");
+      declare(ChargedFinalState(-2.5, -1.5), "CFS25B");
+      declare(ChargedFinalState(-3.0, -2.0), "CFS30B");
+      declare(ChargedFinalState(-3.5, -2.5), "CFS35B");
+      declare(ChargedFinalState(-4.0, -3.0), "CFS40B");
 
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
       // TODO use Scatter2D to be able to output errors

@@ -27,9 +27,9 @@ namespace Rivet {
     /// Initialise projections and histograms
     void init() {
       // Projections
-      addProjection(DISLepton(), "Lepton");
-      addProjection(DISKinematics(), "Kinematics");
-      addProjection(FinalState(), "FS");
+      declare(DISLepton(), "Lepton");
+      declare(DISKinematics(), "Kinematics");
+      declare(FinalState(), "FS");
 
       // Histos
       Histo1DPtr h;

@@ -18,7 +18,7 @@ namespace Rivet {
       // Projections
       FastJets jets(FinalState(), FastJets::ANTIKT, 0.4);
       jets.useInvisibles();
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       // Book histograms
       _hist_EEC  = bookHisto1D(1, 1, 1);

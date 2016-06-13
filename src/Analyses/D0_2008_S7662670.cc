@@ -34,11 +34,11 @@ namespace Rivet {
 
       // Full final state
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Jets
       FastJets jetpro(fs, FastJets::D0ILCONE, 0.7);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       // Book histograms
       _h_dsigdptdy_y00_04 = bookHisto1D(1, 1, 1);

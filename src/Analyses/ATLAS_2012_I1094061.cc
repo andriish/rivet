@@ -106,7 +106,7 @@ namespace Rivet {
     void init(){
 
       const ChargedFinalState cfs(-2.5, 2.5, _minpT);
-      addProjection(cfs, "ChargedParticles");
+      declare(cfs, "ChargedParticles");
 
       // Only do the multiplicity > 20 plots for 7 TeV collisions
       _doN20 = (fabs(sqrtS() - 7000.*GeV) < 0.1*GeV);

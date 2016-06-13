@@ -21,7 +21,7 @@ namespace Rivet {
 
       const FinalState fs;
       FastJets fj04(fs,  FastJets::ANTIKT, 0.4);
-      addProjection(fj04, "AntiKT04");
+      declare(fj04, "AntiKT04");
 
       string histotitle[7]={"BBfraction","BCfraction","CCfraction","BUfraction","CUfraction","UUfraction","Total"};
       for (int i = 0 ; i < 7 ; i++){

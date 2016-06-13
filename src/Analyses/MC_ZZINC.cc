@@ -24,13 +24,13 @@ namespace Rivet {
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zeefinder(FinalState(), cut, PID::ELECTRON, 65*GeV, 115*GeV,
                         0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zeefinder, "ZeeFinder");
+      declare(zeefinder, "ZeeFinder");
 
       VetoedFinalState zmminput;
       zmminput.addVetoOnThisFinalState(zeefinder);
       ZFinder zmmfinder(zmminput, cut, PID::MUON, 65*GeV, 115*GeV,
                         0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zmmfinder, "ZmmFinder");
+      declare(zmmfinder, "ZmmFinder");
 
       // Properties of the pair momentum
       double sqrts = sqrtS()>0. ? sqrtS() : 14000.;

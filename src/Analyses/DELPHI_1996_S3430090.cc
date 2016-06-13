@@ -48,19 +48,19 @@ namespace Rivet {
     //@{
 
     void init() {
-      addProjection(Beam(), "Beams");
+      declare(Beam(), "Beams");
       // Don't try to introduce a pT or eta cut here. It's all corrected
       // back. (See Section 2 of the paper.)
       const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(UnstableFinalState(), "UFS");
-      addProjection(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-      addProjection(Sphericity(cfs), "Sphericity");
-      addProjection(ParisiTensor(cfs), "Parisi");
+      declare(cfs, "FS");
+      declare(UnstableFinalState(), "UFS");
+      declare(FastJets(cfs, FastJets::JADE, 0.7), "JadeJets");
+      declare(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+      declare(Sphericity(cfs), "Sphericity");
+      declare(ParisiTensor(cfs), "Parisi");
       const Thrust thrust(cfs);
-      addProjection(thrust, "Thrust");
-      addProjection(Hemispheres(thrust), "Hemispheres");
+      declare(thrust, "Thrust");
+      declare(Hemispheres(thrust), "Hemispheres");
 
       _histPtTIn = bookHisto1D(1, 1, 1);
       _histPtTOut = bookHisto1D(2, 1, 1);

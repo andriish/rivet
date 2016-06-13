@@ -17,7 +17,7 @@ namespace Rivet {
   public:
 
     void init() {
-      addProjection(ChargedFinalState(), "CFS");
+      declare(ChargedFinalState(), "CFS");
       _hist_tlow  = bookHisto1D(1, 1, 1);
       _hist_thigh = bookHisto1D(2, 1, 1);
       _hist_sigma = bookHisto1D(3, 1, 1);

@@ -17,8 +17,8 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(Beam(), "Beams");
-      addProjection(UnstableFinalState(), "UFS");
+      declare(Beam(), "Beams");
+      declare(UnstableFinalState(), "UFS");
 
       _histOff  = bookHisto1D(1,1,1);
       _sigmaOff = bookHisto1D(2,1,1);

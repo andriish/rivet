@@ -25,13 +25,13 @@ namespace Rivet {
         FinalState fs;
         Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
         ZFinder zfinder_dressed_el(fs, cuts, PID::ELECTRON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-        addProjection(zfinder_dressed_el, "ZFinder_dressed_el");
+        declare(zfinder_dressed_el, "ZFinder_dressed_el");
         ZFinder zfinder_bare_el(fs, cuts, PID::ELECTRON, 66*GeV, 116*GeV, 0.0, ZFinder::NOCLUSTER);
-        addProjection(zfinder_bare_el, "ZFinder_bare_el");
+        declare(zfinder_bare_el, "ZFinder_bare_el");
         ZFinder zfinder_dressed_mu(fs, cuts, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-        addProjection(zfinder_dressed_mu, "ZFinder_dressed_mu");
+        declare(zfinder_dressed_mu, "ZFinder_dressed_mu");
         ZFinder zfinder_bare_mu(fs, cuts, PID::MUON, 66*GeV, 116*GeV, 0.0, ZFinder::NOCLUSTER);
-        addProjection(zfinder_bare_mu, "ZFinder_bare_mu");
+        declare(zfinder_bare_mu, "ZFinder_bare_mu");
 
         // Book histograms
         // Single-differential plots

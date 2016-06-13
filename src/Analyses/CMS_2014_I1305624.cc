@@ -112,7 +112,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       const FastJets jets(FinalState(Cuts::abseta < 2.6), FastJets::ANTIKT, 0.5);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       for (int ij=0; ij < NJETPTMN; ij++) {
         _h_thrustc[ij] = bookHisto1D(1, 1, ij+1);

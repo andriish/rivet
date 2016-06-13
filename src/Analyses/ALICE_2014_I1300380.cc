@@ -16,7 +16,7 @@ namespace Rivet {
 
     void init() {
       const UnstableFinalState cfs(Cuts::absrap<0.5);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       // Plots from the paper
       _histPtSigmaStarPlus        = bookHisto1D("d01-x01-y01");    // Sigma*+

@@ -21,17 +21,17 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Consider the final state jets for the energy density calculation
       FastJets fj(fs, FastJets::KT, 0.5);
       fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
-      addProjection(fj, "KtJetsD05");
+      declare(fj, "KtJetsD05");
 
       // Consider the leading pt photon with |eta|<2.37 and pT>45 GeV
       LeadingParticlesFinalState photonfs(FinalState(-2.37, 2.37, 45*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // Book the dsigma/dEt (in eta bins) histograms
       for (size_t i = 0; i < _eta_bins.size()-1; i++) {

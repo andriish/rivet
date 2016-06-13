@@ -34,7 +34,7 @@ namespace Rivet {
       // Set up projections
       // Basic FS
       FinalState fs(-3.6, 3.6);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Create a final state with any e-nu pair with invariant mass 65 -> 95 GeV and ET > 20 (W decay products)
       vector<pair<PdgId,PdgId> > vids;
@@ -42,13 +42,13 @@ namespace Rivet {
       vids += make_pair(PID::POSITRON, PID::NU_E);
       FinalState fs2(-3.6, 3.6, 20*GeV);
       InvMassFinalState invfs(fs2, vids, 65*GeV, 95*GeV);
-      addProjection(invfs, "INVFS");
+      declare(invfs, "INVFS");
 
       // Make a final state without the W decay products for jet clustering
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(invfs);
-      addProjection(vfs, "VFS");
-      addProjection(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
+      declare(vfs, "VFS");
+      declare(FastJets(vfs, FastJets::CDFJETCLU, 0.4), "Jets");
 
       // Book histograms
       for (int i = 0 ; i < 4 ; ++i) {

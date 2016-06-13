@@ -18,7 +18,7 @@ namespace Rivet {
 
     void init() {
       UnstableFinalState ufs(Cuts::absrap < 2);
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       // Particle distributions versus rapidity and transverse momentum
       if (fuzzyEquals(sqrtS()/GeV, 900*GeV)){

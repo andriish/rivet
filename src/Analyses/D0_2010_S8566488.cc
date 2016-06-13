@@ -32,7 +32,7 @@ namespace Rivet {
 
       FinalState fs;
       FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
-      addProjection(conefinder, "ConeFinder");
+      declare(conefinder, "ConeFinder");
 
       _h_m_dijet.addHistogram(0.0, 0.4, bookHisto1D(1, 1, 1));
       _h_m_dijet.addHistogram(0.4, 0.8, bookHisto1D(2, 1, 1));

@@ -26,22 +26,22 @@ namespace Rivet {
       // Voronoi eta-phi tassellation with KT jets, for ambient energy density calculation
       FastJets fj(fs, FastJets::KT, 0.5);
       fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
-      addProjection(fj, "KtJetsD05");
+      declare(fj, "KtJetsD05");
 
       // Leading photon
       LeadingParticlesFinalState photonfs(PromptFinalState(FinalState(-2.37, 2.37, 45.0*GeV)));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
-      addProjection(vfs, "JetFS");
+      declare(vfs, "JetFS");
 
       // Jets
       FastJets jetpro(vfs, FastJets::ANTIKT, 0.6);
       jetpro.useInvisibles();
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       // Histograms
       _h_ph_pt      = bookHisto1D(1, 1, 1);

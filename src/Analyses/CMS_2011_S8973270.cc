@@ -18,10 +18,10 @@ namespace Rivet {
       FinalState fs;
       FastJets jetproj(fs, FastJets::ANTIKT, 0.5);
       jetproj.useInvisibles();
-      addProjection(jetproj, "Jets");
+      declare(jetproj, "Jets");
 
       UnstableFinalState ufs;
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       // Book histograms
       _h_dsigma_dR_56GeV = bookHisto1D(1,1,1);

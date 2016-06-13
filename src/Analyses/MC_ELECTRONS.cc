@@ -19,7 +19,7 @@ namespace Rivet {
     void init() {
       IdentifiedFinalState electrons;
       electrons.acceptIdPair(PID::ELECTRON);
-      addProjection(electrons, "Electrons");
+      declare(electrons, "Electrons");
 
       MC_ParticleAnalysis::init();
     }

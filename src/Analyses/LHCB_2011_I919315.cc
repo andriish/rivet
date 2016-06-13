@@ -26,7 +26,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
 
       _h_Phi_pT_y.addHistogram(  2.44, 2.62, bookHisto1D(2, 1, 1));
       _h_Phi_pT_y.addHistogram(  2.62, 2.80, bookHisto1D(2, 1, 2));

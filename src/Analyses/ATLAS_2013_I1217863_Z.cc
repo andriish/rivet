@@ -28,18 +28,18 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       Cut cuts = Cuts::abseta < 2.47 && Cuts::pT > 25*GeV;
 
       // Z finder
       ZFinder zf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 40.0*GeV, 1000.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      addProjection(zf, "ZF");
+      declare(zf, "ZF");
 
       // leading photon
       LeadingParticlesFinalState photonfs(FinalState(Cuts::abseta < 2.37 && Cuts::pT > 15*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // jets
       VetoedFinalState jet_fs(fs);
@@ -47,12 +47,12 @@ namespace Rivet {
       jet_fs.addVetoOnThisFinalState(getProjection<LeadingParticlesFinalState>("LeadingPhoton"));
       FastJets jets(jet_fs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       // FS excluding the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
-      addProjection(vfs, "isolatedFS");
+      declare(vfs, "isolatedFS");
 
 
       // Book histograms

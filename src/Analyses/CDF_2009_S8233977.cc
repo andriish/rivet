@@ -35,9 +35,9 @@ namespace Rivet {
 
     /// Book histograms and projections
     void init() {
-      addProjection(TriggerCDFRun2(), "Trigger");
-      addProjection(FinalState(-1.0, 1.0, 0.0*GeV), "EtFS");
-      addProjection(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
+      declare(TriggerCDFRun2(), "Trigger");
+      declare(FinalState(-1.0, 1.0, 0.0*GeV), "EtFS");
+      declare(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
 
       _hist_pt = bookHisto1D(1, 1, 1);
       _hist_pt_vs_multiplicity = bookProfile1D(2, 1, 1);

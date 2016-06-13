@@ -118,9 +118,9 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
-      addProjection(InitialQuarks(), "IQF");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "FS");
+      declare(InitialQuarks(), "IQF");
 
       // Book histos
       _histXpuds           = bookHisto1D(1, 1, 1);

@@ -22,7 +22,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Projections
-      // addProjection(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
+      // declare(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
 
       // Histograms
       _histPdfX = bookHisto1D("PdfX", logspace(50, 0.000001, 1.0));

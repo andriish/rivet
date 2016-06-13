@@ -18,12 +18,12 @@ namespace Rivet {
 
     void init() {
       ChargedFinalState cfs(Cuts::abseta < 2.4);
-      addProjection(cfs,"CFS");
+      declare(cfs,"CFS");
 
       /// Get muons which pass the initial kinematic cuts
       IdentifiedFinalState muon_fs(Cuts::abseta < 2.1 && Cuts::pT > 4*GeV);
       muon_fs.acceptIdPair(PID::MUON);
-      addProjection(muon_fs, "MUON_FS");
+      declare(muon_fs, "MUON_FS");
 
       _h_sigma = bookHisto1D(1,1,1);
     }

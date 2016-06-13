@@ -18,9 +18,9 @@ namespace Rivet {
     void init() {
 
       ChargedFinalState cfs100(Cuts::abseta < 2.5 && Cuts::pT > 0.1*GeV);
-      addProjection(cfs100,"CFS100");
+      declare(cfs100,"CFS100");
       ChargedFinalState cfs500(Cuts::abseta < 2.5 && Cuts::pT > 0.5*GeV);
-      addProjection(cfs500,"CFS500");
+      declare(cfs500,"CFS500");
 
       // collision energy
       int isqrts = -1;

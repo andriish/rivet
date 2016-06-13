@@ -29,25 +29,25 @@ namespace Rivet {
     void init() {
 
       const ChargedFinalState jet_input(-2.5, 2.5, 0.5*GeV);
-      addProjection(jet_input, "JET_INPUT");
+      declare(jet_input, "JET_INPUT");
 
       const ChargedFinalState track_input(-1.5, 1.5, 0.5*GeV);
-      addProjection(track_input, "TRACK_INPUT");
+      declare(track_input, "TRACK_INPUT");
 
       const FastJets jets02(jet_input, FastJets::ANTIKT, 0.2);
-      addProjection(jets02, "JETS_02");
+      declare(jets02, "JETS_02");
 
       const FastJets jets04(jet_input, FastJets::ANTIKT, 0.4);
-      addProjection(jets04, "JETS_04");
+      declare(jets04, "JETS_04");
 
       const FastJets jets06(jet_input, FastJets::ANTIKT, 0.6);
-      addProjection(jets06, "JETS_06");
+      declare(jets06, "JETS_06");
 
       const FastJets jets08(jet_input, FastJets::ANTIKT, 0.8);
-      addProjection(jets08, "JETS_08");
+      declare(jets08, "JETS_08");
 
       const FastJets jets10(jet_input, FastJets::ANTIKT, 1.0);
-      addProjection(jets10, "JETS_10");
+      declare(jets10, "JETS_10");
 
       // Mean number of tracks
       initializeProfiles(_h_meanNch, 1);

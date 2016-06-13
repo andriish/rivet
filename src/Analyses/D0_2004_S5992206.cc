@@ -42,14 +42,14 @@ namespace Rivet {
     void init() {
       // Final state for jets, mET etc.
       const FinalState fs(-3.0, 3.0);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       // Veto neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);
       vfs.vetoNeutrinos();
       vfs.addVetoPairDetail(PID::MUON, 1.0*GeV, MAXDOUBLE);
-      addProjection(vfs, "VFS");
-      addProjection(FastJets(vfs, FastJets::D0ILCONE, 0.7), "Jets");
-      addProjection(MissingMomentum(vfs), "CalMET");
+      declare(vfs, "VFS");
+      declare(FastJets(vfs, FastJets::D0ILCONE, 0.7), "Jets");
+      declare(MissingMomentum(vfs), "CalMET");
 
       // Book histograms
       _histJetAzimuth_pTmax75_100  = bookHisto1D(1, 2, 1);

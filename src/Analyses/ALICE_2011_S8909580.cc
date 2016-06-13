@@ -16,7 +16,7 @@ namespace Rivet {
   public:
     void init() {
       const UnstableFinalState ufs(Cuts::abseta < 15);
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       _histPtK0s        = bookHisto1D(1, 1, 1);
       _histPtLambda     = bookHisto1D(2, 1, 1);

@@ -14,7 +14,7 @@ namespace Rivet {
 
     void init() {
       // Projection setup
-      addProjection(ChargedFinalState(), "CFS");
+      declare(ChargedFinalState(), "CFS");
 
       // Book (energy-specific) histograms
       int isqrts = -1;

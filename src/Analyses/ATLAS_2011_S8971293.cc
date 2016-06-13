@@ -29,7 +29,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       /// Initialise and register projections
-      addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.6), "AntiKtJets06");
+      declare(FastJets(FinalState(), FastJets::ANTIKT, 0.6), "AntiKtJets06");
 
       /// Book histograms
       _h_deltaPhi.addHistogram(110., 160., bookHisto1D(1, 1, 1));

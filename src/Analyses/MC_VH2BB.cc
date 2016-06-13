@@ -33,18 +33,18 @@ namespace Rivet {
       FinalState fs;
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zeefinder(fs, cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2);
-      addProjection(zeefinder, "ZeeFinder");
+      declare(zeefinder, "ZeeFinder");
       ZFinder zmmfinder(fs, cut, PID::MUON, 65*GeV, 115*GeV, 0.2);
-      addProjection(zmmfinder, "ZmmFinder");
+      declare(zmmfinder, "ZmmFinder");
       WFinder wefinder(fs, cut, PID::ELECTRON, 60*GeV, 100*GeV, 25*GeV, 0.2);
-      addProjection(wefinder, "WeFinder");
+      declare(wefinder, "WeFinder");
       WFinder wmfinder(fs, cut, PID::MUON, 60*GeV, 100*GeV, 25*GeV, 0.2);
-      addProjection(wmfinder, "WmFinder");
+      declare(wmfinder, "WmFinder");
 
-      addProjection(fs, "FinalState");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.4), "AntiKT04");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.5), "AntiKT05");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.6), "AntiKT06");
+      declare(fs, "FinalState");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.4), "AntiKT04");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.5), "AntiKT05");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.6), "AntiKT06");
 
       /// Book histograms
       _h_jet_bb_Delta_eta = bookHisto1D("jet_bb_Delta_eta", 50, 0, 4);

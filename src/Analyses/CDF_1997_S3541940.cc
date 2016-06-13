@@ -21,7 +21,7 @@ namespace Rivet {
     void init() {
 
       const FinalState fs(-4.2, 4.2);
-      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+      declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
       _h_m6J = bookHisto1D(1, 1, 1);
       _h_X3ppp = bookHisto1D(2, 1, 1);

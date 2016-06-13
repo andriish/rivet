@@ -55,8 +55,8 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "FS");
 
       _histXpPiPlus = bookHisto1D( 1, 1, 1);
       _histXpKPlus  = bookHisto1D( 2, 1, 1);

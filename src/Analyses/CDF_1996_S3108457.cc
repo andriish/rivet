@@ -29,7 +29,7 @@ namespace Rivet {
 
       /// Initialise and register projections here
       const FinalState fs(-4.2, 4.2);
-      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+      declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
 
       /// Book histograms here, e.g.:

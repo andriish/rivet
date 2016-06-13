@@ -21,8 +21,8 @@ namespace Rivet {
     void init() {
       // Projections
       ChargedFinalState cfs(-2.5, 2.5, 0.5*GeV);
-      addProjection(cfs, "CFS");
-      addProjection(Sphericity(cfs), "Sphericity");
+      declare(cfs, "CFS");
+      declare(Sphericity(cfs), "Sphericity");
 
       // Book histograms
       _hist_T_05_25 = bookHisto1D(1,1,1);

@@ -15,10 +15,10 @@ namespace Rivet {
 
     void init() {
       const FastJets jets(ChargedFinalState(Cuts::abseta < 2.5 && Cuts::pT > 0.5*GeV), FastJets::ANTIKT, 0.5);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       const UnstableFinalState ufs(Cuts::abseta < 2 && Cuts::pT > 0.6*GeV);
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       _h_nTrans_Lambda     = bookProfile1D(1, 1, 1);
       _h_nTrans_Kaon       = bookProfile1D(2, 1, 1);

@@ -29,8 +29,8 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "FS");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "FS");
       _histXbweak     = bookHisto1D(1, 1, 1);
       _histXbprim     = bookHisto1D(1, 1, 2);
       _histMeanXbweak = bookProfile1D(7, 1, 1);

@@ -51,7 +51,7 @@ namespace Rivet {
       for (size_t i = 12; i < 15; ++i) _tmphistos[i] = YODA::Histo1D(refData(dsShift+5, 1, 1));
       for (size_t i = 15; i < 18; ++i) _tmphistos[i] = YODA::Histo1D(y_nbins, rap_beam - rap_max, rap_beam - rap_min);
 
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
     }
 
 

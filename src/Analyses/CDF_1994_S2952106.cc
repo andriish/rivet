@@ -25,8 +25,8 @@ namespace Rivet {
 
     void init() {
       const FinalState fs(-4.2, 4.2);
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+      declare(fs, "FS");
+      declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
       // Zero passed-cuts event weight counters
       _sumw = 0;

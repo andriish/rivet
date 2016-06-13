@@ -28,12 +28,12 @@ namespace Rivet {
       /// @note Using a bare muon Z (but with a clustering radius!?)
       Cut cut = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       ZFinder zfinder(FinalState(), cut, PID::MUON, 4*GeV, 140*GeV, 0.2, ZFinder::NOCLUSTER);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
       ChargedFinalState cfs(-2, 2, 500*MeV);
       VetoedFinalState nonmuons(cfs);
       nonmuons.addVetoPairId(PID::MUON);
-      addProjection(nonmuons, "nonmuons");
+      declare(nonmuons, "nonmuons");
 
       _h_Nchg_towards_pTmumu                 = bookProfile1D(1, 1, 1);
       _h_Nchg_transverse_pTmumu              = bookProfile1D(2, 1, 1);

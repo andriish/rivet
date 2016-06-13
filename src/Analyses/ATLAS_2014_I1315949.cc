@@ -27,10 +27,10 @@ namespace Rivet {
       FinalState fs;
 
       ZFinder zfinder(fs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
       ChargedFinalState cfs( zfinder.remainingFinalState() );
-      addProjection(cfs, "cfs");
+      declare(cfs, "cfs");
 
 
       _h_pTsum_tow    = bookProfile1D( 1, 1, 1);

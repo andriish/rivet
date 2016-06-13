@@ -21,15 +21,15 @@ namespace Rivet {
     void init() {
       ChargedFinalState bbc1(-5.0,-3.3, 0.0*GeV); // beam-beam-counter trigger
       ChargedFinalState bbc2( 3.3, 5.0, 0.0*GeV); // beam-beam-counter trigger
-      addProjection(bbc1, "BBC1");
-      addProjection(bbc2, "BBC2");
+      declare(bbc1, "BBC1");
+      declare(bbc2, "BBC2");
 
       IdentifiedFinalState pionfs(Cuts::abseta < 2.5 && Cuts::pT > 0.3*GeV);
       IdentifiedFinalState protonfs(Cuts::abseta < 2.5 && Cuts::pT > 0.4*GeV);
       pionfs.acceptIdPair(PID::PIPLUS);
       protonfs.acceptIdPair(PID::PROTON);
-      addProjection(pionfs, "PionFS");
-      addProjection(protonfs, "ProtonFS");
+      declare(pionfs, "PionFS");
+      declare(protonfs, "ProtonFS");
 
       _h_pT_piplus     = bookHisto1D(1, 1, 1); // full range pion binning
       _h_pT_piminus    = bookHisto1D(1, 2, 1); // full range pion binning

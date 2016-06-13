@@ -45,21 +45,21 @@ namespace Rivet {
     void init() {
       // General FS
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Get leading photon
       LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
-      addProjection(vfs, "JetFS");
+      declare(vfs, "JetFS");
 
       // Jets
       FastJets jetpro(vfs, FastJets::D0ILCONE, 0.7);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       // Histograms
       _h_central_same_cross_section = bookHisto1D(1, 1, 1);

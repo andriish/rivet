@@ -22,7 +22,7 @@ namespace Rivet {
 
       IdentifiedFinalState ifs(Cuts::abseta < 2.1 && Cuts::pT > 6*GeV);
       ifs.acceptIdPair(PID::MUON);
-      addProjection(ifs, "IFS");
+      declare(ifs, "IFS");
     }
 
 

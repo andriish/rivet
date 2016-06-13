@@ -31,12 +31,12 @@ namespace Rivet {
     void init() {
       // General FS for photon isolation
       FinalState fs;
-      addProjection(fs, "AllFS");
+      declare(fs, "AllFS");
 
       // Get leading photon
       LeadingParticlesFinalState photonfs(FinalState(-0.9, 0.9, 23.0*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // Book histograms
       _h_pTgamma = bookHisto1D(1, 1, 1);

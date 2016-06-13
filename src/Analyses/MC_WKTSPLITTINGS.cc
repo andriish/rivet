@@ -25,9 +25,9 @@ namespace Rivet {
     void init() {
       FinalState fs;
       WFinder wfinder(fs, Cuts::abseta < 3.5 && Cuts::pT > 25*GeV, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
-      addProjection(wfinder, "WFinder");
+      declare(wfinder, "WFinder");
       FastJets jetpro(wfinder.remainingFinalState(), FastJets::KT, 0.6);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       MC_JetSplittings::init();
     }

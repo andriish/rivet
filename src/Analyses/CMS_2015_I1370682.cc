@@ -101,7 +101,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(PseudoTop(0.1, 20, 2.4, 0.5, 30, 2.4), "ttbar");
+      declare(PseudoTop(0.1, 20, 2.4, 0.5, 30, 2.4), "ttbar");
 
       // Lepton + Jet channel
       _hSL_topPt         = bookHisto1D("d15-x01-y01"); // 1/sigma dsigma/dpt(top)

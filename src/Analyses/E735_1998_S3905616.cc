@@ -23,8 +23,8 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(TriggerUA5(), "Trigger");
-      addProjection(ChargedFinalState(), "FS");
+      declare(TriggerUA5(), "Trigger");
+      declare(ChargedFinalState(), "FS");
 
       // Histo
       _hist_multiplicity = bookHisto1D(1, 1, 1);

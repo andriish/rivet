@@ -22,25 +22,25 @@ namespace Rivet {
 
       // Charged particles inside acceptance region
       const ChargedFinalState cfs(Cuts::abseta < 2.5 && Cuts::pT > 500*MeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       // ZFinders
       ZFinder zfinder(cfs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::ELECTRON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
       ZFinder zfinder_mu(cfs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-      addProjection(zfinder_mu, "ZFinderMu");
+      declare(zfinder_mu, "ZFinderMu");
 
       // This CFS only contains charged particles inside the acceptance excluding the leptons
       VetoedFinalState remfs(cfs);
       remfs.addVetoOnThisFinalState(zfinder);
       remfs.addVetoOnThisFinalState(zfinder_mu);
-      addProjection(remfs, "REMFS");
+      declare(remfs, "REMFS");
 
       const FParameter fparam(remfs);
-      addProjection(fparam, "FParameter_");
+      declare(fparam, "FParameter_");
 
       const Spherocity sphero(remfs);
-      addProjection(sphero, "Spherocity_");
+      declare(sphero, "Spherocity_");
 
 
       // Booking of ES histos

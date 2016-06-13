@@ -24,19 +24,19 @@ namespace Rivet {
     void init() {
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zeefinder(FinalState(), cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zeefinder, "ZeeFinder");
+      declare(zeefinder, "ZeeFinder");
 
       VetoedFinalState zmminput;
       zmminput.addVetoOnThisFinalState(zeefinder);
       ZFinder zmmfinder(zmminput, cut, PID::MUON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zmmfinder, "ZmmFinder");
+      declare(zmmfinder, "ZmmFinder");
 
       VetoedFinalState jetinput;
       jetinput
           .addVetoOnThisFinalState(zeefinder)
           .addVetoOnThisFinalState(zmmfinder);
       FastJets jetpro(jetinput, FastJets::ANTIKT, 0.4);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       // Correlations with jets
       _h_ZZ_jet1_deta = bookHisto1D("ZZ_jet1_deta", 70, -7.0, 7.0);

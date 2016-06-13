@@ -19,7 +19,7 @@ namespace Rivet {
     void init() {
       // Projections
       const FastJets jets(FinalState(-5.0, 5.0, 0.0*GeV), FastJets::ANTIKT, 0.5);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       // Book histograms
       _hist_T_90  = bookHisto1D(1, 1, 1);

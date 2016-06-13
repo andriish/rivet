@@ -17,7 +17,7 @@ namespace Rivet {
 
     void init() {
       const ChargedFinalState cfs(-15, 15);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       _histPtPions        = bookHisto1D("d01-x01-y01");
       _histPtAntiPions    = bookHisto1D("d01-x01-y02");

@@ -125,10 +125,10 @@ namespace Rivet {
       for (int ipt = 0; ipt < NPTBINS; ++ipt) {
         const double ptmin = PTMINVALUES[ipt]*MeV;
         for (int ieta = 0; ieta < NETABINS; ++ieta) {
-          addProjection(ChargedFinalState(-ETAVALUES[ieta],    -ETAVALUES[ieta]+0.5, ptmin), "Tracks"+ETABINNAMES[ieta]+"B"+PTBINNAMES[ipt]);
-          addProjection(ChargedFinalState( ETAVALUES[ieta]-0.5, ETAVALUES[ieta],     ptmin), "Tracks"+ETABINNAMES[ieta]+"F"+PTBINNAMES[ipt]);
+          declare(ChargedFinalState(-ETAVALUES[ieta],    -ETAVALUES[ieta]+0.5, ptmin), "Tracks"+ETABINNAMES[ieta]+"B"+PTBINNAMES[ipt]);
+          declare(ChargedFinalState( ETAVALUES[ieta]-0.5, ETAVALUES[ieta],     ptmin), "Tracks"+ETABINNAMES[ieta]+"F"+PTBINNAMES[ipt]);
         }
-        addProjection(ChargedFinalState(-2.5, 2.5, ptmin), "CFS" + PTBINNAMES[ipt]);
+        declare(ChargedFinalState(-2.5, 2.5, ptmin), "CFS" + PTBINNAMES[ipt]);
       }
       // Histos
       if (fuzzyEquals(sqrtS(), 7000*GeV, 1e-3)) {
@@ -144,9 +144,9 @@ namespace Rivet {
       // Azimuthal correlations part
       // Projections
       const double ptmin = 500*MeV;
-      addProjection(ChargedFinalState(-2.5, 2.5, ptmin), "ChargedTracks25");
-      addProjection(ChargedFinalState(-2.0, 2.0, ptmin), "ChargedTracks20");
-      addProjection(ChargedFinalState(-1.0, 1.0, ptmin), "ChargedTracks10");
+      declare(ChargedFinalState(-2.5, 2.5, ptmin), "ChargedTracks25");
+      declare(ChargedFinalState(-2.0, 2.0, ptmin), "ChargedTracks20");
+      declare(ChargedFinalState(-1.0, 1.0, ptmin), "ChargedTracks10");
       // Histos
       /// @todo Declare/book as temporary
       for (size_t ieta = 0; ieta < 3; ++ieta) {

@@ -16,10 +16,10 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(FinalState(1.9, 4.9), "forwardFS");
-      addProjection(FinalState(-3.5,-1.5), "backwardFS");
-      addProjection(ChargedFinalState(1.9, 4.9), "forwardCFS");
-      addProjection(ChargedFinalState(-3.5,-1.5), "backwardCFS");
+      declare(FinalState(1.9, 4.9), "forwardFS");
+      declare(FinalState(-3.5,-1.5), "backwardFS");
+      declare(ChargedFinalState(1.9, 4.9), "forwardCFS");
+      declare(ChargedFinalState(-3.5,-1.5), "backwardCFS");
 
       // Histos
       _s_chEF_minbias = bookScatter2D(1, 1, 1, true);

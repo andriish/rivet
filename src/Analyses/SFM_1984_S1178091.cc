@@ -22,7 +22,7 @@ namespace Rivet {
     void init() {
       // Projections
       /// @todo Corrected to full phase space?
-      addProjection(ChargedFinalState(-10,10,250*MeV), "FS");
+      declare(ChargedFinalState(-10,10,250*MeV), "FS");
 
       // Histograms
       if (fuzzyEquals(sqrtS()/GeV, 30.4, 1E-1)) {

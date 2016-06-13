@@ -20,11 +20,11 @@ namespace Rivet {
 
     void init() {
       const ChargedFinalState cfs(-2.0, 2.0, 500*MeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       const ChargedFinalState cfsforjet(-2.5, 2.5, 500*MeV);
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       if (fuzzyEquals(sqrtS(), 7.0*TeV)) {
         _h_Nch_vs_pT = bookProfile1D(1, 1, 1); // Nch vs. pT_max

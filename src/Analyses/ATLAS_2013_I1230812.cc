@@ -34,16 +34,16 @@ namespace Rivet {
       if (_mode == 1) {
         // Combined
         ZFinder zfinder(FinalState(-2.5, 2.5), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
-        addProjection(zfinder, "zfinder");
+        declare(zfinder, "zfinder");
       } else if (_mode == 2) {
         // Electron
 	    Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
         ZFinder zfinder(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
-        addProjection(zfinder, "zfinder");
+        declare(zfinder, "zfinder");
       } else if (_mode == 3) {
         // Muon
         ZFinder zfinder(FinalState(Cuts::abseta < 2.4), pt20, PID::MUON, 66*GeV, 116*GeV);
-        addProjection(zfinder, "zfinder");
+        declare(zfinder, "zfinder");
       } else {
         MSG_ERROR("Unknown decay channel mode!!!");
       }
@@ -53,7 +53,7 @@ namespace Rivet {
       had_fs.addVetoOnThisFinalState(getProjection<ZFinder>("zfinder"));
       FastJets jets(had_fs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
       _h_njet_incl              = bookHisto1D(  1, 1, _mode);
       _h_njet_incl_ratio        = bookScatter2D(2, 1, _mode, true);

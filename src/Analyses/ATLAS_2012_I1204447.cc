@@ -37,31 +37,31 @@ namespace Rivet {
 
       // Final state including all charged and neutral particles
       const FinalState fs(-5.0, 5.0, 1*GeV);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Final state including all charged particles
-      addProjection(ChargedFinalState(Cuts::abseta < 2.5 && Cuts::pT > 1*GeV), "CFS");
+      declare(ChargedFinalState(Cuts::abseta < 2.5 && Cuts::pT > 1*GeV), "CFS");
 
       // Final state including all visible particles (to calculate MET, Jets etc.)
-      addProjection(VisibleFinalState(Cuts::abseta < 5.0), "VFS");
+      declare(VisibleFinalState(Cuts::abseta < 5.0), "VFS");
 
       // Final state including all AntiKt 04 Jets
       VetoedFinalState vfs;
       vfs.addVetoPairId(PID::MUON);
-      addProjection(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
+      declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // Final state including all unstable particles (including taus)
-      addProjection(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 5*GeV), "UFS");
+      declare(UnstableFinalState(Cuts::abseta < 5.0 && Cuts::pT > 5*GeV), "UFS");
 
       // Final state including all electrons
       IdentifiedFinalState elecs(Cuts::abseta < 2.47 && Cuts::pT > 10*GeV);
       elecs.acceptIdPair(PID::ELECTRON);
-      addProjection(elecs, "elecs");
+      declare(elecs, "elecs");
 
       // Final state including all muons
       IdentifiedFinalState muons(Cuts::abseta < 2.5 && Cuts::pT > 10*GeV);
       muons.acceptIdPair(PID::MUON);
-      addProjection(muons, "muons");
+      declare(muons, "muons");
 
       // Book histograms
       _h_HTlep_all  = bookHisto1D("HTlep_all" , 30, 0, 1500);

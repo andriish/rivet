@@ -22,8 +22,8 @@ namespace Rivet {
 
     void CDF_2009_S8057893::init() {
       const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-      addProjection(fsj, "FSJ");
-      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 1.0), "Jets");
+      declare(fsj, "FSJ");
+      declare(FastJets(fsj, FastJets::CDFMIDPOINT, 1.0), "Jets");
     }
 
 

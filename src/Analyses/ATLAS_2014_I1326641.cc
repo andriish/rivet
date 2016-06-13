@@ -35,11 +35,11 @@ namespace Rivet {
 
                 FastJets fj04(fs, FastJets::ANTIKT, 0.4);
                 fj04.useInvisibles();
-                addProjection(fj04, "AntiKT04");
+                declare(fj04, "AntiKT04");
 
                 FastJets fj06(fs, FastJets::ANTIKT, 0.6);
                 fj06.useInvisibles();
-                addProjection(fj06, "AntiKT06");
+                declare(fj06, "AntiKT06");
 
                 double ystarBins[] = { 0.0, 2.0, 4.0, 6.0, 8.0, 10.0 };
 

@@ -25,44 +25,44 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FastJets fj(FinalState(Cuts::abseta < 5), FastJets::ANTIKT, 0.4);
-      addProjection(fj, "Jets0");
+      declare(fj, "Jets0");
 
       SmearedJets sj1(fj, JET_SMEAR_IDENTITY);
-      addProjection(sj1, "Jets1");
+      declare(sj1, "Jets1");
 
       SmearedJets sj2(fj, JET_SMEAR_ATLAS_RUN1,
                       [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0.01; } );
-      addProjection(sj2, "Jets2");
+      declare(sj2, "Jets2");
 
       SmearedJets sj3(fj,
                       [](const Jet& j){ return j; },
                       [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0.01; },
                       JET_CTAG_PERFECT,
                       [](const Jet& j){ return 0.8; });
-      addProjection(sj3, "Jets3");
+      declare(sj3, "Jets3");
 
       IdentifiedFinalState photons(Cuts::abseta < 5, PID::PHOTON);
 
       IdentifiedFinalState truthelectrons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::ELECTRON, PID::POSITRON}});
-      addProjection(truthelectrons, "Electrons0");
+      declare(truthelectrons, "Electrons0");
       DressedLeptons dressedelectrons(photons, truthelectrons, 0.2);
-      addProjection(dressedelectrons, "Electrons1");
+      declare(dressedelectrons, "Electrons1");
       SmearedParticles recoelectrons(truthelectrons, ELECTRON_EFF_ATLAS_RUN1, ELECTRON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedelectrons yet...
-      addProjection(recoelectrons, "Electrons2");
+      declare(recoelectrons, "Electrons2");
 
       IdentifiedFinalState truthmuons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::MUON, PID::ANTIMUON}});
-      addProjection(truthmuons, "Muons0");
+      declare(truthmuons, "Muons0");
       DressedLeptons dressedmuons(photons, truthmuons, 0.2);
-      addProjection(dressedmuons, "Muons1");
+      declare(dressedmuons, "Muons1");
       SmearedParticles recomuons(truthmuons, MUON_EFF_ATLAS_RUN1, MUON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedmuons yet...
-      addProjection(recomuons, "Muons2");
+      declare(recomuons, "Muons2");
 
       TauFinder truthtaus(TauFinder::ANY, Cuts::abseta < 5 && Cuts::pT > 10*GeV);
-      addProjection(truthtaus, "Taus0");
+      declare(truthtaus, "Taus0");
       DressedLeptons dressedtaus(photons, truthtaus, 0.2);
-      addProjection(dressedtaus, "Taus1");
+      declare(dressedtaus, "Taus1");
       SmearedParticles recotaus(truthtaus, TAU_EFF_ATLAS_RUN1, TAU_SMEAR_ATLAS_RUN1); //< @note Can't use dressedtaus yet...
-      addProjection(recotaus, "Taus2");
+      declare(recotaus, "Taus2");
 
       _h_nj_true = bookHisto1D("jet_N_true", 10, -0.5, 9.5);
       _h_nj_reco = bookHisto1D("jet_N_reco", 10, -0.5, 9.5);

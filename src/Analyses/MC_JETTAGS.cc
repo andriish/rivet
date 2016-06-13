@@ -19,8 +19,8 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.4), "Jets04");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.6), "Jets06");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.4), "Jets04");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.6), "Jets06");
 
       _h_numBTagsPerJet[0] = bookHisto1D("numBTagsPer04Jet", 5, -0.5, 4.5);
       _h_numBTagsPerJet[1] = bookHisto1D("numBTagsPer06Jet", 5, -0.5, 4.5);

@@ -43,13 +43,13 @@ namespace Rivet {
 
     // Book histograms
     void init() {
-      addProjection(TriggerCDFRun0Run1(), "Trigger");
+      declare(TriggerCDFRun0Run1(), "Trigger");
       // Randomly discard 8% of charged particles as a kind of hacky detector correction.
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       const ConstLossyFinalState lfs(cfs, 0.08);
 
-      addProjection(lfs, "FS");
-      addProjection(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
+      declare(lfs, "FS");
+      declare(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
 
       _numvsDeltaPhi2 =  bookProfile1D(1, 1, 1);
       _numvsDeltaPhi5 =  bookProfile1D(1, 1, 2);

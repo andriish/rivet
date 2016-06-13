@@ -23,7 +23,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
-      addProjection(conefinder, "ConeFinder");
+      declare(conefinder, "ConeFinder");
 
       _h_m_dijet = bookHisto1D(1, 1, 1);
     }

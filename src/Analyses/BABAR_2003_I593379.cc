@@ -100,7 +100,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
 
       _mult_JPsi          = bookHisto1D(1, 1, 1);
       _mult_JPsi_direct   = bookHisto1D(1, 1, 2);

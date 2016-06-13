@@ -24,10 +24,10 @@ namespace Rivet {
       FinalState fs;
       ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
                       40*GeV, 200*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
-      addProjection(conefinder, "ConeFinder");
+      declare(conefinder, "ConeFinder");
 
       _crossSectionRatio = bookHisto1D(1, 1, 1);
       _pTjet1 = bookHisto1D(2, 1, 1);

@@ -19,7 +19,7 @@ namespace Rivet {
     void init() {
       IdentifiedFinalState taus;
       taus.acceptIdPair(PID::TAU);
-      addProjection(taus, "Taus");
+      declare(taus, "Taus");
 
       MC_ParticleAnalysis::init();
     }

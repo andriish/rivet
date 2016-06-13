@@ -13,7 +13,7 @@ namespace Rivet {
 
     void init() {
       ChargedFinalState cfs(-2.5, 2.5, 0.0*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       for (int d=1; d<=3; d++) {
         for (int y=1; y<=4; y++) {

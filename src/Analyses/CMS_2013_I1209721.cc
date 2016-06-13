@@ -23,16 +23,16 @@ namespace Rivet {
     void init() {
       // Full final state
       const FinalState fs(-5.0,5.0);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       // Z finders for electrons and muons
       Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       const ZFinder zfe(fs, cuts, PID::ELECTRON, 71*GeV, 111*GeV);
       const ZFinder zfm(fs, cuts, PID::MUON,     71*GeV, 111*GeV);
-      addProjection(zfe, "ZFE");
-      addProjection(zfm, "ZFM");
+      declare(zfe, "ZFE");
+      declare(zfm, "ZFM");
       // Jets
       const FastJets jets(fs, FastJets::ANTIKT, 0.5);
-      addProjection(jets, "JETS");
+      declare(jets, "JETS");
 
       // Book histograms from data
       for (size_t i = 0; i < 2; ++i) {

@@ -25,11 +25,11 @@ namespace Rivet {
       FinalState fs;
       IdentifiedFinalState muons(Cuts::abseta < 0.8 && Cuts::pT > 4.0*GeV);
       muons.acceptIdPair(PID::MUON);
-      addProjection(muons, "Muons");
+      declare(muons, "Muons");
 
       FastJets jetproj(fs, FastJets::D0ILCONE, 0.7);
       jetproj.useInvisibles();
-      addProjection(jetproj, "Jets");
+      declare(jetproj, "Jets");
 
       // Book histograms
       _h_pt_leading_mu = bookHisto1D(1, 1, 1);

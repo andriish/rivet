@@ -27,27 +27,27 @@ namespace Rivet {
     void init() {
       // Final state
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Voronoi eta-phi tessellation with KT jets, for ambient energy density calculation
       FastJets fj(fs, FastJets::KT, 0.5);
       fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
-      addProjection(fj, "KtJetsD05");
+      declare(fj, "KtJetsD05");
 
       // Leading photon
       LeadingParticlesFinalState photonfs(FinalState(-1.37, 1.37, 25.0*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
-      addProjection(vfs, "JetFS");
+      declare(vfs, "JetFS");
 
       // Jets
       FastJets jetpro(vfs, FastJets::ANTIKT, 0.4);
       jetpro.useInvisibles();
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       _h_phbarrel_jetcentral_SS = bookHisto1D(1, 1, 1);
       _h_phbarrel_jetmedium_SS  = bookHisto1D(2, 1, 1);

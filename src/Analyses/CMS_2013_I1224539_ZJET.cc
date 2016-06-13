@@ -37,18 +37,18 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs(Cuts::abseta < 2.4);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Find Zs with pT > 120 GeV
       ZFinder zfinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 30*GeV, PID::ELECTRON, 80*GeV, 100*GeV,
                       0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
 
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
       // Z+jet jet collections
-      addProjection(FastJets(zfinder.remainingFinalState(), FastJets::ANTIKT, 0.7), "JetsAK7_zj");
-      addProjection(FastJets(zfinder.remainingFinalState(), FastJets::CAM, 0.8), "JetsCA8_zj");
-      addProjection(FastJets(zfinder.remainingFinalState(), FastJets::CAM, 1.2), "JetsCA12_zj");
+      declare(FastJets(zfinder.remainingFinalState(), FastJets::ANTIKT, 0.7), "JetsAK7_zj");
+      declare(FastJets(zfinder.remainingFinalState(), FastJets::CAM, 0.8), "JetsCA8_zj");
+      declare(FastJets(zfinder.remainingFinalState(), FastJets::CAM, 1.2), "JetsCA12_zj");
 
       // Histograms
       /// @note These are 2D histos rendered into slices

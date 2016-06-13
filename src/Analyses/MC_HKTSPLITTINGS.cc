@@ -26,9 +26,9 @@ namespace Rivet {
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       /// @todo Urk, abuse! Need explicit HiggsFinder and TauFinder
       ZFinder hfinder(FinalState(), cut, PID::TAU, 115*GeV, 135*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK, 125*GeV);
-      addProjection(hfinder, "Hfinder");
+      declare(hfinder, "Hfinder");
       FastJets jetpro(hfinder.remainingFinalState(), FastJets::KT, 0.6);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       MC_JetSplittings::init();
     }

@@ -26,15 +26,15 @@ namespace Rivet {
     void init() {
 
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       FastJets fj(fs, FastJets::KT, 0.5);
       fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
-      addProjection(fj, "KtJetsD05");
+      declare(fj, "KtJetsD05");
 
       IdentifiedFinalState photonfs(Cuts::abseta < 2.37 && Cuts::pT > 22*GeV);
       photonfs.acceptId(PID::PHOTON);
-      addProjection(photonfs, "Photon");
+      declare(photonfs, "Photon");
 
       _h_M            = bookHisto1D(1, 1, 1);
       _h_pT           = bookHisto1D(2, 1, 1);

@@ -29,7 +29,7 @@ namespace Rivet {
       nu_id.acceptNeutrinos();
       PromptFinalState neutrinos(nu_id);
       neutrinos.acceptTauDecays(true);
-      addProjection(neutrinos, "neutrinos");
+      declare(neutrinos, "neutrinos");
 
       // Get photons used to dress leptons
       IdentifiedFinalState photons(fs);
@@ -52,7 +52,7 @@ namespace Rivet {
       lep_id.acceptIdPair(PID::MUON);
       lep_id.acceptIdPair(PID::ELECTRON);
       PromptFinalState bare_lep(lep_id);
-      addProjection(bare_lep, "bare_lep");
+      declare(bare_lep, "bare_lep");
 
       // Tau finding
       /// @todo Use TauFinder
@@ -60,7 +60,7 @@ namespace Rivet {
       IdentifiedFinalState tau_id(ufs);
       tau_id.acceptIdPair(PID::TAU);
       PromptFinalState bare_tau(tau_id);
-      addProjection(bare_tau, "bare_tau");
+      declare(bare_tau, "bare_tau");
 
       // Muons and electrons must have |eta| < 2.5
       Cut eta_ranges = Cuts::abseta < 2.5;
@@ -68,12 +68,12 @@ namespace Rivet {
       // Get dressed muons and the good muons (pt>25GeV)
       DressedLeptons all_dressed_mu(photons, bare_mu, 0.1, eta_ranges, true, true);
       DressedLeptons dressed_mu(photons, bare_mu, 0.1, eta_ranges & (Cuts::pT > 25.0*GeV), true, true);
-      addProjection(dressed_mu, "muons");
+      declare(dressed_mu, "muons");
 
       // Get dressed electrons and the good electrons (pt>25GeV)
       DressedLeptons all_dressed_el(photons, bare_el, 0.1, eta_ranges, true, true);
       DressedLeptons dressed_el(photons, bare_el, 0.1, eta_ranges & (Cuts::pT > 25.0*GeV), true, true);
-      addProjection(dressed_el, "electrons");
+      declare(dressed_el, "electrons");
 
       // Jet clustering
       VetoedFinalState vfs(fs);
@@ -86,14 +86,14 @@ namespace Rivet {
       FastJets jets(vfs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(JetAlg::ALL_INVISIBLES);
       jets.useMuons(JetAlg::DECAY_MUONS);
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
       // Large-R jets
       /// @todo Use extra constructor args
       FastJets large_jets(vfs, FastJets::ANTIKT, 1.0);
       large_jets.useInvisibles(JetAlg::ALL_INVISIBLES);
       large_jets.useMuons(JetAlg::DECAY_MUONS);
-      addProjection(large_jets, "fat_jets");
+      declare(large_jets, "fat_jets");
 
 
       /// Book histogram

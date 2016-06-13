@@ -34,7 +34,7 @@ namespace Rivet {
       // i.e. eta cuts and pT cuts on leptons.
       ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON,
                       66*GeV, 116*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
 
       /// Book histograms here

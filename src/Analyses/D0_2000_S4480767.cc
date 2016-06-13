@@ -22,7 +22,7 @@ namespace Rivet {
     void init() {
       FinalState fs;
       WFinder wf(fs, Cuts::abseta < 5, PID::ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
-      addProjection(wf, "WFinder");
+      declare(wf, "WFinder");
 
       _h_W_pT = bookHisto1D(1, 1, 1);
     }

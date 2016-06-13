@@ -29,10 +29,10 @@ namespace Rivet {
     void init() {
       /// @todo Force conventional event rotation with proton along +z?
       FinalState fs;
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
+      declare(FastJets(fs, FastJets::KT, 0.7), "Jets");
 
       IdentifiedFinalState positrons(fs, PID::POSITRON);
-      addProjection(positrons, "Positrons");
+      declare(positrons, "Positrons");
 
       // Table 1
       _h_costh[0] = bookHisto1D(1, 1, 1);

@@ -22,13 +22,13 @@ namespace Rivet {
       FinalState fs;
       Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       WFinder wfinder_dressed_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.2, WFinder::CLUSTERNODECAY);
-      addProjection(wfinder_dressed_el, "WFinder_dressed_el");
+      declare(wfinder_dressed_el, "WFinder_dressed_el");
       WFinder wfinder_bare_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.0, WFinder::NOCLUSTER);
-      addProjection(wfinder_bare_el, "WFinder_bare_el");
+      declare(wfinder_bare_el, "WFinder_bare_el");
       WFinder wfinder_dressed_mu(fs, cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.2, WFinder::CLUSTERNODECAY);
-      addProjection(wfinder_dressed_mu, "WFinder_dressed_mu");
+      declare(wfinder_dressed_mu, "WFinder_dressed_mu");
       WFinder wfinder_bare_mu(fs, cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.0, WFinder::NOCLUSTER);
-      addProjection(wfinder_bare_mu, "WFinder_bare_mu");
+      declare(wfinder_bare_mu, "WFinder_bare_mu");
 
       // Book histograms
       _hist_wpt_dressed_el  = bookHisto1D(1, 1, 1);

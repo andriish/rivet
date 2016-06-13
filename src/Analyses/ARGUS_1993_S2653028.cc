@@ -103,7 +103,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
 
       // spectra
       _histPiA = bookHisto1D(1, 1, 1);

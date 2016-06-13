@@ -13,11 +13,11 @@ namespace Rivet {
 
     void init() {
       const ChargedFinalState cfs100(-2.5, 2.5, 100*MeV);
-      addProjection(cfs100, "CFS100");
+      declare(cfs100, "CFS100");
       const ChargedFinalState cfs500(-2.5, 2.5, 500*MeV);
-      addProjection(cfs500, "CFS500");
+      declare(cfs500, "CFS500");
       const ChargedFinalState cfslead(-2.5, 2.5, 1.0*GeV);
-      addProjection(cfslead, "CFSlead");
+      declare(cfslead, "CFSlead");
 
       // Get an index for the beam energy
       int isqrts = -1;

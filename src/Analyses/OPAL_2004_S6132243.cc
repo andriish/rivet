@@ -54,17 +54,17 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(Beam(), "Beams");
+      declare(Beam(), "Beams");
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       const ChargedFinalState cfs;
-      addProjection(cfs, "CFS");
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
-      addProjection(Sphericity(fs), "Sphericity");
-      addProjection(ParisiTensor(fs), "Parisi");
+      declare(cfs, "CFS");
+      declare(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+      declare(Sphericity(fs), "Sphericity");
+      declare(ParisiTensor(fs), "Parisi");
       const Thrust thrust(fs);
-      addProjection(thrust, "Thrust");
-      addProjection(Hemispheres(thrust), "Hemispheres");
+      declare(thrust, "Thrust");
+      declare(Hemispheres(thrust), "Hemispheres");
 
       // Get beam energy index
       _isqrts = getHistIndex(sqrtS());

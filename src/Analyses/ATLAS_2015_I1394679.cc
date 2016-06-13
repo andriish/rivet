@@ -22,9 +22,9 @@ namespace Rivet {
 
       // Initialise and register projections here
       const FinalState fs;
-      addProjection(fs, "FinalState");
+      declare(fs, "FinalState");
       FastJets fj04(fs, FastJets::ANTIKT, 0.4, JetAlg::ALL_MUONS, JetAlg::DECAY_INVISIBLES);
-      addProjection(fj04, "AntiKt4jets");
+      declare(fj04, "AntiKt4jets");
 
       // Histograms
       _h["pt1"] = bookHisto1D(1, 1, 1);

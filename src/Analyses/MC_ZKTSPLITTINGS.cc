@@ -26,9 +26,9 @@ namespace Rivet {
       FinalState fs;
       Cut cut = Cuts::abseta < 3.5 && Cuts::pT > 25*GeV;
       ZFinder zfinder(fs, cut, PID::ELECTRON, 65*GeV, 115*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
       FastJets jetpro(zfinder.remainingFinalState(), FastJets::KT, 0.6);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       MC_JetSplittings::init();
     }

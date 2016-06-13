@@ -32,7 +32,7 @@ namespace Rivet {
       IdentifiedFinalState elecs(cuts);
       elecs.acceptId(PID::ELECTRON);
       elecs.acceptId(PID::POSITRON);
-      addProjection(elecs, "elecs");
+      declare(elecs, "elecs");
 
       //projection for muons -- same phase space as above??? Not sure if the crack region has
       //to be removed for the muons as well
@@ -44,13 +44,13 @@ namespace Rivet {
       IdentifiedFinalState muons(Cuts::abseta < 2 && Cuts::pT > 7*GeV);
       muons.acceptId(PID::MUON);
       muons.acceptId(PID::ANTIMUON);
-      addProjection(muons, "muons");
+      declare(muons, "muons");
 
       //projection for muons full range
       IdentifiedFinalState muons_full(Cuts::abseta < 2.5 && Cuts::pT > 4*GeV);
       muons_full.acceptId(PID::MUON);
       muons_full.acceptId(PID::ANTIMUON);
-      addProjection(muons_full, "muons_full");
+      declare(muons_full, "muons_full");
 	  Cut cut20 = Cuts::abseta < 2.0;
 	  Cut cut25 = Cuts::abseta < 2.5;
       const FinalState fs20(cut20);
@@ -58,19 +58,19 @@ namespace Rivet {
 
       /// @todo Bare Zs ...
       ZFinder zfinder_e(fs20, cut20, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
-      addProjection(zfinder_e, "ZFinder_e");
+      declare(zfinder_e, "ZFinder_e");
       ZFinder zfinder_mu(fs20, cut20, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
-      addProjection(zfinder_mu, "ZFinder_mu");
+      declare(zfinder_mu, "ZFinder_mu");
       ZFinder zfinder_mufull(fs25, cut25, PID::MUON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::NOCLUSTER);
-      addProjection(zfinder_mufull, "ZFinder_mufull");
+      declare(zfinder_mufull, "ZFinder_mufull");
 
       /// @todo ... but dressed Ws?
       WFinder wfinder_e(fs20, cut20, PID::ELECTRON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
-      addProjection(wfinder_e, "WFinder_e");
+      declare(wfinder_e, "WFinder_e");
       WFinder wfinder_mu(fs20, cut20, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
-      addProjection(wfinder_mu, "WFinder_mu");
+      declare(wfinder_mu, "WFinder_mu");
       WFinder wfinder_mufull(fs25, cut25, PID::MUON, 60.0*GeV, 100.0*GeV, 25.0*GeV, 0.2);
-      addProjection(wfinder_mufull, "WFinder_mufull");
+      declare(wfinder_mufull, "WFinder_mufull");
 
       // Book histograms
       _histPt_elecs      = bookHisto1D(1 ,1 ,1);

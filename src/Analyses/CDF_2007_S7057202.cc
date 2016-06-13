@@ -18,9 +18,9 @@ namespace Rivet {
     void init() {
       // Set up projections
       const FinalState fs;
-      addProjection(FastJets(fs, FastJets::KT, 0.5), "JetsD05");
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "JetsD07");
-      addProjection(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
+      declare(FastJets(fs, FastJets::KT, 0.5), "JetsD05");
+      declare(FastJets(fs, FastJets::KT, 0.7), "JetsD07");
+      declare(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
 
       // Book histos
       _binnedHistosD07.addHistogram(  0, 0.1, bookHisto1D(1, 1, 1));

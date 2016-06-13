@@ -19,7 +19,7 @@ namespace Rivet {
       const FinalState fs;
 
       // Initialize the projectors:
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.5),"Jets");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.5),"Jets");
 
       // Book histograms:
       _hist_sigma.addHistogram(0.0, 0.5, bookHisto1D(1, 1, 1));

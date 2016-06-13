@@ -24,18 +24,18 @@ namespace Rivet {
     void init() {
 
        const FinalState fs;
-       addProjection(fs, "FS");
+       declare(fs, "FS");
 
        /// @todo Use C++11 initialisation syntax
        vector<PdgIdPair> vidsW;
        vidsW += make_pair(PID::MUON, PID::NU_MUBAR), make_pair(PID::ANTIMUON, PID::NU_MU);
        InvMassFinalState invfsW(fs, vidsW, 20*GeV, 1e6*GeV);
-       addProjection(invfsW, "INVFSW");
+       declare(invfsW, "INVFSW");
 
        VetoedFinalState vfs(fs);
        vfs.addVetoOnThisFinalState(invfsW);
-       addProjection(vfs, "VFS");
-       addProjection(FastJets(vfs, FastJets::ANTIKT, 0.5), "Jets");
+       declare(vfs, "VFS");
+       declare(FastJets(vfs, FastJets::ANTIKT, 0.5), "Jets");
 
        _h_deltaS_eq2jet_Norm = bookHisto1D(1,1,1);
        _h_rel_deltaPt_eq2jet_Norm = bookHisto1D(2,1,1);

@@ -28,8 +28,8 @@ namespace Rivet {
 
       // Projections
       const FinalState cnfs(-5.0, 5.0, 500*MeV);
-      addProjection(cnfs, "FS");
-      addProjection(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
+      declare(cnfs, "FS");
+      declare(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though

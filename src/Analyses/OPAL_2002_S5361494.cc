@@ -34,9 +34,9 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(), "CFS");
-      addProjection(InitialQuarks(), "IQF");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(), "CFS");
+      declare(InitialQuarks(), "IQF");
 
     }
 

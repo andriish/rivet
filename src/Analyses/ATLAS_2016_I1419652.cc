@@ -41,10 +41,10 @@ namespace Rivet {
 
       // Projections
       const ChargedFinalState cfs500_25(-2.5, 2.5, 500.0*MeV);
-      addProjection(cfs500_25, "CFS500_25");
+      declare(cfs500_25, "CFS500_25");
 
       const ChargedFinalState cfs500_08(-0.8, 0.8, 500.0*MeV);
-      addProjection(cfs500_08, "CFS500_08");
+      declare(cfs500_08, "CFS500_08");
 
       for (int iT = 0; iT < kNPartTypes; ++iT)  {
         for (int iR = 0; iR < kNregions; ++iR)  {

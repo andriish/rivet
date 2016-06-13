@@ -16,7 +16,7 @@ namespace Rivet {
 
     void init() {
       ChargedFinalState cfs(-7.0, 7.0, 0.0*GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       _Nevt_after_cuts_or = 0;
       _Nevt_after_cuts_and = 0;

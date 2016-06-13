@@ -19,10 +19,10 @@ namespace Rivet {
     // Book histograms and initialize projections:
     void init() {
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Initialize the projections
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
 
       // Book histograms
       _h_sigma.addHistogram(0.0, 0.5, bookHisto1D(1, 1, 1));

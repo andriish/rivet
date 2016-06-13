@@ -45,17 +45,17 @@ namespace Rivet {
       Cut cuts = (Cuts::absetaIn(0, 1.37) || Cuts::absetaIn(1.52, 2.47)) && Cuts::pT > 20*GeV;
 
       DressedLeptons electronClusters(fs, bareElectrons, 0.1, cuts);
-      addProjection(electronClusters, "electronClusters");
+      declare(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
       Cut mucuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       DressedLeptons muonClusters(fs, bareMuons, 0.1, mucuts);
-      addProjection(muonClusters, "muonClusters");
+      declare(muonClusters, "muonClusters");
 
       IdentifiedFinalState neutrinos(Cuts::pT > 25*GeV);
       neutrinos.acceptNeutrinos();
-      addProjection(neutrinos, "neutrinos");
+      declare(neutrinos, "neutrinos");
 
       VetoedFinalState jetFS(fs);
       jetFS.addVetoOnThisFinalState(electronClusters);
@@ -63,7 +63,7 @@ namespace Rivet {
       jetFS.addVetoOnThisFinalState(neutrinos);
       FastJets jetpro(jetFS, FastJets::KT, 0.6);
       jetpro.useInvisibles(true);
-      addProjection(jetpro, "jets");
+      declare(jetpro, "jets");
 
       // Book histograms
       for (size_t flav = 0; flav < 2; ++flav) {

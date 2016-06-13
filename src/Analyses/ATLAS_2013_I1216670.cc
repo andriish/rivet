@@ -32,17 +32,17 @@ namespace Rivet {
 
       WFinder w_e_finder(fs, cuts, PID::ELECTRON, 40*GeV, MAXDOUBLE, 0.0*GeV, 0.0, WFinder::CLUSTERNODECAY, 
                          WFinder::NOTRACK, WFinder::TRANSMASS);
-      addProjection(w_e_finder, "W_E_FINDER");
+      declare(w_e_finder, "W_E_FINDER");
 
       WFinder w_mu_finder(fs, cuts, PID::MUON, 40*GeV, MAXDOUBLE, 0.0*GeV, 0.0, WFinder::CLUSTERNODECAY, 
                           WFinder::NOTRACK, WFinder::TRANSMASS);
-      addProjection(w_mu_finder, "W_MU_FINDER");
+      declare(w_mu_finder, "W_MU_FINDER");
 
       VetoedFinalState jet_fs(fs);
       jet_fs.addVetoOnThisFinalState(getProjection<WFinder>("W_E_FINDER"));
       jet_fs.addVetoOnThisFinalState(getProjection<WFinder>("W_MU_FINDER"));
       FastJets jets(jet_fs, FastJets::ANTIKT, 0.4);
-      addProjection(jets, "JETS");
+      declare(jets, "JETS");
 
     }
 

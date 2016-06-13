@@ -30,14 +30,14 @@ namespace Rivet {
       // > 30 GeV, out of which the ChargedLeptons projection picks only the
       // electrons and muons, to be accessed later as "LFS".
       ChargedLeptons lfs(FinalState(-4.2, 4.2, 30*GeV));
-      addProjection(lfs, "LFS");
+      declare(lfs, "LFS");
       // A second FinalState is used to select all particles in |eta| < 4.2,
       // with no pT cut. This is used to construct jets and measure missing
       // transverse energy.
       VetoedFinalState fs(FinalState(-4.2, 4.2, 0*GeV));
       fs.addVetoOnThisFinalState(lfs);
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.6), "Jets");
-      addProjection(MissingMomentum(fs), "MissingET");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.6), "Jets");
+      declare(MissingMomentum(fs), "MissingET");
 
       // Booking of histograms
       _h_njets = bookHisto1D("jet_mult", 11, -0.5, 10.5);

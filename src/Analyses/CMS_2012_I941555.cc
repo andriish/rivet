@@ -32,14 +32,14 @@ namespace Rivet {
       FinalState fs;
       Cut cuts = Cuts::abseta < 2.1 && Cuts::pT > 20*GeV;
       ZFinder zfinder_dressed_mu_pt(fs, cuts, PID::MUON, 60*GeV, 120*GeV, 0.2);
-      addProjection(zfinder_dressed_mu_pt, "ZFinder_dressed_mu_pt");
+      declare(zfinder_dressed_mu_pt, "ZFinder_dressed_mu_pt");
       ZFinder zfinder_dressed_el_pt(fs, cuts, PID::ELECTRON, 60*GeV, 120*GeV, 0.1);
-      addProjection(zfinder_dressed_el_pt, "ZFinder_dressed_el_pt");
+      declare(zfinder_dressed_el_pt, "ZFinder_dressed_el_pt");
 
       ZFinder zfinder_dressed_mu_rap(fs, Cuts::open(), PID::MUON, 60*GeV, 120*GeV, 0.1);
-      addProjection(zfinder_dressed_mu_rap, "ZFinder_dressed_mu_rap");
+      declare(zfinder_dressed_mu_rap, "ZFinder_dressed_mu_rap");
       ZFinder zfinder_dressed_el_rap(fs, Cuts::open(), PID::ELECTRON, 60*GeV, 120*GeV, 0.1);
-      addProjection(zfinder_dressed_el_rap, "ZFinder_dressed_el_rap");
+      declare(zfinder_dressed_el_rap, "ZFinder_dressed_el_rap");
 
       // Book histograms
       _hist_zrap_mu_dressed      = bookHisto1D(1, 1, 1);  // muon "dressed" rapidity

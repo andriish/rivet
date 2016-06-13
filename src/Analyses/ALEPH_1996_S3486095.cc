@@ -50,16 +50,16 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      addProjection(Beam(), "Beams");
+      declare(Beam(), "Beams");
       const ChargedFinalState cfs;
-      addProjection(cfs, "FS");
-      addProjection(UnstableFinalState(), "UFS");
-      addProjection(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
-      addProjection(Sphericity(cfs), "Sphericity");
-      addProjection(ParisiTensor(cfs), "Parisi");
+      declare(cfs, "FS");
+      declare(UnstableFinalState(), "UFS");
+      declare(FastJets(cfs, FastJets::DURHAM, 0.7), "DurhamJets");
+      declare(Sphericity(cfs), "Sphericity");
+      declare(ParisiTensor(cfs), "Parisi");
       const Thrust thrust(cfs);
-      addProjection(thrust, "Thrust");
-      addProjection(Hemispheres(thrust), "Hemispheres");
+      declare(thrust, "Thrust");
+      declare(Hemispheres(thrust), "Hemispheres");
 
       // Book histograms
       _histSphericity   = bookHisto1D(1, 1, 1);

@@ -16,9 +16,9 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       const FinalState fsa(Cuts::abseta < 20);
-      addProjection(fsa, "FSA");
+      declare(fsa, "FSA");
       const ChargedFinalState cfs(Cuts::abseta < 2);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       _hist_dNch_dEta_inel = bookHisto1D(1, 1, 1);
     }

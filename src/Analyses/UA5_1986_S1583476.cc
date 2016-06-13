@@ -23,9 +23,9 @@ namespace Rivet {
 
     /// Set up projections and histograms
     void init() {
-      addProjection(TriggerUA5(), "Trigger");
-      addProjection(Beam(), "Beams");
-      addProjection(ChargedFinalState(-5.0, 5.0), "CFS50");
+      declare(TriggerUA5(), "Trigger");
+      declare(Beam(), "Beams");
+      declare(ChargedFinalState(-5.0, 5.0), "CFS50");
 
       // Histograms
       if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {

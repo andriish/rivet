@@ -33,9 +33,9 @@ namespace Rivet {
       FinalState fs;
       WFinder wfinder(fs, Cuts::open(), PID::ELECTRON,
                       60.0*GeV, 100.0*GeV, 0.0*GeV, 0.0);
-      addProjection(wfinder, "WFinder");
+      declare(wfinder, "WFinder");
       Beam beams;
-      addProjection(beams, "Beams");
+      declare(beams, "Beams");
 
       vector<string> tags{"_wplus", "_wminus"};
       _h_dists.resize(tags.size());

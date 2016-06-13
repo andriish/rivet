@@ -25,7 +25,7 @@ namespace Rivet {
     void init() {
       ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON,
                       71*GeV, 111*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
       _h_yZ = bookHisto1D(1, 1, 1);
     }

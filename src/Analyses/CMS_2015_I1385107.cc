@@ -23,11 +23,11 @@ namespace Rivet {
     void init() {
 
       const ChargedFinalState cfs(Cuts::abseta < 2 && Cuts::pT > 500*MeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       const ChargedFinalState cfsforjet(Cuts::abseta < 2.5 && Cuts::pT > 500*MeV);
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       _h_Nch_TransAVE_vs_pT = bookProfile1D(1, 1, 1); // Nch vs. pT_max      (TransAVE)
       _h_Sum_TransAVE_vs_pT = bookProfile1D(2, 1, 1); // sum(pT) vs. pT_max  (TransAVE)

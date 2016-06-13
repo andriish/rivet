@@ -25,7 +25,7 @@ namespace Rivet {
     void init() {
       // Projections
       const FinalState cnfs(Cuts::abseta < 4);
-      addProjection(cnfs, "FS");
+      declare(cnfs, "FS");
 
       // Histograms
       _histPt         = bookHisto1D("pT", 30, 0, 30);

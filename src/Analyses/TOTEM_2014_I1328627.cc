@@ -18,8 +18,8 @@ namespace Rivet {
     void init() {
       ChargedFinalState cfsm(-7.0, -6.0, 0.0*GeV);
       ChargedFinalState cfsp( 3.7,  4.8, 0.0*GeV);
-      addProjection(cfsm, "CFSM");
-      addProjection(cfsp, "CFSP");
+      declare(cfsm, "CFSM");
+      declare(cfsp, "CFSP");
 
       _h_eta = bookHisto1D(1, 1, 1);
       _sumofweights = 0.;

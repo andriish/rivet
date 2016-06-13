@@ -19,7 +19,7 @@ namespace Rivet {
     void init() {
       IdentifiedFinalState muons;
       muons.acceptIdPair(PID::MUON);
-      addProjection(muons, "Muons");
+      declare(muons, "Muons");
 
       MC_ParticleAnalysis::init();
     }

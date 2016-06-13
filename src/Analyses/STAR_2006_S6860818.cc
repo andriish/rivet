@@ -28,11 +28,11 @@ namespace Rivet {
     void init() {
       ChargedFinalState bbc1(Cuts::etaIn(-5.0, -3.5)); // beam-beam-counter trigger
       ChargedFinalState bbc2(Cuts::etaIn( 3.5,  5.0)); // beam-beam-counter trigger
-      addProjection(bbc1, "BBC1");
-      addProjection(bbc2, "BBC2");
+      declare(bbc1, "BBC1");
+      declare(bbc2, "BBC2");
 
       UnstableFinalState ufs(Cuts::abseta < 2.5);
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       _h_pT_k0s        = bookHisto1D(1, 1, 1);
       _h_pT_kminus     = bookHisto1D(1, 2, 1);

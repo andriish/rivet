@@ -17,7 +17,7 @@ namespace Rivet {
 
     void init() {
       const ChargedFinalState cfs(Cuts::absrap<0.5);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
       //
       // plots from the paper
       _histPtPions          = bookHisto1D("d01-x01-y01");    // pions

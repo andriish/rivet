@@ -40,10 +40,10 @@ namespace Rivet {
       WFinder wfinder_mu_bare   (fs, cut, PID::MUON    , 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.0, WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
       WFinder wfinder_mu_dressed(fs, cut, PID::MUON    , 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.1, WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
 
-      addProjection(wfinder_el_bare   , "WFinder_el_bare");
-      addProjection(wfinder_el_dressed, "WFinder_el_dressed");
-      addProjection(wfinder_mu_bare   , "WFinder_mu_bare");
-      addProjection(wfinder_mu_dressed, "WFinder_mu_dressed");
+      declare(wfinder_el_bare   , "WFinder_el_bare");
+      declare(wfinder_el_dressed, "WFinder_el_dressed");
+      declare(wfinder_mu_bare   , "WFinder_mu_bare");
+      declare(wfinder_mu_dressed, "WFinder_mu_dressed");
 
       /// Book histograms here
       _h_Wminus_lepton_eta_el_bare       = bookHisto1D(3, 1, 1);

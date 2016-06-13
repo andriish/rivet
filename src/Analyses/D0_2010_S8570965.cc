@@ -19,11 +19,11 @@ namespace Rivet {
 
     void init() {
       FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       IdentifiedFinalState ifs(Cuts::abseta < 0.9 && Cuts::pT > 20*GeV);
       ifs.acceptId(PID::PHOTON);
-      addProjection(ifs, "IFS");
+      declare(ifs, "IFS");
 
       _h_M = bookHisto1D(1, 1, 1);
       _h_pT = bookHisto1D(2, 1, 1);

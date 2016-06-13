@@ -25,10 +25,10 @@ namespace Rivet {
     void init() {
       // Set up projections
       const FinalState fs(-2.0, 2.0);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
       FastJets fj(fs, FastJets::CDFMIDPOINT, 0.7);
       fj.useInvisibles();
-      addProjection(fj, "Jets");
+      declare(fj, "Jets");
 
       // Specify pT bins
       _ptedges = {{ 37.0, 45.0, 55.0, 63.0, 73.0, 84.0, 97.0, 112.0, 128.0, 148.0,
@@ -42,7 +42,7 @@ namespace Rivet {
           const string pname = ss.str();
           _jsnames_pT[k] = pname;
           const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[k], _ptedges[k+1], 0.1, 0.7, RAPIDITY);
-          addProjection(jsp, pname);
+          declare(jsp, pname);
           _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1);
           _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1);
         }

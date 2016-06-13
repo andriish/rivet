@@ -34,16 +34,16 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       const ChargedFinalState cfs(-MAXDOUBLE, MAXDOUBLE, 0.1/GeV);
-      addProjection(cfs, "CFS");
+      declare(cfs, "CFS");
 
       //// Beams -- needed for x_p calculation
-      //addProjection(Beam(), "Beams");
+      //declare(Beam(), "Beams");
 
       // Thrust
-      addProjection(Thrust(cfs), "Thrust");
+      declare(Thrust(cfs), "Thrust");
 
       // For Sphericity and the like
-      addProjection(Sphericity(cfs), "Sphericity");
+      declare(Sphericity(cfs), "Sphericity");
 
       // Histos
       int offset = 0;

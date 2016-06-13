@@ -24,10 +24,10 @@ namespace Rivet {
     void init() {
 
       UnstableFinalState ufs(Cuts::pT > 100*MeV);
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       ChargedFinalState  mbts(Cuts::absetaIn(2.09, 3.84));
-      addProjection(mbts, "MBTS");
+      declare(mbts, "MBTS");
 
       IdentifiedFinalState nstable(Cuts::abseta < 2.5 && Cuts::pT >= 100*MeV);
       nstable.acceptIdPair(PID::ELECTRON)
@@ -35,7 +35,7 @@ namespace Rivet {
         .acceptIdPair(PID::PIPLUS)
         .acceptIdPair(PID::KPLUS)
         .acceptIdPair(PID::PROTON);
-      addProjection(nstable, "nstable");
+      declare(nstable, "nstable");
 
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1e-3)) {
         _hist_Ks_pT      = bookHisto1D(1, 1, 1);

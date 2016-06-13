@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
 
       _mult_cont_Omega     = bookHisto1D( 1, 1, 1);
       _mult_cont_Rho0      = bookHisto1D( 1, 1, 2);

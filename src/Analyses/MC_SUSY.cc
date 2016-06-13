@@ -32,28 +32,28 @@ namespace Rivet {
       const FinalState fs(-4.0, 4.0, 10*GeV);
 
       // Tracks and jets
-      addProjection(ChargedFinalState(fs), "Tracks");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
+      declare(ChargedFinalState(fs), "Tracks");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
 
       IdentifiedFinalState photonfs(fs);
       photonfs.acceptId(PID::PHOTON);
-      addProjection(photonfs, "AllPhotons");
+      declare(photonfs, "AllPhotons");
 
       IdentifiedFinalState efs(fs);
       efs.acceptIdPair(PID::ELECTRON);
-      addProjection(efs, "Electrons");
+      declare(efs, "Electrons");
 
       IdentifiedFinalState mufs(fs);
       mufs.acceptIdPair(PID::MUON);
-      addProjection(mufs, "Muons");
+      declare(mufs, "Muons");
 
       MissingMomentum missing(fs);
-      addProjection(missing, "MET");
+      declare(missing, "MET");
 
       LeadingParticlesFinalState lpfs(fs);
       lpfs.addParticleIdPair(PID::ELECTRON);
       lpfs.addParticleIdPair(PID::MUON);
-      addProjection(lpfs, "LeadingParticles");
+      declare(lpfs, "LeadingParticles");
 
       _hist_n_trk   = bookHisto1D("n-trk", 50, 0.5, 300.5);
       _hist_phi_trk = bookHisto1D("phi-trk", 50, -PI, PI);

@@ -160,9 +160,9 @@ namespace Rivet {
 
       /// Projections:
       FinalState fs(-4.5, 4.5, 0.*GeV);
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::ANTIKT, 1.0), "AKT");
-      addProjection(FastJets(fs, FastJets::CAM, 1.2)   , "CA" );
+      declare(fs, "FS");
+      declare(FastJets(fs, FastJets::ANTIKT, 1.0), "AKT");
+      declare(FastJets(fs, FastJets::CAM, 1.2)   , "CA" );
 
       /// Histograms:
       _h_camass.addHistogram(200, 300, bookHisto1D(1, 1, 1));

@@ -25,11 +25,11 @@ namespace Rivet {
 
       const FinalState cnfs(-4.8, 4.8, 0*MeV);
       const ChargedFinalState cfs(-2.5, 2.5, 250*MeV);
-      addProjection(cnfs, "FS");
-      addProjection(cfs, "CFS");
+      declare(cnfs, "FS");
+      declare(cfs, "CFS");
 
       const FastJets jetsAntiKt4(cnfs, FastJets::ANTIKT, 0.4);
-      addProjection(jetsAntiKt4, "AntiKt4Jets");
+      declare(jetsAntiKt4, "AntiKt4Jets");
 
       // ------- MINBIAS HISTOGRAMS --------
       //

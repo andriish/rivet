@@ -142,13 +142,13 @@ namespace Rivet {
       muon_fs.acceptIdPair(PID::MUON);
 
       DressedLeptons dressed_electrons(photon_fs, electron_fs, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 25*GeV);
-      addProjection(dressed_electrons, "DressedElectrons");
+      declare(dressed_electrons, "DressedElectrons");
 
       DressedLeptons dressed_muons(photon_fs, muon_fs, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 25*GeV);
-      addProjection(dressed_muons, "DressedMuons");
+      declare(dressed_muons, "DressedMuons");
 
       FastJets jets(fs, FastJets::ANTIKT, 0.4);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       initialisePlots(baseline_plots, "baseline");
       initialisePlots(highpt_plots, "highpt");

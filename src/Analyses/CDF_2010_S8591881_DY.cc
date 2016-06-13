@@ -40,8 +40,8 @@ namespace Rivet {
       // Set up projections
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
       const ChargedFinalState clfs(-1.0, 1.0, 20*GeV);
-      addProjection(cfs, "FS");
-      addProjection(ChargedLeptons(clfs), "CL");
+      declare(cfs, "FS");
+      declare(ChargedLeptons(clfs), "CL");
 
       // Book histograms
       _hist_tnchg      = bookProfile1D( 1, 1, 1);

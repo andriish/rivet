@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
       _histdSigDp = bookHisto1D(1, 1, 1); // spectrum
       _histMult   = bookHisto1D(2, 1, 1); // multiplicity
     }
