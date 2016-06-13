@@ -75,9 +75,7 @@ namespace Rivet {
 
 
     /// Clone this projection
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new DressedLeptons(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
 
     /// Retrieve the dressed leptons
     const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }

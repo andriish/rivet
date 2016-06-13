@@ -47,14 +47,10 @@ namespace Rivet {
 
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new IdentifiedFinalState(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(IdentifiedFinalState);
 
     //@}
 
-
-  public:
 
     /// Get the list of particle IDs to accept.
     const set<PdgId>& acceptedIds() const {

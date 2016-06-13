@@ -1,3 +1,8 @@
+2016-06-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a DEFAULT_RIVET_PROJ_CLONE macro for implementing the
+	clone() method boiler-plate code in projections.
+
 2016-06-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a NonPromptFinalState projection, and tweak the

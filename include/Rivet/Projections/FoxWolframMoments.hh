@@ -22,8 +22,7 @@ namespace Rivet {
   public:
 
     /// Constructor.
-    FoxWolframMoments(const FinalState& fsp)
-    {
+    FoxWolframMoments(const FinalState& fsp) {
       setName("FoxWolframMoments");
       addProjection(fsp, "FS");
 
@@ -37,14 +36,9 @@ namespace Rivet {
       }
     }
 
-
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new FoxWolframMoments(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(FoxWolframMoments);
 
-
-  public:
 
     /// The projected Fox-Wolfram Moment of order l
     double getFoxWolframMoment(unsigned int l) const {

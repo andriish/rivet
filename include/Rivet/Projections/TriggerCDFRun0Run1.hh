@@ -22,12 +22,8 @@ namespace Rivet {
     }
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new TriggerCDFRun0Run1(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(TriggerCDFRun0Run1);
 
-
-  public:
 
     /// The trigger result
     bool minBiasDecision() const {

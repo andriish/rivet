@@ -35,9 +35,7 @@ namespace Rivet {
     // PromptFinalState(const Cut& c, const FinalState& fsp=FinalState(), bool accepttaudecays, bool acceptmudecays);
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new PromptFinalState(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(PromptFinalState);
 
     //@}
 

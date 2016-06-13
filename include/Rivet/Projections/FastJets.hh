@@ -145,14 +145,10 @@ namespace Rivet {
 
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new FastJets(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(FastJets);
 
     //@}
 
-
-  public:
 
     /// Reset the projection. Jet def, etc. are unchanged.
     void reset();

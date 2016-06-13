@@ -5,8 +5,8 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/AxesDefinition.hh"
 
-
 namespace Rivet {
+
 
   /// @brief Calculate the hemisphere masses and broadenings.
   ///
@@ -64,9 +64,7 @@ namespace Rivet {
     }
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new Hemispheres(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(Hemispheres);
 
     /// Reset the projection
     void clear() {

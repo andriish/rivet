@@ -116,9 +116,7 @@ namespace Rivet {
     Beam() { setName("Beam"); }
 
     /// Clone on the heap
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new Beam(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(Beam);
 
 
     /// @name Beam particles and kinematics

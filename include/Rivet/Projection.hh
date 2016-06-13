@@ -164,3 +164,9 @@ inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projec
 #include "Rivet/Cmp.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
+
+
+/// @def DEFAULT_RIVET_PROJ_CLONE
+/// Preprocessor define to prettify the manky constructor with name string argument
+#define DEFAULT_RIVET_PROJ_CLONE(clsname) \
+  virtual unique_ptr<Projection> clone() const { return unique_ptr<Projection>(new clsname(*this)); }

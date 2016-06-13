@@ -43,9 +43,7 @@ namespace Rivet {
     virtual ~LossyFinalState() { }
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new LossyFinalState(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(LossyFinalState);
 
     //@}
 

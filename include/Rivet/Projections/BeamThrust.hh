@@ -8,6 +8,7 @@
 
 namespace Rivet {
 
+
   class BeamThrust : public Projection {
   public:
 
@@ -20,9 +21,8 @@ namespace Rivet {
     }
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new BeamThrust(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(BeamThrust);
+
 
   protected:
 
