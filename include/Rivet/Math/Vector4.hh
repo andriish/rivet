@@ -614,22 +614,40 @@ namespace Rivet {
       return E() * sin(polarAngle());
     }
 
+    //@}
 
-    /// Calculate the boost vector (in units of \f$ \beta \f$).
-    Vector3 boostVector() const {
-      // const Vector3 p3 = vector3();
-      // const double m2 = mass2();
-      // if (Rivet::isZero(m2)) return p3.unit();
-      // else {
-      //   // Could also do this via beta = tanh(rapidity), but that's
-      //   // probably more messy from a numerical hygiene point of view.
-      //   const double p2 = p3.mod2();
-      //   const double beta = sqrt( p2 / (m2 + p2) );
-      //   return beta * p3.unit();
-      // }
-      /// @todo Be careful about c=1 convention...
-      return Vector3(px()/E(), py()/E(), pz()/E());
+
+    /// @name Lorentz boost factors and vectors
+    //@{
+
+    /// Calculate the boost factor \f$ \gamma \f$.
+    /// @note \f$ \gamma = E/mc^2 \f$ so we rely on the c=1 convention
+    double gamma() const {
+      return sqrt(E2()/mass2());
     }
+
+    /// Calculate the boost vector \f$ \vec{\gamma} \f$.
+    /// @note \f$ \gamma = E/mc^2 \f$ so we rely on the c=1 convention
+    Vector3 gammaVec() const {
+      return gamma() * p3().unit();
+    }
+
+    /// Calculate the boost factor \f$ \beta \f$.
+    /// @note \f$ \beta = pc/E \f$ so we rely on the c=1 convention
+    double beta() const {
+      return p()/E();
+    }
+
+    /// Calculate the boost vector \f$ \vec{\beta} \f$.
+    /// @note \f$ \beta = pc/E \f$ so we rely on the c=1 convention
+    Vector3 betaVec() const {
+      // return Vector3(px()/E(), py()/E(), pz()/E());
+      return p3()/E();
+    }
+
+    /// @brief Deprecated alias for betaVec
+    /// @deprecated This will be removed; use betaVec() instead
+    Vector3 boostVector() const { return betaVec(); }
 
     //@}
 
