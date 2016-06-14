@@ -136,7 +136,7 @@ namespace Rivet {
         return;
       }
 
-      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjj.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjj.betaVec());
       vector<FourMomentum> jets_boosted;
       foreach (Jet jet, jets) {
         jets_boosted.push_back(cms_boost.transform(jet.momentum()));
@@ -167,7 +167,7 @@ namespace Rivet {
       const double sqrts = _safeMass(jjjj);
       if (sqrts < 200*GeV) return;
 
-      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjjj.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjjj.betaVec());
       vector<FourMomentum> jets_boosted;
       foreach (Jet jet, jets) {
         jets_boosted.push_back(cms_boost.transform(jet.momentum()));

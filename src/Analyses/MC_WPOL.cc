@@ -79,7 +79,7 @@ namespace Rivet {
       size_t idx = (PID::threeCharge(lepton.pid())>0 ? 0 : 1);
       FourMomentum plnu(wfinder.bosons()[0].momentum());
 
-      const LorentzTransform cms = LorentzTransform::mkFrameTransformFromBeta(plnu.boostVector());
+      const LorentzTransform cms = LorentzTransform::mkFrameTransformFromBeta(plnu.betaVec());
       Matrix3 zrot(plnu.p3(), Vector3(0.0, 0.0, 1.0));
       pl=cms.transform(pl);
       pb1=cms.transform(pb1);

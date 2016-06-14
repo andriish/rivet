@@ -75,7 +75,7 @@ namespace Rivet {
       double m6J = _safeMass(jetsystem);
       if (m6J < 520.0*GeV) vetoEvent;
 
-      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.betaVec());
       vector<FourMomentum> jets6;
       foreach (Jet jet, jets) {
         jets6.push_back(cms_boost.transform(jet.momentum()));
@@ -197,7 +197,7 @@ namespace Rivet {
       FourMomentum beam2(mt, 0, 0, -mt);
       if (fabs(y) > 1e-3) {
         FourMomentum boostvec(cosh(y), 0.0, 0.0, sinh(y));
-        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(boostvec.boostVector()).inverse();
+        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(boostvec.betaVec()).inverse();
         beam1 = cms_boost.transform(beam1);
         beam2 = cms_boost.transform(beam2);
       }

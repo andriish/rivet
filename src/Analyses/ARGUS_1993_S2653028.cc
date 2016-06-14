@@ -52,7 +52,7 @@ namespace Rivet {
         findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
         if (p.p3().mod() > 1*MeV)
-          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().boostVector());
+          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         for (size_t ix = 0; ix < pionsA.size(); ++ix) {
           FourMomentum ptemp(pionsA[ix]->momentum());
           FourMomentum p2 = cms_boost.transform(ptemp);

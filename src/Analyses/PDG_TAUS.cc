@@ -170,8 +170,8 @@ namespace Rivet {
               if (son.pid() == PID::PHOTON) {
                 // Require photons to have at least 5 MeV energy in the rest frame of the tau
                 // boosted taus
-                if (!mother.momentum().boostVector().isZero()) {
-                  LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mother.momentum().boostVector());
+                if (!mother.momentum().betaVec().isZero()) {
+                  LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mother.momentum().betaVec());
                   if (cms_boost.transform(son.momentum())[0]/MeV > 5.) {
                     h_ratio->fill(1, e_weight);
                     break;

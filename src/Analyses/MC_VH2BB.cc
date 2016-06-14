@@ -216,7 +216,7 @@ namespace Rivet {
     vector<double> boostAngles(const FourMomentum& b1, const FourMomentum& b2, const FourMomentum& vb) {
       const FourMomentum higgsMomentum = b1 + b2;
       const FourMomentum virtualVBMomentum = higgsMomentum + vb;
-      const LorentzTransform lt = LorentzTransform::mkFrameTransformFromBeta(higgsMomentum.boostVector());
+      const LorentzTransform lt = LorentzTransform::mkFrameTransformFromBeta(higgsMomentum.betaVec());
 
       const FourMomentum virtualVBMomentumBOOSTED = lt.transform(virtualVBMomentum);
       const FourMomentum b1BOOSTED = lt.transform(b1);

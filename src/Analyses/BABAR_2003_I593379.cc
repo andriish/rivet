@@ -51,7 +51,7 @@ namespace Rivet {
         vector<const GenParticle*> allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2;
         findDecayProducts(p.genParticle(), allJpsi, primaryJpsi, Psiprime,
                           all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
-        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.mom().boostVector());
+        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.mom().betaVec());
         for (size_t i = 0; i < allJpsi.size(); i++) {
           const double pcm = cms_boost.transform(FourMomentum(allJpsi[i]->momentum())).p();
           _hist_all_Jpsi->fill(pcm, weight);

@@ -140,7 +140,7 @@ namespace Rivet {
       const double pt2 = std::min(t1P4.pT(), t2P4.pT());
       const double dPhi = deltaPhi(t1P4, t2P4);
       const FourMomentum ttP4 = t1P4 + t2P4;
-      const FourMomentum t1P4AtCM = LorentzTransform::mkFrameTransformFromBeta(ttP4.boostVector()).transform(t1P4);
+      const FourMomentum t1P4AtCM = LorentzTransform::mkFrameTransformFromBeta(ttP4.betaVec()).transform(t1P4);
 
       const double weight = event.weight();
 

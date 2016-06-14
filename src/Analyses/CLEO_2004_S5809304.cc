@@ -27,7 +27,7 @@ namespace Rivet {
       const FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
       LorentzTransform cms_boost;
       if (mom_tot.p3().mod() > 1*MeV)
-        cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.boostVector());
+        cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.betaVec());
       const double s = sqr(beamproj.sqrtS());
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).

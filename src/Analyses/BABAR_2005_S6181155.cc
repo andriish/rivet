@@ -25,7 +25,7 @@ namespace Rivet {
       const Beam beamproj = apply<Beam>(e, "Beams");
       const ParticlePair& beams = beamproj.beams();
       const FourMomentum mom_tot = beams.first.momentum() + beams.second.momentum();
-      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.boostVector());
+      const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.betaVec());
       const double s = sqr(beamproj.sqrtS());
 
       const bool onresonance = fuzzyEquals(beamproj.sqrtS()/GeV, 10.58, 2E-3);

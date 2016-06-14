@@ -63,7 +63,7 @@ namespace Rivet {
       if (jets.size() < 2 || jets.size() > 6) vetoEvent;
       if (sumEt < 420.0*GeV) vetoEvent;
 
-      LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.boostVector());
+      LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.betaVec());
       FourMomentum jet0boosted(cms_boost.transform(jets[0].momentum()));
 
       double mass = jetsystem.mass();

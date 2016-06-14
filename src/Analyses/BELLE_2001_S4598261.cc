@@ -57,7 +57,7 @@ namespace Rivet {
         // Find the neutral pions from the decay
         vector<GenParticle *> pions;
         findDecayProducts(p.genParticle(), pions);
-        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().boostVector());
+        const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         for (size_t ix=0; ix<pions.size(); ++ix) {
           const double pcm = cms_boost.transform(FourMomentum(pions[ix]->momentum())).p();
           _histdSigDp->fill(pcm,weight);
