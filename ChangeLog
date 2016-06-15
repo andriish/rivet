@@ -1,3 +1,8 @@
+2016-06-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a --show-bibtex option to the rivet script, for convenient
+	outputting of a BibTeX db for the used analyses.
+
 2016-06-10  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding ATLAS_2015_I1397635 Wt at 8 TeV analysis.

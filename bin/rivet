@@ -53,6 +53,8 @@ anagroup.add_option("--list-used-analyses", action="store_true", dest="LIST_USED
                     default=False, help="list the analyses used by this command (after subtraction of inappropriate ones)")
 anagroup.add_option("--show-analysis", "--show-analyses", "--show", dest="SHOW_ANALYSES", action="append",
                     default=[], help="show the details of an analysis")
+anagroup.add_option("--show-bibtex", dest="SHOW_BIBTEX", action="store_true",
+                    default=False, help="show BibTeX entries for all used analyses")
 anagroup.add_option("--analysis-path", dest="ANALYSIS_PATH", metavar="PATH", default=None,
                     help="specify the analysis search path (cf. $RIVET_ANALYSIS_PATH).")
 # TODO: remove/deprecate the append?
@@ -426,6 +428,19 @@ for a in opts.ANALYSES:
         sys.exit(1)
     logging.debug("Adding analysis '%s'" % a)
     ah.addAnalysis(a)
+
+
+if opts.SHOW_BIBTEX:
+    bibs = []
+    for aname in sorted(ah.analysisNames()):
+        ana = rivet.AnalysisLoader.getAnalysis(aname)
+        bibs.append("% " + aname + "\n" + ana.bibTeX())
+    if bibs:
+        print "\nBibTeX for used Rivet analyses:\n"
+        print "% --------------------------\n"
+        print "\n\n".join(bibs) + "\n"
+        print "% --------------------------\n"
+
 
 ## Read and process events
 run = rivet.Run(ah)
