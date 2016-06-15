@@ -14,9 +14,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    EXAMPLE_SMEAR()
-      : Analysis("EXAMPLE_SMEAR")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_SMEAR);
 
 
     /// @name Analysis methods

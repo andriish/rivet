@@ -11,11 +11,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    EXAMPLE_CUTS()
-      : Analysis("EXAMPLE_CUTS")
-    {
-      // No counters etc. to initialise, hence nothing to do here!
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_CUTS);
 
 
     /// @name Analysis methods
