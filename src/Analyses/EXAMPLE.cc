@@ -14,12 +14,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    EXAMPLE()
-      : Analysis("EXAMPLE")
-    {
-      // No counters etc. to initialise, hence nothing to do here!
-    }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE);
 
     /// @name Analysis methods
     //@{
@@ -27,9 +22,13 @@ namespace Rivet {
     /// Set up projections and book histograms
     void init() {
       // Projections
+      MSG_TRACE(0);
       const FinalState cnfs(Cuts::abseta < 4 && Cuts::pT > 500*MeV);
+      MSG_TRACE(1);
       const ChargedFinalState cfs(cnfs);
+      MSG_TRACE(2);
       declare(cnfs, "FS");
+      MSG_TRACE(3);
       declare(cfs, "CFS");
       declare(FastJets(cnfs, FastJets::KT, 0.7), "Jets");
       declare(Thrust(cfs), "Thrust");
