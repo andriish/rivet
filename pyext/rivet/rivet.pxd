@@ -11,6 +11,8 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
         void setIgnoreBeams(bool)
         AnalysisHandler& addAnalysis(string)
+        vector[string] analysisNames() const
+        # Analysis* analysis(string)
         void writeData(string&)
         double crossSection()
         void finalize()
