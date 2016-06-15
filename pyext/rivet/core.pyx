@@ -24,6 +24,18 @@ cdef class AnalysisHandler:
         self._ptr.addAnalysis(name)
         return self
 
+    def analysisNames(self):
+        anames = self._ptr.analysisNames()
+        return [a for a in anames]
+
+    # def analysis(self, aname):
+    #     cdef c.Analysis* ptr = self._ptr.analysis(aname)
+    #     cdef Analysis pyobj = Analysis.__new__(Analysis)
+    #     if not ptr:
+    #         return None
+    #     pyobj._ptr = ptr
+    #     return pyobj
+
     def writeData(self, name):
         self._ptr.writeData(name)
 
