@@ -40,25 +40,27 @@ namespace Rivet {
 
 
   Vector3 cmsBoostBetaVec(const FourMomentum& pa, const FourMomentum& pb) {
-    Vector3 rtn = (pa.p3() + pb.p3()) / (pa.E() + pb.E()); ///< @todo Is the vector part of this correct in general?
+    // const Vector3 rtn = (pa.p3() + pb.p3()) / (pa.E() + pb.E());
+    const Vector3 rtn = (pa + pb).betaVec();
     return rtn;
   }
 
   Vector3 acmsBoostBetaVec(const FourMomentum& pa, const FourMomentum& pb) {
     const static double MNUCLEON = 939*MeV; //< nominal nucleon mass
-    Vector3 rtn = cmsBoostBetaVec(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
+    const Vector3 rtn = cmsBoostBetaVec(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
     return rtn;
   }
 
   Vector3 acmsBoostBetaVec(const ParticlePair& beams) {
-    Vector3 rtn = cmsBoostBetaVec(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
+    const Vector3 rtn = cmsBoostBetaVec(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
     return rtn;
   }
 
 
   Vector3 cmsBoostGammaVec(const FourMomentum& pa, const FourMomentum& pb) {
-    const double gamma = ( sqr(pa.mass()) + sqr(pb.mass()) + 2*(pa.E()*pb.E() - dot(pa.p3(), pb.p3())) ) / sqr(pa.E() + pb.E());
-    Vector3 rtn = gamma * cmsBoostBetaVec(pa, pb).unit(); ///< @todo Duh. There must be a better way to get the unit vector of boost direction...
+    // const double gamma = ( sqr(pa.mass()) + sqr(pb.mass()) + 2*(pa.E()*pb.E() - dot(pa.p3(), pb.p3())) ) / sqr(pa.E() + pb.E());
+    // const Vector3 rtn = gamma * (pa.p3() + pb.p3()).unit();
+    const Vector3 rtn = (pa + pb).gammaVec();
     return rtn;
   }
 

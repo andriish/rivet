@@ -29,6 +29,7 @@ int main() {
   const Vector3 gamma2a = cmsBoostGammaVec(pbeam2a, pbeam2b);
   //const Vector3 gamma2b = cmsBoostGammaVec(beam2a, beam2b);
   cout << "Gamma_asymm = " << gamma2a << endl; // << " or " << gamma2b << endl;
+  cout << "Gamma_asymm2 = " << (pbeam2a+pbeam2b).gammaVec() << endl; // << " or " << gamma2b << endl;
 
   const LorentzTransform trfb = LorentzTransform::mkFrameTransformFromBeta(cmsBoostBetaVec(pbeam1a, pbeam1b));
   cout << "Beta trf matrix = " << trfb << endl;
