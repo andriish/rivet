@@ -39,53 +39,53 @@ namespace Rivet {
   }
 
 
-  Vector3 cmsBoostBeta(const FourMomentum& pa, const FourMomentum& pb) {
+  Vector3 cmsBoostBetaVec(const FourMomentum& pa, const FourMomentum& pb) {
     Vector3 rtn = (pa.p3() + pb.p3()) / (pa.E() + pb.E()); ///< @todo Is the vector part of this correct in general?
     return rtn;
   }
 
-  Vector3 acmsBoostBeta(const FourMomentum& pa, const FourMomentum& pb) {
+  Vector3 acmsBoostBetaVec(const FourMomentum& pa, const FourMomentum& pb) {
     const static double MNUCLEON = 939*MeV; //< nominal nucleon mass
-    Vector3 rtn = cmsBoostBeta(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
+    Vector3 rtn = cmsBoostBetaVec(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
     return rtn;
   }
 
-  Vector3 acmsBoostBeta(const ParticlePair& beams) {
-    Vector3 rtn = cmsBoostBeta(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
+  Vector3 acmsBoostBetaVec(const ParticlePair& beams) {
+    Vector3 rtn = cmsBoostBetaVec(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
     return rtn;
   }
 
 
-  Vector3 cmsBoostGamma(const FourMomentum& pa, const FourMomentum& pb) {
+  Vector3 cmsBoostGammaVec(const FourMomentum& pa, const FourMomentum& pb) {
     const double gamma = ( sqr(pa.mass()) + sqr(pb.mass()) + 2*(pa.E()*pb.E() - dot(pa.p3(), pb.p3())) ) / sqr(pa.E() + pb.E());
-    Vector3 rtn = gamma * cmsBoostBeta(pa, pb).unit(); ///< @todo Duh. There must be a better way to get the unit vector of boost direction...
+    Vector3 rtn = gamma * cmsBoostBetaVec(pa, pb).unit(); ///< @todo Duh. There must be a better way to get the unit vector of boost direction...
     return rtn;
   }
 
-  Vector3 acmsBoostGamma(const FourMomentum& pa, const FourMomentum& pb) {
+  Vector3 acmsBoostGammaVec(const FourMomentum& pa, const FourMomentum& pb) {
     const static double MNUCLEON = 939*MeV; //< nominal nucleon mass
-    Vector3 rtn = cmsBoostGamma(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
+    Vector3 rtn = cmsBoostGammaVec(pa/(pa.mass()/MNUCLEON), pb/(pb.mass()/MNUCLEON));
     return rtn;
   }
 
-  Vector3 acmsBoostGamma(const ParticlePair& beams) {
-    Vector3 rtn = cmsBoostGamma(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
+  Vector3 acmsBoostGammaVec(const ParticlePair& beams) {
+    Vector3 rtn = cmsBoostGammaVec(beams.first.mom()/nuclA(beams.first), beams.second.mom()/nuclA(beams.second));
     return rtn;
   }
 
 
   LorentzTransform cmsTransform(const FourMomentum& pa, const FourMomentum& pb) {
     /// @todo Automatically choose to construct from beta or gamma according to which is more precise?
-    return LorentzTransform::mkFrameTransformFromGamma(cmsBoostGamma(pa, pb));
+    return LorentzTransform::mkFrameTransformFromGamma(cmsBoostGammaVec(pa, pb));
   }
 
   LorentzTransform acmsTransform(const FourMomentum& pa, const FourMomentum& pb) {
     /// @todo Automatically choose to construct from beta or gamma according to which is more precise?
-    return LorentzTransform::mkFrameTransformFromGamma(acmsBoostGamma(pa, pb));
+    return LorentzTransform::mkFrameTransformFromGamma(acmsBoostGammaVec(pa, pb));
   }
 
   LorentzTransform acmsTransform(const ParticlePair& beams) {
-    return LorentzTransform::mkFrameTransformFromGamma(acmsBoostGamma(beams));
+    return LorentzTransform::mkFrameTransformFromGamma(acmsBoostGammaVec(beams));
   }
 
 
