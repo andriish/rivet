@@ -51,39 +51,56 @@ namespace Rivet {
 
 
   /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of beam momenta
-  Vector3 cmsBoostBetaVec(const FourMomentum& pa, const FourMomentum& pb);
-
-  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of Particles
-  inline Vector3 cmsBoostBetaVec(const ParticlePair& beams) {
-    return cmsBoostBetaVec(beams.first, beams.second);
+  inline FourMomentum cmsBoostVec(const FourMomentum& pa, const FourMomentum& pb) {
+    return pa + pb;
   }
 
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of Particles
+  inline FourMomentum cmsBoostVec(const ParticlePair& beams) {
+    return cmsBoostVec(beams.first, beams.second);
+  }
 
-  /// Get the Lorentz boost to the per-nucleon beam centre-of-mass system (ACMS) from a pair of beam momenta
-  /// @note Uses a nominal nucleon mass of 0.939 GeV to convert masses to A
-  Vector3 acmsBoostBetaVec(const FourMomentum& pa, const FourMomentum& pb);
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of beam momenta
+  FourMomentum acmsBoostVec(const FourMomentum& pa, const FourMomentum& pb);
 
-  /// Get the Lorentz boost to the per-nucleon beam centre-of-mass system (ACMS) from a pair of Particles
-  /// @note Uses the sum of nuclear mass numbers A for each beam
-  Vector3 acmsBoostBetaVec(const ParticlePair& beams);
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of Particles
+  FourMomentum acmsBoostVec(const ParticlePair& beams);
 
 
   /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of beam momenta
-  Vector3 cmsBoostGammaVec(const FourMomentum& pa, const FourMomentum& pb);
+  Vector3 cmsBetaVec(const FourMomentum& pa, const FourMomentum& pb);
 
   /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of Particles
-  inline Vector3 cmsBoostGammaVec(const ParticlePair& beams) {
-    return cmsBoostGammaVec(beams.first, beams.second);
+  inline Vector3 cmsBetaVec(const ParticlePair& beams) {
+    return cmsBetaVec(beams.first, beams.second);
   }
 
 
   /// Get the Lorentz boost to the per-nucleon beam centre-of-mass system (ACMS) from a pair of beam momenta
   /// @note Uses a nominal nucleon mass of 0.939 GeV to convert masses to A
-  Vector3 acmsBoostGammaVec(const FourMomentum& pa, const FourMomentum& pb);
+  Vector3 acmsBetaVec(const FourMomentum& pa, const FourMomentum& pb);
 
   /// Get the Lorentz boost to the per-nucleon beam centre-of-mass system (ACMS) from a pair of Particles
   /// @note Uses the sum of nuclear mass numbers A for each beam
-  Vector3 acmsBoostGammaVec(const ParticlePair& beams);
+  Vector3 acmsBetaVec(const ParticlePair& beams);
+
+
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of beam momenta
+  Vector3 cmsGammaVec(const FourMomentum& pa, const FourMomentum& pb);
+
+  /// Get the Lorentz boost to the beam centre-of-mass system (CMS) from a pair of Particles
+  inline Vector3 cmsGammaVec(const ParticlePair& beams) {
+    return cmsGammaVec(beams.first, beams.second);
+  }
+
+
+  /// Get the Lorentz boost to the per-nucleon beam centre-of-mass system (ACMS) from a pair of beam momenta
+  /// @note Uses a nominal nucleon mass of 0.939 GeV to convert masses to A
+  Vector3 acmsGammaVec(const FourMomentum& pa, const FourMomentum& pb);
+
+  /// Get the Lorentz boost to the per-nucleon beam centre-of-mass system (ACMS) from a pair of Particles
+  /// @note Uses the sum of nuclear mass numbers A for each beam
+  Vector3 acmsGammaVec(const ParticlePair& beams);
 
 
   /// Get the Lorentz transformation to the beam centre-of-mass system (CMS) from a pair of beam momenta
@@ -133,13 +150,16 @@ namespace Rivet {
     double sqrtS() const { return Rivet::sqrtS(beams()); }
 
     /// Get the Lorentz boost to the beam centre-of-mass
-    Vector3 cmsBoostBeta() const { return Rivet::cmsBoostBetaVec(beams()); }
-
-    /// Get the Lorentz boost to the beam centre-of-mass
-    Vector3 cmsBoostGamma() const { return Rivet::cmsBoostGammaVec(beams()); }
+    FourMomentum cmsBoostVec() const { return Rivet::cmsBoostVec(beams()); }
 
     /// Get the Lorentz transform to the beam centre-of-mass
     LorentzTransform cmsTransform() const { return Rivet::cmsTransform(beams()); }
+
+    /// Get the beta factor vector for the Lorentz boost to the beam centre-of-mass
+    Vector3 cmsBetaVec() const { return Rivet::cmsBetaVec(beams()); }
+
+    /// Get the gamma factor vector for the Lorentz boost to the beam centre-of-mass
+    Vector3 cmsGammaVec() const { return Rivet::cmsGammaVec(beams()); }
 
     //@}
 
@@ -151,10 +171,10 @@ namespace Rivet {
     double asqrtS() const { return Rivet::asqrtS(beams()); }
 
     /// Get the Lorentz boost to the per-nucleon beam centre-of-mass
-    Vector3 acmsBoostBeta() const { return Rivet::acmsBoostBetaVec(beams()); }
+    Vector3 acmsBetaVec() const { return Rivet::acmsBetaVec(beams()); }
 
     /// Get the Lorentz boost to the per-nucleon beam centre-of-mass
-    Vector3 acmsBoostGamma() const { return Rivet::acmsBoostGammaVec(beams()); }
+    Vector3 acmsGammaVec() const { return Rivet::acmsGammaVec(beams()); }
 
     /// Get the Lorentz transform to the per-nucleon beam centre-of-mass
     LorentzTransform acmsTransform() const { return Rivet::acmsTransform(beams()); }
@@ -165,8 +185,6 @@ namespace Rivet {
     /// Get the beam interaction primary vertex (PV) position
     FourVector pv() const;
 
-
-  public:
 
     /// Project on to the Event
     virtual void project(const Event& e);

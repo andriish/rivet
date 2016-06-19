@@ -72,6 +72,10 @@ namespace Rivet {
       return (t() + z())*(t() - z()) - x()*x() - y()*y();
     }
 
+    bool isNull() const {
+      return Rivet::isZero(invariant());
+    }
+
     /// Angle between this vector and another
     double angle(const FourVector& v) const {
       return vector3().angle( v.vector3() );

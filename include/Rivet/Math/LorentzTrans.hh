@@ -50,6 +50,12 @@ namespace Rivet {
     /// @name Construction
     //@{
 
+    /// Default (identity) constructor
+    LorentzTransform() {
+      _boostMatrix = Matrix<4>::mkIdentity();
+    }
+
+
     /// Make an LT for an active boost (i.e. object velocity += in boost direction)
     static LorentzTransform mkObjTransformFromBeta(const Vector3& vbeta) {
       LorentzTransform rtn;
@@ -65,19 +71,15 @@ namespace Rivet {
     /// Make an LT for an active boost (i.e. object velocity += in boost direction)
     static LorentzTransform mkObjTransformFromGamma(const Vector3& vgamma) {
       LorentzTransform rtn;
-      return rtn.setGammaVec(vgamma);
+      if (!vgamma.isZero()) rtn.setGammaVec(vgamma);
+      return rtn;
     }
 
     /// Make an LT for a passive boost (i.e. object velocity -= in boost direction)
     static LorentzTransform mkFrameTransformFromGamma(const Vector3& vgamma) {
       LorentzTransform rtn;
-      return rtn.setGammaVec(-vgamma);
-    }
-
-
-    /// Default (identity) constructor
-    LorentzTransform() {
-      _boostMatrix = Matrix<4>::mkIdentity();
+      if (!vgamma.isZero()) rtn.setGammaVec(-vgamma);
+      return rtn;
     }
 
     //@}
