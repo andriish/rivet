@@ -69,9 +69,9 @@ namespace Rivet {
 
 
   Vector3 cmsGammaVec(const FourMomentum& pa, const FourMomentum& pb) {
-    // const double gamma = ( sqr(pa.mass()) + sqr(pb.mass()) + 2*(pa.E()*pb.E() - dot(pa.p3(), pb.p3())) ) / sqr(pa.E() + pb.E());
-    // const Vector3 rtn = gamma * (pa.p3() + pb.p3()).unit();
-    const Vector3 rtn = (pa + pb).gammaVec();
+    // const Vector3 rtn = (pa + pb).gammaVec();
+    const double gamma = (pa.E() + pb.E()) / sqrt( sqr(pa.mass()) + sqr(pb.mass()) + 2*(pa.E()*pb.E() - dot(pa.p3(), pb.p3())) );
+    const Vector3 rtn = gamma * (pa.p3() + pb.p3()).unit();
     return rtn;
   }
 
