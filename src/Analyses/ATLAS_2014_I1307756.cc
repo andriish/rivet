@@ -142,7 +142,7 @@ namespace Rivet {
 
   private:
 
-    vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
+    const vector<double> _eta_bins_areaoffset = {0.0, 1.5, 3.0};
     double _fidWeights;
 
   };
