@@ -1,3 +1,7 @@
+2016-06-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS_2016_I1457605 inclusive photon analysis at 8 TeV.
+
 2016-06-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a --show-bibtex option to the rivet script, for convenient
