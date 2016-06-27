@@ -6,6 +6,7 @@ Collider: HERA Run I
 SpiresID: 4815815
 Status: UNVALIDATED
 Authors:
+ - Andy Buckley <andy.buckley@cern.ch>
  - Jon Butterworth <jmb@hep.ucl.ac.uk>
 References:
  - Eur.Phys.J.C23:615,2002
