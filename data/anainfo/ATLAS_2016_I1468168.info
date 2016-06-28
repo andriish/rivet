@@ -19,7 +19,7 @@ Energies: [13000]
 PtCuts: [25,25]
 NeedCrossSection: True
 Description:
-     This paper describes a measurement of the inclusive top quark pair production cross-section ($\sigma_{t\bar{t}}$) with a data
+     'This paper describes a measurement of the inclusive top quark pair production cross-section ($\sigma_{t\bar{t}}$) with a data
      sample of 3.2~fb${}^{-1}$ of proton-proton collisions at a centre-of-mass energy of $\sqrt{s}=13$~TeV, collected in 2015 by the
      ATLAS detector at the LHC. This measurement uses events with an opposite-charge electron-muon pair in the final state. Jets
      containing $b$-quarks are tagged using an algorithm based on track impact parameters and reconstructed secondary vertices. The
@@ -29,7 +29,7 @@ Description:
      (lumi) $\pm 12$ (beam) pb, where the four uncertainties arise from data statistics, experimental and theoretical systematic effects,
      the integrated luminosity and the LHC beam energy, giving a total relative uncertainty of 4.4\%. The result is consistent with
      theoretical QCD calculations at next-to-next-to-leading order. A fiducial measurement corresponding to the experimental acceptance
-     of the leptons is also presented.
+     of the leptons is also presented.'
 BibKey: Aaboud:2016pbd
 BibTeX: '@article{Aaboud:2016pbd,
       author         = "Aaboud, Morad and others",
