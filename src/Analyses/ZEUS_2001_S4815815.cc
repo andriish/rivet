@@ -12,6 +12,8 @@ namespace Rivet {
   /// This class is a reproduction of the HZTool routine for the ZEUS
   /// dijet photoproduction paper which was used in the ZEUS jets PDF fit.
   ///
+  /// @note Cleaning cuts on event pT/sqrt(Et) and y_e are not needed in MC analysis.
+  ///
   /// @author Andy Buckley
   class ZEUS_2001_S4815815 : public Analysis {
   public:
@@ -27,8 +29,7 @@ namespace Rivet {
 
       /// @todo Acceptance
       FinalState fs;
-      /// @todo What kT radius? Or was this exclusive kT... with what threshold?
-      declare(FastJets(fs, FastJets::KT, 0.7), "Jets");
+      declare(FastJets(fs, FastJets::KT, 1.0), "Jets"); //< R=1 checked with Matt Wing
 
       /// @todo Dress the lepton?
       IdentifiedFinalState positrons(fs, PID::POSITRON);
@@ -88,9 +89,6 @@ namespace Rivet {
       const Jet& j2 = jets[1];
       if (j1.pT() < 14*GeV) vetoEvent;
 
-      /// @todo Cut to require event pT/sqrt(Et) < 1.5 sqrt(GeV)? How are event pT and event Et defined? Acceptance?
-      //const MissingMomentum mm = apply<MissingMomentum>(event, "TotalMom");
-
       // eta and cos(theta*) computation
       const double eta1 = orientation*j1.eta(), eta2 = orientation*j2.eta();
       const double etabar = (eta1 + eta2)/2;
@@ -102,14 +100,16 @@ namespace Rivet {
       if (positrons.empty()) vetoEvent;
       const Particle& positron = positrons.front();
 
-      // Cut on inelasticity estimator y_e
-      const double Eeprime = positron.E();
-      const double Ee = bpositron.E(); /// @todo Should this be in proton rest frame?
-      const double inelasticity = 1 - (Eeprime/Ee/2.0)*(1 - positron.theta());
-      if (!inRange(inelasticity, 0.2, 0.85)) vetoEvent; ///< @note The cuts on y_e and Y_JB look contradictory! These are just y_JB
+      // Calculate the photon 4-vector
+      const FourMomentum qphoton = positron.mom() - bpositron.mom();
+
+      // Computation and cut on inelasticity
+      const double inelasticity = dot(bproton.mom(), qphoton) / dot(bproton.mom(), bpositron.mom());
+      if (!inRange(inelasticity, 0.2, 0.85)) vetoEvent;
 
       // Computation of x_y^obs
-      const double xyobs = (j1.Et() * exp(-eta1) + j2.Et() * exp(-eta2)) / (2*inelasticity*Ee); /// @todo Is y_e that the correct y?!?
+      // (I assume Ee is the lab frame positron momentum, not in proton rest frame cf. the ambiguous phrase in the paper)
+      const double xyobs = (j1.Et() * exp(-eta1) + j2.Et() * exp(-eta2)) / (2*inelasticity*bpositron.E());
       const size_t i_xyobs = (xyobs < 0.75) ? 0 : 1;
 
       // Fill histograms
