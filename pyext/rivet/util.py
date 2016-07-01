@@ -183,11 +183,12 @@ def detex(tex):
     """
     import subprocess, shlex
     nowrap_flags = "--wrap=none"
-    x = subprocess.Popen(["pandoc", nowrap_flags, "/dev/null"], stdout=subprocess.PIPE).wait()
+    x = subprocess.Popen(["pandoc", nowrap_flags, "/dev/null"],
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE).wait()
     if x != 0:
         nowrap_flags = "--no-wrap"
     p = subprocess.Popen(shlex.split("pandoc -f latex -t plain " + nowrap_flags),
-                         stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+                         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     texbody = tex if type(tex) is str else "@@".join(tex)
     # texbody = texbody.replace("$", "")
     plain, err = p.communicate((texheader + texbody).replace("\n", ""))

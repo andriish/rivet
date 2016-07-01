@@ -1,4 +1,10 @@
+2016-07-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix pandoc interface flag version detection.
+
 2016-06-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release version 2.4.3
 
 	* Add ATLAS_2016_I1468168 early ttbar fully leptonic fiducial
 	cross-section analysis at 13 TeV.
