@@ -2104,58 +2104,58 @@ class Ticks(object):
         self.description = description
         self.coors = coors
 
-    def draw_ticks(self, min, max, plotlog=False, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
+    def draw_ticks(self, vmin, vmax, plotlog=False, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
         out = ""
         if plotlog:
-            if min <= 0 or max <= 0:
+            if vmin <= 0 or vmax <= 0:
                 raise Exception("Cannot place log axis min or max tick <= 0")
             if custommajorticks is None:
-                x=int(log10(min))
-                n_labels=0
-                while (x<log10(max)+1):
-                    if 10**x>=min:
-                        ticklabel=10**x
-                        if ticklabel>min and ticklabel<max:
+                x = int(log10(vmin))
+                n_labels = 0
+                while x < log10(vmax) + 1:
+                    if 10**x >= vmin:
+                        ticklabel = 10**x
+                        if ticklabel > vmin and ticklabel < vmax:
                             out += self.draw_majortick(ticklabel,twosided)
                             if drawlabels:
                                 out += self.draw_majorticklabel(ticklabel)
-                                n_labels+=1
-                        if ticklabel==min or ticklabel==max:
+                                n_labels += 1
+                        if ticklabel == vmin or ticklabel == vmax:
                             if drawlabels:
                                 out += self.draw_majorticklabel(ticklabel)
                                 n_labels+=1
                         for i in range(2,10):
-                            ticklabel=i*10**(x-1)
-                            if ticklabel>min and ticklabel<max:
+                            ticklabel = i*10**(x-1)
+                            if ticklabel > vmin and ticklabel < vmax:
                                 out += self.draw_minortick(ticklabel,twosided)
-                                if drawlabels and n_labels==0:
-                                    if (i+1)*10**(x-1)<max: # some special care for the last minor tick
+                                if drawlabels and n_labels == 0:
+                                    if (i+1)*10**(x-1) < vmax: # some special care for the last minor tick
                                         out += self.draw_minorticklabel(ticklabel)
                                     else:
                                         out += self.draw_minorticklabel(ticklabel, last=True)
-                    x+=1
+                    x += 1
             else:
                 print "Warning: custom major ticks not currently supported on log axes -- please contact the developers to request!"
         elif custommajorticks is not None or customminorticks is not None:
             if custommajorticks:
                 for i in range(len(custommajorticks)):
-                    value=custommajorticks[i]['Value']
-                    label=custommajorticks[i]['Label']
-                    if value>=min and value<=max:
+                    value = custommajorticks[i]['Value']
+                    label = custommajorticks[i]['Label']
+                    if value >= vmin and value <= vmax:
                         out += self.draw_majortick(value,twosided)
                     if drawlabels:
                         out += self.draw_majorticklabel(value, label=label)
             if customminorticks:
                 for i in range(len(customminorticks)):
-                    value=customminorticks[i]['Value']
-                    if value>=min and value<=max:
+                    value = customminorticks[i]['Value']
+                    if value >= vmin and value <= vmax:
                         out += self.draw_minortick(value,twosided)
         else:
-            xrange = max-min
-            digits = int(log10(xrange))+1
-            if (xrange < 1):
+            vrange = vmax - vmin
+            digits = int(log10(vrange))+1
+            if vrange < 1:
                 digits -= 1
-            foo = int(xrange/(10**(digits-1)))
+            foo = int(vrange/(10**(digits-1)))
             if (foo/9. > 0.5):
                 tickmarks = 10
             elif (foo/9. > 0.2):
@@ -2163,30 +2163,29 @@ class Ticks(object):
             elif (foo/9. > 0.1):
                 tickmarks = 2
 
-            if (custommajortickmarks>-1):
+            if custommajortickmarks > -1:
                 if custommajortickmarks not in [1, 2, 5, 10, 20]:
                     print '+++ Error in Ticks.draw_ticks(): MajorTickMarks must be in [1, 2, 5, 10, 20]'
                 else:
-                    #if custommajortickmarks==1: custommajortickmarks=10
                     tickmarks = custommajortickmarks
 
-            if (tickmarks == 2 or tickmarks == 20):
+            if tickmarks == 2 or tickmarks == 20:
                 minortickmarks = 3
             else:
                 minortickmarks = 4
-            if (customminortickmarks>-1):
+            if customminortickmarks > -1:
                 minortickmarks = customminortickmarks
             #
             x = 0
-            while (x > min*10**digits):
+            while x > vmin*10**digits:
                 x -= tickmarks*100**(digits-1)
-            while (x <= max*10**digits):
-                if (x >= min*10**digits-tickmarks*100**(digits-1)):
+            while x <= vmax*10**digits:
+                if x >= vmin*10**digits - tickmarks*100**(digits-1):
                     ticklabel = 1.*x/10**digits
-                    if (int(ticklabel) == ticklabel):
+                    if int(ticklabel) == ticklabel:
                         ticklabel = int(ticklabel)
-                    if (float(ticklabel-min)/xrange >= -1e-5):
-                        if (fabs(ticklabel-min)/xrange > 1e-5 and fabs(ticklabel-max)/xrange > 1e-5):
+                    if float(ticklabel-vmin)/vrange >= -1e-5:
+                        if abs(ticklabel-vmin)/vrange > 1e-5 and abs(ticklabel-vmax)/vrange > 1e-5:
                             out += self.draw_majortick(ticklabel,twosided)
                         if drawlabels:
                             out += self.draw_majorticklabel(ticklabel)
@@ -2195,8 +2194,8 @@ class Ticks(object):
                     for i in range(minortickmarks):
                         xminor += 1.*tickmarks*100**(digits-1)/(minortickmarks+1)
                         ticklabel = 1.*xminor/10**digits
-                        if (ticklabel > min and ticklabel < max):
-                            if (fabs(ticklabel-min)/xrange > 1e-5 and fabs(ticklabel-max)/xrange > 1e-5):
+                        if ticklabel > vmin and ticklabel < vmax:
+                            if abs(ticklabel-vmin)/vrange > 1e-5 and abs(ticklabel-vmax)/vrange > 1e-5:
                                 out += self.draw_minortick(ticklabel,twosided)
                 x += tickmarks*100**(digits-1)
         return out
