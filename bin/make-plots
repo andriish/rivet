@@ -1806,48 +1806,48 @@ class Histogram(DrawableObject, Described):
         if self.data:
             out += "% START DATA\n"
             if self.is2dim:
-                for i in xrange(len(self.data)):
+                for b in self.data:
                     out += ('\\psframe')
-                    color=int(129*coors.phys2frameZ(self.data[i].val))
-                    if self.data[i].val>coors.zmax():
-                        color=129
-                    if self.data[i].val<coors.zmin():
-                        color=0
-                    if self.data[i].val<=coors.zmin():
+                    color = int(129*coors.phys2frameZ(b.val))
+                    if b.val > coors.zmax():
+                        color = 129
+                    if b.val < coors.zmin():
+                        color = 0
+                    if b.val <= coors.zmin():
                         out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor=white]')
                     else:
                         out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
-                    out += ('(' + coors.strphys2frameX(self.data[i].xmin[0]) + ', ' \
-                                + coors.strphys2frameY(self.data[i].xmin[1]) + ')(' \
-                                + coors.strphys2frameX(self.data[i].xmax[0])  + ', ' \
-                                + coors.strphys2frameY(self.data[i].xmax[1])  + ')\n')
+                    out += ('(' + coors.strphys2frameX(b.low[0]) + ', ' \
+                                + coors.strphys2frameY(b.low[1]) + ')(' \
+                                + coors.strphys2frameX(b.high[0])  + ', ' \
+                                + coors.strphys2frameY(b.high[1])  + ')\n')
             else:
                 if self.getErrorBands():
-                    self.description['SmoothLine']=0
-                    for i in xrange(len(self.data)):
+                    self.description['SmoothLine'] = 0
+                    for b in self.data:
                         out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
-                        out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val-self.data[i].err[0]) + ')(' \
-                                    + coors.strphys2frameX(self.data[i].xmax)  + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val+self.data[i].err[1]) + ')\n')
+                        out += ('(' + coors.strphys2frameX(b.xmin) + ', ' \
+                                    + coors.strphys2frameY(b.val - b.err[0]) + ')(' \
+                                    + coors.strphys2frameX(b.xmax)  + ', ' \
+                                    + coors.strphys2frameY(b.val + b.err[1]) + ')\n')
                 if self.getErrorBars():
-                    for i in xrange(len(self.data)):
-                        if isnan(self.data[i].val) or isnan(self.data[i].err[0]) or isnan(self.data[i].err[1]):
+                    for b in self.data:
+                        if isnan(b.val) or isnan(b.err[0]) or isnan(b.err[1]):
                             seen_nan = True
                             continue
-                        if self.data[i].val == 0. and self.data[i].err == [0.,0.]:
+                        if b.val == 0. and b.err == [0.,0.]:
                             continue
                         out += ('\\psline')
-                        out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val) + ')(' \
-                                    + coors.strphys2frameX(self.data[i].xmax)  + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val) + ')\n')
+                        out += ('(' + coors.strphys2frameX(b.xmin) + ', ' \
+                                    + coors.strphys2frameY(b.val) + ')(' \
+                                    + coors.strphys2frameX(b.xmax)  + ', ' \
+                                    + coors.strphys2frameY(b.val) + ')\n')
                         out += ('\\psline')
-                        bincenter = coors.strphys2frameX(.5*(self.data[i].xmin+self.data[i].xmax))
+                        bincenter = coors.strphys2frameX(.5*(b.xmin+b.xmax))
                         out += ('(' + bincenter + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val-self.data[i].err[0]) + ')(' \
+                                    + coors.strphys2frameY(b.val-b.err[0]) + ')(' \
                                     + bincenter + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val+self.data[i].err[1]) + ')\n')
+                                    + coors.strphys2frameY(b.val+b.err[1]) + ')\n')
                 if self.getSmoothLine():
                     out += '\\psbezier'
                 else:
@@ -1857,25 +1857,25 @@ class Histogram(DrawableObject, Described):
                         out += '(' + coors.strphys2frameX(self.data[0].xmin) + ', -0.1)\n'
                     else:
                         out += '(-0.1, -0.1)\n'
-                for i in xrange(len(self.data)):
-                    if isnan(self.data[i].val):
+                for i, b in enumerate(self.data):
+                    if isnan(b.val):
                         seen_nan = True
                         continue
                     if self.getSmoothLine():
-                        out += ('(' + coors.strphys2frameX(0.5*(self.data[i].xmin+self.data[i].xmax)) + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val) + ')\n')
+                        out += ('(' + coors.strphys2frameX(0.5*(b.xmin+b.xmax)) + ', ' \
+                                    + coors.strphys2frameY(b.val) + ')\n')
                     else:
-                        out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val) + ')(' \
-                                    + coors.strphys2frameX(self.data[i].xmax)  + ', ' \
-                                    + coors.strphys2frameY(self.data[i].val) + ')\n')
+                        out += ('(' + coors.strphys2frameX(b.xmin) + ', ' \
+                                    + coors.strphys2frameY(b.val) + ')(' \
+                                    + coors.strphys2frameX(b.xmax)  + ', ' \
+                                    + coors.strphys2frameY(b.val) + ')\n')
                         ## Join/separate data points, with vertical/diagonal lines
-                        if (i+1 < len(self.data)): #< If this is not the last point
+                        if i+1 < len(self.data): #< If this is not the last point
                             if self.description.get('ConnectBins', '1') != '1':
                                 out += ('\\psline')
                             else:
                                 ## If bins are joined, but there is a gap in binning, choose whether to fill the gap
-                                if (abs(coors.phys2frameX(self.data[i].xmax) - coors.phys2frameX(self.data[i+1].xmin)) > 1e-4):
+                                if (abs(coors.phys2frameX(b.xmax) - coors.phys2frameX(self.data[i+1].xmin)) > 1e-4):
                                     if self.description.get('ConnectGaps', '0') != '1':
                                         out += ('\\psline')
                                         # TODO: Perhaps use a new dashed line to fill the gap?
@@ -1887,14 +1887,14 @@ class Histogram(DrawableObject, Described):
             #
             if self.getPolyMarker() != '':
                 for i in xrange(len(self.data)):
-                    if isnan(self.data[i].val):
+                    if isnan(b.val):
                         seen_nan = True
                         continue
-                    if self.data[i].val==0. and self.data[i].err==[0.,0.]:
+                    if b.val==0. and b.err==[0.,0.]:
                         continue
                     out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
-                                + coors.strphys2frameX(.5*(self.data[i].xmin+self.data[i].xmax)) + ', ' \
-                                + coors.strphys2frameY(self.data[i].val) + ')\n')
+                                + coors.strphys2frameX(.5*(b.xmin+b.xmax)) + ', ' \
+                                + coors.strphys2frameY(b.val) + ')\n')
 
             out += "% END DATA\n"
 
@@ -1911,35 +1911,35 @@ class Histogram(DrawableObject, Described):
         if not self.data:
             return 0
         elif self.is2dim:
-            return min([self.data[i].xmin[0] for i in range(len(self.data))])
+            return min(b.low[0] for b in self.data)
         else:
-            return min([self.data[i].xmin for i in range(len(self.data))])
+            return min(b.xmin for b in self.data)
 
     def getXMax(self):
         if not self.data:
             return 1
         elif self.is2dim:
-            return max([self.data[i].xmax[0] for i in range(len(self.data))])
+            return max(b.high[0] for b in self.data)
         else:
-            return max([self.data[i].xmax for i in range(len(self.data))])
+            return max(b.xmax for b in self.data)
 
     def getYMin(self, xmin, xmax, logy):
         if not self.data:
             return 0
         elif self.is2dim:
-            return min([self.data[i].xmin[1] for i in range(len(self.data))])
+            return min(b.low[1] for b in self.data)
         else:
             yvalues = []
-            for i in range(len(self.data)):
-                if ((self.data[i].xmax > xmin or self.data[i].xmin >= xmin) and \
-                    (self.data[i].xmin < xmax or self.data[i].xmax <= xmax)):
+            for b in self.data:
+                if ((b.xmax > xmin or b.xmin >= xmin) and (b.xmin < xmax or b.xmax <= xmax)):
                     foo = 0
                     if self.getErrorBars() or self.getErrorBands():
-                        foo = self.data[i].val-self.data[i].err[0]
+                        foo = b.val - b.err[0]
                     else:
-                        foo = self.data[i].val
+                        foo = b.val
                     if logy:
-                        if foo>0: yvalues.append(foo)
+                        if foo > 0:
+                            yvalues.append(foo)
                     else:
                         yvalues.append(foo)
             if len(yvalues) > 0:
@@ -1951,16 +1951,15 @@ class Histogram(DrawableObject, Described):
         if not self.data:
             return 1
         elif self.is2dim:
-            return max([self.data[i].xmax[1] for i in range(len(self.data))])
+            return max(b.high[1] for b in self.data)
         else:
             yvalues = []
-            for i in range(len(self.data)):
-                if ((self.data[i].xmax > xmin or self.data[i].xmin >= xmin) and \
-                    (self.data[i].xmin < xmax or self.data[i].xmax <= xmax)):
+            for b in self.data:
+                if ((b.xmax > xmin or b.xmin >= xmin) and (b.xmin < xmax or b.xmax <= xmax)):
                     if self.getErrorBars() or self.getErrorBands():
-                        yvalues.append(self.data[i].val+self.data[i].err[1])
+                        yvalues.append(b.val + b.err[1])
                     else:
-                        yvalues.append(self.data[i].val)
+                        yvalues.append(b.val)
             if len(yvalues) > 0:
                 return max(yvalues)
             else:
@@ -1970,20 +1969,18 @@ class Histogram(DrawableObject, Described):
         if not self.is2dim:
             return 0
         zvalues = []
-        for i in range(len(self.data)):
-            if (self.data[i].xmax[0] > xmin and self.data[i].xmin[0] < xmax) and \
-               (self.data[i].xmax[1] > ymin and self.data[i].xmin[1] < ymax):
-                zvalues.append(self.data[i].val)
+        for b in self.data:
+            if (b.xmax[0] > xmin and b.xmin[0] < xmax) and (b.xmax[1] > ymin and b.xmin[1] < ymax):
+                zvalues.append(b.val)
         return min(zvalues)
 
     def getZMax(self, xmin, xmax, ymin, ymax):
         if not self.is2dim:
             return 0
         zvalues = []
-        for i in range(len(self.data)):
-            if (self.data[i].xmax[0] > xmin and self.data[i].xmin[0] < xmax) and \
-               (self.data[i].xmax[1] > ymin and self.data[i].xmin[1] < ymax):
-                zvalues.append(self.data[i].val)
+        for b in self.data:
+            if (b.xmax[0] > xmin and b.xmin[0] < xmax) and (b.xmax[1] > ymin and b.xmin[1] < ymax):
+                zvalues.append(b.val)
         return max(zvalues)
 
 
