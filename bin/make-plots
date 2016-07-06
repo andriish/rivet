@@ -1446,21 +1446,60 @@ def floatpair(x):
 
 
 class BinData(object):
+    """\
+    Store bin edge and value+error(s) data for a 1D or 2D bin.
 
-    def __init__(self, xmin, xmax, y, ey):
-        self.xmin = floatify(xmin)
-        self.xmax = floatify(xmax)
-        self.y = float(y)
-        self.ey = floatpair(ey)
+    TODO: generalise/alias the attr names to avoid mention of x and y
+    """
+
+    def __init__(self, low, high, val, err):
+        self.low = floatify(low)
+        self.high = floatify(high)
+        self.val = float(val)
+        self.err = floatpair(err)
+
+    @property
+    def is2D(self):
+        return hasattr(self.low, "__len__") and hasattr(self.high, "__len__")
+
+    @property
+    def xmin(self):
+        return self.low
+    @xmin.setter
+    def xmin(self,x):
+        self.low = x
+
+    @property
+    def xmax(self):
+        return self.high
+    @xmax.setter
+    def xmax(self,x):
+        self.high = x
 
     @property
     def xmid(self):
+        # TODO: Generalise to 2D
         return (self.xmin + self.xmax) / 2.0
 
     @property
     def xwidth(self):
-        assert self.xmin =< self.xmax
+        # TODO: Generalise to 2D
+        assert self.xmin <= self.xmax
         return self.xmax - self.xmin
+
+    @property
+    def y(self):
+        return self.val
+    @y.setter
+    def y(self, x):
+        self.val = x
+
+    @property
+    def ey(self):
+        return self.err
+    @ey.setter
+    def ey(self, x):
+        self.err = x
 
     @property
     def ymin(self):
@@ -1472,9 +1511,9 @@ class BinData(object):
 
     def __getitem__(self, key):
         "dict-like access for backward compatibility"
-        if key in ("LowEdge", "XMin"):
+        if key in ("LowEdge"):
             return self.xmin
-        elif key == ("UpEdge", "HighEdge", "XMax"):
+        elif key == ("UpEdge", "HighEdge"):
             return self.xmax
         elif key == "Content":
             return self.y
@@ -1539,62 +1578,59 @@ class Histogram(DrawableObject):
             # TODO: change to "in self.data"?
             for i in range(len(self.data)):
                 if norm2sum:
-                    foo += self.data[i]['Content']
+                    foo += self.data[i].val
                 else:
-                    foo += self.data[i]['Content']*(self.data[i]['UpEdge']-self.data[i]['LowEdge'])
+                    foo += self.data[i].val*(self.data[i].xmax-self.data[i].xmin)
             # TODO: change to "in self.data"?
             for i in range(len(self.data)):
-                self.data[i].y /= foo
-                self.data[i].ey[0] /= foo
-                self.data[i].ey[1] /= foo
+                self.data[i].val /= foo
+                self.data[i].err[0] /= foo
+                self.data[i].err[1] /= foo
         scale = self.description.attr_float('Scale', 1.0)
         if scale != 1.0:
             # TODO: change to "in self.data"?
             for i in range(len(self.data)):
-                self.data[i].y *= scale
-                self.data[i].ey[0] *= scale
-                self.data[i].ey[1] *= scale
-        if self.description.has_key('Rebin') and self.description['Rebin']!='':
-            rebin = int(self.description['Rebin'])
-            errortype = "stat"
-            if self.description.has_key('ErrorType') and self.description['ErrorType']!='':
-                errortype = self.description['ErrorType']
+                self.data[i].val *= scale
+                self.data[i].err[0] *= scale
+                self.data[i].err[1] *= scale
+        if self.description.attr_int("Rebin", 1) > 1:
+            rebin = self.description.attr_int("Rebin", 1)
+            errortype = self.description.attr("ErrorType", "stat")
             newdata = []
-            if rebin >= 2:
-                for i in range(0, (len(self.data)//rebin)*rebin, rebin):
-                    foo = 0.
-                    barl = 0.
-                    baru = 0.
-                    for j in range(rebin):
-                        binwidth = self.data[i+j].xwidth
-                        foo += self.data[i+j].y * binwidth
-                        if errortype == "stat":
-                            barl += (binwidth * self.data[i+j].ey[0])**2
-                            baru += (binwidth * self.data[i+j].ey[1])**2
-                        elif errortype == "env":
-                            barl += self.data[i+j].ymin * binwidth
-                            baru += self.data[i+j].ymax * binwidth
-                        else:
-                            logging.error("Rebinning for ErrorType not implemented.")
-                            sys.exit(1)
-                    newbinwidth = self.data[i+rebin-1]['UpEdge']-self.data[i]['LowEdge']
-                    newcentral = foo/newbinwidth
+            for i in range(0, (len(self.data)//rebin)*rebin, rebin):
+                foo = 0.
+                barl = 0.
+                baru = 0.
+                for j in range(rebin):
+                    binwidth = self.data[i+j].xwidth
+                    foo += self.data[i+j].val * binwidth
                     if errortype == "stat":
-                        newerror = [sqrt(barl)/newbinwidth, sqrt(baru)/newbinwidth]
+                        barl += (binwidth * self.data[i+j].err[0])**2
+                        baru += (binwidth * self.data[i+j].err[1])**2
                     elif errortype == "env":
-                        newerror = [(foo-barl)/newbinwidth, (baru-foo)/newbinwidth]
-                    newdata.append(BinData(self.data[i].xmin, self.data[i+rebin-1].xmax, newcentral, newerror))
-                self.data = newdata
+                        barl += self.data[i+j].ymin * binwidth
+                        baru += self.data[i+j].ymax * binwidth
+                    else:
+                        logging.error("Rebinning for ErrorType not implemented.")
+                        sys.exit(1)
+                newbinwidth = self.data[i+rebin-1].xmax - self.data[i].xmin
+                newcentral = foo/newbinwidth
+                if errortype == "stat":
+                    newerror = [sqrt(barl)/newbinwidth, sqrt(baru)/newbinwidth]
+                elif errortype == "env":
+                    newerror = [(foo-barl)/newbinwidth, (baru-foo)/newbinwidth]
+                newdata.append(BinData(self.data[i].xmin, self.data[i+rebin-1].xmax, newcentral, newerror))
+            self.data = newdata
 
     def add(self, name):
         if len(self.data) != len(name.data):
             print '+++ Error in Histogram.add() for %s: different numbers of bins' % self.path
         for i in range(len(self.data)):
-            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
-               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
-                self.data[i]['Content'] += name.data[i]['Content']
-                self.data[i]['Error'][0] = sqrt(self.data[i]['Error'][0]**2 + name.data[i]['Error'][0]**2)
-                self.data[i]['Error'][1] = sqrt(self.data[i]['Error'][1]**2 + name.data[i]['Error'][1]**2)
+            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
+               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
+                self.data[i].val += name.data[i].val
+                self.data[i].err[0] = sqrt(self.data[i].err[0]**2 + name.data[i].err[0]**2)
+                self.data[i].err[1] = sqrt(self.data[i].err[1]**2 + name.data[i].err[1]**2)
             else:
                 print '+++ Error in Histogram.add() for %s: binning of histograms differs' % self.path
 
@@ -1603,22 +1639,22 @@ class Histogram(DrawableObject):
         if len(self.data) != len(name.data):
             print '+++ Error in Histogram.divide() for %s: different numbers of bins' % self.path
         for i in range(len(self.data)):
-            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
-               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
+               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
                 try:
-                    self.data[i]['Error'][0] /= name.data[i]['Content']
+                    self.data[i].err[0] /= name.data[i].val
                 except ZeroDivisionError:
-                    self.data[i]['Error'][0]=0.
+                    self.data[i].err[0]=0.
                 try:
-                    self.data[i]['Error'][1] /= name.data[i]['Content']
+                    self.data[i].err[1] /= name.data[i].val
                 except ZeroDivisionError:
-                    self.data[i]['Error'][1]=0.
+                    self.data[i].err[1]=0.
                 try:
-                    self.data[i]['Content'] /= name.data[i]['Content']
+                    self.data[i].val /= name.data[i].val
                 except ZeroDivisionError:
-                    self.data[i]['Content']=1.
-#                self.data[i]['Error'][0] = sqrt(self.data[i]['Error'][0]**2 + name.data[i]['Error'][0]**2)
-#                self.data[i]['Error'][1] = sqrt(self.data[i]['Error'][1]**2 + name.data[i]['Error'][1]**2)
+                    self.data[i].val=1.
+#                self.data[i].err[0] = sqrt(self.data[i].err[0]**2 + name.data[i].err[0]**2)
+#                self.data[i].err[1] = sqrt(self.data[i].err[1]**2 + name.data[i].err[1]**2)
             else:
                 print '+++ Error in Histogram.divide() for %s: binning of histograms differs' % self.path
 
@@ -1626,20 +1662,20 @@ class Histogram(DrawableObject):
         if len(self.data) != len(name.data):
             print '+++ Error in Histogram.dividereverse() for %s: different numbers of bins' % self.path
         for i in range(len(self.data)):
-            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
-               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
+               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
                 try:
-                    self.data[i]['Error'][0] = name.data[i]['Error'][0]/self.data[i]['Content']
+                    self.data[i].err[0] = name.data[i].err[0]/self.data[i].val
                 except ZeroDivisionError:
-                    self.data[i]['Error'][0]=0.
+                    self.data[i].err[0]=0.
                 try:
-                    self.data[i]['Error'][1] = name.data[i]['Error'][1]/self.data[i]['Content']
+                    self.data[i].err[1] = name.data[i].err[1]/self.data[i].val
                 except ZeroDivisionError:
-                    self.data[i]['Error'][1]=0.
+                    self.data[i].err[1]=0.
                 try:
-                    self.data[i]['Content'] = name.data[i]['Content']/self.data[i]['Content']
+                    self.data[i].val = name.data[i].val/self.data[i].val
                 except ZeroDivisionError:
-                    self.data[i]['Content']=1.
+                    self.data[i].val=1.
             else:
                 print '+++ Error in Histogram.dividereverse(): binning of histograms differs'
 
@@ -1647,32 +1683,32 @@ class Histogram(DrawableObject):
         if len(self.data) != len(name.data):
             print '+++ Error in Histogram.deviation() for %s: different numbers of bins' % self.path
         for i in range(len(self.data)):
-            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
-               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
-                self.data[i]['Content'] -= name.data[i]['Content']
+            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
+               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
+                self.data[i].val -= name.data[i].val
                 try:
-                    self.data[i]['Content'] /= 0.5*sqrt((name.data[i]['Error'][0] + name.data[i]['Error'][1])**2 + \
-                                                        (self.data[i]['Error'][0] + self.data[i]['Error'][1])**2)
+                    self.data[i].val /= 0.5*sqrt((name.data[i].err[0] + name.data[i].err[1])**2 + \
+                                                        (self.data[i].err[0] + self.data[i].err[1])**2)
                 except ZeroDivisionError:
-                    self.data[i]['Content'] = 0.0
+                    self.data[i].val = 0.0
                 try:
-                    self.data[i]['Error'][0] /= name.data[i]['Error'][0]
+                    self.data[i].err[0] /= name.data[i].err[0]
                 except ZeroDivisionError:
-                    self.data[i]['Error'][0] = 0.0
+                    self.data[i].err[0] = 0.0
                 try:
-                    self.data[i]['Error'][1] /= name.data[i]['Error'][1]
+                    self.data[i].err[1] /= name.data[i].err[1]
                 except ZeroDivisionError:
-                    self.data[i]['Error'][1] = 0.0
+                    self.data[i].err[1] = 0.0
             else:
                 print '+++ Error in Histogram.deviation() for %s: binning of histograms differs' % self.path
 
     def getChi2(self, name):
         chi2 = 0.
         for i in range(len(self.data)):
-            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
-               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
+               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
                 try:
-                    chi2 += (self.data[i]['Content']-name.data[i]['Content'])**2/((0.5*self.data[i]['Error'][0]+0.5*self.data[i]['Error'][1])**2 + (0.5*name.data[i]['Error'][0]+0.5*name.data[i]['Error'][1])**2)
+                    chi2 += (self.data[i].val-name.data[i].val)**2/((0.5*self.data[i].err[0]+0.5*self.data[i].err[1])**2 + (0.5*name.data[i].err[0]+0.5*name.data[i].err[1])**2)
                 except ZeroDivisionError:
                     pass
             else:
@@ -1685,11 +1721,11 @@ class Histogram(DrawableObject):
             sumofweights = 0.
             for i in range(len(self.data)):
                 if self.is2dim:
-                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
-                                   *(self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]))
+                    binwidth = abs( (self.data[i].xmax[0] - self.data[i].xmin[0])
+                                   *(self.data[i].xmax[1] - self.data[i].xmin[1]))
                 else:
-                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
-                self.sigmabinvalue += binwidth*(self.data[i]['Content']-self.getMeanBinValue())**2
+                    binwidth = abs(self.data[i].xmax - self.data[i].xmin)
+                self.sigmabinvalue += binwidth*(self.data[i].val-self.getMeanBinValue())**2
                 sumofweights += binwidth
             self.sigmabinvalue = sqrt(self.sigmabinvalue/sumofweights)
         return self.sigmabinvalue
@@ -1700,11 +1736,11 @@ class Histogram(DrawableObject):
             sumofweights = 0.
             for i in range(len(self.data)):
                 if self.is2dim:
-                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
-                                   *(self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]))
+                    binwidth = abs( (self.data[i].xmax[0] - self.data[i].xmin[0])
+                                   *(self.data[i].xmax[1] - self.data[i].xmin[1]))
                 else:
-                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
-                self.meanbinvalue += binwidth*self.data[i]['Content']
+                    binwidth = abs(self.data[i].xmax - self.data[i].xmin)
+                self.meanbinvalue += binwidth*self.data[i].val
                 sumofweights += binwidth
             self.meanbinvalue /= sumofweights
         return self.meanbinvalue
@@ -1713,15 +1749,15 @@ class Histogram(DrawableObject):
         correlation = 0.
         sumofweights = 0.
         for i in range(len(self.data)):
-            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
-               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
+               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
                 if self.is2dim:
-                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
-                                  * (self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]) )
+                    binwidth = abs( (self.data[i].xmax[0] - self.data[i].xmin[0])
+                                  * (self.data[i].xmax[1] - self.data[i].xmin[1]) )
                 else:
-                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
-                correlation += binwidth * ( self.data[i]['Content'] - self.getMeanBinValue() ) \
-                                        * ( name.data[i]['Content'] - name.getMeanBinValue() )
+                    binwidth = abs(self.data[i].xmax - self.data[i].xmin)
+                correlation += binwidth * ( self.data[i].val - self.getMeanBinValue() ) \
+                                        * ( name.data[i].val - name.getMeanBinValue() )
                 sumofweights += binwidth
             else:
                 print '+++ Error in Histogram.getCorrelation(): binning of histograms differs' % self.path
@@ -1736,15 +1772,15 @@ class Histogram(DrawableObject):
         distance = 0.
         sumofweights = 0.
         for i in range(len(self.data)):
-            if fuzzyeq(self.data[i]['LowEdge'], name.data[i]['LowEdge']) and \
-               fuzzyeq(self.data[i]['UpEdge'], name.data[i]['UpEdge']):
+            if fuzzyeq(self.data[i].xmin, name.data[i].xmin) and \
+               fuzzyeq(self.data[i].xmax, name.data[i].xmax):
                 if self.is2dim:
-                    binwidth = abs( (self.data[i]['UpEdge'][0] - self.data[i]['LowEdge'][0])
-                                  * (self.data[i]['UpEdge'][1] - self.data[i]['LowEdge'][1]) )
+                    binwidth = abs( (self.data[i].xmax[0] - self.data[i].xmin[0])
+                                  * (self.data[i].xmax[1] - self.data[i].xmin[1]) )
                 else:
-                    binwidth = abs(self.data[i]['UpEdge'] - self.data[i]['LowEdge'])
-                distance += binwidth * ( (self.data[i]['Content'] - self.getMeanBinValue())
-                                        -(name.data[i]['Content'] - name.getMeanBinValue()))**2
+                    binwidth = abs(self.data[i].xmax - self.data[i].xmin)
+                distance += binwidth * ( (self.data[i].val - self.getMeanBinValue())
+                                        -(name.data[i].val - name.getMeanBinValue()))**2
                 sumofweights += binwidth
             else:
                 print '+++ Error in Histogram.getRMSdistance() for %s: binning of histograms differs' % self.path
@@ -1761,93 +1797,93 @@ class Histogram(DrawableObject):
             if self.is2dim:
                 for i in xrange(len(self.data)):
                     out += ('\\psframe')
-                    color=int(129*coors.phys2frameZ(self.data[i]['Content']))
-                    if self.data[i]['Content']>coors.zmax():
+                    color=int(129*coors.phys2frameZ(self.data[i].val))
+                    if self.data[i].val>coors.zmax():
                         color=129
-                    if self.data[i]['Content']<coors.zmin():
+                    if self.data[i].val<coors.zmin():
                         color=0
-                    if self.data[i]['Content']<=coors.zmin():
+                    if self.data[i].val<=coors.zmin():
                         out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor=white]')
                     else:
                         out += ('[linewidth=0pt, linestyle=none, fillstyle=solid, fillcolor={gradientcolors!!['+str(color)+']}]')
-                    out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge'][0]) + ', ' \
-                                + coors.strphys2frameY(self.data[i]['LowEdge'][1]) + ')(' \
-                                + coors.strphys2frameX(self.data[i]['UpEdge'][0])  + ', ' \
-                                + coors.strphys2frameY(self.data[i]['UpEdge'][1])  + ')\n')
+                    out += ('(' + coors.strphys2frameX(self.data[i].xmin[0]) + ', ' \
+                                + coors.strphys2frameY(self.data[i].xmin[1]) + ')(' \
+                                + coors.strphys2frameX(self.data[i].xmax[0])  + ', ' \
+                                + coors.strphys2frameY(self.data[i].xmax[1])  + ')\n')
             else:
                 if self.getErrorBands():
                     self.description['SmoothLine']=0
                     for i in xrange(len(self.data)):
                         out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
-                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
-                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
+                        out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
+                                    + coors.strphys2frameY(self.data[i].val-self.data[i].err[0]) + ')(' \
+                                    + coors.strphys2frameX(self.data[i].xmax)  + ', ' \
+                                    + coors.strphys2frameY(self.data[i].val+self.data[i].err[1]) + ')\n')
                 if self.getErrorBars():
                     for i in xrange(len(self.data)):
-                        if isnan(self.data[i]['Content']) or isnan(self.data[i]['Error'][0]) or isnan(self.data[i]['Error'][1]):
+                        if isnan(self.data[i].val) or isnan(self.data[i].err[0]) or isnan(self.data[i].err[1]):
                             seen_nan = True
                             continue
-                        if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
+                        if self.data[i].val==0. and self.data[i].err==[0.,0.]:
                             continue
                         out += ('\\psline')
-                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
-                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                        out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
+                                    + coors.strphys2frameY(self.data[i].val) + ')(' \
+                                    + coors.strphys2frameX(self.data[i].xmax)  + ', ' \
+                                    + coors.strphys2frameY(self.data[i].val) + ')\n')
                         out += ('\\psline')
-                        bincenter = coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge']))
+                        bincenter = coors.strphys2frameX(.5*(self.data[i].xmin+self.data[i].xmax))
                         out += ('(' + bincenter + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']-self.data[i]['Error'][0]) + ')(' \
+                                    + coors.strphys2frameY(self.data[i].val-self.data[i].err[0]) + ')(' \
                                     + bincenter + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']+self.data[i]['Error'][1]) + ')\n')
+                                    + coors.strphys2frameY(self.data[i].val+self.data[i].err[1]) + ')\n')
                 if self.getSmoothLine():
                     out += '\\psbezier'
                 else:
                     out += '\\psline'
                 if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
-                    if (coors.phys2frameX(self.data[0]['LowEdge']) > 1e-4):
-                        out += '(' + coors.strphys2frameX(self.data[0]['LowEdge']) + ', -0.1)\n'
+                    if (coors.phys2frameX(self.data[0].xmin) > 1e-4):
+                        out += '(' + coors.strphys2frameX(self.data[0].xmin) + ', -0.1)\n'
                     else:
                         out += '(-0.1, -0.1)\n'
                 for i in xrange(len(self.data)):
-                    if isnan(self.data[i]['Content']):
+                    if isnan(self.data[i].val):
                         seen_nan = True
                         continue
                     if self.getSmoothLine():
-                        out += ('(' + coors.strphys2frameX(0.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                        out += ('(' + coors.strphys2frameX(0.5*(self.data[i].xmin+self.data[i].xmax)) + ', ' \
+                                    + coors.strphys2frameY(self.data[i].val) + ')\n')
                     else:
-                        out += ('(' + coors.strphys2frameX(self.data[i]['LowEdge']) + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')(' \
-                                    + coors.strphys2frameX(self.data[i]['UpEdge'])  + ', ' \
-                                    + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                        out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
+                                    + coors.strphys2frameY(self.data[i].val) + ')(' \
+                                    + coors.strphys2frameX(self.data[i].xmax)  + ', ' \
+                                    + coors.strphys2frameY(self.data[i].val) + ')\n')
                         ## Join/separate data points, with vertical/diagonal lines
                         if (i+1 < len(self.data)): #< If this is not the last point
                             if self.description.get('ConnectBins', '1') != '1':
                                 out += ('\\psline')
                             else:
                                 ## If bins are joined, but there is a gap in binning, choose whether to fill the gap
-                                if (abs(coors.phys2frameX(self.data[i]['UpEdge']) - coors.phys2frameX(self.data[i+1]['LowEdge'])) > 1e-4):
+                                if (abs(coors.phys2frameX(self.data[i].xmax) - coors.phys2frameX(self.data[i+1].xmin)) > 1e-4):
                                     if self.description.get('ConnectGaps', '0') != '1':
                                         out += ('\\psline')
                                         # TODO: Perhaps use a new dashed line to fill the gap?
                     if self.getFillStyle() != 'none':  # make sure that filled areas go all the way down to the x-axis
-                        if (coors.phys2frameX(self.data[-1]['UpEdge']) < 1-1e-4):
-                            out += '(' + coors.strphys2frameX(self.data[-1]['UpEdge']) + ', -0.1)\n'
+                        if (coors.phys2frameX(self.data[-1].xmax) < 1-1e-4):
+                            out += '(' + coors.strphys2frameX(self.data[-1].xmax) + ', -0.1)\n'
                         else:
                             out += '(1.1, -0.1)\n'
             #
             if self.getPolyMarker() != '':
                 for i in xrange(len(self.data)):
-                    if isnan(self.data[i]['Content']):
+                    if isnan(self.data[i].val):
                         seen_nan = True
                         continue
-                    if self.data[i]['Content']==0. and self.data[i]['Error']==[0.,0.]:
+                    if self.data[i].val==0. and self.data[i].err==[0.,0.]:
                         continue
                     out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
-                                + coors.strphys2frameX(.5*(self.data[i]['LowEdge']+self.data[i]['UpEdge'])) + ', ' \
-                                + coors.strphys2frameY(self.data[i]['Content']) + ')\n')
+                                + coors.strphys2frameX(.5*(self.data[i].xmin+self.data[i].xmax)) + ', ' \
+                                + coors.strphys2frameY(self.data[i].val) + ')\n')
 
             out += "% END DATA\n"
 
@@ -1864,33 +1900,33 @@ class Histogram(DrawableObject):
         if not self.data:
             return 0
         elif self.is2dim:
-            return min([self.data[i]['LowEdge'][0] for i in range(len(self.data))])
+            return min([self.data[i].xmin[0] for i in range(len(self.data))])
         else:
-            return min([self.data[i]['LowEdge'] for i in range(len(self.data))])
+            return min([self.data[i].xmin for i in range(len(self.data))])
 
     def getXMax(self):
         if not self.data:
             return 1
         elif self.is2dim:
-            return max([self.data[i]['UpEdge'][0] for i in range(len(self.data))])
+            return max([self.data[i].xmax[0] for i in range(len(self.data))])
         else:
-            return max([self.data[i]['UpEdge'] for i in range(len(self.data))])
+            return max([self.data[i].xmax for i in range(len(self.data))])
 
     def getYMin(self, xmin, xmax, logy):
         if not self.data:
             return 0
         elif self.is2dim:
-            return min([self.data[i]['LowEdge'][1] for i in range(len(self.data))])
+            return min([self.data[i].xmin[1] for i in range(len(self.data))])
         else:
             yvalues = []
             for i in range(len(self.data)):
-                if ((self.data[i]['UpEdge'] > xmin or self.data[i]['LowEdge'] >= xmin) and \
-                    (self.data[i]['LowEdge'] < xmax or self.data[i]['UpEdge'] <= xmax)):
+                if ((self.data[i].xmax > xmin or self.data[i].xmin >= xmin) and \
+                    (self.data[i].xmin < xmax or self.data[i].xmax <= xmax)):
                     foo = 0
                     if self.getErrorBars() or self.getErrorBands():
-                        foo = self.data[i]['Content']-self.data[i]['Error'][0]
+                        foo = self.data[i].val-self.data[i].err[0]
                     else:
-                        foo = self.data[i]['Content']
+                        foo = self.data[i].val
                     if logy:
                         if foo>0: yvalues.append(foo)
                     else:
@@ -1898,35 +1934,35 @@ class Histogram(DrawableObject):
             if len(yvalues) > 0:
                 return min(yvalues)
             else:
-                return self.data[0]['Content']
+                return self.data[0].val
 
     def getYMax(self, xmin, xmax):
         if not self.data:
             return 1
         elif self.is2dim:
-            return max([self.data[i]['UpEdge'][1] for i in range(len(self.data))])
+            return max([self.data[i].xmax[1] for i in range(len(self.data))])
         else:
             yvalues = []
             for i in range(len(self.data)):
-                if ((self.data[i]['UpEdge'] > xmin or self.data[i]['LowEdge'] >= xmin) and \
-                    (self.data[i]['LowEdge'] < xmax or self.data[i]['UpEdge'] <= xmax)):
+                if ((self.data[i].xmax > xmin or self.data[i].xmin >= xmin) and \
+                    (self.data[i].xmin < xmax or self.data[i].xmax <= xmax)):
                     if self.getErrorBars() or self.getErrorBands():
-                        yvalues.append(self.data[i]['Content']+self.data[i]['Error'][1])
+                        yvalues.append(self.data[i].val+self.data[i].err[1])
                     else:
-                        yvalues.append(self.data[i]['Content'])
+                        yvalues.append(self.data[i].val)
             if len(yvalues) > 0:
                 return max(yvalues)
             else:
-                return self.data[0]['Content']
+                return self.data[0].val
 
     def getZMin(self, xmin, xmax, ymin, ymax):
         if not self.is2dim:
             return 0
         zvalues = []
         for i in range(len(self.data)):
-            if (self.data[i]['UpEdge'][0] > xmin and self.data[i]['LowEdge'][0] < xmax) and \
-               (self.data[i]['UpEdge'][1] > ymin and self.data[i]['LowEdge'][1] < ymax):
-                zvalues.append(self.data[i]['Content'])
+            if (self.data[i].xmax[0] > xmin and self.data[i].xmin[0] < xmax) and \
+               (self.data[i].xmax[1] > ymin and self.data[i].xmin[1] < ymax):
+                zvalues.append(self.data[i].val)
         return min(zvalues)
 
     def getZMax(self, xmin, xmax, ymin, ymax):
@@ -1934,9 +1970,9 @@ class Histogram(DrawableObject):
             return 0
         zvalues = []
         for i in range(len(self.data)):
-            if (self.data[i]['UpEdge'][0] > xmin and self.data[i]['LowEdge'][0] < xmax) and \
-               (self.data[i]['UpEdge'][1] > ymin and self.data[i]['LowEdge'][1] < ymax):
-                zvalues.append(self.data[i]['Content'])
+            if (self.data[i].xmax[0] > xmin and self.data[i].xmin[0] < xmax) and \
+               (self.data[i].xmax[1] > ymin and self.data[i].xmin[1] < ymax):
+                zvalues.append(self.data[i].val)
         return max(zvalues)
 
 
