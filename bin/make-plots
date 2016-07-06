@@ -58,9 +58,10 @@ def fuzzyeq(a, b, tolerance=1e-6):
 def floatify(x):
     if type(x) is str:
         x = x.split()
-    if hasattr(x, "__len__"):
-        return [float(a) for a in x]
-    return float(x)
+    if not hasattr(x, "__len__"):
+        x = [x]
+    x = [float(a) for a in x]
+    return x[0] if len(x) == 1 else x
 
 def floatpair(x):
     if type(x) is str:
@@ -1865,7 +1866,6 @@ class Histogram(DrawableObject, Described):
                         out += ('(' + coors.strphys2frameX(0.5*(b.xmin+b.xmax)) + ', ' \
                                     + coors.strphys2frameY(b.val) + ')\n')
                     else:
-                        print b.val
                         out += ('(' + coors.strphys2frameX(b.xmin) + ', ' \
                                     + coors.strphys2frameY(b.val) + ')(' \
                                     + coors.strphys2frameX(b.xmax)  + ', ' \
@@ -1891,7 +1891,7 @@ class Histogram(DrawableObject, Described):
                     if isnan(b.val):
                         seen_nan = True
                         continue
-                    if b.val==0. and b.err==[0.,0.]:
+                    if b.val == 0. and b.err == [0.,0.]:
                         continue
                     out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
                                 + coors.strphys2frameX(.5*(b.xmin+b.xmax)) + ', ' \
@@ -2012,6 +2012,7 @@ class Histo1D(Histogram):
                     else:
                         raise Exception('Histo1D does not have the expected number of columns. ' + line)
 
+    # TODO: specialise draw() here
 
 
 class Histo2D(Histogram):
@@ -2044,6 +2045,11 @@ class Histo2D(Histogram):
                     else:
                         raise Exception('Histo2D does not have the expected number of columns. '+line)
 
+    # TODO: specialise draw() here
+
+
+
+#############################
 
 
 
