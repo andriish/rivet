@@ -1865,6 +1865,7 @@ class Histogram(DrawableObject, Described):
                         out += ('(' + coors.strphys2frameX(0.5*(b.xmin+b.xmax)) + ', ' \
                                     + coors.strphys2frameY(b.val) + ')\n')
                     else:
+                        print b.val
                         out += ('(' + coors.strphys2frameX(b.xmin) + ', ' \
                                     + coors.strphys2frameY(b.val) + ')(' \
                                     + coors.strphys2frameX(b.xmax)  + ', ' \
