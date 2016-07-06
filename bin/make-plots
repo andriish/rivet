@@ -1433,6 +1433,54 @@ class Function(DrawableObject):
         return out
 
 
+def floatify(x):
+    if hasattr(x, "__len__"):
+        return [float(a) for a in x]
+    return float(x)
+
+def floatpair(x):
+    if hasattr(x, "__len__"):
+        assert len(x) == 2
+        return [float(a) for a in x]
+    return [float(x), float(x)]
+
+
+class BinData(object):
+
+    def __init__(self, xmin, xmax, y, ey):
+        self.xmin = floatify(xmin)
+        self.xmax = floatify(xmax)
+        self.y = float(y)
+        self.ey = floatpair(ey)
+
+    @property
+    def xmid(self):
+        return (self.xmin + self.xmax) / 2.0
+
+    @property
+    def xwidth(self):
+        assert self.xmin =< self.xmax
+        return self.xmax - self.xmin
+
+    @property
+    def ymin(self):
+        return self.y - self.ey[0]
+
+    @property
+    def ymax(self):
+        return self.y + self.ey[1]
+
+    def __getitem__(self, key):
+        "dict-like access for backward compatibility"
+        if key in ("LowEdge", "XMin"):
+            return self.xmin
+        elif key == ("UpEdge", "HighEdge", "XMax"):
+            return self.xmax
+        elif key == "Content":
+            return self.y
+        elif key == "Errors":
+            return self.ey
+
 
 class Histogram(DrawableObject):
 
@@ -1461,16 +1509,10 @@ class Histogram(DrawableObject):
                     ## Detect symm errs
                     linearray = line.split()
                     if len(linearray) == 4:
-                        self.data.append({'LowEdge': float(linearray[0]),
-                                          'UpEdge':  float(linearray[1]),
-                                          'Content': float(linearray[2]),
-                                          'Error':   [float(linearray[3]),float(linearray[3])]})
+                        self.data.append(BinData(*linearray))
                     ## Detect asymm errs
                     elif len(linearray) == 5:
-                        self.data.append({'LowEdge': float(linearray[0]),
-                                          'UpEdge':  float(linearray[1]),
-                                          'Content': float(linearray[2]),
-                                          'Error':   [float(linearray[3]),float(linearray[4])]})
+                        self.data.append(BinData(linearray[0], linearray[1], linearray[2], [linearray[3],linearray[4]]))
                     ## Detect two-dimensionality
                     elif len(linearray) in [6,7]:
                         self.is2dim = True
@@ -1481,71 +1523,68 @@ class Histogram(DrawableObject):
                                 err = max(err, float(linearray[6]))
                             else:
                                 err = 0.5 * (err + float(linearray[6]))
-                        self.data.append({'LowEdge': [float(linearray[0]), float(linearray[2])],
-                                          'UpEdge':  [float(linearray[1]), float(linearray[3])],
-                                          'Content': float(linearray[4]),
-                                          'Error':   err})
+                        self.data.append(BinData([linearray[0], linearray[2]], [linearray[1], linearray[3]], linearray[4], err))
                     ## Unknown histo format
                     else:
                         raise RuntimeError("Unknown HISTOGRAM data line format with %d entries" % len(linearray))
 
 
     def mangle_input(self):
-        if (self.description.has_key('NormalizeToIntegral') and self.description['NormalizeToIntegral']=='1') or \
-           (self.description.has_key('NormalizeToSum') and self.description['NormalizeToSum']=='1'):
-            if (self.description.has_key('NormalizeToIntegral') and self.description['NormalizeToIntegral']=='1') and \
-               (self.description.has_key('NormalizeToSum') and self.description['NormalizeToSum']=='1'):
-                print 'Can\'t normalize to Integral and to Sum at the same time. Will normalize to the Sum.'
+        norm2int = self.description.attr_bool("NormalizeToIntegral", False)
+        norm2sum = self.description.attr_bool("NormalizeToSum", False)
+        if norm2int or norm2sum:
+            if norm2int and norm2sum:
+                print "Can't normalize to Integral and to Sum at the same time. Will normalize to the Sum."
             foo = 0
+            # TODO: change to "in self.data"?
             for i in range(len(self.data)):
-                if self.description.has_key('NormalizeToSum') and self.description['NormalizeToSum']=='1':
+                if norm2sum:
                     foo += self.data[i]['Content']
                 else:
                     foo += self.data[i]['Content']*(self.data[i]['UpEdge']-self.data[i]['LowEdge'])
+            # TODO: change to "in self.data"?
             for i in range(len(self.data)):
-                self.data[i]['Content']  /= foo
-                self.data[i]['Error'][0] /= foo
-                self.data[i]['Error'][1] /= foo
-        if self.description.has_key('Scale') and self.description['Scale']!='':
-            scale = float(self.description['Scale'])
+                self.data[i].y /= foo
+                self.data[i].ey[0] /= foo
+                self.data[i].ey[1] /= foo
+        scale = self.description.attr_float('Scale', 1.0)
+        if scale != 1.0:
+            # TODO: change to "in self.data"?
             for i in range(len(self.data)):
-                self.data[i]['Content']  *= scale
-                self.data[i]['Error'][0] *= scale
-                self.data[i]['Error'][1] *= scale
+                self.data[i].y *= scale
+                self.data[i].ey[0] *= scale
+                self.data[i].ey[1] *= scale
         if self.description.has_key('Rebin') and self.description['Rebin']!='':
-            rebin=int(self.description['Rebin'])
+            rebin = int(self.description['Rebin'])
             errortype = "stat"
             if self.description.has_key('ErrorType') and self.description['ErrorType']!='':
                 errortype = self.description['ErrorType']
-            newdata=[]
-            if rebin>=2:
-                for i in range(0,(len(self.data)/rebin)*rebin,rebin):
-                    foo=0.
-                    barl=0.
-                    baru=0.
+            newdata = []
+            if rebin >= 2:
+                for i in range(0, (len(self.data)//rebin)*rebin, rebin):
+                    foo = 0.
+                    barl = 0.
+                    baru = 0.
                     for j in range(rebin):
-                        binwidth=self.data[i+j]['UpEdge']-self.data[i+j]['LowEdge']
-                        foo +=self.data[i+j]['Content']*binwidth
-                        if errortype=="stat":
-                            barl+=(binwidth*self.data[i+j]['Error'][0])**2
-                            baru+=(binwidth*self.data[i+j]['Error'][1])**2
-                        elif errortype=="env":
-                            barl+=(self.data[i+j]['Content']-self.data[i+j]['Error'][0])*binwidth
-                            baru+=(self.data[i+j]['Content']+self.data[i+j]['Error'][1])*binwidth
+                        binwidth = self.data[i+j].xwidth
+                        foo += self.data[i+j].y * binwidth
+                        if errortype == "stat":
+                            barl += (binwidth * self.data[i+j].ey[0])**2
+                            baru += (binwidth * self.data[i+j].ey[1])**2
+                        elif errortype == "env":
+                            barl += self.data[i+j].ymin * binwidth
+                            baru += self.data[i+j].ymax * binwidth
                         else:
                             logging.error("Rebinning for ErrorType not implemented.")
                             sys.exit(1)
-                    newbinwidth=self.data[i+rebin-1]['UpEdge']-self.data[i]['LowEdge']
-                    newcentral=foo/newbinwidth
-                    if errortype=="stat":
-                        newerror=[sqrt(barl)/newbinwidth,sqrt(baru)/newbinwidth]
-                    elif errortype=="env":
-                        newerror=[(foo-barl)/newbinwidth,(baru-foo)/newbinwidth]
-                    newdata.append({'LowEdge': self.data[i]['LowEdge'],
-                                    'UpEdge':  self.data[i+rebin-1]['UpEdge'],
-                                    'Content': newcentral,
-                                    'Error':   newerror})
-                self.data=newdata
+                    newbinwidth = self.data[i+rebin-1]['UpEdge']-self.data[i]['LowEdge']
+                    newcentral = foo/newbinwidth
+                    if errortype == "stat":
+                        newerror = [sqrt(barl)/newbinwidth, sqrt(baru)/newbinwidth]
+                    elif errortype == "env":
+                        newerror = [(foo-barl)/newbinwidth, (baru-foo)/newbinwidth]
+                    newdata.append(BinData(self.data[i].xmin, self.data[i+rebin-1].xmax, newcentral, newerror))
+                self.data = newdata
 
     def add(self, name):
         if len(self.data) != len(name.data):
