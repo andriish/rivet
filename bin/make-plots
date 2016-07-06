@@ -55,6 +55,9 @@ def fuzzyeq(a, b, tolerance=1e-6):
         return True
     return 2.0*abs(a-b)/abs(a+b) < tolerance
 
+def inrange(x, a, b):
+    return x >= a and x < b
+
 def floatify(x):
     if type(x) is str:
         x = x.split()
@@ -486,18 +489,18 @@ class Plot(object):
         inputdata.description['Borders'] = (self.xmin, self.xmax, self.ymin, self.ymax, self.zmin, self.zmax)
 
     def set_xmin(self,inputdata):
-        self.xmin = inputdata.attr_float("XMin")
+        self.xmin = inputdata.xmin
         if self.xmin is None:
             self.xmin = min(inputdata.histos[h].getXMin() for h in inputdata.description['DrawOnly'])
 
     def set_xmax(self,inputdata):
-        self.xmax = inputdata.attr_float("XMax")
+        self.xmax = inputdata.xmax
         if self.xmax is None:
             self.xmax = min(inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly'])
 
     def set_ymin(self,inputdata):
-        if inputdata.description.has_key('YMin'):
-            self.ymin = inputdata.attr_float('YMin')
+        if inputdata.ymin is not None:
+            self.ymin = inputdata.ymin
         else:
             ymins = [inputdata.histos[i].getYMin(self.xmin, self.xmax, inputdata.description['LogY']) for i in inputdata.attr('DrawOnly')]
             minymin = min(ymins)
@@ -1932,18 +1935,13 @@ class Histogram(DrawableObject, Described):
         else:
             yvalues = []
             for b in self.data:
-                if ((b.xmax > xmin or b.xmin >= xmin) and (b.xmin < xmax or b.xmax <= xmax)):
-                    foo = 0
+                if (b.xmax > xmin or b.xmin >= xmin) and (b.xmin < xmax or b.xmax <= xmax):
+                    foo = b.val
                     if self.getErrorBars() or self.getErrorBands():
-                        foo = b.val - b.err[0]
-                    else:
-                        foo = b.val
-                    if logy:
-                        if foo > 0:
-                            yvalues.append(foo)
-                    else:
+                        foo -= b.err[0]
+                    if not isnan(foo) and (not logy or foo > 0):
                         yvalues.append(foo)
-            if len(yvalues) > 0:
+            if yvalues:
                 return min(yvalues)
             else:
                 return self.data[0].val
@@ -1956,12 +1954,13 @@ class Histogram(DrawableObject, Described):
         else:
             yvalues = []
             for b in self.data:
-                if ((b.xmax > xmin or b.xmin >= xmin) and (b.xmin < xmax or b.xmax <= xmax)):
+                if (b.xmax > xmin or b.xmin >= xmin) and (b.xmin < xmax or b.xmax <= xmax):
+                    foo = b.val
                     if self.getErrorBars() or self.getErrorBands():
-                        yvalues.append(b.val + b.err[1])
-                    else:
-                        yvalues.append(b.val)
-            if len(yvalues) > 0:
+                        foo -= b.err[1]
+                    if not isnan(foo): # and (not logy or foo > 0):
+                        yvalues.append(foo)
+            if yvalues:
                 return max(yvalues)
             else:
                 return self.data[0].val
@@ -2290,7 +2289,7 @@ class XTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if not label:
-            label = self.get_ticklabel(value, int(self.description['LogX']) and (self.coors.xmin() > 0 and self.coors.xmax() > 0))
+            label = self.get_ticklabel(value, int(self.description['LogX']) and self.coors.xmin() > 0 and self.coors.xmax() > 0)
         labelparts = label.split("\\n")
         labelcode = label if len(labelparts) == 1 else ("\\shortstack{" + "\\\\ ".join(labelparts) +  "}")
         rtn = "\\rput(" + self.coors.strphys2frameX(value) + ", 0){\\rput[t](0,-\\labelsep){" + labelcode + "}}\n"
@@ -2304,9 +2303,9 @@ class YTicks(Ticks):
         twosided = bool(int(self.description.get('YTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
-        out += ('\\def\\majortickmarky{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
-        out += ('\\def\\minortickmarky{\\psline[linewidth='+self.minorticklinewidth+'](0,0)('+self.minorticklength+',0)}%\n')
-        uselog = self.description['LogY'] and (self.coors.ymin() > 0 and self.coors.ymax() > 0)
+        out += ('\\def\\majortickmarky{\\psline[linewidth=%s](0,0)(%s,0)}%%\n' % (self.majorticklinewidth, self.majorticklength))
+        out += ('\\def\\minortickmarky{\\psline[linewidth=%s](0,0)(%s,0)}%%\n' % (self.minorticklinewidth, self.minorticklength))
+        uselog = self.description['LogY'] and self.coors.ymin() > 0 and self.coors.ymax() > 0
         out += self.draw_ticks(self.coors.ymin(), self.coors.ymax(),
                                plotlog=uselog,
                                custommajorticks=custommajorticks,
@@ -2333,7 +2332,7 @@ class YTicks(Ticks):
 
     def draw_majorticklabel(self, value, label=''):
         if not label:
-            label = self.get_ticklabel(value, int(self.description['LogY']) and (self.coors.ymin() > 0 and self.coors.ymax() > 0))
+            label = self.get_ticklabel(value, int(self.description['LogY']) and self.coors.ymin() > 0 and self.coors.ymax() > 0)
         if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode'] == 'deviation' and \
            self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage'] == '1':
             rtn = '\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n'
