@@ -55,6 +55,21 @@ def fuzzyeq(a, b, tolerance=1e-6):
         return True
     return 2.0*abs(a-b)/abs(a+b) < tolerance
 
+def floatify(x):
+    if type(x) is str:
+        x = x.split()
+    if hasattr(x, "__len__"):
+        return [float(a) for a in x]
+    return float(x)
+
+def floatpair(x):
+    if type(x) is str:
+        x = x.split()
+    if hasattr(x, "__len__"):
+        assert len(x) == 2
+        return [float(a) for a in x]
+    return [float(x), float(x)]
+
 
 def is_end_marker(line, blockname):
     m = pat_end_block.match(line)
@@ -65,7 +80,47 @@ def is_comment(line):
 
 
 
-class InputData(object):
+class Described(object):
+    "Inherited functionality for objects holding a 'description' dictionary"
+
+    def __init__(self):
+        pass
+
+    def has_attr(self, key):
+        return self.description.has_key(key)
+
+    def set_attr(self, key, val):
+        self.description[key] = val
+
+    def attr(self, key, default=None):
+        return self.description.get(key, default)
+
+    def attr_bool(self, key, default=None):
+        x = self.attr(key, default)
+        if x is None: return None
+        if str(x).lower() in ["1", "true", "yes", "on"]: return True
+        if str(x).lower() in ["0", "false", "no", "off"]: return False
+        return None
+
+    def attr_int(self, key, default=None):
+        x = self.attr(key, default)
+        try:
+            x = int(x)
+        except:
+            x = None
+        return x
+
+    def attr_float(self, key, default=None):
+        x = self.attr(key, default)
+        try:
+            x = float(x)
+        except:
+            x = None
+        return x
+
+
+
+class InputData(Described):
 
     def __init__(self, filename):
         self.filename = filename+".dat"
@@ -177,39 +232,6 @@ class InputData(object):
             self.inherit_from_histos(k)
 
         return
-
-
-    def has_attr(self, key):
-        return self.description.has_key(key)
-
-    def set_attr(self, key, val):
-        self.description[key] = val
-
-    def attr(self, key, default=None):
-        return self.description.get(key, default)
-
-    def attr_bool(self, key, default=None):
-        x = self.attr(key, default)
-        if x is None: return None
-        if str(x).lower() in ["1", "true", "yes", "on"]: return True
-        if str(x).lower() in ["0", "false", "no", "off"]: return False
-        return None
-
-    def attr_int(self, key, default=None):
-        x = self.attr(key, default)
-        try:
-            x = int(x)
-        except:
-            x = None
-        return x
-
-    def attr_float(self, key, default=None):
-        x = self.attr(key)
-        try:
-            x = float(x)
-        except:
-            x = None
-        return x
 
 
     @property
@@ -423,7 +445,7 @@ class InputData(object):
 
 class Plot(object):
 
-    def __init__(self,inputdata):
+    def __init__(self, inputdata):
         pass
 
     def set_normalization(self,inputdata):
@@ -984,7 +1006,7 @@ class RatioPlot(Plot):
 
 
 
-class Legend(object):
+class Legend(Described):
 
     def __init__(self, description, histos, functions):
         self.histos = histos
@@ -1101,7 +1123,7 @@ class Legend(object):
             return 'l'
 
 
-class ColorScale(object):
+class ColorScale(Described):
 
     def __init__(self, description, coors):
         self.description = description
@@ -1152,7 +1174,7 @@ class ColorScale(object):
 
 
 
-class Labels(object):
+class Labels(Described):
 
     def __init__(self, description):
         self.description = description
@@ -1181,7 +1203,7 @@ class Labels(object):
 
 
 
-class Special(object):
+class Special(Described):
 
     def __init__(self, f):
         self.description = {}
@@ -1220,7 +1242,7 @@ class Special(object):
 
 
 
-class DrawableObject(object):
+class DrawableObject(Described):
 
     def __init__(self, f):
         pass
@@ -1374,7 +1396,7 @@ class DrawableObject(object):
 
 
 
-class Function(DrawableObject):
+class Function(DrawableObject, Described):
 
     def __init__(self, f):
         self.description = {}
@@ -1433,18 +1455,6 @@ class Function(DrawableObject):
         return out
 
 
-def floatify(x):
-    if hasattr(x, "__len__"):
-        return [float(a) for a in x]
-    return float(x)
-
-def floatpair(x):
-    if hasattr(x, "__len__"):
-        assert len(x) == 2
-        return [float(a) for a in x]
-    return [float(x), float(x)]
-
-
 class BinData(object):
     """\
     Store bin edge and value+error(s) data for a 1D or 2D bin.
@@ -1453,6 +1463,7 @@ class BinData(object):
     """
 
     def __init__(self, low, high, val, err):
+        #print "@", low, high, val, err
         self.low = floatify(low)
         self.high = floatify(high)
         self.val = float(val)
@@ -1521,7 +1532,7 @@ class BinData(object):
             return self.ey
 
 
-class Histogram(DrawableObject):
+class Histogram(DrawableObject, Described):
 
     def __init__(self, f, p=None):
         self.description = {}
@@ -1569,8 +1580,8 @@ class Histogram(DrawableObject):
 
 
     def mangle_input(self):
-        norm2int = self.description.attr_bool("NormalizeToIntegral", False)
-        norm2sum = self.description.attr_bool("NormalizeToSum", False)
+        norm2int = self.attr_bool("NormalizeToIntegral", False)
+        norm2sum = self.attr_bool("NormalizeToSum", False)
         if norm2int or norm2sum:
             if norm2int and norm2sum:
                 print "Can't normalize to Integral and to Sum at the same time. Will normalize to the Sum."
@@ -1586,16 +1597,16 @@ class Histogram(DrawableObject):
                 self.data[i].val /= foo
                 self.data[i].err[0] /= foo
                 self.data[i].err[1] /= foo
-        scale = self.description.attr_float('Scale', 1.0)
+        scale = self.attr_float('Scale', 1.0)
         if scale != 1.0:
             # TODO: change to "in self.data"?
             for i in range(len(self.data)):
                 self.data[i].val *= scale
                 self.data[i].err[0] *= scale
                 self.data[i].err[1] *= scale
-        if self.description.attr_int("Rebin", 1) > 1:
-            rebin = self.description.attr_int("Rebin", 1)
-            errortype = self.description.attr("ErrorType", "stat")
+        if self.attr_int("Rebin", 1) > 1:
+            rebin = self.attr_int("Rebin", 1)
+            errortype = self.attr("ErrorType", "stat")
             newdata = []
             for i in range(0, (len(self.data)//rebin)*rebin, rebin):
                 foo = 0.
@@ -1824,7 +1835,7 @@ class Histogram(DrawableObject):
                         if isnan(self.data[i].val) or isnan(self.data[i].err[0]) or isnan(self.data[i].err[1]):
                             seen_nan = True
                             continue
-                        if self.data[i].val==0. and self.data[i].err==[0.,0.]:
+                        if self.data[i].val == 0. and self.data[i].err == [0.,0.]:
                             continue
                         out += ('\\psline')
                         out += ('(' + coors.strphys2frameX(self.data[i].xmin) + ', ' \
@@ -1994,25 +2005,14 @@ class Histo1D(Histogram):
                 else:
                     linearray = line.split()
                     ## Detect symm errs
-                    if len(linearray) == 4:
-                        self.data.append({'LowEdge': float(linearray[0]),
-                                          'UpEdge':  float(linearray[1]),
-                                          'Content': float(linearray[2]),
-                                          'Error':   [float(linearray[3]),float(linearray[3])]})
+                    # TODO: Not sure what the 8-param version is for... auto-compatibility with YODA format?
+                    if len(linearray) in [4,8]:
+                        self.data.append(BinData(linearray[0], linearray[1], linearray[2], linearray[3]))
                     ## Detect asymm errs
                     elif len(linearray) == 5:
-                        self.data.append({'LowEdge': float(linearray[0]),
-                                          'UpEdge':  float(linearray[1]),
-                                          'Content': float(linearray[2]),
-                                          'Error':   [float(linearray[3]),float(linearray[4])]})
-                    ## Not sure what this is for... auto-compatibility with YODA format? Urgh
-                    elif len(linearray) == 8:
-                        self.data.append({'LowEdge': float(linearray[0]),
-                                          'UpEdge':  float(linearray[1]),
-                                          'Content': float(linearray[2]),
-                                          'Error':   [float(linearray[3]),float(linearray[3])]})
+                        self.data.append(BinData(linearray[0], linearray[1], linearray[2], [linearray[3],linearray[4]]))
                     else:
-                        raise Exception('Histo1D does not have 8 columns.'+line)
+                        raise Exception('Histo1D does not have the expected number of columns. ' + line)
 
 
 
@@ -2042,12 +2042,9 @@ class Histo2D(Histogram):
                                 err = max(err, float(linearray[6]))
                             else:
                                 err = 0.5 * (err + float(linearray[6]))
-                        self.data.append({'LowEdge': [float(linearray[0]), float(linearray[2])],
-                                          'UpEdge':  [float(linearray[1]), float(linearray[3])],
-                                          'Content': float(linearray[4]),
-                                          'Error':   err})
+                        self.data.append(BinData([linearray[0], linearray[2]], [linearray[1], linearray[3]], float(linearray[4]), err))
                     else:
-                        raise Exception('Histo1D does not have 6 or 7 columns.'+line)
+                        raise Exception('Histo2D does not have the expected number of columns. '+line)
 
 
 
@@ -2785,14 +2782,14 @@ if __name__ == '__main__':
 
 
     ## Set up signal handling
-    import signal
-    RECVD_KILL_SIGNAL = None
-    def handleKillSignal(signum, frame):
-        "Declare us as having been signalled, and return to default handling behaviour"
-        global RECVD_KILL_SIGNAL
-        logging.critical("Signal handler called with signal " + str(signum))
-        RECVD_KILL_SIGNAL = signum
-        signal.signal(signum, signal.SIG_DFL)
+    # import signal
+    # RECVD_KILL_SIGNAL = None
+    # def handleKillSignal(signum, frame):
+    #     "Declare us as having been signalled, and return to default handling behaviour"
+    #     global RECVD_KILL_SIGNAL
+    #     logging.critical("Signal handler called with signal " + str(signum))
+    #     RECVD_KILL_SIGNAL = signum
+    #     signal.signal(signum, signal.SIG_DFL)
     ## Signals to handle
     # signal.signal(signal.SIGINT,  handleKillSignal)
     # signal.signal(signal.SIGTERM, handleKillSignal)
@@ -2800,18 +2797,22 @@ if __name__ == '__main__':
     # signal.signal(signal.SIGUSR2, handleKillSignal)
 
     def init_worker():
+        import signal
         signal.signal(signal.SIGINT, signal.SIG_IGN)
 
-    ## Run threads
+    ## Run rendering jobs
     datfiles = args
     plotword = "plots" if len(datfiles) > 1 else "plot"
     logging.info("Making %d %s" % (len(datfiles), plotword))
-    pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
-    try:
-        for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
-            logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
-        pool.close()
-    except KeyboardInterrupt:
-        print "Caught KeyboardInterrupt, terminating workers"
-        pool.terminate()
-    pool.join()
+    for i, df in enumerate(datfiles):
+        logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
+        process_datfile(df)
+    # pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
+    # try:
+    #     for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
+    #         logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
+    #     pool.close()
+    # except KeyboardInterrupt:
+    #     print "Caught KeyboardInterrupt, terminating workers"
+    #     pool.terminate()
+    # pool.join()
