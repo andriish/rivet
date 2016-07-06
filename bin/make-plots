@@ -2586,36 +2586,6 @@ def process_datfile(datfile):
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()
-        # if opts.OUTPUT_FORMAT == "PSPNG":
-        #     dvcmd += ["-o", "%s.ps" % filename]
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     dvproc.wait()
-        #     assert os.path.exists("%s.ps" % filename)
-        #     mkpng("%s.ps" % filename, "%s.png" % filename)
-        # if opts.OUTPUT_FORMAT == "PDFPNG":
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-        #     f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
-        #     f.write(cnvproc.communicate()[0])
-        #     f.close()
-        #     logging.debug(os.listdir(tempdir))
-        #     assert os.path.exists("%s.pdf" % filename)
-        #     mkpng("%s.pdf" % filename, "%s.png" % filename)
-        # if opts.OUTPUT_FORMAT == "EPSPNG":
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=tempdir)
-        #     f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
-        #     f.write(cnvproc.communicate()[0])
-        #     f.close()
-        #     mkpng("%s.eps" % filename, "%s.png" % filename)
-        # else:
-        #     logging.error("Unknown format: %s" % opts.OUTPUT_FORMAT)
-        #     sys.exit(1)
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
@@ -2698,6 +2668,8 @@ if __name__ == '__main__':
                       help="Create TeX/LaTeX output.")
     parser.add_option("--no-cleanup", dest="NO_CLEANUP", action="store_true", default=False,
                       help="Keep temporary directory and print its filename.")
+    parser.add_option("--no-subproc", dest="NO_SUBPROC", action="store_true", default=False,
+                      help="Don't use subprocesses to render the plots in parallel -- useful for debugging.")
     parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False,
                       help="Plot full y range in LogY plots.")
     parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=None,
@@ -2782,22 +2754,6 @@ if __name__ == '__main__':
         except Exception, e:
             logging.warning("Problem while testing for external packages. I'm going to try and continue without testing, but don't hold your breath...")
 
-
-    ## Set up signal handling
-    # import signal
-    # RECVD_KILL_SIGNAL = None
-    # def handleKillSignal(signum, frame):
-    #     "Declare us as having been signalled, and return to default handling behaviour"
-    #     global RECVD_KILL_SIGNAL
-    #     logging.critical("Signal handler called with signal " + str(signum))
-    #     RECVD_KILL_SIGNAL = signum
-    #     signal.signal(signum, signal.SIG_DFL)
-    ## Signals to handle
-    # signal.signal(signal.SIGINT,  handleKillSignal)
-    # signal.signal(signal.SIGTERM, handleKillSignal)
-    # signal.signal(signal.SIGHUP,  handleKillSignal)
-    # signal.signal(signal.SIGUSR2, handleKillSignal)
-
     def init_worker():
         import signal
         signal.signal(signal.SIGINT, signal.SIG_IGN)
@@ -2806,15 +2762,18 @@ if __name__ == '__main__':
     datfiles = args
     plotword = "plots" if len(datfiles) > 1 else "plot"
     logging.info("Making %d %s" % (len(datfiles), plotword))
-    for i, df in enumerate(datfiles):
-        logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
-        process_datfile(df)
-    # pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
-    # try:
-    #     for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
-    #         logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
-    #     pool.close()
-    # except KeyboardInterrupt:
-    #     print "Caught KeyboardInterrupt, terminating workers"
-    #     pool.terminate()
-    # pool.join()
+    if opts.NO_SUBPROC:
+        init_worker()
+        for i, df in enumerate(datfiles):
+            logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
+            process_datfile(df)
+    else:
+        pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
+        try:
+            for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
+                logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
+            pool.close()
+        except KeyboardInterrupt:
+            print "Caught KeyboardInterrupt, terminating workers"
+            pool.terminate()
+        pool.join()
