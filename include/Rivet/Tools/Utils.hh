@@ -143,7 +143,7 @@ namespace Rivet {
   template <typename T>
   inline string join(const set<T>& s, const string& sep=" ") {
     string rtn;
-    foreach (const T& x, s) {
+    for (const T& x : s) {
       if (rtn.size() > 0) rtn += sep;
       rtn += to_str(x);
     }
@@ -192,8 +192,7 @@ namespace Rivet {
   /// Return true if f(x) is true for any x in container c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool any(const CONTAINER& c, const FN& f) {
-    //for (const typename CONTAINER::value_type& val : c) {
-    foreach (const typename CONTAINER::value_type& val, c) {
+    for (const typename CONTAINER::value_type& val : c) {
       if (f(val)) return true;
     }
     return false;
@@ -202,8 +201,7 @@ namespace Rivet {
   /// Return true if f(x) is true for all x in container c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool all(const CONTAINER& c, const FN& f) {
-    //for (const typename CONTAINER::value_type& val : c) {
-    foreach (const typename CONTAINER::value_type& val, c) {
+    for (const typename CONTAINER::value_type& val : c) {
       if (!f(val)) return false;
     }
     return true;
