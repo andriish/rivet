@@ -1480,6 +1480,18 @@ class BinData(object):
         return hasattr(self.low, "__len__") and hasattr(self.high, "__len__")
 
     @property
+    def isValid(self):
+        invalid_val = (isnan(self.val) or isnan(self.err[0]) or isnan(self.err[1]))
+        if invalid_val:
+            return False
+        if self.is2D:
+            invalid_low = any(isnan(x) for x in self.low)
+            invalid_high = any(isnan(x) for x in self.high)
+        else:
+            invalid_low, invalid_high = isnan(self.low), isnan(self.high)
+        return not (invalid_low or invalid_high)
+
+    @property
     def xmin(self):
         return self.low
     @xmin.setter
@@ -1809,7 +1821,7 @@ class Histogram(DrawableObject, Described):
         out = ""
         out += self.startclip()
         out += self.startpsset()
-        if self.data:
+        if any(b.isValid for b in self.data):
             out += "% START DATA\n"
             if self.is2dim:
                 for b in self.data:
@@ -1831,7 +1843,7 @@ class Histogram(DrawableObject, Described):
                 if self.getErrorBands():
                     self.description['SmoothLine'] = 0
                     for b in self.data:
-                        out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' %(self.getErrorBandColor(),self.getErrorBandOpacity()))
+                        out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' % (self.getErrorBandColor(),self.getErrorBandOpacity()))
                         out += ('(' + coors.strphys2frameX(b.xmin) + ', ' \
                                     + coors.strphys2frameY(b.val - b.err[0]) + ')(' \
                                     + coors.strphys2frameX(b.xmax)  + ', ' \
@@ -1858,8 +1870,8 @@ class Histogram(DrawableObject, Described):
                     out += '\\psbezier'
                 else:
                     out += '\\psline'
-                if (self.getFillStyle() != 'none'):   # make sure that filled areas go all the way down to the x-axis
-                    if (coors.phys2frameX(self.data[0].xmin) > 1e-4):
+                if self.getFillStyle() != 'none':   # make sure that filled areas go all the way down to the x-axis
+                    if coors.phys2frameX(self.data[0].xmin) > 1e-4:
                         out += '(' + coors.strphys2frameX(self.data[0].xmin) + ', -0.1)\n'
                     else:
                         out += '(-0.1, -0.1)\n'
@@ -1903,6 +1915,8 @@ class Histogram(DrawableObject, Described):
                                 + coors.strphys2frameY(b.val) + ')\n')
 
             out += "% END DATA\n"
+        else:
+            out += "% NO DATA!\n"
 
         out += self.stoppsset()
         out += self.stopclip()
@@ -2498,6 +2512,8 @@ def process_datfile(datfile):
     tempdir = tempfile.mkdtemp('.make-plots')
     tempdatpath = os.path.join(tempdir, datfile)
     shutil.copy(datpath, tempdir)
+    if opts.NO_CLEANUP:
+        logging.info('Keeping temp-files in %s' % tempdir)
 
     ## Make TeX file
     inputdata = InputData(os.path.join(dirname,filename))
@@ -2600,9 +2616,7 @@ def process_datfile(datfile):
             logging.error("No output file '%s' from processing %s" % (outname, datfile))
 
     ## Clean up
-    if opts.NO_CLEANUP:
-        logging.info('Keeping temp-files in %s' % tempdir)
-    else:
+    if not opts.NO_CLEANUP:
         shutil.rmtree(tempdir, ignore_errors=True)
 
 
