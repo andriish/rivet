@@ -1916,6 +1916,7 @@ class Histogram(DrawableObject, Described):
 
             out += "% END DATA\n"
         else:
+            print "WARNING: No valid bin value/errors/edges to plot!"
             out += "% NO DATA!\n"
 
         out += self.stoppsset()
