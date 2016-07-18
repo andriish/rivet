@@ -330,7 +330,7 @@ if len(opts.SHOW_ANALYSES) > 0:
             msg += "Beams:" + ", ".join(beamstrs) + "\n"
 
         if ana.requiredEnergies():
-            msg += "Beam energies: %s GeV\n" + "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
+            msg += "Beam energies:" + "; ".join(["(%0.1f, %0.1f) GeV\n" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
         else:
             msg += "Beam energies: ANY\n"
 
