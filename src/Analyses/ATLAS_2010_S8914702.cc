@@ -80,7 +80,8 @@ namespace Rivet {
       // Now compute the median energy densities
       vector<double> ptDensity;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
-        ptDensity += median(ptDensities[b]);
+        if (ptDensities[b].size() >0 ) ptDensity += median(ptDensities[b]); // TODO move the check into median?
+                                                                            // Maybe check the logic as well
       }
 
       // Now figure out the correction
