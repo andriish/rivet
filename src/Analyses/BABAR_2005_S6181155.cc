@@ -17,6 +17,7 @@ namespace Rivet {
 
     void init() {
       declare(Beam(), "Beams");
+      declare(UnstableFinalState(), "UFS");
     }
 
     void analyze(const Event& e) {
