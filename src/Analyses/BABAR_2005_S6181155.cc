@@ -13,10 +13,11 @@ namespace Rivet {
 
     BABAR_2005_S6181155()
       : Analysis("BABAR_2005_S6181155")
-    {
+    { }
+
+    void init() {
       declare(Beam(), "Beams");
     }
-
 
     void analyze(const Event& e) {
       const double weight = e.weight();
