@@ -18,6 +18,14 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableFinalState(), "UFS");
+      _histOnResonanceA = bookHisto1D(1,1,1);
+      _histOnResonanceB = bookHisto1D(2,1,1);
+      _histOffResonance = bookHisto1D(2,1,2);
+      _sigma            = bookHisto1D(3,1,1);
+      _histOnResonanceA_norm = bookHisto1D(4,1,1);
+      _histOnResonanceB_norm = bookHisto1D(5,1,1);
+      _histOffResonance_norm = bookHisto1D(5,1,2);
+      
     }
 
     void analyze(const Event& e) {
@@ -36,6 +44,7 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         // 3-momentum in CMS frame
+
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();
         // Only looking at Xi_c^0
         if (p.abspid() != 4132 ) continue;
