@@ -13,7 +13,9 @@ namespace Rivet {
 
     BABAR_2005_S6181155()
       : Analysis("BABAR_2005_S6181155")
-    { }
+    {
+      declare(Beam(), "Beams");
+    }
 
 
     void analyze(const Event& e) {
