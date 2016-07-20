@@ -1,9 +1,9 @@
 // -*- C++ -*-
+#include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Tools/Logging.hh"
-#include "Rivet/BeamConstraint.hh"
-#include "Rivet/Event.hh"
-#include "Rivet/Cmp.hh"
+#include "Rivet/Tools/BeamConstraint.hh"
+#include "Rivet/Tools/Cmp.hh"
 
 namespace Rivet {
 

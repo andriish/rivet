@@ -3,7 +3,6 @@
 #define RIVET_ParticleFinder_HH
 
 #include "Rivet/Projection.hh"
-#include "Rivet/Cuts.hh"
 
 namespace Rivet {
 

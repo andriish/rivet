@@ -8,7 +8,7 @@
 #include "HepMC/GenRanges.h"
 #include "HepMC/IO_GenEvent.h"
 #include "Rivet/Tools/RivetSTL.hh"
-#include "Rivet/Exceptions.hh"
+#include "Rivet/Tools/Exceptions.hh"
 
 namespace Rivet {
 

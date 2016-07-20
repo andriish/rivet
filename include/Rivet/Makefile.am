@@ -6,18 +6,21 @@ nobase_pkginclude_HEADERS =
 
 ## Rivet interface
 nobase_pkginclude_HEADERS += \
-  Rivet.hh             Exceptions.hh \
-  Event.hh             Run.hh \
-  ParticleBase.hh      ParticleName.hh \
-  Particle.fhh         Particle.hh \
-  Jet.fhh              Jet.hh \
-  ProjectionApplier.hh ProjectionHandler.hh \
-  Projection.fhh       Projection.hh \
-  Cmp.fhh              Cmp.hh \
-  BeamConstraint.hh    AnalysisHandler.hh \
-  Analysis.hh          AnalysisInfo.hh \
-  AnalysisBuilder.hh   AnalysisLoader.hh \
-  Cuts.fhh             Cuts.hh
+  Rivet.hh \
+  Run.hh \
+  Event.hh \
+  ParticleBase.hh \
+  Particle.fhh Particle.hh \
+  Jet.fhh Jet.hh \
+  Projection.fhh Projection.hh \
+  ProjectionApplier.hh \
+  ProjectionHandler.hh \
+  Analysis.hh \
+  AnalysisHandler.hh \
+  AnalysisInfo.hh \
+  AnalysisBuilder.hh \
+  AnalysisLoader.hh
+
 
 ## Build config stuff
 nobase_pkginclude_HEADERS += \
@@ -88,20 +91,27 @@ nobase_pkginclude_HEADERS += \
 
 ## Tools
 nobase_pkginclude_HEADERS += \
+  Tools/BeamConstraint.hh \
+  Tools/BinnedHistogram.hh \
+  Tools/Cmp.fhh \
+  Tools/Cmp.hh \
+  Tools/Cuts.fhh \
+  Tools/Cuts.hh \
+  Tools/Exceptions.hh \
   Tools/Logging.hh  \
-  Tools/Utils.hh \
+  Tools/ParticleIdUtils.hh \
+  Tools/ParticleUtils.hh \
+  Tools/ParticleName.hh \
+  Tools/PrettyPrint.hh \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \
   Tools/RivetFastJet.hh \
   Tools/RivetHepMC.hh \
   Tools/RivetYODA.hh \
   Tools/RivetMT2.hh \
-  Tools/BinnedHistogram.hh \
-  Tools/ParticleUtils.hh \
-  Tools/ParticleIdUtils.hh \
-  Tools/PrettyPrint.hh \
   Tools/SmearingFunctions.hh \
-  Tools/TypeTraits.hh
+  Tools/TypeTraits.hh \
+  Tools/Utils.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
 

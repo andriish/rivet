@@ -5,11 +5,8 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
-#include "Rivet/ParticleName.hh"
 
 namespace Rivet {
-
-  
 
 
   /// Underlying event activity in the Drell-Yan process at 7 TeV

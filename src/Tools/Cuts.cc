@@ -1,11 +1,9 @@
-#include <Rivet/Cuts.hh>
-
-// Headers for converters
-#include <Rivet/Particle.hh>
-#include <Rivet/Jet.hh>
-#include <Rivet/Math/Vectors.hh>
-#include <fastjet/PseudoJet.hh>
-#include <HepMC/SimpleVector.h>
+#include "Rivet/Tools/Cuts.hh"
+#include "Rivet/Particle.hh"
+#include "Rivet/Jet.hh"
+#include "Rivet/Math/Vectors.hh"
+#include "fastjet/PseudoJet.hh"
+#include "HepMC/SimpleVector.h"
 
 /// @todo Sort out what can go into anonymous namespace
 

@@ -1,5 +1,7 @@
 2016-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Move several internal system headers into the include/Rivet/Tools directory.
+
 	* Fix median-computing safety logic in ATLAS_2010_S8914702 and
 	tidy this and @todo markers in several similar analyses.
 

@@ -3,8 +3,8 @@
 #define RIVET_Event_HH
 
 #include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Projection.hh"
 #include "Rivet/Particle.hh"
+#include "Rivet/Projection.hh"
 
 namespace Rivet {
 

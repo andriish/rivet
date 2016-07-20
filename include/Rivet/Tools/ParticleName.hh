@@ -2,7 +2,7 @@
 #define RIVET_PARTICLENAME_HH
 
 #include "Rivet/Particle.fhh"
-#include "Rivet/Exceptions.hh"
+#include "Rivet/Tools/Exceptions.hh"
 
 namespace Rivet {
 

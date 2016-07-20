@@ -1,6 +1,6 @@
 #include "Rivet/Jet.hh"
-#include "Rivet/Cuts.hh"
-#include "Rivet/ParticleName.hh"
+#include "Rivet/Tools/Cuts.hh"
+#include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 

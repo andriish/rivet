@@ -5,6 +5,7 @@
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Math/LorentzTrans.hh"
 // NOTE: Rivet/Tools/ParticleUtils.hh included at the end

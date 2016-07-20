@@ -12,8 +12,7 @@
 /// @file Utility functions for querying PDG ID codes (many from HepPID)
 /// @author Andy Buckley <andy.buckley@cern.ch>
 
-//#include "Rivet/Tools/MCUtils/PIDCodes.h"
-#include "Rivet/ParticleName.hh"
+#include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Math/MathUtils.hh"
 
 namespace Rivet {

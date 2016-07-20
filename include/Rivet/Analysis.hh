@@ -12,6 +12,7 @@
 #include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleUtils.hh"
+#include "Rivet/Tools/Cuts.hh"
 
 
 /// @def vetoEvent

@@ -5,8 +5,7 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Jet.fhh"
 #include "Rivet/Particle.hh"
-#include "Rivet/Cuts.hh"
-#include "Rivet/Tools/ParticleUtils.hh"
+#include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/RivetFastJet.hh"
 #include "Rivet/Math/LorentzTrans.hh"
 #include <numeric>
