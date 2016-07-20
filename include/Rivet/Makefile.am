@@ -99,6 +99,7 @@ nobase_pkginclude_HEADERS += \
   Tools/BinnedHistogram.hh \
   Tools/ParticleUtils.hh \
   Tools/ParticleIdUtils.hh \
+  Tools/PrettyPrint.hh \
   Tools/SmearingFunctions.hh \
   Tools/TypeTraits.hh
 nobase_dist_noinst_HEADERS += \

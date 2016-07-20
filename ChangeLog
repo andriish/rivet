@@ -1,5 +1,7 @@
 2016-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add Rivet/Tools/PrettyPrint.hh, based on https://louisdx.github.io/cxx-prettyprint/
+
 	* Allow use of path regex group references in .plot file keyed values.
 
 2016-07-20  Holger Schulz  <holger.schulz@cern.ch>
