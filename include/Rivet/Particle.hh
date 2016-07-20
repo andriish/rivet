@@ -296,34 +296,21 @@ namespace Rivet {
   };
 
 
-  /// @brief Decide if a given particle is prompt based on set definition flags
-  ///
-  /// @note This one doesn't make any judgements about final-stateness
 
-  bool isPrompt(const Particle& p, bool inclprompttaudecays=false, bool inclpromptmudecays=false);
-
-
-  /// @name Unbound functions for filtering particles
+  /// @name String representation and streaming support
   //@{
 
-  /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Particles& filterBy(Particles& particles, const Cut& c);
+  /// Represent a Particle as a string.
+  std::string to_str(const Particle& pair);
 
-  /// Get a subset of the supplied particles that passes the supplied Cut
-  Particles filterBy(const Particles& particles, const Cut& c);
-
-  //@}
-
-
-  /// @name Particle pair functions
-  //@{
-
-  /// Get the PDG ID codes of a ParticlePair
-  inline PdgIdPair pids(const ParticlePair& pp) {
-    return make_pair(pp.first.pid(), pp.second.pid());
+  /// Allow a Particle to be passed to an ostream.
+  inline std::ostream& operator<<(std::ostream& os, const Particle& p) {
+    os << to_str(p);
+    return os;
   }
 
-  /// Print a ParticlePair as a string.
+
+  /// Represent a ParticlePair as a string.
   std::string to_str(const ParticlePair& pair);
 
   /// Allow ParticlePair to be passed to an ostream.
