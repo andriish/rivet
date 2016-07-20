@@ -26,6 +26,7 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
         bool init(string, double) # $2=1.0
         bool openFile(string, double) # $2=1.0
         bool readEvent()
+        bool skipEvent()
         bool processEvent()
         bool finalize()
 

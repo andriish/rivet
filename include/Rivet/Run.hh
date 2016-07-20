@@ -54,6 +54,9 @@ namespace Rivet {
 
     /// Read the next HepMC event
     bool readEvent();
+    
+    /// Read the next HepMC event only to skip it
+    bool skipEvent();
 
     /// Handle next event
     bool processEvent();
