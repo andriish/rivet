@@ -73,6 +73,15 @@ namespace Rivet {
   /// Determine if the PID is that of an SM/lightest SUSY Higgs
   PARTICLE_TO_PID_BOOLFN(isHiggs)
 
+  /// Determine if the PID is that of an s/sbar
+  PARTICLE_TO_PID_BOOLFN(isStrange)
+
+  /// Determine if the PID is that of a c/cbar
+  PARTICLE_TO_PID_BOOLFN(isCharm)
+
+  /// Determine if the PID is that of a b/bbar
+  PARTICLE_TO_PID_BOOLFN(isBottom)
+
   /// Determine if the PID is that of a t/tbar
   PARTICLE_TO_PID_BOOLFN(isTop)
 
@@ -305,6 +314,42 @@ namespace Rivet {
     bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
     PdgId targetpid;
   };
+
+  //@}
+
+
+
+  //////////////////////////////////////
+
+
+
+  /// @brief Decide if a given particle is prompt based on set definition flags
+  ///
+  /// @note This one doesn't make any judgements about final-stateness
+  bool isPrompt(const Particle& p, bool inclprompttaudecays=false, bool inclpromptmudecays=false);
+
+
+  /// @name Unbound functions for filtering particles
+  //@{
+
+  /// Filter a jet collection in-place to the subset that passes the supplied Cut
+  Particles& filterBy(Particles& particles, const Cut& c);
+
+  /// Get a subset of the supplied particles that passes the supplied Cut
+  Particles filterBy(const Particles& particles, const Cut& c);
+
+  //@}
+
+
+
+  /// @name Particle pair functions
+  //@{
+
+  /// Get the PDG ID codes of a ParticlePair
+  /// @todo Needed?
+  inline PdgIdPair pids(const ParticlePair& pp) {
+    return make_pair(pp.first.pid(), pp.second.pid());
+  }
 
   //@}
 

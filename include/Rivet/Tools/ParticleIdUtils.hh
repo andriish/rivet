@@ -13,6 +13,7 @@
 /// @author Andy Buckley <andy.buckley@cern.ch>
 
 //#include "Rivet/Tools/MCUtils/PIDCodes.h"
+#include "Rivet/ParticleName.hh"
 #include "Rivet/Math/MathUtils.hh"
 
 namespace Rivet {
@@ -573,10 +574,24 @@ namespace Rivet {
 
     /// @todo isSUSYHiggs?
 
+
+    // /// Determine if the PID is that of a d/dbar
+    // inline bool isDown(int pid) { return abs(pid) == DQUARK; }
+
+    // /// Determine if the PID is that of a u/ubar
+    // inline bool isUp(int pid) { return abs(pid) == UQUARK; }
+
+    /// Determine if the PID is that of a s/sbar
+    inline bool isStrange(int pid) { return abs(pid) == SQUARK; }
+
+    /// Determine if the PID is that of a c/cbar
+    inline bool isCharm(int pid) { return abs(pid) == CQUARK; }
+
+    /// Determine if the PID is that of a b/bbar
+    inline bool isBottom(int pid) { return abs(pid) == BQUARK; }
+
     /// Determine if the PID is that of a t/tbar
-    inline bool isTop(int pid) {
-      return abs(pid) == 6;
-    }
+    inline bool isTop(int pid) { return abs(pid) == TQUARK; }
 
     //@}
 

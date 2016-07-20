@@ -1,5 +1,11 @@
 2016-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add to_str/toString and stream functions for Particle, and a bit of Particle util function reorganisation.
+
+	* Add isStrange/Charm/Bottom PID and Particle functions.
+
+	* Add RangeError exception throwing from MathUtils.hh stats functions if given empty/mismatched datasets.
+
 	* Add Rivet/Tools/PrettyPrint.hh, based on https://louisdx.github.io/cxx-prettyprint/
 
 	* Allow use of path regex group references in .plot file keyed values.
