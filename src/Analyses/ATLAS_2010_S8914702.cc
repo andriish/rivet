@@ -71,8 +71,7 @@ namespace Rivet {
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fastjets.clusterSeqArea();
       for (const Jet& jet : fastjets.jets()) {
         const double area = clust_seq_area->area(jet); //< Implicit call to pseudojet()
-        /// @todo Should be 1e-4?
-        if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
+        if (area > 1e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
           ptDensities.at(getEtaBin(jet.abseta(), true)) += jet.pT()/area;
         }
       }
@@ -80,8 +79,7 @@ namespace Rivet {
       // Now compute the median energy densities
       vector<double> ptDensity;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
-        if (ptDensities[b].size() >0 ) ptDensity += median(ptDensities[b]); // TODO move the check into median?
-                                                                            // Maybe check the logic as well
+        ptDensity += ptDensities[b].empty() ? 0 : median(ptDensities[b]);
       }
 
       // Now figure out the correction

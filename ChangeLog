@@ -1,10 +1,15 @@
 2016-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add to_str/toString and stream functions for Particle, and a bit of Particle util function reorganisation.
+	* Fix median-computing safety logic in ATLAS_2010_S8914702 and
+	tidy this and @todo markers in several similar analyses.
+
+	* Add to_str/toString and stream functions for Particle, and a bit
+	of Particle util function reorganisation.
 
 	* Add isStrange/Charm/Bottom PID and Particle functions.
 
-	* Add RangeError exception throwing from MathUtils.hh stats functions if given empty/mismatched datasets.
+	* Add RangeError exception throwing from MathUtils.hh stats
+	functions if given empty/mismatched datasets.
 
 	* Add Rivet/Tools/PrettyPrint.hh, based on https://louisdx.github.io/cxx-prettyprint/
 

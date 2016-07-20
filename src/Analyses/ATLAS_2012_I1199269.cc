@@ -63,8 +63,7 @@ namespace Rivet {
       // Compute median jet properties over the jets in the event
       vector<double> vptDensity; //, vsigma, vNjets;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
-        double ptmedian = (!ptDensities[b].empty()) ? median(ptDensities[b]) : 0;
-        vptDensity.push_back(ptmedian);
+        vptDensity += ptDensities[b].empty() ? 0 : median(ptDensities[b]);
       }
 
 

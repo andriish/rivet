@@ -66,8 +66,7 @@ namespace Rivet {
 
       // Compute the median energy density
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
-        const double med = ptDensities[b].empty() ? 0.0 : median(ptDensities[b]);
-        ptDensity.push_back(med);
+        ptDensity += ptDensities[b].empty() ? 0 : median(ptDensities[b]);
       }
 
       // Loop over photons and fill vector of isolated ones
