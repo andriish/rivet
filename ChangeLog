@@ -1,3 +1,11 @@
+2016-07-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow use of path regex group references in .plot file keyed values.
+
+2016-07-20  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Fix the --nskip behaviour on the main rivet script.
+
 2016-07-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Release version 2.5.0
