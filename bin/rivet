@@ -522,17 +522,17 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
     logging.info(msg)
 
     ## The event loop
-    while opts.MAXEVTNUM is None or evtnum-opts.EVTSKIPNUM <= opts.MAXEVTNUM:
+    while opts.MAXEVTNUM is None or evtnum-opts.EVTSKIPNUM < opts.MAXEVTNUM:
         evtnum += 1
 
         ## Optional event skipping
         if evtnum <= opts.EVTSKIPNUM:
-            logging.debug( "Skipping event #%i"%evtnum)
+            logging.debug("Skipping event #%i" % evtnum)
             run.skipEvent();
             continue
 
         ## Only log the event number once we're actually processing
-        logNEvt(evtnum+opts.EVTSKIPNUM, starttime, opts.MAXEVTNUM)
+        logNEvt(evtnum, starttime, opts.MAXEVTNUM)
 
         ## Process this event
         processed_ok = run.processEvent()
