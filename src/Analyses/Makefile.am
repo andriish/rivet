@@ -279,6 +279,7 @@ RivetCDFAnalyses_la_SOURCES = \
     CDF_2006_S6653332.cc \
     CDF_2007_S7057202.cc \
     CDF_2008_S7540469.cc \
+    CDF_2008_S7541902.cc \
     CDF_2008_S7828950.cc \
     CDF_2008_S8093652.cc \
     CDF_2008_S8095620.cc \
@@ -301,7 +302,6 @@ RivetCDFAnalyses_la_SOURCES += \
     CDF_1996_S3349578.cc \
     CDF_1997_S3541940.cc \
     CDF_2001_S4563131.cc \
-    CDF_2008_S7541902.cc \
     CDF_2008_S7782535.cc
 endif
 
