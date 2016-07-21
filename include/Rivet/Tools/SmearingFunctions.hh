@@ -107,8 +107,9 @@ namespace Rivet {
     /// @todo Extract to a smear_energy helper function
     /// @todo Also make smear_direction and smear_pt functions, and jet versions that also update/smear constituents
     normal_distribution<> d(e.E(), resolution);
-    const double smeared_E = max(d(gen), e.mass()); //< can't let the energy go below the mass!
-    return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), e.mass(), smeared_E));
+    const double mass = e.mass2() > 0 ? e.mass() : 0; //< numerical carefulness...
+    const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
+    return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), mass, smeared_E));
   }
 
 
@@ -184,8 +185,9 @@ namespace Rivet {
 
     /// @todo Extract to a smear_energy helper function
     normal_distribution<> d(e.E(), resolution);
-    const double smeared_E = max(d(gen), e.mass()); //< can't let the energy go below the mass!
-    return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), e.mass(), smeared_E));
+    const double mass = e.mass2() > 0 ? e.mass() : 0; //< numerical carefulness...
+    const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
+    return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), mass, smeared_E));
   }
 
 
@@ -266,7 +268,8 @@ namespace Rivet {
     /// @todo Extract to a smear_pt helper function
     normal_distribution<> d(m.pT(), resolution*m.pT());
     const double smeared_pt = max(d(gen), 0.);
-    return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), m.mass(), smeared_pt));
+    const double mass = m.mass2() > 0 ? m.mass() : 0; //< numerical carefulness...
+    return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), mass, smeared_pt));
   }
 
   /// ATLAS Run 2 muon reco smearing
@@ -337,7 +340,8 @@ namespace Rivet {
     /// @todo Extract to a smear_pt helper function
     normal_distribution<> d(m.pT(), resolution*m.pT());
     const double smeared_pt = max(d(gen), 0.);
-    return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), m.mass(), smeared_pt));
+    const double mass = m.mass2() > 0 ? m.mass() : 0; //< numerical carefulness...
+    return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), mass, smeared_pt));
   }
 
   /// CMS Run 2 muon reco smearing
@@ -420,7 +424,8 @@ namespace Rivet {
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
     normal_distribution<> d(1., resolution);
     const double fsmear = max(d(gen), 0.);
-    return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, t.mass()));
+    const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
+    return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
   }
 
 
@@ -501,7 +506,8 @@ namespace Rivet {
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
     normal_distribution<> d(1., resolution);
     const double fsmear = max(d(gen), 0.);
-    return Jet(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, j.mass()));
+    const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
+    return Jet(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
   }
 
   /// CMS Run 1 jet smearing

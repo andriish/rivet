@@ -1,3 +1,7 @@
+2016-07-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add protections against -ve mass from numerical precision errors in smearing functions.
+
 2016-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Move several internal system headers into the include/Rivet/Tools directory.
