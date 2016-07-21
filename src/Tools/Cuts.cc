@@ -280,14 +280,20 @@ namespace Rivet {
     Cuttable(const Particle& p) : p_(p) {}
     double getValue(Cuts::Quantity qty) const {
       switch ( qty ) {
-      case Cuts::pT:     return p_.momentum().pT();
-      case Cuts::Et:     return p_.momentum().Et();
-      case Cuts::mass:   return p_.momentum().mass();
-      case Cuts::rap:    return p_.momentum().rapidity();
-      case Cuts::absrap: return std::abs(p_.momentum().rapidity());
-      case Cuts::eta:    return p_.momentum().pseudorapidity();
-      case Cuts::abseta: return std::abs(p_.momentum().pseudorapidity());
-      case Cuts::phi:    return p_.momentum().phi();
+      case Cuts::pT:         return p_.pT();
+      case Cuts::Et:         return p_.Et();
+      case Cuts::mass:       return p_.mass();
+      case Cuts::rap:        return p_.rap();
+      case Cuts::absrap:     return p_.absrap();
+      case Cuts::eta:        return p_.eta();
+      case Cuts::abseta:     return p_.abseta();
+      case Cuts::phi:        return p_.phi();
+      case Cuts::pid:        return p_.pid();
+      case Cuts::abspid:     return p_.abspid();
+      case Cuts::charge:     return p_.charge();
+      case Cuts::abscharge:  return p_.abscharge();
+      case Cuts::charge3:    return p_.charge3();
+      case Cuts::abscharge3: return p_.abscharge3();
       default: qty_not_found();
       }
       return -999.;
@@ -307,10 +313,10 @@ namespace Rivet {
       case Cuts::pT:     return fm_.pT();
       case Cuts::Et:     return fm_.Et();
       case Cuts::mass:   return fm_.mass();
-      case Cuts::rap:    return fm_.rapidity();
-      case Cuts::absrap: return std::abs(fm_.rapidity());
-      case Cuts::eta:    return fm_.pseudorapidity();
-      case Cuts::abseta: return std::abs(fm_.pseudorapidity());
+      case Cuts::rap:    return fm_.rap();
+      case Cuts::absrap: return fm_.absrap();
+      case Cuts::eta:    return fm_.eta();
+      case Cuts::abseta: return fm_.abseta();
       case Cuts::phi:    return fm_.phi();
       default: qty_not_found();
       }
