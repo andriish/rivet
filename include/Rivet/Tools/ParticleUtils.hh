@@ -323,10 +323,45 @@ namespace Rivet {
 
 
 
-  /// @brief Decide if a given particle is prompt based on set definition flags
-  ///
-  /// @note This one doesn't make any judgements about final-stateness
-  bool isPrompt(const Particle& p, bool inclprompttaudecays=false, bool inclpromptmudecays=false);
+  /// @name Non-PID particle properties, via unbound functions
+  //@{
+
+  /// Is this particle potentially visible in a detector?
+  inline bool isVisible(const Particle& p) { return p.isVisible(); }
+
+  /// Decide if a given particle is prompt, via Particle::isPrompt()
+  inline bool isPrompt(const Particle& p, bool from_prompt_tau=false, bool from_prompt_mu=false) {
+    return p.isPrompt(from_prompt_tau, from_prompt_mu);
+  }
+
+  /// Decide if a given particle is stable, via Particle::isStable()
+  inline bool isStable(const Particle& p) { return p.isStable(); }
+
+  /// Check whether a given PID is found in the particle's ancestor list
+  inline bool hasAncestor(const Particle& p, PdgId pid)  { return p.hasAncestor(pid); }
+
+  /// Determine whether the particle is from a b-hadron decay
+  inline bool fromBottom(const Particle& p) { return p.fromBottom(); }
+
+  /// @brief Determine whether the particle is from a c-hadron decay
+  inline bool fromCharm(const Particle& p) { return p.fromCharm(); }
+
+  /// @brief Determine whether the particle is from a hadron decay
+  inline bool fromHadron(const Particle& p) { return p.fromHadron(); }
+
+  /// @brief Determine whether the particle is from a tau decay
+  inline bool fromTau(const Particle& p, bool prompt_taus_only=false) {
+    return p.fromTau(prompt_taus_only);
+  }
+
+  /// @brief Determine whether the particle is from a prompt tau decay
+  inline bool fromPromptTau(const Particle& p) { return p.fromPromptTau(); }
+
+  /// @brief Determine whether the particle is from a hadron or tau decay
+  inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
+
+  //@}
+
 
 
   /// @name Unbound functions for filtering particles
@@ -346,7 +381,7 @@ namespace Rivet {
   //@{
 
   /// Get the PDG ID codes of a ParticlePair
-  /// @todo Needed?
+  /// @todo Make ParticlePair a custom class instead?
   inline PdgIdPair pids(const ParticlePair& pp) {
     return make_pair(pp.first.pid(), pp.second.pid());
   }

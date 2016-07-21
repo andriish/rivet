@@ -1,5 +1,11 @@
 2016-07-21  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add optional Cut and duplicate-removal flags to Particle children & descendants methods.
+
+	* Add unbound versions of Particle is* and from* methods, for easier functor use.
+
+	* Add Particle::isPrompt() as a member rather than unbound function.
+
 	* Add protections against -ve mass from numerical precision errors in smearing functions.
 
 2016-07-20  Andy Buckley  <andy.buckley@cern.ch>

@@ -189,7 +189,7 @@ namespace Rivet {
     /// @name Ancestry properties
     //@{
 
-    /// Check whether a given PID is found in the GenParticle's ancestor list
+    /// Check whether a given PID is found in the particle's ancestor list
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
@@ -254,6 +254,11 @@ namespace Rivet {
     /// experimental analyses!
     bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
+    /// @brief Shorthand definition of 'promptness' based on set definition flags
+    ///
+    /// @note This one doesn't make any judgements about final-stateness
+    bool isPrompt(bool from_prompt_tau=false, bool from_prompt_mu=false) const;
+
     //@}
 
 
@@ -264,15 +269,15 @@ namespace Rivet {
     bool isStable() const;
 
     /// Get a list of the direct descendants from the current particle
-    Particles children() const;
+    Particles children(const Cut& c=Cuts::open()) const;
 
     /// Get a list of all the descendants (including duplication of parents and children) from the current particle
-    Particles allDescendants() const;
+    Particles allDescendants(const Cut& c=Cuts::open(), bool remove_duplicates=true) const;
 
     /// Get a list of all the stable descendants from the current particle
     /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
     /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-    Particles stableDescendants() const;
+    Particles stableDescendants(const Cut& c=Cuts::open()) const;
 
     /// Flight length (divide by mm or cm to get the appropriate units)
     double flightLength() const;

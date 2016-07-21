@@ -26,12 +26,14 @@ namespace Rivet {
 
 
   bool Particle::isStable() const {
-    return genParticle() != NULL && genParticle()->status() == 1 && genParticle()->end_vertex() == NULL;
+    return genParticle() != NULL &&
+      genParticle()->status() == 1 &&
+      genParticle()->end_vertex() == NULL;
   }
 
 
   /// @todo Use recursion through replica-avoiding functions to avoid bookkeeping duplicates
-  vector<Particle> Particle::children() const {
+  vector<Particle> Particle::children(const Cut& c) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
@@ -40,15 +42,17 @@ namespace Rivet {
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticle* gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it)
-      rtn += Particle(*it);
+    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it) {
+      const Particle p(*it);
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      rtn += p;
+    }
     return rtn;
   }
 
 
-  /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
   /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-  vector<Particle> Particle::allDescendants() const {
+  vector<Particle> Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
@@ -56,16 +60,27 @@ namespace Rivet {
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
-    //   rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it)
-      rtn += Particle(*it);
+    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
+      const Particle p(*it);
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      if (remove_duplicates && (*it)->end_vertex() != NULL) {
+        // size_t n = 0; ///< @todo Only remove 1-to-1 duplicates?
+        bool dup = false;
+        /// @todo Yuck, HepMC
+        for (GenVertex::particle_iterator it2 = (*it)->end_vertex()->particles_begin(HepMC::children); it2 != (*it)->end_vertex()->particles_end(HepMC::children); ++it2) {
+          // n += 1; if (n > 1) break;
+          if ((*it)->pdg_id() == (*it2)->pdg_id()) { dup = true; break; }
+        }
+        if (dup) continue;
+      }
+      rtn += p;
+    }
     return rtn;
   }
 
 
-  /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
   /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-  vector<Particle> Particle::stableDescendants() const {
+  vector<Particle> Particle::stableDescendants(const Cut& c) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
@@ -73,11 +88,13 @@ namespace Rivet {
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
-    //   if (gp->status() == 1 && gp->end_vertex() == NULL)
-    //     rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it)
-      if ((*it)->status() == 1 && (*it)->end_vertex() == NULL)
-        rtn += Particle(*it);
+    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
+      // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
+      const Particle p(*it);
+      if (!p.isStable()) continue;
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      rtn += p;
+    }
     return rtn;
   }
 
@@ -95,11 +112,11 @@ namespace Rivet {
   /// @todo Neaten this up with C++11, via one walker function and several uses with lamba tests
 
 
-  bool Particle::hasAncestor(PdgId pdg_id) const {
+  bool Particle::hasAncestor(PdgId pid) const {
     const GenVertex* prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false;
     foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
-      if (ancestor->pdg_id() == pdg_id) return true;
+      if (ancestor->pdg_id() == pid) return true;
     }
     return false;
   }
@@ -162,13 +179,9 @@ namespace Rivet {
   // }
 
 
-  /////////////////////
-
-
-  /// @todo Rewrite for consistency with bound functions -> make it a bound function?
-  bool isPrompt(const Particle& p, bool inclprompttaudecays, bool inclpromptmudecays) {
-    if (p.genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
-    const GenVertex* prodVtx = p.genParticle()->production_vertex();
+  bool Particle::isPrompt(bool from_prompt_tau, bool from_prompt_mu) const {
+    if (genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
+    const GenVertex* prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
     const pair<GenParticle*, GenParticle*> beams = prodVtx->parent_event()->beam_particles();
 
@@ -179,11 +192,14 @@ namespace Rivet {
       if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
       if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
       if (PID::isHadron(pid)) return false; // prompt particles can't be from hadron decays
-      if (abs(pid) == PID::TAU && p.abspid() != PID::TAU && !inclprompttaudecays) return false; // allow or ban particles from tau decays (permitting tau copies)
-      if (abs(pid) == PID::MUON && p.abspid() != PID::MUON && !inclpromptmudecays) return false; // allow or ban particles from muon decays (permitting muon copies)
+      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !from_prompt_tau) return false; // allow or ban particles from tau decays (permitting tau copies)
+      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !from_prompt_mu) return false; // allow or ban particles from muon decays (permitting muon copies)
     }
     return true;
   }
+
+
+  /////////////////////
 
 
   Particles& filterBy(Particles& particles, const Cut& c) {
