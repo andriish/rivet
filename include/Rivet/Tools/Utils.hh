@@ -2,7 +2,6 @@
 #ifndef RIVET_Utils_HH
 #define RIVET_Utils_HH
 
-#include "Rivet/Math/Math.hh"
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/PrettyPrint.hh"
 #include <sstream>

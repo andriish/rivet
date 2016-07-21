@@ -51,7 +51,7 @@
 #include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
-#include "Rivet/Math/MathUtils.hh"
+#include "Rivet/Math/Math.hh"
 #include "Rivet/Math/Vectors.hh"
 
 // #include "Rivet/Tools/Cmp.hh"
