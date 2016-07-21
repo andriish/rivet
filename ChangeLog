@@ -1,5 +1,9 @@
 2016-07-21  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add pid, abspid, charge, abscharge, charge3, and abscharge3 Cut enums, handled by Particle cut targets.
+
+	* Add abscharge() and abscharge3() methods to Particle.
+
 	* Add optional Cut and duplicate-removal flags to Particle children & descendants methods.
 
 	* Add unbound versions of Particle is* and from* methods, for easier functor use.
