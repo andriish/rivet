@@ -1072,7 +1072,7 @@ class Legend(Described):
                             + ', linewidth=' + drawobject.getLineWidth() \
                             + ', strokeopacity=' + drawobject.getLineOpacity() \
                             + ', opacity=' + drawobject.getFillOpacity())
-                if drawobject.getLineDash()!='':
+                if drawobject.getLineDash() != '':
                     out += (', dash=' + drawobject.getLineDash())
                 if drawobject.getFillStyle()!='none':
                     out += (', fillstyle=' + drawobject.getFillStyle() \
@@ -1254,10 +1254,7 @@ class DrawableObject(Described):
         pass
 
     def getTitle(self):
-        if self.description.has_key('Title'):
-            return self.description['Title']
-        else:
-            return ''
+        return self.description.get("Title", "")
 
     def getLineStyle(self):
         if self.description.has_key('LineStyle'):
@@ -1279,94 +1276,49 @@ class DrawableObject(Described):
             return ''
 
     def getLineWidth(self):
-        if self.description.has_key('LineWidth'):
-            return self.description['LineWidth']
-        else:
-            return '0.8pt'
+        return self.description.get("LineWidth", "0.8pt")
 
     def getLineColor(self):
-        if self.description.has_key('LineColor'):
-            return self.description['LineColor']
-        else:
-            return 'black'
+        return self.description.get("LineColor", "black")
 
     def getLineOpacity(self):
-        if self.description.has_key('LineOpacity'):
-            return self.description['LineOpacity']
-        else:
-            return '1.0'
+        return self.description.get("LineOpacity", "1.0")
 
     def getFillColor(self):
-        if self.description.has_key('FillColor'):
-            return self.description['FillColor']
-        else:
-            return 'white'
+        return self.description.get("FillColor", "white")
 
     def getFillOpacity(self):
-        if self.description.has_key('FillOpacity'):
-            return self.description['FillOpacity']
-        else:
-            return '1.0'
+        return self.description.get("FillOpacity", "1.0")
 
     def getHatchColor(self):
-        if self.description.has_key('HatchColor'):
-            return self.description['HatchColor']
-        else:
-            return 'black'
+        return self.description.get("HatchColor", "black")
 
     def getFillStyle(self):
-        if self.description.has_key('FillStyle'):
-            return self.description['FillStyle']
-        else:
-            return 'none'
+        return self.description.get("FillStyle", "none")
 
     def getPolyMarker(self):
-        if self.description.has_key('PolyMarker'):
-            return self.description['PolyMarker']
-        else:
-            return ''
+        return self.description.get("PolyMarker", "")
 
     def getDotSize(self):
-        if self.description.has_key('DotSize'):
-            return self.description['DotSize']
-        else:
-            return '2pt 2'
+        return self.description.get("DotSize", "2pt 2")
 
     def getDotScale(self):
-        if self.description.has_key('DotScale'):
-            return self.description['DotScale']
-        else:
-            return '1'
+        return self.description.get("DotScale", "1")
 
     def getErrorBars(self):
-        if self.description.has_key('ErrorBars'):
-            return bool(int(self.description['ErrorBars']))
-        else:
-            return False
+        return bool(int(self.description.get("ErrorBars", "0")))
 
     def getErrorBands(self):
-        if self.description.has_key('ErrorBands'):
-            return bool(int(self.description['ErrorBands']))
-        else:
-            return False
+        return bool(int(self.description.get("ErrorBands", "0")))
 
     def getErrorBandColor(self):
-        if self.description.has_key('ErrorBandColor'):
-            return self.description['ErrorBandColor']
-        else:
-            return 'yellow'
+        return self.description.get("ErrorBandColor", "yellow")
 
     def getErrorBandOpacity(self):
-        if self.description.has_key('ErrorBandOpacity'):
-            return self.description['ErrorBandOpacity']
-        else:
-            return '1.0'
+        return self.description.get("ErrorBandOpacity", "1.0")
 
     def getSmoothLine(self):
-        if self.description.has_key('SmoothLine'):
-            return bool(int(self.description['SmoothLine']))
-        else:
-            return False
+        return bool(int(self.description.get("SmoothLine", "0")))
 
     def startclip(self):
         return '\\psclip{\\psframe[linewidth=0, linestyle=none](0,0)(1,1)}\n'
@@ -1910,7 +1862,7 @@ class Histogram(DrawableObject, Described):
                         continue
                     if b.val == 0. and b.err == [0.,0.]:
                         continue
-                    out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' %(self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
+                    out += ('\\psdot[dotstyle=%s,dotsize=%s,dotscale=%s](' % (self.getPolyMarker(),self.getDotSize(),self.getDotScale()) \
                                 + coors.strphys2frameX(.5*(b.xmin+b.xmax)) + ', ' \
                                 + coors.strphys2frameY(b.val) + ')\n')
 
