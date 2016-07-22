@@ -118,14 +118,19 @@ class PlotParser(object):
                 if vm:
                     prop, value = vm.group(1,2)
                     if msec:
+                        oldval = value
                         try:
                             ## First escape backslashes *except* regex groups, then expand regex groups from path match
+                            #print "\n", value
                             value = value.encode("string-escape")
-                            value = re.sub("(\\\\)(\\d|g)", "\\2", value) #< r-strings actually made this harder, since the \) is still treated as an escape!
+                            #print value
+                            value = re.sub("(\\\\)(\\d)", "\\2", value) #< r-strings actually made this harder, since the \) is still treated as an escape!
+                            #print value
                             value = msec.expand(value)
+                            #print value
                         except Exception as e:
                             #print e
-                            pass
+                            value = oldval #< roll back escapes if it goes wrong
                     ret[section][prop] = texpand(value) #< expand TeX shorthands
             elif section in ['SPECIAL']:
                 ret[section] += line
