@@ -623,11 +623,17 @@ namespace Rivet {
     //@}
 
 
-    /// @todo What follows should really be protected: only public to keep BinnedHistogram happy for now...
   public:
 
-    /// @name Histogram manipulation
+
+    /// @name Analysis object manipulation
+    /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     //@{
+
+    /// Multiplicatively scale the given counter, @a histo, by factor @s scale.
+    ///
+    /// @note The histogram is no longer invalidated by this procedure.
+    void scale(CounterPtr cnt, double scale);
 
     /// Normalize the given histogram, @a histo, to area = @a norm.
     ///
@@ -648,6 +654,18 @@ namespace Rivet {
     ///
     /// @note The histogram is no longer invalidated by this procedure.
     void scale(Histo2DPtr histo, double scale);
+
+
+
+    /// Helper for counter division.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(CounterPtr c1, CounterPtr c2, Scatter1DPtr s) const;
+
+    /// Helper for histogram division with raw YODA objects.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(const YODA::Counter& c1, const YODA::Counter& c2, Scatter1DPtr s) const;
 
 
     /// Helper for histogram division.

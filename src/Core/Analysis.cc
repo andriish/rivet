@@ -581,6 +581,19 @@ namespace Rivet {
   /////////////////////
 
 
+  void Analysis::divide(CounterPtr c1, CounterPtr c2, Scatter1DPtr s) const {
+    const string path = s->path();
+    *s = *c1 / *c2;
+    s->setPath(path);
+  }
+
+  void Analysis::divide(const Counter& c1, const Counter& c2, Scatter1DPtr s) const {
+    const string path = s->path();
+    *s = c1 / c2;
+    s->setPath(path);
+  }
+
+
   void Analysis::divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
     const string path = s->path();
     *s = *h1 / *h2;
@@ -633,6 +646,9 @@ namespace Rivet {
   }
 
 
+  /// @todo Counter and Histo2D efficiencies and asymms
+
+
   void Analysis::efficiency(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
     const string path = s->path();
     *s = YODA::efficiency(*h1, *h2);
@@ -656,6 +672,25 @@ namespace Rivet {
     const string path = s->path();
     *s = YODA::asymm(h1, h2);
     s->setPath(path);
+  }
+
+
+  void Analysis::scale(CounterPtr cnt, double scale) {
+    if (!cnt) {
+      MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << scale << ")");
+      return;
+    }
+    if (std::isnan(scale) || std::isinf(scale)) {
+      MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
+      scale = 0;
+    }
+    MSG_TRACE("Scaling counter " << cnt->path() << " by factor " << scale);
+    try {
+      cnt->scaleW(scale);
+    } catch (YODA::Exception& we) {
+      MSG_WARNING("Could not scale counter " << cnt->path());
+      return;
+    }
   }
 
 
