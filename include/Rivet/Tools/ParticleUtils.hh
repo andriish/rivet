@@ -16,6 +16,13 @@ namespace Rivet {
   /// @name Particle classifier functions
   //@{
 
+  /// Unbound function access to PID code
+  inline int pid(const Particle& p) { return p.pid(); }
+
+  /// Unbound function access to abs PID code
+  inline int abspid(const Particle& p) { return p.abspid(); }
+
+
   /// Is this particle species charged?
   PARTICLE_TO_PID_BOOLFN(isCharged)
 
@@ -302,18 +309,20 @@ namespace Rivet {
   };
 
   /// PID matching functor
-  struct HasPID : public BoolParticleFunctor {
-    HasPID(PdgId pid) : targetpid(pid) { }
+  struct hasPID : public BoolParticleFunctor {
+    hasPID(PdgId pid) : targetpid(pid) { }
     bool operator()(const Particle& p) const { return p.pid() == targetpid; }
     PdgId targetpid;
   };
+  using HasPID = hasPID;
 
   /// |PID| matching functor
-  struct HasAbsPID : public BoolParticleFunctor {
-    HasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
+  struct hasAbsPID : public BoolParticleFunctor {
+    hasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
     bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
     PdgId targetpid;
   };
+  using HasAbsPID = hasAbsPID;
 
   //@}
 

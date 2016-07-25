@@ -1,5 +1,7 @@
 2016-07-25  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add unbound accessors for momentum properties of ParticleBase objects.
+
 	* Add Rivet/Tools/ParticleBaseUtils.hh to collect tools like functors for particle & jet filtering.
 
 	* Add vector<ptr> versions of Analysis::scale() and ::normalize(), for batched scaling.
