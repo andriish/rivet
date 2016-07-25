@@ -367,11 +367,19 @@ namespace Rivet {
   /// @name Unbound functions for filtering particles
   //@{
 
-  /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Particles& filterBy(Particles& particles, const Cut& c);
-
   /// Get a subset of the supplied particles that passes the supplied Cut
   Particles filterBy(const Particles& particles, const Cut& c);
+
+  /// Filter a particle collection in-place to the subset that passes the supplied Cut
+  Particles& ifilterBy(Particles& particles, const Cut& c);
+
+  /// Filter a particle collection to the subset that passes the supplied Cut, into a new container
+  /// @note New container will be replaced, not appended to
+  Particles& filterBy(Particles& particles, const Cut& c, Particles& out) {
+    //const Particles& const_particles = particles;
+    out = filterBy(particles, c);
+    return out;
+  }
 
   //@}
 

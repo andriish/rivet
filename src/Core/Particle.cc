@@ -202,7 +202,7 @@ namespace Rivet {
   /////////////////////
 
 
-  Particles& filterBy(Particles& particles, const Cut& c) {
+  Particles& ifilterBy(Particles& particles, const Cut& c) {
     if (c != Cuts::OPEN) {
       const auto newend = std::remove_if(particles.begin(), particles.end(), [&](const Particle& p){ return !c->accept(p); });
       particles.erase(newend, particles.end());

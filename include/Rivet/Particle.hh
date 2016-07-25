@@ -308,12 +308,11 @@ namespace Rivet {
   };
 
 
-
   /// @name String representation and streaming support
   //@{
 
   /// Represent a Particle as a string.
-  std::string to_str(const Particle& pair);
+  std::string to_str(const Particle& p);
 
   /// Allow a Particle to be passed to an ostream.
   inline std::ostream& operator<<(std::ostream& os, const Particle& p) {

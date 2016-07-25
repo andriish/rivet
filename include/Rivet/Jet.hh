@@ -231,45 +231,24 @@ namespace Rivet {
   };
 
 
-  /// @name Unbound functions for filtering jets
+  /// @name String representation and streaming support
   //@{
 
-  /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Jets& filterBy(Jets& jets, const Cut& c);
+  /// Represent a Jet as a string.
+  std::string to_str(const Jet& j);
 
-  /// Get a subset of the supplied jets that passes the supplied Cut
-  Jets filterBy(const Jets& jets, const Cut& c);
-
-  //@}
-
-
-  /// @name Unbound functions for converting between Jets, Particles and PseudoJets
-  //@{
-
-  inline PseudoJets mkPseudoJets(const Particles& ps) {
-    PseudoJets rtn; rtn.reserve(ps.size());
-    for (const Particle& p : ps)
-      rtn.push_back(p);
-    return rtn;
-  }
-
-  inline PseudoJets mkPseudoJets(const Jets& js) {
-    PseudoJets rtn; rtn.reserve(js.size());
-    for (const Jet& j : js)
-      rtn.push_back(j);
-    return rtn;
-  }
-
-  inline Jets mkJets(const PseudoJets& pjs) {
-    Jets rtn; rtn.reserve(pjs.size());
-    for (const PseudoJet& pj : pjs)
-      rtn.push_back(pj);
-    return rtn;
+  /// Allow a Jet to be passed to an ostream.
+  inline std::ostream& operator<<(std::ostream& os, const Jet& j) {
+    os << to_str(j);
+    return os;
   }
 
   //@}
 
 
 }
+
+
+#include "Rivet/Tools/JetUtils.hh"
 
 #endif
