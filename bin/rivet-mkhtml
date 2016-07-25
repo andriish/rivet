@@ -265,12 +265,12 @@ if opts.VERBOSE:
 
 ## Run rivet-cmphistos in a subdir, after fixing any relative paths in Rivet env vars
 if not opts.DRY_RUN:
-    for var in ("RIVET_ANALYSIS_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_PLOT_PATH"):
+    for var in ("RIVET_ANALYSIS_PATH", "RIVET_DATA_PATH", "RIVET_REF_PATH", "RIVET_INFO_PATH", "RIVET_PLOT_PATH"):
         if var in os.environ:
             abspaths = map(os.path.abspath, os.environ[var].split(":"))
             os.environ[var] = ":".join(abspaths)
-    subproc = Popen(ch_cmd, cwd=opts.OUTPUTDIR,stdout=PIPE,stderr=PIPE)
-    out,err = subproc.communicate()
+    subproc = Popen(ch_cmd, cwd=opts.OUTPUTDIR, stdout=PIPE, stderr=PIPE)
+    out, err = subproc.communicate()
     retcode = subproc.returncode
     if (opts.VERBOSE or retcode != 0) and out:
         print 'Output from rivet-cmphistos\n', out
