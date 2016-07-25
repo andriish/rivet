@@ -1,5 +1,9 @@
 2016-07-25  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add vector<ptr> versions of Analysis::scale() and ::normalize(), for batched scaling.
+
+	* Add Analysis::scale() and Analysis::divide() methods for Counter types.
+
 	* Utils.hh: add a generic sum() function for containers, and use auto in loop to support arrays.
 
 	* Set data path as well as lib path in scripts with --pwd option, and use abs path to $PWD.

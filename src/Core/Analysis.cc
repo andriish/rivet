@@ -675,18 +675,18 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(CounterPtr cnt, double scale) {
+  void Analysis::scale(CounterPtr cnt, double factor) {
     if (!cnt) {
-      MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << scale << ")");
+      MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << factor << ")");
       return;
     }
-    if (std::isnan(scale) || std::isinf(scale)) {
-      MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
-      scale = 0;
+    if (std::isnan(factor) || std::isinf(factor)) {
+      MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+      factor = 0;
     }
-    MSG_TRACE("Scaling counter " << cnt->path() << " by factor " << scale);
+    MSG_TRACE("Scaling counter " << cnt->path() << " by factor " << factor);
     try {
-      cnt->scaleW(scale);
+      cnt->scaleW(factor);
     } catch (YODA::Exception& we) {
       MSG_WARNING("Could not scale counter " << cnt->path());
       return;
@@ -709,33 +709,22 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(Histo1DPtr histo, double scale) {
+  void Analysis::scale(Histo1DPtr histo, double factor) {
     if (!histo) {
-      MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
+      MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << factor << ")");
       return;
     }
-    if (std::isnan(scale) || std::isinf(scale)) {
-      MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
-      scale = 0;
+    if (std::isnan(factor) || std::isinf(factor)) {
+      MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+      factor = 0;
     }
-    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << scale);
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << factor);
     try {
-      histo->scaleW(scale);
+      histo->scaleW(factor);
     } catch (YODA::Exception& we) {
       MSG_WARNING("Could not scale histo " << histo->path());
       return;
     }
-    // // Transforming the histo into a scatter after scaling
-    // vector<double> x, y, ex, ey;
-    // for (size_t i = 0, N = histo->numBins(); i < N; ++i) {
-    //   x.push_back( histo->bin(i).midpoint() );
-    //   ex.push_back(histo->bin(i).width()*0.5);
-    //   y.push_back(histo->bin(i).height()*scale);
-    //   ey.push_back(histo->bin(i).heightErr()*scale);
-    // }
-    // string title = histo->title();
-    // Scatter2DPtr dps( new Scatter2D(x, y, ex, ey, hpath, title) );
-    // addAnalysisObject(dps);
   }
 
 
@@ -754,18 +743,18 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(Histo2DPtr histo, double scale) {
+  void Analysis::scale(Histo2DPtr histo, double factor) {
     if (!histo) {
-      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << scale << ")");
+      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << factor << ")");
       return;
     }
-    if (std::isnan(scale) || std::isinf(scale)) {
-      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << scale << ")");
-      scale = 0;
+    if (std::isnan(factor) || std::isinf(factor)) {
+      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+      factor = 0;
     }
-    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << scale);
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << factor);
     try {
-      histo->scaleW(scale);
+      histo->scaleW(factor);
     } catch (YODA::Exception& we) {
       MSG_WARNING("Could not scale histo " << histo->path());
       return;

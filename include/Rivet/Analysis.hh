@@ -630,31 +630,45 @@ namespace Rivet {
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     //@{
 
-    /// Multiplicatively scale the given counter, @a histo, by factor @s scale.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
-    void scale(CounterPtr cnt, double scale);
+    /// Multiplicatively scale the given counter, @a cnt, by factor @s factor.
+    void scale(CounterPtr cnt, double factor);
+
+    /// Multiplicatively scale the given counters, @a cnts, by factor @s factor.
+    void scale(const std::vector<CounterPtr>& cnts, double factor) {
+      for (const auto& c : cnts) scale(c, factor);
+    }
 
     /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
     void normalize(Histo1DPtr histo, double norm=1.0, bool includeoverflows=true);
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
-    void scale(Histo1DPtr histo, double scale);
+    /// Normalize the given histograms, @a histos, to area = @a norm.
+    void normalize(const std::vector<Histo1DPtr>& histos, double norm=1.0, bool includeoverflows=true) {
+      for (const auto& h : histos) normalize(h, norm, includeoverflows);
+    }
+
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    void scale(Histo1DPtr histo, double factor);
+
+    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    void scale(const std::vector<Histo1DPtr>& histos, double factor) {
+      for (const auto& h : histos) scale(h, factor);
+    }
 
     /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
     void normalize(Histo2DPtr histo, double norm=1.0, bool includeoverflows=true);
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
-    void scale(Histo2DPtr histo, double scale);
+    /// Normalize the given histograms, @a histos, to area = @a norm.
+    void normalize(const std::vector<Histo2DPtr>& histos, double norm=1.0, bool includeoverflows=true) {
+      for (const auto& h : histos) normalize(h, norm, includeoverflows);
+    }
 
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    void scale(Histo2DPtr histo, double factor);
+
+    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    void scale(const std::vector<Histo2DPtr>& histos, double factor) {
+      for (const auto& h : histos) scale(h, factor);
+    }
 
 
     /// Helper for counter division.
