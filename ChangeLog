@@ -1,3 +1,9 @@
+2016-07-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add setAnalysisDataPaths and addAnalysisDataPath to RivetPaths.hh/cc and Python.
+
+	* Pass absolutized RIVET_DATA_PATH from rivet-mkhtml to rivet-cmphistos.
+
 2016-07-24  Holger Schulz  <holger.schulz@cern.ch>
  
         * Mark CDF_2008_S77... b jet shapes validated

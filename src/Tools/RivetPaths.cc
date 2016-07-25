@@ -67,6 +67,18 @@ namespace Rivet {
   }
 
 
+
+  void setAnalysisDataPaths(const vector<string>& paths) {
+    const string pathstr = pathjoin(paths);
+    setenv("RIVET_DATA_PATH", pathstr.c_str(), 1);
+  }
+
+  void addAnalysisDataPath(const string& extrapath) {
+    vector<string> paths = getAnalysisDataPaths();
+    paths.push_back(extrapath);
+    setAnalysisDataPaths(paths);
+  }
+
   vector<string> getAnalysisDataPaths() {
     vector<string> dirs;
     // Use the Rivet data path variable if set...
