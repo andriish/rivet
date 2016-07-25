@@ -192,19 +192,26 @@ namespace Rivet {
   /// Return true if f(x) is true for any x in container c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool any(const CONTAINER& c, const FN& f) {
-    for (const typename CONTAINER::value_type& val : c) {
-      if (f(val)) return true;
-    }
+    for (const auto& x : c)
+      if (f(x)) return true;
     return false;
   }
 
-  /// Return true if f(x) is true for all x in container c, otherwise false.
+  /// Return true if @a f(x) is true for all @c x in container @a c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool all(const CONTAINER& c, const FN& f) {
-    for (const typename CONTAINER::value_type& val : c) {
-      if (!f(val)) return false;
-    }
+    for (const auto& x : c)
+      if (!f(x)) return false;
     return true;
+  }
+
+  /// Generic sum function, adding @a fn(@c x) for all @c x in container @a c, starting with @a start
+  template <typename CONTAINER, typename FN, typename T>
+  inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
+    T rtn = start;
+    for (const auto& x : c)
+      rtn += fn(x);
+    return rtn;
   }
 
   //@}
