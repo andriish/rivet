@@ -107,7 +107,8 @@ opts, yodafiles = parser.parse_args()
 
 ## Add pwd to search paths
 if opts.PATH_PWD:
-    rivet.addAnalysisLibPath(".")
+    rivet.addAnalysisLibPath(os.path.abspath("."))
+    rivet.addAnalysisDataPath(os.path.abspath("."))
 
 
 ## Check that there are some arguments!

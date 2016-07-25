@@ -211,11 +211,14 @@ except:
 ## Override/modify analysis search path
 if opts.ANALYSIS_PATH:
     rivet.setAnalysisLibPaths(opts.ANALYSIS_PATH.split(":"))
+    rivet.setAnalysisDataPaths(opts.ANALYSIS_PATH.split(":"))
 if opts.ANALYSIS_PATH_APPEND:
     for ap in opts.ANALYSIS_PATH_APPEND.split(":"):
         rivet.addAnalysisLibPath(ap)
+        rivet.addAnalysisDataPath(ap)
 if opts.ANALYSIS_PATH_PWD:
-    rivet.addAnalysisLibPath(".")
+    rivet.addAnalysisLibPath(os.path.abspath("."))
+    rivet.addAnalysisDataPath(os.path.abspath("."))
 
 
 ## List of analyses
