@@ -375,7 +375,7 @@ namespace Rivet {
 
   /// Filter a particle collection to the subset that passes the supplied Cut, into a new container
   /// @note New container will be replaced, not appended to
-  Particles& filterBy(Particles& particles, const Cut& c, Particles& out) {
+  inline Particles& filterBy(Particles& particles, const Cut& c, Particles& out) {
     //const Particles& const_particles = particles;
     out = filterBy(particles, c);
     return out;
