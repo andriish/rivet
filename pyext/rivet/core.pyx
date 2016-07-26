@@ -169,18 +169,24 @@ def addAnalysisLibPath(path):
     c.addAnalysisLibPath(path)
 
 
-def getAnalysisRefPaths():
-    return c.getAnalysisRefPaths()
+def setAnalysisDataPaths(xs):
+    c.setAnalysisDataPaths(xs)
 
-def findAnalysisRefFile(q):
-    return c.findAnalysisRefFile(q)
-
+def addAnalysisDataPath(path):
+    c.addAnalysisDataPath(path)
 
 def getAnalysisDataPaths():
     return c.getAnalysisDataPaths()
 
 def findAnalysisDataFile(q):
     return c.findAnalysisDataFile(q)
+
+
+def getAnalysisRefPaths():
+    return c.getAnalysisRefPaths()
+
+def findAnalysisRefFile(q):
+    return c.findAnalysisRefFile(q)
 
 
 def getAnalysisInfoPaths():
