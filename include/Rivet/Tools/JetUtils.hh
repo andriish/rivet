@@ -2,6 +2,7 @@
 #define RIVET_JETUTILS_HH
 
 #include "Rivet/Jet.hh"
+#include "Rivet/Tools/ParticleBaseUtils.hh"
 
 namespace Rivet {
 

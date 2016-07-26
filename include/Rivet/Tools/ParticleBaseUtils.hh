@@ -64,7 +64,7 @@ namespace Rivet {
     bool operator()(const ParticleBase& p) const { return p.abseta() < absetacut; }
     double absetacut;
   };
-  using AbsEtaGtr = absetaGtr;
+  using AbsEtaLess = absetaLess;
 
 
   /// Rapidity greater-than functor

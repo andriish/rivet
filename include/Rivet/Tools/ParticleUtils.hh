@@ -2,6 +2,7 @@
 #define RIVET_PARTICLEUTILS_HH
 
 #include "Rivet/Particle.hh"
+#include "Rivet/Tools/ParticleBaseUtils.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
 // Macros to map Rivet::Particle functions to PID:: functions of the same name
