@@ -210,7 +210,7 @@ namespace Rivet {
   inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
     T rtn = start;
     for (const auto& x : c)
-      rtn += fn(x);
+      rtn += f(x);
     return rtn;
   }
 
