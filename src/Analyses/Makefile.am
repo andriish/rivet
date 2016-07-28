@@ -235,6 +235,7 @@ endif
 lib_LTLIBRARIES += RivetLHCbAnalyses.la
 RivetLHCbAnalyses_la_SOURCES = \
     LHCB_2010_I867355.cc \
+    LHCB_2011_I919315.cc \
     LHCB_2012_I1208102.cc \
     LHCB_2013_I1218996.cc \
     LHCB_2013_I1208105.cc \
@@ -244,7 +245,6 @@ if ENABLE_UNVALIDATED
 RivetLHCbAnalyses_la_SOURCES += \
     LHCB_2010_S8758301.cc \
     LHCB_2011_I917009.cc \
-    LHCB_2011_I919315.cc \
     LHCB_2012_I1119400.cc
 endif
 
@@ -309,6 +309,7 @@ endif
 lib_LTLIBRARIES += RivetD0Analyses.la
 RivetD0Analyses_la_SOURCES = \
     D0_2000_I499943.cc \
+    D0_2000_S4480767.cc \
     D0_2001_S4674421.cc \
     D0_2004_S5992206.cc \
     D0_2006_S6438750.cc \
@@ -331,7 +332,6 @@ RivetD0Analyses_la_SOURCES = \
     D0_2000_I503361.cc
 if ENABLE_UNVALIDATED
 RivetD0Analyses_la_SOURCES += \
-    D0_2000_S4480767.cc \
     D0_1996_S3214044.cc \
     D0_1996_S3324664.cc
 endif
