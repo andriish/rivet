@@ -1,9 +1,9 @@
 Name: TOTEM_2012_002
 Year: 2012
-Summary: Measurement of proton-proton elastic scattering and total cross section at $\sqrt{s} = 7\;\TeV$.
+Summary: Measurement of proton-proton elastic scattering and total cross section at $\sqrt{s} = 7\;\TeV$
 Experiment: TOTEM
 Collider: LHC
-#InspireID:
+InspireID: 1220862
 Status: VALIDATED
 Authors:
  - Sercan Sen <Sercan.Sen@cern.ch>
