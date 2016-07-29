@@ -179,12 +179,12 @@ for yodafile in yodafiles:
         if opts.ANAPATTERNS:
             matched = False
             for patt in opts.ANAPATTERNS:
-                if re.search(patt, analysis) is not None:
+                if re.match(patt, analysis) is not None:
                     matched = True
                     break
         if matched and opts.ANAUNPATTERNS:
             for patt in opts.ANAUNPATTERNS:
-                if re.search(patt, analysis) is not None:
+                if re.match(patt, analysis) is not None:
                     matched = False
                     break
         if matched:
@@ -260,7 +260,7 @@ for configfile in opts.CONFIGFILES:
         ch_cmd += ["-c", configfile]
 
 if opts.VERBOSE:
-    # ch_cmd.append("--verbose")
+    ch_cmd.append("--verbose")
     print "Calling rivet-cmphistos with the following command:"
     print " ".join(ch_cmd)
 
@@ -273,10 +273,10 @@ if not opts.DRY_RUN:
     subproc = Popen(ch_cmd, cwd=opts.OUTPUTDIR, stdout=PIPE, stderr=PIPE)
     out, err = subproc.communicate()
     retcode = subproc.returncode
-    if (opts.VERBOSE or retcode != 0) and out:
-        print 'Output from rivet-cmphistos\n', out
+    if opts.VERBOSE or retcode != 0:
+        print 'Output from rivet-cmphistos:\n', out
     if err :
-        print 'Errors from rivet-cmphistos\n', err
+        print 'Errors from rivet-cmphistos:\n', err
     if retcode != 0:
         print 'Crash in rivet-cmphistos code = ', retcode, ' exiting'
         exit(retcode)
