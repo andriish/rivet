@@ -234,10 +234,10 @@ if opts.REFTITLE:
     ch_cmd.append("--reftitle=%s" % opts.REFTITLE )
 if opts.PATHPATTERNS:
     for patt in opts.PATHPATTERNS:
-        ch_cmd += ["-m", "'"+patt+"'"]
+        ch_cmd += ["-m", patt] #"'"+patt+"'"]
 if opts.PATHUNPATTERNS:
     for patt in opts.PATHUNPATTERNS:
-        ch_cmd += ["-M", "'"+patt+"'"]
+        ch_cmd += ["-M", patt] #"'"+patt+"'"]
 ch_cmd.append("--hier-out")
 # TODO: Need to be able to override this: provide a --plotinfodir cmd line option?
 ch_cmd.append("--plotinfodir=%s" % os.path.abspath("../"))
