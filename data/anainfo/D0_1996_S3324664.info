@@ -4,7 +4,7 @@ Summary: Azimuthal decorrelation of jets widely separated in rapidity
 Experiment: D0
 Collider: Tevatron Run 1
 SpiresID: 3324664
-Status: UNVALIDATED - currently uses wrong jet algorithm!
+Status: UNVALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:
@@ -36,5 +36,4 @@ BibTeX: '@Article{Abachi:1996et,
      SLACcitation  = "%%CITATION = HEP-EX/9603010;%%"
 }'
 ToDo:
- -  So far, this analysis is using the wrong jet algorithm, namely the D0 Run
-    II Improved Legacy cone.
+ - So far, this analysis is using the wrong jet algorithm.

@@ -175,38 +175,47 @@ AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 ## Enable build/install of unvalidated analyses
 AC_ARG_ENABLE([unvalidated],
-  [AC_HELP_STRING(--enable-unvalidated, [build and install unvalidated analyses])],
-  [], [enable_unvalidated=no])
-if test x$enable_unvalidated = xyes; then
-   AC_MSG_WARN([Building unvalidated Rivet analyses, by request])
-else
-   AC_MSG_NOTICE([Not building unvalidated Rivet analyses])
-fi
-AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
+  [AC_HELP_STRING(--enable-unvalidated, [does nothing, for backward compatibility])],
+  [], [enable_unvalidated=yes])
+dnl AC_ARG_ENABLE([unvalidated],
+dnl   [AC_HELP_STRING(--enable-unvalidated, [build and install unvalidated analyses])],
+dnl   [], [enable_unvalidated=yes])
+dnl if test x$enable_unvalidated = xyes; then
+dnl    AC_MSG_WARN([Building unvalidated Rivet analyses, by request])
+dnl else
+dnl    AC_MSG_NOTICE([Not building unvalidated Rivet analyses])
+dnl fi
+dnl AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
 
 
 ## Disable build/install of validated-but-preliminary analyses
 AC_ARG_ENABLE([preliminary],
-  [AC_HELP_STRING(--disable-preliminary, [build and install validated-but-preliminary analyses])],
+  [AC_HELP_STRING(--disable-preliminary, [does nothing, for backward compatibility])],
   [], [enable_preliminary=yes])
-if test x$enable_preliminary = xyes; then
-   AC_MSG_NOTICE([Building preliminary Rivet analyses])
-else
-   AC_MSG_NOTICE([Not building preliminary Rivet analyses, by request])
-fi
-AM_CONDITIONAL(ENABLE_PRELIMINARY, [test x$enable_preliminary = xyes])
+dnl AC_ARG_ENABLE([preliminary],
+dnl   [AC_HELP_STRING(--disable-preliminary, [build and install validated-but-preliminary analyses])],
+dnl   [], [enable_preliminary=yes])
+dnl if test x$enable_preliminary = xyes; then
+dnl    AC_MSG_NOTICE([Building preliminary Rivet analyses])
+dnl else
+dnl    AC_MSG_NOTICE([Not building preliminary Rivet analyses, by request])
+dnl fi
+dnl AM_CONDITIONAL(ENABLE_PRELIMINARY, [test x$enable_preliminary = xyes])
 
 
 ## Disable build/install of now-obsolete preliminary analyses
 AC_ARG_ENABLE([obsolete],
-  [AC_HELP_STRING(--disable-obsolete, [build and install now-obsolete analyses])],
-  [], [enable_obsolete=$enable_preliminary])
-if test x$enable_obsolete = xyes; then
-   AC_MSG_NOTICE([Building obsolete Rivet analyses])
-else
-   AC_MSG_NOTICE([Not building obsolete Rivet analyses, by request])
-fi
-AM_CONDITIONAL(ENABLE_OBSOLETE, [test x$enable_obsolete = xyes])
+  [AC_HELP_STRING(--disable-obsolete, [does nothing, for backward compatibility])],
+  [], [enable_obsolete=yes])
+dnl AC_ARG_ENABLE([obsolete],
+dnl   [AC_HELP_STRING(--disable-obsolete, [build and install now-obsolete analyses])],
+dnl   [], [enable_obsolete=$enable_preliminary])
+dnl if test x$enable_obsolete = xyes; then
+dnl    AC_MSG_NOTICE([Building obsolete Rivet analyses])
+dnl else
+dnl    AC_MSG_NOTICE([Not building obsolete Rivet analyses, by request])
+dnl fi
+dnl AM_CONDITIONAL(ENABLE_OBSOLETE, [test x$enable_obsolete = xyes])
 
 
 ## Build LaTeX docs if possible...
