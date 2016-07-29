@@ -1,13 +1,15 @@
 2016-07-29  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Rename TOTEM_2012_002 to proper TOTEM_2012_I1220862 name.
+
 	* Remove conditional building of obsolete, preliminary and
 	unvalidated analyses. Now always built, since there are sufficient
 	warnings.
 
 2016-07-28  Holger Schulz  <holger.schulz@cern.ch>
- 
+
         * Mark D0_2000... W pT analysis validated
-        
+
 	* Mark LHCB_2011_S919... phi meson analysis validated
 
 2016-07-25  Andy Buckley  <andy.buckley@cern.ch>
@@ -29,7 +31,7 @@
 	* Pass absolutized RIVET_DATA_PATH from rivet-mkhtml to rivet-cmphistos.
 
 2016-07-24  Holger Schulz  <holger.schulz@cern.ch>
- 
+
         * Mark CDF_2008_S77... b jet shapes validated
 
 	* Added protection against low stats yoda exception

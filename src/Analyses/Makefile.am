@@ -223,7 +223,7 @@ RivetLHCfAnalyses_la_SOURCES = \
 lib_LTLIBRARIES += RivetTOTEMAnalyses.la
 RivetTOTEMAnalyses_la_SOURCES = \
     TOTEM_2012_I1115294.cc \
-    TOTEM_2012_002.cc # TODO: update to Inspire ID
+    TOTEM_2012_I1220862.cc
 
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la

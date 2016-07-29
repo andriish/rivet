@@ -241,7 +241,6 @@ dist_pkgdata_DATA = \
   CMS_2012_PAS_QCD_11_010.plot \
   CMS_QCD_10_024.plot \
   CMSTOTEM_2014_I1294140.plot \
-  TOTEM_2014_I1328627.plot \
   D0_1996_S3214044.plot \
   D0_1996_S3324664.plot \
   D0_2000_S4480767.plot \
@@ -372,7 +371,8 @@ dist_pkgdata_DATA = \
   STAR_2009_UE_HELEN.plot \
   TASSO_1990_S2148048.plot \
   TOTEM_2012_I1115294.plot \
-  TOTEM_2012_002.plot \
+  TOTEM_2012_I1220862.plot \
+  TOTEM_2014_I1328627.plot \
   ZEUS_2001_S4815815.plot \
   UA1_1990_S2044935.plot \
   UA5_1982_S875503.plot \
