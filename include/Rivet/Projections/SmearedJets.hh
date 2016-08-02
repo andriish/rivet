@@ -83,8 +83,11 @@ namespace Rivet {
                 "b-tag hashes = " << get_address(_bTagEffFn) << "," << get_address(other._bTagEffFn) << "; " <<
                 "c-tag hashes = " << get_address(_cTagEffFn) << "," << get_address(other._cTagEffFn));
       return
-        cmp(get_address(_jetEffFn), get_address(other._jetEffFn)) || cmp(get_address(_jetSmearFn), get_address(other._jetSmearFn)) ||
-        cmp(get_address(_bTagEffFn), get_address(other._bTagEffFn)) || cmp(get_address(_cTagEffFn), get_address(other._cTagEffFn));
+        mkPCmp(other, "TruthJets") ||
+        cmp(get_address(_jetEffFn), get_address(other._jetEffFn)) ||
+        cmp(get_address(_jetSmearFn), get_address(other._jetSmearFn)) ||
+        cmp(get_address(_bTagEffFn), get_address(other._bTagEffFn)) ||
+        cmp(get_address(_cTagEffFn), get_address(other._cTagEffFn));
     }
 
 

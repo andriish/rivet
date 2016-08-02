@@ -53,7 +53,9 @@ namespace Rivet {
       if (get_address(_smearFn) == 0) return UNDEFINED;
       MSG_TRACE("Eff hashes = " << get_address(_effFn) << "," << get_address(other._effFn) << "; " <<
                 "smear hashes = " << get_address(_smearFn) << "," << get_address(other._smearFn));
-      return cmp(get_address(_effFn), get_address(other._effFn)) || cmp(get_address(_smearFn), get_address(other._smearFn));
+      return mkPCmp(other, "TruthParticles") ||
+        cmp(get_address(_effFn), get_address(other._effFn)) ||
+        cmp(get_address(_smearFn), get_address(other._smearFn));
     }
 
 
