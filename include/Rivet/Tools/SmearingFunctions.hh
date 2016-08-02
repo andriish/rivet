@@ -20,17 +20,53 @@ namespace Rivet {
   }
 
 
-
-  /// @name General particle efficiency and smearing functions
+  /// @name General particle & momentum efficiency and smearing functions
   //@{
 
   inline double PARTICLE_FN0(const Particle& p) { return 0; }
   inline double PARTICLE_FN1(const Particle& p) { return 1; }
+  inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
+
 
   inline double P4_FN0(const FourMomentum& p) { return 0; }
   inline double P4_FN1(const FourMomentum& p) { return 1; }
 
-  inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
+  inline FourMomentum P4_SMEAR_IDENTITY(const FourMomentum& p) { return p; }
+
+  /// @todo Also make jet versions that update/smear constituents?
+  inline FourMomentum P4_SMEAR_E_GAUSS(const FourMomentum& p, double resolution) {
+    /// @todo Need to isolate random generators to a single thread
+    static random_device rd;
+    static mt19937 gen(rd());
+    normal_distribution<> d(p.E(), resolution);
+    const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
+    const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
+    return FourMomentum::mkEtaPhiME(p.eta(), p.phi(), mass, smeared_E);
+  }
+
+  inline FourMomentum P4_SMEAR_PT_GAUSS(const FourMomentum& p, double resolution) {
+    /// @todo Need to isolate random generators to a single thread
+    static random_device rd;
+    static mt19937 gen(rd());
+    normal_distribution<> d(p.pT(), resolution);
+    const double smeared_pt = max(d(gen), 0.);
+    const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
+    return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), mass, smeared_pt);
+  }
+
+
+  inline double P3_FN0(const Vector3& p) { return 0; }
+  inline double P3_FN1(const Vector3& p) { return 1; }
+  inline Vector3 P3_SMEAR_IDENTITY(const Vector3& p) { return p; }
+
+  inline Vector3 P3_SMEAR_LEN_GAUSS(const Vector3& p, double resolution) {
+    /// @todo Need to isolate random generators to a single thread
+    static random_device rd;
+    static mt19937 gen(rd());
+    normal_distribution<> d(p.mod(), resolution);
+    const double smeared_mod = max(d(gen), 0.); //< can't let the energy go below the mass!
+    return smeared_mod * p.unit();
+  }
 
   //@}
 
@@ -80,10 +116,6 @@ namespace Rivet {
 
   /// ATLAS Run 1 electron reco smearing
   inline Particle ELECTRON_SMEAR_ATLAS_RUN1(const Particle& e) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-
     static const vector<double> edges_eta = {0., 2.5, 3.};
     static const vector<double> edges_pt = {0., 0.1, 25.};
     static const vector<double> e2s = {0.000, 0.015, 0.005,
@@ -104,12 +136,11 @@ namespace Rivet {
     const double c1 = sqr(e2s[i]), c2 = sqr(es[i]), c3 = sqr(cs[i]);
     const double resolution = sqrt(c1*e.E2() + c2*e.E() + c3) * GeV;
 
-    /// @todo Extract to a smear_energy helper function
-    /// @todo Also make smear_direction and smear_pt functions, and jet versions that also update/smear constituents
-    normal_distribution<> d(e.E(), resolution);
-    const double mass = e.mass2() > 0 ? e.mass() : 0; //< numerical carefulness...
-    const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
-    return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), mass, smeared_E));
+    // normal_distribution<> d(e.E(), resolution);
+    // const double mass = e.mass2() > 0 ? e.mass() : 0; //< numerical carefulness...
+    // const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
+    // return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), mass, smeared_E));
+    return Particle(e.pid(), P4_SMEAR_E_GAUSS(e, resolution));
   }
 
 
@@ -166,10 +197,6 @@ namespace Rivet {
   ///                                  |eta| < 1.5 -> sqrt(0.10^2 + pt^2 * 1.7e-3^2)
   ///                                  |eta| < 2.5 -> sqrt(0.25^2 + pt^2 * 3.1e-3^2)
   inline Particle ELECTRON_SMEAR_CMS_RUN1(const Particle& e) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-
     // Calculate absolute resolution in GeV from functional form
     double resolution = 0;
     const double abseta = e.abseta();
@@ -183,11 +210,11 @@ namespace Rivet {
       }
     }
 
-    /// @todo Extract to a smear_energy helper function
-    normal_distribution<> d(e.E(), resolution);
-    const double mass = e.mass2() > 0 ? e.mass() : 0; //< numerical carefulness...
-    const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
-    return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), mass, smeared_E));
+    // normal_distribution<> d(e.E(), resolution);
+    // const double mass = e.mass2() > 0 ? e.mass() : 0; //< numerical carefulness...
+    // const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
+    // return Particle(e.pid(), FourMomentum::mkEtaPhiME(e.eta(), e.phi(), mass, smeared_E));
+    return Particle(e.pid(), P4_SMEAR_E_GAUSS(e, resolution));
   }
 
 
@@ -249,10 +276,6 @@ namespace Rivet {
 
   /// ATLAS Run 1 muon reco smearing
   inline Particle MUON_SMEAR_ATLAS_RUN1(const Particle& m) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-
     static const vector<double> edges_eta = {0, 1.5, 2.5};
     static const vector<double> edges_pt = {0, 0.1, 1.0, 10., 200.};
     static const vector<double> res = {0., 0.03, 0.02, 0.03, 0.05,
@@ -265,11 +288,11 @@ namespace Rivet {
     const double resolution = res[i];
 
     // Smear by a Gaussian centered on the current pT, with width given by the resolution
-    /// @todo Extract to a smear_pt helper function
-    normal_distribution<> d(m.pT(), resolution*m.pT());
-    const double smeared_pt = max(d(gen), 0.);
-    const double mass = m.mass2() > 0 ? m.mass() : 0; //< numerical carefulness...
-    return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), mass, smeared_pt));
+    // normal_distribution<> d(m.pT(), resolution*m.pT());
+    // const double smeared_pt = max(d(gen), 0.);
+    // const double mass = m.mass2() > 0 ? m.mass() : 0; //< numerical carefulness...
+    // return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), mass, smeared_pt));
+    return Particle(m.pid(), P4_SMEAR_PT_GAUSS(m, resolution*m.pT()));
   }
 
   /// ATLAS Run 2 muon reco smearing
@@ -316,10 +339,6 @@ namespace Rivet {
 
   /// CMS Run 1 muon reco smearing
   inline Particle MUON_SMEAR_CMS_RUN1(const Particle& m) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-
     // Calculate fractional resolution
     // for pT > 0.1 GeV, mom resolution = |eta| < 0.5 -> sqrt(0.01^2 + pt^2 * 2.0e-4^2)
     //                                    |eta| < 1.5 -> sqrt(0.02^2 + pt^2 * 3.0e-4^2)
@@ -337,11 +356,11 @@ namespace Rivet {
     }
 
     // Smear by a Gaussian centered on the current pT, with width given by the resolution
-    /// @todo Extract to a smear_pt helper function
-    normal_distribution<> d(m.pT(), resolution*m.pT());
-    const double smeared_pt = max(d(gen), 0.);
-    const double mass = m.mass2() > 0 ? m.mass() : 0; //< numerical carefulness...
-    return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), mass, smeared_pt));
+    // normal_distribution<> d(m.pT(), resolution*m.pT());
+    // const double smeared_pt = max(d(gen), 0.);
+    // const double mass = m.mass2() > 0 ? m.mass() : 0; //< numerical carefulness...
+    // return Particle(m.pid(), FourMomentum::mkEtaPhiMPt(m.eta(), m.phi(), mass, smeared_pt));
+    return Particle(m.pid(), P4_SMEAR_PT_GAUSS(m, resolution*m.pT()));
   }
 
   /// CMS Run 2 muon reco smearing
@@ -413,15 +432,14 @@ namespace Rivet {
   /// ATLAS Run 1 tau smearing
   /// @todo Currently a copy of the crappy jet smearing that is probably wrong...
   inline Particle TAU_SMEAR_ATLAS_RUN1(const Particle& t) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-
     // Const fractional resolution for now
     static const double resolution = 0.03;
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+    /// @todo Need to isolate random generators to a single thread
+    static random_device rd;
+    static mt19937 gen(rd());
     normal_distribution<> d(1., resolution);
     const double fsmear = max(d(gen), 0.);
     const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
@@ -495,15 +513,14 @@ namespace Rivet {
   /// ATLAS Run 1 jet smearing
   /// @todo This is a cluster-level flat 3% resolution, I think, and smearing is suboptimal: improve!
   inline Jet JET_SMEAR_ATLAS_RUN1(const Jet& j) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-
     // Const fractional resolution for now
     static const double resolution = 0.03;
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+    /// @todo Need to isolate random generators to a single thread
+    static random_device rd;
+    static mt19937 gen(rd());
     normal_distribution<> d(1., resolution);
     const double fsmear = max(d(gen), 0.);
     const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
