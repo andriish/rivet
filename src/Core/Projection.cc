@@ -44,14 +44,11 @@ namespace Rivet {
   }
 
 
-  Cmp<Projection> Projection::mkNamedPCmp(const Projection& otherparent,
-                                          const string& pname) const {
+  Cmp<Projection> Projection::mkNamedPCmp(const Projection& otherparent, const string& pname) const {
     return pcmp(*this, otherparent, pname);
   }
 
-
-  Cmp<Projection> Projection::mkPCmp(const Projection& otherparent,
-                                     const string& pname) const {
+  Cmp<Projection> Projection::mkPCmp(const Projection& otherparent, const string& pname) const {
     return pcmp(*this, otherparent, pname);
   }
 

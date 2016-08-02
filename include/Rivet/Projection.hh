@@ -131,6 +131,8 @@ namespace Rivet {
 
     /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
     /// object automatically passed as one of the parent projections.
+    ///
+    /// @note Alias for mkNamedPCmp
     Cmp<Projection> mkPCmp(const Projection& otherparent, const std::string& pname) const;
 
     /// Block Projection copying
