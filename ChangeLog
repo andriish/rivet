@@ -1,5 +1,7 @@
 2016-08-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add SmearedMET projection, wrapping MissingMomentum.
+
 	* Include base truth-level projections in SmearedParticles/Jets compare() methods.
 
 2016-07-29  Andy Buckley  <andy.buckley@cern.ch>

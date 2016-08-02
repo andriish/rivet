@@ -68,6 +68,7 @@ nobase_pkginclude_HEADERS +=   \
   Projections/PromptFinalState.hh \
   Projections/SmearedParticles.hh \
   Projections/SmearedJets.hh \
+  Projections/SmearedMET.hh \
   Projections/Sphericity.hh \
   Projections/Spherocity.hh \
   Projections/TauFinder.hh \
