@@ -363,11 +363,11 @@ if not opts.DRY_RUN:
 
         reflist = []
         if inspireid:
-            reflist.append('<a href="http://inspire-hep.net/record/%s">Inspire</a>' % inspireid
-            reflist.append('<a href="http://hepdata.cedar.ac.uk/view/ins%s">HepData</a>' % inspireid
+            reflist.append('<a href="http://inspire-hep.net/record/%s">Inspire</a>' % inspireid)
+            reflist.append('<a href="http://hepdata.cedar.ac.uk/view/ins%s">HepData</a>' % inspireid)
         elif ana.spiresId():
-            reflist.append('<a href="http://inspire-hep.net/search?p=find+key+%s">Inspire</a>' % spiresid
-            reflist.append('<a href="http://hepdata.cedar.ac.uk/view/irn%s">HepData</a>' % spiresid
+            reflist.append('<a href="http://inspire-hep.net/search?p=find+key+%s">Inspire</a>' % spiresid)
+            reflist.append('<a href="http://hepdata.cedar.ac.uk/view/irn%s">HepData</a>' % spiresid)
         reflist += references
         index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
 
