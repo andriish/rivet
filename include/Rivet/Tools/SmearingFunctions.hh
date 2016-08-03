@@ -23,16 +23,22 @@ namespace Rivet {
   /// @name General particle & momentum efficiency and smearing functions
   //@{
 
+  /// Take a Particle and return 0
   inline double PARTICLE_FN0(const Particle& p) { return 0; }
+  /// Take a Particle and return 1
   inline double PARTICLE_FN1(const Particle& p) { return 1; }
+  /// Take a Particle and return it unmodified
   inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
 
 
+  /// Take a FourMomentum and return 0
   inline double P4_FN0(const FourMomentum& p) { return 0; }
+  /// Take a FourMomentum and return 1
   inline double P4_FN1(const FourMomentum& p) { return 1; }
-
+  /// Take a FourMomentum and return it unmodified
   inline FourMomentum P4_SMEAR_IDENTITY(const FourMomentum& p) { return p; }
 
+  /// Smear a FourMomentum's energy using a Gaussian of absolute width @a resolution
   /// @todo Also make jet versions that update/smear constituents?
   inline FourMomentum P4_SMEAR_E_GAUSS(const FourMomentum& p, double resolution) {
     /// @todo Need to isolate random generators to a single thread
@@ -44,6 +50,7 @@ namespace Rivet {
     return FourMomentum::mkEtaPhiME(p.eta(), p.phi(), mass, smeared_E);
   }
 
+  /// Smear a FourMomentum's transverse momentum using a Gaussian of absolute width @a resolution
   inline FourMomentum P4_SMEAR_PT_GAUSS(const FourMomentum& p, double resolution) {
     /// @todo Need to isolate random generators to a single thread
     static random_device rd;
@@ -54,6 +61,7 @@ namespace Rivet {
     return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), mass, smeared_pt);
   }
 
+  /// Smear a FourMomentum's mass using a Gaussian of absolute width @a resolution
   inline FourMomentum P4_SMEAR_MASS_GAUSS(const FourMomentum& p, double resolution) {
     /// @todo Need to isolate random generators to a single thread
     static random_device rd;
@@ -64,10 +72,14 @@ namespace Rivet {
   }
 
 
+  /// Take a Vector3 and return 0
   inline double P3_FN0(const Vector3& p) { return 0; }
+  /// Take a Vector3 and return 1
   inline double P3_FN1(const Vector3& p) { return 1; }
+  /// Take a Vector3 and return it unmodified
   inline Vector3 P3_SMEAR_IDENTITY(const Vector3& p) { return p; }
 
+  /// Smear a Vector3's length using a Gaussian of absolute width @a resolution
   inline Vector3 P3_SMEAR_LEN_GAUSS(const Vector3& p, double resolution) {
     /// @todo Need to isolate random generators to a single thread
     static random_device rd;
