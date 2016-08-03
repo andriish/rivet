@@ -54,6 +54,15 @@ namespace Rivet {
     return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), mass, smeared_pt);
   }
 
+  inline FourMomentum P4_SMEAR_MASS_GAUSS(const FourMomentum& p, double resolution) {
+    /// @todo Need to isolate random generators to a single thread
+    static random_device rd;
+    static mt19937 gen(rd());
+    normal_distribution<> d(p.mass(), resolution);
+    const double smeared_mass = max(d(gen), 0.);
+    return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), smeared_mass, p.pT());
+  }
+
 
   inline double P3_FN0(const Vector3& p) { return 0; }
   inline double P3_FN1(const Vector3& p) { return 1; }
