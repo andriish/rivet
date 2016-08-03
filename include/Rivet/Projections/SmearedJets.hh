@@ -97,24 +97,28 @@ namespace Rivet {
       const Jets& truthjets = applyProjection<JetAlg>(e, "TruthJets").jetsByPt();
       _recojets.clear(); _recojets.reserve(truthjets.size());
       for (const Jet& j : truthjets) {
-        const double jeff = (_jetEffFn) ? _jetEffFn(j) : 1;
+        // Efficiency sampling
+        const double jeff = _jetEffFn ? _jetEffFn(j) : 1;
         MSG_DEBUG("Efficiency of jet " << j.mom() << " = " << 100*jeff << "%");
         MSG_DEBUG("Efficiency of jet with mom=" << j.mom()/GeV << " GeV, "
-                  << "pT=" << j.pT()/GeV << ", eta=" << j.eta()
-                  << " : " << 100*jeff << "%");
-        if (jeff == 0) continue; //< no need to roll expensive dice
-        if (jeff == 1 || rand01() < jeff) {
-          _recojets.push_back(_jetSmearFn ? _jetSmearFn(j) : j); //< smearing
-        }
+                  << "pT=" << j.pT()/GeV << ", eta=" << j.eta() << " : " << 100*jeff << "%");
+        if (jeff <= 0) continue; //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
+        if (jeff < 1 && rand01() > jeff) continue; //< roll dice (and deal with >1 probabilities, just in case)
+        // Kinematic smearing
+        Jet sj = _jetSmearFn ? _jetSmearFn(j) : j;
+        MSG_DEBUG("Jet smearing from " << j << " to " << sj);
+        // Re-add constituents & tags if (we assume accidentally) they were lost by the smearing function
+        if (sj.particles().empty() && !j.particles().empty()) sj.particles() = j.particles();
+        if (sj.tags().empty() && !j.tags().empty()) sj.tags() = j.tags();
       }
-      // Tagging efficiencies
+      // Apply tagging efficiencies, using smeared kinematics as input to the tag eff functions
       for (Jet& j : _recojets) {
-        const double beff = (_bTagEffFn) ? _bTagEffFn(j) : 1;
+        const double beff = _bTagEffFn ? _bTagEffFn(j) : 1;
         const bool btag = beff == 1 || (beff != 0 && beff < rand01());
         // Remove b-tags if needed, and add a dummy one if needed
         if (!btag && j.bTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasBottom), j.tags().end());
         if (btag && !j.bTagged()) j.tags().push_back(Particle(PID::BQUARK, j.mom()));
-        const double ceff = (_cTagEffFn) ? _cTagEffFn(j) : 1;
+        const double ceff = _cTagEffFn ? _cTagEffFn(j) : 1;
         const bool ctag = ceff == 1 || (ceff != 0 && ceff < rand01());
         // Remove c-tags if needed, and add a dummy one if needed
         if (!ctag && j.cTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasCharm), j.tags().end());

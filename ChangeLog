@@ -1,3 +1,9 @@
+2016-08-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect SmearedJets against loss of tagging information if a
+	momentum smearing function is used (rather than a dedicated Jet
+	smearing fn) via implicit casts.
+
 2016-08-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add SmearedMET projection, wrapping MissingMomentum.
