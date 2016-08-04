@@ -17,14 +17,22 @@ namespace Rivet {
     /// @name Constructors etc.
     //@{
 
-    /// @brief Constructor with smearing function arg
+    /// @brief Constructor from a MissingMomentum projection and a smearing function
     template <typename V2VFN>
-    SmearedMET(const MissingMomentum& mm,
-               const V2VFN& metSmearFn)
+    SmearedMET(const MissingMomentum& mm, const V2VFN& metSmearFn)
       : _metSmearFn(metSmearFn)
     {
       setName("SmearedMET");
       addProjection(mm, "TruthMET");
+    }
+
+    /// @brief Constructor from a Cut (on the particles used to determine missing momentum) and a smearing function
+    template <typename V2VFN>
+    SmearedMET(const V2VFN& metSmearFn, const Cut& cut)
+      : _metSmearFn(metSmearFn)
+    {
+      setName("SmearedMET");
+      addProjection(MissingMomentum(cut), "TruthMET");
     }
 
 
