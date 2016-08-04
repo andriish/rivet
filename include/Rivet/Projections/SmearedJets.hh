@@ -106,7 +106,7 @@ namespace Rivet {
         if (jeff < 1 && rand01() > jeff) continue; //< roll dice (and deal with >1 probabilities, just in case)
         // Kinematic smearing
         Jet sj = _jetSmearFn ? _jetSmearFn(j) : j;
-        MSG_DEBUG("Jet smearing from " << j << " to " << sj);
+        MSG_DEBUG("Jet smearing from " << j.mom() << " to " << sj.mom());
         // Re-add constituents & tags if (we assume accidentally) they were lost by the smearing function
         if (sj.particles().empty() && !j.particles().empty()) sj.particles() = j.particles();
         if (sj.tags().empty() && !j.tags().empty()) sj.tags() = j.tags();
