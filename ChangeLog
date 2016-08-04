@@ -1,3 +1,10 @@
+2016-08-04  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Use Jet mass and energy smearing in CDF_1996_S310 ... jet properties
+	analysis. Cleanup analysis and mark validated. Added some more run info.
+
+	* Minor fixes in SmearedJets projection
+
 2016-08-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Protect SmearedJets against loss of tagging information if a
