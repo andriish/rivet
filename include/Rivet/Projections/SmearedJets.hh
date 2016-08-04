@@ -110,6 +110,7 @@ namespace Rivet {
         // Re-add constituents & tags if (we assume accidentally) they were lost by the smearing function
         if (sj.particles().empty() && !j.particles().empty()) sj.particles() = j.particles();
         if (sj.tags().empty() && !j.tags().empty()) sj.tags() = j.tags();
+        _recojets.push_back(sj);
       }
       // Apply tagging efficiencies, using smeared kinematics as input to the tag eff functions
       for (Jet& j : _recojets) {
