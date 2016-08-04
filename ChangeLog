@@ -2,6 +2,8 @@
 
 	* Use Jet mass and energy smearing in CDF_1996_S310 ... jet properties
 	analysis. Cleanup analysis and mark validated. Added some more run info.
+	The same for CDF_1996_S334... (pretty much the same cuts, different
+	observables).
 
 	* Minor fixes in SmearedJets projection
 
