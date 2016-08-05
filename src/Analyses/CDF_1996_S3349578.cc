@@ -97,7 +97,6 @@ namespace Rivet {
         jetsystem += jet.momentum();
         if (jets.size() >= 5) break;
       }
-      /// @todo include gaussian jet energy resolution smearing?
 
       const double weight = event.weight();
       if (jets.size() > 4) {

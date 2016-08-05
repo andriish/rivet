@@ -1,3 +1,8 @@
+2016-08-05  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Use Jet mass and energy smearing in CDF_1997_... six-jet analysis,
+	mark validated.
+
 2016-08-04  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Use Jet mass and energy smearing in CDF_1996_S310 ... jet properties
