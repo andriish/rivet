@@ -10,6 +10,10 @@
 	algorithm, I tried with the implementation of fastjet
 	fastjet/D0RunIConePlugin.hh but that really does not help.
 
+	* D0_1996_S3324664 --- fix normalisations, sorting jets properly now,
+	cleanup and mark validated.
+
+
 2016-08-04  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Use Jet mass and energy smearing in CDF_1996_S310 ... jet properties
