@@ -5,6 +5,11 @@
 
 	* Mark CDF_2001_S4563131 validated
 
+	* D0_1996_S3214044 --- cut on jet Et rather than pT, fix filling of
+	costheta and theta plots, mark validated. Concerning the jet
+	algorithm, I tried with the implementation of fastjet
+	fastjet/D0RunIConePlugin.hh but that really does not help.
+
 2016-08-04  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Use Jet mass and energy smearing in CDF_1996_S310 ... jet properties

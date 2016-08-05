@@ -26,7 +26,8 @@ namespace Rivet {
     void init() {
       const FinalState fs;
       declare(fs, "FS");
-      /// @todo Use correct jet algorithm
+      /// @todo Use correct jet algorithm --- tried FJ3 D0RunICone but does
+      // not look as good as the Run2 cone alg used here
       declare(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
 
       _h_3j_x3 = bookHisto1D(1, 1, 1);
@@ -67,7 +68,7 @@ namespace Rivet {
       const double weight = event.weight();
 
       Jets jets_in = apply<FastJets>(event, "ConeJets")
-        .jets(cmpMomByEt, Cuts::pT > 20*GeV && Cuts::abseta < 3);
+        .jets(Cuts::Et > 20*GeV && Cuts::abseta < 3, cmpMomByEt);
 
       Jets jets_isolated;
       for (size_t i = 0; i < jets_in.size(); ++i) {
@@ -204,8 +205,8 @@ namespace Rivet {
       _h_4j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts, weight);
       _h_4j_mu46->fill(_safeMass(FourMomentum(p4+p6))/sqrts, weight);
       _h_4j_mu56->fill(_safeMass(FourMomentum(p5+p6))/sqrts, weight);
-      _h_4j_theta_BZ->fill(acos(costheta_BZ)/degree, weight);
-      _h_4j_costheta_NR->fill(costheta_NR, weight);
+      _h_4j_theta_BZ->fill(acos(fabs(costheta_BZ))/degree, weight);
+      _h_4j_costheta_NR->fill(fabs(costheta_NR), weight);
 
     }
 
