@@ -271,6 +271,7 @@ dist_pkgdata_DATA = \
   DELPHI_1999_S3960137.plot \
   DELPHI_2000_S4328825.plot \
   DELPHI_2002_069_CONF_603.plot \
+  DELPHI_2011_I890503.plot \
   EXAMPLE.plot \
   H1_1994_S2919893.plot \
   H1_1995_S3167097.plot \
