@@ -307,6 +307,7 @@ dist_pkgdata_DATA = \
   MC_JETTAGS.info \
   MC_KTSPLITTINGS.info \
   MC_LEADJETUE.info \
+  MC_MET.info \
   MC_MUONS.info \
   MC_PDFS.info \
   MC_PHOTONINC.info \

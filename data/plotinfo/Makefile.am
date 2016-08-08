@@ -302,6 +302,7 @@ dist_pkgdata_DATA = \
   MC_JETTAGS.plot \
   MC_KTSPLITTINGS.plot \
   MC_LEADJETUE.plot \
+  MC_MET.plot \
   MC_MUONS.plot \
   MC_PDFS.plot \
   MC_PHOTONINC.plot \

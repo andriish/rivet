@@ -1,3 +1,7 @@
+2016-08-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a simple MC_MET analysis for out-of-the-box MET distribution testing.
+
 2016-08-08  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Add DELPHI_2011_I890503 b-quark fragmentation function measurement,

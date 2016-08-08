@@ -418,6 +418,7 @@ RivetMCAnalyses_la_SOURCES = \
     MC_JETTAGS.cc \
     MC_HFJETS.cc \
     MC_LEADJETUE.cc \
+    MC_MET.cc \
     MC_MUONS.cc \
     MC_PDFS.cc \
     MC_PHOTONINC.cc \
