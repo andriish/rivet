@@ -25,8 +25,8 @@ namespace Rivet {
 
       _h_met_incl = bookHisto1D("met_incl", logspace(30, 1, 150));
       _h_met_calo = bookHisto1D("met_calo", logspace(30, 1, 150));
-      _h_set_incl = bookHisto1D("set_incl", logspace(30, 1, 500));
-      _h_set_calo = bookHisto1D("set_calo", logspace(30, 1, 500));
+      _h_set_incl = bookHisto1D("set_incl", logspace(30, 1, sqrtS()/GeV/2));
+      _h_set_calo = bookHisto1D("set_calo", logspace(30, 1, sqrtS()/GeV/2));
     }
 
 
