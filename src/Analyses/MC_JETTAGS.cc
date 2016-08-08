@@ -1,11 +1,10 @@
 // -*- C++ -*-
-#include "Rivet/Analyses/MC_JetAnalysis.hh"
+#include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 
 namespace Rivet {
 
-  
 
 
   /// @brief MC validation analysis for jet events
@@ -37,12 +36,12 @@ namespace Rivet {
       const Jets jets04 = apply<FastJets>(event, "Jets04").jetsByPt(20*GeV);
       const Jets jets06 = apply<FastJets>(event, "Jets06").jetsByPt(20*GeV);
 
-      foreach (const Jet& j, jets04) {
+      for (const Jet& j : jets04) {
         _h_numBTagsPerJet[0]->fill(j.bTags().size(), weight);
         _h_numCTagsPerJet[0]->fill(j.cTags().size(), weight);
         _h_numTauTagsPerJet[0]->fill(j.tauTags().size(), weight);
       }
-      foreach (const Jet& j, jets06) {
+      for (const Jet& j : jets06) {
         _h_numBTagsPerJet[1]->fill(j.bTags().size(), weight);
         _h_numCTagsPerJet[1]->fill(j.cTags().size(), weight);
         _h_numTauTagsPerJet[1]->fill(j.tauTags().size(), weight);
