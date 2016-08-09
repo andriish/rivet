@@ -1,3 +1,7 @@
+2016-08-09  Holger Schulz  <holger.schulz@cern.ch>
+        
+	* Release 2.5.1
+
 2016-08-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a simple MC_MET analysis for out-of-the-box MET distribution testing.
