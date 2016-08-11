@@ -4,6 +4,7 @@ Summary: Study of the fragmentation of b quarks into B mesons at the Z peak
 Experiment: ALEPH
 Collider: LEP 1
 SpiresID: 4656318
+InspireID: 558327
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

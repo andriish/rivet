@@ -4,6 +4,7 @@ Summary: Forward energy flow in MB and dijet events at 0.9 and 7 TeV
 Experiment: CMS
 Collider: LHC
 SpiresID: 9215166
+InspireID: 930319
 Status: VALIDATED
 Authors:
  - S. Dooling <samantha.dooling@cern.ch>

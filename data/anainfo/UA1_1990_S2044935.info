@@ -4,6 +4,7 @@ Summary: UA1 multiplicities, transverse momenta and transverse energy distributi
 Experiment: UA1
 Collider: SPS
 SpiresID: 2044935
+InspireID: 280412
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

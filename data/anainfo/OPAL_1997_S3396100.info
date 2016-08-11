@@ -4,6 +4,7 @@ Summary: Strange baryon production in $Z$ hadronic decays at OPAL
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3396100
+InspireID: 421978
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

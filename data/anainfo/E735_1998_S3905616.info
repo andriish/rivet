@@ -4,6 +4,8 @@ Summary: Charged particle multiplicity in $p\bar{p}$ collisions at $\sqrt{s} = 1
 Experiment: E735
 Collider: Tevatron
 SpiresID: 3905616
+InspireID: 480349
+InspireID: 480349
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

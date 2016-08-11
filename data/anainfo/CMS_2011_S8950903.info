@@ -4,6 +4,7 @@ Summary: Dijet azimuthal decorrelations in $pp$ collisions at $\sqrt{s} = 7$ TeV
 Experiment: CMS
 Collider: LHC
 SpiresID: 8950903
+InspireID: 885663
 Status: VALIDATED
 Authors:
  - Tomo Umer <tomo.umer@cern.ch>

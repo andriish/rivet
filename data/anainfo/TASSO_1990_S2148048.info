@@ -4,6 +4,7 @@ Summary: Event shapes in $e^+ e^-$ annihilation at 14--44\;GeV
 Experiment: TASSO
 Collider: PETRA
 SpiresID: 2148048
+InspireID: 294755
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

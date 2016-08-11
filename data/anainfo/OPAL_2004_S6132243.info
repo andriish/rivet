@@ -4,6 +4,7 @@ Summary: Event shape distributions and moments in $e^+ e^-$ -> hadrons at 91--20
 Experiment: OPAL
 Collider: LEP 1 & 2
 SpiresID: 6132243
+InspireID: 669402
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

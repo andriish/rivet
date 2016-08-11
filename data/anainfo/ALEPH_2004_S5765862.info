@@ -4,6 +4,7 @@ Summary: Jet rates and event shapes at LEP I and II
 Experiment: ALEPH
 Collider: LEP Run 1 and 2
 SpiresID: 5765862
+InspireID: 636645
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

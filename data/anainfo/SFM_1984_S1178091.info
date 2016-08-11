@@ -4,6 +4,7 @@ Summary: Charged multiplicity distribution in $pp$ interactions at CERN ISR ener
 Experiment: SFM
 Collider: CERN ISR
 SpiresID: 1178091
+InspireID: 196601
 Status: UNVALIDATED
 Authors:
  - Holger Schulz <holger.schulz@durham.ac.uk>

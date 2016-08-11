@@ -4,6 +4,7 @@ Summary: Measurements of flavor dependent fragmentation functions in $Z^0 -> q \
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3780481
+InspireID: 472637
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

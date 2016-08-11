@@ -4,6 +4,7 @@ Summary: Properties of six-jet events with large six-jet mass
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 3541940
+InspireID: 442265
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

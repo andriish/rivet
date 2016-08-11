@@ -4,6 +4,7 @@ Summary: Tranverse momentum spectra of pions, kaons and protons in pp collisions
 Experiment: ALICE
 Collider: LHC
 SpiresID: 8945144
+InspireID: 885104
 Status: VALIDATED
 Authors:
  - Pablo Bueno Gomez <UO189399@uniovi.es>

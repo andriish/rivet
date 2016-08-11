@@ -4,6 +4,7 @@ Summary: Scaled energy distribution of $D^*$ at LEP
 Experiment: ALEPH
 Collider: LEP
 SpiresID: 4193598
+InspireID: 507422
 Status: VALIDATED
 Authors:
  - Holger Schulz <hschulz@physik.hu-berlin.de>

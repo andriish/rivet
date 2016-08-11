@@ -4,6 +4,7 @@ Summary: Multiplicities and pT spectra from STAR for $pp$ at 200 GeV
 Experiment: STAR
 Collider: RHIC
 SpiresID: 7869363
+InspireID: 793126
 Status: UNVALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

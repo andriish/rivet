@@ -4,6 +4,7 @@ Summary: Azimuthal decorrelation of jets widely separated in rapidity
 Experiment: D0
 Collider: Tevatron Run 1
 SpiresID: 3324664
+InspireID: 416886
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

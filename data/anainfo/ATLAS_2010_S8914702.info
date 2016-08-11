@@ -4,6 +4,7 @@ Summary: Inclusive isolated prompt photon analysis
 Experiment: ATLAS
 Collider: LHC 7TeV
 SpiresID: 8914702
+InspireID: 882463
 Status: VALIDATED
 Authors:
  - Mike Hance <michael.hance@cern.ch>

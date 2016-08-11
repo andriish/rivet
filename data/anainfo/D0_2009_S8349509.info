@@ -4,6 +4,7 @@ Summary: Z+jets angular distributions
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 8349509
+InspireID: 826756
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

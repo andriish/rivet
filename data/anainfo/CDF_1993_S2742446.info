@@ -4,6 +4,7 @@ Summary: Angular distribution of prompt photon
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 2742446
+InspireID: 354237
 Status: UNVALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

@@ -4,6 +4,7 @@ Summary: Measurement of the NSD charged particle multiplicity at $\sqrt{s} = 0.9
 Experiment: CMS
 Collider: LHC
 SpiresID: 8884919
+InspireID: 879315
 Status: VALIDATED
 Authors:
  - Romain Rougny <romain.rougny@cern.ch>

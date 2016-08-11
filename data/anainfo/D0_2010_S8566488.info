@@ -4,6 +4,7 @@ Summary: Dijet invariant mass
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 8566488
+InspireID: 846483
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

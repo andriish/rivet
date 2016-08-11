@@ -4,6 +4,7 @@ Summary: Di-hadron correlations in $d$-Au at 200 GeV
 Experiment: STAR
 Collider: RHIC d-Au 200 GeV
 SpiresID: 7993412
+InspireID: 810030
 Status: UNVALIDATED
 Authors:
  - Christine Nattrass <christine.nattrass@yale.edu>

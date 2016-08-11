@@ -4,6 +4,7 @@ Summary: Z pT measurement in CDF Z -> $e^+e^-$ events
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 4155203
+InspireID: 505738
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

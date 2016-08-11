@@ -4,6 +4,7 @@ Summary: '$B/\bar{B}$ angular correlations based on secondary vertex reconstruct
 Experiment: CMS
 Collider: LHC
 SpiresID: 8973270
+InspireID: 889807
 Status: VALIDATED
 Authors:
  - Lukas Wehrli <wehrlilu@cern.ch>

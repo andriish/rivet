@@ -4,6 +4,7 @@ Summary: Measurement of ratio of the 3-jet over 2-jet cross section in $pp$ coll
 Experiment: CMS
 Collider: LHC
 SpiresID: 9088458
+InspireID: 912560
 Status: VALIDATED
 Authors:
  - Tomo Umer <tomo.umer@cern.ch>
