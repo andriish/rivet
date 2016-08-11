@@ -190,7 +190,7 @@ dist_pkgdata_DATA = \
   CDF_2008_S8095620.info \
   CDF_2009_S8233977.info \
   CDF_2009_NOTE_9936.info \
-  CDF_2009_S8383952.info \
+  CDF_2009_I856131.info \
   CDF_2009_S8436959.info \
   CDF_2010_S8591881_DY.info \
   CDF_2010_S8591881_QCD.info \

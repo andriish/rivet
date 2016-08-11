@@ -270,7 +270,7 @@ dist_pkgdata_DATA = \
   CDF_2008_S8095620.yoda \
   CDF_2009_S8233977.yoda \
   CDF_2009_NOTE_9936.yoda \
-  CDF_2009_S8383952.yoda \
+  CDF_2009_I856131.yoda \
   CDF_2009_S8436959.yoda \
   CDF_2010_S8591881_DY.yoda \
   CDF_2010_S8591881_QCD.yoda \

@@ -1,3 +1,9 @@
+2016-08-11  Holger Schulz  <holger.schulz@cern.ch>
+        
+	* Rename CDF_2009_S8383952 to CDF_2009_I856131 due to invalid Spires
+	entry.
+
+
 2016-08-09  Holger Schulz  <holger.schulz@cern.ch>
         
 	* Release 2.5.1

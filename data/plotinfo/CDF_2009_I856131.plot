@@ -1,4 +1,4 @@
-# BEGIN PLOT /CDF_2009_S8383952/d01-x01-y01
+# BEGIN PLOT /CDF_2009_I856131/d01-x01-y01
 Title=Total XS for $66 < M_{ee}/\mathrm{GeV} < 116$
 XLabel=$\sqrt{s}$
 YLabel=$\sigma$ [pb]
@@ -11,7 +11,7 @@ XMin=1955
 XMax=1965
 # END PLOT
 
-# BEGIN PLOT /CDF_2009_S8383952/d02-x01-y01
+# BEGIN PLOT /CDF_2009_I856131/d02-x01-y01
 Title=$e^+ e^-$ pair rapidity
 XLabel=$|y_{e^+ e^-}|$
 YLabel=$\mathrm{d}\sigma/\mathrm{d}y$ [pb]
