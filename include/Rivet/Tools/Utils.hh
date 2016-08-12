@@ -233,7 +233,7 @@ namespace Rivet {
   /// A single-container-arg version of std::accumulate, aka @c reduce
   template <typename C1, typename T, typename FN>
   inline T accumulate(const C1& in, const T& init, const FN& f) {
-    const T rtn = accumulate(in.begin(), in.end(), init, f);
+    const T rtn = std::accumulate(in.begin(), in.end(), init, f);
     return rtn;
   }
 
@@ -265,7 +265,7 @@ namespace Rivet {
   template <typename CONTAINER>
   inline CONTAINER head(const CONTAINER& c, size_t n) {
     // if (n > c.size()) throw RangeError("Requested head longer than container");
-    const size_t m = min(n, c.size());
+    const size_t m = std::min(n, c.size());
     return slice(c, 0, m);
   }
 
@@ -273,13 +273,13 @@ namespace Rivet {
   template <typename CONTAINER>
   inline CONTAINER tail(const CONTAINER& c, size_t n) {
     // if (n > c.size()) throw RangeError("Requested tail longer than container");
-    const size_t m = min(n, c.size());
+    const size_t m = std::min(n, c.size());
     return slice(c, c.size()-m);
   }
 
   /// Find the minimum value in the vector
-  double min(const vector<double>& in) {
-    return *min_element(in.begin(), in.end());
+  inline double min(const vector<double>& in) {
+    return *std::min_element(in.begin(), in.end());
     // static const auto FDBLMIN = [](double a, double b){ return std::min(a,b); };
     // const double rtn = accumulate(in.begin(), in.end(), DBL_MAX, FDBLMIN);
     // return rtn;
@@ -287,7 +287,7 @@ namespace Rivet {
 
   /// Find the maximum value in the vector
   inline double max(const vector<double>& in) {
-    return *max_element(in.begin(), in.end());
+    return *std::max_element(in.begin(), in.end());
     // static const auto FDBLMAX = [](double a, double b){ return std::max(a,b); };
     // const double rtn = accumulate(in.begin(), in.end(), -DBL_MAX, FDBLMAX);
     // return rtn;
@@ -295,8 +295,8 @@ namespace Rivet {
 
   /// Find the minimum and maximum values in the vector
   inline pair<double,double> minmax(const vector<double>& in) {
-    const auto minmax = minmax_element(in.begin(), in.end());
-    return make_pair(*minmax.first, *minmax.second);
+    const auto minmax = std::minmax_element(in.begin(), in.end());
+    return std::make_pair(*minmax.first, *minmax.second);
     // static const auto FDBLMINMAX = [](double a, double b){ return std::minmax(a,b); };
     // static const auto DBL_MAXMIN = make_pair(DBL_MAX,-DBL_MAX);
     // const auto rtn = accumulate(in.begin(), in.end(), DBL_MAXMIN, FDBLMINMAX);
@@ -305,7 +305,7 @@ namespace Rivet {
 
   /// Find the minimum value in the vector
   inline int min(const vector<int>& in) {
-    return *min_element(in.begin(), in.end());
+    return *std::min_element(in.begin(), in.end());
     // static const auto FINTMIN = [](int a, int b){ return std::min(a,b); };
     // const int rtn = accumulate(in.begin(), in.end(), INT_MAX, FINTMIN);
     // return rtn;
@@ -313,7 +313,7 @@ namespace Rivet {
 
   /// Find the maximum value in the vector
   inline int max(const vector<int>& in) {
-    return *max_element(in.begin(), in.end());
+    return *std::max_element(in.begin(), in.end());
     // static const auto FINTMAX = [](int a, int b){ return std::max(a,b); };
     // const int rtn = accumulate(in.begin(), in.end(), -INT_MAX, FINTMAX);
     // return rtn;
@@ -321,8 +321,8 @@ namespace Rivet {
 
   /// Find the minimum and maximum values in the vector
   inline pair<int,int> minmax(const vector<int>& in) {
-    const auto minmax = minmax_element(in.begin(), in.end());
-    return make_pair(*minmax.first, *minmax.second);
+    const auto minmax = std::minmax_element(in.begin(), in.end());
+    return std::make_pair(*minmax.first, *minmax.second);
     // static const auto FINTMINMAX = [](int a, int b){ return std::minmax(a,b); };
     // static const auto INT_MAXMIN = make_pair(INT_MAX,-INT_MAX);
     // const auto rtn = accumulate(in.begin(), in.end(), INT_MAXMIN, FINTMINMAX);
