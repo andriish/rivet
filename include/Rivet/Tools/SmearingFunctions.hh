@@ -548,10 +548,63 @@ namespace Rivet {
     return Jet(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
   }
 
-  /// CMS Run 1 jet smearing
-  /// @todo Just a copy of the suboptimal ATLAS one: improve!!
-  inline Jet JET_SMEAR_CMS_RUN1(const Jet& j) {
+  /// ATLAS Run 2 jet smearing
+  /// @todo Just a copy of the Run 1 one: improve!!
+  inline Jet JET_SMEAR_ATLAS_RUN2(const Jet& j) {
     return JET_SMEAR_ATLAS_RUN1(j);
+  }
+
+  /// CMS Run 2 jet smearing
+  /// @todo Just a copy of the suboptimal ATLAS one: improve!!
+  inline Jet JET_SMEAR_CMS_RUN2(const Jet& j) {
+    return JET_SMEAR_ATLAS_RUN1(j);
+  }
+
+  //@}
+
+
+  /// @name ETmiss smearing functions
+  //@{
+
+  inline Vector3 MET_SMEAR_IDENTITY(const Vector3& met, double) { return met; }
+
+  /// @brief ATLAS Run 1 ETmiss smearing
+  ///
+  /// Based on https://arxiv.org/pdf/1108.5602v2.pdf, Figs 14 and 15
+  inline Vector3 MET_SMEAR_ATLAS_RUN1(const Vector3& met, double set) {
+    // Linearity offset (Fig 14)
+    Vector3 smeared_met = met;
+    if (met.mod()/GeV < 25*GeV) smeared_met *= 1.05;
+    else if (met.mod()/GeV < 40*GeV) smeared_met *= (1.05 - (0.04/15)*(met.mod()/GeV - 25)); //< linear decrease
+    else smeared_met *= 1.01;
+
+    // Smear by a Gaussian with width given by the resolution(sumEt) ~ 0.45 sqrt(sumEt) GeV
+    const double resolution = 0.45 * sqrt(set/GeV) * GeV;
+    static random_device rd;
+    static mt19937 gen(rd());
+    normal_distribution<> d(smeared_met.mod(), resolution);
+    const double metsmear = max(d(gen), 0.);
+    smeared_met = metsmear * smeared_met.unit();
+
+    return smeared_met;
+  }
+
+  /// ATLAS Run 2 ETmiss smearing
+  /// @todo Just a copy of the Run 1 one: improve!!
+  inline Vector3 MET_SMEAR_ATLAS_RUN2(const Vector3& met, double set) {
+    return MET_SMEAR_ATLAS_RUN1(met, set);
+  }
+
+  /// CMS Run 1 ETmiss smearing
+  /// @todo Just a copy of the ATLAS one: improve!!
+  inline Vector3 MET_SMEAR_CMS_RUN1(const Vector3& met, double set) {
+    return MET_SMEAR_ATLAS_RUN1(met, set);
+  }
+
+  /// CMS Run 2 ETmiss smearing
+  /// @todo Just a copy of the ATLAS one: improve!!
+  inline Vector3 MET_SMEAR_CMS_RUN2(const Vector3& met, double set) {
+    return MET_SMEAR_ATLAS_RUN2(met, set);
   }
 
   //@}
