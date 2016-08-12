@@ -1,3 +1,7 @@
+2016-08-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding functors for computing vector & ParticleBase differences w.r.t. another vector.
+
 2016-08-12  Holger Schulz  <holger.schulz@cern.ch>
 
         * Implemented a few more cuts in prompt photon analysis
@@ -13,7 +17,6 @@
 	entry.
 
 	* Add InspireID to all analysis known by their Spires key
-
 
 2016-08-09  Holger Schulz  <holger.schulz@cern.ch>
         

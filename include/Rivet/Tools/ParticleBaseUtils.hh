@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @name ParticleBase classifying functors
+  /// @name ParticleBase classifier -> bool functors
   /// @todo Move to FourMomentum functions
   ///
   /// To be passed to any() or all() e.g. any(jets, DeltaRLess(electron, 0.4))
@@ -117,6 +117,82 @@ namespace Rivet {
     double drcut;
   };
   using DeltaRLess = deltaRLess;
+
+  //@}
+
+
+  /// @name ParticleBase comparison -> double functors
+  /// @todo Move to FourMomentum functions
+  ///
+  /// To be passed to transform()any(jets, DeltaRLess(electron, 0.4))
+  //@{
+
+  /// Base type for Particle -> double functors
+  struct DoubleParticleBaseFunctor {
+    virtual double operator()(const ParticleBase& p) const = 0;
+  };
+
+  struct deltaRWRT : public DoubleParticleBaseFunctor {
+    deltaRWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
+    deltaRWRT(const FourMomentum& p4) : p(p4.vector3()) {}
+    deltaRWRT(const Vector3& p3) : p(p3) {}
+    double operator()(const ParticleBase& pb) const { return deltaR(p, pb); }
+    double operator()(const FourMomentum& p4) const { return deltaR(p, p4); }
+    double operator()(const Vector3& p3) const { return deltaR(p, p3); }
+    const Vector3 p;
+  };
+  using DeltaRWRT = deltaRWRT;
+
+  struct deltaPhiWRT : public DoubleParticleBaseFunctor {
+    deltaPhiWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
+    deltaPhiWRT(const FourMomentum& p4) : p(p4.vector3()) {}
+    deltaPhiWRT(const Vector3& p3) : p(p3) {}
+    double operator()(const ParticleBase& pb) const { return deltaPhi(p, pb); }
+    double operator()(const FourMomentum& p4) const { return deltaPhi(p, p4); }
+    double operator()(const Vector3& p3) const { return deltaPhi(p, p3); }
+    const Vector3 p;
+  };
+  using DeltaPhiWRT = deltaPhiWRT;
+
+  struct deltaEtaWRT : public DoubleParticleBaseFunctor {
+    deltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
+    deltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
+    deltaEtaWRT(const Vector3& p3) : p(p3) {}
+    double operator()(const ParticleBase& pb) const { return deltaEta(p, pb); }
+    double operator()(const FourMomentum& p4) const { return deltaEta(p, p4); }
+    double operator()(const Vector3& p3) const { return deltaEta(p, p3); }
+    const Vector3 p;
+  };
+  using DeltaEtaWRT = deltaEtaWRT;
+
+  struct absDeltaEtaWRT : public DoubleParticleBaseFunctor {
+    absDeltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
+    absDeltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
+    absDeltaEtaWRT(const Vector3& p3) : p(p3) {}
+    double operator()(const ParticleBase& pb) const { return fabs(deltaEta(p, pb)); }
+    double operator()(const FourMomentum& p4) const { return fabs(deltaEta(p, p4)); }
+    double operator()(const Vector3& p3) const { return fabs(deltaEta(p, p3)); }
+    const Vector3 p;
+  };
+  using absDeltaEtaWRT = absDeltaEtaWRT;
+
+  struct deltaRapWRT : public DoubleParticleBaseFunctor {
+    deltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
+    deltaRapWRT(const FourMomentum& p4) : p(p4) {}
+    double operator()(const ParticleBase& pb) const { return deltaRap(p, pb); }
+    double operator()(const FourMomentum& p4) const { return deltaRap(p, p4); }
+    const FourMomentum p;
+  };
+  using DeltaRapWRT = deltaRapWRT;
+
+  struct absDeltaRapWRT : public DoubleParticleBaseFunctor {
+    absDeltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
+    absDeltaRapWRT(const FourMomentum& p4) : p(p4) {}
+    double operator()(const ParticleBase& pb) const { return fabs(deltaRap(p, pb)); }
+    double operator()(const FourMomentum& p4) const { return fabs(deltaRap(p, p4)); }
+    const FourMomentum p;
+  };
+  using absDeltaRapWRT = absDeltaRapWRT;
 
   //@}
 
