@@ -27,10 +27,10 @@ namespace Rivet {
       MissingMomentum mm(Cuts::abseta < 5);
       declare(mm, "MET0");
 
-      SmearedMET smm1(mm, P3_SMEAR_IDENTITY);
+      SmearedMET smm1(mm, MET_SMEAR_IDENTITY);
       declare(smm1, "MET1");
 
-      SmearedMET smm2(mm, [](const Vector3& met){ return P3_SMEAR_LEN_GAUSS(met, 0.1*met.mod()); });
+      SmearedMET smm2(mm, [](const Vector3& met, double){ return P3_SMEAR_LEN_GAUSS(met, 0.1*met.mod()); });
       declare(smm2, "MET2");
 
 
