@@ -94,7 +94,7 @@ namespace Rivet {
     /// Perform the jet finding & smearing calculation
     void project(const Event& e) {
       // Copying and filtering
-      const Jets& truthjets = applyProjection<JetAlg>(e, "TruthJets").jetsByPt();
+      const Jets& truthjets = apply<JetAlg>(e, "TruthJets").jetsByPt();
       _recojets.clear(); _recojets.reserve(truthjets.size());
       for (const Jet& j : truthjets) {
         // Efficiency sampling

@@ -62,7 +62,7 @@ namespace Rivet {
     /// Perform the particle finding & smearing calculation
     void project(const Event& e) {
       // Copying and filtering
-      const Particles& truthparticles = applyProjection<ParticleFinder>(e, "TruthParticles").particlesByPt();
+      const Particles& truthparticles = apply<ParticleFinder>(e, "TruthParticles").particlesByPt();
       _theParticles.clear(); _theParticles.reserve(truthparticles.size());
       for (const Particle& p : truthparticles) {
         const double peff = _effFn ? _effFn(p) : 1;
