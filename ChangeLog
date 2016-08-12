@@ -1,5 +1,7 @@
 2016-08-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add lots of vector/container helpers for e.g. container slicing, summing, and min/max calculation.
+
 	* Adapt SmearedMET to take *two* arguments, since SET is typically used to calculate MET resolution.
 
 	* Adding functors for computing vector & ParticleBase differences w.r.t. another vector.

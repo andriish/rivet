@@ -205,6 +205,14 @@ namespace Rivet {
     return true;
   }
 
+  /// Generic sum function, adding @c x for all @c x in container @a c, starting with @a start
+  template <typename CONTAINER, typename T>
+  inline T sum(const CONTAINER& c, const T& start=T()) {
+    T rtn = start;
+    for (const auto& x : c) rtn += x;
+    return rtn;
+  }
+
   /// Generic sum function, adding @a fn(@c x) for all @c x in container @a c, starting with @a start
   template <typename CONTAINER, typename FN, typename T>
   inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
@@ -212,6 +220,113 @@ namespace Rivet {
     for (const auto& x : c)
       rtn += f(x);
     return rtn;
+  }
+
+  /// A single-container-arg version of std::transform, aka @c map
+  template <typename C1, typename C2, typename FN>
+  inline const C2& transform(const C1& in, C2& out, const FN& f) {
+    out.clear(); out.resize(in.size());
+    std::transform(in.begin(), in.end(), out.begin(), f);
+    return out;
+  }
+
+  /// A single-container-arg version of std::accumulate, aka @c reduce
+  template <typename C1, typename T, typename FN>
+  inline T accumulate(const C1& in, const T& init, const FN& f) {
+    const T rtn = accumulate(in.begin(), in.end(), init, f);
+    return rtn;
+  }
+
+  /// @brief Slice of the container elements cf. Python's [i:j] syntax
+  ///
+  /// The element at the @j index is not included in the returned container.
+  /// @a i and @a j can be negative, treated as backward offsets from the end of the container.
+  template <typename CONTAINER>
+  inline CONTAINER slice(const CONTAINER& c, int i, int j) {
+    CONTAINER rtn;
+    const size_t off1 = (i >= 0) ? i : c.size() + i;
+    const size_t off2 = (j >= 0) ? j : c.size() + j;
+    if (off1 > c.size() || off2 > c.size()) throw RangeError("Attempting to slice beyond requested offsets");
+    if (off2 < off1) throw RangeError("Requested offsets in invalid order");
+    rtn.resize(off2 - off1);
+    std::copy(c.begin()+off1, c.begin()+off2, rtn.begin());
+    return rtn;
+  }
+
+  /// @brief Tail slice of the container elements cf. Python's [i:] syntax
+  ///
+  /// Single-index specialisation of @c slice(c, i, j)
+  template <typename CONTAINER>
+  inline CONTAINER slice(const CONTAINER& c, int i) {
+    return slice(c, i, c.size());
+  }
+
+  /// @brief Head slice of the @a n first container elements
+  template <typename CONTAINER>
+  inline CONTAINER head(const CONTAINER& c, size_t n) {
+    // if (n > c.size()) throw RangeError("Requested head longer than container");
+    const size_t m = min(n, c.size());
+    return slice(c, 0, m);
+  }
+
+  /// @brief Tail slice of the @a n last container elements
+  template <typename CONTAINER>
+  inline CONTAINER tail(const CONTAINER& c, size_t n) {
+    // if (n > c.size()) throw RangeError("Requested tail longer than container");
+    const size_t m = min(n, c.size());
+    return slice(c, c.size()-m);
+  }
+
+  /// Find the minimum value in the vector
+  double min(const vector<double>& in) {
+    return *min_element(in.begin(), in.end());
+    // static const auto FDBLMIN = [](double a, double b){ return std::min(a,b); };
+    // const double rtn = accumulate(in.begin(), in.end(), DBL_MAX, FDBLMIN);
+    // return rtn;
+  }
+
+  /// Find the maximum value in the vector
+  inline double max(const vector<double>& in) {
+    return *max_element(in.begin(), in.end());
+    // static const auto FDBLMAX = [](double a, double b){ return std::max(a,b); };
+    // const double rtn = accumulate(in.begin(), in.end(), -DBL_MAX, FDBLMAX);
+    // return rtn;
+  }
+
+  /// Find the minimum and maximum values in the vector
+  inline pair<double,double> minmax(const vector<double>& in) {
+    const auto minmax = minmax_element(in.begin(), in.end());
+    return make_pair(*minmax.first, *minmax.second);
+    // static const auto FDBLMINMAX = [](double a, double b){ return std::minmax(a,b); };
+    // static const auto DBL_MAXMIN = make_pair(DBL_MAX,-DBL_MAX);
+    // const auto rtn = accumulate(in.begin(), in.end(), DBL_MAXMIN, FDBLMINMAX);
+    // return rtn;
+  }
+
+  /// Find the minimum value in the vector
+  inline int min(const vector<int>& in) {
+    return *min_element(in.begin(), in.end());
+    // static const auto FINTMIN = [](int a, int b){ return std::min(a,b); };
+    // const int rtn = accumulate(in.begin(), in.end(), INT_MAX, FINTMIN);
+    // return rtn;
+  }
+
+  /// Find the maximum value in the vector
+  inline int max(const vector<int>& in) {
+    return *max_element(in.begin(), in.end());
+    // static const auto FINTMAX = [](int a, int b){ return std::max(a,b); };
+    // const int rtn = accumulate(in.begin(), in.end(), -INT_MAX, FINTMAX);
+    // return rtn;
+  }
+
+  /// Find the minimum and maximum values in the vector
+  inline pair<int,int> minmax(const vector<int>& in) {
+    const auto minmax = minmax_element(in.begin(), in.end());
+    return make_pair(*minmax.first, *minmax.second);
+    // static const auto FINTMINMAX = [](int a, int b){ return std::minmax(a,b); };
+    // static const auto INT_MAXMIN = make_pair(INT_MAX,-INT_MAX);
+    // const auto rtn = accumulate(in.begin(), in.end(), INT_MAXMIN, FINTMINMAX);
+    // return rtn;
   }
 
   //@}
