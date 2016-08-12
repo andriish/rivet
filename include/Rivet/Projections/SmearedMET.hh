@@ -18,6 +18,8 @@ namespace Rivet {
     //@{
 
     /// @brief Constructor from a MissingMomentum projection and a smearing function
+    ///
+    /// Smearing function maps a 3-vector MET and scalar SET to a new MET 3-vector: f(V3, double) -> V3
     template <typename V2VFN>
     SmearedMET(const MissingMomentum& mm, const V2VFN& metSmearFn)
       : _metSmearFn(metSmearFn)
@@ -53,8 +55,9 @@ namespace Rivet {
 
     /// Perform the MET finding & smearing calculation
     void project(const Event& e) {
-      _vet = applyProjection<MissingMomentum>(e, "TruthMET").vectorEt();
-      if (_metSmearFn) _vet = _metSmearFn(_vet); //< smearing
+      const auto& mm = apply<MissingMomentum>(e, "TruthMET");
+      _vet = mm.vectorEt();
+      if (_metSmearFn) _vet = _metSmearFn(_vet, mm.scalarEt()); //< smearing
     }
 
 
@@ -77,7 +80,7 @@ namespace Rivet {
     Vector3 _vet;
 
     /// Stored smearing function
-    std::function<Vector3(const Vector3&)> _metSmearFn;
+    std::function<Vector3(const Vector3&, double)> _metSmearFn;
 
   };
 

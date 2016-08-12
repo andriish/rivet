@@ -1,5 +1,7 @@
 2016-08-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adapt SmearedMET to take *two* arguments, since SET is typically used to calculate MET resolution.
+
 	* Adding functors for computing vector & ParticleBase differences w.r.t. another vector.
 
 2016-08-12  Holger Schulz  <holger.schulz@cern.ch>
