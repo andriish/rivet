@@ -23,7 +23,10 @@ Description:
   Data taken with the Collider Detector at Fermilab (CDF) during the 1988-1989
   run of the Tevatron are used to measure the distribution of the center-of-mass
   (rest frame of the initial state partons) angle between isolated prompt
-  photons and the beam direction.
+  photons and the beam direction. 
+  WARNING --- Implemented is the simplified c.m. definition
+  given in the paper. The rise of the data and the MC predictions presented in the 
+  latter could not be reproduced.
 BibKey: Abe:1993cv
 BibTeX: '@Article{Abe:1993cv,
      author    = "Abe, F. and others",

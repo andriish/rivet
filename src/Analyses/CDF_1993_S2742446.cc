@@ -58,13 +58,34 @@ namespace Rivet {
       }
       if (Etsum > 2*GeV) vetoEvent;
 
-      // sum all jets in the opposite hemisphere in phi from the photon
       FourMomentum jetsum;
-      foreach (const Jet& jet, apply<FastJets>(event, "Jets").jets(Cuts::pT > 10*GeV)) {
+      Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::pT > 10*GeV, cmpMomByPt);
+  
+      // Require at least one jet with pT>10 GeV
+      if (jets.size()==0) vetoEvent;
+
+      // Require the leading jet to be in the opposite (phi) hemisphere w.r.t. the photon
+      if (jets[0].phi() - phi_P <= M_PI) vetoEvent;
+      
+      // sum all jets in the opposite hemisphere in phi from the photon
+      foreach (const Jet& jet, jets) {
         if (fabs(jet.phi()-phi_P) > M_PI) jetsum+=jet.momentum();
       }
 
+      // c.m. cuts, see Table 1
+      double etaboost = (jetsum.eta()+eta_P)/2.;
+      if (!inRange(etaboost, -1.2, 1.2)) vetoEvent;
+      
+      double etastar = (jetsum.eta()-eta_P)/2.;
+      if (!inRange(etastar, -1.1, 1.1))  vetoEvent;
+      
+      double pstar = photons[0].pT()*cosh(etastar);
+      if (!inRange(pstar, 27.8, 47.0)) vetoEvent;
+
       const double costheta = fabs(tanh((eta_P-jetsum.eta())/2.0));
+      if (!inRange(costheta, 0., 0.8)) vetoEvent;
+      
+      // Fill histo
       _h_costheta->fill(costheta, weight);
     }
 

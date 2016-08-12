@@ -1,3 +1,12 @@
+2016-08-12  Holger Schulz  <holger.schulz@cern.ch>
+
+        * Implemented a few more cuts in prompt photon analysis
+	(CDF_1993_S2742446) but to no avail, the rise of the data towards
+	larger costheta values cannot be reproduced --- maybe this is a
+	candidate for more scrutiny and using the boosting machinery such that
+	the c.m. cuts can be done in a non-approximate way
+
+        
 2016-08-11  Holger Schulz  <holger.schulz@cern.ch>
         
 	* Rename CDF_2009_S8383952 to CDF_2009_I856131 due to invalid Spires
