@@ -81,6 +81,10 @@ nobase_pkginclude_HEADERS +=   \
   Projections/VisibleFinalState.hh \
   Projections/WFinder.hh \
   Projections/ZFinder.hh
+## Meta-projection convenience headers
+nobase_pkginclude_HEADERS +=   \
+  Projections/FinalStates.hh \
+  Projections/Smearing.hh
 
 
 ## Analysis base class headers
