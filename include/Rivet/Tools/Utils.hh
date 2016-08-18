@@ -262,19 +262,25 @@ namespace Rivet {
   }
 
   /// @brief Head slice of the @a n first container elements
+  ///
+  /// Negative @a n means to take the head excluding the @a{n}-element tail
   template <typename CONTAINER>
-  inline CONTAINER head(const CONTAINER& c, size_t n) {
+  inline CONTAINER head(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested head longer than container");
-    const size_t m = std::min(n, c.size());
-    return slice(c, 0, m);
+    if (n < 0) n = std::max(0, c.size()+n);
+    n = std::min(n, c.size());
+    return slice(c, 0, n);
   }
 
   /// @brief Tail slice of the @a n last container elements
+  ///
+  /// Negative @a n means to take the tail from after the @a{n}th element
   template <typename CONTAINER>
-  inline CONTAINER tail(const CONTAINER& c, size_t n) {
+  inline CONTAINER tail(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested tail longer than container");
-    const size_t m = std::min(n, c.size());
-    return slice(c, c.size()-m);
+    if (n < 0) n = std::max(0, c.size()+n);
+    n = std::min(n, c.size());
+    return slice(c, c.size()-n);
   }
 
   /// Find the minimum value in the vector

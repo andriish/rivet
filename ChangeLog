@@ -1,16 +1,26 @@
+2016-08-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add 'conjugate' behaviours to container head and tail functions
+	via negative length arg values.
+
 2016-08-15  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add convenience headers for including all final-state and smearing projections, to save user typing.
+	* Add convenience headers for including all final-state and
+	smearing projections, to save user typing.
 
 2016-08-12  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add standard MET functions for ATLAS R1 (and currently copies for R2 and CMS).
+	* Add standard MET functions for ATLAS R1 (and currently copies
+	for R2 and CMS).
 
-	* Add lots of vector/container helpers for e.g. container slicing, summing, and min/max calculation.
+	* Add lots of vector/container helpers for e.g. container slicing,
+	summing, and min/max calculation.
 
-	* Adapt SmearedMET to take *two* arguments, since SET is typically used to calculate MET resolution.
+	* Adapt SmearedMET to take *two* arguments, since SET is typically
+	used to calculate MET resolution.
 
-	* Adding functors for computing vector & ParticleBase differences w.r.t. another vector.
+	* Adding functors for computing vector & ParticleBase differences
+	w.r.t. another vector.
 
 2016-08-12  Holger Schulz  <holger.schulz@cern.ch>
 
