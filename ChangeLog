@@ -1,5 +1,7 @@
 2016-08-18  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a Jet::particles(Cut&) method, for inline filtering of jet constituents.
+
 	* Add 'conjugate' behaviours to container head and tail functions
 	via negative length arg values.
 

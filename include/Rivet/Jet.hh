@@ -52,12 +52,16 @@ namespace Rivet {
     /// Get the particles in this jet.
     Particles& particles() { return _particles; }
     /// Get the particles in this jet (const version)
-    const vector<Particle>& particles() const { return _particles; }
+    const Particles& particles() const { return _particles; }
+    /// Get the particles in this jet which pass a cut (const)
+    const Particles particles(const Cut& c) const { return filterBy(_particles, c); }
 
     /// Get the particles in this jet (FastJet-like alias)
     Particles& constituents() { return particles(); }
     /// Get the particles in this jet (FastJet-like alias, const version)
     const Particles& constituents() const { return particles(); }
+    /// Get the particles in this jet which pass a cut (FastJet-like alias, const)
+    const Particles constituents(const Cut& c) const { return particles(c); }
 
     /// Check whether this jet contains a particular particle.
     bool containsParticle(const Particle& particle) const;
