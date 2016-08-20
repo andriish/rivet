@@ -267,8 +267,8 @@ namespace Rivet {
   template <typename CONTAINER>
   inline CONTAINER head(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested head longer than container");
-    if (n < 0) n = std::max(0, c.size()+n);
-    n = std::min(n, c.size());
+    if (n < 0) n = std::max(0, (int)c.size()+n);
+    n = std::min(n, (int)c.size());
     return slice(c, 0, n);
   }
 
@@ -278,8 +278,8 @@ namespace Rivet {
   template <typename CONTAINER>
   inline CONTAINER tail(const CONTAINER& c, int n) {
     // if (n > c.size()) throw RangeError("Requested tail longer than container");
-    if (n < 0) n = std::max(0, c.size()+n);
-    n = std::min(n, c.size());
+    if (n < 0) n = std::max(0, (int)c.size()+n);
+    n = std::min(n, (int)c.size());
     return slice(c, c.size()-n);
   }
 
