@@ -196,23 +196,12 @@ namespace Rivet {
   }
 
 
-  /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Jets& filterBy(Jets& jets, const Cut& c) {
-    if (c != Cuts::OPEN) {
-      const auto newend = std::remove_if(jets.begin(), jets.end(), [&](const Jet& j){ return !c->accept(j); });
-      jets.erase(newend, jets.end());
-    }
-    return jets;
-  }
+  ///////////////////
 
-  /// Get a subset of the supplied jets that passes the supplied Cut
-  Jets filterBy(const Jets& jets, const Cut& c) {
-    // Just return a copy if the cut is open
+
+  Jets& ifilterBy(Jets& jets, const Cut& c) {
     if (c == Cuts::OPEN) return jets;
-    // But if there is a non-trivial cut...
-    Jets rtn;
-    std::copy_if(jets.begin(), jets.end(), back_inserter(rtn), [&](const Jet& j){ return c->accept(j); });
-    return rtn;
+    return ifilterBy(jets, [&](const Jet& j){ return !c->accept(j); });
   }
 
 

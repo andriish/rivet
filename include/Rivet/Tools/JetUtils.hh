@@ -37,16 +37,42 @@ namespace Rivet {
   /// @name Unbound functions for filtering jets
   //@{
 
-  /// Get a subset of the supplied jets that passes the supplied Cut
-  Jets filterBy(const Jets& jets, const Cut& c);
+  /// Filter a jet collection in-place to the subset that passes the supplied function
+  template <typename FN>
+  inline Jets& ifilterBy(Jets& jets, const FN& f) {
+    const auto newend = std::remove_if(jets.begin(), jets.end(), f);
+    jets.erase(newend, jets.end());
+    return jets;
+  }
 
-  /// Filter a particle collection in-place to the subset that passes the supplied Cut
+  /// Get a subset of the supplied jets that passes the supplied function
+  template <typename FN>
+  inline Jets filterBy(const Jets& jets, const FN& f) {
+    Jets rtn = jets;
+    return ifilterBy(rtn, f);
+  }
+
+  /// Filter a jet collection to the subset that passes the supplied function, into a new container
+  /// @note New container will be replaced, not appended to
+  template <typename FN>
+  inline Jets& filterBy(Jets& jets, const FN& f, Jets& out) {
+    out = filterBy(jets, f);
+    return out;
+  }
+
+
+  /// Filter a jet collection in-place to the subset that passes the supplied Cut
   Jets& ifilterBy(Jets& jets, const Cut& c);
 
-  /// Filter a particle collection to the subset that passes the supplied Cut, into a new container
+  /// Get a subset of the supplied jets that passes the supplied Cut
+  inline Jets filterBy(const Jets& jets, const Cut& c) {
+    Jets rtn = jets;
+    return ifilterBy(rtn, c);
+  }
+
+  /// Filter a jet collection to the subset that passes the supplied Cut, into a new container
   /// @note New container will be replaced, not appended to
   inline Jets& filterBy(Jets& jets, const Cut& c, Jets& out) {
-    //const Jets& const_jets = jets;
     out = filterBy(jets, c);
     return out;
   }

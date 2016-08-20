@@ -377,19 +377,49 @@ namespace Rivet {
   /// @name Unbound functions for filtering particles
   //@{
 
-  /// Get a subset of the supplied particles that passes the supplied Cut
-  Particles filterBy(const Particles& particles, const Cut& c);
+  /// Filter a particle collection in-place to the subset that passes the supplied function
+  template <typename FN>
+  inline Particles& ifilterBy(Particles& particles, const FN& f) {
+    const auto newend = std::remove_if(particles.begin(), particles.end(), f);
+    particles.erase(newend, particles.end());
+    return particles;
+  }
+
+  /// Get a subset of the supplied particles that passes the supplied function
+  template <typename FN>
+  inline Particles filterBy(const Particles& particles, const FN& f) {
+    Particles rtn = particles;
+    return ifilterBy(rtn, f);
+  }
+
+  /// Filter a particle collection to the subset that passes the supplied function, into a new container
+  /// @note New container will be replaced, not appended to
+  template <typename FN>
+  inline Particles& filterBy(Particles& particles, const FN& f, Particles& out) {
+    out = filterBy(particles, f);
+    return out;
+  }
+
 
   /// Filter a particle collection in-place to the subset that passes the supplied Cut
   Particles& ifilterBy(Particles& particles, const Cut& c);
 
+  /// Get a subset of the supplied particles that passes the supplied Cut
+  inline Particles filterBy(const Particles& particles, const Cut& c) {
+    Particles rtn = particles;
+    return ifilterBy(rtn, c);
+  }
+
   /// Filter a particle collection to the subset that passes the supplied Cut, into a new container
   /// @note New container will be replaced, not appended to
   inline Particles& filterBy(Particles& particles, const Cut& c, Particles& out) {
-    //const Particles& const_particles = particles;
     out = filterBy(particles, c);
     return out;
   }
+
+
+
+
 
   //@}
 
