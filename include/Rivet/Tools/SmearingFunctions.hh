@@ -148,6 +148,27 @@ namespace Rivet {
     return ELECTRON_TRKEFF_ATLAS_RUN1(e);
   }
 
+  /// @brief ATLAS 13 TeV 'loose' electron identification/selection efficiency
+  ///
+  /// Values read from Fig 3 of ATL-PHYS-PUB-2015-041
+  /// @todo What about faking by jets or non-electrons?
+  inline double ELECTRON_IDEFF_ATLAS_RUN2_LOOSE(const Particle& e) {
+
+    // Manually symmetrised eta eff histogram
+    const static vector<double> edges_eta = { 0.0,   0.1,   0.8,   1.37,  1.52,  2.01,  2.37,  2.47 };
+    const static vector<double> effs_eta  = { 0.950, 0.965, 0.955, 0.885, 0.950, 0.935, 0.90 };
+    // Et eff histogram (10-20 is a guess)
+    const static vector<double> edges_et = { 0,   10,   20,   25,   30,   35,   40,    45,    50,   60,  80 };
+    const static vector<double> effs_et  = { 0.0, 0.90, 0.91, 0.92, 0.94, 0.95, 0.955, 0.965, 0.97, 0.98 };
+
+    if (e.abseta() > 2.47) return 0.0; // no ID outside the tracker
+
+    const int i_eta = binIndex(e.abseta(), edges_eta);
+    const int i_et = binIndex(e.Et()/GeV, edges_et, true);
+    const double eff = effs_et[i_et] * effs_eta[i_eta] / 0.95; //< norm factor as approximate double differential
+    return min(eff, 1.0);
+  }
+
   /// ATLAS Run 1 electron reconstruction efficiency
   /// @todo Include reco eff (but no e/y discrimination) in forward region
   /// @todo How to use this in combination with tracking eff?
