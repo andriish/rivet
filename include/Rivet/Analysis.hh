@@ -298,7 +298,7 @@ namespace Rivet {
 
     /// Get the process cross-section per generated event in pb. Throws if this
     /// hasn't been set.
-    double crossSectionPerEvent() const;
+    vector<double> crossSectionPerEvent() const;
 
     /// Get the number of events seen (via the analysis handler). Use in the
     /// finalize phase only.
@@ -306,7 +306,7 @@ namespace Rivet {
 
     /// Get the sum of event weights seen (via the analysis handler). Use in the
     /// finalize phase only.
-    double sumOfWeights() const;
+    const vector<double>& sumOfWeights() const;
 
 
   protected:
@@ -747,10 +747,10 @@ namespace Rivet {
     /// Get a data object from the histogram system
     /// @todo Use this default function template arg in C++11
     // template <typename AO=AnalysisObjectPtr>
-    template <typename AO>
-    const std::shared_ptr<AO> getAnalysisObject(const std::string& name) const {
+    template <typename AOPtr>
+    const AOPtr& getAnalysisObject(const std::string& name) const {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
+        if (ao->path() == histoPath(name)) return dynamic_cast<AOPtr&>(ao);
       }
       throw Exception("Data object " + histoPath(name) + " not found");
     }
@@ -758,10 +758,10 @@ namespace Rivet {
     /// Get a data object from the histogram system (non-const)
     /// @todo Use this default function template arg in C++11
     // template <typename AO=AnalysisObjectPtr>
-    template <typename AO>
-    std::shared_ptr<AO> getAnalysisObject(const std::string& name) {
+    template <typename AOPtr>
+    AOPtr& getAnalysisObject(const std::string& name) {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
+        if (ao->path() == histoPath(name)) return dynamic_cast<AOPtr&>(ao);
       }
       throw Exception("Data object " + histoPath(name) + " not found");
     }
@@ -775,22 +775,22 @@ namespace Rivet {
 
     /// Get a named Histo1D object from the histogram system
     const Histo1DPtr getHisto1D(const std::string& name) const {
-      return getAnalysisObject<Histo1D>(name);
+      return getAnalysisObject<Histo1DPtr>(name);
     }
 
     /// Get a named Histo1D object from the histogram system (non-const)
     Histo1DPtr getHisto1D(const std::string& name) {
-      return getAnalysisObject<Histo1D>(name);
+      return getAnalysisObject<Histo1DPtr>(name);
     }
 
     /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
     const Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+      return getAnalysisObject<Histo1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
     }
 
     /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
     Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Histo1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+      return getAnalysisObject<Histo1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
     }
 
 
@@ -817,22 +817,22 @@ namespace Rivet {
 
     /// Get a named Profile1D object from the histogram system
     const Profile1DPtr getProfile1D(const std::string& name) const {
-      return getAnalysisObject<Profile1D>(name);
+      return getAnalysisObject<Profile1DPtr>(name);
     }
 
     /// Get a named Profile1D object from the histogram system (non-const)
     Profile1DPtr getProfile1D(const std::string& name) {
-      return getAnalysisObject<Profile1D>(name);
+      return getAnalysisObject<Profile1DPtr>(name);
     }
 
     /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
     const Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+      return getAnalysisObject<Profile1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
     }
 
     /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
     Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Profile1D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+      return getAnalysisObject<Profile1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
     }
 
 
@@ -859,22 +859,22 @@ namespace Rivet {
 
     /// Get a named Scatter2D object from the histogram system
     const Scatter2DPtr getScatter2D(const std::string& name) const {
-      return getAnalysisObject<Scatter2D>(name);
+      return getAnalysisObject<Scatter2DPtr>(name);
     }
 
     /// Get a named Scatter2D object from the histogram system (non-const)
     Scatter2DPtr getScatter2D(const std::string& name) {
-      return getAnalysisObject<Scatter2D>(name);
+      return getAnalysisObject<Scatter2DPtr>(name);
     }
 
     /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
     const Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+      return getAnalysisObject<Scatter2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
     }
 
     /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
     Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Scatter2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+      return getAnalysisObject<Scatter2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
     }
 
     //@}
@@ -903,7 +903,7 @@ namespace Rivet {
 
     /// Collection of cached refdata to speed up many autobookings: the
     /// reference data file should only be read once.
-    mutable std::map<std::string, AnalysisObjectPtr> _refdata;
+    mutable std::map<std::string, YODA::AnalysisObjectPtr> _refdata;
 
 
   private:

@@ -45,4 +45,40 @@ namespace Rivet {
   }
 
 
+  void Histo1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+      // loop over subevents
+      for (size_t m = 0; m < _persistent.size(); ++m) {
+
+          YODA::Histo1DPtr sum = boost::make_shared<YODA::Histo1D>(_evgroup[0]->clone());
+          sum->scaleW( weight[0][m] );
+
+          for (size_t n = 1; n < _evgroup.size(); ++n) {
+              YODA::Histo1DPtr tmp = boost::make_shared<YODA::Histo1D>(_evgroup[n]->clone());
+              tmp->scaleW( weight[n][m] );
+              *sum += *tmp;
+          }
+
+          // sum typically only has one bin filled
+          // do we really need to fill bin.size() times?
+          bool filled_something = false;
+
+          foreach(const YODA::HistoBin1D& b, sum->bins()) {
+              if ( b.effNumEntries() != 0 && b.sumW() != 0 ) {
+                  // @todo number of fills will be wrong
+                  // needs to be xMid. xMean is not valid if bin contains neg.weights
+                  _persistent[m]->fill(b.xMid(), b.sumW());
+                  filled_something = true;
+              }
+          }
+
+          // @todo
+          // overflow
+
+      }
+
+      _evgroup.clear();
+      _active.reset();
+  }
+
+
 }

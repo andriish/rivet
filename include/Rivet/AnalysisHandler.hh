@@ -64,13 +64,17 @@ namespace Rivet {
     /// Get the sum of the event weights seen - the weighted equivalent of the
     /// number of events. Should only really be used by external steering code
     /// or analyses in the finalize phase.
-    double sumOfWeights() const;
+    const vector<double>& sumOfWeights() const {
+        return _sumOfWeights;
+    }
 
-    /// Set sum of weights. This is useful if Rivet is steered externally and
-    /// the analyses are run for a sub-contribution of the events
-    /// (but of course have to be normalised to the total sum of weights)
-    void setSumOfWeights(const double& sum);
+    int numWeights() const {
+        return _sumOfWeights.size();
+    }
 
+
+    /// Set the active weight.
+    void setActiveWeight(unsigned int iWeight);
 
     /// Is cross-section information required by at least one child analysis?
     bool needCrossSection() const;
@@ -208,7 +212,7 @@ namespace Rivet {
     unsigned int _numEvents;
     /// Sum of event weights seen.
     /// @todo Replace by a counter
-    double _sumOfWeights, _sumOfWeightsSq;
+    vector<double> _sumOfWeights;
 
     /// Cross-section known to AH
     double _xs, _xserr;
@@ -222,6 +226,8 @@ namespace Rivet {
     /// Flag whether input event beams should be ignored in compatibility check
     bool _ignoreBeams;
 
+    /// Current event number
+    int _eventNumber;
     //@}
 
   private:

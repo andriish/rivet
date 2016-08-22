@@ -8,6 +8,8 @@
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/WriterYODA.h"
 
+#include "Rivet/Histo1D.hh"
+
 namespace Rivet {
 
 
@@ -34,8 +36,20 @@ namespace Rivet {
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
     _numEvents = 0;
-    _sumOfWeights = 0.0;
-    _sumOfWeightsSq = 0.0;
+    _eventNumber = ge.event_number();
+
+    setWeightNames(ge);
+    if (haveNamedWeights()) {
+        MSG_INFO("Using named weights");
+    }
+    else {
+        _weightNames.clear();
+        _weightNames.push_back("0");
+        MSG_INFO("NOT using named weights. Using first weight as nominal weight");
+    }
+
+    _numWeightTypes = _weightNames.size();
+    _sumOfWeights = vector<double>(_numWeightTypes, 0.0);
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -86,6 +100,33 @@ namespace Rivet {
     MSG_DEBUG("Analysis handler initialised");
   }
 
+  void AnalysisHandler::setWeightNames(const GenEvent& ge) {
+      /// reroute the print output to a stringstream and process
+      /// The iteration is done over a map in hepmc2 so this is safe
+      ostringstream stream;
+      ge.weights().print(stream);  // Super lame, I know
+      string str =  stream.str();
+
+      vector<string> temp;
+      boost::split(temp, str, boost::is_any_of("="));
+      vector<string> tokens;
+      boost::split(tokens, temp[0], boost::is_any_of(" "));
+
+      /// Weights  come in tuples:  (StringName, doubleWeight) (AnotherName, anotherWeight) etc
+      string wname;
+      for (unsigned int i=0; i<tokens.size()-1;++i) {
+        temp.clear();
+        boost::split(temp, tokens[i], boost::is_any_of(","));
+        if (temp.size()>0) {
+          wname = temp[0];
+          trim_left_if(wname,is_any_of("("));
+          _weightNames.push_back(wname);
+          /// Turn into debug message
+          MSG_INFO("Name of weight #" << i << ": " << wname);
+        }
+      }
+  }
+
 
   void AnalysisHandler::analyze(const GenEvent& ge) {
     // Call init with event as template if not already initialised
@@ -106,12 +147,40 @@ namespace Rivet {
     /// @todo Filter/normalize the event here
     Event event(ge);
 
-    // Weights
-    /// @todo Drop this / just report first weight when we support multiweight events
-    _numEvents += 1;
-    _sumOfWeights += event.weight();
-    _sumOfWeightsSq += sqr(event.weight());
-    MSG_DEBUG("Event #" << _numEvents << " weight = " << event.weight());
+    // won't happen for first event because _eventNumber is set in
+    // init()
+    if (_eventNumber != ge.event_number()) {
+        // if this is indeed a new event, push the temporary
+        // histograms and reset
+        foreach (Rivet::Histo1DPtr& histo, _histograms) {
+            histo.rivetHisto1D()->pushToPersistent(_subEventWeights);
+        }
+
+        _eventNumber = ge.event_number();
+
+        // @todo
+        // is this correct?
+        // only incremented when event number changes.
+        _numEvents++;
+
+        MSG_DEBUG("Event #" << _numEvents << " nominal weight sum = " << _sumOfWeights[0]);
+        MSG_DEBUG("Event has " << _subEventWeights.size() << " sub events.");
+        _subEventWeights.clear();
+    }
+
+
+    foreach (Rivet::Histo1DPtr& histo, _histograms) {
+        histo.rivetHisto1D()->newEvent();
+    }
+
+    _subEventWeights.push_back(event.weights());
+    MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
+
+    // @todo
+    // is this the correct way to sum weights over sub events?
+    for (unsigned int iWeight = 0; iWeight < _sumOfWeights.size(); iWeight++) {
+        _sumOfWeights[iWeight] += _subEventWeights.back()[iWeight];
+    }
 
     // Cross-section
     #ifdef HEPMC_HAS_CROSS_SECTION
