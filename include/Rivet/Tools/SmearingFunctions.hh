@@ -9,6 +9,9 @@
 namespace Rivet {
 
 
+  /// @name Random number and filtering utils
+  //@{
+
   /// Return a uniformly sampled random number between 0 and 1
   /// @todo Move to (math?)utils
   /// @todo Need to isolate random generators to a single thread
@@ -18,6 +21,33 @@ namespace Rivet {
     static mt19937 gen(rd());
     return generate_canonical<double, 10>(gen);
   }
+
+  template <typename FN>
+  inline bool efffilt(const Particle& p, FN& feff) {
+    return rand01() < feff(p);
+  }
+  template <typename FN>
+  inline bool efffilt(const Jet& j, FN& feff) {
+    return rand01() < feff(j);
+  }
+
+  struct ParticleEffFilter {
+    template <typename FN>
+    ParticleEffFilter(const FN& feff) : _feff(feff) {}
+    bool operator () (const Particle& p) { return efffilt(p, _feff); }
+  private:
+    const std::function<bool(const Particle&)> _feff;
+  };
+
+  struct JetEffFilter {
+    template <typename FN>
+    JetEffFilter(const FN& feff) : _feff(feff) {}
+    bool operator () (const Jet& j) { return efffilt(j, _feff); }
+  private:
+    const std::function<bool(const Jet&)> _feff;
+  };
+
+  //@}
 
 
   /// @name General particle & momentum efficiency and smearing functions
