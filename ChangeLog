@@ -1,3 +1,9 @@
+2016-08-22  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Bugfix in rivet-mkhtml (NoneType: ana.spiresID() --> spiresid)
+
+	* Added <numeric> include to Rivet/Tools/Utils.h to make gcc6 happy
+
 2016-08-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add efffilt() functions and Particle/JetEffFilt functors to SmearingFunctions.hh
