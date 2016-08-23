@@ -377,28 +377,29 @@ namespace Rivet {
   /// @name Unbound functions for filtering particles
   //@{
 
-  /// Filter a particle collection in-place to the subset that passes the supplied function
-  template <typename FN>
-  inline Particles& ifilterBy(Particles& particles, const FN& f) {
-    const auto newend = std::remove_if(particles.begin(), particles.end(), f);
-    particles.erase(newend, particles.end());
-    return particles;
-  }
+  // /// Filter a particle collection in-place to the subset that passes the supplied function
+  // template <typename FN>
+  // inline Particles& ifilterBy(Particles& particles, const FN& f) {
+  //   /// @todo Need to invert f logic! Via lambda...
+  //   const auto newend = std::remove_if(particles.begin(), particles.end(), f);
+  //   particles.erase(newend, particles.end());
+  //   return particles;
+  // }
 
-  /// Get a subset of the supplied particles that passes the supplied function
-  template <typename FN>
-  inline Particles filterBy(const Particles& particles, const FN& f) {
-    Particles rtn = particles;
-    return ifilterBy(rtn, f);
-  }
+  // /// Get a subset of the supplied particles that passes the supplied function
+  // template <typename FN>
+  // inline Particles filterBy(const Particles& particles, const FN& f) {
+  //   Particles rtn = particles;
+  //   return ifilterBy(rtn, f);
+  // }
 
-  /// Filter a particle collection to the subset that passes the supplied function, into a new container
-  /// @note New container will be replaced, not appended to
-  template <typename FN>
-  inline Particles& filterBy(Particles& particles, const FN& f, Particles& out) {
-    out = filterBy(particles, f);
-    return out;
-  }
+  // /// Filter a particle collection to the subset that passes the supplied function, into a new container
+  // /// @note New container will be replaced, not appended to
+  // template <typename FN>
+  // inline Particles& filterBy(Particles& particles, const FN& f, Particles& out) {
+  //   out = filterBy(particles, f);
+  //   return out;
+  // }
 
 
   /// Filter a particle collection in-place to the subset that passes the supplied Cut
@@ -416,10 +417,6 @@ namespace Rivet {
     out = filterBy(particles, c);
     return out;
   }
-
-
-
-
 
   //@}
 

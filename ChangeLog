@@ -1,3 +1,9 @@
+2016-08-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve container utils functions, and provide combined
+	remove_if+erase filter_* functions for both select- and
+	discard-type selector functions.
+
 2016-08-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add efffilt() functions and Particle/JetEffFilt functors to SmearingFunctions.hh

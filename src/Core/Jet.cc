@@ -201,7 +201,7 @@ namespace Rivet {
 
   Jets& ifilterBy(Jets& jets, const Cut& c) {
     if (c == Cuts::OPEN) return jets;
-    return ifilterBy(jets, [&](const Jet& j){ return !c->accept(j); });
+    return ifilter_select(jets, [&](const Jet& j){ return c->accept(j); });
   }
 
 

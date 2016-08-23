@@ -193,34 +193,28 @@ namespace Rivet {
   /// Return true if f(x) is true for any x in container c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool any(const CONTAINER& c, const FN& f) {
-    for (const auto& x : c)
-      if (f(x)) return true;
-    return false;
+    // for (const auto& x : c)
+    //   if (f(x)) return true;
+    // return false;
+    return std::any_of(std::begin(c), std::end(c), f);
   }
 
   /// Return true if @a f(x) is true for all @c x in container @a c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool all(const CONTAINER& c, const FN& f) {
-    for (const auto& x : c)
-      if (!f(x)) return false;
-    return true;
+    // for (const auto& x : c)
+    //   if (!f(x)) return false;
+    // return true;
+    return std::all_of(std::begin(c), std::end(c), f);
   }
 
-  /// Generic sum function, adding @c x for all @c x in container @a c, starting with @a start
-  template <typename CONTAINER, typename T>
-  inline T sum(const CONTAINER& c, const T& start=T()) {
-    T rtn = start;
-    for (const auto& x : c) rtn += x;
-    return rtn;
-  }
-
-  /// Generic sum function, adding @a fn(@c x) for all @c x in container @a c, starting with @a start
-  template <typename CONTAINER, typename FN, typename T>
-  inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
-    T rtn = start;
-    for (const auto& x : c)
-      rtn += f(x);
-    return rtn;
+  /// Return true if @a f(x) is false for all @c x in container @a c, otherwise false.
+  template <typename CONTAINER, typename FN>
+  inline bool none(const CONTAINER& c, const FN& f) {
+    // for (const auto& x : c)
+    //   if (!f(x)) return false;
+    // return true;
+    return std::none_of(std::begin(c), std::end(c), f);
   }
 
   /// A single-container-arg version of std::transform, aka @c map
@@ -237,6 +231,71 @@ namespace Rivet {
     const T rtn = std::accumulate(in.begin(), in.end(), init, f);
     return rtn;
   }
+
+  /// Generic sum function, adding @c x for all @c x in container @a c, starting with @a start
+  template <typename CONTAINER, typename T>
+  inline T sum(const CONTAINER& c, const T& start=T()) {
+    T rtn = start;
+    for (const auto& x : c) rtn += x;
+    return rtn;
+  }
+
+  /// Generic sum function, adding @a fn(@c x) for all @c x in container @a c, starting with @a start
+  template <typename CONTAINER, typename FN, typename T>
+  inline T sum(const CONTAINER& c, const FN& f, const T& start=T()) {
+    T rtn = start;
+    for (const auto& x : c) rtn += f(x);
+    return rtn;
+  }
+
+
+  /// Filter a collection in-place, removing the subset that passes the supplied function
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& ifilter_discard(CONTAINER& c, const FN& f) {
+    const auto newend = std::remove_if(std::begin(c), std::end(c), f);
+    c.erase(newend, c.end());
+    return c;
+  }
+
+  /// Filter a collection by copy, removing the subset that passes the supplied function
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER filter_discard(const CONTAINER& c, const FN& f) {
+    CONTAINER rtn = c;
+    return ifilter_discard(c, f); ///< @todo More efficient would be copy_if with back_inserter ... but is that equally container agnostic?
+  }
+
+  /// Filter a collection by copy into a supplied container, removing the subset that passes the supplied function
+  /// @note New container will be replaced, not appended to
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& filter_discard(CONTAINER& c, const FN& f, CONTAINER& out) {
+    out = filter_discard(c, f);
+    return out;
+  }
+
+
+  /// Filter a collection in-place, keeping the subset that passes the supplied function
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& ifilter_select(CONTAINER& c, const FN& f) {
+    using value_type = typename std::remove_reference<decltype(*std::begin(std::declval<typename std::add_lvalue_reference<CONTAINER>::type>()))>::type;
+    const auto invf = [&](const value_type& x){ return !f(x); };
+    return ifilter_discard(c, invf);
+  }
+
+  /// Filter a collection by copy, keeping the subset that passes the supplied function
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER filter_select(const CONTAINER& c, const FN& f) {
+    CONTAINER rtn = c;
+    return ifilter_select(c, f); ///< @todo More efficient would be copy_if with back_inserter ... but is that equally container agnostic?
+  }
+
+  /// Filter a collection by copy into a supplied container, keeping the subset that passes the supplied function
+  /// @note New container will be replaced, not appended to
+  template <typename CONTAINER, typename FN>
+  inline CONTAINER& filter_select(CONTAINER& c, const FN& f, CONTAINER& out) {
+    out = filter_select(c, f);
+    return out;
+  }
+
 
   /// @brief Slice of the container elements cf. Python's [i:j] syntax
   ///

@@ -204,7 +204,7 @@ namespace Rivet {
 
   Particles& ifilterBy(Particles& particles, const Cut& c) {
     if (c == Cuts::OPEN) return particles;
-    return ifilterBy(particles, [&](const Particle& j){ return !c->accept(j); });
+    return ifilter_select(particles, [&](const Particle& j){ return c->accept(j); });
   }
 
 
