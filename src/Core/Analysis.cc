@@ -207,6 +207,15 @@ namespace Rivet {
   }
 
 
+  CounterPtr Analysis::bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                   const string& title) {
+                                   // const string& xtitle,
+                                   // const string& ytitle) {
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    return bookCounter(axisCode, title);
+  }
+
+
   Histo1DPtr Analysis::bookHisto1D(const string& hname,
                                    size_t nbins, double lower, double upper,
                                    const string& title,

@@ -377,8 +377,14 @@ namespace Rivet {
     /// Book a counter.
     CounterPtr bookCounter(const std::string& name,
                            const std::string& title="");
-                           // const std::string& xtitle="",
-                           // const std::string& ytitle="");
+                           // const std::string& valtitle=""
+
+    /// Book a counter, using a path generated from the dataset and axis ID codes
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    CounterPtr bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                           const std::string& title="");
+                           // const std::string& valtitle=""
 
     //@}
 

@@ -1,5 +1,8 @@
 2016-08-23  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Provide an Analysis::bookCounter(d,x,y, title) function, for
+	convenience and making the mkanalysis template valid.
+
 	* Improve container utils functions, and provide combined
 	remove_if+erase filter_* functions for both select- and
 	discard-type selector functions.
