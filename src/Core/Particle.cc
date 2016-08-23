@@ -202,9 +202,17 @@ namespace Rivet {
   ///////////////////////
 
 
-  Particles& ifilterBy(Particles& particles, const Cut& c) {
+  Particles& ifilter_select(Particles& particles, const Cut& c) {
     if (c == Cuts::OPEN) return particles;
-    return ifilter_select(particles, [&](const Particle& j){ return c->accept(j); });
+    // return ifilter_select(particles, *c);
+    return ifilter_select(particles, [&](const Particle& p){return c->accept(p);});
+  }
+
+
+  Particles& ifilter_discard(Particles& particles, const Cut& c) {
+    if (c == Cuts::OPEN) { particles.clear(); return particles; }
+    // return ifilter_discard(particles, *c);
+    return ifilter_discard(particles, [&](const Particle& p){return c->accept(p);});
   }
 
 

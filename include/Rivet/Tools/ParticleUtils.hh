@@ -377,44 +377,43 @@ namespace Rivet {
   /// @name Unbound functions for filtering particles
   //@{
 
-  // /// Filter a particle collection in-place to the subset that passes the supplied function
-  // template <typename FN>
-  // inline Particles& ifilterBy(Particles& particles, const FN& f) {
-  //   /// @todo Need to invert f logic! Via lambda...
-  //   const auto newend = std::remove_if(particles.begin(), particles.end(), f);
-  //   particles.erase(newend, particles.end());
-  //   return particles;
-  // }
-
-  // /// Get a subset of the supplied particles that passes the supplied function
-  // template <typename FN>
-  // inline Particles filterBy(const Particles& particles, const FN& f) {
-  //   Particles rtn = particles;
-  //   return ifilterBy(rtn, f);
-  // }
-
-  // /// Filter a particle collection to the subset that passes the supplied function, into a new container
-  // /// @note New container will be replaced, not appended to
-  // template <typename FN>
-  // inline Particles& filterBy(Particles& particles, const FN& f, Particles& out) {
-  //   out = filterBy(particles, f);
-  //   return out;
-  // }
-
+  /// Filter a particle collection in-place to the subset that passes the supplied Cut
+  Particles& ifilter_select(Particles& particles, const Cut& c);
+  /// Alias for ifilter_select
+  /// @deprecated Use ifilter_select
+  inline Particles& ifilterBy(Particles& particles, const Cut& c) { return ifilter_select(particles, c); }
 
   /// Filter a particle collection in-place to the subset that passes the supplied Cut
-  Particles& ifilterBy(Particles& particles, const Cut& c);
-
-  /// Get a subset of the supplied particles that passes the supplied Cut
-  inline Particles filterBy(const Particles& particles, const Cut& c) {
+  inline Particles filter_select(const Particles& particles, const Cut& c) {
     Particles rtn = particles;
-    return ifilterBy(rtn, c);
+    return ifilter_select(rtn, c);
+  }
+  /// Alias for ifilter_select
+  /// @deprecated Use filter_select
+  inline Particles filterBy(const Particles& particles, const Cut& c) { return filter_select(particles, c); }
+
+  /// Filter a particle collection in-place to the subset that passes the supplied Cut
+  inline Particles filter_select(const Particles& particles, const Cut& c, Particles& out) {
+    out = filter_select(particles, c);
+    return out;
+  }
+  /// Alias for ifilter_select
+  /// @deprecated Use filter_select
+  inline Particles filterBy(const Particles& particles, const Cut& c, Particles& out) { return filter_select(particles, c, out); }
+
+
+  /// Filter a particle collection in-place to the subset that fails the supplied Cut
+  Particles& ifilter_discard(Particles& particles, const Cut& c);
+
+  /// Filter a particle collection in-place to the subset that fails the supplied Cut
+  inline Particles filter_discard(const Particles& particles, const Cut& c) {
+    Particles rtn = particles;
+    return ifilter_discard(rtn, c);
   }
 
-  /// Filter a particle collection to the subset that passes the supplied Cut, into a new container
-  /// @note New container will be replaced, not appended to
-  inline Particles& filterBy(Particles& particles, const Cut& c, Particles& out) {
-    out = filterBy(particles, c);
+  /// Filter a particle collection in-place to the subset that fails the supplied Cut
+  inline Particles filter_discard(const Particles& particles, const Cut& c, Particles& out) {
+    out = filter_discard(particles, c);
     return out;
   }
 

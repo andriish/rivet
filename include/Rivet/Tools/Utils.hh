@@ -261,13 +261,13 @@ namespace Rivet {
   template <typename CONTAINER, typename FN>
   inline CONTAINER filter_discard(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
-    return ifilter_discard(c, f); ///< @todo More efficient would be copy_if with back_inserter ... but is that equally container agnostic?
+    return ifilter_discard(rtn, f); ///< @todo More efficient would be copy_if with back_inserter...
   }
 
   /// Filter a collection by copy into a supplied container, removing the subset that passes the supplied function
   /// @note New container will be replaced, not appended to
   template <typename CONTAINER, typename FN>
-  inline CONTAINER& filter_discard(CONTAINER& c, const FN& f, CONTAINER& out) {
+  inline CONTAINER& filter_discard(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_discard(c, f);
     return out;
   }
@@ -276,8 +276,8 @@ namespace Rivet {
   /// Filter a collection in-place, keeping the subset that passes the supplied function
   template <typename CONTAINER, typename FN>
   inline CONTAINER& ifilter_select(CONTAINER& c, const FN& f) {
-    using value_type = typename std::remove_reference<decltype(*std::begin(std::declval<typename std::add_lvalue_reference<CONTAINER>::type>()))>::type;
-    const auto invf = [&](const value_type& x){ return !f(x); };
+    //using value_type = typename std::remove_reference<decltype(*std::begin(std::declval<typename std::add_lvalue_reference<CONTAINER>::type>()))>::type;
+    const auto invf = [&](const typename CONTAINER::value_type& x){ return !f(x); };
     return ifilter_discard(c, invf);
   }
 
@@ -285,13 +285,13 @@ namespace Rivet {
   template <typename CONTAINER, typename FN>
   inline CONTAINER filter_select(const CONTAINER& c, const FN& f) {
     CONTAINER rtn = c;
-    return ifilter_select(c, f); ///< @todo More efficient would be copy_if with back_inserter ... but is that equally container agnostic?
+    return ifilter_select(rtn, f); ///< @todo More efficient would be copy_if with back_inserter ... but is that equally container agnostic?
   }
 
   /// Filter a collection by copy into a supplied container, keeping the subset that passes the supplied function
   /// @note New container will be replaced, not appended to
   template <typename CONTAINER, typename FN>
-  inline CONTAINER& filter_select(CONTAINER& c, const FN& f, CONTAINER& out) {
+  inline CONTAINER& filter_select(const CONTAINER& c, const FN& f, CONTAINER& out) {
     out = filter_select(c, f);
     return out;
   }

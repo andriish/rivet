@@ -10,15 +10,24 @@ namespace Rivet {
   class CutBase {
   public:
 
-    /// Main work method.
+    /// Main work method, checking whether the cut is passed
     /// @internal Forwards the received object to @ref accept_, wrapped in the Cuttable converter
-    template <typename ClassToCheck> bool accept(const ClassToCheck&) const;
+    template <typename ClassToCheck>
+    bool accept(const ClassToCheck&) const;
+
+    /// @brief Call operator alias for @a accept
+    /// @note A bit subtle, because this gets wrapped in a shared_ptr so you need to dereference to get the functor
+    template <typename ClassToCheck>
+    bool operator () (const ClassToCheck& x) const { return accept(x); }
+
     /// Comparison to another Cut
-    virtual bool operator==(const Cut&) const = 0;
+    virtual bool operator == (const Cut&) const = 0;
+
     /// Default destructor
     virtual ~CutBase() {}
 
   protected:
+
     /// @internal Actual accept implementation, overloadable by various cut combiners
     virtual bool _accept(const CuttableBase&) const = 0;
 

@@ -37,44 +37,43 @@ namespace Rivet {
   /// @name Unbound functions for filtering jets
   //@{
 
-  // /// Filter a jet collection in-place to the subset that passes the supplied function
-  // template <typename FN>
-  // inline Jets& filterBy(Jets& jets, const FN& f) {
-  //   /// @todo Need to invert f logic!
-  //   const auto newend = std::remove_if(jets.begin(), jets.end(), f);
-  //   jets.erase(newend, jets.end());
-  //   return jets;
-  // }
-
-  // /// Get a subset of the supplied jets that passes the supplied function
-  // template <typename FN>
-  // inline Jets filterBy(const Jets& jets, const FN& f) {
-  //   Jets rtn = jets;
-  //   return ifilterBy(rtn, f);
-  // }
-
-  // /// Filter a jet collection to the subset that passes the supplied function, into a new container
-  // /// @note New container will be replaced, not appended to
-  // template <typename FN>
-  // inline Jets& filterBy(Jets& jets, const FN& f, Jets& out) {
-  //   out = filterBy(jets, f);
-  //   return out;
-  // }
-
+  /// Filter a jet collection in-place to the subset that passes the supplied Cut
+  Jets& ifilter_select(Jets& jets, const Cut& c);
+  /// Alias for ifilter_select
+  /// @deprecated Use ifilter_select
+  inline Jets& ifilterBy(Jets& jets, const Cut& c) { return ifilter_select(jets, c); }
 
   /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Jets& ifilterBy(Jets& jets, const Cut& c);
-
-  /// Get a subset of the supplied jets that passes the supplied Cut
-  inline Jets filterBy(const Jets& jets, const Cut& c) {
+  inline Jets filter_select(const Jets& jets, const Cut& c) {
     Jets rtn = jets;
-    return ifilterBy(rtn, c);
+    return ifilter_select(rtn, c);
+  }
+  /// Alias for ifilter_select
+  /// @deprecated Use filter_select
+  inline Jets filterBy(const Jets& jets, const Cut& c) { return filter_select(jets, c); }
+
+  /// Filter a jet collection in-place to the subset that passes the supplied Cut
+  inline Jets filter_select(const Jets& jets, const Cut& c, Jets& out) {
+    out = filter_select(jets, c);
+    return out;
+  }
+  /// Alias for ifilter_select
+  /// @deprecated Use filter_select
+  inline Jets filterBy(const Jets& jets, const Cut& c, Jets& out) { return filter_select(jets, c, out); }
+
+
+  /// Filter a jet collection in-place to the subset that fails the supplied Cut
+  Jets& ifilter_discard(Jets& jets, const Cut& c);
+
+  /// Filter a jet collection in-place to the subset that fails the supplied Cut
+  inline Jets filter_discard(const Jets& jets, const Cut& c) {
+    Jets rtn = jets;
+    return ifilter_discard(rtn, c);
   }
 
-  /// Filter a jet collection to the subset that passes the supplied Cut, into a new container
-  /// @note New container will be replaced, not appended to
-  inline Jets& filterBy(Jets& jets, const Cut& c, Jets& out) {
-    out = filterBy(jets, c);
+  /// Filter a jet collection in-place to the subset that fails the supplied Cut
+  inline Jets filter_discard(const Jets& jets, const Cut& c, Jets& out) {
+    out = filter_discard(jets, c);
     return out;
   }
 
