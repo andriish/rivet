@@ -8,6 +8,7 @@
 #include <cctype>
 #include <algorithm>
 #include <cerrno>
+#include <numeric>
 
 namespace Rivet {
 
