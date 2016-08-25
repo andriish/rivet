@@ -102,19 +102,23 @@ namespace Rivet {
 
   /// Delta R (with respect to another 4-momentum, @a vec) greater-than functor
   struct deltaRGtr : public BoolParticleBaseFunctor {
-    deltaRGtr(const FourMomentum& vec, double dr) : refvec(vec), drcut(dr) { }
-    bool operator()(const ParticleBase& p) const { return deltaR(p, refvec) > drcut; }
+    deltaRGtr(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
+      : refvec(vec), drcut(dr), rapscheme(scheme) { }
+    bool operator()(const ParticleBase& p) const { return deltaR(p, refvec, rapscheme) > drcut; }
     FourMomentum refvec;
     double drcut;
+    RapScheme rapscheme;
   };
   using DeltaRGtr = deltaRGtr;
 
   /// Delta R (with respect to another 4-momentum, @a vec) less-than functor
   struct deltaRLess : public BoolParticleBaseFunctor {
-    deltaRLess(const FourMomentum& vec, double dr) : refvec(vec), drcut(dr) { }
-    bool operator()(const ParticleBase& p) const { return deltaR(p, refvec) < drcut; }
+    deltaRLess(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
+      : refvec(vec), drcut(dr), rapscheme(scheme) { }
+    bool operator()(const ParticleBase& p) const { return deltaR(p, refvec, rapscheme) < drcut; }
     FourMomentum refvec;
     double drcut;
+    RapScheme rapscheme;
   };
   using DeltaRLess = deltaRLess;
 
@@ -140,6 +144,7 @@ namespace Rivet {
     double operator()(const FourMomentum& p4) const { return deltaR(p, p4); }
     double operator()(const Vector3& p3) const { return deltaR(p, p3); }
     const Vector3 p;
+    RapScheme rapscheme;
   };
   using DeltaRWRT = deltaRWRT;
 
