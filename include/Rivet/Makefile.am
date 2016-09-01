@@ -30,31 +30,31 @@ nobase_pkginclude_HEADERS += \
 
 
 ## Projections
-nobase_pkginclude_HEADERS +=   \
+nobase_pkginclude_HEADERS += \
   Projections/AxesDefinition.hh \
-  Projections/Beam.hh           \
-  Projections/BeamThrust.hh     \
-  Projections/CentralEtHCM.hh   \
+  Projections/Beam.hh \
+  Projections/BeamThrust.hh \
+  Projections/CentralEtHCM.hh \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
-  Projections/DISFinalState.hh  \
-  Projections/DISKinematics.hh  \
-  Projections/DISLepton.hh      \
+  Projections/DISFinalState.hh \
+  Projections/DISKinematics.hh \
+  Projections/DISLepton.hh \
   Projections/DressedLeptons.hh \
-  Projections/FastJets.hh       \
-  Projections/FinalPartons.hh     \
-  Projections/FinalState.hh     \
+  Projections/FastJets.hh \
+  Projections/FinalPartons.hh \
+  Projections/FinalState.hh \
   Projections/FoxWolframMoments.hh \
   Projections/FParameter.hh \
   Projections/HadronicFinalState.hh \
   Projections/HeavyHadrons.hh \
-  Projections/Hemispheres.hh    \
+  Projections/Hemispheres.hh \
   Projections/IdentifiedFinalState.hh \
   Projections/InitialQuarks.hh \
   Projections/InvMassFinalState.hh \
-  Projections/JetAlg.hh         \
-  Projections/JetShape.hh       \
+  Projections/JetAlg.hh \
+  Projections/JetShape.hh \
   Projections/LeadingParticlesFinalState.hh \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
@@ -62,8 +62,9 @@ nobase_pkginclude_HEADERS +=   \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/NonPromptFinalState.hh \
-  Projections/ParticleFinder.hh   \
-  Projections/ParisiTensor.hh   \
+  Projections/ParisiTensor.hh \
+  Projections/ParticleFinder.hh \
+  Projections/PartonicTopFinder.hh \
   Projections/PrimaryHadrons.hh \
   Projections/PromptFinalState.hh \
   Projections/SmearedParticles.hh \

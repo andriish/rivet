@@ -1,5 +1,7 @@
 2016-09-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a PartonicTopFinder projection.
+
 	* Add overloaded versions of the Event::allParticles() method with
 	selection Cut or templated selection function arguments.
 
