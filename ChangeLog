@@ -1,3 +1,8 @@
+2016-09-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add overloaded versions of the Event::allParticles() method with
+	selection Cut or templated selection function arguments.
+
 2016-08-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add rapidity scheme arg to DeltaR functor constructors.

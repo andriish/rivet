@@ -68,6 +68,21 @@ namespace Rivet {
     /// All the raw GenEvent particles, wrapped in Rivet::Particle objects
     const Particles& allParticles() const;
 
+    /// @brief All the raw GenEvent particles, wrapped in Rivet::Particle objects, but with a Cut applied
+    ///
+    /// @note Due to the cut, this returns by value, i.e. involves an expensive copy
+    inline Particles allParticles(const Cut& c) const {
+      return filter_select(allParticles(), c);
+    }
+
+    /// @brief All the raw GenEvent particles, wrapped in Rivet::Particle objects, but with a selection function applied
+    ///
+    /// @note Due to the cut, this returns by value, i.e. involves an expensive copy
+    template <typename FN>
+    inline Particles allParticles(const FN& f) const {
+      return filter_select(allParticles(), f);
+    }
+
     /// @brief The generation weight associated with the event
     ///
     /// @todo This needs to be revisited when we finally add the mechanism to
