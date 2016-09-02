@@ -1,3 +1,7 @@
+2016-09-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS MV2c10 and MV2c20 b-tagging effs to SmearingFunctions.hh collection.
+
 2016-09-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a PartonicTopFinder projection.

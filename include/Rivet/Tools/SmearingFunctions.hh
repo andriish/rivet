@@ -573,6 +573,18 @@ namespace Rivet {
     if (j.cTagged()) return 0.20*tanh(0.02*j.pT()/GeV)*(1/(1+0.0034*j.pT()/GeV));
     return 0.002 + 7.3e-6*j.pT()/GeV;
   }
+  /// Return the ATLAS Run 2 MC2c20 jet flavour tagging efficiency for the given Jet
+  inline double JET_BTAG_ATLAS_RUN2_MV2C20(const Jet& j) {
+    if (j.bTagged()) return 0.77;
+    if (j.cTagged()) return 1/4.5;
+    return 1/140.;
+  }
+  /// Return the ATLAS Run 2 MC2c10 jet flavour tagging efficiency for the given Jet
+  inline double JET_BTAG_ATLAS_RUN2_MV2C10(const Jet& j) {
+    if (j.bTagged()) return 0.77;
+    if (j.cTagged()) return 1/6.0;
+    return 1/134.;
+  }
 
   /// Return 1 if the given Jet contains a c, otherwise 0
   inline double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
