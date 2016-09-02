@@ -299,35 +299,6 @@ namespace Rivet {
   //@}
 
 
-  /// @name Particle classifying functors
-  ///
-  /// To be passed to any() or all() e.g. any(p.children(), HasPID(PID::MUON))
-  //@{
-
-  /// Base type for Particle -> bool functors
-  struct BoolParticleFunctor {
-    virtual bool operator()(const Particle& p) const = 0;
-  };
-
-  /// PID matching functor
-  struct hasPID : public BoolParticleFunctor {
-    hasPID(PdgId pid) : targetpid(pid) { }
-    bool operator()(const Particle& p) const { return p.pid() == targetpid; }
-    PdgId targetpid;
-  };
-  using HasPID = hasPID;
-
-  /// |PID| matching functor
-  struct hasAbsPID : public BoolParticleFunctor {
-    hasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
-    bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
-    PdgId targetpid;
-  };
-  using HasAbsPID = hasAbsPID;
-
-  //@}
-
-
 
   //////////////////////////////////////
 
@@ -370,8 +341,108 @@ namespace Rivet {
   /// @brief Determine whether the particle is from a hadron or tau decay
   inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
 
+
+  /// @brief Determine whether a particle is the first in a decay chain to meet the function requirement
+  template <typename FN>
+  inline bool isFirstWith(const Particle& p, const FN& f) {
+    if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
+    if (any(p.parents(), f)) return false; //< If a direct parent has this property, this isn't the first
+    return true;
+  }
+
+  /// @brief Determine whether a particle is the first in a decay chain not to meet the function requirement
+  template <typename FN>
+  inline bool isFirstWithout(const Particle& p, const FN& f) {
+    return isFirstWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
+  /// @brief Determine whether a particle is the last in a decay chain to meet the function requirement
+  template <typename FN>
+  inline bool isLastWith(const Particle& p, const FN& f) {
+    if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
+    if (any(p.children(), f)) return false; //< If a child has this property, this isn't the last
+    return true;
+  }
+
+  /// @brief Determine whether a particle is the last in a decay chain not to meet the function requirement
+  template <typename FN>
+  inline bool isLastWithout(const Particle& p, const FN& f) {
+    return isLastWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
   //@}
 
+
+  /// @name Particle classifier -> bool functors
+  ///
+  /// To be passed to any() or all() e.g. any(p.children(), HasPID(PID::MUON))
+  //@{
+
+  /// Base type for Particle -> bool functors
+  struct BoolParticleFunctor {
+    virtual bool operator()(const Particle& p) const = 0;
+  };
+
+
+  /// PID matching functor
+  struct HasPID : public BoolParticleFunctor {
+    HasPID(PdgId pid) : targetpid(pid) { }
+    bool operator()(const Particle& p) const { return p.pid() == targetpid; }
+    PdgId targetpid;
+  };
+  using hasPID = HasPID;
+
+  /// |PID| matching functor
+  struct HasAbsPID : public BoolParticleFunctor {
+    HasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
+    bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
+    PdgId targetpid;
+  };
+  using hasAbsPID = HasAbsPID;
+
+
+  /// Determine whether a particle is the first in a decay chain to meet the cut/function
+  struct FirstParticleWith : public BoolParticleBaseFunctor {
+    template <typename FN>
+    FirstParticleWith(const FN& f) : fn(f) { }
+    // FirstParticleWith(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    bool operator()(const Particle& p) const { return isFirstWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using firstParticleWith = FirstParticleWith;
+
+  /// Determine whether a particle is the first in a decay chain not to meet the cut/function
+  struct FirstParticleWithout : public BoolParticleBaseFunctor {
+    template <typename FN>
+    FirstParticleWithout(const FN& f) : fn(f) { }
+    // FirstParticleWithout(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    bool operator()(const Particle& p) const { return isFirstWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using firstParticleWithout = FirstParticleWithout;
+
+
+  /// Determine whether a particle is the last in a decay chain to meet the cut/function
+  struct LastParticleWith : public BoolParticleBaseFunctor {
+    template <typename FN>
+    LastParticleWith(const FN& f) : fn(f) { }
+    // LastParticleWith(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    bool operator()(const Particle& p) const { return isLastWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using lastParticleWith = LastParticleWith;
+
+  /// Determine whether a particle is the last in a decay chain not to meet the cut/function
+  struct LastParticleWithout : public BoolParticleBaseFunctor {
+    template <typename FN>
+    LastParticleWithout(const FN& f) : fn(f) { }
+    // LastParticleWithout(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    bool operator()(const Particle& p) const { return isLastWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using lastParticleWithout = LastParticleWithout;
+
+  //@}
 
 
   /// @name Unbound functions for filtering particles

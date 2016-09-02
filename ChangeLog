@@ -1,5 +1,9 @@
 2016-09-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add isFirstWith(out), isLastWith(out) functions, and functor
+	wrappers -- not Cut-based, for now, but easily extended via .cc
+	files to avoid circular references.
+
 	* Add Particle::parent() method.
 
 	* Add using import/typedef of HepMC *Ptr types (useful step for HepMC 2.07 and 3.00).
