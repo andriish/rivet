@@ -38,6 +38,7 @@ namespace Rivet {
   private:
     const std::function<bool(const Particle&)> _feff;
   };
+  using particleEffFilter = ParticleEffFilter;
 
   struct JetEffFilter {
     template <typename FN>
@@ -46,6 +47,7 @@ namespace Rivet {
   private:
     const std::function<bool(const Jet&)> _feff;
   };
+  using jetEffFilter = JetEffFilter;
 
   //@}
 
