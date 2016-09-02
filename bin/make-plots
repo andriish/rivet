@@ -720,9 +720,8 @@ class MainPlot(Plot):
         xcustommajortickmarks = inputdata.attr_int('XMajorTickMarks', -1)
         xcustomminortickmarks = inputdata.attr_int('XMinorTickMarks', -1)
 
-        xcustommajorticks = None
-        xcustomminorticks = None
-        if inputdata.description.has_key('XCustomMajorTicks'): # and inputdata.description['XCustomMajorTicks']!='':
+        xcustommajorticks = xcustomminorticks = None
+        if inputdata.has_attr('XCustomMajorTicks'):
             xcustommajorticks = []
             x_label_pairs = inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
             if len(x_label_pairs) % 2 == 0:
@@ -731,30 +730,24 @@ class MainPlot(Plot):
             else:
                 print "Warning: XCustomMajorTicks requires an even number of alternating pos/label entries"
 
-        if inputdata.description.has_key('XCustomMinorTicks'): # and inputdata.description['XCustomMinorTicks']!='':
-            xs = inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
+        if inputdata.has_attr('XCustomMinorTicks'):
+            xs = inputdata.attr('XCustomMinorTicks').strip().split() #'\t')
             xcustomminorticks = [{'Value': float(x)} for x in xs]
 
         xticks = XTicks(inputdata.description, self.coors)
-        drawxlabels = not (inputdata.attr_bool('RatioPlot', False) or not inputdata.attr_bool('PlotXTickLabels', True))
+        drawxlabels = inputdata.attr_bool('PlotXTickLabels', True) and not inputdata.attr_bool('RatioPlot', False)
+
         out += xticks.draw(custommajortickmarks=xcustommajortickmarks,
                            customminortickmarks=xcustomminortickmarks,
                            custommajorticks=xcustommajorticks,
                            customminorticks=xcustomminorticks,
                            drawlabels=drawxlabels)
 
-        if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks'] != '':
-            ycustommajortickmarks = int(inputdata.description['YMajorTickMarks'])
-        else:
-            ycustommajortickmarks = -1
-        if inputdata.description.has_key('YMinorTickMarks') and inputdata.description['YMinorTickMarks']!='':
-            ycustomminortickmarks = int(inputdata.description['YMinorTickMarks'])
-        else:
-            ycustomminortickmarks = -1
+        ycustommajortickmarks = inputdata.attr_int('YMajorTickMarks', -1)
+        ycustomminortickmarks = inputdata.attr_int('YMinorTickMarks', -1)
 
-        ycustommajorticks = None
-        ycustomminorticks = None
-        if inputdata.description.has_key('YCustomMajorTicks'): # and inputdata.description['YCustomMajorTicks']!='':
+        ycustommajorticks = ycustomminorticks = None
+        if inputdata.description.has_key('YCustomMajorTicks'):
             ycustommajorticks = []
             y_label_pairs = inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
             if len(y_label_pairs) % 2 == 0:
@@ -763,15 +756,13 @@ class MainPlot(Plot):
             else:
                 print "Warning: YCustomMajorTicks requires an even number of alternating pos/label entries"
 
-        if inputdata.description.has_key('YCustomMinorTicks'): # and inputdata.description['YCustomMinorTicks']!='':
-            ys = inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
+        if inputdata.has_attr('YCustomMinorTicks'):
+            ys = inputdata.attr('YCustomMinorTicks').strip().split() #'\t')
             ycustomminorticks = [{'Value': float(y)} for y in ys]
 
         yticks = YTicks(inputdata.description, self.coors)
-        if inputdata.description.has_key('PlotYTickLabels') and inputdata.description['PlotYTickLabels'] == '0':
-            drawylabels = False
-        else:
-            drawylabels = True
+        drawylabels = inputdata.attr_bool('PlotYTickLabels', True)
+
         out += yticks.draw(custommajortickmarks=ycustommajortickmarks,
                            customminortickmarks=ycustomminortickmarks,
                            custommajorticks=ycustommajorticks,
@@ -779,16 +770,16 @@ class MainPlot(Plot):
                            drawlabels=drawylabels)
 
         labels = Labels(inputdata.description)
-        if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
+        if inputdata.attr_bool('RatioPlot', False):
             olab = labels.draw(['Title','YLabel'])
         else:
             if not inputdata.description['is2dim']:
                 olab = labels.draw(['Title','XLabel','YLabel'])
             else:
                 olab = labels.draw(['Title','XLabel','YLabel','ZLabel'])
-        #print olab
         out += olab
         return out
+
 
     def calculate_gof(self, inputdata):
         refdata = inputdata.description.get('GofReference')
