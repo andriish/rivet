@@ -32,15 +32,31 @@ namespace Rivet {
   }
 
 
-  /// @todo Use recursion through replica-avoiding functions to avoid bookkeeping duplicates
+  vector<Particle> Particle::parents(const Cut& c) const {
+    vector<Particle> rtn;
+    /// @todo Remove this const mess crap when HepMC doesn't suck
+    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
+    if (gv == NULL) return rtn;
+    /// @todo Would like to do this, but the range objects are broken
+    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
+    //   rtn += Particle(gp);
+    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::parents); it != gv->particles_end(HepMC::parents); ++it) {
+      const Particle p(*it);
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      rtn += p;
+    }
+    return rtn;
+  }
+
+
   vector<Particle> Particle::children(const Cut& c) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
-    HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
+    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticle* gp, gv->particles(HepMC::children))
+    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it) {
       const Particle p(*it);
@@ -52,14 +68,15 @@ namespace Rivet {
 
 
   /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
+  /// @todo Use recursion through replica-avoiding functions to avoid bookkeeping duplicates
   vector<Particle> Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
-    HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
+    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
+    // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       const Particle p(*it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
@@ -84,10 +101,10 @@ namespace Rivet {
     vector<Particle> rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
-    HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
+    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
+    // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
       const Particle p(*it);
@@ -113,9 +130,9 @@ namespace Rivet {
 
 
   bool Particle::hasAncestor(PdgId pid) const {
-    const GenVertex* prodVtx = genParticle()->production_vertex();
+    const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false;
-    foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
       if (ancestor->pdg_id() == pid) return true;
     }
     return false;
@@ -123,9 +140,9 @@ namespace Rivet {
 
 
   bool Particle::fromBottom() const {
-    const GenVertex* prodVtx = genParticle()->production_vertex();
+    const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false;
-    foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasBottom(pid))) return true;
     }
@@ -134,9 +151,9 @@ namespace Rivet {
 
 
   bool Particle::fromCharm() const {
-    const GenVertex* prodVtx = genParticle()->production_vertex();
+    const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false;
-    foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasCharm(pid) && !PID::hasBottom(pid))) return true;
     }
@@ -146,9 +163,9 @@ namespace Rivet {
 
 
   bool Particle::fromHadron() const {
-    const GenVertex* prodVtx = genParticle()->production_vertex();
+    const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false;
-    foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
     }
@@ -158,9 +175,9 @@ namespace Rivet {
 
   bool Particle::fromTau(bool prompt_taus_only) const {
     if (prompt_taus_only && fromHadron()) return false;
-    const GenVertex* prodVtx = genParticle()->production_vertex();
+    const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false;
-    foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() == 2 && abs(pid) == PID::TAU) return true;
     }
@@ -169,9 +186,9 @@ namespace Rivet {
 
 
   // bool Particle::fromDecay() const {
-  //   const GenVertex* prodVtx = genParticle()->production_vertex();
+  //   const GenVertexPtr prodVtx = genParticle()->production_vertex();
   //   if (prodVtx == NULL) return false;
-  //   foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+  //   foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
   //     const PdgId pid = ancestor->pdg_id();
   //     if (ancestor->status() == 2 && (PID::isHadron(pid) || abs(pid) == PID::TAU)) return true;
   //   }
@@ -181,12 +198,12 @@ namespace Rivet {
 
   bool Particle::isPrompt(bool from_prompt_tau, bool from_prompt_mu) const {
     if (genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
-    const GenVertex* prodVtx = genParticle()->production_vertex();
+    const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
-    const pair<GenParticle*, GenParticle*> beams = prodVtx->parent_event()->beam_particles();
+    const pair<GenParticlePtr, GenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
 
     /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
-    foreach (const GenParticle* ancestor, Rivet::particles(prodVtx, HepMC::ancestors)) {
+    foreach (const GenParticlePtr ancestor, Rivet::particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
       if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)

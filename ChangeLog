@@ -1,5 +1,11 @@
 2016-09-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add Particle::parent() method.
+
+	* Add using import/typedef of HepMC *Ptr types (useful step for HepMC 2.07 and 3.00).
+
+	* Various typo fixes (and canonical renaming) in ParticleBaseUtils functor collection.
+
 	* Add ATLAS MV2c10 and MV2c20 b-tagging effs to SmearingFunctions.hh collection.
 
 2016-09-01  Andy Buckley  <andy.buckley@cern.ch>

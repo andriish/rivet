@@ -274,6 +274,9 @@ namespace Rivet {
     /// Whether this particle is stable according to the generator
     bool isStable() const;
 
+    /// Get a list of the direct parents of the current particle
+    Particles parents(const Cut& c=Cuts::open()) const;
+
     /// Get a list of the direct descendants from the current particle
     Particles children(const Cut& c=Cuts::open()) const;
 
