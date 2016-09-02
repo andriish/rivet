@@ -627,9 +627,9 @@ class Plot(object):
         out += ('\\usepackage{amssymb}\n')
         out += ('\\usepackage{relsize}\n')
         out += ('\\usepackage[dvips,\n')
-        out += ('  left=%4.3fcm, right=0cm,\n' %(inputdata.description['LeftMargin']-0.45,))
-        out += ('  top=%4.3fcm,  bottom=0cm,\n' %(inputdata.description['TopMargin']-0.30,))
-        out += ('  paperwidth=%scm,paperheight=%scm\n' %(papersizex,papersizey))
+        out += ('  left=%4.3fcm, right=0cm,\n' % (inputdata.description['LeftMargin']-0.45,))
+        out += ('  top=%4.3fcm,  bottom=0cm,\n' % (inputdata.description['TopMargin']-0.30,))
+        out += ('  paperwidth=%scm,paperheight=%scm\n' % (papersizex,papersizey))
         out += (']{geometry}\n')
         out += ('\\begin{document}\n')
         out += ('\\pagestyle{empty}\n')
@@ -679,49 +679,47 @@ class MainPlot(Plot):
 
     def _draw(self, inputdata):
         out = ""
-        if inputdata.description.has_key('DrawSpecialFirst') and inputdata.description['DrawSpecialFirst']=='1':
-            for i in inputdata.special.keys():
-                out += inputdata.special[i].draw(self.coors)
-            if inputdata.description.has_key('DrawFunctionFirst') and inputdata.description['DrawFunctionFirst']=='1':
-                for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw(self.coors)
+
+        # TODO: do this more compactly, e.g. by assigning sorting keys!
+        if inputdata.attr_bool('DrawSpecialFirst', False):
+            for s in inputdata.special:
+                out += s.draw(self.coors)
+            if inputdata.attr_bool('DrawFunctionFirst', False):
+                for f in inputdata.functions:
+                    out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw(self.coors)
+                for f in inputdata.functions:
+                    out += f.draw(self.coors)
         else:
-            if inputdata.description.has_key('DrawFunctionFirst') and inputdata.description['DrawFunctionFirst']=='1':
-                for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw(self.coors)
+            if inputdata.attr_bool('DrawFunctionFirst', False):
+                for f in inputdata.functions:
+                    out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for i in inputdata.functions.keys():
-                    out += inputdata.functions[i].draw(self.coors)
+                for f in inputdata.functions:
+                    out += f.draw(self.coors)
             for i in inputdata.special.keys():
                 out += inputdata.special[i].draw(self.coors)
-        if inputdata.description.has_key('Legend') and inputdata.description['Legend']=='1':
+
+        if inputdata.attr_bool('Legend', False):
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
             out += legend.draw()
         if inputdata.description['is2dim']:
-            colorscale = ColorScale(inputdata.description,self.coors)
+            colorscale = ColorScale(inputdata.description, self.coors)
             out += colorscale.draw()
         frame = Frame()
         out += frame.draw(inputdata)
 
-        if inputdata.description.has_key('XMajorTickMarks') and inputdata.description['XMajorTickMarks']:
-            xcustommajortickmarks=int(inputdata.description['XMajorTickMarks'])
-        else:
-            xcustommajortickmarks = -1
-        if inputdata.description.has_key('XMinorTickMarks') and inputdata.description['XMinorTickMarks']:
-            xcustomminortickmarks = int(inputdata.description['XMinorTickMarks'])
-        else:
-            xcustomminortickmarks = -1
+        xcustommajortickmarks = inputdata.attr_int('XMajorTickMarks', -1)
+        xcustomminortickmarks = inputdata.attr_int('XMinorTickMarks', -1)
+
         xcustommajorticks = None
         xcustomminorticks = None
         if inputdata.description.has_key('XCustomMajorTicks'): # and inputdata.description['XCustomMajorTicks']!='':
@@ -732,19 +730,17 @@ class MainPlot(Plot):
                     xcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
             else:
                 print "Warning: XCustomMajorTicks requires an even number of alternating pos/label entries"
+
         if inputdata.description.has_key('XCustomMinorTicks'): # and inputdata.description['XCustomMinorTicks']!='':
             xs = inputdata.description['XCustomMinorTicks'].strip().split() #'\t')
             xcustomminorticks = [{'Value': float(x)} for x in xs]
+
         xticks = XTicks(inputdata.description, self.coors)
-        if (inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot'] == '1') or \
-           (inputdata.description.has_key('PlotXTickLabels') and inputdata.description['PlotXTickLabels'] == '0'):
-            drawxlabels = False
-        else:
-            drawxlabels = True
-        out += xticks.draw(custommajortickmarks=xcustommajortickmarks,\
-                           customminortickmarks=xcustomminortickmarks,\
-                           custommajorticks=xcustommajorticks,\
-                           customminorticks=xcustomminorticks,\
+        drawxlabels = not (inputdata.attr_bool('RatioPlot', False) or not inputdata.attr_bool('PlotXTickLabels', True))
+        out += xticks.draw(custommajortickmarks=xcustommajortickmarks,
+                           customminortickmarks=xcustomminortickmarks,
+                           custommajorticks=xcustommajorticks,
+                           customminorticks=xcustomminorticks,
                            drawlabels=drawxlabels)
 
         if inputdata.description.has_key('YMajorTickMarks') and inputdata.description['YMajorTickMarks'] != '':
@@ -755,6 +751,7 @@ class MainPlot(Plot):
             ycustomminortickmarks = int(inputdata.description['YMinorTickMarks'])
         else:
             ycustomminortickmarks = -1
+
         ycustommajorticks = None
         ycustomminorticks = None
         if inputdata.description.has_key('YCustomMajorTicks'): # and inputdata.description['YCustomMajorTicks']!='':
@@ -765,9 +762,11 @@ class MainPlot(Plot):
                     ycustommajorticks.append({'Value': float(y_label_pairs[i]), 'Label': y_label_pairs[i+1]})
             else:
                 print "Warning: YCustomMajorTicks requires an even number of alternating pos/label entries"
+
         if inputdata.description.has_key('YCustomMinorTicks'): # and inputdata.description['YCustomMinorTicks']!='':
             ys = inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
             ycustomminorticks = [{'Value': float(y)} for y in ys]
+
         yticks = YTicks(inputdata.description, self.coors)
         if inputdata.description.has_key('PlotYTickLabels') and inputdata.description['PlotYTickLabels'] == '0':
             drawylabels = False
