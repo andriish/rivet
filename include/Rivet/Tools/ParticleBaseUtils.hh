@@ -18,109 +18,115 @@ namespace Rivet {
   };
 
   /// Transverse momentum greater-than functor
-  struct pTGtr : public BoolParticleBaseFunctor {
-    pTGtr(double pt) : ptcut(pt) { }
+  struct PtGtr : public BoolParticleBaseFunctor {
+    PtGtr(double pt) : ptcut(pt) { }
     bool operator()(const ParticleBase& p) const { return p.pT() > ptcut; }
     double ptcut;
   };
-  using PtGtr = pTGtr;
+  using pTGtr = PtGtr;
+  using ptGtr = PtGtr;
 
   /// Transverse momentum less-than functor
-  struct pTLess : public BoolParticleBaseFunctor {
-    pTLess(double pt) : ptcut(pt) { }
+  struct PtLess : public BoolParticleBaseFunctor {
+    PtLess(double pt) : ptcut(pt) { }
     bool operator()(const ParticleBase& p) const { return p.pT() < ptcut; }
     double ptcut;
   };
-  using PtLess = pTLess;
+  using pTLess = PtLess;
+  using ptLess = PtLess;
 
 
   /// Pseudorapidity greater-than functor
-  struct etaGtr : public BoolParticleBaseFunctor {
-    etaGtr(double eta) : etacut(eta) { }
+  struct EtaGtr : public BoolParticleBaseFunctor {
+    EtaGtr(double eta) : etacut(eta) { }
     bool operator()(const ParticleBase& p) const { return p.eta() > etacut; }
     double etacut;
   };
-  using EtaGtr = etaGtr;
+  using etaGtr = EtaGtr;
 
   /// Pseudorapidity momentum less-than functor
-  struct etaLess : public BoolParticleBaseFunctor {
-    etaLess(double eta) : etacut(eta) { }
+  struct EtaLess : public BoolParticleBaseFunctor {
+    EtaLess(double eta) : etacut(eta) { }
     bool operator()(const ParticleBase& p) const { return p.eta() < etacut; }
     double etacut;
   };
-  using EtaLess = etaLess;
+  using etaLess = EtaLess;
 
   /// Abs pseudorapidity greater-than functor
-  struct absetaGtr : public BoolParticleBaseFunctor {
-    absetaGtr(double abseta) : absetacut(abseta) { }
+  struct AbsEtaGtr : public BoolParticleBaseFunctor {
+    AbsEtaGtr(double abseta) : absetacut(abseta) { }
     bool operator()(const ParticleBase& p) const { return p.abseta() > absetacut; }
     double absetacut;
   };
-  using AbsEtaGtr = etaGtr;
+  using absEtaGtr = AbsEtaGtr;
+  using absetaGtr = AbsEtaGtr;
 
   /// Abs pseudorapidity momentum less-than functor
-  struct absetaLess : public BoolParticleBaseFunctor {
-    absetaLess(double abseta) : absetacut(abseta) { }
+  struct AbsEtaLess : public BoolParticleBaseFunctor {
+    AbsEtaLess(double abseta) : absetacut(abseta) { }
     bool operator()(const ParticleBase& p) const { return p.abseta() < absetacut; }
     double absetacut;
   };
-  using AbsEtaLess = absetaLess;
+  using absEtaLess = AbsAtaLess;
+  using absetaLess = AbsAtaLess;
 
 
   /// Rapidity greater-than functor
-  struct rapGtr : public BoolParticleBaseFunctor {
-    rapGtr(double rap) : rapcut(rap) { }
+  struct RapGtr : public BoolParticleBaseFunctor {
+    RapGtr(double rap) : rapcut(rap) { }
     bool operator()(const ParticleBase& p) const { return p.rap() > rapcut; }
     double rapcut;
   };
-  using RapGtr = rapGtr;
+  using rapGtr = RapGtr;
 
   /// Rapidity momentum less-than functor
-  struct rapLess : public BoolParticleBaseFunctor {
-    rapLess(double rap) : rapcut(rap) { }
+  struct RapLess : public BoolParticleBaseFunctor {
+    RapLess(double rap) : rapcut(rap) { }
     bool operator()(const ParticleBase& p) const { return p.rap() < rapcut; }
     double rapcut;
   };
-  using RapLess = rapLess;
+  using rapLess = RapLess;
 
   /// Abs rapidity greater-than functor
-  struct absrapGtr : public BoolParticleBaseFunctor {
-    absrapGtr(double absrap) : absrapcut(absrap) { }
+  struct AbsRapGtr : public BoolParticleBaseFunctor {
+    AbsRapGtr(double absrap) : absrapcut(absrap) { }
     bool operator()(const ParticleBase& p) const { return p.absrap() > absrapcut; }
     double absrapcut;
   };
-  using AbsRapGtr = absrapGtr;
+  using absRapGtr = AbsRapGtr;
+  using absrapGtr = AbsRapGtr;
 
   /// Abs rapidity momentum less-than functor
-  struct absrapLess : public BoolParticleBaseFunctor {
-    absrapLess(double absrap) : absrapcut(absrap) { }
+  struct AbsRapLess : public BoolParticleBaseFunctor {
+    AbsRapLess(double absrap) : absrapcut(absrap) { }
     bool operator()(const ParticleBase& p) const { return p.absrap() < absrapcut; }
     double absrapcut;
   };
-  using AbsRapLess = absrapLess;
+  using absRapLess = AbsRapLess;
+  using absrapLess = AbsRapLess;
 
 
   /// Delta R (with respect to another 4-momentum, @a vec) greater-than functor
-  struct deltaRGtr : public BoolParticleBaseFunctor {
-    deltaRGtr(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
+  struct DeltaRGtr : public BoolParticleBaseFunctor {
+    DeltaRGtr(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
       : refvec(vec), drcut(dr), rapscheme(scheme) { }
     bool operator()(const ParticleBase& p) const { return deltaR(p, refvec, rapscheme) > drcut; }
     FourMomentum refvec;
     double drcut;
     RapScheme rapscheme;
   };
-  using DeltaRGtr = deltaRGtr;
+  using deltaRGtr = DeltaRGtr;
 
   /// Delta R (with respect to another 4-momentum, @a vec) less-than functor
-  struct deltaRLess : public BoolParticleBaseFunctor {
-    deltaRLess(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
+  struct DeltaRLess : public BoolParticleBaseFunctor {
+    DeltaRLess(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
       : refvec(vec), drcut(dr), rapscheme(scheme) { }
     bool operator()(const ParticleBase& p) const { return deltaR(p, refvec, rapscheme) < drcut; }
     FourMomentum refvec;
     double drcut;
     RapScheme rapscheme;
   };
-  using DeltaRLess = deltaRLess;
+  using deltaRLess = DeltaRLess;
 
   //@}
 
@@ -136,68 +142,68 @@ namespace Rivet {
     virtual double operator()(const ParticleBase& p) const = 0;
   };
 
-  struct deltaRWRT : public DoubleParticleBaseFunctor {
-    deltaRWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
-    deltaRWRT(const FourMomentum& p4) : p(p4.vector3()) {}
-    deltaRWRT(const Vector3& p3) : p(p3) {}
-    double operator()(const ParticleBase& pb) const { return deltaR(p, pb); }
-    double operator()(const FourMomentum& p4) const { return deltaR(p, p4); }
+  struct DeltaRWRT : public DoubleParticleBaseFunctor {
+    DeltaRWRT(const ParticleBase& pb, RapScheme scheme=PSEUDORAPIDITY) : p(pb.mom()) {}
+    DeltaRWRT(const FourMomentum& p4, RapScheme scheme=PSEUDORAPIDITY) : p(p4) {}
+    DeltaRWRT(const Vector3& p3) : p(p3.mod(), p3.x(), p3.y(), p3.z()), rapscheme(PSEUDORAPIDITY) {}
+    double operator()(const ParticleBase& pb) const { return deltaR(p, pb, rapscheme); }
+    double operator()(const FourMomentum& p4) const { return deltaR(p, p4, rapscheme); }
     double operator()(const Vector3& p3) const { return deltaR(p, p3); }
-    const Vector3 p;
+    const FourMomentum p;
     RapScheme rapscheme;
   };
-  using DeltaRWRT = deltaRWRT;
+  using deltaRWRT = DeltaRWRT;
 
-  struct deltaPhiWRT : public DoubleParticleBaseFunctor {
-    deltaPhiWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
-    deltaPhiWRT(const FourMomentum& p4) : p(p4.vector3()) {}
-    deltaPhiWRT(const Vector3& p3) : p(p3) {}
+  struct DeltaPhiWRT : public DoubleParticleBaseFunctor {
+    DeltaPhiWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
+    DeltaPhiWRT(const FourMomentum& p4) : p(p4.vector3()) {}
+    DeltaPhiWRT(const Vector3& p3) : p(p3) {}
     double operator()(const ParticleBase& pb) const { return deltaPhi(p, pb); }
     double operator()(const FourMomentum& p4) const { return deltaPhi(p, p4); }
     double operator()(const Vector3& p3) const { return deltaPhi(p, p3); }
     const Vector3 p;
   };
-  using DeltaPhiWRT = deltaPhiWRT;
+  using deltaPhiWRT = DeltaPhiWRT;
 
-  struct deltaEtaWRT : public DoubleParticleBaseFunctor {
-    deltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
-    deltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
-    deltaEtaWRT(const Vector3& p3) : p(p3) {}
+  struct DeltaEtaWRT : public DoubleParticleBaseFunctor {
+    DeltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
+    DeltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
+    DeltaEtaWRT(const Vector3& p3) : p(p3) {}
     double operator()(const ParticleBase& pb) const { return deltaEta(p, pb); }
     double operator()(const FourMomentum& p4) const { return deltaEta(p, p4); }
     double operator()(const Vector3& p3) const { return deltaEta(p, p3); }
     const Vector3 p;
   };
-  using DeltaEtaWRT = deltaEtaWRT;
+  using deltaEtaWRT = DeltaEtaWRT;
 
-  struct absDeltaEtaWRT : public DoubleParticleBaseFunctor {
-    absDeltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
-    absDeltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
-    absDeltaEtaWRT(const Vector3& p3) : p(p3) {}
+  struct AbsDeltaEtaWRT : public DoubleParticleBaseFunctor {
+    AbsDeltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
+    AbsDeltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
+    AbsDeltaEtaWRT(const Vector3& p3) : p(p3) {}
     double operator()(const ParticleBase& pb) const { return fabs(deltaEta(p, pb)); }
     double operator()(const FourMomentum& p4) const { return fabs(deltaEta(p, p4)); }
     double operator()(const Vector3& p3) const { return fabs(deltaEta(p, p3)); }
     const Vector3 p;
   };
-  using absDeltaEtaWRT = absDeltaEtaWRT;
+  using absDeltaEtaWRT = AbsDeltaEtaWRT;
 
-  struct deltaRapWRT : public DoubleParticleBaseFunctor {
-    deltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
-    deltaRapWRT(const FourMomentum& p4) : p(p4) {}
+  struct DeltaRapWRT : public DoubleParticleBaseFunctor {
+    DeltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
+    DeltaRapWRT(const FourMomentum& p4) : p(p4) {}
     double operator()(const ParticleBase& pb) const { return deltaRap(p, pb); }
     double operator()(const FourMomentum& p4) const { return deltaRap(p, p4); }
     const FourMomentum p;
   };
-  using DeltaRapWRT = deltaRapWRT;
+  using deltaRapWRT = DeltaRapWRT;
 
-  struct absDeltaRapWRT : public DoubleParticleBaseFunctor {
-    absDeltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
-    absDeltaRapWRT(const FourMomentum& p4) : p(p4) {}
+  struct AbsDeltaRapWRT : public DoubleParticleBaseFunctor {
+    AbsDeltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
+    AbsDeltaRapWRT(const FourMomentum& p4) : p(p4) {}
     double operator()(const ParticleBase& pb) const { return fabs(deltaRap(p, pb)); }
     double operator()(const FourMomentum& p4) const { return fabs(deltaRap(p, p4)); }
     const FourMomentum p;
   };
-  using absDeltaRapWRT = absDeltaRapWRT;
+  using absDeltaRapWRT = AbsDeltaRapWRT;
 
   //@}
 
