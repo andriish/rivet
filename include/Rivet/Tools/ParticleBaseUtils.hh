@@ -67,8 +67,8 @@ namespace Rivet {
     bool operator()(const ParticleBase& p) const { return p.abseta() < absetacut; }
     double absetacut;
   };
-  using absEtaLess = AbsAtaLess;
-  using absetaLess = AbsAtaLess;
+  using absEtaLess = AbsEtaLess;
+  using absetaLess = AbsEtaLess;
 
 
   /// Rapidity greater-than functor
@@ -145,7 +145,7 @@ namespace Rivet {
   struct DeltaRWRT : public DoubleParticleBaseFunctor {
     DeltaRWRT(const ParticleBase& pb, RapScheme scheme=PSEUDORAPIDITY) : p(pb.mom()) {}
     DeltaRWRT(const FourMomentum& p4, RapScheme scheme=PSEUDORAPIDITY) : p(p4) {}
-    DeltaRWRT(const Vector3& p3) : p(p3.mod(), p3.x(), p3.y(), p3.z()), rapscheme(scheme) {}
+    DeltaRWRT(const Vector3& p3) : p(p3.mod(), p3.x(), p3.y(), p3.z()), rapscheme(PSEUDORAPIDITY) {}
     double operator()(const ParticleBase& pb) const { return deltaR(p, pb, rapscheme); }
     double operator()(const FourMomentum& p4) const { return deltaR(p, p4, rapscheme); }
     double operator()(const Vector3& p3) const { return deltaR(p, p3); }
