@@ -1,8 +1,7 @@
 2016-09-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add isFirstWith(out), isLastWith(out) functions, and functor
-	wrappers -- not Cut-based, for now, but easily extended via .cc
-	files to avoid circular references.
+	wrappers, using Cut and templated function/functor args.
 
 	* Add Particle::parent() method.
 

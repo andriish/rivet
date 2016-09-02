@@ -217,6 +217,19 @@ namespace Rivet {
 
 
   ///////////////////////
+  // From Tools/ParticleUtils.hh -- typically to avoid cyclic includes/refs to Cut definition
+
+  FirstParticleWith::FirstParticleWith(const Cut& c)
+    : fn([&](const Particle& p){ return c->accept(p); }) { }
+
+  FirstParticleWithout::FirstParticleWithout(const Cut& c)
+    : fn([&](const Particle& p){ return c->accept(p); }) { }
+
+  LastParticleWith::LastParticleWith(const Cut& c)
+    : fn([&](const Particle& p){ return c->accept(p); }) { }
+
+  LastParticleWithout::LastParticleWithout(const Cut& c)
+    : fn([&](const Particle& p){ return c->accept(p); }) { }
 
 
   Particles& ifilter_select(Particles& particles, const Cut& c) {
@@ -260,6 +273,7 @@ namespace Rivet {
     //     << pair.second.momentum().E()/GeV << " GeV]";
     return out.str();
   }
+
 
 
 }

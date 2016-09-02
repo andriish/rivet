@@ -6,7 +6,6 @@
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
 // Macros to map Rivet::Particle functions to PID:: functions of the same name
-/// @todo Can leave return type out of the macro and put that on each line where it's used?
 #define PARTICLE_TO_PID_BOOLFN(fname) inline bool fname (const Particle& p) { return PID:: fname (p.pid()); }
 #define PARTICLE_TO_PID_INTFN(fname) inline int fname (const Particle& p) { return PID:: fname (p.pid()); }
 #define PARTICLE_TO_PID_DBLFN(fname) inline double fname (const Particle& p) { return PID:: fname (p.pid()); }
@@ -402,20 +401,20 @@ namespace Rivet {
 
 
   /// Determine whether a particle is the first in a decay chain to meet the cut/function
-  struct FirstParticleWith : public BoolParticleBaseFunctor {
+  struct FirstParticleWith : public BoolParticleFunctor {
     template <typename FN>
     FirstParticleWith(const FN& f) : fn(f) { }
-    // FirstParticleWith(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    FirstParticleWith(const Cut& c);
     bool operator()(const Particle& p) const { return isFirstWith(p, fn); }
     std::function<bool(const Particle&)> fn;
   };
   using firstParticleWith = FirstParticleWith;
 
   /// Determine whether a particle is the first in a decay chain not to meet the cut/function
-  struct FirstParticleWithout : public BoolParticleBaseFunctor {
+  struct FirstParticleWithout : public BoolParticleFunctor {
     template <typename FN>
     FirstParticleWithout(const FN& f) : fn(f) { }
-    // FirstParticleWithout(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    FirstParticleWithout(const Cut& c);
     bool operator()(const Particle& p) const { return isFirstWithout(p, fn); }
     std::function<bool(const Particle&)> fn;
   };
@@ -423,20 +422,20 @@ namespace Rivet {
 
 
   /// Determine whether a particle is the last in a decay chain to meet the cut/function
-  struct LastParticleWith : public BoolParticleBaseFunctor {
+  struct LastParticleWith : public BoolParticleFunctor {
     template <typename FN>
     LastParticleWith(const FN& f) : fn(f) { }
-    // LastParticleWith(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    LastParticleWith(const Cut& c);
     bool operator()(const Particle& p) const { return isLastWith(p, fn); }
     std::function<bool(const Particle&)> fn;
   };
   using lastParticleWith = LastParticleWith;
 
   /// Determine whether a particle is the last in a decay chain not to meet the cut/function
-  struct LastParticleWithout : public BoolParticleBaseFunctor {
+  struct LastParticleWithout : public BoolParticleFunctor {
     template <typename FN>
     LastParticleWithout(const FN& f) : fn(f) { }
-    // LastParticleWithout(const Cut& c) : fn([&](const Particle& p){ return c->accept(p); }) { }
+    LastParticleWithout(const Cut& c);
     bool operator()(const Particle& p) const { return isLastWithout(p, fn); }
     std::function<bool(const Particle&)> fn;
   };

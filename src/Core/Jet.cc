@@ -197,6 +197,7 @@ namespace Rivet {
 
 
   ///////////////////
+  // From Tools/JetUtils.hh -- typically to avoid cyclic includes/refs to Cut definition
 
 
   Jets& ifilter_select(Jets& jets, const Cut& c) {
