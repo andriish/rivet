@@ -1,6 +1,6 @@
 2016-09-06  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add ATLAS Run 1 medium electron ID efficiency function.
+	* Add ATLAS Run 1 medium and tight electron ID efficiency functions.
 
 	* Update configure scripts to use newer (Py3-safe) Python testing macros.
 

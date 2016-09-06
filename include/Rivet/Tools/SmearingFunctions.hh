@@ -191,40 +191,38 @@ namespace Rivet {
   /// @brief ATLAS Run 1 'medium' electron identification/selection efficiency
   inline double ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(const Particle& e) {
 
-    // Reflected
-    const static vector<double> eta_edges_10 = {-2.500, -2.277, -1.790, -1.460, -1.107, -0.454, -0.049, 0.000, 0.049, 0.454, 1.107, 1.46, 1.790, 2.277, 2.500};
-    const static vector<double> eta_vals_10  = { 0.778,  0.777,  0.770,  0.771,  0.780,  0.757,  0.730, 0.730, 0.757, 0.780, 0.771, 0.77, 0.777, 0.778};
+    const static vector<double> eta_edges_10 = {0.000, 0.049, 0.454, 1.107, 1.46, 1.790, 2.277, 2.500};
+    const static vector<double> eta_vals_10  = {0.730, 0.757, 0.780, 0.771, 0.77, 0.777, 0.778};
 
-    // Reflected
-    const static vector<double> eta_edges_15 = {-2.500, -2.263, -1.783, -1.463, -1.102, -0.456, -0.053, 0.000, 0.053, 0.456, 1.102, 1.463, 1.783, 2.263, 2.500};
-    const static vector<double> eta_vals_15  = { 0.829,  0.813,  0.749,  0.759,  0.819,  0.800,  0.780, 0.780, 0.800, 0.819, 0.759, 0.749, 0.813, 0.829};
+    const static vector<double> eta_edges_15 = {0.000, 0.053, 0.456, 1.102, 1.463, 1.783, 2.263, 2.500};
+    const static vector<double> eta_vals_15  = {0.780, 0.800, 0.819, 0.759, 0.749, 0.813, 0.829};
 
-    const static vector<double> eta_edges_20 = {-2.500, -2.452, -2.215, -1.942, -1.692, -1.467, -1.265, -0.992, -0.683, -0.350, -0.042, 0.065, 0.362, 0.719, 0.980, 1.289, 1.455, 1.681, 1.942, 2.239, 2.452, 2.500};
-    const static vector<double> eta_vals_20  = { 0.827,  0.808,  0.794,  0.789,  0.754,  0.765,  0.800,  0.805,  0.812,  0.810,  0.794, 0.801, 0.819, 0.806, 0.794, 0.783, 0.775, 0.787, 0.792, 0.805, 0.822};
+    const static vector<double> eta_edges_20 = {0.000, 0.065, 0.362, 0.719, 0.980, 1.289, 1.455, 1.681, 1.942, 2.239, 2.452, 2.500};
+    const static vector<double> eta_vals_20  = {0.794, 0.806, 0.816, 0.806, 0.797, 0.774, 0.764, 0.788, 0.793, 0.806, 0.825};
 
-    const static vector<double> eta_edges_25 = {-2.500, -2.452, -2.227, -1.930, -1.692, -1.467, -1.265, -0.980, -0.695, -0.338, -0.053, 0.077, 0.338, 0.742, 1.004, 1.265, 1.467, 1.692, 1.940, 2.227, 2.452, 2.500};
-    const static vector<double> eta_vals_25  = { 0.840,  0.834,  0.830,  0.825,  0.789,  0.801,  0.838,  0.843,  0.851,  0.845,  0.833, 0.841, 0.855, 0.847, 0.841, 0.806, 0.792, 0.826, 0.830, 0.832, 0.839};
+    const static vector<double> eta_edges_25 = {0.000, 0.077, 0.338, 0.742, 1.004, 1.265, 1.467, 1.692, 1.940, 2.227, 2.452, 2.500};
+    const static vector<double> eta_vals_25  = {0.833, 0.843, 0.853, 0.845, 0.839, 0.804, 0.790, 0.825, 0.830, 0.833, 0.839};
 
-    const static vector<double> eta_edges_30 = {-2.500, -2.440, -2.215, -1.930, -1.681, -1.467, -1.277, -0.992, -0.707, -0.350, -0.053, 0.077, 0.350, 0.707, 0.980, 1.289, 1.479, 1.681, 1.942, 2.239, 2.441, 2.500};
-    const static vector<double> eta_vals_30  = { 0.849,  0.845,  0.847,  0.849,  0.808,  0.823,  0.869,  0.871,  0.881,  0.876,  0.863, 0.868, 0.881, 0.877, 0.871, 0.825, 0.809, 0.844, 0.842, 0.835, 0.835};
+    const static vector<double> eta_edges_30 = {0.000, 0.077, 0.350, 0.707, 0.980, 1.289, 1.479, 1.681, 1.942, 2.239, 2.441, 2.500};
+    const static vector<double> eta_vals_30  = {0.863, 0.872, 0.881, 0.874, 0.870, 0.824, 0.808, 0.847, 0.845, 0.840, 0.842};
 
-    const static vector<double> eta_edges_35 = {-2.500, -2.448, -2.234, -1.949, -1.700, -1.463, -1.284, -0.999, -0.713, -0.357, -0.072, 0.058, 0.344, 0.700, 1.009, 1.270, 1.458, 1.685, 1.935, 2.231, 2.468, 2.500};
-    const static vector<double> eta_vals_35  = { 0.839,  0.850,  0.864,  0.869,  0.835,  0.847,  0.892,  0.893,  0.900,  0.895,  0.878, 0.884, 0.901, 0.898, 0.894, 0.851, 0.835, 0.867, 0.863, 0.840, 0.825};
+    const static vector<double> eta_edges_35 = {0.000, 0.058, 0.344, 0.700, 1.009, 1.270, 1.458, 1.685, 1.935, 2.231, 2.468, 2.500};
+    const static vector<double> eta_vals_35  = {0.878, 0.889, 0.901, 0.895, 0.893, 0.849, 0.835, 0.868, 0.863, 0.845, 0.832};
 
-    const static vector<double> eta_edges_40 = {-2.500, -2.453, -2.227, -1.931, -1.682, -1.469, -1.280, -0.995, -0.711, -0.344, -0.059, 0.047, 0.355, 0.699, 0.983, 1.280, 1.446, 1.694, 1.943, 2.227, 2.441, 2.500};
-    const static vector<double> eta_vals_40  = { 0.837,  0.853,  0.876,  0.890,  0.869,  0.876,  0.905,  0.903,  0.908,  0.904,  0.894, 0.898, 0.911, 0.906, 0.903, 0.875, 0.867, 0.887, 0.876, 0.843, 0.816};
+    const static vector<double> eta_edges_40 = {0.000, 0.047, 0.355, 0.699, 0.983, 1.280, 1.446, 1.694, 1.943, 2.227, 2.441, 2.500};
+    const static vector<double> eta_vals_40  = {0.894, 0.901, 0.909, 0.905, 0.904, 0.875, 0.868, 0.889, 0.876, 0.848, 0.827};
 
-    const static vector<double> eta_edges_45 = {-2.500, -2.461, -2.222, -1.937, -1.687, -1.462, -1.271, -0.986, -0.689, -0.357, -0.048, 0.058, 0.356, 0.712, 0.997, 1.282, 1.459, 1.686, 1.935, 2.220, 2.444, 2.500};
-    const static vector<double> eta_vals_45  = { 0.807,  0.849,  0.894,  0.905,  0.893,  0.898,  0.917,  0.916,  0.920,  0.913,  0.900, 0.909, 0.925, 0.920, 0.917, 0.896, 0.890, 0.903, 0.894, 0.838, 0.786};
+    const static vector<double> eta_edges_45 = {0.000, 0.058, 0.356, 0.712, 0.997, 1.282, 1.459, 1.686, 1.935, 2.220, 2.444, 2.500};
+    const static vector<double> eta_vals_45  = {0.900, 0.911, 0.923, 0.918, 0.917, 0.897, 0.891, 0.904, 0.894, 0.843, 0.796};
 
-    const static vector<double> eta_edges_50 = {-2.500, -2.441, -2.216, -1.931, -1.694, -1.469, -1.268, -0.983, -0.711, -0.355, -0.059, 0.059, 0.355, 0.711, 0.983, 1.280, 1.469, 1.682, 1.919, 2.227, 2.441, 2.500};
-    const static vector<double> eta_vals_50  = { 0.785,  0.839,  0.896,  0.908,  0.897,  0.902,  0.923,  0.919,  0.921,  0.915,  0.903, 0.911, 0.926, 0.925, 0.923, 0.905, 0.899, 0.908, 0.895, 0.824, 0.762};
+    const static vector<double> eta_edges_50 = {0.000, 0.059, 0.355, 0.711, 0.983, 1.280, 1.469, 1.682, 1.919, 2.227, 2.441, 2.500};
+    const static vector<double> eta_vals_50  = {0.903, 0.913, 0.923, 0.922, 0.923, 0.903, 0.898, 0.908, 0.895, 0.831, 0.774};
 
-    const static vector<double> eta_edges_60 = {-2.500, -2.449, -2.221, -1.935, -1.685, -1.471, -1.268, -0.983, -0.697, -0.351, -0.042, 0.053, 0.351, 0.720, 1.006, 1.291, 1.469, 1.696, 1.946, 2.243, 2.455, 2.500};
-    const static vector<double> eta_vals_60  = { 0.779,  0.837,  0.899,  0.916,  0.912,  0.913,  0.926,  0.922,  0.927,  0.921,  0.903, 0.914, 0.929, 0.926, 0.929, 0.916, 0.911, 0.915, 0.900, 0.817, 0.742};
+    const static vector<double> eta_edges_60 = {0.000, 0.053, 0.351, 0.720, 1.006, 1.291, 1.469, 1.696, 1.946, 2.243, 2.455, 2.500};
+    const static vector<double> eta_vals_60  = {0.903, 0.917, 0.928, 0.924, 0.927, 0.915, 0.911, 0.915, 0.899, 0.827, 0.760};
 
-    const static vector<double> eta_edges_80 = {-2.500, -2.458, -2.221, -1.947, -1.685, -1.447, -1.280, -0.970, -0.708, -0.351, -0.054, 0.053, 0.351, 0.720, 0.994, 1.292, 1.482, 1.708, 1.934, 2.220, 2.458, 2.500};
-    const static vector<double> eta_vals_80  = { 0.950,  0.940,  0.934,  0.945,  0.930,  0.934,  0.957,  0.955,  0.950,  0.943,  0.936, 0.942, 0.955, 0.957, 0.955, 0.934, 0.933, 0.942, 0.933, 0.940, 0.945};
+    const static vector<double> eta_edges_80 = {0.000, 0.053, 0.351, 0.720, 0.994, 1.292, 1.482, 1.708, 1.934, 2.220, 2.458, 2.500};
+    const static vector<double> eta_vals_80  = {0.936, 0.942, 0.952, 0.956, 0.956, 0.934, 0.931, 0.944, 0.933, 0.940, 0.948};
 
     const static vector<double> et_edges = { 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 80 };
     const static vector< vector<double> > et_eta_edges = { eta_edges_10, eta_edges_15, eta_edges_20, eta_edges_25, eta_edges_30, eta_edges_35, eta_edges_40, eta_edges_45, eta_edges_50, eta_edges_60, eta_edges_80 };
@@ -242,6 +240,58 @@ namespace Rivet {
     return ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(e);
   }
 
+
+  /// @brief ATLAS Run 1 'tight' electron identification/selection efficiency
+  inline double ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(const Particle& e) {
+
+    const static vector<double> eta_edges_10 = {0.000, 0.049, 0.459, 1.100, 1.461, 1.789, 2.270, 2.500};
+    const static vector<double> eta_vals_10  = {0.581, 0.632, 0.668, 0.558, 0.548, 0.662, 0.690};
+
+    const static vector<double> eta_edges_15 = {0.000, 0.053, 0.450, 1.096, 1.463, 1.783, 2.269, 2.500};
+    const static vector<double> eta_vals_15 =  {0.630, 0.678, 0.714, 0.633, 0.616, 0.700, 0.733};
+
+    const static vector<double> eta_edges_20 = {0.000, 0.065, 0.362, 0.719, 0.992, 1.277, 1.479, 1.692, 1.930, 2.227, 2.464, 2.500};
+    const static vector<double> eta_vals_20 =  {0.653, 0.695, 0.735, 0.714, 0.688, 0.635, 0.625, 0.655, 0.680, 0.691, 0.674};
+
+    const static vector<double> eta_edges_25 = {0.000, 0.077, 0.362, 0.719, 0.992, 1.300, 1.479, 1.692, 1.942, 2.227, 2.464, 2.500};
+    const static vector<double> eta_vals_25 =  {0.692, 0.732, 0.768, 0.750, 0.726, 0.677, 0.667, 0.692, 0.710, 0.706, 0.679};
+
+    const static vector<double> eta_edges_30 = {0.000, 0.053, 0.362, 0.719, 1.004, 1.277, 1.467, 1.681, 1.954, 2.239, 2.452, 2.500};
+    const static vector<double> eta_vals_30 =  {0.724, 0.763, 0.804, 0.789, 0.762, 0.702, 0.690, 0.720, 0.731, 0.714, 0.681};
+
+    const static vector<double> eta_edges_35 = {0.000, 0.044, 0.342, 0.711, 0.971, 1.280, 1.456, 1.683, 1.944, 2.218, 2.442, 2.500};
+    const static vector<double> eta_vals_35 =  {0.736, 0.778, 0.824, 0.811, 0.784, 0.730, 0.718, 0.739, 0.743, 0.718, 0.678};
+
+    const static vector<double> eta_edges_40 = {0.000, 0.047, 0.355, 0.699, 0.983, 1.268, 1.457, 1.671, 1.931, 2.204, 2.453, 2.500};
+    const static vector<double> eta_vals_40 =  {0.741, 0.774, 0.823, 0.823, 0.802, 0.764, 0.756, 0.771, 0.771, 0.734, 0.684};
+
+    const static vector<double> eta_edges_45 = {0.000, 0.056, 0.354, 0.711, 0.984, 1.280, 1.458, 1.684, 1.945, 2.207, 2.442, 2.500};
+    const static vector<double> eta_vals_45 =  {0.758, 0.792, 0.841, 0.841, 0.823, 0.792, 0.786, 0.796, 0.794, 0.734, 0.663};
+
+    const static vector<double> eta_edges_50 = {0.000, 0.059, 0.355, 0.699, 0.983, 1.268, 1.446, 1.682, 1.943, 2.216, 2.453, 2.500};
+    const static vector<double> eta_vals_50 =  {0.771, 0.806, 0.855, 0.858, 0.843, 0.810, 0.800, 0.808, 0.802, 0.730, 0.653};
+
+    const static vector<double> eta_edges_60 = {0.000, 0.050, 0.350, 0.707, 0.981, 1.278, 1.468, 1.694, 1.944, 2.242, 2.453, 2.500};
+    const static vector<double> eta_vals_60 =  {0.773, 0.816, 0.866, 0.865, 0.853, 0.820, 0.812, 0.817, 0.804, 0.726, 0.645};
+
+    const static vector<double> eta_edges_80 = {0.000, 0.051, 0.374, 0.720, 0.981, 1.279, 1.468, 1.707, 1.945, 2.207, 2.457, 2.500};
+    const static vector<double> eta_vals_80 =  {0.819, 0.855, 0.899, 0.906, 0.900, 0.869, 0.865, 0.873, 0.869, 0.868, 0.859};
+
+    const static vector<double> et_edges = { 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 80 };
+    const static vector< vector<double> > et_eta_edges = { eta_edges_10, eta_edges_15, eta_edges_20, eta_edges_25, eta_edges_30, eta_edges_35, eta_edges_40, eta_edges_45, eta_edges_50, eta_edges_60, eta_edges_80 };
+    const static vector< vector<double> > et_eta_vals  = { eta_vals_10, eta_vals_15, eta_vals_20, eta_vals_25, eta_vals_30, eta_vals_35, eta_vals_40, eta_vals_45, eta_vals_50, eta_vals_60, eta_vals_80 };
+
+    if (e.abseta() > 2.5 || e.Et() < 10*GeV) return 0.0;
+    const int i_et = binIndex(e.Et()/GeV, et_edges, true);
+    const int i_eta = binIndex(e.abseta(), et_eta_edges[i_et]);
+    return et_eta_vals[i_et][i_eta];
+  }
+
+  /// @brief ATLAS Run 2 'tight' electron identification/selection efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double ELECTRON_IDEFF_ATLAS_RUN2_TIGHT(const Particle& e) {
+    return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(e);
+  }
 
 
 
