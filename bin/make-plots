@@ -169,6 +169,7 @@ class InputData(Described):
         self.apply_config_files(opts.CONFIGFILES)
 
         ## Plot (and subplot) sizing
+        # TODO: Use attr functions and bools properly
         self.description.setdefault('PlotSizeX', 10.)
         if self.description['is2dim']:
             self.description['PlotSizeX'] -= 1.7
@@ -988,13 +989,13 @@ class RatioPlot(Plot):
                            custommajorticks=ycustommajorticks,\
                            customminorticks=ycustomminorticks)
 
-        if inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0':
-            if inputdata.description.has_key('Legend') and inputdata.description['Legend']=='1':
-                legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
+        if inputdata.attr_bool('MainPlot', True):
+            if inputdata.attr_bool('Legend', False):
+                legend = Legend(inputdata.description, inputdata.histos, inputdata.functions)
                 out += legend.draw()
 
         labels = Labels(inputdata.description)
-        if inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0':
+        if inputdata.attr_bool('MainPlot', True):
             out += labels.draw(['Title','XLabel','YLabel'])
         else:
             out += labels.draw(['XLabel','YLabel'])
@@ -2025,10 +2026,10 @@ class Frame(object):
 
             # Calculate how high and wide the overall plot is
             height = [0,0]
-            width  = inputdata.description['PlotSizeX']
-            if inputdata.description.has_key('RatioPlot') and inputdata.description['RatioPlot']=='1':
+            width  = inputdata.attr('PlotSizeX')
+            if inputdata.attr_bool('RatioPlot', False):
                 height[1] = -inputdata.description['RatioPlotSizeY']
-            if not (inputdata.description.has_key('MainPlot') and inputdata.description['MainPlot']=='0'):
+            if not inputdata.attr_bool('MainPlot', True):
                 height[0] = inputdata.description['PlotSizeY']
             else:
                 height[0] = -height[1]

@@ -1,3 +1,7 @@
+2016-09-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update configure scripts to use newer (Py3-safe) Python testing macros.
+
 2016-09-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add isFirstWith(out), isLastWith(out) functions, and functor
