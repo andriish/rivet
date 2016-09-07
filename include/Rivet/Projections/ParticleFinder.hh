@@ -15,7 +15,7 @@ namespace Rivet {
     //@{
 
     /// Construction using Cuts object
-    ParticleFinder(const Cut& c=Cuts::open())
+    ParticleFinder(const Cut& c=Cuts::OPEN)
       : _cuts(c), _theParticles()
     { }
 
