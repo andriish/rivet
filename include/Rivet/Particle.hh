@@ -274,19 +274,44 @@ namespace Rivet {
     /// Whether this particle is stable according to the generator
     bool isStable() const;
 
-    /// Get a list of the direct parents of the current particle
-    Particles parents(const Cut& c=Cuts::open()) const;
+    /// Get a list of the direct parents of the current particle (with optional selection Cut)
+    Particles parents(const Cut& c=Cuts::OPEN) const;
 
-    /// Get a list of the direct descendants from the current particle
-    Particles children(const Cut& c=Cuts::open()) const;
+    /// Get a list of the direct parents of the current particle (with selector function)
+    template <typename FN>
+    Particles parents(const FN& f) const {
+      return filter_select(parents(), f);
+    }
 
-    /// Get a list of all the descendants (including duplication of parents and children) from the current particle
-    Particles allDescendants(const Cut& c=Cuts::open(), bool remove_duplicates=true) const;
+    /// Get a list of the direct descendants from the current particle (with optional selection Cut)
+    Particles children(const Cut& c=Cuts::OPEN) const;
 
-    /// Get a list of all the stable descendants from the current particle
+    /// Get a list of the direct descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles children(const FN& f) const {
+      return filter_select(children(), f);
+    }
+
+    /// Get a list of all the descendants from the current particle (with optional selection Cut)
+    Particles allDescendants(const Cut& c=Cuts::OPEN, bool remove_duplicates=true) const;
+
+    /// Get a list of all the descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles allDescendants(const FN& f, bool remove_duplicates=true) const {
+      return filter_select(allDescendants(Cuts::OPEN, remove_duplicates), f);
+    }
+
+    /// Get a list of all the stable descendants from the current particle (with optional selection Cut)
+    ///
     /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
     /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-    Particles stableDescendants(const Cut& c=Cuts::open()) const;
+    Particles stableDescendants(const Cut& c=Cuts::OPEN) const;
+
+    /// Get a list of all the stable descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles stableDescendants(const FN& f) const {
+      return filter_select(stableDescendants(), f);
+    }
 
     /// Flight length (divide by mm or cm to get the appropriate units)
     double flightLength() const;

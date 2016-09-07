@@ -1,3 +1,7 @@
+2016-09-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add templated functor filtering args to the Particle parent/child/descendent methods.
+
 2016-09-06  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS Run 1 medium and tight electron ID efficiency functions.
@@ -19,7 +23,7 @@
 
 2016-09-01  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add a PartonicTopFinder projection.
+	* Add a PartonicTops projection.
 
 	* Add overloaded versions of the Event::allParticles() method with
 	selection Cut or templated selection function arguments.
