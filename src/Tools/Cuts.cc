@@ -53,74 +53,113 @@ namespace Rivet {
   const Cut& Cuts::NOCUT = Cuts::open();
 
 
+  // Cut constructor for ==
+  class Cut_Eq : public CutBase {
+  public:
+    Cut_Eq(const Cuts::Quantity qty, int val) : qty_(qty), val_(val) {}
+    bool operator==(const Cut& c) const {
+      std::shared_ptr<Cut_Eq> cc = dynamic_pointer_cast<Cut_Eq>(c);
+      return cc  &&  qty_ == cc->qty_  &&  val_ == cc->val_;
+    }
+  protected:
+    bool _accept(const CuttableBase& o) const { return o.getValue(qty_) == val_; }
+  private:
+    Cuts::Quantity qty_;
+    int val_;
+  };
+
+
+  // Cut constructor for !=
+  class Cut_NEq : public CutBase {
+  public:
+    Cut_NEq(const Cuts::Quantity qty, int val) : qty_(qty), val_(val) {}
+    bool operator==(const Cut& c) const {
+      std::shared_ptr<Cut_NEq> cc = dynamic_pointer_cast<Cut_NEq>(c);
+      return cc  &&  qty_ == cc->qty_  &&  val_ == cc->val_;
+    }
+  protected:
+    bool _accept(const CuttableBase& o) const { return o.getValue(qty_) != val_; }
+  private:
+    Cuts::Quantity qty_;
+    int val_;
+  };
+
 
   // Cut constructor for >=
   class Cut_GtrEq : public CutBase {
   public:
-    Cut_GtrEq(const Cuts::Quantity qty, const double low) : qty_(qty), low_(low) {}
+    Cut_GtrEq(const Cuts::Quantity qty, double val) : qty_(qty), val_(val) {}
     bool operator==(const Cut & c) const {
       std::shared_ptr<Cut_GtrEq> cc = dynamic_pointer_cast<Cut_GtrEq>(c);
-      return cc && qty_ == cc->qty_  &&  low_ == cc->low_;
+      return cc && qty_ == cc->qty_  &&  val_ == cc->val_;
     }
   protected:
-    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) >= low_; }
+    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) >= val_; }
   private:
     Cuts::Quantity qty_;
-    double low_;
+    double val_;
   };
 
 
   // Cut constructor for <
   class Cut_Less : public CutBase {
   public:
-    Cut_Less(const Cuts::Quantity qty, const double high) : qty_(qty), high_(high) {}
+    Cut_Less(const Cuts::Quantity qty, const double val) : qty_(qty), val_(val) {}
     bool operator==(const Cut & c) const {
       std::shared_ptr<Cut_Less> cc = dynamic_pointer_cast<Cut_Less>(c);
-      return cc && qty_ == cc->qty_  &&  high_ == cc->high_;
+      return cc  && qty_ == cc->qty_  &&  val_ == cc->val_;
     }
   protected:
-    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) < high_; }
+    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) < val_; }
   private:
     Cuts::Quantity qty_;
-    double high_;
+    double val_;
   };
 
 
-  // Cut constructor for >=
+  // Cut constructor for >
   class Cut_Gtr : public CutBase {
   public:
-    Cut_Gtr(const Cuts::Quantity qty, const double low) : qty_(qty), low_(low) {}
+    Cut_Gtr(const Cuts::Quantity qty, const double val) : qty_(qty), val_(val) {}
     bool operator==(const Cut & c) const {
       std::shared_ptr<Cut_Gtr> cc = dynamic_pointer_cast<Cut_Gtr>(c);
-      return cc && qty_ == cc->qty_  &&  low_ == cc->low_;
+      return cc && qty_ == cc->qty_  &&  val_ == cc->val_;
     }
   protected:
-    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) > low_; }
+    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) > val_; }
   private:
     Cuts::Quantity qty_;
-    double low_;
+    double val_;
   };
 
 
-  // Cut constructor for <
+  // Cut constructor for <=
   class Cut_LessEq : public CutBase {
   public:
-    Cut_LessEq(const Cuts::Quantity qty, const double high) : qty_(qty), high_(high) {}
+    Cut_LessEq(const Cuts::Quantity qty, const double val) : qty_(qty), val_(val) {}
     bool operator==(const Cut & c) const {
       std::shared_ptr<Cut_LessEq> cc = dynamic_pointer_cast<Cut_LessEq>(c);
-      return cc && qty_ == cc->qty_  &&  high_ == cc->high_;
+      return cc && qty_ == cc->qty_  &&  val_ == cc->val_;
     }
   protected:
-    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) <= high_; }
+    bool _accept(const CuttableBase & o) const { return o.getValue(qty_) <= val_; }
   private:
     Cuts::Quantity qty_;
-    double high_;
+    double val_;
   };
 
 
   template <typename T>
   inline Cut make_cut(T t) {
     return std::make_shared<T>(t);
+  }
+
+  Cut operator == (Cuts::Quantity qty, int i) {
+    return make_cut(Cut_Eq(qty, i));
+  }
+
+  Cut operator != (Cuts::Quantity qty, int i) {
+    return make_cut(Cut_NEq(qty, i));
   }
 
   Cut operator < (Cuts::Quantity qty, double n) {
@@ -141,7 +180,7 @@ namespace Rivet {
 
   Cut Cuts::range(Cuts::Quantity qty, double m, double n) {
     if (m > n) std::swap(m,n);
-    return (qty >= m) & (qty < n);
+    return (qty >= m) && (qty < n);
   }
 
 

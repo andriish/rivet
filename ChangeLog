@@ -1,5 +1,7 @@
 2016-09-08  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add == and != operators for cuts applied to integers.
+
 	* Add missing delta{Phi,Eta,Rap}{Gtr,Less} functors to ParticleBaseUtils.hh
 
 2016-09-07  Andy Buckley  <andy.buckley@cern.ch>
