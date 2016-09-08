@@ -290,7 +290,7 @@ namespace Rivet {
 
 
   /// @name Non-PID particle properties, via unbound functions
-  /// @todo Move to FourMomentum functions
+  /// @todo Mostly move to functions on FourMomentum
   //@{
 
   /// Unbound function access to momentum
