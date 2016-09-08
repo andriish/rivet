@@ -108,6 +108,8 @@ namespace Rivet {
 
   /// @f$ \Delta R @f$ (with respect to another 4-momentum, @a vec) greater-than functor
   struct DeltaRGtr : public BoolParticleBaseFunctor {
+    DeltaRGtr(const ParticleBase& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
+      : refvec(vec.mom()), drcut(dr), rapscheme(scheme) { }
     DeltaRGtr(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
       : refvec(vec), drcut(dr), rapscheme(scheme) { }
     DeltaRGtr(const Vector3& vec, double dr)
@@ -121,6 +123,8 @@ namespace Rivet {
 
   /// @f$ \Delta R @f$ (with respect to another 4-momentum, @a vec) less-than functor
   struct DeltaRLess : public BoolParticleBaseFunctor {
+    DeltaRLess(const ParticleBase& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
+      : refvec(vec.mom()), drcut(dr), rapscheme(scheme) { }
     DeltaRLess(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
       : refvec(vec), drcut(dr), rapscheme(scheme) { }
     DeltaRLess(const Vector3& vec, double dr)
@@ -135,6 +139,8 @@ namespace Rivet {
 
   /// @f$ |\Delta \phi| @f$ (with respect to another momentum, @a vec) greater-than functor
   struct DeltaPhiGtr : public BoolParticleBaseFunctor {
+    DeltaPhiGtr(const ParticleBase& vec, double dphi)
+      : refvec(vec.p3()), dphicut(dphi) { }
     DeltaPhiGtr(const FourMomentum& vec, double dphi)
       : refvec(vec.p3()), dphicut(dphi) { }
     DeltaPhiGtr(const Vector3& vec, double dphi)
@@ -147,6 +153,8 @@ namespace Rivet {
 
   /// @f$ |\Delta \phi| @f$ (with respect to another momentum, @a vec) less-than functor
   struct DeltaPhiLess : public BoolParticleBaseFunctor {
+    DeltaPhiLess(const ParticleBase& vec, double dphi)
+      : refvec(vec.p3()), dphicut(dphi) { }
     DeltaPhiLess(const FourMomentum& vec, double dphi)
       : refvec(vec.p3()), dphicut(dphi) { }
     DeltaPhiLess(const Vector3& vec, double dphi)
@@ -160,6 +168,8 @@ namespace Rivet {
 
   /// @f$ |\Delta \eta| @f$ (with respect to another momentum, @a vec) greater-than functor
   struct DeltaEtaGtr : public BoolParticleBaseFunctor {
+    DeltaEtaGtr(const ParticleBase& vec, double deta)
+      : refvec(vec.p3()), detacut(deta) { }
     DeltaEtaGtr(const FourMomentum& vec, double deta)
       : refvec(vec.p3()), detacut(deta) { }
     DeltaEtaGtr(const Vector3& vec, double deta)
@@ -172,6 +182,8 @@ namespace Rivet {
 
   /// @f$ |\Delta \eta| @f$ (with respect to another momentum, @a vec) less-than functor
   struct DeltaEtaLess : public BoolParticleBaseFunctor {
+    DeltaEtaLess(const ParticleBase& vec, double deta)
+      : refvec(vec.p3()), detacut(deta) { }
     DeltaEtaLess(const FourMomentum& vec, double deta)
       : refvec(vec.p3()), detacut(deta) { }
     DeltaEtaLess(const Vector3& vec, double deta)
@@ -185,6 +197,8 @@ namespace Rivet {
 
   /// @f$ |\Delta y| @f$ (with respect to another momentum, @a vec) greater-than functor
   struct DeltaRapGtr : public BoolParticleBaseFunctor {
+    DeltaRapGtr(const ParticleBase& vec, double drap)
+      : refvec(vec.mom()), drapcut(drap) { }
     DeltaRapGtr(const FourMomentum& vec, double drap)
       : refvec(vec), drapcut(drap) { }
     bool operator()(const ParticleBase& p) const { return std::abs(deltaRap(p, refvec)) > drapcut; }
@@ -195,6 +209,8 @@ namespace Rivet {
 
   /// @f$ |\Delta y| @f$ (with respect to another momentum, @a vec) less-than functor
   struct DeltaRapLess : public BoolParticleBaseFunctor {
+    DeltaRapLess(const ParticleBase& vec, double drap)
+      : refvec(vec.mom()), drapcut(drap) { }
     DeltaRapLess(const FourMomentum& vec, double drap)
       : refvec(vec), drapcut(drap) { }
     bool operator()(const ParticleBase& p) const { return std::abs(deltaRap(p, refvec)) < drapcut; }
