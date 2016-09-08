@@ -34,6 +34,7 @@ namespace Rivet {
   PARTICLE_TO_PID_BOOLFN(isNeutrino)
 
   /// Determine if the PID is that of a charged lepton
+  PARTICLE_TO_PID_BOOLFN(isChargedLepton)
   PARTICLE_TO_PID_BOOLFN(isChLepton)
 
   /// Determine if the PID is that of a photon
