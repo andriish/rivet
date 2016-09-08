@@ -110,6 +110,8 @@ namespace Rivet {
   struct DeltaRGtr : public BoolParticleBaseFunctor {
     DeltaRGtr(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
       : refvec(vec), drcut(dr), rapscheme(scheme) { }
+    DeltaRGtr(const Vector3& vec, double dr)
+      : drcut(dr), rapscheme(PSEUDORAPIDITY) { refvec.setPx(vec.x()); refvec.setPy(vec.y()); refvec.setPz(vec.z()); }
     bool operator()(const ParticleBase& p) const { return deltaR(p, refvec, rapscheme) > drcut; }
     FourMomentum refvec;
     double drcut;
@@ -121,12 +123,85 @@ namespace Rivet {
   struct DeltaRLess : public BoolParticleBaseFunctor {
     DeltaRLess(const FourMomentum& vec, double dr, RapScheme scheme=PSEUDORAPIDITY)
       : refvec(vec), drcut(dr), rapscheme(scheme) { }
+    DeltaRLess(const Vector3& vec, double dr)
+      : drcut(dr), rapscheme(PSEUDORAPIDITY) { refvec.setPx(vec.x()); refvec.setPy(vec.y()); refvec.setPz(vec.z()); }
     bool operator()(const ParticleBase& p) const { return deltaR(p, refvec, rapscheme) < drcut; }
     FourMomentum refvec;
     double drcut;
     RapScheme rapscheme;
   };
   using deltaRLess = DeltaRLess;
+
+
+  /// @f$ |\Delta \phi| @f$ (with respect to another momentum, @a vec) greater-than functor
+  struct DeltaPhiGtr : public BoolParticleBaseFunctor {
+    DeltaPhiGtr(const FourMomentum& vec, double dphi)
+      : refvec(vec.p3()), dphicut(dphi) { }
+    DeltaPhiGtr(const Vector3& vec, double dphi)
+      : refvec(vec), dphicut(dphi) { }
+    bool operator()(const ParticleBase& p) const { return deltaPhi(p, refvec) > dphicut; }
+    Vector3 refvec;
+    double dphicut;
+  };
+  using deltaPhiGtr = DeltaPhiGtr;
+
+  /// @f$ |\Delta \phi| @f$ (with respect to another momentum, @a vec) less-than functor
+  struct DeltaPhiLess : public BoolParticleBaseFunctor {
+    DeltaPhiLess(const FourMomentum& vec, double dphi)
+      : refvec(vec.p3()), dphicut(dphi) { }
+    DeltaPhiLess(const Vector3& vec, double dphi)
+      : refvec(vec), dphicut(dphi) { }
+    bool operator()(const ParticleBase& p) const { return deltaPhi(p, refvec) < dphicut; }
+    Vector3 refvec;
+    double dphicut;
+  };
+  using deltaPhiLess = DeltaPhiLess;
+
+
+  /// @f$ |\Delta \eta| @f$ (with respect to another momentum, @a vec) greater-than functor
+  struct DeltaEtaGtr : public BoolParticleBaseFunctor {
+    DeltaEtaGtr(const FourMomentum& vec, double deta)
+      : refvec(vec.p3()), detacut(deta) { }
+    DeltaEtaGtr(const Vector3& vec, double deta)
+      : refvec(vec), detacut(deta) { }
+    bool operator()(const ParticleBase& p) const { return std::abs(deltaEta(p, refvec)) > detacut; }
+    Vector3 refvec;
+    double detacut;
+  };
+  using deltaEtaGtr = DeltaEtaGtr;
+
+  /// @f$ |\Delta \eta| @f$ (with respect to another momentum, @a vec) less-than functor
+  struct DeltaEtaLess : public BoolParticleBaseFunctor {
+    DeltaEtaLess(const FourMomentum& vec, double deta)
+      : refvec(vec.p3()), detacut(deta) { }
+    DeltaEtaLess(const Vector3& vec, double deta)
+      : refvec(vec), detacut(deta) { }
+    bool operator()(const ParticleBase& p) const { return std::abs(deltaEta(p, refvec)) < detacut; }
+    Vector3 refvec;
+    double detacut;
+  };
+  using deltaEtaLess = DeltaEtaLess;
+
+
+  /// @f$ |\Delta y| @f$ (with respect to another momentum, @a vec) greater-than functor
+  struct DeltaRapGtr : public BoolParticleBaseFunctor {
+    DeltaRapGtr(const FourMomentum& vec, double drap)
+      : refvec(vec), drapcut(drap) { }
+    bool operator()(const ParticleBase& p) const { return std::abs(deltaRap(p, refvec)) > drapcut; }
+    FourMomentum refvec;
+    double drapcut;
+  };
+  using deltaRapGtr = DeltaRapGtr;
+
+  /// @f$ |\Delta y| @f$ (with respect to another momentum, @a vec) less-than functor
+  struct DeltaRapLess : public BoolParticleBaseFunctor {
+    DeltaRapLess(const FourMomentum& vec, double drap)
+      : refvec(vec), drapcut(drap) { }
+    bool operator()(const ParticleBase& p) const { return std::abs(deltaRap(p, refvec)) < drapcut; }
+    FourMomentum refvec;
+    double drapcut;
+  };
+  using deltaRapLess = DeltaRapLess;
 
   //@}
 
@@ -142,6 +217,7 @@ namespace Rivet {
     virtual double operator()(const ParticleBase& p) const = 0;
   };
 
+  /// Calculator of @f$ \Delta R @f$ with respect to a given momentum
   struct DeltaRWRT : public DoubleParticleBaseFunctor {
     DeltaRWRT(const ParticleBase& pb, RapScheme scheme=PSEUDORAPIDITY) : p(pb.mom()) {}
     DeltaRWRT(const FourMomentum& p4, RapScheme scheme=PSEUDORAPIDITY) : p(p4) {}
@@ -154,6 +230,7 @@ namespace Rivet {
   };
   using deltaRWRT = DeltaRWRT;
 
+  /// Calculator of @f$ \Delta \phi @f$ with respect to a given momentum
   struct DeltaPhiWRT : public DoubleParticleBaseFunctor {
     DeltaPhiWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
     DeltaPhiWRT(const FourMomentum& p4) : p(p4.vector3()) {}
@@ -165,6 +242,7 @@ namespace Rivet {
   };
   using deltaPhiWRT = DeltaPhiWRT;
 
+  /// Calculator of @f$ \Delta \eta @f$ with respect to a given momentum
   struct DeltaEtaWRT : public DoubleParticleBaseFunctor {
     DeltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
     DeltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
@@ -176,6 +254,7 @@ namespace Rivet {
   };
   using deltaEtaWRT = DeltaEtaWRT;
 
+  /// Calculator of @f$ |\Delta \eta| @f$ with respect to a given momentum
   struct AbsDeltaEtaWRT : public DoubleParticleBaseFunctor {
     AbsDeltaEtaWRT(const ParticleBase& pb) : p(pb.mom().vector3()) {}
     AbsDeltaEtaWRT(const FourMomentum& p4) : p(p4.vector3()) {}
@@ -187,6 +266,7 @@ namespace Rivet {
   };
   using absDeltaEtaWRT = AbsDeltaEtaWRT;
 
+  /// Calculator of @f$ \Delta y @f$ with respect to a given momentum
   struct DeltaRapWRT : public DoubleParticleBaseFunctor {
     DeltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
     DeltaRapWRT(const FourMomentum& p4) : p(p4) {}
@@ -196,6 +276,7 @@ namespace Rivet {
   };
   using deltaRapWRT = DeltaRapWRT;
 
+  /// Calculator of @f$ |\Delta y| @f$ with respect to a given momentum
   struct AbsDeltaRapWRT : public DoubleParticleBaseFunctor {
     AbsDeltaRapWRT(const ParticleBase& pb) : p(pb.mom()) {}
     AbsDeltaRapWRT(const FourMomentum& p4) : p(p4) {}
