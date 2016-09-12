@@ -2,7 +2,8 @@
 
 	* Add count function to Tools/Utils.h
 
-	* Add and mark validated B-decay analysis (BELLE_2013_I1238273)
+	* Add and mark validated B0bar and Bminus-decay analysis (BELLE_2013_I1238273)
+	* Add and mark validated B0-decay analysis               (BELLE_2011_I878990)
 
 2016-09-08  Andy Buckley  <andy.buckley@cern.ch>
 
