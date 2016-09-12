@@ -1,3 +1,8 @@
+2016-09-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a static constexpr DBL_NAN to Utils.hh for convenience, and
+	move some utils stuff out of MathHeader.hh
+
 2016-09-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add C-array version of multi-target Analysis::scale() and normalize(), and fix (semantic) constness.

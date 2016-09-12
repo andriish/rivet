@@ -4,13 +4,54 @@
 
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/PrettyPrint.hh"
-#include <sstream>
+#include <ostream>
+#include <iostream>
 #include <cctype>
-#include <algorithm>
 #include <cerrno>
+#include <stdexcept>
 #include <numeric>
+#include <limits>
+#include <climits>
+#include <cfloat>
+#include <cmath>
+
+
+// Macro to help with overzealous compiler warnings
+/// @note It's easier and better to just not give an arg name to args which won't be used, when possible.
+#ifdef UNUSED
+#elif defined(__GNUC__)
+# define UNUSED(x) UNUSED_ ## x __attribute__((unused))
+#elif defined(__LCLINT__)
+# define UNUSED(x) /*@unused@*/ x
+#else
+# define UNUSED(x) x
+#endif
+
+
+/// Macro to help mark code as deprecated to produce compiler warnings
+#ifndef DEPRECATED
+#if __GNUC__ && __cplusplus && RIVET_NO_DEPRECATION_WARNINGS == 0
+#define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#if GCC_VERSION >= 40500
+  #if __cplusplus > 201103L
+  #define DEPRECATED(x) [[deprecated(x)]]
+  #else
+  #define DEPRECATED(x) __attribute__((deprecated(x)))
+  #endif
+#else
+  #define DEPRECATED(x) __attribute__((deprecated))
+#endif
+#else
+  #define DEPRECATED(x)
+#endif
+#endif
+
 
 namespace Rivet {
+
+
+  /// Convenient const for getting the double NaN value
+  static constexpr double DBL_NAN = std::numeric_limits<double>::quiet_NaN();
 
 
   /// @name String utils
@@ -343,56 +384,48 @@ namespace Rivet {
     return slice(c, c.size()-n);
   }
 
+
+  using std::min;
+  using std::max;
+
   /// Find the minimum value in the vector
-  inline double min(const vector<double>& in) {
+  inline double min(const vector<double>& in, double errval=DBL_NAN) {
     return *std::min_element(in.begin(), in.end());
-    // static const auto FDBLMIN = [](double a, double b){ return std::min(a,b); };
-    // const double rtn = accumulate(in.begin(), in.end(), DBL_MAX, FDBLMIN);
-    // return rtn;
   }
 
   /// Find the maximum value in the vector
-  inline double max(const vector<double>& in) {
-    return *std::max_element(in.begin(), in.end());
-    // static const auto FDBLMAX = [](double a, double b){ return std::max(a,b); };
-    // const double rtn = accumulate(in.begin(), in.end(), -DBL_MAX, FDBLMAX);
-    // return rtn;
+  inline double max(const vector<double>& in, double errval=DBL_NAN) {
+    const auto e = std::max_element(in.begin(), in.end());
+    return e != in.end() ? *e : errval;
   }
 
   /// Find the minimum and maximum values in the vector
-  inline pair<double,double> minmax(const vector<double>& in) {
-    const auto minmax = std::minmax_element(in.begin(), in.end());
-    return std::make_pair(*minmax.first, *minmax.second);
-    // static const auto FDBLMINMAX = [](double a, double b){ return std::minmax(a,b); };
-    // static const auto DBL_MAXMIN = make_pair(DBL_MAX,-DBL_MAX);
-    // const auto rtn = accumulate(in.begin(), in.end(), DBL_MAXMIN, FDBLMINMAX);
-    // return rtn;
+  inline pair<double,double> minmax(const vector<double>& in, double errval=DBL_NAN) {
+    const auto e = std::minmax_element(in.begin(), in.end());
+    const double rtnmin = e.first != in.end() ? *e.first : errval;
+    const double rtnmax = e.second != in.end() ? *e.first : errval;
+    return std::make_pair(rtnmin, rtnmax);
   }
 
+
   /// Find the minimum value in the vector
-  inline int min(const vector<int>& in) {
-    return *std::min_element(in.begin(), in.end());
-    // static const auto FINTMIN = [](int a, int b){ return std::min(a,b); };
-    // const int rtn = accumulate(in.begin(), in.end(), INT_MAX, FINTMIN);
-    // return rtn;
+  inline int min(const vector<int>& in, int errval=-1) {
+    const auto e = std::min_element(in.begin(), in.end());
+    return e != in.end() ? *e : errval;
   }
 
   /// Find the maximum value in the vector
-  inline int max(const vector<int>& in) {
-    return *std::max_element(in.begin(), in.end());
-    // static const auto FINTMAX = [](int a, int b){ return std::max(a,b); };
-    // const int rtn = accumulate(in.begin(), in.end(), -INT_MAX, FINTMAX);
-    // return rtn;
+  inline int max(const vector<int>& in, int errval=-1) {
+    const auto e = std::max_element(in.begin(), in.end());
+    return e != in.end() ? *e : errval;
   }
 
   /// Find the minimum and maximum values in the vector
-  inline pair<int,int> minmax(const vector<int>& in) {
-    const auto minmax = std::minmax_element(in.begin(), in.end());
-    return std::make_pair(*minmax.first, *minmax.second);
-    // static const auto FINTMINMAX = [](int a, int b){ return std::minmax(a,b); };
-    // static const auto INT_MAXMIN = make_pair(INT_MAX,-INT_MAX);
-    // const auto rtn = accumulate(in.begin(), in.end(), INT_MAXMIN, FINTMINMAX);
-    // return rtn;
+  inline pair<int,int> minmax(const vector<int>& in, int errval=-1) {
+    const auto e = std::minmax_element(in.begin(), in.end());
+    const double rtnmin = e.first != in.end() ? *e.first : errval;
+    const double rtnmax = e.second != in.end() ? *e.first : errval;
+    return std::make_pair(rtnmin, rtnmax);
   }
 
   //@}
