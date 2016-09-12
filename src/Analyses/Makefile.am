@@ -394,6 +394,7 @@ RivetMiscAnalyses_la_SOURCES = \
     BELLE_2001_S4598261.cc \
     BELLE_2008_I786560.cc \
     BELLE_2013_I1216515.cc \
+    BELLE_2013_I1238273.cc \
     CLEO_2004_S5809304.cc
 # UNVALIDATED
 RivetMiscAnalyses_la_SOURCES += \

@@ -2,6 +2,8 @@
 
 	* Add count function to Tools/Utils.h
 
+	* Add and mark validated B-decay analysis (BELLE_2013_I1238273)
+
 2016-09-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add C-array version of multi-target Analysis::scale() and normalize(), and fix (semantic) constness.
