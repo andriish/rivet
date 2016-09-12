@@ -208,6 +208,12 @@ namespace Rivet {
     return std::all_of(std::begin(c), std::end(c), f);
   }
 
+  /// Return number of elements of container for which expression f is true.
+  template <typename CONTAINER, typename FN>
+  inline unsigned int count(const CONTAINER& c, const FN& f) {
+    return std::count_if(std::begin(c), std::end(c), f);
+  }
+
   /// Return true if @a f(x) is false for all @c x in container @a c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool none(const CONTAINER& c, const FN& f) {

@@ -1,3 +1,7 @@
+2016-09-12  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add count function to Tools/Utils.h
+
 2016-09-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add C-array version of multi-target Analysis::scale() and normalize(), and fix (semantic) constness.
