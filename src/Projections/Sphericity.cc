@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Projections/Sphericity.hh"
+#include "Rivet/Jet.hh"
 
 namespace Rivet {
 
@@ -38,36 +39,34 @@ namespace Rivet {
     calc(fs.particles());
   }
 
-  void Sphericity::calc(const vector<Particle>& fsparticles) {
+
+  void Sphericity::calc(const Particles& particles) {
     vector<Vector3> threeMomenta;
-    threeMomenta.reserve(fsparticles.size());
-    foreach (const Particle& p, fsparticles) {
-      threeMomenta.push_back( p.momentum().vector3() );
-    }
-    _calcSphericity(threeMomenta);
+    transform(particles, threeMomenta, p3);
+    calc(threeMomenta);
   }
 
-  void Sphericity::calc(const vector<FourMomentum>& fsmomenta) {
+
+  void Sphericity::calc(const Jets& jets) {
     vector<Vector3> threeMomenta;
-    threeMomenta.reserve(fsmomenta.size());
-    foreach (const FourMomentum& v, fsmomenta) {
-      threeMomenta.push_back(v.vector3());
-    }
-    _calcSphericity(threeMomenta);
-  }
-
-  void Sphericity::calc(const vector<Vector3>& fsmomenta) {
-    _calcSphericity(fsmomenta);
+    transform(jets, threeMomenta, p3);
+    calc(threeMomenta);
   }
 
 
-  // Actually do the calculation
-  void Sphericity::_calcSphericity(const vector<Vector3>& fsmomenta) {
+  void Sphericity::calc(const vector<FourMomentum>& momenta) {
+    vector<Vector3> threeMomenta;
+    transform(momenta, threeMomenta, [](const FourMomentum& p4){return p4.vector3();});
+    calc(threeMomenta);
+  }
+
+
+  void Sphericity::calc(const vector<Vector3>& momenta) {
     MSG_DEBUG("Calculating sphericity with r = " << _regparam);
 
-    // Return (with "safe nonsense" sphericity params) if there are no final state particles.
-    if (fsmomenta.empty()) {
-      MSG_DEBUG("No particles in final state...");
+    // Return (with "safe nonsense" sphericity params) if there are no final state particles
+    if (momenta.empty()) {
+      MSG_DEBUG("No momenta given...");
       clear();
       return;
     }
@@ -75,8 +74,8 @@ namespace Rivet {
     // Iterate over all the final state particles.
     Matrix3 mMom;
     double totalMomentum = 0.0;
-    MSG_DEBUG("Number of particles = " << fsmomenta.size());
-    foreach (const Vector3& p3, fsmomenta) {
+    MSG_DEBUG("Number of particles = " << momenta.size());
+    for (const Vector3& p3 : momenta) {
       // Build the (regulated) normalising factor.
       totalMomentum += pow(p3.mod(), _regparam);
 
@@ -133,5 +132,6 @@ namespace Rivet {
              << sphericityMajorAxis() << ", "
              << sphericityMinorAxis() << ")");
   }
+
 
 }
