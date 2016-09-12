@@ -231,6 +231,12 @@ namespace Rivet {
   /// @name Container utils
   //@{
 
+  /// Return number of elements in the container @a c for which @c f(x) is true.
+  template <typename CONTAINER, typename FN>
+  inline unsigned int count(const CONTAINER& c, const FN& f) {
+    return std::count_if(std::begin(c), std::end(c), f);
+  }
+
   /// Return true if f(x) is true for any x in container c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool any(const CONTAINER& c, const FN& f) {
