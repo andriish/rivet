@@ -49,26 +49,18 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
-      // UFS loop --- find b-hadrons, look for those that have decayed weekly
-      // by cutting on b-content of their children
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
-        if (p.isHadron() && p.hasBottom() ){
-          bool weakDecay=true;
-          foreach (const Particle& c, p.children()) {
-            if (c.hasBottom()) {
-              weakDecay=false;
-              break;
-            }
-          }
-          if (weakDecay) {
-            const double xp = p.E()/meanBeamMom;
-            _histXbweak->fill(xp, weight);
-            _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp, weight);
-          }
+      // Get Bottom hadrons
+      const Particles bhads = filter_select(ufs.particles(), isBottomHadron);
+
+      for (const Particle& bhad : bhads) {
+        // Check for weak decay, i.e. no more bottom present in children
+        if (bhad.children(lastParticleWith(hasBottom)).empty()) {
+          const double xp = bhad.E()/meanBeamMom;
+          _histXbweak->fill(xp, weight);
+          _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp, weight);
         }
       }
-
     }
 
 

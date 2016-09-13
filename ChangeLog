@@ -7,6 +7,12 @@
 	* Add a few more particle names and use PID names in recently added
 	  analyses
 
+	* Add Simone's OPAL b-frag analysis (OPAL_2003_I599181) after some
+	cleanup and heavy usage of new features
+
+	* Restructured DELPHI_2011_I890503 in the same manner --- picks up
+	a few more B-hadrons now (e.g. 20523 and such)
+
 2016-09-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a static constexpr DBL_NAN to Utils.hh for convenience, and
