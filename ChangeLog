@@ -1,3 +1,7 @@
+2016-09-13  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add and mark validated B+ to omega analysis (BABAR_2013_I1116411)
+
 2016-09-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a static constexpr DBL_NAN to Utils.hh for convenience, and
