@@ -13,6 +13,8 @@
 	* Restructured DELPHI_2011_I890503 in the same manner --- picks up
 	a few more B-hadrons now (e.g. 20523 and such)
 
+	* Clean up and add ATLAS 8TeV MinBias (from contrib ATLAS_2016_I1426695)
+
 2016-09-12  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a static constexpr DBL_NAN to Utils.hh for convenience, and
