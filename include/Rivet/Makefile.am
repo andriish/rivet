@@ -101,6 +101,7 @@ nobase_pkginclude_HEADERS += \
   Tools/BinnedHistogram.hh \
   Tools/Cmp.fhh \
   Tools/Cmp.hh \
+  Tools/Cutflow.hh \
   Tools/Cuts.fhh \
   Tools/Cuts.hh \
   Tools/Exceptions.hh \

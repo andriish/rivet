@@ -1,5 +1,7 @@
 2016-09-13  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add experimental Cutflow and Cutflows objects for BSM cut tracking.
+
 	* Add 'direct' versions of any, all, none to Utils.hh, with an
 	implicity bool() transforming function.
 
