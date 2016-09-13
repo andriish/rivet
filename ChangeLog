@@ -1,7 +1,12 @@
+2016-09-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add 'direct' versions of any, all, none to Utils.hh, with an
+	implicity bool() transforming function.
+
 2016-09-13  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Add and mark validated B+ to omega analysis (BABAR_2013_I1116411)
-	
+
 	* Add and mark validated D0 to pi- analysis (BABAR_2015_I1334693)
 
 	* Add a few more particle names and use PID names in recently added

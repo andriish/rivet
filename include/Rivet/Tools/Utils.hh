@@ -232,37 +232,62 @@ namespace Rivet {
   //@{
 
   /// Return number of elements in the container @a c for which @c f(x) is true.
+  template <typename CONTAINER>
+  inline unsigned int count(const CONTAINER& c) {
+    // return std::count_if(std::begin(c), std::end(c), [](const typename CONTAINER::value_type& x){return bool(x);});
+    unsigned int rtn = 0;
+    for (const auto& x : c) if (bool(x)) rtn += 1;
+    return rtn;
+  }
+
+  /// Return number of elements in the container @a c for which @c f(x) is true.
   template <typename CONTAINER, typename FN>
   inline unsigned int count(const CONTAINER& c, const FN& f) {
     return std::count_if(std::begin(c), std::end(c), f);
   }
 
+  /// Return true if x is true for any x in container c, otherwise false.
+  template <typename CONTAINER>
+  inline bool any(const CONTAINER& c) {
+    // return std::any_of(std::begin(c), std::end(c), [](const auto& x){return bool(x);});
+    for (const auto& x : c) if (bool(x)) return true;
+    return false;
+  }
+
   /// Return true if f(x) is true for any x in container c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool any(const CONTAINER& c, const FN& f) {
-    // for (const auto& x : c)
-    //   if (f(x)) return true;
-    // return false;
     return std::any_of(std::begin(c), std::end(c), f);
+  }
+
+  /// Return true if @a x is true for all @c x in container @a c, otherwise false.
+  template <typename CONTAINER>
+  inline bool all(const CONTAINER& c) {
+    // return std::all_of(std::begin(c), std::end(c), [](const auto& x){return bool(x);});
+    for (const auto& x : c) if (!bool(x)) return false;
+    return true;
   }
 
   /// Return true if @a f(x) is true for all @c x in container @a c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool all(const CONTAINER& c, const FN& f) {
-    // for (const auto& x : c)
-    //   if (!f(x)) return false;
-    // return true;
     return std::all_of(std::begin(c), std::end(c), f);
+  }
+
+  /// Return true if @a x is false for all @c x in container @a c, otherwise false.
+  template <typename CONTAINER>
+  inline bool none(const CONTAINER& c) {
+    // return std::none_of(std::begin(c), std::end(c), [](){});
+    for (const auto& x : c) if (bool(x)) return false;
+    return true;
   }
 
   /// Return true if @a f(x) is false for all @c x in container @a c, otherwise false.
   template <typename CONTAINER, typename FN>
   inline bool none(const CONTAINER& c, const FN& f) {
-    // for (const auto& x : c)
-    //   if (!f(x)) return false;
-    // return true;
     return std::none_of(std::begin(c), std::end(c), f);
   }
+
 
   /// A single-container-arg version of std::transform, aka @c map
   template <typename C1, typename C2, typename FN>
