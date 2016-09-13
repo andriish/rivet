@@ -76,6 +76,9 @@ namespace Rivet {
     static const PdgId PI0 = 111;
     static const PdgId PIPLUS = 211;
     static const PdgId PIMINUS = -PIPLUS;
+    static const PdgId RHO0 = 113;
+    static const PdgId RHOPLUS = 213;
+    static const PdgId RHOMINUS = -RHOPLUS;
     static const PdgId K0L = 130;
     static const PdgId K0S = 310;
     static const PdgId KPLUS = 321;
@@ -96,6 +99,7 @@ namespace Rivet {
     /// @name Charm mesons
     //@{
     static const PdgId D0 = 421;
+    static const PdgId D0BAR = -421;
     static const PdgId DPLUS = 411;
     static const PdgId DMINUS = -DPLUS;
     static const PdgId DSPLUS = 431;
@@ -114,6 +118,7 @@ namespace Rivet {
     /// @name b mesons
     //@{
     static const PdgId B0 = 511;
+    static const PdgId B0BAR = -511;
     static const PdgId BPLUS = 521;
     static const PdgId BMINUS = -BPLUS;
     static const PdgId B0S = 531;
