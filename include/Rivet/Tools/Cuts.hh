@@ -68,8 +68,8 @@ namespace Rivet {
 
   /// @name Cut constructors
   //@{
-  // Cut operator == (Cuts::Quantity, double);
-  // Cut operator != (Cuts::Quantity, double);
+  Cut operator == (Cuts::Quantity, double);
+  Cut operator != (Cuts::Quantity, double);
   Cut operator <  (Cuts::Quantity, double);
   Cut operator >  (Cuts::Quantity, double);
   Cut operator <= (Cuts::Quantity, double);
@@ -77,10 +77,10 @@ namespace Rivet {
 
   /// @internal Overload helpers for integer arguments
   //@{
-  // inline Cut operator == (Cuts::Quantity qty, int i) { return qty ==  double(i); }
-  // inline Cut operator != (Cuts::Quantity qty, int i) { return qty !=  double(i); }
-  Cut operator == (Cuts::Quantity qty, int i);
-  Cut operator != (Cuts::Quantity qty, int i);
+  inline Cut operator == (Cuts::Quantity qty, int i) { return qty ==  double(i); }
+  inline Cut operator != (Cuts::Quantity qty, int i) { return qty !=  double(i); }
+  // Cut operator == (Cuts::Quantity qty, int i);
+  // Cut operator != (Cuts::Quantity qty, int i);
   inline Cut operator <  (Cuts::Quantity qty, int i) { return qty <  double(i); }
   inline Cut operator >  (Cuts::Quantity qty, int i) { return qty >  double(i); }
   inline Cut operator <= (Cuts::Quantity qty, int i) { return qty <= double(i); }
