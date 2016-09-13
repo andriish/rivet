@@ -49,24 +49,29 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop over B0bar Mesons
-      foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==-511)) {
-        if (isSemileptonicDecay(p, {211,11,-12}) || isSemileptonicDecay(p, {211,13,-14})) {
-            _h_q2_B0bar_pi->fill(q2(p,211), event.weight());
+      foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::B0BAR)) {
+        if (isSemileptonicDecay(p, {PID::PIPLUS, PID::ELECTRON, PID::NU_EBAR}) ||
+            isSemileptonicDecay(p, {PID::PIPLUS, PID::MUON,     PID::NU_MUBAR})) {
+            _h_q2_B0bar_pi->fill(q2(p, PID::PIPLUS), event.weight());
         }
-        if (isSemileptonicDecay(p, {213,11,-12}) || isSemileptonicDecay(p, {213,13,-14})) {
-            _h_q2_B0bar_rho->fill(q2(p, 213), event.weight());
+        if (isSemileptonicDecay(p, {PID::RHOPLUS, PID::ELECTRON, PID::NU_EBAR}) ||
+            isSemileptonicDecay(p, {PID::RHOPLUS, PID::MUON,     PID::NU_MUBAR})) {
+            _h_q2_B0bar_rho->fill(q2(p, PID::RHOPLUS), event.weight());
         }
       }
       // Loop over B- Mesons
-      foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==-521)) {
-        if (isSemileptonicDecay(p, {111,11,-12}) || isSemileptonicDecay(p, {111,13,-14})) {
-            _h_q2_Bminus_pi->fill(q2(p,111), event.weight());
+      foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::BMINUS)) {
+        if (isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR}) ||
+            isSemileptonicDecay(p, {PID::PI0, PID::MUON,     PID::NU_MUBAR})) {
+            _h_q2_Bminus_pi->fill(q2(p, PID::PI0), event.weight());
         }
-        if (isSemileptonicDecay(p, {113,11,-12}) || isSemileptonicDecay(p, {113,13,-14})) {
-            _h_q2_Bminus_rho->fill(q2(p,113), event.weight());
+        if (isSemileptonicDecay(p, {PID::RHO0, PID::ELECTRON, PID::NU_EBAR}) ||
+            isSemileptonicDecay(p, {PID::RHO0, PID::MUON,    PID::NU_MUBAR})) {
+            _h_q2_Bminus_rho->fill(q2(p,PID::RHO0), event.weight());
         }
-        if (isSemileptonicDecay(p, {223,11,-12}) || isSemileptonicDecay(p, {223,13,-14})) {
-            _h_q2_Bminus_omega->fill(q2(p,223), event.weight());
+        if (isSemileptonicDecay(p, {PID::OMEGA, PID::ELECTRON, PID::NU_EBAR}) ||
+            isSemileptonicDecay(p, {PID::OMEGA, PID::MUON,     PID::NU_MUBAR})) {
+            _h_q2_Bminus_omega->fill(q2(p, PID::OMEGA), event.weight());
         }
       }
     }
