@@ -4,7 +4,7 @@ Summary: 0-lepton SUSY search with 3.2/fb of 13 TeV $pp$ data
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1458270
-Status: UNVALIDATED
+Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:
