@@ -9,10 +9,6 @@ namespace Rivet {
   /// A tracker of numbers & fractions of events passing sequential cuts
   struct Cutflow {
 
-    /// @todo Also provide single-cut filling/reading by index/name
-    /// @todo Provide a Cutflows wrapper with index/name access to contained CFs and index/name all-CF filling
-    /// @todo Print total and incremental acceptance percentages
-
     /// @brief Default constructor
     ///
     /// Does nothing! Just to allow storage in STL containers and use as a member variable without using the init list
@@ -29,6 +25,8 @@ namespace Rivet {
     }
 
     /// @brief Fill the @a {icut}'th post-cut counter
+    ///
+    /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
     bool fill(size_t icut, bool cutresult) {
       if (cutresult) counts[icut+1] += 1;
       return cutresult;
@@ -40,6 +38,8 @@ namespace Rivet {
     /// state counters at once, including the incoming event counter. It must not be
     /// mixed with calls to the @c fill(size_t, bool) and @c fillinit() methods,
     /// or double-counting will occur.
+    ///
+    /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
     bool fill(const vector<bool>& cutresults) {
       if (cutresults.size() != ncuts)
         throw RangeError("Number of filled cut results needs to match the Cutflow construction");
@@ -47,7 +47,7 @@ namespace Rivet {
       for (size_t i = 0; i < ncuts; ++i) {
         if (cutresults[i]) counts[i+1] += 1; else break;
       }
-      return all(cutresults, [](const bool x){return x;});
+      return all(cutresults);
     }
 
     /// @brief Fill the N trailing post-cut counters, when supplied with an N-element results vector
@@ -55,6 +55,8 @@ namespace Rivet {
     /// The @a cutresults vector represents the boolean results of the last N cuts. This function
     /// allows mixing of cut-flow filling with higher-level analyze() function escapes such as
     /// the vetoEvent directive. The initial state (state 0) is not incremented.
+    ///
+    /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
     bool filltail(const vector<bool>& cutresults) {
       if (cutresults.size() > ncuts)
         throw RangeError("Number of filled cut results needs to match the Cutflow construction");
