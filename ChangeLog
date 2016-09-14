@@ -1,3 +1,7 @@
+2016-09-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS Run 2 0-lepton SUSY and monojet search papers (ATLAS_2016_I1452559, ATLAS_2016_I1458270)
+
 2016-09-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add experimental Cutflow and Cutflows objects for BSM cut tracking.
@@ -33,9 +37,9 @@
 
 	* Add and mark validated B0bar and Bminus-decay to pi analysis (BELLE_2013_I1238273)
 
-	* Add and mark validated B0-decay analysis                     (BELLE_2011_I878990)
+	* Add and mark validated B0-decay analysis (BELLE_2011_I878990)
 
-	* Add and mark validated B to D decay analysis                 (BELLE_2011_I878990)
+	* Add and mark validated B to D decay analysis (BELLE_2011_I878990)
 
 2016-09-08  Andy Buckley  <andy.buckley@cern.ch>
 
