@@ -274,11 +274,14 @@ EOD`
 	# linking flags needed when embedding
 	#
 	AC_MSG_CHECKING(python extra linking flags)
-	if test -z "$PYTHON_EXTRA_LIBS"; then
-		PYTHON_EXTRA_LIBS=`$PYTHON -c "import distutils.sysconfig; \
-			conf = distutils.sysconfig.get_config_var; \
-			print (conf('LINKFORSHARED'))"`
-	fi
+dnl
+dnl removed by dg to try to fix the issue described in https://trac.macports.org/ticket/39223 
+dnl
+dnl	if test -z "$PYTHON_EXTRA_LIBS"; then
+dnl		PYTHON_EXTRA_LIBS=`$PYTHON -c "import distutils.sysconfig; \
+dnl			conf = distutils.sysconfig.get_config_var; \
+dnl			print (conf('LINKFORSHARED'))"`
+dnl	fi
 	AC_MSG_RESULT([$PYTHON_EXTRA_LIBS])
 	AC_SUBST(PYTHON_EXTRA_LIBS)
 
