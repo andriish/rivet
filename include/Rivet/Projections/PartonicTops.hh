@@ -73,12 +73,12 @@ namespace Rivet {
           if (prompt_e && (_decaymode == ELECTRON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
           if (prompt_mu && (_decaymode == MUON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
           const bool prompt_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt(); });
-          const bool prompt_hadronic_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt() && none(p.children(), isChLepton); });
+          const bool prompt_hadronic_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt() && none(p.children(), isChargedLepton); });
           if (prompt_tau && (_decaymode == TAU || _decaymode == E_MU_TAU)) return (_include_hadronic_taus || !prompt_hadronic_tau);
           if (_decaymode == HADRONIC && (!prompt_e && !prompt_mu && (!prompt_tau || (_include_hadronic_taus && prompt_hadronic_tau)))) return true; //< logical hairiness...
           return false;
         };
-        ifilter_discard(_theParticles, fn);
+        ifilter_select(_theParticles, fn);
       }
     }
 
