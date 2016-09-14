@@ -18,9 +18,6 @@ namespace Rivet {
     /// @brief Enum for categorising top quark decay modes
     ///
     /// More specifically, the decay mode of the W from the top. We presume top decay to a W and b quark.
-    ///
-    /// @note E_MU mode does not include intermediate taus, while LEPTONIC does.
-    ///   Similarly the QUARKS mode does not include hadronic taus, while HADRONIC does.
     enum DecayMode { ELECTRON, MUON, TAU, E_MU, E_MU_TAU, HADRONIC, ALL };
 
 
@@ -38,8 +35,8 @@ namespace Rivet {
         _emu_from_prompt_tau(emu_from_prompt_tau), _include_hadronic_taus(include_hadronic_taus)
     {  }
 
-        /// Constructor taking decay mode details (and an optional cuts object)
-    PartonicTops(DecayMode decaymode, const Cut& c=Cuts::OPEN, bool emu_from_prompt_tau=true, bool include_hadronic_taus=false)
+    /// Constructor taking decay mode details (and an optional cuts object)
+    PartonicTops(DecayMode decaymode, const Cut& c, bool emu_from_prompt_tau=true, bool include_hadronic_taus=false)
       : ParticleFinder(c), _decaymode(decaymode),
         _emu_from_prompt_tau(emu_from_prompt_tau), _include_hadronic_taus(include_hadronic_taus)
     {  }
