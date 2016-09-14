@@ -1,3 +1,7 @@
+2016-09-14  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Explicit std::toupper and std::tolower to make clang happy
+
 2016-09-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS Run 2 0-lepton SUSY and monojet search papers (ATLAS_2016_I1452559, ATLAS_2016_I1458270)
