@@ -1,3 +1,7 @@
+2016-09-15  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add ATLAS 8TeV dijet analysis from contrib (ATLAS_2015_I1393758) 
+
 2016-09-14  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Explicit std::toupper and std::tolower to make clang happy
