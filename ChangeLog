@@ -3,6 +3,8 @@
 	* Add ATLAS 8TeV dijet analysis from contrib (ATLAS_2015_I1393758) 
 	
 	* Add ATLAS 8TeV 'number of tracks in jets' analysis from contrib (ATLAS_2016_I1419070) 
+	
+	* Add ATLAS 8TeV g->H->WW->enumunu analysis from contrib (ATLAS_2016_I1444991) 
 
 2016-09-14  Holger Schulz  <holger.schulz@cern.ch>
 
