@@ -345,7 +345,7 @@ namespace Rivet {
     /// Set the p coordinates and energy simultaneously
     FourMomentum& setPE(double px, double py, double pz, double E) {
       if (E < 0)
-        throw std::invalid_argument("Negative energy given as argument");
+        throw std::invalid_argument("Negative energy given as argument: " + to_str(E));
       setPx(px); setPy(py); setPz(pz); setE(E);
       return *this;
     }
@@ -366,11 +366,10 @@ namespace Rivet {
     /// Set the p coordinates and mass simultaneously
     FourMomentum& setPM(double px, double py, double pz, double mass) {
       if (mass < 0)
-        throw std::invalid_argument("Negative mass given as argument");
-      setPx(px); setPy(py); setPz(pz);
-      const double E = sqrt( sqr(mass) + p2() );
-      setE(E);
-      return *this;
+        throw std::invalid_argument("Negative mass given as argument: " + to_str(mass));
+      const double E = sqrt( sqr(mass) + sqr(px) + sqr(py) + sqr(pz) );
+      // setPx(px); setPy(py); setPz(pz); setE(E);
+      return setPE(px, py, pz, E);
     }
     /// Alias for setPM
     FourMomentum& setXYZM(double px, double py, double pz, double mass) {

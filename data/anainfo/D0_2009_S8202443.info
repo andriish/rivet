@@ -4,6 +4,7 @@ Summary: $Z/\gamma^*$ + jet + $X$ cross sections differential in pT(jet 1,2,3)
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 8202443
+InspireID: 815094
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

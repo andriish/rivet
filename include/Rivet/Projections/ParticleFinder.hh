@@ -3,7 +3,6 @@
 #define RIVET_ParticleFinder_HH
 
 #include "Rivet/Projection.hh"
-#include "Rivet/Cuts.hh"
 
 namespace Rivet {
 
@@ -16,7 +15,7 @@ namespace Rivet {
     //@{
 
     /// Construction using Cuts object
-    ParticleFinder(const Cut& c=Cuts::open())
+    ParticleFinder(const Cut& c=Cuts::OPEN)
       : _cuts(c), _theParticles()
     { }
 

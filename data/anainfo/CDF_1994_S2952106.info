@@ -4,6 +4,7 @@ Summary: CDF Run I color coherence analysis.
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 2952106
+InspireID: 374155
 Status: VALIDATED
 Authors:
  - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>

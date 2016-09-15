@@ -4,6 +4,7 @@ Summary: Studies of QCD with the ALEPH detector.
 Experiment: ALEPH
 Collider: LEP 1
 SpiresID: 3486095
+InspireID: 428072
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

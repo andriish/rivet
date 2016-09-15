@@ -4,6 +4,7 @@ Summary: Measurement of the quark to photon fragmentation function
 Experiment: ALEPH
 Collider: LEP Run 1
 SpiresID: 3196992
+InspireID: 398193
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

@@ -8,7 +8,7 @@
 #include "HepMC/GenRanges.h"
 #include "HepMC/IO_GenEvent.h"
 #include "Rivet/Tools/RivetSTL.hh"
-#include "Rivet/Exceptions.hh"
+#include "Rivet/Tools/Exceptions.hh"
 
 namespace Rivet {
 
@@ -17,8 +17,18 @@ namespace Rivet {
   using HepMC::GenParticle;
   using HepMC::GenVertex;
 
+  #if HEPMC_VERSION_CODE >= 2007000
+  using HepMC::GenEventPtr;
+  using HepMC::GenParticlePtr;
+  using HepMC::GenVertexPtr;
+  #else
+  typedef GenEvent* GenEventPtr;
+  typedef GenParticle* GenParticlePtr;
+  typedef GenVertex* GenVertexPtr;
+  #endif
 
-  /// @todo Use mcutils
+
+  /// @todo Use mcutils?
 
 
   inline std::vector<GenParticle const *> particles(const GenEvent* ge) {

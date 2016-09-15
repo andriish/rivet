@@ -4,7 +4,6 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/VectorN.hh"
-#include <cfloat>
 
 namespace Rivet {
 

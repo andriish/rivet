@@ -4,6 +4,7 @@ Summary: UA5 charged multiplicity measurements
 Experiment: UA5
 Collider: CERN SPS
 SpiresID: 1926373
+InspireID: 267179
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

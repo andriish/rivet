@@ -53,25 +53,26 @@ namespace Rivet {
       if (get_address(_smearFn) == 0) return UNDEFINED;
       MSG_TRACE("Eff hashes = " << get_address(_effFn) << "," << get_address(other._effFn) << "; " <<
                 "smear hashes = " << get_address(_smearFn) << "," << get_address(other._smearFn));
-      return cmp(get_address(_effFn), get_address(other._effFn)) || cmp(get_address(_smearFn), get_address(other._smearFn));
+      return mkPCmp(other, "TruthParticles") ||
+        cmp(get_address(_effFn), get_address(other._effFn)) ||
+        cmp(get_address(_smearFn), get_address(other._smearFn));
     }
 
 
     /// Perform the particle finding & smearing calculation
     void project(const Event& e) {
       // Copying and filtering
-      const Particles& truthparticles = applyProjection<ParticleFinder>(e, "TruthParticles").particlesByPt();
+      const Particles& truthparticles = apply<ParticleFinder>(e, "TruthParticles").particlesByPt();
       _theParticles.clear(); _theParticles.reserve(truthparticles.size());
       for (const Particle& p : truthparticles) {
-        const double peff = (_effFn) ? _effFn(p) : 1;
+        const double peff = _effFn ? _effFn(p) : 1;
         MSG_DEBUG("Efficiency of particle with pid=" << p.pid()
                   << ", mom=" << p.mom()/GeV << " GeV, "
                   << "pT=" << p.pT()/GeV << ", eta=" << p.eta()
                   << " : " << 100*peff << "%");
-        if (peff == 0) continue; //< no need to roll expensive dice
-        if (peff == 1 || rand01() < peff) {
-          _theParticles.push_back(_smearFn ? _smearFn(p) : p); //< smearing
-        }
+        if (peff <= 0) continue; //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
+        if (peff < 1 && rand01() > peff) continue; //< roll dice (and deal with >1 probabilities, just in case)
+        _theParticles.push_back(_smearFn ? _smearFn(p) : p); //< smearing
       }
     }
 

@@ -9,6 +9,7 @@ RunInfo:
   $e^+ e^-$ analysis near the $\Upsilon(4S)$ resonance.
 NumEvents: 1000000
 SpiresID: 2669951
+InspireID: 342061
 Beams: [e+, e-]
 Energies: [9.46,10.02,10.45]
 PtCuts: [0]

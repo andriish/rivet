@@ -4,6 +4,7 @@ Summary: $K^{*0}$ meson production measured by OPAL at LEP 1.
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3608263
+InspireID: 447146
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

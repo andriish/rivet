@@ -4,6 +4,7 @@ Summary: 1-lepton and 2-lepton search for first or second generation leptoquarks
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 9041966
+InspireID: 897002
 Status: OBSOLETE
 Authors:
  - Angela Chen <aqchen@fas.harvard.edu>

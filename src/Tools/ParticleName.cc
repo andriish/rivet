@@ -1,4 +1,4 @@
-#include "Rivet/ParticleName.hh"
+#include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Tools/Utils.hh"
 
 namespace Rivet {

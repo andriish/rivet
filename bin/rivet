@@ -211,11 +211,14 @@ except:
 ## Override/modify analysis search path
 if opts.ANALYSIS_PATH:
     rivet.setAnalysisLibPaths(opts.ANALYSIS_PATH.split(":"))
+    rivet.setAnalysisDataPaths(opts.ANALYSIS_PATH.split(":"))
 if opts.ANALYSIS_PATH_APPEND:
     for ap in opts.ANALYSIS_PATH_APPEND.split(":"):
         rivet.addAnalysisLibPath(ap)
+        rivet.addAnalysisDataPath(ap)
 if opts.ANALYSIS_PATH_PWD:
-    rivet.addAnalysisLibPath(".")
+    rivet.addAnalysisLibPath(os.path.abspath("."))
+    rivet.addAnalysisDataPath(os.path.abspath("."))
 
 
 ## List of analyses
@@ -330,7 +333,7 @@ if len(opts.SHOW_ANALYSES) > 0:
             msg += "Beams:" + ", ".join(beamstrs) + "\n"
 
         if ana.requiredEnergies():
-            msg += "Beam energies: %s GeV\n" + "; ".join(["(%0.1f, %0.1f)" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
+            msg += "Beam energies:" + "; ".join(["(%0.1f, %0.1f) GeV\n" % (epair[0], epair[1]) for epair in ana.requiredEnergies()])
         else:
             msg += "Beam energies: ANY\n"
 
@@ -522,11 +525,13 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
     logging.info(msg)
 
     ## The event loop
-    while opts.MAXEVTNUM is None or evtnum-opts.EVTSKIPNUM <= opts.MAXEVTNUM:
+    while opts.MAXEVTNUM is None or evtnum-opts.EVTSKIPNUM < opts.MAXEVTNUM:
         evtnum += 1
 
         ## Optional event skipping
         if evtnum <= opts.EVTSKIPNUM:
+            logging.debug("Skipping event #%i" % evtnum)
+            run.skipEvent();
             continue
 
         ## Only log the event number once we're actually processing

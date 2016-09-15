@@ -4,6 +4,7 @@ Summary: Strange baryon production in $Z$ hadronic decays at Delphi
 Experiment: DELPHI
 Collider: LEP 1
 SpiresID: 3137023
+InspireID: 394716
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

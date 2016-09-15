@@ -4,6 +4,7 @@ Summary: Isolated $\gamma$ + jet cross-sections, differential in pT($\gamma$) fo
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 7719523
+InspireID: 782968
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

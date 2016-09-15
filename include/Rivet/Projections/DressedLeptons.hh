@@ -2,14 +2,10 @@
 #ifndef RIVET_DressedLeptons_HH
 #define RIVET_DressedLeptons_HH
 
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Particle.hh"
-#include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
-#include "Rivet/Cuts.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
+#include "Rivet/Config/RivetCommon.hh"
 
 namespace Rivet {
 

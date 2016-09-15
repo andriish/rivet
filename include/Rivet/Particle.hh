@@ -5,6 +5,7 @@
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/Utils.hh"
 #include "Rivet/Math/LorentzTrans.hh"
 // NOTE: Rivet/Tools/ParticleUtils.hh included at the end
@@ -148,12 +149,18 @@ namespace Rivet {
     /// The charge of this Particle.
     double charge() const { return PID::charge(pid()); }
 
+    /// The absolute charge of this Particle.
+    double abscharge() const { return PID::abscharge(pid()); }
+
     /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
     int charge3() const { return PID::charge3(pid()); }
 
     /// Alias for charge3
     /// @deprecated Use charge3
     int threeCharge() const { return PID::threeCharge(pid()); }
+
+    /// Three times the absolute charge of this Particle (i.e. integer multiple of smallest quark charge).
+    int abscharge3() const { return PID::abscharge3(pid()); }
 
     /// Is this a hadron?
     bool isHadron() const { return PID::isHadron(pid()); }
@@ -188,7 +195,7 @@ namespace Rivet {
     /// @name Ancestry properties
     //@{
 
-    /// Check whether a given PID is found in the GenParticle's ancestor list
+    /// Check whether a given PID is found in the particle's ancestor list
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
@@ -253,6 +260,11 @@ namespace Rivet {
     /// experimental analyses!
     bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
+    /// @brief Shorthand definition of 'promptness' based on set definition flags
+    ///
+    /// @note This one doesn't make any judgements about final-stateness
+    bool isPrompt(bool from_prompt_tau=false, bool from_prompt_mu=false) const;
+
     //@}
 
 
@@ -262,16 +274,44 @@ namespace Rivet {
     /// Whether this particle is stable according to the generator
     bool isStable() const;
 
-    /// Get a list of the direct descendants from the current particle
-    Particles children() const;
+    /// Get a list of the direct parents of the current particle (with optional selection Cut)
+    Particles parents(const Cut& c=Cuts::OPEN) const;
 
-    /// Get a list of all the descendants (including duplication of parents and children) from the current particle
-    Particles allDescendants() const;
+    /// Get a list of the direct parents of the current particle (with selector function)
+    template <typename FN>
+    Particles parents(const FN& f) const {
+      return filter_select(parents(), f);
+    }
 
-    /// Get a list of all the stable descendants from the current particle
+    /// Get a list of the direct descendants from the current particle (with optional selection Cut)
+    Particles children(const Cut& c=Cuts::OPEN) const;
+
+    /// Get a list of the direct descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles children(const FN& f) const {
+      return filter_select(children(), f);
+    }
+
+    /// Get a list of all the descendants from the current particle (with optional selection Cut)
+    Particles allDescendants(const Cut& c=Cuts::OPEN, bool remove_duplicates=true) const;
+
+    /// Get a list of all the descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles allDescendants(const FN& f, bool remove_duplicates=true) const {
+      return filter_select(allDescendants(Cuts::OPEN, remove_duplicates), f);
+    }
+
+    /// Get a list of all the stable descendants from the current particle (with optional selection Cut)
+    ///
     /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
     /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-    Particles stableDescendants() const;
+    Particles stableDescendants(const Cut& c=Cuts::OPEN) const;
+
+    /// Get a list of all the stable descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles stableDescendants(const FN& f) const {
+      return filter_select(stableDescendants(), f);
+    }
 
     /// Flight length (divide by mm or cm to get the appropriate units)
     double flightLength() const;
@@ -296,34 +336,20 @@ namespace Rivet {
   };
 
 
-  /// @brief Decide if a given particle is prompt based on set definition flags
-  ///
-  /// @note This one doesn't make any judgements about final-stateness
-
-  bool isPrompt(const Particle& p, bool inclprompttaudecays=false, bool inclpromptmudecays=false);
-
-
-  /// @name Unbound functions for filtering particles
+  /// @name String representation and streaming support
   //@{
 
-  /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Particles& filterBy(Particles& particles, const Cut& c);
+  /// Represent a Particle as a string.
+  std::string to_str(const Particle& p);
 
-  /// Get a subset of the supplied particles that passes the supplied Cut
-  Particles filterBy(const Particles& particles, const Cut& c);
-
-  //@}
-
-
-  /// @name Particle pair functions
-  //@{
-
-  /// Get the PDG ID codes of a ParticlePair
-  inline PdgIdPair pids(const ParticlePair& pp) {
-    return make_pair(pp.first.pid(), pp.second.pid());
+  /// Allow a Particle to be passed to an ostream.
+  inline std::ostream& operator<<(std::ostream& os, const Particle& p) {
+    os << to_str(p);
+    return os;
   }
 
-  /// Print a ParticlePair as a string.
+
+  /// Represent a ParticlePair as a string.
   std::string to_str(const ParticlePair& pair);
 
   /// Allow ParticlePair to be passed to an ostream.

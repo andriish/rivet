@@ -2,10 +2,10 @@
 #define RIVET_PARTICLEUTILS_HH
 
 #include "Rivet/Particle.hh"
+#include "Rivet/Tools/ParticleBaseUtils.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
 // Macros to map Rivet::Particle functions to PID:: functions of the same name
-/// @todo Can leave return type out of the macro and put that on each line where it's used?
 #define PARTICLE_TO_PID_BOOLFN(fname) inline bool fname (const Particle& p) { return PID:: fname (p.pid()); }
 #define PARTICLE_TO_PID_INTFN(fname) inline int fname (const Particle& p) { return PID:: fname (p.pid()); }
 #define PARTICLE_TO_PID_DBLFN(fname) inline double fname (const Particle& p) { return PID:: fname (p.pid()); }
@@ -15,6 +15,13 @@ namespace Rivet {
 
   /// @name Particle classifier functions
   //@{
+
+  /// Unbound function access to PID code
+  inline int pid(const Particle& p) { return p.pid(); }
+
+  /// Unbound function access to abs PID code
+  inline int abspid(const Particle& p) { return p.abspid(); }
+
 
   /// Is this particle species charged?
   PARTICLE_TO_PID_BOOLFN(isCharged)
@@ -27,6 +34,7 @@ namespace Rivet {
   PARTICLE_TO_PID_BOOLFN(isNeutrino)
 
   /// Determine if the PID is that of a charged lepton
+  PARTICLE_TO_PID_BOOLFN(isChargedLepton)
   PARTICLE_TO_PID_BOOLFN(isChLepton)
 
   /// Determine if the PID is that of a photon
@@ -72,6 +80,15 @@ namespace Rivet {
 
   /// Determine if the PID is that of an SM/lightest SUSY Higgs
   PARTICLE_TO_PID_BOOLFN(isHiggs)
+
+  /// Determine if the PID is that of an s/sbar
+  PARTICLE_TO_PID_BOOLFN(isStrange)
+
+  /// Determine if the PID is that of a c/cbar
+  PARTICLE_TO_PID_BOOLFN(isCharm)
+
+  /// Determine if the PID is that of a b/bbar
+  PARTICLE_TO_PID_BOOLFN(isBottom)
 
   /// Determine if the PID is that of a t/tbar
   PARTICLE_TO_PID_BOOLFN(isTop)
@@ -282,7 +299,81 @@ namespace Rivet {
   //@}
 
 
-  /// @name Particle classifying functors
+
+  //////////////////////////////////////
+
+
+
+  /// @name Non-PID particle properties, via unbound functions
+  //@{
+
+  /// Is this particle potentially visible in a detector?
+  inline bool isVisible(const Particle& p) { return p.isVisible(); }
+
+  /// Decide if a given particle is prompt, via Particle::isPrompt()
+  inline bool isPrompt(const Particle& p, bool from_prompt_tau=false, bool from_prompt_mu=false) {
+    return p.isPrompt(from_prompt_tau, from_prompt_mu);
+  }
+
+  /// Decide if a given particle is stable, via Particle::isStable()
+  inline bool isStable(const Particle& p) { return p.isStable(); }
+
+  /// Check whether a given PID is found in the particle's ancestor list
+  inline bool hasAncestor(const Particle& p, PdgId pid)  { return p.hasAncestor(pid); }
+
+  /// Determine whether the particle is from a b-hadron decay
+  inline bool fromBottom(const Particle& p) { return p.fromBottom(); }
+
+  /// @brief Determine whether the particle is from a c-hadron decay
+  inline bool fromCharm(const Particle& p) { return p.fromCharm(); }
+
+  /// @brief Determine whether the particle is from a hadron decay
+  inline bool fromHadron(const Particle& p) { return p.fromHadron(); }
+
+  /// @brief Determine whether the particle is from a tau decay
+  inline bool fromTau(const Particle& p, bool prompt_taus_only=false) {
+    return p.fromTau(prompt_taus_only);
+  }
+
+  /// @brief Determine whether the particle is from a prompt tau decay
+  inline bool fromPromptTau(const Particle& p) { return p.fromPromptTau(); }
+
+  /// @brief Determine whether the particle is from a hadron or tau decay
+  inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
+
+
+  /// @brief Determine whether a particle is the first in a decay chain to meet the function requirement
+  template <typename FN>
+  inline bool isFirstWith(const Particle& p, const FN& f) {
+    if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
+    if (any(p.parents(), f)) return false; //< If a direct parent has this property, this isn't the first
+    return true;
+  }
+
+  /// @brief Determine whether a particle is the first in a decay chain not to meet the function requirement
+  template <typename FN>
+  inline bool isFirstWithout(const Particle& p, const FN& f) {
+    return isFirstWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
+  /// @brief Determine whether a particle is the last in a decay chain to meet the function requirement
+  template <typename FN>
+  inline bool isLastWith(const Particle& p, const FN& f) {
+    if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
+    if (any(p.children(), f)) return false; //< If a child has this property, this isn't the last
+    return true;
+  }
+
+  /// @brief Determine whether a particle is the last in a decay chain not to meet the function requirement
+  template <typename FN>
+  inline bool isLastWithout(const Particle& p, const FN& f) {
+    return isLastWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
+  //@}
+
+
+  /// @name Particle classifier -> bool functors
   ///
   /// To be passed to any() or all() e.g. any(p.children(), HasPID(PID::MUON))
   //@{
@@ -292,12 +383,14 @@ namespace Rivet {
     virtual bool operator()(const Particle& p) const = 0;
   };
 
+
   /// PID matching functor
   struct HasPID : public BoolParticleFunctor {
     HasPID(PdgId pid) : targetpid(pid) { }
     bool operator()(const Particle& p) const { return p.pid() == targetpid; }
     PdgId targetpid;
   };
+  using hasPID = HasPID;
 
   /// |PID| matching functor
   struct HasAbsPID : public BoolParticleFunctor {
@@ -305,6 +398,108 @@ namespace Rivet {
     bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
     PdgId targetpid;
   };
+  using hasAbsPID = HasAbsPID;
+
+
+  /// Determine whether a particle is the first in a decay chain to meet the cut/function
+  struct FirstParticleWith : public BoolParticleFunctor {
+    template <typename FN>
+    FirstParticleWith(const FN& f) : fn(f) { }
+    FirstParticleWith(const Cut& c);
+    bool operator()(const Particle& p) const { return isFirstWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using firstParticleWith = FirstParticleWith;
+
+  /// Determine whether a particle is the first in a decay chain not to meet the cut/function
+  struct FirstParticleWithout : public BoolParticleFunctor {
+    template <typename FN>
+    FirstParticleWithout(const FN& f) : fn(f) { }
+    FirstParticleWithout(const Cut& c);
+    bool operator()(const Particle& p) const { return isFirstWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using firstParticleWithout = FirstParticleWithout;
+
+
+  /// Determine whether a particle is the last in a decay chain to meet the cut/function
+  struct LastParticleWith : public BoolParticleFunctor {
+    template <typename FN>
+    LastParticleWith(const FN& f) : fn(f) { }
+    LastParticleWith(const Cut& c);
+    bool operator()(const Particle& p) const { return isLastWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using lastParticleWith = LastParticleWith;
+
+  /// Determine whether a particle is the last in a decay chain not to meet the cut/function
+  struct LastParticleWithout : public BoolParticleFunctor {
+    template <typename FN>
+    LastParticleWithout(const FN& f) : fn(f) { }
+    LastParticleWithout(const Cut& c);
+    bool operator()(const Particle& p) const { return isLastWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using lastParticleWithout = LastParticleWithout;
+
+  //@}
+
+
+  /// @name Unbound functions for filtering particles
+  //@{
+
+  /// Filter a particle collection in-place to the subset that passes the supplied Cut
+  Particles& ifilter_select(Particles& particles, const Cut& c);
+  /// Alias for ifilter_select
+  /// @deprecated Use ifilter_select
+  inline Particles& ifilterBy(Particles& particles, const Cut& c) { return ifilter_select(particles, c); }
+
+  /// Filter a particle collection in-place to the subset that passes the supplied Cut
+  inline Particles filter_select(const Particles& particles, const Cut& c) {
+    Particles rtn = particles;
+    return ifilter_select(rtn, c);
+  }
+  /// Alias for ifilter_select
+  /// @deprecated Use filter_select
+  inline Particles filterBy(const Particles& particles, const Cut& c) { return filter_select(particles, c); }
+
+  /// Filter a particle collection in-place to the subset that passes the supplied Cut
+  inline Particles filter_select(const Particles& particles, const Cut& c, Particles& out) {
+    out = filter_select(particles, c);
+    return out;
+  }
+  /// Alias for ifilter_select
+  /// @deprecated Use filter_select
+  inline Particles filterBy(const Particles& particles, const Cut& c, Particles& out) { return filter_select(particles, c, out); }
+
+
+  /// Filter a particle collection in-place to the subset that fails the supplied Cut
+  Particles& ifilter_discard(Particles& particles, const Cut& c);
+
+  /// Filter a particle collection in-place to the subset that fails the supplied Cut
+  inline Particles filter_discard(const Particles& particles, const Cut& c) {
+    Particles rtn = particles;
+    return ifilter_discard(rtn, c);
+  }
+
+  /// Filter a particle collection in-place to the subset that fails the supplied Cut
+  inline Particles filter_discard(const Particles& particles, const Cut& c, Particles& out) {
+    out = filter_discard(particles, c);
+    return out;
+  }
+
+  //@}
+
+
+
+  /// @name Particle pair functions
+  //@{
+
+  /// Get the PDG ID codes of a ParticlePair
+  /// @todo Make ParticlePair a custom class instead?
+  inline PdgIdPair pids(const ParticlePair& pp) {
+    return make_pair(pp.first.pid(), pp.second.pid());
+  }
 
   //@}
 

@@ -77,16 +77,14 @@ namespace Rivet {
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fast_jets.clusterSeqArea();
       for (const Jet& jet : fast_jets.jets()) {
         const double area = clust_seq_area->area(jet); //< Implicit call to .pseudojet()
-        /// @todo Should be 1e-4?
-        if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back())
+        if (area > 1e-4 && jet.abseta() < _eta_bins_areaoffset.back())
           ptDensities.at( _getEtaBin(jet.abseta(), true) ).push_back(jet.pT()/area);
       }
 
       // Compute the median energy density, etc.
       vector<double> ptDensity;
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; b++) {
-        const double ptmedian = (!ptDensities[b].empty()) ? median(ptDensities[b]) : 0;
-        ptDensity.push_back(ptmedian);
+        ptDensity += ptDensities[b].empty() ? 0 : median(ptDensities[b]);
       }
 
       // Compute the isolation energy correction (cone area*energy density)

@@ -92,8 +92,7 @@ namespace Rivet {
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fastjets.clusterSeqArea();
       for (const Jet& jet : fastjets.jets()) {
         const double area = clust_seq_area->area(jet); //< Implicit call to pseudojet()
-        /// @todo Should be 1e-4?
-        if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
+        if (area > 1e-4 && jet.abseta() < _eta_bins_areaoffset.back()) {
           ptDensities.at(getEtaBin(jet.abseta(), 2)) += jet.pT()/area;
         }
       }

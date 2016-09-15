@@ -4,6 +4,7 @@ Summary: Measurement of the Z pT with electrons and muons at 7 TeV
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 9131140
+InspireID: 917931
 Status: VALIDATED
 Authors:
  - Elena Yatsenko <elena.yatsenko@desy.de>

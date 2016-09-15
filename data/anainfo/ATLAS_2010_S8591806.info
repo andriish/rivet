@@ -4,6 +4,7 @@ Summary: Charged particles at 900 GeV in ATLAS
 Experiment: ATLAS
 Collider: LHC 900GeV
 SpiresID: 8591806
+InspireID: 849050
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

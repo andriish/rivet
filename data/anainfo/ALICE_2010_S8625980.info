@@ -4,6 +4,7 @@ Summary: Pseudorapidities at three energies, charged multiplicity at 7 TeV.
 Experiment: ALICE
 Collider: LHC
 SpiresID: 8625980
+InspireID: 852264
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

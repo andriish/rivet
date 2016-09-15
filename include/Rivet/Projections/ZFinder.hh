@@ -15,6 +15,7 @@ namespace Rivet {
   /// from two leptons in the final state, including photon clustering.
   ///
   /// @todo Inherit directly from ParticleFinder, not FinalState
+  /// @todo Alias then rename as Dileptons
   class ZFinder : public FinalState {
   public:
 

@@ -4,6 +4,7 @@ Summary: $Z/\gamma^* + X$ cross-section shape, differential in $pT(Z)$
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 7554427
+InspireID: 769689
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

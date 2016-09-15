@@ -4,6 +4,7 @@ Summary: Production of $f_0(980)$, $f_2(1270)$ and $\phi(1020)$ in hadronic $Z^0
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3702294
+InspireID: 467092
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

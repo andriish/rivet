@@ -89,8 +89,7 @@ namespace Rivet {
       // Compute the median energy density, etc.
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; ++b) {
         const int njets = ptDensities[b].size();
-        const double ptmedian = (njets > 0) ? median(ptDensities[b]) : 0.0;
-        ptDensity.push_back(ptmedian);
+        ptDensity += (njets > 0) ? median(ptDensities[b]) : 0.0;
       }
       // Compute the isolation energy correction (cone area*energy density)
       const double etCone_area = PI * sqr(0.4);

@@ -4,6 +4,7 @@ Summary: H1 energy flow and charged particle spectra in DIS
 Experiment: H1
 Collider: HERA
 SpiresID: 2919893
+InspireID: 372350
 Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>

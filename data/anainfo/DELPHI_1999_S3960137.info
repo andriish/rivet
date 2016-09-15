@@ -4,6 +4,7 @@ Summary: Measurement of inclusive $\rho^0$, $f_0(980)$, $f_2(1270)$, $K^{*0}_2(1
 Experiment: DELPHI
 Collider: LEP 1
 SpiresID: 3960137
+InspireID: 482816
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

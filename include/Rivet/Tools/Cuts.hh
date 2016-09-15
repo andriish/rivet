@@ -1,7 +1,7 @@
 #ifndef RIVET_Cuts_HH
 #define RIVET_Cuts_HH
 
-#include "Rivet/Cuts.fhh"
+#include "Rivet/Tools/Cuts.fhh"
 #include <memory>
 
 namespace Rivet {
@@ -10,15 +10,24 @@ namespace Rivet {
   class CutBase {
   public:
 
-    /// Main work method.
+    /// Main work method, checking whether the cut is passed
     /// @internal Forwards the received object to @ref accept_, wrapped in the Cuttable converter
-    template <typename ClassToCheck> bool accept(const ClassToCheck&) const;
+    template <typename ClassToCheck>
+    bool accept(const ClassToCheck&) const;
+
+    /// @brief Call operator alias for @a accept
+    /// @note A bit subtle, because this gets wrapped in a shared_ptr so you need to dereference to get the functor
+    template <typename ClassToCheck>
+    bool operator () (const ClassToCheck& x) const { return accept(x); }
+
     /// Comparison to another Cut
-    virtual bool operator==(const Cut&) const = 0;
+    virtual bool operator == (const Cut&) const = 0;
+
     /// Default destructor
     virtual ~CutBase() {}
 
   protected:
+
     /// @internal Actual accept implementation, overloadable by various cut combiners
     virtual bool _accept(const CuttableBase&) const = 0;
 
@@ -33,7 +42,8 @@ namespace Rivet {
   namespace Cuts {
 
     /// Available categories of cut objects
-    enum Quantity { pT=0, pt=0, Et=1, et=1, mass, rap, absrap, eta, abseta, phi };
+    enum Quantity { pT=0, pt=0, Et=1, et=1, mass, rap, absrap, eta, abseta, phi,
+                    pid, abspid, charge, abscharge, charge3, abscharge3 };
 
     /// Fully open cut singleton, accepts everything
     const Cut& open(); //< access by factory function
@@ -58,13 +68,19 @@ namespace Rivet {
 
   /// @name Cut constructors
   //@{
-  Cut operator < (Cuts::Quantity, double);
-  Cut operator > (Cuts::Quantity, double);
+  Cut operator == (Cuts::Quantity, double);
+  Cut operator != (Cuts::Quantity, double);
+  Cut operator <  (Cuts::Quantity, double);
+  Cut operator >  (Cuts::Quantity, double);
   Cut operator <= (Cuts::Quantity, double);
   Cut operator >= (Cuts::Quantity, double);
 
   /// @internal Overload helpers for integer arguments
   //@{
+  inline Cut operator == (Cuts::Quantity qty, int i) { return qty ==  double(i); }
+  inline Cut operator != (Cuts::Quantity qty, int i) { return qty !=  double(i); }
+  // Cut operator == (Cuts::Quantity qty, int i);
+  // Cut operator != (Cuts::Quantity qty, int i);
   inline Cut operator <  (Cuts::Quantity qty, int i) { return qty <  double(i); }
   inline Cut operator >  (Cuts::Quantity qty, int i) { return qty >  double(i); }
   inline Cut operator <= (Cuts::Quantity qty, int i) { return qty <= double(i); }

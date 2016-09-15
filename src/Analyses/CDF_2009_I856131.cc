@@ -7,15 +7,15 @@ namespace Rivet {
 
 
   /// @brief CDF Z boson rapidity measurement
-  class CDF_2009_S8383952 : public Analysis {
+  class CDF_2009_I856131 : public Analysis {
   public:
 
     /// @name Constructors etc.
     //@{
 
     /// Constructor
-    CDF_2009_S8383952()
-      : Analysis("CDF_2009_S8383952")
+    CDF_2009_I856131()
+      : Analysis("CDF_2009_I856131")
     {    }
 
     //@}
@@ -82,6 +82,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(CDF_2009_S8383952);
+  DECLARE_RIVET_PLUGIN(CDF_2009_I856131);
 
 }

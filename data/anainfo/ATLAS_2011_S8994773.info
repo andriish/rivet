@@ -4,6 +4,7 @@ Summary: Calo-based underlying event at 900 GeV and 7 TeV in ATLAS
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 8994773
+InspireID: 891834
 Status: VALIDATED
 Authors:
  - Jinlong Zhang <jinlong@mail.cern.ch>

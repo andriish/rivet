@@ -1,8 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/ProjectionHandler.hh"
-#include "Rivet/Cmp.hh"
+#include "Rivet/Tools/Cmp.hh"
 #include <algorithm>
 
 namespace {
@@ -79,19 +78,19 @@ namespace Rivet {
                                                  const string& name)
   {
     // here we take ownership of the projection
-    getLog() << Log::TRACE << "Registering new projection at " << p.get() 
+    getLog() << Log::TRACE << "Registering new projection at " << p.get()
       << ". Starting refcount: " << p.use_count() << endl;
 
     // Add the passed Projection to _projs
 
     _projs.insert(p);
-    getLog() << Log::TRACE 
+    getLog() << Log::TRACE
       << "** inserted " << p.get() << " to lookup. Refcount: " << p.use_count() << endl;
 
 
     // Add the ProjApplier* => name location to the associative container
     _namedprojs[&parent][name] = p;
-    getLog() << Log::TRACE 
+    getLog() << Log::TRACE
       << "** created " << &parent << " -> (" << name << ',' <<
                                             p.get() << "). Refcount: " << p.use_count() << endl;
 
@@ -193,7 +192,7 @@ namespace Rivet {
     //
     auto pAsProj = dynamic_cast<Projection*>(&parent);
     if (pAsProj) {
-      auto pi = find_if(_projs.begin(), _projs.end(), 
+      auto pi = find_if(_projs.begin(), _projs.end(),
                         [pAsProj](ProjHandle h)->bool { return h.get() == pAsProj; } );
       if (pi != _projs.end()) {
           getLog() << Log::TRACE << "REMOVE Projection at "

@@ -1,7 +1,7 @@
+// -*- C++ -*-
 #include "Rivet/Event.hh"
-#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "Rivet/BeamConstraint.hh"
 #include "HepMC/GenEvent.h"
 
 namespace Rivet {

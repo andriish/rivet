@@ -4,6 +4,7 @@ Summary: Inclusive jet cross section differential in pT
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 6450792
+InspireID: 699933
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
