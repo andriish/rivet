@@ -1,3 +1,7 @@
+2016-09-16  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add ATLAS 8TeV ttbar analysis from contrib (ATLAS_2015_I1404878)
+
 2016-09-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add particles(GenParticlePtr) to RivetHepMC.hh
