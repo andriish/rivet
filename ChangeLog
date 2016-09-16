@@ -1,10 +1,16 @@
+2016-09-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add particles(GenParticlePtr) to RivetHepMC.hh
+
+	* Add hasParent, hasParentWith, and hasAncestorWith to Particle.
+
 2016-09-15  Holger Schulz  <holger.schulz@cern.ch>
 
-	* Add ATLAS 8TeV dijet analysis from contrib (ATLAS_2015_I1393758) 
-	
-	* Add ATLAS 8TeV 'number of tracks in jets' analysis from contrib (ATLAS_2016_I1419070) 
-	
-	* Add ATLAS 8TeV g->H->WW->enumunu analysis from contrib (ATLAS_2016_I1444991) 
+	* Add ATLAS 8TeV dijet analysis from contrib (ATLAS_2015_I1393758)
+
+	* Add ATLAS 8TeV 'number of tracks in jets' analysis from contrib (ATLAS_2016_I1419070)
+
+	* Add ATLAS 8TeV g->H->WW->enumunu analysis from contrib (ATLAS_2016_I1444991)
 
 2016-09-14  Holger Schulz  <holger.schulz@cern.ch>
 

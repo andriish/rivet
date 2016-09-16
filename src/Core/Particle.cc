@@ -126,62 +126,78 @@ namespace Rivet {
   }
 
 
-  /// @todo Neaten this up with C++11, via one walker function and several uses with lamba tests
+  bool Particle::hasParent(PdgId pid) const {
+    return _hasRelativeWith(HepMC::parents, hasPID(pid));
+  }
+
+  bool Particle::hasParentWith(const Cut& c) const {
+    return hasParentWith([&](const Particle& p){return c->accept(p);});
+  }
 
 
   bool Particle::hasAncestor(PdgId pid) const {
-    const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == NULL) return false;
-    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-      if (ancestor->pdg_id() == pid) return true;
-    }
-    return false;
+    return _hasRelativeWith(HepMC::ancestors, hasPID(pid));
+  }
+
+  bool Particle::hasAncestorWith(const Cut& c) const {
+    return hasAncestorWith([&](const Particle& p){return c->accept(p);});
   }
 
 
   bool Particle::fromBottom() const {
-    const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == NULL) return false;
-    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-      const PdgId pid = ancestor->pdg_id();
-      if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasBottom(pid))) return true;
-    }
-    return false;
+    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+        return p.genParticle()->status() == 2 && p.isHadron() && p.hasBottom();
+      });
+    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
+    // if (prodVtx == NULL) return false;
+    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
+    //   const PdgId pid = ancestor->pdg_id();
+    //   if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasBottom(pid))) return true;
+    // }
+    // return false;
   }
 
 
   bool Particle::fromCharm() const {
-    const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == NULL) return false;
-    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-      const PdgId pid = ancestor->pdg_id();
-      if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasCharm(pid) && !PID::hasBottom(pid))) return true;
-    }
-    return false;
+    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+        return p.genParticle()->status() == 2 && p.isHadron() && p.hasCharm();
+      });
+    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
+    // if (prodVtx == NULL) return false;
+    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
+    //   const PdgId pid = ancestor->pdg_id();
+    //   if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasCharm(pid) && !PID::hasBottom(pid))) return true;
+    // }
+    // return false;
   }
 
 
-
   bool Particle::fromHadron() const {
-    const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == NULL) return false;
-    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-      const PdgId pid = ancestor->pdg_id();
-      if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
-    }
-    return false;
+    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+        return p.genParticle()->status() == 2 && p.isHadron();
+      });
+    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
+    // if (prodVtx == NULL) return false;
+    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
+    //   const PdgId pid = ancestor->pdg_id();
+    //   if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
+    // }
+    // return false;
   }
 
 
   bool Particle::fromTau(bool prompt_taus_only) const {
     if (prompt_taus_only && fromHadron()) return false;
-    const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == NULL) return false;
-    foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-      const PdgId pid = ancestor->pdg_id();
-      if (ancestor->status() == 2 && abs(pid) == PID::TAU) return true;
-    }
-    return false;
+    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+        return p.genParticle()->status() == 2 && isTau(p);
+      });
+    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
+    // if (prodVtx == NULL) return false;
+    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
+    //   const PdgId pid = ancestor->pdg_id();
+    //   if (ancestor->status() == 2 && abs(pid) == PID::TAU) return true;
+    // }
+    // return false;
   }
 
 

@@ -195,12 +195,64 @@ namespace Rivet {
     /// @name Ancestry properties
     //@{
 
+    /// @todo Add physicalAncestors, allAncestors?
+
+    /// Get a list of the direct parents of the current particle (with optional selection Cut)
+    ///
+    /// @note This is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    Particles parents(const Cut& c=Cuts::OPEN) const;
+
+    /// Get a list of the direct parents of the current particle (with selector function)
+    ///
+    /// @note This is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    template <typename FN>
+    Particles parents(const FN& f) const {
+      return filter_select(parents(), f);
+    }
+
+    /// Check whether a given PID is found in the particle's parent list
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    ///
+    /// @deprecated Prefer e.g. parents(Cut::pid == 123).size()
+    bool hasParent(PdgId pid) const;
+
+    /// Check whether a particle in the particle's parent list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    ///
+    /// @deprecated Prefer parents(Cut) or parents(FN) methods and .empty()
+    template <typename FN>
+    bool hasParentWith(const FN& f) const {
+      return _hasRelativeWith(HepMC::parents, f);
+    }
+    bool hasParentWith(const Cut& c) const;
+
     /// Check whether a given PID is found in the particle's ancestor list
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    bool hasAncestor(PdgId pdg_id) const;
+    bool hasAncestor(PdgId pid) const;
+
+    /// Check whether a particle in the particle's ancestor list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    template <typename FN>
+    bool hasAncestorWith(const FN& f) const {
+      return _hasRelativeWith(HepMC::ancestors, f);
+    }
+    bool hasAncestorWith(const Cut& c) const;
 
     /// @brief Determine whether the particle is from a b-hadron decay
     ///
@@ -274,15 +326,6 @@ namespace Rivet {
     /// Whether this particle is stable according to the generator
     bool isStable() const;
 
-    /// Get a list of the direct parents of the current particle (with optional selection Cut)
-    Particles parents(const Cut& c=Cuts::OPEN) const;
-
-    /// Get a list of the direct parents of the current particle (with selector function)
-    template <typename FN>
-    Particles parents(const FN& f) const {
-      return filter_select(parents(), f);
-    }
-
     /// Get a list of the direct descendants from the current particle (with optional selection Cut)
     Particles children(const Cut& c=Cuts::OPEN) const;
 
@@ -319,7 +362,15 @@ namespace Rivet {
     //@}
 
 
-  private:
+  protected:
+
+    template <typename FN>
+    bool _hasRelativeWith(HepMC::IteratorRange relation, const FN& f) const {
+      for (const GenParticle* ancestor : particles(genParticle(), relation)) {
+        if (f(Particle(ancestor))) return true;
+      }
+      return false;
+    }
 
     /// A pointer to the original GenParticle from which this Particle is projected.
     const GenParticle* _original;
