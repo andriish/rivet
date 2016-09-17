@@ -3,7 +3,9 @@ noinst_LTLIBRARIES = libRivetTools.la
 libRivetTools_la_SOURCES = \
   BinnedHistogram.cc \
   Cuts.cc \
+  JetUtils.cc \
   Logging.cc \
+  ParticleUtils.cc \
   ParticleName.cc \
   RivetYODA.cc \
   RivetMT2.cc \
