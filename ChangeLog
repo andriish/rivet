@@ -1,3 +1,8 @@
+2016-09-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add has{Ancestor,Parent,Child,Descendant}With functions and
+	HasParticle{Ancestor,Parent,Child,Descendant}With functors.
+
 2016-09-16  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Add ATLAS 8TeV ttbar analysis from contrib (ATLAS_2015_I1404878)
