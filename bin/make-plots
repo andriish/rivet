@@ -999,10 +999,9 @@ class RatioPlot(Plot):
                            custommajorticks=ycustommajorticks,
                            customminorticks=ycustomminorticks)
 
-        if inputdata.attr_bool('MainPlot', True):
-            if inputdata.attr_bool('Legend', False):
-                legend = Legend(inputdata.description, inputdata.histos, inputdata.functions)
-                out += legend.draw()
+        if not inputdata.attr_bool('MainPlot', True) and not inputdata.attr_bool('Legend', False):
+            legend = Legend(inputdata.description, inputdata.histos, inputdata.functions)
+            out += legend.draw()
 
         labels = Labels(inputdata.description)
         lnames = ['XLabel','YLabel']
