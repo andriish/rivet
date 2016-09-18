@@ -362,6 +362,7 @@ dist_pkgdata_DATA = \
   MC_ZZINC.info \
   MC_ZZJETS.info \
   MC_ZZKTSPLITTINGS.info \
+  L3_1992_I336180.info \
   OPAL_1993_S2692198.info \
   OPAL_1994_S2927284.info \
   OPAL_1995_S3198391.info \

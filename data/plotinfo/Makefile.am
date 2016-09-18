@@ -354,6 +354,7 @@ dist_pkgdata_DATA = \
   MC_ZZINC.plot \
   MC_ZZJETS.plot \
   MC_ZZKTSPLITTINGS.plot \
+  L3_1992_I336180.plot \
   OPAL_1993_S2692198.plot \
   OPAL_1994_S2927284.plot \
   OPAL_1995_S3198391.plot \

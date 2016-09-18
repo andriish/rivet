@@ -1,3 +1,7 @@
+2016-09-18  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add L3 xp analysis of eta mesons, thanks Simone (L3_1992_I336180) 
+
 2016-09-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add has{Ancestor,Parent,Child,Descendant}With functions and
