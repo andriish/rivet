@@ -253,6 +253,7 @@ dist_pkgdata_DATA = \
   CMS_2015_I1370682.info \
   CMS_2015_I1384119.info \
   CMS_2015_I1385107.info \
+  CMS_2015_I1397174.info \
   CMSTOTEM_2014_I1294140.info \
   CMS_2012_PAS_QCD_11_010.info \
   CMS_QCD_10_024.info \

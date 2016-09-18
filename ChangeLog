@@ -1,6 +1,10 @@
+2016-09-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS partonic top analysis (CMS_2015_I1397174)
+
 2016-09-18  Holger Schulz  <holger.schulz@cern.ch>
 
-	* Add L3 xp analysis of eta mesons, thanks Simone (L3_1992_I336180) 
+	* Add L3 xp analysis of eta mesons, thanks Simone (L3_1992_I336180)
 
 	* Add D0 1.8 TeV jet shapes analysis, thanks Simone (D0_1995_I398175)
 
