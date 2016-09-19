@@ -1,3 +1,8 @@
+2016-09-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add templated FN filtering arg versions of the Jet::*Tags() and
+	Jet::*Tagged() functions.
+
 2016-09-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS partonic top analysis (CMS_2015_I1397174)
