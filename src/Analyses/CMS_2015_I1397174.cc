@@ -289,8 +289,8 @@ namespace Rivet {
 
 
     void finalize() {
-      const double ttbarXS = !isnan(crossSectionPerEvent()) ? crossSection() : 252.89*picobarn;
-      if (isnan(crossSectionPerEvent()))
+      const double ttbarXS = !std::isnan(crossSectionPerEvent()) ? crossSection() : 252.89*picobarn;
+      if (std::isnan(crossSectionPerEvent()))
         MSG_INFO("No valid cross-section given, using NNLO (arXiv:1303.6254; sqrt(s)=8 TeV, m_t=172.5 GeV): " << ttbarXS/picobarn << " pb");
 
       normalize({_hVis_nJet30,_hVis_nJet60, _hVis_nJet100,
