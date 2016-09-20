@@ -1,5 +1,7 @@
 2016-09-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix make-plots automatic YMax calculation, which had a typo from code cleaning (mea culpa!).
+
 	* Fix ChargedLeptons projection, which failed to exclude neutrinos!!! Thanks to Markus Seidel.
 
 	* Add templated FN filtering arg versions of the Jet::*Tags() and
