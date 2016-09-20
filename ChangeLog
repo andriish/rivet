@@ -1,3 +1,9 @@
+2016-09-20  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add CMS ttbar analysis from contrib, mark validated (CMS_2016_I1473674)
+
+	* Extend rivet-mkhtml --booklet to also work with pdfmerge
+
 2016-09-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix ChargedLeptons projection, which failed to exclude neutrinos!!! Thanks to Markus Seidel.
