@@ -86,12 +86,12 @@ namespace Rivet {
     for (const Particle& photon : photons.particles()) {
       // Ignore photon if it's from a hadron/tau decay and we're avoiding those
       if (!_fromDecay && photon.fromDecay()) continue;
-      const FourMomentum p_P = photon.momentum();
+      const FourMomentum& p_P = photon.momentum();
       double dRmin = _dRmax;
       int idx = -1;
       for (size_t i = 0; i < bareleptons.size(); ++i) {
         // Only cluster photons around *charged* signal particles
-        if (PID::threeCharge(bareleptons[i].pid()) == 0) continue;
+        if (bareleptons[i].charge3() == 0) continue;
         // Find the closest lepton
         const FourMomentum& p_l = bareleptons[i].momentum();
         double dR = deltaR(p_l, p_P);
@@ -109,11 +109,11 @@ namespace Rivet {
       if (accept(lepton)) {
         _clusteredLeptons.push_back(lepton);
         _theParticles.push_back(lepton.constituentLepton());
-        /// @todo Can't we use += here?
-        _theParticles.insert(_theParticles.end(),
-                             lepton.constituentPhotons().begin(),
-                             lepton.constituentPhotons().end());
+        _theParticles += lepton.constituentPhotons();
       }
     }
+
   }
+
+
 }
