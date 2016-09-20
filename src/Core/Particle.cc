@@ -212,21 +212,21 @@ namespace Rivet {
   // }
 
 
-  bool Particle::isPrompt(bool from_prompt_tau, bool from_prompt_mu) const {
+  bool Particle::isPrompt(bool allow_from_prompt_tau, bool allow_from_prompt_mu) const {
     if (genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
     const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
     const pair<GenParticlePtr, GenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
 
     /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
-    foreach (const GenParticlePtr ancestor, Rivet::particles(prodVtx, HepMC::ancestors)) {
+    for (const GenParticlePtr ancestor : Rivet::particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
       if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
       if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
       if (PID::isHadron(pid)) return false; // prompt particles can't be from hadron decays
-      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !from_prompt_tau) return false; // allow or ban particles from tau decays (permitting tau copies)
-      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !from_prompt_mu) return false; // allow or ban particles from muon decays (permitting muon copies)
+      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_prompt_tau) return false; // allow or ban particles from tau decays (permitting tau copies)
+      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_prompt_mu) return false; // allow or ban particles from muon decays (permitting muon copies)
     }
     return true;
   }

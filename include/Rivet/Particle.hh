@@ -314,8 +314,11 @@ namespace Rivet {
 
     /// @brief Shorthand definition of 'promptness' based on set definition flags
     ///
+    /// The boolean arguments allow a decay lepton to be considered prompt if
+    /// its parent was a "real" prompt lepton.
+    ///
     /// @note This one doesn't make any judgements about final-stateness
-    bool isPrompt(bool from_prompt_tau=false, bool from_prompt_mu=false) const;
+    bool isPrompt(bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) const;
 
     //@}
 

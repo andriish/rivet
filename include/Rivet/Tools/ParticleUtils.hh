@@ -310,9 +310,12 @@ namespace Rivet {
   /// Is this particle potentially visible in a detector?
   inline bool isVisible(const Particle& p) { return p.isVisible(); }
 
-  /// Decide if a given particle is prompt, via Particle::isPrompt()
-  inline bool isPrompt(const Particle& p, bool from_prompt_tau=false, bool from_prompt_mu=false) {
-    return p.isPrompt(from_prompt_tau, from_prompt_mu);
+  /// @brief Decide if a given particle is prompt, via Particle::isPrompt()
+  ///
+  /// The boolean arguments allow a decay lepton to be considered prompt if
+  /// its parent was a "real" prompt lepton.
+  inline bool isPrompt(const Particle& p, bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) {
+    return p.isPrompt(allow_from_prompt_tau, allow_from_prompt_mu);
   }
 
   /// Decide if a given particle is stable, via Particle::isStable()

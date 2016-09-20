@@ -96,6 +96,10 @@ namespace Rivet {
       // return rtn;
     }
 
+
+    /// @todo Want to add a general filtering function, but that clashes with the sorting functor... SFINAE?
+
+
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     template <typename F>
