@@ -1,3 +1,10 @@
+2016-09-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a requirement to DressedLeptons that the FinalState passed
+	as 'bareleptons' will be filtered to only contain charged leptons,
+	if that is not already the case. Thanks to Markus Seidel for the
+	suggestion.
+
 2016-09-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix make-plots automatic YMax calculation, which had a typo from code cleaning (mea culpa!).

@@ -4,33 +4,35 @@
 namespace Rivet {
 
 
-  /// @todo Reduce the cut & paste duplication between the constructors. With C++11 constructors can chain...
-
-
   DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                                  double dRmax, const Cut& cut, bool cluster, bool useDecayPhotons)
     : FinalState(cut),
       _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
   {
     setName("DressedLeptons");
-    IdentifiedFinalState photonfs(photons);
-    photonfs.acceptId(PID::PHOTON);
+
+    IdentifiedFinalState photonfs(photons, PID::PHOTON);
     addProjection(photonfs, "Photons");
-    addProjection(bareleptons, "Leptons");
+
+    IdentifiedFinalState leptonfs(bareleptons);
+    leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
+    addProjection(leptonfs, "Leptons");
   }
 
 
   DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                                  double dRmax, bool cluster, const Cut& cut,
                                  bool useDecayPhotons)
-    : FinalState(cut),
-      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
+    : DressedLeptons(photons, bareleptons, dRmax, cut, cluster, useDecayPhotons)
   {
-    setName("DressedLeptons");
-    IdentifiedFinalState photonfs(photons);
-    photonfs.acceptId(PID::PHOTON);
-    addProjection(photonfs, "Photons");
-    addProjection(bareleptons, "Leptons");
+    // setName("DressedLeptons");
+
+    // IdentifiedFinalState photonfs(photons, PID::PHOTON);
+    // addProjection(photonfs, "Photons");
+
+    // IdentifiedFinalState leptonfs(bareleptons);
+    // leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
+    // addProjection(leptonfs, "Leptons");
   }
 
 
@@ -38,14 +40,18 @@ namespace Rivet {
                                  double dRmax, bool cluster,
                                  double etaMin, double etaMax,
                                  double pTmin, bool useDecayPhotons)
-    : FinalState(etaMin, etaMax, pTmin),
-      _dRmax(dRmax), _cluster(cluster), _fromDecay(useDecayPhotons)
+    : DressedLeptons(photons, bareleptons, dRmax,
+                     Cuts::eta > etaMin && Cuts::eta < etaMax && Cuts::pT > pTmin,
+                     cluster, useDecayPhotons)
   {
-    setName("DressedLeptons");
-    IdentifiedFinalState photonfs(photons);
-    photonfs.acceptId(PID::PHOTON);
-    addProjection(photonfs, "Photons");
-    addProjection(bareleptons, "Leptons");
+    // setName("DressedLeptons");
+
+    // IdentifiedFinalState photonfs(photons, PID::PHOTON);
+    // addProjection(photonfs, "Photons");
+
+    // IdentifiedFinalState leptonfs(bareleptons);
+    // leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
+    // addProjection(leptonfs, "Leptons");
   }
 
 
