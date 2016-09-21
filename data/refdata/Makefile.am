@@ -221,6 +221,7 @@ dist_pkgdata_DATA = \
   DELPHI_2011_I890503.yoda \
   L3_1992_I336180.yoda \
   OPAL_1993_S2692198.yoda \
+  OPAL_1993_I342766.yoda \
   OPAL_1994_S2927284.yoda \
   OPAL_1995_S3198391.yoda \
   OPAL_1996_S3257789.yoda \
