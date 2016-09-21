@@ -9,7 +9,6 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
-#include "Rivet/ParticleName.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
