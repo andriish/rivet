@@ -5,6 +5,16 @@
 	if that is not already the case. Thanks to Markus Seidel for the
 	suggestion.
 
+2016-09-21  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add Simone Amoroso's plugin for hadron spectra (ALEPH_1995_I382179) 
+
+2016-09-20  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add CMS ttbar analysis from contrib, mark validated (CMS_2016_I1473674)
+
+	* Extend rivet-mkhtml --booklet to also work with pdfmerge
+
 2016-09-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix make-plots automatic YMax calculation, which had a typo from code cleaning (mea culpa!).

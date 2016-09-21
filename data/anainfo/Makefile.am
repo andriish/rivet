@@ -1,5 +1,6 @@
 dist_pkgdata_DATA = \
   ALEPH_1991_S2435284.info \
+  ALEPH_1995_I382179.info \
   ALEPH_1996_S3486095.info \
   ALEPH_1996_S3196992.info \
   ALEPH_1999_S4193598.info \
@@ -254,6 +255,7 @@ dist_pkgdata_DATA = \
   CMS_2015_I1384119.info \
   CMS_2015_I1385107.info \
   CMS_2015_I1397174.info \
+  CMS_2016_I1473674.info \
   CMSTOTEM_2014_I1294140.info \
   CMS_2012_PAS_QCD_11_010.info \
   CMS_QCD_10_024.info \

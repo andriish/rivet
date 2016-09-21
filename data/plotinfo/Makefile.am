@@ -1,5 +1,6 @@
 dist_pkgdata_DATA = \
   ALEPH_1991_S2435284.plot \
+  ALEPH_1995_I382179.plot \
   ALEPH_1996_S3486095.plot \
   ALEPH_1996_S3196992.plot \
   ALEPH_1999_S4193598.plot \
@@ -249,6 +250,7 @@ dist_pkgdata_DATA = \
   CMS_2015_I1384119.plot \
   CMS_2015_I1385107.plot \
   CMS_2015_I1397174.plot \
+  CMS_2016_I1473674.plot \
   CMS_2012_PAS_QCD_11_010.plot \
   CMS_QCD_10_024.plot \
   CMSTOTEM_2014_I1294140.plot \

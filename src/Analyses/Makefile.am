@@ -201,6 +201,7 @@ RivetCMSAnalyses_la_SOURCES = \
     CMS_2015_I1384119.cc \
     CMS_2015_I1385107.cc \
     CMS_2015_I1397174.cc \
+    CMS_2016_I1473674.cc \
     CMSTOTEM_2014_I1294140.cc \
     TOTEM_2014_I1328627.cc
 # PRELIMINARY
@@ -326,6 +327,7 @@ RivetPetraAnalyses_la_SOURCES = \
 lib_LTLIBRARIES += RivetLEPAnalyses.la
 RivetLEPAnalyses_la_SOURCES = \
     ALEPH_1991_S2435284.cc \
+    ALEPH_1995_I382179.cc \
     ALEPH_1996_S3486095.cc \
     ALEPH_1996_S3196992.cc \
     ALEPH_1999_S4193598.cc \

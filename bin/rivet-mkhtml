@@ -71,7 +71,7 @@ stygroup.add_option("--pdf", dest="VECTORFORMAT", action="store_const", const="P
 stygroup.add_option("--ps", dest="VECTORFORMAT", action="store_const", const="PS",
                     default="PDF", help="use PostScript as the vector plot format. DEPRECATED")
 stygroup.add_option("--booklet", dest="BOOKLET", action="store_true",
-                    default=False, help="create booklet (currently only available for PDF with pdftk).")
+                    default=False, help="create booklet (currently only available for PDF with pdftk or pdfmerge).")
 stygroup.add_option("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
                     default="palatino", help="choose the font to be used in the plots")
 stygroup.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
@@ -418,6 +418,24 @@ if not opts.DRY_RUN:
     index.write('<br>%s</body>\n</html>' % timestamp)
     index.close()
 
+# http://stackoverflow.com/questions/377017/test-if-executable-exists-in-python
+def which(program):
+    import os
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
 
 ## Run make-plots on all generated .dat files
 # sys.exit(0)
@@ -459,10 +477,21 @@ if datfiles:
     if not opts.DRY_RUN:
         Popen(mp_cmd).wait()
         if opts.BOOKLET and opts.VECTORFORMAT=="PDF":
-            bookletcmd = ["pdftk"]
-            for analysis in analyses:
-                anapath = os.path.join(opts.OUTPUTDIR, analysis)
-                bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
-            bookletcmd += ["cat", "output", "%s/booklet.pdf" % opts.OUTPUTDIR]
-            print bookletcmd
-            Popen(bookletcmd).wait()
+            if which("pdftk") is not None:
+                bookletcmd = ["pdftk"]
+                for analysis in analyses:
+                    anapath = os.path.join(opts.OUTPUTDIR, analysis)
+                    bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
+                bookletcmd += ["cat", "output", "%s/booklet.pdf" % opts.OUTPUTDIR]
+                print bookletcmd
+                Popen(bookletcmd).wait()
+            elif which("pdfmerge") is not None:
+                bookletcmd = ["pdfmerge"]
+                for analysis in analyses:
+                    anapath = os.path.join(opts.OUTPUTDIR, analysis)
+                    bookletcmd += sorted(glob.glob("%s/*.pdf" % anapath))
+                bookletcmd += ["%s/booklet.pdf" % opts.OUTPUTDIR]
+                print bookletcmd
+                Popen(bookletcmd).wait()
+            else:
+                print "Neither pdftk nor pdfmerge available --- not booklet output possible"

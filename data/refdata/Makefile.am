@@ -1,5 +1,6 @@
 dist_pkgdata_DATA = \
   ALEPH_1991_S2435284.yoda \
+  ALEPH_1995_I382179.yoda \
   ALEPH_1996_S3486095.yoda \
   ALEPH_1996_S3196992.yoda \
   ALEPH_1999_S4193598.yoda \
@@ -197,6 +198,7 @@ dist_pkgdata_DATA = \
   CMS_2015_I1384119.yoda \
   CMS_2015_I1385107.yoda \
   CMS_2015_I1397174.yoda \
+  CMS_2016_I1473674.yoda \
   CMS_2012_PAS_QCD_11_010.yoda \
   CMS_QCD_10_024.yoda \
   LHCB_2010_S8758301.yoda \
