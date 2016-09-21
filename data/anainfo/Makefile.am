@@ -1,5 +1,6 @@
 dist_pkgdata_DATA = \
   ALEPH_1991_S2435284.info \
+  ALEPH_1995_I382179.info \
   ALEPH_1996_S3486095.info \
   ALEPH_1996_S3196992.info \
   ALEPH_1999_S4193598.info \

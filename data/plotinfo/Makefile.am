@@ -1,5 +1,6 @@
 dist_pkgdata_DATA = \
   ALEPH_1991_S2435284.plot \
+  ALEPH_1995_I382179.plot \
   ALEPH_1996_S3486095.plot \
   ALEPH_1996_S3196992.plot \
   ALEPH_1999_S4193598.plot \

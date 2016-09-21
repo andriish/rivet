@@ -327,6 +327,7 @@ RivetPetraAnalyses_la_SOURCES = \
 lib_LTLIBRARIES += RivetLEPAnalyses.la
 RivetLEPAnalyses_la_SOURCES = \
     ALEPH_1991_S2435284.cc \
+    ALEPH_1995_I382179.cc \
     ALEPH_1996_S3486095.cc \
     ALEPH_1996_S3196992.cc \
     ALEPH_1999_S4193598.cc \
