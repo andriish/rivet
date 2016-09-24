@@ -512,7 +512,7 @@ class Plot(object):
                 if showzero:
                     self.ymin = 0. if minymin > -1e-4 else 1.1*minymin
                 else:
-                    self.ymin = 1.1*min(foo) if minymin < -1e-4 else 0 if minymin < 1e-4 else 0.9*minymin
+                    self.ymin = 1.1*minymin if minymin < -1e-4 else 0 if minymin < 1e-4 else 0.9*minymin
                 if inputdata.description['LogY']:
                     ymins = [ymin for ymin in ymins if ymin > 0.0]
                     if not ymins:
@@ -797,7 +797,8 @@ class MainPlot(Plot):
             colordefs = {}
             for i in inputdata.description.setdefault('GofFrameColor', '0:green 3:yellow 6:red!70').strip().split():
                 foo = i.split(':')
-                if len(foo)!=2: continue
+                if len(foo) != 2:
+                    continue
                 colordefs[float(foo[0])] = foo[1]
             for i in sorted(colordefs.keys()):
                 if gof>=i:
@@ -832,7 +833,7 @@ class TaylorPlot(Plot):
         self.calculate_taylorcoordinates(inputdata)
 
     def calculate_taylorcoordinates(self,inputdata):
-        foo=inputdata.description['DrawOnly'].pop(inputdata.description['DrawOnly'].index(self.refdata))
+        foo = inputdata.description['DrawOnly'].pop(inputdata.description['DrawOnly'].index(self.refdata))
         inputdata.description['DrawOnly'].append(foo)
         for i in inputdata.description['DrawOnly']:
             print i
