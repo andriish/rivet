@@ -1,3 +1,7 @@
+2016-09-22  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Release version 2.5.2
+
 2016-09-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add a requirement to DressedLeptons that the FinalState passed
@@ -7,9 +11,9 @@
 
 2016-09-21  Holger Schulz  <holger.schulz@cern.ch>
 
-	* Add Simone Amoroso's plugin for hadron spectra (ALEPH_1995_I382179) 
-	
-	* Add Simone Amoroso's plugin for hadron spectra (OPAL_1993_I342766) 
+	* Add Simone Amoroso's plugin for hadron spectra (ALEPH_1995_I382179)
+
+	* Add Simone Amoroso's plugin for hadron spectra (OPAL_1993_I342766)
 
 2016-09-20  Holger Schulz  <holger.schulz@cern.ch>
 
