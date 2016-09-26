@@ -47,15 +47,16 @@ namespace Rivet {
 
         protected:
             /// @todo
-            /// is this new sub event? if so change name please.
+            /// is this new sub event or new event? if so change name please.
             virtual void newSubEvent() = 0;
 
             /// @todo 
-            /// setActive(Idx)?
+            /// rename to setActive(Idx)?
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
             virtual void pushToPersistent(const vector<vector<double> >& weight) = 0;
 
+            /// @todo do we need this?
             // virtual void reset() = 0;
     };
 
