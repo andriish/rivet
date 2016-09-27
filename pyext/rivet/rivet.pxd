@@ -36,6 +36,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         vector[pair[double, double]] requiredEnergies()
         vector[string] authors()
         vector[string] references()
+        vector[string] keywords()
         string name()
         string bibTeX()
         string bibKey()

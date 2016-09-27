@@ -218,6 +218,12 @@ namespace Rivet {
     virtual const std::vector<std::pair<double, double> >& requiredEnergies() const {
       return info().energies();
     }
+
+    /// Get vector of analysis keywords
+    virtual const std::vector<std::string> & keywords() const {
+      return info().keywords();
+    }
+
     /// Declare the list of valid beam energy pairs, in GeV
     virtual Analysis& setRequiredEnergies(const std::vector<std::pair<double, double> >& requiredEnergies) {
       info().setEnergies(requiredEnergies);

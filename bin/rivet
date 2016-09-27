@@ -49,6 +49,8 @@ anagroup.add_option("-a", "--analysis", "--analyses", dest="ANALYSES", action="a
                     help="add an analysis (or comma-separated list of analyses) to the processing list.")
 anagroup.add_option("--list-analyses", "--list", dest="LIST_ANALYSES", action="store_true",
                     default=False, help="show the list of available analyses' names. With -v, it shows the descriptions, too")
+anagroup.add_option("--list-keywords", "--keywords", dest="LIST_KEYWORDS", action="store_true",
+                    default=False, help="show the list of available keywords.")
 anagroup.add_option("--list-used-analyses", action="store_true", dest="LIST_USED_ANALYSES",
                     default=False, help="list the analyses used by this command (after subtraction of inappropriate ones)")
 anagroup.add_option("--show-analysis", "--show-analyses", "--show", dest="SHOW_ANALYSES", action="append",
@@ -138,11 +140,40 @@ for l in opts.NATIVE_LOG_STRS:
         logging.warning("Couldn't process logging string '%s'" % l)
 
 
+def getAnalysesByKeyword(alist, kstring):
+    add, veto, ret = [], [], []
+    bits = [i for i in kstring.replace("^@", "@^").split("@") if len(i)>0]
+    for b in bits:
+        if b.startswith("^"):
+            veto.append(b.strip("^"))
+        else:
+            add.append(b)
+
+    add=set(add)
+    veto=set(veto)
+
+    for a in alist:
+        kwds = set([i.lower() for i in rivet.AnalysisLoader.getAnalysis(a).keywords()])
+        if len(kwds.intersection(veto)) == 0 and len(kwds.intersection(add))==len(list(add)):
+            ret.append(a)
+    return ret
+
+
+
+
+
+
+
 ## We allow comma-separated lists of analysis names -- normalise the list here
 newanas = []
+ALLAN=rivet.AnalysisLoader.analysisNames()
 for a in opts.ANALYSES:
     if "," in a:
         newanas += a.split(",")
+    elif "@" in a:
+        temp = getAnalysesByKeyword(ALLAN, a)
+        for i in temp:
+            newanas.append(i)
     else:
         newanas.append(a)
 opts.ANALYSES = newanas
@@ -247,6 +278,9 @@ if opts.LIST_ANALYSES:
                     a = rivet.AnalysisLoader.getAnalysis(aname)
                     st = "" if a.status() == "VALIDATED" else ("[" + a.status() + "] ")
                     msg = "%-25s   %s" % (aname, st + rivet.util.detex(a.summary()))
+                    if opts.LOGLEVEL < logging.INFO:
+                        if a.keywords():
+                            msg += "  [" + " ".join(a.keywords()) + "]"
                 print msg
                 #os.write(tf, msg + "\n")
         # if os.path.getsize(tfpath) > 0:
@@ -257,6 +291,19 @@ if opts.LIST_ANALYSES:
         pass
     sys.exit(0)
 
+def getKeywords(alist):
+    all_keywords = []
+    for a in alist:
+        all_keywords.extend(rivet.AnalysisLoader.getAnalysis(a).keywords())
+    all_keywords = [i.lower() for i in all_keywords]
+    return sorted(list(set(all_keywords)))
+
+
+if opts.LIST_KEYWORDS:
+    # a = rivet.AnalysisLoader.getAnalysis(aname)
+    for k in getKeywords(all_analyses):
+        print k
+    sys.exit(0)
 
 ## Show analyses' details
 if len(opts.SHOW_ANALYSES) > 0:
@@ -342,6 +389,12 @@ if len(opts.SHOW_ANALYSES) > 0:
             twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
             for l in ana.runInfo().split("\n"):
                 msg += twrap.fill(l) + "\n"
+
+        if ana.keywords():
+            msg += "\nAnalysis keywords:"
+            for k in ana.keywords():
+                msg += " %s"%k
+            msg+= "\n\n"
 
         if ana.references():
             msg += "\n" + "References:"

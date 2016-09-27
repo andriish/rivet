@@ -148,6 +148,8 @@ namespace Rivet {
     /// Set the journal and preprint reference list.
     void setReferences(const std::vector<std::string>& references) { _references = references; }
 
+    /// Analysis Keywords for grouping etc
+    const std::vector<std::string>& keywords() const { return _keywords; }
 
     /// BibTeX citation key for this article.
     const std::string& bibKey() const { return _bibKey;}
@@ -200,6 +202,7 @@ namespace Rivet {
     std::vector<std::pair<double, double> > _energies;
     std::string _year;
     std::vector<std::string> _references;
+    std::vector<std::string> _keywords;
     std::string _bibKey;
     std::string _bibTeX;
     //std::string _bibTeXBody; ///< Was thinking of avoiding duplication of BibKey...
@@ -221,6 +224,7 @@ namespace Rivet {
       _energies.clear();
       _year = "";
       _references.clear();
+      _keywords.clear();
       _bibKey = "";
       _bibTeX = "";
       //_bibTeXBody = "";

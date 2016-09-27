@@ -1,3 +1,11 @@
+2016-09-27  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Analysis keyword machinery
+
+	* rivet -a @semileptonic
+	
+	* rivet -a @semileptonic@^bdecays -a @semileptonic@^ddecays
+
 2016-09-22  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Release version 2.5.2

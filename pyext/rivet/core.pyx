@@ -94,6 +94,9 @@ cdef class Analysis:
     def requiredEnergies(self):
         return deref(self._ptr).requiredEnergies()
 
+    def keywords(self):
+        return deref(self._ptr).keywords()
+
     def authors(self):
         return deref(self._ptr).authors()
 

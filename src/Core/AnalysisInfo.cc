@@ -92,6 +92,7 @@ namespace Rivet {
     TRY_GETINFO_SEQ("Authors", authors);
     TRY_GETINFO_SEQ("References", references);
     TRY_GETINFO_SEQ("ToDo", todos);
+    TRY_GETINFO_SEQ("Keywords", keywords);
     #undef TRY_GETINFO_SEQ
 
 
