@@ -1,3 +1,72 @@
+2016-09-22  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Release version 2.5.2
+
+2016-09-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a requirement to DressedLeptons that the FinalState passed
+	as 'bareleptons' will be filtered to only contain charged leptons,
+	if that is not already the case. Thanks to Markus Seidel for the
+	suggestion.
+
+2016-09-21  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add Simone Amoroso's plugin for hadron spectra (ALEPH_1995_I382179)
+
+	* Add Simone Amoroso's plugin for hadron spectra (OPAL_1993_I342766)
+
+2016-09-20  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add CMS ttbar analysis from contrib, mark validated (CMS_2016_I1473674)
+
+	* Extend rivet-mkhtml --booklet to also work with pdfmerge
+
+2016-09-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix make-plots automatic YMax calculation, which had a typo from code cleaning (mea culpa!).
+
+	* Fix ChargedLeptons projection, which failed to exclude neutrinos!!! Thanks to Markus Seidel.
+
+	* Add templated FN filtering arg versions of the Jet::*Tags() and
+	Jet::*Tagged() functions.
+
+2016-09-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS partonic top analysis (CMS_2015_I1397174)
+
+2016-09-18  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add L3 xp analysis of eta mesons, thanks Simone (L3_1992_I336180)
+
+	* Add D0 1.8 TeV jet shapes analysis, thanks Simone (D0_1995_I398175)
+
+2016-09-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add has{Ancestor,Parent,Child,Descendant}With functions and
+	HasParticle{Ancestor,Parent,Child,Descendant}With functors.
+
+2016-09-16  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add ATLAS 8TeV ttbar analysis from contrib (ATLAS_2015_I1404878)
+
+2016-09-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add particles(GenParticlePtr) to RivetHepMC.hh
+
+	* Add hasParent, hasParentWith, and hasAncestorWith to Particle.
+
+2016-09-15  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add ATLAS 8TeV dijet analysis from contrib (ATLAS_2015_I1393758)
+
+	* Add ATLAS 8TeV 'number of tracks in jets' analysis from contrib (ATLAS_2016_I1419070)
+
+	* Add ATLAS 8TeV g->H->WW->enumunu analysis from contrib (ATLAS_2016_I1444991)
+
+2016-09-14  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Explicit std::toupper and std::tolower to make clang happy
+
 2016-09-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS Run 2 0-lepton SUSY and monojet search papers (ATLAS_2016_I1452559, ATLAS_2016_I1458270)

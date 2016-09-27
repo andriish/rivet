@@ -39,7 +39,7 @@ namespace Rivet {
     return rtn;
   }
 
-  inline std::vector<GenParticle*> particles(GenEvent* ge) {
+  inline std::vector<GenParticlePtr> particles(GenEvent* ge) {
     assert(ge);
     std::vector<GenParticle*> rtn;
     for (GenEvent::particle_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi)
@@ -184,6 +184,16 @@ namespace Rivet {
     if (range != HepMC::children && range != HepMC::descendants)
       throw UserError("Requested particles_out(GenParticle*) with a non-'out' iterator range");
     return (gp->end_vertex()) ? particles(gp->end_vertex(), range) : std::vector<GenParticle*>();
+  }
+
+
+  /// Get any relatives of GenParticle @a gp
+  inline std::vector<const GenParticle*> particles(const GenParticle* gp, HepMC::IteratorRange range=HepMC::ancestors) {
+    if (range == HepMC::parents || range == HepMC::ancestors)
+      return particles_in(gp, range);
+    if (range == HepMC::children || range == HepMC::descendants)
+      return particles_in(gp, range);
+    throw UserError("Requested particles(GenParticle*) with an unsupported iterator range");
   }
 
 

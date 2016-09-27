@@ -310,9 +310,12 @@ namespace Rivet {
   /// Is this particle potentially visible in a detector?
   inline bool isVisible(const Particle& p) { return p.isVisible(); }
 
-  /// Decide if a given particle is prompt, via Particle::isPrompt()
-  inline bool isPrompt(const Particle& p, bool from_prompt_tau=false, bool from_prompt_mu=false) {
-    return p.isPrompt(from_prompt_tau, from_prompt_mu);
+  /// @brief Decide if a given particle is prompt, via Particle::isPrompt()
+  ///
+  /// The boolean arguments allow a decay lepton to be considered prompt if
+  /// its parent was a "real" prompt lepton.
+  inline bool isPrompt(const Particle& p, bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) {
+    return p.isPrompt(allow_from_prompt_tau, allow_from_prompt_mu);
   }
 
   /// Decide if a given particle is stable, via Particle::isStable()
@@ -368,6 +371,58 @@ namespace Rivet {
   template <typename FN>
   inline bool isLastWithout(const Particle& p, const FN& f) {
     return isLastWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
+
+  /// @brief Determine whether a particle has an ancestor which meets the function requirement
+  template <typename FN>
+  inline bool hasAncestorWith(const Particle& p, const FN& f) {
+    return p.hasAncestorWith(f);
+  }
+
+  /// @brief Determine whether a particle has an ancestor which doesn't meet the function requirement
+  template <typename FN>
+  inline bool hasAncestorWithout(const Particle& p, const FN& f) {
+    return hasAncestorWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
+
+  /// @brief Determine whether a particle has a parent which meets the function requirement
+  template <typename FN>
+  inline bool hasParentWith(const Particle& p, const FN& f) {
+    return p.hasParentWith(f);
+  }
+
+  /// @brief Determine whether a particle has a parent which doesn't meet the function requirement
+  template <typename FN>
+  inline bool hasParentWithout(const Particle& p, const FN& f) {
+    return hasParentWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
+
+  /// @brief Determine whether a particle has a child which meets the function requirement
+  template <typename FN>
+  inline bool hasChildWith(const Particle& p, const FN& f) {
+    return !p.children(f).empty();
+  }
+
+  /// @brief Determine whether a particle has a child which doesn't meet the function requirement
+  template <typename FN>
+  inline bool hasChildWithout(const Particle& p, const FN& f) {
+    return p.children(f).empty();
+  }
+
+
+  /// @brief Determine whether a particle has a descendant which meets the function requirement
+  template <typename FN>
+  inline bool hasDescendantWith(const Particle& p, const FN& f) {
+    return !p.allDescendants(f).empty();
+  }
+
+  /// @brief Determine whether a particle has a descendant which doesn't meet the function requirement
+  template <typename FN>
+  inline bool hasDescendantWithout(const Particle& p, const FN& f) {
+    return p.allDescendants(f).empty();
   }
 
   //@}
@@ -441,6 +496,90 @@ namespace Rivet {
     std::function<bool(const Particle&)> fn;
   };
   using lastParticleWithout = LastParticleWithout;
+
+
+  /// Determine whether a particle has an ancestor which meets the cut/function
+  struct HasParticleAncestorWith : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleAncestorWith(const FN& f) : fn(f) { }
+    HasParticleAncestorWith(const Cut& c);
+    bool operator()(const Particle& p) const { return hasAncestorWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleAncestorWith = HasParticleAncestorWith;
+
+  /// Determine whether a particle has an ancestor which doesn't meet the cut/function
+  struct HasParticleAncestorWithout : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleAncestorWithout(const FN& f) : fn(f) { }
+    HasParticleAncestorWithout(const Cut& c);
+    bool operator()(const Particle& p) const { return hasAncestorWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleAncestorWithout = HasParticleAncestorWithout;
+
+
+  /// Determine whether a particle has an parent which meets the cut/function
+  struct HasParticleParentWith : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleParentWith(const FN& f) : fn(f) { }
+    HasParticleParentWith(const Cut& c);
+    bool operator()(const Particle& p) const { return hasParentWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleParentWith = HasParticleParentWith;
+
+  /// Determine whether a particle has an parent which doesn't meet the cut/function
+  struct HasParticleParentWithout : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleParentWithout(const FN& f) : fn(f) { }
+    HasParticleParentWithout(const Cut& c);
+    bool operator()(const Particle& p) const { return hasParentWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleParentWithout = HasParticleParentWithout;
+
+
+  /// Determine whether a particle has a child which meets the cut/function
+  struct HasParticleChildWith : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleChildWith(const FN& f) : fn(f) { }
+    HasParticleChildWith(const Cut& c);
+    bool operator()(const Particle& p) const { return hasChildWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleChildWith = HasParticleChildWith;
+
+  /// Determine whether a particle has a child which doesn't meet the cut/function
+  struct HasParticleChildWithout : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleChildWithout(const FN& f) : fn(f) { }
+    HasParticleChildWithout(const Cut& c);
+    bool operator()(const Particle& p) const { return hasChildWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleChildWithout = HasParticleChildWithout;
+
+
+  /// Determine whether a particle has a descendant which meets the cut/function
+  struct HasParticleDescendantWith : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleDescendantWith(const FN& f) : fn(f) { }
+    HasParticleDescendantWith(const Cut& c);
+    bool operator()(const Particle& p) const { return hasDescendantWith(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleDescendantWith = HasParticleDescendantWith;
+
+  /// Determine whether a particle has a descendant which doesn't meet the cut/function
+  struct HasParticleDescendantWithout : public BoolParticleFunctor {
+    template <typename FN>
+    HasParticleDescendantWithout(const FN& f) : fn(f) { }
+    HasParticleDescendantWithout(const Cut& c);
+    bool operator()(const Particle& p) const { return hasDescendantWithout(p, fn); }
+    std::function<bool(const Particle&)> fn;
+  };
+  using hasParticleDescendantWithout = HasParticleDescendantWithout;
 
   //@}
 

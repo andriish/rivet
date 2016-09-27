@@ -143,7 +143,7 @@ namespace Rivet {
   /// Convert a string to lower-case
   inline string toLower(const string& s) {
     string out = s;
-    std::transform(out.begin(), out.end(), out.begin(), (int(*)(int)) tolower);
+    std::transform(out.begin(), out.end(), out.begin(), (int(*)(int)) std::tolower);
     return out;
   }
 
@@ -151,7 +151,7 @@ namespace Rivet {
   /// Convert a string to upper-case
   inline string toUpper(const string& s) {
     string out = s;
-    std::transform(out.begin(), out.end(), out.begin(), (int(*)(int)) toupper);
+    std::transform(out.begin(), out.end(), out.begin(), (int(*)(int)) std::toupper);
     return out;
   }
 
