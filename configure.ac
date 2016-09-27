@@ -292,6 +292,13 @@ You can install a personal copy of Cython with
   pip install --user cython==0.23.5
 **************************************************]); CYTHON_FOUND="no"])
   fi
+
+  AC_CHECK_FILE([pyext/rivet/core.cpp],
+                [],
+                [if test "x$CYTHON_FOUND" != "xyes"; then
+                  AC_MSG_ERROR([Cython is required for --enable-pyext.])
+                fi])
+
   cython_compiler=$CXX
   ## Set extra Python extension build flags (to cope with Cython output code oddities)
   PYEXT_CXXFLAGS="$CXXFLAGS"
