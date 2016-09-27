@@ -1,9 +1,13 @@
+2016-09-27  Andy Buckley  <andy.buckley@cern.ch>
+
+       * Add vector and scalar pT (rather than Et) to MissingMomentum.
+
 2016-09-27  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Analysis keyword machinery
 
 	* rivet -a @semileptonic
-	
+
 	* rivet -a @semileptonic@^bdecays -a @semileptonic@^ddecays
 
 2016-09-22  Holger Schulz  <holger.schulz@cern.ch>
