@@ -271,11 +271,28 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 
 ## Cython checks
 if test x$enable_pyext == xyes; then
-  AM_CHECK_CYTHON([0.18], [:], [:])
+  AM_CHECK_CYTHON([0.23.5], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
-    AC_MSG_NOTICE([Cython >= 0.18 found: Python extension source can be rebuilt (for developers)])
-    cython_compiler=$CXX
+    AS_VERSION_COMPARE([$CYTHON_VERSION], [0.24],
+          [AC_MSG_NOTICE([Cython >= 0.23.5 found: Python extension source can be rebuilt (for developers)])],
+          [AC_MSG_NOTICE([
+**************************************************
+Cython 0.24.x does not work for non-tarball builds
+  (https://github.com/cython/cython/issues/1465)
+
+You can install a personal copy of Cython with
+  pip install --user cython==0.23.5
+**************************************************]); CYTHON_FOUND="no"],
+          [AC_MSG_NOTICE([
+**************************************************
+Cython 0.24.x does not work for non-tarball builds
+  (https://github.com/cython/cython/issues/1465)
+
+You can install a personal copy of Cython with
+  pip install --user cython==0.23.5
+**************************************************]); CYTHON_FOUND="no"])
   fi
+  cython_compiler=$CXX
   ## Set extra Python extension build flags (to cope with Cython output code oddities)
   PYEXT_CXXFLAGS="$CXXFLAGS"
   AC_CEDAR_CHECKCXXFLAG([-Wno-unused-but-set-variable], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-unused-but-set-variable"])
