@@ -87,7 +87,7 @@ namespace Rivet {
     ///
     /// @todo This needs to be revisited when we finally add the mechanism to
     /// support NLO counter-events and weight vectors.
-    double weight() const;
+    std::vector<double> weights() const;
 
     //@}
 

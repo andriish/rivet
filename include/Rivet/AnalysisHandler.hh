@@ -189,6 +189,13 @@ namespace Rivet {
     /// Get all analyses' plots as a vector of analysis objects.
     std::vector<AnalysisObjectPtr> getData() const;
 
+    /// Get all analyses' plots as a vector of analysis objects.
+    void setWeightNames(const GenEvent& ge); 
+
+    /// Do we have named weights?
+    bool haveNamedWeights();
+
+
     /// Write all analyses' plots to the named file.
     void writeData(const std::string& filename) const;
 
@@ -200,9 +207,13 @@ namespace Rivet {
     /// The collection of Analysis objects to be used.
     set<AnaHandle, CmpAnaHandle> _analyses;
 
-
     /// @name Run properties
     //@{
+
+    /// Weight names
+    std::vector<std::string> _weightNames;
+    std::vector<std::vector<double> > _subEventWeights;
+    size_t _numWeightTypes; // always == WeightVector.size()
 
     /// Run name
     std::string _runname;

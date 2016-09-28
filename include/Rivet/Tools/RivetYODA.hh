@@ -47,6 +47,8 @@ namespace Rivet {
             virtual YODA::AnalysisObject* operator->() const = 0;
             virtual const YODA::AnalysisObject & operator*() const = 0;
 
+            bool operator ==(const AnalysisObjectPtr& p) { return (this == &p); }
+
         protected:
             /// @todo do we need this?
             // virtual void reset() = 0;
@@ -59,7 +61,7 @@ namespace Rivet {
             Scatter1DPtr() :
                 _scatter(YODA::Scatter1DPtr()) { }
 
-            Scatter1DPtr(YODA::Scatter1DPtr& p) :
+            Scatter1DPtr(const YODA::Scatter1DPtr& p) :
                 _scatter(p) { }
 
             bool operator!() const { return !_scatter; }
@@ -79,7 +81,7 @@ namespace Rivet {
 
     class Scatter2DPtr : public AnalysisObjectPtr {
         public:
-            Scatter2DPtr(YODA::Scatter2DPtr& p) :
+            Scatter2DPtr(const YODA::Scatter2DPtr& p) :
                 _scatter(p) { }
 
             Scatter2DPtr() :
@@ -102,7 +104,7 @@ namespace Rivet {
 
     class Scatter3DPtr : public AnalysisObjectPtr {
         public:
-            Scatter3DPtr(YODA::Scatter3DPtr& p) :
+            Scatter3DPtr(const YODA::Scatter3DPtr& p) :
                 _scatter(p) { }
 
             Scatter3DPtr() :
@@ -126,7 +128,7 @@ namespace Rivet {
 
     class MultiweightAOPtr : public AnalysisObjectPtr {
 
-        protected:
+        public:
             virtual void newSubEvent() = 0;
 
             /// @todo 
@@ -220,8 +222,8 @@ namespace Rivet {
         }                                                                      \
         */                                                                     \
                                                                                \
-        private:                                                               \
                                                                                \
+        private:                                                               \
         void setActiveWeightIdx(unsigned int iWeight) {                        \
             _active = _persistent.at(iWeight);                                 \
             return;                                                            \
@@ -256,6 +258,8 @@ namespace Rivet {
         vector<YODA::YODATYPE##Ptr> _evgroup;                                  \
                                                                                \
         YODA::YODATYPE##Ptr _active;                                           \
+                                                                               \
+        friend class AnalysisHandler;                                          \
     };
 
 

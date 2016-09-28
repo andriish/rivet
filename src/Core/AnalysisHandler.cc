@@ -8,7 +8,6 @@
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/WriterYODA.h"
 
-#include "Rivet/Histo1D.hh"
 
 namespace Rivet {
 
@@ -101,6 +100,12 @@ namespace Rivet {
   }
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
+      return;
+
+      /// @todo
+      /// this relies on boost and is removed for now
+ 
+      /*
       /// reroute the print output to a stringstream and process
       /// The iteration is done over a map in hepmc2 so this is safe
       ostringstream stream;
@@ -108,23 +113,24 @@ namespace Rivet {
       string str =  stream.str();
 
       vector<string> temp;
-      boost::split(temp, str, boost::is_any_of("="));
+      split(temp, str, is_any_of("="));
       vector<string> tokens;
-      boost::split(tokens, temp[0], boost::is_any_of(" "));
+      split(tokens, temp[0], is_any_of(" "));
 
       /// Weights  come in tuples:  (StringName, doubleWeight) (AnotherName, anotherWeight) etc
       string wname;
       for (unsigned int i=0; i<tokens.size()-1;++i) {
         temp.clear();
-        boost::split(temp, tokens[i], boost::is_any_of(","));
+        split(temp, tokens[i], is_any_of(","));
         if (temp.size()>0) {
           wname = temp[0];
-          trim_left_if(wname,is_any_of("("));
+          trim_left_if(wname, is_any_of("("));
           _weightNames.push_back(wname);
           /// Turn into debug message
           MSG_INFO("Name of weight #" << i << ": " << wname);
         }
       }
+      */
   }
 
 
@@ -150,10 +156,15 @@ namespace Rivet {
     // won't happen for first event because _eventNumber is set in
     // init()
     if (_eventNumber != ge.event_number()) {
+        /// @todo
+        /// can we get away with not passing a matrix?
+
         // if this is indeed a new event, push the temporary
         // histograms and reset
-        foreach (Rivet::Histo1DPtr& histo, _histograms) {
-            histo.rivetHisto1D()->pushToPersistent(_subEventWeights);
+        for (const AnaHandle& a : _analyses) {
+            for (const shared_ptr<MultiweightAOPtr>& aoptr : a->analysisObjects()) {
+                aoptr->pushToPersistent(_subEventWeights);
+            }
         }
 
         _eventNumber = ge.event_number();
@@ -169,8 +180,10 @@ namespace Rivet {
     }
 
 
-    foreach (Rivet::Histo1DPtr& histo, _histograms) {
-        histo.rivetHisto1D()->newEvent();
+    for (const AnaHandle& a : _analyses) {
+        for (const shared_ptr<MultiweightAOPtr>& aoptr : a->analysisObjects()) {
+            aoptr->newSubEvent();
+        }
     }
 
     _subEventWeights.push_back(event.weights());
@@ -280,8 +293,15 @@ namespace Rivet {
   }
 
 
-  vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
-    vector<AnalysisObjectPtr> rtn;
+  vector<shared_ptr<Rivet::AnalysisObjectPtr> > AnalysisHandler::getRivetAOs() const {
+    vector<shared_ptr<AnalysisObjectPtr> > rtn;
+    for (size_t i = 0; i < _numWeights; i++) {
+        // HERE WE ARE
+    }
+  }
+
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getData() const {
+    vector<YODA::AnalysisObjectPtr> rtn;
     rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
     rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
@@ -308,7 +328,7 @@ namespace Rivet {
     const vector<AnalysisObjectPtr> aos = getData();
     try {
       YODA::WriterYODA::write(filename, aos.begin(), aos.end());
-    } catch (...) { /// @todo Move to specific YODA::WriteError type when YODA >= 1.5.0 is well-established
+    } catch ( YODA::WriteError ) {
       throw UserError("Unexpected error in writing file to: " + filename);
     }
   }

@@ -586,6 +586,8 @@ namespace Rivet {
     /// data's x values and errors, but with the y values and errors zeroed...
     /// assuming that there is a reference histo with the same name: if there
     /// isn't, an exception will be thrown.
+
+    /*
     Scatter2DPtr bookScatter2D(const std::string& name,
                                bool copy_pts=false,
                                const std::string& title="",
@@ -627,6 +629,7 @@ namespace Rivet {
                                const std::string& ytitle);
 
     //@}
+    */
 
 
   public:
@@ -808,7 +811,7 @@ namespace Rivet {
   public:
 
     /// List of registered analysis data objects
-    const vector<AnalysisObjectPtr>& analysisObjects() const {
+    const vector<shared_ptr<MultiweightAOPtr> >& analysisObjects() const {
       return _analysisobjects;
     }
 
@@ -819,15 +822,15 @@ namespace Rivet {
     //@{
 
     /// Register a data object in the histogram system
-    void addAnalysisObject(AnalysisObjectPtr ao);
+    void addAnalysisObject(shared_ptr<MultiweightAOPtr> ao);
 
     /// Get a data object from the histogram system
     /// @todo Use this default function template arg in C++11
     // template <typename AO=AnalysisObjectPtr>
     template <typename AOPtr>
     const AOPtr& getAnalysisObject(const std::string& name) const {
-      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_cast<AOPtr&>(ao);
+      for (const shared_ptr<MultiweightAOPtr>& ao : analysisObjects()) {
+        if ((*ao)->path() == histoPath(name)) return dynamic_cast<const AOPtr&>(*ao);
       }
       throw Exception("Data object " + histoPath(name) + " not found");
     }
@@ -837,9 +840,10 @@ namespace Rivet {
     // template <typename AO=AnalysisObjectPtr>
     template <typename AOPtr>
     AOPtr& getAnalysisObject(const std::string& name) {
-      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_cast<AOPtr&>(ao);
+      for (shared_ptr<MultiweightAOPtr>& ao : _analysisobjects) {
+        if ((*ao)->path() == histoPath(name)) return dynamic_cast<AOPtr&>(*ao);
       }
+
       throw Exception("Data object " + histoPath(name) + " not found");
     }
 
@@ -847,7 +851,7 @@ namespace Rivet {
     void removeAnalysisObject(const std::string& path);
 
     /// Unregister a data object from the histogram system (by pointer)
-    void removeAnalysisObject(AnalysisObjectPtr ao);
+    void removeAnalysisObject(const MultiweightAOPtr& ao);
 
 
     /// Get a named Histo1D object from the histogram system
@@ -967,7 +971,7 @@ namespace Rivet {
 
     /// Storage of all plot objects
     /// @todo Make this a map for fast lookup by path?
-    vector<AnalysisObjectPtr> _analysisobjects;
+    vector<shared_ptr<MultiweightAOPtr> > _analysisobjects;
 
     /// @name Cross-section variables
     //@{

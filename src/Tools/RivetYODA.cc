@@ -20,7 +20,7 @@ namespace Rivet {
   }
 
 
-  map<string, AnalysisObjectPtr> getRefData(const string& papername) {
+  map<string, YODA::AnalysisObjectPtr> getRefData(const string& papername) {
     const string datafile = getDatafilePath(papername);
 
     // Make an appropriate data file reader and read the data objects
@@ -31,9 +31,9 @@ namespace Rivet {
     reader.read(datafile, aovec);
 
     // Return value, to be populated
-    map<string, AnalysisObjectPtr> rtn;
+    map<string, YODA::AnalysisObjectPtr> rtn;
     foreach ( YODA::AnalysisObject* ao, aovec ) {
-      AnalysisObjectPtr refdata(ao);
+        YODA::AnalysisObjectPtr refdata(ao);
       if (!refdata) continue;
       const string plotpath = refdata->path();
       // Split path at "/" and only return the last field, i.e. the histogram ID
@@ -50,13 +50,13 @@ namespace Rivet {
       for (size_t m = 0; m < _persistent.size(); ++m) {
 
           // this is the initial event---it always exists
-          YODA::Histo1DPtr sum = boost::make_shared<YODA::Histo1D>(_evgroup[0]->clone());
+          YODA::Histo1DPtr sum = make_shared<YODA::Histo1D>(_evgroup[0]->clone());
           sum->scaleW( weight[0][m] );
 
           // loop over additional subevents (maybe there aren't any)
           // note loop starts at 1
           for (size_t n = 1; n < _evgroup.size(); ++n) {
-              YODA::Histo1DPtr tmp = boost::make_shared<YODA::Histo1D>(_evgroup[n]->clone());
+              YODA::Histo1DPtr tmp = make_shared<YODA::Histo1D>(_evgroup[n]->clone());
               tmp->scaleW( weight[n][m] );
               *sum += *tmp;
           }
