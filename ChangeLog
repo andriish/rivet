@@ -1,5 +1,7 @@
 2016-09-28  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix return type typo in Jet::bTagged(FN) templated method.
+
 	* Add eta and pT cuts to ATLAS truth b-jet definition.
 
 	* Use rounding rather than truncation in Cutflow percentage efficiency printing.
