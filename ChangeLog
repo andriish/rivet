@@ -1,5 +1,9 @@
 2016-09-28  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Merge the ATLAS and CMS from-Delphes electron and muon tracking
+	efficiency functions into generic trkeff functions -- this is how
+	it should be.
+
 	* Fix return type typo in Jet::bTagged(FN) templated method.
 
 	* Add eta and pT cuts to ATLAS truth b-jet definition.

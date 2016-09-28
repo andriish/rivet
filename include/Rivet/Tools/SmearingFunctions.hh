@@ -127,29 +127,6 @@ namespace Rivet {
   /// @name Electron efficiency and smearing functions
   //@{
 
-  /// ATLAS Run 1 electron tracking efficiency
-  /// @todo How to use this in combination with reco eff?
-  inline double ELECTRON_TRKEFF_ATLAS_RUN1(const Particle& e) {
-    if (e.abseta() > 2.5) return 0;
-    if (e.pT() < 0.1*GeV) return 0;
-    if (e.abseta() < 1.5) {
-      if (e.pT() < 1*GeV) return 0.73;
-      if (e.pT() < 100*GeV) return 0.95;
-      return 0.99;
-    } else {
-      if (e.pT() < 1*GeV) return 0.50;
-      if (e.pT() < 100*GeV) return 0.83;
-      else return 0.90;
-    }
-  }
-
-  /// ATLAS Run 2 electron tracking efficiency
-  /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_TRKEFF_ATLAS_RUN2(const Particle& e) {
-    return ELECTRON_TRKEFF_ATLAS_RUN1(e);
-  }
-
-
   /// ATLAS Run 1 electron reconstruction efficiency
   /// @todo Include reco eff (but no e/y discrimination) in forward region
   /// @todo How to use this in combination with tracking eff?
@@ -335,25 +312,6 @@ namespace Rivet {
   /// @todo Add charge flip efficiency?
 
 
-  /// CMS Run 1 electron tracking efficiency
-  /// @todo How to use this in combination with reco eff?
-  inline double ELECTRON_TRKEFF_CMS_RUN1(const Particle& e) {
-    if (e.abseta() > 2.5) return 0;
-    if (e.pT() < 0.1*GeV) return 0;
-    if (e.abseta() < 1.5) {
-      return (e.pT() < 1*GeV) ? 0.70 : 0.95;
-    } else {
-      return (e.pT() < 1*GeV) ? 0.60 : 0.85;
-    }
-  }
-
-
-  /// CMS Run 2 electron tracking efficiency
-  /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_TRKEFF_CMS_RUN2(const Particle& e) {
-    return ELECTRON_TRKEFF_CMS_RUN1(e);
-  }
-
 
   /// CMS Run 1 electron reconstruction efficiency
   /// @todo How to use this in combination with tracking eff?
@@ -421,25 +379,6 @@ namespace Rivet {
   /// @name Muon efficiency and smearing functions
   //@{
 
-  /// ATLAS Run 1 muon tracking efficiency
-  /// @todo How to use this in combination with reco eff?
-  inline double MUON_TRKEFF_ATLAS_RUN1(const Particle& m) {
-    if (m.abseta() > 2.5) return 0;
-    if (m.pT() < 0.1*GeV) return 0;
-    if (m.abseta() < 1.5) {
-      return (m.pT() < 1*GeV) ? 0.75 : 0.99;
-    } else {
-      return (m.pT() < 1*GeV) ? 0.70 : 0.98;
-    }
-  }
-
-  /// ATLAS Run 2 muon tracking efficiency
-  /// @todo Currently just a copy of Run 1: fix!
-  inline double MUON_TRKEFF_ATLAS_RUN2(const Particle& m) {
-    return MUON_TRKEFF_ATLAS_RUN1(m);
-  }
-
-
   /// ATLAS Run 1 muon reco efficiency
   /// @todo How to use this in combination with tracking eff?
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
@@ -483,24 +422,6 @@ namespace Rivet {
   }
 
 
-  /// CMS Run 1 muon tracking efficiency
-  /// @todo How to use this in combination with reco eff?
-  /// @note Eff values currently identical to those in ATLAS (AB, 2016-04-12)
-  inline double MUON_TRKEFF_CMS_RUN1(const Particle& m) {
-    if (m.abseta() > 2.5) return 0;
-    if (m.pT() < 0.1*GeV) return 0;
-    if (m.abseta() < 1.5) {
-      return (m.pT() < 1*GeV) ? 0.75 : 0.99;
-    } else {
-      return (m.pT() < 1*GeV) ? 0.70 : 0.98;
-    }
-  }
-
-  /// CMS Run 2 muon tracking efficiency
-  /// @todo Currently just a copy of Run 1: fix!
-  inline double MUON_TRKEFF_CMS_RUN2(const Particle& m) {
-    return MUON_TRKEFF_CMS_RUN1(m);
-  }
 
 
   /// CMS Run 1 muon reco efficiency
@@ -782,6 +703,71 @@ namespace Rivet {
   /// @todo Just a copy of the ATLAS one: improve!!
   inline Vector3 MET_SMEAR_CMS_RUN2(const Vector3& met, double set) {
     return MET_SMEAR_ATLAS_RUN2(met, set);
+  }
+
+  //@}
+
+
+  /// @name Tracking efficiency and smearing functions
+  //@{
+
+  /// ATLAS Run 1 tracking efficiency
+  inline double TRKEFF_ATLAS_RUN1(const Particle& p) {
+    if (p.charge3() == 0) return 0;
+    if (p.abseta() > 2.5) return 0;
+    if (p.pT() < 0.1*GeV) return 0;
+
+    if (p.abspid() == PID::ELECTRON) {
+      if (p.abseta() < 1.5) {
+        if (p.pT() < 1*GeV) return 0.73;
+        if (p.pT() < 100*GeV) return 0.95;
+        return 0.99;
+      } else {
+        if (p.pT() < 1*GeV) return 0.50;
+        if (p.pT() < 100*GeV) return 0.83;
+        else return 0.90;
+      }
+    } else { // muons and hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.75 : 0.99;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    }
+  }
+
+  /// ATLAS Run 2 tracking efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double TRKEFF_ATLAS_RUN2(const Particle& p) {
+    return TRKEFF_ATLAS_RUN1(p);
+  }
+
+
+  /// CMS Run 1 tracking efficiency
+  inline double TRKEFF_CMS_RUN1(const Particle& p) {
+    if (p.charge3() == 0) return 0;
+    if (p.abseta() > 2.5) return 0;
+    if (p.pT() < 0.1*GeV) return 0;
+
+    if (p.abspid() == PID::ELECTRON) {
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
+      }
+    } else { // muons and hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.75 : 0.99;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    }
+  }
+
+  /// CMS Run 2 tracking efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double TRKEFF_CMS_RUN2(const Particle& p) {
+    return TRKEFF_CMS_RUN1(p);
   }
 
   //@}
