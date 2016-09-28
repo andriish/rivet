@@ -57,6 +57,10 @@ namespace Rivet {
   };
 
 
+  /// @todo Make this the canonical name in future
+  using Taus = TauFinder;
+
+
 }
 
 

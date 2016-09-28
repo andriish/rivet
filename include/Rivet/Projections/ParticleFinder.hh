@@ -3,7 +3,6 @@
 #define RIVET_ParticleFinder_HH
 
 #include "Rivet/Projection.hh"
-#include "Rivet/Cuts.hh"
 
 namespace Rivet {
 
@@ -16,7 +15,7 @@ namespace Rivet {
     //@{
 
     /// Construction using Cuts object
-    ParticleFinder(const Cut& c=Cuts::open())
+    ParticleFinder(const Cut& c=Cuts::OPEN)
       : _cuts(c), _theParticles()
     { }
 
@@ -59,12 +58,16 @@ namespace Rivet {
       return rtn;
     }
 
+
+    /// @todo Want to add a general filtering function, but that clashes with the sorting functor... SFINAE?
+
+
     /// Get the final-state particles, ordered by supplied sorting function object.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     /// @todo Can't this be a const Cut& arg?
     /// @todo Use a std::function instead of typename F?
     template <typename F>
-    Particles particles(F sorter, const Cut & c=Cuts::open()) const {
+    Particles particles(F sorter, const Cut& c=Cuts::open()) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
@@ -74,7 +77,7 @@ namespace Rivet {
     /// @todo Can't this be a const Cut& arg?
     /// @todo Use a std::function instead of typename F?
     template <typename F>
-    Particles particles(const Cut & c, F sorter) const {
+    Particles particles(const Cut& c, F sorter) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
@@ -82,7 +85,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with optional cuts.
     ///
     /// This is a very common use-case, so is available as syntatic sugar for particles(c, cmpMomByPt).
-    Particles particlesByPt(const Cut & c=Cuts::open()) const {
+    Particles particlesByPt(const Cut& c=Cuts::open()) const {
       return particles(c, cmpMomByPt);
     }
 

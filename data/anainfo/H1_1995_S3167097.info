@@ -4,6 +4,7 @@ Summary: Transverse energy and forward jet production in the low-$x$ regime at H
 Experiment: H1
 Collider: HERA Run I
 SpiresID: 3167097
+InspireID: 396365
 Status: UNVALIDATED
 Authors:
  - Leif Lonnblad <leif.lonnblad@thep.lu.se>

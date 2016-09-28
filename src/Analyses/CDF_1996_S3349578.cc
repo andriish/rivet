@@ -2,6 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/SmearedJets.hh"
 
 namespace Rivet {
 
@@ -30,7 +31,12 @@ namespace Rivet {
 
       /// Initialise and register projections here
       const FinalState fs(-4.2, 4.2);
-      declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
+      FastJets fj(fs, FastJets::CDFJETCLU, 0.7);
+      declare(fj, "Jets");
+      
+      // Smear Energy and mass with the 10% uncertainty quoted in the paper
+      SmearedJets sj_E(fj, [](const Jet& jet){ return P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet, 0.1*jet.E()), 0.1*jet.mass()); });
+      declare(sj_E, "SmearedJets");
 
       /// Book histograms here, e.g.:
       _h_3_mNJ = bookHisto1D(1, 1, 1);
@@ -78,23 +84,19 @@ namespace Rivet {
     void analyze(const Event& event) {
       Jets jets;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, apply<FastJets>(event, "Jets").jets(cmpMomByEt)) {
-        double Et = jet.Et();
-        if (Et > 20.0*GeV) {
-          bool separated = true;
-          foreach (const Jet& ref, jets) {
-            if (deltaR(jet, ref) < 0.9) {
-              separated = false;
-              break;
-            }
+      foreach (const Jet& jet, apply<JetAlg>(event, "SmearedJets").jets(Cuts::Et > 20.0*GeV, cmpMomByEt)) {
+        bool separated = true;
+        foreach (const Jet& ref, jets) {
+          if (deltaR(jet, ref) < 0.9) {
+            separated = false;
+            break;
           }
-          if (!separated) continue;
-          jets.push_back(jet);
-          jetsystem += jet.momentum();
         }
+        if (!separated) continue;
+        jets.push_back(jet);
+        jetsystem += jet.momentum();
         if (jets.size() >= 5) break;
       }
-      /// @todo include gaussian jet energy resolution smearing?
 
       const double weight = event.weight();
       if (jets.size() > 4) {

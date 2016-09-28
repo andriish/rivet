@@ -4,6 +4,7 @@ Summary: Measurement of W charge asymmetry from D0 Run II
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 7837160
+InspireID: 791230
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

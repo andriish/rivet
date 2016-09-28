@@ -26,6 +26,7 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
         bool init(string, double) # $2=1.0
         bool openFile(string, double) # $2=1.0
         bool readEvent()
+        bool skipEvent()
         bool processEvent()
         bool finalize()
 
@@ -68,10 +69,12 @@ cdef extern from "Rivet/Tools/RivetPaths.hh" namespace "Rivet":
     void addAnalysisLibPath(string)
 
     vector[string] getAnalysisDataPaths()
-    string findAnalysisRefFile(string)
+    void setAnalysisDataPaths(vector[string])
+    void addAnalysisDataPath(string)
+    string findAnalysisDataFile(string)
 
     vector[string] getAnalysisRefPaths()
-    string findAnalysisDataFile(string)
+    string findAnalysisRefFile(string)
 
     vector[string] getAnalysisInfoPaths()
     string findAnalysisInfoFile(string)

@@ -4,6 +4,7 @@ Summary: Event shapes
 Experiment: CMS
 Collider: LHC
 SpiresID: 8957746
+InspireID: 886332
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

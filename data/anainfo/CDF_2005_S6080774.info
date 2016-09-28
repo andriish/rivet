@@ -4,6 +4,7 @@ Summary: Differential cross sections for prompt diphoton production
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 6080774
+InspireID: 667384
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

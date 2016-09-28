@@ -49,6 +49,15 @@ namespace Rivet {
     }
     return true;
   }
+  
+  // Fill event and check for a bad read state --- to skip, maybe HEPMC3 will have a better way
+  bool Run::skipEvent() {
+    if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
+      Log::getLog("Rivet.Run") << Log::DEBUG << "Read failed. End of file?" << endl;
+      return false;
+    }
+    return true;
+  }
 
 
   bool Run::openFile(const std::string& evtfile, double weight) {
@@ -86,7 +95,7 @@ namespace Rivet {
     _ah.init(*_evt);
 
     // Set cross-section from command line
-    if (!isnan(_xs)) {
+    if (!std::isnan(_xs)) {
       Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
       _ah.setCrossSection(_xs);
@@ -134,7 +143,7 @@ namespace Rivet {
     _istr.reset();
     _io.reset();
 
-    if (!isnan(_xs)) _ah.setCrossSection(_xs);
+    if (!std::isnan(_xs)) _ah.setCrossSection(_xs);
     _ah.finalize();
 
     return true;

@@ -9,6 +9,7 @@ RunInfo:
   $e^+ e^-$ analysis in the 10 GeV CMS energy range
 NumEvents: 1000000
 SpiresID: 2789213
+InspireID: 356616
 Beams: [e+, e-]
 Energies: [9.46,10.45,10.58]
 PtCuts: [0]

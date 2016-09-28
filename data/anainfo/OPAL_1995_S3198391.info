@@ -4,6 +4,7 @@ Summary: $\Delta^{++}$ Production in Hadronic $Z^0$ Decays
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3198391
+InspireID: 398320
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

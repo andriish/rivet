@@ -91,24 +91,20 @@ namespace Rivet {
       if (leadingJet.absrap() > 2.37) vetoEvent;
 
       // Get the area-filtered jet inputs for computing median energy density, etc.
-      vector<double> ptDensity, sigma, Njets;
+      vector<double> ptDensity;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
       FastJets fast_jets = apply<FastJets>(event, "KtJetsD05");
       const auto clust_seq_area = fast_jets.clusterSeqArea();
       foreach (const Jet& jet, fast_jets.jets()) {
         const double area = clust_seq_area->area(jet);
-        if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back())
+        if (area > 1e-4 && jet.abseta() < _eta_bins_areaoffset.back())
           ptDensities.at( getEtaBin(jet.abseta()) ).push_back(jet.pT()/area);
       }
 
       // Compute the median energy density, etc.
       for (size_t b = 0; b < _eta_bins_areaoffset.size() - 1; ++b) {
         const int njets = ptDensities[b].size();
-        const double ptmedian = (njets > 0) ? median(ptDensities[b]) : 0;
-        const double ptsigma = (njets > 0) ? ptDensities[b][(size_t)(0.15865*njets)] : 0;
-        ptDensity.push_back(ptmedian);
-        sigma.push_back(ptsigma);
-        Njets.push_back(njets);
+        ptDensity += (njets > 0) ? median(ptDensities[b]) : 0;
       }
 
       // Compute the isolation energy correction (cone area*energy density)

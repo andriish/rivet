@@ -4,6 +4,7 @@ Summary: Field & Stuart Run I underlying event analysis.
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 4751469
+InspireID: 564673
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

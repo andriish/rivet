@@ -1,3 +1,359 @@
+2016-09-22  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Release version 2.5.2
+
+2016-09-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a requirement to DressedLeptons that the FinalState passed
+	as 'bareleptons' will be filtered to only contain charged leptons,
+	if that is not already the case. Thanks to Markus Seidel for the
+	suggestion.
+
+2016-09-21  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add Simone Amoroso's plugin for hadron spectra (ALEPH_1995_I382179)
+
+	* Add Simone Amoroso's plugin for hadron spectra (OPAL_1993_I342766)
+
+2016-09-20  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add CMS ttbar analysis from contrib, mark validated (CMS_2016_I1473674)
+
+	* Extend rivet-mkhtml --booklet to also work with pdfmerge
+
+2016-09-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix make-plots automatic YMax calculation, which had a typo from code cleaning (mea culpa!).
+
+	* Fix ChargedLeptons projection, which failed to exclude neutrinos!!! Thanks to Markus Seidel.
+
+	* Add templated FN filtering arg versions of the Jet::*Tags() and
+	Jet::*Tagged() functions.
+
+2016-09-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CMS partonic top analysis (CMS_2015_I1397174)
+
+2016-09-18  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add L3 xp analysis of eta mesons, thanks Simone (L3_1992_I336180)
+
+	* Add D0 1.8 TeV jet shapes analysis, thanks Simone (D0_1995_I398175)
+
+2016-09-17  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add has{Ancestor,Parent,Child,Descendant}With functions and
+	HasParticle{Ancestor,Parent,Child,Descendant}With functors.
+
+2016-09-16  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add ATLAS 8TeV ttbar analysis from contrib (ATLAS_2015_I1404878)
+
+2016-09-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add particles(GenParticlePtr) to RivetHepMC.hh
+
+	* Add hasParent, hasParentWith, and hasAncestorWith to Particle.
+
+2016-09-15  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add ATLAS 8TeV dijet analysis from contrib (ATLAS_2015_I1393758)
+
+	* Add ATLAS 8TeV 'number of tracks in jets' analysis from contrib (ATLAS_2016_I1419070)
+
+	* Add ATLAS 8TeV g->H->WW->enumunu analysis from contrib (ATLAS_2016_I1444991)
+
+2016-09-14  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Explicit std::toupper and std::tolower to make clang happy
+
+2016-09-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS Run 2 0-lepton SUSY and monojet search papers (ATLAS_2016_I1452559, ATLAS_2016_I1458270)
+
+2016-09-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add experimental Cutflow and Cutflows objects for BSM cut tracking.
+
+	* Add 'direct' versions of any, all, none to Utils.hh, with an
+	implicity bool() transforming function.
+
+2016-09-13  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add and mark validated B+ to omega analysis (BABAR_2013_I1116411)
+
+	* Add and mark validated D0 to pi- analysis (BABAR_2015_I1334693)
+
+	* Add a few more particle names and use PID names in recently added
+	  analyses
+
+	* Add Simone's OPAL b-frag analysis (OPAL_2003_I599181) after some
+	cleanup and heavy usage of new features
+
+	* Restructured DELPHI_2011_I890503 in the same manner --- picks up
+	a few more B-hadrons now (e.g. 20523 and such)
+
+	* Clean up and add ATLAS 8TeV MinBias (from contrib ATLAS_2016_I1426695)
+
+2016-09-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a static constexpr DBL_NAN to Utils.hh for convenience, and
+	move some utils stuff out of MathHeader.hh
+
+2016-09-12  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add count function to Tools/Utils.h
+
+	* Add and mark validated B0bar and Bminus-decay to pi analysis (BELLE_2013_I1238273)
+
+	* Add and mark validated B0-decay analysis (BELLE_2011_I878990)
+
+	* Add and mark validated B to D decay analysis (BELLE_2011_I878990)
+
+2016-09-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add C-array version of multi-target Analysis::scale() and normalize(), and fix (semantic) constness.
+
+	* Add == and != operators for cuts applied to integers.
+
+	* Add missing delta{Phi,Eta,Rap}{Gtr,Less} functors to ParticleBaseUtils.hh
+
+2016-09-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add templated functor filtering args to the Particle parent/child/descendent methods.
+
+2016-09-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS Run 1 medium and tight electron ID efficiency functions.
+
+	* Update configure scripts to use newer (Py3-safe) Python testing macros.
+
+2016-09-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add isFirstWith(out), isLastWith(out) functions, and functor
+	wrappers, using Cut and templated function/functor args.
+
+	* Add Particle::parent() method.
+
+	* Add using import/typedef of HepMC *Ptr types (useful step for HepMC 2.07 and 3.00).
+
+	* Various typo fixes (and canonical renaming) in ParticleBaseUtils functor collection.
+
+	* Add ATLAS MV2c10 and MV2c20 b-tagging effs to SmearingFunctions.hh collection.
+
+2016-09-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a PartonicTops projection.
+
+	* Add overloaded versions of the Event::allParticles() method with
+	selection Cut or templated selection function arguments.
+
+2016-08-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add rapidity scheme arg to DeltaR functor constructors.
+
+2016-08-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Provide an Analysis::bookCounter(d,x,y, title) function, for
+	convenience and making the mkanalysis template valid.
+
+	* Improve container utils functions, and provide combined
+	remove_if+erase filter_* functions for both select- and
+	discard-type selector functions.
+
+2016-08-22  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Bugfix in rivet-mkhtml (NoneType: ana.spiresID() --> spiresid)
+
+	* Added <numeric> include to Rivet/Tools/Utils.h to make gcc6 happy
+
+2016-08-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add efffilt() functions and Particle/JetEffFilt functors to SmearingFunctions.hh
+
+2016-08-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding filterBy methods for Particle and Jet which accept
+	generic boolean functions as well as the Cut specialisation.
+
+2016-08-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a Jet::particles(Cut&) method, for inline filtering of jet constituents.
+
+	* Add 'conjugate' behaviours to container head and tail functions
+	via negative length arg values.
+
+2016-08-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add convenience headers for including all final-state and
+	smearing projections, to save user typing.
+
+2016-08-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add standard MET functions for ATLAS R1 (and currently copies
+	for R2 and CMS).
+
+	* Add lots of vector/container helpers for e.g. container slicing,
+	summing, and min/max calculation.
+
+	* Adapt SmearedMET to take *two* arguments, since SET is typically
+	used to calculate MET resolution.
+
+	* Adding functors for computing vector & ParticleBase differences
+	w.r.t. another vector.
+
+2016-08-12  Holger Schulz  <holger.schulz@cern.ch>
+
+        * Implemented a few more cuts in prompt photon analysis
+	(CDF_1993_S2742446) but to no avail, the rise of the data towards
+	larger costheta values cannot be reproduced --- maybe this is a
+	candidate for more scrutiny and using the boosting machinery such that
+	the c.m. cuts can be done in a non-approximate way
+
+2016-08-11  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Rename CDF_2009_S8383952 to CDF_2009_I856131 due to invalid Spires
+	entry.
+
+	* Add InspireID to all analysis known by their Spires key
+
+2016-08-09  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Release 2.5.1
+
+2016-08-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a simple MC_MET analysis for out-of-the-box MET distribution testing.
+
+2016-08-08  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add DELPHI_2011_I890503 b-quark fragmentation function measurement,
+	which superseded DELPHI_2002_069_CONF_603. The latter is marked
+	OBSOLETE.
+
+2016-08-05  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Use Jet mass and energy smearing in CDF_1997_... six-jet analysis,
+	mark validated.
+
+	* Mark CDF_2001_S4563131 validated
+
+	* D0_1996_S3214044 --- cut on jet Et rather than pT, fix filling of
+	costheta and theta plots, mark validated. Concerning the jet
+	algorithm, I tried with the implementation of fastjet
+	fastjet/D0RunIConePlugin.hh but that really does not help.
+
+	* D0_1996_S3324664 --- fix normalisations, sorting jets properly now,
+	cleanup and mark validated.
+
+
+2016-08-04  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Use Jet mass and energy smearing in CDF_1996_S310 ... jet properties
+	analysis. Cleanup analysis and mark validated. Added some more run info.
+	The same for CDF_1996_S334... (pretty much the same cuts, different
+	observables).
+
+	* Minor fixes in SmearedJets projection
+
+2016-08-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect SmearedJets against loss of tagging information if a
+	momentum smearing function is used (rather than a dedicated Jet
+	smearing fn) via implicit casts.
+
+2016-08-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add SmearedMET projection, wrapping MissingMomentum.
+
+	* Include base truth-level projections in SmearedParticles/Jets compare() methods.
+
+2016-07-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rename TOTEM_2012_002 to proper TOTEM_2012_I1220862 name.
+
+	* Remove conditional building of obsolete, preliminary and
+	unvalidated analyses. Now always built, since there are sufficient
+	warnings.
+
+2016-07-28  Holger Schulz  <holger.schulz@cern.ch>
+
+        * Mark D0_2000... W pT analysis validated
+
+	* Mark LHCB_2011_S919... phi meson analysis validated
+
+2016-07-25  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add unbound accessors for momentum properties of ParticleBase objects.
+
+	* Add Rivet/Tools/ParticleBaseUtils.hh to collect tools like functors for particle & jet filtering.
+
+	* Add vector<ptr> versions of Analysis::scale() and ::normalize(), for batched scaling.
+
+	* Add Analysis::scale() and Analysis::divide() methods for Counter types.
+
+	* Utils.hh: add a generic sum() function for containers, and use auto in loop to support arrays.
+
+	* Set data path as well as lib path in scripts with --pwd option, and use abs path to $PWD.
+
+	* Add setAnalysisDataPaths and addAnalysisDataPath to RivetPaths.hh/cc and Python.
+
+	* Pass absolutized RIVET_DATA_PATH from rivet-mkhtml to rivet-cmphistos.
+
+2016-07-24  Holger Schulz  <holger.schulz@cern.ch>
+
+        * Mark CDF_2008_S77... b jet shapes validated
+
+	* Added protection against low stats yoda exception
+	  in finalize for that analysis
+
+2016-07-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix newly introduced bug in make-plots which led to data point
+	markers being skipped for all but the last bin.
+
+2016-07-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add pid, abspid, charge, abscharge, charge3, and abscharge3 Cut
+	enums, handled by Particle cut targets.
+
+	* Add abscharge() and abscharge3() methods to Particle.
+
+	* Add optional Cut and duplicate-removal flags to Particle children & descendants methods.
+
+	* Add unbound versions of Particle is* and from* methods, for easier functor use.
+
+	* Add Particle::isPrompt() as a member rather than unbound function.
+
+	* Add protections against -ve mass from numerical precision errors in smearing functions.
+
+2016-07-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Move several internal system headers into the include/Rivet/Tools directory.
+
+	* Fix median-computing safety logic in ATLAS_2010_S8914702 and
+	tidy this and @todo markers in several similar analyses.
+
+	* Add to_str/toString and stream functions for Particle, and a bit
+	of Particle util function reorganisation.
+
+	* Add isStrange/Charm/Bottom PID and Particle functions.
+
+	* Add RangeError exception throwing from MathUtils.hh stats
+	functions if given empty/mismatched datasets.
+
+	* Add Rivet/Tools/PrettyPrint.hh, based on https://louisdx.github.io/cxx-prettyprint/
+
+	* Allow use of path regex group references in .plot file keyed values.
+
+2016-07-20  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Fix the --nskip behaviour on the main rivet script.
+
+2016-07-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Release version 2.5.0
+
 2016-07-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix pandoc interface flag version detection.

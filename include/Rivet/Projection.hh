@@ -6,6 +6,7 @@
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Tools/Cuts.hh"
 // NOTE: Cmp.hh, Event.hh and Particle.hh included at the bottom
 
 namespace Rivet {
@@ -130,6 +131,8 @@ namespace Rivet {
 
     /// Shortcut to make a named Cmp<Projection> comparison with the @c *this
     /// object automatically passed as one of the parent projections.
+    ///
+    /// @note Alias for mkNamedPCmp
     Cmp<Projection> mkPCmp(const Projection& otherparent, const std::string& pname) const;
 
     /// Block Projection copying
@@ -161,9 +164,9 @@ inline bool std::less<const Rivet::Projection *>::operator()(const Rivet::Projec
 #endif
 
 
-#include "Rivet/Cmp.hh"
 #include "Rivet/Event.hh"
 #include "Rivet/Particle.hh"
+#include "Rivet/Tools/Cmp.hh"
 
 
 /// @def DEFAULT_RIVET_PROJ_CLONE

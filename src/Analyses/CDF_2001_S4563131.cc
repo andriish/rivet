@@ -37,9 +37,9 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
-      Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::Et > 40*GeV, cmpMomByEt);
+      Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::Et > 40*GeV && Cuts::abseta >= 0.1 && Cuts::abseta <= 0.7, cmpMomByEt);
       foreach (const Jet& jet, jets) {
-        if (inRange(jet.abseta(), 0.1, 0.7))
+        //if (inRange(jet.abseta(), 0.1, 0.7))
           _h_ET->fill(jet.Et(), weight);
       }
     }

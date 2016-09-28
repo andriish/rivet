@@ -4,7 +4,8 @@ Summary: Transverse momentum of the W boson
 Experiment: D0
 Collider: Tevatron Run 1
 SpiresID: 4480767
-Status: UNVALIDATED
+InspireID: 535017
+Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:

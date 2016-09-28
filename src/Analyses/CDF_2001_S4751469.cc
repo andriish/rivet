@@ -1,19 +1,15 @@
 // -*- C++ -*-
-
-// Field & Stuart underlying event analysis at CDF.
-// Phys.Rev.D65:092002,2002 - no arXiv code.
-// FNAL-PUB 01/211-E
-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/ConstLossyFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/TriggerCDFRun0Run1.hh"
+#include "Rivet/Projections/ConstLossyFinalState.hh"
+//#include "Rivet/Projections/SmearedParticles.hh"
 
 namespace Rivet {
 
 
-  /// @brief "Field-Stuart" CDF Run I track-jet underlying event analysis
+  /// @brief Field-Stuart CDF Run I track-jet underlying event analysis
   ///
   /// @author Andy Buckley
   ///
@@ -34,8 +30,7 @@ namespace Rivet {
       : Analysis("CDF_2001_S4751469"),
         _totalNumTrans2(0), _totalNumTrans5(0), _totalNumTrans30(0),
         _sumWeightsPtLead2(0),_sumWeightsPtLead5(0), _sumWeightsPtLead30(0)
-    {
-    }
+    {    }
 
 
     /// @name Analysis methods
@@ -46,10 +41,12 @@ namespace Rivet {
       declare(TriggerCDFRun0Run1(), "Trigger");
       // Randomly discard 8% of charged particles as a kind of hacky detector correction.
       const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      const ConstLossyFinalState lfs(cfs, 0.08);
+      /// @todo Replace ConstLossyFinalState with SmearedParticles
+      const ConstLossyFinalState lossyfs(cfs, 0.08);
+      //const SmearedParticles lossyfs(cfs, [](const Particle&){ return 0.92; });
 
-      declare(lfs, "FS");
-      declare(FastJets(lfs, FastJets::TRACKJET, 0.7), "TrackJet");
+      declare(lossyfs, "FS");
+      declare(FastJets(lossyfs, FastJets::TRACKJET, 0.7), "TrackJet");
 
       _numvsDeltaPhi2 =  bookProfile1D(1, 1, 1);
       _numvsDeltaPhi5 =  bookProfile1D(1, 1, 2);
@@ -84,39 +81,21 @@ namespace Rivet {
       const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
 
-      // Analyse, with pT > 0.5 GeV AND |eta| < 1
-      const JetAlg& tj = apply<JetAlg>(event, "TrackJet");
-
-      // Final state (lossy) charged particles
-      const FinalState& fs = apply<FinalState>(event, "FS");
-
       // Get jets, sorted by pT
-      const Jets jets = tj.jetsByPt();
-      if (jets.empty()) {
-        vetoEvent;
-      }
-
-      Jet leadingJet = jets.front();
-      const double phiLead = leadingJet.phi();
-      const double ptLead = leadingJet.pT();
+      const Jets jets = apply<JetAlg>(event, "TrackJet").jetsByPt();
+      if (jets.empty()) vetoEvent;
+      const Jet jet1 = jets.front();
+      const double ptLead = jet1.pT();
 
       // Cut on highest pT jet: combined 0.5 GeV < pT(lead) < 50 GeV
       if (ptLead/GeV < 0.5) vetoEvent;
       if (ptLead/GeV > 50.0) vetoEvent;
 
-      // Get the event weight
-      const double weight = event.weight();
-
       // Count sum of all event weights in three pT_lead regions
-      if (ptLead/GeV > 2.0) {
-        _sumWeightsPtLead2 += weight;
-      }
-      if (ptLead/GeV > 5.0) {
-        _sumWeightsPtLead5 += weight;
-      }
-      if (ptLead/GeV > 30.0) {
-        _sumWeightsPtLead30 += weight;
-      }
+      const double weight = event.weight();
+      if (ptLead/GeV > 2.0) _sumWeightsPtLead2 += weight;
+      if (ptLead/GeV > 5.0) _sumWeightsPtLead5 += weight;
+      if (ptLead/GeV > 30.0) _sumWeightsPtLead30 += weight;
 
       // Run over tracks
       double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
@@ -126,9 +105,11 @@ namespace Rivet {
       Profile1D htmp_num_dphi_2(refData(1, 1, 1)), htmp_num_dphi_5(refData(1, 1, 2)), htmp_num_dphi_30(refData(1, 1, 3));
       Profile1D htmp_pt_dphi_2(refData(2, 1, 1)), htmp_pt_dphi_5(refData(2, 1, 2)), htmp_pt_dphi_30(refData(2, 1, 3));
 
-      foreach (const Particle& p, fs.particles()) {
-        // Calculate DeltaPhi(p,leadingJet)
-        const double dPhi = deltaPhi(p.phi(), phiLead);
+      // Final state charged particles
+      /// @todo Non-trackjet track efficiencies are corrected?
+      const Particles& tracks = apply<FinalState>(event, "FS").particles();
+      for (const Particle& p : tracks) {
+        const double dPhi = deltaPhi(p, jet1);
         const double pT = p.pT();
 
         if (dPhi < PI/3.0) {
@@ -158,7 +139,7 @@ namespace Rivet {
         }
 
         // Fill tmp histos to bin event's track Nch & pT in dphi
-        const double dPhideg = 180*dPhi/PI;
+        const double dPhideg = 180*dPhi/M_PI;
         if (ptLead/GeV > 2.0) {
           htmp_num_dphi_2.fill(dPhideg, 1);
           htmp_pt_dphi_2.fill (dPhideg, pT/GeV);

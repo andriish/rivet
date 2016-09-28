@@ -4,6 +4,7 @@ Summary: Measurement of the inclusive jet cross-section in $pp$ collisions at $\
 Experiment: CMS
 Collider: LHC
 SpiresID: 9086218
+InspireID: 902309
 Status: VALIDATED
 Authors:
  - Rasmus Sloth Hansen<rsh07@phys.au.dk>

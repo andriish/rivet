@@ -4,6 +4,7 @@ Summary: Traditional leading jet UE measurement at $\sqrt{s} = 0.9$ and 7 TeV
 Experiment: CMS
 Collider: LHC
 SpiresID: 9120041
+InspireID: 916908
 Status: VALIDATED
 Authors:
  - Mohammed Zakaria (mzakaria@ufl.edu)

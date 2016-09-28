@@ -5,8 +5,8 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Jet.fhh"
 #include "Rivet/Particle.hh"
-#include "Rivet/Cuts.hh"
-#include "Rivet/Tools/ParticleUtils.hh"
+#include "Rivet/Tools/Cuts.hh"
+#include "Rivet/Tools/Utils.hh"
 #include "Rivet/Tools/RivetFastJet.hh"
 #include "Rivet/Math/LorentzTrans.hh"
 #include <numeric>
@@ -53,12 +53,16 @@ namespace Rivet {
     /// Get the particles in this jet.
     Particles& particles() { return _particles; }
     /// Get the particles in this jet (const version)
-    const vector<Particle>& particles() const { return _particles; }
+    const Particles& particles() const { return _particles; }
+    /// Get the particles in this jet which pass a cut (const)
+    const Particles particles(const Cut& c) const { return filterBy(_particles, c); }
 
     /// Get the particles in this jet (FastJet-like alias)
     Particles& constituents() { return particles(); }
     /// Get the particles in this jet (FastJet-like alias, const version)
     const Particles& constituents() const { return particles(); }
+    /// Get the particles in this jet which pass a cut (FastJet-like alias, const)
+    const Particles constituents(const Cut& c) const { return particles(c); }
 
     /// Check whether this jet contains a particular particle.
     bool containsParticle(const Particle& particle) const;
@@ -88,6 +92,11 @@ namespace Rivet {
     Particles& tags() { return _tags; }
     /// @brief Particles which have been tag-matched to this jet (const version)
     const Particles& tags() const { return _tags; }
+    /// @brief Particles which have been tag-matched to this jet _and_ pass a selector function
+    ///
+    /// @note Note the less efficient return by value, due to the filtering.
+    template <typename FN>
+    Particles tags(const FN& f) const { return filter_select(tags(), f); }
     /// @brief Particles which have been tag-matched to this jet _and_ pass a Cut
     ///
     /// @note Note the less efficient return by value, due to the cut-pass filtering.
@@ -98,24 +107,45 @@ namespace Rivet {
     ///
     /// The default jet finding adds b-hadron tags by ghost association.
     Particles bTags(const Cut& c=Cuts::open()) const;
+    /// @brief b particles which have been tag-matched to this jet _and_ pass a selector function
+    template <typename FN>
+    Particles bTags(const FN& f) const { return filter_select(bTags(), f); }
+
     /// Does this jet have at least one b-tag (that passes an optional Cut)?
     bool bTagged(const Cut& c=Cuts::open()) const { return !bTags(c).empty(); }
+    /// Does this jet have at least one b-tag (that passes the supplied selector function)?
+    template <typename FN>
+    Particles bTagged(const FN& f) const { return !bTags(f).empty(); }
 
 
     /// @brief c (and not b) particles which have been tag-matched to this jet (and pass an optional Cut)
     ///
     /// The default jet finding adds c-hadron tags by ghost association.
     Particles cTags(const Cut& c=Cuts::open()) const;
+    /// @brief c (and not b) particles which have been tag-matched to this jet and pass a selector function
+    template <typename FN>
+    Particles cTags(const FN& f) const { return filter_select(cTags(), f); }
+
     /// Does this jet have at least one c-tag (that passes an optional Cut)?
     bool cTagged(const Cut& c=Cuts::open()) const { return !cTags(c).empty(); }
+    /// Does this jet have at least one c-tag (that passes the supplied selector function)?
+    template <typename FN>
+    bool cTagged(const FN& f) const { return !cTags(f).empty(); }
 
 
     /// @brief Tau particles which have been tag-matched to this jet (and pass an optional Cut)
     ///
     /// The default jet finding adds tau tags by ghost association.
     Particles tauTags(const Cut& c=Cuts::open()) const;
+    /// @brief Tau particles which have been tag-matched to this jet and pass a selector function
+    template <typename FN>
+    Particles tauTags(const FN& f) const { return filter_select(tauTags(), f); }
+
     /// Does this jet have at least one tau-tag (that passes an optional Cut)?
     bool tauTagged(const Cut& c=Cuts::open()) const { return !tauTags(c).empty(); }
+    /// Does this jet have at least one tau-tag (that passes the supplied selector function)?
+    template <typename FN>
+    bool tauTagged(const FN& f) const { return !tauTags(f).empty(); }
 
 
     /// @brief Check whether this jet contains a bottom-flavoured hadron.
@@ -232,45 +262,24 @@ namespace Rivet {
   };
 
 
-  /// @name Unbound functions for filtering jets
+  /// @name String representation and streaming support
   //@{
 
-  /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Jets& filterBy(Jets& jets, const Cut& c);
+  /// Represent a Jet as a string.
+  std::string to_str(const Jet& j);
 
-  /// Get a subset of the supplied jets that passes the supplied Cut
-  Jets filterBy(const Jets& jets, const Cut& c);
-
-  //@}
-
-
-  /// @name Unbound functions for converting between Jets, Particles and PseudoJets
-  //@{
-
-  inline PseudoJets mkPseudoJets(const Particles& ps) {
-    PseudoJets rtn; rtn.reserve(ps.size());
-    for (const Particle& p : ps)
-      rtn.push_back(p);
-    return rtn;
-  }
-
-  inline PseudoJets mkPseudoJets(const Jets& js) {
-    PseudoJets rtn; rtn.reserve(js.size());
-    for (const Jet& j : js)
-      rtn.push_back(j);
-    return rtn;
-  }
-
-  inline Jets mkJets(const PseudoJets& pjs) {
-    Jets rtn; rtn.reserve(pjs.size());
-    for (const PseudoJet& pj : pjs)
-      rtn.push_back(pj);
-    return rtn;
+  /// Allow a Jet to be passed to an ostream.
+  inline std::ostream& operator<<(std::ostream& os, const Jet& j) {
+    os << to_str(j);
+    return os;
   }
 
   //@}
 
 
 }
+
+
+#include "Rivet/Tools/JetUtils.hh"
 
 #endif

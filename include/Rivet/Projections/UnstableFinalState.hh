@@ -20,7 +20,7 @@ namespace Rivet {
   /// in the event record, i.e. those which differ only in bookkeeping details
   /// or photon emissions, are stripped from the returned particles collection.
   ///
-  /// @todo Inherit directly from ParticleFinder, rename as UnstableFinder, and make TauFinder inherit/use
+  /// @todo Inherit directly from ParticleFinder, rename as Unstables, and make TauFinder inherit/use
   class UnstableFinalState : public FinalState {
   public:
 
@@ -57,6 +57,10 @@ namespace Rivet {
     virtual void project(const Event& e);
 
   };
+
+
+  /// @todo Make this the canonical name in future
+  using Unstables = UnstableFinalState;
 
 
 }

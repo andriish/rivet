@@ -4,6 +4,7 @@ Summary: Measurement of the production rates of charged hadrons in $e^+e^-$ anni
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 2927284
+InspireID: 372772
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

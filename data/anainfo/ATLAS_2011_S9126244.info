@@ -4,6 +4,7 @@ Summary: Measurement of dijet production with a veto on additional central jet a
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 9126244
+InspireID: 917526
 Status: VALIDATED
 Authors:
  - Graham Jones <grahamj@cern.ch>

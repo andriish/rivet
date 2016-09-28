@@ -17,13 +17,15 @@ namespace Rivet {
     /// Constructor with a FinalState and optional list of PDG ID codes.
     IdentifiedFinalState(const FinalState& fsp, const vector<PdgId>& pids=vector<PdgId>());
 
-    /// Constructor with a list of PDG ID codes and a FinalState.
+    /// Constructor with a list of PDG ID codes and a FinalState
+    /// @deprecated Use the version with FinalState as 1st arg
     IdentifiedFinalState(const vector<PdgId>& pids, const FinalState& fsp);
 
     /// Constructor with a FinalState and a single of PDG ID code.
     IdentifiedFinalState(const FinalState& fsp, PdgId pid);
 
     /// Constructor with a single PDG ID code and a FinalState.
+    /// @deprecated Use the version with FinalState as 1st arg
     IdentifiedFinalState(PdgId pid, const FinalState& fsp);
 
 

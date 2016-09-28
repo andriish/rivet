@@ -4,6 +4,7 @@ Summary: Identified hadron spectra in pp at 200 GeV
 Experiment: STAR
 Collider: RHIC pp 200 GeV
 SpiresID: 6500200
+InspireID: 709170
 Status: VALIDATED
 Authors:
  - Bedanga Mohanty <bedanga@rcf.bnl.gov>

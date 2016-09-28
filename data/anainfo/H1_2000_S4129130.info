@@ -4,6 +4,7 @@ Summary: H1 energy flow in DIS
 Experiment: H1
 Collider: HERA
 SpiresID: 4129130
+InspireID: 503947
 Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>

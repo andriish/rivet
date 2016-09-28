@@ -38,11 +38,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       const double weight = event.weight();
-
-      Jets jets;
-      foreach (const Jet& jet, apply<FastJets>(event, "ConeJets").jets(Cuts::pT > 20*GeV)) {
-        if (jet.abseta() < 3.0) jets.push_back(jet);
-      }
+      Jets jets = apply<FastJets>(event, "ConeJets").jets(Cuts::Et > 20*GeV && Cuts::abseta<3, cmpMomByEt);
 
       if (jets.size() < 2) vetoEvent;
 
@@ -75,13 +71,11 @@ namespace Rivet {
 
     void finalize() {
       // Normalised to #events
-      normalize(_h_deta, 8830.0); // fixed norm OK
+      normalize(_h_deta, 8830.); // fixed norm OK
 
-      // I have no idea what this is normalised to... in the paper it says unity!
-      /// @todo Understand this!
+      // Normalied to 1/(4pi)
       foreach (Histo1DPtr histo, _h_dphi.getHistograms()) {
-        /// @todo Prefer to scale rather than normalize, if possible
-        normalize(histo, 0.0798);
+        normalize(histo, 1./(4.*M_PI));
       }
 
     }

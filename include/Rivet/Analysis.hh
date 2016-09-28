@@ -12,6 +12,7 @@
 #include "Rivet/Tools/RivetYODA.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleUtils.hh"
+#include "Rivet/Tools/Cuts.hh"
 
 
 /// @def vetoEvent
@@ -376,8 +377,14 @@ namespace Rivet {
     /// Book a counter.
     CounterPtr bookCounter(const std::string& name,
                            const std::string& title="");
-                           // const std::string& xtitle="",
-                           // const std::string& ytitle="");
+                           // const std::string& valtitle=""
+
+    /// Book a counter, using a path generated from the dataset and axis ID codes
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    CounterPtr bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                           const std::string& title="");
+                           // const std::string& valtitle=""
 
     //@}
 
@@ -622,31 +629,101 @@ namespace Rivet {
     //@}
 
 
-    /// @todo What follows should really be protected: only public to keep BinnedHistogram happy for now...
   public:
 
-    /// @name Histogram manipulation
+
+    /// @name Analysis object manipulation
+    /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     //@{
 
+    /// Multiplicatively scale the given counter, @a cnt, by factor @s factor.
+    void scale(CounterPtr cnt, double factor);
+
+    /// Multiplicatively scale the given counters, @a cnts, by factor @s factor.
+    /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
+    /// @todo Use SFINAE for a generic iterable of CounterPtrs
+    void scale(const std::vector<CounterPtr>& cnts, double factor) {
+      for (auto& c : cnts) scale(c, factor);
+    }
+    /// @todo YUCK!
+    template <std::size_t array_size>
+    void scale(const CounterPtr (&cnts)[array_size], double factor) {
+      // for (size_t i = 0; i < std::extent<decltype(cnts)>::value; ++i) scale(cnts[i], factor);
+      for (auto& c : cnts) scale(c, factor);
+    }
+
+
     /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
     void normalize(Histo1DPtr histo, double norm=1.0, bool includeoverflows=true);
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
-    void scale(Histo1DPtr histo, double scale);
+    /// Normalize the given histograms, @a histos, to area = @a norm.
+    /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
+    /// @todo Use SFINAE for a generic iterable of Histo1DPtrs
+    void normalize(const std::vector<Histo1DPtr>& histos, double norm=1.0, bool includeoverflows=true) {
+      for (auto& h : histos) normalize(h, norm, includeoverflows);
+    }
+    /// @todo YUCK!
+    template <std::size_t array_size>
+    void normalize(const Histo1DPtr (&histos)[array_size], double norm=1.0, bool includeoverflows=true) {
+      for (auto& h : histos) normalize(h, norm, includeoverflows);
+    }
+
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    void scale(Histo1DPtr histo, double factor);
+
+    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
+    /// @todo Use SFINAE for a generic iterable of Histo1DPtrs
+    void scale(const std::vector<Histo1DPtr>& histos, double factor) {
+      for (auto& h : histos) scale(h, factor);
+    }
+    /// @todo YUCK!
+    template <std::size_t array_size>
+    void scale(const Histo1DPtr (&histos)[array_size], double factor) {
+      for (auto& h : histos) scale(h, factor);
+    }
+
 
     /// Normalize the given histogram, @a histo, to area = @a norm.
-    ///
-    /// @note The histogram is no longer invalidated by this procedure.
     void normalize(Histo2DPtr histo, double norm=1.0, bool includeoverflows=true);
 
-    /// Multiplicatively scale the given histogram, @a histo, by factor @s scale.
+    /// Normalize the given histograms, @a histos, to area = @a norm.
+    /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
+    /// @todo Use SFINAE for a generic iterable of Histo2DPtrs
+    void normalize(const std::vector<Histo2DPtr>& histos, double norm=1.0, bool includeoverflows=true) {
+      for (auto& h : histos) normalize(h, norm, includeoverflows);
+    }
+    /// @todo YUCK!
+    template <std::size_t array_size>
+    void normalize(const Histo2DPtr (&histos)[array_size], double norm=1.0, bool includeoverflows=true) {
+      for (auto& h : histos) normalize(h, norm, includeoverflows);
+    }
+
+    /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
+    void scale(Histo2DPtr histo, double factor);
+
+    /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
+    /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
+    /// @todo Use SFINAE for a generic iterable of Histo2DPtrs
+    void scale(const std::vector<Histo2DPtr>& histos, double factor) {
+      for (auto& h : histos) scale(h, factor);
+    }
+    /// @todo YUCK!
+    template <std::size_t array_size>
+    void scale(const Histo2DPtr (&histos)[array_size], double factor) {
+      for (auto& h : histos) scale(h, factor);
+    }
+
+
+    /// Helper for counter division.
     ///
-    /// @note The histogram is no longer invalidated by this procedure.
-    void scale(Histo2DPtr histo, double scale);
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(CounterPtr c1, CounterPtr c2, Scatter1DPtr s) const;
+
+    /// Helper for histogram division with raw YODA objects.
+    ///
+    /// @note Assigns to the (already registered) output scatter, @a s. Preserves the path information of the target.
+    void divide(const YODA::Counter& c1, const YODA::Counter& c2, Scatter1DPtr s) const;
 
 
     /// Helper for histogram division.

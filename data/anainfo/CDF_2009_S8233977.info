@@ -4,6 +4,7 @@ Summary: CDF Run 2 min bias cross-section analysis
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 8233977
+InspireID: 817466
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

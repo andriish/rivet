@@ -175,38 +175,47 @@ AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
 
 ## Enable build/install of unvalidated analyses
 AC_ARG_ENABLE([unvalidated],
-  [AC_HELP_STRING(--enable-unvalidated, [build and install unvalidated analyses])],
-  [], [enable_unvalidated=no])
-if test x$enable_unvalidated = xyes; then
-   AC_MSG_WARN([Building unvalidated Rivet analyses, by request])
-else
-   AC_MSG_NOTICE([Not building unvalidated Rivet analyses])
-fi
-AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
+  [AC_HELP_STRING(--enable-unvalidated, [does nothing, for backward compatibility])],
+  [], [enable_unvalidated=yes])
+dnl AC_ARG_ENABLE([unvalidated],
+dnl   [AC_HELP_STRING(--enable-unvalidated, [build and install unvalidated analyses])],
+dnl   [], [enable_unvalidated=yes])
+dnl if test x$enable_unvalidated = xyes; then
+dnl    AC_MSG_WARN([Building unvalidated Rivet analyses, by request])
+dnl else
+dnl    AC_MSG_NOTICE([Not building unvalidated Rivet analyses])
+dnl fi
+dnl AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
 
 
 ## Disable build/install of validated-but-preliminary analyses
 AC_ARG_ENABLE([preliminary],
-  [AC_HELP_STRING(--disable-preliminary, [build and install validated-but-preliminary analyses])],
+  [AC_HELP_STRING(--disable-preliminary, [does nothing, for backward compatibility])],
   [], [enable_preliminary=yes])
-if test x$enable_preliminary = xyes; then
-   AC_MSG_NOTICE([Building preliminary Rivet analyses])
-else
-   AC_MSG_NOTICE([Not building preliminary Rivet analyses, by request])
-fi
-AM_CONDITIONAL(ENABLE_PRELIMINARY, [test x$enable_preliminary = xyes])
+dnl AC_ARG_ENABLE([preliminary],
+dnl   [AC_HELP_STRING(--disable-preliminary, [build and install validated-but-preliminary analyses])],
+dnl   [], [enable_preliminary=yes])
+dnl if test x$enable_preliminary = xyes; then
+dnl    AC_MSG_NOTICE([Building preliminary Rivet analyses])
+dnl else
+dnl    AC_MSG_NOTICE([Not building preliminary Rivet analyses, by request])
+dnl fi
+dnl AM_CONDITIONAL(ENABLE_PRELIMINARY, [test x$enable_preliminary = xyes])
 
 
 ## Disable build/install of now-obsolete preliminary analyses
 AC_ARG_ENABLE([obsolete],
-  [AC_HELP_STRING(--disable-obsolete, [build and install now-obsolete analyses])],
-  [], [enable_obsolete=$enable_preliminary])
-if test x$enable_obsolete = xyes; then
-   AC_MSG_NOTICE([Building obsolete Rivet analyses])
-else
-   AC_MSG_NOTICE([Not building obsolete Rivet analyses, by request])
-fi
-AM_CONDITIONAL(ENABLE_OBSOLETE, [test x$enable_obsolete = xyes])
+  [AC_HELP_STRING(--disable-obsolete, [does nothing, for backward compatibility])],
+  [], [enable_obsolete=yes])
+dnl AC_ARG_ENABLE([obsolete],
+dnl   [AC_HELP_STRING(--disable-obsolete, [build and install now-obsolete analyses])],
+dnl   [], [enable_obsolete=$enable_preliminary])
+dnl if test x$enable_obsolete = xyes; then
+dnl    AC_MSG_NOTICE([Building obsolete Rivet analyses])
+dnl else
+dnl    AC_MSG_NOTICE([Not building obsolete Rivet analyses, by request])
+dnl fi
+dnl AM_CONDITIONAL(ENABLE_OBSOLETE, [test x$enable_obsolete = xyes])
 
 
 ## Build LaTeX docs if possible...
@@ -239,44 +248,25 @@ AM_CONDITIONAL(WITH_ASCIIDOC, [test x$ASCIIDOC != x])
 AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
   [don't build Python module (default=build)])],
   [], [enable_pyext=yes])
-AZ_PYTHON_DEFAULT
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
-  AZ_PYTHON_PATH
-  AZ_PYTHON_VERSION_ENSURE([2.5])
-  PYTHON_VERSION=`$PYTHON -c "import sys; print '.'.join(map(str, sys.version_info@<:@:2@:>@));"`
+  AX_PYTHON_DEVEL([>= '2.6'])
   AC_SUBST(PYTHON_VERSION)
   RIVET_PYTHONPATH=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True);"`
   AC_SUBST(RIVET_PYTHONPATH)
-  ## Test for Python header
-  if test -x "$PYTHON"; then
-    AC_MSG_CHECKING([for Python include path])
-    python_incpath=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_inc();"`
-    AC_MSG_RESULT([$python_incpath])
-    python_header="$python_incpath/Python.h"
-    if test -z "$python_incpath"; then
-      AC_MSG_ERROR([Can't build Python extension since include directory cannot be determined from distutils])
-      enable_pyext=no
-    elif test ! -e "$python_header"; then
-      AC_MSG_ERROR([Can't build Python extension since header file $python_header cannot be found])
-      enable_pyext=no
-    fi
-  else
+  if test -z "$PYTHON"; then
     AC_MSG_ERROR([Can't build Python extension since python can't be found])
     enable_pyext=no
   fi
+  if test -z "$PYTHON_CPPFLAGS"; then
+    AC_MSG_ERROR([Can't build Python extension since Python.h header file cannot be found])
+    enable_pyext=no
+  fi
 fi
-if test x$enable_pyext == xyes; then
-  AC_MSG_NOTICE([All Python build checks successful: 'yoda' Python extension will be built])
-fi
+dnl if test x$enable_pyext == xyes; then
+dnl   AC_MSG_NOTICE([All Python build checks successful: 'yoda' Python extension will be built])
+dnl fi
 AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
-
-
-## Set extra Python extension build flags (to cope with Cython output code oddities)
-PYEXT_CXXFLAGS="$CXXFLAGS"
-AC_CEDAR_CHECKCXXFLAG([-Wno-unused-but-set-variable], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-unused-but-set-variable"])
-AC_CEDAR_CHECKCXXFLAG([-Wno-sign-compare], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-sign-compare"])
-AC_SUBST(PYEXT_CXXFLAGS)
 
 
 ## Cython checks
@@ -286,14 +276,14 @@ if test x$enable_pyext == xyes; then
     AC_MSG_NOTICE([Cython >= 0.18 found: Python extension source can be rebuilt (for developers)])
     cython_compiler=$CXX
   fi
-fi
-AM_CONDITIONAL(WITH_CYTHON, [test x$CYTHON_FOUND = xyes])
-
-
-if test x$enable_pyext == xyes; then
+  ## Set extra Python extension build flags (to cope with Cython output code oddities)
+  PYEXT_CXXFLAGS="$CXXFLAGS"
+  AC_CEDAR_CHECKCXXFLAG([-Wno-unused-but-set-variable], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-unused-but-set-variable"])
+  AC_CEDAR_CHECKCXXFLAG([-Wno-sign-compare], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-sign-compare"])
+  AC_SUBST(PYEXT_CXXFLAGS)
   AC_MSG_NOTICE([All Python build checks successful: 'rivet' Python extension will be built])
 fi
-AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
+AM_CONDITIONAL(WITH_CYTHON, [test x$CYTHON_FOUND = xyes])
 
 
 ## Set default build flags

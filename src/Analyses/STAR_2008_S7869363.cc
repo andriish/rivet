@@ -6,6 +6,7 @@
 namespace Rivet {
 
 
+  /// @todo Replace with SmearedParticles
   class STARRandomFilter {
   public:
 

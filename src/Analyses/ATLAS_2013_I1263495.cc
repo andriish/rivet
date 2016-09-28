@@ -14,7 +14,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2013_I1263495()
       : Analysis("ATLAS_2013_I1263495"),
-        _eta_bins{ 0.00, 1.37, 1.52, 2.37},
+        _eta_bins{0.00, 1.37, 1.52, 2.37},
         _eta_bins_areaoffset{0.0, 1.5, 3.0}
     {    }
 
@@ -81,24 +81,18 @@ namespace Rivet {
       }
 
       // Get the area-filtered jet inputs for computing median energy density, etc.
-      vector<double> ptDensity, ptSigma, nJets;
+      vector<double> ptDensity;
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
       FastJets fast_jets =apply<FastJets>(event, "KtJetsD05");
       const shared_ptr<fastjet::ClusterSequenceArea> clust_seq_area = fast_jets.clusterSeqArea();
       foreach (const Jet& jet, fast_jets.jets()) {
         const double area = clust_seq_area->area(jet);
-        /// @todo Should be 1e-4 or 1e-3?
-        if (area > 10e-4 && jet.abseta() < _eta_bins_areaoffset.back())
+        if (area > 1e-4 && jet.abseta() < _eta_bins_areaoffset.back())
           ptDensities.at( _getEtaBin(jet.abseta(), true) ).push_back(jet.pT()/area);
       }
       // Compute the median energy density, etc.
       for (size_t b = 0; b < _eta_bins_areaoffset.size()-1; b++) {
-        const int njets = ptDensities[b].size();
-        const double ptmedian = (njets > 0) ? median(ptDensities[b]) : 0;
-        const double ptsigma = (njets > 0) ? ptDensities[b][(size_t)(0.15865*njets)] : 0;
-        nJets.push_back(njets);
-        ptDensity.push_back(ptmedian);
-        ptSigma.push_back(ptsigma);
+        ptDensity += ptDensities[b].empty() ? 0 : median(ptDensities[b]);
       }
       // Compute the isolation energy correction (cone area*energy density)
       const double etCone_area = PI*sqr(0.4) - (7.0*.025)*(5.0*PI/128.);

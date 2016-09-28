@@ -72,6 +72,9 @@ cdef class Run:
     def readEvent(self):
         return self._ptr.readEvent()
 
+    def skipEvent(self):
+        return self._ptr.skipEvent()
+
     def processEvent(self):
         return self._ptr.processEvent()
 
@@ -166,18 +169,24 @@ def addAnalysisLibPath(path):
     c.addAnalysisLibPath(path)
 
 
-def getAnalysisRefPaths():
-    return c.getAnalysisRefPaths()
+def setAnalysisDataPaths(xs):
+    c.setAnalysisDataPaths(xs)
 
-def findAnalysisRefFile(q):
-    return c.findAnalysisRefFile(q)
-
+def addAnalysisDataPath(path):
+    c.addAnalysisDataPath(path)
 
 def getAnalysisDataPaths():
     return c.getAnalysisDataPaths()
 
 def findAnalysisDataFile(q):
     return c.findAnalysisDataFile(q)
+
+
+def getAnalysisRefPaths():
+    return c.getAnalysisRefPaths()
+
+def findAnalysisRefFile(q):
+    return c.findAnalysisRefFile(q)
 
 
 def getAnalysisInfoPaths():

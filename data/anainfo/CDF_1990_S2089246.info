@@ -4,6 +4,7 @@ Summary: CDF pseudorapidity distributions at 630 and 1800 GeV
 Experiment: CDF
 Collider: Tevatron Run 0
 SpiresID: 2089246
+InspireID: 283352
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

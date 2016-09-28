@@ -6,6 +6,7 @@
 #include "Rivet/Projections/TauFinder.hh"
 #include "Rivet/Projections/SmearedJets.hh"
 #include "Rivet/Projections/SmearedParticles.hh"
+#include "Rivet/Projections/SmearedMET.hh"
 
 namespace Rivet {
 
@@ -22,6 +23,17 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+
+      MissingMomentum mm(Cuts::abseta < 5);
+      declare(mm, "MET0");
+
+      SmearedMET smm1(mm, MET_SMEAR_IDENTITY);
+      declare(smm1, "MET1");
+
+      SmearedMET smm2(mm, [](const Vector3& met, double){ return P3_SMEAR_LEN_GAUSS(met, 0.1*met.mod()); });
+      declare(smm2, "MET2");
+
+
       FastJets fj(FinalState(Cuts::abseta < 5), FastJets::ANTIKT, 0.4);
       declare(fj, "Jets0");
 
@@ -39,7 +51,9 @@ namespace Rivet {
                       [](const Jet& j){ return 0.8; });
       declare(sj3, "Jets3");
 
+
       IdentifiedFinalState photons(Cuts::abseta < 5, PID::PHOTON);
+
 
       IdentifiedFinalState truthelectrons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::ELECTRON, PID::POSITRON}});
       declare(truthelectrons, "Electrons0");
@@ -61,6 +75,10 @@ namespace Rivet {
       declare(dressedtaus, "Taus1");
       SmearedParticles recotaus(truthtaus, TAU_EFF_ATLAS_RUN1, TAU_SMEAR_ATLAS_RUN1); //< @note Can't use dressedtaus yet...
       declare(recotaus, "Taus2");
+
+
+      _h_met_true = bookHisto1D("met_true", 30, 0.0, 120);
+      _h_met_reco = bookHisto1D("met_reco", 30, 0.0, 120);
 
       _h_nj_true = bookHisto1D("jet_N_true", 10, -0.5, 9.5);
       _h_nj_reco = bookHisto1D("jet_N_reco", 10, -0.5, 9.5);
@@ -95,6 +113,13 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
+
+      const Vector3 met0 = apply<MissingMomentum>(event, "MET0").vectorEt();
+      const Vector3 met1 = apply<SmearedMET>(event, "MET1").vectorEt();
+      const Vector3 met2 = apply<SmearedMET>(event, "MET2").vectorEt();
+      MSG_DEBUG("MET = " << met0.mod()/GeV << ", " << met1.mod()/GeV << ", " << met2.mod()/GeV << " GeV");
+      _h_met_true->fill(met0.mod()/GeV, weight);
+      _h_met_reco->fill(met2.mod()/GeV, weight);
 
       const Jets jets0 = apply<JetAlg>(event, "Jets0").jetsByPt(Cuts::pT > 10*GeV);
       const Jets jets1 = apply<JetAlg>(event, "Jets1").jetsByPt(Cuts::pT > 10*GeV);
@@ -196,11 +221,11 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
+    Histo1DPtr _h_met_true, _h_met_reco;
     Histo1DPtr _h_nj_true, _h_nj_reco, _h_ne_true, _h_ne_reco,  _h_nm_true, _h_nm_reco,  _h_nt_true, _h_nt_reco;
     Histo1DPtr _h_j1pt_true, _h_j1pt_reco, _h_e1pt_true, _h_e1pt_reco,  _h_m1pt_true, _h_m1pt_reco,  _h_t1pt_true, _h_t1pt_reco;
     Histo1DPtr _h_j1eta_true, _h_j1eta_reco, _h_e1eta_true, _h_e1eta_reco,  _h_m1eta_true, _h_m1eta_reco,  _h_t1eta_true, _h_t1eta_reco;
     //@}
-
 
   };
 

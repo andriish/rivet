@@ -4,6 +4,7 @@ Summary:  Inclusive jet cross section and di-jet mass and chi spectra at 7 TeV i
 Experiment: ATLAS
 Collider:   LHC 7TeV
 SpiresID:   8817804
+InspireID: 871366
 Status:     VALIDATED
 Authors:
  - James Monk <jmonk@cern.ch>
