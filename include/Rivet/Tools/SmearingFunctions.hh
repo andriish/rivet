@@ -678,20 +678,24 @@ namespace Rivet {
   inline double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
-    if (j.bTagged()) return 0.80*tanh(0.003*j.pT()/GeV)*(30/(1+0.086*j.pT()/GeV));
-    if (j.cTagged()) return 0.20*tanh(0.02*j.pT()/GeV)*(1/(1+0.0034*j.pT()/GeV));
+    /// @todo This form drops past ~100 GeV, asymptotically to zero efficiency... really?!
+    if (j.abseta() > 2.5) return 0;
+    if (j.bTagged(Cuts::pT > 5*GeV)) return 0.80*tanh(0.003*j.pT()/GeV)*(30/(1+0.0860*j.pT()/GeV));
+    if (j.cTagged(Cuts::pT > 5*GeV)) return 0.20*tanh(0.020*j.pT()/GeV)*( 1/(1+0.0034*j.pT()/GeV));
     return 0.002 + 7.3e-6*j.pT()/GeV;
   }
   /// Return the ATLAS Run 2 MC2c20 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C20(const Jet& j) {
-    if (j.bTagged()) return 0.77;
-    if (j.cTagged()) return 1/4.5;
+    if (j.abseta() > 2.5) return 0;
+    if (j.bTagged(Cuts::pT > 5*GeV)) return 0.77;
+    if (j.cTagged(Cuts::pT > 5*GeV)) return 1/4.5;
     return 1/140.;
   }
   /// Return the ATLAS Run 2 MC2c10 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C10(const Jet& j) {
-    if (j.bTagged()) return 0.77;
-    if (j.cTagged()) return 1/6.0;
+    if (j.abseta() > 2.5) return 0;
+    if (j.bTagged(Cuts::pT > 5*GeV)) return 0.77;
+    if (j.cTagged(Cuts::pT > 5*GeV)) return 1/6.0;
     return 1/134.;
   }
 
