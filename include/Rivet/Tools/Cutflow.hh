@@ -74,8 +74,8 @@ namespace Rivet {
       size_t maxlen = 0;
       for (const string& t : cuts) maxlen = max(t.length(), maxlen);
       for (size_t i = 0; i <= ncuts; ++i) {
-        const int pcttot = (counts[0] == 0) ? -1 : int(100*counts[i]/double(counts[0]));
-        const int pctinc = (i == 0 || counts[i-1] == 0) ? -1 : int(100*counts[i]/double(counts[i-1]));
+        const int pcttot = (counts[0] == 0) ? -1 : round(100*counts[i]/double(counts[0]));
+        const int pctinc = (i == 0 || counts[i-1] == 0) ? -1 : round(100*counts[i]/double(counts[i-1]));
         ss << "\n" << setw(maxlen+5) << left
            << (i == 0 ? "" : "Pass "+cuts[i-1]) << "   " << right
            << setw(toString(counts[0]).length()) << toString(counts[i]) << "    "
