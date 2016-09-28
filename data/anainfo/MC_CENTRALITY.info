@@ -1,0 +1,10 @@
+Name: MC_CENTRALITY
+Summary: Template analysis for using CentralityHistogram
+Status: VALIDATED
+Authors:
+ - Leif Lönnblad <leif.lonnblad@thep.lu.se>
+NumEvents: 50000
+RunInfo: Any!
+Description:
+   Template analysis for using CentralityHistogram for dynamically
+   determining centrality intervals using summed eT in the forward region.

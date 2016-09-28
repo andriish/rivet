@@ -303,6 +303,7 @@ dist_pkgdata_DATA = \
   LHCB_2014_I1281685.plot \
   LHCB_2015_I1333223.plot \
   LHCF_2012_I1115479.plot \
+  MC_CENTRALITY.plot \
   MC_DIPHOTON.plot \
   MC_ELECTRONS.plot \
   MC_GENERIC.plot \

@@ -310,6 +310,7 @@ dist_pkgdata_DATA = \
   LHCB_2014_I1281685.info \
   LHCB_2015_I1333223.info \
   LHCF_2012_I1115479.info \
+  MC_CENTRALITY.info \
   MC_DIPHOTON.info \
   MC_ELECTRONS.info \
   MC_GENERIC.info \
