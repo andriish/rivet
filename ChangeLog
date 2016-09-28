@@ -1,3 +1,7 @@
+2016-09-28  Frank Siegert  <frank.siegert@cern.ch>
+
+       * make-plots bugfix in y-axis labels for RatioPlotMode=deviation
+
 2016-09-27  Andy Buckley  <andy.buckley@cern.ch>
 
        * Add vector and scalar pT (rather than Et) to MissingMomentum.
