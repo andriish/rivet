@@ -46,12 +46,15 @@ namespace Rivet {
 
 
   void Histo1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-      // loop over subevents
+      // loop over event weights
       for (size_t m = 0; m < _persistent.size(); ++m) {
 
+          // this is the initial event---it always exists
           YODA::Histo1DPtr sum = boost::make_shared<YODA::Histo1D>(_evgroup[0]->clone());
           sum->scaleW( weight[0][m] );
 
+          // loop over additional subevents (maybe there aren't any)
+          // note loop starts at 1
           for (size_t n = 1; n < _evgroup.size(); ++n) {
               YODA::Histo1DPtr tmp = boost::make_shared<YODA::Histo1D>(_evgroup[n]->clone());
               tmp->scaleW( weight[n][m] );
@@ -62,6 +65,12 @@ namespace Rivet {
           // do we really need to fill bin.size() times?
           bool filled_something = false;
 
+          /// @todo
+          /// this is not correct!
+          /// we need to trick the histogram into thinking it was
+          /// filled exactly onen time, even if subevents fall into
+          /// different bins of the histogram
+          /// how 
           foreach(const YODA::HistoBin1D& b, sum->bins()) {
               if ( b.effNumEntries() != 0 && b.sumW() != 0 ) {
                   // @todo number of fills will be wrong
@@ -80,5 +89,27 @@ namespace Rivet {
       _active.reset();
   }
 
+  void Histo2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+      /// @todo
 
+      return;
+  }
+
+  void Profile1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+      /// @todo
+
+      return;
+  }
+
+  void Profile2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+      /// @todo
+
+      return;
+  }
+
+  void Counter::pushToPersistent(const vector<vector<double> >& weight) {
+      /// @todo
+
+      return;
+  }
 }

@@ -5,6 +5,8 @@
 /// @date   2009-01-30
 /// @author David Grellscheid
 /// @date   2011-07-18
+/// @author David Grellscheid
+/// @date   2016-09-27
 
 #include "Rivet/Config/RivetCommon.hh"
 
@@ -46,8 +48,85 @@ namespace Rivet {
             virtual const YODA::AnalysisObject & operator*() const = 0;
 
         protected:
-            /// @todo
-            /// is this new sub event or new event? if so change name please.
+            /// @todo do we need this?
+            // virtual void reset() = 0;
+    };
+
+    /// @todo
+    /// implement scatter1dptr and scatter2dptr here
+    class Scatter1DPtr : public AnalysisObjectPtr {
+        public:
+            Scatter1DPtr() :
+                _scatter(YODA::Scatter1DPtr()) { }
+
+            Scatter1DPtr(YODA::Scatter1DPtr& p) :
+                _scatter(p) { }
+
+            bool operator!() const { return !_scatter; }
+            operator bool() const { return bool(_scatter); }
+
+            YODA::Scatter1D* operator->() { return _scatter.get(); }
+
+            YODA::Scatter1D* operator->() const { return _scatter.get(); }
+
+            YODA::Scatter1D & operator*() { return *_scatter; }
+
+            const YODA::Scatter1D & operator*() const { return *_scatter; }
+
+        protected:
+            YODA::Scatter1DPtr _scatter;
+    };
+
+    class Scatter2DPtr : public AnalysisObjectPtr {
+        public:
+            Scatter2DPtr(YODA::Scatter2DPtr& p) :
+                _scatter(p) { }
+
+            Scatter2DPtr() :
+                _scatter(YODA::Scatter2DPtr()) { }
+
+            bool operator!() { return !_scatter; }
+            operator bool() { return bool(_scatter); }
+
+            YODA::Scatter2D* operator->() { return _scatter.get(); }
+
+            YODA::Scatter2D* operator->() const { return _scatter.get(); }
+
+            YODA::Scatter2D & operator*() { return *_scatter; }
+
+            const YODA::Scatter2D & operator*() const { return *_scatter; }
+
+        protected:
+            YODA::Scatter2DPtr _scatter;
+    };
+
+    class Scatter3DPtr : public AnalysisObjectPtr {
+        public:
+            Scatter3DPtr(YODA::Scatter3DPtr& p) :
+                _scatter(p) { }
+
+            Scatter3DPtr() :
+                _scatter(YODA::Scatter3DPtr()) { }
+
+            bool operator!() { return !_scatter; }
+            operator bool() { return bool(_scatter); }
+
+            YODA::Scatter3D* operator->() { return _scatter.get(); }
+
+            YODA::Scatter3D* operator->() const { return _scatter.get(); }
+
+            YODA::Scatter3D & operator*() { return *_scatter; }
+
+            const YODA::Scatter3D & operator*() const { return *_scatter; }
+
+        protected:
+            YODA::Scatter3DPtr _scatter;
+    };
+
+
+    class MultiweightAOPtr : public AnalysisObjectPtr {
+
+        protected:
             virtual void newSubEvent() = 0;
 
             /// @todo 
@@ -55,15 +134,11 @@ namespace Rivet {
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
             virtual void pushToPersistent(const vector<vector<double> >& weight) = 0;
-
-            /// @todo do we need this?
-            // virtual void reset() = 0;
     };
 
 
-
 #define RIVETAOPTR_COMMON(YODATYPE)                                            \
-    class YODATYPE##Ptr : public AnalysisObjectPtr {                           \
+    class YODATYPE##Ptr : public MultiweightAOPtr {                            \
         public:                                                                \
                                                                                \
         /* @todo                                                               \
@@ -111,6 +186,8 @@ namespace Rivet {
          * these probably need to loop over all?                               \
          * do we even want to provide equality?                                \
          */                                                                    \
+        /* @todo                                                               \
+         * how about no.                                                       \
         friend bool operator==(YODATYPE##Ptr a, YODATYPE##Ptr b){              \
             if (a._persistent.size() != b._persistent.size())                  \
                 return false;                                                  \
@@ -129,8 +206,6 @@ namespace Rivet {
         }                                                                      \
                                                                                \
                                                                                \
-        /* @todo                                                               \
-         * how about no.                                                       \
         friend bool operator<(YODATYPE##Ptr a, YODATYPE##Ptr b){               \
             if (a._persistent.size() >= b._persistent.size())                  \
                 return false;                                                  \
@@ -152,12 +227,11 @@ namespace Rivet {
             return;                                                            \
         }                                                                      \
                                                                                \
-        /* @todo                                                               \
-           void unsetActiveWeight() {                                          \
-           _active.reset();                                                    \
-           return;                                                             \
-           }                                                                   \
-       */                                                                      \
+        /* this is for dev only---we shouldn't need this in real runs. */      \
+        void unsetActiveWeight() {                                          \
+            _active.reset();                                                    \
+            return;                                                             \
+        }                                                                   \
                                                                                \
         void newSubEvent() {                                                   \
             YODA::YODATYPE##Ptr tmp =                                          \
@@ -206,10 +280,6 @@ namespace Rivet {
     using YODA::Point2D;
     using YODA::Scatter3D;
     using YODA::Point3D;
-
-    using YODA::Scatter1DPtr;
-    using YODA::Scatter2DPtr;
-    using YODA::Scatter3DPtr;
 
     /// Function to get a map of all the refdata in a paper with the
     /// given @a papername.
