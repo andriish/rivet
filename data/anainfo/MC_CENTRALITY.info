@@ -1,6 +1,6 @@
 Name: MC_CENTRALITY
 Summary: Template analysis for using CentralityHistogram
-Status: VALIDATED
+Status: UNVALIDATED
 Authors:
  - Leif Lönnblad <leif.lonnblad@thep.lu.se>
 NumEvents: 50000
