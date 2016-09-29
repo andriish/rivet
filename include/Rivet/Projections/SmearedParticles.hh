@@ -18,23 +18,27 @@ namespace Rivet {
     /// @name Constructors etc.
     //@{
 
-    /// @brief Constructor with efficiency and smearing function args
-    template <typename P2DFN>
+    /// @brief Constructor with vector of efficiency and smearing functions
     SmearedParticles(const ParticleFinder& pf,
-                     const P2DFN& effFn,
-                     const Cut& c=Cuts::open())
-      : SmearedParticles(pf, effFn, PARTICLE_SMEAR_IDENTITY, c)
-    {    }
-
-
-    /// @brief Constructor with efficiency and smearing function args
-    template <typename P2DFN, typename P2PFN>
-    SmearedParticles(const ParticleFinder& pf,
-                     const P2DFN& effFn, const P2PFN& smearFn,
+                     const std::vector<std::function<pair<double,Particle>(const pair<double,Particle>&)> > detFn,
                      const Cut& c=Cuts::open())
       : ParticleFinder(c),
-        _effFn(effFn), _smearFn(smearFn)
+        _detFn(detFn)
     {
+      setName("SmearedParticles");
+      addProjection(pf, "TruthParticles");
+    }
+
+    template <typename DP2DPFN>
+    /// @brief Constructor with efficiency or smearing function.
+    /// Accepts lambdas, e.g. [](const std::pair<double,Particle>& p) { return make_pair(p.first,p.second) };
+    SmearedParticles(const ParticleFinder& pf,
+                     const DP2DPFN detFn,
+                     const Cut& c=Cuts::open())
+      : ParticleFinder(c)
+    {
+      _detFn.resize(1);
+      _detFn[0] = detFn;
       setName("SmearedParticles");
       addProjection(pf, "TruthParticles");
     }
@@ -49,33 +53,27 @@ namespace Rivet {
     /// Compare to another SmearedParticles
     int compare(const Projection& p) const {
       const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
-      if (get_address(_effFn) == 0) return UNDEFINED;
-      if (get_address(_smearFn) == 0) return UNDEFINED;
-      MSG_TRACE("Eff hashes = " << get_address(_effFn) << "," << get_address(other._effFn) << "; " <<
-                "smear hashes = " << get_address(_smearFn) << "," << get_address(other._smearFn));
-      return mkPCmp(other, "TruthParticles") ||
-        cmp(get_address(_effFn), get_address(other._effFn)) ||
-        cmp(get_address(_smearFn), get_address(other._smearFn));
+      if (get_address(_detFn[0]) == 0) return UNDEFINED;
+      MSG_TRACE("hashes = ");
+      for(size_t i = 0; i < _detFn.size(); ++i) MSG_TRACE( get_address(_detFn[i]) << "," << get_address(other._detFn[i]) << "; ");
+      Cmp<unsigned long> ret = mkPCmp(other, "TruthParticles");
+      for(size_t i = 0; i < _detFn.size(); ++i) ret = ret || cmp(get_address(_detFn[i]), get_address(other._detFn[i]));
+      return ret;
     }
 
 
     /// Perform the particle finding & smearing calculation
     void project(const Event& e) {
-      // Copying and filtering
+      // Filter the particles using given functions
       const Particles& truthparticles = apply<ParticleFinder>(e, "TruthParticles").particlesByPt();
       _theParticles.clear(); _theParticles.reserve(truthparticles.size());
       for (const Particle& p : truthparticles) {
-        const double peff = _effFn ? _effFn(p) : 1;
-        MSG_DEBUG("Efficiency of particle with pid=" << p.pid()
-                  << ", mom=" << p.mom()/GeV << " GeV, "
-                  << "pT=" << p.pT()/GeV << ", eta=" << p.eta()
-                  << " : " << 100*peff << "%");
-        if (peff <= 0) continue; //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
-        if (peff < 1 && rand01() > peff) continue; //< roll dice (and deal with >1 probabilities, just in case)
-        _theParticles.push_back(_smearFn ? _smearFn(p) : p); //< smearing
+        pair<double, Particle> tmp = make_pair(1., p);
+        for(std::function<pair<double,Particle>(const pair<double,Particle>&)> fn : _detFn) tmp = fn(tmp);
+        if(tmp.first <= 0) continue;
+        if ( !(tmp.first < 1 && rand01() > tmp.first) ) _theParticles.push_back(tmp.second);
       }
     }
-
 
     /// Reset the projection. Smearing functions will be unchanged.
     void reset() { _theParticles.clear(); }
@@ -83,11 +81,8 @@ namespace Rivet {
 
   private:
 
-    /// Stored efficiency function
-    std::function<double(const Particle&)> _effFn;
-
-    /// Stored smearing function
-    std::function<Particle(const Particle&)> _smearFn;
+    /// Stored efficiency and smearing functions
+    std::vector<std::function<pair<double,Particle>(const pair<double,Particle>&)> > _detFn;
 
   };
 

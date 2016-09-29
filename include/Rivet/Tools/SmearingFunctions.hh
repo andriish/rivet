@@ -6,6 +6,12 @@
 #include "Rivet/Jet.hh"
 #include <random>
 
+#define PARTICLE_TO_PARTICLE_PAIR_FN(fname) inline std::pair<double,Particle> fname (const std::pair<double,Particle>& p) { return make_pair(p.first, fname##_(p.second)); }
+#define DOUBLE_TO_PARTICLE_PAIR_FN(fname) inline std::pair<double,Particle> fname (const std::pair<double,Particle>& p) { return make_pair(p.first * fname##_(p.second), p.second); }
+
+#define JET_TO_JET_PAIR_FN(fname) inline std::pair<double,Jet> fname (const std::pair<double,Jet>& j) { return make_pair(j.first, fname##_(j.second)); }
+#define DOUBLE_TO_JET_PAIR_FN(fname) inline std::pair<double,Jet> fname (const std::pair<double,Jet>& j) { return make_pair(j.first * fname##_(j.second), j.second); }
+
 namespace Rivet {
 
 
@@ -24,10 +30,14 @@ namespace Rivet {
 
   template <typename FN>
   inline bool efffilt(const Particle& p, FN& feff) {
-    return rand01() < feff(p);
+    return rand01() < feff( make_pair(1.,p) ).first;
   }
   template <typename FN>
   inline bool efffilt(const Jet& j, FN& feff) {
+    return rand01() < feff( make_pair(1.,j) ).first;
+  }
+  template <typename FN>
+  inline bool tagfilt(const Jet& j, FN& feff) {
     return rand01() < feff(j);
   }
 
@@ -36,7 +46,7 @@ namespace Rivet {
     ParticleEffFilter(const FN& feff) : _feff(feff) {}
     bool operator () (const Particle& p) { return efffilt(p, _feff); }
   private:
-    const std::function<bool(const Particle&)> _feff;
+    const std::function<std::pair<double,Particle>(const std::pair<double,Particle>&)> _feff;
   };
   using particleEffFilter = ParticleEffFilter;
 
@@ -45,9 +55,18 @@ namespace Rivet {
     JetEffFilter(const FN& feff) : _feff(feff) {}
     bool operator () (const Jet& j) { return efffilt(j, _feff); }
   private:
-    const std::function<bool(const Jet&)> _feff;
+    const std::function<std::pair<double,Jet>(const std::pair<double,Jet>&)> _feff;
   };
   using jetEffFilter = JetEffFilter;
+
+  struct JetTagFilter {
+    template <typename FN>
+    JetTagFilter(const FN& feff) : _feff(feff) {}
+    bool operator () (const Jet& j) { return tagfilt(j, _feff); }
+  private:
+    const std::function<bool(const Jet&)> _feff;
+  };
+  using jetTagFilter = JetTagFilter;
 
   //@}
 
@@ -56,11 +75,14 @@ namespace Rivet {
   //@{
 
   /// Take a Particle and return 0
-  inline double PARTICLE_FN0(const Particle& p) { return 0; }
+  inline double PARTICLE_FN0_(const Particle& p) { return 0; }
+  DOUBLE_TO_PARTICLE_PAIR_FN(PARTICLE_FN0)
   /// Take a Particle and return 1
-  inline double PARTICLE_FN1(const Particle& p) { return 1; }
+  inline double PARTICLE_FN1_(const Particle& p) { return 1; }
+  DOUBLE_TO_PARTICLE_PAIR_FN(PARTICLE_FN1)
   /// Take a Particle and return it unmodified
-  inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
+  inline Particle PARTICLE_SMEAR_IDENTITY_(const Particle& p) { return p; }
+  PARTICLE_TO_PARTICLE_PAIR_FN(PARTICLE_SMEAR_IDENTITY)
 
 
   /// Take a FourMomentum and return 0
@@ -129,7 +151,7 @@ namespace Rivet {
 
   /// ATLAS Run 1 electron tracking efficiency
   /// @todo How to use this in combination with reco eff?
-  inline double ELECTRON_TRKEFF_ATLAS_RUN1(const Particle& e) {
+  inline double ELECTRON_TRKEFF_ATLAS_RUN1_(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 0.1*GeV) return 0;
     if (e.abseta() < 1.5) {
@@ -143,34 +165,41 @@ namespace Rivet {
     }
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_TRKEFF_ATLAS_RUN1)
+
   /// ATLAS Run 2 electron tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_TRKEFF_ATLAS_RUN2(const Particle& e) {
-    return ELECTRON_TRKEFF_ATLAS_RUN1(e);
+  inline double ELECTRON_TRKEFF_ATLAS_RUN2_(const Particle& e) {
+    return ELECTRON_TRKEFF_ATLAS_RUN1_(e);
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_TRKEFF_ATLAS_RUN2)
 
   /// ATLAS Run 1 electron reconstruction efficiency
   /// @todo Include reco eff (but no e/y discrimination) in forward region
   /// @todo How to use this in combination with tracking eff?
-  inline double ELECTRON_EFF_ATLAS_RUN1(const Particle& e) {
+  inline double ELECTRON_EFF_ATLAS_RUN1_(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 10*GeV) return 0;
     return (e.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_EFF_ATLAS_RUN1)
+
   /// ATLAS Run 2 electron reco efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_EFF_ATLAS_RUN2(const Particle& e) {
-    return ELECTRON_EFF_ATLAS_RUN1(e);
+  inline double ELECTRON_EFF_ATLAS_RUN2_(const Particle& e) {
+    return ELECTRON_EFF_ATLAS_RUN1_(e);
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_EFF_ATLAS_RUN2)
 
 
   /// @brief ATLAS Run 2 'loose' electron identification/selection efficiency
   ///
   /// Values read from Fig 3 of ATL-PHYS-PUB-2015-041
   /// @todo What about faking by jets or non-electrons?
-  inline double ELECTRON_IDEFF_ATLAS_RUN2_LOOSE(const Particle& e) {
+  inline double ELECTRON_IDEFF_ATLAS_RUN2_LOOSE_(const Particle& e) {
 
     // Manually symmetrised eta eff histogram
     const static vector<double> edges_eta = { 0.0,   0.1,   0.8,   1.37,  1.52,  2.01,  2.37,  2.47 };
@@ -187,9 +216,10 @@ namespace Rivet {
     return min(eff, 1.0);
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_IDEFF_ATLAS_RUN2_LOOSE)
 
   /// @brief ATLAS Run 1 'medium' electron identification/selection efficiency
-  inline double ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(const Particle& e) {
+  inline double ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM_(const Particle& e) {
 
     const static vector<double> eta_edges_10 = {0.000, 0.049, 0.454, 1.107, 1.46, 1.790, 2.277, 2.500};
     const static vector<double> eta_vals_10  = {0.730, 0.757, 0.780, 0.771, 0.77, 0.777, 0.778};
@@ -234,15 +264,18 @@ namespace Rivet {
     return et_eta_vals[i_et][i_eta];
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM)
+
   /// @brief ATLAS Run 2 'medium' electron identification/selection efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM(const Particle& e) {
-    return ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM(e);
+  inline double ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM_(const Particle& e) {
+    return ELECTRON_IDEFF_ATLAS_RUN1_MEDIUM_(e);
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_IDEFF_ATLAS_RUN2_MEDIUM)
 
   /// @brief ATLAS Run 1 'tight' electron identification/selection efficiency
-  inline double ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(const Particle& e) {
+  inline double ELECTRON_IDEFF_ATLAS_RUN1_TIGHT_(const Particle& e) {
 
     const static vector<double> eta_edges_10 = {0.000, 0.049, 0.459, 1.100, 1.461, 1.789, 2.270, 2.500};
     const static vector<double> eta_vals_10  = {0.581, 0.632, 0.668, 0.558, 0.548, 0.662, 0.690};
@@ -287,16 +320,19 @@ namespace Rivet {
     return et_eta_vals[i_et][i_eta];
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_IDEFF_ATLAS_RUN1_TIGHT)
+
   /// @brief ATLAS Run 2 'tight' electron identification/selection efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_IDEFF_ATLAS_RUN2_TIGHT(const Particle& e) {
-    return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT(e);
+  inline double ELECTRON_IDEFF_ATLAS_RUN2_TIGHT_(const Particle& e) {
+    return ELECTRON_IDEFF_ATLAS_RUN1_TIGHT_(e);
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_IDEFF_ATLAS_RUN2_TIGHT)
 
 
   /// ATLAS Run 1 electron reco smearing
-  inline Particle ELECTRON_SMEAR_ATLAS_RUN1(const Particle& e) {
+  inline Particle ELECTRON_SMEAR_ATLAS_RUN1_(const Particle& e) {
     static const vector<double> edges_eta = {0., 2.5, 3.};
     static const vector<double> edges_pt = {0., 0.1, 25.};
     static const vector<double> e2s = {0.000, 0.015, 0.005,
@@ -324,20 +360,23 @@ namespace Rivet {
     return Particle(e.pid(), P4_SMEAR_E_GAUSS(e, resolution));
   }
 
+  PARTICLE_TO_PARTICLE_PAIR_FN(ELECTRON_SMEAR_ATLAS_RUN1)
+
 
   /// ATLAS Run 2 electron reco smearing
   /// @todo Currently just a copy of the Run 1 version: fix!
-  inline Particle ELECTRON_SMEAR_ATLAS_RUN2(const Particle& e) {
-    return ELECTRON_SMEAR_ATLAS_RUN1(e);
+  inline Particle ELECTRON_SMEAR_ATLAS_RUN2_(const Particle& e) {
+    return ELECTRON_SMEAR_ATLAS_RUN1_(e);
   }
 
+  PARTICLE_TO_PARTICLE_PAIR_FN(ELECTRON_SMEAR_ATLAS_RUN2)
 
   /// @todo Add charge flip efficiency?
 
 
   /// CMS Run 1 electron tracking efficiency
   /// @todo How to use this in combination with reco eff?
-  inline double ELECTRON_TRKEFF_CMS_RUN1(const Particle& e) {
+  inline double ELECTRON_TRKEFF_CMS_RUN1_(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 0.1*GeV) return 0;
     if (e.abseta() < 1.5) {
@@ -347,28 +386,36 @@ namespace Rivet {
     }
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_TRKEFF_CMS_RUN1)
+
 
   /// CMS Run 2 electron tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_TRKEFF_CMS_RUN2(const Particle& e) {
-    return ELECTRON_TRKEFF_CMS_RUN1(e);
+  inline double ELECTRON_TRKEFF_CMS_RUN2_(const Particle& e) {
+    return ELECTRON_TRKEFF_CMS_RUN1_(e);
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_TRKEFF_CMS_RUN2)
 
 
   /// CMS Run 1 electron reconstruction efficiency
   /// @todo How to use this in combination with tracking eff?
-  inline double ELECTRON_EFF_CMS_RUN1(const Particle& e) {
+  inline double ELECTRON_EFF_CMS_RUN1_(const Particle& e) {
     if (e.abseta() > 2.5) return 0;
     if (e.pT() < 10*GeV) return 0;
     return (e.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_EFF_CMS_RUN1)
+
 
   /// CMS Run 2 electron reco efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double ELECTRON_EFF_CMS_RUN2(const Particle& e) {
-    return ELECTRON_EFF_CMS_RUN1(e);
+  inline double ELECTRON_EFF_CMS_RUN2_(const Particle& e) {
+    return ELECTRON_EFF_CMS_RUN1_(e);
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(ELECTRON_EFF_CMS_RUN2)
 
 
   /// @brief CMS electron energy smearing, preserving direction
@@ -377,7 +424,7 @@ namespace Rivet {
   /// for pT > 0.1 GeV, E resolution = |eta| < 0.5 -> sqrt(0.06^2 + pt^2 * 1.3e-3^2)
   ///                                  |eta| < 1.5 -> sqrt(0.10^2 + pt^2 * 1.7e-3^2)
   ///                                  |eta| < 2.5 -> sqrt(0.25^2 + pt^2 * 3.1e-3^2)
-  inline Particle ELECTRON_SMEAR_CMS_RUN1(const Particle& e) {
+  inline Particle ELECTRON_SMEAR_CMS_RUN1_(const Particle& e) {
     // Calculate absolute resolution in GeV from functional form
     double resolution = 0;
     const double abseta = e.abseta();
@@ -398,12 +445,16 @@ namespace Rivet {
     return Particle(e.pid(), P4_SMEAR_E_GAUSS(e, resolution));
   }
 
+  PARTICLE_TO_PARTICLE_PAIR_FN(ELECTRON_SMEAR_CMS_RUN1)
+
 
   /// CMS Run 2 electron reco smearing
   /// @todo Currently just a copy of the Run 1 version: fix!
-  inline Particle ELECTRON_SMEAR_CMS_RUN2(const Particle& e) {
-    return ELECTRON_SMEAR_CMS_RUN1(e);
+  inline Particle ELECTRON_SMEAR_CMS_RUN2_(const Particle& e) {
+    return ELECTRON_SMEAR_CMS_RUN1_(e);
   }
+
+  PARTICLE_TO_PARTICLE_PAIR_FN(ELECTRON_SMEAR_CMS_RUN2)
 
   //@}
 
@@ -423,7 +474,7 @@ namespace Rivet {
 
   /// ATLAS Run 1 muon tracking efficiency
   /// @todo How to use this in combination with reco eff?
-  inline double MUON_TRKEFF_ATLAS_RUN1(const Particle& m) {
+  inline double MUON_TRKEFF_ATLAS_RUN1_(const Particle& m) {
     if (m.abseta() > 2.5) return 0;
     if (m.pT() < 0.1*GeV) return 0;
     if (m.abseta() < 1.5) {
@@ -433,30 +484,37 @@ namespace Rivet {
     }
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_TRKEFF_ATLAS_RUN1)
+
   /// ATLAS Run 2 muon tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double MUON_TRKEFF_ATLAS_RUN2(const Particle& m) {
-    return MUON_TRKEFF_ATLAS_RUN1(m);
+  inline double MUON_TRKEFF_ATLAS_RUN2_(const Particle& m) {
+    return MUON_TRKEFF_ATLAS_RUN1_(m);
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_TRKEFF_ATLAS_RUN2)
 
 
   /// ATLAS Run 1 muon reco efficiency
   /// @todo How to use this in combination with tracking eff?
-  inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
+  inline double MUON_EFF_ATLAS_RUN1_(const Particle& m) {
     if (m.abseta() > 2.7) return 0;
     if (m.pT() < 10*GeV) return 0;
     return (m.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_EFF_ATLAS_RUN1)
+
   /// ATLAS Run 2 muon reco efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double MUON_EFF_ATLAS_RUN2(const Particle& m) {
-    return MUON_EFF_ATLAS_RUN1(m);
+  inline double MUON_EFF_ATLAS_RUN2_(const Particle& m) {
+    return MUON_EFF_ATLAS_RUN1_(m);
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_EFF_ATLAS_RUN2)
 
   /// ATLAS Run 1 muon reco smearing
-  inline Particle MUON_SMEAR_ATLAS_RUN1(const Particle& m) {
+  inline Particle MUON_SMEAR_ATLAS_RUN1_(const Particle& m) {
     static const vector<double> edges_eta = {0, 1.5, 2.5};
     static const vector<double> edges_pt = {0, 0.1, 1.0, 10., 200.};
     static const vector<double> res = {0., 0.03, 0.02, 0.03, 0.05,
@@ -476,17 +534,21 @@ namespace Rivet {
     return Particle(m.pid(), P4_SMEAR_PT_GAUSS(m, resolution*m.pT()));
   }
 
+  PARTICLE_TO_PARTICLE_PAIR_FN(MUON_SMEAR_ATLAS_RUN1)
+
   /// ATLAS Run 2 muon reco smearing
   /// @todo Currently just a copy of the Run 1 version: fix!
-  inline Particle MUON_SMEAR_ATLAS_RUN2(const Particle& m) {
-    return MUON_SMEAR_ATLAS_RUN1(m);
+  inline Particle MUON_SMEAR_ATLAS_RUN2_(const Particle& m) {
+    return MUON_SMEAR_ATLAS_RUN1_(m);
   }
+
+  PARTICLE_TO_PARTICLE_PAIR_FN(MUON_SMEAR_ATLAS_RUN2)
 
 
   /// CMS Run 1 muon tracking efficiency
   /// @todo How to use this in combination with reco eff?
   /// @note Eff values currently identical to those in ATLAS (AB, 2016-04-12)
-  inline double MUON_TRKEFF_CMS_RUN1(const Particle& m) {
+  inline double MUON_TRKEFF_CMS_RUN1_(const Particle& m) {
     if (m.abseta() > 2.5) return 0;
     if (m.pT() < 0.1*GeV) return 0;
     if (m.abseta() < 1.5) {
@@ -496,30 +558,38 @@ namespace Rivet {
     }
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_TRKEFF_CMS_RUN1)
+
   /// CMS Run 2 muon tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double MUON_TRKEFF_CMS_RUN2(const Particle& m) {
-    return MUON_TRKEFF_CMS_RUN1(m);
+  inline double MUON_TRKEFF_CMS_RUN2_(const Particle& m) {
+    return MUON_TRKEFF_CMS_RUN1_(m);
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_TRKEFF_CMS_RUN2)
 
 
   /// CMS Run 1 muon reco efficiency
   /// @todo How to use this in combination with tracking eff?
-  inline double MUON_EFF_CMS_RUN1(const Particle& m) {
+  inline double MUON_EFF_CMS_RUN1_(const Particle& m) {
     if (m.abseta() > 2.4) return 0;
     if (m.pT() < 10*GeV) return 0;
     return 0.95 * (m.abseta() < 1.5 ? 1 : exp(0.5 - 5e-4*m.pT()/GeV));
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_EFF_CMS_RUN1)
+
   /// CMS Run 2 muon reco efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double MUON_EFF_CMS_RUN2(const Particle& m) {
-    return MUON_EFF_CMS_RUN1(m);
+  inline double MUON_EFF_CMS_RUN2_(const Particle& m) {
+    return MUON_EFF_CMS_RUN1_(m);
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(MUON_EFF_CMS_RUN2)
 
 
   /// CMS Run 1 muon reco smearing
-  inline Particle MUON_SMEAR_CMS_RUN1(const Particle& m) {
+  inline Particle MUON_SMEAR_CMS_RUN1_(const Particle& m) {
     // Calculate fractional resolution
     // for pT > 0.1 GeV, mom resolution = |eta| < 0.5 -> sqrt(0.01^2 + pt^2 * 2.0e-4^2)
     //                                    |eta| < 1.5 -> sqrt(0.02^2 + pt^2 * 3.0e-4^2)
@@ -544,11 +614,15 @@ namespace Rivet {
     return Particle(m.pid(), P4_SMEAR_PT_GAUSS(m, resolution*m.pT()));
   }
 
+  PARTICLE_TO_PARTICLE_PAIR_FN(MUON_SMEAR_CMS_RUN1)
+
   /// CMS Run 2 muon reco smearing
   /// @todo Currently just a copy of the Run 1 version: fix!
-  inline Particle MUON_SMEAR_CMS_RUN2(const Particle& m) {
-    return MUON_SMEAR_CMS_RUN1(m);
+  inline Particle MUON_SMEAR_CMS_RUN2_(const Particle& m) {
+    return MUON_SMEAR_CMS_RUN1_(m);
   }
+
+  PARTICLE_TO_PARTICLE_PAIR_FN(MUON_SMEAR_CMS_RUN2)
 
   //@}
 
@@ -564,7 +638,7 @@ namespace Rivet {
   ///   20-40 GeV 3-prong LMT eff|mis = 0.45|1/60, 0.38|1/100, 0.27|1/300
   ///   > 40 GeV 1-prong LMT eff|mis = 0.66|1/15, 0.56|1/25, 0.36|1/80
   ///   > 40 GeV 3-prong LMT eff|mis = 0.45|1/250, 0.38|1/400, 0.27|1/1300
-  inline double TAU_EFF_ATLAS_RUN1(const Particle& t) {
+  inline double TAU_EFF_ATLAS_RUN1_(const Particle& t) {
     if (t.abseta() > 2.5) return 0; //< hmm... mostly
     double pThadvis = 0;
     Particles chargedhadrons;
@@ -586,13 +660,15 @@ namespace Rivet {
     return 0;
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(TAU_EFF_ATLAS_RUN1)
+
 
   /// @brief ATLAS Run 2 13 TeV tau efficiencies (medium working point)
   ///
   /// From https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PUBNOTES/ATL-PHYS-PUB-2015-045/ATL-PHYS-PUB-2015-045.pdf
   ///   LMT 1 prong efficiency/mistag = 0.6|1/30, 0.55|1/50, 0.45|1/120
   ///   LMT 3 prong efficiency/mistag = 0.5|1/30, 0.4|1/110, 0.3|1/300
-  inline double TAU_EFF_ATLAS_RUN2(const Particle& t) {
+  inline double TAU_EFF_ATLAS_RUN2_(const Particle& t) {
     if (t.abseta() > 2.5) return 0; //< hmm... mostly
     double pThadvis = 0;
     Particles chargedhadrons;
@@ -609,10 +685,12 @@ namespace Rivet {
     return 0;
   }
 
+  DOUBLE_TO_PARTICLE_PAIR_FN(TAU_EFF_ATLAS_RUN2)
+
 
   /// ATLAS Run 1 tau smearing
   /// @todo Currently a copy of the crappy jet smearing that is probably wrong...
-  inline Particle TAU_SMEAR_ATLAS_RUN1(const Particle& t) {
+  inline Particle TAU_SMEAR_ATLAS_RUN1_(const Particle& t) {
     // Const fractional resolution for now
     static const double resolution = 0.03;
 
@@ -627,41 +705,53 @@ namespace Rivet {
     return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
   }
 
+  PARTICLE_TO_PARTICLE_PAIR_FN(TAU_SMEAR_ATLAS_RUN1)
+
 
   /// ATLAS Run 2 tau smearing
   /// @todo Currently a copy of the Run 1 version
-  inline Particle TAU_SMEAR_ATLAS_RUN2(const Particle& t) {
-    return TAU_SMEAR_ATLAS_RUN1(t);
+  inline Particle TAU_SMEAR_ATLAS_RUN2_(const Particle& t) {
+    return TAU_SMEAR_ATLAS_RUN1_(t);
   }
+
+  PARTICLE_TO_PARTICLE_PAIR_FN(TAU_SMEAR_ATLAS_RUN2)
 
 
   /// CMS Run 2 tau efficiency
   ///
   /// @todo Needs work; this is the dumb version from Delphes 3.3.2
-  inline double TAU_EFF_CMS_RUN2(const Particle& t) {
+  inline double TAU_EFF_CMS_RUN2_(const Particle& t) {
     return (t.abspid() == PID::TAU) ? 0.6 : 0;
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(TAU_EFF_CMS_RUN2)
 
   /// CMS Run 1 tau efficiency
   ///
   /// @todo Needs work; this is just a copy of the Run 2 version in Delphes 3.3.2
-  inline double TAU_EFF_CMS_RUN1(const Particle& t) {
-    return TAU_EFF_CMS_RUN2(t);
+  inline double TAU_EFF_CMS_RUN1_(const Particle& t) {
+    return TAU_EFF_CMS_RUN2_(t);
   }
+
+  DOUBLE_TO_PARTICLE_PAIR_FN(TAU_EFF_CMS_RUN1)
 
 
   /// CMS Run 1 tau smearing
   /// @todo Currently a copy of the crappy ATLAS one
-  inline Particle TAU_SMEAR_CMS_RUN1(const Particle& t) {
-    return TAU_SMEAR_ATLAS_RUN1(t);
+  inline Particle TAU_SMEAR_CMS_RUN1_(const Particle& t) {
+    return TAU_SMEAR_ATLAS_RUN1_(t);
   }
+
+  PARTICLE_TO_PARTICLE_PAIR_FN(TAU_SMEAR_CMS_RUN1)
 
 
   /// CMS Run 2 tau smearing
   /// @todo Currently a copy of the Run 1 version
-  inline Particle TAU_SMEAR_CMS_RUN2(const Particle& t) {
-    return TAU_SMEAR_CMS_RUN1(t);
+  inline Particle TAU_SMEAR_CMS_RUN2_(const Particle& t) {
+    return TAU_SMEAR_CMS_RUN1_(t);
   }
+
+  PARTICLE_TO_PARTICLE_PAIR_FN(TAU_SMEAR_CMS_RUN2)
 
   //@}
 
@@ -670,24 +760,29 @@ namespace Rivet {
   //@{
 
   /// Return a constant 0 given a Jet as argument
-  inline double JET_EFF_ZERO(const Jet& p) { return 0; }
+  inline double JET_EFF_ZERO_(const Jet& p) { return 0; }
+  DOUBLE_TO_JET_PAIR_FN(JET_EFF_ZERO)
   /// Return a constant 1 given a Jet as argument
-  inline double JET_EFF_ONE(const Jet& p) { return 1; }
+  inline double JET_EFF_ONE_(const Jet& p) { return 1; }
+  DOUBLE_TO_JET_PAIR_FN(JET_EFF_ONE)
 
   /// Return 1 if the given Jet contains a b, otherwise 0
   inline double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
+
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
     if (j.bTagged()) return 0.80*tanh(0.003*j.pT()/GeV)*(30/(1+0.086*j.pT()/GeV));
     if (j.cTagged()) return 0.20*tanh(0.02*j.pT()/GeV)*(1/(1+0.0034*j.pT()/GeV));
     return 0.002 + 7.3e-6*j.pT()/GeV;
   }
+
   /// Return the ATLAS Run 2 MC2c20 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C20(const Jet& j) {
     if (j.bTagged()) return 0.77;
     if (j.cTagged()) return 1/4.5;
     return 1/140.;
   }
+
   /// Return the ATLAS Run 2 MC2c10 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN2_MV2C10(const Jet& j) {
     if (j.bTagged()) return 0.77;
@@ -701,11 +796,12 @@ namespace Rivet {
   /// Take a jet and return an unmodified copy
   /// @todo Modify constituent particle vectors for consistency
   /// @todo Set a null PseudoJet if the Jet is smeared?
-  inline Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
+  inline Jet JET_SMEAR_IDENTITY_(const Jet& j) { return j; }
+  JET_TO_JET_PAIR_FN(JET_SMEAR_IDENTITY)
 
   /// ATLAS Run 1 jet smearing
   /// @todo This is a cluster-level flat 3% resolution, I think, and smearing is suboptimal: improve!
-  inline Jet JET_SMEAR_ATLAS_RUN1(const Jet& j) {
+  inline Jet JET_SMEAR_ATLAS_RUN1_(const Jet& j) {
     // Const fractional resolution for now
     static const double resolution = 0.03;
 
@@ -719,18 +815,21 @@ namespace Rivet {
     const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
     return Jet(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
   }
+  JET_TO_JET_PAIR_FN(JET_SMEAR_ATLAS_RUN1)
 
   /// ATLAS Run 2 jet smearing
   /// @todo Just a copy of the Run 1 one: improve!!
-  inline Jet JET_SMEAR_ATLAS_RUN2(const Jet& j) {
-    return JET_SMEAR_ATLAS_RUN1(j);
+  inline Jet JET_SMEAR_ATLAS_RUN2_(const Jet& j) {
+    return JET_SMEAR_ATLAS_RUN1_(j);
   }
+  JET_TO_JET_PAIR_FN(JET_SMEAR_ATLAS_RUN2)
 
   /// CMS Run 2 jet smearing
   /// @todo Just a copy of the suboptimal ATLAS one: improve!!
-  inline Jet JET_SMEAR_CMS_RUN2(const Jet& j) {
-    return JET_SMEAR_ATLAS_RUN1(j);
+  inline Jet JET_SMEAR_CMS_RUN2_(const Jet& j) {
+    return JET_SMEAR_ATLAS_RUN1_(j);
   }
+  JET_TO_JET_PAIR_FN(JET_SMEAR_CMS_RUN2)
 
   //@}
 

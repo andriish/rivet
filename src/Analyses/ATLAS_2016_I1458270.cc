@@ -38,11 +38,11 @@ namespace Rivet {
 
       PromptFinalState es(Cuts::abseta < 2.47 && Cuts::abspid == PID::ELECTRON, true, true);
       declare(es, "TruthElectrons");
-      declare(SmearedParticles(es, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2), "RecoElectrons");
+      declare(SmearedParticles(es, {ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2}), "RecoElectrons");
 
       PromptFinalState mus(Cuts::abseta < 2.7 && Cuts::abspid == PID::MUON, true);
       declare(mus, "TruthMuons");
-      declare(SmearedParticles(mus, MUON_EFF_ATLAS_RUN2, MUON_SMEAR_ATLAS_RUN2), "RecoMuons");
+      declare(SmearedParticles(mus, {MUON_EFF_ATLAS_RUN2, MUON_SMEAR_ATLAS_RUN2}), "RecoMuons");
 
 
       // Book histograms/counters

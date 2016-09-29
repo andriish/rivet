@@ -33,9 +33,9 @@ namespace Rivet {
       const FinalState fs(-4.2, 4.2);
       FastJets fj(fs, FastJets::CDFJETCLU, 0.7);
       declare(fj, "Jets");
-      
+
       // Smear Energy and mass with the 10% uncertainty quoted in the paper
-      SmearedJets sj_E(fj, [](const Jet& jet){ return P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet, 0.1*jet.E()), 0.1*jet.mass()); });
+      SmearedJets sj_E(fj, [](const std::pair<double,Jet>& jet){ return make_pair(jet.first, P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet.second, 0.1*jet.second.E()), 0.1*jet.second.mass()));});
       declare(sj_E, "SmearedJets");
 
       /// Book histograms here, e.g.:
