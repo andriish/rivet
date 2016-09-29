@@ -141,6 +141,11 @@ namespace Rivet {
     /// Set the year in which the original experimental analysis was published.
     void setYear(const std::string& year) { _year = year; }
 
+    /// The integrated data luminosity of the data set
+    const std::string& luminosityfb() const { return _luminosityfb; }
+
+    /// Set the integrated data luminosity of the data set
+    void setLuminosityfb(const std::string& luminosityfb) { _luminosityfb = luminosityfb; }
 
     /// Journal and preprint references.
     const std::vector<std::string>& references() const { return _references; }
@@ -201,6 +206,7 @@ namespace Rivet {
     std::vector<std::pair<PdgId, PdgId> > _beams;
     std::vector<std::pair<double, double> > _energies;
     std::string _year;
+    std::string _luminosityfb;
     std::vector<std::string> _references;
     std::vector<std::string> _keywords;
     std::string _bibKey;
@@ -223,6 +229,7 @@ namespace Rivet {
       _beams.clear();
       _energies.clear();
       _year = "";
+      _luminosityfb = "";
       _references.clear();
       _keywords.clear();
       _bibKey = "";

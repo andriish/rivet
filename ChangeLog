@@ -1,3 +1,9 @@
+2016-09-29  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add Luminosity_fb to AnalysisInfo
+
+	* Added some keywords and Lumi to ATLAS_2016_I1458270
+
 2016-09-28  Frank Siegert  <frank.siegert@cern.ch>
 
        * make-plots bugfix in y-axis labels for RatioPlotMode=deviation

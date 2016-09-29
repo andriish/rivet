@@ -177,6 +177,11 @@ namespace Rivet {
       return info().year();
     }
 
+    /// The luminosity in inverse femtobarn
+    virtual std::string luminosityfb() const {
+      return info().luminosityfb();
+    }
+
     /// Journal, and preprint references.
     virtual std::vector<std::string> references() const {
       return info().references();

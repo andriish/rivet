@@ -49,6 +49,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         string status()
         string summary()
         string year()
+        string luminosityfb()
 
 # Might need to translate the following errors, although I believe 'what' is now
 # preserved. But often, we need the exception class name.

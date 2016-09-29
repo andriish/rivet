@@ -281,6 +281,8 @@ if opts.LIST_ANALYSES:
                     if opts.LOGLEVEL < logging.INFO:
                         if a.keywords():
                             msg += "  [" + " ".join(a.keywords()) + "]"
+                        if a.luminosityfb():
+                            msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
                 print msg
                 #os.write(tf, msg + "\n")
         # if os.path.getsize(tfpath) > 0:
@@ -389,6 +391,9 @@ if len(opts.SHOW_ANALYSES) > 0:
             twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=4*" ")
             for l in ana.runInfo().split("\n"):
                 msg += twrap.fill(l) + "\n"
+
+        if ana.luminosityfb():
+            msg+= "\nIntegrated data luminosity = %s inverse fb.\n"%ana.luminosityfb()
 
         if ana.keywords():
             msg += "\nAnalysis keywords:"
