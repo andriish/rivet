@@ -86,7 +86,7 @@ namespace Rivet {
   }
 
 
-  const vector<double>& Analysis::sumOfWeights() const {
+  double Analysis::sumOfWeights() const {
     return handler().sumOfWeights();
   }
 
@@ -156,18 +156,8 @@ namespace Rivet {
     return _crossSection;
   }
 
-  vector<double> Analysis::crossSectionPerEvent() const {
-    const vector<double>& sumW = sumOfWeights();
-    assert(sumW.size() != 0.0);
-
-    // @todo
-    // is this correct?
-    vector<double> v(sumW);
-    foreach (double& x, v) {
-        x = _crossSection/x;
-    }
-
-    return v;
+  double Analysis::crossSectionPerEvent() const {
+    return _crossSection/sumOfWeights();
   }
 
 

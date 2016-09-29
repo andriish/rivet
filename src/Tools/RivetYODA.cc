@@ -107,7 +107,7 @@ namespace Rivet {
       return;
   }
 
-  void Counter::pushToPersistent(const vector<vector<double> >& weight) {
+  void CounterPtr::pushToPersistent(const vector<vector<double> >& weight) {
       /// @todo
 
       return;

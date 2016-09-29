@@ -13,8 +13,8 @@ namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
-    : _runname(runname), _numEvents(0),
-      _sumOfWeights(0.0), _xs(NAN),
+    : _runname(runname),
+      _eventCounter(0, Counter()), _xs(NAN),
       _initialised(false), _ignoreBeams(false)
   {}
 
@@ -34,7 +34,6 @@ namespace Rivet {
 
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
-    _numEvents = 0;
     _eventNumber = ge.event_number();
 
     setWeightNames(ge);
@@ -48,7 +47,7 @@ namespace Rivet {
     }
 
     _numWeightTypes = _weightNames.size();
-    _sumOfWeights = vector<double>(_numWeightTypes, 0.0);
+    _eventCounter = CounterPtr(_numWeightTypes, Counter("_EVTCOUNT"));
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -167,14 +166,11 @@ namespace Rivet {
             }
         }
 
+        _eventCounter.pushToPersistent(_subEventWeights);
+
         _eventNumber = ge.event_number();
 
-        // @todo
-        // is this correct?
-        // only incremented when event number changes.
-        _numEvents++;
-
-        MSG_DEBUG("Event #" << _numEvents << " nominal weight sum = " << _sumOfWeights[0]);
+        MSG_DEBUG("Event #" << numEvents() << " weight sum = " << sumOfWeights());
         MSG_DEBUG("Event has " << _subEventWeights.size() << " sub events.");
         _subEventWeights.clear();
     }
@@ -186,14 +182,11 @@ namespace Rivet {
         }
     }
 
+    _eventCounter.newSubEvent();
+
     _subEventWeights.push_back(event.weights());
     MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
 
-    // @todo
-    // is this the correct way to sum weights over sub events?
-    for (unsigned int iWeight = 0; iWeight < _sumOfWeights.size(); iWeight++) {
-        _sumOfWeights[iWeight] += _subEventWeights.back()[iWeight];
-    }
 
     // Cross-section
     #ifdef HEPMC_HAS_CROSS_SECTION
@@ -240,7 +233,7 @@ namespace Rivet {
     }
 
     // Print out number of events processed
-    MSG_INFO("Processed " << _numEvents << " event" << (_numEvents == 1 ? "" : "s"));
+    MSG_INFO("Processed " << numEvents() << " event" << (numEvents() == 1 ? "" : "s"));
 
     // // Delete analyses
     // MSG_DEBUG("Deleting analyses");
@@ -293,39 +286,59 @@ namespace Rivet {
   }
 
 
-  vector<shared_ptr<Rivet::AnalysisObjectPtr> > AnalysisHandler::getRivetAOs() const {
-    vector<shared_ptr<AnalysisObjectPtr> > rtn;
-    for (size_t i = 0; i < _numWeights; i++) {
-        // HERE WE ARE
-    }
+  vector<shared_ptr<MultiweightAOPtr> > AnalysisHandler::getRivetAOs() const {
+      vector<shared_ptr<MultiweightAOPtr> > rtn;
+
+      for (AnaHandle a : _analyses) {
+          for (const shared_ptr<MultiweightAOPtr>& aoptr : a->analysisObjects()) {
+              rtn.push_back(aoptr);
+          }
+      }
+
+      rtn.push_back(make_shared<CounterPtr>(_eventCounter));
+
+      return rtn;
+  }
+
+  vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs() const {
+      vector<YODA::AnalysisObjectPtr> rtn;
+
+      vector<shared_ptr<MultiweightAOPtr> > raos =
+          getRivetAOs();
+
+      for (const shared_ptr<MultiweightAOPtr>& raoptr : raos) {
+          if ((*raoptr)->path().find("/TMP/") != string::npos)
+              continue;
+
+          raoptr->setActiveWeightIdx(0);
+          rtn.push_back(raoptr->activeYODAPtr());
+          for (size_t iW = 1; iW < numWeights(); iW++) {
+              raoptr->setActiveWeightIdx(iW);
+              (*raoptr)->setPath((*raoptr)->path() + "[" + _weightNames[iW] + "]");
+              rtn.push_back(raoptr->activeYODAPtr());
+          }
+      }
+
+      YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
+      rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
+
+      sort(rtn.begin(), rtn.end(),
+           [](YODA::AnalysisObjectPtr a, YODA::AnalysisObjectPtr b) {
+                return a->path() < b->path();
+            }
+          );
+
+      return rtn;
   }
 
   vector<YODA::AnalysisObjectPtr> AnalysisHandler::getData() const {
-    vector<YODA::AnalysisObjectPtr> rtn;
-    rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
-    YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
-    rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
-    for (const AnaHandle a : analyses()) {
-      vector<AnalysisObjectPtr> aos = a->analysisObjects();
-      // MSG_WARNING(a->name() << " " << aos.size());
-      for (const AnalysisObjectPtr ao : aos) {
-        // Exclude paths starting with /TMP/ from final write-out
-        /// @todo This needs to be much more nuanced for re-entrant histogramming
-        if (ao->path().find("/TMP/") != string::npos) continue;
-        rtn.push_back(ao);
-      }
-    }
-    sort(rtn.begin(), rtn.end(),
-         [](AnalysisObjectPtr a, AnalysisObjectPtr b) {
-              return a->path() < b->path();
-          }
-        );
-    return rtn;
+
+      return getYodaAOs();
   }
 
 
   void AnalysisHandler::writeData(const string& filename) const {
-    const vector<AnalysisObjectPtr> aos = getData();
+    const vector<YODA::AnalysisObjectPtr> aos = getData();
     try {
       YODA::WriterYODA::write(filename, aos.begin(), aos.end());
     } catch ( YODA::WriteError ) {
@@ -335,13 +348,15 @@ namespace Rivet {
 
 
   string AnalysisHandler::runName() const { return _runname; }
-  size_t AnalysisHandler::numEvents() const { return _numEvents; }
-  double AnalysisHandler::sumOfWeights() const { return _sumOfWeights; }
+  size_t AnalysisHandler::numEvents() const { return _eventCounter->numEntries(); }
 
 
+  /*
+   * why is this here?
   void AnalysisHandler::setSumOfWeights(const double& sum) {
-    _sumOfWeights=sum;
+    sumOfWeights() = sum;
   }
+  */
 
 
   std::vector<std::string> AnalysisHandler::analysisNames() const {

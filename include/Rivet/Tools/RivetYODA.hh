@@ -136,6 +136,8 @@ namespace Rivet {
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
             virtual void pushToPersistent(const vector<vector<double> >& weight) = 0;
+
+            virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
     };
 
 
@@ -242,6 +244,10 @@ namespace Rivet {
             _evgroup.push_back( tmp );                                         \
             _active = _evgroup.back();                                         \
             return;                                                            \
+        }                                                                      \
+                                                                               \
+        virtual YODA::AnalysisObjectPtr activeYODAPtr() const {                \
+            return _active;                                                    \
         }                                                                      \
                                                                                \
         const vector<YODA::YODATYPE##Ptr> & persistent() const {               \

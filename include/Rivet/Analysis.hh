@@ -299,7 +299,7 @@ namespace Rivet {
 
     /// Get the process cross-section per generated event in pb. Throws if this
     /// hasn't been set.
-    vector<double> crossSectionPerEvent() const;
+    double crossSectionPerEvent() const;
 
     /// Get the number of events seen (via the analysis handler). Use in the
     /// finalize phase only.
@@ -307,7 +307,7 @@ namespace Rivet {
 
     /// Get the sum of event weights seen (via the analysis handler). Use in the
     /// finalize phase only.
-    const vector<double>& sumOfWeights() const;
+    double sumOfWeights() const;
 
 
   protected:

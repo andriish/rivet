@@ -64,12 +64,12 @@ namespace Rivet {
     /// Get the sum of the event weights seen - the weighted equivalent of the
     /// number of events. Should only really be used by external steering code
     /// or analyses in the finalize phase.
-    const vector<double>& sumOfWeights() const {
-        return _sumOfWeights;
+    double sumOfWeights() const {
+        return _eventCounter->sumW();
     }
 
     int numWeights() const {
-        return _sumOfWeights.size();
+        return _weightNames.size();
     }
 
 
@@ -187,7 +187,9 @@ namespace Rivet {
     //@{
 
     /// Get all analyses' plots as a vector of analysis objects.
-    std::vector<AnalysisObjectPtr> getData() const;
+    std::vector<YODA::AnalysisObjectPtr> getData() const;
+    std::vector<shared_ptr<MultiweightAOPtr> > getRivetAOs() const;
+    std::vector<YODA::AnalysisObjectPtr> getYodaAOs() const;
 
     /// Get all analyses' plots as a vector of analysis objects.
     void setWeightNames(const GenEvent& ge); 
@@ -218,12 +220,7 @@ namespace Rivet {
     /// Run name
     std::string _runname;
 
-    /// Number of events seen.
-    /// @todo Replace by a counter
-    unsigned int _numEvents;
-    /// Sum of event weights seen.
-    /// @todo Replace by a counter
-    vector<double> _sumOfWeights;
+    CounterPtr _eventCounter;
 
     /// Cross-section known to AH
     double _xs, _xserr;
