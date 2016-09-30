@@ -273,30 +273,13 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 if test x$enable_pyext == xyes; then
   AM_CHECK_CYTHON([0.23.5], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
-    AS_VERSION_COMPARE([$CYTHON_VERSION], [0.24],
-          [AC_MSG_NOTICE([Cython >= 0.23.5 found: Python extension source can be rebuilt (for developers)])],
-          [AC_MSG_NOTICE([
-**************************************************
-Cython 0.24.x does not work for non-tarball builds
-  (https://github.com/cython/cython/issues/1465)
-
-You can install a personal copy of Cython with
-  pip install --user cython==0.23.5
-**************************************************]); CYTHON_FOUND="no"],
-          [AC_MSG_NOTICE([
-**************************************************
-Cython 0.24.x does not work for non-tarball builds
-  (https://github.com/cython/cython/issues/1465)
-
-You can install a personal copy of Cython with
-  pip install --user cython==0.23.5
-**************************************************]); CYTHON_FOUND="no"])
+    AC_MSG_NOTICE([Cython >= 0.23.5 found: Python extension source can be rebuilt (for developers)])
   fi
 
   AC_CHECK_FILE([pyext/rivet/core.cpp],
                 [],
                 [if test "x$CYTHON_FOUND" != "xyes"; then
-                  AC_MSG_ERROR([Cython is required for --enable-pyext.])
+                  AC_MSG_ERROR([Cython is required for --enable-pyext, no pre-built core.cpp was found.])
                 fi])
 
   cython_compiler=$CXX
