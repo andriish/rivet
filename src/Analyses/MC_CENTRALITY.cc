@@ -24,7 +24,7 @@ protected:
     const FinalState & fsfwd =
       apply<FinalState>(e, "FSSumETFwdCentrality");
     _estimate = 0.0;
-    foreach ( const Particle & p, fsfwd.particles() ) {
+    for ( const Particle & p : fsfwd.particles() ) {
       _estimate += p.Et();
     }
   }
@@ -90,6 +90,21 @@ protected:
       _cent2.add(_histEta2C00 = bookHisto1D("Eta2C00", 50, -2.5, 2.5),
                  0.0,  60.0);
 
+      /// Finally also try the case where we know the centrality bin
+      /// edges beforehand.
+      _cent3.setProjection("SumETFwdCentrality");
+      _cent3.add(_histEta3C95 = bookHisto1D("Eta3C95", 50, -2.5, 2.5),
+                 95.0, 100.0, 22.55, 1.0e20);
+      _cent3.add(_histEta3C90 = bookHisto1D("Eta3C90", 50, -2.5, 2.5),
+                 90.0,  95.0, 16.11, 22.55);
+      _cent3.add(_histEta3C80 = bookHisto1D("Eta3C80", 50, -2.5, 2.5),
+                 80.0,  90.0, 9.611, 16.11);
+      _cent3.add(_histEta3C60 = bookHisto1D("Eta3C60", 50, -2.5, 2.5),
+                 60.0,  80.0, 3.921, 9.611);
+      _cent3.add(_histEta3C00 = bookHisto1D("Eta3C00", 50, -2.5, 2.5),
+                 0.0,  60.0, 0.0, 3.921);
+
+
 
     }
 
@@ -102,7 +117,7 @@ protected:
       // initialize the centrality bin.
       const FinalState & fsfwd = apply<FinalState>(event, "FSfwd");
       double sumet = 0.0;
-      foreach ( const Particle & p, fsfwd.particles() ) {
+      for ( const Particle & p : fsfwd.particles() ) {
         sumet += p.Et();
       }
       _cent.setup(event, sumet);
@@ -114,9 +129,10 @@ protected:
       // Then fill the selected centrality histogram.
       const ChargedFinalState & cfscent =
         apply<ChargedFinalState>(event, "CFScent");
-      foreach ( const Particle & p, cfscent.particles() ) {
+      for ( const Particle & p : cfscent.particles() ) {
         _cent.fill(p.eta(), weight);
         _cent2.fill(p.eta(), weight);
+        _cent3.fill(p.eta(), weight);
       }
     }
 
@@ -125,9 +141,26 @@ protected:
     void finalize() {
       normalize(_histETfwd, 1.0/sumOfWeights());
       _cent.finalize();
+      _cent2.finalize();
+      _cent3.finalize(); // This should be a noop.
       _cent.normalizePerEvent();
       _cent2.normalizePerEvent();
+      _cent3.normalizePerEvent();
       _histEtaAll->normalize(1.0/sumOfWeights());
+
+      map<double,double> edges1 = _cent.edges();
+      map<double,double> edges2 = _cent2.edges();
+      map<double,double> edges3 = _cent3.edges();
+      MSG_INFO("Cross check of centalty edges:"
+               << setw(10) << "%" << setw(10) << "1"
+               << setw(10) << "2" << setw(10) << "3");
+      for ( auto e : edges3 ) {
+        MSG_INFO(""
+                 << setw(10) << e.first << setw(10) << e.second << setw(10) 
+                 << edges1[e.first] << setw(10) << edges2[e.first]);
+      }
+      
+
     }
 
     //@}
@@ -144,7 +177,11 @@ protected:
     Histo1DPtr _histEta2C95, _histEta2C90, _histEta2C80,
     _histEta2C60, _histEta2C00;
     CentralityHistogram _cent2;
+    Histo1DPtr _histEta3C95, _histEta3C90, _histEta3C80,
+    _histEta3C60, _histEta3C00;
+    CentralityHistogram _cent3;
     //@}
+
 
   };
 

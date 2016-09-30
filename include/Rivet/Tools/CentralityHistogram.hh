@@ -24,12 +24,16 @@ class CentralityHistogram: public ProjectionApplier {
   /// be responsible for calculating a centrality estimate for each
   /// event.
   CentralityHistogram()
-    : _currentHist(Histo1DPtr()), _overSamplingFactor(10), _weightsum(0.0) {}
+    : _currentHist(Histo1DPtr()), _currentCEst(-1.0),
+      _overSamplingFactor(10), _weightsum(0.0) {
+    _percentiles.insert(0.0);
+    _percentiles.insert(1.0);
+  }
 
   /// Set the centrality projection to be used. Note that this
   /// projection must have already been declared to Rivet.
   void setProjection(string pname) {
-    _centralityEstimatorName = pname;
+    _estimator = pname;
   }
 
   /// Return the class name.
@@ -45,13 +49,8 @@ class CentralityHistogram: public ProjectionApplier {
 
   /// Note that (cmin=0, cmax=5), means the five percent LEAST
   /// central events.
-  void add(Histo1DPtr hist, double cmin, double cmax) {
-    _originalHists[make_pair(cmin, cmax)] = hist;
-    _percentiles.insert(0.0);
-    _percentiles.insert(cmin);
-    _percentiles.insert(cmax);
-    _percentiles.insert(100.0);
-  }
+  void add(Histo1DPtr hist, double cmin, double cmax,
+           double cestmin = -1.0, double cestmax = -1.0 );
 
   /// Setup the CentralityHistogram for the given event. Must be
   /// called for every event before any fill. Optionally an explicit
@@ -62,36 +61,36 @@ class CentralityHistogram: public ProjectionApplier {
   /// Fill the histogram that lies in the same region as @a bin with the value
   /// @a x of weight @a weight.
   void fill(double x, double weight = 1.0) {
-    _getHist()->fill(x, weight);
+    if ( _currentHist ) _currentHist->fill(x, weight);
+    for ( auto h : _ready )
+      if ( h.second.inRange(_currentCEst) )
+        h.second._hist->fill(x, weight);
   }
 
   /// Fill histo bin i with the given weight
   void fillBin(size_t i, double weight = 1.0) {
-    _getHist()->fill(i, weight);
+    if ( _currentHist ) _currentHist->fill(i, weight);
+    for ( auto h : _ready )
+      if ( h.second.inRange(_currentCEst) )
+        h.second._hist->fill(i, weight);
   }
 
   /// At the end of the run, calculate the percentiles and fill the
-  /// histograms provided with addHistogram().
+  /// histograms provided with addHistogram(). This is typically
+  /// called from the finalize method in a Analysis, but can also be
+  /// called earlier in which case the the fill function can be
+  /// continued to run as before.
   void finalize();
-
-  /// Return the sum of event weights corresponding to the given
-  /// histogram.
-  double eventWeightSum(Histo1DPtr h) const {
-    map<Histo1DPtr,double>::const_iterator hit = _histWeightSum.find(h);
-    return hit != _histWeightSum.end()? hit->second: 0.0;
-  }
 
   /// Normalize each histogram to the sum of event weights in the
   /// corresponding centrality bin.
   void normalizePerEvent();
 
-protected:
+  /// Return a map bin edges of the centrality extimator indexed by
+  /// the corresponing percentile.
+  map<double,double> edges() const;
 
-  /// Return the histogram to be filled corresponding to the current
-  /// event's centrality estimator.
-  Histo1DPtr _getHist() {
-    return _currentHist;
-  }
+protected:
 
   /// Create a copy of the first original histogram to be used in
   /// the dynamical binning of centrality.
@@ -144,8 +143,48 @@ private:
 
   };
 
+  struct HistBin {
+
+    /// Construct a completely empty bin.
+    HistBin()
+      : _centLo(-1.0), _centHi(-1.0),
+        _cestLo(-1.0), _cestHi(-1.0), _weightsum(0.0) {}
+
+    /// Constructor taking a histogram and centrality interval as
+    /// argument. Optionally the interval in the estimator can be
+    /// given, in which case this histogram is considered to be
+    /// "final".
+    HistBin(Histo1DPtr h, double centLo, double centHi,
+            double cestLo = -1.0, double cestHi = -1.0)
+      : _hist(h), _centLo(centLo), _centHi(centHi),
+        _cestLo(cestLo), _cestHi(cestHi), _weightsum(0.0) {}
+
+    /// Return true if the given centrality estimate is in the range
+    /// of this histogram.
+    bool inRange(double cest) const {
+      return _cestHi > 0 && _cestLo < cest && cest <= _cestHi;
+    }
+
+    /// Normalise the histogram to the tital cross section.
+    void normalizePerEvent() {
+      if ( _weightsum > 0.0 ) _hist->normalize(1.0/_weightsum);
+    }
+
+    /// The histogram.
+    Histo1DPtr _hist;
+
+    /// The range in centrality.
+    double _centLo, _centHi;
+
+    /// The corresponding range in the centrality estimator.
+    double _cestLo, _cestHi;
+
+    /// The sum of event weights for this bin;
+    double _weightsum;
+
+  };
+
   /// Convenient typedefs.
-  typedef map< pair<double,double>, Histo1DPtr > OriginalMap;
   typedef set<FlexiBin> FlexiBinSet;
   
   /// Find a bin corresponding to a given value of the centrality
@@ -153,19 +192,22 @@ private:
   FlexiBinSet::iterator _findBin(double cest) const;
 
   /// The name of the CentralityEstimator projection to be used.
-  string _centralityEstimatorName;
+  string _estimator;
 
   /// The current temporary histogram selected for the centrality
   /// estimator calculated from the event presented in setup().
   Histo1DPtr _currentHist;
 
+  /// THe current value of the centrality estimator.
+  double _currentCEst;
+
   /// The oversampling of centrality bins. For each requested
   /// centrality bin this number of dynamic bins will be used.
   int _overSamplingFactor;
 
-  /// The original histograms mapped to by their lower and upper
-  /// bounds.
-  OriginalMap _originalHists;
+  /// The unfilled histograms where the esimator edges has not yet
+  /// been determined.
+  vector<HistBin> _unfilled;
 
   /// The dynamic bins for ranges of centrality estimators.
   FlexiBinSet _flexiBins;
@@ -178,7 +220,10 @@ private:
 
   /// Percentile limits.
   set<double> _percentiles;
-   
+
+  /// The filled histograms where the estimator edges has been determined.
+  map<Histo1DPtr, HistBin> _ready;
+
 };
 
 }
