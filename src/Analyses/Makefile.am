@@ -1,7 +1,14 @@
+AUTOMAKE_OPTIONS = -Wno-portability
+
 ## Flags for building all plugins
 AM_LDFLAGS = $(LDFLAGS) -module -avoid-version -L$(FASTJETLIBPATH)
 LIBS = $(FASTJETCONFIGLIBADD)
 lib_LTLIBRARIES =
+
+BUILT_SOURCES =
+DISTCLEANFILES =
+
+EXTRA_DIST = cat_with_lines
 
 noinst_LTLIBRARIES = libRivetAnalysisTools.la
 libRivetAnalysisTools_la_SOURCES = \
@@ -9,11 +16,22 @@ libRivetAnalysisTools_la_SOURCES = \
     MC_JetAnalysis.cc \
     MC_JetSplittings.cc
 
+%__all.cc :
+	$(srcdir)/cat_with_lines $^ > $@
 
 if ENABLE_ANALYSES
 
 lib_LTLIBRARIES += RivetALICEAnalyses.la
-RivetALICEAnalyses_la_SOURCES = \
+
+nodist_RivetALICEAnalyses_la_SOURCES = ALICE__all.cc
+BUILT_SOURCES += ALICE__all.cc
+DISTCLEANFILES += ALICE__all.cc
+
+ALICE__all.cc : $(ALICE_ALL)
+
+EXTRA_DIST += $(ALICE_ALL)
+
+ALICE_ALL = \
     ALICE_2010_S8624100.cc \
     ALICE_2010_S8625980.cc \
     ALICE_2010_S8706239.cc \
@@ -25,7 +43,17 @@ RivetALICEAnalyses_la_SOURCES = \
 
 
 lib_LTLIBRARIES += RivetATLASAnalyses.la
-RivetATLASAnalyses_la_SOURCES = \
+
+nodist_RivetATLASAnalyses_la_SOURCES = ATLAS_1__all.cc ATLAS_2__all.cc 
+BUILT_SOURCES += ATLAS_1__all.cc ATLAS_2__all.cc
+DISTCLEANFILES += ATLAS_1__all.cc ATLAS_2__all.cc
+
+ATLAS_1__all.cc : $(ATLAS_ALL_1)
+ATLAS_2__all.cc : $(ATLAS_ALL_2)
+
+EXTRA_DIST += $(ATLAS_ALL_1) $(ATLAS_ALL_2)
+
+ATLAS_ALL_1 = \
     ATLAS_2010_S8591806.cc \
     ATLAS_2010_S8817804.cc \
     ATLAS_2010_S8894728.cc \
@@ -97,7 +125,9 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2014_I1300647.cc \
     ATLAS_2014_I1288706.cc \
     ATLAS_2014_I1307243.cc \
-    ATLAS_2014_I1312627.cc \
+    ATLAS_2014_I1312627.cc
+
+ATLAS_ALL_2 = \
     ATLAS_2013_I1217863_W.cc \
     ATLAS_2013_I1217863_Z.cc \
     ATLAS_2014_I1306615.cc \
@@ -130,7 +160,7 @@ RivetATLASAnalyses_la_SOURCES = \
     ATLAS_2016_I1458270.cc \
     ATLAS_2016_I1468168.cc
 # PRELIMINARY / OBSOLETE
-RivetATLASAnalyses_la_SOURCES += \
+ATLAS_ALL_2 += \
     ATLAS_2012_CONF_2012_001.cc \
     ATLAS_2010_CONF_2010_049.cc \
     ATLAS_2011_CONF_2011_090.cc \
@@ -145,7 +175,7 @@ RivetATLASAnalyses_la_SOURCES += \
     ATLAS_2011_S9212353.cc \
     ATLAS_2012_I946427.cc
 # UNVALIDATED
-RivetATLASAnalyses_la_SOURCES += \
+ATLAS_ALL_2 += \
     ATLAS_2011_S9108483.cc \
     ATLAS_2012_I1095236.cc \
     ATLAS_2012_I1126136.cc \
@@ -155,7 +185,18 @@ RivetATLASAnalyses_la_SOURCES += \
 
 
 lib_LTLIBRARIES += RivetCMSAnalyses.la
-RivetCMSAnalyses_la_SOURCES = \
+
+nodist_RivetCMSAnalyses_la_SOURCES = CMS__all.cc
+BUILT_SOURCES += CMS__all.cc
+DISTCLEANFILES += CMS__all.cc
+
+CMS__all.cc : $(CMS_ALL)
+
+EXTRA_DIST += $(CMS_ALL)
+
+
+
+CMS_ALL = \
     CMS_2010_S8547297.cc \
     CMS_2010_S8656010.cc \
     CMS_2011_S8884919.cc \
@@ -205,13 +246,22 @@ RivetCMSAnalyses_la_SOURCES = \
     CMSTOTEM_2014_I1294140.cc \
     TOTEM_2014_I1328627.cc
 # PRELIMINARY
-RivetCMSAnalyses_la_SOURCES += \
+CMS_ALL += \
     CMS_QCD_10_024.cc \
     CMS_2012_PAS_QCD_11_010.cc
 
 
 lib_LTLIBRARIES += RivetLHCbAnalyses.la
-RivetLHCbAnalyses_la_SOURCES = \
+
+nodist_RivetLHCbAnalyses_la_SOURCES = LHCb__all.cc
+BUILT_SOURCES += LHCb__all.cc
+DISTCLEANFILES += LHCb__all.cc
+
+LHCb__all.cc : $(LHCb_ALL)
+
+EXTRA_DIST += $(LHCb_ALL)
+
+LHCb_ALL = \
     LHCB_2010_I867355.cc \
     LHCB_2010_S8758301.cc \
     LHCB_2011_I917009.cc \
@@ -236,7 +286,18 @@ RivetTOTEMAnalyses_la_SOURCES = \
 
 
 lib_LTLIBRARIES += RivetCDFAnalyses.la
-RivetCDFAnalyses_la_SOURCES = \
+
+nodist_RivetCDFAnalyses_la_SOURCES = CDF__all.cc
+BUILT_SOURCES += CDF__all.cc
+DISTCLEANFILES += CDF__all.cc
+
+CDF__all.cc : $(CDF_ALL)
+
+EXTRA_DIST += $(CDF_ALL)
+
+
+
+CDF_ALL = \
     CDF_1988_S1865951.cc \
     CDF_1990_S2089246.cc \
     CDF_1994_S2952106.cc \
@@ -266,11 +327,11 @@ RivetCDFAnalyses_la_SOURCES = \
     CDF_2010_S8591881_QCD.cc \
     CDF_2012_I1124333.cc
 # PRELIMINARY
-RivetCDFAnalyses_la_SOURCES += \
+CDF_ALL += \
     CDF_2009_NOTE_9936.cc \
     CDF_2012_NOTE10874.cc
 # UNVALIDATED
-RivetCDFAnalyses_la_SOURCES += \
+CDF_ALL += \
     CDF_1993_S2742446.cc \
     CDF_1996_S3108457.cc \
     CDF_1996_S3349578.cc \
@@ -279,7 +340,18 @@ RivetCDFAnalyses_la_SOURCES += \
 
 
 lib_LTLIBRARIES += RivetD0Analyses.la
-RivetD0Analyses_la_SOURCES = \
+
+nodist_RivetD0Analyses_la_SOURCES = D0__all.cc
+BUILT_SOURCES += D0__all.cc
+DISTCLEANFILES += D0__all.cc
+
+D0__all.cc : $(D0_ALL)
+
+EXTRA_DIST += $(D0_ALL)
+
+
+
+D0_ALL = \
     D0_1995_I398175.cc \
     D0_2000_I499943.cc \
     D0_2000_S4480767.cc \
@@ -304,17 +376,28 @@ RivetD0Analyses_la_SOURCES = \
     D0_2015_I1324946.cc \
     D0_2000_I503361.cc
 # UNVALIDATED
-RivetD0Analyses_la_SOURCES += \
+D0_ALL += \
     D0_1996_S3214044.cc \
     D0_1996_S3324664.cc
 
 
 lib_LTLIBRARIES += RivetHERAAnalyses.la
-RivetHERAAnalyses_la_SOURCES = \
+
+nodist_RivetHERAAnalyses_la_SOURCES = HERA__all.cc
+BUILT_SOURCES += HERA__all.cc
+DISTCLEANFILES += HERA__all.cc
+
+HERA__all.cc : $(HERA_ALL)
+
+EXTRA_DIST += $(HERA_ALL)
+
+
+
+HERA_ALL = \
     H1_1994_S2919893.cc \
     H1_2000_S4129130.cc
 # UNVALIDATED
-RivetHERAAnalyses_la_SOURCES += \
+HERA_ALL += \
     H1_1995_S3167097.cc \
     ZEUS_2001_S4815815.cc
 
@@ -325,7 +408,18 @@ RivetPetraAnalyses_la_SOURCES = \
     TASSO_1990_S2148048.cc
 
 lib_LTLIBRARIES += RivetLEPAnalyses.la
-RivetLEPAnalyses_la_SOURCES = \
+
+nodist_RivetLEPAnalyses_la_SOURCES = LEP__all.cc
+BUILT_SOURCES += LEP__all.cc
+DISTCLEANFILES += LEP__all.cc
+
+LEP__all.cc : $(LEP_ALL)
+
+EXTRA_DIST += $(LEP_ALL)
+
+
+
+LEP_ALL = \
     ALEPH_1991_S2435284.cc \
     ALEPH_1995_I382179.cc \
     ALEPH_1996_S3486095.cc \
@@ -359,29 +453,51 @@ RivetLEPAnalyses_la_SOURCES = \
     SLD_2002_S4869273.cc \
     SLD_2004_S5693039.cc
 # UNVALIDATED
-RivetLEPAnalyses_la_SOURCES += \
+LEP_ALL += \
     OPAL_1993_S2692198.cc
 # OBSOLETE
-RivetLEPAnalyses_la_SOURCES += \
+LEP_ALL += \
     DELPHI_2002_069_CONF_603.cc
 
 
 lib_LTLIBRARIES += RivetRHICAnalyses.la
-RivetRHICAnalyses_la_SOURCES = \
+
+nodist_RivetRHICAnalyses_la_SOURCES = RHIC__all.cc
+BUILT_SOURCES += RHIC__all.cc
+DISTCLEANFILES += RHIC__all.cc
+
+RHIC__all.cc : $(RHIC_ALL)
+
+EXTRA_DIST += $(RHIC_ALL)
+
+
+
+RHIC_ALL = \
     STAR_2006_S6500200.cc \
     STAR_2006_S6860818.cc \
     STAR_2006_S6870392.cc
 # PRELIMINARY
-RivetRHICAnalyses_la_SOURCES += \
+RHIC_ALL += \
     STAR_2009_UE_HELEN.cc
 # UNVALIDATED
-RivetRHICAnalyses_la_SOURCES += \
+RHIC_ALL += \
     STAR_2008_S7869363.cc \
     STAR_2008_S7993412.cc
 
 
 lib_LTLIBRARIES += RivetSPSAnalyses.la
-RivetSPSAnalyses_la_SOURCES = \
+
+nodist_RivetSPSAnalyses_la_SOURCES = SPS__all.cc
+BUILT_SOURCES += SPS__all.cc
+DISTCLEANFILES += SPS__all.cc
+
+SPS__all.cc : $(SPS_ALL)
+
+EXTRA_DIST += $(SPS_ALL)
+
+
+
+SPS_ALL = \
     UA1_1990_S2044935.cc \
     UA5_1982_S875503.cc \
     UA5_1986_S1583476.cc \
@@ -391,7 +507,18 @@ RivetSPSAnalyses_la_SOURCES = \
 
 
 lib_LTLIBRARIES += RivetMiscAnalyses.la
-RivetMiscAnalyses_la_SOURCES = \
+
+nodist_RivetMiscAnalyses_la_SOURCES = Misc__all.cc
+BUILT_SOURCES += Misc__all.cc
+DISTCLEANFILES += Misc__all.cc
+
+Misc__all.cc : $(Misc_ALL)
+
+EXTRA_DIST += $(Misc_ALL)
+
+
+
+Misc_ALL = \
     E735_1998_S3905616.cc \
     PDG_HADRON_MULTIPLICITIES.cc \
     PDG_HADRON_MULTIPLICITIES_RATIOS.cc \
@@ -415,12 +542,23 @@ RivetMiscAnalyses_la_SOURCES = \
     BELLE_2015_I1397632.cc \
     CLEO_2004_S5809304.cc
 # UNVALIDATED
-RivetMiscAnalyses_la_SOURCES += \
+Misc_ALL += \
     SFM_1984_S1178091.cc
 
 
 lib_LTLIBRARIES += RivetMCAnalyses.la
-RivetMCAnalyses_la_SOURCES = \
+
+nodist_RivetMCAnalyses_la_SOURCES = MC__all.cc
+BUILT_SOURCES += MC__all.cc
+DISTCLEANFILES += MC__all.cc
+
+MC__all.cc : $(MC_ALL)
+
+EXTRA_DIST += $(MC_ALL)
+
+
+
+MC_ALL = \
     EXAMPLE.cc \
     EXAMPLE_CUTS.cc \
     EXAMPLE_SMEAR.cc \
