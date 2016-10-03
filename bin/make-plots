@@ -1563,11 +1563,13 @@ class Histogram(DrawableObject, Described):
                     foo += self.data[i].val
                 else:
                     foo += self.data[i].val*(self.data[i].xmax-self.data[i].xmin)
+
             # TODO: change to "in self.data"?
-            for i in range(len(self.data)):
-                self.data[i].val /= foo
-                self.data[i].err[0] /= foo
-                self.data[i].err[1] /= foo
+            if foo != 0:
+                for i in range(len(self.data)):
+                    self.data[i].val /= foo
+                    self.data[i].err[0] /= foo
+                    self.data[i].err[1] /= foo
         scale = self.attr_float('Scale', 1.0)
         if scale != 1.0:
             # TODO: change to "in self.data"?
@@ -2300,7 +2302,7 @@ class YTicks(Ticks):
         if not label:
             label = self.get_ticklabel(value, int(self.description['LogY']) and self.coors.ymin() > 0 and self.coors.ymax() > 0)
         if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode'] == 'deviation' and \
-           self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage'] == '1':
+           self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']:
             rtn = '\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n'
         else:
             labelparts = label.split("\\n")

@@ -94,6 +94,9 @@ cdef class Analysis:
     def requiredEnergies(self):
         return deref(self._ptr).requiredEnergies()
 
+    def keywords(self):
+        return deref(self._ptr).keywords()
+
     def authors(self):
         return deref(self._ptr).authors()
 
@@ -136,6 +139,8 @@ cdef class Analysis:
     def year(self):
         return deref(self._ptr).year()
 
+    def luminosityfb(self):
+        return deref(self._ptr).luminosityfb()
 
 #cdef object
 LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,

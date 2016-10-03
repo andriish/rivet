@@ -11,8 +11,13 @@ References:
 - 'Eur.Phys.J. C76 (2016) no.7, 392'
 - 'DOI:10.1140/epjc/s10052-016-4184-8'
 - 'arXiv:1605.03814'
+Keywords:
+ - susy
+ - 0lepton
+ - met
 RunInfo: 'BSM signal events'
 NumEvents: 10000
+Luminosity_fb: 3.2
 NeedCrossSection: no
 Beams: [p+, p+]
 Energies: [13000]

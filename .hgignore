@@ -59,6 +59,7 @@ Doxyfile$
 ^test/.*\.trs$
 ^test/testMatVec$
 ^test/testMath$
+^test/testBeams$
 ^dev$
 ^devval$
 ^newanalyses$
@@ -68,7 +69,4 @@ Doxyfile$
 ^Rivet-.\..\..$
 ^local/.*$
 ^(for|analyses)\d\d\d$
-
-# added by aHg on Thu Sep 29 00:23:38 2016
-syntax: glob
-test/testBeams
+^src/Analyses/.*__all\.cc$

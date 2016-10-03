@@ -1,3 +1,25 @@
+2016-09-29  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add Luminosity_fb to AnalysisInfo
+
+	* Added some keywords and Lumi to ATLAS_2016_I1458270
+
+2016-09-28  Frank Siegert  <frank.siegert@cern.ch>
+
+       * make-plots bugfix in y-axis labels for RatioPlotMode=deviation
+
+2016-09-27  Andy Buckley  <andy.buckley@cern.ch>
+
+       * Add vector and scalar pT (rather than Et) to MissingMomentum.
+
+2016-09-27  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Analysis keyword machinery
+
+	* rivet -a @semileptonic
+
+	* rivet -a @semileptonic@^bdecays -a @semileptonic@^ddecays
+
 2016-09-22  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Release version 2.5.2

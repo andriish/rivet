@@ -177,6 +177,11 @@ namespace Rivet {
       return info().year();
     }
 
+    /// The luminosity in inverse femtobarn
+    virtual std::string luminosityfb() const {
+      return info().luminosityfb();
+    }
+
     /// Journal, and preprint references.
     virtual std::vector<std::string> references() const {
       return info().references();
@@ -218,6 +223,12 @@ namespace Rivet {
     virtual const std::vector<std::pair<double, double> >& requiredEnergies() const {
       return info().energies();
     }
+
+    /// Get vector of analysis keywords
+    virtual const std::vector<std::string> & keywords() const {
+      return info().keywords();
+    }
+
     /// Declare the list of valid beam energy pairs, in GeV
     virtual Analysis& setRequiredEnergies(const std::vector<std::pair<double, double> >& requiredEnergies) {
       info().setEnergies(requiredEnergies);
