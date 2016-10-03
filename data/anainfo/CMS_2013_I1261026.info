@@ -3,7 +3,7 @@ Year: 2013
 Summary: Jet and underlying event properties as a function of particle multiplicity
 Experiment: CMS
 Collider: LHC
-SpiresID: 1261026
+InspireID: 1261026
 Status: VALIDATED
 Authors:
  - Maxim Azarkin <Maksim.Azarkin@cern.ch>

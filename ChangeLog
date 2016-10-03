@@ -1,3 +1,8 @@
+2016-10-03  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Fix SpiresID -> InspireID in some analyses (show-analysis pointed to
+	non-existing web page)
+
 2016-09-29  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Add Luminosity_fb to AnalysisInfo
