@@ -310,11 +310,14 @@ namespace Rivet {
           if ((*raoptr)->path().find("/TMP/") != string::npos)
               continue;
 
-          raoptr->setActiveWeightIdx(0);
-          rtn.push_back(raoptr->activeYODAPtr());
-          for (size_t iW = 1; iW < numWeights(); iW++) {
+          for (size_t iW = 0; iW < numWeights(); iW++) {
               raoptr->setActiveWeightIdx(iW);
-              (*raoptr)->setPath((*raoptr)->path() + "[" + _weightNames[iW] + "]");
+
+              // add the weight name in brackets unless we recognize a
+              // nominal weight
+              if (_weightNames[iW] != "Weight" && _weightNames[iW] != "0")
+                  (*raoptr)->setPath((*raoptr)->path() + "[" + _weightNames[iW] + "]");
+
               rtn.push_back(raoptr->activeYODAPtr());
           }
       }
