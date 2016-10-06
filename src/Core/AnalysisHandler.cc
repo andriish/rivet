@@ -7,6 +7,18 @@
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "YODA/WriterYODA.h"
+#include <regex>
+
+namespace {
+    inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
+        // passing -1 as the submatch index parameter performs splitting
+        std::regex re(regex);
+        std::sregex_token_iterator
+            first{input.begin(), input.end(), re, -1},
+            last;
+        return {first, last};
+    }
+};
 
 
 namespace Rivet {
@@ -28,6 +40,28 @@ namespace Rivet {
   }
 
 
+  /// http://stackoverflow.com/questions/4654636/how-to-determine-if-a-string-is-a-number-with-c
+  bool is_number(const std::string& s)
+  {
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+  }
+ 
+  /// Check if any of the weightnames is not a number 
+  bool AnalysisHandler::haveNamedWeights() {
+    bool dec=false;
+    for (unsigned int i=0;i<_weightNames.size();++i) {
+      string s = _weightNames[i];
+      if (!is_number(s)) {
+        dec=true;
+        break;
+      }
+    }
+    return dec;
+  }
+
+
   void AnalysisHandler::init(const GenEvent& ge) {
     if (_initialised)
       throw UserError("AnalysisHandler::init has already been called: cannot re-initialize!");
@@ -37,14 +71,10 @@ namespace Rivet {
     _eventNumber = ge.event_number();
 
     setWeightNames(ge);
-    if (haveNamedWeights()) {
+    if (haveNamedWeights())
         MSG_INFO("Using named weights");
-    }
-    else {
-        _weightNames.clear();
-        _weightNames.push_back("0");
+    else
         MSG_INFO("NOT using named weights. Using first weight as nominal weight");
-    }
 
     _numWeightTypes = _weightNames.size();
     _eventCounter = CounterPtr(_numWeightTypes, Counter("_EVTCOUNT"));
@@ -99,37 +129,22 @@ namespace Rivet {
   }
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
-      return;
+    /// reroute the print output to a stringstream and process
+    /// The iteration is done over a map in hepmc2 so this is safe
+    ostringstream stream;
+    ge.weights().print(stream);  // Super lame, I know
+    string str =  stream.str();
 
-      /// @todo
-      /// this relies on boost and is removed for now
- 
-      /*
-      /// reroute the print output to a stringstream and process
-      /// The iteration is done over a map in hepmc2 so this is safe
-      ostringstream stream;
-      ge.weights().print(stream);  // Super lame, I know
-      string str =  stream.str();
-
-      vector<string> temp;
-      split(temp, str, is_any_of("="));
-      vector<string> tokens;
-      split(tokens, temp[0], is_any_of(" "));
-
-      /// Weights  come in tuples:  (StringName, doubleWeight) (AnotherName, anotherWeight) etc
-      string wname;
-      for (unsigned int i=0; i<tokens.size()-1;++i) {
-        temp.clear();
-        split(temp, tokens[i], is_any_of(","));
-        if (temp.size()>0) {
-          wname = temp[0];
-          trim_left_if(wname, is_any_of("("));
-          _weightNames.push_back(wname);
-          /// Turn into debug message
-          MSG_INFO("Name of weight #" << i << ": " << wname);
-        }
+    std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
+    for(std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
+                          i != std::sregex_iterator(); ++i ) {
+      std::smatch m = *i;
+      vector<string> temp = split(m.str(), "[,]");
+      if (temp.size() ==2) {
+        MSG_DEBUG("Name of weight #" << _weightNames.size() << ": " << temp[0]);
+        _weightNames.push_back(temp[0]);
       }
-      */
+    }
   }
 
 
