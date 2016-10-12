@@ -722,16 +722,16 @@ class MainPlot(Plot):
         xcustomminortickmarks = inputdata.attr_int('XMinorTickMarks', -1)
 
         xcustommajorticks = xcustomminorticks = None
-        if inputdata.has_attr('XCustomMajorTicks'):
+        if inputdata.attr('XCustomMajorTicks'):
             xcustommajorticks = []
-            x_label_pairs = inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
+            x_label_pairs = inputdata.attr('XCustomMajorTicks').strip().split() #'\t')
             if len(x_label_pairs) % 2 == 0:
                 for i in range(0, len(x_label_pairs), 2):
                     xcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
             else:
                 print "Warning: XCustomMajorTicks requires an even number of alternating pos/label entries"
 
-        if inputdata.has_attr('XCustomMinorTicks'):
+        if inputdata.attr('XCustomMinorTicks'):
             xs = inputdata.attr('XCustomMinorTicks').strip().split() #'\t')
             xcustomminorticks = [{'Value': float(x)} for x in xs]
 
@@ -1150,25 +1150,25 @@ class ColorScale(Described):
         out += '  \\rput(0.5,0){\n'
         out += '    \\psframe[linewidth=0.3pt,dimen=middle](0,0)(1,1)\n'
 
-        zcustommajortickmarks = int(self.description.get('ZMajorTickMarks', -1))
-        zcustomminortickmarks = int(self.description.get('ZMinorTickMarks', -1))
-        zcustommajorticks=[]
-        zcustomminorticks=[]
-        if self.description.has_key('ZCustomMajorTicks') and self.description['ZCustomMajorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            ticks = self.description['ZCustomMajorTicks'].strip().split('\t')
-            if not len(ticks)%2:
-                for i in range(0,len(ticks),2):
-                    zcustommajorticks.append({'Value': float(ticks[i]), 'Label': ticks[i+1]})
-        if self.description.has_key('ZCustomMinorTicks') and self.description['ZCustomMinorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            ticks = self.description['ZCustomMinorTicks'].strip().split('\t')
-            for i in range(len(ticks)):
-                zcustomminorticks.append({'Value': float(ticks[i])})
-        if (self.description.has_key('PlotZTickLabels') and self.description['PlotZTickLabels']=='0'):
-            drawzlabels=False
-        else:
-            drawzlabels=True
+        zcustommajortickmarks = self.attr_int('ZMajorTickMarks', -1)
+        zcustomminortickmarks = self.attr_int('ZMinorTickMarks', -1)
+
+        zcustommajorticks = zcustomminorticks = None
+        if self.attr('ZCustomMajorTicks'):
+            zcustommajorticks = []
+            z_label_pairs = inputdata.attr('ZCustomMajorTicks').strip().split() #'\t')
+            if len(z_label_pairs) % 2 == 0:
+                for i in range(0, len(z_label_pairs), 2):
+                    zcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
+            else:
+                print "Warning: ZCustomMajorTicks requires an even number of alternating pos/label entries"
+
+        if inputdata.attr('ZCustomMinorTicks'):
+            zs = inputdata.attr('ZCustomMinorTicks').strip().split() #'\t')
+            zcustomminorticks = [{'Value': float(x)} for x in xs]
+
+        drawzlabels = self.description.attr_bool('PlotZTickLabels', True):
+
         zticks = ZTicks(self.description, self.coors)
         out += zticks.draw(custommajortickmarks=zcustommajortickmarks,\
                            customminortickmarks=zcustomminortickmarks,\
@@ -2216,7 +2216,7 @@ class Ticks(object):
 
 class XTicks(Ticks):
 
-    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
+    def draw(self, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
         twosided = bool(int(self.description.get('XTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% X-Ticks\n%\n')
@@ -2267,7 +2267,7 @@ class XTicks(Ticks):
 
 class YTicks(Ticks):
 
-    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
+    def draw(self, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         twosided = bool(int(self.description.get('YTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
@@ -2322,9 +2322,7 @@ class ZTicks(Ticks):
         self.description = description
         self.coors = coors
 
-    def draw(self, custommajorticks=[], customminorticks=[],
-            custommajortickmarks=-1, customminortickmarks=-1,
-            drawlabels=True):
+    def draw(self, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         out = ""
         out += ('\n%\n% Z-Ticks\n%\n')
         out += ('\\def\\majortickmarkz{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
