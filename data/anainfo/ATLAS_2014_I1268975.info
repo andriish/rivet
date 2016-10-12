@@ -3,7 +3,7 @@ Year: 2014
 Summary: High-mass dijet cross section
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1268975
+InspireID: 1268975
 Status: VALIDATED
 Authors:
  - Christopher Meyer <chris.meyer@cern.ch>

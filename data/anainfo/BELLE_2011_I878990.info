@@ -5,6 +5,9 @@ Experiment: BELLE
 Collider: KEKB
 InspireID: 878990
 Status: VALIDATED
+Keywords:
+ - bdecays
+ - semileptonic
 Authors:
  - Holger Schulz <holger.schulz@cern.ch>
 RunInfo:

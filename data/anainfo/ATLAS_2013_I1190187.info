@@ -3,7 +3,7 @@ Year: 2013
 Summary: Measurement of the $W^+ W^-$ production cross-section at 7 TeV
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1190187
+InspireID: 1190187
 Status: VALIDATED
 Authors:
  - Oldrich Kepka <oldrich.kepka@cern.ch>

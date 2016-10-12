@@ -2302,7 +2302,7 @@ class YTicks(Ticks):
         if not label:
             label = self.get_ticklabel(value, int(self.description['LogY']) and self.coors.ymin() > 0 and self.coors.ymax() > 0)
         if self.description.has_key('RatioPlotMode') and self.description['RatioPlotMode'] == 'deviation' and \
-           self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage'] == '1':
+           self.description.has_key('RatioPlotStage') and self.description['RatioPlotStage']:
             rtn = '\\uput[180]{0}(0, '+self.coors.strphys2frameY(value)+'){\\strut{}'+label+'\\,$\\sigma$}\n'
         else:
             labelparts = label.split("\\n")

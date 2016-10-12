@@ -5,6 +5,9 @@ Experiment: BABAR
 Collider: PEP-II
 InspireID: 1334693
 Status: VALIDATED
+Keywords:
+ - ddecays
+ - semileptonic
 Authors:
  - Holger Schulz <holger.schulz@cern.ch>
 RunInfo:
