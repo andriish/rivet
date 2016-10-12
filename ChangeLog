@@ -1,3 +1,7 @@
+2016-10-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tidying/fixing make-plots custom z-ticks code. Thanks to Dmitry Kalinkin.
+
 2016-10-03  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Fix SpiresID -> InspireID in some analyses (show-analysis pointed to
