@@ -576,80 +576,21 @@ class Plot(object):
 
 
     def write_header(self,inputdata):
-        if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
-            inputdata.description['LeftMargin'] = float(inputdata.description['LeftMargin'])
-        else:
-            inputdata.description['LeftMargin'] = 1.4
-        if inputdata.description.has_key('RightMargin') and inputdata.description['RightMargin']!='':
-            inputdata.description['RightMargin'] = float(inputdata.description['RightMargin'])
-        else:
-            inputdata.description['RightMargin'] = 0.35
-        if inputdata.description.has_key('TopMargin') and inputdata.description['TopMargin']!='':
-            inputdata.description['TopMargin'] = float(inputdata.description['TopMargin'])
-        else:
-            inputdata.description['TopMargin'] = 0.65
-        if inputdata.description.has_key('BottomMargin') and inputdata.description['BottomMargin']!='':
-            inputdata.description['BottomMargin'] = float(inputdata.description['BottomMargin'])
-        else:
-            inputdata.description['BottomMargin'] = 0.95
+        out = '\\begin{multipage}\n'
+        out += '\\begin{pspicture}(0,0)(0,0)\n'
+        out += '\\psset{xunit=%scm}\n' %(inputdata.description['PlotSizeX'])
         if inputdata.description['is2dim']:
-            inputdata.description['RightMargin'] += 1.7
-        papersizex = inputdata.description['PlotSizeX'] + 0.1 + \
-                     inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
-        papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + \
-                     inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
-        #
-        out = ""
-        out += '\\documentclass{article}\n'
-        if opts.OUTPUT_FONT == "MINION":
-            out += ('\\usepackage{minion}\n')
-        elif opts.OUTPUT_FONT == "PALATINO_OSF":
-            out += ('\\usepackage[osf,sc]{mathpazo}\n')
-        elif opts.OUTPUT_FONT == "PALATINO":
-            out += ('\\usepackage{mathpazo}\n')
-        elif opts.OUTPUT_FONT == "TIMES":
-            out += ('\\usepackage{mathptmx}\n')
-        elif opts.OUTPUT_FONT == "HELVETICA":
-            out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
-            out += ('\\usepackage{sfmath}\n')
-            out += ('\\usepackage{helvet}\n')
-            out += ('\\usepackage[symbolgreek]{mathastext}\n')
-        for pkg in opts.LATEXPKGS:
-            out += ('\\usepackage{%s}\n' % pkg)
-        out += ('\\usepackage{pst-all}\n')
-        out += ('\\usepackage{xcolor}\n')
-        out += ('\\selectcolormodel{rgb}\n')
-        out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
-        out += ('\\definecolor{blue}{HTML}{3366FF}')
-        out += ('\\definecolor{green}{HTML}{109618}')
-        out += ('\\definecolor{orange}{HTML}{FF9900}')
-        out += ('\\definecolor{lilac}{HTML}{990099}')
-        out += ('\\usepackage{amsmath}\n')
-        out += ('\\usepackage{amssymb}\n')
-        out += ('\\usepackage{relsize}\n')
-        out += ('\\usepackage[dvips,\n')
-        out += ('  left=%4.3fcm, right=0cm,\n' % (inputdata.description['LeftMargin']-0.45,))
-        out += ('  top=%4.3fcm,  bottom=0cm,\n' % (inputdata.description['TopMargin']-0.30,))
-        out += ('  paperwidth=%scm,paperheight=%scm\n' % (papersizex,papersizey))
-        out += (']{geometry}\n')
-        out += ('\\begin{document}\n')
-        out += ('\\pagestyle{empty}\n')
-        out += ('\\SpecialCoor\n')
-        out += ('\\begin{pspicture}(0,0)(0,0)\n')
-        out += ('\\psset{xunit=%scm}\n' %(inputdata.description['PlotSizeX']))
-        if inputdata.description['is2dim']:
+            colorseries = '{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}'
             if inputdata.description.has_key('ColorSeries') and inputdata.description['ColorSeries']!='':
                 colorseries = inputdata.description['ColorSeries']
-            else:
-                colorseries = '{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}'
-            out += ('\\definecolorseries{gradientcolors}%s\n' % colorseries)
-            out += ('\\resetcolorseries[130]{gradientcolors}\n')
+            out += '\\definecolorseries{gradientcolors}%s\n' % colorseries
+            out += '\\resetcolorseries[130]{gradientcolors}\n'
         return out
 
     def write_footer(self):
-        out = ""
-        out += ('\\end{pspicture}\n')
-        out += ('\\end{document}\n')
+        out = '\\end{pspicture}\n'
+        out += '\\end{multipage}\n'
+        out += '%\n%\n'
         return out
 
 
@@ -1156,15 +1097,15 @@ class ColorScale(Described):
         zcustommajorticks = zcustomminorticks = None
         if self.attr('ZCustomMajorTicks'):
             zcustommajorticks = []
-            z_label_pairs = self.attr('ZCustomMajorTicks').strip().split() #'\t')
+            z_label_pairs = inputdata.attr('ZCustomMajorTicks').strip().split() #'\t')
             if len(z_label_pairs) % 2 == 0:
                 for i in range(0, len(z_label_pairs), 2):
                     zcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
             else:
                 print "Warning: ZCustomMajorTicks requires an even number of alternating pos/label entries"
 
-        if self.attr('ZCustomMinorTicks'):
-            zs = self.attr('ZCustomMinorTicks').strip().split() #'\t')
+        if inputdata.attr('ZCustomMinorTicks'):
+            zs = inputdata.attr('ZCustomMinorTicks').strip().split() #'\t')
             zcustomminorticks = [{'Value': float(x)} for x in xs]
 
         drawzlabels = self.description.attr_bool('PlotZTickLabels', True)
@@ -2430,10 +2371,10 @@ class Coordinates(object):
 
 ####################
 
+import shutil, subprocess
 
 def try_cmd(args):
     "Run the given command + args and return True/False if it succeeds or not"
-    import subprocess
     try:
         subprocess.check_output(args, stderr=subprocess.STDOUT)
         return True
@@ -2444,131 +2385,9 @@ def have_cmd(cmd):
     return try_cmd(["which", cmd])
 
 
-import shutil, subprocess
-def process_datfile(datfile):
-    global opts
-    if not os.access(datfile, os.R_OK):
-        raise Exception("Could not read data file '%s'" % datfile)
-
-    dirname = os.path.dirname(datfile)
-    datfile = os.path.basename(datfile)
-    filename = datfile.replace('.dat','')
-
-    ## Create a temporary directory
-    cwd = os.getcwd()
-    datpath = os.path.join(cwd, dirname, datfile)
-    tempdir = tempfile.mkdtemp('.make-plots')
-    tempdatpath = os.path.join(tempdir, datfile)
-    shutil.copy(datpath, tempdir)
-    if opts.NO_CLEANUP:
-        logging.info('Keeping temp-files in %s' % tempdir)
-
-    ## Make TeX file
-    inputdata = InputData(os.path.join(dirname,filename))
-    texpath = os.path.join(tempdir, '%s.tex' % filename)
-    texfile = open(texpath, 'w')
-    p = Plot(inputdata)
-    texfile.write(p.write_header(inputdata))
-    if inputdata.attr_bool("MainPlot", True):
-        mp = MainPlot(inputdata)
-        texfile.write(mp.draw(inputdata))
-    if not inputdata.attr_bool("is2dim", False) and inputdata.attr_bool("RatioPlot", True) and inputdata.attr("RatioPlotReference"): # is not None:
-        rp = RatioPlot(inputdata)
-        texfile.write(rp.draw(inputdata))
-    texfile.write(p.write_footer())
-    texfile.close()
-
-    if opts.OUTPUT_FORMAT != ["TEX"]:
-
-        ## Check for the required programs
-        latexavailable = have_cmd("latex")
-        dvipsavailable = have_cmd("dvips")
-        convertavailable = have_cmd("convert")
-        ps2pnmavailable = have_cmd("ps2pnm")
-        pnm2pngavailable = have_cmd("pnm2png")
-
-        # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
-        #   currently defaults (and is used below) to a size suitable for thumbnails
-        def mkpng(infile, outfile, density=100):
-            if convertavailable:
-                pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
-                logging.debug(" ".join(pngcmd))
-                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-                pngproc.wait()
-            else:
-                raise Exception("Required PNG maker program (convert) not found")
-            # elif ps2pnmavailable and pnm2pngavailable:
-            #     pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait " + infile
-            #     p1 = subprocess.Popen(pstopnm.split(), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
-            #     p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, outfile), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
-            #     p2.wait()
-            # else:
-            #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
-
-        ## Run LaTeX (in no-stop mode)
-        logging.debug(os.listdir(tempdir))
-        texcmd = ["latex", "\scrollmode\input", texpath]
-        logging.debug("TeX command: " + " ".join(texcmd))
-        texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
-        logging.debug(texproc.communicate()[0])
-        logging.debug(os.listdir(tempdir))
-
-        ## Run dvips
-        dvcmd = ["dvips", filename]
-        if not logging.getLogger().isEnabledFor(logging.DEBUG):
-            dvcmd.append("-q")
-        ## Handle Minion Font
-        if opts.OUTPUT_FONT == "MINION":
-            dvcmd.append('-Pminion')
-
-        ## Choose format
-        # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
-        if "PS" in opts.OUTPUT_FORMAT:
-            dvcmd += ["-o", "%s.ps" % filename]
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            dvproc.wait()
-        if "PDF" in opts.OUTPUT_FORMAT:
-            dvcmd.append("-f")
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-            f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
-            f.write(cnvproc.communicate()[0])
-            f.close()
-        if "EPS" in opts.OUTPUT_FORMAT:
-            dvcmd.append("-f")
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=tempdir)
-            f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
-            f.write(cnvproc.communicate()[0])
-            f.close()
-        if "PNG" in opts.OUTPUT_FORMAT:
-            dvcmd.append("-f")
-            logging.debug(" ".join(dvcmd))
-            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            pngcmd = ["convert", "-flatten", "-density", "100", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
-            logging.debug(" ".join(pngcmd))
-            pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-            pngproc.wait()
-        logging.debug(os.listdir(tempdir))
-
-    ## Copy results back to main dir
-    for fmt in opts.OUTPUT_FORMAT:
-        outname = "%s.%s" % (filename, fmt.lower())
-        outpath = os.path.join(tempdir, outname)
-        if os.path.exists(outpath):
-            shutil.copy(outpath, os.path.join(cwd,dirname))
-        else:
-            logging.error("No output file '%s' from processing %s" % (outname, datfile))
-
-    ## Clean up
-    if not opts.NO_CLEANUP:
-        shutil.rmtree(tempdir, ignore_errors=True)
-
 
 ####################
+
 
 
 if __name__ == '__main__':
@@ -2666,23 +2485,24 @@ if __name__ == '__main__':
     if opts.OUTPUT_FORMAT != ["TEX"]:
         try:
             ## latex
-            if not have_cmd("latex"):
+            if not have_cmd("pdflatex"):
                 logging.error("ERROR: required program 'latex' could not be found. Exiting...")
                 sys.exit(1)
-            ## dvips
-            if not have_cmd("dvips"):
-                logging.error("ERROR: required program 'dvips' could not be found. Exiting...")
-                sys.exit(1)
+            # ## dvips
+            # if not have_cmd("dvips"):
+            #     logging.error("ERROR: required program 'dvips' could not be found. Exiting...")
+            #     sys.exit(1)
 
-            ## ps2pdf / ps2eps
-            if "PDF" in opts.OUTPUT_FORMAT:
-                if not have_cmd("ps2pdf"):
-                    logging.error("ERROR: required program 'ps2pdf' (for PDF output) could not be found. Exiting...")
-                    sys.exit(1)
-            elif "EPS" in opts.OUTPUT_FORMAT:
-                if not have_cmd("ps2eps"):
-                    logging.error("ERROR: required program 'ps2eps' (for EPS output) could not be found. Exiting...")
-                    sys.exit(1)
+            # ## ps2pdf / ps2eps
+            # if "PDF" in opts.OUTPUT_FORMAT:
+            #     if not have_cmd("ps2pdf"):
+            #         logging.error("ERROR: required program 'ps2pdf' (for PDF output) could not be found. Exiting...")
+            #         sys.exit(1)
+            # elif "EPS" in opts.OUTPUT_FORMAT:
+            #     if not have_cmd("ps2eps"):
+            #         logging.error("ERROR: required program 'ps2eps' (for EPS output) could not be found. Exiting...")
+            #         sys.exit(1)
+
             ## PNG output converter
             if "PNG" in opts.OUTPUT_FORMAT:
                 if not have_cmd("convert"):
@@ -2718,26 +2538,225 @@ if __name__ == '__main__':
         except Exception, e:
             logging.warning("Problem while testing for external packages. I'm going to try and continue without testing, but don't hold your breath...")
 
-    def init_worker():
-        import signal
-        signal.signal(signal.SIGINT, signal.SIG_IGN)
+    # def init_worker():
+    #     import signal
+    #     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
     ## Run rendering jobs
     datfiles = args
     plotword = "plots" if len(datfiles) > 1 else "plot"
     logging.info("Making %d %s" % (len(datfiles), plotword))
-    if opts.NO_SUBPROC:
-        init_worker()
-        for i, df in enumerate(datfiles):
-            logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
-            process_datfile(df)
-    else:
-        pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
-        try:
-            for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
-                logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
-            pool.close()
-        except KeyboardInterrupt:
-            print "Caught KeyboardInterrupt, terminating workers"
-            pool.terminate()
-        pool.join()
+
+    ## Create a temporary directory
+    tempdir = tempfile.mkdtemp('.make-plots')
+    if opts.NO_CLEANUP:
+        logging.info('Keeping temp-files in %s' % tempdir)
+
+    ## Create TeX file
+    texpath = os.path.join(tempdir, 'plots.tex')
+    texfile = open(texpath, 'w')
+    # if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
+    #     inputdata.description['LeftMargin'] = float(inputdata.description['LeftMargin'])
+    # else:
+    #     inputdata.description['LeftMargin'] = 1.4
+    # if inputdata.description.has_key('RightMargin') and inputdata.description['RightMargin']!='':
+    #     inputdata.description['RightMargin'] = float(inputdata.description['RightMargin'])
+    # else:
+    #     inputdata.description['RightMargin'] = 0.35
+    # if inputdata.description.has_key('TopMargin') and inputdata.description['TopMargin']!='':
+    #     inputdata.description['TopMargin'] = float(inputdata.description['TopMargin'])
+    # else:
+    #     inputdata.description['TopMargin'] = 0.65
+    # if inputdata.description.has_key('BottomMargin') and inputdata.description['BottomMargin']!='':
+    #     inputdata.description['BottomMargin'] = float(inputdata.description['BottomMargin'])
+    # else:
+    #     inputdata.description['BottomMargin'] = 0.95
+    # if inputdata.description['is2dim']:
+    #     inputdata.description['RightMargin'] += 1.7
+    # papersizex = inputdata.description['PlotSizeX'] + 0.1 + \
+    #              inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
+    # papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + \
+    #              inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
+    #
+    out = ""
+    # out += '\\documentclass{article}\n'
+    # out += '\\documentclass[pstricks,multi]{standalone}\n'
+    out += '\\documentclass[multi=multipage]{standalone}\n'
+    if opts.OUTPUT_FONT == "MINION":
+        out += ('\\usepackage{minion}\n')
+    elif opts.OUTPUT_FONT == "PALATINO_OSF":
+        out += ('\\usepackage[osf,sc]{mathpazo}\n')
+    elif opts.OUTPUT_FONT == "PALATINO":
+        out += ('\\usepackage{mathpazo}\n')
+    elif opts.OUTPUT_FONT == "TIMES":
+        out += ('\\usepackage{mathptmx}\n')
+    elif opts.OUTPUT_FONT == "HELVETICA":
+        out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
+        out += ('\\usepackage{sfmath}\n')
+        out += ('\\usepackage{helvet}\n')
+        out += ('\\usepackage[symbolgreek]{mathastext}\n')
+    for pkg in opts.LATEXPKGS:
+        out += ('\\usepackage{%s}\n' % pkg)
+    out += ('\\usepackage{pst-all}\n')
+    out += ('\\usepackage{xcolor}\n')
+    out += ('\\selectcolormodel{rgb}\n')
+    out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
+    out += ('\\definecolor{blue}{HTML}{3366FF}')
+    out += ('\\definecolor{green}{HTML}{109618}')
+    out += ('\\definecolor{orange}{HTML}{FF9900}')
+    out += ('\\definecolor{lilac}{HTML}{990099}')
+    out += ('\\usepackage{amsmath}\n')
+    out += ('\\usepackage{amssymb}\n')
+    out += ('\\usepackage{relsize}\n')
+    # out += ('\\usepackage[dvips,\n')
+    # out += ('  left=%4.3fcm, right=0cm,\n' % (inputdata.description['LeftMargin']-0.45,))
+    # out += ('  top=%4.3fcm,  bottom=0cm,\n' % (inputdata.description['TopMargin']-0.30,))
+    # out += ('  paperwidth=%scm,paperheight=%scm\n' % (papersizex,papersizey))
+    # out += (']{geometry}\n')
+    # out += ('\\usepackage[pdfcrop={--margins 10}]{auto-pst-pdf}\n')
+    out += ('\\usepackage{auto-pst-pdf}\n')
+    out += '\n'
+    out += ('\\begin{document}\n')
+    #out += ('\\pagestyle{empty}\n')
+    out += ('\\SpecialCoor\n')
+    texfile.write(out)
+
+    ## Process each datfile into the TeX doc
+    for i, datfile in enumerate(datfiles):
+        if not os.access(datfile, os.R_OK):
+            raise Exception("Could not read data file '%s'" % datfile)
+
+        ## Get std paths and copy datfile into tempdir
+        dirname = os.path.dirname(datfile)
+        datfile = os.path.basename(datfile)
+        filename = datfile.replace('.dat','')
+        cwd = os.getcwd()
+        datpath = os.path.join(cwd, dirname, datfile)
+        tempdatpath = os.path.join(tempdir, datfile)
+        shutil.copy(datpath, tempdir)
+
+        ## Append TeX to file
+        inputdata = InputData(os.path.join(dirname,filename))
+        p = Plot(inputdata)
+        texfile.write("\n\n")
+        texfile.write(p.write_header(inputdata))
+        if inputdata.attr_bool("MainPlot", True):
+            mp = MainPlot(inputdata)
+            texfile.write(mp.draw(inputdata))
+        if not inputdata.attr_bool("is2dim", False) and inputdata.attr_bool("RatioPlot", True) and inputdata.attr("RatioPlotReference"): # is not None:
+            rp = RatioPlot(inputdata)
+            texfile.write(rp.draw(inputdata))
+        texfile.write(p.write_footer())
+
+    texfile.write('\\end{document}\n')
+    texfile.close()
+
+    filename = "plots" #< TODO: unhack
+
+    if opts.OUTPUT_FORMAT != ["TEX"]:
+
+        ## Check for the required programs
+        latexavailable = have_cmd("latex")
+        dvipsavailable = have_cmd("dvips")
+        convertavailable = have_cmd("convert")
+        ps2pnmavailable = have_cmd("ps2pnm")
+        pnm2pngavailable = have_cmd("pnm2png")
+
+        # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
+        #   currently defaults (and is used below) to a size suitable for thumbnails
+        def mkpng(infile, outfile, density=100):
+            if convertavailable:
+                pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
+                logging.debug(" ".join(pngcmd))
+                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+                pngproc.wait()
+            else:
+                raise Exception("Required PNG maker program (convert) not found")
+            # elif ps2pnmavailable and pnm2pngavailable:
+            #     pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait " + infile
+            #     p1 = subprocess.Popen(pstopnm.split(), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
+            #     p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, outfile), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
+            #     p2.wait()
+            # else:
+            #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
+
+        ## Run LaTeX (in no-stop mode)
+        logging.debug(os.listdir(tempdir))
+        texcmd = ["pdflatex", "-shell-escape", "\scrollmode\input", texpath]
+        logging.debug("TeX command: " + " ".join(texcmd))
+        texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
+        logging.debug(texproc.communicate()[0])
+        logging.debug(os.listdir(tempdir))
+
+        # ## Run dvips
+        # dvcmd = ["dvips", filename]
+        # if not logging.getLogger().isEnabledFor(logging.DEBUG):
+        #     dvcmd.append("-q")
+        # ## Handle Minion Font
+        # if opts.OUTPUT_FONT == "MINION":
+        #     dvcmd.append('-Pminion')
+
+        ## Choose format
+        # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
+        # if "PS" in opts.OUTPUT_FORMAT:
+        #     dvcmd += ["-o", "%s.ps" % filename]
+        #     logging.debug(" ".join(dvcmd))
+        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+        #     dvproc.wait()
+        # if "PDF" in opts.OUTPUT_FORMAT:
+        #     dvcmd.append("-f")
+        #     logging.debug(" ".join(dvcmd))
+        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+        #     cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+        #     f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
+        #     f.write(cnvproc.communicate()[0])
+        #     f.close()
+        # if "EPS" in opts.OUTPUT_FORMAT:
+        #     dvcmd.append("-f")
+        #     logging.debug(" ".join(dvcmd))
+        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+        #     cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=tempdir)
+        #     f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
+        #     f.write(cnvproc.communicate()[0])
+        #     f.close()
+        # if "PNG" in opts.OUTPUT_FORMAT:
+        #     dvcmd.append("-f")
+        #     logging.debug(" ".join(dvcmd))
+        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+        #     pngcmd = ["convert", "-flatten", "-density", "100", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
+        #     logging.debug(" ".join(pngcmd))
+        #     pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+        #     pngproc.wait()
+        logging.debug(os.listdir(tempdir))
+
+    ## Copy results back to main dir
+    # shutil.copy(os.path.join(tempdir,"plots-pics.pdf"), os.path.join(cwd,dirname))
+    for fmt in opts.OUTPUT_FORMAT:
+        outname = "%s.%s" % (filename, fmt.lower())
+        outpath = os.path.join(tempdir, outname)
+        if os.path.exists(outpath):
+            shutil.copy(outpath, os.path.join(cwd,dirname))
+        else:
+            logging.error("No output file '%s' from processing %s" % (outname, datfile))
+
+    ## Clean up
+    if not opts.NO_CLEANUP:
+        shutil.rmtree(tempdir, ignore_errors=True)
+
+
+
+    # if opts.NO_SUBPROC:
+    #     init_worker()
+    #     for i, df in enumerate(datfiles):
+    #         logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
+    #         process_datfile(df)
+    # else:
+    #     pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
+    #     try:
+    #         for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
+    #             logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
+    #         pool.close()
+    #     except KeyboardInterrupt:
+    #         print "Caught KeyboardInterrupt, terminating workers"
+    #         pool.terminate()
+    #     pool.join()
