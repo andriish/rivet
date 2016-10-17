@@ -1167,7 +1167,7 @@ class ColorScale(Described):
             zs = self.attr('ZCustomMinorTicks').strip().split() #'\t')
             zcustomminorticks = [{'Value': float(x)} for x in xs]
 
-        drawzlabels = self.description.attr_bool('PlotZTickLabels', True)
+        drawzlabels = self.attr_bool('PlotZTickLabels', True)
 
         zticks = ZTicks(self.description, self.coors)
         out += zticks.draw(custommajortickmarks=zcustommajortickmarks,\
