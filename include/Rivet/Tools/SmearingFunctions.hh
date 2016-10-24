@@ -370,7 +370,31 @@ namespace Rivet {
   /// @name Photon efficiency and smearing functions
   //@{
 
-  /// @todo Photon efficiency and smearing
+  /// ATLAS Run 1 photon reco efficiency
+  /// @todo Currently identical to CMS, cf. Delphes
+  inline double PHOTON_EFF_ATLAS_RUN1(const Particle& y) {
+    if (y.pT() < 10*GeV || y.abseta() > 2.5) return 0;
+    return (y.abseta() < 1.5) ? 0.95 : 0.85;
+  }
+
+  /// ATLAS Run 2 photon reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double PHOTON_EFF_ATLAS_RUN2(const Particle& y) {
+    return PHOTON_EFF_ATLAS_RUN1(y);
+  }
+
+  /// CMS Run 1 photon reco efficiency
+  /// @todo Currently identical to ATLAS, cf. Delphes
+  inline double PHOTON_EFF_CMS_RUN1(const Particle& y) {
+    if (y.pT() < 10*GeV || y.abseta() > 2.5) return 0;
+    return (y.abseta() < 1.5) ? 0.95 : 0.85;
+  }
+
+  /// CMS Run 2 photon reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double PHOTON_EFF_CMS_RUN2(const Particle& y) {
+    return PHOTON_EFF_CMS_RUN1(y);
+  }
 
   //@}
 
@@ -380,7 +404,6 @@ namespace Rivet {
   //@{
 
   /// ATLAS Run 1 muon reco efficiency
-  /// @todo How to use this in combination with tracking eff?
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
     if (m.abseta() > 2.7) return 0;
     if (m.pT() < 10*GeV) return 0;
@@ -425,7 +448,6 @@ namespace Rivet {
 
 
   /// CMS Run 1 muon reco efficiency
-  /// @todo How to use this in combination with tracking eff?
   inline double MUON_EFF_CMS_RUN1(const Particle& m) {
     if (m.abseta() > 2.4) return 0;
     if (m.pT() < 10*GeV) return 0;
