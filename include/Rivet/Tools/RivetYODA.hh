@@ -149,12 +149,17 @@ template <class T>
     using Fills = multiset<Fill<T>>;
 
 
-class Histo1DTuple : public YODA::Histo1D {
+template <class T>
+class TupleWrapper : public T {
 public:
-    Histo1DTuple(const YODA::Histo1D & h) : YODA::Histo1D(h) {}
+    typedef shared_ptr<TupleWrapper> Ptr;
+
+    TupleWrapper(const T & h) : T(h) {}
+
+    using T::fill;
 
     // todo: do we need to deal with users using fractions directly?
-    void fill(double x, double weight=1.0, double fraction=1.0) {
+    void fill(typename T::FillType x, double weight=1.0, double fraction=1.0) {
         fills_.insert( {x, weight} );
     }
 
@@ -162,154 +167,150 @@ public:
         fills_.clear();
     }
 
-    const Fills<YODA::Histo1D> & fills() const { return fills_; }
+    const Fills<T> & fills() const { return fills_; }
 
 private:
     // x / weight pairs 
-    Fills<YODA::Histo1D> fills_;
+    Fills<T> fills_;
 };
 
 
+    template <class T>
+    class Wrapper : public MultiweightAOPtr {
+        public:
+
+        /* @todo
+         * some things are not really well-defined here
+         * for instance: fill() in the finalize() method and integral() in
+         * the analyze() method.
+         */
+
+        Wrapper(size_t len_of_weightvec, const T & p) {
+            for (size_t i = 0; i < len_of_weightvec; i++)
+                _persistent.push_back(make_shared<T>(p));
+        }
+
+        typename T::Ptr active() const { return _active; }
+
+        /* @todo this probably need to loop over all? */
+        bool operator!() const { return !active(); }
+        operator bool() const { return bool(active()); }
+
+        T * operator->() {
+            return active().get();
+        }
+
+        T * operator->() const {
+            return active().get();
+        }
+
+        T & operator*() {
+            return *active();
+        }
+
+        const T & operator*() const {
+            return *active();
+        }
+
+        /* @todo
+         * these need to be re-thought out.
+
+         void reset() { active()->reset(); }
+         */
+
+        /* @todo
+         * these probably need to loop over all?
+         * do we even want to provide equality?
+         */
+        /* @todo
+         * how about no.
+        friend bool operator==(Wrapper a, Wrapper b){
+            if (a._persistent.size() != b._persistent.size())
+                return false;
+
+            for (size_t i = 0; i < a._persistent.size(); i++) {
+                if (a._persistent.at(i) != b._persistent.at(i)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        friend bool operator!=(Wrapper a, Wrapper b){
+            return !(a == b);
+        }
 
 
+        friend bool operator<(Wrapper a, Wrapper b){
+            if (a._persistent.size() >= b._persistent.size())
+                return false;
+
+            for (size_t i = 0; i < a._persistent.size(); i++) {
+                if (*(a._persistent.at(i)) >= *(b._persistent.at(i))) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        */
 
 
+        private:
+        void setActiveWeightIdx(unsigned int iWeight) {
+            _active = _persistent.at(iWeight);
+        }
 
+        /* this is for dev only---we shouldn't need this in real runs. */
+        void unsetActiveWeight() {
+            _active.reset();
+        }
 
+        void newSubEvent() {
+            typename TupleWrapper<T>::Ptr tmp
+                = make_shared<TupleWrapper<T>>(_persistent[0]->clone());
+            tmp->reset();
+            _evgroup.push_back( tmp );
+            _active = _evgroup.back();
+        }
 
-#define RIVETAOPTR_COMMON(YODATYPE)                                            \
-    typedef shared_ptr<YODATYPE##Tuple> YODATYPE##TuplePtr;                    \
-                                                                               \
-    class YODATYPE##Ptr : public MultiweightAOPtr {                            \
-        public:                                                                \
-                                                                               \
-        /* @todo                                                               \
-         * some things are not really well-defined here                        \
-         * for instance: fill() in the finalize() method and integral() in     \
-         * the analyze() method.                                               \
-         */                                                                    \
-                                                                               \
-        YODATYPE##Ptr(size_t len_of_weightvec, const YODA::YODATYPE& p) {      \
-            for (size_t i = 0; i < len_of_weightvec; i++)                      \
-                _persistent.push_back(make_shared<YODA::YODATYPE>(p));         \
-                                                                               \
-            return;                                                            \
-        }                                                                      \
-                                                                               \
-        YODA::YODATYPE##Ptr active() const { return _active; }                 \
-                                                                               \
-        /* @todo this probably need to loop over all? */                       \
-        bool operator!() const {return !active();}                             \
-        operator bool() const {return bool(active());}                         \
-                                                                               \
-        YODA::YODATYPE* operator->() {                                         \
-            return active().get();                                             \
-        }                                                                      \
-                                                                               \
-        YODA::YODATYPE* operator->() const {                                   \
-            return active().get();                                             \
-        }                                                                      \
-                                                                               \
-        YODA::YODATYPE & operator*() {                                         \
-            return *active();                                                  \
-        }                                                                      \
-                                                                               \
-        const YODA::YODATYPE & operator*() const {                             \
-            return *active();                                                  \
-        }                                                                      \
-                                                                               \
-        /* @todo                                                               \
-         * these need to be re-thought out.                                    \
-                                                                               \
-         void reset() { active()->reset(); }                                   \
-         */                                                                    \
-                                                                               \
-        /* @todo                                                               \
-         * these probably need to loop over all?                               \
-         * do we even want to provide equality?                                \
-         */                                                                    \
-        /* @todo                                                               \
-         * how about no.                                                       \
-        friend bool operator==(YODATYPE##Ptr a, YODATYPE##Ptr b){              \
-            if (a._persistent.size() != b._persistent.size())                  \
-                return false;                                                  \
-                                                                               \
-            for (size_t i = 0; i < a._persistent.size(); i++) {                \
-                if (a._persistent.at(i) != b._persistent.at(i)) {              \
-                    return false;                                              \
-                }                                                              \
-            }                                                                  \
-                                                                               \
-            return true;                                                       \
-        }                                                                      \
-                                                                               \
-        friend bool operator!=(YODATYPE##Ptr a, YODATYPE##Ptr b){              \
-            return !(a == b);                                                  \
-        }                                                                      \
-                                                                               \
-                                                                               \
-        friend bool operator<(YODATYPE##Ptr a, YODATYPE##Ptr b){               \
-            if (a._persistent.size() >= b._persistent.size())                  \
-                return false;                                                  \
-                                                                               \
-            for (size_t i = 0; i < a._persistent.size(); i++) {                \
-                if (*(a._persistent.at(i)) >= *(b._persistent.at(i))) {        \
-                    return false;                                              \
-                }                                                              \
-            }                                                                  \
-                                                                               \
-            return true;                                                       \
-        }                                                                      \
-        */                                                                     \
-                                                                               \
-                                                                               \
-        private:                                                               \
-        void setActiveWeightIdx(unsigned int iWeight) {                        \
-            _active = _persistent.at(iWeight);                                 \
-            return;                                                            \
-        }                                                                      \
-                                                                               \
-        /* this is for dev only---we shouldn't need this in real runs. */      \
-        void unsetActiveWeight() {                                             \
-            _active.reset();                                                   \
-            return;                                                            \
-        }                                                                      \
-                                                                               \
-        void newSubEvent() {                                                   \
-            YODATYPE##TuplePtr tmp                                             \
-                = make_shared<YODATYPE##Tuple>(_persistent[0]->clone());       \
-            tmp->reset();                                                      \
-            _evgroup.push_back( tmp );                                         \
-            _active = _evgroup.back();                                         \
-            return;                                                            \
-        }                                                                      \
-                                                                               \
-        virtual YODA::AnalysisObjectPtr activeYODAPtr() const {                \
-            return _active;                                                    \
-        }                                                                      \
-                                                                               \
-        const vector<YODA::YODATYPE##Ptr> & persistent() const {               \
-            return _persistent;                                                \
-        }                                                                      \
-                                                                               \
-        /* to be implemented for each type */                                  \
-        void pushToPersistent(const vector<vector<double> >& weight);          \
-                                                                               \
-        /* M of these, one for each weight */                                  \
-        vector<YODA::YODATYPE##Ptr> _persistent;                               \
-                                                                               \
-        /* N of these, one for each event in evgroup */                        \
-        vector<YODATYPE##TuplePtr> _evgroup;                                   \
-                                                                               \
-        YODA::YODATYPE##Ptr _active;                                           \
-                                                                               \
-        friend class AnalysisHandler;                                          \
+        virtual YODA::AnalysisObjectPtr activeYODAPtr() const {
+            return _active;
+        }
+
+        const vector<typename T::Ptr> & persistent() const {
+            return _persistent;
+        }
+
+        /* to be implemented for each type */
+        void pushToPersistent(const vector<vector<double> >& weight);
+
+        /* M of these, one for each weight */
+        vector<typename T::Ptr> _persistent;
+
+        /* N of these, one for each event in evgroup */
+        vector<typename TupleWrapper<T>::Ptr> _evgroup;
+
+        typename T::Ptr _active;
+
+        friend class AnalysisHandler;
     };
+
+
+
+using Histo1DTuple = TupleWrapper<YODA::Histo1D>;
+
+
 
     // every object listed here needs a virtual fill method in YODA,
     // otherwise the Tuple fakery won't work.
 
-    RIVETAOPTR_COMMON(Histo1D)
+    using Histo1DPtr = Wrapper<YODA::Histo1D>;
+
+    using Histo2DPtr = Wrapper<YODA::Histo2D>;
+
+    //RIVETAOPTR_COMMON(Histo1D)
     // RIVETAOPTR_COMMON(Histo2D)
     // RIVETAOPTR_COMMON(Profile1D)
     // RIVETAOPTR_COMMON(Profile2D)

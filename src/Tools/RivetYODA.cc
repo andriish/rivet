@@ -61,7 +61,7 @@ namespace {
 
     template <class T>
     double get_window_size(const typename T::Ptr & histo,
-                         double x) {
+                           typename T::BinType x) {
         // the bin index we fall in
         const auto binidx = histo->binIndexAt(x);
         // gaps, overflow, underflow don't contribute
@@ -90,6 +90,18 @@ namespace {
         return min( b.width(), b1.width() ) / 2.0;
     }
 
+    // template <class T>
+    // double getX(T a) {
+    //   return a;
+    // }
+
+    // template <>
+    // double getX<tuple<double,double> >(tuple<double,double> a) {
+    //   return get<0>(a);
+    // }
+
+
+
   template <class T>
   void commit(typename T::Ptr & persistent,
               const vector< vector<Fill<T> > > & tuple,
@@ -108,8 +120,8 @@ namespace {
       set<double> edgeset;
       // bin edges need to be in here!
       for ( const auto & xi : x ) {
-        edgeset.insert(xi.first - wsize);
-        edgeset.insert(xi.first + wsize);
+        edgeset.insert((xi.first) - wsize);
+        edgeset.insert((xi.first) + wsize);
       }
 
       vector< std::tuple<double,double,double> > hfill;
@@ -123,7 +135,7 @@ namespace {
         bool gap = true; // Check for gaps between the sub-windows.
         for ( int i = 0; i < x.size(); ++i  ) {
           // check equals comparisons here!
-          if ( x[i].first + wsize >= ehi && x[i].first - wsize <= elo ) {
+          if ( (x[i].first) + wsize >= ehi && (x[i].first) - wsize <= elo ) {
             sumw += x[i].second * weights[i];
             gap = false;
           }
@@ -139,9 +151,15 @@ namespace {
   }
 
     template <class T>
-    T distance(T a, T b) {
+    double distance(T a, T b) {
       return abs(a - b);
     }
+
+    template <>
+    double distance<tuple<double,double> >(tuple<double,double> a, tuple<double,double> b) {
+      return Rivet::sqr(get<0>(a) - get<0>(b)) + Rivet::sqr(get<1>(a) - get<1>(b));
+    }
+
 
 
 }
@@ -205,9 +223,8 @@ match_fills(const vector< Fills<T> > & fills, const Fill<T> & NOFILL)
 
 namespace Rivet {
 
-  using T = YODA::Histo1D;
-
-  void Histo1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+  template <class T>
+  void Wrapper<T>::pushToPersistent(const vector<vector<double> >& weight) {
 
       // have we had subevents at all?
       const bool have_subevents = _evgroup.size() > 1;
@@ -228,8 +245,7 @@ namespace Rivet {
           allFills.push_back( ev->fills() );
 
         vector< vector<Fill<T> > > 
-          linedUpXs = match_fills<T>(allFills, {T::FillType(),
-                                                            0.0});
+          linedUpXs = match_fills<T>(allFills, {typename T::FillType(), 0.0});
 
         for ( size_t m = 0; m < _persistent.size(); ++m ) {
           commit<T>( _persistent[m], linedUpXs, weight[m] );
@@ -239,6 +255,11 @@ namespace Rivet {
       _evgroup.clear();
       _active.reset();
   }
+
+  static Histo1DPtr foobar1 = Histo1DPtr(13, YODA::Histo1D() );
+
+  // static Histo2DPtr foobar2 = Histo2DPtr(13, YODA::Histo2D() );
+
 
   // void Histo2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
   //     /// @todo
