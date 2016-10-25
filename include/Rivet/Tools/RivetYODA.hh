@@ -140,8 +140,32 @@ namespace Rivet {
             virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
     };
 
+    typedef pair<double,double> Fill;
+    typedef multiset<pair<double,double>> Fills;
+
+class Histo1DTuple : public YODA::Histo1D {
+public:
+    Histo1DTuple(const YODA::Histo1D & h) : YODA::Histo1D(h) {}
+
+    // todo: do we need to deal with users using fractions directly?
+    void fill(double x, double weight=1.0, double fraction=1.0) {
+        fills_.insert( {x, weight} );
+    }
+
+    void reset() {
+        fills_.clear();
+    }
+
+    const Fills & fills() const { return fills_; }
+
+private:
+    // x / weight pairs 
+    Fills fills_;
+};
 
 #define RIVETAOPTR_COMMON(YODATYPE)                                            \
+    typedef shared_ptr<YODATYPE##Tuple> YODATYPE##TuplePtr;                    \
+                                                                               \
     class YODATYPE##Ptr : public MultiweightAOPtr {                            \
         public:                                                                \
                                                                                \
@@ -232,14 +256,14 @@ namespace Rivet {
         }                                                                      \
                                                                                \
         /* this is for dev only---we shouldn't need this in real runs. */      \
-        void unsetActiveWeight() {                                          \
-            _active.reset();                                                    \
-            return;                                                             \
-        }                                                                   \
+        void unsetActiveWeight() {                                             \
+            _active.reset();                                                   \
+            return;                                                            \
+        }                                                                      \
                                                                                \
         void newSubEvent() {                                                   \
-            YODA::YODATYPE##Ptr tmp =                                          \
-                    make_shared<YODA::YODATYPE>(_persistent[0]->clone());      \
+            YODATYPE##TuplePtr tmp                                             \
+                = make_shared<YODATYPE##Tuple>(_persistent[0]->clone());       \
             tmp->reset();                                                      \
             _evgroup.push_back( tmp );                                         \
             _active = _evgroup.back();                                         \
@@ -261,19 +285,21 @@ namespace Rivet {
         vector<YODA::YODATYPE##Ptr> _persistent;                               \
                                                                                \
         /* N of these, one for each event in evgroup */                        \
-        vector<YODA::YODATYPE##Ptr> _evgroup;                                  \
+        vector<YODATYPE##TuplePtr> _evgroup;                                   \
                                                                                \
         YODA::YODATYPE##Ptr _active;                                           \
                                                                                \
         friend class AnalysisHandler;                                          \
     };
 
+    // every object listed here needs a virtual fill method in YODA,
+    // otherwise the Tuple fakery won't work.
 
     RIVETAOPTR_COMMON(Histo1D)
-    RIVETAOPTR_COMMON(Histo2D)
-    RIVETAOPTR_COMMON(Profile1D)
-    RIVETAOPTR_COMMON(Profile2D)
-    RIVETAOPTR_COMMON(Counter)
+    // RIVETAOPTR_COMMON(Histo2D)
+    // RIVETAOPTR_COMMON(Profile1D)
+    // RIVETAOPTR_COMMON(Profile2D)
+    // RIVETAOPTR_COMMON(Counter)
 
     using YODA::Counter;
     using YODA::Histo1D;

@@ -33,7 +33,7 @@ namespace Rivet {
     // Return value, to be populated
     map<string, YODA::AnalysisObjectPtr> rtn;
     foreach ( YODA::AnalysisObject* ao, aovec ) {
-        YODA::AnalysisObjectPtr refdata(ao);
+      YODA::AnalysisObjectPtr refdata(ao);
       if (!refdata) continue;
       const string plotpath = refdata->path();
       // Split path at "/" and only return the last field, i.e. the histogram ID
@@ -43,73 +43,206 @@ namespace Rivet {
     }
     return rtn;
   }
+}
+
+namespace {
+
+  using Rivet::Fill;
+  using Rivet::Fills;
+
+  void fillAllPersistent(const vector<YODA::Histo1DPtr> & persistent, 
+                         double x, double w, const vector<double> & weight) {
+    for ( size_t m = 0; m < persistent.size(); ++m ) {
+      persistent[m]->fill( x, w * weight[m] );
+    }
+  }
+    double get_window_size(const YODA::Histo1DPtr & histo,
+                         double x) {
+        // the bin index we fall in
+        const auto binidx = histo->binIndexAt(x);
+        // gaps, overflow, underflow don't contribute
+        if ( binidx == -1 ) 
+            return 0;
 
 
+        const auto & b = histo->bin(binidx);
+
+        // if we don't have a valid neighbouring bin,
+        // we use infinite width
+        YODA::HistoBin1D b1(-1.0/0.0, 1.0/0.0);
+
+        // points in the top half compare to the upper neighbour
+        if ( x > b.xMid() ) {
+            int nextidx = binidx + 1;
+            if ( nextidx < histo->bins().size() )
+                b1 = histo->bin(nextidx);
+        }
+        else { // compare to the lower neighbour
+            int nextidx = binidx - 1;
+            if ( nextidx >= 0 )
+                b1 = histo->bin(nextidx);
+        }
+        // the factor 2 is arbitrary, could poss. be smaller
+        return min( b.width(), b1.width() ) / 2.0;
+    }
+
+  void commit(YODA::Histo1DPtr & persistent,
+              const vector< vector<Fill> > & tuple,
+              const vector<double> weights /* generator weight over subevents */) {
+    for ( const auto & x : tuple ) {
+      double maxwindow = 0.0;
+      for ( Fill xi : x ) {
+        // check for NOFILL here
+        double window = get_window_size(persistent, xi.first);
+        if ( window > maxwindow )
+          maxwindow = window;
+      }
+      const double wsize = maxwindow;
+      // all windows have same size
+
+      set<double> edgeset;
+      // bin edges need to be in here!
+      for ( Fill xi : x ) {
+        edgeset.insert(xi.first - wsize);
+        edgeset.insert(xi.first + wsize);
+      }
+
+      vector< std::tuple<double,double,double> > hfill;
+      double sumf = 0.0;
+      auto edgit = edgeset.begin();
+      double ehi = *edgit;
+      while ( ++edgit != edgeset.end() ) {
+        double elo = ehi;
+        ehi = *edgit;
+        double sumw = 0.0;
+        bool gap = true; // Check for gaps between the sub-windows.
+        for ( int i = 0; i < x.size(); ++i  ) {
+          // check equals comparisons here!
+          if ( x[i].first + wsize >= ehi && x[i].first - wsize <= elo ) {
+            sumw += x[i].second * weights[i];
+            gap = false;
+          }
+        }
+        if ( gap ) continue;
+        hfill.push_back(make_tuple((ehi + elo)/2.0, sumw, ehi - elo));
+        sumf += ehi - elo;
+      }
+      for ( auto f : hfill )
+        persistent->fill( get<0>(f), get<1>(f), get<2>(f)/sumf );
+        // Note the scaling to one single fill
+    }
+}
+
+
+
+
+/// fills is a vector of sub-event with an ordered set of x-values of
+/// the fills in each sub-event. NOFILL should be an "impossible"
+/// value for this histogram. Returns a vector of sub-events with
+/// an ordered vector of fills (including NOFILLs) for each sub-event.
+vector< vector<Fill> > 
+match_fills(const vector< Fills > & fills, const Fill & NOFILL) 
+{
+  vector< vector<Fill> > matched;
+  // First just copy subevents into vectors and find the longest vector.
+  unsigned int maxfill = 0; // length of biggest vector
+  int imax = 0; // index position of biggest vector
+  for ( const auto & subev : fills ) {
+    if ( subev.size() > maxfill ) {
+      maxfill = subev.size();
+      imax = matched.size();
+    }
+    matched.push_back(vector<Fill>(subev.begin(), subev.end()));
+  }
+  // Now, go through all subevents with missing fills.
+  const vector<Fill> & full = matched[imax]; // the longest one
+  for ( auto & subev : matched ) {
+    if ( subev.size() == maxfill ) continue;
+
+    // Add NOFILLs to the end;
+    while ( subev.size() < maxfill ) subev.push_back(NOFILL);
+
+    // Iterate from the back and shift all fill values backwards by
+    // swapping with NOFILLs so that they better match the full
+    // subevent.
+    for ( int i = maxfill - 1; i >= 0; --i ) {
+      if ( subev[i] == NOFILL ) continue;
+      int j = i;
+      while ( j + 1 < maxfill && subev[j + 1] == NOFILL &&
+              abs(subev[j].first - full[j].first) > abs(subev[j].first - full[j + 1].first) ) 
+      {
+            swap(subev[j], subev[j + 1]);
+            ++j;
+      }
+    }
+  }
+  // transpose
+  vector<vector<Fill>> result(maxfill,vector<Fill>(matched.size()));
+  for (size_t i = 0; i < matched.size(); ++i)
+      for (size_t j = 0; j < maxfill; ++j)
+          result.at(j).at(i) = matched.at(i).at(j);
+  return result;
+}
+
+
+
+
+}
+
+namespace Rivet {
   void Histo1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-      // loop over event weights
-      for (size_t m = 0; m < _persistent.size(); ++m) {
 
-          // this is the initial event---it always exists
-          YODA::Histo1DPtr sum = make_shared<YODA::Histo1D>(_evgroup[0]->clone());
-          sum->scaleW( weight[0][m] );
+      // have we had subevents at all?
+      const bool have_subevents = _evgroup.size() > 1;
+      if ( ! have_subevents ) {
+        assert( _evgroup.size() == 1 && weight.size() == 1 );
+        // simple replay of all tuple entries
+        // each recorded fill is inserted into all persistent weightname histos
+        for ( const Fill & f : _evgroup[0]->fills() ) {
+          fillAllPersistent( _persistent, f.first, f.second, weight[0] );
+        }
+      } else {
+        assert( _evgroup.size() == weight.size() );
 
-          // loop over additional subevents (maybe there aren't any)
-          // note loop starts at 1
-          for (size_t n = 1; n < _evgroup.size(); ++n) {
-              YODA::Histo1DPtr tmp = make_shared<YODA::Histo1D>(_evgroup[n]->clone());
-              tmp->scaleW( weight[n][m] );
-              *sum += *tmp;
-          }
+        // All the fills across subevents
+        // each item in allFills is a subevent
+        vector<Fills> allFills;
+        for ( const auto & ev : _evgroup )
+          allFills.push_back( ev->fills() );
 
-          // sum typically only has one bin filled
-          // do we really need to fill bin.size() times?
-          bool filled_something = false;
+        vector< vector<Fill> > 
+          linedUpXs = match_fills(allFills, {0.0,0.0});
 
-          /// @todo
-          /// this is not correct!
-          /// we need to trick the histogram into thinking it was
-          /// filled exactly onen time, even if subevents fall into
-          /// different bins of the histogram
-          /// how 
-          foreach(const YODA::HistoBin1D& b, sum->bins()) {
-              if ( b.effNumEntries() != 0 && b.sumW() != 0 ) {
-                  // @todo number of fills will be wrong
-                  // needs to be xMid. xMean is not valid if bin contains neg.weights
-                  _persistent[m]->fill(b.xMid(), b.sumW());
-                  filled_something = true;
-              }
-          }
-
-          // @todo
-          // overflow
-
+        for ( size_t m = 0; m < _persistent.size(); ++m ) {
+          commit( _persistent[m], linedUpXs, weight[m] );
+        }
       }
 
       _evgroup.clear();
       _active.reset();
   }
 
-  void Histo2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-      /// @todo
+  // void Histo2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+  //     /// @todo
 
-      return;
-  }
+  //     return;
+  // }
 
-  void Profile1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-      /// @todo
+  // void Profile1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+  //     /// @todo
 
-      return;
-  }
+  //     return;
+  // }
 
-  void Profile2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-      /// @todo
+  // void Profile2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
+  //     /// @todo
 
-      return;
-  }
+  //     return;
+  // }
 
-  void CounterPtr::pushToPersistent(const vector<vector<double> >& weight) {
-      /// @todo
+  // void CounterPtr::pushToPersistent(const vector<vector<double> >& weight) {
+  //     /// @todo
 
-      return;
-  }
+  //     return;
+  // }
 }
