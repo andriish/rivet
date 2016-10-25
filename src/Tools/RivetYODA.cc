@@ -58,7 +58,9 @@ namespace {
       persistent[m]->fill( x, w * weight[m] );
     }
   }
-    double get_window_size(const YODA::Histo1DPtr & histo,
+
+    template <class T>
+    double get_window_size(const typename T::Ptr & histo,
                          double x) {
         // the bin index we fall in
         const auto binidx = histo->binIndexAt(x);
@@ -71,7 +73,7 @@ namespace {
 
         // if we don't have a valid neighbouring bin,
         // we use infinite width
-        YODA::HistoBin1D b1(-1.0/0.0, 1.0/0.0);
+        typename T::Bin b1(-1.0/0.0, 1.0/0.0);
 
         // points in the top half compare to the upper neighbour
         if ( x > b.xMid() ) {
@@ -96,7 +98,7 @@ namespace {
       double maxwindow = 0.0;
       for ( const auto & xi : x ) {
         // check for NOFILL here
-        double window = get_window_size(persistent, xi.first);
+        double window = get_window_size<T>(persistent, xi.first);
         if ( window > maxwindow )
           maxwindow = window;
       }
@@ -134,6 +136,14 @@ namespace {
         persistent->fill( get<0>(f), get<1>(f), get<2>(f)/sumf );
         // Note the scaling to one single fill
     }
+  }
+
+    template <class T>
+    T distance(T a, T b) {
+      return abs(a - b);
+    }
+
+
 }
 
 
@@ -173,7 +183,7 @@ match_fills(const vector< Fills<T> > & fills, const Fill<T> & NOFILL)
       if ( subev[i] == NOFILL ) continue;
       int j = i;
       while ( j + 1 < maxfill && subev[j + 1] == NOFILL &&
-              abs(subev[j].first - full[j].first) > abs(subev[j].first - full[j + 1].first) ) 
+              distance(subev[j].first, full[j].first) > distance(subev[j].first, full[j + 1].first) ) 
       {
             swap(subev[j], subev[j + 1]);
             ++j;
@@ -191,9 +201,12 @@ match_fills(const vector< Fills<T> > & fills, const Fill<T> & NOFILL)
 
 
 
-}
+
 
 namespace Rivet {
+
+  using T = YODA::Histo1D;
+
   void Histo1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
 
       // have we had subevents at all?
@@ -203,22 +216,23 @@ namespace Rivet {
         // simple replay of all tuple entries
         // each recorded fill is inserted into all persistent weightname histos
         for ( const auto & f : _evgroup[0]->fills() ) {
-          fillAllPersistent<YODA::Histo1D>( _persistent, f.first, f.second, weight[0] );
+          fillAllPersistent<T>( _persistent, f.first, f.second, weight[0] );
         }
       } else {
         assert( _evgroup.size() == weight.size() );
 
         // All the fills across subevents
         // each item in allFills is a subevent
-        vector<Fills<YODA::Histo1D>> allFills;
+        vector<Fills<T>> allFills;
         for ( const auto & ev : _evgroup )
           allFills.push_back( ev->fills() );
 
-        vector< vector<Fill<YODA::Histo1D> > > 
-          linedUpXs = match_fills<YODA::Histo1D>(allFills, {0.0,0.0});
+        vector< vector<Fill<T> > > 
+          linedUpXs = match_fills<T>(allFills, {T::FillType(),
+                                                            0.0});
 
         for ( size_t m = 0; m < _persistent.size(); ++m ) {
-          commit<YODA::Histo1D>( _persistent[m], linedUpXs, weight[m] );
+          commit<T>( _persistent[m], linedUpXs, weight[m] );
         }
       }
 
