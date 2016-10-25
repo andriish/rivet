@@ -90,15 +90,23 @@ namespace {
         return min( b.width(), b1.width() ) / 2.0;
     }
 
-    // template <class T>
-    // double getX(T a) {
-    //   return a;
-    // }
+    template <class T>
+     typename T::BinType 
+     fillT2binT(typename T::FillType a) {
+       return a;
+    }
 
-    // template <>
-    // double getX<tuple<double,double> >(tuple<double,double> a) {
-    //   return get<0>(a);
-    // }
+    template <>
+    YODA::Profile1D::BinType 
+    fillT2binT<YODA::Profile1D>(YODA::Profile1D::FillType a) {
+      return get<0>(a);
+    }
+
+    template <>
+    YODA::Profile2D::BinType 
+    fillT2binT<YODA::Profile2D>(YODA::Profile2D::FillType a) {
+      return { get<0>(a), get<1>(a) };
+    }
 
 
 
@@ -110,7 +118,7 @@ namespace {
       double maxwindow = 0.0;
       for ( const auto & xi : x ) {
         // check for NOFILL here
-        double window = get_window_size<T>(persistent, xi.first);
+        double window = get_window_size<T>(persistent, fillT2binT<T>(xi.first));
         if ( window > maxwindow )
           maxwindow = window;
       }
@@ -120,8 +128,8 @@ namespace {
       set<double> edgeset;
       // bin edges need to be in here!
       for ( const auto & xi : x ) {
-        edgeset.insert((xi.first) - wsize);
-        edgeset.insert((xi.first) + wsize);
+        edgeset.insert(fillT2binT<T>(xi.first) - wsize);
+        edgeset.insert(fillT2binT<T>(xi.first) + wsize);
       }
 
       vector< std::tuple<double,double,double> > hfill;
@@ -135,7 +143,9 @@ namespace {
         bool gap = true; // Check for gaps between the sub-windows.
         for ( int i = 0; i < x.size(); ++i  ) {
           // check equals comparisons here!
-          if ( (x[i].first) + wsize >= ehi && (x[i].first) - wsize <= elo ) {
+          if ( fillT2binT<T>(x[i].first) + wsize >= ehi 
+               && 
+               fillT2binT<T>(x[i].first) - wsize <= elo ) {
             sumw += x[i].second * weights[i];
             gap = false;
           }
@@ -247,8 +257,9 @@ namespace Rivet {
         vector< vector<Fill<T> > > 
           linedUpXs = match_fills<T>(allFills, {typename T::FillType(), 0.0});
 
+        // TODO check if weight is transposed here!
         for ( size_t m = 0; m < _persistent.size(); ++m ) {
-          commit<T>( _persistent[m], linedUpXs, weight[m] );
+          commit<T>( _persistent[m], linedUpXs, weight.at(m) );
         }
       }
       _evgroup.clear();
@@ -256,45 +267,22 @@ namespace Rivet {
   }
 
   template <>
-  void Wrapper<YODA::Counter>::pushToPersistent(
-              const vector<vector<double> >& weight) {
+  void Wrapper<YODA::Counter>::pushToPersistent(const vector<vector<double> >& weight) {
     for ( size_t m = 0; m < _persistent.size(); ++m ) {
-      for ( const auto & f : _evgroup[m]->fills() ) {
-          fillAllPersistent<YODA::Counter>( _persistent, f.first, f.second, weight[m] );
+      for ( size_t n = 0; n < _evgroup.size(); ++n ) {
+        for ( const auto & f : _evgroup[n]->fills() ) {
+          _persistent[m]->fill( f.second * weight[n][m] );
+        }
       }
     }
   }
 
-  static auto foobar1 = Histo1DPtr(13, YODA::Histo1D() );
+  // explicitly instantiate all wrappers
 
-  static auto foobar2 = CounterPtr(13, YODA::Counter() );
+  template class Wrapper<YODA::Histo1D>;
+//  template class Wrapper<YODA::Histo2D>;
+  template class Wrapper<YODA::Profile1D>;
+//  template class Wrapper<YODA::Profile2D>;
+  template class Wrapper<YODA::Counter>;
 
-  //static auto foobar3 = Profile1DPtr(13, YODA::Profile1D() );
-
-  // static Histo2DPtr foobar2 = Histo2DPtr(13, YODA::Histo2D() );
-
-
-  // void Histo2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-  //     /// @todo
-
-  //     return;
-  // }
-
-  // void Profile1DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-  //     /// @todo
-
-  //     return;
-  // }
-
-  // void Profile2DPtr::pushToPersistent(const vector<vector<double> >& weight) {
-  //     /// @todo
-
-  //     return;
-  // }
-
-  // void CounterPtr::pushToPersistent(const vector<vector<double> >& weight) {
-  //     /// @todo
-
-  //     return;
-  // }
 }

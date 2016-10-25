@@ -179,6 +179,37 @@ private:
     Fills<T> fills_;
 };
 
+template<>
+class TupleWrapper<YODA::Profile1D> : public YODA::Profile1D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Profile1D>> Ptr;
+    TupleWrapper(const YODA::Profile1D & h) : YODA::Profile1D(h) {}
+    // todo: do we need to deal with users using fractions directly?
+    void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
+        fills_.insert( { {x,y}, weight } );
+    }
+    void reset() { fills_.clear(); }
+    const Fills<YODA::Profile1D> & fills() const { return fills_; }
+private:
+    // x / weight pairs 
+    Fills<YODA::Profile1D> fills_;
+};
+
+template<>
+class TupleWrapper<YODA::Counter> : public YODA::Counter {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Counter>> Ptr;
+    TupleWrapper(const YODA::Counter & h) : YODA::Counter(h) {}
+    // todo: do we need to deal with users using fractions directly?
+    void fill( double weight=1.0, double fraction=1.0 ) {
+        fills_.insert( {YODA::Counter::FillType(),weight} );
+    }
+    void reset() { fills_.clear(); }
+    const Fills<YODA::Counter> & fills() const { return fills_; }
+private:
+    // x / weight pairs 
+    Fills<YODA::Counter> fills_;
+};
 
     template <class T>
     class Wrapper : public MultiweightAOPtr {
@@ -307,7 +338,7 @@ private:
     // otherwise the Tuple fakery won't work.
 
     using Histo1DPtr = Wrapper<YODA::Histo1D>;
-    //using Histo2DPtr = Wrapper<YODA::Histo2D>;
+    using Histo2DPtr = Wrapper<YODA::Histo2D>;
     using Profile1DPtr = Wrapper<YODA::Profile1D>;
     using Profile2DPtr = Wrapper<YODA::Profile2D>;
     using CounterPtr = Wrapper<YODA::Counter>;
