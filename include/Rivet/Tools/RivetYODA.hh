@@ -149,14 +149,19 @@ template <class T>
     using Fills = multiset<Fill<T>>;
 
 
+// TODO TODO TODO 
+// need to override the old fill method too!
+// otherwise we can't intercept existing fill calls in analysis code
+// 
+// need to 
+// TODO TODO TODO
+
 template <class T>
 class TupleWrapper : public T {
 public:
     typedef shared_ptr<TupleWrapper> Ptr;
 
     TupleWrapper(const T & h) : T(h) {}
-
-    using T::fill;
 
     // todo: do we need to deal with users using fractions directly?
     void fill(typename T::FillType x, double weight=1.0, double fraction=1.0) {
@@ -298,23 +303,14 @@ private:
     };
 
 
-
-using Histo1DTuple = TupleWrapper<YODA::Histo1D>;
-
-
-
     // every object listed here needs a virtual fill method in YODA,
     // otherwise the Tuple fakery won't work.
 
     using Histo1DPtr = Wrapper<YODA::Histo1D>;
-
-    using Histo2DPtr = Wrapper<YODA::Histo2D>;
-
-    //RIVETAOPTR_COMMON(Histo1D)
-    // RIVETAOPTR_COMMON(Histo2D)
-    // RIVETAOPTR_COMMON(Profile1D)
-    // RIVETAOPTR_COMMON(Profile2D)
-    // RIVETAOPTR_COMMON(Counter)
+    //using Histo2DPtr = Wrapper<YODA::Histo2D>;
+    using Profile1DPtr = Wrapper<YODA::Profile1D>;
+    using Profile2DPtr = Wrapper<YODA::Profile2D>;
+    using CounterPtr = Wrapper<YODA::Counter>;
 
     using YODA::Counter;
     using YODA::Histo1D;

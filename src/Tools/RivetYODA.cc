@@ -251,12 +251,25 @@ namespace Rivet {
           commit<T>( _persistent[m], linedUpXs, weight[m] );
         }
       }
-
       _evgroup.clear();
       _active.reset();
   }
 
-  static Histo1DPtr foobar1 = Histo1DPtr(13, YODA::Histo1D() );
+  template <>
+  void Wrapper<YODA::Counter>::pushToPersistent(
+              const vector<vector<double> >& weight) {
+    for ( size_t m = 0; m < _persistent.size(); ++m ) {
+      for ( const auto & f : _evgroup[m]->fills() ) {
+          fillAllPersistent<YODA::Counter>( _persistent, f.first, f.second, weight[m] );
+      }
+    }
+  }
+
+  static auto foobar1 = Histo1DPtr(13, YODA::Histo1D() );
+
+  static auto foobar2 = CounterPtr(13, YODA::Counter() );
+
+  //static auto foobar3 = Profile1DPtr(13, YODA::Profile1D() );
 
   // static Histo2DPtr foobar2 = Histo2DPtr(13, YODA::Histo2D() );
 
