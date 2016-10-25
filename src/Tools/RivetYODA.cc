@@ -50,8 +50,10 @@ namespace {
   using Rivet::Fill;
   using Rivet::Fills;
 
-  void fillAllPersistent(const vector<YODA::Histo1DPtr> & persistent, 
-                         double x, double w, const vector<double> & weight) {
+  template <class T>
+  void fillAllPersistent(const vector<typename T::Ptr> & persistent, 
+                         typename T::FillType x, double w, 
+                         const vector<double> & weight) {
     for ( size_t m = 0; m < persistent.size(); ++m ) {
       persistent[m]->fill( x, w * weight[m] );
     }
@@ -86,12 +88,13 @@ namespace {
         return min( b.width(), b1.width() ) / 2.0;
     }
 
-  void commit(YODA::Histo1DPtr & persistent,
-              const vector< vector<Fill> > & tuple,
+  template <class T>
+  void commit(typename T::Ptr & persistent,
+              const vector< vector<Fill<T> > > & tuple,
               const vector<double> weights /* generator weight over subevents */) {
     for ( const auto & x : tuple ) {
       double maxwindow = 0.0;
-      for ( Fill xi : x ) {
+      for ( const auto & xi : x ) {
         // check for NOFILL here
         double window = get_window_size(persistent, xi.first);
         if ( window > maxwindow )
@@ -102,7 +105,7 @@ namespace {
 
       set<double> edgeset;
       // bin edges need to be in here!
-      for ( Fill xi : x ) {
+      for ( const auto & xi : x ) {
         edgeset.insert(xi.first - wsize);
         edgeset.insert(xi.first + wsize);
       }
@@ -140,10 +143,11 @@ namespace {
 /// the fills in each sub-event. NOFILL should be an "impossible"
 /// value for this histogram. Returns a vector of sub-events with
 /// an ordered vector of fills (including NOFILLs) for each sub-event.
-vector< vector<Fill> > 
-match_fills(const vector< Fills > & fills, const Fill & NOFILL) 
+template <class T>
+vector< vector<Fill<T> > > 
+match_fills(const vector< Fills<T> > & fills, const Fill<T> & NOFILL) 
 {
-  vector< vector<Fill> > matched;
+  vector< vector<Fill<T> > > matched;
   // First just copy subevents into vectors and find the longest vector.
   unsigned int maxfill = 0; // length of biggest vector
   int imax = 0; // index position of biggest vector
@@ -152,10 +156,10 @@ match_fills(const vector< Fills > & fills, const Fill & NOFILL)
       maxfill = subev.size();
       imax = matched.size();
     }
-    matched.push_back(vector<Fill>(subev.begin(), subev.end()));
+    matched.push_back(vector<Fill<T> >(subev.begin(), subev.end()));
   }
   // Now, go through all subevents with missing fills.
-  const vector<Fill> & full = matched[imax]; // the longest one
+  const vector<Fill<T>> & full = matched[imax]; // the longest one
   for ( auto & subev : matched ) {
     if ( subev.size() == maxfill ) continue;
 
@@ -177,7 +181,7 @@ match_fills(const vector< Fills > & fills, const Fill & NOFILL)
     }
   }
   // transpose
-  vector<vector<Fill>> result(maxfill,vector<Fill>(matched.size()));
+  vector<vector<Fill<T>>> result(maxfill,vector<Fill<T>>(matched.size()));
   for (size_t i = 0; i < matched.size(); ++i)
       for (size_t j = 0; j < maxfill; ++j)
           result.at(j).at(i) = matched.at(i).at(j);
@@ -198,23 +202,23 @@ namespace Rivet {
         assert( _evgroup.size() == 1 && weight.size() == 1 );
         // simple replay of all tuple entries
         // each recorded fill is inserted into all persistent weightname histos
-        for ( const Fill & f : _evgroup[0]->fills() ) {
-          fillAllPersistent( _persistent, f.first, f.second, weight[0] );
+        for ( const auto & f : _evgroup[0]->fills() ) {
+          fillAllPersistent<YODA::Histo1D>( _persistent, f.first, f.second, weight[0] );
         }
       } else {
         assert( _evgroup.size() == weight.size() );
 
         // All the fills across subevents
         // each item in allFills is a subevent
-        vector<Fills> allFills;
+        vector<Fills<YODA::Histo1D>> allFills;
         for ( const auto & ev : _evgroup )
           allFills.push_back( ev->fills() );
 
-        vector< vector<Fill> > 
-          linedUpXs = match_fills(allFills, {0.0,0.0});
+        vector< vector<Fill<YODA::Histo1D> > > 
+          linedUpXs = match_fills<YODA::Histo1D>(allFills, {0.0,0.0});
 
         for ( size_t m = 0; m < _persistent.size(); ++m ) {
-          commit( _persistent[m], linedUpXs, weight[m] );
+          commit<YODA::Histo1D>( _persistent[m], linedUpXs, weight[m] );
         }
       }
 

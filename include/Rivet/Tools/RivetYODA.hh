@@ -140,8 +140,14 @@ namespace Rivet {
             virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
     };
 
-    typedef pair<double,double> Fill;
-    typedef multiset<pair<double,double>> Fills;
+
+
+template <class T>
+    using Fill = pair<typename T::FillType, double>;
+
+template <class T>
+    using Fills = multiset<Fill<T>>;
+
 
 class Histo1DTuple : public YODA::Histo1D {
 public:
@@ -156,12 +162,20 @@ public:
         fills_.clear();
     }
 
-    const Fills & fills() const { return fills_; }
+    const Fills<YODA::Histo1D> & fills() const { return fills_; }
 
 private:
     // x / weight pairs 
-    Fills fills_;
+    Fills<YODA::Histo1D> fills_;
 };
+
+
+
+
+
+
+
+
 
 #define RIVETAOPTR_COMMON(YODATYPE)                                            \
     typedef shared_ptr<YODATYPE##Tuple> YODATYPE##TuplePtr;                    \
