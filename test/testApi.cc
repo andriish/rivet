@@ -15,11 +15,9 @@ int main() {
   std::ifstream file("testApi.hepmc");
   HepMC::IO_GenEvent hepmcio(file);
   HepMC::GenEvent* evt = hepmcio.read_next_event();
-  double sum_of_weights = 0.0;
   while (evt) {
     // Analyse current event
     ah.analyze(*evt);
-    sum_of_weights += evt->weights()[0];
 
     // Clean up and get next event
     delete evt; evt = nullptr;
@@ -28,7 +26,7 @@ int main() {
   file.close();
 
   ah.setCrossSection(1.0);
-  ah.setSumOfWeights(sum_of_weights); ///< Not necessary, but allowed
+  
   ah.finalize();
   ah.writeData("out.yoda");
 

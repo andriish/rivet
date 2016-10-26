@@ -10,9 +10,9 @@ if ENABLE_ANALYSES
 
 ##noinst_LTLIBRARIES += libRivetAnalysisTools.la
 ##libRivetAnalysisTools_la_SOURCES = \
-    ##bookScatter2D MC_ParticleAnalysis.cc \
-    ##bookScatter2D MC_JetAnalysis.cc \
-    ##bookScatter2D MC_JetSplittings.cc
+    ##bookScatter2D ##libAnalysisTools MC_ParticleAnalysis.cc \
+    ##bookScatter2D ##libAnalysisTools MC_JetAnalysis.cc \
+    ##bookScatter2D ##libAnalysisTools MC_JetSplittings.cc
 
 
 lib_LTLIBRARIES += RivetALICEAnalyses.la
@@ -432,43 +432,44 @@ RivetMCAnalyses_la_SOURCES = \
     EXAMPLE.cc \
     EXAMPLE_CUTS.cc \
     EXAMPLE_SMEAR.cc \
-    MC_QCD_PARTONS.cc \
+    ##libAnalysisTools MC_QCD_PARTONS.cc \
     MC_DIPHOTON.cc \
-    MC_ELECTRONS.cc \
+    ##libAnalysisTools MC_ELECTRONS.cc \
     ##bookScatter2D MC_GENERIC.cc \
     MC_HINC.cc \
-    MC_HJETS.cc \
-    MC_HHJETS.cc \
-    MC_HKTSPLITTINGS.cc \
+    ##libAnalysisTools MC_HJETS.cc \
+    ##libAnalysisTools MC_HHJETS.cc \
+    ##libAnalysisTools MC_HKTSPLITTINGS.cc \
     MC_IDENTIFIED.cc \
-    MC_JETS.cc \
+    ##libAnalysisTools MC_JETS.cc \
     MC_JETTAGS.cc \
     MC_HFJETS.cc \
     MC_LEADJETUE.cc \
     MC_MET.cc \
-    MC_MUONS.cc \
+    ##libAnalysisTools MC_MUONS.cc \
     MC_PDFS.cc \
     MC_PHOTONINC.cc \
-    MC_PHOTONJETS.cc \
-    MC_PHOTONKTSPLITTINGS.cc \
+    ##libAnalysisTools MC_PHOTONJETS.cc \
+    ##libAnalysisTools MC_PHOTONKTSPLITTINGS.cc \
     MC_PHOTONS.cc \
     MC_PRINTEVENT.cc \
     MC_SUSY.cc \
     MC_TTBAR.cc \
     MC_VH2BB.cc \
     ##bookScatter2D MC_WINC.cc \
-    MC_WJETS.cc \
-    MC_WKTSPLITTINGS.cc \
+    ##libAnalysisTools MC_WJETS.cc \
+    ##libAnalysisTools MC_WKTSPLITTINGS.cc \
     MC_WPOL.cc \
     MC_WWINC.cc \
-    MC_WWJETS.cc \
-    MC_WWKTSPLITTINGS.cc \
+    ##libAnalysisTools MC_WWJETS.cc \
+    ##libAnalysisTools MC_WWKTSPLITTINGS.cc \
     ##bookScatter2D MC_XS.cc \
     MC_ZINC.cc \
-    MC_ZJETS.cc \
-    MC_ZKTSPLITTINGS.cc \
-    MC_ZZINC.cc \
-    MC_ZZJETS.cc \
-    MC_ZZKTSPLITTINGS.cc
+    ##libAnalysisTools MC_ZJETS.cc \
+    ##libAnalysisTools MC_ZKTSPLITTINGS.cc \
+    MC_ZZINC.cc 
+    ##\
+    ##libAnalysisTools MC_ZZJETS.cc \
+    ##libAnalysisTools MC_ZZKTSPLITTINGS.cc
 
 endif

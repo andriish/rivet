@@ -107,6 +107,9 @@ namespace {
               const vector< vector<Fill<T>> > & tuple,
               const vector<vector<double>> & weights ) {
 
+    // TODO check if all the xs are in the same bin anyway!
+    // Then no windowing needed
+
     assert(persistent.size() == weights[0].size());
 
     for ( const auto & x : tuple ) {
@@ -158,6 +161,18 @@ namespace {
       }
     }
   }
+
+  template<>
+  void commit<YODA::Histo2D>(vector<YODA::Histo2D::Ptr> & persistent,
+              const vector< vector<Fill<YODA::Histo2D>> > & tuple,
+              const vector<vector<double>> & weights)
+  {}
+
+  template<>
+  void commit<YODA::Profile2D>(vector<YODA::Profile2D::Ptr> & persistent,
+              const vector< vector<Fill<YODA::Profile2D>> > & tuple,
+              const vector<vector<double>> & weights)
+  {}
 
     template <class T>
     double distance(T a, T b) {
@@ -211,7 +226,11 @@ match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T>
       if ( subev[i] == NOFILL ) continue;
       int j = i;
       while ( j + 1 < maxfill && subev[j + 1] == NOFILL &&
-              distance(subev[j].first, full[j].first) > distance(subev[j].first, full[j + 1].first) ) 
+              distance(fillT2binT<T>(subev[j].first), 
+                       fillT2binT<T>(full[j].first)) 
+              > 
+              distance(fillT2binT<T>(subev[j].first), 
+                       fillT2binT<T>(full[j + 1].first)) ) 
       {
             swap(subev[j], subev[j + 1]);
             ++j;
@@ -274,9 +293,9 @@ namespace Rivet {
   // explicitly instantiate all wrappers
 
   template class Wrapper<YODA::Histo1D>;
-//  template class Wrapper<YODA::Histo2D>;
+  template class Wrapper<YODA::Histo2D>;
   template class Wrapper<YODA::Profile1D>;
-//  template class Wrapper<YODA::Profile2D>;
+  template class Wrapper<YODA::Profile2D>;
   template class Wrapper<YODA::Counter>;
 
 }
