@@ -39,9 +39,9 @@ namespace Rivet {
 
       /// Book histograms
       for (size_t i = 0; i < 7; ++i)
-        _count_IM[i] = bookCounter("count_IM" + toString(i+1));
+        book(_count_IM[i], "count_IM" + toString(i+1));
       for (size_t i = 0; i < 6; ++i)
-        _count_EM[i] = bookCounter("count_EM" + toString(i+1));
+        book(_count_EM[i], "count_EM" + toString(i+1));
 
     }
 

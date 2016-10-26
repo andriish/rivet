@@ -46,13 +46,13 @@ namespace Rivet {
 
 
       // Book histograms/counters
-      _h_2jl = bookCounter("2jl");
-      _h_2jm = bookCounter("2jm");
-      _h_2jt = bookCounter("2jt");
-      _h_4jt = bookCounter("4jt");
-      _h_5j  = bookCounter("5j");
-      _h_6jm = bookCounter("6jm");
-      _h_6jt = bookCounter("6jt");
+      book(_h_2jl, "2jl");
+      book(_h_2jm, "2jm");
+      book(_h_2jt, "2jt");
+      book(_h_4jt, "4jt");
+      book(_h_5j , "5j");
+      book(_h_6jm, "6jm");
+      book(_h_6jt, "6jt");
 
 
       // Book cut-flows

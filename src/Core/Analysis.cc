@@ -191,27 +191,26 @@ namespace Rivet {
   }
 
 
-  CounterPtr& Analysis::bookCounter(const string& cname,
-                                   const string& title) {
+  void Analysis::book(CounterPtr & ctr, 
+                      const string& cname,
+                      const string& title) {
     const string path = histoPath(cname);
-    shared_ptr<CounterPtr> ctr =
-        make_shared<CounterPtr>(handler().numWeights(), Counter(path, title));
-    addAnalysisObject(*ctr);
+    ctr = CounterPtr(handler().numWeights(), Counter(path, title));
+    addAnalysisObject(ctr);
     MSG_TRACE("Made counter " << cname << " for " << name());
-    return *ctr;
   }
 
 
-  CounterPtr& Analysis::bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  void Analysis::book(CounterPtr & ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                    const string& title) {
                                    // const string& xtitle,
                                    // const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookCounter(axisCode, title);
+    book(ctr, axisCode, title);
   }
 
 
-  Histo1DPtr& Analysis::bookHisto1D(const string& hname,
+  void Analysis::book(Histo1DPtr & histo, const string& hname,
                                     size_t nbins, double lower, double upper,
                                     const string& title,
                                     const string& xtitle,
@@ -223,15 +222,13 @@ namespace Rivet {
     hist.setAnnotation("XLabel", xtitle);
     hist.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Histo1DPtr> hp =
-        make_shared<Histo1DPtr>(handler().numWeights(), hist);
+    histo = Histo1DPtr(handler().numWeights(), hist);
 
-    addAnalysisObject(*hp);
+    addAnalysisObject(histo);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    return *hp;
   }
 
-  Histo1DPtr& Analysis::bookHisto1D(const string& hname,
+  void Analysis::book(Histo1DPtr & histo, const string& hname,
                                    const vector<double>& binedges,
                                    const string& title,
                                    const string& xtitle,
@@ -244,16 +241,14 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
 
 
-    shared_ptr<Histo1DPtr> hp =
-        make_shared<Histo1DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(*hp);
+    histo = Histo1DPtr(handler().numWeights(), hist);
+    addAnalysisObject(histo);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    return *hp;
   }
 
 
-  Histo1DPtr& Analysis::bookHisto1D(const string& hname,
+  void Analysis::book(Histo1DPtr & histo, const string& hname,
                                    const Scatter2D& refscatter,
                                    const string& title,
                                    const string& xtitle,
@@ -265,51 +260,27 @@ namespace Rivet {
     hist.setAnnotation("XLabel", xtitle);
     hist.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Histo1DPtr> hp = 
-        make_shared<Histo1DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(*hp);
+    histo = Histo1DPtr(handler().numWeights(), hist);
+    addAnalysisObject(histo);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
-    return *hp;
   }
 
-  void Analysis::book(Histo1DPtr & bookedhisto, 
-            unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-            const string& title,
-            const string& xtitle,
-            const string& ytitle) {
-    const string path = makeAxisCode(datasetId, xAxisId, yAxisId);
-    const Scatter2D& refscatter = refData(path);
-
-    Histo1D hist = Histo1D(refscatter, path);
-
-    hist.setTitle(title);
-    hist.setAnnotation("XLabel", xtitle);
-    hist.setAnnotation("YLabel", ytitle);
-
-    bookedhisto = Histo1DPtr(handler().numWeights(), hist);
-
-    addAnalysisObject(bookedhisto);
-
-    MSG_TRACE("Made histogram " << path <<  " for " << name());
-  }
-
-
-  Histo1DPtr& Analysis::bookHisto1D(const string& hname,
+  void Analysis::book(Histo1DPtr & histo, const string& hname,
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
     const Scatter2D& refdata = refData(hname);
-    return bookHisto1D(hname, refdata, title, xtitle, ytitle);
+    book(histo, hname, refdata, title, xtitle, ytitle);
   }
 
 
-  Histo1DPtr& Analysis::bookHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  void Analysis::book(Histo1DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookHisto1D(axisCode, title, xtitle, ytitle);
+    book(histo, axisCode, title, xtitle, ytitle);
   }
 
 
@@ -319,7 +290,7 @@ namespace Rivet {
   /////////////////
 
 
-  Histo2DPtr& Analysis::bookHisto2D(const string& hname,
+  void Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    size_t nxbins, double xlower, double xupper,
                                    size_t nybins, double ylower, double yupper,
                                    const string& title,
@@ -334,16 +305,14 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
     hist.setAnnotation("ZLabel", ztitle);
 
-    shared_ptr<Histo2DPtr> hp =
-        make_shared<Histo2DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(*hp);
+    h2d = Histo2DPtr(handler().numWeights(), hist);
+    addAnalysisObject(h2d);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
-    return *hp;
   }
 
 
-  Histo2DPtr& Analysis::bookHisto2D(const string& hname,
+  void Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    const vector<double>& xbinedges,
                                    const vector<double>& ybinedges,
                                    const string& title,
@@ -358,16 +327,14 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
     hist.setAnnotation("ZLabel", ztitle);
 
-    shared_ptr<Histo2DPtr> hp =
-        make_shared<Histo2DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(*hp);
+    h2d = Histo2DPtr(handler().numWeights(), hist);
+    addAnalysisObject(h2d);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
-    return *hp;
   }
 
 
-  Profile1DPtr& Analysis::bookProfile1D(const string& hname,
+  void Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        size_t nbins, double lower, double upper,
                                        const string& title,
                                        const string& xtitle,
@@ -378,16 +345,14 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Profile1DPtr> pp =
-        make_shared<Profile1DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(*pp);
+    p1d = Profile1DPtr(handler().numWeights(), prof);
+    addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    return *pp;
   }
 
 
-  Profile1DPtr& Analysis::bookProfile1D(const string& hname,
+  void Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const vector<double>& binedges,
                                        const string& title,
                                        const string& xtitle,
@@ -397,16 +362,14 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Profile1DPtr> pp =
-        make_shared<Profile1DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(*pp);
+    p1d = Profile1DPtr(handler().numWeights(), prof);
+    addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    return *pp;
   }
 
 
-  Profile1DPtr& Analysis::bookProfile1D(const string& hname,
+  void Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const Scatter2D& refscatter,
                                        const string& title,
                                        const string& xtitle,
@@ -417,34 +380,32 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Profile1DPtr> pp =
-        make_shared<Profile1DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(*pp);
+    p1d = Profile1DPtr(handler().numWeights(), prof);
+    addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
-    return *pp;
   }
 
 
-  Profile1DPtr& Analysis::bookProfile1D(const string& hname,
+  void Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const Scatter2D& refdata = refData(hname);
-    return bookProfile1D(hname, refdata, title, xtitle, ytitle);
+    book(p1d, hname, refdata, title, xtitle, ytitle);
   }
 
 
-  Profile1DPtr& Analysis::bookProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  void Analysis::book(Profile1DPtr & p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookProfile1D(axisCode, title, xtitle, ytitle);
+    book(p1d, axisCode, title, xtitle, ytitle);
   }
 
 
-  Profile2DPtr& Analysis::bookProfile2D(const string& hname,
+  void Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    size_t nxbins, double xlower, double xupper,
                                    size_t nybins, double ylower, double yupper,
                                    const string& title,
@@ -458,16 +419,14 @@ namespace Rivet {
     prof.setAnnotation("YLabel", ytitle);
     prof.setAnnotation("ZLabel", ztitle);
 
-    shared_ptr<Profile2DPtr> pp =
-        make_shared<Profile2DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(*pp);
+    p2d = Profile2DPtr(handler().numWeights(), prof);
+    addAnalysisObject(p2d);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
-    return *pp;
   }
 
 
-  Profile2DPtr& Analysis::bookProfile2D(const string& hname,
+  void Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const vector<double>& xbinedges,
                                    const vector<double>& ybinedges,
                                    const string& title,
@@ -481,12 +440,10 @@ namespace Rivet {
     prof.setAnnotation("YLabel", ytitle);
     prof.setAnnotation("ZLabel", ztitle);
 
-    shared_ptr<Profile2DPtr> pp =
-        make_shared<Profile2DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(*pp);
+    p2d = Profile2DPtr(handler().numWeights(), prof);
+    addAnalysisObject(p2d);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
-    return *pp;
   }
 
 
