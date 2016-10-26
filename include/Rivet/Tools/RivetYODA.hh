@@ -56,13 +56,14 @@ namespace Rivet {
 
     /// @todo
     /// implement scatter1dptr and scatter2dptr here
+    /// these need to be multi-weighted eventually.
     class Scatter1DPtr : public AnalysisObjectPtr {
         public:
             Scatter1DPtr() :
                 _scatter(YODA::Scatter1DPtr()) { }
 
-            Scatter1DPtr(const YODA::Scatter1DPtr& p) :
-                _scatter(p) { }
+            Scatter1DPtr(const YODA::Scatter1D& p) :
+                _scatter(make_shared<YODA::Scatter1D>(p)) { }
 
             bool operator!() const { return !_scatter; }
             operator bool() const { return bool(_scatter); }
@@ -81,8 +82,8 @@ namespace Rivet {
 
     class Scatter2DPtr : public AnalysisObjectPtr {
         public:
-            Scatter2DPtr(const YODA::Scatter2DPtr& p) :
-                _scatter(p) { }
+            Scatter2DPtr(const YODA::Scatter2D& p) :
+                _scatter(make_shared<YODA::Scatter2D>(p)) { }
 
             Scatter2DPtr() :
                 _scatter(YODA::Scatter2DPtr()) { }
@@ -104,8 +105,8 @@ namespace Rivet {
 
     class Scatter3DPtr : public AnalysisObjectPtr {
         public:
-            Scatter3DPtr(const YODA::Scatter3DPtr& p) :
-                _scatter(p) { }
+            Scatter3DPtr(const YODA::Scatter3D& p) :
+                _scatter(make_shared<YODA::Scatter3D>(p)) { }
 
             Scatter3DPtr() :
                 _scatter(YODA::Scatter3DPtr()) { }

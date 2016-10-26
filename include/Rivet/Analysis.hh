@@ -375,14 +375,14 @@ namespace Rivet {
     //@{
 
     /// Book a counter.
-    CounterPtr bookCounter(const std::string& name,
+    CounterPtr& bookCounter(const std::string& name,
                            const std::string& title="");
                            // const std::string& valtitle=""
 
     /// Book a counter, using a path generated from the dataset and axis ID codes
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    CounterPtr bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+    CounterPtr& bookCounter(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                            const std::string& title="");
                            // const std::string& valtitle=""
 
@@ -393,28 +393,28 @@ namespace Rivet {
     //@{
 
     /// Book a 1D histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    Histo1DPtr bookHisto1D(const std::string& name,
+    Histo1DPtr& bookHisto1D(const std::string& name,
                            size_t nbins, double lower, double upper,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="");
 
     /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Histo1DPtr bookHisto1D(const std::string& name,
+    Histo1DPtr& bookHisto1D(const std::string& name,
                            const std::vector<double>& binedges,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="");
 
     /// Book a 1D histogram with binning from a reference scatter.
-    Histo1DPtr bookHisto1D(const std::string& name,
+    Histo1DPtr& bookHisto1D(const std::string& name,
                            const Scatter2D& refscatter,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="");
 
     /// Book a 1D histogram, using the binnings in the reference data histogram.
-    Histo1DPtr bookHisto1D(const std::string& name,
+    Histo1DPtr& bookHisto1D(const std::string& name,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="");
@@ -422,7 +422,7 @@ namespace Rivet {
     /// Book a 1D histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Histo1DPtr bookHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+    Histo1DPtr& bookHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="");
@@ -436,7 +436,7 @@ namespace Rivet {
     /// Book a 2D histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a
     /// ylower - @a yupper respectively along the x- and y-axis.
-    Histo2DPtr bookHisto2D(const std::string& name,
+    Histo2DPtr& bookHisto2D(const std::string& name,
                            size_t nxbins, double xlower, double xupper,
                            size_t nybins, double ylower, double yupper,
                            const std::string& title="",
@@ -446,7 +446,7 @@ namespace Rivet {
 
     /// Book a 2D histogram with non-uniform bins defined by the
     /// vectorx of bin edges @a xbinedges and @a ybinedges.
-    Histo2DPtr bookHisto2D(const std::string& name,
+    Histo2DPtr& bookHisto2D(const std::string& name,
                            const std::vector<double>& xbinedges,
                            const std::vector<double>& ybinedges,
                            const std::string& title="",
@@ -485,28 +485,28 @@ namespace Rivet {
     //@{
 
     /// Book a 1D profile histogram with @a nbins uniformly distributed across the range @a lower - @a upper .
-    Profile1DPtr bookProfile1D(const std::string& name,
+    Profile1DPtr& bookProfile1D(const std::string& name,
                                size_t nbins, double lower, double upper,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
-    Profile1DPtr bookProfile1D(const std::string& name,
+    Profile1DPtr& bookProfile1D(const std::string& name,
                                const std::vector<double>& binedges,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
     /// Book a 1D profile histogram with binning from a reference scatter.
-    Profile1DPtr bookProfile1D(const std::string& name,
+    Profile1DPtr& bookProfile1D(const std::string& name,
                                const Scatter2D& refscatter,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
     /// Book a 1D profile histogram, using the binnings in the reference data histogram.
-    Profile1DPtr bookProfile1D(const std::string& name,
+    Profile1DPtr& bookProfile1D(const std::string& name,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
@@ -514,7 +514,7 @@ namespace Rivet {
     /// Book a 1D profile histogram, using the binnings in the reference data histogram.
     ///
     /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    Profile1DPtr bookProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+    Profile1DPtr& bookProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
@@ -528,7 +528,7 @@ namespace Rivet {
     /// Book a 2D profile histogram with @a nxbins and @a nybins uniformly
     /// distributed across the ranges @a xlower - @a xupper and @a ylower - @a
     /// yupper respectively along the x- and y-axis.
-    Profile2DPtr bookProfile2D(const std::string& name,
+    Profile2DPtr& bookProfile2D(const std::string& name,
                                size_t nxbins, double xlower, double xupper,
                                size_t nybins, double ylower, double yupper,
                                const std::string& title="",
@@ -538,7 +538,7 @@ namespace Rivet {
 
     /// Book a 2D profile histogram with non-uniform bins defined by the vectorx
     /// of bin edges @a xbinedges and @a ybinedges.
-    Profile2DPtr bookProfile2D(const std::string& name,
+    Profile2DPtr& bookProfile2D(const std::string& name,
                                const std::vector<double>& xbinedges,
                                const std::vector<double>& ybinedges,
                                const std::string& title="",
@@ -587,8 +587,7 @@ namespace Rivet {
     /// assuming that there is a reference histo with the same name: if there
     /// isn't, an exception will be thrown.
 
-    /*
-    Scatter2DPtr bookScatter2D(const std::string& name,
+    Scatter2DPtr& bookScatter2D(const std::string& name,
                                bool copy_pts=false,
                                const std::string& title="",
                                const std::string& xtitle="",
@@ -604,7 +603,7 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter2DPtr bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+    Scatter2DPtr& bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                bool copy_pts=false,
                                const std::string& title="",
                                const std::string& xtitle="",
@@ -613,7 +612,7 @@ namespace Rivet {
     /// @brief Book a 2-dimensional data point set with equally spaced x-points in a range.
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr bookScatter2D(const std::string& name,
+    Scatter2DPtr& bookScatter2D(const std::string& name,
                                size_t npts, double lower, double upper,
                                const std::string& title="",
                                const std::string& xtitle="",
@@ -622,14 +621,13 @@ namespace Rivet {
     /// @brief Book a 2-dimensional data point set based on provided contiguous "bin edges".
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr bookScatter2D(const std::string& hname,
+    Scatter2DPtr& bookScatter2D(const std::string& hname,
                                const std::vector<double>& binedges,
                                const std::string& title,
                                const std::string& xtitle,
                                const std::string& ytitle);
 
     //@}
-    */
 
 
   public:
@@ -822,7 +820,12 @@ namespace Rivet {
     //@{
 
     /// Register a data object in the histogram system
-    void addAnalysisObject(shared_ptr<MultiweightAOPtr> ao);
+    void addAnalysisObject(const shared_ptr<MultiweightAOPtr>& ao);
+
+    /// @todo we need these separately since we *only* want to call this for scatters?
+    void addAnalysisObject(const shared_ptr<Scatter1DPtr>& ao);
+    void addAnalysisObject(const shared_ptr<Scatter2DPtr>& ao);
+    void addAnalysisObject(const shared_ptr<Scatter3DPtr>& ao);
 
     /// Get a data object from the histogram system
     /// @todo Use this default function template arg in C++11
@@ -840,7 +843,7 @@ namespace Rivet {
     // template <typename AO=AnalysisObjectPtr>
     template <typename AOPtr>
     AOPtr& getAnalysisObject(const std::string& name) {
-      for (shared_ptr<MultiweightAOPtr>& ao : _analysisobjects) {
+      for (const shared_ptr<MultiweightAOPtr>& ao : _analysisobjects) {
         if ((*ao)->path() == histoPath(name)) return dynamic_cast<AOPtr&>(*ao);
       }
 
@@ -852,6 +855,10 @@ namespace Rivet {
 
     /// Unregister a data object from the histogram system (by pointer)
     void removeAnalysisObject(const MultiweightAOPtr& ao);
+
+    void removeAnalysisObject(const Scatter1DPtr& ao);
+    void removeAnalysisObject(const Scatter2DPtr& ao);
+    void removeAnalysisObject(const Scatter3DPtr& ao);
 
 
     /// Get a named Histo1D object from the histogram system
@@ -972,6 +979,7 @@ namespace Rivet {
     /// Storage of all plot objects
     /// @todo Make this a map for fast lookup by path?
     vector<shared_ptr<MultiweightAOPtr> > _analysisobjects;
+    vector<shared_ptr<AnalysisObjectPtr> > _scatters;
 
     /// @name Cross-section variables
     //@{
