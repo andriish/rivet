@@ -20,7 +20,7 @@ namespace Rivet {
       const ChargedFinalState cfs(Cuts::abseta < 2);
       declare(cfs, "CFS");
 
-      _hist_dNch_dEta_inel = bookHisto1D(1, 1, 1);
+      book(_hist_dNch_dEta_inel ,1, 1, 1);
     }
 
 

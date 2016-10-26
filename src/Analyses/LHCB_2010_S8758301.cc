@@ -42,13 +42,13 @@ using namespace std;
     void init() {
       MSG_DEBUG("Initializing analysis!");
       fillMap(partLftMap);
-      _h_K0s_pt_30    = bookHisto1D(1,1,1);
-      _h_K0s_pt_35    = bookHisto1D(1,1,2);
-      _h_K0s_pt_40    = bookHisto1D(1,1,3);
-      _h_K0s_pt_y_30  = bookHisto1D(2,1,1);
-      _h_K0s_pt_y_35  = bookHisto1D(2,1,2);
-      _h_K0s_pt_y_40  = bookHisto1D(2,1,3);
-      _h_K0s_pt_y_all = bookHisto1D(3,1,1);
+      book(_h_K0s_pt_30    ,1,1,1);
+      book(_h_K0s_pt_35    ,1,1,2);
+      book(_h_K0s_pt_40    ,1,1,3);
+      book(_h_K0s_pt_y_30  ,2,1,1);
+      book(_h_K0s_pt_y_35  ,2,1,2);
+      book(_h_K0s_pt_y_40  ,2,1,3);
+      book(_h_K0s_pt_y_all ,3,1,1);
       declare(UnstableFinalState(), "UFS");
     }
 

@@ -62,83 +62,83 @@ namespace Rivet {
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
 
-      book(_histPtTIn, 1, 1, 1, "", "", "");
-      book(_histPtTOut,2, 1, 1, "", "", "");
-      book(_histPtSIn, 3, 1, 1, "", "", "");
-      book(_histPtSOut,4, 1, 1, "", "", "");
+      book(_histPtTIn, 1, 1, 1);
+      book(_histPtTOut,2, 1, 1);
+      book(_histPtSIn, 3, 1, 1);
+      book(_histPtSOut,4, 1, 1);
 
-      book(_histRapidityT, 5, 1, 1, "", "", "");
-      book(_histRapidityS, 6, 1, 1, "", "", "");
-      book(_histScaledMom, 7, 1, 1, "", "", "");
-      book(_histLogScaledMom, 8, 1, 1, "", "", "");
+      book(_histRapidityT, 5, 1, 1);
+      book(_histRapidityS, 6, 1, 1);
+      book(_histScaledMom, 7, 1, 1);
+      book(_histLogScaledMom, 8, 1, 1);
 
-      //_histPtTOutVsXp = bookProfile1D(9,  1, 1);
-      //_histPtVsXp = bookProfile1D(10, 1, 1);
+      book(_histPtTOutVsXp ,9,  1, 1);
+      book(_histPtVsXp ,10, 1, 1);
 
-      book(_hist1MinusT, 11, 1, 1, "", "", "");
-      book(_histTMajor, 12, 1, 1, "", "", "");
-      book(_histTMinor, 13, 1, 1, "", "", "");
-      book(_histOblateness, 14, 1, 1, "", "", "");
+      book(_hist1MinusT, 11, 1, 1);
+      book(_histTMajor, 12, 1, 1);
+      book(_histTMinor, 13, 1, 1);
+      book(_histOblateness, 14, 1, 1);
 
-      book(_histSphericity, 15, 1, 1, "", "", "");
-      book(_histAplanarity, 16, 1, 1, "", "", "");
-      book(_histPlanarity, 17, 1, 1, "", "", "");
+      book(_histSphericity, 15, 1, 1);
+      book(_histAplanarity, 16, 1, 1);
+      book(_histPlanarity, 17, 1, 1);
 
-      book(_histCParam, 18, 1, 1, "", "", "");
-      book(_histDParam, 19, 1, 1, "", "", "");
+      book(_histCParam, 18, 1, 1);
+      book(_histDParam, 19, 1, 1);
 
-      book(_histHemiMassH, 20, 1, 1, "", "", "");
-      book(_histHemiMassL, 21, 1, 1, "", "", "");
-      book(_histHemiMassD, 22, 1, 1, "", "", "");
+      book(_histHemiMassH, 20, 1, 1);
+      book(_histHemiMassL, 21, 1, 1);
+      book(_histHemiMassD, 22, 1, 1);
 
-      book(_histHemiBroadW, 23, 1, 1, "", "", "");
-      book(_histHemiBroadN, 24, 1, 1, "", "", "");
-      book(_histHemiBroadT, 25, 1, 1, "", "", "");
-      book(_histHemiBroadD, 26, 1, 1, "", "", "");
+      book(_histHemiBroadW, 23, 1, 1);
+      book(_histHemiBroadN, 24, 1, 1);
+      book(_histHemiBroadT, 25, 1, 1);
+      book(_histHemiBroadD, 26, 1, 1);
 
       // Binned in y_cut
-      book(_histDiffRate2Durham, 27, 1, 1, "", "", "");
-      book(_histDiffRate2Jade, 28, 1, 1, "", "", "");
-      book(_histDiffRate3Durham, 29, 1, 1, "", "", "");
-      book(_histDiffRate3Jade, 30, 1, 1, "", "", "");
-      book(_histDiffRate4Durham, 31, 1, 1, "", "", "");
-      book(_histDiffRate4Jade, 32, 1, 1, "", "", "");
+      book(_histDiffRate2Durham, 27, 1, 1);
+      book(_histDiffRate2Jade, 28, 1, 1);
+      book(_histDiffRate3Durham, 29, 1, 1);
+      book(_histDiffRate3Jade, 30, 1, 1);
+      book(_histDiffRate4Durham, 31, 1, 1);
+      book(_histDiffRate4Jade, 32, 1, 1);
 
       // Binned in cos(chi)
-      book(_histEEC, 33, 1, 1, "", "", "");
-      book(_histAEEC, 34, 1, 1, "", "", "");
+      book(_histEEC, 33, 1, 1);
+      book(_histAEEC, 34, 1, 1);
 
-      book(_histMultiCharged, 35, 1, 1, "", "", "");
+      book(_histMultiCharged, 35, 1, 1);
 
-      book(_histMultiPiPlus, 36, 1, 1, "", "", "");
-      book(_histMultiPi0, 36, 1, 2, "", "", "");
-      book(_histMultiKPlus, 36, 1, 3, "", "", "");
-      book(_histMultiK0, 36, 1, 4, "", "", "");
-      book(_histMultiEta, 36, 1, 5, "", "", "");
-      book(_histMultiEtaPrime, 36, 1, 6, "", "", "");
-      book(_histMultiDPlus, 36, 1, 7, "", "", "");
-      book(_histMultiD0, 36, 1, 8, "", "", "");
-      book(_histMultiBPlus0, 36, 1, 9, "", "", "");
+      book(_histMultiPiPlus, 36, 1, 1);
+      book(_histMultiPi0, 36, 1, 2);
+      book(_histMultiKPlus, 36, 1, 3);
+      book(_histMultiK0, 36, 1, 4);
+      book(_histMultiEta, 36, 1, 5);
+      book(_histMultiEtaPrime, 36, 1, 6);
+      book(_histMultiDPlus, 36, 1, 7);
+      book(_histMultiD0, 36, 1, 8);
+      book(_histMultiBPlus0, 36, 1, 9);
 
-      book(_histMultiF0, 37, 1, 1, "", "", "");
+      book(_histMultiF0, 37, 1, 1);
 
-      book(_histMultiRho, 38, 1, 1, "", "", "");
-      book(_histMultiKStar892Plus, 38, 1, 2, "", "", "");
-      book(_histMultiKStar892_0, 38, 1, 3, "", "", "");
-      book(_histMultiPhi, 38, 1, 4, "", "", "");
-      book(_histMultiDStar2010Plus, 38, 1, 5, "", "", "");
+      book(_histMultiRho, 38, 1, 1);
+      book(_histMultiKStar892Plus, 38, 1, 2);
+      book(_histMultiKStar892_0, 38, 1, 3);
+      book(_histMultiPhi, 38, 1, 4);
+      book(_histMultiDStar2010Plus, 38, 1, 5);
 
-      book(_histMultiF2, 39, 1, 1, "", "", "");
-      book(_histMultiK2Star1430_0, 39, 1, 2, "", "", "");
+      book(_histMultiF2, 39, 1, 1);
+      book(_histMultiK2Star1430_0, 39, 1, 2);
 
-      book(_histMultiP, 40, 1, 1, "", "", "");
-      book(_histMultiLambda0, 40, 1, 2, "", "", "");
-      book(_histMultiXiMinus, 40, 1, 3, "", "", "");
-      book(_histMultiOmegaMinus, 40, 1, 4, "", "", "");
-      book(_histMultiDeltaPlusPlus, 40, 1, 5, "", "", "");
-      book(_histMultiSigma1385Plus, 40, 1, 6, "", "", "");
-      book(_histMultiXi1530_0, 40, 1, 7, "", "", "");
-      book(_histMultiLambdaB0, 40, 1, 8, "", "", "");
+      book(_histMultiP, 40, 1, 1);
+      book(_histMultiLambda0, 40, 1, 2);
+      book(_histMultiXiMinus, 40, 1, 3);
+      book(_histMultiOmegaMinus, 40, 1, 4);
+      book(_histMultiDeltaPlusPlus, 40, 1, 5);
+      book(_histMultiSigma1385Plus, 40, 1, 6);
+      book(_histMultiXi1530_0, 40, 1, 7);
+      book(_histMultiLambdaB0, 40, 1, 8);
     }
 
 
@@ -243,8 +243,8 @@ namespace Rivet {
         _histPtTOut->fill(fabs(pToutT/GeV), weight);
         _histPtSIn->fill(fabs(pTinS/GeV), weight);
         _histPtSOut->fill(fabs(pToutS/GeV), weight);
-//        _histPtVsXp->fill(scaledMom, fabs(pT/GeV), weight);
-//        _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV), weight);
+        _histPtVsXp->fill(scaledMom, fabs(pT/GeV), weight);
+        _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV), weight);
 
         // Calculate rapidities w.r.t. thrust and sphericity.
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));

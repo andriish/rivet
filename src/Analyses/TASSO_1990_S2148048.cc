@@ -61,10 +61,10 @@ namespace Rivet {
           offset = 3;
           break;
       }
-      //_h_xp         = bookHisto1D( 2, 1, 1+offset);
-      _h_sphericity = bookHisto1D( 6, 1, 1+offset);
-      _h_aplanarity = bookHisto1D( 7, 1, 1+offset);
-      _h_thrust     = bookHisto1D( 8, 1, 1+offset);
+      //book(_h_xp         , 2, 1, 1+offset);
+      book(_h_sphericity , 6, 1, 1+offset);
+      book(_h_aplanarity , 7, 1, 1+offset);
+      book(_h_thrust     , 8, 1, 1+offset);
     }
 
 

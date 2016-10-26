@@ -27,8 +27,8 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
       declare(UnstableFinalState(), "UFS");
       // Book histograms
-      _histXeKStar892   = bookHisto1D( 1, 1, 1);
-      _histMeanKStar892   = bookHisto1D( 2, 1, 1);
+      book(_histXeKStar892   , 1, 1, 1);
+      book(_histMeanKStar892   , 2, 1, 1);
     }
 
 

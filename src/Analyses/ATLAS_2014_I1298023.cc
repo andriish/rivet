@@ -49,7 +49,7 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "jets");
 
       // book histogram
-      _hist = bookHisto1D(1, 1, 1);
+      book(_hist ,1, 1, 1);
     }
 
 

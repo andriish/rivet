@@ -84,22 +84,22 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abseta < 4.9), "vfs");
 
       /// Book histograms
-      _count_mumujj = bookHisto1D("count_2muons_dijet", 1, 0., 1.);
-      _count_eejj   = bookHisto1D("count_2elecs_dijet", 1, 0., 1.);
-      _count_muvjj  = bookHisto1D("count_muon_neutrino_dijet", 1, 0., 1.);
-      _count_evjj   = bookHisto1D("count_elec_neutrino_dijet", 1, 0., 1.);
+      book(_count_mumujj ,"count_2muons_dijet", 1, 0., 1.);
+      book(_count_eejj   ,"count_2elecs_dijet", 1, 0., 1.);
+      book(_count_muvjj  ,"count_muon_neutrino_dijet", 1, 0., 1.);
+      book(_count_evjj   ,"count_elec_neutrino_dijet", 1, 0., 1.);
 
-      _hist_St_mumu = bookHisto1D("hist_mumujj_St", 10, 450., 1650.);
-      _hist_St_ee   = bookHisto1D("hist_eejj_St", 10, 450., 1650.);
-      _hist_MLQ_muv = bookHisto1D("hist_munujj_MLQ", 9, 150., 600.);
-      _hist_MLQ_ev  = bookHisto1D("hist_enujj_MLQ", 9, 150., 600.);
+      book(_hist_St_mumu ,"hist_mumujj_St", 10, 450., 1650.);
+      book(_hist_St_ee   ,"hist_eejj_St", 10, 450., 1650.);
+      book(_hist_MLQ_muv ,"hist_munujj_MLQ", 9, 150., 600.);
+      book(_hist_MLQ_ev  ,"hist_enujj_MLQ", 9, 150., 600.);
 
-      _hist_St_mumu_ZCR   = bookHisto1D("CR_Zjets_St_mumu", 40, 0., 800.);
-      _hist_St_ee_ZCR     = bookHisto1D("CR_Zjets_Stee", 40, 0., 800.);
-      _hist_MLQ_munu_W2CR = bookHisto1D("CR_W2jets_MLQ_munu", 20, 0., 400.);
-      _hist_MLQ_enu_W2CR  = bookHisto1D("CR_W2jets_MLQ_enu", 20, 0., 400.);
-      _hist_MLQ_munu_ttCR = bookHisto1D("CR_tt_MLQ_munu", 35, 0., 700.);
-      _hist_MLQ_enu_ttCR  = bookHisto1D("CR_tt_MLQ_enu", 35, 0., 700.);
+      book(_hist_St_mumu_ZCR   ,"CR_Zjets_St_mumu", 40, 0., 800.);
+      book(_hist_St_ee_ZCR     ,"CR_Zjets_Stee", 40, 0., 800.);
+      book(_hist_MLQ_munu_W2CR ,"CR_W2jets_MLQ_munu", 20, 0., 400.);
+      book(_hist_MLQ_enu_W2CR  ,"CR_W2jets_MLQ_enu", 20, 0., 400.);
+      book(_hist_MLQ_munu_ttCR ,"CR_tt_MLQ_munu", 35, 0., 700.);
+      book(_hist_MLQ_enu_ttCR  ,"CR_tt_MLQ_enu", 35, 0., 700.);
 
     }
 

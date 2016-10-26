@@ -25,10 +25,10 @@ namespace Rivet {
       ifs.acceptId(PID::PHOTON);
       declare(ifs, "IFS");
 
-      _h_M = bookHisto1D(1, 1, 1);
-      _h_pT = bookHisto1D(2, 1, 1);
-      _h_dPhi = bookHisto1D(3, 1, 1);
-      _h_costheta = bookHisto1D(4, 1, 1);
+      book(_h_M ,1, 1, 1);
+      book(_h_pT ,2, 1, 1);
+      book(_h_dPhi ,3, 1, 1);
+      book(_h_costheta ,4, 1, 1);
 
       std::pair<double, double> M_ranges[] = { std::make_pair(30.0, 50.0),
                                                std::make_pair(50.0, 80.0),

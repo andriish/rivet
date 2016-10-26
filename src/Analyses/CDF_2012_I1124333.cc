@@ -29,8 +29,8 @@ namespace Rivet {
 
 
       ///  Book histograms here, e.g.:
-      //      _hist_z_xs = bookHisto1D(1, 1, 1);
-      _hist_zpt = bookHisto1D(2, 1, 1);
+      //book(      _hist_z_xs ,1, 1, 1);
+      book(_hist_zpt ,2, 1, 1);
     }
 
 

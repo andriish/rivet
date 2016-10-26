@@ -55,34 +55,34 @@ namespace Rivet {
       jets.useInvisibles(true);
       declare(jets, "jets");
 
-      _h_njet_incl              = bookHisto1D(  1, 1, _mode);
+      book(_h_njet_incl              ,  1, 1, _mode);
       _h_njet_incl_ratio        = bookScatter2D(2, 1, _mode, true);
-      _h_njet_excl              = bookHisto1D(  3, 1, _mode);
+      book(_h_njet_excl              ,  3, 1, _mode);
       _h_njet_excl_ratio        = bookScatter2D(4, 1, _mode, true);
-      _h_njet_excl_pt150        = bookHisto1D(  5, 1, _mode);
+      book(_h_njet_excl_pt150        ,  5, 1, _mode);
       _h_njet_excl_pt150_ratio  = bookScatter2D(6, 1, _mode, true);
       _h_njet_excl_vbf          = bookHisto1D ( 7, 1, _mode);
       _h_njet_excl_vbf_ratio    = bookScatter2D(8, 1, _mode, true);
-      _h_ptlead                 = bookHisto1D(  9, 1, _mode);
-      _h_ptseclead              = bookHisto1D( 10, 1, _mode);
-      _h_ptthirdlead            = bookHisto1D( 11, 1, _mode);
-      _h_ptfourthlead           = bookHisto1D( 12, 1, _mode);
-      _h_ptlead_excl            = bookHisto1D( 13, 1, _mode);
-      _h_pt_ratio               = bookHisto1D( 14, 1, _mode);
-      _h_pt_z                   = bookHisto1D( 15, 1, _mode);
-      _h_pt_z_excl              = bookHisto1D( 16, 1, _mode);
-      _h_ylead                  = bookHisto1D( 17, 1, _mode);
-      _h_yseclead               = bookHisto1D( 18, 1, _mode);
-      _h_ythirdlead             = bookHisto1D( 19, 1, _mode);
-      _h_yfourthlead            = bookHisto1D( 20, 1, _mode);
-      _h_deltay                 = bookHisto1D( 21, 1, _mode);
-      _h_mass                   = bookHisto1D( 22, 1, _mode);
-      _h_deltaphi               = bookHisto1D( 23, 1, _mode);
-      _h_deltaR                 = bookHisto1D( 24, 1, _mode);
-      _h_ptthirdlead_vbf        = bookHisto1D( 25, 1, _mode);
-      _h_ythirdlead_vbf         = bookHisto1D( 26, 1, _mode);
-      _h_ht                     = bookHisto1D( 27, 1, _mode);
-      _h_st                     = bookHisto1D( 28, 1, _mode);
+      book(_h_ptlead                 ,  9, 1, _mode);
+      book(_h_ptseclead              , 10, 1, _mode);
+      book(_h_ptthirdlead            , 11, 1, _mode);
+      book(_h_ptfourthlead           , 12, 1, _mode);
+      book(_h_ptlead_excl            , 13, 1, _mode);
+      book(_h_pt_ratio               , 14, 1, _mode);
+      book(_h_pt_z                   , 15, 1, _mode);
+      book(_h_pt_z_excl              , 16, 1, _mode);
+      book(_h_ylead                  , 17, 1, _mode);
+      book(_h_yseclead               , 18, 1, _mode);
+      book(_h_ythirdlead             , 19, 1, _mode);
+      book(_h_yfourthlead            , 20, 1, _mode);
+      book(_h_deltay                 , 21, 1, _mode);
+      book(_h_mass                   , 22, 1, _mode);
+      book(_h_deltaphi               , 23, 1, _mode);
+      book(_h_deltaR                 , 24, 1, _mode);
+      book(_h_ptthirdlead_vbf        , 25, 1, _mode);
+      book(_h_ythirdlead_vbf         , 26, 1, _mode);
+      book(_h_ht                     , 27, 1, _mode);
+      book(_h_st                     , 28, 1, _mode);
     }
 
 

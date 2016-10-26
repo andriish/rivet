@@ -48,29 +48,29 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abseta < 4.9), "vfs");
 
       // Book histograms
-      _count_1l_3jet_all_channel  = bookHisto1D("count_1l_3jet_all_channel", 1, 0., 1.);
-      _count_1l_3jet_e_channel    = bookHisto1D("count_1l_3jet_e_channel"  , 1, 0., 1.);
-      _count_1l_3jet_mu_channel   = bookHisto1D("count_1l_3jet_mu_channel" , 1, 0., 1.);
-      _count_1l_4jet_all_channel  = bookHisto1D("count_1l_4jet_all_channel", 1, 0., 1.);
-      _count_1l_4jet_e_channel    = bookHisto1D("count_1l_4jet_e_channel"  , 1, 0., 1.);
-      _count_1l_4jet_mu_channel   = bookHisto1D("count_1l_4jet_mu_channel" , 1, 0., 1.);
-      _count_1l_soft_all_channel  = bookHisto1D("count_1l_soft_all_channel", 1, 0., 1.);
-      _count_1l_soft_e_channel    = bookHisto1D("count_1l_soft_e_channel"  , 1, 0., 1.);
-      _count_1l_soft_mu_channel   = bookHisto1D("count_1l_soft_mu_channel" , 1, 0., 1.);
+      book(_count_1l_3jet_all_channel  ,"count_1l_3jet_all_channel", 1, 0., 1.);
+      book(_count_1l_3jet_e_channel    ,"count_1l_3jet_e_channel"  , 1, 0., 1.);
+      book(_count_1l_3jet_mu_channel   ,"count_1l_3jet_mu_channel" , 1, 0., 1.);
+      book(_count_1l_4jet_all_channel  ,"count_1l_4jet_all_channel", 1, 0., 1.);
+      book(_count_1l_4jet_e_channel    ,"count_1l_4jet_e_channel"  , 1, 0., 1.);
+      book(_count_1l_4jet_mu_channel   ,"count_1l_4jet_mu_channel" , 1, 0., 1.);
+      book(_count_1l_soft_all_channel  ,"count_1l_soft_all_channel", 1, 0., 1.);
+      book(_count_1l_soft_e_channel    ,"count_1l_soft_e_channel"  , 1, 0., 1.);
+      book(_count_1l_soft_mu_channel   ,"count_1l_soft_mu_channel" , 1, 0., 1.);
 
-      _count_2l_2jet_all_channel  = bookHisto1D("count_2l_2jet_all_channel" , 1, 0., 1.);
-      _count_2l_2jet_ee_channel   = bookHisto1D("count_2l_2jet_ee_channel"  , 1, 0., 1.);
-      _count_2l_2jet_emu_channel  = bookHisto1D("count_2l_2jet_emu_channel" , 1, 0., 1.);
-      _count_2l_2jet_mumu_channel = bookHisto1D("count_2l_2jet_mumu_channel", 1, 0., 1.);
-      _count_2l_4jet_all_channel  = bookHisto1D("count_2l_4jet_all_channel" , 1, 0., 1.);
-      _count_2l_4jet_ee_channel   = bookHisto1D("count_2l_4jet_ee_channel"  , 1, 0., 1.);
-      _count_2l_4jet_emu_channel  = bookHisto1D("count_2l_4jet_emu_channel" , 1, 0., 1.);
-      _count_2l_4jet_mumu_channel = bookHisto1D("count_2l_4jet_mumu_channel", 1, 0., 1.);
-      _hist_1l_m_eff_3jet        = bookHisto1D("hist_1l_m_eff_3jet"       ,  6, 400., 1600.);
-      _hist_1l_m_eff_4jet        = bookHisto1D("hist_1l_m_eff_4jet"       ,  4, 800., 1600.);
-      _hist_1l_eTmiss_m_eff_soft = bookHisto1D("hist_1l_eTmiss_m_eff_soft",  6, 0.1 , 0.7  );
-      _hist_2l_m_eff_2jet        = bookHisto1D("hist_2l_m_eff_2jet"       ,  5, 700., 1700.);
-      _hist_2l_m_eff_4jet        = bookHisto1D("hist_2l_m_eff_4jet"       ,  5, 600., 1600.);
+      book(_count_2l_2jet_all_channel  ,"count_2l_2jet_all_channel" , 1, 0., 1.);
+      book(_count_2l_2jet_ee_channel   ,"count_2l_2jet_ee_channel"  , 1, 0., 1.);
+      book(_count_2l_2jet_emu_channel  ,"count_2l_2jet_emu_channel" , 1, 0., 1.);
+      book(_count_2l_2jet_mumu_channel ,"count_2l_2jet_mumu_channel", 1, 0., 1.);
+      book(_count_2l_4jet_all_channel  ,"count_2l_4jet_all_channel" , 1, 0., 1.);
+      book(_count_2l_4jet_ee_channel   ,"count_2l_4jet_ee_channel"  , 1, 0., 1.);
+      book(_count_2l_4jet_emu_channel  ,"count_2l_4jet_emu_channel" , 1, 0., 1.);
+      book(_count_2l_4jet_mumu_channel ,"count_2l_4jet_mumu_channel", 1, 0., 1.);
+      book(_hist_1l_m_eff_3jet        ,"hist_1l_m_eff_3jet"       ,  6, 400., 1600.);
+      book(_hist_1l_m_eff_4jet        ,"hist_1l_m_eff_4jet"       ,  4, 800., 1600.);
+      book(_hist_1l_eTmiss_m_eff_soft ,"hist_1l_eTmiss_m_eff_soft",  6, 0.1 , 0.7  );
+      book(_hist_2l_m_eff_2jet        ,"hist_2l_m_eff_2jet"       ,  5, 700., 1700.);
+      book(_hist_2l_m_eff_4jet        ,"hist_2l_m_eff_4jet"       ,  5, 600., 1600.);
     }
 
 

@@ -26,8 +26,8 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
       declare(UnstableFinalState(), "UFS");
 
-      _histXbweak     = bookHisto1D(1, 1, 1);
-      _histMeanXbweak = bookProfile1D(2, 1, 1);
+      book(_histXbweak     ,1, 1, 1);
+      book(_histMeanXbweak ,2, 1, 1);
     }
 
 

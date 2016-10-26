@@ -32,7 +32,7 @@ namespace Rivet {
 
       declare(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
 
-      _hist_nch = bookHisto1D(1, 1, 1);
+      book(_hist_nch ,1, 1, 1);
     }
 
 

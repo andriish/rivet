@@ -57,22 +57,22 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::abseta < 3),"cfs");
 
       /// Book histograms
-      _etmiss_HT_7j55 = bookHisto1D("etmiss_HT_7j55", 8, 0., 16.);
-      _etmiss_HT_8j55 = bookHisto1D("etmiss_HT_8j55", 8, 0., 16.);
-      _etmiss_HT_9j55 = bookHisto1D("etmiss_HT_9j55", 8, 0., 16.);
-      _etmiss_HT_6j80 = bookHisto1D("etmiss_HT_6j80", 8, 0., 16.);
-      _etmiss_HT_7j80 = bookHisto1D("etmiss_HT_7j80", 8, 0., 16.);
-      _etmiss_HT_8j80 = bookHisto1D("etmiss_HT_8j80", 8, 0., 16.);
+      book(_etmiss_HT_7j55 ,"etmiss_HT_7j55", 8, 0., 16.);
+      book(_etmiss_HT_8j55 ,"etmiss_HT_8j55", 8, 0., 16.);
+      book(_etmiss_HT_9j55 ,"etmiss_HT_9j55", 8, 0., 16.);
+      book(_etmiss_HT_6j80 ,"etmiss_HT_6j80", 8, 0., 16.);
+      book(_etmiss_HT_7j80 ,"etmiss_HT_7j80", 8, 0., 16.);
+      book(_etmiss_HT_8j80 ,"etmiss_HT_8j80", 8, 0., 16.);
 
-      _hist_njet55 = bookHisto1D("hist_njet55", 11, 2.5, 13.5);
-      _hist_njet80 = bookHisto1D("hist_njet80", 11, 2.5, 13.5);
+      book(_hist_njet55 ,"hist_njet55", 11, 2.5, 13.5);
+      book(_hist_njet80 ,"hist_njet80", 11, 2.5, 13.5);
 
-      _count_7j55 = bookHisto1D("count_7j55", 1, 0., 1.);
-      _count_8j55 = bookHisto1D("count_8j55", 1, 0., 1.);
-      _count_9j55 = bookHisto1D("count_9j55", 1, 0., 1.);
-      _count_6j80 = bookHisto1D("count_6j80", 1, 0., 1.);
-      _count_7j80 = bookHisto1D("count_7j80", 1, 0., 1.);
-      _count_8j80 = bookHisto1D("count_8j80", 1, 0., 1.);
+      book(_count_7j55 ,"count_7j55", 1, 0., 1.);
+      book(_count_8j55 ,"count_8j55", 1, 0., 1.);
+      book(_count_9j55 ,"count_9j55", 1, 0., 1.);
+      book(_count_6j80 ,"count_6j80", 1, 0., 1.);
+      book(_count_7j80 ,"count_7j80", 1, 0., 1.);
+      book(_count_8j80 ,"count_8j80", 1, 0., 1.);
 
     }
 

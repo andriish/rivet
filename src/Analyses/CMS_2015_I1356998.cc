@@ -17,11 +17,11 @@ namespace Rivet {
 
       declare(FinalState(),"FS");
 
-      _h_noCASTORtag = bookHisto1D(1, 1, 1);
-      _h_CASTORtag   = bookHisto1D(2, 1, 1);
-      _h_centralGap  = bookHisto1D(3, 1, 1);
-      _h_sigmaVis    = bookHisto1D(4, 1, 1);
-      _h_maxFwdGap   = bookHisto1D(5, 1, 1);
+      book(_h_noCASTORtag ,1, 1, 1);
+      book(_h_CASTORtag   ,2, 1, 1);
+      book(_h_centralGap  ,3, 1, 1);
+      book(_h_sigmaVis    ,4, 1, 1);
+      book(_h_maxFwdGap   ,5, 1, 1);
 
     }
 

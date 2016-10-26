@@ -64,13 +64,13 @@ namespace Rivet {
       const LossyFinalState<STARRandomFilter> lfs(cfs, STARRandomFilter());
       declare(lfs, "FS");
 
-      _h_dNch           = bookHisto1D(1, 1, 1);
-      _h_dpT_Pi         = bookHisto1D(2, 1, 1);
-      _h_dpT_Piplus     = bookHisto1D(2, 1, 2);
-      _h_dpT_Kaon       = bookHisto1D(2, 1, 3);
-      _h_dpT_Kaonplus   = bookHisto1D(2, 1, 4);
-      _h_dpT_AntiProton = bookHisto1D(2, 1, 5);
-      _h_dpT_Proton     = bookHisto1D(2, 1, 6);
+      book(_h_dNch           ,1, 1, 1);
+      book(_h_dpT_Pi         ,2, 1, 1);
+      book(_h_dpT_Piplus     ,2, 1, 2);
+      book(_h_dpT_Kaon       ,2, 1, 3);
+      book(_h_dpT_Kaonplus   ,2, 1, 4);
+      book(_h_dpT_AntiProton ,2, 1, 5);
+      book(_h_dpT_Proton     ,2, 1, 6);
     }
 
 

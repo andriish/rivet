@@ -37,12 +37,12 @@ namespace Rivet {
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       declare(conefinder, "ConeFinder");
 
-      _h_jet1_pT_constrained = bookHisto1D(1, 1, 1);
-      _h_jet2_pT_constrained = bookHisto1D(3, 1, 1);
-      _h_jet3_pT_constrained = bookHisto1D(5, 1, 1);
-      _h_jet1_pT = bookHisto1D(2, 1, 1);
-      _h_jet2_pT = bookHisto1D(4, 1, 1);
-      _h_jet3_pT = bookHisto1D(6, 1, 1);
+      book(_h_jet1_pT_constrained ,1, 1, 1);
+      book(_h_jet2_pT_constrained ,3, 1, 1);
+      book(_h_jet3_pT_constrained ,5, 1, 1);
+      book(_h_jet1_pT ,2, 1, 1);
+      book(_h_jet2_pT ,4, 1, 1);
+      book(_h_jet3_pT ,6, 1, 1);
     }
 
 

@@ -22,12 +22,12 @@ namespace Rivet {
 
       // Particle distributions versus rapidity and transverse momentum
       if (fuzzyEquals(sqrtS()/GeV, 900*GeV)){
-        _h_dNKshort_dy  = bookHisto1D(1, 1, 1);
-        _h_dNKshort_dpT = bookHisto1D(2, 1, 1);
-        _h_dNLambda_dy  = bookHisto1D(3, 1, 1);
-        _h_dNLambda_dpT = bookHisto1D(4, 1, 1);
-        _h_dNXi_dy      = bookHisto1D(5, 1, 1);
-        _h_dNXi_dpT     = bookHisto1D(6, 1, 1);
+        book(_h_dNKshort_dy  ,1, 1, 1);
+        book(_h_dNKshort_dpT ,2, 1, 1);
+        book(_h_dNLambda_dy  ,3, 1, 1);
+        book(_h_dNLambda_dpT ,4, 1, 1);
+        book(_h_dNXi_dy      ,5, 1, 1);
+        book(_h_dNXi_dpT     ,6, 1, 1);
         //
         _h_LampT_KpT    = bookScatter2D(7, 1, 1);
         _h_XipT_LampT   = bookScatter2D(8, 1, 1);
@@ -35,12 +35,12 @@ namespace Rivet {
         _h_Xiy_Lamy     = bookScatter2D(10, 1, 1);
 
       } else if (fuzzyEquals(sqrtS()/GeV, 7000*GeV)){
-        _h_dNKshort_dy  = bookHisto1D(1, 1, 2);
-        _h_dNKshort_dpT = bookHisto1D(2, 1, 2);
-        _h_dNLambda_dy  = bookHisto1D(3, 1, 2);
-        _h_dNLambda_dpT = bookHisto1D(4, 1, 2);
-        _h_dNXi_dy      = bookHisto1D(5, 1, 2);
-        _h_dNXi_dpT     = bookHisto1D(6, 1, 2);
+        book(_h_dNKshort_dy  ,1, 1, 2);
+        book(_h_dNKshort_dpT ,2, 1, 2);
+        book(_h_dNLambda_dy  ,3, 1, 2);
+        book(_h_dNLambda_dpT ,4, 1, 2);
+        book(_h_dNXi_dy      ,5, 1, 2);
+        book(_h_dNXi_dpT     ,6, 1, 2);
         //
         _h_LampT_KpT    = bookScatter2D(7, 1, 2);
         _h_XipT_LampT   = bookScatter2D(8, 1, 2);

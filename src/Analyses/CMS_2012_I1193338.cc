@@ -18,7 +18,7 @@ namespace Rivet {
       declare(ChargedFinalState(-2.4, 2.4, 0.2*GeV), "CFS");
       declare(FinalState(), "FS");
 
-      _h_sigma = bookHisto1D(1, 1, 1);
+      book(_h_sigma ,1, 1, 1);
     }
 
 

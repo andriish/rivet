@@ -30,9 +30,9 @@ namespace Rivet {
 
       // Book histo
       if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
-        _hist_pt = bookHisto1D(1, 1, 1);
+        book(_hist_pt ,1, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
-        _hist_pt = bookHisto1D(2, 1, 1);
+        book(_hist_pt ,2, 1, 1);
       }
     }
 

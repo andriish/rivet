@@ -50,24 +50,24 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abseta < 4.5), "vfs");
 
       // Book histograms
-      _count_A_tight   = bookHisto1D("count_A_tight"   , 1, 0., 1.);
-      _count_A_medium  = bookHisto1D("count_A_medium"  , 1, 0., 1.);
-      _count_Ap_medium = bookHisto1D("count_Ap_medium" , 1, 0., 1.);
-      _count_B_tight   = bookHisto1D("count_B_tight"   , 1, 0., 1.);
-      _count_C_tight   = bookHisto1D("count_C_tight"   , 1, 0., 1.);
-      _count_C_medium  = bookHisto1D("count_C_medium"  , 1, 0., 1.);
-      _count_C_loose   = bookHisto1D("count_C_loose"   , 1, 0., 1.);
-      _count_D_tight   = bookHisto1D("count_D_tight"   , 1, 0., 1.);
-      _count_E_tight   = bookHisto1D("count_E_tight"   , 1, 0., 1.);
-      _count_E_medium  = bookHisto1D("count_E_medium"  , 1, 0., 1.);
-      _count_E_loose   = bookHisto1D("count_E_loose"   , 1, 0., 1.);
+      book(_count_A_tight   ,"count_A_tight"   , 1, 0., 1.);
+      book(_count_A_medium  ,"count_A_medium"  , 1, 0., 1.);
+      book(_count_Ap_medium ,"count_Ap_medium" , 1, 0., 1.);
+      book(_count_B_tight   ,"count_B_tight"   , 1, 0., 1.);
+      book(_count_C_tight   ,"count_C_tight"   , 1, 0., 1.);
+      book(_count_C_medium  ,"count_C_medium"  , 1, 0., 1.);
+      book(_count_C_loose   ,"count_C_loose"   , 1, 0., 1.);
+      book(_count_D_tight   ,"count_D_tight"   , 1, 0., 1.);
+      book(_count_E_tight   ,"count_E_tight"   , 1, 0., 1.);
+      book(_count_E_medium  ,"count_E_medium"  , 1, 0., 1.);
+      book(_count_E_loose   ,"count_E_loose"   , 1, 0., 1.);
 
-      _hist_meff_A  = bookHisto1D("hist_m_eff_A" , 30, 0., 3000.);
-      _hist_meff_Ap = bookHisto1D("hist_m_eff_Ap", 30, 0., 3000.);
-      _hist_meff_B  = bookHisto1D("hist_m_eff_B" , 30, 0., 3000.);
-      _hist_meff_C  = bookHisto1D("hist_m_eff_C" , 30, 0., 3000.);
-      _hist_meff_D  = bookHisto1D("hist_m_eff_D" , 30, 0., 3000.);
-      _hist_meff_E  = bookHisto1D("hist_m_eff_E" , 30, 0., 3000.);
+      book(_hist_meff_A  ,"hist_m_eff_A" , 30, 0., 3000.);
+      book(_hist_meff_Ap ,"hist_m_eff_Ap", 30, 0., 3000.);
+      book(_hist_meff_B  ,"hist_m_eff_B" , 30, 0., 3000.);
+      book(_hist_meff_C  ,"hist_m_eff_C" , 30, 0., 3000.);
+      book(_hist_meff_D  ,"hist_m_eff_D" , 30, 0., 3000.);
+      book(_hist_meff_E  ,"hist_m_eff_E" , 30, 0., 3000.);
 
     }
 

@@ -28,13 +28,13 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS(),   7*TeV)) isqrts = 1;
       assert(isqrts > 0);
 
-      _sE_10_100   = bookHisto1D(isqrts, 1, 1);
-      _sE_1_100    = bookHisto1D(isqrts, 1, 2);
-      _sE_10_500   = bookHisto1D(isqrts, 1, 3);
+      book(_sE_10_100   ,isqrts, 1, 1);
+      book(_sE_1_100    ,isqrts, 1, 2);
+      book(_sE_10_500   ,isqrts, 1, 3);
 
-      _sEta_10_100 = bookHisto1D(isqrts, 2, 1);
-      _sEta_1_100  = bookHisto1D(isqrts, 2, 2);
-      _sEta_10_500 = bookHisto1D(isqrts, 2, 3);
+      book(_sEta_10_100 ,isqrts, 2, 1);
+      book(_sEta_1_100  ,isqrts, 2, 2);
+      book(_sEta_10_500 ,isqrts, 2, 3);
 
       norm_inclusive = 0.;
       norm_lowPt = 0.;

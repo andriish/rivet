@@ -23,7 +23,7 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // Book histograms
-      _h_q2 = bookHisto1D(1, 1, 1);
+      book(_h_q2 ,1, 1, 1);
     }
 
     // Calculate the Q2 using mother and daugher meson

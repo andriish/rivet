@@ -68,15 +68,15 @@ namespace Rivet {
 
 
       /// book histograms
-      _count_OS_e_mu = bookHisto1D("count_OS_e+-mu-+", 1, 0., 1.);
-      _count_OS_e_e = bookHisto1D("count_OS_e+e-", 1, 0., 1.);
-      _count_OS_mu_mu = bookHisto1D("count_OS_mu+mu-", 1, 0., 1.);
-      _count_SS_e_mu = bookHisto1D("count_SS_e+-mu+-", 1, 0., 1.);
-      _count_SS_e_e = bookHisto1D("count_SS_e+-e+-", 1, 0., 1.);
-      _count_SS_mu_mu = bookHisto1D("count_SS_mu+-mu+-", 1, 0., 1.);
+      book(_count_OS_e_mu ,"count_OS_e+-mu-+", 1, 0., 1.);
+      book(_count_OS_e_e ,"count_OS_e+e-", 1, 0., 1.);
+      book(_count_OS_mu_mu ,"count_OS_mu+mu-", 1, 0., 1.);
+      book(_count_SS_e_mu ,"count_SS_e+-mu+-", 1, 0., 1.);
+      book(_count_SS_e_e ,"count_SS_e+-e+-", 1, 0., 1.);
+      book(_count_SS_mu_mu ,"count_SS_mu+-mu+-", 1, 0., 1.);
 
-      _hist_eTmiss_OS  = bookHisto1D("Et_miss_OS", 20, 0., 400.);
-      _hist_eTmiss_SS  = bookHisto1D("Et_miss_SS", 20, 0., 400.);
+      book(_hist_eTmiss_OS  ,"Et_miss_OS", 20, 0., 400.);
+      book(_hist_eTmiss_SS  ,"Et_miss_SS", 20, 0., 400.);
 
     }
 

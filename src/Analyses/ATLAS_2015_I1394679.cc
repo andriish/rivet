@@ -27,23 +27,23 @@ namespace Rivet {
       declare(fj04, "AntiKt4jets");
 
       // Histograms
-      _h["pt1"] = bookHisto1D(1, 1, 1);
-      _h["pt2"] = bookHisto1D(2, 1, 1);
-      _h["pt3"] = bookHisto1D(3, 1, 1);
-      _h["pt4"] = bookHisto1D(4, 1, 1);
-      _h["HT"]  = bookHisto1D(5, 1, 1);
-      _h["M4j"] = bookHisto1D(6, 1, 1);
+      book(_h["pt1"] ,1, 1, 1);
+      book(_h["pt2"] ,2, 1, 1);
+      book(_h["pt3"] ,3, 1, 1);
+      book(_h["pt4"] ,4, 1, 1);
+      book(_h["HT"]  ,5, 1, 1);
+      book(_h["M4j"] ,6, 1, 1);
 
       // Histograms with different pt/m4j cuts
       for (size_t i_hist = 0; i_hist < 4; ++i_hist) {
-        _h["M2jratio_"+to_str(i_hist)] = bookHisto1D( 7 + i_hist, 1, 1);
-        _h["dPhiMin2j_"+to_str(i_hist)] = bookHisto1D(11 + i_hist, 1, 1);
-        _h["dPhiMin3j_"+to_str(i_hist)] = bookHisto1D(15 + i_hist, 1, 1);
-        _h["dYMin2j_"+to_str(i_hist)] = bookHisto1D(19 + i_hist, 1, 1);
-        _h["dYMin3j_"+to_str(i_hist)] = bookHisto1D(23 + i_hist, 1, 1);
-        _h["dYMax2j_"+to_str(i_hist)] = bookHisto1D(27 + i_hist, 1, 1);
+        book(_h["M2jratio_"+to_str(i_hist)] , 7 + i_hist, 1, 1);
+        book(_h["dPhiMin2j_"+to_str(i_hist)] ,11 + i_hist, 1, 1);
+        book(_h["dPhiMin3j_"+to_str(i_hist)] ,15 + i_hist, 1, 1);
+        book(_h["dYMin2j_"+to_str(i_hist)] ,19 + i_hist, 1, 1);
+        book(_h["dYMin3j_"+to_str(i_hist)] ,23 + i_hist, 1, 1);
+        book(_h["dYMax2j_"+to_str(i_hist)] ,27 + i_hist, 1, 1);
         for (size_t ygap = 0; ygap < 4; ++ygap) {
-          _h["sumPtCent_"+to_str(ygap)+to_str(i_hist)] = bookHisto1D(31 + i_hist + ygap * 4, 1, 1);
+          book(_h["sumPtCent_"+to_str(ygap)+to_str(i_hist)] ,31 + i_hist + ygap * 4, 1, 1);
         }
       }
 

@@ -19,12 +19,12 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       // Plots from the paper
-      _histPtSigmaStarPlus        = bookHisto1D("d01-x01-y01");    // Sigma*+
-      _histPtSigmaStarMinus       = bookHisto1D("d01-x01-y02");    // Sigma*- 
-      _histPtSigmaStarPlusAnti    = bookHisto1D("d01-x01-y03");    // anti Sigma*-
-      _histPtSigmaStarMinusAnti   = bookHisto1D("d01-x01-y04");    // anti Sigma*+
-      _histPtXiStar               = bookHisto1D("d02-x01-y01");    // 0.5 * (xi star + anti xi star)
-      _histAveragePt              = bookProfile1D("d03-x01-y01");  // <pT> profile
+      book(_histPtSigmaStarPlus        ,"d01-x01-y01");    // Sigma*+
+      book(_histPtSigmaStarMinus       ,"d01-x01-y02");    // Sigma*- 
+      book(_histPtSigmaStarPlusAnti    ,"d01-x01-y03");    // anti Sigma*-
+      book(_histPtSigmaStarMinusAnti   ,"d01-x01-y04");    // anti Sigma*+
+      book(_histPtXiStar               ,"d02-x01-y01");    // 0.5 * (xi star + anti xi star)
+      book(_histAveragePt              ,"d03-x01-y01");  // <pT> profile
     }
 
 

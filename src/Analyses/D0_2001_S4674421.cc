@@ -54,8 +54,8 @@ namespace Rivet {
       _eventsFilledZ = 0.0;
 
       // Histograms
-      _h_dsigdpt_w = bookHisto1D(1, 1, 1);
-      _h_dsigdpt_z = bookHisto1D(1, 1, 2);
+      book(_h_dsigdpt_w ,1, 1, 1);
+      book(_h_dsigdpt_z ,1, 1, 2);
       _h_dsigdpt_scaled_z = bookScatter2D(2, 1, 1);
     }
 

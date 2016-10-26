@@ -19,13 +19,13 @@ namespace Rivet {
       const ChargedFinalState cfs(-15, 15);
       declare(cfs, "CFS");
 
-      _histPtPions        = bookHisto1D("d01-x01-y01");
-      _histPtAntiPions    = bookHisto1D("d01-x01-y02");
-      _histPtKaons        = bookHisto1D("d02-x01-y01");
-      _histPtAntiKaons    = bookHisto1D("d02-x01-y02");
-      _histPtProtons      = bookHisto1D("d03-x01-y01");
-      _histPtAntiProtons  = bookHisto1D("d03-x01-y02");
-      _histAveragePt      = bookProfile1D("d04-x01-y01");
+      book(_histPtPions        ,"d01-x01-y01");
+      book(_histPtAntiPions    ,"d01-x01-y02");
+      book(_histPtKaons        ,"d02-x01-y01");
+      book(_histPtAntiKaons    ,"d02-x01-y02");
+      book(_histPtProtons      ,"d03-x01-y01");
+      book(_histPtAntiProtons  ,"d03-x01-y02");
+      book(_histAveragePt      ,"d04-x01-y01");
     }
 
 

@@ -29,10 +29,10 @@ namespace Rivet {
       declare(fs, "FS");
 
       // Histograms with data bins
-      _h_pTH_incl   = bookHisto1D(1,1,1);
-      _h_yH_incl    = bookHisto1D(2,1,1);
-      _h_Njets_incl = bookHisto1D(3,1,1);
-      _h_pTj1_incl  = bookHisto1D(4,1,1);
+      book(_h_pTH_incl   ,1,1,1);
+      book(_h_yH_incl    ,2,1,1);
+      book(_h_Njets_incl ,3,1,1);
+      book(_h_pTj1_incl  ,4,1,1);
     }
 
 

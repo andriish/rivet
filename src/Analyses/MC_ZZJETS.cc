@@ -39,12 +39,12 @@ namespace Rivet {
       declare(jetpro, "Jets");
 
       // Correlations with jets
-      _h_ZZ_jet1_deta = bookHisto1D("ZZ_jet1_deta", 70, -7.0, 7.0);
-      _h_ZZ_jet1_dR = bookHisto1D("ZZ_jet1_dR", 25, 1.5, 7.0);
-      _h_Ze_jet1_dR = bookHisto1D("Ze_jet1_dR", 25, 0.0, 7.0);
+      book(_h_ZZ_jet1_deta ,"ZZ_jet1_deta", 70, -7.0, 7.0);
+      book(_h_ZZ_jet1_dR ,"ZZ_jet1_dR", 25, 1.5, 7.0);
+      book(_h_Ze_jet1_dR ,"Ze_jet1_dR", 25, 0.0, 7.0);
 
       // Global stuff
-      _h_HT = bookHisto1D("HT", logspace(100, 100.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
+      book(_h_HT ,"HT", logspace(100, 100.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
 
       MC_JetAnalysis::init();
     }

@@ -2,6 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
+#include <array>
 
 namespace Rivet {
 
@@ -27,10 +28,10 @@ namespace Rivet {
       ifs.acceptId(PID::PHOTON);
       declare(ifs, "IFS");
 
-      for (size_t yAxisId=1; yAxisId<5; ++yAxisId) {
-        _h_m_PP.push_back(bookHisto1D(1, 1, yAxisId));
-        _h_pT_PP.push_back(bookHisto1D(2, 1, yAxisId));
-        _h_dphi_PP.push_back(bookHisto1D(3, 1, yAxisId));
+      for (size_t yAxisId=0; yAxisId<4; ++yAxisId) {
+        book(_h_m_PP[yAxisId],    1, 1, yAxisId + 1);
+        book(_h_pT_PP[yAxisId],   2, 1, yAxisId + 1);
+        book(_h_dphi_PP[yAxisId], 3, 1, yAxisId + 1);
       }
     }
 
@@ -89,9 +90,9 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    std::vector<Histo1DPtr> _h_m_PP;
-    std::vector<Histo1DPtr> _h_pT_PP;
-    std::vector<Histo1DPtr> _h_dphi_PP;
+    std::array<Histo1DPtr,4> _h_m_PP;
+    std::array<Histo1DPtr,4> _h_pT_PP;
+    std::array<Histo1DPtr,4> _h_dphi_PP;
     //@}
 
 

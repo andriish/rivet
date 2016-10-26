@@ -49,13 +49,13 @@ namespace Rivet {
       jetpro.useInvisibles();
       declare(jetpro, "Jets");
 
-      _h_phbarrel_jetcentral_SS = bookHisto1D(1, 1, 1);
-      _h_phbarrel_jetmedium_SS  = bookHisto1D(2, 1, 1);
-      _h_phbarrel_jetforward_SS = bookHisto1D(3, 1, 1);
+      book(_h_phbarrel_jetcentral_SS ,1, 1, 1);
+      book(_h_phbarrel_jetmedium_SS  ,2, 1, 1);
+      book(_h_phbarrel_jetforward_SS ,3, 1, 1);
 
-      _h_phbarrel_jetcentral_OS = bookHisto1D(4, 1, 1);
-      _h_phbarrel_jetmedium_OS  = bookHisto1D(5, 1, 1);
-      _h_phbarrel_jetforward_OS = bookHisto1D(6, 1, 1);
+      book(_h_phbarrel_jetcentral_OS ,4, 1, 1);
+      book(_h_phbarrel_jetmedium_OS  ,5, 1, 1);
+      book(_h_phbarrel_jetforward_OS ,6, 1, 1);
     }
 
 

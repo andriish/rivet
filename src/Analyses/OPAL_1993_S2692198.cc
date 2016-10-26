@@ -124,11 +124,11 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Book datasets
-      _nPhotonJade   = bookHisto1D(1, 1, 1);
-      _nPhotonDurham = bookHisto1D(2, 1, 1);
+      book(_nPhotonJade   ,1, 1, 1);
+      book(_nPhotonDurham ,2, 1, 1);
       for (size_t ix = 0; ix < 4; ++ix) {
-        _nPhotonJetJade  [ix] = bookHisto1D(3 , 1, 1+ix);
-        _nPhotonJetDurham[ix] = bookHisto1D(4 , 1, 1+ix);
+        book(_nPhotonJetJade  [ix] ,3 , 1, 1+ix);
+        book(_nPhotonJetDurham[ix] ,4 , 1, 1+ix);
       }
     }
 

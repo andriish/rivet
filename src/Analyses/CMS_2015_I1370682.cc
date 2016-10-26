@@ -104,26 +104,26 @@ namespace Rivet {
       declare(PseudoTop(0.1, 20, 2.4, 0.5, 30, 2.4), "ttbar");
 
       // Lepton + Jet channel
-      _hSL_topPt         = bookHisto1D("d15-x01-y01"); // 1/sigma dsigma/dpt(top)
-      _hSL_topPtTtbarSys = bookHisto1D("d16-x01-y01"); // 1/sigma dsigma/dpt*(top)
-      _hSL_topY          = bookHisto1D("d17-x01-y01"); // 1/sigma dsigma/dy(top)
-      _hSL_ttbarDelPhi   = bookHisto1D("d18-x01-y01"); // 1/sigma dsigma/ddeltaphi(t,tbar)
-      _hSL_topPtLead     = bookHisto1D("d19-x01-y01"); // 1/sigma dsigma/dpt(t1)
-      _hSL_topPtSubLead  = bookHisto1D("d20-x01-y01"); // 1/sigma dsigma/dpt(t2)
-      _hSL_ttbarPt       = bookHisto1D("d21-x01-y01"); // 1/sigma dsigma/dpt(ttbar)
-      _hSL_ttbarY        = bookHisto1D("d22-x01-y01"); // 1/sigma dsigma/dy(ttbar)
-      _hSL_ttbarMass     = bookHisto1D("d23-x01-y01"); // 1/sigma dsigma/dm(ttbar)
+      book(_hSL_topPt         ,"d15-x01-y01"); // 1/sigma dsigma/dpt(top)
+      book(_hSL_topPtTtbarSys ,"d16-x01-y01"); // 1/sigma dsigma/dpt*(top)
+      book(_hSL_topY          ,"d17-x01-y01"); // 1/sigma dsigma/dy(top)
+      book(_hSL_ttbarDelPhi   ,"d18-x01-y01"); // 1/sigma dsigma/ddeltaphi(t,tbar)
+      book(_hSL_topPtLead     ,"d19-x01-y01"); // 1/sigma dsigma/dpt(t1)
+      book(_hSL_topPtSubLead  ,"d20-x01-y01"); // 1/sigma dsigma/dpt(t2)
+      book(_hSL_ttbarPt       ,"d21-x01-y01"); // 1/sigma dsigma/dpt(ttbar)
+      book(_hSL_ttbarY        ,"d22-x01-y01"); // 1/sigma dsigma/dy(ttbar)
+      book(_hSL_ttbarMass     ,"d23-x01-y01"); // 1/sigma dsigma/dm(ttbar)
 
       // Dilepton channel
-      _hDL_topPt         = bookHisto1D("d24-x01-y01"); // 1/sigma dsigma/dpt(top)
-      _hDL_topPtTtbarSys = bookHisto1D("d25-x01-y01"); // 1/sigma dsigma/dpt*(top)
-      _hDL_topY          = bookHisto1D("d26-x01-y01"); // 1/sigma dsigma/dy(top)
-      _hDL_ttbarDelPhi   = bookHisto1D("d27-x01-y01"); // 1/sigma dsigma/ddeltaphi(t,tbar)
-      _hDL_topPtLead     = bookHisto1D("d28-x01-y01"); // 1/sigma dsigma/dpt(t1)
-      _hDL_topPtSubLead  = bookHisto1D("d29-x01-y01"); // 1/sigma dsigma/dpt(t2)
-      _hDL_ttbarPt       = bookHisto1D("d30-x01-y01"); // 1/sigma dsigma/dpt(ttbar)
-      _hDL_ttbarY        = bookHisto1D("d31-x01-y01"); // 1/sigma dsigma/dy(ttbar)
-      _hDL_ttbarMass     = bookHisto1D("d32-x01-y01"); // 1/sigma dsigma/dm(ttbar)
+      book(_hDL_topPt         ,"d24-x01-y01"); // 1/sigma dsigma/dpt(top)
+      book(_hDL_topPtTtbarSys ,"d25-x01-y01"); // 1/sigma dsigma/dpt*(top)
+      book(_hDL_topY          ,"d26-x01-y01"); // 1/sigma dsigma/dy(top)
+      book(_hDL_ttbarDelPhi   ,"d27-x01-y01"); // 1/sigma dsigma/ddeltaphi(t,tbar)
+      book(_hDL_topPtLead     ,"d28-x01-y01"); // 1/sigma dsigma/dpt(t1)
+      book(_hDL_topPtSubLead  ,"d29-x01-y01"); // 1/sigma dsigma/dpt(t2)
+      book(_hDL_ttbarPt       ,"d30-x01-y01"); // 1/sigma dsigma/dpt(ttbar)
+      book(_hDL_ttbarY        ,"d31-x01-y01"); // 1/sigma dsigma/dy(ttbar)
+      book(_hDL_ttbarMass     ,"d32-x01-y01"); // 1/sigma dsigma/dm(ttbar)
 
     }
 

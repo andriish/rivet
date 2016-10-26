@@ -23,7 +23,7 @@ namespace Rivet {
 
     for (size_t i = 0; i < m_njet; ++i) {
       string dname = "log10_d_" + to_str(i) + to_str(i+1);
-      _h_log10_d[i] = bookHisto1D(dname, 100, 0.2, log10(0.5*sqrts/GeV));
+      book(_h_log10_d[i] ,dname, 100, 0.2, log10(0.5*sqrts/GeV));
       string Rname = "log10_R_" + to_str(i);
       _h_log10_R[i] = bookScatter2D(Rname, 50, 0.2, log10(0.5*sqrts/GeV));
     }

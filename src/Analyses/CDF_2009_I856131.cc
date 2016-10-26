@@ -38,8 +38,8 @@ namespace Rivet {
 
 
       /// Book histograms here
-      _h_xs = bookHisto1D(1, 1, 1);
-      _h_yZ = bookHisto1D(2, 1, 1);
+      book(_h_xs ,1, 1, 1);
+      book(_h_yZ ,2, 1, 1);
 
     }
 

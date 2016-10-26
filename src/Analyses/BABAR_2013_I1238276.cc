@@ -20,12 +20,12 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
 
-      _histPion_no_dec   = bookHisto1D(1,1,1);
-      _histKaon_no_dec   = bookHisto1D(1,1,2);
-      _histProton_no_dec = bookHisto1D(1,1,3);
-      _histPion_dec      = bookHisto1D(2,1,1);
-      _histKaon_dec      = bookHisto1D(2,1,2);
-      _histProton_dec    = bookHisto1D(2,1,3);
+      book(_histPion_no_dec   ,1,1,1);
+      book(_histKaon_no_dec   ,1,1,2);
+      book(_histProton_no_dec ,1,1,3);
+      book(_histPion_dec      ,2,1,1);
+      book(_histKaon_dec      ,2,1,2);
+      book(_histProton_dec    ,2,1,3);
     }
 
 

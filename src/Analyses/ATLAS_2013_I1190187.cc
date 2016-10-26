@@ -63,10 +63,10 @@ namespace Rivet {
       declare(jetpro, "jet");
 
       // Book histograms
-      _h_Wl1_pT_mumu = bookHisto1D(1, 1, 2);
-      _h_Wl1_pT_ee = bookHisto1D(1, 1, 1);
-      _h_Wl1_pT_emu = bookHisto1D(1, 1, 3);
-      _h_Wl1_pT_inclusive = bookHisto1D(4, 1, 1);
+      book(_h_Wl1_pT_mumu ,1, 1, 2);
+      book(_h_Wl1_pT_ee ,1, 1, 1);
+      book(_h_Wl1_pT_emu ,1, 1, 3);
+      book(_h_Wl1_pT_inclusive ,4, 1, 1);
     }
 
 

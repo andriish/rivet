@@ -50,9 +50,9 @@ namespace Rivet {
       default: break;
       }
       for (size_t i = 0; i < 5; ++i) {
-        _h_R_Jade[i] = bookHisto1D(offset, 1, i+1);
-        _h_R_Durham[i] = bookHisto1D(offset+9, 1, i+1);
-        if (i < 4) _h_y_Durham[i] = bookHisto1D(offset+17, 1, i+1);
+        book(_h_R_Jade[i] ,offset, 1, i+1);
+        book(_h_R_Durham[i] ,offset+9, 1, i+1);
+        if (i < 4) book(_h_y_Durham[i] ,offset+17, 1, i+1);
       }
     }
 

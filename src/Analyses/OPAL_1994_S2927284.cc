@@ -58,9 +58,9 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
 
-      _histXpPiPlus = bookHisto1D( 1, 1, 1);
-      _histXpKPlus  = bookHisto1D( 2, 1, 1);
-      _histXpProton = bookHisto1D( 3, 1, 1);
+      book(_histXpPiPlus , 1, 1, 1);
+      book(_histXpKPlus  , 2, 1, 1);
+      book(_histXpProton , 3, 1, 1);
     }
 
 

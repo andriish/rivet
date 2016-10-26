@@ -33,27 +33,27 @@ namespace Rivet {
       declare(MissingMomentum(calofs), "MET60");
 
       if (fuzzyEquals(sqrtS()/GeV, 63)) {
-        _hist_Pt = bookProfile1D(8,1,1);
+        book(_hist_Pt ,8,1,1);
       } else if (fuzzyEquals(sqrtS()/GeV, 200)) {
-        _hist_Nch = bookHisto1D(1,1,1);
-        _hist_Esigd3p = bookHisto1D(2,1,1);
-        _hist_Pt = bookProfile1D(6,1,1);
-        _hist_Et = bookHisto1D(9,1,1);
-        _hist_Etavg = bookProfile1D(12,1,1);
+        book(_hist_Nch ,1,1,1);
+        book(_hist_Esigd3p ,2,1,1);
+        book(_hist_Pt ,6,1,1);
+        book(_hist_Et ,9,1,1);
+        book(_hist_Etavg ,12,1,1);
       } else if (fuzzyEquals(sqrtS()/GeV, 500)) {
-        _hist_Nch = bookHisto1D(1,1,2);
-        _hist_Esigd3p = bookHisto1D(2,1,2);
-        _hist_Et = bookHisto1D(10,1,1);
-        _hist_Etavg = bookProfile1D(12,1,2);
+        book(_hist_Nch ,1,1,2);
+        book(_hist_Esigd3p ,2,1,2);
+        book(_hist_Et ,10,1,1);
+        book(_hist_Etavg ,12,1,2);
       } else if (fuzzyEquals(sqrtS()/GeV, 900)) {
-        _hist_Nch = bookHisto1D(1,1,3);
-        _hist_Esigd3p = bookHisto1D(2,1,3);
-        _hist_Pt = bookProfile1D(7,1,1);
-        _hist_Et = bookHisto1D(11,1,1);
-        _hist_Etavg = bookProfile1D(12,1,3);
-        _hist_Esigd3p08 = bookHisto1D(3,1,1);
-        _hist_Esigd3p40 = bookHisto1D(4,1,1);
-        _hist_Esigd3p80 = bookHisto1D(5,1,1);
+        book(_hist_Nch ,1,1,3);
+        book(_hist_Esigd3p ,2,1,3);
+        book(_hist_Pt ,7,1,1);
+        book(_hist_Et ,11,1,1);
+        book(_hist_Etavg ,12,1,3);
+        book(_hist_Esigd3p08 ,3,1,1);
+        book(_hist_Esigd3p40 ,4,1,1);
+        book(_hist_Esigd3p80 ,5,1,1);
       }
 
     }

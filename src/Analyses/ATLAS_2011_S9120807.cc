@@ -34,9 +34,9 @@ namespace Rivet {
       photonfs.acceptId(PID::PHOTON);
       declare(photonfs, "Photon");
 
-      _h_M    = bookHisto1D(1, 1, 1);
-      _h_pT   = bookHisto1D(2, 1, 1);
-      _h_dPhi = bookHisto1D(3, 1, 1);
+      book(_h_M    ,1, 1, 1);
+      book(_h_pT   ,2, 1, 1);
+      book(_h_dPhi ,3, 1, 1);
     }
 
 

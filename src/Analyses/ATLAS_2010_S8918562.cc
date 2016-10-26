@@ -53,61 +53,61 @@ namespace Rivet {
 
       // Book histograms
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
-        _hist_pt100_nch2_nch = bookHisto1D(18, 1, 1);
-        _hist_pt100_nch2_pt = bookHisto1D(11, 1, 1);
-        _hist_pt100_nch2_eta = bookHisto1D(4, 1, 1);
-        _hist_pt100_nch2_ptnch = bookProfile1D(24, 1, 1);
+        book(_hist_pt100_nch2_nch ,18, 1, 1);
+        book(_hist_pt100_nch2_pt ,11, 1, 1);
+        book(_hist_pt100_nch2_eta ,4, 1, 1);
+        book(_hist_pt100_nch2_ptnch ,24, 1, 1);
 
-        _hist_pt100_nch20_nch = bookHisto1D(34, 1, 1);
-        _hist_pt100_nch20_pt = bookHisto1D(30, 1, 1);
-        _hist_pt100_nch20_eta = bookHisto1D(26, 1, 1);
+        book(_hist_pt100_nch20_nch ,34, 1, 1);
+        book(_hist_pt100_nch20_pt ,30, 1, 1);
+        book(_hist_pt100_nch20_eta ,26, 1, 1);
 
-        _hist_pt500_nch1_nch = bookHisto1D(15, 1, 1);
-        _hist_pt500_nch1_pt = bookHisto1D(8, 1, 1);
-        _hist_pt500_nch1_eta = bookHisto1D(1, 1, 1);
-        _hist_pt500_nch1_ptnch = bookProfile1D(22, 1, 1);
+        book(_hist_pt500_nch1_nch ,15, 1, 1);
+        book(_hist_pt500_nch1_pt ,8, 1, 1);
+        book(_hist_pt500_nch1_eta ,1, 1, 1);
+        book(_hist_pt500_nch1_ptnch ,22, 1, 1);
 
-        _hist_pt500_nch6_nch = bookHisto1D(20, 1, 1);
-        _hist_pt500_nch6_pt = bookHisto1D(13, 1, 1);
-        _hist_pt500_nch6_eta = bookHisto1D(6, 1, 1);
+        book(_hist_pt500_nch6_nch ,20, 1, 1);
+        book(_hist_pt500_nch6_pt ,13, 1, 1);
+        book(_hist_pt500_nch6_eta ,6, 1, 1);
 
-        _hist_pt2500_nch1_nch = bookHisto1D(36, 1, 1);
-        _hist_pt2500_nch1_pt = bookHisto1D(32, 1, 1);
-        _hist_pt2500_nch1_eta = bookHisto1D(28, 1, 1);
-        _hist_pt2500_nch1_ptnch = bookProfile1D(38, 1, 1);
+        book(_hist_pt2500_nch1_nch ,36, 1, 1);
+        book(_hist_pt2500_nch1_pt ,32, 1, 1);
+        book(_hist_pt2500_nch1_eta ,28, 1, 1);
+        book(_hist_pt2500_nch1_ptnch ,38, 1, 1);
 
       } else if (fuzzyEquals(sqrtS()/GeV, 2360)) {
 
-        _hist_pt500_nch1_nch = bookHisto1D(16, 1, 1);
-        _hist_pt500_nch1_pt = bookHisto1D(9, 1, 1);
-        _hist_pt500_nch1_eta = bookHisto1D(2, 1, 1);
+        book(_hist_pt500_nch1_nch ,16, 1, 1);
+        book(_hist_pt500_nch1_pt ,9, 1, 1);
+        book(_hist_pt500_nch1_eta ,2, 1, 1);
         // This one histogram might be called while unbooked, so ensure its pointer is null!
         _hist_pt500_nch1_ptnch = Profile1DPtr();
 
       } else if (fuzzyEquals(sqrtS()/GeV, 7000)) {
 
-        _hist_pt100_nch2_nch = bookHisto1D(19, 1, 1);
-        _hist_pt100_nch2_pt = bookHisto1D(12, 1, 1);
-        _hist_pt100_nch2_eta = bookHisto1D(5, 1, 1);
-        _hist_pt100_nch2_ptnch = bookProfile1D(25, 1, 1);
+        book(_hist_pt100_nch2_nch ,19, 1, 1);
+        book(_hist_pt100_nch2_pt ,12, 1, 1);
+        book(_hist_pt100_nch2_eta ,5, 1, 1);
+        book(_hist_pt100_nch2_ptnch ,25, 1, 1);
 
-        _hist_pt100_nch20_nch = bookHisto1D(35, 1, 1);
-        _hist_pt100_nch20_pt = bookHisto1D(31, 1, 1);
-        _hist_pt100_nch20_eta = bookHisto1D(27, 1, 1);
+        book(_hist_pt100_nch20_nch ,35, 1, 1);
+        book(_hist_pt100_nch20_pt ,31, 1, 1);
+        book(_hist_pt100_nch20_eta ,27, 1, 1);
 
-        _hist_pt500_nch1_nch = bookHisto1D(17, 1, 1);
-        _hist_pt500_nch1_pt = bookHisto1D(10, 1, 1);
-        _hist_pt500_nch1_eta = bookHisto1D(3, 1, 1);
-        _hist_pt500_nch1_ptnch = bookProfile1D(23, 1, 1);
+        book(_hist_pt500_nch1_nch ,17, 1, 1);
+        book(_hist_pt500_nch1_pt ,10, 1, 1);
+        book(_hist_pt500_nch1_eta ,3, 1, 1);
+        book(_hist_pt500_nch1_ptnch ,23, 1, 1);
 
-        _hist_pt500_nch6_nch = bookHisto1D(21, 1, 1);
-        _hist_pt500_nch6_pt = bookHisto1D(14, 1, 1);
-        _hist_pt500_nch6_eta = bookHisto1D(7, 1, 1);
+        book(_hist_pt500_nch6_nch ,21, 1, 1);
+        book(_hist_pt500_nch6_pt ,14, 1, 1);
+        book(_hist_pt500_nch6_eta ,7, 1, 1);
 
-        _hist_pt2500_nch1_nch = bookHisto1D(37, 1, 1);
-        _hist_pt2500_nch1_pt = bookHisto1D(33, 1, 1);
-        _hist_pt2500_nch1_eta = bookHisto1D(29, 1, 1);
-        _hist_pt2500_nch1_ptnch = bookProfile1D(39, 1, 1);
+        book(_hist_pt2500_nch1_nch ,37, 1, 1);
+        book(_hist_pt2500_nch1_pt ,33, 1, 1);
+        book(_hist_pt2500_nch1_eta ,29, 1, 1);
+        book(_hist_pt2500_nch1_ptnch ,39, 1, 1);
 
       } else {
         throw LogicError("The ATLAS_2010_S8918562 analysis is only valid for sqrt(s) = 900, 2360 and 7000 GeV!");

@@ -74,15 +74,15 @@ namespace Rivet {
       edges_eT.push_back(500);
 
       // Book histograms
-      _hist_electrons = bookHisto1D("hist_electrons_before", 11, -0.5,10.5);
-      _hist_muons     = bookHisto1D("hist_muons_before"    , 11, -0.5,10.5);
-      _hist_leptons   = bookHisto1D("hist_leptons_before"  , 11, -0.5,10.5);
-      _hist_4leptons  = bookHisto1D("hist_4leptons", 1, 0.,1.);
-      _hist_veto      = bookHisto1D("hist_veto", 1, 0., 1.);
-      _hist_etmiss    = bookHisto1D("hist_etmiss",edges_eT);
-      _hist_meff      = bookHisto1D("hist_m_eff",edges_meff);
-      _count_SR1      = bookHisto1D("count_SR1", 1, 0., 1.);
-      _count_SR2      = bookHisto1D("count_SR2", 1, 0., 1.);
+      book(_hist_electrons ,"hist_electrons_before", 11, -0.5,10.5);
+      book(_hist_muons     ,"hist_muons_before"    , 11, -0.5,10.5);
+      book(_hist_leptons   ,"hist_leptons_before"  , 11, -0.5,10.5);
+      book(_hist_4leptons  ,"hist_4leptons", 1, 0.,1.);
+      book(_hist_veto      ,"hist_veto", 1, 0., 1.);
+      book(_hist_etmiss    ,"hist_etmiss",edges_eT);
+      book(_hist_meff      ,"hist_m_eff",edges_meff);
+      book(_count_SR1      ,"count_SR1", 1, 0., 1.);
+      book(_count_SR2      ,"count_SR2", 1, 0., 1.);
 
     }
 

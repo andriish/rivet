@@ -26,13 +26,13 @@ namespace Rivet {
       assert(isqrts >= 0);
 
       // N profiles, 500 MeV pT cut
-      _hist_N_transverse_500 = bookProfile1D(1+isqrts, 1, 1);
+      book(_hist_N_transverse_500 ,1+isqrts, 1, 1);
       // pTsum profiles, 500 MeV pT cut
-      _hist_ptsum_transverse_500 = bookProfile1D(3+isqrts, 1, 1);
+      book(_hist_ptsum_transverse_500 ,3+isqrts, 1, 1);
       // N vs. Delta(phi) profiles, 500 MeV pT cut
-      _hist_N_vs_dPhi_1_500 = bookProfile1D(13+isqrts, 1, 1);
-      _hist_N_vs_dPhi_2_500 = bookProfile1D(13+isqrts, 1, 2);
-      _hist_N_vs_dPhi_3_500 = bookProfile1D(13+isqrts, 1, 3);
+      book(_hist_N_vs_dPhi_1_500 ,13+isqrts, 1, 1);
+      book(_hist_N_vs_dPhi_2_500 ,13+isqrts, 1, 2);
+      book(_hist_N_vs_dPhi_3_500 ,13+isqrts, 1, 3);
     }
 
 

@@ -40,11 +40,11 @@ namespace Rivet {
       // Book histograms
       for (int iR=0; iR < kNregions; ++iR)  {
         if (iR == k_pt100_nch2 || iR == k_pt500_nch1) {
-          _hist_nch  [iR] = bookHisto1D  (1, iR + 1, 1);
-          _hist_ptnch[iR] = bookProfile1D(4, iR + 1, 1);
+          book(_hist_nch  [iR] ,1, iR + 1, 1);
+          book(_hist_ptnch[iR] ,4, iR + 1, 1);
         }
-        _hist_pt [iR] = bookHisto1D(2, iR + 1, 1);
-        _hist_eta[iR] = bookHisto1D(3, iR + 1, 1);
+        book(_hist_pt [iR] ,2, iR + 1, 1);
+        book(_hist_eta[iR] ,3, iR + 1, 1);
       }
     }
 

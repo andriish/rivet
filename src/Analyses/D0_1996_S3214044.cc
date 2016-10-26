@@ -30,36 +30,36 @@ namespace Rivet {
       // not look as good as the Run2 cone alg used here
       declare(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
 
-      _h_3j_x3 = bookHisto1D(1, 1, 1);
-      _h_3j_x5 = bookHisto1D(2, 1, 1);
-      _h_3j_costheta3 = bookHisto1D(3, 1, 1);
-      _h_3j_psi = bookHisto1D(4, 1, 1);
-      _h_3j_mu34 = bookHisto1D(5, 1, 1);
-      _h_3j_mu35 = bookHisto1D(6, 1, 1);
-      _h_3j_mu45 = bookHisto1D(7, 1, 1);
+      book(_h_3j_x3 ,1, 1, 1);
+      book(_h_3j_x5 ,2, 1, 1);
+      book(_h_3j_costheta3 ,3, 1, 1);
+      book(_h_3j_psi ,4, 1, 1);
+      book(_h_3j_mu34 ,5, 1, 1);
+      book(_h_3j_mu35 ,6, 1, 1);
+      book(_h_3j_mu45 ,7, 1, 1);
 
-      _h_4j_x3 = bookHisto1D(8, 1, 1);
-      _h_4j_x4 = bookHisto1D(9, 1, 1);
-      _h_4j_x5 = bookHisto1D(10, 1, 1);
-      _h_4j_x6 = bookHisto1D(11, 1, 1);
-      _h_4j_costheta3 = bookHisto1D(12, 1, 1);
-      _h_4j_costheta4 = bookHisto1D(13, 1, 1);
-      _h_4j_costheta5 = bookHisto1D(14, 1, 1);
-      _h_4j_costheta6 = bookHisto1D(15, 1, 1);
-      _h_4j_cosomega34 = bookHisto1D(16, 1, 1);
-      _h_4j_cosomega35 = bookHisto1D(17, 1, 1);
-      _h_4j_cosomega36 = bookHisto1D(18, 1, 1);
-      _h_4j_cosomega45 = bookHisto1D(19, 1, 1);
-      _h_4j_cosomega46 = bookHisto1D(20, 1, 1);
-      _h_4j_cosomega56 = bookHisto1D(21, 1, 1);
-      _h_4j_mu34 = bookHisto1D(22, 1, 1);
-      _h_4j_mu35 = bookHisto1D(23, 1, 1);
-      _h_4j_mu36 = bookHisto1D(24, 1, 1);
-      _h_4j_mu45 = bookHisto1D(25, 1, 1);
-      _h_4j_mu46 = bookHisto1D(26, 1, 1);
-      _h_4j_mu56 = bookHisto1D(27, 1, 1);
-      _h_4j_theta_BZ = bookHisto1D(28, 1, 1);
-      _h_4j_costheta_NR = bookHisto1D(29, 1, 1);
+      book(_h_4j_x3 ,8, 1, 1);
+      book(_h_4j_x4 ,9, 1, 1);
+      book(_h_4j_x5 ,10, 1, 1);
+      book(_h_4j_x6 ,11, 1, 1);
+      book(_h_4j_costheta3 ,12, 1, 1);
+      book(_h_4j_costheta4 ,13, 1, 1);
+      book(_h_4j_costheta5 ,14, 1, 1);
+      book(_h_4j_costheta6 ,15, 1, 1);
+      book(_h_4j_cosomega34 ,16, 1, 1);
+      book(_h_4j_cosomega35 ,17, 1, 1);
+      book(_h_4j_cosomega36 ,18, 1, 1);
+      book(_h_4j_cosomega45 ,19, 1, 1);
+      book(_h_4j_cosomega46 ,20, 1, 1);
+      book(_h_4j_cosomega56 ,21, 1, 1);
+      book(_h_4j_mu34 ,22, 1, 1);
+      book(_h_4j_mu35 ,23, 1, 1);
+      book(_h_4j_mu36 ,24, 1, 1);
+      book(_h_4j_mu45 ,25, 1, 1);
+      book(_h_4j_mu46 ,26, 1, 1);
+      book(_h_4j_mu56 ,27, 1, 1);
+      book(_h_4j_theta_BZ ,28, 1, 1);
+      book(_h_4j_costheta_NR ,29, 1, 1);
 
     }
 

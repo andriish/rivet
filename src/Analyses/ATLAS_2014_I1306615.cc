@@ -70,42 +70,42 @@ namespace Rivet {
 
       // Book histograms
       // 1D distributions
-      _h_pT_yy         = bookHisto1D(1,1,1);
-      _h_y_yy          = bookHisto1D(2,1,1);
-      _h_Njets30       = bookHisto1D(3,1,1);
-      _h_Njets50       = bookHisto1D(4,1,1);
-      _h_pT_j1         = bookHisto1D(5,1,1);
-      _h_y_j1          = bookHisto1D(6,1,1);
-      _h_HT            = bookHisto1D(7,1,1);
-      _h_pT_j2         = bookHisto1D(8,1,1);
-      _h_Dy_jj         = bookHisto1D(9,1,1);
-      _h_Dphi_yy_jj    = bookHisto1D(10,1,1);
-      _h_cosTS_CS      = bookHisto1D(11,1,1);
-      _h_cosTS_CS_5bin = bookHisto1D(12,1,1);
-      _h_Dphi_jj       = bookHisto1D(13,1,1);
-      _h_pTt_yy        = bookHisto1D(14,1,1);
-      _h_Dy_yy         = bookHisto1D(15,1,1);
-      _h_tau_jet       = bookHisto1D(16,1,1);
-      _h_sum_tau_jet   = bookHisto1D(17,1,1);
-      _h_y_j2          = bookHisto1D(18,1,1);
-      _h_pT_j3         = bookHisto1D(19,1,1);
-      _h_m_jj          = bookHisto1D(20,1,1);
-      _h_pT_yy_jj      = bookHisto1D(21,1,1);
+      book(_h_pT_yy         ,1,1,1);
+      book(_h_y_yy          ,2,1,1);
+      book(_h_Njets30       ,3,1,1);
+      book(_h_Njets50       ,4,1,1);
+      book(_h_pT_j1         ,5,1,1);
+      book(_h_y_j1          ,6,1,1);
+      book(_h_HT            ,7,1,1);
+      book(_h_pT_j2         ,8,1,1);
+      book(_h_Dy_jj         ,9,1,1);
+      book(_h_Dphi_yy_jj    ,10,1,1);
+      book(_h_cosTS_CS      ,11,1,1);
+      book(_h_cosTS_CS_5bin ,12,1,1);
+      book(_h_Dphi_jj       ,13,1,1);
+      book(_h_pTt_yy        ,14,1,1);
+      book(_h_Dy_yy         ,15,1,1);
+      book(_h_tau_jet       ,16,1,1);
+      book(_h_sum_tau_jet   ,17,1,1);
+      book(_h_y_j2          ,18,1,1);
+      book(_h_pT_j3         ,19,1,1);
+      book(_h_m_jj          ,20,1,1);
+      book(_h_pT_yy_jj      ,21,1,1);
 
       // 2D distributions of cosTS_CS x pT_yy
-      _h_cosTS_pTyy_low  = bookHisto1D(22,1,1);
-      _h_cosTS_pTyy_high = bookHisto1D(22,1,2);
-      _h_cosTS_pTyy_rest = bookHisto1D(22,1,3);
+      book(_h_cosTS_pTyy_low  ,22,1,1);
+      book(_h_cosTS_pTyy_high ,22,1,2);
+      book(_h_cosTS_pTyy_rest ,22,1,3);
 
       // 2D distributions of Njets x pT_yy
-      _h_pTyy_Njets0 = bookHisto1D(23,1,1);
-      _h_pTyy_Njets1 = bookHisto1D(23,1,2);
-      _h_pTyy_Njets2 = bookHisto1D(23,1,3);
+      book(_h_pTyy_Njets0 ,23,1,1);
+      book(_h_pTyy_Njets1 ,23,1,2);
+      book(_h_pTyy_Njets2 ,23,1,3);
 
-      _h_pTj1_excl = bookHisto1D(24,1,1);
+      book(_h_pTj1_excl ,24,1,1);
 
       // Fiducial regions
-      _h_fidXSecs = bookHisto1D(29,1,1);
+      book(_h_fidXSecs ,29,1,1);
     }
 
     // Perform the per-event analysis

@@ -26,34 +26,34 @@ namespace Rivet {
       declare(cfs, "cfs");
 
 
-      _h_pTsum_tow    = bookProfile1D( 1, 1, 1);
-      _h_pTsum_trv    = bookProfile1D( 1, 1, 2);
-      _h_pTsum_away   = bookProfile1D( 1, 1, 3);
-      _h_pTsum_tmin   = bookProfile1D( 1, 1, 4);
-      _h_pTsum_tmax   = bookProfile1D( 1, 1, 5);
-      _h_pTsum_tdif   = bookProfile1D( 1, 1, 6);
+      book(_h_pTsum_tow    , 1, 1, 1);
+      book(_h_pTsum_trv    , 1, 1, 2);
+      book(_h_pTsum_away   , 1, 1, 3);
+      book(_h_pTsum_tmin   , 1, 1, 4);
+      book(_h_pTsum_tmax   , 1, 1, 5);
+      book(_h_pTsum_tdif   , 1, 1, 6);
 
-      _h_Nchg_tow     = bookProfile1D( 2, 1, 1);
-      _h_Nchg_trv     = bookProfile1D( 2, 1, 2);
-      _h_Nchg_away    = bookProfile1D( 2, 1, 3);
-      _h_Nchg_tmin    = bookProfile1D( 2, 1, 4);
-      _h_Nchg_tmax    = bookProfile1D( 2, 1, 5);
-      _h_Nchg_tdif    = bookProfile1D( 2, 1, 6);
+      book(_h_Nchg_tow     , 2, 1, 1);
+      book(_h_Nchg_trv     , 2, 1, 2);
+      book(_h_Nchg_away    , 2, 1, 3);
+      book(_h_Nchg_tmin    , 2, 1, 4);
+      book(_h_Nchg_tmax    , 2, 1, 5);
+      book(_h_Nchg_tdif    , 2, 1, 6);
 
-      _h_pTavg_tow    = bookProfile1D( 3, 1, 1);
-      _h_pTavg_trv    = bookProfile1D( 3, 1, 2);
-      _h_pTavg_away   = bookProfile1D( 3, 1, 3);
+      book(_h_pTavg_tow    , 3, 1, 1);
+      book(_h_pTavg_trv    , 3, 1, 2);
+      book(_h_pTavg_away   , 3, 1, 3);
 
-      _h_pTavgvsmult_tow    = bookProfile1D( 4, 1, 1);
-      _h_pTavgvsmult_trv    = bookProfile1D( 4, 1, 2);
-      _h_pTavgvsmult_away   = bookProfile1D( 4, 1, 3);
+      book(_h_pTavgvsmult_tow    , 4, 1, 1);
+      book(_h_pTavgvsmult_trv    , 4, 1, 2);
+      book(_h_pTavgvsmult_away   , 4, 1, 3);
 
 
       // Book sumpt and nch histos
       for (int i_reg = 0; i_reg < 4; i_reg++) {
         for (int i_bin = 0; i_bin < 6.; i_bin++) {
-          _h_ptSum_1D[i_reg][i_bin] = bookHisto1D (5, i_reg+1 , i_bin+1);
-          _h_Nchg_1D[i_reg][i_bin] = bookHisto1D (6, i_reg+1 , i_bin+1);
+          book(_h_ptSum_1D[i_reg][i_bin], 5, i_reg+1 , i_bin+1);
+          book( _h_Nchg_1D[i_reg][i_bin], 6, i_reg+1 , i_bin+1);
         }
       }
     }

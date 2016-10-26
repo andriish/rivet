@@ -35,10 +35,10 @@ namespace Rivet {
 
         // Book histograms
         // Single-differential plots
-        _hist_zphistar_el_bare = bookHisto1D(1, 1, 1);
-        _hist_zphistar_mu_bare = bookHisto1D(1, 1, 2);
-        _hist_zphistar_el_dressed = bookHisto1D(2, 1, 1);
-        _hist_zphistar_mu_dressed = bookHisto1D(2, 1, 2);
+        book(_hist_zphistar_el_bare ,1, 1, 1);
+        book(_hist_zphistar_mu_bare ,1, 1, 2);
+        book(_hist_zphistar_el_dressed ,2, 1, 1);
+        book(_hist_zphistar_mu_dressed ,2, 1, 2);
 
         // Double-differential plots
         _h_phistar_el_bare.addHistogram(0.0, 0.8, bookHisto1D(3, 1, 1));

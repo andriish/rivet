@@ -16,9 +16,9 @@ namespace Rivet {
 
     void init() {
       declare(ChargedFinalState(), "CFS");
-      _hist_tlow  = bookHisto1D(1, 1, 1);
-      _hist_thigh = bookHisto1D(2, 1, 1);
-      _hist_sigma = bookHisto1D(3, 1, 1);
+      book(_hist_tlow  ,1, 1, 1);
+      book(_hist_thigh ,2, 1, 1);
+      book(_hist_sigma ,3, 1, 1);
     }
 
 

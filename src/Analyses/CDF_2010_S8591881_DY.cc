@@ -44,25 +44,25 @@ namespace Rivet {
       declare(ChargedLeptons(clfs), "CL");
 
       // Book histograms
-      _hist_tnchg      = bookProfile1D( 1, 1, 1);
-      _hist_pnchg      = bookProfile1D( 1, 1, 2);
-      _hist_anchg      = bookProfile1D( 1, 1, 3);
-      _hist_pmaxnchg   = bookProfile1D( 2, 1, 1);
-      _hist_pminnchg   = bookProfile1D( 2, 1, 2);
-      _hist_pdifnchg   = bookProfile1D( 2, 1, 3);
-      _hist_tcptsum    = bookProfile1D( 3, 1, 1);
-      _hist_pcptsum    = bookProfile1D( 3, 1, 2);
-      _hist_acptsum    = bookProfile1D( 3, 1, 3);
-      _hist_pmaxcptsum = bookProfile1D( 4, 1, 1);
-      _hist_pmincptsum = bookProfile1D( 4, 1, 2);
-      _hist_pdifcptsum = bookProfile1D( 4, 1, 3);
-      _hist_tcptave    = bookProfile1D( 5, 1, 1);
-      _hist_pcptave    = bookProfile1D( 5, 1, 2);
-      _hist_tcptmax    = bookProfile1D( 6, 1, 1);
-      _hist_pcptmax    = bookProfile1D( 6, 1, 2);
-      _hist_zptvsnchg  = bookProfile1D( 7, 1, 1);
-      _hist_cptavevsnchg = bookProfile1D( 8, 1, 1);
-      _hist_cptavevsnchgsmallzpt = bookProfile1D( 9, 1, 1);
+      book(_hist_tnchg      , 1, 1, 1);
+      book(_hist_pnchg      , 1, 1, 2);
+      book(_hist_anchg      , 1, 1, 3);
+      book(_hist_pmaxnchg   , 2, 1, 1);
+      book(_hist_pminnchg   , 2, 1, 2);
+      book(_hist_pdifnchg   , 2, 1, 3);
+      book(_hist_tcptsum    , 3, 1, 1);
+      book(_hist_pcptsum    , 3, 1, 2);
+      book(_hist_acptsum    , 3, 1, 3);
+      book(_hist_pmaxcptsum , 4, 1, 1);
+      book(_hist_pmincptsum , 4, 1, 2);
+      book(_hist_pdifcptsum , 4, 1, 3);
+      book(_hist_tcptave    , 5, 1, 1);
+      book(_hist_pcptave    , 5, 1, 2);
+      book(_hist_tcptmax    , 6, 1, 1);
+      book(_hist_pcptmax    , 6, 1, 2);
+      book(_hist_zptvsnchg  , 7, 1, 1);
+      book(_hist_cptavevsnchg , 8, 1, 1);
+      book(_hist_cptavevsnchgsmallzpt , 9, 1, 1);
     }
 
 

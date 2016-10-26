@@ -75,7 +75,7 @@ namespace Rivet {
     void initializeProfiles(Profile1DPtr plots[5][2], int distribution) {
       for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 2; ++j) {
-          plots[i][j] = bookProfile1D(distribution, i+1, j+1);
+          book(plots[i][j] ,distribution, i+1, j+1);
         }
       }
     }

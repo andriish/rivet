@@ -28,8 +28,8 @@ namespace Rivet {
       FastJets jetpro(hfinder.remainingFinalState(), FastJets::ANTIKT, 0.4);
       declare(jetpro, "Jets");
 
-      _h_H_jet1_deta = bookHisto1D("H_jet1_deta", 50, -5.0, 5.0);
-      _h_H_jet1_dR = bookHisto1D("H_jet1_dR", 25, 0.5, 7.0);
+      book(_h_H_jet1_deta ,"H_jet1_deta", 50, -5.0, 5.0);
+      book(_h_H_jet1_dR ,"H_jet1_dR", 25, 0.5, 7.0);
 
       MC_JetAnalysis::init();
     }

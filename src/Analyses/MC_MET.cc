@@ -23,10 +23,10 @@ namespace Rivet {
       declare(MissingMomentum(inclfs), "InclMET");
       declare(MissingMomentum(calofs), "CaloMET");
 
-      _h_met_incl = bookHisto1D("met_incl", logspace(30, 1, 150));
-      _h_met_calo = bookHisto1D("met_calo", logspace(30, 1, 150));
-      _h_set_incl = bookHisto1D("set_incl", logspace(30, 1, sqrtS()/GeV/2));
-      _h_set_calo = bookHisto1D("set_calo", logspace(30, 1, sqrtS()/GeV/2));
+      book(_h_met_incl ,"met_incl", logspace(30, 1, 150));
+      book(_h_met_calo ,"met_calo", logspace(30, 1, 150));
+      book(_h_set_incl ,"set_incl", logspace(30, 1, sqrtS()/GeV/2));
+      book(_h_set_calo ,"set_calo", logspace(30, 1, sqrtS()/GeV/2));
     }
 
 

@@ -37,15 +37,15 @@ namespace Rivet {
 	_jsnames_pT[ptbin] = "JetShape" + to_str(ptbin) ;
 	const JetShape jsp(jets, 0.0, 1.0, 10, _ptedges[ptbin], _ptedges[ptbin+1], 0.0, 0.2, PSEUDORAPIDITY);
 	declare(jsp, _jsnames_pT[ptbin]);
-	_h_Rho_pT_central[ptbin] = bookProfile1D(ptbin+1, 1, 1);
+book(	_h_Rho_pT_central[ptbin] ,ptbin+1, 1, 1);
       }
 
 	const JetShape jspfwd0(jets, 0.0, 1.0, 10, 45, 70, 2.5, 3.5, PSEUDORAPIDITY);
 	declare(jspfwd0, "JetShapeFwd0");
 	const JetShape jspfwd1(jets, 0.0, 1.0, 10, 70, 105, 2.5, 3.5, PSEUDORAPIDITY);
 	declare(jspfwd1, "JetShapeFwd1");
-	_h_Rho_pT_forward[0] = bookProfile1D(5, 1, 1);
-	_h_Rho_pT_forward[1] = bookProfile1D(6, 1, 1);
+book(	_h_Rho_pT_forward[0] ,5, 1, 1);
+book(	_h_Rho_pT_forward[1] ,6, 1, 1);
 
     }
 

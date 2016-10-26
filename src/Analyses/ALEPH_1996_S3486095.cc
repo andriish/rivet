@@ -62,70 +62,70 @@ namespace Rivet {
       declare(Hemispheres(thrust), "Hemispheres");
 
       // Book histograms
-      _histSphericity   = bookHisto1D(1, 1, 1);
-      _histAplanarity   = bookHisto1D(2, 1, 1);
+      book(_histSphericity   ,1, 1, 1);
+      book(_histAplanarity   ,2, 1, 1);
 
-      _hist1MinusT      = bookHisto1D(3, 1, 1);
-      _histTMinor       = bookHisto1D(4, 1, 1);
+      book(_hist1MinusT      ,3, 1, 1);
+      book(_histTMinor       ,4, 1, 1);
 
-      _histY3           = bookHisto1D(5, 1, 1);
-      _histHeavyJetMass = bookHisto1D(6, 1, 1);
-      _histCParam       = bookHisto1D(7, 1, 1);
-      _histOblateness   = bookHisto1D(8, 1, 1);
+      book(_histY3           ,5, 1, 1);
+      book(_histHeavyJetMass ,6, 1, 1);
+      book(_histCParam       ,7, 1, 1);
+      book(_histOblateness   ,8, 1, 1);
 
-      _histScaledMom    = bookHisto1D(9, 1, 1);
-      _histRapidityT    = bookHisto1D(10, 1, 1);
+      book(_histScaledMom    ,9, 1, 1);
+      book(_histRapidityT    ,10, 1, 1);
 
-      _histPtSIn        = bookHisto1D(11, 1, 1);
-      _histPtSOut       = bookHisto1D(12, 1, 1);
+      book(_histPtSIn        ,11, 1, 1);
+      book(_histPtSOut       ,12, 1, 1);
 
-      _histLogScaledMom = bookHisto1D(17, 1, 1);
+      book(_histLogScaledMom ,17, 1, 1);
 
-      _histChMult       = bookHisto1D(18, 1, 1);
-      _histMeanChMult   = bookHisto1D(19, 1, 1);
+      book(_histChMult       ,18, 1, 1);
+      book(_histMeanChMult   ,19, 1, 1);
 
-      _histMeanChMultRapt05= bookHisto1D(20, 1, 1);
-      _histMeanChMultRapt10= bookHisto1D(21, 1, 1);
-      _histMeanChMultRapt15= bookHisto1D(22, 1, 1);
-      _histMeanChMultRapt20= bookHisto1D(23, 1, 1);
+      book(_histMeanChMultRapt05,20, 1, 1);
+      book(_histMeanChMultRapt10,21, 1, 1);
+      book(_histMeanChMultRapt15,22, 1, 1);
+      book(_histMeanChMultRapt20,23, 1, 1);
 
 
       // Particle spectra
-      _histMultiPiPlus        = bookHisto1D(25, 1, 1);
-      _histMultiKPlus         = bookHisto1D(26, 1, 1);
-      _histMultiP             = bookHisto1D(27, 1, 1);
-      _histMultiPhoton        = bookHisto1D(28, 1, 1);
-      _histMultiPi0           = bookHisto1D(29, 1, 1);
-      _histMultiEta           = bookHisto1D(30, 1, 1);
-      _histMultiEtaPrime      = bookHisto1D(31, 1, 1);
-      _histMultiK0            = bookHisto1D(32, 1, 1);
-      _histMultiLambda0       = bookHisto1D(33, 1, 1);
-      _histMultiXiMinus       = bookHisto1D(34, 1, 1);
-      _histMultiSigma1385Plus = bookHisto1D(35, 1, 1);
-      _histMultiXi1530_0      = bookHisto1D(36, 1, 1);
-      _histMultiRho           = bookHisto1D(37, 1, 1);
-      _histMultiOmega782      = bookHisto1D(38, 1, 1);
-      _histMultiKStar892_0    = bookHisto1D(39, 1, 1);
-      _histMultiPhi           = bookHisto1D(40, 1, 1);
+      book(_histMultiPiPlus        ,25, 1, 1);
+      book(_histMultiKPlus         ,26, 1, 1);
+      book(_histMultiP             ,27, 1, 1);
+      book(_histMultiPhoton        ,28, 1, 1);
+      book(_histMultiPi0           ,29, 1, 1);
+      book(_histMultiEta           ,30, 1, 1);
+      book(_histMultiEtaPrime      ,31, 1, 1);
+      book(_histMultiK0            ,32, 1, 1);
+      book(_histMultiLambda0       ,33, 1, 1);
+      book(_histMultiXiMinus       ,34, 1, 1);
+      book(_histMultiSigma1385Plus ,35, 1, 1);
+      book(_histMultiXi1530_0      ,36, 1, 1);
+      book(_histMultiRho           ,37, 1, 1);
+      book(_histMultiOmega782      ,38, 1, 1);
+      book(_histMultiKStar892_0    ,39, 1, 1);
+      book(_histMultiPhi           ,40, 1, 1);
 
-      _histMultiKStar892Plus  = bookHisto1D(43, 1, 1);
+      book(_histMultiKStar892Plus  ,43, 1, 1);
 
       // Mean multiplicities
-      _histMeanMultiPi0           = bookHisto1D(44, 1,  2);
-      _histMeanMultiEta           = bookHisto1D(44, 1,  3);
-      _histMeanMultiEtaPrime      = bookHisto1D(44, 1,  4);
-      _histMeanMultiK0            = bookHisto1D(44, 1,  5);
-      _histMeanMultiRho           = bookHisto1D(44, 1,  6);
-      _histMeanMultiOmega782      = bookHisto1D(44, 1,  7);
-      _histMeanMultiPhi           = bookHisto1D(44, 1,  8);
-      _histMeanMultiKStar892Plus  = bookHisto1D(44, 1,  9);
-      _histMeanMultiKStar892_0    = bookHisto1D(44, 1, 10);
-      _histMeanMultiLambda0       = bookHisto1D(44, 1, 11);
-      _histMeanMultiSigma0        = bookHisto1D(44, 1, 12);
-      _histMeanMultiXiMinus       = bookHisto1D(44, 1, 13);
-      _histMeanMultiSigma1385Plus = bookHisto1D(44, 1, 14);
-      _histMeanMultiXi1530_0      = bookHisto1D(44, 1, 15);
-      _histMeanMultiOmegaOmegaBar = bookHisto1D(44, 1, 16);
+      book(_histMeanMultiPi0           ,44, 1,  2);
+      book(_histMeanMultiEta           ,44, 1,  3);
+      book(_histMeanMultiEtaPrime      ,44, 1,  4);
+      book(_histMeanMultiK0            ,44, 1,  5);
+      book(_histMeanMultiRho           ,44, 1,  6);
+      book(_histMeanMultiOmega782      ,44, 1,  7);
+      book(_histMeanMultiPhi           ,44, 1,  8);
+      book(_histMeanMultiKStar892Plus  ,44, 1,  9);
+      book(_histMeanMultiKStar892_0    ,44, 1, 10);
+      book(_histMeanMultiLambda0       ,44, 1, 11);
+      book(_histMeanMultiSigma0        ,44, 1, 12);
+      book(_histMeanMultiXiMinus       ,44, 1, 13);
+      book(_histMeanMultiSigma1385Plus ,44, 1, 14);
+      book(_histMeanMultiXi1530_0      ,44, 1, 15);
+      book(_histMeanMultiOmegaOmegaBar ,44, 1, 16);
     }
 
 

@@ -51,28 +51,28 @@ namespace Rivet {
       declare(JetProjection, "Jets");
 
       // Histograms
-      _histDPhiMuJet1 = bookHisto1D(1,1,1);
-      _histDPhiMuJet2 = bookHisto1D(2,1,1);
-      _histDPhiMuJet3 = bookHisto1D(3,1,1);
-      _histDPhiMuJet4 = bookHisto1D(4,1,1);
+      book(_histDPhiMuJet1 ,1,1,1);
+      book(_histDPhiMuJet2 ,2,1,1);
+      book(_histDPhiMuJet3 ,3,1,1);
+      book(_histDPhiMuJet4 ,4,1,1);
 
-      _histEtaJet1 = bookHisto1D(5,1,1);
-      _histEtaJet2 = bookHisto1D(6,1,1);
-      _histEtaJet3 = bookHisto1D(7,1,1);
-      _histEtaJet4 = bookHisto1D(8,1,1);
+      book(_histEtaJet1 ,5,1,1);
+      book(_histEtaJet2 ,6,1,1);
+      book(_histEtaJet3 ,7,1,1);
+      book(_histEtaJet4 ,8,1,1);
 
-      _histHT1JetInc = bookHisto1D(9,1,1);
-      _histHT2JetInc = bookHisto1D(10,1,1);
-      _histHT3JetInc = bookHisto1D(11,1,1);
-      _histHT4JetInc = bookHisto1D(12,1,1);
+      book(_histHT1JetInc ,9,1,1);
+      book(_histHT2JetInc ,10,1,1);
+      book(_histHT3JetInc ,11,1,1);
+      book(_histHT4JetInc ,12,1,1);
 
-      _histJet30MultExc  = bookHisto1D(13,1,1);
-      _histJet30MultInc  = bookHisto1D(14,1,1);
+      book(_histJet30MultExc  ,13,1,1);
+      book(_histJet30MultInc  ,14,1,1);
 
-      _histPtJet1 = bookHisto1D(15,1,1);
-      _histPtJet2 = bookHisto1D(16,1,1);
-      _histPtJet3 = bookHisto1D(17,1,1);
-      _histPtJet4 = bookHisto1D(18,1,1);
+      book(_histPtJet1 ,15,1,1);
+      book(_histPtJet2 ,16,1,1);
+      book(_histPtJet3 ,17,1,1);
+      book(_histPtJet4 ,18,1,1);
 
       // Counters
       _n_1jet = 0.0;

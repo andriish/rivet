@@ -20,16 +20,16 @@ namespace Rivet {
 
     void init() {
       declare(UnstableFinalState(), "UFS");
-      _hist_pipipi_pipipi = bookHisto1D( 1, 1, 1);
-      _hist_pipipi_pipi   = bookHisto1D( 2, 1, 1);
-      _hist_Kpipi_Kpipi   = bookHisto1D( 3, 1, 1);
-      _hist_Kpipi_Kpi     = bookHisto1D( 4, 1, 1);
-      _hist_Kpipi_pipi    = bookHisto1D( 5, 1, 1);
-      _hist_KpiK_KpiK     = bookHisto1D( 6, 1, 1);
-      _hist_KpiK_KK       = bookHisto1D( 7, 1, 1);
-      _hist_KpiK_piK      = bookHisto1D( 8, 1, 1);
-      _hist_KKK_KKK       = bookHisto1D( 9, 1, 1);
-      _hist_KKK_KK        = bookHisto1D(10, 1, 1);
+      book(_hist_pipipi_pipipi , 1, 1, 1);
+      book(_hist_pipipi_pipi   , 2, 1, 1);
+      book(_hist_Kpipi_Kpipi   , 3, 1, 1);
+      book(_hist_Kpipi_Kpi     , 4, 1, 1);
+      book(_hist_Kpipi_pipi    , 5, 1, 1);
+      book(_hist_KpiK_KpiK     , 6, 1, 1);
+      book(_hist_KpiK_KK       , 7, 1, 1);
+      book(_hist_KpiK_piK      , 8, 1, 1);
+      book(_hist_KKK_KKK       , 9, 1, 1);
+      book(_hist_KKK_KK        ,10, 1, 1);
     }
 
 

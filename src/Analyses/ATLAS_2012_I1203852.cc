@@ -148,19 +148,19 @@ namespace Rivet {
       declare(jetpro, "jet");
 
       // Both ZZ on-shell histos
-      _h_ZZ_xsect = bookHisto1D(1, 1, 1);
-      _h_ZZ_ZpT   = bookHisto1D(3, 1, 1);
-      _h_ZZ_phill = bookHisto1D(5, 1, 1);
-      _h_ZZ_mZZ   = bookHisto1D(7, 1, 1);
+      book(_h_ZZ_xsect ,1, 1, 1);
+      book(_h_ZZ_ZpT   ,3, 1, 1);
+      book(_h_ZZ_phill ,5, 1, 1);
+      book(_h_ZZ_mZZ   ,7, 1, 1);
 
       // One Z off-shell (ZZstar) histos
-      _h_ZZs_xsect = bookHisto1D(1, 1, 2);
+      book(_h_ZZs_xsect ,1, 1, 2);
 
       // ZZ -> llnunu histos
-      _h_ZZnunu_xsect = bookHisto1D(1, 1, 3);
-      _h_ZZnunu_ZpT   = bookHisto1D(4, 1, 1);
-      _h_ZZnunu_phill = bookHisto1D(6, 1, 1);
-      _h_ZZnunu_mZZ   = bookHisto1D(8, 1, 1);
+      book(_h_ZZnunu_xsect ,1, 1, 3);
+      book(_h_ZZnunu_ZpT   ,4, 1, 1);
+      book(_h_ZZnunu_phill ,6, 1, 1);
+      book(_h_ZZnunu_mZZ   ,8, 1, 1);
     }
 
 

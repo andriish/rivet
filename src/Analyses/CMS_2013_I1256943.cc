@@ -39,18 +39,18 @@ namespace Rivet {
 
 
       // Histograms in non-boosted region of Z pT
-      _h_dR_BB = bookHisto1D(1, 1, 1);
-      _h_dphi_BB = bookHisto1D(2, 1, 1);
-      _h_min_dR_ZB = bookHisto1D(3, 1, 1);
-      _h_A_ZBB = bookHisto1D(4, 1, 1);
+      book(_h_dR_BB ,1, 1, 1);
+      book(_h_dphi_BB ,2, 1, 1);
+      book(_h_min_dR_ZB ,3, 1, 1);
+      book(_h_A_ZBB ,4, 1, 1);
 
       // Histograms in boosted region of Z pT (pT > 50 GeV)
-      _h_dR_BB_boost = bookHisto1D(5, 1, 1);
-      _h_dphi_BB_boost = bookHisto1D(6, 1, 1);
-      _h_min_dR_ZB_boost = bookHisto1D(7, 1, 1);
-      _h_A_ZBB_boost = bookHisto1D(8, 1, 1);
+      book(_h_dR_BB_boost ,5, 1, 1);
+      book(_h_dphi_BB_boost ,6, 1, 1);
+      book(_h_min_dR_ZB_boost ,7, 1, 1);
+      book(_h_A_ZBB_boost ,8, 1, 1);
 
-      _h_min_ZpT = bookHisto1D(9,1,1);
+      book(_h_min_ZpT ,9,1,1);
     }
 
 

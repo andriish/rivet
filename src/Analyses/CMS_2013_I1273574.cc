@@ -21,17 +21,17 @@ namespace Rivet {
       const FinalState cnfs(-4.7, 4.7);
       declare(FastJets(cnfs, FastJets::ANTIKT, 0.5), "Jets");
 
-      _h_jetetas[0]     = bookHisto1D(1,1,1);
-      _h_jetpts[0]      = bookHisto1D(2,1,1);
-      _h_DeltaS         = bookHisto1D(3,1,1);
-      _h_DeltaPhiSoft   = bookHisto1D(4,1,1);
-      _h_DeltaPtRelSoft = bookHisto1D(5,1,1);
-      _h_jetetas[2]     = bookHisto1D(6,1,1);
-      _h_jetpts[2]      = bookHisto1D(7,1,1);
-      _h_jetetas[3]     = bookHisto1D(8,1,1);
-      _h_jetpts[3]      = bookHisto1D(9,1,1);
-      _h_jetetas[1]     = bookHisto1D(10,1,1);
-      _h_jetpts[1]      = bookHisto1D(11,1,1);
+      book(_h_jetetas[0]     ,1,1,1);
+      book(_h_jetpts[0]      ,2,1,1);
+      book(_h_DeltaS         ,3,1,1);
+      book(_h_DeltaPhiSoft   ,4,1,1);
+      book(_h_DeltaPtRelSoft ,5,1,1);
+      book(_h_jetetas[2]     ,6,1,1);
+      book(_h_jetpts[2]      ,7,1,1);
+      book(_h_jetetas[3]     ,8,1,1);
+      book(_h_jetpts[3]      ,9,1,1);
+      book(_h_jetetas[1]     ,10,1,1);
+      book(_h_jetpts[1]      ,11,1,1);
     }
 
 

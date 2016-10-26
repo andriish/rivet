@@ -36,35 +36,35 @@ namespace Rivet {
 
       // Histograms and weight vectors for low Q^2 a
       for (size_t ix = 0; ix < 17; ++ix) {
-        h = bookHisto1D(ix+1, 1, 1);
+        book(h ,ix+1, 1, 1);
         _histETLowQa.push_back(h);
         _weightETLowQa.push_back(0.);
       }
 
       // Histograms and weight vectors for high Q^2 a
       for (size_t ix = 0; ix < 7; ++ix) {
-        h = bookHisto1D(ix+18, 1, 1);
+        book(h ,ix+18, 1, 1);
         _histETHighQa.push_back(h);
         _weightETHighQa.push_back(0.);
       }
 
       // Histograms and weight vectors for low Q^2 b
       for (size_t ix = 0; ix < 5; ++ix) {
-        h = bookHisto1D(ix+25, 1, 1);
+        book(h ,ix+25, 1, 1);
         _histETLowQb.push_back(h);
         _weightETLowQb.push_back(0.);
       }
 
       // Histograms and weight vectors for high Q^2 b
       for (size_t ix = 0; ix < 3; ++ix) {
-        h = bookHisto1D(30+ix, 1, 1);
+        book(h ,30+ix, 1, 1);
         _histETHighQb.push_back(h);
         _weightETHighQb.push_back(0.0);
       }
 
       // Histograms for the averages
-      _histAverETCentral = bookProfile1D(33,  1, 1);
-      _histAverETFrag = bookProfile1D(34,  1, 1);
+      book(_histAverETCentral ,33,  1, 1);
+      book(_histAverETFrag ,34,  1, 1);
     }
 
 

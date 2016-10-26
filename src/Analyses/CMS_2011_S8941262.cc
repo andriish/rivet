@@ -15,9 +15,9 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      _h_total = bookHisto1D(1, 1, 1);
-      _h_mupt  = bookHisto1D(2, 1, 1);
-      _h_mueta = bookHisto1D(3, 1, 1);
+      book(_h_total ,1, 1, 1);
+      book(_h_mupt  ,2, 1, 1);
+      book(_h_mueta ,3, 1, 1);
       nbtot=0.;   nbmutot=0.;
 
       IdentifiedFinalState ifs(Cuts::abseta < 2.1 && Cuts::pT > 6*GeV);

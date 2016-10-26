@@ -115,32 +115,32 @@ namespace Rivet {
 
       // Book histograms
       if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
-        _pt90MaxAvg1800 = bookProfile1D(1, 1, 1);
-        _pt90MinAvg1800 = bookProfile1D(1, 1, 2);
-        _pt90Max1800 = bookProfile1D(2, 1, 1);
-        _pt90Min1800 = bookProfile1D(2, 1, 2);
-        _pt90Diff1800 = bookProfile1D(2, 1, 3);
-        _num90Max1800 = bookProfile1D(4, 1, 1);
-        _num90Min1800 = bookProfile1D(4, 1, 2);
-        _pTSum1800_2Jet = bookProfile1D(7, 1, 1);
-        _pTSum1800_3Jet = bookProfile1D(7, 1, 2);
+        book(_pt90MaxAvg1800 ,1, 1, 1);
+        book(_pt90MinAvg1800 ,1, 1, 2);
+        book(_pt90Max1800 ,2, 1, 1);
+        book(_pt90Min1800 ,2, 1, 2);
+        book(_pt90Diff1800 ,2, 1, 3);
+        book(_num90Max1800 ,4, 1, 1);
+        book(_num90Min1800 ,4, 1, 2);
+        book(_pTSum1800_2Jet ,7, 1, 1);
+        book(_pTSum1800_3Jet ,7, 1, 2);
 
-        _pt90Dbn1800Et40 = bookHisto1D(3, 1, 1);
-        _pt90Dbn1800Et80 = bookHisto1D(3, 1, 2);
-        _pt90Dbn1800Et120 = bookHisto1D(3, 1, 3);
-        _pt90Dbn1800Et160 = bookHisto1D(3, 1, 4);
-        _pt90Dbn1800Et200 = bookHisto1D(3, 1, 5);
-        _numTracksDbn1800MB = bookHisto1D(5, 1, 1);
-        _ptDbn1800MB = bookHisto1D(6, 1, 1);
+        book(_pt90Dbn1800Et40 ,3, 1, 1);
+        book(_pt90Dbn1800Et80 ,3, 1, 2);
+        book(_pt90Dbn1800Et120 ,3, 1, 3);
+        book(_pt90Dbn1800Et160 ,3, 1, 4);
+        book(_pt90Dbn1800Et200 ,3, 1, 5);
+        book(_numTracksDbn1800MB ,5, 1, 1);
+        book(_ptDbn1800MB ,6, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
-        _pt90Max630 = bookProfile1D(8, 1, 1);
-        _pt90Min630 = bookProfile1D(8, 1, 2);
-        _pt90Diff630 = bookProfile1D(8, 1, 3);
-        _pTSum630_2Jet = bookProfile1D(9, 1, 1);
-        _pTSum630_3Jet = bookProfile1D(9, 1, 2);
+        book(_pt90Max630 ,8, 1, 1);
+        book(_pt90Min630 ,8, 1, 2);
+        book(_pt90Diff630 ,8, 1, 3);
+        book(_pTSum630_2Jet ,9, 1, 1);
+        book(_pTSum630_3Jet ,9, 1, 2);
 
-        _numTracksDbn630MB = bookHisto1D(10, 1, 1);
-        _ptDbn630MB = bookHisto1D(11, 1, 1);
+        book(_numTracksDbn630MB ,10, 1, 1);
+        book(_ptDbn630MB ,11, 1, 1);
       }
     }
 

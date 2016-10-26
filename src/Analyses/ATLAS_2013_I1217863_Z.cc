@@ -56,11 +56,11 @@ namespace Rivet {
 
 
       // Book histograms
-      _hist_EgammaT_incl   = bookHisto1D(11, 1, _mode); // dSigma / dE^gamma_T for Njet >= 0
-      _hist_EgammaT_excl   = bookHisto1D(12, 1, _mode); // dSigma / dE^gamma_T for Njet = 0
-      _hist_Njet_EgammaT15 = bookHisto1D(17, 1, _mode); // dSigma / dNjet for E^gamma_T >= 15
-      _hist_Njet_EgammaT60 = bookHisto1D(18, 1, _mode); // dSigma / dNjet for E^gamma_T >= 60
-      _hist_mZgamma        = bookHisto1D(20, 1, _mode); // dSigma / dm^{Zgamma}
+      book(_hist_EgammaT_incl   ,11, 1, _mode); // dSigma / dE^gamma_T for Njet >= 0
+      book(_hist_EgammaT_excl   ,12, 1, _mode); // dSigma / dE^gamma_T for Njet = 0
+      book(_hist_Njet_EgammaT15 ,17, 1, _mode); // dSigma / dNjet for E^gamma_T >= 15
+      book(_hist_Njet_EgammaT60 ,18, 1, _mode); // dSigma / dNjet for E^gamma_T >= 60
+      book(_hist_mZgamma        ,20, 1, _mode); // dSigma / dm^{Zgamma}
 
     }
 

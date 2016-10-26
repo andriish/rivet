@@ -51,10 +51,10 @@ namespace Rivet {
       declare(ChargedFinalState(-3.0,3.0),"cfs");
 
       // Book histograms
-      _hist_etmiss = bookHisto1D("hist_etmiss",10,0.,500.);
-      _hist_meff   = bookHisto1D("hist_m_eff",7,0.,1050.);
-      _count_SR1 = bookHisto1D("count_SR1", 1, 0., 1.);
-      _count_SR2 = bookHisto1D("count_SR2", 1, 0., 1.);
+      book(_hist_etmiss ,"hist_etmiss",10,0.,500.);
+      book(_hist_meff   ,"hist_m_eff",7,0.,1050.);
+      book(_count_SR1 ,"count_SR1", 1, 0., 1.);
+      book(_count_SR2 ,"count_SR2", 1, 0., 1.);
     }
 
 

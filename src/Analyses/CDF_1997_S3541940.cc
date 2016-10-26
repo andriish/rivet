@@ -29,26 +29,26 @@ namespace Rivet {
       SmearedJets sj_E(fj, [](const Jet& jet){ return P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet, 0.1*jet.E()), 0.1*jet.mass()); });
       declare(sj_E, "SmearedJets");
 
-      _h_m6J = bookHisto1D(1, 1, 1);
-      _h_X3ppp = bookHisto1D(2, 1, 1);
-      _h_X4ppp = bookHisto1D(3, 1, 1);
-      _h_costheta3ppp = bookHisto1D(4, 1, 1);
-      _h_psi3ppp = bookHisto1D(5, 1, 1);
-      _h_f3ppp = bookHisto1D(6, 1, 1);
-      _h_f4ppp = bookHisto1D(6, 1, 2);
-      _h_f5ppp = bookHisto1D(6, 1, 3);
-      _h_XApp = bookHisto1D(7, 1, 1);
-      _h_XCp = bookHisto1D(8, 1, 1);
-      _h_XE = bookHisto1D(9, 1, 1);
-      _h_psiAppBpp = bookHisto1D(10, 1, 1);
-      _h_psiCpDp = bookHisto1D(11, 1, 1);
-      _h_psiEF = bookHisto1D(12, 1, 1);
-      _h_fApp = bookHisto1D(13, 1, 1);
-      _h_fBpp = bookHisto1D(14, 1, 1);
-      _h_fCp = bookHisto1D(15, 1, 1);
-      _h_fDp = bookHisto1D(16, 1, 1);
-      _h_fE = bookHisto1D(17, 1, 1);
-      _h_fF = bookHisto1D(18, 1, 1);
+      book(_h_m6J ,1, 1, 1);
+      book(_h_X3ppp ,2, 1, 1);
+      book(_h_X4ppp ,3, 1, 1);
+      book(_h_costheta3ppp ,4, 1, 1);
+      book(_h_psi3ppp ,5, 1, 1);
+      book(_h_f3ppp ,6, 1, 1);
+      book(_h_f4ppp ,6, 1, 2);
+      book(_h_f5ppp ,6, 1, 3);
+      book(_h_XApp ,7, 1, 1);
+      book(_h_XCp ,8, 1, 1);
+      book(_h_XE ,9, 1, 1);
+      book(_h_psiAppBpp ,10, 1, 1);
+      book(_h_psiCpDp ,11, 1, 1);
+      book(_h_psiEF ,12, 1, 1);
+      book(_h_fApp ,13, 1, 1);
+      book(_h_fBpp ,14, 1, 1);
+      book(_h_fCp ,15, 1, 1);
+      book(_h_fDp ,16, 1, 1);
+      book(_h_fE ,17, 1, 1);
+      book(_h_fF ,18, 1, 1);
     }
 
 

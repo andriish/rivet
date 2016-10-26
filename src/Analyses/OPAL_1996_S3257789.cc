@@ -26,9 +26,9 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(UnstableFinalState(), "UFS");
-      _histXpJPsi   = bookHisto1D( 1, 1, 1);
-      _multJPsi     = bookHisto1D( 2, 1, 1);
-      _multPsiPrime = bookHisto1D( 2, 1, 2);
+      book(_histXpJPsi   , 1, 1, 1);
+      book(_multJPsi     , 2, 1, 1);
+      book(_multPsiPrime , 2, 1, 2);
     }
 
 

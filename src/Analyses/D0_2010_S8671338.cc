@@ -28,8 +28,8 @@ namespace Rivet {
       ZFinder zfinder(FinalState(), cut, PID::MUON, 65*GeV, 115*GeV, 0.2, ZFinder::NOCLUSTER, ZFinder::TRACK);
       declare(zfinder, "ZFinder");
 
-      _h_Z_pT_normalised = bookHisto1D(1, 1, 1);
-      _h_Z_pT_xs = bookHisto1D(2, 1, 1);
+      book(_h_Z_pT_normalised ,1, 1, 1);
+      book(_h_Z_pT_xs ,2, 1, 1);
     }
 
 

@@ -35,13 +35,13 @@ namespace Rivet {
       declare(cfs13, "CFS13");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        _h_dN_dNch_05    = bookHisto1D(11, 1, 1);
-        _h_dN_dNch_10    = bookHisto1D(12, 1, 1);
-        _h_dN_dNch_13    = bookHisto1D(13, 1, 1);
+        book(_h_dN_dNch_05    ,11, 1, 1);
+        book(_h_dN_dNch_10    ,12, 1, 1);
+        book(_h_dN_dNch_13    ,13, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 2360, 1E-3)) {
-        _h_dN_dNch_05    = bookHisto1D(17, 1, 1);
-        _h_dN_dNch_10    = bookHisto1D(18, 1, 1);
-        _h_dN_dNch_13    = bookHisto1D(19, 1, 1);
+        book(_h_dN_dNch_05    ,17, 1, 1);
+        book(_h_dN_dNch_10    ,18, 1, 1);
+        book(_h_dN_dNch_13    ,19, 1, 1);
       }
 
     }

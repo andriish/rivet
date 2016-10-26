@@ -58,8 +58,8 @@ namespace Rivet {
       fjets.useInvisibles();
       declare(fjets, "jets");
 
-      h_pull_all     = bookHisto1D(4,1,1);
-      h_pull_charged = bookHisto1D(5,1,1);
+      book(h_pull_all     ,4,1,1);
+      book(h_pull_charged ,5,1,1);
     }
 
 

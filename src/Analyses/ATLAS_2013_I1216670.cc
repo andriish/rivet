@@ -23,8 +23,8 @@ namespace Rivet {
     /// Book histograms, set up projections for W and jets
     void init() {
 
-      _h_delta_jets_n = bookHisto1D(1, 1, 1);
-      _h_delta_jets   = bookHisto1D(2, 1, 1);
+      book(_h_delta_jets_n ,1, 1, 1);
+      book(_h_delta_jets   ,2, 1, 1);
 
       FinalState fs;
 

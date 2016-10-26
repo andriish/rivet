@@ -41,12 +41,12 @@ namespace Rivet {
       declare(jetpro, "Jets");
 
       // Book histograms
-      _h_dsigdptdy_y00_04 = bookHisto1D(1, 1, 1);
-      _h_dsigdptdy_y04_08 = bookHisto1D(2, 1, 1);
-      _h_dsigdptdy_y08_12 = bookHisto1D(3, 1, 1);
-      _h_dsigdptdy_y12_16 = bookHisto1D(4, 1, 1);
-      _h_dsigdptdy_y16_20 = bookHisto1D(5, 1, 1);
-      _h_dsigdptdy_y20_24 = bookHisto1D(6, 1, 1);
+      book(_h_dsigdptdy_y00_04 ,1, 1, 1);
+      book(_h_dsigdptdy_y04_08 ,2, 1, 1);
+      book(_h_dsigdptdy_y08_12 ,3, 1, 1);
+      book(_h_dsigdptdy_y12_16 ,4, 1, 1);
+      book(_h_dsigdptdy_y16_20 ,5, 1, 1);
+      book(_h_dsigdptdy_y20_24 ,6, 1, 1);
     }
 
 

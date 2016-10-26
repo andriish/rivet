@@ -49,8 +49,8 @@ namespace Rivet {
           declare(jsp, _jsnames_pT[i][j]);
 
           // Book profile histograms for each (pT,y) bin
-          _profhistRho_pT[i][j] = bookProfile1D(i+1, j+1, 1);
-          _profhistPsi_pT[i][j] = bookProfile1D(i+1, j+1, 2);
+          book(_profhistRho_pT[i][j] ,i+1, j+1, 1);
+          book(_profhistPsi_pT[i][j] ,i+1, j+1, 2);
         }
       }
     }

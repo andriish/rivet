@@ -21,7 +21,7 @@ namespace Rivet {
       declare(cfsm, "CFSM");
       declare(cfsp, "CFSP");
 
-      _h_eta = bookHisto1D(1, 1, 1);
+      book(_h_eta ,1, 1, 1);
       _sumofweights = 0.;
     }
 

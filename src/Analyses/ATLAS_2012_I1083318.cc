@@ -60,31 +60,31 @@ namespace Rivet {
       declare(jets, "jets");
 
       for (size_t i = 0; i < 2; ++i) {
-        _h_NjetIncl[i] = bookHisto1D(1, 1, i+1);
+        book(_h_NjetIncl[i] ,1, 1, i+1);
         _h_RatioNjetIncl[i] = bookScatter2D(2, 1, i+1);
-        _h_FirstJetPt_1jet[i] = bookHisto1D(3, 1, i+1);
-        _h_FirstJetPt_2jet[i] = bookHisto1D(4, 1, i+1);
-        _h_FirstJetPt_3jet[i] = bookHisto1D(5, 1, i+1);
-        _h_FirstJetPt_4jet[i] = bookHisto1D(6, 1, i+1);
-        _h_SecondJetPt_2jet[i] = bookHisto1D(7, 1, i+1);
-        _h_SecondJetPt_3jet[i] = bookHisto1D(8, 1, i+1);
-        _h_SecondJetPt_4jet[i] = bookHisto1D(9, 1, i+1);
-        _h_ThirdJetPt_3jet[i] = bookHisto1D(10, 1, i+1);
-        _h_ThirdJetPt_4jet[i] = bookHisto1D(11, 1, i+1);
-        _h_FourthJetPt_4jet[i] = bookHisto1D(12, 1, i+1);
-        _h_Ht_1jet[i] = bookHisto1D(13, 1, i+1);
-        _h_Ht_2jet[i] = bookHisto1D(14, 1, i+1);
-        _h_Ht_3jet[i] = bookHisto1D(15, 1, i+1);
-        _h_Ht_4jet[i] = bookHisto1D(16, 1, i+1);
-        _h_Minv_2jet[i] = bookHisto1D(17, 1, i+1);
-        _h_Minv_3jet[i] = bookHisto1D(18, 1, i+1);
-        _h_Minv_4jet[i] = bookHisto1D(19, 1, i+1);
-        _h_JetRapidity[i] = bookHisto1D(20, 1, i+1);
-        _h_DeltaYElecJet[i] = bookHisto1D(21, 1, i+1);
-        _h_SumYElecJet[i] = bookHisto1D(22, 1, i+1);
-        _h_DeltaR_2jet[i] = bookHisto1D(23, 1, i+1);
-        _h_DeltaY_2jet[i] = bookHisto1D(24, 1, i+1);
-        _h_DeltaPhi_2jet[i] = bookHisto1D(25, 1, i+1);
+        book(_h_FirstJetPt_1jet[i] ,3, 1, i+1);
+        book(_h_FirstJetPt_2jet[i] ,4, 1, i+1);
+        book(_h_FirstJetPt_3jet[i] ,5, 1, i+1);
+        book(_h_FirstJetPt_4jet[i] ,6, 1, i+1);
+        book(_h_SecondJetPt_2jet[i] ,7, 1, i+1);
+        book(_h_SecondJetPt_3jet[i] ,8, 1, i+1);
+        book(_h_SecondJetPt_4jet[i] ,9, 1, i+1);
+        book(_h_ThirdJetPt_3jet[i] ,10, 1, i+1);
+        book(_h_ThirdJetPt_4jet[i] ,11, 1, i+1);
+        book(_h_FourthJetPt_4jet[i] ,12, 1, i+1);
+        book(_h_Ht_1jet[i] ,13, 1, i+1);
+        book(_h_Ht_2jet[i] ,14, 1, i+1);
+        book(_h_Ht_3jet[i] ,15, 1, i+1);
+        book(_h_Ht_4jet[i] ,16, 1, i+1);
+        book(_h_Minv_2jet[i] ,17, 1, i+1);
+        book(_h_Minv_3jet[i] ,18, 1, i+1);
+        book(_h_Minv_4jet[i] ,19, 1, i+1);
+        book(_h_JetRapidity[i] ,20, 1, i+1);
+        book(_h_DeltaYElecJet[i] ,21, 1, i+1);
+        book(_h_SumYElecJet[i] ,22, 1, i+1);
+        book(_h_DeltaR_2jet[i] ,23, 1, i+1);
+        book(_h_DeltaY_2jet[i] ,24, 1, i+1);
+        book(_h_DeltaPhi_2jet[i] ,25, 1, i+1);
       }
     }
 

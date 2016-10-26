@@ -34,9 +34,9 @@ namespace Rivet {
       // Histograms (temporary +- charge histos and scatters to store the calculated asymmetries)
       for (size_t pmindex = 0; pmindex < 2; ++pmindex) {
         const string suffix = (pmindex == 0) ? "plus" : "minus";
-        _hs_dsigpm_deta_25_35[pmindex] = bookHisto1D("TMP/dsigpm_deta_25_35_" + suffix, refData(1, 1, 1));
-        _hs_dsigpm_deta_35[pmindex] = bookHisto1D("TMP/dsigpm_deta_35_" + suffix, refData(1, 1, 2));
-        _hs_dsigpm_deta_25[pmindex] = bookHisto1D("TMP/dsigpm_deta_25_" + suffix, refData(1, 1, 3));
+        book(_hs_dsigpm_deta_25_35[pmindex] ,"TMP/dsigpm_deta_25_35_" + suffix, refData(1, 1, 1));
+        book(_hs_dsigpm_deta_35[pmindex] ,"TMP/dsigpm_deta_35_" + suffix, refData(1, 1, 2));
+        book(_hs_dsigpm_deta_25[pmindex] ,"TMP/dsigpm_deta_25_" + suffix, refData(1, 1, 3));
       }
       _h_asym1 = bookScatter2D(1, 1, 1);
       _h_asym2 = bookScatter2D(1, 1, 2);

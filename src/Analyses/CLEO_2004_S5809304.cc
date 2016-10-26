@@ -113,23 +113,23 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // continuum cross sections
-      _sigmaDPlus      = bookHisto1D(1,1,1);
-      _sigmaD0A        = bookHisto1D(1,1,2);
-      _sigmaD0B        = bookHisto1D(1,1,3);
-      _sigmaDStarPlusA = bookHisto1D(1,1,4);
-      _sigmaDStarPlusB = bookHisto1D(1,1,5);
-      _sigmaDStar0A    = bookHisto1D(1,1,6);
-      _sigmaDStar0B    = bookHisto1D(1,1,7);
+      book(_sigmaDPlus      ,1,1,1);
+      book(_sigmaD0A        ,1,1,2);
+      book(_sigmaD0B        ,1,1,3);
+      book(_sigmaDStarPlusA ,1,1,4);
+      book(_sigmaDStarPlusB ,1,1,5);
+      book(_sigmaDStar0A    ,1,1,6);
+      book(_sigmaDStar0B    ,1,1,7);
 
        // histograms for continuum data
-      _histXpDplus      = bookHisto1D(2, 1, 1);
-      _histXpD0A        = bookHisto1D(3, 1, 1);
-      _histXpD0B        = bookHisto1D(4, 1, 1);
-      _histXpDStarPlusA = bookHisto1D(5, 1, 1);
-      _histXpDStarPlusB = bookHisto1D(6, 1, 1);
-      _histXpDStar0A    = bookHisto1D(7, 1, 1);
-      _histXpDStar0B    = bookHisto1D(8, 1, 1);
-      _histXpTotal      = bookHisto1D(9, 1, 1);
+      book(_histXpDplus      ,2, 1, 1);
+      book(_histXpD0A        ,3, 1, 1);
+      book(_histXpD0B        ,4, 1, 1);
+      book(_histXpDStarPlusA ,5, 1, 1);
+      book(_histXpDStarPlusB ,6, 1, 1);
+      book(_histXpDStar0A    ,7, 1, 1);
+      book(_histXpDStar0B    ,8, 1, 1);
+      book(_histXpTotal      ,9, 1, 1);
 
     } // init
 

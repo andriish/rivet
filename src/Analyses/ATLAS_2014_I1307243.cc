@@ -40,22 +40,22 @@ namespace Rivet {
         const int gapCategoryOffset = (gapCategory == "inclusive") ? 0 : 1;
 
         // Temporary inclusive and gap histograms
-        _h_tmp_events_dy[gapCategory] = bookHisto1D(1, 1, 1);
+        book(_h_tmp_events_dy[gapCategory] ,1, 1, 1);
         _h_tmp_events_dy[gapCategory]->setPath("/TMP/" + toString(gapCategory) + "_events_dy");
-        _h_tmp_events_pTbar[gapCategory] = bookHisto1D(2, 1, 1);
+        book(_h_tmp_events_pTbar[gapCategory] ,2, 1, 1);
         _h_tmp_events_pTbar[gapCategory]->setPath("/TMP/" + toString(gapCategory) + "_events_pTbar");
 
         // Azimuthal moment histograms
-        _h_profiled_cosDeltaPhi_dy[gapCategory]       = bookProfile1D( 5+4*gapCategoryOffset, 1, 1);
-        _h_profiled_cosDeltaPhi_pTbar[gapCategory]    = bookProfile1D( 6+4*gapCategoryOffset, 1, 1);
+        book(_h_profiled_cosDeltaPhi_dy[gapCategory]       , 5+4*gapCategoryOffset, 1, 1);
+        book(_h_profiled_cosDeltaPhi_pTbar[gapCategory]    , 6+4*gapCategoryOffset, 1, 1);
         _h_C2C1_dy[gapCategory]                       = bookScatter2D( 7+4*gapCategoryOffset, 1, 1, false);
         _h_C2C1_pTbar[gapCategory]                    = bookScatter2D( 8+4*gapCategoryOffset, 1, 1, false);
-        _h_profiled_cosTwoDeltaPhi_dy[gapCategory]    = bookProfile1D(37+2*gapCategoryOffset, 1, 1);
-        _h_profiled_cosTwoDeltaPhi_pTbar[gapCategory] = bookProfile1D(38+2*gapCategoryOffset, 1, 1);
+        book(_h_profiled_cosTwoDeltaPhi_dy[gapCategory]    ,37+2*gapCategoryOffset, 1, 1);
+        book(_h_profiled_cosTwoDeltaPhi_pTbar[gapCategory] ,38+2*gapCategoryOffset, 1, 1);
 
         // Gap fraction vs. Q0 and cross-section in dy slices
         for (size_t dyLow = 0; dyLow < _dy_max; ++dyLow ) {
-          Histo1DPtr _h_tmp_events_Q0_single_dySlice = bookHisto1D( 29+dyLow, 1, 1);
+          book(Histo1DPtr _h_tmp_events_Q0_single_dySlice , 29+dyLow, 1, 1);
           _h_tmp_events_Q0_single_dySlice->setPath("/TMP/" + toString(gapCategory) + "_events_dySlice_" + toString(dyLow) + "_" + toString(dyLow+1) + "_Q0");
           _h_tmp_events_Q0_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, _h_tmp_events_Q0_single_dySlice );
           _h_crossSection_dphi_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, bookHisto1D( 13+(_dy_max*gapCategoryOffset)+dyLow, 1, 1));
@@ -64,8 +64,8 @@ namespace Rivet {
       }
 
       // Number of jets in rapidity interval
-      _h_profiled_nJets_rapidity_interval_dy    = bookProfile1D( 3, 1, 1);
-      _h_profiled_nJets_rapidity_interval_pTbar = bookProfile1D( 4, 1, 1);
+      book(_h_profiled_nJets_rapidity_interval_dy    , 3, 1, 1);
+      book(_h_profiled_nJets_rapidity_interval_pTbar , 4, 1, 1);
     }
 
 

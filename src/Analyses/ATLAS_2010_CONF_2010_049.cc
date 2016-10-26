@@ -25,11 +25,11 @@ namespace Rivet {
       declare(jetsproj4, "Jets4");
 
       for (size_t i=0 ; i<2 ; i++) {
-        _h_xsec[i]       = bookHisto1D(1+i, 1, 1);
-        _h_frag_04_06[i] = bookHisto1D(3+i, 1, 1);
-        _h_frag_06_10[i] = bookHisto1D(3+i, 2, 1);
-        _h_frag_10_15[i] = bookHisto1D(3+i, 3, 1);
-        _h_frag_15_24[i] = bookHisto1D(3+i, 4, 1);
+        book(_h_xsec[i]       ,1+i, 1, 1);
+        book(_h_frag_04_06[i] ,3+i, 1, 1);
+        book(_h_frag_06_10[i] ,3+i, 2, 1);
+        book(_h_frag_10_15[i] ,3+i, 3, 1);
+        book(_h_frag_15_24[i] ,3+i, 4, 1);
         _njets_04_06[i] = 0.0;
         _njets_06_10[i] = 0.0;
         _njets_10_15[i] = 0.0;

@@ -34,13 +34,13 @@ namespace Rivet {
       declare(fj10, "AntiKT10");
 
       for (size_t alg = 0; alg < 2; ++alg) {
-        _hs_mass[alg]  = bookHisto1D(1, alg+1, 1);
-        _hs_width[alg] = bookHisto1D(2, alg+1, 1);
+        book(_hs_mass[alg]  ,1, alg+1, 1);
+        book(_hs_width[alg] ,2, alg+1, 1);
         /// @todo Commented eccentricity out for now: reinstate
-        // _hs_eccentricity[alg] = bookHisto1D(3, alg+1, 1);
+        //book( _hs_eccentricity[alg] ,3, alg+1, 1);
       }
-      _h_planarFlow = bookHisto1D(4, 2, 1);
-      _h_angularity = bookHisto1D(5, 1, 1);
+      book(_h_planarFlow ,4, 2, 1);
+      book(_h_angularity ,5, 1, 1);
 
     }
 

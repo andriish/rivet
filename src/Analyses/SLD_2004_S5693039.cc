@@ -210,42 +210,42 @@ namespace Rivet {
       declare(Thrust(FinalState()), "Thrust");
 
       // Book histograms
-      _h_PCharged   = bookHisto1D( 1, 1, 1);
-      _h_XpPiPlus   = bookHisto1D( 2, 1, 2);
-      _h_XpKPlus    = bookHisto1D( 3, 1, 2);
-      _h_XpProton   = bookHisto1D( 4, 1, 2);
-      _h_XpPiPlusTotal = bookHisto1D( 2, 2, 2);
-      _h_XpKPlusTotal  = bookHisto1D( 3, 2, 2);
-      _h_XpProtonTotal = bookHisto1D( 4, 2, 2);
-      _h_XpPiPlusL  = bookHisto1D( 5, 1, 1);
-      _h_XpPiPlusC  = bookHisto1D( 5, 1, 2);
-      _h_XpPiPlusB  = bookHisto1D( 5, 1, 3);
-      _h_XpKPlusL   = bookHisto1D( 6, 1, 1);
-      _h_XpKPlusC   = bookHisto1D( 6, 1, 2);
-      _h_XpKPlusB   = bookHisto1D( 6, 1, 3);
-      _h_XpProtonL  = bookHisto1D( 7, 1, 1);
-      _h_XpProtonC  = bookHisto1D( 7, 1, 2);
-      _h_XpProtonB  = bookHisto1D( 7, 1, 3);
-      _h_XpChargedL = bookHisto1D( 8, 1, 1);
-      _h_XpChargedC = bookHisto1D( 8, 1, 2);
-      _h_XpChargedB = bookHisto1D( 8, 1, 3);
+      book(_h_PCharged   , 1, 1, 1);
+      book(_h_XpPiPlus   , 2, 1, 2);
+      book(_h_XpKPlus    , 3, 1, 2);
+      book(_h_XpProton   , 4, 1, 2);
+      book(_h_XpPiPlusTotal , 2, 2, 2);
+      book(_h_XpKPlusTotal  , 3, 2, 2);
+      book(_h_XpProtonTotal , 4, 2, 2);
+      book(_h_XpPiPlusL  , 5, 1, 1);
+      book(_h_XpPiPlusC  , 5, 1, 2);
+      book(_h_XpPiPlusB  , 5, 1, 3);
+      book(_h_XpKPlusL   , 6, 1, 1);
+      book(_h_XpKPlusC   , 6, 1, 2);
+      book(_h_XpKPlusB   , 6, 1, 3);
+      book(_h_XpProtonL  , 7, 1, 1);
+      book(_h_XpProtonC  , 7, 1, 2);
+      book(_h_XpProtonB  , 7, 1, 3);
+      book(_h_XpChargedL , 8, 1, 1);
+      book(_h_XpChargedC , 8, 1, 2);
+      book(_h_XpChargedB , 8, 1, 3);
 
-      _h_NPiPlusL  = bookHisto1D( 5, 2, 1);
-      _h_NPiPlusC  = bookHisto1D( 5, 2, 2);
-      _h_NPiPlusB  = bookHisto1D( 5, 2, 3);
-      _h_NKPlusL   = bookHisto1D( 6, 2, 1);
-      _h_NKPlusC   = bookHisto1D( 6, 2, 2);
-      _h_NKPlusB   = bookHisto1D( 6, 2, 3);
-      _h_NProtonL  = bookHisto1D( 7, 2, 1);
-      _h_NProtonC  = bookHisto1D( 7, 2, 2);
-      _h_NProtonB  = bookHisto1D( 7, 2, 3);
+      book(_h_NPiPlusL  , 5, 2, 1);
+      book(_h_NPiPlusC  , 5, 2, 2);
+      book(_h_NPiPlusB  , 5, 2, 3);
+      book(_h_NKPlusL   , 6, 2, 1);
+      book(_h_NKPlusC   , 6, 2, 2);
+      book(_h_NKPlusB   , 6, 2, 3);
+      book(_h_NProtonL  , 7, 2, 1);
+      book(_h_NProtonC  , 7, 2, 2);
+      book(_h_NProtonB  , 7, 2, 3);
 
-      _h_RPiPlus  = bookHisto1D( 9, 1, 1);
-      _h_RPiMinus = bookHisto1D( 9, 1, 2);
-      _h_RKPlus   = bookHisto1D(10, 1, 1);
-      _h_RKMinus  = bookHisto1D(10, 1, 2);
-      _h_RProton  = bookHisto1D(11, 1, 1);
-      _h_RPBar    = bookHisto1D(11, 1, 2);
+      book(_h_RPiPlus  , 9, 1, 1);
+      book(_h_RPiMinus , 9, 1, 2);
+      book(_h_RKPlus   ,10, 1, 1);
+      book(_h_RKMinus  ,10, 1, 2);
+      book(_h_RProton  ,11, 1, 1);
+      book(_h_RPBar    ,11, 1, 2);
 
       // Ratios: used as target of divide() later
       _s_PiM_PiP  = bookScatter2D(9, 1, 3);

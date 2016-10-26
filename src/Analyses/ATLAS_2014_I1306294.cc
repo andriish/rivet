@@ -48,18 +48,18 @@ namespace Rivet {
       declare(HeavyHadrons(), "BHadrons");
 
       //Histograms with data binning
-      _h_bjet_Pt      = bookHisto1D( 3, 1, 1);
-      _h_bjet_Y       = bookHisto1D( 5, 1, 1);
-      _h_bjet_Yboost  = bookHisto1D( 7, 1, 1);
-      _h_bjet_DY20    = bookHisto1D( 9, 1, 1);
-      _h_bjet_ZdPhi20 = bookHisto1D(11, 1, 1);
-      _h_bjet_ZdR20   = bookHisto1D(13, 1, 1);
-      _h_bjet_ZPt     = bookHisto1D(15, 1, 1);
-      _h_bjet_ZY      = bookHisto1D(17, 1, 1);
-      _h_2bjet_dR     = bookHisto1D(21, 1, 1);
-      _h_2bjet_Mbb    = bookHisto1D(23, 1, 1);
-      _h_2bjet_ZPt    = bookHisto1D(25, 1, 1);
-      _h_2bjet_ZY     = bookHisto1D(27, 1, 1);
+      book(_h_bjet_Pt      , 3, 1, 1);
+      book(_h_bjet_Y       , 5, 1, 1);
+      book(_h_bjet_Yboost  , 7, 1, 1);
+      book(_h_bjet_DY20    , 9, 1, 1);
+      book(_h_bjet_ZdPhi20 ,11, 1, 1);
+      book(_h_bjet_ZdR20   ,13, 1, 1);
+      book(_h_bjet_ZPt     ,15, 1, 1);
+      book(_h_bjet_ZY      ,17, 1, 1);
+      book(_h_2bjet_dR     ,21, 1, 1);
+      book(_h_2bjet_Mbb    ,23, 1, 1);
+      book(_h_2bjet_ZPt    ,25, 1, 1);
+      book(_h_2bjet_ZY     ,27, 1, 1);
     }
 
 	  //==========================================================================================

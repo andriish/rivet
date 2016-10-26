@@ -20,10 +20,10 @@ namespace Rivet {
       const UnstableFinalState ufs(Cuts::abseta < 2 && Cuts::pT > 0.6*GeV);
       declare(ufs, "UFS");
 
-      _h_nTrans_Lambda     = bookProfile1D(1, 1, 1);
-      _h_nTrans_Kaon       = bookProfile1D(2, 1, 1);
-      _h_ptsumTrans_Lambda = bookProfile1D(3, 1, 1);
-      _h_ptsumTrans_Kaon   = bookProfile1D(4, 1, 1);
+      book(_h_nTrans_Lambda     ,1, 1, 1);
+      book(_h_nTrans_Kaon       ,2, 1, 1);
+      book(_h_ptsumTrans_Lambda ,3, 1, 1);
+      book(_h_ptsumTrans_Kaon   ,4, 1, 1);
     }
 
 

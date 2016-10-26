@@ -26,12 +26,12 @@ namespace Rivet {
       ZFinder zfinder_mm(fs, Cuts::abseta < 2 && Cuts::pT > 15*GeV, PID::MUON, 30*GeV, 500*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK);
       declare(zfinder_mm, "zfinder_mm");
 
-      _h_phistar_mm_peak_central = bookHisto1D(1, 1, 1);
-      _h_phistar_mm_peak_forward = bookHisto1D(1, 1, 2);
-      _h_phistar_mm_low_central = bookHisto1D(2, 1, 1);
-      _h_phistar_mm_low_forward = bookHisto1D(2, 1, 2);
-      _h_phistar_mm_high1 = bookHisto1D(3, 1, 1);
-      _h_phistar_mm_high2 = bookHisto1D(4, 1, 1);
+      book(_h_phistar_mm_peak_central ,1, 1, 1);
+      book(_h_phistar_mm_peak_forward ,1, 1, 2);
+      book(_h_phistar_mm_low_central ,2, 1, 1);
+      book(_h_phistar_mm_low_forward ,2, 1, 2);
+      book(_h_phistar_mm_high1 ,3, 1, 1);
+      book(_h_phistar_mm_high2 ,4, 1, 1);
     }
 
 

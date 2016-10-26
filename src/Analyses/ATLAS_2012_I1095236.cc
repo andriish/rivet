@@ -49,24 +49,24 @@ namespace Rivet {
       declare(VisibleFinalState(-4.9,4.9),"vfs");
 
       // Book histograms
-      _count_SR0_A1 = bookHisto1D("count_SR0_A1", 1, 0., 1.);
-      _count_SR0_B1 = bookHisto1D("count_SR0_B1", 1, 0., 1.);
-      _count_SR0_C1 = bookHisto1D("count_SR0_C1", 1, 0., 1.);
-      _count_SR0_A2 = bookHisto1D("count_SR0_A2", 1, 0., 1.);
-      _count_SR0_B2 = bookHisto1D("count_SR0_B2", 1, 0., 1.);
-      _count_SR0_C2 = bookHisto1D("count_SR0_C2", 1, 0., 1.);
-      _count_SR1_D  = bookHisto1D("count_SR1_D" , 1, 0., 1.);
-      _count_SR1_E  = bookHisto1D("count_SR1_E" , 1, 0., 1.);
+      book(_count_SR0_A1 ,"count_SR0_A1", 1, 0., 1.);
+      book(_count_SR0_B1 ,"count_SR0_B1", 1, 0., 1.);
+      book(_count_SR0_C1 ,"count_SR0_C1", 1, 0., 1.);
+      book(_count_SR0_A2 ,"count_SR0_A2", 1, 0., 1.);
+      book(_count_SR0_B2 ,"count_SR0_B2", 1, 0., 1.);
+      book(_count_SR0_C2 ,"count_SR0_C2", 1, 0., 1.);
+      book(_count_SR1_D  ,"count_SR1_D" , 1, 0., 1.);
+      book(_count_SR1_E  ,"count_SR1_E" , 1, 0., 1.);
 
-      _hist_meff_SR0_A1   = bookHisto1D("hist_m_eff_SR0_A1", 14, 400., 1800.);
-      _hist_meff_SR0_A2   = bookHisto1D("hist_m_eff_SR0_A2", 14, 400., 1800.);
-      _hist_meff_SR1_D_e  = bookHisto1D("hist_meff_SR1_D_e" , 16, 600., 2200.);
-      _hist_meff_SR1_D_mu = bookHisto1D("hist_meff_SR1_D_mu", 16, 600., 2200.);
+      book(_hist_meff_SR0_A1   ,"hist_m_eff_SR0_A1", 14, 400., 1800.);
+      book(_hist_meff_SR0_A2   ,"hist_m_eff_SR0_A2", 14, 400., 1800.);
+      book(_hist_meff_SR1_D_e  ,"hist_meff_SR1_D_e" , 16, 600., 2200.);
+      book(_hist_meff_SR1_D_mu ,"hist_meff_SR1_D_mu", 16, 600., 2200.);
 
-      _hist_met_SR0_A1    = bookHisto1D("hist_met_SR0_A1", 14, 0., 700.);
-      _hist_met_SR0_A2    = bookHisto1D("hist_met_SR0_A2", 14, 0., 700.);
-      _hist_met_SR0_D_e   = bookHisto1D("hist_met_SR1_D_e" , 15, 0., 600.);
-      _hist_met_SR0_D_mu  = bookHisto1D("hist_met_SR1_D_mu", 15, 0., 600.);
+      book(_hist_met_SR0_A1    ,"hist_met_SR0_A1", 14, 0., 700.);
+      book(_hist_met_SR0_A2    ,"hist_met_SR0_A2", 14, 0., 700.);
+      book(_hist_met_SR0_D_e   ,"hist_met_SR1_D_e" , 15, 0., 600.);
+      book(_hist_met_SR0_D_mu  ,"hist_met_SR1_D_mu", 15, 0., 600.);
 
     }
 

@@ -43,8 +43,8 @@ namespace Rivet {
           _jsnames_pT[k] = pname;
           const JetShape jsp(fj, 0.0, 0.7, 7, _ptedges[k], _ptedges[k+1], 0.1, 0.7, RAPIDITY);
           declare(jsp, pname);
-          _profhistRho_pT[k] = bookProfile1D(i+1, 1, j+1);
-          _profhistPsi_pT[k] = bookProfile1D(6+i+1, 1, j+1);
+          book(_profhistRho_pT[k] ,i+1, 1, j+1);
+          book(_profhistPsi_pT[k] ,6+i+1, 1, j+1);
         }
       }
 

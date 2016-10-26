@@ -94,8 +94,8 @@ namespace Rivet {
 
       // Also book numerator and denominator for Rjets plots
       foreach (PlotMapPair& str_plot, _plots) {
-        str_plot.second.comp[0] = bookHisto1D( str_plot.second.ref + "2" + _suff, *(str_plot.second.ratio) );
-        str_plot.second.comp[1] = bookHisto1D( str_plot.second.ref + "3" + _suff, *(str_plot.second.ratio) );
+        book(str_plot.second.comp[0] , str_plot.second.ref + "2" + _suff, *(str_plot.second.ratio) );
+        book(str_plot.second.comp[1] , str_plot.second.ref + "3" + _suff, *(str_plot.second.ratio) );
       }
     }
 

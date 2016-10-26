@@ -45,11 +45,11 @@ namespace Rivet {
 
       // Histos
       if (fuzzyEquals(sqrtS()/GeV, 630)) {
-        _hist_multiplicity  = bookHisto1D(1, 1, 1);
-        _hist_pt_vs_multiplicity  = bookProfile1D(3, 1, 1);
+        book(_hist_multiplicity  ,1, 1, 1);
+        book(_hist_pt_vs_multiplicity  ,3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 1800)) {
-        _hist_multiplicity = bookHisto1D(2, 1, 1);
-        _hist_pt_vs_multiplicity = bookProfile1D(4, 1, 1);
+        book(_hist_multiplicity ,2, 1, 1);
+        book(_hist_pt_vs_multiplicity ,4, 1, 1);
       }
     }
 

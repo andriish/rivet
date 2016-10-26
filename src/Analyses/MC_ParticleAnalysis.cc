@@ -27,15 +27,15 @@ namespace Rivet {
       const string ptname = _pname + "_pt_" + to_str(i+1);
       const double ptmax = 1.0/(double(i)+2.0) * (sqrtS()>0.?sqrtS():14000.)/GeV/2.0;
       const int nbins_pt = 100/(i+1);
-      _h_pt[i] = bookHisto1D(ptname, logspace(nbins_pt, 1.0, ptmax));
+      book(_h_pt[i] ,ptname, logspace(nbins_pt, 1.0, ptmax));
 
       const string etaname = _pname + "_eta_" + to_str(i+1);
-      _h_eta[i] = bookHisto1D(etaname, i > 1 ? 25 : 50, -5.0, 5.0);
+      book(_h_eta[i] ,etaname, i > 1 ? 25 : 50, -5.0, 5.0);
       _h_eta_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_eta_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
       const string rapname = _pname + "_y_" + to_str(i+1);
-      _h_rap[i] = bookHisto1D(rapname, i > 1 ? 25 : 50, -5.0, 5.0);
+      book(_h_rap[i] ,rapname, i > 1 ? 25 : 50, -5.0, 5.0);
       _h_rap_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_rap_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
@@ -53,12 +53,12 @@ namespace Rivet {
       }
     }
 
-    _h_multi_exclusive = bookHisto1D(_pname + "_multi_exclusive", _nparts+3, -0.5, _nparts+3-0.5);
-    _h_multi_inclusive = bookHisto1D(_pname + "_multi_inclusive", _nparts+3, -0.5, _nparts+3-0.5);
+    book(_h_multi_exclusive ,_pname + "_multi_exclusive", _nparts+3, -0.5, _nparts+3-0.5);
+    book(_h_multi_inclusive ,_pname + "_multi_inclusive", _nparts+3, -0.5, _nparts+3-0.5);
     _h_multi_ratio = bookScatter2D(_pname + "_multi_ratio");
 
-    _h_multi_exclusive_prompt = bookHisto1D(_pname + "_multi_exclusive_prompt", _nparts+3, -0.5, _nparts+3-0.5);
-    _h_multi_inclusive_prompt = bookHisto1D(_pname + "_multi_inclusive_prompt", _nparts+3, -0.5, _nparts+3-0.5);
+    book(_h_multi_exclusive_prompt ,_pname + "_multi_exclusive_prompt", _nparts+3, -0.5, _nparts+3-0.5);
+    book(_h_multi_inclusive_prompt ,_pname + "_multi_inclusive_prompt", _nparts+3, -0.5, _nparts+3-0.5);
     _h_multi_ratio_prompt = bookScatter2D(_pname + "_multi_ratio_prompt");
   }
 

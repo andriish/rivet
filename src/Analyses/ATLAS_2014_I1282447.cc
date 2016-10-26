@@ -178,31 +178,31 @@ namespace Rivet {
       // Book histograms
 
       // charge separated integrated cross sections
-      _hist_wcjet_charge  = bookHisto1D("d01-x01-y01");
-      _hist_wd_charge     = bookHisto1D("d01-x01-y02");
-      _hist_wdstar_charge = bookHisto1D("d01-x01-y03");
+      book(_hist_wcjet_charge  ,"d01-x01-y01");
+      book(_hist_wd_charge     ,"d01-x01-y02");
+      book(_hist_wdstar_charge ,"d01-x01-y03");
 
       // charge integrated total cross sections
       _hist_wcjet_ratio = bookScatter2D("d02-x01-y01");
       _hist_wd_ratio    = bookScatter2D("d02-x01-y02");
 
-      _hist_wcjet_minus = bookHisto1D("d02-x01-y01_minus");
-      _hist_wd_minus    = bookHisto1D("d02-x01-y02_minus");
+      book(_hist_wcjet_minus ,"d02-x01-y01_minus");
+      book(_hist_wd_minus    ,"d02-x01-y02_minus");
 
-      _hist_wcjet_plus  = bookHisto1D("d02-x01-y01_plus");
-      _hist_wd_plus     = bookHisto1D("d02-x01-y02_plus");
+      book(_hist_wcjet_plus  ,"d02-x01-y01_plus");
+      book(_hist_wd_plus     ,"d02-x01-y02_plus");
 
       // eta distributions
-      _hist_wplus_wcjet_eta_lep   = bookHisto1D("d03-x01-y01");
-      _hist_wminus_wcjet_eta_lep  = bookHisto1D("d03-x01-y02");
+      book(_hist_wplus_wcjet_eta_lep   ,"d03-x01-y01");
+      book(_hist_wminus_wcjet_eta_lep  ,"d03-x01-y02");
 
-      _hist_wplus_wdminus_eta_lep = bookHisto1D("d04-x01-y01");
-      _hist_wminus_wdplus_eta_lep = bookHisto1D("d04-x01-y02");
-      _hist_wplus_wdstar_eta_lep  = bookHisto1D("d04-x01-y03");
-      _hist_wminus_wdstar_eta_lep = bookHisto1D("d04-x01-y04");
+      book(_hist_wplus_wdminus_eta_lep ,"d04-x01-y01");
+      book(_hist_wminus_wdplus_eta_lep ,"d04-x01-y02");
+      book(_hist_wplus_wdstar_eta_lep  ,"d04-x01-y03");
+      book(_hist_wminus_wdstar_eta_lep ,"d04-x01-y04");
 
       // ratio of cross section (WD over W inclusive) // postprocess!
-      _hist_w_inc             = bookHisto1D("d05-x01-y01");
+      book(_hist_w_inc             ,"d05-x01-y01");
       _hist_wd_winc_ratio     = bookScatter2D("d05-x01-y02");
       _hist_wdstar_winc_ratio = bookScatter2D("d05-x01-y03");
 
@@ -213,21 +213,21 @@ namespace Rivet {
       _hist_wminusdstar_wminusinc_pt_ratio = bookScatter2D("d06-x01-y04");
 
       // could use for postprocessing!
-      _hist_wplusd_wplusinc_pt       = bookHisto1D("d06-x01-y01_wplus");
-      _hist_wminusd_wminusinc_pt     = bookHisto1D("d06-x01-y02_wminus");
-      _hist_wplusdstar_wplusinc_pt   = bookHisto1D("d06-x01-y03_wplus");
-      _hist_wminusdstar_wminusinc_pt = bookHisto1D("d06-x01-y04_wminus");
+      book(_hist_wplusd_wplusinc_pt       ,"d06-x01-y01_wplus");
+      book(_hist_wminusd_wminusinc_pt     ,"d06-x01-y02_wminus");
+      book(_hist_wplusdstar_wplusinc_pt   ,"d06-x01-y03_wplus");
+      book(_hist_wminusdstar_wminusinc_pt ,"d06-x01-y04_wminus");
 
-      _hist_wplus_winc  = bookHisto1D("d06-x01-y01_winc");
-      _hist_wminus_winc = bookHisto1D("d06-x01-y02_winc");
+      book(_hist_wplus_winc  ,"d06-x01-y01_winc");
+      book(_hist_wminus_winc ,"d06-x01-y02_winc");
 
       // jet multiplicity of charge integrated W+cjet cross section (+0 or +1 jet in addition to the charm jet)
-      _hist_wcjet_jets  = bookHisto1D("d07-x01-y01");
+      book(_hist_wcjet_jets  ,"d07-x01-y01");
 
       // jet multiplicity of W+cjet cross section ratio (+0 or +1 jet in addition to the charm jet)
       _hist_wcjet_jets_ratio  = bookScatter2D("d08-x01-y01");
-      _hist_wcjet_jets_plus   = bookHisto1D("d08-x01-y01_plus");
-      _hist_wcjet_jets_minus  = bookHisto1D("d08-x01-y01_minus");
+      book(_hist_wcjet_jets_plus   ,"d08-x01-y01_plus");
+      book(_hist_wcjet_jets_minus  ,"d08-x01-y01_minus");
 
     }
 

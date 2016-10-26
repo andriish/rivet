@@ -266,8 +266,9 @@ namespace Rivet {
       const unsigned int hInd = (histId == 0) ? thresholdId : (_thresholdLimit(0) + (histId-1) + thresholdId);
       if (_hMap.find(hInd) != _hMap.end()) return _hMap[hInd];
 
-      if (histId == 0) _hMap.insert(make_pair(hInd,bookHisto1D(1,thresholdId+1,1)));
-      else _hMap.insert(make_pair(hInd,bookHisto1D(2,histId,1)));
+      _hMap.insert( { hInd, Histo1DPtr() } );
+      if (histId == 0) book(_hMap[hInd], 1, thresholdId+1, 1);
+      else             book(_hMap[hInd], 2, histId,        1);
       return _hMap[hInd];
     }
 

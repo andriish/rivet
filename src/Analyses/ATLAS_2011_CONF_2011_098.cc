@@ -50,16 +50,16 @@ namespace Rivet {
 
 
       /// Book histograms
-      _count_threeJA     = bookHisto1D("count_threeJA", 1, 0., 1.);
-      _count_threeJB     = bookHisto1D("count_threeJB", 1, 0., 1.);
-      _count_threeJC     = bookHisto1D("count_threeJC", 1, 0., 1.);
-      _count_threeJD     = bookHisto1D("count_threeJD", 1, 0., 1.);
-      _hist_meff_1bjet   = bookHisto1D("meff_1bjet", 32, 0., 1600.);
-      _hist_eTmiss_1bjet = bookHisto1D("eTmiss_1bjet", 6, 0., 600.);
-      _hist_pTj_1bjet    = bookHisto1D("pTjet_1bjet", 20, 0., 800.);
-      _hist_meff_2bjet   = bookHisto1D("meff_2bjet", 32, 0., 1600.);
-      _hist_eTmiss_2bjet = bookHisto1D("eTmiss_2bjet", 6, 0., 600.);
-      _hist_pTj_2bjet    = bookHisto1D("pTjet_2bjet", 20, 0., 800.);
+      book(_count_threeJA     ,"count_threeJA", 1, 0., 1.);
+      book(_count_threeJB     ,"count_threeJB", 1, 0., 1.);
+      book(_count_threeJC     ,"count_threeJC", 1, 0., 1.);
+      book(_count_threeJD     ,"count_threeJD", 1, 0., 1.);
+      book(_hist_meff_1bjet   ,"meff_1bjet", 32, 0., 1600.);
+      book(_hist_eTmiss_1bjet ,"eTmiss_1bjet", 6, 0., 600.);
+      book(_hist_pTj_1bjet    ,"pTjet_1bjet", 20, 0., 800.);
+      book(_hist_meff_2bjet   ,"meff_2bjet", 32, 0., 1600.);
+      book(_hist_eTmiss_2bjet ,"eTmiss_2bjet", 6, 0., 600.);
+      book(_hist_pTj_2bjet    ,"pTjet_2bjet", 20, 0., 800.);
 
 
     }

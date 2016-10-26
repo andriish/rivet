@@ -32,8 +32,8 @@ namespace Rivet {
       declare(jetproj, "Jets");
 
       // Book histograms
-      _h_pt_leading_mu = bookHisto1D(1, 1, 1);
-      _h_dphi_mumu = bookHisto1D(3, 1, 1);
+      book(_h_pt_leading_mu ,1, 1, 1);
+      book(_h_dphi_mumu ,3, 1, 1);
     }
 
 

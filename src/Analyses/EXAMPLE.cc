@@ -35,18 +35,18 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
 
       // Histograms
-      _histTot         = bookHisto1D("TotalMult", 100, -0.5, 99.5);
-      _histChTot       = bookHisto1D("TotalChMult", 50, -1.0, 99.0);
-      _histHadrTot     = bookHisto1D("HadrTotalMult", 100, -0.5, 99.5);
-      _histHadrChTot   = bookHisto1D("HadrTotalChMult", 50, -1.0, 99.0);
-      _histMajor       = bookHisto1D("Major", 10, 0.0, 0.6);
-      _histSphericity  = bookHisto1D("Sphericity", 10, 0.0, 0.8);
-      _histAplanarity  = bookHisto1D("Aplanarity", 10, 0.0, 0.3);
+      book(_histTot         ,"TotalMult", 100, -0.5, 99.5);
+      book(_histChTot       ,"TotalChMult", 50, -1.0, 99.0);
+      book(_histHadrTot     ,"HadrTotalMult", 100, -0.5, 99.5);
+      book(_histHadrChTot   ,"HadrTotalChMult", 50, -1.0, 99.0);
+      book(_histMajor       ,"Major", 10, 0.0, 0.6);
+      book(_histSphericity  ,"Sphericity", 10, 0.0, 0.8);
+      book(_histAplanarity  ,"Aplanarity", 10, 0.0, 0.3);
 
       // Non-uniform binning example:
       double edges[11] = { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 };
       vector<double> vedges(edges, edges+11);
-      _histThrust = bookHisto1D("Thrust", vedges);
+      book(_histThrust ,"Thrust", vedges);
     }
 
 

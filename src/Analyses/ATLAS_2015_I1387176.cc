@@ -21,14 +21,14 @@ namespace Rivet {
       declare(jets, "Jets");
 
       // Book histograms
-      _hist_EEC  = bookHisto1D(1, 1, 1);
+      book(_hist_EEC  ,1, 1, 1);
       _hist_AEEC = bookScatter2D(2, 1, 1);
 
       // add dummy histogram for heterogenous merging
       string hname = "d01-x01-y01";
       const Scatter2D& ref = refData(hname);
       hname = "d01-x01-y02";
-      _hist_dummy = bookHisto1D(hname, ref);
+      book(_hist_dummy ,hname, ref);
     }
 
     void analyze(const Event& event) {

@@ -19,38 +19,38 @@ namespace Rivet {
     void init() {
       declare(UnstableFinalState(), "UFS");
 
-      _mult_cont_Omega     = bookHisto1D( 1, 1, 1);
-      _mult_cont_Rho0      = bookHisto1D( 1, 1, 2);
-      _mult_cont_KStar0    = bookHisto1D( 1, 1, 3);
-      _mult_cont_KStarPlus = bookHisto1D( 1, 1, 4);
-      _mult_cont_Phi       = bookHisto1D( 1, 1, 5);
+      book(_mult_cont_Omega     , 1, 1, 1);
+      book(_mult_cont_Rho0      , 1, 1, 2);
+      book(_mult_cont_KStar0    , 1, 1, 3);
+      book(_mult_cont_KStarPlus , 1, 1, 4);
+      book(_mult_cont_Phi       , 1, 1, 5);
 
-      _mult_Ups1_Omega     = bookHisto1D( 2, 1, 1);
-      _mult_Ups1_Rho0      = bookHisto1D( 2, 1, 2);
-      _mult_Ups1_KStar0    = bookHisto1D( 2, 1, 3);
-      _mult_Ups1_KStarPlus = bookHisto1D( 2, 1, 4);
-      _mult_Ups1_Phi       = bookHisto1D( 2, 1, 5);
+      book(_mult_Ups1_Omega     , 2, 1, 1);
+      book(_mult_Ups1_Rho0      , 2, 1, 2);
+      book(_mult_Ups1_KStar0    , 2, 1, 3);
+      book(_mult_Ups1_KStarPlus , 2, 1, 4);
+      book(_mult_Ups1_Phi       , 2, 1, 5);
 
-      _mult_Ups4_Omega     = bookHisto1D( 3, 1, 1);
-      _mult_Ups4_Rho0      = bookHisto1D( 3, 1, 2);
-      _mult_Ups4_KStar0    = bookHisto1D( 3, 1, 3);
-      _mult_Ups4_KStarPlus = bookHisto1D( 3, 1, 4);
-      _mult_Ups4_Phi       = bookHisto1D( 3, 1, 5);
+      book(_mult_Ups4_Omega     , 3, 1, 1);
+      book(_mult_Ups4_Rho0      , 3, 1, 2);
+      book(_mult_Ups4_KStar0    , 3, 1, 3);
+      book(_mult_Ups4_KStarPlus , 3, 1, 4);
+      book(_mult_Ups4_Phi       , 3, 1, 5);
 
-      _hist_cont_KStarPlus = bookHisto1D( 4, 1, 1);
-      _hist_Ups1_KStarPlus = bookHisto1D( 5, 1, 1);
-      _hist_Ups4_KStarPlus = bookHisto1D( 6, 1, 1);
+      book(_hist_cont_KStarPlus , 4, 1, 1);
+      book(_hist_Ups1_KStarPlus , 5, 1, 1);
+      book(_hist_Ups4_KStarPlus , 6, 1, 1);
 
-      _hist_cont_KStar0    = bookHisto1D( 7, 1, 1);
-      _hist_Ups1_KStar0    = bookHisto1D( 8, 1, 1);
-      _hist_Ups4_KStar0    = bookHisto1D( 9, 1, 1);
+      book(_hist_cont_KStar0    , 7, 1, 1);
+      book(_hist_Ups1_KStar0    , 8, 1, 1);
+      book(_hist_Ups4_KStar0    , 9, 1, 1);
 
-      _hist_cont_Rho0      = bookHisto1D(10, 1, 1);
-      _hist_Ups1_Rho0      = bookHisto1D(11, 1, 1);
-      _hist_Ups4_Rho0      = bookHisto1D(12, 1, 1);
+      book(_hist_cont_Rho0      ,10, 1, 1);
+      book(_hist_Ups1_Rho0      ,11, 1, 1);
+      book(_hist_Ups4_Rho0      ,12, 1, 1);
 
-      _hist_cont_Omega     = bookHisto1D(13, 1, 1);
-      _hist_Ups1_Omega     = bookHisto1D(14, 1, 1);
+      book(_hist_cont_Omega     ,13, 1, 1);
+      book(_hist_Ups1_Omega     ,14, 1, 1);
     }
 
 

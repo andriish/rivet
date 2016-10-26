@@ -34,17 +34,17 @@ namespace Rivet {
       declare(cfsBSCminus, "cfsBSCminus");
 
       // Histograms:
-      _h_AllTrkMeanPt            = bookProfile1D(1, 1, 1);
-      _h_SoftTrkMeanPt           = bookProfile1D(2, 1, 1);
-      _h_IntrajetTrkMeanPt       = bookProfile1D(3, 1, 1);
-      _h_IntrajetLeaderTrkMeanPt = bookProfile1D(4, 1, 1);
-      _h_MeanJetPt               = bookProfile1D(5, 1, 1);
-      _h_JetRate5GeV             = bookProfile1D(6, 1, 1);
-      _h_JetRate30GeV            = bookProfile1D(7, 1, 1);
+      book(_h_AllTrkMeanPt            ,1, 1, 1);
+      book(_h_SoftTrkMeanPt           ,2, 1, 1);
+      book(_h_IntrajetTrkMeanPt       ,3, 1, 1);
+      book(_h_IntrajetLeaderTrkMeanPt ,4, 1, 1);
+      book(_h_MeanJetPt               ,5, 1, 1);
+      book(_h_JetRate5GeV             ,6, 1, 1);
+      book(_h_JetRate30GeV            ,7, 1, 1);
 
       for (int ihist = 0; ihist < 5; ++ihist) {
-        _h_JetSpectrum[ihist] = bookHisto1D(ihist+8, 1, 1);
-        _h_JetStruct[ihist]   = bookHisto1D(ihist+13, 1, 1);
+        book(_h_JetSpectrum[ihist] ,ihist+8, 1, 1);
+        book(_h_JetStruct[ihist]   ,ihist+13, 1, 1);
 
         // Temp histograms for distribution parameters and SEM calculation
         _th_AllTrkSpectrum[ihist]  = Histo1D(200, 0.0, 20.0);

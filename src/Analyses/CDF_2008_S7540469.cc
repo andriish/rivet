@@ -34,9 +34,9 @@ namespace Rivet {
       elfs.acceptIdPair(PID::ELECTRON);
       declare(elfs, "LeadingElectrons");
 
-      _h_jet_multiplicity = bookHisto1D(1, 1, 1);
-      _h_jet_pT_cross_section_incl_1jet = bookHisto1D(2, 1, 1);
-      _h_jet_pT_cross_section_incl_2jet = bookHisto1D(3, 1, 1);
+      book(_h_jet_multiplicity ,1, 1, 1);
+      book(_h_jet_pT_cross_section_incl_1jet ,2, 1, 1);
+      book(_h_jet_pT_cross_section_incl_2jet ,3, 1, 1);
     }
 
 

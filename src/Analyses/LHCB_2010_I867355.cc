@@ -14,10 +14,10 @@ namespace Rivet {
     void init() {
 
       //@ Results are presented for two different fragmentation functions, LEP and Tevatron. Therefore, we have two sets of histograms.
-      _h_sigma_vs_eta_lep = bookHisto1D(1, 1, 1);
-      _h_sigma_vs_eta_tvt = bookHisto1D(1, 1, 2);
-      _h_sigma_total_lep  = bookHisto1D(2, 1, 1);
-      _h_sigma_total_tvt  = bookHisto1D(2, 1, 2);
+      book(_h_sigma_vs_eta_lep ,1, 1, 1);
+      book(_h_sigma_vs_eta_tvt ,1, 1, 2);
+      book(_h_sigma_total_lep  ,2, 1, 1);
+      book(_h_sigma_total_tvt  ,2, 1, 2);
 
     }
 

@@ -27,26 +27,29 @@ namespace Rivet {
 
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHisto1D( 2 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( Histo1DPtr() ); 
+          book( _h_dNch_dn.back(), 2 + ietabin, 1, 1);
         }
-        _h_dNch_dn_pt500_eta24 = bookHisto1D(20, 1, 1);
-        _h_dmpt_dNch_eta24 = bookProfile1D(23, 1, 1);
+        book(_h_dNch_dn_pt500_eta24 ,20, 1, 1);
+        book(_h_dmpt_dNch_eta24 ,23, 1, 1);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 2360)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHisto1D(7 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( Histo1DPtr() );
+          book(_h_dNch_dn.back(), 7 + ietabin, 1, 1);
         }
-        _h_dNch_dn_pt500_eta24 = bookHisto1D(21, 1, 1);
-        _h_dmpt_dNch_eta24 = bookProfile1D(24, 1, 1);
+        book(_h_dNch_dn_pt500_eta24 ,21, 1, 1);
+        book(_h_dmpt_dNch_eta24 ,24, 1, 1);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 7000)) {
         for (size_t ietabin=0; ietabin < _etabins.size(); ietabin++) {
-          _h_dNch_dn.push_back( bookHisto1D(12 + ietabin, 1, 1) );
+          _h_dNch_dn.push_back( Histo1DPtr() );
+          book(_h_dNch_dn.back(), 12 + ietabin, 1, 1);
         }
-        _h_dNch_dn_pt500_eta24 = bookHisto1D(22, 1, 1);
-        _h_dmpt_dNch_eta24 = bookProfile1D(25, 1, 1);
+        book(_h_dNch_dn_pt500_eta24 ,22, 1, 1);
+        book(_h_dmpt_dNch_eta24 ,25, 1, 1);
       }
     }
 

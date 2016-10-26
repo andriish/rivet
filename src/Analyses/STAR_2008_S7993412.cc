@@ -22,8 +22,8 @@ namespace Rivet {
       ChargedFinalState fs(-1.0, 1.0, 1.0*GeV);
       declare(fs, "FS");
 
-      _h_Y_jet_trigger = bookProfile1D(1, 1, 1);
-      _h_Y_jet_associated = bookProfile1D(2, 1, 1);
+      book(_h_Y_jet_trigger ,1, 1, 1);
+      book(_h_Y_jet_associated ,2, 1, 1);
     }
 
 

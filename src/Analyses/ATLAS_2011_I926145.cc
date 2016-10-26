@@ -73,9 +73,9 @@ namespace Rivet {
       declare(wfinder_mufull, "WFinder_mufull");
 
       // Book histograms
-      _histPt_elecs      = bookHisto1D(1 ,1 ,1);
-      _histPt_muons      = bookHisto1D(2 ,1 ,1);
-      _histPt_muons_full = bookHisto1D(3 ,1 ,1);
+      book(_histPt_elecs      ,1 ,1 ,1);
+      book(_histPt_muons      ,2 ,1 ,1);
+      book(_histPt_muons_full ,3 ,1 ,1);
     }
 
     /// Perform the per-event analysis

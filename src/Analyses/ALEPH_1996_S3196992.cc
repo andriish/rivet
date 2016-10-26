@@ -33,14 +33,14 @@ namespace Rivet {
       declare(ChargedFinalState(), "CFS");
 
       // Book histograms
-      _h_z_2jet_001 = bookHisto1D(1, 1, 1);
-      _h_z_2jet_006 = bookHisto1D(2, 1, 1);
-      _h_z_2jet_01  = bookHisto1D(3, 1, 1);
-      _h_z_2jet_033 = bookHisto1D(4, 1, 1);
-      _h_z_3jet_001 = bookHisto1D(5, 1, 1);
-      _h_z_3jet_006 = bookHisto1D(6, 1, 1);
-      _h_z_3jet_01  = bookHisto1D(7, 1, 1);
-      _h_z_4jet_001 = bookHisto1D(8, 1, 1);
+      book(_h_z_2jet_001 ,1, 1, 1);
+      book(_h_z_2jet_006 ,2, 1, 1);
+      book(_h_z_2jet_01  ,3, 1, 1);
+      book(_h_z_2jet_033 ,4, 1, 1);
+      book(_h_z_3jet_001 ,5, 1, 1);
+      book(_h_z_3jet_006 ,6, 1, 1);
+      book(_h_z_3jet_01  ,7, 1, 1);
+      book(_h_z_4jet_001 ,8, 1, 1);
     }
 
 

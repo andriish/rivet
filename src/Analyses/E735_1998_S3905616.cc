@@ -27,7 +27,7 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
 
       // Histo
-      _hist_multiplicity = bookHisto1D(1, 1, 1);
+      book(_hist_multiplicity ,1, 1, 1);
     }
 
 

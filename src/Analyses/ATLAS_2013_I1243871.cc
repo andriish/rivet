@@ -49,10 +49,10 @@ namespace Rivet {
 
       // Book histograms
       for (size_t d = 0; d < 5; ++d) {
-        _p_b_rho[d] = bookProfile1D(d+1, 1, 1);
-        _p_l_rho[d] = bookProfile1D(d+1, 2, 1);
-        _p_b_Psi[d] = bookProfile1D(d+1, 1, 2);
-        _p_l_Psi[d] = bookProfile1D(d+1, 2, 2);
+        book(_p_b_rho[d] ,d+1, 1, 1);
+        book(_p_l_rho[d] ,d+1, 2, 1);
+        book(_p_b_Psi[d] ,d+1, 1, 2);
+        book(_p_l_Psi[d] ,d+1, 2, 2);
       }
     }
 

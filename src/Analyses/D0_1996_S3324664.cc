@@ -28,11 +28,11 @@ namespace Rivet {
       /// @todo Use correct jet algorithm
       declare(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
 
-      _h_deta = bookHisto1D(1, 1, 1);
+      book(_h_deta ,1, 1, 1);
       _h_dphi.addHistogram(0.0, 2.0, bookHisto1D(2, 1, 1));
       _h_dphi.addHistogram(2.0, 4.0, bookHisto1D(2, 1, 2));
       _h_dphi.addHistogram(4.0, 6.0, bookHisto1D(2, 1, 3));
-      _h_cosdphi_deta = bookProfile1D(3, 1, 1);
+      book(_h_cosdphi_deta ,3, 1, 1);
     }
 
 

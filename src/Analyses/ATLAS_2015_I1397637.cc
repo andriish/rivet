@@ -97,7 +97,7 @@ namespace Rivet {
 
 
       /// Book histogram
-      _h_pttop = bookHisto1D(1, 1, 1);
+      book(_h_pttop ,1, 1, 1);
     }
 
 

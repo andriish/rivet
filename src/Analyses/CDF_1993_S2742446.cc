@@ -34,7 +34,7 @@ namespace Rivet {
       // Jets
       declare(FastJets(vfs, FastJets::CDFJETCLU, 0.7), "Jets");
 
-      _h_costheta = bookHisto1D(1, 1, 1);
+      book(_h_costheta ,1, 1, 1);
 
     }
 

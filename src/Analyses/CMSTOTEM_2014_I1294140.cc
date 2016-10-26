@@ -23,9 +23,9 @@ namespace Rivet {
       _Nevt_after_cuts_xor = 0;
 
       if (fuzzyEquals(sqrtS(), 8000*GeV, 1E-3)) {
-        _h_dNch_dEta_OR = bookHisto1D(1, 1, 1);
-        _h_dNch_dEta_AND = bookHisto1D(2, 1, 1);
-        _h_dNch_dEta_XOR = bookHisto1D(3, 1, 1);
+        book(_h_dNch_dEta_OR ,1, 1, 1);
+        book(_h_dNch_dEta_AND ,2, 1, 1);
+        book(_h_dNch_dEta_XOR ,3, 1, 1);
       }
     }
 

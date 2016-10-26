@@ -60,36 +60,36 @@ namespace Rivet {
 
 
       /// Book histograms
-      _3jl_count_mu_channel = bookHisto1D("3jl_count_muon_channel", 1, 0., 1.);
-      _3jl_count_e_channel = bookHisto1D("3jl_count_electron_channel", 1, 0., 1.);
-      _3jt_count_mu_channel = bookHisto1D("3jt_count_muon_channel", 1, 0., 1.);
-      _3jt_count_e_channel = bookHisto1D("3jt_count_electron_channel", 1, 0., 1.);
-      _3j_hist_eTmiss_e = bookHisto1D("3j_Et_miss_e", 65, 0., 650.);
-      _3j_hist_eTmiss_mu = bookHisto1D("3j_Et_miss_mu", 65, 0., 650.);
-      _3j_hist_mT_e = bookHisto1D("3j_mT_e", 58, 0., 580.);
-      _3j_hist_mT_mu = bookHisto1D("3j_mT_mu", 58, 0., 580.);
-      _3j_hist_m_eff_e = bookHisto1D("3j_m_eff_e", 46, 0., 2300.);
-      _3j_hist_m_eff_mu = bookHisto1D("3j_m_eff_mu", 46, 0., 2300.);
-      _3jl_hist_m_eff_e_final = bookHisto1D("3jl_m_eff_e_final", 15, 0., 1500.);
-      _3jl_hist_m_eff_mu_final = bookHisto1D("3jl_m_eff_mu_final", 15, 0., 1500.);
-      _3jt_hist_m_eff_e_final = bookHisto1D("3jt_m_eff_e_final", 15, 0., 1500.);
-      _3jt_hist_m_eff_mu_final = bookHisto1D("3jt_m_eff_mu_final", 15, 0., 1500.);
+      book(_3jl_count_mu_channel ,"3jl_count_muon_channel", 1, 0., 1.);
+      book(_3jl_count_e_channel ,"3jl_count_electron_channel", 1, 0., 1.);
+      book(_3jt_count_mu_channel ,"3jt_count_muon_channel", 1, 0., 1.);
+      book(_3jt_count_e_channel ,"3jt_count_electron_channel", 1, 0., 1.);
+      book(_3j_hist_eTmiss_e ,"3j_Et_miss_e", 65, 0., 650.);
+      book(_3j_hist_eTmiss_mu ,"3j_Et_miss_mu", 65, 0., 650.);
+      book(_3j_hist_mT_e ,"3j_mT_e", 58, 0., 580.);
+      book(_3j_hist_mT_mu ,"3j_mT_mu", 58, 0., 580.);
+      book(_3j_hist_m_eff_e ,"3j_m_eff_e", 46, 0., 2300.);
+      book(_3j_hist_m_eff_mu ,"3j_m_eff_mu", 46, 0., 2300.);
+      book(_3jl_hist_m_eff_e_final ,"3jl_m_eff_e_final", 15, 0., 1500.);
+      book(_3jl_hist_m_eff_mu_final ,"3jl_m_eff_mu_final", 15, 0., 1500.);
+      book(_3jt_hist_m_eff_e_final ,"3jt_m_eff_e_final", 15, 0., 1500.);
+      book(_3jt_hist_m_eff_mu_final ,"3jt_m_eff_mu_final", 15, 0., 1500.);
 
 
-      _4jl_count_mu_channel = bookHisto1D("4jl_count_muon_channel", 1, 0., 1.);
-      _4jl_count_e_channel = bookHisto1D("4jl_count_electron_channel", 1, 0., 1.);
-      _4jt_count_mu_channel = bookHisto1D("4jt_count_muon_channel", 1, 0., 1.);
-      _4jt_count_e_channel = bookHisto1D("4jt_count_electron_channel", 1, 0., 1.);
-      _4j_hist_eTmiss_e = bookHisto1D("4j_Et_miss_e", 65, 0., 650.);
-      _4j_hist_eTmiss_mu = bookHisto1D("4j_Et_miss_mu", 65, 0., 650.);
-      _4j_hist_mT_e = bookHisto1D("4j_mT_e", 58, 0., 580.);
-      _4j_hist_mT_mu = bookHisto1D("4j_mT_mu", 58, 0., 580.);
-      _4j_hist_m_eff_e = bookHisto1D("4j_m_eff_e", 46, 0., 2300.);
-      _4j_hist_m_eff_mu = bookHisto1D("4j_m_eff_mu", 46, 0., 2300.);
-      _4jl_hist_m_eff_e_final = bookHisto1D("4jl_m_eff_e_final", 15, 0., 1500.);
-      _4jl_hist_m_eff_mu_final = bookHisto1D("4jl_m_eff_mu_final", 15, 0., 1500.);
-      _4jt_hist_m_eff_e_final = bookHisto1D("4jt_m_eff_e_final", 15, 0., 1500.);
-      _4jt_hist_m_eff_mu_final = bookHisto1D("4jt_m_eff_mu_final", 15, 0., 1500.);
+      book(_4jl_count_mu_channel ,"4jl_count_muon_channel", 1, 0., 1.);
+      book(_4jl_count_e_channel ,"4jl_count_electron_channel", 1, 0., 1.);
+      book(_4jt_count_mu_channel ,"4jt_count_muon_channel", 1, 0., 1.);
+      book(_4jt_count_e_channel ,"4jt_count_electron_channel", 1, 0., 1.);
+      book(_4j_hist_eTmiss_e ,"4j_Et_miss_e", 65, 0., 650.);
+      book(_4j_hist_eTmiss_mu ,"4j_Et_miss_mu", 65, 0., 650.);
+      book(_4j_hist_mT_e ,"4j_mT_e", 58, 0., 580.);
+      book(_4j_hist_mT_mu ,"4j_mT_mu", 58, 0., 580.);
+      book(_4j_hist_m_eff_e ,"4j_m_eff_e", 46, 0., 2300.);
+      book(_4j_hist_m_eff_mu ,"4j_m_eff_mu", 46, 0., 2300.);
+      book(_4jl_hist_m_eff_e_final ,"4jl_m_eff_e_final", 15, 0., 1500.);
+      book(_4jl_hist_m_eff_mu_final ,"4jl_m_eff_mu_final", 15, 0., 1500.);
+      book(_4jt_hist_m_eff_e_final ,"4jt_m_eff_e_final", 15, 0., 1500.);
+      book(_4jt_hist_m_eff_mu_final ,"4jt_m_eff_mu_final", 15, 0., 1500.);
 
 
     }

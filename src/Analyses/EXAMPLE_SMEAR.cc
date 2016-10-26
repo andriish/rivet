@@ -77,36 +77,36 @@ namespace Rivet {
       declare(recotaus, "Taus2");
 
 
-      _h_met_true = bookHisto1D("met_true", 30, 0.0, 120);
-      _h_met_reco = bookHisto1D("met_reco", 30, 0.0, 120);
+      book(_h_met_true ,"met_true", 30, 0.0, 120);
+      book(_h_met_reco ,"met_reco", 30, 0.0, 120);
 
-      _h_nj_true = bookHisto1D("jet_N_true", 10, -0.5, 9.5);
-      _h_nj_reco = bookHisto1D("jet_N_reco", 10, -0.5, 9.5);
-      _h_j1pt_true = bookHisto1D("jet_pt1_true", 30, 0.0, 120);
-      _h_j1pt_reco = bookHisto1D("jet_pt1_reco", 30, 0.0, 120);
-      _h_j1eta_true = bookHisto1D("jet_eta1_true", 20, -5.0, 5.0);
-      _h_j1eta_reco = bookHisto1D("jet_eta1_reco", 20, -5.0, 5.0);
+      book(_h_nj_true ,"jet_N_true", 10, -0.5, 9.5);
+      book(_h_nj_reco ,"jet_N_reco", 10, -0.5, 9.5);
+      book(_h_j1pt_true ,"jet_pt1_true", 30, 0.0, 120);
+      book(_h_j1pt_reco ,"jet_pt1_reco", 30, 0.0, 120);
+      book(_h_j1eta_true ,"jet_eta1_true", 20, -5.0, 5.0);
+      book(_h_j1eta_reco ,"jet_eta1_reco", 20, -5.0, 5.0);
 
-      _h_ne_true = bookHisto1D("elec_N_true", 5, -0.5, 4.5);
-      _h_ne_reco = bookHisto1D("elec_N_reco", 5, -0.5, 4.5);
-      _h_e1pt_true = bookHisto1D("elec_pt1_true", 30, 0, 120);
-      _h_e1pt_reco = bookHisto1D("elec_pt1_reco", 30, 0, 120);
-      _h_e1eta_true = bookHisto1D("elec_eta1_true", 20, -5.0, 5.0);
-      _h_e1eta_reco = bookHisto1D("elec_eta1_reco", 20, -5.0, 5.0);
+      book(_h_ne_true ,"elec_N_true", 5, -0.5, 4.5);
+      book(_h_ne_reco ,"elec_N_reco", 5, -0.5, 4.5);
+      book(_h_e1pt_true ,"elec_pt1_true", 30, 0, 120);
+      book(_h_e1pt_reco ,"elec_pt1_reco", 30, 0, 120);
+      book(_h_e1eta_true ,"elec_eta1_true", 20, -5.0, 5.0);
+      book(_h_e1eta_reco ,"elec_eta1_reco", 20, -5.0, 5.0);
 
-      _h_nm_true = bookHisto1D("muon_N_true", 5, -0.5, 4.5);
-      _h_nm_reco = bookHisto1D("muon_N_reco", 5, -0.5, 4.5);
-      _h_m1pt_true = bookHisto1D("muon_pt1_true", 30, 0, 120);
-      _h_m1pt_reco = bookHisto1D("muon_pt1_reco", 30, 0, 120);
-      _h_m1eta_true = bookHisto1D("muon_eta1_true", 20, -5.0, 5.0);
-      _h_m1eta_reco = bookHisto1D("muon_eta1_reco", 20, -5.0, 5.0);
+      book(_h_nm_true ,"muon_N_true", 5, -0.5, 4.5);
+      book(_h_nm_reco ,"muon_N_reco", 5, -0.5, 4.5);
+      book(_h_m1pt_true ,"muon_pt1_true", 30, 0, 120);
+      book(_h_m1pt_reco ,"muon_pt1_reco", 30, 0, 120);
+      book(_h_m1eta_true ,"muon_eta1_true", 20, -5.0, 5.0);
+      book(_h_m1eta_reco ,"muon_eta1_reco", 20, -5.0, 5.0);
 
-      _h_nt_true = bookHisto1D("tau_N_true", 5, -0.5, 4.5);
-      _h_nt_reco = bookHisto1D("tau_N_reco", 5, -0.5, 4.5);
-      _h_t1pt_true = bookHisto1D("tau_pt1_true", 30, 0, 120);
-      _h_t1pt_reco = bookHisto1D("tau_pt1_reco", 30, 0, 120);
-      _h_t1eta_true = bookHisto1D("tau_eta1_true", 20, -5.0, 5.0);
-      _h_t1eta_reco = bookHisto1D("tau_eta1_reco", 20, -5.0, 5.0);
+      book(_h_nt_true ,"tau_N_true", 5, -0.5, 4.5);
+      book(_h_nt_reco ,"tau_N_reco", 5, -0.5, 4.5);
+      book(_h_t1pt_true ,"tau_pt1_true", 30, 0, 120);
+      book(_h_t1pt_reco ,"tau_pt1_reco", 30, 0, 120);
+      book(_h_t1eta_true ,"tau_eta1_true", 20, -5.0, 5.0);
+      book(_h_t1eta_reco ,"tau_eta1_reco", 20, -5.0, 5.0);
     }
 
 

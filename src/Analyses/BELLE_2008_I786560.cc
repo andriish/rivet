@@ -19,7 +19,7 @@ namespace Rivet {
 
     void init() {
       declare(UnstableFinalState(), "UFS");
-      _hist_pipi = bookHisto1D( 1, 1, 1);
+      book(_hist_pipi , 1, 1, 1);
     }
 
 

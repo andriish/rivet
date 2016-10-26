@@ -52,10 +52,10 @@ namespace Rivet {
       declare(MissingMomentum(vfs), "CalMET");
 
       // Book histograms
-      _histJetAzimuth_pTmax75_100  = bookHisto1D(1, 2, 1);
-      _histJetAzimuth_pTmax100_130 = bookHisto1D(2, 2, 1);
-      _histJetAzimuth_pTmax130_180 = bookHisto1D(3, 2, 1);
-      _histJetAzimuth_pTmax180_    = bookHisto1D(4, 2, 1);
+      book(_histJetAzimuth_pTmax75_100  ,1, 2, 1);
+      book(_histJetAzimuth_pTmax100_130 ,2, 2, 1);
+      book(_histJetAzimuth_pTmax130_180 ,3, 2, 1);
+      book(_histJetAzimuth_pTmax180_    ,4, 2, 1);
     }
 
 

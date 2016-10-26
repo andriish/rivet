@@ -37,8 +37,8 @@ namespace Rivet {
        declare(vfs, "VFS");
        declare(FastJets(vfs, FastJets::ANTIKT, 0.5), "Jets");
 
-       _h_deltaS_eq2jet_Norm = bookHisto1D(1,1,1);
-       _h_rel_deltaPt_eq2jet_Norm = bookHisto1D(2,1,1);
+       book(_h_deltaS_eq2jet_Norm ,1,1,1);
+       book(_h_rel_deltaPt_eq2jet_Norm ,2,1,1);
     }
 
 

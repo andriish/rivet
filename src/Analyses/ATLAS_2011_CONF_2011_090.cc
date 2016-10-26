@@ -62,14 +62,14 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abseta < 4.9), "vfs");
 
       /// Book histograms
-      _count_mu_channel = bookHisto1D("count_muon_channel", 1, 0., 1.);
-      _count_e_channel = bookHisto1D("count_electron_channel", 1, 0., 1.);
-      _hist_eTmiss_e = bookHisto1D("Et_miss_e", 50, 0., 500.);
-      _hist_eTmiss_mu = bookHisto1D("Et_miss_mu", 50, 0., 500.);
-      _hist_m_eff_e = bookHisto1D("m_eff_e", 60, 0., 1500.);
-      _hist_m_eff_mu = bookHisto1D("m_eff_mu", 60, 0., 1500.);
-      _hist_m_eff_e_final = bookHisto1D("m_eff_e_final", 15, 0., 1500.);
-      _hist_m_eff_mu_final = bookHisto1D("m_eff_mu_final", 15, 0., 1500.);
+      book(_count_mu_channel ,"count_muon_channel", 1, 0., 1.);
+      book(_count_e_channel ,"count_electron_channel", 1, 0., 1.);
+      book(_hist_eTmiss_e ,"Et_miss_e", 50, 0., 500.);
+      book(_hist_eTmiss_mu ,"Et_miss_mu", 50, 0., 500.);
+      book(_hist_m_eff_e ,"m_eff_e", 60, 0., 1500.);
+      book(_hist_m_eff_mu ,"m_eff_mu", 60, 0., 1500.);
+      book(_hist_m_eff_e_final ,"m_eff_e_final", 15, 0., 1500.);
+      book(_hist_m_eff_mu_final ,"m_eff_mu_final", 15, 0., 1500.);
     }
 
 

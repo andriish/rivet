@@ -36,7 +36,7 @@ namespace Rivet {
         _jsnames_pT[i] = pname;
         const JetShape jsp(jetproj, 0.0, 0.7, 7, _ptedges[i], _ptedges[i+1], 0.0, 0.7, RAPIDITY);
         declare(jsp, pname);
-        _h_Psi_pT[i] = bookProfile1D(i+1, 2, 1);
+        book(_h_Psi_pT[i] ,i+1, 2, 1);
       }
       _h_OneMinusPsi_vs_pT = bookScatter2D(5, 1, 1);
     }

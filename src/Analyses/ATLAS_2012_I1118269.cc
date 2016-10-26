@@ -11,8 +11,8 @@ namespace Rivet {
     {  }
 
     void init() {
-      _h_sigma_vs_pt  = bookHisto1D(1, 1, 1);
-      _h_sigma_vs_eta = bookHisto1D(2, 1, 1);
+      book(_h_sigma_vs_pt  ,1, 1, 1);
+      book(_h_sigma_vs_eta ,2, 1, 1);
     }
 
     /// Perform the per-event analysis

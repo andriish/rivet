@@ -25,44 +25,44 @@ namespace Rivet {
       declare(Sphericity(cfs), "Sphericity");
 
       // Book histograms
-      _hist_T_05_25 = bookHisto1D(1,1,1);
-      _hist_T_05    = bookHisto1D(2,1,1);
-      _hist_T_25_50 = bookHisto1D(1,1,2);
-      _hist_T_25    = bookHisto1D(2,1,2);
-      _hist_T_50_75 = bookHisto1D(1,1,3);
-      _hist_T_50    = bookHisto1D(2,1,3);
-      _hist_T_75_100= bookHisto1D(1,1,4);
-      _hist_T_75    = bookHisto1D(2,1,4);
-      _hist_T_100   = bookHisto1D(2,1,5);
+      book(_hist_T_05_25 ,1,1,1);
+      book(_hist_T_05    ,2,1,1);
+      book(_hist_T_25_50 ,1,1,2);
+      book(_hist_T_25    ,2,1,2);
+      book(_hist_T_50_75 ,1,1,3);
+      book(_hist_T_50    ,2,1,3);
+      book(_hist_T_75_100,1,1,4);
+      book(_hist_T_75    ,2,1,4);
+      book(_hist_T_100   ,2,1,5);
 
-      _hist_TM_05_25 = bookHisto1D(3,1,1);
-      _hist_TM_05    = bookHisto1D(4,1,1);
-      _hist_TM_25_50 = bookHisto1D(3,1,2);
-      _hist_TM_25    = bookHisto1D(4,1,2);
-      _hist_TM_50_75 = bookHisto1D(3,1,3);
-      _hist_TM_50    = bookHisto1D(4,1,3);
-      _hist_TM_75_100= bookHisto1D(3,1,4);
-      _hist_TM_75    = bookHisto1D(4,1,4);
-      _hist_TM_100   = bookHisto1D(4,1,5);
+      book(_hist_TM_05_25 ,3,1,1);
+      book(_hist_TM_05    ,4,1,1);
+      book(_hist_TM_25_50 ,3,1,2);
+      book(_hist_TM_25    ,4,1,2);
+      book(_hist_TM_50_75 ,3,1,3);
+      book(_hist_TM_50    ,4,1,3);
+      book(_hist_TM_75_100,3,1,4);
+      book(_hist_TM_75    ,4,1,4);
+      book(_hist_TM_100   ,4,1,5);
 
-      _hist_S_05_25 = bookHisto1D(5,1,1);
-      _hist_S_05    = bookHisto1D(6,1,1);
-      _hist_S_25_50 = bookHisto1D(5,1,2);
-      _hist_S_25    = bookHisto1D(6,1,2);
-      _hist_S_50_75 = bookHisto1D(5,1,3);
-      _hist_S_50    = bookHisto1D(6,1,3);
-      _hist_S_75_100= bookHisto1D(5,1,4);
-      _hist_S_75    = bookHisto1D(6,1,4);
-      _hist_S_100   = bookHisto1D(6,1,5);
+      book(_hist_S_05_25 ,5,1,1);
+      book(_hist_S_05    ,6,1,1);
+      book(_hist_S_25_50 ,5,1,2);
+      book(_hist_S_25    ,6,1,2);
+      book(_hist_S_50_75 ,5,1,3);
+      book(_hist_S_50    ,6,1,3);
+      book(_hist_S_75_100,5,1,4);
+      book(_hist_S_75    ,6,1,4);
+      book(_hist_S_100   ,6,1,5);
 
 
-      _hist_T_N  = bookProfile1D(7,1,1);
-      _hist_TM_N = bookProfile1D(7,1,2);
-      _hist_S_N  = bookProfile1D(7,1,3);
+      book(_hist_T_N  ,7,1,1);
+      book(_hist_TM_N ,7,1,2);
+      book(_hist_S_N  ,7,1,3);
 
-      _hist_T_S  = bookProfile1D(8,1,1);
-      _hist_TM_S = bookProfile1D(8,1,2);
-      _hist_S_S  = bookProfile1D(8,1,3);
+      book(_hist_T_S  ,8,1,1);
+      book(_hist_TM_S ,8,1,2);
+      book(_hist_S_S  ,8,1,3);
     }
 
 

@@ -64,9 +64,9 @@ namespace Rivet {
       jets.useInvisibles();
       declare(jets, "jets");
 
-      _histo = bookHisto1D(1,1,1);
+      book(_histo ,1,1,1);
       _ratio = bookScatter2D(2,1,1, true);
-      _aux   = bookHisto1D("_aux", 1, 0.5, 1.5);
+      book(_aux   ,"_aux", 1, 0.5, 1.5);
     }
 
 

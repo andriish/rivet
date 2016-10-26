@@ -29,9 +29,9 @@ namespace Rivet {
 
       // Book histo
       if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {
-        _hist_eta = bookHisto1D(3, 1, 1);
+        book(_hist_eta ,3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
-        _hist_eta = bookHisto1D(4, 1, 1);
+        book(_hist_eta ,4, 1, 1);
       }
     }
 

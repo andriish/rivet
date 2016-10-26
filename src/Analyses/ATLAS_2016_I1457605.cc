@@ -35,7 +35,7 @@ namespace Rivet {
       for (size_t i = 0; i < _eta_bins.size() - 1; ++i) {
         if (fuzzyEquals(_eta_bins[i], 1.37)) continue; // skip this bin
         int offset = i > 2? 0 : 1;
-        _h_Et_photon[i] = bookHisto1D(i + offset, 1, 1);
+        book(_h_Et_photon[i] ,i + offset, 1, 1);
       }
 
     }

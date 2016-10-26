@@ -33,13 +33,13 @@ namespace Rivet {
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
 
-      _histStablePIDs  = bookHisto1D("MultsStablePIDs", 3335, -0.5, 3334.5);
-      _histDecayedPIDs = bookHisto1D("MultsDecayedPIDs", 3335, -0.5, 3334.5);
-      _histAllPIDs     = bookHisto1D("MultsAllPIDs", 3335, -0.5, 3334.5);
+      book(_histStablePIDs  ,"MultsStablePIDs", 3335, -0.5, 3334.5);
+      book(_histDecayedPIDs ,"MultsDecayedPIDs", 3335, -0.5, 3334.5);
+      book(_histAllPIDs     ,"MultsAllPIDs", 3335, -0.5, 3334.5);
 
-      _histEtaPi       = bookHisto1D("EtaPi", 25, 0, 5);
-      _histEtaK        = bookHisto1D("EtaK", 25, 0, 5);
-      _histEtaLambda   = bookHisto1D("EtaLambda", 25, 0, 5);
+      book(_histEtaPi       ,"EtaPi", 25, 0, 5);
+      book(_histEtaK        ,"EtaK", 25, 0, 5);
+      book(_histEtaLambda   ,"EtaLambda", 25, 0, 5);
     }
 
 

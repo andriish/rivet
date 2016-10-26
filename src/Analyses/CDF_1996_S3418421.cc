@@ -39,8 +39,8 @@ namespace Rivet {
       _h_chi.addHistogram(517.0, 625.0, bookHisto1D(1, 1, 4));
       _h_chi.addHistogram(625.0, 1800.0, bookHisto1D(1, 1, 5));
       _h_ratio = bookScatter2D(2, 1, 1);
-      _htmp_chi_above_25 = bookHisto1D("TMP/chiabove25", refData(2, 1, 1));
-      _htmp_chi_below_25 = bookHisto1D("TMP/chibelow25", refData(2, 1, 1));
+      book(_htmp_chi_above_25 ,"TMP/chiabove25", refData(2, 1, 1));
+      book(_htmp_chi_below_25 ,"TMP/chibelow25", refData(2, 1, 1));
     }
 
 

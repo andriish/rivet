@@ -29,18 +29,20 @@ namespace Rivet {
 
       // Histograms
       if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
-        _hist_eta_nsd       = bookHisto1D(1,1,1);
-        _hist_eta_inelastic = bookHisto1D(1,1,2);
+        book(_hist_eta_nsd       ,1,1,1);
+        book(_hist_eta_inelastic ,1,1,2);
+        _hists_eta_nsd.resize(6);
         for (int i = 1; i <= 6; ++i) {
           _sumWn += 0.0;
-          _hists_eta_nsd += bookHisto1D(2,1,i);
+          book(_hists_eta_nsd[i-1],2,1,i);
         }
       } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
-        _hist_eta_nsd       = bookHisto1D(1,1,3);
-        _hist_eta_inelastic = bookHisto1D(1,1,4);
+        book(_hist_eta_nsd       ,1,1,3);
+        book(_hist_eta_inelastic ,1,1,4);
+        _hists_eta_nsd.resize(9);
         for (int i = 1; i <= 9; ++i) {
           _sumWn += 0.0;
-          _hists_eta_nsd += bookHisto1D(3,1,i);
+          book(_hists_eta_nsd[i-1],3,1,i);
         }
       }
     }

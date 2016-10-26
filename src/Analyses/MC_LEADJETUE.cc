@@ -35,13 +35,13 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       const double maxpt1 = 500.0;
-      _hist_pnchg      = bookProfile1D("trans-nchg", 50, 0.0, maxpt1);
-      _hist_pmaxnchg   = bookProfile1D("trans-maxnchg", 50, 0.0, maxpt1);
-      _hist_pminnchg   = bookProfile1D("trans-minnchg", 50, 0.0, maxpt1);
-      _hist_pcptsum    = bookProfile1D("trans-ptsum", 50, 0.0, maxpt1);
-      _hist_pmaxcptsum = bookProfile1D("trans-maxptsum", 50, 0.0, maxpt1);
-      _hist_pmincptsum = bookProfile1D("trans-minptsum", 50, 0.0, maxpt1);
-      _hist_pcptave    = bookProfile1D("trans-ptavg", 50, 0.0, maxpt1);
+      book(_hist_pnchg      ,"trans-nchg", 50, 0.0, maxpt1);
+      book(_hist_pmaxnchg   ,"trans-maxnchg", 50, 0.0, maxpt1);
+      book(_hist_pminnchg   ,"trans-minnchg", 50, 0.0, maxpt1);
+      book(_hist_pcptsum    ,"trans-ptsum", 50, 0.0, maxpt1);
+      book(_hist_pmaxcptsum ,"trans-maxptsum", 50, 0.0, maxpt1);
+      book(_hist_pmincptsum ,"trans-minptsum", 50, 0.0, maxpt1);
+      book(_hist_pcptave    ,"trans-ptavg", 50, 0.0, maxpt1);
     }
 
 

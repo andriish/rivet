@@ -56,7 +56,7 @@ namespace Rivet {
       _h_pdg413_Dstarplus_pT_y.addHistogram(  3.5, 4.0, bookHisto1D(4, 1, 4));
       _h_pdg413_Dstarplus_pT_y.addHistogram(  4.0, 4.5, bookHisto1D(4, 1, 5));
 
-      _h_pdg4122_Lambdac_pT = bookHisto1D(1, 1, 1);
+      book(_h_pdg4122_Lambdac_pT ,1, 1, 1);
     }
 
 

@@ -27,8 +27,8 @@ namespace Rivet {
                              JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES,
                              nullptr, 0.5), "MidpointJets");
 
-      _h_jet_pT_MB = bookHisto1D(1, 1, 1);
-      _h_jet_pT_HT = bookHisto1D(2, 1, 1);
+      book(_h_jet_pT_MB ,1, 1, 1);
+      book(_h_jet_pT_HT ,2, 1, 1);
     }
 
 

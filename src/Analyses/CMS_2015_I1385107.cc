@@ -29,14 +29,14 @@ namespace Rivet {
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
       declare(jetpro, "Jets");
 
-      _h_Nch_TransAVE_vs_pT = bookProfile1D(1, 1, 1); // Nch vs. pT_max      (TransAVE)
-      _h_Sum_TransAVE_vs_pT = bookProfile1D(2, 1, 1); // sum(pT) vs. pT_max  (TransAVE)
-      _h_Nch_TransMAX_vs_pT = bookProfile1D(3, 1, 1); // Nch vs. pT_max      (TransMAX)
-      _h_Sum_TransMAX_vs_pT = bookProfile1D(4, 1, 1); // sum(pT) vs. pT_max  (TransMAX)
-      _h_Nch_TransMIN_vs_pT = bookProfile1D(5, 1, 1); // Nch vs. pT_max      (TransMIN)
-      _h_Sum_TransMIN_vs_pT = bookProfile1D(6, 1, 1); // sum(pT) vs. pT_max  (TransMIN)
-      _h_Nch_TransDIF_vs_pT = bookProfile1D(7, 1, 1); // Nch vs. pT_max      (TransDIF)
-      _h_Sum_TransDIF_vs_pT = bookProfile1D(8, 1, 1); // sum(pT) vs. pT_max  (TransDIF)
+      book(_h_Nch_TransAVE_vs_pT ,1, 1, 1); // Nch vs. pT_max      (TransAVE)
+      book(_h_Sum_TransAVE_vs_pT ,2, 1, 1); // sum(pT) vs. pT_max  (TransAVE)
+      book(_h_Nch_TransMAX_vs_pT ,3, 1, 1); // Nch vs. pT_max      (TransMAX)
+      book(_h_Sum_TransMAX_vs_pT ,4, 1, 1); // sum(pT) vs. pT_max  (TransMAX)
+      book(_h_Nch_TransMIN_vs_pT ,5, 1, 1); // Nch vs. pT_max      (TransMIN)
+      book(_h_Sum_TransMIN_vs_pT ,6, 1, 1); // sum(pT) vs. pT_max  (TransMIN)
+      book(_h_Nch_TransDIF_vs_pT ,7, 1, 1); // Nch vs. pT_max      (TransDIF)
+      book(_h_Sum_TransDIF_vs_pT ,8, 1, 1); // sum(pT) vs. pT_max  (TransDIF)
     }
 
 

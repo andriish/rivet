@@ -24,9 +24,9 @@ namespace Rivet {
     void init() {
       declare(UnstableFinalState(), "UFS");
 
-      _hist_cont_f0 = bookHisto1D(2, 1, 1);
-      _hist_Ups1_f0 = bookHisto1D(3, 1, 1);
-      _hist_Ups2_f0 = bookHisto1D(4, 1, 1);
+      book(_hist_cont_f0 ,2, 1, 1);
+      book(_hist_Ups1_f0 ,3, 1, 1);
+      book(_hist_Ups2_f0 ,4, 1, 1);
     }
 
 

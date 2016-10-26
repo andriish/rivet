@@ -50,16 +50,16 @@ namespace Rivet {
       // book histograms
 
       // counts in signal regions
-      _count_ee   = bookHisto1D("count_ee"  , 1, 0., 1.);
-      _count_emu  = bookHisto1D("count_emu" , 1, 0., 1.);
-      _count_mumu = bookHisto1D("count_mumu", 1, 0., 1.);
-      _count_ll   = bookHisto1D("count_ll"  , 1, 0., 1.);
+      book(_count_ee   ,"count_ee"  , 1, 0., 1.);
+      book(_count_emu  ,"count_emu" , 1, 0., 1.);
+      book(_count_mumu ,"count_mumu", 1, 0., 1.);
+      book(_count_ll   ,"count_ll"  , 1, 0., 1.);
 
       // histograms from paper
-      _hist_eTmiss_ee   = bookHisto1D("eTmiss_ee"  , 8, 0., 400.);
-      _hist_eTmiss_emu  = bookHisto1D("eTmiss_emu" , 8, 0., 400.);
-      _hist_eTmiss_mumu = bookHisto1D("eTmiss_mumu", 8, 0., 400.);
-      _hist_eTmiss_ll   = bookHisto1D("eTmiss_ll"  , 8, 0., 400.);
+      book(_hist_eTmiss_ee   ,"eTmiss_ee"  , 8, 0., 400.);
+      book(_hist_eTmiss_emu  ,"eTmiss_emu" , 8, 0., 400.);
+      book(_hist_eTmiss_mumu ,"eTmiss_mumu", 8, 0., 400.);
+      book(_hist_eTmiss_ll   ,"eTmiss_ll"  , 8, 0., 400.);
     }
 
     /// Perform the event analysis

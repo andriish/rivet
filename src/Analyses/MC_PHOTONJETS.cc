@@ -40,9 +40,9 @@ namespace Rivet {
       FastJets jetpro(vfs, FastJets::ANTIKT, 0.4);
       declare(jetpro, "Jets");
 
-      _h_photon_jet1_deta = bookHisto1D("photon_jet1_deta", 50, -5.0, 5.0);
-      _h_photon_jet1_dphi = bookHisto1D("photon_jet1_dphi", 20, 0.0, M_PI);
-      _h_photon_jet1_dR = bookHisto1D("photon_jet1_dR", 25, 0.5, 7.0);
+      book(_h_photon_jet1_deta ,"photon_jet1_deta", 50, -5.0, 5.0);
+      book(_h_photon_jet1_dphi ,"photon_jet1_dphi", 20, 0.0, M_PI);
+      book(_h_photon_jet1_dR ,"photon_jet1_dR", 25, 0.5, 7.0);
 
       MC_JetAnalysis::init();
     }

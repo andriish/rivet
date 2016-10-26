@@ -67,7 +67,7 @@ namespace Rivet {
       jets.useInvisibles();
       declare(jets, "jets");
 
-      _histo = bookHisto1D(1,1,1);
+      book(_histo ,1,1,1);
     }
 
 

@@ -40,9 +40,9 @@ namespace Rivet {
        ZFinder zfinder_dressed_el(fs, Cuts::abseta<2.4 && Cuts::pT>12*GeV, PID::ELECTRON, 26.0*GeV, 66.0*GeV, 0.1);
        declare(zfinder_dressed_el, "ZFinder_dressed_el");   
        
-       _hist_ext_mu_dressed = bookHisto1D(1, 1, 1); // muon, dressed level, extended phase space
-       _hist_mu_dressed	    = bookHisto1D(2, 1, 1); // muon, dressed level, nominal phase space
-       _hist_el_dressed	    = bookHisto1D(2, 1, 2); // electron, dressed level, nominal phase space
+       book(_hist_ext_mu_dressed ,1, 1, 1); // muon, dressed level, extended phase space
+       book(_hist_mu_dressed	    ,2, 1, 1); // muon, dressed level, nominal phase space
+       book(_hist_el_dressed	    ,2, 1, 2); // electron, dressed level, nominal phase space
     }
 
 

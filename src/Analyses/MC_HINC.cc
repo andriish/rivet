@@ -24,13 +24,13 @@ namespace Rivet {
       /// @todo Urk, abuse! Need explicit HiggsFinder and TauFinder?
       ZFinder hfinder(FinalState(), cut, PID::TAU, 115*GeV, 135*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK, 125*GeV);
       declare(hfinder, "Hfinder");
-      _h_H_mass = bookHisto1D("H_mass", 50, 119.7, 120.3);
-      _h_H_pT = bookHisto1D("H_pT", logspace(100, 1.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
-      _h_H_pT_peak = bookHisto1D("H_pT_peak", 25, 0.0, 25.0);
-      _h_H_y = bookHisto1D("H_y", 40, -4, 4);
-      _h_H_phi = bookHisto1D("H_phi", 25, 0.0, TWOPI);
-      _h_lepton_pT = bookHisto1D("lepton_pT", logspace(100, 10.0, 0.25*(sqrtS()>0.?sqrtS():14000.)/GeV));
-      _h_lepton_eta = bookHisto1D("lepton_eta", 40, -4, 4);
+      book(_h_H_mass ,"H_mass", 50, 119.7, 120.3);
+      book(_h_H_pT ,"H_pT", logspace(100, 1.0, 0.5*(sqrtS()>0.?sqrtS():14000.)/GeV));
+      book(_h_H_pT_peak ,"H_pT_peak", 25, 0.0, 25.0);
+      book(_h_H_y ,"H_y", 40, -4, 4);
+      book(_h_H_phi ,"H_phi", 25, 0.0, TWOPI);
+      book(_h_lepton_pT ,"lepton_pT", logspace(100, 10.0, 0.25*(sqrtS()>0.?sqrtS():14000.)/GeV));
+      book(_h_lepton_eta ,"lepton_eta", 40, -4, 4);
     }
 
 

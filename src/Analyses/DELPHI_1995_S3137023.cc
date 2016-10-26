@@ -30,8 +30,8 @@ namespace Rivet {
       declare(ChargedFinalState(), "FS");
       declare(UnstableFinalState(), "UFS");
 
-      _histXpXiMinus       = bookHisto1D(2, 1, 1);
-      _histXpSigma1385Plus = bookHisto1D(3, 1, 1);
+      book(_histXpXiMinus       ,2, 1, 1);
+      book(_histXpSigma1385Plus ,3, 1, 1);
     }
 
 

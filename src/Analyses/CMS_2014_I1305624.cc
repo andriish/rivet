@@ -115,11 +115,11 @@ namespace Rivet {
       declare(jets, "Jets");
 
       for (int ij=0; ij < NJETPTMN; ij++) {
-        _h_thrustc[ij] = bookHisto1D(1, 1, ij+1);
-        _h_broadt[ij] = bookHisto1D(1, 2, ij+1);
-        _h_tot3dmass[ij] = bookHisto1D(1, 3, ij+1);
-        _h_tottrnsmass[ij] = bookHisto1D(1, 4, ij+1);
-        _h_y23c[ij] = bookHisto1D(1, 5, ij+1);
+        book(_h_thrustc[ij] ,1, 1, ij+1);
+        book(_h_broadt[ij] ,1, 2, ij+1);
+        book(_h_tot3dmass[ij] ,1, 3, ij+1);
+        book(_h_tottrnsmass[ij] ,1, 4, ij+1);
+        book(_h_y23c[ij] ,1, 5, ij+1);
         //
         _alow1[ij] = _h_thrustc[ij]->xMin();
         _alow2[ij] = _h_broadt[ij]->xMin();

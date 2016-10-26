@@ -47,10 +47,10 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
       // Book histograms
-      _count_SR = bookHisto1D("count_SR", 1, 0., 1.);
+      book(_count_SR ,"count_SR", 1, 0., 1.);
 
-      _hist_ET_photon = bookHisto1D("hist_ET_photon", 48 , 20., 500.);
-      _hist_met       = bookHisto1D("hist_met"      , 100,  0., 500.);
+      book(_hist_ET_photon ,"hist_ET_photon", 48 , 20., 500.);
+      book(_hist_met       ,"hist_met"      , 100,  0., 500.);
 
     }
 

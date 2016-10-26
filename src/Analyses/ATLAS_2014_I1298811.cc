@@ -25,20 +25,20 @@ namespace Rivet {
       for (size_t itopo = 0; itopo < 2; ++itopo) {
         // Profiles
         for (size_t iregion = 0; iregion < 3; ++iregion) {
-          _p_ptsumch_vs_ptlead[itopo][iregion] = bookProfile1D(1+iregion, 1, itopo+1);
-          _p_nch_vs_ptlead[itopo][iregion] = bookProfile1D(4+iregion, 1, itopo+1);
+          book(_p_ptsumch_vs_ptlead[itopo][iregion] ,1+iregion, 1, itopo+1);
+          book(_p_nch_vs_ptlead[itopo][iregion] ,4+iregion, 1, itopo+1);
         }
-        _p_etsum25_vs_ptlead_trans[itopo] = bookProfile1D(7, 1, itopo+1);
-        _p_etsum48_vs_ptlead_trans[itopo] = bookProfile1D(8, 1, itopo+1);
-        _p_chratio_vs_ptlead_trans[itopo] = bookProfile1D(9, 1, itopo+1);
-        _p_ptmeanch_vs_ptlead_trans[itopo] = bookProfile1D(10, 1, itopo+1);
-        _p_ptmeanch_vs_nch_trans[0] = bookProfile1D(11, 1, 1);
-        _p_ptmeanch_vs_nch_trans[1] = bookProfile1D(12, 1, 1);
+        book(_p_etsum25_vs_ptlead_trans[itopo] ,7, 1, itopo+1);
+        book(_p_etsum48_vs_ptlead_trans[itopo] ,8, 1, itopo+1);
+        book(_p_chratio_vs_ptlead_trans[itopo] ,9, 1, itopo+1);
+        book(_p_ptmeanch_vs_ptlead_trans[itopo] ,10, 1, itopo+1);
+        book(_p_ptmeanch_vs_nch_trans[0] ,11, 1, 1);
+        book(_p_ptmeanch_vs_nch_trans[1] ,12, 1, 1);
         // 1D histos
         for (size_t iregion = 0; iregion < 3; ++iregion) {
           for (size_t ipt = 0; ipt < 4; ++ipt) {
-            _h_ptsumch[ipt][itopo][iregion] = bookHisto1D(13+3*ipt+iregion, 1, itopo+1);
-            _h_nch[ipt][itopo][iregion] = bookHisto1D(25+3*ipt+iregion, 1, itopo+1);
+            book(_h_ptsumch[ipt][itopo][iregion] ,13+3*ipt+iregion, 1, itopo+1);
+            book(_h_nch[ipt][itopo][iregion] ,25+3*ipt+iregion, 1, itopo+1);
           }
         }
       }

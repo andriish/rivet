@@ -41,9 +41,9 @@ namespace Rivet {
 
       /// Book histograms here, e.g.:
       for (size_t i=0; i<5; ++i) {
-        _h_m[i] = bookHisto1D(1+i, 1, 1);
-        _h_costheta[i] = bookHisto1D(10+i, 1, 1);
-        _h_pT[i] = bookHisto1D(15+i, 1, 1);
+        book(_h_m[i] ,1+i, 1, 1);
+        book(_h_costheta[i] ,10+i, 1, 1);
+        book(_h_pT[i] ,15+i, 1, 1);
       }
       /// @todo Ratios of mass histograms left out: Binning doesn't work out
     }

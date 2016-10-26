@@ -38,18 +38,18 @@ namespace Rivet {
       declare(FinalState(), "FS");
 
       // Histos
-      _histEnergyFlowLowX =  bookHisto1D(1, 1, 1);
-      _histEnergyFlowHighX = bookHisto1D(1, 1, 2);
+      book(_histEnergyFlowLowX ,1, 1, 1);
+      book(_histEnergyFlowHighX ,1, 1, 2);
 
-      _histEECLowX = bookHisto1D(2, 1, 1);
-      _histEECHighX = bookHisto1D(2, 1, 2);
+      book(_histEECLowX ,2, 1, 1);
+      book(_histEECHighX ,2, 1, 2);
 
-      _histSpectraW77 = bookHisto1D(3, 1, 1);
-      _histSpectraW122 = bookHisto1D(3, 1, 2);
-      _histSpectraW169 = bookHisto1D(3, 1, 3);
-      _histSpectraW117 = bookHisto1D(3, 1, 4);
+      book(_histSpectraW77 ,3, 1, 1);
+      book(_histSpectraW122 ,3, 1, 2);
+      book(_histSpectraW169 ,3, 1, 3);
+      book(_histSpectraW117 ,3, 1, 4);
 
-      _histPT2 = bookProfile1D(4, 1, 1);
+      book(_histPT2 ,4, 1, 1);
     }
 
 

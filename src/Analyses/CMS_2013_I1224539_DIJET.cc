@@ -44,10 +44,10 @@ namespace Rivet {
 
       // Histograms
       for (size_t i = 0; i < N_PT_BINS_dj; ++i ) {
-        _h_ungroomedAvgJetMass_dj[i] = bookHisto1D(i+1+0*N_PT_BINS_dj, 1, 1);
-        _h_filteredAvgJetMass_dj[i] = bookHisto1D(i+1+1*N_PT_BINS_dj, 1, 1);
-        _h_trimmedAvgJetMass_dj[i] = bookHisto1D(i+1+2*N_PT_BINS_dj, 1, 1);
-        _h_prunedAvgJetMass_dj[i] = bookHisto1D(i+1+3*N_PT_BINS_dj, 1, 1);
+        book(_h_ungroomedAvgJetMass_dj[i] ,i+1+0*N_PT_BINS_dj, 1, 1);
+        book(_h_filteredAvgJetMass_dj[i] ,i+1+1*N_PT_BINS_dj, 1, 1);
+        book(_h_trimmedAvgJetMass_dj[i] ,i+1+2*N_PT_BINS_dj, 1, 1);
+        book(_h_prunedAvgJetMass_dj[i] ,i+1+3*N_PT_BINS_dj, 1, 1);
       }
     }
 

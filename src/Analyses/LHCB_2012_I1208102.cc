@@ -24,8 +24,8 @@ namespace Rivet {
       ZFinder zeefinder(FinalState(), Cuts::etaIn(2.0, 4.5) && Cuts::pT > 20*GeV, PID::ELECTRON, 60*GeV, 120*GeV);
       declare(zeefinder, "ZeeFinder");
 
-      _h_sigma_vs_y = bookHisto1D(2, 1, 1);
-      _h_sigma_vs_phi = bookHisto1D(3, 1, 1);
+      book(_h_sigma_vs_y ,2, 1, 1);
+      book(_h_sigma_vs_phi ,3, 1, 1);
     }
 
 

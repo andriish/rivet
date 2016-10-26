@@ -51,12 +51,12 @@ namespace Rivet {
       /// @note These are 2D histos rendered into slices
       const int wjetsOffset = 51;
       for (size_t i = 0; i < N_PT_BINS_vj; ++i) {
-        _h_ungroomedJetMass_AK7_wj[i] = bookHisto1D(wjetsOffset+i+1+0*N_PT_BINS_vj, 1, 1);
-        _h_filteredJetMass_AK7_wj[i] = bookHisto1D(wjetsOffset+i+1+1*N_PT_BINS_vj, 1, 1);
-        _h_trimmedJetMass_AK7_wj[i] = bookHisto1D(wjetsOffset+i+1+2*N_PT_BINS_vj, 1, 1);
-        _h_prunedJetMass_AK7_wj[i] = bookHisto1D(wjetsOffset+i+1+3*N_PT_BINS_vj, 1, 1);
-        _h_prunedJetMass_CA8_wj[i] = bookHisto1D(wjetsOffset+i+1+4*N_PT_BINS_vj, 1, 1);
-        if (i > 0) _h_filteredJetMass_CA12_wj[i] = bookHisto1D(wjetsOffset+i+5*N_PT_BINS_vj, 1, 1);
+        book(_h_ungroomedJetMass_AK7_wj[i] ,wjetsOffset+i+1+0*N_PT_BINS_vj, 1, 1);
+        book(_h_filteredJetMass_AK7_wj[i] ,wjetsOffset+i+1+1*N_PT_BINS_vj, 1, 1);
+        book(_h_trimmedJetMass_AK7_wj[i] ,wjetsOffset+i+1+2*N_PT_BINS_vj, 1, 1);
+        book(_h_prunedJetMass_AK7_wj[i] ,wjetsOffset+i+1+3*N_PT_BINS_vj, 1, 1);
+        book(_h_prunedJetMass_CA8_wj[i] ,wjetsOffset+i+1+4*N_PT_BINS_vj, 1, 1);
+        if (i > 0) book(_h_filteredJetMass_CA12_wj[i] ,wjetsOffset+i+5*N_PT_BINS_vj, 1, 1);
       }
     }
 

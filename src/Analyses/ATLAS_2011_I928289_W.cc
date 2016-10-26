@@ -39,14 +39,14 @@ namespace Rivet {
       declare(wfinder_mu_dressed, "WFinder_mu_dressed");
 
       /// Book histograms here
-      _h_Wminus_lepton_eta_el_bare       = bookHisto1D(3, 1, 1);
-      _h_Wminus_lepton_eta_el_dressed    = bookHisto1D(3, 1, 2);
-      _h_Wminus_lepton_eta_mu_bare       = bookHisto1D(3, 1, 3);
-      _h_Wminus_lepton_eta_mu_dressed    = bookHisto1D(3, 1, 4);
-      _h_Wplus_lepton_eta_el_bare        = bookHisto1D(5, 1, 1);
-      _h_Wplus_lepton_eta_el_dressed     = bookHisto1D(5, 1, 2);
-      _h_Wplus_lepton_eta_mu_bare        = bookHisto1D(5, 1, 3);
-      _h_Wplus_lepton_eta_mu_dressed     = bookHisto1D(5, 1, 4);
+      book(_h_Wminus_lepton_eta_el_bare       ,3, 1, 1);
+      book(_h_Wminus_lepton_eta_el_dressed    ,3, 1, 2);
+      book(_h_Wminus_lepton_eta_mu_bare       ,3, 1, 3);
+      book(_h_Wminus_lepton_eta_mu_dressed    ,3, 1, 4);
+      book(_h_Wplus_lepton_eta_el_bare        ,5, 1, 1);
+      book(_h_Wplus_lepton_eta_el_dressed     ,5, 1, 2);
+      book(_h_Wplus_lepton_eta_mu_bare        ,5, 1, 3);
+      book(_h_Wplus_lepton_eta_mu_dressed     ,5, 1, 4);
       _h_W_asym_eta_el_bare              = bookScatter2D(7, 1, 1);
       _h_W_asym_eta_el_dressed           = bookScatter2D(7, 1, 2);
       _h_W_asym_eta_mu_bare              = bookScatter2D(7, 1, 3);

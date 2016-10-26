@@ -25,7 +25,7 @@ namespace Rivet {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
 
-      _histChTot = bookHisto1D(1, 1, 1);
+      book(_histChTot ,1, 1, 1);
     }
 
 

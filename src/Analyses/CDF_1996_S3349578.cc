@@ -39,44 +39,44 @@ namespace Rivet {
       declare(sj_E, "SmearedJets");
 
       /// Book histograms here, e.g.:
-      _h_3_mNJ = bookHisto1D(1, 1, 1);
-      _h_3_X3 = bookHisto1D(2, 1, 1);
-      _h_3_X4 = bookHisto1D(3, 1, 1);
-      _h_3_costheta3 = bookHisto1D(8, 1, 1);
-      _h_3_psi3 = bookHisto1D(9, 1, 1);
-      _h_3_f3 = bookHisto1D(14, 1, 1);
-      _h_3_f4 = bookHisto1D(14, 1, 2);
-      _h_3_f5 = bookHisto1D(14, 1, 3);
+      book(_h_3_mNJ ,1, 1, 1);
+      book(_h_3_X3 ,2, 1, 1);
+      book(_h_3_X4 ,3, 1, 1);
+      book(_h_3_costheta3 ,8, 1, 1);
+      book(_h_3_psi3 ,9, 1, 1);
+      book(_h_3_f3 ,14, 1, 1);
+      book(_h_3_f4 ,14, 1, 2);
+      book(_h_3_f5 ,14, 1, 3);
 
-      _h_4_mNJ = bookHisto1D(1, 1, 2);
-      _h_4_X3 = bookHisto1D(4, 1, 1);
-      _h_4_X4 = bookHisto1D(5, 1, 1);
-      _h_4_costheta3 = bookHisto1D(10, 1, 1);
-      _h_4_psi3 = bookHisto1D(11, 1, 1);
-      _h_4_f3 = bookHisto1D(15, 1, 1);
-      _h_4_f4 = bookHisto1D(15, 1, 2);
-      _h_4_f5 = bookHisto1D(15, 1, 3);
-      _h_4_XA = bookHisto1D(17, 1, 1);
-      _h_4_psiAB = bookHisto1D(19, 1, 1);
-      _h_4_fA = bookHisto1D(21, 1, 1);
-      _h_4_fB = bookHisto1D(21, 1, 2);
+      book(_h_4_mNJ ,1, 1, 2);
+      book(_h_4_X3 ,4, 1, 1);
+      book(_h_4_X4 ,5, 1, 1);
+      book(_h_4_costheta3 ,10, 1, 1);
+      book(_h_4_psi3 ,11, 1, 1);
+      book(_h_4_f3 ,15, 1, 1);
+      book(_h_4_f4 ,15, 1, 2);
+      book(_h_4_f5 ,15, 1, 3);
+      book(_h_4_XA ,17, 1, 1);
+      book(_h_4_psiAB ,19, 1, 1);
+      book(_h_4_fA ,21, 1, 1);
+      book(_h_4_fB ,21, 1, 2);
 
-      _h_5_mNJ = bookHisto1D(1, 1, 3);
-      _h_5_X3 = bookHisto1D(6, 1, 1);
-      _h_5_X4 = bookHisto1D(7, 1, 1);
-      _h_5_costheta3 = bookHisto1D(12, 1, 1);
-      _h_5_psi3 = bookHisto1D(13, 1, 1);
-      _h_5_f3 = bookHisto1D(16, 1, 1);
-      _h_5_f4 = bookHisto1D(16, 1, 2);
-      _h_5_f5 = bookHisto1D(16, 1, 3);
-      _h_5_XA = bookHisto1D(18, 1, 1);
-      _h_5_XC = bookHisto1D(18, 1, 2);
-      _h_5_psiAB = bookHisto1D(20, 1, 1);
-      _h_5_psiCD = bookHisto1D(20, 1, 2);
-      _h_5_fA = bookHisto1D(22, 1, 1);
-      _h_5_fB = bookHisto1D(23, 1, 1);
-      _h_5_fC = bookHisto1D(24, 1, 1);
-      _h_5_fD = bookHisto1D(25, 1, 1);
+      book(_h_5_mNJ ,1, 1, 3);
+      book(_h_5_X3 ,6, 1, 1);
+      book(_h_5_X4 ,7, 1, 1);
+      book(_h_5_costheta3 ,12, 1, 1);
+      book(_h_5_psi3 ,13, 1, 1);
+      book(_h_5_f3 ,16, 1, 1);
+      book(_h_5_f4 ,16, 1, 2);
+      book(_h_5_f5 ,16, 1, 3);
+      book(_h_5_XA ,18, 1, 1);
+      book(_h_5_XC ,18, 1, 2);
+      book(_h_5_psiAB ,20, 1, 1);
+      book(_h_5_psiCD ,20, 1, 2);
+      book(_h_5_fA ,22, 1, 1);
+      book(_h_5_fB ,23, 1, 1);
+      book(_h_5_fC ,24, 1, 1);
+      book(_h_5_fD ,25, 1, 1);
 
     }
 

@@ -31,16 +31,16 @@ namespace Rivet {
       declare(j6, "AntiKtJets06");
 
       // Persistent histograms
-      _h_jet_multi_inclusive = bookHisto1D(1, 1, 1);
+      book(_h_jet_multi_inclusive ,1, 1, 1);
       _h_jet_multi_ratio = bookScatter2D(2, 1, 1);
       _h_jet_pT.resize(4);
-      _h_jet_pT[0] = bookHisto1D(3, 1, 1);
-      _h_jet_pT[1] = bookHisto1D(4, 1, 1);
-      _h_jet_pT[2] = bookHisto1D(5, 1, 1);
-      _h_jet_pT[3] = bookHisto1D(6, 1, 1);
-      _h_HT_2 = bookHisto1D(7, 1, 1);
-      _h_HT_3 = bookHisto1D(8, 1, 1);
-      _h_HT_4 = bookHisto1D(9, 1, 1);
+      book(_h_jet_pT[0] ,3, 1, 1);
+      book(_h_jet_pT[1] ,4, 1, 1);
+      book(_h_jet_pT[2] ,5, 1, 1);
+      book(_h_jet_pT[3] ,6, 1, 1);
+      book(_h_HT_2 ,7, 1, 1);
+      book(_h_HT_3 ,8, 1, 1);
+      book(_h_HT_4 ,9, 1, 1);
       //
       _h_pTlead_R06_60_ratio = bookScatter2D(10, 1, 1);
       _h_pTlead_R06_80_ratio = bookScatter2D(11, 1, 1);

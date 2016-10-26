@@ -35,7 +35,7 @@ namespace Rivet {
       _sumw.resize(9);
       _hEtFlow.resize(9);
       for (size_t i = 0; i < 9; ++i)
-        _hEtFlow[i] = bookHisto1D(to_str(i), 24, -6, 6);
+        book(_hEtFlow[i] ,to_str(i), 24, -6, 6);
       _tmphAvEt = Histo1D(9, 1.0, 10.0);
       _tmphAvX  = Histo1D(9, 1.0, 10.0);
       _tmphAvQ2 = Histo1D(9, 1.0, 10.0);

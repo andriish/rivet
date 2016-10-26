@@ -31,10 +31,10 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
-      _histXbweak     = bookHisto1D(1, 1, 1);
-      _histXbprim     = bookHisto1D(1, 1, 2);
-      _histMeanXbweak = bookProfile1D(7, 1, 1);
-      _histMeanXbprim = bookProfile1D(7, 1, 2);
+      book(_histXbweak     ,1, 1, 1);
+      book(_histXbprim     ,1, 1, 2);
+      book(_histMeanXbweak ,7, 1, 1);
+      book(_histMeanXbprim ,7, 1, 2);
     }
 
 

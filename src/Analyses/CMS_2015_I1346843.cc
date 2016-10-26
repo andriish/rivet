@@ -29,14 +29,14 @@ namespace Rivet {
       declare(muons, "MUFS");
 
 
-      _hist_pho_et           = bookHisto1D(1, 1, 1);  // photon transverse energy
-      _hist_pho_et_wide      = bookHisto1D(1, 2, 1);  // photon transverse energy (0.5 < dr < 3.0)
-      _hist_pho_et_close     = bookHisto1D(1, 3, 1);  // photon transverse energy (0.05 < dr < 0.5)
-      _hist_pho_et_lqt       = bookHisto1D(1, 4, 1);  // photon transverse energy (q_T < 10)
-      _hist_pho_et_hqt       = bookHisto1D(1, 5, 1);  // photon transverse energy (q_T > 50)
-      _hist_pho_dr           = bookHisto1D(2, 1, 1);  // delta_R
-      _hist_pho_dr_lqt       = bookHisto1D(2, 2, 1);  // delta_R (q_T < 10)
-      _hist_pho_dr_hqt       = bookHisto1D(2, 3, 1);  // delta_R  (q_T > 50)
+      book(_hist_pho_et           ,1, 1, 1);  // photon transverse energy
+      book(_hist_pho_et_wide      ,1, 2, 1);  // photon transverse energy (0.5 < dr < 3.0)
+      book(_hist_pho_et_close     ,1, 3, 1);  // photon transverse energy (0.05 < dr < 0.5)
+      book(_hist_pho_et_lqt       ,1, 4, 1);  // photon transverse energy (q_T < 10)
+      book(_hist_pho_et_hqt       ,1, 5, 1);  // photon transverse energy (q_T > 50)
+      book(_hist_pho_dr           ,2, 1, 1);  // delta_R
+      book(_hist_pho_dr_lqt       ,2, 2, 1);  // delta_R (q_T < 10)
+      book(_hist_pho_dr_hqt       ,2, 3, 1);  // delta_R  (q_T > 50)
     }
 
 

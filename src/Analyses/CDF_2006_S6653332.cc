@@ -50,9 +50,9 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
 
       // Book histograms
-      _sigmaBJet = bookHisto1D(1, 1, 1);
-      _ratioBJetToZ = bookHisto1D(2, 1, 1);
-      _ratioBJetToJet = bookHisto1D(3, 1, 1);
+      book(_sigmaBJet ,1, 1, 1);
+      book(_ratioBJetToZ ,2, 1, 1);
+      book(_ratioBJetToJet ,3, 1, 1);
     }
 
 

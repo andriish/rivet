@@ -31,10 +31,10 @@ namespace Rivet {
       declare(wfinder_bare_mu, "WFinder_bare_mu");
 
       // Book histograms
-      _hist_wpt_dressed_el  = bookHisto1D(1, 1, 1);
-      _hist_wpt_bare_el     = bookHisto1D(1, 1, 2);
-      _hist_wpt_dressed_mu  = bookHisto1D(2, 1, 1);
-      _hist_wpt_bare_mu     = bookHisto1D(2, 1, 2);
+      book(_hist_wpt_dressed_el  ,1, 1, 1);
+      book(_hist_wpt_bare_el     ,1, 1, 2);
+      book(_hist_wpt_dressed_mu  ,2, 1, 1);
+      book(_hist_wpt_bare_mu     ,2, 1, 2);
     }
 
 

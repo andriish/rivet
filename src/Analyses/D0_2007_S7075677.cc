@@ -27,7 +27,7 @@ namespace Rivet {
                       71*GeV, 111*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       declare(zfinder, "ZFinder");
 
-      _h_yZ = bookHisto1D(1, 1, 1);
+      book(_h_yZ ,1, 1, 1);
     }
 
 

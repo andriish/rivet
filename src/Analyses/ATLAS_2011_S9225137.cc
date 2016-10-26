@@ -63,48 +63,48 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::abseta < 3), "cfs");
 
       /// Book histograms
-      _etmisspT_55_NJ_6_obs = bookHisto1D( 1,1,1);
-      _etmisspT_55_NJ_6_bac = bookHisto1D( 1,1,2);
-      _etmisspT_55_NJ_6_sig = bookHisto1D( 1,1,3);
-      _etmisspT_55_NJ_7_obs = bookHisto1D(13,1,1);
-      _etmisspT_55_NJ_7_bac = bookHisto1D(13,1,2);
-      _etmisspT_55_NJ_7_sig = bookHisto1D(13,1,3);
-      _etmisspT_55_NJ_8_obs = bookHisto1D(15,1,1);
-      _etmisspT_55_NJ_8_bac = bookHisto1D(15,1,2);
-      _etmisspT_55_NJ_8_sig = bookHisto1D(15,1,3);
-      _etmisspT_80_NJ_5_obs = bookHisto1D( 2,1,1);
-      _etmisspT_80_NJ_5_bac = bookHisto1D( 2,1,2);
-      _etmisspT_80_NJ_5_sig = bookHisto1D( 2,1,3);
-      _etmisspT_80_NJ_6_obs = bookHisto1D(14,1,1);
-      _etmisspT_80_NJ_6_bac = bookHisto1D(14,1,2);
-      _etmisspT_80_NJ_6_sig = bookHisto1D(14,1,3);
-      _etmisspT_80_NJ_7_obs = bookHisto1D(16,1,1);
-      _etmisspT_80_NJ_7_bac = bookHisto1D(16,1,2);
-      _etmisspT_80_NJ_7_sig = bookHisto1D(16,1,3);
+      book(_etmisspT_55_NJ_6_obs , 1,1,1);
+      book(_etmisspT_55_NJ_6_bac , 1,1,2);
+      book(_etmisspT_55_NJ_6_sig , 1,1,3);
+      book(_etmisspT_55_NJ_7_obs ,13,1,1);
+      book(_etmisspT_55_NJ_7_bac ,13,1,2);
+      book(_etmisspT_55_NJ_7_sig ,13,1,3);
+      book(_etmisspT_55_NJ_8_obs ,15,1,1);
+      book(_etmisspT_55_NJ_8_bac ,15,1,2);
+      book(_etmisspT_55_NJ_8_sig ,15,1,3);
+      book(_etmisspT_80_NJ_5_obs , 2,1,1);
+      book(_etmisspT_80_NJ_5_bac , 2,1,2);
+      book(_etmisspT_80_NJ_5_sig , 2,1,3);
+      book(_etmisspT_80_NJ_6_obs ,14,1,1);
+      book(_etmisspT_80_NJ_6_bac ,14,1,2);
+      book(_etmisspT_80_NJ_6_sig ,14,1,3);
+      book(_etmisspT_80_NJ_7_obs ,16,1,1);
+      book(_etmisspT_80_NJ_7_bac ,16,1,2);
+      book(_etmisspT_80_NJ_7_sig ,16,1,3);
 
-      _njet55A_obs = bookHisto1D( 3,1,1);
-      _njet55A_bac = bookHisto1D( 3,1,2);
-      _njet55A_sig = bookHisto1D( 3,1,3);
-      _njet55B_obs = bookHisto1D( 4,1,1);
-      _njet55B_bac = bookHisto1D( 4,1,2);
-      _njet55B_sig = bookHisto1D( 4,1,3);
-      _njet55C_obs = bookHisto1D(17,1,1);
-      _njet55C_bac = bookHisto1D(17,1,2);
-      _njet55C_sig = bookHisto1D(17,1,3);
-      _njet80A_obs = bookHisto1D( 5,1,1);
-      _njet80A_bac = bookHisto1D( 5,1,2);
-      _njet80A_sig = bookHisto1D( 5,1,3);
-      _njet80B_obs = bookHisto1D( 6,1,1);
-      _njet80B_bac = bookHisto1D( 6,1,2);
-      _njet80B_sig = bookHisto1D( 6,1,3);
-      _njet80C_obs = bookHisto1D(18,1,1);
-      _njet80C_bac = bookHisto1D(18,1,2);
-      _njet80C_sig = bookHisto1D(18,1,3);
+      book(_njet55A_obs , 3,1,1);
+      book(_njet55A_bac , 3,1,2);
+      book(_njet55A_sig , 3,1,3);
+      book(_njet55B_obs , 4,1,1);
+      book(_njet55B_bac , 4,1,2);
+      book(_njet55B_sig , 4,1,3);
+      book(_njet55C_obs ,17,1,1);
+      book(_njet55C_bac ,17,1,2);
+      book(_njet55C_sig ,17,1,3);
+      book(_njet80A_obs , 5,1,1);
+      book(_njet80A_bac , 5,1,2);
+      book(_njet80A_sig , 5,1,3);
+      book(_njet80B_obs , 6,1,1);
+      book(_njet80B_bac , 6,1,2);
+      book(_njet80B_sig , 6,1,3);
+      book(_njet80C_obs ,18,1,1);
+      book(_njet80C_bac ,18,1,2);
+      book(_njet80C_sig ,18,1,3);
 
-      _count_7j55 = bookHisto1D("count_7j55", 1, 0., 1.);
-      _count_8j55 = bookHisto1D("count_8j55", 1, 0., 1.);
-      _count_6j80 = bookHisto1D("count_6j80", 1, 0., 1.);
-      _count_7j80 = bookHisto1D("count_7j80", 1, 0., 1.);
+      book(_count_7j55 ,"count_7j55", 1, 0., 1.);
+      book(_count_8j55 ,"count_8j55", 1, 0., 1.);
+      book(_count_6j80 ,"count_6j80", 1, 0., 1.);
+      book(_count_7j80 ,"count_7j80", 1, 0., 1.);
 
     }
 

@@ -32,7 +32,7 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
 
-      _histXbweak     = bookHisto1D(1, 1, 1);
+      book(_histXbweak     ,1, 1, 1);
     }
 
 

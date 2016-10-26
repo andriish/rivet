@@ -38,12 +38,12 @@ namespace Rivet {
       declare(nstable, "nstable");
 
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1e-3)) {
-        _hist_Ks_pT      = bookHisto1D(1, 1, 1);
-        _hist_Ks_y       = bookHisto1D(2, 1, 1);
-        _hist_Ks_mult    = bookHisto1D(3, 1, 1);
-        _hist_L_pT       = bookHisto1D(7, 1, 1);
-        _hist_L_y        = bookHisto1D(8, 1, 1);
-        _hist_L_mult     = bookHisto1D(9, 1, 1);
+        book(_hist_Ks_pT      ,1, 1, 1);
+        book(_hist_Ks_y       ,2, 1, 1);
+        book(_hist_Ks_mult    ,3, 1, 1);
+        book(_hist_L_pT       ,7, 1, 1);
+        book(_hist_L_y        ,8, 1, 1);
+        book(_hist_L_mult     ,9, 1, 1);
         _hist_Ratio_v_y  = bookScatter2D(13, 1, 1);
         _hist_Ratio_v_pT = bookScatter2D(14, 1, 1);
         //
@@ -53,12 +53,12 @@ namespace Rivet {
         _temp_lambdabar_v_pT = Histo1D(18, 0.5, 4.1);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        _hist_Ks_pT   = bookHisto1D(4, 1, 1);
-        _hist_Ks_y    = bookHisto1D(5, 1, 1);
-        _hist_Ks_mult = bookHisto1D(6, 1, 1);
-        _hist_L_pT    = bookHisto1D(10, 1, 1);
-        _hist_L_y     = bookHisto1D(11, 1, 1);
-        _hist_L_mult  = bookHisto1D(12, 1, 1);
+        book(_hist_Ks_pT   ,4, 1, 1);
+        book(_hist_Ks_y    ,5, 1, 1);
+        book(_hist_Ks_mult ,6, 1, 1);
+        book(_hist_L_pT    ,10, 1, 1);
+        book(_hist_L_y     ,11, 1, 1);
+        book(_hist_L_mult  ,12, 1, 1);
         _hist_Ratio_v_y      = bookScatter2D(15, 1, 1);
         _hist_Ratio_v_pT     = bookScatter2D(16, 1, 1);
         //

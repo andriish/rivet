@@ -55,49 +55,49 @@ namespace Rivet {
       lpfs.addParticleIdPair(PID::MUON);
       declare(lpfs, "LeadingParticles");
 
-      _hist_n_trk   = bookHisto1D("n-trk", 50, 0.5, 300.5);
-      _hist_phi_trk = bookHisto1D("phi-trk", 50, -PI, PI);
-      _hist_eta_trk = bookHisto1D("eta-trk", 50, -4, 4);
-      _hist_pt_trk  = bookHisto1D("pt-trk", 100, 0.0, 1500);
+      book(_hist_n_trk   ,"n-trk", 50, 0.5, 300.5);
+      book(_hist_phi_trk ,"phi-trk", 50, -PI, PI);
+      book(_hist_eta_trk ,"eta-trk", 50, -4, 4);
+      book(_hist_pt_trk  ,"pt-trk", 100, 0.0, 1500);
 
-      _hist_n_jet   = bookHisto1D("n-jet", 21, -0.5, 20.5);
-      _hist_phi_jet = bookHisto1D("phi-jet", 50, -PI, PI);
-      _hist_eta_jet = bookHisto1D("eta-jet", 50, -4, 4);
-      _hist_pt_jet  = bookHisto1D("pt-jet", 100, 0.0, 1500);
+      book(_hist_n_jet   ,"n-jet", 21, -0.5, 20.5);
+      book(_hist_phi_jet ,"phi-jet", 50, -PI, PI);
+      book(_hist_eta_jet ,"eta-jet", 50, -4, 4);
+      book(_hist_pt_jet  ,"pt-jet", 100, 0.0, 1500);
 
-      _hist_n_e   = bookHisto1D("n-e", 11, -0.5, 10.5);
-      _hist_phi_e = bookHisto1D("phi-e", 50, -PI, PI);
-      _hist_eta_e = bookHisto1D("eta-e", 50, -4, 4);
-      _hist_pt_e  = bookHisto1D("pt-e", 100, 0.0, 500);
+      book(_hist_n_e   ,"n-e", 11, -0.5, 10.5);
+      book(_hist_phi_e ,"phi-e", 50, -PI, PI);
+      book(_hist_eta_e ,"eta-e", 50, -4, 4);
+      book(_hist_pt_e  ,"pt-e", 100, 0.0, 500);
 
-      _hist_n_mu   = bookHisto1D("n-mu", 11, -0.5, 10.5);
-      _hist_phi_mu = bookHisto1D("phi-mu", 50, -PI, PI);
-      _hist_eta_mu = bookHisto1D("eta-mu", 50, -4, 4);
-      _hist_pt_mu  = bookHisto1D("pt-mu", 100, 0.0, 500);
+      book(_hist_n_mu   ,"n-mu", 11, -0.5, 10.5);
+      book(_hist_phi_mu ,"phi-mu", 50, -PI, PI);
+      book(_hist_eta_mu ,"eta-mu", 50, -4, 4);
+      book(_hist_pt_mu  ,"pt-mu", 100, 0.0, 500);
 
-      _hist_n_gamma   = bookHisto1D("n-gamma", 11, -0.5, 10.5);
-      _hist_phi_gamma = bookHisto1D("phi-gamma", 50, -PI, PI);
-      _hist_eta_gamma = bookHisto1D("eta-gamma", 50, -4, 4);
-      _hist_pt_gamma  = bookHisto1D("pt-gamma", 100, 0.0, 500);
+      book(_hist_n_gamma   ,"n-gamma", 11, -0.5, 10.5);
+      book(_hist_phi_gamma ,"phi-gamma", 50, -PI, PI);
+      book(_hist_eta_gamma ,"eta-gamma", 50, -4, 4);
+      book(_hist_pt_gamma  ,"pt-gamma", 100, 0.0, 500);
 
-      _hist_n_gammaiso   = bookHisto1D("n-gamma-iso", 11, -0.5, 10.5);
-      _hist_phi_gammaiso = bookHisto1D("phi-gamma-iso", 50, -PI, PI);
-      _hist_eta_gammaiso = bookHisto1D("eta-gamma-iso", 50, -4, 4);
-      _hist_pt_gammaiso  = bookHisto1D("pt-gamma-iso", 100, 0.0, 500);
+      book(_hist_n_gammaiso   ,"n-gamma-iso", 11, -0.5, 10.5);
+      book(_hist_phi_gammaiso ,"phi-gamma-iso", 50, -PI, PI);
+      book(_hist_eta_gammaiso ,"eta-gamma-iso", 50, -4, 4);
+      book(_hist_pt_gammaiso  ,"pt-gamma-iso", 100, 0.0, 500);
 
-      _hist_met = bookHisto1D("Etmiss", 100, 0.0, 1500);
+      book(_hist_met ,"Etmiss", 100, 0.0, 1500);
 
-      _hist_mll_ossf_ee   = bookHisto1D("mll-ossf-ee", 50, 0.0, 500);
-      _hist_mll_ossf_mumu = bookHisto1D("mll-ossf-mumu", 50, 0.0, 500);
-      _hist_mll_osof_emu  = bookHisto1D("mll-osof-emu", 50, 0.0, 500);
+      book(_hist_mll_ossf_ee   ,"mll-ossf-ee", 50, 0.0, 500);
+      book(_hist_mll_ossf_mumu ,"mll-ossf-mumu", 50, 0.0, 500);
+      book(_hist_mll_osof_emu  ,"mll-osof-emu", 50, 0.0, 500);
 
-      _hist_mll_all_ossf_ee   = bookHisto1D("mll-all-ossf-ee", 50, 0.0, 500);
-      _hist_mll_all_ossf_mumu = bookHisto1D("mll-all-ossf-mumu", 50, 0.0, 500);
-      _hist_mll_all_osof_emu  = bookHisto1D("mll-all-osof-emu", 50, 0.0, 500);
+      book(_hist_mll_all_ossf_ee   ,"mll-all-ossf-ee", 50, 0.0, 500);
+      book(_hist_mll_all_ossf_mumu ,"mll-all-ossf-mumu", 50, 0.0, 500);
+      book(_hist_mll_all_osof_emu  ,"mll-all-osof-emu", 50, 0.0, 500);
 
-      _hist_mll_2_ossf_ee   = bookHisto1D("mll-2-ossf-ee", 50, 0.0, 500);
-      _hist_mll_2_ossf_mumu = bookHisto1D("mll-2-ossf-mumu", 50, 0.0, 500);
-      _hist_mll_2_osof_emu  = bookHisto1D("mll-2-osof-emu", 50, 0.0, 500);
+      book(_hist_mll_2_ossf_ee   ,"mll-2-ossf-ee", 50, 0.0, 500);
+      book(_hist_mll_2_ossf_mumu ,"mll-2-ossf-mumu", 50, 0.0, 500);
+      book(_hist_mll_2_osof_emu  ,"mll-2-osof-emu", 50, 0.0, 500);
 
       /// @todo LSP eta, pT, phi, mass: no reliable cross-scenario LSP PID but
       /// maybe plot for all of chi^0_1, gravitino, sneutrino, gluino, ... or

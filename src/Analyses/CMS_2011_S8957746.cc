@@ -22,12 +22,12 @@ namespace Rivet {
       declare(jets, "Jets");
 
       // Book histograms
-      _hist_T_90  = bookHisto1D(1, 1, 1);
-      _hist_m_90  = bookHisto1D(2, 1, 1);
-      _hist_T_125 = bookHisto1D(3, 1, 1);
-      _hist_m_125 = bookHisto1D(4, 1, 1);
-      _hist_T_200 = bookHisto1D(5, 1, 1);
-      _hist_m_200 = bookHisto1D(6, 1, 1);
+      book(_hist_T_90  ,1, 1, 1);
+      book(_hist_m_90  ,2, 1, 1);
+      book(_hist_T_125 ,3, 1, 1);
+      book(_hist_m_125 ,4, 1, 1);
+      book(_hist_T_200 ,5, 1, 1);
+      book(_hist_m_200 ,6, 1, 1);
     }
 
 

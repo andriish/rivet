@@ -30,20 +30,20 @@ namespace Rivet {
       const string pTname = "jet_pT_" + to_str(i+1);
       const double pTmax = 1.0/(double(i)+2.0) * sqrts/GeV/2.0;
       const int nbins_pT = 100/(i+1);
-      _h_pT_jet[i] = bookHisto1D(pTname, logspace(nbins_pT, 10.0, pTmax));
+      book(_h_pT_jet[i] ,pTname, logspace(nbins_pT, 10.0, pTmax));
 
       const string massname = "jet_mass_" + to_str(i+1);
       const double mmax = 100.0;
       const int nbins_m = 100/(i+1);
-      _h_mass_jet[i] = bookHisto1D(massname, logspace(nbins_m, 1.0, mmax));
+      book(_h_mass_jet[i] ,massname, logspace(nbins_m, 1.0, mmax));
 
       const string etaname = "jet_eta_" + to_str(i+1);
-      _h_eta_jet[i] = bookHisto1D(etaname, i > 1 ? 25 : 50, -5.0, 5.0);
+      book(_h_eta_jet[i] ,etaname, i > 1 ? 25 : 50, -5.0, 5.0);
       _h_eta_jet_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_eta_jet_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
       const string rapname = "jet_y_" + to_str(i+1);
-      _h_rap_jet[i] = bookHisto1D(rapname, i>1 ? 25 : 50, -5.0, 5.0);
+      book(_h_rap_jet[i] ,rapname, i>1 ? 25 : 50, -5.0, 5.0);
       _h_rap_jet_plus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
       _h_rap_jet_minus[i].reset(new Histo1D(i > 1 ? 15 : 25, 0, 5));
 
@@ -61,10 +61,10 @@ namespace Rivet {
       }
     }
 
-    _h_jet_multi_exclusive = bookHisto1D("jet_multi_exclusive", _njet+3, -0.5, _njet+3-0.5);
-    _h_jet_multi_inclusive = bookHisto1D("jet_multi_inclusive", _njet+3, -0.5, _njet+3-0.5);
+    book(_h_jet_multi_exclusive ,"jet_multi_exclusive", _njet+3, -0.5, _njet+3-0.5);
+    book(_h_jet_multi_inclusive ,"jet_multi_inclusive", _njet+3, -0.5, _njet+3-0.5);
     _h_jet_multi_ratio = bookScatter2D("jet_multi_ratio");
-    _h_jet_HT = bookHisto1D("jet_HT", logspace(50, _jetptcut, sqrts/GeV/2.0));
+    book(_h_jet_HT ,"jet_HT", logspace(50, _jetptcut, sqrts/GeV/2.0));
   }
 
 

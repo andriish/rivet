@@ -57,21 +57,21 @@ namespace Rivet {
       declare(jets, "jets");
 
       // Book histograms
-      _h_Njets        = bookHisto1D( 2,1,1);
-      _h_PtllMET      = bookHisto1D( 3,1,1);
-      _h_Yll          = bookHisto1D( 4,1,1);
-      _h_PtLead       = bookHisto1D( 5,1,1);
-      _h_Njets_norm   = bookHisto1D( 6,1,1);
-      _h_PtllMET_norm = bookHisto1D( 7,1,1);
-      _h_Yll_norm     = bookHisto1D( 8,1,1);
-      _h_PtLead_norm  = bookHisto1D( 9,1,1);
+      book(_h_Njets        , 2,1,1);
+      book(_h_PtllMET      , 3,1,1);
+      book(_h_Yll          , 4,1,1);
+      book(_h_PtLead       , 5,1,1);
+      book(_h_Njets_norm   , 6,1,1);
+      book(_h_PtllMET_norm , 7,1,1);
+      book(_h_Yll_norm     , 8,1,1);
+      book(_h_PtLead_norm  , 9,1,1);
       _h_JetVeto      = bookScatter2D(10, 1, 1, true);
       
       //histos for jetveto
       std::vector<double> ptlead25_bins = { 0., 25., 300. };
       std::vector<double> ptlead40_bins = { 0., 40., 300. };
-      _h_pTj1_sel25 = bookHisto1D( "pTj1_sel25", ptlead25_bins, "", "", "" );
-      _h_pTj1_sel40 = bookHisto1D( "pTj1_sel40", ptlead40_bins, "", "", "" );
+      book(_h_pTj1_sel25 , "pTj1_sel25", ptlead25_bins, "", "", "" );
+      book(_h_pTj1_sel40 , "pTj1_sel40", ptlead40_bins, "", "", "" );
     }
 
 

@@ -47,38 +47,38 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::ANTIKT, 0.6), "AntiKT06");
 
       /// Book histograms
-      _h_jet_bb_Delta_eta = bookHisto1D("jet_bb_Delta_eta", 50, 0, 4);
-      _h_jet_bb_Delta_phi = bookHisto1D("jet_bb_Delta_phi", 50, 0, M_PI);
-      _h_jet_bb_Delta_pT = bookHisto1D("jet_bb_Delta_pT", 50,0, 500);
-      _h_jet_bb_Delta_R = bookHisto1D("jet_bb_Delta_R", 50, 0, 5);
-      _h_jet_b_jet_eta = bookHisto1D("jet_b_jet_eta", 50, -4, 4);
-      _h_jet_b_jet_multiplicity = bookHisto1D("jet_b_jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_b_jet_phi = bookHisto1D("jet_b_jet_phi", 50, 0, 2.*M_PI);
-      _h_jet_b_jet_pT = bookHisto1D("jet_b_jet_pT", 50, 0, 500);
-      _h_jet_H_eta_using_bb = bookHisto1D("jet_H_eta_using_bb", 50, -4, 4);
-      _h_jet_H_mass_using_bb = bookHisto1D("jet_H_mass_using_bb", 50, 50, 200);
-      _h_jet_H_phi_using_bb = bookHisto1D("jet_H_phi_using_bb", 50, 0, 2.*M_PI);
-      _h_jet_H_pT_using_bb = bookHisto1D("jet_H_pT_using_bb", 50, 0, 500);
-      _h_jet_eta = bookHisto1D("jet_eta", 50, -4, 4);
-      _h_jet_multiplicity = bookHisto1D("jet_multiplicity", 11, -0.5, 10.5);
-      _h_jet_phi = bookHisto1D("jet_phi", 50, 0, 2.*M_PI);
-      _h_jet_pT = bookHisto1D("jet_pT", 50, 0, 500);
-      _h_jet_VBbb_Delta_eta = bookHisto1D("jet_VBbb_Delta_eta", 50, 0, 4);
-      _h_jet_VBbb_Delta_phi = bookHisto1D("jet_VBbb_Delta_phi", 50, 0, M_PI);
-      _h_jet_VBbb_Delta_pT = bookHisto1D("jet_VBbb_Delta_pT", 50, 0, 500);
-      _h_jet_VBbb_Delta_R = bookHisto1D("jet_VBbb_Delta_R", 50, 0, 8);
+      book(_h_jet_bb_Delta_eta ,"jet_bb_Delta_eta", 50, 0, 4);
+      book(_h_jet_bb_Delta_phi ,"jet_bb_Delta_phi", 50, 0, M_PI);
+      book(_h_jet_bb_Delta_pT ,"jet_bb_Delta_pT", 50,0, 500);
+      book(_h_jet_bb_Delta_R ,"jet_bb_Delta_R", 50, 0, 5);
+      book(_h_jet_b_jet_eta ,"jet_b_jet_eta", 50, -4, 4);
+      book(_h_jet_b_jet_multiplicity ,"jet_b_jet_multiplicity", 11, -0.5, 10.5);
+      book(_h_jet_b_jet_phi ,"jet_b_jet_phi", 50, 0, 2.*M_PI);
+      book(_h_jet_b_jet_pT ,"jet_b_jet_pT", 50, 0, 500);
+      book(_h_jet_H_eta_using_bb ,"jet_H_eta_using_bb", 50, -4, 4);
+      book(_h_jet_H_mass_using_bb ,"jet_H_mass_using_bb", 50, 50, 200);
+      book(_h_jet_H_phi_using_bb ,"jet_H_phi_using_bb", 50, 0, 2.*M_PI);
+      book(_h_jet_H_pT_using_bb ,"jet_H_pT_using_bb", 50, 0, 500);
+      book(_h_jet_eta ,"jet_eta", 50, -4, 4);
+      book(_h_jet_multiplicity ,"jet_multiplicity", 11, -0.5, 10.5);
+      book(_h_jet_phi ,"jet_phi", 50, 0, 2.*M_PI);
+      book(_h_jet_pT ,"jet_pT", 50, 0, 500);
+      book(_h_jet_VBbb_Delta_eta ,"jet_VBbb_Delta_eta", 50, 0, 4);
+      book(_h_jet_VBbb_Delta_phi ,"jet_VBbb_Delta_phi", 50, 0, M_PI);
+      book(_h_jet_VBbb_Delta_pT ,"jet_VBbb_Delta_pT", 50, 0, 500);
+      book(_h_jet_VBbb_Delta_R ,"jet_VBbb_Delta_R", 50, 0, 8);
 
-      _h_VB_eta = bookHisto1D("VB_eta", 50, -4, 4);
-      _h_VB_mass = bookHisto1D("VB_mass", 50, 60, 110);
-      _h_Z_multiplicity = bookHisto1D("Z_multiplicity", 11, -0.5, 10.5);
-      _h_W_multiplicity = bookHisto1D("W_multiplicity", 11, -0.5, 10.5);
-      _h_VB_phi = bookHisto1D("VB_phi", 50, 0, 2.*M_PI);
-      _h_VB_pT = bookHisto1D("VB_pT", 50, 0, 500);
+      book(_h_VB_eta ,"VB_eta", 50, -4, 4);
+      book(_h_VB_mass ,"VB_mass", 50, 60, 110);
+      book(_h_Z_multiplicity ,"Z_multiplicity", 11, -0.5, 10.5);
+      book(_h_W_multiplicity ,"W_multiplicity", 11, -0.5, 10.5);
+      book(_h_VB_phi ,"VB_phi", 50, 0, 2.*M_PI);
+      book(_h_VB_pT ,"VB_pT", 50, 0, 500);
 
-      _h_jet_bVB_angle_Hframe = bookHisto1D("jet_bVB_angle_Hframe", 50, 0, M_PI);
-      _h_jet_bVB_cosangle_Hframe = bookHisto1D("jet_bVB_cosangle_Hframe", 50, -1, 1);
-      _h_jet_bb_angle_Hframe = bookHisto1D("jet_bb_angle_Hframe", 50, 0, M_PI);
-      _h_jet_bb_cosangle_Hframe = bookHisto1D("jet_bb_cosangle_Hframe", 50, -1, 1);
+      book(_h_jet_bVB_angle_Hframe ,"jet_bVB_angle_Hframe", 50, 0, M_PI);
+      book(_h_jet_bVB_cosangle_Hframe ,"jet_bVB_cosangle_Hframe", 50, -1, 1);
+      book(_h_jet_bb_angle_Hframe ,"jet_bb_angle_Hframe", 50, 0, M_PI);
+      book(_h_jet_bb_cosangle_Hframe ,"jet_bb_cosangle_Hframe", 50, -1, 1);
     }
 
 

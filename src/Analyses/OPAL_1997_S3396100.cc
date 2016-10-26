@@ -29,18 +29,18 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(UnstableFinalState(), "UFS");
-      _histXpLambda         = bookHisto1D( 1, 1, 1);
-      _histXiLambda         = bookHisto1D( 2, 1, 1);
-      _histXpXiMinus        = bookHisto1D( 3, 1, 1);
-      _histXiXiMinus        = bookHisto1D( 4, 1, 1);
-      _histXpSigma1385Plus  = bookHisto1D( 5, 1, 1);
-      _histXiSigma1385Plus  = bookHisto1D( 6, 1, 1);
-      _histXpSigma1385Minus = bookHisto1D( 7, 1, 1);
-      _histXiSigma1385Minus = bookHisto1D( 8, 1, 1);
-      _histXpXi1530         = bookHisto1D( 9, 1, 1);
-      _histXiXi1530         = bookHisto1D(10, 1, 1);
-      _histXpLambda1520     = bookHisto1D(11, 1, 1);
-      _histXiLambda1520     = bookHisto1D(12, 1, 1);
+      book(_histXpLambda         , 1, 1, 1);
+      book(_histXiLambda         , 2, 1, 1);
+      book(_histXpXiMinus        , 3, 1, 1);
+      book(_histXiXiMinus        , 4, 1, 1);
+      book(_histXpSigma1385Plus  , 5, 1, 1);
+      book(_histXiSigma1385Plus  , 6, 1, 1);
+      book(_histXpSigma1385Minus , 7, 1, 1);
+      book(_histXiSigma1385Minus , 8, 1, 1);
+      book(_histXpXi1530         , 9, 1, 1);
+      book(_histXiXi1530         ,10, 1, 1);
+      book(_histXpLambda1520     ,11, 1, 1);
+      book(_histXiLambda1520     ,12, 1, 1);
     }
 
 

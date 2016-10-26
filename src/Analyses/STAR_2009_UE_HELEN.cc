@@ -50,9 +50,9 @@ namespace Rivet {
       declare(FastJets(jfs, FastJets::SISCONE, 0.7), "AllJets");
 
       // Book histograms
-      _hist_pmaxnchg   = bookProfile1D( 1, 1, 1);
-      _hist_pminnchg   = bookProfile1D( 2, 1, 1);
-      _hist_anchg      = bookProfile1D( 3, 1, 1);
+      book(_hist_pmaxnchg   , 1, 1, 1);
+      book(_hist_pminnchg   , 2, 1, 1);
+      book(_hist_anchg      , 3, 1, 1);
     }
 
 

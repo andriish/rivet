@@ -26,20 +26,20 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(UnstableFinalState(), "UFS");
-      _histXePhoton   = bookHisto1D( 2, 1, 1);
-      _histXiPhoton   = bookHisto1D( 3, 1, 1);
-      _histXePi       = bookHisto1D( 4, 1, 1);
-      _histXiPi       = bookHisto1D( 5, 1, 1);
-      _histXeEta      = bookHisto1D( 6, 1, 1);
-      _histXiEta      = bookHisto1D( 7, 1, 1);
-      _histXeRho      = bookHisto1D( 8, 1, 1);
-      _histXiRho      = bookHisto1D( 9, 1, 1);
-      _histXeOmega    = bookHisto1D(10, 1, 1);
-      _histXiOmega    = bookHisto1D(11, 1, 1);
-      _histXeEtaPrime = bookHisto1D(12, 1, 1);
-      _histXiEtaPrime = bookHisto1D(13, 1, 1);
-      _histXeA0       = bookHisto1D(14, 1, 1);
-      _histXiA0       = bookHisto1D(15, 1, 1);
+      book(_histXePhoton   , 2, 1, 1);
+      book(_histXiPhoton   , 3, 1, 1);
+      book(_histXePi       , 4, 1, 1);
+      book(_histXiPi       , 5, 1, 1);
+      book(_histXeEta      , 6, 1, 1);
+      book(_histXiEta      , 7, 1, 1);
+      book(_histXeRho      , 8, 1, 1);
+      book(_histXiRho      , 9, 1, 1);
+      book(_histXeOmega    ,10, 1, 1);
+      book(_histXiOmega    ,11, 1, 1);
+      book(_histXeEtaPrime ,12, 1, 1);
+      book(_histXiEtaPrime ,13, 1, 1);
+      book(_histXeA0       ,14, 1, 1);
+      book(_histXiA0       ,15, 1, 1);
     }
 
 

@@ -23,18 +23,18 @@ namespace Rivet {
 
     void init() {
       declare(UnstableFinalState(), "UFS");
-      _nonPrRapHigh    = bookHisto1D( 14, 1, 1);
-      _nonPrRapMedHigh = bookHisto1D( 13, 1, 1);
-      _nonPrRapMedLow  = bookHisto1D( 12, 1, 1);
-      _nonPrRapLow     = bookHisto1D( 11, 1, 1);
-      _PrRapHigh       = bookHisto1D( 18, 1, 1);
-      _PrRapMedHigh    = bookHisto1D( 17, 1, 1);
-      _PrRapMedLow     = bookHisto1D( 16, 1, 1);
-      _PrRapLow        = bookHisto1D( 15, 1, 1);
-      _IncRapHigh      = bookHisto1D( 20, 1, 1);
-      _IncRapMedHigh   = bookHisto1D( 21, 1, 1);
-      _IncRapMedLow    = bookHisto1D( 22, 1, 1);
-      _IncRapLow       = bookHisto1D( 23, 1, 1);
+      book(_nonPrRapHigh    , 14, 1, 1);
+      book(_nonPrRapMedHigh , 13, 1, 1);
+      book(_nonPrRapMedLow  , 12, 1, 1);
+      book(_nonPrRapLow     , 11, 1, 1);
+      book(_PrRapHigh       , 18, 1, 1);
+      book(_PrRapMedHigh    , 17, 1, 1);
+      book(_PrRapMedLow     , 16, 1, 1);
+      book(_PrRapLow        , 15, 1, 1);
+      book(_IncRapHigh      , 20, 1, 1);
+      book(_IncRapMedHigh   , 21, 1, 1);
+      book(_IncRapMedLow    , 22, 1, 1);
+      book(_IncRapLow       , 23, 1, 1);
     }
 
 

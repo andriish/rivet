@@ -20,10 +20,10 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(UnstableFinalState(), "UFS");
 
-      _histOff  = bookHisto1D(1,1,1);
-      _sigmaOff = bookHisto1D(2,1,1);
-      _histOn   = bookHisto1D(3,1,1);
-      _sigmaOn  = bookHisto1D(4,1,1);
+      book(_histOff  ,1,1,1);
+      book(_sigmaOff ,2,1,1);
+      book(_histOn   ,3,1,1);
+      book(_sigmaOn  ,4,1,1);
     }
 
 

@@ -36,35 +36,35 @@ namespace Rivet {
       declare(positrons, "Positrons");
 
       // Table 1
-      _h_costh[0] = bookHisto1D(1, 1, 1);
-      _h_costh[1] = bookHisto1D(1, 1, 2);
+      book(_h_costh[0] ,1, 1, 1);
+      book(_h_costh[1] ,1, 1, 2);
       // Table 2
-      _h_etjet1[1][0] = bookHisto1D(2, 1, 1);
-      _h_etjet1[1][1] = bookHisto1D(3, 1, 1);
-      _h_etjet1[1][2] = bookHisto1D(4, 1, 1);
-      _h_etjet1[1][3] = bookHisto1D(5, 1, 1);
-      _h_etjet1[1][4] = bookHisto1D(6, 1, 1);
-      _h_etjet1[1][5] = bookHisto1D(7, 1, 1);
+      book(_h_etjet1[1][0] ,2, 1, 1);
+      book(_h_etjet1[1][1] ,3, 1, 1);
+      book(_h_etjet1[1][2] ,4, 1, 1);
+      book(_h_etjet1[1][3] ,5, 1, 1);
+      book(_h_etjet1[1][4] ,6, 1, 1);
+      book(_h_etjet1[1][5] ,7, 1, 1);
       // Table 3
-      _h_etjet1[0][0] = bookHisto1D(8, 1, 1);
-      _h_etjet1[0][1] = bookHisto1D(9, 1, 1);
-      _h_etjet1[0][2] = bookHisto1D(10, 1, 1);
-      _h_etjet1[0][3] = bookHisto1D(11, 1, 1);
-      _h_etjet1[0][4] = bookHisto1D(12, 1, 1);
-      _h_etjet1[0][5] = bookHisto1D(13, 1, 1);
+      book(_h_etjet1[0][0] ,8, 1, 1);
+      book(_h_etjet1[0][1] ,9, 1, 1);
+      book(_h_etjet1[0][2] ,10, 1, 1);
+      book(_h_etjet1[0][3] ,11, 1, 1);
+      book(_h_etjet1[0][4] ,12, 1, 1);
+      book(_h_etjet1[0][5] ,13, 1, 1);
       // Table 4
-      _h_etajet2[1][0] = bookHisto1D(14, 1, 1);
-      _h_etajet2[1][1] = bookHisto1D(15, 1, 1);
-      _h_etajet2[1][2] = bookHisto1D(16, 1, 1);
+      book(_h_etajet2[1][0] ,14, 1, 1);
+      book(_h_etajet2[1][1] ,15, 1, 1);
+      book(_h_etajet2[1][2] ,16, 1, 1);
       // Table 5
-      _h_etajet2[0][0] = bookHisto1D(17, 1, 1);
-      _h_etajet2[0][1] = bookHisto1D(18, 1, 1);
-      _h_etajet2[0][2] = bookHisto1D(19, 1, 1);
+      book(_h_etajet2[0][0] ,17, 1, 1);
+      book(_h_etajet2[0][1] ,18, 1, 1);
+      book(_h_etajet2[0][2] ,19, 1, 1);
       // Table 6
-      _h_xobsy[0] = bookHisto1D(20, 1, 1);
-      _h_xobsy[1] = bookHisto1D(21, 1, 1);
-      _h_xobsy[2] = bookHisto1D(22, 1, 1);
-      _h_xobsy[3] = bookHisto1D(23, 1, 1);
+      book(_h_xobsy[0] ,20, 1, 1);
+      book(_h_xobsy[1] ,21, 1, 1);
+      book(_h_xobsy[2] ,22, 1, 1);
+      book(_h_xobsy[3] ,23, 1, 1);
     }
 
 

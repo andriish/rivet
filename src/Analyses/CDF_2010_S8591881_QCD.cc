@@ -48,20 +48,20 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       // Book histograms
-      _hist_tnchg      = bookProfile1D(10, 1, 1);
-      _hist_pnchg      = bookProfile1D(10, 1, 2);
-      _hist_anchg      = bookProfile1D(10, 1, 3);
-      _hist_pmaxnchg   = bookProfile1D(11, 1, 1);
-      _hist_pminnchg   = bookProfile1D(11, 1, 2);
-      _hist_pdifnchg   = bookProfile1D(11, 1, 3);
-      _hist_tcptsum    = bookProfile1D(12, 1, 1);
-      _hist_pcptsum    = bookProfile1D(12, 1, 2);
-      _hist_acptsum    = bookProfile1D(12, 1, 3);
-      _hist_pmaxcptsum = bookProfile1D(13, 1, 1);
-      _hist_pmincptsum = bookProfile1D(13, 1, 2);
-      _hist_pdifcptsum = bookProfile1D(13, 1, 3);
-      _hist_pcptave    = bookProfile1D(14, 1, 1);
-      _hist_pcptmax    = bookProfile1D(15, 1, 1);
+      book(_hist_tnchg      ,10, 1, 1);
+      book(_hist_pnchg      ,10, 1, 2);
+      book(_hist_anchg      ,10, 1, 3);
+      book(_hist_pmaxnchg   ,11, 1, 1);
+      book(_hist_pminnchg   ,11, 1, 2);
+      book(_hist_pdifnchg   ,11, 1, 3);
+      book(_hist_tcptsum    ,12, 1, 1);
+      book(_hist_pcptsum    ,12, 1, 2);
+      book(_hist_acptsum    ,12, 1, 3);
+      book(_hist_pmaxcptsum ,13, 1, 1);
+      book(_hist_pmincptsum ,13, 1, 2);
+      book(_hist_pdifcptsum ,13, 1, 3);
+      book(_hist_pcptave    ,14, 1, 1);
+      book(_hist_pcptmax    ,15, 1, 1);
     }
 
 

@@ -33,33 +33,33 @@ namespace Rivet {
 
       // Histograms
       // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
-      _histMult   = bookHisto1D("Mult", 100, -0.5, 199.5);
-      _histMultCh = bookHisto1D("MultCh", 100, -0.5, 199.5);
+      book(_histMult   ,"Mult", 100, -0.5, 199.5);
+      book(_histMultCh ,"MultCh", 100, -0.5, 199.5);
 
-      _histPt   = bookHisto1D("Pt", 300, 0, 30);
-      _histPtCh = bookHisto1D("PtCh", 300, 0, 30);
+      book(_histPt   ,"Pt", 300, 0, 30);
+      book(_histPtCh ,"PtCh", 300, 0, 30);
 
-      _histE   = bookHisto1D("E", 100, 0, 200);
-      _histECh = bookHisto1D("ECh", 100, 0, 200);
+      book(_histE   ,"E", 100, 0, 200);
+      book(_histECh ,"ECh", 100, 0, 200);
 
-      _histEtaSumEt = bookProfile1D("EtaSumEt", 25, 0, 5);
+      book(_histEtaSumEt ,"EtaSumEt", 25, 0, 5);
 
-      _histEta    = bookHisto1D("Eta", 50, -5, 5);
-      _histEtaCh  = bookHisto1D("EtaCh", 50, -5, 5);
+      book(_histEta    ,"Eta", 50, -5, 5);
+      book(_histEtaCh  ,"EtaCh", 50, -5, 5);
       _tmphistEtaPlus = Histo1D(25, 0, 5);
       _tmphistEtaMinus = Histo1D(25, 0, 5);
       _tmphistEtaChPlus = Histo1D(25, 0, 5);
       _tmphistEtaChMinus = Histo1D(25, 0, 5);
 
-      _histRapidity    = bookHisto1D("Rapidity", 50, -5, 5);
-      _histRapidityCh  = bookHisto1D("RapidityCh", 50, -5, 5);
+      book(_histRapidity    ,"Rapidity", 50, -5, 5);
+      book(_histRapidityCh  ,"RapidityCh", 50, -5, 5);
       _tmphistRapPlus = Histo1D(25, 0, 5);
       _tmphistRapMinus = Histo1D(25, 0, 5);
       _tmphistRapChPlus = Histo1D(25, 0, 5);
       _tmphistRapChMinus = Histo1D(25, 0, 5);
 
-      _histPhi    = bookHisto1D("Phi", 50, 0, TWOPI);
-      _histPhiCh  = bookHisto1D("PhiCh", 50, 0, TWOPI);
+      book(_histPhi    ,"Phi", 50, 0, TWOPI);
+      book(_histPhiCh  ,"PhiCh", 50, 0, TWOPI);
 
       _histEtaPMRatio = bookScatter2D("EtaPMRatio");
       _histEtaChPMRatio = bookScatter2D("EtaChPMRatio");

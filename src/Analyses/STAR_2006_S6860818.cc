@@ -34,18 +34,18 @@ namespace Rivet {
       UnstableFinalState ufs(Cuts::abseta < 2.5);
       declare(ufs, "UFS");
 
-      _h_pT_k0s        = bookHisto1D(1, 1, 1);
-      _h_pT_kminus     = bookHisto1D(1, 2, 1);
-      _h_pT_kplus      = bookHisto1D(1, 3, 1);
-      _h_pT_lambda     = bookHisto1D(1, 4, 1);
-      _h_pT_lambdabar  = bookHisto1D(1, 5, 1);
-      _h_pT_ximinus    = bookHisto1D(1, 6, 1);
-      _h_pT_xiplus     = bookHisto1D(1, 7, 1);
-      //_h_pT_omega      = bookHisto1D(1, 8, 1);
+      book(_h_pT_k0s        ,1, 1, 1);
+      book(_h_pT_kminus     ,1, 2, 1);
+      book(_h_pT_kplus      ,1, 3, 1);
+      book(_h_pT_lambda     ,1, 4, 1);
+      book(_h_pT_lambdabar  ,1, 5, 1);
+      book(_h_pT_ximinus    ,1, 6, 1);
+      book(_h_pT_xiplus     ,1, 7, 1);
+      //book(_h_pT_omega      ,1, 8, 1);
       _h_antibaryon_baryon_ratio = bookScatter2D(2, 1, 1);
       _h_lambar_lam = bookScatter2D(2, 2, 1);
       _h_xiplus_ximinus = bookScatter2D(2, 3, 1);
-      _h_pT_vs_mass    = bookProfile1D(3, 1, 1);
+      book(_h_pT_vs_mass    ,3, 1, 1);
     }
 
 

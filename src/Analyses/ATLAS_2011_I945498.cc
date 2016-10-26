@@ -70,18 +70,18 @@ namespace Rivet {
 
       // 0=el, 1=mu, 2=comb
       for (size_t chn = 0; chn < 3; ++chn) {
-        _h_njet_incl[chn]  = bookHisto1D(1, 1, chn+1);
+        book(_h_njet_incl[chn]  ,1, 1, chn+1);
         _h_njet_ratio[chn] = bookScatter2D(2, 1, chn+1);
-        _h_ptjet[chn]      = bookHisto1D(3, 1, chn+1);
-        _h_ptlead[chn]     = bookHisto1D(4, 1, chn+1);
-        _h_ptseclead[chn]  = bookHisto1D(5, 1, chn+1);
-        _h_yjet[chn]       = bookHisto1D(6, 1, chn+1);
-        _h_ylead[chn]      = bookHisto1D(7, 1, chn+1);
-        _h_yseclead[chn]   = bookHisto1D(8, 1, chn+1);
-        _h_mass[chn]       = bookHisto1D(9, 1, chn+1);
-        _h_deltay[chn]     = bookHisto1D(10, 1, chn+1);
-        _h_deltaphi[chn]   = bookHisto1D(11, 1, chn+1);
-        _h_deltaR[chn]     = bookHisto1D(12, 1, chn+1);
+        book(_h_ptjet[chn]      ,3, 1, chn+1);
+        book(_h_ptlead[chn]     ,4, 1, chn+1);
+        book(_h_ptseclead[chn]  ,5, 1, chn+1);
+        book(_h_yjet[chn]       ,6, 1, chn+1);
+        book(_h_ylead[chn]      ,7, 1, chn+1);
+        book(_h_yseclead[chn]   ,8, 1, chn+1);
+        book(_h_mass[chn]       ,9, 1, chn+1);
+        book(_h_deltay[chn]     ,10, 1, chn+1);
+        book(_h_deltaphi[chn]   ,11, 1, chn+1);
+        book(_h_deltaR[chn]     ,12, 1, chn+1);
       }
     }
 

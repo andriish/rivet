@@ -20,17 +20,17 @@ namespace Rivet {
       declare(cfs, "CFS");
       //
       // plots from the paper
-      _histPtPions          = bookHisto1D("d01-x01-y01");    // pions
-      _histPtKaons          = bookHisto1D("d01-x01-y02");    // kaons
-      _histPtProtons        = bookHisto1D("d01-x01-y03");    // protons
+      book(_histPtPions          ,"d01-x01-y01");    // pions
+      book(_histPtKaons          ,"d01-x01-y02");    // kaons
+      book(_histPtProtons        ,"d01-x01-y03");    // protons
       _histPtKtoPi          = bookScatter2D("d02-x01-y01");  // K to pi ratio 
       _histPtPtoPi          = bookScatter2D("d03-x01-y01");  // p to pi ratio
       //
       // temp histos for ratios
-      _histPtPionsR1        = bookHisto1D("TMP/pT_pi1", refData(2, 1, 1)); // pi histo compatible with more restricted kaon binning
-      _histPtPionsR2        = bookHisto1D("TMP/pT_pi2", refData(3, 1, 1)); // pi histo compatible with more restricted proton binning
-      _histPtKaonsR         = bookHisto1D("TMP/pT_K",   refData(2, 1, 1)); // K histo with more restricted binning
-      _histPtProtonsR       = bookHisto1D("TMP/pT_p",   refData(3, 1, 1)); // p histo with more restricted binning
+      book(_histPtPionsR1        ,"TMP/pT_pi1", refData(2, 1, 1)); // pi histo compatible with more restricted kaon binning
+      book(_histPtPionsR2        ,"TMP/pT_pi2", refData(3, 1, 1)); // pi histo compatible with more restricted proton binning
+      book(_histPtKaonsR         ,"TMP/pT_K",   refData(2, 1, 1)); // K histo with more restricted binning
+      book(_histPtProtonsR       ,"TMP/pT_p",   refData(3, 1, 1)); // p histo with more restricted binning
     }
 
 

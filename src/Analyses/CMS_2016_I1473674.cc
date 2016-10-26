@@ -59,10 +59,10 @@ namespace Rivet {
       addProjection(MissingMomentum(), "MET");
 
       // Booking of histograms
-      _hist_met = bookHisto1D(5, 1, 1);
-      _hist_ht  = bookHisto1D(6, 1, 1);
-      _hist_st  = bookHisto1D(7, 1, 1);
-      _hist_wpt = bookHisto1D(8, 1, 1);
+      book(_hist_met ,5, 1, 1);
+      book(_hist_ht  ,6, 1, 1);
+      book(_hist_st  ,7, 1, 1);
+      book(_hist_wpt ,8, 1, 1);
     }
 
 

@@ -44,12 +44,12 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::CDFMIDPOINT, 0.7), "Jets");
 
       // Book histograms
-      _dStot    = bookHisto1D(1, 1, 1);
-      _dSdET    = bookHisto1D(2, 1, 1);
-      _dSdETA   = bookHisto1D(3, 1, 1);
-      _dSdZpT   = bookHisto1D(4, 1, 1);
-      _dSdNJet  = bookHisto1D(5, 1, 1);
-      _dSdNbJet = bookHisto1D(6, 1, 1);
+      book(_dStot    ,1, 1, 1);
+      book(_dSdET    ,2, 1, 1);
+      book(_dSdETA   ,3, 1, 1);
+      book(_dSdZpT   ,4, 1, 1);
+      book(_dSdNJet  ,5, 1, 1);
+      book(_dSdNbJet ,6, 1, 1);
      }
 
 

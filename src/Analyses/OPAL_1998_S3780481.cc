@@ -123,18 +123,18 @@ namespace Rivet {
       declare(InitialQuarks(), "IQF");
 
       // Book histos
-      _histXpuds           = bookHisto1D(1, 1, 1);
-      _histXpc             = bookHisto1D(2, 1, 1);
-      _histXpb             = bookHisto1D(3, 1, 1);
-      _histXpall           = bookHisto1D(4, 1, 1);
-      _histLogXpuds        = bookHisto1D(5, 1, 1);
-      _histLogXpc          = bookHisto1D(6, 1, 1);
-      _histLogXpb          = bookHisto1D(7, 1, 1);
-      _histLogXpall        = bookHisto1D(8, 1, 1);
-      _histMultiChargeduds = bookHisto1D(9, 1, 1);
-      _histMultiChargedc   = bookHisto1D(9, 1, 2);
-      _histMultiChargedb   = bookHisto1D(9, 1, 3);
-      _histMultiChargedall = bookHisto1D(9, 1, 4);
+      book(_histXpuds           ,1, 1, 1);
+      book(_histXpc             ,2, 1, 1);
+      book(_histXpb             ,3, 1, 1);
+      book(_histXpall           ,4, 1, 1);
+      book(_histLogXpuds        ,5, 1, 1);
+      book(_histLogXpc          ,6, 1, 1);
+      book(_histLogXpb          ,7, 1, 1);
+      book(_histLogXpall        ,8, 1, 1);
+      book(_histMultiChargeduds ,9, 1, 1);
+      book(_histMultiChargedc   ,9, 1, 2);
+      book(_histMultiChargedb   ,9, 1, 3);
+      book(_histMultiChargedall ,9, 1, 4);
     }
 
 

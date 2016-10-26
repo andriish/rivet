@@ -32,12 +32,12 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        _h_dN_deta    = bookHisto1D(4, 1, 1);
+        book(_h_dN_deta    ,4, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 2360, 1E-3)) {
-        _h_dN_deta    = bookHisto1D(5, 1, 1);
+        book(_h_dN_deta    ,5, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
-        _h_dN_deta    = bookHisto1D(6, 1, 1);
-        _h_dN_dNch    = bookHisto1D(3, 1, 1);
+        book(_h_dN_deta    ,6, 1, 1);
+        book(_h_dN_dNch    ,3, 1, 1);
       }
 
     }

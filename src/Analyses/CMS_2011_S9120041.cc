@@ -27,22 +27,22 @@ namespace Rivet {
       declare(jetpro, "Jets");
 
       if (fuzzyEquals(sqrtS(), 7.0*TeV)) {
-        _h_Nch_vs_pT = bookProfile1D(1, 1, 1); // Nch vs. pT_max
-        _h_Sum_vs_pT = bookProfile1D(2, 1, 1); // sum(pT) vs. pT_max
-        _h_pT3_Nch   = bookHisto1D(5, 1, 1);   // transverse Nch,     pT_max > 3GeV
-        _h_pT3_Sum   = bookHisto1D(6, 1, 1);   // transverse sum(pT), pT_max > 3GeV
-        _h_pT3_pT    = bookHisto1D(7, 1, 1);   // transverse pT,      pT_max > 3GeV
-        _h_pT20_Nch  = bookHisto1D(8, 1, 1);   // transverse Nch,     pT_max > 20GeV
-        _h_pT20_Sum  = bookHisto1D(9, 1, 1);   // transverse sum(pT), pT_max > 20GeV
-        _h_pT20_pT   = bookHisto1D(10, 1, 1);  // transverse pT,      pT_max > 20GeV
+        book(_h_Nch_vs_pT ,1, 1, 1); // Nch vs. pT_max
+        book(_h_Sum_vs_pT ,2, 1, 1); // sum(pT) vs. pT_max
+        book(_h_pT3_Nch   ,5, 1, 1);   // transverse Nch,     pT_max > 3GeV
+        book(_h_pT3_Sum   ,6, 1, 1);   // transverse sum(pT), pT_max > 3GeV
+        book(_h_pT3_pT    ,7, 1, 1);   // transverse pT,      pT_max > 3GeV
+        book(_h_pT20_Nch  ,8, 1, 1);   // transverse Nch,     pT_max > 20GeV
+        book(_h_pT20_Sum  ,9, 1, 1);   // transverse sum(pT), pT_max > 20GeV
+        book(_h_pT20_pT   ,10, 1, 1);  // transverse pT,      pT_max > 20GeV
       }
 
       if (fuzzyEquals(sqrtS(), 0.9*TeV)) {
-        _h_Nch_vs_pT = bookProfile1D(3, 1, 1); // Nch vs. pT_max
-        _h_Sum_vs_pT = bookProfile1D(4, 1, 1); // sum(pT) vs. pT_max
-        _h_pT3_Nch   = bookHisto1D(11, 1, 1);  // transverse Nch,     pT_max > 3GeV
-        _h_pT3_Sum   = bookHisto1D(12, 1, 1);  // transverse sum(pT), pT_max > 3GeV
-        _h_pT3_pT    = bookHisto1D(13, 1, 1);  // transverse pT,      pT_max > 3GeV
+        book(_h_Nch_vs_pT ,3, 1, 1); // Nch vs. pT_max
+        book(_h_Sum_vs_pT ,4, 1, 1); // sum(pT) vs. pT_max
+        book(_h_pT3_Nch   ,11, 1, 1);  // transverse Nch,     pT_max > 3GeV
+        book(_h_pT3_Sum   ,12, 1, 1);  // transverse sum(pT), pT_max > 3GeV
+        book(_h_pT3_pT    ,13, 1, 1);  // transverse pT,      pT_max > 3GeV
       }
 
       sumOfWeights3  = 0.0;

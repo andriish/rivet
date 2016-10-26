@@ -37,9 +37,9 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(photonfs);
       declare(vfs, "JetFS");
 
-      _h_photon_pT = bookHisto1D("photon_pT", logspace(50, 30.0, 0.5*(sqrtS()>0.?sqrtS():14000.)));
-      _h_photon_pT_lin = bookHisto1D("photon_pT_lin", 50, 0.0, 70.0);
-      _h_photon_y = bookHisto1D("photon_y", 50, -5.0, 5.0);
+      book(_h_photon_pT ,"photon_pT", logspace(50, 30.0, 0.5*(sqrtS()>0.?sqrtS():14000.)));
+      book(_h_photon_pT_lin ,"photon_pT_lin", 50, 0.0, 70.0);
+      book(_h_photon_y ,"photon_y", 50, -5.0, 5.0);
     }
 
 

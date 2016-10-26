@@ -43,22 +43,22 @@ namespace Rivet {
       for (size_t i=0; i<tags.size(); ++i) {
         _h_dists[i].resize(11,Profile1DPtr());
         double sqrts = sqrtS()>0. ? sqrtS() : 14000.;
-        _h_dists[i][0] = bookProfile1D("A0"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][1] = bookProfile1D("A1"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][2] = bookProfile1D("A2"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][3] = bookProfile1D("A3"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][4] = bookProfile1D("A4"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][5] = bookProfile1D("A5"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][6] = bookProfile1D("A6"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][7] = bookProfile1D("A7"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][8] = bookProfile1D("fL"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][9] = bookProfile1D("fR"+tags[i],logspace(100, 1.0, 0.5*sqrts));
-        _h_dists[i][10] = bookProfile1D("f0"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][0] ,"A0"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][1] ,"A1"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][2] ,"A2"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][3] ,"A3"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][4] ,"A4"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][5] ,"A5"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][6] ,"A6"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][7] ,"A7"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][8] ,"fL"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][9] ,"fR"+tags[i],logspace(100, 1.0, 0.5*sqrts));
+        book(_h_dists[i][10] ,"f0"+tags[i],logspace(100, 1.0, 0.5*sqrts));
         _h_histos[i].resize(4,Histo1DPtr());
-        _h_histos[i][0] = bookHisto1D("thetastar"+tags[i],100,-1.0,1.0);
-        _h_histos[i][1] = bookHisto1D("phistar"+tags[i],90,0.0,360.0);
-        _h_histos[i][2] = bookHisto1D("thetastar_ptw20"+tags[i],100,-1.0,1.0);
-        _h_histos[i][3] = bookHisto1D("phistar_ptw20"+tags[i],90,0.0,360.0);
+        book(_h_histos[i][0] ,"thetastar"+tags[i],100,-1.0,1.0);
+        book(_h_histos[i][1] ,"phistar"+tags[i],90,0.0,360.0);
+        book(_h_histos[i][2] ,"thetastar_ptw20"+tags[i],100,-1.0,1.0);
+        book(_h_histos[i][3] ,"phistar_ptw20"+tags[i],90,0.0,360.0);
       }
     }
 

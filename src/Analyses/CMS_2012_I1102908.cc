@@ -31,9 +31,9 @@ namespace Rivet {
     _h_MN_dijet_ratio = bookScatter2D(2, 1, 1);
 
     // Temporary histograms (directly instantiated)
-    _h_DeltaY_exclusive = bookHisto1D("TMP/excl",refData(1, 1, 1));
-    _h_DeltaY_inclusive = bookHisto1D("TMP/incl",refData(1, 1, 1));
-    _h_DeltaY_MN = bookHisto1D("TMP/YMN",refData(1, 1, 1));
+    book(_h_DeltaY_exclusive ,"TMP/excl",refData(1, 1, 1));
+    book(_h_DeltaY_inclusive ,"TMP/incl",refData(1, 1, 1));
+    book(_h_DeltaY_MN ,"TMP/YMN",refData(1, 1, 1));
   }
 
 

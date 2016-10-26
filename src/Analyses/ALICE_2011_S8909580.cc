@@ -18,13 +18,13 @@ namespace Rivet {
       const UnstableFinalState ufs(Cuts::abseta < 15);
       declare(ufs, "UFS");
 
-      _histPtK0s        = bookHisto1D(1, 1, 1);
-      _histPtLambda     = bookHisto1D(2, 1, 1);
-      _histPtAntiLambda = bookHisto1D(3, 1, 1);
-      _histPtXi         = bookHisto1D(4, 1, 1);
-      _histPtPhi        = bookHisto1D(5, 1, 1);
-      _temp_h_Lambdas   = bookHisto1D("TMP/h_Lambdas", refData(6, 1, 1));
-      _temp_h_Kzeros    = bookHisto1D("TMP/h_Kzeros", refData(6, 1, 1));
+      book(_histPtK0s        ,1, 1, 1);
+      book(_histPtLambda     ,2, 1, 1);
+      book(_histPtAntiLambda ,3, 1, 1);
+      book(_histPtXi         ,4, 1, 1);
+      book(_histPtPhi        ,5, 1, 1);
+      book(_temp_h_Lambdas   ,"TMP/h_Lambdas", refData(6, 1, 1));
+      book(_temp_h_Kzeros    ,"TMP/h_Kzeros", refData(6, 1, 1));
       _h_LamKzero       = bookScatter2D(6, 1, 1);
     }
 

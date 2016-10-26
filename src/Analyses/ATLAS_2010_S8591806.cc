@@ -20,10 +20,10 @@ namespace Rivet {
       ChargedFinalState cfs(-2.5, 2.5, 0.5*GeV);
       declare(cfs, "CFS");
 
-      _h_dNch_deta = bookHisto1D(2, 1, 1);
-      _h_dNch_dpT = bookHisto1D(3, 1, 1);
-      _h_dNevt_dNch = bookHisto1D(4, 1, 1);
-      _p_meanpT_Nch = bookProfile1D(5, 1, 1);
+      book(_h_dNch_deta ,2, 1, 1);
+      book(_h_dNch_dpT ,3, 1, 1);
+      book(_h_dNevt_dNch ,4, 1, 1);
+      book(_p_meanpT_Nch ,5, 1, 1);
     }
 
 

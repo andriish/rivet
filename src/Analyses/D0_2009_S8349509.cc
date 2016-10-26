@@ -35,23 +35,23 @@ namespace Rivet {
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       declare(conefinder, "ConeFinder");
 
-      _h_dphi_jet_Z25 = bookHisto1D(1, 1, 1);
-      _h_dphi_jet_Z45 = bookHisto1D(2, 1, 1);
+      book(_h_dphi_jet_Z25 ,1, 1, 1);
+      book(_h_dphi_jet_Z45 ,2, 1, 1);
 
-      _h_dy_jet_Z25 = bookHisto1D(3, 1, 1);
-      _h_dy_jet_Z45 = bookHisto1D(4, 1, 1);
+      book(_h_dy_jet_Z25 ,3, 1, 1);
+      book(_h_dy_jet_Z45 ,4, 1, 1);
 
-      _h_yboost_jet_Z25 = bookHisto1D(5, 1, 1);
-      _h_yboost_jet_Z45 = bookHisto1D(6, 1, 1);
+      book(_h_yboost_jet_Z25 ,5, 1, 1);
+      book(_h_yboost_jet_Z45 ,6, 1, 1);
 
-      _h_dphi_jet_Z25_xs = bookHisto1D(1, 1, 2);
-      _h_dphi_jet_Z45_xs = bookHisto1D(2, 1, 2);
+      book(_h_dphi_jet_Z25_xs ,1, 1, 2);
+      book(_h_dphi_jet_Z45_xs ,2, 1, 2);
 
-      _h_dy_jet_Z25_xs = bookHisto1D(3, 1, 2);
-      _h_dy_jet_Z45_xs = bookHisto1D(4, 1, 2);
+      book(_h_dy_jet_Z25_xs ,3, 1, 2);
+      book(_h_dy_jet_Z45_xs ,4, 1, 2);
 
-      _h_yboost_jet_Z25_xs = bookHisto1D(5, 1, 2);
-      _h_yboost_jet_Z45_xs = bookHisto1D(6, 1, 2);
+      book(_h_yboost_jet_Z25_xs ,5, 1, 2);
+      book(_h_yboost_jet_Z45_xs ,6, 1, 2);
 
       _inclusive_Z_sumofweights = 0;
     }

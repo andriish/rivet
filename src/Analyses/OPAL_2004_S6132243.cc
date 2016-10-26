@@ -70,33 +70,33 @@ namespace Rivet {
       _isqrts = getHistIndex(sqrtS());
 
       // Book histograms
-      _hist1MinusT[_isqrts]    = bookHisto1D(1, 1, _isqrts+1);
-      _histHemiMassH[_isqrts]  = bookHisto1D(2, 1, _isqrts+1);
-      _histCParam[_isqrts]     = bookHisto1D(3, 1, _isqrts+1);
-      _histHemiBroadT[_isqrts] = bookHisto1D(4, 1, _isqrts+1);
-      _histHemiBroadW[_isqrts] = bookHisto1D(5, 1, _isqrts+1);
-      _histY23Durham[_isqrts]  = bookHisto1D(6, 1, _isqrts+1);
-      _histTMajor[_isqrts]     = bookHisto1D(7, 1, _isqrts+1);
-      _histTMinor[_isqrts]     = bookHisto1D(8, 1, _isqrts+1);
-      _histAplanarity[_isqrts] = bookHisto1D(9, 1, _isqrts+1);
-      _histSphericity[_isqrts] = bookHisto1D(10, 1, _isqrts+1);
-      _histOblateness[_isqrts] = bookHisto1D(11, 1, _isqrts+1);
-      _histHemiMassL[_isqrts]  = bookHisto1D(12, 1, _isqrts+1);
-      _histHemiBroadN[_isqrts] = bookHisto1D(13, 1, _isqrts+1);
-      _histDParam[_isqrts]     = bookHisto1D(14, 1, _isqrts+1);
+      book(_hist1MinusT[_isqrts]    ,1, 1, _isqrts+1);
+      book(_histHemiMassH[_isqrts]  ,2, 1, _isqrts+1);
+      book(_histCParam[_isqrts]     ,3, 1, _isqrts+1);
+      book(_histHemiBroadT[_isqrts] ,4, 1, _isqrts+1);
+      book(_histHemiBroadW[_isqrts] ,5, 1, _isqrts+1);
+      book(_histY23Durham[_isqrts]  ,6, 1, _isqrts+1);
+      book(_histTMajor[_isqrts]     ,7, 1, _isqrts+1);
+      book(_histTMinor[_isqrts]     ,8, 1, _isqrts+1);
+      book(_histAplanarity[_isqrts] ,9, 1, _isqrts+1);
+      book(_histSphericity[_isqrts] ,10, 1, _isqrts+1);
+      book(_histOblateness[_isqrts] ,11, 1, _isqrts+1);
+      book(_histHemiMassL[_isqrts]  ,12, 1, _isqrts+1);
+      book(_histHemiBroadN[_isqrts] ,13, 1, _isqrts+1);
+      book(_histDParam[_isqrts]     ,14, 1, _isqrts+1);
       //
-      _hist1MinusTMom[_isqrts]    = bookHisto1D(15, 1, _isqrts+1);
-      _histHemiMassHMom[_isqrts]  = bookHisto1D(16, 1, _isqrts+1);
-      _histCParamMom[_isqrts]     = bookHisto1D(17, 1, _isqrts+1);
-      _histHemiBroadTMom[_isqrts] = bookHisto1D(18, 1, _isqrts+1);
-      _histHemiBroadWMom[_isqrts] = bookHisto1D(19, 1, _isqrts+1);
-      _histY23DurhamMom[_isqrts]  = bookHisto1D(20, 1, _isqrts+1);
-      _histTMajorMom[_isqrts]     = bookHisto1D(21, 1, _isqrts+1);
-      _histTMinorMom[_isqrts]     = bookHisto1D(22, 1, _isqrts+1);
-      _histSphericityMom[_isqrts] = bookHisto1D(23, 1, _isqrts+1);
-      _histOblatenessMom[_isqrts] = bookHisto1D(24, 1, _isqrts+1);
-      _histHemiMassLMom[_isqrts]  = bookHisto1D(25, 1, _isqrts+1);
-      _histHemiBroadNMom[_isqrts] = bookHisto1D(26, 1, _isqrts+1);
+      book(_hist1MinusTMom[_isqrts]    ,15, 1, _isqrts+1);
+      book(_histHemiMassHMom[_isqrts]  ,16, 1, _isqrts+1);
+      book(_histCParamMom[_isqrts]     ,17, 1, _isqrts+1);
+      book(_histHemiBroadTMom[_isqrts] ,18, 1, _isqrts+1);
+      book(_histHemiBroadWMom[_isqrts] ,19, 1, _isqrts+1);
+      book(_histY23DurhamMom[_isqrts]  ,20, 1, _isqrts+1);
+      book(_histTMajorMom[_isqrts]     ,21, 1, _isqrts+1);
+      book(_histTMinorMom[_isqrts]     ,22, 1, _isqrts+1);
+      book(_histSphericityMom[_isqrts] ,23, 1, _isqrts+1);
+      book(_histOblatenessMom[_isqrts] ,24, 1, _isqrts+1);
+      book(_histHemiMassLMom[_isqrts]  ,25, 1, _isqrts+1);
+      book(_histHemiBroadNMom[_isqrts] ,26, 1, _isqrts+1);
     }
 
 

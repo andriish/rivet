@@ -52,10 +52,10 @@ namespace Rivet {
 
       // Book histograms
       for (int i = 0 ; i < 4 ; ++i) {
-        _histJetEt[i] = bookHisto1D(1+i, 1, 1);
+        book(_histJetEt[i] ,1+i, 1, 1);
         _histJetMultRatio[i] = bookScatter2D(5, 1, i+1, true);
         /// @todo These would be better off as YODA::Counter until finalize()
-        _histJetMult[i] = bookHisto1D(6+i, 1, 1); // _sumW is essentially the 0th "histo" counter
+        book(_histJetMult[i] ,6+i, 1, 1); // _sumW is essentially the 0th "histo" counter
       }
     }
 

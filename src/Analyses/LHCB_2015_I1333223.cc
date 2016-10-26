@@ -34,7 +34,7 @@ namespace Rivet {
       // Charged particles
       declare(ChargedFinalState(Cuts::eta> 2.0 && Cuts::eta <4.5 && Cuts::pT >0.2*GeV), "CFS");
       // Reproducing only measurement for prompt charged particles
-      _hInelasticXs = bookHisto1D(1, 1, 1);
+      book(_hInelasticXs ,1, 1, 1);
     }
 
 

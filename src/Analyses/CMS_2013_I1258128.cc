@@ -41,14 +41,14 @@ namespace Rivet {
       declare(jets, "JETS");
 
       // Histograms
-      _hist1YZ      = bookHisto1D(1, 1, 1);
-      _hist1YJet    = bookHisto1D(2, 1, 1);
-      _hist1YSum    = bookHisto1D(3, 1, 1);
-	  _hist1YDif	= bookHisto1D(4, 1, 1);
-	  _hist2YPhoton = bookHisto1D(5, 1, 1);
-	  _hist2YJet	= bookHisto1D(6, 1, 1);
-	  _hist2YSum	= bookHisto1D(7, 1, 1);
-	  _hist2YDif	= bookHisto1D(8, 1, 1);
+      book(_hist1YZ      ,1, 1, 1);
+      book(_hist1YJet    ,2, 1, 1);
+      book(_hist1YSum    ,3, 1, 1);
+book(	  _hist1YDif	,4, 1, 1);
+book(	  _hist2YPhoton ,5, 1, 1);
+book(	  _hist2YJet	,6, 1, 1);
+book(	  _hist2YSum	,7, 1, 1);
+book(	  _hist2YDif	,8, 1, 1);
     }
 
 

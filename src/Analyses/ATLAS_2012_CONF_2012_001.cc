@@ -55,22 +55,22 @@ namespace Rivet {
       _hist_leptonpT.push_back(bookHisto1D(2,1,1));
       _hist_leptonpT.push_back(bookHisto1D(3,1,1));
       _hist_leptonpT.push_back(bookHisto1D(4,1,1));
-      _hist_njet   = bookHisto1D(5,1,1);
-      _hist_etmiss = bookHisto1D(6,1,1);
-      _hist_mSFOS  = bookHisto1D(7,1,1);
-      _hist_meff   = bookHisto1D(8,1,1);
+      book(_hist_njet   ,5,1,1);
+      book(_hist_etmiss ,6,1,1);
+      book(_hist_mSFOS  ,7,1,1);
+      book(_hist_meff   ,8,1,1);
 
       _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_1", 26, 0., 260));
       _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_2", 15, 0., 150));
       _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_3", 20, 0., 100));
       _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_4", 20, 0., 100));
-      _hist_njet_MC   = bookHisto1D("hist_njet", 7, -0.5, 6.5);
-      _hist_etmiss_MC = bookHisto1D("hist_etmiss",11,0.,220.);
-      _hist_mSFOS_MC  = bookHisto1D("hist_m_SFOS",13,0.,260.);
-      _hist_meff_MC   = bookHisto1D("hist_m_eff",19,0.,950.);
+      book(_hist_njet_MC   ,"hist_njet", 7, -0.5, 6.5);
+      book(_hist_etmiss_MC ,"hist_etmiss",11,0.,220.);
+      book(_hist_mSFOS_MC  ,"hist_m_SFOS",13,0.,260.);
+      book(_hist_meff_MC   ,"hist_m_eff",19,0.,950.);
 
-      _count_SR1 = bookHisto1D("count_SR1", 1, 0., 1.);
-      _count_SR2 = bookHisto1D("count_SR2", 1, 0., 1.);
+      book(_count_SR1 ,"count_SR1", 1, 0., 1.);
+      book(_count_SR2 ,"count_SR2", 1, 0., 1.);
     }
 
 

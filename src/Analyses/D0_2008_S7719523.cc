@@ -62,10 +62,10 @@ namespace Rivet {
       declare(jetpro, "Jets");
 
       // Histograms
-      _h_central_same_cross_section = bookHisto1D(1, 1, 1);
-      _h_central_opp_cross_section  = bookHisto1D(2, 1, 1);
-      _h_forward_same_cross_section = bookHisto1D(3, 1, 1);
-      _h_forward_opp_cross_section  = bookHisto1D(4, 1, 1);
+      book(_h_central_same_cross_section ,1, 1, 1);
+      book(_h_central_opp_cross_section  ,2, 1, 1);
+      book(_h_forward_same_cross_section ,3, 1, 1);
+      book(_h_forward_opp_cross_section  ,4, 1, 1);
 
       // Ratio histos to be filled by divide()
       _h_cen_opp_same = bookScatter2D(5, 1, 1);

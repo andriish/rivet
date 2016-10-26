@@ -123,7 +123,7 @@ namespace Rivet {
       // Average njet vs DeltaY
       if (!plots._avgNJetDeltaYSlices.empty()) {
         for (size_t x = 0; x < plots._avgNJetDeltaYSlices.size()-1; x++) {
-          plots._p_avgJetVsDeltaY += bookProfile1D(plots._avgNJetDeltaYHistIndex+x, 1, plots.selectionType);
+          book(plots._p_avgJetVsDeltaY +,plots._avgNJetDeltaYHistIndex+x, 1, plots.selectionType);
         }
       }
 
@@ -142,7 +142,7 @@ namespace Rivet {
       // Average njet vs PtBar
       if (!plots._avgNJetPtBarSlices.empty()) {
         for (size_t x=0; x<plots._avgNJetPtBarSlices.size()-1; x++) {
-          plots._p_avgJetVsPtBar += bookProfile1D(plots._avgNJetPtBarHistIndex+x, 1, plots.selectionType);
+          book(plots._p_avgJetVsPtBar +,plots._avgNJetPtBarHistIndex+x, 1, plots.selectionType);
         }
       }
 
@@ -151,7 +151,7 @@ namespace Rivet {
       for (size_t x = 0; x < plots._gapFractionQ0SlicesPtBar.size()/2; x++) {
         for (size_t y = 0; y < plots._gapFractionQ0SlicesDeltaY.size()/2; y++) {
           const string vetoPtHistName = "TMP/vetoPt_" + plots.intermediateHistName + "_" + to_str(q0PlotCount);
-          plots._h_vetoPt += bookHisto1D(vetoPtHistName, refData(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType));
+          book(plots._h_vetoPt +,vetoPtHistName, refData(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType));
           plots._d_vetoPtGapFraction += bookScatter2D(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType);
           plots._vetoPtTotalSum += 0.0; ///< @todo Can this just be replaced with _h_vetoPt.integral()?
           q0PlotCount += 1;

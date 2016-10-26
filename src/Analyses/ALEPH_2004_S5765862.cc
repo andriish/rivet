@@ -64,26 +64,26 @@ namespace Rivet {
       }
       // event shapes
       if(_initialisedJets) {
-        _h_thrust = bookHisto1D(offset+54, 1, 1);
-        _h_heavyjetmass = bookHisto1D(offset+62, 1, 1);
-        _h_totaljetbroadening = bookHisto1D(offset+70, 1, 1);
-        _h_widejetbroadening = bookHisto1D(offset+78, 1, 1);
-        _h_cparameter = bookHisto1D(offset+86, 1, 1);
-        _h_thrustmajor = bookHisto1D(offset+94, 1, 1);
-        _h_thrustminor = bookHisto1D(offset+102, 1, 1);
-        _h_jetmassdifference = bookHisto1D(offset+110, 1, 1);
-        _h_aplanarity = bookHisto1D(offset+118, 1, 1);
+        book(_h_thrust ,offset+54, 1, 1);
+        book(_h_heavyjetmass ,offset+62, 1, 1);
+        book(_h_totaljetbroadening ,offset+70, 1, 1);
+        book(_h_widejetbroadening ,offset+78, 1, 1);
+        book(_h_cparameter ,offset+86, 1, 1);
+        book(_h_thrustmajor ,offset+94, 1, 1);
+        book(_h_thrustminor ,offset+102, 1, 1);
+        book(_h_jetmassdifference ,offset+110, 1, 1);
+        book(_h_aplanarity ,offset+118, 1, 1);
         _h_planarity  = offset==0 ? Histo1DPtr() : bookHisto1D(offset+125, 1, 1);
-        _h_oblateness = bookHisto1D(offset+133, 1, 1);
-        _h_sphericity = bookHisto1D(offset+141, 1, 1);
+        book(_h_oblateness ,offset+133, 1, 1);
+        book(_h_sphericity ,offset+141, 1, 1);
 
         // Durham n->m jet resolutions
-        _h_y_Durham[0] = bookHisto1D(offset+149, 1, 1);   // y12 d149 ... d156
-        _h_y_Durham[1] = bookHisto1D(offset+157, 1, 1);   // y23 d157 ... d164
+        book(_h_y_Durham[0] ,offset+149, 1, 1);   // y12 d149 ... d156
+        book(_h_y_Durham[1] ,offset+157, 1, 1);   // y23 d157 ... d164
         if (offset<6) { // there is no y34, y45 and y56 for 200 gev
-          _h_y_Durham[2] = bookHisto1D(offset+165, 1, 1); // y34 d165 ... d172, but not 171
-          _h_y_Durham[3] = bookHisto1D(offset+173, 1, 1); // y45 d173 ... d179
-          _h_y_Durham[4] = bookHisto1D(offset+180, 1, 1); // y56 d180 ... d186
+          book(_h_y_Durham[2] ,offset+165, 1, 1); // y34 d165 ... d172, but not 171
+          book(_h_y_Durham[3] ,offset+173, 1, 1); // y45 d173 ... d179
+          book(_h_y_Durham[4] ,offset+180, 1, 1); // y56 d180 ... d186
         }
         else if (offset==6) {
           _h_y_Durham[2].reset();
@@ -91,18 +91,18 @@ namespace Rivet {
           _h_y_Durham[4].reset();
         }
         else if (offset==7) {
-          _h_y_Durham[2] = bookHisto1D(172, 1, 1);
-          _h_y_Durham[3] = bookHisto1D(179, 1, 1);
-          _h_y_Durham[4] = bookHisto1D(186, 1, 1);
+          book(_h_y_Durham[2] ,172, 1, 1);
+          book(_h_y_Durham[3] ,179, 1, 1);
+          book(_h_y_Durham[4] ,186, 1, 1);
         }
 
         // Durham n-jet fractions
-        _h_R_Durham[0] = bookHisto1D(offset+187, 1, 1); // R1 d187 ... d194
-        _h_R_Durham[1] = bookHisto1D(offset+195, 1, 1); // R2 d195 ... d202
-        _h_R_Durham[2] = bookHisto1D(offset+203, 1, 1); // R3 d203 ... d210
-        _h_R_Durham[3] = bookHisto1D(offset+211, 1, 1); // R4 d211 ... d218
-        _h_R_Durham[4] = bookHisto1D(offset+219, 1, 1); // R5 d219 ... d226
-        _h_R_Durham[5] = bookHisto1D(offset+227, 1, 1); // R>=6 d227 ... d234
+        book(_h_R_Durham[0] ,offset+187, 1, 1); // R1 d187 ... d194
+        book(_h_R_Durham[1] ,offset+195, 1, 1); // R2 d195 ... d202
+        book(_h_R_Durham[2] ,offset+203, 1, 1); // R3 d203 ... d210
+        book(_h_R_Durham[3] ,offset+211, 1, 1); // R4 d211 ... d218
+        book(_h_R_Durham[4] ,offset+219, 1, 1); // R5 d219 ... d226
+        book(_h_R_Durham[5] ,offset+227, 1, 1); // R>=6 d227 ... d234
       }
       // offset for the charged particle distributions
       offset = 0;
@@ -119,13 +119,13 @@ namespace Rivet {
           _initialisedSpectra=false;
       }
       if (_initialisedSpectra) {
-        _h_xp = bookHisto1D( 2+offset, 1, 1);
-        _h_xi = bookHisto1D(11+offset, 1, 1);
-        _h_xe = bookHisto1D(19+offset, 1, 1);
-        _h_pTin  = bookHisto1D(27+offset, 1, 1);
+        book(_h_xp , 2+offset, 1, 1);
+        book(_h_xi ,11+offset, 1, 1);
+        book(_h_xe ,19+offset, 1, 1);
+        book(_h_pTin  ,27+offset, 1, 1);
         _h_pTout = offset!=7 ? Histo1DPtr() : bookHisto1D(35, 1, 1);
-        _h_rapidityT = bookHisto1D(36+offset, 1, 1);
-        _h_rapidityS = bookHisto1D(44+offset, 1, 1);
+        book(_h_rapidityT ,36+offset, 1, 1);
+        book(_h_rapidityS ,44+offset, 1, 1);
       }
 
       if (!_initialisedSpectra && !_initialisedJets) {

@@ -28,12 +28,12 @@ namespace Rivet {
       for (size_t i = 0; i < 4; ++i)
         _bjetpT_SV0.addHistogram(ybins[i], ybins[i+1], bookHisto1D(i+1, 1, 1));
 
-      _bjetpT_SV0_All    = bookHisto1D(5, 1, 1);
-      _bjetpT_pTRel      = bookHisto1D(6, 1, 1);
-      _dijet_mass        = bookHisto1D(7, 1, 1);
-      _dijet_phi         = bookHisto1D(8, 1, 1);
-      _dijet_chi_110_370 = bookHisto1D(9, 1, 1);
-      _dijet_chi_370_850 = bookHisto1D(10, 1, 1);
+      book(_bjetpT_SV0_All    ,5, 1, 1);
+      book(_bjetpT_pTRel      ,6, 1, 1);
+      book(_dijet_mass        ,7, 1, 1);
+      book(_dijet_phi         ,8, 1, 1);
+      book(_dijet_chi_110_370 ,9, 1, 1);
+      book(_dijet_chi_370_850 ,10, 1, 1);
 
       _chiCounter1 = 0.0;
       _chiCounter2 = 0.0;

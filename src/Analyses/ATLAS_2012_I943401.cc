@@ -58,51 +58,51 @@ namespace Rivet {
       // book histograms
 
       // counts in signal regions
-      _count_OS_SR1 = bookHisto1D("count_OS_SR1", 1, 0., 1.);
-      _count_OS_SR2 = bookHisto1D("count_OS_SR2", 1, 0., 1.);
-      _count_OS_SR3 = bookHisto1D("count_OS_SR3", 1, 0., 1.);
-      _count_SS_SR1 = bookHisto1D("count_SS_SR1", 1, 0., 1.);
-      _count_SS_SR2 = bookHisto1D("count_SS_SR2", 1, 0., 1.);
-      _count_FS_SR1 = bookHisto1D("count_FS_SR1", 1, 0., 1.);
-      _count_FS_SR2 = bookHisto1D("count_FS_SR2", 1, 0., 1.);
-      _count_FS_SR3 = bookHisto1D("count_FS_SR3", 1, 0., 1.);
+      book(_count_OS_SR1 ,"count_OS_SR1", 1, 0., 1.);
+      book(_count_OS_SR2 ,"count_OS_SR2", 1, 0., 1.);
+      book(_count_OS_SR3 ,"count_OS_SR3", 1, 0., 1.);
+      book(_count_SS_SR1 ,"count_SS_SR1", 1, 0., 1.);
+      book(_count_SS_SR2 ,"count_SS_SR2", 1, 0., 1.);
+      book(_count_FS_SR1 ,"count_FS_SR1", 1, 0., 1.);
+      book(_count_FS_SR2 ,"count_FS_SR2", 1, 0., 1.);
+      book(_count_FS_SR3 ,"count_FS_SR3", 1, 0., 1.);
 
       // histograms from paper
 
-      _hist_mll_SS_D         = bookHisto1D( 1,1,1);
-      _hist_mll_SS_B         = bookHisto1D( 1,1,2);
-      _hist_eTmiss_SS_D      = bookHisto1D( 2,1,1);
-      _hist_eTmiss_SS_B      = bookHisto1D( 2,1,2);
-      _hist_mll_SS_2Jet_D    = bookHisto1D( 3,1,1);
-      _hist_mll_SS_2Jet_B    = bookHisto1D( 3,1,2);
-      _hist_njet_SS_D        = bookHisto1D( 5,1,1);
-      _hist_njet_SS_B        = bookHisto1D( 5,1,2);
-      _hist_pT_j1_SS_D       = bookHisto1D( 6,1,1);
-      _hist_pT_j1_SS_B       = bookHisto1D( 6,1,2);
-      _hist_pT_j2_SS_D       = bookHisto1D( 7,1,1);
-      _hist_pT_j2_SS_B       = bookHisto1D( 7,1,2);
-      _hist_pT_l1_SS_D       = bookHisto1D( 8,1,1);
-      _hist_pT_l1_SS_B       = bookHisto1D( 8,1,2);
-      _hist_pT_l2_SS_D       = bookHisto1D( 9,1,1);
-      _hist_pT_l2_SS_B       = bookHisto1D( 9,1,2);
-      _hist_mll_OS_D         = bookHisto1D(10,1,1);
-      _hist_mll_OS_B         = bookHisto1D(10,1,2);
-      _hist_eTmiss_OS_D      = bookHisto1D(11,1,1);
-      _hist_eTmiss_OS_B      = bookHisto1D(11,1,2);
-      _hist_eTmiss_3Jet_OS_D = bookHisto1D(12,1,1);
-      _hist_eTmiss_3Jet_OS_B = bookHisto1D(12,1,2);
-      _hist_eTmiss_4Jet_OS_D = bookHisto1D(13,1,1);
-      _hist_eTmiss_4Jet_OS_B = bookHisto1D(13,1,2);
-      _hist_njet_OS_D        = bookHisto1D(14,1,1);
-      _hist_njet_OS_B        = bookHisto1D(14,1,2);
-      _hist_pT_j1_OS_D       = bookHisto1D(15,1,1);
-      _hist_pT_j1_OS_B       = bookHisto1D(15,1,2);
-      _hist_pT_j2_OS_D       = bookHisto1D(16,1,1);
-      _hist_pT_j2_OS_B       = bookHisto1D(16,1,2);
-      _hist_pT_l1_OS_D       = bookHisto1D(17,1,1);
-      _hist_pT_l1_OS_B       = bookHisto1D(17,1,2);
-      _hist_pT_l2_OS_D       = bookHisto1D(18,1,1);
-      _hist_pT_l2_OS_B       = bookHisto1D(18,1,2);
+      book(_hist_mll_SS_D         , 1,1,1);
+      book(_hist_mll_SS_B         , 1,1,2);
+      book(_hist_eTmiss_SS_D      , 2,1,1);
+      book(_hist_eTmiss_SS_B      , 2,1,2);
+      book(_hist_mll_SS_2Jet_D    , 3,1,1);
+      book(_hist_mll_SS_2Jet_B    , 3,1,2);
+      book(_hist_njet_SS_D        , 5,1,1);
+      book(_hist_njet_SS_B        , 5,1,2);
+      book(_hist_pT_j1_SS_D       , 6,1,1);
+      book(_hist_pT_j1_SS_B       , 6,1,2);
+      book(_hist_pT_j2_SS_D       , 7,1,1);
+      book(_hist_pT_j2_SS_B       , 7,1,2);
+      book(_hist_pT_l1_SS_D       , 8,1,1);
+      book(_hist_pT_l1_SS_B       , 8,1,2);
+      book(_hist_pT_l2_SS_D       , 9,1,1);
+      book(_hist_pT_l2_SS_B       , 9,1,2);
+      book(_hist_mll_OS_D         ,10,1,1);
+      book(_hist_mll_OS_B         ,10,1,2);
+      book(_hist_eTmiss_OS_D      ,11,1,1);
+      book(_hist_eTmiss_OS_B      ,11,1,2);
+      book(_hist_eTmiss_3Jet_OS_D ,12,1,1);
+      book(_hist_eTmiss_3Jet_OS_B ,12,1,2);
+      book(_hist_eTmiss_4Jet_OS_D ,13,1,1);
+      book(_hist_eTmiss_4Jet_OS_B ,13,1,2);
+      book(_hist_njet_OS_D        ,14,1,1);
+      book(_hist_njet_OS_B        ,14,1,2);
+      book(_hist_pT_j1_OS_D       ,15,1,1);
+      book(_hist_pT_j1_OS_B       ,15,1,2);
+      book(_hist_pT_j2_OS_D       ,16,1,1);
+      book(_hist_pT_j2_OS_B       ,16,1,2);
+      book(_hist_pT_l1_OS_D       ,17,1,1);
+      book(_hist_pT_l1_OS_B       ,17,1,2);
+      book(_hist_pT_l2_OS_D       ,18,1,1);
+      book(_hist_pT_l2_OS_B       ,18,1,2);
       //????
       //   <dataPointSet name="d04-x01-y01" dimension="2" path="/REF/ATLAS_2011_I943401" title="EVENTS/10 GEV" >
       //   <dataPointSet name="d04-x01-y02" dimension="2" path="/REF/ATLAS_2011_I943401" title="EVENTS/10 GEV" >

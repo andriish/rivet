@@ -46,18 +46,18 @@ namespace Rivet {
       declare(vfs,"VFS");
 
       /// Book histograms
-      _count_trigger   = bookHisto1D("count_trigger"  , 1, 0., 1.);
-      _count_event     = bookHisto1D("count_selection", 1, 0., 1.);
-      _count_quality   = bookHisto1D("count_quality"  , 1, 0., 1.);
-      _count_beta      = bookHisto1D("count_beta"     , 1, 0., 1.);
-      _count_90  = bookHisto1D("count_90" , 1, 0., 1.);
-      _count_110 = bookHisto1D("count_110", 1, 0., 1.);
-      _count_120 = bookHisto1D("count_120", 1, 0., 1.);
-      _count_130 = bookHisto1D("count_130", 1, 0., 1.);
+      book(_count_trigger   ,"count_trigger"  , 1, 0., 1.);
+      book(_count_event     ,"count_selection", 1, 0., 1.);
+      book(_count_quality   ,"count_quality"  , 1, 0., 1.);
+      book(_count_beta      ,"count_beta"     , 1, 0., 1.);
+      book(_count_90  ,"count_90" , 1, 0., 1.);
+      book(_count_110 ,"count_110", 1, 0., 1.);
+      book(_count_120 ,"count_120", 1, 0., 1.);
+      book(_count_130 ,"count_130", 1, 0., 1.);
 
-      _hist_beta = bookHisto1D("beta",1000, 0.,   2.);
-      _hist_time = bookHisto1D("time",1000, -50,  50.);
-      _hist_mass = bookHisto1D("mass",  60, 5., 305.);
+      book(_hist_beta ,"beta",1000, 0.,   2.);
+      book(_hist_time ,"time",1000, -50,  50.);
+      book(_hist_mass ,"mass",  60, 5., 305.);
     }
 
 

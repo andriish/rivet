@@ -31,8 +31,8 @@ namespace Rivet {
       FinalState fs(-4.2, 4.2);
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
-      _h_sumET_20 = bookHisto1D(1, 1, 1);
-      _h_sumET_100 = bookHisto1D(1, 1, 2);
+      book(_h_sumET_20 ,1, 1, 1);
+      book(_h_sumET_100 ,1, 1, 2);
     }
 
 

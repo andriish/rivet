@@ -33,11 +33,11 @@ namespace Rivet {
       declare(fschrgdv, "fschrgdv");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
-        _hist_mb      = bookHisto1D(1, 1, 1); // energy flow in MB, 0.9 TeV
-        _hist_dijet = bookHisto1D(2, 1, 1); // energy flow in dijet events, 0.9 TeV
+        book(_hist_mb      ,1, 1, 1); // energy flow in MB, 0.9 TeV
+        book(_hist_dijet ,2, 1, 1); // energy flow in dijet events, 0.9 TeV
       } else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
-        _hist_mb      = bookHisto1D(3, 1, 1); // energy flow in MB, 7 TeV
-        _hist_dijet = bookHisto1D(4, 1, 1); // energy flow in dijet events, 7 TeV
+        book(_hist_mb      ,3, 1, 1); // energy flow in MB, 7 TeV
+        book(_hist_dijet ,4, 1, 1); // energy flow in dijet events, 7 TeV
       }
     }
 

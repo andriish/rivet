@@ -48,11 +48,11 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
       // Book histograms
-      _count_e  = bookHisto1D("count_e" , 1, 0., 1.);
-      _count_mu = bookHisto1D("count_mu", 1, 0., 1.);
+      book(_count_e  ,"count_e" , 1, 0., 1.);
+      book(_count_mu ,"count_mu", 1, 0., 1.);
 
-      _hist_eTmiss_e  = bookHisto1D("hist_eTmiss_e"  , 25, 0., 1000.);
-      _hist_eTmiss_mu = bookHisto1D("hist_eTmiss_mu" , 25, 0., 1000.);
+      book(_hist_eTmiss_e  ,"hist_eTmiss_e"  , 25, 0., 1000.);
+      book(_hist_eTmiss_mu ,"hist_eTmiss_mu" , 25, 0., 1000.);
 
     }
 

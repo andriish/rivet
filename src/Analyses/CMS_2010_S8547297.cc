@@ -18,19 +18,21 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS()/GeV, 900)) {
         for (int d=1; d<=3; d++) {
           for (int y=1; y<=4; y++) {
-            _h_dNch_dpT.push_back(bookHisto1D(d, 1, y));
+            _h_dNch_dpT.push_back(Histo1DPtr());
+            book(_h_dNch_dpT.back(), d, 1, y);
           }
         }
-        _h_dNch_dpT_all = bookHisto1D(7, 1, 1);
-        _h_dNch_dEta = bookHisto1D(8, 1, 1);
+        book(_h_dNch_dpT_all ,7, 1, 1);
+        book(_h_dNch_dEta ,8, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 2360)) {
         for (int d=4; d<=6; d++) {
           for (int y=1; y<=4; y++) {
-            _h_dNch_dpT.push_back(bookHisto1D(d, 1, y));
+            _h_dNch_dpT.push_back(Histo1DPtr());
+            book(_h_dNch_dpT.back(), d, 1, y);
           }
         }
-        _h_dNch_dpT_all = bookHisto1D(7, 1, 2);
-        _h_dNch_dEta = bookHisto1D(8, 1, 2);
+        book(_h_dNch_dpT_all ,7, 1, 2);
+        book(_h_dNch_dEta ,8, 1, 2);
       }
     }
 

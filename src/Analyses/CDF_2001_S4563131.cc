@@ -30,7 +30,7 @@ namespace Rivet {
     void init() {
       FinalState fs(-4.2, 4.2);
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
-      _h_ET = bookHisto1D(1, 1, 1);
+      book(_h_ET ,1, 1, 1);
     }
 
 

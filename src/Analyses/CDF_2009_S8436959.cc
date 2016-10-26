@@ -35,7 +35,7 @@ namespace Rivet {
       photonfs.addParticleId(PID::PHOTON);
       declare(photonfs, "LeadingPhoton");
 
-      _h_Et_photon = bookHisto1D(1, 1, 1);
+      book(_h_Et_photon ,1, 1, 1);
     }
 
 

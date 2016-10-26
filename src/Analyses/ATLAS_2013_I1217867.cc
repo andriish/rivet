@@ -67,8 +67,8 @@ namespace Rivet {
 
       // Book histograms
       for (size_t flav = 0; flav < 2; ++flav) {
-        for (size_t i = 0; i < m_njet; ++i) _h_dI[flav][i] = bookHisto1D(i+1, 1, flav+1);
-        for (size_t i = 0; i < m_njet-1; ++i) _h_dI_ratio[flav][i] = bookHisto1D(4+i+1, 1, flav+1);
+        for (size_t i = 0; i < m_njet; ++i)   book(_h_dI[flav][i],         i+1, 1, flav+1);
+        for (size_t i = 0; i < m_njet-1; ++i) book(_h_dI_ratio[flav][i], 4+i+1, 1, flav+1);
       }
     }
 

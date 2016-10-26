@@ -39,7 +39,7 @@ namespace Rivet {
       declare(photonfs, "LeadingPhoton");
 
       // Book histograms
-      _h_pTgamma = bookHisto1D(1, 1, 1);
+      book(_h_pTgamma ,1, 1, 1);
     }
 
 

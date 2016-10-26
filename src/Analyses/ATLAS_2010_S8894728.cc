@@ -26,14 +26,14 @@ namespace Rivet {
       assert(isqrts >= 0);
 
       // Nch profiles, 500 MeV track pT cut
-      _hist_nch_transverse_500[0] = bookProfile1D(1+isqrts, 1, 1);
-      _hist_nch_toward_500        = bookProfile1D(1+isqrts, 1, 2);
-      _hist_nch_away_500          = bookProfile1D(1+isqrts, 1, 3);
+      book(_hist_nch_transverse_500[0] ,1+isqrts, 1, 1);
+      book(_hist_nch_toward_500        ,1+isqrts, 1, 2);
+      book(_hist_nch_away_500          ,1+isqrts, 1, 3);
 
       // pTsum profiles, 500 MeV track pT cut
-      _hist_ptsum_transverse_500[0] = bookProfile1D(3+isqrts, 1, 1);
-      _hist_ptsum_toward_500        = bookProfile1D(3+isqrts, 1, 2);
-      _hist_ptsum_away_500          = bookProfile1D(3+isqrts, 1, 3);
+      book(_hist_ptsum_transverse_500[0] ,3+isqrts, 1, 1);
+      book(_hist_ptsum_toward_500        ,3+isqrts, 1, 2);
+      book(_hist_ptsum_away_500          ,3+isqrts, 1, 3);
 
       // Standard deviation profiles
       // First the higher moments of main profiles to calculate variance and error on variance...
@@ -46,38 +46,38 @@ namespace Rivet {
       _dps_sdptsum_transverse_500 = bookScatter2D(7+isqrts, 1, 1);
 
       // <pT> profiles, 500 MeV track pT cut
-      _hist_ptavg_transverse_500 = bookProfile1D(9+isqrts, 1, 1);
-      _hist_ptavg_toward_500     = bookProfile1D(9+isqrts, 1, 2);
-      _hist_ptavg_away_500       = bookProfile1D(9+isqrts, 1, 3);
+      book(_hist_ptavg_transverse_500 ,9+isqrts, 1, 1);
+      book(_hist_ptavg_toward_500     ,9+isqrts, 1, 2);
+      book(_hist_ptavg_away_500       ,9+isqrts, 1, 3);
 
       // <pT> vs. Nch profiles, 500 MeV track pT cut
-      _hist_dn_dpt_transverse_500 = bookProfile1D(11+isqrts, 1, 1);
-      _hist_dn_dpt_toward_500     = bookProfile1D(11+isqrts, 1, 2);
-      _hist_dn_dpt_away_500       = bookProfile1D(11+isqrts, 1, 3);
+      book(_hist_dn_dpt_transverse_500 ,11+isqrts, 1, 1);
+      book(_hist_dn_dpt_toward_500     ,11+isqrts, 1, 2);
+      book(_hist_dn_dpt_away_500       ,11+isqrts, 1, 3);
 
       // Nch vs. Delta(phi) profiles, 500 MeV track pT cut
-      _hist_N_vs_dPhi_1_500 = bookProfile1D(13+isqrts, 1, 1);
-      _hist_N_vs_dPhi_2_500 = bookProfile1D(13+isqrts, 1, 2);
-      _hist_N_vs_dPhi_3_500 = bookProfile1D(13+isqrts, 1, 3);
-      _hist_N_vs_dPhi_5_500 = bookProfile1D(13+isqrts, 1, 4);
+      book(_hist_N_vs_dPhi_1_500 ,13+isqrts, 1, 1);
+      book(_hist_N_vs_dPhi_2_500 ,13+isqrts, 1, 2);
+      book(_hist_N_vs_dPhi_3_500 ,13+isqrts, 1, 3);
+      book(_hist_N_vs_dPhi_5_500 ,13+isqrts, 1, 4);
       // pT vs. Delta(phi) profiles, 500 MeV track pT cut
-      _hist_pT_vs_dPhi_1_500 = bookProfile1D(15+isqrts, 1, 1);
-      _hist_pT_vs_dPhi_2_500 = bookProfile1D(15+isqrts, 1, 2);
-      _hist_pT_vs_dPhi_3_500 = bookProfile1D(15+isqrts, 1, 3);
-      _hist_pT_vs_dPhi_5_500 = bookProfile1D(15+isqrts, 1, 4);
+      book(_hist_pT_vs_dPhi_1_500 ,15+isqrts, 1, 1);
+      book(_hist_pT_vs_dPhi_2_500 ,15+isqrts, 1, 2);
+      book(_hist_pT_vs_dPhi_3_500 ,15+isqrts, 1, 3);
+      book(_hist_pT_vs_dPhi_5_500 ,15+isqrts, 1, 4);
 
       // Nch and pTsum profiles, 100 MeV track pT cut
-      _hist_nch_transverse_100   = bookProfile1D(17+isqrts, 1, 1);
-      _hist_nch_toward_100       = bookProfile1D(17+isqrts, 1, 2);
-      _hist_nch_away_100         = bookProfile1D(17+isqrts, 1, 3);
-      _hist_ptsum_transverse_100 = bookProfile1D(19+isqrts, 1, 1);
-      _hist_ptsum_toward_100     = bookProfile1D(19+isqrts, 1, 2);
-      _hist_ptsum_away_100       = bookProfile1D(19+isqrts, 1, 3);
+      book(_hist_nch_transverse_100   ,17+isqrts, 1, 1);
+      book(_hist_nch_toward_100       ,17+isqrts, 1, 2);
+      book(_hist_nch_away_100         ,17+isqrts, 1, 3);
+      book(_hist_ptsum_transverse_100 ,19+isqrts, 1, 1);
+      book(_hist_ptsum_toward_100     ,19+isqrts, 1, 2);
+      book(_hist_ptsum_away_100       ,19+isqrts, 1, 3);
 
       // Profiles vs. eta (7 TeV only)
       if (isqrts == 1) {
-        _hist_nch_vs_eta_transverse_100   = bookProfile1D(21, 1, 1);
-        _hist_ptsum_vs_eta_transverse_100 = bookProfile1D(22, 1, 1);
+        book(_hist_nch_vs_eta_transverse_100   ,21, 1, 1);
+        book(_hist_ptsum_vs_eta_transverse_100 ,22, 1, 1);
       }
 
     }

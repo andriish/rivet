@@ -35,9 +35,9 @@ namespace Rivet {
       declare(ChargedFinalState(), "CFS");
       declare(InitialQuarks(), "IQF");
 
-      _h_bottom = bookHisto1D(1, 1, 1);
-      _h_charm  = bookHisto1D(2, 1, 1);
-      _h_light  = bookHisto1D(3, 1, 1);
+      book(_h_bottom ,1, 1, 1);
+      book(_h_charm  ,2, 1, 1);
+      book(_h_light  ,3, 1, 1);
     }
 
 

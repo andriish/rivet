@@ -42,7 +42,7 @@ namespace Rivet {
       addProjection(dressedmuons, "DressedMuons");
 
       /// @todo Make this a counter or Scatter1D?
-      _hist = bookHisto1D("Passed_events", 1, 0, 1);
+      book(_hist ,"Passed_events", 1, 0, 1);
     }
 
 

@@ -42,9 +42,9 @@ namespace Rivet {
 
 
       // book histograms
-      _njet     = bookHisto1D(1, 1, _mode); // dSigma / dNjet
-      _jet1_bPt = bookHisto1D(2, 1, _mode); // dSigma / dBjetPt for Njet = 1
-      _jet2_bPt = bookHisto1D(2, 2, _mode); // dSigma / dBjetPt for Njet = 2
+      book(_njet     ,1, 1, _mode); // dSigma / dNjet
+      book(_jet1_bPt ,2, 1, _mode); // dSigma / dBjetPt for Njet = 1
+      book(_jet2_bPt ,2, 2, _mode); // dSigma / dBjetPt for Njet = 2
 
     }
 

@@ -18,8 +18,8 @@ namespace Rivet {
 
     void init() {
       declare(UnstableFinalState(), "UFS");
-      _histdSigDp = bookHisto1D(1, 1, 1); // spectrum
-      _histMult   = bookHisto1D(2, 1, 1); // multiplicity
+      book(_histdSigDp ,1, 1, 1); // spectrum
+      book(_histMult   ,2, 1, 1); // multiplicity
     }
 
 

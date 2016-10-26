@@ -77,28 +77,28 @@ namespace Rivet {
         declare(jets, "jets");
 
         // Histogram booking 
-        _h["massttbar"]                  = bookHisto1D( 1, 1, 1);
-        _h["massttbar_norm"]             = bookHisto1D( 2, 1, 1);
-        _h["ptttbar"]                    = bookHisto1D( 3, 1, 1);
-        _h["ptttbar_norm"]               = bookHisto1D( 4, 1, 1);
-        _h["absrapttbar"]                = bookHisto1D( 5, 1, 1);
-        _h["absrapttbar_norm"]           = bookHisto1D( 6, 1, 1);
-        _h["ptpseudotophadron"]          = bookHisto1D( 7, 1, 1);
-        _h["ptpseudotophadron_norm"]     = bookHisto1D( 8, 1, 1);
-        _h["absrappseudotophadron"]      = bookHisto1D( 9, 1, 1);
-        _h["absrappseudotophadron_norm"] = bookHisto1D(10, 1, 1);
-        _h["absPout"]                    = bookHisto1D(11, 1, 1);
-        _h["absPout_norm"]               = bookHisto1D(12, 1, 1);
-        _h["dPhittbar"]                  = bookHisto1D(13, 1, 1);
-        _h["dPhittbar_norm"]             = bookHisto1D(14, 1, 1);
-        _h["HTttbar"]                    = bookHisto1D(15, 1, 1);
-        _h["HTttbar_norm"]               = bookHisto1D(16, 1, 1);
-        _h["Yboost"]                     = bookHisto1D(17, 1, 1);
-        _h["Yboost_norm"]                = bookHisto1D(18, 1, 1);
-        _h["chittbar"]                   = bookHisto1D(19, 1, 1);
-        _h["chittbar_norm"]              = bookHisto1D(20, 1, 1);
-        _h["RWt"]                        = bookHisto1D(21, 1, 1);
-        _h["RWt_norm"]                   = bookHisto1D(22, 1, 1);
+        book(_h["massttbar"]                  , 1, 1, 1);
+        book(_h["massttbar_norm"]             , 2, 1, 1);
+        book(_h["ptttbar"]                    , 3, 1, 1);
+        book(_h["ptttbar_norm"]               , 4, 1, 1);
+        book(_h["absrapttbar"]                , 5, 1, 1);
+        book(_h["absrapttbar_norm"]           , 6, 1, 1);
+        book(_h["ptpseudotophadron"]          , 7, 1, 1);
+        book(_h["ptpseudotophadron_norm"]     , 8, 1, 1);
+        book(_h["absrappseudotophadron"]      , 9, 1, 1);
+        book(_h["absrappseudotophadron_norm"] ,10, 1, 1);
+        book(_h["absPout"]                    ,11, 1, 1);
+        book(_h["absPout_norm"]               ,12, 1, 1);
+        book(_h["dPhittbar"]                  ,13, 1, 1);
+        book(_h["dPhittbar_norm"]             ,14, 1, 1);
+        book(_h["HTttbar"]                    ,15, 1, 1);
+        book(_h["HTttbar_norm"]               ,16, 1, 1);
+        book(_h["Yboost"]                     ,17, 1, 1);
+        book(_h["Yboost_norm"]                ,18, 1, 1);
+        book(_h["chittbar"]                   ,19, 1, 1);
+        book(_h["chittbar_norm"]              ,20, 1, 1);
+        book(_h["RWt"]                        ,21, 1, 1);
+        book(_h["RWt_norm"]                   ,22, 1, 1);
 
       }
 

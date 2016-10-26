@@ -26,11 +26,11 @@ namespace Rivet {
 
       // Book histos based on pp or ppbar beams
       if (beamIds().first == beamIds().second) {
-        _hist_nch = bookHisto1D(2,1,1);
-        _hist_eta = bookHisto1D(3,1,1);
+        book(_hist_nch ,2,1,1);
+        book(_hist_eta ,3,1,1);
       } else {
-        _hist_nch = bookHisto1D(2,1,2);
-        _hist_eta = bookHisto1D(4,1,1);
+        book(_hist_nch ,2,1,2);
+        book(_hist_eta ,4,1,1);
       }
     }
 

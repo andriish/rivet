@@ -28,7 +28,7 @@ namespace Rivet {
       declare(zfinder, "ZFinder");
 
 
-      _hist_zpt = bookHisto1D(1, 1, 1);
+      book(_hist_zpt ,1, 1, 1);
     }
 
 

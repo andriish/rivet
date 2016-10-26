@@ -43,10 +43,10 @@ namespace Rivet {
       declare(jets, "jets");
 
       // individual channels
-      _hNjets      = bookHisto1D(1, 1, _mode + 1);
+      book(_hNjets      ,1, 1, _mode + 1);
       _hNjetsRatio = bookScatter2D(2, 1, _mode + 1, true);
       // combination
-      _hNjets_comb      = bookHisto1D(1, 2, _mode + 1);
+      book(_hNjets_comb      ,1, 2, _mode + 1);
       _hNjetsRatio_comb = bookScatter2D(2, 2, _mode + 1, true);
     }
 

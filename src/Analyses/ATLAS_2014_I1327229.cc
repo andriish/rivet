@@ -67,25 +67,25 @@ namespace Rivet {
 
 
       /// Book histograms:
-      _h_HTlep_all = bookHisto1D("HTlep_all", 30,0,3000);
-      _h_HTjets_all = bookHisto1D("HTjets_all", 30,0,3000);
-      _h_MET_all = bookHisto1D("MET_all", 30,0,1500);
-      _h_Meff_all = bookHisto1D("Meff_all", 50,0,5000);
-      _h_min_pT_all = bookHisto1D("min_pT_all", 50, 0, 2000);
-      _h_mT_all = bookHisto1D("mT_all", 50, 0, 2000);
+      book(_h_HTlep_all ,"HTlep_all", 30,0,3000);
+      book(_h_HTjets_all ,"HTjets_all", 30,0,3000);
+      book(_h_MET_all ,"MET_all", 30,0,1500);
+      book(_h_Meff_all ,"Meff_all", 50,0,5000);
+      book(_h_min_pT_all ,"min_pT_all", 50, 0, 2000);
+      book(_h_mT_all ,"mT_all", 50, 0, 2000);
 
-      _h_e_n = bookHisto1D("e_n", 10, -0.5, 9.5);
-      _h_mu_n = bookHisto1D("mu_n", 10, -0.5, 9.5);
-      _h_tau_n = bookHisto1D("tau_n", 10, -0.5, 9.5);
+      book(_h_e_n ,"e_n", 10, -0.5, 9.5);
+      book(_h_mu_n ,"mu_n", 10, -0.5, 9.5);
+      book(_h_tau_n ,"tau_n", 10, -0.5, 9.5);
 
-      _h_pt_1_3l = bookHisto1D("pt_1_3l", 100, 0, 2000);
-      _h_pt_2_3l = bookHisto1D("pt_2_3l", 100, 0, 2000);
-      _h_pt_3_3l = bookHisto1D("pt_3_3l", 100, 0, 2000);
-      _h_pt_1_2ltau = bookHisto1D("pt_1_2ltau", 100, 0, 2000);
-      _h_pt_2_2ltau = bookHisto1D("pt_2_2ltau", 100, 0, 2000);
-      _h_pt_3_2ltau = bookHisto1D("pt_3_2ltau", 100, 0, 2000);
+      book(_h_pt_1_3l ,"pt_1_3l", 100, 0, 2000);
+      book(_h_pt_2_3l ,"pt_2_3l", 100, 0, 2000);
+      book(_h_pt_3_3l ,"pt_3_3l", 100, 0, 2000);
+      book(_h_pt_1_2ltau ,"pt_1_2ltau", 100, 0, 2000);
+      book(_h_pt_2_2ltau ,"pt_2_2ltau", 100, 0, 2000);
+      book(_h_pt_3_2ltau ,"pt_3_2ltau", 100, 0, 2000);
 
-      _h_excluded = bookHisto1D("excluded", 2, -0.5, 1.5);
+      book(_h_excluded ,"excluded", 2, -0.5, 1.5);
     }
 
 

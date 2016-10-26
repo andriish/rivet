@@ -18,13 +18,13 @@ namespace Rivet {
     void init() {
       declare(Beam(), "Beams");
       declare(UnstableFinalState(), "UFS");
-      _histOnResonanceA = bookHisto1D(1,1,1);
-      _histOnResonanceB = bookHisto1D(2,1,1);
-      _histOffResonance = bookHisto1D(2,1,2);
-      _sigma            = bookHisto1D(3,1,1);
-      _histOnResonanceA_norm = bookHisto1D(4,1,1);
-      _histOnResonanceB_norm = bookHisto1D(5,1,1);
-      _histOffResonance_norm = bookHisto1D(5,1,2);
+      book(_histOnResonanceA ,1,1,1);
+      book(_histOnResonanceB ,2,1,1);
+      book(_histOffResonance ,2,1,2);
+      book(_sigma            ,3,1,1);
+      book(_histOnResonanceA_norm ,4,1,1);
+      book(_histOnResonanceB_norm ,5,1,1);
+      book(_histOffResonance_norm ,5,1,2);
       
     }
 

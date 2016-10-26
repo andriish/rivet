@@ -26,8 +26,8 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "FS");
       declare(UnstableFinalState(), "UFS");
-      _histXpEta   = bookHisto1D( 2, 1, 2);
-      _histXpOmega = bookHisto1D( 3, 1, 2);
+      book(_histXpEta   , 2, 1, 2);
+      book(_histXpOmega , 3, 1, 2);
     }
 
 

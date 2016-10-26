@@ -21,12 +21,12 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::ANTIKT, 0.4), "Jets04");
       declare(FastJets(fs, FastJets::ANTIKT, 0.6), "Jets06");
 
-      _h_numBTagsPerJet[0] = bookHisto1D("numBTagsPer04Jet", 5, -0.5, 4.5);
-      _h_numBTagsPerJet[1] = bookHisto1D("numBTagsPer06Jet", 5, -0.5, 4.5);
-      _h_numCTagsPerJet[0] = bookHisto1D("numCTagsPer04Jet", 5, -0.5, 4.5);
-      _h_numCTagsPerJet[1] = bookHisto1D("numCTagsPer06Jet", 5, -0.5, 4.5);
-      _h_numTauTagsPerJet[0] = bookHisto1D("numTauTagsPer04Jet", 5, -0.5, 4.5);
-      _h_numTauTagsPerJet[1] = bookHisto1D("numTauTagsPer06Jet", 5, -0.5, 4.5);
+      book(_h_numBTagsPerJet[0] ,"numBTagsPer04Jet", 5, -0.5, 4.5);
+      book(_h_numBTagsPerJet[1] ,"numBTagsPer06Jet", 5, -0.5, 4.5);
+      book(_h_numCTagsPerJet[0] ,"numCTagsPer04Jet", 5, -0.5, 4.5);
+      book(_h_numCTagsPerJet[1] ,"numCTagsPer06Jet", 5, -0.5, 4.5);
+      book(_h_numTauTagsPerJet[0] ,"numTauTagsPer04Jet", 5, -0.5, 4.5);
+      book(_h_numTauTagsPerJet[1] ,"numTauTagsPer06Jet", 5, -0.5, 4.5);
     }
 
 

@@ -18,13 +18,13 @@ namespace Rivet {
 
       addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.4), "Jets");
 
-      forward_500MeV = bookProfile1D(1, 1, 1);
-      forward_2GeV   = bookProfile1D(2, 1, 1);
-      forward_5GeV   = bookProfile1D(3, 1, 1);
+      book(forward_500MeV ,1, 1, 1);
+      book(forward_2GeV   ,2, 1, 1);
+      book(forward_5GeV   ,3, 1, 1);
 
-      central_500MeV = bookProfile1D(4, 1, 1);
-      central_2GeV   = bookProfile1D(5, 1, 1);
-      central_5GeV   = bookProfile1D(6, 1, 1);
+      book(central_500MeV ,4, 1, 1);
+      book(central_2GeV   ,5, 1, 1);
+      book(central_5GeV   ,6, 1, 1);
 
       diff_500MeV = bookScatter2D("d07-x01-y01", true);
       diff_2GeV   = bookScatter2D("d08-x01-y01", true);

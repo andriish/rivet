@@ -38,10 +38,10 @@ namespace Rivet {
       declare(zfinder_mm_dressed, "ZFinder_mm_dressed");
 
       // y(Z) cross-section dependence
-      _h_Z_y_ee_bare     = bookHisto1D(1, 1, 1);
-      _h_Z_y_ee_dressed  = bookHisto1D(1, 1, 2);
-      _h_Z_y_mm_bare     = bookHisto1D(1, 1, 3);
-      _h_Z_y_mm_dressed  = bookHisto1D(1, 1, 4);
+      book(_h_Z_y_ee_bare     ,1, 1, 1);
+      book(_h_Z_y_ee_dressed  ,1, 1, 2);
+      book(_h_Z_y_mm_bare     ,1, 1, 3);
+      book(_h_Z_y_mm_dressed  ,1, 1, 4);
 
     }
 

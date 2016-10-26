@@ -22,8 +22,8 @@ namespace Rivet {
       declare(TriggerUA5(), "Trigger");
       declare(ChargedFinalState(-5.0, 5.0), "CFS");
 
-      _hist_mean_nch = bookHisto1D(1, 1, 1);
-      _hist_nch      = bookHisto1D(3, 1, 1);
+      book(_hist_mean_nch ,1, 1, 1);
+      book(_hist_nch      ,3, 1, 1);
 
     }
 

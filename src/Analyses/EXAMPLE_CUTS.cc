@@ -23,8 +23,8 @@ namespace Rivet {
       declare(cnfs, "FS");
 
       // Histograms
-      _histPt         = bookHisto1D("pT", 30, 0, 30);
-      _histMass       = bookHisto1D("Mass", 20, 0, 1);
+      book(_histPt         ,"pT", 30, 0, 30);
+      book(_histMass       ,"Mass", 20, 0, 1);
 
     }
 

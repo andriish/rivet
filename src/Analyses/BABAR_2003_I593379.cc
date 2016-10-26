@@ -102,18 +102,18 @@ namespace Rivet {
     void init() {
       declare(UnstableFinalState(), "UFS");
 
-      _mult_JPsi          = bookHisto1D(1, 1, 1);
-      _mult_JPsi_direct   = bookHisto1D(1, 1, 2);
-      _mult_chi_c1        = bookHisto1D(1, 1, 3);
-      _mult_chi_c1_direct = bookHisto1D(1, 1, 4);
-      _mult_chi_c2        = bookHisto1D(1, 1, 5);
-      _mult_chi_c2_direct = bookHisto1D(1, 1, 6);
-      _mult_Psi2S         = bookHisto1D(1, 1, 7);
-      _hist_all_Jpsi      = bookHisto1D(6, 1, 1);
-      _hist_chi_c1        = bookHisto1D(7, 1, 1);
-      _hist_chi_c2        = bookHisto1D(7, 1, 2);
-      _hist_Psi_prime     = bookHisto1D(8, 1, 1);
-      _hist_primary_Jpsi  = bookHisto1D(10, 1, 1);
+      book(_mult_JPsi          ,1, 1, 1);
+      book(_mult_JPsi_direct   ,1, 1, 2);
+      book(_mult_chi_c1        ,1, 1, 3);
+      book(_mult_chi_c1_direct ,1, 1, 4);
+      book(_mult_chi_c2        ,1, 1, 5);
+      book(_mult_chi_c2_direct ,1, 1, 6);
+      book(_mult_Psi2S         ,1, 1, 7);
+      book(_hist_all_Jpsi      ,6, 1, 1);
+      book(_hist_chi_c1        ,7, 1, 1);
+      book(_hist_chi_c2        ,7, 1, 2);
+      book(_hist_Psi_prime     ,8, 1, 1);
+      book(_hist_primary_Jpsi  ,10, 1, 1);
     } // init
 
   private:

@@ -32,8 +32,8 @@ namespace Rivet {
       _sumw = 0;
 
       // Output histograms
-      _histJet1Et  = bookHisto1D(1,1,1);
-      _histJet2Et  = bookHisto1D(2,1,1);
+      book(_histJet1Et  ,1,1,1);
+      book(_histJet2Et  ,2,1,1);
       _histJet3eta = bookScatter2D(3,1,1);
       _histR23     = bookScatter2D(4,1,1);
       _histAlpha   = bookScatter2D(5,1,1);

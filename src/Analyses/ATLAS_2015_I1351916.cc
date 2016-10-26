@@ -43,17 +43,17 @@ namespace Rivet {
       string hname = "d01-x01-y01";
       const Scatter2D& ref = refData(hname);
       hname = "d01-x01-y02";
-      _h[label + "_pos"] = bookHisto1D(hname, ref);
+      book(_h[label + "_pos"] ,hname, ref);
       hname = "d01-x01-y03";
-      _h[label + "_neg"] = bookHisto1D(hname, ref);
+      book(_h[label + "_neg"] ,hname, ref);
       if (_mode == 0) {
         label = "NCF";
         hname = "d01-x02-y01";
         const Scatter2D& ref_cf = refData(hname);
         hname = "d01-x02-y02";
-        _h[label + "_pos"] = bookHisto1D(hname, ref_cf);
+        book(_h[label + "_pos"] ,hname, ref_cf);
         hname = "d01-x02-y03";
-        _h[label + "_neg"] = bookHisto1D(hname, ref_cf);
+        book(_h[label + "_neg"] ,hname, ref_cf);
       }
 
       // Book asymmetry scatter plots

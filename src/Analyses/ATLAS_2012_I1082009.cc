@@ -43,12 +43,12 @@ namespace Rivet {
       // unstable final-state for D*
       declare(UnstableFinalState(), "UFS");
 
-      _h_pt25_30 = bookHisto1D( 8,1,1);
-      _h_pt30_40 = bookHisto1D( 9,1,1);
-      _h_pt40_50 = bookHisto1D(10,1,1);
-      _h_pt50_60 = bookHisto1D(11,1,1);
-      _h_pt60_70 = bookHisto1D(12,1,1);
-      _h_pt25_70 = bookHisto1D(13,1,1);
+      book(_h_pt25_30 , 8,1,1);
+      book(_h_pt30_40 , 9,1,1);
+      book(_h_pt40_50 ,10,1,1);
+      book(_h_pt50_60 ,11,1,1);
+      book(_h_pt60_70 ,12,1,1);
+      book(_h_pt25_70 ,13,1,1);
     }
 
 

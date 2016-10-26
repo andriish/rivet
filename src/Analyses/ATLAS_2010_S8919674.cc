@@ -48,12 +48,12 @@ namespace Rivet {
       declare(jets, "jets");
 
       /// Book histograms
-      _h_el_njet_inclusive = bookHisto1D(1,1,1);
-      _h_mu_njet_inclusive = bookHisto1D(2,1,1);
-      _h_el_pT_jet1 = bookHisto1D(5,1,1);
-      _h_mu_pT_jet1 = bookHisto1D(6,1,1);
-      _h_el_pT_jet2 = bookHisto1D(7,1,1);
-      _h_mu_pT_jet2 = bookHisto1D(8,1,1);
+      book(_h_el_njet_inclusive ,1,1,1);
+      book(_h_mu_njet_inclusive ,2,1,1);
+      book(_h_el_pT_jet1 ,5,1,1);
+      book(_h_mu_pT_jet1 ,6,1,1);
+      book(_h_el_pT_jet2 ,7,1,1);
+      book(_h_mu_pT_jet2 ,8,1,1);
     }
 
 

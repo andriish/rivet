@@ -29,8 +29,8 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // Book histograms
-      _histXpEta = bookHisto1D( 1, 1, 1);
-      _histLnXpEta = bookHisto1D( 2, 1, 1);
+      book(_histXpEta , 1, 1, 1);
+      book(_histLnXpEta , 2, 1, 1);
 
     }
 

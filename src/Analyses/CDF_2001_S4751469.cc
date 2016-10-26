@@ -48,30 +48,30 @@ namespace Rivet {
       declare(lossyfs, "FS");
       declare(FastJets(lossyfs, FastJets::TRACKJET, 0.7), "TrackJet");
 
-      _numvsDeltaPhi2 =  bookProfile1D(1, 1, 1);
-      _numvsDeltaPhi5 =  bookProfile1D(1, 1, 2);
-      _numvsDeltaPhi30 = bookProfile1D(1, 1, 3);
-      _pTvsDeltaPhi2 =   bookProfile1D(2, 1, 1);
-      _pTvsDeltaPhi5 =   bookProfile1D(2, 1, 2);
-      _pTvsDeltaPhi30 =  bookProfile1D(2, 1, 3);
+      book(_numvsDeltaPhi2 ,1, 1, 1);
+      book(_numvsDeltaPhi5 ,1, 1, 2);
+      book(_numvsDeltaPhi30 ,1, 1, 3);
+      book(_pTvsDeltaPhi2 ,2, 1, 1);
+      book(_pTvsDeltaPhi5 ,2, 1, 2);
+      book(_pTvsDeltaPhi30 ,2, 1, 3);
 
-      _numTowardMB = bookProfile1D(3, 1, 1);
-      _numTransMB = bookProfile1D(3, 1, 2);
-      _numAwayMB = bookProfile1D(3, 1, 3);
-      _numTowardJ20 = bookProfile1D(4, 1, 1);
-      _numTransJ20 = bookProfile1D(4, 1, 2);
-      _numAwayJ20 = bookProfile1D(4, 1, 3);
+      book(_numTowardMB ,3, 1, 1);
+      book(_numTransMB ,3, 1, 2);
+      book(_numAwayMB ,3, 1, 3);
+      book(_numTowardJ20 ,4, 1, 1);
+      book(_numTransJ20 ,4, 1, 2);
+      book(_numAwayJ20 ,4, 1, 3);
 
-      _ptsumTowardMB = bookProfile1D(5, 1, 1);
-      _ptsumTransMB = bookProfile1D(5, 1, 2);
-      _ptsumAwayMB = bookProfile1D(5, 1, 3);
-      _ptsumTowardJ20 = bookProfile1D(6, 1, 1);
-      _ptsumTransJ20 = bookProfile1D(6, 1, 2);
-      _ptsumAwayJ20 = bookProfile1D(6, 1, 3);
+      book(_ptsumTowardMB ,5, 1, 1);
+      book(_ptsumTransMB ,5, 1, 2);
+      book(_ptsumAwayMB ,5, 1, 3);
+      book(_ptsumTowardJ20 ,6, 1, 1);
+      book(_ptsumTransJ20 ,6, 1, 2);
+      book(_ptsumAwayJ20 ,6, 1, 3);
 
-      _ptTrans2 = bookHisto1D(7, 1, 1);
-      _ptTrans5 = bookHisto1D(7, 1, 2);
-      _ptTrans30 = bookHisto1D(7, 1, 3);
+      book(_ptTrans2 ,7, 1, 1);
+      book(_ptTrans5 ,7, 1, 2);
+      book(_ptTrans30 ,7, 1, 3);
     }
 
 

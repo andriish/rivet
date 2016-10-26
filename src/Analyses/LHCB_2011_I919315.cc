@@ -37,8 +37,8 @@ namespace Rivet {
       _h_Phi_pT_y.addHistogram(  3.52, 3.70, bookHisto1D(5, 1, 1));
       _h_Phi_pT_y.addHistogram(  3.70, 3.88, bookHisto1D(5, 1, 2));
       _h_Phi_pT_y.addHistogram(  3.88, 4.06, bookHisto1D(6, 1, 1));
-      _h_Phi_pT = bookHisto1D(7, 1, 1);
-      _h_Phi_y = bookHisto1D(8, 1, 1);
+      book(_h_Phi_pT ,7, 1, 1);
+      book(_h_Phi_y ,8, 1, 1);
     }
 
 

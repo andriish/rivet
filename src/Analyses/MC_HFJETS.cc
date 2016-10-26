@@ -33,15 +33,15 @@ namespace Rivet {
       declare(fj, "Jets");
       declare(HeavyHadrons(Cuts::abseta < 5 && Cuts::pT > 500*MeV), "BCHadrons");
 
-      _h_ptCJetLead = bookHisto1D("ptCJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
-      _h_ptCHadrLead = bookHisto1D("ptCHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
-      _h_ptFracC = bookHisto1D("ptfracC", 50, 0, 1.5);
-      _h_eFracC = bookHisto1D("efracC", 50, 0, 1.5);
+      book(_h_ptCJetLead ,"ptCJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
+      book(_h_ptCHadrLead ,"ptCHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
+      book(_h_ptFracC ,"ptfracC", 50, 0, 1.5);
+      book(_h_eFracC ,"efracC", 50, 0, 1.5);
 
-      _h_ptBJetLead = bookHisto1D("ptBJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
-      _h_ptBHadrLead = bookHisto1D("ptBHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
-      _h_ptFracB = bookHisto1D("ptfracB", 50, 0, 1.5);
-      _h_eFracB = bookHisto1D("efracB", 50, 0, 1.5);
+      book(_h_ptBJetLead ,"ptBJetLead", linspace(5, 0, 20, false) + logspace(25, 20, 200));
+      book(_h_ptBHadrLead ,"ptBHadrLead", linspace(5, 0, 10, false) + logspace(25, 10, 200));
+      book(_h_ptFracB ,"ptfracB", 50, 0, 1.5);
+      book(_h_eFracB ,"efracB", 50, 0, 1.5);
     }
 
 

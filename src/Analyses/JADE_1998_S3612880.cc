@@ -41,22 +41,22 @@ namespace Rivet {
 
         case 44:
           offset = 0;
-          _h_thrust  = bookHisto1D( 2+offset, 1, 1);
-          _h_MH = bookHisto1D( 3 + offset, 1, 1);
-          _h_BT = bookHisto1D( 4 + offset, 1, 1);
-          _h_BW = bookHisto1D( 5 + offset, 1, 1);
-          _h_y23 = bookHisto1D(10, 1, 1);
+          book(_h_thrust  , 2+offset, 1, 1);
+          book(_h_MH , 3 + offset, 1, 1);
+          book(_h_BT , 4 + offset, 1, 1);
+          book(_h_BW , 5 + offset, 1, 1);
+          book(_h_y23 ,10, 1, 1);
           break;
         case 35:
           offset = 4;
-          _h_thrust  = bookHisto1D( 2+offset, 1, 1);
-          _h_MH = bookHisto1D( 3 + offset, 1, 1);
-          _h_BT = bookHisto1D( 4 + offset, 1, 1);
-          _h_BW = bookHisto1D( 5 + offset, 1, 1);
-          _h_y23 = bookHisto1D(11, 1, 1);
+          book(_h_thrust  , 2+offset, 1, 1);
+          book(_h_MH , 3 + offset, 1, 1);
+          book(_h_BT , 4 + offset, 1, 1);
+          book(_h_BW , 5 + offset, 1, 1);
+          book(_h_y23 ,11, 1, 1);
           break;
         case 22:
-          _h_y23 = bookHisto1D(12, 1, 1);
+          book(_h_y23 ,12, 1, 1);
           break;
       }
     }

@@ -80,27 +80,27 @@ namespace Rivet {
       declare(jets, "jets");
 
       //pseudotop leptons and hadrons
-      _h["ptpseudotophadron_mu"]     = bookHisto1D( 1, 1, 2);
-      _h["ptpseudotophadron_el"]     = bookHisto1D( 2, 1, 2);
-      _h["absrappseudotophadron_mu"] = bookHisto1D( 3, 1, 2);
-      _h["absrappseudotophadron_el"] = bookHisto1D( 4, 1, 2);
-      _h["ptpseudotoplepton_mu"]     = bookHisto1D( 5, 1, 2);
-      _h["ptpseudotoplepton_el"]     = bookHisto1D( 6, 1, 2);
-      _h["absrappseudotoplepton_mu"] = bookHisto1D( 7, 1, 2);
-      _h["absrappseudotoplepton_el"] = bookHisto1D( 8, 1, 2);
-      _h["ptttbar_mu"]               = bookHisto1D( 9, 1, 2);
-      _h["ptttbar_el"]               = bookHisto1D(10, 1, 2);
-      _h["absrapttbar_mu"]           = bookHisto1D(11, 1, 2);
-      _h["absrapttbar_el"]           = bookHisto1D(12, 1, 2);
-      _h["ttbarmass_mu"]             = bookHisto1D(13, 1, 2);
-      _h["ttbarmass_el"]             = bookHisto1D(14, 1, 2);
-      _h["ptpseudotophadron"]        = bookHisto1D(15, 1, 2);
-      _h["absrappseudotophadron"]    = bookHisto1D(16, 1, 2);
-      _h["ptpseudotoplepton"]        = bookHisto1D(17, 1, 2);
-      _h["absrappseudotoplepton"]    = bookHisto1D(18, 1, 2);
-      _h["ptttbar"]                  = bookHisto1D(19, 1, 2);
-      _h["absrapttbar"]              = bookHisto1D(20, 1, 2);
-      _h["ttbarmass"]                = bookHisto1D(21, 1, 2);
+      book(_h["ptpseudotophadron_mu"]     , 1, 1, 2);
+      book(_h["ptpseudotophadron_el"]     , 2, 1, 2);
+      book(_h["absrappseudotophadron_mu"] , 3, 1, 2);
+      book(_h["absrappseudotophadron_el"] , 4, 1, 2);
+      book(_h["ptpseudotoplepton_mu"]     , 5, 1, 2);
+      book(_h["ptpseudotoplepton_el"]     , 6, 1, 2);
+      book(_h["absrappseudotoplepton_mu"] , 7, 1, 2);
+      book(_h["absrappseudotoplepton_el"] , 8, 1, 2);
+      book(_h["ptttbar_mu"]               , 9, 1, 2);
+      book(_h["ptttbar_el"]               ,10, 1, 2);
+      book(_h["absrapttbar_mu"]           ,11, 1, 2);
+      book(_h["absrapttbar_el"]           ,12, 1, 2);
+      book(_h["ttbarmass_mu"]             ,13, 1, 2);
+      book(_h["ttbarmass_el"]             ,14, 1, 2);
+      book(_h["ptpseudotophadron"]        ,15, 1, 2);
+      book(_h["absrappseudotophadron"]    ,16, 1, 2);
+      book(_h["ptpseudotoplepton"]        ,17, 1, 2);
+      book(_h["absrappseudotoplepton"]    ,18, 1, 2);
+      book(_h["ptttbar"]                  ,19, 1, 2);
+      book(_h["absrapttbar"]              ,20, 1, 2);
+      book(_h["ttbarmass"]                ,21, 1, 2);
 
     }
 

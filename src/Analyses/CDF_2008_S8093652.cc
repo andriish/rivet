@@ -25,7 +25,7 @@ namespace Rivet {
       FastJets conefinder(fs, FastJets::CDFMIDPOINT, 0.7);
       declare(conefinder, "ConeFinder");
 
-      _h_m_dijet = bookHisto1D(1, 1, 1);
+      book(_h_m_dijet ,1, 1, 1);
     }
 
 

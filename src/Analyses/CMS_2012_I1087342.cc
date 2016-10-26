@@ -19,9 +19,9 @@ namespace Rivet {
       const FinalState fs;
       declare(FastJets(fs, FastJets::ANTIKT, 0.5),"Jets");
 
-      _hist_jetpt_fwdincl = bookHisto1D(1, 1, 1);
-      _hist_jetpt_forward = bookHisto1D(2, 1, 1);
-      _hist_jetpt_central = bookHisto1D(3, 1, 1);
+      book(_hist_jetpt_fwdincl ,1, 1, 1);
+      book(_hist_jetpt_forward ,2, 1, 1);
+      book(_hist_jetpt_central ,3, 1, 1);
     }
 
     void analyze(const Event& event) {

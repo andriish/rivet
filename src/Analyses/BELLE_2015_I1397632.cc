@@ -24,10 +24,10 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // Book histograms
-      _h_B_Denu      = bookHisto1D(1, 1, 1);
-      _h_B_Dmunu     = bookHisto1D(1, 1, 2);
-      _h_B_Deplusnu  = bookHisto1D(1, 1, 3);
-      _h_B_Dmuplusnu = bookHisto1D(1, 1, 4);
+      book(_h_B_Denu      ,1, 1, 1);
+      book(_h_B_Dmunu     ,1, 1, 2);
+      book(_h_B_Deplusnu  ,1, 1, 3);
+      book(_h_B_Dmuplusnu ,1, 1, 4);
     }
 
     // Check for explicit decay into pdgids

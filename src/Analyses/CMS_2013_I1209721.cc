@@ -36,15 +36,15 @@ namespace Rivet {
 
       // Book histograms from data
       for (size_t i = 0; i < 2; ++i) {
-        _histDeltaPhiZJ1_1[i]  = bookHisto1D(1+i*9, 1, 1);
-        _histDeltaPhiZJ1_2[i]  = bookHisto1D(2+i*9, 1, 1);
-        _histDeltaPhiZJ1_3[i]  = bookHisto1D(4+i*9, 1, 1);
-        _histDeltaPhiZJ2_3[i]  = bookHisto1D(5+i*9, 1, 1);
-        _histDeltaPhiZJ3_3[i]  = bookHisto1D(3+i*9, 1, 1);
-        _histDeltaPhiJ1J2_3[i] = bookHisto1D(6+i*9, 1, 1);
-        _histDeltaPhiJ1J3_3[i] = bookHisto1D(7+i*9, 1, 1);
-        _histDeltaPhiJ2J3_3[i] = bookHisto1D(8+i*9, 1, 1);
-        _histTransvThrust[i]   = bookHisto1D(9+i*9, 1, 1);
+        book(_histDeltaPhiZJ1_1[i]  ,1+i*9, 1, 1);
+        book(_histDeltaPhiZJ1_2[i]  ,2+i*9, 1, 1);
+        book(_histDeltaPhiZJ1_3[i]  ,4+i*9, 1, 1);
+        book(_histDeltaPhiZJ2_3[i]  ,5+i*9, 1, 1);
+        book(_histDeltaPhiZJ3_3[i]  ,3+i*9, 1, 1);
+        book(_histDeltaPhiJ1J2_3[i] ,6+i*9, 1, 1);
+        book(_histDeltaPhiJ1J3_3[i] ,7+i*9, 1, 1);
+        book(_histDeltaPhiJ2J3_3[i] ,8+i*9, 1, 1);
+        book(_histTransvThrust[i]   ,9+i*9, 1, 1);
       }
     }
 

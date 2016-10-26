@@ -20,8 +20,8 @@ namespace Rivet {
       const FastJets jets(FinalState(-10, 10, 0.0*GeV), FastJets::ANTIKT, 0.5);
       declare(jets, "Jets");
 
-      _h_hTotD = bookHisto1D(1, 1, 1);
-      _h_hTotDF = bookHisto1D(1, 1, 2);
+      book(_h_hTotD ,1, 1, 1);
+      book(_h_hTotDF ,1, 1, 2);
     }
 
 

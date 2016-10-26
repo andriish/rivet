@@ -34,15 +34,15 @@ namespace Rivet {
 
       _sum_of_weights_inclusive = 0;
 
-      _h_jet_pT_cross_section = bookHisto1D(1, 1, 1);
-      _h_jet_pT_normalised = bookHisto1D(1, 1, 2);
-      _h_jet_y_cross_section = bookHisto1D(2, 1, 1);
-      _h_jet_y_normalised = bookHisto1D(2, 1, 2);
-      _h_Z_pT_cross_section = bookHisto1D(3, 1, 1);
-      _h_Z_pT_normalised = bookHisto1D(3, 1, 2);
-      _h_Z_y_cross_section = bookHisto1D(4, 1, 1);
-      _h_Z_y_normalised = bookHisto1D(4, 1, 2);
-      _h_total_cross_section = bookHisto1D(5, 1, 1);
+      book(_h_jet_pT_cross_section ,1, 1, 1);
+      book(_h_jet_pT_normalised ,1, 1, 2);
+      book(_h_jet_y_cross_section ,2, 1, 1);
+      book(_h_jet_y_normalised ,2, 1, 2);
+      book(_h_Z_pT_cross_section ,3, 1, 1);
+      book(_h_Z_pT_normalised ,3, 1, 2);
+      book(_h_Z_y_cross_section ,4, 1, 1);
+      book(_h_Z_y_normalised ,4, 1, 2);
+      book(_h_total_cross_section ,5, 1, 1);
     }
 
 

@@ -320,19 +320,22 @@ namespace Rivet {
 
       const auto & raos = getRivetAOs();
 
-      for (const auto & raoptr : raos) {
-          if (raoptr.get()->path().find("/TMP/") != string::npos)
+      for (const auto & raoref : raos) {
+          MultiweightAOPtr & rao = raoref.get();
+          if (rao->path().find("/TMP/") != string::npos)
               continue;
 
           for (size_t iW = 0; iW < numWeights(); iW++) {
-              raoptr.get().setActiveWeightIdx(iW);
+              rao.setActiveWeightIdx(iW);
 
               // add the weight name in brackets unless we recognize a
               // nominal weight
-              if (_weightNames[iW] != "Weight" && _weightNames[iW] != "0")
-                  raoptr.get()->setPath(raoptr.get()->path() + "[" + _weightNames[iW] + "]");
+              if (_weightNames[iW] != "Weight" 
+                  && _weightNames[iW] != "0"
+                  && _weightNames[iW] != "Default")
+                  rao->setPath(rao->path() + "[" + _weightNames[iW] + "]");
 
-              rtn.push_back(raoptr.get().activeYODAPtr());
+              rtn.push_back(rao.activeYODAPtr());
           }
       }
 

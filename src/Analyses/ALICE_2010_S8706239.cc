@@ -31,10 +31,10 @@ namespace Rivet {
       ChargedFinalState cfs(-0.8, 0.8, 0.15);
       declare(cfs, "CFS");
 
-      _h_pT = bookHisto1D(4, 1, 1);
+      book(_h_pT ,4, 1, 1);
 
-      _h_pT_Nch_015 = bookProfile1D(11, 1, 1);
-      _h_pT_Nch_05  = bookProfile1D(12, 1, 1);
+      book(_h_pT_Nch_015 ,11, 1, 1);
+      book(_h_pT_Nch_05  ,12, 1, 1);
 
     }
 

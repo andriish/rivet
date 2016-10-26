@@ -87,10 +87,10 @@ namespace Rivet {
 
 
       /// @todo Book histograms here, e.g.:
-      _h_BZ      = bookHisto1D(3, 1, 1);
-      _h_KSW     = bookHisto1D(4, 1, 1);
-      _h_NR      = bookHisto1D(5, 1, 1);
-      _h_ALPHA34 = bookHisto1D(6, 1, 1);
+      book(_h_BZ      ,3, 1, 1);
+      book(_h_KSW     ,4, 1, 1);
+      book(_h_NR      ,5, 1, 1);
+      book(_h_ALPHA34 ,6, 1, 1);
     }
 
 

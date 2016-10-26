@@ -31,16 +31,16 @@ namespace Rivet {
 
       populateDecayMap();
 
-      _h_ratio_mu        = bookHisto1D(1, 1, 1);
-      _h_ratio_el        = bookHisto1D(1, 1, 2);
-      _h_1prong_pinu     = bookHisto1D(2, 1, 1);
-      _h_1prong_Kpnu     = bookHisto1D(2, 1, 2);
-      _h_1prong_pipinu   = bookHisto1D(2, 1, 3);
-      _h_1prong_Kppinu   = bookHisto1D(2, 1, 4);
-      _h_1prong_pipipinu = bookHisto1D(2, 1, 5);
-      _h_1prong_Knpinu   = bookHisto1D(2, 1, 6);
-      _h_3prong_pipipinu = bookHisto1D(2, 2, 1);
-      _h_5prong          = bookHisto1D(2, 3, 1);
+      book(_h_ratio_mu        ,1, 1, 1);
+      book(_h_ratio_el        ,1, 1, 2);
+      book(_h_1prong_pinu     ,2, 1, 1);
+      book(_h_1prong_Kpnu     ,2, 1, 2);
+      book(_h_1prong_pipinu   ,2, 1, 3);
+      book(_h_1prong_Kppinu   ,2, 1, 4);
+      book(_h_1prong_pipipinu ,2, 1, 5);
+      book(_h_1prong_Knpinu   ,2, 1, 6);
+      book(_h_3prong_pipipinu ,2, 2, 1);
+      book(_h_5prong          ,2, 3, 1);
     }
 
 

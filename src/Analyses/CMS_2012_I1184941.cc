@@ -21,7 +21,7 @@ namespace Rivet {
       const FastJets jets(FinalState(-4.9, 4.9, 0.0*GeV), FastJets::ANTIKT, 0.5);
       declare(jets, "AntiKtJets05");
 
-      _h_xi = bookHisto1D(1, 1, 1);
+      book(_h_xi ,1, 1, 1);
     }
 
 

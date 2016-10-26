@@ -182,55 +182,55 @@ namespace Rivet {
       plots.label = phase_space;
 
       if (phase_space=="baseline") {
-        plots.h_mjj = bookHisto1D(1, 1, 1);
-        plots.h_dy = bookHisto1D(1, 2, 1);
+        book(plots.h_mjj ,1, 1, 1);
+        book(plots.h_dy ,1, 2, 1);
 
-        plots.h_jetveto_mjj_veto = bookHisto1D("jetveto_mjj_baseline_veto", refData(1,1,2));
-        plots.h_jetveto_mjj_inc = bookHisto1D("jetveto_mjj_baseline_inc", refData(1,1,2));
-        plots.h_jetveto_dy_veto = bookHisto1D("jetveto_dy_baseline_veto", refData(1,2,2));
-        plots.h_jetveto_dy_inc = bookHisto1D("jetveto_dy_baseline_inc", refData(1,2,2));
+        book(plots.h_jetveto_mjj_veto ,"jetveto_mjj_baseline_veto", refData(1,1,2));
+        book(plots.h_jetveto_mjj_inc ,"jetveto_mjj_baseline_inc", refData(1,1,2));
+        book(plots.h_jetveto_dy_veto ,"jetveto_dy_baseline_veto", refData(1,2,2));
+        book(plots.h_jetveto_dy_inc ,"jetveto_dy_baseline_inc", refData(1,2,2));
 
-        plots.h_ptbaleff_mjj_veto = bookHisto1D("ptbaleff_mjj_baseline_veto", refData(1,1,3));
-        plots.h_ptbaleff_mjj_inc = bookHisto1D("ptbaleff_mjj_baseline_inc", refData(1,1,3));
-        plots.h_ptbaleff_dy_veto = bookHisto1D("ptbaleff_dy_baseline_veto", refData(1,2,3));
-        plots.h_ptbaleff_dy_inc = bookHisto1D("ptbaleff_dy_baseline_inc", refData(1,2,3));
+        book(plots.h_ptbaleff_mjj_veto ,"ptbaleff_mjj_baseline_veto", refData(1,1,3));
+        book(plots.h_ptbaleff_mjj_inc ,"ptbaleff_mjj_baseline_inc", refData(1,1,3));
+        book(plots.h_ptbaleff_dy_veto ,"ptbaleff_dy_baseline_veto", refData(1,2,3));
+        book(plots.h_ptbaleff_dy_inc ,"ptbaleff_dy_baseline_inc", refData(1,2,3));
 
-        plots.p_avgnjets_mjj = bookProfile1D(1,1,4);
-        plots.p_avgnjets_dy = bookProfile1D(1,2,4);
+        book(plots.p_avgnjets_mjj ,1,1,4);
+        book(plots.p_avgnjets_dy ,1,2,4);
       }
 
       if (phase_space=="highpt") {
-        plots.h_mjj = bookHisto1D(2, 1, 1);
-        plots.h_dy = bookHisto1D(2, 2, 1);
+        book(plots.h_mjj ,2, 1, 1);
+        book(plots.h_dy ,2, 2, 1);
 
-        plots.h_jetveto_mjj_veto = bookHisto1D("jetveto_mjj_highpt_veto", refData(2,1,2));
-        plots.h_jetveto_mjj_inc = bookHisto1D("jetveto_mjj_highpt_inc", refData(2,1,2));
-        plots.h_jetveto_dy_veto = bookHisto1D("jetveto_dy_highpt_veto", refData(2,2,2));
-        plots.h_jetveto_dy_inc = bookHisto1D("jetveto_dy_highpt_inc", refData(2,2,2));
+        book(plots.h_jetveto_mjj_veto ,"jetveto_mjj_highpt_veto", refData(2,1,2));
+        book(plots.h_jetveto_mjj_inc ,"jetveto_mjj_highpt_inc", refData(2,1,2));
+        book(plots.h_jetveto_dy_veto ,"jetveto_dy_highpt_veto", refData(2,2,2));
+        book(plots.h_jetveto_dy_inc ,"jetveto_dy_highpt_inc", refData(2,2,2));
 
-        plots.h_ptbaleff_mjj_veto = bookHisto1D("ptbaleff_mjj_highpt_veto", refData(2,1,3));
-        plots.h_ptbaleff_mjj_inc = bookHisto1D("ptbaleff_mjj_highpt_inc", refData(2,1,3));
-        plots.h_ptbaleff_dy_veto = bookHisto1D("ptbaleff_dy_highpt_veto", refData(2,2,3));
-        plots.h_ptbaleff_dy_inc = bookHisto1D("ptbaleff_dy_highpt_inc", refData(2,2,3));
+        book(plots.h_ptbaleff_mjj_veto ,"ptbaleff_mjj_highpt_veto", refData(2,1,3));
+        book(plots.h_ptbaleff_mjj_inc ,"ptbaleff_mjj_highpt_inc", refData(2,1,3));
+        book(plots.h_ptbaleff_dy_veto ,"ptbaleff_dy_highpt_veto", refData(2,2,3));
+        book(plots.h_ptbaleff_dy_inc ,"ptbaleff_dy_highpt_inc", refData(2,2,3));
 
-        plots.p_avgnjets_mjj = bookProfile1D(2,1,4);
-        plots.p_avgnjets_dy = bookProfile1D(2,2,4);
+        book(plots.p_avgnjets_mjj ,2,1,4);
+        book(plots.p_avgnjets_dy ,2,2,4);
       }
 
       if (phase_space=="search") {
-        plots.h_mjj = bookHisto1D(3,1,1);
-        plots.h_dy = bookHisto1D(3,2,1);
+        book(plots.h_mjj ,3,1,1);
+        book(plots.h_dy ,3,2,1);
       }
 
       if (phase_space=="control") {
-        plots.h_mjj = bookHisto1D(4,1,1);
-        plots.h_dy = bookHisto1D(4,2,1);
+        book(plots.h_mjj ,4,1,1);
+        book(plots.h_dy ,4,2,1);
       }
 
       if (phase_space=="highmass") {
-        plots.h_njets = bookHisto1D(5, 3, 1);
-        plots.h_dphijj = bookHisto1D(5, 4, 1);
-        plots.h_ptbal = bookHisto1D(5, 5, 1);
+        book(plots.h_njets ,5, 3, 1);
+        book(plots.h_dphijj ,5, 4, 1);
+        book(plots.h_ptbal ,5, 5, 1);
       }
     }
 

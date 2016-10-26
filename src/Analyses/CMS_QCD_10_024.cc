@@ -27,10 +27,10 @@ namespace Rivet {
       size_t offset = 0;
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) offset = 0;
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) offset = 4;
-      _hist_dNch_deta_pt05_eta08 = bookHisto1D(1+offset, 1, 1);
-      _hist_dNch_deta_pt10_eta08 = bookHisto1D(2+offset, 1, 1);
-      _hist_dNch_deta_pt05_eta24 = bookHisto1D(3+offset, 1, 1);
-      _hist_dNch_deta_pt10_eta24 = bookHisto1D(4+offset, 1, 1);
+      book(_hist_dNch_deta_pt05_eta08 ,1+offset, 1, 1);
+      book(_hist_dNch_deta_pt10_eta08 ,2+offset, 1, 1);
+      book(_hist_dNch_deta_pt05_eta24 ,3+offset, 1, 1);
+      book(_hist_dNch_deta_pt10_eta24 ,4+offset, 1, 1);
     }
 
 

@@ -36,22 +36,22 @@ namespace Rivet {
       declare(ChargedFinalState(_eta_min, _eta_max, _pt_min*GeV), "CFS");
 
       // Book histograms
-      _h_mult_total  = bookHisto1D("d03-x01-y01", 50, 0.5, 50.5);
+      book(_h_mult_total  ,"d03-x01-y01", 50, 0.5, 50.5);
 
-      _h_mult_eta[0] = bookHisto1D("d04-x01-y01", 21, -0.5, 20.5); //eta=[2.0,2.5]
-      _h_mult_eta[1] = bookHisto1D("d04-x01-y02", 21, -0.5, 20.5); //eta=[2.5,3.0]
-      _h_mult_eta[2] = bookHisto1D("d04-x01-y03", 21, -0.5, 20.5); //eta=[3.0,3.5]
-      _h_mult_eta[3] = bookHisto1D("d04-x01-y04", 21, -0.5, 20.5); //eta=[3.5,4.0]
-      _h_mult_eta[4] = bookHisto1D("d04-x01-y05", 21, -0.5, 20.5); //eta=[4.0,4.5]
+      book(_h_mult_eta[0] ,"d04-x01-y01", 21, -0.5, 20.5); //eta=[2.0,2.5]
+      book(_h_mult_eta[1] ,"d04-x01-y02", 21, -0.5, 20.5); //eta=[2.5,3.0]
+      book(_h_mult_eta[2] ,"d04-x01-y03", 21, -0.5, 20.5); //eta=[3.0,3.5]
+      book(_h_mult_eta[3] ,"d04-x01-y04", 21, -0.5, 20.5); //eta=[3.5,4.0]
+      book(_h_mult_eta[4] ,"d04-x01-y05", 21, -0.5, 20.5); //eta=[4.0,4.5]
 
-      _h_mult_pt[0]  = bookHisto1D("d05-x01-y01", 21, -0.5, 20.5); //pT=[0.2,0.3]GeV
-      _h_mult_pt[1]  = bookHisto1D("d05-x01-y02", 21, -0.5, 20.5); //pT=[0.3,0.4]GeV
-      _h_mult_pt[2]  = bookHisto1D("d05-x01-y03", 21, -0.5, 20.5); //pT=[0.4,0.6]GeV
-      _h_mult_pt[3]  = bookHisto1D("d05-x01-y04", 21, -0.5, 20.5); //pT=[0.6,1.0]GeV
-      _h_mult_pt[4]  = bookHisto1D("d05-x01-y05", 21, -0.5, 20.5); //pT=[1.0,2.0]GeV
+      book(_h_mult_pt[0]  ,"d05-x01-y01", 21, -0.5, 20.5); //pT=[0.2,0.3]GeV
+      book(_h_mult_pt[1]  ,"d05-x01-y02", 21, -0.5, 20.5); //pT=[0.3,0.4]GeV
+      book(_h_mult_pt[2]  ,"d05-x01-y03", 21, -0.5, 20.5); //pT=[0.4,0.6]GeV
+      book(_h_mult_pt[3]  ,"d05-x01-y04", 21, -0.5, 20.5); //pT=[0.6,1.0]GeV
+      book(_h_mult_pt[4]  ,"d05-x01-y05", 21, -0.5, 20.5); //pT=[1.0,2.0]GeV
 
-      _h_dndeta      = bookHisto1D("d01-x01-y01", 14, 2.0, 4.8); //eta=[2,4.8]
-      _h_dndpt       = bookHisto1D("d02-x01-y01", 18, 0.2, 2.0); //pT =[0,2]GeV
+      book(_h_dndeta      ,"d01-x01-y01", 14, 2.0, 4.8); //eta=[2,4.8]
+      book(_h_dndpt       ,"d02-x01-y01", 18, 0.2, 2.0); //pT =[0,2]GeV
 
       // Counters
       _sumW = 0;

@@ -27,19 +27,19 @@ namespace Rivet {
       declare(jetsak7, "JetsAK7");
 
       // Histograms
-      _h_pt_05_ak5    = bookHisto1D(1, 1, 1);
-      _h_pt_05_10_ak5 = bookHisto1D(2, 1, 1);
-      _h_pt_10_15_ak5 = bookHisto1D(3, 1, 1);
-      _h_pt_15_20_ak5 = bookHisto1D(4, 1, 1);
-      _h_pt_20_25_ak5 = bookHisto1D(5, 1, 1);
-      _h_pt_25_30_ak5 = bookHisto1D(6, 1, 1);
+      book(_h_pt_05_ak5    ,1, 1, 1);
+      book(_h_pt_05_10_ak5 ,2, 1, 1);
+      book(_h_pt_10_15_ak5 ,3, 1, 1);
+      book(_h_pt_15_20_ak5 ,4, 1, 1);
+      book(_h_pt_20_25_ak5 ,5, 1, 1);
+      book(_h_pt_25_30_ak5 ,6, 1, 1);
 
-      _h_pt_05_ak7    = bookHisto1D(7, 1, 1);
-      _h_pt_05_10_ak7 = bookHisto1D(8, 1, 1);
-      _h_pt_10_15_ak7 = bookHisto1D(9, 1, 1);
-      _h_pt_15_20_ak7 = bookHisto1D(10, 1, 1);
-      _h_pt_20_25_ak7 = bookHisto1D(11, 1, 1);
-      _h_pt_25_30_ak7 = bookHisto1D(12, 1, 1);
+      book(_h_pt_05_ak7    ,7, 1, 1);
+      book(_h_pt_05_10_ak7 ,8, 1, 1);
+      book(_h_pt_10_15_ak7 ,9, 1, 1);
+      book(_h_pt_15_20_ak7 ,10, 1, 1);
+      book(_h_pt_20_25_ak7 ,11, 1, 1);
+      book(_h_pt_25_30_ak7 ,12, 1, 1);
 
       _h_pt_05_ratio    = bookScatter2D(13, 1, 1);
       _h_pt_05_10_ratio = bookScatter2D(14, 1, 1);

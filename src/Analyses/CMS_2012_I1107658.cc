@@ -32,26 +32,26 @@ namespace Rivet {
       nonmuons.addVetoPairId(PID::MUON);
       declare(nonmuons, "nonmuons");
 
-      _h_Nchg_towards_pTmumu                 = bookProfile1D(1, 1, 1);
-      _h_Nchg_transverse_pTmumu              = bookProfile1D(2, 1, 1);
-      _h_Nchg_away_pTmumu                    = bookProfile1D(3, 1, 1);
-      _h_pTsum_towards_pTmumu                = bookProfile1D(4, 1, 1);
-      _h_pTsum_transverse_pTmumu             = bookProfile1D(5, 1, 1);
-      _h_pTsum_away_pTmumu                   = bookProfile1D(6, 1, 1);
-      _h_avgpT_towards_pTmumu                = bookProfile1D(7, 1, 1);
-      _h_avgpT_transverse_pTmumu             = bookProfile1D(8, 1, 1);
-      _h_avgpT_away_pTmumu                   = bookProfile1D(9, 1, 1);
-      _h_Nchg_towards_plus_transverse_Mmumu  = bookProfile1D(10, 1, 1);
-      _h_pTsum_towards_plus_transverse_Mmumu = bookProfile1D(11, 1, 1);
-      _h_avgpT_towards_plus_transverse_Mmumu = bookProfile1D(12, 1, 1);
-      _h_Nchg_towards_zmass_81_101           = bookHisto1D(13, 1, 1);
-      _h_Nchg_transverse_zmass_81_101        = bookHisto1D(14, 1, 1);
-      _h_Nchg_away_zmass_81_101              = bookHisto1D(15, 1, 1);
-      _h_pT_towards_zmass_81_101             = bookHisto1D(16, 1, 1);
-      _h_pT_transverse_zmass_81_101          = bookHisto1D(17, 1, 1);
-      _h_pT_away_zmass_81_101                = bookHisto1D(18, 1, 1);
-      _h_Nchg_transverse_zpt_5               = bookHisto1D(19, 1, 1);
-      _h_pT_transverse_zpt_5                 = bookHisto1D(20, 1, 1);
+      book(_h_Nchg_towards_pTmumu                 ,1, 1, 1);
+      book(_h_Nchg_transverse_pTmumu              ,2, 1, 1);
+      book(_h_Nchg_away_pTmumu                    ,3, 1, 1);
+      book(_h_pTsum_towards_pTmumu                ,4, 1, 1);
+      book(_h_pTsum_transverse_pTmumu             ,5, 1, 1);
+      book(_h_pTsum_away_pTmumu                   ,6, 1, 1);
+      book(_h_avgpT_towards_pTmumu                ,7, 1, 1);
+      book(_h_avgpT_transverse_pTmumu             ,8, 1, 1);
+      book(_h_avgpT_away_pTmumu                   ,9, 1, 1);
+      book(_h_Nchg_towards_plus_transverse_Mmumu  ,10, 1, 1);
+      book(_h_pTsum_towards_plus_transverse_Mmumu ,11, 1, 1);
+      book(_h_avgpT_towards_plus_transverse_Mmumu ,12, 1, 1);
+      book(_h_Nchg_towards_zmass_81_101           ,13, 1, 1);
+      book(_h_Nchg_transverse_zmass_81_101        ,14, 1, 1);
+      book(_h_Nchg_away_zmass_81_101              ,15, 1, 1);
+      book(_h_pT_towards_zmass_81_101             ,16, 1, 1);
+      book(_h_pT_transverse_zmass_81_101          ,17, 1, 1);
+      book(_h_pT_away_zmass_81_101                ,18, 1, 1);
+      book(_h_Nchg_transverse_zpt_5               ,19, 1, 1);
+      book(_h_pT_transverse_zpt_5                 ,20, 1, 1);
     }
 
 

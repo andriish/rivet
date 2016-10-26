@@ -28,9 +28,9 @@ namespace Rivet {
     void init() {
       /// @todo Convert to Scatter1D or Counter
       _h_XS   = bookScatter2D("XS");
-      _h_N    = bookHisto1D("N", 1, 0.0, 1.0);
-      _h_pmXS = bookHisto1D("pmXS", 2, -1.0, 1.0);
-      _h_pmN  = bookHisto1D("pmN", 2, -1.0, 1.0);
+      book(_h_N    ,"N", 1, 0.0, 1.0);
+      book(_h_pmXS ,"pmXS", 2, -1.0, 1.0);
+      book(_h_pmN  ,"pmN", 2, -1.0, 1.0);
       _mc_xs = _mc_error = 0.;
     }
 

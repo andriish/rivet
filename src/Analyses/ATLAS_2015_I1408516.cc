@@ -30,54 +30,54 @@ namespace Rivet {
       // Book histograms
       const size_t offset = _mode ? 4 : 1;
 
-      _h["phistar_lo_00_08"] = bookHisto1D( 2, 1, offset);
-      _h["phistar_lo_08_16"] = bookHisto1D( 3, 1, offset);
-      _h["phistar_lo_16_24"] = bookHisto1D( 4, 1, offset);
+      book(_h["phistar_lo_00_08"] , 2, 1, offset);
+      book(_h["phistar_lo_08_16"] , 3, 1, offset);
+      book(_h["phistar_lo_16_24"] , 4, 1, offset);
 
-      _h["phistar_me_00_04"] = bookHisto1D( 5, 1, offset);
-      _h["phistar_me_04_08"] = bookHisto1D( 6, 1, offset);
-      _h["phistar_me_08_12"] = bookHisto1D( 7, 1, offset);
-      _h["phistar_me_12_16"] = bookHisto1D( 8, 1, offset);
-      _h["phistar_me_16_20"] = bookHisto1D( 9, 1, offset);
-      _h["phistar_me_20_24"] = bookHisto1D(10, 1, offset);
+      book(_h["phistar_me_00_04"] , 5, 1, offset);
+      book(_h["phistar_me_04_08"] , 6, 1, offset);
+      book(_h["phistar_me_08_12"] , 7, 1, offset);
+      book(_h["phistar_me_12_16"] , 8, 1, offset);
+      book(_h["phistar_me_16_20"] , 9, 1, offset);
+      book(_h["phistar_me_20_24"] ,10, 1, offset);
 
-      _h["phistar_hi_00_08"] = bookHisto1D(11, 1, offset);
-      _h["phistar_hi_08_16"] = bookHisto1D(12, 1, offset);
-      _h["phistar_hi_16_24"] = bookHisto1D(13, 1, offset);
+      book(_h["phistar_hi_00_08"] ,11, 1, offset);
+      book(_h["phistar_hi_08_16"] ,12, 1, offset);
+      book(_h["phistar_hi_16_24"] ,13, 1, offset);
 
-      _h["phistar_mll_46_66"  ] = bookHisto1D(14, 1, offset);
-      _h["phistar_mll_66_116" ] = bookHisto1D(15, 1, offset);
-      _h["phistar_mll_116_150"] = bookHisto1D(16, 1, offset);
+      book(_h["phistar_mll_46_66"  ] ,14, 1, offset);
+      book(_h["phistar_mll_66_116" ] ,15, 1, offset);
+      book(_h["phistar_mll_116_150"] ,16, 1, offset);
 
-      _h["zpt_00_04"] = bookHisto1D(17, 1, offset);
-      _h["zpt_04_08"] = bookHisto1D(18, 1, offset);
-      _h["zpt_08_12"] = bookHisto1D(19, 1, offset);
-      _h["zpt_12_16"] = bookHisto1D(20, 1, offset);
-      _h["zpt_16_20"] = bookHisto1D(21, 1, offset);
-      _h["zpt_20_24"] = bookHisto1D(22, 1, offset);
+      book(_h["zpt_00_04"] ,17, 1, offset);
+      book(_h["zpt_04_08"] ,18, 1, offset);
+      book(_h["zpt_08_12"] ,19, 1, offset);
+      book(_h["zpt_12_16"] ,20, 1, offset);
+      book(_h["zpt_16_20"] ,21, 1, offset);
+      book(_h["zpt_20_24"] ,22, 1, offset);
 
-      _h["zpt_mll_12_20"  ] = bookHisto1D(23, 1, offset);
-      _h["zpt_mll_20_30"  ] = bookHisto1D(24, 1, offset);
-      _h["zpt_mll_30_46"  ] = bookHisto1D(25, 1, offset);
-      _h["zpt_mll_46_66"  ] = bookHisto1D(26, 1, offset);
-      _h["zpt_mll_66_116" ] = bookHisto1D(27, 1, offset);
-      _h["zpt_mll_116_150"] = bookHisto1D(28, 1, offset);
+      book(_h["zpt_mll_12_20"  ] ,23, 1, offset);
+      book(_h["zpt_mll_20_30"  ] ,24, 1, offset);
+      book(_h["zpt_mll_30_46"  ] ,25, 1, offset);
+      book(_h["zpt_mll_46_66"  ] ,26, 1, offset);
+      book(_h["zpt_mll_66_116" ] ,27, 1, offset);
+      book(_h["zpt_mll_116_150"] ,28, 1, offset);
 
-      _h["zpt_00_04_xsec"] = bookHisto1D(29, 1, offset);
-      _h["zpt_04_08_xsec"] = bookHisto1D(30, 1, offset);
-      _h["zpt_08_12_xsec"] = bookHisto1D(31, 1, offset);
-      _h["zpt_12_16_xsec"] = bookHisto1D(32, 1, offset);
-      _h["zpt_16_20_xsec"] = bookHisto1D(33, 1, offset);
-      _h["zpt_20_24_xsec"] = bookHisto1D(34, 1, offset);
+      book(_h["zpt_00_04_xsec"] ,29, 1, offset);
+      book(_h["zpt_04_08_xsec"] ,30, 1, offset);
+      book(_h["zpt_08_12_xsec"] ,31, 1, offset);
+      book(_h["zpt_12_16_xsec"] ,32, 1, offset);
+      book(_h["zpt_16_20_xsec"] ,33, 1, offset);
+      book(_h["zpt_20_24_xsec"] ,34, 1, offset);
 
-      _h["zpt_mll_12_20_xsec"  ] = bookHisto1D(35, 1, offset);
-      _h["zpt_mll_20_30_xsec"  ] = bookHisto1D(36, 1, offset);
-      _h["zpt_mll_30_46_xsec"  ] = bookHisto1D(37, 1, offset);
-      _h["zpt_mll_46_66_xsec"  ] = bookHisto1D(38, 1, offset);
-      _h["zpt_mll_66_116_xsec" ] = bookHisto1D(39, 1, offset);
-      _h["zpt_mll_116_150_xsec"] = bookHisto1D(40, 1, offset);
+      book(_h["zpt_mll_12_20_xsec"  ] ,35, 1, offset);
+      book(_h["zpt_mll_20_30_xsec"  ] ,36, 1, offset);
+      book(_h["zpt_mll_30_46_xsec"  ] ,37, 1, offset);
+      book(_h["zpt_mll_46_66_xsec"  ] ,38, 1, offset);
+      book(_h["zpt_mll_66_116_xsec" ] ,39, 1, offset);
+      book(_h["zpt_mll_116_150_xsec"] ,40, 1, offset);
 
-      _h["mll_xsec"] = bookHisto1D(41, 1, 1 + _mode);
+      book(_h["mll_xsec"] ,41, 1, 1 + _mode);
     }
 
 

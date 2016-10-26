@@ -29,10 +29,10 @@ namespace Rivet {
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       declare(conefinder, "ConeFinder");
 
-      _crossSectionRatio = bookHisto1D(1, 1, 1);
-      _pTjet1 = bookHisto1D(2, 1, 1);
-      _pTjet2 = bookHisto1D(3, 1, 1);
-      _pTjet3 = bookHisto1D(4, 1, 1);
+      book(_crossSectionRatio ,1, 1, 1);
+      book(_pTjet1 ,2, 1, 1);
+      book(_pTjet2 ,3, 1, 1);
+      book(_pTjet3 ,4, 1, 1);
     }
 
 

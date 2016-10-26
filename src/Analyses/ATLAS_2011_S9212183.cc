@@ -49,18 +49,18 @@ namespace Rivet {
 
 
       // Book histograms
-      _count_2j   = bookHisto1D("count_2j",   1, 0., 1.);
-      _count_3j   = bookHisto1D("count_3j",   1, 0., 1.);
-      _count_4j5  = bookHisto1D("count_4j5",  1, 0., 1.);
-      _count_4j10 = bookHisto1D("count_4j10", 1, 0., 1.);
-      _count_HM   = bookHisto1D("count_HM",   1, 0., 1.);
+      book(_count_2j   ,"count_2j",   1, 0., 1.);
+      book(_count_3j   ,"count_3j",   1, 0., 1.);
+      book(_count_4j5  ,"count_4j5",  1, 0., 1.);
+      book(_count_4j10 ,"count_4j10", 1, 0., 1.);
+      book(_count_HM   ,"count_HM",   1, 0., 1.);
 
-      _hist_meff_2j  = bookHisto1D(1, 1, 1);
-      _hist_meff_3j  = bookHisto1D(2, 1, 1);
-      _hist_meff_4j  = bookHisto1D(3, 1, 1);
-      _hist_meff_HM  = bookHisto1D(4, 1, 1);
+      book(_hist_meff_2j  ,1, 1, 1);
+      book(_hist_meff_3j  ,2, 1, 1);
+      book(_hist_meff_4j  ,3, 1, 1);
+      book(_hist_meff_HM  ,4, 1, 1);
 
-      _hist_eTmiss  = bookHisto1D("Et_miss", 20, 0., 1000.);
+      book(_hist_eTmiss  ,"Et_miss", 20, 0., 1000.);
     }
 
 

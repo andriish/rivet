@@ -24,7 +24,7 @@ namespace Rivet {
       WFinder wf(fs, Cuts::abseta < 5, PID::ELECTRON, 0.0*GeV, 200.0*GeV, 0.0*GeV, 0.2);
       declare(wf, "WFinder");
 
-      _h_W_pT = bookHisto1D(1, 1, 1);
+      book(_h_W_pT ,1, 1, 1);
     }
 
 

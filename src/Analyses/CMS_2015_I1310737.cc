@@ -37,20 +37,20 @@ namespace Rivet {
       declare(akt05Jets, "AntiKt05Jets");
 
 
-      _h_excmult_jets_tot = bookHisto1D(1, 1, 1);
-      _h_incmult_jets_tot = bookHisto1D(2, 1, 1);
-      _h_leading_jet_pt_tot = bookHisto1D(3, 1, 1);
-      _h_second_jet_pt_tot = bookHisto1D(4, 1, 1);
-      _h_third_jet_pt_tot = bookHisto1D(5, 1, 1);
-      _h_fourth_jet_pt_tot = bookHisto1D(6, 1, 1);
-      _h_leading_jet_eta_tot = bookHisto1D(7, 1, 1);
-      _h_second_jet_eta_tot = bookHisto1D(8, 1, 1);
-      _h_third_jet_eta_tot = bookHisto1D(9, 1, 1);
-      _h_fourth_jet_eta_tot = bookHisto1D(10, 1, 1);
-      _h_ht1_tot = bookHisto1D(11, 1, 1);
-      _h_ht2_tot = bookHisto1D(12, 1, 1);
-      _h_ht3_tot = bookHisto1D(13, 1, 1);
-      _h_ht4_tot = bookHisto1D(14, 1, 1);
+      book(_h_excmult_jets_tot ,1, 1, 1);
+      book(_h_incmult_jets_tot ,2, 1, 1);
+      book(_h_leading_jet_pt_tot ,3, 1, 1);
+      book(_h_second_jet_pt_tot ,4, 1, 1);
+      book(_h_third_jet_pt_tot ,5, 1, 1);
+      book(_h_fourth_jet_pt_tot ,6, 1, 1);
+      book(_h_leading_jet_eta_tot ,7, 1, 1);
+      book(_h_second_jet_eta_tot ,8, 1, 1);
+      book(_h_third_jet_eta_tot ,9, 1, 1);
+      book(_h_fourth_jet_eta_tot ,10, 1, 1);
+      book(_h_ht1_tot ,11, 1, 1);
+      book(_h_ht2_tot ,12, 1, 1);
+      book(_h_ht3_tot ,13, 1, 1);
+      book(_h_ht4_tot ,14, 1, 1);
     }
 
 

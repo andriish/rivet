@@ -36,13 +36,13 @@ namespace Rivet {
       // MB event counter
       m_chargedEvents = 0.0;
 
-      _h_ETflowEta = bookHisto1D(1, 1, 1);
-      _h_SumETbin1 = bookHisto1D(3, 1, 1);
-      _h_SumETbin2 = bookHisto1D(4, 1, 1);
-      _h_SumETbin3 = bookHisto1D(5, 1, 1);
-      _h_SumETbin4 = bookHisto1D(6, 1, 1);
-      _h_SumETbin5 = bookHisto1D(7, 1, 1);
-      _h_SumETbin6 = bookHisto1D(8, 1, 1);
+      book(_h_ETflowEta ,1, 1, 1);
+      book(_h_SumETbin1 ,3, 1, 1);
+      book(_h_SumETbin2 ,4, 1, 1);
+      book(_h_SumETbin3 ,5, 1, 1);
+      book(_h_SumETbin4 ,6, 1, 1);
+      book(_h_SumETbin5 ,7, 1, 1);
+      book(_h_SumETbin6 ,8, 1, 1);
 
       // ------- DIJET HISTOGRAMS --------
       //
@@ -50,13 +50,13 @@ namespace Rivet {
       m_events_dijets = 0.0;
 
       // sumET
-      _h_transETflowEta = bookHisto1D( 2, 1, 1);
-      _h_transSumETbin1 = bookHisto1D( 9, 1, 1);
-      _h_transSumETbin2 = bookHisto1D(10, 1, 1);
-      _h_transSumETbin3 = bookHisto1D(11, 1, 1);
-      _h_transSumETbin4 = bookHisto1D(12, 1, 1);
-      _h_transSumETbin5 = bookHisto1D(13, 1, 1);
-      _h_transSumETbin6 = bookHisto1D(14, 1, 1);
+      book(_h_transETflowEta , 2, 1, 1);
+      book(_h_transSumETbin1 , 9, 1, 1);
+      book(_h_transSumETbin2 ,10, 1, 1);
+      book(_h_transSumETbin3 ,11, 1, 1);
+      book(_h_transSumETbin4 ,12, 1, 1);
+      book(_h_transSumETbin5 ,13, 1, 1);
+      book(_h_transSumETbin6 ,14, 1, 1);
 
 
     }

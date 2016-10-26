@@ -25,13 +25,13 @@ namespace Rivet {
       // declare(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
 
       // Histograms
-      _histPdfX = bookHisto1D("PdfX", logspace(50, 0.000001, 1.0));
-      _histPdfXmin = bookHisto1D("PdfXmin", logspace(50, 0.000001, 1.0));
-      _histPdfXmax = bookHisto1D("PdfXmax", logspace(50, 0.000001, 1.0));
-      _histPdfQ = bookHisto1D("PdfQ", 50, 0.0, 30.0);
-      _histPdfXQ = bookHisto2D("PdfXQ", logspace(50, 0.000001, 1.0), linspace(50, 0.0, 30.0));
-      // _histPdfTrackptVsX = bookProfile1D("PdfTrackptVsX", logspace(50, 0.000001, 1.0));
-      // _histPdfTrackptVsQ = bookProfile1D("PdfTrackptVsQ", 50, 0.0, 30.0);
+      book(_histPdfX ,"PdfX", logspace(50, 0.000001, 1.0));
+      book(_histPdfXmin ,"PdfXmin", logspace(50, 0.000001, 1.0));
+      book(_histPdfXmax ,"PdfXmax", logspace(50, 0.000001, 1.0));
+      book(_histPdfQ ,"PdfQ", 50, 0.0, 30.0);
+      book(_histPdfXQ,"PdfXQ", logspace(50, 0.000001, 1.0), linspace(50, 0.0, 30.0));
+      //book( _histPdfTrackptVsX ,"PdfTrackptVsX", logspace(50, 0.000001, 1.0));
+      //book( _histPdfTrackptVsQ ,"PdfTrackptVsQ", 50, 0.0, 30.0);
     }
 
 

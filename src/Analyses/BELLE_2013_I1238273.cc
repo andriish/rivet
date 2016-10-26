@@ -23,11 +23,11 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // Book histograms
-      _h_q2_B0bar_pi     = bookHisto1D(1, 1, 1);
-      _h_q2_B0bar_rho    = bookHisto1D(3, 1, 1);
-      _h_q2_Bminus_pi    = bookHisto1D(2, 1, 1);
-      _h_q2_Bminus_rho   = bookHisto1D(4, 1, 1);
-      _h_q2_Bminus_omega = bookHisto1D(5, 1, 1);
+      book(_h_q2_B0bar_pi     ,1, 1, 1);
+      book(_h_q2_B0bar_rho    ,3, 1, 1);
+      book(_h_q2_Bminus_pi    ,2, 1, 1);
+      book(_h_q2_Bminus_rho   ,4, 1, 1);
+      book(_h_q2_Bminus_omega ,5, 1, 1);
 
     }
 

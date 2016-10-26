@@ -17,12 +17,13 @@ namespace Rivet {
 
       for (int d=1; d<=3; d++) {
         for (int y=1; y<=4; y++) {
-          _h_dNch_dpT.push_back(bookHisto1D(d, 1, y));
+          _h_dNch_dpT.push_back(Histo1DPtr());
+          book(_h_dNch_dpT.back(), d, 1, y);
         }
       }
 
-      _h_dNch_dpT_all = bookHisto1D(4, 1, 1);
-      _h_dNch_dEta = bookHisto1D(5, 1, 1);
+      book(_h_dNch_dpT_all ,4, 1, 1);
+      book(_h_dNch_dEta ,5, 1, 1);
     }
 
 

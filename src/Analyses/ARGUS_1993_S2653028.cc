@@ -106,18 +106,18 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // spectra
-      _histPiA = bookHisto1D(1, 1, 1);
-      _histPiB = bookHisto1D(2, 1, 1);
-      _histKA  = bookHisto1D(3, 1, 1);
-      _histKB  = bookHisto1D(6, 1, 1);
-      _histpA  = bookHisto1D(4, 1, 1);
-      _histpB  = bookHisto1D(5, 1, 1);
+      book(_histPiA ,1, 1, 1);
+      book(_histPiB ,2, 1, 1);
+      book(_histKA  ,3, 1, 1);
+      book(_histKB  ,6, 1, 1);
+      book(_histpA  ,4, 1, 1);
+      book(_histpB  ,5, 1, 1);
       // multiplicities
-      _multPiA = bookHisto1D( 7, 1, 1);
-      _multPiB = bookHisto1D( 8, 1, 1);
-      _multK   = bookHisto1D( 9, 1, 1);
-      _multpA  = bookHisto1D(10, 1, 1);
-      _multpB  = bookHisto1D(11, 1, 1);
+      book(_multPiA , 7, 1, 1);
+      book(_multPiB , 8, 1, 1);
+      book(_multK   , 9, 1, 1);
+      book(_multpA  ,10, 1, 1);
+      book(_multpB  ,11, 1, 1);
     } // init
 
 

@@ -43,7 +43,7 @@ namespace Rivet {
       declare(wfinder_mu, "WFinder_mu");
 
       // Histograms
-      _h_fiducial = bookHisto1D(1,1,1);
+      book(_h_fiducial ,1,1,1);
     }
 
 

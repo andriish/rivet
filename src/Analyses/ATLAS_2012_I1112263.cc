@@ -57,14 +57,14 @@ namespace Rivet {
       _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_1_SR2",11,0.,220.));
       _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_2_SR2", 7,0.,140.));
       _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_3_SR2", 8,0.,160.));
-      _hist_etmiss_SR1_A = bookHisto1D("hist_etmiss_SR1_A",15,10.,310.);
-      _hist_etmiss_SR1_B = bookHisto1D("hist_etmiss_SR1_B", 9,10.,190.);
-      _hist_etmiss_SR2_A = bookHisto1D("hist_etmiss_SR2_A",15,10.,310.);
-      _hist_etmiss_SR2_B = bookHisto1D("hist_etmiss_SR2_B", 9,10.,190.);
-      _hist_mSFOS= bookHisto1D("hist_mSFOF",9,0.,180.);
+      book(_hist_etmiss_SR1_A ,"hist_etmiss_SR1_A",15,10.,310.);
+      book(_hist_etmiss_SR1_B ,"hist_etmiss_SR1_B", 9,10.,190.);
+      book(_hist_etmiss_SR2_A ,"hist_etmiss_SR2_A",15,10.,310.);
+      book(_hist_etmiss_SR2_B ,"hist_etmiss_SR2_B", 9,10.,190.);
+      book(_hist_mSFOS,"hist_mSFOF",9,0.,180.);
 
-      _count_SR1 = bookHisto1D("count_SR1", 1, 0., 1.);
-      _count_SR2 = bookHisto1D("count_SR2", 1, 0., 1.);
+      book(_count_SR1 ,"count_SR1", 1, 0., 1.);
+      book(_count_SR2 ,"count_SR2", 1, 0., 1.);
     }
 
 

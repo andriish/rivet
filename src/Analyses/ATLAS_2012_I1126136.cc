@@ -46,13 +46,13 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abseta < 4.9),"vfs");
 
       // Book histograms
-      _count_SR_A     = bookHisto1D("count_SR_A"    , 1, 0., 1.);
-      _count_SR_B     = bookHisto1D("count_SR_B"    , 1, 0., 1.);
+      book(_count_SR_A     ,"count_SR_A"    , 1, 0., 1.);
+      book(_count_SR_B     ,"count_SR_B"    , 1, 0., 1.);
 
-      _hist_mjjj1  = bookHisto1D("hist_mjjj1" , 30 , 0.   , 600.  );
-      _hist_mjjj2  = bookHisto1D("hist_mjjj2" , 30 , 0.   , 600.  );
-      _hist_ETmiss = bookHisto1D("hist_ETmiss", 20 , 100. , 600.  );
-      _hist_mT2    = bookHisto1D("hist_mT2"   , 200, 0.   , 1000. );
+      book(_hist_mjjj1  ,"hist_mjjj1" , 30 , 0.   , 600.  );
+      book(_hist_mjjj2  ,"hist_mjjj2" , 30 , 0.   , 600.  );
+      book(_hist_ETmiss ,"hist_ETmiss", 20 , 100. , 600.  );
+      book(_hist_mT2    ,"hist_mT2"   , 200, 0.   , 1000. );
 
     }
 

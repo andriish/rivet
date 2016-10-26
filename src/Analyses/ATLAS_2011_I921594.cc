@@ -36,7 +36,7 @@ namespace Rivet {
       // Book the dsigma/dEt (in eta bins) histograms
       for (size_t i = 0; i < _eta_bins.size()-1; i++) {
         if (fuzzyEquals(_eta_bins[i], 1.37)) continue; // skip this bin
-        _h_Et_photon[i] = bookHisto1D(1, 1, i+1);
+        book(_h_Et_photon[i] ,1, 1, i+1);
       }
     }
 

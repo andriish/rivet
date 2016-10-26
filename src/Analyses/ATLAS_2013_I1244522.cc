@@ -44,13 +44,13 @@ namespace Rivet {
       declare(jetpro, "Jets");
 
       // Histograms
-      _h_ph_pt      = bookHisto1D(1, 1, 1);
-      _h_jet_pt     = bookHisto1D(2, 1, 1);
-      _h_jet_rap    = bookHisto1D(3, 1, 1);
-      _h_dphi_phjet = bookHisto1D(4, 1, 1);
-      _h_costheta_biased_phjet = bookHisto1D(5, 1, 1);
-      _h_mass_phjet            = bookHisto1D(6, 1, 1);
-      _h_costheta_phjet        = bookHisto1D(7, 1, 1);
+      book(_h_ph_pt      ,1, 1, 1);
+      book(_h_jet_pt     ,2, 1, 1);
+      book(_h_jet_rap    ,3, 1, 1);
+      book(_h_dphi_phjet ,4, 1, 1);
+      book(_h_costheta_biased_phjet ,5, 1, 1);
+      book(_h_mass_phjet            ,6, 1, 1);
+      book(_h_costheta_phjet        ,7, 1, 1);
 
     }
 

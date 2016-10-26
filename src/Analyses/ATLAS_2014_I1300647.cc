@@ -41,10 +41,10 @@ namespace Rivet {
       declare(zfinder_bare_mu,	"ZFinder_bare_mu");
       
       // Book histograms
-      _hist_zpt_el_dressed = bookHisto1D(1, 1, 1);  // electron "dressed"
-      _hist_zpt_mu_dressed = bookHisto1D(1, 1, 2);  // muon "dressed"
-      _hist_zpt_el_bare    = bookHisto1D(1, 2, 1);  // electron "bare"
-      _hist_zpt_mu_bare    = bookHisto1D(1, 2, 2);  // muon "bare"	 
+      book(_hist_zpt_el_dressed ,1, 1, 1);  // electron "dressed"
+      book(_hist_zpt_mu_dressed ,1, 1, 2);  // muon "dressed"
+      book(_hist_zpt_el_bare    ,1, 2, 1);  // electron "bare"
+      book(_hist_zpt_mu_bare    ,1, 2, 2);  // muon "bare"	 
 
       //double-differential plots
       _h_zpt_el_mu_dressed.addHistogram(0.0, 1.0, bookHisto1D(3, 1, 2));

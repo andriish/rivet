@@ -28,8 +28,8 @@ namespace Rivet {
       _binnedHistosD07.addHistogram(0.7, 1.1, bookHisto1D(3, 1, 1));
       _binnedHistosD07.addHistogram(1.1, 1.6, bookHisto1D(4, 1, 1));
       _binnedHistosD07.addHistogram(1.6, 2.1, bookHisto1D(5, 1, 1));
-      _histoD05 = bookHisto1D(6, 1, 1);
-      _histoD10 = bookHisto1D(7, 1, 1);
+      book(_histoD05 ,6, 1, 1);
+      book(_histoD10 ,7, 1, 1);
     }
 
 

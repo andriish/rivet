@@ -21,11 +21,11 @@ namespace Rivet {
       jets.useInvisibles();
       declare(jets, "Jets");
 
-      _h_m3j_08_40  = bookHisto1D(1, 1, 1);
-      _h_m3j_16_40  = bookHisto1D(2, 1, 1);
-      _h_m3j_24_40  = bookHisto1D(3, 1, 1);
-      _h_m3j_24_70  = bookHisto1D(4, 1, 1);
-      _h_m3j_24_100 = bookHisto1D(5, 1, 1);
+      book(_h_m3j_08_40  ,1, 1, 1);
+      book(_h_m3j_16_40  ,2, 1, 1);
+      book(_h_m3j_24_40  ,3, 1, 1);
+      book(_h_m3j_24_70  ,4, 1, 1);
+      book(_h_m3j_24_100 ,5, 1, 1);
     }
 
 

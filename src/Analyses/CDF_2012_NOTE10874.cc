@@ -27,9 +27,9 @@ namespace Rivet {
       else if (fuzzyEquals(sqrtS(), 1960*GeV)) isqrts = 3;
       assert(isqrts >= 0);
 
-      _h_nch_transverse = bookProfile1D(1,1,isqrts);
-      _h_ptSumDen = bookProfile1D(2,1,isqrts);
-      _h_avePt = bookProfile1D(3,1,isqrts);
+      book(_h_nch_transverse ,1,1,isqrts);
+      book(_h_ptSumDen ,2,1,isqrts);
+      book(_h_avePt ,3,1,isqrts);
     }
 
     // Little helper function to identify Delta(phi) regions

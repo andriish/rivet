@@ -25,7 +25,7 @@ namespace Rivet {
       muon_fs.acceptIdPair(PID::MUON);
       declare(muon_fs, "MUON_FS");
 
-      _h_sigma = bookHisto1D(1,1,1);
+      book(_h_sigma ,1,1,1);
     }
 
 
