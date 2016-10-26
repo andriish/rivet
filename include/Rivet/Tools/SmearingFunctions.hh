@@ -13,6 +13,7 @@ namespace Rivet {
   //@{
 
   /// Return a uniformly sampled random number between 0 and 1
+  /// @todo Where is it seeded?! Default = by timestamp?!
   /// @todo Move to (math?)utils
   /// @todo Need to isolate random generators to a single thread
   inline double rand01() {
