@@ -62,7 +62,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const LeadingParticlesFinalState& eeFS = apply<LeadingParticlesFinalState>(event, "eeFS");
       // Z boson analysis

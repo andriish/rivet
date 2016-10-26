@@ -115,7 +115,7 @@ namespace Rivet {
       if (mom_in_EtCone.Et() - correction >= 4*GeV)  vetoEvent;
 
       // Fill histos
-      const double weight = event.weight();
+      const double weight = 1.0;
       const double dy = deltaRap(photon, leadingJet);
       const double costheta_yj = tanh(dy/2);
       _h_ph_pt->fill(photon.pT()/GeV, weight);

@@ -33,7 +33,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 1) {

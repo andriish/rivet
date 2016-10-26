@@ -78,7 +78,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Use the "LFS" projection to require at least one hard charged
       // lepton. This is an experimental signature for the leptonically decaying

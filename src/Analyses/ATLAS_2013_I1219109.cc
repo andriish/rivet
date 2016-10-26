@@ -51,7 +51,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       //  retrieve W boson candidate
       const WFinder& wf = apply<WFinder>(event, "WF");

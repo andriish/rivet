@@ -252,7 +252,7 @@ namespace Rivet {
       }
 
 	  // Histogram filling
-	  const double weight = event.weight();
+	  const double weight = 1.0;
 
       // Region SR1, Z depleted
       if (mdiff > 10*GeV) {

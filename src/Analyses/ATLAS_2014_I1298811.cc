@@ -58,7 +58,7 @@ namespace Rivet {
       if (jets.empty()) vetoEvent;
 
       // Get the event weight since we will be filling some histos
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Identify the leading jet and its phi and pT
       const FourMomentum plead = jets[0].momentum();

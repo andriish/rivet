@@ -31,7 +31,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const JetAlg& jetpro = apply<JetAlg>(e, "ConeFinder");
       const Jets& jets = jetpro.jetsByPt();

@@ -110,7 +110,7 @@ namespace Rivet {
       const double AZBB = ( maxdR_ZB - mindR_ZB ) / ( maxdR_ZB + mindR_ZB );
 
       // Get event weight for histogramming
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Fill the histograms in the non-boosted region
       _h_dphi_BB->fill(dphiBB, weight);

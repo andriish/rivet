@@ -82,7 +82,7 @@ namespace Rivet {
       const double p1p2_mag = dpt * sqrt(pT2);
       const double dS       = acos((Px+Py) / p1p2_mag);
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       _h_rel_deltaPt_eq2jet_Norm->fill(rel_dpt, weight);
       _h_deltaS_eq2jet_Norm->fill(dS, weight);
     }

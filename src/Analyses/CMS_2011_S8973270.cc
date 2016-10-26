@@ -42,7 +42,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const Jets& jets = apply<FastJets>(event,"Jets").jetsByPt();
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");

@@ -45,7 +45,7 @@ namespace Rivet {
       const bool cutsxor = ( (count_plus > 0 && count_minus == 0) || (count_plus == 0 && count_minus > 0) );
 
       // Increment counters and fill histos
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (cutsor)  _Nevt_after_cuts_or  += weight;
       if (cutsand) _Nevt_after_cuts_and += weight;
       if (cutsxor) _Nevt_after_cuts_xor += weight;

@@ -46,7 +46,7 @@ namespace Rivet {
       if (zfinder.bosons().size()!=1) {
         vetoEvent;
       }
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       FourMomentum zmom(zfinder.bosons()[0].momentum());
       _h_Z_mass->fill(zmom.mass()/GeV, weight);

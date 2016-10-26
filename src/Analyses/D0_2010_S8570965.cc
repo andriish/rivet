@@ -44,7 +44,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       Particles photons = apply<IdentifiedFinalState>(event, "IFS").particlesByPt();
       if (photons.size() < 2 ||

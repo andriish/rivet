@@ -91,7 +91,7 @@ namespace Rivet {
                 << ", eta = " << jeteta << ", phi = " << jetphi);
 
       // Get the event weight
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Get the final states to work with for filling the distributions
       const FinalState& cfs = apply<ChargedFinalState>(e, "CFS");

@@ -255,6 +255,8 @@ private:
                 _persistent.push_back(make_shared<T>(p));
         }
 
+        Wrapper() : _persistent(), _evgroup(), _active() {}
+
         typename T::Ptr active() const { return _active; }
 
         /* @todo this probably need to loop over all? */

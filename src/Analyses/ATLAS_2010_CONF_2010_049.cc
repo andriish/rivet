@@ -39,7 +39,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const FastJets & jetsproj6 = apply<FastJets>(event, "Jets6");
       const FastJets & jetsproj4 = apply<FastJets>(event, "Jets4");

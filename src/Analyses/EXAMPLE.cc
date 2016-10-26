@@ -53,7 +53,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       // Make sure to always include the event weight in histogram fills!
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const Particles& cnparticles = apply<FinalState>(event, "FS").particles();
       MSG_DEBUG("Total multiplicity = " << cnparticles.size());

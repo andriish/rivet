@@ -40,7 +40,7 @@ namespace Rivet {
 
     // Analysis
     void analyze(const Event &event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const FastJets &fJets = apply<FastJets>(event, "Jets");
       
       // Fill the jet pT spectra

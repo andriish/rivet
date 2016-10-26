@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Loop through unstable FS particles and look for charmed mesons/baryons
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");

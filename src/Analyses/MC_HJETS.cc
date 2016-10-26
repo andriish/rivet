@@ -40,7 +40,7 @@ namespace Rivet {
     void analyze(const Event & e) {
       const ZFinder& hfinder = apply<ZFinder>(e, "Hfinder");
       if (hfinder.bosons().size() != 1) vetoEvent;
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       FourMomentum hmom(hfinder.bosons()[0].momentum());
       const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);

@@ -96,7 +96,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (apply<FinalState>(event, "FS").particles().size() < 2) {

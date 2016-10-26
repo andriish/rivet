@@ -42,7 +42,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent;

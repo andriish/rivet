@@ -59,7 +59,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const FinalState& ffs = apply<FinalState>(event, "forwardFS");
       const FinalState& bfs = apply<FinalState>(event, "backwardFS");

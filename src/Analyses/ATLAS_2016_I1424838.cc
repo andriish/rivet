@@ -66,7 +66,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get generator weight
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Check for Z boson in event
       const ZFinder& zfinder    = apply<ZFinder>(event, "ZFinder");

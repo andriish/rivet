@@ -30,7 +30,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
         if(p.absrap()<0.5) {

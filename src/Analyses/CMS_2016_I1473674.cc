@@ -68,7 +68,7 @@ namespace Rivet {
 
     // per event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // select ttbar -> lepton+jets
       const DressedLeptons& dressed_electrons = applyProjection<DressedLeptons>(event, "DressedElectrons");

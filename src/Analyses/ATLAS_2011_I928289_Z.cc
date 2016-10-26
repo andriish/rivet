@@ -54,7 +54,7 @@ namespace Rivet {
       const ZFinder& zfinder_mm_bare     = apply<ZFinder>(event, "ZFinder_mm_bare"   );
       const ZFinder& zfinder_mm_dressed  = apply<ZFinder>(event, "ZFinder_mm_dressed");
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       fillPlots1D(zfinder_ee_bare   , _h_Z_y_ee_bare   , weight);
       fillPlots1D(zfinder_ee_dressed, _h_Z_y_ee_dressed, weight);
       fillPlots1D(zfinder_mm_bare   , _h_Z_y_mm_bare   , weight);

@@ -161,7 +161,7 @@ namespace Rivet {
       }
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       for (unsigned int ihist = 0; ihist < 6; ihist++) {
         if (ihist > 0 && !pass_jetPt) continue; // additional pT threshold cuts for pT plots
         unsigned int threshLimit = _thresholdLimit(ihist);

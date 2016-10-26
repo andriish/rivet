@@ -34,7 +34,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       foreach (const Jet& jet, apply<JetAlg>(event, "JetsD07").jets(Cuts::pT > 54*GeV))
         _binnedHistosD07.fill(jet.absrap(), jet.pT(), weight);

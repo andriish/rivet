@@ -105,7 +105,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       vector<const ZFinder*> zfs;
       zfs.push_back(& (apply<ZFinder>(event, "ZFinder_el")));

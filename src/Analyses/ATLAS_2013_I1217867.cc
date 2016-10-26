@@ -75,7 +75,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const DressedLeptons& electronClusters = apply<DressedLeptons>(e, "electronClusters");
       const DressedLeptons& muonClusters = apply<DressedLeptons>(e, "muonClusters");

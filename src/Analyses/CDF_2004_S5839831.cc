@@ -153,7 +153,7 @@ namespace Rivet {
 
       // Get sqrt(s) and event weight
       const double sqrtS = apply<Beam>(event, "Beam").sqrtS();
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       {
         MSG_DEBUG("Running max/min analysis");

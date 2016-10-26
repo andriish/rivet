@@ -65,7 +65,7 @@ namespace Rivet {
       }
 
       // Passed cuts, so get the weight
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       const double egamma = photon.E();

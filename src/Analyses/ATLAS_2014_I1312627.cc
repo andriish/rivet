@@ -113,7 +113,7 @@ namespace Rivet {
       Jets all_jets = jetfs.jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
 
       // Apply boson cuts and fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (zf.size() == 2) {
         const Particles& leptons = zf.constituents();
         if (oppSign(leptons[0], leptons[1]) && deltaR(leptons[0], leptons[1]) > 0.2)

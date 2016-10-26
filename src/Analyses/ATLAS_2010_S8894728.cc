@@ -93,7 +93,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Require at least one track in the event with pT >= 1 GeV
       const ChargedFinalState& cfslead = apply<ChargedFinalState>(event, "CFSlead");

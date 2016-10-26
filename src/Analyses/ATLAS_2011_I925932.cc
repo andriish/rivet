@@ -40,7 +40,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const WFinder& wfinder_dressed_el = apply<WFinder>(event, "WFinder_dressed_el");
       const WFinder& wfinder_bare_el    = apply<WFinder>(event, "WFinder_bare_el");

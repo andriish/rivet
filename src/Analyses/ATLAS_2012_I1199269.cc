@@ -109,7 +109,7 @@ namespace Rivet {
       if (deltaR(y1, y2) < 0.4) vetoEvent;
 
       // Compute diphoton vector and fill histos
-      const double weight = event.weight();
+      const double weight = 1.0;
       FourMomentum yy = y1 + y2;
       const double costhetayy = 2 * y1.pT() * y2.pT() * sinh(y1.eta() - y2.eta()) / yy.mass() / add_quad(yy.mass(), yy.pT());
       _h_M->fill(yy.mass()/GeV, weight);

@@ -35,7 +35,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const ChargedFinalState& cfs_08_05 = apply<ChargedFinalState>(event, "CFS_08_05");
       const ChargedFinalState& cfs_08_10 = apply<ChargedFinalState>(event, "CFS_08_10");
       const ChargedFinalState& cfs_24_05 = apply<ChargedFinalState>(event, "CFS_24_05");

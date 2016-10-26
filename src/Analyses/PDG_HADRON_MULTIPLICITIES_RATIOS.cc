@@ -35,7 +35,7 @@ namespace Rivet {
       MSG_DEBUG("Passed leptonic event cut");
 
       // Get event weight for histo filling
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       MSG_DEBUG("sqrt(S) = " << sqrtS()/GeV << " GeV");
 

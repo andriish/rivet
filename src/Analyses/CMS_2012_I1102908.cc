@@ -38,7 +38,7 @@ namespace Rivet {
 
 
   void analyze(const Event & event) {
-    const double weight = event.weight();
+    const double weight = 1.0;
 
     // Jets with  pT > 35.0, -4.7 < y < 4.7
     const JetAlg& jet_alg = apply<JetAlg>(event, "antikT");

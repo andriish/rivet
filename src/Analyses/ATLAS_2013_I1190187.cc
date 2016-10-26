@@ -202,7 +202,7 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       // Get event weight for histo filling
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // ee channel
       if (fiducial_lepton[0].abspid() == PID::ELECTRON && fiducial_lepton[1].abspid() == PID::ELECTRON) {

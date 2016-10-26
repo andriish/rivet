@@ -170,7 +170,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       for (int ipt = 0; ipt < NPTBINS; ++ipt) {
         const FinalState& charged = apply<FinalState>(event, "CFS" + PTBINNAMES[ipt]);

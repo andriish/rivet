@@ -112,7 +112,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const Vector3 met0 = apply<MissingMomentum>(event, "MET0").vectorEt();
       const Vector3 met1 = apply<SmearedMET>(event, "MET1").vectorEt();

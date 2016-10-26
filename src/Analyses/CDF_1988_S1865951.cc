@@ -42,7 +42,7 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumWTrig += weight;
 
       const FinalState& trackfs = apply<ChargedFinalState>(event, "CFS");

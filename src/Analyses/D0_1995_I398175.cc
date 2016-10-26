@@ -61,7 +61,7 @@ namespace Rivet {
 	MSG_DEBUG("No jets found in required pT and rapidity range");
 	vetoEvent;
       }
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Calculate and histogram jet shapes
       for (size_t ipt = 0; ipt < 4; ++ipt) {

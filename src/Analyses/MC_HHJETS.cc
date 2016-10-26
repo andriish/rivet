@@ -57,7 +57,7 @@ namespace Rivet {
       Particles allp = ifs.particlesByPt();
       if (allp.empty()) vetoEvent;
 
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       FourMomentum hmom = allp[0].momentum();
       if (allp.size() > 1) {

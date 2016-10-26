@@ -35,7 +35,7 @@ namespace Rivet {
 
   // Do the analysis
   void MC_JetSplittings::analyze(const Event & e) {
-    const double weight = e.weight();
+    const double weight = 1.0;
 
     const FastJets& jetpro = apply<FastJets>(e, m_jetpro_name);
     const auto seq = jetpro.clusterSeq();

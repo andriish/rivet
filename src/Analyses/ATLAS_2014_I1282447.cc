@@ -235,7 +235,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       double charge_weight = 0; // account for OS/SS events
 

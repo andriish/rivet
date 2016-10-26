@@ -144,7 +144,7 @@ namespace Rivet {
       const double abs_jet_rapidity = fabs(leadingJet.rapidity());
       const double photon_pt = photon.pT()/GeV;
       const double abs_photon_eta = fabs(photon.eta());
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (abs_photon_eta < 1.37) {
         if (abs_jet_rapidity < 1.2) {
           if (photon_jet_sign >= 1) {

@@ -35,7 +35,7 @@ namespace Rivet {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Fill INEL plots for each event
       _h_xsec_inel->fill(sqrtS()/GeV, weight);

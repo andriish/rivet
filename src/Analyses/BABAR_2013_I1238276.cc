@@ -30,7 +30,7 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Loop through charged FS particles and look for charmed mesons/baryons
       const ChargedFinalState& fs = apply<ChargedFinalState>(e, "FS");

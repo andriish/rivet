@@ -41,7 +41,7 @@ namespace Rivet {
     void analyze(const Event& e) {
 
       // Get event weight for histo filling
-      const double weight = e.weight();
+      const double weight = 1.0;
 
 
       // Final state of unstable particles to get particle spectra

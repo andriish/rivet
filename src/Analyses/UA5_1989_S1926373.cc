@@ -54,7 +54,7 @@ namespace Rivet {
       const TriggerUA5& trigger = apply<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumWPassed += weight;
 
       // Count final state particles in several eta regions

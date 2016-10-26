@@ -37,7 +37,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Require at least one cluster in the event with pT >= 1 GeV
       const FinalState& fslead = apply<FinalState>(event, "FSlead");

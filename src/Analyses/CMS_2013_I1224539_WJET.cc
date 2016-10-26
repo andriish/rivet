@@ -84,7 +84,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get the W
       const WFinder& wfinder = apply<WFinder>(event, "WFinder");

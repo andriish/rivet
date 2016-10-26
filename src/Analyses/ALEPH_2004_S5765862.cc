@@ -136,7 +136,7 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const Thrust& thrust = apply<Thrust>(e, "Thrust");
       const Sphericity& sphericity = apply<Sphericity>(e, "Sphericity");

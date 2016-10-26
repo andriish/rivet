@@ -57,7 +57,7 @@ using namespace std;
     void analyze(const Event& event) {
       int id;
       double y, pT;
-      const double weight = event.weight();
+      const double weight = 1.0;
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftime;
       foreach (const Particle& p, ufs.particles()) {

@@ -67,7 +67,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const WFinder& wenufinder = apply<WFinder>(e, "WenuFinder");
       if (wenufinder.bosons().size()!=1) {

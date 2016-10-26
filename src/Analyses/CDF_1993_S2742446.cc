@@ -41,7 +41,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size()!=1 || photons[0].pT()>45.0*GeV) {

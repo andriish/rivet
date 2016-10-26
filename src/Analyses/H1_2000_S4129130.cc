@@ -183,7 +183,7 @@ namespace Rivet {
       if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3])) vetoEvent;
 
       // Increment the count for normalisation
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (evcut[0]) _weightETLowQa [bin[0]] += weight;
       if (evcut[1]) _weightETLowQb [bin[1]] += weight;
       if (evcut[2]) _weightETHighQa[bin[2]] += weight;

@@ -82,7 +82,7 @@ namespace Rivet {
       const FourMomentum& mp = zmmfinder.constituents()[0].momentum();
       const FourMomentum& mm = zmmfinder.constituents()[1].momentum();
 
-      const double weight = e.weight();
+      const double weight = 1.0;
       _h_ZZ_pT->fill(zz.pT()/GeV, weight);
       _h_ZZ_pT_peak->fill(zz.pT()/GeV, weight);
       _h_ZZ_eta->fill(zz.eta(), weight);

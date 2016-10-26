@@ -166,7 +166,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       ////////////////////////////////////////////////////////////////////
       // preselection of leptons for ZZ-> llll final state

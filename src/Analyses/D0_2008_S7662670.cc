@@ -53,7 +53,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Skip if the event is empty
       const FinalState& fs = apply<FinalState>(event, "FS");

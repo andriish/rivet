@@ -107,7 +107,7 @@ namespace Rivet {
       if (neutrinos[0].hasAncestor(-PID::NU_TAU)) vetoEvent;
 
       // Recording of event weight and numbers
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get the missing momentum
       const MissingMomentum& met = apply<MissingMomentum>(event, "MET");

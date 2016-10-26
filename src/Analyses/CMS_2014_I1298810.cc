@@ -57,7 +57,7 @@ namespace Rivet {
       const Jets& jetsak7 = apply<FastJets>(event, "JetsAK7").jetsByPt(56*GeV);
       if (jetsak5.size() < 1 && jetsak7.size() < 1) vetoEvent;
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Filling R = 0.5 jets
       foreach(const Jet& jet, jetsak5) {

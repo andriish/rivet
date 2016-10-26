@@ -47,7 +47,7 @@ namespace Rivet {
       MSG_DEBUG("Passed ncharged cut");
 
       // Get event weight for histo filling                                                                                                    
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get beams and average beam momentum                                                                                                
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();

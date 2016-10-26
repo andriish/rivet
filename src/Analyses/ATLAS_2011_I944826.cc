@@ -127,7 +127,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // ATLAS MBTS trigger requirement of at least one hit in either hemisphere
       if (apply<FinalState>(event, "MBTS").size() < 1) {

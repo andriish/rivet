@@ -49,7 +49,7 @@ namespace Rivet {
         if (j.pT() > 20*GeV) alljets.push_back(j);
       }
       if (hardjets.size() < 2 || alljets.size() != 4) vetoEvent;
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Histogram pT and eta of all 4 jets
       for (size_t i = 0; i < 4; ++i) {

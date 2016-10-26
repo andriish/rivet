@@ -60,7 +60,7 @@ namespace Rivet {
       MSG_TRACE("Charged lepton sign = " << chg_e);
 
       // Fill histos with appropriate +- indexing
-      const double weight = event.weight();
+      const double weight = 1.0;
       const size_t pmindex = (chg_e > 0) ? 0 : 1;
       if (p_e.Et() < 35*GeV) _hs_dsigpm_deta_25_35[pmindex]->fill(fabs(p_e.eta()), weight);
       else _hs_dsigpm_deta_35[pmindex]->fill(fabs(p_e.eta()), weight);

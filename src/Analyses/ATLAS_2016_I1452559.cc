@@ -98,7 +98,7 @@ namespace Rivet {
       ////////////////////
 
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get ETmiss bin number and fill counters
       const int i_etmiss = binIndex(etmiss/GeV, ETMISS_CUTS);

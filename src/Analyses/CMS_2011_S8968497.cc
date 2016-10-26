@@ -31,7 +31,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const Jets& jets = apply<JetAlg>(event, "ANTIKT").jetsByPt();
       if (jets.size() < 2) vetoEvent;
       FourMomentum j0(jets[0].momentum());

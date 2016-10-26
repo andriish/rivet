@@ -45,7 +45,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const Jets& jets = apply<JetAlg>(e, "ConeFinder").jetsByPt(40.0*GeV);
       if (jets.size() < 2) vetoEvent;

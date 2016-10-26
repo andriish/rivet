@@ -92,7 +92,7 @@ namespace Rivet {
       if (ptLead/GeV > 50.0) vetoEvent;
 
       // Count sum of all event weights in three pT_lead regions
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (ptLead/GeV > 2.0) _sumWeightsPtLead2 += weight;
       if (ptLead/GeV > 5.0) _sumWeightsPtLead5 += weight;
       if (ptLead/GeV > 30.0) _sumWeightsPtLead30 += weight;

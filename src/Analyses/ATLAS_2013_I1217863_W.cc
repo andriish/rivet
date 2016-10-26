@@ -69,7 +69,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // retrieve leading photon
       Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();

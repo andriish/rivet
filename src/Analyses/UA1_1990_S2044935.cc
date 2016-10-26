@@ -70,7 +70,7 @@ namespace Rivet {
       }
       MSG_DEBUG("Trigger -: " << n_minus << ", Trigger +: " << n_plus);
       if (n_plus == 0 || n_minus == 0) vetoEvent;
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumwTrig += weight;
 
       // Use good central detector tracks

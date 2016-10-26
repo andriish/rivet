@@ -291,7 +291,7 @@ namespace Rivet {
       bool pass_search = (pass_baseline && vars.zpt > 20.0*GeV && vars.ngapjets == 0 && vars.ptbalance2 < 0.15 && vars.mjj > 250.0*GeV);
       bool pass_control = (pass_baseline && vars.zpt > 20.0*GeV && vars.ngapjets > 0 && vars.ptbalance3 < 0.15 && vars.mjj > 250.0*GeV);
       //
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (pass_baseline) fillPlots(vars, baseline_plots, "baseline", weight);
       if (pass_highpt) fillPlots(vars, highpt_plots, "highpt", weight);
       if (pass_highmass) fillPlots(vars, highmass_plots, "highmass", weight);

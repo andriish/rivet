@@ -28,7 +28,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // a b-quark must have been produced
       /// @todo Ouch. Use hadron tagging...

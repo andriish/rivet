@@ -59,7 +59,7 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
       MSG_DEBUG("Num particles = " << apply<FinalState>(e, "FS").particles().size());
 
       const FastJets& jadejet = apply<FastJets>(e, "JadeJets");

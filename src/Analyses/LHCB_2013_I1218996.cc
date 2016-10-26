@@ -62,7 +62,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       /// @todo Use PrimaryHadrons to avoid double counting and automatically remove the contributions from unstable?
       const UnstableFinalState &ufs = apply<UnstableFinalState> (event, "UFS");

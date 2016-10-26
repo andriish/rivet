@@ -75,7 +75,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       static unsigned int event_count = 0;
       ++event_count;
-      const double weight = event.weight();
+      const double weight = 1.0;
       const FinalState& fs2 = apply<FinalState>(event, "CNFS2");
       const FinalState& fs4 = apply<FinalState>(event, "CNFS4");
       const FinalState& fs6 = apply<FinalState>(event, "CNFS6");

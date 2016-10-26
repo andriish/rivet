@@ -55,7 +55,7 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Find the upsilons
       Particles upsilons;

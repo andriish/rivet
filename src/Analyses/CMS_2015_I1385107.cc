@@ -91,7 +91,7 @@ namespace Rivet {
       const double ptSum_TransDIF = ptSum_TransMAX - ptSum_TransMIN;
 
       // Fill profiles
-      const double weight = event.weight();
+      const double weight = 1.0;
       _h_Nch_TransMIN_vs_pT->fill(pT_lead/GeV, 1/AREA6 * nch_TransMIN, weight);
       _h_Sum_TransMIN_vs_pT->fill(pT_lead/GeV, 1/AREA6 * ptSum_TransMIN, weight);
       //

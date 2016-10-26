@@ -51,7 +51,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get the smeared jets
       Jets SJets = apply<JetAlg>(event, "SmearedJets_E").jets(Cuts::Et > 20.0*GeV, cmpMomByEt);

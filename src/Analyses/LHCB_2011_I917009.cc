@@ -57,7 +57,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftsum = 0.0;
       double y, pT;

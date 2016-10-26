@@ -42,7 +42,7 @@ namespace Rivet {
       const bool trigger = apply<TriggerCDFRun2>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
       //_sumWPassed += event.weight();
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get events charged multiplicity and fill histogram
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");

@@ -47,7 +47,7 @@ namespace Rivet {
       xiP = xiP / (sqrtS()/GeV);
       xiM = xiM / (sqrtS()/GeV);
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       _h_xi->fill( xiM, weight ); // Fill the histogram both with xiP and xiM, and get the average in the endjob.
       _h_xi->fill( xiP, weight );
     }

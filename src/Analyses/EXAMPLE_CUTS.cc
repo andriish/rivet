@@ -32,7 +32,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event& event) {
       // Make sure to always include the event weight in histogram fills!
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const Particles ps = apply<FinalState>(event, "FS").particlesByPt();
 

@@ -68,7 +68,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Temp: calorimeter module failure with 10% acceptance loss;
       // region unknown ==> randomly choose 10% of events to be vetoed

@@ -37,7 +37,7 @@ namespace Rivet {
   
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       
       Jets m_goodJets = applyProjection<JetAlg>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.1);
 

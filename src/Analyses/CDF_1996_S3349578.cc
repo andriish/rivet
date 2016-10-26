@@ -98,7 +98,7 @@ namespace Rivet {
         if (jets.size() >= 5) break;
       }
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (jets.size() > 4) {
         _fiveJetAnalysis(jets, weight);
         jets.resize(4);

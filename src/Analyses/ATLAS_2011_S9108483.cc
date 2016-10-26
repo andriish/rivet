@@ -82,7 +82,7 @@ namespace Rivet {
       // convert to ns
       const double tr = radius/c_light;
       // event weight
-      const double weight = event.weight();
+      const double weight = 1.0;
       // get the charged final-state particles
       Particles charged =
         apply<VetoedFinalState>(event,"VFS").particles();

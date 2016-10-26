@@ -70,7 +70,7 @@ namespace Rivet {
 
       
       //---------------------------
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // -- check we have a Z: 
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");

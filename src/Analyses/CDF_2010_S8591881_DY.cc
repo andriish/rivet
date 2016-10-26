@@ -79,7 +79,7 @@ namespace Rivet {
       }
 
       // Get the event weight
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Get the leptons
       const Particles& leptons = apply<ChargedLeptons>(e, "CL").chargedLeptons();

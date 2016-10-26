@@ -61,7 +61,7 @@ namespace Rivet {
       MSG_TRACE("Multiplicity index: " << numP << " charged particles -> #" << num_idx);
 
       // Update weights
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumWTrig += weight;
       if (isNSD) {
         _sumWTrigNSD += weight;

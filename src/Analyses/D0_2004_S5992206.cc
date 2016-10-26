@@ -90,7 +90,7 @@ namespace Rivet {
       }
 
       if (pT1/GeV >= 75.0) {
-        const double weight = event.weight();
+        const double weight = 1.0;
         const double dphi = deltaPhi(jets[0].phi(), jets[1].phi());
         if (inRange(pT1/GeV, 75.0, 100.0)) {
           _histJetAzimuth_pTmax75_100->fill(dphi, weight);

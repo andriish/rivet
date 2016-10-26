@@ -107,7 +107,7 @@ namespace Rivet {
       double costheta3ppp = pAV.p3().unit().dot(p3ppp.p3().unit());
       if (fabs(costheta3ppp) > 0.9) vetoEvent;
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // 3-jet-system variables
       _h_m6J->fill(m6J, weight);

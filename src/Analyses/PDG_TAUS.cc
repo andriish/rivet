@@ -46,7 +46,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const TauFinder& taulep = apply<TauFinder>(e, "TauLeptonic");
       const TauFinder& tauhad = apply<TauFinder>(e, "TauHadronic");

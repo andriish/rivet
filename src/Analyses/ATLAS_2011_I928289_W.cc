@@ -63,7 +63,7 @@ namespace Rivet {
       const WFinder& wfinder_mu_bare     = apply<WFinder>(event, "WFinder_mu_bare");
       const WFinder& wfinder_mu_dressed  = apply<WFinder>(event, "WFinder_mu_dressed");
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       fillPlots1D(wfinder_el_bare   , _h_Wplus_lepton_eta_el_bare   , _h_Wminus_lepton_eta_el_bare   , weight);
       fillPlots1D(wfinder_el_dressed, _h_Wplus_lepton_eta_el_dressed, _h_Wminus_lepton_eta_el_dressed, weight);
       fillPlots1D(wfinder_mu_bare   , _h_Wplus_lepton_eta_mu_bare   , _h_Wminus_lepton_eta_mu_bare   , weight);

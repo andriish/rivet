@@ -71,7 +71,7 @@ namespace Rivet {
       }
 
       // Loop over jet pT bins and fill shape profiles
-      const double weight = event.weight();
+      const double weight = 1.0;
       for (size_t ipt = 0; ipt < 4; ++ipt) {
         if (bjets_ptbinned[ipt].empty()) continue;
         // Don't use the cached result: copy construct and calculate for provided b-jets only

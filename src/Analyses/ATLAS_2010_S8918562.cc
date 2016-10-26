@@ -118,7 +118,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // 100 GeV final states
       if (!fuzzyEquals(sqrtS()/GeV, 2360)) {

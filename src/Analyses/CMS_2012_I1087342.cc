@@ -25,7 +25,7 @@ namespace Rivet {
     }
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const FastJets& fj = apply<FastJets>(event,"Jets");
       const Jets jets = fj.jets(Cuts::ptIn(35*GeV, 150*GeV) && Cuts::abseta < 4.7);

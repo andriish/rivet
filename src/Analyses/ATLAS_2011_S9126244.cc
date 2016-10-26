@@ -162,7 +162,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get minimal list of jets needed to be considered
       double minimumJetPtBar = 50.0*GeV; // of interval defining jets

@@ -31,7 +31,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       const double dphi = TWOPI;
 
       foreach (const Particle& p, ufs.particles()) {

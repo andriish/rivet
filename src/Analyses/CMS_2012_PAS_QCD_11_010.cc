@@ -28,7 +28,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(1.0*GeV);
       if (jets.size() < 1) vetoEvent;

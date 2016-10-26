@@ -74,7 +74,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       Jets cand_jets;
       const Jets jets = apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV);

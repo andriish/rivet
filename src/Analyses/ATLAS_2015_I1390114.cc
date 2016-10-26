@@ -72,7 +72,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get the selected objects, using the projections.
       vector<DressedLepton> electrons = apply<DressedLeptons>(event, "dressedelectrons").dressedLeptons();

@@ -71,7 +71,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Charged + neutral final state
       const FinalState& cnfs = apply<FinalState>(event, "FS");

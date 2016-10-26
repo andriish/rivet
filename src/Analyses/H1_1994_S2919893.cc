@@ -95,7 +95,7 @@ namespace Rivet {
       if (!cut) vetoEvent;
 
       // Weight of the event
-      const double weight = event.weight();
+      const double weight = 1.0;
       (x < 1e-3 ? _wEnergy.first : _wEnergy.second) += weight;
 
       // Boost to hadronic CM

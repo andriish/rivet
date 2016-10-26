@@ -29,7 +29,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       const UnstableFinalState& cfs = apply<UnstableFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
 	// protections against mc generators decaying long-lived particles

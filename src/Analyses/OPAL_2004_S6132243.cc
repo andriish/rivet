@@ -106,7 +106,7 @@ namespace Rivet {
       if (cfs.size() < 2) vetoEvent;
 
       // Increment passed-cuts weight sum
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumWTrack2 += weight;
 
       // Thrusts

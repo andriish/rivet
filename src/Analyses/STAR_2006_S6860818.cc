@@ -58,7 +58,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {

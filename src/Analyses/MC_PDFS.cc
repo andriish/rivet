@@ -37,7 +37,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // This analysis needs a valid HepMC PDF info object to do anything
       if (event.genEvent()->pdf_info() == 0) vetoEvent;

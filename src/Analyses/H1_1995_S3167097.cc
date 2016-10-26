@@ -71,7 +71,7 @@ namespace Rivet {
       const int ibin = _getbin(dk);
       if (ibin < 0) vetoEvent;
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumw[ibin] += weight;
 
       for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {

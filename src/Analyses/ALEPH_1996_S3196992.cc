@@ -62,7 +62,7 @@ namespace Rivet {
       const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
 
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       for (const Particle& photon : photons) {
 
         PseudoJets jets_001 = durjet.clusterSeq()->exclusive_jets_ycut(0.01);

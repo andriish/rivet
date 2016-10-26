@@ -70,7 +70,7 @@ namespace Rivet {
 
   // Do the analysis
   void MC_JetAnalysis::analyze(const Event & e) {
-    const double weight = e.weight();
+    const double weight = 1.0;
 
     const Jets& jets = apply<FastJets>(e, _jetpro_name).jetsByPt(_jetptcut);
 

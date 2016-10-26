@@ -108,7 +108,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       ///DEBUG
       count +=1; //cerr<< "Event " << count << '\n';

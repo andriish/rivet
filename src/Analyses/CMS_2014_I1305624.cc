@@ -160,7 +160,7 @@ namespace Rivet {
       const vector<double> eventvar = eventshape.getEventShapes();
       if (eventvar[NEVTVAR] < 0) vetoEvent; // Jets are not only one hemisphere
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       for (int ij = NJETPTMN-1; ij >= 0; --ij) {
         if (leadingpt/GeV > LEADINGPTTHRESHOLD[ij]) {
           if (inRange(eventvar[0], _alow1[ij], _ahgh1[ij])) _h_thrustc[ij]->fill(eventvar[0], weight);

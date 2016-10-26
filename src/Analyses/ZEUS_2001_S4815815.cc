@@ -113,7 +113,7 @@ namespace Rivet {
       const size_t i_xyobs = (xyobs < 0.75) ? 0 : 1;
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       // T1
       if ((j1.mom()+j2.mom()).mass() > 42*GeV && inRange(etabar, 0.1, 0.3))
         _h_costh[i_xyobs]->fill(abs(costhetastar), weight);

@@ -30,7 +30,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const WFinder& wf = apply<WFinder>(event, "WFinder");
       if (wf.bosons().size() == 0) vetoEvent;

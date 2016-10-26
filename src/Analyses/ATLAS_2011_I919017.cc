@@ -300,7 +300,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const Jets& jets04 = apply<JetAlg>(event, "Jets04").jets();
       if (!jets04.empty()) {

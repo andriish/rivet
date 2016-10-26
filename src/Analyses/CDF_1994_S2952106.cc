@@ -78,7 +78,7 @@ namespace Rivet {
       if ((PI - deltaPhi(pj1.phi(), pj2.phi())) > (20/180.0)*PI) vetoEvent;
       MSG_DEBUG("Jet 1 & 2 phi requirement fulfilled");
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumw += weight;
 
       // Fill histos

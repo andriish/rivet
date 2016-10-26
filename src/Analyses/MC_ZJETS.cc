@@ -47,7 +47,7 @@ namespace Rivet {
 
       const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
-        const double weight = e.weight();
+        const double weight = 1.0;
         _h_Z_jet1_deta->fill(zmom.eta()-jets[0].eta(), weight);
         _h_Z_jet1_dR->fill(deltaR(zmom, jets[0].momentum()), weight);
       }

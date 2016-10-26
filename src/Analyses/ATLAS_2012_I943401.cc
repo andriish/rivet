@@ -111,7 +111,7 @@ namespace Rivet {
     /// Perform the event analysis
     void analyze(const Event& event) {
       // event weight
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // get the jet candidates
       Jets cand_jets;

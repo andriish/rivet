@@ -100,7 +100,7 @@ namespace Rivet {
       const double jetpT  = jets[0].pT();
 
       // Get the event weight
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       size_t numTrans1(0), numTrans2(0), numAway(0);
 

@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       const WFinder& wfinder = apply<WFinder>(e, "WFinder");
       if (wfinder.bosons().size() != 1) {

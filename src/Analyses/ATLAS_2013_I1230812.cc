@@ -106,7 +106,7 @@ namespace Rivet {
         }
       }
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Fill jet multiplicities
       for (size_t ijet = 0; ijet <= jets.size(); ++ijet) {

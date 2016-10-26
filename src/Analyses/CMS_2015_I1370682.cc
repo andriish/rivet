@@ -142,7 +142,7 @@ namespace Rivet {
       const FourMomentum ttP4 = t1P4 + t2P4;
       const FourMomentum t1P4AtCM = LorentzTransform::mkFrameTransformFromBeta(ttP4.betaVec()).transform(t1P4);
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       if ( ttbar.mode() == PseudoTop::CH_SEMILEPTON ) {
         const Particle lCand1 = ttbar.wDecays1()[0]; // w1 dau0 is the lepton in the PseudoTop

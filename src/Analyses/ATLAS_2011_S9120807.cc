@@ -117,7 +117,7 @@ namespace Rivet {
       const double pTyy = yy.pT()/GeV;
       const double dPhiyy = deltaPhi(y1.phi(), y2.phi());
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       _h_M->fill(Myy, weight);
       _h_pT->fill(pTyy, weight);
       _h_dPhi->fill(dPhiyy, weight);

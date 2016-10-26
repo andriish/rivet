@@ -173,7 +173,7 @@ namespace Rivet {
                 << "; l1 = " << lep1.pT() << ", " << lep1.abseta()
                 << "; l2 = " << lep2.pT() << ", " << lep2.abseta());
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
 
       if (isVisiblePS) {

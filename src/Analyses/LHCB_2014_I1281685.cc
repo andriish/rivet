@@ -120,7 +120,7 @@ namespace Rivet {
       // Fill histograms only, if at least 1 particle pre event was within the
       // kinematic range of the analysis!
       if (LHCbcountAll) {
-        const double weight = event.weight();
+        const double weight = 1.0;
         _sumW += weight;
 
         _h_mult_total->fill(LHCbcountAll, weight);

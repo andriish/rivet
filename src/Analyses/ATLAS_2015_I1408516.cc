@@ -108,7 +108,7 @@ namespace Rivet {
       const double phistar = tan(0.5 * phi_acop) * sqrt(sin2thetastar);
 
       // Event weight for histogramming
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Inclusive mll
       if (zmass > 46*GeV || zpt > 45*GeV) {

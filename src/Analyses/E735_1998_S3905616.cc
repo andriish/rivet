@@ -34,7 +34,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const bool trigger = apply<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumWTrig += weight;
 
       const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");

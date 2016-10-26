@@ -62,7 +62,7 @@ namespace Rivet {
 
 
       // Finding done, now fill counters
-      const double weight = e.weight();
+      const double weight = 1.0;
       if (upsilons.empty()) { // Continuum
         MSG_DEBUG("No Upsilons found => continuum event");
 

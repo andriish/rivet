@@ -39,7 +39,7 @@ namespace Rivet {
       // Trigger
       const TriggerUA5& trigger = apply<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumWTrig += weight;
 
       // Get tracks

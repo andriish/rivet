@@ -138,7 +138,7 @@ namespace Rivet {
       const double pt1cutA[4]   = {100,  400,  700, 1000};
       const double pt1cutB[4]   = {100,  250,  400,  550};
       const double rapGapCut[4] = {1, 2, 3, 4};
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       _h["pt1"]->fill(jet1.pt(), weight);
       _h["pt2"]->fill(jet2.pt(), weight);

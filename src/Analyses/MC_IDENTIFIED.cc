@@ -46,7 +46,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Unphysical (debug) plotting of all PIDs in the event, physical or otherwise
       foreach (const GenParticle* gp, particles(event.genEvent())) {

@@ -54,7 +54,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const IdentifiedFinalState& pionfs = apply<IdentifiedFinalState>(event, "PionFS");
       foreach (const Particle& p, pionfs.particles()) {

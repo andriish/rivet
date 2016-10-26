@@ -207,7 +207,7 @@ namespace Rivet {
       if (!pass_eljets && !pass_mujets) vetoEvent;
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       //pseudotop hadrons and leptons fill histogram
       _h["ptpseudotoplepton"]->fill(    ppseudotoplepton.pt(),     weight); //pT of pseudo top lepton

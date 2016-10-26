@@ -65,7 +65,7 @@ namespace Rivet {
 
   // Do the analysis
   void MC_ParticleAnalysis::_analyze(const Event& event, const Particles& particles) {
-    const double weight = event.weight();
+    const double weight = 1.0;
     Particles promptparticles;
     foreach (const Particle& p, particles)
       if (!p.fromDecay()) promptparticles += p;

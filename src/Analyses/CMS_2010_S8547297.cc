@@ -36,7 +36,7 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       //charged particles
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");

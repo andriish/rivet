@@ -43,7 +43,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       const ZFinder& zfinder_ee = apply<ZFinder>(event, "zfinder_ee");
       if (zfinder_ee.bosons().size() == 1) {

@@ -153,7 +153,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = e.weight();
+      const double weight = 1.0;
       _passedCutWeightSum += weight;
       _weightedTotalPartNum += numParticles * weight;
 

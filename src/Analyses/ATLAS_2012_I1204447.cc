@@ -348,7 +348,7 @@ namespace Rivet {
       if (recon_mu.size() + recon_e.size() + recon_tau.size() < 3 || recon_leptons.size() < 2) vetoEvent;
 
       // Now it's worth getting the event weight
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Sort leptons by decreasing pT
       sortByPt(recon_leptons);

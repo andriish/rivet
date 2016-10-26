@@ -36,7 +36,7 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       foreach (const Particle& tp, fs.particles()) {
         const double triggerpT = tp.pT();

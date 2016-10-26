@@ -98,7 +98,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       vector<Jets*> all_jets;
       Jets jets_02 = apply<FastJets>(event, "JETS_02").jetsByPt(Cuts::pT > 4*GeV && Cuts::abseta < 1.5);

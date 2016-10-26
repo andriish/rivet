@@ -105,7 +105,7 @@ namespace Rivet {
       // jet_pro.calc(jet_ptcls);
       // Jets jets = jet_pro.jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       _h_pTH_incl->fill(higgs.pT(), weight);
       _h_yH_incl->fill(higgs.absrap(), weight);
       _h_Njets_incl->fill(jets.size() > 3 ? 3 : jets.size(), weight);
