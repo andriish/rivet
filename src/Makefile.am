@@ -2,9 +2,9 @@ SUBDIRS = Core Tools Projections
 SUBDIRS += Analyses
 ANA_LIBADD = 
 
-if ENABLE_ANALYSES
-ANA_LIBADD += Analyses/libRivetAnalysisTools.la
-endif
+##BinnedHisto if ENABLE_ANALYSES
+##BinnedHisto ANA_LIBADD += Analyses/libRivetAnalysisTools.la
+##BinnedHisto endif
 
 lib_LTLIBRARIES = libRivet.la
 libRivet_la_SOURCES =
