@@ -17,7 +17,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = event.weight();
+      double weight = 1.0;
 
       Particles bhadrons;
       foreach (const GenParticle* p, particles(event.genEvent())) {

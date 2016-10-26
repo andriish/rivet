@@ -188,7 +188,7 @@ namespace Rivet {
 
     /// Get all analyses' plots as a vector of analysis objects.
     std::vector<YODA::AnalysisObjectPtr> getData() const;
-    std::vector<shared_ptr<MultiweightAOPtr> > getRivetAOs() const;
+    std::vector<reference_wrapper<MultiweightAOPtr> > getRivetAOs() const;
     std::vector<YODA::AnalysisObjectPtr> getYodaAOs() const;
 
     /// Get all analyses' plots as a vector of analysis objects.
@@ -220,7 +220,7 @@ namespace Rivet {
     /// Run name
     std::string _runname;
 
-    CounterPtr _eventCounter;
+    mutable CounterPtr _eventCounter;
 
     /// Cross-section known to AH
     double _xs, _xserr;

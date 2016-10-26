@@ -53,7 +53,7 @@ namespace Rivet {
       if (!trigger) vetoEvent;
 
       // Get the event weight
-      const double weight = evt.weight();
+      const double weight = 1.0;
 
       /// @todo The pT and sum(ET) distributions look slightly different from
       ///       Niccolo's Monte Carlo plots. Still waiting for his answer.

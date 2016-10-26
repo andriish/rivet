@@ -42,7 +42,7 @@ namespace Rivet {
 
 
     void analyze(const Event& evt) {
-      const double weight = evt.weight();
+      const double weight = 1.0;
 
       const Particles& bHadrons = apply<HeavyHadrons>(evt, "BHadrons").bHadrons();
       const Jets& jets = apply<JetAlg>(evt, "Jets").jetsByPt(15*GeV);

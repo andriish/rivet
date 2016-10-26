@@ -62,83 +62,83 @@ namespace Rivet {
       declare(thrust, "Thrust");
       declare(Hemispheres(thrust), "Hemispheres");
 
-      _histPtTIn = bookHisto1D(1, 1, 1);
-      _histPtTOut = bookHisto1D(2, 1, 1);
-      _histPtSIn = bookHisto1D(3, 1, 1);
-      _histPtSOut = bookHisto1D(4, 1, 1);
+      book(_histPtTIn, 1, 1, 1, "", "", "");
+      book(_histPtTOut,2, 1, 1, "", "", "");
+      book(_histPtSIn, 3, 1, 1, "", "", "");
+      book(_histPtSOut,4, 1, 1, "", "", "");
 
-      _histRapidityT = bookHisto1D(5, 1, 1);
-      _histRapidityS = bookHisto1D(6, 1, 1);
-      _histScaledMom = bookHisto1D(7, 1, 1);
-      _histLogScaledMom = bookHisto1D(8, 1, 1);
+      book(_histRapidityT, 5, 1, 1, "", "", "");
+      book(_histRapidityS, 6, 1, 1, "", "", "");
+      book(_histScaledMom, 7, 1, 1, "", "", "");
+      book(_histLogScaledMom, 8, 1, 1, "", "", "");
 
-      _histPtTOutVsXp = bookProfile1D(9,  1, 1);
-      _histPtVsXp = bookProfile1D(10, 1, 1);
+      //_histPtTOutVsXp = bookProfile1D(9,  1, 1);
+      //_histPtVsXp = bookProfile1D(10, 1, 1);
 
-      _hist1MinusT = bookHisto1D(11, 1, 1);
-      _histTMajor = bookHisto1D(12, 1, 1);
-      _histTMinor = bookHisto1D(13, 1, 1);
-      _histOblateness = bookHisto1D(14, 1, 1);
+      book(_hist1MinusT, 11, 1, 1, "", "", "");
+      book(_histTMajor, 12, 1, 1, "", "", "");
+      book(_histTMinor, 13, 1, 1, "", "", "");
+      book(_histOblateness, 14, 1, 1, "", "", "");
 
-      _histSphericity = bookHisto1D(15, 1, 1);
-      _histAplanarity = bookHisto1D(16, 1, 1);
-      _histPlanarity = bookHisto1D(17, 1, 1);
+      book(_histSphericity, 15, 1, 1, "", "", "");
+      book(_histAplanarity, 16, 1, 1, "", "", "");
+      book(_histPlanarity, 17, 1, 1, "", "", "");
 
-      _histCParam = bookHisto1D(18, 1, 1);
-      _histDParam = bookHisto1D(19, 1, 1);
+      book(_histCParam, 18, 1, 1, "", "", "");
+      book(_histDParam, 19, 1, 1, "", "", "");
 
-      _histHemiMassH = bookHisto1D(20, 1, 1);
-      _histHemiMassL = bookHisto1D(21, 1, 1);
-      _histHemiMassD = bookHisto1D(22, 1, 1);
+      book(_histHemiMassH, 20, 1, 1, "", "", "");
+      book(_histHemiMassL, 21, 1, 1, "", "", "");
+      book(_histHemiMassD, 22, 1, 1, "", "", "");
 
-      _histHemiBroadW = bookHisto1D(23, 1, 1);
-      _histHemiBroadN = bookHisto1D(24, 1, 1);
-      _histHemiBroadT = bookHisto1D(25, 1, 1);
-      _histHemiBroadD = bookHisto1D(26, 1, 1);
+      book(_histHemiBroadW, 23, 1, 1, "", "", "");
+      book(_histHemiBroadN, 24, 1, 1, "", "", "");
+      book(_histHemiBroadT, 25, 1, 1, "", "", "");
+      book(_histHemiBroadD, 26, 1, 1, "", "", "");
 
       // Binned in y_cut
-      _histDiffRate2Durham = bookHisto1D(27, 1, 1);
-      _histDiffRate2Jade = bookHisto1D(28, 1, 1);
-      _histDiffRate3Durham = bookHisto1D(29, 1, 1);
-      _histDiffRate3Jade = bookHisto1D(30, 1, 1);
-      _histDiffRate4Durham = bookHisto1D(31, 1, 1);
-      _histDiffRate4Jade = bookHisto1D(32, 1, 1);
+      book(_histDiffRate2Durham, 27, 1, 1, "", "", "");
+      book(_histDiffRate2Jade, 28, 1, 1, "", "", "");
+      book(_histDiffRate3Durham, 29, 1, 1, "", "", "");
+      book(_histDiffRate3Jade, 30, 1, 1, "", "", "");
+      book(_histDiffRate4Durham, 31, 1, 1, "", "", "");
+      book(_histDiffRate4Jade, 32, 1, 1, "", "", "");
 
       // Binned in cos(chi)
-      _histEEC = bookHisto1D(33, 1, 1);
-      _histAEEC = bookHisto1D(34, 1, 1);
+      book(_histEEC, 33, 1, 1, "", "", "");
+      book(_histAEEC, 34, 1, 1, "", "", "");
 
-      _histMultiCharged = bookHisto1D(35, 1, 1);
+      book(_histMultiCharged, 35, 1, 1, "", "", "");
 
-      _histMultiPiPlus = bookHisto1D(36, 1, 1);
-      _histMultiPi0 = bookHisto1D(36, 1, 2);
-      _histMultiKPlus = bookHisto1D(36, 1, 3);
-      _histMultiK0 = bookHisto1D(36, 1, 4);
-      _histMultiEta = bookHisto1D(36, 1, 5);
-      _histMultiEtaPrime = bookHisto1D(36, 1, 6);
-      _histMultiDPlus = bookHisto1D(36, 1, 7);
-      _histMultiD0 = bookHisto1D(36, 1, 8);
-      _histMultiBPlus0 = bookHisto1D(36, 1, 9);
+      book(_histMultiPiPlus, 36, 1, 1, "", "", "");
+      book(_histMultiPi0, 36, 1, 2, "", "", "");
+      book(_histMultiKPlus, 36, 1, 3, "", "", "");
+      book(_histMultiK0, 36, 1, 4, "", "", "");
+      book(_histMultiEta, 36, 1, 5, "", "", "");
+      book(_histMultiEtaPrime, 36, 1, 6, "", "", "");
+      book(_histMultiDPlus, 36, 1, 7, "", "", "");
+      book(_histMultiD0, 36, 1, 8, "", "", "");
+      book(_histMultiBPlus0, 36, 1, 9, "", "", "");
 
-      _histMultiF0 = bookHisto1D(37, 1, 1);
+      book(_histMultiF0, 37, 1, 1, "", "", "");
 
-      _histMultiRho = bookHisto1D(38, 1, 1);
-      _histMultiKStar892Plus = bookHisto1D(38, 1, 2);
-      _histMultiKStar892_0 = bookHisto1D(38, 1, 3);
-      _histMultiPhi = bookHisto1D(38, 1, 4);
-      _histMultiDStar2010Plus = bookHisto1D(38, 1, 5);
+      book(_histMultiRho, 38, 1, 1, "", "", "");
+      book(_histMultiKStar892Plus, 38, 1, 2, "", "", "");
+      book(_histMultiKStar892_0, 38, 1, 3, "", "", "");
+      book(_histMultiPhi, 38, 1, 4, "", "", "");
+      book(_histMultiDStar2010Plus, 38, 1, 5, "", "", "");
 
-      _histMultiF2 = bookHisto1D(39, 1, 1);
-      _histMultiK2Star1430_0 = bookHisto1D(39, 1, 2);
+      book(_histMultiF2, 39, 1, 1, "", "", "");
+      book(_histMultiK2Star1430_0, 39, 1, 2, "", "", "");
 
-      _histMultiP = bookHisto1D(40, 1, 1);
-      _histMultiLambda0 = bookHisto1D(40, 1, 2);
-      _histMultiXiMinus = bookHisto1D(40, 1, 3);
-      _histMultiOmegaMinus = bookHisto1D(40, 1, 4);
-      _histMultiDeltaPlusPlus = bookHisto1D(40, 1, 5);
-      _histMultiSigma1385Plus = bookHisto1D(40, 1, 6);
-      _histMultiXi1530_0 = bookHisto1D(40, 1, 7);
-      _histMultiLambdaB0 = bookHisto1D(40, 1, 8);
+      book(_histMultiP, 40, 1, 1, "", "", "");
+      book(_histMultiLambda0, 40, 1, 2, "", "", "");
+      book(_histMultiXiMinus, 40, 1, 3, "", "", "");
+      book(_histMultiOmegaMinus, 40, 1, 4, "", "", "");
+      book(_histMultiDeltaPlusPlus, 40, 1, 5, "", "", "");
+      book(_histMultiSigma1385Plus, 40, 1, 6, "", "", "");
+      book(_histMultiXi1530_0, 40, 1, 7, "", "", "");
+      book(_histMultiLambdaB0, 40, 1, 8, "", "", "");
     }
 
 
@@ -243,8 +243,8 @@ namespace Rivet {
         _histPtTOut->fill(fabs(pToutT/GeV), weight);
         _histPtSIn->fill(fabs(pTinS/GeV), weight);
         _histPtSOut->fill(fabs(pToutS/GeV), weight);
-        _histPtVsXp->fill(scaledMom, fabs(pT/GeV), weight);
-        _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV), weight);
+//        _histPtVsXp->fill(scaledMom, fabs(pT/GeV), weight);
+//        _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV), weight);
 
         // Calculate rapidities w.r.t. thrust and sphericity.
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));

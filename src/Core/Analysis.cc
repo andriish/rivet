@@ -196,7 +196,7 @@ namespace Rivet {
     const string path = histoPath(cname);
     shared_ptr<CounterPtr> ctr =
         make_shared<CounterPtr>(handler().numWeights(), Counter(path, title));
-    addAnalysisObject(ctr);
+    addAnalysisObject(*ctr);
     MSG_TRACE("Made counter " << cname << " for " << name());
     return *ctr;
   }
@@ -226,11 +226,10 @@ namespace Rivet {
     shared_ptr<Histo1DPtr> hp =
         make_shared<Histo1DPtr>(handler().numWeights(), hist);
 
-    addAnalysisObject(hp);
+    addAnalysisObject(*hp);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     return *hp;
   }
-
 
   Histo1DPtr& Analysis::bookHisto1D(const string& hname,
                                    const vector<double>& binedges,
@@ -247,7 +246,7 @@ namespace Rivet {
 
     shared_ptr<Histo1DPtr> hp =
         make_shared<Histo1DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(hp);
+    addAnalysisObject(*hp);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     return *hp;
@@ -268,10 +267,31 @@ namespace Rivet {
 
     shared_ptr<Histo1DPtr> hp = 
         make_shared<Histo1DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(hp);
+    addAnalysisObject(*hp);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
     return *hp;
+  }
+
+  void Analysis::book(Histo1DPtr & bookedhisto, 
+            unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+            const string& title,
+            const string& xtitle,
+            const string& ytitle) {
+    const string path = makeAxisCode(datasetId, xAxisId, yAxisId);
+    const Scatter2D& refscatter = refData(path);
+
+    Histo1D hist = Histo1D(refscatter, path);
+
+    hist.setTitle(title);
+    hist.setAnnotation("XLabel", xtitle);
+    hist.setAnnotation("YLabel", ytitle);
+
+    bookedhisto = Histo1DPtr(handler().numWeights(), hist);
+
+    addAnalysisObject(bookedhisto);
+
+    MSG_TRACE("Made histogram " << path <<  " for " << name());
   }
 
 
@@ -316,7 +336,7 @@ namespace Rivet {
 
     shared_ptr<Histo2DPtr> hp =
         make_shared<Histo2DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(hp);
+    addAnalysisObject(*hp);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     return *hp;
@@ -340,7 +360,7 @@ namespace Rivet {
 
     shared_ptr<Histo2DPtr> hp =
         make_shared<Histo2DPtr>(handler().numWeights(), hist);
-    addAnalysisObject(hp);
+    addAnalysisObject(*hp);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
     return *hp;
@@ -360,7 +380,7 @@ namespace Rivet {
 
     shared_ptr<Profile1DPtr> pp =
         make_shared<Profile1DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(pp);
+    addAnalysisObject(*pp);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     return *pp;
@@ -379,7 +399,7 @@ namespace Rivet {
 
     shared_ptr<Profile1DPtr> pp =
         make_shared<Profile1DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(pp);
+    addAnalysisObject(*pp);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     return *pp;
@@ -399,7 +419,7 @@ namespace Rivet {
 
     shared_ptr<Profile1DPtr> pp =
         make_shared<Profile1DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(pp);
+    addAnalysisObject(*pp);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
     return *pp;
@@ -440,7 +460,7 @@ namespace Rivet {
 
     shared_ptr<Profile2DPtr> pp =
         make_shared<Profile2DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(pp);
+    addAnalysisObject(*pp);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     return *pp;
@@ -463,7 +483,7 @@ namespace Rivet {
 
     shared_ptr<Profile2DPtr> pp =
         make_shared<Profile2DPtr>(handler().numWeights(), prof);
-    addAnalysisObject(pp);
+    addAnalysisObject(*pp);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
     return *pp;
@@ -769,19 +789,20 @@ namespace Rivet {
     _scatters.push_back(ao);
   }
 
-  void Analysis::addAnalysisObject(const shared_ptr<MultiweightAOPtr>& ao) {
+  void Analysis::addAnalysisObject(MultiweightAOPtr & ao) {
     _analysisobjects.push_back(ao);
   }
 
   void Analysis::removeAnalysisObject(const string& path) {
-    for (vector<shared_ptr<MultiweightAOPtr> >::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
-      if ((**it)->path() == path) {
+    for (auto it = _analysisobjects.begin();  
+         it != _analysisobjects.end(); ++it) {
+      if ((*it).get()->path() == path) {
         _analysisobjects.erase(it);
         break;
       }
     }
 
-    for (vector<shared_ptr<AnalysisObjectPtr> >::iterator it = _scatters.begin();  it != _scatters.end(); ++it) {
+    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
       if ((**it)->path() == path) {
         _scatters.erase(it);
         break;
@@ -791,7 +812,7 @@ namespace Rivet {
 
   /// @todo can we really remove (multiweighted) analysis objects by == operator??
   void Analysis::removeAnalysisObject(const Scatter1DPtr& ao) {
-    for (vector<shared_ptr<AnalysisObjectPtr> >::iterator it = _scatters.begin();  it != _scatters.end(); ++it) {
+    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
       if (**it == ao) {
         _scatters.erase(it);
         break;
@@ -800,7 +821,7 @@ namespace Rivet {
   }
 
   void Analysis::removeAnalysisObject(const Scatter2DPtr& ao) {
-    for (vector<shared_ptr<AnalysisObjectPtr> >::iterator it = _scatters.begin();  it != _scatters.end(); ++it) {
+    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
       if (**it == ao) {
         _scatters.erase(it);
         break;
@@ -809,7 +830,7 @@ namespace Rivet {
   }
 
   void Analysis::removeAnalysisObject(const Scatter3DPtr& ao) {
-    for (vector<shared_ptr<AnalysisObjectPtr> >::iterator it = _scatters.begin();  it != _scatters.end(); ++it) {
+    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
       if (**it == ao) {
         _scatters.erase(it);
         break;
@@ -818,8 +839,8 @@ namespace Rivet {
   }
 
   void Analysis::removeAnalysisObject(const MultiweightAOPtr& ao) {
-    for (vector<shared_ptr<MultiweightAOPtr> >::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
-      if (**it == ao) {
+    for (auto it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
+      if ((*it).get() == ao) {
         _analysisobjects.erase(it);
         break;
       }

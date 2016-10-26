@@ -58,7 +58,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& evt) {
-      const double weight = evt.weight();
+      const double weight = 1.0;
 
       const ZFinder& zfinder_dressed_mu_rap = apply<ZFinder>(evt, "ZFinder_dressed_mu_rap");
       if (!zfinder_dressed_mu_rap.bosons().empty()) {

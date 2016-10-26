@@ -69,7 +69,7 @@ namespace Rivet {
         vetoEvent;
       }
       // Calculate and histogram jet shapes
-      const double weight = evt.weight();
+      const double weight = 1.0;
 
       for (size_t ipt = 0; ipt < 11; ++ipt) {
         for (size_t jy = 0; jy < 6; ++jy) {

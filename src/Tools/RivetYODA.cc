@@ -151,7 +151,7 @@ namespace {
               }
             }
             if ( gap ) continue;
-            hfill.push_back(make_tuple((ehi + elo)/2.0, sumw, ehi - elo));
+            hfill.push_back( { (ehi + elo)/2.0, sumw, (ehi - elo) } );
             sumf += ehi - elo;
           }
     

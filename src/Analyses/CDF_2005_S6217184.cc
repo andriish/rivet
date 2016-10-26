@@ -67,7 +67,7 @@ namespace Rivet {
       }
 
       // Calculate and histogram jet shapes
-      const double weight = evt.weight();
+      const double weight = 1.0;
       for (size_t ipt = 0; ipt < 18; ++ipt) {
         const JetShape& jsipt = apply<JetShape>(evt, _jsnames_pT[ipt]);
         for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {

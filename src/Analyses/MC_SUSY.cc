@@ -114,7 +114,7 @@ namespace Rivet {
       }
 
       // Get event weight
-      const double weight = evt.weight();
+      const double weight = 1.0;
 
       // Fill track histos
       _hist_n_trk->fill(tracks.size(), weight);

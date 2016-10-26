@@ -258,7 +258,7 @@ private:
 
         Wrapper() : _persistent(), _evgroup(), _active() {}
 
-        typename T::Ptr active() const { return _active; }
+        typename T::Ptr active() const { assert(_active); return _active; }
 
         /* @todo this probably need to loop over all? */
         bool operator!() const { return !active(); }
@@ -341,6 +341,7 @@ private:
             tmp->reset();
             _evgroup.push_back( tmp );
             _active = _evgroup.back();
+            assert(_active);
         }
 
         virtual YODA::AnalysisObjectPtr activeYODAPtr() const {

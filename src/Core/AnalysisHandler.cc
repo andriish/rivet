@@ -176,8 +176,8 @@ namespace Rivet {
         // if this is indeed a new event, push the temporary
         // histograms and reset
         for (const AnaHandle& a : _analyses) {
-            for (const shared_ptr<MultiweightAOPtr>& aoptr : a->analysisObjects()) {
-                aoptr->pushToPersistent(_subEventWeights);
+            for (const auto & ao : a->analysisObjects()) {
+                ao.get().pushToPersistent(_subEventWeights);
             }
         }
 
@@ -190,10 +190,9 @@ namespace Rivet {
         _subEventWeights.clear();
     }
 
-
     for (const AnaHandle& a : _analyses) {
-        for (const shared_ptr<MultiweightAOPtr>& aoptr : a->analysisObjects()) {
-            aoptr->newSubEvent();
+        for (const auto & ao : a->analysisObjects()) {
+            ao.get().newSubEvent();
         }
     }
 
@@ -301,16 +300,17 @@ namespace Rivet {
   }
 
 
-  vector<shared_ptr<MultiweightAOPtr> > AnalysisHandler::getRivetAOs() const {
-      vector<shared_ptr<MultiweightAOPtr> > rtn;
+  vector<reference_wrapper<MultiweightAOPtr> > AnalysisHandler::getRivetAOs() const {
+      vector<reference_wrapper<MultiweightAOPtr> > rtn;
 
       for (AnaHandle a : _analyses) {
-          for (const shared_ptr<MultiweightAOPtr>& aoptr : a->analysisObjects()) {
-              rtn.push_back(aoptr);
+          for (const auto & ao : a->analysisObjects()) {
+              rtn.push_back(ao);
           }
       }
 
-      rtn.push_back(make_shared<CounterPtr>(_eventCounter));
+      // Should event counter be included here?
+      rtn.push_back(_eventCounter);
 
       return rtn;
   }
@@ -318,22 +318,21 @@ namespace Rivet {
   vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs() const {
       vector<YODA::AnalysisObjectPtr> rtn;
 
-      vector<shared_ptr<MultiweightAOPtr> > raos =
-          getRivetAOs();
+      const auto & raos = getRivetAOs();
 
-      for (const shared_ptr<MultiweightAOPtr>& raoptr : raos) {
-          if ((*raoptr)->path().find("/TMP/") != string::npos)
+      for (const auto & raoptr : raos) {
+          if (raoptr.get()->path().find("/TMP/") != string::npos)
               continue;
 
           for (size_t iW = 0; iW < numWeights(); iW++) {
-              raoptr->setActiveWeightIdx(iW);
+              raoptr.get().setActiveWeightIdx(iW);
 
               // add the weight name in brackets unless we recognize a
               // nominal weight
               if (_weightNames[iW] != "Weight" && _weightNames[iW] != "0")
-                  (*raoptr)->setPath((*raoptr)->path() + "[" + _weightNames[iW] + "]");
+                  raoptr.get()->setPath(raoptr.get()->path() + "[" + _weightNames[iW] + "]");
 
-              rtn.push_back(raoptr->activeYODAPtr());
+              rtn.push_back(raoptr.get().activeYODAPtr());
           }
       }
 

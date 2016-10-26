@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& evt) {
-      const double weight = evt.weight();
+      const double weight = 1.0;
 
       const ZFinder& zfinder_dressed_el = apply<ZFinder>(evt, "ZFinder_dressed_el");
       if (!zfinder_dressed_el.bosons().empty()) {

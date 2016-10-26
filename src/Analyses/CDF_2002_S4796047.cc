@@ -59,7 +59,7 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerCDFRun0Run1>(evt, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-      const double weight = evt.weight();
+      const double weight = 1.0;
       _sumWTrig += weight;
 
       // Get beam energy and tracks
