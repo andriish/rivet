@@ -157,26 +157,22 @@ template <class T>
 // TODO TODO TODO
 
 template <class T>
-class TupleWrapper : public T {
+class TupleWrapper;
+
+template<>
+class TupleWrapper<YODA::Histo1D> : public YODA::Histo1D {
 public:
-    typedef shared_ptr<TupleWrapper> Ptr;
-
-    TupleWrapper(const T & h) : T(h) {}
-
+    typedef shared_ptr<TupleWrapper<YODA::Histo1D>> Ptr;
+    TupleWrapper(const YODA::Histo1D & h) : YODA::Histo1D(h) {}
     // todo: do we need to deal with users using fractions directly?
-    void fill(typename T::FillType x, double weight=1.0, double fraction=1.0) {
-        fills_.insert( {x, weight} );
+    void fill( double x, double weight=1.0, double fraction=1.0 ) {
+        fills_.insert( { x , weight } );
     }
-
-    void reset() {
-        fills_.clear();
-    }
-
-    const Fills<T> & fills() const { return fills_; }
-
+    void reset() { fills_.clear(); }
+    const Fills<YODA::Histo1D> & fills() const { return fills_; }
 private:
     // x / weight pairs 
-    Fills<T> fills_;
+    Fills<YODA::Histo1D> fills_;
 };
 
 template<>
