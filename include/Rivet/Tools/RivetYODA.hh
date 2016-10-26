@@ -141,9 +141,10 @@ namespace Rivet {
     };
 
 
+using Weight = double;
 
 template <class T>
-    using Fill = pair<typename T::FillType, double>;
+    using Fill = pair<typename T::FillType, Weight>;
 
 template <class T>
     using Fills = multiset<Fill<T>>;
@@ -250,7 +251,7 @@ private:
          */
 
         Wrapper(size_t len_of_weightvec, const T & p) {
-            for (size_t i = 0; i < len_of_weightvec; i++)
+            for (size_t m = 0; m < len_of_weightvec; ++m)
                 _persistent.push_back(make_shared<T>(p));
         }
 
@@ -395,14 +396,6 @@ private:
 
     /// Get the file system path to the reference file for this paper.
     string getDatafilePath(const string& papername);
-
-    /// Return the integral over the histogram bins
-    /// @deprecated Prefer to directly use the histo's integral() method.
-    DEPRECATED("Prefer to directly use the histo's integral() method.")
-        inline double integral(Histo1DPtr histo) {
-            return histo->integral();
-        }
-
 
 }
 

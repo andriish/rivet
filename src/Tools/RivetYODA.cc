@@ -49,15 +49,7 @@ namespace {
 
   using Rivet::Fill;
   using Rivet::Fills;
-
-  template <class T>
-  void fillAllPersistent(const vector<typename T::Ptr> & persistent, 
-                         typename T::FillType x, double w, 
-                         const vector<double> & weight) {
-    for ( size_t m = 0; m < persistent.size(); ++m ) {
-      persistent[m]->fill( x, w * weight[m] );
-    }
-  }
+  using Rivet::TupleWrapper;
 
     template <class T>
     double get_window_size(const typename T::Ptr & histo,
@@ -111,14 +103,18 @@ namespace {
 
 
   template <class T>
-  void commit(typename T::Ptr & persistent,
-              const vector< vector<Fill<T> > > & tuple,
-              const vector<double> weights /* generator weight over subevents */) {
+  void commit(vector<typename T::Ptr> & persistent,
+              const vector< vector<Fill<T>> > & tuple,
+              const vector<vector<double>> & weights ) {
+
+    assert(persistent.size() == weights[0].size());
+
     for ( const auto & x : tuple ) {
       double maxwindow = 0.0;
       for ( const auto & xi : x ) {
-        // check for NOFILL here
-        double window = get_window_size<T>(persistent, fillT2binT<T>(xi.first));
+        // TODO check for NOFILL here
+        // persistent[0] has the same binning as all the other persistent objects
+        double window = get_window_size<T>(persistent[0], fillT2binT<T>(xi.first));
         if ( window > maxwindow )
           maxwindow = window;
       }
@@ -132,31 +128,34 @@ namespace {
         edgeset.insert(fillT2binT<T>(xi.first) + wsize);
       }
 
-      vector< std::tuple<double,double,double> > hfill;
-      double sumf = 0.0;
-      auto edgit = edgeset.begin();
-      double ehi = *edgit;
-      while ( ++edgit != edgeset.end() ) {
-        double elo = ehi;
-        ehi = *edgit;
-        double sumw = 0.0;
-        bool gap = true; // Check for gaps between the sub-windows.
-        for ( int i = 0; i < x.size(); ++i  ) {
-          // check equals comparisons here!
-          if ( fillT2binT<T>(x[i].first) + wsize >= ehi 
-               && 
-               fillT2binT<T>(x[i].first) - wsize <= elo ) {
-            sumw += x[i].second * weights[i];
-            gap = false;
+      for ( size_t m = 0; m < persistent.size(); ++m ) {
+          vector< std::tuple<double,double,double> > hfill;
+          double sumf = 0.0;
+          auto edgit = edgeset.begin();
+          double ehi = *edgit;
+          while ( ++edgit != edgeset.end() ) {
+            double elo = ehi;
+            ehi = *edgit;
+            double sumw = 0.0; // need m copies of this
+            bool gap = true; // Check for gaps between the sub-windows.
+            for ( int i = 0; i < x.size(); ++i  ) {
+              // check equals comparisons here!
+              if ( fillT2binT<T>(x[i].first) + wsize >= ehi 
+                   && 
+                   fillT2binT<T>(x[i].first) - wsize <= elo ) {
+                sumw += x[i].second * weights[i][m];
+                gap = false;
+              }
+            }
+            if ( gap ) continue;
+            hfill.push_back(make_tuple((ehi + elo)/2.0, sumw, ehi - elo));
+            sumf += ehi - elo;
           }
-        }
-        if ( gap ) continue;
-        hfill.push_back(make_tuple((ehi + elo)/2.0, sumw, ehi - elo));
-        sumf += ehi - elo;
+    
+          for ( auto f : hfill )
+            persistent[m]->fill( get<0>(f), get<1>(f), get<2>(f)/sumf );
+            // Note the scaling to one single fill
       }
-      for ( auto f : hfill )
-        persistent->fill( get<0>(f), get<1>(f), get<2>(f)/sumf );
-        // Note the scaling to one single fill
     }
   }
 
@@ -183,13 +182,14 @@ namespace {
 /// an ordered vector of fills (including NOFILLs) for each sub-event.
 template <class T>
 vector< vector<Fill<T> > > 
-match_fills(const vector< Fills<T> > & fills, const Fill<T> & NOFILL) 
+match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T> & NOFILL) 
 {
   vector< vector<Fill<T> > > matched;
   // First just copy subevents into vectors and find the longest vector.
   unsigned int maxfill = 0; // length of biggest vector
   int imax = 0; // index position of biggest vector
-  for ( const auto & subev : fills ) {
+  for ( const auto & it : evgroup ) {
+    const auto & subev = it->fills();
     if ( subev.size() > maxfill ) {
       maxfill = subev.size();
       imax = matched.size();
@@ -239,28 +239,22 @@ namespace Rivet {
       // have we had subevents at all?
       const bool have_subevents = _evgroup.size() > 1;
       if ( ! have_subevents ) {
+
         assert( _evgroup.size() == 1 && weight.size() == 1 );
         // simple replay of all tuple entries
         // each recorded fill is inserted into all persistent weightname histos
-        for ( const auto & f : _evgroup[0]->fills() ) {
-          fillAllPersistent<T>( _persistent, f.first, f.second, weight[0] );
-        }
+        for ( size_t m = 0; m < _persistent.size(); ++m )
+            for ( const auto & f : _evgroup[0]->fills() )
+                _persistent[m]->fill( f.first, f.second * weight[0][m] );
+
       } else {
+
         assert( _evgroup.size() == weight.size() );
+        // outer index is subevent, inner index is jets in the event
+        vector<vector<Fill<T>>> linedUpXs
+            = match_fills<T>(_evgroup, {typename T::FillType(), 0.0});
+        commit<T>( _persistent, linedUpXs, weight );
 
-        // All the fills across subevents
-        // each item in allFills is a subevent
-        vector<Fills<T>> allFills;
-        for ( const auto & ev : _evgroup )
-          allFills.push_back( ev->fills() );
-
-        vector< vector<Fill<T> > > 
-          linedUpXs = match_fills<T>(allFills, {typename T::FillType(), 0.0});
-
-        // TODO check if weight is transposed here!
-        for ( size_t m = 0; m < _persistent.size(); ++m ) {
-          commit<T>( _persistent[m], linedUpXs, weight.at(m) );
-        }
       }
       _evgroup.clear();
       _active.reset();

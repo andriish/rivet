@@ -2,15 +2,18 @@
 AM_LDFLAGS = $(LDFLAGS) -module -avoid-version -L$(FASTJETLIBPATH)
 LIBS = $(FASTJETCONFIGLIBADD)
 lib_LTLIBRARIES =
+noinst_LTLIBRARIES =
 
-noinst_LTLIBRARIES = libRivetAnalysisTools.la
+
+
+if ENABLE_ANALYSES
+
+noinst_LTLIBRARIES += libRivetAnalysisTools.la
 libRivetAnalysisTools_la_SOURCES = \
     MC_ParticleAnalysis.cc \
     MC_JetAnalysis.cc \
     MC_JetSplittings.cc
 
-
-if ENABLE_ANALYSES
 
 lib_LTLIBRARIES += RivetALICEAnalyses.la
 RivetALICEAnalyses_la_SOURCES = \
