@@ -214,7 +214,7 @@ namespace Rivet {
 
     /// Weight names
     std::vector<std::string> _weightNames;
-    std::vector<std::vector<double> > _subEventWeights;
+    std::vector<std::valarray<double> > _subEventWeights;
     size_t _numWeightTypes; // always == WeightVector.size()
 
     /// Run name

@@ -87,7 +87,7 @@ namespace Rivet {
     ///
     /// @todo This needs to be revisited when we finally add the mechanism to
     /// support NLO counter-events and weight vectors.
-    std::vector<double> weights() const;
+    std::valarray<double> weights() const;
 
     /// @brief Obsolete weight method. Always returns 1 now.
     [[deprecated("Event weight does not need to be included anymore. For compatibility, it's always == 1 now.")]]

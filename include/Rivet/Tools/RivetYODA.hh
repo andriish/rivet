@@ -136,7 +136,7 @@ namespace Rivet {
             /// rename to setActive(Idx)?
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
-            virtual void pushToPersistent(const vector<vector<double> >& weight) = 0;
+            virtual void pushToPersistent(const vector<valarray<double> >& weight) = 0;
 
             virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
     };
@@ -353,7 +353,7 @@ private:
         }
 
         /* to be implemented for each type */
-        void pushToPersistent(const vector<vector<double> >& weight);
+        void pushToPersistent(const vector<valarray<double> >& weight);
 
         /* M of these, one for each weight */
         vector<typename T::Ptr> _persistent;

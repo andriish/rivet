@@ -106,13 +106,12 @@ namespace Rivet {
   }
 
 
-  vector<double> Event::weights() const {
-    vector<double> v;
-
-    for (unsigned int iw = 0; iw < _genevent.weights().size(); iw++)
-        v.push_back(_genevent.weights()[iw]);
-
-    return v;
+  valarray<double> Event::weights() const {
+    const size_t W = _genevent.weights().size();
+    valarray<double> wts(W);
+    for (unsigned int iw = 0; iw < W; ++iw)
+        wts[iw] = _genevent.weights()[iw];
+    return wts;
   }
 
 

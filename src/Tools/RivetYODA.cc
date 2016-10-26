@@ -105,7 +105,7 @@ namespace {
   template <class T>
   void commit(vector<typename T::Ptr> & persistent,
               const vector< vector<Fill<T>> > & tuple,
-              const vector<vector<double>> & weights ) {
+              const vector<valarray<double>> & weights ) {
 
     // TODO check if all the xs are in the same bin anyway!
     // Then no windowing needed
@@ -131,22 +131,21 @@ namespace {
         edgeset.insert(fillT2binT<T>(xi.first) + wsize);
       }
 
-      for ( size_t m = 0; m < persistent.size(); ++m ) {
-          vector< std::tuple<double,double,double> > hfill;
+          vector< std::tuple<double,valarray<double>,double> > hfill;
           double sumf = 0.0;
           auto edgit = edgeset.begin();
           double ehi = *edgit;
           while ( ++edgit != edgeset.end() ) {
             double elo = ehi;
             ehi = *edgit;
-            double sumw = 0.0; // need m copies of this
+            valarray<double> sumw(0.0, persistent.size()); // need m copies of this
             bool gap = true; // Check for gaps between the sub-windows.
             for ( int i = 0; i < x.size(); ++i  ) {
               // check equals comparisons here!
               if ( fillT2binT<T>(x[i].first) + wsize >= ehi 
                    && 
                    fillT2binT<T>(x[i].first) - wsize <= elo ) {
-                sumw += x[i].second * weights[i][m];
+                sumw += x[i].second * weights[i];
                 gap = false;
               }
             }
@@ -156,22 +155,23 @@ namespace {
           }
     
           for ( auto f : hfill )
-            persistent[m]->fill( get<0>(f), get<1>(f), get<2>(f)/sumf );
+            for ( size_t m = 0; m < persistent.size(); ++m )
+              persistent[m]->fill( get<0>(f), get<1>(f)[m], get<2>(f)/sumf );
             // Note the scaling to one single fill
-      }
+
     }
   }
 
   template<>
   void commit<YODA::Histo2D>(vector<YODA::Histo2D::Ptr> & persistent,
               const vector< vector<Fill<YODA::Histo2D>> > & tuple,
-              const vector<vector<double>> & weights)
+              const vector<valarray<double>> & weights)
   {}
 
   template<>
   void commit<YODA::Profile2D>(vector<YODA::Profile2D::Ptr> & persistent,
               const vector< vector<Fill<YODA::Profile2D>> > & tuple,
-              const vector<vector<double>> & weights)
+              const vector<valarray<double>> & weights)
   {}
 
     template <class T>
@@ -253,7 +253,7 @@ match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T>
 namespace Rivet {
 
   template <class T>
-  void Wrapper<T>::pushToPersistent(const vector<vector<double> >& weight) {
+  void Wrapper<T>::pushToPersistent(const vector<valarray<double> >& weight) {
 
       // have we had subevents at all?
       const bool have_subevents = _evgroup.size() > 1;
@@ -280,7 +280,7 @@ namespace Rivet {
   }
 
   template <>
-  void Wrapper<YODA::Counter>::pushToPersistent(const vector<vector<double> >& weight) {
+  void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight) {
     for ( size_t m = 0; m < _persistent.size(); ++m ) {
       for ( size_t n = 0; n < _evgroup.size(); ++n ) {
         for ( const auto & f : _evgroup[n]->fills() ) {
