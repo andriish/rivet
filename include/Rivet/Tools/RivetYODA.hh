@@ -211,6 +211,38 @@ private:
     Fills<YODA::Counter> fills_;
 };
 
+template<>
+class TupleWrapper<YODA::Histo2D> : public YODA::Histo2D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Histo2D>> Ptr;
+    TupleWrapper(const YODA::Histo2D & h) : YODA::Histo2D(h) {}
+    // todo: do we need to deal with users using fractions directly?
+    void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
+        fills_.insert( {{x,y}, weight} );
+    }
+    void reset() { fills_.clear(); }
+    const Fills<YODA::Histo2D> & fills() const { return fills_; }
+private:
+    // x / weight pairs 
+    Fills<YODA::Histo2D> fills_;
+};
+
+template<>
+class TupleWrapper<YODA::Profile2D> : public YODA::Profile2D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Profile2D>> Ptr;
+    TupleWrapper(const YODA::Profile2D & h) : YODA::Profile2D(h) {}
+    // todo: do we need to deal with users using fractions directly?
+    void fill( double x, double y, double z, double weight=1.0, double fraction=1.0 ) {
+        fills_.insert( {{x,y,z}, weight} );
+    }
+    void reset() { fills_.clear(); }
+    const Fills<YODA::Profile2D> & fills() const { return fills_; }
+private:
+    // x / weight pairs 
+    Fills<YODA::Profile2D> fills_;
+};
+
     template <class T>
     class Wrapper : public MultiweightAOPtr {
         public:
