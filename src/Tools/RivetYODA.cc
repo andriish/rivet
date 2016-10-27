@@ -9,6 +9,32 @@ using namespace std;
 namespace Rivet {
 
 
+template <class T>
+Wrapper<T>::Wrapper(size_t len_of_weightvec, const T & p) {
+  for (size_t m = 0; m < len_of_weightvec; ++m)
+    _persistent.push_back(make_shared<T>(p));
+}
+
+
+template <class T>
+typename T::Ptr Wrapper<T>::active() const { 
+    assert(_active); 
+    return _active; 
+}
+
+
+template <class T>
+void Wrapper<T>::newSubEvent() {
+  typename TupleWrapper<T>::Ptr tmp
+      = make_shared<TupleWrapper<T>>(_persistent[0]->clone());
+  tmp->reset();
+  _evgroup.push_back( tmp );
+  _active = _evgroup.back();
+  assert(_active);
+}
+
+
+
   string getDatafilePath(const string& papername) {
     /// Try to find YODA otherwise fall back to try AIDA
     const string path1 = findAnalysisRefFile(papername + ".yoda");
@@ -259,6 +285,8 @@ namespace Rivet {
       const bool have_subevents = _evgroup.size() > 1;
       if ( ! have_subevents ) {
 
+
+
         assert( _evgroup.size() == 1 && weight.size() == 1 );
         // simple replay of all tuple entries
         // each recorded fill is inserted into all persistent weightname histos
@@ -266,13 +294,19 @@ namespace Rivet {
             for ( const auto & f : _evgroup[0]->fills() )
                 _persistent[m]->fill( f.first, f.second * weight[0][m] );
 
+
+
       } else {
+
+
 
         assert( _evgroup.size() == weight.size() );
         // outer index is subevent, inner index is jets in the event
         vector<vector<Fill<T>>> linedUpXs
             = match_fills<T>(_evgroup, {typename T::FillType(), 0.0});
         commit<T>( _persistent, linedUpXs, weight );
+
+
 
       }
       _evgroup.clear();

@@ -24,14 +24,9 @@
 
 namespace YODA {
     typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
-    typedef std::shared_ptr<YODA::Histo1D> Histo1DPtr;
-    typedef std::shared_ptr<YODA::Histo2D> Histo2DPtr;
-    typedef std::shared_ptr<YODA::Profile1D> Profile1DPtr;
-    typedef std::shared_ptr<YODA::Profile2D> Profile2DPtr;
     typedef std::shared_ptr<YODA::Scatter1D> Scatter1DPtr;
     typedef std::shared_ptr<YODA::Scatter2D> Scatter2DPtr;
     typedef std::shared_ptr<YODA::Scatter3D> Scatter3DPtr;
-    typedef std::shared_ptr<YODA::Counter> CounterPtr;
 }
 
 
@@ -162,38 +157,6 @@ template <class T>
 class TupleWrapper;
 
 template<>
-class TupleWrapper<YODA::Histo1D> : public YODA::Histo1D {
-public:
-    typedef shared_ptr<TupleWrapper<YODA::Histo1D>> Ptr;
-    TupleWrapper(const YODA::Histo1D & h) : YODA::Histo1D(h) {}
-    // todo: do we need to deal with users using fractions directly?
-    void fill( double x, double weight=1.0, double fraction=1.0 ) {
-        fills_.insert( { x , weight } );
-    }
-    void reset() { fills_.clear(); }
-    const Fills<YODA::Histo1D> & fills() const { return fills_; }
-private:
-    // x / weight pairs 
-    Fills<YODA::Histo1D> fills_;
-};
-
-template<>
-class TupleWrapper<YODA::Profile1D> : public YODA::Profile1D {
-public:
-    typedef shared_ptr<TupleWrapper<YODA::Profile1D>> Ptr;
-    TupleWrapper(const YODA::Profile1D & h) : YODA::Profile1D(h) {}
-    // todo: do we need to deal with users using fractions directly?
-    void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
-        fills_.insert( { {x,y}, weight } );
-    }
-    void reset() { fills_.clear(); }
-    const Fills<YODA::Profile1D> & fills() const { return fills_; }
-private:
-    // x / weight pairs 
-    Fills<YODA::Profile1D> fills_;
-};
-
-template<>
 class TupleWrapper<YODA::Counter> : public YODA::Counter {
 public:
     typedef shared_ptr<TupleWrapper<YODA::Counter>> Ptr;
@@ -210,12 +173,50 @@ private:
 };
 
 template<>
+class TupleWrapper<YODA::Histo1D> : public YODA::Histo1D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Histo1D>> Ptr;
+    TupleWrapper(const YODA::Histo1D & h) : YODA::Histo1D(h) {}
+    // todo: do we need to deal with users using fractions directly?
+    void fill( double x, double weight=1.0, double fraction=1.0 ) {
+        if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
+        fills_.insert( { x , weight } );
+    }
+    void reset() { fills_.clear(); }
+    const Fills<YODA::Histo1D> & fills() const { return fills_; }
+private:
+    // x / weight pairs 
+    Fills<YODA::Histo1D> fills_;
+};
+
+template<>
+class TupleWrapper<YODA::Profile1D> : public YODA::Profile1D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Profile1D>> Ptr;
+    TupleWrapper(const YODA::Profile1D & h) : YODA::Profile1D(h) {}
+    // todo: do we need to deal with users using fractions directly?
+    void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
+        if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
+        if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
+        fills_.insert( { {x,y}, weight } );
+    }
+    void reset() { fills_.clear(); }
+    const Fills<YODA::Profile1D> & fills() const { return fills_; }
+private:
+    // x / weight pairs 
+    Fills<YODA::Profile1D> fills_;
+};
+
+
+template<>
 class TupleWrapper<YODA::Histo2D> : public YODA::Histo2D {
 public:
     typedef shared_ptr<TupleWrapper<YODA::Histo2D>> Ptr;
     TupleWrapper(const YODA::Histo2D & h) : YODA::Histo2D(h) {}
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
+        if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
+        if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
         fills_.insert( {{x,y}, weight} );
     }
     void reset() { fills_.clear(); }
@@ -232,6 +233,9 @@ public:
     TupleWrapper(const YODA::Profile2D & h) : YODA::Profile2D(h) {}
     // todo: do we need to deal with users using fractions directly?
     void fill( double x, double y, double z, double weight=1.0, double fraction=1.0 ) {
+        if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
+        if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
+        if ( std::isnan(z) ) throw YODA::RangeError("Z is NaN");
         fills_.insert( {{x,y,z}, weight} );
     }
     void reset() { fills_.clear(); }
@@ -251,35 +255,24 @@ private:
          * the analyze() method.
          */
 
-        Wrapper(size_t len_of_weightvec, const T & p) {
-            for (size_t m = 0; m < len_of_weightvec; ++m)
-                _persistent.push_back(make_shared<T>(p));
-        }
+        Wrapper() = default;
 
-        Wrapper() : _persistent(), _evgroup(), _active() {}
+        Wrapper(size_t len_of_weightvec, const T & p);
 
-        typename T::Ptr active() const { assert(_active); return _active; }
+        typename T::Ptr active() const;
 
         /* @todo this probably need to loop over all? */
         bool operator!() const { return !active(); }
-        operator bool() const { return bool(active()); }
 
-        T * operator->() {
-            return active().get();
-        }
+        operator bool() const { return static_cast<bool>(active()); }
 
-        T * operator->() const {
-            return active().get();
-        }
+        T * operator->() { return active().get(); }
+        
+        T * operator->() const { return active().get(); }
 
-        T & operator*() {
-            return *active();
-        }
+        T & operator*() { return *active(); }
 
-        const T & operator*() const {
-            return *active();
-        }
-
+        const T & operator*() const { return *active(); }
         /* @todo
          * these need to be re-thought out.
 
@@ -331,26 +324,13 @@ private:
         }
 
         /* this is for dev only---we shouldn't need this in real runs. */
-        void unsetActiveWeight() {
-            _active.reset();
-        }
+        void unsetActiveWeight() { _active.reset(); }
 
-        void newSubEvent() {
-            typename TupleWrapper<T>::Ptr tmp
-                = make_shared<TupleWrapper<T>>(_persistent[0]->clone());
-            tmp->reset();
-            _evgroup.push_back( tmp );
-            _active = _evgroup.back();
-            assert(_active);
-        }
+        void newSubEvent();
 
-        virtual YODA::AnalysisObjectPtr activeYODAPtr() const {
-            return _active;
-        }
+        virtual YODA::AnalysisObjectPtr activeYODAPtr() const { return _active; }
 
-        const vector<typename T::Ptr> & persistent() const {
-            return _persistent;
-        }
+        const vector<typename T::Ptr> & persistent() const { return _persistent; }
 
         /* to be implemented for each type */
         void pushToPersistent(const vector<valarray<double> >& weight);
