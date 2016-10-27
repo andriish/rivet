@@ -39,7 +39,7 @@ if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
 ## Compiler setup
 AC_LANG(C++)
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
+AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
 
 ## Store and propagate the compiler identity and flags
 RIVETCXX="$CXX"

@@ -90,7 +90,7 @@ namespace Rivet {
     std::valarray<double> weights() const;
 
     /// @brief Obsolete weight method. Always returns 1 now.
-    [[deprecated("Event weight does not need to be included anymore. For compatibility, it's always == 1 now.")]]
+    DEPRECATED("Event weight does not need to be included anymore. For compatibility, it's always == 1 now.")
     double weight() const { return 1.0; }
 
     //@}
