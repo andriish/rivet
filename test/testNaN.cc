@@ -13,7 +13,7 @@ public:
   Test() : Analysis("Test") {}
 
   void init() {
-    _h_test = bookHisto1D("test", 50, 66.0, 116.0);
+    book(_h_test, "test", 50, 66.0, 116.0);
   }
 
   void analyze(const Rivet::Event & e) {
