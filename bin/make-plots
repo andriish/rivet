@@ -1852,11 +1852,11 @@ class Histogram(DrawableObject, Described):
                                     if self.description.get('ConnectGaps', '0') != '1':
                                         out += ('\\psline')
                                         # TODO: Perhaps use a new dashed line to fill the gap?
-                    if self.getFillStyle() != 'none':  # make sure that filled areas go all the way down to the x-axis
-                        if (coors.phys2frameX(self.data[-1].xmax) < 1-1e-4):
-                            out += '(' + coors.strphys2frameX(self.data[-1].xmax) + ', -0.1)\n'
-                        else:
-                            out += '(1.1, -0.1)\n'
+                if self.getFillStyle() != 'none':  # make sure that filled areas go all the way down to the x-axis
+                    if (coors.phys2frameX(self.data[-1].xmax) < 1-1e-4):
+                        out += '(' + coors.strphys2frameX(self.data[-1].xmax) + ', -0.1)\n'
+                    else:
+                        out += '(1.1, -0.1)\n'
             #
             if self.getPolyMarker() != '':
                 for b in self.data:
