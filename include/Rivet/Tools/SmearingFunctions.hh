@@ -23,15 +23,18 @@ namespace Rivet {
     return generate_canonical<double, 10>(gen);
   }
 
+  /// Return true if Particle @a p is chosen to survive a random efficiency selection
   template <typename FN>
   inline bool efffilt(const Particle& p, FN& feff) {
     return rand01() < feff(p);
   }
+  /// Return true if Jet @a j is chosen to survive a random efficiency selection
   template <typename FN>
   inline bool efffilt(const Jet& j, FN& feff) {
     return rand01() < feff(j);
   }
 
+  /// A functor to return true if Particle @a p survives a random efficiency selection
   struct ParticleEffFilter {
     template <typename FN>
     ParticleEffFilter(const FN& feff) : _feff(feff) {}
@@ -41,6 +44,7 @@ namespace Rivet {
   };
   using particleEffFilter = ParticleEffFilter;
 
+  /// A functor to return true if Jet @a j survives a random efficiency selection
   struct JetEffFilter {
     template <typename FN>
     JetEffFilter(const FN& feff) : _feff(feff) {}
@@ -735,7 +739,7 @@ namespace Rivet {
   //@{
 
   /// ATLAS Run 1 tracking efficiency
-  inline double TRKEFF_ATLAS_RUN1(const Particle& p) {
+  inline double TRK_EFF_ATLAS_RUN1(const Particle& p) {
     if (p.charge3() == 0) return 0;
     if (p.abseta() > 2.5) return 0;
     if (p.pT() < 0.1*GeV) return 0;
@@ -761,13 +765,13 @@ namespace Rivet {
 
   /// ATLAS Run 2 tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double TRKEFF_ATLAS_RUN2(const Particle& p) {
-    return TRKEFF_ATLAS_RUN1(p);
+  inline double TRK_EFF_ATLAS_RUN2(const Particle& p) {
+    return TRK_EFF_ATLAS_RUN1(p);
   }
 
 
   /// CMS Run 1 tracking efficiency
-  inline double TRKEFF_CMS_RUN1(const Particle& p) {
+  inline double TRK_EFF_CMS_RUN1(const Particle& p) {
     if (p.charge3() == 0) return 0;
     if (p.abseta() > 2.5) return 0;
     if (p.pT() < 0.1*GeV) return 0;
@@ -789,8 +793,8 @@ namespace Rivet {
 
   /// CMS Run 2 tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double TRKEFF_CMS_RUN2(const Particle& p) {
-    return TRKEFF_CMS_RUN1(p);
+  inline double TRK_EFF_CMS_RUN2(const Particle& p) {
+    return TRK_EFF_CMS_RUN1(p);
   }
 
   //@}
