@@ -331,11 +331,15 @@ namespace Rivet {
 
   /// @brief Return the bin index of the given value, @a val, given a vector of bin edges
   ///
+  /// An underflow always returns -1. If allow_overflow is false (default) an overflow
+  /// also returns -1, otherwise it returns the Nedge-1, the index of an inclusive bin
+  /// starting at the last edge.
+  ///
   /// @note The @a binedges vector must be sorted
   /// @todo Use std::common_type<NUM1, NUM2>::type x = val; ?
   template <typename NUM1, typename NUM2>
-  inline typename std::enable_if<std::is_arithmetic<NUM1>::value && std::is_floating_point<NUM2>::value, int>::type
-    binIndex(NUM1 val, const vector<NUM2>& binedges, bool allow_overflow=false) {
+  inline typename std::enable_if<std::is_arithmetic<NUM1>::value && std::is_arithmetic<NUM2>::value, int>::type
+  binIndex(NUM1 val, const vector<NUM2>& binedges, bool allow_overflow=false) {
     if (val < binedges.front()) return -1; ///< Below/out of histo range
     if (val >= binedges.back()) return allow_overflow ? int(binedges.size())-1 : -1; ///< Above/out of histo range
     return std::distance(binedges.begin(), --std::upper_bound(binedges.begin(), binedges.end(), val));
