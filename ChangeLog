@@ -1,3 +1,7 @@
+2016-11-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* src/Analyses/ATLAS_2016_I1458270.cc: Fix inverted particle efficiency filtering.
+
 2016-10-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add rough ATLAS and CMS photon reco efficiency functions from
