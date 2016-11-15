@@ -1,5 +1,7 @@
 2016-11-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix constness requirements on ifilter_select() and Particle/JetEffFilter::operator().
+
 	* src/Analyses/ATLAS_2016_I1458270.cc: Fix inverted particle efficiency filtering.
 
 2016-10-24  Andy Buckley  <andy.buckley@cern.ch>
