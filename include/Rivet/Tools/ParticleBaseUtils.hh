@@ -321,6 +321,9 @@ namespace Rivet {
   /// Unbound function access to pT
   inline double pT(const ParticleBase& p) { return p.pT(); }
 
+  /// Unbound function access to ET
+  inline double Et(const ParticleBase& p) { return p.Et(); }
+
   /// Unbound function access to eta
   inline double eta(const ParticleBase& p) { return p.eta(); }
 

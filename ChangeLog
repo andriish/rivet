@@ -1,3 +1,11 @@
+2016-11-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Et(const ParticleBase&) unbound function.
+
+2016-11-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix missing YAML quote mark in rivet-mkanalysis.
+
 2016-11-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix constness requirements on ifilter_select() and Particle/JetEffFilter::operator().
