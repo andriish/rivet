@@ -20,15 +20,15 @@ namespace Rivet {
     {  }
 
     /// @brief Fill the pre-cut counter
-    void fillinit() {
-      counts[0] += 1;
+    void fillinit(double weight=1.) {
+      counts[0] += weight;
     }
 
     /// @brief Fill the @a {icut}'th post-cut counter
     ///
     /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool fill(size_t icut, bool cutresult) {
-      if (cutresult) counts[icut+1] += 1;
+    bool fill(size_t icut, bool cutresult, double weight=1.) {
+      if (cutresult) counts[icut+1] += weight;
       return cutresult;
     }
 
@@ -40,15 +40,19 @@ namespace Rivet {
     /// or double-counting will occur.
     ///
     /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool fill(const vector<bool>& cutresults) {
+    bool fill(const vector<bool>& cutresults, double weight=1.) {
       if (cutresults.size() != ncuts)
         throw RangeError("Number of filled cut results needs to match the Cutflow construction");
       counts[0] += 1;
       for (size_t i = 0; i < ncuts; ++i) {
-        if (cutresults[i]) counts[i+1] += 1; else break;
+        if (cutresults[i]) counts[i+1] += weight; else break;
       }
       return all(cutresults);
     }
+
+    /// @todo Add a fillnext(), keeping track of current ifill
+
+    /// @todo Add a fillhead() (or vector fillnext()?)
 
     /// @brief Fill the N trailing post-cut counters, when supplied with an N-element results vector
     ///
@@ -57,12 +61,12 @@ namespace Rivet {
     /// the vetoEvent directive. The initial state (state 0) is not incremented.
     ///
     /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool filltail(const vector<bool>& cutresults) {
+    bool filltail(const vector<bool>& cutresults, double weight=1.) {
       if (cutresults.size() > ncuts)
         throw RangeError("Number of filled cut results needs to match the Cutflow construction");
       const size_t offset = counts.size() - cutresults.size();
       for (size_t i = 0; i < cutresults.size(); ++i) {
-        if (cutresults[i]) counts[offset+i] += 1; else break;
+        if (cutresults[i]) counts[offset+i] += weight; else break;
       }
       return all(cutresults);
     }
@@ -96,6 +100,7 @@ namespace Rivet {
     vector<int> counts;
 
   };
+
 
   /// Print a Cutflow to a stream
   inline ostream& operator << (ostream& os, const Cutflow& cf) {
@@ -142,9 +147,19 @@ namespace Rivet {
     }
 
     /// Fill the pre-cuts state counter for all contained Cutflows
-    void fillinit() {
-      for (Cutflow& cf : cfs) cf.fillinit();
+    void fillinit(double weight=1.) {
+      for (Cutflow& cf : cfs) cf.fillinit(weight);
     }
+
+    /// @brief Fill the @a {icut}'th post-cut counter with the same result for all {Cutflow}s
+    bool fill(size_t icut, bool cutresult, double weight=1.) {
+      for (Cutflow& cf : cfs) cf.fill(icut, cutresult, weight);
+      return cutresult;
+    }
+
+    /// @todo Add a fillnext(), keeping track of current ifill
+
+    /// @todo Add a fillhead() (or vector fillnext()?)
 
     /// Create a string representation
     string str() const {
