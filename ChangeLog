@@ -1,6 +1,6 @@
 2016-11-21  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add weights to Cutflow/s functions.
+	* Add weights and scaling to Cutflow/s.
 
 2016-11-19  Andy Buckley  <andy.buckley@cern.ch>
 

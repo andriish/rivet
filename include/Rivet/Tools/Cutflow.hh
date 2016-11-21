@@ -71,6 +71,11 @@ namespace Rivet {
       return all(cutresults);
     }
 
+    /// Scale the cutflow weights by the given factor
+    void scale(double factor) {
+      for (double& x : counts) x *= factor;
+    }
+
     /// Create a string representation
     string str() const {
       stringstream ss;
@@ -97,7 +102,7 @@ namespace Rivet {
     string name;
     size_t ncuts;
     vector<string> cuts;
-    vector<int> counts;
+    vector<double> counts;
 
   };
 
@@ -146,7 +151,7 @@ namespace Rivet {
       throw UserError("Requested cut-flow name '" + name + "' does not exist");
     }
 
-    /// Fill the pre-cuts state counter for all contained Cutflows
+    /// Fill the pre-cuts state counter for all contained {Cutflow}s
     void fillinit(double weight=1.) {
       for (Cutflow& cf : cfs) cf.fillinit(weight);
     }
@@ -160,6 +165,11 @@ namespace Rivet {
     /// @todo Add a fillnext(), keeping track of current ifill
 
     /// @todo Add a fillhead() (or vector fillnext()?)
+
+    /// Scale the contained {Cutflow}s by the given factor
+    void scale(double factor) {
+      for (Cutflow& cf : cfs) cf.scale(factor);
+    }
 
     /// Create a string representation
     string str() const {
