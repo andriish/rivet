@@ -283,8 +283,6 @@ if opts.LIST_ANALYSES:
                             msg += "  [" + " ".join(a.keywords()) + "]"
                         if a.luminosityfb():
                             msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
-                        if a.collider():
-                            msg += " [ Collider: %s ] "%a.collider()
                 print msg
                 #os.write(tf, msg + "\n")
         # if os.path.getsize(tfpath) > 0:

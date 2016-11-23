@@ -34,11 +34,12 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      double weight = e.weight();
       // Find the taus
       Particles taus;
-      foreach(const Particle& p, apply<UnstableFinalState>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
-        _weight_total += weight;
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
+      foreach (const Particle& p, ufs.particles()) {
+        if (p.abspid() != PID::TAU) continue;
+        _weight_total += 1.;
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;
         // Get the boost to the rest frame
@@ -54,40 +55,40 @@ namespace Rivet {
         if (nstable != 4) continue;
         // pipipi
         if (pim.size() == 2 && pip.size() == 1) {
-          _weight_pipipi += weight;
+          _weight_pipipi += 1.;
           _hist_pipipi_pipipi->
-            fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass(), weight);
+            fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass(),1.);
           _hist_pipipi_pipi->
-            fill((pip[0].momentum()+pim[0].momentum()).mass(), weight);
+            fill((pip[0].momentum()+pim[0].momentum()).mass(),1.);
           _hist_pipipi_pipi->
-            fill((pip[0].momentum()+pim[1].momentum()).mass(), weight);
+            fill((pip[0].momentum()+pim[1].momentum()).mass(),1.);
         }
         else if (pim.size() == 1 && pip.size() == 1 && Km.size() == 1) {
-          _weight_Kpipi += weight;
+          _weight_Kpipi += 1.;
           _hist_Kpipi_Kpipi->
-            fill((pim[0].momentum()+pip[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((pim[0].momentum()+pip[0].momentum()+Km[0].momentum()).mass(),1.);
           _hist_Kpipi_Kpi->
-            fill((pip[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((pip[0].momentum()+Km[0].momentum()).mass(),1.);
           _hist_Kpipi_pipi->
-            fill((pim[0].momentum()+pip[0].momentum()).mass(), weight);
+            fill((pim[0].momentum()+pip[0].momentum()).mass(),1.);
         }
         else if (Kp.size() == 1 && Km.size() == 1 && pim.size() == 1) {
-          _weight_KpiK += weight;
+          _weight_KpiK += 1.;
           _hist_KpiK_KpiK->
-            fill((Kp[0].momentum()+Km[0].momentum()+pim[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()+pim[0].momentum()).mass(),1.);
           _hist_KpiK_KK->
-            fill((Kp[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()).mass(),1.);
           _hist_KpiK_piK->
-            fill((Kp[0].momentum()+pim[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+pim[0].momentum()).mass(),1.);
         }
         else if (Kp.size() == 1 && Km.size() == 2) {
-          _weight_KKK += weight;
+          _weight_KKK += 1.;
           _hist_KKK_KKK->
-            fill((Kp[0].momentum()+Km[0].momentum()+Km[1].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()+Km[1].momentum()).mass(),1.);
           _hist_KKK_KK->
-            fill((Kp[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()).mass(),1.);
           _hist_KKK_KK->
-            fill((Kp[0].momentum()+Km[1].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[1].momentum()).mass(),1.);
         }
       }
     }
