@@ -1,3 +1,7 @@
+2016-11-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix --pwd option of the rivet script
+
 2016-11-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add weights and scaling to Cutflow/s.
