@@ -79,17 +79,28 @@ namespace Rivet {
     /// Create a string representation
     string str() const {
       stringstream ss;
+      ss << fixed << setprecision(1) << counts[0];
+      const size_t count0len = ss.str().length();
+      ss.str("");
       ss << name << " cut-flow:";
-      size_t maxlen = 0;
-      for (const string& t : cuts) maxlen = max(t.length(), maxlen);
+      size_t maxnamelen = 0;
+      for (const string& t : cuts)
+        maxnamelen = max(t.length(), maxnamelen);
       for (size_t i = 0; i <= ncuts; ++i) {
         const int pcttot = (counts[0] == 0) ? -1 : round(100*counts[i]/double(counts[0]));
         const int pctinc = (i == 0 || counts[i-1] == 0) ? -1 : round(100*counts[i]/double(counts[i-1]));
-        ss << "\n" << setw(maxlen+5) << left
-           << (i == 0 ? "" : "Pass "+cuts[i-1]) << "   " << right
-           << setw(toString(counts[0]).length()) << toString(counts[i]) << "    "
-           << setw(4) << (pcttot < 0 ? "- " : toString(pcttot)+"%") << "    "
-           << setw(4) << (pctinc < 0 ? "- " : toString(pctinc)+"%");
+        stringstream ss2;
+        ss2 << fixed << setprecision(1) << counts[i];
+        const string countstr = ss2.str(); ss2.str("");
+        ss2 << fixed << setprecision(2) << pcttot << "%";
+        const string pcttotstr = ss2.str(); ss2.str("");
+        ss2 << fixed << setprecision(2) << pctinc << "%";
+        const string pctincstr = ss2.str();
+        ss << "\n"
+           << setw(maxnamelen+5) << left << (i == 0 ? "" : "Pass "+cuts[i-1]) << "   "
+           << setw(count0len) << right << countstr << "    "
+           << setw(4) << right << (pcttot < 0 ? "- " : pcttotstr) << "    "
+           << setw(4) << right << (pctinc < 0 ? "- " : pctincstr);
       }
       return ss.str();
     }
