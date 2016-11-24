@@ -370,12 +370,11 @@ if len(opts.SHOW_ANALYSES) > 0:
 
 ## We allow comma-separated lists of analysis names -- normalise the list here
 newanas = []
-ALLAN = rivet.AnalysisLoader.analysisNames() # Who's Allan? ;-)
 for a in opts.ANALYSES:
     if "," in a:
         newanas += a.split(",")
     elif "@" in a: #< NB. this bans combination of ana lists and keywords in a single arg
-        temp = getAnalysesByKeyword(ALLAN, a)
+        temp = getAnalysesByKeyword(all_analyses, a)
         for i in temp:
             newanas.append(i)
     else:

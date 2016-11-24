@@ -315,6 +315,9 @@ namespace Rivet {
   /// Unbound function access to p3
   inline Vector3 p3(const ParticleBase& p) { return p.p3(); }
 
+  /// Unbound function access to pTvec
+  inline Vector3 pTvec(const ParticleBase& p) { return p.pTvec(); }
+
   /// Unbound function access to p
   inline double p(const ParticleBase& p) { return p.p(); }
 

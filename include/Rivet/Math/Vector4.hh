@@ -85,7 +85,7 @@ namespace Rivet {
       return vector3().angle(v3);
     }
 
-    /// @brief Square of the projection of the 3-vector on to the \f$ x-y \f$ plane
+    /// @brief Mod-square of the projection of the 3-vector on to the \f$ x-y \f$ plane
     /// This is a more efficient function than @c polarRadius, as it avoids the square root.
     /// Use it if you only need the squared value, or e.g. an ordering by magnitude.
     double polarRadius2() const {
@@ -100,7 +100,7 @@ namespace Rivet {
       return vector3().rho2();
     }
 
-    /// Projection of 3-vector on to the \f$ x-y \f$ plane
+    /// Magnitude of projection of 3-vector on to the \f$ x-y \f$ plane
     double polarRadius() const {
       return vector3().polarRadius();
     }
@@ -111,6 +111,19 @@ namespace Rivet {
     /// Synonym for polarRadius
     double rho() const {
       return vector3().rho();
+    }
+
+    /// Projection of 3-vector on to the \f$ x-y \f$ plane
+    Vector3 polarVec() const {
+      return vector3().polarVec();
+    }
+    /// Synonym for polarVec
+    Vector3 perpVec() const {
+      return vector3().perpVec();
+    }
+    /// Synonym for polarVec
+    Vector3 rhoVec() const {
+      return vector3().rhoVec();
     }
 
     /// Angle subtended by the 3-vector's projection in x-y and the x-axis.
@@ -588,6 +601,15 @@ namespace Rivet {
     /// Absolute rapidity.
     double absrap() const {
       return fabs(rap());
+    }
+
+    /// Calculate the transverse momentum vector \f$ \vec{p}_T \f$.
+    Vector3 pTvec() const {
+      return p3().polarVec();
+    }
+    /// Synonym for pTvec
+    Vector3 ptvec() const {
+      return pTvec();
     }
 
     /// Calculate the squared transverse momentum \f$ p_T^2 \f$.

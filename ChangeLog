@@ -1,5 +1,7 @@
 2016-11-24  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding pTvec() function to 4-vectors and ParticleBase.
+
 	* Fix --pwd option of the rivet script
 
 2016-11-21  Andy Buckley  <andy.buckley@cern.ch>
