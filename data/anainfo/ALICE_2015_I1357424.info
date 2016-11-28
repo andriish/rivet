@@ -1,6 +1,6 @@
 Name: ALICE_2015_I1357424
 Year: 2015
-Summary: Tranverse momentum spectra of pions, kaons and protons in pp collisions at 7 TeV
+Summary: Transverse momentum spectra of pions, kaons and protons in pp collisions at 7 TeV
 Experiment: ALICE
 Collider: LHC
 InspireID: 1357424
@@ -35,5 +35,3 @@ BibTeX: '@article{Adam:2015qaa,
       SLACcitation   = "%%CITATION = ARXIV:1504.00024;%%",
 }'
 ToDo:
-
-
