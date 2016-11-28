@@ -8,11 +8,7 @@ namespace Rivet {
   class ATLAS_2011_I894867 : public Analysis {
   public:
 
-    ATLAS_2011_I894867()
-      : Analysis("ATLAS_2011_I894867")
-    {    }
-
-  public:
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_I894867);
 
     void init() {
       declare(FinalState(), "FS");
@@ -21,40 +17,31 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = event.weight();
 
       const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
-      double gapcenter = 0.;
-      double LRG = 0.;
-      double etapre = 0.;
-      bool first = true;
-
-      foreach(const Particle& p, fs.particles(cmpMomByEta)) { // sorted from minus to plus
-        if (first) { // First particle
-          first = false;
-          etapre = p.eta();
-        } else {
-          double gap = fabs(p.eta() - etapre);
-          if (gap > LRG) {
-            LRG = gap; // largest gap
-            gapcenter = (p.eta() + etapre)/2.; // find the center of the gap to separate the X and Y systems.
-          }
-          etapre = p.eta();
+      const Particles particles = fs.particles(cmpMomByEta);
+      double etaprev = particles.front().eta();
+      double gapcenter = etaprev;
+      double detamax = -1;
+      for (const Particle& p : particles) { // sorted from minus to plus
+        const double deta = p.eta() - etaprev; // guaranteed positive
+        if (deta > detamax) { // largest gap so far
+          detamax = deta;
+          gapcenter = (p.eta() + etaprev)/2.; // find the center of the gap to separate the X and Y systems.
         }
+        etaprev = p.eta();
       }
-
 
       FourMomentum mxFourVector, myFourVector;
-      foreach(const Particle& p, fs.particles(cmpMomByEta)) {
-        ((p.eta() > gapcenter) ? mxFourVector : myFourVector) += p.momentum();
-      }
-      const double M2 = max(mxFourVector.mass2(), myFourVector.mass2());
-      const double xi = M2/sqr(sqrtS()); // sqrt(s)=7000 GeV, note that units cancel
+      for (const Particle& p : particles)
+        (p.eta() > gapcenter ? mxFourVector : myFourVector) += p.momentum();
+      const double m2 = max(mxFourVector.mass2(), myFourVector.mass2());
+      const double xi = m2/sqr(sqrtS()); // sqrt(s) = 7000 GeV
       if (xi < 5e-6) vetoEvent;
 
-      _h_sigma->fill(sqrtS()/GeV, weight);
+      _h_sigma->fill(sqrtS()/GeV, event.weight());
     }
 
 
@@ -62,7 +49,6 @@ namespace Rivet {
       scale(_h_sigma, crossSection()/millibarn/sumOfWeights());
     }
 
-  private:
 
     Histo1DPtr _h_sigma;
 
