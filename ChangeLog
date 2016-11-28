@@ -1,3 +1,12 @@
+2016-11-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Provide convenience reversed-argument versions of apply and
+	declare methods, to allow presentational choice of declare syntax
+	in situations where the projection argument is very long, and
+	reduce requirements on the user's memory since this is one
+	situation in Rivet where there is no 'most natural' ordering
+	choice.
+
 2016-11-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding pTvec() function to 4-vectors and ParticleBase.
