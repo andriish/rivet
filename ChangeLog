@@ -1,5 +1,11 @@
 2016-11-28  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add LHC Run 2 BSM analyses ATLAS_2016_CONF_2016_037 (3-lepton
+	and same-sign 2-lepton), ATLAS_2016_CONF_2016_054 (1-lepton +
+	jets), ATLAS_2016_CONF_2016_078 (ICHEP jets + MET),
+	ATLAS_2016_CONF_2016_094 (1-lepton + many jets), CMS_2013_I1223519
+	(alphaT + b-jets), and CMS_2016_PAS_SUS_16_14 (jets + MET).
+
 	* Provide convenience reversed-argument versions of apply and
 	declare methods, to allow presentational choice of declare syntax
 	in situations where the projection argument is very long, and
