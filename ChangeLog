@@ -1,3 +1,10 @@
+2016-12-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ATLAS_2016_I1467230 (13 TeV min bias),
+	ATLAS_2016_I1468167 (13 TeV inelastic pp cross-section), and
+	ATLAS_2016_I1479760 (7 TeV pp double-parton scattering with 4
+	jets).
+
 2016-12-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding ALICE_2012_I1116147 (eta and pi0 pTs and ratio) and
