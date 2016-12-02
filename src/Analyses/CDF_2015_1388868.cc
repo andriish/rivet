@@ -38,7 +38,7 @@ namespace Rivet {
 
       // Book projection
       const ChargedFinalState cfs(Cuts::abseta < 0.8 && Cuts::pT > 0.5*GeV);
-      addProjection(cfs, "Tracks");
+      declare(cfs, "Tracks");
 
       // Book profile histos
       _NchgPDFden1 = bookProfile1D(isqrts,1,1);
@@ -57,7 +57,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Require at least one track in the event with pT >= 0.5 GeV
-      const ChargedFinalState& cfs = applyProjection<ChargedFinalState>(event, "Tracks");
+      const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "Tracks");
       if (cfs.empty()) vetoEvent;
       const Particles trks = cfs.particlesByPt();
 
