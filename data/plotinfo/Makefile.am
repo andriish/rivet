@@ -301,6 +301,8 @@ dist_pkgdata_DATA = \
   H1_2000_S4129130.plot \
   JADE_OPAL_2000_S4300807.plot \
   JADE_1998_S3612880.plot \
+  L3_1992_I336180.plot \
+  L3_2004_I652683.plot \
   LHCB_2010_S8758301.plot \
   LHCB_2010_I867355.plot \
   LHCB_2011_I917009.plot \
@@ -309,6 +311,7 @@ dist_pkgdata_DATA = \
   LHCB_2012_I1208102.plot \
   LHCB_2013_I1208105.plot \
   LHCB_2013_I1218996.plot \
+  LHCB_2014_I1262703.plot \
   LHCB_2014_I1281685.plot \
   LHCB_2015_I1333223.plot \
   LHCF_2012_I1115479.plot \
@@ -367,7 +370,6 @@ dist_pkgdata_DATA = \
   MC_ZZINC.plot \
   MC_ZZJETS.plot \
   MC_ZZKTSPLITTINGS.plot \
-  L3_1992_I336180.plot \
   OPAL_1993_S2692198.plot \
   OPAL_1993_I342766.plot \
   OPAL_1994_S2927284.plot \

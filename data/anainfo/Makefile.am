@@ -322,6 +322,7 @@ dist_pkgdata_DATA = \
   LHCB_2012_I1208102.info \
   LHCB_2013_I1208105.info \
   LHCB_2013_I1218996.info \
+  LHCB_2014_I1262703.info \
   LHCB_2014_I1281685.info \
   LHCB_2015_I1333223.info \
   LHCF_2012_I1115479.info \
@@ -382,6 +383,7 @@ dist_pkgdata_DATA = \
   MC_ZZJETS.info \
   MC_ZZKTSPLITTINGS.info \
   L3_1992_I336180.info \
+  L3_2004_I652683.info \
   OPAL_1993_S2692198.info \
   OPAL_1993_I342766.info \
   OPAL_1994_S2927284.info \
