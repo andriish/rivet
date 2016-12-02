@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Tools/Logging.hh"
 
 namespace Rivet {
 
@@ -10,8 +9,6 @@ namespace Rivet {
   /// @author Orestes Tumbarell Aranda (Havana), Hannes Jung (DESY)
   class CDF_2015_I1388868 : public Analysis {
   public:
-
-
 
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(CDF_2015_I1388868);
@@ -120,7 +117,7 @@ namespace Rivet {
     /// eta-phi area of the transverse region
     constexpr static double AREA = 2*0.8 * M_PI/3;
 
-    /// @name Histograms
+    /// Histograms
     Profile1DPtr _NchgPden1, _NchgPMXden1,_NchgPMNden1,_NchgPDFden1,_PTsumPden1,_PTsumPMXden1,_PTsumPMNden1,_PTsumPDFden1;
 
   };
