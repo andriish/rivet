@@ -231,9 +231,6 @@ namespace Rivet {
     //@}
 
 
-  private:
-
-
     /// @name Histograms
     //@{
     Profile1DPtr _h_XXXX;
