@@ -1,5 +1,8 @@
 2016-12-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding leading dijet mass plots to MC_JetAnalysis (and all
+	derived classes). Thanks to Chris Gutschow!
+
 	* Adding CMS_2012_I1298807 (ZZ cross-section at 8 TeV),
 	CMS_2016_I1459051 (inclusive jet cross-sections at 13 TeV) and
 	CMS_PAS_FSQ_12_020 (preliminary 7 TeV leading-track underlying
