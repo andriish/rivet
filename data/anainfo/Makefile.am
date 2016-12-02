@@ -218,6 +218,7 @@ dist_pkgdata_DATA = \
   CDF_2010_S8591881_QCD.info \
   CDF_2012_NOTE10874.info \
   CDF_2012_I1124333.info \
+  CDF_2015_1388868.info \
   CLEO_2004_S5809304.info\
   CMS_2010_S8547297.info \
   CMS_2010_S8656010.info \

@@ -209,6 +209,7 @@ dist_pkgdata_DATA = \
   CDF_2010_S8591881_QCD.plot \
   CDF_2012_NOTE10874.plot \
   CDF_2012_I1124333.plot \
+  CDF_2015_1388868.plot \
   CLEO_2004_S5809304.plot \
   CMS_2010_S8547297.plot \
   CMS_2010_S8656010.plot \
