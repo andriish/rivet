@@ -1,7 +1,7 @@
 2016-12-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding L3_2004_I652683 (LEP 1 & 2 event shapes) and
-	LHCB_2014_I1262703 (Z+jet at 7 TeV)
+	LHCB_2014_I1262703 (Z+jet at 7 TeV).
 
 	* Adding leading dijet mass plots to MC_JetAnalysis (and all
 	derived classes). Thanks to Chris Gutschow!
