@@ -27,7 +27,8 @@ namespace Rivet {
       _use_fiducial_lepton_efficiency = true;
 
       // Random numbers for simulation of ATLAS detector reconstruction efficiency
-      srand (160385);
+      /// @todo Replace with SmearedParticles etc.
+      srand(160385);
 
       // Read in all signal regions
       _signal_regions = getSignalRegions();
@@ -96,18 +97,18 @@ namespace Rivet {
       Particles muon_candidates;
       const Particles charged_tracks = apply<ChargedFinalState>(event, "CFS").particles();
       const Particles visible_particles = apply<VisibleFinalState>(event, "VFS").particles();
-      foreach (const Particle& mu, apply<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
+      for (const Particle& mu : apply<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
 
         // Calculate pTCone30 variable (pT of all tracks within dR<0.3 - pT of muon itself)
         double pTinCone = -mu.pT();
-        foreach (const Particle& track, charged_tracks ) {
+        for (const Particle& track : charged_tracks ) {
           if (deltaR(mu.momentum(),track.momentum()) < 0.3 )
             pTinCone += track.pT();
         }
 
         // Calculate eTCone30 variable (pT of all visible particles within dR<0.3)
         double eTinCone = 0.;
-        foreach (const Particle& visible_particle, visible_particles) {
+        for (const Particle& visible_particle : visible_particles) {
           if (visible_particle.abspid() != PID::MUON && inRange(deltaR(mu.momentum(),visible_particle.momentum()), 0.1, 0.3))
             eTinCone += visible_particle.pT();
         }
@@ -125,19 +126,19 @@ namespace Rivet {
 
       // Electrons
       Particles electron_candidates;
-      foreach (const Particle& e, apply<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
+      for (const Particle& e : apply<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
         // Neglect electrons in crack regions
         if (inRange(e.abseta(), 1.37, 1.52)) continue;
 
         // Calculate pTCone30 variable (pT of all tracks within dR<0.3 - pT of electron itself)
         double pTinCone = -e.pT();
-        foreach (const Particle& track, charged_tracks) {
+        for (const Particle& track : charged_tracks) {
           if (deltaR(e.momentum(), track.momentum()) < 0.3 ) pTinCone += track.pT();
         }
 
         // Calculate eTCone30 variable (pT of all visible particles (except muons) within dR<0.3)
         double eTinCone = 0.;
-        foreach (const Particle& visible_particle, visible_particles) {
+        for (const Particle& visible_particle : visible_particles) {
           if (visible_particle.abspid() != PID::MUON && inRange(deltaR(e.momentum(),visible_particle.momentum()), 0.1, 0.3))
             eTinCone += visible_particle.pT();
         }
@@ -156,7 +157,7 @@ namespace Rivet {
 
       // Taus
       Particles tau_candidates;
-      foreach (const Particle& tau, apply<UnstableFinalState>(event, "UFS").particles() ) {
+      for (const Particle& tau : apply<UnstableFinalState>(event, "UFS").particles() ) {
         // Only pick taus out of all unstable particles
         if ( tau.abspid() != PID::TAU) continue;
         // Check that tau has decayed into daughter particles
@@ -188,14 +189,15 @@ namespace Rivet {
 
       // Jets (all anti-kt R=0.4 jets with pT > 30 GeV and eta < 4.9
       Jets jet_candidates;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(30.0*GeV) ) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets04").jetsByPt(30.0*GeV) ) {
         if (jet.abseta() < 4.9 ) jet_candidates.push_back(jet);
       }
 
       // ETmiss
       Particles vfs_particles = apply<VisibleFinalState>(event, "VFS").particles();
       FourMomentum pTmiss;
-      foreach (const Particle& p, vfs_particles ) pTmiss -= p.momentum();
+      for (const Particle& p : vfs_particles)
+        pTmiss -= p.momentum();
       double eTmiss = pTmiss.pT()/GeV;
 
 
@@ -221,10 +223,10 @@ namespace Rivet {
 
       // jet - electron
       Jets recon_jets;
-      foreach (const Jet& jet, jet_candidates) {
+      for (const Jet& jet : jet_candidates) {
         bool away = true;
         // If jet within dR < 0.2 of electron: remove jet
-        foreach (const Particle& e, electron_candidates_2) {
+        for (const Particle& e : electron_candidates_2) {
           if (deltaR(e.momentum(), jet.momentum()) < 0.2 ) {
             away = false;
             break;
@@ -234,7 +236,7 @@ namespace Rivet {
         // jet - tau
         if ( away )  {
           // If jet within dR < 0.2 of tau: remove jet
-          foreach (const Particle& tau, tau_candidates) {
+          for (const Particle& tau : tau_candidates) {
             if (deltaR(tau.momentum(), jet.momentum()) < 0.2 ) {
               away = false;
               break;
@@ -252,7 +254,7 @@ namespace Rivet {
         const Particle& e = electron_candidates_2[ie];
         // If electron within 0.2 < dR < 0.4 from any jets: remove electron
         bool away = true;
-        foreach (const Jet& jet, recon_jets) {
+        for (const Jet& jet : recon_jets) {
           if (deltaR(e.momentum(), jet.momentum()) < 0.4 ) {
             away = false;
             break;
@@ -261,7 +263,7 @@ namespace Rivet {
         // electron - muon
         // If electron within dR < 0.1 of a muon: remove electron
         if (away) {
-          foreach (const Particle& mu, muon_candidates) {
+          for (const Particle& mu : muon_candidates) {
             if (deltaR(mu.momentum(),e.momentum()) < 0.1) {
               away = false;
               break;
@@ -277,10 +279,10 @@ namespace Rivet {
 
       // tau - electron
       Particles recon_tau;
-      foreach (const Particle& tau, tau_candidates) {
+      for (const Particle& tau : tau_candidates) {
         bool away = true;
         // If tau within dR < 0.2 of an electron: remove tau
-        foreach (const Particle & e, recon_e) {
+        for (const Particle & e : recon_e) {
           if (deltaR(tau.momentum(),e.momentum()) < 0.2 ) {
             away = false;
             break;
@@ -289,7 +291,7 @@ namespace Rivet {
         // tau - muon
         // If tau within dR < 0.2 of a muon: remove tau
         if (away)  {
-          foreach (const Particle& mu, muon_candidates) {
+          for (const Particle& mu : muon_candidates) {
             if (deltaR(tau.momentum(), mu.momentum()) < 0.2 ) {
               away = false;
               break;
@@ -303,9 +305,9 @@ namespace Rivet {
       // muon - jet
       Particles recon_mu, trigger_mu;
       // If muon within dR < 0.4 of a jet: remove muon
-      foreach (const Particle& mu, muon_candidates ) {
+      for (const Particle& mu : muon_candidates ) {
         bool away = true;
-        foreach (const Jet& jet, recon_jets) {
+        for (const Jet& jet : recon_jets) {
           if (deltaR(mu.momentum(), jet.momentum()) < 0.4 ) {
             away = false;
             break;
@@ -323,7 +325,7 @@ namespace Rivet {
 
       // Jet cleaning
       if (rand()/static_cast<double>(RAND_MAX) <= 0.42) {
-        foreach (const Jet& jet, recon_jets ) {
+        for (const Jet& jet : recon_jets ) {
           const double eta = jet.rapidity();
           const double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
           if(jet.pT() > 25*GeV && inRange(eta,-0.1,1.5) && inRange(phi,-0.9,-0.5)) vetoEvent;
@@ -411,21 +413,21 @@ namespace Rivet {
 
       // Calculate HTjets variable
       double HTjets = 0.;
-      foreach (const Jet& jet, recon_jets)
+      for (const Jet& jet : recon_jets)
         HTjets += jet.pT()/GeV;
 
       // Calculate meff variable
       double meff = eTmiss + HTjets;
       Particles all_leptons;
-      foreach (const Particle& e, recon_e ) {
+      for (const Particle& e : recon_e ) {
         meff += e.pT()/GeV;
         all_leptons.push_back( e );
       }
-      foreach (const Particle& mu, recon_mu) {
+      for (const Particle& mu : recon_mu) {
         meff += mu.pT()/GeV;
         all_leptons.push_back( mu );
       }
-      foreach (const Particle& tau, recon_tau) {
+      for (const Particle& tau : recon_tau) {
         meff += tau.pT()/GeV;
         all_leptons.push_back( tau );
       }
@@ -730,15 +732,15 @@ namespace Rivet {
 
     /// Function giving fiducial lepton efficiency
     double apply_reco_eff(int flavor, const Particle& p) {
-      float pt = p.pT()/GeV;
-      float eta = p.eta();
+      double pt = p.pT()/GeV;
+      double eta = p.eta();
 
       double eff = 0.;
 
       if (flavor == 11) { // weight prompt electron -- now including data/MC ID SF in eff.
         double avgrate = 0.685;
-        float wz_ele[] =  {0.0256,0.522,0.607,0.654,0.708,0.737,0.761,0.784,0.815,0.835,0.851,0.841,0.898};
-        // float ewz_ele[] = {0.000257,0.00492,0.00524,0.00519,0.00396,0.00449,0.00538,0.00513,0.00773,0.00753,0.0209,0.0964,0.259};
+        const static double wz_ele[] =  {0.0256,0.522,0.607,0.654,0.708,0.737,0.761,0.784,0.815,0.835,0.851,0.841,0.898};
+        // double ewz_ele[] = {0.000257,0.00492,0.00524,0.00519,0.00396,0.00449,0.00538,0.00513,0.00773,0.00753,0.0209,0.0964,0.259};
         int ibin = 0;
         if(pt > 10  && pt < 15) ibin = 0;
         if(pt > 15  && pt < 20) ibin = 1;
@@ -758,8 +760,8 @@ namespace Rivet {
 
         eta = fabs(eta);
 
-        float wz_ele_eta[] =  {0.65,0.714,0.722,0.689,0.635,0.615};
-        // float ewz_ele_eta[] = {0.00642,0.00355,0.00335,0.004,0.00368,0.00422};
+        const static double wz_ele_eta[] =  {0.65,0.714,0.722,0.689,0.635,0.615};
+        // double ewz_ele_eta[] = {0.00642,0.00355,0.00335,0.004,0.00368,0.00422};
         ibin = 0;
         if(eta > 0 && eta < 0.1) ibin = 0;
         if(eta > 0.1 && eta < 0.5) ibin = 1;
@@ -775,8 +777,8 @@ namespace Rivet {
 
       if (flavor == 12) { // weight electron from tau
         double avgrate = 0.476;
-        float wz_ele[] =  {0.00855,0.409,0.442,0.55,0.632,0.616,0.615,0.642,0.72,0.617};
-        // float ewz_ele[] = {0.000573,0.0291,0.0366,0.0352,0.0363,0.0474,0.0628,0.0709,0.125,0.109};
+        const static double wz_ele[] =  {0.00855,0.409,0.442,0.55,0.632,0.616,0.615,0.642,0.72,0.617};
+        // double ewz_ele[] = {0.000573,0.0291,0.0366,0.0352,0.0363,0.0474,0.0628,0.0709,0.125,0.109};
         int ibin = 0;
         if(pt > 10  && pt < 15) ibin = 0;
         if(pt > 15  && pt < 20) ibin = 1;
@@ -793,8 +795,8 @@ namespace Rivet {
 
         eta = fabs(eta);
 
-        float wz_ele_eta[] =  {0.546,0.5,0.513,0.421,0.47,0.433};
-        //float ewz_ele_eta[] = {0.0566,0.0257,0.0263,0.0263,0.0303,0.0321};
+        const static double wz_ele_eta[] =  {0.546,0.5,0.513,0.421,0.47,0.433};
+        //double ewz_ele_eta[] = {0.0566,0.0257,0.0263,0.0263,0.0303,0.0321};
         ibin = 0;
         if(eta > 0 && eta < 0.1) ibin = 0;
         if(eta > 0.1 && eta < 0.5) ibin = 1;
@@ -823,15 +825,15 @@ namespace Rivet {
         if(pt > 200 && pt < 400) ibin = 10;
         if(pt > 400) ibin = 11;
         if(fabs(eta) < 0.1) {
-          float wz_mu[] =  {0.00705,0.402,0.478,0.49,0.492,0.499,0.527,0.512,0.53,0.528,0.465,0.465};
-          //float ewz_mu[] = {0.000298,0.0154,0.017,0.0158,0.0114,0.0123,0.0155,0.0133,0.0196,0.0182,0.0414,0.0414};
+          const static double wz_mu[] =  {0.00705,0.402,0.478,0.49,0.492,0.499,0.527,0.512,0.53,0.528,0.465,0.465};
+          //double ewz_mu[] = {0.000298,0.0154,0.017,0.0158,0.0114,0.0123,0.0155,0.0133,0.0196,0.0182,0.0414,0.0414};
           double eff_pt = 0.;
           eff_pt = wz_mu[ibin];
           eff = eff_pt;
         }
         if(fabs(eta) > 0.1) {
-          float wz_mu[] =  {0.0224,0.839,0.887,0.91,0.919,0.923,0.925,0.925,0.922,0.918,0.884,0.834};
-          //float ewz_mu[] = {0.000213,0.00753,0.0074,0.007,0.00496,0.00534,0.00632,0.00583,0.00849,0.00804,0.0224,0.0963};
+          const static double wz_mu[] =  {0.0224,0.839,0.887,0.91,0.919,0.923,0.925,0.925,0.922,0.918,0.884,0.834};
+          //double ewz_mu[] = {0.000213,0.00753,0.0074,0.007,0.00496,0.00534,0.00632,0.00583,0.00849,0.00804,0.0224,0.0963};
           double eff_pt = 0.;
           eff_pt = wz_mu[ibin];
           eff = eff_pt;
@@ -852,15 +854,15 @@ namespace Rivet {
         if(pt > 100) ibin = 9;
 
         if(fabs(eta) < 0.1) {
-          float wz_mu[] =  {0.0,0.664,0.124,0.133,0.527,0.283,0.495,0.25,0.5,0.331};
-          //float ewz_mu[] = {0.0,0.192,0.0437,0.0343,0.128,0.107,0.202,0.125,0.25,0.191};
+          const static double wz_mu[] =  {0.0,0.664,0.124,0.133,0.527,0.283,0.495,0.25,0.5,0.331};
+          //double ewz_mu[] = {0.0,0.192,0.0437,0.0343,0.128,0.107,0.202,0.125,0.25,0.191};
           double eff_pt = 0.;
           eff_pt = wz_mu[ibin];
           eff = eff_pt;
         }
         if(fabs(eta) > 0.1) {
-          float wz_mu[] =  {0.0,0.617,0.655,0.676,0.705,0.738,0.712,0.783,0.646,0.745};
-          //float ewz_mu[] = {0.0,0.043,0.0564,0.0448,0.0405,0.0576,0.065,0.0825,0.102,0.132};
+          const static double wz_mu[] =  {0.0,0.617,0.655,0.676,0.705,0.738,0.712,0.783,0.646,0.745};
+          //double ewz_mu[] = {0.0,0.043,0.0564,0.0448,0.0405,0.0576,0.065,0.0825,0.102,0.132};
           double eff_pt = 0.;
           eff_pt = wz_mu[ibin];
           eff = eff_pt;
@@ -869,8 +871,8 @@ namespace Rivet {
 
       if (flavor == 15) { // weight hadronic tau 1p
         double avgrate = 0.16;
-        float wz_tau1p[] =  {0.0,0.0311,0.148,0.229,0.217,0.292,0.245,0.307,0.227,0.277};
-        //float ewz_tau1p[] = {0.0,0.00211,0.0117,0.0179,0.0134,0.0248,0.0264,0.0322,0.0331,0.0427};
+        const static double wz_tau1p[] =  {0.0,0.0311,0.148,0.229,0.217,0.292,0.245,0.307,0.227,0.277};
+        //double ewz_tau1p[] = {0.0,0.00211,0.0117,0.0179,0.0134,0.0248,0.0264,0.0322,0.0331,0.0427};
         int ibin = 0;
         if(pt > 10  && pt < 15) ibin = 0;
         if(pt > 15  && pt < 20) ibin = 1;
@@ -885,8 +887,8 @@ namespace Rivet {
         double eff_pt = 0.;
         eff_pt = wz_tau1p[ibin];
 
-        float wz_tau1p_eta[] = {0.166,0.15,0.188,0.175,0.142,0.109};
-        //float ewz_tau1p_eta[] ={0.0166,0.00853,0.0097,0.00985,0.00949,0.00842};
+        const static double wz_tau1p_eta[] = {0.166,0.15,0.188,0.175,0.142,0.109};
+        //double ewz_tau1p_eta[] ={0.0166,0.00853,0.0097,0.00985,0.00949,0.00842};
         ibin = 0;
         if(eta > 0.0 && eta < 0.1) ibin = 0;
         if(eta > 0.1 && eta < 0.5) ibin = 1;
@@ -902,6 +904,7 @@ namespace Rivet {
 
       return eff;
     }
+
 
     /// Function giving observed and expected upper limits (on the visible cross-section)
     double getUpperLimit(const string& signal_region, bool observed)  {
@@ -1248,8 +1251,8 @@ namespace Rivet {
       double best_mass_3 = 999.;
 
       // Loop over all 2 particle combinations to find invariant mass of OSSF pair closest to Z mass
-      foreach (const Particle& p1, particles)  {
-        foreach (const Particle& p2, particles)  {
+      for (const Particle& p1 : particles)  {
+        for (const Particle& p2 : particles)  {
           double mass_difference_2_old = fabs(91.0 - best_mass_2);
           double mass_difference_2_new = fabs(91.0 - (p1.momentum() + p2.momentum()).mass()/GeV);
 
@@ -1260,7 +1263,7 @@ namespace Rivet {
             if (mass_difference_2_new < mass_difference_2_old)
               best_mass_2 = (p1.momentum() + p2.momentum()).mass()/GeV;
           // In case there is an OSSF pair take also 3rd lepton into account (e.g. from FSR and photon to electron conversion)
-          foreach (const Particle& p3 , particles  )  {
+            for (const Particle& p3 : particles  )  {
             double mass_difference_3_old = fabs(91.0 - best_mass_3);
             double mass_difference_3_new = fabs(91.0 - (p1.momentum() + p2.momentum() + p3.momentum()).mass()/GeV);
             if (mass_difference_3_new < mass_difference_3_old)

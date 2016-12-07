@@ -6,7 +6,7 @@ DOCSOURCES = compare-histos.txt slip.eps thinker.eps cone.eps bend.eps \
   $(LATEXSUBSOURCES) heppennames.sty hepnicenames.sty hepparticles.sty maybemath.sty \
   hepunits.sty underscore.sty microtype.sty
 
-EXTRA_DIST = $(DOCSOURCES)
+EXTRA_DIST = $(DOCSOURCES) refs.bib
 DOCS =
 
 if ENABLE_PDFMANUAL
@@ -24,7 +24,6 @@ endif
 if WITH_PDFLATEX
 
 DOCS += rivet-manual.pdf
-EXTRA_DIST += refs.bib
 
 if ENABLE_PYEXT
 analyses.bib analyses.tex: $(top_srcdir)/src/Analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex

@@ -9,6 +9,9 @@ Authors:
  - Holger Schulz <holger.schulz@cern.ch>
 RunInfo:
   Events with B-decays, either particle guns or collisions.
+Keywords:
+ - bdecays
+ - semileptonic
 NumEvents: 10000
 NeedCrossSection: no
 Description:

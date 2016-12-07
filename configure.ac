@@ -153,16 +153,6 @@ AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])]
 CPPFLAGS=$oldCPPFLAGS
 
 
-dnl ## Boost utility library
-dnl BOOST_REQUIRE([1.55.0])
-dnl BOOST_FOREACH
-dnl BOOST_SMART_PTR
-dnl BOOST_FIND_HEADER([boost/lexical_cast.hpp])
-dnl BOOST_FIND_HEADER([boost/range.hpp])
-dnl BOOST_FIND_HEADER([boost/assign.hpp])
-dnl BOOST_BUG_IN_FOREACH
-
-
 ## Disable build/install of standard analyses
 AC_ARG_ENABLE([analyses],
   [AC_HELP_STRING(--disable-analyses, [don't try to build or install standard analyses])],
@@ -171,51 +161,6 @@ if test x$enable_analyses != xyes; then
    AC_MSG_WARN([Not building standard Rivet analyses, by request])
 fi
 AM_CONDITIONAL(ENABLE_ANALYSES, [test x$enable_analyses = xyes])
-
-
-## Enable build/install of unvalidated analyses
-AC_ARG_ENABLE([unvalidated],
-  [AC_HELP_STRING(--enable-unvalidated, [does nothing, for backward compatibility])],
-  [], [enable_unvalidated=yes])
-dnl AC_ARG_ENABLE([unvalidated],
-dnl   [AC_HELP_STRING(--enable-unvalidated, [build and install unvalidated analyses])],
-dnl   [], [enable_unvalidated=yes])
-dnl if test x$enable_unvalidated = xyes; then
-dnl    AC_MSG_WARN([Building unvalidated Rivet analyses, by request])
-dnl else
-dnl    AC_MSG_NOTICE([Not building unvalidated Rivet analyses])
-dnl fi
-dnl AM_CONDITIONAL(ENABLE_UNVALIDATED, [test x$enable_unvalidated = xyes])
-
-
-## Disable build/install of validated-but-preliminary analyses
-AC_ARG_ENABLE([preliminary],
-  [AC_HELP_STRING(--disable-preliminary, [does nothing, for backward compatibility])],
-  [], [enable_preliminary=yes])
-dnl AC_ARG_ENABLE([preliminary],
-dnl   [AC_HELP_STRING(--disable-preliminary, [build and install validated-but-preliminary analyses])],
-dnl   [], [enable_preliminary=yes])
-dnl if test x$enable_preliminary = xyes; then
-dnl    AC_MSG_NOTICE([Building preliminary Rivet analyses])
-dnl else
-dnl    AC_MSG_NOTICE([Not building preliminary Rivet analyses, by request])
-dnl fi
-dnl AM_CONDITIONAL(ENABLE_PRELIMINARY, [test x$enable_preliminary = xyes])
-
-
-## Disable build/install of now-obsolete preliminary analyses
-AC_ARG_ENABLE([obsolete],
-  [AC_HELP_STRING(--disable-obsolete, [does nothing, for backward compatibility])],
-  [], [enable_obsolete=yes])
-dnl AC_ARG_ENABLE([obsolete],
-dnl   [AC_HELP_STRING(--disable-obsolete, [build and install now-obsolete analyses])],
-dnl   [], [enable_obsolete=$enable_preliminary])
-dnl if test x$enable_obsolete = xyes; then
-dnl    AC_MSG_NOTICE([Building obsolete Rivet analyses])
-dnl else
-dnl    AC_MSG_NOTICE([Not building obsolete Rivet analyses, by request])
-dnl fi
-dnl AM_CONDITIONAL(ENABLE_OBSOLETE, [test x$enable_obsolete = xyes])
 
 
 ## Build LaTeX docs if possible...
@@ -263,19 +208,23 @@ if test x$enable_pyext == xyes; then
     enable_pyext=no
   fi
 fi
-dnl if test x$enable_pyext == xyes; then
-dnl   AC_MSG_NOTICE([All Python build checks successful: 'yoda' Python extension will be built])
-dnl fi
 AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 
 
 ## Cython checks
 if test x$enable_pyext == xyes; then
-  AM_CHECK_CYTHON([0.18], [:], [:])
+  AM_CHECK_CYTHON([0.23.5], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
-    AC_MSG_NOTICE([Cython >= 0.18 found: Python extension source can be rebuilt (for developers)])
-    cython_compiler=$CXX
+    AC_MSG_NOTICE([Cython >= 0.23.5 found: Python extension source can be rebuilt (for developers)])
   fi
+
+  AC_CHECK_FILE([pyext/rivet/core.cpp],
+                [],
+                [if test "x$CYTHON_FOUND" != "xyes"; then
+                  AC_MSG_ERROR([Cython is required for --enable-pyext, no pre-built core.cpp was found.])
+                fi])
+
+  cython_compiler=$CXX
   ## Set extra Python extension build flags (to cope with Cython output code oddities)
   PYEXT_CXXFLAGS="$CXXFLAGS"
   AC_CEDAR_CHECKCXXFLAG([-Wno-unused-but-set-variable], [PYEXT_CXXFLAGS="$PYEXT_CXXFLAGS -Wno-unused-but-set-variable"])

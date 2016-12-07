@@ -65,7 +65,7 @@ namespace Rivet {
       // Compute isolation energy in cone of radius .4 around photon (all particles)
       FourMomentum mom_in_EtCone;
       Particles fs = applyProjection<FinalState>(event, "FS").particles();
-      foreach (const Particle& p, fs) {
+      for (const Particle& p : fs) {
         // Check if it's outside the cone of 0.4
         if (deltaR(leadingPhoton, p) >= 0.4) continue;
         // Except muons or neutrinos
@@ -81,7 +81,7 @@ namespace Rivet {
       vector< vector<double> > ptDensities(_eta_bins_areaoffset.size()-1);
       const FastJets& fast_jets = applyProjection<FastJets>(event, "KtJetsD05");
       const auto clust_seq_area = fast_jets.clusterSeqArea();
-      foreach (const Jet& jet, fast_jets.jets()) {
+      for (const Jet& jet : fast_jets.jets()) {
         const double area = clust_seq_area->area(jet);
         if (area > 1e-3 && jet.abseta() < _eta_bins_areaoffset.back())
           ptDensities.at( _getEtaBin(jet.abseta(), true) ) += jet.pT()/area;

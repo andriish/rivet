@@ -1,3 +1,99 @@
+2016-12-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding ALICE_2012_I1116147 (eta and pi0 pTs and ratio) and
+	ATLAS_2011_I929691 (7 TeV jet frag)
+
+2016-11-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix bash bugs in rivet-buildplugin, including fixing the --cmd mode.
+
+2016-11-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add LHC Run 2 BSM analyses ATLAS_2016_CONF_2016_037 (3-lepton
+	and same-sign 2-lepton), ATLAS_2016_CONF_2016_054 (1-lepton +
+	jets), ATLAS_2016_CONF_2016_078 (ICHEP jets + MET),
+	ATLAS_2016_CONF_2016_094 (1-lepton + many jets), CMS_2013_I1223519
+	(alphaT + b-jets), and CMS_2016_PAS_SUS_16_14 (jets + MET).
+
+	* Provide convenience reversed-argument versions of apply and
+	declare methods, to allow presentational choice of declare syntax
+	in situations where the projection argument is very long, and
+	reduce requirements on the user's memory since this is one
+	situation in Rivet where there is no 'most natural' ordering
+	choice.
+
+2016-11-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding pTvec() function to 4-vectors and ParticleBase.
+
+	* Fix --pwd option of the rivet script
+
+2016-11-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add weights and scaling to Cutflow/s.
+
+2016-11-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Et(const ParticleBase&) unbound function.
+
+2016-11-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix missing YAML quote mark in rivet-mkanalysis.
+
+2016-11-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix constness requirements on ifilter_select() and Particle/JetEffFilter::operator().
+
+	* src/Analyses/ATLAS_2016_I1458270.cc: Fix inverted particle efficiency filtering.
+
+2016-10-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add rough ATLAS and CMS photon reco efficiency functions from
+	Delphes (ATLAS and CMS versions are identical, hmmm)
+
+2016-10-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tidying/fixing make-plots custom z-ticks code. Thanks to Dmitry Kalinkin.
+
+2016-10-03  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Fix SpiresID -> InspireID in some analyses (show-analysis pointed to
+	non-existing web page)
+
+2016-09-29  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Add Luminosity_fb to AnalysisInfo
+
+	* Added some keywords and Lumi to ATLAS_2016_I1458270
+
+2016-09-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge the ATLAS and CMS from-Delphes electron and muon tracking
+	efficiency functions into generic trkeff functions -- this is how
+	it should be.
+
+	* Fix return type typo in Jet::bTagged(FN) templated method.
+
+	* Add eta and pT cuts to ATLAS truth b-jet definition.
+
+	* Use rounding rather than truncation in Cutflow percentage efficiency printing.
+
+2016-09-28  Frank Siegert  <frank.siegert@cern.ch>
+
+       * make-plots bugfix in y-axis labels for RatioPlotMode=deviation
+
+2016-09-27  Andy Buckley  <andy.buckley@cern.ch>
+
+       * Add vector and scalar pT (rather than Et) to MissingMomentum.
+
+2016-09-27  Holger Schulz  <holger.schulz@cern.ch>
+
+	* Analysis keyword machinery
+
+	* rivet -a @semileptonic
+
+	* rivet -a @semileptonic@^bdecays -a @semileptonic@^ddecays
+
 2016-09-22  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Release version 2.5.2

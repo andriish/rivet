@@ -24,16 +24,16 @@ namespace Rivet {
       declare(recojets, "Jets");
 
       FinalState electrons(Cuts::abspid == PID::ELECTRON && Cuts::abseta < 2.47 && Cuts::pT > 20*GeV);
-      SmearedParticles recoelectrons(electrons, ELECTRON_EFF_ATLAS_RUN2);
+      SmearedParticles recoelectrons(electrons, ELECTRON_EFF_ATLAS_RUN1);
       declare(recoelectrons, "Electrons");
 
       FinalState muons(Cuts::abspid == PID::MUON && Cuts::abseta < 2.50 && Cuts::pT > 10*GeV);
-      SmearedParticles recomuons(muons, MUON_EFF_ATLAS_RUN2);
+      SmearedParticles recomuons(muons, MUON_EFF_ATLAS_RUN1);
       declare(recomuons, "Muons");
 
       VisibleFinalState calofs(Cuts::abseta < 4.9 && Cuts::abspid != PID::MUON);
       MissingMomentum met(calofs);
-      SmearedMET recomet(met, MET_SMEAR_ATLAS_RUN2);
+      SmearedMET recomet(met, MET_SMEAR_ATLAS_RUN1);
       declare(recomet, "MET");
 
 
