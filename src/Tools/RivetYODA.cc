@@ -95,7 +95,7 @@ namespace {
 
         // points in the top half compare to the upper neighbour
         if ( x > b.xMid() ) {
-            int nextidx = binidx + 1;
+            size_t nextidx = binidx + 1;
             if ( nextidx < histo->bins().size() )
                 b1 = histo->bin(nextidx);
         }
@@ -123,7 +123,7 @@ namespace {
     template <>
     YODA::Profile2D::BinType 
     fillT2binT<YODA::Profile2D>(YODA::Profile2D::FillType a) {
-      return { get<0>(a), get<1>(a) };
+      return YODA::Profile2D::BinType{ get<0>(a), get<1>(a) };
     }
 
 
@@ -166,7 +166,7 @@ namespace {
             ehi = *edgit;
             valarray<double> sumw(0.0, persistent.size()); // need m copies of this
             bool gap = true; // Check for gaps between the sub-windows.
-            for ( int i = 0; i < x.size(); ++i  ) {
+            for ( size_t i = 0; i < x.size(); ++i  ) {
               // check equals comparisons here!
               if ( fillT2binT<T>(x[i].first) + wsize >= ehi 
                    && 
@@ -176,7 +176,7 @@ namespace {
               }
             }
             if ( gap ) continue;
-            hfill.push_back( { (ehi + elo)/2.0, sumw, (ehi - elo) } );
+            hfill.push_back( make_tuple( (ehi + elo)/2.0, sumw, (ehi - elo) ) );
             sumf += ehi - elo;
           }
     
@@ -250,7 +250,7 @@ match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T>
     // subevent.
     for ( int i = maxfill - 1; i >= 0; --i ) {
       if ( subev[i] == NOFILL ) continue;
-      int j = i;
+      size_t j = i;
       while ( j + 1 < maxfill && subev[j + 1] == NOFILL &&
               distance(fillT2binT<T>(subev[j].first), 
                        fillT2binT<T>(full[j].first)) 

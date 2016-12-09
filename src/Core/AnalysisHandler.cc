@@ -18,7 +18,7 @@ namespace {
             last;
         return {first, last};
     }
-};
+}
 
 
 namespace Rivet {

@@ -198,7 +198,7 @@ public:
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
         if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
         if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
-        fills_.insert( { {x,y}, weight } );
+        fills_.insert( { YODA::Profile1D::FillType{x,y}, weight } );
     }
     void reset() { fills_.clear(); }
     const Fills<YODA::Profile1D> & fills() const { return fills_; }
@@ -217,7 +217,7 @@ public:
     void fill( double x, double y, double weight=1.0, double fraction=1.0 ) {
         if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
         if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
-        fills_.insert( {{x,y}, weight} );
+        fills_.insert( { YODA::Histo2D::FillType{x,y}, weight } );
     }
     void reset() { fills_.clear(); }
     const Fills<YODA::Histo2D> & fills() const { return fills_; }
@@ -236,7 +236,7 @@ public:
         if ( std::isnan(x) ) throw YODA::RangeError("X is NaN");
         if ( std::isnan(y) ) throw YODA::RangeError("Y is NaN");
         if ( std::isnan(z) ) throw YODA::RangeError("Z is NaN");
-        fills_.insert( {{x,y,z}, weight} );
+        fills_.insert( { YODA::Profile2D::FillType{x,y,z}, weight } );
     }
     void reset() { fills_.clear(); }
     const Fills<YODA::Profile2D> & fills() const { return fills_; }
