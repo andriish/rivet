@@ -114,16 +114,18 @@ namespace Rivet {
       }
       // Apply tagging efficiencies, using smeared kinematics as input to the tag eff functions
       for (Jet& j : _recojets) {
-        const double beff = _bTagEffFn ? _bTagEffFn(j) : 1;
-        const bool btag = beff == 1 || (beff != 0 && beff < rand01());
+        // Decide whether or not there should be a b-tag on this jet
+        const double beff = _bTagEffFn ? _bTagEffFn(j) : j.bTagged();
+        const bool btag = beff == 1 || (beff != 0 && rand01() < beff);
         // Remove b-tags if needed, and add a dummy one if needed
         if (!btag && j.bTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasBottom), j.tags().end());
-        if (btag && !j.bTagged()) j.tags().push_back(Particle(PID::BQUARK, j.mom()));
-        const double ceff = _cTagEffFn ? _cTagEffFn(j) : 1;
-        const bool ctag = ceff == 1 || (ceff != 0 && ceff < rand01());
+        if (btag && !j.bTagged()) j.tags().push_back(Particle(PID::BQUARK, j.mom())); ///< @todo Or could use the/an actual clustered b-quark momentum?
+        // Decide whether or not there should be a c-tag on this jet
+        const double ceff = _cTagEffFn ? _cTagEffFn(j) : j.cTagged();
+        const bool ctag = ceff == 1 || (ceff != 0 && rand01() < beff);
         // Remove c-tags if needed, and add a dummy one if needed
         if (!ctag && j.cTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasCharm), j.tags().end());
-        if (ctag && !j.cTagged()) j.tags().push_back(Particle(PID::CQUARK, j.mom()));
+        if (ctag && !j.cTagged()) j.tags().push_back(Particle(PID::CQUARK, j.mom())); ///< @todo As above... ?
       }
     }
 

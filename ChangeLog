@@ -7,6 +7,8 @@
 
 2016-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix bugs in SmearedJets treatment of b & c tagging rates.
+
 	* Adding ATLAS_2016_I1467454 analysis (high-mass Drell-Yan at 8 TeV)
 
 	* Tweak to 'convert' call to improve the thumbnail quality from rivet-mkhtml/make-plots.
