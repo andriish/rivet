@@ -7,6 +7,8 @@
 
 2016-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding ATLAS_2016_I1467454 analysis (high-mass Drell-Yan at 8 TeV)
+
 	* Tweak to 'convert' call to improve the thumbnail quality from rivet-mkhtml/make-plots.
 
 2016-12-07  Andy Buckley  <andy.buckley@cern.ch>
