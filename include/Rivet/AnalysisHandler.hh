@@ -65,7 +65,7 @@ namespace Rivet {
     /// number of events. Should only really be used by external steering code
     /// or analyses in the finalize phase.
     double sumOfWeights() const {
-        return _eventCounter->sumW();
+        return _eventCounter._persistent[0]->sumW();
     }
 
     size_t numWeights() const {

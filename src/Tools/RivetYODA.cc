@@ -281,13 +281,14 @@ namespace Rivet {
   template <class T>
   void Wrapper<T>::pushToPersistent(const vector<valarray<double> >& weight) {
 
+      assert( _evgroup.size() == weight.size() );
+
       // have we had subevents at all?
       const bool have_subevents = _evgroup.size() > 1;
       if ( ! have_subevents ) {
 
 
 
-        assert( _evgroup.size() == 1 && weight.size() == 1 );
         // simple replay of all tuple entries
         // each recorded fill is inserted into all persistent weightname histos
         for ( size_t m = 0; m < _persistent.size(); ++m )
@@ -300,7 +301,6 @@ namespace Rivet {
 
 
 
-        assert( _evgroup.size() == weight.size() );
         // outer index is subevent, inner index is jets in the event
         vector<vector<Fill<T>>> linedUpXs
             = match_fills<T>(_evgroup, {typename T::FillType(), 0.0});
@@ -322,6 +322,9 @@ namespace Rivet {
         }
       }
     }
+
+    _evgroup.clear();
+    _active.reset();
   }
 
   // explicitly instantiate all wrappers
