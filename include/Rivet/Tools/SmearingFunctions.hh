@@ -754,11 +754,17 @@ namespace Rivet {
         if (p.pT() < 100*GeV) return 0.83;
         else return 0.90;
       }
-    } else { // muons and hadrons
+    } else if (p.abspid() == PID::MUON) {
       if (p.abseta() < 1.5) {
         return (p.pT() < 1*GeV) ? 0.75 : 0.99;
       } else {
         return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    } else { // charged hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
       }
     }
   }
@@ -778,15 +784,25 @@ namespace Rivet {
 
     if (p.abspid() == PID::ELECTRON) {
       if (p.abseta() < 1.5) {
-        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+        if (p.pT() < 1*GeV) return 0.73;
+        if (p.pT() < 100*GeV) return 0.95;
+        return 0.99;
       } else {
-        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
+        if (p.pT() < 1*GeV) return 0.50;
+        if (p.pT() < 100*GeV) return 0.83;
+        else return 0.90;
       }
-    } else { // muons and hadrons
+    } else if (p.abspid() == PID::MUON) {
       if (p.abseta() < 1.5) {
         return (p.pT() < 1*GeV) ? 0.75 : 0.99;
       } else {
         return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    } else { // charged hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
       }
     }
   }
