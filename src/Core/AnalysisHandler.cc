@@ -173,6 +173,7 @@ namespace Rivet {
         /// @todo
         /// can we get away with not passing a matrix?
 
+        MSG_TRACE("Pushing analysis objects to persistent.");
         // if this is indeed a new event, push the temporary
         // histograms and reset
         for (const AnaHandle& a : _analyses) {
@@ -181,6 +182,7 @@ namespace Rivet {
             }
         }
 
+        MSG_TRACE("Pushing eventCounter to persistent.");
         _eventCounter.pushToPersistent(_subEventWeights);
 
         _eventNumber = ge.event_number();
@@ -190,13 +192,13 @@ namespace Rivet {
         _subEventWeights.clear();
     }
 
+
+    _eventCounter.newSubEvent();
     for (const AnaHandle& a : _analyses) {
         for (const auto & ao : a->analysisObjects()) {
             ao.get().newSubEvent();
         }
     }
-
-    _eventCounter.newSubEvent();
 
     _subEventWeights.push_back(event.weights());
     MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
@@ -210,6 +212,8 @@ namespace Rivet {
     }
     #endif
 
+    MSG_TRACE("Filling event counter.");
+    _eventCounter->fill();
     // Run the analyses
     for (AnaHandle a : _analyses) {
       MSG_TRACE("About to run analysis " << a->name());
@@ -234,17 +238,22 @@ namespace Rivet {
 
 
   void AnalysisHandler::finalize() {
-    if (!_initialised) return;
-    MSG_INFO("Finalising analyses");
-    for (AnaHandle a : _analyses) {
-      a->setCrossSection(_xs);
-      try {
-        a->finalize();
-      } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
-        exit(1);
+      if (!_initialised) return;
+      MSG_INFO("Finalising analyses");
+      for (AnaHandle a : _analyses) {
+          a->setCrossSection(_xs);
+          for (size_t iW = 0; iW < numWeights(); iW++) {
+              for (MultiweightAOPtr& aoptr : a->_analysisobjects)
+                  aoptr.setActiveWeightIdx(iW);
+
+              try {
+                  a->finalize();
+              } catch (const Error& err) {
+                  cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
+                  exit(1);
+              }
+          }
       }
-    }
 
     // Print out number of events processed
     MSG_INFO("Processed " << numEvents() << " event" << (numEvents() == 1 ? "" : "s"));
