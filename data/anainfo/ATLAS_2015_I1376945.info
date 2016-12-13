@@ -1,6 +1,6 @@
 Name: ATLAS_2015_I1376945
 Year: 2015
-Summary: Colour flow at 8TeV
+Summary: Colour flow in hadronic top decay at 8 TeV
 Experiment: ATLAS
 Collider: LHC
 InspireID: 1376945
@@ -19,7 +19,7 @@ NeedCrossSection: False
 Description:
   The distribution and orientation of energy inside jets is predicted to be an experimental handle on colour connections between the
   hard-scatter quarks and gluons initiating the jets. This is a measurement of the distribution of one such variable, the jet pull angle.
-  The pull angle is measured for jets produced in $t\bar{t}$ events with one $W$ boson decaying leptonically and the other decaying to 
+  The pull angle is measured for jets produced in $t\bar{t}$ events with one $W$ boson decaying leptonically and the other decaying to
   jets using 20.3\,$\text{fb}^{-1}$ of data recorded with the ATLAS detector at a centre-of-mass energy of $\sqrt{s} = 8$\,TeV at the LHC.
   The jet pull angle distribution is corrected for detector resolution and acceptance effects.
 BibKey: Aad:2015lxa

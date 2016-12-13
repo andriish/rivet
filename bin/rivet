@@ -328,7 +328,7 @@ if len(opts.SHOW_ANALYSES) > 0:
             msg+= "\n\n"
 
         if ana.references():
-            msg += "\n" + "References:"
+            msg += "\n" + "References:\n"
             for r in ana.references():
                 url = None
                 if r.startswith("arXiv:"):
