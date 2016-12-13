@@ -10,6 +10,7 @@
 namespace Rivet {
 
 
+  /// @brief Colour flow in hadronic top decay at 8 TeV
   class ATLAS_2015_I1376945 : public Analysis {
   public:
 
