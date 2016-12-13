@@ -1,9 +1,12 @@
+2016-12-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.5.3 release.
+
 2016-12-12  Holger Schulz  <holger.schulz@cern.ch>
 
 	* Add cut in BZ calculation in OPAL 4 jet analysis. Paper is not clear
 	about treatment of parallel vectors, leads to division by zero and
 	nan-fill and subsequent YODA RangeError (OPAL_2001_S4553896)
-
 
 2016-12-12  Andy Buckley  <andy.buckley@cern.ch>
 
