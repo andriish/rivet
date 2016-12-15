@@ -113,7 +113,7 @@ only_show=$(echo "$tmp" | egrep -- '--\<cmd\>|--\<dry-run\>')
 tmp=$(echo "$tmp" | sed -e 's/--cmd//g' -e 's/--dry-run//g')
 
 ## Reset positional params now that flags have been removed
-set $tmp "" #< NB. protection against empty $tmp arg!!
+test -n "$tmp" && set $tmp #< NB. protection against empty $tmp arg!!
 
 ## Get and check the library name
 libname=$1
