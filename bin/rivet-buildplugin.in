@@ -105,7 +105,7 @@ fi
 ## Link against ROOT if requested
 with_root=$(echo "$*" | egrep -- '--\<with-root\>')
 # echo $with_root
-tmp="${*//--with-root/}"
+tmp=$(echo "$*" | sed -e 's/--with-root//g')
 
 ## Just show the compiler command rather than execute it, if requested
 only_show=$(echo "$tmp" | egrep -- '--\<cmd\>|--\<dry-run\>')
@@ -113,7 +113,7 @@ only_show=$(echo "$tmp" | egrep -- '--\<cmd\>|--\<dry-run\>')
 tmp=$(echo "$tmp" | sed -e 's/--cmd//g' -e 's/--dry-run//g')
 
 ## Reset positional params now that flags have been removed
-test -n "$tmp" && set $tmp #< NB. protection against empty $tmp arg!!
+set -- $tmp #< NB. protection against empty $tmp arg!!
 
 ## Get and check the library name
 libname=$1
