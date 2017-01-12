@@ -4,9 +4,14 @@
 Run Rivet analyses on inputted events from file or Unix pipe
 
 Examples:
+
   %prog [options] <hepmcfile> [<hepmcfile2> ...]
-  my_generator -o myfifo & \ %prog [options] myfifo
-  agile-runmc <genname> -n 100k -o- | %prog [options]
+
+  or
+
+  my_generator -o fifo.hepmc &
+  %prog [options] fifo.hepmc
+
 
 ENVIRONMENT:
  * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
