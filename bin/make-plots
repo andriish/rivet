@@ -1000,7 +1000,7 @@ class RatioPlot(Plot):
                            custommajorticks=ycustommajorticks,
                            customminorticks=ycustomminorticks)
 
-        if not inputdata.attr_bool('MainPlot', True) and not inputdata.attr_bool('Legend', False):
+        if not inputdata.attr_bool('MainPlot', True) and inputdata.attr_bool('Legend', False):
             legend = Legend(inputdata.description, inputdata.histos, inputdata.functions)
             out += legend.draw()
 
