@@ -1,5 +1,7 @@
 2017-01-16  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add ParticleEffFilter and JetEffFilter constructors from a double (encoding constant efficiency).
+
 	* Add Vector3::abseta()
 
 2016-12-13  Andy Buckley  <andy.buckley@cern.ch>

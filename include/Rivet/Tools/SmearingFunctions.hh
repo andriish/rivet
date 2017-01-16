@@ -38,6 +38,7 @@ namespace Rivet {
   struct ParticleEffFilter {
     template <typename FN>
     ParticleEffFilter(const FN& feff) : _feff(feff) {}
+    ParticleEffFilter(double eff) : ParticleEffFilter( [&](const Particle& p){return eff;} ) {}
     bool operator () (const Particle& p)  const { return efffilt(p, _feff); }
   private:
     const std::function<bool(const Particle&)> _feff;
@@ -48,6 +49,7 @@ namespace Rivet {
   struct JetEffFilter {
     template <typename FN>
     JetEffFilter(const FN& feff) : _feff(feff) {}
+    JetEffFilter(double eff) : JetEffFilter( [&](const Jet& j){return eff;} ) {}
     bool operator () (const Jet& j) const { return efffilt(j, _feff); }
   private:
     const std::function<bool(const Jet&)> _feff;
