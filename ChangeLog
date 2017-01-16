@@ -1,5 +1,10 @@
 2017-01-16  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Convert FinalState particles() accessors to use std::function
+	rather than a template arg for sorting, and add filtering functor
+	support -- including a mix of filtering and sorting functors. Yay
+	for C++11!
+
 	* Add ParticleEffFilter and JetEffFilter constructors from a double (encoding constant efficiency).
 
 	* Add Vector3::abseta()
