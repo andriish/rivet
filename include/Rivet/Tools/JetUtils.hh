@@ -7,6 +7,12 @@
 namespace Rivet {
 
 
+  /// std::function instantiation for functors taking a Jet and returning a bool
+  using JetSelector = function<bool(const Jet&)>;
+  /// std::function instantiation for functors taking two Jets and returning a bool
+  using JetSorter = function<bool(const Jet&, const Jet&)>;
+
+
   /// @name Unbound functions for converting between Jets, Particles and PseudoJets
   //@{
 

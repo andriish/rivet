@@ -40,6 +40,10 @@ namespace Rivet {
     DEPRECATED("Use empty()")
     bool isEmpty() const { return particles().empty(); }
 
+    using ParticleSelector = function<bool(const Particle&)>;
+    // using JetSelector = function<bool(const Jet&)>;
+    using ParticleSorter = function<bool(const Particle&, const Particle&)>;
+    // using JetSorter = function<bool(const Jet&, const Jet&)>;
 
     /// Get the final-state particles in no particular order, with no cuts.
     virtual const Particles& particles() const { return _theParticles; }
@@ -59,7 +63,7 @@ namespace Rivet {
 
     /// @brief Get the final-state particles with selection cuts via a functor.
     /// @note Returns a copy rather than a reference, due to the cuts
-    Particles particles(const function<bool(const Particle&)>& selector) const {
+    Particles particles(const ParticleSelector& selector) const {
       Particles rtn;
       rtn.reserve(size());
       for (const Particle& p : particles())
@@ -69,28 +73,28 @@ namespace Rivet {
 
     /// Get the final-state particles, ordered by supplied sorting function object.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    Particles particles(const function<bool(const Particle&,const Particle&)>& sorter, const Cut& c=Cuts::open()) const {
+    Particles particles(const ParticleSorter& sorter, const Cut& c=Cuts::open()) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
 
     /// Get the final-state particles, ordered by supplied sorting function object.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    Particles particles(const Cut& c, const function<bool(const Particle&,const Particle&)>& sorter) const {
+    Particles particles(const Cut& c, const ParticleSorter& sorter) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
 
     /// Get the final-state particles, ordered by a sorting functor and filtered by a selection functor.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    Particles particles(const function<bool(const Particle&)>& selector, const function<bool(const Particle&,const Particle&)>& sorter) const {
+    Particles particles(const ParticleSelector& selector, const ParticleSorter& sorter) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(selector), sorter);
     }
 
     /// Get the final-state particles, ordered by a sorting functor and filtered by a selection functor.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    Particles particles(const function<bool(const Particle&,const Particle&)>& sorter, const function<bool(const Particle&)>& selector) const {
+    Particles particles(const ParticleSorter& sorter, const ParticleSelector& selector) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(selector), sorter);
     }
@@ -105,7 +109,7 @@ namespace Rivet {
     /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with optional cuts.
     ///
     /// This is a very common use-case, so is available as syntatic sugar for particles(f, cmpMomByPt).
-    Particles particlesByPt(const function<bool(const Particle&)>& selector) const {
+    Particles particlesByPt(const ParticleSelector& selector) const {
       return particles(selector, cmpMomByPt);
     }
 

@@ -6,16 +6,24 @@
 namespace Rivet {
 
 
+
   /// @name ParticleBase classifier -> bool functors
   /// @todo Move to FourMomentum functions
   ///
   /// To be passed to any() or all() e.g. any(jets, DeltaRLess(electron, 0.4))
   //@{
 
+  /// std::function instantiation for functors taking a ParticleBase and returning a bool
+  using ParticleBaseSelector = function<bool(const ParticleBase&)>;
+  /// std::function instantiation for functors taking two ParticleBase and returning a bool
+  using ParticleBaseSorter = function<bool(const ParticleBase&, const ParticleBase&)>;
+
+
   /// Base type for Particle -> bool functors
   struct BoolParticleBaseFunctor {
     virtual bool operator()(const ParticleBase& p) const = 0;
   };
+
 
   /// Transverse momentum greater-than functor
   struct PtGtr : public BoolParticleBaseFunctor {
