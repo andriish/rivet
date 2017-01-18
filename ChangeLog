@@ -1,3 +1,7 @@
+2017-01-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use std::function in functor-expanded method signatures on JetAlg.
+
 2017-01-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Convert FinalState particles() accessors to use std::function

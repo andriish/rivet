@@ -31,19 +31,23 @@ namespace Rivet {
     /// @name Particle accessors
     //@{
 
-    /// Access the projected final-state particles.
+    /// Count the final-state particles
     size_t size() const { return particles().size(); }
+    /// Count the final-state particles after a Cut is applied
+    size_t size(const Cut& c) const { return particles(c).size(); }
+    /// Count the final-state particles after a selection functor is applied
+    size_t size(const ParticleSelector& s) const { return particles(s).size(); }
 
     /// Is this final state empty?
-    bool empty() const { return particles().empty(); }
+    bool empty() const { return size() == 0; }
+    /// Is this final state empty after a Cut is applied?
+    bool empty(const Cut& c) const { return size(c) == 0; }
+    /// Is this final state empty after a selection functor is applied?
+    bool empty(const ParticleSelector& s) const { return size(s) == 0; }
+
     /// @deprecated Is this final state empty?
     DEPRECATED("Use empty()")
     bool isEmpty() const { return particles().empty(); }
-
-    using ParticleSelector = function<bool(const Particle&)>;
-    // using JetSelector = function<bool(const Jet&)>;
-    using ParticleSorter = function<bool(const Particle&, const Particle&)>;
-    // using JetSorter = function<bool(const Jet&, const Jet&)>;
 
     /// Get the final-state particles in no particular order, with no cuts.
     virtual const Particles& particles() const { return _theParticles; }
@@ -51,24 +55,26 @@ namespace Rivet {
     /// @brief Get the final-state particles with selection cuts.
     /// @note Returns a copy rather than a reference, due to the cuts
     Particles particles(const Cut& c) const {
-      // Just return a copy of particles() if the cut is open
-      if (c == Cuts::open()) return particles();
-      // If there is a non-trivial cut...
-      Particles rtn;
-      rtn.reserve(size());
-      for (const Particle& p : particles())
-        if (c->accept(p)) rtn.push_back(p);
-      return rtn;
+      return filter_select(particles(), c);
+      // // Just return a copy of particles() if the cut is open
+      // if (c == Cuts::open()) return particles();
+      // // If there is a non-trivial cut...
+      // Particles rtn;
+      // rtn.reserve(size());
+      // for (const Particle& p : particles())
+      //   if (c->accept(p)) rtn.push_back(p);
+      // return rtn;
     }
 
     /// @brief Get the final-state particles with selection cuts via a functor.
     /// @note Returns a copy rather than a reference, due to the cuts
     Particles particles(const ParticleSelector& selector) const {
-      Particles rtn;
-      rtn.reserve(size());
-      for (const Particle& p : particles())
-        if (selector(p)) rtn.push_back(p);
-      return rtn;
+      return filter_select(particles(), selector);
+      // Particles rtn;
+      // rtn.reserve(size());
+      // for (const Particle& p : particles())
+      //   if (selector(p)) rtn.push_back(p);
+      // return rtn;
     }
 
     /// Get the final-state particles, ordered by supplied sorting function object.
