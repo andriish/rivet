@@ -79,7 +79,7 @@ for ANANAME in ANANAMES:
     ANAEXPT = "<Insert the experiment name>"
     ANACOLLIDER = "<Insert the collider name>"
     ANAYEAR = "<Insert year of publication>"
-    INSPIRE_SPIRES = None
+    INSPIRE_SPIRES = 'I'
     ANAINSPIREID = "<Insert the Inspire ID>"
     if match:
         STDANA = True
