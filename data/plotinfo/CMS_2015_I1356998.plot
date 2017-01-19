@@ -1,22 +1,22 @@
 # BEGIN PLOT /CMS_2015_I1356998/d01-x01-y01
-Title=Cross section for $log_{10}M_{Y} < 0.5$ (SD dominated)
-XLabel=$log_{10}\xi_{X}$
-YLabel=$\mathrm{d}\sigma / \mathrm{d}log_{10}\xi_{X}$ [mb]
+Title=Cross section for $\log_{10}M_{Y} < 0.5$ (SD dominated)
+XLabel=$\log_{10}\xi_{X}$
+YLabel=$\mathrm{d}\sigma / \mathrm{d}\log_{10}\xi_{X}$ [mb]
 LegendXPos=0.1
 LogY=0
 YMax=2.0
 # END PLOT
 
 # BEGIN PLOT /CMS_2015_I1356998/d02-x01-y01
-Title=Cross section for $0.5 < log_{10}M_{Y} < 1.1$ (DD dominated)
-XLabel=$log_{10}\xi_{X}$
-YLabel=$\mathrm{d}\sigma / \mathrm{d}log_{10}\xi_{X}$ [mb]
+Title=Cross section for $0.5 < \log_{10}M_{Y} < 1.1$ (DD dominated)
+XLabel=$\log_{10}\xi_{X}$
+YLabel=$\mathrm{d}\sigma / \mathrm{d}\log_{10}\xi_{X}$ [mb]
 LogY=0
 YMax=2.0
 # END PLOT
 
 # BEGIN PLOT /CMS_2015_I1356998/d03-x01-y01
-Title=$\sigma$ for central gaps, $\Delta\eta > 3$ $(log_{10}M_{X} > 1.1, log_{10}M_{Y} > 1.1)$
+Title=$\sigma$ for central gaps, $\Delta\eta > 3$ $(\log_{10}M_{X} > 1.1, \log_{10}M_{Y} > 1.1)$
 XLabel=$\Delta\eta\equiv-ln\xi$
 YLabel=$\mathrm{d}\sigma / \mathrm{d}\Delta\eta$ [mb]
 LogY=0
