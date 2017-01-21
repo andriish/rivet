@@ -1027,12 +1027,14 @@ namespace Rivet {
 // #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname ## ( ## #alias ## )
 #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) DECLARE_RIVET_PLUGIN(clsname)( #alias )
 
-/// @def DEFAULT_RIVET_ANA_CONSTRUCTOR
+/// @def DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
 /// Preprocessor define to prettify the manky constructor with name string argument
-#define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) clsname() : Analysis(# clsname) {}
+#define DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname) clsname() : Analysis(# clsname) {}
 
-// DEPRECATED ALIAS
-#define DEFAULT_RIVET_ANA_CONSTRUCTOR(clsname) DEFAULT_RIVET_ANALYSIS_CTOR(clsname)
+/// @def DEFAULT_RIVET_ANALYSIS_CTOR
+/// Slight abbreviation for DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
+#define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname)
+
 
 
 #endif
