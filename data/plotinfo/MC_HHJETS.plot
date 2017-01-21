@@ -520,3 +520,10 @@ XLabel=$H_T$ [\GeV]
 YLabel=$\mathrm{d}\sigma/\mathrm{d}H_T$ [pb/\GeV]
 LogX=1
 # END PLOT
+
+# BEGIN PLOT /MC_HHJETS/jets_mjj
+Title=Dijet invariant mass spectrum
+XLabel=$m_{jj}$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}m_{jj}$ [pb/GeV]
+LegendAlign=r
+# END PLOT

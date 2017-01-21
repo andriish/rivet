@@ -3,7 +3,7 @@ Year: 2014
 Summary: The differential production cross section of the $\phi(1020)$ meson in $\sqrt{s}=7$ TeV $pp$ collisions measured with the ATLAS detector
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1282441
+InspireID: 1282441
 Status: VALIDATED
 Authors:
  - Tim Martin <tim.martin@cern.ch>

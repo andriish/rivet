@@ -1,14 +1,18 @@
 #! /usr/bin/env python
 
+import argparse
+ap = argparse.ArgumentParser()
+ap.add_argument("DATFILE", metavar="file", default="nanas.dat", help="release/count data file to read")
+args = ap.parse_args()
+
 import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 # import matplotlib.dates as mdates
 # import matplotlib.cbook as cbook
 
-datfile = "nanas.dat"
 tags, dates, nanas = [], [], []
-with open(datfile) as f:
+with open(args.DATFILE) as f:
     for line in f:
         items = line.split()
         tags.append(items[0])
@@ -19,5 +23,5 @@ with open(datfile) as f:
 plt.plot(dates, nanas)
 plt.xlabel("Year")
 plt.ylabel("# analyses")
-plt.savefig("nanas.pdf")
+plt.savefig(args.DATFILE.replace(".dat", ".pdf"))
 # plt.show()

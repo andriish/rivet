@@ -80,10 +80,10 @@ namespace Rivet {
     /// @name Access to jet objects
     //@{
 
-    /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// Get jets in no guaranteed order, with an optional Cut
     /// @note Returns a copy rather than a reference, due to cuts
     virtual Jets jets(const Cut& c=Cuts::open()) const {
-      return filterBy(_jets(), c);
+      return filter_select(_jets(), c);
       // const Jets rawjets = _jets();
       // // Just return a copy of rawjets if the cut is open
       // if (c == Cuts::open()) return rawjets;
@@ -96,24 +96,39 @@ namespace Rivet {
       // return rtn;
     }
 
+    /// Get jets in no guaranteed order, with a selection functor
+    /// @note Returns a copy rather than a reference, due to cuts
+    virtual Jets jets(const JetSelector& selector) const {
+      return filter_select(_jets(), selector);
+    }
 
-    /// @todo Want to add a general filtering function, but that clashes with the sorting functor... SFINAE?
 
-
-    /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
+    /// Get the jets with a Cut applied, and ordered by supplied sorting functor
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    template <typename F>
-    Jets jets(F sorter, const Cut& c=Cuts::open()) const {
+    Jets jets(const Cut& c, const JetSorter& sorter) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(jets(c), sorter);
     }
 
+    /// Get the jets, ordered by supplied sorting functor, with an optional Cut
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    Jets jets(const JetSorter& sorter, const Cut& c=Cuts::open()) const {
+      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
+      return jets(c, sorter);
+    }
+
     /// Get the jets, ordered by supplied sorting function object, with optional cuts on \f$ p_\perp \f$ and rapidity.
     /// @note Returns a copy rather than a reference, due to cuts and sorting
-    template <typename F>
-    Jets jets(const Cut& c, F sorter) const {
+    Jets jets(const JetSelector& selector, const JetSorter& sorter) const {
       /// @todo Will the vector be efficiently std::move'd by value through this function chain?
-      return sortBy(jets(c), sorter);
+      return sortBy(jets(selector), sorter);
+    }
+
+    /// Get the jets, ordered by supplied sorting functor and with a selection functor applied
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    Jets jets(const JetSorter& sorter, const JetSelector selector) const {
+      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
+      return jets(selector, sorter);
     }
 
 
@@ -125,6 +140,16 @@ namespace Rivet {
     /// @todo The other sorted accessors should be removed in a cleanup.
     Jets jetsByPt(const Cut& c=Cuts::open()) const {
       return jets(c, cmpMomByPt);
+    }
+
+    /// Get the jets, ordered by \f$ p_T \f$, with cuts via a selection functor.
+    ///
+    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    ///
+    /// This is a very common use-case, so is available as syntatic sugar for jets(c, cmpMomByPt).
+    /// @todo The other sorted accessors should be removed in a cleanup.
+    Jets jetsByPt(const JetSelector& selector) const {
+      return jets(selector, cmpMomByPt);
     }
 
     //@}
@@ -203,13 +228,23 @@ namespace Rivet {
 
   public:
 
-    /// Number of jets passing the provided Cut.
-    size_t numJets(const Cut& c=Cuts::open()) const { return jets(c).size(); }
-
-    /// Number of jets (without cuts).
+    /// Count the jets
     size_t size() const { return jets().size(); }
-    /// Whether the inclusive jet collection is empty.
-    bool empty() const { return size() != 0; }
+    /// Count the jets after a Cut is applied.
+    size_t size(const Cut& c) const { return jets(c).size(); }
+    /// Count the jets after a selection functor is applied.
+    size_t size(const JetSelector& s) const { return jets(s).size(); }
+
+    /// Is this jet finder empty?
+    bool empty() const { return size() == 0; }
+    /// Is this jet finder empty after a Cut is applied?
+    bool empty(const Cut& c) const { return size(c) == 0; }
+    /// Is this jet finder empty after a selection functor is applied?
+    bool empty(const JetSelector& s) const { return size(s) == 0; }
+
+    /// Number of jets passing the provided Cut.
+    /// @deprecated Prefer size()
+    size_t numJets(const Cut& c=Cuts::open()) const { return jets(c).size(); }
 
     /// Clear the projection.
     virtual void reset() = 0;

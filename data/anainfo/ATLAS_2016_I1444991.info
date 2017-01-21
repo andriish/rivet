@@ -3,7 +3,7 @@ Year: 2016
 Summary: Higgs-to-WW differential cross sections at 8 TeV
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1444991
+InspireID: 1444991
 Status: VALIDATED
 Authors:
  - Kathrin Becker <kathrin.becker@cern.ch>

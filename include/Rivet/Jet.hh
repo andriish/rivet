@@ -115,7 +115,7 @@ namespace Rivet {
     bool bTagged(const Cut& c=Cuts::open()) const { return !bTags(c).empty(); }
     /// Does this jet have at least one b-tag (that passes the supplied selector function)?
     template <typename FN>
-    Particles bTagged(const FN& f) const { return !bTags(f).empty(); }
+    bool bTagged(const FN& f) const { return !bTags(f).empty(); }
 
 
     /// @brief c (and not b) particles which have been tag-matched to this jet (and pass an optional Cut)

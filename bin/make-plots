@@ -722,16 +722,16 @@ class MainPlot(Plot):
         xcustomminortickmarks = inputdata.attr_int('XMinorTickMarks', -1)
 
         xcustommajorticks = xcustomminorticks = None
-        if inputdata.has_attr('XCustomMajorTicks'):
+        if inputdata.attr('XCustomMajorTicks'):
             xcustommajorticks = []
-            x_label_pairs = inputdata.description['XCustomMajorTicks'].strip().split() #'\t')
+            x_label_pairs = inputdata.attr('XCustomMajorTicks').strip().split() #'\t')
             if len(x_label_pairs) % 2 == 0:
                 for i in range(0, len(x_label_pairs), 2):
                     xcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
             else:
                 print "Warning: XCustomMajorTicks requires an even number of alternating pos/label entries"
 
-        if inputdata.has_attr('XCustomMinorTicks'):
+        if inputdata.attr('XCustomMinorTicks'):
             xs = inputdata.attr('XCustomMinorTicks').strip().split() #'\t')
             xcustomminorticks = [{'Value': float(x)} for x in xs]
 
@@ -1000,7 +1000,7 @@ class RatioPlot(Plot):
                            custommajorticks=ycustommajorticks,
                            customminorticks=ycustomminorticks)
 
-        if not inputdata.attr_bool('MainPlot', True) and not inputdata.attr_bool('Legend', False):
+        if not inputdata.attr_bool('MainPlot', True) and inputdata.attr_bool('Legend', False):
             legend = Legend(inputdata.description, inputdata.histos, inputdata.functions)
             out += legend.draw()
 
@@ -1150,25 +1150,25 @@ class ColorScale(Described):
         out += '  \\rput(0.5,0){\n'
         out += '    \\psframe[linewidth=0.3pt,dimen=middle](0,0)(1,1)\n'
 
-        zcustommajortickmarks = int(self.description.get('ZMajorTickMarks', -1))
-        zcustomminortickmarks = int(self.description.get('ZMinorTickMarks', -1))
-        zcustommajorticks=[]
-        zcustomminorticks=[]
-        if self.description.has_key('ZCustomMajorTicks') and self.description['ZCustomMajorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            ticks = self.description['ZCustomMajorTicks'].strip().split('\t')
-            if not len(ticks)%2:
-                for i in range(0,len(ticks),2):
-                    zcustommajorticks.append({'Value': float(ticks[i]), 'Label': ticks[i+1]})
-        if self.description.has_key('ZCustomMinorTicks') and self.description['ZCustomMinorTicks']!='':
-            # TODO: Would be nice to have less invisible separation of the custom ticks than split on tabs
-            ticks = self.description['ZCustomMinorTicks'].strip().split('\t')
-            for i in range(len(ticks)):
-                zcustomminorticks.append({'Value': float(ticks[i])})
-        if (self.description.has_key('PlotZTickLabels') and self.description['PlotZTickLabels']=='0'):
-            drawzlabels=False
-        else:
-            drawzlabels=True
+        zcustommajortickmarks = self.attr_int('ZMajorTickMarks', -1)
+        zcustomminortickmarks = self.attr_int('ZMinorTickMarks', -1)
+
+        zcustommajorticks = zcustomminorticks = None
+        if self.attr('ZCustomMajorTicks'):
+            zcustommajorticks = []
+            z_label_pairs = self.attr('ZCustomMajorTicks').strip().split() #'\t')
+            if len(z_label_pairs) % 2 == 0:
+                for i in range(0, len(z_label_pairs), 2):
+                    zcustommajorticks.append({'Value': float(x_label_pairs[i]), 'Label': x_label_pairs[i+1]})
+            else:
+                print "Warning: ZCustomMajorTicks requires an even number of alternating pos/label entries"
+
+        if self.attr('ZCustomMinorTicks'):
+            zs = self.attr('ZCustomMinorTicks').strip().split() #'\t')
+            zcustomminorticks = [{'Value': float(x)} for x in xs]
+
+        drawzlabels = self.attr_bool('PlotZTickLabels', True)
+
         zticks = ZTicks(self.description, self.coors)
         out += zticks.draw(custommajortickmarks=zcustommajortickmarks,\
                            customminortickmarks=zcustomminortickmarks,\
@@ -1852,11 +1852,11 @@ class Histogram(DrawableObject, Described):
                                     if self.description.get('ConnectGaps', '0') != '1':
                                         out += ('\\psline')
                                         # TODO: Perhaps use a new dashed line to fill the gap?
-                    if self.getFillStyle() != 'none':  # make sure that filled areas go all the way down to the x-axis
-                        if (coors.phys2frameX(self.data[-1].xmax) < 1-1e-4):
-                            out += '(' + coors.strphys2frameX(self.data[-1].xmax) + ', -0.1)\n'
-                        else:
-                            out += '(1.1, -0.1)\n'
+                if self.getFillStyle() != 'none':  # make sure that filled areas go all the way down to the x-axis
+                    if (coors.phys2frameX(self.data[-1].xmax) < 1-1e-4):
+                        out += '(' + coors.strphys2frameX(self.data[-1].xmax) + ', -0.1)\n'
+                    else:
+                        out += '(1.1, -0.1)\n'
             #
             if self.getPolyMarker() != '':
                 for b in self.data:
@@ -2216,7 +2216,7 @@ class Ticks(object):
 
 class XTicks(Ticks):
 
-    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
+    def draw(self, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1,drawlabels=True):
         twosided = bool(int(self.description.get('XTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% X-Ticks\n%\n')
@@ -2267,7 +2267,7 @@ class XTicks(Ticks):
 
 class YTicks(Ticks):
 
-    def draw(self, custommajorticks=[], customminorticks=[], custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
+    def draw(self, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         twosided = bool(int(self.description.get('YTwosidedTicks', '0')))
         out = ""
         out += ('\n%\n% Y-Ticks\n%\n')
@@ -2322,9 +2322,7 @@ class ZTicks(Ticks):
         self.description = description
         self.coors = coors
 
-    def draw(self, custommajorticks=[], customminorticks=[],
-            custommajortickmarks=-1, customminortickmarks=-1,
-            drawlabels=True):
+    def draw(self, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True):
         out = ""
         out += ('\n%\n% Z-Ticks\n%\n')
         out += ('\\def\\majortickmarkz{\\psline[linewidth='+self.majorticklinewidth+'](0,0)('+self.majorticklength+',0)}%\n')
@@ -2491,12 +2489,20 @@ def process_datfile(datfile):
 
         # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
         #   currently defaults (and is used below) to a size suitable for thumbnails
-        def mkpng(infile, outfile, density=100):
+        def mkpngcmd(infile, outfile, outsize=450, density=300):
             if convertavailable:
-                pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
-                logging.debug(" ".join(pngcmd))
-                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-                pngproc.wait()
+                pngcmd = ["convert",
+                          "-flatten",
+                          "-density", str(density),
+                          infile,
+                          "-quality", "100",
+                          "-resize", "{size:d}x{size:d}>".format(size=outsize),
+                          #"-sharpen", "0x1.0",
+                          outfile]
+                #logging.debug(" ".join(pngcmd))
+                #pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+                #pngproc.wait()
+                return pngcmd
             else:
                 raise Exception("Required PNG maker program (convert) not found")
             # elif ps2pnmavailable and pnm2pngavailable:
@@ -2550,7 +2556,8 @@ def process_datfile(datfile):
             dvcmd.append("-f")
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-            pngcmd = ["convert", "-flatten", "-density", "100", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
+            #pngcmd = ["convert", "-flatten", "-density", "110", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
+            pngcmd = mkpngcmd("-", "%s.png" % filename)
             logging.debug(" ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
             pngproc.wait()

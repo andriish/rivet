@@ -13,6 +13,12 @@
 namespace Rivet {
 
 
+  /// std::function instantiation for functors taking a Particle and returning a bool
+  using ParticleSelector = function<bool(const Particle&)>;
+  /// std::function instantiation for functors taking two Particles and returning a bool
+  using ParticleSorter = function<bool(const Particle&, const Particle&)>;
+
+
   /// @name Particle classifier functions
   //@{
 

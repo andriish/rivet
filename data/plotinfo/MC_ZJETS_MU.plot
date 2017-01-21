@@ -276,3 +276,10 @@ XLabel=$HT$ [GeV]
 YLabel=$\text{d}\sigma/\text{d}HT$ [pb/GeV]
 LogX=1
 # END PLOT
+
+# BEGIN PLOT /MC_ZJETS_MU/jets_mjj
+Title=Dijet invariant mass spectrum
+XLabel=$m_{jj}$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}m_{jj}$ [pb/GeV]
+LegendAlign=r
+# END PLOT

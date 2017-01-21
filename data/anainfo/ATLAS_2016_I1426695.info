@@ -3,7 +3,7 @@ Year: 2016
 Summary: Track-based minimum bias at 8 TeV
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1426695
+InspireID: 1426695
 Status: VALIDATED
 Authors:
  - Roman Lysak <roman.lysak@cern.ch>

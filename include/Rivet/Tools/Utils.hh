@@ -349,7 +349,7 @@ namespace Rivet {
   template <typename CONTAINER, typename FN>
   inline CONTAINER& ifilter_select(CONTAINER& c, const FN& f) {
     //using value_type = typename std::remove_reference<decltype(*std::begin(std::declval<typename std::add_lvalue_reference<CONTAINER>::type>()))>::type;
-    const auto invf = [&](const typename CONTAINER::value_type& x){ return !f(x); };
+    auto invf = [&](const typename CONTAINER::value_type& x){ return !f(x); };
     return ifilter_discard(c, invf);
   }
 
