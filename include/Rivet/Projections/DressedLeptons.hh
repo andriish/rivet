@@ -54,32 +54,11 @@ namespace Rivet {
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool cluster=true, bool useDecayPhotons=false);
 
-    /// Constructor with a general (and optional) Cut argument
-    /// @deprecated Use the version with Cut c before cluster (i.e. with the most common non-default args first)
-    DEPRECATED("Use the version with Cut c before cluster")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, bool cluster, const Cut& cut=Cuts::open(),
-                   bool useDecayPhotons=false);
-
-    /// Constructor with numerical eta and pT cuts
-    /// @deprecated Use the Cut version
-    DEPRECATED("Use the Cut version")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, bool cluster,
-                   double etaMin, double etaMax,
-                   double pTmin, bool useDecayPhotons=false);
-
-
     /// Clone this projection
     DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
 
     /// Retrieve the dressed leptons
     const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }
-
-    /// Retrieve the dressed leptons (synonym)
-    /// @deprecated Use dressedLeptons()
-    DEPRECATED("Use dressedLeptons()")
-    const vector<DressedLepton>& clusteredLeptons() const { return _clusteredLeptons; }
 
 
   protected:

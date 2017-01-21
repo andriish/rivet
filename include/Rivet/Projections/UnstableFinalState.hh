@@ -34,18 +34,6 @@ namespace Rivet {
       setName("UnstableFinalState");
     }
 
-    /// Constructor from cuts.
-    ///
-    /// May specify the minimum and maximum pseudorapidity \f$ \eta \f$ and the
-    /// min \f$ p_T \f$
-    DEPRECATED("Use the version with a Cut argument")
-    UnstableFinalState(double mineta, double maxeta, double minpt=0.0*GeV)
-    : FinalState(Cuts::etaIn(mineta, maxeta) && Cuts::pT > minpt)
-    {
-      setName("UnstableFinalState");
-    }
-
-
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(UnstableFinalState);
 

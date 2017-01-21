@@ -31,13 +31,6 @@ namespace Rivet {
       setState(pjet, particles, tags);
     }
 
-    /// Set all the jet data, with full particle information.
-    /// @deprecated Prefer the form where the 4-vec comes first and the particles list is optional.
-    DEPRECATED("Prefer the form where the 4-vec comes first and the particles list is optional.")
-    Jet(const Particles& particles, const FourMomentum& pjet) {
-      setState(pjet, particles);
-    }
-
     /// Default constructor -- only for STL storability
     Jet() { clear(); }
 
@@ -160,7 +153,7 @@ namespace Rivet {
     /// are set stable. If @a include_decay_products is true (the default), a
     /// fallback is attempted, using the post-hadronization ancestor history of
     /// all constituents.
-    //DEPRECATED("Prefer the bTags() or bTagged() function")
+    DEPRECATED("Prefer the bTags() or bTagged() function")
     bool containsBottom(bool include_decay_products=true) const;
 
     /// @brief Check whether this jet contains a charm-flavoured hadron.
@@ -175,7 +168,7 @@ namespace Rivet {
     /// are set stable. If @a include_decay_products is true (the default), a
     /// fallback is attempted, using the post-hadronization ancestor history of
     /// all constituents.
-    //DEPRECATED("Prefer the cTags() or cTagged() function")
+    DEPRECATED("Prefer the cTags() or cTagged() function")
     bool containsCharm(bool include_decay_products=true) const;
 
     //@}
@@ -227,10 +220,6 @@ namespace Rivet {
 
     /// Set all the jet data, with optional full particle constituent and tag information.
     Jet& setState(const FourMomentum& mom, const Particles& particles, const Particles& tags=Particles());
-
-    /// @deprecated Prefer the 4-mom first-arg versions. Remove in Rivet v3
-    DEPRECATED("Prefer the 4-mom first-arg versions")
-    Jet& setState(const Particles& particles, const FourMomentum& mom) { return setState(mom, particles); }
 
     /// @brief Set the particles collection with full particle information.
     ///

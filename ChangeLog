@@ -1,3 +1,7 @@
+2017-01-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Removing lots of long-deprecated functions & methods.
+
 2017-01-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use std::function in functor-expanded method signatures on JetAlg.

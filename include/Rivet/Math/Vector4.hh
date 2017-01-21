@@ -1261,88 +1261,40 @@ namespace Rivet {
   inline bool cmpMomByEta(const FourMomentum& a, const FourMomentum& b) {
     return a.eta() < b.eta();
   }
-  /// Comparison to give a sorting by increasing eta (pseudorapidity)
-  /// @deprecated Use cmpMomByEta
-  DEPRECATED("Use cmpMomByEta")
-  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByEta(a,b);
-  }
 
   /// Comparison to give a sorting by decreasing eta (pseudorapidity)
   inline bool cmpMomByDescEta(const FourMomentum& a, const FourMomentum& b) {
     return a.pseudorapidity() > b.pseudorapidity();
-  }
-  /// Comparison to give a sorting by decreasing eta (pseudorapidity)
-  /// @deprecated Use cmpMomByDescEta
-  DEPRECATED("Use cmpMomByDescEta")
-  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescEta(a,b);
   }
 
   /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
   inline bool cmpMomByAbsEta(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.eta()) < fabs(b.eta());
   }
-  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
-  /// @deprecated Use cmpMomByAbsEta
-  DEPRECATED("Use cmpMomByAbsEta")
-  inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByAbsEta(a,b);
-  }
 
   /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
   inline bool cmpMomByDescAbsEta(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.eta()) > fabs(b.eta());
-  }
-  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
-  /// @deprecated Use cmpMomByDescAbsEta
-  DEPRECATED("Use cmpMomByDescAbsEta")
-  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescAbsEta(a,b);
   }
 
   /// Comparison to give a sorting by increasing rapidity
   inline bool cmpMomByRap(const FourMomentum& a, const FourMomentum& b) {
     return a.rapidity() < b.rapidity();
   }
-  /// Comparison to give a sorting by increasing rapidity
-  /// @deprecated Use cmpMomByRap
-  DEPRECATED("Use cmpMomByRap")
-  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByRap(a,b);
-  }
 
   /// Comparison to give a sorting by decreasing rapidity
   inline bool cmpMomByDescRap(const FourMomentum& a, const FourMomentum& b) {
     return a.rapidity() > b.rapidity();
-  }
-  /// Comparison to give a sorting by decreasing rapidity
-  /// @deprecated Use cmpMomByDescRap
-  DEPRECATED("Use cmpMomByDescRap")
-  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescRap(a,b);
   }
 
   /// Comparison to give a sorting by increasing absolute rapidity
   inline bool cmpMomByAbsRap(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.rapidity()) < fabs(b.rapidity());
   }
-  /// Comparison to give a sorting by increasing absolute rapidity
-  /// @deprecated Use cmpMomByAbsRap
-  DEPRECATED("Use cmpMomByAbsRap")
-  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByAbsRap(a,b);
-  }
 
   /// Comparison to give a sorting by decreasing absolute rapidity
   inline bool cmpMomByDescAbsRap(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.rapidity()) > fabs(b.rapidity());
-  }
-  /// Comparison to give a sorting by decreasing absolute rapidity
-  /// @deprecated Use cmpMomByDescAbsRap
-  DEPRECATED("Use cmpMomByDescAbsRap")
-  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescAbsRap(a,b);
   }
 
   /// @todo Add sorting by phi [0..2PI]
