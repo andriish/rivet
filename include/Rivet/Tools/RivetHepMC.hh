@@ -21,14 +21,12 @@ namespace Rivet {
   using HepMC::GenEventPtr;
   using HepMC::GenParticlePtr;
   using HepMC::GenVertexPtr;
-  //#if HEPMC_VERSION_CODE >= 2007000
+  #elif HEPMC_VERSION_CODE >= 2007000
+  // HepMC 2.07 provides its own #defines
   #else
   #define GenEventPtr GenEvent*
   #define GenParticlePtr GenParticle*
   #define GenVertexPtr GenVertex*
-  // typedef GenEvent* GenEventPtr;
-  // typedef GenParticle* GenParticlePtr;
-  // typedef GenVertex* GenVertexPtr;
   #endif
 
 
