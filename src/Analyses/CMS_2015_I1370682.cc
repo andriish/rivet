@@ -394,7 +394,7 @@ namespace Rivet {
           // Do unstable particles, to be used in the ghost B clustering
           // Use last B hadrons only
           bool isLast = true;
-          for (GenParticle* pp : Rivet::particles(p->end_vertex(), HepMC::children)) {
+          for (const GenParticlePtr pp : Rivet::particles(p->end_vertex(), HepMC::children)) {
             if (PID::hasBottom(pp->pdg_id())) {
               isLast = false;
               break;
