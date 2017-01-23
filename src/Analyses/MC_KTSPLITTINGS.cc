@@ -21,7 +21,7 @@ namespace Rivet {
 
     void init() {
       FastJets jetpro(FinalState(), FastJets::KT, 0.6);
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
       MC_JetSplittings::init();
     }
 

@@ -33,9 +33,9 @@ namespace Rivet {
     /// Initialise projections and histograms
     void init() {
       // Projections
-      addProjection(DISLepton(), "Lepton");
-      addProjection(DISKinematics(), "Kinematics");
-      addProjection(FinalState(), "FS");
+      declare(DISLepton(), "Lepton");
+      declare(DISKinematics(), "Kinematics");
+      declare(FinalState(), "FS");
 
       // Histos
       _histEnergyFlowLowX =  bookHisto1D(1, 1, 1);
@@ -57,20 +57,20 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the DIS kinematics
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
       const double x  = dk.x();
       const double w2 = dk.W2();
       const double w = sqrt(w2);
 
       // Momentum of the scattered lepton
-      const DISLepton& dl = applyProjection<DISLepton>(event,"Lepton");
+      const DISLepton& dl = apply<DISLepton>(event,"Lepton");
       const FourMomentum leptonMom = dl.out();
       const double ptel = leptonMom.pT();
       const double enel = leptonMom.E();
       const double thel = leptonMom.angle(dk.beamHadron().mom())/degree;
 
       // Extract the particles other than the lepton
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       Particles particles;
       particles.reserve(fs.particles().size());
       const GenParticle* dislepGP = dl.out().genParticle();

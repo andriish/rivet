@@ -27,6 +27,13 @@ YLabel=$1/\sigma \, \mathrm{d}\sigma/\mathrm{d}H_T$ [GeV$^{-1}$]
 LogX=1
 # END PLOT
 
+# BEGIN PLOT /MC_TTBAR/jets_mjj
+Title=Dijet invariant mass spectrum
+XLabel=$m_{jj}$ [GeV]
+YLabel=$\text{d}\sigma/\text{d}m_{jj}$ [pb/GeV]
+LegendAlign=r
+# END PLOT
+
 # BEGIN PLOT /MC_TTBAR/jetb_1_pT
 Title=Transverse momentum distribution for $b$-jet 1
 # END PLOT

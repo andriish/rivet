@@ -49,9 +49,7 @@ namespace Rivet {
             double masstarget=80.4*GeV);
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new WFinder(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(WFinder);
 
     //@}
 

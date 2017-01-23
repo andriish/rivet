@@ -10,7 +10,7 @@ Authors:
 References:
  - Phys.Rev. D91 (2015) 072002
  - doi:10.1103/PhysRevD.91.072002
- - arXiv:hep-ex/1410.8052 
+ - arXiv:hep-ex/1410.8052
 RunInfo: $Z/\gamma^*$ production with decays to  muons.
 NumEvents: 1000000
 NeedCrossSection: no
@@ -41,6 +41,3 @@ BibTeX: '@article{Abazov:2014mza,
       reportNumber   = "FERMILAB-PUB-14-430-E",
       SLACcitation   = "%%CITATION = ARXIV:1410.8052;%%",
 }'
-ToDo:
- - Implement the analysis, test it, remove this ToDo, and mark as VALIDATED :-)
-

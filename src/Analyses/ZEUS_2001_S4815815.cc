@@ -12,27 +12,28 @@ namespace Rivet {
   /// This class is a reproduction of the HZTool routine for the ZEUS
   /// dijet photoproduction paper which was used in the ZEUS jets PDF fit.
   ///
-  /// @author Jon Butterworth
+  /// @note Cleaning cuts on event pT/sqrt(Et) and y_e are not needed in MC analysis.
+  ///
+  /// @author Andy Buckley
   class ZEUS_2001_S4815815 : public Analysis {
   public:
 
     /// Constructor
-    ZEUS_2001_S4815815()
-      : Analysis("ZEUS_2001_S4815815")
-    {    }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(ZEUS_2001_S4815815);
 
     /// @name Analysis methods
     //@{
 
     // Book projections and histograms
     void init() {
-      /// @todo Force conventional event rotation with proton along +z?
-      FinalState fs;
-      addProjection(FastJets(fs, FastJets::KT, 0.7), "Jets");
 
+      /// @todo Acceptance
+      FinalState fs;
+      declare(FastJets(fs, FastJets::KT, 1.0), "Jets"); //< R=1 checked with Matt Wing
+
+      /// @todo Dress the lepton?
       IdentifiedFinalState positrons(fs, PID::POSITRON);
-      addProjection(positrons, "Positrons");
+      declare(positrons, "Positrons");
 
       // Table 1
       _h_costh[0] = bookHisto1D(1, 1, 1);
@@ -70,34 +71,45 @@ namespace Rivet {
     // Do the analysis
     void analyze(const Event& event) {
 
+      // Determine event orientation, since coord system is for +z = proton direction
+      const ParticlePair bs = event.beams();
+      if (bs.first.pid() != PID::POSITRON && bs.second.pid() != PID::POSITRON) vetoEvent;
+      const Particle& bpositron = (bs.first.pid() == PID::POSITRON ? bs.first : bs.second);
+      if (bs.first.pid() != PID::PROTON && bs.second.pid() != PID::PROTON) vetoEvent;
+      const Particle& bproton = (bs.first.pid() == PID::PROTON) ? bs.first : bs.second;
+      const int orientation = sign(bproton.momentum().pz());
+      MSG_DEBUG("Beam proton = " << bproton.mom() << " GeV => orientation = " << orientation);
+
       // Jet selection
-      const Jets jets = applyProjection<FastJets>(event, "Jets").jets(Cuts::pT > 11*GeV && Cuts::etaIn(-1, 2.4), cmpMomByEt);
-      if (jets.size() < 2) vetoEvent;
-      if (jets[0].pT() < 14*GeV) vetoEvent;
+      const Jets jets = apply<FastJets>(event, "Jets") \
+        .jets(Cuts::pT > 11*GeV && Cuts::etaIn(-1*orientation, 2.4*orientation), cmpMomByEt);
       MSG_DEBUG("Jet multiplicity = " << jets.size());
-
-      /// @todo Cut on pT/sqrt(Et)?
-
-      // Leading jets and etabar & cos(theta*) computation
+      if (jets.size() < 2) vetoEvent;
       const Jet& j1 = jets[0];
       const Jet& j2 = jets[1];
-      const double etabar = (j1.eta() - j2.eta())/2.;
-      const double costhetastar = tanh(etabar);
+      if (j1.pT() < 14*GeV) vetoEvent;
 
-      // Get the scattered positron candidate
-      const Particles positrons = applyProjection<FinalState>(event, "Positrons").particlesByPt();
+      // eta and cos(theta*) computation
+      const double eta1 = orientation*j1.eta(), eta2 = orientation*j2.eta();
+      const double etabar = (eta1 + eta2)/2;
+      const double etadiff = eta1 - eta2;
+      const double costhetastar = tanh(etadiff/2);
+
+      // Get the scattered positron
+      const Particles positrons = apply<FinalState>(event, "Positrons").particlesByPt();
       if (positrons.empty()) vetoEvent;
-      const Particle& positron = positrons[0];
-      const double Eeprime = positron.E();
+      const Particle& positron = positrons.front();
 
-      // Get the beams, for kinematics extraction
-      const ParticlePair bs = beams();
-      const double Ee = (bs.first.pid() == PID::POSITRON ? bs.first : bs.second).E();
+      // Calculate the photon 4-vector
+      const FourMomentum qphoton = positron.mom() - bpositron.mom();
 
-      // Cuts on inelasticity y, and computation of x_y^obs
-      const double inelasticity = 1 - (Eeprime/Ee/2.0)*(1 - positron.theta());
-      if (!inRange(inelasticity, 0.2, 0.85)) vetoEvent; ///< @note The cuts on y_e and Y_JB look contradictory! These are just y_JB
-      const double xyobs = (j1.Et() * exp(-j1.eta()) + j2.Et() * exp(-j2.eta())) / (2*inelasticity*Ee);
+      // Computation and cut on inelasticity
+      const double inelasticity = dot(bproton.mom(), qphoton) / dot(bproton.mom(), bpositron.mom());
+      if (!inRange(inelasticity, 0.2, 0.85)) vetoEvent;
+
+      // Computation of x_y^obs
+      // (I assume Ee is the lab frame positron momentum, not in proton rest frame cf. the ambiguous phrase in the paper)
+      const double xyobs = (j1.Et() * exp(-eta1) + j2.Et() * exp(-eta2)) / (2*inelasticity*bpositron.E());
       const size_t i_xyobs = (xyobs < 0.75) ? 0 : 1;
 
       // Fill histograms
@@ -106,25 +118,25 @@ namespace Rivet {
       if ((j1.mom()+j2.mom()).mass() > 42*GeV && inRange(etabar, 0.1, 0.3))
         _h_costh[i_xyobs]->fill(abs(costhetastar), weight);
       // T2, T3
-      if (inRange(j1.eta(), -1, 0) && inRange(j2.eta(), -1, 0))
+      if (inRange(eta1, -1, 0) && inRange(eta2, -1, 0))
         _h_etjet1[i_xyobs][0]->fill(j1.Et()/GeV, weight);
-      else if (inRange(j1.eta(), 0, 1) && inRange(j2.eta(), -1, 0))
+      else if (inRange(eta1, 0, 1) && inRange(eta2, -1, 0))
         _h_etjet1[i_xyobs][1]->fill(j1.Et()/GeV, weight);
-      else if (inRange(j1.eta(), 0, 1) && inRange(j2.eta(), 0, 1))
+      else if (inRange(eta1, 0, 1) && inRange(eta2, 0, 1))
         _h_etjet1[i_xyobs][2]->fill(j1.Et()/GeV, weight);
-      else if (inRange(j1.eta(), 1, 2.4) && inRange(j2.eta(), -1, 0))
+      else if (inRange(eta1, 1, 2.4) && inRange(eta2, -1, 0))
         _h_etjet1[i_xyobs][3]->fill(j1.Et()/GeV, weight);
-      else if (inRange(j1.eta(), 1, 2.4) && inRange(j2.eta(), 0, 1))
+      else if (inRange(eta1, 1, 2.4) && inRange(eta2, 0, 1))
         _h_etjet1[i_xyobs][4]->fill(j1.Et()/GeV, weight);
-      else if (inRange(j1.eta(), 1, 2.4) && inRange(j2.eta(), 1, 2.4))
+      else if (inRange(eta1, 1, 2.4) && inRange(eta2, 1, 2.4))
         _h_etjet1[i_xyobs][5]->fill(j1.Et()/GeV, weight);
       // T4, T5
-      if (inRange(j1.eta(), -1, 0))
-        _h_etajet2[i_xyobs][0]->fill(j2.eta(), weight);
-      else if (inRange(j1.eta(), 0, 1))
-        _h_etajet2[i_xyobs][1]->fill(j2.eta(), weight);
-      else if (inRange(j1.eta(), 1, 2.4))
-        _h_etajet2[i_xyobs][2]->fill(j2.eta(), weight);
+      if (inRange(eta1, -1, 0))
+        _h_etajet2[i_xyobs][0]->fill(eta2, weight);
+      else if (inRange(eta1, 0, 1))
+        _h_etajet2[i_xyobs][1]->fill(eta2, weight);
+      else if (inRange(eta1, 1, 2.4))
+        _h_etajet2[i_xyobs][2]->fill(eta2, weight);
       // T6
       if (inRange(j1.Et()/GeV, 14, 17))
         _h_xobsy[0]->fill(xyobs, weight);

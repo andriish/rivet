@@ -4,6 +4,7 @@ Summary: CDF Run II jet shape analysis
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 6217184
+InspireID: 682179
 Status: VALIDATED
 Authors:
  - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>

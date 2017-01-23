@@ -8,31 +8,29 @@ namespace Rivet {
     : ParticleFinder(c)
   {
     setName("FinalState");
-    const bool open = ( c == Cuts::open() );
+    const bool open = (c == Cuts::open());
     MSG_TRACE("Check for open FS conditions: " << std::boolalpha << open);
     if (!open) addProjection(FinalState(), "OpenFS");
   }
 
 
   /// @deprecated, keep for backwards compatibility for now.
-  FinalState::FinalState(double mineta, double maxeta, double minpt)
-  {
-    using namespace Cuts;
+  FinalState::FinalState(double mineta, double maxeta, double minpt) {
     setName("FinalState");
     const bool openpt = isZero(minpt);
     const bool openeta = (mineta <= -MAXDOUBLE && maxeta >= MAXDOUBLE);
     MSG_TRACE("Check for open FS conditions:" << std::boolalpha << " eta=" << openeta << ", pt=" << openpt);
-    if ( openpt && openeta ) {
-      _cuts = open();
+    if (openpt && openeta) {
+      _cuts = Cuts::open();
     }
     else {
       addProjection(FinalState(), "OpenFS");
-      if ( openeta )
-        _cuts = pT >= minpt;
+      if (openeta)
+        _cuts = (Cuts::pT >= minpt);
       else if ( openpt )
-        _cuts = etaIn(mineta,maxeta);
+        _cuts = Cuts::etaIn(mineta, maxeta);
       else
-        _cuts = etaIn(mineta,maxeta) & (pT >= minpt);
+        _cuts = (Cuts::etaIn(mineta, maxeta) && Cuts::pT >= minpt);
     }
   }
 

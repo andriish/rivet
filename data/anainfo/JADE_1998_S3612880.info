@@ -4,6 +4,7 @@ Summary: Event shapes for 22, 35 and 44 GeV
 Experiment: JADE
 Collider: PETRA
 SpiresID: 3612880
+InspireID: 447560
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

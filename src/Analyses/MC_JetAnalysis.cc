@@ -65,6 +65,7 @@ namespace Rivet {
     _h_jet_multi_inclusive = bookHisto1D("jet_multi_inclusive", _njet+3, -0.5, _njet+3-0.5);
     _h_jet_multi_ratio = bookScatter2D("jet_multi_ratio");
     _h_jet_HT = bookHisto1D("jet_HT", logspace(50, _jetptcut, sqrts/GeV/2.0));
+    _h_mjj_jets = bookHisto1D("jets_mjj", 40, 0.0, sqrts/GeV/2.0);
   }
 
 
@@ -72,7 +73,7 @@ namespace Rivet {
   void MC_JetAnalysis::analyze(const Event & e) {
     const double weight = e.weight();
 
-    const Jets& jets = applyProjection<FastJets>(e, _jetpro_name).jetsByPt(_jetptcut);
+    const Jets& jets = apply<FastJets>(e, _jetpro_name).jetsByPt(_jetptcut);
 
     for (size_t i = 0; i < _njet; ++i) {
       if (jets.size() < i+1) continue;
@@ -127,6 +128,12 @@ namespace Rivet {
       HT += jet.pT();
     }
     _h_jet_HT->fill(HT, weight);
+
+    // mjj
+    if (jets.size() > 1) {
+      double mjj = (jets[0].momentum() + jets[1].momentum()).mass();
+      _h_mjj_jets->fill(mjj, weight);
+    }
   }
 
 
@@ -165,6 +172,7 @@ namespace Rivet {
     scale(_h_jet_multi_exclusive, crossSection()/sumOfWeights());
     scale(_h_jet_multi_inclusive, crossSection()/sumOfWeights());
     scale(_h_jet_HT, crossSection()/sumOfWeights());
+    scale(_h_mjj_jets, crossSection()/sumOfWeights());
   }
 
 

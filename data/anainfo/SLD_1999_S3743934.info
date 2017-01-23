@@ -4,6 +4,7 @@ Summary: Production of $\pi^+$, $K^+$, $K^0$, $K^{*0}$, $\Phi$, $p$ and $\Lambda
 Experiment: SLD
 Collider: SLC
 SpiresID: 3743934
+InspireID: 469925
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

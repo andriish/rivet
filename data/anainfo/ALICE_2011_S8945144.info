@@ -1,9 +1,10 @@
 Name: ALICE_2011_S8945144
 Year: 2011
-Summary: Tranverse momentum spectra of pions, kaons and protons in pp collisions at 0.9 TeV
+Summary: Transverse momentum spectra of pions, kaons and protons in pp collisions at 0.9 TeV
 Experiment: ALICE
 Collider: LHC
 SpiresID: 8945144
+InspireID: 885104
 Status: VALIDATED
 Authors:
  - Pablo Bueno Gomez <UO189399@uniovi.es>

@@ -25,12 +25,12 @@ namespace Rivet {
     void init() {
       // Set up projections
       FinalState fs;
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
+      declare(FastJets(fs, FastJets::DURHAM, 0.7), "DurhamJets");
       IdentifiedFinalState ifs; //(Cuts::pT > 0);
       ifs.acceptId(PID::PHOTON);
-      addProjection(ifs, "Photons");
-      addProjection(Thrust(fs), "Thrust");
-      addProjection(ChargedFinalState(), "CFS");
+      declare(ifs, "Photons");
+      declare(Thrust(fs), "Thrust");
+      declare(ChargedFinalState(), "CFS");
 
       // Book histograms
       _h_z_2jet_001 = bookHisto1D(1, 1, 1);
@@ -47,19 +47,19 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      if (applyProjection<FinalState>(event, "CFS").particles().size() < 2) vetoEvent;
+      if (apply<FinalState>(event, "CFS").particles().size() < 2) vetoEvent;
 
-      const Particles allphotons = applyProjection<IdentifiedFinalState>(event, "Photons").particles();
+      const Particles allphotons = apply<IdentifiedFinalState>(event, "Photons").particles();
       Particles photons;
       for (const Particle& photon : allphotons)
         if (fabs(cos(photon.theta())) < 0.95 && photon.E() > 5.0*GeV)
           photons.push_back(photon);
       if (photons.size() < 1) vetoEvent;
 
-      const Thrust& thrust = applyProjection<Thrust>(event, "Thrust");
+      const Thrust& thrust = apply<Thrust>(event, "Thrust");
       if (fabs(cos(thrust.thrustAxis().theta()))>0.95) vetoEvent;
 
-      const FastJets& durjet = applyProjection<FastJets>(event, "DurhamJets");
+      const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
 
 
       const double weight = event.weight();

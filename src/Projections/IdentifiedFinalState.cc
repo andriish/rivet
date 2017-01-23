@@ -54,14 +54,6 @@ namespace Rivet {
   }
 
 
-  IdentifiedFinalState::IdentifiedFinalState(double etamin, double etamax, double ptMin)
-    // : FinalState(etamin, etamax, ptMin)
-  {
-    setName("IdentifiedFinalState");
-    addProjection(FinalState(etamin, etamax, ptMin), "FS");
-  }
-
-
 
   int IdentifiedFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");

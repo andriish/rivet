@@ -31,7 +31,7 @@ namespace Rivet {
   }
 
 
-  const Projection& ProjectionApplier::_addProjection(const Projection& proj,
+  const Projection& ProjectionApplier::_declareProjection(const Projection& proj,
                                                       const std::string& name) {
     if (!_allowProjReg) {
       cerr << "Trying to register projection '"

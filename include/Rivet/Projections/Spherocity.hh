@@ -42,9 +42,7 @@ namespace Rivet {
     }
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new Spherocity(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(Spherocity);
 
 
   protected:

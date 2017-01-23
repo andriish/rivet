@@ -101,7 +101,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(PseudoTop(0.1, 20, 2.4, 0.5, 30, 2.4), "ttbar");
+      declare(PseudoTop(0.1, 20, 2.4, 0.5, 30, 2.4), "ttbar");
 
       // Lepton + Jet channel
       _hSL_topPt         = bookHisto1D("d15-x01-y01"); // 1/sigma dsigma/dpt(top)
@@ -131,7 +131,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the ttbar candidate
-      const PseudoTop& ttbar = applyProjection<PseudoTop>(event, "ttbar");
+      const PseudoTop& ttbar = apply<PseudoTop>(event, "ttbar");
       if ( ttbar.mode() == PseudoTop::CH_NONE ) vetoEvent;
 
       const FourMomentum& t1P4 = ttbar.t1().momentum();
@@ -139,8 +139,8 @@ namespace Rivet {
       const double pt1 = std::max(t1P4.pT(), t2P4.pT());
       const double pt2 = std::min(t1P4.pT(), t2P4.pT());
       const double dPhi = deltaPhi(t1P4, t2P4);
-      const FourMomentum ttP4 = t1P4+t2P4;
-      const FourMomentum t1P4AtCM = LorentzTransform(-ttP4.boostVector()).transform(t1P4);
+      const FourMomentum ttP4 = t1P4 + t2P4;
+      const FourMomentum t1P4AtCM = LorentzTransform::mkFrameTransformFromBeta(ttP4.betaVec()).transform(t1P4);
 
       const double weight = event.weight();
 
@@ -394,7 +394,7 @@ namespace Rivet {
           // Do unstable particles, to be used in the ghost B clustering
           // Use last B hadrons only
           bool isLast = true;
-          for (GenParticle* pp : Rivet::particles(p->end_vertex(), HepMC::children)) {
+          for (const GenParticlePtr pp : Rivet::particles(p->end_vertex(), HepMC::children)) {
             if (PID::hasBottom(pp->pdg_id())) {
               isLast = false;
               break;

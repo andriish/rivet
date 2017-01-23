@@ -38,10 +38,10 @@ namespace Rivet {
       const FinalState cnfs4(-_etaMax, _etaMax, 0.4 * GeV);
       const FinalState cnfs6(-_etaMax, _etaMax, 0.6 * GeV);
       const FinalState cnfs8(-_etaMax, _etaMax, 0.8 * GeV);
-      addProjection(cnfs2, "CNFS2");
-      addProjection(cnfs4, "CNFS4");
-      addProjection(cnfs6, "CNFS6");
-      addProjection(cnfs8, "CNFS8");
+      declare(cnfs2, "CNFS2");
+      declare(cnfs4, "CNFS4");
+      declare(cnfs6, "CNFS6");
+      declare(cnfs8, "CNFS8");
 
       _etaBinSize = (2. * _etaMax)/(double)_etaBins;
 
@@ -76,10 +76,10 @@ namespace Rivet {
       static unsigned int event_count = 0;
       ++event_count;
       const double weight = event.weight();
-      const FinalState& fs2 = applyProjection<FinalState>(event, "CNFS2");
-      const FinalState& fs4 = applyProjection<FinalState>(event, "CNFS4");
-      const FinalState& fs6 = applyProjection<FinalState>(event, "CNFS6");
-      const FinalState& fs8 = applyProjection<FinalState>(event, "CNFS8");
+      const FinalState& fs2 = apply<FinalState>(event, "CNFS2");
+      const FinalState& fs4 = apply<FinalState>(event, "CNFS4");
+      const FinalState& fs6 = apply<FinalState>(event, "CNFS6");
+      const FinalState& fs8 = apply<FinalState>(event, "CNFS8");
 
       // Set up Yes/No arrays for energy in each eta bin at each pT cut
       bool energyMap_200[_etaBins];

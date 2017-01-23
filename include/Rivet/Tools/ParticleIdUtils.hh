@@ -12,7 +12,7 @@
 /// @file Utility functions for querying PDG ID codes (many from HepPID)
 /// @author Andy Buckley <andy.buckley@cern.ch>
 
-//#include "Rivet/Tools/MCUtils/PIDCodes.h"
+#include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Math/MathUtils.hh"
 
 namespace Rivet {
@@ -470,8 +470,8 @@ namespace Rivet {
     /// Return the EM charge (as floating point)
     inline double charge(int pid) { return charge3(pid)/3.0; }
 
-    /// Return the EM charge (as floating point)
-    inline double abscharge(int pid) { return std::abs(charge(pid)); }
+    /// Return the absolute value of the EM charge (as floating point)
+    inline double abscharge(int pid) { return abscharge3(pid)/3.0; }
 
     //@}
 
@@ -531,10 +531,12 @@ namespace Rivet {
     }
 
     /// Determine if the PID is that of a charged lepton
-    inline bool isChLepton(int pid) {
+    inline bool isChargedLepton(int pid) {
       const long apid = abs(pid);
       return apid == 11 || apid == 13 || apid == 15;
     }
+    // Alias
+    inline bool isChLepton(int pid) { return isChargedLepton(pid); }
 
     /// Determine if the PID is that of a neutrino
     inline bool isNeutrino(int pid) {
@@ -573,10 +575,24 @@ namespace Rivet {
 
     /// @todo isSUSYHiggs?
 
+
+    // /// Determine if the PID is that of a d/dbar
+    // inline bool isDown(int pid) { return abs(pid) == DQUARK; }
+
+    // /// Determine if the PID is that of a u/ubar
+    // inline bool isUp(int pid) { return abs(pid) == UQUARK; }
+
+    /// Determine if the PID is that of a s/sbar
+    inline bool isStrange(int pid) { return abs(pid) == SQUARK; }
+
+    /// Determine if the PID is that of a c/cbar
+    inline bool isCharm(int pid) { return abs(pid) == CQUARK; }
+
+    /// Determine if the PID is that of a b/bbar
+    inline bool isBottom(int pid) { return abs(pid) == BQUARK; }
+
     /// Determine if the PID is that of a t/tbar
-    inline bool isTop(int pid) {
-      return abs(pid) == 6;
-    }
+    inline bool isTop(int pid) { return abs(pid) == TQUARK; }
 
     //@}
 

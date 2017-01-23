@@ -32,7 +32,7 @@ namespace Rivet {
       FinalState fs;
       FastJets fastJets(fs, FastJets::ANTIKT, 0.6);
       fastJets.useInvisibles(true);
-      addProjection(fastJets, "AntiKt6JetsWithInvisibles");
+      declare(fastJets, "AntiKt6JetsWithInvisibles");
 
 
       /// Book histograms
@@ -79,7 +79,7 @@ namespace Rivet {
       for (int iFiducialRegion = 0; iFiducialRegion < 2; ++iFiducialRegion ) {
 
         // Retrieve all anti-kt R=0.6 jets above _pTMin and inside |_yFiducial|
-        const Jets akt6Jets = applyProjection<JetAlg>(event, "AntiKt6JetsWithInvisibles").jetsByPt( Cuts::absrap < _yFiducial.at(iFiducialRegion) );
+        const Jets akt6Jets = apply<JetAlg>(event, "AntiKt6JetsWithInvisibles").jetsByPt( Cuts::absrap < _yFiducial.at(iFiducialRegion) );
         // If there are fewer than 2 jets then bail
         if ( akt6Jets.size() < 2 ) { vetoEvent; }
 
@@ -133,8 +133,8 @@ namespace Rivet {
 
     void fillHistograms( const unsigned int &fiducialRegion, const double &dy, const double &pTbar, const double &dphi, const double &nJets_rapidity_interval, const double &maximumGapQ0, const double &weight) {
       // Determine gap category
-      vector<string> eventGapCategories = boost::assign::list_of("inclusive");
-      if ( nJets_rapidity_interval == 0 ) { eventGapCategories.push_back("gap"); }
+      vector<string> eventGapCategories{{"inclusive"}};
+      if ( nJets_rapidity_interval == 0 ) { eventGapCategories += string("gap"); }
 
       // Fill histograms relevant for comparison with 2010 data
       if ( fiducialRegion == _fiducialRegions.at(0) ) {

@@ -24,6 +24,18 @@ cdef class AnalysisHandler:
         self._ptr.addAnalysis(name)
         return self
 
+    def analysisNames(self):
+        anames = self._ptr.analysisNames()
+        return [a for a in anames]
+
+    # def analysis(self, aname):
+    #     cdef c.Analysis* ptr = self._ptr.analysis(aname)
+    #     cdef Analysis pyobj = Analysis.__new__(Analysis)
+    #     if not ptr:
+    #         return None
+    #     pyobj._ptr = ptr
+    #     return pyobj
+
     def writeData(self, name):
         self._ptr.writeData(name)
 
@@ -60,6 +72,9 @@ cdef class Run:
     def readEvent(self):
         return self._ptr.readEvent()
 
+    def skipEvent(self):
+        return self._ptr.skipEvent()
+
     def processEvent(self):
         return self._ptr.processEvent()
 
@@ -78,6 +93,9 @@ cdef class Analysis:
 
     def requiredEnergies(self):
         return deref(self._ptr).requiredEnergies()
+
+    def keywords(self):
+        return deref(self._ptr).keywords()
 
     def authors(self):
         return deref(self._ptr).authors()
@@ -121,6 +139,8 @@ cdef class Analysis:
     def year(self):
         return deref(self._ptr).year()
 
+    def luminosityfb(self):
+        return deref(self._ptr).luminosityfb()
 
 #cdef object
 LEVELS = dict(TRACE = 0, DEBUG = 10, INFO = 20,
@@ -154,18 +174,24 @@ def addAnalysisLibPath(path):
     c.addAnalysisLibPath(path)
 
 
-def getAnalysisRefPaths():
-    return c.getAnalysisRefPaths()
+def setAnalysisDataPaths(xs):
+    c.setAnalysisDataPaths(xs)
 
-def findAnalysisRefFile(q):
-    return c.findAnalysisRefFile(q)
-
+def addAnalysisDataPath(path):
+    c.addAnalysisDataPath(path)
 
 def getAnalysisDataPaths():
     return c.getAnalysisDataPaths()
 
 def findAnalysisDataFile(q):
     return c.findAnalysisDataFile(q)
+
+
+def getAnalysisRefPaths():
+    return c.getAnalysisRefPaths()
+
+def findAnalysisRefFile(q):
+    return c.findAnalysisRefFile(q)
 
 
 def getAnalysisInfoPaths():

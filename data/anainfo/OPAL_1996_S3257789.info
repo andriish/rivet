@@ -4,6 +4,7 @@ Summary: $J/\psi$ and $\psi^\prime$ Production in Hadronic $Z^0$ Decays
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3257789
+InspireID: 402487
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

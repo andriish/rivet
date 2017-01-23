@@ -331,11 +331,15 @@ namespace Rivet {
 
   /// @brief Return the bin index of the given value, @a val, given a vector of bin edges
   ///
+  /// An underflow always returns -1. If allow_overflow is false (default) an overflow
+  /// also returns -1, otherwise it returns the Nedge-1, the index of an inclusive bin
+  /// starting at the last edge.
+  ///
   /// @note The @a binedges vector must be sorted
   /// @todo Use std::common_type<NUM1, NUM2>::type x = val; ?
   template <typename NUM1, typename NUM2>
-  inline typename std::enable_if<std::is_arithmetic<NUM1>::value && std::is_floating_point<NUM2>::value, int>::type
-    binIndex(NUM1 val, const vector<NUM2>& binedges, bool allow_overflow=false) {
+  inline typename std::enable_if<std::is_arithmetic<NUM1>::value && std::is_arithmetic<NUM2>::value, int>::type
+  binIndex(NUM1 val, const vector<NUM2>& binedges, bool allow_overflow=false) {
     if (val < binedges.front()) return -1; ///< Below/out of histo range
     if (val >= binedges.back()) return allow_overflow ? int(binedges.size())-1 : -1; ///< Above/out of histo range
     return std::distance(binedges.begin(), --std::upper_bound(binedges.begin(), binedges.end(), val));
@@ -358,9 +362,11 @@ namespace Rivet {
   //@{
 
   /// Calculate the median of a sample
+  /// @todo Support multiple container types via SFINAE
   template <typename NUM>
   inline typename std::enable_if<std::is_arithmetic<NUM>::value, NUM>::type
   median(const vector<NUM>& sample) {
+    if (sample.empty()) throw RangeError("Can't compute median of an empty set");
     vector<NUM> tmp = sample;
     std::sort(tmp.begin(), tmp.end());
     const size_t imid = tmp.size()/2; // len1->idx0, len2->idx1, len3->idx1, len4->idx2, ...
@@ -370,9 +376,11 @@ namespace Rivet {
 
 
   /// Calculate the mean of a sample
+  /// @todo Support multiple container types via SFINAE
   template <typename NUM>
   inline typename std::enable_if<std::is_arithmetic<NUM>::value, double>::type
   mean(const vector<NUM>& sample) {
+    if (sample.empty()) throw RangeError("Can't compute mean of an empty set");
     double mean = 0.0;
     for (size_t i = 0; i < sample.size(); ++i) {
       mean += sample[i];
@@ -381,9 +389,11 @@ namespace Rivet {
   }
 
   // Calculate the error on the mean, assuming Poissonian errors
+  /// @todo Support multiple container types via SFINAE
   template <typename NUM>
   inline typename std::enable_if<std::is_arithmetic<NUM>::value, double>::type
   mean_err(const vector<NUM>& sample) {
+    if (sample.empty()) throw RangeError("Can't compute mean_err of an empty set");
     double mean_e = 0.0;
     for (size_t i = 0; i < sample.size(); ++i) {
       mean_e += sqrt(sample[i]);
@@ -393,9 +403,12 @@ namespace Rivet {
 
 
   /// Calculate the covariance (variance) between two samples
+  /// @todo Support multiple container types via SFINAE
   template <typename NUM>
   inline typename std::enable_if<std::is_arithmetic<NUM>::value, double>::type
   covariance(const vector<NUM>& sample1, const vector<NUM>& sample2) {
+    if (sample1.empty() || sample2.empty()) throw RangeError("Can't compute covariance of an empty set");
+    if (sample1.size() != sample2.size()) throw RangeError("Sizes of samples must be equal for covariance calculation");
     const double mean1 = mean(sample1);
     const double mean2 = mean(sample2);
     const size_t N = sample1.size();
@@ -409,9 +422,12 @@ namespace Rivet {
   }
 
   /// Calculate the error on the covariance (variance) of two samples, assuming poissonian errors
+  /// @todo Support multiple container types via SFINAE
   template <typename NUM>
   inline typename std::enable_if<std::is_arithmetic<NUM>::value, double>::type
   covariance_err(const vector<NUM>& sample1, const vector<NUM>& sample2) {
+    if (sample1.empty() || sample2.empty()) throw RangeError("Can't compute covariance_err of an empty set");
+    if (sample1.size() != sample2.size()) throw RangeError("Sizes of samples must be equal for covariance_err calculation");
     const double mean1 = mean(sample1);
     const double mean2 = mean(sample2);
     const double mean1_e = mean_err(sample1);
@@ -429,6 +445,7 @@ namespace Rivet {
 
 
   /// Calculate the correlation strength between two samples
+  /// @todo Support multiple container types via SFINAE
   template <typename NUM>
   inline typename std::enable_if<std::is_arithmetic<NUM>::value, double>::type
   correlation(const vector<NUM>& sample1, const vector<NUM>& sample2) {
@@ -441,6 +458,7 @@ namespace Rivet {
   }
 
   /// Calculate the error of the correlation strength between two samples assuming Poissonian errors
+  /// @todo Support multiple container types via SFINAE
   template <typename NUM>
   inline typename std::enable_if<std::is_arithmetic<NUM>::value, double>::type
   correlation_err(const vector<NUM>& sample1, const vector<NUM>& sample2) {

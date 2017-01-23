@@ -4,6 +4,7 @@ Summary: Run II jet azimuthal decorrelation analysis
 Experiment: D0
 Collider: Tevatron Run 2
 SpiresID: 5992206
+InspireID: 659398
 Status: VALIDATED
 Authors:
  - Lars Sonnenschein <lars.sonnenschein@cern.ch>

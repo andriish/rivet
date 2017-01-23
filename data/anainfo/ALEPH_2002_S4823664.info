@@ -4,6 +4,7 @@ Summary: $\eta$ and $\omega$ Production in Hadronic $Z^0$ Decays
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 4823664
+InspireID: 569165
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

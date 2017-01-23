@@ -3,7 +3,7 @@ Year: 2013
 Summary: Measurement of jet shapes in top quark pair events at $\sqrt{s} = 7$ TeV with ATLAS
 Experiment: ATLAS
 Collider: LHC
-SpiresID: 1243871
+InspireID: 1243871
 Status: VALIDATED
 Authors:
  - Javier Llorente <javier.llorente.merino@cern.ch>

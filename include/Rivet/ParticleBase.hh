@@ -3,7 +3,7 @@
 
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Jet.fhh"
-#include "Rivet/Cuts.fhh"
+#include "Rivet/Tools/Cuts.fhh"
 #include "Rivet/Math/Vectors.hh"
 
 namespace Rivet {
@@ -94,13 +94,17 @@ namespace Rivet {
     /// Get the \f$ \phi \f$ directly.
     double phi(const PhiMapping mapping=ZERO_2PI) const { return momentum().phi(mapping); }
 
-
     /// Get the 3-momentum directly.
     Vector3 p3() const { return momentum().vector3(); }
     /// Get the 3-momentum magnitude directly.
     double p() const { return momentum().p(); }
     /// Get the 3-momentum magnitude-squared directly.
     double p2() const { return momentum().p2(); }
+
+    /// Get the transverse 3-momentum directly.
+    Vector3 ptvec() const { return momentum().ptvec(); }
+    /// Get the transverse 3-momentum directly.
+    Vector3 pTvec() const { return momentum().pTvec(); }
 
     /// x component of momentum.
     double px() const { return momentum().x(); }

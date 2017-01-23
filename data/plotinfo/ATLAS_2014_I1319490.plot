@@ -16,7 +16,7 @@ LegendXPos=0.6
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d01
-XCustomMajorTicks=0.5	$\geq~0$	1.5	$\geq~1$	2.5	$\geq~2$	3.5	$\geq~3$	4.5	$\geq~4$	5.5	$\geq~5$	6.5	$\geq~6$	7.5	$\geq~7$
+XCustomMajorTicks=0.5	$\geq0$	1.5	$\geq1$	2.5	$\geq2$	3.5	$\geq3$	4.5	$\geq4$	5.5	$\geq5$	6.5	$\geq6$	7.5	$\geq7$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2014_I1319490/d04
@@ -164,7 +164,7 @@ YLabel=$\text{d}\sigma_{W + \geq 2j} / \text{d}S_\text{T}$
 # BEGIN PLOT /ATLAS_2014_I1319490/d32
 YLabel=$\text{d}\sigma_{W + 2j} / \text{d}S_\text{T}$
 # END PLOT
- 
+
 # BEGIN PLOT /ATLAS_2014_I1319490/d33
 YLabel=$\text{d}\sigma_{W + \geq 3j} / \text{d}S_\text{T}$
 # END PLOT
@@ -180,4 +180,3 @@ YLabel=$\text{d}\sigma_{W + \geq 4j} / \text{d}S_\text{T}$
 # BEGIN PLOT /ATLAS_2014_I1319490/d36
 YLabel=$\text{d}\sigma_{W + \geq 5j} / \text{d}S_\text{T}$
 # END PLOT
-

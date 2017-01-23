@@ -4,6 +4,7 @@ Summary: Transverse cone and `Swiss cheese' underlying event studies
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 5839831
+InspireID: 647490
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

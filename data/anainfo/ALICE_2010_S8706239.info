@@ -4,6 +4,7 @@ Summary: Charged particle $\langle p_\perp \rangle$ vs. $N_\text{ch}$ in $pp$ co
 Experiment: ALICE
 Collider: LHC
 SpiresID: 8706239
+InspireID: 860416
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

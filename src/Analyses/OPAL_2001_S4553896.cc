@@ -82,8 +82,8 @@ namespace Rivet {
 
       /// Initialise and register projections here
       const FinalState fs;
-      addProjection(fs, "FS");
-      addProjection(FastJets(fs, FastJets::DURHAM, 0.7), "Jets");
+      declare(fs, "FS");
+      declare(FastJets(fs, FastJets::DURHAM, 0.7), "Jets");
 
 
       /// @todo Book histograms here, e.g.:
@@ -99,11 +99,11 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
-      if (applyProjection<FinalState>(event, "FS").particles().size() < 2) {
+      if (apply<FinalState>(event, "FS").particles().size() < 2) {
         vetoEvent;
       }
 
-      const FastJets& fastjets = applyProjection<FastJets>(event, "Jets");
+      const FastJets& fastjets = apply<FastJets>(event, "Jets");
       if (fastjets.clusterSeq()) {
         vector<fastjet::PseudoJet> jets;
         foreach (const fastjet::PseudoJet& jet,
@@ -111,7 +111,9 @@ namespace Rivet {
           if (jet.E()>3.0*GeV) jets.push_back(jet);
         }
         if (jets.size() == 4) {
-          _h_BZ->fill(fabs(calc_BZ(jets)), weight);
+          // Prevent nan-fill due to division by zero in calc_BZ
+          double bz = fabs(calc_BZ(jets));
+          if (!std::isnan(bz)) _h_BZ->fill(bz, weight);
           _h_KSW->fill(calc_KSW(jets), weight);
           _h_NR->fill(fabs(calc_NR(jets)), weight);
           _h_ALPHA34->fill(calc_ALPHA34(jets), weight);

@@ -5,6 +5,7 @@ Summary: LHCb differential cross section measurement of prompt $K^0_S$ productio
 Experiment: LHCB
 Collider: LHC 900 GeV
 SpiresID: 8758301
+InspireID: 865584
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

@@ -4,6 +4,7 @@ Summary: Four-jet angles using Durham algorithm
 Experiment: OPAL
 Collider: LEP Run 1
 SpiresID: 4553896
+InspireID: 552446
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

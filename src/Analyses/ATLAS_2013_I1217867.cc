@@ -45,17 +45,17 @@ namespace Rivet {
       Cut cuts = (Cuts::absetaIn(0, 1.37) || Cuts::absetaIn(1.52, 2.47)) && Cuts::pT > 20*GeV;
 
       DressedLeptons electronClusters(fs, bareElectrons, 0.1, cuts);
-      addProjection(electronClusters, "electronClusters");
+      declare(electronClusters, "electronClusters");
 
       IdentifiedFinalState bareMuons(fs);
       bareMuons.acceptIdPair(PID::MUON);
       Cut mucuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
       DressedLeptons muonClusters(fs, bareMuons, 0.1, mucuts);
-      addProjection(muonClusters, "muonClusters");
+      declare(muonClusters, "muonClusters");
 
       IdentifiedFinalState neutrinos(Cuts::pT > 25*GeV);
       neutrinos.acceptNeutrinos();
-      addProjection(neutrinos, "neutrinos");
+      declare(neutrinos, "neutrinos");
 
       VetoedFinalState jetFS(fs);
       jetFS.addVetoOnThisFinalState(electronClusters);
@@ -63,7 +63,7 @@ namespace Rivet {
       jetFS.addVetoOnThisFinalState(neutrinos);
       FastJets jetpro(jetFS, FastJets::KT, 0.6);
       jetpro.useInvisibles(true);
-      addProjection(jetpro, "jets");
+      declare(jetpro, "jets");
 
       // Book histograms
       for (size_t flav = 0; flav < 2; ++flav) {
@@ -77,8 +77,8 @@ namespace Rivet {
     void analyze(const Event& e) {
       const double weight = e.weight();
 
-      const DressedLeptons& electronClusters = applyProjection<DressedLeptons>(e, "electronClusters");
-      const DressedLeptons& muonClusters = applyProjection<DressedLeptons>(e, "muonClusters");
+      const DressedLeptons& electronClusters = apply<DressedLeptons>(e, "electronClusters");
+      const DressedLeptons& muonClusters = apply<DressedLeptons>(e, "muonClusters");
       int ne = electronClusters.dressedLeptons().size();
       int nmu = muonClusters.dressedLeptons().size();
 
@@ -98,14 +98,14 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const Particles& neutrinos = applyProjection<FinalState>(e, "neutrinos").particlesByPt();
+      const Particles& neutrinos = apply<FinalState>(e, "neutrinos").particlesByPt();
       if (neutrinos.size() < 1) vetoEvent;
       FourMomentum neutrino = neutrinos[0].momentum();
 
       double mtW=sqrt(2.0*lepton.pT()*neutrino.pT()*(1-cos(lepton.phi()-neutrino.phi())));
       if (mtW<40.0*GeV) vetoEvent;
 
-      const shared_ptr<fastjet::ClusterSequence> seq = applyProjection<FastJets>(e, "jets").clusterSeq();
+      const shared_ptr<fastjet::ClusterSequence> seq = apply<FastJets>(e, "jets").clusterSeq();
       if (seq) {
         for (size_t i = 0; i < min(m_njet,(size_t)seq->n_particles()); ++i) {
           double d_ij = sqrt(seq->exclusive_dmerge_max(i));

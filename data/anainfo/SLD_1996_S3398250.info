@@ -4,6 +4,7 @@ Summary:  Charged particle multiplicities in heavy and light quark initiated eve
 Experiment: SLD
 Collider: SLC
 SpiresID: 3398250
+InspireID: 422172
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

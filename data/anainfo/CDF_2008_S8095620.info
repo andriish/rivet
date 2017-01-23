@@ -4,6 +4,7 @@ Summary: CDF Run II Z+b-jet cross section paper, 2 fb-1
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 8095620
+InspireID: 806082
 Status: VALIDATED
 Authors:
  - Emily Nurse <nurse@hep.ucl.ac.uk>

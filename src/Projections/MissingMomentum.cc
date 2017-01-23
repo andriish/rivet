@@ -21,11 +21,14 @@ namespace Rivet {
 
     // Project into final state
     const FinalState& vfs = applyProjection<FinalState>(e, "VisibleFS");
-    foreach (const Particle& p, vfs.particles()) {
+    for (const Particle& p : vfs.particles()) {
       const FourMomentum& mom = p.momentum();
+      const Vector3 ptunit = mom.vector3().setZ(0.0).unit();
       _momentum += mom;
       _set += mom.Et();
-      _vet += mom.Et() * mom.vector3().setZ(0.0).unit();
+      _spt += mom.pT();
+      _vet += mom.Et() * ptunit;
+      _vpt += mom.pT() * ptunit;
     }
   }
 

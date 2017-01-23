@@ -4,6 +4,7 @@ Summary: Strange particle production in proton-proton collisions at $\sqrt{s} = 
 Experiment: ALICE
 Collider: LHC
 SpiresID: 8909580
+InspireID: 881474
 Status: VALIDATED
 Authors:
  - Pablo Bueno Gomez <UO189399@uniovi.es>

@@ -12,6 +12,8 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
     cdef cppclass AnalysisHandler:
         void setIgnoreBeams(bool)
         AnalysisHandler& addAnalysis(string)
+        vector[string] analysisNames() const
+        # Analysis* analysis(string)
         void writeData(string&)
         double crossSection()
         void finalize()
@@ -24,6 +26,7 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
         bool init(string, double) # $2=1.0
         bool openFile(string, double) # $2=1.0
         bool readEvent()
+        bool skipEvent()
         bool processEvent()
         bool finalize()
 
@@ -33,6 +36,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         vector[pair[double, double]] requiredEnergies()
         vector[string] authors()
         vector[string] references()
+        vector[string] keywords()
         string name()
         string bibTeX()
         string bibKey()
@@ -45,6 +49,7 @@ cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
         string status()
         string summary()
         string year()
+        string luminosityfb()
 
 # Might need to translate the following errors, although I believe 'what' is now
 # preserved. But often, we need the exception class name.
@@ -66,10 +71,12 @@ cdef extern from "Rivet/Tools/RivetPaths.hh" namespace "Rivet":
     void addAnalysisLibPath(string)
 
     vector[string] getAnalysisDataPaths()
-    string findAnalysisRefFile(string)
+    void setAnalysisDataPaths(vector[string])
+    void addAnalysisDataPath(string)
+    string findAnalysisDataFile(string)
 
     vector[string] getAnalysisRefPaths()
-    string findAnalysisDataFile(string)
+    string findAnalysisRefFile(string)
 
     vector[string] getAnalysisInfoPaths()
     string findAnalysisInfoFile(string)

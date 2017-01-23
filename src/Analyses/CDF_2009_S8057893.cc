@@ -22,13 +22,13 @@ namespace Rivet {
 
     void CDF_2009_S8057893::init() {
       const FinalState fsj(-4.0, 4.0, 0.0*GeV);
-      addProjection(fsj, "FSJ");
-      addProjection(FastJets(fsj, FastJets::CDFMIDPOINT, 1.0), "Jets");
+      declare(fsj, "FSJ");
+      declare(FastJets(fsj, FastJets::CDFMIDPOINT, 1.0), "Jets");
     }
 
 
     void CDF_2009_S8057893::analyze(const Event& event) {
-      const FastJets& jetpro = applyProjection<FastJets>(e, "MidpointJets");
+      const FastJets& jetpro = apply<FastJets>(e, "MidpointJets");
       const Jets& jets = jetpro.jetsByPt();
       MSG_DEBUG("Jet multiplicity = " << jets.size());
       if (jets.size() < 1) {

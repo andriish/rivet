@@ -4,6 +4,7 @@ Summary: Charged particle multiplicities in heavy and light quark initiated even
 Experiment: OPAL
 Collider: LEP 2
 SpiresID: 5361494
+InspireID: 601225
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

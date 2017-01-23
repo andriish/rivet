@@ -4,6 +4,7 @@ Summary: Two lepton supersymmetry search
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 9019561
+InspireID: 894578
 Status: VALIDATED
 Authors:
  - Angela Chen <aqchen@fas.harvard.edu>

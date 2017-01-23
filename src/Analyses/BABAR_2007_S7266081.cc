@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/ParticleName.hh"
 
 namespace Rivet {
 
@@ -20,7 +19,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
       _hist_pipipi_pipipi = bookHisto1D( 1, 1, 1);
       _hist_pipipi_pipi   = bookHisto1D( 2, 1, 1);
       _hist_Kpipi_Kpipi   = bookHisto1D( 3, 1, 1);
@@ -35,19 +34,18 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
+      double weight = e.weight();
       // Find the taus
       Particles taus;
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
-        if (p.abspid() != PID::TAU) continue;
-        _weight_total += 1.;
+      foreach(const Particle& p, apply<UnstableFinalState>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
+        _weight_total += weight;
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;
-        // get the boost to the rest frame
+        // Get the boost to the rest frame
         LorentzTransform cms_boost;
         if (p.p3().mod() > 1*MeV)
-          cms_boost = LorentzTransform(-p.momentum().boostVector());
-        // find the decay products we want
+          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
+        // Find the decay products we want
         findDecayProducts(p.genParticle(), nstable, pip, pim, Kp, Km);
         if (p.pid() < 0) {
           swap(pip, pim);
@@ -56,40 +54,40 @@ namespace Rivet {
         if (nstable != 4) continue;
         // pipipi
         if (pim.size() == 2 && pip.size() == 1) {
-          _weight_pipipi += 1.;
+          _weight_pipipi += weight;
           _hist_pipipi_pipipi->
-            fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass(),1.);
+            fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass(), weight);
           _hist_pipipi_pipi->
-            fill((pip[0].momentum()+pim[0].momentum()).mass(),1.);
+            fill((pip[0].momentum()+pim[0].momentum()).mass(), weight);
           _hist_pipipi_pipi->
-            fill((pip[0].momentum()+pim[1].momentum()).mass(),1.);
+            fill((pip[0].momentum()+pim[1].momentum()).mass(), weight);
         }
         else if (pim.size() == 1 && pip.size() == 1 && Km.size() == 1) {
-          _weight_Kpipi += 1.;
+          _weight_Kpipi += weight;
           _hist_Kpipi_Kpipi->
-            fill((pim[0].momentum()+pip[0].momentum()+Km[0].momentum()).mass(),1.);
+            fill((pim[0].momentum()+pip[0].momentum()+Km[0].momentum()).mass(), weight);
           _hist_Kpipi_Kpi->
-            fill((pip[0].momentum()+Km[0].momentum()).mass(),1.);
+            fill((pip[0].momentum()+Km[0].momentum()).mass(), weight);
           _hist_Kpipi_pipi->
-            fill((pim[0].momentum()+pip[0].momentum()).mass(),1.);
+            fill((pim[0].momentum()+pip[0].momentum()).mass(), weight);
         }
         else if (Kp.size() == 1 && Km.size() == 1 && pim.size() == 1) {
-          _weight_KpiK += 1.;
+          _weight_KpiK += weight;
           _hist_KpiK_KpiK->
-            fill((Kp[0].momentum()+Km[0].momentum()+pim[0].momentum()).mass(),1.);
+            fill((Kp[0].momentum()+Km[0].momentum()+pim[0].momentum()).mass(), weight);
           _hist_KpiK_KK->
-            fill((Kp[0].momentum()+Km[0].momentum()).mass(),1.);
+            fill((Kp[0].momentum()+Km[0].momentum()).mass(), weight);
           _hist_KpiK_piK->
-            fill((Kp[0].momentum()+pim[0].momentum()).mass(),1.);
+            fill((Kp[0].momentum()+pim[0].momentum()).mass(), weight);
         }
         else if (Kp.size() == 1 && Km.size() == 2) {
-          _weight_KKK += 1.;
+          _weight_KKK += weight;
           _hist_KKK_KKK->
-            fill((Kp[0].momentum()+Km[0].momentum()+Km[1].momentum()).mass(),1.);
+            fill((Kp[0].momentum()+Km[0].momentum()+Km[1].momentum()).mass(), weight);
           _hist_KKK_KK->
-            fill((Kp[0].momentum()+Km[0].momentum()).mass(),1.);
+            fill((Kp[0].momentum()+Km[0].momentum()).mass(), weight);
           _hist_KKK_KK->
-            fill((Kp[0].momentum()+Km[1].momentum()).mass(),1.);
+            fill((Kp[0].momentum()+Km[1].momentum()).mass(), weight);
         }
       }
     }

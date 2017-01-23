@@ -63,7 +63,7 @@ namespace Rivet {
     void init() {
 
       // Initialize the lone projection required
-      addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.6), "AntiKtJets06");
+      declare(FastJets(FinalState(), FastJets::ANTIKT, 0.6), "AntiKtJets06");
 
       // Initialize plots for each selection type
       _selectionPlots[0].intermediateHistName = "highestPt";
@@ -168,7 +168,7 @@ namespace Rivet {
       double minimumJetPtBar = 50.0*GeV; // of interval defining jets
 
       vector<FourMomentum> acceptJets;
-      foreach (const Jet& jet, applyProjection<FastJets>(event, "AntiKtJets06").jetsByPt(20.0*GeV)) {
+      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets06").jetsByPt(20.0*GeV)) {
         if (jet.absrap() < 4.4) {
           acceptJets.push_back(jet.momentum());
         }

@@ -4,6 +4,7 @@ Summary: Measurement of differential Z/$\gamma^*$ + jet + X cross sections
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 7540469
+InspireID: 768451
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

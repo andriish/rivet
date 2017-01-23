@@ -4,6 +4,7 @@ Summary: Track-based minimum bias at 900 GeV and 2.36 and 7 TeV in ATLAS
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 8918562
+InspireID: 882098
 Status: VALIDATED
 Authors:
  - Thomas Burgess <thomas.burgess@cern.ch>

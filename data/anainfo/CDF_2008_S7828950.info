@@ -4,6 +4,7 @@ Summary: CDF Run II inclusive jet cross-section using the Midpoint algorithm
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 7828950
+InspireID: 790693
 Status: VALIDATED
 Authors:
  - Craig Group <group@fnal.gov>

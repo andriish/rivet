@@ -4,6 +4,7 @@ Summary: Dijet azimuthal decorrelations
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 8971293
+InspireID: 889546
 Status: VALIDATED
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>

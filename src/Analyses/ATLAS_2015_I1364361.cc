@@ -18,9 +18,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2015_I1364361()
-      : Analysis("ATLAS_2015_I1364361")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1364361);
 
 
     /// Book histograms and initialise projections before the run
@@ -28,7 +26,7 @@ namespace Rivet {
 
       // All final state particles
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Histograms with data bins
       _h_pTH_incl   = bookHisto1D(1,1,1);
@@ -42,7 +40,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the final state particles ordered by pT
-      const Particles& fs = applyProjection<FinalState>(event, "FS").particlesByPt();
+      const Particles& fs = apply<FinalState>(event, "FS").particlesByPt();
 
       // Find a stable Higgs (mandatory)
       const auto higgsiter = std::find_if(fs.begin(), fs.end(), [](const Particle& p){ return p.pid() == PID::HIGGSBOSON; });

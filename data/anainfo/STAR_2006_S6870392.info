@@ -4,6 +4,7 @@ Summary: Inclusive jet cross-section in pp at 200 GeV
 Experiment: STAR
 Collider: RHIC pp 200 GeV
 SpiresID: 6870392
+InspireID: 723509
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

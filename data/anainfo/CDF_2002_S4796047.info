@@ -4,6 +4,7 @@ Summary: CDF Run 1 charged multiplicity measurement
 Experiment: CDF
 Collider: Tevatron Run 1
 SpiresID: 4796047
+InspireID: 567774
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

@@ -4,6 +4,7 @@ Summary: High jet multiplicity squark and gluino search
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 9225137
+InspireID: 939504
 Status: VALIDATED
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>

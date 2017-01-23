@@ -5,20 +5,14 @@
 
 namespace Rivet {
 
-  
-
 
   /// Generic analysis looking at various distributions of final state particles
   class MC_GENERIC : public Analysis {
   public:
 
     /// Constructor
-    MC_GENERIC()
-      : Analysis("MC_GENERIC")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(MC_GENERIC);
 
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -27,12 +21,12 @@ namespace Rivet {
     void init() {
 
       // Projections
-      const FinalState cnfs(-5.0, 5.0, 500*MeV);
-      addProjection(cnfs, "FS");
-      addProjection(ChargedFinalState(-5.0, 5.0, 500*MeV), "CFS");
+      const FinalState fs(Cuts::abseta < 5 && Cuts::pT > 500*MeV);
+      declare(fs, "FS");
+      declare(ChargedFinalState(fs), "CFS");
 
       // Histograms
-      // @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
+      /// @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
       _histMult   = bookHisto1D("Mult", 100, -0.5, 199.5);
       _histMultCh = bookHisto1D("MultCh", 100, -0.5, 199.5);
 
@@ -68,50 +62,38 @@ namespace Rivet {
     }
 
 
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
 
       // Charged + neutral final state
-      const FinalState& cnfs = applyProjection<FinalState>(event, "FS");
-      MSG_DEBUG("Total multiplicity = " << cnfs.size());
-      _histMult->fill(cnfs.size(), weight);
-      foreach (const Particle& p, cnfs.particles()) {
-        const double eta = p.eta();
-        _histEta->fill(eta, weight);
-        _histEtaSumEt->fill(fabs(eta), p.Et(), weight);
-        if (eta > 0) _tmphistEtaPlus.fill(fabs(eta), weight);
-        else _tmphistEtaMinus.fill(fabs(eta), weight);
+      const FinalState& fs = apply<FinalState>(event, "FS");
+      MSG_DEBUG("Total multiplicity = " << fs.size());
+      _histMult->fill(fs.size(), weight);
+      for (const Particle& p : fs.particles()) {
+        _histEta->fill(p.eta(), weight);
+        _histEtaSumEt->fill(p.abseta(), p.Et(), weight);
+        (p.eta() > 0 ? _tmphistEtaPlus : _tmphistEtaMinus).fill(p.abseta(), weight);
         //
-        const double rapidity = p.rapidity();
-        _histRapidity->fill(rapidity, weight);
-        if (rapidity > 0) _tmphistRapPlus.fill(fabs(rapidity), weight);
-        else _tmphistRapMinus.fill(fabs(rapidity), weight);
+        _histRapidity->fill(p.rap(), weight);
+        (p.rap() > 0 ? _tmphistRapPlus : _tmphistRapMinus).fill(p.absrap(), weight);
         //
         _histPt->fill(p.pT()/GeV, weight);
         _histE->fill(p.E()/GeV, weight);
         _histPhi->fill(p.phi(), weight);
       }
 
-      const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
+      // Same for the charged FS particles only
+      const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
       _histMultCh->fill(cfs.size(), weight);
-      foreach (const Particle& p, cfs.particles()) {
-        const double eta = p.eta();
-        _histEtaCh->fill(eta, weight);
-        if (eta > 0) {
-          _tmphistEtaChPlus.fill(fabs(eta), weight);
-        } else {
-          _tmphistEtaChMinus.fill(fabs(eta), weight);
-        }
-        const double rapidity = p.rapidity();
-        _histRapidityCh->fill(rapidity, weight);
-        if (rapidity > 0) {
-          _tmphistRapChPlus.fill(fabs(rapidity), weight);
-        } else {
-          _tmphistRapChMinus.fill(fabs(rapidity), weight);
-        }
+      for (const Particle& p : cfs.particles()) {
+        _histEtaCh->fill(p.eta(), weight);
+        (p.eta() > 0 ? _tmphistEtaChPlus : _tmphistEtaChMinus).fill(p.abseta(), weight);
+        //
+        _histRapidityCh->fill(p.rap(), weight);
+        (p.rap() > 0 ? _tmphistRapChPlus : _tmphistRapChMinus).fill(p.absrap(), weight);
+        //
         _histPtCh->fill(p.pT()/GeV, weight);
         _histECh->fill(p.E()/GeV, weight);
         _histPhiCh->fill(p.phi(), weight);
@@ -122,18 +104,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histMult);
-      normalize(_histMultCh);
-      normalize(_histEta);
-      normalize(_histEtaCh);
-      normalize(_histRapidity);
-      normalize(_histRapidityCh);
-      normalize(_histPt);
-      normalize(_histPtCh);
-      normalize(_histE);
-      normalize(_histECh);
-      normalize(_histPhi);
-      normalize(_histPhiCh);
+      normalize({_histMult, _histEta, _histRapidity, _histPt, _histE, _histPhi});
+      normalize({_histMultCh, _histEtaCh, _histRapidityCh, _histPtCh, _histECh, _histPhiCh});
       divide(_tmphistEtaPlus, _tmphistEtaMinus, _histEtaPMRatio);
       divide(_tmphistEtaChPlus, _tmphistEtaChMinus, _histEtaChPMRatio);
       divide(_tmphistRapPlus, _tmphistRapMinus, _histRapidityPMRatio);
@@ -147,25 +119,16 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    Histo1DPtr _histMult, _histMultCh;
+    Histo1DPtr _histMult, _histEta, _histRapidity, _histPt, _histE, _histPhi;
+    Histo1DPtr _histMultCh,  _histEtaCh, _histRapidityCh, _histPtCh, _histECh, _histPhiCh;
     Profile1DPtr _histEtaSumEt;
-    Histo1DPtr _histEta, _histEtaCh;
-    Histo1DPtr _histRapidity, _histRapidityCh;
-    Histo1DPtr _histPt, _histPtCh;
-    Histo1DPtr _histE, _histECh;
-    Histo1DPtr _histPhi, _histPhiCh;
-    Scatter2DPtr _histEtaPMRatio;
-    Scatter2DPtr _histEtaChPMRatio;
-    Scatter2DPtr _histRapidityPMRatio;
-    Scatter2DPtr _histRapidityChPMRatio;
+    Scatter2DPtr _histEtaPMRatio, _histEtaChPMRatio, _histRapidityPMRatio, _histRapidityChPMRatio;
     //@}
 
-    /// @name Temporary histos used to calculate eta+/eta- ratio plots
+    /// @name Temporary histos used to calculate +/- rapidity ratio plots
     //@{
-    Histo1D _tmphistEtaPlus, _tmphistEtaMinus;
-    Histo1D _tmphistEtaChPlus, _tmphistEtaChMinus;
-    Histo1D _tmphistRapPlus, _tmphistRapMinus;
-    Histo1D _tmphistRapChPlus, _tmphistRapChMinus;
+    Histo1D _tmphistEtaPlus, _tmphistEtaMinus, _tmphistEtaChPlus, _tmphistEtaChMinus;
+    Histo1D _tmphistRapPlus, _tmphistRapMinus, _tmphistRapChPlus, _tmphistRapChMinus;
     //@}
 
   };

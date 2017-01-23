@@ -66,9 +66,7 @@ namespace Rivet {
 
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new SmearedJets(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(SmearedJets);
 
     //@}
 
@@ -76,41 +74,58 @@ namespace Rivet {
     /// Compare to another SmearedJets
     int compare(const Projection& p) const {
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
-      if (_mkhash(_jetEffFn) == 0) return UNDEFINED;
-      if (_mkhash(_bTagEffFn) == 0) return UNDEFINED;
-      if (_mkhash(_cTagEffFn) == 0) return UNDEFINED;
-      if (_mkhash(_jetSmearFn) == 0) return UNDEFINED;
+      if (get_address(_jetEffFn) == 0) return UNDEFINED;
+      if (get_address(_bTagEffFn) == 0) return UNDEFINED;
+      if (get_address(_cTagEffFn) == 0) return UNDEFINED;
+      if (get_address(_jetSmearFn) == 0) return UNDEFINED;
+      MSG_TRACE("Eff hashes = " << get_address(_jetEffFn) << "," << get_address(other._jetEffFn) << "; " <<
+                "smear hashes = " << get_address(_jetSmearFn) << "," << get_address(other._jetSmearFn) << "; " <<
+                "b-tag hashes = " << get_address(_bTagEffFn) << "," << get_address(other._bTagEffFn) << "; " <<
+                "c-tag hashes = " << get_address(_cTagEffFn) << "," << get_address(other._cTagEffFn));
       return
-        cmp(_mkhash(_jetEffFn), _mkhash(other._jetEffFn)) || cmp(_mkhash(_jetSmearFn), _mkhash(other._jetSmearFn)) ||
-        cmp(_mkhash(_bTagEffFn), _mkhash(other._bTagEffFn)) || cmp(_mkhash(_cTagEffFn), _mkhash(other._cTagEffFn));
+        mkPCmp(other, "TruthJets") ||
+        cmp(get_address(_jetEffFn), get_address(other._jetEffFn)) ||
+        cmp(get_address(_jetSmearFn), get_address(other._jetSmearFn)) ||
+        cmp(get_address(_bTagEffFn), get_address(other._bTagEffFn)) ||
+        cmp(get_address(_cTagEffFn), get_address(other._cTagEffFn));
     }
 
 
     /// Perform the jet finding & smearing calculation
     void project(const Event& e) {
       // Copying and filtering
-      const Jets& truthjets = applyProjection<JetAlg>(e, "TruthJets").jetsByPt();
+      const Jets& truthjets = apply<JetAlg>(e, "TruthJets").jetsByPt();
       _recojets.clear(); _recojets.reserve(truthjets.size());
-      foreach (const Jet& j, truthjets) {
-        const double jeff = (_jetEffFn) ? _jetEffFn(j) : 1;
+      for (const Jet& j : truthjets) {
+        // Efficiency sampling
+        const double jeff = _jetEffFn ? _jetEffFn(j) : 1;
         MSG_DEBUG("Efficiency of jet " << j.mom() << " = " << 100*jeff << "%");
-        if (jeff == 0) continue; //< no need to roll expensive dice
-        if (jeff == 1 || jeff < rand01()) {
-          _recojets.push_back(_jetSmearFn ? _jetSmearFn(j) : j); //< smearing
-        }
+        MSG_DEBUG("Efficiency of jet with mom=" << j.mom()/GeV << " GeV, "
+                  << "pT=" << j.pT()/GeV << ", eta=" << j.eta() << " : " << 100*jeff << "%");
+        if (jeff <= 0) continue; //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
+        if (jeff < 1 && rand01() > jeff) continue; //< roll dice (and deal with >1 probabilities, just in case)
+        // Kinematic smearing
+        Jet sj = _jetSmearFn ? _jetSmearFn(j) : j;
+        MSG_DEBUG("Jet smearing from " << j.mom() << " to " << sj.mom());
+        // Re-add constituents & tags if (we assume accidentally) they were lost by the smearing function
+        if (sj.particles().empty() && !j.particles().empty()) sj.particles() = j.particles();
+        if (sj.tags().empty() && !j.tags().empty()) sj.tags() = j.tags();
+        _recojets.push_back(sj);
       }
-      // Tagging efficiencies
-      foreach (Jet& j, _recojets) {
-        const double beff = (_bTagEffFn) ? _bTagEffFn(j) : 1;
-        const bool btag = beff == 1 || (beff != 0 && beff < rand01());
+      // Apply tagging efficiencies, using smeared kinematics as input to the tag eff functions
+      for (Jet& j : _recojets) {
+        // Decide whether or not there should be a b-tag on this jet
+        const double beff = _bTagEffFn ? _bTagEffFn(j) : j.bTagged();
+        const bool btag = beff == 1 || (beff != 0 && rand01() < beff);
         // Remove b-tags if needed, and add a dummy one if needed
         if (!btag && j.bTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasBottom), j.tags().end());
-        if (btag && !j.bTagged()) j.tags().push_back(Particle(PID::BQUARK, j.mom()));
-        const double ceff = (_cTagEffFn) ? _cTagEffFn(j) : 1;
-        const bool ctag = ceff == 1 || (ceff != 0 && ceff < rand01());
+        if (btag && !j.bTagged()) j.tags().push_back(Particle(PID::BQUARK, j.mom())); ///< @todo Or could use the/an actual clustered b-quark momentum?
+        // Decide whether or not there should be a c-tag on this jet
+        const double ceff = _cTagEffFn ? _cTagEffFn(j) : j.cTagged();
+        const bool ctag = ceff == 1 || (ceff != 0 && rand01() < beff);
         // Remove c-tags if needed, and add a dummy one if needed
         if (!ctag && j.cTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasCharm), j.tags().end());
-        if (ctag && !j.cTagged()) j.tags().push_back(Particle(PID::CQUARK, j.mom()));
+        if (ctag && !j.cTagged()) j.tags().push_back(Particle(PID::CQUARK, j.mom())); ///< @todo As above... ?
       }
     }
 
@@ -125,25 +140,11 @@ namespace Rivet {
 
   private:
 
-    /// Make a hash integer from the provided wrapped Jet -> double function
-    size_t _mkhash(const std::function<double(const Jet&)>& fn) const {
-      const size_t rtn = reinterpret_cast<size_t>(fn.target<double(*)(const Jet&)>());
-      MSG_TRACE("J2D hash = " << rtn);
-      return rtn;
-    }
-
-    /// Make a hash integer from the provided wrapped Jet -> Jet function
-    size_t _mkhash(const std::function<Jet(const Jet&)>& fn) const {
-      const size_t rtn = reinterpret_cast<size_t>(fn.target<Jet(*)(const Jet&)>());
-      MSG_TRACE("J2J hash = " << rtn);
-      return rtn;
-    }
-
-
     Jets _recojets;
 
     /// Stored efficiency functions
     std::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
+
     /// Stored smearing function
     std::function<Jet(const Jet&)> _jetSmearFn;
 

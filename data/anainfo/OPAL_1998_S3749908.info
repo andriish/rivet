@@ -4,6 +4,7 @@ Summary: Photon and Light Meson Production in Hadronic $Z^0$ Decays
 Experiment: OPAL
 Collider: LEP 1
 SpiresID: 3749908
+InspireID: 470419
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

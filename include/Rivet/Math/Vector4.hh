@@ -72,6 +72,10 @@ namespace Rivet {
       return (t() + z())*(t() - z()) - x()*x() - y()*y();
     }
 
+    bool isNull() const {
+      return Rivet::isZero(invariant());
+    }
+
     /// Angle between this vector and another
     double angle(const FourVector& v) const {
       return vector3().angle( v.vector3() );
@@ -81,7 +85,7 @@ namespace Rivet {
       return vector3().angle(v3);
     }
 
-    /// @brief Square of the projection of the 3-vector on to the \f$ x-y \f$ plane
+    /// @brief Mod-square of the projection of the 3-vector on to the \f$ x-y \f$ plane
     /// This is a more efficient function than @c polarRadius, as it avoids the square root.
     /// Use it if you only need the squared value, or e.g. an ordering by magnitude.
     double polarRadius2() const {
@@ -96,7 +100,7 @@ namespace Rivet {
       return vector3().rho2();
     }
 
-    /// Projection of 3-vector on to the \f$ x-y \f$ plane
+    /// Magnitude of projection of 3-vector on to the \f$ x-y \f$ plane
     double polarRadius() const {
       return vector3().polarRadius();
     }
@@ -107,6 +111,19 @@ namespace Rivet {
     /// Synonym for polarRadius
     double rho() const {
       return vector3().rho();
+    }
+
+    /// Projection of 3-vector on to the \f$ x-y \f$ plane
+    Vector3 polarVec() const {
+      return vector3().polarVec();
+    }
+    /// Synonym for polarVec
+    Vector3 perpVec() const {
+      return vector3().perpVec();
+    }
+    /// Synonym for polarVec
+    Vector3 rhoVec() const {
+      return vector3().rhoVec();
     }
 
     /// Angle subtended by the 3-vector's projection in x-y and the x-axis.
@@ -341,7 +358,7 @@ namespace Rivet {
     /// Set the p coordinates and energy simultaneously
     FourMomentum& setPE(double px, double py, double pz, double E) {
       if (E < 0)
-        throw std::invalid_argument("Negative energy given as argument");
+        throw std::invalid_argument("Negative energy given as argument: " + to_str(E));
       setPx(px); setPy(py); setPz(pz); setE(E);
       return *this;
     }
@@ -362,11 +379,10 @@ namespace Rivet {
     /// Set the p coordinates and mass simultaneously
     FourMomentum& setPM(double px, double py, double pz, double mass) {
       if (mass < 0)
-        throw std::invalid_argument("Negative mass given as argument");
-      setPx(px); setPy(py); setPz(pz);
-      const double E = sqrt( sqr(mass) + p2() );
-      setE(E);
-      return *this;
+        throw std::invalid_argument("Negative mass given as argument: " + to_str(mass));
+      const double E = sqrt( sqr(mass) + sqr(px) + sqr(py) + sqr(pz) );
+      // setPx(px); setPy(py); setPz(pz); setE(E);
+      return setPE(px, py, pz, E);
     }
     /// Alias for setPM
     FourMomentum& setXYZM(double px, double py, double pz, double mass) {
@@ -587,6 +603,15 @@ namespace Rivet {
       return fabs(rap());
     }
 
+    /// Calculate the transverse momentum vector \f$ \vec{p}_T \f$.
+    Vector3 pTvec() const {
+      return p3().polarVec();
+    }
+    /// Synonym for pTvec
+    Vector3 ptvec() const {
+      return pTvec();
+    }
+
     /// Calculate the squared transverse momentum \f$ p_T^2 \f$.
     double pT2() const {
       return vector3().polarRadius2();
@@ -614,22 +639,40 @@ namespace Rivet {
       return E() * sin(polarAngle());
     }
 
+    //@}
 
-    /// Calculate the boost vector (in units of \f$ \beta \f$).
-    Vector3 boostVector() const {
-      // const Vector3 p3 = vector3();
-      // const double m2 = mass2();
-      // if (Rivet::isZero(m2)) return p3.unit();
-      // else {
-      //   // Could also do this via beta = tanh(rapidity), but that's
-      //   // probably more messy from a numerical hygiene point of view.
-      //   const double p2 = p3.mod2();
-      //   const double beta = sqrt( p2 / (m2 + p2) );
-      //   return beta * p3.unit();
-      // }
-      /// @todo Be careful about c=1 convention...
-      return Vector3(px()/E(), py()/E(), pz()/E());
+
+    /// @name Lorentz boost factors and vectors
+    //@{
+
+    /// Calculate the boost factor \f$ \gamma \f$.
+    /// @note \f$ \gamma = E/mc^2 \f$ so we rely on the c=1 convention
+    double gamma() const {
+      return sqrt(E2()/mass2());
     }
+
+    /// Calculate the boost vector \f$ \vec{\gamma} \f$.
+    /// @note \f$ \gamma = E/mc^2 \f$ so we rely on the c=1 convention
+    Vector3 gammaVec() const {
+      return gamma() * p3().unit();
+    }
+
+    /// Calculate the boost factor \f$ \beta \f$.
+    /// @note \f$ \beta = pc/E \f$ so we rely on the c=1 convention
+    double beta() const {
+      return p()/E();
+    }
+
+    /// Calculate the boost vector \f$ \vec{\beta} \f$.
+    /// @note \f$ \beta = pc/E \f$ so we rely on the c=1 convention
+    Vector3 betaVec() const {
+      // return Vector3(px()/E(), py()/E(), pz()/E());
+      return p3()/E();
+    }
+
+    /// @brief Deprecated alias for betaVec
+    /// @deprecated This will be removed; use betaVec() instead
+    Vector3 boostVector() const { return betaVec(); }
 
     //@}
 
@@ -1218,88 +1261,40 @@ namespace Rivet {
   inline bool cmpMomByEta(const FourMomentum& a, const FourMomentum& b) {
     return a.eta() < b.eta();
   }
-  /// Comparison to give a sorting by increasing eta (pseudorapidity)
-  /// @deprecated Use cmpMomByEta
-  DEPRECATED("Use cmpMomByEta")
-  inline bool cmpMomByAscPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByEta(a,b);
-  }
 
   /// Comparison to give a sorting by decreasing eta (pseudorapidity)
   inline bool cmpMomByDescEta(const FourMomentum& a, const FourMomentum& b) {
     return a.pseudorapidity() > b.pseudorapidity();
-  }
-  /// Comparison to give a sorting by decreasing eta (pseudorapidity)
-  /// @deprecated Use cmpMomByDescEta
-  DEPRECATED("Use cmpMomByDescEta")
-  inline bool cmpMomByDescPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescEta(a,b);
   }
 
   /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
   inline bool cmpMomByAbsEta(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.eta()) < fabs(b.eta());
   }
-  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
-  /// @deprecated Use cmpMomByAbsEta
-  DEPRECATED("Use cmpMomByAbsEta")
-  inline bool cmpMomByAscAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByAbsEta(a,b);
-  }
 
   /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
   inline bool cmpMomByDescAbsEta(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.eta()) > fabs(b.eta());
-  }
-  /// Comparison to give a sorting by increasing absolute eta (pseudorapidity)
-  /// @deprecated Use cmpMomByDescAbsEta
-  DEPRECATED("Use cmpMomByDescAbsEta")
-  inline bool cmpMomByDescAbsPseudorapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescAbsEta(a,b);
   }
 
   /// Comparison to give a sorting by increasing rapidity
   inline bool cmpMomByRap(const FourMomentum& a, const FourMomentum& b) {
     return a.rapidity() < b.rapidity();
   }
-  /// Comparison to give a sorting by increasing rapidity
-  /// @deprecated Use cmpMomByRap
-  DEPRECATED("Use cmpMomByRap")
-  inline bool cmpMomByAscRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByRap(a,b);
-  }
 
   /// Comparison to give a sorting by decreasing rapidity
   inline bool cmpMomByDescRap(const FourMomentum& a, const FourMomentum& b) {
     return a.rapidity() > b.rapidity();
-  }
-  /// Comparison to give a sorting by decreasing rapidity
-  /// @deprecated Use cmpMomByDescRap
-  DEPRECATED("Use cmpMomByDescRap")
-  inline bool cmpMomByDescRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescRap(a,b);
   }
 
   /// Comparison to give a sorting by increasing absolute rapidity
   inline bool cmpMomByAbsRap(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.rapidity()) < fabs(b.rapidity());
   }
-  /// Comparison to give a sorting by increasing absolute rapidity
-  /// @deprecated Use cmpMomByAbsRap
-  DEPRECATED("Use cmpMomByAbsRap")
-  inline bool cmpMomByAscAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByAbsRap(a,b);
-  }
 
   /// Comparison to give a sorting by decreasing absolute rapidity
   inline bool cmpMomByDescAbsRap(const FourMomentum& a, const FourMomentum& b) {
     return fabs(a.rapidity()) > fabs(b.rapidity());
-  }
-  /// Comparison to give a sorting by decreasing absolute rapidity
-  /// @deprecated Use cmpMomByDescAbsRap
-  DEPRECATED("Use cmpMomByDescAbsRap")
-  inline bool cmpMomByDescAbsRapidity(const FourMomentum& a, const FourMomentum& b) {
-    return cmpMomByDescAbsRap(a,b);
   }
 
   /// @todo Add sorting by phi [0..2PI]

@@ -27,12 +27,12 @@ namespace Rivet {
     void init() {
       // Full final state
       FinalState fs(-5.0, 5.0);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Leading electrons in tracking acceptance
       IdentifiedFinalState elfs(Cuts::abseta < 5 && Cuts::pT > 25*GeV);
       elfs.acceptIdPair(PID::ELECTRON);
-      addProjection(elfs, "LeadingElectrons");
+      declare(elfs, "LeadingElectrons");
 
       _h_jet_multiplicity = bookHisto1D(1, 1, 1);
       _h_jet_pT_cross_section_incl_1jet = bookHisto1D(2, 1, 1);
@@ -45,14 +45,14 @@ namespace Rivet {
       const double weight = event.weight();
 
       // Skip if the event is empty
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
+      const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
         MSG_DEBUG("Skipping event " << numEvents() << " because no final state pair found");
         vetoEvent;
       }
 
       // Find the Z candidates
-      const FinalState & electronfs = applyProjection<FinalState>(event, "LeadingElectrons");
+      const FinalState & electronfs = apply<FinalState>(event, "LeadingElectrons");
       std::vector<std::pair<Particle, Particle> > Z_candidates;
       Particles all_els=electronfs.particles();
       for (size_t i=0; i<all_els.size(); ++i) {

@@ -1,7 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Cuts.hh"
 
 namespace Rivet {
 
@@ -11,11 +10,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    EXAMPLE_CUTS()
-      : Analysis("EXAMPLE_CUTS")
-    {
-      // No counters etc. to initialise, hence nothing to do here!
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE_CUTS);
 
 
     /// @name Analysis methods
@@ -23,9 +18,10 @@ namespace Rivet {
 
     /// Set up projections and book histograms
     void init() {
+
       // Projections
       const FinalState cnfs(Cuts::abseta < 4);
-      addProjection(cnfs, "FS");
+      declare(cnfs, "FS");
 
       // Histograms
       _histPt         = bookHisto1D("pT", 30, 0, 30);
@@ -39,31 +35,28 @@ namespace Rivet {
       // Make sure to always include the event weight in histogram fills!
       const double weight = event.weight();
 
-      const Particles ps = applyProjection<FinalState>(event, "FS").particlesByPt();
+      const Particles ps = apply<FinalState>(event, "FS").particlesByPt();
 
       Cut ptcut = Cuts::range(Cuts::pT, 5, 20);
       Cut masscut = Cuts::range(Cuts::mass, 0, 0.2);
-      Cut combine = ptcut && masscut; //Possible to combine cuts
+      Cut combine = ptcut && masscut; //< Possible to combine cuts
 
-      foreach(const Particle& p, ps) {
+      for (const Particle& p : ps) {
         if ( ptcut->accept(p) )
-          _histPt->fill(p.momentum().pT(), weight);
+          _histPt->fill(p.pT(), weight);
         if ( combine->accept(p) )
-          _histMass->fill(p.momentum().mass(), weight);
+          _histMass->fill(p.mass(), weight);
       }
     }
 
 
     /// Finalize
     void finalize() {
-      normalize(_histPt);
-      normalize(_histMass);
+      normalize({_histPt, _histMass});
     }
 
     //@}
 
-
-  private:
 
     //@{
     /// Histograms

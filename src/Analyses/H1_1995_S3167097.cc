@@ -26,9 +26,9 @@ namespace Rivet {
 
     void init() {
       // Projections
-      const DISKinematics& diskin = addProjection(DISKinematics(), "Kinematics");
-      const DISFinalState& fshcm = addProjection(DISFinalState(diskin, DISFinalState::HCM), "FS");
-      addProjection(CentralEtHCM(fshcm), "Y1HCM");
+      const DISKinematics& diskin = declare(DISKinematics(), "Kinematics");
+      const DISFinalState& fshcm = declare(DISFinalState(diskin, DISFinalState::HCM), "FS");
+      declare(CentralEtHCM(fshcm), "Y1HCM");
 
       // Histograms
       /// @todo Convert to use autobooking and correspond to HepData data tables
@@ -64,9 +64,9 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const FinalState& fs = applyProjection<FinalState>(event, "FS");
-      const DISKinematics& dk = applyProjection<DISKinematics>(event, "Kinematics");
-      const CentralEtHCM& y1 = applyProjection<CentralEtHCM>(event, "Y1HCM");
+      const FinalState& fs = apply<FinalState>(event, "FS");
+      const DISKinematics& dk = apply<DISKinematics>(event, "Kinematics");
+      const CentralEtHCM& y1 = apply<CentralEtHCM>(event, "Y1HCM");
 
       const int ibin = _getbin(dk);
       if (ibin < 0) vetoEvent;

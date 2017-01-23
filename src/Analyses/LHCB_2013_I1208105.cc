@@ -16,10 +16,10 @@ namespace Rivet {
 
     void init() {
       // Projections
-      addProjection(FinalState(1.9, 4.9), "forwardFS");
-      addProjection(FinalState(-3.5,-1.5), "backwardFS");
-      addProjection(ChargedFinalState(1.9, 4.9), "forwardCFS");
-      addProjection(ChargedFinalState(-3.5,-1.5), "backwardCFS");
+      declare(FinalState(1.9, 4.9), "forwardFS");
+      declare(FinalState(-3.5,-1.5), "backwardFS");
+      declare(ChargedFinalState(1.9, 4.9), "forwardCFS");
+      declare(ChargedFinalState(-3.5,-1.5), "backwardCFS");
 
       // Histos
       _s_chEF_minbias = bookScatter2D(1, 1, 1, true);
@@ -61,10 +61,10 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      const FinalState& ffs = applyProjection<FinalState>(event, "forwardFS");
-      const FinalState& bfs = applyProjection<FinalState>(event, "backwardFS");
-      const ChargedFinalState& fcfs = applyProjection<ChargedFinalState>(event, "forwardCFS");
-      const ChargedFinalState& bcfs = applyProjection<ChargedFinalState>(event, "backwardCFS");
+      const FinalState& ffs = apply<FinalState>(event, "forwardFS");
+      const FinalState& bfs = apply<FinalState>(event, "backwardFS");
+      const ChargedFinalState& fcfs = apply<ChargedFinalState>(event, "forwardCFS");
+      const ChargedFinalState& bcfs = apply<ChargedFinalState>(event, "backwardCFS");
 
       // Veto this event completely if there are no forward *charged* particles
       if (fcfs.empty()) vetoEvent;

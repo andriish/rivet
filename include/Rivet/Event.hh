@@ -3,10 +3,8 @@
 #define RIVET_Event_HH
 
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Particle.hh"
 #include "Rivet/Projection.hh"
-// #include "Rivet/Particle.hh"
-// #include "Rivet/Math/Vector3.hh"
-// #include "Rivet/Math/LorentzTrans.hh"
 
 namespace Rivet {
 
@@ -29,18 +27,18 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenEvent pointer
     Event(const GenEvent* ge)
-      : _originalGenEvent(ge), _genEvent(*ge)
+      : _genevent_original(ge), _genevent(*ge)
     { assert(ge); _init(*ge); }
 
     /// Constructor from a HepMC GenEvent reference
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
     Event(const GenEvent& ge)
-      : _originalGenEvent(&ge), _genEvent(ge)
+      : _genevent_original(&ge), _genevent(ge)
     { _init(ge); }
 
     /// Copy constructor
     Event(const Event& e)
-      : _originalGenEvent(e._originalGenEvent), _genEvent(e._genEvent)
+      : _genevent_original(e._genevent_original), _genevent(e._genevent)
     {  }
 
     //@}
@@ -49,14 +47,14 @@ namespace Rivet {
     /// @name Major event properties
     //@{
 
-    // /// Get the beam particles
-    // ParticlePair beams() const;
+    /// Get the beam particles
+    ParticlePair beams() const;
 
-    // /// Get the beam centre-of-mass energy
-    // double sqrtS() const;
+    /// Get the beam centre-of-mass energy
+    double sqrtS() const;
 
-    // /// Get the beam centre-of-mass energy per nucleon
-    // double asqrtS() const;
+    /// Get the beam centre-of-mass energy per nucleon
+    double asqrtS() const;
 
     // /// Get the boost to the beam centre-of-mass
     // Vector3 beamCMSBoost() const;
@@ -65,15 +63,31 @@ namespace Rivet {
     // LorentzTransform beamCMSTransform();
 
     /// The generated event obtained from an external event generator
-    const GenEvent* genEvent() const { return &_genEvent; }
+    const GenEvent* genEvent() const { return &_genevent; }
+
+    /// All the raw GenEvent particles, wrapped in Rivet::Particle objects
+    const Particles& allParticles() const;
+
+    /// @brief All the raw GenEvent particles, wrapped in Rivet::Particle objects, but with a Cut applied
+    ///
+    /// @note Due to the cut, this returns by value, i.e. involves an expensive copy
+    inline Particles allParticles(const Cut& c) const {
+      return filter_select(allParticles(), c);
+    }
+
+    /// @brief All the raw GenEvent particles, wrapped in Rivet::Particle objects, but with a selection function applied
+    ///
+    /// @note Due to the cut, this returns by value, i.e. involves an expensive copy
+    template <typename FN>
+    inline Particles allParticles(const FN& f) const {
+      return filter_select(allParticles(), f);
+    }
 
     /// @brief The generation weight associated with the event
     ///
     /// @todo This needs to be revisited when we finally add the mechanism to
     /// support NLO counter-events and weight vectors.
-    double weight() const {
-      return (!_genEvent.weights().empty()) ? _genEvent.weights()[0] : 1.0;
-    }
+    double weight() const;
 
     //@}
 
@@ -132,7 +146,7 @@ namespace Rivet {
     /// will often/always be a modified one.
     ///
     /// @todo Provide access to this via an Event::originalGenEvent() method? If requested...
-    const GenEvent* _originalGenEvent;
+    const GenEvent* _genevent_original;
 
     /// @brief The GenEvent used by Rivet analysis projections etc.
     ///
@@ -143,9 +157,13 @@ namespace Rivet {
     /// Stored as a non-pointer since it may get overwritten, and memory for
     /// copying and cleanup is neater this way.
     /// @todo Change needed for HepMC3?
-    GenEvent _genEvent;
+    mutable GenEvent _genevent;
 
-    /// The set of Projection objects applied so far.
+    /// All the GenEvent particles, wrapped as Rivet::Particles
+    /// @note To be populated lazily, hence mutability
+    mutable Particles _particles;
+
+    /// The set of Projection objects applied so far
     mutable std::set<ConstProjectionPtr> _projections;
 
   };

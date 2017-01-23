@@ -4,6 +4,7 @@ Summary: Hadronic Z decay charged multiplicity measurement
 Experiment: ALEPH
 Collider: LEP 1
 SpiresID: 2435284
+InspireID: 319520
 Status: VALIDATED
 Authors:
  - Andy Buckley <andy.buckley@cern.ch>

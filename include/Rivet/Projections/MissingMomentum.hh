@@ -37,12 +37,11 @@ namespace Rivet {
 
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new MissingMomentum(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(MissingMomentum);
 
 
-  public:
+    /// @name Visible/missing four-momentum functions
+    //@{
 
     /// The vector-summed visible four-momentum in the event.
     ///
@@ -64,6 +63,34 @@ namespace Rivet {
     /// Alias for missingMomentum
     const FourMomentum missingMom(double mass=0*GeV) const { return missingMomentum(mass); }
 
+    //@}
+
+
+    /// @name Transverse momentum functions
+    /// @note This may be what you want, even if the paper calls it "missing Et"!
+    //@{
+
+    /// The vector-summed visible transverse momentum in the event, as a 3-vector with z=0
+    /// @note Reverse this vector with operator- to get the missing pT vector.
+    const Vector3& vectorPt() const { return _vpt; }
+
+    /// The vector-summed missing transverse momentum in the event.
+    double missingPt() const { return vectorPt().mod(); }
+    // /// Alias for missingPt
+    // double mpt() const { return missingPt(); }
+
+    /// The scalar-summed visible transverse momentum in the event.
+    double scalarPt() const { return _spt; }
+    // /// Alias for scalarPt
+    // double spt() const { return scalarPt(); }
+
+    //@}
+
+
+    /// @name Transverse energy functions
+    /// @warning Despite the common names "MET" and "SET", what's often meant is the pT functions above!
+    //@{
+
     /// The vector-summed visible transverse energy in the event, as a 3-vector with z=0
     /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
@@ -78,6 +105,14 @@ namespace Rivet {
     /// Alias for scalarEt
     double set() const { return scalarEt(); }
 
+    //@}
+
+
+  public:
+
+    /// Clear the projection results.
+    void clear();
+
 
   protected:
 
@@ -88,22 +123,16 @@ namespace Rivet {
     int compare(const Projection& p) const;
 
 
-  public:
-
-    /// Clear the projection results.
-    void clear();
-
-
   private:
 
     /// The total visible momentum
     FourMomentum _momentum;
 
     /// Scalar transverse energy
-    double _set;
+    double _set, _spt;
 
     /// Vector transverse energy
-    Vector3 _vet;
+    Vector3 _vet, _vpt;
 
   };
 

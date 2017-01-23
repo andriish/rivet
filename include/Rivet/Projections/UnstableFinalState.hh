@@ -20,7 +20,7 @@ namespace Rivet {
   /// in the event record, i.e. those which differ only in bookkeeping details
   /// or photon emissions, are stripped from the returned particles collection.
   ///
-  /// @todo Inherit directly from ParticleFinder, rename as UnstableFinder, and make TauFinder inherit/use
+  /// @todo Inherit directly from ParticleFinder, rename as Unstables, and make TauFinder inherit/use
   class UnstableFinalState : public FinalState {
   public:
 
@@ -34,22 +34,8 @@ namespace Rivet {
       setName("UnstableFinalState");
     }
 
-    /// Constructor from cuts.
-    ///
-    /// May specify the minimum and maximum pseudorapidity \f$ \eta \f$ and the
-    /// min \f$ p_T \f$
-    DEPRECATED("Use the version with a Cut argument")
-    UnstableFinalState(double mineta, double maxeta, double minpt=0.0*GeV)
-    : FinalState(Cuts::etaIn(mineta, maxeta) && Cuts::pT > minpt)
-    {
-      setName("UnstableFinalState");
-    }
-
-
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new UnstableFinalState(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(UnstableFinalState);
 
     //@}
 
@@ -59,6 +45,10 @@ namespace Rivet {
     virtual void project(const Event& e);
 
   };
+
+
+  /// @todo Make this the canonical name in future
+  using Unstables = UnstableFinalState;
 
 
 }

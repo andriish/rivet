@@ -4,6 +4,7 @@ Summary: 0-lepton squark and gluino search
 Experiment: ATLAS
 Collider: LHC
 SpiresID: 9212183
+InspireID: 930002
 Status: VALIDATED
 Authors:
  - Chris Wymant <c.m.wymant@durham.ac.uk>

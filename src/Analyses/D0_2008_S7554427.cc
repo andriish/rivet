@@ -27,7 +27,7 @@ namespace Rivet {
       FinalState fs;
       ZFinder zfinder(fs, Cuts::open(), PID::ELECTRON,
                       40*GeV, 200*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
-      addProjection(zfinder, "ZFinder");
+      declare(zfinder, "ZFinder");
 
       _h_ZpT         = bookHisto1D(1, 1, 1);
       _h_forward_ZpT = bookHisto1D(3, 1, 1);
@@ -36,7 +36,7 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const ZFinder& zfinder = applyProjection<ZFinder>(e, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() != 1) {
         MSG_DEBUG("No unique lepton pair found.");
         vetoEvent;

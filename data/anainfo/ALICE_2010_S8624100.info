@@ -1,9 +1,10 @@
 Name: ALICE_2010_S8624100
 Year: 2010
-Summary: Charged particle multiplicities at 0.9 and 2.36\;TeV in three different pseudorapidity intervals.
+Summary: Charged particle multiplicities at 0.9 and 2.36\;TeV in three different pseudorapidity intervals
 Experiment: ALICE
 Collider: LHC
 SpiresID: 8624100
+InspireID: 852450
 Status: VALIDATED
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>

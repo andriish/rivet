@@ -4,6 +4,7 @@ Summary: Tevatron Run I differential W/Z boson cross-section analysis
 Experiment: D0
 Collider: Tevatron Run 1
 SpiresID: 4674421
+InspireID: 559624
 Status: VALIDATED
 Authors:
  - Lars Sonnenschein <Lars.Sonnenschein@cern.ch>

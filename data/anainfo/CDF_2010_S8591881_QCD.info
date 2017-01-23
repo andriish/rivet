@@ -4,6 +4,7 @@ Summary: CDF Run 2 underlying event in leading jet events
 Experiment: CDF
 Collider: Tevatron Run 2
 SpiresID: 8591881
+InspireID: 849042
 Status: VALIDATED
 Authors:
  - Hendrik Hoeth <hendrik.hoeth@cern.ch>

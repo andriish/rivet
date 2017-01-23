@@ -4,6 +4,7 @@ Summary: Measurement of the b-quark fragmentation function in $Z^0$ decays
 Experiment: SLD
 Collider: SLC
 SpiresID: 4869273
+InspireID: 582951
 Status: VALIDATED
 Authors:
  - Peter Richardson <Peter.Richardson@durham.ac.uk>

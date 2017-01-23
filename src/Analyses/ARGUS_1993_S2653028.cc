@@ -1,9 +1,6 @@
 // -*- C++ -*-
-#include <iostream>
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/UnstableFinalState.hh"
-#include "Rivet/ParticleName.hh"
 
 namespace Rivet {
 
@@ -14,7 +11,8 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2653028()
-      : Analysis("ARGUS_1993_S2653028"), _weightSum(0.)
+      : Analysis("ARGUS_1993_S2653028"),
+        _weightSum(0.)
     { }
 
 
@@ -24,7 +22,7 @@ namespace Rivet {
       // Find the upsilons
       Particles upsilons;
       // First in unstable final state
-      const UnstableFinalState& ufs = applyProjection<UnstableFinalState>(e, "UFS");
+      const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if (p.pid() == 300553) upsilons.push_back(p);
       }
@@ -54,7 +52,7 @@ namespace Rivet {
         findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
         LorentzTransform cms_boost;
         if (p.p3().mod() > 1*MeV)
-          cms_boost = LorentzTransform(-p.momentum().boostVector());
+          cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         for (size_t ix = 0; ix < pionsA.size(); ++ix) {
           FourMomentum ptemp(pionsA[ix]->momentum());
           FourMomentum p2 = cms_boost.transform(ptemp);
@@ -105,7 +103,7 @@ namespace Rivet {
 
 
     void init() {
-      addProjection(UnstableFinalState(), "UFS");
+      declare(UnstableFinalState(), "UFS");
 
       // spectra
       _histPiA = bookHisto1D(1, 1, 1);
@@ -133,6 +131,7 @@ namespace Rivet {
     /// Multiplicities
     Histo1DPtr _multPiA, _multPiB, _multK, _multpA, _multpB;
     //@}
+
 
     void findDecayProducts(const GenParticle* p,
                            vector<GenParticle*>& pionsA, vector<GenParticle*>& pionsB,
@@ -167,6 +166,8 @@ namespace Rivet {
           findDecayProducts(*pp, pionsA, pionsB, protonsA, protonsB, kaons);
       }
     }
+
+
   };
 
 

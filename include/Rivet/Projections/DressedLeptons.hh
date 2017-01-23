@@ -2,14 +2,10 @@
 #ifndef RIVET_DressedLeptons_HH
 #define RIVET_DressedLeptons_HH
 
-#include "Rivet/Tools/Logging.hh"
-#include "Rivet/Config/RivetCommon.hh"
-#include "Rivet/Particle.hh"
-#include "Rivet/Event.hh"
 #include "Rivet/Projection.hh"
-#include "Rivet/Cuts.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
+#include "Rivet/Config/RivetCommon.hh"
 
 namespace Rivet {
 
@@ -58,34 +54,11 @@ namespace Rivet {
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool cluster=true, bool useDecayPhotons=false);
 
-    /// Constructor with a general (and optional) Cut argument
-    /// @deprecated Use the version with Cut c before cluster (i.e. with the most common non-default args first)
-    DEPRECATED("Use the version with Cut c before cluster")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, bool cluster=true, const Cut& cut=Cuts::open(),
-                   bool useDecayPhotons=false);
-
-    /// Constructor with numerical eta and pT cuts
-    /// @deprecated Use the Cut version
-    DEPRECATED("Use the Cut version")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, bool cluster,
-                   double etaMin, double etaMax,
-                   double pTmin, bool useDecayPhotons=false);
-
-
     /// Clone this projection
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new DressedLeptons(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
 
     /// Retrieve the dressed leptons
     const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }
-
-    /// Retrieve the dressed leptons (synonym)
-    /// @deprecated Use dressedLeptons()
-    DEPRECATED("Use dressedLeptons()")
-    const vector<DressedLepton>& clusteredLeptons() const { return _clusteredLeptons; }
 
 
   protected:

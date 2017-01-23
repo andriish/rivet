@@ -5,7 +5,9 @@
 #include "Rivet/Particle.fhh"
 #include "Rivet/ParticleBase.hh"
 #include "Rivet/Config/RivetCommon.hh"
+#include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/Utils.hh"
+#include "Rivet/Math/LorentzTrans.hh"
 // NOTE: Rivet/Tools/ParticleUtils.hh included at the end
 #include "fastjet/PseudoJet.hh"
 
@@ -15,6 +17,9 @@ namespace Rivet {
   /// Particle representation, either from a HepMC::GenEvent or reconstructed.
   class Particle : public ParticleBase {
   public:
+
+    /// @name Constructors
+    //@{
 
     /// Default constructor.
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
@@ -29,17 +34,6 @@ namespace Rivet {
         _original(0), _id(pid), _momentum(mom), _origin(pos)
     { }
 
-    /// Constructor from a HepMC GenParticle.
-    Particle(const GenParticle& gp)
-      : ParticleBase(),
-        _original(&gp), _id(gp.pdg_id()),
-        _momentum(gp.momentum())
-    {
-      const GenVertex* vprod = gp.production_vertex();
-      if (vprod != NULL)
-        setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
-    }
-
     /// Constructor from a HepMC GenParticle pointer.
     Particle(const GenParticle* gp)
       : ParticleBase(),
@@ -51,8 +45,22 @@ namespace Rivet {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
     }
 
+    /// Constructor from a HepMC GenParticle.
+    Particle(const GenParticle& gp)
+      : ParticleBase(),
+        _original(&gp), _id(gp.pdg_id()),
+        _momentum(gp.momentum())
+    {
+      const GenVertex* vprod = gp.production_vertex();
+      if (vprod != NULL)
+        setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+    }
 
-  public:
+    //@}
+
+
+    /// @name Other representations and implicit casts
+    //@{
 
     /// Converter to FastJet3 PseudoJet
     virtual fastjet::PseudoJet pseudojet() const {
@@ -63,11 +71,6 @@ namespace Rivet {
     operator PseudoJet () const { return pseudojet(); }
 
 
-  public:
-
-    /// @name Basic particle specific properties
-    //@{
-
     /// Get a const pointer to the original GenParticle.
     const GenParticle* genParticle() const {
       return _original;
@@ -76,20 +79,37 @@ namespace Rivet {
     /// Cast operator for conversion to GenParticle*
     operator const GenParticle* () const { return genParticle(); }
 
+    //@}
+
+
+    /// @name Kinematic properties
+    //@{
+
     /// The momentum.
     const FourMomentum& momentum() const {
       return _momentum;
     }
+
     /// Set the momentum.
     Particle& setMomentum(const FourMomentum& momentum) {
       _momentum = momentum;
       return *this;
     }
+
     /// Set the momentum via components.
     Particle& setMomentum(double E, double px, double py, double pz) {
       _momentum = FourMomentum(E, px, py, pz);
       return *this;
     }
+
+    /// Apply an active Lorentz transform to this particle
+    Particle& transformBy(const LorentzTransform& lt);
+
+    //@
+
+
+    /// @name Positional properties
+    //@{
 
     /// The origin position.
     const FourVector& origin() const {
@@ -129,19 +149,18 @@ namespace Rivet {
     /// The charge of this Particle.
     double charge() const { return PID::charge(pid()); }
 
+    /// The absolute charge of this Particle.
+    double abscharge() const { return PID::abscharge(pid()); }
+
     /// Three times the charge of this Particle (i.e. integer multiple of smallest quark charge).
     int charge3() const { return PID::charge3(pid()); }
 
-    /// The abs charge of this Particle.
-    double abscharge() const { return PID::abscharge(pid()); }
-
-    /// Three times the abs charge of this Particle (i.e. integer multiple of smallest quark charge).
-    int abscharge3() const { return PID::abscharge3(pid()); }
-
     /// Alias for charge3
     /// @deprecated Use charge3
-    int threeCharge() const { return charge3(); }
+    int threeCharge() const { return PID::threeCharge(pid()); }
 
+    /// Three times the absolute charge of this Particle (i.e. integer multiple of smallest quark charge).
+    int abscharge3() const { return PID::abscharge3(pid()); }
 
     /// Is this a hadron?
     bool isHadron() const { return PID::isHadron(pid()); }
@@ -164,22 +183,11 @@ namespace Rivet {
     /// Does this (hadron) contain a c quark?
     bool hasCharm() const { return PID::hasCharm(pid()); }
 
-    /// Is this particle potentially visible in a detector?
-    bool isVisible() const {
-      // Charged particles are visible
-      if ( PID::threeCharge(pid()) != 0 ) return true;
-      // Neutral hadrons are visible
-      if ( PID::isHadron(pid()) ) return true;
-      // Photons are visible
-      if ( pid() == PID::PHOTON ) return true;
-      // Gluons are visible (for parton level analyses)
-      if ( pid() == PID::GLUON ) return true;
-      // Everything else is invisible
-      return false;
-    }
-
     // /// Does this (hadron) contain an s quark?
     // bool hasStrange() const { return PID::hasStrange(pid()); }
+
+    /// Is this particle potentially visible in a detector?
+    bool isVisible() const;
 
     //@}
 
@@ -187,12 +195,64 @@ namespace Rivet {
     /// @name Ancestry properties
     //@{
 
-    /// Check whether a given PID is found in the GenParticle's ancestor list
+    /// @todo Add physicalAncestors, allAncestors?
+
+    /// Get a list of the direct parents of the current particle (with optional selection Cut)
+    ///
+    /// @note This is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    Particles parents(const Cut& c=Cuts::OPEN) const;
+
+    /// Get a list of the direct parents of the current particle (with selector function)
+    ///
+    /// @note This is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    template <typename FN>
+    Particles parents(const FN& f) const {
+      return filter_select(parents(), f);
+    }
+
+    /// Check whether a given PID is found in the particle's parent list
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    bool hasAncestor(PdgId pdg_id) const;
+    ///
+    /// @deprecated Prefer e.g. parents(Cut::pid == 123).size()
+    bool hasParent(PdgId pid) const;
+
+    /// Check whether a particle in the particle's parent list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    ///
+    /// @deprecated Prefer parents(Cut) or parents(FN) methods and .empty()
+    template <typename FN>
+    bool hasParentWith(const FN& f) const {
+      return _hasRelativeWith(HepMC::parents, f);
+    }
+    bool hasParentWith(const Cut& c) const;
+
+    /// Check whether a given PID is found in the particle's ancestor list
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestor(PdgId pid) const;
+
+    /// Check whether a particle in the particle's ancestor list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    template <typename FN>
+    bool hasAncestorWith(const FN& f) const {
+      return _hasRelativeWith(HepMC::ancestors, f);
+    }
+    bool hasAncestorWith(const Cut& c) const;
 
     /// @brief Determine whether the particle is from a b-hadron decay
     ///
@@ -252,6 +312,14 @@ namespace Rivet {
     /// experimental analyses!
     bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
+    /// @brief Shorthand definition of 'promptness' based on set definition flags
+    ///
+    /// The boolean arguments allow a decay lepton to be considered prompt if
+    /// its parent was a "real" prompt lepton.
+    ///
+    /// @note This one doesn't make any judgements about final-stateness
+    bool isPrompt(bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) const;
+
     //@}
 
 
@@ -259,72 +327,53 @@ namespace Rivet {
     //@{
 
     /// Whether this particle is stable according to the generator
-    bool isStable() const {
-      return genParticle() != NULL && genParticle()->status() == 1 && genParticle()->end_vertex() == NULL;
+    bool isStable() const;
+
+    /// Get a list of the direct descendants from the current particle (with optional selection Cut)
+    Particles children(const Cut& c=Cuts::OPEN) const;
+
+    /// Get a list of the direct descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles children(const FN& f) const {
+      return filter_select(children(), f);
     }
 
-    /// Get a list of the direct descendants from the current particle
-    vector<Particle> children() const {
-      vector<Particle> rtn;
-      if (isStable()) return rtn;
-      /// @todo Remove this const mess crap when HepMC doesn't suck
-      HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
-      /// @todo Would like to do this, but the range objects are broken
-      // foreach (const GenParticle* gp, gv->particles(HepMC::children))
-      //   rtn += Particle(gp);
-      for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it)
-        rtn += Particle(*it);
-      return rtn;
+    /// Get a list of all the descendants from the current particle (with optional selection Cut)
+    Particles allDescendants(const Cut& c=Cuts::OPEN, bool remove_duplicates=true) const;
+
+    /// Get a list of all the descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles allDescendants(const FN& f, bool remove_duplicates=true) const {
+      return filter_select(allDescendants(Cuts::OPEN, remove_duplicates), f);
     }
 
-    /// Get a list of all the descendants (including duplication of parents and children) from the current particle
+    /// Get a list of all the stable descendants from the current particle (with optional selection Cut)
+    ///
     /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
     /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-    vector<Particle> allDescendants() const {
-      vector<Particle> rtn;
-      if (isStable()) return rtn;
-      /// @todo Remove this const mess crap when HepMC doesn't suck
-      HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
-      /// @todo Would like to do this, but the range objects are broken
-      // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
-      //   rtn += Particle(gp);
-      for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it)
-        rtn += Particle(*it);
-      return rtn;
-    }
+    Particles stableDescendants(const Cut& c=Cuts::OPEN) const;
 
-    /// Get a list of all the stable descendants from the current particle
-    /// @todo Use recursion through replica-avoiding MCUtils functions to avoid bookkeeping duplicates
-    /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-    vector<Particle> stableDescendants() const {
-      vector<Particle> rtn;
-      if (isStable()) return rtn;
-      /// @todo Remove this const mess crap when HepMC doesn't suck
-      HepMC::GenVertex* gv = const_cast<HepMC::GenVertex*>( genParticle()->end_vertex() );
-      /// @todo Would like to do this, but the range objects are broken
-      // foreach (const GenParticle* gp, gv->particles(HepMC::descendants))
-      //   if (gp->status() == 1 && gp->end_vertex() == NULL)
-      //     rtn += Particle(gp);
-      for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it)
-        if ((*it)->status() == 1 && (*it)->end_vertex() == NULL)
-          rtn += Particle(*it);
-      return rtn;
+    /// Get a list of all the stable descendants from the current particle (with selector function)
+    template <typename FN>
+    Particles stableDescendants(const FN& f) const {
+      return filter_select(stableDescendants(), f);
     }
 
     /// Flight length (divide by mm or cm to get the appropriate units)
-    double flightLength() const {
-      if (isStable()) return -1;
-      if (genParticle() == NULL) return 0;
-      if (genParticle()->production_vertex() == NULL) return 0;
-      const HepMC::FourVector v1 = genParticle()->production_vertex()->position();
-      const HepMC::FourVector v2 = genParticle()->end_vertex()->position();
-      return sqrt(sqr(v2.x()-v1.x()) + sqr(v2.y()-v1.y()) + sqr(v2.z()-v1.z()));
-    }
+    double flightLength() const;
 
     //@}
 
 
-  private:
+  protected:
+
+    template <typename FN>
+    bool _hasRelativeWith(HepMC::IteratorRange relation, const FN& f) const {
+      for (const GenParticle* ancestor : particles(genParticle(), relation)) {
+        if (f(Particle(ancestor))) return true;
+      }
+      return false;
+    }
 
     /// A pointer to the original GenParticle from which this Particle is projected.
     const GenParticle* _original;
@@ -341,31 +390,21 @@ namespace Rivet {
   };
 
 
-  /// @name Unbound functions for filtering particles
+  /// @name String representation and streaming support
   //@{
 
-  /// Filter a jet collection in-place to the subset that passes the supplied Cut
-  Particles& filterBy(Particles& particles, const Cut& c);
+  /// Represent a Particle as a string.
+  std::string to_str(const Particle& p);
 
-  /// Get a subset of the supplied particles that passes the supplied Cut
-  Particles filterBy(const Particles& particles, const Cut& c);
-
-  //@}
-
-
-  /// @name String representation
-  //@{
-
-  /// Print a ParticlePair as a string.
-  inline std::string to_str(const ParticlePair& pair) {
-    stringstream out;
-    out << "["
-        << PID::toParticleName(pair.first.pid()) << " @ "
-        << pair.first.momentum().E()/GeV << " GeV, "
-        << PID::toParticleName(pair.second.pid()) << " @ "
-        << pair.second.momentum().E()/GeV << " GeV]";
-    return out.str();
+  /// Allow a Particle to be passed to an ostream.
+  inline std::ostream& operator<<(std::ostream& os, const Particle& p) {
+    os << to_str(p);
+    return os;
   }
+
+
+  /// Represent a ParticlePair as a string.
+  std::string to_str(const ParticlePair& pair);
 
   /// Allow ParticlePair to be passed to an ostream.
   inline std::ostream& operator<<(std::ostream& os, const ParticlePair& pp) {

@@ -15,6 +15,7 @@ namespace Rivet {
   /// from two leptons in the final state, including photon clustering.
   ///
   /// @todo Inherit directly from ParticleFinder, not FinalState
+  /// @todo Alias then rename as Dileptons
   class ZFinder : public FinalState {
   public:
 
@@ -39,15 +40,13 @@ namespace Rivet {
             const Cut & cuts,
             PdgId pid,
             double minmass, double maxmass,
-            double dRmax=0.1, 
-            ClusterPhotons clusterPhotons=CLUSTERNODECAY, 
+            double dRmax=0.1,
+            ClusterPhotons clusterPhotons=CLUSTERNODECAY,
             PhotonTracking trackPhotons=NOTRACK,
             double masstarget=91.2*GeV);
 
     /// Clone on the heap.
-    virtual unique_ptr<Projection> clone() const {
-      return unique_ptr<Projection>(new ZFinder(*this));
-    }
+    DEFAULT_RIVET_PROJ_CLONE(ZFinder);
 
     //@}
 
