@@ -89,7 +89,8 @@ namespace Rivet {
 
     /// Set the beam particles for this run
     AnalysisHandler& setRunBeams(const ParticlePair& beams) {
-      _beams = beams;
+      _beams.first = beams.first;
+      _beams.second = beams.second;
       MSG_DEBUG("Setting run beams = " << beams << " @ " << sqrtS()/GeV << " GeV");
       return *this;
     }

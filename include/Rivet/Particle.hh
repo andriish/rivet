@@ -373,7 +373,7 @@ namespace Rivet {
     }
 
     /// A pointer to the original GenParticle from which this Particle is projected.
-    const GenParticlePtr _original;
+    GenParticlePtr _original;
 
     /// The PDG ID code for this Particle.
     PdgId _id;
