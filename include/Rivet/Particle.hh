@@ -35,26 +35,26 @@ namespace Rivet {
     { }
 
     /// Constructor from a HepMC GenParticle pointer.
-    Particle(const GenParticle* gp)
+    Particle(const GenParticlePtr gp)
       : ParticleBase(),
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum())
     {
-      const GenVertex* vprod = gp->production_vertex();
+      const GenVertexPtr vprod = gp->production_vertex();
       if (vprod != NULL)
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
     }
 
-    /// Constructor from a HepMC GenParticle.
-    Particle(const GenParticle& gp)
-      : ParticleBase(),
-        _original(&gp), _id(gp.pdg_id()),
-        _momentum(gp.momentum())
-    {
-      const GenVertex* vprod = gp.production_vertex();
-      if (vprod != NULL)
-        setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
-    }
+    // /// Constructor from a HepMC GenParticle.
+    // Particle(const GenParticle& gp)
+    //   : ParticleBase(),
+    //     _original(&gp), _id(gp.pdg_id()),
+    //     _momentum(gp.momentum())
+    // {
+    //   const GenVertexPtr vprod = gp.production_vertex();
+    //   if (vprod != NULL)
+    //     setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+    // }
 
     //@}
 
@@ -72,12 +72,12 @@ namespace Rivet {
 
 
     /// Get a const pointer to the original GenParticle.
-    const GenParticle* genParticle() const {
+    const GenParticlePtr genParticle() const {
       return _original;
     }
 
-    /// Cast operator for conversion to GenParticle*
-    operator const GenParticle* () const { return genParticle(); }
+    /// Cast operator for conversion to GenParticlePtr
+    operator const GenParticlePtr () const { return genParticle(); }
 
     //@}
 
@@ -136,9 +136,6 @@ namespace Rivet {
     PdgId pid() const { return _id; }
     /// Absolute value of the PDG ID code.
     PdgId abspid() const { return std::abs(_id); }
-    /// This Particle's PDG ID code (alias).
-    /// @deprecated Prefer the pid/abspid form
-    PdgId pdgId() const { return _id; }
 
     //@}
 
@@ -369,14 +366,14 @@ namespace Rivet {
 
     template <typename FN>
     bool _hasRelativeWith(HepMC::IteratorRange relation, const FN& f) const {
-      for (const GenParticle* ancestor : particles(genParticle(), relation)) {
+      for (const GenParticlePtr ancestor : particles(genParticle(), relation)) {
         if (f(Particle(ancestor))) return true;
       }
       return false;
     }
 
     /// A pointer to the original GenParticle from which this Particle is projected.
-    const GenParticle* _original;
+    const GenParticlePtr _original;
 
     /// The PDG ID code for this Particle.
     PdgId _id;
