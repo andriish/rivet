@@ -14,22 +14,21 @@ namespace Rivet {
     const FinalState& fsa = applyProjection<FinalState>(e, "FSA");
     const FinalState& fsb = applyProjection<FinalState>(e, "FSB");
     _theParticles.clear();
-    foreach (const Particle& pa, fsa.particles()){
+    for (const Particle& pa : fsa.particles()){
       _theParticles.push_back(pa);
     }
-    foreach (const Particle& pb, fsb.particles()){
-      const GenParticle* originalb = pb.genParticle();
+    for (const Particle& pb : fsb.particles()){
+      const GenParticlePtr originalb = pb.genParticle();
       bool notfound = true;
-      foreach (const Particle& pa, fsa.particles()){
-        const GenParticle* originala = pa.genParticle();
+      for (const Particle& pa : fsa.particles()){
+        const GenParticlePtr originala = pa.genParticle();
         if (originala == originalb) {
           notfound = false;
           break;
         }
       }
-      if (notfound) {
-        _theParticles.push_back(pb);
-      }
+      if (notfound) _theParticles.push_back(pb);
+
     }
     MSG_DEBUG("Number of particles in the two final states to be merged: = \n"
               << "   1st final state = " << fsa.particles().size() << "\n"
