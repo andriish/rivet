@@ -20,7 +20,7 @@ namespace Rivet {
 
       // Plots from the paper
       _histPtSigmaStarPlus        = bookHisto1D("d01-x01-y01");    // Sigma*+
-      _histPtSigmaStarMinus       = bookHisto1D("d01-x01-y02");    // Sigma*- 
+      _histPtSigmaStarMinus       = bookHisto1D("d01-x01-y02");    // Sigma*-
       _histPtSigmaStarPlusAnti    = bookHisto1D("d01-x01-y03");    // anti Sigma*-
       _histPtSigmaStarMinusAnti   = bookHisto1D("d01-x01-y04");    // anti Sigma*+
       _histPtXiStar               = bookHisto1D("d02-x01-y01");    // 0.5 * (xi star + anti xi star)
@@ -39,10 +39,10 @@ namespace Rivet {
 	       p.hasAncestor(3122) || p.hasAncestor(-3122)  ||     // Lambda
 	       p.hasAncestor(3222) || p.hasAncestor(-3222)  ||     // Sigma+/-
 	       p.hasAncestor(3312) || p.hasAncestor(-3312)  ||     // Xi-/+
-	       p.hasAncestor(3334) || p.hasAncestor(-3334)  ))     // Omega-/+     
-	{   
-	  int aid = abs(p.pdgId());
-	  if (aid == 211  || // pi+ 
+	       p.hasAncestor(3334) || p.hasAncestor(-3334)  ))     // Omega-/+
+	{
+	  int aid = abs(p.pid());
+	  if (aid == 211  || // pi+
           aid == 321  || // K+
           aid == 313  || // K*(892)0
           aid == 2212 || // proton
@@ -50,9 +50,9 @@ namespace Rivet {
 	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
 	  }
 	} // end if "rejection of long-lived particles"
-      
-      
-        switch (p.pdgId()) {
+
+
+        switch (p.pid()) {
 	  case 3224:
 	    _histPtSigmaStarPlus->fill(p.pT()/GeV, weight);
 	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
@@ -99,7 +99,7 @@ namespace Rivet {
       scale(_histPtSigmaStarPlusAnti,   1./sumOfWeights());
       scale(_histPtSigmaStarMinus,      1./sumOfWeights());
       scale(_histPtSigmaStarMinusAnti,  1./sumOfWeights());
-      scale(_histPtXiStar,              1./sumOfWeights()/ 2.); 
+      scale(_histPtXiStar,              1./sumOfWeights()/ 2.);
     }
 
 
