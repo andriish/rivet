@@ -32,7 +32,7 @@ namespace Rivet {
     _particles = particles;
     _tags = tags;
     // if (_particles.empty()) {
-    //   foreach (const fastjet::PseudoJet pjc, _pseudojet.constituents()) {
+    //   for (const fastjet::PseudoJet pjc : _pseudojet.constituents()) {
     //     // If there is no attached user info, we can't create a meaningful particle, so skip
     //     if (!pjc.has_user_info<RivetFJInfo>()) continue;
     //     const RivetFJInfo& fjinfo = pjc.user_info<RivetFJInfo>();
@@ -59,16 +59,23 @@ namespace Rivet {
 
 
   bool Jet::containsParticle(const Particle& particle) const {
+    #if HEPMC_VERSION_CODE >= 300000
+    const int idcode = particle.genParticle()->id();
+    for (const Particle& p : particles()) {
+      if (p.genParticle()->id() == idcode) return true;
+    }
+    #else
     const int barcode = particle.genParticle()->barcode();
-    foreach (const Particle& p, particles()) {
+    for (const Particle& p : particles()) {
       if (p.genParticle()->barcode() == barcode) return true;
     }
+    #endif
     return false;
   }
 
 
   bool Jet::containsParticleId(PdgId pid) const {
-    foreach (const Particle& p, particles()) {
+    for (const Particle& p : particles()) {
       if (p.pid() == pid) return true;
     }
     return false;
@@ -76,8 +83,8 @@ namespace Rivet {
 
 
   bool Jet::containsParticleId(const vector<PdgId>& pids) const {
-    foreach (const Particle& p, particles()) {
-      foreach (PdgId pid, pids) {
+    for (const Particle& p : particles()) {
+      for (PdgId pid : pids) {
         if (p.pid() == pid) return true;
       }
     }
@@ -99,11 +106,8 @@ namespace Rivet {
 
   double Jet::neutralEnergy() const {
     double e_neutral = 0.0;
-    foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pid();
-      if (PID::threeCharge(pid) == 0) {
-        e_neutral += p.E();
-      }
+    for (const Particle& p : particles()) {
+      if (p.charge3() == 0) e_neutral += p.E();
     }
     return e_neutral;
   }
@@ -111,25 +115,21 @@ namespace Rivet {
 
   double Jet::hadronicEnergy() const {
     double e_hadr = 0.0;
-    foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pid();
-      if (PID::isHadron(pid)) {
-        e_hadr += p.E();
-      }
+    for (const Particle& p : particles()) {
+      if (isHadron(p)) e_hadr += p.E();
     }
     return e_hadr;
   }
 
 
   bool Jet::containsCharm(bool include_decay_products) const {
-    foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pid();
-      if (abs(pid) == PID::CQUARK) return true;
-      if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
+    for (const Particle& p : particles()) {
+      if (p.abspid() == PID::CQUARK) return true;
+      if (isHadron(p) && hasCharm(p)) return true;
       if (include_decay_products) {
-        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
+        const HepMC::GenVertexPtr gv = p.genParticle()->production_vertex();
         if (gv) {
-          foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
+          for (const GenParticlePtr pi : Rivet::particles(gv, HepMC::ancestors)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasCharm(pid2)) return true;
           }
@@ -141,14 +141,13 @@ namespace Rivet {
 
 
   bool Jet::containsBottom(bool include_decay_products) const {
-    foreach (const Particle& p, particles()) {
-      const PdgId pid = p.pid();
-      if (abs(pid) == PID::BQUARK) return true;
-      if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
+    for (const Particle& p : particles()) {
+      if (p.abspid() == PID::BQUARK) return true;
+      if (isHadron(p) && hasBottom(p)) return true;
       if (include_decay_products) {
-        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
+        const HepMC::GenVertexPtr gv = p.genParticle()->production_vertex();
         if (gv) {
-          foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
+          for (const GenParticlePtr pi : Rivet::particles(gv, HepMC::ancestors)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) return true;
           }
