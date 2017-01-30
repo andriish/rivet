@@ -2,8 +2,8 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Jet.hh"
 #include "Rivet/Math/Vectors.hh"
+#include "Rivet/Tools/RivetHepMC.hh"
 #include "fastjet/PseudoJet.hh"
-#include "HepMC/SimpleVector.h"
 
 /// @todo Identify what can go into anonymous namespace
 

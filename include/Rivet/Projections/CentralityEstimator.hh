@@ -50,9 +50,13 @@ namespace Rivet {
     /// Perform the projection on the Event
     void project(const Event& e) {
       _estimate = -1.0;
-      const HepMC::HeavyIon * hi = e.genEvent()->heavy_ion();
-      if ( hi ) _estimate = hi->impact_parameter() > 0.0?
-                  1.0/hi->impact_parameter(): numeric_limits<double>::max();
+      #if HEPMC_VERSION_CODE >= 3000000
+      const HepMC::GenHeavyIonPtr hi = e.genEvent()->heavy_ion();
+      if (hi) _estimate = hi->impact_parameter > 0.0 ? 1.0/hi->impact_parameter: DBL_MAX;
+      #else
+      const HepMC::HeavyIon* hi = e.genEvent()->heavy_ion();
+      if (hi) _estimate = hi->impact_parameter() > 0.0 ? 1.0/hi->impact_parameter(): DBL_MAX;
+      #endif
     }
 
     /// Compare projections
@@ -77,4 +81,3 @@ namespace Rivet {
 }
 
 #endif
-

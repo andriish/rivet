@@ -7,6 +7,15 @@ namespace Rivet {
 
 
   ParticlePair beams(const Event& e) {
+    #if HEPMC_VERSION_CODE >= 3000000
+    assert(e.genEvent()->particles().size() >= 2);
+    const vector<GenParticlePtr> beams = e.genEvent()->beams();
+    if (beams.size() == 2 && beams[0] && beams[1]) {
+      return ParticlePair{beams[0], beams[0]};
+    } else {
+      return ParticlePair{Particle(PID::ANY, FourMomentum()), Particle(PID::ANY, FourMomentum())};
+    }
+    #else
     assert(e.genEvent()->particles_size() >= 2);
     if (e.genEvent()->valid_beam_particles()) {
       pair<HepMC::GenParticle*, HepMC::GenParticle*> beams = e.genEvent()->beam_particles();
@@ -16,6 +25,7 @@ namespace Rivet {
       return ParticlePair{e.genEvent()->barcode_to_particle(1), e.genEvent()->barcode_to_particle(2)};
     }
     return ParticlePair{Particle(PID::ANY, FourMomentum()), Particle(PID::ANY, FourMomentum())};
+    #endif
   }
 
 

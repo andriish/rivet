@@ -12,7 +12,7 @@ namespace Rivet {
     /// @todo Allow user to choose whether primary or final HF hadrons are to be returned
 
     const Particles& unstables = applyProjection<FinalState>(e, "UFS").particles();
-    foreach (const Particle& p, unstables) {
+    for (const Particle& p : unstables) {
       // Exclude non-b/c-hadrons
       if (!isHadron(p)) continue;
       if (!hasCharm(p) && !hasBottom(p)) continue;
@@ -27,10 +27,10 @@ namespace Rivet {
       }
       // There are descendants -- check them for b or c content
       /// @todo What about charm hadrons coming from bottom hadron decays?
-      const vector<GenParticle const *> children = particles_out(p.genParticle(), HepMC::children);
+      const vector<GenParticlePtr> children = Rivet::particles(p.genParticle(), HepMC::children);
       if (hasBottom(p)) {
         bool has_b_child = false;
-        foreach (const GenParticle* p2, children) {
+        for (const GenParticlePtr p2 : children) {
           if (PID::hasBottom(p2->pdg_id())) {
             has_b_child = true;
             break;
@@ -42,7 +42,7 @@ namespace Rivet {
         }
       } else if (hasCharm(p)) {
         bool has_c_child = false;
-        foreach (const GenParticle* p2, children) {
+        for (const GenParticlePtr p2 : children) {
           if (PID::hasCharm(p2->pdg_id())) {
             has_c_child = true;
             break;
