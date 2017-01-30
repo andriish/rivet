@@ -86,7 +86,7 @@ namespace Rivet {
     // Read first event to define run conditions
     bool ok = readEvent();
     if (!ok) return false;
-    #if HEPMC_VERSION_CODE >= 300000
+    #if HEPMC_VERSION_CODE >= 3000000
     if (_evt->particles().empty()) {
     #else
     if (_evt->particles_size() == 0) {
@@ -120,7 +120,7 @@ namespace Rivet {
     // Set cross-section if found in event and not from command line
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (std::isnan(_xs) && _evt->cross_section()) {
-    #if HEPMC_VERSION_CODE >= 300000
+    #if HEPMC_VERSION_CODE >= 3000000
       const double xs = _evt->cross_section()->cross_section; ///< in pb
       #else
       const double xs = _evt->cross_section()->cross_section(); ///< in pb

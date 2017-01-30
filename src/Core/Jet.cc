@@ -59,7 +59,7 @@ namespace Rivet {
 
 
   bool Jet::containsParticle(const Particle& particle) const {
-    #if HEPMC_VERSION_CODE >= 300000
+    #if HEPMC_VERSION_CODE >= 3000000
     const int idcode = particle.genParticle()->id();
     for (const Particle& p : particles()) {
       if (p.genParticle()->id() == idcode) return true;

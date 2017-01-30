@@ -34,17 +34,21 @@ namespace Rivet {
 
   vector<Particle> Particle::parents(const Cut& c) const {
     vector<Particle> rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
+    #if HEPMC_VERSION_CODE >= 3000000
+    for (const GenParticlePtr gp : genParticle()->parents()) {
+    const Particle p(gp);
+    if (c != Cuts::OPEN && !c->accept(p)) continue;
+      rtn += p;
+    }
+    #else
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
     if (gv == NULL) return rtn;
-    /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
-    //   rtn += Particle(gp);
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::parents); it != gv->particles_end(HepMC::parents); ++it) {
-      const Particle p(*it);
+    const Particle p(*it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
+    #endif
     return rtn;
   }
 
@@ -52,17 +56,21 @@ namespace Rivet {
   vector<Particle> Particle::children(const Cut& c) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
+    #if HEPMC_VERSION_CODE >= 3000000
+    for (const GenParticlePtr gp : genParticle()->children()) {
+      const Particle p(gp);
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      rtn += p;
+    }
+    #else
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
-    /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
-    //   rtn += Particle(gp);
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it) {
       const Particle p(*it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
+    #endif
     return rtn;
   }
 
@@ -72,7 +80,20 @@ namespace Rivet {
   vector<Particle> Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
+    #if HEPMC_VERSION_CODE >= 3000000
+    for (const GenParticlePtr gp : genParticle()->descendants()) {
+      const Particle p(gp);
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      if (remove_duplicates) {
+        bool dup = false;
+        for (const GenParticlePtr gp2 : gp->children()) {
+          if (gp->pid() == gp2->pid()) { dup = true; break; }
+        }
+        if (dup) continue;
+      }
+      rtn += p;
+    }
+    #else
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
@@ -92,6 +113,7 @@ namespace Rivet {
       }
       rtn += p;
     }
+    #endif
     return rtn;
   }
 
@@ -100,11 +122,16 @@ namespace Rivet {
   vector<Particle> Particle::stableDescendants(const Cut& c) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
+    #if HEPMC_VERSION_CODE >= 3000000
+    for (const GenParticlePtr gp : genParticle()->descendants()) {
+      const Particle p(gp);
+      if (!p.isStable()) continue;
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      rtn += p;
+    }
+    #else
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
-    /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
       const Particle p(*it);
@@ -112,14 +139,15 @@ namespace Rivet {
       if (c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
+    #endif
     return rtn;
   }
 
 
   double Particle::flightLength() const {
     if (isStable()) return -1;
-    if (genParticle() == NULL) return 0;
-    if (genParticle()->production_vertex() == NULL) return 0;
+    if (!genParticle()) return 0;
+    if (!genParticle()->production_vertex()) return 0;
     const HepMC::FourVector v1 = genParticle()->production_vertex()->position();
     const HepMC::FourVector v2 = genParticle()->end_vertex()->position();
     return sqrt(sqr(v2.x()-v1.x()) + sqr(v2.y()-v1.y()) + sqr(v2.z()-v1.z()));
@@ -148,13 +176,6 @@ namespace Rivet {
     return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
         return p.genParticle()->status() == 2 && p.isHadron() && p.hasBottom();
       });
-    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    // if (prodVtx == NULL) return false;
-    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-    //   const PdgId pid = ancestor->pdg_id();
-    //   if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasBottom(pid))) return true;
-    // }
-    // return false;
   }
 
 
@@ -162,13 +183,6 @@ namespace Rivet {
     return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
         return p.genParticle()->status() == 2 && p.isHadron() && p.hasCharm();
       });
-    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    // if (prodVtx == NULL) return false;
-    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-    //   const PdgId pid = ancestor->pdg_id();
-    //   if (ancestor->status() == 2 && (PID::isHadron(pid) && PID::hasCharm(pid) && !PID::hasBottom(pid))) return true;
-    // }
-    // return false;
   }
 
 
@@ -176,13 +190,6 @@ namespace Rivet {
     return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
         return p.genParticle()->status() == 2 && p.isHadron();
       });
-    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    // if (prodVtx == NULL) return false;
-    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-    //   const PdgId pid = ancestor->pdg_id();
-    //   if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
-    // }
-    // return false;
   }
 
 
@@ -191,33 +198,18 @@ namespace Rivet {
     return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
         return p.genParticle()->status() == 2 && isTau(p);
       });
-    // const GenVertexPtr prodVtx = genParticle()->production_vertex();
-    // if (prodVtx == NULL) return false;
-    // foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-    //   const PdgId pid = ancestor->pdg_id();
-    //   if (ancestor->status() == 2 && abs(pid) == PID::TAU) return true;
-    // }
-    // return false;
   }
-
-
-  // bool Particle::fromDecay() const {
-  //   const GenVertexPtr prodVtx = genParticle()->production_vertex();
-  //   if (prodVtx == NULL) return false;
-  //   foreach (const GenParticlePtr ancestor, particles(prodVtx, HepMC::ancestors)) {
-  //     const PdgId pid = ancestor->pdg_id();
-  //     if (ancestor->status() == 2 && (PID::isHadron(pid) || abs(pid) == PID::TAU)) return true;
-  //   }
-  //   return false;
-  // }
 
 
   bool Particle::isPrompt(bool allow_from_prompt_tau, bool allow_from_prompt_mu) const {
     if (genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
     const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
+    #if HEPMC_VERSION_CODE >= 3000000
+    const pair<GenParticlePtr, GenParticlePtr> beams = std::make_pair(prodVtx->parent_event()->beams()[0], prodVtx->parent_event()->beams()[1]);
+    #else
     const pair<GenParticlePtr, GenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
-
+    #endif
     /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
     for (const GenParticlePtr ancestor : Rivet::particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
