@@ -116,8 +116,13 @@ namespace Rivet {
     // Cross-section
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
+      #if HEPMC_VERSION_CODE >= 3000000
+      _xs = ge.cross_section()->cross_section;
+      _xserr = ge.cross_section()->cross_section_error;
+      #else
       _xs = ge.cross_section()->cross_section();
       _xserr = ge.cross_section()->cross_section_error();
+      #endif
     }
     #endif
 
