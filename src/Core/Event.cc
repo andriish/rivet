@@ -98,7 +98,7 @@ namespace Rivet {
 
   const Particles& Event::allParticles() const {
     if (_particles.empty()) { //< assume that empty means no attempt yet made
-      for (const GenParticle* gp : particles(genEvent())) {
+      for (const GenParticlePtr gp : particles(genEvent())) {
         _particles += Particle(gp);
       }
     }

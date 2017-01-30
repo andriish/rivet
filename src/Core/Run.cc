@@ -49,7 +49,7 @@ namespace Rivet {
     }
     return true;
   }
-  
+
   // Fill event and check for a bad read state --- to skip, maybe HEPMC3 will have a better way
   bool Run::skipEvent() {
     if (_io->rdstate() != 0 || !_io->fill_next_event(_evt.get()) ) {
@@ -86,7 +86,11 @@ namespace Rivet {
     // Read first event to define run conditions
     bool ok = readEvent();
     if (!ok) return false;
+    #if HEPMC_VERSION_CODE >= 300000
+    if (_evt->particles().empty()) {
+    #else
     if (_evt->particles_size() == 0) {
+    #endif
       Log::getLog("Rivet.Run") << Log::ERROR << "Empty first event." << endl;
       return false;
     }
@@ -116,7 +120,11 @@ namespace Rivet {
     // Set cross-section if found in event and not from command line
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (std::isnan(_xs) && _evt->cross_section()) {
+    #if HEPMC_VERSION_CODE >= 300000
+      const double xs = _evt->cross_section()->cross_section; ///< in pb
+      #else
       const double xs = _evt->cross_section()->cross_section(); ///< in pb
+      #endif
       Log::getLog("Rivet.Run")
         << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
       _ah.setCrossSection(xs);

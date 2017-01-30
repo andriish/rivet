@@ -27,8 +27,8 @@ namespace Rivet {
 
     /// Constructor from a HepMC GenEvent pointer
     Event(const GenEvent* ge)
-      : _genevent_original(ge), _genevent(*ge)
-    { assert(ge); _init(*ge); }
+      : _genevent_original(ge)
+    { assert(ge); _genevent = *ge; _init(*ge); }
 
     /// Constructor from a HepMC GenEvent reference
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
