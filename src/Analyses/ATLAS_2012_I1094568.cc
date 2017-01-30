@@ -171,7 +171,7 @@ namespace Rivet {
       vector<GenParticle const *> B_hadrons;
       vector<GenParticle const *> allParticles = particles(event.genEvent());
       for (size_t i = 0; i < allParticles.size(); i++) {
-        const GenParticle* p = allParticles[i];
+        const GenParticlePtr p = allParticles[i];
         if (!PID::isHadron(p->pdg_id()) || !PID::hasBottom(p->pdg_id())) continue;
         if (p->momentum().perp() < 5*GeV) continue;
         B_hadrons.push_back(p);
@@ -181,7 +181,7 @@ namespace Rivet {
       vector<const Jet*> b_jets;
       foreach (const Jet* j, good_jets) {
         bool isbJet = false;
-        foreach (const GenParticle* b, B_hadrons) {
+        foreach (const GenParticlePtr b, B_hadrons) {
           if (deltaR(j->momentum(), FourMomentum(b->momentum())) < 0.3) isbJet = true;
         }
         if (isbJet) b_jets.push_back(j);

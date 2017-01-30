@@ -26,10 +26,10 @@ namespace Rivet {
       double weight = event.weight();
 
       Particles bhadrons;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      foreach (const GenParticlePtr p, particles(event.genEvent())) {
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
 
-        const GenVertex* dv = p->end_vertex();
+        const GenVertexPtr dv = p->end_vertex();
 
         bool hasBdaughter = false;
         if ( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) { // selecting b-hadrons

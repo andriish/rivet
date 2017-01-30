@@ -48,7 +48,7 @@ namespace Rivet {
       vector<GenParticle const *> B_hadrons, C_hadrons;
       vector<GenParticle const *> allParticles = particles(event.genEvent());
       for (size_t i = 0; i < allParticles.size(); i++) {
-        const GenParticle* p = allParticles.at(i);
+        const GenParticlePtr p = allParticles.at(i);
         if(p->momentum().perp()*GeV < 5) continue;
         if ( (Rivet::PID::isHadron ( p->pdg_id() ) &&
               Rivet::PID::hasBottom( p->pdg_id() )    ) ) {

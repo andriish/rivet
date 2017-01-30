@@ -28,12 +28,12 @@ namespace Rivet {
       }
       // Then in whole event if that failed
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, particles(e.genEvent())) {
+        foreach (const GenParticlePtr p, particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
-          const GenVertex* pv = p->production_vertex();
+          const GenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticle* pp, particles_in(pv)) {
+            foreach (const GenParticlePtr pp, particles_in(pv)) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -133,13 +133,13 @@ namespace Rivet {
     //@}
 
 
-    void findDecayProducts(const GenParticle* p,
-                           vector<GenParticle*>& pionsA, vector<GenParticle*>& pionsB,
-                           vector<GenParticle*>& protonsA, vector<GenParticle*>& protonsB,
-                           vector<GenParticle*>& kaons)
+    void findDecayProducts(const GenParticlePtr p,
+                           vector<GenParticlePtr>& pionsA, vector<GenParticle*>& pionsB,
+                           vector<GenParticlePtr>& protonsA, vector<GenParticle*>& protonsB,
+                           vector<GenParticlePtr>& kaons)
     {
       int parentId = p->pdg_id();
-      const GenVertex* dv = p->end_vertex();
+      const GenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = abs((*pp)->pdg_id());

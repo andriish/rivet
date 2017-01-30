@@ -87,9 +87,9 @@ namespace Rivet {
       // Extract the particles other than the lepton
       const FinalState& fs = apply<FinalState>(event, "FS");
       Particles particles; particles.reserve(fs.size());
-      const GenParticle* dislepGP = dl.out().genParticle(); ///< @todo Is the GenParticle stuff necessary? (Not included in Particle::==?)
+      const GenParticlePtr dislepGP = dl.out().genParticle(); ///< @todo Is the GenParticle stuff necessary? (Not included in Particle::==?)
       foreach (const Particle& p, fs.particles()) {
-        const GenParticle* loopGP = p.genParticle();
+        const GenParticlePtr loopGP = p.genParticle();
         if (loopGP == dislepGP) continue;
         particles.push_back(p);
       }

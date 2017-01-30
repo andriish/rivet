@@ -43,8 +43,8 @@ namespace Rivet {
 
       foreach (const Particle& p, fs.particles()) {
         // check if prompt or not
-        const GenParticle* pmother = p.genParticle();
-        const GenVertex* ivertex = pmother->production_vertex();
+        const GenParticlePtr pmother = p.genParticle();
+        const GenVertexPtr ivertex = pmother->production_vertex();
         bool prompt = true;
         while (ivertex) {
           int n_inparts = ivertex->particles_in_size();

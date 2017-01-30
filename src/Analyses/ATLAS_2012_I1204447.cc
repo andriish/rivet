@@ -624,7 +624,7 @@ namespace Rivet {
     /// @todo Move to TauFinder and make less HepMC-ish
     FourMomentum get_tau_neutrino_mom(const Particle& p)  {
       assert(p.abspid() == PID::TAU);
-      const GenVertex* dv = p.genParticle()->end_vertex();
+      const GenVertexPtr dv = p.genParticle()->end_vertex();
       assert(dv != NULL);
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         if (abs((*pp)->pdg_id()) == PID::NU_TAU) return FourMomentum((*pp)->momentum());
@@ -635,10 +635,10 @@ namespace Rivet {
 
     /// Function calculating the prong number of taus
     /// @todo Move to TauFinder and make less HepMC-ish
-    void get_prong_number(const GenParticle* p, unsigned int& nprong, bool& lep_decaying_tau) {
+    void get_prong_number(const GenParticlePtr p, unsigned int& nprong, bool& lep_decaying_tau) {
       assert(p != NULL);
       //const int tau_barcode = p->barcode();
-      const GenVertex* dv = p->end_vertex();
+      const GenVertexPtr dv = p->end_vertex();
       assert(dv != NULL);
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         // If they have status 1 and are charged they will produce a track and the prong number is +1

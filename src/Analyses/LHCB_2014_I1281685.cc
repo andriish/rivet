@@ -194,9 +194,9 @@ namespace Rivet {
     const double getAncestorSumLifetime(const Particle& p) {
       double lftSum = 0.;
       double plft = 0.;
-      const GenParticle* part = p.genParticle();
+      const GenParticlePtr part = p.genParticle();
       if ( 0 == part ) return -1;
-      const GenVertex* ivtx = part->production_vertex();
+      const GenVertexPtr ivtx = part->production_vertex();
       while(ivtx) {
         if (ivtx->particles_in_size() < 1) { lftSum = -1.; break; };
         const GenVertex::particles_in_const_iterator iPart_invtx = ivtx->particles_in_const_begin();

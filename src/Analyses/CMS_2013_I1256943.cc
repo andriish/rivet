@@ -76,8 +76,8 @@ namespace Rivet {
         if (PID::hasBottom(pid)) {
 
           bool good_B = false;
-          const GenParticle* pgen = p.genParticle();
-          const GenVertex* vgen = pgen -> end_vertex();
+          const GenParticlePtr pgen = p.genParticle();
+          const GenVertexPtr vgen = pgen -> end_vertex();
 
           // Loop over the decay products of each unstable particle.
           // Look for a couple of B hadrons.

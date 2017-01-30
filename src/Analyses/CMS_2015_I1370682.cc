@@ -369,7 +369,7 @@ namespace Rivet {
       Particles pForLep, pForJet;
       Particles neutrinos; // Prompt neutrinos
       /// @todo Avoid this unsafe jump into HepMC -- all this can be done properly via VisibleFS and HeavyHadrons projections
-      for (const GenParticle* p : Rivet::particles(e.genEvent())) {
+      for (const GenParticlePtr p : Rivet::particles(e.genEvent())) {
         const int status = p->status();
         const int pdgId = p->pdg_id();
         if (status == 1) {

@@ -34,9 +34,9 @@ namespace Rivet {
         if (p.pid()==300553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+        foreach (const GenParticlePtr p, Rivet::particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
-          const GenVertex* pv = p->production_vertex();
+          const GenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
             /// @todo Use better looping
@@ -84,8 +84,8 @@ namespace Rivet {
     //@}
 
 
-    void findDecayProducts(const GenParticle* p, vector<GenParticle*>& pions) {
-      const GenVertex* dv = p->end_vertex();
+    void findDecayProducts(const GenParticlePtr p, vector<GenParticle*>& pions) {
+      const GenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         const int id = (*pp)->pdg_id();

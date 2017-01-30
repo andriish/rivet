@@ -49,10 +49,10 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles()) {
         if (p.abspid() != 443) continue;
-        const GenVertex* gv = p.genParticle()->production_vertex();
+        const GenVertexPtr gv = p.genParticle()->production_vertex();
         bool nonPrompt = false;
         if (gv) {
-          foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
+          foreach (const GenParticlePtr pi, Rivet::particles(gv, HepMC::ancestors)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) {
               nonPrompt = true;

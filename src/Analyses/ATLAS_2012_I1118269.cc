@@ -20,11 +20,11 @@ namespace Rivet {
       double weight = event.weight();
 
       Particles bhadrons;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      foreach (const GenParticlePtr p, particles(event.genEvent())) {
 
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
 
-        const GenVertex* dv = p->end_vertex();
+        const GenVertexPtr dv = p->end_vertex();
 
         /// @todo In future, convert to use built-in 'last B hadron' function
         bool hasBdaughter = false;

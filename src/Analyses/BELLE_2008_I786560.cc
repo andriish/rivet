@@ -68,11 +68,11 @@ namespace Rivet {
 
     //@}
 
-    void findDecayProducts(const GenParticle* p,
+    void findDecayProducts(const GenParticlePtr p,
                            unsigned int & nstable,
                            Particles& pip, Particles& pim,
                            Particles& pi0) {
-      const GenVertex* dv = p->end_vertex();
+      const GenVertexPtr dv = p->end_vertex();
       /// @todo Use better looping
       for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin(); pp != dv->particles_out_const_end(); ++pp) {
         int id = (*pp)->pdg_id();

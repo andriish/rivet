@@ -65,7 +65,7 @@ using namespace std;
         if ((id != 310) && (id != -310)) continue;
         sumKs0_all ++;
         ancestor_lftime = 0.;
-        const GenParticle* long_ancestor = getLongestLivedAncestor(p, ancestor_lftime);
+        const GenParticlePtr long_ancestor = getLongestLivedAncestor(p, ancestor_lftime);
         if ( !(long_ancestor) ) {
           sumKs0_badnull ++;
           continue;
@@ -166,15 +166,15 @@ using namespace std;
       return lft;
     }
 
-    const GenParticle* getLongestLivedAncestor(const Particle& p, double& lifeTime) {
-      const GenParticle* ret = NULL;
+    const GenParticlePtr getLongestLivedAncestor(const Particle& p, double& lifeTime) {
+      const GenParticlePtr ret = NULL;
       lifeTime = 1.;
       if (p.genParticle() == NULL) return NULL;
-      const GenParticle* pmother = p.genParticle();
+      const GenParticlePtr pmother = p.genParticle();
       double longest_ctau = 0.;
       double mother_ctau;
       int mother_pid, n_inparts;
-      const GenVertex* ivertex = pmother->production_vertex();
+      const GenVertexPtr ivertex = pmother->production_vertex();
       while (ivertex) {
         n_inparts = ivertex->particles_in_size();
         if (n_inparts < 1) {ret = NULL; break;}    // error: should never happen!

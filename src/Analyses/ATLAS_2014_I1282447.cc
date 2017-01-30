@@ -315,7 +315,7 @@ namespace Rivet {
           mat_jet = false;
           njets++;
           foreach(const Particle& p, fs.particles()) {
-            const GenParticle* part = p.genParticle();
+            const GenParticlePtr part = p.genParticle();
             if(p.hasCharm()) {
               //if(isFromBDecay(p)) continue;
               if(p.fromBottom()) continue;
@@ -358,7 +358,7 @@ namespace Rivet {
 
       foreach(const Particle& p, fs.particles()) {
 
-        const GenParticle* part = p.genParticle();
+        const GenParticlePtr part = p.genParticle();
         if(p.pT() < 8*GeV)       continue;
         if(fabs(p.eta()) > 2.2)  continue;
 
@@ -479,8 +479,8 @@ namespace Rivet {
 
       if(p.genParticle() == NULL)  return false;
 
-      const GenParticle* part = p.genParticle();
-      const GenVertex* ivtx = const_cast<const GenVertex*>(part->production_vertex());
+      const GenParticlePtr part = p.genParticle();
+      const GenVertexPtr ivtx = const_cast<const GenVertexPtr>(part->production_vertex());
       while(ivtx) {
         if(ivtx->particles_in_size() < 1) {
           isfromB = false;
@@ -494,7 +494,7 @@ namespace Rivet {
         }
         isfromB = PID::hasBottom(part->pdg_id());
         if(isfromB == true)  break;
-        ivtx = const_cast<const GenVertex*>(part->production_vertex());
+        ivtx = const_cast<const GenVertexPtr>(part->production_vertex());
         if( part->pdg_id() == 2212 || !ivtx )  break; // reached beam
       }
       return isfromB;
@@ -507,7 +507,7 @@ namespace Rivet {
       bool hasCharmedChild = false;
       if(part == NULL)  return false;
 
-      const GenVertex* ivtx = const_cast<const GenVertex*>(part->end_vertex());
+      const GenVertexPtr ivtx = const_cast<const GenVertexPtr>(part->end_vertex());
       if(ivtx == NULL)  return false;
 
       // if (ivtx->particles_out_size() < 2) return false;
@@ -515,7 +515,7 @@ namespace Rivet {
       HepMC::GenVertex::particles_out_const_iterator end_invtx = ivtx->particles_out_const_end();
 
       for( ; iPart_invtx != end_invtx; iPart_invtx++ ) {
-        const GenParticle* p2 = (*iPart_invtx);
+        const GenParticlePtr p2 = (*iPart_invtx);
         if( p2 == part)  continue;
         hasCharmedChild = PID::hasCharm(p2->pdg_id());
         if(hasCharmedChild == true)  break;

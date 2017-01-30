@@ -27,12 +27,12 @@ namespace Rivet {
         if (p.pid() == 300553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+        foreach (const GenParticlePtr p, Rivet::particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
-          const GenVertex* pv = p->production_vertex();
+          const GenVertexPtr pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticle* pp, particles_in(pv)) {
+            foreach (const GenParticlePtr pp, particles_in(pv)) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -48,7 +48,7 @@ namespace Rivet {
         _weightSum += weight;
         // Find the charmonium resonances
         /// @todo Use Rivet::Particles
-        vector<const GenParticle*> allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2;
+        vector<const GenParticlePtr> allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2;
         findDecayProducts(p.genParticle(), allJpsi, primaryJpsi, Psiprime,
                           all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2);
         const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.mom().betaVec());
@@ -137,13 +137,13 @@ namespace Rivet {
     Histo1DPtr _mult_Psi2S;
     //@}
 
-    void findDecayProducts(const GenParticle* p,
-                           vector<const GenParticle*>& allJpsi,
-                           vector<const GenParticle*>& primaryJpsi,
-                           vector<const GenParticle*>& Psiprime,
-                           vector<const GenParticle*>& all_chi_c1, vector<const GenParticle*>& all_chi_c2,
-                           vector<const GenParticle*>& primary_chi_c1, vector<const GenParticle*>& primary_chi_c2) {
-      const GenVertex* dv = p->end_vertex();
+    void findDecayProducts(const GenParticlePtr p,
+                           vector<const GenParticlePtr>& allJpsi,
+                           vector<const GenParticlePtr>& primaryJpsi,
+                           vector<const GenParticlePtr>& Psiprime,
+                           vector<const GenParticlePtr>& all_chi_c1, vector<const GenParticle*>& all_chi_c2,
+                           vector<const GenParticlePtr>& primary_chi_c1, vector<const GenParticle*>& primary_chi_c2) {
+      const GenVertexPtr dv = p->end_vertex();
       bool isOnium = false;
       /// @todo Use better looping
       for (GenVertex::particles_in_const_iterator pp = dv->particles_in_const_begin() ; pp != dv->particles_in_const_end() ; ++pp) {
