@@ -80,7 +80,7 @@ namespace Rivet {
         const size_t iside = (mapAngleMPiToPi(p.phi() - philead) > 0) ? 0 : 1;
         MSG_TRACE(p.phi() << " vs. " << philead << ": " << iside);
         // Charged or neutral particle?
-        const bool charged = PID::threeCharge(p.pdgId()) != 0;
+        const bool charged = p.charge3() != 0;
         // Track observables
         if (charged && fabs(p.eta()) < 2.5 && p.pT() > 500*MeV) {
           tmpnch[iside] += 1;

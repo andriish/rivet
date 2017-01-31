@@ -1,3 +1,11 @@
+2017-01-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Start making analyses HepMC3-compatible, including major tidying in ATLAS_2013_I1243871.
+
+	* Add Cut-arg variants to HeavyHadrons particle-retrieving methods.
+
+	* Convert core to be compatible with HepMC3.
+
 2017-01-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing lots of long-deprecated functions & methods.
