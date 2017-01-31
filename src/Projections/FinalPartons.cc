@@ -13,9 +13,15 @@ namespace Rivet {
       return false;
 
     // Accept partons if they end on a standard hadronization vertex
+    #if HEPMC_VERSION_CODE >= 2007000
     if (p.genParticle()->end_vertex() != NULL &&
         p.genParticle()->end_vertex()->id() == 5)
       return true;
+    #else
+    if (p.genParticle()->end_vertex() != NULL &&
+        p.genParticle()->end_vertex()->id() == 5)
+      return true;
+    #endif
 
     // Reject if p has a parton child.
     for (const Particle& c : p.children()) {
