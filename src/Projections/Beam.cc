@@ -11,7 +11,7 @@ namespace Rivet {
     assert(e.genEvent()->particles().size() >= 2);
     const vector<GenParticlePtr> beams = e.genEvent()->beams();
     if (beams.size() == 2 && beams[0] && beams[1]) {
-      return ParticlePair{beams[0], beams[0]};
+      return ParticlePair{beams[0], beams[1]};
     } else {
       return ParticlePair{Particle(PID::ANY, FourMomentum()), Particle(PID::ANY, FourMomentum())};
     }
