@@ -114,7 +114,7 @@ def getHistos(filelist):
         for path, ao in analysisobjects.iteritems():
             ## We can't plot non-histograms yet
             # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
-            if ao.type not in ("Histo1D", "Histo2D", "Profile1D", "Profile2D", "Scatter2D", "Scatter3D"):
+            if ao.type not in ("Counter", "Histo1D", "Histo2D", "Profile1D", "Profile2D", "Scatter1D", "Scatter2D", "Scatter3D"):
                 continue
 
             ## Make a path object and ensure the path is in standard form

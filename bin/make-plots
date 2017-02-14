@@ -158,6 +158,10 @@ class InputData(Described):
                 elif name == 'HISTO2D':
                     self.histos[path] = Histo2D(f, p=path)
                     self.description['is2dim'] = True
+                elif name == 'COUNTER':
+                    self.histos[path] = Counter(f, p=path)
+                elif name == 'VALUE':
+                    self.histos[path] = Value(f, p=path)
                 elif name == 'FUNCTION':
                     self.functions[path] = Function(f)
 #            elif is_comment(line):
@@ -479,6 +483,10 @@ class Plot(object):
             for i in inputdata.histos.keys():
                 if not inputdata.histos[i].description.has_key('ConnectGaps'):
                     inputdata.histos[i].description['ConnectGaps'] = inputdata.description['ConnectGaps']
+        # Counter and Value only have dummy x-axis, ticks wouldn't make sense here, so suppress them:
+        if 'Value object' in str(inputdata.histos) or 'Counter object' in str(inputdata.histos):
+          inputdata.description['XCustomMajorTicks'] = ''
+          inputdata.description['XCustomMinorTicks'] = ''
 
     def set_borders(self, inputdata):
         self.set_xmax(inputdata)
@@ -1949,6 +1957,58 @@ class Histogram(DrawableObject, Described):
                 zvalues.append(b.val)
         return max(zvalues)
 
+
+
+class Value(Histogram):
+
+    def read_input_data(self, f):
+        for line in f:
+            if is_end_marker(line, 'VALUE'):
+                break
+            elif is_comment(line):
+                continue
+            else:
+                line = line.rstrip()
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
+                else:
+                    linearray = line.split()
+                    ## Detect symm errs
+                    # TODO: Not sure what the 8-param version is for... auto-compatibility with YODA format?
+                    if len(linearray) == 3:
+                        self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[2] ])) # dummy x-values
+                    else:
+                        raise Exception('Value does not have the expected number of columns. ' + line)
+
+    # TODO: specialise draw() here
+
+
+class Counter(Histogram):
+
+    def read_input_data(self, f):
+        for line in f:
+            if is_end_marker(line, 'COUNTER'):
+                break
+            elif is_comment(line):
+                continue
+            else:
+                line = line.rstrip()
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
+                else:
+                    linearray = line.split()
+                    ## Detect symm errs
+                    # TODO: Not sure what the 8-param version is for... auto-compatibility with YODA format?
+                    if len(linearray) == 2:
+                        self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[1] ])) # dummy x-values
+                    else:
+                        raise Exception('Counter does not have the expected number of columns. ' + line)
+
+    # TODO: specialise draw() here
 
 
 class Histo1D(Histogram):
