@@ -1975,8 +1975,6 @@ class Value(Histogram):
                     self.description[prop] = value
                 else:
                     linearray = line.split()
-                    ## Detect symm errs
-                    # TODO: Not sure what the 8-param version is for... auto-compatibility with YODA format?
                     if len(linearray) == 3:
                         self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[2] ])) # dummy x-values
                     else:
@@ -2001,8 +1999,6 @@ class Counter(Histogram):
                     self.description[prop] = value
                 else:
                     linearray = line.split()
-                    ## Detect symm errs
-                    # TODO: Not sure what the 8-param version is for... auto-compatibility with YODA format?
                     if len(linearray) == 2:
                         self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[1] ])) # dummy x-values
                     else:
