@@ -6,16 +6,24 @@
 namespace Rivet {
 
 
+
   /// @name ParticleBase classifier -> bool functors
   /// @todo Move to FourMomentum functions
   ///
   /// To be passed to any() or all() e.g. any(jets, DeltaRLess(electron, 0.4))
   //@{
 
+  /// std::function instantiation for functors taking a ParticleBase and returning a bool
+  using ParticleBaseSelector = function<bool(const ParticleBase&)>;
+  /// std::function instantiation for functors taking two ParticleBase and returning a bool
+  using ParticleBaseSorter = function<bool(const ParticleBase&, const ParticleBase&)>;
+
+
   /// Base type for Particle -> bool functors
   struct BoolParticleBaseFunctor {
     virtual bool operator()(const ParticleBase& p) const = 0;
   };
+
 
   /// Transverse momentum greater-than functor
   struct PtGtr : public BoolParticleBaseFunctor {
@@ -315,11 +323,17 @@ namespace Rivet {
   /// Unbound function access to p3
   inline Vector3 p3(const ParticleBase& p) { return p.p3(); }
 
+  /// Unbound function access to pTvec
+  inline Vector3 pTvec(const ParticleBase& p) { return p.pTvec(); }
+
   /// Unbound function access to p
   inline double p(const ParticleBase& p) { return p.p(); }
 
   /// Unbound function access to pT
   inline double pT(const ParticleBase& p) { return p.pT(); }
+
+  /// Unbound function access to ET
+  inline double Et(const ParticleBase& p) { return p.Et(); }
 
   /// Unbound function access to eta
   inline double eta(const ParticleBase& p) { return p.eta(); }

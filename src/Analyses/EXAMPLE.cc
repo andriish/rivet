@@ -59,7 +59,8 @@ namespace Rivet {
       MSG_DEBUG("Total multiplicity = " << cnparticles.size());
       _histTot->fill(cnparticles.size(), weight);
       int cnhadronmult = 0;
-      foreach (const Particle& p, cnparticles) if (isHadron(p)) cnhadronmult += 1;
+      for (const Particle& p : cnparticles)
+        if (isHadron(p)) cnhadronmult += 1;
       MSG_DEBUG("Hadron multiplicity = " << cnhadronmult);
       _histHadrTot->fill(cnhadronmult, weight);
 
@@ -67,7 +68,8 @@ namespace Rivet {
       MSG_DEBUG("Total charged multiplicity = " << cparticles.size());
       _histChTot->fill(cparticles.size(), weight);
       int chadronmult = 0;
-      foreach (const Particle& p, cparticles) if (isHadron(p)) chadronmult += 1;
+      for (const Particle& p : cparticles)
+        if (isHadron(p)) chadronmult += 1;
       MSG_DEBUG("Hadron charged multiplicity = " << chadronmult);
       _histHadrChTot->fill(chadronmult, weight);
 
@@ -90,35 +92,18 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histTot);
-      normalize(_histChTot);
-      normalize(_histHadrTot);
-      normalize(_histHadrChTot);
-      normalize(_histThrust);
-      normalize(_histMajor);
-      normalize(_histSphericity);
-      normalize(_histAplanarity);
+      normalize({_histTot, _histChTot, _histHadrTot, _histHadrChTot, _histThrust, _histMajor, _histSphericity, _histAplanarity});
     }
 
     //@}
 
 
-  private:
-
     //@{
     /// Histograms
-    Histo1DPtr _histTot;
-    Histo1DPtr _histChTot;
-    Histo1DPtr _histHadrTot;
-    Histo1DPtr _histHadrChTot;
-    Histo1DPtr _histThrust;
-    Histo1DPtr _histMajor;
-    Histo1DPtr _histSphericity;
-    Histo1DPtr _histAplanarity;
+    Histo1DPtr _histTot, _histChTot, _histHadrTot, _histHadrChTot, _histThrust, _histMajor, _histSphericity, _histAplanarity;
     //@}
 
   };
-
 
 
   // The hook for the plugin system

@@ -13,6 +13,7 @@ namespace Rivet {
   //@{
 
   /// Return a uniformly sampled random number between 0 and 1
+  /// @todo Where is it seeded?! Default = by timestamp?!
   /// @todo Move to (math?)utils
   /// @todo Need to isolate random generators to a single thread
   inline double rand01() {
@@ -22,28 +23,34 @@ namespace Rivet {
     return generate_canonical<double, 10>(gen);
   }
 
+  /// Return true if Particle @a p is chosen to survive a random efficiency selection
   template <typename FN>
   inline bool efffilt(const Particle& p, FN& feff) {
     return rand01() < feff(p);
   }
+  /// Return true if Jet @a j is chosen to survive a random efficiency selection
   template <typename FN>
   inline bool efffilt(const Jet& j, FN& feff) {
     return rand01() < feff(j);
   }
 
+  /// A functor to return true if Particle @a p survives a random efficiency selection
   struct ParticleEffFilter {
     template <typename FN>
     ParticleEffFilter(const FN& feff) : _feff(feff) {}
-    bool operator () (const Particle& p) { return efffilt(p, _feff); }
+    ParticleEffFilter(double eff) : ParticleEffFilter( [&](const Particle& p){return eff;} ) {}
+    bool operator () (const Particle& p)  const { return efffilt(p, _feff); }
   private:
     const std::function<bool(const Particle&)> _feff;
   };
   using particleEffFilter = ParticleEffFilter;
 
+  /// A functor to return true if Jet @a j survives a random efficiency selection
   struct JetEffFilter {
     template <typename FN>
     JetEffFilter(const FN& feff) : _feff(feff) {}
-    bool operator () (const Jet& j) { return efffilt(j, _feff); }
+    JetEffFilter(double eff) : JetEffFilter( [&](const Jet& j){return eff;} ) {}
+    bool operator () (const Jet& j) const { return efffilt(j, _feff); }
   private:
     const std::function<bool(const Jet&)> _feff;
   };
@@ -370,7 +377,31 @@ namespace Rivet {
   /// @name Photon efficiency and smearing functions
   //@{
 
-  /// @todo Photon efficiency and smearing
+  /// ATLAS Run 1 photon reco efficiency
+  /// @todo Currently identical to CMS, cf. Delphes
+  inline double PHOTON_EFF_ATLAS_RUN1(const Particle& y) {
+    if (y.pT() < 10*GeV || y.abseta() > 2.5) return 0;
+    return (y.abseta() < 1.5) ? 0.95 : 0.85;
+  }
+
+  /// ATLAS Run 2 photon reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double PHOTON_EFF_ATLAS_RUN2(const Particle& y) {
+    return PHOTON_EFF_ATLAS_RUN1(y);
+  }
+
+  /// CMS Run 1 photon reco efficiency
+  /// @todo Currently identical to ATLAS, cf. Delphes
+  inline double PHOTON_EFF_CMS_RUN1(const Particle& y) {
+    if (y.pT() < 10*GeV || y.abseta() > 2.5) return 0;
+    return (y.abseta() < 1.5) ? 0.95 : 0.85;
+  }
+
+  /// CMS Run 2 photon reco efficiency
+  /// @todo Currently just a copy of Run 1: fix!
+  inline double PHOTON_EFF_CMS_RUN2(const Particle& y) {
+    return PHOTON_EFF_CMS_RUN1(y);
+  }
 
   //@}
 
@@ -380,7 +411,6 @@ namespace Rivet {
   //@{
 
   /// ATLAS Run 1 muon reco efficiency
-  /// @todo How to use this in combination with tracking eff?
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
     if (m.abseta() > 2.7) return 0;
     if (m.pT() < 10*GeV) return 0;
@@ -425,7 +455,6 @@ namespace Rivet {
 
 
   /// CMS Run 1 muon reco efficiency
-  /// @todo How to use this in combination with tracking eff?
   inline double MUON_EFF_CMS_RUN1(const Particle& m) {
     if (m.abseta() > 2.4) return 0;
     if (m.pT() < 10*GeV) return 0;
@@ -712,7 +741,7 @@ namespace Rivet {
   //@{
 
   /// ATLAS Run 1 tracking efficiency
-  inline double TRKEFF_ATLAS_RUN1(const Particle& p) {
+  inline double TRK_EFF_ATLAS_RUN1(const Particle& p) {
     if (p.charge3() == 0) return 0;
     if (p.abseta() > 2.5) return 0;
     if (p.pT() < 0.1*GeV) return 0;
@@ -727,47 +756,63 @@ namespace Rivet {
         if (p.pT() < 100*GeV) return 0.83;
         else return 0.90;
       }
-    } else { // muons and hadrons
+    } else if (p.abspid() == PID::MUON) {
       if (p.abseta() < 1.5) {
         return (p.pT() < 1*GeV) ? 0.75 : 0.99;
       } else {
         return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    } else { // charged hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
       }
     }
   }
 
   /// ATLAS Run 2 tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double TRKEFF_ATLAS_RUN2(const Particle& p) {
-    return TRKEFF_ATLAS_RUN1(p);
+  inline double TRK_EFF_ATLAS_RUN2(const Particle& p) {
+    return TRK_EFF_ATLAS_RUN1(p);
   }
 
 
   /// CMS Run 1 tracking efficiency
-  inline double TRKEFF_CMS_RUN1(const Particle& p) {
+  inline double TRK_EFF_CMS_RUN1(const Particle& p) {
     if (p.charge3() == 0) return 0;
     if (p.abseta() > 2.5) return 0;
     if (p.pT() < 0.1*GeV) return 0;
 
     if (p.abspid() == PID::ELECTRON) {
       if (p.abseta() < 1.5) {
-        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+        if (p.pT() < 1*GeV) return 0.73;
+        if (p.pT() < 100*GeV) return 0.95;
+        return 0.99;
       } else {
-        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
+        if (p.pT() < 1*GeV) return 0.50;
+        if (p.pT() < 100*GeV) return 0.83;
+        else return 0.90;
       }
-    } else { // muons and hadrons
+    } else if (p.abspid() == PID::MUON) {
       if (p.abseta() < 1.5) {
         return (p.pT() < 1*GeV) ? 0.75 : 0.99;
       } else {
         return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    } else { // charged hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
       }
     }
   }
 
   /// CMS Run 2 tracking efficiency
   /// @todo Currently just a copy of Run 1: fix!
-  inline double TRKEFF_CMS_RUN2(const Particle& p) {
-    return TRKEFF_CMS_RUN1(p);
+  inline double TRK_EFF_CMS_RUN2(const Particle& p) {
+    return TRK_EFF_CMS_RUN1(p);
   }
 
   //@}

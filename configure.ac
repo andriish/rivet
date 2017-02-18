@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.5.3-pre],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.5.3],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -213,9 +213,9 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 
 ## Cython checks
 if test x$enable_pyext == xyes; then
-  AM_CHECK_CYTHON([0.23.5], [:], [:])
+  AM_CHECK_CYTHON([0.24.0], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
-    AC_MSG_NOTICE([Cython >= 0.23.5 found: Python extension source can be rebuilt (for developers)])
+    AC_MSG_NOTICE([Cython >= 0.24 found: Python extension source can be rebuilt (for developers)])
   fi
 
   AC_CHECK_FILE([pyext/rivet/core.cpp],

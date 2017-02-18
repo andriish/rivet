@@ -111,7 +111,9 @@ namespace Rivet {
           if (jet.E()>3.0*GeV) jets.push_back(jet);
         }
         if (jets.size() == 4) {
-          _h_BZ->fill(fabs(calc_BZ(jets)), weight);
+          // Prevent nan-fill due to division by zero in calc_BZ
+          double bz = fabs(calc_BZ(jets));
+          if (!std::isnan(bz)) _h_BZ->fill(bz, weight);
           _h_KSW->fill(calc_KSW(jets), weight);
           _h_NR->fill(fabs(calc_NR(jets)), weight);
           _h_ALPHA34->fill(calc_ALPHA34(jets), weight);

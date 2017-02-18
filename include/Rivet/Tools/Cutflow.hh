@@ -20,15 +20,15 @@ namespace Rivet {
     {  }
 
     /// @brief Fill the pre-cut counter
-    void fillinit() {
-      counts[0] += 1;
+    void fillinit(double weight=1.) {
+      counts[0] += weight;
     }
 
     /// @brief Fill the @a {icut}'th post-cut counter
     ///
     /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool fill(size_t icut, bool cutresult) {
-      if (cutresult) counts[icut+1] += 1;
+    bool fill(size_t icut, bool cutresult, double weight=1.) {
+      if (cutresult) counts[icut+1] += weight;
       return cutresult;
     }
 
@@ -40,15 +40,19 @@ namespace Rivet {
     /// or double-counting will occur.
     ///
     /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool fill(const vector<bool>& cutresults) {
+    bool fill(const vector<bool>& cutresults, double weight=1.) {
       if (cutresults.size() != ncuts)
         throw RangeError("Number of filled cut results needs to match the Cutflow construction");
       counts[0] += 1;
       for (size_t i = 0; i < ncuts; ++i) {
-        if (cutresults[i]) counts[i+1] += 1; else break;
+        if (cutresults[i]) counts[i+1] += weight; else break;
       }
       return all(cutresults);
     }
+
+    /// @todo Add a fillnext(), keeping track of current ifill
+
+    /// @todo Add a fillhead() (or vector fillnext()?)
 
     /// @brief Fill the N trailing post-cut counters, when supplied with an N-element results vector
     ///
@@ -57,30 +61,46 @@ namespace Rivet {
     /// the vetoEvent directive. The initial state (state 0) is not incremented.
     ///
     /// @note Returns the overall cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool filltail(const vector<bool>& cutresults) {
+    bool filltail(const vector<bool>& cutresults, double weight=1.) {
       if (cutresults.size() > ncuts)
         throw RangeError("Number of filled cut results needs to match the Cutflow construction");
       const size_t offset = counts.size() - cutresults.size();
       for (size_t i = 0; i < cutresults.size(); ++i) {
-        if (cutresults[i]) counts[offset+i] += 1; else break;
+        if (cutresults[i]) counts[offset+i] += weight; else break;
       }
       return all(cutresults);
+    }
+
+    /// Scale the cutflow weights by the given factor
+    void scale(double factor) {
+      for (double& x : counts) x *= factor;
     }
 
     /// Create a string representation
     string str() const {
       stringstream ss;
+      ss << fixed << setprecision(1) << counts[0];
+      const size_t count0len = ss.str().length();
+      ss.str("");
       ss << name << " cut-flow:";
-      size_t maxlen = 0;
-      for (const string& t : cuts) maxlen = max(t.length(), maxlen);
+      size_t maxnamelen = 0;
+      for (const string& t : cuts)
+        maxnamelen = max(t.length(), maxnamelen);
       for (size_t i = 0; i <= ncuts; ++i) {
         const int pcttot = (counts[0] == 0) ? -1 : round(100*counts[i]/double(counts[0]));
         const int pctinc = (i == 0 || counts[i-1] == 0) ? -1 : round(100*counts[i]/double(counts[i-1]));
-        ss << "\n" << setw(maxlen+5) << left
-           << (i == 0 ? "" : "Pass "+cuts[i-1]) << "   " << right
-           << setw(toString(counts[0]).length()) << toString(counts[i]) << "    "
-           << setw(4) << (pcttot < 0 ? "- " : toString(pcttot)+"%") << "    "
-           << setw(4) << (pctinc < 0 ? "- " : toString(pctinc)+"%");
+        stringstream ss2;
+        ss2 << fixed << setprecision(1) << counts[i];
+        const string countstr = ss2.str(); ss2.str("");
+        ss2 << fixed << setprecision(2) << pcttot << "%";
+        const string pcttotstr = ss2.str(); ss2.str("");
+        ss2 << fixed << setprecision(2) << pctinc << "%";
+        const string pctincstr = ss2.str();
+        ss << "\n"
+           << setw(maxnamelen+5) << left << (i == 0 ? "" : "Pass "+cuts[i-1]) << "   "
+           << setw(count0len) << right << countstr << "    "
+           << setw(4) << right << (pcttot < 0 ? "- " : pcttotstr) << "    "
+           << setw(4) << right << (pctinc < 0 ? "- " : pctincstr);
       }
       return ss.str();
     }
@@ -93,12 +113,13 @@ namespace Rivet {
     string name;
     size_t ncuts;
     vector<string> cuts;
-    vector<int> counts;
+    vector<double> counts;
 
   };
 
+
   /// Print a Cutflow to a stream
-  ostream& operator << (ostream& os, const Cutflow& cf) {
+  inline ostream& operator << (ostream& os, const Cutflow& cf) {
     return os << cf.str();
   }
 
@@ -141,9 +162,24 @@ namespace Rivet {
       throw UserError("Requested cut-flow name '" + name + "' does not exist");
     }
 
-    /// Fill the pre-cuts state counter for all contained Cutflows
-    void fillinit() {
-      for (Cutflow& cf : cfs) cf.fillinit();
+    /// Fill the pre-cuts state counter for all contained {Cutflow}s
+    void fillinit(double weight=1.) {
+      for (Cutflow& cf : cfs) cf.fillinit(weight);
+    }
+
+    /// @brief Fill the @a {icut}'th post-cut counter with the same result for all {Cutflow}s
+    bool fill(size_t icut, bool cutresult, double weight=1.) {
+      for (Cutflow& cf : cfs) cf.fill(icut, cutresult, weight);
+      return cutresult;
+    }
+
+    /// @todo Add a fillnext(), keeping track of current ifill
+
+    /// @todo Add a fillhead() (or vector fillnext()?)
+
+    /// Scale the contained {Cutflow}s by the given factor
+    void scale(double factor) {
+      for (Cutflow& cf : cfs) cf.scale(factor);
     }
 
     /// Create a string representation
@@ -164,7 +200,7 @@ namespace Rivet {
   };
 
   /// Print a Cutflows to a stream
-  ostream& operator << (ostream& os, const Cutflows& cfs) {
+  inline ostream& operator << (ostream& os, const Cutflows& cfs) {
     return os << cfs.str();
   }
 

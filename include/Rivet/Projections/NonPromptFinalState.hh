@@ -20,7 +20,7 @@ namespace Rivet {
     NonPromptFinalState(const FinalState& fsp, bool accepttaudecays=false, bool acceptmudecays=false);
 
     /// Constructor from a Cut (and implicit general FS).
-    NonPromptFinalState(const Cut& c, bool accepttaudecays=false, bool acceptmudecays=false);
+    NonPromptFinalState(const Cut& c=Cuts::open(), bool accepttaudecays=false, bool acceptmudecays=false);
 
     // /// Constructor from a Cut and optional FinalState.
     // NonPromptFinalState(const Cut& c, const FinalState& fsp=FinalState(),

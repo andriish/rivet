@@ -79,7 +79,7 @@ for ANANAME in ANANAMES:
     ANAEXPT = "<Insert the experiment name>"
     ANACOLLIDER = "<Insert the collider name>"
     ANAYEAR = "<Insert year of publication>"
-    INSPIRE_SPIRES = None
+    INSPIRE_SPIRES = 'I'
     ANAINSPIREID = "<Insert the Inspire ID>"
     if match:
         STDANA = True
@@ -201,7 +201,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Initialise and register projections
+      // Initialise and declare projections
       declare(FinalState(Cuts::abseta < 5 && Cuts::pT > 100*MeV), "FS");
 
       // Book histograms
@@ -229,9 +229,6 @@ namespace Rivet {
     }
 
     //@}
-
-
-  private:
 
 
     /// @name Histograms
@@ -290,14 +287,13 @@ Authors:
 #- '<Example: DOI:10.1140/epjc/s10052-016-4184-8>'
 #- '<Example: arXiv:1605.03814>'
 RunInfo: <Describe event types, cuts, and other general generator config tips.>
-NumEvents: 1000000
 NeedCrossSection: no
 #Beams: <Insert beam pair(s), e.g. [p+, p+] or [[p-, e-], [p-, e+]]>
-#Energies: <Run energies or beam energy pairs in GeV, e.g. [1960] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
+#Energies: <Run energies or beam energy pairs in GeV, e.g. [13000] or [[8.0, 3.5]] or [630, 1800]. Order pairs to match "Beams">
 Description:
   '<A fairly long description, including what is measured
   and if possible what it is useful for in terms of MC validation
-  and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.>
+  and tuning. Use LaTeX for maths like $\pT > 50\;\GeV$.>'
 BibKey: %(ANABIBKEY)s
 BibTeX: '%(ANABIBTEX)s'
 ToDo:
