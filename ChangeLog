@@ -1,3 +1,12 @@
+2017-02-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add getEnvParam function, for neater use of environment variable
+	parameters with a required default.
+
+2017-02-05  Andy Buckley  <andy.buckley@cern.ch>
+
+       * Add HasBTag and HasCTag jet functors, with lower-case aliases.
+
 2017-01-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use std::function in functor-expanded method signatures on JetAlg.
