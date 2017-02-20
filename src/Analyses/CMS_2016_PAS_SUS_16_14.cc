@@ -153,11 +153,11 @@ namespace Rivet {
       int iht = 0;
       if (htmiss < 350*GeV) {
         iht = ht < 500 ? 1 : ht < 1000 ? 2 : 3;
-      } if (htmiss < 500*GeV && ht > 350*GeV) {
+      } else if (htmiss < 500*GeV && ht > 350*GeV) {
         iht = ht < 500 ? 4 : ht < 1000 ? 5 : 6;
-      } if (htmiss < 750*GeV && ht > 500*GeV) {
+      } else if (htmiss < 750*GeV && ht > 500*GeV) {
         iht = ht < 1000 ? 7 : 8;
-      } if (ht > 750*GeV) {
+      } else if (ht > 750*GeV) {
         iht = ht < 1500 ? 9 : 10;
       }
       if (iht == 0) vetoEvent;

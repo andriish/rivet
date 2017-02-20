@@ -24,11 +24,11 @@ namespace Rivet {
       counts[0] += weight;
     }
 
-    /// @brief Fill the @a {icut}'th post-cut counter
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut
     ///
     /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool fill(size_t icut, bool cutresult, double weight=1.) {
-      if (cutresult) counts[icut+1] += weight;
+    bool fill(size_t icut, bool cutresult=true, double weight=1.) {
+      if (cutresult) counts[icut] += weight;
       return cutresult;
     }
 
