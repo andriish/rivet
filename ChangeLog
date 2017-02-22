@@ -1,3 +1,7 @@
+2017-02-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add aggregate signal regions to CMS_2016_PAS_SUS_16_14.
+
 2017-02-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add getEnvParam function, for neater use of environment variable
