@@ -1,3 +1,8 @@
+2017-02-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Mark ATLAS_2016_CONF_2016_078 and CMS_2016_PAS_SUS_16_14
+	analyses as validated, since their cutflows match the documentation.
+
 2017-02-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add aggregate signal regions to CMS_2016_PAS_SUS_16_14.
