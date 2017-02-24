@@ -268,7 +268,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         if ana.inspireId():
             msg += "Inspire ID: " + ana.inspireId() + "\n"
             msg += "Inspire URL: http://inspire-hep.net/record/" + ana.inspireId() + "\n"
-            msg += "HepData URL: http://hepdata.cedar.ac.uk/view/ins" + ana.inspireId() + "\n"
+            msg += "HepData URL: http://hepdata.net/record/ins" + ana.inspireId() + "\n"
         elif ana.spiresId():
             msg += "Spires ID: " + ana.spiresId() + "\n"
             msg += "Inspire URL: http://inspire-hep.net/search?p=find+key+" + ana.spiresId() + "\n"
