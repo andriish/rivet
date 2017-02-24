@@ -60,6 +60,19 @@ namespace Rivet {
     calc(threeMomenta);
   }
 
+  Vector3 Sphericity::mkEigenVector(Matrix3 A, const double &lambda) {
+    const double b = A.get(0,1);
+    const double c = A.get(0,2);
+    const double d = A.get(1,1);
+    const double e = A.get(1,2);
+    const double f = A.get(2,2);
+
+    double x = e*(b*f -c*e - b*lambda)/(b*e -c*d + c*lambda)/c + (lambda -f)/c;
+    double y = (c*e -b*f +b*lambda)/(b*e -c*d + c*lambda);
+
+    Vector3 E(x,y,1);
+    return E.unit();
+  }
 
   void Sphericity::calc(const vector<Vector3>& momenta) {
     MSG_DEBUG("Calculating sphericity with r = " << _regparam);
@@ -109,19 +122,33 @@ namespace Rivet {
     // If not symmetric, something's wrong (we made sure the error msg appeared first).
     assert(isSymm);
 
-    // Diagonalize momentum matrix.
-    const EigenSystem<3> eigen3 = diagonalize(mMom);
-    MSG_DEBUG("Diag momentum tensor = " << "\n" << eigen3.getDiagMatrix());
+    // Eigenvalues
+    const double q = mMom.trace()/3.;
+    const double p1 = mMom.get(0,1)*mMom.get(0,1) + mMom.get(0,2)*mMom.get(0,2) + mMom.get(1,2)*mMom.get(1,2);
+    const double p2 = (mMom.get(0,0) - q)*(mMom.get(0,0) - q) 
+        + (mMom.get(1,1) - q)*(mMom.get(1,1) - q) +  (mMom.get(2,2) - q)*(mMom.get(2,2) - q) + 2.*p1;
+    const double p = sqrt(p2/6.);
 
-    // Reset and set eigenvalue/vector parameters.
+    Matrix3 I3 = Matrix3::mkIdentity();
+    const double r = ( 1./p * (mMom - q*I3)).det()/2.;
+
+    double phi(0);
+    if (r <= -1) phi = M_PI / 3.;
+    else if (r >= 1) phi = 0;
+    else phi = acos(r) / 3.;
+
+    const double l1 = q + 2 * p * cos(phi);
+    const double l3 = q + 2 * p * cos(phi + (2*M_PI/3.));
+    const double l2 = 3 * q - l1 - l3;
+
     _lambdas.clear();
     _sphAxes.clear();
-    const EigenSystem<3>::EigenPairs epairs = eigen3.getEigenPairs();
-    assert(epairs.size() == 3);
-    for (size_t i = 0; i < 3; ++i) {
-      _lambdas.push_back(epairs[i].first);
-      _sphAxes.push_back(Vector3(epairs[i].second));
-    }
+    _sphAxes.push_back(mkEigenVector(mMom, l1));
+    _sphAxes.push_back(mkEigenVector(mMom, l2));
+    _sphAxes.push_back(mkEigenVector(mMom, l3));
+    _lambdas.push_back(l1);
+    _lambdas.push_back(l2);
+    _lambdas.push_back(l3);
 
     // Debug output.
     MSG_DEBUG("Lambdas = ("
