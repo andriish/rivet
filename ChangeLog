@@ -1,3 +1,8 @@
+2017-02-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add BoolParticleAND, BoolJetOR, etc. functor combiners to
+	Tools/ParticleUtils.hh and Tools/JetUtils.hh.
+
 2017-02-24  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Mark ATLAS_2016_CONF_2016_078 and CMS_2016_PAS_SUS_16_14

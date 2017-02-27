@@ -19,6 +19,7 @@ namespace Rivet {
   using ParticleSorter = function<bool(const Particle&, const Particle&)>;
 
 
+
   /// @name Particle classifier functions
   //@{
 
@@ -442,6 +443,34 @@ namespace Rivet {
   /// Base type for Particle -> bool functors
   struct BoolParticleFunctor {
     virtual bool operator()(const Particle& p) const = 0;
+  };
+
+  struct BoolParticleAND : public BoolParticleFunctor {
+    BoolParticleAND(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
+    BoolParticleAND(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
+    BoolParticleAND(const ParticleSelector& a, const ParticleSelector& b, const ParticleSelector& c) : selectors({a,b,c}) {}
+    bool operator()(const Particle& p) const {
+      for (const ParticleSelector& sel : selectors) if (!sel(p)) return false;
+      return true;
+    }
+    std::vector<ParticleSelector> selectors;
+  };
+
+  struct BoolParticleOR : public BoolParticleFunctor {
+    BoolParticleOR(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
+    BoolParticleOR(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
+    BoolParticleOR(const ParticleSelector& a, const ParticleSelector& b, const ParticleSelector& c) : selectors({a,b,c}) {}
+    bool operator()(const Particle& p) const {
+      for (const ParticleSelector& sel : selectors) if (sel(p)) return true;
+      return false;
+    }
+    std::vector<ParticleSelector> selectors;
+  };
+
+  struct BoolParticleNOT : public BoolParticleFunctor {
+    BoolParticleNOT(const ParticleSelector& sel) : selector(sel) {}
+    bool operator()(const Particle& p) const { return !selector(p); }
+    ParticleSelector selector;
   };
 
 
