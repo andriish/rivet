@@ -317,19 +317,17 @@ namespace Rivet {
     return p.isFirstWithout(f);
   }
 
+
   /// @brief Determine whether a particle is the last in a decay chain to meet the function requirement
   inline bool isLastWith(const Particle& p, const ParticleSelector& f) {
     return p.isLastWith(f);
-    // if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
-    // if (any(p.children(), f)) return false; //< If a child has this property, this isn't the last
-    // return true;
   }
 
   /// @brief Determine whether a particle is the last in a decay chain not to meet the function requirement
   inline bool isLastWithout(const Particle& p, const ParticleSelector& f) {
     return p.isLastWithout(f);
-    // return isLastWith(p, [&](const Particle& pp){ return !f(pp); });
   }
+
 
 
   /// @brief Determine whether a particle has an ancestor which meets the function requirement
@@ -339,7 +337,7 @@ namespace Rivet {
 
   /// @brief Determine whether a particle has an ancestor which doesn't meet the function requirement
   inline bool hasAncestorWithout(const Particle& p, const ParticleSelector& f) {
-    return hasAncestorWith(p, [&](const Particle& pp){ return !f(pp); });
+    return p.hasAncestorWithout(f);
   }
 
 
@@ -350,20 +348,18 @@ namespace Rivet {
 
   /// @brief Determine whether a particle has a parent which doesn't meet the function requirement
   inline bool hasParentWithout(const Particle& p, const ParticleSelector& f) {
-    return hasParentWith(p, [&](const Particle& pp){ return !f(pp); });
+    return p.hasParentWithout(f);
   }
 
 
   /// @brief Determine whether a particle has a child which meets the function requirement
   inline bool hasChildWith(const Particle& p, const ParticleSelector& f) {
     return p.hasChildWith(f);
-    // return !p.children(f).empty();
   }
 
   /// @brief Determine whether a particle has a child which doesn't meet the function requirement
   inline bool hasChildWithout(const Particle& p, const ParticleSelector& f) {
-    return hasChildWith(p, [&](const Particle& pp){ return !f(pp); });
-    // return p.children(f).empty();
+    return p.hasChildWithout(f);
   }
 
 
@@ -375,8 +371,7 @@ namespace Rivet {
 
   /// @brief Determine whether a particle has a descendant which doesn't meet the function requirement
   inline bool hasDescendantWithout(const Particle& p, const ParticleSelector& f) {
-    return hasDescendantWith(p, [&](const Particle& pp){ return !f(pp); });
-    // return p.allDescendants(f).empty();
+    return p.hasDescendantWithout(f);
   }
 
 
@@ -387,7 +382,7 @@ namespace Rivet {
 
   /// @brief Determine whether a particle has a stable descendant which doesn't meet the function requirement
   inline bool hasStableDescendantWithout(const Particle& p, const ParticleSelector& f) {
-    return hasStableDescendantWith(p, [&](const Particle& pp){ return !f(pp); });
+    return p.hasStableDescendantWithout(f);
   }
 
 

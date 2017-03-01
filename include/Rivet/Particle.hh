@@ -211,6 +211,36 @@ namespace Rivet {
       return filter_select(parents(), f);
     }
 
+    /// Check whether any particle in the particle's parent list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWith(const ParticleSelector& f) const {
+      return !parents(f).empty();
+    }
+    /// Check whether any particle in the particle's parent list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWith(const Cut& c) const;
+
+    /// Check whether any particle in the particle's parent list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWithout(const ParticleSelector& f) const {
+      return hasParentWith([&](const Particle& p){ return !f(p); });
+    }
+    /// Check whether any particle in the particle's parent list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWithout(const Cut& c) const;
+
     /// Check whether a given PID is found in the particle's parent list
     ///
     /// @note This question is valid in MC, but may not be answerable
@@ -220,16 +250,6 @@ namespace Rivet {
     /// @deprecated Prefer e.g. hasParentWith(Cut::pid == 123)
     //DEPRECATED("Prefer e.g. hasParentWith(Cut::pid == 123)");
     bool hasParent(PdgId pid) const;
-
-    /// Check whether a particle in the particle's parent list has the requested property
-    ///
-    /// @note This question is valid in MC, but may not be answerable
-    /// experimentally -- use this function with care when replicating
-    /// experimental analyses!
-    bool hasParentWith(const ParticleSelector& f) const {
-      return !parents(f).empty();
-    }
-    bool hasParentWith(const Cut& c) const;
 
 
 
@@ -251,6 +271,36 @@ namespace Rivet {
       return filter_select(ancestors(Cuts::OPEN, only_physical), f);
     }
 
+    /// Check whether any particle in the particle's ancestor list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestorWith(const ParticleSelector& f, bool only_physical=true) const {
+      return !ancestors(f, only_physical).empty();
+    }
+    /// Check whether any particle in the particle's ancestor list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestorWith(const Cut& c, bool only_physical=true) const;
+
+    /// Check whether any particle in the particle's ancestor list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestorWithout(const ParticleSelector& f, bool only_physical=true) const {
+      return hasAncestorWith([&](const Particle& p){ return !f(p); }, only_physical);
+    }
+    /// Check whether any particle in the particle's ancestor list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestorWithout(const Cut& c, bool only_physical=true) const;
+
     /// Check whether a given PID is found in the particle's ancestor list
     ///
     /// @note This question is valid in MC, but may not be answerable
@@ -260,16 +310,6 @@ namespace Rivet {
     /// @deprecated Prefer hasAncestorWith(Cuts::pid == pid) etc.
     //DEPRECATED("Prefer e.g. hasAncestorWith(Cut::pid == 123)");
     bool hasAncestor(PdgId pid, bool only_physical=true) const;
-
-    /// Check whether a particle in the particle's ancestor list has the requested property
-    ///
-    /// @note This question is valid in MC, but may not be answerable
-    /// experimentally -- use this function with care when replicating
-    /// experimental analyses!
-    bool hasAncestorWith(const ParticleSelector& f, bool only_physical=true) const {
-      return !ancestors(f, only_physical).empty();
-    }
-    bool hasAncestorWith(const Cut& c, bool only_physical=true) const;
 
 
     /// @brief Determine whether the particle is from a b-hadron decay
@@ -376,7 +416,7 @@ namespace Rivet {
       return filter_select(children(), f);
     }
 
-    /// Check whether a direct child of this particle has the requested property
+    /// Check whether any direct child of this particle has the requested property
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
@@ -384,7 +424,27 @@ namespace Rivet {
     bool hasChildWith(const ParticleSelector& f) const {
       return !children(f).empty();
     }
+    /// Check whether any direct child of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
     bool hasChildWith(const Cut& c) const;
+
+    /// Check whether any direct child of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasChildWithout(const ParticleSelector& f) const {
+      return hasChildWith([&](const Particle& p){ return !f(p); });
+    }
+    /// Check whether any direct child of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasChildWithout(const Cut& c) const;
 
 
     /// Get a list of all the descendants from the current particle (with optional selection Cut)
@@ -395,7 +455,7 @@ namespace Rivet {
       return filter_select(allDescendants(Cuts::OPEN, remove_duplicates), f);
     }
 
-    /// Check whether a descendant of this particle has the requested property
+    /// Check whether any descendant of this particle has the requested property
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
@@ -403,7 +463,27 @@ namespace Rivet {
     bool hasDescendantWith(const ParticleSelector& f, bool remove_duplicates=true) const {
       return !allDescendants(f, remove_duplicates).empty();
     }
+    /// Check whether any descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
     bool hasDescendantWith(const Cut& c, bool remove_duplicates=true) const;
+
+    /// Check whether any descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasDescendantWithout(const ParticleSelector& f, bool remove_duplicates=true) const {
+      return hasDescendantWith([&](const Particle& p){ return !f(p); }, remove_duplicates);
+    }
+    /// Check whether any descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasDescendantWithout(const Cut& c, bool remove_duplicates=true) const;
 
 
     /// Get a list of all the stable descendants from the current particle (with optional selection Cut)
@@ -417,7 +497,7 @@ namespace Rivet {
       return filter_select(stableDescendants(), f);
     }
 
-    /// Check whether a stable descendant of this particle has the requested property
+    /// Check whether any stable descendant of this particle has the requested property
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
@@ -425,8 +505,27 @@ namespace Rivet {
     bool hasStableDescendantWith(const ParticleSelector& f) const {
       return !stableDescendants(f).empty();
     }
+    /// Check whether any stable descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
     bool hasStableDescendantWith(const Cut& c) const;
 
+    /// Check whether any stable descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasStableDescendantWithout(const ParticleSelector& f) const {
+      return hasStableDescendantWith([&](const Particle& p){ return !f(p); });
+    }
+    /// Check whether any stable descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasStableDescendantWithout(const Cut& c) const;
 
 
     /// Flight length (divide by mm or cm to get the appropriate units)
