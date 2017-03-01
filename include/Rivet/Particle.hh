@@ -207,8 +207,7 @@ namespace Rivet {
     /// @note This is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    template <typename FN>
-    Particles parents(const FN& f) const {
+    Particles parents(const ParticleSelector& f) const {
       return filter_select(parents(), f);
     }
 
@@ -218,7 +217,8 @@ namespace Rivet {
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
     ///
-    /// @deprecated Prefer e.g. parents(Cut::pid == 123).size()
+    /// @deprecated Prefer e.g. hasParentWith(Cut::pid == 123)
+    //DEPRECATED("Prefer e.g. hasParentWith(Cut::pid == 123)");
     bool hasParent(PdgId pid) const;
 
     /// Check whether a particle in the particle's parent list has the requested property
@@ -226,12 +226,8 @@ namespace Rivet {
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    ///
-    /// @deprecated Prefer parents(Cut) or parents(FN) methods and .empty()
-    template <typename FN>
-    bool hasParentWith(const FN& f) const {
+    bool hasParentWith(const ParticleSelector& f) const {
       return !parents(f).empty();
-      // return _hasRelativeWith(HepMC::parents, f);
     }
     bool hasParentWith(const Cut& c) const;
 
@@ -251,8 +247,7 @@ namespace Rivet {
     ///
     /// @note This is valid in MC, but may not be answerable experimentally --
     /// use this function with care when replicating experimental analyses!
-    template <typename FN>
-    Particles ancestors(const FN& f, bool only_physical=true) const {
+    Particles ancestors(const ParticleSelector& f, bool only_physical=true) const {
       return filter_select(ancestors(Cuts::OPEN, only_physical), f);
     }
 
@@ -263,6 +258,7 @@ namespace Rivet {
     /// experimental analyses!
     ///
     /// @deprecated Prefer hasAncestorWith(Cuts::pid == pid) etc.
+    //DEPRECATED("Prefer e.g. hasAncestorWith(Cut::pid == 123)");
     bool hasAncestor(PdgId pid, bool only_physical=true) const;
 
     /// Check whether a particle in the particle's ancestor list has the requested property
@@ -270,10 +266,8 @@ namespace Rivet {
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    template <typename FN>
-    bool hasAncestorWith(const FN& f, bool only_physical=true) const {
+    bool hasAncestorWith(const ParticleSelector& f, bool only_physical=true) const {
       return !ancestors(f, only_physical).empty();
-      // return _hasRelativeWith(HepMC::ancestors, f);
     }
     bool hasAncestorWith(const Cut& c, bool only_physical=true) const;
 
@@ -378,8 +372,7 @@ namespace Rivet {
     Particles children(const Cut& c=Cuts::OPEN) const;
 
     /// Get a list of the direct descendants from the current particle (with selector function)
-    template <typename FN>
-    Particles children(const FN& f) const {
+    Particles children(const ParticleSelector& f) const {
       return filter_select(children(), f);
     }
 
@@ -388,8 +381,7 @@ namespace Rivet {
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    template <typename FN>
-    bool hasChildWith(const FN& f) const {
+    bool hasChildWith(const ParticleSelector& f) const {
       return !children(f).empty();
     }
     bool hasChildWith(const Cut& c) const;
@@ -399,8 +391,7 @@ namespace Rivet {
     Particles allDescendants(const Cut& c=Cuts::OPEN, bool remove_duplicates=true) const;
 
     /// Get a list of all the descendants from the current particle (with selector function)
-    template <typename FN>
-    Particles allDescendants(const FN& f, bool remove_duplicates=true) const {
+    Particles allDescendants(const ParticleSelector& f, bool remove_duplicates=true) const {
       return filter_select(allDescendants(Cuts::OPEN, remove_duplicates), f);
     }
 
@@ -409,8 +400,7 @@ namespace Rivet {
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    template <typename FN>
-    bool hasDescendantWith(const FN& f, bool remove_duplicates=true) const {
+    bool hasDescendantWith(const ParticleSelector& f, bool remove_duplicates=true) const {
       return !allDescendants(f, remove_duplicates).empty();
     }
     bool hasDescendantWith(const Cut& c, bool remove_duplicates=true) const;
@@ -423,8 +413,7 @@ namespace Rivet {
     Particles stableDescendants(const Cut& c=Cuts::OPEN) const;
 
     /// Get a list of all the stable descendants from the current particle (with selector function)
-    template <typename FN>
-    Particles stableDescendants(const FN& f) const {
+    Particles stableDescendants(const ParticleSelector& f) const {
       return filter_select(stableDescendants(), f);
     }
 
@@ -433,8 +422,7 @@ namespace Rivet {
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    template <typename FN>
-    bool hasStableDescendantWith(const FN& f) const {
+    bool hasStableDescendantWith(const ParticleSelector& f) const {
       return !stableDescendants(f).empty();
     }
     bool hasStableDescendantWith(const Cut& c) const;
@@ -450,30 +438,27 @@ namespace Rivet {
     /// @name Duplicate testing
     //@{
 
-    template <typename FN>
-    inline bool isFirstWith(const FN& f) const {
+    /// @brief Determine whether a particle is the first in a decay chain to meet the function requirement
+    inline bool isFirstWith(const ParticleSelector& f) const {
       if (!f(*this)) return false; //< This doesn't even meet f, let alone being the last to do so
       if (any(parents(), f)) return false; //< If a direct parent has this property, this isn't the first
       return true;
     }
 
     /// @brief Determine whether a particle is the first in a decay chain not to meet the function requirement
-    template <typename FN>
-    inline bool isFirstWithout(const FN& f) const {
+    inline bool isFirstWithout(const ParticleSelector& f) const {
       return isFirstWith([&](const Particle& p){ return !f(p); });
     }
 
     /// @brief Determine whether a particle is the last in a decay chain to meet the function requirement
-    template <typename FN>
-    inline bool isLastWith(const FN& f) const {
+    inline bool isLastWith(const ParticleSelector& f) const {
       if (!f(*this)) return false; //< This doesn't even meet f, let alone being the last to do so
       if (any(children(), f)) return false; //< If a child has this property, this isn't the last
       return true;
     }
 
     /// @brief Determine whether a particle is the last in a decay chain not to meet the function requirement
-    template <typename FN>
-    inline bool isLastWithout(const FN& f) const {
+    inline bool isLastWithout(const ParticleSelector& f) const {
       return isLastWith([&](const Particle& p){ return !f(p); });
     }
 
@@ -481,14 +466,6 @@ namespace Rivet {
 
 
   protected:
-
-    // template <typename FN>
-    // bool _hasRelativeWith(HepMC::IteratorRange relation, const FN& f) const {
-    //   for (const GenParticle* ancestor : particles(genParticle(), relation)) {
-    //     if (f(Particle(ancestor))) return true;
-    //   }
-    //   return false;
-    // }
 
     /// A pointer to the original GenParticle from which this Particle is projected.
     const GenParticle* _original;

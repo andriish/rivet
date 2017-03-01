@@ -1,5 +1,9 @@
 2017-03-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Move Particle and Jet std::function aliases to .fhh files, and
+	replace many uses of templates for functor arguments with
+	ParticleSelector meta-types instead.
+
 	* Move the canonical implementations of hasAncestorWith, etc. and
 	isLastWith, etc. from ParticleUtils.hh into Particle.
 
