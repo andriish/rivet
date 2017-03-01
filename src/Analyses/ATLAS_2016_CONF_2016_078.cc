@@ -32,7 +32,7 @@ namespace Rivet {
       declare(fj, "TruthJets");
       declare(SmearedJets(fj, JET_SMEAR_ATLAS_RUN2, //JET_BTAG_ATLAS_RUN2_MV2C10
                           [](const Jet& j) {
-                            if (j.abseta() > 2.5) return 0;
+                            if (j.abseta() > 2.5) return 0.;
                             return j.bTagged(Cuts::pT > 5*GeV) ? 0.77 : j.cTagged(Cuts::pT > 5*GeV) ? 1/6. : 1/134.;
                           }), "RecoJets");
 
