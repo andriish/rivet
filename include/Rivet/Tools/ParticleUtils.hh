@@ -314,70 +314,36 @@ namespace Rivet {
   /// @name Non-PID particle properties, via unbound functions
   //@{
 
-  /// Is this particle potentially visible in a detector?
-  inline bool isVisible(const Particle& p) { return p.isVisible(); }
-
-  /// @brief Decide if a given particle is prompt, via Particle::isPrompt()
-  ///
-  /// The boolean arguments allow a decay lepton to be considered prompt if
-  /// its parent was a "real" prompt lepton.
-  inline bool isPrompt(const Particle& p, bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) {
-    return p.isPrompt(allow_from_prompt_tau, allow_from_prompt_mu);
-  }
-
-  /// Decide if a given particle is stable, via Particle::isStable()
-  inline bool isStable(const Particle& p) { return p.isStable(); }
-
-  /// Check whether a given PID is found in the particle's ancestor list
-  inline bool hasAncestor(const Particle& p, PdgId pid)  { return p.hasAncestor(pid); }
-
-  /// Determine whether the particle is from a b-hadron decay
-  inline bool fromBottom(const Particle& p) { return p.fromBottom(); }
-
-  /// @brief Determine whether the particle is from a c-hadron decay
-  inline bool fromCharm(const Particle& p) { return p.fromCharm(); }
-
-  /// @brief Determine whether the particle is from a hadron decay
-  inline bool fromHadron(const Particle& p) { return p.fromHadron(); }
-
-  /// @brief Determine whether the particle is from a tau decay
-  inline bool fromTau(const Particle& p, bool prompt_taus_only=false) {
-    return p.fromTau(prompt_taus_only);
-  }
-
-  /// @brief Determine whether the particle is from a prompt tau decay
-  inline bool fromPromptTau(const Particle& p) { return p.fromPromptTau(); }
-
-  /// @brief Determine whether the particle is from a hadron or tau decay
-  inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
-
-
   /// @brief Determine whether a particle is the first in a decay chain to meet the function requirement
   template <typename FN>
   inline bool isFirstWith(const Particle& p, const FN& f) {
-    if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
-    if (any(p.parents(), f)) return false; //< If a direct parent has this property, this isn't the first
-    return true;
+    return p.isFirstWith(f);
+    // if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
+    // if (any(p.parents(), f)) return false; //< If a direct parent has this property, this isn't the first
+    // return true;
   }
 
   /// @brief Determine whether a particle is the first in a decay chain not to meet the function requirement
   template <typename FN>
   inline bool isFirstWithout(const Particle& p, const FN& f) {
-    return isFirstWith(p, [&](const Particle& pp){ return !f(pp); });
+    return p.isFirstWithout(f);
+    // return isFirstWith(p, [&](const Particle& pp){ return !f(pp); });
   }
 
   /// @brief Determine whether a particle is the last in a decay chain to meet the function requirement
   template <typename FN>
   inline bool isLastWith(const Particle& p, const FN& f) {
-    if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
-    if (any(p.children(), f)) return false; //< If a child has this property, this isn't the last
-    return true;
+    return p.isLastWith(f);
+    // if (!f(p)) return false; //< This doesn't even meet f, let alone being the last to do so
+    // if (any(p.children(), f)) return false; //< If a child has this property, this isn't the last
+    // return true;
   }
 
   /// @brief Determine whether a particle is the last in a decay chain not to meet the function requirement
   template <typename FN>
   inline bool isLastWithout(const Particle& p, const FN& f) {
-    return isLastWith(p, [&](const Particle& pp){ return !f(pp); });
+    return p.isLastWithout(f);
+    // return isLastWith(p, [&](const Particle& pp){ return !f(pp); });
   }
 
 
@@ -410,27 +376,113 @@ namespace Rivet {
   /// @brief Determine whether a particle has a child which meets the function requirement
   template <typename FN>
   inline bool hasChildWith(const Particle& p, const FN& f) {
-    return !p.children(f).empty();
+    return p.hasChildWith(f);
+    // return !p.children(f).empty();
   }
 
   /// @brief Determine whether a particle has a child which doesn't meet the function requirement
   template <typename FN>
   inline bool hasChildWithout(const Particle& p, const FN& f) {
-    return p.children(f).empty();
+    return hasChildWith(p, [&](const Particle& pp){ return !f(pp); });
+    // return p.children(f).empty();
   }
 
 
   /// @brief Determine whether a particle has a descendant which meets the function requirement
   template <typename FN>
   inline bool hasDescendantWith(const Particle& p, const FN& f) {
-    return !p.allDescendants(f).empty();
+    return p.hasDescendantWith(f);
+    // return !p.allDescendants(f).empty();
   }
 
   /// @brief Determine whether a particle has a descendant which doesn't meet the function requirement
   template <typename FN>
   inline bool hasDescendantWithout(const Particle& p, const FN& f) {
-    return p.allDescendants(f).empty();
+    return hasDescendantWith(p, [&](const Particle& pp){ return !f(pp); });
+    // return p.allDescendants(f).empty();
   }
+
+
+  /// @brief Determine whether a particle has a stable descendant which meets the function requirement
+  template <typename FN>
+  inline bool hasStableDescendantWith(const Particle& p, const FN& f) {
+    return p.hasStableDescendantWith(f);
+  }
+
+  /// @brief Determine whether a particle has a stable descendant which doesn't meet the function requirement
+  template <typename FN>
+  inline bool hasStableDescendantWithout(const Particle& p, const FN& f) {
+    return hasStableDescendantWith(p, [&](const Particle& pp){ return !f(pp); });
+  }
+
+
+
+  /// Is this particle potentially visible in a detector?
+  inline bool isVisible(const Particle& p) { return p.isVisible(); }
+
+  /// @brief Decide if a given particle is direct, via Particle::isDirect()
+  ///
+  /// A "direct" particle is one directly connected to the hard process. It is a
+  /// preferred alias for "prompt", since it has no confusing implications about
+  /// distinguishability by timing information.
+  ///
+  /// The boolean arguments allow a decay lepton to be considered direct if
+  /// its parent was a "real" direct lepton.
+  inline bool isDirect(const Particle& p, bool allow_from_direct_tau=false, bool allow_from_direct_mu=false) {
+    return p.isDirect(allow_from_direct_tau, allow_from_direct_mu);
+  }
+
+  /// @brief Decide if a given particle is prompt, via Particle::isPrompt()
+  ///
+  /// The boolean arguments allow a decay lepton to be considered prompt if
+  /// its parent was a "real" prompt lepton.
+  inline bool isPrompt(const Particle& p, bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) {
+    return p.isPrompt(allow_from_prompt_tau, allow_from_prompt_mu);
+  }
+
+
+  /// Decide if a given particle is stable, via Particle::isStable()
+  inline bool isStable(const Particle& p) { return p.isStable(); }
+
+  /// Decide if a given particle decays hadronically
+  inline bool hasHadronicDecay(const Particle& p) {
+    if (p.isStable()) return false;
+    if (p.hasChildWith(isHadron)) return true;
+    return false;
+  }
+
+  /// Decide if a given particle decays leptonically (decays, and no hadrons)
+  inline bool hasLeptonicDecay(const Particle& p) {
+    if (p.isStable()) return false;
+    if (p.hasChildWith(isHadron)) return false;
+    return true;
+  }
+
+
+  /// Check whether a given PID is found in the particle's ancestor list
+  /// @deprecated Prefer hasAncestorWith
+  inline bool hasAncestor(const Particle& p, PdgId pid)  { return p.hasAncestor(pid); }
+
+  /// Determine whether the particle is from a b-hadron decay
+  inline bool fromBottom(const Particle& p) { return p.fromBottom(); }
+
+  /// @brief Determine whether the particle is from a c-hadron decay
+  inline bool fromCharm(const Particle& p) { return p.fromCharm(); }
+
+  /// @brief Determine whether the particle is from a hadron decay
+  inline bool fromHadron(const Particle& p) { return p.fromHadron(); }
+
+  /// @brief Determine whether the particle is from a tau decay
+  inline bool fromTau(const Particle& p, bool prompt_taus_only=false) {
+    return p.fromTau(prompt_taus_only);
+  }
+
+  /// @brief Determine whether the particle is from a prompt tau decay
+  inline bool fromPromptTau(const Particle& p) { return p.fromPromptTau(); }
+
+  /// @brief Determine whether the particle is from a hadron or tau decay
+  /// @deprecated Too vague: use fromHadron or fromHadronicTau
+  inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
 
   //@}
 

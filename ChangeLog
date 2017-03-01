@@ -1,5 +1,8 @@
 2017-03-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Move the canonical implementations of hasAncestorWith, etc. and
+	isLastWith, etc. from ParticleUtils.hh into Particle.
+
 	* Disable the event-to-event beam consistency check if the
 	ignore-beams mode is active.
 

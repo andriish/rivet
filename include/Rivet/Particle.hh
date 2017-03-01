@@ -195,8 +195,6 @@ namespace Rivet {
     /// @name Ancestry properties
     //@{
 
-    /// @todo Add physicalAncestors, allAncestors?
-
     /// Get a list of the direct parents of the current particle (with optional selection Cut)
     ///
     /// @note This is valid in MC, but may not be answerable
@@ -232,16 +230,40 @@ namespace Rivet {
     /// @deprecated Prefer parents(Cut) or parents(FN) methods and .empty()
     template <typename FN>
     bool hasParentWith(const FN& f) const {
-      return _hasRelativeWith(HepMC::parents, f);
+      return !parents(f).empty();
+      // return _hasRelativeWith(HepMC::parents, f);
     }
     bool hasParentWith(const Cut& c) const;
+
+
+
+    /// Get a list of the ancestors of the current particle (with optional selection Cut)
+    ///
+    /// @note By default only physical ancestors, with status=2, are returned.
+    ///
+    /// @note This is valid in MC, but may not be answerable experimentally --
+    /// use this function with care when replicating experimental analyses!
+    Particles ancestors(const Cut& c=Cuts::OPEN, bool only_physical=true) const;
+
+    /// Get a list of the direct parents of the current particle (with selector function)
+    ///
+    /// @note By default only physical ancestors, with status=2, are returned.
+    ///
+    /// @note This is valid in MC, but may not be answerable experimentally --
+    /// use this function with care when replicating experimental analyses!
+    template <typename FN>
+    Particles ancestors(const FN& f, bool only_physical=true) const {
+      return filter_select(ancestors(Cuts::OPEN, only_physical), f);
+    }
 
     /// Check whether a given PID is found in the particle's ancestor list
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    bool hasAncestor(PdgId pid) const;
+    ///
+    /// @deprecated Prefer hasAncestorWith(Cuts::pid == pid) etc.
+    bool hasAncestor(PdgId pid, bool only_physical=true) const;
 
     /// Check whether a particle in the particle's ancestor list has the requested property
     ///
@@ -249,10 +271,12 @@ namespace Rivet {
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
     template <typename FN>
-    bool hasAncestorWith(const FN& f) const {
-      return _hasRelativeWith(HepMC::ancestors, f);
+    bool hasAncestorWith(const FN& f, bool only_physical=true) const {
+      return !ancestors(f, only_physical).empty();
+      // return _hasRelativeWith(HepMC::ancestors, f);
     }
-    bool hasAncestorWith(const Cut& c) const;
+    bool hasAncestorWith(const Cut& c, bool only_physical=true) const;
+
 
     /// @brief Determine whether the particle is from a b-hadron decay
     ///
@@ -302,6 +326,13 @@ namespace Rivet {
     /// experimental analyses!
     bool fromPromptTau() const { return fromTau(true); }
 
+    /// @brief Determine whether the particle is from a tau which decayed hadronically
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromHadronicTau(bool prompt_taus_only=false) const;
+
     /// @brief Determine whether the particle is from a hadron or tau decay
     ///
     /// Specifically, walk up the ancestor chain until a status 2 hadron or
@@ -310,15 +341,26 @@ namespace Rivet {
     /// @note This question is valid in MC, but may not be perfectly answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
+    ///
+    /// @deprecated Too vague: use fromHadron or fromHadronicTau
     bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
     /// @brief Shorthand definition of 'promptness' based on set definition flags
     ///
-    /// The boolean arguments allow a decay lepton to be considered prompt if
-    /// its parent was a "real" prompt lepton.
+    /// A "direct" particle is one directly connected to the hard process. It is a
+    /// preferred alias for "prompt", since it has no confusing implications about
+    /// distinguishability by timing information.
+    ///
+    /// The boolean arguments allow a decay lepton to be considered direct if
+    /// its parent was a "real" direct lepton.
     ///
     /// @note This one doesn't make any judgements about final-stateness
-    bool isPrompt(bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) const;
+    bool isDirect(bool allow_from_direct_tau=false, bool allow_from_direct_mu=false) const;
+
+    /// Alias for isDirect
+    bool isPrompt(bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) const {
+      return isDirect(allow_from_prompt_tau, allow_from_prompt_mu);
+    }
 
     //@}
 
@@ -329,6 +371,9 @@ namespace Rivet {
     /// Whether this particle is stable according to the generator
     bool isStable() const;
 
+    /// @todo isDecayed? How to restrict to physical particles?
+
+
     /// Get a list of the direct descendants from the current particle (with optional selection Cut)
     Particles children(const Cut& c=Cuts::OPEN) const;
 
@@ -338,6 +383,18 @@ namespace Rivet {
       return filter_select(children(), f);
     }
 
+    /// Check whether a direct child of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    template <typename FN>
+    bool hasChildWith(const FN& f) const {
+      return !children(f).empty();
+    }
+    bool hasChildWith(const Cut& c) const;
+
+
     /// Get a list of all the descendants from the current particle (with optional selection Cut)
     Particles allDescendants(const Cut& c=Cuts::OPEN, bool remove_duplicates=true) const;
 
@@ -346,6 +403,18 @@ namespace Rivet {
     Particles allDescendants(const FN& f, bool remove_duplicates=true) const {
       return filter_select(allDescendants(Cuts::OPEN, remove_duplicates), f);
     }
+
+    /// Check whether a descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    template <typename FN>
+    bool hasDescendantWith(const FN& f, bool remove_duplicates=true) const {
+      return !allDescendants(f, remove_duplicates).empty();
+    }
+    bool hasDescendantWith(const Cut& c, bool remove_duplicates=true) const;
+
 
     /// Get a list of all the stable descendants from the current particle (with optional selection Cut)
     ///
@@ -359,21 +428,67 @@ namespace Rivet {
       return filter_select(stableDescendants(), f);
     }
 
+    /// Check whether a stable descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    template <typename FN>
+    bool hasStableDescendantWith(const FN& f) const {
+      return !stableDescendants(f).empty();
+    }
+    bool hasStableDescendantWith(const Cut& c) const;
+
+
+
     /// Flight length (divide by mm or cm to get the appropriate units)
     double flightLength() const;
 
     //@}
 
 
-  protected:
+    /// @name Duplicate testing
+    //@{
 
     template <typename FN>
-    bool _hasRelativeWith(HepMC::IteratorRange relation, const FN& f) const {
-      for (const GenParticle* ancestor : particles(genParticle(), relation)) {
-        if (f(Particle(ancestor))) return true;
-      }
-      return false;
+    inline bool isFirstWith(const FN& f) const {
+      if (!f(*this)) return false; //< This doesn't even meet f, let alone being the last to do so
+      if (any(parents(), f)) return false; //< If a direct parent has this property, this isn't the first
+      return true;
     }
+
+    /// @brief Determine whether a particle is the first in a decay chain not to meet the function requirement
+    template <typename FN>
+    inline bool isFirstWithout(const FN& f) const {
+      return isFirstWith([&](const Particle& p){ return !f(p); });
+    }
+
+    /// @brief Determine whether a particle is the last in a decay chain to meet the function requirement
+    template <typename FN>
+    inline bool isLastWith(const FN& f) const {
+      if (!f(*this)) return false; //< This doesn't even meet f, let alone being the last to do so
+      if (any(children(), f)) return false; //< If a child has this property, this isn't the last
+      return true;
+    }
+
+    /// @brief Determine whether a particle is the last in a decay chain not to meet the function requirement
+    template <typename FN>
+    inline bool isLastWithout(const FN& f) const {
+      return isLastWith([&](const Particle& p){ return !f(p); });
+    }
+
+    //@}
+
+
+  protected:
+
+    // template <typename FN>
+    // bool _hasRelativeWith(HepMC::IteratorRange relation, const FN& f) const {
+    //   for (const GenParticle* ancestor : particles(genParticle(), relation)) {
+    //     if (f(Particle(ancestor))) return true;
+    //   }
+    //   return false;
+    // }
 
     /// A pointer to the original GenParticle from which this Particle is projected.
     const GenParticle* _original;
