@@ -92,15 +92,18 @@ namespace Rivet {
     if (!_initialised) init(ge);
     assert(_initialised);
 
-    // Ensure that beam details match those from the first event
-    const PdgIdPair beams = Rivet::beamIds(ge);
-    const double sqrts = Rivet::sqrtS(ge);
-    if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-      cerr << "Event beams mismatch: "
-           << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-           << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
-      exit(1);
+    // Ensure that beam details match those from the first event (if we're checking beams)
+    if ( !_ignoreBeams ) {
+      const PdgIdPair beams = Rivet::beamIds(ge);
+      const double sqrts = Rivet::sqrtS(ge);
+      if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
+        cerr << "Event beams mismatch: "
+             << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+             << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+        exit(1);
+      }
     }
+
 
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here

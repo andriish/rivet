@@ -1,3 +1,8 @@
+2017-03-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Disable the event-to-event beam consistency check if the
+	ignore-beams mode is active.
+
 2017-02-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add BoolParticleAND, BoolJetOR, etc. functor combiners to
