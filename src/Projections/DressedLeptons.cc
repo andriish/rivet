@@ -24,16 +24,7 @@ namespace Rivet {
                                  double dRmax, bool cluster, const Cut& cut,
                                  bool useDecayPhotons)
     : DressedLeptons(photons, bareleptons, dRmax, cut, cluster, useDecayPhotons)
-  {
-    // setName("DressedLeptons");
-
-    // IdentifiedFinalState photonfs(photons, PID::PHOTON);
-    // addProjection(photonfs, "Photons");
-
-    // IdentifiedFinalState leptonfs(bareleptons);
-    // leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
-    // addProjection(leptonfs, "Leptons");
-  }
+  {   }
 
 
   DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
@@ -43,16 +34,7 @@ namespace Rivet {
     : DressedLeptons(photons, bareleptons, dRmax,
                      Cuts::eta > etaMin && Cuts::eta < etaMax && Cuts::pT > pTmin,
                      cluster, useDecayPhotons)
-  {
-    // setName("DressedLeptons");
-
-    // IdentifiedFinalState photonfs(photons, PID::PHOTON);
-    // addProjection(photonfs, "Photons");
-
-    // IdentifiedFinalState leptonfs(bareleptons);
-    // leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
-    // addProjection(leptonfs, "Leptons");
-  }
+  {   }
 
 
 
@@ -91,7 +73,7 @@ namespace Rivet {
     const FinalState& photons = applyProjection<FinalState>(e, "Photons");
     for (const Particle& photon : photons.particles()) {
       // Ignore photon if it's from a hadron/tau decay and we're avoiding those
-      if (!_fromDecay && photon.fromDecay()) continue;
+      if (!_fromDecay && (photon.fromHadron() || photon.fromHadronicTau())) continue;
       const FourMomentum& p_P = photon.momentum();
       double dRmin = _dRmax;
       int idx = -1;

@@ -1,5 +1,9 @@
 2017-03-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Convert DressedLeptons use of fromDecay to instead veto photons
+	that match fromHadron() || fromHadronicTau() -- meaning that
+	electrons and muons from leptonic taus will now be dressed.
+
 	* Move Particle and Jet std::function aliases to .fhh files, and
 	replace many uses of templates for functor arguments with
 	ParticleSelector meta-types instead.
