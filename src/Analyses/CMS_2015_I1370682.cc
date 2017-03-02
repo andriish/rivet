@@ -96,7 +96,7 @@ namespace Rivet {
     CMS_2015_I1370682()
       : Analysis("CMS_2015_I1370682"),
         _applyCorrection(true),
-        _doShapeOnly(false)
+        _doShapeOnly(true)
     {    }
 
 
