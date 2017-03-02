@@ -1,3 +1,7 @@
+2017-03-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* src/Analyses/CMS_2015_I1370682.cc: Patch to inline jet finding from CMS.
+
 2017-03-01  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Convert DressedLeptons use of fromDecay to instead veto photons

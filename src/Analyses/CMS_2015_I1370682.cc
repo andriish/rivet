@@ -412,17 +412,13 @@ namespace Rivet {
       sortByPt(neutrinos);
 
       // Proceed to lepton dressing
-      const PseudoJets lep_pjs = mkPseudoJets(pForLep);
-      const fastjet::JetDefinition lep_jdef(fastjet::antikt_algorithm, _lepR);
-      const Jets leps_all = mkJets(fastjet::ClusterSequence(lep_pjs, lep_jdef).inclusive_jets());
-      const Jets leps_sel = sortByPt(filterBy(leps_all, Cuts::pT > _lepMinPt));
-      // FastJets fjLep(FastJets::ANTIKT, _lepR);
-      // fjLep.calc(pForLep);
+      FastJets fjLep(FinalState(), FastJets::ANTIKT, _lepR);
+      fjLep.calc(pForLep);
 
       Jets leptons;
       vector<int> leptonsId;
       set<int> dressedIdxs;
-      for (const Jet& lep : leps_sel) {
+      for (const Jet& lep : fjLep.jetsByPt(_lepMinPt)) {
         if (lep.abseta() > _lepMaxEta) continue;
         double leadingPt = -1;
         int leptonId = 0;
@@ -450,14 +446,10 @@ namespace Rivet {
       }
 
       // Then do the jet clustering
-      const PseudoJets jet_pjs = mkPseudoJets(pForJet);
-      const fastjet::JetDefinition jet_jdef(fastjet::antikt_algorithm, _jetR);
-      const Jets jets_all = mkJets(fastjet::ClusterSequence(jet_pjs, jet_jdef).inclusive_jets());
-      const Jets jets_sel = sortByPt(filterBy(jets_all, Cuts::pT > _jetMinPt));
-      // FastJets fjJet(FastJets::ANTIKT, _jetR);
+      FastJets fjJet(FinalState(), FastJets::ANTIKT, _jetR);
       //fjJet.useInvisibles(); // NOTE: CMS proposal to remove neutrinos (AB: wouldn't work anyway, since they were excluded from clustering inputs)
-      // fjJet.calc(pForJet);
-      for (const Jet& jet : jets_sel) {
+      fjJet.calc(pForJet);
+      for (const Jet& jet : fjJet.jetsByPt(_jetMinPt)) {
         if (jet.abseta() > _jetMaxEta) continue;
         _jets.push_back(jet);
         bool isBJet = false;
