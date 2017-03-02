@@ -1,36 +1,33 @@
 #include "Rivet/Analysis.hh"
-#include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/TauFinder.hh"
+#include "Rivet/Projections/PartonicTops.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
-#include "Rivet/Tools/ParticleIdUtils.hh"
 
 namespace Rivet {
+
 
   class CMS_2016_I1473674 : public Analysis {
   public:
 
     // Minimal constructor
-    CMS_2016_I1473674() : Analysis("CMS_2016_I1473674") {
-    }
+    CMS_2016_I1473674() : Analysis("CMS_2016_I1473674")
+    {   }
+
 
     // Set up projections and book histograms
     void init() {
       // Complete final state
       FinalState fs(-MAXDOUBLE, MAXDOUBLE, 0*GeV);
 
-      // Projection for taus
-      TauFinder taus(TauFinder::ANY);
-      addProjection(taus, "Tau");
-      IdentifiedFinalState nu_taus(fs);
-      nu_taus.acceptIdPair(PID::NU_TAU);
-      addProjection(nu_taus, "NuTau");
+      // Parton level top quarks
+      declare(PartonicTops(PartonicTops::E_MU, false), "LeptonicPartonTops");
+      declare(PartonicTops(PartonicTops::HADRONIC),    "HadronicPartonTops");
 
       // Projection for electrons and muons
       IdentifiedFinalState photons(fs);
@@ -66,11 +63,17 @@ namespace Rivet {
     }
 
 
-    // per event analysis
+    /// Per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
 
-      // select ttbar -> lepton+jets
+      // Select ttbar -> lepton+jets at parton level, removing tau decays
+      const Particles leptonicpartontops = apply<ParticleFinder>(event, "LeptonicPartonTops").particlesByPt();
+      if (leptonicpartontops.size() != 1) vetoEvent;
+      const Particles hadronicpartontops = apply<ParticleFinder>(event, "HadronicPartonTops").particlesByPt();
+      if (hadronicpartontops.size() != 1) vetoEvent;
+
+      // Select ttbar -> lepton+jets at particle level
       const DressedLeptons& dressed_electrons = applyProjection<DressedLeptons>(event, "DressedElectrons");
       const DressedLeptons& dressed_muons = applyProjection<DressedLeptons>(event, "DressedMuons");
       if (dressed_electrons.dressedLeptons().size() +
@@ -84,21 +87,6 @@ namespace Rivet {
       } else {
         lepton = dressed_muons.dressedLeptons()[0].momentum();
       }
-
-      // veto if lepton is tau
-      const TauFinder& taus = applyProjection<TauFinder>(event, "Tau");
-      const IdentifiedFinalState nu_taus = applyProjection<IdentifiedFinalState>(event, "NuTau");
-      foreach (const Particle& tau, taus.taus()) {
-        foreach (const Particle& nu, nu_taus.particles()) {
-          if (tau.pid() * nu.pid() < 0)
-            continue;
-
-          const FourMomentum w_candidate = tau.momentum() + nu.momentum();
-          if (abs(w_candidate.mass() - 80.4) > 5.)
-            vetoEvent;
-        }
-      }
-
 
       // MET
       const MissingMomentum& met = applyProjection<MissingMomentum>(event, "MET");
@@ -124,7 +112,8 @@ namespace Rivet {
       _hist_wpt->fill(w.pT()/GeV, weight);
     }
 
-    // scale by 1 over weight
+
+    /// Normalize histograms
     void finalize() {
       normalize(_hist_met);
       normalize(_hist_ht);
@@ -134,8 +123,10 @@ namespace Rivet {
 
   private:
     Histo1DPtr _hist_met, _hist_ht, _hist_st, _hist_wpt;
+
   };
 
-  // The hook for the plugin system
+
   DECLARE_RIVET_PLUGIN(CMS_2016_I1473674);
+
 }
