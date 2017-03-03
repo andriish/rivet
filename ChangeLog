@@ -1,3 +1,7 @@
+2017-03-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* bin/rivet-mkanalysis: Add FastJets.hh include by default -- it's almost always used.
+
 2017-03-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* src/Analyses/CMS_2016_I1473674.cc: Patch from CMS to use partonic tops.
