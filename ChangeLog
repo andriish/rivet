@@ -1,3 +1,9 @@
+2017-03-08  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Added 6 analyses AMY_1990_I295160, HRS_1986_I18502, JADE_1983_I190818,
+	PLUTO_1980_I154270, TASSO_1989_I277658, TPC_1987_I235694 for charged multiplicity
+	in e+e- at CMS energies below the Z pole
+
 2017-03-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* src/Analyses/CMS_2016_I1473674.cc: Patch from CMS to use partonic tops.

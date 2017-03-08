@@ -420,9 +420,22 @@ HERA_ALL += \
     ZEUS_2001_S4815815.cc
 
 
+
 lib_LTLIBRARIES += RivetPetraAnalyses.la
-RivetPetraAnalyses_la_SOURCES = \
+
+nodist_RivetPetraAnalyses_la_SOURCES = Petra__all.cc
+BUILT_SOURCES += Petra__all.cc
+DISTCLEANFILES += Petra__all.cc
+
+Petra__all.cc : $(Petra_ALL)
+
+EXTRA_DIST += $(Petra_ALL)
+
+Petra_ALL = \
+    JADE_1983_I190818.cc \
     JADE_1998_S3612880.cc \
+    PLUTO_1980_I154270.cc \
+    TASSO_1989_I277658.cc \
     TASSO_1990_S2148048.cc
 
 lib_LTLIBRARIES += RivetLEPAnalyses.la
@@ -559,7 +572,10 @@ Misc_ALL = \
     BELLE_2013_I1216515.cc \
     BELLE_2013_I1238273.cc \
     BELLE_2015_I1397632.cc \
-    CLEO_2004_S5809304.cc
+    CLEO_2004_S5809304.cc \
+    AMY_1990_I295160.cc \
+    HRS_1986_I18502.cc \
+    TPC_1987_I235694.cc
 # UNVALIDATED
 Misc_ALL += \
     SFM_1984_S1178091.cc
