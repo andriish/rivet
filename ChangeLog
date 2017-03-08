@@ -9,6 +9,9 @@
 
 	* Updated ALEPH_1991_S2435284 to plot the average charged multiplcity
 
+	* Added analyses OPAL_2004_I631361, OPAL_2004_I631361_qq, OPAL_2004_I648738 for
+	  gluon jets in e+e-, most need fictitious e+e- > g g process
+
 2017-03-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* src/Analyses/CMS_2016_I1473674.cc: Patch from CMS to use partonic tops.
