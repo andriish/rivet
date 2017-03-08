@@ -291,6 +291,7 @@ dist_pkgdata_DATA = \
   D0_2015_I1324946.plot \
   D0_2000_I503361.plot \
   E735_1998_S3905616.plot \
+  DELPHI_1991_I301657.plot \
   DELPHI_1995_S3137023.plot \
   DELPHI_1996_S3430090.plot \
   DELPHI_1999_S3960137.plot \
@@ -374,6 +375,7 @@ dist_pkgdata_DATA = \
   MC_ZZINC.plot \
   MC_ZZJETS.plot \
   MC_ZZKTSPLITTINGS.plot \
+  OPAL_1992_I321190.plot \
   OPAL_1993_S2692198.plot \
   OPAL_1993_I342766.plot \
   OPAL_1994_S2927284.plot \

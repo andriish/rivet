@@ -4,6 +4,11 @@
 	PLUTO_1980_I154270, TASSO_1989_I277658, TPC_1987_I235694 for charged multiplicity
 	in e+e- at CMS energies below the Z pole
 
+	* Added 2 analyses for charged multiplicity at the Z pole DELPHI_1991_I301657,
+	OPAL_1992_I321190
+
+	* Updated ALEPH_1991_S2435284 to plot the average charged multiplcity
+
 2017-03-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* src/Analyses/CMS_2016_I1473674.cc: Patch from CMS to use partonic tops.
