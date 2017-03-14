@@ -251,6 +251,7 @@ dist_pkgdata_DATA = \
   OPAL_2004_S6132243.yoda \
   OPAL_2004_I631361.yoda \
   OPAL_2004_I631361_qq.yoda \
+  OPAL_2004_I648738.yoda \
   JADE_OPAL_2000_S4300807.yoda \
   JADE_1998_S3612880.yoda \
   JADE_1983_I190818.yoda \

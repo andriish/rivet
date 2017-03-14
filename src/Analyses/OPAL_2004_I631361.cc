@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  class OPAL_2004_I631361_hemispheres : public Analysis {
+  class OPAL_2004_I631361 : public Analysis {
   public:
 
     /// Constructor
-    OPAL_2004_I631361_hemispheres()
-      : Analysis("OPAL_2004_I631361_hemispheres"), _sumW(0.0)
+    OPAL_2004_I631361()
+      : Analysis("OPAL_2004_I631361"), _sumW(0.0)
     {    }
 
 
@@ -113,7 +113,7 @@ namespace Rivet {
   };
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(OPAL_2004_I631361_hemispheres);
+  DECLARE_RIVET_PLUGIN(OPAL_2004_I631361);
 
 
 }
