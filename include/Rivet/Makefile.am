@@ -35,7 +35,6 @@ nobase_pkginclude_HEADERS += \
   Projections/Beam.hh \
   Projections/BeamThrust.hh \
   Projections/CentralEtHCM.hh \
-  Projections/CentralityEstimator.hh \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
@@ -100,7 +99,7 @@ nobase_pkginclude_HEADERS += \
 nobase_pkginclude_HEADERS += \
   Tools/BeamConstraint.hh \
   Tools/BinnedHistogram.hh \
-  Tools/CentralityHistogram.hh \
+  Tools/CentralityBinner.hh \
   Tools/Cmp.fhh \
   Tools/Cmp.hh \
   Tools/Cutflow.hh \

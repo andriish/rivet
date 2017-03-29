@@ -582,7 +582,7 @@ MC_ALL = \
     EXAMPLE_CUTS.cc \
     EXAMPLE_SMEAR.cc \
     MC_QCD_PARTONS.cc \
-    MC_CENTRALITY.cc \
+    MC_Centrality.cc \
     MC_DIPHOTON.cc \
     MC_ELECTRONS.cc \
     MC_GENERIC.cc \
