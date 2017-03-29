@@ -210,9 +210,9 @@ class InputData(Described):
         # self.description['TopMargin'] = float(self.description['TopMargin'])
         # self.description['BottomMargin'] = float(self.description['BottomMargin'])
 
-        self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
-        self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
-        self.description['LogZ'] = self.description.has_key('LogZ') and self.description['LogZ']=='1'
+        self.description['LogX'] = str(self.description.get('LogX', 0)) in ["1", "yes", "true"]
+        self.description['LogY'] = str(self.description.get('LogY', 0)) in ["1", "yes", "true"]
+        self.description['LogZ'] = str(self.description.get('LogZ', 0)) in ["1", "yes", "true"]
         if self.description.has_key('Rebin'):
             for i in self.histos:
                 self.histos[i].description['Rebin'] = self.description['Rebin']
@@ -862,7 +862,7 @@ class RatioPlot(Plot):
 
         inputdata.description['RatioPlotStage'] = True
         inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
-        inputdata.description['LogY'] = False
+        inputdata.description['LogY'] = False  # TODO: actually, log ratio plots could be useful...
 
         # TODO: It'd be nice it this wasn't so MC-specific
         if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
@@ -2700,7 +2700,7 @@ if __name__ == '__main__':
     parser.add_option("--no-subproc", dest="NO_SUBPROC", action="store_true", default=False,
                       help="don't use subprocesses to render the plots in parallel -- useful for debugging.")
     parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False,
-                      help="plot full y range in LogY plots.")
+                      help="plot full y range in log-y plots.")
     parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=None,
                       help="plot config file to be used. Overrides internal config blocks.")
     verbgroup = OptionGroup(parser, "Verbosity control")
