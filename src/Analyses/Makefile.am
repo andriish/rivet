@@ -420,9 +420,22 @@ HERA_ALL += \
     ZEUS_2001_S4815815.cc
 
 
+
 lib_LTLIBRARIES += RivetPetraAnalyses.la
-RivetPetraAnalyses_la_SOURCES = \
+
+nodist_RivetPetraAnalyses_la_SOURCES = Petra__all.cc
+BUILT_SOURCES += Petra__all.cc
+DISTCLEANFILES += Petra__all.cc
+
+Petra__all.cc : $(Petra_ALL)
+
+EXTRA_DIST += $(Petra_ALL)
+
+Petra_ALL = \
+    JADE_1983_I190818.cc \
     JADE_1998_S3612880.cc \
+    PLUTO_1980_I154270.cc \
+    TASSO_1989_I277658.cc \
     TASSO_1990_S2148048.cc
 
 lib_LTLIBRARIES += RivetLEPAnalyses.la
@@ -446,6 +459,7 @@ LEP_ALL = \
     ALEPH_2001_S4656318.cc \
     ALEPH_2002_S4823664.cc \
     ALEPH_2004_S5765862.cc \
+    DELPHI_1991_I301657.cc \
     DELPHI_1995_S3137023.cc \
     DELPHI_1996_S3430090.cc \
     DELPHI_1999_S3960137.cc \
@@ -453,6 +467,7 @@ LEP_ALL = \
     DELPHI_2011_I890503.cc \
     L3_1992_I336180.cc \
     L3_2004_I652683.cc \
+    OPAL_1992_I321190.cc \
     OPAL_1993_I342766.cc \
     OPAL_1994_S2927284.cc \
     OPAL_1995_S3198391.cc \
@@ -467,6 +482,9 @@ LEP_ALL = \
     OPAL_2002_S5361494.cc \
     OPAL_2003_I599181.cc \
     OPAL_2004_S6132243.cc \
+    OPAL_2004_I631361.cc \
+    OPAL_2004_I631361_qq.cc \
+    OPAL_2004_I648738.cc \
     SLD_1996_S3398250.cc \
     SLD_1999_S3743934.cc \
     SLD_2002_S4869273.cc \
@@ -559,7 +577,10 @@ Misc_ALL = \
     BELLE_2013_I1216515.cc \
     BELLE_2013_I1238273.cc \
     BELLE_2015_I1397632.cc \
-    CLEO_2004_S5809304.cc
+    CLEO_2004_S5809304.cc \
+    AMY_1990_I295160.cc \
+    HRS_1986_I18502.cc \
+    TPC_1987_I235694.cc
 # UNVALIDATED
 Misc_ALL += \
     SFM_1984_S1178091.cc

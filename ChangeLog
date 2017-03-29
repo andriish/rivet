@@ -1,3 +1,17 @@
+2017-03-08  Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Added 6 analyses AMY_1990_I295160, HRS_1986_I18502, JADE_1983_I190818,
+	PLUTO_1980_I154270, TASSO_1989_I277658, TPC_1987_I235694 for charged multiplicity
+	in e+e- at CMS energies below the Z pole
+
+	* Added 2 analyses for charged multiplicity at the Z pole DELPHI_1991_I301657,
+	OPAL_1992_I321190
+
+	* Updated ALEPH_1991_S2435284 to plot the average charged multiplcity
+
+	* Added analyses OPAL_2004_I631361, OPAL_2004_I631361_qq, OPAL_2004_I648738 for
+	  gluon jets in e+e-, most need fictitious e+e- > g g process
+
 2017-03-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add Cut and functor selection args to HeavyHadrons accessor methods.
