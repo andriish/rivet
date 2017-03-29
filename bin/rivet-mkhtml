@@ -62,7 +62,7 @@ stygroup.add_option("-s", "--single", dest="SINGLE", action="store_true",
                     default=False, help="display plots on single webpage.")
 stygroup.add_option("--no-ratio", dest="SHOW_RATIO", action="store_false",
                     default=True, help="don't draw a ratio plot under each main plot.")
-stygroup.add_option("--mc-errs", dest="MC_ERRS", action="store_true",
+stygroup.add_option("--errs", "--mc-errs", dest="MC_ERRS", action="store_true",
                     default=False, help="plot error bars.")
 stygroup.add_option("--offline", dest="OFFLINE", action="store_true",
                     default=False, help="generate HTML that does not use external URLs.")

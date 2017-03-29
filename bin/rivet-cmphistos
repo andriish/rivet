@@ -61,7 +61,7 @@ def getCommandLineOptions():
     stygroup = OptionGroup(parser, "Plot style")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
                         default=False, help="plot with linear scale")
-    stygroup.add_option("--mc-errs", action="store_true", dest="MC_ERRS",
+    stygroup.add_option("--errs", "--mc-errs", action="store_true", dest="MC_ERRS",
                         default=False, help="show vertical error bars on the MC lines")
     stygroup.add_option("--no-ratio", action="store_false", dest="RATIO",
                         default=True, help="disable the ratio plot")

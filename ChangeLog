@@ -1,3 +1,9 @@
+2017-03-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow yes/no and true/false values for LogX, etc. plot options.
+
+	* Add --errs as an alias for --mc-errs to rivet-mkhtml and rivet-cmphistos.
+
 2017-03-08  Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Added 6 analyses AMY_1990_I295160, HRS_1986_I18502, JADE_1983_I190818,
