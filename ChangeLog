@@ -1,3 +1,7 @@
+2017-03-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add Cut and functor selection args to HeavyHadrons accessor methods.
+
 2017-03-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* bin/rivet-mkanalysis: Add FastJets.hh include by default -- it's almost always used.
