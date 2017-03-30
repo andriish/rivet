@@ -345,19 +345,8 @@ namespace Rivet {
     //@{
 
     /// Get reference data for a named histo
-    /// @todo Move to the templated version when we have C++11 and can have a default fn template type
-    const YODA::Scatter2D& refData(const string& hname) const;
-
-    /// Get reference data for a numbered histo
-    /// @todo Move to the templated version when we have C++11 and can have a default fn template type
-    const YODA::Scatter2D& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
-
-    /// Get reference data for a named histo
-    /// @todo Would be nice to just use these and ditch the S2D no-template version,
-    ///   but we need C++11 for default args in function templates
-    // template <typename T=Scatter2D>
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
-    template <typename T>
+    template <typename T=YODA::Scatter2D>
     const T& refData(const string& hname) const {
       _cacheRefData();
       MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
@@ -369,11 +358,8 @@ namespace Rivet {
     }
 
     /// Get reference data for a numbered histo
-    /// @todo Would be nice to just use these and ditch the S2D no-template version,
-    ///   but we need C++11 for default args in function templates
-    // template <typename T=Scatter2D>
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
-    template <typename T>
+    template <typename T=YODA::Scatter2D>
     const T& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
       const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
       return refData(hname);

@@ -176,23 +176,6 @@ namespace Rivet {
   }
 
 
-  const Scatter2D& Analysis::refData(const string& hname) const {
-    _cacheRefData();
-    MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
-    if (!_refdata[hname]) {
-      MSG_ERROR("Can't find reference histogram " << hname);
-      throw Exception("Reference data " + hname + " not found.");
-    }
-    return dynamic_cast<Scatter2D&>(*_refdata[hname]);
-  }
-
-
-  const Scatter2D& Analysis::refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return refData(hname);
-  }
-
-
   CounterPtr Analysis::bookCounter(const string& cname,
                                    const string& title) {
                                    // const string& xtitle,

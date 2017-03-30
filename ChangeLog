@@ -1,3 +1,7 @@
+2017-03-30  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Replace non-template Analysis::refData functions with C++11 default T=Scatter2D.
+
 2017-03-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow yes/no and true/false values for LogX, etc. plot options.
