@@ -1,6 +1,7 @@
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 #include "Rivet/Math/Matrices.hh"
+#include "Rivet/Math/MatrixDiag.hh"
 using namespace Rivet;
 
 #include <iostream>

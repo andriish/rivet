@@ -18,11 +18,11 @@ namespace Rivet {
    were just that.
 
    This base class can be used to provide a an estimator for the
-   centrality by projecting down to a single number which then canbe
-   used by a CentralityGroup object to select a histogram to be
+   centrality by projecting down to a single number which then can be
+   used by a CentralityBinner object to select a histogram to be
    filled with another observable depending on centrality percentile.
 
-   The eztimate() should be a non-negative number with large values
+   The estimate() should be a non-negative number with large values
    indicating a higher overlap than small ones. A negative value
    indicates that the centrality estimate could not be calculated.
 
@@ -95,7 +95,7 @@ struct CentralityBinTraits {
   /// Normalize the AnalysisObject to the sum of weights in a
   /// centrality bin.
   static void normalize(T & t, double sumw) {
-    t->normalize(t->sumW()/sumw);
+    if ( t->sumW() > 0.0 ) t->normalize(t->sumW()/sumw);
   }
 
   /// Return the path of an AnalysisObject.
@@ -131,7 +131,7 @@ struct MergeDistance {
  * quantity each in a different percentiles of another quantity.  For
  * example, a CentralityBinner may e.g. contain histograms of the
  * cross section differential in \f$ p_T \f$ in different centrality
- * regions for heavy ion collisions based on forward energy flow..
+ * regions for heavy ion collisions based on forward energy flow.
  **/
 template <typename T = Histo1DPtr, typename MDist = MergeDistance>
 class CentralityBinner: public ProjectionApplier {
@@ -174,18 +174,22 @@ class CentralityBinner: public ProjectionApplier {
            double cestmin = -1.0, double cestmax = -1.0 ) {
     _percentiles.insert(max(cmin/100.0, 0.0));
     _percentiles.insert(min(cmax/100.0, 1.0));
+    if ( _unfilled.empty() && _ready.empty() )
+      _devnull = CentralityBinTraits<T>::clone(t);
     if ( cestmin < 0.0 )
       _unfilled.push_back(Bin(t, cmin/100.0, cmax/100.0));
     else 
       _ready[t] = Bin(t, cmin/100.0, cmax/100.0, cestmin, cestmax);
   }
 
-  /// Return one of the AnalysisObjects in the CentralityBinner for the
-  /// given @a event. This version requires that a CentralityEstimator
-  /// object has been assigned that can compute the value of the
-  /// centrality estimator from the @a event. Optionally the @a weight
-  /// of the event is given. This should be the weight that will be
-  /// used to fill the AnalysisObject.
+  /// Return one of the AnalysisObjects in the CentralityBinner for
+  /// the given @a event. This version requires that a
+  /// CentralityEstimator object has been assigned that can compute
+  /// the value of the centrality estimator from the @a
+  /// event. Optionally the @a weight of the event is given. This
+  /// should be the weight that will be used to fill the
+  /// AnalysisObject. If the centrality estimate is less than zero,
+  /// the _devnull object will be returned.
   T select(const Event & event, double weight = 1.0) {
     return select(applyProjection<CentralityEstimator>
 		  (event, _estimator).estimate(), weight);
@@ -195,7 +199,8 @@ class CentralityBinner: public ProjectionApplier {
   /// CentralityBinner depending on the value of the centrality
   /// estimator, @a cest. Optionally the @a weight of the event is
   /// given. This should be the weight that will be used to fill the
-  /// AnalysisObject.
+  /// AnalysisObject. If the centrality estimate is less than zero,
+  /// the _devnull object will be returned.
   T select(double cest, double weight = 1.0);
 
   /// At the end of the run, calculate the percentiles and fill the
@@ -402,8 +407,12 @@ protected:
   /// The requested percentile limits.
   set<double> _percentiles;
   
-  /// The filled histograms where the estimator edges has been determined.
+  /// The filled AnalysisObjects where the estimator edges has been determined.
   map<T, Bin> _ready;
+
+  /// A special AnalysisObject which will be filled if the centrality
+  /// estimate is out of range (negative).
+  T _devnull;
 
 public:
 
@@ -597,7 +606,7 @@ struct CentralityBinTraits< tuple<Types...> > {
 
 template <typename T, typename MDist>
 T CentralityBinner<T,MDist>::select(double cest, double weight) {
-  _currenT = T();
+  _currenT = _devnull;
   _currentCEst = cest;
   _weightsum += weight;
   
@@ -607,10 +616,13 @@ T CentralityBinner<T,MDist>::select(double cest, double weight) {
   // If we already have finalized the limits on the centrality
   // estimator, we just add the weights to their bins and return the
   // corresponding AnalysisObject.
-  for ( auto & b : _ready ) if ( b.second.inRange(_currentCEst) ) {
-      b.second._weightsum += weight;
-      return b.second._t;
-    }
+  if ( _unfilled.empty() ) {
+    for ( auto & b : _ready ) if ( b.second.inRange(_currentCEst) ) {
+	b.second._weightsum += weight;
+	return b.second._t;
+      }
+    return _currenT;
+  }
 
   auto it = _findBin(cest);
   if ( it == _flexiBins.end() ) {
@@ -776,6 +788,38 @@ void CentralityBinner<T,MDist>::debug() {
   }
   cerr << "Number of sampler bins: " << _flexiBins.size() << endl;
 }
+
+/// Example of CentralityEstimator projection that the generated
+/// centrality as given in the GenHeavyIon object in HepMC3.
+class GeneratedCentrality: public CentralityEstimator {
+
+public:
+
+  /// Constructor.
+  GeneratedCentrality() {}
+
+    /// Clone on the heap.
+    DEFAULT_RIVET_PROJ_CLONE(GeneratedCentrality);
+
+protected:
+
+  /// Perform the projection on the Event
+  void project(const Event& e) {
+    _estimate = -1.0;
+#if HEPMC_VERSION_CODE >= 3000000
+    const HepMC::HeavyIon * hi = e.genEvent()->heavy_ion();
+    if ( hi && hi->centrality > 0 ) _estimate = hi->centrality;
+#endif
+  }
+  
+  /// Compare projections
+  int compare(const Projection& p) const {
+    return mkNamedPCmp(p, "GeneratedCentrality");
+  }
+
+};
+    
+
 
 }
 

@@ -56,42 +56,56 @@ protected:
     /// Book histograms and initialise projections before the run
     void init() {
 
-      // Just testing
-      CentralityBinner< tuple<Histo1DPtr,Histo2DPtr,Profile1DPtr,Profile2DPtr> >
-        testbinner;
-
       // Projections
       declare(ChargedFinalState(-2.5, 2.5, 500*MeV), "CFScent");
       declare(FinalState(3.2, 4.9, 100*MeV), "FSfwd");
-      
 
       // Histograms
       // The sum Et in the forward region.
-      _histETfwd  = bookHisto1D("ETfwd", 200, 0.0, 100.0);
+      _hETfwd  = bookHisto1D("ETfwd", 200, 0.0, 100.0);
       
       // The overall charged multiplicity distribution as a function
       // of eta.
-      _histEtaAll = bookHisto1D("EtaAll", 50, -2.5, 2.5);
+      _hEtaAll = bookHisto1D("EtaAll", 50, -2.5, 2.5);
 
-      // Multiplicity distribution for different centrality intervals.
-      // The notation is that the maximum centrality is 100% and the
-      // lowest is 0%. The _cent1 object will dynamically decide how to
+      // Distribution for different centrality intervals.  The
+      // notation is that the maximum centrality is 100% and the
+      // lowest is 0%. The _cent object will dynamically decide how to
       // cluster fills to the histogram together.
-      _histETfwdC95 = bookHisto1D("ETfwdC95", 200, 0.0, 100.0);
-      _histETfwdC90 = bookHisto1D("ETfwdC90", 200, 0.0, 100.0);
-      _histETfwdC80 = bookHisto1D("ETfwdC80", 200, 0.0, 100.0);
-      _histETfwdC60 = bookHisto1D("ETfwdC60", 200, 0.0, 100.0);
-      _histETfwdC00 = bookHisto1D("ETfwdC00", 200, 0.0, 100.0);
-      _histEtaC95 = bookHisto1D("EtaC95", 50, -2.5, 2.5);
-      _histEtaC90 = bookHisto1D("EtaC90", 50, -2.5, 2.5);
-      _histEtaC80 = bookHisto1D("EtaC80", 50, -2.5, 2.5);
-      _histEtaC60 = bookHisto1D("EtaC60", 50, -2.5, 2.5);
-      _histEtaC00 = bookHisto1D("EtaC00", 50, -2.5, 2.5);
-      _cent.add(make_tuple(_histETfwdC95, _histEtaC95), 95.0, 100.0);
-      _cent.add(make_tuple(_histETfwdC90, _histEtaC90), 90.0,  95.0);
-      _cent.add(make_tuple(_histETfwdC80, _histEtaC80), 80.0,  90.0);
-      _cent.add(make_tuple(_histETfwdC60, _histEtaC60), 60.0,  80.0);
-      _cent.add(make_tuple(_histETfwdC00, _histEtaC00),  0.0,  60.0);
+      _hETfwdC95 = bookHisto1D("ETfwdC95", 200, 0.0, 100.0);
+      _hETfwdC90 = bookHisto1D("ETfwdC90", 200, 0.0, 100.0);
+      _hETfwdC80 = bookHisto1D("ETfwdC80", 200, 0.0, 100.0);
+      _hETfwdC60 = bookHisto1D("ETfwdC60", 200, 0.0, 100.0);
+      _hETfwdC00 = bookHisto1D("ETfwdC00", 200, 0.0, 100.0);
+      _hEtaC95 = bookHisto1D("EtaC95", 50, -2.5, 2.5);
+      _hEtaC90 = bookHisto1D("EtaC90", 50, -2.5, 2.5);
+      _hEtaC80 = bookHisto1D("EtaC80", 50, -2.5, 2.5);
+      _hEtaC60 = bookHisto1D("EtaC60", 50, -2.5, 2.5);
+      _hEtaC00 = bookHisto1D("EtaC00", 50, -2.5, 2.5);
+      _cent.add(make_tuple(_hETfwdC95, _hEtaC95), 95.0, 100.0);
+      _cent.add(make_tuple(_hETfwdC90, _hEtaC90), 90.0,  95.0);
+      _cent.add(make_tuple(_hETfwdC80, _hEtaC80), 80.0,  90.0);
+      _cent.add(make_tuple(_hETfwdC60, _hEtaC60), 60.0,  80.0);
+      _cent.add(make_tuple(_hETfwdC00, _hEtaC00),  0.0,  60.0);
+      // Distribution for different centrality intervals as reported by HepMC3.  The
+      // notation is that the maximum centrality is 100% and the
+      // lowest is 0%.
+      _hETfwdGC95 = bookHisto1D("ETfwdGC95", 200, 0.0, 100.0);
+      _hETfwdGC90 = bookHisto1D("ETfwdGC90", 200, 0.0, 100.0);
+      _hETfwdGC80 = bookHisto1D("ETfwdGC80", 200, 0.0, 100.0);
+      _hETfwdGC60 = bookHisto1D("ETfwdGC60", 200, 0.0, 100.0);
+      _hETfwdGC00 = bookHisto1D("ETfwdGC00", 200, 0.0, 100.0);
+      _hEtaGC95 = bookHisto1D("EtaGC95", 50, -2.5, 2.5);
+      _hEtaGC90 = bookHisto1D("EtaGC90", 50, -2.5, 2.5);
+      _hEtaGC80 = bookHisto1D("EtaGC80", 50, -2.5, 2.5);
+      _hEtaGC60 = bookHisto1D("EtaGC60", 50, -2.5, 2.5);
+      _hEtaGC00 = bookHisto1D("EtaGC00", 50, -2.5, 2.5);
+      _gencent.setProjection(GeneratedCentrality(), "GenCent");
+      _gencent.add(make_tuple(_hETfwdGC95, _hEtaGC95), 95.0, 100.0, 95.0, 100.0);
+      _gencent.add(make_tuple(_hETfwdGC90, _hEtaGC90), 90.0,  95.0, 90.0,  95.0);
+      _gencent.add(make_tuple(_hETfwdGC80, _hEtaGC80), 80.0,  90.0, 80.0,  90.0);
+      _gencent.add(make_tuple(_hETfwdGC60, _hEtaGC60), 60.0,  80.0, 60.0,  80.0);
+      _gencent.add(make_tuple(_hETfwdGC00, _hEtaGC00),  0.0,  60.0,  0.0,  60.0);
 
       _centrue.clear();
 
@@ -110,20 +124,24 @@ protected:
         sumet += p.Et();
       }
 
-      _histETfwd->fill(sumet, weight);
+      _hETfwd->fill(sumet, weight);
       _centrue.insert(make_pair(sumet, weight));
 
 
-      // Also setup other centrality binners.
+      // Setup centrality binners.
       auto ch = _cent.select(sumet, weight);
+      auto gch = _gencent.select(event, weight);
       std::get<0>(ch)->fill(sumet, weight);
+      std::get<0>(gch)->fill(sumet, weight);
+      
 
      // Then fill the selected centrality histogram.
       const ChargedFinalState & cfscent =
         apply<ChargedFinalState>(event, "CFScent");
       for ( const Particle & p : cfscent.particles() ) {
         std::get<1>(ch)->fill(p.eta(), weight);
-	_histEtaAll->fill(p.eta(), weight);
+        std::get<1>(gch)->fill(p.eta(), weight);
+	_hEtaAll->fill(p.eta(), weight);
       }
 
     }
@@ -132,11 +150,13 @@ protected:
     /// Finalize
     void finalize() {
         
-      normalize(_histETfwd, _histETfwd->sumW()/sumOfWeights());
-      normalize(_histEtaAll, _histEtaAll->sumW()/sumOfWeights());
+      normalize(_hETfwd, _hETfwd->sumW()/sumOfWeights());
+      normalize(_hEtaAll, _hEtaAll->sumW()/sumOfWeights());
 
       _cent.finalize();
       _cent.normalizePerEvent();
+      _gencent.finalize();
+      _gencent.normalizePerEvent();
 
       map<double,double> edges = _cent.edges();
       map<double,double> edges0 = edges;
@@ -176,13 +196,14 @@ protected:
 
     /// @name Histograms
     //@{
-    Histo1DPtr _histETfwd;
-    Histo1DPtr _histEtaAll;
-    Histo1DPtr _histETfwdC95, _histETfwdC90, _histETfwdC80,
-      _histETfwdC60, _histETfwdC00;
-    Histo1DPtr _histEtaC95, _histEtaC90, _histEtaC80,
-      _histEtaC60, _histEtaC00;
+    Histo1DPtr _hETfwd;
+    Histo1DPtr _hEtaAll;
+    Histo1DPtr _hETfwdC95, _hETfwdC90, _hETfwdC80, _hETfwdC60, _hETfwdC00;
+    Histo1DPtr _hEtaC95, _hEtaC90, _hEtaC80, _hEtaC60, _hEtaC00;
     CentralityBinner< tuple<Histo1DPtr,Histo1DPtr> > _cent;
+    Histo1DPtr _hETfwdGC95, _hETfwdGC90, _hETfwdGC80, _hETfwdGC60, _hETfwdGC00;
+    Histo1DPtr _hEtaGC95, _hEtaGC90, _hEtaGC80, _hEtaGC60, _hEtaGC00;
+    CentralityBinner< tuple<Histo1DPtr,Histo1DPtr> > _gencent;
     //@}
 
     /// Keep track of the actually generated centralities.
