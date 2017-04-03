@@ -1,154 +1,117 @@
 # BEGIN PLOT /MC_Centrality/ETfwd
-Title=Sum $E_T$ distribution
+Title=Sum $E_{T,fwd}$ distribution
 XLabel=$\sum E_T$ 
 YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
 # END PLOT
 
-# BEGIN PLOT /MC_Centrality/ETfwdC00
-Title=Sum $E_T$ distribution (0-60\%)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdC60
-Title=Sum $E_T$ distribution (60-80\%)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdC80
-Title=Sum $E_T$ distribution (80-90\%)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdC90
-Title=Sum $E_T$ distribution (90-95\%)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdC95
-Title=Sum $E_T$ distribution (95-100\%)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaAll
-Title=Charged pseudo-rapidity distribution
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y01
+Title=Charged particle density. Centrality 60-90\% (generated $\Sigma E_T$)
+YLabel=$dN_{ch}/d\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaC95
-Title=Charged pseudo-rapidity distribution (95-100\%)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y02
+Title=Charged particle density. Centrality 40-60\% (generated $\Sigma E_T$)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaC90
-Title=Charged pseudo-rapidity distribution (90-95\%)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y03
+Title=Charged particle density. Centrality 30-40\% (generated $\Sigma E_T$)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaC80
-Title=Charged pseudo-rapidity distribution (80-90\%)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y04
+Title=Charged particle density. Centrality 20-30\% (generated $\Sigma E_T$)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaC60
-Title=Charged pseudo-rapidity distribution (60-80\%)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y05
+Title=Charged particle density. Centrality 10-20\% (generated $\Sigma E_T$)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaC00
-Title=Charged pseudo-rapidity distribution (0-60\%)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y06
+Title=Charged particle density. Centrality 5-10\% (generated $\Sigma E_T$)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdGC00
-Title=Sum $E_T$ distribution (0-60\% - generated)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdGC60
-Title=Sum $E_T$ distribution (60-80\% - generated)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdGC80
-Title=Sum $E_T$ distribution (80-90\% - generated)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdGC90
-Title=Sum $E_T$ distribution (90-95\% - generated)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/ETfwdGC95
-Title=Sum $E_T$ distribution (95-100\% - generated)
-XLabel=$\sum E_T$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\sum E_T$
-# END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaGC95
-Title=Charged pseudo-rapidity distribution (95-100\% - generated)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y07
+Title=Charged particle density. Centrality 1-5\% (generated $\Sigma E_T$)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaGC90
-Title=Charged pseudo-rapidity distribution (90-95\% - generated)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d02-x01-y08
+Title=Charged particle density. Centrality 0-1\% ($\Sigma E_T$ bins from data)
+XLabel=$\eta$
+YLabel=$dN_{ch}/d\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaGC80
-Title=Charged pseudo-rapidity distribution (80-90\% - generated)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d12-x01-y01
+Title=Charged particle density. Centrality 60-90\% ($\Sigma E_T$ bins from data)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaGC60
-Title=Charged pseudo-rapidity distribution (60-80\% - generated)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d12-x01-y02
+Title=Charged particle density. Centrality 40-60\% ($\Sigma E_T$ bins from data)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
-# BEGIN PLOT /MC_Centrality/EtaGC00
-Title=Charged pseudo-rapidity distribution (0-60\% - generated)
-XLabel=$\eta$ 
-YLabel=$1/\sigma \; \mathrm{d}\sigma/\mathrm{d}\eta$
+# BEGIN PLOT /MC_Centrality/d12-x01-y03
+Title=Charged particle density. Centrality 30-40\% ($\Sigma E_T$ bins from data)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
 LogY=0
-YMax=8
+YMax=75
 # END PLOT
-
+# BEGIN PLOT /MC_Centrality/d12-x01-y04
+Title=Charged particle density. Centrality 20-30\% ($\Sigma E_T$ bins from data)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
+LogY=0
+YMax=75
+# END PLOT
+# BEGIN PLOT /MC_Centrality/d12-x01-y05
+Title=Charged particle density. Centrality 10-20\% ($\Sigma E_T$ bins from data)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
+LogY=0
+YMax=75
+# END PLOT
+# BEGIN PLOT /MC_Centrality/d12-x01-y06
+Title=Charged particle density. Centrality 5-10\% ($\Sigma E_T$ bins from data)
+YLabel=$dN_{ch}/d\eta$
+XLabel=$\eta$
+LogY=0
+YMax=75
+# END PLOT
+# BEGIN PLOT /MC_Centrality/d12-x01-y07
+Title=Charged particle density. Centrality 1-5\% ($\Sigma E_T$ bins from data)
+XLabel=$\eta$
+YLabel=$dN_{ch}/d\eta$
+LogY=0
+YMax=75
+# END PLOT
+# BEGIN PLOT /MC_Centrality/d12-x01-y08
+Title=Charged particle density. Centrality 0-1\% ($\Sigma E_T$ bins from data)
+XLabel=$\eta$
+YLabel=$dN_{ch}/d\eta$
+LogY=0
+YMax=75
+# END PLOT

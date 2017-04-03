@@ -164,22 +164,23 @@ class CentralityBinner: public ProjectionApplier {
   /// percentiles and must be between 0 and 100. No overlaping bins
   /// are allowed.
 
-  /// Note that (cmin=0, cmax=5), means the five percent LEAST
-  /// central events.
+  /// Note that (cmin=0, cmax=5), means the five percent MOST central
+  /// events although the internal notation is reversed for
+  /// convenience.
 
   /// Optionally supply corresponding limits @a cestmin and @a cestmax
   /// of the centrality extimator.
 
   void add(T t, double cmin, double cmax,
            double cestmin = -1.0, double cestmax = -1.0 ) {
-    _percentiles.insert(max(cmin/100.0, 0.0));
-    _percentiles.insert(min(cmax/100.0, 1.0));
+    _percentiles.insert(max(1.0 - cmax/100.0, 0.0));
+    _percentiles.insert(min(1.0 - cmin/100.0, 1.0));
     if ( _unfilled.empty() && _ready.empty() )
       _devnull = CentralityBinTraits<T>::clone(t);
     if ( cestmin < 0.0 )
-      _unfilled.push_back(Bin(t, cmin/100.0, cmax/100.0));
+      _unfilled.push_back(Bin(t, 1.0 - cmax/100.0, 1.0 - cmin/100.0));
     else 
-      _ready[t] = Bin(t, cmin/100.0, cmax/100.0, cestmin, cestmax);
+      _ready[t] = Bin(t, 1.0 - cmax/100.0, 1.0 - cmin/100.0, cestmin, cestmax);
   }
 
   /// Return one of the AnalysisObjects in the CentralityBinner for
@@ -222,8 +223,8 @@ class CentralityBinner: public ProjectionApplier {
   map<double,double> edges() const {
     map<double,double> ret;
     for ( auto & b : _ready ) {
-      ret[b.second._centLo] = b.second._cestLo;
-      ret[b.second._centHi] = b.second._cestHi;
+      ret[1.0 - b.second._centLo] = b.second._cestLo;
+      ret[1.0 - b.second._centHi] = b.second._cestHi;
     }
     return ret;
   }
@@ -808,7 +809,7 @@ protected:
     _estimate = -1.0;
 #if HEPMC_VERSION_CODE >= 3000000
     const HepMC::HeavyIon * hi = e.genEvent()->heavy_ion();
-    if ( hi && hi->centrality > 0 ) _estimate = hi->centrality;
+    if ( hi ) _estimate = 100.0 - hi->centrality; // @TODO We don't really know how to interpret this number!
 #endif
   }
   
