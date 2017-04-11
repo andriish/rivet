@@ -15,9 +15,10 @@ Description:
    at 5.03 TeV. The pseudo-rapidity distributions are corrected for
    detector effects, however, the distribution in the forward sum Et
    used for the centrality determination is not corrected.
-   The pseudo-rapidity distributions are done both in centrality bins
-   according to the generated sum Et and according to the bins in sum
-   Et obtained from the measurement.
+   The pseudo-rapidity distributions are done in centrality bins
+   according to the generated sum Et, according to the bins in sum
+   Et obtained from the measurement, and the generators estimate of
+   the centrality.
 
 BibKey: Aad:2015zza
 BibTeX: '@article{Aad:2015zza,

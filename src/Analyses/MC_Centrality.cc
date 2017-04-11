@@ -66,6 +66,9 @@ protected:
       			 Cuts::pT > 0.1*GeV), "MBB");
       declare(FinalState(Cuts::eta < -2.09 && Cuts::eta > -3.84 &&
       			 Cuts::pT > 0.1*GeV), "MBF");
+      declare(GeneratedCentrality(), "GeneratedCentrality");
+      _gencent.setProjection(GeneratedCentrality(), "GeneratedCentrality");
+
       
       // Histograms
       // The sum Et in the forward region.
@@ -82,6 +85,8 @@ protected:
 		  pclim[i+1], pclim[i]);
 	_fixcent.add(bookHisto1D(12, 1, i+1),
 		     pclim[i+1], pclim[i], etlim[i], etlim[i+1]);
+	_gencent.add(bookHisto1D(22, 1, i+1),
+		     pclim[i+1], pclim[i], pclim[i], pclim[i+1]);
       }
             
       _centrue.clear();
@@ -111,10 +116,12 @@ protected:
 
       Histo1DPtr ch = _cent.select(sumEt, weight);
       Histo1DPtr fch = _fixcent.select(sumEt, weight);
+      Histo1DPtr gch = _gencent.select(event, weight);
 
       for ( const Particle & p : parts.particles() ) {
-	ch->fill(p.eta(), weight);
-	fch->fill(p.eta(), weight);
+	if ( ch ) ch->fill(p.eta(), weight);
+	if ( fch ) fch->fill(p.eta(), weight);
+	if ( gch ) gch->fill(p.eta(), weight);
       }
 
     }
@@ -175,6 +182,7 @@ protected:
     Histo1DPtr _hETfwd;
     CentralityBinner<Histo1DPtr> _cent;
     CentralityBinner<Histo1DPtr> _fixcent;
+    CentralityBinner<Histo1DPtr> _gencent;
     //@}
 
     /// Keep track of the actually generated centralities.
