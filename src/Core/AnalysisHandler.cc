@@ -222,7 +222,7 @@ namespace Rivet {
         try {
           const string ananame =  split(path, "/")[0];
           AnaHandle a = analysis(ananame);
-          a->addAnalysisObject(ao);
+          a->addAnalysisObject(ao); /// @todo Need to statistically merge...
         } catch (const Error& e) {
           MSG_WARNING(e.what());
         }

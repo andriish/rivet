@@ -1,5 +1,7 @@
 2017-05-02  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add binding to a pre-loaded analysis object if possible in Analysis::bookHisto1D() methods.
+
 	* Add AnalysisHandler::addData and readData methods for histo preloading.
 
 	* Extend and improve string functions for path handling.
