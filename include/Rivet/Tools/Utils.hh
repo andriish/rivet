@@ -192,6 +192,21 @@ namespace Rivet {
     return rtn;
   }
 
+  /// @brief Split a string on a specified separator string
+  inline vector<string> split(const string& s, const string& sep) {
+    vector<string> dirs;
+    string tmp = s;
+    while (true) {
+      const size_t delim_pos = tmp.find(sep);
+      if (delim_pos == string::npos) break;
+      const string dir = tmp.substr(0, delim_pos);
+      if (dir.length()) dirs.push_back(dir); // Don't insert "empties"
+      tmp.replace(0, delim_pos+1, "");
+    }
+    if (tmp.length()) dirs.push_back(tmp); // Don't forget the trailing component!
+    return dirs;
+  }
+
   //@}
 
 
@@ -202,18 +217,7 @@ namespace Rivet {
   ///
   /// Ignores zero-length substrings. Designed for getting elements of filesystem paths, naturally.
   inline vector<string> pathsplit(const string& path) {
-    const string delim = ":";
-    vector<string> dirs;
-    string tmppath = path;
-    while (true) {
-      const size_t delim_pos = tmppath.find(delim);
-      if (delim_pos == string::npos) break;
-      const string dir = tmppath.substr(0, delim_pos);
-      if (dir.length()) dirs.push_back(dir); // Don't insert "empties"
-      tmppath.replace(0, delim_pos+1, "");
-    }
-    if (tmppath.length()) dirs.push_back(tmppath); // Don't forget the trailing component!
-    return dirs;
+    return split(path, ":");
   }
 
 
@@ -223,6 +227,38 @@ namespace Rivet {
   /// directory delimiter, cf. the Python @c {os.path.join}!
   inline string pathjoin(const vector<string>& paths) {
     return join(paths, ":");
+  }
+
+  /// Operator for joining strings @a a and @a b with filesystem separators
+  inline string operator / (const string& a, const string& b) {
+    // Ensure that a doesn't end with a slash, and b doesn't start with one, to avoid "//"
+    const string anorm = (a.find("/") != string::npos) ? a.substr(0, a.find_last_not_of("/")+1) : a;
+    const string bnorm = (b.find("/") != string::npos) ? b.substr(b.find_first_not_of("/")) : b;
+    return anorm + "/" + bnorm;
+  }
+
+  /// Get the basename (i.e. terminal file name) from a path @a p
+  inline string basename(const string& p) {
+    if (!contains(p, "/")) return p;
+    return p.substr(p.rfind("/")+1);
+  }
+
+  /// Get the dirname (i.e. path to the penultimate directory) from a path @a p
+  inline string dirname(const string& p) {
+    if (!contains(p, "/")) return "";
+    return p.substr(0, p.rfind("/"));
+  }
+
+  /// Get the stem (i.e. part without a file extension) from a filename @a f
+  inline string file_stem(const string& f) {
+    if (!contains(f, ".")) return f;
+    return f.substr(0, f.rfind("."));
+  }
+
+  /// Get the file extension from a filename @a f
+  inline string file_extn(const string& f) {
+    if (!contains(f, ".")) return "";
+    return f.substr(f.rfind(".")+1);
   }
 
   //@}
