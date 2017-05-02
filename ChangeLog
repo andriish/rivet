@@ -1,3 +1,9 @@
+2017-05-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add AnalysisHandler::addData and readData methods for histo preloading.
+
+	* Extend and improve string functions for path handling.
+
 2017-01-21  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Removing lots of long-deprecated functions & methods.

@@ -182,10 +182,16 @@ namespace Rivet {
     /// @name Histogram / data object access
     //@{
 
+    /// Add a vector of analysis objects to the current state.
+    void addData(const std::vector<AnalysisObjectPtr>& aos) const;
+
+    /// Read analysis plots into the histo collection (via addData) from the named file.
+    void readData(const std::string& filename) const;
+
     /// Get all analyses' plots as a vector of analysis objects.
     std::vector<AnalysisObjectPtr> getData() const;
 
-    /// Write all analyses' plots to the named file.
+    /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
 
     //@}
@@ -223,6 +229,7 @@ namespace Rivet {
     bool _ignoreBeams;
 
     //@}
+
 
   private:
 
