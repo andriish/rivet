@@ -2,6 +2,7 @@
 #define RIVET_RivetSTL_HH
 
 #include <string>
+#include <array>
 #include <vector>
 #include <set>
 #include <list>
