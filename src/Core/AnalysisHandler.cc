@@ -215,7 +215,7 @@ namespace Rivet {
   /////////////////////////////
 
 
-  void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) const {
+  void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) {
     for (const AnalysisObjectPtr ao : aos) {
       const string path = ao->path();
       if (path.size() > 1) { // path > "/"
@@ -231,7 +231,7 @@ namespace Rivet {
   }
 
 
-  void AnalysisHandler::readData(const string& filename) const {
+  void AnalysisHandler::readData(const string& filename) {
     vector<AnalysisObjectPtr> aos;
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly

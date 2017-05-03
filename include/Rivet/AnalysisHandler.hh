@@ -183,10 +183,10 @@ namespace Rivet {
     //@{
 
     /// Add a vector of analysis objects to the current state.
-    void addData(const std::vector<AnalysisObjectPtr>& aos) const;
+    void addData(const std::vector<AnalysisObjectPtr>& aos);
 
     /// Read analysis plots into the histo collection (via addData) from the named file.
-    void readData(const std::string& filename) const;
+    void readData(const std::string& filename);
 
     /// Get all analyses' plots as a vector of analysis objects.
     std::vector<AnalysisObjectPtr> getData() const;
