@@ -864,25 +864,25 @@ namespace Rivet {
     }
 
 
-    // /// Get a named Histo2D object from the histogram system
-    // const Histo2DPtr getHisto2D(const std::string& name) const {
-    //   return getAnalysisObject<Histo2D>(name);
-    // }
+    /// Get a named Histo2D object from the histogram system
+    const Histo2DPtr getHisto2D(const std::string& name) const {
+      return getAnalysisObject<Histo2D>(name);
+    }
 
-    // /// Get a named Histo2D object from the histogram system (non-const)
-    // Histo2DPtr getHisto2D(const std::string& name) {
-    //   return getAnalysisObject<Histo2D>(name);
-    // }
+    /// Get a named Histo2D object from the histogram system (non-const)
+    Histo2DPtr getHisto2D(const std::string& name) {
+      return getAnalysisObject<Histo2D>(name);
+    }
 
-    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    // const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
-    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    // Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
 
     /// Get a named Profile1D object from the histogram system
@@ -906,25 +906,25 @@ namespace Rivet {
     }
 
 
-    // /// Get a named Profile2D object from the histogram system
-    // const Profile2DPtr getProfile2D(const std::string& name) const {
-    //   return getAnalysisObject<Profile2D>(name);
-    // }
+    /// Get a named Profile2D object from the histogram system
+    const Profile2DPtr getProfile2D(const std::string& name) const {
+      return getAnalysisObject<Profile2D>(name);
+    }
 
-    // /// Get a named Profile2D object from the histogram system (non-const)
-    // Profile2DPtr getProfile2D(const std::string& name) {
-    //   return getAnalysisObject<Profile2D>(name);
-    // }
+    /// Get a named Profile2D object from the histogram system (non-const)
+    Profile2DPtr getProfile2D(const std::string& name) {
+      return getAnalysisObject<Profile2D>(name);
+    }
 
-    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    // const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
-    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    // Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
 
     /// Get a named Scatter2D object from the histogram system
