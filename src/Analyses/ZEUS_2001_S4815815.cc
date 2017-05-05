@@ -15,6 +15,7 @@ namespace Rivet {
   /// @note Cleaning cuts on event pT/sqrt(Et) and y_e are not needed in MC analysis.
   ///
   /// @author Andy Buckley
+  /// @author Ilkka Helenius
   class ZEUS_2001_S4815815 : public Analysis {
   public:
 
@@ -80,14 +81,14 @@ namespace Rivet {
       const int orientation = sign(bproton.momentum().pz());
       MSG_DEBUG("Beam proton = " << bproton.mom() << " GeV => orientation = " << orientation);
 
-      // Jet selection
+      // Jet selection //// Use Et instead of pT
       const Jets jets = apply<FastJets>(event, "Jets") \
-        .jets(Cuts::pT > 11*GeV && Cuts::etaIn(-1*orientation, 2.4*orientation), cmpMomByEt);
+        .jets(Cuts::Et > 11*GeV && Cuts::etaIn(-1*orientation, 2.4*orientation), cmpMomByEt);
       MSG_DEBUG("Jet multiplicity = " << jets.size());
       if (jets.size() < 2) vetoEvent;
       const Jet& j1 = jets[0];
       const Jet& j2 = jets[1];
-      if (j1.pT() < 14*GeV) vetoEvent;
+      if (j1.Et() < 14*GeV) vetoEvent;
 
       // eta and cos(theta*) computation
       const double eta1 = orientation*j1.eta(), eta2 = orientation*j2.eta();
@@ -100,8 +101,8 @@ namespace Rivet {
       if (positrons.empty()) vetoEvent;
       const Particle& positron = positrons.front();
 
-      // Calculate the photon 4-vector
-      const FourMomentum qphoton = positron.mom() - bpositron.mom();
+      // Calculate the photon 4-vector //// p_gm = p_p - p_p'
+      const FourMomentum qphoton = bpositron.mom() - positron.mom();
 
       // Computation and cut on inelasticity
       const double inelasticity = dot(bproton.mom(), qphoton) / dot(bproton.mom(), bpositron.mom());
@@ -114,29 +115,34 @@ namespace Rivet {
 
       // Fill histograms
       const double weight = event.weight();
-      // T1
-      if ((j1.mom()+j2.mom()).mass() > 42*GeV && inRange(etabar, 0.1, 0.3))
+      // T1 //// Correct etabar cut is 0.1-1.3
+      if ((j1.mom()+j2.mom()).mass() > 42*GeV && inRange(etabar, 0.1, 1.3))
         _h_costh[i_xyobs]->fill(abs(costhetastar), weight);
       // T2, T3
-      if (inRange(eta1, -1, 0) && inRange(eta2, -1, 0))
-        _h_etjet1[i_xyobs][0]->fill(j1.Et()/GeV, weight);
-      else if (inRange(eta1, 0, 1) && inRange(eta2, -1, 0))
-        _h_etjet1[i_xyobs][1]->fill(j1.Et()/GeV, weight);
-      else if (inRange(eta1, 0, 1) && inRange(eta2, 0, 1))
-        _h_etjet1[i_xyobs][2]->fill(j1.Et()/GeV, weight);
-      else if (inRange(eta1, 1, 2.4) && inRange(eta2, -1, 0))
-        _h_etjet1[i_xyobs][3]->fill(j1.Et()/GeV, weight);
-      else if (inRange(eta1, 1, 2.4) && inRange(eta2, 0, 1))
-        _h_etjet1[i_xyobs][4]->fill(j1.Et()/GeV, weight);
-      else if (inRange(eta1, 1, 2.4) && inRange(eta2, 1, 2.4))
-        _h_etjet1[i_xyobs][5]->fill(j1.Et()/GeV, weight);
-      // T4, T5
-      if (inRange(eta1, -1, 0))
-        _h_etajet2[i_xyobs][0]->fill(eta2, weight);
-      else if (inRange(eta1, 0, 1))
-        _h_etajet2[i_xyobs][1]->fill(eta2, weight);
-      else if (inRange(eta1, 1, 2.4))
-        _h_etajet2[i_xyobs][2]->fill(eta2, weight);
+      //// Symmetrize eta selection, each event contribute twice to the cross section
+      for (size_t isel = 0; isel < 2; ++isel) {
+        double etaJet1 = (isel == 0) ? orientation*j1.eta() : orientation*j2.eta();
+        double etaJet2 = (isel == 0) ? orientation*j2.eta() : orientation*j1.eta();
+        if (inRange(etaJet1, -1, 0) && inRange(etaJet2, -1, 0))
+          _h_etjet1[i_xyobs][0]->fill(j1.Et()/GeV, weight);
+        else if (inRange(etaJet1, 0, 1) && inRange(etaJet2, -1, 0))
+          _h_etjet1[i_xyobs][1]->fill(j1.Et()/GeV, weight);
+        else if (inRange(etaJet1, 0, 1) && inRange(etaJet2, 0, 1))
+          _h_etjet1[i_xyobs][2]->fill(j1.Et()/GeV, weight);
+        else if (inRange(etaJet1, 1, 2.4) && inRange(etaJet2, -1, 0))
+          _h_etjet1[i_xyobs][3]->fill(j1.Et()/GeV, weight);
+        else if (inRange(etaJet1, 1, 2.4) && inRange(etaJet2, 0, 1))
+          _h_etjet1[i_xyobs][4]->fill(j1.Et()/GeV, weight);
+        else if (inRange(etaJet1, 1, 2.4) && inRange(etaJet2, 1, 2.4))
+          _h_etjet1[i_xyobs][5]->fill(j1.Et()/GeV, weight);
+        // T4, T5
+        if (inRange(etaJet1, -1, 0))
+          _h_etajet2[i_xyobs][0]->fill(etaJet2, weight);
+        else if (inRange(etaJet1, 0, 1))
+          _h_etajet2[i_xyobs][1]->fill(etaJet2, weight);
+        else if (inRange(etaJet1, 1, 2.4))
+          _h_etajet2[i_xyobs][2]->fill(etaJet2, weight);
+      } ///
       // T6
       if (inRange(j1.Et()/GeV, 14, 17))
         _h_xobsy[0]->fill(xyobs, weight);
