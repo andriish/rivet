@@ -1,5 +1,8 @@
 2017-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix Doxygen config and Makefile target to allow working with
+	out-of-source builds. Thanks to Christian Holm Christensen.
+
 	* Improve DISLepton for HERA analyses: thanks to Andrii Verbytskyi for the patch!
 
 2017-03-30  Andy Buckley  <andy.buckley@cern.ch>
