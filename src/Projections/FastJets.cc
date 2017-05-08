@@ -78,7 +78,7 @@ namespace Rivet {
   // STATIC
   PseudoJets FastJets::mkClusterInputs(const Particles& fsparticles, const Particles& tagparticles) {
     vector<fastjet::PseudoJet> pjs;
-    /// @todo Use FastJet3's UserInfo system
+    /// @todo Use FastJet3's UserInfo system to store Particle pointers directly?
 
     // Store 4 vector data about each particle into FastJet's PseudoJets
     for (size_t i = 0; i < fsparticles.size(); ++i) {

@@ -153,8 +153,11 @@ namespace Rivet {
     /// @name Static helper functions for FastJet interaction, with tagging
     //@{
 
+    /// Make PseudoJets for input to a ClusterSequence, with user_index codes for constituent- and tag-particle linking
     static PseudoJets mkClusterInputs(const Particles& fsparticles, const Particles& tagparticles=Particles());
+    /// Make a Rivet Jet from a PseudoJet holding a user_index code for lookup of Rivet fsparticle or tagparticle links
     static Jet mkJet(const PseudoJet& pj, const Particles& fsparticles, const Particles& tagparticles=Particles());
+    /// Convert a whole list of PseudoJets to a list of Jets, with mkJet-style unpacking
     static Jets mkJets(const PseudoJets& pjs, const Particles& fsparticles, const Particles& tagparticles=Particles());
 
     //@}
