@@ -150,6 +150,16 @@ namespace Rivet {
     //@}
 
 
+    /// @name Static helper functions for FastJet interaction, with tagging
+    //@{
+
+    static PseudoJets mkClusterInputs(const Particles& fsparticles, const Particles& tagparticles=Particles());
+    static Jet mkJet(const PseudoJet& pj, const Particles& fsparticles, const Particles& tagparticles=Particles());
+    static Jets mkJets(const PseudoJets& pjs, const Particles& fsparticles, const Particles& tagparticles=Particles());
+
+    //@}
+
+
     /// Reset the projection. Jet def, etc. are unchanged.
     void reset();
 

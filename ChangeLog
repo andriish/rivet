@@ -1,5 +1,9 @@
 2017-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add new mkClusterInputs, mkJet and mkJets static methods to
+	FastJets, to help with direct calls to FastJet where particle
+	lookup for constituents and ghost tags are required.
+
 	* Fix Doxygen config and Makefile target to allow working with
 	out-of-source builds. Thanks to Christian Holm Christensen.
 
