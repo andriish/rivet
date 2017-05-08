@@ -1,3 +1,7 @@
+2017-05-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Improve DISLepton for HERA analyses: thanks to Andrii Verbytskyi for the patch!
+
 2017-03-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Replace non-template Analysis::refData functions with C++11 default T=Scatter2D.
