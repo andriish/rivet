@@ -1,5 +1,7 @@
 2017-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Reimplement FastJets methods in terms of new static helper functions.
+
 	* Add new mkClusterInputs, mkJet and mkJets static methods to
 	FastJets, to help with direct calls to FastJet where particle
 	lookup for constituents and ghost tags are required.
