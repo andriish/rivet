@@ -65,30 +65,6 @@ namespace Rivet {
   }
 
 
-  // void FastJets::_init2(fastjet::JetAlgorithm type,
-  //                       fastjet::RecombinationScheme recom, double rparameter)
-  //   : FastJets
-  // {
-
-  //   _initBase();
-  //   _jdef = fastjet::JetDefinition(type, rparameter, recom);
-  // }
-
-
-  // void FastJets::_init3(const fastjet::JetDefinition& jdef) {
-  //   _initBase();
-  //   _jdef = jdef;
-  // }
-
-
-  // void FastJets::_init4(fastjet::JetDefinition::Plugin* plugin) {
-  //   _initBase();
-  //   _plugin.reset(plugin);
-  //   _jdef = fastjet::JetDefinition(_plugin.get());
-  // }
-
-
-
   int FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
@@ -103,29 +79,22 @@ namespace Rivet {
   }
 
 
-  namespace {
-    /// @todo Replace with C++11 lambdas
-    bool isPromptInvisible(const Particle& p) { return !(p.isVisible() || p.fromDecay()); }
-    // bool isMuon(const Particle& p) { return p.abspid() == PID::MUON; }
-    bool isPromptMuon(const Particle& p) { return isMuon(p) && !p.fromDecay(); }
-  }
-
-
   void FastJets::project(const Event& e) {
     // Assemble final state particles
     const string fskey = (_useInvisibles == JetAlg::NO_INVISIBLES) ? "VFS" : "FS";
     Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
     // Remove prompt invisibles if needed (already done by VFS if using NO_INVISIBLES)
-    if (_useInvisibles == JetAlg::DECAY_INVISIBLES)
-      fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isPromptInvisible), fsparticles.end() );
+    if (_useInvisibles == JetAlg::DECAY_INVISIBLES) {
+      ifilter_discard(fsparticles, [](const Particle& p) { return !(p.isVisible() || p.fromDecay()); });
+    }
     // Remove prompt/all muons if needed
-    if (_useMuons == JetAlg::DECAY_MUONS)
-      fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isPromptMuon), fsparticles.end() );
-    else if (_useMuons == JetAlg::NO_MUONS)
-      fsparticles.erase( std::remove_if(fsparticles.begin(), fsparticles.end(), isMuon), fsparticles.end() );
+    if (_useMuons == JetAlg::DECAY_MUONS) {
+      ifilter_discard(fsparticles, [](const Particle& p) { return isMuon(p) && !p.fromDecay(); });
+    } else if (_useMuons == JetAlg::NO_MUONS) {
+      ifilter_discard(fsparticles, isMuon);
+    }
 
     // Tagging particles
-    /// @todo Allow the user to specify tag particle kinematic thresholds
     const Particles chadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").cHadrons();
     const Particles bhadrons = applyProjection<HeavyHadrons>(e, "HFHadrons").bHadrons();
     const Particles taus = applyProjection<FinalState>(e, "Taus").particles();
@@ -137,7 +106,7 @@ namespace Rivet {
     _particles.clear();
     vector<fastjet::PseudoJet> pjs;
 
-    MSG_DEBUG("Finding jets from " << fsparticles.size() << " input particles");
+    MSG_DEBUG("Finding jets from " << fsparticles.size() << " input particles + " << tagparticles.size() << " tagging particles");
 
     /// @todo Use FastJet3's UserInfo system
 
