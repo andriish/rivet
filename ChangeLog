@@ -1,5 +1,9 @@
 2017-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add protection against leptons from QED FSR photon conversions
+	in assigning PartonicTop decay modes. Thanks to Markus Seidel for
+	the report and suggested fix.
+
 	* Reimplement FastJets methods in terms of new static helper functions.
 
 	* Add new mkClusterInputs, mkJet and mkJets static methods to

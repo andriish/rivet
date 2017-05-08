@@ -68,8 +68,8 @@ namespace Rivet {
       if (_decaymode != ALL) {
         const auto fn = [&](const Particle& t) {
           const Particles descendants = t.allDescendants();
-          const bool prompt_e = any(descendants, [&](const Particle& p){ return p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau); });
-          const bool prompt_mu = any(descendants, [&](const Particle& p){ return p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau); });
+          const bool prompt_e = any(descendants, [&](const Particle& p){ return p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON); });
+          const bool prompt_mu = any(descendants, [&](const Particle& p){ return p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON); });
           if (prompt_e && (_decaymode == ELECTRON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
           if (prompt_mu && (_decaymode == MUON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
           const bool prompt_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt(); });
