@@ -1,5 +1,5 @@
 ~$
-^run.*$
+^(anas|test|run).*$
 \.orig$
 \.(o|Po|lo|Plo|la|a|so|dylib|pyc|tar\.bz2|tar\.gz|fifo|hepmc)$
 ^config\.guess$
