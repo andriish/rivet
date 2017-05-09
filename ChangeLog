@@ -1,3 +1,7 @@
+2017-05-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix ALICE_2012_I1116147 for pi0 and Lambda feed-down.
+
 2017-05-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add protection against leptons from QED FSR photon conversions
