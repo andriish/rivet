@@ -45,7 +45,7 @@ namespace Rivet {
 
       const FinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       for (const Particle& p : ufs.particles()) {
-        const double normfactor = TWOPI*p.pT()/GeV*2*_rapmax;
+        const double normfactor = TWOPI*p.pT()/GeV*2*RAPMAX;
         if (p.pid() == 111) {
           // Neutral pion; ALICE corrects for pi0 feed-down from K_0_s and Lambda
           if (p.hasAncestor(310) || p.hasAncestor(3122) || p.hasAncestor(-3122)) continue; //< K_0_s, Lambda, Anti-Lambda
