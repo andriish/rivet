@@ -1,5 +1,8 @@
 2017-05-09  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add CMS_2015_I1380605, per-event yield of the highest transverse
+	momentum charged particle and charged-particle jet.
+
 	* Add CMS_2015_I1370682_PARTON, a partonic-top version of the CMS
 	7 TeV pseudotop ttbar differential cross-section analysis.
 
