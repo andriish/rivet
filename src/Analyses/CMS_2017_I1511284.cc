@@ -16,7 +16,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections
     void init() {
-      addProjection(FinalState(), "FS");
+      declare(FinalState(), "FS");
 
       _h_totEnergy = bookHisto1D(1, 1, 1);
       _h_emEnergy = bookHisto1D(2, 1, 1);
@@ -27,7 +27,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const Particles fsparticles = applyProjection<FinalState>(event, "FS").particles(cmpMomByRap);
+      const Particles fsparticles = apply<FinalState>(event, "FS").particles(cmpMomByRap);
       if (fsparticles.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
       double gapCenter = 0,largestGap = 0;
