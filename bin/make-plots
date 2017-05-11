@@ -691,31 +691,31 @@ class MainPlot(Plot):
 
         # TODO: do this more compactly, e.g. by assigning sorting keys!
         if inputdata.attr_bool('DrawSpecialFirst', False):
-            for s in inputdata.special:
+            for s in inputdata.special.values():
                 out += s.draw(self.coors)
             if inputdata.attr_bool('DrawFunctionFirst', False):
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
         else:
             if inputdata.attr_bool('DrawFunctionFirst', False):
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
-            for i in inputdata.special.keys():
-                out += inputdata.special[i].draw(self.coors)
+            for s in inputdata.special.values():
+                out += s.draw(self.coors)
 
         if inputdata.attr_bool('Legend', False):
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
