@@ -1,6 +1,8 @@
 2017-05-16  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add ATLAS_2017_I1589844, ATLAS_2017_I1589844_EL, ATLAS_2017_I1589844_MU:  kT splittings in Z events at 8 TeV
+	* Add ATLAS_2017_I1591327, isolated diphoton + X differential cross-sections.
+
+	* Add ATLAS_2017_I1589844, ATLAS_2017_I1589844_EL, ATLAS_2017_I1589844_MU:  kT splittings in Z events at 8 TeV.
 
 	* Add ATLAS_2017_I1509919, track-based underlying event at 13 TeV in ATLAS.
 
