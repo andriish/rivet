@@ -1,3 +1,8 @@
+2016-05-16  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Tidy ALEPH_1999 charm fragmentation analysis and normalise to data
+	integral. Added DSTARPLUS and DSTARMINUS to PID.
+
 2017-05-16  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS_2016_CONF_2016_092, inclusive jet cross sections using early 13 TeV data.

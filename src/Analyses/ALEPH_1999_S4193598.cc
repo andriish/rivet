@@ -15,9 +15,7 @@ namespace Rivet {
     /// Constructor
     ALEPH_1999_S4193598()
       : Analysis("ALEPH_1999_S4193598")
-    {
-      _sumWpassed = 0.0;
-    }
+    { }
 
     //@}
 
@@ -42,8 +40,6 @@ namespace Rivet {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 5) vetoEvent;
 
-      _sumWpassed += weight;
-
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
 
       // Get beams and average beam momentum
@@ -51,21 +47,12 @@ namespace Rivet {
       const double meanBeamMom = ( beams.first.p3().mod() +
                                    beams.second.p3().mod() ) / 2.0/GeV;
 
-      foreach (const Particle& p, ufs.particles()) {
-        const PdgId pid = p.abspid();
-
-        switch (pid) {
-        case 413:
-
-          // Accept all D*+- decays. Normalisation to D0 + pi+- in finalize()
-
+      // Accept all D*+- decays. Normalisation to data in finalize
+      for (const Particle& p : filter_select(ufs.particles(), Cuts::abspid==PID::DSTARPLUS)) {
           // Scaled energy.
           const double energy = p.E()/GeV;
           const double scaledEnergy = energy/meanBeamMom;
           _h_Xe_Ds->fill(scaledEnergy, weight);
-
-          break;
-        }
       }
     }
 
@@ -73,14 +60,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      // Scale to the product of branching fractions D0*->D0 pi  x  D0->Kpi(charged)
-      // Numbers are taken from PDG 2010
-      scale(_h_Xe_Ds, 0.677*0.0389/_sumWpassed);
-
+      // Normalize to data integral
+      normalize(_h_Xe_Ds, 0.00498);
     }
-
-  private:
-    double _sumWpassed;
 
   private:
 
