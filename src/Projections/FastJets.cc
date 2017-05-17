@@ -105,20 +105,20 @@ namespace Rivet {
     vector<Particle> constituents, tags;
     constituents.reserve(pjconstituents.size());
 
-    for (const fastjet::PseudoJet& p : pjconstituents) {
+    for (const fastjet::PseudoJet& pjc : pjconstituents) {
       // Pure ghosts don't have corresponding particles
-      if (p.is_pure_ghost()) continue;
+      if (pjc.has_area() && pjc.is_pure_ghost()) continue;
       // Default user index = 0 doesn't give valid particle lookup
-      if (p.user_index() == 0) continue;
+      if (pjc.user_index() == 0) continue;
       // Split by index sign into constituent & tag lookup
-      if (p.user_index() > 0) {
+      if (pjc.user_index() > 0) {
         // Find constituents if index > 0
-        const size_t i = p.user_index() - 1;
+        const size_t i = pjc.user_index() - 1;
         if (i >= fsparticles.size()) throw RangeError("FS particle lookup failed in jet construction");
         constituents.push_back(fsparticles.at(i));
       } else if (!tagparticles.empty()) {
         // Find tags if index < 0
-        const size_t i = abs(p.user_index()) - 1;
+        const size_t i = abs(pjc.user_index()) - 1;
         if (i >= tagparticles.size()) throw RangeError("Tag particle lookup failed in jet construction");
         tags.push_back(tagparticles.at(i));
       }
@@ -197,7 +197,8 @@ namespace Rivet {
 
 
   Jet FastJets::trimJet(const Jet& input, const fastjet::Filter& trimmer)const{
-    assert(input.pseudojet().associated_cluster_sequence() == clusterSeq().get());
+    if (input.pseudojet().associated_cluster_sequence() != clusterSeq().get())
+      throw Error("To trim a Rivet::Jet, its associated PseudoJet must have come from this FastJets' ClusterSequence");
     PseudoJet pj = trimmer(input);
     return mkJet(pj, _fsparticles, _tagparticles);
   }
