@@ -10,8 +10,7 @@ namespace Rivet {
   public:
 
     // Constructor
-    // DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1509919);
-    ATLAS_2017_I1509919() : Analysis("ATLAS_2017_I1509919"), PTCUTS{ 1., 5., 10. } {  }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1509919);
 
 
     // Pre-run histogram and projection booking
@@ -246,7 +245,7 @@ namespace Rivet {
     }
 
     const static size_t NCUTS = 3;
-    const double PTCUTS[NCUTS]; // = { 1., 5., 10. };
+    const vector<double> PTCUTS = { 1., 5., 10. };
 
 
     /// @name Histograms

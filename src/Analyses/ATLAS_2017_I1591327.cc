@@ -12,9 +12,7 @@ namespace Rivet {
   public:
 
     // Constructor
-    ATLAS_2017_I1591327()
-      : Analysis("ATLAS_2017_I1591327"), ETA_BINS{0.0, 1.5, 3.0}
-    {
+    ATLAS_2017_I1591327() : Analysis("ATLAS_2017_I1591327") {
       setNeedsCrossSection(true);
     }
 
@@ -177,7 +175,7 @@ namespace Rivet {
 
     fastjet::AreaDefinition* _area_def;
 
-    const vector<double> ETA_BINS;
+    const vector<double> ETA_BINS = {0.0, 1.5, 3.0};
     vector<double> _ptDensity, _sigma, _Njets;
 
   };
