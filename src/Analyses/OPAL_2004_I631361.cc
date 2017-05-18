@@ -20,7 +20,7 @@ namespace Rivet {
     void init() {
       declare(FinalState(), "FS");
       declare(ChargedFinalState(), "CFS");
-      int ih = 0, iy;
+      int ih(0), iy(0);
       if (inRange(0.5*sqrtS()/GeV, 5.0, 5.5)) {
         ih = 1;
 	iy = 1;
