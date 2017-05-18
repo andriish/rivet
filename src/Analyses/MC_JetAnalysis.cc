@@ -30,7 +30,9 @@ namespace Rivet {
       const string pTname = "jet_pT_" + to_str(i+1);
       const double pTmax = 1.0/(double(i)+2.0) * sqrts/GeV/2.0;
       const int nbins_pT = 100/(i+1);
-      _h_pT_jet[i] = bookHisto1D(pTname, logspace(nbins_pT, 10.0, pTmax));
+      if (pTmax > 10) { // Protection aginst logspace exception, needed for LEP
+        _h_pT_jet[i] = bookHisto1D(pTname, logspace(nbins_pT, 10.0, pTmax));
+      }
 
       const string massname = "jet_mass_" + to_str(i+1);
       const double mmax = 100.0;

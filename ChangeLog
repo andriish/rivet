@@ -6,6 +6,11 @@
 
 	* The latter needed GENKTEE FastJet algorithm so I added that FastJets
 
+	* Protection against logspace exception in histobooking of
+	MC_JetAnalysis
+	
+	* Fix compiler complaints about uninitialised variable in OPAL_2004.
+
 2016-05-16  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Tidy ALEPH_1999 charm fragmentation analysis and normalise to data
