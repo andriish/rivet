@@ -27,6 +27,8 @@ namespace Rivet {
       _jdef = fastjet::JetDefinition(fastjet::antikt_algorithm, rparameter, fastjet::E_scheme);
     } else if (alg == DURHAM) {
       _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
+    } else if (alg == GENKTEE) {
+      _jdef = fastjet::JetDefinition(fastjet::ee_genkt_algorithm, rparameter, -1);
     } else {
       // Plugins:
       if (alg == SISCONE) {

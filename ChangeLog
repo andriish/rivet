@@ -2,6 +2,10 @@
 
 	* Add ALEPH measurement of hadronic tau decays, ALEPH_2014_I1267648. 
 
+	* Add ALEPH dimuon invariant mass (OS and SS) analysis, ALEPH_2016_I1492968
+
+	* The latter needed GENKTEE FastJet algorithm so I added that FastJets
+
 2016-05-16  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Tidy ALEPH_1999 charm fragmentation analysis and normalise to data
