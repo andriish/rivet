@@ -1,3 +1,7 @@
+2017-05-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ATLAS_2016_I1426515, WW production at 8 TeV.
+
 2016-05-19  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Add BELLE measurement of semileptonic B0bar -> D*+ ell nu decays. I
@@ -9,7 +13,7 @@
 
 2016-05-17  Holger Schulz  <holger.schulz@durham.ac.uk>
 
-	* Add ALEPH measurement of hadronic tau decays, ALEPH_2014_I1267648. 
+	* Add ALEPH measurement of hadronic tau decays, ALEPH_2014_I1267648.
 
 	* Add ALEPH dimuon invariant mass (OS and SS) analysis, ALEPH_2016_I1492968
 
@@ -17,7 +21,7 @@
 
 	* Protection against logspace exception in histobooking of
 	MC_JetAnalysis
-	
+
 	* Fix compiler complaints about uninitialised variable in OPAL_2004.
 
 2016-05-16  Holger Schulz  <holger.schulz@durham.ac.uk>
