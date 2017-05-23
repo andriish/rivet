@@ -55,7 +55,9 @@ namespace Rivet {
     /// Get the particles in this jet (const version)
     const Particles& particles() const { return _particles; }
     /// Get the particles in this jet which pass a cut (const)
-    const Particles particles(const Cut& c) const { return filterBy(_particles, c); }
+    const Particles particles(const Cut& c) const { return filter_select(_particles, c); }
+    /// Get the particles in this jet which pass a filtering functor (const)
+    const Particles particles(const ParticleSelector& s) const { return filter_select(_particles, s); }
 
     /// Get the particles in this jet (FastJet-like alias)
     Particles& constituents() { return particles(); }
@@ -63,6 +65,8 @@ namespace Rivet {
     const Particles& constituents() const { return particles(); }
     /// Get the particles in this jet which pass a cut (FastJet-like alias, const)
     const Particles constituents(const Cut& c) const { return particles(c); }
+    /// Get the particles in this jet which pass a filtering functor (FastJet-like alias, const)
+    const Particles constituents(const ParticleSelector& s) const { return particles(s); }
 
     /// Check whether this jet contains a particular particle.
     bool containsParticle(const Particle& particle) const;
