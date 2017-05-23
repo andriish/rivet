@@ -1,5 +1,5 @@
-BEGIN YODA_SCATTER2D /REF/ATLAS_2016_I1482689/d01-x01-y01
-Path=/REF/ATLAS_2016_I1482689/d01-x01-y01
+BEGIN YODA_SCATTER2D /REF/ATLAS_2016_CONF_2016_092/d01-x01-y01
+Path=/REF/ATLAS_2016_CONF_2016_092/d01-x01-y01
 Title=Inclusive jet cross section as a function of jet $p_\text{T}$ ($0.0 < |y| < 0.5$)
 Type=Scatter2D
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
@@ -37,8 +37,8 @@ Type=Scatter2D
 2.964500e+03	9.725000e+02	9.725000e+02	2.621661e-05	5.845624e-06	5.695535e-06
 END YODA_SCATTER2D
 
-BEGIN YODA_SCATTER2D /REF/ATLAS_2016_I1482689/d02-x01-y01
-Path=/REF/ATLAS_2016_I1482689/d02-x01-y01
+BEGIN YODA_SCATTER2D /REF/ATLAS_2016_CONF_2016_092/d02-x01-y01
+Path=/REF/ATLAS_2016_CONF_2016_092/d02-x01-y01
 Title=Inclusive jet cross section as a function of jet $p_\text{T}$ ($0.5 < |y| < 1.0$)
 Type=Scatter2D
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
@@ -76,8 +76,8 @@ Type=Scatter2D
 2.964500e+03	9.725000e+02	9.725000e+02	1.451990e-05	3.938558e-06	3.786055e-06
 END YODA_SCATTER2D
 
-BEGIN YODA_SCATTER2D /REF/ATLAS_2016_I1482689/d03-x01-y01
-Path=/REF/ATLAS_2016_I1482689/d03-x01-y01
+BEGIN YODA_SCATTER2D /REF/ATLAS_2016_CONF_2016_092/d03-x01-y01
+Path=/REF/ATLAS_2016_CONF_2016_092/d03-x01-y01
 Title=Inclusive jet cross section as a function of jet $p_\text{T}$ ($1.0 < |y| < 1.5$)
 Type=Scatter2D
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
@@ -114,8 +114,8 @@ Type=Scatter2D
 2.015000e+03	4.850000e+02	4.850000e+02	6.925732e-05	1.356849e-05	1.320596e-05
 END YODA_SCATTER2D
 
-BEGIN YODA_SCATTER2D /REF/ATLAS_2016_I1482689/d04-x01-y01
-Path=/REF/ATLAS_2016_I1482689/d04-x01-y01
+BEGIN YODA_SCATTER2D /REF/ATLAS_2016_CONF_2016_092/d04-x01-y01
+Path=/REF/ATLAS_2016_CONF_2016_092/d04-x01-y01
 Title=Inclusive jet cross section as a function of jet $p_\text{T}$ ($1.5 < |y| < 2.0$)
 Type=Scatter2D
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
@@ -151,8 +151,8 @@ Type=Scatter2D
 1.651000e+03	3.410000e+02	3.410000e+02	3.732243e-05	9.987565e-06	9.307173e-06
 END YODA_SCATTER2D
 
-BEGIN YODA_SCATTER2D /REF/ATLAS_2016_I1482689/d05-x01-y01
-Path=/REF/ATLAS_2016_I1482689/d05-x01-y01
+BEGIN YODA_SCATTER2D /REF/ATLAS_2016_CONF_2016_092/d05-x01-y01
+Path=/REF/ATLAS_2016_CONF_2016_092/d05-x01-y01
 Title=Inclusive jet cross section as a function of jet $p_\text{T}$ ($2.0 < |y| < 2.5$)
 Type=Scatter2D
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
@@ -185,8 +185,8 @@ Type=Scatter2D
 1.087000e+03	7.500000e+01	7.500000e+01	7.814000e-05	2.050351e-05	2.098451e-05
 END YODA_SCATTER2D
 
-BEGIN YODA_SCATTER2D /REF/ATLAS_2016_I1482689/d06-x01-y01
-Path=/REF/ATLAS_2016_I1482689/d06-x01-y01
+BEGIN YODA_SCATTER2D /REF/ATLAS_2016_CONF_2016_092/d06-x01-y01
+Path=/REF/ATLAS_2016_CONF_2016_092/d06-x01-y01
 Title=Inclusive jet cross section as a function of jet $p_\text{T}$ ($2.5 < |y| < 3.0$)
 Type=Scatter2D
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
