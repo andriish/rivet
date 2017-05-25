@@ -143,7 +143,7 @@ namespace Rivet {
         lep1 = &good_el[0];
         lep2 = &good_mu[0];
       }
-      else if (channel == 4) { //mue
+      else { // if (channel == 4) { //mue
         lep1 = &good_mu[0];
         lep2 = &good_el[0];
       }
