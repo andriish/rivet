@@ -1,3 +1,9 @@
+2017-06-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add FinalState and Cut (optional) constructor arguments and
+	usage to DISFinalState. Thanks to Andrii Verbytskyi for the idea
+	and initial patch.
+
 2017-05-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add ATLAS_2016_I1448301, Z/gamma cross section measurement at 8 TeV.
