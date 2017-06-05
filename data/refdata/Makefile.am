@@ -224,7 +224,9 @@ dist_pkgdata_DATA = \
   CMS_2015_I1384119.yoda \
   CMS_2015_I1385107.yoda \
   CMS_2015_I1397174.yoda \
+  CMS_2016_I1413748.yoda \
   CMS_2016_I1421646.yoda \
+  CMS_2016_I1430892.yoda \
   CMS_2016_I1454211.yoda \
   CMS_2016_I1459051.yoda \
   CMS_2016_I1473674.yoda \

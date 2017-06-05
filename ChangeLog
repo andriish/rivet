@@ -1,5 +1,9 @@
 2017-06-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add CMS_2016_I1430892: dilepton channel ttbar charge asymmetry analysis.
+
+	* Add CMS_2016_I1413748: dilepton channel ttbar spin correlations and polarisation analysis.
+
 	* Add CMS_2017_I1518399: leading jet mass for boosted top quarks at 8 TeV.
 
 	* Add convenience constructors for ChargedLeptons projection.

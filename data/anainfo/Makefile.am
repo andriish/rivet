@@ -289,7 +289,9 @@ dist_pkgdata_DATA = \
   CMS_2015_I1384119.info \
   CMS_2015_I1385107.info \
   CMS_2015_I1397174.info \
+  CMS_2016_I1413748.info \
   CMS_2016_I1421646.info \
+  CMS_2016_I1430892.info \
   CMS_2016_I1454211.info \
   CMS_2016_I1459051.info \
   CMS_2016_I1473674.info \

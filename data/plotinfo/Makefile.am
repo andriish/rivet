@@ -277,7 +277,9 @@ dist_pkgdata_DATA = \
   CMS_2015_I1384119.plot \
   CMS_2015_I1385107.plot \
   CMS_2015_I1397174.plot \
+  CMS_2016_I1413748.plot \
   CMS_2016_I1421646.plot \
+  CMS_2016_I1430892.plot \
   CMS_2016_I1454211.plot \
   CMS_2016_I1459051.plot \
   CMS_2016_I1473674.plot \
