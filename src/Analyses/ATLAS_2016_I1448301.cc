@@ -190,8 +190,8 @@ namespace Rivet {
           bool veto = false;
           veto |= deltaR(photons[0], lep_p[0]) < 0.4;
           veto |= deltaR(photons[0], lep_m[0]) < 0.4;
+          veto |= deltaR(photons[1], lep_p[0]) < 0.4;
           veto |= deltaR(photons[1], lep_m[0]) < 0.4;
-          veto |= deltaR(photons[2], lep_m[0]) < 0.4;
           veto |= deltaR(photons[0], photons[1]) < 0.4;
 
           Jet ph0_jet, ph1_jet;
