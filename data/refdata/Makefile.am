@@ -230,6 +230,7 @@ dist_pkgdata_DATA = \
   CMS_2016_I1473674.yoda \
   CMS_2016_I1486238.yoda \
   CMS_2017_I1511284.yoda \
+  CMS_2017_I1518399.yoda \
   CMS_2017_I1519995.yoda \
   CMS_2010_PAS_QCD_10_024.yoda \
   CMS_2012_PAS_QCD_11_010.yoda \

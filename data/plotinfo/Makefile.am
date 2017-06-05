@@ -283,6 +283,7 @@ dist_pkgdata_DATA = \
   CMS_2016_I1473674.plot \
   CMS_2016_I1486238.plot \
   CMS_2017_I1511284.plot \
+  CMS_2017_I1518399.plot \
   CMS_2017_I1519995.plot \
   CMS_2010_PAS_QCD_10_024.plot \
   CMS_2012_PAS_QCD_11_010.plot \
