@@ -28,7 +28,7 @@ namespace Rivet {
     }
 
     // Give up: return null beams
-    return ParticlePair{Particle(PID::ANY, FourMomentum()), Particle(PID::ANY, FourMomentum())};
+    return ParticlePair{Particle(), Particle()};
   }
 
 

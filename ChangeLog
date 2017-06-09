@@ -1,5 +1,7 @@
 2017-06-09  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Slight improvements to Particle constructors.
+
 	* Improvement to Beam projection: before falling back to barcodes
 	1 & 2, try a manual search for status=4 particles. Based on a
 	patch from Andrii Verbytskyi.

@@ -25,13 +25,13 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original(0), _id(0)
+        _original(nullptr), _id(PID::ANY)
     { }
 
     /// Constructor without GenParticle.
     Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector())
       : ParticleBase(),
-        _original(0), _id(pid), _momentum(mom), _origin(pos)
+        _original(nullptr), _id(pid), _momentum(mom), _origin(pos)
     { }
 
     /// Constructor from a HepMC GenParticle pointer.
@@ -41,8 +41,9 @@ namespace Rivet {
         _momentum(gp->momentum())
     {
       const GenVertex* vprod = gp->production_vertex();
-      if (vprod != NULL)
+      if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+      }
     }
 
     /// Constructor from a HepMC GenParticle.
@@ -52,8 +53,9 @@ namespace Rivet {
         _momentum(gp.momentum())
     {
       const GenVertex* vprod = gp.production_vertex();
-      if (vprod != NULL)
+      if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+      }
     }
 
     //@}
