@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// Dilepton channel ttbar spin correlations and polarisation analysis
+  /// CMS 8 TeV dilepton channel ttbar spin correlations and polarisation analysis
   class CMS_2016_I1413748 : public Analysis {
   public:
 
@@ -104,7 +104,7 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      // use particle-level leptons for the first 2 histos
+      // Use particle-level leptons for the first histogram
       const DressedLeptons& dressed_electrons = applyProjection<DressedLeptons>(event, "DressedElectrons");
       const DressedLeptons& dressed_muons = applyProjection<DressedLeptons>(event, "DressedMuons");
 
@@ -120,10 +120,9 @@ namespace Rivet {
       // effect is well below the level of sensitivity of the measured distribution.
       if ( ndressedel == 1 && ndressedmu == 1 ) {
 
-        int electrontouse = 0;
-        int muontouse = 0;
+        const int electrontouse = 0, muontouse = 0;
 
-        // Fill particle-level histos for opposite-charge leptons only
+        // Opposite-charge leptons only
         if ( sameSign(dressedels[electrontouse],dressedmus[muontouse]) ) {
           MSG_INFO("Error, e and mu have same charge, skipping event");
         }
@@ -157,12 +156,12 @@ namespace Rivet {
           const auto isPromptChargedLepton = [](const Particle& p){return (isChargedLepton(p) && isPrompt(p, false, false));};
           Particles lepton_candidates = lepTop.allDescendants(firstParticleWith(isPromptChargedLepton), false);
           if ( lepton_candidates.size() < 1 ) MSG_WARNING("error, PartonicTops::E_MU top quark had no daughter lepton candidate, skipping event.");
-          bool istrueleptonictop = false;
 
           // In some cases there is no lepton from the W decay but only leptons from the decay of a radiated gamma.
           // These hadronic PartonicTops are currently being mistakenly selected by PartonicTops::E_MU (as of April 2017), and need to be rejected.
           // PartonicTops::E_MU is being fixed in Rivet, and when it is the veto below should do nothing.
           /// @todo Should no longer be necessary -- remove
+          bool istrueleptonictop = false;
           for (size_t i = 0; i < lepton_candidates.size(); ++i) {
             const Particle& lepton_candidate = lepton_candidates[i];
             if ( lepton_candidate.hasParent(PID::PHOTON) ) {
@@ -235,22 +234,15 @@ namespace Rivet {
         fillWithUFOF( _h_lep_costheta_CPV, lepPlus_costheta_temp, weight );
         fillWithUFOF( _h_lep_costheta_CPV, -lepMinus_costheta_temp, weight );
 
-        //now fill the same variables in each of their 3 bins of ttbar invariant mass, pT, and absolute rapidity
+        // Now fill the same variables in the 2D and profile histos vs ttbar invariant mass, pT, and absolute rapidity
         for (int i_var = 0; i_var < 3; ++i_var) {
           double var;
-          vector<double> bins_var;
-
           if ( i_var == 0 ) {
             var = tt_mass_temp;
-            bins_var = _bins_tt_mass;
-          }
-          else if ( i_var == 1 ) {
+          } else if ( i_var == 1 ) {
             var = tt_pT_temp;
-            bins_var = _bins_tt_pT;
-          }
-          else {
+          } else {
             var = tt_absrapidity_temp;
-            bins_var = _bins_tt_absrapidity;
           }
 
           fillWithUFOF( _h_dphi_var[i_var], dphi_temp, var, weight );

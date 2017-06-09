@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// Dilepton channel ttbar charge asymmetry analysis
+  /// CMS 8 TeV dilepton channel ttbar charge asymmetry analysis
   class CMS_2016_I1430892 : public Analysis {
   public:
 
@@ -47,7 +47,9 @@ namespace Rivet {
 
       // Booking of histograms
 
-      // This histogram is independent of the parton-level information, and is an addition to the original analysis. It is compared to the same data as the parton-level delta_abseta histogram d05-x01-y01.
+      // This histogram is independent of the parton-level information, and is an
+      // addition to the original analysis. It is compared to the same data as
+      // the parton-level delta_abseta histogram d05-x01-y01.
       _h_dabsetadressedleptons = bookHisto1D("d00-x01-y01", _bins_dabseta);
 
       // The remaining histos use parton-level information
@@ -82,7 +84,7 @@ namespace Rivet {
 
       const double weight = event.weight();
 
-      // Use particle-level leptons for the first 2 histos
+      // Use particle-level leptons for the first histogram
       const DressedLeptons& dressed_electrons = applyProjection<DressedLeptons>(event, "DressedElectrons");
       const DressedLeptons& dressed_muons = applyProjection<DressedLeptons>(event, "DressedMuons");
 
@@ -97,11 +99,10 @@ namespace Rivet {
       // this affects ~0.5% of events, so the effect is well below the level of sensitivity of the measured distribution.
       if ( ndressedel == 1 && ndressedmu == 1 ) {
 
-        int electrontouse = 0;
-        int muontouse = 0;
+        const int electrontouse = 0, muontouse = 0;
 
-        // Fill particle-level histos for opposite-charge leptons only
-        if ( sameSign(dressedels[electrontouse],dressedmus[muontouse]) ) {
+        // Opposite-charge leptons only
+        if ( sameSign(dressedels[electrontouse], dressedmus[muontouse]) ) {
           MSG_INFO("Error, e and mu have same charge, skipping event");
         } else {
           // Get the four-momenta of the positively- and negatively-charged leptons
@@ -134,12 +135,12 @@ namespace Rivet {
           const auto isPromptChargedLepton = [](const Particle& p){return (isChargedLepton(p) && isPrompt(p, false, false));};
           Particles lepton_candidates = lepTop.allDescendants(firstParticleWith(isPromptChargedLepton), false);
           if ( lepton_candidates.size() < 1 ) MSG_WARNING("error, PartonicTops::E_MU top quark had no daughter lepton candidate, skipping event.");
-          bool istrueleptonictop = false;
 
           // In some cases there is no lepton from the W decay but only leptons from the decay of a radiated gamma.
           // These hadronic PartonicTops are currently being mistakenly selected by PartonicTops::E_MU (as of April 2017), and need to be rejected.
           // PartonicTops::E_MU is being fixed in Rivet, and when it is the veto below should do nothing.
           /// @todo Should no longer be necessary -- remove
+          bool istrueleptonictop = false;
           for (size_t i = 0; i < lepton_candidates.size(); ++i) {
             const Particle& lepton_candidate = lepton_candidates[i];
             if ( lepton_candidate.hasParent(PID::PHOTON) ) {
@@ -184,22 +185,15 @@ namespace Rivet {
         fillWithUFOF( _h_dabseta, dabseta_temp, weight );
         fillWithUFOF( _h_dabsrapidity, dabsrapidity_temp, weight );
 
-        // Now fill the same variables in each of their 3 bins of ttbar invariant mass, pT, and absolute rapidity
+        // Now fill the same variables in the 2D and profile histos vs ttbar invariant mass, pT, and absolute rapidity
         for (int i_var = 0; i_var < 3; ++i_var) {
           double var;
-          vector<double> bins_var;
-
           if ( i_var == 0 ) {
             var = tt_mass_temp;
-            bins_var = _bins_tt_mass;
-          }
-          else if ( i_var == 1 ) {
+          } else if ( i_var == 1 ) {
             var = tt_pT_temp;
-            bins_var = _bins_tt_pT;
-          }
-          else {
+          } else {
             var = tt_absrapidity_temp;
-            bins_var = _bins_tt_absrapidity;
           }
 
           fillWithUFOF( _h_dabsrapidity_var[i_var], dabsrapidity_temp, var, weight );
