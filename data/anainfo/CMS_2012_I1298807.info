@@ -13,6 +13,7 @@ References:
 NeedCrossSection: no
 Beams:  [p+, p+]
 Energies: [8000]
+RunInfo: ZZ production, leptonic Z decays
 Description:
   'A measurement of the inclusive ZZ production cross section and constraints on anomalous triple gauge
   couplings in proton-proton collisions at $\sqrt{s} = 8 TeV$ are presented. The analysis is based on a
