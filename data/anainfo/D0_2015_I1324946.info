@@ -18,10 +18,10 @@ Beams: [p-,p+]
 Energies: [1960]
 NeedCrossSection: True
 Description:
-'D0 measurement of the distribution of the variable $\phi^*$ for muon pairs with masses between 30 and 500 GeV,
-using the complete run II data set collected at the Tevatron proton-antiproton collider.
-This corresponds to an integrated luminosity of 10.4  fb−1 at \sqrt{s}=1.96 TeV.
-The data are corrected for detector effects and presented in bins of dimuon rapidity and mass.'
+  'D0 measurement of the distribution of the variable $\phi^*$ for muon pairs with masses between 30 and 500 GeV,
+  using the complete run II data set collected at the Tevatron proton-antiproton collider.
+  This corresponds to an integrated luminosity of 10.4  fb−1 at \sqrt{s}=1.96 TeV.
+  The data are corrected for detector effects and presented in bins of dimuon rapidity and mass.'
 BibKey: Abazov:2014mza
 BibTeX: '@article{Abazov:2014mza,
       author         = "Abazov, Victor Mukhamedovich and others",

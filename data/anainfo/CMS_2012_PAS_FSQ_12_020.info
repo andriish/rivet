@@ -22,8 +22,8 @@ Description:
   modeling of the underlying event. The transverse region is divided into a MAX and MIN transverse
   region, which helps separate the hard component (initial and final-state radiation) from the
   beam--beam remnant and multiple parton interaction components of the scattering.'
-BibKey: :2015pea
-BibTeX: @article{Khachatryan:2015pea,
+BibKey: Khachatryan:2015pea
+BibTeX: '@article{Khachatryan:2015pea,
       author         = "Khachatryan, Vardan and others",
       title          = "{Event generator tunes obtained from underlying event and
                         multiparton scattering measurements}",
@@ -34,4 +34,4 @@ BibTeX: @article{Khachatryan:2015pea,
       primaryClass   = "hep-ex",
       reportNumber   = "CMS-GEN-14-001, CERN-PH-EP-2015-291",
       SLACcitation   = "%%CITATION = ARXIV:1512.00815;%%"
-}
+}'

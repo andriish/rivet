@@ -11,7 +11,7 @@ Authors:
 References:
     -doi:10.1140/epjc/s10052-014-3191-x
     -arXiv:1406.3206
-RunInfo: inelastic collisions pp at sqrt(s) = 7 TeV	
+RunInfo: inelastic collisions pp at sqrt(s) = 7 TeV
 NumEvents: 1000000
 NeedCrossSection: no
 Beams: [p+, p+]
@@ -38,8 +38,7 @@ BibTeX: '@article{Abelev:2014qqa,
       reportNumber   = "CERN-PH-EP-2014-128",
       SLACcitation   = "%%CITATION = ARXIV:1406.3206;%%",
 }'
-ToDo:
-'The original ALICE_2014_I1300380.yoda file extracted from HEPdata has 0 bin size for
+ToDo: 'The original ALICE_2014_I1300380.yoda file extracted from HEPdata has 0 bin size for
 the particle masses in the <pT> vs mass scatter plot. 
 I had to change this to a small bin size in order to fill the automatically booked
 histogram. This might be not the best procedure and one could change this in the future.'

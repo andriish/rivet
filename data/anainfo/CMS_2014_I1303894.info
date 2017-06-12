@@ -44,4 +44,4 @@ BibTeX: '@article{Khachatryan:2014uva,
       primaryClass   = "hep-ex",
       reportNumber   = "CMS-SMP-12-023, CERN-PH-EP-2014-134",
       SLACcitation   = "%%CITATION = ARXIV:1406.7533;%%",
-}
+}'
