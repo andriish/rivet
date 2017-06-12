@@ -38,6 +38,8 @@ namespace Rivet {
         _hist_pT_vs_dPhi[iC] = bookProfile1D(7, 1 + iC, 1);
         //ptLead histos only for 1 and 5 GeV cuts
         if ( (iC == 0) || (iC == 1) )  _hist_ptLead[iC] = bookHisto1D(8, 1 + iC, 1);
+        // 
+        _counters[iC] = bookCounter("Ctr_cut_" + toString(iC));
       }
 
     }
@@ -58,8 +60,7 @@ namespace Rivet {
       // Require at least one track in the event for pTlead histograms
       if (particles.empty()) vetoEvent;
       const double weight = event.weight();
-      for (size_t iC = 0; iC < NCUTS; ++iC) {
-        if (iC != 0 && iC != 1) continue;
+      for (size_t iC = 0; iC < 2; ++iC) {
         if (particles[0].pT() < PTCUTS[iC]*GeV) continue;
         _counters[iC]->fill(weight);
         _hist_ptLead[iC]->fill( particles[0].pT()/GeV, weight);
@@ -87,7 +88,7 @@ namespace Rivet {
       int    tmpnch[2]   = {0,0};
       double tmpptsum[2] = {0,0};
       for (const Particle& p : particles) {
-        const double pT   = p.pT();
+        const double pT   = p.pT()/GeV;
         const double dPhi = deltaPhi(philead, p.phi()); // in range (0,pi)
         const int    ir   = region_index(dPhi); // gives just toward/away/trans
 
