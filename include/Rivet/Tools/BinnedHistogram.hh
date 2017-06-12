@@ -43,12 +43,14 @@ namespace Rivet {
 
 
     /// Fill the histogram in the same bin as @a binval with value @a val and weight @a weight
-    Histo1DPtr fill(const T& binval, double val, double weight);
+    void fill(const T& binval, double val, double weight);
 
 
-    /// Get the histogram in the same bin as @a binval (const)
+    /// @brief Get the histogram in the same bin as @a binval (const)
+    /// @note Throws a RangeError if @a binval doesn't fall in a declared bin
     const Histo1DPtr histo(const T& binval) const;
-    /// Get the histogram in the same bin as @a binval
+    /// @brief Get the histogram in the same bin as @a binval
+    /// @note Throws a RangeError if @a binval doesn't fall in a declared bin
     Histo1DPtr histo(const T& binval);
 
     /// Get the contained histograms (const)
@@ -62,7 +64,7 @@ namespace Rivet {
 
 
     /// Scale histograms taking into account its "external" binwidth, i.e. by scale/binWidth
-    /// @note Urgh...
+    /// @note The Analysis pointer is passed in order to call the analysis' scale(h) method: can we avoid that?
     void scale(const T& scale, Analysis* ana);
 
 
