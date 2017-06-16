@@ -5,43 +5,120 @@
 ## Get program name
 PROG=$(basename $0)
 
-## Print help message
-tmp=$(echo "$*" | egrep -- '--\<help\>|-\<h\>')
-if test -n "$tmp"; then # || test $# -lt 1
-    echo "$PROG: compilation helper for Rivet analysis plugins"
-    echo
-    echo "Usage: $PROG [<libname>] <source1> [<source2> [compiler_flags] ...]"
-    echo
-    echo "<libname> can be a path, provided the filename is of the form 'Rivet*.so'"
-    echo "If <libname> is not specified, the default name is 'RivetAnalysis.so'."
-    echo
-    echo "To make special build variations you can add appropriate compiler flags"
-    echo "to the arguments and these will be passed directly to the compiler. For"
-    echo "example, for a debug build of your plugin library, add '-g', and for a"
-    echo "32 bit build on a 64 bit system add '-m32'."
-    echo
-    echo "Options:"
-    echo "  -h | --help: display this help message"
-    echo "  --with-root: add ROOT link options (requires root-config on system)"
-    echo "  --cmd|--dry-run: just print the generated compiler command, do not execute"
-    echo
-    echo "TODO:"
-    echo "  * is there a GCC option to parallelise the single-command compilation?"
-    test -n "$tmp"
-    exit $?
+# default value for num_jobs is all available cores
+let num_jobs=$(getconf _NPROCESSORS_ONLN)
+
+function usage {
+    cat <<-EOF
+		$PROG: 
+		compile a Rivet analysis plugin library from one or more sources
+
+		Usage: $PROG [options] [libname] source1 [...] [compiler_flags]
+
+		<libname> can be a path, provided the filename is of the form 'Rivet*.so'
+		If <libname> is not specified, the default name is 'RivetAnalysis.so'.
+
+		To make special build variations you can add appropriate compiler flags
+		to the arguments and these will be passed directly to the compiler. For
+		example, for a debug build of your plugin library, add '-g', and for a
+		32 bit build on a 64 bit system add '-m32'.
+
+		Options:
+		  -h | --help:      display this help message
+		  -j NUM            number of parallel compile jobs [$num_jobs]
+		  -r | --with-root: add ROOT link options (requires root-config on system)
+		  -n | --cmd | --dry-run: 
+		                    just print the generated commands, do not execute
+
+	EOF
+}
+
+# option handling https://stackoverflow.com/a/5255468
+# translate long options to short
+args=()
+for arg
+do
+    case "$arg" in
+       # translate our long options
+       --help            ) args+=("-h");;
+       --with-root       ) args+=("-r");;
+       --cmd | --dry-run ) args+=("-n");;
+       # pass through anything else
+	   *                 ) args+=("$arg");;
+    esac
+done
+# reset the translated args
+set -- "${args[@]}"
+
+# now we can process with getopt
+while getopts ":hrnj:" opt; do
+    case $opt in
+        h)  usage; exit 0 ;;
+		j)  num_jobs=$OPTARG ;;
+        r)  with_root=yes ;;
+        n)  only_show=yes ;;
+        \?) echo "Unknown option -$OPTARG" >&2; exit 1 ;;
+		:)  echo "Option -$OPTARG requires an argument" >&2; exit 1 ;;
+    esac
+done
+# remove options
+shift $((OPTIND-1))
+
+# check num_jobs is a number
+if [[ ! $num_jobs -eq $num_jobs ]]; then
+	echo "Unknown argument to -j" >&2; exit 1
+fi 
+
+if [[ $num_jobs -lt 1 ]]; then
+	echo "Number of jobs must be positive" >&2; exit 1
 fi
 
-## These variables need to exist
+#echo "$with_root"
+#echo "$only_show"
+#echo "$@"
+
+# need some args left at this point
+if [[ $# -lt 1 ]]; then
+	usage >&2
+	exit 1
+fi
+
+## Get and check the library name
+libname="$1"
+match1=$(basename "$libname" | egrep '^.*\.so')
+match2=$(basename "$libname" | egrep '^Rivet.*\.so')
+if test -n "$match1"; then
+    if test -z "$match2"; then
+        echo "Library name '$libname' does not have the required 'Rivet*.so' name pattern" >&2
+        exit 1
+    fi
+    ## If we're using the first arg as the library name, shift it off the positional list
+    shift
+else
+    if [[ -z $only_show ]]; then
+        echo "Using default library name 'RivetAnalysis.so'"
+    fi
+    libname="RivetAnalysis.so"
+fi
+
+# again need some args left at this point
+if [[ $# -lt 1 ]]; then
+	usage >&2
+	exit 1
+fi
+
+
+
+## These variables need to exist, may be used in later substitutions
 ## Note no use of $DESTDIR... we ignore it so that destdir can be used
 ## for temp installs later copied to /
-prefix=@prefix@
-exec_prefix=@exec_prefix@
-datarootdir=@datarootdir@
+prefix="@prefix@"
+exec_prefix="@exec_prefix@"
+datarootdir="@datarootdir@"
+
 
 ## Work out shared library build flags by platform
-shared_flags=
-SWVERS=$(which sw_vers 2> /dev/null)
-if test "$SWVERS" && test -x "$SWVERS"; then
+if [[ $(uname) == "Darwin" ]]; then
   ## Mac OS X
   shared_flags="-undefined dynamic_lookup -bundle"
 else
@@ -56,11 +133,10 @@ abscxx=$(which "$CXX" 2> /dev/null)
 if [[ -x "$rivetcxx" ]]; then
     mycxx="@CXX@"
 elif [[ -x "$abscxx" ]]; then
-    mycxx=$CXX
+    mycxx="$CXX"
 fi
 
 ## Get Rivet system C++ compiler flags
-mycxxflags=""
 if [[ -n "@AM_CXXFLAGS@" ]]; then
     mycxxflags="@AM_CXXFLAGS@"
 fi
@@ -69,15 +145,15 @@ if [[ -n "@RIVETCXXFLAGS@" ]]; then
 fi
 
 ## Get Rivet system C preprocessor flags (duplicating that in rivet-config.in)
-mycppflags=""
-prefix="@prefix@"
-exec_prefix="@exec_prefix@"
 irivet="@includedir@"
 test -n "$irivet" && mycppflags="$mycppflags -I${irivet}"
+
 ihepmc="@HEPMCINCPATH@"
 test -n "$ihepmc" && mycppflags="$mycppflags -I${ihepmc}"
+
 iyoda="@YODAINCPATH@"
 test -n "$iyoda" && mycppflags="$mycppflags -I${iyoda}"
+
 ifastjet="@FASTJETINCPATH@"
 test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
 # igsl="@GSLINCPATH@"
@@ -101,50 +177,74 @@ if (cd /tmp && echo -e 'int main() { return 0; }' > $$.cc; $mycxx -Wl,--no-as-ne
   myldflags="-Wl,--no-as-needed $myldflags"
 fi
 
-
-## Link against ROOT if requested
-with_root=$(echo "$*" | egrep -- '--\<with-root\>')
-# echo $with_root
-tmp=$(echo "$*" | sed -e 's/--with-root//g')
-
-## Just show the compiler command rather than execute it, if requested
-only_show=$(echo "$tmp" | egrep -- '--\<cmd\>|--\<dry-run\>')
-# echo $only_show
-tmp=$(echo "$tmp" | sed -e 's/--cmd//g' -e 's/--dry-run//g')
-
-## Reset positional params now that flags have been removed
-set -- $tmp #< NB. protection against empty $tmp arg!!
-
-## Get and check the library name
-libname=$1
-match1=$(basename "$libname" | egrep '^.*\.so')
-match2=$(basename "$libname" | egrep '^Rivet.*\.so')
-if test -n "$match1"; then
-    if test -z "$match2"; then
-        echo "Library name '$libname' does not have the required 'Rivet*.so' name pattern" 1>&2
-        exit 1
-    fi
-    ## If we're using the first arg as the library name, shift it off the positional list
-    shift
-else
-    if [[ -z $only_show ]]; then
-        echo "Using default library name 'RivetAnalysis.so'"
-    fi
-    libname="RivetAnalysis.so"
-fi
-
-
-## Get the source files (and more flags)
-sources_and_flags="$* -lRivet"
+## Get ROOT flags if needed
 if [[ -n $with_root ]]; then
-    root_flags=$(root-config --libs --cflags 2> /dev/null)
-    # echo $root_flags
-    sources_and_flags="$root_flags $sources_and_flags"
+    rootcxxflags=$(root-config --cflags 2> /dev/null)
+    rootldflags=$(root-config --libs 2> /dev/null)
 fi
 
-## Build
-cmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $myldflags $sources_and_flags"
+
+
+
+# split sources into buckets, one for each core
+let idx=1
+for src in "$@"
+do
+	if [[ -s "$src" ]]; then
+	    buckets[$idx]="${buckets[$idx]} $src"
+    	let idx=(idx%$num_jobs)+1
+    else
+    	if [[ ${src:0:1} == "-" ]]; then
+    		# found a user option
+    		usercxxflags="$usercxxflags $src"
+    	else
+	    	echo "Warning: $src not found" >&2
+	    fi
+    fi
+done
+
+# may be less than num_jobs
+let num_buckets=${#buckets[@]}
+
+if [[ $num_buckets -lt 1 ]]; then
+	echo "Error: no source files found" >&2
+	exit 2
+fi 
+
+# loop over buckets
+for idx in $(seq 1 $num_buckets); do
+
+    # DO NOT SIMPLIFY, the OS X mktemp can't deal with suffixes directly
+    tmpfile="$(mktemp tmp.XXXXXXXX)"    
+    mv "$tmpfile" "$tmpfile.cc"
+    tmpfile="$tmpfile.cc"
+ 
+    for i in $(echo ${buckets[$idx]}) # find the real way to do this
+    do
+        echo "#line 1 \"$i\"" >> "$tmpfile"
+        cat "$i" >> "$tmpfile"
+    done
+
+    if [[ -s "$tmpfile" ]]; then
+        srcnames[$idx]="$tmpfile"
+        ## Build
+        cmd="$mycxx -c $shared_flags $mycppflags $mycxxflags $rootcxxflags $usercxxflags $tmpfile"
+        echo $cmd
+        if [[ -z $only_show ]]; then
+            eval $cmd &
+        fi
+    fi
+done
+
+echo "=== Waiting for ${#srcnames[@]} compilation(s) before linking ==="
+wait # for subprocesses to complete
+
+objnames=("${srcnames[@]/.cc/.o}")
+
+cmd="$mycxx -o \"$libname\" ${objnames[@]} $shared_flags $mycxxflags $myldflags $rootldflags -lRivet $usercxxflags"
 echo $cmd
 if [[ -z $only_show ]]; then
     eval $cmd
 fi
+
+rm -f "${srcnames[@]}" "${objnames[@]}"
