@@ -256,9 +256,9 @@ $libname : ${objnames[@]}
 EOF
 
 if [[ -z $only_show ]]; then
-	make -j ${num_jobs} -f "$tmpmakefile"
+	make -j ${num_jobs} -f "$tmpmakefile" || exit 3
 else
-	echo "Contents of $tmpmakefile"
+	echo "Contents of generated Makefile:"
 	echo "====="
 	cat "$tmpmakefile"
 fi
