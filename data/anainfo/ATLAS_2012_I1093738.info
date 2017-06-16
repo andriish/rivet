@@ -25,8 +25,7 @@ Description:
   The measurement uses 37 pb$^{-1}$ of integrated luminosity collected with the ATLAS detector.'
 NeedCrossSection: yes
 BibKey: Aad:2012cv
-BibTeX:
-'@article{Aad:2012cv,
+BibTeX: '@article{Aad:2012cv,
       author         = "Aad, Georges and others",
       title          = "{Measurement of the production cross section of an
                         isolated photon associated with jets in proton-proton

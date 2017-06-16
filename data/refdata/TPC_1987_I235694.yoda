@@ -1,0 +1,128 @@
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d02-x01-y01
+Path=/REF/TPC_1987_I235694/d02-x01-y01
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.0	0.0			13.8	1.0	1.0
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d02-x01-y02
+Path=/REF/TPC_1987_I235694/d02-x01-y02
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.0	0.0			1.7	0.6	0.6
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d02-x01-y03
+Path=/REF/TPC_1987_I235694/d02-x01-y03
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			0.7	0.6	0.6
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d02-x01-y04
+Path=/REF/TPC_1987_I235694/d02-x01-y04
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			15.9	1.0	1.0
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d03-x01-y01
+Path=/REF/TPC_1987_I235694/d03-x01-y01
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			10.8	0.9	0.9
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d03-x01-y02
+Path=/REF/TPC_1987_I235694/d03-x01-y02
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			2.0	0.5	0.5
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d03-x01-y03
+Path=/REF/TPC_1987_I235694/d03-x01-y03
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			0.6	0.5	0.5
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d03-x01-y04
+Path=/REF/TPC_1987_I235694/d03-x01-y04
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			13.2	0.9	0.9
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d04-x01-y01
+Path=/REF/TPC_1987_I235694/d04-x01-y01
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			10.1	0.9	0.9
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d04-x01-y02
+Path=/REF/TPC_1987_I235694/d04-x01-y02
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			0.9	0.4	0.4
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d04-x01-y03
+Path=/REF/TPC_1987_I235694/d04-x01-y03
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			0.6	0.4	0.4
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d04-x01-y04
+Path=/REF/TPC_1987_I235694/d04-x01-y04
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			12.0	0.9	0.9
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d05-x01-y01
+Path=/REF/TPC_1987_I235694/d05-x01-y01
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			10.7	0.5	0.5
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d05-x01-y02
+Path=/REF/TPC_1987_I235694/d05-x01-y02
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			1.4	0.1	0.1
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d05-x01-y03
+Path=/REF/TPC_1987_I235694/d05-x01-y03
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			0.6	0.1	0.1
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/TPC_1987_I235694/d05-x01-y04
+Path=/REF/TPC_1987_I235694/d05-x01-y04
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+29.0	0.5	0.5			12.8	0.6	0.6
+# END YODA_SCATTER2D 
+
+

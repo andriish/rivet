@@ -35,4 +35,4 @@ BibTeX: '@article{Aad:2016xcr,
       primaryClass   = "hep-ex",
       reportNumber   = "CERN-EP-2016-035",
       SLACcitation   = "%%CITATION = ARXIV:1605.03495;%%"
-}
+}'

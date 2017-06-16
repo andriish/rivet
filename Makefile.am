@@ -21,7 +21,7 @@ clean-local:
 if WITH_DOXYGEN
 dox:
 	@echo "Running Doxygen..."
-	@$(DOXYGEN) $(top_srcdir)/Doxyfile || true
+	@$(DOXYGEN) $(top_builddir)/Doxyfile || true
 install-dox:
 	$(install_sh_DATA) doxy/html/* $(DESTDIR)$(pkgdatadir)/doc/html
 mostlyclean-local:

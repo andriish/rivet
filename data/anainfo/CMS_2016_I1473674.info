@@ -13,11 +13,12 @@ References:
  - arXiv:1607.00837
 RunInfo:
   ttbar events at sqrt(s) = 8 TeV (inclusive or lepton+jets decay mode)
+  Top quarks are expected in the event record to identify the decay mode.
 Luminosity: 19.7 / fb
 Beams: [p+, p+]
 Energies: [8000]
 Description:
-	'Measurements are reported of the normalized differential cross sections for top quark pair production with respect to four kinematic event variables: the missing transverse energy; the scalar sum of the jet transverse momentum (pT); the scalar sum of the pT of all objects in the event; and the pT of leptonically decaying W bosons from top quark decays.'
+  'Measurements are reported of the normalized differential cross sections for top quark pair production with respect to four kinematic event variables: the missing transverse energy; the scalar sum of the jet transverse momentum (pT); the scalar sum of the pT of all objects in the event; and the pT of leptonically decaying W bosons from top quark decays.'
 
 BibKey: Khachatryan:2016oou
 BibTeX: '@article{Khachatryan:2016oou,

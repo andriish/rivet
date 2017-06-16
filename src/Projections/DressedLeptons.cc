@@ -20,6 +20,24 @@ namespace Rivet {
   }
 
 
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                                 double dRmax, bool cluster, const Cut& cut,
+                                 bool useDecayPhotons)
+    : DressedLeptons(photons, bareleptons, dRmax, cut, cluster, useDecayPhotons)
+  {   }
+
+
+  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                                 double dRmax, bool cluster,
+                                 double etaMin, double etaMax,
+                                 double pTmin, bool useDecayPhotons)
+    : DressedLeptons(photons, bareleptons, dRmax,
+                     Cuts::eta > etaMin && Cuts::eta < etaMax && Cuts::pT > pTmin,
+                     cluster, useDecayPhotons)
+  {   }
+
+
+
   int DressedLeptons::compare(const Projection& p) const {
     // Compare the two as final states (for pT and eta cuts)
     const DressedLeptons& other = dynamic_cast<const DressedLeptons&>(p);

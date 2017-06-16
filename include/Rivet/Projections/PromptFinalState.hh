@@ -39,9 +39,9 @@ namespace Rivet {
 
     //@}
 
-    /// Accept particles from decays of prompt muons as themselves being prompt?
+    /// Accept leptons from decays of prompt muons as themselves being prompt?
     void acceptMuonDecays(bool acc=true) { _acceptMuDecays = acc; }
-    /// Accept particles from decays of prompt taus as themselves being prompt?
+    /// Accept leptons from decays of prompt taus as themselves being prompt?
     void acceptTauDecays(bool acc=true) { _acceptTauDecays = acc; }
 
 
@@ -59,6 +59,10 @@ namespace Rivet {
     bool _acceptMuDecays, _acceptTauDecays;
 
   };
+
+
+  /// Alias with a more correct name
+  using DirectFinalState = PromptFinalState;
 
 }
 

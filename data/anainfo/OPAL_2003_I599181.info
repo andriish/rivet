@@ -18,8 +18,8 @@ NeedCrossSection: no
 Beams: [e+,e-]
 Energies: [91.2]
 Description:
-'A study of b quark fragmentation function is presented using inclusively reconstructed weakly decaying B hadrons. 
-The measurement uses about four million hadronic Z decays recorded in 1992-2000 with the OPAL detector at LEP.'
+  'A study of b quark fragmentation function is presented using inclusively reconstructed weakly decaying B hadrons. 
+  The measurement uses about four million hadronic Z decays recorded in 1992-2000 with the OPAL detector at LEP.'
 BibKey: Abbiendi:2002vt
 BibTeX: '@article{Abbiendi:2002vt,
       author         = "Abbiendi, G. and others",

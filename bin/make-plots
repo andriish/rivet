@@ -158,6 +158,10 @@ class InputData(Described):
                 elif name == 'HISTO2D':
                     self.histos[path] = Histo2D(f, p=path)
                     self.description['is2dim'] = True
+                elif name == 'COUNTER':
+                    self.histos[path] = Counter(f, p=path)
+                elif name == 'VALUE':
+                    self.histos[path] = Value(f, p=path)
                 elif name == 'FUNCTION':
                     self.functions[path] = Function(f)
 #            elif is_comment(line):
@@ -206,9 +210,9 @@ class InputData(Described):
         # self.description['TopMargin'] = float(self.description['TopMargin'])
         # self.description['BottomMargin'] = float(self.description['BottomMargin'])
 
-        self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
-        self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
-        self.description['LogZ'] = self.description.has_key('LogZ') and self.description['LogZ']=='1'
+        self.description['LogX'] = str(self.description.get('LogX', 0)) in ["1", "yes", "true"]
+        self.description['LogY'] = str(self.description.get('LogY', 0)) in ["1", "yes", "true"]
+        self.description['LogZ'] = str(self.description.get('LogZ', 0)) in ["1", "yes", "true"]
         if self.description.has_key('Rebin'):
             for i in self.histos:
                 self.histos[i].description['Rebin'] = self.description['Rebin']
@@ -479,6 +483,10 @@ class Plot(object):
             for i in inputdata.histos.keys():
                 if not inputdata.histos[i].description.has_key('ConnectGaps'):
                     inputdata.histos[i].description['ConnectGaps'] = inputdata.description['ConnectGaps']
+        # Counter and Value only have dummy x-axis, ticks wouldn't make sense here, so suppress them:
+        if 'Value object' in str(inputdata.histos) or 'Counter object' in str(inputdata.histos):
+          inputdata.description['XCustomMajorTicks'] = ''
+          inputdata.description['XCustomMinorTicks'] = ''
 
     def set_borders(self, inputdata):
         self.set_xmax(inputdata)
@@ -683,31 +691,31 @@ class MainPlot(Plot):
 
         # TODO: do this more compactly, e.g. by assigning sorting keys!
         if inputdata.attr_bool('DrawSpecialFirst', False):
-            for s in inputdata.special:
+            for s in inputdata.special.values():
                 out += s.draw(self.coors)
             if inputdata.attr_bool('DrawFunctionFirst', False):
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
         else:
             if inputdata.attr_bool('DrawFunctionFirst', False):
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
-            for i in inputdata.special.keys():
-                out += inputdata.special[i].draw(self.coors)
+            for s in inputdata.special.values():
+                out += s.draw(self.coors)
 
         if inputdata.attr_bool('Legend', False):
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
@@ -854,7 +862,7 @@ class RatioPlot(Plot):
 
         inputdata.description['RatioPlotStage'] = True
         inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
-        inputdata.description['LogY'] = False
+        inputdata.description['LogY'] = False  # TODO: actually, log ratio plots could be useful...
 
         # TODO: It'd be nice it this wasn't so MC-specific
         if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
@@ -1951,6 +1959,54 @@ class Histogram(DrawableObject, Described):
 
 
 
+class Value(Histogram):
+
+    def read_input_data(self, f):
+        for line in f:
+            if is_end_marker(line, 'VALUE'):
+                break
+            elif is_comment(line):
+                continue
+            else:
+                line = line.rstrip()
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
+                else:
+                    linearray = line.split()
+                    if len(linearray) == 3:
+                        self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[2] ])) # dummy x-values
+                    else:
+                        raise Exception('Value does not have the expected number of columns. ' + line)
+
+    # TODO: specialise draw() here
+
+
+class Counter(Histogram):
+
+    def read_input_data(self, f):
+        for line in f:
+            if is_end_marker(line, 'COUNTER'):
+                break
+            elif is_comment(line):
+                continue
+            else:
+                line = line.rstrip()
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
+                else:
+                    linearray = line.split()
+                    if len(linearray) == 2:
+                        self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[1] ])) # dummy x-values
+                    else:
+                        raise Exception('Counter does not have the expected number of columns. ' + line)
+
+    # TODO: specialise draw() here
+
+
 class Histo1D(Histogram):
 
     def read_input_data(self, f):
@@ -2644,7 +2700,7 @@ if __name__ == '__main__':
     parser.add_option("--no-subproc", dest="NO_SUBPROC", action="store_true", default=False,
                       help="don't use subprocesses to render the plots in parallel -- useful for debugging.")
     parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False,
-                      help="plot full y range in LogY plots.")
+                      help="plot full y range in log-y plots.")
     parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=None,
                       help="plot config file to be used. Overrides internal config blocks.")
     verbgroup = OptionGroup(parser, "Verbosity control")

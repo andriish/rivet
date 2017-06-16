@@ -102,6 +102,8 @@ namespace Rivet {
     static const PdgId D0BAR = -421;
     static const PdgId DPLUS = 411;
     static const PdgId DMINUS = -DPLUS;
+    static const PdgId DSTARPLUS = 413;
+    static const PdgId DSTARMINUS = -DSTARPLUS;
     static const PdgId DSPLUS = 431;
     static const PdgId DSMINUS = -DSPLUS;
     //@}

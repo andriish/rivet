@@ -274,14 +274,10 @@ if len(opts.SHOW_ANALYSES) > 0:
             msg += "Inspire URL: http://inspire-hep.net/search?p=find+key+" + ana.spiresId() + "\n"
             msg += "HepData URL: http://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
 
-        if ana.experiment():
-            msg += "Experiment: " + ana.experiment()
-            if ana.collider():
-                msg += "(%s)" % ana.collider()
-            msg += "\n"
-
         if ana.year():
             msg += "Year of publication: " + ana.year() + "\n"
+        if ana.bibKey():
+            msg += "BibTeX key: " + ana.bibKey() + "\n"
 
         msg += "Authors:\n"
         for a in ana.authors():
@@ -292,6 +288,11 @@ if len(opts.SHOW_ANALYSES) > 0:
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
         msg += twrap.fill(rivet.util.detex(ana.description())) + "\n\n"
 
+        if ana.experiment():
+            msg += "Experiment: " + ana.experiment()
+            if ana.collider():
+                msg += "(%s)" % ana.collider()
+            msg += "\n"
         # TODO: move this formatting into Analysis or a helper function?
         if ana.requiredBeams():
             def pid_to_str(pid):

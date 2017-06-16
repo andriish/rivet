@@ -498,6 +498,16 @@ namespace Rivet {
   //@}
 
 
+  /// @brief Get a parameter from a named environment variable, with automatic type conversion
+  /// @note Return @a fallback if the variable is not defined, otherwise convert its string to the template type
+  /// @todo Should the param name have to be specific to an analysis? Can specialise as an Analysis member fn.
+  template <typename T>
+  T getEnvParam(const std::string name, const T& fallback) {
+    char* env = getenv(name.c_str());
+    return env ? lexical_cast<T>(env) : fallback;
+  }
+
+
 }
 
 #endif

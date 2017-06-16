@@ -76,7 +76,7 @@ namespace Rivet {
     double _dRmax;
     /// Whether to actually add the photon momenta to clusteredLeptons
     bool _cluster;
-    /// Whether to include photons from hadron (particularly pi0) decays
+    /// Whether to include photons from hadron (particularly pi0) and hadronic tau decays
     bool _fromDecay;
 
     /// Container which stores the clustered lepton objects

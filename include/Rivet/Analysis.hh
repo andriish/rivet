@@ -346,7 +346,7 @@ namespace Rivet {
 
     /// Get reference data for a named histo
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
-    template <typename T=Scatter2D>
+    template <typename T=YODA::Scatter2D>
     const T& refData(const string& hname) const {
       _cacheRefData();
       MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
@@ -359,7 +359,7 @@ namespace Rivet {
 
     /// Get reference data for a numbered histo
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
-    template <typename T=Scatter2D>
+    template <typename T=YODA::Scatter2D>
     const T& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
       const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
       return refData(hname);
@@ -819,7 +819,7 @@ namespace Rivet {
     void addAnalysisObject(AnalysisObjectPtr ao);
 
     /// Get a data object from the histogram system
-    template <typename AO=AnalysisObject>
+    template <typename AO=YODA::AnalysisObject>
     const std::shared_ptr<AO> getAnalysisObject(const std::string& name) const {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
@@ -828,7 +828,7 @@ namespace Rivet {
     }
 
     /// Get a data object from the histogram system (non-const)
-    template <typename AO=AnalysisObject>
+    template <typename AO=YODA::AnalysisObject>
     std::shared_ptr<AO> getAnalysisObject(const std::string& name) {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);

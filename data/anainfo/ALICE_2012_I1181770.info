@@ -25,18 +25,23 @@ Description:
    To measure the inelastic cross-section, beam properties were determined with van der Meer scans using a simulation of diffraction adjusted to data.
 
    Note that these are experimental approximations to theoretical concepts -- it is not totally clear whether the data point values are model-independent.'
-BibKey: :2012sja
-BibTeX: '@article{:2012sja,
+BibKey: Abelev:2012sea
+BibTeX: '@article{Abelev:2012sea,
       author         = "Abelev, Betty and others",
       title          = "{Measurement of inelastic, single- and double-diffraction
                         cross sections in proton--proton collisions at the LHC
                         with ALICE}",
-      collaboration  = "ALICE Collaboration",
-      journal        = "Eur. Phys. J. C",
-      year           = "2012",
+      collaboration  = "ALICE",
+      journal        = "Eur. Phys. J.",
+      volume         = "C73",
+      year           = "2013",
+      number         = "6",
+      pages          = "2456",
+      doi            = "10.1140/epjc/s10052-013-2456-0",
       eprint         = "1208.4968",
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
-      reportNumber   = "CERN-PH-EP-2012-138",
-      SLACcitation   = "%%CITATION = ARXIV:1208.4968;%%",
+      reportNumber   = "CERN-PH-EP-2012-138 [SIC!], CERN-PH-EP-2012-238,
+                        CERN-PH-EP-2012-138",
+      SLACcitation   = "%%CITATION = ARXIV:1208.4968;%%"
 }'

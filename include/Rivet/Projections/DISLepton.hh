@@ -38,6 +38,7 @@ namespace Rivet {
     /// Compare with other projections.
     virtual int compare(const Projection& p) const;
 
+
   public:
 
     /// The incoming lepton.
@@ -46,7 +47,9 @@ namespace Rivet {
     /// The outgoing lepton.
     const Particle& out() const { return _outgoing; }
 
-    const double &pzSign() const { return _sign; }
+    /// Sign of the incoming lepton pz component
+    const double& pzSign() const { return _sign; }
+
 
   private:
 
@@ -56,8 +59,11 @@ namespace Rivet {
     /// The outgoing lepton.
     Particle _outgoing;
 
-    /// The sign of the PZ of the incoming lepton
+    /// The sign of the pz of the incoming lepton
     double _sign;
+
+    /// The current sign
+    int _charged;
 
   };
 

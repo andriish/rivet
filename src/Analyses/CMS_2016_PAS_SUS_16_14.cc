@@ -58,6 +58,10 @@ namespace Rivet {
           }
         }
       }
+      _h_srcountsagg.resize(12);
+      for (size_t ia = 0; ia < 12; ++ia) {
+        _h_srcountsagg[ia] = bookCounter("agg-" + toString(ia));
+      }
 
     }
 
@@ -134,30 +138,45 @@ namespace Rivet {
       if (deltaPhi(htmissvec, jets24[2]) < 0.3) vetoEvent;
       if (jets24.size() >= 4 && deltaPhi(htmissvec, jets24[3]) < 0.3) vetoEvent;
 
+      // Count jet and b-jet multiplicities
+      const size_t nj = jets24.size();
+      size_t nbj = 0;
+      for (const Jet& j : jets24)
+        if (j.bTagged()) nbj += 1;
+
 
       ////////
 
 
-      // Calculate a bin index for this event
-      // Nj bin
+      // Fill the aggregate signal regions first
+      if (nj >= 3 && nbj == 0 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 0]->fill(event.weight());
+      if (nj >= 3 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 1]->fill(event.weight());
+      if (nj >= 5 && nbj == 0 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 2]->fill(event.weight());
+      if (nj >= 5 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 3]->fill(event.weight());
+      if (nj >= 9 && nbj == 0 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 4]->fill(event.weight());
+      if (nj >= 3 && nbj >= 2 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 5]->fill(event.weight());
+      if (nj >= 3 && nbj >= 1 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[ 6]->fill(event.weight());
+      if (nj >= 5 && nbj >= 3 && ht >  500*GeV && htmiss > 500*GeV) _h_srcountsagg[ 7]->fill(event.weight());
+      if (nj >= 5 && nbj >= 2 && ht > 1500*GeV && htmiss > 750*GeV) _h_srcountsagg[ 8]->fill(event.weight());
+      if (nj >= 9 && nbj >= 3 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[ 9]->fill(event.weight());
+      if (nj >= 7 && nbj >= 1 && ht >  300*GeV && htmiss > 300*GeV) _h_srcountsagg[10]->fill(event.weight());
+      if (nj >= 5 && nbj >= 1 && ht >  750*GeV && htmiss > 750*GeV) _h_srcountsagg[11]->fill(event.weight());
+
+
+      // Nj bin and Nbj bins
       static const vector<double> njedges = {3., 5., 7., 9.};
-      const size_t nj = jets24.size();
-      // Nbj bin
-      static const vector<double> njbedges = {0., 1., 2., 3.};
       const size_t inj = binIndex(nj, njedges, true);
-      size_t nbj = 0;
-      for (const Jet& j : jets24)
-        if (j.bTagged()) nbj += 1;
+      static const vector<double> njbedges = {0., 1., 2., 3.};
       const size_t inbj = binIndex(nbj, njbedges, true);
       // HTmiss vs HT 2D bin
       int iht = 0;
       if (htmiss < 350*GeV) {
         iht = ht < 500 ? 1 : ht < 1000 ? 2 : 3;
-      } if (htmiss < 500*GeV && ht > 350*GeV) {
+      } else if (htmiss < 500*GeV && ht > 350*GeV) {
         iht = ht < 500 ? 4 : ht < 1000 ? 5 : 6;
-      } if (htmiss < 750*GeV && ht > 500*GeV) {
+      } else if (htmiss < 750*GeV && ht > 500*GeV) {
         iht = ht < 1000 ? 7 : 8;
-      } if (ht > 750*GeV) {
+      } else if (ht > 750*GeV) {
         iht = ht < 1500 ? 9 : 10;
       }
       if (iht == 0) vetoEvent;
@@ -176,6 +195,7 @@ namespace Rivet {
 
       const double sf = 12.9*crossSection()/femtobarn/sumOfWeights();
       scale(_h_srcounts, sf);
+      scale(_h_srcountsagg, sf);
 
     }
 
@@ -186,7 +206,7 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    vector<CounterPtr> _h_srcounts;
+    vector<CounterPtr> _h_srcounts, _h_srcountsagg;
     //@}
 
 

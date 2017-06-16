@@ -26,6 +26,7 @@ namespace Rivet {
       declare(cfs, "CFS");
 
       _histChTot = bookHisto1D(1, 1, 1);
+      _histAver  = bookHisto1D(2, 1, 1);
     }
 
 
@@ -34,12 +35,14 @@ namespace Rivet {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
       _histChTot->fill(cfs.size(), event.weight());
+      _histAver->fill(_histAver->bin(0).xMid(),cfs.size()*event.weight());
     }
 
 
     /// Normalize the histogram
     void finalize() {
       scale(_histChTot, 2.0/sumOfWeights()); // same as in ALEPH 1996
+      scale(_histAver , 1./sumOfWeights());
     }
 
     //@}
@@ -50,6 +53,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _histChTot;
+    Histo1DPtr _histAver;
     //@}
 
   };

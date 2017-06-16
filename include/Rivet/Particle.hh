@@ -25,13 +25,13 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original(0), _id(0)
+        _original(nullptr), _id(PID::ANY)
     { }
 
     /// Constructor without GenParticle.
     Particle(PdgId pid, const FourMomentum& mom, const FourVector& pos=FourVector())
       : ParticleBase(),
-        _original(0), _id(pid), _momentum(mom), _origin(pos)
+        _original(nullptr), _id(pid), _momentum(mom), _origin(pos)
     { }
 
     /// Constructor from a HepMC GenParticle pointer.
@@ -41,8 +41,9 @@ namespace Rivet {
         _momentum(gp->momentum())
     {
       const GenVertex* vprod = gp->production_vertex();
-      if (vprod != NULL)
+      if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+      }
     }
 
     /// Constructor from a HepMC GenParticle.
@@ -52,8 +53,9 @@ namespace Rivet {
         _momentum(gp.momentum())
     {
       const GenVertex* vprod = gp.production_vertex();
-      if (vprod != NULL)
+      if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
+      }
     }
 
     //@}
@@ -195,8 +197,6 @@ namespace Rivet {
     /// @name Ancestry properties
     //@{
 
-    /// @todo Add physicalAncestors, allAncestors?
-
     /// Get a list of the direct parents of the current particle (with optional selection Cut)
     ///
     /// @note This is valid in MC, but may not be answerable
@@ -209,10 +209,39 @@ namespace Rivet {
     /// @note This is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    template <typename FN>
-    Particles parents(const FN& f) const {
+    Particles parents(const ParticleSelector& f) const {
       return filter_select(parents(), f);
     }
+
+    /// Check whether any particle in the particle's parent list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWith(const ParticleSelector& f) const {
+      return !parents(f).empty();
+    }
+    /// Check whether any particle in the particle's parent list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWith(const Cut& c) const;
+
+    /// Check whether any particle in the particle's parent list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWithout(const ParticleSelector& f) const {
+      return hasParentWith([&](const Particle& p){ return !f(p); });
+    }
+    /// Check whether any particle in the particle's parent list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasParentWithout(const Cut& c) const;
 
     /// Check whether a given PID is found in the particle's parent list
     ///
@@ -220,39 +249,70 @@ namespace Rivet {
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
     ///
-    /// @deprecated Prefer e.g. parents(Cut::pid == 123).size()
+    /// @deprecated Prefer e.g. hasParentWith(Cut::pid == 123)
+    //DEPRECATED("Prefer e.g. hasParentWith(Cut::pid == 123)");
     bool hasParent(PdgId pid) const;
 
-    /// Check whether a particle in the particle's parent list has the requested property
+
+
+    /// Get a list of the ancestors of the current particle (with optional selection Cut)
+    ///
+    /// @note By default only physical ancestors, with status=2, are returned.
+    ///
+    /// @note This is valid in MC, but may not be answerable experimentally --
+    /// use this function with care when replicating experimental analyses!
+    Particles ancestors(const Cut& c=Cuts::OPEN, bool only_physical=true) const;
+
+    /// Get a list of the direct parents of the current particle (with selector function)
+    ///
+    /// @note By default only physical ancestors, with status=2, are returned.
+    ///
+    /// @note This is valid in MC, but may not be answerable experimentally --
+    /// use this function with care when replicating experimental analyses!
+    Particles ancestors(const ParticleSelector& f, bool only_physical=true) const {
+      return filter_select(ancestors(Cuts::OPEN, only_physical), f);
+    }
+
+    /// Check whether any particle in the particle's ancestor list has the requested property
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    ///
-    /// @deprecated Prefer parents(Cut) or parents(FN) methods and .empty()
-    template <typename FN>
-    bool hasParentWith(const FN& f) const {
-      return _hasRelativeWith(HepMC::parents, f);
+    bool hasAncestorWith(const ParticleSelector& f, bool only_physical=true) const {
+      return !ancestors(f, only_physical).empty();
     }
-    bool hasParentWith(const Cut& c) const;
+    /// Check whether any particle in the particle's ancestor list has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestorWith(const Cut& c, bool only_physical=true) const;
+
+    /// Check whether any particle in the particle's ancestor list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestorWithout(const ParticleSelector& f, bool only_physical=true) const {
+      return hasAncestorWith([&](const Particle& p){ return !f(p); }, only_physical);
+    }
+    /// Check whether any particle in the particle's ancestor list does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasAncestorWithout(const Cut& c, bool only_physical=true) const;
 
     /// Check whether a given PID is found in the particle's ancestor list
     ///
     /// @note This question is valid in MC, but may not be answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
-    bool hasAncestor(PdgId pid) const;
-
-    /// Check whether a particle in the particle's ancestor list has the requested property
     ///
-    /// @note This question is valid in MC, but may not be answerable
-    /// experimentally -- use this function with care when replicating
-    /// experimental analyses!
-    template <typename FN>
-    bool hasAncestorWith(const FN& f) const {
-      return _hasRelativeWith(HepMC::ancestors, f);
-    }
-    bool hasAncestorWith(const Cut& c) const;
+    /// @deprecated Prefer hasAncestorWith(Cuts::pid == pid) etc.
+    //DEPRECATED("Prefer e.g. hasAncestorWith(Cut::pid == 123)");
+    bool hasAncestor(PdgId pid, bool only_physical=true) const;
+
 
     /// @brief Determine whether the particle is from a b-hadron decay
     ///
@@ -302,6 +362,13 @@ namespace Rivet {
     /// experimental analyses!
     bool fromPromptTau() const { return fromTau(true); }
 
+    /// @brief Determine whether the particle is from a tau which decayed hadronically
+    ///
+    /// @note This question is valid in MC, but may not be perfectly answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool fromHadronicTau(bool prompt_taus_only=false) const;
+
     /// @brief Determine whether the particle is from a hadron or tau decay
     ///
     /// Specifically, walk up the ancestor chain until a status 2 hadron or
@@ -310,15 +377,26 @@ namespace Rivet {
     /// @note This question is valid in MC, but may not be perfectly answerable
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
+    ///
+    /// @deprecated Too vague: use fromHadron or fromHadronicTau
     bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
     /// @brief Shorthand definition of 'promptness' based on set definition flags
     ///
-    /// The boolean arguments allow a decay lepton to be considered prompt if
-    /// its parent was a "real" prompt lepton.
+    /// A "direct" particle is one directly connected to the hard process. It is a
+    /// preferred alias for "prompt", since it has no confusing implications about
+    /// distinguishability by timing information.
+    ///
+    /// The boolean arguments allow a decay lepton to be considered direct if
+    /// its parent was a "real" direct lepton.
     ///
     /// @note This one doesn't make any judgements about final-stateness
-    bool isPrompt(bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) const;
+    bool isDirect(bool allow_from_direct_tau=false, bool allow_from_direct_mu=false) const;
+
+    /// Alias for isDirect
+    bool isPrompt(bool allow_from_prompt_tau=false, bool allow_from_prompt_mu=false) const {
+      return isDirect(allow_from_prompt_tau, allow_from_prompt_mu);
+    }
 
     //@}
 
@@ -329,23 +407,86 @@ namespace Rivet {
     /// Whether this particle is stable according to the generator
     bool isStable() const;
 
+    /// @todo isDecayed? How to restrict to physical particles?
+
+
     /// Get a list of the direct descendants from the current particle (with optional selection Cut)
     Particles children(const Cut& c=Cuts::OPEN) const;
 
     /// Get a list of the direct descendants from the current particle (with selector function)
-    template <typename FN>
-    Particles children(const FN& f) const {
+    Particles children(const ParticleSelector& f) const {
       return filter_select(children(), f);
     }
+
+    /// Check whether any direct child of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasChildWith(const ParticleSelector& f) const {
+      return !children(f).empty();
+    }
+    /// Check whether any direct child of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasChildWith(const Cut& c) const;
+
+    /// Check whether any direct child of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasChildWithout(const ParticleSelector& f) const {
+      return hasChildWith([&](const Particle& p){ return !f(p); });
+    }
+    /// Check whether any direct child of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasChildWithout(const Cut& c) const;
+
 
     /// Get a list of all the descendants from the current particle (with optional selection Cut)
     Particles allDescendants(const Cut& c=Cuts::OPEN, bool remove_duplicates=true) const;
 
     /// Get a list of all the descendants from the current particle (with selector function)
-    template <typename FN>
-    Particles allDescendants(const FN& f, bool remove_duplicates=true) const {
+    Particles allDescendants(const ParticleSelector& f, bool remove_duplicates=true) const {
       return filter_select(allDescendants(Cuts::OPEN, remove_duplicates), f);
     }
+
+    /// Check whether any descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasDescendantWith(const ParticleSelector& f, bool remove_duplicates=true) const {
+      return !allDescendants(f, remove_duplicates).empty();
+    }
+    /// Check whether any descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasDescendantWith(const Cut& c, bool remove_duplicates=true) const;
+
+    /// Check whether any descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasDescendantWithout(const ParticleSelector& f, bool remove_duplicates=true) const {
+      return hasDescendantWith([&](const Particle& p){ return !f(p); }, remove_duplicates);
+    }
+    /// Check whether any descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasDescendantWithout(const Cut& c, bool remove_duplicates=true) const;
+
 
     /// Get a list of all the stable descendants from the current particle (with optional selection Cut)
     ///
@@ -354,10 +495,40 @@ namespace Rivet {
     Particles stableDescendants(const Cut& c=Cuts::OPEN) const;
 
     /// Get a list of all the stable descendants from the current particle (with selector function)
-    template <typename FN>
-    Particles stableDescendants(const FN& f) const {
+    Particles stableDescendants(const ParticleSelector& f) const {
       return filter_select(stableDescendants(), f);
     }
+
+    /// Check whether any stable descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasStableDescendantWith(const ParticleSelector& f) const {
+      return !stableDescendants(f).empty();
+    }
+    /// Check whether any stable descendant of this particle has the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasStableDescendantWith(const Cut& c) const;
+
+    /// Check whether any stable descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasStableDescendantWithout(const ParticleSelector& f) const {
+      return hasStableDescendantWith([&](const Particle& p){ return !f(p); });
+    }
+    /// Check whether any stable descendant of this particle does not have the requested property
+    ///
+    /// @note This question is valid in MC, but may not be answerable
+    /// experimentally -- use this function with care when replicating
+    /// experimental analyses!
+    bool hasStableDescendantWithout(const Cut& c) const;
+
 
     /// Flight length (divide by mm or cm to get the appropriate units)
     double flightLength() const;
@@ -365,15 +536,37 @@ namespace Rivet {
     //@}
 
 
-  protected:
+    /// @name Duplicate testing
+    //@{
 
-    template <typename FN>
-    bool _hasRelativeWith(HepMC::IteratorRange relation, const FN& f) const {
-      for (const GenParticle* ancestor : particles(genParticle(), relation)) {
-        if (f(Particle(ancestor))) return true;
-      }
-      return false;
+    /// @brief Determine whether a particle is the first in a decay chain to meet the function requirement
+    inline bool isFirstWith(const ParticleSelector& f) const {
+      if (!f(*this)) return false; //< This doesn't even meet f, let alone being the last to do so
+      if (any(parents(), f)) return false; //< If a direct parent has this property, this isn't the first
+      return true;
     }
+
+    /// @brief Determine whether a particle is the first in a decay chain not to meet the function requirement
+    inline bool isFirstWithout(const ParticleSelector& f) const {
+      return isFirstWith([&](const Particle& p){ return !f(p); });
+    }
+
+    /// @brief Determine whether a particle is the last in a decay chain to meet the function requirement
+    inline bool isLastWith(const ParticleSelector& f) const {
+      if (!f(*this)) return false; //< This doesn't even meet f, let alone being the last to do so
+      if (any(children(), f)) return false; //< If a child has this property, this isn't the last
+      return true;
+    }
+
+    /// @brief Determine whether a particle is the last in a decay chain not to meet the function requirement
+    inline bool isLastWithout(const ParticleSelector& f) const {
+      return isLastWith([&](const Particle& p){ return !f(p); });
+    }
+
+    //@}
+
+
+  protected:
 
     /// A pointer to the original GenParticle from which this Particle is projected.
     const GenParticle* _original;

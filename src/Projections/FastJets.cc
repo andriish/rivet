@@ -15,10 +15,6 @@ namespace Rivet {
   }
 
 
-  // void FastJets::_init1(JetAlgName alg, double rparameter, double seed_threshold) {
-  //   _initBase();
-
-
   void FastJets::_initJdef(JetAlgName alg, double rparameter, double seed_threshold) {
     MSG_DEBUG("JetAlg = " << alg);
     MSG_DEBUG("R parameter = " << rparameter);
@@ -32,7 +28,7 @@ namespace Rivet {
     } else if (alg == DURHAM) {
       _jdef = fastjet::JetDefinition(fastjet::ee_kt_algorithm, fastjet::E_scheme);
     } else if (alg == GENKTEE) {
-      _jdef = fastjet::JetDefinition(fastjet::ee_genkt_algorithm, rparameter, 1.);
+      _jdef = fastjet::JetDefinition(fastjet::ee_genkt_algorithm, rparameter, -1);
     } else {
       // Plugins:
       if (alg == SISCONE) {
