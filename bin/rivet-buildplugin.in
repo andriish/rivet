@@ -240,17 +240,19 @@ tmpmakefile=$(mktemp Makefile.tmp.XXXXXXXXXX)
 cat > "$tmpmakefile" <<EOF
 CXX = $mycxx
 
-CXXFLAGS = $shared_flags $mycxxflags $rootcxxflags $usercxxflags
+CXXFLAGS = $shared_flags $mycxxflags $rootcxxflags
 
 CPPFLAGS = $mycppflags
 
 LDFLAGS = $myldflags $rootldflags -lRivet
 
+USERFLAGS =  $usercxxflags
+
 $libname : ${objnames[@]}
-	\$(CXX) \$^  \$(CXXFLAGS) \$(LDFLAGS) -o \$@ 
+	\$(CXX) \$^  \$(CXXFLAGS) \$(LDFLAGS) -o \$@ \$(USERFLAGS)
 
 %.o : %.cc
-	\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^
+	\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^ \$(USERFLAGS)
 EOF
 
 if [[ -z $only_show ]]; then
