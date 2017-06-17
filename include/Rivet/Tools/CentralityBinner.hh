@@ -123,7 +123,7 @@ struct MergeDistance {
                      double clo, double chi, double, double) {
     return (cestHi - cestLo)*weight/(cestHi*(chi - clo));
   }
-};    
+};
 
 
 /**
@@ -179,7 +179,7 @@ class CentralityBinner: public ProjectionApplier {
       _devnull = CentralityBinTraits<T>::clone(t);
     if ( cestmin < 0.0 )
       _unfilled.push_back(Bin(t, 1.0 - cmax/100.0, 1.0 - cmin/100.0));
-    else 
+    else
       _ready[t] = Bin(t, 1.0 - cmax/100.0, 1.0 - cmin/100.0, cestmin, cestmax);
   }
 
@@ -262,7 +262,7 @@ private:
     FlexiBin(double cest)
       : _cestLo(cest), _cestHi(cest), _weightsum(0.0), _n(0), _m(0) {}
 
-    /// Merge in the contents of another FlexiBin into this. 
+    /// Merge in the contents of another FlexiBin into this.
     void merge(const FlexiBin & fb) {
       _cestLo = min(_cestLo, fb._cestLo);
       _cestHi = max(_cestHi, fb._cestHi);
@@ -365,7 +365,7 @@ protected:
 
   /// Convenient typedefs.
   typedef set<FlexiBin> FlexiBinSet;
-  
+
   /// Find a bin corresponding to a given value of the centrality
   /// estimator.
   typename FlexiBinSet::iterator _findBin(double cest) {
@@ -407,7 +407,7 @@ protected:
 
   /// The requested percentile limits.
   set<double> _percentiles;
-  
+
   /// The filled AnalysisObjects where the estimator edges has been determined.
   map<T, Bin> _ready;
 
@@ -583,16 +583,16 @@ struct CentralityBinTraits< tuple<Types...> > {
 
   /// Add the contents of @a o to @a t.
   static void add(Tuple & tup, const Tuple & otup) {
-    TupleCentralityBinTraitsHelper<N,Types...>::add(tup, otup);    
+    TupleCentralityBinTraitsHelper<N,Types...>::add(tup, otup);
   }
 
   /// Scale the contents of a given object.
   static void scale(Tuple & tup, double f) {
-    TupleCentralityBinTraitsHelper<N,Types...>::scale(tup, f);    
+    TupleCentralityBinTraitsHelper<N,Types...>::scale(tup, f);
   }
 
   static void normalize(Tuple & tup, double sumw) {
-    TupleCentralityBinTraitsHelper<N,Types...>::normalize(tup, sumw);    
+    TupleCentralityBinTraitsHelper<N,Types...>::normalize(tup, sumw);
   }
 
   /// Return the path of an AnalysisObject.
@@ -610,7 +610,7 @@ T CentralityBinner<T,MDist>::select(double cest, double weight) {
   _currenT = _devnull;
   _currentCEst = cest;
   _weightsum += weight;
-  
+
   // If estimator is negative, something has gone wrong.
   if ( _currentCEst < 0.0 ) return _currenT;
 
@@ -635,7 +635,7 @@ T CentralityBinner<T,MDist>::select(double cest, double weight) {
     _currenT = it->_t;
   }
 
-  if ( _flexiBins.size() <= _maxBins ) return _currenT;
+  if ( (int)_flexiBins.size() <= _maxBins ) return _currenT;
 
 
   set<double>::iterator citn = _percentiles.begin();
@@ -758,7 +758,7 @@ void CentralityBinner<T,MDist>::fulldebug() {
 	 << setw(8) << curr->_n
 	 << setw(8) << curr->_m
 	 << setw(12) << curr->_cestLo
-	 << setw(12) << curr->_cestHi << endl; 
+	 << setw(12) << curr->_cestHi << endl;
   }
   cerr << "Number of sampler bins: " << _flexiBins.size() << endl;
 }
@@ -772,7 +772,7 @@ void CentralityBinner<T,MDist>::debug() {
   set<double>::iterator cit0 = citn++;
   for ( auto it = _flexiBins.begin(); it != _flexiBins.end(); ) {
     auto curr = it++;
-    ++i; 
+    ++i;
     double w = curr->_weightsum/_weightsum;
     acc += w;
     if ( curr == _flexiBins.begin() || it == _flexiBins.end() || acc > *citn ) {
@@ -784,7 +784,7 @@ void CentralityBinner<T,MDist>::debug() {
 	   << setw(8) << curr->_m
 	   << setw(12) << curr->_cestLo
 	   << setw(12) << curr->_cestHi << endl;
-      
+
     }
   }
   cerr << "Number of sampler bins: " << _flexiBins.size() << endl;
@@ -812,14 +812,14 @@ protected:
     if ( hi ) _estimate = 100.0 - hi->centrality; // @TODO We don't really know how to interpret this number!
 #endif
   }
-  
+
   /// Compare projections
   int compare(const Projection& p) const {
     return mkNamedPCmp(p, "GeneratedCentrality");
   }
 
 };
-    
+
 
 
 }
