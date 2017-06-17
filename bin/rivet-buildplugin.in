@@ -10,7 +10,7 @@ let num_jobs=$(getconf _NPROCESSORS_ONLN)
 
 function usage {
 	cat <<-EOF
-		$PROG: 
+		$PROG:
 		compile a Rivet analysis plugin library from one or more sources
 
 		Usage: $PROG [options] [libname] source1 [...] [compiler_flags]
@@ -27,7 +27,7 @@ function usage {
 		  -h | --help:      display this help message
 		  -j NUM            number of parallel compile jobs [$num_jobs]
 		  -r | --with-root: add ROOT link options (requires root-config on system)
-		  -n | --cmd | --dry-run: 
+		  -n | --cmd | --dry-run:
 		                    just print the generated commands, do not execute
 		  -k | --keep:      keep intermediate files
 
@@ -70,7 +70,7 @@ shift $((OPTIND-1))
 # check num_jobs is a number
 if [[ ! $num_jobs -eq $num_jobs ]]; then
 	echo "Unknown argument to -j" >&2; exit 1
-fi 
+fi
 
 if [[ $num_jobs -lt 1 ]]; then
 	echo "Number of jobs must be positive" >&2; exit 1
@@ -188,7 +188,7 @@ fi
 
 
 
-# split sources into buckets, one for each core
+## Split sources into buckets, one for each core
 let idx=1
 for src in "$@"
 do
@@ -205,22 +205,22 @@ do
 	fi
 done
 
-# may be less than num_jobs
+## May be less than num_jobs
 let num_buckets=${#buckets[@]}
 
 if [[ $num_buckets -lt 1 ]]; then
 	echo "Error: no source files found" >&2
 	exit 2
-fi 
+fi
 
-# loop over buckets
+## Loop over buckets
 for idx in $(seq 1 $num_buckets); do
 
 	# DO NOT SIMPLIFY, the OS X mktemp can't deal with suffixes directly
-	tmpfile="$(mktemp tmp.XXXXXXXX)"    
+	tmpfile="$(mktemp tmp.XXXXXXXX)"
 	mv "$tmpfile" "$tmpfile.cc"
 	tmpfile="$tmpfile.cc"
- 
+
 	for i in $(echo ${buckets[$idx]}) # find the real way to do this
 	do
 		echo "#line 1 \"$i\"" >> "$tmpfile"
@@ -255,14 +255,20 @@ $libname : ${objnames[@]}
 	\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^ \$(USERFLAGS)
 EOF
 
+
+## Declare a cleanup command, to be run on exit or abort
+if [[ -z $keep_tmps ]]; then
+    function _cleanup() {
+	    rm -f "${srcnames[@]}" "${objnames[@]}" "$tmpmakefile"
+    }
+    trap _cleanup EXIT
+fi
+
+
 if [[ -z $only_show ]]; then
 	make -j ${num_jobs} -f "$tmpmakefile" || exit 3
 else
 	echo "Contents of generated Makefile:"
 	echo "====="
 	cat "$tmpmakefile"
-fi
-
-if [[ -z $keep_tmps ]]; then
-	rm -f "${srcnames[@]}" "${objnames[@]}" "$tmpmakefile"
 fi
