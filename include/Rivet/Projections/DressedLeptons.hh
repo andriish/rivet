@@ -43,7 +43,18 @@ namespace Rivet {
   class DressedLeptons : public FinalState {
   public:
 
-    /// @brief Constructor with a general (and optional) Cut argument
+    /// @brief Constructor with a single input FinalState (used for both photons and bare leptons)
+    ///
+    /// Provide final state projections used to select the photons and bare
+    /// leptons (wish we had put the first two args the other way around...),
+    /// a clustering delta(R) cone size around each bare lepton, and an optional
+    /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)
+    /// The final two arguments are rarely used.
+    DressedLeptons(const FinalState& barefs,
+                   double dRmax, const Cut& cut=Cuts::open(),
+                   bool cluster=true, bool useDecayPhotons=false);
+
+    /// @brief Constructor with distinct photon and lepton FinalStates
     ///
     /// Provide final state projections used to select the photons and bare
     /// leptons (wish we had put the first two args the other way around...),
