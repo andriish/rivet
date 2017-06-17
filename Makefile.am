@@ -33,7 +33,7 @@ endif
 
 
 ## Upload to HepForge
-RSH=rsync
-DEST=login.hepforge.org:rivet/downloads/
+RSH = rsync
+DEST = login.hepforge.org:rivet/downloads/
 upload: dist
 	$(RSH) $(DIST_ARCHIVES) $(DEST)

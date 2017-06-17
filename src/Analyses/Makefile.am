@@ -47,6 +47,8 @@ RivetTOTEMAnalyses.so: $(wildcard pluginTOTEM/*.cc)
 
 all-local: $(PLUGIN_LIBS)
 
+# TODO: need dist and install hooks to strip out .hg dirs
+
 install-exec-local: $(PLUGIN_LIBS)
 	$(INSTALL) $^ $(DESTDIR)$(libdir)
 
