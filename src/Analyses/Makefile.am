@@ -638,6 +638,7 @@ MC_ALL = \
     MC_IDENTIFIED.cc \
     MC_JETS.cc \
     MC_JETTAGS.cc \
+    MC_KTSPLITTINGS.cc \
     MC_HFJETS.cc \
     MC_LEADJETUE.cc \
     MC_MET.cc \
@@ -650,6 +651,7 @@ MC_ALL = \
     MC_PRINTEVENT.cc \
     MC_SUSY.cc \
     MC_TTBAR.cc \
+    MC_TAUS.cc \
     MC_VH2BB.cc \
     MC_WINC.cc \
     MC_WJETS.cc \
