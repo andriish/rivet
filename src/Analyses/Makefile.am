@@ -1,14 +1,10 @@
 AUTOMAKE_OPTIONS = -Wno-portability
 
 ## Flags for building all plugins
+# TODO: remove?
 AM_LDFLAGS = $(LDFLAGS) -module -avoid-version -L$(FASTJETLIBPATH)
 LIBS = $(FASTJETCONFIGLIBADD)
 lib_LTLIBRARIES =
-
-BUILT_SOURCES =
-DISTCLEANFILES =
-EXTRA_DIST =
-
 noinst_LTLIBRARIES = libRivetAnalysisTools.la
 libRivetAnalysisTools_la_SOURCES = \
     MC_ParticleAnalysis.cc \
@@ -18,25 +14,47 @@ libRivetAnalysisTools_la_SOURCES = \
 
 if ENABLE_ANALYSES
 
-CLEANFILES =
+# TODO: ??? remove?
+BUILT_SOURCES =
+DISTCLEANFILES =
+
+PLUGIN_DIRS = $(wildcard plugin*)
+PLUGIN_NAMES = $(subst plugin,,$(PLUGIN_DIRS))
+PLUGIN_LIBS = $(patsubst plugin%,Rivet%Analyses.so,$(PLUGIN_DIRS))
+PLUGIN_DATAFILES = $(wildcard plugin*/*.info plugin*/*.plot plugin*/*.yoda)
+
+CLEANFILES = $(PLUGIN_LIBS)
+EXTRA_DIST = $(PLUGIN_DIRS)
 
 %.so:
 	bash $(top_srcdir)/bin/rivet-buildplugin $@ $^
 
-ALICE_CC = $(wildcard ALICE_*.cc)
+# EXTRA_DIST += ALICE
+# ALICE_CC = $(wildcard ALICE/*.cc)
+# ALICE_DATA = $(wildcard ALICE/*.info ALICE/*.plot ALICE/*.yoda)
+# RivetALICEAnalyses.so: $(ALICE_CC)
+# CLEANFILES += RivetALICEAnalyses.so
 
-EXTRA_DIST += $(ALICE_CC)
-CLEANFILES += RivetALICEAnalyses.so
+# EXTRA_DIST += CMS
+# CMS_CC = $(wildcard CMS/*.cc)
+# CMS_DATA = $(wildcard CMS/*.info CMS/*.plot CMS/*.yoda)
+# RivetCMSAnalyses.so: $(CMS_CC)
+# CLEANFILES += RivetCMSAnalyses.so
 
-RivetALICEAnalyses.so: $(ALICE_CC)
+RivetALICEAnalyses.so: $(wildcard pluginALICE/*.cc)
+RivetCMSAnalyses.so: $(wildcard pluginCMS/*.cc)
 
-all-local: RivetALICEAnalyses.so
+all-local: $(PLUGIN_LIBS)
 
-install-exec-local: RivetALICEAnalyses.so
+install-exec-local: $(PLUGIN_LIBS)
 	$(INSTALL) $^ $(DESTDIR)$(libdir)
 
+install-data-local: $(PLUGIN_DATAFILES)
+	@echo $^
+	$(install_sh_DATA) $^ $(DESTDIR)$(libdir)
+
 uninstall-local:
-	@rm -rf $(DESTDIR)$(libdir)/RivetALICEAnalyses.so
+	@cd $(DESTDIR)$(libdir) && rm -rf $(PLUGIN_LIBS)
 
 
 
