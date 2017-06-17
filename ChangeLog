@@ -1,3 +1,7 @@
+2016-06-17  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+	* Fix 8 TeV DY (ATLAS_2016_I1467454), EL/MU bits were bissing.
+
 2017-06-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Slight improvements to Particle constructors.
