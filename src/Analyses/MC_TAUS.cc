@@ -9,28 +9,29 @@ namespace Rivet {
   class MC_TAUS : public MC_ParticleAnalysis {
   public:
 
+    /// Constructor
     MC_TAUS()
       : MC_ParticleAnalysis("MC_TAUS", 2, "tau")
     {    }
 
 
-  public:
-
+    /// Book projections and histograms
     void init() {
-      IdentifiedFinalState taus;
-      taus.acceptIdPair(PID::TAU);
+      TauFinder taus(TauFinder::ANY);
       declare(taus, "Taus");
 
       MC_ParticleAnalysis::init();
     }
 
 
+    /// Per-event analysis
     void analyze(const Event& event) {
       const Particles taus = apply<TauFinder>(event, "Taus").particlesByPt(0.5*GeV);
       MC_ParticleAnalysis::_analyze(event, taus);
     }
 
 
+    /// Normalisations etc.
     void finalize() {
       MC_ParticleAnalysis::finalize();
     }
