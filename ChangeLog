@@ -2,6 +2,9 @@
 
 	* Fix 8 TeV DY (ATLAS_2016_I1467454), EL/MU bits were bissing.
 
+	* Add 13 TeV DY (ATLAS_2017_I1514251) and mark
+	ATLAS_2015_CONF_2015_041 obsolete
+
 2017-06-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Slight improvements to Particle constructors.
