@@ -144,13 +144,13 @@ AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG]
 CPPFLAGS=$oldCPPFLAGS
 
 
-## GNU Scientific Library
-#AC_SEARCH_GSL
-#AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
-#oldCPPFLAGS=$CPPFLAGS
-#CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
-#AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
-#CPPFLAGS=$oldCPPFLAGS
+# ## GNU Scientific Library
+# AC_SEARCH_GSL
+# AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
+# oldCPPFLAGS=$CPPFLAGS
+# CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
+# AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
+# CPPFLAGS=$oldCPPFLAGS
 
 
 ## Disable build/install of standard analyses
@@ -213,9 +213,9 @@ AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
 
 ## Cython checks
 if test x$enable_pyext == xyes; then
-  AM_CHECK_CYTHON([0.23.5], [:], [:])
+  AM_CHECK_CYTHON([0.24.0], [:], [:])
   if test x$CYTHON_FOUND = xyes; then
-    AC_MSG_NOTICE([Cython >= 0.23.5 found: Python extension source can be rebuilt (for developers)])
+    AC_MSG_NOTICE([Cython >= 0.24 found: Python extension source can be rebuilt (for developers)])
   fi
 
   AC_CHECK_FILE([pyext/rivet/core.cpp],

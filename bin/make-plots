@@ -500,19 +500,22 @@ class Plot(object):
     def set_xmin(self, inputdata):
         self.xmin = inputdata.xmin
         if self.xmin is None:
-            self.xmin = min(inputdata.histos[h].getXMin() for h in inputdata.description['DrawOnly'])
+            xmins = [inputdata.histos[h].getXMin() for h in inputdata.description['DrawOnly']]
+            self.xmin = min(xmins) if xmins else 0.0
 
     def set_xmax(self,inputdata):
         self.xmax = inputdata.xmax
         if self.xmax is None:
-            self.xmax = min(inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly'])
+            xmaxs = [inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly']]
+            self.xmax = min(xmaxs) if xmaxs else 1.0
+
 
     def set_ymin(self,inputdata):
         if inputdata.ymin is not None:
             self.ymin = inputdata.ymin
         else:
             ymins = [inputdata.histos[i].getYMin(self.xmin, self.xmax, inputdata.description['LogY']) for i in inputdata.attr('DrawOnly')]
-            minymin = min(ymins)
+            minymin = min(ymins) if ymins else 0.0
             if inputdata.description['is2dim']:
                 self.ymin = minymin
             else:
@@ -541,7 +544,8 @@ class Plot(object):
         if inputdata.has_attr('YMax'):
             self.ymax = inputdata.attr_float('YMax')
         else:
-            self.ymax = max(inputdata.histos[h].getYMax(self.xmin, self.xmax) for h in inputdata.attr('DrawOnly'))
+            ymaxs = [inputdata.histos[h].getYMax(self.xmin, self.xmax) for h in inputdata.attr('DrawOnly')]
+            self.ymax = max(ymaxs) if ymaxs else 1.0
             if not inputdata.is2dim:
                 self.ymax *= (1.7 if inputdata.attr_bool('LogY') else 1.1)
 
@@ -550,7 +554,7 @@ class Plot(object):
             self.zmin = inputdata.attr_float('ZMin')
         else:
             zmins = [inputdata.histos[i].getZMin(self.xmin, self.xmax, self.ymin, self.ymax) for i in inputdata.attr('DrawOnly')]
-            minzmin = min(zmins)
+            minzmin = min(zmins) if zmins else 0.0
             self.zmin = minzmin
             if zmins:
                 showzero = inputdata.attr_bool('ShowZero', True)
@@ -576,7 +580,7 @@ class Plot(object):
         self.zmax = inputdata.attr_float('ZMax')
         if self.zmax is None:
             zmaxs = [inputdata.histos[h].getZMax(self.xmin, self.xmax, self.ymin, self.ymax) for h in inputdata.attr('DrawOnly')]
-            self.zmax = max(zmaxs) if zmaxs else 1
+            self.zmax = max(zmaxs) if zmaxs else 1.0
 
 
     def draw(self):
