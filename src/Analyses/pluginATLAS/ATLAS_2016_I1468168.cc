@@ -10,7 +10,7 @@ namespace Rivet {
   class ATLAS_2016_I1468168 : public Analysis {
   public:
 
-    DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(ATLAS_2016_I1468168);
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1468168);
 
     void init() {
       // Eta ranges
