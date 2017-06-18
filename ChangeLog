@@ -1,3 +1,8 @@
+2017-06-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Move all standard plugin files into subdirs of src/Analyses,
+	with some custom make rules driving rivet-buildplugin.
+
 2016-06-18  Holger Schulz  <holger.schulz@durham.ac.uk>
 
         * Version 2.5.4
