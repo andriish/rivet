@@ -1,3 +1,8 @@
+2016-06-18  Holger Schulz  <holger.schulz@durham.ac.uk>
+
+        * Bump version to 2.5.4
+
+
 2016-06-17  Holger Schulz  <holger.schulz@durham.ac.uk>
 
 	* Fix 8 TeV DY (ATLAS_2016_I1467454), EL/MU bits were bissing.
