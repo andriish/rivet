@@ -27,7 +27,7 @@ CLEANFILES = $(PLUGIN_LIBS)
 EXTRA_DIST = $(PLUGIN_DIRS)
 
 %.so:
-	bash $(top_srcdir)/bin/rivet-buildplugin $@ $^
+	RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_srcdir)/bin/rivet-buildplugin $@ $^
 
 RivetALICEAnalyses.so: $(wildcard pluginALICE/*.cc)
 RivetATLASAnalyses.so: $(wildcard pluginATLAS/*.cc)

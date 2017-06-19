@@ -157,15 +157,16 @@ if [[ -n "@RIVETCXXFLAGS@" ]]; then
 fi
 
 ## Get Rivet system C preprocessor flags (duplicating that in rivet-config.in)
-irivet="@includedir@"
+if [[ -n "$RIVET_BUILDPLUGIN_BEFORE_INSTALL" ]]; then
+    irivet="@top_srcdir@/include"
+else
+    irivet="@includedir@"
+fi
 test -n "$irivet" && mycppflags="$mycppflags -I${irivet}"
-
 ihepmc="@HEPMCINCPATH@"
 test -n "$ihepmc" && mycppflags="$mycppflags -I${ihepmc}"
-
 iyoda="@YODAINCPATH@"
 test -n "$iyoda" && mycppflags="$mycppflags -I${iyoda}"
-
 ifastjet="@FASTJETINCPATH@"
 test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
 # igsl="@GSLINCPATH@"
@@ -175,7 +176,11 @@ test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
 
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""
-lrivet="@libdir@"
+if [[ -n "$RIVET_BUILDPLUGIN_BEFORE_INSTALL" ]]; then
+    lrivet="@top_builddir@/src/.libs"
+else
+    lrivet="@libdir@"
+fi
 test -n "$lrivet" && myldflags="$myldflags -L${lrivet}"
 lhepmc="@HEPMCLIBPATH@"
 test -n "$lhepmc" && myldflags="$myldflags -L${lhepmc}"
@@ -242,24 +247,26 @@ for idx in $(seq 1 $num_buckets); do
 done
 objnames=("${srcnames[@]/.cc/.o}")
 
-if [[ -n "$debug" ]]; then x="@"; fi
+if [[ -z "$debug" ]]; then silencer="@"; fi
 tmpmakefile=$(mktemp Makefile.tmp.XXXXXXXXXX)
 cat > "$tmpmakefile" <<EOF
-CXX = $mycxx
+RCXX = $mycxx
 
-CXXFLAGS = $shared_flags $mycxxflags $rootcxxflags
+RCXXFLAGS = $shared_flags $mycxxflags $rootcxxflags
 
-CPPFLAGS = $mycppflags
+RCPPFLAGS = $mycppflags
 
-LDFLAGS = $myldflags $rootldflags -lRivet
+RLDFLAGS = $myldflags $rootldflags
 
-USERFLAGS = $usercxxflags
+RLIBS = -lRivet
+
+RUSERFLAGS = $usercxxflags
 
 $libname : ${objnames[@]}
-	$x@\$(CXX) \$^  \$(CXXFLAGS) \$(LDFLAGS) -o \$@ \$(USERFLAGS)
+	${silencer}\$(RCXX) \$^  \$(RCXXFLAGS) \$(CXXFLAGS) \$(LDFLAGS) \$(RLDFLAGS) \$(RLIBS) \$(LIBS) -o \$@ \$(RUSERFLAGS)
 
 %.o : %.cc
-	$x@\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^ \$(USERFLAGS)
+	${silencer}\$(RCXX) \$(RCXXFLAGS) \$(CXXFLAGS) \$(CPPFLAGS) \$(RCPPFLAGS) -c -o \$@ \$^ \$(RUSERFLAGS)
 EOF
 
 
@@ -273,7 +280,7 @@ fi
 
 
 ## Show effective build command and run the (split) compilation
-effcmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $rootcxxflags $myldflags $rootldflags -lRivet $usercxxflags"
+effcmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $CPPFLAGS $mycxxflags $rootcxxflags $CXXFLAGS $myldflags $rootldflags -lRivet $LDFLAGS $LIBS $@ $usercxxflags"
 echo "$effcmd"
 if [[ -n $debug ]]; then
     echo "Contents of generated Makefile ($tmpmakefile):"
