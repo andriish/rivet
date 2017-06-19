@@ -11,7 +11,7 @@ let num_jobs=$(getconf _NPROCESSORS_ONLN)
 function usage {
 	cat <<-EOF
 		$PROG:
-		compile a Rivet analysis plugin library from one or more sources
+		Compile a Rivet analysis plugin library from one or more sources
 
 		Usage: $PROG [options] [libname] source1 [...] [compiler_flags]
 
@@ -30,12 +30,18 @@ function usage {
 		  -n | --cmd | --dry-run:
 		                    just print the generated commands, do not execute
 		  -k | --keep:      keep intermediate files
+		  -v | --verbose:   write out debug info
 
 	EOF
 }
 
-## Option handling: https://stackoverflow.com/a/5255468
+
+##################
+## Option handling
+# http://www.bahmanm.com/blogs/command-line-options-how-to-parse-in-bash-using-getopt
+
 ## Translate long options to short
+# https://stackoverflow.com/a/5255468
 args=()
 for arg
 do
@@ -45,6 +51,7 @@ do
 	   --with-root       ) args+=("-r");;
 	   --cmd | --dry-run ) args+=("-n");;
 	   --keep            ) args+=("-k");;
+	   --verbose         ) args+=("-v");;
 	   # pass through anything else
 	   *                 ) args+=("$arg");;
 	esac
@@ -53,13 +60,14 @@ done
 set -- "${args[@]}"
 
 ## Now we can process with getopt
-while getopts ":hj:rnk" opt; do
+while getopts ":hj:rnkv" opt; do
 	case $opt in
 		h)  usage; exit 0 ;;
 		j)  num_jobs=$OPTARG ;;
 		r)  with_root=yes ;;
 		n)  only_show=yes ;;
 		k)  keep_tmps=yes ;;
+		v)  debug=yes ;;
 		\?) echo "Unknown option -$OPTARG" >&2; exit 1 ;;
 		:)  echo "Option -$OPTARG requires an argument" >&2; exit 1 ;;
 	esac
@@ -71,7 +79,6 @@ shift $((OPTIND-1))
 if [[ ! $num_jobs -eq $num_jobs ]]; then
 	echo "Unknown argument to -j" >&2; exit 1
 fi
-
 if [[ $num_jobs -lt 1 ]]; then
 	echo "Number of jobs must be positive" >&2; exit 1
 fi
@@ -111,6 +118,9 @@ if [[ $# -lt 1 ]]; then
 fi
 
 
+##################
+## Now assemble the build flags
+
 
 ## These variables need to exist, may be used in later substitutions
 ## Note no use of $DESTDIR... we ignore it so that destdir can be used
@@ -118,7 +128,6 @@ fi
 prefix="@prefix@"
 exec_prefix="@exec_prefix@"
 datarootdir="@datarootdir@"
-
 
 ## Work out shared library build flags by platform
 if [[ $(uname) == "Darwin" ]]; then
@@ -164,7 +173,6 @@ test -n "$ifastjet" && mycppflags="$mycppflags -I${ifastjet}"
 # iboost="@BOOST_CPPFLAGS@"
 # test -n "$iboost" && mycppflags="$mycppflags ${iboost}"
 
-
 ## Get Rivet system linker flags (duplicating that in rivet-config.in)
 myldflags=""
 lrivet="@libdir@"
@@ -187,6 +195,8 @@ if [[ -n $with_root ]]; then
 fi
 
 
+##################
+## Assemble and run build machinery
 
 ## Split sources into buckets, one for each core
 let idx=1
@@ -221,8 +231,7 @@ for idx in $(seq 1 $num_buckets); do
 	mv "$tmpfile" "$tmpfile.cc"
 	tmpfile="$tmpfile.cc"
 
-	for i in $(echo ${buckets[$idx]}) # find the real way to do this
-	do
+	for i in $(echo ${buckets[$idx]}); do #< find the real way to do this!
 		echo "#line 1 \"$i\"" >> "$tmpfile"
 		cat "$i" >> "$tmpfile"
 	done
@@ -233,6 +242,7 @@ for idx in $(seq 1 $num_buckets); do
 done
 objnames=("${srcnames[@]/.cc/.o}")
 
+if [[ -n "$debug" ]]; then x="@"; fi
 tmpmakefile=$(mktemp Makefile.tmp.XXXXXXXXXX)
 cat > "$tmpmakefile" <<EOF
 CXX = $mycxx
@@ -246,10 +256,10 @@ LDFLAGS = $myldflags $rootldflags -lRivet
 USERFLAGS = $usercxxflags
 
 $libname : ${objnames[@]}
-	@\$(CXX) \$^  \$(CXXFLAGS) \$(LDFLAGS) -o \$@ \$(USERFLAGS)
+	$x@\$(CXX) \$^  \$(CXXFLAGS) \$(LDFLAGS) -o \$@ \$(USERFLAGS)
 
 %.o : %.cc
-	@\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^ \$(USERFLAGS)
+	$x@\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^ \$(USERFLAGS)
 EOF
 
 
@@ -265,10 +275,12 @@ fi
 ## Show effective build command and run the (split) compilation
 effcmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $rootcxxflags $myldflags $rootldflags -lRivet $usercxxflags"
 echo "$effcmd"
+if [[ -n $debug ]]; then
+    echo "Contents of generated Makefile ($tmpmakefile):"
+	echo "====="
+	cat "$tmpmakefile"
+    echo
+fi
 if [[ -z $only_show ]]; then
 	make -j ${num_jobs} -f "$tmpmakefile" || exit 3
-#else
-	#echo "Contents of generated Makefile:"
-	#echo "====="
-	#cat "$tmpmakefile"
 fi
