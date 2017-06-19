@@ -148,7 +148,7 @@ namespace Rivet {
       const double j4pt = jets50.size() > 3 ? jetpts50[3] : -1;
       const double j5pt = jets50.size() > 4 ? jetpts50[4] : -1;
       const double j6pt = jets50.size() > 5 ? jetpts50[5] : -1;
-      const double meff_4 = jets50.size() > 3 ? sum(head(jetpts50, 4), 0.0) : -1;
+      const double meff_4 = jets50.size() > 3 ? sum(head(jetpts50, 4), met) : -1;
       const double meff_5 = jets50.size() > 4 ? meff_4 + jetpts50[4] : -1;
       const double meff_6 = jets50.size() > 5 ? meff_5 + jetpts50[5] : -1;
       const double met_meff_4 = met / meff_4;
