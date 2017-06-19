@@ -5,7 +5,7 @@
 ## Get program name
 PROG=$(basename $0)
 
-# default value for num_jobs is all available cores
+## Default value for num_jobs is all available cores
 let num_jobs=$(getconf _NPROCESSORS_ONLN)
 
 function usage {
@@ -34,8 +34,8 @@ function usage {
 	EOF
 }
 
-# option handling https://stackoverflow.com/a/5255468
-# translate long options to short
+## Option handling: https://stackoverflow.com/a/5255468
+## Translate long options to short
 args=()
 for arg
 do
@@ -49,10 +49,10 @@ do
 	   *                 ) args+=("$arg");;
 	esac
 done
-# reset the translated args
+## Reset the translated args
 set -- "${args[@]}"
 
-# now we can process with getopt
+## Now we can process with getopt
 while getopts ":hj:rnk" opt; do
 	case $opt in
 		h)  usage; exit 0 ;;
@@ -64,10 +64,10 @@ while getopts ":hj:rnk" opt; do
 		:)  echo "Option -$OPTARG requires an argument" >&2; exit 1 ;;
 	esac
 done
-# remove options
+## Remove options
 shift $((OPTIND-1))
 
-# check num_jobs is a number
+## Check num_jobs is a number
 if [[ ! $num_jobs -eq $num_jobs ]]; then
 	echo "Unknown argument to -j" >&2; exit 1
 fi
@@ -80,13 +80,13 @@ fi
 #echo "$only_show"
 #echo "$@"
 
-# need some args left at this point
+## Need some args left at this point
 if [[ $# -lt 1 ]]; then
 	usage >&2
 	exit 1
 fi
 
-## Get and check the library name
+## Get and check the target library name
 libname="$1"
 match1=$(basename "$libname" | egrep '^.*\.so')
 match2=$(basename "$libname" | egrep '^Rivet.*\.so')
@@ -104,7 +104,7 @@ else
 	libname="RivetAnalysis.so"
 fi
 
-# again need some args left at this point
+## Again need some args left at this point
 if [[ $# -lt 1 ]]; then
 	usage >&2
 	exit 1
@@ -231,12 +231,9 @@ for idx in $(seq 1 $num_buckets); do
 		srcnames[$idx]="$tmpfile"
 	fi
 done
-
 objnames=("${srcnames[@]/.cc/.o}")
 
-
 tmpmakefile=$(mktemp Makefile.tmp.XXXXXXXXXX)
-
 cat > "$tmpmakefile" <<EOF
 CXX = $mycxx
 
@@ -246,13 +243,13 @@ CPPFLAGS = $mycppflags
 
 LDFLAGS = $myldflags $rootldflags -lRivet
 
-USERFLAGS =  $usercxxflags
+USERFLAGS = $usercxxflags
 
 $libname : ${objnames[@]}
-	\$(CXX) \$^  \$(CXXFLAGS) \$(LDFLAGS) -o \$@ \$(USERFLAGS)
+	@\$(CXX) \$^  \$(CXXFLAGS) \$(LDFLAGS) -o \$@ \$(USERFLAGS)
 
 %.o : %.cc
-	\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^ \$(USERFLAGS)
+	@\$(CXX) \$(CXXFLAGS) \$(CPPFLAGS) -c -o \$@ \$^ \$(USERFLAGS)
 EOF
 
 
@@ -265,10 +262,13 @@ if [[ -z $keep_tmps ]]; then
 fi
 
 
+## Show effective build command and run the (split) compilation
+effcmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $mycxxflags $rootcxxflags $myldflags $rootldflags -lRivet $usercxxflags"
+echo "$effcmd"
 if [[ -z $only_show ]]; then
 	make -j ${num_jobs} -f "$tmpmakefile" || exit 3
-else
-	echo "Contents of generated Makefile:"
-	echo "====="
-	cat "$tmpmakefile"
+#else
+	#echo "Contents of generated Makefile:"
+	#echo "====="
+	#cat "$tmpmakefile"
 fi
