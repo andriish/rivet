@@ -4,8 +4,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
   /// @ D0 Run I Z \f$ p_\perp \f$ in Drell-Yan events
   /// @author Simone Amoroso
   class D0_2000_I503361 : public Analysis {

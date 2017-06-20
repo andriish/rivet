@@ -12,7 +12,7 @@
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 
-#define ZMASS 91.1876 // GeV
+const double ZMASS = 91.1876; // GeV
 
 namespace Rivet {
 

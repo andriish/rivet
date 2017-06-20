@@ -6,8 +6,6 @@
 
 namespace Rivet {
 
-  using namespace Cuts;
-
   class D0_2015_I1324946 : public Analysis {
   public:
 
