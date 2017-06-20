@@ -126,9 +126,8 @@ namespace Rivet {
 
       // Get dphis between MET and jets
       vector<double> dphimets50; transform(jets50, dphimets50, deltaPhiWRT(vmet));
-      const double min_dphi_met_2 = min(head(dphimets50, 2));
       const double min_dphi_met_3 = min(head(dphimets50, 3));
-      MSG_DEBUG(dphimets50 << ", " << min_dphi_met_2 << ", " << min_dphi_met_3);
+      MSG_DEBUG(dphimets50 << ", " << min_dphi_met_3);
 
       // Jet aplanarity
       Sphericity sph; sph.calc(jets);
@@ -137,11 +136,11 @@ namespace Rivet {
 
       // Fill SR counters
       // 2-jet SRs
-      if (_flows["2jl"].filltail({true, true, min_dphi_met_2 > 0.8, j2pt > 200*GeV,
+      if (_flows["2jl"].filltail({true, true, min_dphi_met_3 > 0.8, j2pt > 200*GeV,
               met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1200*GeV})) _h_2jl->fill(event.weight());
-      if (_flows["2jm"].filltail({j1pt > 300*GeV, true, min_dphi_met_2 > 0.4, j2pt > 50*GeV,
+      if (_flows["2jm"].filltail({j1pt > 300*GeV, true, min_dphi_met_3 > 0.4, j2pt > 50*GeV,
               met_sqrt_ht > 15*sqrt(GeV), meff_incl > 1600*GeV})) _h_2jm->fill(event.weight());
-      if (_flows["2jt"].filltail({true, true, min_dphi_met_2 > 0.8, j2pt > 200*GeV,
+      if (_flows["2jt"].filltail({true, true, min_dphi_met_3 > 0.8, j2pt > 200*GeV,
               met_sqrt_ht > 20*sqrt(GeV), meff_incl > 2000*GeV})) _h_2jt->fill(event.weight());
 
       // Upper multiplicity SRs
