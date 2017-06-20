@@ -288,6 +288,16 @@ if [[ -n $debug ]]; then
 	cat "$tmpmakefile"
     echo
 fi
+
+# if we're in a chain of make calls,
+# make's jobserver tells us via MAKEFLAGS how many jobs to run
+#
+# can't specify -j explicitly in that case
+#
+if [[ -z ${MAKEFLAGS} ]]; then
+jflag="-j ${num_jobs}"
+fi
+
 if [[ -z $only_show ]]; then
-	make -j ${num_jobs} -f "$tmpmakefile" || exit 3
+	make ${jflag} -f "$tmpmakefile" || exit 3
 fi

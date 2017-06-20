@@ -1,22 +1,6 @@
 AUTOMAKE_OPTIONS = -Wno-portability
 
-## Flags for building all plugins
-# TODO: remove?
-AM_LDFLAGS = $(LDFLAGS) -module -avoid-version -L$(FASTJETLIBPATH)
-LIBS = $(FASTJETCONFIGLIBADD)
-lib_LTLIBRARIES =
-noinst_LTLIBRARIES = libRivetAnalysisTools.la
-libRivetAnalysisTools_la_SOURCES = \
-    MC_ParticleAnalysis.cc \
-    MC_JetAnalysis.cc \
-    MC_JetSplittings.cc
-
-
 if ENABLE_ANALYSES
-
-# TODO: ??? remove?
-BUILT_SOURCES =
-DISTCLEANFILES =
 
 PLUGIN_DIRS = $(wildcard plugin*)
 PLUGIN_NAMES = $(subst plugin,,$(PLUGIN_DIRS))
@@ -27,7 +11,7 @@ CLEANFILES = $(PLUGIN_LIBS)
 EXTRA_DIST = $(PLUGIN_DIRS)
 
 %.so:
-	RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_srcdir)/bin/rivet-buildplugin $@ $^
+	RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_srcdir)/bin/rivet-buildplugin -j2 $@ $^
 
 RivetALICEAnalyses.so: $(wildcard pluginALICE/*.cc)
 RivetATLASAnalyses.so: $(wildcard pluginATLAS/*.cc)
@@ -54,7 +38,7 @@ install-exec-local: $(PLUGIN_LIBS)
 
 install-data-local: $(PLUGIN_DATAFILES)
 	@echo $^
-	$(install_sh_DATA) $^ $(DESTDIR)$(libdir)
+	$(install_sh_DATA) $^ $(DESTDIR)$(datadir)
 
 uninstall-local:
 	@cd $(DESTDIR)$(libdir) && rm -rf $(PLUGIN_LIBS)

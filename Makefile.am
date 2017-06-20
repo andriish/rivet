@@ -1,5 +1,5 @@
 ACLOCAL_AMFLAGS = -I m4
-SUBDIRS = src pyext data include bin doc test Analyses
+SUBDIRS = src pyext data include bin Analyses doc test
 
 EXTRA_DIST = GUIDELINES
 
