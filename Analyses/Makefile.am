@@ -38,9 +38,10 @@ install-exec-local: $(PLUGIN_LIBS)
 
 install-data-local: $(PLUGIN_DATAFILES)
 	@echo $^
-	$(install_sh_DATA) $^ $(DESTDIR)$(datadir)
+	$(install_sh_DATA) $^ $(DESTDIR)$(pkgdatadir)
 
 uninstall-local:
-	@cd $(DESTDIR)$(libdir) && rm -rf $(PLUGIN_LIBS)
+	@cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
+	@cd $(DESTDIR)$(pkgdatadir) && rm -f $(PLUGIN_DATAFILES)
 
 endif
