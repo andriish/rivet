@@ -231,27 +231,26 @@ namespace Rivet {
 
 
     void finalize() {
-      /// @todo Hard-coded cross-sections???? Yuck
-      const double xs_mu_parton = 252.89 * 1000. * _nPassParton_mu / _nMu;
-      const double xs_mu_particle = 252.89 * 1000. * _nPassParticle_mu / _nMu;
-      const double xs_el_parton = 252.89 * 1000. * _nPassParton_el / _nEl;
-      const double xs_el_particle = 252.89 * 1000. * _nPassParticle_el / _nEl;
-      const double xs_comb_parton = 252.89 * 1000. * (_nPassParton_el + _nPassParton_mu) / (_nEl + _nMu);
-      const double xs_comb_particle = 252.89 * 1000. * (_nPassParticle_el + _nPassParticle_mu) / (_nEl + _nMu);
-      MSG_DEBUG("Inclusive xsec (pt > 400 GeV), mu channel, parton-level: " << xs_mu_parton);
-      MSG_DEBUG("Inclusive xsec (pt > 400 GeV), mu channel, particle-level: " << xs_mu_particle);
-      MSG_DEBUG("Inclusive xsec (pt > 400 GeV), el channel, parton-level: " << xs_el_parton);
-      MSG_DEBUG("Inclusive xsec (pt > 400 GeV), el channel, particle-level: " << xs_el_particle);
-      MSG_DEBUG("Inclusive xsec (pt > 400 GeV), comb channel, parton-level: " << xs_comb_parton);
-      MSG_DEBUG("Inclusive xsec (pt > 400 GeV), comb channel, particle-level: " << xs_comb_particle);
-      normalize({_hMu_topPt_parton, _hMu_topY_parton}, xs_mu_parton, false);
-      normalize({_hEl_topPt_parton, _hEl_topY_parton}, xs_el_parton, false);
-      normalize({_hComb_topPt_parton, _hComb_topY_parton}, xs_comb_parton, false);
-      normalize({_hMu_topPt_particle, _hMu_topY_particle}, xs_mu_particle, false);
-      normalize({_hEl_topPt_particle, _hEl_topY_particle}, xs_el_particle, false);
-      normalize({_hComb_topPt_particle, _hComb_topY_particle}, xs_comb_particle, false);
-      normalize({_hMu_topPt_parton_norm, _hMu_topY_parton_norm, _hEl_topPt_parton_norm, _hEl_topY_parton_norm, _hComb_topPt_parton_norm, _hComb_topY_parton_norm}, 1.0, false);
-      normalize({_hMu_topPt_particle_norm, _hMu_topY_particle_norm, _hEl_topPt_particle_norm, _hEl_topY_particle_norm, _hComb_topPt_particle_norm, _hComb_topY_particle_norm}, 1.0, false);
+
+      normalize({_hMu_topPt_parton_norm, _hMu_topY_parton_norm, _hEl_topPt_parton_norm,
+            _hEl_topY_parton_norm, _hComb_topPt_parton_norm, _hComb_topY_parton_norm}, 1.0, false);
+      normalize({_hMu_topPt_particle_norm, _hMu_topY_particle_norm, _hEl_topPt_particle_norm,
+            _hEl_topY_particle_norm, _hComb_topPt_particle_norm, _hComb_topY_particle_norm}, 1.0, false);
+
+      scale(_hMu_topPt_particle, crossSection()/femtobarn / sumOfWeights());
+      scale(_hEl_topPt_particle, crossSection()/femtobarn / sumOfWeights());
+      scale(_hMu_topY_particle, crossSection()/femtobarn / sumOfWeights());
+      scale(_hEl_topY_particle, crossSection()/femtobarn / sumOfWeights());
+      scale(_hComb_topPt_particle, crossSection()/femtobarn / sumOfWeights());
+      scale(_hComb_topY_particle, crossSection()/femtobarn / sumOfWeights());
+
+      scale(_hMu_topPt_parton, crossSection()/femtobarn / sumOfWeights());
+      scale(_hEl_topPt_parton, crossSection()/femtobarn / sumOfWeights());
+      scale(_hMu_topY_parton, crossSection()/femtobarn / sumOfWeights());
+      scale(_hEl_topY_parton, crossSection()/femtobarn / sumOfWeights());
+      scale(_hComb_topPt_parton, crossSection()/femtobarn / sumOfWeights());
+      scale(_hComb_topY_parton, crossSection()/femtobarn / sumOfWeights());
+
     }
 
 
