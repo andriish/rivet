@@ -12,8 +12,6 @@
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 
-const double ZMASS = 91.1876; // GeV
-
 namespace Rivet {
 
 
@@ -28,7 +26,7 @@ namespace Rivet {
 
 
   /// 4l to ZZ assignment -- algorithm
-  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l) {
+  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l, const double ZMASS) {
 
     /////////////////////////////////////////////////////////////////////////////
     /// ZZ->4l pairing
@@ -206,7 +204,7 @@ namespace Rivet {
         Zstate Z1, Z2;
 
         // Identifies Z states from 4 lepton pairs
-        identifyZstates(Z1, Z2,leptons_sel4l);
+        identifyZstates(Z1, Z2,leptons_sel4l, ZMASS);
 
         ////////////////////////////////////////////////////////////////////////////
         // Z MASS WINDOW
@@ -363,6 +361,8 @@ namespace Rivet {
 
 
   private:
+
+    const double ZMASS = 91.1876; // GeV
 
     Histo1DPtr _h_ZZ_xsect, _h_ZZ_ZpT, _h_ZZ_phill, _h_ZZ_mZZ;
     Histo1DPtr _h_ZZs_xsect;

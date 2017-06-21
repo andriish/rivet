@@ -104,25 +104,21 @@ namespace Rivet {
         momenta.push_back(Vector3(0.0000001,0.0000001,0.));
       }
 
-      // Define a macro to appropriately fill both unboosted and boosted histo versions
-      #define FILLx2(HNAME, VAL) do { double x = VAL; for (size_t i = 0; i < 2; ++i) { \
-        if (i == 0 || is_boosted) HNAME[i]->fill(x, weight); } } while(0)
-
       Thrust thrust; thrust.calc(momenta);
       const double T = thrust.thrust();
-      FILLx2(_histTransvThrust, log(max(1-T, 1e-6)));
+      FILLx2(_histTransvThrust, is_boosted, log(max(1-T, 1e-6)), weight);
 
       const double dphiZJ1 = deltaPhi(z[0], *cleanedJets[0]);
-      FILLx2(_histDeltaPhiZJ1_1, dphiZJ1);
+      FILLx2(_histDeltaPhiZJ1_1, is_boosted, dphiZJ1, weight);
       if (Njets > 1) {
-        FILLx2(_histDeltaPhiZJ1_2, dphiZJ1);
+        FILLx2(_histDeltaPhiZJ1_2, is_boosted, dphiZJ1, weight);
         if (Njets > 2) {
-          FILLx2(_histDeltaPhiZJ1_3, dphiZJ1);
-          FILLx2(_histDeltaPhiZJ2_3, deltaPhi(z[0], *cleanedJets[1]));
-          FILLx2(_histDeltaPhiZJ3_3, deltaPhi(z[0], *cleanedJets[2]));
-          FILLx2(_histDeltaPhiJ1J2_3, deltaPhi(*cleanedJets[0], *cleanedJets[1]));
-          FILLx2(_histDeltaPhiJ1J3_3, deltaPhi(*cleanedJets[0], *cleanedJets[2]));
-          FILLx2(_histDeltaPhiJ2J3_3, deltaPhi(*cleanedJets[1], *cleanedJets[2]));
+          FILLx2(_histDeltaPhiZJ1_3,  is_boosted, dphiZJ1, weight);
+          FILLx2(_histDeltaPhiZJ2_3,  is_boosted, deltaPhi(z[0], *cleanedJets[1]), weight);
+          FILLx2(_histDeltaPhiZJ3_3,  is_boosted, deltaPhi(z[0], *cleanedJets[2]), weight);
+          FILLx2(_histDeltaPhiJ1J2_3, is_boosted, deltaPhi(*cleanedJets[0], *cleanedJets[1]), weight);
+          FILLx2(_histDeltaPhiJ1J3_3, is_boosted, deltaPhi(*cleanedJets[0], *cleanedJets[2]), weight);
+          FILLx2(_histDeltaPhiJ2J3_3, is_boosted, deltaPhi(*cleanedJets[1], *cleanedJets[2]), weight);
         }
       }
     }
@@ -146,6 +142,18 @@ namespace Rivet {
 
 
   private:
+
+
+    // Define a helper to appropriately fill both unboosted and boosted histo versions
+    void FILLx2(Histo1DPtr* HNAME, bool is_boosted, double VAL, double weight) { 
+      double x = VAL; 
+      for (size_t i = 0; i < 2; ++i) {
+        if (i == 0 || is_boosted) 
+          HNAME[i]->fill(x, weight); 
+      }
+    }
+
+
 
     // Arrays of unboosted/boosted histos
     Histo1DPtr _histDeltaPhiZJ1_1[2];

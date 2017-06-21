@@ -4,11 +4,6 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
-
-/// @todo Use inline PID functions instead
-#define IS_PARTON_PDGID(id) ( abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18) )
-#define IS_BHADRON_PDGID(id) ( ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999) )
-
 namespace Rivet {
 
 
@@ -62,14 +57,14 @@ namespace Rivet {
       foreach (const GenParticle* p, particles(e.genEvent())) {
         const GenVertex* pv = p->production_vertex();
         const GenVertex* dv = p->end_vertex();
-        if (IS_BHADRON_PDGID(p->pdg_id())) {
+        if (PID::isBottomHadron(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
 
           // If the B-hadron has a parton as parent, call it primary B-hadron:
           if (pv) {
             bool is_primary = false;
             for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end() ; ++pp) {
-              if (IS_PARTON_PDGID((*pp)->pdg_id())) is_primary = true;
+              if (PID::isParton((*pp)->pdg_id())) is_primary = true;
             }
             if (is_primary) {
               _histXbprim->fill(xp, weight);
@@ -82,7 +77,7 @@ namespace Rivet {
             bool is_weak = true;
             for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ;
                  pp != dv->particles_out_const_end() ; ++pp) {
-              if (IS_BHADRON_PDGID((*pp)->pdg_id())) {
+              if (PID::isBottomHadron((*pp)->pdg_id())) {
                 is_weak = false;
               }
             }

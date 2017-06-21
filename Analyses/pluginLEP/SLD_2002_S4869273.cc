@@ -5,10 +5,6 @@
 #include "Rivet/Projections/ChargedFinalState.hh"
 
 
-/// @todo Use inline PID functions instead
-#define IS_PARTON_PDGID(id) ( abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18) )
-#define IS_BHADRON_PDGID(id) ( ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999) )
-
 namespace Rivet {
 
 
@@ -59,7 +55,7 @@ namespace Rivet {
 
       foreach (const GenParticle* p, particles(e.genEvent())) {
         const GenVertex* dv = p->end_vertex();
-        if (IS_BHADRON_PDGID(p->pdg_id())) {
+        if (PID::isBottomHadron(p->pdg_id())) {
           const double xp = p->momentum().e()/meanBeamMom;
 
           // If the B-hadron has no B-hadron as a child, it decayed weakly:
@@ -67,7 +63,7 @@ namespace Rivet {
             bool is_weak = true;
             for (GenVertex::particles_out_const_iterator pp = dv->particles_out_const_begin() ;
                  pp != dv->particles_out_const_end() ; ++pp) {
-              if (IS_BHADRON_PDGID((*pp)->pdg_id())) {
+              if (PID::isBottomHadron((*pp)->pdg_id())) {
                 is_weak = false;
               }
             }
