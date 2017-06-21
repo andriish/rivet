@@ -1,3 +1,7 @@
+2017-06-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add const-efficiency constructor variants for SmearedParticles.
+
 2017-06-21  Jon Butterworth  <jmb@hep.ucl.ac.uk>
 
 	* Fix normalisations in CMS_2016_I1454211.

@@ -18,7 +18,14 @@ namespace Rivet {
     /// @name Constructors etc.
     //@{
 
-    /// @brief Constructor with efficiency and smearing function args
+    /// @brief Constructor with const efficiency
+    SmearedParticles(const ParticleFinder& pf,
+                     double eff,
+                     const Cut& c=Cuts::open())
+      : SmearedParticles(pf, ParticleEffFilter(eff), PARTICLE_SMEAR_IDENTITY, c)
+    {    }
+
+    /// @brief Constructor with an efficiency function arg
     template <typename P2DFN>
     SmearedParticles(const ParticleFinder& pf,
                      const P2DFN& effFn,
@@ -26,6 +33,13 @@ namespace Rivet {
       : SmearedParticles(pf, effFn, PARTICLE_SMEAR_IDENTITY, c)
     {    }
 
+    /// @brief Constructor with const efficiency and a smearing function
+    template <typename P2DFN, typename P2PFN>
+    SmearedParticles(const ParticleFinder& pf,
+                     double eff, const P2PFN& smearFn,
+                     const Cut& c=Cuts::open())
+      : SmearedParticles(pf, ParticleEffFilter(eff), smearFn, c)
+    {    }
 
     /// @brief Constructor with efficiency and smearing function args
     template <typename P2DFN, typename P2PFN>
