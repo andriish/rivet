@@ -1,5 +1,9 @@
 2017-06-21  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a full set of in-range kinematics functors: ptInRange,
+	(abs)etaInRange, (abs)phiInRange, deltaRInRange, deltaPhiInRange,
+	deltaEtaInRange, deltaRapInRange.
+
 	* Add a convenience JET_BTAG_EFFS functor with several constructors to handle mistag rates.
 
 	* Add const efficiency functors operating on Particle, Jet, and FourMomentum.
