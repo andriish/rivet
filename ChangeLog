@@ -1,7 +1,18 @@
+2017-06-21  Jon Butterworth  <jmb@hep.ucl.ac.uk>
+
+	* Fix normalisations in CMS_2016_I1454211.
+
+	* Fix analysis name in ref histo paths for ATLAS_2017_I1591327.
+
 2017-06-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Move all standard plugin files into subdirs of src/Analyses,
 	with some custom make rules driving rivet-buildplugin.
+
+2017-06-18  David Grellscheid  <david.grellscheid@durham.ac.uk>
+
+	* Parallelise rivet-buildplugin, with source-file cat'ing and use
+	of a temporary Makefile.
 
 2016-06-18  Holger Schulz  <holger.schulz@durham.ac.uk>
 
