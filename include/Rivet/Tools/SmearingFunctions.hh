@@ -35,6 +35,7 @@ namespace Rivet {
   }
 
   /// A functor to return true if Particle @a p survives a random efficiency selection
+  /// @deprecated Prefer
   struct ParticleEffFilter {
     template <typename FN>
     ParticleEffFilter(const FN& feff) : _feff(feff) {}
@@ -62,18 +63,30 @@ namespace Rivet {
   /// @name General particle & momentum efficiency and smearing functions
   //@{
 
+  /// Take a Particle and return a constant number
+  struct PARTICLE_FNCONST {
+    PARTICLE_FNCONST(double x) : _x(x) {}
+    double operator () (const Particle& )  const { return _x; }
+    double _x;
+  };
   /// Take a Particle and return 0
-  inline double PARTICLE_FN0(const Particle& p) { return 0; }
+  inline double PARTICLE_FN0(const Particle& ) { return 0; }
   /// Take a Particle and return 1
-  inline double PARTICLE_FN1(const Particle& p) { return 1; }
+  inline double PARTICLE_FN1(const Particle& ) { return 1; }
   /// Take a Particle and return it unmodified
   inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
 
 
+  /// Take a Particle and return a constant number
+  struct P4_FNCONST {
+    P4_FNCONST(double x) : _x(x) {}
+    double operator () (const FourMomentum& )  const { return _x; }
+    double _x;
+  };
   /// Take a FourMomentum and return 0
-  inline double P4_FN0(const FourMomentum& p) { return 0; }
+  inline double P4_FN0(const FourMomentum& ) { return 0; }
   /// Take a FourMomentum and return 1
-  inline double P4_FN1(const FourMomentum& p) { return 1; }
+  inline double P4_FN1(const FourMomentum& ) { return 1; }
   /// Take a FourMomentum and return it unmodified
   inline FourMomentum P4_SMEAR_IDENTITY(const FourMomentum& p) { return p; }
 
@@ -623,9 +636,31 @@ namespace Rivet {
   inline double JET_EFF_ZERO(const Jet& p) { return 0; }
   /// Return a constant 1 given a Jet as argument
   inline double JET_EFF_ONE(const Jet& p) { return 1; }
+  /// Take a Jet and return a constant efficiency
+  struct JET_EFF_CONST {
+    JET_EFF_CONST(double eff) : _eff(eff) {}
+    double operator () (const Jet& )  const { return _eff; }
+    double _eff;
+  };
 
   /// Return 1 if the given Jet contains a b, otherwise 0
   inline double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
+
+  /// @brief c-tagging efficiency functor, for more readable b-tag effs and mistag rates
+  /// Note several constructors, allowing for optional specification of charm, tau, and light jet mistag rates
+  struct JET_BTAG_EFFS {
+    JET_BTAG_EFFS(double eff_b, double eff_light=0) : _eff_b(eff_b), _eff_c(-1), _eff_t(-1), _eff_l(eff_light) { }
+    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_light=0) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(-1), _eff_l(eff_light) { }
+    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_tau, double eff_light=0) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(eff_tau), _eff_l(eff_light) { }
+    inline double operator () (const Jet& j) {
+      if (j.bTagged()) return _eff_b;
+      if (_eff_c >= 0 && j.cTagged()) return _eff_c;
+      if (_eff_t >= 0 && j.tauTagged()) return _eff_t;
+      return _eff_l;
+    }
+    double _eff_b, _eff_c, _eff_t, _eff_l;
+  };
+
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
     /// @todo This form drops past ~100 GeV, asymptotically to zero efficiency... really?!
