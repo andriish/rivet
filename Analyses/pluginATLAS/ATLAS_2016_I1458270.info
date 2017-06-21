@@ -24,7 +24,9 @@ Energies: [13000]
 Description:
   'ATLAS 0-lepton SUSY search using 3.2/fb of LHC $pp$ data at 13\;\TeV, recorded in
    2015. The event selection is via signal regions requiring from 2-6 high-energy jets,
-   and significant missing transverse energy.'
+   and significant missing transverse energy.
+   Detailed info:
+   http://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/SUSY-2015-06/ '
 BibKey: Aaboud:2016zdn
 BibTeX: '@article{Aaboud:2016zdn,
       author         = "Aaboud, Morad and others",
