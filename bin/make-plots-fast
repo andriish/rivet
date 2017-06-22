@@ -2724,6 +2724,7 @@ if __name__ == '__main__':
     texfile.write('\\end{document}\n')
     texfile.close()
 
+
     if opts.OUTPUT_FORMAT != ["TEX"]:
 
         ## Change into the temp dir
@@ -2738,18 +2739,19 @@ if __name__ == '__main__':
             "Run pdfLaTeX (in non-stop mode)"
             if not pdflatexavailable:
                 raise Exception("Required pdflatex not found")
-            logging.debug(os.listdir("."))
+            #logging.debug(os.listdir("."))
             texcmd = ["pdflatex", "-shell-escape", "\scrollmode\input", texpath]
             logging.debug("TeX command: " + " ".join(texcmd))
             texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT) #, cwd=tempdir)
             logging.debug(texproc.communicate()[0])
             #texproc.wait()
-            logging.debug(os.listdir("."))
             rawoutfile = infile.replace(".tex", ".pdf")
             if outfile:
+                logging.debug("Pre-move temp dir contents = ", os.listdir("."))
                 shutil.move(rawoutfile, outfile)
             else:
                 outfile = rawoutfile
+            logging.debug("Temp dir contents = ", os.listdir("."))
             return outfile
 
         def splitpdf(infile, outfiles=None):
@@ -2757,7 +2759,7 @@ if __name__ == '__main__':
             if not pdftkavailable:
                 raise Exception("Required PDF splitter (pdftk) not found")
             ptkcmd = ["pdftk", "plots.pdf", "burst", "output", "plots-%d.pdf"]
-            logging.debug(" ".join(ptkcmd))
+            logging.debug("PDF split command = " + " ".join(ptkcmd))
             ptkproc = subprocess.Popen(ptkcmd, stdout=subprocess.PIPE) #, cwd=tempdir)
             ptkproc.wait()
             from glob import glob
@@ -2765,16 +2767,18 @@ if __name__ == '__main__':
             picsfile = "plots-pics.pdf"
             if os.path.exists(picsfile):
                 os.remove(picsfile)
-            #print ['{0:0>10}'.format(os.path.basename(x).replace("plots-", "")) for x in glob(os.path.join(tempdir, "plots-*.pdf"))]
+            #print ['{0:0>10}'.format(os.path.basename(x).replace("plots-", "")) for x in glob("plots-*.pdf")]
             rawoutfiles = sorted(glob("plots-*.pdf"), key=lambda x: '{0:0>10}'.format(x.replace("plots-", "")))
             if outfiles:
                 #print len(rawoutfiles), rawoutfiles
                 #print len(outfiles), outfiles
                 assert len(rawoutfiles) == len(outfiles)
+                logging.debug("Pre-move temp dir contents = ", os.listdir("."))
                 for (tmp, final) in zip(rawoutfiles, outfiles):
                     shutil.move(tmp, final)
             else:
                 outfiles = rawoutfiles
+            logging.debug("Temp dir contents = ", os.listdir("."))
             return outfiles
 
         def mkpng(infile, outfile=None, density=100):
@@ -2784,9 +2788,10 @@ if __name__ == '__main__':
             if not outfile:
                 outfile = infile.replace(".pdf", ".png")
             pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
-            logging.debug(" ".join(pngcmd))
+            logging.debug("PDF -> PNG command = " + " ".join(pngcmd))
             pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE) #, cwd=tempdir)
             pngproc.wait()
+            logging.debug("Temp dir contents = ", os.listdir("."))
             return outfile
 
 
@@ -2799,18 +2804,9 @@ if __name__ == '__main__':
             for p in pdfs:
                 mkpng(p)
 
-        ## Choose format
-        # if "PNG" in opts.OUTPUT_FORMAT:
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     pngcmd = ["convert", "-flatten", "-density", "100", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
-        #     logging.debug(" ".join(pngcmd))
-        #     pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-        #     pngproc.wait()
-        logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
+    logging.debug("Temp dir contents = ", os.listdir(tempdir))
     for fmt in opts.OUTPUT_FORMAT:
         for filename in filenames:
             outname = "%s.%s" % (filename, fmt.lower())
