@@ -2738,13 +2738,13 @@ if __name__ == '__main__':
             "Run pdfLaTeX (in non-stop mode)"
             if not pdflatexavailable:
                 raise Exception("Required pdflatex not found")
-            logging.debug(os.listdir(tempdir))
+            logging.debug(os.listdir("."))
             texcmd = ["pdflatex", "-shell-escape", "\scrollmode\input", texpath]
             logging.debug("TeX command: " + " ".join(texcmd))
-            texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
+            texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT) #, cwd=tempdir)
             logging.debug(texproc.communicate()[0])
             #texproc.wait()
-            logging.debug(os.listdir(tempdir))
+            logging.debug(os.listdir("."))
             rawoutfile = infile.replace(".tex", ".pdf")
             if outfile:
                 shutil.move(rawoutfile, outfile)
@@ -2758,15 +2758,15 @@ if __name__ == '__main__':
                 raise Exception("Required PDF splitter (pdftk) not found")
             ptkcmd = ["pdftk", "plots.pdf", "burst", "output", "plots-%d.pdf"]
             logging.debug(" ".join(ptkcmd))
-            ptkproc = subprocess.Popen(ptkcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            ptkproc = subprocess.Popen(ptkcmd, stdout=subprocess.PIPE) #, cwd=tempdir)
             ptkproc.wait()
             from glob import glob
-            picsfile = os.path.join(tempdir, "plots-pics.pdf")
+            # picsfile = os.path.join(tempdir, "plots-pics.pdf")
+            picsfile = "plots-pics.pdf"
             if os.path.exists(picsfile):
                 os.remove(picsfile)
             #print ['{0:0>10}'.format(os.path.basename(x).replace("plots-", "")) for x in glob(os.path.join(tempdir, "plots-*.pdf"))]
-            rawoutfiles = sorted(glob(os.path.join(tempdir, "plots-*.pdf")),
-                                 key=lambda x: '{0:0>10}'.format(os.path.basename(x).replace("plots-", "")))
+            rawoutfiles = sorted(glob("plots-*.pdf"), key=lambda x: '{0:0>10}'.format(x.replace("plots-", "")))
             if outfiles:
                 #print len(rawoutfiles), rawoutfiles
                 #print len(outfiles), outfiles
@@ -2783,43 +2783,23 @@ if __name__ == '__main__':
                 raise Exception("Required PNG maker program (convert) not found")
             if not outfile:
                 outfile = infile.replace(".pdf", ".png")
-            pngcmd = ["convert", "-flatten", "-density", str(density), os.path.join(tempdir, infile), "-quality", "100", "-sharpen", "0x1.0", os.path.join(tempdir, outfile)]
+            pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
             logging.debug(" ".join(pngcmd))
-            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE) #, cwd=tempdir)
             pngproc.wait()
             return outfile
 
 
-        ## Make the aggregated PDF, split it, and convert the contents to PNGs
+        ## Make the aggregated PDF and split it to the correct names
         pdf = mkpdf("plots.tex")
         pdfs = splitpdf(pdf, [x+".pdf" for x in filenames])
-        for p in pdfs:
-            mkpng(p)
 
+        ## Convert the PDFs to PNGs if requested
+        if "PNG" in opts.OUTPUT_FORMAT:
+            for p in pdfs:
+                mkpng(p)
 
         ## Choose format
-        # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
-        # if "PS" in opts.OUTPUT_FORMAT:
-        #     dvcmd += ["-o", "%s.ps" % filename]
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     dvproc.wait()
-        # if "PDF" in opts.OUTPUT_FORMAT:
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-        #     f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
-        #     f.write(cnvproc.communicate()[0])
-        #     f.close()
-        # if "EPS" in opts.OUTPUT_FORMAT:
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=tempdir)
-        #     f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
-        #     f.write(cnvproc.communicate()[0])
-        #     f.close()
         # if "PNG" in opts.OUTPUT_FORMAT:
         #     dvcmd.append("-f")
         #     logging.debug(" ".join(dvcmd))
