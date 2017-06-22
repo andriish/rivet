@@ -2692,17 +2692,20 @@ if __name__ == '__main__':
         if not os.access(datfile, os.R_OK):
             raise Exception("Could not read data file '%s'" % datfile)
 
-        ## Get std paths and copy datfile into tempdir
-        dirname = os.path.dirname(datfile)
-        datfile = os.path.basename(datfile)
+        ## Get std paths
+        datpath = os.path.abspath(datfile)
+        datfile = os.path.basename(datpath)
+        datdir = os.path.dirname(datpath)
+        outdir = opts.OUTPUT_DIR if opts.OUTPUT_DIR else datdir
         filename = datfile.replace('.dat','')
-        cwd = os.getcwd()
-        datpath = os.path.join(cwd, dirname, datfile)
+
+        ## Copy datfile into tempdir
+        #cwd = os.getcwd()
         tempdatpath = os.path.join(tempdir, datfile)
         shutil.copy(datpath, tempdir)
 
         ## Append TeX to file
-        inputdata = InputData(os.path.join(dirname,filename))
+        inputdata = InputData(datpath)
         p = Plot(inputdata)
         texfile.write("\n\n")
         texfile.write(p.write_header(inputdata))
@@ -2801,7 +2804,7 @@ if __name__ == '__main__':
         outname = "%s.%s" % (filename, fmt.lower())
         outpath = os.path.join(tempdir, outname)
         if os.path.exists(outpath):
-            shutil.copy(outpath, os.path.join(cwd,dirname))
+            shutil.copy(outpath, outdir)
         else:
             logging.error("No output file '%s' from processing %s" % (outname, datfile))
 
