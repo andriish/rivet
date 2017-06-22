@@ -1,5 +1,9 @@
 2017-06-22  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Remove the UNUSED macro and find an alternative solution for the
+	cases where it was used, since there was a risk of macro clashes
+	with embedding codes.
+
 	* Add a -o output directory option to make-plots.
 
 	* Vector4.hh: Add mT2(vec,vec) functions.
