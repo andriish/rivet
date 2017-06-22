@@ -544,7 +544,7 @@ namespace Rivet {
   //@}
 
 
-  /// @name Phase space measure helpers
+  /// @name Phase-space measure helpers
   //@{
 
   /// @brief Calculate the difference between two angles in radians
