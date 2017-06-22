@@ -127,7 +127,9 @@ class Described(object):
 class InputData(Described):
 
     def __init__(self, filename):
-        self.filename = filename+".dat"
+        self.filename = filename
+        if not self.filename.endswith(".dat"):
+            self.filename += ".dat"
         self.histos = {}
         self.special = {}
         self.functions = {}
@@ -2510,13 +2512,14 @@ def process_datfile(datfile):
     if not os.access(datfile, os.R_OK):
         raise Exception("Could not read data file '%s'" % datfile)
 
-    dirname = os.path.dirname(datfile)
-    datfile = os.path.basename(datfile)
+    datpath = os.path.abspath(datfile)
+    datfile = os.path.basename(datpath)
+    datdir = os.path.dirname(datpath)
+    outdir = opts.OUTPUT_DIR if opts.OUTPUT_DIR else datdir
     filename = datfile.replace('.dat','')
 
     ## Create a temporary directory
-    cwd = os.getcwd()
-    datpath = os.path.join(cwd, dirname, datfile)
+    # cwd = os.getcwd()
     tempdir = tempfile.mkdtemp('.make-plots')
     tempdatpath = os.path.join(tempdir, datfile)
     shutil.copy(datpath, tempdir)
@@ -2524,7 +2527,7 @@ def process_datfile(datfile):
         logging.info('Keeping temp-files in %s' % tempdir)
 
     ## Make TeX file
-    inputdata = InputData(os.path.join(dirname,filename))
+    inputdata = InputData(datpath)
     texpath = os.path.join(tempdir, '%s.tex' % filename)
     texfile = open(texpath, 'w')
     p = Plot(inputdata)
@@ -2628,7 +2631,7 @@ def process_datfile(datfile):
         outname = "%s.%s" % (filename, fmt.lower())
         outpath = os.path.join(tempdir, outname)
         if os.path.exists(outpath):
-            shutil.copy(outpath, os.path.join(cwd,dirname))
+            shutil.copy(outpath, outdir)
         else:
             logging.error("No output file '%s' from processing %s" % (outname, datfile))
 
@@ -2669,6 +2672,8 @@ if __name__ == '__main__':
     parser = OptionParser(usage=__doc__)
     parser.add_option("-j", "-n", "--num-threads", dest="NUM_THREADS", type="int",
                       default=numcores, help="max number of threads to be used [%s]" % numcores)
+    parser.add_option("-o", "--outdir", dest="OUTPUT_DIR", default=None,
+                      help="choose the output directory (default = .dat dir)")
     parser.add_option("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
                       default="palatino", help="choose the font to be used in the plots")
     parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
@@ -2719,7 +2724,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
     opts.OUTPUT_FONT = opts.OUTPUT_FONT.upper()
     opts.OUTPUT_FORMAT = opts.OUTPUT_FORMAT.upper().split(",")
-    if NUM_THREADS == 1:
+    if opts.NUM_THREADS == 1:
         opts.NO_SUBPROC = True
 
     ## Check for no args

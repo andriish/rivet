@@ -1,5 +1,7 @@
 2017-06-22  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add a -o output directory option to make-plots.
+
 	* Vector4.hh: Add mT2(vec,vec) functions.
 
 2017-06-21  Andy Buckley  <andy.buckley@cern.ch>
