@@ -69,4 +69,4 @@ Doxyfile$
 ^Rivet-.\..\..$
 ^local/.*$
 ^(for|analyses)\d\d\d$
-^src/Analyses/.*__all\.cc$
+^Analyses/data$

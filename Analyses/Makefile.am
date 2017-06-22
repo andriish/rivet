@@ -7,7 +7,7 @@ PLUGIN_NAMES = $(subst plugin,,$(PLUGIN_DIRS))
 PLUGIN_LIBS = $(patsubst plugin%,Rivet%Analyses.so,$(PLUGIN_DIRS))
 PLUGIN_DATAFILES = $(wildcard plugin*/*.info plugin*/*.plot plugin*/*.yoda)
 
-CLEANFILES = $(PLUGIN_LIBS)
+CLEANFILES = $(PLUGIN_LIBS) data
 EXTRA_DIST = $(PLUGIN_DIRS)
 
 %.so:
@@ -29,19 +29,18 @@ RivetRHICAnalyses.so: $(wildcard pluginRHIC/*.cc)
 RivetSPSAnalyses.so: $(wildcard pluginSPS/*.cc)
 RivetTOTEMAnalyses.so: $(wildcard pluginTOTEM/*.cc)
 
-all-local: $(PLUGIN_LIBS)
-
-# TODO: need dist and install hooks to strip out .hg dirs
+all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
+	@mkdir -p $(builddir)/data
+	@for i in $(PLUGIN_DATAFILES); do $(LN_S) -f ../$$i $(builddir)/data; done
 
 install-exec-local: $(PLUGIN_LIBS)
 	$(INSTALL) $^ $(DESTDIR)$(libdir)
 
 install-data-local: $(PLUGIN_DATAFILES)
-	@echo $^
 	$(install_sh_DATA) $^ $(DESTDIR)$(pkgdatadir)
 
 uninstall-local:
 	@cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
-	@cd $(DESTDIR)$(pkgdatadir) && rm -f $(PLUGIN_DATAFILES)
+	@cd $(DESTDIR)$(pkgdatadir) && for i in $(PLUGIN_DATAFILES); do ds="$$ds `basename $$i`"; done && rm -f $$dd
 
 endif
