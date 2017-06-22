@@ -156,16 +156,16 @@ namespace Rivet {
       const double min_dphi_met_more = jets50.size() > 3 ? min(tail(dphimets50, -3)) : -1;
 
       if (_flows["4jt"].filltail({true, jets50.size() >= 4, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 200*GeV, j4pt > 100*GeV, aplanarity > 0.04, met_meff_4 > 0.20, meff_incl > 2200*GeV}))
+              jetpts[1] > 100*GeV, j4pt > 100*GeV, aplanarity > 0.04, met_meff_4 > 0.20, meff_incl > 2200*GeV}))
         _h_4jt->fill(event.weight());
       if (_flows["5j"].filltail({true, jets50.size() >= 5, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 200*GeV, j4pt > 100*GeV && j5pt > 50*GeV, aplanarity > 0.04, met_meff_5 > 0.25, meff_incl > 1600*GeV}))
+              jetpts[1] > 100*GeV, j4pt > 100*GeV && j5pt > 50*GeV, aplanarity > 0.04, met_meff_5 > 0.25, meff_incl > 1600*GeV}))
         _h_5j->fill(event.weight());
       if (_flows["6jm"].filltail({true, jets50.size() >= 6, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 200*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.25, meff_incl > 1600*GeV}))
+              jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.25, meff_incl > 1600*GeV}))
         _h_6jm->fill(event.weight());
       if (_flows["6jt"].filltail({true, jets50.size() >= 6, min_dphi_met_3 > 0.4 && min_dphi_met_more > 0.2,
-              jetpts[1] > 200*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.20, meff_incl > 2000*GeV}))
+              jetpts[1] > 100*GeV, j4pt > 100*GeV && j6pt > 50*GeV, aplanarity > 0.04, met_meff_6 > 0.20, meff_incl > 2000*GeV}))
         _h_6jt->fill(event.weight());
 
     }
