@@ -2643,11 +2643,11 @@ if __name__ == '__main__':
     #              inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
     # papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + \
     #              inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
-    #
+
     out = ""
     # out += '\\documentclass{article}\n'
     # out += '\\documentclass[pstricks,multi]{standalone}\n'
-    out += '\\documentclass[multi=multipage]{standalone}\n'
+    out += '\\documentclass[multi=multipage,border=5]{standalone}\n'
     if opts.OUTPUT_FONT == "MINION":
         out += ('\\usepackage{minion}\n')
     elif opts.OUTPUT_FONT == "PALATINO_OSF":
@@ -2688,7 +2688,10 @@ if __name__ == '__main__':
     texfile.write(out)
 
     ## Process each datfile into the TeX doc
+    filenames = []
     for i, datfile in enumerate(datfiles):
+        if os.path.splitext(datfile)[1] != ".dat":
+            raise Exception("Data file '%s' is not a make-plots .dat file" % datfile)
         if not os.access(datfile, os.R_OK):
             raise Exception("Could not read data file '%s'" % datfile)
 
@@ -2698,9 +2701,10 @@ if __name__ == '__main__':
         datdir = os.path.dirname(datpath)
         outdir = opts.OUTPUT_DIR if opts.OUTPUT_DIR else datdir
         filename = datfile.replace('.dat','')
+        filenames.append(filename)
 
         ## Copy datfile into tempdir
-        #cwd = os.getcwd()
+        cwd = os.getcwd()
         tempdatpath = os.path.join(tempdir, datfile)
         shutil.copy(datpath, tempdir)
 
@@ -2720,50 +2724,78 @@ if __name__ == '__main__':
     texfile.write('\\end{document}\n')
     texfile.close()
 
-    filename = "plots" #< TODO: unhack
-
     if opts.OUTPUT_FORMAT != ["TEX"]:
 
+        ## Change into the temp dir
+        os.chdir(tempdir)
+
         ## Check for the required programs
-        latexavailable = have_cmd("latex")
-        dvipsavailable = have_cmd("dvips")
+        pdflatexavailable = have_cmd("pdflatex")
+        pdftkavailable = have_cmd("pdftk")
         convertavailable = have_cmd("convert")
-        ps2pnmavailable = have_cmd("ps2pnm")
-        pnm2pngavailable = have_cmd("pnm2png")
 
-        # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
-        #   currently defaults (and is used below) to a size suitable for thumbnails
-        def mkpng(infile, outfile, density=100):
-            if convertavailable:
-                pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
-                logging.debug(" ".join(pngcmd))
-                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-                pngproc.wait()
+        def mkpdf(infile, outfile=None):
+            "Run pdfLaTeX (in non-stop mode)"
+            if not pdflatexavailable:
+                raise Exception("Required pdflatex not found")
+            logging.debug(os.listdir(tempdir))
+            texcmd = ["pdflatex", "-shell-escape", "\scrollmode\input", texpath]
+            logging.debug("TeX command: " + " ".join(texcmd))
+            texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
+            logging.debug(texproc.communicate()[0])
+            #texproc.wait()
+            logging.debug(os.listdir(tempdir))
+            rawoutfile = infile.replace(".tex", ".pdf")
+            if outfile:
+                shutil.move(rawoutfile, outfile)
             else:
+                outfile = rawoutfile
+            return outfile
+
+        def splitpdf(infile, outfiles=None):
+            "Split a PDF into a PDF per page, and rename if target names are given"
+            if not pdftkavailable:
+                raise Exception("Required PDF splitter (pdftk) not found")
+            ptkcmd = ["pdftk", "plots.pdf", "burst", "output", "plots-%d.pdf"]
+            logging.debug(" ".join(ptkcmd))
+            ptkproc = subprocess.Popen(ptkcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            ptkproc.wait()
+            from glob import glob
+            picsfile = os.path.join(tempdir, "plots-pics.pdf")
+            if os.path.exists(picsfile):
+                os.remove(picsfile)
+            #print ['{0:0>10}'.format(os.path.basename(x).replace("plots-", "")) for x in glob(os.path.join(tempdir, "plots-*.pdf"))]
+            rawoutfiles = sorted(glob(os.path.join(tempdir, "plots-*.pdf")),
+                                 key=lambda x: '{0:0>10}'.format(os.path.basename(x).replace("plots-", "")))
+            if outfiles:
+                #print len(rawoutfiles), rawoutfiles
+                #print len(outfiles), outfiles
+                assert len(rawoutfiles) == len(outfiles)
+                for (tmp, final) in zip(rawoutfiles, outfiles):
+                    shutil.move(tmp, final)
+            else:
+                outfiles = rawoutfiles
+            return outfiles
+
+        def mkpng(infile, outfile=None, density=100):
+            "Convert a PDF to PNG format"
+            if not convertavailable:
                 raise Exception("Required PNG maker program (convert) not found")
-            # elif ps2pnmavailable and pnm2pngavailable:
-            #     pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait " + infile
-            #     p1 = subprocess.Popen(pstopnm.split(), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
-            #     p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, outfile), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
-            #     p2.wait()
-            # else:
-            #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
+            if not outfile:
+                outfile = infile.replace(".pdf", ".png")
+            pngcmd = ["convert", "-flatten", "-density", str(density), os.path.join(tempdir, infile), "-quality", "100", "-sharpen", "0x1.0", os.path.join(tempdir, outfile)]
+            logging.debug(" ".join(pngcmd))
+            pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            pngproc.wait()
+            return outfile
 
-        ## Run LaTeX (in no-stop mode)
-        logging.debug(os.listdir(tempdir))
-        texcmd = ["pdflatex", "-shell-escape", "\scrollmode\input", texpath]
-        logging.debug("TeX command: " + " ".join(texcmd))
-        texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
-        logging.debug(texproc.communicate()[0])
-        logging.debug(os.listdir(tempdir))
 
-        # ## Run dvips
-        # dvcmd = ["dvips", filename]
-        # if not logging.getLogger().isEnabledFor(logging.DEBUG):
-        #     dvcmd.append("-q")
-        # ## Handle Minion Font
-        # if opts.OUTPUT_FONT == "MINION":
-        #     dvcmd.append('-Pminion')
+        ## Make the aggregated PDF, split it, and convert the contents to PNGs
+        pdf = mkpdf("plots.tex")
+        pdfs = splitpdf(pdf, [x+".pdf" for x in filenames])
+        for p in pdfs:
+            mkpng(p)
+
 
         ## Choose format
         # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
@@ -2799,14 +2831,14 @@ if __name__ == '__main__':
         logging.debug(os.listdir(tempdir))
 
     ## Copy results back to main dir
-    # shutil.copy(os.path.join(tempdir,"plots-pics.pdf"), os.path.join(cwd,dirname))
     for fmt in opts.OUTPUT_FORMAT:
-        outname = "%s.%s" % (filename, fmt.lower())
-        outpath = os.path.join(tempdir, outname)
-        if os.path.exists(outpath):
-            shutil.copy(outpath, outdir)
-        else:
-            logging.error("No output file '%s' from processing %s" % (outname, datfile))
+        for filename in filenames:
+            outname = "%s.%s" % (filename, fmt.lower())
+            outpath = os.path.join(tempdir, outname)
+            if os.path.exists(outpath):
+                shutil.copy(outpath, outdir)
+            else:
+                logging.error("No output file '%s'" % outname) # from processing %s" % (outname, datfile))
 
     ## Clean up
     if not opts.NO_CLEANUP:
