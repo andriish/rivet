@@ -2,7 +2,7 @@
 #ifndef RIVET_Random_HH
 #define RIVET_Random_HH
 
-// #include <random>
+#include <random>
 // #if defined(_OPENMP)
 // #include "omp.h"
 // #endif
