@@ -82,33 +82,21 @@ namespace Rivet {
   /// Smear a FourMomentum's energy using a Gaussian of absolute width @a resolution
   /// @todo Also make jet versions that update/smear constituents?
   inline FourMomentum P4_SMEAR_E_GAUSS(const FourMomentum& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.E(), resolution);
     const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
-    const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
+    const double smeared_E = max(randnorm(p.E(), resolution), mass); //< can't let the energy go below the mass!
     return FourMomentum::mkEtaPhiME(p.eta(), p.phi(), mass, smeared_E);
   }
 
   /// Smear a FourMomentum's transverse momentum using a Gaussian of absolute width @a resolution
   inline FourMomentum P4_SMEAR_PT_GAUSS(const FourMomentum& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.pT(), resolution);
-    const double smeared_pt = max(d(gen), 0.);
+    const double smeared_pt = max(randnorm(p.pT(), resolution), 0.);
     const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
     return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), mass, smeared_pt);
   }
 
   /// Smear a FourMomentum's mass using a Gaussian of absolute width @a resolution
   inline FourMomentum P4_SMEAR_MASS_GAUSS(const FourMomentum& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.mass(), resolution);
-    const double smeared_mass = max(d(gen), 0.);
+    const double smeared_mass = max(randnorm(p.mass(), resolution), 0.);
     return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), smeared_mass, p.pT());
   }
 
@@ -122,11 +110,7 @@ namespace Rivet {
 
   /// Smear a Vector3's length using a Gaussian of absolute width @a resolution
   inline Vector3 P3_SMEAR_LEN_GAUSS(const Vector3& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.mod(), resolution);
-    const double smeared_mod = max(d(gen), 0.); //< can't let the energy go below the mass!
+    const double smeared_mod = max(randnorm(p.mod(), resolution), 0.); //< can't let the energy go below the mass!
     return smeared_mod * p.unit();
   }
 
@@ -570,11 +554,7 @@ namespace Rivet {
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(1., resolution);
-    const double fsmear = max(d(gen), 0.);
+    const double fsmear = max(randnorm(1., resolution), 0.);
     const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
     return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
   }
@@ -690,11 +670,7 @@ namespace Rivet {
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(1., resolution);
-    const double fsmear = max(d(gen), 0.);
+    const double fsmear = max(randnorm(1., resolution), 0.);
     const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
     return Jet(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
   }
@@ -731,10 +707,7 @@ namespace Rivet {
 
     // Smear by a Gaussian with width given by the resolution(sumEt) ~ 0.45 sqrt(sumEt) GeV
     const double resolution = 0.45 * sqrt(set/GeV) * GeV;
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(smeared_met.mod(), resolution);
-    const double metsmear = max(d(gen), 0.);
+    const double metsmear = max(randnorm(smeared_met.mod(), resolution), 0.);
     smeared_met = metsmear * smeared_met.unit();
 
     return smeared_met;

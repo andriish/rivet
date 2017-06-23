@@ -8,17 +8,8 @@
 namespace Rivet {
 
 
-  // Return a uniformly sampled random number between 0 and 1
-  double rand01() {
-    // return rand() / (double)RAND_MAX;
-    //
-    // static random_device rd;
-    // static mt19937 gen(rd());
-    // return generate_canonical<double, 10>(gen);
-    //
-    // static mt19937 gen(12345);
-    // return generate_canonical<double, 10>(gen);
-    //
+  // Return a thread-safe random number generator
+  mt19937& rng() {
     #if defined(_OPENMP)
     static map<int,mt19937> gens;
     const int nthread = omp_get_thread_num();
@@ -33,8 +24,28 @@ namespace Rivet {
     #else
     static mt19937 g(12345);
     #endif
-    const double r = generate_canonical<double, 10>(g);
-    return r;
+    return g;
+  }
+
+
+  // Return a uniformly sampled random number between 0 and 1
+  double rand01() {
+    // return rand() / (double)RAND_MAX;
+    return generate_canonical<double, 10>(rng());
+  }
+
+
+  // Return a Gaussian/normal sampled random number with the given mean and width
+  double randnorm(double loc, double scale) {
+    normal_distribution<> d(loc, scale);
+    return d(rng());
+  }
+
+
+  // Return a log-normal sampled random number
+  double randlognorm(double loc, double scale) {
+    lognormal_distribution<> d(loc, scale);
+    return d(rng());
   }
 
 
