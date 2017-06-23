@@ -32,8 +32,8 @@ namespace Rivet {
       seed_seq seq{1,2,3,4,5};
       vector<uint32_t> seeds(nthread+1);
       seq.generate(seeds.begin(), seeds.end());
-      cout << seeds[nthread] << endl;
       gens[nthread] = mt19937(seeds[nthread]);
+      //cout << "Thread " << nthread+1 << ", seed=" << seeds[nthread] << " (" << gens.size() << " RNGs)" << endl;
     }
     mt19937& g = gens[nthread];
     #else
