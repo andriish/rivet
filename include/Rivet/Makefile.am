@@ -108,6 +108,7 @@ nobase_pkginclude_HEADERS += \
   Tools/Exceptions.hh \
   Tools/JetUtils.hh \
   Tools/Logging.hh  \
+  Tools/Random.hh  \
   Tools/ParticleBaseUtils.hh \
   Tools/ParticleIdUtils.hh \
   Tools/ParticleUtils.hh \
