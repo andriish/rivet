@@ -1,3 +1,7 @@
+2017-06-23  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add portable OpenMP enabling flags to AM_CXXFLAGS.
+
 2017-06-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Fix the smearing random number seed and make it thread-specific
