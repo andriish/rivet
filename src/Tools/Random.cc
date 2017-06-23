@@ -9,7 +9,7 @@ namespace Rivet {
 
 
   // Return a uniformly sampled random number between 0 and 1
-  inline double rand01() {
+  double rand01() {
     // return rand() / (double)RAND_MAX;
     //
     // static random_device rd;
