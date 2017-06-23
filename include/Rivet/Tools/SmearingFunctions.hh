@@ -5,6 +5,9 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Jet.hh"
 #include <random>
+#if defined(_OPENMP)
+#include "omp.h"
+#endif
 
 namespace Rivet {
 
@@ -33,7 +36,7 @@ namespace Rivet {
       vector<uint32_t> seeds(nthread+1);
       seq.generate(seeds.begin(), seeds.end());
       gens[nthread] = mt19937(seeds[nthread]);
-      //cout << "Thread " << nthread+1 << ", seed=" << seeds[nthread] << " (" << gens.size() << " RNGs)" << endl;
+      // cout << "Thread " << nthread+1 << ", seed=" << seeds[nthread] << " (" << gens.size() << " RNGs)" << endl;
     }
     mt19937& g = gens[nthread];
     #else
