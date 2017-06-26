@@ -9,7 +9,7 @@
 namespace Rivet {
 
 
-  /// @name Random number and filtering utils
+  /// @name Filtering utils
   //@{
 
   /// Return true if Particle @a p is chosen to survive a random efficiency selection
@@ -49,7 +49,87 @@ namespace Rivet {
   //@}
 
 
-  /// @name General particle & momentum efficiency and smearing functions
+  /// @name Types for efficiency and smearing functions
+  //@{
+
+  /// @name Typedef for FourMomentum smearing functions/functors
+  typedef std::function<FourMomentum(const FourMomentum&)> P4SmearFn;
+
+  /// @name Typedef for FourMomentum efficiency functions/functors
+  typedef std::function<double(const FourMomentum&)> P4EffFn;
+
+
+  /// @name Typedef for Particle smearing functions/functors
+  typedef std::function<Particle(const Particle&)> ParticleSmearFn;
+
+  /// @name Typedef for Particle efficiency functions/functors
+  typedef std::function<double(const Particle&)> ParticleEffFn;
+
+  /// @brief Functor for simultaneous efficiency-filtering and smearing of Particles
+  ///
+  /// A central element of the SmearedParticles system
+  struct ParticleEffSmearFn {
+    ParticleEffSmearFn(const ParticleSmearFn& s, const ParticleEffFn& e)
+      : sfn(s), efn(e) {    }
+
+    ParticleEffSmearFn(const ParticleEffFn& e, const ParticleSmearFn& s)
+      : sfn(s), efn(e) {    }
+
+    ParticleEffSmearFn(const ParticleSmearFn& s)
+      : sfn(s), efn([](const Particle&){return -1;}) {    }
+
+    ParticleEffSmearFn(const ParticleEffFn& e)
+      : sfn([](const Particle& p){return p;}), efn(e) {    }
+
+    ParticleEffSmearFn(double eff)
+      : ParticleEffSmearFn([&](const Particle&){return eff;}) {    }
+
+    pair<Particle,double> operator() (const Particle& p) const {
+      return make_pair(sfn(p), efn(p));
+    }
+
+    ParticleSmearFn sfn;
+    ParticleEffFn efn;
+  };
+
+
+  /// @name Typedef for Jet smearing functions/functors
+  typedef std::function<Jet(const Jet&)> JetSmearFn;
+
+  /// @name Typedef for Jet efficiency functions/functors
+  typedef std::function<double(const Jet&)> JetEffFn;
+
+  /// @brief Functor for simultaneous efficiency-filtering and smearing of Jets
+  ///
+  /// A central element of the SmearedJets system
+  struct JetEffSmearFn {
+    JetEffSmearFn(const JetSmearFn& s, const JetEffFn& e)
+      : sfn(s), efn(e) {    }
+
+    JetEffSmearFn(const JetEffFn& e, const JetSmearFn& s)
+      : sfn(s), efn(e) {    }
+
+    JetEffSmearFn(const JetSmearFn& s)
+      : sfn(s), efn([](const Jet&){return -1;}) {    }
+
+    JetEffSmearFn(const JetEffFn& e)
+      : sfn([](const Jet& j){return j;}), efn(e) {    }
+
+    JetEffSmearFn(double eff)
+      : JetEffSmearFn([&](const Jet&){return eff;}) {    }
+
+    pair<Jet,double> operator() (const Jet& j) const {
+      return make_pair(sfn(j), efn(j));
+    }
+
+    JetSmearFn sfn;
+    JetEffFn efn;
+  };
+
+  //@}
+
+
+  /// @name Generic concrete particle & momentum efficiency and smearing functions
   //@{
 
   /// Take a Particle and return a constant number
@@ -78,6 +158,7 @@ namespace Rivet {
   inline double P4_FN1(const FourMomentum& ) { return 1; }
   /// Take a FourMomentum and return it unmodified
   inline FourMomentum P4_SMEAR_IDENTITY(const FourMomentum& p) { return p; }
+
 
   /// Smear a FourMomentum's energy using a Gaussian of absolute width @a resolution
   /// @todo Also make jet versions that update/smear constituents?

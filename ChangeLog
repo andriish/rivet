@@ -1,3 +1,7 @@
+2017-06-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add *EffFn, *SmearFn, and *EffSmearFn types to SmearingFunctions.hh
+
 2017-06-23  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add portable OpenMP enabling flags to AM_CXXFLAGS.
