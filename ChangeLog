@@ -1,6 +1,11 @@
 2017-06-26  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add *EffFn, *SmearFn, and *EffSmearFn types to SmearingFunctions.hh
+	* Convert SmearedParticles to a more general list of combined
+	efficiency+smearing functions, with extra constructors and some
+	variadic template cleverness to allow implicit conversions from
+	single-operation eff and smearing function. Yay for C++11 ;-)
+
+	* Add *EffFn, *SmearFn, and *EffSmearFn types to SmearingFunctions.hh.
 
 2017-06-23  Andy Buckley  <andy.buckley@cern.ch>
 
