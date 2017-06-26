@@ -205,14 +205,16 @@ fi
 
 ## Split sources into buckets, one for each core
 let idx=1
+sources=""
 for src in "$@"
 do
 	if [[ -s "$src" ]]; then
+        sources="$sources $src"
 		buckets[$idx]="${buckets[$idx]} $src"
 		let idx=(idx%$num_jobs)+1
 	else
 		if [[ ${src:0:1} == "-" ]]; then
-			# found a user option
+			## Found a user option
 			usercxxflags="$usercxxflags $src"
 		else
 			echo "Warning: $src not found" >&2
@@ -280,7 +282,7 @@ fi
 
 
 ## Show effective build command and run the (split) compilation
-effcmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $CPPFLAGS $mycxxflags $rootcxxflags $CXXFLAGS $myldflags $rootldflags -lRivet $LDFLAGS $LIBS $@ $usercxxflags"
+effcmd="$mycxx -o \"$libname\" $shared_flags $mycppflags $CPPFLAGS $mycxxflags $rootcxxflags $CXXFLAGS $myldflags $rootldflags -lRivet $LDFLAGS $LIBS $sources $usercxxflags"
 echo "$effcmd"
 if [[ -n $debug ]]; then
     echo "Contents of generated Makefile ($tmpmakefile):"
@@ -289,13 +291,10 @@ if [[ -n $debug ]]; then
     echo
 fi
 
-# if we're in a chain of make calls,
-# make's jobserver tells us via MAKEFLAGS how many jobs to run
-#
-# can't specify -j explicitly in that case
-#
+## If we're in a chain of make calls,  make's jobserver tells us how many jobs
+## to run via MAKEFLAGS. We can't specify -j explicitly in that case
 if [[ -z ${MAKEFLAGS} ]]; then
-jflag="-j ${num_jobs}"
+    jflag="-j ${num_jobs}"
 fi
 
 if [[ -z $only_show ]]; then
