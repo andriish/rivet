@@ -63,16 +63,12 @@ namespace Rivet {
       : SmearedParticles(pf, c, effFn, smearFn)
     {    }
 
-    // /// @brief Constructor with efficiency and smearing function args
-    // SmearedParticles(const ParticleFinder& pf,
-    //                  const ParticleEffFn& effFn, const ParticleSmearFn& smearFn,
-    //                  const Cut& c=Cuts::open())
-    //   : ParticleFinder(c),
-    //     _effFn(effFn), _smearFn(smearFn)
-    // {
-    //   setName("SmearedParticles");
-    //   addProjection(pf, "TruthParticles");
-    // }
+    /// @brief Constructor with efficiency and smearing function args
+    SmearedParticles(const ParticleFinder& pf,
+                     const ParticleSmearFn& smearFn, const ParticleEffFn& effFn,
+                     const Cut& c=Cuts::open())
+      : SmearedParticles(pf, c, smearFn, effFn)
+    {    }
 
     /// @brief Constructor with efficiency and smearing function args
     SmearedParticles(const ParticleFinder& pf,
