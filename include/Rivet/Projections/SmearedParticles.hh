@@ -17,13 +17,15 @@ namespace Rivet {
     //   c = c2;
     // }
     template<typename T>
-    void toEffSmearFns(vector<ParticleEffSmearFn>& v, const T& t) {
+    vector<ParticleEffSmearFn>& toEffSmearFns(vector<ParticleEffSmearFn>& v, const T& t) {
       v.push_back(ParticleEffSmearFn(t));
+      return v;
     }
     template<typename T, typename... Args>
-    void toEffSmearFns(vector<ParticleEffSmearFn>& v, const T& first, Args... args) {
+    vector<ParticleEffSmearFn>& toEffSmearFns(vector<ParticleEffSmearFn>& v, const T& first, Args... args) {
       v.push_back(ParticleEffSmearFn(first));
       toEffSmearFns(v, args...);
+      return v;
     }
   }
 
@@ -39,21 +41,28 @@ namespace Rivet {
     SmearedParticles(const ParticleFinder& pf,
                      double eff,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, ParticleEffFilter(eff), PARTICLE_SMEAR_IDENTITY, c)
+      : SmearedParticles(pf, c, eff)
     {    }
 
     /// @brief Constructor with an efficiency function arg
     SmearedParticles(const ParticleFinder& pf,
                      const ParticleEffFn& effFn,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, effFn, PARTICLE_SMEAR_IDENTITY, c)
+      : SmearedParticles(pf, c, effFn)
     {    }
 
     /// @brief Constructor with const efficiency and a smearing function
     SmearedParticles(const ParticleFinder& pf,
                      double eff, const ParticleSmearFn& smearFn,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, ParticleEffFilter(eff), smearFn, c)
+      : SmearedParticles(pf, c, eff, smearFn)
+    {    }
+
+    /// @brief Constructor with const efficiency and a smearing function
+    SmearedParticles(const ParticleFinder& pf,
+                     const ParticleSmearFn& smearFn, double eff,
+                     const Cut& c=Cuts::open())
+      : SmearedParticles(pf, c, smearFn, eff)
     {    }
 
     /// @brief Constructor with efficiency and smearing function args
@@ -88,17 +97,24 @@ namespace Rivet {
       : SmearedParticles(pf, vector<ParticleEffSmearFn>{effSmearFns}, c)
     {    }
 
+    // /// @brief Constructor with an arbitrary list of efficiency and smearing function args
+    // /// @todo Wouldn't it be nice if the Cut could go *after* the parameter pack? Oh well...
+    // template<typename... Args>
+    // SmearedParticles(const ParticleFinder& pf, const Cut& c, Args... effSmearFns)
+    //   : ParticleFinder(c)
+    // {
+    //   setName("SmearedParticles");
+    //   addProjection(pf, "TruthParticles");
+
+    //   toEffSmearFns(_detFns, effSmearFns...);
+    // }
+
     /// @brief Constructor with an arbitrary list of efficiency and smearing function args
     /// @todo Wouldn't it be nice if the Cut could go *after* the parameter pack? Oh well...
     template<typename... Args>
     SmearedParticles(const ParticleFinder& pf, const Cut& c, Args... effSmearFns)
-      : ParticleFinder(c)
-    {
-      setName("SmearedParticles");
-      addProjection(pf, "TruthParticles");
-
-      toEffSmearFns(_detFns, effSmearFns...);
-    }
+      : SmearedParticles(pf, toEffSmearFns(_detFns, effSmearFns...))
+    {    }
 
 
     /// Clone on the heap.
