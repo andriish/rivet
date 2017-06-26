@@ -173,19 +173,22 @@ namespace Rivet {
         /// @todo
         /// can we get away with not passing a matrix?
 
-        MSG_TRACE("Pushing analysis objects to persistent.");
+        MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
         _eventCounter.pushToPersistent(_subEventWeights);
         // if this is indeed a new event, push the temporary
         // histograms and reset
         for (const AnaHandle& a : _analyses) {
             for (const auto & ao : a->analysisObjects()) {
+                MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name() << "'s " << ao.get()->name() << " to persistent.");
                 ao.get().pushToPersistent(_subEventWeights);
             }
+            MSG_TRACE("AnalysisHandler::analyze(): finished pushing " << a->name() << "'s objects to persistent.");
         }
 
         _eventNumber = ge.event_number();
 
-        MSG_DEBUG("Event #" << numEvents() << " weight sum = " << sumOfWeights());
+        MSG_DEBUG("nominal event # " << _eventCounter._persistent[0]->numEntries());
+        MSG_DEBUG("nominal sum of weights: " << _eventCounter._persistent[0]->sumW());
         MSG_DEBUG("Event has " << _subEventWeights.size() << " sub events.");
         _subEventWeights.clear();
     }
@@ -239,7 +242,7 @@ namespace Rivet {
       if (!_initialised) return;
       MSG_INFO("Finalising analyses");
 
-      MSG_TRACE("Pushing analysis objects to persistent.");
+      MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
       _eventCounter.pushToPersistent(_subEventWeights);
       for (const AnaHandle& a : _analyses) {
           for (const auto & ao : a->analysisObjects()) {
@@ -252,6 +255,8 @@ namespace Rivet {
           for (size_t iW = 0; iW < numWeights(); iW++) {
               for (MultiweightAOPtr& aoptr : a->_analysisobjects)
                   aoptr.setActiveWeightIdx(iW);
+
+              MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
 
               try {
                   a->finalize();
@@ -387,7 +392,7 @@ namespace Rivet {
 
 
   string AnalysisHandler::runName() const { return _runname; }
-  size_t AnalysisHandler::numEvents() const { return _eventCounter._persistent[0]->numEntries(); }
+  size_t AnalysisHandler::numEvents() const { return _eventCounter->numEntries(); }
 
 
   /*

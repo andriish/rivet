@@ -149,8 +149,6 @@ template <class T>
 // TODO TODO TODO 
 // need to override the old fill method too!
 // otherwise we can't intercept existing fill calls in analysis code
-// 
-// need to 
 // TODO TODO TODO
 
 template <class T>
@@ -342,6 +340,11 @@ private:
         vector<typename TupleWrapper<T>::Ptr> _evgroup;
 
         typename T::Ptr _active;
+
+        // do we need implicit cast?
+        // operator typename T::Ptr () {
+        //     return _active;
+        // }
 
         friend class AnalysisHandler;
     };
