@@ -88,8 +88,16 @@ namespace Rivet {
       return make_pair(sfn(p), efn(p));
     }
 
-    ParticleSmearFn sfn;
-    ParticleEffFn efn;
+    int cmp(const ParticleEffSmearFn& other) const {
+      // cout << "Eff hashes = " << get_address(efn) << "," << get_address(other.efn) << "; "
+      //      << "smear hashes = " << get_address(sfn) << "," << get_address(other.sfn) << endl;
+      if (get_address(sfn) == 0 || get_address(other.sfn) == 0) return UNDEFINED;
+      if (get_address(efn) == 0 || get_address(other.efn) == 0) return UNDEFINED;
+      return Rivet::cmp(get_address(sfn), get_address(other.sfn)) || Rivet::cmp(get_address(efn), get_address(other.efn));
+    }
+
+    const ParticleSmearFn sfn;
+    const ParticleEffFn efn;
   };
 
 
