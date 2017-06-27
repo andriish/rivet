@@ -222,6 +222,11 @@ namespace Rivet {
   };
 
 
+  /// Compatibility typedef, for equivalence with ParticleFinder
+  /// @todo Should we make this the canonical name? Would "require" a header filename change -> breakage or ugly.
+  using JetFinder = JetAlg;
+
+
 }
 
 #endif

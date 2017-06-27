@@ -1,3 +1,7 @@
+2017-06-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add 'JetFinder' alias for JetAlg, by analogy with ParticleFinder.
+
 2017-06-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Convert SmearedParticles to a more general list of combined
