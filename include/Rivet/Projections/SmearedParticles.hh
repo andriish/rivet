@@ -111,28 +111,20 @@ namespace Rivet {
 
     /// Compare to another SmearedParticles
     int compare(const Projection& p) const {
-      /// @todo Need to implement the comparison operator on the *EffSmearFn structs
-      return UNDEFINED;
+      // Compare truth particles definitions
+      const int teq = mkPCmp(p, "TruthParticles");
+      if (teq != EQUIVALENT) return UNEQUAL;
 
-      /// STD::FUNCTION VERSION
-      // const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
-      // if (get_address(_detFns[0]) == 0) return UNDEFINED;
-      // MSG_TRACE("hashes = ");
-      // for (size_t i = 0; i < _detFns.size(); ++i)
-      //   MSG_TRACE( get_address(_detFns[i]) << "," << get_address(other._detFns[i]) << "; ");
-      // Cmp<unsigned long> ret = mkPCmp(other, "TruthParticles");
-      // for (size_t i = 0; i < _detFns.size(); ++i)
-      //   ret = ret || cmp(get_address(_detFns[i]), get_address(other._detFns[i]));
-      // return ret;
+      // Compare lists of detector functions
+      const SmearedParticles& other = dynamic_cast<const SmearedParticles&>(p);
+      if (_detFns.size() != other._detFns.size()) return UNEQUAL;
+      for (size_t i = 0; i < _detFns.size(); ++i) {
+        const int feq = _detFns[i].cmp(other._detFns[i]);
+        if (feq != EQUIVALENT) return UNEQUAL;
+      }
 
-      /// OLD VERSION
-      // if (get_address(_effFn) == 0) return UNDEFINED;
-      // if (get_address(_smearFn) == 0) return UNDEFINED;
-      // MSG_TRACE("Eff hashes = " << get_address(_effFn) << "," << get_address(other._effFn) << "; " <<
-      //           "smear hashes = " << get_address(_smearFn) << "," << get_address(other._smearFn));
-      // return mkPCmp(other, "TruthParticles") ||
-      //   cmp(get_address(_effFn), get_address(other._effFn)) ||
-      //   cmp(get_address(_smearFn), get_address(other._smearFn));
+      // If we got this far, we're equal
+      return EQUIVALENT;
     }
 
 
