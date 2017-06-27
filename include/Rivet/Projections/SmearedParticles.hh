@@ -12,16 +12,6 @@ namespace Rivet {
 
   // Recursive variadic template decoding
   namespace {
-    // For handling an optional Cut as final element... too fiddly?
-    // void toEffSmearFns(vector<ParticleEffSmearFn>&, Cut& c, const Cut& c2) {
-    //   c = c2;
-    // }
-    // template<typename... ARGS>
-    // vector<ParticleEffSmearFn> toEffSmearFns(ARGS... args) {
-    //   vector<ParticleEffSmearFn> v;
-    //   toEffSmearFns(v, args...);
-    //   return v;
-    // }
     template<typename T>
     vector<ParticleEffSmearFn>& toEffSmearFns(vector<ParticleEffSmearFn>& v, const T& t) {
       v.push_back(ParticleEffSmearFn(t));
@@ -47,45 +37,45 @@ namespace Rivet {
     SmearedParticles(const ParticleFinder& pf,
                      double eff,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, c, eff)
+      : SmearedParticles(pf, {eff}, c)
     {    }
 
-    /// @brief Constructor with an efficiency function arg
+    /// @brief Constructor with an efficiency function
     SmearedParticles(const ParticleFinder& pf,
                      const ParticleEffFn& effFn,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, c, effFn)
+      : SmearedParticles(pf, {effFn}, c)
     {    }
 
-    /// @brief Constructor with const efficiency and a smearing function
+    /// @brief Constructor with const efficiency followed by a smearing function
     SmearedParticles(const ParticleFinder& pf,
                      double eff, const ParticleSmearFn& smearFn,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, c, eff, smearFn)
+      : SmearedParticles(pf, {eff, smearFn}, c)
     {    }
 
-    /// @brief Constructor with const efficiency and a smearing function
+    /// @brief Constructor with a smearing function followed by const efficiency
     SmearedParticles(const ParticleFinder& pf,
                      const ParticleSmearFn& smearFn, double eff,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, c, smearFn, eff)
+      : SmearedParticles(pf, {smearFn, eff}, c)
     {    }
 
-    /// @brief Constructor with efficiency and smearing function args
+    /// @brief Constructor with an efficiency function followed by a smearing function
     SmearedParticles(const ParticleFinder& pf,
                      const ParticleEffFn& effFn, const ParticleSmearFn& smearFn,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, c, effFn, smearFn)
+      : SmearedParticles(pf, {effFn, smearFn}, c)
     {    }
 
-    /// @brief Constructor with efficiency and smearing function args
+    /// @brief Constructor with a smearing function followed by an efficiency function
     SmearedParticles(const ParticleFinder& pf,
                      const ParticleSmearFn& smearFn, const ParticleEffFn& effFn,
                      const Cut& c=Cuts::open())
-      : SmearedParticles(pf, c, smearFn, effFn)
+      : SmearedParticles(pf, {smearFn, effFn}, c)
     {    }
 
-    /// @brief Constructor with efficiency and smearing function args
+    /// @brief Constructor with an ordered list of efficiency and/or smearing functions
     SmearedParticles(const ParticleFinder& pf,
                      const vector<ParticleEffSmearFn>& effSmearFns,
                      const Cut& c=Cuts::open())
@@ -96,30 +86,19 @@ namespace Rivet {
       addProjection(pf, "TruthParticles");
     }
 
-    /// @brief Constructor with efficiency and smearing function args
+    /// @brief Constructor with an ordered list of efficiency and/or smearing functions
     SmearedParticles(const ParticleFinder& pf,
                      const initializer_list<ParticleEffSmearFn>& effSmearFns,
                      const Cut& c=Cuts::open())
       : SmearedParticles(pf, vector<ParticleEffSmearFn>{effSmearFns}, c)
     {    }
 
-    // /// @brief Constructor with an arbitrary list of efficiency and smearing function args
-    // /// @todo Wouldn't it be nice if the Cut could go *after* the parameter pack? Oh well...
-    // template<typename... Args>
-    // SmearedParticles(const ParticleFinder& pf, const Cut& c, Args... effSmearFns)
-    //   : ParticleFinder(c)
-    // {
-    //   setName("SmearedParticles");
-    //   addProjection(pf, "TruthParticles");
-
-    //   toEffSmearFns(_detFns, effSmearFns...);
-    // }
-
-    /// @brief Constructor with an arbitrary list of efficiency and smearing function args
-    /// @todo Wouldn't it be nice if the Cut could go *after* the parameter pack? Oh well...
+    /// @brief Constructor with a variadic ordered list of efficiency and smearing function args
+    /// @note The Cut must be provided *before* the eff/smearing functions
+    /// @todo Wouldn't it be nice if the Cut could also go *after* the parameter pack?
     template<typename... ARGS>
     SmearedParticles(const ParticleFinder& pf, const Cut& c, ARGS... effSmearFns)
-      : SmearedParticles(pf, toEffSmearFns(_detFns, effSmearFns...))
+      : SmearedParticles(pf, toEffSmearFns(_detFns, effSmearFns...), c)
     {    }
 
 
