@@ -12,8 +12,24 @@
 namespace Rivet {
 
 
+  // Recursive variadic template arg decoding
+  namespace {
+    template<typename T>
+    vector<JetEffSmearFn>& toEffSmearFns(vector<JetEffSmearFn>& v, const T& t) {
+      v.push_back(JetEffSmearFn(t));
+      return v;
+    }
+    template<typename T, typename... ARGS>
+    vector<JetEffSmearFn>& toEffSmearFns(vector<JetEffSmearFn>& v, const T& first, ARGS... args) {
+      v.push_back(JetEffSmearFn(first));
+      toEffSmearFns(v, args...);
+      return v;
+    }
+  }
+
+
+
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
-  /// @todo Chain constructors?
   class SmearedJets : public JetAlg {
   public:
 
@@ -22,42 +38,38 @@ namespace Rivet {
 
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2JFN>
     SmearedJets(const JetAlg& ja,
-                const J2JFN& jetSmearFn)
+                const JetSmearFn& jetSmearFn)
       : SmearedJets(ja, jetSmearFn, JET_BTAG_PERFECT, JET_CTAG_PERFECT, JET_EFF_ONE)
     {    }
 
 
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2JFN, typename J2DFN>
     SmearedJets(const JetAlg& ja,
-                const J2JFN& jetSmearFn,
-                const J2DFN& bTagEffFn)
+                const JetSmearFn& jetSmearFn,
+                const JetEffFn& bTagEffFn)
       : SmearedJets(ja, jetSmearFn, bTagEffFn, JET_CTAG_PERFECT, JET_EFF_ONE)
     {    }
 
 
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2JFN, typename J2DFNa, typename J2DFNb>
     SmearedJets(const JetAlg& ja,
-                const J2JFN& jetSmearFn,
-                const J2DFNa& bTagEffFn,
-                const J2DFNb& cTagEffFn)
+                const JetSmearFn& jetSmearFn,
+                const JetEffFn& bTagEffFn,
+                const JetEffFn& cTagEffFn)
       : SmearedJets(ja, jetSmearFn, bTagEffFn, cTagEffFn, JET_EFF_ONE)
     {    }
 
 
     /// @brief Constructor with efficiency and smearing function args
     /// The jet reconstruction efficiency is mandatory; the smearing and tagging functions are optional
-    template <typename J2JFN, typename J2DFNa, typename J2DFNb, typename J2DFNc>
     SmearedJets(const JetAlg& ja,
-                const J2JFN& jetSmearFn,
-                const J2DFNa& bTagEffFn,
-                const J2DFNb& cTagEffFn,
-                const J2DFNc& jetEffFn)
+                const JetSmearFn& jetSmearFn,
+                const JetEffFn& bTagEffFn,
+                const JetEffFn& cTagEffFn,
+                const JetEffFn& jetEffFn)
       : _jetEffFn(jetEffFn), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn), _jetSmearFn(jetSmearFn)
     {
       setName("SmearedJets");
