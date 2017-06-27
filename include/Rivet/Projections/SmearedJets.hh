@@ -155,10 +155,10 @@ namespace Rivet {
     Jets _recojets;
 
     /// Stored efficiency functions
-    std::function<double(const Jet&)> _jetEffFn, _bTagEffFn, _cTagEffFn;
+    JetEffFn _jetEffFn, _bTagEffFn, _cTagEffFn;
 
     /// Stored smearing function
-    std::function<Jet(const Jet&)> _jetSmearFn;
+    JetSmearFn _jetSmearFn;
 
   };
 
