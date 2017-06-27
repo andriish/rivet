@@ -10,7 +10,7 @@
 namespace Rivet {
 
 
-  // Recursive variadic template decoding
+  // Recursive variadic template arg decoding
   namespace {
     template<typename T>
     vector<ParticleEffSmearFn>& toEffSmearFns(vector<ParticleEffSmearFn>& v, const T& t) {
@@ -24,6 +24,7 @@ namespace Rivet {
       return v;
     }
   }
+
 
 
   /// Wrapper projection for smearing {@link Jet}s with detector resolutions and efficiencies
