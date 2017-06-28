@@ -22,7 +22,7 @@ namespace Rivet {
     DEPRECATED("Use the version with FinalState as 1st arg")
     IdentifiedFinalState(const vector<PdgId>& pids, const FinalState& fsp);
 
-    /// Constructor with a FinalState and a single of PDG ID code.
+    /// Constructor with a FinalState and a single PDG ID code.
     IdentifiedFinalState(const FinalState& fsp, PdgId pid);
 
     /// Constructor with a single PDG ID code and a FinalState.

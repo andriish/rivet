@@ -1350,6 +1350,27 @@ namespace Rivet {
   //@}
 
 
+  /// @name MT calculation
+  //@{
+
+  /// Calculate transverse mass of a visible and an invisible 3-vector
+  inline double mT(const Vector3& vis, const Vector3& invis) {
+    return sqrt(2*vis.perp()*invis.perp() * (1 - cos(deltaPhi(vis, invis))) );
+  }
+
+  /// Calculate transverse mass of a visible and an invisible 4-vector
+  inline double mT(const FourMomentum& vis, const FourMomentum& invis) {
+    return mT(vis.p3(), invis.p3());
+  }
+
+  /// Calculate transverse mass of a visible 4-vector and an invisible 3-vector
+  inline double mT(const FourMomentum& vis, const Vector3& invis) {
+    return mT(vis.p3(), invis);
+  }
+
+  //@}
+
+
   //////////////////////////////////////////////////////
 
 

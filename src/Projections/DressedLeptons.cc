@@ -4,6 +4,7 @@
 namespace Rivet {
 
 
+  // Separate-FS version
   DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                                  double dRmax, const Cut& cut, bool cluster, bool useDecayPhotons)
     : FinalState(cut),
@@ -18,6 +19,15 @@ namespace Rivet {
     leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
     addProjection(leptonfs, "Leptons");
   }
+
+
+  // Single-FS version
+  DressedLeptons::DressedLeptons(const FinalState& barefs,
+                                 double dRmax, const Cut& cut, bool cluster, bool useDecayPhotons)
+    : DressedLeptons(barefs, barefs, dRmax, cut, cluster, useDecayPhotons)
+  {     }
+
+
 
 
   int DressedLeptons::compare(const Projection& p) const {

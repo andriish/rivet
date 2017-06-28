@@ -19,9 +19,10 @@ testBeams_SOURCES = testBeams.cc
 testBeams_LDADD = $(TEST_LDADD)
 
 TESTS_ENVIRONMENT = \
-  RIVET_REF_PATH=$(top_srcdir)/data/refdata \
-  RIVET_INFO_PATH=$(top_srcdir)/data/anainfo \
-  RIVET_ANALYSIS_PATH=$(top_builddir)/src/Analyses/.libs \
+  RIVET_ANALYSIS_PATH=$(top_builddir)/analyses \
+  RIVET_DATA_PATH=$(top_srcdir)/analyses/data \
+  RIVET_INFO_PATH=$(top_srcdir)/analyses/data \
+  RIVET_REF_PATH=$(top_srcdir)/analyses/data \
   LD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(LD_LIBRARY_PATH) \
   DYLD_LIBRARY_PATH=$(top_builddir)/src:$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH):$(YAML_CPPLIBPATH):$(DYLD_LIBRARY_PATH) \
   PYTHON_BUILD_DIR=$(top_builddir)/pyext/build \
@@ -35,4 +36,4 @@ endif
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh
 
-CLEANFILES = out.aida log a.out fifo.hepmc file2.hepmc out.yoda NaN.aida Rivet.yoda
+CLEANFILES = log a.out fifo.hepmc file2.hepmc out.yoda NaN.aida Rivet.yoda

@@ -13,7 +13,6 @@ namespace Rivet {
 
   /// @brief Get the DIS kinematic variables and relevant boosts for an event.
   class DISKinematics : public Projection {
-
   public:
 
     /// The default constructor.
@@ -50,7 +49,7 @@ namespace Rivet {
     /// The Bjorken \f$x\f$.
     double x() const { return _theX; }
 
-    /// The Inelasticity \f$y\f$
+    /// The inelasticity \f$y\f$
     double y() const { return _theY; }
 
     /// The centre of mass energy \f$s\f$

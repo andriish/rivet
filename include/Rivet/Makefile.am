@@ -35,7 +35,6 @@ nobase_pkginclude_HEADERS += \
   Projections/Beam.hh \
   Projections/BeamThrust.hh \
   Projections/CentralEtHCM.hh \
-  Projections/CentralityEstimator.hh \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
@@ -90,6 +89,7 @@ nobase_pkginclude_HEADERS +=   \
 
 
 ## Analysis base class headers
+# TODO: Move to Rivet/AnalysisTools header dir?
 nobase_pkginclude_HEADERS += \
   Analyses/MC_ParticleAnalysis.hh \
   Analyses/MC_JetAnalysis.hh \
@@ -100,7 +100,7 @@ nobase_pkginclude_HEADERS += \
 nobase_pkginclude_HEADERS += \
   Tools/BeamConstraint.hh \
   Tools/BinnedHistogram.hh \
-  Tools/CentralityHistogram.hh \
+  Tools/CentralityBinner.hh \
   Tools/Cmp.fhh \
   Tools/Cmp.hh \
   Tools/Cutflow.hh \
@@ -109,6 +109,7 @@ nobase_pkginclude_HEADERS += \
   Tools/Exceptions.hh \
   Tools/JetUtils.hh \
   Tools/Logging.hh  \
+  Tools/Random.hh  \
   Tools/ParticleBaseUtils.hh \
   Tools/ParticleIdUtils.hh \
   Tools/ParticleUtils.hh \
@@ -121,6 +122,9 @@ nobase_pkginclude_HEADERS += \
   Tools/RivetYODA.hh \
   Tools/RivetMT2.hh \
   Tools/SmearingFunctions.hh \
+  Tools/MomentumSmearingFunctions.hh \
+  Tools/ParticleSmearingFunctions.hh \
+  Tools/JetSmearingFunctions.hh \
   Tools/TypeTraits.hh \
   Tools/Utils.hh
 nobase_dist_noinst_HEADERS += \

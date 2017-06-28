@@ -32,6 +32,24 @@ namespace Rivet {
   }
 
 
+  vector<Particle> Particle::ancestors(const Cut& c, bool physical_only) const {
+    vector<Particle> rtn;
+    /// @todo Remove this const mess crap when HepMC doesn't suck
+    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
+    if (gv == NULL) return rtn;
+    /// @todo Would like to do this, but the range objects are broken
+    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
+    //   rtn += Particle(gp);
+    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::ancestors); it != gv->particles_end(HepMC::ancestors); ++it) {
+      if (physical_only && (*it)->status() != 1 && (*it)->status() != 2) continue;
+      const Particle p(*it);
+      if (c != Cuts::OPEN && !c->accept(p)) continue;
+      rtn += p;
+    }
+    return rtn;
+  }
+
+
   vector<Particle> Particle::parents(const Cut& c) const {
     vector<Particle> rtn;
     #if HEPMC_VERSION_CODE >= 3000000
@@ -65,6 +83,9 @@ namespace Rivet {
     #else
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
+    /// @todo Would like to do this, but the range objects are broken
+    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
+    //   rtn += Particle(gp);
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it) {
       const Particle p(*it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
@@ -113,7 +134,6 @@ namespace Rivet {
       }
       rtn += p;
     }
-    #endif
     return rtn;
   }
 
@@ -122,16 +142,11 @@ namespace Rivet {
   vector<Particle> Particle::stableDescendants(const Cut& c) const {
     vector<Particle> rtn;
     if (isStable()) return rtn;
-    #if HEPMC_VERSION_CODE >= 3000000
-    for (const GenParticlePtr gp : genParticle()->descendants()) {
-      const Particle p(gp);
-      if (!p.isStable()) continue;
-      if (c != Cuts::OPEN && !c->accept(p)) continue;
-      rtn += p;
-    }
-    #else
+    /// @todo Remove this const mess crap when HepMC doesn't suck
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
+    /// @todo Would like to do this, but the range objects are broken
+    // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
       const Particle p(*it);
@@ -146,8 +161,8 @@ namespace Rivet {
 
   double Particle::flightLength() const {
     if (isStable()) return -1;
-    if (!genParticle()) return 0;
-    if (!genParticle()->production_vertex()) return 0;
+    if (genParticle() == NULL) return 0;
+    if (genParticle()->production_vertex() == NULL) return 0;
     const HepMC::FourVector v1 = genParticle()->production_vertex()->position();
     const HepMC::FourVector v2 = genParticle()->end_vertex()->position();
     return sqrt(sqr(v2.x()-v1.x()) + sqr(v2.y()-v1.y()) + sqr(v2.z()-v1.z()));
@@ -155,7 +170,7 @@ namespace Rivet {
 
 
   bool Particle::hasParent(PdgId pid) const {
-    return _hasRelativeWith(HepMC::parents, hasPID(pid));
+    return hasParentWith(hasPID(pid));
   }
 
   bool Particle::hasParentWith(const Cut& c) const {
@@ -163,62 +178,79 @@ namespace Rivet {
   }
 
 
-  bool Particle::hasAncestor(PdgId pid) const {
-    return _hasRelativeWith(HepMC::ancestors, hasPID(pid));
+  bool Particle::hasAncestor(PdgId pid, bool only_physical) const {
+    return hasAncestorWith(hasPID(pid), only_physical);
   }
 
-  bool Particle::hasAncestorWith(const Cut& c) const {
-    return hasAncestorWith([&](const Particle& p){return c->accept(p);});
+  bool Particle::hasAncestorWith(const Cut& c, bool only_physical) const {
+    return hasAncestorWith([&](const Particle& p){return c->accept(p);}, only_physical);
   }
+
+
+  bool Particle::hasChildWith(const Cut& c) const {
+    return hasChildWith([&](const Particle& p){return c->accept(p);});
+  }
+
+
+  bool Particle::hasDescendantWith(const Cut& c, bool remove_duplicates) const {
+    return hasDescendantWith([&](const Particle& p){return c->accept(p);}, remove_duplicates);
+  }
+
+  bool Particle::hasStableDescendantWith(const Cut& c) const {
+    return hasStableDescendantWith([&](const Particle& p){return c->accept(p);});
+  }
+
 
 
   bool Particle::fromBottom() const {
-    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+    return hasAncestorWith([](const Particle& p){
         return p.genParticle()->status() == 2 && p.isHadron() && p.hasBottom();
       });
   }
 
-
   bool Particle::fromCharm() const {
-    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+    return hasAncestorWith([](const Particle& p){
         return p.genParticle()->status() == 2 && p.isHadron() && p.hasCharm();
       });
   }
 
-
   bool Particle::fromHadron() const {
-    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+    return hasAncestorWith([](const Particle& p){
         return p.genParticle()->status() == 2 && p.isHadron();
       });
   }
 
-
   bool Particle::fromTau(bool prompt_taus_only) const {
     if (prompt_taus_only && fromHadron()) return false;
-    return _hasRelativeWith(HepMC::ancestors, [](const Particle& p){
+    return hasAncestorWith([](const Particle& p){
         return p.genParticle()->status() == 2 && isTau(p);
       });
   }
 
+  bool Particle::fromHadronicTau(bool prompt_taus_only) const {
+    return hasAncestorWith([&](const Particle& p){
+        return p.genParticle()->status() == 2 && isTau(p) && (!prompt_taus_only || p.isPrompt()) && hasHadronicDecay(p);
+      });
+  }
 
-  bool Particle::isPrompt(bool allow_from_prompt_tau, bool allow_from_prompt_mu) const {
+
+
+
+  bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
     if (genParticle() == NULL) return false; // no HepMC connection, give up! Throw UserError exception?
     const GenVertexPtr prodVtx = genParticle()->production_vertex();
     if (prodVtx == NULL) return false; // orphaned particle, has to be assume false
-    #if HEPMC_VERSION_CODE >= 3000000
-    const pair<GenParticlePtr, GenParticlePtr> beams = std::make_pair(prodVtx->parent_event()->beams()[0], prodVtx->parent_event()->beams()[1]);
-    #else
     const pair<GenParticlePtr, GenParticlePtr> beams = prodVtx->parent_event()->beam_particles();
-    #endif
+
     /// @todo Would be nicer to be able to write this recursively up the chain, exiting as soon as a parton or string/cluster is seen
     for (const GenParticlePtr ancestor : Rivet::particles(prodVtx, HepMC::ancestors)) {
       const PdgId pid = ancestor->pdg_id();
       if (ancestor->status() != 2) continue; // no non-standard statuses or beams to be used in decision making
       if (ancestor == beams.first || ancestor == beams.second) continue; // PYTHIA6 uses status 2 for beams, I think... (sigh)
       if (PID::isParton(pid)) continue; // PYTHIA6 also uses status 2 for some partons, I think... (sigh)
-      if (PID::isHadron(pid)) return false; // prompt particles can't be from hadron decays
-      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_prompt_tau) return false; // allow or ban particles from tau decays (permitting tau copies)
-      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_prompt_mu) return false; // allow or ban particles from muon decays (permitting muon copies)
+      if (PID::isHadron(pid)) return false; // direct particles can't be from hadron decays
+      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) return false; // allow or ban particles from tau decays (permitting tau copies)
+      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) return false; // allow or ban particles from muon decays (permitting muon copies)
     }
     return true;
   }

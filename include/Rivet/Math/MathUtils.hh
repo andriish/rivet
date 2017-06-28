@@ -28,7 +28,7 @@ namespace Rivet {
   /// precision issue.
   template <typename NUM>
   inline typename std::enable_if<std::is_integral<NUM>::value, bool>::type
-    isZero(NUM val, double UNUSED(tolerance)=1e-8) {
+  isZero(NUM val, double=1e-5) { //< NB. unused tolerance parameter for ints, still needs a default value!
     return val == 0;
   }
 
@@ -56,7 +56,7 @@ namespace Rivet {
   template <typename N1, typename N2>
   inline typename std::enable_if<
     std::is_integral<N1>::value && std::is_integral<N2>::value, bool>::type
-  fuzzyEquals(N1 a, N2 b, double UNUSED(tolerance)=1e-5) {
+    fuzzyEquals(N1 a, N2 b, double) { //< NB. unused tolerance parameter for ints, still needs a default value!
     return a == b;
   }
 
@@ -544,7 +544,7 @@ namespace Rivet {
   //@}
 
 
-  /// @name Phase space measure helpers
+  /// @name Phase-space measure helpers
   //@{
 
   /// @brief Calculate the difference between two angles in radians

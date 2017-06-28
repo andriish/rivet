@@ -1,5 +1,5 @@
 ~$
-^run.*$
+^(anas|test|run).*$
 \.orig$
 \.(o|Po|lo|Plo|la|a|so|dylib|pyc|tar\.bz2|tar\.gz|fifo|hepmc)$
 ^config\.guess$
@@ -69,4 +69,4 @@ Doxyfile$
 ^Rivet-.\..\..$
 ^local/.*$
 ^(for|analyses)\d\d\d$
-^src/Analyses/.*__all\.cc$
+^analyses/data$
