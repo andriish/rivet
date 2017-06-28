@@ -76,10 +76,10 @@ namespace Rivet {
       : sfn(s), efn(e) {    }
 
     JetEffSmearFn(const JetSmearFn& s)
-      : sfn(s), efn(JET_EFF_ONE()) {    }
+      : sfn(s), efn(JET_EFF_ONE) {    }
 
     JetEffSmearFn(const JetEffFn& e)
-      : sfn(JET_SMEAR_IDENTITY(j)), efn(e) {    }
+      : sfn(JET_SMEAR_IDENTITY), efn(e) {    }
 
     JetEffSmearFn(double eff)
       : JetEffSmearFn(JET_EFF_CONST(eff)) {    }
