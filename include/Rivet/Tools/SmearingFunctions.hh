@@ -9,18 +9,13 @@
 namespace Rivet {
 
 
-  /// @name Filtering utils
+  /// @name Particle filtering, efficiency and smearing utils
   //@{
 
   /// Return true if Particle @a p is chosen to survive a random efficiency selection
   template <typename FN>
   inline bool efffilt(const Particle& p, FN& feff) {
     return rand01() < feff(p);
-  }
-  /// Return true if Jet @a j is chosen to survive a random efficiency selection
-  template <typename FN>
-  inline bool efffilt(const Jet& j, FN& feff) {
-    return rand01() < feff(j);
   }
 
   /// A functor to return true if Particle @a p survives a random efficiency selection
@@ -35,16 +30,6 @@ namespace Rivet {
   };
   using particleEffFilter = ParticleEffFilter;
 
-  /// A functor to return true if Jet @a j survives a random efficiency selection
-  struct JetEffFilter {
-    template <typename FN>
-    JetEffFilter(const FN& feff) : _feff(feff) {}
-    JetEffFilter(double eff) : JetEffFilter( [&](const Jet& j){return eff;} ) {}
-    bool operator () (const Jet& j) const { return efffilt(j, _feff); }
-  private:
-    const std::function<bool(const Jet&)> _feff;
-  };
-  using jetEffFilter = JetEffFilter;
 
   //@}
 
@@ -76,13 +61,13 @@ namespace Rivet {
       : sfn(s), efn(e) {    }
 
     ParticleEffSmearFn(const ParticleSmearFn& s)
-      : sfn(s), efn([](const Particle&){return -1;}) {    }
+      : sfn(s), efn(PARTICLE_EFF_ONE) {    }
 
     ParticleEffSmearFn(const ParticleEffFn& e)
-      : sfn([](const Particle& p){return p;}), efn(e) {    }
+      : sfn(PARTICLE_SMEAR_IDENTITY), efn(e) {    }
 
     ParticleEffSmearFn(double eff)
-      : ParticleEffSmearFn([&](const Particle&){return eff;}) {    }
+      : ParticleEffSmearFn(PARTICLE_EFF_CONST(eff) {    }
 
     pair<Particle,double> operator() (const Particle& p) const {
       return make_pair(sfn(p), efn(p));
@@ -101,69 +86,43 @@ namespace Rivet {
   };
 
 
-  /// @name Typedef for Jet smearing functions/functors
-  typedef std::function<Jet(const Jet&)> JetSmearFn;
-
-  /// @name Typedef for Jet efficiency functions/functors
-  typedef std::function<double(const Jet&)> JetEffFn;
-
-  /// @brief Functor for simultaneous efficiency-filtering and smearing of Jets
-  ///
-  /// A central element of the SmearedJets system
-  struct JetEffSmearFn {
-    JetEffSmearFn(const JetSmearFn& s, const JetEffFn& e)
-      : sfn(s), efn(e) {    }
-
-    JetEffSmearFn(const JetEffFn& e, const JetSmearFn& s)
-      : sfn(s), efn(e) {    }
-
-    JetEffSmearFn(const JetSmearFn& s)
-      : sfn(s), efn([](const Jet&){return -1;}) {    }
-
-    JetEffSmearFn(const JetEffFn& e)
-      : sfn([](const Jet& j){return j;}), efn(e) {    }
-
-    JetEffSmearFn(double eff)
-      : JetEffSmearFn([&](const Jet&){return eff;}) {    }
-
-    pair<Jet,double> operator() (const Jet& j) const {
-      return make_pair(sfn(j), efn(j));
-    }
-
-    JetSmearFn sfn;
-    JetEffFn efn;
-  };
-
-  //@}
-
-
-  /// @name Generic concrete particle & momentum efficiency and smearing functions
-  //@{
-
+  /// Take a Particle and return 0
+  inline double PARTICLE_EFF_ZERO(const Particle& ) { return 0; }
+  /// @deprecated Alias for PARTICLE_EFF_ZERO
+  inline double PARTICLE_FN0(const Particle& ) { return 0; }
+  /// Take a Particle and return 1
+  inline double PARTICLE_EFF_ONE(const Particle& ) { return 1; }
+  /// @deprecated Alias for PARTICLE_EFF_ONE
+  inline double PARTICLE_FN1(const Particle& ) { return 1; }
   /// Take a Particle and return a constant number
-  struct PARTICLE_FNCONST {
-    PARTICLE_FNCONST(double x) : _x(x) {}
+  struct PARTICLE_EFF_CONST {
+    PARTICLE_EFF_CONST(double x) : _x(x) {}
     double operator () (const Particle& )  const { return _x; }
     double _x;
   };
-  /// Take a Particle and return 0
-  inline double PARTICLE_FN0(const Particle& ) { return 0; }
-  /// Take a Particle and return 1
-  inline double PARTICLE_FN1(const Particle& ) { return 1; }
+
   /// Take a Particle and return it unmodified
   inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
 
 
-  /// Take a Particle and return a constant number
-  struct P4_FNCONST {
-    P4_FNCONST(double x) : _x(x) {}
+
+
+
+  /// Take a FourMomentum and return 0
+  inline double P4_EFF_ZERO(const FourMomentum& ) { return 0; }
+  /// @deprecated Alias for P4_EFF_ZERO
+  inline double P4_FN0(const FourMomentum& ) { return 0; }
+  /// Take a FourMomentum and return 1
+  inline double P4_EFF_ONE(const FourMomentum& ) { return 1; }
+  /// @deprecated Alias for P4_EFF_ONE
+  inline double P4_FN1(const FourMomentum& ) { return 1; }
+  /// Take a FourMomentum and return a constant number
+  struct P4_EFF_CONST {
+    P4_EFF_CONST(double x) : _x(x) {}
     double operator () (const FourMomentum& )  const { return _x; }
     double _x;
   };
-  /// Take a FourMomentum and return 0
-  inline double P4_FN0(const FourMomentum& ) { return 0; }
-  /// Take a FourMomentum and return 1
-  inline double P4_FN1(const FourMomentum& ) { return 1; }
+
   /// Take a FourMomentum and return it unmodified
   inline FourMomentum P4_SMEAR_IDENTITY(const FourMomentum& p) { return p; }
 
@@ -204,6 +163,9 @@ namespace Rivet {
   }
 
   //@}
+
+
+
 
 
   /// @name Electron efficiency and smearing functions
@@ -689,6 +651,68 @@ namespace Rivet {
 
   /// @name Jet efficiency and smearing functions
   //@{
+
+  /// @name Typedef for Jet smearing functions/functors
+  typedef std::function<Jet(const Jet&)> JetSmearFn;
+
+  /// @name Typedef for Jet efficiency functions/functors
+  typedef std::function<double(const Jet&)> JetEffFn;
+
+  /// @brief Functor for simultaneous efficiency-filtering and smearing of Jets
+  ///
+  /// A central element of the SmearedJets system
+  struct JetEffSmearFn {
+    JetEffSmearFn(const JetSmearFn& s, const JetEffFn& e)
+      : sfn(s), efn(e) {    }
+
+    JetEffSmearFn(const JetEffFn& e, const JetSmearFn& s)
+      : sfn(s), efn(e) {    }
+
+    JetEffSmearFn(const JetSmearFn& s)
+      : sfn(s), efn(JET_EFF_ONE()) {    }
+
+    JetEffSmearFn(const JetEffFn& e)
+      : sfn(JET_SMEAR_IDENTITY(j)), efn(e) {    }
+
+    JetEffSmearFn(double eff)
+      : JetEffSmearFn(JET_EFF_CONST(eff)) {    }
+
+    pair<Jet,double> operator() (const Jet& j) const {
+      return make_pair(sfn(j), efn(j));
+    }
+
+    int cmp(const JetEffSmearFn& other) const {
+      // cout << "Eff hashes = " << get_address(efn) << "," << get_address(other.efn) << "; "
+      //      << "smear hashes = " << get_address(sfn) << "," << get_address(other.sfn) << endl;
+      if (get_address(sfn) == 0 || get_address(other.sfn) == 0) return UNDEFINED;
+      if (get_address(efn) == 0 || get_address(other.efn) == 0) return UNDEFINED;
+      return Rivet::cmp(get_address(sfn), get_address(other.sfn)) || Rivet::cmp(get_address(efn), get_address(other.efn));
+    }
+
+    JetSmearFn sfn;
+    JetEffFn efn;
+  };
+
+
+  /// Return true if Jet @a j is chosen to survive a random efficiency selection
+  template <typename FN>
+  inline bool efffilt(const Jet& j, FN& feff) {
+    return rand01() < feff(j);
+  }
+
+  /// A functor to return true if Jet @a j survives a random efficiency selection
+  struct JetEffFilter {
+    template <typename FN>
+    JetEffFilter(const FN& feff) : _feff(feff) {}
+    JetEffFilter(double eff) : JetEffFilter( [&](const Jet& j){return eff;} ) {}
+    bool operator () (const Jet& j) const { return efffilt(j, _feff); }
+  private:
+    const std::function<bool(const Jet&)> _feff;
+  };
+  using jetEffFilter = JetEffFilter;
+
+  //@}
+
 
   /// Return a constant 0 given a Jet as argument
   inline double JET_EFF_ZERO(const Jet& p) { return 0; }
