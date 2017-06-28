@@ -32,6 +32,16 @@ namespace Rivet {
       return cutresult;
     }
 
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut (cutvalue=true overload)
+    ///
+    /// This version exists to allow calling fill(i, weight) without the weight
+    /// getting cast to a bool, or having to explicitly add a 'true' middle arg.
+    ///
+    /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
+    bool fill(size_t icut, double weight) {
+      return fill(icut, true, weight);
+    }
+
     /// @brief Fill all cut-state counters from an Ncut-element results vector
     ///
     /// This function is to be used to fill all of an event's pre- and post-cut
@@ -167,10 +177,20 @@ namespace Rivet {
       for (Cutflow& cf : cfs) cf.fillinit(weight);
     }
 
-    /// @brief Fill the @a {icut}'th post-cut counter with the same result for all {Cutflow}s
-    bool fill(size_t icut, bool cutresult, double weight=1.) {
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut, with the same result for all {Cutflow}s
+    bool fill(size_t icut, bool cutresult=true, double weight=1.) {
       for (Cutflow& cf : cfs) cf.fill(icut, cutresult, weight);
       return cutresult;
+    }
+
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut, with the same result for all {Cutflow}s (cutresult=true overload)
+    ///
+    /// This version exists to allow calling fill(i, weight) without the weight
+    /// getting cast to a bool, or having to explicitly add a 'true' middle arg.
+    ///
+    /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
+    bool fill(size_t icut, double weight) {
+      return fill(icut, true, weight);
     }
 
     /// @todo Add a fillnext(), keeping track of current ifill
