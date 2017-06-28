@@ -44,9 +44,9 @@ namespace Rivet {
   /// @brief b-tagging efficiency functor, for more readable b-tag effs and mistag rates
   /// Note several constructors, allowing for optional specification of charm, tau, and light jet mistag rates
   struct JET_BTAG_EFFS {
-    JET_BTAG_EFFS(double eff_b, double eff_light=0) : _eff_b(eff_b), _eff_c(-1), _eff_t(-1), _eff_l(eff_light) { }
-    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_light=0) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(-1), _eff_l(eff_light) { }
-    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_tau, double eff_light=0) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(eff_tau), _eff_l(eff_light) { }
+    JET_BTAG_EFFS(double eff_b, double eff_light=0) : _eff_b(eff_b), _eff_c(0), _eff_t(0), _eff_l(eff_light) { }
+    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_light) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(0), _eff_l(eff_light) { }
+    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_tau, double eff_light) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(eff_tau), _eff_l(eff_light) { }
     inline double operator () (const Jet& j) {
       if (j.bTagged()) return _eff_b;
       if (_eff_c >= 0 && j.cTagged()) return _eff_c;

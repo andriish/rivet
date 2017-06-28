@@ -46,7 +46,7 @@ namespace Rivet {
 
       SmearedJets sj3(fj,
                       [](const Jet& j){ return j; },
-                      [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0.01; },
+                      JET_BTAG_EFFS(0.7, 0.1, 0.01),
                       JET_CTAG_PERFECT,
                       [](const Jet& j){ return 0.8; });
       declare(sj3, "Jets3");
