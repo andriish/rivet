@@ -2,170 +2,11 @@
 #ifndef RIVET_SmearingFunctions_HH
 #define RIVET_SmearingFunctions_HH
 
-#include "Rivet/Particle.hh"
-#include "Rivet/Jet.hh"
-#include "Rivet/Tools/Random.hh"
+#include "Rivet/Tools/MomentumSmearingFunctions.hh"
+#include "Rivet/Tools/ParticleSmearingFunctions.hh"
+#include "Rivet/Tools/JetSmearingFunctions.hh"
 
 namespace Rivet {
-
-
-  /// @name Particle filtering, efficiency and smearing utils
-  //@{
-
-  /// Return true if Particle @a p is chosen to survive a random efficiency selection
-  template <typename FN>
-  inline bool efffilt(const Particle& p, FN& feff) {
-    return rand01() < feff(p);
-  }
-
-  /// A functor to return true if Particle @a p survives a random efficiency selection
-  /// @deprecated Prefer
-  struct ParticleEffFilter {
-    template <typename FN>
-    ParticleEffFilter(const FN& feff) : _feff(feff) {}
-    ParticleEffFilter(double eff) : ParticleEffFilter( [&](const Particle& p){return eff;} ) {}
-    bool operator () (const Particle& p)  const { return efffilt(p, _feff); }
-  private:
-    const std::function<bool(const Particle&)> _feff;
-  };
-  using particleEffFilter = ParticleEffFilter;
-
-
-  //@}
-
-
-  /// @name Types for efficiency and smearing functions
-  //@{
-
-  /// @name Typedef for FourMomentum smearing functions/functors
-  typedef std::function<FourMomentum(const FourMomentum&)> P4SmearFn;
-
-  /// @name Typedef for FourMomentum efficiency functions/functors
-  typedef std::function<double(const FourMomentum&)> P4EffFn;
-
-
-  /// @name Typedef for Particle smearing functions/functors
-  typedef std::function<Particle(const Particle&)> ParticleSmearFn;
-
-  /// @name Typedef for Particle efficiency functions/functors
-  typedef std::function<double(const Particle&)> ParticleEffFn;
-
-  /// @brief Functor for simultaneous efficiency-filtering and smearing of Particles
-  ///
-  /// A central element of the SmearedParticles system
-  struct ParticleEffSmearFn {
-    ParticleEffSmearFn(const ParticleSmearFn& s, const ParticleEffFn& e)
-      : sfn(s), efn(e) {    }
-
-    ParticleEffSmearFn(const ParticleEffFn& e, const ParticleSmearFn& s)
-      : sfn(s), efn(e) {    }
-
-    ParticleEffSmearFn(const ParticleSmearFn& s)
-      : sfn(s), efn(PARTICLE_EFF_ONE) {    }
-
-    ParticleEffSmearFn(const ParticleEffFn& e)
-      : sfn(PARTICLE_SMEAR_IDENTITY), efn(e) {    }
-
-    ParticleEffSmearFn(double eff)
-      : ParticleEffSmearFn(PARTICLE_EFF_CONST(eff) {    }
-
-    pair<Particle,double> operator() (const Particle& p) const {
-      return make_pair(sfn(p), efn(p));
-    }
-
-    int cmp(const ParticleEffSmearFn& other) const {
-      // cout << "Eff hashes = " << get_address(efn) << "," << get_address(other.efn) << "; "
-      //      << "smear hashes = " << get_address(sfn) << "," << get_address(other.sfn) << endl;
-      if (get_address(sfn) == 0 || get_address(other.sfn) == 0) return UNDEFINED;
-      if (get_address(efn) == 0 || get_address(other.efn) == 0) return UNDEFINED;
-      return Rivet::cmp(get_address(sfn), get_address(other.sfn)) || Rivet::cmp(get_address(efn), get_address(other.efn));
-    }
-
-    const ParticleSmearFn sfn;
-    const ParticleEffFn efn;
-  };
-
-
-  /// Take a Particle and return 0
-  inline double PARTICLE_EFF_ZERO(const Particle& ) { return 0; }
-  /// @deprecated Alias for PARTICLE_EFF_ZERO
-  inline double PARTICLE_FN0(const Particle& ) { return 0; }
-  /// Take a Particle and return 1
-  inline double PARTICLE_EFF_ONE(const Particle& ) { return 1; }
-  /// @deprecated Alias for PARTICLE_EFF_ONE
-  inline double PARTICLE_FN1(const Particle& ) { return 1; }
-  /// Take a Particle and return a constant number
-  struct PARTICLE_EFF_CONST {
-    PARTICLE_EFF_CONST(double x) : _x(x) {}
-    double operator () (const Particle& )  const { return _x; }
-    double _x;
-  };
-
-  /// Take a Particle and return it unmodified
-  inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
-
-
-
-
-
-  /// Take a FourMomentum and return 0
-  inline double P4_EFF_ZERO(const FourMomentum& ) { return 0; }
-  /// @deprecated Alias for P4_EFF_ZERO
-  inline double P4_FN0(const FourMomentum& ) { return 0; }
-  /// Take a FourMomentum and return 1
-  inline double P4_EFF_ONE(const FourMomentum& ) { return 1; }
-  /// @deprecated Alias for P4_EFF_ONE
-  inline double P4_FN1(const FourMomentum& ) { return 1; }
-  /// Take a FourMomentum and return a constant number
-  struct P4_EFF_CONST {
-    P4_EFF_CONST(double x) : _x(x) {}
-    double operator () (const FourMomentum& )  const { return _x; }
-    double _x;
-  };
-
-  /// Take a FourMomentum and return it unmodified
-  inline FourMomentum P4_SMEAR_IDENTITY(const FourMomentum& p) { return p; }
-
-
-  /// Smear a FourMomentum's energy using a Gaussian of absolute width @a resolution
-  /// @todo Also make jet versions that update/smear constituents?
-  inline FourMomentum P4_SMEAR_E_GAUSS(const FourMomentum& p, double resolution) {
-    const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
-    const double smeared_E = max(randnorm(p.E(), resolution), mass); //< can't let the energy go below the mass!
-    return FourMomentum::mkEtaPhiME(p.eta(), p.phi(), mass, smeared_E);
-  }
-
-  /// Smear a FourMomentum's transverse momentum using a Gaussian of absolute width @a resolution
-  inline FourMomentum P4_SMEAR_PT_GAUSS(const FourMomentum& p, double resolution) {
-    const double smeared_pt = max(randnorm(p.pT(), resolution), 0.);
-    const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
-    return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), mass, smeared_pt);
-  }
-
-  /// Smear a FourMomentum's mass using a Gaussian of absolute width @a resolution
-  inline FourMomentum P4_SMEAR_MASS_GAUSS(const FourMomentum& p, double resolution) {
-    const double smeared_mass = max(randnorm(p.mass(), resolution), 0.);
-    return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), smeared_mass, p.pT());
-  }
-
-
-  /// Take a Vector3 and return 0
-  inline double P3_FN0(const Vector3& p) { return 0; }
-  /// Take a Vector3 and return 1
-  inline double P3_FN1(const Vector3& p) { return 1; }
-  /// Take a Vector3 and return it unmodified
-  inline Vector3 P3_SMEAR_IDENTITY(const Vector3& p) { return p; }
-
-  /// Smear a Vector3's length using a Gaussian of absolute width @a resolution
-  inline Vector3 P3_SMEAR_LEN_GAUSS(const Vector3& p, double resolution) {
-    const double smeared_mod = max(randnorm(p.mod(), resolution), 0.); //< can't let the energy go below the mass!
-    return smeared_mod * p.unit();
-  }
-
-  //@}
-
-
-
 
 
   /// @name Electron efficiency and smearing functions
@@ -649,99 +490,9 @@ namespace Rivet {
   //@}
 
 
+
   /// @name Jet efficiency and smearing functions
   //@{
-
-  /// @name Typedef for Jet smearing functions/functors
-  typedef std::function<Jet(const Jet&)> JetSmearFn;
-
-  /// @name Typedef for Jet efficiency functions/functors
-  typedef std::function<double(const Jet&)> JetEffFn;
-
-  /// @brief Functor for simultaneous efficiency-filtering and smearing of Jets
-  ///
-  /// A central element of the SmearedJets system
-  struct JetEffSmearFn {
-    JetEffSmearFn(const JetSmearFn& s, const JetEffFn& e)
-      : sfn(s), efn(e) {    }
-
-    JetEffSmearFn(const JetEffFn& e, const JetSmearFn& s)
-      : sfn(s), efn(e) {    }
-
-    JetEffSmearFn(const JetSmearFn& s)
-      : sfn(s), efn(JET_EFF_ONE()) {    }
-
-    JetEffSmearFn(const JetEffFn& e)
-      : sfn(JET_SMEAR_IDENTITY(j)), efn(e) {    }
-
-    JetEffSmearFn(double eff)
-      : JetEffSmearFn(JET_EFF_CONST(eff)) {    }
-
-    pair<Jet,double> operator() (const Jet& j) const {
-      return make_pair(sfn(j), efn(j));
-    }
-
-    int cmp(const JetEffSmearFn& other) const {
-      // cout << "Eff hashes = " << get_address(efn) << "," << get_address(other.efn) << "; "
-      //      << "smear hashes = " << get_address(sfn) << "," << get_address(other.sfn) << endl;
-      if (get_address(sfn) == 0 || get_address(other.sfn) == 0) return UNDEFINED;
-      if (get_address(efn) == 0 || get_address(other.efn) == 0) return UNDEFINED;
-      return Rivet::cmp(get_address(sfn), get_address(other.sfn)) || Rivet::cmp(get_address(efn), get_address(other.efn));
-    }
-
-    JetSmearFn sfn;
-    JetEffFn efn;
-  };
-
-
-  /// Return true if Jet @a j is chosen to survive a random efficiency selection
-  template <typename FN>
-  inline bool efffilt(const Jet& j, FN& feff) {
-    return rand01() < feff(j);
-  }
-
-  /// A functor to return true if Jet @a j survives a random efficiency selection
-  struct JetEffFilter {
-    template <typename FN>
-    JetEffFilter(const FN& feff) : _feff(feff) {}
-    JetEffFilter(double eff) : JetEffFilter( [&](const Jet& j){return eff;} ) {}
-    bool operator () (const Jet& j) const { return efffilt(j, _feff); }
-  private:
-    const std::function<bool(const Jet&)> _feff;
-  };
-  using jetEffFilter = JetEffFilter;
-
-  //@}
-
-
-  /// Return a constant 0 given a Jet as argument
-  inline double JET_EFF_ZERO(const Jet& p) { return 0; }
-  /// Return a constant 1 given a Jet as argument
-  inline double JET_EFF_ONE(const Jet& p) { return 1; }
-  /// Take a Jet and return a constant efficiency
-  struct JET_EFF_CONST {
-    JET_EFF_CONST(double eff) : _eff(eff) {}
-    double operator () (const Jet& )  const { return _eff; }
-    double _eff;
-  };
-
-  /// Return 1 if the given Jet contains a b, otherwise 0
-  inline double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
-
-  /// @brief c-tagging efficiency functor, for more readable b-tag effs and mistag rates
-  /// Note several constructors, allowing for optional specification of charm, tau, and light jet mistag rates
-  struct JET_BTAG_EFFS {
-    JET_BTAG_EFFS(double eff_b, double eff_light=0) : _eff_b(eff_b), _eff_c(-1), _eff_t(-1), _eff_l(eff_light) { }
-    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_light=0) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(-1), _eff_l(eff_light) { }
-    JET_BTAG_EFFS(double eff_b, double eff_c, double eff_tau, double eff_light=0) : _eff_b(eff_b), _eff_c(eff_c), _eff_t(eff_tau), _eff_l(eff_light) { }
-    inline double operator () (const Jet& j) {
-      if (j.bTagged()) return _eff_b;
-      if (_eff_c >= 0 && j.cTagged()) return _eff_c;
-      if (_eff_t >= 0 && j.tauTagged()) return _eff_t;
-      return _eff_l;
-    }
-    double _eff_b, _eff_c, _eff_t, _eff_l;
-  };
 
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
@@ -767,13 +518,6 @@ namespace Rivet {
     return 1/134.;
   }
 
-  /// Return 1 if the given Jet contains a c, otherwise 0
-  inline double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
-
-  /// Take a jet and return an unmodified copy
-  /// @todo Modify constituent particle vectors for consistency
-  /// @todo Set a null PseudoJet if the Jet is smeared?
-  inline Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
 
   /// ATLAS Run 1 jet smearing
   /// @todo This is a cluster-level flat 3% resolution, I think, and smearing is suboptimal: improve!

@@ -122,6 +122,9 @@ nobase_pkginclude_HEADERS += \
   Tools/RivetYODA.hh \
   Tools/RivetMT2.hh \
   Tools/SmearingFunctions.hh \
+  Tools/MomentumSmearingFunctions.hh \
+  Tools/ParticleSmearingFunctions.hh \
+  Tools/JetSmearingFunctions.hh \
   Tools/TypeTraits.hh \
   Tools/Utils.hh
 nobase_dist_noinst_HEADERS += \
