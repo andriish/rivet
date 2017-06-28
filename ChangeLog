@@ -14,6 +14,8 @@
 	efficiency+smearing functions, with extra constructors and some
 	variadic template cleverness to allow implicit conversions from
 	single-operation eff and smearing function. Yay for C++11 ;-)
+	This work based on a macro-based version of combined eff/smear
+	functions by Karl Nordstrom -- thanks!
 
 	* Add *EffFn, *SmearFn, and *EffSmearFn types to SmearingFunctions.hh.
 
