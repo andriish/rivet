@@ -8,7 +8,7 @@ Looks up the Rivet analysis and other ID formats matching the given ID.
 
 Arguments:
  ID            A paper ID in one of the following formats
-                - arXiv:   yymm.nnnn
+                - arXiv:   yymm.nnnnn
                 - arXiv:   foo-bar/yymmnnn
                 - SPIRES:  [S]nnnnnnn
                 - Inspire: [I]nnnnnn[n]"""
@@ -29,7 +29,7 @@ def main():
 
 
     ## Set up some variables before the loop over args
-    arxiv_pattern = re.compile('^\d\d[01]\d\.\d{4}$|^(hep-(ex|ph|th)|nucl-ex)/\d\d[01]\d{4}$')
+    arxiv_pattern = re.compile('^\d\d[01]\d\.\d{4,5}$|^(hep-(ex|ph|th)|nucl-ex)/\d\d[01]\d{4}$')
     spires_pattern = re.compile('^(S|I)?(\d{6}\d?)$')
 
 

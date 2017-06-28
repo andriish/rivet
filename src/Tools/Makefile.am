@@ -4,6 +4,7 @@ libRivetTools_la_SOURCES = \
   BinnedHistogram.cc \
   Cuts.cc \
   JetUtils.cc \
+  Random.cc \
   Logging.cc \
   ParticleUtils.cc \
   ParticleName.cc \

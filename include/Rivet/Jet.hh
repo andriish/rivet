@@ -31,13 +31,6 @@ namespace Rivet {
       setState(pjet, particles, tags);
     }
 
-    /// Set all the jet data, with full particle information.
-    /// @deprecated Prefer the form where the 4-vec comes first and the particles list is optional.
-    DEPRECATED("Prefer the form where the 4-vec comes first and the particles list is optional.")
-    Jet(const Particles& particles, const FourMomentum& pjet) {
-      setState(pjet, particles);
-    }
-
     /// Default constructor -- only for STL storability
     Jet() { clear(); }
 
@@ -55,7 +48,9 @@ namespace Rivet {
     /// Get the particles in this jet (const version)
     const Particles& particles() const { return _particles; }
     /// Get the particles in this jet which pass a cut (const)
-    const Particles particles(const Cut& c) const { return filterBy(_particles, c); }
+    const Particles particles(const Cut& c) const { return filter_select(_particles, c); }
+    /// Get the particles in this jet which pass a filtering functor (const)
+    const Particles particles(const ParticleSelector& s) const { return filter_select(_particles, s); }
 
     /// Get the particles in this jet (FastJet-like alias)
     Particles& constituents() { return particles(); }
@@ -63,6 +58,8 @@ namespace Rivet {
     const Particles& constituents() const { return particles(); }
     /// Get the particles in this jet which pass a cut (FastJet-like alias, const)
     const Particles constituents(const Cut& c) const { return particles(c); }
+    /// Get the particles in this jet which pass a filtering functor (FastJet-like alias, const)
+    const Particles constituents(const ParticleSelector& s) const { return particles(s); }
 
     /// Check whether this jet contains a particular particle.
     bool containsParticle(const Particle& particle) const;
@@ -95,8 +92,7 @@ namespace Rivet {
     /// @brief Particles which have been tag-matched to this jet _and_ pass a selector function
     ///
     /// @note Note the less efficient return by value, due to the filtering.
-    template <typename FN>
-    Particles tags(const FN& f) const { return filter_select(tags(), f); }
+    Particles tags(const ParticleSelector& f) const { return filter_select(tags(), f); }
     /// @brief Particles which have been tag-matched to this jet _and_ pass a Cut
     ///
     /// @note Note the less efficient return by value, due to the cut-pass filtering.
@@ -108,14 +104,12 @@ namespace Rivet {
     /// The default jet finding adds b-hadron tags by ghost association.
     Particles bTags(const Cut& c=Cuts::open()) const;
     /// @brief b particles which have been tag-matched to this jet _and_ pass a selector function
-    template <typename FN>
-    Particles bTags(const FN& f) const { return filter_select(bTags(), f); }
+    Particles bTags(const ParticleSelector& f) const { return filter_select(bTags(), f); }
 
     /// Does this jet have at least one b-tag (that passes an optional Cut)?
     bool bTagged(const Cut& c=Cuts::open()) const { return !bTags(c).empty(); }
     /// Does this jet have at least one b-tag (that passes the supplied selector function)?
-    template <typename FN>
-    bool bTagged(const FN& f) const { return !bTags(f).empty(); }
+    bool bTagged(const ParticleSelector& f) const { return !bTags(f).empty(); }
 
 
     /// @brief c (and not b) particles which have been tag-matched to this jet (and pass an optional Cut)
@@ -123,14 +117,12 @@ namespace Rivet {
     /// The default jet finding adds c-hadron tags by ghost association.
     Particles cTags(const Cut& c=Cuts::open()) const;
     /// @brief c (and not b) particles which have been tag-matched to this jet and pass a selector function
-    template <typename FN>
-    Particles cTags(const FN& f) const { return filter_select(cTags(), f); }
+    Particles cTags(const ParticleSelector& f) const { return filter_select(cTags(), f); }
 
     /// Does this jet have at least one c-tag (that passes an optional Cut)?
     bool cTagged(const Cut& c=Cuts::open()) const { return !cTags(c).empty(); }
     /// Does this jet have at least one c-tag (that passes the supplied selector function)?
-    template <typename FN>
-    bool cTagged(const FN& f) const { return !cTags(f).empty(); }
+    bool cTagged(const ParticleSelector& f) const { return !cTags(f).empty(); }
 
 
     /// @brief Tau particles which have been tag-matched to this jet (and pass an optional Cut)
@@ -138,14 +130,12 @@ namespace Rivet {
     /// The default jet finding adds tau tags by ghost association.
     Particles tauTags(const Cut& c=Cuts::open()) const;
     /// @brief Tau particles which have been tag-matched to this jet and pass a selector function
-    template <typename FN>
-    Particles tauTags(const FN& f) const { return filter_select(tauTags(), f); }
+    Particles tauTags(const ParticleSelector& f) const { return filter_select(tauTags(), f); }
 
     /// Does this jet have at least one tau-tag (that passes an optional Cut)?
     bool tauTagged(const Cut& c=Cuts::open()) const { return !tauTags(c).empty(); }
     /// Does this jet have at least one tau-tag (that passes the supplied selector function)?
-    template <typename FN>
-    bool tauTagged(const FN& f) const { return !tauTags(f).empty(); }
+    bool tauTagged(const ParticleSelector& f) const { return !tauTags(f).empty(); }
 
 
     /// @brief Check whether this jet contains a bottom-flavoured hadron.
@@ -160,7 +150,7 @@ namespace Rivet {
     /// are set stable. If @a include_decay_products is true (the default), a
     /// fallback is attempted, using the post-hadronization ancestor history of
     /// all constituents.
-    //DEPRECATED("Prefer the bTags() or bTagged() function")
+    DEPRECATED("Prefer the bTags() or bTagged() function")
     bool containsBottom(bool include_decay_products=true) const;
 
     /// @brief Check whether this jet contains a charm-flavoured hadron.
@@ -175,7 +165,7 @@ namespace Rivet {
     /// are set stable. If @a include_decay_products is true (the default), a
     /// fallback is attempted, using the post-hadronization ancestor history of
     /// all constituents.
-    //DEPRECATED("Prefer the cTags() or cTagged() function")
+    DEPRECATED("Prefer the cTags() or cTagged() function")
     bool containsCharm(bool include_decay_products=true) const;
 
     //@}
@@ -227,10 +217,6 @@ namespace Rivet {
 
     /// Set all the jet data, with optional full particle constituent and tag information.
     Jet& setState(const FourMomentum& mom, const Particles& particles, const Particles& tags=Particles());
-
-    /// @deprecated Prefer the 4-mom first-arg versions. Remove in Rivet v3
-    DEPRECATED("Prefer the 4-mom first-arg versions")
-    Jet& setState(const Particles& particles, const FourMomentum& mom) { return setState(mom, particles); }
 
     /// @brief Set the particles collection with full particle information.
     ///

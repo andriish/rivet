@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-set -x
+#set -x
 
 if [[ -z "$PYTHON_BUILD_DIR" ]]; then
     echo "\$PYTHON_BUILD_DIR must be defined" 1>&2
@@ -8,14 +8,15 @@ if [[ -z "$PYTHON_BUILD_DIR" ]]; then
 fi
 export PYTHONPATH=$(ls -d $PYTHON_BUILD_DIR/lib.*):$PYTHONPATH
 
-#echo PYTHONPATH=$PYTHONPATH \
-#    PYTHON_BUILD_DIR=$PYTHON_BUILD_DIR \
-#    LD_LIBRARY_PATH=$LD_LIBRARY_PATH \
-#    PATH=$PATH \
-#    RIVET_REF_PATH=$RIVET_REF_PATH \
-#    RIVET_INFO_PATH=$RIVET_INFO_PATH \
-#    RIVET_ANALYSIS_PATH=$RIVET_ANALYSIS_PATH
-
+echo PYTHONPATH=$PYTHONPATH
+echo PYTHON_BUILD_DIR=$PYTHON_BUILD_DIR
+echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+echo PATH=$PATH
+echo
+echo RIVET_ANALYSIS_PATH=$RIVET_ANALYSIS_PATH
+echo RIVET_DATA_PATH=$RIVET_DATA_PATH
+echo RIVET_REF_PATH=$RIVET_REF_PATH
+echo RIVET_INFO_PATH=$RIVET_INFO_PATH
 
 function _clean() {
     rm -f fifo.hepmc
@@ -39,16 +40,20 @@ function _check() {
 
 _setup
 
+echo
 rivet --list-analyses > log || exit $?
 
+echo
 rivet -a D0_2008_S7554427 ${RIVET_TESTS_SRC}/testApi.hepmc file2.hepmc > log || exit $?
 grep -q "20 events" log
 _check
 
+echo
 cat ${RIVET_TESTS_SRC}/testApi.hepmc | rivet -a D0_2008_S7554427 > log || exit $?
 grep -q "10 events" log
 _check
 
+echo
 cat ${RIVET_TESTS_SRC}/testApi.hepmc > fifo.hepmc &
 rivet -a D0_2008_S7554427 fifo.hepmc > log || exit $?
 grep -q "10 events" log

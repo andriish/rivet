@@ -152,60 +152,6 @@ namespace Rivet {
       return jets(selector, cmpMomByPt);
     }
 
-    //@}
-
-
-    /// @name Old sorted jet accessors
-    /// @deprecated Use the versions with sorter function arguments. These will be removed in Rivet v3
-    //@{
-
-    /// Get the jets, ordered by \f$ |p| \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @deprecated Use the version with a sorter function argument.
-    DEPRECATED("Use the version with a sorter function argument.")
-    Jets jetsByP(const Cut& c=Cuts::open()) const {
-      return jets(c, cmpMomByP);
-    }
-
-    /// Get the jets, ordered by \f$ E \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @deprecated Use the version with a sorter function argument.
-    DEPRECATED("Use the version with a sorter function argument.")
-    Jets jetsByE(const Cut &c=Cuts::open()) const {
-      return jets(c, cmpMomByE);
-    }
-
-    /// Get the jets, ordered by \f$ E_T \f$, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    /// @note Returns a copy rather than a reference, due to cuts and sorting
-    /// @deprecated Use the version with a sorter function argument.
-    DEPRECATED("Use the version with a sorter function argument.")
-    Jets jetsByEt(const Cut& c=Cuts::open()) const {
-      return jets(c, cmpMomByEt);
-    }
-
-    //@}
-
-
-    /// @name Old jet accessors
-    /// @deprecated Use the versions with Cut arguments
-    //@{
-
-    /// Get jets in no guaranteed order, with optional cuts on \f$ p_\perp \f$ and rapidity.
-    ///
-    /// @deprecated Use the version with a Cut argument
-    /// @note Returns a copy rather than a reference, due to cuts
-    DEPRECATED("Use the version with a Cut argument.")
-    Jets jets(double ptmin, double ptmax=MAXDOUBLE,
-              double rapmin=-MAXDOUBLE, double rapmax=MAXDOUBLE,
-              RapScheme rapscheme=PSEUDORAPIDITY) const {
-      if (rapscheme == PSEUDORAPIDITY) {
-        return jets((Cuts::pT >= ptmin) & (Cuts::pT < ptmax) & (Cuts::rapIn(rapmin, rapmax)));
-      } else if (rapscheme == RAPIDITY) {
-        return jets((Cuts::pT >= ptmin) & (Cuts::pT < ptmax) & (Cuts::etaIn(rapmin, rapmax)));
-      }
-      throw LogicError("Unknown rapidity scheme. This shouldn't be possible!");
-    }
-
     /// Get the jets, ordered by \f$ p_T \f$, with a cut on \f$ p_\perp \f$.
     ///
     /// @deprecated Use the version with a Cut argument
@@ -242,10 +188,6 @@ namespace Rivet {
     /// Is this jet finder empty after a selection functor is applied?
     bool empty(const JetSelector& s) const { return size(s) == 0; }
 
-    /// Number of jets passing the provided Cut.
-    /// @deprecated Prefer size()
-    size_t numJets(const Cut& c=Cuts::open()) const { return jets(c).size(); }
-
     /// Clear the projection.
     virtual void reset() = 0;
 
@@ -278,6 +220,11 @@ namespace Rivet {
 
 
   };
+
+
+  /// Compatibility typedef, for equivalence with ParticleFinder
+  /// @todo Should we make this the canonical name? Would "require" a header filename change -> breakage or ugly.
+  using JetFinder = JetAlg;
 
 
 }

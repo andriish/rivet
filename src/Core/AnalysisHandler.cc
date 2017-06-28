@@ -6,6 +6,7 @@
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "YODA/ReaderYODA.h"
 #include "YODA/WriterYODA.h"
 
 namespace Rivet {
@@ -92,15 +93,18 @@ namespace Rivet {
     if (!_initialised) init(ge);
     assert(_initialised);
 
-    // Ensure that beam details match those from the first event
-    const PdgIdPair beams = Rivet::beamIds(ge);
-    const double sqrts = Rivet::sqrtS(ge);
-    if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-      cerr << "Event beams mismatch: "
-           << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-           << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
-      exit(1);
+    // Ensure that beam details match those from the first event (if we're checking beams)
+    if ( !_ignoreBeams ) {
+      const PdgIdPair beams = Rivet::beamIds(ge);
+      const double sqrts = Rivet::sqrtS(ge);
+      if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
+        cerr << "Event beams mismatch: "
+             << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+             << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+        exit(1);
+      }
     }
+
 
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
@@ -211,26 +215,59 @@ namespace Rivet {
   }
 
 
+  /////////////////////////////
+
+
+  void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) {
+    for (const AnalysisObjectPtr ao : aos) {
+      const string path = ao->path();
+      if (path.size() > 1) { // path > "/"
+        try {
+          const string ananame =  split(path, "/")[0];
+          AnaHandle a = analysis(ananame);
+          a->addAnalysisObject(ao); /// @todo Need to statistically merge...
+        } catch (const Error& e) {
+          MSG_WARNING(e.what());
+        }
+      }
+    }
+  }
+
+
+  void AnalysisHandler::readData(const string& filename) {
+    vector<AnalysisObjectPtr> aos;
+    try {
+      /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
+      vector<YODA::AnalysisObject*> aos_raw;
+      YODA::ReaderYODA::read(filename, aos_raw);
+      for (AnalysisObject* aor : aos_raw) aos.push_back(AnalysisObjectPtr(aor));
+    } catch (...) { //< YODA::ReadError&
+      throw UserError("Unexpected error in reading file: " + filename);
+    }
+    if (!aos.empty()) addData(aos);
+  }
+
+
   vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
     vector<AnalysisObjectPtr> rtn;
+    // Event counter
     rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
+    // Cross-section + err as scatter
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
     rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
+    // Analysis histograms
     for (const AnaHandle a : analyses()) {
       vector<AnalysisObjectPtr> aos = a->analysisObjects();
       // MSG_WARNING(a->name() << " " << aos.size());
       for (const AnalysisObjectPtr ao : aos) {
-        // Exclude paths starting with /TMP/ from final write-out
+        // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
         /// @todo This needs to be much more nuanced for re-entrant histogramming
         if (ao->path().find("/TMP/") != string::npos) continue;
         rtn.push_back(ao);
       }
     }
-    sort(rtn.begin(), rtn.end(),
-         [](AnalysisObjectPtr a, AnalysisObjectPtr b) {
-              return a->path() < b->path();
-          }
-        );
+    // Sort histograms alphanumerically by path before write-out
+    sort(rtn.begin(), rtn.end(), [](AnalysisObjectPtr a, AnalysisObjectPtr b) {return a->path() < b->path();});
     return rtn;
   }
 
@@ -239,8 +276,8 @@ namespace Rivet {
     const vector<AnalysisObjectPtr> aos = getData();
     try {
       YODA::WriterYODA::write(filename, aos.begin(), aos.end());
-    } catch (...) { /// @todo Move to specific YODA::WriteError type when YODA >= 1.5.0 is well-established
-      throw UserError("Unexpected error in writing file to: " + filename);
+    } catch (...) { //< YODA::WriteError&
+      throw UserError("Unexpected error in writing file: " + filename);
     }
   }
 

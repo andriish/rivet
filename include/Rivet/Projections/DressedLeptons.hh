@@ -43,7 +43,18 @@ namespace Rivet {
   class DressedLeptons : public FinalState {
   public:
 
-    /// @brief Constructor with a general (and optional) Cut argument
+    /// @brief Constructor with a single input FinalState (used for both photons and bare leptons)
+    ///
+    /// Provide final state projections used to select the photons and bare
+    /// leptons (wish we had put the first two args the other way around...),
+    /// a clustering delta(R) cone size around each bare lepton, and an optional
+    /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)
+    /// The final two arguments are rarely used.
+    DressedLeptons(const FinalState& barefs,
+                   double dRmax, const Cut& cut=Cuts::open(),
+                   bool cluster=true, bool useDecayPhotons=false);
+
+    /// @brief Constructor with distinct photon and lepton FinalStates
     ///
     /// Provide final state projections used to select the photons and bare
     /// leptons (wish we had put the first two args the other way around...),
@@ -54,32 +65,11 @@ namespace Rivet {
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool cluster=true, bool useDecayPhotons=false);
 
-    /// Constructor with a general (and optional) Cut argument
-    /// @deprecated Use the version with Cut c before cluster (i.e. with the most common non-default args first)
-    DEPRECATED("Use the version with Cut c before cluster")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, bool cluster, const Cut& cut=Cuts::open(),
-                   bool useDecayPhotons=false);
-
-    /// Constructor with numerical eta and pT cuts
-    /// @deprecated Use the Cut version
-    DEPRECATED("Use the Cut version")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, bool cluster,
-                   double etaMin, double etaMax,
-                   double pTmin, bool useDecayPhotons=false);
-
-
     /// Clone this projection
     DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
 
     /// Retrieve the dressed leptons
     const vector<DressedLepton>& dressedLeptons() const { return _clusteredLeptons; }
-
-    /// Retrieve the dressed leptons (synonym)
-    /// @deprecated Use dressedLeptons()
-    DEPRECATED("Use dressedLeptons()")
-    const vector<DressedLepton>& clusteredLeptons() const { return _clusteredLeptons; }
 
 
   protected:
@@ -97,7 +87,7 @@ namespace Rivet {
     double _dRmax;
     /// Whether to actually add the photon momenta to clusteredLeptons
     bool _cluster;
-    /// Whether to include photons from hadron (particularly pi0) decays
+    /// Whether to include photons from hadron (particularly pi0) and hadronic tau decays
     bool _fromDecay;
 
     /// Container which stores the clustered lepton objects

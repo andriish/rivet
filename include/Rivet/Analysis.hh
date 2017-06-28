@@ -345,19 +345,8 @@ namespace Rivet {
     //@{
 
     /// Get reference data for a named histo
-    /// @todo Move to the templated version when we have C++11 and can have a default fn template type
-    const YODA::Scatter2D& refData(const string& hname) const;
-
-    /// Get reference data for a numbered histo
-    /// @todo Move to the templated version when we have C++11 and can have a default fn template type
-    const YODA::Scatter2D& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
-
-    /// Get reference data for a named histo
-    /// @todo Would be nice to just use these and ditch the S2D no-template version,
-    ///   but we need C++11 for default args in function templates
-    // template <typename T=Scatter2D>
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
-    template <typename T>
+    template <typename T=YODA::Scatter2D>
     const T& refData(const string& hname) const {
       _cacheRefData();
       MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
@@ -369,11 +358,8 @@ namespace Rivet {
     }
 
     /// Get reference data for a numbered histo
-    /// @todo Would be nice to just use these and ditch the S2D no-template version,
-    ///   but we need C++11 for default args in function templates
-    // template <typename T=Scatter2D>
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
-    template <typename T>
+    template <typename T=YODA::Scatter2D>
     const T& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
       const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
       return refData(hname);
@@ -833,9 +819,7 @@ namespace Rivet {
     void addAnalysisObject(AnalysisObjectPtr ao);
 
     /// Get a data object from the histogram system
-    /// @todo Use this default function template arg in C++11
-    // template <typename AO=AnalysisObjectPtr>
-    template <typename AO>
+    template <typename AO=YODA::AnalysisObject>
     const std::shared_ptr<AO> getAnalysisObject(const std::string& name) const {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
@@ -844,9 +828,7 @@ namespace Rivet {
     }
 
     /// Get a data object from the histogram system (non-const)
-    /// @todo Use this default function template arg in C++11
-    // template <typename AO=AnalysisObjectPtr>
-    template <typename AO>
+    template <typename AO=YODA::AnalysisObject>
     std::shared_ptr<AO> getAnalysisObject(const std::string& name) {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
@@ -882,25 +864,25 @@ namespace Rivet {
     }
 
 
-    // /// Get a named Histo2D object from the histogram system
-    // const Histo2DPtr getHisto2D(const std::string& name) const {
-    //   return getAnalysisObject<Histo2D>(name);
-    // }
+    /// Get a named Histo2D object from the histogram system
+    const Histo2DPtr getHisto2D(const std::string& name) const {
+      return getAnalysisObject<Histo2D>(name);
+    }
 
-    // /// Get a named Histo2D object from the histogram system (non-const)
-    // Histo2DPtr getHisto2D(const std::string& name) {
-    //   return getAnalysisObject<Histo2D>(name);
-    // }
+    /// Get a named Histo2D object from the histogram system (non-const)
+    Histo2DPtr getHisto2D(const std::string& name) {
+      return getAnalysisObject<Histo2D>(name);
+    }
 
-    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    // const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
-    // /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    // Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
+    Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Histo2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
 
     /// Get a named Profile1D object from the histogram system
@@ -924,25 +906,25 @@ namespace Rivet {
     }
 
 
-    // /// Get a named Profile2D object from the histogram system
-    // const Profile2DPtr getProfile2D(const std::string& name) const {
-    //   return getAnalysisObject<Profile2D>(name);
-    // }
+    /// Get a named Profile2D object from the histogram system
+    const Profile2DPtr getProfile2D(const std::string& name) const {
+      return getAnalysisObject<Profile2D>(name);
+    }
 
-    // /// Get a named Profile2D object from the histogram system (non-const)
-    // Profile2DPtr getProfile2D(const std::string& name) {
-    //   return getAnalysisObject<Profile2D>(name);
-    // }
+    /// Get a named Profile2D object from the histogram system (non-const)
+    Profile2DPtr getProfile2D(const std::string& name) {
+      return getAnalysisObject<Profile2D>(name);
+    }
 
-    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    // const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
-    // /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    // Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-    //   return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    // }
+    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
+    Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
+      return getAnalysisObject<Profile2D>(makeAxisCode(datasetId, xAxisId, yAxisId));
+    }
 
 
     /// Get a named Scatter2D object from the histogram system
@@ -1027,12 +1009,14 @@ namespace Rivet {
 // #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) Rivet::AnalysisBuilder<clsname> plugin_ ## clsname ## ( ## #alias ## )
 #define DECLARE_ALIASED_RIVET_PLUGIN(clsname, alias) DECLARE_RIVET_PLUGIN(clsname)( #alias )
 
-/// @def DEFAULT_RIVET_ANA_CONSTRUCTOR
+/// @def DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
 /// Preprocessor define to prettify the manky constructor with name string argument
-#define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) clsname() : Analysis(# clsname) {}
+#define DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname) clsname() : Analysis(# clsname) {}
 
-// DEPRECATED ALIAS
-#define DEFAULT_RIVET_ANA_CONSTRUCTOR(clsname) DEFAULT_RIVET_ANALYSIS_CTOR(clsname)
+/// @def DEFAULT_RIVET_ANALYSIS_CTOR
+/// Slight abbreviation for DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR
+#define DEFAULT_RIVET_ANALYSIS_CTOR(clsname) DEFAULT_RIVET_ANALYSIS_CONSTRUCTOR(clsname)
+
 
 
 #endif

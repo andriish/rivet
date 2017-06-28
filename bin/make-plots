@@ -127,7 +127,9 @@ class Described(object):
 class InputData(Described):
 
     def __init__(self, filename):
-        self.filename = filename+".dat"
+        self.filename = filename
+        if not self.filename.endswith(".dat"):
+            self.filename += ".dat"
         self.histos = {}
         self.special = {}
         self.functions = {}
@@ -158,6 +160,10 @@ class InputData(Described):
                 elif name == 'HISTO2D':
                     self.histos[path] = Histo2D(f, p=path)
                     self.description['is2dim'] = True
+                elif name == 'COUNTER':
+                    self.histos[path] = Counter(f, p=path)
+                elif name == 'VALUE':
+                    self.histos[path] = Value(f, p=path)
                 elif name == 'FUNCTION':
                     self.functions[path] = Function(f)
 #            elif is_comment(line):
@@ -206,9 +212,9 @@ class InputData(Described):
         # self.description['TopMargin'] = float(self.description['TopMargin'])
         # self.description['BottomMargin'] = float(self.description['BottomMargin'])
 
-        self.description['LogX'] = self.description.has_key('LogX') and self.description['LogX']=='1'
-        self.description['LogY'] = self.description.has_key('LogY') and self.description['LogY']=='1'
-        self.description['LogZ'] = self.description.has_key('LogZ') and self.description['LogZ']=='1'
+        self.description['LogX'] = str(self.description.get('LogX', 0)) in ["1", "yes", "true"]
+        self.description['LogY'] = str(self.description.get('LogY', 0)) in ["1", "yes", "true"]
+        self.description['LogZ'] = str(self.description.get('LogZ', 0)) in ["1", "yes", "true"]
         if self.description.has_key('Rebin'):
             for i in self.histos:
                 self.histos[i].description['Rebin'] = self.description['Rebin']
@@ -479,6 +485,10 @@ class Plot(object):
             for i in inputdata.histos.keys():
                 if not inputdata.histos[i].description.has_key('ConnectGaps'):
                     inputdata.histos[i].description['ConnectGaps'] = inputdata.description['ConnectGaps']
+        # Counter and Value only have dummy x-axis, ticks wouldn't make sense here, so suppress them:
+        if 'Value object' in str(inputdata.histos) or 'Counter object' in str(inputdata.histos):
+          inputdata.description['XCustomMajorTicks'] = ''
+          inputdata.description['XCustomMinorTicks'] = ''
 
     def set_borders(self, inputdata):
         self.set_xmax(inputdata)
@@ -492,19 +502,22 @@ class Plot(object):
     def set_xmin(self, inputdata):
         self.xmin = inputdata.xmin
         if self.xmin is None:
-            self.xmin = min(inputdata.histos[h].getXMin() for h in inputdata.description['DrawOnly'])
+            xmins = [inputdata.histos[h].getXMin() for h in inputdata.description['DrawOnly']]
+            self.xmin = min(xmins) if xmins else 0.0
 
     def set_xmax(self,inputdata):
         self.xmax = inputdata.xmax
         if self.xmax is None:
-            self.xmax = min(inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly'])
+            xmaxs = [inputdata.histos[h].getXMax() for h in inputdata.description['DrawOnly']]
+            self.xmax = min(xmaxs) if xmaxs else 1.0
+
 
     def set_ymin(self,inputdata):
         if inputdata.ymin is not None:
             self.ymin = inputdata.ymin
         else:
             ymins = [inputdata.histos[i].getYMin(self.xmin, self.xmax, inputdata.description['LogY']) for i in inputdata.attr('DrawOnly')]
-            minymin = min(ymins)
+            minymin = min(ymins) if ymins else 0.0
             if inputdata.description['is2dim']:
                 self.ymin = minymin
             else:
@@ -533,7 +546,8 @@ class Plot(object):
         if inputdata.has_attr('YMax'):
             self.ymax = inputdata.attr_float('YMax')
         else:
-            self.ymax = max(inputdata.histos[h].getYMax(self.xmin, self.xmax) for h in inputdata.attr('DrawOnly'))
+            ymaxs = [inputdata.histos[h].getYMax(self.xmin, self.xmax) for h in inputdata.attr('DrawOnly')]
+            self.ymax = max(ymaxs) if ymaxs else 1.0
             if not inputdata.is2dim:
                 self.ymax *= (1.7 if inputdata.attr_bool('LogY') else 1.1)
 
@@ -542,7 +556,7 @@ class Plot(object):
             self.zmin = inputdata.attr_float('ZMin')
         else:
             zmins = [inputdata.histos[i].getZMin(self.xmin, self.xmax, self.ymin, self.ymax) for i in inputdata.attr('DrawOnly')]
-            minzmin = min(zmins)
+            minzmin = min(zmins) if zmins else 0.0
             self.zmin = minzmin
             if zmins:
                 showzero = inputdata.attr_bool('ShowZero', True)
@@ -568,7 +582,7 @@ class Plot(object):
         self.zmax = inputdata.attr_float('ZMax')
         if self.zmax is None:
             zmaxs = [inputdata.histos[h].getZMax(self.xmin, self.xmax, self.ymin, self.ymax) for h in inputdata.attr('DrawOnly')]
-            self.zmax = max(zmaxs) if zmaxs else 1
+            self.zmax = max(zmaxs) if zmaxs else 1.0
 
 
     def draw(self):
@@ -576,21 +590,83 @@ class Plot(object):
 
 
     def write_header(self,inputdata):
-        out = '\\begin{multipage}\n'
-        out += '\\begin{pspicture}(0,0)(0,0)\n'
-        out += '\\psset{xunit=%scm}\n' %(inputdata.description['PlotSizeX'])
+        if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
+            inputdata.description['LeftMargin'] = float(inputdata.description['LeftMargin'])
+        else:
+            inputdata.description['LeftMargin'] = 1.4
+        if inputdata.description.has_key('RightMargin') and inputdata.description['RightMargin']!='':
+            inputdata.description['RightMargin'] = float(inputdata.description['RightMargin'])
+        else:
+            inputdata.description['RightMargin'] = 0.35
+        if inputdata.description.has_key('TopMargin') and inputdata.description['TopMargin']!='':
+            inputdata.description['TopMargin'] = float(inputdata.description['TopMargin'])
+        else:
+            inputdata.description['TopMargin'] = 0.65
+        if inputdata.description.has_key('BottomMargin') and inputdata.description['BottomMargin']!='':
+            inputdata.description['BottomMargin'] = float(inputdata.description['BottomMargin'])
+        else:
+            inputdata.description['BottomMargin'] = 0.95
         if inputdata.description['is2dim']:
-            colorseries = '{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}'
+            inputdata.description['RightMargin'] += 1.7
+        papersizex = inputdata.description['PlotSizeX'] + 0.1 + \
+                     inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
+        papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + \
+                     inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
+        #
+        out = ""
+        out += '\\documentclass{article}\n'
+        if opts.OUTPUT_FONT == "MINION":
+            out += ('\\usepackage{minion}\n')
+        elif opts.OUTPUT_FONT == "PALATINO_OSF":
+            out += ('\\usepackage[osf,sc]{mathpazo}\n')
+        elif opts.OUTPUT_FONT == "PALATINO":
+            out += ('\\usepackage{mathpazo}\n')
+        elif opts.OUTPUT_FONT == "TIMES":
+            out += ('\\usepackage{mathptmx}\n')
+        elif opts.OUTPUT_FONT == "HELVETICA":
+            out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
+            out += ('\\usepackage{sfmath}\n')
+            out += ('\\usepackage{helvet}\n')
+            out += ('\\usepackage[symbolgreek]{mathastext}\n')
+        for pkg in opts.LATEXPKGS:
+            out += ('\\usepackage{%s}\n' % pkg)
+        out += ('\\usepackage{pst-all}\n')
+        out += ('\\usepackage{xcolor}\n')
+        out += ('\\selectcolormodel{rgb}\n')
+        out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
+        out += ('\\definecolor{blue}{HTML}{3366FF}')
+        out += ('\\definecolor{green}{HTML}{109618}')
+        out += ('\\definecolor{orange}{HTML}{FF9900}')
+        out += ('\\definecolor{lilac}{HTML}{990099}')
+        out += ('\\usepackage{amsmath}\n')
+        out += ('\\usepackage{amssymb}\n')
+        out += ('\\usepackage{relsize}\n')
+        out += ('\\usepackage[dvips,\n')
+        out += ('  left=%4.3fcm, right=0cm,\n' % (inputdata.description['LeftMargin']-0.45,))
+        out += ('  top=%4.3fcm,  bottom=0cm,\n' % (inputdata.description['TopMargin']-0.30,))
+        out += ('  paperwidth=%scm,paperheight=%scm\n' % (papersizex,papersizey))
+        out += (']{geometry}\n')
+        out += ('\\begin{document}\n')
+        out += ('\\pagestyle{empty}\n')
+        out += ('\\SpecialCoor\n')
+        #out += '\\begin{multipage}\n'
+        out += ('\\begin{pspicture}(0,0)(0,0)\n')
+        out += ('\\psset{xunit=%scm}\n' %(inputdata.description['PlotSizeX']))
+        if inputdata.description['is2dim']:
             if inputdata.description.has_key('ColorSeries') and inputdata.description['ColorSeries']!='':
                 colorseries = inputdata.description['ColorSeries']
-            out += '\\definecolorseries{gradientcolors}%s\n' % colorseries
-            out += '\\resetcolorseries[130]{gradientcolors}\n'
+            else:
+                colorseries = '{hsb}{grad}[rgb]{0,0,1}{-.700,0,0}'
+            out += ('\\definecolorseries{gradientcolors}%s\n' % colorseries)
+            out += ('\\resetcolorseries[130]{gradientcolors}\n')
         return out
 
     def write_footer(self):
-        out = '\\end{pspicture}\n'
-        out += '\\end{multipage}\n'
-        out += '%\n%\n'
+        out = ""
+        out += ('\\end{pspicture}\n')
+        #out += '\\end{multipage}\n'
+        #out += '%\n%\n'
+        out += ('\\end{document}\n')
         return out
 
 
@@ -624,31 +700,31 @@ class MainPlot(Plot):
 
         # TODO: do this more compactly, e.g. by assigning sorting keys!
         if inputdata.attr_bool('DrawSpecialFirst', False):
-            for s in inputdata.special:
+            for s in inputdata.special.values():
                 out += s.draw(self.coors)
             if inputdata.attr_bool('DrawFunctionFirst', False):
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
         else:
             if inputdata.attr_bool('DrawFunctionFirst', False):
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
             else:
                 for i in inputdata.description['DrawOnly']:
                     out += inputdata.histos[i].draw(self.coors)
-                for f in inputdata.functions:
+                for f in inputdata.functions.values():
                     out += f.draw(self.coors)
-            for i in inputdata.special.keys():
-                out += inputdata.special[i].draw(self.coors)
+            for s in inputdata.special.values():
+                out += s.draw(self.coors)
 
         if inputdata.attr_bool('Legend', False):
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
@@ -795,7 +871,7 @@ class RatioPlot(Plot):
 
         inputdata.description['RatioPlotStage'] = True
         inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
-        inputdata.description['LogY'] = False
+        inputdata.description['LogY'] = False  # TODO: actually, log ratio plots could be useful...
 
         # TODO: It'd be nice it this wasn't so MC-specific
         if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode']=='deviation':
@@ -1892,6 +1968,54 @@ class Histogram(DrawableObject, Described):
 
 
 
+class Value(Histogram):
+
+    def read_input_data(self, f):
+        for line in f:
+            if is_end_marker(line, 'VALUE'):
+                break
+            elif is_comment(line):
+                continue
+            else:
+                line = line.rstrip()
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
+                else:
+                    linearray = line.split()
+                    if len(linearray) == 3:
+                        self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[2] ])) # dummy x-values
+                    else:
+                        raise Exception('Value does not have the expected number of columns. ' + line)
+
+    # TODO: specialise draw() here
+
+
+class Counter(Histogram):
+
+    def read_input_data(self, f):
+        for line in f:
+            if is_end_marker(line, 'COUNTER'):
+                break
+            elif is_comment(line):
+                continue
+            else:
+                line = line.rstrip()
+                m = pat_property.match(line)
+                if m:
+                    prop, value = m.group(1,2)
+                    self.description[prop] = value
+                else:
+                    linearray = line.split()
+                    if len(linearray) == 2:
+                        self.data.append(BinData(0.0, 1.0, linearray[0], [ linearray[1], linearray[1] ])) # dummy x-values
+                    else:
+                        raise Exception('Counter does not have the expected number of columns. ' + line)
+
+    # TODO: specialise draw() here
+
+
 class Histo1D(Histogram):
 
     def read_input_data(self, f):
@@ -2371,10 +2495,10 @@ class Coordinates(object):
 
 ####################
 
-import shutil, subprocess
 
 def try_cmd(args):
     "Run the given command + args and return True/False if it succeeds or not"
+    import subprocess
     try:
         subprocess.check_output(args, stderr=subprocess.STDOUT)
         return True
@@ -2385,9 +2509,141 @@ def have_cmd(cmd):
     return try_cmd(["which", cmd])
 
 
+import shutil, subprocess
+def process_datfile(datfile):
+    global opts
+    if not os.access(datfile, os.R_OK):
+        raise Exception("Could not read data file '%s'" % datfile)
+
+    datpath = os.path.abspath(datfile)
+    datfile = os.path.basename(datpath)
+    datdir = os.path.dirname(datpath)
+    outdir = opts.OUTPUT_DIR if opts.OUTPUT_DIR else datdir
+    filename = datfile.replace('.dat','')
+
+    ## Create a temporary directory
+    # cwd = os.getcwd()
+    tempdir = tempfile.mkdtemp('.make-plots')
+    tempdatpath = os.path.join(tempdir, datfile)
+    shutil.copy(datpath, tempdir)
+    if opts.NO_CLEANUP:
+        logging.info('Keeping temp-files in %s' % tempdir)
+
+    ## Make TeX file
+    inputdata = InputData(datpath)
+    texpath = os.path.join(tempdir, '%s.tex' % filename)
+    texfile = open(texpath, 'w')
+    p = Plot(inputdata)
+    texfile.write(p.write_header(inputdata))
+    if inputdata.attr_bool("MainPlot", True):
+        mp = MainPlot(inputdata)
+        texfile.write(mp.draw(inputdata))
+    if not inputdata.attr_bool("is2dim", False) and inputdata.attr_bool("RatioPlot", True) and inputdata.attr("RatioPlotReference"): # is not None:
+        rp = RatioPlot(inputdata)
+        texfile.write(rp.draw(inputdata))
+    texfile.write(p.write_footer())
+    texfile.close()
+
+    if opts.OUTPUT_FORMAT != ["TEX"]:
+
+        ## Check for the required programs
+        latexavailable = have_cmd("latex")
+        dvipsavailable = have_cmd("dvips")
+        convertavailable = have_cmd("convert")
+        ps2pnmavailable = have_cmd("ps2pnm")
+        pnm2pngavailable = have_cmd("pnm2png")
+
+        # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
+        #   currently defaults (and is used below) to a size suitable for thumbnails
+        def mkpngcmd(infile, outfile, outsize=450, density=300):
+            if convertavailable:
+                pngcmd = ["convert",
+                          "-flatten",
+                          "-density", str(density),
+                          infile,
+                          "-quality", "100",
+                          "-resize", "{size:d}x{size:d}>".format(size=outsize),
+                          #"-sharpen", "0x1.0",
+                          outfile]
+                #logging.debug(" ".join(pngcmd))
+                #pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
+                #pngproc.wait()
+                return pngcmd
+            else:
+                raise Exception("Required PNG maker program (convert) not found")
+            # elif ps2pnmavailable and pnm2pngavailable:
+            #     pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait " + infile
+            #     p1 = subprocess.Popen(pstopnm.split(), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
+            #     p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, outfile), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
+            #     p2.wait()
+            # else:
+            #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
+
+        ## Run LaTeX (in no-stop mode)
+        logging.debug(os.listdir(tempdir))
+        texcmd = ["latex", "\scrollmode\input", texpath]
+        logging.debug("TeX command: " + " ".join(texcmd))
+        texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
+        logging.debug(texproc.communicate()[0])
+        logging.debug(os.listdir(tempdir))
+
+        ## Run dvips
+        dvcmd = ["dvips", filename]
+        if not logging.getLogger().isEnabledFor(logging.DEBUG):
+            dvcmd.append("-q")
+        ## Handle Minion Font
+        if opts.OUTPUT_FONT == "MINION":
+            dvcmd.append('-Pminion')
+
+        ## Choose format
+        # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
+        if "PS" in opts.OUTPUT_FORMAT:
+            dvcmd += ["-o", "%s.ps" % filename]
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            dvproc.wait()
+        if "PDF" in opts.OUTPUT_FORMAT:
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
+            f.write(cnvproc.communicate()[0])
+            f.close()
+        if "EPS" in opts.OUTPUT_FORMAT:
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=tempdir)
+            f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
+            f.write(cnvproc.communicate()[0])
+            f.close()
+        if "PNG" in opts.OUTPUT_FORMAT:
+            dvcmd.append("-f")
+            logging.debug(" ".join(dvcmd))
+            dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
+            #pngcmd = ["convert", "-flatten", "-density", "110", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
+            pngcmd = mkpngcmd("-", "%s.png" % filename)
+            logging.debug(" ".join(pngcmd))
+            pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
+            pngproc.wait()
+        logging.debug(os.listdir(tempdir))
+
+    ## Copy results back to main dir
+    for fmt in opts.OUTPUT_FORMAT:
+        outname = "%s.%s" % (filename, fmt.lower())
+        outpath = os.path.join(tempdir, outname)
+        if os.path.exists(outpath):
+            shutil.copy(outpath, outdir)
+        else:
+            logging.error("No output file '%s' from processing %s" % (outname, datfile))
+
+    ## Clean up
+    if not opts.NO_CLEANUP:
+        shutil.rmtree(tempdir, ignore_errors=True)
+
 
 ####################
-
 
 
 if __name__ == '__main__':
@@ -2417,8 +2673,10 @@ if __name__ == '__main__':
     ## Parse command line options
     from optparse import OptionParser, OptionGroup
     parser = OptionParser(usage=__doc__)
-    parser.add_option("-n", "-j", "--num-threads", dest="NUM_THREADS", type="int",
+    parser.add_option("-j", "-n", "--num-threads", dest="NUM_THREADS", type="int",
                       default=numcores, help="max number of threads to be used [%s]" % numcores)
+    parser.add_option("-o", "--outdir", dest="OUTPUT_DIR", default=None,
+                      help="choose the output directory (default = .dat dir)")
     parser.add_option("--font", dest="OUTPUT_FONT", choices="palatino,cm,times,helvetica,minion".split(","),
                       default="palatino", help="choose the font to be used in the plots")
     parser.add_option("--palatino", dest="OUTPUT_FONT", action="store_const", const="palatino", default="palatino",
@@ -2454,7 +2712,7 @@ if __name__ == '__main__':
     parser.add_option("--no-subproc", dest="NO_SUBPROC", action="store_true", default=False,
                       help="don't use subprocesses to render the plots in parallel -- useful for debugging.")
     parser.add_option("--full-range", dest="FULL_RANGE", action="store_true", default=False,
-                      help="plot full y range in LogY plots.")
+                      help="plot full y range in log-y plots.")
     parser.add_option("-c", "--config", dest="CONFIGFILES", action="append", default=None,
                       help="plot config file to be used. Overrides internal config blocks.")
     verbgroup = OptionGroup(parser, "Verbosity control")
@@ -2463,11 +2721,14 @@ if __name__ == '__main__':
     verbgroup.add_option("-q", "--quiet", action="store_const", const=logging.WARNING, dest="LOGLEVEL",
                          default=logging.INFO, help="be very quiet")
     parser.add_option_group(verbgroup)
-
     opts, args = parser.parse_args()
+
+    ## Tweak the opts output
     logging.basicConfig(level=opts.LOGLEVEL, format="%(message)s")
     opts.OUTPUT_FONT = opts.OUTPUT_FONT.upper()
     opts.OUTPUT_FORMAT = opts.OUTPUT_FORMAT.upper().split(",")
+    if opts.NUM_THREADS == 1:
+        opts.NO_SUBPROC = True
 
     ## Check for no args
     if len(args) == 0:
@@ -2485,24 +2746,23 @@ if __name__ == '__main__':
     if opts.OUTPUT_FORMAT != ["TEX"]:
         try:
             ## latex
-            if not have_cmd("pdflatex"):
+            if not have_cmd("latex"):
                 logging.error("ERROR: required program 'latex' could not be found. Exiting...")
                 sys.exit(1)
-            # ## dvips
-            # if not have_cmd("dvips"):
-            #     logging.error("ERROR: required program 'dvips' could not be found. Exiting...")
-            #     sys.exit(1)
+            ## dvips
+            if not have_cmd("dvips"):
+                logging.error("ERROR: required program 'dvips' could not be found. Exiting...")
+                sys.exit(1)
 
-            # ## ps2pdf / ps2eps
-            # if "PDF" in opts.OUTPUT_FORMAT:
-            #     if not have_cmd("ps2pdf"):
-            #         logging.error("ERROR: required program 'ps2pdf' (for PDF output) could not be found. Exiting...")
-            #         sys.exit(1)
-            # elif "EPS" in opts.OUTPUT_FORMAT:
-            #     if not have_cmd("ps2eps"):
-            #         logging.error("ERROR: required program 'ps2eps' (for EPS output) could not be found. Exiting...")
-            #         sys.exit(1)
-
+            ## ps2pdf / ps2eps
+            if "PDF" in opts.OUTPUT_FORMAT:
+                if not have_cmd("ps2pdf"):
+                    logging.error("ERROR: required program 'ps2pdf' (for PDF output) could not be found. Exiting...")
+                    sys.exit(1)
+            elif "EPS" in opts.OUTPUT_FORMAT:
+                if not have_cmd("ps2eps"):
+                    logging.error("ERROR: required program 'ps2eps' (for EPS output) could not be found. Exiting...")
+                    sys.exit(1)
             ## PNG output converter
             if "PNG" in opts.OUTPUT_FORMAT:
                 if not have_cmd("convert"):
@@ -2538,225 +2798,26 @@ if __name__ == '__main__':
         except Exception, e:
             logging.warning("Problem while testing for external packages. I'm going to try and continue without testing, but don't hold your breath...")
 
-    # def init_worker():
-    #     import signal
-    #     signal.signal(signal.SIGINT, signal.SIG_IGN)
+    def init_worker():
+        import signal
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
 
     ## Run rendering jobs
     datfiles = args
     plotword = "plots" if len(datfiles) > 1 else "plot"
     logging.info("Making %d %s" % (len(datfiles), plotword))
-
-    ## Create a temporary directory
-    tempdir = tempfile.mkdtemp('.make-plots')
-    if opts.NO_CLEANUP:
-        logging.info('Keeping temp-files in %s' % tempdir)
-
-    ## Create TeX file
-    texpath = os.path.join(tempdir, 'plots.tex')
-    texfile = open(texpath, 'w')
-    # if inputdata.description.has_key('LeftMargin') and inputdata.description['LeftMargin']!='':
-    #     inputdata.description['LeftMargin'] = float(inputdata.description['LeftMargin'])
-    # else:
-    #     inputdata.description['LeftMargin'] = 1.4
-    # if inputdata.description.has_key('RightMargin') and inputdata.description['RightMargin']!='':
-    #     inputdata.description['RightMargin'] = float(inputdata.description['RightMargin'])
-    # else:
-    #     inputdata.description['RightMargin'] = 0.35
-    # if inputdata.description.has_key('TopMargin') and inputdata.description['TopMargin']!='':
-    #     inputdata.description['TopMargin'] = float(inputdata.description['TopMargin'])
-    # else:
-    #     inputdata.description['TopMargin'] = 0.65
-    # if inputdata.description.has_key('BottomMargin') and inputdata.description['BottomMargin']!='':
-    #     inputdata.description['BottomMargin'] = float(inputdata.description['BottomMargin'])
-    # else:
-    #     inputdata.description['BottomMargin'] = 0.95
-    # if inputdata.description['is2dim']:
-    #     inputdata.description['RightMargin'] += 1.7
-    # papersizex = inputdata.description['PlotSizeX'] + 0.1 + \
-    #              inputdata.description['LeftMargin'] + inputdata.description['RightMargin']
-    # papersizey = inputdata.description['PlotSizeY'] + inputdata.description['RatioPlotSizeY'] + 0.1 + \
-    #              inputdata.description['TopMargin'] + inputdata.description['BottomMargin']
-    #
-    out = ""
-    # out += '\\documentclass{article}\n'
-    # out += '\\documentclass[pstricks,multi]{standalone}\n'
-    out += '\\documentclass[multi=multipage]{standalone}\n'
-    if opts.OUTPUT_FONT == "MINION":
-        out += ('\\usepackage{minion}\n')
-    elif opts.OUTPUT_FONT == "PALATINO_OSF":
-        out += ('\\usepackage[osf,sc]{mathpazo}\n')
-    elif opts.OUTPUT_FONT == "PALATINO":
-        out += ('\\usepackage{mathpazo}\n')
-    elif opts.OUTPUT_FONT == "TIMES":
-        out += ('\\usepackage{mathptmx}\n')
-    elif opts.OUTPUT_FONT == "HELVETICA":
-        out += ('\\renewcommand{\\familydefault}{\\sfdefault}\n')
-        out += ('\\usepackage{sfmath}\n')
-        out += ('\\usepackage{helvet}\n')
-        out += ('\\usepackage[symbolgreek]{mathastext}\n')
-    for pkg in opts.LATEXPKGS:
-        out += ('\\usepackage{%s}\n' % pkg)
-    out += ('\\usepackage{pst-all}\n')
-    out += ('\\usepackage{xcolor}\n')
-    out += ('\\selectcolormodel{rgb}\n')
-    out += ('\\definecolor{red}{HTML}{EE3311}\n') # (Google uses 'DC3912')
-    out += ('\\definecolor{blue}{HTML}{3366FF}')
-    out += ('\\definecolor{green}{HTML}{109618}')
-    out += ('\\definecolor{orange}{HTML}{FF9900}')
-    out += ('\\definecolor{lilac}{HTML}{990099}')
-    out += ('\\usepackage{amsmath}\n')
-    out += ('\\usepackage{amssymb}\n')
-    out += ('\\usepackage{relsize}\n')
-    # out += ('\\usepackage[dvips,\n')
-    # out += ('  left=%4.3fcm, right=0cm,\n' % (inputdata.description['LeftMargin']-0.45,))
-    # out += ('  top=%4.3fcm,  bottom=0cm,\n' % (inputdata.description['TopMargin']-0.30,))
-    # out += ('  paperwidth=%scm,paperheight=%scm\n' % (papersizex,papersizey))
-    # out += (']{geometry}\n')
-    # out += ('\\usepackage[pdfcrop={--margins 10}]{auto-pst-pdf}\n')
-    out += ('\\usepackage{auto-pst-pdf}\n')
-    out += '\n'
-    out += ('\\begin{document}\n')
-    #out += ('\\pagestyle{empty}\n')
-    out += ('\\SpecialCoor\n')
-    texfile.write(out)
-
-    ## Process each datfile into the TeX doc
-    for i, datfile in enumerate(datfiles):
-        if not os.access(datfile, os.R_OK):
-            raise Exception("Could not read data file '%s'" % datfile)
-
-        ## Get std paths and copy datfile into tempdir
-        dirname = os.path.dirname(datfile)
-        datfile = os.path.basename(datfile)
-        filename = datfile.replace('.dat','')
-        cwd = os.getcwd()
-        datpath = os.path.join(cwd, dirname, datfile)
-        tempdatpath = os.path.join(tempdir, datfile)
-        shutil.copy(datpath, tempdir)
-
-        ## Append TeX to file
-        inputdata = InputData(os.path.join(dirname,filename))
-        p = Plot(inputdata)
-        texfile.write("\n\n")
-        texfile.write(p.write_header(inputdata))
-        if inputdata.attr_bool("MainPlot", True):
-            mp = MainPlot(inputdata)
-            texfile.write(mp.draw(inputdata))
-        if not inputdata.attr_bool("is2dim", False) and inputdata.attr_bool("RatioPlot", True) and inputdata.attr("RatioPlotReference"): # is not None:
-            rp = RatioPlot(inputdata)
-            texfile.write(rp.draw(inputdata))
-        texfile.write(p.write_footer())
-
-    texfile.write('\\end{document}\n')
-    texfile.close()
-
-    filename = "plots" #< TODO: unhack
-
-    if opts.OUTPUT_FORMAT != ["TEX"]:
-
-        ## Check for the required programs
-        latexavailable = have_cmd("latex")
-        dvipsavailable = have_cmd("dvips")
-        convertavailable = have_cmd("convert")
-        ps2pnmavailable = have_cmd("ps2pnm")
-        pnm2pngavailable = have_cmd("pnm2png")
-
-        # TODO: It'd be nice to be able to control the size of the PNG between thumb and full-size...
-        #   currently defaults (and is used below) to a size suitable for thumbnails
-        def mkpng(infile, outfile, density=100):
-            if convertavailable:
-                pngcmd = ["convert", "-flatten", "-density", str(density), infile, "-quality", "100", "-sharpen", "0x1.0", outfile]
-                logging.debug(" ".join(pngcmd))
-                pngproc = subprocess.Popen(pngcmd, stdout=subprocess.PIPE, cwd=tempdir)
-                pngproc.wait()
-            else:
-                raise Exception("Required PNG maker program (convert) not found")
-            # elif ps2pnmavailable and pnm2pngavailable:
-            #     pstopnm = "pstopnm -stdout -xsize=461 -ysize=422 -xborder=0.01 -yborder=0.01 -portrait " + infile
-            #     p1 = subprocess.Popen(pstopnm.split(), stdout=subprocess.PIPE, stderr=open("/dev/null", "w"), cwd=tempdir)
-            #     p2 = subprocess.Popen(["pnmtopng"], stdin=p1.stdout, stdout=open("%s/%s.png" % (tempdir, outfile), "w"), stderr=open("/dev/null", "w"), cwd=tempdir)
-            #     p2.wait()
-            # else:
-            #     raise Exception("Required PNG maker programs (convert, or ps2pnm and pnm2png) not found")
-
-        ## Run LaTeX (in no-stop mode)
-        logging.debug(os.listdir(tempdir))
-        texcmd = ["pdflatex", "-shell-escape", "\scrollmode\input", texpath]
-        logging.debug("TeX command: " + " ".join(texcmd))
-        texproc = subprocess.Popen(texcmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=tempdir)
-        logging.debug(texproc.communicate()[0])
-        logging.debug(os.listdir(tempdir))
-
-        # ## Run dvips
-        # dvcmd = ["dvips", filename]
-        # if not logging.getLogger().isEnabledFor(logging.DEBUG):
-        #     dvcmd.append("-q")
-        # ## Handle Minion Font
-        # if opts.OUTPUT_FONT == "MINION":
-        #     dvcmd.append('-Pminion')
-
-        ## Choose format
-        # TODO: Rationalise... this is a mess! Maybe we can use tex2pix?
-        # if "PS" in opts.OUTPUT_FORMAT:
-        #     dvcmd += ["-o", "%s.ps" % filename]
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     dvproc.wait()
-        # if "PDF" in opts.OUTPUT_FORMAT:
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-        #     f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
-        #     f.write(cnvproc.communicate()[0])
-        #     f.close()
-        # if "EPS" in opts.OUTPUT_FORMAT:
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=tempdir)
-        #     f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
-        #     f.write(cnvproc.communicate()[0])
-        #     f.close()
-        # if "PNG" in opts.OUTPUT_FORMAT:
-        #     dvcmd.append("-f")
-        #     logging.debug(" ".join(dvcmd))
-        #     dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
-        #     pngcmd = ["convert", "-flatten", "-density", "100", "-", "-quality", "100", "-sharpen", "0x1.0", "%s.png" % filename]
-        #     logging.debug(" ".join(pngcmd))
-        #     pngproc = subprocess.Popen(pngcmd, stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-        #     pngproc.wait()
-        logging.debug(os.listdir(tempdir))
-
-    ## Copy results back to main dir
-    # shutil.copy(os.path.join(tempdir,"plots-pics.pdf"), os.path.join(cwd,dirname))
-    for fmt in opts.OUTPUT_FORMAT:
-        outname = "%s.%s" % (filename, fmt.lower())
-        outpath = os.path.join(tempdir, outname)
-        if os.path.exists(outpath):
-            shutil.copy(outpath, os.path.join(cwd,dirname))
-        else:
-            logging.error("No output file '%s' from processing %s" % (outname, datfile))
-
-    ## Clean up
-    if not opts.NO_CLEANUP:
-        shutil.rmtree(tempdir, ignore_errors=True)
-
-
-
-    # if opts.NO_SUBPROC:
-    #     init_worker()
-    #     for i, df in enumerate(datfiles):
-    #         logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
-    #         process_datfile(df)
-    # else:
-    #     pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
-    #     try:
-    #         for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
-    #             logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
-    #         pool.close()
-    #     except KeyboardInterrupt:
-    #         print "Caught KeyboardInterrupt, terminating workers"
-    #         pool.terminate()
-    #     pool.join()
+    if opts.NO_SUBPROC:
+        init_worker()
+        for i, df in enumerate(datfiles):
+            logging.info("Plotting %s (%d/%d remaining)" % (df, len(datfiles)-i, len(datfiles)))
+            process_datfile(df)
+    else:
+        pool = multiprocessing.Pool(opts.NUM_THREADS, init_worker)
+        try:
+            for i, _ in enumerate(pool.imap(process_datfile, datfiles)):
+                logging.info("Plotting %s (%d/%d remaining)" % (datfiles[i], len(datfiles)-i, len(datfiles)))
+            pool.close()
+        except KeyboardInterrupt:
+            print "Caught KeyboardInterrupt, terminating workers"
+            pool.terminate()
+        pool.join()

@@ -176,23 +176,6 @@ namespace Rivet {
   }
 
 
-  const Scatter2D& Analysis::refData(const string& hname) const {
-    _cacheRefData();
-    MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
-    if (!_refdata[hname]) {
-      MSG_ERROR("Can't find reference histogram " << hname);
-      throw Exception("Reference data " + hname + " not found.");
-    }
-    return dynamic_cast<Scatter2D&>(*_refdata[hname]);
-  }
-
-
-  const Scatter2D& Analysis::refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return refData(hname);
-  }
-
-
   CounterPtr Analysis::bookCounter(const string& cname,
                                    const string& title) {
                                    // const string& xtitle,
@@ -221,10 +204,20 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    const string path = histoPath(hname);
-    Histo1DPtr hist = make_shared<Histo1D>(nbins, lower, upper, path, title);
-    addAnalysisObject(hist);
-    MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    Histo1DPtr hist;
+    try { // try to bind to pre-existing
+      // AnalysisObjectPtr ao = getAnalysisObject(path);
+      // hist = dynamic_pointer_cast<Histo1D>(ao);
+      hist = getHisto1D(hname);
+      /// @todo Test that cast worked
+      /// @todo Also test that binning is as expected?
+      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
+    } catch (...) { // binding failed; make it from scratch
+      hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
+      addAnalysisObject(hist);
+      MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    }
+    hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     return hist;
@@ -236,10 +229,20 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    const string path = histoPath(hname);
-    Histo1DPtr hist = make_shared<Histo1D>(binedges, path, title);
-    addAnalysisObject(hist);
-    MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    Histo1DPtr hist;
+    try { // try to bind to pre-existing
+      // AnalysisObjectPtr ao = getAnalysisObject(path);
+      // hist = dynamic_pointer_cast<Histo1D>(ao);
+      hist = getHisto1D(hname);
+      /// @todo Test that cast worked
+      /// @todo Also test that binning is as expected?
+      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
+    } catch (...) { // binding failed; make it from scratch
+      hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
+      addAnalysisObject(hist);
+      MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    }
+    hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);
     return hist;
@@ -251,10 +254,19 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    const string path = histoPath(hname);
-    Histo1DPtr hist = make_shared<Histo1D>(refscatter, path);
-    addAnalysisObject(hist);
-    MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    Histo1DPtr hist;
+    try { // try to bind to pre-existing
+      // AnalysisObjectPtr ao = getAnalysisObject(path);
+      // hist = dynamic_pointer_cast<Histo1D>(ao);
+      hist = getHisto1D(hname);
+      /// @todo Test that cast worked
+      /// @todo Also test that binning is as expected?
+      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
+    } catch (...) { // binding failed; make it from scratch
+      hist = make_shared<Histo1D>(refscatter, histoPath(hname));
+      addAnalysisObject(hist);
+      MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    }
     hist->setTitle(title);
     hist->setAnnotation("XLabel", xtitle);
     hist->setAnnotation("YLabel", ytitle);

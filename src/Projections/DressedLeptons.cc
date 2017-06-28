@@ -4,6 +4,7 @@
 namespace Rivet {
 
 
+  // Separate-FS version
   DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                                  double dRmax, const Cut& cut, bool cluster, bool useDecayPhotons)
     : FinalState(cut),
@@ -20,39 +21,12 @@ namespace Rivet {
   }
 
 
-  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                                 double dRmax, bool cluster, const Cut& cut,
-                                 bool useDecayPhotons)
-    : DressedLeptons(photons, bareleptons, dRmax, cut, cluster, useDecayPhotons)
-  {
-    // setName("DressedLeptons");
+  // Single-FS version
+  DressedLeptons::DressedLeptons(const FinalState& barefs,
+                                 double dRmax, const Cut& cut, bool cluster, bool useDecayPhotons)
+    : DressedLeptons(barefs, barefs, dRmax, cut, cluster, useDecayPhotons)
+  {     }
 
-    // IdentifiedFinalState photonfs(photons, PID::PHOTON);
-    // addProjection(photonfs, "Photons");
-
-    // IdentifiedFinalState leptonfs(bareleptons);
-    // leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
-    // addProjection(leptonfs, "Leptons");
-  }
-
-
-  DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                                 double dRmax, bool cluster,
-                                 double etaMin, double etaMax,
-                                 double pTmin, bool useDecayPhotons)
-    : DressedLeptons(photons, bareleptons, dRmax,
-                     Cuts::eta > etaMin && Cuts::eta < etaMax && Cuts::pT > pTmin,
-                     cluster, useDecayPhotons)
-  {
-    // setName("DressedLeptons");
-
-    // IdentifiedFinalState photonfs(photons, PID::PHOTON);
-    // addProjection(photonfs, "Photons");
-
-    // IdentifiedFinalState leptonfs(bareleptons);
-    // leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
-    // addProjection(leptonfs, "Leptons");
-  }
 
 
 

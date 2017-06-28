@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.5.3],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.6.0-pre],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -56,7 +56,6 @@ AC_PROG_LIBTOOL
 
 
 ## YODA histogramming library
-# TODO: we could download, configure, and install YODA automatically... but that is NASTY
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
 YODABINPATH=$YODALIBPATH/../bin
 AC_SUBST(YODABINPATH)
@@ -144,13 +143,13 @@ AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG]
 CPPFLAGS=$oldCPPFLAGS
 
 
-## GNU Scientific Library
-AC_SEARCH_GSL
-AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
-oldCPPFLAGS=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
-AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
-CPPFLAGS=$oldCPPFLAGS
+# ## GNU Scientific Library
+# AC_SEARCH_GSL
+# AC_CEDAR_HEADERS([gsl], , , [AC_MSG_ERROR([GSL (GNU Scientific Library) is required])])
+# oldCPPFLAGS=$CPPFLAGS
+# CPPFLAGS="$CPPFLAGS -I$GSLINCPATH"
+# AC_CHECK_HEADER([gsl/gsl_vector.h], [], [AC_MSG_ERROR([GSL vectors not found.])])
+# CPPFLAGS=$oldCPPFLAGS
 
 
 ## Disable build/install of standard analyses
@@ -238,7 +237,7 @@ AM_CONDITIONAL(WITH_CYTHON, [test x$CYTHON_FOUND = xyes])
 ## Set default build flags
 AM_CPPFLAGS="-I\$(top_srcdir)/include -I\$(top_builddir)/include"
 #AM_CPPFLAGS="$AM_CPPFLAGS -I\$(top_srcdir)/include/eigen3"
-AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
+#AM_CPPFLAGS="$AM_CPPFLAGS \$(GSL_CPPFLAGS)"
 dnl AM_CPPFLAGS="$AM_CPPFLAGS \$(BOOST_CPPFLAGS)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(YODAINCPATH)"
 AM_CPPFLAGS="$AM_CPPFLAGS -I\$(HEPMCINCPATH)"
@@ -251,6 +250,8 @@ dnl AC_CEDAR_CHECKCXXFLAG([-Wno-unused-variable], [AM_CXXFLAGS="$AM_CXXFLAGS -Wn
 AC_CEDAR_CHECKCXXFLAG([-Werror=uninitialized], [AM_CXXFLAGS="$AM_CXXFLAGS -Werror=uninitialized"])
 AC_CEDAR_CHECKCXXFLAG([-Werror=delete-non-virtual-dtor], [AM_CXXFLAGS="$AM_CXXFLAGS -Werror=delete-non-virtual-dtor"])
 
+## Add OpenMP-enabling flags if possible
+AX_OPENMP([AM_CXXFLAGS="$AM_CXXFLAGS $OPENMP_CXXFLAGS"])
 
 ## Debug flag (default=-DNDEBUG, enabled=-g)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
@@ -272,19 +273,20 @@ AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(AM_CXXFLAGS)
 
 AC_EMPTY_SUBST
+AC_CONFIG_FILES(Makefile Doxyfile)
 AC_CONFIG_FILES(include/Makefile include/Rivet/Makefile)
 AC_CONFIG_FILES(src/Makefile)
 AC_CONFIG_FILES(src/Core/Makefile src/Core/yamlcpp/Makefile)
 AC_CONFIG_FILES(src/Tools/Makefile)
 AC_CONFIG_FILES(src/Projections/Makefile)
-AC_CONFIG_FILES(src/Analyses/Makefile)
+AC_CONFIG_FILES(src/AnalysisTools/Makefile)
+AC_CONFIG_FILES(analyses/Makefile)
 AC_CONFIG_FILES(test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
-AC_CONFIG_FILES(data/Makefile data/refdata/Makefile data/anainfo/Makefile data/plotinfo/Makefile data/texmf/Makefile)
+AC_CONFIG_FILES(data/Makefile data/texmf/Makefile)
 AC_CONFIG_FILES(doc/Makefile)
 AC_CONFIG_FILES(doc/rivetversion.sty doc/diffanas)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
-AC_CONFIG_FILES(Makefile Doxyfile)
 AC_CONFIG_FILES(rivetenv.sh rivetenv.csh rivet.pc)
 
 AC_OUTPUT
