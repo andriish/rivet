@@ -8,6 +8,7 @@
 #include <list>
 #include <map>
 #include <utility>
+#include <tuple>
 #include <algorithm>
 #include <type_traits>
 #include <stdexcept>
