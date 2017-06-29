@@ -96,7 +96,7 @@ namespace Rivet {
       size_t maxnamelen = 0;
       for (const string& t : cuts)
         maxnamelen = max(t.length(), maxnamelen);
-      ss << setw(maxnamelen+5) << "   "
+      ss << setw(maxnamelen+5) << "" << "   "
          << setw(count0len) << right << "Count" << "    "
          << setw(6) << right << "A_cumu" << "    "
          << setw(6) << right << "A_incr";
