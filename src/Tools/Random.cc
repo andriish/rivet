@@ -31,7 +31,7 @@ namespace Rivet {
   // Return a uniformly sampled random number between 0 and 1
   double rand01() {
     // return rand() / (double)RAND_MAX;
-    return generate_canonical<double, 10>(rng());
+    return generate_canonical<double, 32>(rng()); ///< @todo What's the "correct" number of bits of randomness?
   }
 
 
