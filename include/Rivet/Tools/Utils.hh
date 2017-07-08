@@ -457,7 +457,8 @@ namespace Rivet {
 
   /// Find the minimum value in the vector
   inline double min(const vector<double>& in, double errval=DBL_NAN) {
-    return *std::min_element(in.begin(), in.end());
+    const auto e = std::min_element(in.begin(), in.end());
+    return e != in.end() ? *e : errval;
   }
 
   /// Find the maximum value in the vector
