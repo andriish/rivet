@@ -233,29 +233,23 @@ namespace Rivet {
   ///////////////////////
 
 
-
-  string to_str(const Particle& p) {
+  /// Allow a Particle to be passed to an ostream.
+  std::ostream& operator << (std::ostream& os, const Particle& p) {
     string pname;
     try {
       pname = PID::toParticleName(p.pid());
     } catch (...) {
       pname = "PID=" + to_str(p.pid());
     }
-    stringstream out;
-    out << pname << " @ " << p.momentum() << " GeV";
-    return out.str();
+    os << "Particle<" << pname << " @ " << p.momentum()/GeV << " GeV>";
+    return os;
   }
 
 
-  string to_str(const ParticlePair& pair) {
-    stringstream out;
-    out << "[" << pair.first << ", " << pair.second << "]";
-    // out << "["
-    //     << PID::toParticleName(pair.first.pid()) << " @ "
-    //     << pair.first.momentum().E()/GeV << " GeV, "
-    //     << PID::toParticleName(pair.second.pid()) << " @ "
-    //     << pair.second.momentum().E()/GeV << " GeV]";
-    return out.str();
+  /// Allow ParticlePair to be passed to an ostream.
+  std::ostream& operator << (std::ostream& os, const ParticlePair& pp) {
+    os << "[" << pp.first << ", " << pp.second << "]";
+    return os;
   }
 
 
