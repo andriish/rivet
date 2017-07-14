@@ -2817,4 +2817,8 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             print "Caught KeyboardInterrupt, terminating workers"
             pool.terminate()
+        except ValueError, e:
+            print e
+            print "Perhaps your .dat file is corrupt?"
+            pool.terminate()
         pool.join()
