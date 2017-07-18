@@ -1,3 +1,9 @@
+2017-07-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Enable methods for booking of Histo2D and Profile2D from Scatter3D reference data.
+
+	* Remove IsRef annotation from autobooked histogram objects.
+
 2017-07-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add pair-smearing to SmearedJets.
