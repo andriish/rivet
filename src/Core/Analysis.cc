@@ -264,6 +264,7 @@ namespace Rivet {
       MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
     } catch (...) { // binding failed; make it from scratch
       hist = make_shared<Histo1D>(refscatter, histoPath(hname));
+      if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
       addAnalysisObject(hist);
       MSG_TRACE("Made histogram " << hname <<  " for " << name());
     }
@@ -336,42 +337,43 @@ namespace Rivet {
   }
 
 
-  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
-  //                                  const Scatter3D& refscatter,
-  //                                  const string& title="",
-  //                                  const string& xtitle="",
-  //                                  const string& ytitle="",
-  //                                  const string& ztitle="") {
-  //   const string path = histoPath(hname);
-  //   Histo2DPtr hist( new Histo2D(refscatter, path) );
-  //   addAnalysisObject(hist);
-  //   MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
-  //   hist->setTitle(title);
-  //   hist->setAnnotation("XLabel", xtitle);
-  //   hist->setAnnotation("YLabel", ytitle);
-  //   hist->setAnnotation("ZLabel", ztitle);
-  //   return hist;
-  // }
+  Histo2DPtr Analysis::bookHisto2D(const string& hname,
+                                   const Scatter3D& refscatter,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const string path = histoPath(hname);
+    Histo2DPtr hist( new Histo2D(refscatter, path) );
+    addAnalysisObject(hist);
+    MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
+    if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
+    hist->setTitle(title);
+    hist->setAnnotation("XLabel", xtitle);
+    hist->setAnnotation("YLabel", ytitle);
+    hist->setAnnotation("ZLabel", ztitle);
+    return hist;
+  }
 
 
-  // Histo2DPtr Analysis::bookHisto2D(const string& hname,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle) {
-  //   const Scatter3D& refdata = refData(hname);
-  //   return bookHisto2D(hname, refdata, title, xtitle, ytitle, ztitle);
-  // }
+  Histo2DPtr Analysis::bookHisto2D(const string& hname,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const Scatter3D& refdata = refData<Scatter3D>(hname);
+    return bookHisto2D(hname, refdata, title, xtitle, ytitle, ztitle);
+  }
 
 
-  // Histo2DPtr Analysis::bookHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle) {
-  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-  //   return bookHisto2D(axisCode, title, xtitle, ytitle, ztitle);
-  // }
+  Histo2DPtr Analysis::bookHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    return bookHisto2D(axisCode, title, xtitle, ytitle, ztitle);
+  }
 
 
   /////////////////
@@ -416,6 +418,7 @@ namespace Rivet {
     Profile1DPtr prof = make_shared<Profile1D>(refscatter, path);
     addAnalysisObject(prof);
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
+    if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
     prof->setTitle(title);
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
@@ -483,42 +486,43 @@ namespace Rivet {
   }
 
 
-  // Profile2DPtr Analysis::bookProfile2D(const string& hname,
-  //                                  const Scatter3D& refscatter,
-  //                                  const string& title="",
-  //                                  const string& xtitle="",
-  //                                  const string& ytitle="",
-  //                                  const string& ztitle="") {
-  //   const string path = histoPath(hname);
-  //   Profile2DPtr prof( new Profile2D(refscatter, path) );
-  //   addAnalysisObject(prof);
-  //   MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
-  //   prof->setTitle(title);
-  //   prof->setAnnotation("XLabel", xtitle);
-  //   prof->setAnnotation("YLabel", ytitle);
-  //   prof->setAnnotation("ZLabel", ztitle);
-  //   return prof;
-  // }
+  Profile2DPtr Analysis::bookProfile2D(const string& hname,
+                                   const Scatter3D& refscatter,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const string path = histoPath(hname);
+    Profile2DPtr prof( new Profile2D(refscatter, path) );
+    addAnalysisObject(prof);
+    MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
+    if (prof->hasAnnotation("IsRef")) prof->rmAnnotation("IsRef");
+    prof->setTitle(title);
+    prof->setAnnotation("XLabel", xtitle);
+    prof->setAnnotation("YLabel", ytitle);
+    prof->setAnnotation("ZLabel", ztitle);
+    return prof;
+  }
 
 
-  // Profile2DPtr Analysis::bookProfile2D(const string& hname,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle) {
-  //   const Scatter3D& refdata = refData(hname);
-  //   return bookProfile2D(hname, refdata, title, xtitle, ytitle, ztitle);
-  // }
+  Profile2DPtr Analysis::bookProfile2D(const string& hname,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const Scatter3D& refdata = refData<Scatter3D>(hname);
+    return bookProfile2D(hname, refdata, title, xtitle, ytitle, ztitle);
+  }
 
 
-  // Profile2DPtr Analysis::bookProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-  //                                  const string& title,
-  //                                  const string& xtitle,
-  //                                  const string& ytitle,
-  //                                  const string& ztitle) {
-  //   const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-  //   return bookProfile2D(axisCode, title, xtitle, ytitle, ztitle);
-  // }
+  Profile2DPtr Analysis::bookProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    return bookProfile2D(axisCode, title, xtitle, ytitle, ztitle);
+  }
 
 
   /////////////////
@@ -544,12 +548,13 @@ namespace Rivet {
     if (copy_pts) {
       const Scatter2D& refdata = refData(hname);
       s = make_shared<Scatter2D>(refdata, path);
-      foreach (Point2D& p, s->points()) p.setY(0, 0);
+      for (Point2D& p : s->points()) p.setY(0, 0);
     } else {
       s = make_shared<Scatter2D>(path);
     }
     addAnalysisObject(s);
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    if (s->hasAnnotation("IsRef")) s->rmAnnotation("IsRef");
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
@@ -808,6 +813,7 @@ namespace Rivet {
     _analysisobjects.push_back(ao);
   }
 
+
   void Analysis::removeAnalysisObject(const string& path) {
     for (vector<AnalysisObjectPtr>::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
       if ((*it)->path() == path) {
@@ -816,6 +822,7 @@ namespace Rivet {
       }
     }
   }
+
 
   void Analysis::removeAnalysisObject(AnalysisObjectPtr ao) {
     for (vector<AnalysisObjectPtr>::iterator it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
