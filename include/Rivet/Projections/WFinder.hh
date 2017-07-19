@@ -111,9 +111,7 @@ namespace Rivet {
     /// Defined as sqrt(2 pT_l pT_nu (1.0 - cos(dphi_lnu))). Return -1 if no boson found.
     double mT() const {
       if (bosons().empty()) return -1;
-      const FourMomentum& l = constituentLepton();
-      const FourMomentum& nu = constituentNeutrino();
-      return sqrt( 2 * l.pT() * nu.pT() * (1 - cos(deltaPhi(l, nu))) );
+      return Rivet::mT(constituentLepton().mom(), constituentNeutrino().mom());
     }
 
 
