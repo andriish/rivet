@@ -20,11 +20,11 @@ namespace Rivet {
     _minmass = minmass;
     _maxmass = maxmass;
     _masstarget = masstarget;
-    _pid = pid;
+    _pid = abs(pid);
     _trackPhotons = trackPhotons;
 
     IdentifiedFinalState bareleptons(inputfs);
-    bareleptons.acceptIdPair(pid);
+    bareleptons.acceptIdPair(_pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
     DressedLeptons leptons(inputfs, bareleptons, (doClustering ? dRmax : -1.0), fsCut, useDecayPhotons);
@@ -36,7 +36,21 @@ namespace Rivet {
   }
 
 
+
   /////////////////////////////////////////////////////
+
+
+
+  Particles ZFinder::constituentLeptons() const {
+    if (empty()) return Particles();
+    return boson().constituents();
+    // return boson().constituents(isChargedLepton);
+  }
+
+
+  Particles ZFinder::constituentLeptons(const ParticleSorter& cmp) const {
+    return sortBy(constituentLeptons(), cmp);
+  }
 
 
   const VetoedFinalState& ZFinder::remainingFinalState() const {
@@ -49,58 +63,47 @@ namespace Rivet {
     if (LCcmp != EQUIVALENT) return LCcmp;
 
     const ZFinder& other = dynamic_cast<const ZFinder&>(p);
-    return (cmp(_minmass, other._minmass) || cmp(_maxmass, other._maxmass) ||
-            cmp(_pid, other._pid) || cmp(_trackPhotons, other._trackPhotons));
+    return (cmp(_minmass, other._minmass) ||
+            cmp(_maxmass, other._maxmass) ||
+            cmp(_pid, other._pid) ||
+            cmp(_trackPhotons, other._trackPhotons));
   }
 
 
   void ZFinder::project(const Event& e) {
     clear();
 
+    // Get leptons and find an acceptable invariant mass OSSF pair
     const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
-
     InvMassFinalState imfs(std::make_pair(_pid, -_pid), _minmass, _maxmass, _masstarget);
     Particles tmp;
     tmp.insert(tmp.end(), leptons.dressedLeptons().begin(), leptons.dressedLeptons().end());
     imfs.calc(tmp);
-
     if (imfs.particlePairs().size() < 1) return;
-    ParticlePair Zconstituents(imfs.particlePairs()[0]);
-    Particle l1(Zconstituents.first), l2(Zconstituents.second);
-    if (threeCharge(l1) > 0) {
-      _constituents.push_back(l1);
-      _constituents.push_back(l2);
-    } else {
-      _constituents.push_back(l2);
-      _constituents.push_back(l1);
-    }
-    FourMomentum pZ = l1.momentum() + l2.momentum();
-    assert(threeCharge(l1) + threeCharge(l2) == 0);
 
+    // Assemble a pseudo-Z particle
+    const ParticlePair& Zconstituents = imfs.particlePairs().front();
+    const Particle& p1(Zconstituents.first), p2(Zconstituents.second);
+    const FourMomentum pZ = p1.momentum() + p2.momentum();
+    assert(p1.charge3() + p2.charge3() == 0);
+    Particle z(PID::Z0BOSON, pZ);
+
+    // Debug printout
     stringstream msg;
     msg << "Z " << pZ << " reconstructed from: \n"
-        << "   " << l1.momentum() << " " << l1.pid() << "\n"
-        << " + " << l2.momentum() << " " << l2.pid();
+        << "   " << p1.momentum() << " " << p1.pid() << "\n"
+        << " + " << p2.momentum() << " " << p2.pid();
     MSG_DEBUG(msg.str());
-    _bosons.push_back(Particle(PID::ZBOSON, pZ));
 
+    // Add (dressed) lepton constituents to the W (skipping photons if requested)
     // Keep the DressedLeptons found by the ZFinder
-    foreach (DressedLepton l, leptons.dressedLeptons()) {
-      _allLeptons.push_back(l);
-    }
+    const DressedLepton l1 = p1.charge() > 0 ? p1 : p2;
+    z.addConstituent(_trackPhotons ? l1 : l1.bareLepton());
+    const DressedLepton l2 = p2.charge() < 0 ? p2 : p1;
+    z.addConstituent(_trackPhotons ? l2 : l2.bareLepton());
 
-    // Find the DressedLeptons which survived the IMFS cut such that we can
-    // extract their original particles
-    foreach (const Particle& p, _constituents) {
-      foreach (const DressedLepton& l, leptons.dressedLeptons()) {
-        if (p.pid() == l.pid() && p.momentum() == l.momentum()) {
-          _theParticles.push_back(l.constituentLepton());
-          if (_trackPhotons) {
-            _theParticles.insert(_theParticles.end(), l.constituentPhotons().begin(), l.constituentPhotons().end());
-          }
-        }
-      }
-    }
+    // Register the completed Z
+    _theParticles.push_back(z);
   }
 
 

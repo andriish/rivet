@@ -61,58 +61,6 @@ namespace Rivet {
     //@}
 
 
-    /// @name Other representations and implicit casts
-    //@{
-
-    /// Converter to FastJet3 PseudoJet
-    virtual fastjet::PseudoJet pseudojet() const {
-      return fastjet::PseudoJet(mom().px(), mom().py(), mom().pz(), mom().E());
-    }
-
-    /// Cast operator to FastJet3 PseudoJet
-    operator PseudoJet () const { return pseudojet(); }
-
-
-    /// Get a const pointer to the original GenParticle
-    const GenParticle* genParticle() const {
-      return _original;
-    }
-
-    /// Cast operator for conversion to GenParticle*
-    operator const GenParticle* () const { return genParticle(); }
-
-    //@}
-
-
-    /// @name Constituents (for composite particles)
-    //@{
-
-    /// Determine if this Particle is a composite of other Rivet Particles
-    bool isComposite() const { return !constituents().empty(); }
-
-    /// @brief Direct constituents of this particle
-    ///
-    /// The returned vector will be empty if this particle is non-composite,
-    /// and its entries may themselves be composites.
-    const vector<Particle>& constituents() const { return _constituents; }
-
-    /// Set direct constituents of this particle
-    virtual void setConstituents(const vector<Particle>& cs, bool setmom=false);
-
-    /// Add a single direct constituent to this particle
-    virtual void addConstituent(const Particle& c, bool addmom=false);
-
-    /// Add direct constituents to this particle
-    virtual void addConstituents(const vector<Particle>& cs, bool addmom=false);
-
-    /// @brief Fundamental constituents of this particle (maybe == {{*this}})
-    ///
-    /// Returns itself (in a vector) if this particle is non-composite.
-    vector<Particle> rawConstituents() const;
-
-    //@}
-
-
     /// @name Kinematic properties
     //@{
 
@@ -156,6 +104,29 @@ namespace Rivet {
       _origin = FourMomentum(t, x, y, z);
       return *this;
     }
+
+    //@}
+
+
+    /// @name Other representations and implicit casts to momentum-like objects
+    //@{
+
+    /// Converter to FastJet3 PseudoJet
+    virtual fastjet::PseudoJet pseudojet() const {
+      return fastjet::PseudoJet(mom().px(), mom().py(), mom().pz(), mom().E());
+    }
+
+    /// Cast operator to FastJet3 PseudoJet
+    operator PseudoJet () const { return pseudojet(); }
+
+
+    /// Get a const pointer to the original GenParticle
+    const GenParticle* genParticle() const {
+      return _original;
+    }
+
+    /// Cast operator for conversion to GenParticle*
+    operator const GenParticle* () const { return genParticle(); }
 
     //@}
 
@@ -235,7 +206,98 @@ namespace Rivet {
     //@}
 
 
-    /// @name Ancestry properties
+    /// @name Constituents (for composite particles)
+    //@{
+
+    /// Set direct constituents of this particle
+    virtual void setConstituents(const vector<Particle>& cs, bool setmom=false);
+
+    /// Add a single direct constituent to this particle
+    virtual void addConstituent(const Particle& c, bool addmom=false);
+
+    /// Add direct constituents to this particle
+    virtual void addConstituents(const vector<Particle>& cs, bool addmom=false);
+
+
+    /// Determine if this Particle is a composite of other Rivet Particles
+    bool isComposite() const { return !constituents().empty(); }
+
+
+    /// @brief Direct constituents of this particle, returned by reference
+    ///
+    /// The returned vector will be empty if this particle is non-composite,
+    /// and its entries may themselves be composites.
+    const vector<Particle>& constituents() const { return _constituents; }
+
+    /// @brief Direct constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the sorting
+    const vector<Particle> constituents(const ParticleSorter& sorter) const {
+      return sortBy(constituents(), sorter);
+    }
+
+    /// @brief Direct constituents of this particle, filtered by a Cut
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> constituents(const Cut& c) const {
+      return filter_select(constituents(), c);
+    }
+
+    /// @brief Direct constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> constituents(const Cut& c, const ParticleSorter& sorter) const {
+      return sortBy(constituents(c), sorter);
+    }
+
+    /// @brief Direct constituents of this particle, filtered by a selection functor
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> constituents(const ParticleSelector& selector) const {
+      return filter_select(constituents(), selector);
+    }
+
+    /// @brief Direct constituents of this particle, filtered and sorted by functors
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> constituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
+      return sortBy(constituents(selector), sorter);
+    }
+
+
+    /// @brief Fundamental constituents of this particle
+    /// @note Returns {{*this}} if this particle is non-composite.
+    vector<Particle> rawConstituents() const;
+
+    /// @brief Fundamental constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the sorting
+    const vector<Particle> rawConstituents(const ParticleSorter& sorter) const {
+      return sortBy(rawConstituents(), sorter);
+    }
+
+    /// @brief Fundamental constituents of this particle, filtered by a Cut
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> rawConstituents(const Cut& c) const {
+      return filter_select(rawConstituents(), c);
+    }
+
+    /// @brief Fundamental constituents of this particle, sorted by a functor
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> rawConstituents(const Cut& c, const ParticleSorter& sorter) const {
+      return sortBy(rawConstituents(c), sorter);
+    }
+
+    /// @brief Fundamental constituents of this particle, filtered by a selection functor
+    /// @note Returns a copy, thanks to the filtering
+    const vector<Particle> rawConstituents(const ParticleSelector& selector) const {
+      return filter_select(rawConstituents(), selector);
+    }
+
+    /// @brief Fundamental constituents of this particle, filtered and sorted by functors
+    /// @note Returns a copy, thanks to the filtering and sorting
+    const vector<Particle> rawConstituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
+      return sortBy(rawConstituents(selector), sorter);
+    }
+
+    //@}
+
+
+    /// @name Ancestry (for fundamental particles with a HepMC link)
     //@{
 
     /// Get a list of the direct parents of the current particle (with optional selection Cut)

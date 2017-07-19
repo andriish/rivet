@@ -1,6 +1,6 @@
 2017-07-19  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Add rawParticles() to ParticleFinder, and update DressedLeptons, WFinder and VetoedFinalState to cope.
+	* Add rawParticles() to ParticleFinder, and update DressedLeptons, WFinder, ZFinder and VetoedFinalState to cope.
 
 	* Add isCharged() and isChargedLepton() to Particle.
 

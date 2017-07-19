@@ -58,28 +58,14 @@ namespace Rivet {
 
 
   const Particles WFinder::constituentLeptons() const {
-    // Particles rtn;
-    // if (!empty()) {
-    //   for (Particle& p : boson().constituents()) {
-    //     if (p.isChargedLepton()) rtn.push_back(p);
-    //   }
-    // }
-    // return rtn;
     if (empty()) return Particles();
-    return filter_select(boson().constituents(), isChargedLepton);
+    return boson().constituents(isChargedLepton);
   }
 
 
   const Particles WFinder::constituentNeutrinos() const {
-    // Particles rtn;
-    // if (!empty()) {
-    //   for (const Particle& p : boson().constituents()) {
-    //     if (p.isNeutrino()) rtn.push_back(p);
-    //   }
-    // }
-    // return rtn;
     if (empty()) return Particles();
-    return filter_select(boson().constituents(), isNeutrino);
+    return boson().constituents(isNeutrino);
   }
 
 
@@ -112,7 +98,6 @@ namespace Rivet {
 
     // Check missing ET
     const MissingMomentum& missmom = applyProjection<MissingMomentum>(e, "MissingET");
-
     const double met = missmom.vectorEt().mod();
     MSG_TRACE("MET = " << met/GeV << " GeV vs. required > " << _etMissMin/GeV << " GeV");
     if (met < _etMissMin) {
@@ -120,14 +105,16 @@ namespace Rivet {
       return;
     }
 
+    // Get lepton
     const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
     if ( leptons.dressedLeptons().empty() ) {
       MSG_DEBUG("No dressed leptons");
       return;
     }
-
     MSG_DEBUG("Found at least one dressed lepton: " << leptons.dressedLeptons().front().momentum() );
-    const FourMomentum pmiss = missmom.missingMomentum(0*GeV); //< arg is assumption of massless invisible particle
+
+    // Get missing momentum 4-vector, assuming a massless invisible particle
+    const FourMomentum pmiss = missmom.missingMomentum(0*GeV);
     MSG_DEBUG("Found missing 4-momentum: " << pmiss);
 
     // Compute an invariant mass final state for the W decay leptons (using pseudo-neutrinos from ETmiss)
@@ -143,7 +130,7 @@ namespace Rivet {
     imfs.calc(tmp);
     if (imfs.particlePairs().size() < 1) return;
 
-    // Assemble pseudo-W particle
+    // Assemble a pseudo-W particle
     const ParticlePair Wconstituents = imfs.particlePairs().front();
     const Particle& p1(Wconstituents.first), p2(Wconstituents.second);
     const FourMomentum pW = p1.momentum() + p2.momentum();
