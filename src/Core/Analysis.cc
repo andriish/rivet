@@ -250,6 +250,15 @@ namespace Rivet {
 
 
   Histo1DPtr Analysis::bookHisto1D(const string& hname,
+                                   const initializer_list<double>& binedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle) {
+    return bookHisto1D(hname, vector<double>{binedges}, title, xtitle, ytitle);
+  }
+
+
+  Histo1DPtr Analysis::bookHisto1D(const string& hname,
                                    const Scatter2D& refscatter,
                                    const string& title,
                                    const string& xtitle,
@@ -338,6 +347,19 @@ namespace Rivet {
 
 
   Histo2DPtr Analysis::bookHisto2D(const string& hname,
+                                   const initializer_list<double>& xbinedges,
+                                   const initializer_list<double>& ybinedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle)
+  {
+    return bookHisto2D(hname, vector<double>{xbinedges}, vector<double>{ybinedges},
+                       title, xtitle, ytitle, ztitle);
+  }
+
+
+  Histo2DPtr Analysis::bookHisto2D(const string& hname,
                                    const Scatter3D& refscatter,
                                    const string& title,
                                    const string& xtitle,
@@ -406,6 +428,16 @@ namespace Rivet {
     prof->setAnnotation("XLabel", xtitle);
     prof->setAnnotation("YLabel", ytitle);
     return prof;
+  }
+
+
+  Profile1DPtr Analysis::bookProfile1D(const string& hname,
+                                       const initializer_list<double>& binedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle)
+  {
+    return bookProfile1D(hname, vector<double>{binedges}, title, xtitle, ytitle);
   }
 
 
@@ -487,11 +519,24 @@ namespace Rivet {
 
 
   Profile2DPtr Analysis::bookProfile2D(const string& hname,
-                                   const Scatter3D& refscatter,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+                                       const initializer_list<double>& xbinedges,
+                                       const initializer_list<double>& ybinedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle)
+  {
+    return bookProfile2D(hname, vector<double>{xbinedges}, vector<double>{ybinedges},
+                         title, xtitle, ytitle, ztitle);
+  }
+
+
+  Profile2DPtr Analysis::bookProfile2D(const string& hname,
+                                       const Scatter3D& refscatter,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
     const string path = histoPath(hname);
     Profile2DPtr prof( new Profile2D(refscatter, path) );
     addAnalysisObject(prof);
@@ -506,20 +551,20 @@ namespace Rivet {
 
 
   Profile2DPtr Analysis::bookProfile2D(const string& hname,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
     const Scatter3D& refdata = refData<Scatter3D>(hname);
     return bookProfile2D(hname, refdata, title, xtitle, ytitle, ztitle);
   }
 
 
   Profile2DPtr Analysis::bookProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-                                   const string& title,
-                                   const string& xtitle,
-                                   const string& ytitle,
-                                   const string& ztitle) {
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle,
+                                       const string& ztitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
     return bookProfile2D(axisCode, title, xtitle, ytitle, ztitle);
   }

@@ -403,7 +403,14 @@ namespace Rivet {
                            const std::string& xtitle="",
                            const std::string& ytitle="");
 
-    /// Book a 1D histogram with binning from a reference scatter.
+    /// Book a 1D histogram with non-uniform bins defined by the vector of bin edges @a binedges .
+    Histo1DPtr bookHisto1D(const std::string& name,
+                           const std::initializer_list<double>& binedges,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="");
+
+        /// Book a 1D histogram with binning from a reference scatter.
     Histo1DPtr bookHisto1D(const std::string& name,
                            const Scatter2D& refscatter,
                            const std::string& title="",
@@ -442,10 +449,20 @@ namespace Rivet {
                            const std::string& ztitle="");
 
     /// Book a 2D histogram with non-uniform bins defined by the
-    /// vectorx of bin edges @a xbinedges and @a ybinedges.
+    /// vectors of bin edges @a xbinedges and @a ybinedges.
     Histo2DPtr bookHisto2D(const std::string& name,
                            const std::vector<double>& xbinedges,
                            const std::vector<double>& ybinedges,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="",
+                           const std::string& ztitle="");
+
+    /// Book a 2D histogram with non-uniform bins defined by the
+    /// vectors of bin edges @a xbinedges and @a ybinedges.
+    Histo2DPtr bookHisto2D(const std::string& name,
+                           const std::initializer_list<double>& xbinedges,
+                           const std::initializer_list<double>& ybinedges,
                            const std::string& title="",
                            const std::string& xtitle="",
                            const std::string& ytitle="",
@@ -495,6 +512,13 @@ namespace Rivet {
                                const std::string& xtitle="",
                                const std::string& ytitle="");
 
+    /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
+    Profile1DPtr bookProfile1D(const std::string& name,
+                               const std::initializer_list<double>& binedges,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="");
+
     /// Book a 1D profile histogram with binning from a reference scatter.
     Profile1DPtr bookProfile1D(const std::string& name,
                                const Scatter2D& refscatter,
@@ -538,6 +562,16 @@ namespace Rivet {
     Profile2DPtr bookProfile2D(const std::string& name,
                                const std::vector<double>& xbinedges,
                                const std::vector<double>& ybinedges,
+                               const std::string& title="",
+                               const std::string& xtitle="",
+                               const std::string& ytitle="",
+                               const std::string& ztitle="");
+
+    /// Book a 2D profile histogram with non-uniform bins defined by the vectorx
+    /// of bin edges @a xbinedges and @a ybinedges.
+    Profile2DPtr bookProfile2D(const std::string& name,
+                               const std::initializer_list<double>& xbinedges,
+                               const std::initializer_list<double>& ybinedges,
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="",
