@@ -163,6 +163,9 @@ namespace Rivet {
       return Vector3(get(1), get(2), get(3));
     }
 
+    /// Implicit cast to a 3-vector
+    operator Vector3 () const { return vector3(); }
+
 
   public:
 
@@ -1355,7 +1358,8 @@ namespace Rivet {
 
   /// Calculate transverse mass of a visible and an invisible 3-vector
   inline double mT(const Vector3& vis, const Vector3& invis) {
-    return sqrt(2*vis.perp()*invis.perp() * (1 - cos(deltaPhi(vis, invis))) );
+    // return sqrt(2*vis.perp()*invis.perp() * (1 - cos(deltaPhi(vis, invis))) );
+    return mT(vis.perp(), invis.perp(), deltaPhi(vis, invis));
   }
 
   /// Calculate transverse mass of a visible and an invisible 4-vector
@@ -1366,6 +1370,11 @@ namespace Rivet {
   /// Calculate transverse mass of a visible 4-vector and an invisible 3-vector
   inline double mT(const FourMomentum& vis, const Vector3& invis) {
     return mT(vis.p3(), invis);
+  }
+
+  /// Calculate transverse mass of a visible 4-vector and an invisible 3-vector
+  inline double mT(const Vector3& vis, const FourMomentum& invis) {
+    return mT(vis, invis.p3());
   }
 
   //@}

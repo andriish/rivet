@@ -582,6 +582,13 @@ namespace Rivet {
   //@}
 
 
+  /// Calculate transverse mass of two vectors from provided pT and deltaPhi
+  /// @note Several versions taking two vectors are found in Vector4.hh
+  inline double mT(double pT1, double pT2, double dphi) {
+    return sqrt(2*pT1*pT2 * (1 - cos(dphi)) );
+  }
+
+
 }
 
 
