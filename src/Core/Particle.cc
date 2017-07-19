@@ -1,8 +1,37 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
+#include "Rivet/Tools/ParticleUtils.hh"
 
 namespace Rivet {
+
+
+  void Particle::setConstituents(const vector<Particle>& cs, bool setmom) {
+    _constituents = cs;
+    if (setmom) _momentum = sum(cs, p4, FourMomentum());
+  }
+
+
+  void Particle::addConstituent(const Particle& c, bool addmom) {
+    _constituents += c;
+    if (addmom) _momentum += c;
+  }
+
+
+  void Particle::addConstituents(const vector<Particle>& cs, bool addmom) {
+    _constituents += cs;
+    if (addmom)
+      for (const Particle& c : cs)
+        _momentum += c;
+  }
+
+
+  vector<Particle> Particle::rawConstituents() const {
+    if (!isComposite()) return Particles{*this};
+    vector<Particle> rtn;
+    for (const Particle& p : constituents()) rtn += p.rawConstituents();
+    return rtn;
+  }
 
 
   Particle& Particle::transformBy(const LorentzTransform& lt) {

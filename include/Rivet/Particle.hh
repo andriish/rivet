@@ -73,13 +73,42 @@ namespace Rivet {
     operator PseudoJet () const { return pseudojet(); }
 
 
-    /// Get a const pointer to the original GenParticle.
+    /// Get a const pointer to the original GenParticle
     const GenParticle* genParticle() const {
       return _original;
     }
 
     /// Cast operator for conversion to GenParticle*
     operator const GenParticle* () const { return genParticle(); }
+
+    //@}
+
+
+    /// @name Constituents (for composite particles)
+    //@{
+
+    /// Determine if this Particle is a composite of other Rivet Particles
+    bool isComposite() const { return !constituents().empty(); }
+
+    /// @brief Direct constituents of this particle
+    ///
+    /// The returned vector will be empty if this particle is non-composite,
+    /// and its entries may themselves be composites.
+    const vector<Particle>& constituents() const { return _constituents; }
+
+    /// Set direct constituents of this particle
+    virtual void setConstituents(const vector<Particle>& cs, bool setmom=false);
+
+    /// Add a single direct constituent to this particle
+    virtual void addConstituent(const Particle& c, bool addmom=false);
+
+    /// Add direct constituents to this particle
+    virtual void addConstituents(const vector<Particle>& cs, bool addmom=false);
+
+    /// @brief Fundamental constituents of this particle (maybe == {{*this}})
+    ///
+    /// Returns itself (in a vector) if this particle is non-composite.
+    vector<Particle> rawConstituents() const;
 
     //@}
 
@@ -145,7 +174,7 @@ namespace Rivet {
     //@}
 
 
-    /// @name Particle species properties
+    /// @name Charge
     //@{
 
     /// The charge of this Particle.
@@ -164,6 +193,15 @@ namespace Rivet {
     /// Three times the absolute charge of this Particle (i.e. integer multiple of smallest quark charge).
     int abscharge3() const { return PID::abscharge3(pid()); }
 
+    /// Is this Particle charged?
+    bool isCharged() const { return charge3() != 0; }
+
+    //@}
+
+
+    /// @name Particle species
+    //@{
+
     /// Is this a hadron?
     bool isHadron() const { return PID::isHadron(pid()); }
 
@@ -175,6 +213,9 @@ namespace Rivet {
 
     /// Is this a lepton?
     bool isLepton() const { return PID::isLepton(pid()); }
+
+    /// Is this a charged lepton?
+    bool isChargedLepton() const { return PID::isChargedLepton(pid()); }
 
     /// Is this a neutrino?
     bool isNeutrino() const { return PID::isNeutrino(pid()); }
@@ -568,8 +609,11 @@ namespace Rivet {
 
   protected:
 
-    /// A pointer to the original GenParticle from which this Particle is projected.
+    /// A pointer to the original GenParticle from which this Particle is projected (may be null)
     const GenParticle* _original;
+
+    /// Constituent particles if this is a composite (may be empty)
+    std::vector<Particle> _constituents;
 
     /// The PDG ID code for this Particle.
     PdgId _id;

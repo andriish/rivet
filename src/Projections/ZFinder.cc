@@ -27,7 +27,7 @@ namespace Rivet {
     bareleptons.acceptIdPair(pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
-    DressedLeptons leptons(inputfs, bareleptons, dRmax, fsCut, doClustering, useDecayPhotons);
+    DressedLeptons leptons(inputfs, bareleptons, (doClustering ? dRmax : -1.0), fsCut, useDecayPhotons);
     addProjection(leptons, "DressedLeptons");
 
     VetoedFinalState remainingFS;

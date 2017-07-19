@@ -45,77 +45,67 @@ namespace Rivet {
     /// Is this final state empty after a selection functor is applied?
     bool empty(const ParticleSelector& s) const { return size(s) == 0; }
 
-    /// Get the final-state particles in no particular order, with no cuts.
+    /// Get the particles in no particular order, with no cuts
     virtual const Particles& particles() const { return _theParticles; }
 
-    /// @brief Get the final-state particles with selection cuts.
-    /// @note Returns a copy rather than a reference, due to the cuts
+    /// Get the raw particles in no particular order, with no cuts
+    Particles rawParticles() const {
+      Particles rtn;
+      for (const Particle& p : particles()) rtn += p.rawConstituents();
+      return rtn;
+    }
+
+    /// @brief Get the particles with selection cuts
+    /// @note Returns a copy rather than a reference, due to the cuts.
     Particles particles(const Cut& c) const {
       return filter_select(particles(), c);
-      // // Just return a copy of particles() if the cut is open
-      // if (c == Cuts::open()) return particles();
-      // // If there is a non-trivial cut...
-      // Particles rtn;
-      // rtn.reserve(size());
-      // for (const Particle& p : particles())
-      //   if (c->accept(p)) rtn.push_back(p);
-      // return rtn;
     }
 
-    /// @brief Get the final-state particles with selection cuts via a functor.
-    /// @note Returns a copy rather than a reference, due to the cuts
+    /// @brief Get the particles with selection cuts via a functor
+    /// @note Returns a copy rather than a reference, due to the cuts.
     Particles particles(const ParticleSelector& selector) const {
       return filter_select(particles(), selector);
-      // Particles rtn;
-      // rtn.reserve(size());
-      // for (const Particle& p : particles())
-      //   if (selector(p)) rtn.push_back(p);
-      // return rtn;
     }
 
-    /// Get the final-state particles, ordered by supplied sorting function object.
-    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// Get the particles, ordered by supplied sorting function object
+    /// @note Returns a copy rather than a reference, due to cuts and sorting.
     Particles particles(const ParticleSorter& sorter, const Cut& c=Cuts::open()) const {
-      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
 
-    /// Get the final-state particles, ordered by supplied sorting function object.
-    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// Get the particles, ordered by supplied sorting function object
+    /// @note Returns a copy rather than a reference, due to cuts and sorting.
     Particles particles(const Cut& c, const ParticleSorter& sorter) const {
-      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(c), sorter);
     }
 
-    /// Get the final-state particles, ordered by a sorting functor and filtered by a selection functor.
-    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// Get the particles, ordered by a sorting functor and filtered by a selection functor
+    /// @note Returns a copy rather than a reference, due to cuts and sorting.
     Particles particles(const ParticleSelector& selector, const ParticleSorter& sorter) const {
-      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(selector), sorter);
     }
 
-    /// Get the final-state particles, ordered by a sorting functor and filtered by a selection functor.
-    /// @note Returns a copy rather than a reference, due to cuts and sorting
+    /// Get the particles, ordered by a sorting functor and filtered by a selection functor
+    /// @note Returns a copy rather than a reference, due to cuts and sorting.
     Particles particles(const ParticleSorter& sorter, const ParticleSelector& selector) const {
-      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return sortBy(particles(selector), sorter);
     }
 
-    /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with optional cuts.
+    /// Get the particles, ordered by decreasing \f$ p_T \f$ and with optional cuts
     ///
     /// This is a very common use-case, so is available as syntatic sugar for particles(c, cmpMomByPt).
     Particles particlesByPt(const Cut& c=Cuts::open()) const {
       return particles(c, cmpMomByPt);
     }
 
-    /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with optional cuts.
+    /// Get the particles, ordered by decreasing \f$ p_T \f$ and with optional cuts
     ///
     /// This is a very common use-case, so is available as syntatic sugar for particles(f, cmpMomByPt).
     Particles particlesByPt(const ParticleSelector& selector) const {
       return particles(selector, cmpMomByPt);
     }
 
-    /// Get the final-state particles, ordered by decreasing \f$ p_T \f$ and with a cut on minimum \f$ p_T \f$.
+    /// Get the particles, ordered by decreasing \f$ p_T \f$ and with a cut on minimum \f$ p_T \f$
     ///
     /// This is a very common use-case, so is available as syntatic sugar for particles(Cuts::pT >= ptmin, cmpMomByPt).
     Particles particlesByPt(double ptmin) const {
@@ -136,9 +126,7 @@ namespace Rivet {
     typedef Particles collection_type;
 
     /// Template-usable interface common to JetAlg
-    const collection_type& entities() const {
-      return particles();
-    }
+    const collection_type& entities() const { return particles(); }
 
     //@}
 

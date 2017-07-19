@@ -461,6 +461,8 @@ namespace Rivet {
 
     /// Unbound function access to momentum
     inline FourMomentum mom(const ParticleBase& p) { return p.mom(); }
+    /// Unbound function access to momentum
+    inline FourMomentum p4(const ParticleBase& p) { return p.mom(); }
 
     /// Unbound function access to p3
     inline Vector3 p3(const ParticleBase& p) { return p.p3(); }

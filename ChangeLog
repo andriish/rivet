@@ -1,5 +1,11 @@
 2017-07-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add rawParticles() to ParticleFinder, and update DressedLeptons, WFinder and VetoedFinalState to cope.
+
+	* Add isCharged() and isChargedLepton() to Particle.
+
+	* Add constituents() and rawConstituents() to Particle.
+
 	* Add support for specifying bin edges as braced initializer lists rather than explicit vector<double>.
 
 2017-07-18  Andy Buckley  <andy.buckley@cern.ch>
