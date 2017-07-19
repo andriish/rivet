@@ -59,11 +59,11 @@ namespace Rivet {
 
     /// @brief Constructor with a single input FinalState (used for both photons and bare leptons)
     ///
-    /// Provide final state projections used to select the photons and bare
-    /// leptons (wish we had put the first two args the other way around...),
-    /// a clustering delta(R) cone size around each bare lepton, and an optional
-    /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)
+    /// Provide a single final state projection used to select the photons and bare
+    /// leptons, a photon-clustering delta(R) cone size around each bare lepton, and an optional
+    /// cut on the _dressed_ leptons (i.e. the momenta after clustering).
     /// The final argument controls whether non-prompt photons are to be included.
+    /// Set the clustering radius to 0 or negative to disable clustering.
     DressedLeptons(const FinalState& barefs,
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false);
@@ -75,9 +75,11 @@ namespace Rivet {
     /// a clustering delta(R) cone size around each bare lepton, and an optional
     /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)
     /// The final argument controls whether non-prompt photons are to be included.
+    /// Set the clustering radius to 0 or negative to disable clustering.
     DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false);
+
 
     /// Clone this projection
     DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);

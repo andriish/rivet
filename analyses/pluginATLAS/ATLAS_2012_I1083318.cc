@@ -9,25 +9,14 @@
 
 namespace Rivet {
 
-  
-
 
   /// ATLAS W + jets production at 7 TeV
   class ATLAS_2012_I1083318 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ATLAS_2012_I1083318()
-      : Analysis("ATLAS_2012_I1083318")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2012_I1083318);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{

@@ -17,6 +17,7 @@ namespace Rivet {
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1404878);
 
+
     void init() {
       // Eta ranges
       Cut eta_full = (Cuts::abseta < 4.2) & (Cuts::pT >= 1.0*MeV);
@@ -37,10 +38,10 @@ namespace Rivet {
       electrons.acceptTauDecays(true);
       declare(electrons, "electrons");
 
-      DressedLeptons dressedelectrons(photons, electrons, 0.1, lep_cuts, true, true);
+      DressedLeptons dressedelectrons(photons, electrons, 0.1, lep_cuts, true);
       declare(dressedelectrons, "dressedelectrons");
 
-      DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full, true, true);
+      DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full, true);
       declare(ewdressedelectrons, "ewdressedelectrons");
 
       // Projection to find the muons
@@ -51,10 +52,10 @@ namespace Rivet {
       muons.acceptTauDecays(true);
       declare(muons, "muons");
 
-      DressedLeptons dressedmuons(photons, muons, 0.1, lep_cuts, true, true);
+      DressedLeptons dressedmuons(photons, muons, 0.1, lep_cuts, true);
       declare(dressedmuons, "dressedmuons");
 
-      DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full, true, true);
+      DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full, true);
       declare(ewdressedmuons, "ewdressedmuons");
 
       // Projection to find neutrinos

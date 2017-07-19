@@ -59,21 +59,21 @@ namespace Rivet {
       declare(truthelectrons, "Electrons0");
       DressedLeptons dressedelectrons(photons, truthelectrons, 0.2);
       declare(dressedelectrons, "Electrons1");
-      SmearedParticles recoelectrons(truthelectrons, ELECTRON_EFF_ATLAS_RUN1, ELECTRON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedelectrons yet...
+      SmearedParticles recoelectrons(dressedelectrons, ELECTRON_EFF_ATLAS_RUN1, ELECTRON_SMEAR_ATLAS_RUN1);
       declare(recoelectrons, "Electrons2");
 
       IdentifiedFinalState truthmuons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::MUON, PID::ANTIMUON}});
       declare(truthmuons, "Muons0");
       DressedLeptons dressedmuons(photons, truthmuons, 0.2);
       declare(dressedmuons, "Muons1");
-      SmearedParticles recomuons(truthmuons, MUON_EFF_ATLAS_RUN1, MUON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedmuons yet...
+      SmearedParticles recomuons(dressedmuons, MUON_EFF_ATLAS_RUN1, MUON_SMEAR_ATLAS_RUN1);
       declare(recomuons, "Muons2");
 
       TauFinder truthtaus(TauFinder::ANY, Cuts::abseta < 5 && Cuts::pT > 10*GeV);
       declare(truthtaus, "Taus0");
       DressedLeptons dressedtaus(photons, truthtaus, 0.2);
       declare(dressedtaus, "Taus1");
-      SmearedParticles recotaus(truthtaus, TAU_EFF_ATLAS_RUN1, TAU_SMEAR_ATLAS_RUN1); //< @note Can't use dressedtaus yet...
+      SmearedParticles recotaus(dressedtaus, TAU_EFF_ATLAS_RUN1, TAU_SMEAR_ATLAS_RUN1);
       declare(recotaus, "Taus2");
 
 

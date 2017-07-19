@@ -36,24 +36,28 @@ namespace Rivet {
     ///  clustered to the lepton object and thus W mom
     /// @param trackPhotons Whether such photons should be added to _theParticles
     /// @param masstype Whether mass window should be applied using m or mT
+    ///
+    /// @todo Revisit NOTRACK as default?
     WFinder(const FinalState& inputfs,
             const Cut& leptoncuts,
             PdgId pid,
             double minmass, double maxmass,
             double missingET,
-            double dRmax,
-            ClusterPhotons clusterPhotons,
-            PhotonTracking trackPhotons,
-            MassWindow masstype,
-            double masstarget);
+            double dRmax=0.1,
+            ClusterPhotons clusterPhotons=CLUSTERNODECAY,
+            PhotonTracking trackPhotons=NOTRACK,
+            MassWindow masstype=MASS,
+            double masstarget=80.4*GeV);
 
     /// Constructor with more convenient argument ordering and default args
+    ///
+    /// @todo Revisit NOTRACK as default?
     WFinder(const FinalState& inputfs,
             const Cut& leptoncuts,
             PdgId pid,
             double minmass, double maxmass,
             double missingET,
-            MassWindow masstype=MASS,
+            MassWindow masstype,
             double masstarget=80.4*GeV,
             ClusterPhotons clusterPhotons=CLUSTERNODECAY,
             double dRmax=0.1,

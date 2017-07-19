@@ -30,7 +30,7 @@ namespace Rivet {
       el_id.acceptIdPair(PID::ELECTRON);
       PromptFinalState electrons(el_id);
       electrons.acceptTauDecays(true);
-      DressedLeptons dressedelectrons(photons, electrons, 0.1, lep_cuts, true, true);
+      DressedLeptons dressedelectrons(photons, electrons, 0.1, lep_cuts, true);
       addProjection(dressedelectrons, "DressedElectrons");
 
       // Projection to find the muons
@@ -38,7 +38,7 @@ namespace Rivet {
       mu_id.acceptIdPair(PID::MUON);
       PromptFinalState muons(mu_id);
       muons.acceptTauDecays(true);
-      DressedLeptons dressedmuons(photons, muons, 0.1, lep_cuts, true, true);
+      DressedLeptons dressedmuons(photons, muons, 0.1, lep_cuts, true);
       addProjection(dressedmuons, "DressedMuons");
 
       /// @todo Make this a counter or Scatter1D?

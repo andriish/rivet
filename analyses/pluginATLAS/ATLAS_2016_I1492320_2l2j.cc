@@ -28,7 +28,7 @@ namespace Rivet {
       // Charged leptons within acceptance
       const PromptFinalState chLep_fid = PromptFinalState(Cuts::abspid == PID::ELECTRON || Cuts::abspid == PID::MUON);
       const PromptFinalState photon_fs = PromptFinalState(Cuts::abspid == PID::PHOTON);
-      const DressedLeptons dressed_leps(photon_fs, chLep_fid, 0.1, Cuts::pT > 10*GeV, true, false);
+      const DressedLeptons dressed_leps(photon_fs, chLep_fid, 0.1, Cuts::pT > 10*GeV);
       declare(dressed_leps, "DressedLeptons");
 
       // Jets, anti-kt 0.4

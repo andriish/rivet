@@ -182,9 +182,9 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////
       // OVERLAP removal dR(l,l)>0.2
       ////////////////////////////////////////////////////////////////////
-      foreach ( const DressedLepton& l1, leptonsFS_sel4l) {
+      for ( const DressedLepton& l1 : leptonsFS_sel4l) {
         bool isolated = true;
-        foreach (DressedLepton& l2, leptonsFS_sel4l) {
+        for (DressedLepton& l2 : leptonsFS_sel4l) {
           const double dR = deltaR(l1, l2);
           if (dR < 0.2 && l1 != l2) { isolated = false; break; }
         }
@@ -260,8 +260,8 @@ namespace Rivet {
       if (leptons_sel2l2nu.empty()) vetoEvent; // no further analysis, fine to veto
 
       Particles leptons_sel2l2nu_jetveto;
-      foreach (const DressedLepton& l, mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
-      foreach (const DressedLepton& l, el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      for (const DressedLepton& l : mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      for (const DressedLepton& l : el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
       double ptll = (leptons_sel2l2nu[0].momentum() + leptons_sel2l2nu[1].momentum()).pT();
 
       // Find Z1-> ll
