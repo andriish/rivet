@@ -146,7 +146,10 @@ namespace Rivet {
           if (peff <= 0) { keep = false; break; } //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
           if (peff < 1 && rand01() > peff)  { keep = false; break; } //< roll dice (and deal with >1 probabilities, just in case)
         }
-        if (keep) _theParticles.push_back(pdet);
+        if (keep) {
+          pdet.addConstituent(p); //< record where the smearing was built from
+          _theParticles.push_back(pdet);
+        }
       }
     }
 

@@ -1,5 +1,7 @@
 2017-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Record truth particles as constituents of SmearedParticles output.
+
 	* Rename UnstableFinalState -> UnstableParticles, and convert
 	ZFinder to be a general ParticleFinder rather than FinalState.
 
