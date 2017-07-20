@@ -68,7 +68,7 @@ namespace Rivet {
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false);
 
-    /// @brief Constructor with distinct photon and lepton FinalStates
+    /// @brief Constructor with distinct photon and lepton finders
     ///
     /// Provide final state projections used to select the photons and bare
     /// leptons (wish we had put the first two args the other way around...),
@@ -76,6 +76,9 @@ namespace Rivet {
     /// cut on the _dressed_ leptons (i.e. the momenta after clustering.)
     /// The final argument controls whether non-prompt photons are to be included.
     /// Set the clustering radius to 0 or negative to disable clustering.
+    ///
+    /// @todo Convert second arg to a general ParticleFinder rather than an FS, to
+    /// allow clustering on to unstables, e.g. taus via TauFinder.
     DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false);

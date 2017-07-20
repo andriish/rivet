@@ -14,9 +14,8 @@ namespace Rivet {
   /// Chain together different projections as convenience for finding Z's
   /// from two leptons in the final state, including photon clustering.
   ///
-  /// @todo Inherit directly from ParticleFinder, not FinalState
   /// @todo Alias then rename as Dileptons
-  class ZFinder : public FinalState {
+  class ZFinder : public ParticleFinder {
   public:
 
     enum ClusterPhotons { NOCLUSTER=0, CLUSTERNODECAY=1, CLUSTERALL };

@@ -1,3 +1,8 @@
+2017-07-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Rename UnstableFinalState -> UnstableParticles, and convert
+	ZFinder to be a general ParticleFinder rather than FinalState.
+
 2017-07-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add implicit cast from FourVector & FourMomentum to Vector3, and tweak mT implementation.
