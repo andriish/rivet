@@ -148,6 +148,35 @@ namespace Rivet {
   //@}
 
 
+
+  /// @name Operations on collections of Jet
+  /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
+  //@{
+  namespace Kin {
+
+    inline double sumPt(const Jets& js) {
+      return sum(js, pT, 0.0);
+    }
+
+    inline FourMomentum sumP4(const Jets& js) {
+      return sum(js, p4, FourMomentum());
+    }
+
+    inline Vector3 sumP3(const Jets& js) {
+      return sum(js, p3, Vector3());
+    }
+
+    /// @todo Min dPhi, min dR?
+    /// @todo Isolation routines?
+
+  }
+  //@}
+
+
+  // Import Kin namespace into Rivet
+  using namespace Kin;
+
+
 }
 
 #endif

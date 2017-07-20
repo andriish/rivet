@@ -492,8 +492,11 @@ namespace Rivet {
     inline double absrap(const ParticleBase& p) { return p.absrap(); }
 
   }
-  using namespace Kin;
   //@}
+
+
+  // Import Kin namespace into Rivet
+  using namespace Kin;
 
 
 }
