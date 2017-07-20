@@ -1,5 +1,7 @@
 2017-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add sumPt, sumP4, sumP3 utility functions.
+
 	* Record truth particles as constituents of SmearedParticles output.
 
 	* Rename UnstableFinalState -> UnstableParticles, and convert

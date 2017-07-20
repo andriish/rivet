@@ -185,6 +185,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
+      normalize(_h_met_true);
+      normalize(_h_met_reco);
+
       normalize(_h_nj_true);
       normalize(_h_nj_reco);
       normalize(_h_j1pt_true, 1-_h_nj_true->bin(0).area());
