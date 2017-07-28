@@ -334,5 +334,8 @@ namespace Rivet {
   template class Wrapper<YODA::Profile1D>;
   template class Wrapper<YODA::Profile2D>;
   template class Wrapper<YODA::Counter>;
+  template class Wrapper<YODA::Scatter1D>;
+  template class Wrapper<YODA::Scatter2D>;
+  template class Wrapper<YODA::Scatter3D>;
 
 }
