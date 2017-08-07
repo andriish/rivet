@@ -110,8 +110,7 @@ namespace Rivet {
     //@}
 
 
-    /// Mark object as owned by the _projhandler
-    /// @todo Huh? What's this for?
+    /// Mark this object as owned by a proj-handler
     void markAsOwned() const { _owned = true; }
 
 
