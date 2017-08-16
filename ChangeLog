@@ -1,3 +1,7 @@
+2017-08-16  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect make-plots against NaNs in error band values (patch from Dmitry Kalinkin).
+
 2017-07-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add sumPt, sumP4, sumP3 utility functions.

@@ -1812,6 +1812,9 @@ class Histogram(DrawableObject, Described):
                 if self.getErrorBands():
                     self.description['SmoothLine'] = 0
                     for b in self.data:
+                        if isnan(b.val) or isnan(b.err[0]) or isnan(b.err[1]):
+                            seen_nan = True
+                            continue
                         out += ('\\psframe[dimen=inner,linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=%s,opacity=%s]' % (self.getErrorBandColor(),self.getErrorBandOpacity()))
                         out += ('(' + coors.strphys2frameX(b.xmin) + ', ' \
                                     + coors.strphys2frameY(b.val - b.err[0]) + ')(' \
