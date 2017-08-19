@@ -2135,6 +2135,8 @@ class Ticks(object):
         self.coors = coors
 
     def draw_ticks(self, vmin, vmax, plotlog=False, custommajorticks=None, customminorticks=None, custommajortickmarks=-1, customminortickmarks=-1, drawlabels=True, twosided=False):
+        if vmax <= vmin:
+            raise Exception("Cannot place tick marks. Inconsistent min=%s and max=%s" % (vmin,vmax))
         out = ""
         if plotlog:
             if vmin <= 0 or vmax <= 0:

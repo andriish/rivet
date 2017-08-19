@@ -106,7 +106,7 @@
 
 2016-06-18  Holger Schulz  <holger.schulz@durham.ac.uk>
 
-        * Version 2.5.4
+        * Version 2.5.4 release!
 
 2016-06-17  Holger Schulz  <holger.schulz@durham.ac.uk>
 
@@ -240,14 +240,6 @@
 
 	* Improve DISLepton for HERA analyses: thanks to Andrii Verbytskyi for the patch!
 
-2017-05-02  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Add binding to a pre-loaded analysis object if possible in Analysis::bookHisto1D() methods.
-
-	* Add AnalysisHandler::addData and readData methods for histo preloading.
-
-	* Extend and improve string functions for path handling.
-
 2017-03-30  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Replace non-template Analysis::refData functions with C++11 default T=Scatter2D.
@@ -324,10 +316,6 @@
 2017-02-05  Andy Buckley  <andy.buckley@cern.ch>
 
        * Add HasBTag and HasCTag jet functors, with lower-case aliases.
-
-2017-01-21  Andy Buckley  <andy.buckley@cern.ch>
-
-	* Removing lots of long-deprecated functions & methods.
 
 2017-01-18  Andy Buckley  <andy.buckley@cern.ch>
 
