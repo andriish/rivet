@@ -47,8 +47,8 @@ namespace Rivet {
     while (it != s.end() && std::isdigit(*it)) ++it;
     return !s.empty() && it == s.end();
   }
- 
-  /// Check if any of the weightnames is not a number 
+
+  /// Check if any of the weightnames is not a number
   bool AnalysisHandler::haveNamedWeights() {
     bool dec=false;
     for (unsigned int i=0;i<_weightNames.size();++i) {
@@ -245,16 +245,16 @@ namespace Rivet {
       MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
       _eventCounter.pushToPersistent(_subEventWeights);
       for (const AnaHandle& a : _analyses) {
-          for (const auto & ao : a->analysisObjects()) {
+          for (const auto & ao : a->analysisObjects())
               ao.get().pushToPersistent(_subEventWeights);
-          }
       }
 
-      for (AnaHandle a : _analyses) {
+      for (const AnaHandle& a : _analyses) {
           a->setCrossSection(_xs);
           for (size_t iW = 0; iW < numWeights(); iW++) {
-              for (MultiweightAOPtr& aoptr : a->_analysisobjects)
-                  aoptr.setActiveWeightIdx(iW);
+              _eventCounter.setActiveWeightIdx(iW);
+              for (const auto & ao : a->analysisObjects())
+                  ao.get().setActiveWeightIdx(iW);
 
               MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
 
@@ -354,7 +354,7 @@ namespace Rivet {
 
               // add the weight name in brackets unless we recognize a
               // nominal weight
-              if (_weightNames[iW] != "Weight" 
+              if (_weightNames[iW] != "Weight"
                   && _weightNames[iW] != "0"
                   && _weightNames[iW] != "Default")
                   rao->setPath(rao->path() + "[" + _weightNames[iW] + "]");
