@@ -24,9 +24,9 @@
 
 namespace YODA {
     typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
-    typedef std::shared_ptr<YODA::Scatter1D> Scatter1DPtr;
-    typedef std::shared_ptr<YODA::Scatter2D> Scatter2DPtr;
-    typedef std::shared_ptr<YODA::Scatter3D> Scatter3DPtr;
+    // typedef std::shared_ptr<YODA::Scatter1D> Scatter1DPtr;
+    // typedef std::shared_ptr<YODA::Scatter2D> Scatter2DPtr;
+    // typedef std::shared_ptr<YODA::Scatter3D> Scatter3DPtr;
 }
 
 
@@ -42,6 +42,10 @@ namespace Rivet {
             virtual YODA::AnalysisObject* operator->() const = 0;
             virtual const YODA::AnalysisObject & operator*() const = 0;
 
+            /// @todo 
+            /// rename to setActive(Idx)?
+            virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
+
             bool operator ==(const AnalysisObjectPtr& p) { return (this == &p); }
 
         protected:
@@ -52,84 +56,85 @@ namespace Rivet {
     /// @todo
     /// implement scatter1dptr and scatter2dptr here
     /// these need to be multi-weighted eventually.
+    /*
     class Scatter1DPtr : public AnalysisObjectPtr {
         public:
-            Scatter1DPtr() :
-                _scatter(YODA::Scatter1DPtr()) { }
+            Scatter1DPtr() : _persistent() { }
 
-            Scatter1DPtr(const YODA::Scatter1D& p) :
-                _scatter(make_shared<YODA::Scatter1D>(p)) { }
+            Scatter1DPtr(size_t len_of_weightvec, const YODA::Scatter1D& p) {
+              for (size_t m = 0; m < len_of_weightvec; ++m)
+                _persistent.push_back(make_shared<YODA::Scatter1D>(p));
+            }
 
-            bool operator!() const { return !_scatter; }
-            operator bool() const { return bool(_scatter); }
+            bool operator!() const { return !_persistent; }
+            operator bool() const { return bool(_persistent); }
 
-            YODA::Scatter1D* operator->() { return _scatter.get(); }
+            YODA::Scatter1D* operator->() { return _persistent.get(); }
 
-            YODA::Scatter1D* operator->() const { return _scatter.get(); }
+            YODA::Scatter1D* operator->() const { return _persistent.get(); }
 
-            YODA::Scatter1D & operator*() { return *_scatter; }
+            YODA::Scatter1D & operator*() { return *_persistent; }
 
-            const YODA::Scatter1D & operator*() const { return *_scatter; }
+            const YODA::Scatter1D & operator*() const { return *_persistent; }
 
         protected:
-            YODA::Scatter1DPtr _scatter;
+            vector<YODA::Scatter1DPtr> _persistent;
     };
 
     class Scatter2DPtr : public AnalysisObjectPtr {
         public:
-            Scatter2DPtr(const YODA::Scatter2D& p) :
-                _scatter(make_shared<YODA::Scatter2D>(p)) { }
+            Scatter2DPtr(size_t len_of_weightvec, const YODA::Scatter2D& p) {
+              for (size_t m = 0; m < len_of_weightvec; ++m)
+                _persistent.push_back(make_shared<YODA::Scatter2D>(p));
+            }
 
-            Scatter2DPtr() :
-                _scatter(YODA::Scatter2DPtr()) { }
+            Scatter2DPtr() : _persistent() { }
 
-            bool operator!() { return !_scatter; }
-            operator bool() { return bool(_scatter); }
+            bool operator!() { return !_persistent; }
+            operator bool() { return bool(_persistent); }
 
-            YODA::Scatter2D* operator->() { return _scatter.get(); }
+            YODA::Scatter2D* operator->() { return _persistent.get(); }
 
-            YODA::Scatter2D* operator->() const { return _scatter.get(); }
+            YODA::Scatter2D* operator->() const { return _persistent.get(); }
 
-            YODA::Scatter2D & operator*() { return *_scatter; }
+            YODA::Scatter2D & operator*() { return *_persistent; }
 
-            const YODA::Scatter2D & operator*() const { return *_scatter; }
+            const YODA::Scatter2D & operator*() const { return *_persistent; }
 
         protected:
-            YODA::Scatter2DPtr _scatter;
+            vector<YODA::Scatter2DPtr> _persistent;
     };
 
     class Scatter3DPtr : public AnalysisObjectPtr {
         public:
-            Scatter3DPtr(const YODA::Scatter3D& p) :
-                _scatter(make_shared<YODA::Scatter3D>(p)) { }
+            Scatter3DPtr(size_t len_of_weightvec, const YODA::Scatter3D& p) {
+              for (size_t m = 0; m < len_of_weightvec; ++m)
+                _persistent.push_back(make_shared<YODA::Scatter3D>(p));
+            }
 
-            Scatter3DPtr() :
-                _scatter(YODA::Scatter3DPtr()) { }
+            Scatter3DPtr() : _persistent() { }
 
-            bool operator!() { return !_scatter; }
-            operator bool() { return bool(_scatter); }
+            bool operator!() { return !_persistent; }
+            operator bool() { return bool(_persistent); }
 
-            YODA::Scatter3D* operator->() { return _scatter.get(); }
+            YODA::Scatter3D* operator->() { return _persistent.get(); }
 
-            YODA::Scatter3D* operator->() const { return _scatter.get(); }
+            YODA::Scatter3D* operator->() const { return _persistent.get(); }
 
-            YODA::Scatter3D & operator*() { return *_scatter; }
+            YODA::Scatter3D & operator*() { return *_persistent; }
 
-            const YODA::Scatter3D & operator*() const { return *_scatter; }
+            const YODA::Scatter3D & operator*() const { return *_persistent; }
 
         protected:
-            YODA::Scatter3DPtr _scatter;
+            vector<YODA::Scatter3DPtr> _persistent;
     };
+    */
 
 
     class MultiweightAOPtr : public AnalysisObjectPtr {
 
         public:
             virtual void newSubEvent() = 0;
-
-            /// @todo 
-            /// rename to setActive(Idx)?
-            virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
             virtual void pushToPersistent(const vector<valarray<double> >& weight) = 0;
 
@@ -242,6 +247,28 @@ private:
     // x / weight pairs 
     Fills<YODA::Profile2D> fills_;
 };
+
+template<>
+class TupleWrapper<YODA::Scatter1D> : public YODA::Scatter1D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Scatter1D>> Ptr;
+    TupleWrapper(const YODA::Scatter1D & h) : YODA::Scatter1D(h) {}
+};
+
+template<>
+class TupleWrapper<YODA::Scatter2D> : public YODA::Scatter2D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Scatter2D>> Ptr;
+    TupleWrapper(const YODA::Scatter2D & h) : YODA::Scatter2D(h) {}
+};
+
+template<>
+class TupleWrapper<YODA::Scatter3D> : public YODA::Scatter3D {
+public:
+    typedef shared_ptr<TupleWrapper<YODA::Scatter3D>> Ptr;
+    TupleWrapper(const YODA::Scatter3D & h) : YODA::Scatter3D(h) {}
+};
+
 
     template <class T>
     class Wrapper : public MultiweightAOPtr {
@@ -358,6 +385,9 @@ private:
     using Profile1DPtr = Wrapper<YODA::Profile1D>;
     using Profile2DPtr = Wrapper<YODA::Profile2D>;
     using CounterPtr = Wrapper<YODA::Counter>;
+    using Scatter1DPtr = Wrapper<YODA::Scatter1D>;
+    using Scatter2DPtr = Wrapper<YODA::Scatter2D>;
+    using Scatter3DPtr = Wrapper<YODA::Scatter3D>;
 
     using YODA::Counter;
     using YODA::Histo1D;

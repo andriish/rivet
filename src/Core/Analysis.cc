@@ -191,7 +191,7 @@ namespace Rivet {
   }
 
 
-  void Analysis::book(CounterPtr & ctr, 
+  void Analysis::book(CounterPtr & ctr,
                       const string& cname,
                       const string& title) {
     const string path = histoPath(cname);
@@ -447,17 +447,17 @@ namespace Rivet {
   }
 
 
-  Scatter2DPtr& Analysis::bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  void Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                        bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return bookScatter2D(axisCode, copy_pts, title, xtitle, ytitle);
+    book(s2d, axisCode, copy_pts, title, xtitle, ytitle);
   }
 
 
-  Scatter2DPtr& Analysis::bookScatter2D(const string& hname,
+  void Analysis::book(Scatter2DPtr & s2d, const string& hname,
                                        bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
@@ -476,15 +476,14 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Scatter2DPtr> sp = make_shared<Scatter2DPtr>(scat);
-    addAnalysisObject(sp);
+    s2d = Scatter2DPtr(handler().numWeights(), scat);
+    addAnalysisObject(s2d);
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
-    return *sp;
   }
 
 
-  Scatter2DPtr& Analysis::bookScatter2D(const string& hname,
+  void Analysis::book(Scatter2DPtr & s2d, const string& hname,
                                        size_t npts, double lower, double upper,
                                        const string& title,
                                        const string& xtitle,
@@ -500,15 +499,14 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Scatter2DPtr> sp = make_shared<Scatter2DPtr>(scat);
-    addAnalysisObject(sp);
+    s2d = Scatter2DPtr(handler().numWeights(), scat);
+    addAnalysisObject(s2d);
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
-    return *sp;
   }
 
 
-  Scatter2DPtr& Analysis::bookScatter2D(const string& hname,
+  void Analysis::book(Scatter2DPtr & s2d, const string& hname,
                                        const vector<double>& binedges,
                                        const string& title,
                                        const string& xtitle,
@@ -525,10 +523,11 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    shared_ptr<Scatter2DPtr> sp = make_shared<Scatter2DPtr>(scat);
+    s2d = Scatter2DPtr(handler().numWeights(), scat);
+    addAnalysisObject(s2d);
+
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
-    return *sp;
   }
 
 
@@ -751,7 +750,7 @@ namespace Rivet {
   }
 
   void Analysis::removeAnalysisObject(const string& path) {
-    for (auto it = _analysisobjects.begin();  
+    for (auto it = _analysisobjects.begin();
          it != _analysisobjects.end(); ++it) {
       if ((*it).get()->path() == path) {
         _analysisobjects.erase(it);
