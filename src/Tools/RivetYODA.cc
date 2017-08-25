@@ -17,9 +17,9 @@ Wrapper<T>::Wrapper(size_t len_of_weightvec, const T & p) {
 
 
 template <class T>
-typename T::Ptr Wrapper<T>::active() const { 
-    assert(_active); 
-    return _active; 
+typename T::Ptr Wrapper<T>::active() const {
+    assert(_active);
+    return _active;
 }
 
 
@@ -83,7 +83,7 @@ namespace {
         // the bin index we fall in
         const auto binidx = histo->binIndexAt(x);
         // gaps, overflow, underflow don't contribute
-        if ( binidx == -1 ) 
+        if ( binidx == -1 )
             return 0;
 
 
@@ -109,19 +109,19 @@ namespace {
     }
 
     template <class T>
-     typename T::BinType 
+     typename T::BinType
      fillT2binT(typename T::FillType a) {
        return a;
     }
 
     template <>
-    YODA::Profile1D::BinType 
+    YODA::Profile1D::BinType
     fillT2binT<YODA::Profile1D>(YODA::Profile1D::FillType a) {
       return get<0>(a);
     }
 
     template <>
-    YODA::Profile2D::BinType 
+    YODA::Profile2D::BinType
     fillT2binT<YODA::Profile2D>(YODA::Profile2D::FillType a) {
       return YODA::Profile2D::BinType{ get<0>(a), get<1>(a) };
     }
@@ -168,8 +168,8 @@ namespace {
             bool gap = true; // Check for gaps between the sub-windows.
             for ( size_t i = 0; i < x.size(); ++i  ) {
               // check equals comparisons here!
-              if ( fillT2binT<T>(x[i].first) + wsize >= ehi 
-                   && 
+              if ( fillT2binT<T>(x[i].first) + wsize >= ehi
+                   &&
                    fillT2binT<T>(x[i].first) - wsize <= elo ) {
                 sumw += x[i].second * weights[i];
                 gap = false;
@@ -179,7 +179,7 @@ namespace {
             hfill.push_back( make_tuple( (ehi + elo)/2.0, sumw, (ehi - elo) ) );
             sumf += ehi - elo;
           }
-    
+
           for ( auto f : hfill )
             for ( size_t m = 0; m < persistent.size(); ++m )
               persistent[m]->fill( get<0>(f), get<1>(f)[m], get<2>(f)/sumf );
@@ -222,8 +222,8 @@ namespace {
 /// value for this histogram. Returns a vector of sub-events with
 /// an ordered vector of fills (including NOFILLs) for each sub-event.
 template <class T>
-vector< vector<Fill<T> > > 
-match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T> & NOFILL) 
+vector< vector<Fill<T> > >
+match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T> & NOFILL)
 {
   vector< vector<Fill<T> > > matched;
   // First just copy subevents into vectors and find the longest vector.
@@ -252,11 +252,11 @@ match_fills(const vector<typename TupleWrapper<T>::Ptr> & evgroup, const Fill<T>
       if ( subev[i] == NOFILL ) continue;
       size_t j = i;
       while ( j + 1 < maxfill && subev[j + 1] == NOFILL &&
-              distance(fillT2binT<T>(subev[j].first), 
-                       fillT2binT<T>(full[j].first)) 
-              > 
-              distance(fillT2binT<T>(subev[j].first), 
-                       fillT2binT<T>(full[j + 1].first)) ) 
+              distance(fillT2binT<T>(subev[j].first),
+                       fillT2binT<T>(full[j].first))
+              >
+              distance(fillT2binT<T>(subev[j].first),
+                       fillT2binT<T>(full[j + 1].first)) )
       {
             swap(subev[j], subev[j + 1]);
             ++j;
@@ -322,6 +322,33 @@ namespace Rivet {
         }
       }
     }
+
+    _evgroup.clear();
+    _active.reset();
+  }
+
+  template <>
+  void Wrapper<YODA::Scatter1D>::pushToPersistent(const vector<valarray<double> >& weight) {
+
+    cout << ("WARNING: filling scatters in the event loop is not a well-defined behavior!!") << endl;
+
+    _evgroup.clear();
+    _active.reset();
+  }
+
+  template <>
+  void Wrapper<YODA::Scatter2D>::pushToPersistent(const vector<valarray<double> >& weight) {
+
+    cout << ("WARNING: filling scatters in the event loop is not a well-defined behavior!!") << endl;
+
+    _evgroup.clear();
+    _active.reset();
+  }
+
+  template <>
+  void Wrapper<YODA::Scatter3D>::pushToPersistent(const vector<valarray<double> >& weight) {
+
+    cout << ("WARNING: filling scatters in the event loop is not a well-defined behavior!!") << endl;
 
     _evgroup.clear();
     _active.reset();

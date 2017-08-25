@@ -597,7 +597,7 @@ namespace Rivet {
     /// assuming that there is a reference histo with the same name: if there
     /// isn't, an exception will be thrown.
 
-    Scatter2DPtr& bookScatter2D(const std::string& name,
+    void book(Scatter2DPtr & s2d, const string& hname,
                                bool copy_pts=false,
                                const std::string& title="",
                                const std::string& xtitle="",
@@ -613,7 +613,7 @@ namespace Rivet {
     /// meaningful and can't be extracted from the data, then set the @a
     /// copy_pts parameter to true. This creates points to match the reference
     /// data's x values and errors, but with the y values and errors zeroed.
-    Scatter2DPtr& bookScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+    void book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                bool copy_pts=false,
                                const std::string& title="",
                                const std::string& xtitle="",
@@ -622,7 +622,7 @@ namespace Rivet {
     /// @brief Book a 2-dimensional data point set with equally spaced x-points in a range.
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr& bookScatter2D(const std::string& name,
+    void book(Scatter2DPtr & s2d, const string& hname,
                                size_t npts, double lower, double upper,
                                const std::string& title="",
                                const std::string& xtitle="",
@@ -631,7 +631,7 @@ namespace Rivet {
     /// @brief Book a 2-dimensional data point set based on provided contiguous "bin edges".
     ///
     /// The y values and errors will be set to 0.
-    Scatter2DPtr& bookScatter2D(const std::string& hname,
+    void book(Scatter2DPtr & s2d, const string& hname,
                                const std::vector<double>& binedges,
                                const std::string& title,
                                const std::string& xtitle,
