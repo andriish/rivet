@@ -153,10 +153,10 @@ for ANANAME in ANANAMES:
         except Exception, e:
             logging.error("HepData oops: %s" % e)
 
-
+    INLINEMETHODS = ""
     if opts.INLINE:
         KEYWORDS["ANAREFREPO_LOWER"] = KEYWORDS["ANAREFREPO"].lower()
-        INLINEMETHODS="""
+        INLINEMETHODS = """
   public:
     string experiment()         const { return "%(ANAEXPT)s"; }
     string year()               const { return "%(ANAYEAR)s"; }
@@ -173,10 +173,20 @@ for ANANAME in ANANAMES:
     vector<std::string> todos() const { return vector<string>(); }
     """ % KEYWORDS
         del KEYWORDS["ANAREFREPO_LOWER"]
-    else:
-        INLINEMETHODS=""
-
     KEYWORDS["INLINEMETHODS"] = INLINEMETHODS
+
+
+    if ANANAME.startswith("MC_"):
+        HISTOBOOKING = """\
+      _h_XXXX = bookProfile1D("myobs1", 20, 0.0, 100.0);
+      _h_YYYY = bookHisto1D("myobs2", {0.0, 1.0, 2.0, 4.0, 8.0, 16.0}); // or logspace(20, 1e-2, 1e3)
+      _h_ZZZZ = bookCounter("myobs3");""" % KEYWORDS
+    else:
+        HISTOBOOKING = """\
+      _h_XXXX = bookProfile1D(1, 1, 1);
+      _h_YYYY = bookHisto1D(2, 1, 1);
+      _h_ZZZZ = bookCounter(3, 1, 1);""" % KEYWORDS
+    KEYWORDS["HISTOBOOKING"] = HISTOBOOKING
 
 
     ANASRCFILE = os.path.join(ANASRCDIR, ANANAME+".cc")
@@ -209,9 +219,7 @@ namespace Rivet {
       declare(FinalState(Cuts::abseta < 5 && Cuts::pT > 100*MeV), "FS");
 
       // Book histograms
-      _h_XXXX = bookProfile1D(1, 1, 1);
-      _h_YYYY = bookHisto1D(2, 1, 1);
-      _h_ZZZZ = bookCounter(3, 1, 1);
+%(HISTOBOOKING)
 
     }
 
