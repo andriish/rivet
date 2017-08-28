@@ -219,7 +219,7 @@ namespace Rivet {
       declare(FinalState(Cuts::abseta < 5 && Cuts::pT > 100*MeV), "FS");
 
       // Book histograms
-%(HISTOBOOKING)
+%(HISTOBOOKING)s
 
     }
 
