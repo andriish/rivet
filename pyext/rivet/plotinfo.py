@@ -70,12 +70,12 @@ class PlotParser(object):
         for pidir in self.plotpaths:
             plotpath = os.path.join(pidir, plotfile)
             self._readHeadersFromFile(plotpath, ret, section, aop.basepath())
-            # only read from the first file we find, otherwise erroneous attributes 
-            # in dodgy plotinfo files can't be overridden by user
-            if len(ret[section]) > 0:
+            ## Only read from the first file we find, otherwise erroneous attributes
+            ## in dodgy plotinfo files can't be overridden by user
+            if ret[section]: #< neatly excludes both empty dicts and None, used as null defaults above
                 break
 
-        # Also look for further attributes in any user-specified files
+        ## Also look for further attributes in any user-specified files
         for extrafile in self.addfiles:
             self._readHeadersFromFile(extrafile, ret, section, hpath)
         return ret[section]
