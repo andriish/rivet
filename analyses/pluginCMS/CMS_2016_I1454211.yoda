@@ -2,7 +2,7 @@
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d01-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -17,7 +17,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d02-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -32,7 +32,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d03-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -48,7 +48,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d04-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -64,7 +64,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d05-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -79,7 +79,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d06-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -94,7 +94,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d07-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -110,7 +110,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d08-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -126,7 +126,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d09-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -141,7 +141,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d10-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -156,7 +156,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d11-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -172,7 +172,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d12-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -188,7 +188,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d13-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -203,7 +203,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d14-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -218,7 +218,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d15-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -234,7 +234,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d16-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -250,7 +250,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d17-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -265,7 +265,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d18-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -280,7 +280,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d19-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -296,7 +296,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d20-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -312,7 +312,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d21-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -327,7 +327,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d22-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -342,7 +342,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d23-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -358,7 +358,7 @@ Type=Scatter2D
 ErrorBars=1
 LineColor=black
 Path=/REF/CMS_2016_I1454211/d24-x01-y01
-PolyMarker=*
+PolyMarker='*'
 Title=
 Type=Scatter2D
 # xval   xerr-   xerr+   yval    yerr-   yerr+
@@ -369,4 +369,3 @@ Type=Scatter2D
 9.000000e-01    3.000000e-01    3.000000e-01    2.762928e-01    2.213384e-02    2.213384e-02
 1.800000e+00    6.000000e-01    6.000000e-01    5.189510e-02    7.536052e-03    7.536052e-03
 # END YODA_SCATTER2D
-
