@@ -1,5 +1,4 @@
 # BEGIN PLOT /ATLAS_2013_I1190187/d04-x01-y01
-DrawOnly=Rivet_all.yoda/ATLAS_2013_I1190187/d04-x01-y01 /REF/ATLAS_2013_I1190187/d04-x01-y01 
 XLabel=Leading lepton $p_\perp$~[GeV]
 YLabel=1/$\sigma^{fid}_{WW}$ $\times$ d$\sigma^{fid}_{WW}$/d$p_\perp$~[GeV$^{-1}$]
 LogY=0
