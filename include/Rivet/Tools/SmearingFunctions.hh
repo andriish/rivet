@@ -520,10 +520,17 @@ namespace Rivet {
 
 
   /// ATLAS Run 1 jet smearing
-  /// @todo This is a cluster-level flat 3% resolution, I think, and smearing is suboptimal: improve!
   inline Jet JET_SMEAR_ATLAS_RUN1(const Jet& j) {
-    // Const fractional resolution for now
-    static const double resolution = 0.03;
+    // Jet energy resolution lookup
+    //   Implemented by Matthias Danninger for GAMBIT, based roughly on
+    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+    //   Parameterisation can be still improved, but eta dependence is minimal
+    /// @todo Also need a JES uncertainty component?
+    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+    const int ipt = binIndex(j.pT()/GeV, binedges_pt, true);
+    if (ipt < 0) return j;
+    const double resolution = jer->at(ipt);
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
