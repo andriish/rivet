@@ -1,5 +1,7 @@
 2017-09-04  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Change license explicitly to GPLv3, cf. MCnet3 agreement.
+
 	* Add a better jet smearing resolution parametrisation, based on GAMBIT code from Matthias Danninger.
 
 2017-08-16  Andy Buckley  <andy.buckley@cern.ch>
