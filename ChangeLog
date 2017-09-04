@@ -1,3 +1,7 @@
+2017-09-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change license explicitly to GPLv3, cf. MCnet3 agreement.
+
 2016-06-18  Holger Schulz  <holger.schulz@durham.ac.uk>
 
         * Version 2.5.4 release!
