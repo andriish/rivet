@@ -76,8 +76,8 @@ namespace Rivet {
     // Get leptons and find an acceptable invariant mass OSSF pair
     const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
     InvMassFinalState imfs(std::make_pair(_pid, -_pid), _minmass, _maxmass, _masstarget);
-    Particles tmp;
-    tmp.insert(tmp.end(), leptons.dressedLeptons().begin(), leptons.dressedLeptons().end());
+    auto dressed = leptons.dressedLeptons();
+    Particles tmp(dressed.begin(), dressed.end());
     imfs.calc(tmp);
     if (imfs.particlePairs().size() < 1) return;
 
