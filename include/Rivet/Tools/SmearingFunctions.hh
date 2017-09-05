@@ -530,7 +530,7 @@ namespace Rivet {
     static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
     const int ipt = binIndex(j.pT()/GeV, binedges_pt, true);
     if (ipt < 0) return j;
-    const double resolution = jer->at(ipt);
+    const double resolution = jer.at(ipt);
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
