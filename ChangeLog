@@ -1,5 +1,7 @@
 2017-09-05  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add ATLAS_2017_I1598613 J/psi + mu analysis.
+
 	* Add CMS SUSY 0-lepton search CMS_2017_I1594909 (unofficial implementation, validated vs. published cutflows)
 
 2017-09-04  Andy Buckley  <andy.buckley@cern.ch>
