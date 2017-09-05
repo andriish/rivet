@@ -74,6 +74,11 @@ namespace Rivet {
     /// @note Reverse this vector with operator- to get the missing pT vector.
     const Vector3& vectorPt() const { return _vpt; }
 
+    /// Convenience vector MPT function
+    const Vector3 vectorMissingPt() const { return -vectorPt(); }
+    // Alias
+    const Vector3 vectorMPT() const { return vectorMissingPt(); }
+
     /// The vector-summed missing transverse momentum in the event.
     double missingPt() const { return vectorPt().mod(); }
     // /// Alias for missingPt
@@ -94,6 +99,11 @@ namespace Rivet {
     /// The vector-summed visible transverse energy in the event, as a 3-vector with z=0
     /// @note Reverse this vector with operator- to get the missing ET vector.
     const Vector3& vectorEt() const { return _vet; }
+
+    /// Convenience vector MET function
+    const Vector3 vectorMissingEt() const { return -vectorEt(); }
+    // Alias
+    const Vector3 vectorMET() const { return vectorMissingEt(); }
 
     /// The vector-summed missing transverse energy in the event.
     double missingEt() const { return vectorEt().mod(); }
