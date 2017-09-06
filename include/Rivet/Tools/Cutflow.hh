@@ -24,12 +24,22 @@ namespace Rivet {
       counts[0] += weight;
     }
 
-    /// @brief Fill the @a {icut}'th post-cut counter
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut
     ///
     /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
-    bool fill(size_t icut, bool cutresult, double weight=1.) {
-      if (cutresult) counts[icut+1] += weight;
+    bool fill(size_t icut, bool cutresult=true, double weight=1.) {
+      if (cutresult) counts[icut] += weight;
       return cutresult;
+    }
+
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut (cutvalue=true overload)
+    ///
+    /// This version exists to allow calling fill(i, weight) without the weight
+    /// getting cast to a bool, or having to explicitly add a 'true' middle arg.
+    ///
+    /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
+    bool fill(size_t icut, double weight) {
+      return fill(icut, true, weight);
     }
 
     /// @brief Fill all cut-state counters from an Ncut-element results vector
@@ -82,25 +92,29 @@ namespace Rivet {
       ss << fixed << setprecision(1) << counts[0];
       const size_t count0len = ss.str().length();
       ss.str("");
-      ss << name << " cut-flow:";
+      ss << name << " cut-flow:\n";
       size_t maxnamelen = 0;
       for (const string& t : cuts)
         maxnamelen = max(t.length(), maxnamelen);
+      ss << setw(maxnamelen+5) << "" << "   "
+         << setw(count0len) << right << "Count" << "    "
+         << setw(6) << right << "A_cumu" << "    "
+         << setw(6) << right << "A_incr";
       for (size_t i = 0; i <= ncuts; ++i) {
         const int pcttot = (counts[0] == 0) ? -1 : round(100*counts[i]/double(counts[0]));
         const int pctinc = (i == 0 || counts[i-1] == 0) ? -1 : round(100*counts[i]/double(counts[i-1]));
         stringstream ss2;
         ss2 << fixed << setprecision(1) << counts[i];
         const string countstr = ss2.str(); ss2.str("");
-        ss2 << fixed << setprecision(2) << pcttot << "%";
+        ss2 << fixed << setprecision(3) << pcttot << "%";
         const string pcttotstr = ss2.str(); ss2.str("");
-        ss2 << fixed << setprecision(2) << pctinc << "%";
+        ss2 << fixed << setprecision(3) << pctinc << "%";
         const string pctincstr = ss2.str();
         ss << "\n"
            << setw(maxnamelen+5) << left << (i == 0 ? "" : "Pass "+cuts[i-1]) << "   "
            << setw(count0len) << right << countstr << "    "
-           << setw(4) << right << (pcttot < 0 ? "- " : pcttotstr) << "    "
-           << setw(4) << right << (pctinc < 0 ? "- " : pctincstr);
+           << setw(6) << right << (pcttot < 0 ? "- " : pcttotstr) << "    "
+           << setw(6) << right << (pctinc < 0 ? "- " : pctincstr);
       }
       return ss.str();
     }
@@ -167,10 +181,20 @@ namespace Rivet {
       for (Cutflow& cf : cfs) cf.fillinit(weight);
     }
 
-    /// @brief Fill the @a {icut}'th post-cut counter with the same result for all {Cutflow}s
-    bool fill(size_t icut, bool cutresult, double weight=1.) {
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut, with the same result for all {Cutflow}s
+    bool fill(size_t icut, bool cutresult=true, double weight=1.) {
       for (Cutflow& cf : cfs) cf.fill(icut, cutresult, weight);
       return cutresult;
+    }
+
+    /// @brief Fill the @a {icut}'th post-cut counter, starting at icut=1 for first cut, with the same result for all {Cutflow}s (cutresult=true overload)
+    ///
+    /// This version exists to allow calling fill(i, weight) without the weight
+    /// getting cast to a bool, or having to explicitly add a 'true' middle arg.
+    ///
+    /// @note Returns the cut result to allow 'side-effect' cut-flow filling in an if-statement
+    bool fill(size_t icut, double weight) {
+      return fill(icut, true, weight);
     }
 
     /// @todo Add a fillnext(), keeping track of current ifill

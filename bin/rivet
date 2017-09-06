@@ -4,9 +4,14 @@
 Run Rivet analyses on inputted events from file or Unix pipe
 
 Examples:
+
   %prog [options] <hepmcfile> [<hepmcfile2> ...]
-  my_generator -o myfifo & \ %prog [options] myfifo
-  agile-runmc <genname> -n 100k -o- | %prog [options]
+
+  or
+
+  my_generator -o fifo.hepmc &
+  %prog [options] fifo.hepmc
+
 
 ENVIRONMENT:
  * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
@@ -263,20 +268,16 @@ if len(opts.SHOW_ANALYSES) > 0:
         if ana.inspireId():
             msg += "Inspire ID: " + ana.inspireId() + "\n"
             msg += "Inspire URL: http://inspire-hep.net/record/" + ana.inspireId() + "\n"
-            msg += "HepData URL: http://hepdata.cedar.ac.uk/view/ins" + ana.inspireId() + "\n"
+            msg += "HepData URL: http://hepdata.net/record/ins" + ana.inspireId() + "\n"
         elif ana.spiresId():
             msg += "Spires ID: " + ana.spiresId() + "\n"
             msg += "Inspire URL: http://inspire-hep.net/search?p=find+key+" + ana.spiresId() + "\n"
             msg += "HepData URL: http://hepdata.cedar.ac.uk/view/irn" + ana.spiresId() + "\n"
 
-        if ana.experiment():
-            msg += "Experiment: " + ana.experiment()
-            if ana.collider():
-                msg += "(%s)" % ana.collider()
-            msg += "\n"
-
         if ana.year():
             msg += "Year of publication: " + ana.year() + "\n"
+        if ana.bibKey():
+            msg += "BibTeX key: " + ana.bibKey() + "\n"
 
         msg += "Authors:\n"
         for a in ana.authors():
@@ -287,6 +288,11 @@ if len(opts.SHOW_ANALYSES) > 0:
         twrap = textwrap.TextWrapper(width=75, initial_indent=2*" ", subsequent_indent=2*" ")
         msg += twrap.fill(rivet.util.detex(ana.description())) + "\n\n"
 
+        if ana.experiment():
+            msg += "Experiment: " + ana.experiment()
+            if ana.collider():
+                msg += "(%s)" % ana.collider()
+            msg += "\n"
         # TODO: move this formatting into Analysis or a helper function?
         if ana.requiredBeams():
             def pid_to_str(pid):
@@ -328,7 +334,7 @@ if len(opts.SHOW_ANALYSES) > 0:
             msg+= "\n\n"
 
         if ana.references():
-            msg += "\n" + "References:"
+            msg += "\n" + "References:\n"
             for r in ana.references():
                 url = None
                 if r.startswith("arXiv:"):

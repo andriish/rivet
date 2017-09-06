@@ -8,7 +8,8 @@ namespace Rivet {
 
 
   /// @brief Convenience finder of unstable taus
-  /// @todo Inherit directly from ParticleFinder, not FinalState
+  ///
+  /// @todo Convert to a general ParticleFinder, since it's not a true final state? Needs some care...
   class TauFinder : public FinalState {
   public:
 
@@ -26,9 +27,7 @@ namespace Rivet {
 
     TauFinder(DecayType decaytype, const Cut& cut=Cuts::open()) {
       setName("TauFinder");
-      //_theParticles.clear();
-      _dectype=decaytype;
-      //cout << "Init tf with "<< _dectype << endl;
+      _dectype = decaytype;
       addProjection(UnstableFinalState(cut), "UFS");
     }
 

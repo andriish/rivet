@@ -21,7 +21,7 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
-    foreach (const Particle& p, fs.particles()) {
+    for (const Particle& p : fs.particles()) {
       if (getLog().isActive(Log::TRACE)) {
         vector<long> codes;
         for (VetoDetails::const_iterator code = _vetoCodes.begin(); code != _vetoCodes.end(); ++code) {
@@ -104,13 +104,13 @@ namespace Rivet {
 
     // Remove particles whose parents match entries in the parent veto PDG ID codes list
     /// @todo There must be a nice way to do this -- an STL algorithm (or we provide a nicer wrapper)
-    foreach (PdgId vetoid, _parentVetoes) {
+    for (PdgId vetoid : _parentVetoes) {
       for (Particles::iterator ip = _theParticles.begin(); ip != _theParticles.end(); ++ip) {
         const GenVertex* startVtx = ip->genParticle()->production_vertex();
         if (startVtx == NULL) continue;
         // Loop over parents and test their IDs
         /// @todo Could use any() here?
-        foreach (const GenParticle* parent, Rivet::particles(startVtx, HepMC::ancestors)) {
+        for (const GenParticle* parent : Rivet::particles(startVtx, HepMC::ancestors)) {
           if (vetoid == parent->pdg_id()) {
             ip = _theParticles.erase(ip); --ip; //< Erase this _theParticles entry
             break;
@@ -119,28 +119,36 @@ namespace Rivet {
       }
     }
 
-    // Now veto on the FS
-    foreach (const string& ifs, _vetofsnames) {
-      const FinalState& vfs = applyProjection<FinalState>(e, ifs);
-      const Particles& vfsp = vfs.particles();
-      for (Particles::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck) {
-        if (icheck->genParticle() == NULL) continue;
-        bool found = false;
-        for (Particles::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
-          if (ipart->genParticle() == NULL) continue;
-          MSG_TRACE("Comparing barcode " << icheck->genParticle()->barcode()
-                   << " with veto particle " << ipart->genParticle()->barcode());
-          if (ipart->genParticle()->barcode() == icheck->genParticle()->barcode()){
-            found = true;
-            break;
+    // Finally veto on the registered FSes
+    /// @todo Are barcodes robust? Do we need to insist on valid GenParticle ptrs?
+    for (const string& ifs : _vetofsnames) {
+      const ParticleFinder& vfs = applyProjection<ParticleFinder>(e, ifs);
+      const Particles& pvetos = vfs.rawParticles();
+      ifilter_discard(_theParticles, [&](const Particle& pcheck) {
+          if (pcheck.genParticle() == nullptr) return false;
+          for (const Particle& pveto : pvetos) {
+            if (pveto.genParticle() == nullptr) continue;
+            if (pveto.genParticle() == pcheck.genParticle()) return true;
           }
-        }
-        if (found) {
-          _theParticles.erase(icheck);
-          --icheck;
-        }
-      }
+          return false;
+        });
     }
+
+    // ORIGINAL
+    // for (const Particle& pcheck : _theParticles) {
+    //   if (pcheck.genParticle() == nullptr) continue;
+    //   bool found = false;
+    //   for (const Particle& pveto : pvetos) {
+    //     if (pveto.genParticle() == nullptr) continue;
+    //     // MSG_TRACE("Comparing barcode " << pcheck.genParticle()->barcode() << " with veto particle " << pveto.genParticle()->barcode());
+    //     // if (pveto.genParticle()->barcode() == pveto.genParticle()->barcode()) { found = true; break; } //< barcode comparison
+    //     if (pveto.genParticle() == pcheck.genParticle()) { found = true; break; } //< pointer comparison
+    //   }
+    //   if (found) {
+    //     _theParticles.erase(icheck);
+    //     --icheck;
+    //   }
+    // }
   }
 
 

@@ -6,6 +6,7 @@
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
+#include "YODA/ReaderYODA.h"
 #include "YODA/WriterYODA.h"
 #include <regex>
 
@@ -139,7 +140,7 @@ namespace Rivet {
     for(std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
                           i != std::sregex_iterator(); ++i ) {
       std::smatch m = *i;
-      vector<string> temp = split(m.str(), "[,]");
+      vector<string> temp = ::split(m.str(), "[,]");
       if (temp.size() ==2) {
         MSG_DEBUG("Name of weight #" << _weightNames.size() << ": " << temp[0]);
         _weightNames.push_back(temp[0]);
@@ -153,15 +154,18 @@ namespace Rivet {
     if (!_initialised) init(ge);
     assert(_initialised);
 
-    // Ensure that beam details match those from the first event
-    const PdgIdPair beams = Rivet::beamIds(ge);
-    const double sqrts = Rivet::sqrtS(ge);
-    if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
-      cerr << "Event beams mismatch: "
-           << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-           << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
-      exit(1);
+    // Ensure that beam details match those from the first event (if we're checking beams)
+    if ( !_ignoreBeams ) {
+      const PdgIdPair beams = Rivet::beamIds(ge);
+      const double sqrts = Rivet::sqrtS(ge);
+      if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
+        cerr << "Event beams mismatch: "
+             << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
+             << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+        exit(1);
+      }
     }
+
 
     // Create the Rivet event wrapper
     /// @todo Filter/normalize the event here
@@ -321,6 +325,43 @@ namespace Rivet {
   }
 
 
+
+
+
+  void AnalysisHandler::addData(const std::vector<YODA::AnalysisObjectPtr>& aos) {
+    for (const YODA::AnalysisObjectPtr ao : aos) {
+      const string path = ao->path();
+      if (path.size() > 1) { // path > "/"
+        try {
+          const string ananame =  ::split(path, "/")[0];
+          AnaHandle a = analysis(ananame);
+          //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao 
+          //a->addAnalysisObject(mao); /// @todo Need to statistically merge...
+        } catch (const Error& e) {
+          MSG_WARNING(e.what());
+        }
+      }
+    }
+  }
+
+  void AnalysisHandler::readData(const string& filename) {
+    vector<YODA::AnalysisObjectPtr> aos;
+    try {
+      /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
+      vector<YODA::AnalysisObject*> aos_raw;
+      YODA::ReaderYODA::read(filename, aos_raw);
+      for (YODA::AnalysisObject* aor : aos_raw) aos.push_back(YODA::AnalysisObjectPtr(aor));
+    } catch (const YODA::ReadError & e) {
+      throw UserError("Unexpected error in reading file: " + filename);
+    }
+    if (!aos.empty()) addData(aos);
+  }
+
+
+
+
+
+
   vector<reference_wrapper<MultiweightAOPtr> > AnalysisHandler::getRivetAOs() const {
       vector<reference_wrapper<MultiweightAOPtr> > rtn;
 
@@ -386,7 +427,7 @@ namespace Rivet {
     try {
       YODA::WriterYODA::write(filename, aos.begin(), aos.end());
     } catch ( YODA::WriteError ) {
-      throw UserError("Unexpected error in writing file to: " + filename);
+      throw UserError("Unexpected error in writing file: " + filename);
     }
   }
 

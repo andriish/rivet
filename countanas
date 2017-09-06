@@ -1,9 +1,7 @@
 #! /usr/bin/env bash
 
-ANADIR=src/Analyses
-
 for t in $(hg tags | cut -d" " -f1 | sort -r); do
     epoch=$(hg parent --rev $t -T "{date}")
-    nanas=$(hg st -n --rev 0 --rev $t $ANADIR/*.cc | wc -w)
+    nanas=$(hg st -n --rev 0 --rev $t analyses/ src/Analyses/ | grep '.cc' | wc -w)
     echo "$t $epoch $nanas"
 done

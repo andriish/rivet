@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libRivetTools.la
 libRivetTools_la_SOURCES = \
   Cuts.cc \
   JetUtils.cc \
+  Random.cc \
   Logging.cc \
   ParticleUtils.cc \
   ParticleName.cc \

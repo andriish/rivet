@@ -2,131 +2,11 @@
 #ifndef RIVET_SmearingFunctions_HH
 #define RIVET_SmearingFunctions_HH
 
-#include "Rivet/Particle.hh"
-#include "Rivet/Jet.hh"
-#include <random>
+#include "Rivet/Tools/MomentumSmearingFunctions.hh"
+#include "Rivet/Tools/ParticleSmearingFunctions.hh"
+#include "Rivet/Tools/JetSmearingFunctions.hh"
 
 namespace Rivet {
-
-
-  /// @name Random number and filtering utils
-  //@{
-
-  /// Return a uniformly sampled random number between 0 and 1
-  /// @todo Where is it seeded?! Default = by timestamp?!
-  /// @todo Move to (math?)utils
-  /// @todo Need to isolate random generators to a single thread
-  inline double rand01() {
-    //return rand() / (double)RAND_MAX;
-    static random_device rd;
-    static mt19937 gen(rd());
-    return generate_canonical<double, 10>(gen);
-  }
-
-  /// Return true if Particle @a p is chosen to survive a random efficiency selection
-  template <typename FN>
-  inline bool efffilt(const Particle& p, FN& feff) {
-    return rand01() < feff(p);
-  }
-  /// Return true if Jet @a j is chosen to survive a random efficiency selection
-  template <typename FN>
-  inline bool efffilt(const Jet& j, FN& feff) {
-    return rand01() < feff(j);
-  }
-
-  /// A functor to return true if Particle @a p survives a random efficiency selection
-  struct ParticleEffFilter {
-    template <typename FN>
-    ParticleEffFilter(const FN& feff) : _feff(feff) {}
-    bool operator () (const Particle& p)  const { return efffilt(p, _feff); }
-  private:
-    const std::function<bool(const Particle&)> _feff;
-  };
-  using particleEffFilter = ParticleEffFilter;
-
-  /// A functor to return true if Jet @a j survives a random efficiency selection
-  struct JetEffFilter {
-    template <typename FN>
-    JetEffFilter(const FN& feff) : _feff(feff) {}
-    bool operator () (const Jet& j) const { return efffilt(j, _feff); }
-  private:
-    const std::function<bool(const Jet&)> _feff;
-  };
-  using jetEffFilter = JetEffFilter;
-
-  //@}
-
-
-  /// @name General particle & momentum efficiency and smearing functions
-  //@{
-
-  /// Take a Particle and return 0
-  inline double PARTICLE_FN0(const Particle& p) { return 0; }
-  /// Take a Particle and return 1
-  inline double PARTICLE_FN1(const Particle& p) { return 1; }
-  /// Take a Particle and return it unmodified
-  inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
-
-
-  /// Take a FourMomentum and return 0
-  inline double P4_FN0(const FourMomentum& p) { return 0; }
-  /// Take a FourMomentum and return 1
-  inline double P4_FN1(const FourMomentum& p) { return 1; }
-  /// Take a FourMomentum and return it unmodified
-  inline FourMomentum P4_SMEAR_IDENTITY(const FourMomentum& p) { return p; }
-
-  /// Smear a FourMomentum's energy using a Gaussian of absolute width @a resolution
-  /// @todo Also make jet versions that update/smear constituents?
-  inline FourMomentum P4_SMEAR_E_GAUSS(const FourMomentum& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.E(), resolution);
-    const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
-    const double smeared_E = max(d(gen), mass); //< can't let the energy go below the mass!
-    return FourMomentum::mkEtaPhiME(p.eta(), p.phi(), mass, smeared_E);
-  }
-
-  /// Smear a FourMomentum's transverse momentum using a Gaussian of absolute width @a resolution
-  inline FourMomentum P4_SMEAR_PT_GAUSS(const FourMomentum& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.pT(), resolution);
-    const double smeared_pt = max(d(gen), 0.);
-    const double mass = p.mass2() > 0 ? p.mass() : 0; //< numerical carefulness...
-    return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), mass, smeared_pt);
-  }
-
-  /// Smear a FourMomentum's mass using a Gaussian of absolute width @a resolution
-  inline FourMomentum P4_SMEAR_MASS_GAUSS(const FourMomentum& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.mass(), resolution);
-    const double smeared_mass = max(d(gen), 0.);
-    return FourMomentum::mkEtaPhiMPt(p.eta(), p.phi(), smeared_mass, p.pT());
-  }
-
-
-  /// Take a Vector3 and return 0
-  inline double P3_FN0(const Vector3& p) { return 0; }
-  /// Take a Vector3 and return 1
-  inline double P3_FN1(const Vector3& p) { return 1; }
-  /// Take a Vector3 and return it unmodified
-  inline Vector3 P3_SMEAR_IDENTITY(const Vector3& p) { return p; }
-
-  /// Smear a Vector3's length using a Gaussian of absolute width @a resolution
-  inline Vector3 P3_SMEAR_LEN_GAUSS(const Vector3& p, double resolution) {
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(p.mod(), resolution);
-    const double smeared_mod = max(d(gen), 0.); //< can't let the energy go below the mass!
-    return smeared_mod * p.unit();
-  }
-
-  //@}
 
 
   /// @name Electron efficiency and smearing functions
@@ -566,11 +446,7 @@ namespace Rivet {
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(1., resolution);
-    const double fsmear = max(d(gen), 0.);
+    const double fsmear = max(randnorm(1., resolution), 0.);
     const double mass = t.mass2() > 0 ? t.mass() : 0; //< numerical carefulness...
     return Particle(t.pid(), FourMomentum::mkXYZM(t.px()*fsmear, t.py()*fsmear, t.pz()*fsmear, mass));
   }
@@ -614,16 +490,10 @@ namespace Rivet {
   //@}
 
 
+
   /// @name Jet efficiency and smearing functions
   //@{
 
-  /// Return a constant 0 given a Jet as argument
-  inline double JET_EFF_ZERO(const Jet& p) { return 0; }
-  /// Return a constant 1 given a Jet as argument
-  inline double JET_EFF_ONE(const Jet& p) { return 1; }
-
-  /// Return 1 if the given Jet contains a b, otherwise 0
-  inline double JET_BTAG_PERFECT(const Jet& j) { return j.bTagged() ? 1 : 0; }
   /// Return the ATLAS Run 1 jet flavour tagging efficiency for the given Jet
   inline double JET_BTAG_ATLAS_RUN1(const Jet& j) {
     /// @todo This form drops past ~100 GeV, asymptotically to zero efficiency... really?!
@@ -648,27 +518,23 @@ namespace Rivet {
     return 1/134.;
   }
 
-  /// Return 1 if the given Jet contains a c, otherwise 0
-  inline double JET_CTAG_PERFECT(const Jet& j) { return j.cTagged() ? 1 : 0; }
-
-  /// Take a jet and return an unmodified copy
-  /// @todo Modify constituent particle vectors for consistency
-  /// @todo Set a null PseudoJet if the Jet is smeared?
-  inline Jet JET_SMEAR_IDENTITY(const Jet& j) { return j; }
 
   /// ATLAS Run 1 jet smearing
-  /// @todo This is a cluster-level flat 3% resolution, I think, and smearing is suboptimal: improve!
   inline Jet JET_SMEAR_ATLAS_RUN1(const Jet& j) {
-    // Const fractional resolution for now
-    static const double resolution = 0.03;
+    // Jet energy resolution lookup
+    //   Implemented by Matthias Danninger for GAMBIT, based roughly on
+    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+    //   Parameterisation can be still improved, but eta dependence is minimal
+    /// @todo Also need a JES uncertainty component?
+    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+    const int ipt = binIndex(j.pT()/GeV, binedges_pt, true);
+    if (ipt < 0) return j;
+    const double resolution = jer.at(ipt);
 
     // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
-    /// @todo Need to isolate random generators to a single thread
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(1., resolution);
-    const double fsmear = max(d(gen), 0.);
+    const double fsmear = max(randnorm(1., resolution), 0.);
     const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
     return Jet(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
   }
@@ -705,10 +571,7 @@ namespace Rivet {
 
     // Smear by a Gaussian with width given by the resolution(sumEt) ~ 0.45 sqrt(sumEt) GeV
     const double resolution = 0.45 * sqrt(set/GeV) * GeV;
-    static random_device rd;
-    static mt19937 gen(rd());
-    normal_distribution<> d(smeared_met.mod(), resolution);
-    const double metsmear = max(d(gen), 0.);
+    const double metsmear = max(randnorm(smeared_met.mod(), resolution), 0.);
     smeared_met = metsmear * smeared_met.unit();
 
     return smeared_met;
@@ -754,11 +617,17 @@ namespace Rivet {
         if (p.pT() < 100*GeV) return 0.83;
         else return 0.90;
       }
-    } else { // muons and hadrons
+    } else if (p.abspid() == PID::MUON) {
       if (p.abseta() < 1.5) {
         return (p.pT() < 1*GeV) ? 0.75 : 0.99;
       } else {
         return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    } else { // charged hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
       }
     }
   }
@@ -778,15 +647,25 @@ namespace Rivet {
 
     if (p.abspid() == PID::ELECTRON) {
       if (p.abseta() < 1.5) {
-        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+        if (p.pT() < 1*GeV) return 0.73;
+        if (p.pT() < 100*GeV) return 0.95;
+        return 0.99;
       } else {
-        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
+        if (p.pT() < 1*GeV) return 0.50;
+        if (p.pT() < 100*GeV) return 0.83;
+        else return 0.90;
       }
-    } else { // muons and hadrons
+    } else if (p.abspid() == PID::MUON) {
       if (p.abseta() < 1.5) {
         return (p.pT() < 1*GeV) ? 0.75 : 0.99;
       } else {
         return (p.pT() < 1*GeV) ? 0.70 : 0.98;
+      }
+    } else { // charged hadrons
+      if (p.abseta() < 1.5) {
+        return (p.pT() < 1*GeV) ? 0.70 : 0.95;
+      } else {
+        return (p.pT() < 1*GeV) ? 0.60 : 0.85;
       }
     }
   }

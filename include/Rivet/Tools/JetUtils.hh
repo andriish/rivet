@@ -34,6 +34,74 @@ namespace Rivet {
   //@}
 
 
+  /// @name Jet classifier -> bool functors
+  //@{
+
+  /// std::function instantiation for functors taking a Jet and returning a bool
+  using JetSelector = function<bool(const Jet&)>;
+  /// std::function instantiation for functors taking two Jets and returning a bool
+  using JetSorter = function<bool(const Jet&, const Jet&)>;
+
+
+  /// Base type for Jet -> bool functors
+  struct BoolJetFunctor {
+    virtual bool operator()(const Jet& p) const = 0;
+  };
+
+  struct BoolJetAND : public BoolJetFunctor {
+    BoolJetAND(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
+    BoolJetAND(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
+    BoolJetAND(const ParticleSelector& a, const ParticleSelector& b, const ParticleSelector& c) : selectors({a,b,c}) {}
+    bool operator()(const Particle& p) const {
+      for (const ParticleSelector& sel : selectors) if (!sel(p)) return false;
+      return true;
+    }
+    std::vector<ParticleSelector> selectors;
+  };
+
+  struct BoolJetOR : public BoolJetFunctor {
+    BoolJetOR(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
+    BoolJetOR(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
+    BoolJetOR(const ParticleSelector& a, const ParticleSelector& b, const ParticleSelector& c) : selectors({a,b,c}) {}
+    bool operator()(const Particle& p) const {
+      for (const ParticleSelector& sel : selectors) if (sel(p)) return true;
+      return false;
+    }
+    std::vector<ParticleSelector> selectors;
+  };
+
+  struct BoolJetNOT : public BoolJetFunctor {
+    BoolJetNOT(const ParticleSelector& sel) : selector(sel) {}
+    bool operator()(const Particle& p) const { return !selector(p); }
+    ParticleSelector selector;
+  };
+
+
+
+
+  /// B-tagging functor, with a tag selection cut as the stored state
+  struct HasBTag : BoolJetFunctor {
+    HasBTag(const Cut& c=Cuts::open()) : cut(c) {}
+    // HasBTag(const std::function<bool(const Jet& j)>& f) : selector(f) {}
+    bool operator() (const Jet& j) const { return j.bTagged(cut); }
+    // const std::function<bool(const Jet& j)> selector;
+    const Cut cut;
+  };
+  using hasBTag = HasBTag;
+
+  /// C-tagging functor, with a tag selection cut as the stored state
+  struct HasCTag : BoolJetFunctor {
+    HasCTag(const Cut& c=Cuts::open()) : cut(c) {}
+    // HasCTag(const std::function<bool(const Jet& j)>& f) : selector(f) {}
+    bool operator() (const Jet& j) const { return j.cTagged(cut); }
+    // const std::function<bool(const Jet& j)> selector;
+    const Cut cut;
+  };
+  using hasCTag = HasCTag;
+
+  //@}
+
+
   /// @name Unbound functions for filtering jets
   //@{
 
@@ -78,6 +146,35 @@ namespace Rivet {
   }
 
   //@}
+
+
+
+  /// @name Operations on collections of Jet
+  /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
+  //@{
+  namespace Kin {
+
+    inline double sumPt(const Jets& js) {
+      return sum(js, pT, 0.0);
+    }
+
+    inline FourMomentum sumP4(const Jets& js) {
+      return sum(js, p4, FourMomentum());
+    }
+
+    inline Vector3 sumP3(const Jets& js) {
+      return sum(js, p3, Vector3());
+    }
+
+    /// @todo Min dPhi, min dR?
+    /// @todo Isolation routines?
+
+  }
+  //@}
+
+
+  // Import Kin namespace into Rivet
+  using namespace Kin;
 
 
 }

@@ -47,6 +47,9 @@ namespace Rivet {
     /// @name Major event properties
     //@{
 
+    /// The generated event obtained from an external event generator
+    const GenEvent* genEvent() const { return &_genevent; }
+
     /// Get the beam particles
     ParticlePair beams() const;
 
@@ -56,14 +59,20 @@ namespace Rivet {
     /// Get the beam centre-of-mass energy per nucleon
     double asqrtS() const;
 
+    /// Get the generator centrality (impact-parameter quantile in [0,1]; or -1 if undefined (usual for non-HI generators))
+    double centrality() const;
+
     // /// Get the boost to the beam centre-of-mass
     // Vector3 beamCMSBoost() const;
 
     // /// Get the boost to the beam centre-of-mass
     // LorentzTransform beamCMSTransform();
 
-    /// The generated event obtained from an external event generator
-    const GenEvent* genEvent() const { return &_genevent; }
+    //@}
+
+
+    /// @name Access to event particles
+    //@{
 
     /// All the raw GenEvent particles, wrapped in Rivet::Particle objects
     const Particles& allParticles() const;
@@ -92,7 +101,6 @@ namespace Rivet {
     /// @brief Obsolete weight method. Always returns 1 now.
     DEPRECATED("Event weight does not need to be included anymore. For compatibility, it's always == 1 now.")
     double weight() const { return 1.0; }
-
     //@}
 
 

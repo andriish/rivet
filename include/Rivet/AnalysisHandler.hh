@@ -186,6 +186,12 @@ namespace Rivet {
     /// @name Histogram / data object access
     //@{
 
+    /// Add a vector of analysis objects to the current state.
+    void addData(const std::vector<YODA::AnalysisObjectPtr>& aos);
+
+    /// Read analysis plots into the histo collection (via addData) from the named file.
+    void readData(const std::string& filename);
+
     /// Get all analyses' plots as a vector of analysis objects.
     std::vector<YODA::AnalysisObjectPtr> getData() const;
     std::vector<reference_wrapper<MultiweightAOPtr> > getRivetAOs() const;
@@ -198,7 +204,7 @@ namespace Rivet {
     bool haveNamedWeights();
 
 
-    /// Write all analyses' plots to the named file.
+    /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
 
     //@}
@@ -237,6 +243,7 @@ namespace Rivet {
     /// Current event number
     int _eventNumber;
     //@}
+
 
   private:
 

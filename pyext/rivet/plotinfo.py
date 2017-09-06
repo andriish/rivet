@@ -63,22 +63,19 @@ class PlotParser(object):
         except:
             print "Found analysis object with non-standard path structure:", hpath, "... skipping"
             return None
-        # TODO: needed?
-        # if len(parts) == 1:
-        #     parts.insert(0, "ANALYSIS")
-        # TODO: why only taking the last 2 parts?
-        # hpath = "/" + "/".join(aop.basepathparts[-2:])
 
         ## Assemble the list of headers from any matching plotinfo paths and additional style files
         plotfile = aop.basepathparts()[0] + ".plot"
         ret = {'PLOT': {}, 'SPECIAL': None, 'HISTOGRAM': {}}
         for pidir in self.plotpaths:
             plotpath = os.path.join(pidir, plotfile)
-            # self._readHeadersFromFile(plotpath, ret, section, hpath)
             self._readHeadersFromFile(plotpath, ret, section, aop.basepath())
-            ## Don't break here: we can collect settings from multiple .plot files
-            # TODO: So the *last* path wins? Hmm... reverse the loop order?
-        # TODO: Also, is it good that the user-specific extra files override the official ones? Depends on the point of the extra files...
+            ## Only read from the first file we find, otherwise erroneous attributes
+            ## in dodgy plotinfo files can't be overridden by user
+            if ret[section]: #< neatly excludes both empty dicts and None, used as null defaults above
+                break
+
+        ## Also look for further attributes in any user-specified files
         for extrafile in self.addfiles:
             self._readHeadersFromFile(extrafile, ret, section, hpath)
         return ret[section]

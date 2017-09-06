@@ -1,0 +1,44 @@
+Name: CMS_2017_I1467451
+Year: 2017
+Summary:  $H \to W^+ W^-$ to oppositely $e$-$\mu$ pair in 8~\TeV $pp$ collisions
+Experiment: CMS
+Collider: LHC
+InspireID: 1467451
+Status: VALIDATED
+Authors:
+ - Lorenzo Viliani lorenzo.viliani@cern.ch
+References:
+- 'JHEP 1703 (2017) 032, 2017'
+- 'DOI:10.1007/JHEP03(2017)032'
+- 'arXiv:1606.01522'
+- 'CMS-HIG-15-010'
+RunInfo: H->WW->lvlv, both ggH and XH (VBF anf VH) productions modes are included
+Beams: [p+, p+]
+Energies: [8000]
+Description:
+The fiducial region is defined at particle level (using Born level leptons) as:
+ - emununu, leptons are required not to originate from leptonic tau decays
+ - leading lepton pT > 20 GeV
+ - subleading lepton pT > 10 GeV
+ - psudorapidity of electrons and muons |eta| < 2.5
+ - Invariant mass of the two charged leptons mll > 12 GeV
+ - Charged lepton pair pT > 30 GeV
+ - Invariant mass of the leptonic system in the transverse plane mT(emununu) > 50 GeV
+BibKey: Khachatryan:2016vnn
+BibTeX: '@article{Khachatryan:2016vnn,
+      author         = "Khachatryan, Vardan and others",
+      title          = "{Measurement of the transverse momentum spectrum of the
+                        Higgs boson produced in pp collisions at $ \sqrt{s}=8 $
+                        TeV using $H \to WW$ decays}",
+      collaboration  = "CMS",
+      journal        = "JHEP",
+      volume         = "03",
+      year           = "2017",
+      pages          = "032",
+      doi            = "10.1007/JHEP03(2017)032",
+      eprint         = "1606.01522",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "CMS-HIG-15-010, CERN-EP-2016-125",
+      SLACcitation   = "%%CITATION = ARXIV:1606.01522;%%"
+}'

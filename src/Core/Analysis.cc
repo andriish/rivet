@@ -174,23 +174,6 @@ namespace Rivet {
   }
 
 
-  const Scatter2D& Analysis::refData(const string& hname) const {
-    _cacheRefData();
-    MSG_TRACE("Using histo bin edges for " << name() << ":" << hname);
-    if (!_refdata[hname]) {
-      MSG_ERROR("Can't find reference histogram " << hname);
-      throw Exception("Reference data " + hname + " not found.");
-    }
-    return dynamic_cast<Scatter2D&>(*_refdata[hname]);
-  }
-
-
-  const Scatter2D& Analysis::refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
-    return refData(hname);
-  }
-
-
   void Analysis::book(CounterPtr & ctr,
                       const string& cname,
                       const string& title) {
@@ -226,6 +209,27 @@ namespace Rivet {
 
     addAnalysisObject(histo);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
+//    Histo1DPtr hist;
+//    try { // try to bind to pre-existing
+//      // AnalysisObjectPtr ao = getAnalysisObject(path);
+//      // hist = dynamic_pointer_cast<Histo1D>(ao);
+//      hist = getHisto1D(hname);
+//      /// @todo Test that cast worked
+//      /// @todo Also test that binning is as expected?
+//      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
+//    } catch (...) { // binding failed; make it from scratch
+//      hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
+//      addAnalysisObject(hist);
+//      MSG_TRACE("Made histogram " << hname <<  " for " << name());
+//    }
+  }
+
+  void Analysis::book(Histo1DPtr & histo, const string& hname,
+                                   const initializer_list<double>& binedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle) {
+  	book(histo, hname, vector<double>{binedges}, title, xtitle, ytitle);
   }
 
   void Analysis::book(Histo1DPtr & histo, const string& hname,
@@ -234,7 +238,19 @@ namespace Rivet {
                                    const string& xtitle,
                                    const string& ytitle) {
     const string path = histoPath(hname);
-
+//    Histo1DPtr hist;
+//    try { // try to bind to pre-existing
+//      // AnalysisObjectPtr ao = getAnalysisObject(path);
+//      // hist = dynamic_pointer_cast<Histo1D>(ao);
+//      hist = getHisto1D(hname);
+//      /// @todo Test that cast worked
+//      /// @todo Also test that binning is as expected?
+//      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
+//    } catch (...) { // binding failed; make it from scratch
+//      hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
+//      addAnalysisObject(hist);
+//      MSG_TRACE("Made histogram " << hname <<  " for " << name());
+//    }
     Histo1D hist = Histo1D(binedges, path, title);
 
     hist.setAnnotation("XLabel", xtitle);
@@ -254,6 +270,20 @@ namespace Rivet {
                                    const string& xtitle,
                                    const string& ytitle) {
     const string path = histoPath(hname);
+//    Histo1DPtr hist;
+//    try { // try to bind to pre-existing
+//      // AnalysisObjectPtr ao = getAnalysisObject(path);
+//     // hist = dynamic_pointer_cast<Histo1D>(ao);
+//      hist = getHisto1D(hname);
+//      /// @todo Test that cast worked
+//      /// @todo Also test that binning is as expected?
+//      MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
+//    } catch (...) { // binding failed; make it from scratch
+//      hist = make_shared<Histo1D>(refscatter, histoPath(hname));
+//      if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
+//      addAnalysisObject(hist);
+//	MSG_TRACE("Made histogram " << hname <<  " for " << name());
+//    }
     Histo1D hist = Histo1D(refscatter, path);
 
     hist.setTitle(title);
@@ -313,6 +343,17 @@ namespace Rivet {
 
 
   void Analysis::book(Histo2DPtr & h2d,const string& hname,
+                                   const initializer_list<double>& xbinedges,
+                                   const initializer_list<double>& ybinedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle)
+  {
+  	book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
+  }
+
+  void Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    const vector<double>& xbinedges,
                                    const vector<double>& ybinedges,
                                    const string& title,
@@ -353,6 +394,14 @@ namespace Rivet {
 
 
   void Analysis::book(Profile1DPtr & p1d,const string& hname,
+                                       const initializer_list<double>& binedges,
+                                       const string& title,
+                                       const string& xtitle,
+                                       const string& ytitle) {
+  	book(p1d, hname, vector<double>{binedges}, title, xtitle, ytitle);
+  }
+
+  void Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const vector<double>& binedges,
                                        const string& title,
                                        const string& xtitle,
@@ -384,6 +433,7 @@ namespace Rivet {
     addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
+//    if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
   }
 
 
@@ -427,6 +477,17 @@ namespace Rivet {
 
 
   void Analysis::book(Profile2DPtr & p2d, const string& hname,
+                                   const initializer_list<double>& xbinedges,
+                                   const initializer_list<double>& ybinedges,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle)
+  {
+  	book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
+  }
+
+  void Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const vector<double>& xbinedges,
                                    const vector<double>& ybinedges,
                                    const string& title,
@@ -467,7 +528,7 @@ namespace Rivet {
     if (copy_pts) {
       const Scatter2D& refdata = refData(hname);
       scat = Scatter2D(refdata, path);
-      foreach (Point2D& p, scat.points()) p.setY(0, 0);
+      for (Point2D& p : scat.points()) p.setY(0, 0);
     } else {
       scat = Scatter2D(path);
     }
@@ -480,6 +541,7 @@ namespace Rivet {
     addAnalysisObject(s2d);
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
+//    if (scat.hasAnnotation("IsRef")) scat.rmAnnotation("IsRef");
   }
 
 
@@ -749,6 +811,7 @@ namespace Rivet {
     _analysisobjects.push_back(ao);
   }
 
+
   void Analysis::removeAnalysisObject(const string& path) {
     for (auto it = _analysisobjects.begin();
          it != _analysisobjects.end(); ++it) {
@@ -765,6 +828,7 @@ namespace Rivet {
       }
     }
   }
+
 
   /// @todo can we really remove (multiweighted) analysis objects by == operator??
   void Analysis::removeAnalysisObject(const Scatter1DPtr& ao) {

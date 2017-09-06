@@ -12,7 +12,9 @@ namespace Rivet {
   void MissingMomentum::clear() {
     _momentum = FourMomentum();
     _set = 0.0;
+    _spt = 0.0;
     _vet = Vector3();
+    _vpt = Vector3();
   }
 
 

@@ -119,6 +119,7 @@ namespace Rivet {
     double lambda3() const { return _lambdas[2]; }
     //@}
 
+    Vector3 mkEigenVector(Matrix3 A, const double &lambda);
 
     /// @name Direct methods
     /// Ways to do the calculation directly, without engaging the caching system

@@ -174,9 +174,11 @@ namespace Rivet {
       return polarAngle();
     }
 
-    /// Purely geometric approximation to rapidity; exact for massless particles
-    /// and in the central region.
-    // cut-off such that |eta| < log(2/DBL_EPSILON)
+    /// Purely geometric approximation to rapidity
+    ///
+    /// Also invariant under z-boosts, equal to y for massless particles.
+    ///
+    /// @note A cut-off is applied such that |eta| < log(2/DBL_EPSILON)
     double pseudorapidity() const {
       const double epsilon = DBL_EPSILON;
       double m = mod();
@@ -186,10 +188,16 @@ namespace Rivet {
       return z() > 0.0 ? rap: -rap;
     }
 
-    /// Synonym for pseudorapidity.
+    /// Synonym for pseudorapidity
     double eta() const {
       return pseudorapidity();
     }
+
+    /// Convenience shortcut for fabs(eta())
+    double abseta() const {
+      return fabs(eta());
+    }
+
 
   public:
     Vector3& operator*=(const double a) {
