@@ -53,7 +53,7 @@ namespace Rivet {
 
       // Find Phi -> KK decays through matching of the kinematics
       if (!kp.empty() && !km.empty() && !phis.empty()) {
-        const double w = event.weight();
+        const double w = 1.0;
         MSG_DEBUG("Numbers of particles:  #phi=" << phis.size() << ", #K+=" << kp.size() << ", #K-=" << km.size());
         for (size_t ip = 0; ip < phis.size(); ++ip) {
           const Particle& phi = phis[ip];

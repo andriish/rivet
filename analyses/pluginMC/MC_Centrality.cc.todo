@@ -46,7 +46,7 @@ protected:
   public:
 
     /// Constructor
-    MC_Centrality() : Analysis("MC_Centrality"), _cent(400, 0.02), _sumw(0.0) {}
+    MC_Centrality() : Analysis("MC_Centrality"), _cent(400, 0.02) {}
 
 
   public:
@@ -72,7 +72,8 @@ protected:
       
       // Histograms
       // The sum Et in the forward region.
-      _hETfwd  = bookHisto1D("ETfwd", 400, 0.0, 200.0);
+      book(_sumw, "sumW");
+      book(_hETfwd, "ETfwd", 400, 0.0, 200.0);
 
       vector<double> pclim =
 	{100.0, 90.0, 60.0, 40.0, 30.0, 20.0, 10.0, 5.0, 1.0, 0.0 };
@@ -81,12 +82,15 @@ protected:
 	  53.04*GeV, 64.64*GeV, 98.5*GeV, -1.0*GeV };
 
       for ( int i = 0; i < 8; ++i ) {
-	_cent.add(bookHisto1D(2, 1, i+1),
-		  pclim[i+1], pclim[i]);
-	_fixcent.add(bookHisto1D(12, 1, i+1),
-		     pclim[i+1], pclim[i], etlim[i], etlim[i+1]);
-	_gencent.add(bookHisto1D(22, 1, i+1),
-		     pclim[i+1], pclim[i], pclim[i], pclim[i+1]);
+        Histo1DPtr tmp1;
+        book(tmp1, 2, 1, i+1);
+	_cent.add(tmp1, pclim[i+1], pclim[i]);
+        Histo1DPtr tmp2;
+        book(tmp2, 12, 1, i+1);
+	_fixcent.add(tmp2, pclim[i+1], pclim[i], etlim[i], etlim[i+1]);
+        Histo1DPtr tmp3;
+        book(tmp3, 22, 1, i+1);
+	_gencent.add(tmp3, pclim[i+1], pclim[i], pclim[i], pclim[i+1]);
       }
             
       _centrue.clear();
@@ -95,13 +99,12 @@ protected:
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
 
       if ( applyProjection<FinalState>(event,"MBF").particles().empty() ||
 	   applyProjection<FinalState>(event,"MBB").particles().empty() )
 	vetoEvent;
 
-      _sumw += weight;
+      _sumw->fill();
 
       const ChargedFinalState& parts =
 	applyProjection<ChargedFinalState>(event,"CFS");
@@ -111,17 +114,17 @@ protected:
       double sumEt = 0.0;
       for( const Particle & p : forw.particles() ) sumEt += p.Et();
 
-      _hETfwd->fill(sumEt, weight);
-      _centrue.insert(make_pair(sumEt, weight));
+      _hETfwd->fill(sumEt);
+      _centrue.insert(make_pair(sumEt));
 
-      Histo1DPtr ch = _cent.select(sumEt, weight);
-      Histo1DPtr fch = _fixcent.select(sumEt, weight);
-      Histo1DPtr gch = _gencent.select(event, weight);
+      Histo1DPtr ch = _cent.select(sumEt);
+      Histo1DPtr fch = _fixcent.select(sumEt);
+      Histo1DPtr gch = _gencent.select(event);
 
       for ( const Particle & p : parts.particles() ) {
-	if ( ch ) ch->fill(p.eta(), weight);
-	if ( fch ) fch->fill(p.eta(), weight);
-	if ( gch ) gch->fill(p.eta(), weight);
+	if ( ch ) ch->fill(p.eta());
+	if ( fch ) fch->fill(p.eta());
+	if ( gch ) gch->fill(p.eta());
       }
 
     }
@@ -187,7 +190,7 @@ protected:
 
     /// Keep track of the actually generated centralities.
     multimap<double, double> _centrue;
-    double _sumw;
+    CounterPtr _sumw;
 
 
   };

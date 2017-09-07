@@ -13,16 +13,16 @@ namespace Rivet {
     /// Constructor
     ATLAS_2011_I944826()
       : Analysis("ATLAS_2011_I944826")
-    {
-      _sum_w_ks     = 0.0;
-      _sum_w_lambda = 0.0;
-      _sum_w_passed = 0.0;
-    }
+    {}
 
 
     /// Book histograms and initialise projections before the run
     void init() {
 
+      book(_sum_w_ks    , "ks");
+      book(_sum_w_lambda, "lambda");
+      book(_sum_w_passed, "passed");
+    
       UnstableFinalState ufs(Cuts::pT > 100*MeV);
       declare(ufs, "UFS");
 
@@ -44,13 +44,13 @@ namespace Rivet {
         book(_hist_L_pT       ,7, 1, 1);
         book(_hist_L_y        ,8, 1, 1);
         book(_hist_L_mult     ,9, 1, 1);
-        _hist_Ratio_v_y  = bookScatter2D(13, 1, 1);
-        _hist_Ratio_v_pT = bookScatter2D(14, 1, 1);
+        book(_hist_Ratio_v_y ,13, 1, 1);
+        book(_hist_Ratio_v_pT,14, 1, 1);
         //
-        _temp_lambda_v_y = Histo1D(10, 0.0, 2.5);
-        _temp_lambdabar_v_y = Histo1D(10, 0.0, 2.5);
-        _temp_lambda_v_pT = Histo1D(18, 0.5, 4.1);
-        _temp_lambdabar_v_pT = Histo1D(18, 0.5, 4.1);
+        book(_temp_lambda_v_y, 10, 0.0, 2.5);
+        book(_temp_lambdabar_v_y, 10, 0.0, 2.5);
+        book(_temp_lambda_v_pT, 18, 0.5, 4.1);
+        book(_temp_lambdabar_v_pT, 18, 0.5, 4.1);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         book(_hist_Ks_pT   ,4, 1, 1);
@@ -59,13 +59,13 @@ namespace Rivet {
         book(_hist_L_pT    ,10, 1, 1);
         book(_hist_L_y     ,11, 1, 1);
         book(_hist_L_mult  ,12, 1, 1);
-        _hist_Ratio_v_y      = bookScatter2D(15, 1, 1);
-        _hist_Ratio_v_pT     = bookScatter2D(16, 1, 1);
+        book(_hist_Ratio_v_y ,15, 1, 1);
+        book(_hist_Ratio_v_pT,16, 1, 1);
         //
-        _temp_lambda_v_y = Histo1D(5, 0.0, 2.5);
-        _temp_lambdabar_v_y = Histo1D(5, 0.0, 2.5);
-        _temp_lambda_v_pT = Histo1D(8, 0.5, 3.7);
-        _temp_lambdabar_v_pT = Histo1D(8, 0.5, 3.7);
+        book(_temp_lambda_v_y, "TMP/lambda_v_y", 5, 0.0, 2.5);
+        book(_temp_lambdabar_v_y, "TMP/lambdabar_v_y", 5, 0.0, 2.5);
+        book(_temp_lambda_v_pT, "TMP/lambda_v_pT", 8, 0.5, 3.7);
+        book(_temp_lambdabar_v_pT, "TMP/lambdabar_v_pT", 8, 0.5, 3.7);
       }
     }
 
@@ -127,8 +127,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // ATLAS MBTS trigger requirement of at least one hit in either hemisphere
       if (apply<FinalState>(event, "MBTS").size() < 1) {
         MSG_DEBUG("Failed trigger cut");
@@ -140,7 +138,7 @@ namespace Rivet {
         MSG_DEBUG("Failed stable particle cut");
         vetoEvent;
       }
-      _sum_w_passed += weight;
+      _sum_w_passed->fill();
 
       // This ufs holds all the Kaons and Lambdas
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
@@ -169,9 +167,9 @@ namespace Rivet {
             break;
           }
           if (daughtersSurviveCuts(p) ) {
-            _hist_Ks_y ->fill(y, weight);
-            _hist_Ks_pT->fill(pT/GeV, weight);
-            _sum_w_ks += weight;
+            _hist_Ks_y ->fill(y);
+            _hist_Ks_pT->fill(pT/GeV);
+            _sum_w_ks->fill();
             n_KS0++;
           }
           break;
@@ -188,15 +186,15 @@ namespace Rivet {
           }
           if ( daughtersSurviveCuts(p) ) {
             if (p.pid() == PID::LAMBDA) {
-              _temp_lambda_v_y.fill(fabs(y), weight);
-              _temp_lambda_v_pT.fill(pT/GeV, weight);
-              _hist_L_y->fill(y, weight);
-              _hist_L_pT->fill(pT/GeV, weight);
-              _sum_w_lambda += weight;
+              _temp_lambda_v_y->fill(fabs(y));
+              _temp_lambda_v_pT->fill(pT/GeV);
+              _hist_L_y->fill(y);
+              _hist_L_pT->fill(pT/GeV);
+              _sum_w_lambda->fill();
               n_LAMBDA++;
             } else if (p.pid() == -PID::LAMBDA) {
-             _temp_lambdabar_v_y.fill(fabs(y), weight);
-              _temp_lambdabar_v_pT.fill(pT/GeV, weight);
+             _temp_lambdabar_v_y->fill(fabs(y));
+              _temp_lambdabar_v_pT->fill(pT/GeV);
             }
           }
           break;
@@ -205,8 +203,8 @@ namespace Rivet {
       }
 
       // Fill multiplicity histos
-      _hist_Ks_mult->fill(n_KS0, weight);
-      _hist_L_mult->fill(n_LAMBDA, weight);
+      _hist_Ks_mult->fill(n_KS0);
+      _hist_L_mult->fill(n_LAMBDA);
     }
 
 
@@ -236,7 +234,7 @@ namespace Rivet {
   private:
 
     /// Counters
-    double _sum_w_ks, _sum_w_lambda, _sum_w_passed;
+    CounterPtr _sum_w_ks, _sum_w_lambda, _sum_w_passed;
 
     /// @name Persistent histograms
     //@{
@@ -247,8 +245,8 @@ namespace Rivet {
 
     /// @name Temporary histograms
     //@{
-    Histo1D _temp_lambda_v_y, _temp_lambdabar_v_y;
-    Histo1D _temp_lambda_v_pT, _temp_lambdabar_v_pT;
+    Histo1DPtr _temp_lambda_v_y, _temp_lambdabar_v_y;
+    Histo1DPtr _temp_lambda_v_pT, _temp_lambdabar_v_pT;
     //@}
 
   };

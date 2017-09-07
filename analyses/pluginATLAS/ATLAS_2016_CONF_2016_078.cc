@@ -173,7 +173,7 @@ namespace Rivet {
       //////////////////
 
 
-      const double w = event.weight();
+      const double w = 1.0;
 
       // 2 jet regions
       if (dphimin_123 > 0.8 && dphimin_more > 0.4) {

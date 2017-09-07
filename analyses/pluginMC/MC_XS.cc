@@ -27,7 +27,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       /// @todo Convert to Scatter1D or Counter
-      _h_XS   = bookScatter2D("XS");
+      book(_h_XS   ,"XS");
       book(_h_N    ,"N", 1, 0.0, 1.0);
       book(_h_pmXS ,"pmXS", 2, -1.0, 1.0);
       book(_h_pmN  ,"pmN", 2, -1.0, 1.0);
@@ -38,8 +38,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       _h_N->fill(0.5,1.);
-      _h_pmXS->fill(0.5*(event.weight() > 0 ? 1. : -1), abs(event.weight()));
-      _h_pmN ->fill(0.5*(event.weight() > 0 ? 1. : -1), 1.);
+      _h_pmXS->fill(0.5*(1.0 > 0 ? 1. : -1), abs(1.0));
+      _h_pmN ->fill(0.5*(1.0 > 0 ? 1. : -1), 1.);
       #ifdef HEPMC_HAS_CROSS_SECTION
       _mc_xs    = event.genEvent()->cross_section()->cross_section();
       _mc_error = event.genEvent()->cross_section()->cross_section_error();

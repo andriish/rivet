@@ -58,7 +58,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       
-      const double weight = event.weight();
+      const double weight = 1.0;
       
       const ZFinder& zeefinder = apply<ZFinder>(event, "zeefinder");
       const ZFinder& zmumufinder = apply<ZFinder>(event, "zmumufinder");

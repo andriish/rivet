@@ -86,11 +86,11 @@ namespace Rivet {
       const Particles& p_100 = apply<ChargedFinalState>(event, "CFS_100").particles(pcut);
       const Particles& p_500 = apply<ChargedFinalState>(event, "CFS_500").particles(pcut);
 
-      fillPtEtaNch(p_100,  2, 0, event.weight());
-      fillPtEtaNch(p_500,  1, 1, event.weight());
-      fillPtEtaNch(p_500,  6, 2, event.weight());
-      fillPtEtaNch(p_500, 20, 3, event.weight());
-      fillPtEtaNch(p_500, 50, 4, event.weight());
+      fillPtEtaNch(p_100,  2, 0, 1.0);
+      fillPtEtaNch(p_500,  1, 1, 1.0);
+      fillPtEtaNch(p_500,  6, 2, 1.0);
+      fillPtEtaNch(p_500, 20, 3, 1.0);
+      fillPtEtaNch(p_500, 50, 4, 1.0);
     }
 
 

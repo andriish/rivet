@@ -28,9 +28,9 @@ namespace Rivet {
       declare(missmom, "MissingMomentum");
 
       /// @todo Will need to register TMP histograms for future histogramming
-      _tmp_h_plus  = Histo1D(refData(1,1,1));
-      _tmp_h_minus = Histo1D(refData(1,1,1));
-      _h_asym = bookScatter2D(1, 1, 1);
+      book(_tmp_h_plus, refData(1,1,1));
+      book(_tmp_h_minus, refData(1,1,1));
+      book(_h_asym, 1, 1, 1);
     }
 
 
@@ -65,7 +65,7 @@ namespace Rivet {
       if (MTW < 40*GeV) vetoEvent;
 
       Histo1D& htmp = (selected_muons[0].pid() > 0) ? _tmp_h_minus : _tmp_h_plus;
-      htmp.fill(muonmom.eta(), event.weight());
+      htmp.fill(muonmom.eta());
     }
 
 

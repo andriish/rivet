@@ -48,8 +48,8 @@ namespace Rivet {
       const double angular = tan(accphi/2) / cosh(diffpsd/2);
 
       // Fill histograms
-      _h_sigma_vs_y->fill(zee.rapidity(), e.weight());
-      _h_sigma_vs_phi->fill(angular, e.weight());
+      _h_sigma_vs_y->fill(zee.rapidity());
+      _h_sigma_vs_phi->fill(angular);
     }
 
 

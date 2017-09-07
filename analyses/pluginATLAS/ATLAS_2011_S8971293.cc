@@ -65,7 +65,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      foreach (Histo1DPtr hist, _h_deltaPhi.getHistograms()) {
+      foreach (Histo1DPtr hist, _h_deltaPhi.histos()) {
         normalize(hist, 1/M_PI);
       }
     }

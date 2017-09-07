@@ -47,8 +47,8 @@ namespace Rivet {
     void analyze(const Event& event) {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
-      _histCh->fill(cfs.size(), event.weight());
-      _histTotal->fill(sqrtS(),cfs.size(),event.weight());
+      _histCh->fill(cfs.size(), 1.0);
+      _histTotal->fill(sqrtS(),cfs.size(),1.0);
     }
 
 

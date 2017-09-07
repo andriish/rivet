@@ -206,7 +206,7 @@ namespace Rivet {
     void finalizeHistograms(BinnedHistogram<double> plots[5][2]) {
       for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 2; ++j) {
-          vector<Histo1DPtr> histos = plots[i][j].getHistograms();
+          vector<Histo1DPtr> histos = plots[i][j].histos();
           foreach(Histo1DPtr h, histos) {
             scale(h, 1.0/_nEvents[i]);
           }

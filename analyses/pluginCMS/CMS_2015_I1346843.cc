@@ -63,19 +63,19 @@ namespace Rivet {
         const double qT = (muons[0].mom() + muons[1].mom() + p.mom()).pT();
 
         // Fill the analysis histograms
-        _hist_pho_et->fill(p.pT()/GeV, event.weight());
-        _hist_pho_dr->fill(dR, event.weight());
+        _hist_pho_et->fill(p.pT()/GeV, 1.0);
+        _hist_pho_dr->fill(dR, 1.0);
 
-        (dR <= 0.5 ? _hist_pho_et_close : _hist_pho_et_wide)->fill(p.pT()/GeV, event.weight());
+        (dR <= 0.5 ? _hist_pho_et_close : _hist_pho_et_wide)->fill(p.pT()/GeV, 1.0);
 
         if (qT / GeV < 10.) {
-          _hist_pho_et_lqt->fill(p.pT()/GeV, event.weight());
-          _hist_pho_dr_lqt->fill(dR, event.weight());
+          _hist_pho_et_lqt->fill(p.pT()/GeV, 1.0);
+          _hist_pho_dr_lqt->fill(dR, 1.0);
         }
 
         if (qT / GeV > 50.) {
-          _hist_pho_et_hqt->fill(p.pT()/GeV, event.weight());
-          _hist_pho_dr_hqt->fill(dR, event.weight());
+          _hist_pho_et_hqt->fill(p.pT()/GeV, 1.0);
+          _hist_pho_dr_hqt->fill(dR, 1.0);
         }
 
         break; // Exit the loop since we found the highest pT lepton already

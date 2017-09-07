@@ -35,8 +35,8 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      double weight    = event.weight();
-      double weight100 = event.weight() * 100.;  //to get results in %
+      double weight    = 1.0;
+      double weight100 = 1.0 * 100.;  //to get results in %
 
       //keeps jets with pt>20 geV and ordered in decreasing pt
       Jets jetAr = apply<FastJets>(event, "AntiKT04").jetsByPt(20*GeV);

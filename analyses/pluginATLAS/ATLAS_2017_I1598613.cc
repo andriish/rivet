@@ -79,7 +79,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       if (_mode == 1) { // make the 2-b-hadron-level plots
         const Particles& bHadrons = apply<HeavyHadrons>(event, "BHadrons").bHadrons();

@@ -34,12 +34,12 @@ namespace Rivet {
       FastJets conefinder(fs, FastJets::D0ILCONE, 0.7);
       declare(conefinder, "ConeFinder");
 
-      _h_m_dijet.addHistogram(0.0, 0.4, bookHisto1D(1, 1, 1));
-      _h_m_dijet.addHistogram(0.4, 0.8, bookHisto1D(2, 1, 1));
-      _h_m_dijet.addHistogram(0.8, 1.2, bookHisto1D(3, 1, 1));
-      _h_m_dijet.addHistogram(1.2, 1.6, bookHisto1D(4, 1, 1));
-      _h_m_dijet.addHistogram(1.6, 2.0, bookHisto1D(5, 1, 1));
-      _h_m_dijet.addHistogram(2.0, 2.4, bookHisto1D(6, 1, 1));
+      {Histo1DPtr tmp; _h_m_dijet.addHistogram(0.0, 0.4, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_m_dijet.addHistogram(0.4, 0.8, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_m_dijet.addHistogram(0.8, 1.2, book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_m_dijet.addHistogram(1.2, 1.6, book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _h_m_dijet.addHistogram(1.6, 2.0, book(tmp, 5, 1, 1));}
+      {Histo1DPtr tmp; _h_m_dijet.addHistogram(2.0, 2.4, book(tmp, 6, 1, 1));}
     }
 
 

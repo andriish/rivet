@@ -33,11 +33,11 @@ namespace Rivet {
       declare(zfinder_mm, "zfinder_mm");
 
       /// Book histograms here
-      _h_phistar_ee.addHistogram(0.0, 1.0, bookHisto1D(1, 1, 1));
-      _h_phistar_ee.addHistogram(1.0, 2.0, bookHisto1D(1, 1, 2));
-      _h_phistar_ee.addHistogram(2.0, 10.0, bookHisto1D(1, 1, 3));
-      _h_phistar_mm.addHistogram(0.0, 1.0, bookHisto1D(2, 1, 1));
-      _h_phistar_mm.addHistogram(1.0, 2.0, bookHisto1D(2, 1, 2));
+      {Histo1DPtr tmp; _h_phistar_ee.addHistogram(0.0, 1.0, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_phistar_ee.addHistogram(1.0, 2.0, book(tmp, 1, 1, 2));}
+      {Histo1DPtr tmp; _h_phistar_ee.addHistogram(2.0, 10.0,book(tmp, 1, 1, 3));}
+      {Histo1DPtr tmp; _h_phistar_mm.addHistogram(0.0, 1.0, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_phistar_mm.addHistogram(1.0, 2.0, book(tmp, 2, 1, 2));}
     }
 
 
@@ -79,8 +79,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      foreach (Histo1DPtr hist, _h_phistar_ee.getHistograms()) normalize(hist);
-      foreach (Histo1DPtr hist, _h_phistar_mm.getHistograms()) normalize(hist);
+      foreach (Histo1DPtr hist, _h_phistar_ee.histos()) normalize(hist);
+      foreach (Histo1DPtr hist, _h_phistar_mm.histos()) normalize(hist);
     }
 
     //@}

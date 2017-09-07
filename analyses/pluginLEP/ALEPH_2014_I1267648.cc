@@ -23,11 +23,11 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // Book histograms
-      _h_pip0  = bookHisto1D(1, 1, 1);
-      _h_pi2p0 = bookHisto1D(2, 1, 1);
-      _h_pi3p0 = bookHisto1D(3, 1, 1);
-      _h_3pi   = bookHisto1D(4, 1, 1);
-      _h_3pip0 = bookHisto1D(5, 1, 1);
+      book(_h_pip0 , 1, 1, 1);
+      book(_h_pi2p0, 2, 1, 1);
+      book(_h_pi3p0, 3, 1, 1);
+      book(_h_3pi  , 4, 1, 1);
+      book(_h_3pip0, 5, 1, 1);
 
     }
 
@@ -78,27 +78,27 @@ namespace Rivet {
         // tau -> pi pi0 nu_tau (both charges)
         if (isSpecificDecay(tau,  {PID::PIPLUS, PID::PI0, PID::NU_TAUBAR}) ||  
             isSpecificDecay(tau,  {PID::PIMINUS, PID::PI0, PID::NU_TAU}) ) {
-          _h_pip0->fill(hadronicm2(tau), event.weight());
+          _h_pip0->fill(hadronicm2(tau), 1.0);
         }
         // tau -> pi pi0 pi0 nu_tau (both charges)
         else if (isSpecificDecay(tau,  {PID::PIPLUS, PID::PI0, PID::PI0, PID::NU_TAUBAR}) ||  
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PI0, PID::PI0, PID::NU_TAU}) ) {
-          _h_pi2p0->fill(hadronicm2(tau), event.weight());
+          _h_pi2p0->fill(hadronicm2(tau), 1.0);
         }
         //    tau -> pi pi0 pi0 pi0         (3,1,1)
         else if (isSpecificDecay(tau,  {PID::PIPLUS,  PID::PI0, PID::PI0, PID::PI0, PID::NU_TAUBAR}) ||
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PI0, PID::PI0, PID::PI0, PID::NU_TAU}) ) {
-          _h_pi3p0->fill(hadronicm2(tau), event.weight());
+          _h_pi3p0->fill(hadronicm2(tau), 1.0);
         }
         //    tau -> 3 charged pions        (4,1,1)
         else if (isSpecificDecay(tau,  {PID::PIPLUS,  PID::PIPLUS,  PID::PIMINUS, PID::NU_TAUBAR}) ||
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PIMINUS, PID::PIPLUS, PID::NU_TAU}) ) {
-          _h_3pi->fill(hadronicm2(tau), event.weight());
+          _h_3pi->fill(hadronicm2(tau), 1.0);
         }
         //    tau -> 3 charged pions + pi0  (5,1,1)
         else if (isSpecificDecay(tau,  {PID::PIPLUS,  PID::PIPLUS,  PID::PIMINUS, PID::PI0, PID::NU_TAUBAR}) ||
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PIMINUS, PID::PIPLUS,  PID::PI0, PID::NU_TAU}) ) {
-          _h_3pip0->fill(hadronicm2(tau), event.weight());
+          _h_3pip0->fill(hadronicm2(tau), 1.0);
         }
         //
       }

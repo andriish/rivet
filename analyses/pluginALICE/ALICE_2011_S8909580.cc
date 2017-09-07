@@ -25,7 +25,7 @@ namespace Rivet {
       book(_histPtPhi        ,5, 1, 1);
       book(_temp_h_Lambdas   ,"TMP/h_Lambdas", refData(6, 1, 1));
       book(_temp_h_Kzeros    ,"TMP/h_Kzeros", refData(6, 1, 1));
-      _h_LamKzero       = bookScatter2D(6, 1, 1);
+      book(_h_LamKzero       ,6, 1, 1);
     }
 
 

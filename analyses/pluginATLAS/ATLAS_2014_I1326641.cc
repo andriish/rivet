@@ -85,7 +85,7 @@ namespace Rivet {
 
                     const double yStar = fabs(y1-y2) + fabs(y2-y3) + fabs(y1-y3);
                     const double m = (leadJets[0] + leadJets[1] + leadJets[2]).mass();
-                    h_trijet_Mass[alg].fill(yStar, m, event.weight());
+                    h_trijet_Mass[alg].fill(yStar, m, 1.0);
                 }
             }
 

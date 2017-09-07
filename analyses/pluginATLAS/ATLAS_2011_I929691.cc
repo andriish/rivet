@@ -27,9 +27,9 @@ namespace Rivet {
 
       // Set up the histograms (each element is a binning in jet pT)
       for (size_t i = 0; i < 10; i++) {
-        _p_F_z[i]     = bookProfile1D(i+1, 1, 1);
-        _p_rho_r[i]   = bookProfile1D(i+11, 1, 1);
-        _p_f_pTrel[i] = bookProfile1D(i+21, 1, 1);
+        book(_p_F_z[i]    , i+ 1, 1, 1);
+        book(_p_rho_r[i]  , i+11, 1, 1);
+        book(_p_f_pTrel[i], i+21, 1, 1);
       }
 
     }
@@ -61,7 +61,7 @@ namespace Rivet {
         }
 
         // Then... calculate the observable and fill the profiles
-        const double weight = event.weight();
+        const double weight = 1.0;
         for (const HistoBin1D& b : h_ntracks_z.bins())
           _p_F_z[i]->fill(b.xMid(), b.height(), weight);
         for (const HistoBin1D& b : h_ntracks_r.bins())

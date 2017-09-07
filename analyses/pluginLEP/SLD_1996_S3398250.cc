@@ -94,7 +94,8 @@ namespace Rivet {
       const double ex = first->bin(0).xWidth()/2.;
       const double y  = first->bin(0).area() - second->bin(0).area();
       const double ey = sqrt(sqr(first->bin(0).areaErr()) + sqr(second->bin(0).areaErr()));
-      Scatter2DPtr scatter = bookScatter2D(a, b, c);
+      Scatter2DPtr scatter;
+      book(scatter, a, b, c);
       scatter->addPoint(x, y, ex, ey);
     }
 

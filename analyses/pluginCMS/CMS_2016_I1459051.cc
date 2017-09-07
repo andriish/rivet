@@ -47,7 +47,7 @@ namespace Rivet {
     /// Per-event analysis
     void analyze(const Event &event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // AK4 jets
       const FastJets& fjAK4 = applyProjection<FastJets>(event, "JetsAK4");

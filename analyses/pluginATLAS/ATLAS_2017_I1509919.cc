@@ -59,7 +59,7 @@ namespace Rivet {
 
       // Require at least one track in the event for pTlead histograms
       if (particles.empty()) vetoEvent;
-      const double weight = event.weight();
+      const double weight = 1.0;
       for (size_t iC = 0; iC < 2; ++iC) {
         if (particles[0].pT() < PTCUTS[iC]*GeV) continue;
         _counters[iC]->fill(weight);

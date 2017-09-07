@@ -26,17 +26,17 @@ namespace Rivet {
       declare(jetpro, "Jets");
 
       // Histograms
-      _h_jet_pT    = bookHisto1D(3, 1, 1);
-      _h_jet_eta20 = bookHisto1D(4, 1, 1);
-      _h_jet_eta10 = bookHisto1D(4, 1, 2);
-      _h_Z_y20     = bookHisto1D(5, 1, 1);
-      _h_Z_y10     = bookHisto1D(5, 1, 2);
-      _h_Z_pT20    = bookHisto1D(6, 1, 1);
-      _h_Z_pT10    = bookHisto1D(6, 1, 2);
-      _h_dphi20    = bookHisto1D(7, 1, 1);
-      _h_dphi10    = bookHisto1D(7, 1, 2);
-      _h_dy20      = bookHisto1D(8, 1, 1);
-      _h_dy10      = bookHisto1D(8, 1, 2);
+      book(_h_jet_pT   , 3, 1, 1);
+      book(_h_jet_eta20, 4, 1, 1);
+      book(_h_jet_eta10, 4, 1, 2);
+      book(_h_Z_y20    , 5, 1, 1);
+      book(_h_Z_y10    , 5, 1, 2);
+      book(_h_Z_pT20   , 6, 1, 1);
+      book(_h_Z_pT10   , 6, 1, 2);
+      book(_h_dphi20   , 7, 1, 1);
+      book(_h_dphi10   , 7, 1, 2);
+      book(_h_dy20     , 8, 1, 1);
+      book(_h_dy10     , 8, 1, 2);
     }
 
 
@@ -71,19 +71,18 @@ namespace Rivet {
       const double drap = zfinder.boson().rap() - cleanedJets[0].rap();
 
       // Fill histograms
-      const double weight = e.weight();
-      _h_jet_pT->fill(cleanedJets[0].pT()/GeV, weight);
-      _h_jet_eta10->fill(cleanedJets[0].eta(), weight);
-      _h_Z_y10->fill(zfinder.boson().rap(), weight);
-      _h_Z_pT10->fill(zfinder.boson().pT()/GeV, weight);
-      _h_dphi10->fill(dphi, weight);
-      _h_dy10->fill(drap, weight);
+      _h_jet_pT->fill(cleanedJets[0].pT()/GeV);
+      _h_jet_eta10->fill(cleanedJets[0].eta());
+      _h_Z_y10->fill(zfinder.boson().rap());
+      _h_Z_pT10->fill(zfinder.boson().pT()/GeV);
+      _h_dphi10->fill(dphi);
+      _h_dy10->fill(drap);
       if (above20) {
-        _h_jet_eta20->fill(cleanedJets[0].eta(), weight);
-        _h_Z_y20->fill(zfinder.boson().rap(), weight);
-        _h_Z_pT20->fill(zfinder.boson().pT()/GeV, weight);
-        _h_dphi20->fill(dphi, weight);
-        _h_dy20->fill(drap, weight);
+        _h_jet_eta20->fill(cleanedJets[0].eta());
+        _h_Z_y20->fill(zfinder.boson().rap());
+        _h_Z_pT20->fill(zfinder.boson().pT()/GeV);
+        _h_dphi20->fill(dphi);
+        _h_dy20->fill(drap);
       }
 
     }

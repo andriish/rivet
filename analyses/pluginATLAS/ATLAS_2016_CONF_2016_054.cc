@@ -152,7 +152,7 @@ namespace Rivet {
 
 
       // Fill counters
-      const double w = event.weight();
+      const double w = 1.0;
       // GG
       if (siglepton.pT() < 35*GeV && sigjets.size() >= 2 &&
           sigjets[0].pT() > 200*GeV && sigjets[1].pT() > 30*GeV &&

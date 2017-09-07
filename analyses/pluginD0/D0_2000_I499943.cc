@@ -77,8 +77,8 @@ namespace Rivet {
       double dphi_mumu = deltaPhi(cand_mu[0], cand_mu[1]) * 180/M_PI;
 
       // Fill histos
-      _h_pt_leading_mu->fill(cand_mu[0].pt()/GeV, event.weight());
-      _h_dphi_mumu->fill(dphi_mumu, event.weight());
+      _h_pt_leading_mu->fill(cand_mu[0].pt()/GeV, 1.0);
+      _h_dphi_mumu->fill(dphi_mumu, 1.0);
     }
 
 

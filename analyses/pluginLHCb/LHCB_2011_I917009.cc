@@ -106,18 +106,18 @@ namespace Rivet {
       int dsId = dsShift + 1;
       for (size_t j = 0; j < 3; ++j) {
         /// @todo Compactify to two one-liners
-        Scatter2DPtr s1 = bookScatter2D(dsId, 1, j+1);
+        Scatter2DPtr s1; book(s1, dsId, 1, j+1);
         divide(_tmphistos[j], _tmphistos[3+j], s1);
-        Scatter2DPtr s2 = bookScatter2D(dsId+1, 1, j+1);
+        Scatter2DPtr s2; book(s2, dsId+1, 1, j+1);
         divide(_tmphistos[j], _tmphistos[6+j], s2);
       }
       dsId += 2;
       for (size_t j = 3; j < 6; ++j) {
         /// @todo Compactify to two one-liners
-        Scatter2DPtr s1 = bookScatter2D(dsId, 1, 1);
+        Scatter2DPtr s1; book(s1, dsId, 1, 1);
         divide(_tmphistos[3*j], _tmphistos[3*j+1], s1);
         dsId += 1;
-        Scatter2DPtr s2 = bookScatter2D(dsId, 1, 1);
+        Scatter2DPtr s2; book(s2, dsId, 1, 1);
         divide(_tmphistos[3*j], _tmphistos[3*j+2], s2);
         dsId += 1;
       }

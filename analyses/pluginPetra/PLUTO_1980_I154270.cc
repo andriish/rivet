@@ -68,7 +68,7 @@ namespace Rivet {
         }
 	if(prompt) ++nPart;
       }
-      _hist->fill(sqrtS(),nPart,event.weight());
+      _hist->fill(sqrtS(),nPart,1.0);
     }
 
 

@@ -23,11 +23,11 @@ namespace Rivet {
       else if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) isqrts = 3;
       assert(isqrts > 0);
 
-      _h_frac_sd_inel = bookScatter2D(1, 1, isqrts);
-      _h_frac_dd_inel = bookScatter2D(2, 1, isqrts);
-      _h_xsec_sd      = bookHisto1D  (3, 1, isqrts);
-      _h_xsec_dd      = bookHisto1D  (4, 1, isqrts);
-      _h_xsec_inel    = bookHisto1D  (5, 1, isqrts);
+      book(_h_frac_sd_inel, 1, 1, isqrts);
+      book(_h_frac_dd_inel, 2, 1, isqrts);
+      book(_h_xsec_sd     , 3, 1, isqrts);
+      book(_h_xsec_dd     , 4, 1, isqrts);
+      book(_h_xsec_inel   , 5, 1, isqrts);
     }
 
 
@@ -93,9 +93,10 @@ namespace Rivet {
       divide(_h_xsec_sd , _h_xsec_inel, _h_frac_sd_inel);
       divide(_h_xsec_sd , _h_xsec_inel, _h_frac_dd_inel);
 
-      scale(_h_xsec_sd,   crossSection()/millibarn/sumOfWeights());
-      scale(_h_xsec_dd,   crossSection()/millibarn/sumOfWeights());
-      scale(_h_xsec_inel, crossSection()/millibarn/sumOfWeights());
+      const double scaling = crossSection()/millibarn/sumOfWeights();
+      scale(_h_xsec_sd,   scaling);
+      scale(_h_xsec_dd,   scaling);
+      scale(_h_xsec_inel, scaling);
 
     }
 

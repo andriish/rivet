@@ -56,7 +56,7 @@ namespace Rivet {
         const FourMomentum t1P4AtCM = LorentzTransform::mkFrameTransformFromBeta(ttbarP4.betaVec()).transform(t1P4);
         const double dPhi = deltaPhi(t1P4.phi(), t2P4.phi());
 
-        const double weight = event.weight();
+        const double weight = 1.0;
         if (isSemilepton) {
           _hSL_topPt->fill(t1Pt, weight);
           _hSL_topPt->fill(t2Pt, weight);

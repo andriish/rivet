@@ -103,8 +103,8 @@ namespace Rivet {
 
       // Fill histograms
       const size_t eta_bin = _getEtaBin(leadingPhoton.abseta(), false);
-      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et(), event.weight());
-      _h_eta_photon->fill(leadingPhoton.abseta(), event.weight());
+      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et(), 1.0);
+      _h_eta_photon->fill(leadingPhoton.abseta(), 1.0);
     }
 
 

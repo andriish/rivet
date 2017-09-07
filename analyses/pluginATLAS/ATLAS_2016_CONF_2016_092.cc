@@ -37,7 +37,7 @@ namespace Rivet {
       const Jets& jets = apply<FastJets>(event, "antiKT04Jets")
         .jetsByPt(Cuts::pT > 100*GeV && Cuts::absrap < 3.0);
       for (const Jet& j : jets)
-        _h_pT.fill(j.absrap(), j.pT()/GeV, event.weight());
+        _h_pT.fill(j.absrap(), j.pT()/GeV, 1.0);
     }
 
 

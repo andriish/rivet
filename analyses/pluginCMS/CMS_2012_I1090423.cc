@@ -42,12 +42,12 @@ namespace Rivet {
       if (chi > 16) vetoEvent;
 
       const FourMomentum jj = jets[0].momentum() + jets[1].momentum();
-       _h_chi_dijet.fill(jj.mass(), chi, event.weight());
+       _h_chi_dijet.fill(jj.mass(), chi, 1.0);
     }
 
 
     void finalize() {
-      foreach (Histo1DPtr hist, _h_chi_dijet.getHistograms()) {
+      foreach (Histo1DPtr hist, _h_chi_dijet.histos()) {
         normalize(hist);
       }
     }

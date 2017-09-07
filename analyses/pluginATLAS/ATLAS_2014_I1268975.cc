@@ -76,7 +76,7 @@ namespace Rivet {
         const double m     = (leadjets[0] + leadjets[1]).mass();
 
         // Fill mass histogram
-        _mass[alg].fill(ystar, m/TeV, event.weight());
+        _mass[alg].fill(ystar, m/TeV, 1.0);
       }
     }
 

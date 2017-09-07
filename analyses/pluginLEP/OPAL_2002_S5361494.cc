@@ -95,10 +95,10 @@ namespace Rivet {
       const double avgNumPartsBottom = _weightBottom != 0. ? _weightedTotalChargedPartNumBottom / _weightBottom : 0.;
       const double avgNumPartsCharm  = _weightCharm  != 0. ? _weightedTotalChargedPartNumCharm  / _weightCharm  : 0.;
       const double avgNumPartsLight  =  _weightLight != 0. ? _weightedTotalChargedPartNumLight  / _weightLight  : 0.;
-      Scatter2DPtr h_bottom = bookScatter2D(1, 1, 1);
-      Scatter2DPtr h_charm  = bookScatter2D(1, 1, 2);
-      Scatter2DPtr h_light  = bookScatter2D(1, 1, 3);
-      Scatter2DPtr h_diff   = bookScatter2D(1, 1, 4);  // bottom minus light
+      Scatter2DPtr h_bottom; book(h_bottom, 1, 1, 1);
+      Scatter2DPtr h_charm ; book(h_charm, 1, 1, 2);
+      Scatter2DPtr h_light ; book(h_light, 1, 1, 3);
+      Scatter2DPtr h_diff  ; book(h_diff, 1, 1, 4);  // bottom minus light
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();
         const double ex = temphisto.bin(b).xWidth()/2.;

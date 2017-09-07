@@ -37,24 +37,30 @@ namespace Rivet {
       declare(InitialQuarks(), "initialquarks");
 
       // Book the histograms
-      _h_Thrust_udsc             = bookHisto1D(47, 1, 1);
-      _h_Thrust_bottom           = bookHisto1D(47, 1, 2);
-      _h_heavyJetmass_udsc       = bookHisto1D(48, 1, 1);
-      _h_heavyJetmass_bottom     = bookHisto1D(48, 1, 2);
-      _h_totalJetbroad_udsc      = bookHisto1D(49, 1, 1);
-      _h_totalJetbroad_bottom    = bookHisto1D(49, 1, 2);
-      _h_wideJetbroad_udsc       = bookHisto1D(50, 1, 1);
-      _h_wideJetbroad_bottom     = bookHisto1D(50, 1, 2);
-      _h_Cparameter_udsc         = bookHisto1D(51, 1, 1);
-      _h_Cparameter_bottom       = bookHisto1D(51, 1, 2);
-      _h_Dparameter_udsc         = bookHisto1D(52, 1, 1);
-      _h_Dparameter_bottom       = bookHisto1D(52, 1, 2);
-      _h_Ncharged                = bookHisto1D(59, 1, 1);
-      _h_Ncharged_udsc           = bookHisto1D(59, 1, 2);
-      _h_Ncharged_bottom         = bookHisto1D(59, 1, 3);
-      _h_scaledMomentum          = bookHisto1D(65, 1, 1);
-      _h_scaledMomentum_udsc     = bookHisto1D(65, 1, 2);
-      _h_scaledMomentum_bottom   = bookHisto1D(65, 1, 3);
+      book(_h_Thrust_udsc          , 47, 1, 1);
+      book(_h_Thrust_bottom        , 47, 1, 2);
+      book(_h_heavyJetmass_udsc    , 48, 1, 1);
+      book(_h_heavyJetmass_bottom  , 48, 1, 2);
+      book(_h_totalJetbroad_udsc   , 49, 1, 1);
+      book(_h_totalJetbroad_bottom , 49, 1, 2);
+      book(_h_wideJetbroad_udsc    , 50, 1, 1);
+      book(_h_wideJetbroad_bottom  , 50, 1, 2);
+      book(_h_Cparameter_udsc      , 51, 1, 1);
+      book(_h_Cparameter_bottom    , 51, 1, 2);
+      book(_h_Dparameter_udsc      , 52, 1, 1);
+      book(_h_Dparameter_bottom    , 52, 1, 2);
+      book(_h_Ncharged             , 59, 1, 1);
+      book(_h_Ncharged_udsc        , 59, 1, 2);
+      book(_h_Ncharged_bottom      , 59, 1, 3);
+      book(_h_scaledMomentum       , 65, 1, 1);
+      book(_h_scaledMomentum_udsc  , 65, 1, 2);
+      book(_h_scaledMomentum_bottom, 65, 1, 3);
+
+      book(_sumW_udsc, "sumW_udsc");
+      book(_sumW_b, "sumW_b");
+      book(_sumW_ch, "sumW_ch");
+      book(_sumW_ch_udsc, "sumW_ch_udsc");
+      book(_sumW_ch_b, "sumW_ch_b");
 
     }
 
@@ -101,23 +107,22 @@ namespace Rivet {
       const int iflav = (flavour == PID::DQUARK || flavour == PID::UQUARK || flavour == PID::SQUARK || flavour == PID::CQUARK) ? 1 : (flavour == PID::BQUARK) ? 5 : 0;
 
       // Update weight sums
-      const double weight = event.weight();
       if (iflav == 1) {
-        _sumW_udsc += weight;
+        _sumW_udsc->fill();
       } else if (iflav == 5) {
-        _sumW_b += weight;
+        _sumW_b->fill();
       }
-      _sumW_ch += weight;
+      _sumW_ch->fill();
 
       // Charged multiplicity
       const FinalState& cfs = applyProjection<FinalState>(event, "CFS");
-      _h_Ncharged->fill(cfs.size(), weight);
+      _h_Ncharged->fill(cfs.size());
       if (iflav == 1) {
-        _sumW_ch_udsc += weight;
-        _h_Ncharged_udsc->fill(cfs.size(), weight);
+        _sumW_ch_udsc->fill();
+        _h_Ncharged_udsc->fill(cfs.size());
       } else if (iflav == 5) {
-        _sumW_ch_b += weight;
-        _h_Ncharged_bottom->fill(cfs.size(), weight);
+        _sumW_ch_b->fill();
+        _h_Ncharged_bottom->fill(cfs.size());
       }
 
       // Scaled momentum
@@ -127,42 +132,42 @@ namespace Rivet {
         const double mom = momentum3.mod();
         const double scaledMom = mom/beamMomentum;
         const double logScaledMom = std::log(scaledMom);
-        _h_scaledMomentum->fill(-logScaledMom, weight);
+        _h_scaledMomentum->fill(-logScaledMom);
         if (iflav == 1) {
-          _h_scaledMomentum_udsc->fill(-logScaledMom, weight);
+          _h_scaledMomentum_udsc->fill(-logScaledMom);
         } else if (iflav == 5) {
-          _h_scaledMomentum_bottom->fill(-logScaledMom, weight);
+          _h_scaledMomentum_bottom->fill(-logScaledMom);
         }
       }
 
       // Thrust
       const Thrust& thrust = applyProjection<Thrust>(event, "thrust");
       if (iflav == 1) {
-        _h_Thrust_udsc->fill(thrust.thrust(), weight);
+        _h_Thrust_udsc->fill(thrust.thrust());
       } else if (iflav == 5) {
-        _h_Thrust_bottom->fill(thrust.thrust(), weight);
+        _h_Thrust_bottom->fill(thrust.thrust());
       }
 
       // C and D Parisi parameters
       const ParisiTensor& parisi = applyProjection<ParisiTensor>(event, "Parisi");
       if (iflav == 1) {
-        _h_Cparameter_udsc->fill(parisi.C(), weight);
-        _h_Dparameter_udsc->fill(parisi.D(), weight);
+        _h_Cparameter_udsc->fill(parisi.C());
+        _h_Dparameter_udsc->fill(parisi.D());
       } else if (iflav == 5) {
-        _h_Cparameter_bottom->fill(parisi.C(), weight);
-        _h_Dparameter_bottom->fill(parisi.D(), weight);
+        _h_Cparameter_bottom->fill(parisi.C());
+        _h_Dparameter_bottom->fill(parisi.D());
       }
 
       // The hemisphere variables
       const Hemispheres& hemisphere = applyProjection<Hemispheres>(event, "Hemispheres");
       if (iflav == 1) {
-        _h_heavyJetmass_udsc->fill(hemisphere.scaledM2high(), weight);
-        _h_totalJetbroad_udsc->fill(hemisphere.Bsum(), weight);
-        _h_wideJetbroad_udsc->fill(hemisphere.Bmax(), weight);
+        _h_heavyJetmass_udsc->fill(hemisphere.scaledM2high());
+        _h_totalJetbroad_udsc->fill(hemisphere.Bsum());
+        _h_wideJetbroad_udsc->fill(hemisphere.Bmax());
       } else if (iflav == 5) {
-        _h_heavyJetmass_bottom->fill(hemisphere.scaledM2high(), weight);
-        _h_totalJetbroad_bottom->fill(hemisphere.Bsum(), weight);
-        _h_wideJetbroad_bottom->fill(hemisphere.Bmax(), weight);
+        _h_heavyJetmass_bottom->fill(hemisphere.scaledM2high());
+        _h_totalJetbroad_bottom->fill(hemisphere.Bsum());
+        _h_wideJetbroad_bottom->fill(hemisphere.Bmax());
       }
 
     }
@@ -182,7 +187,7 @@ namespace Rivet {
 
 
     /// Weight counters
-    double _sumW_udsc = 0, _sumW_b = 0, _sumW_ch = 0, _sumW_ch_udsc = 0, _sumW_ch_b = 0;
+    CounterPtr _sumW_udsc, _sumW_b, _sumW_ch, _sumW_ch_udsc, _sumW_ch_b;
 
     /// @name Histograms
     //@{

@@ -12,9 +12,7 @@ namespace Rivet {
   public:
 
     BABAR_2007_S7266081()
-      : Analysis("BABAR_2007_S7266081"),
-        _weight_total(0),
-        _weight_pipipi(0), _weight_Kpipi(0), _weight_KpiK(0), _weight_KKK(0)
+      : Analysis("BABAR_2007_S7266081")
     {   }
 
 
@@ -30,15 +28,21 @@ namespace Rivet {
       book(_hist_KpiK_piK      , 8, 1, 1);
       book(_hist_KKK_KKK       , 9, 1, 1);
       book(_hist_KKK_KK        ,10, 1, 1);
+
+      book(_weight_total, "weight_total");
+      book(_weight_pipipi, "weight_pipipi");
+      book(_weight_Kpipi, "weight_Kpipi");
+      book(_weight_KpiK, "weight_KpiK");
+      book(_weight_KKK, "weight_KKK");
+
     }
 
 
     void analyze(const Event& e) {
-      double weight = e.weight();
       // Find the taus
       Particles taus;
       foreach(const Particle& p, apply<UnstableFinalState>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
-        _weight_total += weight;
+        _weight_total->fill();
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;
         // Get the boost to the rest frame
@@ -54,40 +58,40 @@ namespace Rivet {
         if (nstable != 4) continue;
         // pipipi
         if (pim.size() == 2 && pip.size() == 1) {
-          _weight_pipipi += weight;
+          _weight_pipipi->fill();
           _hist_pipipi_pipipi->
-            fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass(), weight);
+            fill((pip[0].momentum()+pim[0].momentum()+pim[1].momentum()).mass());
           _hist_pipipi_pipi->
-            fill((pip[0].momentum()+pim[0].momentum()).mass(), weight);
+            fill((pip[0].momentum()+pim[0].momentum()).mass());
           _hist_pipipi_pipi->
-            fill((pip[0].momentum()+pim[1].momentum()).mass(), weight);
+            fill((pip[0].momentum()+pim[1].momentum()).mass());
         }
         else if (pim.size() == 1 && pip.size() == 1 && Km.size() == 1) {
-          _weight_Kpipi += weight;
+          _weight_Kpipi->fill();
           _hist_Kpipi_Kpipi->
-            fill((pim[0].momentum()+pip[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((pim[0].momentum()+pip[0].momentum()+Km[0].momentum()).mass());
           _hist_Kpipi_Kpi->
-            fill((pip[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((pip[0].momentum()+Km[0].momentum()).mass());
           _hist_Kpipi_pipi->
-            fill((pim[0].momentum()+pip[0].momentum()).mass(), weight);
+            fill((pim[0].momentum()+pip[0].momentum()).mass());
         }
         else if (Kp.size() == 1 && Km.size() == 1 && pim.size() == 1) {
-          _weight_KpiK += weight;
+          _weight_KpiK->fill();
           _hist_KpiK_KpiK->
-            fill((Kp[0].momentum()+Km[0].momentum()+pim[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()+pim[0].momentum()).mass());
           _hist_KpiK_KK->
-            fill((Kp[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()).mass());
           _hist_KpiK_piK->
-            fill((Kp[0].momentum()+pim[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+pim[0].momentum()).mass());
         }
         else if (Kp.size() == 1 && Km.size() == 2) {
-          _weight_KKK += weight;
+          _weight_KKK->fill();
           _hist_KKK_KKK->
-            fill((Kp[0].momentum()+Km[0].momentum()+Km[1].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()+Km[1].momentum()).mass());
           _hist_KKK_KK->
-            fill((Kp[0].momentum()+Km[0].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[0].momentum()).mass());
           _hist_KKK_KK->
-            fill((Kp[0].momentum()+Km[1].momentum()).mass(), weight);
+            fill((Kp[0].momentum()+Km[1].momentum()).mass());
         }
       }
     }
@@ -113,10 +117,15 @@ namespace Rivet {
         scale(_hist_KKK_KK       , 0.5/_weight_KKK);
       }
       /// @note Using autobooking for these scatters since their x values are not really obtainable from the MC data
-      bookScatter2D(11, 1, 1, true)->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(_weight_pipipi)/_weight_total);
-      bookScatter2D(12, 1, 1, true)->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(_weight_Kpipi)/_weight_total);
-      bookScatter2D(13, 1, 1, true)->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(_weight_KpiK)/_weight_total);
-      bookScatter2D(14, 1, 1, true)->point(0).setY(100*_weight_KKK/_weight_total, 100*sqrt(_weight_KKK)/_weight_total);
+      Scatter2DPtr tmp11, tmp12, tmp13, tmp14;
+      book(tmp11, 11, 1, 1, true);
+      book(tmp12, 12, 1, 1, true);
+      book(tmp13, 13, 1, 1, true);
+      book(tmp14, 14, 1, 1, true);      
+      tmp11->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(double(_weight_pipipi))/_weight_total);
+      tmp12->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(double(_weight_Kpipi))/_weight_total);
+      tmp13->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(double(_weight_KpiK))/_weight_total);
+      tmp14->point(0).setY(100*_weight_KKK/_weight_total, 100*sqrt(double(_weight_KKK))/_weight_total);
     }
 
 
@@ -131,7 +140,7 @@ namespace Rivet {
     Histo1DPtr _hist_KKK_KKK, _hist_KKK_KK;
 
     // Weights counters
-    double _weight_total, _weight_pipipi, _weight_Kpipi, _weight_KpiK, _weight_KKK;
+    CounterPtr _weight_total, _weight_pipipi, _weight_Kpipi, _weight_KpiK, _weight_KKK;
 
     //@}
 

@@ -68,13 +68,13 @@ namespace Rivet {
       book(_h_forward_opp_cross_section  ,4, 1, 1);
 
       // Ratio histos to be filled by divide()
-      _h_cen_opp_same = bookScatter2D(5, 1, 1);
-      _h_fwd_opp_same = bookScatter2D(8, 1, 1);
+      book(_h_cen_opp_same, 5, 1, 1);
+      book(_h_fwd_opp_same, 8, 1, 1);
       // Ratio histos to be filled manually, since the num/denom inputs don't match
-      _h_cen_same_fwd_same = bookScatter2D(6, 1, 1, true);
-      _h_cen_opp_fwd_same = bookScatter2D(7, 1, 1, true);
-      _h_cen_same_fwd_opp = bookScatter2D(9, 1, 1, true);
-      _h_cen_opp_fwd_opp = bookScatter2D(10, 1, 1, true);
+      book(_h_cen_same_fwd_same, 6, 1, 1, true);
+      book(_h_cen_opp_fwd_same, 7, 1, 1, true);
+      book(_h_cen_same_fwd_opp, 9, 1, 1, true);
+      book(_h_cen_opp_fwd_opp, 10, 1, 1, true);
     }
 
 

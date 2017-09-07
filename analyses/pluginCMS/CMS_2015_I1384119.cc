@@ -35,7 +35,7 @@ namespace Rivet {
         const int id = p.abspid();
         // continue if particle is a proton, a kaon or a pion
         if (id == 211 || id == 321 || id == 2212) ///< @todo Use PID:: ID constants
-          _hist_dNch_dEta_inel->fill(p.eta(), event.weight());
+          _hist_dNch_dEta_inel->fill(p.eta(), 1.0);
       }
     }
 

@@ -248,9 +248,9 @@ namespace Rivet {
       book(_h_RPBar    ,11, 1, 2);
 
       // Ratios: used as target of divide() later
-      _s_PiM_PiP  = bookScatter2D(9, 1, 3);
-      _s_KM_KP	  = bookScatter2D(10, 1, 3);
-      _s_Pr_PBar  = bookScatter2D(11, 1, 3);
+      book(_s_PiM_PiP,  9, 1, 3);
+      book(_s_KM_KP	 , 10, 1, 3);
+      book(_s_Pr_PBar, 11, 1, 3);
 
     }
 
@@ -263,11 +263,16 @@ namespace Rivet {
       const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
       const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
       const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      bookScatter2D(8, 2, 1, true)->point(0).setY(avgNumPartsLight);
-      bookScatter2D(8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
-      bookScatter2D(8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
-      bookScatter2D(8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
-      bookScatter2D(8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp1;
+      book(tmp1, 8, 2, 1, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp2;
+      book(tmp2, 8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp3;
+      book(tmp3, 8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp4;
+      book(tmp4, 8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp5;
+      book(tmp5, 8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
 
       // Do divisions
       divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);

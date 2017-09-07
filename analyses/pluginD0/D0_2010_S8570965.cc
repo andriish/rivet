@@ -35,9 +35,10 @@ namespace Rivet {
                                                std::make_pair(80.0, 350.0) };
 
       for (size_t i = 0; i < 3; ++i) {
-        _h_pT_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHisto1D(5+3*i, 1, 1));
-        _h_dPhi_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHisto1D(6+3*i, 1, 1));
-        _h_costheta_M.addHistogram(M_ranges[i].first, M_ranges[i].second, bookHisto1D(7+3*i, 1, 1));
+        Histo1DPtr a,b,c;
+        _h_pT_M.addHistogram(M_ranges[i].first, M_ranges[i].second, book(a, 5+3*i, 1, 1));
+        _h_dPhi_M.addHistogram(M_ranges[i].first, M_ranges[i].second, book(b, 6+3*i, 1, 1));
+        _h_costheta_M.addHistogram(M_ranges[i].first, M_ranges[i].second, book(c, 7+3*i, 1, 1));
       }
     }
 

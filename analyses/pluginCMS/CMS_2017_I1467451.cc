@@ -58,7 +58,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       Particles leptons = applyProjection<DressedLeptons>(event, "DressedLeptons").particlesByPt(10.0*GeV);
       if (leptons.size() < 2) vetoEvent;

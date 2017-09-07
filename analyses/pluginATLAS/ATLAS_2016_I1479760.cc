@@ -72,7 +72,7 @@ namespace Rivet {
       if (jets[0].pT() < 42.5*GeV) vetoEvent;
 
       /// Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       _hists["deltaPt12"]->fill( calcDeltaPt( jets[0], jets[1] ), weight );
       _hists["deltaPt34"]->fill( calcDeltaPt( jets[2], jets[3] ), weight );
       _hists["deltaPt13"]->fill( calcDeltaPt( jets[0], jets[2] ), weight );

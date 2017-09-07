@@ -38,13 +38,13 @@ namespace Rivet {
       if (jets[0].pT() < 200*GeV) vetoEvent;
 
       const double dphi = deltaPhi(jets[0].phi(), jets[1].phi());
-      _h_deltaPhi.fill(jets[0].pT(), dphi, event.weight());
+      _h_deltaPhi.fill(jets[0].pT(), dphi, 1.0);
     }
 
 
     /// Scale histograms
     void finalize() {
-      for (Histo1DPtr histo : _h_deltaPhi.getHistograms()) normalize(histo);
+      for (Histo1DPtr histo : _h_deltaPhi.histos()) normalize(histo);
     }
 
 

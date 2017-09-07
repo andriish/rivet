@@ -22,14 +22,14 @@ namespace Rivet {
       declare(ChargedFinalState(-3.5,-1.5), "backwardCFS");
 
       // Histos
-      _s_chEF_minbias = bookScatter2D(1, 1, 1, true);
-      _s_chEF_hard = bookScatter2D(2, 1, 1, true);
-      _s_chEF_diff = bookScatter2D(3, 1, 1, true);
-      _s_chEF_nondiff = bookScatter2D(4, 1, 1, true);
-      _s_totEF_minbias = bookScatter2D(5, 1, 1, true);
-      _s_totEF_hard = bookScatter2D(6, 1, 1, true);
-      _s_totEF_diff = bookScatter2D(7, 1, 1, true);
-      _s_totEF_nondiff = bookScatter2D(8, 1, 1, true);
+      book(_s_chEF_minbias, 1, 1, 1, true);
+      book(_s_chEF_hard, 2, 1, 1, true);
+      book(_s_chEF_diff, 3, 1, 1, true);
+      book(_s_chEF_nondiff, 4, 1, 1, true);
+      book(_s_totEF_minbias, 5, 1, 1, true);
+      book(_s_totEF_hard, 6, 1, 1, true);
+      book(_s_totEF_diff, 7, 1, 1, true);
+      book(_s_totEF_nondiff, 8, 1, 1, true);
 
       // Temporary profiles and histos
       /// @todo Convert to declared/registered temp histos

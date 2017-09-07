@@ -178,7 +178,7 @@ namespace Rivet {
       const double missET = wf.constituentNeutrino().pT() / GeV;
       if (leptons.size() == 1 && missET > 25.0 && wf.mT() > 40.0*GeV) {
         const Particle& lep = leptons[0];
-        fillPlots(lep, missET, all_jets, event.weight());
+        fillPlots(lep, missET, all_jets, 1.0);
       }
     }
 

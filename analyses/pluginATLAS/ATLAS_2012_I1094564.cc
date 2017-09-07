@@ -310,15 +310,15 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      foreach (Histo1DPtr h, _h_camass.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_filtmass.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_ktmass.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_ktd12.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_ktd23.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_cat21.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_cat32.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_ktt21.getHistograms()) normalize(h);
-      foreach (Histo1DPtr h, _h_ktt32.getHistograms()) normalize(h);
+      foreach (Histo1DPtr h, _h_camass.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_filtmass.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_ktmass.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_ktd12.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_ktd23.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_cat21.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_cat32.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_ktt21.histos()) normalize(h);
+      foreach (Histo1DPtr h, _h_ktt32.histos()) normalize(h);
     }
 
   private:

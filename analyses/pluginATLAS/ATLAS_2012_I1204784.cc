@@ -99,10 +99,10 @@ namespace Rivet {
         normalize(_hist_zphistar_mu_dressed);
         normalize(_hist_zphistar_mu_bare);
 
-        foreach (Histo1DPtr hist, _h_phistar_mu_dressed.getHistograms()) { normalize(hist); }
-        foreach (Histo1DPtr hist, _h_phistar_mu_bare.getHistograms()) { normalize(hist); }
-        foreach (Histo1DPtr hist, _h_phistar_el_bare.getHistograms()) { normalize(hist); }
-        foreach (Histo1DPtr hist, _h_phistar_el_dressed.getHistograms()) { normalize(hist); }
+        foreach (Histo1DPtr hist, _h_phistar_mu_dressed.histos()) { normalize(hist); }
+        foreach (Histo1DPtr hist, _h_phistar_mu_bare.histos()) { normalize(hist); }
+        foreach (Histo1DPtr hist, _h_phistar_el_bare.histos()) { normalize(hist); }
+        foreach (Histo1DPtr hist, _h_phistar_el_dressed.histos()) { normalize(hist); }
       }
 
       //@}

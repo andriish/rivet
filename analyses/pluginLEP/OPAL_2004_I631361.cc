@@ -44,17 +44,15 @@ namespace Rivet {
 	iy = 2;
       }
       assert(ih>0);
-      _h_chMult     = bookHisto1D(ih,1,iy);
+      book(_h_chMult,ih,1,iy);
       if(ih==3)
-	_h_chFragFunc = bookHisto1D(5,1,iy);
-      else
-	_h_chFragFunc = NULL;
-    }
+	    book(_h_chFragFunc,5,1,iy);
+      }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       // find the initial gluons
       ParticleVector initial;
       for (const GenParticle* p : Rivet::particles(event.genEvent())) {

@@ -56,14 +56,14 @@ namespace Rivet {
       // Histogram booking, we have sqrt(s) = 200, 546 and 900 GeV
       // TODO use Scatter2D to be able to output errors
       if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {
-        _hist_correl = bookScatter2D(2, 1, 1);
-        _hist_correl_asym = bookScatter2D(3, 1, 1);
+        book(_hist_correl, 2, 1, 1);
+        book(_hist_correl_asym, 3, 1, 1);
       } else if (fuzzyEquals(sqrtS()/GeV, 546.0, 1E-4)) {
-        _hist_correl = bookScatter2D(2, 1, 2);
-        _hist_correl_asym = bookScatter2D(3, 1, 2);
+        book(_hist_correl, 2, 1, 2);
+        book(_hist_correl_asym, 3, 1, 2);
       } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
-        _hist_correl = bookScatter2D(2, 1, 3);
-        _hist_correl_asym = bookScatter2D(3, 1, 3);
+        book(_hist_correl, 2, 1, 3);
+        book(_hist_correl_asym, 3, 1, 3);
       }
     }
 
@@ -72,7 +72,7 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
-      _sumWPassed += event.weight();
+      _sumWPassed += 1.0;
 
       // Count forward/backward particles
       n_10f.push_back(apply<ChargedFinalState>(event, "CFS10F").size());

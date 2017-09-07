@@ -89,7 +89,7 @@ namespace Rivet {
         vtxeff = vtxeffs[charged.particles().size()];
       }
 
-      const double weight = vtxeff * event.weight();
+      const double weight = vtxeff * 1.0;
 
       foreach (const Particle& p, charged.particles()) {
         double pT = p.pT()/GeV;

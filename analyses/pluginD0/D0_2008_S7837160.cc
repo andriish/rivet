@@ -38,9 +38,9 @@ namespace Rivet {
         book(_hs_dsigpm_deta_35[pmindex] ,"TMP/dsigpm_deta_35_" + suffix, refData(1, 1, 2));
         book(_hs_dsigpm_deta_25[pmindex] ,"TMP/dsigpm_deta_25_" + suffix, refData(1, 1, 3));
       }
-      _h_asym1 = bookScatter2D(1, 1, 1);
-      _h_asym2 = bookScatter2D(1, 1, 2);
-      _h_asym3 = bookScatter2D(1, 1, 3);
+      book(_h_asym1, 1, 1, 1);
+      book(_h_asym2, 1, 1, 2);
+      book(_h_asym3, 1, 1, 3);
     }
 
 

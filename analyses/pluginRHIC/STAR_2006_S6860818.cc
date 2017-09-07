@@ -42,9 +42,9 @@ namespace Rivet {
       book(_h_pT_ximinus    ,1, 6, 1);
       book(_h_pT_xiplus     ,1, 7, 1);
       //book(_h_pT_omega      ,1, 8, 1);
-      _h_antibaryon_baryon_ratio = bookScatter2D(2, 1, 1);
-      _h_lambar_lam = bookScatter2D(2, 2, 1);
-      _h_xiplus_ximinus = bookScatter2D(2, 3, 1);
+      book(_h_antibaryon_baryon_ratio, 2, 1, 1);
+      book(_h_lambar_lam, 2, 2, 1);
+      book(_h_xiplus_ximinus, 2, 3, 1);
       book(_h_pT_vs_mass    ,3, 1, 1);
     }
 
@@ -135,7 +135,7 @@ namespace Rivet {
         }
       }
 
-      _sumWeightSelected += event.weight();
+      _sumWeightSelected += 1.0;
     }
 
 

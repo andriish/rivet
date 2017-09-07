@@ -68,7 +68,7 @@ namespace Rivet {
         const ChargedFinalState& cfs = apply<ChargedFinalState>(event, fsName);
 
         /// What's the benefit in separating this code which is only called from one place?!
-        fillPtEtaNch(cfs, iR, event.weight());
+        fillPtEtaNch(cfs, iR, 1.0);
       }
     }
 

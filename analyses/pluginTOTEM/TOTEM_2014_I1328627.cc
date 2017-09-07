@@ -31,9 +31,9 @@ namespace Rivet {
       const ChargedFinalState cfsp = apply<ChargedFinalState>(event, "CFSP");
       if (cfsm.size() == 0 && cfsp.size() == 0) vetoEvent;
 
-      _sumofweights += event.weight();
+      _sumofweights += 1.0;
       foreach (const Particle& p, cfsm.particles() + cfsp.particles()) {
-        _h_eta->fill(p.abseta(), event.weight());
+        _h_eta->fill(p.abseta(), 1.0);
       }
     }
 

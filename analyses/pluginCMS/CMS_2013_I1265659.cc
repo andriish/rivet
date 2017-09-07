@@ -54,7 +54,7 @@ namespace Rivet {
 
       // Calc beta and fill histogram (choose central or fwd histo inline)
       double beta = fabs(atan2(dPhi23, sign(jet2.eta())*dEta23));
-      ((jet2.abseta() < 0.8) ? _h_hTotD : _h_hTotDF)->fill(beta, event.weight());
+      ((jet2.abseta() < 0.8) ? _h_hTotD : _h_hTotDF)->fill(beta, 1.0);
     }
 
 

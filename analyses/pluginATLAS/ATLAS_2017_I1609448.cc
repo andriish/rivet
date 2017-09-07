@@ -116,7 +116,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Require 0 (Znunu) or 2 (Zll) dressed leptons
       bool isZll = bool(_mode);

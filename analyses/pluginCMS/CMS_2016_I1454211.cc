@@ -161,7 +161,7 @@ namespace Rivet {
         }
       }
 
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (partonCh == 1) {
         _nMu += weight;
         _hMu_topPt_parton->fill(partonTopP4.pT()/GeV, weight);

@@ -72,16 +72,25 @@ namespace Rivet {
       addProjection(cfs, "CFS");
       addProjection(HadronicFinalState(cfs), "HCFS");
 
-      _h_chMult.addHistogram(5.0, 5.5, bookHisto1D(1,1,1));
-      _h_chMult.addHistogram(5.5, 6.5, bookHisto1D(1,1,2));
-      _h_chMult.addHistogram(6.5, 7.5, bookHisto1D(1,1,3));
-      _h_chMult.addHistogram(7.5, 9.5, bookHisto1D(2,1,1));
-      _h_chMult.addHistogram(9.5, 13.0, bookHisto1D(2,1,2));
-      _h_chMult.addHistogram(13.0, 16.0, bookHisto1D(3,1,1));
-      _h_chMult.addHistogram(16.0, 20.0, bookHisto1D(3,1,2));
+      Histo1DPtr tmp1; book(tmp1, 1,1,1);
+      _h_chMult.addHistogram(5.0, 5.5, tmp1);
+      Histo1DPtr tmp2; book(tmp2, 1,1,1);
+      _h_chMult.addHistogram(5.5, 6.5, tmp2);
+      Histo1DPtr tmp3; book(tmp3, 1,1,3);
+      _h_chMult.addHistogram(6.5, 7.5, tmp3);
+      Histo1DPtr tmp4; book(tmp4, 2,1,1);
+      _h_chMult.addHistogram(7.5, 9.5, tmp4);
+      Histo1DPtr tmp5; book(tmp5, 2,1,2);
+      _h_chMult.addHistogram(9.5, 13.0, tmp5);
+      Histo1DPtr tmp6; book(tmp6, 3,1,1);
+      _h_chMult.addHistogram(13.0, 16.0, tmp6);
+      Histo1DPtr tmp7; book(tmp7, 3,1,2);
+      _h_chMult.addHistogram(16.0, 20.0, tmp7);
 
-      _h_chFragFunc.addHistogram(13.0, 16.0, bookHisto1D(5,1,1));
-      _h_chFragFunc.addHistogram(16.0, 20.0, bookHisto1D(5,1,2));
+      Histo1DPtr tmp8; book(tmp8, 5,1,1);
+      _h_chFragFunc.addHistogram(13.0, 16.0, tmp8);
+      Histo1DPtr tmp9; book(tmp9, 5,1,2);
+      _h_chFragFunc.addHistogram(16.0, 20.0, tmp9);
 
     }
 
@@ -157,7 +166,7 @@ namespace Rivet {
       }
 
       // all cuts applied, increment sum of weights
-      const double weight = event.weight();
+      const double weight = 1.0;
       _sumWEbin[getEbin(Eg)] += weight;
 
 
@@ -204,12 +213,12 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
 
-      foreach(Histo1DPtr hist, _h_chMult.getHistograms()) {
+      for (Histo1DPtr hist : _h_chMult.histos()) {
         normalize(hist);
       }
-      for(int i=0; i<2; i++) {
+      for (int i=0; i<2; i++) {
         if(!isZero(_sumWEbin[i+5])) {
-          scale(_h_chFragFunc.getHistograms()[i], 1./_sumWEbin[i+5]);
+          scale(_h_chFragFunc.histos()[i], 1./_sumWEbin[i+5]);
         }
       }
     }

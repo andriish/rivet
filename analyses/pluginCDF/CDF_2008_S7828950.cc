@@ -40,7 +40,7 @@ namespace Rivet {
     // Do the analysis
     void analyze(const Event& event) {
       foreach (const Jet& jet, apply<FastJets>(event, "JetsM07").jets(Cuts::pT > 62*GeV)) {
-        _binnedHistosR07.fill(jet.absrap(), jet.pT(), event.weight());
+        _binnedHistosR07.fill(jet.absrap(), jet.pT(), 1.0);
       }
     }
 

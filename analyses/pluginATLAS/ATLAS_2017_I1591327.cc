@@ -152,7 +152,7 @@ namespace Rivet {
       const double at = At.cross(t_hatx).mod();
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       _h_M->fill(Myy, weight);
       _h_pT->fill(pTyy, weight);
       _h_dPhi->fill(dPhiyy, weight);

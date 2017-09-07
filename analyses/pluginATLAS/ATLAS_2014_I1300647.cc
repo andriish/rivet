@@ -100,7 +100,7 @@ namespace Rivet {
       normalize(_hist_zpt_mu_dressed);  
       normalize(_hist_zpt_mu_bare); 
 
-      foreach (Histo1DPtr hist, _h_zpt_el_mu_dressed.getHistograms()) { normalize(hist); }
+      foreach (Histo1DPtr hist, _h_zpt_el_mu_dressed.histos()) { normalize(hist); }
 
     }
 

@@ -52,26 +52,26 @@ namespace Rivet {
       foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::B0BAR)) {
         if (isSemileptonicDecay(p, {PID::PIPLUS, PID::ELECTRON, PID::NU_EBAR}) ||
             isSemileptonicDecay(p, {PID::PIPLUS, PID::MUON,     PID::NU_MUBAR})) {
-            _h_q2_B0bar_pi->fill(q2(p, PID::PIPLUS), event.weight());
+            _h_q2_B0bar_pi->fill(q2(p, PID::PIPLUS));
         }
         if (isSemileptonicDecay(p, {PID::RHOPLUS, PID::ELECTRON, PID::NU_EBAR}) ||
             isSemileptonicDecay(p, {PID::RHOPLUS, PID::MUON,     PID::NU_MUBAR})) {
-            _h_q2_B0bar_rho->fill(q2(p, PID::RHOPLUS), event.weight());
+            _h_q2_B0bar_rho->fill(q2(p, PID::RHOPLUS));
         }
       }
       // Loop over B- Mesons
       foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::BMINUS)) {
         if (isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR}) ||
             isSemileptonicDecay(p, {PID::PI0, PID::MUON,     PID::NU_MUBAR})) {
-            _h_q2_Bminus_pi->fill(q2(p, PID::PI0), event.weight());
+            _h_q2_Bminus_pi->fill(q2(p, PID::PI0));
         }
         if (isSemileptonicDecay(p, {PID::RHO0, PID::ELECTRON, PID::NU_EBAR}) ||
             isSemileptonicDecay(p, {PID::RHO0, PID::MUON,    PID::NU_MUBAR})) {
-            _h_q2_Bminus_rho->fill(q2(p,PID::RHO0), event.weight());
+            _h_q2_Bminus_rho->fill(q2(p,PID::RHO0));
         }
         if (isSemileptonicDecay(p, {PID::OMEGA, PID::ELECTRON, PID::NU_EBAR}) ||
             isSemileptonicDecay(p, {PID::OMEGA, PID::MUON,     PID::NU_MUBAR})) {
-            _h_q2_Bminus_omega->fill(q2(p, PID::OMEGA), event.weight());
+            _h_q2_Bminus_omega->fill(q2(p, PID::OMEGA));
         }
       }
     }

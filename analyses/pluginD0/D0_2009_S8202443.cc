@@ -49,7 +49,7 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& e) {
-      double weight = e.weight();
+      double weight = 1.0;
 
       // Unconstrained electrons
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");

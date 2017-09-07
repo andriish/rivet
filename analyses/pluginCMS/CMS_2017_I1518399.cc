@@ -96,7 +96,7 @@ namespace Rivet {
       if (cleanedJets.at(0).mass() < secondJetLepton.mass()) vetoEvent;
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       _hist_mass->fill(cleanedJets.at(0).mass(), weight);
       _hist_mass_norm->fill(cleanedJets.at(0).mass(), weight);
     }

@@ -47,7 +47,7 @@ namespace Rivet {
       foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::B0)) {
         if (isSemileptonicDecay(p, {PID::PIMINUS, PID::POSITRON, PID::NU_E}) ||
             isSemileptonicDecay(p, {PID::PIMINUS, PID::ANTIMUON, PID::NU_MU})) {
-            _h_q2->fill(q2(p, PID::PIMINUS), event.weight());
+            _h_q2->fill(q2(p, PID::PIMINUS));
         }
       }
     }

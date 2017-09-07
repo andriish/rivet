@@ -36,13 +36,13 @@ namespace Rivet {
 
       const double mjj = (j0+j1).mass();
       const double chi = exp(fabs(j0.rap()-j1.rap()));
-      if (chi < 16) _h_chi_dijet.fill(mjj/GeV, chi, event.weight());
+      if (chi < 16) _h_chi_dijet.fill(mjj/GeV, chi, 1.0);
     }
 
 
     /// Normalize histograms
     void finalize() {
-      for (Histo1DPtr hist : _h_chi_dijet.getHistograms()) normalize(hist);
+      for (Histo1DPtr hist : _h_chi_dijet.histos()) normalize(hist);
     }
 
 

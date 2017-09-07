@@ -293,12 +293,12 @@ namespace Rivet {
 
         /// @todo Clean up temp histos -- requires restructuring the temp histo struct
 
-        for (size_t x = 0; x < plots._h_gapVsDeltaYVeto.getHistograms().size(); x++) {
-          divide(plots._h_gapVsDeltaYVeto.getHistograms()[x], plots._h_gapVsDeltaYInc.getHistograms()[x],
+        for (size_t x = 0; x < plots._h_gapVsDeltaYVeto.histos().size(); x++) {
+          divide(plots._h_gapVsDeltaYVeto.histos()[x], plots._h_gapVsDeltaYInc.histos()[x],
                  bookScatter2D(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType));
         }
-        for (size_t x = 0; x < plots._h_gapVsPtBarVeto.getHistograms().size(); x++) {
-          divide(plots._h_gapVsPtBarVeto.getHistograms()[x], plots._h_gapVsPtBarInc.getHistograms()[x],
+        for (size_t x = 0; x < plots._h_gapVsPtBarVeto.histos().size(); x++) {
+          divide(plots._h_gapVsPtBarVeto.histos()[x], plots._h_gapVsPtBarInc.histos()[x],
                  bookScatter2D(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType));
         }
 

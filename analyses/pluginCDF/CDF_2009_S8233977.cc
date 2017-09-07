@@ -91,7 +91,7 @@ namespace Rivet {
         sumEt += p.Et();
       }
       _hist_sumEt->fill(sumEt, weight);
-      _sumWeightSelected += evt.weight();
+      _sumWeightSelected += 1.0;
     }
 
 

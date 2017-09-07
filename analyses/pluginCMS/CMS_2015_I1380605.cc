@@ -38,7 +38,7 @@ namespace Rivet {
       if (!(count_plus > 0 || count_minus > 0)) vetoEvent; //< @todo Should this really also veto the jet analysis?
       /// @warning Needs migration to an AO Counter
       /// @note This isn't the number of tracks, it's the sum of event weights passing the veto
-      const double weight = event.weight();
+      const double weight = 1.0;
       _ntracks += weight;
 
       // Do track analysis here

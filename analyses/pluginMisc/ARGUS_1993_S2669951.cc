@@ -11,18 +11,23 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2669951()
-      : Analysis("ARGUS_1993_S2669951"),
-        _count_etaPrime_highZ(2, 0.),
-        _count_etaPrime_allZ(3, 0.),
-        _count_f0(3, 0.),
-        _weightSum_cont(0.),
-        _weightSum_Ups1(0.),
-        _weightSum_Ups2(0.)
+      : Analysis("ARGUS_1993_S2669951")
     {   }
 
 
     void init() {
       declare(UnstableFinalState(), "UFS");
+
+      book(_weightSum_cont, "weightSum_cont");
+      book(_weightSum_Ups1, "weightSum_Ups1");
+      book(_weightSum_Ups2, "weightSum_Ups2");
+
+      for ( auto i : {0,1,2} ) {
+        if ( i < 2 )
+          book(_count_etaPrime_highZ[i], "count_etaPrime_highz_" + to_str(i));
+        book(_count_etaPrime_allZ[i], "count_etaPrime_allz_" + to_str(i));
+        book(_count_f0[i], "count_f0_" + to_str(i));
+      }
 
       book(_hist_cont_f0 ,2, 1, 1);
       book(_hist_Ups1_f0 ,3, 1, 1);
@@ -62,34 +67,33 @@ namespace Rivet {
 
 
       // Finding done, now fill counters
-      const double weight = 1.0;
       if (upsilons.empty()) { // Continuum
         MSG_DEBUG("No Upsilons found => continuum event");
 
-        _weightSum_cont += weight;
+        _weightSum_cont->fill();
         unsigned int nEtaA(0), nEtaB(0), nf0(0);
         foreach (const Particle& p, ufs.particles()) {
           const int id = p.abspid();
           const double xp = 2.*p.E()/sqrtS();
           const double beta = p.p3().mod() / p.E();
           if (id == 9010221) {
-            _hist_cont_f0->fill(xp, weight/beta);
+            _hist_cont_f0->fill(xp, 1.0/beta);
             nf0 += 1;
           } else if (id == 331) {
             if (xp > 0.35) nEtaA += 1;
             nEtaB += 1;
           }
         }
-        _count_f0[2]             += nf0*weight;
-        _count_etaPrime_highZ[1] += nEtaA*weight;
-        _count_etaPrime_allZ[2]  += nEtaB*weight;
+        _count_f0[2]            ->fill(nf0);
+        _count_etaPrime_highZ[1]->fill(nEtaA);
+        _count_etaPrime_allZ[2] ->fill(nEtaB);
 
       } else { // Upsilon(s) found
         MSG_DEBUG("Upsilons found => resonance event");
 
         foreach (const Particle& ups, upsilons) {
           const int parentId = ups.pid();
-          ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2) += weight;
+          ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2)->fill();
           Particles unstable;
           // Find the decay products we want
           findDecayProducts(ups.genParticle(), unstable);
@@ -104,7 +108,7 @@ namespace Rivet {
             const double xp = 2.*p2.E()/mass;
             const double beta = p2.p3().mod()/p2.E();
             if (id == 9010221) { //< ?
-              ((parentId == 553) ? _hist_Ups1_f0 : _hist_Ups2_f0)->fill(xp, weight/beta);
+              ((parentId == 553) ? _hist_Ups1_f0 : _hist_Ups2_f0)->fill(xp, 1.0/beta);
               nf0 += 1;
             } else if (id == 331) { //< ?
               if (xp > 0.35) nEtaA += 1;
@@ -112,12 +116,12 @@ namespace Rivet {
             }
           }
           if (parentId == 553) {
-            _count_f0[0]             +=   nf0*weight;
-            _count_etaPrime_highZ[0] += nEtaA*weight;
-            _count_etaPrime_allZ[0]  += nEtaB*weight;
+            _count_f0[0]            ->fill(  nf0);
+            _count_etaPrime_highZ[0]->fill(nEtaA);
+            _count_etaPrime_allZ[0] ->fill(nEtaB);
           } else {
-            _count_f0[1] += nf0*weight;
-            _count_etaPrime_allZ[1]  += nEtaB*weight;
+            _count_f0[1]->fill(nf0);
+            _count_etaPrime_allZ[1] ->fill(nEtaB);
           }
         }
       }
@@ -127,14 +131,16 @@ namespace Rivet {
     void finalize() {
 
       // High-Z eta' multiplicity
-      Scatter2DPtr s111 = bookScatter2D(1, 1, 1, true);
+      Scatter2DPtr s111;
+      book(s111, 1, 1, 1, true);
       if (_weightSum_Ups1 > 0) // Point at 9.460
         s111->point(0).setY(_count_etaPrime_highZ[0] / _weightSum_Ups1, 0);
       if (_weightSum_cont > 0) // Point at 9.905
         s111->point(1).setY(_count_etaPrime_highZ[1] / _weightSum_cont, 0);
 
       // All-Z eta' multiplicity
-      Scatter2DPtr s112 = bookScatter2D(1, 1, 2, true);
+      Scatter2DPtr s112;
+      book(s112, 1, 1, 2, true);
       if (_weightSum_Ups1 > 0) // Point at 9.460
         s112->point(0).setY(_count_etaPrime_allZ[0] / _weightSum_Ups1, 0);
       if (_weightSum_cont > 0) // Point at 9.905
@@ -143,7 +149,8 @@ namespace Rivet {
         s112->point(2).setY(_count_etaPrime_allZ[1] / _weightSum_Ups2, 0);
 
       // f0 multiplicity
-      Scatter2DPtr s511 = bookScatter2D(5, 1, 1, true);
+      Scatter2DPtr s511;
+      book(s511, 5, 1, 1, true);
       if (_weightSum_Ups1 > 0) // Point at 9.46
         s511->point(0).setY(_count_f0[0] / _weightSum_Ups1, 0);
       if (_weightSum_Ups2 > 0) // Point at 10.02
@@ -162,8 +169,8 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    vector<double> _count_etaPrime_highZ, _count_etaPrime_allZ, _count_f0;
-    double _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
+    vector<CounterPtr> _count_etaPrime_highZ, _count_etaPrime_allZ, _count_f0;
+    CounterPtr _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
     //@}
 
 

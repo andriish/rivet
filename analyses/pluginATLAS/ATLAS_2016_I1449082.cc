@@ -192,7 +192,7 @@ namespace Rivet {
       double pttt = (top_p + top_n).pt()*GeV;
 
       // Fill histos, counters
-      const double weight = event.weight();
+      const double weight = 1.0;
       _h_dEta->fill(dEta, weight);
       _h_dY  ->fill(dY  , weight);
       // Histos for inclusive and differential asymmetries

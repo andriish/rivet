@@ -21,10 +21,10 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Histograms
-      _h_all    = bookProfile1D(5, 1, 4);
-      _h_light  = bookProfile1D(4, 1, 4);
-      _h_charm  = bookProfile1D(3, 1, 4);
-      _h_bottom = bookProfile1D(2, 1, 4);
+      book(_h_all   , 5, 1, 4);
+      book(_h_light , 4, 1, 4);
+      book(_h_charm , 3, 1, 4);
+      book(_h_bottom, 2, 1, 4);
       // Projections
       declare(Beam(), "Beams");
       declare(ChargedFinalState(), "CFS");
@@ -34,7 +34,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent;
@@ -65,16 +64,16 @@ namespace Rivet {
       const size_t numParticles = cfs.particles().size();
       switch (flavour) {
       case 1: case 2: case 3:
-	_h_light->fill(sqrtS()/GeV,numParticles,weight);
+	_h_light->fill(sqrtS()/GeV,numParticles);
         break;
       case 4:
-	_h_charm->fill(sqrtS()/GeV,numParticles,weight);
+	_h_charm->fill(sqrtS()/GeV,numParticles);
         break;
       case 5:
-	_h_bottom->fill(sqrtS()/GeV,numParticles,weight);
+	_h_bottom->fill(sqrtS()/GeV,numParticles);
         break;
       }
-      _h_all->fill(sqrtS()/GeV,numParticles,weight);
+      _h_all->fill(sqrtS()/GeV,numParticles);
     }
 
 

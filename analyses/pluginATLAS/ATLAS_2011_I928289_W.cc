@@ -47,10 +47,10 @@ namespace Rivet {
       book(_h_Wplus_lepton_eta_el_dressed     ,5, 1, 2);
       book(_h_Wplus_lepton_eta_mu_bare        ,5, 1, 3);
       book(_h_Wplus_lepton_eta_mu_dressed     ,5, 1, 4);
-      _h_W_asym_eta_el_bare              = bookScatter2D(7, 1, 1);
-      _h_W_asym_eta_el_dressed           = bookScatter2D(7, 1, 2);
-      _h_W_asym_eta_mu_bare              = bookScatter2D(7, 1, 3);
-      _h_W_asym_eta_mu_dressed           = bookScatter2D(7, 1, 4);
+      book(_h_W_asym_eta_el_bare              ,7, 1, 1);
+      book(_h_W_asym_eta_el_dressed           ,7, 1, 2);
+      book(_h_W_asym_eta_mu_bare              ,7, 1, 3);
+      book(_h_W_asym_eta_mu_dressed           ,7, 1, 4);
 
     }
 

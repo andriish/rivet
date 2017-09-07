@@ -73,7 +73,8 @@ namespace Rivet {
         book(_h_thrustminor ,offset+102, 1, 1);
         book(_h_jetmassdifference ,offset+110, 1, 1);
         book(_h_aplanarity ,offset+118, 1, 1);
-        _h_planarity  = offset==0 ? Histo1DPtr() : bookHisto1D(offset+125, 1, 1);
+        if ( offset != 0 )
+          book(_h_planarity, offset+125, 1, 1);
         book(_h_oblateness ,offset+133, 1, 1);
         book(_h_sphericity ,offset+141, 1, 1);
 
@@ -86,9 +87,9 @@ namespace Rivet {
           book(_h_y_Durham[4] ,offset+180, 1, 1); // y56 d180 ... d186
         }
         else if (offset==6) {
-          _h_y_Durham[2].reset();
-          _h_y_Durham[3].reset();
-          _h_y_Durham[4].reset();
+          _h_y_Durham[2] = Histo1DPtr();
+          _h_y_Durham[3] = Histo1DPtr();
+          _h_y_Durham[4] = Histo1DPtr();
         }
         else if (offset==7) {
           book(_h_y_Durham[2] ,172, 1, 1);
@@ -123,7 +124,8 @@ namespace Rivet {
         book(_h_xi ,11+offset, 1, 1);
         book(_h_xe ,19+offset, 1, 1);
         book(_h_pTin  ,27+offset, 1, 1);
-        _h_pTout = offset!=7 ? Histo1DPtr() : bookHisto1D(35, 1, 1);
+        if (offset == 7)
+          book(_h_pTout, 35, 1, 1);
         book(_h_rapidityT ,36+offset, 1, 1);
         book(_h_rapidityS ,44+offset, 1, 1);
       }
@@ -266,7 +268,8 @@ namespace Rivet {
 
       Histo1D temphisto(refData(1, 1, 1));
       const double avgNumParts = _weightedTotalChargedPartNum / sumOfWeights();
-      Scatter2DPtr  mult = bookScatter2D(1, 1, 1);
+      Scatter2DPtr  mult;
+      book(mult, 1, 1, 1);
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();
         const double ex = temphisto.bin(b).xWidth()/2.;

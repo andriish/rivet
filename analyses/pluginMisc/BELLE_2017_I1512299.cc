@@ -24,10 +24,10 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       // Book histograms
-      _h_w      = bookHisto1D(1, 1, 1);
-      _h_costhv = bookHisto1D(2, 1, 1);
-      _h_costhl = bookHisto1D(3, 1, 1);
-      _h_chi    = bookHisto1D(4, 1, 1);
+      book(_h_w     , 1, 1, 1);
+      book(_h_costhv, 2, 1, 1);
+      book(_h_costhl, 3, 1, 1);
+      book(_h_chi   , 4, 1, 1);
 
     }
 
@@ -71,7 +71,7 @@ namespace Rivet {
         pB = p.momentum();
         // Find semileptonic decays
         if (analyzeDecay(p, {PID::DSTARPLUS,-12,11}) || analyzeDecay(p, {PID::DSTARPLUS,-14,13}) ) {
-          _h_w->fill(recoilW(p), event.weight());
+          _h_w->fill(recoilW(p));
           // Get the necessary momenta for the angles
           bool foundDdecay=false;
           for (const Particle c : p.children()) {
@@ -103,17 +103,17 @@ namespace Rivet {
             FourMomentum lv_wrest_lep       = W_boost.transform(lv_brest_lep);
 
             double cos_thetaV = cos(lv_brest_Dstar.p3().angle(lv_Dstarrest_D.p3()));
-            _h_costhv->fill(cos_thetaV, event.weight());
+            _h_costhv->fill(cos_thetaV);
             
             double cos_thetaL = cos(lv_brest_w.p3().angle(lv_wrest_lep.p3()));
-            _h_costhl->fill(cos_thetaL, event.weight());
+            _h_costhl->fill(cos_thetaL);
 
             Vector3 LTrans = lv_wrest_lep.p3()   - cos_thetaL*lv_wrest_lep.p3().perp()*lv_brest_w.p3().unit();
             Vector3 VTrans = lv_Dstarrest_D.p3() - cos_thetaV*lv_Dstarrest_D.p3().perp()*lv_brest_Dstar.p3().unit();
             float chi = atan2(LTrans.cross(VTrans).dot(lv_brest_w.p3().unit()), LTrans.dot(VTrans));
             if(chi < 0) chi += TWOPI; 
 
-            _h_chi->fill(chi, event.weight());
+            _h_chi->fill(chi);
 
             //const LorentzTransform W_boost = LorentzTransform::mkFrameTransformFromBeta((pl+pnu).betaVec());
             //const LorentzTransform D_boost = LorentzTransform::mkFrameTransformFromBeta((pD+ppi).betaVec());
@@ -122,14 +122,14 @@ namespace Rivet {
             //FourMomentum pD_t = FourMomentum(D_boost.transform(pD));
             //double thetal = (pl+pnu).angle(pl_t);
             //double thetav = (pD+ppi).angle(pD_t);
-            //_h_costhv->fill(cos(thetav), event.weight());
-            //_h_costhl->fill(cos(thetal), event.weight());
+            //_h_costhv->fill(cos(thetav));
+            //_h_costhl->fill(cos(thetal));
           }
         }
       }
     }
         //else if (analyzeDecay(p, {413,-14,13}) ) {
-          //_h_w->fill(recoilW(p), event.weight());
+          //_h_w->fill(recoilW(p));
         //}
 
     /// Normalise histograms etc., after the run

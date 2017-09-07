@@ -41,14 +41,15 @@ namespace Rivet {
       }
       assert(ih>0);
       // book the histograms
-      _histo_xE.push_back(bookHisto1D(ih+5,1,1));
-      _histo_xE.push_back(bookHisto1D(ih+5,1,2));
-      if(ih<5) _histo_xE.push_back(bookHisto1D(ih+5,1,3));
+      Histo1DPtr tmp1, tmp2, tmp3;
+      _histo_xE.push_back(book(tmp1,ih+5,1,1));
+      _histo_xE.push_back(book(tmp2,ih+5,1,2));
+      if(ih<5) _histo_xE.push_back(book(tmp3,ih+5,1,3));
     }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
+      const double weight = 1.0;
       // find the initial quarks/gluons
       ParticleVector initial;
       for (const GenParticle* p : Rivet::particles(event.genEvent())) {

@@ -108,7 +108,7 @@ namespace Rivet {
 
 
       // Weight to be used for histo filling
-      const double w = 0.5 * event.weight();
+      const double w = 0.5 * 1.0;
 
       // Fill jet number integral histograms
       _h_excmult_jets_tot->fill(goodjets.size(), w);

@@ -56,7 +56,7 @@ namespace Rivet {
       // Histograms
       book(_h_dsigdpt_w ,1, 1, 1);
       book(_h_dsigdpt_z ,1, 1, 2);
-      _h_dsigdpt_scaled_z = bookScatter2D(2, 1, 1);
+      book(_h_dsigdpt_scaled_z, 2, 1, 1);
     }
 
 

@@ -29,9 +29,9 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::D0ILCONE, 0.7), "ConeJets");
 
       book(_h_deta ,1, 1, 1);
-      _h_dphi.addHistogram(0.0, 2.0, bookHisto1D(2, 1, 1));
-      _h_dphi.addHistogram(2.0, 4.0, bookHisto1D(2, 1, 2));
-      _h_dphi.addHistogram(4.0, 6.0, bookHisto1D(2, 1, 3));
+      {Histo1DPtr tmp; _h_dphi.addHistogram(0.0, 2.0, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_dphi.addHistogram(2.0, 4.0, book(tmp, 2, 1, 2));}
+      {Histo1DPtr tmp; _h_dphi.addHistogram(4.0, 6.0, book(tmp, 2, 1, 3));}
       book(_h_cosdphi_deta ,3, 1, 1);
     }
 
@@ -74,7 +74,7 @@ namespace Rivet {
       normalize(_h_deta, 8830.); // fixed norm OK
 
       // Normalied to 1/(4pi)
-      foreach (Histo1DPtr histo, _h_dphi.getHistograms()) {
+      foreach (Histo1DPtr histo, _h_dphi.histos()) {
         normalize(histo, 1./(4.*M_PI));
       }
 

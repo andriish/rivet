@@ -188,7 +188,7 @@ namespace Rivet {
       if (!jets_selected.empty()) vetoEvent;
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (channel == 1) {
         _hist_mm_fid_intxsec->fill(1.0, weight);
 

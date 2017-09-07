@@ -41,7 +41,7 @@ namespace Rivet {
       // MinBias Trigger
       const bool trigger = apply<TriggerCDFRun2>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-      //_sumWPassed += event.weight();
+      //_sumWPassed += 1.0;
       const double weight = 1.0;
 
       // Get events charged multiplicity and fill histogram

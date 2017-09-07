@@ -80,7 +80,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Get objects
       vector<DressedLepton> leptons = apply<DressedLeptons>(event, "Leptons").dressedLeptons();

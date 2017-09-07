@@ -25,30 +25,30 @@ namespace Rivet {
 
       switch ( beamIds().first ) {
       case PID::PIPLUS:
-        _h_cpos_xF = bookHisto1D(1, 1, 1);
-        _h_cpos_eta = bookHisto1D(3, 1, 1);
-        _h_cpos_pT2 = bookHisto1D(5, 1, 1);
-        _h_cneg_xF = bookHisto1D(2, 1, 1);
-        _h_cneg_eta = bookHisto1D(4, 1, 1);
-        _h_cneg_pT2 = bookHisto1D(6, 1, 1);
+        book(_h_cpos_xF ,1, 1, 1);
+        book(_h_cpos_eta ,3, 1, 1);
+        book(_h_cpos_pT2 ,5, 1, 1);
+        book(_h_cneg_xF ,2, 1, 1);
+        book(_h_cneg_eta ,4, 1, 1);
+        book(_h_cneg_pT2 ,6, 1, 1);
         break;
 
       case PID::KPLUS:
-        _h_cpos_xF = bookHisto1D(1, 1, 2);
-        _h_cpos_eta = bookHisto1D(3, 1, 2);
-        _h_cpos_pT2 = bookHisto1D(5, 1, 2);
-        _h_cneg_xF = bookHisto1D(2, 1, 2);
-        _h_cneg_eta = bookHisto1D(4, 1, 2);
-        _h_cneg_pT2 = bookHisto1D(6, 1, 2);
+        book(_h_cpos_xF ,1, 1, 2);
+        book(_h_cpos_eta ,3, 1, 2);
+        book(_h_cpos_pT2 ,5, 1, 2);
+        book(_h_cneg_xF ,2, 1, 2);
+        book(_h_cneg_eta ,4, 1, 2);
+        book(_h_cneg_pT2 ,6, 1, 2);
         break;
 
       case PID::PROTON:
-        _h_cpos_xF = bookHisto1D(1, 1, 3);
-        _h_cpos_eta = bookHisto1D(3, 1, 3);
-        _h_cpos_pT2 = bookHisto1D(5, 1, 3);
-        _h_cneg_xF = bookHisto1D(2, 1, 3);
-        _h_cneg_eta = bookHisto1D(4, 1, 3);
-        _h_cneg_pT2 = bookHisto1D(6, 1, 3);
+        book(_h_cpos_xF ,1, 1, 3);
+        book(_h_cpos_eta ,3, 1, 3);
+        book(_h_cpos_pT2 ,5, 1, 3);
+        book(_h_cneg_xF ,2, 1, 3);
+        book(_h_cneg_eta ,4, 1, 3);
+        book(_h_cneg_pT2 ,6, 1, 3);
         break;
       }
 
@@ -67,7 +67,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = event.weight();
 
       const FinalState& fs = apply<FinalState>(event, "CFS");
       for (const Particle& p: fs.particles()) {
@@ -80,13 +79,13 @@ namespace Rivet {
         const double xF = pcm.pz()/_pz_max;
 
         if (p.charge() > 0) {
-          _h_cpos_xF->fill( xF, weight);
-          _h_cpos_pT2->fill( p.pT2(), weight);
-          _h_cpos_eta->fill( p.eta(), weight);
+          _h_cpos_xF->fill( xF );
+          _h_cpos_pT2->fill( p.pT2() );
+          _h_cpos_eta->fill( p.eta() );
         } else if (p.pid() == PID::PIMINUS) {
-          _h_cneg_xF->fill( xF, weight);
-          _h_cneg_pT2->fill( p.pT2(), weight);
-          _h_cneg_eta->fill( p.eta(), weight);
+          _h_cneg_xF->fill( xF );
+          _h_cneg_pT2->fill( p.pT2() );
+          _h_cneg_eta->fill( p.eta() );
         }
       }
     }

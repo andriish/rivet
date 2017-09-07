@@ -33,7 +33,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const double evtWeight = event.weight();
+      const double evtWeight = 1.0;
       const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 50.0*GeV && Cuts::abseta < 2.5);
 
       if (jets.size() < 2)  vetoEvent;

@@ -352,29 +352,29 @@ namespace Rivet {
       book(_h_RLambda  , 34, 1, 1);
       book(_h_RLBar    , 34, 1, 2);
 
-      _s_Xp_PiPl_Ch        = bookScatter2D(1, 1, 1);
-      _s_Xp_KPl_Ch         = bookScatter2D(2, 1, 1);
-      _s_Xp_Pr_Ch          = bookScatter2D(3, 1, 1);
-      _s_Xp_PiPlCh_PiPlLi  = bookScatter2D(11, 1, 1);
-      _s_Xp_PiPlBo_PiPlLi  = bookScatter2D(11, 1, 2);
-      _s_Xp_KPlCh_KPlLi    = bookScatter2D(13, 1, 1);
-      _s_Xp_KPlBo_KPlLi    = bookScatter2D(13, 1, 2);
-      _s_Xp_KS0Ch_KS0Li    = bookScatter2D(15, 1, 1);
-      _s_Xp_KS0Bo_KS0Li    = bookScatter2D(15, 1, 2);
-      _s_Xp_PrCh_PrLi      = bookScatter2D(17, 1, 1);
-      _s_Xp_PrBo_PrLi      = bookScatter2D(17, 1, 2);
-      _s_Xp_LaCh_LaLi      = bookScatter2D(19, 1, 1);
-      _s_Xp_LaBo_LaLi      = bookScatter2D(19, 1, 2);
-      _s_Xp_K0Ch_K0Li      = bookScatter2D(21, 1, 1);
-      _s_Xp_K0Bo_K0Li      = bookScatter2D(21, 1, 2);
-      _s_Xp_PhiCh_PhiLi    = bookScatter2D(23, 1, 1);
-      _s_Xp_PhiBo_PhiLi    = bookScatter2D(23, 1, 2);
+      book(_s_Xp_PiPl_Ch      , 1, 1, 1);
+      book(_s_Xp_KPl_Ch       , 2, 1, 1);
+      book(_s_Xp_Pr_Ch        , 3, 1, 1);
+      book(_s_Xp_PiPlCh_PiPlLi, 11, 1, 1);
+      book(_s_Xp_PiPlBo_PiPlLi, 11, 1, 2);
+      book(_s_Xp_KPlCh_KPlLi  , 13, 1, 1);
+      book(_s_Xp_KPlBo_KPlLi  , 13, 1, 2);
+      book(_s_Xp_KS0Ch_KS0Li  , 15, 1, 1);
+      book(_s_Xp_KS0Bo_KS0Li  , 15, 1, 2);
+      book(_s_Xp_PrCh_PrLi    , 17, 1, 1);
+      book(_s_Xp_PrBo_PrLi    , 17, 1, 2);
+      book(_s_Xp_LaCh_LaLi    , 19, 1, 1);
+      book(_s_Xp_LaBo_LaLi    , 19, 1, 2);
+      book(_s_Xp_K0Ch_K0Li    , 21, 1, 1);
+      book(_s_Xp_K0Bo_K0Li    , 21, 1, 2);
+      book(_s_Xp_PhiCh_PhiLi  , 23, 1, 1);
+      book(_s_Xp_PhiBo_PhiLi  , 23, 1, 2);
 
-      _s_PiM_PiP    = bookScatter2D(27, 1, 1);
-      _s_KSBar0_KS0 = bookScatter2D(29, 1, 1);
-      _s_KM_KP      = bookScatter2D(31, 1, 1);
-      _s_Pr_PBar    = bookScatter2D(33, 1, 1);
-      _s_Lam_LBar   = bookScatter2D(35, 1, 1);
+      book(_s_PiM_PiP   , 27, 1, 1);
+      book(_s_KSBar0_KS0, 29, 1, 1);
+      book(_s_KM_KP     , 31, 1, 1);
+      book(_s_Pr_PBar   , 33, 1, 1);
+      book(_s_Lam_LBar  , 35, 1, 1);
     }
 
 
@@ -466,122 +466,206 @@ namespace Rivet {
       // pi+/-
       // all
       avgNumPartsAll = _multPiPlus[0]/sumOfWeights();
-      bookScatter2D(24, 1, 1, true)->point(0).setY(avgNumPartsAll);
+      Scatter2DPtr tmp1;
+      book(tmp1, 24, 1, 1, true);
+      tmp1->point(0).setY(avgNumPartsAll);
       // light
       avgNumPartsLight = _multPiPlus[1]/_SumOfudsWeights;
-      bookScatter2D(24, 1, 2, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp2;
+      book(tmp2, 24, 1, 2, true);
+      tmp2->point(0).setY(avgNumPartsLight);
       // charm
       avgNumPartsCharm = _multPiPlus[2]/_SumOfcWeights;
-      bookScatter2D(24, 1, 3, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp3;
+      book(tmp3, 24, 1, 3, true);
+      tmp3->point(0).setY(avgNumPartsCharm);
       // bottom
       avgNumPartsBottom = _multPiPlus[3]/_SumOfbWeights;
-      bookScatter2D(24, 1, 4, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp4;
+      book(tmp4, 24, 1, 4, true);
+      tmp4->point(0).setY(avgNumPartsBottom);
       // charm-light
-      bookScatter2D(25, 1, 1, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp5;
+      book(tmp5, 25, 1, 1, true);
+      tmp5->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
       // bottom-light
-      bookScatter2D(25, 1, 2, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp6;
+      book(tmp6, 25, 1, 2, true);
+      tmp6->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // K+/-
       // all
       avgNumPartsAll = _multKPlus[0]/sumOfWeights();
-      bookScatter2D(24, 2, 1, true)->point(0).setY(avgNumPartsAll);
+      Scatter2DPtr tmp7;
+      book(tmp7, 24, 2, 1, true);
+      tmp7->point(0).setY(avgNumPartsAll);
       // light
       avgNumPartsLight = _multKPlus[1]/_SumOfudsWeights;
-      bookScatter2D(24, 2, 2, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp8;
+      book(tmp8, 24, 2, 2, true);
+      tmp8->point(0).setY(avgNumPartsLight);
       // charm
       avgNumPartsCharm = _multKPlus[2]/_SumOfcWeights;
-      bookScatter2D(24, 2, 3, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp9;
+      book(tmp9, 24, 2, 3, true);
+      tmp9->point(0).setY(avgNumPartsCharm);
       // bottom
       avgNumPartsBottom = _multKPlus[3]/_SumOfbWeights;
-      bookScatter2D(24, 2, 4, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp10;
+      book(tmp10, 24, 2, 4, true);
+      tmp10->point(0).setY(avgNumPartsBottom);
       // charm-light
-      bookScatter2D(25, 2, 1, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp11;
+      book(tmp11, 25, 2, 1, true);
+      tmp11->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
       // bottom-light
-      bookScatter2D(25, 2, 2, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp12;
+      book(tmp12, 25, 2, 2, true);
+      tmp12->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // K0
       // all
       avgNumPartsAll = _multK0[0]/sumOfWeights();
-      bookScatter2D(24, 3, 1, true)->point(0).setY(avgNumPartsAll);
+      Scatter2DPtr tmp13;
+      book(tmp13, 24, 3, 1, true);
+      tmp13->point(0).setY(avgNumPartsAll);
       // light
       avgNumPartsLight = _multK0[1]/_SumOfudsWeights;
-      bookScatter2D(24, 3, 2, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp14;
+      book(tmp14, 24, 3, 2, true);
+      tmp14->point(0).setY(avgNumPartsLight);
       // charm
       avgNumPartsCharm = _multK0[2]/_SumOfcWeights;
-      bookScatter2D(24, 3, 3, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp15;
+      book(tmp15, 24, 3, 3, true);
+      tmp15->point(0).setY(avgNumPartsCharm);
       // bottom
       avgNumPartsBottom = _multK0[3]/_SumOfbWeights;
-      bookScatter2D(24, 3, 4, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp16;
+      book(tmp16, 24, 3, 4, true);
+      tmp16->point(0).setY(avgNumPartsBottom);
       // charm-light
-      bookScatter2D(25, 3, 1, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp17;
+      book(tmp17, 25, 3, 1, true);
+      tmp17->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
       // bottom-light
-      bookScatter2D(25, 3, 2, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp18;
+      book(tmp18, 25, 3, 2, true);
+      tmp18->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // K*0
       // all
       avgNumPartsAll = _multKStar0[0]/sumOfWeights();
-      bookScatter2D(24, 4, 1, true)->point(0).setY(avgNumPartsAll);
+      Scatter2DPtr tmp19;
+      book(tmp19, 24, 4, 1, true);
+      tmp19->point(0).setY(avgNumPartsAll);
       // light
       avgNumPartsLight = _multKStar0[1]/_SumOfudsWeights;
-      bookScatter2D(24, 4, 2, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp20;
+      book(tmp20, 24, 4, 2, true);
+      tmp20->point(0).setY(avgNumPartsLight);
       // charm
       avgNumPartsCharm = _multKStar0[2]/_SumOfcWeights;
-      bookScatter2D(24, 4, 3, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp21;
+      book(tmp21, 24, 4, 3, true);
+      tmp21->point(0).setY(avgNumPartsCharm);
       // bottom
       avgNumPartsBottom = _multKStar0[3]/_SumOfbWeights;
-      bookScatter2D(24, 4, 4, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp22;
+      book(tmp22, 24, 4, 4, true);
+      tmp22->point(0).setY(avgNumPartsBottom);
       // charm-light
-      bookScatter2D(25, 4, 1, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp23;
+      book(tmp23, 25, 4, 1, true);
+      tmp23->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
       // bottom-light
-      bookScatter2D(25, 4, 2, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp24;
+      book(tmp24, 25, 4, 2, true);
+      tmp24->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // phi
       // all
       avgNumPartsAll = _multPhi[0]/sumOfWeights();
-      bookScatter2D(24, 5, 1, true)->point(0).setY(avgNumPartsAll);
+      Scatter2DPtr tmp25;
+      book(tmp25, 24, 5, 1, true);
+      tmp25->point(0).setY(avgNumPartsAll);
       // light
       avgNumPartsLight = _multPhi[1]/_SumOfudsWeights;
-      bookScatter2D(24, 5, 2, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp26;
+      book(tmp26, 24, 5, 2, true);
+      tmp26->point(0).setY(avgNumPartsLight);
       // charm
       avgNumPartsCharm = _multPhi[2]/_SumOfcWeights;
-      bookScatter2D(24, 5, 3, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp27;
+      book(tmp27, 24, 5, 3, true);
+      tmp27->point(0).setY(avgNumPartsCharm);
       // bottom
       avgNumPartsBottom = _multPhi[3]/_SumOfbWeights;
-      bookScatter2D(24, 5, 4, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp28;
+      book(tmp28, 24, 5, 4, true);
+      tmp28->point(0).setY(avgNumPartsBottom);
       // charm-light
-      bookScatter2D(25, 5, 1, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp29;
+      book(tmp29, 25, 5, 1, true);
+      tmp29->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
       // bottom-light
-      bookScatter2D(25, 5, 2, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp30;
+      book(tmp30, 25, 5, 2, true);
+      tmp30->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // p
       // all
       avgNumPartsAll = _multProton[0]/sumOfWeights();
-      bookScatter2D(24, 6, 1, true)->point(0).setY(avgNumPartsAll);
+      Scatter2DPtr tmp31;
+      book(tmp31, 24, 6, 1, true);
+      tmp31->point(0).setY(avgNumPartsAll);
       // light
       avgNumPartsLight = _multProton[1]/_SumOfudsWeights;
-      bookScatter2D(24, 6, 2, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp32;
+      book(tmp32, 24, 6, 2, true);
+      tmp32->point(0).setY(avgNumPartsLight);
       // charm
       avgNumPartsCharm = _multProton[2]/_SumOfcWeights;
-      bookScatter2D(24, 6, 3, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp33;
+      book(tmp33, 24, 6, 3, true);
+      tmp33->point(0).setY(avgNumPartsCharm);
       // bottom
       avgNumPartsBottom = _multProton[3]/_SumOfbWeights;
-      bookScatter2D(24, 6, 4, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp34;
+      book(tmp34, 24, 6, 4, true);
+      tmp34->point(0).setY(avgNumPartsBottom);
       // charm-light
-      bookScatter2D(25, 6, 1, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp35;
+      book(tmp35, 25, 6, 1, true);
+      tmp35->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
       // bottom-light
-      bookScatter2D(25, 6, 2, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp36;
+      book(tmp36, 25, 6, 2, true);
+      tmp36->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // Lambda
       // all
       avgNumPartsAll = _multLambda[0]/sumOfWeights();
-      bookScatter2D(24, 7, 1, true)->point(0).setY(avgNumPartsAll);
+      Scatter2DPtr tmp37;
+      book(tmp37, 24, 7, 1, true);
+      tmp37->point(0).setY(avgNumPartsAll);
       // light
       avgNumPartsLight = _multLambda[1]/_SumOfudsWeights;
-      bookScatter2D(24, 7, 2, true)->point(0).setY(avgNumPartsLight);
+      Scatter2DPtr tmp38;
+      book(tmp38, 24, 7, 2, true);
+      tmp38->point(0).setY(avgNumPartsLight);
       // charm
       avgNumPartsCharm = _multLambda[2]/_SumOfcWeights;
-      bookScatter2D(24, 7, 3, true)->point(0).setY(avgNumPartsCharm);
+      Scatter2DPtr tmp39;
+      book(tmp39, 24, 7, 3, true);
+      tmp39->point(0).setY(avgNumPartsCharm);
       // bottom
       avgNumPartsBottom = _multLambda[3]/_SumOfbWeights;
-      bookScatter2D(24, 7, 4, true)->point(0).setY(avgNumPartsBottom);
+      Scatter2DPtr tmp40;
+      book(tmp40, 24, 7, 4, true);
+      tmp40->point(0).setY(avgNumPartsBottom);
       // charm-light
-      bookScatter2D(25, 7, 1, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      Scatter2DPtr tmp41;
+      book(tmp41, 25, 7, 1, true);
+      tmp41->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
       // bottom-light
-      bookScatter2D(25, 7, 2, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      Scatter2DPtr tmp42;
+      book(tmp42, 25, 7, 2, true);
+      tmp42->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
     }
 
     //@}

@@ -30,7 +30,7 @@ namespace Rivet {
       const Jets& jets = apply<JetAlg>(event, "ConeFinder").jets(Cuts::pT > 61*GeV);
       foreach (const Jet& jet, jets) {
         if (inRange(jet.absrap(), 0.1, 0.7))
-          _h_jet_pt->fill(jet.pT()/GeV, event.weight());
+          _h_jet_pt->fill(jet.pT()/GeV, 1.0);
       }
     }
 

@@ -38,10 +38,10 @@ namespace Rivet {
       book(_h_pT_proton     ,1, 3, 1);
       book(_h_pT_antiproton ,1, 4, 1);
 
-      _s_piminus_piplus = bookScatter2D(2, 1, 1);
-      _s_antipr_pr      = bookScatter2D(2, 2, 1);
-      _s_pr_piplus      = bookScatter2D(2, 3, 1);
-      _s_antipr_piminus = bookScatter2D(2, 4, 1);
+      book(_s_piminus_piplus, 2, 1, 1);
+      book(_s_antipr_pr     , 2, 2, 1);
+      book(_s_pr_piplus     , 2, 3, 1);
+      book(_s_antipr_piminus, 2, 4, 1);
     }
 
 
@@ -74,7 +74,7 @@ namespace Rivet {
           ((p.pid() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, weight/pT);
         }
       }
-      _sumWeightSelected += event.weight();
+      _sumWeightSelected += 1.0;
     }
 
 

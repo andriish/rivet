@@ -179,7 +179,7 @@ namespace Rivet {
       /// @todo Need to include trigger efficiency sampling or weighting?
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       const size_t inj = nj < 4 ? 0 : 1;
       const size_t inb = nb < 4 ? nb : 4;
       if (iht >= 2)

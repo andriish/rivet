@@ -61,7 +61,7 @@ namespace Rivet {
           if (absrap < 3.0) {
 	          const double pt = jet.pT();
 	          if (pt/GeV > 100*GeV) {
-	            _pt[alg].fill(absrap, pt/GeV, event.weight());
+	            _pt[alg].fill(absrap, pt/GeV, 1.0);
 	          }
           }
         }

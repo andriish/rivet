@@ -88,8 +88,8 @@ namespace Rivet {
 
       // Fill all histograms
       for (int iR = 0; iR < kNregions; ++iR)  {
-        fillPtEtaNch(pall,       k_AllCharged, iR, event.weight());
-        fillPtEtaNch(pnostrange, k_NoStrange,  iR, event.weight());
+        fillPtEtaNch(pall,       k_AllCharged, iR, 1.0);
+        fillPtEtaNch(pnostrange, k_NoStrange,  iR, 1.0);
       }
 
     }

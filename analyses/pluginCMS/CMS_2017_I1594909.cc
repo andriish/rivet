@@ -187,7 +187,7 @@ namespace Rivet {
       /////////////////////////////////////
       // Find SR index and fill counter
 
-      const double w = event.weight();
+      const double w = 1.0;
 
       const int idx_j = binIndex(njets, vector<int>{2,3,5,7,9}, true);
       const int idx_b = binIndex(nbjets, vector<int>{0,1,2,3}, true);

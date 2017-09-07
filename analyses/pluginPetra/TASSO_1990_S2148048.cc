@@ -100,7 +100,7 @@ namespace Rivet {
       }
 
       // Raise counter for events that pass trigger conditions
-      //_sumWPassed += event.weight();
+      //_sumWPassed += 1.0;
 
       const Thrust& thrust = apply<Thrust>(event, "Thrust");
       //const Vector3 & thrustAxis = thrust.thrustAxis ();

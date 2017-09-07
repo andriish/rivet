@@ -57,7 +57,7 @@ namespace Rivet {
       if (!pass_emu) vetoEvent;
 
       // Fill histogram to measure the event acceptance
-      _hist->fill(0.5, event.weight());
+      _hist->fill(0.5, 1.0);
     }
 
 

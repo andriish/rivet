@@ -73,7 +73,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get the event weight
-      const double weight( event.weight() );
+      const double weight( 1.0 );
       bool eventAccepted( false );
 
       for (int iFiducialRegion = 0; iFiducialRegion < 2; ++iFiducialRegion ) {
@@ -148,7 +148,7 @@ namespace Rivet {
         // Fill profiled nJets_rapidity_interval
         _h_profiled_nJets_rapidity_interval_dy->fill( dy, nJets_rapidity_interval, weight );
         // Fill Q0 histograms - can fill multiple points per event
-        foreach( const YODA::HistoBin1D Q0_bin, _h_tmp_events_Q0_dySlices["inclusive"].getHistograms().at(0)->bins() ) {
+        foreach( const YODA::HistoBin1D Q0_bin, _h_tmp_events_Q0_dySlices["inclusive"].histos().at(0)->bins() ) {
           const double Q0( Q0_bin.xMid() );
           _h_tmp_events_Q0_dySlices["inclusive"].fill(dy, Q0, weight);
           if ( maximumGapQ0 <= Q0 ) { _h_tmp_events_Q0_dySlices["gap"].fill(dy, Q0, weight); }
@@ -194,7 +194,7 @@ namespace Rivet {
       // Register and fill Q0 gap fractions
       for (unsigned int dyLow = 0; dyLow < _dy_max; ++dyLow ) {
         Scatter2DPtr h_gap_fraction_Q0 = bookScatter2D( 29+dyLow, 1, 1, false);
-        Rivet::Analysis::efficiency( *_h_tmp_events_Q0_dySlices["gap"].getHistograms().at(dyLow).get(), *_h_tmp_events_Q0_dySlices["inclusive"].getHistograms().at(dyLow).get(), h_gap_fraction_Q0 );
+        Rivet::Analysis::efficiency( *_h_tmp_events_Q0_dySlices["gap"].histos().at(dyLow).get(), *_h_tmp_events_Q0_dySlices["inclusive"].histos().at(dyLow).get(), h_gap_fraction_Q0 );
       }
 
       /// Print summary information

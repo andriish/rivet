@@ -97,7 +97,7 @@ namespace Rivet {
           // Fill differential histograms for top 4 jets with Et > 20
           if (njetsA < 4 && pj.Et() > _jetEtCutA) {
             ++njetsA;
-            _histJetEt[njetsA-1]->fill(pj.Et(), event.weight());
+            _histJetEt[njetsA-1]->fill(pj.Et(), 1.0);
           }
           // Count number of jets with Et > 25 (for multiplicity histograms)
           if (pj.Et() > _jetEtCutB) ++njetsB;
@@ -105,12 +105,12 @@ namespace Rivet {
       }
 
       // Increment event counter
-      _sumW += event.weight();
+      _sumW += 1.0;
 
       // Jet multiplicity
       for (size_t i = 1; i <= njetsB; ++i) {
         /// @todo This isn't really a histogram: replace with a YODA::Counter when we have one!
-        _histJetMult[i-1]->fill(1960., event.weight());
+        _histJetMult[i-1]->fill(1960., 1.0);
         if (i == 4) break;
       }
     }

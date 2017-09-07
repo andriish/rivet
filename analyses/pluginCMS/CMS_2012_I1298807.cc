@@ -128,7 +128,7 @@ namespace Rivet {
       }
 
       // Fill histograms
-      const double weight = evt.weight();
+      const double weight = 1.0;
       _hist_pt_zz->fill(pZZ.pT()/GeV, weight);
       _hist_m_zz->fill(pZZ.mass()/GeV, weight);
       _hist_dphi_zz->fill(deltaPhi(pZ_a, pZ_b), weight);

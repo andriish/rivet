@@ -43,8 +43,8 @@ namespace Rivet {
       }
       const double yZ = fabs(zfinder.bosons()[0].rapidity());
       const double pTZ = zfinder.bosons()[0].pT();
-      _h_ZpT->fill(pTZ, e.weight());
-      if (yZ > 2) _h_forward_ZpT->fill(pTZ, e.weight());
+      _h_ZpT->fill(pTZ);
+      if (yZ > 2) _h_forward_ZpT->fill(pTZ);
     }
 
 

@@ -82,7 +82,7 @@ namespace Rivet {
         if (Lep1Pt < _Lep2PtCut || Lep2Pt < _Lep1PtCut) vetoEvent;
       }
 
-      _sumWeightSelected += event.weight();
+      _sumWeightSelected += 1.0;
       /// @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
 
@@ -120,18 +120,18 @@ namespace Rivet {
           } // end loop around b-jets
           if (bjet) {
             numBJet++;
-            _dSdET->fill(jt->perp(),event.weight());
-            _dSdETA->fill(fabs(jt->rapidity()),event.weight());
+            _dSdET->fill(jt->perp(),1.0);
+            _dSdETA->fill(fabs(jt->rapidity()),1.0);
           }
         }
       } // end loop around jets
 
       // wasn't asking for b-jets before!!!!
-      if(numJet > 0 && numBJet > 0) _dSdNJet->fill(numJet,event.weight());
+      if(numJet > 0 && numBJet > 0) _dSdNJet->fill(numJet,1.0);
       if(numBJet > 0) {
-        _dStot->fill(1960.0,event.weight());
-        _dSdNbJet->fill(numBJet,event.weight());
-        _dSdZpT->fill(Zmom.pT(),event.weight());
+        _dStot->fill(1960.0,1.0);
+        _dSdNbJet->fill(numBJet,1.0);
+        _dSdZpT->fill(Zmom.pT(),1.0);
       }
     }
 

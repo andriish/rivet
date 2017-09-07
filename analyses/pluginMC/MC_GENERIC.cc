@@ -55,48 +55,47 @@ namespace Rivet {
       book(_histPhi    ,"Phi", 50, 0, TWOPI);
       book(_histPhiCh  ,"PhiCh", 50, 0, TWOPI);
 
-      _histEtaPMRatio = bookScatter2D("EtaPMRatio");
-      _histEtaChPMRatio = bookScatter2D("EtaChPMRatio");
-      _histRapidityPMRatio = bookScatter2D("RapidityPMRatio");
-      _histRapidityChPMRatio = bookScatter2D("RapidityChPMRatio");
+      book(_histEtaPMRatio, "EtaPMRatio");
+      book(_histEtaChPMRatio, "EtaChPMRatio");
+      book(_histRapidityPMRatio, "RapidityPMRatio");
+      book(_histRapidityChPMRatio, "RapidityChPMRatio");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
 
       // Charged + neutral final state
       const FinalState& fs = apply<FinalState>(event, "FS");
       MSG_DEBUG("Total multiplicity = " << fs.size());
-      _histMult->fill(fs.size(), weight);
+      _histMult->fill(fs.size());
       for (const Particle& p : fs.particles()) {
-        _histEta->fill(p.eta(), weight);
-        _histEtaSumEt->fill(p.abseta(), p.Et(), weight);
-        (p.eta() > 0 ? _tmphistEtaPlus : _tmphistEtaMinus).fill(p.abseta(), weight);
+        _histEta->fill(p.eta());
+        _histEtaSumEt->fill(p.abseta(), p.Et());
+        (p.eta() > 0 ? _tmphistEtaPlus : _tmphistEtaMinus).fill(p.abseta());
         //
-        _histRapidity->fill(p.rap(), weight);
-        (p.rap() > 0 ? _tmphistRapPlus : _tmphistRapMinus).fill(p.absrap(), weight);
+        _histRapidity->fill(p.rap());
+        (p.rap() > 0 ? _tmphistRapPlus : _tmphistRapMinus).fill(p.absrap());
         //
-        _histPt->fill(p.pT()/GeV, weight);
-        _histE->fill(p.E()/GeV, weight);
-        _histPhi->fill(p.phi(), weight);
+        _histPt->fill(p.pT()/GeV);
+        _histE->fill(p.E()/GeV);
+        _histPhi->fill(p.phi());
       }
 
       // Same for the charged FS particles only
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
-      _histMultCh->fill(cfs.size(), weight);
+      _histMultCh->fill(cfs.size());
       for (const Particle& p : cfs.particles()) {
-        _histEtaCh->fill(p.eta(), weight);
-        (p.eta() > 0 ? _tmphistEtaChPlus : _tmphistEtaChMinus).fill(p.abseta(), weight);
+        _histEtaCh->fill(p.eta());
+        (p.eta() > 0 ? _tmphistEtaChPlus : _tmphistEtaChMinus).fill(p.abseta());
         //
-        _histRapidityCh->fill(p.rap(), weight);
-        (p.rap() > 0 ? _tmphistRapChPlus : _tmphistRapChMinus).fill(p.absrap(), weight);
+        _histRapidityCh->fill(p.rap());
+        (p.rap() > 0 ? _tmphistRapChPlus : _tmphistRapChMinus).fill(p.absrap());
         //
-        _histPtCh->fill(p.pT()/GeV, weight);
-        _histECh->fill(p.E()/GeV, weight);
-        _histPhiCh->fill(p.phi(), weight);
+        _histPtCh->fill(p.pT()/GeV);
+        _histECh->fill(p.E()/GeV);
+        _histPhiCh->fill(p.phi());
       }
 
     }

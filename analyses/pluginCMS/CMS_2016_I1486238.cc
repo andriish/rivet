@@ -60,7 +60,7 @@ namespace Rivet {
       }
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       if (bjets.size() >= 2 && ljets.size() >= 2) {
         _h_LeadingBJetpt->fill(bjets[0].pT()/GeV, weight);
         _h_SubleadingBJetpt->fill(bjets[1].pT()/GeV, weight);

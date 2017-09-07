@@ -71,7 +71,7 @@ namespace Rivet {
       // 0=el, 1=mu, 2=comb
       for (size_t chn = 0; chn < 3; ++chn) {
         book(_h_njet_incl[chn]  ,1, 1, chn+1);
-        _h_njet_ratio[chn] = bookScatter2D(2, 1, chn+1);
+        book(_h_njet_ratio[chn] ,2, 1, chn+1);
         book(_h_ptjet[chn]      ,3, 1, chn+1);
         book(_h_ptlead[chn]     ,4, 1, chn+1);
         book(_h_ptseclead[chn]  ,5, 1, chn+1);

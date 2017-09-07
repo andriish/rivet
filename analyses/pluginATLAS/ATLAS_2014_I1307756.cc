@@ -113,7 +113,7 @@ namespace Rivet {
       if (Myy >= 110*GeV && (y1.Et()/Myy < 0.4 || y2.Et()/Myy < 0.3) ) vetoEvent;
 
       // Add to cross-section
-      _fidWeights += event.weight();
+      _fidWeights += 1.0;
     }
 
 

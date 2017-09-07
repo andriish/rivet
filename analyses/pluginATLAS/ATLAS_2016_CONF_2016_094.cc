@@ -116,7 +116,7 @@ namespace Rivet {
       /// We just implement the latter for now.
 
       // Fill counters
-      const double w = event.weight();
+      const double w = 1.0;
       if (sigjets40.size() >= 8  && sigbjets40.empty()) _h_08j40_0b->fill(w);
       if (sigjets40.size() >= 9  && sigbjets40.empty()) _h_09j40_0b->fill(w);
       if (sigjets40.size() >= 10 && sigbjets40.empty()) _h_10j40_0b->fill(w);

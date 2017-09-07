@@ -51,7 +51,7 @@ namespace Rivet {
       if (xi < 1e-6) vetoEvent;
 
       // Fill the histogram
-      _h_sigma->fill(sqrtS()/GeV, event.weight());
+      _h_sigma->fill(sqrtS()/GeV, 1.0);
     }
 
 

@@ -41,8 +41,8 @@ namespace Rivet {
       book(_htmp_dsigminus_deta ,"lepton_dsigminus_deta", 20, 0.0, 4.0);
       book(_htmp_dsigplus_deta  ,"lepton_dsigplus_deta", 20, 0.0, 4.0);
 
-      _h_asym = bookScatter2D("W_chargeasymm_eta");
-      _h_asym_pT = bookScatter2D("W_chargeasymm_pT");
+      book(_h_asym, "W_chargeasymm_eta");
+      book(_h_asym_pT, "W_chargeasymm_pT");
     }
 
 

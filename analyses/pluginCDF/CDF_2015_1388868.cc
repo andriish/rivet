@@ -100,7 +100,7 @@ namespace Rivet {
       const double PTsumPDFden = PTsumPMXden - PTsumPMNden;
 
       // Fill histograms
-      const double weight = event.weight();
+      const double weight = 1.0;
       _NchgPden1  ->fill(ptlead/GeV, NchgPtot/AREA, weight );
       _NchgPMXden1->fill(ptlead/GeV, NchgPmax/AREA, weight );
       _NchgPMNden1->fill(ptlead/GeV, NchgPmin/AREA, weight );

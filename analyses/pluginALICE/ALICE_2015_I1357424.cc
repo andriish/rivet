@@ -23,8 +23,8 @@ namespace Rivet {
       book(_histPtPions          ,"d01-x01-y01");    // pions
       book(_histPtKaons          ,"d01-x01-y02");    // kaons
       book(_histPtProtons        ,"d01-x01-y03");    // protons
-      _histPtKtoPi          = bookScatter2D("d02-x01-y01");  // K to pi ratio 
-      _histPtPtoPi          = bookScatter2D("d03-x01-y01");  // p to pi ratio
+      book(_histPtKtoPi          ,"d02-x01-y01");  // K to pi ratio 
+      book(_histPtPtoPi          ,"d03-x01-y01");  // p to pi ratio
       //
       // temp histos for ratios
       book(_histPtPionsR1        ,"TMP/pT_pi1", refData(2, 1, 1)); // pi histo compatible with more restricted kaon binning

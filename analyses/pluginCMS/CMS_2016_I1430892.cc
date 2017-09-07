@@ -82,7 +82,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = event.weight();
+      const double weight = 1.0;
 
       // Use particle-level leptons for the first histogram
       const DressedLeptons& dressed_electrons = applyProjection<DressedLeptons>(event, "DressedElectrons");

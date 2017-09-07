@@ -75,7 +75,7 @@ namespace Rivet {
       if (ZDecayProducts[0].abspid()==13 && Lep1Eta > 1. && Lep2Eta > 1.) vetoEvent;
       if (Lep1Pt < _Lep1PtCut && Lep2Pt < _Lep2PtCut) vetoEvent;
 
-      _sumWeightsWithZ += event.weight();
+      _sumWeightsWithZ += 1.0;
 
       /// @todo Write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
@@ -120,11 +120,11 @@ namespace Rivet {
         }
       } // end loop around jets
 
-      if (numJet > 0) _sumWeightsWithZJet += event.weight();
+      if (numJet > 0) _sumWeightsWithZJet += 1.0;
       if (numBJet > 0) {
-        _sigmaBJet->fill(1960.0,event.weight());
-        _ratioBJetToZ->fill(1960.0,event.weight());
-        _ratioBJetToJet->fill(1960.0,event.weight());
+        _sigmaBJet->fill(1960.0,1.0);
+        _ratioBJetToZ->fill(1960.0,1.0);
+        _ratioBJetToJet->fill(1960.0,1.0);
       }
 
     }
