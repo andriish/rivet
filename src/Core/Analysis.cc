@@ -174,26 +174,27 @@ namespace Rivet {
   }
 
 
-  void Analysis::book(CounterPtr & ctr,
+  CounterPtr & Analysis::book(CounterPtr & ctr,
                       const string& cname,
                       const string& title) {
     const string path = histoPath(cname);
     ctr = CounterPtr(handler().numWeights(), Counter(path, title));
     addAnalysisObject(ctr);
     MSG_TRACE("Made counter " << cname << " for " << name());
+    return ctr;
   }
 
 
-  void Analysis::book(CounterPtr & ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  CounterPtr & Analysis::book(CounterPtr & ctr, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                    const string& title) {
                                    // const string& xtitle,
                                    // const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    book(ctr, axisCode, title);
+    return book(ctr, axisCode, title);
   }
 
 
-  void Analysis::book(Histo1DPtr & histo, const string& hname,
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
                                     size_t nbins, double lower, double upper,
                                     const string& title,
                                     const string& xtitle,
@@ -209,6 +210,7 @@ namespace Rivet {
 
     addAnalysisObject(histo);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    return histo;
 //    Histo1DPtr hist;
 //    try { // try to bind to pre-existing
 //      // AnalysisObjectPtr ao = getAnalysisObject(path);
@@ -224,15 +226,15 @@ namespace Rivet {
 //    }
   }
 
-  void Analysis::book(Histo1DPtr & histo, const string& hname,
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
                                    const initializer_list<double>& binedges,
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-  	book(histo, hname, vector<double>{binedges}, title, xtitle, ytitle);
+  	return book(histo, hname, vector<double>{binedges}, title, xtitle, ytitle);
   }
 
-  void Analysis::book(Histo1DPtr & histo, const string& hname,
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
                                    const vector<double>& binedges,
                                    const string& title,
                                    const string& xtitle,
@@ -261,10 +263,11 @@ namespace Rivet {
     addAnalysisObject(histo);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    return histo;
   }
 
 
-  void Analysis::book(Histo1DPtr & histo, const string& hname,
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
                                    const Scatter2D& refscatter,
                                    const string& title,
                                    const string& xtitle,
@@ -294,23 +297,24 @@ namespace Rivet {
     addAnalysisObject(histo);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    return histo;
   }
 
-  void Analysis::book(Histo1DPtr & histo, const string& hname,
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, const string& hname,
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
     const Scatter2D& refdata = refData(hname);
-    book(histo, hname, refdata, title, xtitle, ytitle);
+    return book(histo, hname, refdata, title, xtitle, ytitle);
   }
 
 
-  void Analysis::book(Histo1DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  Histo1DPtr & Analysis::book(Histo1DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    book(histo, axisCode, title, xtitle, ytitle);
+    return book(histo, axisCode, title, xtitle, ytitle);
   }
 
 
@@ -320,7 +324,7 @@ namespace Rivet {
   /////////////////
 
 
-  void Analysis::book(Histo2DPtr & h2d,const string& hname,
+  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    size_t nxbins, double xlower, double xupper,
                                    size_t nybins, double ylower, double yupper,
                                    const string& title,
@@ -339,10 +343,11 @@ namespace Rivet {
     addAnalysisObject(h2d);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
+    return h2d;
   }
 
 
-  void Analysis::book(Histo2DPtr & h2d,const string& hname,
+  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    const initializer_list<double>& xbinedges,
                                    const initializer_list<double>& ybinedges,
                                    const string& title,
@@ -350,10 +355,10 @@ namespace Rivet {
                                    const string& ytitle,
                                    const string& ztitle)
   {
-  	book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
+  	return book(h2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
   }
 
-  void Analysis::book(Histo2DPtr & h2d,const string& hname,
+  Histo2DPtr & Analysis::book(Histo2DPtr & h2d,const string& hname,
                                    const vector<double>& xbinedges,
                                    const vector<double>& ybinedges,
                                    const string& title,
@@ -372,10 +377,11 @@ namespace Rivet {
     addAnalysisObject(h2d);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
+    return h2d;
   }
 
 
-  void Analysis::book(Profile1DPtr & p1d,const string& hname,
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        size_t nbins, double lower, double upper,
                                        const string& title,
                                        const string& xtitle,
@@ -390,18 +396,19 @@ namespace Rivet {
     addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
+    return p1d;
   }
 
 
-  void Analysis::book(Profile1DPtr & p1d,const string& hname,
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const initializer_list<double>& binedges,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-  	book(p1d, hname, vector<double>{binedges}, title, xtitle, ytitle);
+  	return book(p1d, hname, vector<double>{binedges}, title, xtitle, ytitle);
   }
 
-  void Analysis::book(Profile1DPtr & p1d,const string& hname,
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const vector<double>& binedges,
                                        const string& title,
                                        const string& xtitle,
@@ -415,10 +422,11 @@ namespace Rivet {
     addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
+    return p1d;
   }
 
 
-  void Analysis::book(Profile1DPtr & p1d,const string& hname,
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const Scatter2D& refscatter,
                                        const string& title,
                                        const string& xtitle,
@@ -433,29 +441,31 @@ namespace Rivet {
     addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
+    return p1d;
 //    if (prof.hasAnnotation("IsRef")) prof.rmAnnotation("IsRef");
   }
 
 
-  void Analysis::book(Profile1DPtr & p1d,const string& hname,
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const Scatter2D& refdata = refData(hname);
     book(p1d, hname, refdata, title, xtitle, ytitle);
+    return p1d;
   }
 
 
-  void Analysis::book(Profile1DPtr & p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  Profile1DPtr & Analysis::book(Profile1DPtr & p1d,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    book(p1d, axisCode, title, xtitle, ytitle);
+    return book(p1d, axisCode, title, xtitle, ytitle);
   }
 
 
-  void Analysis::book(Profile2DPtr & p2d, const string& hname,
+  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    size_t nxbins, double xlower, double xupper,
                                    size_t nybins, double ylower, double yupper,
                                    const string& title,
@@ -473,10 +483,11 @@ namespace Rivet {
     addAnalysisObject(p2d);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
+    return p2d;
   }
 
 
-  void Analysis::book(Profile2DPtr & p2d, const string& hname,
+  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const initializer_list<double>& xbinedges,
                                    const initializer_list<double>& ybinedges,
                                    const string& title,
@@ -484,10 +495,10 @@ namespace Rivet {
                                    const string& ytitle,
                                    const string& ztitle)
   {
-  	book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
+  	return book(p2d, hname, vector<double>{xbinedges}, vector<double>{ybinedges}, title, xtitle, ytitle, ztitle);
   }
 
-  void Analysis::book(Profile2DPtr & p2d, const string& hname,
+  Profile2DPtr & Analysis::book(Profile2DPtr & p2d, const string& hname,
                                    const vector<double>& xbinedges,
                                    const vector<double>& ybinedges,
                                    const string& title,
@@ -505,20 +516,21 @@ namespace Rivet {
     addAnalysisObject(p2d);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
+    return p2d;
   }
 
 
-  void Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
                                        bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
     const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
-    book(s2d, axisCode, copy_pts, title, xtitle, ytitle);
+    return book(s2d, axisCode, copy_pts, title, xtitle, ytitle);
   }
 
 
-  void Analysis::book(Scatter2DPtr & s2d, const string& hname,
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
                                        bool copy_pts,
                                        const string& title,
                                        const string& xtitle,
@@ -542,10 +554,11 @@ namespace Rivet {
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
 //    if (scat.hasAnnotation("IsRef")) scat.rmAnnotation("IsRef");
+    return s2d;
   }
 
 
-  void Analysis::book(Scatter2DPtr & s2d, const string& hname,
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
                                        size_t npts, double lower, double upper,
                                        const string& title,
                                        const string& xtitle,
@@ -565,10 +578,11 @@ namespace Rivet {
     addAnalysisObject(s2d);
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    return s2d;
   }
 
 
-  void Analysis::book(Scatter2DPtr & s2d, const string& hname,
+  Scatter2DPtr & Analysis::book(Scatter2DPtr & s2d, const string& hname,
                                        const vector<double>& binedges,
                                        const string& title,
                                        const string& xtitle,
@@ -590,6 +604,7 @@ namespace Rivet {
 
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
+    return s2d;
   }
 
 
