@@ -11,7 +11,7 @@ namespace Rivet {
 
     /// Constructor
     OPAL_2004_I648738()
-      : Analysis("OPAL_2004_I648738"), _sumW(3,0.)
+      : Analysis("OPAL_2004_I648738"), _sumW(3), _histo_xE(3)
     {    }
 
 
@@ -41,15 +41,16 @@ namespace Rivet {
       }
       assert(ih>0);
       // book the histograms
-      Histo1DPtr tmp1, tmp2, tmp3;
-      _histo_xE.push_back(book(tmp1,ih+5,1,1));
-      _histo_xE.push_back(book(tmp2,ih+5,1,2));
-      if(ih<5) _histo_xE.push_back(book(tmp3,ih+5,1,3));
+      book(_histo_xE[0], ih+5,1,1);
+      book(_histo_xE[1], ih+5,1,2);
+      if(ih<5) book(_histo_xE[2] ,ih+5,1,3);
+      book(_sumW[0], "sumW_0");
+      book(_sumW[1], "sumW_1");
+      book(_sumW[2], "sumW_2");
     }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       // find the initial quarks/gluons
       ParticleVector initial;
       for (const GenParticle* p : Rivet::particles(event.genEvent())) {
@@ -80,11 +81,11 @@ namespace Rivet {
       assert(itype<_histo_xE.size());
 
       // fill histograms
-      _sumW[itype] += 2.*weight;
+      _sumW[itype]->fill(2.);
       const Particles& chps = applyProjection<FinalState>(event, "CFS").particles();
       foreach(const Particle& p, chps) {
         double xE = 2.*p.E()/sqrtS();
-	_histo_xE[itype]->fill(xE, weight);
+	_histo_xE[itype]->fill(xE);
       }
 
     }
@@ -101,7 +102,7 @@ namespace Rivet {
 
   private:
 
-    vector<double> _sumW;
+    vector<CounterPtr> _sumW;
 
     /// @name Histograms
     //@{

@@ -380,12 +380,9 @@ namespace Rivet {
   vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs() const {
       vector<YODA::AnalysisObjectPtr> rtn;
 
-      const auto & raos = getRivetAOs();
-
-      for (const auto & raoref : raos) {
+      for (MultiweightAOPtr & rao : getRivetAOs()) {
           // need to set the index
           // before we can search the PATH
-          MultiweightAOPtr & rao = raoref.get();
           rao.setActiveWeightIdx(0);
           if (rao->path().find("/TMP/") != string::npos)
               continue;
