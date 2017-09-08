@@ -209,7 +209,7 @@ namespace Rivet {
     void hInit(string label, string ident) {
       string pre = ident + "-x0";
       _plots[label].ref = pre;
-      _plots[label].ratio = bookScatter2D(pre + "1" + _suff, true);
+      book(_plots[label].ratio, pre + "1" + _suff, true);
     }
 
     //@}

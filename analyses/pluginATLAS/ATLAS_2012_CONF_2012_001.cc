@@ -51,19 +51,19 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::abseta < 3.0),"cfs");
 
       // Book histograms
-      _hist_leptonpT.push_back(bookHisto1D(1,1,1));
-      _hist_leptonpT.push_back(bookHisto1D(2,1,1));
-      _hist_leptonpT.push_back(bookHisto1D(3,1,1));
-      _hist_leptonpT.push_back(bookHisto1D(4,1,1));
+      {Histo1DPtr tmp; _hist_leptonpT.push_back(book(tmp,1,1,1));}
+      {Histo1DPtr tmp; _hist_leptonpT.push_back(book(tmp,2,1,1));}
+      {Histo1DPtr tmp; _hist_leptonpT.push_back(book(tmp,3,1,1));}
+      {Histo1DPtr tmp; _hist_leptonpT.push_back(book(tmp,4,1,1));}
       book(_hist_njet   ,5,1,1);
       book(_hist_etmiss ,6,1,1);
       book(_hist_mSFOS  ,7,1,1);
       book(_hist_meff   ,8,1,1);
 
-      _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_1", 26, 0., 260));
-      _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_2", 15, 0., 150));
-      _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_3", 20, 0., 100));
-      _hist_leptonpT_MC.push_back(bookHisto1D("hist_lepton_pT_4", 20, 0., 100));
+      {Histo1DPtr tmp; _hist_leptonpT_MC.push_back(book(tmp, "hist_lepton_pT_1", 26, 0., 260));}
+      {Histo1DPtr tmp; _hist_leptonpT_MC.push_back(book(tmp, "hist_lepton_pT_2", 15, 0., 150));}
+      {Histo1DPtr tmp; _hist_leptonpT_MC.push_back(book(tmp, "hist_lepton_pT_3", 20, 0., 100));}
+      {Histo1DPtr tmp; _hist_leptonpT_MC.push_back(book(tmp, "hist_lepton_pT_4", 20, 0., 100));}
       book(_hist_njet_MC   ,"hist_njet", 7, -0.5, 6.5);
       book(_hist_etmiss_MC ,"hist_etmiss",11,0.,220.);
       book(_hist_mSFOS_MC  ,"hist_m_SFOS",13,0.,260.);

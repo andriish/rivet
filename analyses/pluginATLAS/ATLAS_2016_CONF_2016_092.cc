@@ -26,9 +26,10 @@ namespace Rivet {
 
       // Book histograms
       const double y_bins[] = {0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0};
-      for (size_t i = 0; i < 6; i++)
-        _h_pT.addHistogram(y_bins[i], y_bins[i+1], bookHisto1D(i+1, 1, 1));
-
+      for (size_t i = 0; i < 6; i++) {
+        Histo1DPtr tmp;
+        _h_pT.addHistogram(y_bins[i], y_bins[i+1], book(tmp, i+1, 1, 1));
+      }
     }
 
 

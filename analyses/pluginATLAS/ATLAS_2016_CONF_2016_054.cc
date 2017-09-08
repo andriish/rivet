@@ -49,16 +49,16 @@ namespace Rivet {
 
 
       // Book histograms/counters
-      _h_gg2j = bookCounter("GG-2j");
-      _h_gg6j0 = bookCounter("GG-6j-0bulk");
-      _h_gg6j1 = bookCounter("GG-6j-1highmass");
-      _h_gg4j0 = bookCounter("GG-4j-0lowx");
-      _h_gg4j1 = bookCounter("GG-4j-1lowxbveto");
-      _h_gg4j2 = bookCounter("GG-4j-2highx");
-      _h_ss4j0 = bookCounter("SS-4j-0x12");
-      _h_ss4j1 = bookCounter("SS-4j-1lowx");
-      _h_ss5j0 = bookCounter("SS-5j-0x12");
-      _h_ss5j1 = bookCounter("SS-5j-1highx");
+      book(_h_gg2j,"GG-2j");
+      book(_h_gg6j0,"GG-6j-0bulk");
+      book(_h_gg6j1,"GG-6j-1highmass");
+      book(_h_gg4j0,"GG-4j-0lowx");
+      book(_h_gg4j1,"GG-4j-1lowxbveto");
+      book(_h_gg4j2,"GG-4j-2highx");
+      book(_h_ss4j0,"SS-4j-0x12");
+      book(_h_ss4j1,"SS-4j-1lowx");
+      book(_h_ss5j0,"SS-5j-0x12");
+      book(_h_ss5j1,"SS-5j-1highx");
 
     }
 

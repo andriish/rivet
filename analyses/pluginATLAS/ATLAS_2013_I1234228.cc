@@ -25,7 +25,7 @@ namespace Rivet {
       ZFinder zfinder(fs, cuts, PID::ELECTRON, 116*GeV, 1500*GeV, 0.1);      
       declare(zfinder, "ZFinder");
       
-      _hist_mll = bookHisto1D(1, 1, 2);
+      book(_hist_mll, 1, 1, 2);
     }
 
 

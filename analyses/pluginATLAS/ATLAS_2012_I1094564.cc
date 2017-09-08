@@ -165,50 +165,50 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::CAM, 1.2)   , "CA" );
 
       /// Histograms:
-      _h_camass.addHistogram(200, 300, bookHisto1D(1, 1, 1));
-      _h_camass.addHistogram(300, 400, bookHisto1D(2, 1, 1));
-      _h_camass.addHistogram(400, 500, bookHisto1D(3, 1, 1));
-      _h_camass.addHistogram(500, 600, bookHisto1D(4, 1, 1));
+      {Histo1DPtr tmp; _h_camass.addHistogram(200, 300, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_camass.addHistogram(300, 400, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_camass.addHistogram(400, 500, book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_camass.addHistogram(500, 600, book(tmp, 4, 1, 1));}
 
-      _h_filtmass.addHistogram(200, 300, bookHisto1D(5, 1, 1));
-      _h_filtmass.addHistogram(300, 400, bookHisto1D(6, 1, 1));
-      _h_filtmass.addHistogram(400, 500, bookHisto1D(7, 1, 1));
-      _h_filtmass.addHistogram(500, 600, bookHisto1D(8, 1, 1));
+      {Histo1DPtr tmp; _h_filtmass.addHistogram(200, 300, book(tmp, 5, 1, 1));}
+      {Histo1DPtr tmp; _h_filtmass.addHistogram(300, 400, book(tmp, 6, 1, 1));}
+      {Histo1DPtr tmp; _h_filtmass.addHistogram(400, 500, book(tmp, 7, 1, 1));}
+      {Histo1DPtr tmp; _h_filtmass.addHistogram(500, 600, book(tmp, 8, 1, 1));}
 
-      _h_ktmass.addHistogram(200, 300, bookHisto1D( 9, 1, 1));
-      _h_ktmass.addHistogram(300, 400, bookHisto1D(10, 1, 1));
-      _h_ktmass.addHistogram(400, 500, bookHisto1D(11, 1, 1));
-      _h_ktmass.addHistogram(500, 600, bookHisto1D(12, 1, 1));
+      {Histo1DPtr tmp; _h_ktmass.addHistogram(200, 300, book(tmp,  9, 1, 1));}
+      {Histo1DPtr tmp; _h_ktmass.addHistogram(300, 400, book(tmp, 10, 1, 1));}
+      {Histo1DPtr tmp; _h_ktmass.addHistogram(400, 500, book(tmp, 11, 1, 1));}
+      {Histo1DPtr tmp; _h_ktmass.addHistogram(500, 600, book(tmp, 12, 1, 1));}
 
-      _h_ktd12.addHistogram(200, 300, bookHisto1D(13, 1, 1));
-      _h_ktd12.addHistogram(300, 400, bookHisto1D(14, 1, 1));
-      _h_ktd12.addHistogram(400, 500, bookHisto1D(15, 1, 1));
-      _h_ktd12.addHistogram(500, 600, bookHisto1D(16, 1, 1));
+      {Histo1DPtr tmp; _h_ktd12.addHistogram(200, 300, book(tmp, 13, 1, 1));}
+      {Histo1DPtr tmp; _h_ktd12.addHistogram(300, 400, book(tmp, 14, 1, 1));}
+      {Histo1DPtr tmp; _h_ktd12.addHistogram(400, 500, book(tmp, 15, 1, 1));}
+      {Histo1DPtr tmp; _h_ktd12.addHistogram(500, 600, book(tmp, 16, 1, 1));}
 
-      _h_ktd23.addHistogram(200, 300, bookHisto1D(17, 1 ,1));
-      _h_ktd23.addHistogram(300, 400, bookHisto1D(18, 1 ,1));
-      _h_ktd23.addHistogram(400, 500, bookHisto1D(19, 1 ,1));
-      _h_ktd23.addHistogram(500, 600, bookHisto1D(20, 1 ,1));
+      {Histo1DPtr tmp; _h_ktd23.addHistogram(200, 300, book(tmp, 17, 1 ,1));}
+      {Histo1DPtr tmp; _h_ktd23.addHistogram(300, 400, book(tmp, 18, 1 ,1));}
+      {Histo1DPtr tmp; _h_ktd23.addHistogram(400, 500, book(tmp, 19, 1 ,1));}
+      {Histo1DPtr tmp; _h_ktd23.addHistogram(500, 600, book(tmp, 20, 1 ,1));}
 
-      _h_cat21.addHistogram(200, 300, bookHisto1D(21, 1, 1));
-      _h_cat21.addHistogram(300, 400, bookHisto1D(22, 1, 1));
-      _h_cat21.addHistogram(400, 500, bookHisto1D(23, 1, 1));
-      _h_cat21.addHistogram(500, 600, bookHisto1D(24, 1, 1));
+      {Histo1DPtr tmp; _h_cat21.addHistogram(200, 300, book(tmp, 21, 1, 1));}
+      {Histo1DPtr tmp; _h_cat21.addHistogram(300, 400, book(tmp, 22, 1, 1));}
+      {Histo1DPtr tmp; _h_cat21.addHistogram(400, 500, book(tmp, 23, 1, 1));}
+      {Histo1DPtr tmp; _h_cat21.addHistogram(500, 600, book(tmp, 24, 1, 1));}
 
-      _h_cat32.addHistogram(200, 300, bookHisto1D(25, 1, 1));
-      _h_cat32.addHistogram(300, 400, bookHisto1D(26, 1, 1));
-      _h_cat32.addHistogram(400, 500, bookHisto1D(27, 1, 1));
-      _h_cat32.addHistogram(500, 600, bookHisto1D(28, 1, 1));
+      {Histo1DPtr tmp; _h_cat32.addHistogram(200, 300, book(tmp, 25, 1, 1));}
+      {Histo1DPtr tmp; _h_cat32.addHistogram(300, 400, book(tmp, 26, 1, 1));}
+      {Histo1DPtr tmp; _h_cat32.addHistogram(400, 500, book(tmp, 27, 1, 1));}
+      {Histo1DPtr tmp; _h_cat32.addHistogram(500, 600, book(tmp, 28, 1, 1));}
 
-      _h_ktt21.addHistogram(200, 300, bookHisto1D(29, 1, 1));
-      _h_ktt21.addHistogram(300, 400, bookHisto1D(30, 1, 1));
-      _h_ktt21.addHistogram(400, 500, bookHisto1D(31, 1, 1));
-      _h_ktt21.addHistogram(500, 600, bookHisto1D(32, 1, 1));
+      {Histo1DPtr tmp; _h_ktt21.addHistogram(200, 300, book(tmp, 29, 1, 1));}
+      {Histo1DPtr tmp; _h_ktt21.addHistogram(300, 400, book(tmp, 30, 1, 1));}
+      {Histo1DPtr tmp; _h_ktt21.addHistogram(400, 500, book(tmp, 31, 1, 1));}
+      {Histo1DPtr tmp; _h_ktt21.addHistogram(500, 600, book(tmp, 32, 1, 1));}
 
-      _h_ktt32.addHistogram(200, 300, bookHisto1D(33, 1, 1));
-      _h_ktt32.addHistogram(300, 400, bookHisto1D(34, 1, 1));
-      _h_ktt32.addHistogram(400, 500, bookHisto1D(35, 1, 1));
-      _h_ktt32.addHistogram(500, 600, bookHisto1D(36, 1, 1));
+      {Histo1DPtr tmp; _h_ktt32.addHistogram(200, 300, book(tmp, 33, 1, 1));}
+      {Histo1DPtr tmp; _h_ktt32.addHistogram(300, 400, book(tmp, 34, 1, 1));}
+      {Histo1DPtr tmp; _h_ktt32.addHistogram(400, 500, book(tmp, 35, 1, 1));}
+      {Histo1DPtr tmp; _h_ktt32.addHistogram(500, 600, book(tmp, 36, 1, 1));}
     }
 
 

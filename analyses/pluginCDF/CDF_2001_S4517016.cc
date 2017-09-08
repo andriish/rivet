@@ -32,16 +32,15 @@ namespace Rivet {
       FinalState fs(-4.2, 4.2);
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
-      _h_ET.addHistogram(0.1, 0.7, bookHisto1D(1, 1, 1));
-      _h_ET.addHistogram(0.7, 1.4, bookHisto1D(2, 1, 1));
-      _h_ET.addHistogram(1.4, 2.1, bookHisto1D(3, 1, 1));
-      _h_ET.addHistogram(2.1, 3.0, bookHisto1D(4, 1, 1));
+      {Histo1DPtr tmp; _h_ET.addHistogram(0.1, 0.7, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_ET.addHistogram(0.7, 1.4, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_ET.addHistogram(1.4, 2.1, book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_ET.addHistogram(2.1, 3.0, book(tmp, 4, 1, 1));}
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
 
       Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::Et > 10*GeV, cmpMomByEt);
       if (jets.size() < 2) vetoEvent;
@@ -53,8 +52,8 @@ namespace Rivet {
       double ET2 = jet2.Et();
       if (!inRange(eta1, 0.1, 0.7) || ET1 < 40.0*GeV) vetoEvent;
       if (!inRange(eta2, 0.1, 3.0)) vetoEvent;
-      _h_ET.fill(eta2, ET1, weight);
-      if (eta2<0.7 && ET2>40.0*GeV) _h_ET.fill(eta1, ET2, weight);
+      _h_ET.fill(eta2, ET1);
+      if (eta2<0.7 && ET2>40.0*GeV) _h_ET.fill(eta1, ET2);
     }
 
 

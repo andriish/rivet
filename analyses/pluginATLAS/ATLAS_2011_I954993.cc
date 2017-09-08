@@ -89,7 +89,7 @@ namespace Rivet {
       }
 
       // Update the fiducial cross-section histogram
-      _h_fiducial->fill(7000, e.weight());
+      _h_fiducial->fill(7000);
     }
 
 

@@ -28,7 +28,7 @@ namespace Rivet {
       Scatter2DPtr scatter;
       unsigned int d, x, y;
 
-      void fill(double value, double weight) {
+      void fill(double value, double weight=1.0) {
         histo->fill(value, weight);
       }
     };
@@ -76,13 +76,13 @@ namespace Rivet {
       HistoHandler dummy;
       if (_mode < 2) {  // numerator mode
         const string histName = "_" + makeAxisCode(id_d, id_x, id_y);
-        dummy.histo = bookHisto1D(histName, refData(id_d, id_x, id_y)); // hidden auxiliary output
-        dummy.scatter = bookScatter2D(id_d, id_x, id_y - 1, true); // ratio
+        book(dummy.histo, histName, refData(id_d, id_x, id_y)); // hidden auxiliary output
+        book(dummy.scatter, id_d, id_x, id_y - 1, true); // ratio
         dummy.d = id_d;
         dummy.x = id_x;
         dummy.y = id_y;
       } else {
-        dummy.histo = bookHisto1D(id_d, id_x, 4); // denominator mode
+        book(dummy.histo, id_d, id_x, 4); // denominator mode
       }
       return dummy;
     }

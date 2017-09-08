@@ -23,11 +23,11 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::KT, 1.0), "JetsD10");
 
       // Book histos
-      _binnedHistosD07.addHistogram(  0, 0.1, bookHisto1D(1, 1, 1));
-      _binnedHistosD07.addHistogram(0.1, 0.7, bookHisto1D(2, 1, 1));
-      _binnedHistosD07.addHistogram(0.7, 1.1, bookHisto1D(3, 1, 1));
-      _binnedHistosD07.addHistogram(1.1, 1.6, bookHisto1D(4, 1, 1));
-      _binnedHistosD07.addHistogram(1.6, 2.1, bookHisto1D(5, 1, 1));
+      {Histo1DPtr tmp; _binnedHistosD07.addHistogram(  0, 0.1, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _binnedHistosD07.addHistogram(0.1, 0.7, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _binnedHistosD07.addHistogram(0.7, 1.1, book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _binnedHistosD07.addHistogram(1.1, 1.6, book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _binnedHistosD07.addHistogram(1.6, 2.1, book(tmp, 5, 1, 1));}
       book(_histoD05 ,6, 1, 1);
       book(_histoD10 ,7, 1, 1);
     }

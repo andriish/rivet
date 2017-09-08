@@ -24,27 +24,27 @@ namespace Rivet {
       fastJets.useMuons(JetAlg::NO_MUONS);
       addProjection(fastJets, "AntiKt6Jets");
 
-      _hists["deltaPt34"]        = bookHisto1D( 1, 1, 1);
-      _hists["deltaPhi34"]       = bookHisto1D( 2, 1, 1);
-      _hists["deltaPt12"]        = bookHisto1D( 3, 1, 1);
-      _hists["deltaPt13"]        = bookHisto1D( 4, 1, 1);
-      _hists["deltaPt23"]        = bookHisto1D( 5, 1, 1);
-      _hists["deltaPt14"]        = bookHisto1D( 6, 1, 1);
-      _hists["deltaPt24"]        = bookHisto1D( 7, 1, 1);
-      _hists["deltaPhi12"]       = bookHisto1D( 8, 1, 1);
-      _hists["deltaPhi13"]       = bookHisto1D( 9, 1, 1);
-      _hists["deltaPhi23"]       = bookHisto1D(10, 1, 1);
-      _hists["deltaPhi14"]       = bookHisto1D(11, 1, 1);
-      _hists["deltaPhi24"]       = bookHisto1D(12, 1, 1);
-      _hists["deltaY12"]         = bookHisto1D(13, 1, 1);
-      _hists["deltaY34"]         = bookHisto1D(14, 1, 1);
-      _hists["deltaY13"]         = bookHisto1D(15, 1, 1);
-      _hists["deltaY23"]         = bookHisto1D(16, 1, 1);
-      _hists["deltaY14"]         = bookHisto1D(17, 1, 1);
-      _hists["deltaY24"]         = bookHisto1D(18, 1, 1);
-      _hists["deltaPhiPlanes12"] = bookHisto1D(19, 1, 1);
-      _hists["deltaPhiPlanes13"] = bookHisto1D(20, 1, 1);
-      _hists["deltaPhiPlanes14"] = bookHisto1D(21, 1, 1);
+      book(_hists["deltaPt34"]       ,  1, 1, 1);
+      book(_hists["deltaPhi34"]      ,  2, 1, 1);
+      book(_hists["deltaPt12"]       ,  3, 1, 1);
+      book(_hists["deltaPt13"]       ,  4, 1, 1);
+      book(_hists["deltaPt23"]       ,  5, 1, 1);
+      book(_hists["deltaPt14"]       ,  6, 1, 1);
+      book(_hists["deltaPt24"]       ,  7, 1, 1);
+      book(_hists["deltaPhi12"]      ,  8, 1, 1);
+      book(_hists["deltaPhi13"]      ,  9, 1, 1);
+      book(_hists["deltaPhi23"]      , 10, 1, 1);
+      book(_hists["deltaPhi14"]      , 11, 1, 1);
+      book(_hists["deltaPhi24"]      , 12, 1, 1);
+      book(_hists["deltaY12"]        , 13, 1, 1);
+      book(_hists["deltaY34"]        , 14, 1, 1);
+      book(_hists["deltaY13"]        , 15, 1, 1);
+      book(_hists["deltaY23"]        , 16, 1, 1);
+      book(_hists["deltaY14"]        , 17, 1, 1);
+      book(_hists["deltaY24"]        , 18, 1, 1);
+      book(_hists["deltaPhiPlanes12"], 19, 1, 1);
+      book(_hists["deltaPhiPlanes13"], 20, 1, 1);
+      book(_hists["deltaPhiPlanes14"], 21, 1, 1);
     }
 
 

@@ -17,12 +17,12 @@ namespace Rivet {
     void init() {
       FastJets antikt(FinalState(), FastJets::ANTIKT, 0.4);
       declare(antikt, "ANTIKT");
-      _h_chi_dijet.addHistogram(4800., 8000., bookHisto1D(1, 1, 1));
-      _h_chi_dijet.addHistogram(4200., 4800., bookHisto1D(2, 1, 1));
-      _h_chi_dijet.addHistogram(3600., 4200., bookHisto1D(3, 1, 1));
-      _h_chi_dijet.addHistogram(3000., 3600., bookHisto1D(4, 1, 1));
-      _h_chi_dijet.addHistogram(2400., 3000., bookHisto1D(5, 1, 1));
-      _h_chi_dijet.addHistogram(1900., 2400., bookHisto1D(6, 1, 1));
+      {Histo1DPtr tmp; _h_chi_dijet.addHistogram(4800., 8000., book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_chi_dijet.addHistogram(4200., 4800., book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_chi_dijet.addHistogram(3600., 4200., book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_chi_dijet.addHistogram(3000., 3600., book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _h_chi_dijet.addHistogram(2400., 3000., book(tmp, 5, 1, 1));}
+      {Histo1DPtr tmp; _h_chi_dijet.addHistogram(1900., 2400., book(tmp, 6, 1, 1));}
     }
 
 

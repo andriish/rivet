@@ -59,7 +59,7 @@ namespace Rivet {
           for (int k = 1; k <= 10; ++k) {
             if (j > 3 && (k == 1 || k == 4)) continue;
             stringstream s; s << "count_" << (i+1); // << "_" << j << b << k;
-            _counts[make_tuple(j,b,k)] = bookCounter(s.str());
+            book(_counts[make_tuple(j,b,k)], s.str());
             i += 1;
           }
         }
@@ -67,7 +67,7 @@ namespace Rivet {
       MSG_DEBUG("Booked " << i << " signal regions (should be 174)");
       // Aggregate SR counters
       for (size_t i = 0; i < 12; ++i)
-        _counts_agg[i] = bookCounter("count_agg_" + toString(i+1));
+        book(_counts_agg[i], "count_agg_" + toString(i+1));
 
 
       // Book cut-flow

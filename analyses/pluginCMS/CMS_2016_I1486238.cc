@@ -25,19 +25,19 @@ namespace Rivet {
       FastJets akt(FinalState(), FastJets::ANTIKT, 0.5);
       addProjection(akt, "antikT");
 
-      _h_Deltaphi_newway = bookHisto1D(1,1,1);
-      _h_deltaphiafterlight = bookHisto1D(9,1,1);
-      _h_SumPLight = bookHisto1D(5,1,1);
+      book(_h_Deltaphi_newway, 1,1,1);
+      book(_h_deltaphiafterlight, 9,1,1);
+      book(_h_SumPLight, 5,1,1);
 
-      _h_LeadingBJetpt = bookHisto1D(11,1,1);
-      _h_SubleadingBJetpt = bookHisto1D(15,1,1);
-      _h_LeadingLightJetpt = bookHisto1D(13,1,1);
-      _h_SubleadingLightJetpt = bookHisto1D(17,1,1);
+      book(_h_LeadingBJetpt, 11,1,1);
+      book(_h_SubleadingBJetpt, 15,1,1);
+      book(_h_LeadingLightJetpt, 13,1,1);
+      book(_h_SubleadingLightJetpt, 17,1,1);
 
-      _h_LeadingBJeteta = bookHisto1D(10,1,1);
-      _h_SubleadingBJeteta = bookHisto1D(14,1,1);
-      _h_LeadingLightJeteta = bookHisto1D(12,1,1);
-      _h_SubleadingLightJeteta = bookHisto1D(16,1,1);
+      book(_h_LeadingBJeteta, 10,1,1);
+      book(_h_SubleadingBJeteta, 14,1,1);
+      book(_h_LeadingLightJeteta, 12,1,1);
+      book(_h_SubleadingLightJeteta, 16,1,1);
     }
 
 

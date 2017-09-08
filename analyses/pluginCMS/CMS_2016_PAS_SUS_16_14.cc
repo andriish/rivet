@@ -54,13 +54,13 @@ namespace Rivet {
         for (size_t ib = 0; ib < 4; ++ib) {
           for (size_t ih = 0; ih < 10; ++ih) {
             const size_t i = 40*ij + 10*ib + ih;
-            _h_srcounts[i] = bookCounter(toString(2*ij+3) + "j-" + toString(ib) + "b-" + toString(ih));
+            book(_h_srcounts[i], toString(2*ij+3) + "j-" + toString(ib) + "b-" + toString(ih));
           }
         }
       }
       _h_srcountsagg.resize(12);
       for (size_t ia = 0; ia < 12; ++ia) {
-        _h_srcountsagg[ia] = bookCounter("agg-" + toString(ia));
+        book(_h_srcountsagg[ia], "agg-" + toString(ia));
       }
 
     }

@@ -50,31 +50,31 @@ namespace Rivet {
       // This histogram is independent of the parton-level information, and is an
       // addition to the original analysis. It is compared to the same data as
       // the parton-level delta_abseta histogram d05-x01-y01.
-      _h_dabsetadressedleptons = bookHisto1D("d00-x01-y01", _bins_dabseta);
+      book(_h_dabsetadressedleptons, "d00-x01-y01", _bins_dabseta);
 
       // The remaining histos use parton-level information
-      _h_dabseta = bookHisto1D("d05-x01-y01", _bins_dabseta);
-      _h_dabsrapidity = bookHisto1D("d02-x01-y01", _bins_dabsrapidity);
+      book(_h_dabseta, "d05-x01-y01", _bins_dabseta);
+      book(_h_dabsrapidity, "d02-x01-y01", _bins_dabsrapidity);
 
       // 2D histos
-      _h_dabsrapidity_var[0] = bookHisto2D("d11-x01-y01", _bins_dabsrapidity, _bins_tt_mass);
-      _h_dabseta_var[0] = bookHisto2D("d17-x01-y01", _bins_dabseta, _bins_tt_mass);
+      book(_h_dabsrapidity_var[0], "d11-x01-y01", _bins_dabsrapidity, _bins_tt_mass);
+      book(_h_dabseta_var[0], "d17-x01-y01", _bins_dabseta, _bins_tt_mass);
 
-      _h_dabsrapidity_var[1] = bookHisto2D("d23-x01-y01", _bins_dabsrapidity, _bins_tt_pT);
-      _h_dabseta_var[1] = bookHisto2D("d29-x01-y01", _bins_dabseta, _bins_tt_pT);
+      book(_h_dabsrapidity_var[1], "d23-x01-y01", _bins_dabsrapidity, _bins_tt_pT);
+      book(_h_dabseta_var[1], "d29-x01-y01", _bins_dabseta, _bins_tt_pT);
 
-      _h_dabsrapidity_var[2] = bookHisto2D("d35-x01-y01", _bins_dabsrapidity, _bins_tt_absrapidity);
-      _h_dabseta_var[2] = bookHisto2D("d41-x01-y01", _bins_dabseta, _bins_tt_absrapidity);
+      book(_h_dabsrapidity_var[2], "d35-x01-y01", _bins_dabsrapidity, _bins_tt_absrapidity);
+      book(_h_dabseta_var[2], "d41-x01-y01", _bins_dabseta, _bins_tt_absrapidity);
 
       // Profile histos for asymmetries
-      _h_dabsrapidity_profile[0] = bookProfile1D("d08-x01-y01", _bins_tt_mass);
-      _h_dabseta_profile[0] = bookProfile1D("d14-x01-y01", _bins_tt_mass);
+      book(_h_dabsrapidity_profile[0], "d08-x01-y01", _bins_tt_mass);
+      book(_h_dabseta_profile[0], "d14-x01-y01", _bins_tt_mass);
 
-      _h_dabsrapidity_profile[1] = bookProfile1D("d20-x01-y01", _bins_tt_pT);
-      _h_dabseta_profile[1] = bookProfile1D("d26-x01-y01", _bins_tt_pT);
+      book(_h_dabsrapidity_profile[1], "d20-x01-y01", _bins_tt_pT);
+      book(_h_dabseta_profile[1], "d26-x01-y01", _bins_tt_pT);
 
-      _h_dabsrapidity_profile[2] = bookProfile1D("d32-x01-y01", _bins_tt_absrapidity);
-      _h_dabseta_profile[2] = bookProfile1D("d38-x01-y01", _bins_tt_absrapidity);
+      book(_h_dabsrapidity_profile[2], "d32-x01-y01", _bins_tt_absrapidity);
+      book(_h_dabseta_profile[2], "d38-x01-y01", _bins_tt_absrapidity);
 
     }
 

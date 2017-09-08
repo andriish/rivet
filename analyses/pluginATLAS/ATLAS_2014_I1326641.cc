@@ -46,7 +46,8 @@ namespace Rivet {
                 size_t massDsOffset(0);
                 for (size_t alg = 0; alg < 2; ++alg) {
                     for (size_t i = 0; i < 5; ++i) {
-                        h_trijet_Mass[alg].addHistogram(ystarBins[i], ystarBins[i+1], bookHisto1D(1 + massDsOffset, 1, 1));
+                        Histo1DPtr tmp;
+                        h_trijet_Mass[alg].addHistogram(ystarBins[i], ystarBins[i+1], book(tmp, 1 + massDsOffset, 1, 1));
                         massDsOffset += 1;
                     }
                 }

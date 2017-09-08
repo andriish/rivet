@@ -32,37 +32,37 @@ namespace Rivet {
 
       /// Histograms
       // dimuon
-      _hist_mm_100_num = Histo1D(refData(1, 1, 1));
-      _hist_mm_125_num = Histo1D(refData(1, 1, 2));
-      _hist_mm_150_num = Histo1D(refData(1, 1, 3));
-      _hist_mm_240_num = Histo1D(refData(1, 1, 4));
+      book(_hist_mm_100_num, "TMP/mm_100_num", refData(1, 1, 1));
+      book(_hist_mm_125_num, "TMP/mm_125_num", refData(1, 1, 2));
+      book(_hist_mm_150_num, "TMP/mm_150_num", refData(1, 1, 3));
+      book(_hist_mm_240_num, "TMP/mm_240_num", refData(1, 1, 4));
 
-      _hist_mm_100_den = Histo1D(refData(1, 1, 1));
-      _hist_mm_125_den = Histo1D(refData(1, 1, 2));
-      _hist_mm_150_den = Histo1D(refData(1, 1, 3));
-      _hist_mm_240_den = Histo1D(refData(1, 1, 4));
+      book(_hist_mm_100_den, "TMP/mm_100_den", refData(1, 1, 1));
+      book(_hist_mm_125_den, "TMP/mm_125_den", refData(1, 1, 2));
+      book(_hist_mm_150_den, "TMP/mm_150_den", refData(1, 1, 3));
+      book(_hist_mm_240_den, "TMP/mm_240_den", refData(1, 1, 4));
 
       // Dielectron
-      _hist_ee_100_num = Histo1D(refData(2, 1, 1));
-      _hist_ee_125_num = Histo1D(refData(2, 1, 2));
-      _hist_ee_150_num = Histo1D(refData(2, 1, 3));
-      _hist_ee_240_num = Histo1D(refData(2, 1, 4));
+      book(_hist_ee_100_num, "TMP/ee_100_num", refData(2, 1, 1));
+      book(_hist_ee_125_num, "TMP/ee_125_num", refData(2, 1, 2));
+      book(_hist_ee_150_num, "TMP/ee_150_num", refData(2, 1, 3));
+      book(_hist_ee_240_num, "TMP/ee_240_num", refData(2, 1, 4));
 
-      _hist_ee_100_den = Histo1D(refData(2, 1, 1));
-      _hist_ee_125_den = Histo1D(refData(2, 1, 2));
-      _hist_ee_150_den = Histo1D(refData(2, 1, 3));
-      _hist_ee_240_den = Histo1D(refData(2, 1, 4));
+      book(_hist_ee_100_den, "TMP/ee_100_den", refData(2, 1, 1));
+      book(_hist_ee_125_den, "TMP/ee_125_den", refData(2, 1, 2));
+      book(_hist_ee_150_den, "TMP/ee_150_den", refData(2, 1, 3));
+      book(_hist_ee_240_den, "TMP/ee_240_den", refData(2, 1, 4));
 
       // Dilepton
-      _hist_ll_100_num = Histo1D(refData(3, 1, 1));
-      _hist_ll_125_num = Histo1D(refData(3, 1, 2));
-      _hist_ll_150_num = Histo1D(refData(3, 1, 3));
-      _hist_ll_240_num = Histo1D(refData(3, 1, 4));
+      book(_hist_ll_100_num, "TMP/ll_100_num", refData(3, 1, 1));
+      book(_hist_ll_125_num, "TMP/ll_125_num", refData(3, 1, 2));
+      book(_hist_ll_150_num, "TMP/ll_150_num", refData(3, 1, 3));
+      book(_hist_ll_240_num, "TMP/ll_240_num", refData(3, 1, 4));
 
-      _hist_ll_100_den = Histo1D(refData(3, 1, 1));
-      _hist_ll_125_den = Histo1D(refData(3, 1, 2));
-      _hist_ll_150_den = Histo1D(refData(3, 1, 3));
-      _hist_ll_240_den = Histo1D(refData(3, 1, 4));
+      book(_hist_ll_100_den, "TMP/ll_100_den", refData(3, 1, 1));
+      book(_hist_ll_125_den, "TMP/ll_125_den", refData(3, 1, 2));
+      book(_hist_ll_150_den, "TMP/ll_150_den", refData(3, 1, 3));
+      book(_hist_ll_240_den, "TMP/ll_240_den", refData(3, 1, 4));
     }
 
 
@@ -104,25 +104,25 @@ namespace Rivet {
 
         // Fill the histograms
         if (rap < 1.0) {
-          _hist_ee_100_num.fill(z.mass(), weight * sgn);
-          _hist_ll_100_num.fill(z.mass(), weight * sgn);
-          _hist_ee_100_den.fill(z.mass(), weight);
-          _hist_ll_100_den.fill(z.mass(), weight);
+          _hist_ee_100_num->fill(z.mass(), weight * sgn);
+          _hist_ll_100_num->fill(z.mass(), weight * sgn);
+          _hist_ee_100_den->fill(z.mass(), weight);
+          _hist_ll_100_den->fill(z.mass(), weight);
         } else if (rap < 1.25) {
-          _hist_ee_125_num.fill(z.mass(), weight * sgn);
-          _hist_ll_125_num.fill(z.mass(), weight * sgn);
-          _hist_ee_125_den.fill(z.mass(), weight);
-          _hist_ll_125_den.fill(z.mass(), weight);
+          _hist_ee_125_num->fill(z.mass(), weight * sgn);
+          _hist_ll_125_num->fill(z.mass(), weight * sgn);
+          _hist_ee_125_den->fill(z.mass(), weight);
+          _hist_ll_125_den->fill(z.mass(), weight);
         } else if (rap < 1.50) {
-          _hist_ee_150_num.fill(z.mass(), weight * sgn);
-          _hist_ll_150_num.fill(z.mass(), weight * sgn);
-          _hist_ee_150_den.fill(z.mass(), weight);
-          _hist_ll_150_den.fill(z.mass(), weight);
+          _hist_ee_150_num->fill(z.mass(), weight * sgn);
+          _hist_ll_150_num->fill(z.mass(), weight * sgn);
+          _hist_ee_150_den->fill(z.mass(), weight);
+          _hist_ll_150_den->fill(z.mass(), weight);
         } else if (rap < 2.40) {
-          _hist_ee_240_num.fill(z.mass(), weight * sgn);
-          _hist_ll_240_num.fill(z.mass(), weight * sgn);
-          _hist_ee_240_den.fill(z.mass(), weight);
-          _hist_ll_240_den.fill(z.mass(), weight);
+          _hist_ee_240_num->fill(z.mass(), weight * sgn);
+          _hist_ll_240_num->fill(z.mass(), weight * sgn);
+          _hist_ee_240_den->fill(z.mass(), weight);
+          _hist_ll_240_den->fill(z.mass(), weight);
         }
       }
 
@@ -139,25 +139,25 @@ namespace Rivet {
 
         // Fill the histograms
         if (rap < 1.0) {
-          _hist_mm_100_num.fill(z.mass(), weight * sgn);
-          _hist_ll_100_num.fill(z.mass(), weight * sgn);
-          _hist_mm_100_den.fill(z.mass(), weight);
-          _hist_ll_100_den.fill(z.mass(), weight);
+          _hist_mm_100_num->fill(z.mass(), weight * sgn);
+          _hist_ll_100_num->fill(z.mass(), weight * sgn);
+          _hist_mm_100_den->fill(z.mass(), weight);
+          _hist_ll_100_den->fill(z.mass(), weight);
         } else if (rap < 1.25) {
-          _hist_mm_125_num.fill(z.mass(), weight * sgn);
-          _hist_ll_125_num.fill(z.mass(), weight * sgn);
-          _hist_mm_125_den.fill(z.mass(), weight);
-          _hist_ll_125_den.fill(z.mass(), weight);
+          _hist_mm_125_num->fill(z.mass(), weight * sgn);
+          _hist_ll_125_num->fill(z.mass(), weight * sgn);
+          _hist_mm_125_den->fill(z.mass(), weight);
+          _hist_ll_125_den->fill(z.mass(), weight);
         } else if (rap < 1.50) {
-          _hist_mm_150_num.fill(z.mass(), weight * sgn);
-          _hist_ll_150_num.fill(z.mass(), weight * sgn);
-          _hist_mm_150_den.fill(z.mass(), weight);
-          _hist_ll_150_den.fill(z.mass(), weight);
+          _hist_mm_150_num->fill(z.mass(), weight * sgn);
+          _hist_ll_150_num->fill(z.mass(), weight * sgn);
+          _hist_mm_150_den->fill(z.mass(), weight);
+          _hist_ll_150_den->fill(z.mass(), weight);
         } else if (rap < 2.40) {
-          _hist_mm_240_num.fill(z.mass(), weight * sgn);
-          _hist_ll_240_num.fill(z.mass(), weight * sgn);
-          _hist_mm_240_den.fill(z.mass(), weight);
-          _hist_ll_240_den.fill(z.mass(), weight);
+          _hist_mm_240_num->fill(z.mass(), weight * sgn);
+          _hist_ll_240_num->fill(z.mass(), weight * sgn);
+          _hist_mm_240_den->fill(z.mass(), weight);
+          _hist_ll_240_den->fill(z.mass(), weight);
         }
       }
     }
@@ -165,32 +165,30 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      divide(_hist_mm_100_num, _hist_mm_100_den, bookScatter2D(1, 1, 1));
-      divide(_hist_mm_125_num, _hist_mm_125_den, bookScatter2D(1, 1, 2));
-      divide(_hist_mm_150_num, _hist_mm_150_den, bookScatter2D(1, 1, 3));
-      divide(_hist_mm_240_num, _hist_mm_240_den, bookScatter2D(1, 1, 4));
-
-      divide(_hist_ee_100_num, _hist_ee_100_den, bookScatter2D(2, 1, 1));
-      divide(_hist_ee_125_num, _hist_ee_125_den, bookScatter2D(2, 1, 2));
-      divide(_hist_ee_150_num, _hist_ee_150_den, bookScatter2D(2, 1, 3));
-      divide(_hist_ee_240_num, _hist_ee_240_den, bookScatter2D(2, 1, 4));
-
-      divide(_hist_ll_100_num, _hist_ll_100_den, bookScatter2D(3, 1, 1));
-      divide(_hist_ll_125_num, _hist_ll_125_den, bookScatter2D(3, 1, 2));
-      divide(_hist_ll_150_num, _hist_ll_150_den, bookScatter2D(3, 1, 3));
-      divide(_hist_ll_240_num, _hist_ll_240_den, bookScatter2D(3, 1, 4));
+      {Scatter2DPtr s2d; divide(_hist_mm_100_num, _hist_mm_100_den, book(s2d, 1, 1, 1));}
+      {Scatter2DPtr s2d; divide(_hist_mm_125_num, _hist_mm_125_den, book(s2d, 1, 1, 2));}
+      {Scatter2DPtr s2d; divide(_hist_mm_150_num, _hist_mm_150_den, book(s2d, 1, 1, 3));}
+      {Scatter2DPtr s2d; divide(_hist_mm_240_num, _hist_mm_240_den, book(s2d, 1, 1, 4));}
+      {Scatter2DPtr s2d; divide(_hist_ee_100_num, _hist_ee_100_den, book(s2d, 2, 1, 1));}
+      {Scatter2DPtr s2d; divide(_hist_ee_125_num, _hist_ee_125_den, book(s2d, 2, 1, 2));}
+      {Scatter2DPtr s2d; divide(_hist_ee_150_num, _hist_ee_150_den, book(s2d, 2, 1, 3));}
+      {Scatter2DPtr s2d; divide(_hist_ee_240_num, _hist_ee_240_den, book(s2d, 2, 1, 4));}
+      {Scatter2DPtr s2d; divide(_hist_ll_100_num, _hist_ll_100_den, book(s2d, 3, 1, 1));}
+      {Scatter2DPtr s2d; divide(_hist_ll_125_num, _hist_ll_125_den, book(s2d, 3, 1, 2));}
+      {Scatter2DPtr s2d; divide(_hist_ll_150_num, _hist_ll_150_den, book(s2d, 3, 1, 3));}
+      {Scatter2DPtr s2d; divide(_hist_ll_240_num, _hist_ll_240_den, book(s2d, 3, 1, 4));}
     }
 
 
   private:
 
     /// Histograms
-    Histo1D _hist_ee_100_num, _hist_ee_125_num, _hist_ee_150_num, _hist_ee_240_num;
-    Histo1D _hist_ee_100_den, _hist_ee_125_den, _hist_ee_150_den, _hist_ee_240_den;
-    Histo1D _hist_mm_100_num, _hist_mm_125_num, _hist_mm_150_num, _hist_mm_240_num;
-    Histo1D _hist_mm_100_den, _hist_mm_125_den, _hist_mm_150_den, _hist_mm_240_den;
-    Histo1D _hist_ll_100_num, _hist_ll_125_num, _hist_ll_150_num, _hist_ll_240_num;
-    Histo1D _hist_ll_100_den, _hist_ll_125_den, _hist_ll_150_den, _hist_ll_240_den;
+    Histo1DPtr _hist_ee_100_num, _hist_ee_125_num, _hist_ee_150_num, _hist_ee_240_num;
+    Histo1DPtr _hist_ee_100_den, _hist_ee_125_den, _hist_ee_150_den, _hist_ee_240_den;
+    Histo1DPtr _hist_mm_100_num, _hist_mm_125_num, _hist_mm_150_num, _hist_mm_240_num;
+    Histo1DPtr _hist_mm_100_den, _hist_mm_125_den, _hist_mm_150_den, _hist_mm_240_den;
+    Histo1DPtr _hist_ll_100_num, _hist_ll_125_num, _hist_ll_150_num, _hist_ll_240_num;
+    Histo1DPtr _hist_ll_100_den, _hist_ll_125_den, _hist_ll_150_den, _hist_ll_240_den;
 
   };
 

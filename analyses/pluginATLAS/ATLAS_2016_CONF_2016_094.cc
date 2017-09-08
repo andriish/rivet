@@ -49,18 +49,18 @@ namespace Rivet {
 
 
       // Book histograms/counters
-      _h_08j40_0b = bookCounter("08j40_0b");
-      _h_09j40_0b = bookCounter("09j40_0b");
-      _h_10j40_0b = bookCounter("10j40_0b");
-      _h_08j40_3b = bookCounter("08j40_3b");
-      _h_09j40_3b = bookCounter("09j40_3b");
-      _h_10j40_3b = bookCounter("10j40_3b");
-      _h_08j60_0b = bookCounter("08j60_0b");
-      _h_09j60_0b = bookCounter("09j60_0b");
-      _h_10j60_0b = bookCounter("10j60_0b");
-      _h_08j60_3b = bookCounter("08j60_3b");
-      _h_09j60_3b = bookCounter("09j60_3b");
-      _h_10j60_3b = bookCounter("10j60_3b");
+      book(_h_08j40_0b,"08j40_0b");
+      book(_h_09j40_0b,"09j40_0b");
+      book(_h_10j40_0b,"10j40_0b");
+      book(_h_08j40_3b,"08j40_3b");
+      book(_h_09j40_3b,"09j40_3b");
+      book(_h_10j40_3b,"10j40_3b");
+      book(_h_08j60_0b,"08j60_0b");
+      book(_h_09j60_0b,"09j60_0b");
+      book(_h_10j60_0b,"10j60_0b");
+      book(_h_08j60_3b,"08j60_3b");
+      book(_h_09j60_3b,"09j60_3b");
+      book(_h_10j60_3b,"10j60_3b");
 
     }
 

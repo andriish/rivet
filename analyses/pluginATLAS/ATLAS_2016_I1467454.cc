@@ -31,12 +31,12 @@ namespace Rivet {
       declare(zfinder, "ZFinder");
 
       size_t ch = _mode? 11 : 0; // offset
-      _hist_mll = bookHisto1D(18 + ch, 1, 1);
+      book(_hist_mll, 18 + ch, 1, 1);
 
       vector<double> mll_bins = { 116., 150., 200., 300., 500., 1500. };
       for (size_t i = 0; i < (mll_bins.size() - 1); ++i) {
-        _hist_rap.addHistogram( mll_bins[i], mll_bins[i+1], bookHisto1D(19 + ch + i, 1, 1));
-        _hist_deta.addHistogram(mll_bins[i], mll_bins[i+1], bookHisto1D(24 + ch + i, 1, 1));
+        {Histo1DPtr tmp; _hist_rap.addHistogram( mll_bins[i], mll_bins[i+1], book(tmp, 19 + ch + i, 1, 1));}
+        {Histo1DPtr tmp; _hist_deta.addHistogram(mll_bins[i], mll_bins[i+1], book(tmp, 24 + ch + i, 1, 1));}
       }
 
     }

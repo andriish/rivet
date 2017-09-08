@@ -50,19 +50,19 @@ namespace Rivet {
 
 
       // Book histograms/counters
-      _h_2j_0800 = bookCounter("2j-0800");
-      _h_2j_1200 = bookCounter("2j-1200");
-      _h_2j_1600 = bookCounter("2j-1600");
-      _h_2j_2000 = bookCounter("2j-2000");
-      _h_3j_1200 = bookCounter("2j-2000");
-      _h_4j_1000 = bookCounter("4j-1000");
-      _h_4j_1400 = bookCounter("4j-1400");
-      _h_4j_1800 = bookCounter("4j-1800");
-      _h_4j_2200 = bookCounter("4j-2200");
-      _h_4j_2600 = bookCounter("4j-2600");
-      _h_5j_1400 = bookCounter("5j-1400");
-      _h_6j_1800 = bookCounter("6j-1800");
-      _h_6j_2200 = bookCounter("6j-2200");
+      book(_h_2j_0800,"2j-0800");
+      book(_h_2j_1200,"2j-1200");
+      book(_h_2j_1600,"2j-1600");
+      book(_h_2j_2000,"2j-2000");
+      book(_h_3j_1200,"2j-2000");
+      book(_h_4j_1000,"4j-1000");
+      book(_h_4j_1400,"4j-1400");
+      book(_h_4j_1800,"4j-1800");
+      book(_h_4j_2200,"4j-2200");
+      book(_h_4j_2600,"4j-2600");
+      book(_h_5j_1400,"5j-1400");
+      book(_h_6j_1800,"6j-1800");
+      book(_h_6j_2200,"6j-2200");
 
 
       // Book cut-flows

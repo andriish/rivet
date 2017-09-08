@@ -132,12 +132,12 @@ namespace Rivet {
       }
       // Histos
       if (fuzzyEquals(sqrtS(), 7000*GeV, 1e-3)) {
-        for (int ipt  = 0; ipt  < NPTBINS ; ++ipt ) _s_NchCorr_vsEta[ipt]  = bookScatter2D(1+ipt,  2, 1, true);
-        for (int ieta = 0; ieta < NETABINS; ++ieta) _s_NchCorr_vsPt [ieta] = bookScatter2D(8+ieta, 2, 1, true);
-        _s_PtsumCorr = bookScatter2D(13, 2, 1, true);
+        for (int ipt  = 0; ipt  < NPTBINS ; ++ipt ) book(_s_NchCorr_vsEta[ipt] , 1+ipt,  2, 1, true);
+        for (int ieta = 0; ieta < NETABINS; ++ieta) book(_s_NchCorr_vsPt [ieta], 8+ieta, 2, 1, true);
+        book(_s_PtsumCorr, 13, 2, 1, true);
       } else if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3)) {
-        _s_NchCorr_vsEta[0] = bookScatter2D(14, 2, 1, true);
-        _s_PtsumCorr        = bookScatter2D(15, 2, 1, true);
+        book(_s_NchCorr_vsEta[0], 14, 2, 1, true);
+        book(_s_PtsumCorr       , 15, 2, 1, true);
       }
 
 
@@ -151,14 +151,14 @@ namespace Rivet {
       /// @todo Declare/book as temporary
       for (size_t ieta = 0; ieta < 3; ++ieta) {
         if (fuzzyEquals(sqrtS(), 7000*GeV, 1e-3)) {
-          _s_dphiMin[ieta] = bookScatter2D(2+2*ieta, 1, 1, true);
-          _s_diffSO[ieta] = bookScatter2D(8+2*ieta, 1, 1, true);
+          book(_s_dphiMin[ieta], 2+2*ieta, 1, 1, true);
+          book(_s_diffSO[ieta], 8+2*ieta, 1, 1, true);
           _th_dphi[ieta] = YODA::Histo1D(refData(2+2*ieta, 1, 1));
           _th_same[ieta] = YODA::Histo1D(refData(8+2*ieta, 1, 1));
           _th_oppo[ieta] = YODA::Histo1D(refData(8+2*ieta, 1, 1));
         } else if (fuzzyEquals(sqrtS(), 900*GeV, 1e-3)) {
-          _s_dphiMin[ieta] = bookScatter2D(1+2*ieta, 1, 1, true);
-          _s_diffSO[ieta] = bookScatter2D(7+2*ieta, 1, 1, true);
+          book(_s_dphiMin[ieta], 1+2*ieta, 1, 1, true);
+          book(_s_diffSO[ieta], 7+2*ieta, 1, 1, true);
           _th_dphi[ieta] = YODA::Histo1D(refData(1+2*ieta, 1, 1));
           _th_same[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));
           _th_oppo[ieta] = YODA::Histo1D(refData(7+2*ieta, 1, 1));

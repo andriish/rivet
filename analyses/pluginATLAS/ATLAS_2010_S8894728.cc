@@ -38,12 +38,12 @@ namespace Rivet {
       // Standard deviation profiles
       // First the higher moments of main profiles to calculate variance and error on variance...
       for (size_t i = 1; i < 4; ++i) {
-        _hist_nch_transverse_500[i].reset(new Profile1D(refData(1+isqrts, 1, 1)));
-        _hist_ptsum_transverse_500[i].reset(new Profile1D(refData(3+isqrts, 1, 1)));
+        book(_hist_nch_transverse_500[i], "TMP/nch"+to_str(i), refData(1+isqrts, 1, 1));
+        book(_hist_ptsum_transverse_500[i], "TMP/ptsum"+to_str(i), refData(3+isqrts, 1, 1));
       }
       // Then the data point sets into which the results will be inserted
-      _dps_sdnch_transverse_500   = bookScatter2D(5+isqrts, 1, 1);
-      _dps_sdptsum_transverse_500 = bookScatter2D(7+isqrts, 1, 1);
+      book(_dps_sdnch_transverse_500  , 5+isqrts, 1, 1);
+      book(_dps_sdptsum_transverse_500, 7+isqrts, 1, 1);
 
       // <pT> profiles, 500 MeV track pT cut
       book(_hist_ptavg_transverse_500 ,9+isqrts, 1, 1);

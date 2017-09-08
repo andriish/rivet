@@ -40,7 +40,7 @@ namespace Rivet {
       declare(MissingMomentum(), "MET");
 
       // Histograms
-      _h_fiducial_3l = bookCounter("d01-x01-y01");
+      book(_h_fiducial_3l, "d01-x01-y01");
     }
 
 

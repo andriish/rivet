@@ -23,8 +23,8 @@ namespace Rivet {
       declare(cfs, "CFS");
       declare(FastJets(cfs, FastJets::ANTIKT, 0.5), "Jets");
 
-      _h_tracks = bookHisto1D(1, 1, 1);
-      _h_jets = bookHisto1D(2, 1, 1);
+      book(_h_tracks, 1, 1, 1);
+      book(_h_jets  , 2, 1, 1);
     }
 
 

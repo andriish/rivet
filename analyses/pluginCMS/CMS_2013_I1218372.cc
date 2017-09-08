@@ -54,9 +54,9 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS()/GeV,  900, 1e-3)) id=1;
       if (fuzzyEquals(sqrtS()/GeV, 2760, 1e-3)) id=2;
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1e-3)) id=3;
-      _h_ratio  = bookScatter2D(id, 1, 1);
-      _tmp_jet  = bookHisto1D  ("TMP/eflow_jet"  ,refData(id, 1, 1));  // Leading jet energy flow in pt
-      _tmp_njet = bookHisto1D  ("TMP/number_jet" ,refData(id, 1, 1)); // Number of events in pt
+      book(_h_ratio, id, 1, 1);
+      book(_tmp_jet , "TMP/eflow_jet"  ,refData(id, 1, 1));  // Leading jet energy flow in pt
+      book(_tmp_njet, "TMP/number_jet" ,refData(id, 1, 1)); // Number of events in pt
     }
 
 

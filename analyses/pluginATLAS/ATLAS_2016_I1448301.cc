@@ -57,22 +57,22 @@ namespace Rivet {
 
       // Histograms
       if (_mode == 2) {
-        _h["vvg"]     = bookHisto1D( 2, 1, 1);
-        _h["vvgg"]    = bookHisto1D( 4, 1, 1);
-        _h["pT"]      = bookHisto1D( 7, 1, 1);
-        _h["pT_0jet"] = bookHisto1D( 8, 1, 1);
+        book(_h["vvg"]    ,  2, 1, 1);
+        book(_h["vvgg"]   ,  4, 1, 1);
+        book(_h["pT"]     ,  7, 1, 1);
+        book(_h["pT_0jet"],  8, 1, 1);
       } else {
         const size_t ch = 1 + bool(_mode);
-        _h["llg"]       = bookHisto1D( 1, 1, ch);
-        _h["llg_comb"]  = bookHisto1D( 1, 1, 3);
-        _h["llgg"]      = bookHisto1D( 3, 1, ch);
-        _h["llgg_comb"] = bookHisto1D( 3, 1, 3);
+        book(_h["llg"]      ,  1, 1, ch);
+        book(_h["llg_comb"] ,  1, 1, 3);
+        book(_h["llgg"]     ,  3, 1, ch);
+        book(_h["llgg_comb"],  3, 1, 3);
         //
-        _h["pT"]       = bookHisto1D( 5, 1, 1);
-        _h["pT_0jet"]  = bookHisto1D( 6, 1, 1);
-        _h["M"]        = bookHisto1D( 9, 1, 1);
-        _h["M_0jet"]   = bookHisto1D(10, 1, 1);
-        _h["Njets"]    = bookHisto1D(11, 1, 1);
+        book(_h["pT"]      ,  5, 1, 1);
+        book(_h["pT_0jet"] ,  6, 1, 1);
+        book(_h["M"]       ,  9, 1, 1);
+        book(_h["M_0jet"]  , 10, 1, 1);
+        book(_h["Njets"]   , 11, 1, 1);
       }
     }
 

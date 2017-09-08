@@ -183,8 +183,8 @@ namespace Rivet {
       book(_hist_wdstar_charge ,"d01-x01-y03");
 
       // charge integrated total cross sections
-      _hist_wcjet_ratio = bookScatter2D("d02-x01-y01");
-      _hist_wd_ratio    = bookScatter2D("d02-x01-y02");
+      book(_hist_wcjet_ratio,"d02-x01-y01");
+      book(_hist_wd_ratio   ,"d02-x01-y02");
 
       book(_hist_wcjet_minus ,"d02-x01-y01_minus");
       book(_hist_wd_minus    ,"d02-x01-y02_minus");
@@ -203,14 +203,14 @@ namespace Rivet {
 
       // ratio of cross section (WD over W inclusive) // postprocess!
       book(_hist_w_inc             ,"d05-x01-y01");
-      _hist_wd_winc_ratio     = bookScatter2D("d05-x01-y02");
-      _hist_wdstar_winc_ratio = bookScatter2D("d05-x01-y03");
+      book(_hist_wd_winc_ratio    ,"d05-x01-y02");
+      book(_hist_wdstar_winc_ratio,"d05-x01-y03");
 
       // ratio of cross section (WD over W inclusive -- function of pT of D meson)
-      _hist_wplusd_wplusinc_pt_ratio       = bookScatter2D("d06-x01-y01");
-      _hist_wminusd_wminusinc_pt_ratio     = bookScatter2D("d06-x01-y02");
-      _hist_wplusdstar_wplusinc_pt_ratio   = bookScatter2D("d06-x01-y03");
-      _hist_wminusdstar_wminusinc_pt_ratio = bookScatter2D("d06-x01-y04");
+      book(_hist_wplusd_wplusinc_pt_ratio      ,"d06-x01-y01");
+      book(_hist_wminusd_wminusinc_pt_ratio    ,"d06-x01-y02");
+      book(_hist_wplusdstar_wplusinc_pt_ratio  ,"d06-x01-y03");
+      book(_hist_wminusdstar_wminusinc_pt_ratio,"d06-x01-y04");
 
       // could use for postprocessing!
       book(_hist_wplusd_wplusinc_pt       ,"d06-x01-y01_wplus");
@@ -225,7 +225,7 @@ namespace Rivet {
       book(_hist_wcjet_jets  ,"d07-x01-y01");
 
       // jet multiplicity of W+cjet cross section ratio (+0 or +1 jet in addition to the charm jet)
-      _hist_wcjet_jets_ratio  = bookScatter2D("d08-x01-y01");
+      book(_hist_wcjet_jets_ratio ,"d08-x01-y01");
       book(_hist_wcjet_jets_plus   ,"d08-x01-y01_plus");
       book(_hist_wcjet_jets_minus  ,"d08-x01-y01_minus");
 

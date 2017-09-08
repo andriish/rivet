@@ -20,26 +20,26 @@ namespace Rivet {
 
       for (size_t iR = 0; iR < NREGIONS; ++iR) {
         // Nch profiles vs. pT_lead
-        _hist_nch[iR] = bookProfile1D(1, 1 + iR, 1);
+        book(_hist_nch[iR], 1, 1 + iR, 1);
         // pTsum profiles vs. pT_lead
-        _hist_ptsum[iR] = bookProfile1D(2, 1 + iR, 1);
+        book(_hist_ptsum[iR], 2, 1 + iR, 1);
         // <pT> profiles vs pT_lead (not measured for trans diff)
-        if (iR != kTransDiff)  _hist_ptavg[iR] = bookProfile1D(3, 1 + iR, 1);
+        if (iR != kTransDiff)  book(_hist_ptavg[iR], 3, 1 + iR, 1);
         // <pT> profiles vs. Nch (not measured for trans diff)
-        if (iR != kTransDiff)  _hist_dn_dpt[iR] = bookProfile1D(4, 1 + iR, 1);
+        if (iR != kTransDiff)  book(_hist_dn_dpt[iR], 4, 1 + iR, 1);
         // Only measured for trans max/min
-        if ( (iR == kTransMax) || (iR == kTransMin) )  _hist_dn_dpt2[iR] = bookProfile1D(5, 1 + iR, 1);
+        if ( (iR == kTransMax) || (iR == kTransMin) )  book(_hist_dn_dpt2[iR], 5, 1 + iR, 1);
       }
 
       for (size_t iC = 0; iC < NCUTS; ++iC) {
         // Nch vs. Delta(phi) profiles
-        _hist_N_vs_dPhi[iC] = bookProfile1D(6, 1 + iC, 1);
+        book(_hist_N_vs_dPhi[iC], 6, 1 + iC, 1);
         // pT vs. Delta(phi) profiles
-        _hist_pT_vs_dPhi[iC] = bookProfile1D(7, 1 + iC, 1);
+        book(_hist_pT_vs_dPhi[iC], 7, 1 + iC, 1);
         //ptLead histos only for 1 and 5 GeV cuts
-        if ( (iC == 0) || (iC == 1) )  _hist_ptLead[iC] = bookHisto1D(8, 1 + iC, 1);
+        if ( (iC == 0) || (iC == 1) )  book(_hist_ptLead[iC], 8, 1 + iC, 1);
         // 
-        _counters[iC] = bookCounter("Ctr_cut_" + toString(iC));
+        book(_counters[iC], "Ctr_cut_" + toString(iC));
       }
 
     }
@@ -80,8 +80,8 @@ namespace Rivet {
       vector<double> num(NREGIONS, 0), ptSum(NREGIONS, 0.0), avgpt(NREGIONS, 0.0);
 
       // Temporary histos that bin Nch and pT in dPhi.
-      Histo1D hist_num_dphi(*_hist_N_vs_dPhi[0].get(), "/hist_num_dphi");
-      Histo1D hist_pt_dphi(*_hist_pT_vs_dPhi[0].get(), "/hist_pt_dphi");
+      Histo1D hist_num_dphi(*_hist_N_vs_dPhi[0], "/hist_num_dphi");
+      Histo1D hist_pt_dphi(*_hist_pT_vs_dPhi[0], "/hist_pt_dphi");
       hist_num_dphi.reset();
       hist_pt_dphi .reset();
 

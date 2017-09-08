@@ -62,11 +62,11 @@ namespace Rivet {
       _ndij = 8;
       for (size_t i = 0; i < _ndij; ++i) {
         string label = "d" + to_str(i) + "_kT4";
-        _h[label] = bookHisto1D(i + 1, 1, _mode + 1);
-        _h[label + "_all"] = bookHisto1D(i + 1, 1, _mode + 5);
+        book(_h[label], i + 1, 1, _mode + 1);
+        book(_h[label + "_all"], i + 1, 1, _mode + 5);
         label = "d" + to_str(i) + "_kT10";
-        _h[label] = bookHisto1D(i + 1, 1, _mode + 3);
-        _h[label + "_all"] = bookHisto1D(i + 1, 1, _mode + 7);
+        book(_h[label], i + 1, 1, _mode + 3);
+        book(_h[label + "_all"], i + 1, 1, _mode + 7);
       }
     }
 
@@ -81,7 +81,7 @@ namespace Rivet {
       const double dilepton_mass = (leptons[0].momentum() + leptons[1].momentum()).mass();
       if (!inRange(dilepton_mass, 71*GeV, 111*GeV)) vetoEvent;
 
-      const double weight = e.weight();
+      const double weight = 1.0;
 
       // Get kT splitting scales (charged particles only)
       const FastJets& jetpro04 = applyProjection<FastJets>(e, "Kt04Jets");

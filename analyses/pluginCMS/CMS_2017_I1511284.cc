@@ -18,9 +18,9 @@ namespace Rivet {
     void init() {
       declare(FinalState(), "FS");
 
-      _h_totEnergy = bookHisto1D(1, 1, 1);
-      _h_emEnergy = bookHisto1D(2, 1, 1);
-      _h_hadEnergy = bookHisto1D(3, 1, 1);
+      book(_h_totEnergy, 1, 1, 1);
+      book(_h_emEnergy , 2, 1, 1);
+      book(_h_hadEnergy, 3, 1, 1);
     }
 
 

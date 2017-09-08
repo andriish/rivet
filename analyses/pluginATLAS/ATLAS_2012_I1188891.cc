@@ -27,7 +27,7 @@ namespace Rivet {
       for (int i = 0 ; i < 7 ; i++){
         book(_h_temp[i] ,"TMP/"+histotitle[i],refData(1,1,1));
         if (i < 6) {
-          _h_results[i] = bookScatter2D(i+1, 1, 1);
+          book(_h_results[i], i+1, 1, 1);
         }
       }
     }

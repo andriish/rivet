@@ -49,7 +49,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event &e) {
 
-      double weight = e.weight();
+      double weight = 1.0;
 
       const WFinder& w_e_finder  = apply<WFinder>(e, "W_E_FINDER" );
       const WFinder& w_mu_finder = apply<WFinder>(e, "W_MU_FINDER");

@@ -25,17 +25,17 @@ namespace Rivet {
       declare(FastJets(fs, FastJets::ANTIKT, 0.7), "Jets");
 
       // Book histograms
-      _h_sigma.addHistogram(0.0, 0.5, bookHisto1D(1, 1, 1));
-      _h_sigma.addHistogram(0.5, 1.0, bookHisto1D(1, 1, 2));
-      _h_sigma.addHistogram(1.0, 1.5, bookHisto1D(1, 1, 3));
-      _h_sigma.addHistogram(1.5, 2.0, bookHisto1D(1, 1, 4));
-      _h_sigma.addHistogram(2.0, 2.5, bookHisto1D(1, 1, 5));
+      {Histo1DPtr tmp; _h_sigma.addHistogram(0.0, 0.5,   book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_sigma.addHistogram(0.5, 1.0,   book(tmp, 1, 1, 2));}
+      {Histo1DPtr tmp; _h_sigma.addHistogram(1.0, 1.5,   book(tmp, 1, 1, 3));}
+      {Histo1DPtr tmp; _h_sigma.addHistogram(1.5, 2.0,   book(tmp, 1, 1, 4));}
+      {Histo1DPtr tmp; _h_sigma.addHistogram(2.0, 2.5,   book(tmp, 1, 1, 5));}
       
-      _h_invMass.addHistogram(0.0, 0.5, bookHisto1D(2, 1, 1));
-      _h_invMass.addHistogram(0.5, 1.0, bookHisto1D(2, 1, 2));
-      _h_invMass.addHistogram(1.0, 1.5, bookHisto1D(2, 1, 3));
-      _h_invMass.addHistogram(1.5, 2.0, bookHisto1D(2, 1, 4));
-      _h_invMass.addHistogram(2.0, 2.5, bookHisto1D(2, 1, 5));
+      {Histo1DPtr tmp; _h_invMass.addHistogram(0.0, 0.5, book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_invMass.addHistogram(0.5, 1.0, book(tmp, 2, 1, 2));}
+      {Histo1DPtr tmp; _h_invMass.addHistogram(1.0, 1.5, book(tmp, 2, 1, 3));}
+      {Histo1DPtr tmp; _h_invMass.addHistogram(1.5, 2.0, book(tmp, 2, 1, 4));}
+      {Histo1DPtr tmp; _h_invMass.addHistogram(2.0, 2.5, book(tmp, 2, 1, 5));}
     }
 
     // Analysis

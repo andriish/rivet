@@ -48,17 +48,19 @@ namespace Rivet {
         // Azimuthal moment histograms
         book(_h_profiled_cosDeltaPhi_dy[gapCategory]       , 5+4*gapCategoryOffset, 1, 1);
         book(_h_profiled_cosDeltaPhi_pTbar[gapCategory]    , 6+4*gapCategoryOffset, 1, 1);
-        _h_C2C1_dy[gapCategory]                       = bookScatter2D( 7+4*gapCategoryOffset, 1, 1, false);
-        _h_C2C1_pTbar[gapCategory]                    = bookScatter2D( 8+4*gapCategoryOffset, 1, 1, false);
+        book(_h_C2C1_dy[gapCategory]                       , 7+4*gapCategoryOffset, 1, 1, false);
+        book(_h_C2C1_pTbar[gapCategory]                    , 8+4*gapCategoryOffset, 1, 1, false);
         book(_h_profiled_cosTwoDeltaPhi_dy[gapCategory]    ,37+2*gapCategoryOffset, 1, 1);
         book(_h_profiled_cosTwoDeltaPhi_pTbar[gapCategory] ,38+2*gapCategoryOffset, 1, 1);
 
         // Gap fraction vs. Q0 and cross-section in dy slices
         for (size_t dyLow = 0; dyLow < _dy_max; ++dyLow ) {
-          book(Histo1DPtr _h_tmp_events_Q0_single_dySlice , 29+dyLow, 1, 1);
+          Histo1DPtr _h_tmp_events_Q0_single_dySlice;
+          book(_h_tmp_events_Q0_single_dySlice , 29+dyLow, 1, 1);
           _h_tmp_events_Q0_single_dySlice->setPath("/TMP/" + toString(gapCategory) + "_events_dySlice_" + toString(dyLow) + "_" + toString(dyLow+1) + "_Q0");
           _h_tmp_events_Q0_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, _h_tmp_events_Q0_single_dySlice );
-          _h_crossSection_dphi_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, bookHisto1D( 13+(_dy_max*gapCategoryOffset)+dyLow, 1, 1));
+          Histo1DPtr tmp;
+          _h_crossSection_dphi_dySlices[gapCategory].addHistogram( dyLow, dyLow+1, book(tmp, 13+(_dy_max*gapCategoryOffset)+dyLow, 1, 1));
         }
 
       }
@@ -186,15 +188,15 @@ namespace Rivet {
       }
 
       // Fill simple gap fractions
-      Scatter2DPtr h_gap_fraction_dy    = bookScatter2D( 1, 1, 1);
-      Scatter2DPtr h_gap_fraction_pTbar = bookScatter2D( 2, 1, 1, false);
-      Rivet::Analysis::efficiency( *_h_tmp_events_dy["gap"].get(), *_h_tmp_events_dy["inclusive"].get(), h_gap_fraction_dy );
-      Rivet::Analysis::efficiency( *_h_tmp_events_pTbar["gap"].get(), *_h_tmp_events_pTbar["inclusive"].get(), h_gap_fraction_pTbar );
+      Scatter2DPtr h_gap_fraction_dy; book(h_gap_fraction_dy, 1, 1, 1);
+      Scatter2DPtr h_gap_fraction_pTbar; book(h_gap_fraction_pTbar, 2, 1, 1, false);
+      Rivet::Analysis::efficiency( *_h_tmp_events_dy["gap"], *_h_tmp_events_dy["inclusive"], h_gap_fraction_dy );
+      Rivet::Analysis::efficiency( *_h_tmp_events_pTbar["gap"], *_h_tmp_events_pTbar["inclusive"], h_gap_fraction_pTbar );
 
       // Register and fill Q0 gap fractions
       for (unsigned int dyLow = 0; dyLow < _dy_max; ++dyLow ) {
-        Scatter2DPtr h_gap_fraction_Q0 = bookScatter2D( 29+dyLow, 1, 1, false);
-        Rivet::Analysis::efficiency( *_h_tmp_events_Q0_dySlices["gap"].histos().at(dyLow).get(), *_h_tmp_events_Q0_dySlices["inclusive"].histos().at(dyLow).get(), h_gap_fraction_Q0 );
+        Scatter2DPtr h_gap_fraction_Q0; book(h_gap_fraction_Q0, 29+dyLow, 1, 1, false);
+        Rivet::Analysis::efficiency( *_h_tmp_events_Q0_dySlices["gap"].histos().at(dyLow), *_h_tmp_events_Q0_dySlices["inclusive"].histos().at(dyLow), h_gap_fraction_Q0 );
       }
 
       /// Print summary information

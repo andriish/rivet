@@ -38,19 +38,19 @@ namespace Rivet {
       declare(jets, "jets");
       
       // individual channels
-      _h_Njets       = bookHisto1D(1, 1, _mode + 1);
-      _h_Njets_Ratio = bookScatter2D(1, 2, _mode + 1, true);
-      _h_Njets_excl  = bookHisto1D(1, 3, _mode + 1);
+      book(_h_Njets      , 1, 1, _mode + 1);
+      book(_h_Njets_Ratio, 1, 2, _mode + 1, true);
+      book(_h_Njets_excl , 1, 3, _mode + 1);
 
-      _h_HT                    = bookHisto1D(1, 4, _mode + 1);
-      _h_leading_jet_rap       = bookHisto1D(1, 5, _mode + 1);
-      _h_leading_jet_pT_eq1jet = bookHisto1D(1, 6, _mode + 1);
-      _h_leading_jet_pT        = bookHisto1D(1, 7, _mode + 1);
-      _h_leading_jet_pT_2jet   = bookHisto1D(1, 8, _mode + 1);
-      _h_leading_jet_pT_3jet   = bookHisto1D(1, 9, _mode + 1);
-      _h_leading_jet_pT_4jet   = bookHisto1D(1, 10, _mode + 1);
-      _h_jet_dphi              = bookHisto1D(1, 11, _mode + 1);
-      _h_jet_mass              = bookHisto1D(1, 12, _mode + 1);
+      book(_h_HT                   , 1, 4, _mode + 1);
+      book(_h_leading_jet_rap      , 1, 5, _mode + 1);
+      book(_h_leading_jet_pT_eq1jet, 1, 6, _mode + 1);
+      book(_h_leading_jet_pT       , 1, 7, _mode + 1);
+      book(_h_leading_jet_pT_2jet  , 1, 8, _mode + 1);
+      book(_h_leading_jet_pT_3jet  , 1, 9, _mode + 1);
+      book(_h_leading_jet_pT_4jet  , 1, 10, _mode + 1);
+      book(_h_jet_dphi             , 1, 11, _mode + 1);
+      book(_h_jet_mass             , 1, 12, _mode + 1);
 
     }
     

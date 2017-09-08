@@ -358,19 +358,19 @@ namespace Rivet {
       else if (plots.label=="highpt") region_index = 2;
       else return;
 
-      if (plots.h_jetveto_mjj_veto && plots.h_jetveto_mjj_inc) divide(plots.h_jetveto_mjj_veto, plots.h_jetveto_mjj_inc, bookScatter2D(region_index, 1, 2));
+      {Scatter2DPtr tmp; if (plots.h_jetveto_mjj_veto && plots.h_jetveto_mjj_inc) divide(plots.h_jetveto_mjj_veto, plots.h_jetveto_mjj_inc, book(tmp, region_index, 1, 2));}
       getScatter2D(region_index, 1, 2)->addAnnotation("InclusiveSumWeights", plots.h_jetveto_mjj_inc->integral());
       removeAnalysisObject(plots.h_jetveto_mjj_veto); removeAnalysisObject(plots.h_jetveto_mjj_inc);
 
-      if (plots.h_jetveto_dy_veto && plots.h_jetveto_dy_inc) divide(plots.h_jetveto_dy_veto, plots.h_jetveto_dy_inc, bookScatter2D(region_index, 2, 2));
+      {Scatter2DPtr tmp; if (plots.h_jetveto_dy_veto && plots.h_jetveto_dy_inc) divide(plots.h_jetveto_dy_veto, plots.h_jetveto_dy_inc, book(tmp, region_index, 2, 2));}
       getScatter2D(region_index, 2, 2)->addAnnotation("InclusiveSumWeights", plots.h_jetveto_dy_inc->integral());
       removeAnalysisObject(plots.h_jetveto_dy_veto); removeAnalysisObject(plots.h_jetveto_dy_inc);
 
-      if (plots.h_ptbaleff_mjj_veto && plots.h_ptbaleff_mjj_inc) divide(plots.h_ptbaleff_mjj_veto, plots.h_ptbaleff_mjj_inc, bookScatter2D(region_index, 1, 3));
+      {Scatter2DPtr tmp; if (plots.h_ptbaleff_mjj_veto && plots.h_ptbaleff_mjj_inc) divide(plots.h_ptbaleff_mjj_veto, plots.h_ptbaleff_mjj_inc, book(tmp, region_index, 1, 3));}
       getScatter2D(region_index, 1, 3)->addAnnotation("InclusiveSumWeights", plots.h_ptbaleff_mjj_inc->integral());
       removeAnalysisObject(plots.h_ptbaleff_mjj_veto); removeAnalysisObject(plots.h_ptbaleff_mjj_inc);
 
-      if (plots.h_ptbaleff_dy_veto && plots.h_ptbaleff_dy_inc) divide(plots.h_ptbaleff_dy_veto, plots.h_ptbaleff_dy_inc, bookScatter2D(region_index, 2, 3));
+      {Scatter2DPtr tmp; if (plots.h_ptbaleff_dy_veto && plots.h_ptbaleff_dy_inc) divide(plots.h_ptbaleff_dy_veto, plots.h_ptbaleff_dy_inc, book(tmp, region_index, 2, 3));}
       getScatter2D(region_index, 2, 3)->addAnnotation("InclusiveSumWeights", plots.h_ptbaleff_dy_inc->integral());
       removeAnalysisObject(plots.h_ptbaleff_dy_veto); removeAnalysisObject(plots.h_ptbaleff_dy_inc);
     }

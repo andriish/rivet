@@ -43,8 +43,8 @@ namespace Rivet {
       declare(PartonicTops(PartonicTops::HADRONIC), "HadronicTops");
 
       // Main histograms
-      _hist_mass        = bookHisto1D("d01-x01-y01");
-      _hist_mass_norm   = bookHisto1D("d02-x01-y01");
+      book(_hist_mass     , "d01-x01-y01");
+      book(_hist_mass_norm, "d02-x01-y01");
 
     }
 

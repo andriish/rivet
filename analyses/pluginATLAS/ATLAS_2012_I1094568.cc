@@ -107,7 +107,7 @@ namespace Rivet {
       const string vetoPt_Q0_name = "TMP/vetoJetPt_Q0_" + to_str(plots.region_index);
       plots.vetoJetPt_Q0 = 0.0;
       book(plots._h_vetoJetPt_Q0   ,vetoPt_Q0_name, 200, 0.0, 1000.0);
-      plots._d_gapFraction_Q0 = bookScatter2D(plots.region_index, 1, 1);
+      book(plots._d_gapFraction_Q0, plots.region_index, 1, 1);
       foreach (Point2D p, refData(plots.region_index, 1, 1).points()) {
         p.setY(0, 0);
         plots._d_gapFraction_Q0->addPoint(p);
@@ -115,7 +115,7 @@ namespace Rivet {
 
       const string vetoPt_Qsum_name = "TMP/vetoJetPt_Qsum_" + to_str(plots.region_index);
       book(plots._h_vetoJetPt_Qsum   ,vetoPt_Qsum_name, 200, 0.0, 1000.0);
-      plots._d_gapFraction_Qsum = bookScatter2D(plots.region_index, 2, 1);
+      book(plots._d_gapFraction_Qsum, plots.region_index, 2, 1);
       plots.vetoJetPt_Qsum = 0.0;
       foreach (Point2D p, refData(plots.region_index, 2, 1).points()) {
         p.setY(0, 0);

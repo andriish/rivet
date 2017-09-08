@@ -25,9 +25,10 @@ namespace Rivet {
       declare(HeavyHadrons(Cuts::abseta < 3.5 && Cuts::pT > 5*GeV), "BHadrons");
 
       double ybins[] = { 0.0, 0.3, 0.8, 1.2, 2.1 };
-      for (size_t i = 0; i < 4; ++i)
-        _bjetpT_SV0.addHistogram(ybins[i], ybins[i+1], bookHisto1D(i+1, 1, 1));
-
+      for (size_t i = 0; i < 4; ++i) {
+        Histo1DPtr tmp;
+        _bjetpT_SV0.addHistogram(ybins[i], ybins[i+1], book(tmp, i+1, 1, 1));
+      }
       book(_bjetpT_SV0_All    ,5, 1, 1);
       book(_bjetpT_pTRel      ,6, 1, 1);
       book(_dijet_mass        ,7, 1, 1);

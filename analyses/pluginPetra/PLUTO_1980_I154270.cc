@@ -22,7 +22,7 @@ namespace Rivet {
       const ChargedFinalState cfs;
       declare(cfs, "CFS");
       if(fuzzyEquals(sqrtS()/GeV,30.75)) {
-	_hist=bookProfile1D(1, 2, 1);
+	book(_hist,1, 2, 1);
       }
       else if (fuzzyEquals(sqrtS()/GeV,9.4 ) ||
 	       fuzzyEquals(sqrtS()/GeV,12.0) ||
@@ -33,7 +33,7 @@ namespace Rivet {
 	       fuzzyEquals(sqrtS()/GeV,30.2) ||
 	       fuzzyEquals(sqrtS()/GeV,30.7) ||
 	       fuzzyEquals(sqrtS()/GeV,31.3)) {
-	_hist=bookProfile1D(1, 1, 1);
+	book(_hist,1, 1, 1);
       }
       else {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
@@ -68,7 +68,7 @@ namespace Rivet {
         }
 	if(prompt) ++nPart;
       }
-      _hist->fill(sqrtS(),nPart,1.0);
+      _hist->fill(sqrtS(),nPart);
     }
 
 

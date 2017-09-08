@@ -51,8 +51,8 @@ namespace Rivet {
 
 
       // Book histograms
-      histoPtH = bookHisto1D(1,1,1);
-      histoXsec = bookHisto1D(2,1,1);
+      book(histoPtH , 1,1,1);
+      book(histoXsec, 2,1,1);
     }
 
 

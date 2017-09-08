@@ -29,10 +29,10 @@ namespace Rivet {
         book(_h_dNXi_dy      ,5, 1, 1);
         book(_h_dNXi_dpT     ,6, 1, 1);
         //
-        _h_LampT_KpT    = bookScatter2D(7, 1, 1);
-        _h_XipT_LampT   = bookScatter2D(8, 1, 1);
-        _h_Lamy_Ky      = bookScatter2D(9, 1, 1);
-        _h_Xiy_Lamy     = bookScatter2D(10, 1, 1);
+        book(_h_LampT_KpT , 7, 1, 1);
+        book(_h_XipT_LampT, 8, 1, 1);
+        book(_h_Lamy_Ky   , 9, 1, 1);
+        book(_h_Xiy_Lamy  , 10, 1, 1);
 
       } else if (fuzzyEquals(sqrtS()/GeV, 7000*GeV)){
         book(_h_dNKshort_dy  ,1, 1, 2);
@@ -42,10 +42,10 @@ namespace Rivet {
         book(_h_dNXi_dy      ,5, 1, 2);
         book(_h_dNXi_dpT     ,6, 1, 2);
         //
-        _h_LampT_KpT    = bookScatter2D(7, 1, 2);
-        _h_XipT_LampT   = bookScatter2D(8, 1, 2);
-        _h_Lamy_Ky      = bookScatter2D(9, 1, 2);
-        _h_Xiy_Lamy     = bookScatter2D(10, 1, 2);
+        book(_h_LampT_KpT , 7, 1, 2);
+        book(_h_XipT_LampT, 8, 1, 2);
+        book(_h_Lamy_Ky   , 9, 1, 2);
+        book(_h_Xiy_Lamy  , 10, 1, 2);
       }
     }
 

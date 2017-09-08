@@ -39,7 +39,8 @@ namespace Rivet {
       size_t ptDsOffset(0);
       for (size_t alg = 0; alg < 2; ++alg) {
         for (size_t i = 0; i < 6; ++i) {
-          _pt[alg].addHistogram(ybins[i], ybins[i + 1], bookHisto1D(1 + ptDsOffset, 1, i + 1));
+          Histo1DPtr tmp;
+          _pt[alg].addHistogram(ybins[i], ybins[i + 1], book(tmp, 1 + ptDsOffset, 1, i + 1));
         }
         ptDsOffset += 1;
       }

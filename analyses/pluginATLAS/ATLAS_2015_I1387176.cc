@@ -22,7 +22,7 @@ namespace Rivet {
 
       // Book histograms
       book(_hist_EEC  ,1, 1, 1);
-      _hist_AEEC = bookScatter2D(2, 1, 1);
+      book(_hist_AEEC ,2, 1, 1);
 
       // add dummy histogram for heterogenous merging
       string hname = "d01-x01-y01";

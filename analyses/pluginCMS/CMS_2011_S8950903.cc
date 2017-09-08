@@ -18,11 +18,11 @@ namespace Rivet {
       FastJets akt(fs, FastJets::ANTIKT, 0.5);
       declare(akt, "antikT");
 
-      _h_deltaPhi.addHistogram( 80.,  110., bookHisto1D(1, 1, 1));
-      _h_deltaPhi.addHistogram(110.,  140., bookHisto1D(2, 1, 1));
-      _h_deltaPhi.addHistogram(140.,  200., bookHisto1D(3, 1, 1));
-      _h_deltaPhi.addHistogram(200.,  300., bookHisto1D(4, 1, 1));
-      _h_deltaPhi.addHistogram(300., 7000., bookHisto1D(5, 1, 1));
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 80.,  110., book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram(110.,  140., book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram(140.,  200., book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram(200.,  300., book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram(300., 7000., book(tmp, 5, 1, 1));}
     }
 
 

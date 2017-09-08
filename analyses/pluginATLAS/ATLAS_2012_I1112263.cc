@@ -51,12 +51,12 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::abseta < 3.0),"cfs");
 
       // Book histograms
-      _hist_leptonpT_SR1.push_back(bookHisto1D("hist_lepton_pT_1_SR1",11,0.,220.));
-      _hist_leptonpT_SR1.push_back(bookHisto1D("hist_lepton_pT_2_SR1", 7,0.,140.));
-      _hist_leptonpT_SR1.push_back(bookHisto1D("hist_lepton_pT_3_SR1", 8,0.,160.));
-      _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_1_SR2",11,0.,220.));
-      _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_2_SR2", 7,0.,140.));
-      _hist_leptonpT_SR2.push_back(bookHisto1D("hist_lepton_pT_3_SR2", 8,0.,160.));
+      {Histo1DPtr tmp; _hist_leptonpT_SR1.push_back(book(tmp,"hist_lepton_pT_1_SR1",11,0.,220.));}
+      {Histo1DPtr tmp; _hist_leptonpT_SR1.push_back(book(tmp,"hist_lepton_pT_2_SR1", 7,0.,140.));}
+      {Histo1DPtr tmp; _hist_leptonpT_SR1.push_back(book(tmp,"hist_lepton_pT_3_SR1", 8,0.,160.));}
+      {Histo1DPtr tmp; _hist_leptonpT_SR2.push_back(book(tmp,"hist_lepton_pT_1_SR2",11,0.,220.));}
+      {Histo1DPtr tmp; _hist_leptonpT_SR2.push_back(book(tmp,"hist_lepton_pT_2_SR2", 7,0.,140.));}
+      {Histo1DPtr tmp; _hist_leptonpT_SR2.push_back(book(tmp,"hist_lepton_pT_3_SR2", 8,0.,160.));}
       book(_hist_etmiss_SR1_A ,"hist_etmiss_SR1_A",15,10.,310.);
       book(_hist_etmiss_SR1_B ,"hist_etmiss_SR1_B", 9,10.,190.);
       book(_hist_etmiss_SR2_A ,"hist_etmiss_SR2_A",15,10.,310.);

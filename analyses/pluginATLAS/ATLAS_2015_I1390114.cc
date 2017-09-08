@@ -65,7 +65,7 @@ namespace Rivet {
       declare(jets, "jets");
 
       book(_histo ,1,1,1);
-      _ratio = bookScatter2D(2,1,1, true);
+      book(_ratio, 2,1,1, true);
       book(_aux   ,"_aux", 1, 0.5, 1.5);
     }
 

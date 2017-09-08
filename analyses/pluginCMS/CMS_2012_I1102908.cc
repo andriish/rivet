@@ -27,8 +27,8 @@ namespace Rivet {
 
     // Histograms
     /// @todo Can we manage to only register these as they are "really" created in the finalize()?
-    _h_dijet_ratio = bookScatter2D(1, 1, 1);
-    _h_MN_dijet_ratio = bookScatter2D(2, 1, 1);
+    book(_h_dijet_ratio   , 1, 1, 1);
+    book(_h_MN_dijet_ratio, 2, 1, 1);
 
     // Temporary histograms (directly instantiated)
     book(_h_DeltaY_exclusive ,"TMP/excl",refData(1, 1, 1));

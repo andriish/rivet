@@ -47,9 +47,9 @@ namespace Rivet {
       book(_hist_zpt_mu_bare    ,1, 2, 2);  // muon "bare"	 
 
       //double-differential plots
-      _h_zpt_el_mu_dressed.addHistogram(0.0, 1.0, bookHisto1D(3, 1, 2));
-      _h_zpt_el_mu_dressed.addHistogram(1.0, 2.0, bookHisto1D(3, 1, 4));
-      _h_zpt_el_mu_dressed.addHistogram(2.0, 2.4, bookHisto1D(3, 1, 6));
+      {Histo1DPtr tmp; _h_zpt_el_mu_dressed.addHistogram(0.0, 1.0, book(tmp, 3, 1, 2));}
+      {Histo1DPtr tmp; _h_zpt_el_mu_dressed.addHistogram(1.0, 2.0, book(tmp, 3, 1, 4));}
+      {Histo1DPtr tmp; _h_zpt_el_mu_dressed.addHistogram(2.0, 2.4, book(tmp, 3, 1, 6));}
  
     }
 

@@ -41,21 +41,21 @@ namespace Rivet {
         book(_hist_zphistar_mu_dressed ,2, 1, 2);
 
         // Double-differential plots
-        _h_phistar_el_bare.addHistogram(0.0, 0.8, bookHisto1D(3, 1, 1));
-        _h_phistar_el_bare.addHistogram(0.8, 1.6, bookHisto1D(3, 1, 2));
-        _h_phistar_el_bare.addHistogram(1.6, 10.0, bookHisto1D(3, 1, 3));
+        {Histo1DPtr tmp; _h_phistar_el_bare.addHistogram(0.0, 0.8, book(tmp, 3, 1, 1));}
+        {Histo1DPtr tmp; _h_phistar_el_bare.addHistogram(0.8, 1.6, book(tmp, 3, 1, 2));}
+        {Histo1DPtr tmp; _h_phistar_el_bare.addHistogram(1.6, 10.0, book(tmp, 3, 1, 3));}
 
-        _h_phistar_el_dressed.addHistogram(0.0, 0.8, bookHisto1D(3, 2, 1));
-        _h_phistar_el_dressed.addHistogram(0.8, 1.6, bookHisto1D(3, 2, 2));
-        _h_phistar_el_dressed.addHistogram(1.6, 10.0, bookHisto1D(3, 2, 3));
+        {Histo1DPtr tmp; _h_phistar_el_dressed.addHistogram(0.0, 0.8, book(tmp, 3, 2, 1));}
+        {Histo1DPtr tmp; _h_phistar_el_dressed.addHistogram(0.8, 1.6, book(tmp, 3, 2, 2));}
+        {Histo1DPtr tmp; _h_phistar_el_dressed.addHistogram(1.6, 10.0, book(tmp, 3, 2, 3));}
 
-        _h_phistar_mu_bare.addHistogram(0.0, 0.8, bookHisto1D(4, 1, 1));
-        _h_phistar_mu_bare.addHistogram(0.8, 1.6, bookHisto1D(4, 1, 2));
-        _h_phistar_mu_bare.addHistogram(1.6, 10.0, bookHisto1D(4, 1, 3));
+        {Histo1DPtr tmp; _h_phistar_mu_bare.addHistogram(0.0, 0.8, book(tmp, 4, 1, 1));}
+        {Histo1DPtr tmp; _h_phistar_mu_bare.addHistogram(0.8, 1.6, book(tmp, 4, 1, 2));}
+        {Histo1DPtr tmp; _h_phistar_mu_bare.addHistogram(1.6, 10.0, book(tmp, 4, 1, 3));}
 
-        _h_phistar_mu_dressed.addHistogram(0.0, 0.8, bookHisto1D(4, 2, 1));
-        _h_phistar_mu_dressed.addHistogram(0.8, 1.6, bookHisto1D(4, 2, 2));
-        _h_phistar_mu_dressed.addHistogram(1.6, 10.0, bookHisto1D(4, 2, 3));
+        {Histo1DPtr tmp; _h_phistar_mu_dressed.addHistogram(0.0, 0.8, book(tmp, 4, 2, 1));}
+        {Histo1DPtr tmp; _h_phistar_mu_dressed.addHistogram(0.8, 1.6, book(tmp, 4, 2, 2));}
+        {Histo1DPtr tmp; _h_phistar_mu_dressed.addHistogram(1.6, 10.0, book(tmp, 4, 2, 3));}
       }
 
 

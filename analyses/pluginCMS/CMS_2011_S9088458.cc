@@ -21,9 +21,9 @@ namespace Rivet {
        FastJets akt(fs, FastJets::ANTIKT, 0.5);
        declare(akt, "antikT");
 
-       _h_tmp_dijet = Histo1D(refData(1, 1, 1));
-       _h_tmp_trijet = Histo1D(refData(1, 1, 1));
-       _h_r32 = bookScatter2D(1, 1, 1);
+       book(_h_tmp_dijet , "TMP/dijet", refData(1, 1, 1));
+       book(_h_tmp_trijet, "TMP/trijet", refData(1, 1, 1));
+       book(_h_r32, 1, 1, 1);
      }
 
 
@@ -39,8 +39,8 @@ namespace Rivet {
          }
        }
        if (highpT_jets.size() < 2) vetoEvent;
-       if (highpT_jets.size() >= 2) _h_tmp_dijet.fill(HT/TeV, weight);
-       if (highpT_jets.size() >= 3) _h_tmp_trijet.fill(HT/TeV, weight);
+       if (highpT_jets.size() >= 2) _h_tmp_dijet->fill(HT/TeV, weight);
+       if (highpT_jets.size() >= 3) _h_tmp_trijet->fill(HT/TeV, weight);
      }
 
 
@@ -51,7 +51,7 @@ namespace Rivet {
 
    private:
 
-     Histo1D _h_tmp_dijet, _h_tmp_trijet;
+     Histo1DPtr _h_tmp_dijet, _h_tmp_trijet;
      Scatter2DPtr _h_r32;
 
   };

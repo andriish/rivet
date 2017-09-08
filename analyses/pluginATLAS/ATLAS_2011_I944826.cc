@@ -47,10 +47,10 @@ namespace Rivet {
         book(_hist_Ratio_v_y ,13, 1, 1);
         book(_hist_Ratio_v_pT,14, 1, 1);
         //
-        book(_temp_lambda_v_y, 10, 0.0, 2.5);
-        book(_temp_lambdabar_v_y, 10, 0.0, 2.5);
-        book(_temp_lambda_v_pT, 18, 0.5, 4.1);
-        book(_temp_lambdabar_v_pT, 18, 0.5, 4.1);
+        book(_temp_lambda_v_y, "TMP/lambda_v_y", 10, 0.0, 2.5);
+        book(_temp_lambdabar_v_y, "TMP/lambdabar_v_y", 10, 0.0, 2.5);
+        book(_temp_lambda_v_pT, "TMP/lambda_v_pT", 18, 0.5, 4.1);
+        book(_temp_lambdabar_v_pT, "TMP/lambdabar_v_pT", 18, 0.5, 4.1);
       }
       else if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
         book(_hist_Ks_pT   ,4, 1, 1);
@@ -211,9 +211,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      MSG_DEBUG("# Events that pass the trigger: " << _sum_w_passed);
-      MSG_DEBUG("# Kshort events: " << _sum_w_ks);
-      MSG_DEBUG("# Lambda events: " << _sum_w_lambda);
+      MSG_DEBUG("# Events that pass the trigger: " << double(_sum_w_passed));
+      MSG_DEBUG("# Kshort events: " << double(_sum_w_ks));
+      MSG_DEBUG("# Lambda events: " << double(_sum_w_lambda));
 
       /// @todo Replace with normalize()?
       scale(_hist_Ks_pT,   1.0/_sum_w_ks);

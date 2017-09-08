@@ -20,13 +20,13 @@ namespace Rivet {
       FastJets akt(FinalState(), FastJets::ANTIKT, 0.7);
       addProjection(akt, "antikT");
 
-      _h_deltaPhi.addHistogram( 200.,  300., bookHisto1D(1, 1, 1));
-      _h_deltaPhi.addHistogram( 300.,  400., bookHisto1D(2, 1, 1));
-      _h_deltaPhi.addHistogram( 400.,  500., bookHisto1D(3, 1, 1));
-      _h_deltaPhi.addHistogram( 500.,  700., bookHisto1D(4, 1, 1));
-      _h_deltaPhi.addHistogram( 700.,  900., bookHisto1D(5, 1, 1));
-      _h_deltaPhi.addHistogram( 900.,  1100., bookHisto1D(6, 1, 1));
-      _h_deltaPhi.addHistogram( 1100., 4000., bookHisto1D(7, 1, 1));
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 200.,  300., book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 300.,  400., book(tmp, 2, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 400.,  500., book(tmp, 3, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 500.,  700., book(tmp, 4, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 700.,  900., book(tmp, 5, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 900.,  1100., book(tmp, 6, 1, 1));}
+      {Histo1DPtr tmp; _h_deltaPhi.addHistogram( 1100., 4000., book(tmp, 7, 1, 1));}
     }
 
 

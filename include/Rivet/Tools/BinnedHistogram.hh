@@ -43,7 +43,7 @@ namespace Rivet {
 
 
     /// Fill the histogram in the same bin as @a binval with value @a val and weight @a weight
-    void fill(const T& binval, double val, double weight);
+    void fill(const T& binval, double val, double weight = 1.0);
 
 
     /// @brief Get the histogram in the same bin as @a binval (const)

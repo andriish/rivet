@@ -56,13 +56,13 @@ namespace Rivet {
       declare(jets, "jets");
 
       book(_h_njet_incl              ,  1, 1, _mode);
-      _h_njet_incl_ratio        = bookScatter2D(2, 1, _mode, true);
+      book(_h_njet_incl_ratio        ,  2, 1, _mode, true);
       book(_h_njet_excl              ,  3, 1, _mode);
-      _h_njet_excl_ratio        = bookScatter2D(4, 1, _mode, true);
+      book(_h_njet_excl_ratio        ,  4, 1, _mode, true);
       book(_h_njet_excl_pt150        ,  5, 1, _mode);
-      _h_njet_excl_pt150_ratio  = bookScatter2D(6, 1, _mode, true);
-      _h_njet_excl_vbf          = bookHisto1D ( 7, 1, _mode);
-      _h_njet_excl_vbf_ratio    = bookScatter2D(8, 1, _mode, true);
+      book(_h_njet_excl_pt150_ratio  ,  6, 1, _mode, true);
+      book(_h_njet_excl_vbf          ,  7, 1, _mode);
+      book(_h_njet_excl_vbf_ratio    ,  8, 1, _mode, true);
       book(_h_ptlead                 ,  9, 1, _mode);
       book(_h_ptseclead              , 10, 1, _mode);
       book(_h_ptthirdlead            , 11, 1, _mode);

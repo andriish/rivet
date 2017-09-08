@@ -45,7 +45,7 @@ namespace Rivet {
       declare(MissingMomentum(), "MET");
 
       // Histograms
-      _h_2l2j = bookCounter("d01-x01-y02");
+      book(_h_2l2j, "d01-x01-y02");
     }
 
 

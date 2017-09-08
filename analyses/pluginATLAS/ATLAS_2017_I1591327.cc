@@ -33,12 +33,12 @@ namespace Rivet {
       declare(photonfs, "Photon");
 
       // Histograms
-      _h_M       = bookHisto1D(2, 1, 1);
-      _h_pT      = bookHisto1D(3, 1, 1);
-      _h_at      = bookHisto1D(4, 1, 1);
-      _h_phistar = bookHisto1D(5, 1, 1);
-      _h_costh   = bookHisto1D(6, 1, 1);
-      _h_dPhi    = bookHisto1D(7, 1, 1);
+      book(_h_M      , 2, 1, 1);
+      book(_h_pT     , 3, 1, 1);
+      book(_h_at     , 4, 1, 1);
+      book(_h_phistar, 5, 1, 1);
+      book(_h_costh  , 6, 1, 1);
+      book(_h_dPhi   , 7, 1, 1);
     }
 
 

@@ -49,7 +49,7 @@ namespace Rivet {
       }
 
       // Final histo
-      _profhistPsi_vs_pT = bookScatter2D(13, 1, 1, true);
+      book(_profhistPsi_vs_pT, 13, 1, 1, true);
     }
 
 
@@ -67,7 +67,6 @@ namespace Rivet {
       }
 
       // Calculate and histogram jet shapes
-      const double weight = 1.0;
       for (size_t ipt = 0; ipt < 18; ++ipt) {
         const JetShape& jsipt = apply<JetShape>(evt, _jsnames_pT[ipt]);
         for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
@@ -75,9 +74,9 @@ namespace Rivet {
             const double r_rho = jsipt.rBinMid(rbin);
             MSG_DEBUG(ipt << " " << rbin << " (" << r_rho << ") " << jsipt.diffJetShape(ijet, rbin));
             /// @note Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
-            _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin), weight);
+            _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin));
             const double r_Psi = jsipt.rBinMax(rbin);
-            _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin), weight);
+            _profhistPsi_pT[ipt]->fill(r_Psi/0.7, jsipt.intJetShape(ijet, rbin));
           }
         }
       }

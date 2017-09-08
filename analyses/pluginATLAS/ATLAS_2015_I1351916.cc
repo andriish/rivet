@@ -57,8 +57,8 @@ namespace Rivet {
       }
 
       // Book asymmetry scatter plots
-      _s["CC"] = bookScatter2D(1, 1, 1, true);
-      if (_mode == 0) _s["CF"] = bookScatter2D(1, 2, 1, true);
+      book(_s["CC"], 1, 1, 1, true);
+      if (_mode == 0) book(_s["CF"], 1, 2, 1, true);
     }
 
 
@@ -90,7 +90,7 @@ namespace Rivet {
       const double cosThetaStar = cosCollinsSoper(lneg, lpos);
       const double mll = (lpos.mom() + lneg.mom()).mass();
       label += cosThetaStar < 0.0?  "_neg" : "_pos";
-      _h[label]->fill(mll/GeV, e.weight());
+      _h[label]->fill(mll/GeV);
     }
 
 

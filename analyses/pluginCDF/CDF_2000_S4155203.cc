@@ -46,7 +46,7 @@ namespace Rivet {
 
       MSG_DEBUG("Dilepton mass = " << pZ.mass()/GeV << " GeV");
       MSG_DEBUG("Dilepton pT   = " << pZ.pT()/GeV << " GeV");
-      _hist_zpt->fill(pZ.pT()/GeV, e.weight());
+      _hist_zpt->fill(pZ.pT()/GeV);
     }
 
 

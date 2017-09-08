@@ -65,9 +65,9 @@ namespace Rivet {
 
     HistoHandler bookHandler(unsigned int id_d, unsigned int id_x, unsigned int id_y) {
       HistoHandler dummy;
-      dummy.histo = bookHisto1D(id_d, id_x, id_y);
+      book(dummy.histo, id_d, id_x, id_y);
       if (_mode) {
-        dummy.scatter = bookScatter2D(id_d, id_x, id_y, true);
+        book(dummy.scatter, id_d, id_x, id_y, true);
         dummy.d = id_d;
         dummy.x = id_x;
         dummy.y = id_y + 1;

@@ -33,12 +33,12 @@ namespace Rivet {
       FinalState fs(-4.2, 4.2);
       declare(FastJets(fs, FastJets::CDFJETCLU, 0.7), "Jets");
 
-      _h_chi.addHistogram(241.0, 300.0, bookHisto1D(1, 1, 1));
-      _h_chi.addHistogram(300.0, 400.0, bookHisto1D(1, 1, 2));
-      _h_chi.addHistogram(400.0, 517.0, bookHisto1D(1, 1, 3));
-      _h_chi.addHistogram(517.0, 625.0, bookHisto1D(1, 1, 4));
-      _h_chi.addHistogram(625.0, 1800.0, bookHisto1D(1, 1, 5));
-      _h_ratio = bookScatter2D(2, 1, 1);
+      {Histo1DPtr tmp; _h_chi.addHistogram(241.0, 300.0, book(tmp, 1, 1, 1));}
+      {Histo1DPtr tmp; _h_chi.addHistogram(300.0, 400.0, book(tmp, 1, 1, 2));}
+      {Histo1DPtr tmp; _h_chi.addHistogram(400.0, 517.0, book(tmp, 1, 1, 3));}
+      {Histo1DPtr tmp; _h_chi.addHistogram(517.0, 625.0, book(tmp, 1, 1, 4));}
+      {Histo1DPtr tmp; _h_chi.addHistogram(625.0,1800.0, book(tmp, 1, 1, 5));}
+      book(_h_ratio,  2, 1, 1);
       book(_htmp_chi_above_25 ,"TMP/chiabove25", refData(2, 1, 1));
       book(_htmp_chi_below_25 ,"TMP/chibelow25", refData(2, 1, 1));
     }

@@ -25,13 +25,13 @@ namespace Rivet {
       book(central_kappa5 ,5, 1, 1);
       book(central_kappa7 ,6, 1, 1);
 
-      forwardRMS_kappa3 = bookScatter2D("d07-x01-y01", true);
-      forwardRMS_kappa5 = bookScatter2D("d08-x01-y01", true);
-      forwardRMS_kappa7 = bookScatter2D("d09-x01-y01", true);
+      book(forwardRMS_kappa3, "d07-x01-y01", true);
+      book(forwardRMS_kappa5, "d08-x01-y01", true);
+      book(forwardRMS_kappa7, "d09-x01-y01", true);
 
-      centralRMS_kappa3 = bookScatter2D("d10-x01-y01", true);
-      centralRMS_kappa5 = bookScatter2D("d11-x01-y01", true);
-      centralRMS_kappa7 = bookScatter2D("d12-x01-y01", true);
+      book(centralRMS_kappa3, "d10-x01-y01", true);
+      book(centralRMS_kappa5, "d11-x01-y01", true);
+      book(centralRMS_kappa7, "d12-x01-y01", true);
 
     }
   

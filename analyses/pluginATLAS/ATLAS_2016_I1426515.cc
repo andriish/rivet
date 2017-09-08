@@ -61,35 +61,35 @@ namespace Rivet {
 
       // Integrated cross sections
       // d01 ee/mm fiducial integrated cross sections
-      _hist_mm_fid_intxsec = bookHisto1D(1, 1, 1);
-      _hist_ee_fid_intxsec = bookHisto1D(1, 1, 2);
+      book(_hist_mm_fid_intxsec, 1, 1, 1);
+      book(_hist_ee_fid_intxsec, 1, 1, 2);
 
       // d02 emme fiducial integrated cross sections
-      _hist_emme_fid_intxsec = bookHisto1D(2, 1, 1);
+      book(_hist_emme_fid_intxsec, 2, 1, 1);
 
       // d10  emme fiducial differential cross section (leading lepton ptlead + ptlead normalized)
-      _hist_emme_fid_ptlead = bookHisto1D(10, 1, 1);
-      _hist_emme_fid_ptleadnorm = bookHisto1D(10, 1, 2);
+      book(_hist_emme_fid_ptlead, 10, 1, 1);
+      book(_hist_emme_fid_ptleadnorm, 10, 1, 2);
 
       // d11  emme fiducial differential cross section (dilepton-system ptll + ptll normalized)
-      _hist_emme_fid_ptll = bookHisto1D(11, 1, 1);
-      _hist_emme_fid_ptllnorm = bookHisto1D(11, 1, 2);
+      book(_hist_emme_fid_ptll, 11, 1, 1);
+      book(_hist_emme_fid_ptllnorm, 11, 1, 2);
 
       // d12  emme fiducial differential cross section (dilepton-system mll + mll normalized)
-      _hist_emme_fid_mll = bookHisto1D(12, 1, 1);
-      _hist_emme_fid_mllnorm = bookHisto1D(12, 1, 2);
+      book(_hist_emme_fid_mll, 12, 1, 1);
+      book(_hist_emme_fid_mllnorm, 12, 1, 2);
 
       // d13  emme fiducial differential cross section (dilepton-system delta_phi_ll + dphill normalized)
-      _hist_emme_fid_dphill = bookHisto1D(13, 1, 1);
-      _hist_emme_fid_dphillnorm = bookHisto1D(13, 1, 2);
+      book(_hist_emme_fid_dphill, 13, 1, 1);
+      book(_hist_emme_fid_dphillnorm, 13, 1, 2);
 
       // d14  emme fiducial differential cross section (absolute rapidity of dilepton-system y_ll + y_ll normalized)
-      _hist_emme_fid_yll = bookHisto1D(14, 1, 1);
-      _hist_emme_fid_yllnorm = bookHisto1D(14, 1, 2);
+      book(_hist_emme_fid_yll, 14, 1, 1);
+      book(_hist_emme_fid_yllnorm, 14, 1, 2);
 
       // d15  emme fiducial differential cross section (absolute costheta* of dilepton-system costhetastar_ll + costhetastar_ll normalized)
-      _hist_emme_fid_costhetastarll = bookHisto1D(15, 1, 1);
-      _hist_emme_fid_costhetastarllnorm = bookHisto1D(15, 1, 2);
+      book(_hist_emme_fid_costhetastarll, 15, 1, 1);
+      book(_hist_emme_fid_costhetastarllnorm, 15, 1, 2);
 
     }
 

@@ -41,12 +41,12 @@ namespace Rivet {
       book(_h_pt_20_25_ak7 ,11, 1, 1);
       book(_h_pt_25_30_ak7 ,12, 1, 1);
 
-      _h_pt_05_ratio    = bookScatter2D(13, 1, 1);
-      _h_pt_05_10_ratio = bookScatter2D(14, 1, 1);
-      _h_pt_10_15_ratio = bookScatter2D(15, 1, 1);
-      _h_pt_15_20_ratio = bookScatter2D(16, 1, 1);
-      _h_pt_20_25_ratio = bookScatter2D(17, 1, 1);
-      _h_pt_25_30_ratio = bookScatter2D(18, 1, 1);
+      book(_h_pt_05_ratio   , 13, 1, 1);
+      book(_h_pt_05_10_ratio, 14, 1, 1);
+      book(_h_pt_10_15_ratio, 15, 1, 1);
+      book(_h_pt_15_20_ratio, 16, 1, 1);
+      book(_h_pt_20_25_ratio, 17, 1, 1);
+      book(_h_pt_25_30_ratio, 18, 1, 1);
     }
 
 

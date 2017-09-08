@@ -34,12 +34,14 @@ namespace Rivet {
       /// @todo Convert to use autobooking and correspond to HepData data tables
       _sumw.resize(9);
       _hEtFlow.resize(9);
-      for (size_t i = 0; i < 9; ++i)
+      for (size_t i = 0; i < 9; ++i) {
+        book(_sumw[i], "sumW_" + to_str(i));
         book(_hEtFlow[i] ,to_str(i), 24, -6, 6);
-      _tmphAvEt = Histo1D(9, 1.0, 10.0);
-      _tmphAvX  = Histo1D(9, 1.0, 10.0);
-      _tmphAvQ2 = Histo1D(9, 1.0, 10.0);
-      _tmphN    = Histo1D(9, 1.0, 10.0);
+      }
+      book(_tmphAvEt, "TMP/hAvEt", 9, 1.0, 10.0);
+      book(_tmphAvX , "TMP/hAvX", 9, 1.0, 10.0);
+      book(_tmphAvQ2, "TMP/hAvQ2", 9, 1.0, 10.0);
+      book(_tmphN   , "TMP/hN", 9, 1.0, 10.0);
     }
 
 
@@ -71,20 +73,19 @@ namespace Rivet {
       const int ibin = _getbin(dk);
       if (ibin < 0) vetoEvent;
 
-      const double weight = 1.0;
-      _sumw[ibin] += weight;
+      _sumw[ibin]->fill();
 
       for (size_t i = 0, N = fs.particles().size(); i < N; ++i) {
         const double rap = fs.particles()[i].rapidity();
         const double et = fs.particles()[i].Et();
-        _hEtFlow[ibin]->fill(rap, weight * et/GeV);
+        _hEtFlow[ibin]->fill(rap, et/GeV);
       }
 
       /// @todo Use fillBin?
-      _tmphAvEt.fill(ibin + 1.5, weight * y1.sumEt()/GeV);
-      _tmphAvX.fill(ibin + 1.5, weight * dk.x());
-      _tmphAvQ2.fill(ibin + 1.5, weight * dk.Q2()/GeV2);
-      _tmphN.fill(ibin + 1.5, weight);
+      _tmphAvEt->fill(ibin + 1.5, y1.sumEt()/GeV);
+      _tmphAvX->fill(ibin + 1.5, dk.x());
+      _tmphAvQ2->fill(ibin + 1.5, dk.Q2()/GeV2);
+      _tmphN->fill(ibin + 1.5);
     }
 
 
@@ -92,9 +93,16 @@ namespace Rivet {
       for (size_t ibin = 0; ibin < 9; ++ibin)
         scale(_hEtFlow[ibin], 0.5/_sumw[ibin]);
       /// @todo Improve this!
-      addAnalysisObject(make_shared<Scatter2D>(_tmphAvEt/_tmphN, histoPath("21")) );
-      addAnalysisObject(make_shared<Scatter2D>(_tmphAvX/_tmphN,  histoPath("22")) );
-      addAnalysisObject(make_shared<Scatter2D>(_tmphAvQ2/_tmphN, histoPath("23")) );
+      Scatter2DPtr s21,s22,s23;
+      divide(_tmphAvEt,_tmphN,s21);
+      book(s21, "21");
+      divide(_tmphAvX,_tmphN,s22);
+      book(s22, "22");
+      divide(_tmphAvQ2,_tmphN,s23);
+      book(s23, "23");
+      // addAnalysisObject(make_shared<Scatter2D>(_tmphAvEt/_tmphN, histoPath("21")) );
+      // addAnalysisObject(make_shared<Scatter2D>(_tmphAvX/_tmphN,  histoPath("22")) );
+      // addAnalysisObject(make_shared<Scatter2D>(_tmphAvQ2/_tmphN, histoPath("23")) );
     }
 
     //@}
@@ -106,10 +114,10 @@ namespace Rivet {
     vector<Histo1DPtr> _hEtFlow;
 
     /// Temporary histograms for averages in different kinematical bins.
-    Histo1D _tmphAvEt, _tmphAvX, _tmphAvQ2, _tmphN;
+    Histo1DPtr _tmphAvEt, _tmphAvX, _tmphAvQ2, _tmphN;
 
     /// Weights counters for each kinematic bin
-    vector<double> _sumw;
+    vector<CounterPtr> _sumw;
 
   };
 

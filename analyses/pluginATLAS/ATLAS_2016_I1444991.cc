@@ -65,7 +65,7 @@ namespace Rivet {
       book(_h_PtllMET_norm , 7,1,1);
       book(_h_Yll_norm     , 8,1,1);
       book(_h_PtLead_norm  , 9,1,1);
-      _h_JetVeto      = bookScatter2D(10, 1, 1, true);
+      book(_h_JetVeto      , 10, 1, 1, true);
 
       //histos for jetveto
       std::vector<double> ptlead25_bins = { 0., 25., 300. };

@@ -55,8 +55,8 @@ namespace Rivet {
 
 
       // Book histograms
-      _h_alphaT23 = bookHisto1D("alphaT23", 15, 0, 3);
-      _h_alphaT4 = bookHisto1D("alphaT4", 15, 0, 3);
+      book(_h_alphaT23, "alphaT23", 15, 0, 3);
+      book(_h_alphaT4 , "alphaT4", 15, 0, 3);
       /// @todo Add HT histograms
 
       // Book counters
@@ -66,13 +66,13 @@ namespace Rivet {
         for (size_t nb = 0; nb < njmax; ++nb) {
           for (size_t iht = 0; iht < 8; ++iht) {
             const size_t i = 8 * ((inj == 0 ? 0 : 3) + nb) + iht;
-            _h_srcounters[i] = bookCounter("srcount_j" + toString(njmax) + "_b" + toString(nb) + "_ht" + toString(iht+1));
+            book(_h_srcounters[i], "srcount_j" + toString(njmax) + "_b" + toString(nb) + "_ht" + toString(iht+1));
           }
         }
       }
       // Special nj >= 4, nb >= 4 bins
       for (size_t iht = 0; iht < 3; ++iht) {
-        _h_srcounters[8*7 + iht] = bookCounter("srcount_j4_b4_ht" + toString(iht+1));
+        book(_h_srcounters[8*7 + iht], "srcount_j4_b4_ht" + toString(iht+1));
       }
 
     }

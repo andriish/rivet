@@ -55,15 +55,15 @@ namespace Rivet {
 
 
       // Book histograms/counters
-      _h_3l1 = bookCounter("SR3l1");
-      _h_3l2 = bookCounter("SR3l2");
-      _h_0b1 = bookCounter("SR0b1");
-      _h_0b2 = bookCounter("SR0b2");
-      _h_1b = bookCounter("SR1b");
-      _h_3b = bookCounter("SR3b");
-      _h_1bDD = bookCounter("SR1bDD");
-      _h_3bDD = bookCounter("SR3bDD");
-      _h_1bGG = bookCounter("SR1bGG");
+      book(_h_3l1,"SR3l1");
+      book(_h_3l2,"SR3l2");
+      book(_h_0b1,"SR0b1");
+      book(_h_0b2,"SR0b2");
+      book(_h_1b,"SR1b");
+      book(_h_3b,"SR3b");
+      book(_h_1bDD,"SR1bDD");
+      book(_h_3bDD,"SR3bDD");
+      book(_h_1bGG,"SR1bGG");
 
     }
 

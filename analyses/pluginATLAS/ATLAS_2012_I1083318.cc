@@ -50,7 +50,7 @@ namespace Rivet {
 
       for (size_t i = 0; i < 2; ++i) {
         book(_h_NjetIncl[i] ,1, 1, i+1);
-        _h_RatioNjetIncl[i] = bookScatter2D(2, 1, i+1);
+        book(_h_RatioNjetIncl[i], 2, 1, i+1);
         book(_h_FirstJetPt_1jet[i] ,3, 1, i+1);
         book(_h_FirstJetPt_2jet[i] ,4, 1, i+1);
         book(_h_FirstJetPt_3jet[i] ,5, 1, i+1);

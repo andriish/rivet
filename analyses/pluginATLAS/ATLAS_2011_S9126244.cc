@@ -113,17 +113,19 @@ namespace Rivet {
         for (size_t x = 0; x < plots._gapFractionDeltaYSlices.size()-1; x++) {
           const string vetoHistName = "TMP/gapDeltaYVeto_" + plots.intermediateHistName + "_" + to_str(x);
           const string inclusiveHistName = "TMP/gapDeltaYInclusive_" + plots.intermediateHistName + "_" + to_str(x);
+          Histo1DPtr tmp1, tmp2;
           plots._h_gapVsDeltaYVeto.addHistogram(plots._gapFractionDeltaYSlices[x], plots._gapFractionDeltaYSlices[x+1],
-                                                bookHisto1D(vetoHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1,plots.selectionType)));
+                                                book(tmp1,vetoHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1,plots.selectionType)));
           plots._h_gapVsDeltaYInc.addHistogram(plots._gapFractionDeltaYSlices[x], plots._gapFractionDeltaYSlices[x+1],
-                                               bookHisto1D(inclusiveHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType)));
+                                               book(tmp2,inclusiveHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType)));
         }
       }
 
       // Average njet vs DeltaY
       if (!plots._avgNJetDeltaYSlices.empty()) {
         for (size_t x = 0; x < plots._avgNJetDeltaYSlices.size()-1; x++) {
-          book(plots._p_avgJetVsDeltaY +,plots._avgNJetDeltaYHistIndex+x, 1, plots.selectionType);
+          Profile1DPtr tmp;
+          plots._p_avgJetVsDeltaY += book(tmp, plots._avgNJetDeltaYHistIndex+x, 1, plots.selectionType);
         }
       }
 
@@ -132,17 +134,19 @@ namespace Rivet {
         for (size_t x = 0; x < plots._gapFractionPtBarSlices.size()-1; x++) {
           const string vetoHistName = "TMP/gapPtBarVeto_" + plots.intermediateHistName + "_" + to_str(x);
           const string inclusiveHistName = "TMP/gapPtBarInclusive_" + plots.intermediateHistName + "_" + to_str(x);
+          Histo1DPtr tmp1, tmp2;
           plots._h_gapVsPtBarVeto.addHistogram(plots._gapFractionPtBarSlices[x], plots._gapFractionPtBarSlices[x+1],
-                                               bookHisto1D(vetoHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
+                                               book(tmp1,vetoHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
           plots._h_gapVsPtBarInc.addHistogram(plots._gapFractionPtBarSlices[x], plots._gapFractionPtBarSlices[x+1],
-                                              bookHisto1D(inclusiveHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
+                                              book(tmp2,inclusiveHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
         }
       }
 
       // Average njet vs PtBar
       if (!plots._avgNJetPtBarSlices.empty()) {
         for (size_t x=0; x<plots._avgNJetPtBarSlices.size()-1; x++) {
-          book(plots._p_avgJetVsPtBar +,plots._avgNJetPtBarHistIndex+x, 1, plots.selectionType);
+          Profile1DPtr tmp;
+          plots._p_avgJetVsPtBar += book(tmp, plots._avgNJetPtBarHistIndex+x, 1, plots.selectionType);
         }
       }
 
@@ -151,8 +155,10 @@ namespace Rivet {
       for (size_t x = 0; x < plots._gapFractionQ0SlicesPtBar.size()/2; x++) {
         for (size_t y = 0; y < plots._gapFractionQ0SlicesDeltaY.size()/2; y++) {
           const string vetoPtHistName = "TMP/vetoPt_" + plots.intermediateHistName + "_" + to_str(q0PlotCount);
-          book(plots._h_vetoPt +,vetoPtHistName, refData(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType));
-          plots._d_vetoPtGapFraction += bookScatter2D(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType);
+          Histo1DPtr tmp1;
+          plots._h_vetoPt += book(tmp1,vetoPtHistName, refData(plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType));
+          Scatter2DPtr tmp2;
+          plots._d_vetoPtGapFraction += book(tmp2,plots._gapFractionQ0HistIndex + q0PlotCount, 1, plots.selectionType);
           plots._vetoPtTotalSum += 0.0; ///< @todo Can this just be replaced with _h_vetoPt.integral()?
           q0PlotCount += 1;
         }
@@ -162,7 +168,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
 
       // Get minimal list of jets needed to be considered
       double minimumJetPtBar = 50.0*GeV; // of interval defining jets
@@ -179,7 +184,7 @@ namespace Rivet {
 
       // Analyze leading jet case
       if (acceptJets[0].pT() + acceptJets[1].pT() > 2*minimumJetPtBar) {
-        analyzeJets(acceptJets, _selectionPlots[0], weight, 20.0*GeV);
+        analyzeJets(acceptJets, _selectionPlots[0], 1.0, 20.0*GeV);
       }
 
       // Find the most forward-backward jets
@@ -200,9 +205,9 @@ namespace Rivet {
 
       if (fwdBkwdJets[0].pT() + fwdBkwdJets[1].pT() > 2*minimumJetPtBar) {
         // Use most forward/backward jets in rapidity to define the interval
-        analyzeJets(fwdBkwdJets, _selectionPlots[1], weight, 20.0*GeV);
+        analyzeJets(fwdBkwdJets, _selectionPlots[1], 1.0, 20.0*GeV);
         // As before but now using PtBar of interval to define veto threshold
-        analyzeJets(fwdBkwdJets, _selectionPlots[2], weight, (fwdBkwdJets[0].pT()+fwdBkwdJets[1].pT())/2.0);
+        analyzeJets(fwdBkwdJets, _selectionPlots[2], 1.0, (fwdBkwdJets[0].pT()+fwdBkwdJets[1].pT())/2.0);
       }
     }
 
@@ -294,12 +299,14 @@ namespace Rivet {
         /// @todo Clean up temp histos -- requires restructuring the temp histo struct
 
         for (size_t x = 0; x < plots._h_gapVsDeltaYVeto.histos().size(); x++) {
+          Scatter2DPtr tmp;
           divide(plots._h_gapVsDeltaYVeto.histos()[x], plots._h_gapVsDeltaYInc.histos()[x],
-                 bookScatter2D(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType));
+                 book(tmp, plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType));
         }
         for (size_t x = 0; x < plots._h_gapVsPtBarVeto.histos().size(); x++) {
+          Scatter2DPtr tmp;
           divide(plots._h_gapVsPtBarVeto.histos()[x], plots._h_gapVsPtBarInc.histos()[x],
-                 bookScatter2D(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType));
+                 book(tmp, plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType));
         }
 
         for (size_t h = 0; h < plots._d_vetoPtGapFraction.size(); h++) {

@@ -26,13 +26,13 @@ namespace Rivet {
       book(central_2GeV   ,5, 1, 1);
       book(central_5GeV   ,6, 1, 1);
 
-      diff_500MeV = bookScatter2D("d07-x01-y01", true);
-      diff_2GeV   = bookScatter2D("d08-x01-y01", true);
-      diff_5GeV   = bookScatter2D("d09-x01-y01", true);
+      book(diff_500MeV, "d07-x01-y01", true);
+      book(diff_2GeV  , "d08-x01-y01", true);
+      book(diff_5GeV  , "d09-x01-y01", true);
 
-      sum_500MeV = bookScatter2D("d10-x01-y01", true);
-      sum_2GeV   = bookScatter2D("d11-x01-y01", true);
-      sum_5GeV   = bookScatter2D("d12-x01-y01", true);
+      book(sum_500MeV, "d10-x01-y01", true);
+      book(sum_2GeV  , "d11-x01-y01", true);
+      book(sum_5GeV  , "d12-x01-y01", true);
 
     }
   

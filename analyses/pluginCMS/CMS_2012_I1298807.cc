@@ -51,12 +51,12 @@ namespace Rivet {
       declare(zeefinder_woZee, "Zeefinder_WoZee");
 
       // Book histograms
-      _hist_pt_l1 = bookHisto1D(1, 1, 1);
-      _hist_pt_z1 = bookHisto1D(1, 1, 2);
-      _hist_pt_zz = bookHisto1D(1, 1, 3);
-      _hist_m_zz = bookHisto1D(1, 1, 4);
-      _hist_dphi_zz = bookHisto1D(1, 1, 5);
-      _hist_dR_zz = bookHisto1D(1, 1, 6);
+      book(_hist_pt_l1  , 1, 1, 1);
+      book(_hist_pt_z1  , 1, 1, 2);
+      book(_hist_pt_zz  , 1, 1, 3);
+      book(_hist_m_zz   , 1, 1, 4);
+      book(_hist_dphi_zz, 1, 1, 5);
+      book(_hist_dR_zz  , 1, 1, 6);
 
     }
 

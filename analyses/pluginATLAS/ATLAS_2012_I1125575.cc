@@ -89,7 +89,8 @@ namespace Rivet {
             int histogram_number = ((j+1)*2)-((y+1)%2);
             double low_edge = refscatter.point(j).xMin();
             double high_edge = refscatter.point(j).xMax();
-            plots[i][y].addHistogram(low_edge, high_edge, bookHisto1D(distribution, i+1, histogram_number));
+            Histo1DPtr tmp;
+            plots[i][y].addHistogram(low_edge, high_edge, book(tmp, distribution, i+1, histogram_number));
           }
         }
       }

@@ -49,52 +49,52 @@ namespace Rivet {
 
       // This histogram is independent of the parton-level information, and is an addition to the original analysis.
       // It is compared to the same data as the parton-level delta_phi histogram d02-x01-y01.
-      _h_dphidressedleptons = bookHisto1D("d00-x01-y01", _bins_dphi);
+      book(_h_dphidressedleptons, "d00-x01-y01", _bins_dphi);
 
       // The remaining histos use parton-level information
-      _h_dphi = bookHisto1D("d02-x01-y01", _bins_dphi);
-      _h_cos_opening_angle = bookHisto1D("d05-x01-y01", _bins_cos_opening_angle);
-      _h_c1c2 = bookHisto1D("d08-x01-y01", _bins_c1c2);
-      _h_lep_costheta = bookHisto1D("d11-x01-y01", _bins_lep_costheta);
-      _h_lep_costheta_CPV = bookHisto1D("d14-x01-y01", _bins_lep_costheta_CPV);
+      book(_h_dphi, "d02-x01-y01", _bins_dphi);
+      book(_h_cos_opening_angle, "d05-x01-y01", _bins_cos_opening_angle);
+      book(_h_c1c2, "d08-x01-y01", _bins_c1c2);
+      book(_h_lep_costheta, "d11-x01-y01", _bins_lep_costheta);
+      book(_h_lep_costheta_CPV, "d14-x01-y01", _bins_lep_costheta_CPV);
 
       // 2D histos
-      _h_dphi_var[0] = bookHisto2D("d20-x01-y01", _bins_dphi, _bins_tt_mass);
-      _h_cos_opening_angle_var[0] = bookHisto2D("d26-x01-y01", _bins_cos_opening_angle, _bins_tt_mass);
-      _h_c1c2_var[0] = bookHisto2D("d32-x01-y01", _bins_c1c2, _bins_tt_mass);
-      _h_lep_costheta_var[0] = bookHisto2D("d38-x01-y01", _bins_lep_costheta, _bins_tt_mass);
-      _h_lep_costheta_CPV_var[0] = bookHisto2D("d44-x01-y01", _bins_lep_costheta_CPV, _bins_tt_mass);
+      book(_h_dphi_var[0], "d20-x01-y01", _bins_dphi, _bins_tt_mass);
+      book(_h_cos_opening_angle_var[0], "d26-x01-y01", _bins_cos_opening_angle, _bins_tt_mass);
+      book(_h_c1c2_var[0], "d32-x01-y01", _bins_c1c2, _bins_tt_mass);
+      book(_h_lep_costheta_var[0], "d38-x01-y01", _bins_lep_costheta, _bins_tt_mass);
+      book(_h_lep_costheta_CPV_var[0], "d44-x01-y01", _bins_lep_costheta_CPV, _bins_tt_mass);
 
-      _h_dphi_var[1] = bookHisto2D("d50-x01-y01", _bins_dphi, _bins_tt_pT);
-      _h_cos_opening_angle_var[1] = bookHisto2D("d56-x01-y01", _bins_cos_opening_angle, _bins_tt_pT);
-      _h_c1c2_var[1] = bookHisto2D("d62-x01-y01", _bins_c1c2, _bins_tt_pT);
-      _h_lep_costheta_var[1] = bookHisto2D("d68-x01-y01", _bins_lep_costheta, _bins_tt_pT);
-      _h_lep_costheta_CPV_var[1] = bookHisto2D("d74-x01-y01", _bins_lep_costheta_CPV, _bins_tt_pT);
+      book(_h_dphi_var[1], "d50-x01-y01", _bins_dphi, _bins_tt_pT);
+      book(_h_cos_opening_angle_var[1], "d56-x01-y01", _bins_cos_opening_angle, _bins_tt_pT);
+      book(_h_c1c2_var[1], "d62-x01-y01", _bins_c1c2, _bins_tt_pT);
+      book(_h_lep_costheta_var[1], "d68-x01-y01", _bins_lep_costheta, _bins_tt_pT);
+      book(_h_lep_costheta_CPV_var[1], "d74-x01-y01", _bins_lep_costheta_CPV, _bins_tt_pT);
 
-      _h_dphi_var[2] = bookHisto2D("d80-x01-y01", _bins_dphi, _bins_tt_absrapidity);
-      _h_cos_opening_angle_var[2] = bookHisto2D("d86-x01-y01", _bins_cos_opening_angle, _bins_tt_absrapidity);
-      _h_c1c2_var[2] = bookHisto2D("d92-x01-y01", _bins_c1c2, _bins_tt_absrapidity);
-      _h_lep_costheta_var[2] = bookHisto2D("d98-x01-y01", _bins_lep_costheta, _bins_tt_absrapidity);
-      _h_lep_costheta_CPV_var[2] = bookHisto2D("d104-x01-y01", _bins_lep_costheta_CPV, _bins_tt_absrapidity);
+      book(_h_dphi_var[2], "d80-x01-y01", _bins_dphi, _bins_tt_absrapidity);
+      book(_h_cos_opening_angle_var[2], "d86-x01-y01", _bins_cos_opening_angle, _bins_tt_absrapidity);
+      book(_h_c1c2_var[2], "d92-x01-y01", _bins_c1c2, _bins_tt_absrapidity);
+      book(_h_lep_costheta_var[2], "d98-x01-y01", _bins_lep_costheta, _bins_tt_absrapidity);
+      book(_h_lep_costheta_CPV_var[2], "d104-x01-y01", _bins_lep_costheta_CPV, _bins_tt_absrapidity);
 
       // Profile histos for asymmetries
-      _h_dphi_profile[0] = bookProfile1D("d17-x01-y01", _bins_tt_mass);
-      _h_cos_opening_angle_profile[0] = bookProfile1D("d23-x01-y01", _bins_tt_mass);
-      _h_c1c2_profile[0] = bookProfile1D("d29-x01-y01", _bins_tt_mass);
-      _h_lep_costheta_profile[0] = bookProfile1D("d35-x01-y01", _bins_tt_mass);
-      _h_lep_costheta_CPV_profile[0] = bookProfile1D("d41-x01-y01", _bins_tt_mass);
+      book(_h_dphi_profile[0], "d17-x01-y01", _bins_tt_mass);
+      book(_h_cos_opening_angle_profile[0], "d23-x01-y01", _bins_tt_mass);
+      book(_h_c1c2_profile[0], "d29-x01-y01", _bins_tt_mass);
+      book(_h_lep_costheta_profile[0], "d35-x01-y01", _bins_tt_mass);
+      book(_h_lep_costheta_CPV_profile[0], "d41-x01-y01", _bins_tt_mass);
 
-      _h_dphi_profile[1] = bookProfile1D("d47-x01-y01", _bins_tt_pT);
-      _h_cos_opening_angle_profile[1] = bookProfile1D("d53-x01-y01", _bins_tt_pT);
-      _h_c1c2_profile[1] = bookProfile1D("d59-x01-y01", _bins_tt_pT);
-      _h_lep_costheta_profile[1] = bookProfile1D("d65-x01-y01", _bins_tt_pT);
-      _h_lep_costheta_CPV_profile[1] = bookProfile1D("d71-x01-y01", _bins_tt_pT);
+      book(_h_dphi_profile[1], "d47-x01-y01", _bins_tt_pT);
+      book(_h_cos_opening_angle_profile[1], "d53-x01-y01", _bins_tt_pT);
+      book(_h_c1c2_profile[1], "d59-x01-y01", _bins_tt_pT);
+      book(_h_lep_costheta_profile[1], "d65-x01-y01", _bins_tt_pT);
+      book(_h_lep_costheta_CPV_profile[1], "d71-x01-y01", _bins_tt_pT);
 
-      _h_dphi_profile[2] = bookProfile1D("d77-x01-y01", _bins_tt_absrapidity);
-      _h_cos_opening_angle_profile[2] = bookProfile1D("d83-x01-y01", _bins_tt_absrapidity);
-      _h_c1c2_profile[2] = bookProfile1D("d89-x01-y01", _bins_tt_absrapidity);
-      _h_lep_costheta_profile[2] = bookProfile1D("d95-x01-y01", _bins_tt_absrapidity);
-      _h_lep_costheta_CPV_profile[2] = bookProfile1D("d101-x01-y01", _bins_tt_absrapidity);
+      book(_h_dphi_profile[2], "d77-x01-y01", _bins_tt_absrapidity);
+      book(_h_cos_opening_angle_profile[2], "d83-x01-y01", _bins_tt_absrapidity);
+      book(_h_c1c2_profile[2], "d89-x01-y01", _bins_tt_absrapidity);
+      book(_h_lep_costheta_profile[2], "d95-x01-y01", _bins_tt_absrapidity);
+      book(_h_lep_costheta_CPV_profile[2], "d101-x01-y01", _bins_tt_absrapidity);
 
     }
 
