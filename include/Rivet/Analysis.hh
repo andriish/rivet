@@ -860,8 +860,8 @@ namespace Rivet {
     /// Get a data object from the histogram system
     template <typename AOPtr=YODA::AnalysisObject>
     const AOPtr& getAnalysisObject(const std::string& name) const {
-      for (const auto & ao : analysisObjects()) {
-        if (ao.get()->path() == histoPath(name)) return dynamic_cast<const AOPtr&>(ao.get());
+      for (MultiweightAOPtr & ao : analysisObjects()) {
+        if (ao->path() == histoPath(name)) return dynamic_cast<const AOPtr&>(ao);
       }
       throw Exception("Data object " + histoPath(name) + " not found");
     }
@@ -869,8 +869,8 @@ namespace Rivet {
     /// Get a data object from the histogram system (non-const)
     template <typename AOPtr=YODA::AnalysisObject>
     AOPtr& getAnalysisObject(const std::string& name) {
-      for (const auto & ao : analysisObjects()) {
-        if (ao.get()->path() == histoPath(name)) return dynamic_cast<AOPtr&>(ao.get());
+      for (MultiweightAOPtr & ao : analysisObjects()) {
+        if (ao->path() == histoPath(name)) return dynamic_cast<AOPtr&>(ao);
       }
 
       throw Exception("Data object " + histoPath(name) + " not found");

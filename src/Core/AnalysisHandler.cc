@@ -182,9 +182,9 @@ namespace Rivet {
         // if this is indeed a new event, push the temporary
         // histograms and reset
         for (const AnaHandle& a : _analyses) {
-            for (const auto & ao : a->analysisObjects()) {
-                MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name() << "'s " << ao.get()->name() << " to persistent.");
-                ao.get().pushToPersistent(_subEventWeights);
+            for (MultiweightAOPtr & ao : a->analysisObjects()) {
+                MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name() << "'s " << ao->name() << " to persistent.");
+                ao.pushToPersistent(_subEventWeights);
             }
             MSG_TRACE("AnalysisHandler::analyze(): finished pushing " << a->name() << "'s objects to persistent.");
         }
@@ -201,8 +201,8 @@ namespace Rivet {
     _eventCounter.newSubEvent();
 
     for (const AnaHandle& a : _analyses) {
-        for (const auto & ao : a->analysisObjects()) {
-            ao.get().newSubEvent();
+        for (MultiweightAOPtr & ao : a->analysisObjects()) {
+            ao.newSubEvent();
         }
     }
 
@@ -249,16 +249,16 @@ namespace Rivet {
       MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
       _eventCounter.pushToPersistent(_subEventWeights);
       for (const AnaHandle& a : _analyses) {
-          for (const auto & ao : a->analysisObjects())
-              ao.get().pushToPersistent(_subEventWeights);
+          for (MultiweightAOPtr & ao : a->analysisObjects())
+              ao.pushToPersistent(_subEventWeights);
       }
 
       for (const AnaHandle& a : _analyses) {
           a->setCrossSection(_xs);
           for (size_t iW = 0; iW < numWeights(); iW++) {
               _eventCounter.setActiveWeightIdx(iW);
-              for (const auto & ao : a->analysisObjects())
-                  ao.get().setActiveWeightIdx(iW);
+              for (MultiweightAOPtr & ao : a->analysisObjects())
+                  ao.setActiveWeightIdx(iW);
 
               MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
 
