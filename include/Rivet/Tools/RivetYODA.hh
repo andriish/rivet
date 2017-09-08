@@ -287,9 +287,9 @@ public:
         typename T::Ptr active() const;
 
         /* @todo this probably need to loop over all? */
-        bool operator!() const { return !active(); }
+        bool operator!() const { return !_active; } // Don't use active() here, assert will catch
 
-        operator bool() const { return static_cast<bool>(active()); }
+        operator bool() const { return static_cast<bool>(_active); } // Don't use active() here, assert will catch
 
         T * operator->() { return active().get(); }
         
