@@ -636,6 +636,12 @@ class MainPlot(Plot):
     def _draw(self, inputdata):
         out = ""
 
+        ## Draw a white background first
+        # TODO: Allow specifying in-frame bg color
+        out += '\n'
+        out += '\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=white,dimen=middle](0,0)(1,1)\n'
+        out += '\n'
+
         # TODO: do this more compactly, e.g. by assigning sorting keys!
         if inputdata.attr_bool('DrawSpecialFirst', False):
             for s in inputdata.special.values():
@@ -884,6 +890,13 @@ class RatioPlot(Plot):
 
     def _draw(self, inputdata):
         out = ""
+
+        ## Draw a white background first
+        # TODO: Allow specifying in-frame bg color
+        out += '\n'
+        out += '\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=white,dimen=middle](0,0)(1,1)\n'
+        out += '\n'
+
         for i in inputdata.description['DrawOnly']:
             if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode'] == 'datamc':
                 if i != self.refdata:

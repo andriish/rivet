@@ -1,3 +1,7 @@
+2017-09-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add white backgrounds to make-plots main and ratio plot frames.
+
 2017-09-05  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add CMS_2016_PAS_TOP_15_006 jet multiplicity in lepton+jets ttbar at 8 TeV analysis.
