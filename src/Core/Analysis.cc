@@ -5,6 +5,11 @@
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
 
+#include "DummyConfig.hh"
+#ifdef HAVE_EXECINFO_H
+#include <execinfo.h>
+#endif
+
 namespace Rivet {
 
 
@@ -803,27 +808,63 @@ namespace Rivet {
     s->setPath(path);
   }
 
-
+}
   /// @todo 2D versions of integrate... defined how, exactly?!?
 
 
   //////////////////////////////////
 
+namespace {
+  void errormsg(std::string name) {
+#ifdef HAVE_BACKTRACE
+     void * buffer[4];
+     backtrace(buffer, 4);
+     backtrace_symbols_fd(buffer, 4 , 1);
+#endif
+    std::cerr << name << ": Can't book objects outside of init().\n";
+    assert(false);
+  }
+}
 
+namespace Rivet {
   // @todo
   // special handling for scatters
   void Analysis::addAnalysisObject(const shared_ptr<Scatter1DPtr>& ao) {
-    _scatters.push_back(ao);
+    if (handler().stage() == AnalysisHandler::Stage::INIT) {
+      _scatters.push_back(ao);    
+      ao.get()->blockDestructor(true);
+    } 
+    else {
+      errormsg(name());
+    }
   }
   void Analysis::addAnalysisObject(const shared_ptr<Scatter2DPtr>& ao) {
-    _scatters.push_back(ao);
+    if (handler().stage() == AnalysisHandler::Stage::INIT) {
+      _scatters.push_back(ao);    
+      ao.get()->blockDestructor(true);
+    }
+    else {
+      errormsg(name());
+    }
   }
   void Analysis::addAnalysisObject(const shared_ptr<Scatter3DPtr>& ao) {
-    _scatters.push_back(ao);
+    if (handler().stage() == AnalysisHandler::Stage::INIT) {
+      _scatters.push_back(ao);
+      ao.get()->blockDestructor(true);
+    } 
+    else {
+      errormsg(name());
+    }
   }
 
   void Analysis::addAnalysisObject(MultiweightAOPtr & ao) {
-    _analysisobjects.push_back(ao);
+    if (handler().stage() == AnalysisHandler::Stage::INIT) {
+      _analysisobjects.push_back(ao);
+      ao.blockDestructor(true);
+    } 
+    else {
+      errormsg(name());
+    }
   }
 
 

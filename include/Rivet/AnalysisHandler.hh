@@ -209,8 +209,16 @@ namespace Rivet {
 
     //@}
 
+    /// Indicate which Rivet stage we're in. 
+    /// At the moment, only INIT is used to enable booking.
+    enum class Stage { OTHER, INIT };
+
+    /// Which stage are we in?
+    Stage stage() const { return _stage; }
 
   private:
+    /// Current handler stage
+    Stage _stage = Stage::OTHER;
 
     /// The collection of Analysis objects to be used.
     set<AnaHandle, CmpAnaHandle> _analyses;

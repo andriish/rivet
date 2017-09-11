@@ -111,6 +111,7 @@ namespace Rivet {
     }
 
     // Initialize the remaining analyses
+    _stage = Stage::INIT;
     for (AnaHandle a : _analyses) {
       MSG_DEBUG("Initialising analysis: " << a->name());
       try {
@@ -125,6 +126,7 @@ namespace Rivet {
       }
       MSG_DEBUG("Done initialising analysis: " << a->name());
     }
+    _stage = Stage::OTHER;
     _initialised = true;
     MSG_DEBUG("Analysis handler initialised");
   }
@@ -269,6 +271,9 @@ namespace Rivet {
                   exit(1);
               }
           }
+          // allow AO destruction again
+          for (MultiweightAOPtr & ao : a->analysisObjects())
+            ao.blockDestructor(false);
       }
 
     // Print out number of events processed

@@ -46,6 +46,8 @@ namespace Rivet {
             /// rename to setActive(Idx)?
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
+            virtual void blockDestructor(bool) = 0;
+
             bool operator ==(const AnalysisObjectPtr& p) { return (this == &p); }
 
         protected:
@@ -272,6 +274,8 @@ public:
 
     template <class T>
     class Wrapper : public MultiweightAOPtr {
+        friend class Analysis;
+
         public:
 
         /* @todo
@@ -283,6 +287,8 @@ public:
         Wrapper() = default;
 
         Wrapper(size_t len_of_weightvec, const T & p);
+
+        ~Wrapper();
 
         typename T::Ptr active() const;
 
@@ -360,6 +366,13 @@ public:
         /* to be implemented for each type */
         void pushToPersistent(const vector<valarray<double> >& weight);
 
+        /// Set destructor blocking flag.
+        /// Once booked in an analysis, we need to block the destructor 
+        /// from being called until we're done with finalize.
+        /// This gives a clearer indication to the users that they're booking with
+        /// temporary objects.
+        void blockDestructor(bool b) { _blockDestructor = b; }
+
         /* M of these, one for each weight */
         vector<typename T::Ptr> _persistent;
 
@@ -367,6 +380,12 @@ public:
         vector<typename TupleWrapper<T>::Ptr> _evgroup;
 
         typename T::Ptr _active;
+
+        /// Destructor blocking flag.
+        /// Once booked in an analysis, we need to block the destructor 
+        /// from being called until we're done with finalize.
+        /// 
+        bool _blockDestructor = false;
 
         // do we need implicit cast?
         // operator typename T::Ptr () {
@@ -380,11 +399,11 @@ public:
     // every object listed here needs a virtual fill method in YODA,
     // otherwise the Tuple fakery won't work.
 
-    using Histo1DPtr = Wrapper<YODA::Histo1D>;
-    using Histo2DPtr = Wrapper<YODA::Histo2D>;
+    using Histo1DPtr   = Wrapper<YODA::Histo1D>;
+    using Histo2DPtr   = Wrapper<YODA::Histo2D>;
     using Profile1DPtr = Wrapper<YODA::Profile1D>;
     using Profile2DPtr = Wrapper<YODA::Profile2D>;
-    using CounterPtr = Wrapper<YODA::Counter>;
+    using CounterPtr   = Wrapper<YODA::Counter>;
     using Scatter1DPtr = Wrapper<YODA::Scatter1D>;
     using Scatter2DPtr = Wrapper<YODA::Scatter2D>;
     using Scatter3DPtr = Wrapper<YODA::Scatter3D>;

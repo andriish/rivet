@@ -50,6 +50,7 @@ namespace Rivet {
     std::vector<Histo1DPtr> _h_rap_jet;
     std::vector<Histo1DPtr> _h_rap_jet_plus, _h_rap_jet_minus;
     std::vector<Histo1DPtr> _h_mass_jet;
+    std::vector<Scatter2DPtr> tmpeta, tmprap;
     std::map<std::pair<size_t, size_t>, Histo1DPtr> _h_deta_jets;
     std::map<std::pair<size_t, size_t>, Histo1DPtr> _h_dphi_jets;
     std::map<std::pair<size_t, size_t>, Histo1DPtr> _h_dR_jets;

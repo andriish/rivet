@@ -15,7 +15,7 @@ namespace Rivet {
       _h_pT_jet(njet),
       _h_eta_jet(njet), _h_eta_jet_plus(njet), _h_eta_jet_minus(njet),
       _h_rap_jet(njet), _h_rap_jet_plus(njet), _h_rap_jet_minus(njet),
-      _h_mass_jet(njet)
+      _h_mass_jet(njet), tmpeta(njet), tmprap(njet)
   {
     setNeedsCrossSection(true); // legitimate use, since a base class has no .info file!
   }
@@ -49,23 +49,21 @@ namespace Rivet {
       book(_h_rap_jet_plus[i], "_" + rapname + "_plus", i > 1 ? 15 : 25, 0, 5);
       book(_h_rap_jet_minus[i], "_" + rapname + "_minus", i > 1 ? 15 : 25, 0, 5);
 
+      book(tmpeta[i], "jet_eta_pmratio_" + to_str(i+1));
+      book(tmprap[i], "jet_y_pmratio_" + to_str(i+1));
+
       for (size_t j = i+1; j < min(size_t(3), _njet); ++j) {
         const std::pair<size_t, size_t> ij = std::make_pair(i, j);
+        const string ijstr = to_str(i+1) + to_str(j+1);
 
-        string detaname = "jets_deta_" + to_str(i+1) + to_str(j+1);
-        Histo1DPtr tmpeta;
-        book(tmpeta, detaname, 25, -5.0, 5.0);
-        _h_deta_jets.insert(make_pair(ij, tmpeta));
+        string detaname = "jets_deta_" + ijstr;
+        book(_h_deta_jets[ij], detaname, 25, -5.0, 5.0);
 
-        string dphiname = "jets_dphi_" + to_str(i+1) + to_str(j+1);
-        Histo1DPtr tmpphi;
-        book(tmpphi, dphiname, 25, 0.0, M_PI);
-        _h_dphi_jets.insert(make_pair(ij, tmpphi));
+        string dphiname = "jets_dphi_" + ijstr;
+        book(_h_dphi_jets[ij], dphiname, 25, 0.0, M_PI);
 
-        string dRname = "jets_dR_" + to_str(i+1) + to_str(j+1);
-        Histo1DPtr tmpR;
-        book(tmpR, dRname, 25, 0.0, 5.0);
-        _h_dR_jets.insert(make_pair(ij, tmpR));
+        string dRname = "jets_dR_" + ijstr;
+        book(_h_dR_jets[ij], dRname, 25, 0.0, 5.0);
       }
     }
 
@@ -154,11 +152,8 @@ namespace Rivet {
       scale(_h_rap_jet[i], scaling);
 
       // Create eta/rapidity ratio plots
-      Scatter2DPtr tmpeta, tmprap;
-      book(tmpeta, "jet_eta_pmratio_" + to_str(i+1));
-      book(tmprap, "jet_y_pmratio_" + to_str(i+1));
-      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], tmpeta);
-      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], tmprap);
+      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], tmpeta[i]);
+      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], tmprap[i]);
     }
 
     // Scale the d{eta,phi,R} histograms

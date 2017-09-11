@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
   Rivet::AnalysisHandler ah;
-  Rivet::Log::setLevel("Rivet", Rivet::Log::TRACE);
+  Rivet::Log::setLevel("Rivet", Rivet::Log::DEBUG);
 
   // Specify the analyses to be used
   ah.addAnalysis("EXAMPLE");
