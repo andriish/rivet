@@ -44,9 +44,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
@@ -56,11 +53,11 @@ namespace Rivet {
 	int id = p.abspid();
 	// charged pions
 	if (id == PID::PIPLUS || id == PID::PIMINUS) {
-	  _histXpPion->fill(p.p3().mod()/meanBeamMom, weight);
+	  _histXpPion->fill(p.p3().mod()/meanBeamMom);
 	} else if(id == PID::KPLUS || id == PID::KMINUS) {
-	  _histXpKaon->fill(p.p3().mod()/meanBeamMom, weight);
+	  _histXpKaon->fill(p.p3().mod()/meanBeamMom);
 	} else if(id == PID::PROTON || id == PID::ANTIPROTON) {
-	  _histXpProton->fill(p.p3().mod()/meanBeamMom, weight);
+	  _histXpProton->fill(p.p3().mod()/meanBeamMom);
 	}
       }
 

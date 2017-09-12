@@ -45,9 +45,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -59,8 +56,8 @@ namespace Rivet {
 
       foreach (const Particle& p, ufs.particles(Cuts::abspid==323)) {
         double xp = p.p3().mod()/meanBeamMom;
-        _histXeKStar892->fill(xp, weight);
-        _histMeanKStar892->fill(_histMeanKStar892->bin(0).xMid(), weight);
+        _histXeKStar892->fill(xp);
+        _histMeanKStar892->fill(_histMeanKStar892->bin(0).xMid());
       }
     }
 

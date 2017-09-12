@@ -15,11 +15,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    SLD_2004_S5693039() : Analysis("SLD_2004_S5693039"),
-        _weightedTotalChargedPartNumLight(0.),
-        _weightedTotalChargedPartNumCharm(0.),
-        _weightedTotalChargedPartNumBottom(0.),
-        _weightLight(0.),_weightCharm(0.),_weightBottom(0.)
+    SLD_2004_S5693039() : Analysis("SLD_2004_S5693039")
     {}
 
     /// @name Analysis methods
@@ -36,8 +32,7 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed ncharged cut");
-      // Get event weight for histo filling
-      const double weight = 1.0;
+
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -81,16 +76,16 @@ namespace Rivet {
       case PID::DQUARK:
       case PID::UQUARK:
       case PID::SQUARK:
-        _weightLight  += weight;
-        _weightedTotalChargedPartNumLight  += numParticles * weight;
+        _weightLight  ->fill();
+        _weightedTotalChargedPartNumLight  ->fill(numParticles);
         break;
       case PID::CQUARK:
-        _weightCharm  += weight;
-        _weightedTotalChargedPartNumCharm  += numParticles * weight;
+        _weightCharm  ->fill();
+        _weightedTotalChargedPartNumCharm  ->fill(numParticles);
         break;
       case PID::BQUARK:
-        _weightBottom += weight;
-        _weightedTotalChargedPartNumBottom += numParticles * weight;
+        _weightBottom ->fill();
+        _weightedTotalChargedPartNumBottom ->fill(numParticles);
         break;
       }
       // thrust axis for projections
@@ -108,93 +103,93 @@ namespace Rivet {
         // if in quark or antiquark hemisphere
         bool quark = p.p3().dot(axis)*dot>0.;
 
-        _h_PCharged ->fill(pcm     , weight);
+        _h_PCharged ->fill(pcm     );
         // all charged
         switch (flavour) {
         case PID::DQUARK:
         case PID::UQUARK:
         case PID::SQUARK:
-          _h_XpChargedL->fill(xp, weight);
+          _h_XpChargedL->fill(xp);
           break;
         case PID::CQUARK:
-          _h_XpChargedC->fill(xp, weight);
+          _h_XpChargedC->fill(xp);
           break;
         case PID::BQUARK:
-          _h_XpChargedB->fill(xp, weight);
+          _h_XpChargedB->fill(xp);
           break;
         }
 
         int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {
-          _h_XpPiPlus->fill(xp, weight);
-          _h_XpPiPlusTotal->fill(xp, weight);
+          _h_XpPiPlus->fill(xp);
+          _h_XpPiPlusTotal->fill(xp);
           switch (flavour) {
           case PID::DQUARK:
           case PID::UQUARK:
           case PID::SQUARK:
-            _h_XpPiPlusL->fill(xp, weight);
-            _h_NPiPlusL->fill(sqrtS(), weight);
+            _h_XpPiPlusL->fill(xp);
+            _h_NPiPlusL->fill(sqrtS());
             if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
-              _h_RPiPlus->fill(xp, weight);
+              _h_RPiPlus->fill(xp);
             else
-              _h_RPiMinus->fill(xp, weight);
+              _h_RPiMinus->fill(xp);
             break;
           case PID::CQUARK:
-            _h_XpPiPlusC->fill(xp, weight);
-            _h_NPiPlusC->fill(sqrtS(), weight);
+            _h_XpPiPlusC->fill(xp);
+            _h_NPiPlusC->fill(sqrtS());
             break;
           case PID::BQUARK:
-            _h_XpPiPlusB->fill(xp, weight);
-            _h_NPiPlusB->fill(sqrtS(), weight);
+            _h_XpPiPlusB->fill(xp);
+            _h_NPiPlusB->fill(sqrtS());
             break;
           }
         }
         else if (id == PID::KPLUS) {
-          _h_XpKPlus->fill(xp, weight);
-          _h_XpKPlusTotal->fill(xp, weight);
+          _h_XpKPlus->fill(xp);
+          _h_XpKPlusTotal->fill(xp);
           switch (flavour) {
           case PID::DQUARK:
           case PID::UQUARK:
           case PID::SQUARK:
-            _h_XpKPlusL->fill(xp, weight);
-            _h_NKPlusL->fill(sqrtS(), weight);
+            _h_XpKPlusL->fill(xp);
+            _h_NKPlusL->fill(sqrtS());
             if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
-              _h_RKPlus->fill(xp, weight);
+              _h_RKPlus->fill(xp);
             else
-              _h_RKMinus->fill(xp, weight);
+              _h_RKMinus->fill(xp);
             break;
           case PID::CQUARK:
-            _h_XpKPlusC->fill(xp, weight);
-            _h_NKPlusC->fill(sqrtS(), weight);
+            _h_XpKPlusC->fill(xp);
+            _h_NKPlusC->fill(sqrtS());
             break;
           case PID::BQUARK:
-            _h_XpKPlusB->fill(xp, weight);
-            _h_NKPlusB->fill(sqrtS(), weight);
+            _h_XpKPlusB->fill(xp);
+            _h_NKPlusB->fill(sqrtS());
             break;
           }
         }
         else if (id == PID::PROTON) {
-          _h_XpProton->fill(xp, weight);
-          _h_XpProtonTotal->fill(xp, weight);
+          _h_XpProton->fill(xp);
+          _h_XpProtonTotal->fill(xp);
           switch (flavour) {
           case PID::DQUARK:
           case PID::UQUARK:
           case PID::SQUARK:
-            _h_XpProtonL->fill(xp, weight);
-            _h_NProtonL->fill(sqrtS(), weight);
+            _h_XpProtonL->fill(xp);
+            _h_NProtonL->fill(sqrtS());
             if( ( quark && p.pid()>0 ) || ( !quark && p.pid()<0 ))
-              _h_RProton->fill(xp, weight);
+              _h_RProton->fill(xp);
             else
-              _h_RPBar  ->fill(xp, weight);
+              _h_RPBar  ->fill(xp);
             break;
           case PID::CQUARK:
-            _h_XpProtonC->fill(xp, weight);
-            _h_NProtonC->fill(sqrtS(), weight);
+            _h_XpProtonC->fill(xp);
+            _h_NProtonC->fill(sqrtS());
             break;
           case PID::BQUARK:
-            _h_XpProtonB->fill(xp, weight);
-            _h_NProtonB->fill(sqrtS(), weight);
+            _h_XpProtonB->fill(xp);
+            _h_NProtonB->fill(sqrtS());
             break;
           }
         }
@@ -252,6 +247,20 @@ namespace Rivet {
       book(_s_KM_KP	 , 10, 1, 3);
       book(_s_Pr_PBar, 11, 1, 3);
 
+      book(_weightedTotalChargedPartNumLight, "weightedTotalChargedPartNumLight");
+      book(_weightedTotalChargedPartNumCharm, "weightedTotalChargedPartNumCharm");
+      book(_weightedTotalChargedPartNumBottom, "weightedTotalChargedPartNumBottom");
+      book(_weightLight, "weightLight");
+      book(_weightCharm, "weightCharm");
+      book(_weightBottom, "weightBottom");
+
+      book(tmp1, 8, 2, 1, true);
+      book(tmp2, 8, 2, 2, true);
+      book(tmp3, 8, 2, 3, true);
+      book(tmp4, 8, 3, 2, true);
+      book(tmp5, 8, 3, 3, true);
+
+
     }
 
 
@@ -263,16 +272,11 @@ namespace Rivet {
       const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
       const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
       const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
-      Scatter2DPtr tmp1;
-      book(tmp1, 8, 2, 1, true)->point(0).setY(avgNumPartsLight);
-      Scatter2DPtr tmp2;
-      book(tmp2, 8, 2, 2, true)->point(0).setY(avgNumPartsCharm);
-      Scatter2DPtr tmp3;
-      book(tmp3, 8, 2, 3, true)->point(0).setY(avgNumPartsBottom);
-      Scatter2DPtr tmp4;
-      book(tmp4, 8, 3, 2, true)->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
-      Scatter2DPtr tmp5;
-      book(tmp5, 8, 3, 3, true)->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
+      tmp1->point(0).setY(avgNumPartsLight);
+      tmp2->point(0).setY(avgNumPartsCharm);
+      tmp3->point(0).setY(avgNumPartsBottom);
+      tmp4->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
+      tmp5->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
 
       // Do divisions
       divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);
@@ -329,17 +333,22 @@ namespace Rivet {
 
 
   private:
+      Scatter2DPtr tmp1;
+      Scatter2DPtr tmp2;
+      Scatter2DPtr tmp3;
+      Scatter2DPtr tmp4;
+      Scatter2DPtr tmp5;
 
     /// @name Multiplicities
     //@{
-    double _weightedTotalChargedPartNumLight;
-    double _weightedTotalChargedPartNumCharm;
-    double _weightedTotalChargedPartNumBottom;
+    CounterPtr _weightedTotalChargedPartNumLight;
+    CounterPtr _weightedTotalChargedPartNumCharm;
+    CounterPtr _weightedTotalChargedPartNumBottom;
     //@}
 
     /// @name Weights
     //@{
-    double _weightLight, _weightCharm, _weightBottom;
+    CounterPtr _weightLight, _weightCharm, _weightBottom;
     //@}
 
     // Histograms

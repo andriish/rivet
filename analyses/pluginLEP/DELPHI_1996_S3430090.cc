@@ -35,13 +35,7 @@ namespace Rivet {
     /// Constructor
     DELPHI_1996_S3430090()
       : Analysis("DELPHI_1996_S3430090")
-    {
-      _weightedTotalPartNum = 0.0;
-      _passedCutWeightSum = 0.0;
-      _passedCut3WeightSum = 0.0;
-      _passedCut4WeightSum = 0.0;
-      _passedCut5WeightSum = 0.0;
-    }
+    {    }
 
 
     /// @name Analysis methods
@@ -139,6 +133,13 @@ namespace Rivet {
       book(_histMultiSigma1385Plus, 40, 1, 6);
       book(_histMultiXi1530_0, 40, 1, 7);
       book(_histMultiLambdaB0, 40, 1, 8);
+
+      book(_weightedTotalPartNum,"TotalPartNum");
+      book(_passedCutWeightSum, "passedCutWeightSum");
+      book(_passedCut3WeightSum, "passedCut3WeightSum");
+      book(_passedCut4WeightSum, "passedCut4WeightSum");
+      book(_passedCut5WeightSum, "passedCut5WeightSum");
+
     }
 
 
@@ -153,9 +154,9 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-      const double weight = 1.0;
-      _passedCutWeightSum += weight;
-      _weightedTotalPartNum += numParticles * weight;
+
+      _passedCutWeightSum->fill();
+      _weightedTotalPartNum->fill(numParticles);
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
@@ -166,53 +167,53 @@ namespace Rivet {
       // Thrusts
       MSG_DEBUG("Calculating thrust");
       const Thrust& thrust = apply<Thrust>(e, "Thrust");
-      _hist1MinusT->fill(1 - thrust.thrust(), weight);
-      _histTMajor->fill(thrust.thrustMajor(), weight);
-      _histTMinor->fill(thrust.thrustMinor(), weight);
-      _histOblateness->fill(thrust.oblateness(), weight);
+      _hist1MinusT->fill(1 - thrust.thrust());
+      _histTMajor->fill(thrust.thrustMajor());
+      _histTMinor->fill(thrust.thrustMinor());
+      _histOblateness->fill(thrust.oblateness());
 
       // Jets
       const FastJets& durjet = apply<FastJets>(e, "DurhamJets");
       const FastJets& jadejet = apply<FastJets>(e, "JadeJets");
       if (numParticles >= 3) {
-        _passedCut3WeightSum += weight;
-        if (durjet.clusterSeq()) _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge_max(2), weight);
-        if (jadejet.clusterSeq()) _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge_max(2), weight);
+        _passedCut3WeightSum->fill();
+        if (durjet.clusterSeq()) _histDiffRate2Durham->fill(durjet.clusterSeq()->exclusive_ymerge_max(2));
+        if (jadejet.clusterSeq()) _histDiffRate2Jade->fill(jadejet.clusterSeq()->exclusive_ymerge_max(2));
       }
       if (numParticles >= 4) {
-        _passedCut4WeightSum += weight;
-        if (durjet.clusterSeq()) _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge_max(3), weight);
-        if (jadejet.clusterSeq()) _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge_max(3), weight);
+        _passedCut4WeightSum->fill();
+        if (durjet.clusterSeq()) _histDiffRate3Durham->fill(durjet.clusterSeq()->exclusive_ymerge_max(3));
+        if (jadejet.clusterSeq()) _histDiffRate3Jade->fill(jadejet.clusterSeq()->exclusive_ymerge_max(3));
       }
       if (numParticles >= 5) {
-        _passedCut5WeightSum += weight;
-        if (durjet.clusterSeq()) _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge_max(4), weight);
-        if (jadejet.clusterSeq()) _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge_max(4), weight);
+        _passedCut5WeightSum->fill();
+        if (durjet.clusterSeq()) _histDiffRate4Durham->fill(durjet.clusterSeq()->exclusive_ymerge_max(4));
+        if (jadejet.clusterSeq()) _histDiffRate4Jade->fill(jadejet.clusterSeq()->exclusive_ymerge_max(4));
       }
 
       // Sphericities
       MSG_DEBUG("Calculating sphericity");
       const Sphericity& sphericity = apply<Sphericity>(e, "Sphericity");
-      _histSphericity->fill(sphericity.sphericity(), weight);
-      _histAplanarity->fill(sphericity.aplanarity(), weight);
-      _histPlanarity->fill(sphericity.planarity(), weight);
+      _histSphericity->fill(sphericity.sphericity());
+      _histAplanarity->fill(sphericity.aplanarity());
+      _histPlanarity->fill(sphericity.planarity());
 
       // C & D params
       MSG_DEBUG("Calculating Parisi params");
       const ParisiTensor& parisi = apply<ParisiTensor>(e, "Parisi");
-      _histCParam->fill(parisi.C(), weight);
-      _histDParam->fill(parisi.D(), weight);
+      _histCParam->fill(parisi.C());
+      _histDParam->fill(parisi.D());
 
       // Hemispheres
       MSG_DEBUG("Calculating hemisphere variables");
       const Hemispheres& hemi = apply<Hemispheres>(e, "Hemispheres");
-      _histHemiMassH->fill(hemi.scaledM2high(), weight);
-      _histHemiMassL->fill(hemi.scaledM2low(), weight);
-      _histHemiMassD->fill(hemi.scaledM2diff(), weight);
-      _histHemiBroadW->fill(hemi.Bmax(), weight);
-      _histHemiBroadN->fill(hemi.Bmin(), weight);
-      _histHemiBroadT->fill(hemi.Bsum(), weight);
-      _histHemiBroadD->fill(hemi.Bdiff(), weight);
+      _histHemiMassH->fill(hemi.scaledM2high());
+      _histHemiMassL->fill(hemi.scaledM2low());
+      _histHemiMassD->fill(hemi.scaledM2diff());
+      _histHemiBroadW->fill(hemi.Bmax());
+      _histHemiBroadN->fill(hemi.Bmin());
+      _histHemiBroadT->fill(hemi.Bsum());
+      _histHemiBroadD->fill(hemi.Bdiff());
 
       // Iterate over all the charged final state particles.
       double Evis = 0.0;
@@ -228,8 +229,8 @@ namespace Rivet {
         const double mom = mom3.mod();
         const double scaledMom = mom/meanBeamMom;
         const double logInvScaledMom = -std::log(scaledMom);
-        _histLogScaledMom->fill(logInvScaledMom, weight);
-        _histScaledMom->fill(scaledMom, weight);
+        _histLogScaledMom->fill(logInvScaledMom);
+        _histScaledMom->fill(scaledMom);
 
         // Get momenta components w.r.t. thrust and sphericity.
         const double momT = dot(thrust.thrustAxis(), mom3);
@@ -239,18 +240,18 @@ namespace Rivet {
         const double pTinS = dot(mom3, sphericity.sphericityMajorAxis());
         const double pToutS = dot(mom3, sphericity.sphericityMinorAxis());
         const double pT = sqrt(pow(pTinT, 2) + pow(pToutT, 2));
-        _histPtTIn->fill(fabs(pTinT/GeV), weight);
-        _histPtTOut->fill(fabs(pToutT/GeV), weight);
-        _histPtSIn->fill(fabs(pTinS/GeV), weight);
-        _histPtSOut->fill(fabs(pToutS/GeV), weight);
-        _histPtVsXp->fill(scaledMom, fabs(pT/GeV), weight);
-        _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV), weight);
+        _histPtTIn->fill(fabs(pTinT/GeV));
+        _histPtTOut->fill(fabs(pToutT/GeV));
+        _histPtSIn->fill(fabs(pTinS/GeV));
+        _histPtSOut->fill(fabs(pToutS/GeV));
+        _histPtVsXp->fill(scaledMom, fabs(pT/GeV));
+        _histPtTOutVsXp->fill(scaledMom, fabs(pToutT/GeV));
 
         // Calculate rapidities w.r.t. thrust and sphericity.
         const double rapidityT = 0.5 * std::log((energy + momT) / (energy - momT));
         const double rapidityS = 0.5 * std::log((energy + momS) / (energy - momS));
-        _histRapidityT->fill(fabs(rapidityT), weight);
-        _histRapidityS->fill(fabs(rapidityS), weight);
+        _histRapidityT->fill(fabs(rapidityT));
+        _histRapidityS->fill(fabs(rapidityS));
         MSG_TRACE(fabs(rapidityT) << " " << scaledMom/GeV);
       }
       Evis2 = Evis*Evis;
@@ -266,15 +267,15 @@ namespace Rivet {
           const double energy_j = p_j->momentum().E();
           const double cosij = dot(mom3_i.unit(), mom3_j.unit());
           const double eec = (energy_i*energy_j) / Evis2;
-          _histEEC->fill(cosij, eec*weight);
+          _histEEC->fill(cosij, eec);
           if (cosij < 0)
-            _histAEEC->fill( cosij,  eec*weight);
+            _histAEEC->fill( cosij,  eec);
           else
-            _histAEEC->fill(-cosij, -eec*weight);
+            _histAEEC->fill(-cosij, -eec);
         }
       }
 
-      _histMultiCharged->fill(_histMultiCharged->bin(0).xMid(), numParticles*weight);
+      _histMultiCharged->fill(_histMultiCharged->bin(0).xMid(), numParticles);
 
 
       // Final state of unstable particles to get particle spectra
@@ -284,82 +285,82 @@ namespace Rivet {
         int id = p.abspid();
         switch (id) {
         case 211:
-          _histMultiPiPlus->fill(_histMultiPiPlus->bin(0).xMid(), weight);
+          _histMultiPiPlus->fill(_histMultiPiPlus->bin(0).xMid());
           break;
         case 111:
-          _histMultiPi0->fill(_histMultiPi0->bin(0).xMid(), weight);
+          _histMultiPi0->fill(_histMultiPi0->bin(0).xMid());
           break;
         case 321:
-          _histMultiKPlus->fill(_histMultiKPlus->bin(0).xMid(), weight);
+          _histMultiKPlus->fill(_histMultiKPlus->bin(0).xMid());
           break;
         case 130:
         case 310:
-          _histMultiK0->fill(_histMultiK0->bin(0).xMid(), weight);
+          _histMultiK0->fill(_histMultiK0->bin(0).xMid());
           break;
         case 221:
-          _histMultiEta->fill(_histMultiEta->bin(0).xMid(), weight);
+          _histMultiEta->fill(_histMultiEta->bin(0).xMid());
           break;
         case 331:
-          _histMultiEtaPrime->fill(_histMultiEtaPrime->bin(0).xMid(), weight);
+          _histMultiEtaPrime->fill(_histMultiEtaPrime->bin(0).xMid());
           break;
         case 411:
-          _histMultiDPlus->fill(_histMultiDPlus->bin(0).xMid(), weight);
+          _histMultiDPlus->fill(_histMultiDPlus->bin(0).xMid());
           break;
         case 421:
-          _histMultiD0->fill(_histMultiD0->bin(0).xMid(), weight);
+          _histMultiD0->fill(_histMultiD0->bin(0).xMid());
           break;
         case 511:
         case 521:
         case 531:
-          _histMultiBPlus0->fill(_histMultiBPlus0->bin(0).xMid(), weight);
+          _histMultiBPlus0->fill(_histMultiBPlus0->bin(0).xMid());
           break;
         case 9010221:
-          _histMultiF0->fill(_histMultiF0->bin(0).xMid(), weight);
+          _histMultiF0->fill(_histMultiF0->bin(0).xMid());
           break;
         case 113:
-          _histMultiRho->fill(_histMultiRho->bin(0).xMid(), weight);
+          _histMultiRho->fill(_histMultiRho->bin(0).xMid());
           break;
         case 323:
-          _histMultiKStar892Plus->fill(_histMultiKStar892Plus->bin(0).xMid(), weight);
+          _histMultiKStar892Plus->fill(_histMultiKStar892Plus->bin(0).xMid());
           break;
         case 313:
-          _histMultiKStar892_0->fill(_histMultiKStar892_0->bin(0).xMid(), weight);
+          _histMultiKStar892_0->fill(_histMultiKStar892_0->bin(0).xMid());
           break;
         case 333:
-          _histMultiPhi->fill(_histMultiPhi->bin(0).xMid(), weight);
+          _histMultiPhi->fill(_histMultiPhi->bin(0).xMid());
           break;
         case 413:
-          _histMultiDStar2010Plus->fill(_histMultiDStar2010Plus->bin(0).xMid(), weight);
+          _histMultiDStar2010Plus->fill(_histMultiDStar2010Plus->bin(0).xMid());
           break;
         case 225:
-          _histMultiF2->fill(_histMultiF2->bin(0).xMid(), weight);
+          _histMultiF2->fill(_histMultiF2->bin(0).xMid());
           break;
         case 315:
-          _histMultiK2Star1430_0->fill(_histMultiK2Star1430_0->bin(0).xMid(), weight);
+          _histMultiK2Star1430_0->fill(_histMultiK2Star1430_0->bin(0).xMid());
           break;
         case 2212:
-          _histMultiP->fill(_histMultiP->bin(0).xMid(), weight);
+          _histMultiP->fill(_histMultiP->bin(0).xMid());
           break;
         case 3122:
-          _histMultiLambda0->fill(_histMultiLambda0->bin(0).xMid(), weight);
+          _histMultiLambda0->fill(_histMultiLambda0->bin(0).xMid());
           break;
         case 3312:
-          _histMultiXiMinus->fill(_histMultiXiMinus->bin(0).xMid(), weight);
+          _histMultiXiMinus->fill(_histMultiXiMinus->bin(0).xMid());
           break;
         case 3334:
-          _histMultiOmegaMinus->fill(_histMultiOmegaMinus->bin(0).xMid(), weight);
+          _histMultiOmegaMinus->fill(_histMultiOmegaMinus->bin(0).xMid());
           break;
         case 2224:
-          _histMultiDeltaPlusPlus->fill(_histMultiDeltaPlusPlus->bin(0).xMid(), weight);
+          _histMultiDeltaPlusPlus->fill(_histMultiDeltaPlusPlus->bin(0).xMid());
           break;
         case 3114:
-          _histMultiSigma1385Plus->fill(_histMultiSigma1385Plus->bin(0).xMid(), weight);
+          _histMultiSigma1385Plus->fill(_histMultiSigma1385Plus->bin(0).xMid());
           break;
         case 3324:
-          _histMultiXi1530_0->fill(_histMultiXi1530_0->bin(0).xMid(), weight);
+          _histMultiXi1530_0->fill(_histMultiXi1530_0->bin(0).xMid());
           break;
         case 5122:
-          _histMultiLambdaB0->fill(_histMultiLambdaB0->bin(0).xMid(), weight);
+          _histMultiLambdaB0->fill(_histMultiLambdaB0->bin(0).xMid());
           break;
         }
       }
@@ -455,14 +456,14 @@ namespace Rivet {
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
-    double _weightedTotalPartNum;
+    CounterPtr _weightedTotalPartNum;
 
     /// @name Sums of weights past various cuts
     //@{
-    double _passedCutWeightSum;
-    double _passedCut3WeightSum;
-    double _passedCut4WeightSum;
-    double _passedCut5WeightSum;
+    CounterPtr _passedCutWeightSum;
+    CounterPtr _passedCut3WeightSum;
+    CounterPtr _passedCut4WeightSum;
+    CounterPtr _passedCut5WeightSum;
     //@}
 
     /// @name Histograms

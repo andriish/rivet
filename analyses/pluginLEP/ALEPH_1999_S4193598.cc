@@ -34,8 +34,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
+ 
       // Trigger condition
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 5) vetoEvent;
@@ -52,7 +51,7 @@ namespace Rivet {
           // Scaled energy.
           const double energy = p.E()/GeV;
           const double scaledEnergy = energy/meanBeamMom;
-          _h_Xe_Ds->fill(scaledEnergy, weight);
+          _h_Xe_Ds->fill(scaledEnergy);
       }
     }
 

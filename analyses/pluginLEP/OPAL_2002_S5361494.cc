@@ -21,11 +21,7 @@ namespace Rivet {
 
     /// Constructor
     OPAL_2002_S5361494()
-      : Analysis("OPAL_2002_S5361494"),
-        _weightedTotalChargedPartNumLight(0.),
-        _weightedTotalChargedPartNumCharm(0.),
-        _weightedTotalChargedPartNumBottom(0.),
-        _weightLight(0.),_weightCharm(0.),_weightBottom(0.)
+      : Analysis("OPAL_2002_S5361494")
     {}
 
     /// @name Analysis methods
@@ -38,12 +34,22 @@ namespace Rivet {
       declare(ChargedFinalState(), "CFS");
       declare(InitialQuarks(), "IQF");
 
+      book(h_bottom, 1, 1, 1);
+      book(h_charm, 1, 1, 2);
+      book(h_light, 1, 1, 3);
+      book(h_diff, 1, 1, 4);  // bottom minus light
+
+      book(_weightedTotalChargedPartNumLight, "TotalChargedPartNumLight");
+      book(_weightedTotalChargedPartNumCharm, "TotalChargedPartNumCharm");
+      book(_weightedTotalChargedPartNumBottom, "TotalChargedPartNumBottom");
+      book(_weightLight, "Light");
+      book(_weightCharm, "Charm");
+      book(_weightBottom, "Bottom");
     }
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-      // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
+       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent;
 
@@ -73,16 +79,16 @@ namespace Rivet {
       const size_t numParticles = cfs.particles().size();
       switch (flavour) {
       case 1: case 2: case 3:
-        _weightLight  += weight;
-        _weightedTotalChargedPartNumLight  += numParticles * weight;
+        _weightLight ->fill();
+        _weightedTotalChargedPartNumLight ->fill(numParticles);
         break;
       case 4:
-        _weightCharm  += weight;
-        _weightedTotalChargedPartNumCharm  += numParticles * weight;
+        _weightCharm ->fill();
+        _weightedTotalChargedPartNumCharm ->fill(numParticles);
         break;
       case 5:
-        _weightBottom += weight;
-        _weightedTotalChargedPartNumBottom += numParticles * weight;
+        _weightBottom->fill();
+        _weightedTotalChargedPartNumBottom->fill(numParticles);
         break;
       }
 
@@ -95,10 +101,7 @@ namespace Rivet {
       const double avgNumPartsBottom = _weightBottom != 0. ? _weightedTotalChargedPartNumBottom / _weightBottom : 0.;
       const double avgNumPartsCharm  = _weightCharm  != 0. ? _weightedTotalChargedPartNumCharm  / _weightCharm  : 0.;
       const double avgNumPartsLight  =  _weightLight != 0. ? _weightedTotalChargedPartNumLight  / _weightLight  : 0.;
-      Scatter2DPtr h_bottom; book(h_bottom, 1, 1, 1);
-      Scatter2DPtr h_charm ; book(h_charm, 1, 1, 2);
-      Scatter2DPtr h_light ; book(h_light, 1, 1, 3);
-      Scatter2DPtr h_diff  ; book(h_diff, 1, 1, 4);  // bottom minus light
+      
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();
         const double ex = temphisto.bin(b).xWidth()/2.;
@@ -116,19 +119,22 @@ namespace Rivet {
 
 
   private:
-
+    Scatter2DPtr h_bottom;
+    Scatter2DPtr h_charm ;
+    Scatter2DPtr h_light ;
+    Scatter2DPtr h_diff  ;
     /// @name Multiplicities
     //@{
-    double _weightedTotalChargedPartNumLight;
-    double _weightedTotalChargedPartNumCharm;
-    double _weightedTotalChargedPartNumBottom;
+    CounterPtr _weightedTotalChargedPartNumLight;
+    CounterPtr _weightedTotalChargedPartNumCharm;
+    CounterPtr _weightedTotalChargedPartNumBottom;
     //@}
 
     /// @name Weights
     //@{
-    double _weightLight;
-    double _weightCharm;
-    double _weightBottom;
+    CounterPtr _weightLight;
+    CounterPtr _weightCharm;
+    CounterPtr _weightBottom;
     //@}
   };
 

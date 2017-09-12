@@ -18,7 +18,7 @@ namespace Rivet {
 
     ALEPH_2004_S5765862()
       : Analysis("ALEPH_2004_S5765862") , _initialisedJets(false),
-        _initialisedSpectra(false), _weightedTotalChargedPartNum(0)
+        _initialisedSpectra(false)
     {
     }
 
@@ -129,17 +129,18 @@ namespace Rivet {
         book(_h_rapidityT ,36+offset, 1, 1);
         book(_h_rapidityS ,44+offset, 1, 1);
       }
-
+      book(_weightedTotalChargedPartNum, "weightedTotalChargedPartNum");
       if (!_initialisedSpectra && !_initialisedJets) {
         MSG_WARNING("CoM energy of events sqrt(s) = " << sqrtS()/GeV
                     << " doesn't match any available analysis energy .");
       }
+
+      book(mult, 1, 1, 1);
     }
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
+ 
       const Thrust& thrust = apply<Thrust>(e, "Thrust");
       const Sphericity& sphericity = apply<Sphericity>(e, "Sphericity");
 
@@ -147,27 +148,27 @@ namespace Rivet {
         bool LEP1 = fuzzyEquals(sqrtS(),91.2*GeV,0.01);
         // event shapes
         double thr = LEP1 ? thrust.thrust() : 1.0 - thrust.thrust();
-        _h_thrust->fill(thr,weight);
-        _h_thrustmajor->fill(thrust.thrustMajor(),weight);
+        _h_thrust->fill(thr);
+        _h_thrustmajor->fill(thrust.thrustMajor());
         if(LEP1)
-          _h_thrustminor->fill(log(thrust.thrustMinor()),weight);
+          _h_thrustminor->fill(log(thrust.thrustMinor()));
         else
-          _h_thrustminor->fill(thrust.thrustMinor(),weight);
-        _h_oblateness->fill(thrust.oblateness(),weight);
+          _h_thrustminor->fill(thrust.thrustMinor());
+        _h_oblateness->fill(thrust.oblateness());
 
         const Hemispheres& hemi = apply<Hemispheres>(e, "Hemispheres");
-        _h_heavyjetmass->fill(hemi.scaledM2high(),weight);
-        _h_jetmassdifference->fill(hemi.scaledM2diff(),weight);
-        _h_totaljetbroadening->fill(hemi.Bsum(),weight);
-        _h_widejetbroadening->fill(hemi.Bmax(),weight);
+        _h_heavyjetmass->fill(hemi.scaledM2high());
+        _h_jetmassdifference->fill(hemi.scaledM2diff());
+        _h_totaljetbroadening->fill(hemi.Bsum());
+        _h_widejetbroadening->fill(hemi.Bmax());
 
         const ParisiTensor& parisi = apply<ParisiTensor>(e, "Parisi");
-        _h_cparameter->fill(parisi.C(),weight);
+        _h_cparameter->fill(parisi.C());
 
-        _h_aplanarity->fill(sphericity.aplanarity(),weight);
+        _h_aplanarity->fill(sphericity.aplanarity());
         if(_h_planarity)
-          _h_planarity->fill(sphericity.planarity(),weight);
-        _h_sphericity->fill(sphericity.sphericity(),weight);
+          _h_planarity->fill(sphericity.planarity());
+        _h_sphericity->fill(sphericity.sphericity());
 
         // Jet rates
         const FastJets& durjet = apply<FastJets>(e, "DurhamJets");
@@ -180,7 +181,7 @@ namespace Rivet {
             if (yn<=0.0) continue;
             logyn = -log(yn);
             if (_h_y_Durham[i]) {
-              _h_y_Durham[i]->fill(logyn, weight);
+              _h_y_Durham[i]->fill(logyn);
             }
             if(!LEP1) logyn *= log10e;
             for (size_t j = 0; j < _h_R_Durham[i]->numBins(); ++j) {
@@ -188,7 +189,7 @@ namespace Rivet {
               double width = _h_R_Durham[i]->bin(j).xWidth();
               if(-val<=logynm1) break;
               if(-val<logyn) {
-                _h_R_Durham[i]->fill(val+0.5*width, weight*width);
+                _h_R_Durham[i]->fill(val+0.5*width, width);
               }
             }
             logynm1 = logyn;
@@ -197,13 +198,13 @@ namespace Rivet {
             double val   = _h_R_Durham[5]->bin(j).xMin();
             double width = _h_R_Durham[5]->bin(j).xWidth();
             if(-val<=logynm1) break;
-            _h_R_Durham[5]->fill(val+0.5*width, weight*width);
+            _h_R_Durham[5]->fill(val+0.5*width, width);
           }
         }
         if( !_initialisedSpectra) {
           const ChargedFinalState& cfs = apply<ChargedFinalState>(e, "CFS");
           const size_t numParticles = cfs.particles().size();
-          _weightedTotalChargedPartNum += numParticles * weight;
+          _weightedTotalChargedPartNum->fill(numParticles);
         }
       }
 
@@ -211,29 +212,29 @@ namespace Rivet {
       if(_initialisedSpectra) {
         const ChargedFinalState& cfs = apply<ChargedFinalState>(e, "CFS");
         const size_t numParticles = cfs.particles().size();
-        _weightedTotalChargedPartNum += numParticles * weight;
+        _weightedTotalChargedPartNum->fill(numParticles);
         const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
         const double meanBeamMom = ( beams.first.p3().mod() +
                                      beams.second.p3().mod() ) / 2.0;
         foreach (const Particle& p, cfs.particles()) {
           const double xp = p.p3().mod()/meanBeamMom;
-          _h_xp->fill(xp   , weight);
+          _h_xp->fill(xp   );
           const double logxp = -std::log(xp);
-          _h_xi->fill(logxp, weight);
+          _h_xi->fill(logxp);
           const double xe = p.E()/meanBeamMom;
-          _h_xe->fill(xe   , weight);
+          _h_xe->fill(xe   );
           const double pTinT  = dot(p.p3(), thrust.thrustMajorAxis());
           const double pToutT = dot(p.p3(), thrust.thrustMinorAxis());
-          _h_pTin->fill(fabs(pTinT/GeV), weight);
-          if(_h_pTout) _h_pTout->fill(fabs(pToutT/GeV), weight);
+          _h_pTin->fill(fabs(pTinT/GeV));
+          if(_h_pTout) _h_pTout->fill(fabs(pToutT/GeV));
           const double momT = dot(thrust.thrustAxis()        ,p.p3());
           const double rapidityT = 0.5 * std::log((p.E() + momT) /
                                                   (p.E() - momT));
-          _h_rapidityT->fill(fabs(rapidityT), weight);
+          _h_rapidityT->fill(fabs(rapidityT));
           const double momS = dot(sphericity.sphericityAxis(),p.p3());
           const double rapidityS = 0.5 * std::log((p.E() + momS) /
                                                   (p.E() - momS));
-          _h_rapidityS->fill(fabs(rapidityS), weight);
+          _h_rapidityS->fill(fabs(rapidityS));
         }
       }
     }
@@ -267,9 +268,9 @@ namespace Rivet {
       }
 
       Histo1D temphisto(refData(1, 1, 1));
-      const double avgNumParts = _weightedTotalChargedPartNum / sumOfWeights();
-      Scatter2DPtr  mult;
-      book(mult, 1, 1, 1);
+      const double avgNumParts = double(_weightedTotalChargedPartNum) / sumOfWeights();
+      
+     
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();
         const double ex = temphisto.bin(b).xWidth()/2.;
@@ -294,6 +295,8 @@ namespace Rivet {
     bool _initialisedJets;
     bool _initialisedSpectra;
 
+    Scatter2DPtr mult;
+
     Histo1DPtr _h_xp;
     Histo1DPtr _h_xi;
     Histo1DPtr _h_xe;
@@ -317,7 +320,7 @@ namespace Rivet {
     Histo1DPtr _h_R_Durham[6];
     Histo1DPtr _h_y_Durham[5];
 
-    double _weightedTotalChargedPartNum;
+    CounterPtr _weightedTotalChargedPartNum;
 
   };
 

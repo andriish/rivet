@@ -61,17 +61,15 @@ namespace Rivet {
 
       const FastJets& durjet = apply<FastJets>(event, "DurhamJets");
 
-
-      const double weight = 1.0;
       for (const Particle& photon : photons) {
 
         PseudoJets jets_001 = durjet.clusterSeq()->exclusive_jets_ycut(0.01);
         for (const fastjet::PseudoJet& jet : jets_001) {
           if (particleInJet(photon, jet)) {
             double zgamma = photon.E()/jet.E();
-            if (jets_001.size() == 2) _h_z_2jet_001->fill(zgamma, weight);
-            else if (jets_001.size() == 3) _h_z_3jet_001->fill(zgamma, weight);
-            else if (jets_001.size() > 3) _h_z_4jet_001->fill(zgamma, weight);
+            if (jets_001.size() == 2) _h_z_2jet_001->fill(zgamma);
+            else if (jets_001.size() == 3) _h_z_3jet_001->fill(zgamma);
+            else if (jets_001.size() > 3) _h_z_4jet_001->fill(zgamma);
             break;
           }
         }
@@ -80,8 +78,8 @@ namespace Rivet {
         for (const fastjet::PseudoJet& jet : jets_006) {
           if (particleInJet(photon, jet)) {
             double zgamma = photon.E()/jet.E();
-            if (jets_006.size() == 2) _h_z_2jet_006->fill(zgamma, weight);
-            else if (jets_006.size() == 3) _h_z_3jet_006->fill(zgamma, weight);
+            if (jets_006.size() == 2) _h_z_2jet_006->fill(zgamma);
+            else if (jets_006.size() == 3) _h_z_3jet_006->fill(zgamma);
             break;
           }
         }
@@ -90,8 +88,8 @@ namespace Rivet {
         for (const fastjet::PseudoJet& jet : jets_01) {
           if (particleInJet(photon, jet)) {
             double zgamma = photon.E()/jet.E();
-            if (jets_01.size() == 2) _h_z_2jet_01->fill(zgamma, weight);
-            else if (jets_01.size() == 3) _h_z_3jet_01->fill(zgamma, weight);
+            if (jets_01.size() == 2) _h_z_2jet_01->fill(zgamma);
+            else if (jets_01.size() == 3) _h_z_3jet_01->fill(zgamma);
             break;
           }
         }
@@ -100,7 +98,7 @@ namespace Rivet {
         for (const fastjet::PseudoJet& jet : jets_033) {
           if (particleInJet(photon, jet)) {
             double zgamma = photon.E()/jet.E();
-            if (jets_033.size() == 2) _h_z_2jet_033->fill(zgamma, weight);
+            if (jets_033.size() == 2) _h_z_2jet_033->fill(zgamma);
             break;
           }
         }

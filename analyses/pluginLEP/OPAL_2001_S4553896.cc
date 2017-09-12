@@ -96,8 +96,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
+ 
       // Even if we only generate hadronic events, we still need a cut on numCharged >= 2.
       if (apply<FinalState>(event, "FS").particles().size() < 2) {
         vetoEvent;
@@ -113,10 +112,10 @@ namespace Rivet {
         if (jets.size() == 4) {
           // Prevent nan-fill due to division by zero in calc_BZ
           double bz = fabs(calc_BZ(jets));
-          if (!std::isnan(bz)) _h_BZ->fill(bz, weight);
-          _h_KSW->fill(calc_KSW(jets), weight);
-          _h_NR->fill(fabs(calc_NR(jets)), weight);
-          _h_ALPHA34->fill(calc_ALPHA34(jets), weight);
+          if (!std::isnan(bz)) _h_BZ->fill(bz);
+          _h_KSW->fill(calc_KSW(jets));
+          _h_NR->fill(fabs(calc_NR(jets)));
+          _h_ALPHA34->fill(calc_ALPHA34(jets));
         }
       }
 

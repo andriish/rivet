@@ -24,9 +24,6 @@ namespace Rivet {
     //@{
 
     void analyze(const Event& e) {
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // Extract the photons
       Particles photons;
       Particles nonPhotons;
@@ -81,10 +78,10 @@ namespace Rivet {
             }
           }
           if (!accept) continue;
-          _nPhotonDurham->fill(ycut, weight*_nPhotonDurham->bin(j).xWidth());
+          _nPhotonDurham->fill(ycut, _nPhotonDurham->bin(j).xWidth());
           size_t njet = min(size_t(4), exclusive_jets.size()) - 1;
           if (j < _nPhotonJetDurham[njet]->numBins()) {
-            _nPhotonJetDurham[njet]->fillBin(j, weight*_nPhotonJetDurham[njet]->bin(j).xWidth());
+            _nPhotonJetDurham[njet]->fillBin(j, _nPhotonJetDurham[njet]->bin(j).xWidth());
           }
         }
         // Run the jet clustering JADE
@@ -105,10 +102,10 @@ namespace Rivet {
           }
           if (!accept) continue;
           /// @todo Really want to use a "bar graph" here (i.e. ignore bin width)
-          _nPhotonJade->fill(ycut, weight*_nPhotonJade->bin(j).xWidth());
+          _nPhotonJade->fill(ycut, _nPhotonJade->bin(j).xWidth());
           size_t njet = min(size_t(4), exclusive_jets.size()) - 1;
           if (j < _nPhotonJetJade[njet]->numBins()) {
-            _nPhotonJetJade[njet]->fillBin(j, weight*_nPhotonJetJade[njet]->bin(j).xWidth());
+            _nPhotonJetJade[njet]->fillBin(j, _nPhotonJetJade[njet]->bin(j).xWidth());
           }
         }
         // Add this photon back in for the next iteration of the loop

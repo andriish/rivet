@@ -39,6 +39,12 @@ namespace Rivet {
       book(_weightLight,"weight_light");
       book(_weightCharm,"weight_charm");
       book(_weightBottom,"weight_bottom");
+
+      book(h_bottom, 1, 1, 1);
+      book(h_charm, 1, 1, 2);
+      book(h_light, 1, 1, 3);
+      book(h_diff, 1, 1, 4);  // bottom minus light
+
     }
 
 
@@ -95,14 +101,6 @@ namespace Rivet {
       const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
       const double avgNumPartsCharm  = _weightedTotalChargedPartNumCharm  / _weightCharm;
       const double avgNumPartsLight  = _weightedTotalChargedPartNumLight  / _weightLight;
-      Scatter2DPtr h_bottom;
-      book(h_bottom, 1, 1, 1);
-      Scatter2DPtr h_charm ;
-      book(h_charm, 1, 1, 2);
-      Scatter2DPtr h_light ;
-      book(h_light, 1, 1, 3);
-      Scatter2DPtr h_diff  ;
-      book(h_diff, 1, 1, 4);  // bottom minus light
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();
         const double ex = temphisto.bin(b).xWidth()/2.;
@@ -120,6 +118,8 @@ namespace Rivet {
 
 
   private:
+    Scatter2DPtr h_bottom, h_charm, h_light, h_diff;
+
 
     /// @name Multiplicities
     //@{

@@ -15,7 +15,7 @@ namespace Rivet {
 
     /// Constructor
     OPAL_1996_S3257789()
-      : Analysis("OPAL_1996_S3257789"), _weightSum(0.)
+      : Analysis("OPAL_1996_S3257789")
     {}
 
 
@@ -29,6 +29,7 @@ namespace Rivet {
       book(_histXpJPsi   , 1, 1, 1);
       book(_multJPsi     , 2, 1, 1);
       book(_multPsiPrime , 2, 1, 2);
+      book(_weightSum,"weightSum");
     }
 
 
@@ -44,9 +45,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -59,12 +57,12 @@ namespace Rivet {
       foreach (const Particle& p, ufs.particles()) {
         if(p.abspid()==443) {
           double xp = p.p3().mod()/meanBeamMom;
-          _histXpJPsi->fill(xp, weight);
-          _multJPsi->fill(91.2,weight);
-          _weightSum += weight;
+          _histXpJPsi->fill(xp);
+          _multJPsi->fill(91.2);
+          _weightSum->fill();
         }
         else if(p.abspid()==100443) {
-          _multPsiPrime->fill(91.2,weight);
+          _multPsiPrime->fill(91.2);
         }
       }
     }
@@ -83,7 +81,7 @@ namespace Rivet {
 
   private:
 
-    double _weightSum;
+    CounterPtr _weightSum;
     Histo1DPtr _histXpJPsi;
     Histo1DPtr _multJPsi;
     Histo1DPtr _multPsiPrime;

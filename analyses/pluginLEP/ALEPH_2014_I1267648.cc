@@ -78,27 +78,27 @@ namespace Rivet {
         // tau -> pi pi0 nu_tau (both charges)
         if (isSpecificDecay(tau,  {PID::PIPLUS, PID::PI0, PID::NU_TAUBAR}) ||  
             isSpecificDecay(tau,  {PID::PIMINUS, PID::PI0, PID::NU_TAU}) ) {
-          _h_pip0->fill(hadronicm2(tau), 1.0);
+          _h_pip0->fill(hadronicm2(tau));
         }
         // tau -> pi pi0 pi0 nu_tau (both charges)
         else if (isSpecificDecay(tau,  {PID::PIPLUS, PID::PI0, PID::PI0, PID::NU_TAUBAR}) ||  
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PI0, PID::PI0, PID::NU_TAU}) ) {
-          _h_pi2p0->fill(hadronicm2(tau), 1.0);
+          _h_pi2p0->fill(hadronicm2(tau));
         }
         //    tau -> pi pi0 pi0 pi0         (3,1,1)
         else if (isSpecificDecay(tau,  {PID::PIPLUS,  PID::PI0, PID::PI0, PID::PI0, PID::NU_TAUBAR}) ||
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PI0, PID::PI0, PID::PI0, PID::NU_TAU}) ) {
-          _h_pi3p0->fill(hadronicm2(tau), 1.0);
+          _h_pi3p0->fill(hadronicm2(tau));
         }
         //    tau -> 3 charged pions        (4,1,1)
         else if (isSpecificDecay(tau,  {PID::PIPLUS,  PID::PIPLUS,  PID::PIMINUS, PID::NU_TAUBAR}) ||
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PIMINUS, PID::PIPLUS, PID::NU_TAU}) ) {
-          _h_3pi->fill(hadronicm2(tau), 1.0);
+          _h_3pi->fill(hadronicm2(tau));
         }
         //    tau -> 3 charged pions + pi0  (5,1,1)
         else if (isSpecificDecay(tau,  {PID::PIPLUS,  PID::PIPLUS,  PID::PIMINUS, PID::PI0, PID::NU_TAUBAR}) ||
                  isSpecificDecay(tau,  {PID::PIMINUS, PID::PIMINUS, PID::PIPLUS,  PID::PI0, PID::NU_TAU}) ) {
-          _h_3pip0->fill(hadronicm2(tau), 1.0);
+          _h_3pip0->fill(hadronicm2(tau));
         }
         //
       }

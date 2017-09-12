@@ -46,9 +46,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get event weight for histo filling                                                                                                    
-      const double weight = 1.0;
-
       // Get beams and average beam momentum                                                                                                
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() + beams.second.p3().mod() ) / 2.0;
@@ -60,8 +57,8 @@ namespace Rivet {
       foreach (const Particle& p, etas) {
 	double xp = p.p3().mod()/meanBeamMom;
         MSG_DEBUG("Eta xp = " << xp);
-        _histXpEta->fill(xp, weight);
-        _histLnXpEta->fill(log(1./xp), weight);
+        _histXpEta->fill(xp);
+        _histLnXpEta->fill(log(1./xp));
       }
     }
 

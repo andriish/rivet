@@ -55,9 +55,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -73,32 +70,32 @@ namespace Rivet {
         double xE = p.E()/meanBeamMom;
         switch (id) {
         case 22: // Photons
-          _histXePhoton->fill(xE, weight);
-          _histXiPhoton->fill(xi, weight);
+          _histXePhoton->fill(xE);
+          _histXiPhoton->fill(xi);
           break;
         case 111: // Neutral pions
-          _histXePi->fill(xE, weight);
-          _histXiPi->fill(xi, weight);
+          _histXePi->fill(xE);
+          _histXiPi->fill(xi);
           break;
         case 221: // eta
-          _histXeEta->fill(xE, weight);
-          _histXiEta->fill(xi, weight);
+          _histXeEta->fill(xE);
+          _histXiEta->fill(xi);
           break;
         case 213: // Charged rho (770)
-          _histXeRho->fill(xE, weight);
-          _histXiRho->fill(xi, weight);
+          _histXeRho->fill(xE);
+          _histXiRho->fill(xi);
           break;
         case 223: // omega (782)
-          _histXeOmega->fill(xE, weight);
-          _histXiOmega->fill(xi, weight);
+          _histXeOmega->fill(xE);
+          _histXiOmega->fill(xi);
           break;
         case 331: // eta' (958)
-          _histXeEtaPrime->fill(xE, weight);
-          _histXiEtaPrime->fill(xi, weight);
+          _histXeEtaPrime->fill(xE);
+          _histXiEtaPrime->fill(xi);
           break;
         case 9000211: // Charged a_0 (980)
-          _histXeA0->fill(xE, weight);
-          _histXiA0->fill(xi, weight);
+          _histXeA0->fill(xE);
+          _histXiA0->fill(xi);
           break;
         }
       }

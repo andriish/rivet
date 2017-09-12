@@ -16,10 +16,7 @@ namespace Rivet {
     /// Constructor
     DELPHI_1995_S3137023()
       : Analysis("DELPHI_1995_S3137023")
-    {
-      _weightedTotalNumXiMinus = 0;
-      _weightedTotalNumSigma1385Plus = 0;
-    }
+    {}
 
 
     /// @name Analysis methods
@@ -32,6 +29,9 @@ namespace Rivet {
 
       book(_histXpXiMinus       ,2, 1, 1);
       book(_histXpSigma1385Plus ,3, 1, 1);
+      book(_weightedTotalNumXiMinus, "weightedTotalNumXiMinus");
+      book(_weightedTotalNumSigma1385Plus, "weightedTotalNumSigma1385Plus");
+    
     }
 
 
@@ -47,9 +47,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +
@@ -63,12 +60,12 @@ namespace Rivet {
         const int id = p.abspid();
         switch (id) {
         case 3312:
-          _histXpXiMinus->fill(p.p3().mod()/meanBeamMom, weight);
-          _weightedTotalNumXiMinus += weight;
+          _histXpXiMinus->fill(p.p3().mod()/meanBeamMom);
+          _weightedTotalNumXiMinus->fill();
           break;
         case 3114: case 3224:
-          _histXpSigma1385Plus->fill(p.p3().mod()/meanBeamMom, weight);
-          _weightedTotalNumSigma1385Plus += weight;
+          _histXpSigma1385Plus->fill(p.p3().mod()/meanBeamMom);
+          _weightedTotalNumSigma1385Plus->fill();
           break;
         }
       }
@@ -78,8 +75,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histXpXiMinus       , _weightedTotalNumXiMinus/sumOfWeights());
-      normalize(_histXpSigma1385Plus , _weightedTotalNumSigma1385Plus/sumOfWeights());
+      normalize(_histXpXiMinus       , double(_weightedTotalNumXiMinus)/sumOfWeights());
+      normalize(_histXpSigma1385Plus , double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
     }
 
     //@}
@@ -90,8 +87,8 @@ namespace Rivet {
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
-    double _weightedTotalNumXiMinus;
-    double _weightedTotalNumSigma1385Plus;
+    CounterPtr _weightedTotalNumXiMinus;
+    CounterPtr _weightedTotalNumSigma1385Plus;
 
     Histo1DPtr _histXpXiMinus;
     Histo1DPtr _histXpSigma1385Plus;

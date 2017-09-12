@@ -15,11 +15,6 @@ namespace Rivet {
 
     /// Constructor
     OPAL_1998_S3780481() : Analysis("OPAL_1998_S3780481") {
-      // Counters
-      _weightedTotalPartNum = 0;
-      _SumOfudsWeights = 0;
-      _SumOfcWeights = 0;
-      _SumOfbWeights = 0;
     }
 
 
@@ -38,9 +33,7 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed ncharged cut");
 
-      // Get event weight for histo filling
-      const double weight = 1.0;
-      _weightedTotalPartNum += numParticles * weight;
+      _weightedTotalPartNum->fill(numParticles);
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
@@ -75,40 +68,40 @@ namespace Rivet {
       case 1:
       case 2:
       case 3:
-        _SumOfudsWeights += weight;
+        _SumOfudsWeights->fill();
         break;
       case 4:
-        _SumOfcWeights += weight;
+        _SumOfcWeights->fill();
         break;
       case 5:
-        _SumOfbWeights += weight;
+        _SumOfbWeights->fill();
         break;
       }
 
       foreach (const Particle& p, fs.particles()) {
         const double xp = p.p3().mod()/meanBeamMom;
         const double logxp = -std::log(xp);
-        _histXpall->fill(xp, weight);
-        _histLogXpall->fill(logxp, weight);
-        _histMultiChargedall->fill(_histMultiChargedall->bin(0).xMid(), weight);
+        _histXpall->fill(xp);
+        _histLogXpall->fill(logxp);
+        _histMultiChargedall->fill(_histMultiChargedall->bin(0).xMid());
         switch (flavour) {
           /// @todo Use PDG code enums
         case PID::DQUARK:
         case PID::UQUARK:
         case PID::SQUARK:
-          _histXpuds->fill(xp, weight);
-          _histLogXpuds->fill(logxp, weight);
-          _histMultiChargeduds->fill(_histMultiChargeduds->bin(0).xMid(), weight);
+          _histXpuds->fill(xp);
+          _histLogXpuds->fill(logxp);
+          _histMultiChargeduds->fill(_histMultiChargeduds->bin(0).xMid());
           break;
         case PID::CQUARK:
-          _histXpc->fill(xp, weight);
-          _histLogXpc->fill(logxp, weight);
-          _histMultiChargedc->fill(_histMultiChargedc->bin(0).xMid(), weight);
+          _histXpc->fill(xp);
+          _histLogXpc->fill(logxp);
+          _histMultiChargedc->fill(_histMultiChargedc->bin(0).xMid());
           break;
         case PID::BQUARK:
-          _histXpb->fill(xp, weight);
-          _histLogXpb->fill(logxp, weight);
-          _histMultiChargedb->fill(_histMultiChargedb->bin(0).xMid(), weight);
+          _histXpb->fill(xp);
+          _histLogXpb->fill(logxp);
+          _histMultiChargedb->fill(_histMultiChargedb->bin(0).xMid());
           break;
         }
       }
@@ -135,12 +128,17 @@ namespace Rivet {
       book(_histMultiChargedc   ,9, 1, 2);
       book(_histMultiChargedb   ,9, 1, 3);
       book(_histMultiChargedall ,9, 1, 4);
+      // Counters
+      book(_weightedTotalPartNum, "TotalPartNum");
+      book(_SumOfudsWeights, "udsWeights");
+      book(_SumOfcWeights, "cWeights");
+      book(_SumOfbWeights, "bWeights");
     }
 
 
     /// Finalize
     void finalize() {
-      const double avgNumParts = _weightedTotalPartNum / sumOfWeights();
+      const double avgNumParts = double(_weightedTotalPartNum) / sumOfWeights();
       normalize(_histXpuds    , avgNumParts);
       normalize(_histXpc      , avgNumParts);
       normalize(_histXpb      , avgNumParts);
@@ -164,11 +162,11 @@ namespace Rivet {
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
-    double _weightedTotalPartNum;
+    CounterPtr _weightedTotalPartNum;
 
-    double _SumOfudsWeights;
-    double _SumOfcWeights;
-    double _SumOfbWeights;
+    CounterPtr _SumOfudsWeights;
+    CounterPtr _SumOfcWeights;
+    CounterPtr _SumOfbWeights;
 
     Histo1DPtr _histXpuds;
     Histo1DPtr _histXpc;

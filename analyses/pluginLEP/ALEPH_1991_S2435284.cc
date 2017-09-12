@@ -35,7 +35,7 @@ namespace Rivet {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
       _histChTot->fill(cfs.size());
-      _histAver->fill(_histAver->bin(0).xMid(),cfs.size()*1.0);
+      _histAver->fill(_histAver->bin(0).xMid(),cfs.size());
     }
 
 

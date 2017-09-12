@@ -15,10 +15,7 @@ namespace Rivet {
 
     /// Constructor
     OPAL_1997_S3396100()
-      : Analysis("OPAL_1997_S3396100"),
-        _weightedTotalNumLambda(0.)     ,_weightedTotalNumXiMinus(0.),
-        _weightedTotalNumSigma1385Plus(0.),_weightedTotalNumSigma1385Minus(0.),
-        _weightedTotalNumXi1530(0.)   ,_weightedTotalNumLambda1520(0.)
+      : Analysis("OPAL_1997_S3396100")
     {}
 
 
@@ -41,6 +38,13 @@ namespace Rivet {
       book(_histXiXi1530         ,10, 1, 1);
       book(_histXpLambda1520     ,11, 1, 1);
       book(_histXiLambda1520     ,12, 1, 1);
+    book(_weightedTotalNumLambda, "weightedTotalNumLambda");
+    book(_weightedTotalNumXiMinus, "weightedTotalNumXiMinus");
+    book(_weightedTotalNumSigma1385Plus, "weightedTotalNumSigma1385Plus");
+    book(_weightedTotalNumSigma1385Minus, "weightedTotalNumSigma1385Minus");
+    book(_weightedTotalNumXi1530, "weightedTotalNumXi1530");
+    book(_weightedTotalNumLambda1520, "weightedTotalNumLambda1520");
+
     }
 
 
@@ -55,9 +59,6 @@ namespace Rivet {
         vetoEvent;
       }
       MSG_DEBUG("Passed leptonic event cut");
-
-      // Get event weight for histo filling
-      const double weight = 1.0;
 
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
@@ -74,34 +75,34 @@ namespace Rivet {
         double xi = -log(xp);
         switch (id) {
         case 3312:
-          _histXpXiMinus->fill(xp, weight);
-          _histXiXiMinus->fill(xi, weight);
-          _weightedTotalNumXiMinus += weight;
+          _histXpXiMinus->fill(xp);
+          _histXiXiMinus->fill(xi);
+          _weightedTotalNumXiMinus->fill();
           break;
         case 3224:
-          _histXpSigma1385Plus->fill(xp, weight);
-          _histXiSigma1385Plus->fill(xi, weight);
-          _weightedTotalNumSigma1385Plus += weight;
+          _histXpSigma1385Plus->fill(xp);
+          _histXiSigma1385Plus->fill(xi);
+          _weightedTotalNumSigma1385Plus->fill();
           break;
         case 3114:
-          _histXpSigma1385Minus->fill(xp, weight);
-          _histXiSigma1385Minus->fill(xi, weight);
-          _weightedTotalNumSigma1385Minus += weight;
+          _histXpSigma1385Minus->fill(xp);
+          _histXiSigma1385Minus->fill(xi);
+          _weightedTotalNumSigma1385Minus->fill();
           break;
         case 3122:
-          _histXpLambda->fill(xp, weight);
-          _histXiLambda->fill(xi, weight);
-          _weightedTotalNumLambda += weight;
+          _histXpLambda->fill(xp);
+          _histXiLambda->fill(xi);
+          _weightedTotalNumLambda->fill();
           break;
         case 3324:
-          _histXpXi1530->fill(xp, weight);
-          _histXiXi1530->fill(xi, weight);
-          _weightedTotalNumXi1530 += weight;
+          _histXpXi1530->fill(xp);
+          _histXiXi1530->fill(xi);
+          _weightedTotalNumXi1530->fill();
           break;
         case 3124:
-          _histXpLambda1520->fill(xp, weight);
-          _histXiLambda1520->fill(xi, weight);
-          _weightedTotalNumLambda1520 += weight;
+          _histXpLambda1520->fill(xp);
+          _histXiLambda1520->fill(xi);
+          _weightedTotalNumLambda1520->fill();
           break;
         }
       }
@@ -110,18 +111,18 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histXpLambda        , _weightedTotalNumLambda       /sumOfWeights());
-      normalize(_histXiLambda        , _weightedTotalNumLambda       /sumOfWeights());
-      normalize(_histXpXiMinus       , _weightedTotalNumXiMinus      /sumOfWeights());
-      normalize(_histXiXiMinus       , _weightedTotalNumXiMinus      /sumOfWeights());
-      normalize(_histXpSigma1385Plus , _weightedTotalNumSigma1385Plus/sumOfWeights());
-      normalize(_histXiSigma1385Plus , _weightedTotalNumSigma1385Plus/sumOfWeights());
-      normalize(_histXpSigma1385Minus, _weightedTotalNumSigma1385Plus/sumOfWeights());
-      normalize(_histXiSigma1385Minus, _weightedTotalNumSigma1385Plus/sumOfWeights());
-      normalize(_histXpXi1530        , _weightedTotalNumXi1530       /sumOfWeights());
-      normalize(_histXiXi1530        , _weightedTotalNumXi1530       /sumOfWeights());
-      normalize(_histXpLambda1520    , _weightedTotalNumLambda1520   /sumOfWeights());
-      normalize(_histXiLambda1520    , _weightedTotalNumLambda1520   /sumOfWeights());
+      normalize(_histXpLambda        , double(_weightedTotalNumLambda       )/sumOfWeights());
+      normalize(_histXiLambda        , double(_weightedTotalNumLambda       )/sumOfWeights());
+      normalize(_histXpXiMinus       , double(_weightedTotalNumXiMinus      )/sumOfWeights());
+      normalize(_histXiXiMinus       , double(_weightedTotalNumXiMinus      )/sumOfWeights());
+      normalize(_histXpSigma1385Plus , double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXiSigma1385Plus , double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXpSigma1385Minus, double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXiSigma1385Minus, double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXpXi1530        , double(_weightedTotalNumXi1530       )/sumOfWeights());
+      normalize(_histXiXi1530        , double(_weightedTotalNumXi1530       )/sumOfWeights());
+      normalize(_histXpLambda1520    , double(_weightedTotalNumLambda1520   )/sumOfWeights());
+      normalize(_histXiLambda1520    , double(_weightedTotalNumLambda1520   )/sumOfWeights());
     }
 
     //@}
@@ -132,12 +133,12 @@ namespace Rivet {
     /// Store the weighted sums of numbers of charged / charged+neutral
     /// particles - used to calculate average number of particles for the
     /// inclusive single particle distributions' normalisations.
-    double _weightedTotalNumLambda;
-    double _weightedTotalNumXiMinus;
-    double _weightedTotalNumSigma1385Plus;
-    double _weightedTotalNumSigma1385Minus;
-    double _weightedTotalNumXi1530;
-    double _weightedTotalNumLambda1520;
+    CounterPtr _weightedTotalNumLambda;
+    CounterPtr _weightedTotalNumXiMinus;
+    CounterPtr _weightedTotalNumSigma1385Plus;
+    CounterPtr _weightedTotalNumSigma1385Minus;
+    CounterPtr _weightedTotalNumXi1530;
+    CounterPtr _weightedTotalNumLambda1520;
 
     Histo1DPtr _histXpLambda        ;
     Histo1DPtr _histXiLambda        ;

@@ -35,10 +35,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // Get beams and average beam momentum
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
       const double meanBeamMom = ( beams.first.p3().mod() +beams.second.p3().mod() ) / 2.0;
@@ -52,8 +48,8 @@ namespace Rivet {
         // Check for weak decay, i.e. no more bottom present in children
         if (bhad.children(lastParticleWith(hasBottom)).empty()) {
           const double xp = bhad.E()/meanBeamMom;
-          _histXbweak->fill(xp, weight);
-          _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp, weight);
+          _histXbweak->fill(xp);
+          _histMeanXbweak->fill(_histMeanXbweak->bin(0).xMid(), xp);
         }
       }
     }
