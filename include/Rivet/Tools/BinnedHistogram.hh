@@ -2,6 +2,11 @@
 #ifndef RIVET_BINNEDHISTOGRAM_HH
 #define RIVET_BINNEDHISTOGRAM_HH
 
+#error "BinnedHistogram needs to be rewritten"
+/// @todo BinnedHistogram needs to have a list of interbnal members first which then get booked
+/// by the analysis. Booking a temporary, and then adding into BinnedHisto is not possible
+
+
 #include "Rivet/Config/RivetCommon.hh"
 #include "Rivet/Tools/RivetYODA.hh"
 
