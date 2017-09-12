@@ -12,8 +12,8 @@ libRivetTools_la_SOURCES = \
   RivetPaths.cc \
   Utils.cc \
   binreloc.c \
-  mt2_bisect.cc \
-  BinnedHistogram.cc
+  mt2_bisect.cc 
+##  BinnedHistogram.cc
 
 dist_noinst_HEADERS = binreloc.h mt2_bisect.hh
 
