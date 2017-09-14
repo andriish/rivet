@@ -152,8 +152,8 @@ namespace Rivet {
       scale(_h_rap_jet[i], scaling);
 
       // Create eta/rapidity ratio plots
-      divide(*_h_eta_jet_plus[i], *_h_eta_jet_minus[i], tmpeta[i]);
-      divide(*_h_rap_jet_plus[i], *_h_rap_jet_minus[i], tmprap[i]);
+      divide(_h_eta_jet_plus[i], _h_eta_jet_minus[i], tmpeta[i]);
+      divide(_h_rap_jet_plus[i], _h_rap_jet_minus[i], tmprap[i]);
     }
 
     // Scale the d{eta,phi,R} histograms

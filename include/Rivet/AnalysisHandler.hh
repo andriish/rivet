@@ -194,7 +194,7 @@ namespace Rivet {
 
     /// Get all analyses' plots as a vector of analysis objects.
     std::vector<YODA::AnalysisObjectPtr> getData() const;
-    std::vector<reference_wrapper<MultiweightAOPtr> > getRivetAOs() const;
+    std::vector<MultiweightAOPtr>        getRivetAOs() const;
     std::vector<YODA::AnalysisObjectPtr> getYodaAOs() const;
 
     /// Get all analyses' plots as a vector of analysis objects.

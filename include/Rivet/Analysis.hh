@@ -839,157 +839,24 @@ namespace Rivet {
   public:
 
     /// List of registered analysis data objects
-    const vector<reference_wrapper<MultiweightAOPtr>>& analysisObjects() const {
+    const vector<MultiweightAOPtr>& analysisObjects() const {
       return _analysisobjects;
     }
 
 
   protected:
 
-    /// @name Data object registration, retrieval, and removal
+    /// @name Data object registration, and removal
     //@{
 
     /// Register a data object in the histogram system
-    void addAnalysisObject(MultiweightAOPtr & ao);
-
-    /// @todo we need these separately since we *only* want to call this for scatters?
-    void addAnalysisObject(const shared_ptr<Scatter1DPtr>& ao);
-    void addAnalysisObject(const shared_ptr<Scatter2DPtr>& ao);
-    void addAnalysisObject(const shared_ptr<Scatter3DPtr>& ao);
-
-    /// Get a data object from the histogram system
-    template <typename AOPtr=YODA::AnalysisObject>
-    const AOPtr& getAnalysisObject(const std::string& name) const {
-      for (MultiweightAOPtr & ao : analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_cast<const AOPtr&>(ao);
-      }
-      throw Exception("Data object " + histoPath(name) + " not found");
-    }
-
-    /// Get a data object from the histogram system (non-const)
-    template <typename AOPtr=YODA::AnalysisObject>
-    AOPtr& getAnalysisObject(const std::string& name) {
-      for (MultiweightAOPtr & ao : analysisObjects()) {
-        if (ao->path() == histoPath(name)) return dynamic_cast<AOPtr&>(ao);
-      }
-
-      throw Exception("Data object " + histoPath(name) + " not found");
-    }
+    void addAnalysisObject(const MultiweightAOPtr & ao);
 
     /// Unregister a data object from the histogram system (by name)
     void removeAnalysisObject(const std::string& path);
 
     /// Unregister a data object from the histogram system (by pointer)
-    void removeAnalysisObject(const MultiweightAOPtr& ao);
-
-    void removeAnalysisObject(const Scatter1DPtr& ao);
-    void removeAnalysisObject(const Scatter2DPtr& ao);
-    void removeAnalysisObject(const Scatter3DPtr& ao);
-
-
-    /// Get a named Histo1D object from the histogram system
-    const Histo1DPtr getHisto1D(const std::string& name) const {
-      return getAnalysisObject<Histo1DPtr>(name);
-    }
-
-    /// Get a named Histo1D object from the histogram system (non-const)
-    Histo1DPtr getHisto1D(const std::string& name) {
-      return getAnalysisObject<Histo1DPtr>(name);
-    }
-
-    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
-    const Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Histo1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-    /// Get a Histo1D object from the histogram system by axis ID codes (non-const)
-    Histo1DPtr getHisto1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Histo1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-
-    /// Get a named Histo2D object from the histogram system
-    const Histo2DPtr getHisto2D(const std::string& name) const {
-      return getAnalysisObject<Histo2DPtr>(name);
-    }
-
-    /// Get a named Histo2D object from the histogram system (non-const)
-    Histo2DPtr getHisto2D(const std::string& name) {
-      return getAnalysisObject<Histo2DPtr>(name);
-    }
-
-    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    const Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Histo2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-    /// Get a Histo2D object from the histogram system by axis ID codes (non-const)
-    Histo2DPtr getHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Histo2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-
-    /// Get a named Profile1D object from the histogram system
-    const Profile1DPtr getProfile1D(const std::string& name) const {
-      return getAnalysisObject<Profile1DPtr>(name);
-    }
-
-    /// Get a named Profile1D object from the histogram system (non-const)
-    Profile1DPtr getProfile1D(const std::string& name) {
-      return getAnalysisObject<Profile1DPtr>(name);
-    }
-
-    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
-    const Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Profile1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-    /// Get a Profile1D object from the histogram system by axis ID codes (non-const)
-    Profile1DPtr getProfile1D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Profile1DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-
-    /// Get a named Profile2D object from the histogram system
-    const Profile2DPtr getProfile2D(const std::string& name) const {
-      return getAnalysisObject<Profile2DPtr>(name);
-    }
-
-    /// Get a named Profile2D object from the histogram system (non-const)
-    Profile2DPtr getProfile2D(const std::string& name) {
-      return getAnalysisObject<Profile2DPtr>(name);
-    }
-
-    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    const Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Profile2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-    /// Get a Profile2D object from the histogram system by axis ID codes (non-const)
-    Profile2DPtr getProfile2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Profile2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-
-    /// Get a named Scatter2D object from the histogram system
-    const Scatter2DPtr getScatter2D(const std::string& name) const {
-      return getAnalysisObject<Scatter2DPtr>(name);
-    }
-
-    /// Get a named Scatter2D object from the histogram system (non-const)
-    Scatter2DPtr getScatter2D(const std::string& name) {
-      return getAnalysisObject<Scatter2DPtr>(name);
-    }
-
-    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
-    const Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return getAnalysisObject<Scatter2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
-
-    /// Get a Scatter2D object from the histogram system by axis ID codes (non-const)
-    Scatter2DPtr getScatter2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) {
-      return getAnalysisObject<Scatter2DPtr>(makeAxisCode(datasetId, xAxisId, yAxisId));
-    }
+    void removeAnalysisObject(const MultiweightAOPtr & ao);
 
     //@}
 
@@ -1004,8 +871,7 @@ namespace Rivet {
 
     /// Storage of all plot objects
     /// @todo Make this a map for fast lookup by path?
-    vector<reference_wrapper<MultiweightAOPtr>> _analysisobjects;
-    vector<shared_ptr<AnalysisObjectPtr> > _scatters;
+    vector<MultiweightAOPtr> _analysisobjects;
 
     /// @name Cross-section variables
     //@{

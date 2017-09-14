@@ -125,8 +125,8 @@ namespace Rivet {
       Scatter2DPtr tmpeta, tmprap;
       book(tmpeta, _pname + "_eta_pmratio_" + to_str(i+1));
       book(tmprap, _pname + "_y_pmratio_" + to_str(i+1));
-      divide(*_h_eta_plus[i], *_h_eta_minus[i], tmpeta);
-      divide(*_h_rap_plus[i], *_h_rap_minus[i], tmprap);
+      divide(_h_eta_plus[i], _h_eta_minus[i], tmpeta);
+      divide(_h_rap_plus[i], _h_rap_minus[i], tmprap);
     }
 
     // Scale the d{eta,phi,R} histograms

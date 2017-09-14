@@ -34,9 +34,9 @@ namespace YODA {
 namespace Rivet {
 
 
-    class AnalysisObjectPtr {
+    class AnalysisObjectWrapper {
         public:
-            virtual ~AnalysisObjectPtr() {}
+            virtual ~AnalysisObjectWrapper() {}
 
             virtual YODA::AnalysisObject* operator->() = 0;
             virtual YODA::AnalysisObject* operator->() const = 0;
@@ -48,7 +48,7 @@ namespace Rivet {
 
             virtual void blockDestructor(bool) = 0;
 
-            bool operator ==(const AnalysisObjectPtr& p) { return (this == &p); }
+            bool operator ==(const AnalysisObjectWrapper& p) { return (this == &p); }
 
         protected:
             /// @todo do we need this?
@@ -133,9 +133,11 @@ namespace Rivet {
     */
 
 
-    class MultiweightAOPtr : public AnalysisObjectPtr {
+    class MultiweightAOWrapper : public AnalysisObjectWrapper {
 
         public:
+            using Inner = YODA::AnalysisObject;
+
             virtual void newSubEvent() = 0;
 
             virtual void pushToPersistent(const vector<valarray<double> >& weight) = 0;
@@ -273,11 +275,12 @@ public:
 
 
     template <class T>
-    class Wrapper : public MultiweightAOPtr {
+    class Wrapper : public MultiweightAOWrapper {
         friend class Analysis;
 
         public:
 
+        using Inner = T;
         /* @todo
          * some things are not really well-defined here
          * for instance: fill() in the finalize() method and integral() in
@@ -395,18 +398,67 @@ public:
         friend class AnalysisHandler;
     };
 
+/// We need our own shared_ptr class, so we can dispatch -> and *
+/// all the way down to the inner YODA analysis objects
+///
+/// TODO: provide remaining functionality that shared_ptr has (not needed right now)
+///
+template <typename T>
+class rivet_shared_ptr {
+public:
+  rivet_shared_ptr() = default;
+
+  /// Convenience constructor, pass through to the Wrapper constructor
+  rivet_shared_ptr(size_t len_of_weightvec, const typename T::Inner & p)
+    : _p( make_shared<T>(len_of_weightvec, p) ) 
+    {}
+ 
+  template <typename U>
+  rivet_shared_ptr(const shared_ptr<U> & p) 
+    : _p(p) 
+    {}
+
+  template <typename U>
+  rivet_shared_ptr(const rivet_shared_ptr<U> & p)
+    : _p(p.get()) 
+    {}
+
+  // Goes right through to the active YODA object's members
+  T & operator->()                            { return  *_p; }
+  const T & operator->() const                { return  *_p; }
+
+  // The active YODA object
+  typename T::Inner & operator*()             { return **_p; }
+  const typename T::Inner & operator*() const { return **_p; }
+
+  bool operator!() const { return !_p || !(*_p);   }
+  operator bool()  const { return _p && bool(*_p); }
+
+  template <typename U>
+  bool operator==(const rivet_shared_ptr<U> & other) const {
+    return _p == other._p;
+  }
+
+  shared_ptr<T> get() const { return _p; }
+private:
+  shared_ptr<T> _p;
+};
+
+
 
     // every object listed here needs a virtual fill method in YODA,
     // otherwise the Tuple fakery won't work.
 
-    using Histo1DPtr   = Wrapper<YODA::Histo1D>;
-    using Histo2DPtr   = Wrapper<YODA::Histo2D>;
-    using Profile1DPtr = Wrapper<YODA::Profile1D>;
-    using Profile2DPtr = Wrapper<YODA::Profile2D>;
-    using CounterPtr   = Wrapper<YODA::Counter>;
-    using Scatter1DPtr = Wrapper<YODA::Scatter1D>;
-    using Scatter2DPtr = Wrapper<YODA::Scatter2D>;
-    using Scatter3DPtr = Wrapper<YODA::Scatter3D>;
+    using MultiweightAOPtr = rivet_shared_ptr<MultiweightAOWrapper>;
+
+    using Histo1DPtr   = rivet_shared_ptr<Wrapper<YODA::Histo1D>>;
+    using Histo2DPtr   = rivet_shared_ptr<Wrapper<YODA::Histo2D>>;
+    using Profile1DPtr = rivet_shared_ptr<Wrapper<YODA::Profile1D>>;
+    using Profile2DPtr = rivet_shared_ptr<Wrapper<YODA::Profile2D>>;
+    using CounterPtr   = rivet_shared_ptr<Wrapper<YODA::Counter>>;
+    using Scatter1DPtr = rivet_shared_ptr<Wrapper<YODA::Scatter1D>>;
+    using Scatter2DPtr = rivet_shared_ptr<Wrapper<YODA::Scatter2D>>;
+    using Scatter3DPtr = rivet_shared_ptr<Wrapper<YODA::Scatter3D>>;
 
     using YODA::Counter;
     using YODA::Histo1D;
