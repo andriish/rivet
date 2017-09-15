@@ -67,8 +67,10 @@ namespace Rivet {
     const double e = A.get(1,2);
     const double f = A.get(2,2);
 
-    double x = e*(b*f -c*e - b*lambda)/(b*e -c*d + c*lambda)/c + (lambda -f)/c;
-    double y = (c*e -b*f +b*lambda)/(b*e -c*d + c*lambda);
+    const double denom = b*e -c*d + c*lambda;
+
+    double x = e*(b*f -c*e - b*lambda)/denom/c + (lambda -f)/c;
+    double y = (c*e -b*f +b*lambda)/denom;
 
     Vector3 E(x,y,1);
     return E.unit();
@@ -78,8 +80,8 @@ namespace Rivet {
     MSG_DEBUG("Calculating sphericity with r = " << _regparam);
 
     // Return (with "safe nonsense" sphericity params) if there are no final state particles
-    if (momenta.empty()) {
-      MSG_DEBUG("No momenta given...");
+    if (momenta.size() < 2) {
+      MSG_DEBUG("Not enough momenta given...");
       clear();
       return;
     }
