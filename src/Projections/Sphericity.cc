@@ -80,7 +80,7 @@ namespace Rivet {
     MSG_DEBUG("Calculating sphericity with r = " << _regparam);
 
     // Return (with "safe nonsense" sphericity params) if there are no final state particles
-    if (momenta.size() < 2) {
+    if (momenta.empty()) {
       MSG_DEBUG("Not enough momenta given...");
       clear();
       return;
