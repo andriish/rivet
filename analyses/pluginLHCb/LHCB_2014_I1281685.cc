@@ -54,7 +54,7 @@ namespace Rivet {
       book(_h_dndpt       ,"d02-x01-y01", 18, 0.2, 2.0); //pT =[0,2]GeV
 
       // Counters
-      _sumW = 0;
+      book(_sumW, "TMP/sumW");
     }
 
 
@@ -120,28 +120,27 @@ namespace Rivet {
       // Fill histograms only, if at least 1 particle pre event was within the
       // kinematic range of the analysis!
       if (LHCbcountAll) {
-        const double weight = 1.0;
-        _sumW += weight;
+        _sumW->fill();
 
-        _h_mult_total->fill(LHCbcountAll, weight);
+        _h_mult_total->fill(LHCbcountAll);
 
-        _h_mult_eta[0]->fill(LHCbcountEta[0], weight);
-        _h_mult_eta[1]->fill(LHCbcountEta[1], weight);
-        _h_mult_eta[2]->fill(LHCbcountEta[2], weight);
-        _h_mult_eta[3]->fill(LHCbcountEta[3], weight);
-        _h_mult_eta[4]->fill(LHCbcountEta[4], weight);
+        _h_mult_eta[0]->fill(LHCbcountEta[0]);
+        _h_mult_eta[1]->fill(LHCbcountEta[1]);
+        _h_mult_eta[2]->fill(LHCbcountEta[2]);
+        _h_mult_eta[3]->fill(LHCbcountEta[3]);
+        _h_mult_eta[4]->fill(LHCbcountEta[4]);
 
-        _h_mult_pt[0]->fill(LHCbcountPt[0], weight);
-        _h_mult_pt[1]->fill(LHCbcountPt[1], weight);
-        _h_mult_pt[2]->fill(LHCbcountPt[2], weight);
-        _h_mult_pt[3]->fill(LHCbcountPt[3], weight);
-        _h_mult_pt[4]->fill(LHCbcountPt[4], weight);
+        _h_mult_pt[0]->fill(LHCbcountPt[0]);
+        _h_mult_pt[1]->fill(LHCbcountPt[1]);
+        _h_mult_pt[2]->fill(LHCbcountPt[2]);
+        _h_mult_pt[3]->fill(LHCbcountPt[3]);
+        _h_mult_pt[4]->fill(LHCbcountPt[4]);
 
         for (size_t part = 0; part < val_dNdEta.size(); part++)
-          _h_dndeta->fill(val_dNdEta[part], weight);
+          _h_dndeta->fill(val_dNdEta[part]);
 
         for (size_t part = 0; part < val_dNdPt.size(); part++)
-          _h_dndpt->fill(val_dNdPt[part], weight);
+          _h_dndpt->fill(val_dNdPt[part]);
 
       }
     }
@@ -1165,7 +1164,7 @@ namespace Rivet {
     double _maxlft;
 
     /// Count selected events
-    double _sumW;
+    CounterPtr _sumW;
 
     map<int, double> _partLftMap; // Map <PDGID, PDGLIFETIME>
 

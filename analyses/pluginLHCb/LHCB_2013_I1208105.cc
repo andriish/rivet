@@ -33,34 +33,38 @@ namespace Rivet {
 
       // Temporary profiles and histos
       /// @todo Convert to declared/registered temp histos
-      _tp_chEF_minbias.reset(new YODA::Profile1D(refData(1,1,1)));
-      _tp_chEF_hard.reset(new YODA::Profile1D(refData(2,1,1)));
-      _tp_chEF_diff.reset(new YODA::Profile1D(refData(3,1,1)));
-      _tp_chEF_nondiff.reset(new YODA::Profile1D(refData(4,1,1)));
-      _tp_totEF_minbias.reset(new YODA::Profile1D(refData(5,1,1)));
-      _tp_totEF_hard.reset(new YODA::Profile1D(refData(6,1,1)));
-      _tp_totEF_diff.reset(new YODA::Profile1D(refData(7,1,1)));
-      _tp_totEF_nondiff.reset(new YODA::Profile1D(refData(8,1,1)));
-      //
-      _th_chN_minbias.reset(new YODA::Histo1D(refData(1,1,1)));
-      _th_chN_hard.reset(new YODA::Histo1D(refData(2,1,1)));
-      _th_chN_diff.reset(new YODA::Histo1D(refData(3,1,1)));
-      _th_chN_nondiff.reset(new YODA::Histo1D(refData(4,1,1)));
-      _th_totN_minbias.reset(new YODA::Histo1D(refData(5,1,1)));
-      _th_totN_hard.reset(new YODA::Histo1D(refData(6,1,1)));
-      _th_totN_diff.reset(new YODA::Histo1D(refData(7,1,1)));
-      _th_totN_nondiff.reset(new YODA::Histo1D(refData(8,1,1)));
+      book(_tp_chEF_minbias, "TMP/chEF_minbias", refData(1,1,1));
+      book(_tp_chEF_hard, "TMP/chEF_hard", refData(2,1,1));
+      book(_tp_chEF_diff, "TMP/chEF_diff", refData(3,1,1));
+      book(_tp_chEF_nondiff, "TMP/chEF_nondiff", refData(4,1,1));
+      book(_tp_totEF_minbias, "TMP/totEF_minbias", refData(5,1,1));
+      book(_tp_totEF_hard, "TMP/totEF_hard", refData(6,1,1));
+      book(_tp_totEF_diff, "TMP/totEF_diff", refData(7,1,1));
+      book(_tp_totEF_nondiff, "TMP/totEF_nondiff", refData(8,1,1));
+
+      book(_th_chN_minbias, "TMP/chN_minbias", refData(1,1,1));
+      book(_th_chN_hard, "TMP/chN_hard", refData(2,1,1));
+      book(_th_chN_diff, "TMP/chN_diff", refData(3,1,1));
+      book(_th_chN_nondiff, "TMP/chN_nondiff", refData(4,1,1));
+      book(_th_totN_minbias, "TMP/totN_minbias", refData(5,1,1));
+      book(_th_totN_hard, "TMP/totN_hard", refData(6,1,1));
+      book(_th_totN_diff, "TMP/totN_diff", refData(7,1,1));
+      book(_th_totN_nondiff, "TMP/totN_nondiff", refData(8,1,1));
 
       // Counters
-      _mbSumW = 0.0; _hdSumW = 0.0; _dfSumW = 0.0; _ndSumW = 0.0;
-      _mbchSumW = 0.0; _hdchSumW = 0.0; _dfchSumW = 0.0; _ndchSumW = 0.0;
+      book(_mbSumW, "TMP/mbSumW");
+      book(_hdSumW, "TMP/hdSumW");
+      book(_dfSumW, "TMP/dfSumW");
+      book(_ndSumW, "TMP/ndSumW");
+      book(_mbchSumW, "TMP/mbchSumW");
+      book(_hdchSumW, "TMP/hdchSumW");
+      book(_dfchSumW, "TMP/dfchSumW");
+      book(_ndchSumW, "TMP/ndchSumW");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const FinalState& ffs = apply<FinalState>(event, "forwardFS");
       const FinalState& bfs = apply<FinalState>(event, "backwardFS");
       const ChargedFinalState& fcfs = apply<ChargedFinalState>(event, "forwardCFS");
@@ -81,26 +85,26 @@ namespace Rivet {
         bool isdiffEvt = (bfs.size() == 0);
 
         // Update event-type weight counters
-        _mbSumW += weight;
-        (isdiffEvt ? _dfSumW : _ndSumW) += weight;
-        if (ishardEvt) _hdSumW += weight;
+        _mbSumW->fill();
+        (isdiffEvt ? _dfSumW : _ndSumW)->fill();
+        if (ishardEvt) _hdSumW->fill();
 
         // Plot energy flow
         foreach (const Particle& p, ffs.particles()) {
           const double eta = p.eta();
           const double energy = p.E();
-          _tp_totEF_minbias->fill(eta, energy, weight);
-          _th_totN_minbias->fill(eta, weight);
+          _tp_totEF_minbias->fill(eta, energy);
+          _th_totN_minbias->fill(eta);
           if (ishardEvt) {
-            _tp_totEF_hard->fill(eta, energy, weight);
-            _th_totN_hard->fill(eta, weight);
+            _tp_totEF_hard->fill(eta, energy);
+            _th_totN_hard->fill(eta);
           }
           if (isdiffEvt) {
-            _tp_totEF_diff->fill(eta, energy, weight);
-            _th_totN_diff->fill(eta, weight);
+            _tp_totEF_diff->fill(eta, energy);
+            _th_totN_diff->fill(eta);
           } else {
-            _tp_totEF_nondiff->fill(eta, energy, weight);
-            _th_totN_nondiff->fill(eta, weight);
+            _tp_totEF_nondiff->fill(eta, energy);
+            _th_totN_nondiff->fill(eta);
           }
         }
       }
@@ -117,26 +121,26 @@ namespace Rivet {
         bool isdiffEvt = (bcfs.size() == 0);
 
         // Update event-type weight counters
-        _mbchSumW += weight;
-        (isdiffEvt ? _dfchSumW : _ndchSumW) += weight;
-        if (ishardEvt) _hdchSumW += weight;
+        _mbchSumW->fill();
+        (isdiffEvt ? _dfchSumW : _ndchSumW)->fill();
+        if (ishardEvt) _hdchSumW->fill();
 
         // Plot energy flow
         foreach (const Particle& p, fcfs.particles()) {
           const double eta = p.eta();
           const double energy = p.E();
-          _tp_chEF_minbias->fill(eta, energy, weight);
-          _th_chN_minbias->fill(eta, weight);
+          _tp_chEF_minbias->fill(eta, energy);
+          _th_chN_minbias->fill(eta);
           if (ishardEvt) {
-            _tp_chEF_hard->fill(eta, energy, weight);
-            _th_chN_hard->fill(eta, weight);
+            _tp_chEF_hard->fill(eta, energy);
+            _th_chN_hard->fill(eta);
           }
           if (isdiffEvt) {
-            _tp_chEF_diff->fill(eta, energy, weight);
-            _th_chN_diff->fill(eta, weight);
+            _tp_chEF_diff->fill(eta, energy);
+            _th_chN_diff->fill(eta);
           } else {
-            _tp_chEF_nondiff->fill(eta, energy, weight);
-            _th_chN_nondiff->fill(eta, weight);
+            _tp_chEF_nondiff->fill(eta, energy);
+            _th_chN_nondiff->fill(eta);
           }
         }
       }
@@ -209,16 +213,16 @@ namespace Rivet {
     Scatter2DPtr _s_chEF_minbias, _s_chEF_hard, _s_chEF_diff, _s_chEF_nondiff;
 
     // Temp profiles containing <E(eta)>
-    std::shared_ptr<YODA::Profile1D> _tp_totEF_minbias, _tp_totEF_hard, _tp_totEF_diff, _tp_totEF_nondiff;
-    std::shared_ptr<YODA::Profile1D> _tp_chEF_minbias, _tp_chEF_hard, _tp_chEF_diff, _tp_chEF_nondiff;
+    Profile1DPtr _tp_totEF_minbias, _tp_totEF_hard, _tp_totEF_diff, _tp_totEF_nondiff;
+    Profile1DPtr _tp_chEF_minbias, _tp_chEF_hard, _tp_chEF_diff, _tp_chEF_nondiff;
 
     // Temp profiles containing <N(eta)>
-    std::shared_ptr<YODA::Histo1D> _th_totN_minbias, _th_totN_hard, _th_totN_diff, _th_totN_nondiff;
-    std::shared_ptr<YODA::Histo1D> _th_chN_minbias, _th_chN_hard, _th_chN_diff, _th_chN_nondiff;
+    Histo1DPtr _th_totN_minbias, _th_totN_hard, _th_totN_diff, _th_totN_nondiff;
+    Histo1DPtr _th_chN_minbias, _th_chN_hard, _th_chN_diff, _th_chN_nondiff;
 
     // Sums of weights (~ #events) in each event class
-    double _mbSumW, _hdSumW, _dfSumW, _ndSumW;
-    double _mbchSumW, _hdchSumW, _dfchSumW, _ndchSumW;
+    CounterPtr _mbSumW, _hdSumW, _dfSumW, _ndSumW;
+    CounterPtr _mbchSumW, _hdchSumW, _dfchSumW, _ndchSumW;
 
     //@}
 

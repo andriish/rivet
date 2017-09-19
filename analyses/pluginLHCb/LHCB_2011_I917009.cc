@@ -70,7 +70,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftsum = 0.0;
       double y, pT;
@@ -101,15 +100,15 @@ namespace Rivet {
         pT = sqrt((qmom.px() * qmom.px()) + (qmom.py() * qmom.py()));
         if (!inRange(pT, pt_min, pt3_edge)) continue;
         // Filling corresponding temporary histograms for pT intervals
-        if (inRange(pT, pt_min, pt1_edge)) _tmphistos[partIdx*3]->fill(y, weight);
-        if (inRange(pT, pt1_edge, pt2_edge)) _tmphistos[partIdx*3+1]->fill(y, weight);
-        if (inRange(pT, pt2_edge, pt3_edge)) _tmphistos[partIdx*3+2]->fill(y, weight);
+        if (inRange(pT, pt_min, pt1_edge)) _tmphistos[partIdx*3]->fill(y);
+        if (inRange(pT, pt1_edge, pt2_edge)) _tmphistos[partIdx*3+1]->fill(y);
+        if (inRange(pT, pt2_edge, pt3_edge)) _tmphistos[partIdx*3+2]->fill(y);
         // Fill histo in rapidity for whole pT interval
-        _tmphistos[partIdx+9]->fill(y, weight);
+        _tmphistos[partIdx+9]->fill(y);
         // Fill histo in pT for whole rapidity interval
-        _tmphistos[partIdx+12]->fill(pT, weight);
+        _tmphistos[partIdx+12]->fill(pT);
         // Fill histo in rapidity loss for whole pT interval
-        _tmphistos[partIdx+15]->fill(rap_beam - y, weight);
+        _tmphistos[partIdx+15]->fill(rap_beam - y);
       }
     }
 
