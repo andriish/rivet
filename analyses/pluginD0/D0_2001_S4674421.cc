@@ -50,8 +50,8 @@ namespace Rivet {
       declare(vfs, "VFS");
 
       // Counters
-      _eventsFilledW = 0.0;
-      _eventsFilledZ = 0.0;
+      book(_eventsFilledW,"eventsFilledW");
+      book(_eventsFilledZ,"eventsFilledZ");
 
       // Histograms
       book(_h_dsigdpt_w ,1, 1, 1);
@@ -62,8 +62,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const LeadingParticlesFinalState& eeFS = apply<LeadingParticlesFinalState>(event, "eeFS");
       // Z boson analysis
       if (eeFS.particles().size() >= 2) {
@@ -86,9 +84,9 @@ namespace Rivet {
           }
         }
         if (pT > 0. && mass2 > 0. && inRange(sqrt(mass2)/GeV, 75.0, 105.0)) {
-          _eventsFilledZ += weight;
+          _eventsFilledZ->fill();
           MSG_DEBUG("Z pmom.pT() = " << pT/GeV << " GeV");
-          _h_dsigdpt_z->fill(pT/GeV, weight);
+          _h_dsigdpt_z->fill(pT/GeV);
           // return if found a Z
           return;
         }
@@ -115,8 +113,8 @@ namespace Rivet {
         }
       }
       if (pT > 0.) {
-        _eventsFilledW += weight;
-        _h_dsigdpt_w->fill(pT/GeV, weight);
+        _eventsFilledW->fill();
+        _h_dsigdpt_w->fill(pT/GeV);
       }
     }
 
@@ -127,10 +125,10 @@ namespace Rivet {
       const double xSecPerEvent = crossSectionPerEvent()/picobarn;
 
       // Correct W pT distribution to W cross-section
-      const double xSecW = xSecPerEvent * _eventsFilledW;
+      const double xSecW = xSecPerEvent * double(_eventsFilledW);
 
       // Correct Z pT distribution to Z cross-section
-      const double xSecZ = xSecPerEvent * _eventsFilledZ;
+      const double xSecZ = xSecPerEvent * double(_eventsFilledZ);
 
       // Get W and Z pT integrals
       const double wpt_integral = _h_dsigdpt_w->integral();
@@ -170,8 +168,8 @@ namespace Rivet {
 
     /// @name Event counters for cross section normalizations
     //@{
-    double _eventsFilledW;
-    double _eventsFilledZ;
+    CounterPtr _eventsFilledW;
+    CounterPtr _eventsFilledZ;
     //@}
 
     //@{

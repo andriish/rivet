@@ -15,7 +15,6 @@ namespace Rivet {
     CDF_1990_S2089246()
       : Analysis("CDF_1990_S2089246")
     {
-      _sumWTrig = 0;
     }
 
 
@@ -33,6 +32,7 @@ namespace Rivet {
       } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
         book(_hist_eta ,4, 1, 1);
       }
+      book(_sumWTrig, "sumWTrig");
     }
 
 
@@ -41,14 +41,13 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-      const double weight = 1.0;
-      _sumWTrig += weight;
+      _sumWTrig->fill();
 
       // Loop over final state charged particles to fill eta histos
       const FinalState& fs = apply<FinalState>(event, "CFS");
       foreach (const Particle& p, fs.particles()) {
         const double eta = p.eta();
-        _hist_eta->fill(fabs(eta), weight);
+        _hist_eta->fill(fabs(eta));
       }
     }
 
@@ -67,7 +66,7 @@ namespace Rivet {
 
     /// @name Weight counter
     //@{
-    double _sumWTrig;
+    CounterPtr _sumWTrig;
     //@}
 
     /// @name Histogram collections

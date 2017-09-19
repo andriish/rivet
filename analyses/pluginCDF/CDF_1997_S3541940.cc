@@ -107,39 +107,37 @@ namespace Rivet {
       double costheta3ppp = pAV.p3().unit().dot(p3ppp.p3().unit());
       if (fabs(costheta3ppp) > 0.9) vetoEvent;
 
-      const double weight = 1.0;
-
       // 3-jet-system variables
-      _h_m6J->fill(m6J, weight);
-      _h_X3ppp->fill(X3ppp, weight);
-      _h_X4ppp->fill(2.0*p4ppp.E()/m6J, weight);
-      _h_costheta3ppp->fill(costheta3ppp, weight);
+      _h_m6J->fill(m6J);
+      _h_X3ppp->fill(X3ppp);
+      _h_X4ppp->fill(2.0*p4ppp.E()/m6J);
+      _h_costheta3ppp->fill(costheta3ppp);
       double psi3ppp = _psi(p3ppp, pAV, p4ppp, p5ppp);
-      _h_psi3ppp->fill(psi3ppp, weight);
-      _h_f3ppp->fill(_safeMass(p3ppp)/m6J, weight);
-      _h_f4ppp->fill(_safeMass(p4ppp)/m6J, weight);
-      _h_f5ppp->fill(_safeMass(p5ppp)/m6J, weight);
+      _h_psi3ppp->fill(psi3ppp);
+      _h_f3ppp->fill(_safeMass(p3ppp)/m6J);
+      _h_f4ppp->fill(_safeMass(p4ppp)/m6J);
+      _h_f5ppp->fill(_safeMass(p5ppp)/m6J);
 
       // 4 -> 3 jet variables
-      _h_fApp->fill(_safeMass(pApp)/m6J, weight);
-      _h_fBpp->fill(_safeMass(pApp)/m6J, weight);
-      _h_XApp->fill(pApp.E()/(pApp.E()+pBpp.E()), weight);
+      _h_fApp->fill(_safeMass(pApp)/m6J);
+      _h_fBpp->fill(_safeMass(pApp)/m6J);
+      _h_XApp->fill(pApp.E()/(pApp.E()+pBpp.E()));
       double psiAppBpp = _psi(pApp, pBpp, pApp+pBpp, pAV);
-      _h_psiAppBpp->fill(psiAppBpp, weight);
+      _h_psiAppBpp->fill(psiAppBpp);
 
       // 5 -> 4 jet variables
-      _h_fCp->fill(_safeMass(pCp)/m6J, weight);
-      _h_fDp->fill(_safeMass(pDp)/m6J, weight);
-      _h_XCp->fill(pCp.E()/(pCp.E()+pDp.E()), weight);
+      _h_fCp->fill(_safeMass(pCp)/m6J);
+      _h_fDp->fill(_safeMass(pDp)/m6J);
+      _h_XCp->fill(pCp.E()/(pCp.E()+pDp.E()));
       double psiCpDp = _psi(pCp, pDp, pCp+pDp, pAV);
-      _h_psiCpDp->fill(psiCpDp, weight);
+      _h_psiCpDp->fill(psiCpDp);
 
       // 6 -> 5 jet variables
-      _h_fE->fill(_safeMass(pE)/m6J, weight);
-      _h_fF->fill(_safeMass(pF)/m6J, weight);
-      _h_XE->fill(pE.E()/(pE.E()+pF.E()), weight);
+      _h_fE->fill(_safeMass(pE)/m6J);
+      _h_fF->fill(_safeMass(pF)/m6J);
+      _h_XE->fill(pE.E()/(pE.E()+pF.E()));
       double psiEF = _psi(pE, pF, pE+pF, pAV);
-      _h_psiEF->fill(psiEF, weight);
+      _h_psiEF->fill(psiEF);
     }
 
 

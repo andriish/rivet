@@ -53,8 +53,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // Skip if the event is empty
       const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -70,17 +68,17 @@ namespace Rivet {
         const double y = j.absrap();
         MSG_TRACE("Filling histos: pT = " << pt/GeV << ", |y| = " << y);
         if (y < 0.4) {
-          _h_dsigdptdy_y00_04->fill(pt/GeV, weight);
+          _h_dsigdptdy_y00_04->fill(pt/GeV);
         } else if (y < 0.8) {
-          _h_dsigdptdy_y04_08->fill(pt/GeV, weight);
+          _h_dsigdptdy_y04_08->fill(pt/GeV);
         } else if (y < 1.2) {
-          _h_dsigdptdy_y08_12->fill(pt/GeV, weight);
+          _h_dsigdptdy_y08_12->fill(pt/GeV);
         } else if (y < 1.6) {
-          _h_dsigdptdy_y12_16->fill(pt/GeV, weight);
+          _h_dsigdptdy_y12_16->fill(pt/GeV);
         } else if (y < 2.0) {
-          _h_dsigdptdy_y16_20->fill(pt/GeV, weight);
+          _h_dsigdptdy_y16_20->fill(pt/GeV);
         } else if (y < 2.4) {
-          _h_dsigdptdy_y20_24->fill(pt/GeV, weight);
+          _h_dsigdptdy_y20_24->fill(pt/GeV);
         }
       }
 

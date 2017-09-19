@@ -30,8 +30,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       Jets jets = apply<FastJets>(event, "Jets").jetsByPt(40.*GeV);
 
       // Need three jets, leading jet above 150 GeV
@@ -57,12 +55,12 @@ namespace Rivet {
 
       double m3jet = (p[0]+p[1]+p[2]).mass()/GeV;
 
-      if (ymax < 0.8) _h_m3j_08_40->fill(m3jet, weight);
-      if (ymax < 1.6) _h_m3j_16_40->fill(m3jet, weight);
+      if (ymax < 0.8) _h_m3j_08_40->fill(m3jet);
+      if (ymax < 1.6) _h_m3j_16_40->fill(m3jet);
       if (ymax < 2.4) {
-        _h_m3j_24_40->fill(m3jet, weight);
-        if (p[2].pT() > 70.*GeV)  _h_m3j_24_70->fill(m3jet, weight);
-        if (p[2].pT() > 100.*GeV) _h_m3j_24_100->fill(m3jet, weight);
+        _h_m3j_24_40->fill(m3jet);
+        if (p[2].pT() > 70.*GeV)  _h_m3j_24_70->fill(m3jet);
+        if (p[2].pT() > 100.*GeV) _h_m3j_24_100->fill(m3jet);
       }
 
     }

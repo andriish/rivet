@@ -35,12 +35,11 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& e) {
-      const double weight = 1.0;
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size()==1) {
         double ZpT = zfinder.bosons()[0].pT()/GeV;
-        _h_Z_pT_normalised->fill(ZpT, weight);
-        _h_Z_pT_xs->fill(ZpT, weight);
+        _h_Z_pT_normalised->fill(ZpT);
+        _h_Z_pT_xs->fill(ZpT);
       }
     }
 

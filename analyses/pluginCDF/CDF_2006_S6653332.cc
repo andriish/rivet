@@ -22,8 +22,7 @@ namespace Rivet {
     /// Constructor
     CDF_2006_S6653332()
       : Analysis("CDF_2006_S6653332"),
-        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(1.1),
-        _sumWeightsWithZ(0.0), _sumWeightsWithZJet(0.0)
+        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(1.1)
     {    }
 
 
@@ -53,6 +52,10 @@ namespace Rivet {
       book(_sigmaBJet ,1, 1, 1);
       book(_ratioBJetToZ ,2, 1, 1);
       book(_ratioBJetToJet ,3, 1, 1);
+
+     
+      book(_sumWeightsWithZ, "sumWeightsWithZ");
+      book(_sumWeightsWithZJet, "sumWeightsWithZJet");
     }
 
 
@@ -75,7 +78,7 @@ namespace Rivet {
       if (ZDecayProducts[0].abspid()==13 && Lep1Eta > 1. && Lep2Eta > 1.) vetoEvent;
       if (Lep1Pt < _Lep1PtCut && Lep2Pt < _Lep2PtCut) vetoEvent;
 
-      _sumWeightsWithZ += 1.0;
+      _sumWeightsWithZ->fill();
 
       /// @todo Write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
@@ -120,11 +123,11 @@ namespace Rivet {
         }
       } // end loop around jets
 
-      if (numJet > 0) _sumWeightsWithZJet += 1.0;
+      if (numJet > 0) _sumWeightsWithZJet->fill();
       if (numBJet > 0) {
-        _sigmaBJet->fill(1960.0,1.0);
-        _ratioBJetToZ->fill(1960.0,1.0);
-        _ratioBJetToJet->fill(1960.0,1.0);
+        _sigmaBJet->fill(1960.0);
+        _ratioBJetToZ->fill(1960.0);
+        _ratioBJetToJet->fill(1960.0);
       }
 
     }
@@ -133,8 +136,8 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       MSG_DEBUG("Total sum of weights = " << sumOfWeights());
-      MSG_DEBUG("Sum of weights for Z production in mass range = " << _sumWeightsWithZ);
-      MSG_DEBUG("Sum of weights for Z+jet production in mass range = " << _sumWeightsWithZJet);
+      MSG_DEBUG("Sum of weights for Z production in mass range = " << double(_sumWeightsWithZ));
+      MSG_DEBUG("Sum of weights for Z+jet production in mass range = " << double(_sumWeightsWithZJet));
 
       scale(_sigmaBJet, crossSection()/sumOfWeights());
       scale(_ratioBJetToZ, 1.0/_sumWeightsWithZ);
@@ -155,8 +158,8 @@ namespace Rivet {
     double _Lep2PtCut;
     double _LepEtaCut;
 
-    double _sumWeightsWithZ;
-    double _sumWeightsWithZJet;
+    CounterPtr _sumWeightsWithZ;
+    CounterPtr _sumWeightsWithZJet;
 
     //@}
 

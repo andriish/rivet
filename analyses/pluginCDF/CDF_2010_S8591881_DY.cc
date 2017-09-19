@@ -78,9 +78,6 @@ namespace Rivet {
         vetoEvent;
       }
 
-      // Get the event weight
-      const double weight = 1.0;
-
       // Get the leptons
       const Particles& leptons = apply<ChargedLeptons>(e, "CL").chargedLeptons();
 
@@ -140,37 +137,37 @@ namespace Rivet {
             ptMaxAway = pT;
         }
         // We need to subtract the two leptons from the number of particles to get the correct multiplicity
-        _hist_cptavevsnchg->fill(numParticles-2, pT, weight);
+        _hist_cptavevsnchg->fill(numParticles-2, pT);
         if (pTZ < 10)
-          _hist_cptavevsnchgsmallzpt->fill(numParticles-2, pT, weight);
+          _hist_cptavevsnchgsmallzpt->fill(numParticles-2, pT);
       }
 
       // Fill the histograms
-      _hist_tnchg->fill(pTZ, numToward/(4*PI/3), weight);
-      _hist_pnchg->fill(pTZ, (numTrans1+numTrans2)/(4*PI/3), weight);
-      _hist_pmaxnchg->fill(pTZ, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pminnchg->fill(pTZ, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pdifnchg->fill(pTZ, abs(numTrans1-numTrans2)/(2*PI/3), weight);
-      _hist_anchg->fill(pTZ, numAway/(4*PI/3), weight);
+      _hist_tnchg->fill(pTZ, numToward/(4*PI/3));
+      _hist_pnchg->fill(pTZ, (numTrans1+numTrans2)/(4*PI/3));
+      _hist_pmaxnchg->fill(pTZ, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3));
+      _hist_pminnchg->fill(pTZ, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3));
+      _hist_pdifnchg->fill(pTZ, abs(numTrans1-numTrans2)/(2*PI/3));
+      _hist_anchg->fill(pTZ, numAway/(4*PI/3));
 
-      _hist_tcptsum->fill(pTZ, ptSumToward/(4*PI/3), weight);
-      _hist_pcptsum->fill(pTZ, (ptSumTrans1+ptSumTrans2)/(4*PI/3), weight);
-      _hist_pmaxcptsum->fill(pTZ, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      _hist_pmincptsum->fill(pTZ, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3), weight);
-      _hist_pdifcptsum->fill(pTZ, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3), weight);
-      _hist_acptsum->fill(pTZ, ptSumAway/(4*PI/3), weight);
+      _hist_tcptsum->fill(pTZ, ptSumToward/(4*PI/3));
+      _hist_pcptsum->fill(pTZ, (ptSumTrans1+ptSumTrans2)/(4*PI/3));
+      _hist_pmaxcptsum->fill(pTZ, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3));
+      _hist_pmincptsum->fill(pTZ, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/(2*PI/3));
+      _hist_pdifcptsum->fill(pTZ, fabs(ptSumTrans1-ptSumTrans2)/(2*PI/3));
+      _hist_acptsum->fill(pTZ, ptSumAway/(4*PI/3));
 
       if (numToward > 0) {
-        _hist_tcptave->fill(pTZ, ptSumToward/numToward, weight);
-        _hist_tcptmax->fill(pTZ, ptMaxToward, weight);
+        _hist_tcptave->fill(pTZ, ptSumToward/numToward);
+        _hist_tcptmax->fill(pTZ, ptMaxToward);
       }
       if ((numTrans1+numTrans2) > 0) {
-        _hist_pcptave->fill(pTZ, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2), weight);
-        _hist_pcptmax->fill(pTZ, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2), weight);
+        _hist_pcptave->fill(pTZ, (ptSumTrans1+ptSumTrans2)/(numTrans1+numTrans2));
+        _hist_pcptmax->fill(pTZ, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2));
       }
 
       // We need to subtract the two leptons from the number of particles to get the correct multiplicity
-      _hist_zptvsnchg->fill(numParticles-2, pTZ, weight);
+      _hist_zptvsnchg->fill(numParticles-2, pTZ);
     }
 
 

@@ -32,7 +32,7 @@ namespace Rivet {
       FastJets conefinder(zfinder.remainingFinalState(), FastJets::D0ILCONE, 0.5);
       declare(conefinder, "ConeFinder");
 
-      _sum_of_weights_inclusive = 0;
+      book(_sum_of_weights_inclusive, "sum_of_weights_inclusive");
 
       book(_h_jet_pT_cross_section ,1, 1, 1);
       book(_h_jet_pT_normalised ,1, 1, 2);
@@ -48,11 +48,9 @@ namespace Rivet {
 
     // Do the analysis
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size()==1) {
-        _sum_of_weights_inclusive += weight;
+        _sum_of_weights_inclusive->fill();
         const JetAlg& jetpro = apply<JetAlg>(e, "ConeFinder");
         const Jets& jets = jetpro.jetsByPt(20*GeV);
         Jets jets_cut;
@@ -71,18 +69,18 @@ namespace Rivet {
         const FourMomentum Zmom = zfinder.bosons()[0].momentum();
 
         // In jet pT
-        _h_jet_pT_cross_section->fill( jets_cut[0].pT(), weight);
-        _h_jet_pT_normalised->fill( jets_cut[0].pT(), weight);
-        _h_jet_y_cross_section->fill( fabs(jets_cut[0].rapidity()), weight);
-        _h_jet_y_normalised->fill( fabs(jets_cut[0].rapidity()), weight);
+        _h_jet_pT_cross_section->fill( jets_cut[0].pT());
+        _h_jet_pT_normalised->fill( jets_cut[0].pT());
+        _h_jet_y_cross_section->fill( fabs(jets_cut[0].rapidity()));
+        _h_jet_y_normalised->fill( fabs(jets_cut[0].rapidity()));
 
         // In Z pT
-        _h_Z_pT_cross_section->fill(Zmom.pT(), weight);
-        _h_Z_pT_normalised->fill(Zmom.pT(), weight);
-        _h_Z_y_cross_section->fill(Zmom.absrap(), weight);
-        _h_Z_y_normalised->fill(Zmom.absrap(), weight);
+        _h_Z_pT_cross_section->fill(Zmom.pT());
+        _h_Z_pT_normalised->fill(Zmom.pT());
+        _h_Z_y_cross_section->fill(Zmom.absrap());
+        _h_Z_y_normalised->fill(Zmom.absrap());
 
-        _h_total_cross_section->fill(1960, weight);
+        _h_total_cross_section->fill(1960);
       }
     }
 
@@ -122,7 +120,7 @@ namespace Rivet {
     Histo1DPtr _h_Z_y_normalised;
     //@}
 
-    double _sum_of_weights_inclusive;
+    CounterPtr _sum_of_weights_inclusive;
 
   };
 

@@ -81,8 +81,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // Get the photon
       const FinalState& photonfs = apply<FinalState>(event, "LeadingPhoton");
       if (photonfs.particles().size() != 1) {
@@ -126,10 +124,10 @@ namespace Rivet {
       // Fill histos
       if (fabs(leadingJet.rapidity()) < 0.8) {
         Histo1DPtr h = (photon_jet_sign >= 1) ? _h_central_same_cross_section : _h_central_opp_cross_section;
-        h->fill(photon.pT(), weight);
+        h->fill(photon.pT());
       } else if (inRange( fabs(leadingJet.rapidity()), 1.5, 2.5)) {
         Histo1DPtr h = (photon_jet_sign >= 1) ? _h_forward_same_cross_section : _h_forward_opp_cross_section;
-        h->fill(photon.pT(), weight);
+        h->fill(photon.pT());
       }
 
     }

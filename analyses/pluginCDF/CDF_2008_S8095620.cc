@@ -16,10 +16,8 @@ namespace Rivet {
     /// jet cuts: |eta| <= 1.5
     CDF_2008_S8095620()
       : Analysis("CDF_2008_S8095620"),
-        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(3.2),
-        _sumWeightSelected(0.0)
-    {
-    }
+        _Rjet(0.7), _JetPtCut(20.), _JetEtaCut(1.5), _Lep1PtCut(18.), _Lep2PtCut(10.), _LepEtaCut(3.2)
+    { }
 
 
     /// @name Analysis methods
@@ -50,6 +48,8 @@ namespace Rivet {
       book(_dSdZpT   ,4, 1, 1);
       book(_dSdNJet  ,5, 1, 1);
       book(_dSdNbJet ,6, 1, 1);
+
+      book(_sumWeightSelected,"sumWeightSelected");
      }
 
 
@@ -82,7 +82,7 @@ namespace Rivet {
         if (Lep1Pt < _Lep2PtCut || Lep2Pt < _Lep1PtCut) vetoEvent;
       }
 
-      _sumWeightSelected += 1.0;
+      _sumWeightSelected->fill();
       /// @todo: write out a warning if there are more than two decay products
       FourMomentum Zmom = ZDecayProducts[0].momentum() +  ZDecayProducts[1].momentum();
 
@@ -120,18 +120,18 @@ namespace Rivet {
           } // end loop around b-jets
           if (bjet) {
             numBJet++;
-            _dSdET->fill(jt->perp(),1.0);
-            _dSdETA->fill(fabs(jt->rapidity()),1.0);
+            _dSdET->fill(jt->perp());
+            _dSdETA->fill(fabs(jt->rapidity()));
           }
         }
       } // end loop around jets
 
       // wasn't asking for b-jets before!!!!
-      if(numJet > 0 && numBJet > 0) _dSdNJet->fill(numJet,1.0);
+      if(numJet > 0 && numBJet > 0) _dSdNJet->fill(numJet);
       if(numBJet > 0) {
-        _dStot->fill(1960.0,1.0);
-        _dSdNbJet->fill(numBJet,1.0);
-        _dSdZpT->fill(Zmom.pT(),1.0);
+        _dStot->fill(1960.0);
+        _dSdNbJet->fill(numBJet);
+        _dSdZpT->fill(Zmom.pT());
       }
     }
 
@@ -164,7 +164,7 @@ namespace Rivet {
     double _Lep1PtCut;
     double _Lep2PtCut;
     double _LepEtaCut;
-    double _sumWeightSelected;
+    CounterPtr _sumWeightSelected;
 
     //@{
     /// Histograms

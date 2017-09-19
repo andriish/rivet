@@ -33,13 +33,11 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = 1.0;
-
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 1) {
         const Particles& el(zfinder.constituents());
         if (el[0].pT() > 25*GeV || el[1].pT() > 25*GeV) {
-          _h_yZ->fill(fabs(zfinder.bosons()[0].rapidity()), weight);
+          _h_yZ->fill(fabs(zfinder.bosons()[0].rapidity()));
         }
       } else {
         MSG_DEBUG("No unique lepton pair found.");

@@ -13,8 +13,7 @@ namespace Rivet {
 
     /// Constructor
     D0_2009_S8202443()
-      : Analysis("D0_2009_S8202443"),
-        _sum_of_weights(0), _sum_of_weights_constrained(0)
+      : Analysis("D0_2009_S8202443")
     {    }
 
 
@@ -43,28 +42,29 @@ namespace Rivet {
       book(_h_jet1_pT ,2, 1, 1);
       book(_h_jet2_pT ,4, 1, 1);
       book(_h_jet3_pT ,6, 1, 1);
+
+      book(_sum_of_weights,"sum_of_weights");
+      book(_sum_of_weights_constrained, "sum_of_weights_constrained");
     }
 
 
 
     // Do the analysis
     void analyze(const Event& e) {
-      double weight = 1.0;
-
       // Unconstrained electrons
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() == 0) {
         MSG_DEBUG("No unique lepton pair found.");
         vetoEvent;
       }
-      _sum_of_weights += weight;
+      _sum_of_weights->fill();
       const Jets jets_cut = apply<JetAlg>(e, "ConeFinder").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.5);
       if (jets_cut.size() > 0)
-        _h_jet1_pT->fill(jets_cut[0].pT()/GeV, weight);
+        _h_jet1_pT->fill(jets_cut[0].pT()/GeV);
       if (jets_cut.size() > 1)
-        _h_jet2_pT->fill(jets_cut[1].pT()/GeV, weight);
+        _h_jet2_pT->fill(jets_cut[1].pT()/GeV);
       if (jets_cut.size() > 2)
-        _h_jet3_pT->fill(jets_cut[2].pT()/GeV, weight);
+        _h_jet3_pT->fill(jets_cut[2].pT()/GeV);
 
 
       // Constrained electrons
@@ -73,7 +73,7 @@ namespace Rivet {
         MSG_DEBUG("No unique constrained lepton pair found.");
         return; // Not really a "veto", since if we got this far there is an unconstrained Z
       }
-      _sum_of_weights_constrained += weight;
+      _sum_of_weights_constrained->fill();
       const Jets& jets_constrained = apply<JetAlg>(e, "ConeFinderConstrained").jetsByPt(20*GeV);
       /// @todo Replace this explicit selection with a Cut
       Jets jets_cut_constrained;
@@ -81,11 +81,11 @@ namespace Rivet {
         if (j.abseta() < 2.5) jets_cut_constrained.push_back(j);
       }
       if (jets_cut_constrained.size() > 0)
-        _h_jet1_pT_constrained->fill(jets_cut_constrained[0].pT()/GeV, weight);
+        _h_jet1_pT_constrained->fill(jets_cut_constrained[0].pT()/GeV);
       if (jets_cut_constrained.size() > 1)
-        _h_jet2_pT_constrained->fill(jets_cut_constrained[1].pT()/GeV, weight);
+        _h_jet2_pT_constrained->fill(jets_cut_constrained[1].pT()/GeV);
       if (jets_cut_constrained.size() > 2)
-        _h_jet3_pT_constrained->fill(jets_cut_constrained[2].pT()/GeV, weight);
+        _h_jet3_pT_constrained->fill(jets_cut_constrained[2].pT()/GeV);
     }
 
 
@@ -114,7 +114,7 @@ namespace Rivet {
     Histo1DPtr _h_jet3_pT_constrained;
     //@}
 
-    double _sum_of_weights, _sum_of_weights_constrained;
+    CounterPtr _sum_of_weights, _sum_of_weights_constrained;
 
   };
 

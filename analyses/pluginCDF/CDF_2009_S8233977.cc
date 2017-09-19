@@ -25,8 +25,7 @@ namespace Rivet {
 
     /// Constructor
     CDF_2009_S8233977()
-      : Analysis("CDF_2009_S8233977"),
-        _sumWeightSelected(0.0)
+      : Analysis("CDF_2009_S8233977")
     {    }
 
 
@@ -42,6 +41,8 @@ namespace Rivet {
       book(_hist_pt ,1, 1, 1);
       book(_hist_pt_vs_multiplicity ,2, 1, 1);
       book(_hist_sumEt ,3, 1, 1);
+
+      book(_sumWeightSelected,"_sumWeightSelected");
     }
 
 
@@ -52,9 +53,6 @@ namespace Rivet {
       const bool trigger = apply<TriggerCDFRun2>(evt, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
 
-      // Get the event weight
-      const double weight = 1.0;
-
       /// @todo The pT and sum(ET) distributions look slightly different from
       ///       Niccolo's Monte Carlo plots. Still waiting for his answer.
 
@@ -62,7 +60,7 @@ namespace Rivet {
       const size_t numParticles = trackfs.size();
       foreach (const Particle& p, trackfs.particles()) {
         const double pT = p.pT() / GeV;
-        _hist_pt_vs_multiplicity->fill(numParticles, pT, weight);
+        _hist_pt_vs_multiplicity->fill(numParticles, pT);
 
         // The weight for entries in the pT distribution should be weight/(pT*dPhi*dy).
         //
@@ -81,7 +79,7 @@ namespace Rivet {
         const double root = sqrt(mPi*mPi + (1+sinh1)*pT*pT);
         const double dy = std::log((root+apT)/(root-apT));
         const double dphi = TWOPI;
-        _hist_pt->fill(pT, weight/(pT*dphi*dy));
+        _hist_pt->fill(pT, 1.0/(pT*dphi*dy));
       }
 
       // Calc sum(Et) from calo particles
@@ -90,18 +88,18 @@ namespace Rivet {
       foreach (const Particle& p, etfs.particles()) {
         sumEt += p.Et();
       }
-      _hist_sumEt->fill(sumEt, weight);
-      _sumWeightSelected += 1.0;
+      _hist_sumEt->fill(sumEt);
+      _sumWeightSelected->fill();
     }
 
 
 
     /// Normalize histos
     void finalize() {
-      scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*_sumWeightSelected));
+      scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*double(_sumWeightSelected)));
       scale(_hist_pt, crossSection()/millibarn/_sumWeightSelected);
       MSG_DEBUG("sumOfWeights()     = " << sumOfWeights());
-      MSG_DEBUG("_sumWeightSelected = " << _sumWeightSelected);
+      MSG_DEBUG("_sumWeightSelected = " << double(_sumWeightSelected));
     }
 
     //@}
@@ -109,7 +107,7 @@ namespace Rivet {
 
   private:
 
-    double _sumWeightSelected;
+    CounterPtr _sumWeightSelected;
     Profile1DPtr _hist_pt_vs_multiplicity;
     Histo1DPtr _hist_pt;
     Histo1DPtr _hist_sumEt;
