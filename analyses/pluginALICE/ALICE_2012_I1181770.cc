@@ -35,10 +35,8 @@ namespace Rivet {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 2) vetoEvent; // need at least two particles to calculate gaps
 
-      const double weight = 1.0;
-
       // Fill INEL plots for each event
-      _h_xsec_inel->fill(sqrtS()/GeV, weight);
+      _h_xsec_inel->fill(sqrtS()/GeV);
 
       // Identify particles with most positive/most negative rapidities
       const Particles particlesByRap = cfs.particles(cmpMomByRap);
@@ -75,7 +73,7 @@ namespace Rivet {
 
       // Fill SD (and escape) if Mx is sufficiently low
       if (Mx < 200*GeV) {
-        _h_xsec_sd->fill(sqrtS()/GeV, weight);
+        _h_xsec_sd->fill(sqrtS()/GeV);
         return;
       }
 
@@ -83,7 +81,7 @@ namespace Rivet {
       if (fuzzyEquals(gapbwd, gapmax) || fuzzyEquals(gapfwd, gapmax)) vetoEvent;
 
       // Fill DD plots
-      if (gapmax > 3) _h_xsec_dd->fill(sqrtS()/GeV, weight);
+      if (gapmax > 3) _h_xsec_dd->fill(sqrtS()/GeV);
     }
 
 

@@ -30,7 +30,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
 
       foreach (const Particle& p, ufs.particles()) {
@@ -42,34 +41,34 @@ namespace Rivet {
           case 3312:
           case -3312:
             if ( !( p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {
-              _histPtXi->fill(pT, weight);
+              _histPtXi->fill(pT);
             }
             break;
             if (absrap < 0.75) {
             case 310:
-              _histPtK0s->fill(pT, weight);
-              _temp_h_Kzeros->fill(pT, 2*weight);
+              _histPtK0s->fill(pT);
+              _temp_h_Kzeros->fill(pT, 2);
               break;
             case 3122:
               if ( !( p.hasAncestor(3322) || p.hasAncestor(-3322) ||
                       p.hasAncestor(3312) || p.hasAncestor(-3312) ||
                       p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {
-                _histPtLambda->fill(pT, weight);
-                _temp_h_Lambdas->fill(pT, weight);
+                _histPtLambda->fill(pT);
+                _temp_h_Lambdas->fill(pT);
               }
               break;
             case -3122:
               if ( !( p.hasAncestor(3322) || p.hasAncestor(-3322) ||
                       p.hasAncestor(3312) || p.hasAncestor(-3312) ||
                       p.hasAncestor(3334) || p.hasAncestor(-3334) ) ) {
-                _histPtAntiLambda->fill(pT, weight);
-                _temp_h_Lambdas->fill(pT, weight);
+                _histPtAntiLambda->fill(pT);
+                _temp_h_Lambdas->fill(pT);
               }
               break;
             }
             if (absrap<0.6) {
             case 333:
-              _histPtPhi->fill(pT, weight);
+              _histPtPhi->fill(pT);
               break;
             }
           }

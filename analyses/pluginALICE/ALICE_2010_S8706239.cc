@@ -13,8 +13,7 @@ namespace Rivet {
 
     /// Constructor
     ALICE_2010_S8706239()
-      : Analysis("ALICE_2010_S8706239"),
-        _Nevt_after_cuts(0.0)
+      : Analysis("ALICE_2010_S8706239")
     {    }
 
     //@}
@@ -36,16 +35,16 @@ namespace Rivet {
       book(_h_pT_Nch_015 ,11, 1, 1);
       book(_h_pT_Nch_05  ,12, 1, 1);
 
+      book(_Nevt_after_cuts,"Nevt_after_cuts");
+
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
 
-      _Nevt_after_cuts += weight;
+      _Nevt_after_cuts->fill();
 
       // Get number of particles that fulfill certain pT requirements
       int Nch_015 = 0;
@@ -59,11 +58,11 @@ namespace Rivet {
       // Now we can fill histograms
       foreach (const Particle& p, charged.particles()) {
         double pT = p.pT()/GeV;
-        if (pT < 4.0) _h_pT_Nch_015 ->fill(Nch_015, pT, weight);
-        if (pT > 0.5  && pT < 4.0) _h_pT_Nch_05  ->fill(Nch_05,  pT, weight);
+        if (pT < 4.0) _h_pT_Nch_015 ->fill(Nch_015, pT);
+        if (pT > 0.5  && pT < 4.0) _h_pT_Nch_05  ->fill(Nch_05,  pT);
 
       // To get the Yield, fill appropriate weight 1/(2PI * pT * d eta)
-        _h_pT->fill(pT, weight /(TWOPI*pT*1.6) );
+        _h_pT->fill(pT, 1.0 /(TWOPI*pT*1.6) );
       }
 
     }
@@ -87,7 +86,7 @@ namespace Rivet {
     Profile1DPtr _h_pT_Nch_015 ;
     Profile1DPtr _h_pT_Nch_05  ;
 
-    double _Nevt_after_cuts;
+    CounterPtr _Nevt_after_cuts;
     //@}
 
 

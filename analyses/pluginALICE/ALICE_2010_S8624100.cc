@@ -49,15 +49,13 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
-      const ChargedFinalState& charged_05 = apply<ChargedFinalState>(event, "CFS05");
+       const ChargedFinalState& charged_05 = apply<ChargedFinalState>(event, "CFS05");
       const ChargedFinalState& charged_10 = apply<ChargedFinalState>(event, "CFS10");
       const ChargedFinalState& charged_13 = apply<ChargedFinalState>(event, "CFS13");
 
-      _h_dN_dNch_05->fill(charged_05.size(), weight);
-      _h_dN_dNch_10->fill(charged_10.size(), weight);
-      _h_dN_dNch_13->fill(charged_13.size(), weight);
+      _h_dN_dNch_05->fill(charged_05.size());
+      _h_dN_dNch_10->fill(charged_10.size());
+      _h_dN_dNch_13->fill(charged_13.size());
     }
 
 

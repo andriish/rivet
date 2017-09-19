@@ -35,7 +35,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
 	// protections against mc generators decaying long-lived particles
@@ -49,17 +48,17 @@ namespace Rivet {
         {  
 	  switch (abs(p.pid())) {
 	  case 211: // pi+
-	    _histPtPions->fill(p.pT()/GeV, weight);
-	    _histPtPionsR1->fill(p.pT()/GeV, weight);
-	    _histPtPionsR2->fill(p.pT()/GeV, weight);
+	    _histPtPions->fill(p.pT()/GeV);
+	    _histPtPionsR1->fill(p.pT()/GeV);
+	    _histPtPionsR2->fill(p.pT()/GeV);
 	    break;
 	  case 2212: // proton
-	    _histPtProtons->fill(p.pT()/GeV, weight);
-	    _histPtProtonsR->fill(p.pT()/GeV, weight);
+	    _histPtProtons->fill(p.pT()/GeV);
+	    _histPtProtonsR->fill(p.pT()/GeV);
 	    break;
 	  case 321: // K+
-	    _histPtKaons->fill(p.pT()/GeV, weight);
-	    _histPtKaonsR->fill(p.pT()/GeV, weight);
+	    _histPtKaons->fill(p.pT()/GeV);
+	    _histPtKaonsR->fill(p.pT()/GeV);
 	    break;
 	  } // particle switch
 	} // primary pi, K, p only

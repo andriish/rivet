@@ -5,10 +5,10 @@
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
 
-#include "DummyConfig.hh"
-#ifdef HAVE_EXECINFO_H
-#include <execinfo.h>
-#endif
+// #include "DummyConfig.hh"
+// #ifdef HAVE_EXECINFO_H
+// #include <execinfo.h>
+// #endif
 
 namespace Rivet {
 
@@ -816,11 +816,11 @@ namespace Rivet {
 
 namespace {
   void errormsg(std::string name) {
-#ifdef HAVE_BACKTRACE
-     void * buffer[4];
-     backtrace(buffer, 4);
-     backtrace_symbols_fd(buffer, 4 , 1);
-#endif
+// #ifdef HAVE_BACKTRACE
+//      void * buffer[4];
+//      backtrace(buffer, 4);
+//      backtrace_symbols_fd(buffer, 4 , 1);
+// #endif
     std::cerr << name << ": Can't book objects outside of init().\n";
     assert(false);
   }
