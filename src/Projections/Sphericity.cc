@@ -109,6 +109,12 @@ namespace Rivet {
       mMom += regfactor * mMomPart;
     }
 
+    if (mMom.get(2,0) == 0 && mMom.get(2,1) == 0 && mMom.get(2,2) == 0) {
+    	MSG_DEBUG("No longitudinal momenta given...");
+    	clear();
+        return;
+    }
+
     // Normalise to total (regulated) momentum.
     mMom /= totalMomentum;
     MSG_DEBUG("Momentum tensor = " << "\n" << mMom);
@@ -142,6 +148,12 @@ namespace Rivet {
     const double l1 = q + 2 * p * cos(phi);
     const double l3 = q + 2 * p * cos(phi + (2*M_PI/3.));
     const double l2 = 3 * q - l1 - l3;
+
+    if (l1 == 0 || l2 == 0 || l3 == 0) {
+    	MSG_DEBUG("Zero eigenvalue...");
+    	clear();
+        return;
+    }
 
     _lambdas.clear();
     _sphAxes.clear();
