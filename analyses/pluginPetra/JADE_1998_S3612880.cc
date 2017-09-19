@@ -64,7 +64,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       // JADE hadronic event selection TODO: move this into a trigger definition
@@ -88,12 +87,12 @@ namespace Rivet {
       // Make sure we don't run into a segfault by trying to fill non-existing histos
       int s = int(sqrtS()/GeV);
       if (s == 44 || s == 35) {
-        _h_thrust->fill(1. - thrust.thrust(), weight);
-        _h_MH->fill(sqrt(hemi.scaledM2high()), weight);
-        _h_BT->fill(hemi.Bsum(), weight);
-        _h_BW->fill(hemi.Bmax(), weight);
+        _h_thrust->fill(1. - thrust.thrust());
+        _h_MH->fill(sqrt(hemi.scaledM2high()));
+        _h_BT->fill(hemi.Bsum());
+        _h_BW->fill(hemi.Bmax());
       }
-      _h_y23->fill(y23, weight);
+      _h_y23->fill(y23);
     }
 
     /// Normalise histograms etc., after the run

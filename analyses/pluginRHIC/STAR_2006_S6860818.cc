@@ -13,14 +13,11 @@ namespace Rivet {
 
     /// Constructor
     STAR_2006_S6860818()
-      : Analysis("STAR_2006_S6860818"),
-        _sumWeightSelected(0.0)
+      : Analysis("STAR_2006_S6860818")
     {
       for (size_t i = 0; i < 4; i++) {
         _nBaryon[i] = 0;
         _nAntiBaryon[i] = 0;
-        _nWeightedBaryon[i] = 0.;
-        _nWeightedAntiBaryon[i] = 0.;
       }
     }
 
@@ -46,6 +43,12 @@ namespace Rivet {
       book(_h_lambar_lam, 2, 2, 1);
       book(_h_xiplus_ximinus, 2, 3, 1);
       book(_h_pT_vs_mass    ,3, 1, 1);
+
+      for (size_t i = 0; i < 4; i++) {
+        book(_nWeightedBaryon[i], "TMP/nWeightedBaryon"+to_str(i));
+        book(_nWeightedAntiBaryon[i], "TMP/nWeightedBaryon"+to_str(i));
+      }
+      book(_sumWeightSelected, "sumWselected");
     }
 
 
@@ -58,8 +61,6 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double weight = 1.0;
-
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if (p.absrap() < 0.5) {
@@ -67,67 +68,67 @@ namespace Rivet {
           const double pT = p.pT() / GeV;
           switch (abs(pid)) {
           case PID::PIPLUS:
-            if (pid < 0) _h_pT_vs_mass->fill(0.1396, pT, weight);
+            if (pid < 0) _h_pT_vs_mass->fill(0.1396, pT);
             break;
           case PID::PROTON:
-            if (pid < 0) _h_pT_vs_mass->fill(0.9383, pT, weight);
+            if (pid < 0) _h_pT_vs_mass->fill(0.9383, pT);
             if (pT > 0.4) {
               pid > 0 ? _nBaryon[0]++ : _nAntiBaryon[0]++;
-              pid > 0 ? _nWeightedBaryon[0]+=weight : _nWeightedAntiBaryon[0]+=weight;
+              pid > 0 ? _nWeightedBaryon[0]->fill() : _nWeightedAntiBaryon[0]->fill();
             }
             break;
           case PID::K0S:
             if (pT > 0.2) {
-              _h_pT_k0s->fill(pT, weight/pT);
+              _h_pT_k0s->fill(pT, 1.0/pT);
             }
-            _h_pT_vs_mass->fill(0.5056, pT, weight);
+            _h_pT_vs_mass->fill(0.5056, pT);
             break;
           case PID::K0L:
-            _h_pT_vs_mass->fill(0.5056, pT, weight);
+            _h_pT_vs_mass->fill(0.5056, pT);
             break;
           case 113: // rho0(770)
-            _h_pT_vs_mass->fill(0.7755, pT, weight);
+            _h_pT_vs_mass->fill(0.7755, pT);
             break;
           case 313: // K0*(892)
-            _h_pT_vs_mass->fill(0.8960, pT, weight);
+            _h_pT_vs_mass->fill(0.8960, pT);
             break;
           case 333: // phi(1020)
-            _h_pT_vs_mass->fill(1.0190, pT, weight);
+            _h_pT_vs_mass->fill(1.0190, pT);
             break;
           case 3214: // Sigma(1385)
-            _h_pT_vs_mass->fill(1.3840, pT, weight);
+            _h_pT_vs_mass->fill(1.3840, pT);
             break;
           case 3124: // Lambda(1520)
-            _h_pT_vs_mass->fill(1.5200, pT, weight);
+            _h_pT_vs_mass->fill(1.5200, pT);
             break;
           case PID::KPLUS:
-            if (pid < 0) _h_pT_vs_mass->fill(0.4856, pT, weight);
+            if (pid < 0) _h_pT_vs_mass->fill(0.4856, pT);
             if (pT > 0.2) {
-              pid > 0 ? _h_pT_kplus->fill(pT, weight/pT) : _h_pT_kminus->fill(pT, weight/pT);
+              pid > 0 ? _h_pT_kplus->fill(pT, 1.0/pT) : _h_pT_kminus->fill(pT, 1.0/pT);
             }
             break;
           case PID::LAMBDA:
-            pid > 0 ? _h_pT_vs_mass->fill(1.1050, pT, weight) : _h_pT_vs_mass->fill(1.1250, pT, weight);
+            pid > 0 ? _h_pT_vs_mass->fill(1.1050, pT) : _h_pT_vs_mass->fill(1.1250, pT);
             if (pT > 0.3) {
-              pid > 0 ? _h_pT_lambda->fill(pT, weight/pT) : _h_pT_lambdabar->fill(pT, weight/pT);
+              pid > 0 ? _h_pT_lambda->fill(pT, 1.0/pT) : _h_pT_lambdabar->fill(pT, 1.0/pT);
               pid > 0 ? _nBaryon[1]++ : _nAntiBaryon[1]++;
-              pid > 0 ? _nWeightedBaryon[1]+=weight : _nWeightedAntiBaryon[1]+=weight;
+              pid > 0 ? _nWeightedBaryon[1]->fill() : _nWeightedAntiBaryon[1]->fill();
             }
             break;
           case PID::XIMINUS:
-            pid > 0 ? _h_pT_vs_mass->fill(1.3120, pT, weight) : _h_pT_vs_mass->fill(1.3320, pT, weight);
+            pid > 0 ? _h_pT_vs_mass->fill(1.3120, pT) : _h_pT_vs_mass->fill(1.3320, pT);
             if (pT > 0.5) {
-              pid > 0 ? _h_pT_ximinus->fill(pT, weight/pT) : _h_pT_xiplus->fill(pT, weight/pT);
+              pid > 0 ? _h_pT_ximinus->fill(pT, 1.0/pT) : _h_pT_xiplus->fill(pT, 1.0/pT);
               pid > 0 ? _nBaryon[2]++ : _nAntiBaryon[2]++;
-              pid > 0 ? _nWeightedBaryon[2]+=weight : _nWeightedAntiBaryon[2]+=weight;
+              pid > 0 ? _nWeightedBaryon[2]->fill() : _nWeightedAntiBaryon[2]->fill();
             }
             break;
           case PID::OMEGAMINUS:
-            _h_pT_vs_mass->fill(1.6720, pT, weight);
+            _h_pT_vs_mass->fill(1.6720, pT);
             if (pT > 0.5) {
-              //_h_pT_omega->fill(pT, weight/pT);
+              //_h_pT_omega->fill(pT, 1.0/pT);
               pid > 0 ? _nBaryon[3]++ : _nAntiBaryon[3]++;
-              pid > 0 ? _nWeightedBaryon[3]+=weight : _nWeightedAntiBaryon[3]+=weight;
+              pid > 0 ? _nWeightedBaryon[3]->fill() : _nWeightedAntiBaryon[3]->fill();
             }
             break;
           }
@@ -135,7 +136,7 @@ namespace Rivet {
         }
       }
 
-      _sumWeightSelected += 1.0;
+      _sumWeightSelected->fill();
     }
 
 
@@ -156,25 +157,26 @@ namespace Rivet {
       divide(_h_pT_lambdabar,_h_pT_lambda, _h_lambar_lam);
       divide(_h_pT_xiplus,_h_pT_ximinus, _h_xiplus_ximinus);
 
-      scale(_h_pT_k0s,       1./(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_kminus,    1./(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_kplus,     1./(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_lambda,    1./(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_lambdabar, 1./(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_ximinus,   1./(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_xiplus,    1./(2*M_PI*_sumWeightSelected));
+      const double factor = 1./(2*M_PI*double(_sumWeightSelected));
+      scale(_h_pT_k0s,       factor);
+      scale(_h_pT_kminus,    factor);
+      scale(_h_pT_kplus,     factor);
+      scale(_h_pT_lambda,    factor);
+      scale(_h_pT_lambdabar, factor);
+      scale(_h_pT_ximinus,   factor);
+      scale(_h_pT_xiplus,    factor);
       //scale(_h_pT_omega,     1./(2*M_PI*_sumWeightSelected));
       MSG_DEBUG("sumOfWeights()     = " << sumOfWeights());
-      MSG_DEBUG("_sumWeightSelected = " << _sumWeightSelected);
+      MSG_DEBUG("_sumWeightSelected = " << double(_sumWeightSelected));
     }
 
   private:
 
-    double _sumWeightSelected;
-    int _nBaryon[4];
-    int _nAntiBaryon[4];
-    double _nWeightedBaryon[4];
-    double _nWeightedAntiBaryon[4];
+    CounterPtr _sumWeightSelected;
+    array<int,4> _nBaryon;
+    array<int,4> _nAntiBaryon;
+    array<CounterPtr, 4> _nWeightedBaryon;
+    array<CounterPtr, 4> _nWeightedAntiBaryon;
 
     Histo1DPtr _h_pT_k0s, _h_pT_kminus, _h_pT_kplus, _h_pT_lambda, _h_pT_lambdabar, _h_pT_ximinus, _h_pT_xiplus;
     //Histo1DPtr _h_pT_omega;

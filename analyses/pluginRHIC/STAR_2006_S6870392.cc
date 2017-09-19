@@ -34,8 +34,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // Skip if the event is empty
       const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -51,8 +49,8 @@ namespace Rivet {
         if (inRange(fabs(j1.eta()), 0.2, 0.8)) {
           foreach (const Jet& j, jets) {
             const FourMomentum pj = j.momentum();
-            _h_jet_pT_MB->fill(pj.pT(), weight);
-            _h_jet_pT_HT->fill(pj.pT(), weight);
+            _h_jet_pT_MB->fill(pj.pT());
+            _h_jet_pT_HT->fill(pj.pT());
           }
         }
       }

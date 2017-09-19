@@ -12,8 +12,7 @@ namespace Rivet {
 
     /// Constructor
     STAR_2006_S6500200()
-      : Analysis("STAR_2006_S6500200"),
-        _sumWeightSelected(0.0)
+      : Analysis("STAR_2006_S6500200")
     {  }
 
 
@@ -42,6 +41,8 @@ namespace Rivet {
       book(_s_antipr_pr     , 2, 2, 1);
       book(_s_pr_piplus     , 2, 3, 1);
       book(_s_antipr_piminus, 2, 4, 1);
+
+      book(_sumWeightSelected, "sumWeightSelected");
     }
 
 
@@ -54,15 +55,13 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double weight = 1.0;
-
       const IdentifiedFinalState& pionfs = apply<IdentifiedFinalState>(event, "PionFS");
       foreach (const Particle& p, pionfs.particles()) {
         if (p.absrap() < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;
-          ((p.pid() > 0) ? _h_pT_piplus : _h_pT_piminus)->fill(pT, weight/pT);
-          ((p.pid() > 0) ? _tmp_pT_piplus : _tmp_pT_piminus)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _h_pT_piplus : _h_pT_piminus)->fill(pT, 1.0/pT);
+          ((p.pid() > 0) ? _tmp_pT_piplus : _tmp_pT_piminus)->fill(pT, 1.0/pT);
         }
       }
 
@@ -71,10 +70,10 @@ namespace Rivet {
         if (p.absrap() < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;
-          ((p.pid() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, weight/pT);
+          ((p.pid() > 0) ? _h_pT_proton : _h_pT_antiproton)->fill(pT, 1.0/pT);
         }
       }
-      _sumWeightSelected += 1.0;
+      _sumWeightSelected->fill();
     }
 
 
@@ -84,16 +83,17 @@ namespace Rivet {
       divide(_h_pT_antiproton, _h_pT_proton, _s_antipr_pr);
       divide(_h_pT_proton, _tmp_pT_piplus, _s_pr_piplus);
       divide(_h_pT_antiproton, _tmp_pT_piminus, _s_antipr_piminus);
-      scale(_h_pT_piplus,     1/(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_piminus,    1/(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_proton,     1/(2*M_PI*_sumWeightSelected));
-      scale(_h_pT_antiproton, 1/(2*M_PI*_sumWeightSelected));
+      const double factor = 1/(2*M_PI*double(_sumWeightSelected));
+      scale(_h_pT_piplus,     factor);
+      scale(_h_pT_piminus,    factor);
+      scale(_h_pT_proton,     factor);
+      scale(_h_pT_antiproton, factor);
     }
 
 
   private:
 
-    double _sumWeightSelected;
+    CounterPtr _sumWeightSelected;
     Histo1DPtr _h_pT_piplus, _h_pT_piminus, _h_pT_proton, _h_pT_antiproton;
     Histo1DPtr _tmp_pT_piplus, _tmp_pT_piminus;
     Scatter2DPtr _s_piminus_piplus, _s_antipr_pr, _s_pr_piplus, _s_antipr_piminus;

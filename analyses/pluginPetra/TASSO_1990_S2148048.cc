@@ -71,7 +71,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       //// Get beams and average beam momentum
@@ -119,12 +118,12 @@ namespace Rivet {
         //// Scaled momenta.
         //const double mom = mom3.mod();
         //const double scaledMom = mom/meanBeamMom;
-        //_h_xp->fill(scaledMom, weight);
+        //_h_xp->fill(scaledMom);
       //}
       //
-      _h_sphericity->fill(sphericity.sphericity(), weight);
-      _h_aplanarity->fill(sphericity.aplanarity(), weight);
-      _h_thrust->fill(thrust.thrust(), weight);
+      _h_sphericity->fill(sphericity.sphericity());
+      _h_aplanarity->fill(sphericity.aplanarity());
+      _h_thrust->fill(thrust.thrust());
     }
 
 
@@ -143,7 +142,7 @@ namespace Rivet {
 
     // Data members like post-cuts event weight counters go here
 
-    //double _sumWPassed;
+    //CounterPtr _sumWPassed;
 
   private:
 
