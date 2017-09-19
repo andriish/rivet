@@ -23,17 +23,15 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() > 2) MSG_WARNING("Final state includes more than two charged particles!");
-      _hist_sigma->fill(sqrtS()/GeV, weight);
+      _hist_sigma->fill(sqrtS()/GeV);
 
       for (const Particle& p : cfs.particles(Cuts::eta > 0)) { // && Cuts::pid == PID::PROTON)) {
         if (p.pid() != PID::PROTON) continue;
         const double t = sqr(p.pT());
-        _hist_tlow->fill(t, weight);
-        _hist_thigh->fill(t, weight);
+        _hist_tlow->fill(t);
+        _hist_thigh->fill(t);
       }
     }
 

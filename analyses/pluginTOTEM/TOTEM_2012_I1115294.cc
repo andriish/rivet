@@ -22,22 +22,20 @@ namespace Rivet {
       declare(cfsp, "CFSP");
 
       book(_h_eta ,1, 1, 1);
-      _sumofweights = 0.;
+      book(_sumofweights, "sumofweights");
     }
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const ChargedFinalState cfsm = apply<ChargedFinalState>(event, "CFSM");
       const ChargedFinalState cfsp = apply<ChargedFinalState>(event, "CFSP");
 
       if (cfsm.size() == 0 && cfsp.size() == 0) vetoEvent;
 
-      _sumofweights += weight;
+      _sumofweights->fill();
 
       foreach (const Particle& p, cfsm.particles() + cfsp.particles()) {
-        _h_eta->fill(p.abseta(), weight);
+        _h_eta->fill(p.abseta());
       }
 
     }
@@ -50,7 +48,7 @@ namespace Rivet {
 
   private:
 
-    double _sumofweights;
+    CounterPtr _sumofweights;
     Histo1DPtr _h_eta;
 
 

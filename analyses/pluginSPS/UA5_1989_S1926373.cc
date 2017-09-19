@@ -12,7 +12,6 @@ namespace Rivet {
 
     /// Constructor
     UA5_1989_S1926373() : Analysis("UA5_1989_S1926373") {
-      _sumWPassed = 0;
     }
 
 
@@ -43,7 +42,7 @@ namespace Rivet {
         book(_hist_nch_eta50  ,10, 1, 1);
         book(_hist_mean_nch   ,12, 1, 1);
       }
-
+	book(_sumWPassed, "SumW");
       /// @todo Moments of distributions
     }
 
@@ -54,8 +53,7 @@ namespace Rivet {
       const TriggerUA5& trigger = apply<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
 
-      const double weight = 1.0;
-      _sumWPassed += weight;
+      _sumWPassed->fill();
 
       // Count final state particles in several eta regions
       const int numP05 = apply<ChargedFinalState>(event, "CFS05").size();
@@ -64,12 +62,12 @@ namespace Rivet {
       const int numP50 = apply<ChargedFinalState>(event, "CFS50").size();
 
       // Fill histograms
-      _hist_nch->fill(numP50, weight);
-      _hist_nch_eta05->fill(numP05, weight);
-      _hist_nch_eta15->fill(numP15, weight);
-      _hist_nch_eta30->fill(numP30, weight);
-      _hist_nch_eta50->fill(numP50, weight);
-      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMid(), numP50*weight);
+      _hist_nch->fill(numP50);
+      _hist_nch_eta05->fill(numP05);
+      _hist_nch_eta15->fill(numP15);
+      _hist_nch_eta30->fill(numP30);
+      _hist_nch_eta50->fill(numP50);
+      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMid(), numP50);
     }
 
 
@@ -89,7 +87,7 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    double _sumWPassed;
+    CounterPtr _sumWPassed;
     //@}
 
     /// @name Histograms

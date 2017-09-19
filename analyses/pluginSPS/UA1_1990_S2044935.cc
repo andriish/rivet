@@ -13,10 +13,6 @@ namespace Rivet {
 
     /// Constructor
     UA1_1990_S2044935() : Analysis("UA1_1990_S2044935") {
-      _sumwTrig = 0;
-      _sumwTrig08 = 0;
-      _sumwTrig40 = 0;
-      _sumwTrig80 = 0;
     }
 
 
@@ -55,7 +51,11 @@ namespace Rivet {
         book(_hist_Esigd3p40 ,4,1,1);
         book(_hist_Esigd3p80 ,5,1,1);
       }
-
+      book(_sumwTrig, "TMP/sumwTrig");
+      book(_sumwTrig08, "TMP/sumwTrig08");
+      book(_sumwTrig40, "TMP/sumwTrig40");
+      book(_sumwTrig80, "TMP/sumwTrig80");
+ 
     }
 
 
@@ -70,8 +70,7 @@ namespace Rivet {
       }
       MSG_DEBUG("Trigger -: " << n_minus << ", Trigger +: " << n_plus);
       if (n_plus == 0 || n_minus == 0) vetoEvent;
-      const double weight = 1.0;
-      _sumwTrig += weight;
+      _sumwTrig->fill();
 
       // Use good central detector tracks
       const FinalState& cfs = apply<FinalState>(event, "TrackFS");
@@ -81,9 +80,9 @@ namespace Rivet {
 
       // Event level histos
       if (!fuzzyEquals(sqrtS()/GeV, 63, 1E-3)) {
-        _hist_Nch->fill(nch, weight);
-        _hist_Et->fill(Et60/GeV, weight);
-        _hist_Etavg->fill(nch, Et25/GeV, weight);
+        _hist_Nch->fill(nch);
+        _hist_Et->fill(Et60/GeV);
+        _hist_Etavg->fill(nch, Et25/GeV);
       }
 
       // Particle/track level histos
@@ -92,9 +91,9 @@ namespace Rivet {
       const double dnch_deta = nch/deta;
       foreach (const Particle& p, cfs.particles()) {
         const double pt = p.pT();
-        const double scaled_weight = weight/(deta*dphi*pt/GeV);
+        const double scaled_weight = 1.0/(deta*dphi*pt/GeV);
         if (!fuzzyEquals(sqrtS()/GeV, 500, 1E-3)) {
-          _hist_Pt->fill(nch, pt/GeV, weight);
+          _hist_Pt->fill(nch, pt/GeV);
         }
         if (!fuzzyEquals(sqrtS()/GeV, 63, 1E-3)) {
           _hist_Esigd3p->fill(pt/GeV, scaled_weight);
@@ -102,15 +101,15 @@ namespace Rivet {
         // Also fill for specific dn/deta ranges at 900 GeV
         if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
           if (inRange(dnch_deta, 0.8, 4.0)) {
-            _sumwTrig08 += weight;
+            _sumwTrig08 ->fill();
             _hist_Esigd3p08->fill(pt/GeV, scaled_weight);
           } else if (inRange(dnch_deta, 4.0, 8.0)) {
-            _sumwTrig40 += weight;
+            _sumwTrig40 ->fill();
             _hist_Esigd3p40->fill(pt/GeV, scaled_weight);
           } else {
             //MSG_WARNING(dnch_deta);
             if (dnch_deta > 8.0) {
-              _sumwTrig80 += weight;
+              _sumwTrig80 ->fill();
               _hist_Esigd3p80->fill(pt/GeV, scaled_weight);
             }
           }
@@ -152,7 +151,7 @@ namespace Rivet {
 
     /// @name Weight counters
     //@{
-    double _sumwTrig, _sumwTrig08, _sumwTrig40, _sumwTrig80;
+    CounterPtr _sumwTrig, _sumwTrig08, _sumwTrig40, _sumwTrig80;
     //@}
 
     /// @name Histogram collections

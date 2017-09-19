@@ -13,7 +13,6 @@ namespace Rivet {
     UA5_1987_S1640666()
       : Analysis("UA5_1987_S1640666")
     {
-      _sumWPassed = 0;
 
     }
 
@@ -24,6 +23,7 @@ namespace Rivet {
 
       book(_hist_mean_nch ,1, 1, 1);
       book(_hist_nch      ,3, 1, 1);
+      book(_sumWPassed, "SumW");
 
     }
 
@@ -34,15 +34,14 @@ namespace Rivet {
       const TriggerUA5& trigger = apply<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
 
-      const double weight = 1.0;
-      _sumWPassed += weight;
+      _sumWPassed->fill();
 
       // Count final state particles in several eta regions
       const int Nch = apply<ChargedFinalState>(event, "CFS").size();
 
       // Fill histograms
-      _hist_nch->fill(Nch, weight);
-      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMid(), Nch*weight);
+      _hist_nch->fill(Nch);
+      _hist_mean_nch->fill(_hist_mean_nch->bin(0).xMid(), Nch);
 
     }
 
@@ -57,7 +56,7 @@ namespace Rivet {
 
   private:
 
-    double _sumWPassed;
+    CounterPtr _sumWPassed;
 
     Histo1DPtr _hist_mean_nch;
     Histo1DPtr _hist_nch;

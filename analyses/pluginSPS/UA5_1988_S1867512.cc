@@ -20,7 +20,7 @@ namespace Rivet {
   public:
 
     UA5_1988_S1867512()
-      : Analysis("UA5_1988_S1867512"), _sumWPassed(0)
+      : Analysis("UA5_1988_S1867512")
     {    }
 
 
@@ -65,6 +65,8 @@ namespace Rivet {
         book(_hist_correl, 2, 1, 3);
         book(_hist_correl_asym, 3, 1, 3);
       }
+
+      book(_sumWPassed, "sumW");
     }
 
 
@@ -72,7 +74,7 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerUA5>(event, "Trigger").nsdDecision();
       if (!trigger) vetoEvent;
-      _sumWPassed += 1.0;
+      _sumWPassed->fill();
 
       // Count forward/backward particles
       n_10f.push_back(apply<ChargedFinalState>(event, "CFS10F").size());
@@ -148,7 +150,7 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    double _sumWPassed;
+    CounterPtr _sumWPassed;
     //@}
 
 
