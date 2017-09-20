@@ -28,8 +28,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Loop through unstable FS particles and look for charmed mesons/baryons
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
@@ -50,11 +48,11 @@ namespace Rivet {
         const double xp = mom/sqrt(s/4.0 - mH2);
 
         if (onresonance) {
-          _histOn  ->fill(xp,weight);
-          _sigmaOn ->fill(10.58, weight);
+          _histOn  ->fill(xp);
+          _sigmaOn ->fill(10.58);
         } else {
-          _histOff ->fill(xp,weight);
-          _sigmaOff->fill(10.54, weight);
+          _histOff ->fill(xp);
+          _sigmaOff->fill(10.54);
         }
       }
     }

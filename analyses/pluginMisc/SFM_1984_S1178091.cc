@@ -41,7 +41,6 @@ namespace Rivet {
 
     // Analyse each event
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const ChargedFinalState& fs = apply<ChargedFinalState>(event, "FS");
 
       // Trigger
@@ -68,8 +67,8 @@ namespace Rivet {
       bool isDiffractive = (n_large_x == 1) ||  ( ((n_left==0) && (fs.particles().size() < 7)) || ((n_right==0) && (fs.particles().size() < 7)) );
 
 
-      _hist_multiplicity_inel->fill(fs.particles().size(), weight);
-      if (!isDiffractive) _hist_multiplicity_nsd->fill(fs.particles().size(), weight);
+      _hist_multiplicity_inel->fill(fs.particles().size());
+      if (!isDiffractive) _hist_multiplicity_nsd->fill(fs.particles().size());
     }
 
 

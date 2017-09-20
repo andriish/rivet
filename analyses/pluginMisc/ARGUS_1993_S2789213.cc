@@ -11,8 +11,7 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2789213()
-      : Analysis("ARGUS_1993_S2789213"),
-        _weightSum_cont(0.),_weightSum_Ups1(0.),_weightSum_Ups4(0.)
+      : Analysis("ARGUS_1993_S2789213")
     { }
 
 
@@ -51,12 +50,15 @@ namespace Rivet {
 
       book(_hist_cont_Omega     ,13, 1, 1);
       book(_hist_Ups1_Omega     ,14, 1, 1);
+
+
+      book(_weightSum_cont,"TMP/weightSumcont");
+      book(_weightSum_Ups1,"TMP/weightSumUps1");
+      book(_weightSum_Ups4,"TMP/weightSumUps4");
     }
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Find the upsilons
       Particles upsilons;
       // First in unstable final state
@@ -83,26 +85,26 @@ namespace Rivet {
 
       if (upsilons.empty()) { // continuum
 
-        _weightSum_cont += weight;
+        _weightSum_cont->fill();
         unsigned int nOmega(0), nRho0(0), nKStar0(0), nKStarPlus(0), nPhi(0);
         foreach (const Particle& p, ufs.particles()) {
           int id = p.abspid();
           double xp = 2.*p.E()/sqrtS();
           double beta = p.p3().mod()/p.E();
           if (id == 113) {
-            _hist_cont_Rho0->fill(xp, weight/beta);
+            _hist_cont_Rho0->fill(xp, 1.0/beta);
             ++nRho0;
           }
           else if (id == 313) {
-            _hist_cont_KStar0->fill(xp, weight/beta);
+            _hist_cont_KStar0->fill(xp, 1.0/beta);
             ++nKStar0;
           }
           else if (id == 223) {
-            _hist_cont_Omega->fill(xp, weight/beta);
+            _hist_cont_Omega->fill(xp, 1.0/beta);
             ++nOmega;
           }
           else if (id == 323) {
-            _hist_cont_KStarPlus->fill(xp,weight/beta);
+            _hist_cont_KStarPlus->fill(xp,1.0/beta);
             ++nKStarPlus;
           }
           else if (id == 333) {
@@ -110,17 +112,17 @@ namespace Rivet {
           }
         }
         /// @todo Replace with Counters and fill one-point Scatters at the end
-        _mult_cont_Omega    ->fill(10.45, weight*nOmega    );
-        _mult_cont_Rho0     ->fill(10.45, weight*nRho0     );
-        _mult_cont_KStar0   ->fill(10.45, weight*nKStar0   );
-        _mult_cont_KStarPlus->fill(10.45, weight*nKStarPlus);
-        _mult_cont_Phi      ->fill(10.45, weight*nPhi      );
+        _mult_cont_Omega    ->fill(10.45, nOmega    );
+        _mult_cont_Rho0     ->fill(10.45, nRho0     );
+        _mult_cont_KStar0   ->fill(10.45, nKStar0   );
+        _mult_cont_KStarPlus->fill(10.45, nKStarPlus);
+        _mult_cont_Phi      ->fill(10.45, nPhi      );
 
       } else { // found an upsilon
 
         foreach (const Particle& ups, upsilons) {
           const int parentId = ups.pid();
-          (parentId == 553 ? _weightSum_Ups1 : _weightSum_Ups4) += weight;
+          (parentId == 553 ? _weightSum_Ups1 : _weightSum_Ups4)->fill();
           Particles unstable;
           // Find the decay products we want
           findDecayProducts(ups.genParticle(),unstable);
@@ -136,22 +138,22 @@ namespace Rivet {
             double xp = 2.*p2.E()/mass;
             double beta = p2.p3().mod()/p2.E();
             if (id == 113) {
-              if (parentId == 553) _hist_Ups1_Rho0->fill(xp,weight/beta);
-              else                 _hist_Ups4_Rho0->fill(xp,weight/beta);
+              if (parentId == 553) _hist_Ups1_Rho0->fill(xp,1.0/beta);
+              else                 _hist_Ups4_Rho0->fill(xp,1.0/beta);
               ++nRho0;
             }
             else if (id == 313) {
-              if (parentId == 553) _hist_Ups1_KStar0->fill(xp,weight/beta);
-              else                 _hist_Ups4_KStar0->fill(xp,weight/beta);
+              if (parentId == 553) _hist_Ups1_KStar0->fill(xp,1.0/beta);
+              else                 _hist_Ups4_KStar0->fill(xp,1.0/beta);
               ++nKStar0;
             }
             else if (id == 223) {
-              if (parentId == 553) _hist_Ups1_Omega->fill(xp,weight/beta);
+              if (parentId == 553) _hist_Ups1_Omega->fill(xp,1.0/beta);
               ++nOmega;
             }
             else if (id == 323) {
-              if (parentId == 553) _hist_Ups1_KStarPlus->fill(xp,weight/beta);
-              else                 _hist_Ups4_KStarPlus->fill(xp,weight/beta);
+              if (parentId == 553) _hist_Ups1_KStarPlus->fill(xp,1.0/beta);
+              else                 _hist_Ups4_KStarPlus->fill(xp,1.0/beta);
               ++nKStarPlus;
             }
             else if (id == 333) {
@@ -159,18 +161,18 @@ namespace Rivet {
             }
           }
           if (parentId == 553) {
-            _mult_Ups1_Omega    ->fill(9.46,weight*nOmega    );
-            _mult_Ups1_Rho0     ->fill(9.46,weight*nRho0     );
-            _mult_Ups1_KStar0   ->fill(9.46,weight*nKStar0   );
-            _mult_Ups1_KStarPlus->fill(9.46,weight*nKStarPlus);
-            _mult_Ups1_Phi      ->fill(9.46,weight*nPhi      );
+            _mult_Ups1_Omega    ->fill(9.46,nOmega    );
+            _mult_Ups1_Rho0     ->fill(9.46,nRho0     );
+            _mult_Ups1_KStar0   ->fill(9.46,nKStar0   );
+            _mult_Ups1_KStarPlus->fill(9.46,nKStarPlus);
+            _mult_Ups1_Phi      ->fill(9.46,nPhi      );
           }
           else {
-            _mult_Ups4_Omega    ->fill(10.58,weight*nOmega    );
-            _mult_Ups4_Rho0     ->fill(10.58,weight*nRho0     );
-            _mult_Ups4_KStar0   ->fill(10.58,weight*nKStar0   );
-            _mult_Ups4_KStarPlus->fill(10.58,weight*nKStarPlus);
-            _mult_Ups4_Phi      ->fill(10.58,weight*nPhi      );
+            _mult_Ups4_Omega    ->fill(10.58,nOmega    );
+            _mult_Ups4_Rho0     ->fill(10.58,nRho0     );
+            _mult_Ups4_KStar0   ->fill(10.58,nKStar0   );
+            _mult_Ups4_KStarPlus->fill(10.58,nKStarPlus);
+            _mult_Ups4_Phi      ->fill(10.58,nPhi      );
           }
         }
       }
@@ -228,7 +230,7 @@ namespace Rivet {
     Histo1DPtr _hist_cont_Rho0, _hist_Ups1_Rho0,  _hist_Ups4_Rho0;
     Histo1DPtr _hist_cont_Omega, _hist_Ups1_Omega;
 
-    double _weightSum_cont,_weightSum_Ups1,_weightSum_Ups4;
+    CounterPtr _weightSum_cont,_weightSum_Ups1,_weightSum_Ups4;
     //@}
 
 

@@ -12,7 +12,7 @@ namespace Rivet {
   public:
 
     BELLE_2001_S4598261()
-      : Analysis("BELLE_2001_S4598261"), _weightSum(0.)
+      : Analysis("BELLE_2001_S4598261")
     { }
 
 
@@ -20,12 +20,11 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
       book(_histdSigDp ,1, 1, 1); // spectrum
       book(_histMult   ,2, 1, 1); // multiplicity
+      book(_weightSum, "TMP/weightSum");
     }
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Find the upsilons
       Particles upsilons;
       // First in unstable final state
@@ -53,16 +52,16 @@ namespace Rivet {
 
       // Find upsilons
       foreach (const Particle& p, upsilons) {
-        _weightSum += weight;
+        _weightSum->fill();
         // Find the neutral pions from the decay
         vector<GenParticle *> pions;
         findDecayProducts(p.genParticle(), pions);
         const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.momentum().betaVec());
         for (size_t ix=0; ix<pions.size(); ++ix) {
           const double pcm = cms_boost.transform(FourMomentum(pions[ix]->momentum())).p();
-          _histdSigDp->fill(pcm,weight);
+          _histdSigDp->fill(pcm);
         }
-        _histMult->fill(0., pions.size()*weight);
+        _histMult->fill(0., pions.size());
       }
     }
 
@@ -77,7 +76,7 @@ namespace Rivet {
 
     //@{
     // count of weights
-    double _weightSum;
+    CounterPtr _weightSum;
     /// Histograms
     Histo1DPtr _histdSigDp;
     Histo1DPtr _histMult;

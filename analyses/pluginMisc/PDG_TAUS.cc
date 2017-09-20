@@ -10,10 +10,7 @@ namespace Rivet {
 
     /// Constructor
     PDG_TAUS()
-      : Analysis("PDG_TAUS"),
-        _weights_had(0),
-        _weights_mu(0),
-        _weights_el(0)
+      : Analysis("PDG_TAUS")
     {   }
 
 
@@ -41,36 +38,38 @@ namespace Rivet {
       book(_h_1prong_Knpinu   ,2, 1, 6);
       book(_h_3prong_pipipinu ,2, 2, 1);
       book(_h_5prong          ,2, 3, 1);
+
+      book(_weights_had, "TMP/weights_had");
+      book(_weights_mu, "TMP/weights_mu");
+      book(_weights_el, "TMP/weights_el");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       const TauFinder& taulep = apply<TauFinder>(e, "TauLeptonic");
       const TauFinder& tauhad = apply<TauFinder>(e, "TauHadronic");
 
       // Hadronic tau decays --- prong decays
       foreach(const Particle& tau, tauhad.taus()) {
-        _weights_had += weight;
+        _weights_had->fill();
         int prongs = countProngs(tau); // number of charged particles among decay products
         // Only do 1 prong decays here
         if (prongs == 1) {
           ////// Exclusive decay modes "1-prong"
-          if (analyzeDecay(tau,   decay_pids["pinu"], true))     _h_1prong_pinu->fill(1, weight);
-          if (analyzeDecay(tau,   decay_pids["Kpnu"], true))     _h_1prong_Kpnu->fill(1, weight);
-          if (analyzeDecay(tau, decay_pids["pipinu"], true))     _h_1prong_pipinu->fill(1, weight);
-          if (analyzeDecay(tau, decay_pids["Kppinu"]  , true))   _h_1prong_Kppinu->fill(1, weight);
-          if (analyzeDecay(tau, decay_pids["pipipinu"], true))   _h_1prong_pipipinu->fill(1, weight);
+          if (analyzeDecay(tau,   decay_pids["pinu"], true))     _h_1prong_pinu->fill(1);
+          if (analyzeDecay(tau,   decay_pids["Kpnu"], true))     _h_1prong_Kpnu->fill(1);
+          if (analyzeDecay(tau, decay_pids["pipinu"], true))     _h_1prong_pipinu->fill(1);
+          if (analyzeDecay(tau, decay_pids["Kppinu"]  , true))   _h_1prong_Kppinu->fill(1);
+          if (analyzeDecay(tau, decay_pids["pipipinu"], true))   _h_1prong_pipipinu->fill(1);
           // Kshort, Klong --- (twice) filling the K0 labelled PDG histo
-          if (analyzeDecay(tau, decay_pids["KSpinu"]  , true))   _h_1prong_Knpinu->fill(1, weight);
-          if (analyzeDecay(tau, decay_pids["KLpinu"]  , true))   _h_1prong_Knpinu->fill(1, weight);
+          if (analyzeDecay(tau, decay_pids["KSpinu"]  , true))   _h_1prong_Knpinu->fill(1);
+          if (analyzeDecay(tau, decay_pids["KLpinu"]  , true))   _h_1prong_Knpinu->fill(1);
         }
         else if (prongs == 3) {
-          if (analyzeDecay(tau, decay_pids["3pipipinu"], true))  _h_3prong_pipipinu->fill(1, weight);
+          if (analyzeDecay(tau, decay_pids["3pipipinu"], true))  _h_3prong_pipipinu->fill(1);
         }
-        else if (prongs == 5 && !any(tau.children(), HasAbsPID(310))) _h_5prong->fill(1, weight);
+        else if (prongs == 5 && !any(tau.children(), HasAbsPID(310))) _h_5prong->fill(1);
       }
 
       // Leptonic tau decays --- look for radiative and non-radiative 1 prong decays
@@ -78,8 +77,8 @@ namespace Rivet {
         int prongs = countProngs(tau); // number of charged particles among decay products
         // Only do 1 prong decays here
         if (prongs == 1) {
-          analyzeRadiativeDecay(tau, decay_pids["muids"], _weights_mu,  weight, true, _h_ratio_mu);
-          analyzeRadiativeDecay(tau, decay_pids["elids"], _weights_el,  weight, true, _h_ratio_el);
+          analyzeRadiativeDecay(tau, decay_pids["muids"], _weights_mu, true, _h_ratio_mu);
+          analyzeRadiativeDecay(tau, decay_pids["elids"], _weights_el, true, _h_ratio_el);
         }
       }
     }
@@ -90,7 +89,7 @@ namespace Rivet {
       scale(_h_ratio_mu, 1./_weights_mu);
       scale(_h_ratio_el, 1./_weights_el);
 
-      const double norm = _weights_had + _weights_mu + _weights_el;
+      const double norm = double(_weights_had) + double(_weights_mu) + double(_weights_el);
       scale(_h_1prong_pinu,     1./norm);
       scale(_h_1prong_Kpnu,     1./norm);
       scale(_h_1prong_pipinu,   1./norm);
@@ -147,11 +146,10 @@ namespace Rivet {
 
 
     // Look for radiative (and non-radiative) tau decays to fill a ratio histo
-    void analyzeRadiativeDecay(Particle mother, vector<int> ids, double &w_incl, double e_weight, bool absolute, Histo1DPtr h_ratio) {
+    void analyzeRadiativeDecay(Particle mother, vector<int> ids, CounterPtr &w_incl, bool absolute, Histo1DPtr h_ratio) {
       // w_incl   ... reference to a global weight counter for all leptonic tau decays
-      // e_weight ... the current event weight
-      // h_ratio  ... pointer to ratio histo --- filled with e_weight in case of radiative events only
-
+      // h_ratio  ... pointer to ratio histo
+    	
       // There is no point in looking for decays with less particles than to be analysed
       if (mother.children().size() >= ids.size()) {
         bool decayfound = true;
@@ -160,7 +158,7 @@ namespace Rivet {
         }
         // Do not increment counters if the specified decay products were not found
         if (decayfound) {
-          w_incl += e_weight; // the (global) weight counter for leptonic decays
+          w_incl->fill(); // the (global) weight counter for leptonic decays
           bool radiative = any(mother.children(), HasPID(PID::PHOTON));
 
           // Only fill the histo if there is a radiative decay
@@ -173,14 +171,14 @@ namespace Rivet {
                 if (!mother.momentum().betaVec().isZero()) {
                   LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mother.momentum().betaVec());
                   if (cms_boost.transform(son.momentum())[0]/MeV > 5.) {
-                    h_ratio->fill(1, e_weight);
+                    h_ratio->fill(1);
                     break;
                   }
                 }
                 // not boosted taus
                 else {
                   if (son.momentum()[0]/MeV > 5.) {
-                    h_ratio->fill(1, e_weight);
+                    h_ratio->fill(1);
                     break;
                   }
                 }
@@ -202,7 +200,7 @@ namespace Rivet {
     Histo1DPtr _h_5prong;
     //@}
 
-    double _weights_had, _weights_mu, _weights_el;
+    CounterPtr _weights_had, _weights_mu, _weights_el;
     map<string, vector<int> > decay_pids;
 
   };
