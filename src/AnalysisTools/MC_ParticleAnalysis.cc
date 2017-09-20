@@ -13,7 +13,8 @@ namespace Rivet {
       _nparts(nparticles), _pname(particle_name),
       _h_pt(nparticles),
       _h_eta(nparticles), _h_eta_plus(nparticles), _h_eta_minus(nparticles),
-      _h_rap(nparticles), _h_rap_plus(nparticles), _h_rap_minus(nparticles)
+      _h_rap(nparticles), _h_rap_plus(nparticles), _h_rap_minus(nparticles),
+      tmpeta(nparticles), tmprap(nparticles)
   {
     setNeedsCrossSection(true); // legitimate use, since a base class has no .info file!
   }
@@ -24,6 +25,9 @@ namespace Rivet {
   void MC_ParticleAnalysis::init() {
 
     for (size_t i = 0; i < _nparts; ++i) {
+      book(tmpeta[i], _pname + "_eta_pmratio_" + to_str(i+1));
+      book(tmprap[i], _pname + "_y_pmratio_" + to_str(i+1));
+
       const string ptname = _pname + "_pt_" + to_str(i+1);
       const double ptmax = 1.0/(double(i)+2.0) * (sqrtS()>0.?sqrtS():14000.)/GeV/2.0;
       const int nbins_pt = 100/(i+1);
@@ -122,11 +126,8 @@ namespace Rivet {
       scale(_h_rap[i], scaling);
 
       // Create eta/rapidity ratio plots
-      Scatter2DPtr tmpeta, tmprap;
-      book(tmpeta, _pname + "_eta_pmratio_" + to_str(i+1));
-      book(tmprap, _pname + "_y_pmratio_" + to_str(i+1));
-      divide(_h_eta_plus[i], _h_eta_minus[i], tmpeta);
-      divide(_h_rap_plus[i], _h_rap_minus[i], tmprap);
+      divide(_h_eta_plus[i], _h_eta_minus[i], tmpeta[i]);
+      divide(_h_rap_plus[i], _h_rap_minus[i], tmprap[i]);
     }
 
     // Scale the d{eta,phi,R} histograms
