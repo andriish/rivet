@@ -32,7 +32,7 @@ namespace Rivet {
 
       // properties of the pair momentum
       double sqrts = sqrtS()>0. ? sqrtS() : 14000.;
-      book(_h_WW_pT ,"WW_pT", logspace(100, 1.0, 0.5*sqrts));
+      book(_h_WW_pT ,"WW_pT", logspace(100, 1.0, max(1.1,0.5*sqrts)));
       book(_h_WW_pT_peak ,"WW_pT_peak", 25, 0.0, 25.0);
       book(_h_WW_eta ,"WW_eta", 40, -7.0, 7.0);
       book(_h_WW_phi ,"WW_phi", 25, 0.0, TWOPI);
@@ -42,18 +42,17 @@ namespace Rivet {
       book(_h_WW_dphi ,"WW_dphi", 25, 0.0, PI);  /// @todo non-linear?
       book(_h_WW_deta ,"WW_deta", 25, -7.0, 7.0);
       book(_h_WW_dR ,"WW_dR", 25, 0.5, 7.0);
-      book(_h_WW_dpT ,"WW_dpT", logspace(100, 1.0, 0.5*sqrts));
+      book(_h_WW_dpT ,"WW_dpT", logspace(100, 1.0, max(1.1,0.5*sqrts)));
       book(_h_WW_costheta_planes ,"WW_costheta_planes", 25, -1.0, 1.0);
 
       /// @todo fuer WW: missing ET
 
       // properties of the W bosons
-      book(_h_W_pT ,"W_pT", logspace(100, 10.0, 0.25*sqrts));
+      book(_h_W_pT ,"W_pT", logspace(100, 10.0, max(11.,0.25*sqrts)));
       book(_h_W_eta ,"W_eta", 70, -7.0, 7.0);
 
       // properties of the leptons
-      book(_h_Wl_pT ,"Wl_pT", logspace(100, 30.0, 0.1
-                                                      *sqrts));
+      book(_h_Wl_pT ,"Wl_pT", logspace(100, 30.0, max(31., 0.1*sqrts)));
       book(_h_Wl_eta ,"Wl_eta", 40, -3.5, 3.5);
 
       // correlations between the opposite charge leptons
