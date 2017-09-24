@@ -38,6 +38,9 @@ namespace Rivet {
 
       // Z momenta
       const FourMomentum& zee = zeefinder.bosons()[0].momentum();
+
+      if (zeefinder.constituents().size() < 2) vetoEvent;
+
       const Particle& pozitron = zeefinder.constituents()[0];
       const Particle& electron = zeefinder.constituents()[1];
 

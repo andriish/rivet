@@ -98,22 +98,21 @@ namespace Rivet {
         if (jets.size() >= 5) break;
       }
 
-      const double weight = 1.0;
       if (jets.size() > 4) {
-        _fiveJetAnalysis(jets, weight);
+        _fiveJetAnalysis(jets);
         jets.resize(4);
       }
       if (jets.size() > 3) {
-        _fourJetAnalysis(jets, weight);
+        _fourJetAnalysis(jets);
         jets.resize(3);
       }
       if (jets.size() > 2) {
-        _threeJetAnalysis(jets, weight);
+        _threeJetAnalysis(jets);
       }
     }
 
 
-    void _threeJetAnalysis(const Jets& jets, const double& weight) {
+    void _threeJetAnalysis(const Jets& jets) {
       MSG_DEBUG("3 jet analysis");
 
       double sumEt = 0.0;
@@ -148,21 +147,21 @@ namespace Rivet {
       const double f4 = _safeMass(p4)/m3J;
       const double f5 = _safeMass(p5)/m3J;
 
-      _h_3_mNJ->fill(m3J, weight);
-      _h_3_X3->fill(X3, weight);
-      _h_3_X4->fill(X4, weight);
-      _h_3_costheta3->fill(costheta3, weight);
-      _h_3_psi3->fill(psi3, weight);
-      _h_3_f3->fill(f3, weight);
-      _h_3_f4->fill(f4, weight);
-      _h_3_f5->fill(f5, weight);
+      _h_3_mNJ->fill(m3J);
+      _h_3_X3->fill(X3);
+      _h_3_X4->fill(X4);
+      _h_3_costheta3->fill(costheta3);
+      _h_3_psi3->fill(psi3);
+      _h_3_f3->fill(f3);
+      _h_3_f4->fill(f4);
+      _h_3_f5->fill(f5);
 
     }
 
 
 
 
-    void _fourJetAnalysis(const Jets& jets, const double& weight) {
+    void _fourJetAnalysis(const Jets& jets) {
       MSG_DEBUG("4 jet analysis");
 
       double sumEt=0.0;
@@ -212,24 +211,24 @@ namespace Rivet {
       const double XA = pA.E()/(pA.E()+pB.E());
       const double psiAB = _psi(pA, pB, pA+pB, pAV);
 
-      _h_4_mNJ->fill(m4J, weight);
-      _h_4_X3->fill(X3, weight);
-      _h_4_X4->fill(X4, weight);
-      _h_4_costheta3->fill(costheta3, weight);
-      _h_4_psi3->fill(psi3, weight);
-      _h_4_f3->fill(f3, weight);
-      _h_4_f4->fill(f4, weight);
-      _h_4_f5->fill(f5, weight);
-      _h_4_XA->fill(XA, weight);
-      _h_4_psiAB->fill(psiAB, weight);
-      _h_4_fA->fill(fA, weight);
-      _h_4_fB->fill(fB, weight);
+      _h_4_mNJ->fill(m4J);
+      _h_4_X3->fill(X3);
+      _h_4_X4->fill(X4);
+      _h_4_costheta3->fill(costheta3);
+      _h_4_psi3->fill(psi3);
+      _h_4_f3->fill(f3);
+      _h_4_f4->fill(f4);
+      _h_4_f5->fill(f5);
+      _h_4_XA->fill(XA);
+      _h_4_psiAB->fill(psiAB);
+      _h_4_fA->fill(fA);
+      _h_4_fB->fill(fB);
     }
 
 
 
 
-    void _fiveJetAnalysis(const Jets& jets, const double& weight) {
+    void _fiveJetAnalysis(const Jets& jets) {
       MSG_DEBUG("5 jet analysis");
 
       double sumEt=0.0;
@@ -279,22 +278,22 @@ namespace Rivet {
       const double XC = pC.E()/(pC.E()+pD.E());
       const double psiCD = _psi(pC, pD, pC+pD, pAV);
 
-      _h_5_mNJ->fill(m5J, weight);
-      _h_5_X3->fill(X3, weight);
-      _h_5_X4->fill(X4, weight);
-      _h_5_costheta3->fill(costheta3, weight);
-      _h_5_psi3->fill(psi3, weight);
-      _h_5_f3->fill(f3, weight);
-      _h_5_f4->fill(f4, weight);
-      _h_5_f5->fill(f5, weight);
-      _h_5_XA->fill(XA, weight);
-      _h_5_psiAB->fill(psiAB, weight);
-      _h_5_fA->fill(fA, weight);
-      _h_5_fB->fill(fB, weight);
-      _h_5_XC->fill(XC, weight);
-      _h_5_psiCD->fill(psiCD, weight);
-      _h_5_fC->fill(fC, weight);
-      _h_5_fD->fill(fD, weight);
+      _h_5_mNJ->fill(m5J);
+      _h_5_X3->fill(X3);
+      _h_5_X4->fill(X4);
+      _h_5_costheta3->fill(costheta3);
+      _h_5_psi3->fill(psi3);
+      _h_5_f3->fill(f3);
+      _h_5_f4->fill(f4);
+      _h_5_f5->fill(f5);
+      _h_5_XA->fill(XA);
+      _h_5_psiAB->fill(psiAB);
+      _h_5_fA->fill(fA);
+      _h_5_fB->fill(fB);
+      _h_5_XC->fill(XC);
+      _h_5_psiCD->fill(psiCD);
+      _h_5_fC->fill(fC);
+      _h_5_fD->fill(fD);
     }
 
 

@@ -11,15 +11,15 @@ namespace Rivet {
   public:
 
     BELLE_2008_I786560()
-      : Analysis("BELLE_2008_I786560"),
-        _weight_total(0),
-        _weight_pipi(0)
+      : Analysis("BELLE_2008_I786560")
     {   }
 
 
     void init() {
       declare(UnstableFinalState(), "UFS");
       book(_hist_pipi , 1, 1, 1);
+      book(_weight_total, "TMP/weight_total");
+      book(_weight_pipi, "TMP/weight_pipi");
     }
 
 
@@ -29,7 +29,7 @@ namespace Rivet {
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
       foreach (const Particle& p, ufs.particles()) {
         if (p.abspid() != PID::TAU) continue;
-        _weight_total += 1.;
+        _weight_total->fill();
         Particles pip, pim, pi0;
         unsigned int nstable = 0;
         // get the boost to the rest frame
@@ -44,8 +44,8 @@ namespace Rivet {
         if (nstable != 3) continue;
         // pipi
         if (pim.size() == 1 && pi0.size() == 1) {
-          _weight_pipi += 1.;
-          _hist_pipi->fill((pi0[0].momentum()+pim[0].momentum()).mass2(),1.);
+          _weight_pipi->fill();
+          _hist_pipi->fill((pi0[0].momentum()+pim[0].momentum()).mass2());
         }
       }
     }
@@ -64,7 +64,7 @@ namespace Rivet {
     Histo1DPtr _hist_pipi;
 
     // Weights counters
-    double _weight_total, _weight_pipi;
+    CounterPtr _weight_total, _weight_pipi;
 
     //@}
 

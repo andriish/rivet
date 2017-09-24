@@ -31,8 +31,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
-      const double weight = 1.0;
-
       const JetAlg& jetpro = apply<JetAlg>(e, "ConeFinder");
       const Jets& jets = jetpro.jetsByPt();
 
@@ -45,7 +43,7 @@ namespace Rivet {
       }
 
       double mjj = FourMomentum(j0+j1).mass();
-      _h_m_dijet->fill(mjj, weight);
+      _h_m_dijet->fill(mjj);
     }
 
 

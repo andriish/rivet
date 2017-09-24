@@ -90,16 +90,15 @@ namespace Rivet {
       }
 
       if (pT1/GeV >= 75.0) {
-        const double weight = 1.0;
         const double dphi = deltaPhi(jets[0].phi(), jets[1].phi());
         if (inRange(pT1/GeV, 75.0, 100.0)) {
-          _histJetAzimuth_pTmax75_100->fill(dphi, weight);
+          _histJetAzimuth_pTmax75_100->fill(dphi);
         } else if (inRange(pT1/GeV, 100.0, 130.0)) {
-          _histJetAzimuth_pTmax100_130->fill(dphi, weight);
+          _histJetAzimuth_pTmax100_130->fill(dphi);
         } else if (inRange(pT1/GeV, 130.0, 180.0)) {
-          _histJetAzimuth_pTmax130_180->fill(dphi, weight);
+          _histJetAzimuth_pTmax130_180->fill(dphi);
         } else if (pT1/GeV > 180.0) {
-          _histJetAzimuth_pTmax180_->fill(dphi, weight);
+          _histJetAzimuth_pTmax180_->fill(dphi);
         }
       }
 

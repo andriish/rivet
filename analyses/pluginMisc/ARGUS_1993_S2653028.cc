@@ -11,14 +11,10 @@ namespace Rivet {
   public:
 
     ARGUS_1993_S2653028()
-      : Analysis("ARGUS_1993_S2653028"),
-        _weightSum(0.)
-    { }
+      : Analysis("ARGUS_1993_S2653028"){ }
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Find the upsilons
       Particles upsilons;
       // First in unstable final state
@@ -46,7 +42,7 @@ namespace Rivet {
 
       // Find an upsilon
       foreach (const Particle& p, upsilons) {
-        _weightSum += weight;
+        _weightSum->fill();
         vector<GenParticle *> pionsA,pionsB,protonsA,protonsB,kaons;
         // Find the decay products we want
         findDecayProducts(p.genParticle(), pionsA, pionsB, protonsA, protonsB, kaons);
@@ -57,30 +53,30 @@ namespace Rivet {
           FourMomentum ptemp(pionsA[ix]->momentum());
           FourMomentum p2 = cms_boost.transform(ptemp);
           double pcm = cms_boost.transform(ptemp).vector3().mod();
-          _histPiA->fill(pcm,weight);
+          _histPiA->fill(pcm);
         }
-        _multPiA->fill(10.58,double(pionsA.size())*weight);
+        _multPiA->fill(10.58,double(pionsA.size()));
         for (size_t ix = 0; ix < pionsB.size(); ++ix) {
           double pcm = cms_boost.transform(FourMomentum(pionsB[ix]->momentum())).vector3().mod();
-          _histPiB->fill(pcm,weight);
+          _histPiB->fill(pcm);
         }
-        _multPiB->fill(10.58,double(pionsB.size())*weight);
+        _multPiB->fill(10.58,double(pionsB.size()));
         for (size_t ix = 0; ix < protonsA.size(); ++ix) {
           double pcm = cms_boost.transform(FourMomentum(protonsA[ix]->momentum())).vector3().mod();
-          _histpA->fill(pcm,weight);
+          _histpA->fill(pcm);
         }
-        _multpA->fill(10.58,double(protonsA.size())*weight);
+        _multpA->fill(10.58,double(protonsA.size()));
         for (size_t ix = 0; ix < protonsB.size(); ++ix) {
           double pcm = cms_boost.transform(FourMomentum(protonsB[ix]->momentum())).vector3().mod();
-          _histpB->fill(pcm,weight);
+          _histpB->fill(pcm);
         }
-        _multpB->fill(10.58,double(protonsB.size())*weight);
+        _multpB->fill(10.58,double(protonsB.size()));
         for (size_t ix = 0 ;ix < kaons.size(); ++ix) {
           double pcm = cms_boost.transform(FourMomentum(kaons[ix]->momentum())).vector3().mod();
-          _histKA->fill(pcm,weight);
-          _histKB->fill(pcm,weight);
+          _histKA->fill(pcm);
+          _histKB->fill(pcm);
         }
-        _multK->fill(10.58,double(kaons.size())*weight);
+        _multK->fill(10.58,double(kaons.size()));
       }
     }
 
@@ -118,6 +114,8 @@ namespace Rivet {
       book(_multK   , 9, 1, 1);
       book(_multpA  ,10, 1, 1);
       book(_multpB  ,11, 1, 1);
+
+      book(_weightSum, "TMP/weightSum");
     } // init
 
 
@@ -125,7 +123,7 @@ namespace Rivet {
 
     //@{
     /// Count of weights
-    double _weightSum;
+    CounterPtr _weightSum;
     /// Spectra
     Histo1DPtr _histPiA, _histPiB, _histKA, _histKB, _histpA, _histpB;
     /// Multiplicities

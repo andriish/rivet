@@ -5,10 +5,10 @@
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
 
-#include "DummyConfig.hh"
-#ifdef HAVE_EXECINFO_H
-#include <execinfo.h>
-#endif
+// #include "DummyConfig.hh"
+// #ifdef HAVE_EXECINFO_H
+// #include <execinfo.h>
+// #endif
 
 namespace Rivet {
 
@@ -816,51 +816,22 @@ namespace Rivet {
 
 namespace {
   void errormsg(std::string name) {
-#ifdef HAVE_BACKTRACE
-     void * buffer[4];
-     backtrace(buffer, 4);
-     backtrace_symbols_fd(buffer, 4 , 1);
-#endif
+// #ifdef HAVE_BACKTRACE
+//      void * buffer[4];
+//      backtrace(buffer, 4);
+//      backtrace_symbols_fd(buffer, 4 , 1);
+// #endif
     std::cerr << name << ": Can't book objects outside of init().\n";
     assert(false);
   }
 }
 
 namespace Rivet {
-  // @todo
-  // special handling for scatters
-  void Analysis::addAnalysisObject(const shared_ptr<Scatter1DPtr>& ao) {
-    if (handler().stage() == AnalysisHandler::Stage::INIT) {
-      _scatters.push_back(ao);    
-      ao.get()->blockDestructor(true);
-    } 
-    else {
-      errormsg(name());
-    }
-  }
-  void Analysis::addAnalysisObject(const shared_ptr<Scatter2DPtr>& ao) {
-    if (handler().stage() == AnalysisHandler::Stage::INIT) {
-      _scatters.push_back(ao);    
-      ao.get()->blockDestructor(true);
-    }
-    else {
-      errormsg(name());
-    }
-  }
-  void Analysis::addAnalysisObject(const shared_ptr<Scatter3DPtr>& ao) {
-    if (handler().stage() == AnalysisHandler::Stage::INIT) {
-      _scatters.push_back(ao);
-      ao.get()->blockDestructor(true);
-    } 
-    else {
-      errormsg(name());
-    }
-  }
 
-  void Analysis::addAnalysisObject(MultiweightAOPtr & ao) {
+  void Analysis::addAnalysisObject(const MultiweightAOPtr & ao) {
     if (handler().stage() == AnalysisHandler::Stage::INIT) {
       _analysisobjects.push_back(ao);
-      ao.blockDestructor(true);
+      ao.get()->blockDestructor(true);
     } 
     else {
       errormsg(name());
@@ -871,52 +842,17 @@ namespace Rivet {
   void Analysis::removeAnalysisObject(const string& path) {
     for (auto it = _analysisobjects.begin();
          it != _analysisobjects.end(); ++it) {
-      if ((*it).get()->path() == path) {
+      if ((*it)->path() == path) {
         _analysisobjects.erase(it);
         break;
       }
     }
 
-    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
-      if ((**it)->path() == path) {
-        _scatters.erase(it);
-        break;
-      }
-    }
   }
 
-
-  /// @todo can we really remove (multiweighted) analysis objects by == operator??
-  void Analysis::removeAnalysisObject(const Scatter1DPtr& ao) {
-    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
-      if (**it == ao) {
-        _scatters.erase(it);
-        break;
-      }
-    }
-  }
-
-  void Analysis::removeAnalysisObject(const Scatter2DPtr& ao) {
-    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
-      if (**it == ao) {
-        _scatters.erase(it);
-        break;
-      }
-    }
-  }
-
-  void Analysis::removeAnalysisObject(const Scatter3DPtr& ao) {
-    for (auto it = _scatters.begin();  it != _scatters.end(); ++it) {
-      if (**it == ao) {
-        _scatters.erase(it);
-        break;
-      }
-    }
-  }
-
-  void Analysis::removeAnalysisObject(const MultiweightAOPtr& ao) {
+  void Analysis::removeAnalysisObject(const MultiweightAOPtr & ao) {
     for (auto it = _analysisobjects.begin();  it != _analysisobjects.end(); ++it) {
-      if ((*it).get() == ao) {
+      if ((*it) == ao) {
         _analysisobjects.erase(it);
         break;
       }

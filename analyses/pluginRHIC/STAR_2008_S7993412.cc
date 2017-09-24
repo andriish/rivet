@@ -36,8 +36,6 @@ namespace Rivet {
         vetoEvent;
       }
 
-      const double weight = 1.0;
-
       foreach (const Particle& tp, fs.particles()) {
         const double triggerpT = tp.pT();
         if (triggerpT >= 2.0 && triggerpT < 5.0) {
@@ -49,8 +47,8 @@ namespace Rivet {
             n_associated += 1;
           }
           //const double dPhidEta = 2 * 2*1.75;
-          //_h_Y_jet_trigger->fill(triggerpT, n_associated/dPhidEta, weight);
-          _h_Y_jet_trigger->fill(triggerpT, n_associated, weight);
+          //_h_Y_jet_trigger->fill(triggerpT, n_associated/dPhidEta);
+          _h_Y_jet_trigger->fill(triggerpT, n_associated);
         }
       }
     }

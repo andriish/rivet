@@ -17,8 +17,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Loop through unstable FS particles and look for charmed mesons/baryons
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
@@ -46,41 +44,41 @@ namespace Rivet {
           MSG_DEBUG("D0 found");
           mH2 = 3.47763; // 1.86484^2
           xp = mom/sqrt(s/4.0 - mH2);
-          _sigmaD0A->fill(10.6,weight);
-          _sigmaD0B->fill(10.6,weight);
-          _histXpD0A->fill(xp, weight);
-          _histXpD0B->fill(xp, weight);
-          _histXpTotal->fill(xp, weight);
+          _sigmaD0A->fill(10.6);
+          _sigmaD0B->fill(10.6);
+          _histXpD0A->fill(xp);
+          _histXpD0B->fill(xp);
+          _histXpTotal->fill(xp);
           break;
         case 411:
           MSG_DEBUG("D+ found");
           mH2 = 3.49547; // 1.86962^2
           xp = mom/sqrt(s/4.0 - mH2);
-          _sigmaDPlus->fill(10.6,weight);
-          _histXpDplus->fill(xp, weight);
-          _histXpTotal->fill(xp, weight);
+          _sigmaDPlus->fill(10.6);
+          _histXpDplus->fill(xp);
+          _histXpTotal->fill(xp);
           break;
 
         case 413:
           MSG_DEBUG("D*+ found");
           mH2 = 4.04119; // 2.01027^2
           xp = mom/sqrt(s/4.0 - mH2);
-          _sigmaDStarPlusA->fill(10.6,weight);
-          _sigmaDStarPlusB->fill(10.6,weight);
-          _histXpDStarPlusA->fill(xp, weight);
-          _histXpDStarPlusB->fill(xp, weight);
-          _histXpTotal->fill(xp, weight);
+          _sigmaDStarPlusA->fill(10.6);
+          _sigmaDStarPlusB->fill(10.6);
+          _histXpDStarPlusA->fill(xp);
+          _histXpDStarPlusB->fill(xp);
+          _histXpTotal->fill(xp);
           break;
 
         case 423:
           MSG_DEBUG("D*0 found");
           mH2 = 4.02793; // 2.00697**2
           xp = mom/sqrt(s/4.0 - mH2);
-          _sigmaDStar0A->fill(10.6,weight);
-          _sigmaDStar0B->fill(10.6,weight);
-          _histXpDStar0A->fill(xp, weight);
-          _histXpDStar0B->fill(xp, weight);
-          _histXpTotal->fill(xp, weight);
+          _sigmaDStar0A->fill(10.6);
+          _sigmaDStar0B->fill(10.6);
+          _histXpDStar0A->fill(xp);
+          _histXpDStar0B->fill(xp);
+          _histXpTotal->fill(xp);
           break;
         }
       }

@@ -32,7 +32,7 @@ namespace Rivet {
 
       // Histograms
       /// @todo Convert to use autobooking and correspond to HepData data tables
-      _sumw.resize(9);
+      
       _hEtFlow.resize(9);
       for (size_t i = 0; i < 9; ++i) {
         book(_sumw[i], "sumW_" + to_str(i));
@@ -117,7 +117,7 @@ namespace Rivet {
     Histo1DPtr _tmphAvEt, _tmphAvX, _tmphAvQ2, _tmphN;
 
     /// Weights counters for each kinematic bin
-    vector<CounterPtr> _sumw;
+    array<CounterPtr, 9> _sumw;
 
   };
 

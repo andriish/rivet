@@ -23,8 +23,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = 1.0;
-
       Particles bhadrons;
       foreach (const GenParticle* p, particles(event.genEvent())) {
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
@@ -51,11 +49,11 @@ namespace Rivet {
         // take fabs() to use full statistics and then multiply weight by 0.5 because LHCb is single-sided
         double eta = fabs(particle.eta());
 
-        _h_sigma_vs_eta_lep->fill( eta, 0.5*weight );
-        _h_sigma_vs_eta_tvt->fill( eta, 0.5*weight );
+        _h_sigma_vs_eta_lep->fill( eta, 0.5 );
+        _h_sigma_vs_eta_tvt->fill( eta, 0.5 );
 
-        _h_sigma_total_lep->fill( eta, 0.5*weight ); // histogram for full kinematic range
-        _h_sigma_total_tvt->fill( eta, 0.5*weight ); // histogram for full kinematic range
+        _h_sigma_total_lep->fill( eta, 0.5 ); // histogram for full kinematic range
+        _h_sigma_total_tvt->fill( eta, 0.5 ); // histogram for full kinematic range
 
       }
 

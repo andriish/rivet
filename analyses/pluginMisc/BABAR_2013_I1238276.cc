@@ -30,8 +30,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Loop through charged FS particles and look for charmed mesons/baryons
       const ChargedFinalState& fs = apply<ChargedFinalState>(e, "FS");
 
@@ -67,16 +65,16 @@ namespace Rivet {
         MSG_DEBUG("pdgID = " << PdgId << " Momentum = " << mom);
         switch (PdgId) {
         case PID::PIPLUS:
-          if(prompt) _histPion_no_dec->fill(mom,weight);
-          _histPion_dec   ->fill(mom,weight);
+          if(prompt) _histPion_no_dec->fill(mom);
+          _histPion_dec   ->fill(mom);
           break;
         case PID::KPLUS:
-          if(prompt) _histKaon_no_dec->fill(mom,weight);
-          _histKaon_dec   ->fill(mom,weight);
+          if(prompt) _histKaon_no_dec->fill(mom);
+          _histKaon_dec   ->fill(mom);
           break;
         case PID::PROTON:
-          if(prompt) _histProton_no_dec->fill(mom,weight);
-          _histProton_dec   ->fill(mom,weight);
+          if(prompt) _histProton_no_dec->fill(mom);
+          _histProton_dec   ->fill(mom);
         default :
           break;
         }

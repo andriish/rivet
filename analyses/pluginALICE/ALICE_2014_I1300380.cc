@@ -29,7 +29,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const UnstableFinalState& cfs = apply<UnstableFinalState>(event, "CFS");
       foreach (const Particle& p, cfs.particles()) {
 	// protections against mc generators decaying long-lived particles
@@ -47,47 +46,47 @@ namespace Rivet {
           aid == 313  || // K*(892)0
           aid == 2212 || // proton
           aid == 333  ) {  // phi(1020)
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	  }
 	} // end if "rejection of long-lived particles"
       
       
         switch (p.pdgId()) {
 	  case 3224:
-	    _histPtSigmaStarPlus->fill(p.pT()/GeV, weight);
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histPtSigmaStarPlus->fill(p.pT()/GeV);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case -3224:
-	    _histPtSigmaStarPlusAnti->fill(p.pT()/GeV, weight);
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histPtSigmaStarPlusAnti->fill(p.pT()/GeV);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case 3114:
-	    _histPtSigmaStarMinus->fill(p.pT()/GeV, weight);
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histPtSigmaStarMinus->fill(p.pT()/GeV);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case -3114:
-	    _histPtSigmaStarMinusAnti->fill(p.pT()/GeV, weight);
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histPtSigmaStarMinusAnti->fill(p.pT()/GeV);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case 3324:
-	    _histPtXiStar->fill(p.pT()/GeV, weight);
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histPtXiStar->fill(p.pT()/GeV);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case -3324:
-	    _histPtXiStar->fill(p.pT()/GeV, weight);
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histPtXiStar->fill(p.pT()/GeV);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case 3312:
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case -3312:
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case 3334:
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
 	  case -3334:
-	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV, weight);
+	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);
 	    break;
         }
       }

@@ -180,31 +180,31 @@ namespace Rivet {
         /// can we get away with not passing a matrix?
 
         MSG_TRACE("AnalysisHandler::analyze(): Pushing _eventCounter to persistent.");
-        _eventCounter.pushToPersistent(_subEventWeights);
+        _eventCounter.get()->pushToPersistent(_subEventWeights);
         // if this is indeed a new event, push the temporary
         // histograms and reset
         for (const AnaHandle& a : _analyses) {
-            for (MultiweightAOPtr & ao : a->analysisObjects()) {
+            for (auto ao : a->analysisObjects()) {
                 MSG_TRACE("AnalysisHandler::analyze(): Pushing " << a->name() << "'s " << ao->name() << " to persistent.");
-                ao.pushToPersistent(_subEventWeights);
+                ao.get()->pushToPersistent(_subEventWeights);
             }
             MSG_TRACE("AnalysisHandler::analyze(): finished pushing " << a->name() << "'s objects to persistent.");
         }
 
         _eventNumber = ge.event_number();
 
-        MSG_DEBUG("nominal event # " << _eventCounter._persistent[0]->numEntries());
-        MSG_DEBUG("nominal sum of weights: " << _eventCounter._persistent[0]->sumW());
+        MSG_DEBUG("nominal event # " << _eventCounter.get()->_persistent[0]->numEntries());
+        MSG_DEBUG("nominal sum of weights: " << _eventCounter.get()->_persistent[0]->sumW());
         MSG_DEBUG("Event has " << _subEventWeights.size() << " sub events.");
         _subEventWeights.clear();
     }
 
 
-    _eventCounter.newSubEvent();
+    _eventCounter.get()->newSubEvent();
 
     for (const AnaHandle& a : _analyses) {
-        for (MultiweightAOPtr & ao : a->analysisObjects()) {
-            ao.newSubEvent();
+        for (auto ao : a->analysisObjects()) {
+            ao.get()->newSubEvent();
         }
     }
 
@@ -249,18 +249,18 @@ namespace Rivet {
       MSG_INFO("Finalising analyses");
 
       MSG_TRACE("AnalysisHandler::finalize(): Pushing analysis objects to persistent.");
-      _eventCounter.pushToPersistent(_subEventWeights);
+      _eventCounter.get()->pushToPersistent(_subEventWeights);
       for (const AnaHandle& a : _analyses) {
-          for (MultiweightAOPtr & ao : a->analysisObjects())
-              ao.pushToPersistent(_subEventWeights);
+          for (auto ao : a->analysisObjects())
+              ao.get()->pushToPersistent(_subEventWeights);
       }
 
       for (const AnaHandle& a : _analyses) {
           a->setCrossSection(_xs);
           for (size_t iW = 0; iW < numWeights(); iW++) {
-              _eventCounter.setActiveWeightIdx(iW);
-              for (MultiweightAOPtr & ao : a->analysisObjects())
-                  ao.setActiveWeightIdx(iW);
+              _eventCounter.get()->setActiveWeightIdx(iW);
+              for (auto ao : a->analysisObjects())
+                  ao.get()->setActiveWeightIdx(iW);
 
               MSG_TRACE("running " << a->name() << "::finalize() for weight " << iW << ".");
 
@@ -272,8 +272,8 @@ namespace Rivet {
               }
           }
           // allow AO destruction again
-          for (MultiweightAOPtr & ao : a->analysisObjects())
-            ao.blockDestructor(false);
+          for (auto ao : a->analysisObjects())
+            ao.get()->blockDestructor(false);
       }
 
     // Print out number of events processed
@@ -367,8 +367,8 @@ namespace Rivet {
 
 
 
-  vector<reference_wrapper<MultiweightAOPtr> > AnalysisHandler::getRivetAOs() const {
-      vector<reference_wrapper<MultiweightAOPtr> > rtn;
+  vector<MultiweightAOPtr> AnalysisHandler::getRivetAOs() const {
+      vector<MultiweightAOPtr> rtn;
 
       for (AnaHandle a : _analyses) {
           for (const auto & ao : a->analysisObjects()) {
@@ -385,15 +385,15 @@ namespace Rivet {
   vector<YODA::AnalysisObjectPtr> AnalysisHandler::getYodaAOs() const {
       vector<YODA::AnalysisObjectPtr> rtn;
 
-      for (MultiweightAOPtr & rao : getRivetAOs()) {
+      for (auto rao : getRivetAOs()) {
           // need to set the index
           // before we can search the PATH
-          rao.setActiveWeightIdx(0);
+          rao.get()->setActiveWeightIdx(0);
           if (rao->path().find("/TMP/") != string::npos)
               continue;
 
           for (size_t iW = 0; iW < numWeights(); iW++) {
-              rao.setActiveWeightIdx(iW);
+              rao.get()->setActiveWeightIdx(iW);
 
               // add the weight name in brackets unless we recognize a
               // nominal weight
@@ -402,7 +402,7 @@ namespace Rivet {
                   && _weightNames[iW] != "Default")
                   rao->setPath(rao->path() + "[" + _weightNames[iW] + "]");
 
-              rtn.push_back(rao.activeYODAPtr());
+              rtn.push_back(rao.get()->activeYODAPtr());
           }
       }
 

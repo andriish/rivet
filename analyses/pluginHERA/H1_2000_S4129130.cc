@@ -38,28 +38,28 @@ namespace Rivet {
       for (size_t ix = 0; ix < 17; ++ix) {
         book(h ,ix+1, 1, 1);
         _histETLowQa.push_back(h);
-        _weightETLowQa.push_back(0.);
+        book(_weightETLowQa[ix], "TMP/ETLowQa");
       }
 
       // Histograms and weight vectors for high Q^2 a
       for (size_t ix = 0; ix < 7; ++ix) {
         book(h ,ix+18, 1, 1);
         _histETHighQa.push_back(h);
-        _weightETHighQa.push_back(0.);
+        book(_weightETHighQa[ix], "TMP/ETHighQa");
       }
 
       // Histograms and weight vectors for low Q^2 b
       for (size_t ix = 0; ix < 5; ++ix) {
         book(h ,ix+25, 1, 1);
         _histETLowQb.push_back(h);
-        _weightETLowQb.push_back(0.);
+        book(_weightETLowQb[ix], "TMP/ETLowQb");
       }
 
       // Histograms and weight vectors for high Q^2 b
       for (size_t ix = 0; ix < 3; ++ix) {
         book(h ,30+ix, 1, 1);
         _histETHighQb.push_back(h);
-        _weightETHighQb.push_back(0.0);
+        book(_weightETHighQb[ix], "TMP/ETHighQb");
       }
 
       // Histograms for the averages
@@ -183,11 +183,10 @@ namespace Rivet {
       if (! (evcut[0] || evcut[1] || evcut[2] || evcut[3])) vetoEvent;
 
       // Increment the count for normalisation
-      const double weight = 1.0;
-      if (evcut[0]) _weightETLowQa [bin[0]] += weight;
-      if (evcut[1]) _weightETLowQb [bin[1]] += weight;
-      if (evcut[2]) _weightETHighQa[bin[2]] += weight;
-      if (evcut[3]) _weightETHighQb[bin[3]] += weight;
+      if (evcut[0]) _weightETLowQa [bin[0]]->fill();
+      if (evcut[1]) _weightETLowQb [bin[1]]->fill();
+      if (evcut[2]) _weightETHighQa[bin[2]]->fill();
+      if (evcut[3]) _weightETHighQb[bin[3]]->fill();
 
       // Boost to hadronic CoM
       const LorentzTransform hcmboost = dk.boostHCM();
@@ -204,15 +203,15 @@ namespace Rivet {
         if (fabs(eta) < .5 ) etcent += et;
         if (eta > 2 && eta <= 3.) etfrag += et;
         // Histograms of Et flow
-        if (evcut[0]) _histETLowQa [bin[0]]->fill(eta, et*weight);
-        if (evcut[1]) _histETLowQb [bin[1]]->fill(eta, et*weight);
-        if (evcut[2]) _histETHighQa[bin[2]]->fill(eta, et*weight);
-        if (evcut[3]) _histETHighQb[bin[3]]->fill(eta, et*weight);
+        if (evcut[0]) _histETLowQa [bin[0]]->fill(eta, et);
+        if (evcut[1]) _histETLowQb [bin[1]]->fill(eta, et);
+        if (evcut[2]) _histETHighQa[bin[2]]->fill(eta, et);
+        if (evcut[3]) _histETHighQb[bin[3]]->fill(eta, et);
       }
       // Fill histograms for the average quantities
       if (evcut[1] || evcut[3]) {
-        _histAverETCentral->fill(q2, etcent, weight);
-        _histAverETFrag   ->fill(q2, etfrag, weight);
+        _histAverETCentral->fill(q2, etcent);
+        _histAverETFrag   ->fill(q2, etfrag);
       }
     }
 
@@ -244,10 +243,10 @@ namespace Rivet {
 
     /// @name storage of weights for normalisation
     //@{
-    vector<double> _weightETLowQa;
-    vector<double> _weightETHighQa;
-    vector<double> _weightETLowQb;
-    vector<double> _weightETHighQb;
+    array<CounterPtr,17> _weightETLowQa;
+    array<CounterPtr, 7> _weightETHighQa;
+    array<CounterPtr, 5> _weightETLowQb;
+    array<CounterPtr, 3> _weightETHighQb;
     //@}
 
   };

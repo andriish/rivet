@@ -99,9 +99,6 @@ namespace Rivet {
       const double jetphi = jets[0].phi();
       const double jetpT  = jets[0].pT();
 
-      // Get the event weight
-      const double weight = 1.0;
-
       size_t numTrans1(0), numTrans2(0), numAway(0);
 
       // Calculate all the charged stuff
@@ -138,9 +135,9 @@ namespace Rivet {
       } // end charged particle loop
 
       // Fill the histograms
-      _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_anchg->fill(jetpT, numAway/(PI*0.7*0.7), weight); // jet area = pi*R^2
+      _hist_pmaxnchg->fill(jetpT, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3));
+      _hist_pminnchg->fill(jetpT, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3));
+      _hist_anchg->fill(jetpT, numAway/(PI*0.7*0.7)); // jet area = pi*R^2
 
     }
 

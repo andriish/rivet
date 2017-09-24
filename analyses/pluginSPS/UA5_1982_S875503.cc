@@ -12,7 +12,6 @@ namespace Rivet {
 
     /// Default constructor
     UA5_1982_S875503() : Analysis("UA5_1982_S875503") {
-      _sumWTrig = 0;
     }
 
 
@@ -32,6 +31,8 @@ namespace Rivet {
         book(_hist_nch ,2,1,2);
         book(_hist_eta ,4,1,1);
       }
+      book(_sumWTrig, "sumW");
+
     }
 
 
@@ -39,19 +40,18 @@ namespace Rivet {
       // Trigger
       const TriggerUA5& trigger = apply<TriggerUA5>(event, "Trigger");
       if (!trigger.nsdDecision()) vetoEvent;
-      const double weight = 1.0;
-      _sumWTrig += weight;
+      _sumWTrig->fill();
 
       // Get tracks
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       // Fill mean charged multiplicity histos
-      _hist_nch->fill(_hist_nch->bin(0).xMid(), cfs.size()*weight);
+      _hist_nch->fill(_hist_nch->bin(0).xMid(), cfs.size());
 
       // Iterate over all tracks and fill eta histograms
       foreach (const Particle& p, cfs.particles()) {
         const double eta = p.abseta();
-        _hist_eta->fill(eta, weight);
+        _hist_eta->fill(eta);
       }
 
     }
@@ -74,7 +74,7 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    double _sumWTrig;
+    CounterPtr _sumWTrig;
     //@}
 
     /// @name Histogram collections

@@ -72,7 +72,6 @@ namespace Rivet {
 
     // Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
       foreach (const Particle& p, cfs.particles()) {
@@ -102,36 +101,36 @@ namespace Rivet {
             // check ptbin
             if (pT < _pt1_edge) {
               // filling histos for numerator and denominator
-              if (id == -abs(it->second.first)) _h_num_lowpt[it->first]->fill(eta, weight);
-              if (id ==  abs(it->second.first)) _h_den_lowpt[it->first]->fill(eta, weight);
+              if (id == -abs(it->second.first)) _h_num_lowpt[it->first]->fill(eta);
+              if (id ==  abs(it->second.first)) _h_den_lowpt[it->first]->fill(eta);
             }
             else if (pT < _pt2_edge) {
               // filling histos for numerator and denominator
-              if (id == -abs(it->second.first)) _h_num_midpt[it->first]->fill(eta, weight);
-              if (id ==  abs(it->second.first)) _h_den_midpt[it->first]->fill(eta, weight);
+              if (id == -abs(it->second.first)) _h_num_midpt[it->first]->fill(eta);
+              if (id ==  abs(it->second.first)) _h_den_midpt[it->first]->fill(eta);
             }
             else {
               // filling histos for numerator and denominator
-              if (id == -abs(it->second.first)) _h_num_highpt[it->first]->fill(eta, weight);
-              if (id ==  abs(it->second.first)) _h_den_highpt[it->first]->fill(eta, weight);
+              if (id == -abs(it->second.first)) _h_num_highpt[it->first]->fill(eta);
+              if (id ==  abs(it->second.first)) _h_den_highpt[it->first]->fill(eta);
             }
           }
           else {
             // check what type of ratio is
             if (pT < _pt1_edge) {
               // filling histos for numerator and denominator
-              if (abs(id) == abs(it->second.first))  _h_num_lowpt[it->first]->fill(eta, weight);
-              if (abs(id) == abs(it->second.second)) _h_den_lowpt[it->first]->fill(eta, weight);
+              if (abs(id) == abs(it->second.first))  _h_num_lowpt[it->first]->fill(eta);
+              if (abs(id) == abs(it->second.second)) _h_den_lowpt[it->first]->fill(eta);
             }
             else if (pT < _pt2_edge) {
               // filling histos for numerator and denominator
-              if (abs(id) == abs(it->second.first))  _h_num_midpt[it->first]->fill(eta, weight);
-              if (abs(id) == abs(it->second.second)) _h_den_midpt[it->first]->fill(eta, weight);
+              if (abs(id) == abs(it->second.first))  _h_num_midpt[it->first]->fill(eta);
+              if (abs(id) == abs(it->second.second)) _h_den_midpt[it->first]->fill(eta);
             }
             else {
               // filling histos for numerator and denominator
-              if (abs(id) == abs(it->second.first))  _h_num_highpt[it->first]->fill(eta, weight);
-              if (abs(id) == abs(it->second.second)) _h_den_highpt[it->first]->fill(eta, weight);
+              if (abs(id) == abs(it->second.first))  _h_num_highpt[it->first]->fill(eta);
+              if (abs(id) == abs(it->second.second)) _h_den_highpt[it->first]->fill(eta);
             }
           }
         }

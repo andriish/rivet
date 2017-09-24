@@ -42,8 +42,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & event) {
-      const double weight = 1.0;
-
       // Skip if the event is empty
       const FinalState& fs = apply<FinalState>(event, "FS");
       if (fs.empty()) {
@@ -135,14 +133,14 @@ namespace Rivet {
 
       // Fill histograms
       for (size_t njet=1; njet<=jets_cut.size(); ++njet) {
-        _h_jet_multiplicity->fill(njet, weight);
+        _h_jet_multiplicity->fill(njet);
       }
       for (const Jet& j : jets_cut) {
         if (jets_cut.size() > 0) {
-          _h_jet_pT_cross_section_incl_1jet->fill(j.pT(), weight);
+          _h_jet_pT_cross_section_incl_1jet->fill(j.pT());
         }
         if (jets_cut.size() > 1) {
-          _h_jet_pT_cross_section_incl_2jet->fill(j.pT(), weight);
+          _h_jet_pT_cross_section_incl_2jet->fill(j.pT());
         }
       }
     }

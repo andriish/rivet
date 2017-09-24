@@ -42,8 +42,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       if (cfs.size() < 1) {
         vetoEvent;
@@ -68,11 +66,11 @@ namespace Rivet {
 
       const double dEtadPhi = 4.0*PI/3.0;
 
-      _h_nch_transverse->fill(pTlead/GeV, tNch/dEtadPhi, weight);
-      _h_ptSumDen->fill(pTlead/GeV, ptSum/dEtadPhi, weight);
+      _h_nch_transverse->fill(pTlead/GeV, tNch/dEtadPhi);
+      _h_ptSumDen->fill(pTlead/GeV, ptSum/dEtadPhi);
 
       if (tNch > 0) {
-        _h_avePt->fill(pTlead/GeV, ptSum/tNch, weight);
+        _h_avePt->fill(pTlead/GeV, ptSum/tNch);
       }
     }
 

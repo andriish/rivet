@@ -46,7 +46,7 @@ namespace Rivet {
       if (fabs(tanh((eta1-eta2)/2)) > 2.0/3.0) vetoEvent;
       double mjj = FourMomentum(jet1+jet2).mass()/GeV;
       if (mjj < 180) vetoEvent;
-      _h_mjj->fill(mjj, 1.0);
+      _h_mjj->fill(mjj);
     }
 
 

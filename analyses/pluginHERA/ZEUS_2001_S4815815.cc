@@ -114,44 +114,43 @@ namespace Rivet {
       const double mjj = sqrt( 2.*j1.Et()*j2.Et()*( cosh(j1.eta() - j2.eta()) - cos(j1.phi() - j2.phi()) ) );
 
       // Fill histograms
-      const double weight = 1.0;
       // T1
       if (mjj > 42*GeV && inRange(etabar, 0.1, 1.3))
-        _h_costh[i_xyobs]->fill(abs(costhetastar), weight);
+        _h_costh[i_xyobs]->fill(abs(costhetastar));
 
       // T2, T3: Symmetrize eta selection, each event contribute twice to the cross section
       for (size_t isel = 0; isel < 2; ++isel) {
         double etaJet1 = (isel == 0) ? orientation*j1.eta() : orientation*j2.eta();
         double etaJet2 = (isel == 0) ? orientation*j2.eta() : orientation*j1.eta();
         if (inRange(etaJet1, -1, 0) && inRange(etaJet2, -1, 0))
-          _h_etjet1[i_xyobs][0]->fill(j1.Et()/GeV, weight);
+          _h_etjet1[i_xyobs][0]->fill(j1.Et()/GeV);
         else if (inRange(etaJet1, 0, 1) && inRange(etaJet2, -1, 0))
-          _h_etjet1[i_xyobs][1]->fill(j1.Et()/GeV, weight);
+          _h_etjet1[i_xyobs][1]->fill(j1.Et()/GeV);
         else if (inRange(etaJet1, 0, 1) && inRange(etaJet2, 0, 1))
-          _h_etjet1[i_xyobs][2]->fill(j1.Et()/GeV, weight);
+          _h_etjet1[i_xyobs][2]->fill(j1.Et()/GeV);
         else if (inRange(etaJet1, 1, 2.4) && inRange(etaJet2, -1, 0))
-          _h_etjet1[i_xyobs][3]->fill(j1.Et()/GeV, weight);
+          _h_etjet1[i_xyobs][3]->fill(j1.Et()/GeV);
         else if (inRange(etaJet1, 1, 2.4) && inRange(etaJet2, 0, 1))
-          _h_etjet1[i_xyobs][4]->fill(j1.Et()/GeV, weight);
+          _h_etjet1[i_xyobs][4]->fill(j1.Et()/GeV);
         else if (inRange(etaJet1, 1, 2.4) && inRange(etaJet2, 1, 2.4))
-          _h_etjet1[i_xyobs][5]->fill(j1.Et()/GeV, weight);
+          _h_etjet1[i_xyobs][5]->fill(j1.Et()/GeV);
         // T4, T5
         if (inRange(etaJet1, -1, 0))
-          _h_etajet2[i_xyobs][0]->fill(etaJet2, weight);
+          _h_etajet2[i_xyobs][0]->fill(etaJet2);
         else if (inRange(etaJet1, 0, 1))
-          _h_etajet2[i_xyobs][1]->fill(etaJet2, weight);
+          _h_etajet2[i_xyobs][1]->fill(etaJet2);
         else if (inRange(etaJet1, 1, 2.4))
-          _h_etajet2[i_xyobs][2]->fill(etaJet2, weight);
+          _h_etajet2[i_xyobs][2]->fill(etaJet2);
       }
       // T6
       if (inRange(j1.Et()/GeV, 14, 17))
-        _h_xobsy[0]->fill(xyobs, weight);
+        _h_xobsy[0]->fill(xyobs);
       else if (inRange(j1.Et()/GeV, 17, 25))
-        _h_xobsy[1]->fill(xyobs, weight);
+        _h_xobsy[1]->fill(xyobs);
       else if (inRange(j1.Et()/GeV, 25, 35))
-        _h_xobsy[2]->fill(xyobs, weight);
+        _h_xobsy[2]->fill(xyobs);
       else if (inRange(j1.Et()/GeV, 35, 90))
-        _h_xobsy[3]->fill(xyobs, weight);
+        _h_xobsy[3]->fill(xyobs);
     }
 
 

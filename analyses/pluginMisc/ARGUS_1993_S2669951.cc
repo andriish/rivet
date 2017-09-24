@@ -32,6 +32,11 @@ namespace Rivet {
       book(_hist_cont_f0 ,2, 1, 1);
       book(_hist_Ups1_f0 ,3, 1, 1);
       book(_hist_Ups2_f0 ,4, 1, 1);
+
+      book(s111, 1, 1, 1, true);
+      book(s112, 1, 1, 2, true);
+      book(s511, 5, 1, 1, true);
+
     }
 
 
@@ -131,16 +136,12 @@ namespace Rivet {
     void finalize() {
 
       // High-Z eta' multiplicity
-      Scatter2DPtr s111;
-      book(s111, 1, 1, 1, true);
       if (_weightSum_Ups1 > 0) // Point at 9.460
         s111->point(0).setY(_count_etaPrime_highZ[0] / _weightSum_Ups1, 0);
       if (_weightSum_cont > 0) // Point at 9.905
         s111->point(1).setY(_count_etaPrime_highZ[1] / _weightSum_cont, 0);
 
       // All-Z eta' multiplicity
-      Scatter2DPtr s112;
-      book(s112, 1, 1, 2, true);
       if (_weightSum_Ups1 > 0) // Point at 9.460
         s112->point(0).setY(_count_etaPrime_allZ[0] / _weightSum_Ups1, 0);
       if (_weightSum_cont > 0) // Point at 9.905
@@ -149,8 +150,6 @@ namespace Rivet {
         s112->point(2).setY(_count_etaPrime_allZ[1] / _weightSum_Ups2, 0);
 
       // f0 multiplicity
-      Scatter2DPtr s511;
-      book(s511, 5, 1, 1, true);
       if (_weightSum_Ups1 > 0) // Point at 9.46
         s511->point(0).setY(_count_f0[0] / _weightSum_Ups1, 0);
       if (_weightSum_Ups2 > 0) // Point at 10.02
@@ -169,10 +168,11 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    vector<CounterPtr> _count_etaPrime_highZ, _count_etaPrime_allZ, _count_f0;
+    array<CounterPtr,3> _count_etaPrime_highZ, _count_etaPrime_allZ, _count_f0;
     CounterPtr _weightSum_cont,_weightSum_Ups1,_weightSum_Ups2;
     //@}
 
+    Scatter2DPtr s111, s112, s511;
 
     /// Histos
     Histo1DPtr _hist_cont_f0, _hist_Ups1_f0, _hist_Ups2_f0;

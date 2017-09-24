@@ -61,7 +61,6 @@ book(	_h_Rho_pT_forward[1] ,6, 1, 1);
 	MSG_DEBUG("No jets found in required pT and rapidity range");
 	vetoEvent;
       }
-      const double weight = 1.0;
 
       // Calculate and histogram jet shapes
       for (size_t ipt = 0; ipt < 4; ++ipt) {
@@ -71,10 +70,10 @@ book(	_h_Rho_pT_forward[1] ,6, 1, 1);
 	    const double r_rho = jsipt.rBinMid(rbin);
 	    MSG_DEBUG(ipt << " " << rbin << " (" << r_rho << ") " << jsipt.diffJetShape(ijet, rbin));
 	    /// @note Bin width Jacobian factor of 0.7/0.1 = 7 in the differential shapes plot
-	    //	    _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin), weight);
+	    //	    _profhistRho_pT[ipt]->fill(r_rho/0.7, (0.7/0.1)*jsipt.diffJetShape(ijet, rbin));
 	    const double r_Psi = jsipt.rBinMax(rbin);
 	    MSG_DEBUG(ipt << " " << rbin << " (" << r_rho << ") " << jsipt.intJetShape(ijet, rbin));
-	    _h_Rho_pT_central[ipt]->fill(r_Psi/1.0, jsipt.intJetShape(ijet, rbin), weight);
+	    _h_Rho_pT_central[ipt]->fill(r_Psi/1.0, jsipt.intJetShape(ijet, rbin));
 	  }
 	}
       }
@@ -84,7 +83,7 @@ book(	_h_Rho_pT_forward[1] ,6, 1, 1);
       for (size_t ijet = 0; ijet < jsiptfwd0.numJets(); ++ijet) {
 	for (size_t rbin = 0; rbin < jsiptfwd0.numBins(); ++rbin) {
 	  const double r_Psi = jsiptfwd0.rBinMax(rbin);
-	  _h_Rho_pT_forward[0]->fill(r_Psi/1.0, jsiptfwd0.intJetShape(ijet, rbin), weight);
+	  _h_Rho_pT_forward[0]->fill(r_Psi/1.0, jsiptfwd0.intJetShape(ijet, rbin));
 	}
       }
 
@@ -92,7 +91,7 @@ book(	_h_Rho_pT_forward[1] ,6, 1, 1);
       for (size_t ijet = 0; ijet < jsiptfwd1.numJets(); ++ijet) {
         for (size_t rbin = 0; rbin < jsiptfwd1.numBins(); ++rbin) {
 	  const double r_Psi = jsiptfwd1.rBinMax(rbin);
-          _h_Rho_pT_forward[1]->fill(r_Psi/1.0, jsiptfwd1.intJetShape(ijet, rbin), weight);
+          _h_Rho_pT_forward[1]->fill(r_Psi/1.0, jsiptfwd1.intJetShape(ijet, rbin));
 	}
       }
 

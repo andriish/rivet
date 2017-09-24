@@ -40,7 +40,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double             weight  = 1.0;
       const ChargedFinalState   &cfs    = apply<ChargedFinalState> (event, "CFS");
 
       // eliminate non-inelastic events and empty events in LHCb
@@ -55,7 +54,7 @@ namespace Rivet {
             continue;
           }
           // histo gets filled only for inelastic events (at least one prompt charged particle)
-          _hInelasticXs->fill(sqrtS(), weight);
+          _hInelasticXs->fill(sqrtS());
           break;
       } //end loop on particles
 

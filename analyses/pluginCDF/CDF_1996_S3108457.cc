@@ -51,8 +51,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // Get the smeared jets
       Jets SJets = apply<JetAlg>(event, "SmearedJets_E").jets(Cuts::Et > 20.0*GeV, cmpMomByEt);
       if (SJets.size() < 2 || SJets.size() > 6) vetoEvent;
@@ -76,12 +74,12 @@ namespace Rivet {
       double costheta0 = fabs(cos(jet0boosted.theta()));
 
       if (costheta0 < 2.0/3.0) {
-        _h_m[SJets.size()-2]->fill(mass, weight);
+        _h_m[SJets.size()-2]->fill(mass);
       }
-      if (mass > 600.0*GeV) _h_costheta[JS.size()-2]->fill(costheta0, weight);
+      if (mass > 600.0*GeV) _h_costheta[JS.size()-2]->fill(costheta0);
       if (costheta0 < 2.0/3.0 && mass > 600.0*GeV) {
         foreach (const Jet& jet, SJets) {
-          _h_pT[SJets.size()-2]->fill(jet.pT(), weight);
+          _h_pT[SJets.size()-2]->fill(jet.pT());
         }
       }
     }

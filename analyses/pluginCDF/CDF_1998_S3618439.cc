@@ -38,8 +38,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::Et > 20*GeV, cmpMomByEt);
       double sumET_20(0.0), sumET_100(0.0);
       foreach (const Jet& jet, jets) {
@@ -47,8 +45,8 @@ namespace Rivet {
         sumET_20 += ET;
         if (ET > 100.0) sumET_100 += ET;
       }
-      if (sumET_20 > 320.0) _h_sumET_20->fill(sumET_20, weight);
-      if (sumET_100 > 320.0) _h_sumET_100->fill(sumET_100, weight);
+      if (sumET_20 > 320.0) _h_sumET_20->fill(sumET_20);
+      if (sumET_100 > 320.0) _h_sumET_100->fill(sumET_100);
     }
 
 

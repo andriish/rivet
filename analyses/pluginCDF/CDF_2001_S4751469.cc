@@ -27,9 +27,7 @@ namespace Rivet {
     /// Constructor: cuts on final state are \f$ -1 < \eta < 1 \f$
     /// and \f$ p_T > 0.5 \f$ GeV.
     CDF_2001_S4751469()
-      : Analysis("CDF_2001_S4751469"),
-        _totalNumTrans2(0), _totalNumTrans5(0), _totalNumTrans30(0),
-        _sumWeightsPtLead2(0),_sumWeightsPtLead5(0), _sumWeightsPtLead30(0)
+      : Analysis("CDF_2001_S4751469")
     {    }
 
 
@@ -72,6 +70,13 @@ namespace Rivet {
       book(_ptTrans2 ,7, 1, 1);
       book(_ptTrans5 ,7, 1, 2);
       book(_ptTrans30 ,7, 1, 3);
+
+      book(_totalNumTrans2, "totalNumTrans2");
+      book(_totalNumTrans5, "totalNumTrans5");
+      book(_totalNumTrans30, "totalNumTrans30");
+      book(_sumWeightsPtLead2, "sumWeightsPtLead2");
+      book(_sumWeightsPtLead5, "sumWeightsPtLead5");
+      book(_sumWeightsPtLead30, "sumWeightsPtLead30");
     }
 
 
@@ -92,10 +97,9 @@ namespace Rivet {
       if (ptLead/GeV > 50.0) vetoEvent;
 
       // Count sum of all event weights in three pT_lead regions
-      const double weight = 1.0;
-      if (ptLead/GeV > 2.0) _sumWeightsPtLead2 += weight;
-      if (ptLead/GeV > 5.0) _sumWeightsPtLead5 += weight;
-      if (ptLead/GeV > 30.0) _sumWeightsPtLead30 += weight;
+      if (ptLead/GeV > 2.0) _sumWeightsPtLead2->fill();
+      if (ptLead/GeV > 5.0) _sumWeightsPtLead5->fill();
+      if (ptLead/GeV > 30.0) _sumWeightsPtLead30->fill();
 
       // Run over tracks
       double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
@@ -121,16 +125,16 @@ namespace Rivet {
           ++numTrans;
           // Fill transverse pT distributions
           if (ptLead/GeV > 2.0) {
-            _ptTrans2->fill(pT/GeV, weight);
-            _totalNumTrans2 += weight;
+            _ptTrans2->fill(pT/GeV);
+            _totalNumTrans2->fill();
           }
           if (ptLead/GeV > 5.0) {
-            _ptTrans5->fill(pT/GeV, weight);
-            _totalNumTrans5 += weight;
+            _ptTrans5->fill(pT/GeV);
+            _totalNumTrans5->fill();
           }
           if (ptLead/GeV > 30.0) {
-            _ptTrans30->fill(pT/GeV, weight);
-            _totalNumTrans30 += weight;
+            _ptTrans30->fill(pT/GeV);
+            _totalNumTrans30->fill();
           }
         }
         else {
@@ -160,22 +164,22 @@ namespace Rivet {
           const double x2 = htmp_pt_dphi_2.bin(i).xMid();
           const double num2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_num_dphi_2.bin(i).mean() : 0.0;
           const double pt2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_pt_dphi_2.bin(i).mean() : 0.0;
-          _numvsDeltaPhi2->fill(x2, num2, weight);
-          _pTvsDeltaPhi2->fill(x2, pt2, weight);
+          _numvsDeltaPhi2->fill(x2, num2);
+          _pTvsDeltaPhi2->fill(x2, pt2);
         }
         if (ptLead/GeV > 5.0) {
           const double x5 = htmp_pt_dphi_5.bin(i).xMid();
           const double num5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_num_dphi_5.bin(i).mean() : 0.0;
           const double pt5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_pt_dphi_5.bin(i).mean() : 0.0;
-          _numvsDeltaPhi5->fill(x5, num5, weight);
-          _pTvsDeltaPhi5->fill(x5, pt5, weight);
+          _numvsDeltaPhi5->fill(x5, num5);
+          _pTvsDeltaPhi5->fill(x5, pt5);
         }
         if (ptLead/GeV > 30.0) {
           const double x30 = htmp_pt_dphi_30.bin(i).xMid();
           const double num30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_num_dphi_30.bin(i).mean() : 0.0;
           const double pt30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_pt_dphi_30.bin(i).mean() : 0.0;
-          _numvsDeltaPhi30->fill(x30, num30, weight);
-          _pTvsDeltaPhi30->fill(x30, pt30, weight);
+          _numvsDeltaPhi30->fill(x30, num30);
+          _pTvsDeltaPhi30->fill(x30, pt30);
         }
       }
 
@@ -184,28 +188,28 @@ namespace Rivet {
                 << ptSumToward << ", " << ptSumAway << ", " << ptSumTrans << "]");
 
       // Update the pT profile histograms
-      _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV, weight);
-      _ptsumTowardJ20->fill(ptLead/GeV, ptSumToward/GeV, weight);
+      _ptsumTowardMB->fill(ptLead/GeV, ptSumToward/GeV);
+      _ptsumTowardJ20->fill(ptLead/GeV, ptSumToward/GeV);
 
-      _ptsumTransMB->fill(ptLead/GeV, ptSumTrans/GeV, weight);
-      _ptsumTransJ20->fill(ptLead/GeV, ptSumTrans/GeV, weight);
+      _ptsumTransMB->fill(ptLead/GeV, ptSumTrans/GeV);
+      _ptsumTransJ20->fill(ptLead/GeV, ptSumTrans/GeV);
 
-      _ptsumAwayMB->fill(ptLead/GeV, ptSumAway/GeV, weight);
-      _ptsumAwayJ20->fill(ptLead/GeV, ptSumAway/GeV, weight);
+      _ptsumAwayMB->fill(ptLead/GeV, ptSumAway/GeV);
+      _ptsumAwayJ20->fill(ptLead/GeV, ptSumAway/GeV);
 
       // Log some event details about Nch
       MSG_DEBUG("N [twd, away, trans] = [" << ptLead << "; "
                 << numToward << ", " << numTrans << ", " << numAway << "]");
 
       // Update the N_track profile histograms
-      _numTowardMB->fill(ptLead/GeV, numToward, weight);
-      _numTowardJ20->fill(ptLead/GeV, numToward, weight);
+      _numTowardMB->fill(ptLead/GeV, numToward);
+      _numTowardJ20->fill(ptLead/GeV, numToward);
 
-      _numTransMB->fill(ptLead/GeV, numTrans, weight);
-      _numTransJ20->fill(ptLead/GeV, numTrans, weight);
+      _numTransMB->fill(ptLead/GeV, numTrans);
+      _numTransJ20->fill(ptLead/GeV, numTrans);
 
-      _numAwayMB->fill(ptLead/GeV, numAway, weight);
-      _numAwayJ20->fill(ptLead/GeV, numAway, weight);
+      _numAwayMB->fill(ptLead/GeV, numAway);
+      _numAwayJ20->fill(ptLead/GeV, numAway);
     }
 
 
@@ -222,10 +226,10 @@ namespace Rivet {
   private:
 
     /// Sum total number of charged particles in the trans region, in 3 \f$ p_\perp^\text{lead} \f$ bins.
-    double _totalNumTrans2, _totalNumTrans5, _totalNumTrans30;
+    CounterPtr _totalNumTrans2, _totalNumTrans5, _totalNumTrans30;
 
     /// Sum the total number of events in 3 \f$ p_\perp^\text{lead} \f$ bins.
-    double _sumWeightsPtLead2,_sumWeightsPtLead5, _sumWeightsPtLead30;
+    CounterPtr _sumWeightsPtLead2,_sumWeightsPtLead5, _sumWeightsPtLead30;
 
 
     /// @name Histogram collections

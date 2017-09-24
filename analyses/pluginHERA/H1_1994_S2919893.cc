@@ -16,15 +16,7 @@ namespace Rivet {
     /// Constructor
     H1_1994_S2919893()
       : Analysis("H1_1994_S2919893")
-    {
-
-      // Initialise member variables
-      _w77  = make_pair(0.0, 0.0);
-      _w122 = make_pair(0.0, 0.0);
-      _w169 = make_pair(0.0, 0.0);
-      _w117 = make_pair(0.0, 0.0);
-      _wEnergy = make_pair(0.0, 0.0);
-    }
+    {}
 
 
     /// @name Analysis methods
@@ -50,6 +42,18 @@ namespace Rivet {
       book(_histSpectraW117 ,3, 1, 4);
 
       book(_histPT2 ,4, 1, 1);
+
+      book(_w77 .first, "TMP/w77_1");
+      book(_w122.first, "TMP/w122_1");
+      book(_w169.first, "TMP/w169_1");
+      book(_w117.first, "TMP/w117_1");
+      book(_wEnergy.first, "TMP/wEnergy_1");
+
+      book(_w77 .second, "TMP/w77_2");
+      book(_w122.second, "TMP/w122_2");
+      book(_w169.second, "TMP/w169_2");
+      book(_w117.second, "TMP/w117_2");
+      book(_wEnergy.second, "TMP/wEnergy_2");
     }
 
 
@@ -95,8 +99,7 @@ namespace Rivet {
       if (!cut) vetoEvent;
 
       // Weight of the event
-      const double weight = 1.0;
-      (x < 1e-3 ? _wEnergy.first : _wEnergy.second) += weight;
+      (x < 1e-3 ? _wEnergy.first : _wEnergy.second)->fill();
 
       // Boost to hadronic CM
       const LorentzTransform hcmboost = dk.boostHCM();
@@ -114,22 +117,22 @@ namespace Rivet {
         // Energy flow histogram
         const double et = fabs(hcmMom.Et());
         const double eta = hcmMom.eta();
-        (x < 1e-3 ? _histEnergyFlowLowX : _histEnergyFlowHighX)->fill(eta, et*weight);
+        (x < 1e-3 ? _histEnergyFlowLowX : _histEnergyFlowHighX)->fill(eta, et);
         if (PID::threeCharge(p.pid()) != 0) {
           /// @todo Use units in w comparisons... what are the units?
           if (w > 50. && w <= 200.) {
             double xf= 2 * hcmMom.z() / w;
             double pt2 = hcmMom.pT2();
             if (w > 50. && w <= 100.) {
-              _histSpectraW77 ->fill(xf, weight);
+              _histSpectraW77 ->fill(xf);
             } else if (w > 100. && w <= 150.) {
-              _histSpectraW122->fill(xf, weight);
+              _histSpectraW122->fill(xf);
             } else if (w > 150. && w <= 200.) {
-              _histSpectraW169->fill(xf, weight);
+              _histSpectraW169->fill(xf);
             }
-            _histSpectraW117->fill(xf, weight);
+            _histSpectraW117->fill(xf);
             /// @todo Is this profile meant to be filled with 2 weight factors?
-            _histPT2->fill(xf, pt2*weight/GeV2, weight);
+            _histPT2->fill(xf, pt2/GeV2);
             ++ncharged;
           }
         }
@@ -154,7 +157,7 @@ namespace Rivet {
           double eta2 = p2.eta();
           double omega = sqrt(sqr(eta1-eta2) + sqr(deltaphi));
           double et2 = fabs(p2.momentum().Et());
-          double wt = et1*et2 / sqr(ptel) * weight;
+          double wt = et1*et2 / sqr(ptel);
           (x < 1e-3 ? _histEECLowX : _histEECHighX)->fill(omega, wt);
         }
       }
@@ -162,17 +165,17 @@ namespace Rivet {
       // Factors for normalization
       if (w > 50. && w <= 200.) {
         if (w <= 100.) {
-          _w77.first  += ncharged*weight;
-          _w77.second += weight;
+          _w77.first ->fill(ncharged);
+          _w77.second->fill();
         } else if (w <= 150.) {
-          _w122.first  += ncharged*weight;
-          _w122.second += weight;
+          _w122.first ->fill(ncharged);
+          _w122.second->fill();
         } else {
-          _w169.first  += ncharged*weight;
-          _w169.second += weight;
+          _w169.first ->fill(ncharged);
+          _w169.second->fill();
         }
-        _w117.first  += ncharged*weight;
-        _w117.second += weight;
+        _w117.first ->fill(ncharged);
+        _w117.second->fill();
       }
     }
 
@@ -214,7 +217,7 @@ namespace Rivet {
 
     /// @name Storage of weights to calculate averages for normalisation
     //@{
-    pair<double,double> _w77, _w122, _w169, _w117, _wEnergy;
+    pair<CounterPtr,CounterPtr> _w77, _w122, _w169, _w117, _wEnergy;
     //@}
 
   };

@@ -29,8 +29,6 @@ namespace Rivet {
     }
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Loop through unstable FS particles and look for charmed mesons/baryons
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
@@ -49,22 +47,22 @@ namespace Rivet {
         // Only looking at Xi_c^0
         if (p.abspid() != 4132 ) continue;
         if (onresonance) {
-          _histOnResonanceA_norm->fill(mom,weight);
-          _histOnResonanceB_norm->fill(mom,weight);
+          _histOnResonanceA_norm->fill(mom);
+          _histOnResonanceB_norm->fill(mom);
         }
         else {
-          _histOffResonance_norm->fill(mom,s/sqr(10.58)*weight);
+          _histOffResonance_norm->fill(mom,s/sqr(10.58));
         }
         MSG_DEBUG("mom = " << mom);
         // off-resonance cross section
         if (checkDecay(p.genParticle())) {
           if (onresonance) {
-            _histOnResonanceA->fill(mom,weight);
-            _histOnResonanceB->fill(mom,weight);
+            _histOnResonanceA->fill(mom);
+            _histOnResonanceB->fill(mom);
           }
           else {
-            _histOffResonance->fill(mom,s/sqr(10.58)*weight);
-            _sigma->fill(10.6,weight);
+            _histOffResonance->fill(mom,s/sqr(10.58));
+            _sigma->fill(10.6);
           }
         }
       }

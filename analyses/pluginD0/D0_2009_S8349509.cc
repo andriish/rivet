@@ -16,8 +16,7 @@ namespace Rivet {
 
     /// Constructor
     D0_2009_S8349509()
-      : Analysis("D0_2009_S8349509"),
-        _inclusive_Z_sumofweights(0)
+      : Analysis("D0_2009_S8349509")
     {    }
 
     //@}
@@ -53,17 +52,15 @@ namespace Rivet {
       book(_h_yboost_jet_Z25_xs ,5, 1, 2);
       book(_h_yboost_jet_Z45_xs ,6, 1, 2);
 
-      _inclusive_Z_sumofweights = 0;
+      book(_inclusive_Z_sumofweights, "_inclusive_Z_sumofweights");
     }
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() == 1) {
         // count inclusive sum of weights for histogram normalisation
-        _inclusive_Z_sumofweights += weight;
+        _inclusive_Z_sumofweights->fill();
 
         const FourMomentum& zmom = zfinder.bosons()[0].momentum();
         if (zmom.pT() < 25*GeV) vetoEvent;
@@ -90,20 +87,20 @@ namespace Rivet {
         const double yboost = fabs(yZ+yjet)/2;
 
         if (zmom.pT() > 25*GeV) {
-          _h_dphi_jet_Z25->fill(dphi, weight);
-          _h_dy_jet_Z25->fill(dy, weight);
-          _h_yboost_jet_Z25->fill(yboost, weight);
-          _h_dphi_jet_Z25_xs->fill(dphi, weight);
-          _h_dy_jet_Z25_xs->fill(dy, weight);
-          _h_yboost_jet_Z25_xs->fill(yboost, weight);
+          _h_dphi_jet_Z25->fill(dphi);
+          _h_dy_jet_Z25->fill(dy);
+          _h_yboost_jet_Z25->fill(yboost);
+          _h_dphi_jet_Z25_xs->fill(dphi);
+          _h_dy_jet_Z25_xs->fill(dy);
+          _h_yboost_jet_Z25_xs->fill(yboost);
         }
         if (zmom.pT() > 45*GeV) {
-          _h_dphi_jet_Z45->fill(dphi, weight);
-          _h_dy_jet_Z45->fill(dy, weight);
-          _h_yboost_jet_Z45->fill(yboost, weight);
-          _h_dphi_jet_Z45_xs->fill(dphi, weight);
-          _h_dy_jet_Z45_xs->fill(dy, weight);
-          _h_yboost_jet_Z45_xs->fill(yboost, weight);
+          _h_dphi_jet_Z45->fill(dphi);
+          _h_dy_jet_Z45->fill(dy);
+          _h_yboost_jet_Z45->fill(yboost);
+          _h_dphi_jet_Z45_xs->fill(dphi);
+          _h_dy_jet_Z45_xs->fill(dy);
+          _h_yboost_jet_Z45_xs->fill(yboost);
         }
       }
 
@@ -159,7 +156,7 @@ namespace Rivet {
     Histo1DPtr _h_yboost_jet_Z45_xs;
     //@}
 
-    double _inclusive_Z_sumofweights;
+    CounterPtr _inclusive_Z_sumofweights;
 
   };
 

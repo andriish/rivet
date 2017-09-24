@@ -67,8 +67,10 @@ namespace Rivet {
     const double e = A.get(1,2);
     const double f = A.get(2,2);
 
-    double x = e*(b*f -c*e - b*lambda)/(b*e -c*d + c*lambda)/c + (lambda -f)/c;
-    double y = (c*e -b*f +b*lambda)/(b*e -c*d + c*lambda);
+    const double denom = b*e -c*d + c*lambda;
+
+    double x = e*(b*f -c*e - b*lambda)/denom/c + (lambda -f)/c;
+    double y = (c*e -b*f +b*lambda)/denom;
 
     Vector3 E(x,y,1);
     return E.unit();
@@ -79,7 +81,7 @@ namespace Rivet {
 
     // Return (with "safe nonsense" sphericity params) if there are no final state particles
     if (momenta.empty()) {
-      MSG_DEBUG("No momenta given...");
+      MSG_DEBUG("Not enough momenta given...");
       clear();
       return;
     }
@@ -105,6 +107,12 @@ namespace Rivet {
         }
       }
       mMom += regfactor * mMomPart;
+    }
+
+    if (mMom.get(2,0) == 0 && mMom.get(2,1) == 0 && mMom.get(2,2) == 0) {
+    	MSG_DEBUG("No longitudinal momenta given...");
+    	clear();
+        return;
     }
 
     // Normalise to total (regulated) momentum.
@@ -140,6 +148,12 @@ namespace Rivet {
     const double l1 = q + 2 * p * cos(phi);
     const double l3 = q + 2 * p * cos(phi + (2*M_PI/3.));
     const double l2 = 3 * q - l1 - l3;
+
+    if (l1 == 0 || l2 == 0 || l3 == 0) {
+    	MSG_DEBUG("Zero eigenvalue...");
+    	clear();
+        return;
+    }
 
     _lambdas.clear();
     _sphAxes.clear();

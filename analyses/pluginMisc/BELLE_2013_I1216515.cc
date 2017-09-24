@@ -17,8 +17,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Loop through charged FS particles and look for charmed mesons/baryons
       const ChargedFinalState& fs = apply<ChargedFinalState>(e, "FS");
 
@@ -36,10 +34,10 @@ namespace Rivet {
         MSG_DEBUG("pdgID = " << PdgId << "  Energy = " << en);
         switch (PdgId) {
 	case PID::PIPLUS:
-	  _histPion->fill(z,weight);
+	  _histPion->fill(z);
 	  break;
 	case PID::KPLUS:
-	  _histKaon->fill(z,weight);
+	  _histKaon->fill(z);
 	  break;
 	default :
 	  break;

@@ -22,8 +22,7 @@ namespace Rivet {
       : Analysis("CDF_2008_S7541902"),
         _electronETCut(20.0*GeV), _electronETACut(1.1),
         _eTmissCut(30.0*GeV), _mTCut(20.0*GeV),
-        _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0),
-        _sumW(0)
+        _jetEtCutA(20.0*GeV),  _jetEtCutB(25.0*GeV), _jetETA(2.0)
     {    }
 
 
@@ -57,6 +56,8 @@ namespace Rivet {
         /// @todo These would be better off as YODA::Counter until finalize()
         book(_histJetMult[i] ,6+i, 1, 1); // _sumW is essentially the 0th "histo" counter
       }
+
+      book(_sumW,"sumW");
     }
 
 
@@ -97,7 +98,7 @@ namespace Rivet {
           // Fill differential histograms for top 4 jets with Et > 20
           if (njetsA < 4 && pj.Et() > _jetEtCutA) {
             ++njetsA;
-            _histJetEt[njetsA-1]->fill(pj.Et(), 1.0);
+            _histJetEt[njetsA-1]->fill(pj.Et());
           }
           // Count number of jets with Et > 25 (for multiplicity histograms)
           if (pj.Et() > _jetEtCutB) ++njetsB;
@@ -105,12 +106,12 @@ namespace Rivet {
       }
 
       // Increment event counter
-      _sumW += 1.0;
+      _sumW->fill();
 
       // Jet multiplicity
       for (size_t i = 1; i <= njetsB; ++i) {
         /// @todo This isn't really a histogram: replace with a YODA::Counter when we have one!
-        _histJetMult[i-1]->fill(1960., 1.0);
+        _histJetMult[i-1]->fill(1960.);
         if (i == 4) break;
       }
     }
@@ -180,7 +181,7 @@ namespace Rivet {
     Histo1DPtr _histJetMultNorm;
     Scatter2DPtr _histJetMultRatio[4];
     Histo1DPtr _histJetMult[4];
-    double _sumW;
+    CounterPtr _sumW;
     //@}
 
   };

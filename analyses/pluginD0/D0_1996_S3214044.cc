@@ -65,8 +65,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       Jets jets_in = apply<FastJets>(event, "ConeJets")
         .jets(Cuts::Et > 20*GeV && Cuts::abseta < 3, cmpMomByEt);
 
@@ -84,8 +82,8 @@ namespace Rivet {
 
       if (jets_isolated.size() == 0 || jets_isolated[0].Et() < 60.0*GeV) vetoEvent;
 
-      if (jets_isolated.size() > 2) _threeJetAnalysis(jets_isolated, weight);
-      if (jets_isolated.size() > 3) _fourJetAnalysis(jets_isolated, weight);
+      if (jets_isolated.size() > 2) _threeJetAnalysis(jets_isolated);
+      if (jets_isolated.size() > 3) _fourJetAnalysis(jets_isolated);
     }
 
 
@@ -129,7 +127,7 @@ namespace Rivet {
     /// @name Helper functions
     //@{
 
-    void _threeJetAnalysis(const Jets& jets, const double& weight) {
+    void _threeJetAnalysis(const Jets& jets) {
       // >=3 jet events
       FourMomentum jjj(jets[0].momentum()+jets[1].momentum()+jets[2].momentum());
       const double sqrts = _safeMass(jjj);
@@ -152,17 +150,17 @@ namespace Rivet {
       Vector3 p4xp5 = p4.p3().cross(p5.p3());
       const double cospsi = p1xp3.dot(p4xp5)/p1xp3.mod()/p4xp5.mod();
 
-      _h_3j_x3->fill(2.0*p3.E()/sqrts, weight);
-      _h_3j_x5->fill(2.0*p5.E()/sqrts, weight);
-      _h_3j_costheta3->fill(fabs(cos(p3.theta())), weight);
-      _h_3j_psi->fill(acos(cospsi)/degree, weight);
-      _h_3j_mu34->fill(_safeMass(FourMomentum(p3+p4))/sqrts, weight);
-      _h_3j_mu35->fill(_safeMass(FourMomentum(p3+p5))/sqrts, weight);
-      _h_3j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts, weight);
+      _h_3j_x3->fill(2.0*p3.E()/sqrts);
+      _h_3j_x5->fill(2.0*p5.E()/sqrts);
+      _h_3j_costheta3->fill(fabs(cos(p3.theta())));
+      _h_3j_psi->fill(acos(cospsi)/degree);
+      _h_3j_mu34->fill(_safeMass(FourMomentum(p3+p4))/sqrts);
+      _h_3j_mu35->fill(_safeMass(FourMomentum(p3+p5))/sqrts);
+      _h_3j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts);
     }
 
 
-    void _fourJetAnalysis(const Jets& jets, const double& weight) {
+    void _fourJetAnalysis(const Jets& jets) {
       // >=4 jet events
       FourMomentum jjjj(jets[0].momentum() + jets[1].momentum() + jets[2].momentum()+ jets[3].momentum());
       const double sqrts = _safeMass(jjjj);
@@ -185,28 +183,28 @@ namespace Rivet {
       const double costheta_NR = (p3.p3()-p4.p3()).dot(p5.p3()-p6.p3())/
         (p3.p3()-p4.p3()).mod()/(p5.p3()-p6.p3()).mod();
 
-      _h_4j_x3->fill(2.0*p3.E()/sqrts, weight);
-      _h_4j_x4->fill(2.0*p4.E()/sqrts, weight);
-      _h_4j_x5->fill(2.0*p5.E()/sqrts, weight);
-      _h_4j_x6->fill(2.0*p6.E()/sqrts, weight);
-      _h_4j_costheta3->fill(fabs(cos(p3.theta())), weight);
-      _h_4j_costheta4->fill(fabs(cos(p4.theta())), weight);
-      _h_4j_costheta5->fill(fabs(cos(p5.theta())), weight);
-      _h_4j_costheta6->fill(fabs(cos(p6.theta())), weight);
-      _h_4j_cosomega34->fill(cos(p3.angle(p4)), weight);
-      _h_4j_cosomega35->fill(cos(p3.angle(p5)), weight);
-      _h_4j_cosomega36->fill(cos(p3.angle(p6)), weight);
-      _h_4j_cosomega45->fill(cos(p4.angle(p5)), weight);
-      _h_4j_cosomega46->fill(cos(p4.angle(p6)), weight);
-      _h_4j_cosomega56->fill(cos(p5.angle(p6)), weight);
-      _h_4j_mu34->fill(_safeMass(FourMomentum(p3+p4))/sqrts, weight);
-      _h_4j_mu35->fill(_safeMass(FourMomentum(p3+p5))/sqrts, weight);
-      _h_4j_mu36->fill(_safeMass(FourMomentum(p3+p6))/sqrts, weight);
-      _h_4j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts, weight);
-      _h_4j_mu46->fill(_safeMass(FourMomentum(p4+p6))/sqrts, weight);
-      _h_4j_mu56->fill(_safeMass(FourMomentum(p5+p6))/sqrts, weight);
-      _h_4j_theta_BZ->fill(acos(fabs(costheta_BZ))/degree, weight);
-      _h_4j_costheta_NR->fill(fabs(costheta_NR), weight);
+      _h_4j_x3->fill(2.0*p3.E()/sqrts);
+      _h_4j_x4->fill(2.0*p4.E()/sqrts);
+      _h_4j_x5->fill(2.0*p5.E()/sqrts);
+      _h_4j_x6->fill(2.0*p6.E()/sqrts);
+      _h_4j_costheta3->fill(fabs(cos(p3.theta())));
+      _h_4j_costheta4->fill(fabs(cos(p4.theta())));
+      _h_4j_costheta5->fill(fabs(cos(p5.theta())));
+      _h_4j_costheta6->fill(fabs(cos(p6.theta())));
+      _h_4j_cosomega34->fill(cos(p3.angle(p4)));
+      _h_4j_cosomega35->fill(cos(p3.angle(p5)));
+      _h_4j_cosomega36->fill(cos(p3.angle(p6)));
+      _h_4j_cosomega45->fill(cos(p4.angle(p5)));
+      _h_4j_cosomega46->fill(cos(p4.angle(p6)));
+      _h_4j_cosomega56->fill(cos(p5.angle(p6)));
+      _h_4j_mu34->fill(_safeMass(FourMomentum(p3+p4))/sqrts);
+      _h_4j_mu35->fill(_safeMass(FourMomentum(p3+p5))/sqrts);
+      _h_4j_mu36->fill(_safeMass(FourMomentum(p3+p6))/sqrts);
+      _h_4j_mu45->fill(_safeMass(FourMomentum(p4+p5))/sqrts);
+      _h_4j_mu46->fill(_safeMass(FourMomentum(p4+p6))/sqrts);
+      _h_4j_mu56->fill(_safeMass(FourMomentum(p5+p6))/sqrts);
+      _h_4j_theta_BZ->fill(acos(fabs(costheta_BZ))/degree);
+      _h_4j_costheta_NR->fill(fabs(costheta_NR));
 
     }
 

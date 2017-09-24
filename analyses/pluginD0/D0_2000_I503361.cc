@@ -32,8 +32,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       /// @todo Do the event by event analysis here
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size() != 1) {
@@ -47,7 +45,7 @@ namespace Rivet {
       }
 
       MSG_DEBUG("Dilepton mass = " << pZ.mass()/GeV << " GeV");
-      _hist_zpt->fill(pZ.pT(), weight);
+      _hist_zpt->fill(pZ.pT());
 
     }
 

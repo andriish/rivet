@@ -69,8 +69,7 @@ namespace Rivet {
       }
 
       // Fill histo
-      const double weight = 1.0;
-      _h_pTgamma->fill(photon.pT(), weight);
+      _h_pTgamma->fill(photon.pT());
     }
 
 

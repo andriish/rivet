@@ -59,7 +59,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
       MSG_DEBUG("Num particles = " << apply<FinalState>(e, "FS").particles().size());
 
       const FastJets& jadejet = apply<FastJets>(e, "JadeJets");
@@ -73,35 +72,35 @@ namespace Rivet {
           double ycut = _h_R_Jade[0]->bin(i).xMid();
           double width = _h_R_Jade[0]->bin(i).xWidth();
           if (y_23 < ycut) {
-            _h_R_Jade[0]->fillBin(i, weight*width);
+            _h_R_Jade[0]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Jade[1]->numBins(); ++i) {
           double ycut = _h_R_Jade[1]->bin(i).xMid();
           double width = _h_R_Jade[1]->bin(i).xWidth();
           if (y_34 < ycut && y_23 > ycut) {
-            _h_R_Jade[1]->fillBin(i, weight*width);
+            _h_R_Jade[1]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Jade[2]->numBins(); ++i) {
           double ycut = _h_R_Jade[2]->bin(i).xMid();
           double width = _h_R_Jade[2]->bin(i).xWidth();
           if (y_45 < ycut && y_34 > ycut) {
-            _h_R_Jade[2]->fillBin(i, weight*width);
+            _h_R_Jade[2]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Jade[3]->numBins(); ++i) {
           double ycut = _h_R_Jade[3]->bin(i).xMid();
           double width = _h_R_Jade[3]->bin(i).xWidth();
           if (y_56 < ycut && y_45 > ycut) {
-            _h_R_Jade[3]->fillBin(i, weight*width);
+            _h_R_Jade[3]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Jade[4]->numBins(); ++i) {
           double ycut = _h_R_Jade[4]->bin(i).xMid();
           double width = _h_R_Jade[4]->bin(i).xWidth();
           if (y_56 > ycut) {
-            _h_R_Jade[4]->fillBin(i, weight*width);
+            _h_R_Jade[4]->fillBin(i, width);
           }
         }
       }
@@ -113,44 +112,44 @@ namespace Rivet {
         const double y_45 = durjet.clusterSeq()->exclusive_ymerge_max(4);
         const double y_56 = durjet.clusterSeq()->exclusive_ymerge_max(5);
 
-        _h_y_Durham[0]->fill(y_23, weight);
-        _h_y_Durham[1]->fill(y_34, weight);
-        _h_y_Durham[2]->fill(y_45, weight);
-        _h_y_Durham[3]->fill(y_56, weight);
+        _h_y_Durham[0]->fill(y_23);
+        _h_y_Durham[1]->fill(y_34);
+        _h_y_Durham[2]->fill(y_45);
+        _h_y_Durham[3]->fill(y_56);
 
         for (size_t i = 0; i < _h_R_Durham[0]->numBins(); ++i) {
           double ycut = _h_R_Durham[0]->bin(i).xMid();
           double width = _h_R_Durham[0]->bin(i).xWidth();
           if (y_23 < ycut) {
-            _h_R_Durham[0]->fillBin(i, weight*width);
+            _h_R_Durham[0]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[1]->numBins(); ++i) {
           double ycut = _h_R_Durham[1]->bin(i).xMid();
           double width = _h_R_Durham[1]->bin(i).xWidth();
           if (y_34 < ycut && y_23 > ycut) {
-            _h_R_Durham[1]->fillBin(i, weight*width);
+            _h_R_Durham[1]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[2]->numBins(); ++i) {
           double ycut = _h_R_Durham[2]->bin(i).xMid();
           double width = _h_R_Durham[2]->bin(i).xWidth();
           if (y_45 < ycut && y_34 > ycut) {
-            _h_R_Durham[2]->fillBin(i, weight*width);
+            _h_R_Durham[2]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[3]->numBins(); ++i) {
           double ycut = _h_R_Durham[3]->bin(i).xMid();
           double width = _h_R_Durham[3]->bin(i).xWidth();
           if (y_56 < ycut && y_45 > ycut) {
-            _h_R_Durham[3]->fillBin(i, weight*width);
+            _h_R_Durham[3]->fillBin(i, width);
           }
         }
         for (size_t i = 0; i < _h_R_Durham[4]->numBins(); ++i) {
           double ycut = _h_R_Durham[4]->bin(i).xMid();
           double width = _h_R_Durham[4]->bin(i).xWidth();
           if (y_56 > ycut) {
-            _h_R_Durham[4]->fillBin(i, weight*width);
+            _h_R_Durham[4]->fillBin(i, width);
           }
         }
       }

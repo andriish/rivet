@@ -18,9 +18,9 @@ namespace Rivet {
       ChargedFinalState cfs(-7.0, 7.0, 0.0*GeV);
       declare(cfs, "CFS");
 
-      _Nevt_after_cuts_or = 0;
-      _Nevt_after_cuts_and = 0;
-      _Nevt_after_cuts_xor = 0;
+      book(_Nevt_after_cuts_or, "Nevt_or");
+      book(_Nevt_after_cuts_and, "Nevt_and");
+      book(_Nevt_after_cuts_xor, "Nevt_xor");
 
       if (fuzzyEquals(sqrtS(), 8000*GeV, 1E-3)) {
         book(_h_dNch_dEta_OR ,1, 1, 1);
@@ -45,14 +45,13 @@ namespace Rivet {
       const bool cutsxor = ( (count_plus > 0 && count_minus == 0) || (count_plus == 0 && count_minus > 0) );
 
       // Increment counters and fill histos
-      const double weight = 1.0;
-      if (cutsor)  _Nevt_after_cuts_or  += weight;
-      if (cutsand) _Nevt_after_cuts_and += weight;
-      if (cutsxor) _Nevt_after_cuts_xor += weight;
+      if (cutsor)  _Nevt_after_cuts_or  ->fill();
+      if (cutsand) _Nevt_after_cuts_and ->fill();
+      if (cutsxor) _Nevt_after_cuts_xor ->fill();
       foreach (const Particle& p, charged.particles()) {
-        if (cutsor)  _h_dNch_dEta_OR ->fill(p.abseta(), weight);
-        if (cutsand) _h_dNch_dEta_AND->fill(p.abseta(), weight);
-        if (cutsxor) _h_dNch_dEta_XOR->fill(p.abseta(), weight);
+        if (cutsor)  _h_dNch_dEta_OR ->fill(p.abseta());
+        if (cutsand) _h_dNch_dEta_AND->fill(p.abseta());
+        if (cutsxor) _h_dNch_dEta_XOR->fill(p.abseta());
       }
 
     }
@@ -68,7 +67,7 @@ namespace Rivet {
   private:
 
     Histo1DPtr _h_dNch_dEta_OR, _h_dNch_dEta_AND, _h_dNch_dEta_XOR;
-    double _Nevt_after_cuts_or, _Nevt_after_cuts_and, _Nevt_after_cuts_xor;
+    CounterPtr _Nevt_after_cuts_or, _Nevt_after_cuts_and, _Nevt_after_cuts_xor;
 
   };
 

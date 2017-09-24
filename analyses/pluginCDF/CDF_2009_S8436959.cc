@@ -41,8 +41,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       Particles fs = apply<FinalState>(event, "FS").particles();
       Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size()!=1) {
@@ -60,7 +58,7 @@ namespace Rivet {
       if ( (mom_in_cone.Et() - leadingPhoton.Et()) > 2.0*GeV) {
         vetoEvent;
       }
-      _h_Et_photon->fill(leadingPhoton.Et(), weight);
+      _h_Et_photon->fill(leadingPhoton.Et());
     }
 
 

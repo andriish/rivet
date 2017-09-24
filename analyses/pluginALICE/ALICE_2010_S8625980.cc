@@ -13,8 +13,7 @@ namespace Rivet {
 
     /// Constructor
     ALICE_2010_S8625980()
-      : Analysis("ALICE_2010_S8625980"),
-        _Nevt_after_cuts(0.0)
+      : Analysis("ALICE_2010_S8625980")
     {    }
 
     //@}
@@ -39,28 +38,27 @@ namespace Rivet {
         book(_h_dN_deta    ,6, 1, 1);
         book(_h_dN_dNch    ,3, 1, 1);
       }
+      book(_Nevt_after_cuts, "Nevt_after_cuts");
 
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
       if (charged.size() < 1) {
         vetoEvent;
       }
-      _Nevt_after_cuts += weight;
+      _Nevt_after_cuts->fill();
 
 
       foreach (const Particle& p, charged.particles()) {
         const double eta = p.eta();
-        _h_dN_deta->fill(eta, weight);
+        _h_dN_deta->fill(eta);
       }
 
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
-        _h_dN_dNch->fill(charged.size(), weight);
+        _h_dN_dNch->fill(charged.size());
       }
     }
 
@@ -85,7 +83,7 @@ namespace Rivet {
 
     Histo1DPtr _h_dN_deta;
     Histo1DPtr _h_dN_dNch;
-    double _Nevt_after_cuts;
+    CounterPtr _Nevt_after_cuts;
     //@}
 
 

@@ -13,9 +13,7 @@ namespace Rivet {
     /// Constructor
     CDF_1988_S1865951()
       : Analysis("CDF_1988_S1865951")
-    {
-      _sumWTrig = 0;
-    }
+    {}
 
 
     /// @name Analysis methods
@@ -34,6 +32,9 @@ namespace Rivet {
       } else if (fuzzyEquals(sqrtS()/GeV, 630, 1E-3)) {
         book(_hist_pt ,2, 1, 1);
       }
+
+      book(_sumWTrig, "sumWTrig");
+    
     }
 
 
@@ -42,14 +43,13 @@ namespace Rivet {
       // Trigger
       const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
-      const double weight = 1.0;
-      _sumWTrig += weight;
+      _sumWTrig->fill();
 
       const FinalState& trackfs = apply<ChargedFinalState>(event, "CFS");
       foreach (Particle p, trackfs.particles()) {
         const double pt = p.pT()/GeV;
         // Effective weight for d3sig/dp3 = weight / ( Delta eta * 2pi * pt ), with Delta(eta) = 2
-        const double eff_weight = weight/(2*2*TWOPI*pt);
+        const double eff_weight = 1.0/(2*2*TWOPI*pt);
         _hist_pt->fill(pt, eff_weight);
       }
     }
@@ -67,7 +67,7 @@ namespace Rivet {
 
     /// @name Counters
     //@{
-    double _sumWTrig;
+    CounterPtr _sumWTrig;
     //@}
 
     /// @name Histos

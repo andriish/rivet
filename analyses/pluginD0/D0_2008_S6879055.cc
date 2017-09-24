@@ -39,10 +39,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
-
-
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
       if (zfinder.bosons().size()!=1) {
         vetoEvent;
@@ -68,23 +64,23 @@ namespace Rivet {
       }
 
       // For normalisation of crossSection data (includes events with no jets passing cuts)
-      _crossSectionRatio->fill(0, weight);
+      _crossSectionRatio->fill(0);
 
       // Fill jet pT and multiplicities
       if (finaljet_list.size() >= 1) {
-        _crossSectionRatio->fill(1, weight);
-        _pTjet1->fill(finaljet_list[0].pT(), weight);
+        _crossSectionRatio->fill(1);
+        _pTjet1->fill(finaljet_list[0].pT());
       }
       if (finaljet_list.size() >= 2) {
-        _crossSectionRatio->fill(2, weight);
-        _pTjet2->fill(finaljet_list[1].pT(), weight);
+        _crossSectionRatio->fill(2);
+        _pTjet2->fill(finaljet_list[1].pT());
       }
       if (finaljet_list.size() >= 3) {
-        _crossSectionRatio->fill(3, weight);
-        _pTjet3->fill(finaljet_list[2].pT(), weight);
+        _crossSectionRatio->fill(3);
+        _pTjet3->fill(finaljet_list[2].pT());
       }
       if (finaljet_list.size() >= 4) {
-        _crossSectionRatio->fill(4, weight);
+        _crossSectionRatio->fill(4);
       }
     }
 

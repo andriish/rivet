@@ -35,6 +35,11 @@ namespace Rivet {
       book(_weight_KpiK, "weight_KpiK");
       book(_weight_KKK, "weight_KKK");
 
+      /// @note Using autobooking for these scatters since their x values are not really obtainable from the MC data
+      book(tmp11, 11, 1, 1, true);
+      book(tmp12, 12, 1, 1, true);
+      book(tmp13, 13, 1, 1, true);
+      book(tmp14, 14, 1, 1, true);      
     }
 
 
@@ -116,12 +121,6 @@ namespace Rivet {
         scale(_hist_KKK_KKK      , 1.0/_weight_KKK);
         scale(_hist_KKK_KK       , 0.5/_weight_KKK);
       }
-      /// @note Using autobooking for these scatters since their x values are not really obtainable from the MC data
-      Scatter2DPtr tmp11, tmp12, tmp13, tmp14;
-      book(tmp11, 11, 1, 1, true);
-      book(tmp12, 12, 1, 1, true);
-      book(tmp13, 13, 1, 1, true);
-      book(tmp14, 14, 1, 1, true);      
       tmp11->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(double(_weight_pipipi))/_weight_total);
       tmp12->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(double(_weight_Kpipi))/_weight_total);
       tmp13->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(double(_weight_KpiK))/_weight_total);
@@ -132,7 +131,8 @@ namespace Rivet {
   private:
 
     //@{
-
+    Scatter2DPtr tmp11, tmp12, tmp13, tmp14;
+ 
     // Histograms
     Histo1DPtr _hist_pipipi_pipipi, _hist_pipipi_pipi;
     Histo1DPtr _hist_Kpipi_Kpipi, _hist_Kpipi_Kpi, _hist_Kpipi_pipi;

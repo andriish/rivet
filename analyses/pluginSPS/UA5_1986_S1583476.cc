@@ -13,8 +13,6 @@ namespace Rivet {
 
     /// Constructor
     UA5_1986_S1583476() : Analysis("UA5_1986_S1583476") {
-      _sumWTrig = 0;
-      _sumWTrigNSD = 0;
     }
 
 
@@ -33,7 +31,8 @@ namespace Rivet {
         book(_hist_eta_inelastic ,1,1,2);
         _hists_eta_nsd.resize(6);
         for (int i = 1; i <= 6; ++i) {
-          _sumWn += 0.0;
+          _sumWn.push_back({});
+          book(_sumWn.back(), "TMP/sumWn"+to_str(i));
           book(_hists_eta_nsd[i-1],2,1,i);
         }
       } else if (fuzzyEquals(sqrtS()/GeV, 900.0, 1E-4)) {
@@ -41,10 +40,14 @@ namespace Rivet {
         book(_hist_eta_inelastic ,1,1,4);
         _hists_eta_nsd.resize(9);
         for (int i = 1; i <= 9; ++i) {
-          _sumWn += 0.0;
+          _sumWn.push_back({});
+          book(_sumWn.back(), "TMP/sumWn"+to_str(i));
           book(_hists_eta_nsd[i-1],3,1,i);
         }
       }
+      book(_sumWTrig, "sumWtrig");
+      book(_sumWTrigNSD, "sumWtrigNSD");
+
     }
 
 
@@ -63,20 +66,19 @@ namespace Rivet {
       MSG_TRACE("Multiplicity index: " << numP << " charged particles -> #" << num_idx);
 
       // Update weights
-      const double weight = 1.0;
-      _sumWTrig += weight;
+      _sumWTrig->fill();
       if (isNSD) {
-        _sumWTrigNSD += weight;
-        if (num_idx >= 0) _sumWn[num_idx] += weight;
+        _sumWTrigNSD->fill();
+        if (num_idx >= 0) _sumWn[num_idx]->fill();
       }
 
       // Fill histos
       foreach (const Particle& p, cfs50.particles()) {
         const double eta = p.abseta();
-        _hist_eta_inelastic->fill(eta, weight);
+        _hist_eta_inelastic->fill(eta);
         if (isNSD) {
-          _hist_eta_nsd->fill(eta, weight);
-          if (num_idx >= 0) _hists_eta_nsd[num_idx]->fill(eta, weight);
+          _hist_eta_nsd->fill(eta);
+          if (num_idx >= 0) _hists_eta_nsd[num_idx]->fill(eta);
         }
       }
     }
@@ -84,12 +86,12 @@ namespace Rivet {
 
     /// Scale histos
     void finalize() {
-      MSG_DEBUG("sumW_NSD,inel = " << _sumWTrigNSD << ", " << _sumWTrig);
+      MSG_DEBUG("sumW_NSD,inel = " << double(_sumWTrigNSD) << ", " << double(_sumWTrig));
       scale(_hist_eta_nsd, 0.5/_sumWTrigNSD);
       scale(_hist_eta_inelastic, 0.5/_sumWTrig);
       //
-      MSG_DEBUG("sumW[n] = " << _sumWn);
       for (size_t i = 0; i < _hists_eta_nsd.size(); ++i) {
+        MSG_DEBUG("sumW[n] = " << double(_sumWn[i]));
         scale(_hists_eta_nsd[i], 0.5/_sumWn[i]);
       }
     }
@@ -99,9 +101,9 @@ namespace Rivet {
 
     /// @name Weight counters
     //@{
-    double _sumWTrig;
-    double _sumWTrigNSD;
-    vector<double> _sumWn;
+    CounterPtr _sumWTrig;
+    CounterPtr _sumWTrigNSD;
+    vector<CounterPtr> _sumWn;
     //@}
 
     /// @name Histograms

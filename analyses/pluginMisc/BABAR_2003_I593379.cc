@@ -12,13 +12,11 @@ namespace Rivet {
   public:
 
     BABAR_2003_I593379()
-      : Analysis("BABAR_2003_I593379"), _weightSum(0.)
+      : Analysis("BABAR_2003_I593379")
     { }
 
 
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       // Find the charmonia
       Particles upsilons;
       // First in unstable final state
@@ -45,7 +43,7 @@ namespace Rivet {
 
       // Find upsilons
       foreach (const Particle& p, upsilons) {
-        _weightSum += weight;
+        _weightSum->fill();
         // Find the charmonium resonances
         /// @todo Use Rivet::Particles
         vector<const GenParticle*> allJpsi, primaryJpsi, Psiprime, all_chi_c1, all_chi_c2, primary_chi_c1, primary_chi_c2;
@@ -54,31 +52,31 @@ namespace Rivet {
         const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(p.mom().betaVec());
         for (size_t i = 0; i < allJpsi.size(); i++) {
           const double pcm = cms_boost.transform(FourMomentum(allJpsi[i]->momentum())).p();
-          _hist_all_Jpsi->fill(pcm, weight);
+          _hist_all_Jpsi->fill(pcm);
         }
-        _mult_JPsi->fill(10.58, weight*double(allJpsi.size()));
+        _mult_JPsi->fill(10.58, double(allJpsi.size()));
         for (size_t i = 0; i < primaryJpsi.size(); i++) {
           const double pcm = cms_boost.transform(FourMomentum(primaryJpsi[i]->momentum())).p();
-          _hist_primary_Jpsi->fill(pcm, weight);
+          _hist_primary_Jpsi->fill(pcm);
         }
-        _mult_JPsi_direct->fill(10.58, weight*double(primaryJpsi.size()));
+        _mult_JPsi_direct->fill(10.58, double(primaryJpsi.size()));
         for (size_t i=0; i<Psiprime.size(); i++) {
           const double pcm = cms_boost.transform(FourMomentum(Psiprime[i]->momentum())).p();
-          _hist_Psi_prime->fill(pcm, weight);
+          _hist_Psi_prime->fill(pcm);
         }
-        _mult_Psi2S->fill(10.58, weight*double(Psiprime.size()));
+        _mult_Psi2S->fill(10.58, double(Psiprime.size()));
         for (size_t i = 0; i < all_chi_c1.size(); i++) {
           const double pcm = cms_boost.transform(FourMomentum(all_chi_c1[i]->momentum())).p();
-          _hist_chi_c1->fill(pcm, weight);
+          _hist_chi_c1->fill(pcm);
         }
-        _mult_chi_c1->fill(10.58, weight*double(all_chi_c1.size()));
-        _mult_chi_c1_direct->fill(10.58, weight*double(primary_chi_c1.size()));
+        _mult_chi_c1->fill(10.58, double(all_chi_c1.size()));
+        _mult_chi_c1_direct->fill(10.58, double(primary_chi_c1.size()));
         for (size_t i = 0; i < all_chi_c2.size(); i++) {
           const double pcm = cms_boost.transform(FourMomentum(all_chi_c2[i]->momentum())).p();
-          _hist_chi_c2->fill(pcm, weight);
+          _hist_chi_c2->fill(pcm);
         }
-        _mult_chi_c2->fill(10.58, weight*double(all_chi_c2.size()));
-        _mult_chi_c2_direct->fill(10.58, weight*double(primary_chi_c2.size()));
+        _mult_chi_c2->fill(10.58, double(all_chi_c2.size()));
+        _mult_chi_c2_direct->fill(10.58, double(primary_chi_c2.size()));
       }
     } // analyze
 
@@ -114,13 +112,15 @@ namespace Rivet {
       book(_hist_chi_c2        ,7, 1, 2);
       book(_hist_Psi_prime     ,8, 1, 1);
       book(_hist_primary_Jpsi  ,10, 1, 1);
+
+      book(_weightSum, "TMP/weightSum");
     } // init
 
   private:
 
     //@{
     // count of weights
-    double _weightSum;
+    CounterPtr _weightSum;
     /// Histograms
     Histo1DPtr _hist_all_Jpsi;
     Histo1DPtr _hist_chi_c1;
