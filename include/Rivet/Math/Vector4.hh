@@ -862,18 +862,19 @@ namespace Rivet {
   /// @name \f$ \Delta R \f$ calculations from 4-vectors
   //@{
 
-  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
   /// There is a scheme ambiguity for momentum-type four vectors as to whether
   /// the pseudorapidity (a purely geometric concept) or the rapidity (a
   /// relativistic energy-momentum quantity) is to be used: this can be chosen
   /// via the optional scheme parameter. Use of this scheme option is
   /// discouraged in this case since @c RAPIDITY is only a valid option for
   /// vectors whose type is really the FourMomentum derived class.
-  inline double deltaR(const FourVector& a, const FourVector& b,
-                       RapScheme scheme = PSEUDORAPIDITY) {
+  inline double deltaR2(const FourVector& a, const FourVector& b,
+                       RapScheme scheme=PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY :
-      return deltaR(a.vector3(), b.vector3());
+      return deltaR2(a.vector3(), b.vector3());
     case RAPIDITY:
       {
         const FourMomentum* ma = dynamic_cast<const FourMomentum*>(&a);
@@ -882,25 +883,79 @@ namespace Rivet {
           string err = "deltaR with scheme RAPIDITY can only be called with FourMomentum objects, not FourVectors";
           throw std::runtime_error(err);
         }
-        return deltaR(*ma, *mb, scheme);
+        return deltaR2(*ma, *mb, scheme);
       }
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
   }
 
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
+  /// There is a scheme ambiguity for momentum-type four vectors as to whether
+  /// the pseudorapidity (a purely geometric concept) or the rapidity (a
+  /// relativistic energy-momentum quantity) is to be used: this can be chosen
+  /// via the optional scheme parameter. Use of this scheme option is
+  /// discouraged in this case since @c RAPIDITY is only a valid option for
+  /// vectors whose type is really the FourMomentum derived class.
+  inline double deltaR(const FourVector& a, const FourVector& b,
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    return sqrt(deltaR2(a, b, scheme));
+  }
+
+
+
+  /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR2(const FourVector& v,
+                       double eta2, double phi2,
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    switch (scheme) {
+    case PSEUDORAPIDITY :
+      return deltaR2(v.vector3(), eta2, phi2);
+    case RAPIDITY:
+      {
+        const FourMomentum* mv = dynamic_cast<const FourMomentum*>(&v);
+        if (!mv) {
+          string err = "deltaR with scheme RAPIDITY can only be called with FourMomentum objects, not FourVectors";
+          throw std::runtime_error(err);
+        }
+        return deltaR2(*mv, eta2, phi2, scheme);
+      }
+    default:
+      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
+    }
+  }
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
   /// There is a scheme ambiguity for momentum-type four vectors
   /// as to whether the pseudorapidity (a purely geometric concept) or the
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourVector& v,
                        double eta2, double phi2,
-                       RapScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    return sqrt(deltaR2(v, eta2, phi2, scheme));
+  }
+
+
+  /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR2(double eta1, double phi1,
+                        const FourVector& v,
+                        RapScheme scheme=PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY :
-      return deltaR(v.vector3(), eta2, phi2);
+      return deltaR2(eta1, phi1, v.vector3());
     case RAPIDITY:
       {
         const FourMomentum* mv = dynamic_cast<const FourMomentum*>(&v);
@@ -908,52 +963,69 @@ namespace Rivet {
           string err = "deltaR with scheme RAPIDITY can only be called with FourMomentum objects, not FourVectors";
           throw std::runtime_error(err);
         }
-        return deltaR(*mv, eta2, phi2, scheme);
+        return deltaR2(eta1, phi1, *mv, scheme);
       }
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
   }
 
-
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
   /// There is a scheme ambiguity for momentum-type four vectors
   /// as to whether the pseudorapidity (a purely geometric concept) or the
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
   inline double deltaR(double eta1, double phi1,
                        const FourVector& v,
-                       RapScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    return sqrt(deltaR2(eta1, phi1, v, scheme));
+  }
+
+
+  /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR2(const FourMomentum& a, const FourMomentum& b,
+                       RapScheme scheme=PSEUDORAPIDITY) {
     switch (scheme) {
-    case PSEUDORAPIDITY :
-      return deltaR(eta1, phi1, v.vector3());
+    case PSEUDORAPIDITY:
+      return deltaR2(a.vector3(), b.vector3());
     case RAPIDITY:
-      {
-        const FourMomentum* mv = dynamic_cast<const FourMomentum*>(&v);
-        if (!mv) {
-          string err = "deltaR with scheme RAPIDITY can only be called with FourMomentum objects, not FourVectors";
-          throw std::runtime_error(err);
-        }
-        return deltaR(eta1, phi1, *mv, scheme);
-      }
+      return deltaR2(a.rapidity(), a.azimuthalAngle(), b.rapidity(), b.azimuthalAngle());
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
   }
 
-
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  ///
   /// There is a scheme ambiguity for momentum-type four vectors
   /// as to whether the pseudorapidity (a purely geometric concept) or the
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourMomentum& a, const FourMomentum& b,
-                       RapScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    return sqrt(deltaR2(a, b, scheme));
+  }
+
+
+  /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR2(const FourMomentum& v,
+                        double eta2, double phi2,
+                        RapScheme scheme=PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY:
-      return deltaR(a.vector3(), b.vector3());
+      return deltaR2(v.vector3(), eta2, phi2);
     case RAPIDITY:
-      return deltaR(a.rapidity(), a.azimuthalAngle(), b.rapidity(), b.azimuthalAngle());
+      return deltaR2(v.rapidity(), v.azimuthalAngle(), eta2, phi2);
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
@@ -966,17 +1038,28 @@ namespace Rivet {
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourMomentum& v,
                        double eta2, double phi2,
-                       RapScheme scheme = PSEUDORAPIDITY) {
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    return sqrt(deltaR2(v, eta2, phi2, scheme));
+  }
+
+
+  /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR2(double eta1, double phi1,
+                        const FourMomentum& v,
+                        RapScheme scheme=PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY:
-      return deltaR(v.vector3(), eta2, phi2);
+      return deltaR2(eta1, phi1, v.vector3());
     case RAPIDITY:
-      return deltaR(v.rapidity(), v.azimuthalAngle(), eta2, phi2);
+      return deltaR2(eta1, phi1, v.rapidity(), v.azimuthalAngle());
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
   }
-
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
   /// There is a scheme ambiguity for momentum-type four vectors
@@ -984,13 +1067,24 @@ namespace Rivet {
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
   inline double deltaR(double eta1, double phi1,
-                       const FourMomentum& v,
-                       RapScheme scheme = PSEUDORAPIDITY) {
+                        const FourMomentum& v,
+                        RapScheme scheme=PSEUDORAPIDITY) {
+    return sqrt(deltaR2(eta1, phi1, v, scheme));
+  }
+
+
+  /// @brief Calculate the squared 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR2(const FourMomentum& a, const FourVector& b,
+                        RapScheme scheme=PSEUDORAPIDITY) {
     switch (scheme) {
     case PSEUDORAPIDITY:
-      return deltaR(eta1, phi1, v.vector3());
+      return deltaR2(a.vector3(), b.vector3());
     case RAPIDITY:
-      return deltaR(eta1, phi1, v.rapidity(), v.azimuthalAngle());
+      return deltaR2(a.rapidity(), a.azimuthalAngle(), FourMomentum(b).rapidity(), b.azimuthalAngle());
     default:
       throw std::runtime_error("The specified deltaR scheme is not yet implemented");
     }
@@ -1002,15 +1096,19 @@ namespace Rivet {
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourMomentum& a, const FourVector& b,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    switch (scheme) {
-    case PSEUDORAPIDITY:
-      return deltaR(a.vector3(), b.vector3());
-    case RAPIDITY:
-      return deltaR(a.rapidity(), a.azimuthalAngle(), FourMomentum(b).rapidity(), b.azimuthalAngle());
-    default:
-      throw std::runtime_error("The specified deltaR scheme is not yet implemented");
-    }
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    return sqrt(deltaR2(a, b, scheme));
+  }
+
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
+  /// There is a scheme ambiguity for momentum-type four vectors
+  /// as to whether the pseudorapidity (a purely geometric concept) or the
+  /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
+  /// be chosen via the optional scheme parameter.
+  inline double deltaR2(const FourVector& a, const FourMomentum& b,
+                        RapScheme scheme=PSEUDORAPIDITY) {
+    return deltaR2(b, a, scheme); //< note reversed args
   }
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between two four-vectors.
@@ -1019,8 +1117,15 @@ namespace Rivet {
   /// rapidity (a relativistic energy-momentum quantity) is to be used: this can
   /// be chosen via the optional scheme parameter.
   inline double deltaR(const FourVector& a, const FourMomentum& b,
-                       RapScheme scheme = PSEUDORAPIDITY) {
-    return deltaR(b, a, scheme);
+                       RapScheme scheme=PSEUDORAPIDITY) {
+    return deltaR(b, a, scheme); //< note reversed args
+  }
+
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
+  inline double deltaR2(const FourMomentum& a, const Vector3& b) {
+    return deltaR2(a.vector3(), b);
   }
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
@@ -1031,14 +1136,32 @@ namespace Rivet {
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
   /// three-vector and a four-vector.
+  inline double deltaR2(const Vector3& a, const FourMomentum& b) {
+    return deltaR2(a, b.vector3());
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
   inline double deltaR(const Vector3& a, const FourMomentum& b) {
     return deltaR(a, b.vector3());
   }
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
   /// three-vector and a four-vector.
+  inline double deltaR2(const FourVector& a, const Vector3& b) {
+    return deltaR2(a.vector3(), b);
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
   inline double deltaR(const FourVector& a, const Vector3& b) {
     return deltaR(a.vector3(), b);
+  }
+
+  /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
+  /// three-vector and a four-vector.
+  inline double deltaR2(const Vector3& a, const FourVector& b) {
+    return deltaR2(a, b.vector3());
   }
 
   /// @brief Calculate the 2D rapidity-azimuthal ("eta-phi") distance between a
