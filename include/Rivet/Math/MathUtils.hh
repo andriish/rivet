@@ -568,11 +568,17 @@ namespace Rivet {
     return fabs(y1 - y2);
   }
 
+  /// Calculate the squared distance between two points in 2D rapidity-azimuthal
+  /// ("\f$ \eta-\phi \f$") space. The phi values are given in radians.
+  inline double deltaR2(double rap1, double phi1, double rap2, double phi2) {
+    const double dphi = deltaPhi(phi1, phi2);
+    return sqr(rap1-rap2) + sqr(dphi);
+  }
+
   /// Calculate the distance between two points in 2D rapidity-azimuthal
   /// ("\f$ \eta-\phi \f$") space. The phi values are given in radians.
   inline double deltaR(double rap1, double phi1, double rap2, double phi2) {
-    const double dphi = deltaPhi(phi1, phi2);
-    return sqrt( sqr(rap1-rap2) + sqr(dphi) );
+    return sqrt(deltaR2(rap1, phi1, rap2, phi2));
   }
 
   /// Calculate a rapidity value from the supplied energy @a E and longitudinal momentum @a pz.
