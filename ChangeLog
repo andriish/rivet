@@ -1,3 +1,15 @@
+2017-09-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add ChargedLeptons enum and mode argument to ZFinder and WFinder
+	constructors, to allow control over whether the selected charged
+	leptons are prompt. This is mostly cosmetic/for symmetry in the
+	case of ZFinder, since the same can be achieved by passing a
+	PromptFinalState as the fs argument, but for WFinder it's
+	essential since passing a prompt final state screws up the MET
+	calculation. Both are slightly different in the treatment of the
+	lepton dressing, although conventionally this is an area where
+	only prompt photons are used.
+
 2017-09-25  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add deltaR2 functions for squared distances.

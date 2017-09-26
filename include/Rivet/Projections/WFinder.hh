@@ -16,6 +16,7 @@ namespace Rivet {
   class WFinder : public ParticleFinder {
   public:
 
+    enum ChargedLeptons { PROMPTCHLEPTONS=0, ALLCHLEPTONS };
     enum ClusterPhotons { NOCLUSTER=0, CLUSTERNODECAY=1, CLUSTERALL };
     enum PhotonTracking { NOTRACK=0, TRACK=1 };
     enum MassWindow { MASS=0, TRANSMASS=1 };
@@ -32,6 +33,7 @@ namespace Rivet {
     /// @param missingET Minimal amount of missing ET (neutrinos) required
     /// @param dRmax Maximum dR of photons around charged lepton to take into account
     ///  for W reconstruction (only relevant if one of the following are true)
+    /// @param chLeptons Only use prompt charged leptons, or any charged leptons?
     /// @param clusterPhotons Whether such photons are supposed to be
     ///  clustered to the lepton object and thus W mom
     /// @param trackPhotons Whether such photons should be added to _theParticles
@@ -44,10 +46,27 @@ namespace Rivet {
             double minmass, double maxmass,
             double missingET,
             double dRmax=0.1,
+            ChargedLeptons chLeptons=PROMPTCHLEPTONS,
             ClusterPhotons clusterPhotons=CLUSTERNODECAY,
             PhotonTracking trackPhotons=NOTRACK,
             MassWindow masstype=MASS,
             double masstarget=80.4*GeV);
+
+    /// Backward-compatible constructor with implicit chLeptons mode = PROMPTCHLEPTONS
+    /// @deprecated Remove this and always use the constructor with chLeptons argument.
+    WFinder(const FinalState& inputfs,
+            const Cut& leptoncuts,
+            PdgId pid,
+            double minmass, double maxmass,
+            double missingET,
+            double dRmax,
+            ClusterPhotons clusterPhotons,
+            PhotonTracking trackPhotons=NOTRACK,
+            MassWindow masstype=MASS,
+            double masstarget=80.4*GeV)
+      : WFinder(inputfs, leptoncuts, pid, minmass, maxmass, missingET,
+                dRmax, PROMPTCHLEPTONS, clusterPhotons, trackPhotons, masstype, masstarget)
+    {   }
 
     // /// Constructor with more convenient argument ordering and default args
     // ///

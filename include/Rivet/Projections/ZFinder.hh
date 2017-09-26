@@ -18,6 +18,7 @@ namespace Rivet {
   class ZFinder : public ParticleFinder {
   public:
 
+    enum ChargedLeptons { PROMPTCHLEPTONS=0, ALLCHLEPTONS };
     enum ClusterPhotons { NOCLUSTER=0, CLUSTERNODECAY=1, CLUSTERALL };
     enum PhotonTracking { NOTRACK=0, TRACK=1 };
 
@@ -36,13 +37,29 @@ namespace Rivet {
     /// @param trackPhotons whether such photons should be added to _theParticles
     ///  (cf. _trackPhotons)
     ZFinder(const FinalState& inputfs,
-            const Cut & cuts,
+            const Cut& cuts,
             PdgId pid,
             double minmass, double maxmass,
             double dRmax=0.1,
+            ChargedLeptons chLeptons=PROMPTCHLEPTONS,
             ClusterPhotons clusterPhotons=CLUSTERNODECAY,
             PhotonTracking trackPhotons=NOTRACK,
             double masstarget=91.2*GeV);
+
+    /// Backward-compatible constructor with implicit chLeptons mode = PROMPTCHLEPTONS
+    /// @deprecated Remove this and always use the constructor with chLeptons argument.
+    ZFinder(const FinalState& inputfs,
+            const Cut& cuts,
+            PdgId pid,
+            double minmass, double maxmass,
+            double dRmax,
+            ClusterPhotons clusterPhotons,
+            PhotonTracking trackPhotons=NOTRACK,
+            double masstarget=91.2*GeV)
+      : ZFinder(inputfs, cuts, pid, minmass, maxmass,
+                dRmax, PROMPTCHLEPTONS, clusterPhotons, trackPhotons, masstarget)
+    {   }
+
 
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(ZFinder);

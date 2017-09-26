@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MergedFinalState.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
@@ -16,6 +17,7 @@ namespace Rivet {
                    double minmass, double maxmass,
                    double missingET,
                    double dRmax,
+                   ChargedLeptons chLeptons,
                    ClusterPhotons clusterPhotons,
                    PhotonTracking trackPhotons,
                    MassWindow masstype,
@@ -35,7 +37,7 @@ namespace Rivet {
       throw Error("Invalid charged lepton PID given to WFinder");
 
     // Lepton clusters
-    IdentifiedFinalState bareleptons(inputfs);
+    IdentifiedFinalState bareleptons(chLeptons == PROMPTCHLEPTONS ? PromptFinalState(inputfs) : inputfs);
     bareleptons.acceptIdPair(_pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
