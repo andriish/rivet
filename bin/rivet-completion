@@ -51,7 +51,7 @@ function _rivet() {
     fi
 
     if (echo ${prev} | egrep -- "--\<histo-file\>|\<-H\>" &> /dev/null); then
-        _filedir yoda
+        _filedir "yoda|yoda.gz"
         return 0
     fi
 
@@ -167,7 +167,7 @@ function _rivet_cmphistos() {
         return 0
     fi
 
-    _filedir yoda
+    _filedir "yoda|yoda.gz"
     return 0
 }
 
@@ -250,7 +250,7 @@ function _rivet_mkhtml() {
         return 0
     fi
 
-    _filedir yoda
+    _filedir "yoda|yoda.gz"
     return 0
 }
 
