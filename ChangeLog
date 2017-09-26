@@ -1,5 +1,7 @@
 2017-09-26  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Use generic YODA read and write functions -- enables zipped yoda.gz output.
+
 	* Add ChargedLeptons enum and mode argument to ZFinder and WFinder
 	constructors, to allow control over whether the selected charged
 	leptons are prompt. This is mostly cosmetic/for symmetry in the
