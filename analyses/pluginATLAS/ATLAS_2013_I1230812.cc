@@ -106,13 +106,11 @@ namespace Rivet {
         }
       }
 
-      const double weight = 1.0;
-
       // Fill jet multiplicities
       for (size_t ijet = 0; ijet <= jets.size(); ++ijet) {
-        _h_njet_incl->fill(ijet, weight);
+        _h_njet_incl->fill(ijet);
       }
-      _h_njet_excl->fill(jets.size(), weight);
+      _h_njet_excl->fill(jets.size());
 
       // Require at least one jet
       if (jets.size() >= 1) {
@@ -120,11 +118,11 @@ namespace Rivet {
         const double ptlead   = jets[0].pT()/GeV;
         const double yabslead = fabs(jets[0].rapidity());
         const double ptz   = z.pT()/GeV;
-        _h_ptlead->fill(ptlead,   weight);
-        _h_ylead ->fill(yabslead, weight);
-        _h_pt_z  ->fill(ptz, weight);
+        _h_ptlead->fill(ptlead);
+        _h_ylead ->fill(yabslead);
+        _h_pt_z  ->fill(ptz);
         // Fill jet multiplicities
-        if (ptlead > 150)  _h_njet_excl_pt150->fill(jets.size(), weight);
+        if (ptlead > 150)  _h_njet_excl_pt150->fill(jets.size());
 
         // Loop over selected jets, fill inclusive distributions
         double st=0;
@@ -133,13 +131,13 @@ namespace Rivet {
           ht+=jets[ijet].pT()/GeV;
           st+=jets[ijet].pT()/GeV;
         }
-        _h_ht->fill(ht, weight);
-        _h_st->fill(st, weight);
+        _h_ht->fill(ht);
+        _h_st->fill(st);
 
         // Require exactly one jet
         if (jets.size() == 1) {
-          _h_ptlead_excl->fill(ptlead,   weight);
-          _h_pt_z_excl  ->fill(ptz, weight);
+          _h_ptlead_excl->fill(ptlead);
+          _h_pt_z_excl  ->fill(ptz);
         }
       }
 
@@ -151,21 +149,21 @@ namespace Rivet {
         const double pt2ndlead   = jets[1].pT()/GeV;
         const double ptratio     = pt2ndlead/ptlead;
         const double yabs2ndlead = fabs(jets[1].rapidity());
-        _h_ptseclead->fill(pt2ndlead,   weight);
-        _h_yseclead->fill( yabs2ndlead, weight);
-        _h_pt_ratio->fill( ptratio,     weight);
+        _h_ptseclead->fill(pt2ndlead);
+        _h_yseclead->fill( yabs2ndlead);
+        _h_pt_ratio->fill( ptratio);
 
         // Dijet histos
         const double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
         const double deltarap = fabs(jets[0].rapidity() - jets[1].rapidity()) ;
         const double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
         const double mass     = (jets[0].momentum() + jets[1].momentum()).mass()/GeV;
-        _h_mass->fill(    mass,     weight);
-        _h_deltay->fill(  deltarap, weight);
-        _h_deltaphi->fill(deltaphi, weight);
-        _h_deltaR->fill(  deltar,   weight);
+        _h_mass->fill(    mass);
+        _h_deltay->fill(  deltarap);
+        _h_deltaphi->fill(deltaphi);
+        _h_deltaR->fill(  deltar);
 
-        if (mass > 350 && deltarap > 3)  _h_njet_excl_vbf->fill(jets.size(), weight);
+        if (mass > 350 && deltarap > 3)  _h_njet_excl_vbf->fill(jets.size());
       }
 
       // Require at least three jets
@@ -173,15 +171,15 @@ namespace Rivet {
         // Third jet histos
         const double pt3rdlead   = jets[2].pT()/GeV;
         const double yabs3rdlead = fabs(jets[2].rapidity());
-        _h_ptthirdlead->fill(pt3rdlead,   weight);
-        _h_ythirdlead->fill( yabs3rdlead, weight);
+        _h_ptthirdlead->fill(pt3rdlead);
+        _h_ythirdlead->fill( yabs3rdlead);
 
         //Histos after VBF preselection
         const double deltarap = fabs(jets[0].rapidity() - jets[1].rapidity()) ;
         const double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
         if (mass > 350 && deltarap > 3) {
-          _h_ptthirdlead_vbf->fill(pt3rdlead,   weight);
-          _h_ythirdlead_vbf->fill( yabs3rdlead, weight);
+          _h_ptthirdlead_vbf->fill(pt3rdlead);
+          _h_ythirdlead_vbf->fill( yabs3rdlead);
         }
       }
 
@@ -190,8 +188,8 @@ namespace Rivet {
         // Fourth jet histos
         const double pt4thlead   = jets[3].pT()/GeV;
         const double yabs4thlead = fabs(jets[3].rapidity());
-        _h_ptfourthlead->fill(pt4thlead,   weight);
-        _h_yfourthlead->fill( yabs4thlead, weight);
+        _h_ptfourthlead->fill(pt4thlead);
+        _h_yfourthlead->fill( yabs4thlead);
       }
     }
 
@@ -200,7 +198,7 @@ namespace Rivet {
 
     /// Calculate the efficiency error, being careful about div-by-zero
     double err_incl(const HistoBin1D &M, const HistoBin1D &N, bool hasWeights) {
-      double r = safediv(M.sumW(), N.sumW()); 
+      double r = safediv(M.sumW(), N.sumW());
       if (hasWeights) { // use F. James's approximation for weighted events
         return sqrt( safediv((1 - 2 * r) * M.sumW2() + r * r * N.sumW2(), N.sumW() * N.sumW()) );
       }
@@ -209,12 +207,12 @@ namespace Rivet {
 
     /// Calculate the ratio error, being careful about div-by-zero
     double err_excl(const HistoBin1D &A, const HistoBin1D &B) {
-      double r = safediv(A.sumW(), B.sumW()); 
+      double r = safediv(A.sumW(), B.sumW());
       double dAsquared = safediv(A.sumW2(), A.sumW() * A.sumW()); // squared relative error of A
       double dBsquared = safediv(B.sumW2(), B.sumW() * B.sumW()); // squared relative error of B
       return r * sqrt(dAsquared + dBsquared);
     }
-    
+
 
     //@}
 

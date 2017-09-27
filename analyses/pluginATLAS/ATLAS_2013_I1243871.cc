@@ -59,8 +59,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       /// Get the various sets of final state particles
       const ParticleVector& elecFS = apply<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
       const ParticleVector& muonFS = apply<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
@@ -227,8 +225,8 @@ namespace Rivet {
           const double rhoval = (iBin != 0 ? (rings[iBin]-rings[iBin-1]) : rings[iBin]) / binWidth / rings[9];
           const double psival = rings[iBin] / rings[9];
           MSG_DEBUG(rcenter << ", " << rhoval << ", " << psival);
-          _p_b_rho[ipt]->fill(rcenter, rhoval, weight);
-          _p_b_Psi[ipt]->fill(rcenter, psival, weight);
+          _p_b_rho[ipt]->fill(rcenter, rhoval);
+          _p_b_Psi[ipt]->fill(rcenter, psival);
         }
       }
 
@@ -256,8 +254,8 @@ namespace Rivet {
           const double rcenter = 0.02 + iBin*binWidth;
           const double rhoval = (iBin != 0 ? (rings[iBin]-rings[iBin-1]) : rings[iBin]) / binWidth / rings[9];
           const double psival = rings[iBin] / rings[9];
-          _p_l_rho[ipt]->fill(rcenter, rhoval, weight);
-          _p_l_Psi[ipt]->fill(rcenter, psival, weight);
+          _p_l_rho[ipt]->fill(rcenter, rhoval);
+          _p_l_Psi[ipt]->fill(rcenter, psival);
         }
       }
 

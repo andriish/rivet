@@ -75,8 +75,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       const DressedLeptons& electronClusters = apply<DressedLeptons>(e, "electronClusters");
       const DressedLeptons& muonClusters = apply<DressedLeptons>(e, "muonClusters");
       int ne = electronClusters.dressedLeptons().size();
@@ -109,12 +107,12 @@ namespace Rivet {
       if (seq) {
         for (size_t i = 0; i < min(m_njet,(size_t)seq->n_particles()); ++i) {
           double d_ij = sqrt(seq->exclusive_dmerge_max(i));
-          _h_dI[flav][i]->fill(d_ij, weight);
+          _h_dI[flav][i]->fill(d_ij);
 
           if (i<m_njet-1) {
             if (d_ij>20.0*GeV) {
               double d_ijplus1 = sqrt(seq->exclusive_dmerge_max(i+1));
-              _h_dI_ratio[flav][i]->fill(d_ijplus1/d_ij, weight);
+              _h_dI_ratio[flav][i]->fill(d_ijplus1/d_ij);
             }
           }
         }

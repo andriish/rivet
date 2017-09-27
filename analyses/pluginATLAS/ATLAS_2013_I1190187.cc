@@ -201,9 +201,6 @@ namespace Rivet {
       //
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
       // ee channel
       if (fiducial_lepton[0].abspid() == PID::ELECTRON && fiducial_lepton[1].abspid() == PID::ELECTRON) {
         if (MET_rel <= 45*GeV) vetoEvent;
@@ -211,8 +208,8 @@ namespace Rivet {
         if (fabs(M_l1l2 - 91.1876*GeV) <= 15*GeV) vetoEvent;
         if (vetojets.size() != 0) vetoEvent;
         if (pT_l1l2 <= 30*GeV) vetoEvent;
-        _h_Wl1_pT_ee->fill(sqrtS()*GeV, weight);
-        _h_Wl1_pT_inclusive->fill(pT_l1, weight);
+        _h_Wl1_pT_ee->fill(sqrtS()*GeV);
+        _h_Wl1_pT_inclusive->fill(pT_l1);
       }
 
       // mumu channel
@@ -222,8 +219,8 @@ namespace Rivet {
         if (fabs(M_l1l2-91.1876*GeV) <= 15*GeV) vetoEvent;
         if (vetojets.size() != 0) vetoEvent;
         if (pT_l1l2 <= 30*GeV) vetoEvent;
-        _h_Wl1_pT_mumu->fill(sqrtS()*GeV, weight);
-        _h_Wl1_pT_inclusive->fill(pT_l1, weight);
+        _h_Wl1_pT_mumu->fill(sqrtS()*GeV);
+        _h_Wl1_pT_inclusive->fill(pT_l1);
       }
 
       // emu channel
@@ -232,8 +229,8 @@ namespace Rivet {
         if (M_l1l2 <= 10*GeV) vetoEvent;
         if (vetojets.size() != 0) vetoEvent;
         if (pT_l1l2 <= 30*GeV) vetoEvent;
-        _h_Wl1_pT_emu->fill(sqrtS()*GeV, weight);
-        _h_Wl1_pT_inclusive->fill(pT_l1, weight);
+        _h_Wl1_pT_emu->fill(sqrtS()*GeV);
+        _h_Wl1_pT_inclusive->fill(pT_l1);
       }
     }
 

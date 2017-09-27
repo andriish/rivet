@@ -235,8 +235,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       double charge_weight = 0; // account for OS/SS events
 
       int    lepton_charge = 0;
@@ -279,18 +277,18 @@ namespace Rivet {
       }
 
       if (lepton_charge > 0) {
-        _hist_wplus_winc->fill(10., weight);
-        _hist_wplus_winc->fill(16., weight);
-        _hist_wplus_winc->fill(30., weight);
-        _hist_wplus_winc->fill(60., weight);
-        _hist_w_inc->fill(+1, weight);
+        _hist_wplus_winc->fill(10.);
+        _hist_wplus_winc->fill(16.);
+        _hist_wplus_winc->fill(30.);
+        _hist_wplus_winc->fill(60.);
+        _hist_w_inc->fill(+1);
       }
       else if (lepton_charge < 0) {
-        _hist_wminus_winc->fill(10., weight);
-        _hist_wminus_winc->fill(16., weight);
-        _hist_wminus_winc->fill(30., weight);
-        _hist_wminus_winc->fill(60., weight);
-        _hist_w_inc->fill(-1, weight);
+        _hist_wminus_winc->fill(10.);
+        _hist_wminus_winc->fill(16.);
+        _hist_wminus_winc->fill(30.);
+        _hist_wminus_winc->fill(60.);
+        _hist_w_inc->fill(-1);
       }
 
       // Find hadrons in the event
@@ -338,19 +336,19 @@ namespace Rivet {
 
         if(nj == 1)  {
           if (lepton_charge > 0) {
-            _hist_wcjet_charge        ->fill(         1, weight*charge_weight);
-            _hist_wcjet_plus          ->fill(         0, weight*charge_weight);
-            _hist_wplus_wcjet_eta_lep ->fill(lepton_eta, weight*charge_weight);
-            _hist_wcjet_jets_plus     ->fill(njets-1   , weight*charge_weight);
+            _hist_wcjet_charge        ->fill(         1, charge_weight);
+            _hist_wcjet_plus          ->fill(         0, charge_weight);
+            _hist_wplus_wcjet_eta_lep ->fill(lepton_eta, charge_weight);
+            _hist_wcjet_jets_plus     ->fill(njets-1   , charge_weight);
           }
           else if (lepton_charge < 0) {
-            _hist_wcjet_charge        ->fill(        -1, weight*charge_weight);
-            _hist_wcjet_minus         ->fill(         0, weight*charge_weight);
-            _hist_wminus_wcjet_eta_lep->fill(lepton_eta, weight*charge_weight);
-            _hist_wcjet_jets_minus    ->fill(njets-1   , weight*charge_weight);
+            _hist_wcjet_charge        ->fill(        -1, charge_weight);
+            _hist_wcjet_minus         ->fill(         0, charge_weight);
+            _hist_wminus_wcjet_eta_lep->fill(lepton_eta, charge_weight);
+            _hist_wcjet_jets_minus    ->fill(njets-1   , charge_weight);
           }
 
-          _hist_wcjet_jets->fill(njets-1, weight*charge_weight);
+          _hist_wcjet_jets->fill(njets-1, charge_weight);
         }
       }
 
@@ -369,16 +367,16 @@ namespace Rivet {
 
           // fill histos
           if (lepton_charge > 0) {
-            _hist_wd_charge            ->fill(         1, weight*charge_weight);
-            _hist_wd_plus              ->fill(         0, weight*charge_weight);
-            _hist_wplus_wdminus_eta_lep->fill(lepton_eta, weight*charge_weight);
-            _hist_wplusd_wplusinc_pt   ->fill(    p.pT(), weight*charge_weight);
+            _hist_wd_charge            ->fill(         1, charge_weight);
+            _hist_wd_plus              ->fill(         0, charge_weight);
+            _hist_wplus_wdminus_eta_lep->fill(lepton_eta, charge_weight);
+            _hist_wplusd_wplusinc_pt   ->fill(    p.pT(), charge_weight);
           }
           else if (lepton_charge < 0) {
-            _hist_wd_charge            ->fill(        -1, weight*charge_weight);
-            _hist_wd_minus             ->fill(         0, weight*charge_weight);
-            _hist_wminus_wdplus_eta_lep->fill(lepton_eta, weight*charge_weight);
-            _hist_wminusd_wminusinc_pt ->fill(p.pT()    , weight*charge_weight);
+            _hist_wd_charge            ->fill(        -1, charge_weight);
+            _hist_wd_minus             ->fill(         0, charge_weight);
+            _hist_wminus_wdplus_eta_lep->fill(lepton_eta, charge_weight);
+            _hist_wminusd_wminusinc_pt ->fill(p.pT()    , charge_weight);
           }
         }
 
@@ -388,16 +386,16 @@ namespace Rivet {
           else charge_weight = +1;
 
           if (lepton_charge > 0) {
-            _hist_wdstar_charge->fill(+1, weight*charge_weight);
-            _hist_wd_plus->fill( 0, weight*charge_weight);
-            _hist_wplus_wdstar_eta_lep->fill( lepton_eta, weight*charge_weight);
-            _hist_wplusdstar_wplusinc_pt->fill(  p.pT(), weight*charge_weight);
+            _hist_wdstar_charge->fill(+1, charge_weight);
+            _hist_wd_plus->fill( 0, charge_weight);
+            _hist_wplus_wdstar_eta_lep->fill( lepton_eta, charge_weight);
+            _hist_wplusdstar_wplusinc_pt->fill(  p.pT(), charge_weight);
           }
           else if (lepton_charge < 0) {
-            _hist_wdstar_charge->fill(-1, weight*charge_weight);
-            _hist_wd_minus->fill(0, weight*charge_weight);
-            _hist_wminus_wdstar_eta_lep->fill(lepton_eta, weight*charge_weight);
-            _hist_wminusdstar_wminusinc_pt->fill(p.pT(), weight*charge_weight);
+            _hist_wdstar_charge->fill(-1, charge_weight);
+            _hist_wd_minus->fill(0, charge_weight);
+            _hist_wminus_wdstar_eta_lep->fill(lepton_eta, charge_weight);
+            _hist_wminusdstar_wminusinc_pt->fill(p.pT(), charge_weight);
           }
         }
       }

@@ -51,8 +51,6 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       //  retrieve W boson candidate
       const WFinder& wf = apply<WFinder>(event, "WF");
       if( wf.bosons().size() != 1 )  vetoEvent; // only one W boson candidate
@@ -95,11 +93,11 @@ namespace Rivet {
 
       double njets = double(goodjets);
       double ncomb = 3.0;
-      _njet->fill(njets, weight);
-      _njet->fill(ncomb, weight);
+      _njet->fill(njets);
+      _njet->fill(ncomb);
 
-      if(     goodjets == 1)  _jet1_bPt->fill(bPt, weight);
-      else if(goodjets == 2)  _jet2_bPt->fill(bPt, weight);
+      if(     goodjets == 1)  _jet1_bPt->fill(bPt);
+      else if(goodjets == 2)  _jet2_bPt->fill(bPt);
     }
 
 

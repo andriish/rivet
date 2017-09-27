@@ -53,7 +53,6 @@ namespace Rivet {
 
       // Find Phi -> KK decays through matching of the kinematics
       if (!kp.empty() && !km.empty() && !phis.empty()) {
-        const double w = 1.0;
         MSG_DEBUG("Numbers of particles:  #phi=" << phis.size() << ", #K+=" << kp.size() << ", #K-=" << km.size());
         for (size_t ip = 0; ip < phis.size(); ++ip) {
           const Particle& phi = phis[ip];
@@ -62,8 +61,8 @@ namespace Rivet {
               const FourMomentum mom = kp[ikp].mom() + km[ikm].mom();
               if ( fuzzyEquals(mom.mass(), phi.mass(), 1e-5) ) {
                 MSG_DEBUG("Accepted combinatoric: phi#:" << ip << " K+#:" << ikp << " K-#:" << ikm);
-                _h_phi_rapidity->fill(phi.absrap(), w);
-                _h_phi_pT->fill(phi.pT()/MeV, w);
+                _h_phi_rapidity->fill(phi.absrap());
+                _h_phi_pT->fill(phi.pT()/MeV);
               } else {
                 MSG_DEBUG("Rejected combinatoric: phi#:" << ip << " K+#:" << ikp << " K-#:" << ikm << " Mass difference is " << mom.mass()-phi.mass());
               }

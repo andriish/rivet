@@ -69,8 +69,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       // retrieve leading photon
       Particles photons = apply<LeadingParticlesFinalState>(event, "LeadingPhoton").particles();
       if (photons.size() != 1)  vetoEvent;
@@ -121,15 +119,15 @@ namespace Rivet {
       double term2 = (lep_gamma + neutrino.momentum()).pT2();
       double mWgammaT = sqrt(term1 * term1 - term2) * GeV;
 
-      _hist_EgammaT_incl->fill(photonEt, weight);
+      _hist_EgammaT_incl->fill(photonEt);
 
-      _hist_Njet_EgammaT15->fill(Njets, weight);
+      _hist_Njet_EgammaT15->fill(Njets);
 
-      if ( !goodJets )  _hist_EgammaT_excl->fill(photonEt, weight);
+      if ( !goodJets )  _hist_EgammaT_excl->fill(photonEt);
 
       if (photonEt > 40.0*GeV) {
-        _hist_mWgammaT->fill(mWgammaT, weight);
-        if (photonEt > 60.0*GeV)  _hist_Njet_EgammaT60->fill(Njets, weight);
+        _hist_mWgammaT->fill(mWgammaT);
+        if (photonEt > 60.0*GeV)  _hist_Njet_EgammaT60->fill(Njets);
       }
 
     }

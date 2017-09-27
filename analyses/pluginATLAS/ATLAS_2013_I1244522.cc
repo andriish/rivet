@@ -115,20 +115,19 @@ namespace Rivet {
       if (mom_in_EtCone.Et() - correction >= 4*GeV)  vetoEvent;
 
       // Fill histos
-      const double weight = 1.0;
       const double dy = deltaRap(photon, leadingJet);
       const double costheta_yj = tanh(dy/2);
-      _h_ph_pt->fill(photon.pT()/GeV, weight);
-      _h_jet_pt->fill(leadingJet.pT()/GeV, weight);
-      _h_jet_rap->fill(leadingJet.absrap(), weight);
-      _h_dphi_phjet->fill(deltaPhi(photon, leadingJet), weight);
-      _h_costheta_biased_phjet->fill(costheta_yj, weight);
+      _h_ph_pt->fill(photon.pT()/GeV);
+      _h_jet_pt->fill(leadingJet.pT()/GeV);
+      _h_jet_rap->fill(leadingJet.absrap());
+      _h_dphi_phjet->fill(deltaPhi(photon, leadingJet));
+      _h_costheta_biased_phjet->fill(costheta_yj);
       if (costheta_yj < 0.829022) {
         const FourMomentum yj = photon.momentum() + leadingJet.momentum();
         if (yj.mass() > 160.939*GeV) {
           if (fabs(photon.eta() + leadingJet.rap()) < 2.37) {
-            _h_mass_phjet->fill(yj.mass()/GeV, weight);
-            _h_costheta_phjet->fill(costheta_yj, weight);
+            _h_mass_phjet->fill(yj.mass()/GeV);
+            _h_costheta_phjet->fill(costheta_yj);
           }
         }
       }
