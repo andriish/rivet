@@ -32,7 +32,7 @@ namespace Rivet {
 
       for (int iT = 0; iT < kNPartTypes; ++iT) {
         for (int iR = 0; iR < kNregions; ++iR) {
-          _sumW[iT][iR] = 0.;
+          book(_sumW[iT][iR], (ostringstream("_sumW") << iT << iR).str());
         }
       }
 
@@ -52,25 +52,24 @@ namespace Rivet {
 
 
     /// Fill histograms for the given particle selection and phase-space region
-    void fillPtEtaNch(const Particles& particles, int ptype, int iRegion, double weight) {
+    void fillPtEtaNch(const Particles& particles, int ptype, int iRegion) {
 
       // Skip if event fails multiplicity cut
       const size_t nch = particles.size();
       if (nch < 2) return;
 
-      // Fill event weight info
-      _sumW[ptype][iRegion] += weight;
+      _sumW[ptype][iRegion]->fill();
 
       // Fill nch
-      _hist_nch[ptype][iRegion]->fill(nch, weight);
+      _hist_nch[ptype][iRegion]->fill(nch);
 
       // Loop over particles, fill pT, eta and ptnch
       for (const Particle& p : particles)  {
         const double pt  = p.pT()/GeV;
         const double eta = p.eta();
-        _hist_pt   [ptype][iRegion]->fill(pt , weight/pt);
-        _hist_eta  [ptype][iRegion]->fill(eta, weight);
-        _hist_ptnch[ptype][iRegion]->fill(nch, pt, weight);
+        _hist_pt   [ptype][iRegion]->fill(pt , 1.0/pt);
+        _hist_eta  [ptype][iRegion]->fill(eta);
+        _hist_ptnch[ptype][iRegion]->fill(nch, pt);
       }
     }
 
@@ -88,8 +87,8 @@ namespace Rivet {
 
       // Fill all histograms
       for (int iR = 0; iR < kNregions; ++iR)  {
-        fillPtEtaNch(pall,       k_AllCharged, iR, 1.0);
-        fillPtEtaNch(pnostrange, k_NoStrange,  iR, 1.0);
+        fillPtEtaNch(pall,       k_AllCharged, iR);
+        fillPtEtaNch(pnostrange, k_NoStrange,  iR);
       }
 
     }
@@ -115,7 +114,7 @@ namespace Rivet {
   private:
 
     /// Weight sums
-    double _sumW[kNPartTypes][kNregions];
+    CounterPtr _sumW[kNPartTypes][kNregions];
 
     /// @name Histogram arrays
     //@{

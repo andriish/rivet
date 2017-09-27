@@ -107,87 +107,84 @@ namespace Rivet {
       const double sin2thetastar = (costhetastar > 1) ? 0.0 : (1.0 - sqr(costhetastar));
       const double phistar = tan(0.5 * phi_acop) * sqrt(sin2thetastar);
 
-      // Event weight for histogramming
-      const double weight = 1.0;
-
       // Inclusive mll
       if (zmass > 46*GeV || zpt > 45*GeV) {
         // 46 GeV < mll < 150 GeV OR (12 GeV < mll < 46 GeV AND ZpT >45 GeV)
-        _h["mll_xsec"]->fill(zmass, weight);
+        _h["mll_xsec"]->fill(zmass);
       }
 
       // 12 GeV < mll < 150 GeV observables
       if (zmass < 20*GeV) {
         // 12 GeV < mll < 20 GeV
         if (zpt > 45*GeV) { // ZpT cut only for low-mass regions
-          _h["zpt_mll_12_20_xsec"]->fill(zpt, weight);
-          _h["zpt_mll_12_20"     ]->fill(zpt, weight);
+          _h["zpt_mll_12_20_xsec"]->fill(zpt);
+          _h["zpt_mll_12_20"     ]->fill(zpt);
         }
       } else if (zmass < 30*GeV) {
         // 20 GeV < mll < 30 GeV
         if (zpt > 45*GeV) { // ZpT cut only for low-mass regions
-          _h["zpt_mll_20_30_xsec"]->fill(zpt, weight);
-          _h["zpt_mll_20_30"     ]->fill(zpt, weight);
+          _h["zpt_mll_20_30_xsec"]->fill(zpt);
+          _h["zpt_mll_20_30"     ]->fill(zpt);
         }
       } else if (zmass <  46*GeV) {
         // 30 GeV < mll < 46 GeV
         if (zpt > 45*GeV) { // ZpT cut only for low-mass regions
-          _h["zpt_mll_30_46_xsec"]->fill(zpt, weight);
-          _h["zpt_mll_30_46"     ]->fill(zpt, weight);
+          _h["zpt_mll_30_46_xsec"]->fill(zpt);
+          _h["zpt_mll_30_46"     ]->fill(zpt);
         }
       } else if (zmass <  66*GeV) {
         // 46 GeV < mll < 66 GeV
-        _h["zpt_mll_46_66_xsec"]->fill(zpt, weight);
-        _h["zpt_mll_46_66"     ]->fill(zpt, weight);
+        _h["zpt_mll_46_66_xsec"]->fill(zpt);
+        _h["zpt_mll_46_66"     ]->fill(zpt);
 
-        _h["phistar_mll_46_66"]->fill(phistar, weight);
-        if      (zrap < 0.8)  _h["phistar_lo_00_08"]->fill(phistar, weight);
-        else if (zrap < 1.6)  _h["phistar_lo_08_16"]->fill(phistar, weight);
-        else                  _h["phistar_lo_16_24"]->fill(phistar, weight);
+        _h["phistar_mll_46_66"]->fill(phistar);
+        if      (zrap < 0.8)  _h["phistar_lo_00_08"]->fill(phistar);
+        else if (zrap < 1.6)  _h["phistar_lo_08_16"]->fill(phistar);
+        else                  _h["phistar_lo_16_24"]->fill(phistar);
 
       } else if (zmass < 116*GeV) {
         // 66 GeV < mll < 116 GeV
-        _h["zpt_mll_66_116_xsec"]->fill(zpt, weight);
-        _h["zpt_mll_66_116"     ]->fill(zpt, weight);
+        _h["zpt_mll_66_116_xsec"]->fill(zpt);
+        _h["zpt_mll_66_116"     ]->fill(zpt);
 
         if (zrap < 0.4) {
-          _h["zpt_00_04_xsec"]->fill(zpt, weight);
-          _h["zpt_00_04"]->fill(zpt, weight);
+          _h["zpt_00_04_xsec"]->fill(zpt);
+          _h["zpt_00_04"]->fill(zpt);
         } else if (zrap < 0.8) {
-          _h["zpt_04_08_xsec"]->fill(zpt, weight);
-          _h["zpt_04_08"]->fill(zpt, weight);
+          _h["zpt_04_08_xsec"]->fill(zpt);
+          _h["zpt_04_08"]->fill(zpt);
         } else if (zrap < 1.2) {
-          _h["zpt_08_12_xsec"]->fill(zpt, weight);
-          _h["zpt_08_12"]->fill(zpt, weight);
+          _h["zpt_08_12_xsec"]->fill(zpt);
+          _h["zpt_08_12"]->fill(zpt);
         } else if (zrap < 1.6) {
-          _h["zpt_12_16_xsec"]->fill(zpt, weight);
-          _h["zpt_12_16"]->fill(zpt, weight);
+          _h["zpt_12_16_xsec"]->fill(zpt);
+          _h["zpt_12_16"]->fill(zpt);
         } else if (zrap < 2.0) {
-          _h["zpt_16_20_xsec"]->fill(zpt, weight);
-          _h["zpt_16_20"]->fill(zpt, weight);
+          _h["zpt_16_20_xsec"]->fill(zpt);
+          _h["zpt_16_20"]->fill(zpt);
         } else {
-          _h["zpt_20_24_xsec"]->fill(zpt, weight);
-          _h["zpt_20_24"]->fill(zpt, weight);
+          _h["zpt_20_24_xsec"]->fill(zpt);
+          _h["zpt_20_24"]->fill(zpt);
         }
 
-        _h["phistar_mll_66_116"]->fill(phistar, weight);
-        if      (zrap < 0.4)  _h["phistar_me_00_04"]->fill(phistar, weight);
-        else if (zrap < 0.8)  _h["phistar_me_04_08"]->fill(phistar, weight);
-        else if (zrap < 1.2)  _h["phistar_me_08_12"]->fill(phistar, weight);
-        else if (zrap < 1.6)  _h["phistar_me_12_16"]->fill(phistar, weight);
-        else if (zrap < 2.0)  _h["phistar_me_16_20"]->fill(phistar, weight);
-        else                  _h["phistar_me_20_24"]->fill(phistar, weight);
+        _h["phistar_mll_66_116"]->fill(phistar);
+        if      (zrap < 0.4)  _h["phistar_me_00_04"]->fill(phistar);
+        else if (zrap < 0.8)  _h["phistar_me_04_08"]->fill(phistar);
+        else if (zrap < 1.2)  _h["phistar_me_08_12"]->fill(phistar);
+        else if (zrap < 1.6)  _h["phistar_me_12_16"]->fill(phistar);
+        else if (zrap < 2.0)  _h["phistar_me_16_20"]->fill(phistar);
+        else                  _h["phistar_me_20_24"]->fill(phistar);
 
       } else {
 
         // 116 GeV < mll < 150 GeV
-        _h["zpt_mll_116_150_xsec"]->fill(zpt, weight);
-        _h["zpt_mll_116_150"     ]->fill(zpt, weight);
+        _h["zpt_mll_116_150_xsec"]->fill(zpt);
+        _h["zpt_mll_116_150"     ]->fill(zpt);
 
-        _h["phistar_mll_116_150"]->fill(phistar, weight);
-        if      (zrap < 0.8)  _h["phistar_hi_00_08"]->fill(phistar, weight);
-        else if (zrap < 1.6)  _h["phistar_hi_08_16"]->fill(phistar, weight);
-        else                  _h["phistar_hi_16_24"]->fill(phistar, weight);
+        _h["phistar_mll_116_150"]->fill(phistar);
+        if      (zrap < 0.8)  _h["phistar_hi_00_08"]->fill(phistar);
+        else if (zrap < 1.6)  _h["phistar_hi_08_16"]->fill(phistar);
+        else                  _h["phistar_hi_16_24"]->fill(phistar);
 
       }
     }

@@ -28,8 +28,8 @@ namespace Rivet {
       Scatter2DPtr scatter;
       unsigned int d, x, y;
 
-      void fill(double value, double weight=1.0) {
-        histo->fill(value, weight);
+      void fill(double value) {
+        histo->fill(value);
       }
     };
 
@@ -116,8 +116,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       // Require 0 (Znunu) or 2 (Zll) dressed leptons
       bool isZll = bool(_mode);
       const vector<DressedLepton> &vetoLeptons = applyProjection<DressedLeptons>(event, "VetoLeptons").dressedLeptons();
@@ -178,11 +176,11 @@ namespace Rivet {
       const bool pass_met_dphi = met > 200*GeV && !dphi_fail;
       const bool pass_vbf = pass_met_dphi && mjj > 200*GeV && jpt1 > 80*GeV && jpt2 > 50*GeV && njets >= 2 && !njets_gap;
       const bool pass_mono = pass_met_dphi && jpt1 > 120*GeV && fabs(jeta1) < 2.4;
-      if (pass_mono)  _h["met_mono"].fill(met, weight);
+      if (pass_mono)  _h["met_mono"].fill(met);
       if (pass_vbf) {
-        _h["met_vbf"].fill(met/GeV, weight);
-        _h["mjj_vbf"].fill(mjj/GeV, weight);
-        _h["dphijj_vbf"].fill(dphijj, weight);
+        _h["met_vbf"].fill(met/GeV);
+        _h["mjj_vbf"].fill(mjj/GeV);
+        _h["dphijj_vbf"].fill(dphijj);
       }
     }
 

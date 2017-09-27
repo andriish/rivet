@@ -152,35 +152,34 @@ namespace Rivet {
 
 
       // Fill counters
-      const double w = 1.0;
       // GG
       if (siglepton.pT() < 35*GeV && sigjets.size() >= 2 &&
           sigjets[0].pT() > 200*GeV && sigjets[1].pT() > 30*GeV &&
-          mT > 100*GeV && etmiss > 460*GeV && etmiss/meff > 0.35) _h_gg2j->fill(w);
+          mT > 100*GeV && etmiss > 460*GeV && etmiss/meff > 0.35) _h_gg2j->fill();
       if (siglepton.pT() > 35*GeV && sigjets.size() >= 6 &&
           sigjets[0].pT() > 125*GeV && sigjets[5].pT() > 30*GeV &&
           mT > 225*GeV && etmiss > 250*GeV && meff > 1000*GeV && etmiss/meff > 0.2 &&
-          jet_aplanarity > 0.04) _h_gg6j0->fill(w);
+          jet_aplanarity > 0.04) _h_gg6j0->fill();
       if (siglepton.pT() > 35*GeV && sigjets.size() >= 6 &&
           sigjets[0].pT() > 125*GeV && sigjets[5].pT() > 30*GeV &&
           mT > 225*GeV && etmiss > 250*GeV && meff > 2000*GeV && etmiss/meff > 0.1 &&
-          jet_aplanarity > 0.04) _h_gg6j1->fill(w);
+          jet_aplanarity > 0.04) _h_gg6j1->fill();
       if (sigjets.size() >= 4 && sigjets[3].pT() > 100*GeV &&
-          mT > 125*GeV && etmiss > 250*GeV && meff > 2000*GeV && jet_aplanarity > 0.06) _h_gg4j0->fill(w);
+          mT > 125*GeV && etmiss > 250*GeV && meff > 2000*GeV && jet_aplanarity > 0.06) _h_gg4j0->fill();
       if (sigjets.size() >= 4 && sigjets[3].pT() > 100*GeV && sigbjets.empty() &&
-          mT > 125*GeV && etmiss > 250*GeV && meff > 2000*GeV && jet_aplanarity > 0.03) _h_gg4j1->fill(w);
+          mT > 125*GeV && etmiss > 250*GeV && meff > 2000*GeV && jet_aplanarity > 0.03) _h_gg4j1->fill();
       if (siglepton.pT() > 35*GeV &&
           sigjets.size() >= 4 && sigjets[0].pT() > 400*GeV && inRange(sigjets[3].pT(), 30*GeV, 100*GeV) &&
-          mT > 475*GeV && etmiss > 250*GeV && meff > 1600*GeV && etmiss/meff > 0.3) _h_gg4j2->fill(w);
+          mT > 475*GeV && etmiss > 250*GeV && meff > 1600*GeV && etmiss/meff > 0.3) _h_gg4j2->fill();
       // SS
       if (siglepton.pT() > 35*GeV && sigjets.size() >= 4 && sigjets[3].pT() > 50*GeV &&
-          mT > 175*GeV && etmiss > 300*GeV && meff > 1200*GeV && lepton_aplanarity > 0.08) _h_ss4j0->fill(w);
+          mT > 175*GeV && etmiss > 300*GeV && meff > 1200*GeV && lepton_aplanarity > 0.08) _h_ss4j0->fill();
       if (siglepton.pT() > 35*GeV && sigjets.size() >= 5 && sigjets[4].pT() > 50*GeV && sigbjets.empty() &&
-          mT > 175*GeV && etmiss > 300*GeV && etmiss/meff > 0.2) _h_ss5j0->fill(w);
+          mT > 175*GeV && etmiss > 300*GeV && etmiss/meff > 0.2) _h_ss5j0->fill();
       if (siglepton.pT() > 35*GeV && sigjets.size() >= 4 && sigjets[0].pT() > 250*GeV && sigjets[3].pT() > 30*GeV &&
-          inRange(mT, 150*GeV, 400*GeV) && etmiss > 250*GeV && lepton_aplanarity > 0.03) _h_ss4j1->fill(w);
+          inRange(mT, 150*GeV, 400*GeV) && etmiss > 250*GeV && lepton_aplanarity > 0.03) _h_ss4j1->fill();
       if (siglepton.pT() > 35*GeV && sigjets.size() >= 5 && sigjets[4].pT() > 30*GeV &&
-          mT > 400*GeV && etmiss > 400*GeV && lepton_aplanarity > 0.03) _h_ss5j1->fill(w);
+          mT > 400*GeV && etmiss > 400*GeV && lepton_aplanarity > 0.03) _h_ss5j1->fill();
 
     }
 

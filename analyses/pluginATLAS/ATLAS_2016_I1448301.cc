@@ -80,8 +80,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       // Get objects
       vector<DressedLepton> leptons = apply<DressedLeptons>(event, "Leptons").dressedLeptons();
       const Particles& photons = apply<PromptFinalState>(event, "Photons").particlesByPt();
@@ -129,8 +127,8 @@ namespace Rivet {
           yy_veto |= photon1iso/photons[1].pT() > 0.5;
 
           if (!yy_veto) {
-            _h["vvgg"]->fill(0.5, weight);
-            if (!njets)  _h["vvgg"]->fill(1.5, weight);
+            _h["vvgg"]->fill(0.5);
+            if (!njets)  _h["vvgg"]->fill(1.5);
           }
         } // end of nu nu y y section
 
@@ -156,11 +154,11 @@ namespace Rivet {
         if (photoniso/photons[0].pT() > 0.5)  vetoEvent;
 
         const double pTgamma = photons[0].pT()/GeV;
-        _h["pT"]->fill(pTgamma, weight);
-        _h["vvg"]->fill(0.5, weight);
+        _h["pT"]->fill(pTgamma);
+        _h["vvg"]->fill(0.5);
         if (!njets) {
-          _h["vvg"]->fill(1.5, weight);
-          _h["pT_0jet"]->fill(pTgamma, weight);
+          _h["vvg"]->fill(1.5);
+          _h["pT_0jet"]->fill(pTgamma);
         }
       } // end of nu nu y (y) section
 
@@ -220,11 +218,11 @@ namespace Rivet {
 
           // Fill plots
           if (!veto) {
-            _h["llgg"]->fill(0.5, weight);
-            _h["llgg_comb"]->fill(0.5, weight);
+            _h["llgg"]->fill(0.5);
+            _h["llgg_comb"]->fill(0.5);
             if (!njets) {
-              _h["llgg"]->fill(1.5, weight);
-              _h["llgg_comb"]->fill(1.5, weight);
+              _h["llgg"]->fill(1.5);
+              _h["llgg_comb"]->fill(1.5);
             }
           }
         }
@@ -254,18 +252,18 @@ namespace Rivet {
         const double pTgamma = photons[0].pT()/GeV;
         const double mllgamma = (lep_p[0].momentum() + lep_m[0].momentum() + photons[0].momentum()).mass()/GeV;
 
-        _h["pT"]->fill(pTgamma,  weight);
-        _h["M"]->fill(mllgamma, weight);
-        _h["Njets"]->fill(njets < 3? njets : 3, weight);
+        _h["pT"]->fill(pTgamma);
+        _h["M"]->fill(mllgamma);
+        _h["Njets"]->fill(njets < 3? njets : 3);
 
-        _h["llg"]->fill(0.5, weight);
-        _h["llg_comb"]->fill(0.5, weight);
+        _h["llg"]->fill(0.5);
+        _h["llg_comb"]->fill(0.5);
 
         if (!njets) {
-          _h["pT_0jet"]->fill(pTgamma, weight);
-          _h["M_0jet"]->fill(mllgamma, weight);
-          _h["llg"]->fill(1.5, weight);
-          _h["llg_comb"]->fill(1.5, weight);
+          _h["pT_0jet"]->fill(pTgamma);
+          _h["M_0jet"]->fill(mllgamma);
+          _h["llg"]->fill(1.5);
+          _h["llg_comb"]->fill(1.5);
         }
       } // end of _mode check
     } // end of analysis

@@ -5,30 +5,30 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 
 namespace Rivet {
-  
-  /// Z + jets in pp at 13 TeV 
+
+  /// Z + jets in pp at 13 TeV
   /// @note This base class contains a "mode" variable for combined, e, and mu channel derived classes
   class ATLAS_2017_I1514251 : public Analysis {
   public:
-    
+
     /// Constructor
     ATLAS_2017_I1514251(string name="ATLAS_2017_I1514251")
       : Analysis(name)  {
       // This class uses the combined e+mu mode
       _mode = 0;
     }
-    
+
     /// Book histograms and initialise projections before the run
     void init() {
       const FinalState fs;
-      
+
       Cut cuts = (Cuts::pT > 25*GeV) && (Cuts::abseta < 2.5);
-      
+
       ZFinder zeefinder(fs, cuts, PID::ELECTRON, 71*GeV, 111*GeV);
       ZFinder zmumufinder(fs, cuts, PID::MUON, 71*GeV, 111*GeV);
       declare(zeefinder, "zeefinder");
       declare(zmumufinder, "zmumufinder");
-      
+
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
       VetoedFinalState had_fs;
       had_fs.addVetoOnThisFinalState(zeefinder);
@@ -36,7 +36,7 @@ namespace Rivet {
       FastJets jets(had_fs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
       declare(jets, "jets");
-      
+
       // individual channels
       book(_h_Njets      , 1, 1, _mode + 1);
       book(_h_Njets_Ratio, 1, 2, _mode + 1, true);
@@ -53,20 +53,18 @@ namespace Rivet {
       book(_h_jet_mass             , 1, 12, _mode + 1);
 
     }
-    
-    
+
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      
-      const double weight = 1.0;
-      
+
       const ZFinder& zeefinder = apply<ZFinder>(event, "zeefinder");
       const ZFinder& zmumufinder = apply<ZFinder>(event, "zmumufinder");
-      
+
       const Particles& zees = zeefinder.bosons();
       const Particles& zmumus = zmumufinder.bosons();
 
-      //Veto Z->mumu in electron mode, and vice versa:      
+      //Veto Z->mumu in electron mode, and vice versa:
       if (_mode==1 && (zees.size()!=1 || zmumus.size() ) )  vetoEvent;
       else if (_mode==2 && (zees.size() || zmumus.size()!=1 ) )  vetoEvent;
       else if (zees.size() + zmumus.size() != 1) {
@@ -80,39 +78,39 @@ namespace Rivet {
       if (leptons.size() != 2) vetoEvent;
 
       Jets jets =  apply<JetAlg>(event, "jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 2.5);
-      
+
       bool veto = false;
       foreach(const Jet& j, jets)  {
         foreach(const Particle& l, leptons) { veto |= deltaR(j, l) < 0.4; }
       }
       if (veto) vetoEvent;
-      
+
       double HT=0;
       foreach(const Particle& l, leptons) { HT += l.pT(); }
 
       const size_t Njets = jets.size();
-      _h_Njets_excl->fill(Njets, weight);	
-      for(size_t i = 0; i <= Njets; ++i) { _h_Njets->fill(i, weight);	}
+      _h_Njets_excl->fill(Njets);
+      for(size_t i = 0; i <= Njets; ++i) { _h_Njets->fill(i);	}
 
       if (Njets < 1)  vetoEvent;
 
-      
+
       for(size_t i = 0; i < Njets; ++i) { HT += jets[i].pT(); }
       const double pT = jets[0].pT();
       const double rap = jets[0].rapidity();
-      
-      _h_HT->fill(HT, weight);      
-      _h_leading_jet_rap->fill(fabs(rap), weight);
-      _h_leading_jet_pT->fill(pT, weight);
-      if (Njets == 1)  _h_leading_jet_pT_eq1jet->fill(pT, weight);
+
+      _h_HT->fill(HT);
+      _h_leading_jet_rap->fill(fabs(rap));
+      _h_leading_jet_pT->fill(pT);
+      if (Njets == 1)  _h_leading_jet_pT_eq1jet->fill(pT);
       if (Njets > 1) {
-        _h_leading_jet_pT_2jet->fill(pT, weight);
-        _h_jet_dphi->fill( deltaPhi(jets[0], jets[1]), weight );
-        _h_jet_mass->fill( (jets[0].momentum()+jets[1].momentum()).mass() , weight );
+        _h_leading_jet_pT_2jet->fill(pT);
+        _h_jet_dphi->fill( deltaPhi(jets[0], jets[1]));
+        _h_jet_mass->fill( (jets[0].momentum()+jets[1].momentum()).mass() );
       }
-      
-      if (Njets > 2)  _h_leading_jet_pT_3jet->fill(pT, weight);
-      if (Njets > 3)  _h_leading_jet_pT_4jet->fill(pT, weight);
+
+      if (Njets > 2)  _h_leading_jet_pT_3jet->fill(pT);
+      if (Njets > 3)  _h_leading_jet_pT_4jet->fill(pT);
 
     }
 
@@ -168,7 +166,7 @@ namespace Rivet {
     Histo1DPtr   _h_leading_jet_pT_4jet;
     Histo1DPtr   _h_jet_dphi;
     Histo1DPtr   _h_jet_mass;
-  
+
   };
 
 

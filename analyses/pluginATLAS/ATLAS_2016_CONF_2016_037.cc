@@ -157,17 +157,16 @@ namespace Rivet {
       const double meff = sum(sigjets, pT, 0.0) + sum(sigleptons, pT, 0.0);
 
       // Fill counters
-      const double w = 1.0;
-      if (sigleptons.size() >= 3 && sigbjets.empty() && sigjets40.size() >= 4 && etmiss > 150*GeV) _h_3l1->fill(w);
-      if (sigleptons.size() >= 3 && sigbjets.empty() && sigjets40.size() >= 4 && etmiss > 200*GeV && meff > 1500*GeV) _h_3l2->fill(w);
-      if (sigleptons.size() >= 2 && sigbjets.empty() && sigjets25.size() >= 6 && etmiss > 150*GeV && meff > 500*GeV) _h_0b1->fill(w);
-      if (sigleptons.size() >= 2 && sigbjets.empty() && sigjets40.size() >= 6 && etmiss > 150*GeV && meff > 900*GeV) _h_0b2->fill(w);
-      if (sigleptons.size() >= 2 && sigbjets.size() >= 1 && sigjets25.size() >= 6 && etmiss > 200*GeV && meff > 650*GeV) _h_1b->fill(w);
-      if (sigleptons.size() >= 2 && sigbjets.size() >= 3 && sigjets25.size() >= 6 && etmiss > 150*GeV && meff > 600*GeV) _h_3b->fill(w);
+      if (sigleptons.size() >= 3 && sigbjets.empty() && sigjets40.size() >= 4 && etmiss > 150*GeV) _h_3l1->fill();
+      if (sigleptons.size() >= 3 && sigbjets.empty() && sigjets40.size() >= 4 && etmiss > 200*GeV && meff > 1500*GeV) _h_3l2->fill();
+      if (sigleptons.size() >= 2 && sigbjets.empty() && sigjets25.size() >= 6 && etmiss > 150*GeV && meff > 500*GeV) _h_0b1->fill();
+      if (sigleptons.size() >= 2 && sigbjets.empty() && sigjets40.size() >= 6 && etmiss > 150*GeV && meff > 900*GeV) _h_0b2->fill();
+      if (sigleptons.size() >= 2 && sigbjets.size() >= 1 && sigjets25.size() >= 6 && etmiss > 200*GeV && meff > 650*GeV) _h_1b->fill();
+      if (sigleptons.size() >= 2 && sigbjets.size() >= 3 && sigjets25.size() >= 6 && etmiss > 150*GeV && meff > 600*GeV) _h_3b->fill();
       if (filter_select(sigleptons, Cuts::charge < 0).size() >= 2) {
-        if (sigleptons.size() >= 2 && sigbjets.size() >= 1 && sigjets50.size() >= 6 && meff > 1200*GeV) _h_1bDD->fill(w);
-        if (sigleptons.size() >= 2 && sigbjets.size() >= 3 && sigjets50.size() >= 6 && meff > 1000*GeV) _h_3bDD->fill(w);
-        if (sigleptons.size() >= 2 && sigbjets.size() >= 1 && sigjets50.size() >= 6 && meff > 1800*GeV) _h_1bGG->fill(w);
+        if (sigleptons.size() >= 2 && sigbjets.size() >= 1 && sigjets50.size() >= 6 && meff > 1200*GeV) _h_1bDD->fill();
+        if (sigleptons.size() >= 2 && sigbjets.size() >= 3 && sigjets50.size() >= 6 && meff > 1000*GeV) _h_3bDD->fill();
+        if (sigleptons.size() >= 2 && sigbjets.size() >= 1 && sigjets50.size() >= 6 && meff > 1800*GeV) _h_1bGG->fill();
       }
 
     }

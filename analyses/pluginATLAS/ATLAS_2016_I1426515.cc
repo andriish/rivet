@@ -188,33 +188,32 @@ namespace Rivet {
       if (!jets_selected.empty()) vetoEvent;
 
       // Fill histograms
-      const double weight = 1.0;
       if (channel == 1) {
-        _hist_mm_fid_intxsec->fill(1.0, weight);
+        _hist_mm_fid_intxsec->fill(1.0);
 
       } else if (channel == 2) {
-        _hist_ee_fid_intxsec->fill(1.0, weight);
+        _hist_ee_fid_intxsec->fill(1.0);
 
       } else if (channel == 3 || channel == 4) {
-        _hist_emme_fid_intxsec->fill(1.0, weight);
+        _hist_emme_fid_intxsec->fill(1.0);
 
-        _hist_emme_fid_ptlead->fill(lep1->pT()/GeV, weight);
-        _hist_emme_fid_ptleadnorm->fill(lep1->pT()/GeV, weight);
+        _hist_emme_fid_ptlead->fill(lep1->pT()/GeV);
+        _hist_emme_fid_ptleadnorm->fill(lep1->pT()/GeV);
 
-        _hist_emme_fid_ptll->fill(ptll, weight);
-        _hist_emme_fid_ptllnorm->fill(ptll, weight);
+        _hist_emme_fid_ptll->fill(ptll);
+        _hist_emme_fid_ptllnorm->fill(ptll);
 
-        _hist_emme_fid_mll->fill(Mll, weight);
-        _hist_emme_fid_mllnorm->fill(Mll, weight);
+        _hist_emme_fid_mll->fill(Mll);
+        _hist_emme_fid_mllnorm->fill(Mll);
 
-        _hist_emme_fid_dphill->fill(DPhill, weight);
-        _hist_emme_fid_dphillnorm->fill(DPhill, weight);
+        _hist_emme_fid_dphill->fill(DPhill);
+        _hist_emme_fid_dphillnorm->fill(DPhill);
 
-        _hist_emme_fid_yll->fill(Yll, weight);
-        _hist_emme_fid_yllnorm->fill(Yll, weight);
+        _hist_emme_fid_yll->fill(Yll);
+        _hist_emme_fid_yllnorm->fill(Yll);
 
-        _hist_emme_fid_costhetastarll->fill(costhetastar, weight);
-        _hist_emme_fid_costhetastarllnorm->fill(costhetastar, weight);
+        _hist_emme_fid_costhetastarll->fill(costhetastar);
+        _hist_emme_fid_costhetastarllnorm->fill(costhetastar);
       }
     }
 

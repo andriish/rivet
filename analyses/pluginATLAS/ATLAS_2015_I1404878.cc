@@ -107,8 +107,6 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-        const double weight = 1.0;
-
       // Get the selected objects, using the projections.
       vector<DressedLepton> electrons = applyProjection<DressedLeptons>(event, "dressedelectrons").dressedLeptons();
       vector<DressedLepton> muons     = applyProjection<DressedLeptons>(event, "dressedmuons").dressedLeptons();
@@ -186,29 +184,29 @@ namespace Rivet {
       double absPout = fabs(vpseudotophadron.dot((vpseudotoplepton.cross(z_versor))/(vpseudotoplepton.cross(z_versor).mod())));
 
       // absolute cross sections
-      _h["ptpseudotophadron"]->fill(    ppseudotophadron.pt(),     weight); //pT of pseudo top hadron
-      _h["ptttbar"]->fill(              pttbar.pt(),               weight); //fill pT of ttbar in combined channel
-      _h["absrappseudotophadron"]->fill(ppseudotophadron.absrap(), weight);
-      _h["absrapttbar"]->fill(          pttbar.absrap(),           weight);
-      _h["massttbar"]->fill(            pttbar.mass(),             weight);
-      _h["absPout"]->fill(              absPout,                   weight);
-      _h["chittbar"]->fill(             chi_ttbar,                 weight);
-      _h["dPhittbar"]->fill(            deltaPhi_ttbar,            weight);
-      _h["HTttbar"]->fill(              HT_ttbar,                  weight);
-      _h["Yboost"]->fill(               Yboost,                    weight);
-      _h["RWt"]->fill(                  R_Wt,                      weight);
+      _h["ptpseudotophadron"]->fill(    ppseudotophadron.pt()); //pT of pseudo top hadron
+      _h["ptttbar"]->fill(              pttbar.pt()); //fill pT of ttbar in combined channel
+      _h["absrappseudotophadron"]->fill(ppseudotophadron.absrap());
+      _h["absrapttbar"]->fill(          pttbar.absrap());
+      _h["massttbar"]->fill(            pttbar.mass());
+      _h["absPout"]->fill(              absPout);
+      _h["chittbar"]->fill(             chi_ttbar);
+      _h["dPhittbar"]->fill(            deltaPhi_ttbar);
+      _h["HTttbar"]->fill(              HT_ttbar);
+      _h["Yboost"]->fill(               Yboost);
+      _h["RWt"]->fill(                  R_Wt);
       // normalised cross sections
-      _h["ptpseudotophadron_norm"]->fill(    ppseudotophadron.pt(),     weight); //pT of pseudo top hadron
-      _h["ptttbar_norm"]->fill(              pttbar.pt(),               weight); //fill pT of ttbar in combined channel
-      _h["absrappseudotophadron_norm"]->fill(ppseudotophadron.absrap(), weight);
-      _h["absrapttbar_norm"]->fill(          pttbar.absrap(),           weight);
-      _h["massttbar_norm"]->fill(            pttbar.mass(),             weight);
-      _h["absPout_norm"]->fill(              absPout,                   weight);
-      _h["chittbar_norm"]->fill(             chi_ttbar,                 weight);
-      _h["dPhittbar_norm"]->fill(            deltaPhi_ttbar,            weight);
-      _h["HTttbar_norm"]->fill(              HT_ttbar,                  weight);
-      _h["Yboost_norm"]->fill(               Yboost,                    weight);
-      _h["RWt_norm"]->fill(                  R_Wt,                      weight);
+      _h["ptpseudotophadron_norm"]->fill(    ppseudotophadron.pt()); //pT of pseudo top hadron
+      _h["ptttbar_norm"]->fill(              pttbar.pt()); //fill pT of ttbar in combined channel
+      _h["absrappseudotophadron_norm"]->fill(ppseudotophadron.absrap());
+      _h["absrapttbar_norm"]->fill(          pttbar.absrap());
+      _h["massttbar_norm"]->fill(            pttbar.mass());
+      _h["absPout_norm"]->fill(              absPout);
+      _h["chittbar_norm"]->fill(             chi_ttbar);
+      _h["dPhittbar_norm"]->fill(            deltaPhi_ttbar);
+      _h["HTttbar_norm"]->fill(              HT_ttbar);
+      _h["Yboost_norm"]->fill(               Yboost);
+      _h["RWt_norm"]->fill(                  R_Wt);
 
     }
 

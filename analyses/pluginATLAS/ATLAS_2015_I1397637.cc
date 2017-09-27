@@ -196,7 +196,7 @@ namespace Rivet {
       }
 
       // Fill histo if selection passed
-      if (hadbtag || lepbtag) _h_pttop->fill(fjet.pT()/GeV, 1.0);
+      if (hadbtag || lepbtag) _h_pttop->fill(fjet.pT()/GeV);
     }
 
 

@@ -192,9 +192,8 @@ namespace Rivet {
       double pttt = (top_p + top_n).pt()*GeV;
 
       // Fill histos, counters
-      const double weight = 1.0;
-      _h_dEta->fill(dEta, weight);
-      _h_dY  ->fill(dY  , weight);
+      _h_dEta->fill(dEta);
+      _h_dY  ->fill(dY  );
       // Histos for inclusive and differential asymmetries
       int mttBinID  = getBinID(kmttMeas , mtt);
       int betaBinID = getBinID(kbetaMeas, beta);
@@ -209,8 +208,8 @@ namespace Rivet {
           default: binID = -1; break;
         }
         if (binID >= 0) {
-          _h_dY_asym  [iM][binID] ->fill(dY  , weight);
-          _h_dEta_asym[iM][binID] ->fill(dEta, weight);
+          _h_dY_asym  [iM][binID] ->fill(dY  );
+          _h_dEta_asym[iM][binID] ->fill(dEta);
         }
       }
     }

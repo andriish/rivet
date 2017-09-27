@@ -18,8 +18,8 @@ namespace Rivet {
       k_pt500_nch50,
       kNregions
     };
-    
-    
+
+
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1426695);
 
@@ -30,7 +30,7 @@ namespace Rivet {
     void init() {
 
       for (int iR=0; iR < kNregions; ++iR)  {
-        _sumW[iR]  = 0.;
+        book(_sumW[iR], (ostringstream("_sumW") << iR).str())       ;
       }
 
       // Initialise and register projections
@@ -48,30 +48,29 @@ namespace Rivet {
       }
     }
 
-    void fillPtEtaNch(const Particles particles, int nMin, int iRegion, double weight) {
+    void fillPtEtaNch(const Particles particles, int nMin, int iRegion) {
 
       //skip if event fails multiplicity cut
       int nch =particles.size();
       if (nch < nMin)  return;
 
-      //fill event weight info
-      _sumW[iRegion] += weight;
+      _sumW[iRegion]->fill();
 
       // Fill nch
       if (iRegion == k_pt100_nch2 || iRegion == k_pt500_nch1) {
-        _hist_nch[iRegion]->fill(nch, weight);
+        _hist_nch[iRegion]->fill(nch);
       }
-     
-      for (const Particle&p : particles) { 
+
+      for (const Particle&p : particles) {
       // Loop over particles, fill pT, eta and ptnch
         const double pt  = p.pT()/GeV;
         const double eta = p.eta();
 
-        _hist_pt [iRegion]->fill(pt , weight/pt);
-        _hist_eta[iRegion]->fill(eta, weight);
+        _hist_pt [iRegion]->fill(pt , 1.0/pt);
+        _hist_eta[iRegion]->fill(eta);
 
         if (iRegion == k_pt100_nch2 || iRegion == k_pt500_nch1) {
-          _hist_ptnch[iRegion]->fill(nch, pt, weight);
+          _hist_ptnch[iRegion]->fill(nch, pt);
         }
       } //end loop over particles
     }
@@ -86,11 +85,11 @@ namespace Rivet {
       const Particles& p_100 = apply<ChargedFinalState>(event, "CFS_100").particles(pcut);
       const Particles& p_500 = apply<ChargedFinalState>(event, "CFS_500").particles(pcut);
 
-      fillPtEtaNch(p_100,  2, 0, 1.0);
-      fillPtEtaNch(p_500,  1, 1, 1.0);
-      fillPtEtaNch(p_500,  6, 2, 1.0);
-      fillPtEtaNch(p_500, 20, 3, 1.0);
-      fillPtEtaNch(p_500, 50, 4, 1.0);
+      fillPtEtaNch(p_100,  2, 0);
+      fillPtEtaNch(p_500,  1, 1);
+      fillPtEtaNch(p_500,  6, 2);
+      fillPtEtaNch(p_500, 20, 3);
+      fillPtEtaNch(p_500, 50, 4);
     }
 
 
@@ -103,7 +102,7 @@ namespace Rivet {
           }
           scale(_hist_pt [iR], 1.0/_sumW[iR]/TWOPI/5.);
           scale(_hist_eta[iR], 1.0/_sumW[iR]);
-        } 
+        }
       }
     }
 
@@ -112,7 +111,7 @@ namespace Rivet {
 
   private:
 
-    double _sumW[kNregions];
+    CounterPtr _sumW[kNregions];
 
     /// @name Histograms
     Histo1DPtr   _hist_nch    [kNregions];

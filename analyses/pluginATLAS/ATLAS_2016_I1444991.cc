@@ -78,8 +78,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       // Get final state particles
       const FinalState& ifs = applyProjection<FinalState>(event, "InvisibleFS");
       const vector<DressedLepton>& good_mu = applyProjection<DressedLeptons>(event, "MU_DRESSED_FS").dressedLeptons();
@@ -130,16 +128,16 @@ namespace Rivet {
       double pTj1 = jets_selected.size()? jets_selected[0].pT() : 0.1;
 
       // Fill histograms
-      _h_Njets->fill(Njets, weight);
-      _h_PtllMET->fill(PtllMET, weight);
-      _h_Yll->fill(fabs(Yll), weight);
-      _h_PtLead->fill(pTj1, weight);
-      _h_Njets_norm->fill(Njets, weight);
-      _h_PtllMET_norm->fill(PtllMET, weight);
-      _h_Yll_norm->fill(fabs(Yll), weight);
-      _h_PtLead_norm->fill(pTj1, weight);
-      _h_pTj1_sel25->fill(pTj1, weight);
-      _h_pTj1_sel40->fill(pTj1, weight);
+      _h_Njets->fill(Njets);
+      _h_PtllMET->fill(PtllMET);
+      _h_Yll->fill(fabs(Yll));
+      _h_PtLead->fill(pTj1);
+      _h_Njets_norm->fill(Njets);
+      _h_PtllMET_norm->fill(PtllMET);
+      _h_Yll_norm->fill(fabs(Yll));
+      _h_PtLead_norm->fill(pTj1);
+      _h_pTj1_sel25->fill(pTj1);
+      _h_pTj1_sel40->fill(pTj1);
     }
 
 

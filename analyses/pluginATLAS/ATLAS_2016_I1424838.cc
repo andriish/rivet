@@ -65,9 +65,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      // Get generator weight
-      const double weight = 1.0;
-
       // Check for Z boson in event
       const ZFinder& zfinder    = apply<ZFinder>(event, "ZFinder");
       MSG_DEBUG("Num e+ e- pairs found = " << zfinder.bosons().size());
@@ -113,16 +110,16 @@ namespace Rivet {
 
       // Fill inclusive histos
       if (isElec) {
-        _h_Elec_Ntrk[alg]       ->fill(remfs.size(),        weight);
-        _h_Elec_Ntrk[0]         ->fill(remfs.size(),        weight);
-        _h_Elec_SumPt[alg]      ->fill(sumPt,               weight);
-        _h_Elec_SumPt[0]        ->fill(sumPt,               weight);
+        _h_Elec_Ntrk[alg]       ->fill(remfs.size());
+        _h_Elec_Ntrk[0]         ->fill(remfs.size());
+        _h_Elec_SumPt[alg]      ->fill(sumPt);
+        _h_Elec_SumPt[0]        ->fill(sumPt);
       }
       if (isMuon) {
-        _h_Muon_Ntrk[alg]       ->fill(remfs.size(),        weight);
-        _h_Muon_Ntrk[0]         ->fill(remfs.size(),        weight);
-        _h_Muon_SumPt[alg]      ->fill(sumPt,               weight);
-        _h_Muon_SumPt[0]        ->fill(sumPt,               weight);
+        _h_Muon_Ntrk[alg]       ->fill(remfs.size());
+        _h_Muon_Ntrk[0]         ->fill(remfs.size());
+        _h_Muon_SumPt[alg]      ->fill(sumPt);
+        _h_Muon_SumPt[0]        ->fill(sumPt);
       }
 
       // Skip event shape calculation if we don't match the minimum Nch criterion
@@ -150,24 +147,24 @@ namespace Rivet {
 
         // Fill inclusive histos
         if (isElec) {
-          _h_Elec_Thrust[alg]     ->fill(thrust,              weight);
-          _h_Elec_Thrust[0]       ->fill(thrust,              weight);
-          _h_Elec_FParam[alg]     ->fill(fparam.F(),          weight);
-          _h_Elec_FParam[0]       ->fill(fparam.F(),          weight);
-          _h_Elec_Spherocity[alg] ->fill(sphero.spherocity(), weight);
-          _h_Elec_Spherocity[0]   ->fill(sphero.spherocity(), weight);
-          _h_Elec_Beamthrust[alg] ->fill(beamThrust,          weight);
-          _h_Elec_Beamthrust[0]   ->fill(beamThrust,          weight);
+          _h_Elec_Thrust[alg]     ->fill(thrust);
+          _h_Elec_Thrust[0]       ->fill(thrust);
+          _h_Elec_FParam[alg]     ->fill(fparam.F());
+          _h_Elec_FParam[0]       ->fill(fparam.F());
+          _h_Elec_Spherocity[alg] ->fill(sphero.spherocity());
+          _h_Elec_Spherocity[0]   ->fill(sphero.spherocity());
+          _h_Elec_Beamthrust[alg] ->fill(beamThrust);
+          _h_Elec_Beamthrust[0]   ->fill(beamThrust);
         }
         if (isMuon) {
-          _h_Muon_Thrust[alg]     ->fill(thrust,              weight);
-          _h_Muon_Thrust[0]       ->fill(thrust,              weight);
-          _h_Muon_FParam[alg]     ->fill(fparam.F(),          weight);
-          _h_Muon_FParam[0]       ->fill(fparam.F(),          weight);
-          _h_Muon_Spherocity[alg] ->fill(sphero.spherocity(), weight);
-          _h_Muon_Spherocity[0]   ->fill(sphero.spherocity(), weight);
-          _h_Muon_Beamthrust[alg] ->fill(beamThrust,          weight);
-          _h_Muon_Beamthrust[0]   ->fill(beamThrust,          weight);
+          _h_Muon_Thrust[alg]     ->fill(thrust);
+          _h_Muon_Thrust[0]       ->fill(thrust);
+          _h_Muon_FParam[alg]     ->fill(fparam.F());
+          _h_Muon_FParam[0]       ->fill(fparam.F());
+          _h_Muon_Spherocity[alg] ->fill(sphero.spherocity());
+          _h_Muon_Spherocity[0]   ->fill(sphero.spherocity());
+          _h_Muon_Beamthrust[alg] ->fill(beamThrust);
+          _h_Muon_Beamthrust[0]   ->fill(beamThrust);
         }
       }
     }

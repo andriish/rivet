@@ -116,20 +116,19 @@ namespace Rivet {
       /// We just implement the latter for now.
 
       // Fill counters
-      const double w = 1.0;
-      if (sigjets40.size() >= 8  && sigbjets40.empty()) _h_08j40_0b->fill(w);
-      if (sigjets40.size() >= 9  && sigbjets40.empty()) _h_09j40_0b->fill(w);
-      if (sigjets40.size() >= 10 && sigbjets40.empty()) _h_10j40_0b->fill(w);
-      if (sigjets40.size() >= 8  && sigbjets40.size() >= 3) _h_08j40_3b->fill(w);
-      if (sigjets40.size() >= 9  && sigbjets40.size() >= 3) _h_09j40_3b->fill(w);
-      if (sigjets40.size() >= 10 && sigbjets40.size() >= 3) _h_10j40_3b->fill(w);
+      if (sigjets40.size() >= 8  && sigbjets40.empty()) _h_08j40_0b->fill();
+      if (sigjets40.size() >= 9  && sigbjets40.empty()) _h_09j40_0b->fill();
+      if (sigjets40.size() >= 10 && sigbjets40.empty()) _h_10j40_0b->fill();
+      if (sigjets40.size() >= 8  && sigbjets40.size() >= 3) _h_08j40_3b->fill();
+      if (sigjets40.size() >= 9  && sigbjets40.size() >= 3) _h_09j40_3b->fill();
+      if (sigjets40.size() >= 10 && sigbjets40.size() >= 3) _h_10j40_3b->fill();
 
-      if (sigjets60.size() >= 8  && sigbjets60.empty()) _h_08j60_0b->fill(w);
-      if (sigjets60.size() >= 9  && sigbjets60.empty()) _h_09j60_0b->fill(w);
-      if (sigjets60.size() >= 10 && sigbjets60.empty()) _h_10j60_0b->fill(w);
-      if (sigjets60.size() >= 8  && sigbjets60.size() >= 3) _h_08j60_3b->fill(w);
-      if (sigjets60.size() >= 9  && sigbjets60.size() >= 3) _h_09j60_3b->fill(w);
-      if (sigjets60.size() >= 10 && sigbjets60.size() >= 3) _h_10j60_3b->fill(w);
+      if (sigjets60.size() >= 8  && sigbjets60.empty()) _h_08j60_0b->fill();
+      if (sigjets60.size() >= 9  && sigbjets60.empty()) _h_09j60_0b->fill();
+      if (sigjets60.size() >= 10 && sigbjets60.empty()) _h_10j60_0b->fill();
+      if (sigjets60.size() >= 8  && sigbjets60.size() >= 3) _h_08j60_3b->fill();
+      if (sigjets60.size() >= 9  && sigbjets60.size() >= 3) _h_09j60_3b->fill();
+      if (sigjets60.size() >= 10 && sigbjets60.size() >= 3) _h_10j60_3b->fill();
 
     }
 

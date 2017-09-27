@@ -152,13 +152,12 @@ namespace Rivet {
       const double at = At.cross(t_hatx).mod();
 
       // Fill histograms
-      const double weight = 1.0;
-      _h_M->fill(Myy, weight);
-      _h_pT->fill(pTyy, weight);
-      _h_dPhi->fill(dPhiyy, weight);
-      _h_costh->fill(costhetastar_, weight);
-      _h_phistar->fill(phistar, weight);
-      _h_at->fill(at, weight);
+      _h_M->fill(Myy);
+      _h_pT->fill(pTyy);
+      _h_dPhi->fill(dPhiyy);
+      _h_costh->fill(costhetastar_);
+      _h_phistar->fill(phistar);
+      _h_at->fill(at);
     }
 
 

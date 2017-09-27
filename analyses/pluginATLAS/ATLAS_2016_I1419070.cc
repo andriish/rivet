@@ -7,11 +7,11 @@ namespace Rivet {
   class ATLAS_2016_I1419070 : public Analysis {
 
   public:
-  
+
     /// Constructor
     ATLAS_2016_I1419070() : Analysis("ATLAS_2016_I1419070")
     {  }
-  
+
   public:
 
     void init() {
@@ -35,11 +35,9 @@ namespace Rivet {
       book(sum_5GeV  , "d12-x01-y01", true);
 
     }
-  
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-      
       Jets m_goodJets = applyProjection<JetAlg>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.1);
 
       if (m_goodJets.size() < 2)        vetoEvent;
@@ -55,21 +53,21 @@ namespace Rivet {
       double pt2GeV_f   = CalculateNCharge(m_goodJets[pos_f], 2.0);
       double pt5GeV_f   = CalculateNCharge(m_goodJets[pos_f], 5.0);
       double pT_f = m_goodJets[pos_f].pT();
-      
+
       double pt500MeV_c = CalculateNCharge(m_goodJets[pos_c], 0.5);
       double pt2GeV_c   = CalculateNCharge(m_goodJets[pos_c], 2.0);
       double pt5GeV_c   = CalculateNCharge(m_goodJets[pos_c], 5.0);
       double pT_c = m_goodJets[pos_c].pT();
 
-      forward_500MeV->fill(pT_f, pt500MeV_f, weight);
-      forward_2GeV->fill(  pT_f, pt2GeV_f,   weight);
-      forward_5GeV->fill(  pT_f, pt5GeV_f,   weight);
+      forward_500MeV->fill(pT_f, pt500MeV_f);
+      forward_2GeV->fill(  pT_f, pt2GeV_f);
+      forward_5GeV->fill(  pT_f, pt5GeV_f);
 
-      central_500MeV->fill(pT_c, pt500MeV_c, weight);
-      central_2GeV->fill(  pT_c, pt2GeV_c,   weight);
-      central_5GeV->fill(  pT_c, pt5GeV_c,   weight);
+      central_500MeV->fill(pT_c, pt500MeV_c);
+      central_2GeV->fill(  pT_c, pt2GeV_c);
+      central_5GeV->fill(  pT_c, pt5GeV_c);
     }
-  
+
     double CalculateNCharge(Jet& jet, double pTcut=0.5) {
       unsigned int ncharge = 0;
       foreach (const Particle& p, jet.particles()) {
@@ -79,10 +77,10 @@ namespace Rivet {
       if (ncharge > 60)  ncharge = 60;
       return double(ncharge);
     }
-  
+
     /// Normalise histograms etc., after the run
     void finalize() {
-    
+
       if (numEvents() > 2) {
         for (unsigned int i = 0; i < forward_500MeV->numBins(); ++i) {
           ProfileBin1D bsum  = central_500MeV->bin(i) + forward_500MeV->bin(i);
@@ -103,7 +101,7 @@ namespace Rivet {
           double yerr2 = bsum2.numEntries()? bsum2.stdErr() : 0.0;
           double yerr5 = bsum5.numEntries()? bsum5.stdErr() : 0.0;
 
-	        diff_500MeV->point(i).setY(ydiff, yerr);
+	      diff_500MeV->point(i).setY(ydiff, yerr);
           diff_2GeV->point(i).setY(ydiff2, yerr2);
           diff_5GeV->point(i).setY(ydiff5, yerr5);
 
@@ -117,7 +115,7 @@ namespace Rivet {
 
 
   private:
-  
+
     Profile1DPtr forward_500MeV;
     Profile1DPtr forward_2GeV;
     Profile1DPtr forward_5GeV;
@@ -133,7 +131,7 @@ namespace Rivet {
     Scatter2DPtr diff_500MeV;
     Scatter2DPtr diff_2GeV;
     Scatter2DPtr diff_5GeV;
-  
+
   };
 
   // The hook for the plugin system

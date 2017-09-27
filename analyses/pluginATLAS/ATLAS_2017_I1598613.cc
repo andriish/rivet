@@ -28,8 +28,8 @@ namespace Rivet {
 
       HistoHandler() {}
 
-      void fill(double value, double weight) {
-        histo->fill(value, weight);
+      void fill(double value) {
+        histo->fill(value);
       }
     };
 
@@ -79,8 +79,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       if (_mode == 1) { // make the 2-b-hadron-level plots
         const Particles& bHadrons = apply<HeavyHadrons>(event, "BHadrons").bHadrons();
         if (bHadrons.size() > 1) {
@@ -97,17 +95,17 @@ namespace Rivet {
           float MBB = systemBB.mass()/1.75;
           float pTBB = systemBB.pT()/1.75;
 
-          _h["dPhi"].fill(dphiBB, weight);
-          _h["dy"].fill(dyBB, weight);
-          _h["yboost"].fill(yboostBB, weight);
-          _h["dR"].fill(dRBB, weight);
-          _h["M"].fill(MBB/GeV, weight);
-          _h["pT"].fill(pTBB/GeV, weight);
-          _h["MopT"].fill(MBB/pTBB, weight);
-          _h["pToM"].fill(pTBB/MBB, weight);
+          _h["dPhi"].fill(dphiBB);
+          _h["dy"].fill(dyBB);
+          _h["yboost"].fill(yboostBB);
+          _h["dR"].fill(dRBB);
+          _h["M"].fill(MBB/GeV);
+          _h["pT"].fill(pTBB/GeV);
+          _h["MopT"].fill(MBB/pTBB);
+          _h["pToM"].fill(pTBB/MBB);
 
-          if (pTBB >= 20*GeV)  _h["highpT_dR"].fill(dRBB, weight);
-          else                 _h["lowpT_dR"].fill(dRBB,  weight);
+          if (pTBB >= 20*GeV)  _h["highpT_dR"].fill(dRBB);
+          else                 _h["lowpT_dR"].fill(dRBB);
         }
       }
 
@@ -178,17 +176,17 @@ namespace Rivet {
         float M = system.mass();
         float pT = system.pT();
 
-        _h["dPhi"].fill(dphi, weight);
-        _h["dy"].fill(dy, weight);
-        _h["yboost"].fill(yboost, weight);
-        _h["dR"].fill(dR, weight);
-        if (pT >= 20*GeV)  _h["highpT_dR"].fill(dR, weight);
-        else  _h["lowpT_dR"].fill(dR, weight);
+        _h["dPhi"].fill(dphi);
+        _h["dy"].fill(dy);
+        _h["yboost"].fill(yboost);
+        _h["dR"].fill(dR);
+        if (pT >= 20*GeV)  _h["highpT_dR"].fill(dR);
+        else  _h["lowpT_dR"].fill(dR);
 
-        _h["M"].fill(M, weight);
-        _h["pT"].fill(pT, weight);
-        _h["MopT"].fill(M/pT, weight);
-        _h["pToM"].fill(pT/M, weight);
+        _h["M"].fill(M);
+        _h["pT"].fill(pT);
+        _h["MopT"].fill(M/pT);
+        _h["pToM"].fill(pT/M);
 
       } //< end of muon analysis.
     }

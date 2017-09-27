@@ -72,31 +72,30 @@ namespace Rivet {
       if (jets[0].pT() < 42.5*GeV) vetoEvent;
 
       /// Fill histograms
-      const double weight = 1.0;
-      _hists["deltaPt12"]->fill( calcDeltaPt( jets[0], jets[1] ), weight );
-      _hists["deltaPt34"]->fill( calcDeltaPt( jets[2], jets[3] ), weight );
-      _hists["deltaPt13"]->fill( calcDeltaPt( jets[0], jets[2] ), weight );
-      _hists["deltaPt23"]->fill( calcDeltaPt( jets[1], jets[2] ), weight );
-      _hists["deltaPt14"]->fill( calcDeltaPt( jets[0], jets[3] ), weight );
-      _hists["deltaPt24"]->fill( calcDeltaPt( jets[1], jets[3] ), weight );
+      _hists["deltaPt12"]->fill( calcDeltaPt( jets[0], jets[1] ));
+      _hists["deltaPt34"]->fill( calcDeltaPt( jets[2], jets[3] ));
+      _hists["deltaPt13"]->fill( calcDeltaPt( jets[0], jets[2] ));
+      _hists["deltaPt23"]->fill( calcDeltaPt( jets[1], jets[2] ));
+      _hists["deltaPt14"]->fill( calcDeltaPt( jets[0], jets[3] ));
+      _hists["deltaPt24"]->fill( calcDeltaPt( jets[1], jets[3] ));
       //
-      _hists["deltaPhi12"]->fill( deltaPhi( jets[0],jets[1] ), weight );
-      _hists["deltaPhi34"]->fill( deltaPhi( jets[2],jets[3] ), weight );
-      _hists["deltaPhi13"]->fill( deltaPhi( jets[0],jets[2] ), weight );
-      _hists["deltaPhi23"]->fill( deltaPhi( jets[1],jets[2] ), weight );
-      _hists["deltaPhi14"]->fill( deltaPhi( jets[0],jets[3] ), weight );
-      _hists["deltaPhi24"]->fill( deltaPhi( jets[1],jets[3] ), weight );
+      _hists["deltaPhi12"]->fill( deltaPhi( jets[0],jets[1] ));
+      _hists["deltaPhi34"]->fill( deltaPhi( jets[2],jets[3] ));
+      _hists["deltaPhi13"]->fill( deltaPhi( jets[0],jets[2] ));
+      _hists["deltaPhi23"]->fill( deltaPhi( jets[1],jets[2] ));
+      _hists["deltaPhi14"]->fill( deltaPhi( jets[0],jets[3] ));
+      _hists["deltaPhi24"]->fill( deltaPhi( jets[1],jets[3] ));
       //
-      _hists["deltaY12"]->fill( deltaRap( jets[0], jets[1] ), weight );
-      _hists["deltaY34"]->fill( deltaRap( jets[2], jets[3] ), weight );
-      _hists["deltaY13"]->fill( deltaRap( jets[0], jets[2] ), weight );
-      _hists["deltaY23"]->fill( deltaRap( jets[1], jets[2] ), weight );
-      _hists["deltaY14"]->fill( deltaRap( jets[0], jets[3] ), weight );
-      _hists["deltaY24"]->fill( deltaRap( jets[1], jets[3] ), weight );
+      _hists["deltaY12"]->fill( deltaRap( jets[0], jets[1] ));
+      _hists["deltaY34"]->fill( deltaRap( jets[2], jets[3] ));
+      _hists["deltaY13"]->fill( deltaRap( jets[0], jets[2] ));
+      _hists["deltaY23"]->fill( deltaRap( jets[1], jets[2] ));
+      _hists["deltaY14"]->fill( deltaRap( jets[0], jets[3] ));
+      _hists["deltaY24"]->fill( deltaRap( jets[1], jets[3] ));
       //
-      _hists["deltaPhiPlanes12"]->fill( calcDeltaPhiPlanes(jets[0], jets[1], jets[2], jets[3] ), weight );
-      _hists["deltaPhiPlanes13"]->fill( calcDeltaPhiPlanes(jets[0], jets[2], jets[1], jets[3] ), weight );
-      _hists["deltaPhiPlanes14"]->fill( calcDeltaPhiPlanes(jets[0], jets[3], jets[1], jets[2] ), weight );
+      _hists["deltaPhiPlanes12"]->fill( calcDeltaPhiPlanes(jets[0], jets[1], jets[2], jets[3] ));
+      _hists["deltaPhiPlanes13"]->fill( calcDeltaPhiPlanes(jets[0], jets[2], jets[1], jets[3] ));
+      _hists["deltaPhiPlanes14"]->fill( calcDeltaPhiPlanes(jets[0], jets[3], jets[1], jets[2] ));
     }
 
 

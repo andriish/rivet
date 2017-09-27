@@ -112,7 +112,7 @@ namespace Rivet {
       if (met.pT() <= 20*GeV)  vetoEvent;
 
       // Make the plot
-      _histo->fill(1, 1.0);
+      _histo->fill(1);
     }
 
 

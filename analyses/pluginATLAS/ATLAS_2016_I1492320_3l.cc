@@ -111,7 +111,7 @@ namespace Rivet {
       if (dPhi < 2.5) vetoEvent;
 
       // Fill histo
-      _h_fiducial_3l->fill(1.0);
+      _h_fiducial_3l->fill();
     }
 
 

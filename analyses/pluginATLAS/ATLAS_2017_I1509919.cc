@@ -38,7 +38,7 @@ namespace Rivet {
         book(_hist_pT_vs_dPhi[iC], 7, 1 + iC, 1);
         //ptLead histos only for 1 and 5 GeV cuts
         if ( (iC == 0) || (iC == 1) )  book(_hist_ptLead[iC], 8, 1 + iC, 1);
-        // 
+        //
         book(_counters[iC], "Ctr_cut_" + toString(iC));
       }
 
@@ -59,11 +59,10 @@ namespace Rivet {
 
       // Require at least one track in the event for pTlead histograms
       if (particles.empty()) vetoEvent;
-      const double weight = 1.0;
       for (size_t iC = 0; iC < 2; ++iC) {
         if (particles[0].pT() < PTCUTS[iC]*GeV) continue;
-        _counters[iC]->fill(weight);
-        _hist_ptLead[iC]->fill( particles[0].pT()/GeV, weight);
+        _counters[iC]->fill();
+        _hist_ptLead[iC]->fill( particles[0].pT()/GeV);
       }
 
       // Require at least one track in the event with pT >= 1 GeV for the rest
@@ -105,7 +104,7 @@ namespace Rivet {
 
         // Fill temp histos to bin Nch and pT in dPhi
         if (p.genParticle() != p_lead.genParticle()) { // We don't want to fill all those zeros from the leading track...
-          hist_num_dphi.fill(dPhi/M_PI*180, 1);
+          hist_num_dphi.fill(dPhi/M_PI*180);
           hist_pt_dphi .fill(dPhi/M_PI*180, pT/GeV);
         }
       }
@@ -137,21 +136,21 @@ namespace Rivet {
                                           2*2.5 *   PI/3.0, 2*2.5 *   PI/3.0, 2*2.5 *   PI/3.0 };
       for (size_t iR = 0; iR < NREGIONS; ++iR) {
 
-        _hist_nch  [iR]->fill(pTlead/GeV, num[iR]   /dEtadPhi[iR]     , weight);
-        _hist_ptsum[iR]->fill(pTlead/GeV, ptSum[iR] /GeV/dEtadPhi[iR] , weight);
+        _hist_nch  [iR]->fill(pTlead/GeV, num[iR]   /dEtadPhi[iR]     );
+        _hist_ptsum[iR]->fill(pTlead/GeV, ptSum[iR] /GeV/dEtadPhi[iR] );
 
         // <pT> profiles vs. pT_lead (first 3 are the same!)
         switch (iR) {
         case kToward    :
         case kAway      :
         case kTrans     :
-          if (num[iR] > 0) _hist_ptavg[iR]->fill(pTlead/GeV, avgpt[iR]/GeV, weight);
+          if (num[iR] > 0) _hist_ptavg[iR]->fill(pTlead/GeV, avgpt[iR]/GeV);
           break;
         case kTransMax  :
-          if (tmpnch[sumptMaxRegID] > 0) _hist_ptavg[iR]->fill(pTlead/GeV, avgpt[iR]/GeV, weight);
+          if (tmpnch[sumptMaxRegID] > 0) _hist_ptavg[iR]->fill(pTlead/GeV, avgpt[iR]/GeV);
           break;
         case kTransMin  :
-          if (tmpnch[sumptMinRegID] > 0) _hist_ptavg[iR]->fill(pTlead/GeV, avgpt[iR]/GeV, weight);
+          if (tmpnch[sumptMinRegID] > 0) _hist_ptavg[iR]->fill(pTlead/GeV, avgpt[iR]/GeV);
           break;
         case kTransDiff :
           break;
@@ -164,18 +163,18 @@ namespace Rivet {
         case kToward    :
         case kAway      :
         case kTrans     :
-          if (num[iR] > 0) _hist_dn_dpt[iR]->fill(num[iR] , avgpt[iR]/GeV, weight);
+          if (num[iR] > 0) _hist_dn_dpt[iR]->fill(num[iR] , avgpt[iR]/GeV);
           break;
         case kTransMax  :
           if (tmpnch[sumptMaxRegID] > 0) {
-            _hist_dn_dpt [iR]->fill(num[kTrans]          , avgpt[iR]/GeV, weight);
-            _hist_dn_dpt2[iR]->fill(tmpnch[sumptMaxRegID], avgpt[iR]/GeV, weight);
+            _hist_dn_dpt [iR]->fill(num[kTrans]          , avgpt[iR]/GeV);
+            _hist_dn_dpt2[iR]->fill(tmpnch[sumptMaxRegID], avgpt[iR]/GeV);
           }
           break;
         case kTransMin  :
           if (tmpnch[sumptMinRegID] > 0) {
-            _hist_dn_dpt [iR]->fill(num[kTrans]          , avgpt[iR]/GeV, weight);
-            _hist_dn_dpt2[iR]->fill(tmpnch[sumptMinRegID], avgpt[iR]/GeV, weight);
+            _hist_dn_dpt [iR]->fill(num[kTrans]          , avgpt[iR]/GeV);
+            _hist_dn_dpt2[iR]->fill(tmpnch[sumptMinRegID], avgpt[iR]/GeV);
           }
           break;
         case kTransDiff :
@@ -200,7 +199,7 @@ namespace Rivet {
           value = hist_num_dphi.bin(i).area()/hist_num_dphi.bin(i).xWidth()/dEtadPhi2;
         }
         for (size_t iC = 0; iC < NCUTS; ++iC) {
-          if (pTlead >= PTCUTS[iC]*GeV) _hist_N_vs_dPhi[iC] ->fill(mean, value, weight);
+          if (pTlead >= PTCUTS[iC]*GeV) _hist_N_vs_dPhi[iC] ->fill(mean, value);
         }
 
         // Then pT
@@ -211,7 +210,7 @@ namespace Rivet {
           value = hist_pt_dphi.bin(i).area()/hist_pt_dphi.bin(i).xWidth()/dEtadPhi2;
         }
         for (size_t iC = 0; iC < NCUTS; ++iC) {
-          if (pTlead >= PTCUTS[iC]*GeV) _hist_pT_vs_dPhi[iC] ->fill(mean, value, weight);
+          if (pTlead >= PTCUTS[iC]*GeV) _hist_pT_vs_dPhi[iC] ->fill(mean, value);
         }
       }
 

@@ -113,7 +113,7 @@ namespace Rivet {
       if (met.vectorEt().mod() < 55*GeV && (leps[0].abspid() != PID::MUON || leps[1].abspid() != PID::MUON)) vetoEvent;
 
       // Fill counter
-      _h_2l2j->fill(1.0);
+      _h_2l2j->fill();
     }
 
 

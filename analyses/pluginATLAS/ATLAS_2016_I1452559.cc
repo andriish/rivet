@@ -98,15 +98,13 @@ namespace Rivet {
       ////////////////////
 
 
-      const double weight = 1.0;
-
       // Get ETmiss bin number and fill counters
       const int i_etmiss = binIndex(etmiss/GeV, ETMISS_CUTS);
       // Inclusive ETmiss bins
       for (int ibin = 0; ibin < 7; ++ibin)
-        if (i_etmiss >= ibin) _count_IM[ibin]->fill(weight);
+        if (i_etmiss >= ibin) _count_IM[ibin]->fill();
       // Exclusive ETmiss bins
-      if (inRange(i_etmiss, 0, 6)) _count_EM[i_etmiss]->fill(weight);
+      if (inRange(i_etmiss, 0, 6)) _count_EM[i_etmiss]->fill();
 
     }
 

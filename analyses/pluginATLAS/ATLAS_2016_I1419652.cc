@@ -30,7 +30,7 @@ namespace Rivet {
     ATLAS_2016_I1419652() : Analysis("ATLAS_2016_I1419652") {
       for (int iT = 0; iT < kNPartTypes; ++iT)  {
         for (int iR = 0; iR < kNregions; ++iR)  {
-          _sumW[iT][iR]  = 0.;
+          book(_sumW[iT][iR], (ostringstream("_sumW") << iT << iR).str());
         }
       }
     }
@@ -68,7 +68,7 @@ namespace Rivet {
         const ChargedFinalState& cfs = apply<ChargedFinalState>(event, fsName);
 
         /// What's the benefit in separating this code which is only called from one place?!
-        fillPtEtaNch(cfs, iR, 1.0);
+        fillPtEtaNch(cfs, iR);
       }
     }
 
@@ -99,7 +99,7 @@ namespace Rivet {
 
 
     /// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
-    void fillPtEtaNch(const ChargedFinalState& cfs, int iRegion, double weight) {
+    void fillPtEtaNch(const ChargedFinalState& cfs, int iRegion) {
 
       // Get number of particles
       int nch[kNPartTypes];
@@ -120,24 +120,24 @@ namespace Rivet {
       if (nch[k_AllCharged] < nchCut[iRegion]) return;
 
       // Fill event weight info
-      _sumW[k_AllCharged][iRegion] += weight;
+      _sumW[k_AllCharged][iRegion]->fill();
       if (nch[k_NoStrange ] >= nchCut[iRegion])	{
-        _sumW[k_NoStrange][iRegion] += weight;
+        _sumW[k_NoStrange][iRegion]->fill();
       }
 
       // Fill nch
-      _hist_nch[k_AllCharged][iRegion]->fill(nch[k_AllCharged], weight);
+      _hist_nch[k_AllCharged][iRegion]->fill(nch[k_AllCharged]);
       if (nch[k_NoStrange ] >= nchCut[iRegion])	{
-        _hist_nch [k_NoStrange][iRegion]->fill(nch[k_NoStrange ], weight);
+        _hist_nch [k_NoStrange][iRegion]->fill(nch[k_NoStrange ]);
       }
 
       // Loop over particles, fill pT, eta and ptnch
       foreach (const Particle& p, cfs.particles())  {
         const double pt  = p.pT()/GeV;
         const double eta = p.eta();
-        _hist_pt     [k_AllCharged][iRegion]->fill(pt , weight/pt);
-        _hist_eta    [k_AllCharged][iRegion]->fill(eta, weight);
-        _hist_ptnch  [k_AllCharged][iRegion]->fill(nch[k_AllCharged], pt, weight);
+        _hist_pt     [k_AllCharged][iRegion]->fill(pt , 1.0/pt);
+        _hist_eta    [k_AllCharged][iRegion]->fill(eta);
+        _hist_ptnch  [k_AllCharged][iRegion]->fill(nch[k_AllCharged], pt);
 
         // Make sure nch cut is passed for nonStrange particles!
         if (nch[k_NoStrange ] >= nchCut[iRegion])  {
@@ -148,9 +148,9 @@ namespace Rivet {
                pdg == 3334 )  // Omega-
 	          continue;
           // Here we don't have strange particles anymore
-          _hist_pt   [k_NoStrange][iRegion]->fill(pt , weight/pt);
-          _hist_eta  [k_NoStrange][iRegion]->fill(eta, weight);
-          _hist_ptnch[k_NoStrange][iRegion]->fill(nch[k_NoStrange], pt, weight);
+          _hist_pt   [k_NoStrange][iRegion]->fill(pt , 1.0/pt);
+          _hist_eta  [k_NoStrange][iRegion]->fill(eta);
+          _hist_ptnch[k_NoStrange][iRegion]->fill(nch[k_NoStrange], pt);
         }
       }
     }
@@ -158,7 +158,7 @@ namespace Rivet {
 
   private:
 
-    double _sumW[kNPartTypes][kNregions];
+    CounterPtr _sumW[kNPartTypes][kNregions];
 
     Histo1DPtr   _hist_nch  [kNPartTypes][kNregions];
     Histo1DPtr   _hist_pt   [kNPartTypes][kNregions];
