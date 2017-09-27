@@ -17,8 +17,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      double weight = 1.0;
-
       Particles bhadrons;
       foreach (const GenParticle* p, particles(event.genEvent())) {
 
@@ -49,8 +47,8 @@ namespace Rivet {
         if (!(inRange(eta, -2.5, 2.5))) continue;
         if (pt < 9.*GeV) continue;
 
-        _h_sigma_vs_pt->fill(pt, weight);
-        _h_sigma_vs_eta->fill(fabs(eta), weight);
+        _h_sigma_vs_pt->fill(pt);
+        _h_sigma_vs_eta->fill(fabs(eta));
 
       }
 

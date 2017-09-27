@@ -144,25 +144,24 @@ namespace Rivet {
       const double abs_jet_rapidity = fabs(leadingJet.rapidity());
       const double photon_pt = photon.pT()/GeV;
       const double abs_photon_eta = fabs(photon.eta());
-      const double weight = 1.0;
       if (abs_photon_eta < 1.37) {
         if (abs_jet_rapidity < 1.2) {
           if (photon_jet_sign >= 1) {
-            _h_phbarrel_jetcentral_SS->fill(photon_pt, weight);
+            _h_phbarrel_jetcentral_SS->fill(photon_pt);
           } else {
-            _h_phbarrel_jetcentral_OS->fill(photon_pt, weight);
+            _h_phbarrel_jetcentral_OS->fill(photon_pt);
           }
         } else if (abs_jet_rapidity < 2.8) {
           if (photon_jet_sign >= 1) {
-            _h_phbarrel_jetmedium_SS->fill(photon_pt, weight);
+            _h_phbarrel_jetmedium_SS->fill(photon_pt);
           } else {
-            _h_phbarrel_jetmedium_OS->fill(photon_pt, weight);
+            _h_phbarrel_jetmedium_OS->fill(photon_pt);
           }
         } else if (abs_jet_rapidity < 4.4) {
           if (photon_jet_sign >= 1) {
-            _h_phbarrel_jetforward_SS->fill(photon_pt, weight);
+            _h_phbarrel_jetforward_SS->fill(photon_pt);
           } else {
-            _h_phbarrel_jetforward_OS->fill(photon_pt, weight);
+            _h_phbarrel_jetforward_OS->fill(photon_pt);
           }
         }
       }

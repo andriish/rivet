@@ -164,8 +164,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       ////////////////////////////////////////////////////////////////////
       // preselection of leptons for ZZ-> llll final state
       ////////////////////////////////////////////////////////////////////
@@ -224,15 +222,15 @@ namespace Rivet {
         if (mZ1 > 20*GeV && mZ2 > 20*GeV) {
           // ZZ* selection
           if (inRange(mZ1, 66*GeV, 116*GeV) || inRange(mZ2, 66*GeV, 116*GeV)) {
-            _h_ZZs_xsect  -> fill(sqrtS()*GeV,  weight);
+            _h_ZZs_xsect  -> fill(sqrtS()*GeV);
           }
 
           // ZZ selection
           if (inRange(mZ1, 66*GeV, 116*GeV) && inRange(mZ2, 66*GeV, 116*GeV)) {
-            _h_ZZ_xsect  -> fill(sqrtS()*GeV,  weight);
-            _h_ZZ_ZpT    -> fill(ZpT   , weight);
-            _h_ZZ_phill  -> fill(phill , weight);
-            _h_ZZ_mZZ    -> fill(mZZ   , weight);
+            _h_ZZ_xsect  -> fill(sqrtS()*GeV);
+            _h_ZZ_ZpT    -> fill(ZpT);
+            _h_ZZ_phill  -> fill(phill);
+            _h_ZZ_mZZ    -> fill(mZZ);
           }
         }
       }
@@ -335,10 +333,10 @@ namespace Rivet {
 
 
       // End of ZZllnunu selection: now fill histograms
-      _h_ZZnunu_xsect->fill(sqrtS()/GeV, weight);
-      _h_ZZnunu_ZpT  ->fill(ZpT, weight);
-      _h_ZZnunu_phill->fill(phill, weight);
-      _h_ZZnunu_mZZ  ->fill(mTZZ, weight);
+      _h_ZZnunu_xsect->fill(sqrtS()/GeV);
+      _h_ZZnunu_ZpT  ->fill(ZpT);
+      _h_ZZnunu_phill->fill(phill);
+      _h_ZZnunu_mZZ  ->fill(mTZZ);
 
     }
 

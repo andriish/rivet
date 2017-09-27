@@ -33,7 +33,7 @@ namespace Rivet {
 
       // Set number of events per signal region to 0
       for (size_t i = 0; i < _signal_regions.size(); i++)
-        _eventCountsPerSR[_signal_regions[i]] = 0.0;
+        book(_eventCountsPerSR[_signal_regions[i]], "_eventCountsPerSR_" + _signal_regions[i]);
 
       // Final state including all charged and neutral particles
       const FinalState fs(-5.0, 5.0, 1*GeV);
@@ -347,9 +347,6 @@ namespace Rivet {
       // And only accept events with at least 2 electrons and muons and at least 3 leptons in total
       if (recon_mu.size() + recon_e.size() + recon_tau.size() < 3 || recon_leptons.size() < 2) vetoEvent;
 
-      // Now it's worth getting the event weight
-      const double weight = 1.0;
-
       // Sort leptons by decreasing pT
       sortByPt(recon_leptons);
       sortByPt(recon_tau);
@@ -358,18 +355,18 @@ namespace Rivet {
       double HTlep = 0.;
       Particles chosen_leptons;
       if ( recon_leptons.size() > 2 ) {
-        _h_pt_1_3l->fill(recon_leptons[0].perp()/GeV, weight);
-        _h_pt_2_3l->fill(recon_leptons[1].perp()/GeV, weight);
-        _h_pt_3_3l->fill(recon_leptons[2].perp()/GeV, weight);
+        _h_pt_1_3l->fill(recon_leptons[0].perp()/GeV);
+        _h_pt_2_3l->fill(recon_leptons[1].perp()/GeV);
+        _h_pt_3_3l->fill(recon_leptons[2].perp()/GeV);
         HTlep = (recon_leptons[0].pT() + recon_leptons[1].pT() + recon_leptons[2].pT())/GeV;
         chosen_leptons.push_back( recon_leptons[0] );
         chosen_leptons.push_back( recon_leptons[1] );
         chosen_leptons.push_back( recon_leptons[2] );
       }
       else {
-        _h_pt_1_2ltau->fill(recon_leptons[0].perp()/GeV, weight);
-        _h_pt_2_2ltau->fill(recon_leptons[1].perp()/GeV, weight);
-        _h_pt_3_2ltau->fill(recon_tau[0].perp()/GeV,     weight);
+        _h_pt_1_2ltau->fill(recon_leptons[0].perp()/GeV);
+        _h_pt_2_2ltau->fill(recon_leptons[1].perp()/GeV);
+        _h_pt_3_2ltau->fill(recon_tau[0].perp()/GeV);
         HTlep = (recon_leptons[0].pT() + recon_leptons[1].pT() + recon_tau[0].pT())/GeV ;
         chosen_leptons.push_back( recon_leptons[0] );
         chosen_leptons.push_back( recon_leptons[1] );
@@ -377,9 +374,9 @@ namespace Rivet {
       }
 
       // Number of prompt e/mu and had taus
-      _h_e_n  ->fill(recon_e.size()  , weight);
-      _h_mu_n ->fill(recon_mu.size() , weight);
-      _h_tau_n->fill(recon_tau.size(), weight);
+      _h_e_n  ->fill(recon_e.size());
+      _h_mu_n ->fill(recon_mu.size());
+      _h_tau_n->fill(recon_tau.size());
 
       // Calculate HTjets
       double HTjets = 0.;
@@ -403,10 +400,10 @@ namespace Rivet {
       }
 
       // Fill histogram of kinematic variables
-      _h_HTlep_all ->fill(HTlep , weight);
-      _h_HTjets_all->fill(HTjets, weight);
-      _h_MET_all   ->fill(eTmiss, weight);
-      _h_Meff_all  ->fill(meff  , weight);
+      _h_HTlep_all ->fill(HTlep);
+      _h_HTjets_all->fill(HTjets);
+      _h_MET_all   ->fill(eTmiss);
+      _h_Meff_all  ->fill(meff);
 
       // Determine signal region (3l/2ltau, onZ/offZ)
       string basic_signal_region;
@@ -419,7 +416,7 @@ namespace Rivet {
       if      (onZ == 1)   basic_signal_region += "onZ";
       else if (onZ == 0)   basic_signal_region += "offZ";
       // Check in which signal regions this event falls and adjust event counters
-      fillEventCountsPerSR(basic_signal_region, onZ, HTlep, eTmiss, HTjets, meff, weight);
+      fillEventCountsPerSR(basic_signal_region, onZ, HTlep, eTmiss, HTjets, meff);
     }
 
 
@@ -433,7 +430,7 @@ namespace Rivet {
 
       // Loop over all signal regions and find signal region with best sensitivity (ratio signal events/visible cross-section)
       for (size_t i = 0; i < _signal_regions.size(); i++)  {
-        double signal_events = _eventCountsPerSR[_signal_regions[i]] * norm;
+        double signal_events = _eventCountsPerSR[_signal_regions[i]]->val() * norm;
         // Use expected upper limits to find best signal region
         double UL95  = getUpperLimit(_signal_regions[i], false);
         double ratio = signal_events / UL95;
@@ -443,7 +440,7 @@ namespace Rivet {
         }
       }
 
-      double signal_events_best_SR = _eventCountsPerSR[best_signal_region] * norm;
+      double signal_events_best_SR = _eventCountsPerSR[best_signal_region]->val() * norm;
       double exp_UL_best_SR = getUpperLimit(best_signal_region, false);
       double obs_UL_best_SR = getUpperLimit(best_signal_region, true);
 
@@ -451,7 +448,7 @@ namespace Rivet {
       cout << "----------------------------------------------------------------------------------------" << endl;
       cout << "Best signal region: " << best_signal_region << endl;
       cout << "Normalized number of signal events in this best signal region (per fb-1): " << signal_events_best_SR << endl;
-      cout << "Efficiency*Acceptance: " <<  _eventCountsPerSR[best_signal_region]/sumOfWeights() << endl;
+      cout << "Efficiency*Acceptance: " <<  _eventCountsPerSR[best_signal_region]->val()/sumOfWeights() << endl;
       cout << "Cross-section [fb]: " << crossSection()/femtobarn << endl;
       cout << "Expected visible cross-section (per fb-1): " << exp_UL_best_SR << endl;
       cout << "Ratio (signal events / expected visible cross-section): " << ratio_best_SR << endl;
@@ -580,42 +577,41 @@ namespace Rivet {
     /// and looking if the event falls into this signal region
     void fillEventCountsPerSR(const string& basic_signal_region, int onZ,
                               double HTlep, double eTmiss,
-                              double HTjets, double meff,
-                              double weight)  {
+                              double HTjets, double meff)  {
 
       // Get cut values for HTlep, loop over them and add event if cut is passed
       vector<int> cut_values = getCutsPerSignalRegion("HTlep", onZ);
       for (size_t i = 0; i < cut_values.size(); i++)  {
         if (HTlep > cut_values[i])
-          _eventCountsPerSR[("HTlep_" + basic_signal_region + "_cut_" + toString(cut_values[i]))] += weight;
+          _eventCountsPerSR[("HTlep_" + basic_signal_region + "_cut_" + toString(cut_values[i]))]->fill();
       }
 
       // Get cut values for METStrong, loop over them and add event if cut is passed
       cut_values = getCutsPerSignalRegion("METStrong", onZ);
       for (size_t i = 0; i < cut_values.size(); i++)  {
         if (eTmiss > cut_values[i] && HTjets > 100.)
-          _eventCountsPerSR[("METStrong_" + basic_signal_region + "_cut_" + toString(cut_values[i]))] += weight;
+          _eventCountsPerSR[("METStrong_" + basic_signal_region + "_cut_" + toString(cut_values[i]))]->fill();
       }
 
       // Get cut values for METWeak, loop over them and add event if cut is passed
       cut_values = getCutsPerSignalRegion("METWeak", onZ);
       for (size_t i = 0; i < cut_values.size(); i++)  {
         if (eTmiss > cut_values[i] && HTjets <= 100.)
-          _eventCountsPerSR[("METWeak_" + basic_signal_region + "_cut_" + toString(cut_values[i]))] += weight;
+          _eventCountsPerSR[("METWeak_" + basic_signal_region + "_cut_" + toString(cut_values[i]))]->fill();
       }
 
       // Get cut values for Meff, loop over them and add event if cut is passed
       cut_values = getCutsPerSignalRegion("Meff", onZ);
       for (size_t i = 0; i < cut_values.size(); i++)  {
         if (meff > cut_values[i])
-          _eventCountsPerSR[("Meff_" + basic_signal_region + "_cut_" + toString(cut_values[i]))] += weight;
+          _eventCountsPerSR[("Meff_" + basic_signal_region + "_cut_" + toString(cut_values[i]))]->fill();
       }
 
       // Get cut values for MeffStrong, loop over them and add event if cut is passed
       cut_values = getCutsPerSignalRegion("MeffStrong", onZ);
       for (size_t i = 0; i < cut_values.size(); i++)  {
         if (meff > cut_values[i] && eTmiss > 75.)
-          _eventCountsPerSR[("MeffStrong_" + basic_signal_region + "_cut_" + toString(cut_values[i]))] += weight;
+          _eventCountsPerSR[("MeffStrong_" + basic_signal_region + "_cut_" + toString(cut_values[i]))]->fill();
       }
     }
 
@@ -1049,7 +1045,7 @@ namespace Rivet {
 
     /// List of signal regions and event counts per signal region
     vector<string> _signal_regions;
-    map<string, double> _eventCountsPerSR;
+    map<string, CounterPtr> _eventCountsPerSR;
 
   };
 

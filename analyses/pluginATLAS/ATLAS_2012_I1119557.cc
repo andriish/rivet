@@ -47,7 +47,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       Jets jetAr[2];
       jetAr[0] = apply<FastJets>(event, "AntiKT06").jetsByPt(Cuts::pT > 300*GeV && Cuts::abseta < 2.0);
       jetAr[1] = apply<FastJets>(event, "AntiKT10").jetsByPt(Cuts::pT > 300*GeV && Cuts::abseta < 2.0);
@@ -61,14 +60,14 @@ namespace Rivet {
         const double m   = jet.mass();
         const double eta = jet.eta();
 
-        _hs_mass[alg]->fill(m/GeV, weight);
-        _hs_width[alg]->fill(getWidth(jet), weight);
+        _hs_mass[alg]->fill(m/GeV);
+        _hs_width[alg]->fill(getWidth(jet));
         /// @todo Commented eccentricity out for now: reinstate
-        // if (fabs(eta) < 0.7 && m > 100*GeV) _hs_eccentricity[alg]->fill(getEcc(jet), weight);
+        // if (fabs(eta) < 0.7 && m > 100*GeV) _hs_eccentricity[alg]->fill(getEcc(jet));
 
         if (fabs(eta) < 0.7) {
-          if (alg == 0 && inRange(m/GeV, 100., 130.)) _h_angularity->fill(getAngularity(jet), weight);
-          if (alg == 1 && inRange(m/GeV, 130., 210.)) _h_planarFlow->fill(getPFlow(jet), weight);
+          if (alg == 0 && inRange(m/GeV, 100., 130.)) _h_angularity->fill(getAngularity(jet));
+          if (alg == 1 && inRange(m/GeV, 130., 210.)) _h_planarFlow->fill(getPFlow(jet));
         }
       }
     }

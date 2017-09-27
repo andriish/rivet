@@ -78,7 +78,7 @@ namespace Rivet {
       declare(jets, "JETS");
 
       // Initialise weight counter
-      m_total_weight = 0.0;
+      book(m_total_weight, "m_total_weight");
 
       // Init histogramming for the various regions
       m_plots[0].region_index = 1;
@@ -126,8 +126,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
-      const double weight = 1.0;
 
       /// Get the various sets of final state particles
       const Particles& elecFS = apply<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
@@ -284,7 +282,7 @@ namespace Rivet {
 
       if (passed_ee == true || passed_mumu == true || passed_emu == true) {
         // If the event passes the selection, we use it for all gap fractions
-        m_total_weight += weight;
+        m_total_weight->fill();
 
         // Loop over each veto jet
         foreach (const Jet* j, veto_jets) {
@@ -301,8 +299,8 @@ namespace Rivet {
           }
         }
         for (size_t i = 0; i < 4; ++i) {
-          m_plots[i]._h_vetoJetPt_Q0->fill(m_plots[i].vetoJetPt_Q0, weight);
-          m_plots[i]._h_vetoJetPt_Qsum->fill(m_plots[i].vetoJetPt_Qsum, weight);
+          m_plots[i]._h_vetoJetPt_Q0->fill(m_plots[i].vetoJetPt_Q0);
+          m_plots[i]._h_vetoJetPt_Qsum->fill(m_plots[i].vetoJetPt_Qsum);
           m_plots[i].vetoJetPt_Q0 = 0.0;
           m_plots[i].vetoJetPt_Qsum = 0.0;
         }
@@ -313,8 +311,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for (size_t i = 0; i < 4; ++i) {
-        finalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Q0, m_plots[i]._h_vetoJetPt_Q0);
-        finalizeGapFraction(m_total_weight, m_plots[i]._d_gapFraction_Qsum, m_plots[i]._h_vetoJetPt_Qsum);
+        finalizeGapFraction(m_total_weight->val(), m_plots[i]._d_gapFraction_Q0, m_plots[i]._h_vetoJetPt_Q0);
+        finalizeGapFraction(m_total_weight->val(), m_plots[i]._d_gapFraction_Qsum, m_plots[i]._h_vetoJetPt_Qsum);
       }
     }
 
@@ -352,7 +350,7 @@ namespace Rivet {
   private:
 
     // Weight counter
-    double m_total_weight;
+    CounterPtr m_total_weight;
 
     // Structs containing all the plots, for each event selection
     ATLAS_2012_I1094568_Plots m_plots[4];

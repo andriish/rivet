@@ -109,13 +109,12 @@ namespace Rivet {
       if (deltaR(y1, y2) < 0.4) vetoEvent;
 
       // Compute diphoton vector and fill histos
-      const double weight = 1.0;
       FourMomentum yy = y1 + y2;
       const double costhetayy = 2 * y1.pT() * y2.pT() * sinh(y1.eta() - y2.eta()) / yy.mass() / add_quad(yy.mass(), yy.pT());
-      _h_M->fill(yy.mass()/GeV, weight);
-      _h_pT->fill(yy.pT()/GeV, weight);
-      _h_dPhi->fill(mapAngle0ToPi(y1.phi() - y2.phi()), weight);
-      _h_cosThetaStar->fill(costhetayy, weight);
+      _h_M->fill(yy.mass()/GeV);
+      _h_pT->fill(yy.pT()/GeV);
+      _h_dPhi->fill(mapAngle0ToPi(y1.phi() - y2.phi()));
+      _h_cosThetaStar->fill(costhetayy);
     }
 
 
