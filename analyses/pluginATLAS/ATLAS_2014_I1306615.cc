@@ -110,9 +110,6 @@ namespace Rivet {
     // Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-      _weight = weight;
-
       // Get final state particles
       const ParticleVector& FS_ptcls          = apply<FinalState>(event, "FS").particles();
       const ParticleVector& ptcls_veto_mu_nu  = apply<VetoedFinalState>(event, "VETO_MU_NU_FS").particles();
@@ -239,13 +236,13 @@ namespace Rivet {
       }
 
       // Fiducial regions
-      _h_fidXSecs->fill(1,_weight);
-      if ( jets_30.size() >= 1 ) _h_fidXSecs->fill(2, _weight);
-      if ( jets_30.size() >= 2 ) _h_fidXSecs->fill(3, _weight);
-      if ( jets_30.size() >= 3 ) _h_fidXSecs->fill(4, _weight);
-      if ( jets_30.size() >= 2 && passVBFCuts(y1 + y2, jets_30.at(0)->momentum(), jets_30.at(1)->momentum()) ) _h_fidXSecs->fill(5, _weight);
-      if ( (good_el.size() + good_mu.size()) > 0 ) _h_fidXSecs->fill(6, _weight);
-      if ( MET > 80 ) _h_fidXSecs->fill(7, _weight);
+      _h_fidXSecs->fill(1);
+      if ( jets_30.size() >= 1 ) _h_fidXSecs->fill(2);
+      if ( jets_30.size() >= 2 ) _h_fidXSecs->fill(3);
+      if ( jets_30.size() >= 3 ) _h_fidXSecs->fill(4);
+      if ( jets_30.size() >= 2 && passVBFCuts(y1 + y2, jets_30.at(0)->momentum(), jets_30.at(1)->momentum()) ) _h_fidXSecs->fill(5);
+      if ( (good_el.size() + good_mu.size()) > 0 ) _h_fidXSecs->fill(6);
+      if ( MET > 80 ) _h_fidXSecs->fill(7);
 
       // Fill histograms
       // Inclusive variables
@@ -257,8 +254,8 @@ namespace Rivet {
 
       _Njets30 = jets_30.size() > 3 ? 3 : jets_30.size();
       _Njets50 = jets_50.size() > 3 ? 3 : jets_50.size();
-      _h_Njets30->fill(_Njets30, _weight);
-      _h_Njets50->fill(_Njets50, _weight);
+      _h_Njets30->fill(_Njets30);
+      _h_Njets50->fill(_Njets50);
 
       _pT_j1 = jets_30.size() > 0 ? jets_30.at(0)->momentum().pT() : 0.;
       _pT_j2 = jets_30.size() > 1 ? jets_30.at(1)->momentum().pT() : 0.;
@@ -271,24 +268,24 @@ namespace Rivet {
       _tau_jet     = tau_jet_max(y1 + y2, jets_25);
       _sum_tau_jet = sum_tau_jet(y1 + y2, jets_25);
 
-      _h_pT_yy        ->fill(_pT_yy    ,_weight);
-      _h_y_yy         ->fill(_y_yy     ,_weight);
-      _h_pT_j1        ->fill(_pT_j1    ,_weight);
-      _h_cosTS_CS     ->fill(_cosTS_CS ,_weight);
-      _h_cosTS_CS_5bin->fill(_cosTS_CS ,_weight);
-      _h_HT           ->fill(_HT       ,_weight);
-      _h_pTt_yy       ->fill(_pTt_yy   ,_weight);
-      _h_Dy_yy        ->fill(_Dy_yy    ,_weight);
-      _h_tau_jet      ->fill(_tau_jet  ,_weight);
-      _h_sum_tau_jet  ->fill(_sum_tau_jet,_weight);
+      _h_pT_yy        ->fill(_pT_yy);
+      _h_y_yy         ->fill(_y_yy);
+      _h_pT_j1        ->fill(_pT_j1);
+      _h_cosTS_CS     ->fill(_cosTS_CS);
+      _h_cosTS_CS_5bin->fill(_cosTS_CS);
+      _h_HT           ->fill(_HT);
+      _h_pTt_yy       ->fill(_pTt_yy);
+      _h_Dy_yy        ->fill(_Dy_yy);
+      _h_tau_jet      ->fill(_tau_jet);
+      _h_sum_tau_jet  ->fill(_sum_tau_jet);
 
       // >=1 jet variables
       if ( jets_30.size() >= 1 ) {
 	FourMomentum j1 = jets_30[0]->momentum();
 	_y_j1 = fabs( j1.rapidity() );
 
-	_h_pT_j2->fill(_pT_j2 ,_weight);
-	_h_y_j1 ->fill(_y_j1  ,_weight);
+	_h_pT_j2->fill(_pT_j2);
+	_h_y_j1 ->fill(_y_j1);
       }
 
       // >=2 jet variables
@@ -303,32 +300,32 @@ namespace Rivet {
 	_pT_yy_jj   = (y1 + y2 + j1 + j2).pT();
 	_y_j2       = fabs( j2.rapidity() );
 
-	_h_Dy_jj      ->fill(_Dy_jj     ,_weight);
-	_h_Dphi_jj    ->fill(_Dphi_jj   ,_weight);
-	_h_Dphi_yy_jj ->fill(_Dphi_yy_jj,_weight);
-	_h_m_jj       ->fill(_m_jj      ,_weight);
-	_h_pT_yy_jj   ->fill(_pT_yy_jj  ,_weight);
-	_h_pT_j3      ->fill(_pT_j3     ,_weight);
-	_h_y_j2       ->fill(_y_j2      ,_weight);
+	_h_Dy_jj      ->fill(_Dy_jj);
+	_h_Dphi_jj    ->fill(_Dphi_jj);
+	_h_Dphi_yy_jj ->fill(_Dphi_yy_jj);
+	_h_m_jj       ->fill(_m_jj);
+	_h_pT_yy_jj   ->fill(_pT_yy_jj);
+	_h_pT_j3      ->fill(_pT_j3);
+	_h_y_j2       ->fill(_y_j2);
       }
 
       // 2D distributions of cosTS_CS x pT_yy
       if ( _pT_yy < 80 )
-	_h_cosTS_pTyy_low->fill(_cosTS_CS, _weight);
+	_h_cosTS_pTyy_low->fill(_cosTS_CS);
       else if ( _pT_yy > 80 && _pT_yy < 200 )
-	_h_cosTS_pTyy_high->fill(_cosTS_CS,_weight);
+	_h_cosTS_pTyy_high->fill(_cosTS_CS);
       else if ( _pT_yy > 200 )
-	_h_cosTS_pTyy_rest->fill(_cosTS_CS,_weight);
+	_h_cosTS_pTyy_rest->fill(_cosTS_CS);
 
       // 2D distributions of pT_yy x Njets
       if ( _Njets30 == 0 )
-	_h_pTyy_Njets0->fill(_pT_yy, _weight);
+	_h_pTyy_Njets0->fill(_pT_yy);
       else if ( _Njets30 == 1 )
-	_h_pTyy_Njets1->fill(_pT_yy, _weight);
+	_h_pTyy_Njets1->fill(_pT_yy);
       else if ( _Njets30 >= 2 )
-	_h_pTyy_Njets2->fill(_pT_yy, _weight);
+	_h_pTyy_Njets2->fill(_pT_yy);
 
-      if ( _Njets30 == 1 ) _h_pTj1_excl->fill(_pT_j1, _weight);
+      if ( _Njets30 == 1 ) _h_pTj1_excl->fill(_pT_j1);
 
     }
 
@@ -457,7 +454,6 @@ namespace Rivet {
     Histo1DPtr _h_pTj1_excl;
     Histo1DPtr _h_fidXSecs;
 
-    double _weight;
     int _Njets30;
     int _Njets50;
     double _pT_yy;

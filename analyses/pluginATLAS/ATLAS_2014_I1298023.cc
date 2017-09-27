@@ -55,8 +55,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
       if ( leptons.size() < 2 )  vetoEvent;
 
@@ -98,10 +96,10 @@ namespace Rivet {
       if ( dijet.mass() <= 500*GeV )  vetoEvent;
 
       // inclusive region
-      _hist->fill(0.5, weight);
+      _hist->fill(0.5);
 
       // VBS region
-      if ( deltaRap(jets[0], jets[1]) > 2.4 )  _hist->fill(1.5, weight);
+      if ( deltaRap(jets[0], jets[1]) > 2.4 )  _hist->fill(1.5);
     }
 
     /// Normalise histograms etc., after the run

@@ -15,7 +15,7 @@ namespace Rivet {
     //@{
 
     /// Constructors
-    ATLAS_2014_I1306294(std::string name="ATLAS_2014_I1306294") 
+    ATLAS_2014_I1306294(std::string name="ATLAS_2014_I1306294")
       : Analysis(name)
     {
       _mode = 1;
@@ -68,21 +68,19 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& e) {
 
-      
-      //---------------------------
-      const double weight = 1.0;
 
-      // -- check we have a Z: 
+      //---------------------------
+      // -- check we have a Z:
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
-      
+
       if(zfinder.bosons().size() != 1)  vetoEvent;
-      
+
       const ParticleVector boson_s =  zfinder.bosons();
       const Particle       boson_f =  boson_s[0]      ;
       const ParticleVector zleps   =  zfinder.constituents();
       //---------------------------
 
-      
+
       //---------------------------
       //------------- stop processing the event if no true b-partons or hadrons are found
       const Particles& allBs = apply<HeavyHadrons>(e, "BHadrons").bHadrons(5.0*GeV);
@@ -92,7 +90,7 @@ namespace Rivet {
       }
       if( stableBs.empty() )  vetoEvent;
 
-      
+
       //---------------------------
       // -- get the b-jets:
       const Jets& jets = apply<JetAlg>(e, "AntiKtJets04").jetsByPt(Cuts::pT >20.0*GeV && Cuts::abseta <2.4);
@@ -104,15 +102,15 @@ namespace Rivet {
           if(deltaR(jet, zlep) < 0.5)  veto = true;
         }
         if(veto) continue;
-	
+
         foreach(const Particle& bhadron, stableBs) {
           if( deltaR(jet, bhadron) <= 0.3 ) {
             b_jets.push_back(jet);
             break; // match
           }
-	      } // end loop on b-hadrons  
+	      } // end loop on b-hadrons
       }
-      
+
       //and make sure we have at least 1:
       if(b_jets.empty())  vetoEvent;
 
@@ -120,50 +118,50 @@ namespace Rivet {
       // fill the plots:
       const double ZpT = boson_f.pT()/GeV;
       const double ZY  = boson_f.absrap();
-      
-      _h_bjet_ZPt->fill(ZpT, weight);
-      _h_bjet_ZY ->fill(ZY,  weight);
-      
+
+      _h_bjet_ZPt->fill(ZpT);
+      _h_bjet_ZY ->fill(ZY);
+
       foreach(const Jet& jet, b_jets) {
-	
-        _h_bjet_Pt->fill(jet.pT()/GeV, weight );
-        _h_bjet_Y ->fill(jet.absrap(), weight );
-        
+
+        _h_bjet_Pt->fill(jet.pT()/GeV);
+        _h_bjet_Y ->fill(jet.absrap());
+
         const double Yboost = 0.5 * fabs(boson_f.rapidity() + jet.rapidity());
 
-        _h_bjet_Yboost->fill(Yboost, weight );
-        
+        _h_bjet_Yboost->fill(Yboost);
+
         if(ZpT > 20.) {
-        
+
           const double ZBDY   = fabs( boson_f.rapidity() - jet.rapidity() );
           const double ZBDPHI = fabs( deltaPhi(jet.phi(), boson_f.phi()) );
           const double ZBDR   = deltaR(jet, boson_f, RAPIDITY);
-          _h_bjet_DY20->fill(   ZBDY,   weight);
-          _h_bjet_ZdPhi20->fill(ZBDPHI, weight);
-          _h_bjet_ZdR20->fill(  ZBDR,   weight);
+          _h_bjet_DY20->fill(   ZBDY);
+          _h_bjet_ZdPhi20->fill(ZBDPHI);
+          _h_bjet_ZdR20->fill(  ZBDR);
         }
-	
+
       } //loop over b-jets
-      
+
       if (b_jets.size() < 2) return;
-      
-      _h_2bjet_ZPt->fill(ZpT, weight);
-      _h_2bjet_ZY ->fill(ZY,  weight);
-      
+
+      _h_2bjet_ZPt->fill(ZpT);
+      _h_2bjet_ZY ->fill(ZY);
+
       const double BBDR = deltaR(b_jets[0], b_jets[1], RAPIDITY);
       const double Mbb  = (b_jets[0].momentum() + b_jets[1].momentum()).mass();
-      
-      _h_2bjet_dR ->fill(BBDR, weight);
-      _h_2bjet_Mbb->fill(Mbb,  weight);
-      
+
+      _h_2bjet_dR ->fill(BBDR);
+      _h_2bjet_Mbb->fill(Mbb);
+
     } // end of analysis loop
-    
-    
+
+
     /// Normalise histograms etc., after the run
     void finalize() {
-      
+
       const double normfac = crossSection() / sumOfWeights();
-      
+
       scale( _h_bjet_Pt,      normfac);
       scale( _h_bjet_Y,       normfac);
       scale( _h_bjet_Yboost,  normfac);
@@ -177,16 +175,16 @@ namespace Rivet {
       scale( _h_2bjet_ZPt,    normfac);
       scale( _h_2bjet_ZY,     normfac);
     }
-    
+
     //@}
-    
-    
+
+
   protected:
-	  
+
     // Data members like post-cuts event weight counters go here
     size_t _mode;
-    
-    
+
+
   private:
 
     Histo1DPtr _h_bjet_Pt;
@@ -201,7 +199,7 @@ namespace Rivet {
     Histo1DPtr _h_2bjet_Mbb;
     Histo1DPtr _h_2bjet_ZPt;
     Histo1DPtr _h_2bjet_ZY;
-    
+
   };
 
 
@@ -229,5 +227,4 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1306294_MU);
   DECLARE_RIVET_PLUGIN(ATLAS_2014_I1306294_EL);
 
-} 
-
+}

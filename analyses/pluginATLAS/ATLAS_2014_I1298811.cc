@@ -57,9 +57,6 @@ namespace Rivet {
       // Require at least one jet in the event
       if (jets.empty()) vetoEvent;
 
-      // Get the event weight since we will be filling some histos
-      const double weight = 1.0;
-
       // Identify the leading jet and its phi and pT
       const FourMomentum plead = jets[0].momentum();
       const double philead = plead.phi();
@@ -131,27 +128,27 @@ namespace Rivet {
         }
 
         // Plot profiles and distributions which have no max/min region definition
-        _p_etsum25_vs_ptlead_trans[itopo]->fill(ptlead/GeV, etsum25[0]/5.0/dphi[0]/GeV, weight);
-        _p_etsum48_vs_ptlead_trans[itopo]->fill(ptlead/GeV, etsum48[0]/9.6/dphi[0]/GeV, weight);
+        _p_etsum25_vs_ptlead_trans[itopo]->fill(ptlead/GeV, etsum25[0]/5.0/dphi[0]/GeV);
+        _p_etsum48_vs_ptlead_trans[itopo]->fill(ptlead/GeV, etsum48[0]/9.6/dphi[0]/GeV);
         if (etsum25[0] > 0) {
-          _p_chratio_vs_ptlead_trans[itopo]->fill(ptlead/GeV, ptsum[0]/etsum25[0], weight);
+          _p_chratio_vs_ptlead_trans[itopo]->fill(ptlead/GeV, ptsum[0]/etsum25[0]);
         }
         const double ptmean = safediv(ptsum[0], nch[0], -1); ///< Return -1 if div by zero
         if (ptmean >= 0) {
-          _p_ptmeanch_vs_ptlead_trans[itopo]->fill(ptlead/GeV, ptmean/GeV, weight);
-          _p_ptmeanch_vs_nch_trans[itopo]->fill(nch[0], ptmean/GeV, weight);
+          _p_ptmeanch_vs_ptlead_trans[itopo]->fill(ptlead/GeV, ptmean/GeV);
+          _p_ptmeanch_vs_nch_trans[itopo]->fill(nch[0], ptmean/GeV);
         }
 
         // Plot remaining profile and 1D observables, which are defined in all 3 tot/max/min regions
         for (size_t iregion = 0; iregion < 3; ++iregion) {
-          _p_ptsumch_vs_ptlead[itopo][iregion]->fill(ptlead/GeV, ptsum[iregion]/5.0/dphi[iregion]/GeV, weight);
-          _p_nch_vs_ptlead[itopo][iregion]->fill(ptlead/GeV, nch[iregion]/5.0/dphi[iregion], weight);
+          _p_ptsumch_vs_ptlead[itopo][iregion]->fill(ptlead/GeV, ptsum[iregion]/5.0/dphi[iregion]/GeV);
+          _p_nch_vs_ptlead[itopo][iregion]->fill(ptlead/GeV, nch[iregion]/5.0/dphi[iregion]);
           for (size_t ipt = 0; ipt < 4; ++ipt) {
             if (ipt == 1 && !inRange(ptlead/GeV, 20, 60)) continue;
             if (ipt == 2 && !inRange(ptlead/GeV, 60, 210)) continue;
             if (ipt == 3 && ptlead/GeV < 210) continue;
-            _h_ptsumch[ipt][itopo][iregion]->fill(ptsum[iregion]/5.0/dphi[iregion]/GeV, weight);
-            _h_nch[ipt][itopo][iregion]->fill(nch[iregion]/5.0/dphi[iregion], weight);
+            _h_ptsumch[ipt][itopo][iregion]->fill(ptsum[iregion]/5.0/dphi[iregion]/GeV);
+            _h_nch[ipt][itopo][iregion]->fill(nch[iregion]/5.0/dphi[iregion]);
           }
         }
       }

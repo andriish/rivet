@@ -33,7 +33,6 @@ namespace Rivet {
 
     void analyze(const Event& event) {
 
-      const double evtWeight = 1.0;
       const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(Cuts::pT > 50.0*GeV && Cuts::abseta < 2.5);
 
       if (jets.size() < 2)  vetoEvent;
@@ -52,8 +51,8 @@ namespace Rivet {
           double cosPhi = cos(dPhi);
           if (cosPhi == 1.0)  cosPhi = 0.9999;
 
-          _hist_EEC->fill(cosPhi, etWeight * evtWeight);
-          _hist_dummy->fill(cosPhi, etWeight * evtWeight);
+          _hist_EEC->fill(cosPhi, etWeight);
+          _hist_dummy->fill(cosPhi, etWeight);
 	      }
       }
     }

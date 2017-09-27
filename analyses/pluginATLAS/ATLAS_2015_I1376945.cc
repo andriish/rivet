@@ -67,8 +67,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-
       /**************
        *    JETS    *
        **************/
@@ -154,10 +152,10 @@ namespace Rivet {
       if ( bJets.size() < 2 || wJets.size() < 2 )  vetoEvent;
 
       double pull_angle = fabs(CalculatePullAngle(wJets[0], wJets[1], 0));
-      h_pull_all->fill(pull_angle / Rivet::PI, weight);
+      h_pull_all->fill(pull_angle / Rivet::PI);
 
       double pull_angle_charged = fabs(CalculatePullAngle(wJets[0], wJets[1], 1));
-      h_pull_charged->fill(pull_angle_charged / Rivet::PI, weight);
+      h_pull_charged->fill(pull_angle_charged / Rivet::PI);
 
     }
 

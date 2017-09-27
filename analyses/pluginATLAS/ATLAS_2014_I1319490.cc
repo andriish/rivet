@@ -82,7 +82,7 @@ namespace Rivet {
     }
 
 
-    void fillPlots(const Particle& lepton, const double& missET, Jets& all_jets, const double& weight) {
+    void fillPlots(const Particle& lepton, const double& missET, Jets& all_jets) {
       // do jet-lepton overlap removal
       Jets jets;
       double ST = 0.0; // scalar pT sum of all selected jets
@@ -97,21 +97,21 @@ namespace Rivet {
 
       const double HT = ST + lepton.pT() / GeV + missET;
 
-      histos["h_N"]->fill(njets + 0.5, weight);
+      histos["h_N"]->fill(njets + 0.5);
       for (size_t i = 0; i <= njets; ++i) {
-        histos["h_N_incl"]->fill(i + 0.5, weight);
+        histos["h_N_incl"]->fill(i + 0.5);
       }
 
       if (njets) {
         const double pT1  = jets[0].pT() / GeV;
         const double rap1 = jets[0].absrap();
-        histos["h_pt_jet1_1jet" ]->fill(pT1, weight);
-        histos["h_y_jet1_1jet"]->fill(rap1, weight);
-        histos["h_HT_1jet"]->fill(HT, weight);
-        histos["h_ST_1jet"]->fill(ST, weight);
+        histos["h_pt_jet1_1jet" ]->fill(pT1);
+        histos["h_y_jet1_1jet"]->fill(rap1);
+        histos["h_HT_1jet"]->fill(HT);
+        histos["h_ST_1jet"]->fill(ST);
         if (njets == 1) {
-          histos["h_pt_jet1_1jet_excl"]->fill(pT1, weight);
-          histos["h_HT_1jet_excl"]->fill(HT, weight);
+          histos["h_pt_jet1_1jet_excl"]->fill(pT1);
+          histos["h_HT_1jet_excl"]->fill(HT);
         } else {
           const double pT2  = jets[1].pT() / GeV;
           const double rap2 = jets[1].absrap();
@@ -119,43 +119,43 @@ namespace Rivet {
           const double dRap = deltaRap(jets[0], jets[1]);
           const double dPhi = deltaPhi(jets[0], jets[1]);
           const double mjj  = (jets[0].momentum() + jets[1].momentum()).mass() / GeV;
-          histos["h_pt_jet1_2jet"]->fill(pT1, weight);
-          histos["h_pt_jet2_2jet"]->fill(pT2, weight);
-          histos["h_y_jet2_2jet"]->fill(rap2, weight);
-          histos["h_M_Jet12_2jet"]->fill(mjj, weight);
-          histos["h_HT_2jet"]->fill(HT, weight);
-          histos["h_ST_2jet"]->fill(ST, weight);
-          histos["h_deltaPhi_jet12"]->fill(dPhi, weight);
-          histos["h_deltaRap_jet12"]->fill(dRap, weight);
-          histos["h_deltaR_jet12"]->fill(dR, weight);
+          histos["h_pt_jet1_2jet"]->fill(pT1);
+          histos["h_pt_jet2_2jet"]->fill(pT2);
+          histos["h_y_jet2_2jet"]->fill(rap2);
+          histos["h_M_Jet12_2jet"]->fill(mjj);
+          histos["h_HT_2jet"]->fill(HT);
+          histos["h_ST_2jet"]->fill(ST);
+          histos["h_deltaPhi_jet12"]->fill(dPhi);
+          histos["h_deltaRap_jet12"]->fill(dRap);
+          histos["h_deltaR_jet12"]->fill(dR);
           if (njets == 2) {
-            histos["h_ST_2jet_excl"]->fill(ST, weight);
-            histos["h_HT_2jet_excl"]->fill(HT, weight);
+            histos["h_ST_2jet_excl"]->fill(ST);
+            histos["h_HT_2jet_excl"]->fill(HT);
           } else {
             const double pT3  = jets[2].pT() / GeV;
             const double rap3 = jets[2].absrap();
-            histos["h_pt_jet1_3jet"]->fill(pT1, weight);
-            histos["h_pt_jet3_3jet"]->fill(pT3, weight);
-            histos["h_y_jet3_3jet"]->fill(rap3, weight);
-            histos["h_HT_3jet"]->fill(HT, weight);
-            histos["h_ST_3jet"]->fill(ST, weight);
+            histos["h_pt_jet1_3jet"]->fill(pT1);
+            histos["h_pt_jet3_3jet"]->fill(pT3);
+            histos["h_y_jet3_3jet"]->fill(rap3);
+            histos["h_HT_3jet"]->fill(HT);
+            histos["h_ST_3jet"]->fill(ST);
             if(njets == 3) {
-              histos["h_ST_3jet_excl"]->fill(ST, weight);
-              histos["h_HT_3jet_excl"]->fill(HT, weight);
+              histos["h_ST_3jet_excl"]->fill(ST);
+              histos["h_HT_3jet_excl"]->fill(HT);
             } else {
               const double pT4  = jets[3].pT() / GeV;
               const double rap4 = jets[3].absrap();
-              histos["h_pt_jet4_4jet"]->fill(pT4, weight);
-              histos["h_y_jet4_4jet"]->fill(rap4, weight);
-              histos["h_HT_4jet"]->fill(HT, weight);
-              histos["h_ST_4jet"]->fill(ST, weight);
+              histos["h_pt_jet4_4jet"]->fill(pT4);
+              histos["h_y_jet4_4jet"]->fill(rap4);
+              histos["h_HT_4jet"]->fill(HT);
+              histos["h_ST_4jet"]->fill(ST);
               if (njets > 4) {
                 const double pT5  = jets[4].pT() / GeV;
                 const double rap5 = jets[4].absrap();
-                histos["h_pt_jet5_5jet"]->fill(pT5, weight);
-                histos["h_y_jet5_5jet"]->fill(rap5, weight);
-                histos["h_HT_5jet"]->fill(HT, weight);
-                histos["h_ST_5jet"]->fill(ST, weight);
+                histos["h_pt_jet5_5jet"]->fill(pT5);
+                histos["h_y_jet5_5jet"]->fill(rap5);
+                histos["h_HT_5jet"]->fill(HT);
+                histos["h_ST_5jet"]->fill(ST);
               }
             }
           }
@@ -178,7 +178,7 @@ namespace Rivet {
       const double missET = wf.constituentNeutrino().pT() / GeV;
       if (leptons.size() == 1 && missET > 25.0 && wf.mT() > 40.0*GeV) {
         const Particle& lep = leptons[0];
-        fillPlots(lep, missET, all_jets, 1.0);
+        fillPlots(lep, missET, all_jets);
       }
     }
 

@@ -48,8 +48,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       ////////////////////////////////////////////////////////////////////
       // Preselection of leptons for ZZ-> llll final state
       ////////////////////////////////////////////////////////////////////
@@ -131,8 +129,8 @@ namespace Rivet {
       if (!pass) vetoEvent;
 
       // Fill histograms
-      _h_ZZ_mZZ->fill(mZZ, weight);
-      _h_ZZ_pTZZ->fill(pTZZ, weight);
+      _h_ZZ_mZZ->fill(mZZ);
+      _h_ZZ_pTZZ->fill(pTZZ);
     }
 
 

@@ -62,7 +62,6 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
       const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
 
       if (zfinder.bosons().size() != 1) vetoEvent;
@@ -132,31 +131,31 @@ namespace Rivet {
       const double area = 5.*2./3.*M_PI;
 
       // Fill sumPt vs. Zpt region profiles
-      _h_pTsum_tow->fill( Zpt, ptSumTowards/area,                    weight);
-      _h_pTsum_trv->fill( Zpt, ptSumTransverse/area,                 weight);
-      _h_pTsum_away->fill(Zpt, ptSumAway/area,                       weight);
-      _h_pTsum_tmin->fill(Zpt, ptSumTrmin/(0.5*area),                weight);
-      _h_pTsum_tmax->fill(Zpt, ptSumTrmax/(0.5*area),                weight);
-      _h_pTsum_tdif->fill(Zpt, (ptSumTrmax - ptSumTrmin)/(0.5*area), weight);
+      _h_pTsum_tow->fill( Zpt, ptSumTowards/area);
+      _h_pTsum_trv->fill( Zpt, ptSumTransverse/area);
+      _h_pTsum_away->fill(Zpt, ptSumAway/area);
+      _h_pTsum_tmin->fill(Zpt, ptSumTrmin/(0.5*area));
+      _h_pTsum_tmax->fill(Zpt, ptSumTrmax/(0.5*area));
+      _h_pTsum_tdif->fill(Zpt, (ptSumTrmax - ptSumTrmin)/(0.5*area));
 
       // Fill Nch vs. Zpt region profiles
-      _h_Nchg_tow->fill( Zpt, nTowards/area,                         weight);
-      _h_Nchg_trv->fill( Zpt, nTransverse/area,                      weight);
-      _h_Nchg_away->fill(Zpt, nAway/area,                            weight);
-      _h_Nchg_tmin->fill(Zpt, nTrmin/(0.5*area),                     weight);
-      _h_Nchg_tmax->fill(Zpt, nTrmax/(0.5*area),                     weight);
-      _h_Nchg_tdif->fill(Zpt, (nTrmax - nTrmin)/(0.5*area),          weight);
+      _h_Nchg_tow->fill( Zpt, nTowards/area);
+      _h_Nchg_trv->fill( Zpt, nTransverse/area);
+      _h_Nchg_away->fill(Zpt, nAway/area);
+      _h_Nchg_tmin->fill(Zpt, nTrmin/(0.5*area));
+      _h_Nchg_tmax->fill(Zpt, nTrmax/(0.5*area));
+      _h_Nchg_tdif->fill(Zpt, (nTrmax - nTrmin)/(0.5*area));
 
 
       // Fill <pT> vs. ZpT profiles
-      _h_pTavg_tow->fill( Zpt, nTowards    > 0.? ptSumTowards/nTowards       : 0., weight);
-      _h_pTavg_trv->fill( Zpt, nTransverse > 0.? ptSumTransverse/nTransverse : 0., weight);
-      _h_pTavg_away->fill(Zpt, nAway       > 0.? ptSumAway/nAway             : 0., weight);
+      _h_pTavg_tow->fill( Zpt, nTowards    > 0.? ptSumTowards/nTowards       : 0.);
+      _h_pTavg_trv->fill( Zpt, nTransverse > 0.? ptSumTransverse/nTransverse : 0.);
+      _h_pTavg_away->fill(Zpt, nAway       > 0.? ptSumAway/nAway             : 0.);
 
       // Fill <Nch> vs. ZpT profiles
-      _h_pTavgvsmult_tow->fill( nTowards,    nTowards    > 0.? ptSumTowards/nTowards       : 0., weight);
-      _h_pTavgvsmult_trv->fill( nTransverse, nTransverse > 0.? ptSumTransverse/nTransverse : 0., weight);
-      _h_pTavgvsmult_away->fill(nAway,       nAway       > 0.? ptSumAway/nAway             : 0., weight);
+      _h_pTavgvsmult_tow->fill( nTowards,    nTowards    > 0.? ptSumTowards/nTowards       : 0.);
+      _h_pTavgvsmult_trv->fill( nTransverse, nTransverse > 0.? ptSumTransverse/nTransverse : 0.);
+      _h_pTavgvsmult_away->fill(nAway,       nAway       > 0.? ptSumAway/nAway             : 0.);
 
       // Determine Zpt region histo to fill
       int i_bin(0);
@@ -168,16 +167,16 @@ namespace Rivet {
       if (Zpt>110) i_bin=5;
 
       // SumPt histos for Zpt region
-      _h_ptSum_1D[0][i_bin]->fill(ptSumTowards/area,     weight);
-      _h_ptSum_1D[1][i_bin]->fill(ptSumTransverse/area,  weight);
-      _h_ptSum_1D[2][i_bin]->fill(ptSumTrmin/(0.5*area), weight);
-      _h_ptSum_1D[3][i_bin]->fill(ptSumTrmax/(0.5*area), weight);
+      _h_ptSum_1D[0][i_bin]->fill(ptSumTowards/area);
+      _h_ptSum_1D[1][i_bin]->fill(ptSumTransverse/area);
+      _h_ptSum_1D[2][i_bin]->fill(ptSumTrmin/(0.5*area));
+      _h_ptSum_1D[3][i_bin]->fill(ptSumTrmax/(0.5*area));
 
       // Nch histos for Zpt region
-      _h_Nchg_1D[0][i_bin]->fill(nTowards/area,          weight);
-      _h_Nchg_1D[1][i_bin]->fill(nTransverse/area,       weight);
-      _h_Nchg_1D[2][i_bin]->fill(nTrmin/(0.5*area),      weight);
-      _h_Nchg_1D[3][i_bin]->fill(nTrmax/(0.5*area),      weight);
+      _h_Nchg_1D[0][i_bin]->fill(nTowards/area);
+      _h_Nchg_1D[1][i_bin]->fill(nTransverse/area);
+      _h_Nchg_1D[2][i_bin]->fill(nTrmin/(0.5*area));
+      _h_Nchg_1D[3][i_bin]->fill(nTrmax/(0.5*area));
     }
 
 

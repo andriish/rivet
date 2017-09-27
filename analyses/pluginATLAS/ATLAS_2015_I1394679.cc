@@ -138,33 +138,32 @@ namespace Rivet {
       const double pt1cutA[4]   = {100,  400,  700, 1000};
       const double pt1cutB[4]   = {100,  250,  400,  550};
       const double rapGapCut[4] = {1, 2, 3, 4};
-      const double weight = 1.0;
 
-      _h["pt1"]->fill(jet1.pt(), weight);
-      _h["pt2"]->fill(jet2.pt(), weight);
-      _h["pt3"]->fill(jet3.pt(), weight);
-      _h["pt4"]->fill(jet4.pt(), weight);
-      _h["HT"] ->fill(HT,        weight);
-      _h["M4j"]->fill(Mjjjj,     weight);
+      _h["pt1"]->fill(jet1.pt());
+      _h["pt2"]->fill(jet2.pt());
+      _h["pt3"]->fill(jet3.pt());
+      _h["pt4"]->fill(jet4.pt());
+      _h["HT"] ->fill(HT);
+      _h["M4j"]->fill(Mjjjj);
 
       for (size_t i_cut = 0; i_cut < 4; ++i_cut) {
         const string icutstr = to_str(i_cut);
 
         if (Mjjjj > m4jcuts[i_cut])
-          _h["M2jratio_"+icutstr]->fill( Mjj/Mjjjj , weight);
+          _h["M2jratio_"+icutstr]->fill( Mjj/Mjjjj );
 
         if (jet1.pT() > pt1cutA[i_cut]) {
-          _h["dPhiMin2j_"+icutstr]->fill(minDphi_ij , weight);
-          _h["dPhiMin3j_"+icutstr]->fill(minDphi_ijk, weight);
-          _h["dYMin2j_"+icutstr]->fill(minDrap_ij , weight);
-          _h["dYMin3j_"+icutstr]->fill(minDrap_ijk, weight);
+          _h["dPhiMin2j_"+icutstr]->fill(minDphi_ij );
+          _h["dPhiMin3j_"+icutstr]->fill(minDphi_ijk);
+          _h["dYMin2j_"+icutstr]->fill(minDrap_ij );
+          _h["dYMin3j_"+icutstr]->fill(minDrap_ijk);
         }
 
         if (jet1.pt() > pt1cutB[i_cut]) {
-          _h["dYMax2j_"+icutstr]->fill( maxDrap_ij , weight);
+          _h["dYMax2j_"+icutstr]->fill( maxDrap_ij );
           for (size_t yy = 0; yy < 4; ++yy) {
             if (maxDrap_ij > rapGapCut[yy])
-              _h["sumPtCent_"+to_str(yy)+icutstr]->fill(sumpt_twojets_cent, weight);
+              _h["sumPtCent_"+to_str(yy)+icutstr]->fill(sumpt_twojets_cent);
           }
         }
 

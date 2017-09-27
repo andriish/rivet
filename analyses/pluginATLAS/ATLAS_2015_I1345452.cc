@@ -208,34 +208,32 @@ namespace Rivet {
       if (!pass_eljets && !pass_mujets) vetoEvent;
 
       // Fill histograms
-      const double weight = 1.0;
-
       //pseudotop hadrons and leptons fill histogram
-      _h["ptpseudotoplepton"]->fill(    ppseudotoplepton.pt(),     weight); //pT of pseudo top lepton
-      _h["absrappseudotoplepton"]->fill(ppseudotoplepton.absrap(), weight); //absolute rapidity of pseudo top lepton
-      _h["ptpseudotophadron"]->fill(    ppseudotophadron.pt(),     weight); //pT of pseudo top hadron
-      _h["absrappseudotophadron"]->fill(ppseudotophadron.absrap(), weight); //absolute rapidity of pseudo top hadron
-      _h["absrapttbar"]->fill(          pttbar.absrap(),           weight); //absolute rapidity of ttbar
-      _h["ttbarmass"]->fill(            pttbar.mass(),             weight); //mass of ttbar
-      _h["ptttbar"]->fill(              pttbar.pt(),               weight); //fill pT of ttbar in combined channel
+      _h["ptpseudotoplepton"]->fill(    ppseudotoplepton.pt()); //pT of pseudo top lepton
+      _h["absrappseudotoplepton"]->fill(ppseudotoplepton.absrap()); //absolute rapidity of pseudo top lepton
+      _h["ptpseudotophadron"]->fill(    ppseudotophadron.pt()); //pT of pseudo top hadron
+      _h["absrappseudotophadron"]->fill(ppseudotophadron.absrap()); //absolute rapidity of pseudo top hadron
+      _h["absrapttbar"]->fill(          pttbar.absrap()); //absolute rapidity of ttbar
+      _h["ttbarmass"]->fill(            pttbar.mass()); //mass of ttbar
+      _h["ptttbar"]->fill(              pttbar.pt()); //fill pT of ttbar in combined channel
 
       if (pass_eljets) { // electron channel fill histogram
-        _h["ptpseudotoplepton_el"]->fill(    ppseudotoplepton.pt(),     weight); //pT of pseudo top lepton
-        _h["absrappseudotoplepton_el"]->fill(ppseudotoplepton.absrap(), weight); //absolute rapidity of pseudo top lepton
-        _h["ptpseudotophadron_el"]->fill(    ppseudotophadron.pt(),     weight); //pT of pseudo top hadron
-        _h["absrappseudotophadron_el"]->fill(ppseudotophadron.absrap(), weight); //absolute rapidity of pseudo top hadron
-        _h["absrapttbar_el"]->fill(          pttbar.absrap(),           weight); //absolute rapidity of ttbar
-        _h["ttbarmass_el"]->fill(            pttbar.mass(),             weight); // fill electron channel ttbar mass
-        _h["ptttbar_el"]->fill(              pttbar.pt(),               weight); //fill pT of ttbar in electron channel
+        _h["ptpseudotoplepton_el"]->fill(    ppseudotoplepton.pt()); //pT of pseudo top lepton
+        _h["absrappseudotoplepton_el"]->fill(ppseudotoplepton.absrap()); //absolute rapidity of pseudo top lepton
+        _h["ptpseudotophadron_el"]->fill(    ppseudotophadron.pt()); //pT of pseudo top hadron
+        _h["absrappseudotophadron_el"]->fill(ppseudotophadron.absrap()); //absolute rapidity of pseudo top hadron
+        _h["absrapttbar_el"]->fill(          pttbar.absrap()); //absolute rapidity of ttbar
+        _h["ttbarmass_el"]->fill(            pttbar.mass()); // fill electron channel ttbar mass
+        _h["ptttbar_el"]->fill(              pttbar.pt()); //fill pT of ttbar in electron channel
       }
       else { // muon channel fill histogram
-        _h["ptpseudotoplepton_mu"]->fill(    ppseudotoplepton.pt(),     weight); //pT of pseudo top lepton
-        _h["absrappseudotoplepton_mu"]->fill(ppseudotoplepton.absrap(), weight); //absolute rapidity of pseudo top lepton
-        _h["ptpseudotophadron_mu"]->fill(    ppseudotophadron.pt(),     weight); //pT of pseudo top hadron
-        _h["absrappseudotophadron_mu"]->fill(ppseudotophadron.absrap(), weight); //absolute rapidity of pseudo top hadron
-        _h["absrapttbar_mu"]->fill(          pttbar.absrap(),           weight); //absolute rapidity of ttbar
-        _h["ttbarmass_mu"]->fill(            pttbar.mass(),             weight); //fill muon channel histograms
-        _h["ptttbar_mu"]->fill(              pttbar.pt(),               weight); //fill pT of ttbar in electron channel
+        _h["ptpseudotoplepton_mu"]->fill(    ppseudotoplepton.pt()); //pT of pseudo top lepton
+        _h["absrappseudotoplepton_mu"]->fill(ppseudotoplepton.absrap()); //absolute rapidity of pseudo top lepton
+        _h["ptpseudotophadron_mu"]->fill(    ppseudotophadron.pt()); //pT of pseudo top hadron
+        _h["absrappseudotophadron_mu"]->fill(ppseudotophadron.absrap()); //absolute rapidity of pseudo top hadron
+        _h["absrapttbar_mu"]->fill(          pttbar.absrap()); //absolute rapidity of ttbar
+        _h["ttbarmass_mu"]->fill(            pttbar.mass()); //fill muon channel histograms
+        _h["ptttbar_mu"]->fill(              pttbar.pt()); //fill pT of ttbar in electron channel
       }
     }
 

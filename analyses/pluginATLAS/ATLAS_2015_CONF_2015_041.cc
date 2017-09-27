@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// Z + jets in pp at 13 TeV 
+  /// Z + jets in pp at 13 TeV
   /// @note This base class contains a "mode" variable for combined, e, and mu channel derived classes
   class ATLAS_2015_CONF_2015_041 : public Analysis {
   public:
@@ -17,8 +17,7 @@ namespace Rivet {
 
     /// Constructor
     ATLAS_2015_CONF_2015_041(string name="ATLAS_2015_CONF_2015_041")
-      : Analysis(name),
-        _weights(5, 0.0)
+      : Analysis(name), _weights(5)
     {
       // This class uses the combined e+mu mode
       _mode = 0;
@@ -48,13 +47,14 @@ namespace Rivet {
       // combination
       book(_hNjets_comb      ,1, 2, _mode + 1);
       book(_hNjetsRatio_comb ,2, 2, _mode + 1, true);
+
+      for (size_t i = 0; i < 5; i++)
+          book(_weights[i], (ostringstream("_weights") << i).str());
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
-      const double weight = 1.0;
 
       const ZFinder& zfinder = apply<ZFinder>(event, "zfinder");
       const Particles& leptons = zfinder.constituents();
@@ -70,12 +70,12 @@ namespace Rivet {
       size_t njets = jets.size();
 
       for(size_t i = 0; i <= njets; ++i) {
-        _hNjets->fill(i + 0.5, weight);
-        _hNjets_comb->fill(i + 0.5, weight);
+        _hNjets->fill(i + 0.5);
+        _hNjets_comb->fill(i + 0.5);
       }
 
       for (size_t i = 0; i < 5; ++i) {
-        if (njets >= i) _weights[i] += weight;
+        if (njets >= i) _weights[i]->fill();
       }
 
     }
@@ -125,7 +125,7 @@ namespace Rivet {
 
   private:
 
-    vector<double> _weights;
+    vector<CounterPtr> _weights;
     Scatter2DPtr _hNjetsRatio, _hNjetsRatio_comb;
     Histo1DPtr _hNjets, _hNjets_comb;
   };

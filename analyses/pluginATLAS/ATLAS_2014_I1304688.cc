@@ -159,19 +159,18 @@ namespace Rivet {
       }
 
       // Fill histograms
-      const double weight = 1.0;
       for (unsigned int ihist = 0; ihist < 6; ihist++) {
         if (ihist > 0 && !pass_jetPt) continue; // additional pT threshold cuts for pT plots
         unsigned int threshLimit = _thresholdLimit(ihist);
         for (ithres = 0; ithres < threshLimit; ithres++) {
           if (jet_n[ithres] < 3) continue; // 3 or more jets for ljets
           // Fill
-          if (ihist == 0) _histogram(ihist, ithres)->fill(jet_n[ithres], weight); // njets
-          else if (ihist == 1) _histogram(ihist, ithres)->fill(_jets[0].pT(), weight); // leading jet pT
-          else if (ihist == 2) _histogram(ihist, ithres)->fill(_jets[1].pT(), weight); // 2nd jet pT
-          else if (ihist == 3 && jet_n[ithres] >= 3) _histogram(ihist, ithres)->fill(_jets[2].pT(), weight); // 3rd jet pT
-          else if (ihist == 4 && jet_n[ithres] >= 4) _histogram(ihist, ithres)->fill(_jets[3].pT(), weight); // 4th jet pT
-          else if (ihist == 5 && jet_n[ithres] >= 5) _histogram(ihist, ithres)->fill(_jets[4].pT(), weight); // 5th jet pT
+          if (ihist == 0) _histogram(ihist, ithres)->fill(jet_n[ithres]); // njets
+          else if (ihist == 1) _histogram(ihist, ithres)->fill(_jets[0].pT()); // leading jet pT
+          else if (ihist == 2) _histogram(ihist, ithres)->fill(_jets[1].pT()); // 2nd jet pT
+          else if (ihist == 3 && jet_n[ithres] >= 3) _histogram(ihist, ithres)->fill(_jets[2].pT()); // 3rd jet pT
+          else if (ihist == 4 && jet_n[ithres] >= 4) _histogram(ihist, ithres)->fill(_jets[3].pT()); // 4th jet pT
+          else if (ihist == 5 && jet_n[ithres] >= 5) _histogram(ihist, ithres)->fill(_jets[4].pT()); // 5th jet pT
         }
       }
     }

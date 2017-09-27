@@ -113,16 +113,15 @@ namespace Rivet {
       Jets all_jets = jetfs.jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 4.4);
 
       // Apply boson cuts and fill histograms
-      const double weight = 1.0;
       if (zf.size() == 2) {
         const Particles& leptons = zf.constituents();
         if (oppSign(leptons[0], leptons[1]) && deltaR(leptons[0], leptons[1]) > 0.2)
-          fillPlots(leptons, all_jets, weight, 1);
+          fillPlots(leptons, all_jets, 1);
       }
       if (!wf.empty()) {
         const Particles& leptons = wf.constituentLeptons();
         if (wf.constituentNeutrino().pT() > 25*GeV && wf.mT() > 40*GeV )
-          fillPlots(leptons, all_jets, weight, 0);
+          fillPlots(leptons, all_jets, 0);
       }
     }
 
@@ -144,7 +143,7 @@ namespace Rivet {
     //@{
 
     /// Histogram filling function, to avoid duplication
-    void fillPlots(const Particles& leptons, Jets& all_jets, const double& weight, int isZ) {
+    void fillPlots(const Particles& leptons, Jets& all_jets, int isZ) {
       // Do jet-lepton overlap removal
       Jets jets;
       foreach (const Jet& j, all_jets) {
@@ -161,44 +160,44 @@ namespace Rivet {
         ST += jets[i].pT() * GeV;
 
       // Fill jet histos
-      _plots["Njets_excl"].comp[isZ]->fill(njets + 0.5, weight);
+      _plots["Njets_excl"].comp[isZ]->fill(njets + 0.5);
       for (size_t i = 0; i <= njets; ++i)
-        _plots["Njets_incl"].comp[isZ]->fill(i + 0.5, weight);
+        _plots["Njets_incl"].comp[isZ]->fill(i + 0.5);
 
       if (njets > 0) {
         const double pT1  = jets[0].pT()/GeV;
         const double rap1 = jets[0].absrap();
-        _plots["Pt1_N1incl" ].comp[isZ]->fill(pT1,  weight);
-        _plots["Rap1_N1incl"].comp[isZ]->fill(rap1, weight);
+        _plots["Pt1_N1incl" ].comp[isZ]->fill(pT1);
+        _plots["Rap1_N1incl"].comp[isZ]->fill(rap1);
 
         if (njets == 1) {
-          _plots["Pt1_N1excl"].comp[isZ]->fill(pT1, weight);
+          _plots["Pt1_N1excl"].comp[isZ]->fill(pT1);
         } else if (njets > 1) {
           const double pT2  = jets[1].pT()/GeV;
           const double rap2 = jets[1].absrap();
           const double dR   = deltaR(jets[0], jets[1]);
           const double dPhi = deltaPhi(jets[0], jets[1]);
           const double mjj  = (jets[0].momentum() + jets[1].momentum()).mass()/GeV;
-          _plots["Pt1_N2incl" ].comp[isZ]->fill(pT1,  weight);
-          _plots["Pt2_N2incl" ].comp[isZ]->fill(pT2,  weight);
-          _plots["Rap2_N2incl"].comp[isZ]->fill(rap2, weight);
-          _plots["DR_N2incl"  ].comp[isZ]->fill(dR,   weight);
-          _plots["DPhi_N2incl"].comp[isZ]->fill(dPhi, weight);
-          _plots["Mjj_N2incl" ].comp[isZ]->fill(mjj,  weight);
-          _plots["ST_N2incl"  ].comp[isZ]->fill(ST,   weight);
+          _plots["Pt1_N2incl" ].comp[isZ]->fill(pT1);
+          _plots["Pt2_N2incl" ].comp[isZ]->fill(pT2);
+          _plots["Rap2_N2incl"].comp[isZ]->fill(rap2);
+          _plots["DR_N2incl"  ].comp[isZ]->fill(dR);
+          _plots["DPhi_N2incl"].comp[isZ]->fill(dPhi);
+          _plots["Mjj_N2incl" ].comp[isZ]->fill(mjj);
+          _plots["ST_N2incl"  ].comp[isZ]->fill(ST);
 
           if (njets == 2) {
-            _plots["ST_N2excl"].comp[isZ]->fill(ST, weight);
+            _plots["ST_N2excl"].comp[isZ]->fill(ST);
           } else if (njets > 2) {
             const double pT3  = jets[2].pT()/GeV;
             const double rap3 = jets[2].absrap();
-            _plots["Pt1_N3incl" ].comp[isZ]->fill(pT1,  weight);
-            _plots["Pt3_N3incl" ].comp[isZ]->fill(pT3,  weight);
-            _plots["Rap3_N3incl"].comp[isZ]->fill(rap3, weight);
-            _plots["ST_N3incl"  ].comp[isZ]->fill(ST,   weight);
+            _plots["Pt1_N3incl" ].comp[isZ]->fill(pT1);
+            _plots["Pt3_N3incl" ].comp[isZ]->fill(pT3);
+            _plots["Rap3_N3incl"].comp[isZ]->fill(rap3);
+            _plots["ST_N3incl"  ].comp[isZ]->fill(ST);
 
             if (njets == 3)
-              _plots["ST_N3excl"].comp[isZ]->fill(ST, weight);
+              _plots["ST_N3excl"].comp[isZ]->fill(ST);
           }
         }
       }

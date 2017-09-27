@@ -7,10 +7,10 @@ namespace Rivet {
   class ATLAS_2015_I1393758 : public Analysis {
 
   public:
-  
+
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1393758);
-  
+
   public:
 
     void init() {
@@ -34,11 +34,9 @@ namespace Rivet {
       book(centralRMS_kappa7, "d12-x01-y01", true);
 
     }
-  
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-      
       Jets m_goodJets = applyProjection<JetAlg>(event, "Jets").jetsByPt(Cuts::pT > 25*GeV && Cuts::abseta < 2.1);
 
       if (m_goodJets.size() < 2)        vetoEvent;
@@ -54,19 +52,19 @@ namespace Rivet {
       double kappa5_f   = CalculateJetCharge(m_goodJets[pos_f], 0.5, 0.5, 1.2);
       double kappa7_f   = CalculateJetCharge(m_goodJets[pos_f], 0.7, 0.5, 0.9);
       double pT_f = m_goodJets[pos_f].pT();
-      
+
       double kappa3_c = CalculateJetCharge(m_goodJets[pos_c], 0.3, 0.5, 1.8);
       double kappa5_c   = CalculateJetCharge(m_goodJets[pos_c], 0.5, 0.5, 1.2);
       double kappa7_c   = CalculateJetCharge(m_goodJets[pos_c], 0.7, 0.5, 0.9);
       double pT_c = m_goodJets[pos_c].pT();
 
-      forward_kappa3->fill(pT_f, kappa3_f, weight);
-      forward_kappa5->fill(pT_f, kappa5_f, weight);
-      forward_kappa7->fill(pT_f, kappa7_f, weight);
+      forward_kappa3->fill(pT_f, kappa3_f);
+      forward_kappa5->fill(pT_f, kappa5_f);
+      forward_kappa7->fill(pT_f, kappa7_f);
 
-      central_kappa3->fill(pT_c, kappa3_c, weight);
-      central_kappa5->fill(pT_c, kappa5_c, weight);
-      central_kappa7->fill(pT_c, kappa7_c, weight);
+      central_kappa3->fill(pT_c, kappa3_c);
+      central_kappa5->fill(pT_c, kappa5_c);
+      central_kappa7->fill(pT_c, kappa7_c);
     }
 
     double CalculateJetCharge(Jet& jet, double kappa=0.5, double pTcut=0.5, double Qmax=1.2) {
@@ -81,10 +79,10 @@ namespace Rivet {
       if (jetcharge < -Qmax) jetcharge = -Qmax*0.9999;
       return jetcharge;
     }
-  
+
     /// Normalise histograms etc., after the run
     void finalize() {
-    
+
       if (numEvents() > 2) {
         for (unsigned int i = 0; i < forward_kappa3->numBins(); ++i) {
 	        double stdv_fkappa3 = forward_kappa3->bin(i).numEntries() > 1? forward_kappa3->bin(i).stdDev() : 0.0;
@@ -119,7 +117,7 @@ namespace Rivet {
 
 
   private:
-  
+
     Profile1DPtr forward_kappa3;
     Profile1DPtr forward_kappa5;
     Profile1DPtr forward_kappa7;
@@ -135,7 +133,7 @@ namespace Rivet {
     Scatter2DPtr centralRMS_kappa3;
     Scatter2DPtr centralRMS_kappa5;
     Scatter2DPtr centralRMS_kappa7;
-  
+
   };
 
   // The hook for the plugin system
