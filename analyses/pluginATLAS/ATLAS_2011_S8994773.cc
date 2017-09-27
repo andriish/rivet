@@ -37,8 +37,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // Require at least one cluster in the event with pT >= 1 GeV
       const FinalState& fslead = apply<FinalState>(event, "FSlead");
       if (fslead.size() < 1) {
@@ -79,8 +77,8 @@ namespace Rivet {
       // The densities are calculated by dividing the UE properties by dEta*dPhi
       // -- each region has a dPhi of 2*PI/3 and dEta is two times 2.5
       const double dEtadPhi = (2*2.5 * 2*PI/3.0);
-      _hist_N_transverse_500->fill(pTlead/GeV,  num500[1]/dEtadPhi, weight);
-      _hist_ptsum_transverse_500->fill(pTlead/GeV, ptSum500[1]/GeV/dEtadPhi, weight);
+      _hist_N_transverse_500->fill(pTlead/GeV,  num500[1]/dEtadPhi);
+      _hist_ptsum_transverse_500->fill(pTlead/GeV, ptSum500[1]/GeV/dEtadPhi);
 
       // Update the "proper" dphi profile histograms
       // Note that we fill dN/dEtadPhi: dEta = 2*2.5, dPhi = 2*PI/nBins
@@ -94,9 +92,9 @@ namespace Rivet {
           mean = hist_num_dphi_500.bin(i).xMean();
           value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).xWidth()/10.0;
         }
-        if (pTlead/GeV >= 1.0) _hist_N_vs_dPhi_1_500->fill(mean, value, weight);
-        if (pTlead/GeV >= 2.0) _hist_N_vs_dPhi_2_500->fill(mean, value, weight);
-        if (pTlead/GeV >= 3.0) _hist_N_vs_dPhi_3_500->fill(mean, value, weight);
+        if (pTlead/GeV >= 1.0) _hist_N_vs_dPhi_1_500->fill(mean, value);
+        if (pTlead/GeV >= 2.0) _hist_N_vs_dPhi_2_500->fill(mean, value);
+        if (pTlead/GeV >= 3.0) _hist_N_vs_dPhi_3_500->fill(mean, value);
       }
 
     }

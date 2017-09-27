@@ -39,11 +39,6 @@ namespace Rivet {
 
 
     void analyze(const Event& e) {
-
-      // Get event weight for histo filling
-      const double weight = 1.0;
-
-
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
@@ -64,25 +59,25 @@ namespace Rivet {
         double xp = p.perp();
 
         if (absrap<=2.4 and absrap>2.) {
-          if (nonPrompt) _nonPrRapHigh->fill(xp, weight);
-          else if (!nonPrompt) _PrRapHigh->fill(xp, weight);
-          _IncRapHigh->fill(xp, weight);
+          if (nonPrompt) _nonPrRapHigh->fill(xp);
+          else if (!nonPrompt) _PrRapHigh->fill(xp);
+          _IncRapHigh->fill(xp);
         }
         else if (absrap<=2. and absrap>1.5) {
-          if (nonPrompt) _nonPrRapMedHigh->fill(xp, weight);
-          else if (!nonPrompt) _PrRapMedHigh->fill(xp, weight);
-          _IncRapMedHigh->fill(xp, weight);
+          if (nonPrompt) _nonPrRapMedHigh->fill(xp);
+          else if (!nonPrompt) _PrRapMedHigh->fill(xp);
+          _IncRapMedHigh->fill(xp);
         }
         else if (absrap<=1.5 and absrap>0.75) {
-          if (nonPrompt) _nonPrRapMedLow->fill(xp, weight);
-          else if (!nonPrompt) _PrRapMedLow->fill(xp, weight);
-          _IncRapMedLow->fill(xp, weight);
+          if (nonPrompt) _nonPrRapMedLow->fill(xp);
+          else if (!nonPrompt) _PrRapMedLow->fill(xp);
+          _IncRapMedLow->fill(xp);
         }
 
         else if (absrap<=0.75) {
-          if (nonPrompt) _nonPrRapLow->fill(xp, weight);
-          else if (!nonPrompt) _PrRapLow->fill(xp, weight);
-          _IncRapLow->fill(xp, weight);
+          if (nonPrompt) _nonPrRapLow->fill(xp);
+          else if (!nonPrompt) _PrRapLow->fill(xp);
+          _IncRapLow->fill(xp);
         }
       }
     }

@@ -69,8 +69,6 @@ namespace Rivet {
         vetoEvent;
       }
       // Calculate and histogram jet shapes
-      const double weight = 1.0;
-
       for (size_t ipt = 0; ipt < 11; ++ipt) {
         for (size_t jy = 0; jy < 6; ++jy) {
           if (ipt == 8 && jy == 4) continue;
@@ -80,9 +78,9 @@ namespace Rivet {
           for (size_t ijet = 0; ijet < jsipt.numJets(); ++ijet) {
             for (size_t rbin = 0; rbin < jsipt.numBins(); ++rbin) {
               const double r_rho = jsipt.rBinMid(rbin);
-              _profhistRho_pT[ipt][jy]->fill(r_rho, (1./0.1)*jsipt.diffJetShape(ijet, rbin), weight);
+              _profhistRho_pT[ipt][jy]->fill(r_rho, (1./0.1)*jsipt.diffJetShape(ijet, rbin));
               const double r_Psi = jsipt.rBinMid(rbin);
-              _profhistPsi_pT[ipt][jy]->fill(r_Psi, jsipt.intJetShape(ijet, rbin), weight);
+              _profhistPsi_pT[ipt][jy]->fill(r_Psi, jsipt.intJetShape(ijet, rbin));
             }
           }
         }

@@ -29,11 +29,11 @@ namespace Rivet {
       _isZeeSample = false;
       _isZmmSample = false;
       for (size_t chn = 0; chn < 3; ++chn) {
-        weights_nj0[chn] = 0;
-        weights_nj1[chn] = 0;
-        weights_nj2[chn] = 0;
-        weights_nj3[chn] = 0;
-        weights_nj4[chn] = 0;
+        book(weights_nj0[chn], (ostringstream("weights_nj0_") << chn).str());
+        book(weights_nj1[chn], (ostringstream("weights_nj1_") << chn).str());
+        book(weights_nj2[chn], (ostringstream("weights_nj2_") << chn).str());
+        book(weights_nj3[chn], (ostringstream("weights_nj3_") << chn).str());
+        book(weights_nj4[chn], (ostringstream("weights_nj4_") << chn).str());
       }
 
       // Set up projections
@@ -105,8 +105,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       vector<const ZFinder*> zfs;
       zfs.push_back(& (apply<ZFinder>(event, "ZFinder_el")));
       zfs.push_back(& (apply<ZFinder>(event, "ZFinder_mu")));
@@ -154,29 +152,29 @@ namespace Rivet {
 
         switch (jets.size()) {
         case 0:
-          weights_nj0[chn] += weight;
+          weights_nj0[chn]->fill();
           break;
         case 1:
-          weights_nj0[chn] += weight;
-          weights_nj1[chn] += weight;
+          weights_nj0[chn]->fill();
+          weights_nj1[chn]->fill();
           break;
         case 2:
-          weights_nj0[chn] += weight;
-          weights_nj1[chn] += weight;
-          weights_nj2[chn] += weight;
+          weights_nj0[chn]->fill();
+          weights_nj1[chn]->fill();
+          weights_nj2[chn]->fill();
           break;
         case 3:
-          weights_nj0[chn] += weight;
-          weights_nj1[chn] += weight;
-          weights_nj2[chn] += weight;
-          weights_nj3[chn] += weight;
+          weights_nj0[chn]->fill();
+          weights_nj1[chn]->fill();
+          weights_nj2[chn]->fill();
+          weights_nj3[chn]->fill();
           break;
         default: // >= 4
-          weights_nj0[chn] += weight;
-          weights_nj1[chn] += weight;
-          weights_nj2[chn] += weight;
-          weights_nj3[chn] += weight;
-          weights_nj4[chn] += weight;
+          weights_nj0[chn]->fill();
+          weights_nj1[chn]->fill();
+          weights_nj2[chn]->fill();
+          weights_nj3[chn]->fill();
+          weights_nj4[chn]->fill();
         }
 
         // Require at least one jet
@@ -184,37 +182,37 @@ namespace Rivet {
 
         // Fill jet multiplicities
         for (size_t ijet = 1; ijet <= jets.size(); ++ijet) {
-          _h_njet_incl[chn]->fill(ijet, weight);
+          _h_njet_incl[chn]->fill(ijet);
         }
 
         // Loop over selected jets, fill inclusive jet distributions
         for (size_t ijet = 0; ijet < jets.size(); ++ijet) {
-          _h_ptjet[chn]->fill(jets[ijet].pT()/GeV, weight);
-          _h_yjet [chn]->fill(fabs(jets[ijet].rapidity()), weight);
+          _h_ptjet[chn]->fill(jets[ijet].pT()/GeV);
+          _h_yjet [chn]->fill(fabs(jets[ijet].rapidity()));
         }
 
         // Leading jet histos
         const double ptlead   = jets[0].pT()/GeV;
         const double yabslead = fabs(jets[0].rapidity());
-        _h_ptlead[chn]->fill(ptlead,   weight);
-        _h_ylead [chn]->fill(yabslead, weight);
+        _h_ptlead[chn]->fill(ptlead);
+        _h_ylead [chn]->fill(yabslead);
 
         if (jets.size() >= 2) {
           // Second jet histos
           const double pt2ndlead   = jets[1].pT()/GeV;
           const double yabs2ndlead = fabs(jets[1].rapidity());
-          _h_ptseclead[chn] ->fill(pt2ndlead,   weight);
-          _h_yseclead [chn] ->fill(yabs2ndlead, weight);
+          _h_ptseclead[chn] ->fill(pt2ndlead);
+          _h_yseclead [chn] ->fill(yabs2ndlead);
 
           // Dijet histos
           const double deltaphi = fabs(deltaPhi(jets[1], jets[0]));
           const double deltarap = fabs(jets[0].rapidity() - jets[1].rapidity()) ;
           const double deltar   = fabs(deltaR(jets[0], jets[1], RAPIDITY));
           const double mass     = (jets[0].momentum() + jets[1].momentum()).mass();
-          _h_mass    [chn] ->fill(mass/GeV, weight);
-          _h_deltay  [chn] ->fill(deltarap, weight);
-          _h_deltaphi[chn] ->fill(deltaphi, weight);
-          _h_deltaR  [chn] ->fill(deltar,   weight);
+          _h_mass    [chn] ->fill(mass/GeV);
+          _h_deltay  [chn] ->fill(deltarap);
+          _h_deltaphi[chn] ->fill(deltaphi);
+          _h_deltaR  [chn] ->fill(deltar);
         }
       }
     }
@@ -239,10 +237,10 @@ namespace Rivet {
     void finalize() {
       // Fill ratio histograms
       for (size_t chn = 0; chn < 3; ++chn) {
-        _h_njet_ratio[chn]->addPoint(1, ratio(weights_nj1[chn], weights_nj0[chn]), 0.5, ratio_err(weights_nj1[chn], weights_nj0[chn]));
-        _h_njet_ratio[chn]->addPoint(2, ratio(weights_nj2[chn], weights_nj1[chn]), 0.5, ratio_err(weights_nj2[chn], weights_nj1[chn]));
-        _h_njet_ratio[chn]->addPoint(3, ratio(weights_nj3[chn], weights_nj2[chn]), 0.5, ratio_err(weights_nj3[chn], weights_nj2[chn]));
-        _h_njet_ratio[chn]->addPoint(4, ratio(weights_nj4[chn], weights_nj3[chn]), 0.5, ratio_err(weights_nj4[chn], weights_nj3[chn]));
+        _h_njet_ratio[chn]->addPoint(1, ratio(weights_nj1[chn]->val(), weights_nj0[chn]->val()), 0.5, ratio_err(weights_nj1[chn]->val(), weights_nj0[chn]->val()));
+        _h_njet_ratio[chn]->addPoint(2, ratio(weights_nj2[chn]->val(), weights_nj1[chn]->val()), 0.5, ratio_err(weights_nj2[chn]->val(), weights_nj1[chn]->val()));
+        _h_njet_ratio[chn]->addPoint(3, ratio(weights_nj3[chn]->val(), weights_nj2[chn]->val()), 0.5, ratio_err(weights_nj3[chn]->val(), weights_nj2[chn]->val()));
+        _h_njet_ratio[chn]->addPoint(4, ratio(weights_nj4[chn]->val(), weights_nj3[chn]->val()), 0.5, ratio_err(weights_nj4[chn]->val(), weights_nj3[chn]->val()));
       }
 
       // Scale other histos
@@ -277,11 +275,11 @@ namespace Rivet {
     bool _isZeeSample;
     bool _isZmmSample;
 
-    double weights_nj0[3];
-    double weights_nj1[3];
-    double weights_nj2[3];
-    double weights_nj3[3];
-    double weights_nj4[3];
+    CounterPtr weights_nj0[3];
+    CounterPtr weights_nj1[3];
+    CounterPtr weights_nj2[3];
+    CounterPtr weights_nj3[3];
+    CounterPtr weights_nj4[3];
 
     Scatter2DPtr _h_njet_ratio[3];
     Histo1DPtr _h_njet_incl[3];
