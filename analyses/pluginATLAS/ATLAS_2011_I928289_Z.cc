@@ -54,19 +54,18 @@ namespace Rivet {
       const ZFinder& zfinder_mm_bare     = apply<ZFinder>(event, "ZFinder_mm_bare"   );
       const ZFinder& zfinder_mm_dressed  = apply<ZFinder>(event, "ZFinder_mm_dressed");
 
-      const double weight = 1.0;
-      fillPlots1D(zfinder_ee_bare   , _h_Z_y_ee_bare   , weight);
-      fillPlots1D(zfinder_ee_dressed, _h_Z_y_ee_dressed, weight);
-      fillPlots1D(zfinder_mm_bare   , _h_Z_y_mm_bare   , weight);
-      fillPlots1D(zfinder_mm_dressed, _h_Z_y_mm_dressed, weight);
+      fillPlots1D(zfinder_ee_bare   , _h_Z_y_ee_bare);
+      fillPlots1D(zfinder_ee_dressed, _h_Z_y_ee_dressed);
+      fillPlots1D(zfinder_mm_bare   , _h_Z_y_mm_bare);
+      fillPlots1D(zfinder_mm_dressed, _h_Z_y_mm_dressed);
 
     }
 
 
-    void fillPlots1D(const ZFinder& zfinder, Histo1DPtr hist, double weight) {
+    void fillPlots1D(const ZFinder& zfinder, Histo1DPtr hist) {
       if (zfinder.bosons().size() != 1) return;
       const FourMomentum zmom = zfinder.bosons()[0].momentum();
-      hist->fill(zmom.absrap(), weight);
+      hist->fill(zmom.absrap());
     }
 
 

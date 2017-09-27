@@ -80,8 +80,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const FinalState& elecs      = apply<FinalState>(event, "elecs");
       const FinalState& muons      = apply<FinalState>(event, "muons");
       const FinalState& muons_full = apply<FinalState>(event, "muons_full");
@@ -122,7 +120,7 @@ namespace Rivet {
       if (elecs.size() > 0) {
         foreach (const Particle& ele, elecs.particles()) {
           if (ele.pT()*GeV < 26.0) {
-            _histPt_elecs->fill(ele.pT()*GeV, weight);
+            _histPt_elecs->fill(ele.pT()*GeV);
           }
         }
       }
@@ -131,7 +129,7 @@ namespace Rivet {
       if (muons.size() > 0) {
         foreach (const Particle& muo, muons.particles()) {
           if (muo.pT()*GeV < 26.0) {
-            _histPt_muons->fill(muo.pT()*GeV, weight);
+            _histPt_muons->fill(muo.pT()*GeV);
           }
         }
       }
@@ -140,7 +138,7 @@ namespace Rivet {
       if (muons_full.size() > 0) {
         foreach (const Particle& muo, muons_full.particles()) {
           if (muo.pT()*GeV < 100.0) {
-            _histPt_muons_full->fill(muo.pT()*GeV, weight);
+            _histPt_muons_full->fill(muo.pT()*GeV);
           }
         }
       }

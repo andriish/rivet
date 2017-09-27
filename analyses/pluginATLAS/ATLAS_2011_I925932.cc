@@ -40,8 +40,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const WFinder& wfinder_dressed_el = apply<WFinder>(event, "WFinder_dressed_el");
       const WFinder& wfinder_bare_el    = apply<WFinder>(event, "WFinder_bare_el");
       const WFinder& wfinder_dressed_mu = apply<WFinder>(event, "WFinder_dressed_mu");
@@ -57,7 +55,7 @@ namespace Rivet {
       if (!wfinder_dressed_el.particles().empty()) {
 	    const FourMomentum& nu = wfinder_dressed_el.constituentNeutrinos()[0].momentum();
 	    if (wfinder_dressed_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
-          _hist_wpt_dressed_el->fill(wfinder_dressed_el.bosons()[0].pT()/GeV, weight);
+          _hist_wpt_dressed_el->fill(wfinder_dressed_el.bosons()[0].pT()/GeV);
 	    }
       }
 
@@ -65,7 +63,7 @@ namespace Rivet {
       if (!wfinder_bare_el.particles().empty()) {
 	    const FourMomentum& nu = wfinder_bare_el.constituentNeutrinos()[0].momentum();
 	    if (wfinder_bare_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
-          _hist_wpt_bare_el->fill(wfinder_bare_el.bosons()[0].pT()/GeV, weight);
+          _hist_wpt_bare_el->fill(wfinder_bare_el.bosons()[0].pT()/GeV);
 	    }
       }
 
@@ -73,7 +71,7 @@ namespace Rivet {
       if (!wfinder_dressed_mu.particles().empty()) {
 	    const FourMomentum& nu = wfinder_dressed_mu.constituentNeutrinos()[0].momentum();
 	    if (wfinder_dressed_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
-          _hist_wpt_dressed_mu->fill(wfinder_dressed_mu.bosons()[0].pT()/GeV, weight);
+          _hist_wpt_dressed_mu->fill(wfinder_dressed_mu.bosons()[0].pT()/GeV);
 	    }
       }
 
@@ -81,7 +79,7 @@ namespace Rivet {
       if (!wfinder_bare_mu.particles().empty()) {
 	    const FourMomentum& nu = wfinder_bare_mu.constituentNeutrinos()[0].momentum();
 	    if (wfinder_bare_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
-          _hist_wpt_bare_mu->fill(wfinder_bare_mu.bosons()[0].pT()/GeV, weight);
+          _hist_wpt_bare_mu->fill(wfinder_bare_mu.bosons()[0].pT()/GeV);
 	    }
       }
 

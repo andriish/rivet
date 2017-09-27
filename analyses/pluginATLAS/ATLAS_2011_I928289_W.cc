@@ -63,20 +63,19 @@ namespace Rivet {
       const WFinder& wfinder_mu_bare     = apply<WFinder>(event, "WFinder_mu_bare");
       const WFinder& wfinder_mu_dressed  = apply<WFinder>(event, "WFinder_mu_dressed");
 
-      const double weight = 1.0;
-      fillPlots1D(wfinder_el_bare   , _h_Wplus_lepton_eta_el_bare   , _h_Wminus_lepton_eta_el_bare   , weight);
-      fillPlots1D(wfinder_el_dressed, _h_Wplus_lepton_eta_el_dressed, _h_Wminus_lepton_eta_el_dressed, weight);
-      fillPlots1D(wfinder_mu_bare   , _h_Wplus_lepton_eta_mu_bare   , _h_Wminus_lepton_eta_mu_bare   , weight);
-      fillPlots1D(wfinder_mu_dressed, _h_Wplus_lepton_eta_mu_dressed, _h_Wminus_lepton_eta_mu_dressed, weight);
+      fillPlots1D(wfinder_el_bare   , _h_Wplus_lepton_eta_el_bare   , _h_Wminus_lepton_eta_el_bare);
+      fillPlots1D(wfinder_el_dressed, _h_Wplus_lepton_eta_el_dressed, _h_Wminus_lepton_eta_el_dressed);
+      fillPlots1D(wfinder_mu_bare   , _h_Wplus_lepton_eta_mu_bare   , _h_Wminus_lepton_eta_mu_bare);
+      fillPlots1D(wfinder_mu_dressed, _h_Wplus_lepton_eta_mu_dressed, _h_Wminus_lepton_eta_mu_dressed);
     }
 
 
-    void fillPlots1D(const WFinder& wfinder, Histo1DPtr hist_plus, Histo1DPtr hist_minus, double weight) {
+    void fillPlots1D(const WFinder& wfinder, Histo1DPtr hist_plus, Histo1DPtr hist_minus) {
       if (wfinder.bosons().size() != 1) return;
       const Particle l = wfinder.constituentLeptons()[0];
       const FourMomentum& miss = wfinder.constituentNeutrinos()[0].momentum();
       if (l.pT() > 20*GeV && miss.Et() > 25*GeV && wfinder.mT() > 40*GeV)
-        (l.charge3() > 0 ? hist_plus : hist_minus)->fill(l.abseta(), weight);
+        (l.charge3() > 0 ? hist_plus : hist_minus)->fill(l.abseta());
     }
 
 

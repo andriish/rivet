@@ -29,8 +29,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double;
-
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
       if (charged.size() < 1) {
         vetoEvent;

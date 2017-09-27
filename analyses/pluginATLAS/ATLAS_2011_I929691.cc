@@ -61,13 +61,12 @@ namespace Rivet {
         }
 
         // Then... calculate the observable and fill the profiles
-        const double weight = 1.0;
         for (const HistoBin1D& b : h_ntracks_z.bins())
-          _p_F_z[i]->fill(b.xMid(), b.height(), weight);
+          _p_F_z[i]->fill(b.xMid(), b.height());
         for (const HistoBin1D& b : h_ntracks_r.bins())
-          _p_rho_r[i]->fill(b.xMid(), b.area()/annulus_area(b.xMin(), b.xMax()), weight);
+          _p_rho_r[i]->fill(b.xMid(), b.area()/annulus_area(b.xMin(), b.xMax()));
         for (const HistoBin1D& b : h_ntracks_pTrel.bins())
-          _p_f_pTrel[i]->fill(b.xMid(), b.height(), weight);
+          _p_f_pTrel[i]->fill(b.xMid(), b.height());
 
       }
 
