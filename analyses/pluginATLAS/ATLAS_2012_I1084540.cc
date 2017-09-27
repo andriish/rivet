@@ -75,7 +75,6 @@ namespace Rivet {
     void analyze(const Event& event) {
       static unsigned int event_count = 0;
       ++event_count;
-      const double weight = 1.0;
       const FinalState& fs2 = apply<FinalState>(event, "CNFS2");
       const FinalState& fs4 = apply<FinalState>(event, "CNFS4");
       const FinalState& fs6 = apply<FinalState>(event, "CNFS6");
@@ -155,10 +154,10 @@ namespace Rivet {
 
         // Fill bin centre
         switch (E) {
-          case 200: _h_DeltaEtaF_200->fill(largestEdgeGap + _etaBinSize/2., weight); break;
-          case 400: _h_DeltaEtaF_400->fill(largestEdgeGap + _etaBinSize/2., weight); break;
-          case 600: _h_DeltaEtaF_600->fill(largestEdgeGap + _etaBinSize/2., weight); break;
-          case 800: _h_DeltaEtaF_800->fill(largestEdgeGap + _etaBinSize/2., weight); break;
+          case 200: _h_DeltaEtaF_200->fill(largestEdgeGap + _etaBinSize/2.); break;
+          case 400: _h_DeltaEtaF_400->fill(largestEdgeGap + _etaBinSize/2.); break;
+          case 600: _h_DeltaEtaF_600->fill(largestEdgeGap + _etaBinSize/2.); break;
+          case 800: _h_DeltaEtaF_800->fill(largestEdgeGap + _etaBinSize/2.); break;
         }
 
         if (E == 200) largestEdgeGap_200 = largestEdgeGap;

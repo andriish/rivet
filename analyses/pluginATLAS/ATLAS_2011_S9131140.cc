@@ -14,10 +14,6 @@ namespace Rivet {
     ATLAS_2011_S9131140()
       : Analysis("ATLAS_2011_S9131140")
     {
-      _sumw_el_bare = 0;
-      _sumw_el_dressed = 0;
-      _sumw_mu_bare = 0;
-      _sumw_mu_dressed = 0;
     }
 
 
@@ -44,39 +40,42 @@ namespace Rivet {
       book(_hist_zpt_el_bare        ,1, 1, 3);  // electron "bare"
       book(_hist_zpt_mu_dressed     ,2, 1, 2);  // muon "dressed"
       book(_hist_zpt_mu_bare        ,2, 1, 3);  // muon "bare"
+
+      book(_sumw_el_bare, "_sumw_el_bare");
+      book(_sumw_el_dressed, "_sumw_el_dressed");
+      book(_sumw_mu_bare, "_sumw_mu_bare");
+      book(_sumw_mu_dressed, "_sumw_mu_dressed");
     }
 
 
     /// Do the analysis
     void analyze(const Event& evt) {
-      const double weight = 1.0;
-
       const ZFinder& zfinder_dressed_el = apply<ZFinder>(evt, "ZFinder_dressed_el");
       if (!zfinder_dressed_el.bosons().empty()) {
-        _sumw_el_dressed += weight;
+        _sumw_el_dressed->fill();
         const FourMomentum pZ = zfinder_dressed_el.bosons()[0].momentum();
-        _hist_zpt_el_dressed->fill(pZ.pT()/GeV, weight);
+        _hist_zpt_el_dressed->fill(pZ.pT()/GeV);
       }
 
       const ZFinder& zfinder_bare_el = apply<ZFinder>(evt, "ZFinder_bare_el");
       if (!zfinder_bare_el.bosons().empty()) {
-        _sumw_el_bare += weight;
+        _sumw_el_bare->fill();
 	    const FourMomentum pZ = zfinder_bare_el.bosons()[0].momentum();
-        _hist_zpt_el_bare->fill(pZ.pT()/GeV, weight);
+        _hist_zpt_el_bare->fill(pZ.pT()/GeV);
       }
 
       const ZFinder& zfinder_dressed_mu = apply<ZFinder>(evt, "ZFinder_dressed_mu");
       if (!zfinder_dressed_mu.bosons().empty()) {
-        _sumw_mu_dressed += weight;
+        _sumw_mu_dressed->fill();
         const FourMomentum pZ = zfinder_dressed_mu.bosons()[0].momentum();
-        _hist_zpt_mu_dressed->fill(pZ.pT()/GeV, weight);
+        _hist_zpt_mu_dressed->fill(pZ.pT()/GeV);
       }
 
       const ZFinder& zfinder_bare_mu = apply<ZFinder>(evt, "ZFinder_bare_mu");
       if (!zfinder_bare_mu.bosons().empty()) {
-        _sumw_mu_bare += weight;
+        _sumw_mu_bare->fill();
         const FourMomentum pZ = zfinder_bare_mu.bosons()[0].momentum();
-        _hist_zpt_mu_bare->fill(pZ.pT()/GeV, weight);
+        _hist_zpt_mu_bare->fill(pZ.pT()/GeV);
       }
 
     }
@@ -94,8 +93,8 @@ namespace Rivet {
 
     private:
 
-	double _sumw_el_bare, _sumw_el_dressed;
-	double _sumw_mu_bare, _sumw_mu_dressed;
+	CounterPtr _sumw_el_bare, _sumw_el_dressed;
+	CounterPtr _sumw_mu_bare, _sumw_mu_dressed;
 
 	Histo1DPtr _hist_zpt_el_dressed;
 	Histo1DPtr _hist_zpt_el_bare;

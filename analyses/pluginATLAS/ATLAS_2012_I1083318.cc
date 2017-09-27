@@ -80,8 +80,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
       Particles neutrinos = apply<FinalState>(event, "neutrinos").particlesByPt();
 
@@ -113,53 +111,53 @@ namespace Rivet {
           }
         }
 
-        _h_NjetIncl[i]->fill(0.0, weight);
+        _h_NjetIncl[i]->fill(0.0);
 
         // Njet>=1 observables
         if (jets.size() < 1) continue;
-        _h_NjetIncl[i]->fill(1.0, weight);
-        _h_FirstJetPt_1jet[i]->fill(jets[0].pT(), weight);
-        _h_JetRapidity[i]->fill(jets[0].rapidity(), weight);
-        _h_Ht_1jet[i]->fill(HT, weight);
-        _h_DeltaYElecJet[i]->fill(lepton.rapidity()-jets[0].rapidity(), weight);
-        _h_SumYElecJet[i]->fill(lepton.rapidity()+jets[0].rapidity(), weight);
+        _h_NjetIncl[i]->fill(1.0);
+        _h_FirstJetPt_1jet[i]->fill(jets[0].pT());
+        _h_JetRapidity[i]->fill(jets[0].rapidity());
+        _h_Ht_1jet[i]->fill(HT);
+        _h_DeltaYElecJet[i]->fill(lepton.rapidity()-jets[0].rapidity());
+        _h_SumYElecJet[i]->fill(lepton.rapidity()+jets[0].rapidity());
 
         // Njet>=2 observables
         if (jets.size() < 2) continue;
-        _h_NjetIncl[i]->fill(2.0, weight);
-        _h_FirstJetPt_2jet[i]->fill(jets[0].pT(), weight);
-        _h_SecondJetPt_2jet[i]->fill(jets[1].pT(), weight);
-        _h_Ht_2jet[i]->fill(HT, weight);
+        _h_NjetIncl[i]->fill(2.0);
+        _h_FirstJetPt_2jet[i]->fill(jets[0].pT());
+        _h_SecondJetPt_2jet[i]->fill(jets[1].pT());
+        _h_Ht_2jet[i]->fill(HT);
         double m2_2jet = FourMomentum(jets[0]+jets[1]).mass2();
-        _h_Minv_2jet[i]->fill(m2_2jet>0.0 ? sqrt(m2_2jet) : 0.0, weight);
-        _h_DeltaR_2jet[i]->fill(deltaR(jets[0], jets[1]), weight);
-        _h_DeltaY_2jet[i]->fill(jets[0].rapidity()-jets[1].rapidity(), weight);
-        _h_DeltaPhi_2jet[i]->fill(deltaPhi(jets[0], jets[1]), weight);
+        _h_Minv_2jet[i]->fill(m2_2jet>0.0 ? sqrt(m2_2jet) : 0.0);
+        _h_DeltaR_2jet[i]->fill(deltaR(jets[0], jets[1]));
+        _h_DeltaY_2jet[i]->fill(jets[0].rapidity()-jets[1].rapidity());
+        _h_DeltaPhi_2jet[i]->fill(deltaPhi(jets[0], jets[1]));
 
         // Njet>=3 observables
         if (jets.size() < 3) continue;
-        _h_NjetIncl[i]->fill(3.0, weight);
-        _h_FirstJetPt_3jet[i]->fill(jets[0].pT(), weight);
-        _h_SecondJetPt_3jet[i]->fill(jets[1].pT(), weight);
-        _h_ThirdJetPt_3jet[i]->fill(jets[2].pT(), weight);
-        _h_Ht_3jet[i]->fill(HT, weight);
+        _h_NjetIncl[i]->fill(3.0);
+        _h_FirstJetPt_3jet[i]->fill(jets[0].pT());
+        _h_SecondJetPt_3jet[i]->fill(jets[1].pT());
+        _h_ThirdJetPt_3jet[i]->fill(jets[2].pT());
+        _h_Ht_3jet[i]->fill(HT);
         double m2_3jet = FourMomentum(jets[0]+jets[1]+jets[2]).mass2();
-        _h_Minv_3jet[i]->fill(m2_3jet>0.0 ? sqrt(m2_3jet) : 0.0, weight);
+        _h_Minv_3jet[i]->fill(m2_3jet>0.0 ? sqrt(m2_3jet) : 0.0);
 
         // Njet>=4 observables
         if (jets.size() < 4) continue;
-        _h_NjetIncl[i]->fill(4.0, weight);
-        _h_FirstJetPt_4jet[i]->fill(jets[0].pT(), weight);
-        _h_SecondJetPt_4jet[i]->fill(jets[1].pT(), weight);
-        _h_ThirdJetPt_4jet[i]->fill(jets[2].pT(), weight);
-        _h_FourthJetPt_4jet[i]->fill(jets[3].pT(), weight);
-        _h_Ht_4jet[i]->fill(HT, weight);
+        _h_NjetIncl[i]->fill(4.0);
+        _h_FirstJetPt_4jet[i]->fill(jets[0].pT());
+        _h_SecondJetPt_4jet[i]->fill(jets[1].pT());
+        _h_ThirdJetPt_4jet[i]->fill(jets[2].pT());
+        _h_FourthJetPt_4jet[i]->fill(jets[3].pT());
+        _h_Ht_4jet[i]->fill(HT);
         double m2_4jet = FourMomentum(jets[0]+jets[1]+jets[2]+jets[3]).mass2();
-        _h_Minv_4jet[i]->fill(m2_4jet>0.0 ? sqrt(m2_4jet) : 0.0, weight);
+        _h_Minv_4jet[i]->fill(m2_4jet>0.0 ? sqrt(m2_4jet) : 0.0);
 
         // Njet>=5 observables
         if (jets.size() < 5) continue;
-        _h_NjetIncl[i]->fill(5.0, weight);
+        _h_NjetIncl[i]->fill(5.0);
       }
     }
 
