@@ -24,23 +24,22 @@ namespace Rivet {
       FastJets jetsproj4(cfs, FastJets::ANTIKT, 0.4);
       declare(jetsproj4, "Jets4");
 
+      // @todo tmp YOs
       for (size_t i=0 ; i<2 ; i++) {
         book(_h_xsec[i]       ,1+i, 1, 1);
         book(_h_frag_04_06[i] ,3+i, 1, 1);
         book(_h_frag_06_10[i] ,3+i, 2, 1);
         book(_h_frag_10_15[i] ,3+i, 3, 1);
         book(_h_frag_15_24[i] ,3+i, 4, 1);
-        _njets_04_06[i] = 0.0;
-        _njets_06_10[i] = 0.0;
-        _njets_10_15[i] = 0.0;
-        _njets_15_24[i] = 0.0;
+        book(_njets_04_06[i], "njets_04_06");
+        book(_njets_06_10[i], "njets_06_10");
+        book(_njets_10_15[i], "njets_10_15");
+        book(_njets_15_24[i], "njets_15_24");
       }
     }
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const FastJets & jetsproj6 = apply<FastJets>(event, "Jets6");
       const FastJets & jetsproj4 = apply<FastJets>(event, "Jets4");
       Jets alljets[2];
@@ -59,35 +58,35 @@ namespace Rivet {
         foreach (const Jet& jet, jets) {
           const double pTjet = jet.pT();
           const double pjet = jet.p3().mod();
-          _h_xsec[i]->fill(pTjet, weight);
+          _h_xsec[i]->fill(pTjet);
           if (pTjet > 24*GeV) continue;
           foreach (const Particle& p, jet.particles()) {
             double z = p.p3().mod()/pjet;
             if (z >= 1) z = 0.9999; // Make sure that z=1 doesn't go into overflow
             if (pTjet > 15*GeV) {
-              _h_frag_15_24[i]->fill(z, weight);
+              _h_frag_15_24[i]->fill(z);
             }
             else if (pTjet > 10*GeV) {
-              _h_frag_10_15[i]->fill(z, weight);
+              _h_frag_10_15[i]->fill(z);
             }
             else if (pTjet > 6*GeV) {
-              _h_frag_06_10[i]->fill(z, weight);
+              _h_frag_06_10[i]->fill(z);
             }
             else {
-              _h_frag_04_06[i]->fill(z, weight);
+              _h_frag_04_06[i]->fill(z);
             }
           }
           if (pTjet > 15*GeV) {
-            _njets_15_24[i] += weight;
+            _njets_15_24[i]->fill();
           }
           else if (pTjet > 10*GeV) {
-            _njets_10_15[i] += weight;
+            _njets_10_15[i]->fill();
           }
           else if (pTjet > 6*GeV) {
-            _njets_06_10[i] += weight;
+            _njets_06_10[i]->fill();
           }
           else {
-            _njets_04_06[i] += weight;
+            _njets_04_06[i]->fill();
           }
         }
       }
@@ -97,10 +96,10 @@ namespace Rivet {
       for (size_t i=0 ; i<2 ; i++) {
         // deta = 2*0.57
         scale(_h_xsec[i], crossSection()/microbarn/sumOfWeights()/(2*0.57));
-        scale(_h_frag_04_06[i], 1./_njets_04_06[i]);
-        scale(_h_frag_06_10[i], 1./_njets_06_10[i]);
-        scale(_h_frag_10_15[i], 1./_njets_10_15[i]);
-        scale(_h_frag_15_24[i], 1./_njets_15_24[i]);
+        scale(_h_frag_04_06[i], 1./_njets_04_06[i]->val());
+        scale(_h_frag_06_10[i], 1./_njets_06_10[i]->val());
+        scale(_h_frag_10_15[i], 1./_njets_10_15[i]->val());
+        scale(_h_frag_15_24[i], 1./_njets_15_24[i]->val());
       }
     }
 
@@ -112,10 +111,10 @@ namespace Rivet {
     Histo1DPtr _h_frag_06_10[2];
     Histo1DPtr _h_frag_10_15[2];
     Histo1DPtr _h_frag_15_24[2];
-    double _njets_04_06[2];
-    double _njets_06_10[2];
-    double _njets_10_15[2];
-    double _njets_15_24[2];
+    CounterPtr _njets_04_06[2];
+    CounterPtr _njets_06_10[2];
+    CounterPtr _njets_10_15[2];
+    CounterPtr _njets_15_24[2];
   };
 
 

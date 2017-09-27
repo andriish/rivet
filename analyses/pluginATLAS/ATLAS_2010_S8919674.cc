@@ -59,8 +59,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       const Jets& jets = apply<FastJets>(event, "jets").jetsByPt(20.0*GeV);
 
       const WFinder& We = apply<WFinder>(event, "W_e");
@@ -73,17 +71,17 @@ namespace Rivet {
             if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5)
               js.push_back(j);
           }
-          _h_el_njet_inclusive->fill(0, weight);
+          _h_el_njet_inclusive->fill(0);
           if (js.size() >= 1) {
-            _h_el_njet_inclusive->fill(1, weight);
-            _h_el_pT_jet1->fill(js[0].pT(), weight);
+            _h_el_njet_inclusive->fill(1);
+            _h_el_pT_jet1->fill(js[0].pT());
           }
           if (js.size() >= 2) {
-            _h_el_njet_inclusive->fill(2, weight);
-            _h_el_pT_jet2->fill(js[1].pT(), weight);
+            _h_el_njet_inclusive->fill(2);
+            _h_el_pT_jet2->fill(js[1].pT());
           }
           if (js.size() >= 3) {
-            _h_el_njet_inclusive->fill(3, weight);
+            _h_el_njet_inclusive->fill(3);
           }
         }
       }
@@ -98,20 +96,20 @@ namespace Rivet {
             if (j.abseta() < 2.8 && deltaR(p_lept, j.momentum()) > 0.5)
               js.push_back(j);
           }
-          _h_mu_njet_inclusive->fill(0, weight);
+          _h_mu_njet_inclusive->fill(0);
           if (js.size() >= 1) {
-            _h_mu_njet_inclusive->fill(1, weight);
-            _h_mu_pT_jet1->fill(js[0].pT(), weight);
+            _h_mu_njet_inclusive->fill(1);
+            _h_mu_pT_jet1->fill(js[0].pT());
           }
           if (js.size() >= 2) {
-            _h_mu_njet_inclusive->fill(2, weight);
-            _h_mu_pT_jet2->fill(js[1].pT(), weight);
+            _h_mu_njet_inclusive->fill(2);
+            _h_mu_pT_jet2->fill(js[1].pT());
           }
           if (js.size() >= 3) {
-            _h_mu_njet_inclusive->fill(3, weight);
+            _h_mu_njet_inclusive->fill(3);
           }
           if (js.size() >= 4) {
-            _h_mu_njet_inclusive->fill(4, weight);
+            _h_mu_njet_inclusive->fill(4);
           }
         }
       }

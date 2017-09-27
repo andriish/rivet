@@ -11,7 +11,7 @@ namespace Rivet {
   public:
 
     /// Helper for collectively filling Nch, pT, eta, and pT vs. Nch histograms
-    void fillPtEtaNch(const ChargedFinalState& cfs, int nchcut, double weight,
+    void fillPtEtaNch(const ChargedFinalState& cfs, int nchcut,
                       Histo1DPtr h_nch, Histo1DPtr h_pt,
                       Histo1DPtr h_eta, Profile1DPtr h_ptnch = Profile1DPtr()) {
 
@@ -20,24 +20,19 @@ namespace Rivet {
       if (nch < nchcut) return;
 
       // Fill nch
-      h_nch->fill(nch, weight);
+      h_nch->fill(nch);
       // Loop over particles, fill pT, eta and ptnch
       foreach (const Particle& p, cfs.particles()) {
         const double pt = p.pT();
-        h_pt->fill(pt/GeV, weight/pt);
-        h_eta->fill(p.eta(), weight);
-        if (h_ptnch != 0) h_ptnch->fill(nch, pt/GeV, weight);
+        h_pt->fill(pt/GeV, 1.0/pt);
+        h_eta->fill(p.eta());
+        if (h_ptnch != 0) h_ptnch->fill(nch, pt/GeV);
       }
     }
 
 
     /// Default constructor
     ATLAS_2010_S8918562() : Analysis("ATLAS_2010_S8918562") {
-      _sumW_pt100_nch2 = 0;
-      _sumW_pt100_nch20 = 0;
-      _sumW_pt500_nch1 = 0;
-      _sumW_pt500_nch6 = 0;
-      _sumW_pt2500_nch1 = 0;
     }
 
 
@@ -109,6 +104,12 @@ namespace Rivet {
         book(_hist_pt2500_nch1_eta ,29, 1, 1);
         book(_hist_pt2500_nch1_ptnch ,39, 1, 1);
 
+        book(_sumW_pt100_nch2, "_sumW_pt100_nch2");
+        book(_sumW_pt100_nch20, "_sumW_pt100_nch20");
+        book(_sumW_pt500_nch1, "_sumW_pt500_nch1");
+        book(_sumW_pt500_nch6, "_sumW_pt500_nch6");
+        book(_sumW_pt2500_nch1, "_sumW_pt2500_nch1");
+
       } else {
         throw LogicError("The ATLAS_2010_S8918562 analysis is only valid for sqrt(s) = 900, 2360 and 7000 GeV!");
       }
@@ -118,36 +119,34 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // 100 GeV final states
       if (!fuzzyEquals(sqrtS()/GeV, 2360)) {
         const ChargedFinalState& cfs100 = apply<ChargedFinalState>(event, "CFS100");
         // nch>=2
-        if (cfs100.size() >= 2) _sumW_pt100_nch2 += weight;
-        fillPtEtaNch(cfs100, 2, weight, _hist_pt100_nch2_nch, _hist_pt100_nch2_pt, _hist_pt100_nch2_eta, _hist_pt100_nch2_ptnch);
+        if (cfs100.size() >= 2) _sumW_pt100_nch2->fill();
+        fillPtEtaNch(cfs100, 2, _hist_pt100_nch2_nch, _hist_pt100_nch2_pt, _hist_pt100_nch2_eta, _hist_pt100_nch2_ptnch);
         // nch>=20
-        if (cfs100.size() >= 20) _sumW_pt100_nch20 += weight;
-        fillPtEtaNch(cfs100, 20, weight, _hist_pt100_nch20_nch, _hist_pt100_nch20_pt, _hist_pt100_nch20_eta);
+        if (cfs100.size() >= 20) _sumW_pt100_nch20->fill();
+        fillPtEtaNch(cfs100, 20, _hist_pt100_nch20_nch, _hist_pt100_nch20_pt, _hist_pt100_nch20_eta);
       }
 
       // 500 GeV final states
       const ChargedFinalState& cfs500 = apply<ChargedFinalState>(event, "CFS500");
       // nch>=1
-      if (cfs500.size() >= 1) _sumW_pt500_nch1 += weight;
-      fillPtEtaNch(cfs500, 1, weight, _hist_pt500_nch1_nch, _hist_pt500_nch1_pt, _hist_pt500_nch1_eta, _hist_pt500_nch1_ptnch);
+      if (cfs500.size() >= 1) _sumW_pt500_nch1->fill();
+      fillPtEtaNch(cfs500, 1, _hist_pt500_nch1_nch, _hist_pt500_nch1_pt, _hist_pt500_nch1_eta, _hist_pt500_nch1_ptnch);
       // nch>=6
       if (!fuzzyEquals(sqrtS()/GeV, 2360)) {
-        if (cfs500.size() >= 6) _sumW_pt500_nch6 += weight;
-        fillPtEtaNch(cfs500, 6, weight, _hist_pt500_nch6_nch, _hist_pt500_nch6_pt, _hist_pt500_nch6_eta);
+        if (cfs500.size() >= 6) _sumW_pt500_nch6->fill();
+        fillPtEtaNch(cfs500, 6, _hist_pt500_nch6_nch, _hist_pt500_nch6_pt, _hist_pt500_nch6_eta);
       }
 
       // 2500 GeV final states
       if (!fuzzyEquals(sqrtS()/GeV, 2360)) {
         const ChargedFinalState& cfs2500 = apply<ChargedFinalState>(event, "CFS2500");
         // nch>=1
-        if (cfs2500.size() >= 1) _sumW_pt2500_nch1 += weight;
-        fillPtEtaNch(cfs2500, 1, weight, _hist_pt2500_nch1_nch, _hist_pt2500_nch1_pt, _hist_pt2500_nch1_eta, _hist_pt2500_nch1_ptnch);
+        if (cfs2500.size() >= 1) _sumW_pt2500_nch1->fill();
+        fillPtEtaNch(cfs2500, 1, _hist_pt2500_nch1_nch, _hist_pt2500_nch1_pt, _hist_pt2500_nch1_eta, _hist_pt2500_nch1_ptnch);
       }
 
     }
@@ -192,7 +191,7 @@ namespace Rivet {
 
   private:
 
-    double _sumW_pt100_nch2, _sumW_pt100_nch20, _sumW_pt500_nch1,
+    CounterPtr _sumW_pt100_nch2, _sumW_pt100_nch20, _sumW_pt500_nch1,
       _sumW_pt500_nch6, _sumW_pt2500_nch1;
 
     Histo1DPtr _hist_pt100_nch2_nch,

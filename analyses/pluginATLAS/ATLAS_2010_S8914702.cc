@@ -93,7 +93,7 @@ namespace Rivet {
       MSG_DEBUG("Passed isolation cut");
 
       // Fill histogram
-      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et()/GeV, 1.0);
+      _h_Et_photon[eta_bin]->fill(leadingPhoton.Et()/GeV);
     }
 
 

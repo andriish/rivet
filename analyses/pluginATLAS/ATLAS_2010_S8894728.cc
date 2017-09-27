@@ -93,8 +93,6 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       // Require at least one track in the event with pT >= 1 GeV
       const ChargedFinalState& cfslead = apply<ChargedFinalState>(event, "CFSlead");
       if (cfslead.size() < 1) {
@@ -141,13 +139,13 @@ namespace Rivet {
         const int ir = region_index(dPhi);
         switch (ir) {
         case 0:
-          _hist_dn_dpt_toward_500->fill(num500[0], pT, weight);
+          _hist_dn_dpt_toward_500->fill(num500[0], pT);
           break;
         case 1:
-          _hist_dn_dpt_transverse_500->fill(num500[1], pT, weight);
+          _hist_dn_dpt_transverse_500->fill(num500[1], pT);
           break;
         case 2:
-          _hist_dn_dpt_away_500->fill(num500[2], pT, weight);
+          _hist_dn_dpt_away_500->fill(num500[2], pT);
           break;
         default:
           assert(false && "How did we get here?");
@@ -161,19 +159,19 @@ namespace Rivet {
       const double dEtadPhi = (2*2.5 * 2*PI/3.0);
       // Transverse profiles need 4 orders of moments for stddev with errors
       for (int i = 0; i < 4; ++i) {
-        _hist_nch_transverse_500[i]->fill(pTlead/GeV, intpow(num500[1]/dEtadPhi, i+1), weight);
-        _hist_ptsum_transverse_500[i]->fill(pTlead/GeV, intpow(ptSum500[1]/GeV/dEtadPhi, i+1), weight);
+        _hist_nch_transverse_500[i]->fill(pTlead/GeV, intpow(num500[1]/dEtadPhi, i+1));
+        _hist_ptsum_transverse_500[i]->fill(pTlead/GeV, intpow(ptSum500[1]/GeV/dEtadPhi, i+1));
       }
       // Toward and away profiles only need the first moment (the mean)
-      _hist_nch_toward_500->fill(pTlead/GeV, num500[0]/dEtadPhi, weight);
-      _hist_nch_away_500->fill(pTlead/GeV, num500[2]/dEtadPhi, weight);
-      _hist_ptsum_toward_500->fill(pTlead/GeV, ptSum500[0]/GeV/dEtadPhi, weight);
-      _hist_ptsum_away_500->fill(pTlead/GeV, ptSum500[2]/GeV/dEtadPhi, weight);
+      _hist_nch_toward_500->fill(pTlead/GeV, num500[0]/dEtadPhi);
+      _hist_nch_away_500->fill(pTlead/GeV, num500[2]/dEtadPhi);
+      _hist_ptsum_toward_500->fill(pTlead/GeV, ptSum500[0]/GeV/dEtadPhi);
+      _hist_ptsum_away_500->fill(pTlead/GeV, ptSum500[2]/GeV/dEtadPhi);
       // <pT> profiles
       //MSG_INFO("Trans pT1, pTsum, Nch, <pT>" << pTlead/GeV << ", " <<  ptSum500[1]/GeV << ", " << num500[1] << ", " << ptSum500[1]/GeV/num500[1]);
-      if (num500[1] > 0) _hist_ptavg_transverse_500->fill(pTlead/GeV, ptSum500[1]/GeV/num500[1], weight);
-      if (num500[0] > 0) _hist_ptavg_toward_500->fill(pTlead/GeV, ptSum500[0]/GeV/num500[0], weight);
-      if (num500[2] > 0) _hist_ptavg_away_500->fill(pTlead/GeV, ptSum500[2]/GeV/num500[2], weight);
+      if (num500[1] > 0) _hist_ptavg_transverse_500->fill(pTlead/GeV, ptSum500[1]/GeV/num500[1]);
+      if (num500[0] > 0) _hist_ptavg_toward_500->fill(pTlead/GeV, ptSum500[0]/GeV/num500[0]);
+      if (num500[2] > 0) _hist_ptavg_away_500->fill(pTlead/GeV, ptSum500[2]/GeV/num500[2]);
 
 
       // Update the "proper" dphi profile histograms
@@ -197,10 +195,10 @@ namespace Rivet {
           mean = hist_num_dphi_500.bin(i).xMean();
           value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).xWidth()/10.0;
         }
-        if (pTlead/GeV >= ptcut[0]) _hist_N_vs_dPhi_1_500->fill(mean, value, weight);
-        if (pTlead/GeV >= ptcut[1]) _hist_N_vs_dPhi_2_500->fill(mean, value, weight);
-        if (pTlead/GeV >= ptcut[2]) _hist_N_vs_dPhi_3_500->fill(mean, value, weight);
-        if (pTlead/GeV >= ptcut[3]) _hist_N_vs_dPhi_5_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[0]) _hist_N_vs_dPhi_1_500->fill(mean, value);
+        if (pTlead/GeV >= ptcut[1]) _hist_N_vs_dPhi_2_500->fill(mean, value);
+        if (pTlead/GeV >= ptcut[2]) _hist_N_vs_dPhi_3_500->fill(mean, value);
+        if (pTlead/GeV >= ptcut[3]) _hist_N_vs_dPhi_5_500->fill(mean, value);
 
         // Then pT
         mean = hist_pt_dphi_500.bin(i).xMid();
@@ -209,10 +207,10 @@ namespace Rivet {
           mean = hist_pt_dphi_500.bin(i).xMean();
           value = hist_pt_dphi_500.bin(i).area()/hist_pt_dphi_500.bin(i).xWidth()/10.0;
         }
-        if (pTlead/GeV >= ptcut[0]) _hist_pT_vs_dPhi_1_500->fill(mean, value, weight);
-        if (pTlead/GeV >= ptcut[1]) _hist_pT_vs_dPhi_2_500->fill(mean, value, weight);
-        if (pTlead/GeV >= ptcut[2]) _hist_pT_vs_dPhi_3_500->fill(mean, value, weight);
-        if (pTlead/GeV >= ptcut[3]) _hist_pT_vs_dPhi_5_500->fill(mean, value, weight);
+        if (pTlead/GeV >= ptcut[0]) _hist_pT_vs_dPhi_1_500->fill(mean, value);
+        if (pTlead/GeV >= ptcut[1]) _hist_pT_vs_dPhi_2_500->fill(mean, value);
+        if (pTlead/GeV >= ptcut[2]) _hist_pT_vs_dPhi_3_500->fill(mean, value);
+        if (pTlead/GeV >= ptcut[3]) _hist_pT_vs_dPhi_5_500->fill(mean, value);
       }
 
 
@@ -233,18 +231,18 @@ namespace Rivet {
       }
 
       // Now fill the two sets of 100 MeV underlying event histograms
-      _hist_nch_transverse_100->fill(pTlead/GeV, num100[1]/dEtadPhi, weight);
-      _hist_nch_toward_100->fill(pTlead/GeV, num100[0]/dEtadPhi, weight);
-      _hist_nch_away_100->fill(pTlead/GeV, num100[2]/dEtadPhi, weight);
-      _hist_ptsum_transverse_100->fill(pTlead/GeV, ptSum100[1]/GeV/dEtadPhi, weight);
-      _hist_ptsum_toward_100->fill(pTlead/GeV, ptSum100[0]/GeV/dEtadPhi, weight);
-      _hist_ptsum_away_100->fill(pTlead/GeV, ptSum100[2]/GeV/dEtadPhi, weight);
+      _hist_nch_transverse_100->fill(pTlead/GeV, num100[1]/dEtadPhi);
+      _hist_nch_toward_100->fill(pTlead/GeV, num100[0]/dEtadPhi);
+      _hist_nch_away_100->fill(pTlead/GeV, num100[2]/dEtadPhi);
+      _hist_ptsum_transverse_100->fill(pTlead/GeV, ptSum100[1]/GeV/dEtadPhi);
+      _hist_ptsum_toward_100->fill(pTlead/GeV, ptSum100[0]/GeV/dEtadPhi);
+      _hist_ptsum_away_100->fill(pTlead/GeV, ptSum100[2]/GeV/dEtadPhi);
 
       // And finally the Nch and pT vs eta_lead profiles (again from > 100 MeV tracks, and only at 7 TeV)
       if (fuzzyEquals(sqrtS(), 7*TeV) && pTlead > 5*GeV) {
         // MSG_INFO(sqrtS() << " " << pTlead << " " << ptSum100[1]/dEtadPhi << " " << num100[1]/dEtadPhi);
-        _hist_nch_vs_eta_transverse_100->fill(etalead, num100[1]/dEtadPhi, weight);
-        _hist_ptsum_vs_eta_transverse_100->fill(etalead, ptSum100[1]/GeV/dEtadPhi, weight);
+        _hist_nch_vs_eta_transverse_100->fill(etalead, num100[1]/dEtadPhi);
+        _hist_ptsum_vs_eta_transverse_100->fill(etalead, ptSum100[1]/GeV/dEtadPhi);
       }
 
     }
