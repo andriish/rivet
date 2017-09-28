@@ -25,7 +25,11 @@ namespace Rivet {
     _pid = abs(pid);
     _trackPhotons = trackPhotons;
 
-    IdentifiedFinalState bareleptons(chLeptons == PROMPTCHLEPTONS ? PromptFinalState(inputfs) : inputfs);
+    IdentifiedFinalState bareleptons;
+    if (chLeptons == PROMPTCHLEPTONS)
+      bareleptons = IdentifiedFinalState(PromptFinalState(inputfs));
+    else
+      bareleptons = IdentifiedFinalState(inputfs);
     bareleptons.acceptIdPair(_pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
