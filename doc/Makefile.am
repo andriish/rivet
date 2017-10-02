@@ -66,10 +66,10 @@ DOCS += compare-histos.html make-plots.html
 EXTRA_DIST += compare-histos.html make-plots.html
 
 compare-histos.html: compare-histos.txt
-	asciidoc -a toc compare-histos.txt
+	asciidoc -a toc $<
 
 make-plots.html: make-plots.txt
-	asciidoc -a toc make-plots.txt
+	asciidoc -a toc $<
 
 endif
 
