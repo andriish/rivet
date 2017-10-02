@@ -46,6 +46,6 @@ install-data-local: $(PLUGIN_DATAFILES)
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
 	@echo "Uninstalling analysis data files..."
-	@cd $(DESTDIR)$(pkgdatadir) && for i in $(PLUGIN_DATAFILES); do ds="$$ds `basename $$i`"; done && rm -f $$dd
+	rm -f $(DESTDIR)$(pkgdatadir)/*.{info,plot,yoda}
 
 endif
