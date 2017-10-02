@@ -4,7 +4,9 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
+  assert(argc > 1);
+
   Rivet::AnalysisHandler ah;
   Rivet::Log::setLevel("Rivet", Rivet::Log::DEBUG);
 
@@ -12,9 +14,14 @@ int main() {
   ah.addAnalysis("EXAMPLE");
   ah.addAnalyses({{ "MC_JETS", "EXAMPLE_CUTS", "EXAMPLE_SMEAR" }});
 
-  std::ifstream file("testApi.hepmc");
+  std::ifstream file(argv[1]);
   HepMC::IO_GenEvent hepmcio(file);
   HepMC::GenEvent* evt = hepmcio.read_next_event();
+  if (! evt) {
+  	cerr << "No events\n";
+  	return 1;
+  }
+
   while (evt) {
     // Analyse current event
     ah.analyze(*evt);

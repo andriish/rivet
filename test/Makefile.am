@@ -32,7 +32,7 @@ TESTS_ENVIRONMENT = \
   RIVET_TESTS_SRC=$(srcdir)
 
 TESTS = \
-testMath testMatVec testCmp testApi testNaN testBeams \
+testMath testMatVec testCmp testApi.sh testNaN.sh testBeams \
 testImport.sh
 
 if ENABLE_ANALYSES
@@ -41,6 +41,6 @@ TESTS += testCmdLine.sh
 endif
 endif
 
-EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh
+EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh testApi testNaN
 
 CLEANFILES = log a.out fifo.hepmc file2.hepmc out.yoda NaN.aida Rivet.yoda

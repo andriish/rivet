@@ -49,14 +49,21 @@ private:
 
 DECLARE_RIVET_PLUGIN(Test);
 
-int main() {
+int main(int argc, char* argv[]) {
+  assert(argc > 1);
+
   Rivet::AnalysisHandler rivet;
   rivet.addAnalysis("Test");
 
-  std::ifstream file("testApi.hepmc");
+  std::ifstream file(argv[1]);
   HepMC::IO_GenEvent hepmcio(file);
   HepMC::GenEvent* evt = hepmcio.read_next_event();
   double sum_of_weights = 0.0;
+  if (! evt) {
+  	cerr << "No events\n";
+  	return 1;
+  }
+
   while (evt) {
     // Analyse current event
     rivet.analyze(*evt);
