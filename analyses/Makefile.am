@@ -5,7 +5,7 @@ if ENABLE_ANALYSES
 PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
 PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
 PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
-PLUGIN_DATAFILES = $(shell ls $(srcdir)/plugin*/*.{info,plot,yoda})
+PLUGIN_DATAFILES = $(shell ls $(abs_srcdir)/plugin*/*.{info,plot,yoda})
 
 CLEANFILES = $(PLUGIN_LIBS)
 EXTRA_DIST = $(PLUGIN_DIRS)
@@ -31,7 +31,7 @@ RivetTOTEMAnalyses.so: $(shell ls $(srcdir)/pluginTOTEM/*.cc)
 
 all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 	mkdir -p $(builddir)/data
-	@for i in $(PLUGIN_DATAFILES); do $(LN_S) -f $$i $(builddir)/data; done
+	$(LN_S) -f $(abs_srcdir)/plugin*/*.{info,plot,yoda} $(builddir)/data
 
 clean-local:
 	rm -rf data
