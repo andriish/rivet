@@ -20,9 +20,9 @@ testBeams_LDADD = $(TEST_LDADD)
 
 TESTS_ENVIRONMENT = \
   RIVET_ANALYSIS_PATH=$(top_builddir)/analyses \
-  RIVET_DATA_PATH=$(top_srcdir)/analyses/data \
-  RIVET_INFO_PATH=$(top_srcdir)/analyses/data \
-  RIVET_REF_PATH=$(top_srcdir)/analyses/data \
+  RIVET_DATA_PATH=$(top_builddir)/analyses/data \
+  RIVET_INFO_PATH=$(top_builddir)/analyses/data \
+  RIVET_REF_PATH=$(top_builddir)/analyses/data \
   LIBLOCATION=$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH) \
   LD_LIBRARY_PATH=$$LIBLOCATION:$(LD_LIBRARY_PATH) \
   DYLD_LIBRARY_PATH=$$LIBLOCATION:$(DYLD_LIBRARY_PATH) \
