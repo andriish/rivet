@@ -2,36 +2,36 @@ AUTOMAKE_OPTIONS = -Wno-portability
 
 if ENABLE_ANALYSES
 
-PLUGIN_DIRS = $(wildcard plugin*)
-PLUGIN_NAMES = $(subst plugin,,$(PLUGIN_DIRS))
-PLUGIN_LIBS = $(patsubst plugin%,Rivet%Analyses.so,$(PLUGIN_DIRS))
-PLUGIN_DATAFILES = $(wildcard plugin*/*.info plugin*/*.plot plugin*/*.yoda)
+PLUGIN_DIRS = $(shell ls -d $(srcdir)/plugin*)
+PLUGIN_NAMES = $(notdir $(subst plugin,,$(PLUGIN_DIRS)))
+PLUGIN_LIBS = $(patsubst %,Rivet%Analyses.so,$(PLUGIN_NAMES))
+PLUGIN_DATAFILES = $(shell ls $(srcdir)/plugin*/*.{info,plot,yoda})
 
 CLEANFILES = $(PLUGIN_LIBS)
 EXTRA_DIST = $(PLUGIN_DIRS)
 
 %.so:
-	@+echo && RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_srcdir)/bin/rivet-buildplugin -j2 $@ $^
+	@+echo && RIVET_BUILDPLUGIN_BEFORE_INSTALL=1 bash $(top_builddir)/bin/rivet-buildplugin -j2 $@ $^ -I$(top_builddir)/include
 
-RivetALICEAnalyses.so: $(wildcard pluginALICE/*.cc)
-RivetATLASAnalyses.so: $(wildcard pluginATLAS/*.cc)
-RivetCDFAnalyses.so: $(wildcard pluginCDF/*.cc)
-RivetCMSAnalyses.so: $(wildcard pluginCMS/*.cc)
-RivetD0Analyses.so: $(wildcard pluginD0/*.cc)
-RivetHERAAnalyses.so: $(wildcard pluginHERA/*.cc)
-RivetLEPAnalyses.so: $(wildcard pluginLEP/*.cc)
-RivetLHCbAnalyses.so: $(wildcard pluginLHCb/*.cc)
-## RivetLHCfAnalyses.so: $(wildcard pluginLHCf/*.cc)
-RivetMCAnalyses.so: $(wildcard pluginMC/*.cc)
-RivetMiscAnalyses.so: $(wildcard pluginMisc/*.cc)
-RivetPetraAnalyses.so: $(wildcard pluginPetra/*.cc)
-RivetRHICAnalyses.so: $(wildcard pluginRHIC/*.cc)
-RivetSPSAnalyses.so: $(wildcard pluginSPS/*.cc)
-RivetTOTEMAnalyses.so: $(wildcard pluginTOTEM/*.cc)
+RivetALICEAnalyses.so: $(shell ls $(srcdir)/pluginALICE/*.cc)
+RivetATLASAnalyses.so: $(shell ls $(srcdir)/pluginATLAS/*.cc)
+RivetCDFAnalyses.so  : $(shell ls $(srcdir)/pluginCDF/*.cc)
+RivetCMSAnalyses.so  : $(shell ls $(srcdir)/pluginCMS/*.cc)
+RivetD0Analyses.so   : $(shell ls $(srcdir)/pluginD0/*.cc)
+RivetHERAAnalyses.so : $(shell ls $(srcdir)/pluginHERA/*.cc)
+RivetLEPAnalyses.so  : $(shell ls $(srcdir)/pluginLEP/*.cc)
+RivetLHCbAnalyses.so : $(shell ls $(srcdir)/pluginLHCb/*.cc)
+## RivetLHCfAnalyses.so : $(shell ls $(srcdir)/pluginLHCf/*.cc)
+RivetMCAnalyses.so   : $(shell ls $(srcdir)/pluginMC/*.cc)
+RivetMiscAnalyses.so : $(shell ls $(srcdir)/pluginMisc/*.cc)
+RivetPetraAnalyses.so: $(shell ls $(srcdir)/pluginPetra/*.cc)
+RivetRHICAnalyses.so : $(shell ls $(srcdir)/pluginRHIC/*.cc)
+RivetSPSAnalyses.so  : $(shell ls $(srcdir)/pluginSPS/*.cc)
+RivetTOTEMAnalyses.so: $(shell ls $(srcdir)/pluginTOTEM/*.cc)
 
 all-local: $(PLUGIN_LIBS) $(PLUGIN_DATAFILES)
 	mkdir -p $(builddir)/data
-	@for i in $(PLUGIN_DATAFILES); do $(LN_S) -f ../$$i $(builddir)/data; done
+	@for i in $(PLUGIN_DATAFILES); do $(LN_S) -f $$i $(builddir)/data; done
 
 clean-local:
 	rm -rf data
@@ -46,6 +46,6 @@ install-data-local: $(PLUGIN_DATAFILES)
 uninstall-local:
 	cd $(DESTDIR)$(libdir) && rm -f $(PLUGIN_LIBS)
 	@echo "Uninstalling analysis data files..."
-	@cd $(DESTDIR)$(pkgdatadir) && for i in $(PLUGIN_DATAFILES); do ds="$$ds `basename $$i`"; done && rm -f $$dd
+	rm -f $(DESTDIR)$(pkgdatadir)/*.{info,plot,yoda}
 
 endif

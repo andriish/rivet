@@ -6,8 +6,7 @@
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "YODA/ReaderYODA.h"
-#include "YODA/WriterYODA.h"
+#include "YODA/IO.h"
 #include <regex>
 
 namespace {
@@ -354,7 +353,7 @@ namespace Rivet {
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
       vector<YODA::AnalysisObject*> aos_raw;
-      YODA::ReaderYODA::read(filename, aos_raw);
+      YODA::read(filename, aos_raw);
       for (YODA::AnalysisObject* aor : aos_raw) aos.push_back(YODA::AnalysisObjectPtr(aor));
     } catch (const YODA::ReadError & e) {
       throw UserError("Unexpected error in reading file: " + filename);
@@ -427,7 +426,7 @@ namespace Rivet {
   void AnalysisHandler::writeData(const string& filename) const {
     const vector<YODA::AnalysisObjectPtr> aos = getData();
     try {
-      YODA::WriterYODA::write(filename, aos.begin(), aos.end());
+      YODA::write(filename, aos.begin(), aos.end());
     } catch ( YODA::WriteError ) {
       throw UserError("Unexpected error in writing file: " + filename);
     }

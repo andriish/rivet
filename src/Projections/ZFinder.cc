@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Projections/ZFinder.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 
@@ -11,6 +12,7 @@ namespace Rivet {
                    PdgId pid,
                    double minmass, double maxmass,
                    double dRmax,
+                   ChargedLeptons chLeptons,
                    ClusterPhotons clusterPhotons,
                    PhotonTracking trackPhotons,
                    double masstarget)
@@ -23,7 +25,11 @@ namespace Rivet {
     _pid = abs(pid);
     _trackPhotons = trackPhotons;
 
-    IdentifiedFinalState bareleptons(inputfs);
+    IdentifiedFinalState bareleptons;
+    if (chLeptons == PROMPTCHLEPTONS)
+      bareleptons = IdentifiedFinalState(PromptFinalState(inputfs));
+    else
+      bareleptons = IdentifiedFinalState(inputfs);
     bareleptons.acceptIdPair(_pid);
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);

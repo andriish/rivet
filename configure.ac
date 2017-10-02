@@ -14,7 +14,7 @@ fi
 
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
-AM_INIT_AUTOMAKE([dist-bzip2 -Wall])
+AM_INIT_AUTOMAKE([dist-bzip2 -Wall 1.10])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_CONFIG_MACRO_DIR([m4])
@@ -54,7 +54,6 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 AX_EXECINFO
-
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
 YODABINPATH=$YODALIBPATH/../bin
@@ -208,6 +207,15 @@ if test x$enable_pyext == xyes; then
   fi
 fi
 AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
+
+dnl
+dnl setup.py puts its build artifacts into a labelled path
+dnl this helps the test scripts to find them locally instead of
+dnl having to install first
+dnl
+RIVET_SETUP_PY_PATH=$(${PYTHON} -c 'import distutils.util as u, sys; vi=sys.version_info; print "lib.%s-%s.%s" % (u.get_platform(),vi.major, vi.minor)')
+AC_SUBST(RIVET_SETUP_PY_PATH)
+
 
 
 ## Cython checks

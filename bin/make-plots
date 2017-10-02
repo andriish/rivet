@@ -695,6 +695,12 @@ class MainPlot(Plot):
     def _draw(self, inputdata):
         out = ""
 
+        ## Draw a white background first
+        # TODO: Allow specifying in-frame bg color
+        out += '\n'
+        out += '\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=white,dimen=middle](0,0)(1,1)\n'
+        out += '\n'
+
         # TODO: do this more compactly, e.g. by assigning sorting keys!
         if inputdata.attr_bool('DrawSpecialFirst', False):
             for s in inputdata.special.values():
@@ -726,9 +732,11 @@ class MainPlot(Plot):
         if inputdata.attr_bool('Legend', False):
             legend = Legend(inputdata.description,inputdata.histos,inputdata.functions)
             out += legend.draw()
+
         if inputdata.description['is2dim']:
             colorscale = ColorScale(inputdata.description, self.coors)
             out += colorscale.draw()
+
         frame = Frame()
         out += frame.draw(inputdata)
 
@@ -943,6 +951,13 @@ class RatioPlot(Plot):
 
     def _draw(self, inputdata):
         out = ""
+
+        ## Draw a white background first
+        # TODO: Allow specifying in-frame bg color
+        out += '\n'
+        out += '\\psframe[linewidth=0pt,linestyle=none,fillstyle=solid,fillcolor=white,dimen=middle](0,0)(1,1)\n'
+        out += '\n'
+
         for i in inputdata.description['DrawOnly']:
             if inputdata.description.has_key('RatioPlotMode') and inputdata.description['RatioPlotMode'] == 'datamc':
                 if i != self.refdata:
@@ -2090,7 +2105,7 @@ class Frame(object):
 
     def draw(self,inputdata):
         out = ('\n%\n% Frame\n%\n')
-        if inputdata.description.has_key('FrameColor') and inputdata.description['FrameColor']!=None:
+        if inputdata.description.has_key('FrameColor') and inputdata.description['FrameColor'] is not None:
             color = inputdata.description['FrameColor']
             # We want to draw this frame only once, so set it to False for next time:
             inputdata.description['FrameColor']=None
