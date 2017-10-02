@@ -30,7 +30,7 @@ namespace Rivet {
     ATLAS_2016_I1419652() : Analysis("ATLAS_2016_I1419652") {
       for (int iT = 0; iT < kNPartTypes; ++iT)  {
         for (int iR = 0; iR < kNregions; ++iR)  {
-          book(_sumW[iT][iR], (ostringstream("_sumW") << iT << iR).str());
+          book(_sumW[iT][iR], "_sumW" + to_str(iT) + to_str(iR));
         }
       }
     }

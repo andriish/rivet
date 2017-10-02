@@ -49,7 +49,7 @@ namespace Rivet {
       book(_hNjetsRatio_comb ,2, 2, _mode + 1, true);
 
       for (size_t i = 0; i < 5; i++)
-          book(_weights[i], (ostringstream("_weights") << i).str());
+          book(_weights[i], "_weights" + to_str(i));
     }
 
 

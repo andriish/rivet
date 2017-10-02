@@ -30,7 +30,7 @@ namespace Rivet {
     void init() {
 
       for (int iR=0; iR < kNregions; ++iR)  {
-        book(_sumW[iR], (ostringstream("_sumW") << iR).str())       ;
+        book(_sumW[iR], "_sumW" + to_str(iR))       ;
       }
 
       // Initialise and register projections

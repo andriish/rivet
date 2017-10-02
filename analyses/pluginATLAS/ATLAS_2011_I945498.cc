@@ -29,11 +29,11 @@ namespace Rivet {
       _isZeeSample = false;
       _isZmmSample = false;
       for (size_t chn = 0; chn < 3; ++chn) {
-        book(weights_nj0[chn], (ostringstream("weights_nj0_") << chn).str());
-        book(weights_nj1[chn], (ostringstream("weights_nj1_") << chn).str());
-        book(weights_nj2[chn], (ostringstream("weights_nj2_") << chn).str());
-        book(weights_nj3[chn], (ostringstream("weights_nj3_") << chn).str());
-        book(weights_nj4[chn], (ostringstream("weights_nj4_") << chn).str());
+        book(weights_nj0[chn], "weights_nj0_" + to_str(chn));
+        book(weights_nj1[chn], "weights_nj1_" + to_str(chn));
+        book(weights_nj2[chn], "weights_nj2_" + to_str(chn));
+        book(weights_nj3[chn], "weights_nj3_" + to_str(chn));
+        book(weights_nj4[chn], "weights_nj4_" + to_str(chn));
       }
 
       // Set up projections
