@@ -41,6 +41,6 @@ TESTS += testCmdLine.sh
 endif
 endif
 
-EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh testApi testNaN
+EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh testApi.sh testNaN.sh
 
 CLEANFILES = log a.out fifo.hepmc file2.hepmc out.yoda NaN.aida Rivet.yoda
