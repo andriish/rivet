@@ -434,7 +434,7 @@ namespace Rivet {
 
 
   string AnalysisHandler::runName() const { return _runname; }
-  size_t AnalysisHandler::numEvents() const { return _eventCounter->numEntries(); }
+  size_t AnalysisHandler::numEvents() const { return _eventCounter.get()->_persistent[0]->numEntries(); }
 
 
   /*
