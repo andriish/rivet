@@ -14,4 +14,7 @@ __version__ = core.version()
 
 from rivet.plotinfo import *
 from rivet.aopaths import *
-import spiresbib, util
+try:
+    from . import spiresbib, util
+except ImportError:
+    import spiresbib, util
