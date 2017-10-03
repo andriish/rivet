@@ -1,3 +1,7 @@
+2017-10-03  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use Lester MT2 bisection header, and expose a few more mT2 function signatures.
+
 2017-09-26  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use generic YODA read and write functions -- enables zipped yoda.gz output.
