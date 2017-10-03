@@ -2697,7 +2697,7 @@ if __name__ == '__main__':
                       help="use Adobe Minion Pro as font. Note: You need to set TEXMFHOME first. DEPRECATED: Use --font")
     parser.add_option("--helvetica", dest="OUTPUT_FONT", action="store_const", const="helvetica", default="palatino",
                       help="use Helvetica as font. DEPRECATED: Use --font")
-    parser.add_option("--format", dest="OUTPUT_FORMAT", default="PDF",
+    parser.add_option("-f", "--format", dest="OUTPUT_FORMAT", default="PDF",
                       help="choose plot format, perhaps multiple comma-separated formats e.g. 'pdf' or 'tex,pdf,png' (default = PDF).")
     parser.add_option("--ps", dest="OUTPUT_FORMAT", action="store_const", const="PS", default="PDF",
                       help="create PostScript output (default). DEPRECATED")
