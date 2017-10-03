@@ -368,6 +368,8 @@ namespace Rivet {
     // Trace event record to see if particle came from a hadron (or a tau from a hadron decay)
     // Based on fromDecay() function
     bool fromHadronDecay(const Particle& p ) {
+      const GenParticle * gp = p.genParticle();
+      if (!gp) return false; /// TODO: something weird to make this necessary
       const GenVertex* prodVtx = p.genParticle()->production_vertex();
       if (prodVtx == NULL) return false;
       foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
