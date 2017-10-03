@@ -12,9 +12,6 @@ del sys
 from rivet.core import *
 __version__ = core.version()
 
-from rivet.plotinfo import *
-from rivet.aopaths import *
-try:
-    from . import spiresbib, util
-except ImportError:
-    import spiresbib, util
+from .plotinfo import *
+from .aopaths import *
+from . import spiresbib, util

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os, re
 from .util import texpand
 
@@ -35,7 +36,7 @@ class PlotParser(object):
             try:
                 import rivet
                 self.plotpaths = rivet.getAnalysisPlotPaths()
-            except Exception, e:
+            except Exception as e:
                 sys.stderr.write("Failed to load Rivet analysis plot paths: %s\n" % e)
                 raise ValueError("No plot paths given and the rivet module could not be loaded!")
 
@@ -61,7 +62,7 @@ class PlotParser(object):
         try:
             aop = AOPath(hpath)
         except:
-            print "Found analysis object with non-standard path structure:", hpath, "... skipping"
+            print("Found analysis object with non-standard path structure:", hpath, "... skipping")
             return None
 
         ## Assemble the list of headers from any matching plotinfo paths and additional style files
@@ -93,7 +94,7 @@ class PlotParser(object):
             if m:
                 tag, pathpat = m.group(2,3)
                 # pathpat could be a regex
-                if not self.pat_paths.has_key(pathpat):
+                if pathpat not in self.pat_paths:
                     self.pat_paths[pathpat] = re.compile(pathpat)
                 if tag == section:
                     m2 = self.pat_paths[pathpat].match(hpath)
@@ -118,15 +119,15 @@ class PlotParser(object):
                         oldval = value
                         try:
                             ## First escape backslashes *except* regex groups, then expand regex groups from path match
-                            #print "\n", value
+                            #print("\n", value)
                             value = value.encode("string-escape")
-                            #print value
+                            #print(value)
                             value = re.sub("(\\\\)(\\d)", "\\2", value) #< r-strings actually made this harder, since the \) is still treated as an escape!
-                            #print value
+                            #print(value)
                             value = msec.expand(value)
-                            #print value
+                            #print(value)
                         except Exception as e:
-                            #print e
+                            #print(e)
                             value = oldval #< roll back escapes if it goes wrong
                     ret[section][prop] = texpand(value) #< expand TeX shorthands
             elif section in ['SPECIAL']:
@@ -204,11 +205,11 @@ class PlotParser(object):
 
     def updateHistoHeaders(self, hist):
         headers = self.getHeaders(hist.histopath)
-        if headers.has_key("Title"):
+        if "Title" in headers:
             hist.title = headers["Title"]
-        if headers.has_key("XLabel"):
+        if "XLabel" in headers:
             hist.xlabel = headers["XLabel"]
-        if headers.has_key("YLabel"):
+        if "YLabel" in headers:
             hist.ylabel = headers["YLabel"]
 
 
