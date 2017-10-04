@@ -126,12 +126,12 @@ namespace Rivet {
         ++it;
       } catch (const Error& err) {
         MSG_ERROR("Error in " << a->name() << "::init method: " << err.what());
-      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	MSG_ERROR("Ignoring analysis " << a->name());
       	it = _analyses.erase(it);
       } catch (const YODA::Exception & err) {
-      	MSG_ERROR("Unhandled YODA exception in " << a->name() 
-      	                            << "::init method:\n" << err.what());
-      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	MSG_ERROR("Unhandled YODA exception in " << a->name() << "::init method:");
+      	MSG_ERROR(err.what());
+      	MSG_ERROR("Ignoring analysis " << a->name());
       	it = _analyses.erase(it);
       }
 
@@ -243,12 +243,12 @@ namespace Rivet {
         ++it;
       } catch (const Error& err) {
         MSG_ERROR("Error in " << a->name() << "::analyze method: " << err.what());
-      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	MSG_ERROR("Ignoring analysis " << a->name());
       	it = _analyses.erase(it);
       } catch (const YODA::Exception & err) {
-      	MSG_ERROR("Unhandled YODA exception in " << a->name() 
-      	                            << "::analyze method:\n" << err.what());
-      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	MSG_ERROR("Unhandled YODA exception in " << a->name() << "::analyze method:");
+      	MSG_ERROR(err.what());
+      	MSG_ERROR("Ignoring analysis " << a->name());
       	it = _analyses.erase(it);
       }
     }
@@ -293,8 +293,8 @@ namespace Rivet {
                   MSG_ERROR("Error in " << a->name() << "::finalize method: " << err.what());
                   removeAna = true;
               } catch (const YODA::Exception & err) {
-      		  MSG_ERROR("Unhandled YODA exception in " << a->name() 
-      		                              << "::finalize method:\n" << err.what());
+      		  MSG_ERROR("Unhandled YODA exception in " << a->name() << "::finalize method:");
+      		  MSG_ERROR(err.what());
       	          removeAna = true;
 	      }
           }
@@ -304,7 +304,7 @@ namespace Rivet {
 
 
     	  if (removeAna) {
-    	    MSG_ERROR("REMOVING ANALYSIS " << a->name());
+    	    MSG_ERROR("Ignoring analysis " << a->name());
     	    it = _analyses.erase(it);
     	  } else {
     	    ++it;	
