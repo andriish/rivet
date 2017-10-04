@@ -111,7 +111,10 @@ namespace Rivet {
 
     // Initialize the remaining analyses
     _stage = Stage::INIT;
-    for (AnaHandle a : _analyses) {
+    // DELIBERATELY no increment in for-loop. We may be erasing entries
+    for (auto it = _analyses.cbegin(); it != _analyses.cend(); /**/) {
+
+      const AnaHandle & a = *it;
       MSG_DEBUG("Initialising analysis: " << a->name());
       try {
         // Allow projection registration in the init phase onwards
@@ -119,12 +122,21 @@ namespace Rivet {
         a->init();
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
+        MSG_DEBUG("Done initialising analysis: " << a->name());
+        ++it;
       } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
-        exit(1);
+        MSG_ERROR("Error in " << a->name() << "::init method: " << err.what());
+      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	it = _analyses.erase(it);
+      } catch (const YODA::Exception & err) {
+      	MSG_ERROR("Unhandled YODA exception in " << a->name() 
+      	                            << "::init method:\n" << err.what());
+      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	it = _analyses.erase(it);
       }
-      MSG_DEBUG("Done initialising analysis: " << a->name());
+
     }
+
     _stage = Stage::OTHER;
     _initialised = true;
     MSG_DEBUG("Analysis handler initialised");
@@ -221,15 +233,24 @@ namespace Rivet {
 
     _eventCounter->fill();
     // Run the analyses
-    for (AnaHandle a : _analyses) {
+    // DELIBERATELY no increment in for-loop. We may be erasing entries
+    for (auto it = _analyses.cbegin(); it != _analyses.cend(); /**/) {
+      const AnaHandle & a = *it;
       MSG_TRACE("About to run analysis " << a->name());
       try {
         a->analyze(event);
+        MSG_TRACE("Finished running analysis " << a->name());
+        ++it;
       } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::analyze method: " << err.what() << endl;
-        exit(1);
+        MSG_ERROR("Error in " << a->name() << "::analyze method: " << err.what());
+      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	it = _analyses.erase(it);
+      } catch (const YODA::Exception & err) {
+      	MSG_ERROR("Unhandled YODA exception in " << a->name() 
+      	                            << "::analyze method:\n" << err.what());
+      	MSG_ERROR("REMOVING ANALYSIS " << a->name());
+      	it = _analyses.erase(it);
       }
-      MSG_TRACE("Finished running analysis " << a->name());
     }
   }
 
@@ -254,7 +275,10 @@ namespace Rivet {
               ao.get()->pushToPersistent(_subEventWeights);
       }
 
-      for (const AnaHandle& a : _analyses) {
+    // DELIBERATELY no increment in for-loop. We may be erasing entries
+      for (auto it = _analyses.cbegin(); it != _analyses.cend(); /**/) {
+          const AnaHandle & a = *it;
+          bool removeAna = false;
           a->setCrossSection(_xs);
           for (size_t iW = 0; iW < numWeights(); iW++) {
               _eventCounter.get()->setActiveWeightIdx(iW);
@@ -266,13 +290,25 @@ namespace Rivet {
               try {
                   a->finalize();
               } catch (const Error& err) {
-                  cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
-                  exit(1);
-              }
+                  MSG_ERROR("Error in " << a->name() << "::finalize method: " << err.what());
+                  removeAna = true;
+              } catch (const YODA::Exception & err) {
+      		  MSG_ERROR("Unhandled YODA exception in " << a->name() 
+      		                              << "::finalize method:\n" << err.what());
+      	          removeAna = true;
+	      }
           }
           // allow AO destruction again
           for (auto ao : a->analysisObjects())
             ao.get()->blockDestructor(false);
+
+
+    	  if (removeAna) {
+    	    MSG_ERROR("REMOVING ANALYSIS " << a->name());
+    	    it = _analyses.erase(it);
+    	  } else {
+    	    ++it;	
+    	  }
       }
 
     // Print out number of events processed
