@@ -102,22 +102,43 @@ namespace Rivet {
     void finalize() {
       for (size_t i = 0; i < 5; ++i) {
         // All trk mean pT vs Nch
+        try {
         _h_AllTrkMeanPt->fill(_multBinCent[i], _th_AllTrkSpectrum[i].xMean(), getMeanError(_th_AllTrkSpectrum[i]));
-
+	}
+	catch (const YODA::LowStatsError &) {
+		;
+	}
         // Soft trk mean pT vs Nch
+        try {
         _h_SoftTrkMeanPt->fill(_multBinCent[i], _th_SoftTrkSpectrum[i].xMean(), getMeanError(_th_SoftTrkSpectrum[i]));
-
+	}
+	catch (const YODA::LowStatsError &) {
+		;
+	}
         // Intrajet trk mean pT vs Nch
+        try {
         _h_IntrajetTrkMeanPt->fill(_multBinCent[i], _th_JetTrkSpectrum[i].xMean(), getMeanError(_th_JetTrkSpectrum[i]));
-
+	}
+	catch (const YODA::LowStatsError &) {
+		;
+	}
         // Intrajet leader trk mean pT vs Nch
+        try {
         _h_IntrajetLeaderTrkMeanPt->fill(_multBinCent[i], _th_JetLTrkSpectrum[i].xMean(), getMeanError(_th_JetLTrkSpectrum[i]));
-
+	}
+	catch (const YODA::LowStatsError &) {
+		;
+	}
         // Jet mean pT vs Nch
+        try {
         const double sem = (_h_JetSpectrum[i]->xStdDev())/(sqrt(_h_JetSpectrum[i]->sumW())) / _h_JetSpectrum[i]->xMean();
         _h_MeanJetPt->fill(_multBinCent[i], _h_JetSpectrum[i]->xMean(), sem);
-
+	}
+	catch (const YODA::LowStatsError &) {
+		;
+	}
         // Jet rates
+        if (_passedEv[i] > 0) {
 	double avJetRate5  = _jetCounter5GeV[i]  / _passedEv[i];
         double avJetRate30 = _jetCounter30GeV[i] / _passedEv[i];
 
@@ -126,6 +147,7 @@ namespace Rivet {
 
         const double sem30 = (_jetCounter30GeV[i] != 0) ?  1 / sqrt(_jetCounter30GeV[i]) : 0;
         _h_JetRate30GeV->fill(_multBinCent[i], avJetRate30, sem30);
+	}
 
         scale(_h_JetSpectrum[i], 4.0 / _jetCounter5GeV[i]);
         scale(_h_JetStruct[i], 0.08 / _jetStructNorm[i]);
