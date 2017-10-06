@@ -32,29 +32,29 @@ namespace Rivet {
       declare(UnstableFinalState(), "UFS");
 
       /// Book histograms
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.addHistogram(  2.0, 2.5, book(tmp, 3, 1, 1));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.addHistogram(  2.5, 3.0, book(tmp, 3, 1, 2));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.addHistogram(  3.0, 3.5, book(tmp, 3, 1, 3));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.addHistogram(  3.5, 4.0, book(tmp, 3, 1, 4));}
-      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.addHistogram(  4.0, 4.5, book(tmp, 3, 1, 5));}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add( 2.0, 2.5, book(tmp, 3, 1, 1) );}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add( 2.5, 3.0, book(tmp, 3, 1, 2) );}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add( 3.0, 3.5, book(tmp, 3, 1, 3) );}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add( 3.5, 4.0, book(tmp, 3, 1, 4) );}
+      {Histo1DPtr tmp; _h_pdg411_Dplus_pT_y.add( 4.0, 4.5, book(tmp, 3, 1, 5) );}
 
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.addHistogram(  2.0, 2.5, book(tmp, 2, 1, 1));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.addHistogram(  2.5, 3.0, book(tmp, 2, 1, 2));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.addHistogram(  3.0, 3.5, book(tmp, 2, 1, 3));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.addHistogram(  3.5, 4.0, book(tmp, 2, 1, 4));}
-      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.addHistogram(  4.0, 4.5, book(tmp, 2, 1, 5));}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add( 2.0, 2.5, book(tmp, 2, 1, 1) );}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add( 2.5, 3.0, book(tmp, 2, 1, 2) );}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add( 3.0, 3.5, book(tmp, 2, 1, 3) );}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add( 3.5, 4.0, book(tmp, 2, 1, 4) );}
+      {Histo1DPtr tmp; _h_pdg421_Dzero_pT_y.add( 4.0, 4.5, book(tmp, 2, 1, 5) );}
 
-      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.addHistogram(  2.0, 2.5, book(tmp, 5, 1, 1));}
-      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.addHistogram(  2.5, 3.0, book(tmp, 5, 1, 2));}
-      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.addHistogram(  3.0, 3.5, book(tmp, 5, 1, 3));}
-      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.addHistogram(  3.5, 4.0, book(tmp, 5, 1, 4));}
-      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.addHistogram(  4.0, 4.5, book(tmp, 5, 1, 5));}
+      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.add( 2.0, 2.5, book(tmp, 5, 1, 1) );}
+      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.add( 2.5, 3.0, book(tmp, 5, 1, 2) );}
+      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.add( 3.0, 3.5, book(tmp, 5, 1, 3) );}
+      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.add( 3.5, 4.0, book(tmp, 5, 1, 4) );}
+      {Histo1DPtr tmp; _h_pdg431_Dsplus_pT_y.add( 4.0, 4.5, book(tmp, 5, 1, 5) );}
 
-      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.addHistogram(  2.0, 2.5, book(tmp, 4, 1, 1));}
-      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.addHistogram(  2.5, 3.0, book(tmp, 4, 1, 2));}
-      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.addHistogram(  3.0, 3.5, book(tmp, 4, 1, 3));}
-      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.addHistogram(  3.5, 4.0, book(tmp, 4, 1, 4));}
-      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.addHistogram(  4.0, 4.5, book(tmp, 4, 1, 5));}
+      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.add( 2.0, 2.5, book(tmp, 4, 1, 1) );}
+      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.add( 2.5, 3.0, book(tmp, 4, 1, 2) );}
+      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.add( 3.0, 3.5, book(tmp, 4, 1, 3) );}
+      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.add( 3.5, 4.0, book(tmp, 4, 1, 4) );}
+      {Histo1DPtr tmp; _h_pdg413_Dstarplus_pT_y.add( 4.0, 4.5, book(tmp, 4, 1, 5) );}
 
       book(_h_pdg4122_Lambdac_pT ,1, 1, 1);
     }
@@ -121,10 +121,10 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
-    BinnedHistogram<double> _h_pdg411_Dplus_pT_y;
-    BinnedHistogram<double> _h_pdg421_Dzero_pT_y;
-    BinnedHistogram<double> _h_pdg431_Dsplus_pT_y;
-    BinnedHistogram<double> _h_pdg413_Dstarplus_pT_y;
+    BinnedHistogram _h_pdg411_Dplus_pT_y;
+    BinnedHistogram _h_pdg421_Dzero_pT_y;
+    BinnedHistogram _h_pdg431_Dsplus_pT_y;
+    BinnedHistogram _h_pdg413_Dstarplus_pT_y;
     Histo1DPtr _h_pdg4122_Lambdac_pT;
     //@}
 

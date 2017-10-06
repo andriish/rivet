@@ -2,7 +2,6 @@
 #ifndef RIVET_BINNEDHISTOGRAM_HH
 #define RIVET_BINNEDHISTOGRAM_HH
 
-#error "BinnedHistogram needs to be rewritten"
 /// @todo BinnedHistogram needs to have a list of interbnal members first which then get booked
 /// by the analysis. Booking a temporary, and then adding into BinnedHisto is not possible
 
@@ -21,42 +20,36 @@ namespace Rivet {
   /// each in a different region of a second quantity.  For example, a
   /// BinnedHistogram may contain histograms of the cross-section differential
   /// in \f$ p_T \f$ in different \f$ \eta \f$  regions.
-  template<typename T>
   class BinnedHistogram {
   public:
 
     /// Create a new empty BinnedHistogram
-    BinnedHistogram() {    }
+    BinnedHistogram() = default;
 
     /// Create a new BinnedHistogram with the given bin edges and contents
-    BinnedHistogram(const vector<T>& edges, const vector<Histo1DPtr>& histos) {
+    BinnedHistogram(const vector<double>& edges, const vector<Histo1DPtr>& histos) {
       assert(edges.size() == histos.size()+1);
       for (size_t i = 0; i < histos.size(); ++i)
-        addHistogram(edges[i], edges[i+1], histos[i]);
+        add(edges[i], edges[i+1], histos[i]);
     }
 
     /// @todo Can we have an "emplace constructor", passing tuples of bookHisto1D args?
 
 
     ///  Add a histogram in the @c T bin between @a binMin and @a binMax
-    const BinnedHistogram<T>& add(const T& binMin, const T& binMax, Histo1DPtr histo);
-    /// Clumsier alias
-    /// @deprecated Prefer add()
-    const BinnedHistogram<T>& addHistogram(const T& binMin, const T& binMax, Histo1DPtr histo) {
-      return add(binMin, binMax, histo);
-    }
+    const BinnedHistogram & add(double binMin, double binMax, Histo1DPtr histo);
 
 
     /// Fill the histogram in the same bin as @a binval with value @a val and weight @a weight
-    void fill(const T& binval, double val, double weight = 1.0);
+    void fill(double binval, double val, double weight = 1.0);
 
 
     /// @brief Get the histogram in the same bin as @a binval (const)
     /// @note Throws a RangeError if @a binval doesn't fall in a declared bin
-    const Histo1DPtr histo(const T& binval) const;
+    const Histo1DPtr histo(double binval) const;
     /// @brief Get the histogram in the same bin as @a binval
     /// @note Throws a RangeError if @a binval doesn't fall in a declared bin
-    Histo1DPtr histo(const T& binval);
+    Histo1DPtr histo(double binval);
 
     /// Get the contained histograms (const)
     const vector<Histo1DPtr>& histos() const { return _histos; }
@@ -67,14 +60,14 @@ namespace Rivet {
 
     /// Scale histograms taking into account its "external" binwidth, i.e. by scale/binWidth
     /// @note The Analysis pointer is passed in order to call the analysis' scale(h) method: can we avoid that?
-    void scale(const T& scale, Analysis* ana);
+    void scale(double scale, Analysis* ana);
 
 
   private:
 
-    map<T, Histo1DPtr> _histosByUpperBound, _histosByLowerBound;
+    map<double, Histo1DPtr> _histosByUpperBound, _histosByLowerBound;
     vector<Histo1DPtr> _histos;
-    map<Histo1DPtr, T> _binWidths;
+    map<Histo1DPtr, double> _binWidths;
 
   };
 
