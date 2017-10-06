@@ -58,6 +58,7 @@ namespace Rivet {
     void FillPlots(const ZFinder& zfinder, Histo1DPtr hist, double leading_pT) {
 
       if(zfinder.bosons().size() != 1) return;
+      if(zfinder.particles().size() < 2) return;
 
       const FourMomentum el1 = zfinder.particles()[0].momentum();
       const FourMomentum el2 = zfinder.particles()[1].momentum();

@@ -154,7 +154,7 @@ using namespace HepMC;
       map<int, double>::iterator pPartLft = partLftMap.find(pid);
       // search stable particle list
       if (pPartLft == partLftMap.end()) {
-        if (pid <= 100) return 0.0;
+        if (pid <= 100 || pid == 990) return 0.0;
         for ( auto id : stablePDGIds ) {
           if (pid == id) { lft = 0.0; break; }
         }

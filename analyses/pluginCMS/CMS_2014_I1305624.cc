@@ -121,6 +121,16 @@ namespace Rivet {
         book(_h_tottrnsmass[ij] ,1, 4, ij+1);
         book(_h_y23c[ij] ,1, 5, ij+1);
         //
+      }
+      _needBinInit = true;
+    }
+
+
+    /// Perform the per-event analysis
+    void analyze(const Event& event) {
+
+      if (_needBinInit) {
+      	for (int ij=0; ij < NJETPTMN; ij++) {
         _alow1[ij] = _h_thrustc[ij]->xMin();
         _alow2[ij] = _h_broadt[ij]->xMin();
         _alow3[ij] = _h_tot3dmass[ij]->xMin();
@@ -132,12 +142,10 @@ namespace Rivet {
         _ahgh3[ij] = _h_tot3dmass[ij]->xMax();
         _ahgh4[ij] = _h_tottrnsmass[ij]->xMax();
         _ahgh5[ij] = _h_y23c[ij]->xMax();
+
+        _needBinInit = false;
+	}
       }
-    }
-
-
-    /// Perform the per-event analysis
-    void analyze(const Event& event) {
 
       const Jets& jets = apply<FastJets>(event, "Jets").jetsByPt(30.0*GeV);
       if (jets.size() < 2) vetoEvent;
@@ -201,6 +209,7 @@ namespace Rivet {
     //@}
 
     // Data members
+    bool _needBinInit;
     double _alow1[NJETPTMN], _alow2[NJETPTMN], _alow3[NJETPTMN], _alow4[NJETPTMN], _alow5[NJETPTMN];
     double _ahgh1[NJETPTMN], _ahgh2[NJETPTMN], _ahgh3[NJETPTMN], _ahgh4[NJETPTMN], _ahgh5[NJETPTMN];
 
