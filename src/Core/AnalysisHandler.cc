@@ -15,11 +15,11 @@ namespace Rivet {
     : _runname(runname), _numEvents(0),
       _sumOfWeights(0.0), _xs(NAN),
       _initialised(false), _ignoreBeams(false)
-  {}
+  {  }
 
 
   AnalysisHandler::~AnalysisHandler()
-  {}
+  {  }
 
 
   Log& AnalysisHandler::getLog() const {
@@ -139,7 +139,7 @@ namespace Rivet {
 
 
   void AnalysisHandler::analyze(const GenEvent* ge) {
-    if (ge == NULL) {
+    if (ge == nullptr) {
       MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
       //throw Error("AnalysisHandler received null pointer to GenEvent");
     }

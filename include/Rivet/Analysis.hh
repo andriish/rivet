@@ -9,10 +9,12 @@
 #include "Rivet/ProjectionApplier.hh"
 #include "Rivet/ProjectionHandler.hh"
 #include "Rivet/AnalysisLoader.hh"
-#include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Tools/ParticleUtils.hh"
-#include "Rivet/Tools/Cuts.hh"
+#include "Rivet/Tools/BinnedHistogram.hh"
+#include "Rivet/Tools/RivetMT2.hh"
+#include "Rivet/Tools/RivetYODA.hh"
 
 
 /// @def vetoEvent

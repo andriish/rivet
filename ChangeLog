@@ -1,3 +1,7 @@
+2017-10-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Embed zstr and enable transparent reading of gzipped HepMC streams.
+
 2017-10-03  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use Lester MT2 bisection header, and expose a few more mT2 function signatures.
