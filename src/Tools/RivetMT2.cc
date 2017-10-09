@@ -4,7 +4,7 @@
 //#include "mt2_bisect.hh"
 
 namespace Rivet {
-  namespace mT2 {
+  // namespace mT2 {
 
 
     // double mT2(const FourMomentum & a, const FourMomentum & b,
@@ -31,5 +31,5 @@ namespace Rivet {
     }
 
 
-  }
+  // }
 }

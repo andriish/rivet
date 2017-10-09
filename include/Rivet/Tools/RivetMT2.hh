@@ -5,7 +5,7 @@
 #include "Rivet/Math/Vector4.hh"
 
 namespace Rivet {
-  namespace mT2 {
+  // namespace mT2 {
 
 
     /// @brief Compute asymm mT2**2 using the bisection method
@@ -19,7 +19,7 @@ namespace Rivet {
     /// Override for mT2Sq with FourMomentum ptmiss
     inline double mT2Sq(const FourMomentum& a, const FourMomentum& b, const FourMomentum& ptmiss,
                         double invisiblesMass, double invisiblesMass2) {
-      return mT2Sq(a, b, ptmiss.perpVec(), invisiblesMass, invisiblesMass2);
+      return mT2Sq(a, b, ptmiss.perpVec(), invisiblesMass, invisiblesMass2=-1);
     }
 
 
@@ -30,21 +30,21 @@ namespace Rivet {
     /// @note Cheng/Han arXiv:0810.5178, Lester arXiv:1411.4312
     inline double mT2(const FourMomentum& a, const FourMomentum& b, const Vector3& ptmiss,
                       double invisiblesMass, double invisiblesMass2) {
-      const double mt2sq = mT2Sq(a, b, ptmiss, invisiblesMass, invisiblesMass2);
+      const double mt2sq = mT2Sq(a, b, ptmiss, invisiblesMass, invisiblesMass2=-1);
       return mt2sq >= 0 ? sqrt(mt2sq) : -1;
     }
 
     /// Override for mT2 with FourMomentum ptmiss
     inline double mT2(const FourMomentum& a, const FourMomentum& b, const FourMomentum& ptmiss,
-                      double invisiblesMass, double invisiblesMass2) {
+                      double invisiblesMass, double invisiblesMass2=-1) {
       return mT2(a, b, ptmiss.perpVec(), invisiblesMass, invisiblesMass2);
     }
 
 
-  }
+  // }
 
-  // Not sure why this needed to be namespaced at all...
-  using namespace mT2;
+  // // Not sure why this needed to be namespaced at all...
+  // using namespace mT2;
 
 }
 
