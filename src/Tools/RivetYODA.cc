@@ -4,10 +4,10 @@
 #include "YODA/ReaderYODA.h"
 #include "YODA/ReaderAIDA.h"
 
-// #include "DummyConfig.hh"
-// #ifdef HAVE_EXECINFO_H
-// #include <execinfo.h>
-// #endif
+#include "DummyConfig.hh"
+#ifdef HAVE_EXECINFO_H
+#include <execinfo.h>
+#endif
 
 using namespace std;
 
@@ -45,6 +45,11 @@ Wrapper<T>::Wrapper(size_t len_of_weightvec, const T & p)
 template <class T>
 typename T::Ptr Wrapper<T>::active() const {
     if ( !_active ) {
+#ifdef HAVE_BACKTRACE
+      void * buffer[4];
+      backtrace(buffer, 4);
+      backtrace_symbols_fd(buffer, 4 , 1);
+#endif
       assert(false && "No active pointer set. Was this object booked in init()?");
     }
     return _active;
