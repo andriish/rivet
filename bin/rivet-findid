@@ -79,7 +79,7 @@ def output(result):
     if not result.get('title'):
         return
 
-    print('title       %s' % result['title']
+    print('title       %s' % result['title'])
     ar = result.get('arxiv')
     if ar:
         print('arxiv       %s' % ar)
