@@ -6,6 +6,8 @@
 #include <cstring>
 #include <string>
 
+#include "Rivet/Config/DummyConfig.hh"
+
 /**
  * This namespace defines wrappers for std::ifstream, std::ofstream, and
  * std::fstream objects. The wrappers perform the following steps:
@@ -27,17 +29,17 @@ static std::string strerror()
     {
         buff = "Unknown error";
     }
-#elif (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE
+#elif STRERROR_R_CHAR_P
+// GNU-specific strerror_r()
+    auto p = strerror_r(errno, &buff[0], buff.size());
+    std::string tmp(p, std::strlen(p));
+    std::swap(buff, tmp);
+#else
 // XSI-compliant strerror_r()
     if (strerror_r(errno, &buff[0], buff.size()) != 0)
     {
         buff = "Unknown error";
     }
-#else
-// GNU-specific strerror_r()
-    auto p = strerror_r(errno, &buff[0], buff.size());
-    std::string tmp(p, std::strlen(p));
-    std::swap(buff, tmp);
 #endif
     buff.resize(buff.find('\0'));
     return buff;
