@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-Run Rivet analyses on inputted events from file or Unix pipe
+Run Rivet analyses on HepMC events read from a file or Unix pipe
 
 Examples:
 
@@ -9,6 +9,7 @@ Examples:
 
   or
 
+  mkfifo fifo.hepmc
   my_generator -o fifo.hepmc &
   %prog [options] fifo.hepmc
 
@@ -17,8 +18,10 @@ ENVIRONMENT:
  * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
      analysis libraries at runtime
  * RIVET_DATA_PATH: list of paths to be searched for data files
+ * See the documentation for more environment variables.
 """
 
+from __future__ import print_function
 import os, sys
 
 ## Load the rivet module
@@ -211,7 +214,7 @@ if opts.LIST_ANALYSES:
                             msg += "  [" + " ".join(a.keywords()) + "]"
                         if a.luminosityfb():
                             msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
-                print msg
+                print(msg)
                 #os.write(tf, msg + "\n")
         # if os.path.getsize(tfpath) > 0:
         #     pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
@@ -234,7 +237,7 @@ def getKeywords(alist):
 if opts.LIST_KEYWORDS:
     # a = rivet.AnalysisLoader.getAnalysis(aname)
     for k in getKeywords(all_analyses):
-        print k
+        print(k)
     sys.exit(0)
 
 
@@ -361,7 +364,7 @@ if len(opts.SHOW_ANALYSES) > 0:
                 pager.communicate()
             else:
                 f = open(tfpath)
-                print f.read()
+                print(f.read())
                 f.close()
         finally:
             os.unlink(tfpath) #< always clean up
@@ -424,7 +427,7 @@ if opts.CROSS_SECTION is not None:
 ## Print the available CLI options!
 #if opts.LIST_OPTIONS:
 #    for o in parser.option_list:
-#        print o.get_opt_string()
+#        print(o.get_opt_string())
 #    sys.exit(0)
 
 
@@ -510,10 +513,10 @@ if opts.SHOW_BIBTEX:
         ana = rivet.AnalysisLoader.getAnalysis(aname)
         bibs.append("% " + aname + "\n" + ana.bibTeX())
     if bibs:
-        print "\nBibTeX for used Rivet analyses:\n"
-        print "% --------------------------\n"
-        print "\n\n".join(bibs) + "\n"
-        print "% --------------------------\n"
+        print("\nBibTeX for used Rivet analyses:\n")
+        print("% --------------------------\n")
+        print("\n\n".join(bibs) + "\n")
+        print("% --------------------------\n")
 
 
 ## Read and process events
@@ -567,7 +570,7 @@ try:
     if not init_ok:
         logging.error("Failed to initialise using event file '%s'... exiting" % hepmcfile)
         sys.exit(2)
-except TimeoutException, te:
+except TimeoutException as te:
     logging.error("Timeout in initialisation from event file '%s'... exiting" % hepmcfile)
     sys.exit(3)
 
@@ -630,7 +633,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             signal.alarm(0)
             if not read_ok:
                 break
-        except TimeoutException, te:
+        except TimeoutException as te:
             logging.error("Timeout in reading event from '%s'... exiting" % hepmcfile)
             sys.exit(3)
 
@@ -644,15 +647,15 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
 logging.info("Cross-section = %e pb" % ah.crossSection())
-print
+print()
 
 
 ## Finalize and write out data file
 run.finalize()
 if opts.WRITE_DATA:
     ah.writeData(opts.HISTOFILE)
-print
+print()
 endtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Rivet run completed at %s, time elapsed = %s" % (str(endtime), str(endtime-starttime)))
-print
+print()
 logging.info("Histograms written to %s" % os.path.abspath(opts.HISTOFILE))

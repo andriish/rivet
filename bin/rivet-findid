@@ -13,6 +13,7 @@ Arguments:
                 - SPIRES:  [S]nnnnnnn
                 - Inspire: [I]nnnnnn[n]"""
 
+from __future__ import print_function
 import rivet, sys, os, re
 rivet.util.check_python_version()
 rivet.util.set_process_name(os.path.basename(__file__))
@@ -68,7 +69,7 @@ def main():
             RESULT['rivet'] = rivet_candidates[0]
 
         if N > 0:
-            print ""
+            print()
         output(RESULT)
 
 
@@ -78,28 +79,28 @@ def output(result):
     if not result.get('title'):
         return
 
-    print 'title       %s' % result['title']
+    print('title       %s' % result['title'])
     ar = result.get('arxiv')
     if ar:
-        print 'arxiv       %s' % ar
-        print 'arxiv_url   http://arxiv.org/abs/%s' % ar
+        print('arxiv       %s' % ar)
+        print('arxiv_url   http://arxiv.org/abs/%s' % ar)
 
     sp = result.get('spires')
     if sp:
-        print 'spires      %s' % sp
+        print('spires      %s' % sp)
 
     insp = result.get('inspire')
     if insp:
-        print 'inspire     %s' % insp
-        print 'inspire_url http://inspirehep.net/record/%s' % insp
+        print('inspire     %s' % insp)
+        print('inspire_url http://inspirehep.net/record/%s' % insp)
 
     tex = result.get('bibtex')
     if tex:
-        print 'bibtex      %s' % tex
+        print('bibtex      %s' % tex)
 
     riv = result.get('rivet')
     if riv:
-        print 'rivet       %s' % riv
+        print('rivet       %s' % riv)
 
 
 

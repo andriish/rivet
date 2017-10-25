@@ -6,7 +6,6 @@
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/RivetMT2.hh"
 
 namespace Rivet {
 
@@ -259,8 +258,7 @@ namespace Rivet {
       if(ETmiss>260.) _count_SR_B->fill(0.5,weight);
 
       _hist_ETmiss->fill(ETmiss,weight);
-      double m_T2 = mT2::mT2( pjjj1,pjjj2,
-                              pTmiss,0.0 ); // zero mass invisibles
+      const double m_T2 = mT2(pjjj1, pjjj2, pTmiss, 0.0); // zero mass invisibles
       _hist_mT2->fill(m_T2,weight);
     }
     //@}

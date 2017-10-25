@@ -6,7 +6,6 @@
 #include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/IdentifiedFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/RivetMT2.hh"
 
 namespace Rivet {
 
@@ -210,13 +209,10 @@ namespace Rivet {
       FourMomentum a = recon_jets[0].momentum();
       FourMomentum b = recon_jets[1].momentum();
 
-      double m_T2 = mT2::mT2( a,
-                              b,
-                              pTmiss,
-                              0.0 ); // zero mass invisibles
+      double m_T2 = mT2( a, b, pTmiss, 0.0 ); // zero mass invisibles
 
 
-    // ==================== FILL ====================
+      // ==================== FILL ====================
 
       MSG_DEBUG( "Trying to fill "
                  << Njets << ' '

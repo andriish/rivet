@@ -54,6 +54,8 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 AX_EXECINFO
+AC_FUNC_STRERROR_R
+
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
 YODABINPATH=$YODALIBPATH/../bin
@@ -261,13 +263,16 @@ AC_CEDAR_CHECKCXXFLAG([-Werror=delete-non-virtual-dtor], [AM_CXXFLAGS="$AM_CXXFL
 ## Add OpenMP-enabling flags if possible
 AX_OPENMP([AM_CXXFLAGS="$AM_CXXFLAGS $OPENMP_CXXFLAGS"])
 
+## Optional zlib support for gzip-compressed data streams/files
+AX_CHECK_ZLIB
+
+
 ## Debug flag (default=-DNDEBUG, enabled=-g)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
   AM_CXXFLAGS="$AM_CXXFLAGS -g"
 fi
-
 
 ## Extra warnings flag (default=none)
 AC_ARG_ENABLE([extra-warnings], [AC_HELP_STRING(--enable-extra-warnings,
