@@ -38,7 +38,7 @@ namespace Rivet {
       PromptFinalState pfs(fs);
       IdentifiedFinalState bareMuons(pfs);
       bareMuons.acceptIdPair(PID::MUON);
-      DressedLeptons muonClusters(fs, bareMuons, 0.1, Cuts::open(), false, false);
+      DressedLeptons muonClusters(fs, bareMuons, -1); //, Cuts::open(), false, false);
       declare(muonClusters, "muonClusters");
 
       IdentifiedFinalState neutrinos(pfs);
