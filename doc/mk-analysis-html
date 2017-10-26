@@ -13,7 +13,6 @@ else:
 
 print "Using output file name '%s' and directory '%s'" % (OUTFILE, OUTDIR)
 
-
 ## Add the rivet Python module build dir(s) to the Python module path, then import
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
 pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
@@ -25,6 +24,38 @@ from rivet.util import htmlify
 ## Set up Rivet analysis plugin and info file path variables
 ##os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("../analyses/.libs") + "::"
 ##os.environ["RIVET_INFO_PATH"] = os.path.abspath("../data/anainfo") + "::"
+
+## Get some strings of html ready.
+foot = """\
+</body>
+</html>
+"""
+
+head = '''\
+<html>
+<head>
+  <title>Rivet analyses reference</title>
+  <style>
+    body { font-family:sans-serif; padding: 1em 1em 2em 2em; }
+    p, li { max-width:50em; }
+    h2 { margin-left:-1em; margin-bottom:1.5em; }
+    h3 { color:#349; margin-top:2em; }
+  </style>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"]]}
+  });
+  </script>
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+<body>
+  <h2>Rivet analyses reference</h2>
+
+'''
+
+
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
@@ -142,50 +173,18 @@ for aname in sorted(list(all_analyses)):
     # Write out HTML analysis file
     ANAFILE = OUTDIR+'/'+aname+'.html'
     f = open(ANAFILE, "w")
-    f.write(page)
+    outstr = head + page + foot
+    f.write(outstr)
     f.close()
 
-##    pages.append(page)
-
-
 ## Write out HTML toc file
-head = '''\
-<html>
-<head>
-  <title>Rivet analyses reference</title>
-  <style>
-    body { font-family:sans-serif; padding: 1em 1em 2em 2em; }
-    p, li { max-width:50em; }
-    h2 { margin-left:-1em; margin-bottom:1.5em; }
-    h3 { color:#349; margin-top:2em; }
-  </style>
-  <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {inlineMath: [["$","$"]]}
-  });
-  </script>
-  <script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
-</head>
-<body>
-  <h2>Rivet analyses reference</h2>
-
-'''
-
 toc = "<h3>Contents</h3>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses:
     toc += "<li><a href='analyses/%s.html'>%s</a> &ndash; %s</li>\n" % (a,a, htmlify(summaries[a]))
 toc += "</ul>\n"
 
-foot = """\
-</body>
-</html>
-"""
-
 ##body = "\n\n".join(pages)
-
 
 outstr = head + toc + foot
 
