@@ -1,3 +1,7 @@
+2017-10-26  Chris Pollard  <cspollard@gmail.com>
+	* update the way crossSection() works; remove
+	setNeedsCrossSection()
+
 2017-10-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Embed zstr and enable transparent reading of gzipped HepMC streams.
