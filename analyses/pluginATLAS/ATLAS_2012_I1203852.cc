@@ -12,10 +12,7 @@
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 
-#define ZMASS 91.1876 // GeV
-
 namespace Rivet {
-
 
   /// Generic Z candidate
   struct Zstate : public ParticlePair {
@@ -26,64 +23,6 @@ namespace Rivet {
     static bool cmppT(const Zstate& lx, const Zstate& rx) { return lx.mom().pT() < rx.mom().pT(); }
   };
 
-
-  /// 4l to ZZ assignment -- algorithm
-  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l) {
-
-    /////////////////////////////////////////////////////////////////////////////
-    /// ZZ->4l pairing
-    /// - Exactly two same flavour opposite charged leptons
-    /// - Ambiguities in pairing are resolved by choosing the combination
-    ///     that results in the smaller value of the sum |mll - mZ| for the two pairs
-    /////////////////////////////////////////////////////////////////////////////
-
-    Particles part_pos_el, part_neg_el, part_pos_mu, part_neg_mu;
-    foreach (const Particle& l , leptons_sel4l) {
-      if (l.abspid() == PID::ELECTRON) {
-        if (l.pid() < 0) part_neg_el.push_back(l);
-        if (l.pid() > 0) part_pos_el.push_back(l);
-      }
-      else if (l.abspid() == PID::MUON) {
-        if (l.pid() < 0) part_neg_mu.push_back(l);
-        if (l.pid() > 0) part_pos_mu.push_back(l);
-      }
-    }
-
-    // ee/mm channel
-    if ( part_neg_el.size() == 2 || part_neg_mu.size() == 2) {
-
-      Zstate Zcand_1, Zcand_2, Zcand_3, Zcand_4;
-      if (part_neg_el.size() == 2) { // ee
-        Zcand_1 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[0] ) );
-        Zcand_2 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[1] ) );
-        Zcand_3 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[0] ) );
-        Zcand_4 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[1] ) );
-      } else { // mumu
-        Zcand_1 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[0] ) );
-        Zcand_2 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[1] ) );
-        Zcand_3 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[0] ) );
-        Zcand_4 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[1] ) );
-      }
-
-      // We can have the following pairs: (Z1 + Z4) || (Z2 + Z3)
-      double minValue_1, minValue_2;
-      minValue_1 = fabs( Zcand_1.mom().mass() - ZMASS ) + fabs( Zcand_4.mom().mass() - ZMASS);
-      minValue_2 = fabs( Zcand_2.mom().mass() - ZMASS ) + fabs( Zcand_3.mom().mass() - ZMASS);
-      if (minValue_1 < minValue_2 ) {
-        Z1 = Zcand_1;
-        Z2 = Zcand_4;
-      } else {
-        Z1 = Zcand_2;
-        Z2 = Zcand_3;
-      }
-
-    // emu channel
-    } else if (part_neg_mu.size() == 1 && part_neg_el.size() == 1) {
-      Z1 = Zstate ( ParticlePair (part_neg_mu[0],  part_pos_mu[0] ) );
-      Z2 = Zstate ( ParticlePair (part_neg_el[0],  part_pos_el[0] ) );
-    }
-
-  }
 
 
   /// @name ZZ analysis
@@ -358,12 +297,74 @@ namespace Rivet {
 
   private:
 
+    void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l);
     Histo1DPtr _h_ZZ_xsect, _h_ZZ_ZpT, _h_ZZ_phill, _h_ZZ_mZZ;
     Histo1DPtr _h_ZZs_xsect;
     Histo1DPtr _h_ZZnunu_xsect, _h_ZZnunu_ZpT, _h_ZZnunu_phill, _h_ZZnunu_mZZ;
     vector< pair<PdgId,PdgId> > vids;
+    const double ZMASS = 91.1876; // GeV
+
 
   };
+
+
+  /// 4l to ZZ assignment -- algorithm
+  void ATLAS_2012_I1203852::identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l) {
+
+    /////////////////////////////////////////////////////////////////////////////
+    /// ZZ->4l pairing
+    /// - Exactly two same flavour opposite charged leptons
+    /// - Ambiguities in pairing are resolved by choosing the combination
+    ///     that results in the smaller value of the sum |mll - mZ| for the two pairs
+    /////////////////////////////////////////////////////////////////////////////
+
+    Particles part_pos_el, part_neg_el, part_pos_mu, part_neg_mu;
+    foreach (const Particle& l , leptons_sel4l) {
+      if (l.abspid() == PID::ELECTRON) {
+        if (l.pid() < 0) part_neg_el.push_back(l);
+        if (l.pid() > 0) part_pos_el.push_back(l);
+      }
+      else if (l.abspid() == PID::MUON) {
+        if (l.pid() < 0) part_neg_mu.push_back(l);
+        if (l.pid() > 0) part_pos_mu.push_back(l);
+      }
+    }
+
+    // ee/mm channel
+    if ( part_neg_el.size() == 2 || part_neg_mu.size() == 2) {
+
+      Zstate Zcand_1, Zcand_2, Zcand_3, Zcand_4;
+      if (part_neg_el.size() == 2) { // ee
+        Zcand_1 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[0] ) );
+        Zcand_2 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[1] ) );
+        Zcand_3 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[0] ) );
+        Zcand_4 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[1] ) );
+      } else { // mumu
+        Zcand_1 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[0] ) );
+        Zcand_2 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[1] ) );
+        Zcand_3 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[0] ) );
+        Zcand_4 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[1] ) );
+      }
+
+      // We can have the following pairs: (Z1 + Z4) || (Z2 + Z3)
+      double minValue_1, minValue_2;
+      minValue_1 = fabs( Zcand_1.mom().mass() - ZMASS ) + fabs( Zcand_4.mom().mass() - ZMASS);
+      minValue_2 = fabs( Zcand_2.mom().mass() - ZMASS ) + fabs( Zcand_3.mom().mass() - ZMASS);
+      if (minValue_1 < minValue_2 ) {
+        Z1 = Zcand_1;
+        Z2 = Zcand_4;
+      } else {
+        Z1 = Zcand_2;
+        Z2 = Zcand_3;
+      }
+
+    // emu channel
+    } else if (part_neg_mu.size() == 1 && part_neg_el.size() == 1) {
+      Z1 = Zstate ( ParticlePair (part_neg_mu[0],  part_pos_mu[0] ) );
+      Z2 = Zstate ( ParticlePair (part_neg_el[0],  part_pos_el[0] ) );
+    }
+
+  }
 
 
   // The hook for the plugin system
