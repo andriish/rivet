@@ -12,6 +12,8 @@
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 
+#define ZMASS 91.1876 // GeV
+
 namespace Rivet {
 
 
@@ -26,7 +28,7 @@ namespace Rivet {
 
 
   /// 4l to ZZ assignment -- algorithm
-  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l, const double ZMASS) {
+  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l) {
 
     /////////////////////////////////////////////////////////////////////////////
     /// ZZ->4l pairing
@@ -94,15 +96,13 @@ namespace Rivet {
     {    }
 
     void init() {
+
+      // NB Missing ET is not required to be neutrinos
       FinalState fs(-5.0, 5.0, 0.0*GeV);
 
       // Final states to form Z bosons
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
       vids.push_back(make_pair(PID::MUON, PID::ANTIMUON));
-
-      vnuids.push_back(make_pair(PID::NU_E, PID::NU_EBAR) );
-      vnuids.push_back(make_pair(PID::NU_MU, PID::NU_MUBAR) );
-      vnuids.push_back(make_pair(PID::NU_TAU, PID::NU_TAUBAR) );
 
       IdentifiedFinalState Photon(fs);
       Photon.acceptIdPair(PID::PHOTON);
@@ -133,10 +133,12 @@ namespace Rivet {
 
 
       /// Get all neutrinos. These will not be used to form jets.
-      /// We'll use the highest 2 pT neutrinos to calculate the MET
       IdentifiedFinalState neutrino_fs(Cuts::abseta < 4.5);
       neutrino_fs.acceptNeutrinos();
       declare(neutrino_fs, "NEUTRINO_FS");
+
+      // Calculate missing ET from the visible final state, not by requiring neutrinos
+      addProjection(MissingMomentum(Cuts::abseta < 4.5), "MISSING");
 
       VetoedFinalState jetinput;
       jetinput.addVetoOnThisFinalState(bare_MU);
@@ -182,9 +184,9 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////
       // OVERLAP removal dR(l,l)>0.2
       ////////////////////////////////////////////////////////////////////
-      for ( const DressedLepton& l1 : leptonsFS_sel4l) {
+      foreach ( const DressedLepton& l1, leptonsFS_sel4l) {
         bool isolated = true;
-        for (DressedLepton& l2 : leptonsFS_sel4l) {
+        foreach (DressedLepton& l2, leptonsFS_sel4l) {
           const double dR = deltaR(l1, l2);
           if (dR < 0.2 && l1 != l2) { isolated = false; break; }
         }
@@ -204,7 +206,7 @@ namespace Rivet {
         Zstate Z1, Z2;
 
         // Identifies Z states from 4 lepton pairs
-        identifyZstates(Z1, Z2,leptons_sel4l, ZMASS);
+        identifyZstates(Z1, Z2,leptons_sel4l);
 
         ////////////////////////////////////////////////////////////////////////////
         // Z MASS WINDOW
@@ -260,8 +262,8 @@ namespace Rivet {
       if (leptons_sel2l2nu.empty()) vetoEvent; // no further analysis, fine to veto
 
       Particles leptons_sel2l2nu_jetveto;
-      for (const DressedLepton& l : mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
-      for (const DressedLepton& l : el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      foreach (const DressedLepton& l, mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      foreach (const DressedLepton& l, el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
       double ptll = (leptons_sel2l2nu[0].momentum() + leptons_sel2l2nu[1].momentum()).pT();
 
       // Find Z1-> ll
@@ -272,16 +274,10 @@ namespace Rivet {
       const ParticlePair& Z1constituents = imfs.particlePairs()[0];
       FourMomentum Z1 = Z1constituents.first.momentum() + Z1constituents.second.momentum();
 
-      // Find Z2-> nunu
-      const Particles& neutrinoFS = apply<IdentifiedFinalState>(e, "NEUTRINO_FS").particlesByPt();
-      FinalState fs3(-4.5, 4.5);
-      InvMassFinalState imfs_Znunu(fs3, vnuids, 20*GeV, sqrtS(), ZMASS);
-      imfs_Znunu.calc(neutrinoFS);
-      if (imfs_Znunu.particlePairs().size() == 0 ) vetoEvent;
-
-      // Z to neutrinos
-      FourMomentum Z2 = imfs_Znunu.particlePairs()[0].first.momentum() + imfs_Znunu.particlePairs()[0].second.momentum();
-      double met_Znunu = Z2.pT();
+      // Z to neutrinos candidate from missing ET
+      const MissingMomentum & missmom = applyProjection<MissingMomentum>(e, "MISSING");
+      const FourMomentum Z2 = missmom.missingMomentum(ZMASS);
+      double met_Znunu = missmom.missingEt(); //Z2.pT();
 
       // mTZZ
       const double mT2_1st_term = add_quad(ZMASS, ptll) + add_quad(ZMASS, met_Znunu);
@@ -362,12 +358,10 @@ namespace Rivet {
 
   private:
 
-    const double ZMASS = 91.1876; // GeV
-
     Histo1DPtr _h_ZZ_xsect, _h_ZZ_ZpT, _h_ZZ_phill, _h_ZZ_mZZ;
     Histo1DPtr _h_ZZs_xsect;
     Histo1DPtr _h_ZZnunu_xsect, _h_ZZnunu_ZpT, _h_ZZnunu_phill, _h_ZZnunu_mZZ;
-    vector< pair<PdgId,PdgId> > vids, vnuids;
+    vector< pair<PdgId,PdgId> > vids;
 
   };
 
