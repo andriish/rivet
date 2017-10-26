@@ -20,7 +20,7 @@ namespace Rivet {
     /// Constructors
     ATLAS_2017_I1589844(string name="ATLAS_2017_I1589844") : Analysis(name) {
       _mode = 1; // pick electron channel by default
-      setNeedsCrossSection(true);
+
     }
 
     //@}

@@ -19,7 +19,7 @@ namespace Rivet {
       : Analysis(name)
     {
       _mode = 0; // using Z -> nunu channel by default
-      setNeedsCrossSection(true);
+
     }
 
 

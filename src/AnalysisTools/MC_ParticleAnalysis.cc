@@ -16,7 +16,7 @@ namespace Rivet {
       _h_rap(nparticles), _h_rap_plus(nparticles), _h_rap_minus(nparticles),
       tmpeta(nparticles), tmprap(nparticles)
   {
-    setNeedsCrossSection(true); // legitimate use, since a base class has no .info file!
+
   }
 
 

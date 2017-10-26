@@ -13,7 +13,7 @@ namespace Rivet {
     // Constructor
     CMS_2013_I1208923()
       : Analysis("CMS_2013_I1208923") {
-      //setNeedsCrossSection(true);
+
     }
 
     // Book histograms and initialize projections:

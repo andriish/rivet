@@ -13,7 +13,7 @@ namespace Rivet {
 
     // Constructor
     ATLAS_2017_I1591327() : Analysis("ATLAS_2017_I1591327") {
-      setNeedsCrossSection(true);
+
     }
 
 

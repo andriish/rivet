@@ -188,7 +188,7 @@ namespace Rivet {
     bool needsCrossSection() const { return _needsCrossSection; }
 
     /// Return true if this analysis needs to know the process cross-section.
-    void setNeedsCrossSection(bool needXsec) { _needsCrossSection = needXsec; }
+
 
     //@}
 

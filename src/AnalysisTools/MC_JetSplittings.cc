@@ -13,7 +13,7 @@ namespace Rivet {
     : Analysis(name), m_njet(njet), m_jetpro_name(jetpro_name),
       _h_log10_d(njet), _h_log10_R(njet+1)
   {
-    setNeedsCrossSection(true); // legitimate use, since a base class has no .info file!
+
   }
 
 

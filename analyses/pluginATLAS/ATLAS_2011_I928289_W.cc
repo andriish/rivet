@@ -13,7 +13,7 @@ namespace Rivet {
     ATLAS_2011_I928289_W()
       : Analysis("ATLAS_2011_I928289_W")
     {
-      setNeedsCrossSection(true);
+
     }
 
 

@@ -135,7 +135,7 @@ namespace Rivet {
     /// Constructor
     ATLAS_2014_I1282447() : Analysis("ATLAS_2014_I1282447")
     {
-      setNeedsCrossSection(true);
+
     }
 
   public:

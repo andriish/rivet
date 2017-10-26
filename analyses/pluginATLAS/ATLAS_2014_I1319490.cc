@@ -14,7 +14,7 @@ namespace Rivet {
       : Analysis(name)
     {
       _mode = 0; // using electron channel for combined data by default
-      setNeedsCrossSection(true);
+
     }
 
 

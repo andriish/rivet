@@ -129,8 +129,4 @@ namespace Rivet {
 
     return true;
   }
-
-
-
-
 }

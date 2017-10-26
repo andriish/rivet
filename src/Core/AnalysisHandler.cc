@@ -80,9 +80,13 @@ namespace Rivet {
     _numWeightTypes = _weightNames.size();
     _eventCounter = CounterPtr(_numWeightTypes, Counter("_EVTCOUNT"));
 
-    double xs = ge.cross_section()->cross_section();
-    double xserr = ge.cross_section()->cross_section_error();
-    setCrossSection(xs, xserr);
+    // set the cross section based on what is reported by this event.
+    // if no cross section
+    if (ge.cross_section()) {
+      double xs = ge.cross_section()->cross_section();
+      double xserr = ge.cross_section()->cross_section_error();
+      setCrossSection(xs, xserr);
+    }
 
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
@@ -215,15 +219,13 @@ namespace Rivet {
     _subEventWeights.push_back(event.weights());
     MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
 
-
-    // Cross-section
-    #ifdef HEPMC_HAS_CROSS_SECTION
+    // set the cross section based on what is reported by this event.
+    // if no cross section
     if (ge.cross_section()) {
       double xs = ge.cross_section()->cross_section();
       double xserr = ge.cross_section()->cross_section_error();
       setCrossSection(xs, xserr);
     }
-    #endif
 
     _eventCounter->fill();
     // Run the analyses

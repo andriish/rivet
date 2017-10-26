@@ -19,7 +19,7 @@ namespace Rivet {
       : Analysis(name)
     {
       _mode = 1;
-      setNeedsCrossSection(true);
+
     }
 
     //@}

@@ -17,7 +17,7 @@ namespace Rivet {
       _h_rap_jet(njet), _h_rap_jet_plus(njet), _h_rap_jet_minus(njet),
       _h_mass_jet(njet), tmpeta(njet), tmprap(njet)
   {
-    setNeedsCrossSection(true); // legitimate use, since a base class has no .info file!
+
   }
 
 
