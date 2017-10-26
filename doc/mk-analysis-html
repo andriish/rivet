@@ -181,7 +181,7 @@ for aname in sorted(list(all_analyses)):
 toc = "<h3>Contents</h3>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses:
-    toc += "<li><a href='analyses/%s.html'>%s</a> &ndash; %s</li>\n" % (a,a, htmlify(summaries[a]))
+    toc += "<li><a href='%s/%s.html'>%s</a> &ndash; %s</li>\n" % (OUTDIR,a,a, htmlify(summaries[a]))
 toc += "</ul>\n"
 
 ##body = "\n\n".join(pages)
