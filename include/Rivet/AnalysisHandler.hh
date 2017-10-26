@@ -80,10 +80,10 @@ namespace Rivet {
     bool needCrossSection() const;
 
     /// Set the cross-section for the process being generated.
-    AnalysisHandler& setCrossSection(double xs);
+    AnalysisHandler& setCrossSection(double xs, double xserr);
 
     /// Get the cross-section known to the handler.
-    double crossSection() const {
+    Scatter1DPtr crossSection() const {
       return _xs;
     }
 
@@ -198,7 +198,7 @@ namespace Rivet {
     std::vector<YODA::AnalysisObjectPtr> getYodaAOs() const;
 
     /// Get all analyses' plots as a vector of analysis objects.
-    void setWeightNames(const GenEvent& ge); 
+    void setWeightNames(const GenEvent& ge);
 
     /// Do we have named weights?
     bool haveNamedWeights();
@@ -209,7 +209,7 @@ namespace Rivet {
 
     //@}
 
-    /// Indicate which Rivet stage we're in. 
+    /// Indicate which Rivet stage we're in.
     /// At the moment, only INIT is used to enable booking.
     enum class Stage { OTHER, INIT };
 
@@ -237,7 +237,7 @@ namespace Rivet {
     mutable CounterPtr _eventCounter;
 
     /// Cross-section known to AH
-    double _xs, _xserr;
+    Scatter1DPtr _xs;
 
     /// Beams used by this run.
     ParticlePair _beams;

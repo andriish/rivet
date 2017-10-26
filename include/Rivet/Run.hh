@@ -34,9 +34,6 @@ namespace Rivet {
     /// Get the cross-section for this run.
     Run& setCrossSection(const double xs);
 
-    /// Get the current cross-section from the analysis handler in pb.
-    double crossSection() const;
-
     /// Declare whether to list available analyses
     Run& setListAnalyses(const bool dolist);
 
@@ -54,7 +51,7 @@ namespace Rivet {
 
     /// Read the next HepMC event
     bool readEvent();
-    
+
     /// Read the next HepMC event only to skip it
     bool skipEvent();
 

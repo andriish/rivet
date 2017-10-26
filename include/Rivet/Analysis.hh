@@ -238,18 +238,6 @@ namespace Rivet {
     }
 
 
-    /// Return true if this analysis needs to know the process cross-section.
-    /// @todo Remove this and require HepMC >= 2.06
-    bool needsCrossSection() const {
-      return info().needsCrossSection();
-    }
-    /// Declare whether this analysis needs to know the process cross-section from the generator.
-    /// @todo Remove this and require HepMC >= 2.06
-    Analysis& setNeedsCrossSection(bool needed=true) {
-      info().setNeedsCrossSection(needed);
-      return *this;
-    }
-
     //@}
 
 
@@ -293,10 +281,6 @@ namespace Rivet {
     bool isCompatible(const PdgIdPair& beams, const std::pair<double,double>& energies) const;
 
     //@}
-
-
-    /// Set the cross section from the generator
-    Analysis& setCrossSection(double xs);
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const { return *_analysishandler; }
@@ -512,7 +496,7 @@ namespace Rivet {
                                const std::string& title="",
                                const std::string& xtitle="",
                                const std::string& ytitle="");
- 
+
     /// Book a 1D profile histogram with non-uniform bins defined by the vector of bin edges @a binedges .
     Profile1DPtr & book(Profile1DPtr &,  const std::string& name,
                                const std::initializer_list<double>& binedges,
@@ -878,7 +862,6 @@ namespace Rivet {
     /// @name Cross-section variables
     //@{
     double _crossSection;
-    bool _gotCrossSection;
     //@}
 
     /// The controlling AnalysisHandler object.

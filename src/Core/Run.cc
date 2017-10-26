@@ -23,11 +23,6 @@ namespace Rivet {
   }
 
 
-  double Run::crossSection() const {
-    return _ah.crossSection();
-  }
-
-
   Run& Run::setListAnalyses(const bool dolist) {
     _listAnalyses = dolist;
     return *this;
@@ -102,8 +97,7 @@ namespace Rivet {
     // Set cross-section from command line
     if (!std::isnan(_xs)) {
       Log::getLog("Rivet.Run")
-        << Log::DEBUG << "Setting user cross-section = " << _xs << " pb" << endl;
-      _ah.setCrossSection(_xs);
+        << Log::DEBUG << "Will use user-set cross-section = " << _xs << " pb" << endl;
     }
 
     // List the chosen & compatible analyses if requested
@@ -118,24 +112,6 @@ namespace Rivet {
 
 
   bool Run::processEvent() {
-    // Set cross-section if found in event and not from command line
-    #ifdef HEPMC_HAS_CROSS_SECTION
-    if (std::isnan(_xs) && _evt->cross_section()) {
-      const double xs = _evt->cross_section()->cross_section(); ///< in pb
-      Log::getLog("Rivet.Run")
-        << Log::DEBUG << "Setting cross-section = " << xs << " pb" << endl;
-      _ah.setCrossSection(xs);
-    }
-    #endif
-    // Complain about absence of cross-section if required!
-    if (_ah.needCrossSection() && !_ah.hasCrossSection()) {
-      Log::getLog("Rivet.Run")
-        << Log::ERROR
-        << "Total cross-section needed for at least one of the analyses. "
-        << "Please set it (on the command line with '-x' if using the 'rivet' program)" << endl;
-      return false;
-    }
-
     // Analyze event
     _ah.analyze(*_evt);
 
@@ -148,7 +124,7 @@ namespace Rivet {
     _istr.reset();
     _io.reset();
 
-    if (!std::isnan(_xs)) _ah.setCrossSection(_xs);
+    if (!std::isnan(_xs)) _ah.setCrossSection(_xs, 0);
     _ah.finalize();
 
     return true;

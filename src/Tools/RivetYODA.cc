@@ -35,7 +35,7 @@ Wrapper<T>::~Wrapper() {}
 // }
 
 template <class T>
-Wrapper<T>::Wrapper(size_t len_of_weightvec, const T & p) 
+Wrapper<T>::Wrapper(size_t len_of_weightvec, const T & p)
 {
   for (size_t m = 0; m < len_of_weightvec; ++m)
     _persistent.push_back(make_shared<T>(p));
@@ -362,7 +362,6 @@ namespace Rivet {
   template <>
   void Wrapper<YODA::Scatter1D>::pushToPersistent(const vector<valarray<double> >& weight) {
 
-    cout << ("WARNING: filling scatters in the event loop is not a well-defined behavior!!") << endl;
     _evgroup.clear();
     _active.reset();
   }
@@ -370,7 +369,6 @@ namespace Rivet {
   template <>
   void Wrapper<YODA::Scatter2D>::pushToPersistent(const vector<valarray<double> >& weight) {
 
-    cout << ("WARNING: filling scatters in the event loop is not a well-defined behavior!!") << endl;
     _evgroup.clear();
     _active.reset();
   }
@@ -378,7 +376,6 @@ namespace Rivet {
   template <>
   void Wrapper<YODA::Scatter3D>::pushToPersistent(const vector<valarray<double> >& weight) {
 
-    cout << ("WARNING: filling scatters in the event loop is not a well-defined behavior!!") << endl;
     _evgroup.clear();
     _active.reset();
   }

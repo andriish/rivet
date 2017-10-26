@@ -14,9 +14,7 @@ namespace Rivet {
 
 
   Analysis::Analysis(const string& name)
-    : _crossSection(-1.0),
-      _gotCrossSection(false),
-      _analysishandler(NULL)
+      : _analysishandler(NULL)
   {
     ProjectionApplier::_allowProjReg = false;
     _defaultname = name;
@@ -146,23 +144,17 @@ namespace Rivet {
 
   ///////////////////////////////////////////
 
-
-  Analysis& Analysis::setCrossSection(double xs) {
-    _crossSection = xs;
-    _gotCrossSection = true;
-    return *this;
-  }
-
   double Analysis::crossSection() const {
-    if (!_gotCrossSection || std::isnan(_crossSection)) {
-      string errMsg = "You did not set the cross section for the analysis " + name();
+    const YODA::Scatter1D::Points& ps = handler().crossSection()->points();
+    if (ps.size() != 1) {
+      string errMsg = "cross section missing for analysis " + name();
       throw Error(errMsg);
     }
-    return _crossSection;
+    return ps[0].x();
   }
 
   double Analysis::crossSectionPerEvent() const {
-    return _crossSection/sumOfWeights();
+    return crossSection()/sumOfWeights();
   }
 
 
@@ -832,7 +824,7 @@ namespace Rivet {
     if (handler().stage() == AnalysisHandler::Stage::INIT) {
       _analysisobjects.push_back(ao);
       ao.get()->blockDestructor(true);
-    } 
+    }
     else {
       errormsg(name());
     }

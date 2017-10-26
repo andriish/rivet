@@ -6,7 +6,8 @@
 #include "Rivet/Tools/BeamConstraint.hh"
 #include "Rivet/Tools/Logging.hh"
 #include "Rivet/Projections/Beam.hh"
-#include "YODA/IO.h"
+#include "YODA/ReaderYODA.h"
+#include "YODA/WriterYODA.h"
 #include <regex>
 
 namespace {
@@ -26,13 +27,13 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      _eventCounter(0, Counter()), _xs(NAN),
+      _eventCounter(0, Counter()), _xs(0, Scatter1D()),
       _initialised(false), _ignoreBeams(false)
-  {  }
+  {}
 
 
   AnalysisHandler::~AnalysisHandler()
-  {  }
+  {}
 
 
   Log& AnalysisHandler::getLog() const {
@@ -79,6 +80,10 @@ namespace Rivet {
     _numWeightTypes = _weightNames.size();
     _eventCounter = CounterPtr(_numWeightTypes, Counter("_EVTCOUNT"));
 
+    double xs = ge.cross_section()->cross_section();
+    double xserr = ge.cross_section()->cross_section_error();
+    setCrossSection(xs, xserr);
+
     // Check that analyses are beam-compatible, and remove those that aren't
     const size_t num_anas_requested = analysisNames().size();
     vector<string> anamestodelete;
@@ -111,10 +116,7 @@ namespace Rivet {
 
     // Initialize the remaining analyses
     _stage = Stage::INIT;
-    // DELIBERATELY no increment in for-loop. We may be erasing entries
-    for (auto it = _analyses.cbegin(); it != _analyses.cend(); /**/) {
-
-      const AnaHandle & a = *it;
+    for (AnaHandle a : _analyses) {
       MSG_DEBUG("Initialising analysis: " << a->name());
       try {
         // Allow projection registration in the init phase onwards
@@ -122,21 +124,12 @@ namespace Rivet {
         a->init();
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
-        MSG_DEBUG("Done initialising analysis: " << a->name());
-        ++it;
       } catch (const Error& err) {
-        MSG_ERROR("Error in " << a->name() << "::init method: " << err.what());
-      	MSG_ERROR("Ignoring analysis " << a->name());
-      	it = _analyses.erase(it);
-      } catch (const YODA::Exception & err) {
-      	MSG_ERROR("Unhandled YODA exception in " << a->name() << "::init method:");
-      	MSG_ERROR(err.what());
-      	MSG_ERROR("Ignoring analysis " << a->name());
-      	it = _analyses.erase(it);
+        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
+        exit(1);
       }
-
+      MSG_DEBUG("Done initialising analysis: " << a->name());
     }
-
     _stage = Stage::OTHER;
     _initialised = true;
     MSG_DEBUG("Analysis handler initialised");
@@ -226,37 +219,29 @@ namespace Rivet {
     // Cross-section
     #ifdef HEPMC_HAS_CROSS_SECTION
     if (ge.cross_section()) {
-      _xs = ge.cross_section()->cross_section();
-      _xserr = ge.cross_section()->cross_section_error();
+      double xs = ge.cross_section()->cross_section();
+      double xserr = ge.cross_section()->cross_section_error();
+      setCrossSection(xs, xserr);
     }
     #endif
 
     _eventCounter->fill();
     // Run the analyses
-    // DELIBERATELY no increment in for-loop. We may be erasing entries
-    for (auto it = _analyses.cbegin(); it != _analyses.cend(); /**/) {
-      const AnaHandle & a = *it;
+    for (AnaHandle a : _analyses) {
       MSG_TRACE("About to run analysis " << a->name());
       try {
         a->analyze(event);
-        MSG_TRACE("Finished running analysis " << a->name());
-        ++it;
       } catch (const Error& err) {
-        MSG_ERROR("Error in " << a->name() << "::analyze method: " << err.what());
-      	MSG_ERROR("Ignoring analysis " << a->name());
-      	it = _analyses.erase(it);
-      } catch (const YODA::Exception & err) {
-      	MSG_ERROR("Unhandled YODA exception in " << a->name() << "::analyze method:");
-      	MSG_ERROR(err.what());
-      	MSG_ERROR("Ignoring analysis " << a->name());
-      	it = _analyses.erase(it);
+        cerr << "Error in " << a->name() << "::analyze method: " << err.what() << endl;
+        exit(1);
       }
+      MSG_TRACE("Finished running analysis " << a->name());
     }
   }
 
 
   void AnalysisHandler::analyze(const GenEvent* ge) {
-    if (ge == nullptr) {
+    if (ge == NULL) {
       MSG_ERROR("AnalysisHandler received null pointer to GenEvent");
       //throw Error("AnalysisHandler received null pointer to GenEvent");
     }
@@ -275,11 +260,7 @@ namespace Rivet {
               ao.get()->pushToPersistent(_subEventWeights);
       }
 
-    // DELIBERATELY no increment in for-loop. We may be erasing entries
-      for (auto it = _analyses.cbegin(); it != _analyses.cend(); /**/) {
-          const AnaHandle & a = *it;
-          bool removeAna = false;
-          a->setCrossSection(_xs);
+      for (const AnaHandle& a : _analyses) {
           for (size_t iW = 0; iW < numWeights(); iW++) {
               _eventCounter.get()->setActiveWeightIdx(iW);
               for (auto ao : a->analysisObjects())
@@ -290,33 +271,17 @@ namespace Rivet {
               try {
                   a->finalize();
               } catch (const Error& err) {
-                  MSG_ERROR("Error in " << a->name() << "::finalize method: " << err.what());
-                  removeAna = true;
-              } catch (const YODA::Exception & err) {
-      		  MSG_ERROR("Unhandled YODA exception in " << a->name() << "::finalize method:");
-      		  MSG_ERROR(err.what());
-      	          removeAna = true;
-	      }
+                  cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
+                  exit(1);
+              }
           }
           // allow AO destruction again
           for (auto ao : a->analysisObjects())
             ao.get()->blockDestructor(false);
-
-
-    	  if (removeAna) {
-    	    MSG_ERROR("Ignoring analysis " << a->name());
-    	    it = _analyses.erase(it);
-    	  } else {
-    	    ++it;	
-    	  }
       }
 
     // Print out number of events processed
     MSG_INFO("Processed " << numEvents() << " event" << (numEvents() == 1 ? "" : "s"));
-
-    // // Delete analyses
-    // MSG_DEBUG("Deleting analyses");
-    // _analyses.clear();
 
     // Print out MCnet boilerplate
     cout << endl;
@@ -375,7 +340,7 @@ namespace Rivet {
         try {
           const string ananame =  ::split(path, "/")[0];
           AnaHandle a = analysis(ananame);
-          //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao 
+          //MultiweightAOPtr mao = ????; /// @todo generate right Multiweight object from ao
           //a->addAnalysisObject(mao); /// @todo Need to statistically merge...
         } catch (const Error& e) {
           MSG_WARNING(e.what());
@@ -389,7 +354,7 @@ namespace Rivet {
     try {
       /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
       vector<YODA::AnalysisObject*> aos_raw;
-      YODA::read(filename, aos_raw);
+      YODA::ReaderYODA::read(filename, aos_raw);
       for (YODA::AnalysisObject* aor : aos_raw) aos.push_back(YODA::AnalysisObjectPtr(aor));
     } catch (const YODA::ReadError & e) {
       throw UserError("Unexpected error in reading file: " + filename);
@@ -411,8 +376,8 @@ namespace Rivet {
           }
       }
 
-      // Should event counter be included here?
       rtn.push_back(_eventCounter);
+      rtn.push_back(_xs);
 
       return rtn;
   }
@@ -441,9 +406,6 @@ namespace Rivet {
           }
       }
 
-      YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
-      rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
-
       sort(rtn.begin(), rtn.end(),
            [](YODA::AnalysisObjectPtr a, YODA::AnalysisObjectPtr b) {
                 return a->path() < b->path();
@@ -462,7 +424,7 @@ namespace Rivet {
   void AnalysisHandler::writeData(const string& filename) const {
     const vector<YODA::AnalysisObjectPtr> aos = getData();
     try {
-      YODA::write(filename, aos.begin(), aos.end());
+      YODA::WriterYODA::write(filename, aos.begin(), aos.end());
     } catch ( YODA::WriteError ) {
       throw UserError("Unexpected error in writing file: " + filename);
     }
@@ -470,7 +432,7 @@ namespace Rivet {
 
 
   string AnalysisHandler::runName() const { return _runname; }
-  size_t AnalysisHandler::numEvents() const { return _eventCounter.get()->_persistent[0]->numEntries(); }
+  size_t AnalysisHandler::numEvents() const { return _eventCounter->numEntries(); }
 
 
   /*
@@ -514,26 +476,21 @@ namespace Rivet {
   }
 
 
-  bool AnalysisHandler::needCrossSection() const {
-    bool rtn = false;
-    for (const AnaHandle a : _analyses) {
-      if (!rtn) rtn = a->needsCrossSection();
-      if (rtn) break;
+  AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
+    _xs = Scatter1DPtr(numWeights(), Scatter1D("_XSEC"));
+    setActiveWeight(0);
+    double nomwgt = sumOfWeights();
+
+    // the cross section of each weight variation is the nominal cross section
+    // times the sumOfWeights(variation) / sumOfWeights(nominal).
+    // this way the cross section will work correctly
+    for (int iW = 0; iW < numWeights(); iW++) {
+        setActiveWeight(iW);
+        double s = sumOfWeights() / nomwgt;
+        _xs->addPoint(xs*s, xserr*s);
     }
-    return rtn;
-  }
-
-
-  AnalysisHandler& AnalysisHandler::setCrossSection(double xs) {
-    _xs = xs;
     return *this;
   }
-
-
-  bool AnalysisHandler::hasCrossSection() const {
-    return (!std::isnan(crossSection()));
-  }
-
 
   AnalysisHandler& AnalysisHandler::addAnalysis(Analysis* analysis) {
     analysis->_analysishandler = this;
