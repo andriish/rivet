@@ -3,6 +3,7 @@
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Projections/InvMassFinalState.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/WFinder.hh"
@@ -26,6 +27,7 @@ namespace Rivet {
 
     // Book histograms and initialise projections before the run
     void init() {
+      // Prompt leptons only, no test on nu flavour.
       // Projections
       const FinalState fs;
       declare(fs, "FS");
@@ -33,12 +35,13 @@ namespace Rivet {
       MissingMomentum missing(fs);
       declare(missing, "MET");
 
-      IdentifiedFinalState bareMuons(fs);
+      PromptFinalState pfs(fs);
+      IdentifiedFinalState bareMuons(pfs);
       bareMuons.acceptIdPair(PID::MUON);
-      DressedLeptons muonClusters(fs, bareMuons, -1); //, Cuts::open(), false, false);
+      DressedLeptons muonClusters(fs, bareMuons, 0.1, Cuts::open(), false, false);
       declare(muonClusters, "muonClusters");
 
-      IdentifiedFinalState neutrinos;
+      IdentifiedFinalState neutrinos(pfs);
       neutrinos.acceptIdPair(PID::NU_MU);
       declare(neutrinos, "neutrinos");
 
@@ -94,17 +97,10 @@ namespace Rivet {
 
       // Get the muon neutrino
       const Particles& neutrinos = apply<FinalState>(event, "neutrinos").particlesByPt();
-      if (neutrinos.empty()) vetoEvent;
 
       // Check that the muon and neutrino are not decay products of tau
       if (dressedmuon.constituentLepton().hasAncestor( PID::TAU)) vetoEvent;
       if (dressedmuon.constituentLepton().hasAncestor(-PID::TAU)) vetoEvent;
-      if (dressedmuon.constituentLepton().hasAncestor( PID::NU_TAU)) vetoEvent;
-      if (dressedmuon.constituentLepton().hasAncestor(-PID::NU_TAU)) vetoEvent;
-      if (neutrinos[0].hasAncestor( PID::TAU)) vetoEvent;
-      if (neutrinos[0].hasAncestor(-PID::TAU)) vetoEvent;
-      if (neutrinos[0].hasAncestor( PID::NU_TAU)) vetoEvent;
-      if (neutrinos[0].hasAncestor(-PID::NU_TAU)) vetoEvent;
 
       // Recording of event weight and numbers
       const double weight = event.weight();
