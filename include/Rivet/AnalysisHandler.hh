@@ -72,10 +72,6 @@ namespace Rivet {
         return _weightNames.size();
     }
 
-
-    /// Set the active weight.
-    void setActiveWeight(unsigned int iWeight);
-
     /// Is cross-section information required by at least one child analysis?
     bool needCrossSection() const;
 

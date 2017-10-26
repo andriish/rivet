@@ -480,17 +480,21 @@ namespace Rivet {
 
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
     _xs = Scatter1DPtr(numWeights(), Scatter1D("_XSEC"));
-    setActiveWeight(0);
+    _eventCounter.get()->setActiveWeightIdx(0);
     double nomwgt = sumOfWeights();
 
     // the cross section of each weight variation is the nominal cross section
     // times the sumOfWeights(variation) / sumOfWeights(nominal).
     // this way the cross section will work correctly
     for (int iW = 0; iW < numWeights(); iW++) {
-        setActiveWeight(iW);
+        _eventCounter.get()->setActiveWeightIdx(iW);
         double s = sumOfWeights() / nomwgt;
+        _xs.get()->setActiveWeightIdx(iW);
         _xs->addPoint(xs*s, xserr*s);
     }
+
+    _eventCounter.get()->unsetActiveWeight();
+    _xs.get()->unsetActiveWeight();
     return *this;
   }
 
