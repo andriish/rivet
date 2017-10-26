@@ -96,7 +96,7 @@ namespace Rivet {
       if (dressedmuon.momentum().pT() < 25.0*GeV) vetoEvent;
 
       // Get the muon neutrino
-      const Particles& neutrinos = apply<FinalState>(event, "neutrinos").particlesByPt();
+      //const Particles& neutrinos = apply<FinalState>(event, "neutrinos").particlesByPt();
 
       // Check that the muon and neutrino are not decay products of tau
       if (dressedmuon.constituentLepton().hasAncestor( PID::TAU)) vetoEvent;
