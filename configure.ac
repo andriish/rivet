@@ -95,12 +95,15 @@ int main() { std::cout << VERSION << std::endl; return 0; }])])
 fi
 if test -f conftest.cc; then
   $CXX $CPPFLAGS conftest.cc -o conftest 2>&1 1>&5
-elif test -f conftest.C; then
-  $CXX $CPPFLAGS conftest.C -o conftest 2>&1 1>&5
 else
   $CXX $CPPFLAGS conftest.cpp -o conftest 2>&1 1>&5
 fi
 hepmc_version=`./conftest`
+AC_MSG_CHECKING([HepMC version])
+AX_COMPARE_VERSION([$hepmc_version], [lt], [2.06.09],
+                   AC_MSG_RESULT([no])
+                   AC_MSG_ERROR([Need HepMC 2.06.09 or later]),
+                   AC_MSG_RESULT([ok]))
 if test x$hepmc_version != x; then
   let hepmc_major=`echo "$hepmc_version" | cut -d. -f1`
   let hepmc_minor=`echo "$hepmc_version" | cut -d. -f2`
