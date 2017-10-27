@@ -83,6 +83,7 @@ namespace Rivet {
     // set the cross section based on what is reported by this event.
     // if no cross section
     if (ge.cross_section()) {
+      MSG_TRACE("getting cross section.");
       double xs = ge.cross_section()->cross_section();
       double xserr = ge.cross_section()->cross_section_error();
       setCrossSection(xs, xserr);
@@ -181,6 +182,16 @@ namespace Rivet {
     /// @todo Filter/normalize the event here
     Event event(ge);
 
+    // set the cross section based on what is reported by this event.
+    // if no cross section
+    MSG_TRACE("getting cross section.");
+    if (ge.cross_section()) {
+      MSG_TRACE("getting cross section from GenEvent.");
+      double xs = ge.cross_section()->cross_section();
+      double xserr = ge.cross_section()->cross_section_error();
+      setCrossSection(xs, xserr);
+    }
+
     // won't happen for first event because _eventNumber is set in
     // init()
     if (_eventNumber != ge.event_number()) {
@@ -218,14 +229,6 @@ namespace Rivet {
 
     _subEventWeights.push_back(event.weights());
     MSG_DEBUG("Analyzing subevent #" << _subEventWeights.size() - 1 << ".");
-
-    // set the cross section based on what is reported by this event.
-    // if no cross section
-    if (ge.cross_section()) {
-      double xs = ge.cross_section()->cross_section();
-      double xserr = ge.cross_section()->cross_section_error();
-      setCrossSection(xs, xserr);
-    }
 
     _eventCounter->fill();
     // Run the analyses
@@ -265,6 +268,7 @@ namespace Rivet {
       for (const AnaHandle& a : _analyses) {
           for (size_t iW = 0; iW < numWeights(); iW++) {
               _eventCounter.get()->setActiveWeightIdx(iW);
+              _xs.get()->setActiveWeightIdx(iW);
               for (auto ao : a->analysisObjects())
                   ao.get()->setActiveWeightIdx(iW);
 
@@ -332,9 +336,6 @@ namespace Rivet {
   }
 
 
-
-
-
   void AnalysisHandler::addData(const std::vector<YODA::AnalysisObjectPtr>& aos) {
     for (const YODA::AnalysisObjectPtr ao : aos) {
       const string path = ao->path();
@@ -363,10 +364,6 @@ namespace Rivet {
     }
     if (!aos.empty()) addData(aos);
   }
-
-
-
-
 
 
   vector<MultiweightAOPtr> AnalysisHandler::getRivetAOs() const {
