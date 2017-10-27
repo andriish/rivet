@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
   }
   file.close();
 
-  rivet.setCrossSection(1.0);
+  rivet.setCrossSection(1.0, 0.1);
   rivet.finalize();
   rivet.writeData("NaN.aida");
 

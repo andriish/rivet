@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
   }
   file.close();
 
-  ah.setCrossSection(1.0);
-  
+  ah.setCrossSection(1.0, 0.1);
+
   ah.finalize();
   ah.writeData("out.yoda");
 
