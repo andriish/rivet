@@ -393,6 +393,8 @@ class rivet_shared_ptr {
 public:
   rivet_shared_ptr() = default;
 
+  rivet_shared_ptr(decltype(nullptr)) : _p(nullptr) {}
+
   /// Convenience constructor, pass through to the Wrapper constructor
   rivet_shared_ptr(size_t len_of_weightvec, const typename T::Inner & p)
     : _p( make_shared<T>(len_of_weightvec, p) ) 
