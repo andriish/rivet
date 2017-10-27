@@ -69,7 +69,7 @@ namespace Rivet {
     /// The vector-summed visible transverse momentum in the event, as a 3-vector with z=0
     /// @note Reverse this vector with operator- to get the missing pT vector.
     /// @todo Currently equivalent to vectorEt
-    const Vector3& vectorPt() const { return _vpt; }
+    const Vector3& vectorPt() const { return vectorEt(); }
 
     /// Convenience vector MPT function
     const Vector3 vectorMissingPt() const { return -vectorPt(); }
