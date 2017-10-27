@@ -823,7 +823,6 @@ namespace Rivet {
   void Analysis::addAnalysisObject(const MultiweightAOPtr & ao) {
     if (handler().stage() == AnalysisHandler::Stage::INIT) {
       _analysisobjects.push_back(ao);
-      ao.get()->blockDestructor(true);
     }
     else {
       errormsg(name());

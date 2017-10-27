@@ -4,6 +4,7 @@
 #include "YODA/ReaderYODA.h"
 #include "YODA/ReaderAIDA.h"
 
+// use execinfo for backtrace if available
 #include "DummyConfig.hh"
 #ifdef HAVE_EXECINFO_H
 #include <execinfo.h>
@@ -15,24 +16,7 @@ namespace Rivet {
 
 template <class T>
 Wrapper<T>::~Wrapper() {}
-//   // checking the use_count, because we only want to prevent destruction of the last one,
-//   // which seems to have a count of 2 for some reason
-//   if (   _blockDestructor  // we're a registered AO
-//       && !_persistent.empty() // with some entries
-//       && _persistent[0]  // that are non-null
-//       && _persistent[0].use_count() <= 2 ) { // and have no refs left => can't destruct
-// #ifdef HAVE_BACKTRACE
-//      void * buffer[4];
-//      backtrace(buffer, 4);
-//      backtrace_symbols_fd(buffer, 4 , 1);
-// #endif
-//      cerr << "***\n"
-//           << "* Cannot destruct temporary AO before finalize.\n"
-//           << "* All booked AOs must be class members.\n"
-//           << "***\n";
-//      assert(false);
-//    }
-// }
+
 
 template <class T>
 Wrapper<T>::Wrapper(size_t len_of_weightvec, const T & p)

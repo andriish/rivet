@@ -281,9 +281,6 @@ namespace Rivet {
                   exit(1);
               }
           }
-          // allow AO destruction again
-          for (auto ao : a->analysisObjects())
-            ao.get()->blockDestructor(false);
       }
 
     // Print out number of events processed

@@ -46,8 +46,6 @@ namespace Rivet {
             /// rename to setActive(Idx)?
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
-            virtual void blockDestructor(bool) = 0;
-
             bool operator ==(const AnalysisObjectWrapper& p) { return (this == &p); }
 
         protected:
@@ -369,13 +367,6 @@ public:
         /* to be implemented for each type */
         void pushToPersistent(const vector<valarray<double> >& weight);
 
-        /// Set destructor blocking flag.
-        /// Once booked in an analysis, we need to block the destructor 
-        /// from being called until we're done with finalize.
-        /// This gives a clearer indication to the users that they're booking with
-        /// temporary objects.
-        void blockDestructor(bool b) { _blockDestructor = b; }
-
         /* M of these, one for each weight */
         vector<typename T::Ptr> _persistent;
 
@@ -383,12 +374,6 @@ public:
         vector<typename TupleWrapper<T>::Ptr> _evgroup;
 
         typename T::Ptr _active;
-
-        /// Destructor blocking flag.
-        /// Once booked in an analysis, we need to block the destructor 
-        /// from being called until we're done with finalize.
-        /// 
-        bool _blockDestructor = false;
 
         // do we need implicit cast?
         // operator typename T::Ptr () {
