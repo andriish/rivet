@@ -42,7 +42,7 @@ namespace Rivet {
             virtual YODA::AnalysisObject* operator->() const = 0;
             virtual const YODA::AnalysisObject & operator*() const = 0;
 
-            /// @todo 
+            /// @todo
             /// rename to setActive(Idx)?
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
@@ -153,7 +153,7 @@ template <class T>
     using Fills = multiset<Fill<T>>;
 
 
-// TODO TODO TODO 
+// TODO TODO TODO
 // need to override the old fill method too!
 // otherwise we can't intercept existing fill calls in analysis code
 // TODO TODO TODO
@@ -173,7 +173,7 @@ public:
     void reset() { fills_.clear(); }
     const Fills<YODA::Counter> & fills() const { return fills_; }
 private:
-    // x / weight pairs 
+    // x / weight pairs
     Fills<YODA::Counter> fills_;
 };
 
@@ -190,7 +190,7 @@ public:
     void reset() { fills_.clear(); }
     const Fills<YODA::Histo1D> & fills() const { return fills_; }
 private:
-    // x / weight pairs 
+    // x / weight pairs
     Fills<YODA::Histo1D> fills_;
 };
 
@@ -208,7 +208,7 @@ public:
     void reset() { fills_.clear(); }
     const Fills<YODA::Profile1D> & fills() const { return fills_; }
 private:
-    // x / weight pairs 
+    // x / weight pairs
     Fills<YODA::Profile1D> fills_;
 };
 
@@ -227,7 +227,7 @@ public:
     void reset() { fills_.clear(); }
     const Fills<YODA::Histo2D> & fills() const { return fills_; }
 private:
-    // x / weight pairs 
+    // x / weight pairs
     Fills<YODA::Histo2D> fills_;
 };
 
@@ -246,7 +246,7 @@ public:
     void reset() { fills_.clear(); }
     const Fills<YODA::Profile2D> & fills() const { return fills_; }
 private:
-    // x / weight pairs 
+    // x / weight pairs
     Fills<YODA::Profile2D> fills_;
 };
 
@@ -287,7 +287,7 @@ public:
 
         Wrapper() = default;
 
-        Wrapper(size_t len_of_weightvec, const T & p);
+        Wrapper(const vector<string>& weightnames, const T & p);
 
         ~Wrapper();
 
@@ -299,7 +299,7 @@ public:
         operator bool() const { return static_cast<bool>(_active); } // Don't use active() here, assert will catch
 
         T * operator->() { return active().get(); }
-        
+
         T * operator->() const { return active().get(); }
 
         T & operator*() { return *active(); }
@@ -396,18 +396,18 @@ public:
   rivet_shared_ptr(decltype(nullptr)) : _p(nullptr) {}
 
   /// Convenience constructor, pass through to the Wrapper constructor
-  rivet_shared_ptr(size_t len_of_weightvec, const typename T::Inner & p)
-    : _p( make_shared<T>(len_of_weightvec, p) ) 
+  rivet_shared_ptr(const vector<string>& weightNames, const typename T::Inner & p)
+    : _p( make_shared<T>(weightNames, p) )
     {}
- 
+
   template <typename U>
-  rivet_shared_ptr(const shared_ptr<U> & p) 
-    : _p(p) 
+  rivet_shared_ptr(const shared_ptr<U> & p)
+    : _p(p)
     {}
 
   template <typename U>
   rivet_shared_ptr(const rivet_shared_ptr<U> & p)
-    : _p(p.get()) 
+    : _p(p.get())
     {}
 
   // Goes right through to the active YODA object's members

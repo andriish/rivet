@@ -175,7 +175,7 @@ namespace Rivet {
                       const string& cname,
                       const string& title) {
     const string path = histoPath(cname);
-    ctr = CounterPtr(handler().numWeights(), Counter(path, title));
+    ctr = CounterPtr(handler().weightNames(), Counter(path, title));
     addAnalysisObject(ctr);
     MSG_TRACE("Made counter " << cname << " for " << name());
     return ctr;
@@ -203,7 +203,7 @@ namespace Rivet {
     hist.setAnnotation("XLabel", xtitle);
     hist.setAnnotation("YLabel", ytitle);
 
-    histo = Histo1DPtr(handler().numWeights(), hist);
+    histo = Histo1DPtr(handler().weightNames(), hist);
 
     addAnalysisObject(histo);
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
@@ -256,7 +256,7 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
 
 
-    histo = Histo1DPtr(handler().numWeights(), hist);
+    histo = Histo1DPtr(handler().weightNames(), hist);
     addAnalysisObject(histo);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
@@ -290,7 +290,7 @@ namespace Rivet {
     hist.setAnnotation("XLabel", xtitle);
     hist.setAnnotation("YLabel", ytitle);
 
-    histo = Histo1DPtr(handler().numWeights(), hist);
+    histo = Histo1DPtr(handler().weightNames(), hist);
     addAnalysisObject(histo);
 
     MSG_TRACE("Made histogram " << hname <<  " for " << name());
@@ -336,7 +336,7 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
     hist.setAnnotation("ZLabel", ztitle);
 
-    h2d = Histo2DPtr(handler().numWeights(), hist);
+    h2d = Histo2DPtr(handler().weightNames(), hist);
     addAnalysisObject(h2d);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
@@ -370,7 +370,7 @@ namespace Rivet {
     hist.setAnnotation("YLabel", ytitle);
     hist.setAnnotation("ZLabel", ztitle);
 
-    h2d = Histo2DPtr(handler().numWeights(), hist);
+    h2d = Histo2DPtr(handler().weightNames(), hist);
     addAnalysisObject(h2d);
 
     MSG_TRACE("Made 2D histogram " << hname <<  " for " << name());
@@ -389,7 +389,7 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    p1d = Profile1DPtr(handler().numWeights(), prof);
+    p1d = Profile1DPtr(handler().weightNames(), prof);
     addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
@@ -415,7 +415,7 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    p1d = Profile1DPtr(handler().numWeights(), prof);
+    p1d = Profile1DPtr(handler().weightNames(), prof);
     addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
@@ -434,7 +434,7 @@ namespace Rivet {
     prof.setAnnotation("XLabel", xtitle);
     prof.setAnnotation("YLabel", ytitle);
 
-    p1d = Profile1DPtr(handler().numWeights(), prof);
+    p1d = Profile1DPtr(handler().weightNames(), prof);
     addAnalysisObject(p1d);
 
     MSG_TRACE("Made profile histogram " << hname <<  " for " << name());
@@ -476,7 +476,7 @@ namespace Rivet {
     prof.setAnnotation("YLabel", ytitle);
     prof.setAnnotation("ZLabel", ztitle);
 
-    p2d = Profile2DPtr(handler().numWeights(), prof);
+    p2d = Profile2DPtr(handler().weightNames(), prof);
     addAnalysisObject(p2d);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
@@ -509,7 +509,7 @@ namespace Rivet {
     prof.setAnnotation("YLabel", ytitle);
     prof.setAnnotation("ZLabel", ztitle);
 
-    p2d = Profile2DPtr(handler().numWeights(), prof);
+    p2d = Profile2DPtr(handler().weightNames(), prof);
     addAnalysisObject(p2d);
 
     MSG_TRACE("Made 2D profile histogram " << hname <<  " for " << name());
@@ -546,7 +546,7 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    s2d = Scatter2DPtr(handler().numWeights(), scat);
+    s2d = Scatter2DPtr(handler().weightNames(), scat);
     addAnalysisObject(s2d);
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
@@ -571,7 +571,7 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    s2d = Scatter2DPtr(handler().numWeights(), scat);
+    s2d = Scatter2DPtr(handler().weightNames(), scat);
     addAnalysisObject(s2d);
 
     MSG_TRACE("Made scatter " << hname <<  " for " << name());
@@ -596,7 +596,7 @@ namespace Rivet {
     scat.setAnnotation("XLabel", xtitle);
     scat.setAnnotation("YLabel", ytitle);
 
-    s2d = Scatter2DPtr(handler().numWeights(), scat);
+    s2d = Scatter2DPtr(handler().weightNames(), scat);
     addAnalysisObject(s2d);
 
 

@@ -27,7 +27,7 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      _eventCounter(0, Counter()), _xs(0, Scatter1D()),
+      _eventCounter(vector<string>(), Counter()), _xs(vector<string>(), Scatter1D()),
       _initialised(false), _ignoreBeams(false),
       _defaultWeightIdx(0)
   {}
@@ -68,6 +68,9 @@ namespace Rivet {
     if (_initialised)
       throw UserError("AnalysisHandler::init has already been called: cannot re-initialize!");
 
+     // TODO TODO
+     // should the rivet analysis objects know about weight names?
+
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
     _eventNumber = ge.event_number();
@@ -78,8 +81,7 @@ namespace Rivet {
     else
         MSG_INFO("NOT using named weights. Using first weight as nominal weight");
 
-    _numWeightTypes = _weightNames.size();
-    _eventCounter = CounterPtr(_numWeightTypes, Counter("_EVTCOUNT"));
+    _eventCounter = CounterPtr(weightNames(), Counter("_EVTCOUNT"));
 
     // set the cross section based on what is reported by this event.
     // if no cross section
@@ -156,11 +158,15 @@ namespace Rivet {
       vector<string> temp = ::split(m.str(), "[,]");
       if (temp.size() ==2) {
         MSG_DEBUG("Name of weight #" << _weightNames.size() << ": " << temp[0]);
-        _weightNames.push_back(temp[0]);
 
         // store the default weight based on weight names
-        if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default")
+        if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default") {
+          MSG_DEBUG(_weightNames.size() << " is being used as the nominal.");
+          _weightNames.push_back("");
           _defaultWeightIdx = idx;
+        } else
+          _weightNames.push_back(temp[0]);
+
 
         idx++;
       }
@@ -393,18 +399,12 @@ namespace Rivet {
       for (auto rao : getRivetAOs()) {
           // need to set the index
           // before we can search the PATH
-          rao.get()->setActiveWeightIdx(0);
+          rao.get()->setActiveWeightIdx(_defaultWeightIdx);
           if (rao->path().find("/TMP/") != string::npos)
               continue;
 
           for (size_t iW = 0; iW < numWeights(); iW++) {
               rao.get()->setActiveWeightIdx(iW);
-
-              // add the weight name in brackets unless we recognize a
-              // nominal weight
-              if (iW != _defaultWeightIdx)
-                  rao->setPath(rao->path() + "[" + _weightNames[iW] + "]");
-
               rtn.push_back(rao.get()->activeYODAPtr());
           }
       }
@@ -480,7 +480,7 @@ namespace Rivet {
 
 
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
-    _xs = Scatter1DPtr(numWeights(), Scatter1D("_XSEC"));
+    _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
     double nomwgt = sumOfWeights();
 

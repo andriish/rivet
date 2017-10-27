@@ -68,6 +68,10 @@ namespace Rivet {
         return _eventCounter->sumW();
     }
 
+    const vector<string>& weightNames() const {
+        return _weightNames;
+    }
+
     size_t numWeights() const {
         return _weightNames.size();
     }

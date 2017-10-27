@@ -19,10 +19,15 @@ Wrapper<T>::~Wrapper() {}
 
 
 template <class T>
-Wrapper<T>::Wrapper(size_t len_of_weightvec, const T & p)
+Wrapper<T>::Wrapper(const vector<string>& weightNames, const T & p)
 {
-  for (size_t m = 0; m < len_of_weightvec; ++m)
+  for (const string& weightname : weightNames) {
     _persistent.push_back(make_shared<T>(p));
+
+    auto obj = _persistent.back();
+    if (weightname != "")
+        obj->setPath(obj->path() + "[" + weightname + "]");
+  }
 }
 
 

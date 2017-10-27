@@ -646,12 +646,15 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 ## Print end-of-loop messages
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
-logging.info("Cross-section = %e pb" % ah.nominalCrossSection())
-print()
+logging.info("Generator provided cross-section = %e pb" % ah.nominalCrossSection())
 
 
 ## Finalize and write out data file
 run.finalize()
+
+logging.info("Applied cross-section = %e pb" % ah.nominalCrossSection())
+print()
+
 if opts.WRITE_DATA:
     ah.writeData(opts.HISTOFILE)
 print()
