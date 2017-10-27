@@ -72,9 +72,6 @@ namespace Rivet {
         return _weightNames.size();
     }
 
-    /// Is cross-section information required by at least one child analysis?
-    bool needCrossSection() const;
-
     /// Set the cross-section for the process being generated.
     AnalysisHandler& setCrossSection(double xs, double xserr);
 
@@ -83,8 +80,17 @@ namespace Rivet {
       return _xs;
     }
 
-    /// Whether the handler knows about a cross-section.
-    bool hasCrossSection() const;
+    double nominalCrossSection() const {
+      _xs.get()->setActiveWeightIdx(_defaultWeightIdx);
+      const YODA::Scatter1D::Points& ps = _xs->points();
+      if (ps.size() != 1) {
+        string errMsg = "cross section missing when requesting nominal cross section";
+        throw Error(errMsg);
+      }
+      double xs = ps[0].x();
+      _xs.get()->unsetActiveWeight();
+      return xs;
+    }
 
 
     /// Set the beam particles for this run
@@ -246,6 +252,8 @@ namespace Rivet {
 
     /// Current event number
     int _eventNumber;
+
+    size_t _defaultWeightIdx;
     //@}
 
 

@@ -646,7 +646,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 ## Print end-of-loop messages
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
-logging.info("Cross-section = %e pb" % ah.crossSection())
+logging.info("Cross-section = %e pb" % ah.nominalCrossSection())
 print()
 
 

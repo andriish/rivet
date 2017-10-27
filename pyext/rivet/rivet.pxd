@@ -15,7 +15,7 @@ cdef extern from "Rivet/AnalysisHandler.hh" namespace "Rivet":
         vector[string] analysisNames() const
         # Analysis* analysis(string)
         void writeData(string&)
-        double crossSection()
+        double nominalCrossSection()
         void finalize()
 
 cdef extern from "Rivet/Run.hh" namespace "Rivet":

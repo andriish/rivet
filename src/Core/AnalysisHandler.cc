@@ -28,7 +28,8 @@ namespace Rivet {
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
       _eventCounter(0, Counter()), _xs(0, Scatter1D()),
-      _initialised(false), _ignoreBeams(false)
+      _initialised(false), _ignoreBeams(false),
+      _defaultWeightIdx(0)
   {}
 
 
@@ -148,6 +149,7 @@ namespace Rivet {
     string str =  stream.str();
 
     std::regex re("(([^()]+))"); // Regex for stuff enclosed by parentheses ()
+    size_t idx = 0;
     for(std::sregex_iterator i = std::sregex_iterator(str.begin(), str.end(), re);
                           i != std::sregex_iterator(); ++i ) {
       std::smatch m = *i;
@@ -155,6 +157,12 @@ namespace Rivet {
       if (temp.size() ==2) {
         MSG_DEBUG("Name of weight #" << _weightNames.size() << ": " << temp[0]);
         _weightNames.push_back(temp[0]);
+
+        // store the default weight based on weight names
+        if (temp[0] == "Weight" || temp[0] == "0" || temp[0] == "Default")
+          _defaultWeightIdx = idx;
+
+        idx++;
       }
     }
   }
@@ -219,6 +227,7 @@ namespace Rivet {
     }
 
 
+    MSG_TRACE("starting new sub event");
     _eventCounter.get()->newSubEvent();
 
     for (const AnaHandle& a : _analyses) {
@@ -393,9 +402,7 @@ namespace Rivet {
 
               // add the weight name in brackets unless we recognize a
               // nominal weight
-              if (_weightNames[iW] != "Weight"
-                  && _weightNames[iW] != "0"
-                  && _weightNames[iW] != "Default")
+              if (iW != _defaultWeightIdx)
                   rao->setPath(rao->path() + "[" + _weightNames[iW] + "]");
 
               rtn.push_back(rao.get()->activeYODAPtr());
@@ -474,7 +481,7 @@ namespace Rivet {
 
   AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
     _xs = Scatter1DPtr(numWeights(), Scatter1D("_XSEC"));
-    _eventCounter.get()->setActiveWeightIdx(0);
+    _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
     double nomwgt = sumOfWeights();
 
     // the cross section of each weight variation is the nominal cross section

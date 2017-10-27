@@ -39,8 +39,8 @@ cdef class AnalysisHandler:
     def writeData(self, name):
         self._ptr.writeData(name)
 
-    def crossSection(self):
-        return self._ptr.crossSection()
+    def nominalCrossSection(self):
+        return self._ptr.nominalCrossSection()
 
     def finalize(self):
         self._ptr.finalize()

@@ -41,12 +41,15 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event & e) {
+      MSG_TRACE("MC_ZJETS: running ZFinder");
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
       if (zfinder.bosons().size() != 1) vetoEvent;
       const FourMomentum& zmom = zfinder.bosons()[0].momentum();
+      MSG_TRACE("MC_ZJETS: have exactly one Z boson candidate");
 
       const Jets& jets = apply<FastJets>(e, "Jets").jetsByPt(_jetptcut);
       if (jets.size() > 0) {
+        MSG_TRACE("MC_ZJETS: have at least one valid jet");
         const double weight = 1.0;
         _h_Z_jet1_deta->fill(zmom.eta()-jets[0].eta(), weight);
         _h_Z_jet1_dR->fill(deltaR(zmom, jets[0].momentum()), weight);
