@@ -44,8 +44,9 @@ namespace Rivet {
         // Do the analysis only for the ttbar full leptonic or semileptonic channel, without tau decay
         const Particles leptonicpartontops = apply<ParticleFinder>(event, "LeptonicPartonTops").particlesByPt();
         const Particles hadronicpartontops = apply<ParticleFinder>(event, "HadronicPartonTops").particlesByPt();
-        const bool isSemilepton = (leptonicpartontops.size() == 1 and hadronicpartontops.size() == 1);
-        if (leptonicpartontops.size() != 2) vetoEvent; //< if neither semileptonic nor dileptonic, veto
+        const bool isSemilepton = (leptonicpartontops.size() == 1 && hadronicpartontops.size() == 1);
+        const bool isDilepton = (leptonicpartontops.size() == 2 && hadronicpartontops.size() == 0);
+        if (!isSemilepton && !isDilepton) vetoEvent;
 
         // Parton level at full phase space
         // Fill top quarks defined in the parton level, full phase space
