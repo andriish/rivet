@@ -612,15 +612,22 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
+    Scatter2DPtr s;
     const string path = histoPath(hname);
-    Scatter2DPtr s = make_shared<Scatter2D>(path);
-    const double binwidth = (upper-lower)/npts;
-    for (size_t pt = 0; pt < npts; ++pt) {
-      const double bincentre = lower + (pt + 0.5) * binwidth;
-      s->addPoint(bincentre, 0, binwidth/2.0, 0);
+    try { // try to bind to pre-existing
+      s = getAnalysisObject<Scatter2D>(hname);
+      /// @todo Also test that binning is as expected?
+      MSG_TRACE("Bound pre-existing scatter " << path <<  " for " << name());
+    } catch (...) { // binding failed; make it from scratch
+      s = make_shared<Scatter2D>(path);
+      const double binwidth = (upper-lower)/npts;
+      for (size_t pt = 0; pt < npts; ++pt) {
+        const double bincentre = lower + (pt + 0.5) * binwidth;
+        s->addPoint(bincentre, 0, binwidth/2.0, 0);
+      }
+      addAnalysisObject(s);
+      MSG_TRACE("Made scatter " << hname <<  " for " << name());
     }
-    addAnalysisObject(s);
-    MSG_TRACE("Made scatter " << hname <<  " for " << name());
     s->setTitle(title);
     s->setAnnotation("XLabel", xtitle);
     s->setAnnotation("YLabel", ytitle);
