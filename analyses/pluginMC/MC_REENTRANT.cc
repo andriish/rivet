@@ -28,8 +28,7 @@ namespace Rivet {
       declare(fs, "FS");
       declare(ChargedFinalState(fs), "CFS");
 
-      // Histograms
-      /// @todo Choose E/pT ranged based on input energies... can't do anything about kin. cuts, though
+      // Histograms. Booked for both 900 GeV and 7 TeV and their ratio.
       _histEta70    = bookHisto1D("Eta70", 50, -5, 5);
       _histEta09    = bookHisto1D("Eta09", 50, -5, 5);
       _histEtaR     = bookScatter2D("EtaR", 50, -5, 5);
@@ -46,7 +45,6 @@ namespace Rivet {
       else if (fuzzyEquals(sqrtS()/GeV, 7000))
         fill70 = true;
 
-      // Same for the charged FS particles only
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       for (const Particle& p : cfs.particles()) {
         if (fuzzyEquals(sqrtS()/GeV, 900))
