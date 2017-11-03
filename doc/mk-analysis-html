@@ -4,11 +4,14 @@ import sys, os, re
 
 ## Get output filename
 OUTFILE = "analyses.html"
+OUTDIR = "analyses"
 if len(sys.argv) < 2:
     pass
-    #print "Using output name '%s'" % OUTNAME
 else:
-    OUTFILE = sys.argv[1]
+    OUTFILE = sys.argv[1]+".html"
+    OUTDIR = sys.argv[1]
+
+print "Using output file name '%s' and directory '%s'" % (OUTFILE, OUTDIR)
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
@@ -19,11 +22,53 @@ import rivet
 from rivet.util import htmlify
 
 ## Set up Rivet analysis plugin and info file path variables
-os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("../src/Analyses/.libs") + "::"
-os.environ["RIVET_INFO_PATH"] = os.path.abspath("../data/anainfo") + "::"
+##os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("../analyses/.libs") + "::"
+##os.environ["RIVET_INFO_PATH"] = os.path.abspath("../data/anainfo") + "::"
+
+## Get some strings of html ready.
+foot = """\
+</body>
+</html>
+"""
+
+head = '''\
+<html>
+<head>
+  <title>Rivet analyses reference</title>
+  <style>
+    body { font-family:sans-serif; padding: 1em 1em 2em 2em; }
+    p, li { max-width:50em; }
+    h2 { margin-left:-1em; margin-bottom:1.5em; }
+    h3 { color:#349; margin-top:2em; }
+  </style>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"]]}
+  });
+  </script>
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+<body>
+  <h2>Rivet analyses reference</h2>
+
+'''
+
+
 
 ## Build analysis pages
 all_analyses = rivet.AnalysisLoader.analysisNames()
+
+## Remove any existing directory with name OUTDIR, make new one.
+if os.path.exists(OUTDIR) and not os.path.realpath(OUTDIR)==os.getcwd():
+        import shutil
+        shutil.rmtree(OUTDIR)
+try:
+    os.makedirs(OUTDIR)
+except:
+    print "Error: failed to make new directory '%s'" % OUTDIR
+    sys.exit(1)
 
 summaries = {}
 pages = []
@@ -125,48 +170,25 @@ for aname in sorted(list(all_analyses)):
 
     page += "\n<p>" + htmlify(ana.description(), para=True) + "</p>\n"
 
-    pages.append(page)
+    # Write out HTML analysis file
+    ANAFILE = OUTDIR+'/'+aname+'.html'
+    f = open(ANAFILE, "w")
+    outstr = head + page + foot
+    f.write(outstr)
+    f.close()
 
-
-
-## Write out HTML
-head = '''\
-<html>
-<head>
-  <title>Rivet analyses reference</title>
-  <style>
-    body { font-family:sans-serif; padding: 1em 1em 2em 2em; }
-    p, li { max-width:50em; }
-    h2 { margin-left:-1em; margin-bottom:1.5em; }
-    h3 { color:#349; margin-top:2em; }
-  </style>
-  <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {inlineMath: [["$","$"]]}
-  });
-  </script>
-  <script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
-</head>
-<body>
-  <h2>Rivet analyses reference</h2>
-
-'''
-
+## Write out HTML toc file
 toc = "<h3>Contents</h3>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses:
-    toc += "<li><a href='#%s'>%s</a> &ndash; %s</li>\n" % (a,a, htmlify(summaries[a]))
+    toc += "<li><a href='%s/%s.html'>%s</a> &ndash; %s</li>\n" % (OUTDIR,a,a, htmlify(summaries[a]))
 toc += "</ul>\n"
 
-foot = """\
-</body>
-</html>
-"""
+##body = "\n\n".join(pages)
 
-body = "\n\n".join(pages)
-outstr = head + toc + body + foot
+outstr = head + toc + foot
+
+##outstr = head + toc + body + foot
 
 if OUTFILE == "-":
     sys.stdout.write(outstr)

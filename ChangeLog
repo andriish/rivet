@@ -1,4 +1,12 @@
+2017-10-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add energy to the list of cuts (both as Cuts::E and Cuts::energy)
+
+	* Add missing pT (rather than Et) functions to SmearedMET,
+	although they are just copies of the MET functions for now.
+
 2017-10-26  Chris Pollard  <cspollard@gmail.com>
+
 	* update the way crossSection() works; remove
 	setNeedsCrossSection()
 

@@ -93,9 +93,11 @@ selgroup.add_option("-m", "--match", action="append", dest="PATHPATTERNS", defau
                     help="only write out histograms whose $path/$name string matches any of these regexes")
 selgroup.add_option("-M", "--unmatch", action="append", dest="PATHUNPATTERNS", default=[],
                     help="exclude histograms whose $path/$name string matches any of these regexes")
-selgroup.add_option("-a", "--ana-match", action="append", dest="ANAPATTERNS", default=[],
+selgroup.add_option(#"-a", #< these were confusing, and -m should be enough
+                    "--ana-match", action="append", dest="ANAPATTERNS", default=[],
                     help="only write out histograms from analyses whose name matches any of these regexes")
-selgroup.add_option("-A", "--ana-unmatch", action="append", dest="ANAUNPATTERNS", default=[],
+selgroup.add_option(#"-A", #< these were confusing, and -M should be enough
+                    "--ana-unmatch", action="append", dest="ANAUNPATTERNS", default=[],
                     help="exclude histograms from analyses whose name matches any of these regexes")
 parser.add_option_group(selgroup)
 

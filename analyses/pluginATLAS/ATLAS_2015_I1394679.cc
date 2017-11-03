@@ -175,7 +175,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      const double sf = crossSection() / sumOfWeights();
+      const double sf = (crossSection()/femtobarn) / sumOfWeights();
       /// @todo Migrate to C++11 range-for loop
       for (map<string, Histo1DPtr>::iterator hit = _h.begin(); hit != _h.end(); ++hit) {
         scale(hit->second, sf);

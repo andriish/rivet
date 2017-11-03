@@ -12,7 +12,7 @@ DOCS =
 if ENABLE_PDFMANUAL
 
 if ENABLE_PYEXT
-DOCS += analyses.html
+DOCS += analyses.html analyses
 analyses.html: $(top_srcdir)/analyses mk-analysis-html
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \

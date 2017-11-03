@@ -14,7 +14,6 @@
 
 namespace Rivet {
 
-
   /// Generic Z candidate
   struct Zstate : public ParticlePair {
     Zstate() { }
@@ -24,64 +23,6 @@ namespace Rivet {
     static bool cmppT(const Zstate& lx, const Zstate& rx) { return lx.mom().pT() < rx.mom().pT(); }
   };
 
-
-  /// 4l to ZZ assignment -- algorithm
-  void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l, const double ZMASS) {
-
-    /////////////////////////////////////////////////////////////////////////////
-    /// ZZ->4l pairing
-    /// - Exactly two same flavour opposite charged leptons
-    /// - Ambiguities in pairing are resolved by choosing the combination
-    ///     that results in the smaller value of the sum |mll - mZ| for the two pairs
-    /////////////////////////////////////////////////////////////////////////////
-
-    Particles part_pos_el, part_neg_el, part_pos_mu, part_neg_mu;
-    foreach (const Particle& l , leptons_sel4l) {
-      if (l.abspid() == PID::ELECTRON) {
-        if (l.pid() < 0) part_neg_el.push_back(l);
-        if (l.pid() > 0) part_pos_el.push_back(l);
-      }
-      else if (l.abspid() == PID::MUON) {
-        if (l.pid() < 0) part_neg_mu.push_back(l);
-        if (l.pid() > 0) part_pos_mu.push_back(l);
-      }
-    }
-
-    // ee/mm channel
-    if ( part_neg_el.size() == 2 || part_neg_mu.size() == 2) {
-
-      Zstate Zcand_1, Zcand_2, Zcand_3, Zcand_4;
-      if (part_neg_el.size() == 2) { // ee
-        Zcand_1 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[0] ) );
-        Zcand_2 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[1] ) );
-        Zcand_3 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[0] ) );
-        Zcand_4 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[1] ) );
-      } else { // mumu
-        Zcand_1 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[0] ) );
-        Zcand_2 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[1] ) );
-        Zcand_3 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[0] ) );
-        Zcand_4 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[1] ) );
-      }
-
-      // We can have the following pairs: (Z1 + Z4) || (Z2 + Z3)
-      double minValue_1, minValue_2;
-      minValue_1 = fabs( Zcand_1.mom().mass() - ZMASS ) + fabs( Zcand_4.mom().mass() - ZMASS);
-      minValue_2 = fabs( Zcand_2.mom().mass() - ZMASS ) + fabs( Zcand_3.mom().mass() - ZMASS);
-      if (minValue_1 < minValue_2 ) {
-        Z1 = Zcand_1;
-        Z2 = Zcand_4;
-      } else {
-        Z1 = Zcand_2;
-        Z2 = Zcand_3;
-      }
-
-    // emu channel
-    } else if (part_neg_mu.size() == 1 && part_neg_el.size() == 1) {
-      Z1 = Zstate ( ParticlePair (part_neg_mu[0],  part_pos_mu[0] ) );
-      Z2 = Zstate ( ParticlePair (part_neg_el[0],  part_pos_el[0] ) );
-    }
-
-  }
 
 
   /// @name ZZ analysis
@@ -94,15 +35,13 @@ namespace Rivet {
     {    }
 
     void init() {
+
+      // NB Missing ET is not required to be neutrinos
       FinalState fs(-5.0, 5.0, 0.0*GeV);
 
       // Final states to form Z bosons
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
       vids.push_back(make_pair(PID::MUON, PID::ANTIMUON));
-
-      vnuids.push_back(make_pair(PID::NU_E, PID::NU_EBAR) );
-      vnuids.push_back(make_pair(PID::NU_MU, PID::NU_MUBAR) );
-      vnuids.push_back(make_pair(PID::NU_TAU, PID::NU_TAUBAR) );
 
       IdentifiedFinalState Photon(fs);
       Photon.acceptIdPair(PID::PHOTON);
@@ -133,10 +72,12 @@ namespace Rivet {
 
 
       /// Get all neutrinos. These will not be used to form jets.
-      /// We'll use the highest 2 pT neutrinos to calculate the MET
       IdentifiedFinalState neutrino_fs(Cuts::abseta < 4.5);
       neutrino_fs.acceptNeutrinos();
       declare(neutrino_fs, "NEUTRINO_FS");
+
+      // Calculate missing ET from the visible final state, not by requiring neutrinos
+      addProjection(MissingMomentum(Cuts::abseta < 4.5), "MISSING");
 
       VetoedFinalState jetinput;
       jetinput.addVetoOnThisFinalState(bare_MU);
@@ -180,9 +121,9 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////
       // OVERLAP removal dR(l,l)>0.2
       ////////////////////////////////////////////////////////////////////
-      for ( const DressedLepton& l1 : leptonsFS_sel4l) {
+      foreach ( const DressedLepton& l1, leptonsFS_sel4l) {
         bool isolated = true;
-        for (DressedLepton& l2 : leptonsFS_sel4l) {
+        foreach (DressedLepton& l2, leptonsFS_sel4l) {
           const double dR = deltaR(l1, l2);
           if (dR < 0.2 && l1 != l2) { isolated = false; break; }
         }
@@ -202,7 +143,7 @@ namespace Rivet {
         Zstate Z1, Z2;
 
         // Identifies Z states from 4 lepton pairs
-        identifyZstates(Z1, Z2,leptons_sel4l, ZMASS);
+        identifyZstates(Z1, Z2,leptons_sel4l);
 
         ////////////////////////////////////////////////////////////////////////////
         // Z MASS WINDOW
@@ -258,8 +199,8 @@ namespace Rivet {
       if (leptons_sel2l2nu.empty()) vetoEvent; // no further analysis, fine to veto
 
       Particles leptons_sel2l2nu_jetveto;
-      for (const DressedLepton& l : mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
-      for (const DressedLepton& l : el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      foreach (const DressedLepton& l, mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      foreach (const DressedLepton& l, el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
       double ptll = (leptons_sel2l2nu[0].momentum() + leptons_sel2l2nu[1].momentum()).pT();
 
       // Find Z1-> ll
@@ -270,16 +211,10 @@ namespace Rivet {
       const ParticlePair& Z1constituents = imfs.particlePairs()[0];
       FourMomentum Z1 = Z1constituents.first.momentum() + Z1constituents.second.momentum();
 
-      // Find Z2-> nunu
-      const Particles& neutrinoFS = apply<IdentifiedFinalState>(e, "NEUTRINO_FS").particlesByPt();
-      FinalState fs3(-4.5, 4.5);
-      InvMassFinalState imfs_Znunu(fs3, vnuids, 20*GeV, sqrtS(), ZMASS);
-      imfs_Znunu.calc(neutrinoFS);
-      if (imfs_Znunu.particlePairs().size() == 0 ) vetoEvent;
-
-      // Z to neutrinos
-      FourMomentum Z2 = imfs_Znunu.particlePairs()[0].first.momentum() + imfs_Znunu.particlePairs()[0].second.momentum();
-      double met_Znunu = Z2.pT();
+      // Z to neutrinos candidate from missing ET
+      const MissingMomentum & missmom = applyProjection<MissingMomentum>(e, "MISSING");
+      const FourMomentum Z2 = missmom.missingMomentum(ZMASS);
+      double met_Znunu = missmom.missingEt(); //Z2.pT();
 
       // mTZZ
       const double mT2_1st_term = add_quad(ZMASS, ptll) + add_quad(ZMASS, met_Znunu);
@@ -360,14 +295,74 @@ namespace Rivet {
 
   private:
 
-    const double ZMASS = 91.1876; // GeV
-
+    void identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l);
     Histo1DPtr _h_ZZ_xsect, _h_ZZ_ZpT, _h_ZZ_phill, _h_ZZ_mZZ;
     Histo1DPtr _h_ZZs_xsect;
     Histo1DPtr _h_ZZnunu_xsect, _h_ZZnunu_ZpT, _h_ZZnunu_phill, _h_ZZnunu_mZZ;
-    vector< pair<PdgId,PdgId> > vids, vnuids;
+    vector< pair<PdgId,PdgId> > vids;
+    const double ZMASS = 91.1876; // GeV
+
 
   };
+
+
+  /// 4l to ZZ assignment -- algorithm
+  void ATLAS_2012_I1203852::identifyZstates(Zstate& Z1, Zstate& Z2, const Particles& leptons_sel4l) {
+
+    /////////////////////////////////////////////////////////////////////////////
+    /// ZZ->4l pairing
+    /// - Exactly two same flavour opposite charged leptons
+    /// - Ambiguities in pairing are resolved by choosing the combination
+    ///     that results in the smaller value of the sum |mll - mZ| for the two pairs
+    /////////////////////////////////////////////////////////////////////////////
+
+    Particles part_pos_el, part_neg_el, part_pos_mu, part_neg_mu;
+    foreach (const Particle& l , leptons_sel4l) {
+      if (l.abspid() == PID::ELECTRON) {
+        if (l.pid() < 0) part_neg_el.push_back(l);
+        if (l.pid() > 0) part_pos_el.push_back(l);
+      }
+      else if (l.abspid() == PID::MUON) {
+        if (l.pid() < 0) part_neg_mu.push_back(l);
+        if (l.pid() > 0) part_pos_mu.push_back(l);
+      }
+    }
+
+    // ee/mm channel
+    if ( part_neg_el.size() == 2 || part_neg_mu.size() == 2) {
+
+      Zstate Zcand_1, Zcand_2, Zcand_3, Zcand_4;
+      if (part_neg_el.size() == 2) { // ee
+        Zcand_1 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[0] ) );
+        Zcand_2 = Zstate( ParticlePair( part_neg_el[0],  part_pos_el[1] ) );
+        Zcand_3 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[0] ) );
+        Zcand_4 = Zstate( ParticlePair( part_neg_el[1],  part_pos_el[1] ) );
+      } else { // mumu
+        Zcand_1 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[0] ) );
+        Zcand_2 = Zstate( ParticlePair( part_neg_mu[0],  part_pos_mu[1] ) );
+        Zcand_3 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[0] ) );
+        Zcand_4 = Zstate( ParticlePair( part_neg_mu[1],  part_pos_mu[1] ) );
+      }
+
+      // We can have the following pairs: (Z1 + Z4) || (Z2 + Z3)
+      double minValue_1, minValue_2;
+      minValue_1 = fabs( Zcand_1.mom().mass() - ZMASS ) + fabs( Zcand_4.mom().mass() - ZMASS);
+      minValue_2 = fabs( Zcand_2.mom().mass() - ZMASS ) + fabs( Zcand_3.mom().mass() - ZMASS);
+      if (minValue_1 < minValue_2 ) {
+        Z1 = Zcand_1;
+        Z2 = Zcand_4;
+      } else {
+        Z1 = Zcand_2;
+        Z2 = Zcand_3;
+      }
+
+    // emu channel
+    } else if (part_neg_mu.size() == 1 && part_neg_el.size() == 1) {
+      Z1 = Zstate ( ParticlePair (part_neg_mu[0],  part_pos_mu[0] ) );
+      Z2 = Zstate ( ParticlePair (part_neg_el[0],  part_pos_el[0] ) );
+    }
+
+  }
 
 
   // The hook for the plugin system

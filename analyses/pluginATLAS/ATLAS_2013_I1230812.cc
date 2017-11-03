@@ -3,6 +3,7 @@
 #include "Rivet/Projections/ZFinder.hh"
 #include "Rivet/Projections/FastJets.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 
 namespace Rivet {
 
@@ -28,21 +29,22 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      // Determine the e/mu decay channels used
+      // Determine the e/mu decay channels used (NB Prompt leptons only).
       /// @todo Note that Zs are accepted with any rapidity: the cuts are on the e/mu: is this correct?
-	  Cut pt20 = Cuts::pT >= 20.0*GeV;
+      Cut pt20 = Cuts::pT >= 20.0*GeV;
       if (_mode == 1) {
         // Combined
-        ZFinder zfinder(FinalState(-2.5, 2.5), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
+	Cut eta_comb = Cuts::abseta < 2.5;
+	ZFinder zfinder(PromptFinalState(eta_comb), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         declare(zfinder, "zfinder");
       } else if (_mode == 2) {
         // Electron
 	    Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
-        ZFinder zfinder(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
+        ZFinder zfinder(PromptFinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         declare(zfinder, "zfinder");
       } else if (_mode == 3) {
         // Muon
-        ZFinder zfinder(FinalState(Cuts::abseta < 2.4), pt20, PID::MUON, 66*GeV, 116*GeV);
+        ZFinder zfinder(PromptFinalState(Cuts::abseta < 2.4), pt20, PID::MUON, 66*GeV, 116*GeV);
         declare(zfinder, "zfinder");
       } else {
         MSG_ERROR("Unknown decay channel mode!!!");

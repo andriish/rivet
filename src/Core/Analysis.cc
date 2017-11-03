@@ -560,6 +560,8 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
+    // TODO: default branch has a read mechanism implemented, to start from an existing AO.
+    // need to work out how to implement that for multiweights
     const string path = histoPath(hname);
     Scatter2D scat;
     const double binwidth = (upper-lower)/npts;

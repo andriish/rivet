@@ -79,6 +79,8 @@ parser.add_option_group(anagroup)
 extragroup = OptionGroup(parser, "Extra run settings")
 extragroup.add_option("-o", "-H", "--histo-file", dest="HISTOFILE",
                       default="Rivet.yoda", help="specify the output histo file path (default = %default)")
+extragroup.add_option("-p", "--preload-file", dest="PRELOADFILE",
+                      default=None, help="specify and old yoda file to initialize (default = %default)")
 extragroup.add_option("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
                       help="don't write out any histogram file at the end of the run (default = write)")
 extragroup.add_option("-x", "--cross-section", dest="CROSS_SECTION",
@@ -496,6 +498,7 @@ if not os.access(histo_parentdir,os.W_OK):
 RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(opts.IGNORE_BEAMS)
+
 for a in opts.ANALYSES:
     ## Print warning message and exit if not a valid analysis name
     if not a in all_analyses:
@@ -505,6 +508,9 @@ for a in opts.ANALYSES:
         sys.exit(1)
     logging.debug("Adding analysis '%s'" % a)
     ah.addAnalysis(a)
+
+if opts.PRELOADFILE is not None:
+    ah.readData(opts.PRELOADFILE)
 
 
 if opts.SHOW_BIBTEX:

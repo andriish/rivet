@@ -36,6 +36,9 @@ cdef class AnalysisHandler:
     #     pyobj._ptr = ptr
     #     return pyobj
 
+    def readData(self, name):
+        self._ptr.readData(name)
+
     def writeData(self, name):
         self._ptr.writeData(name)
 
