@@ -18,12 +18,14 @@ namespace Rivet {
     vector<double> _gapFractionDeltaYSlices;
     BinnedHistogram _h_gapVsDeltaYVeto;
     BinnedHistogram _h_gapVsDeltaYInc;
+    vector<Scatter2DPtr> _ratio_DeltaY;
 
     // Gap fraction vs ptBar plot setup
     int _gapFractionPtBarHistIndex;
     vector<double> _gapFractionPtBarSlices;
     BinnedHistogram _h_gapVsPtBarVeto;
     BinnedHistogram _h_gapVsPtBarInc;
+    vector<Scatter2DPtr> _ratio_PtBar;
 
     // Gap fraction vs Q0 plot setup
     int _gapFractionQ0HistIndex;
@@ -118,6 +120,8 @@ namespace Rivet {
                                                 book(tmp1,vetoHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1,plots.selectionType)));
           plots._h_gapVsDeltaYInc.add(plots._gapFractionDeltaYSlices[x], plots._gapFractionDeltaYSlices[x+1],
                                                book(tmp2,inclusiveHistName,refData(plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType)));
+          plots._ratio_DeltaY.push_back(Scatter2DPtr());
+          book(plots._ratio_DeltaY[x], plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType);
         }
       }
 
@@ -139,6 +143,8 @@ namespace Rivet {
                                                book(tmp1,vetoHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
           plots._h_gapVsPtBarInc.add(plots._gapFractionPtBarSlices[x], plots._gapFractionPtBarSlices[x+1],
                                               book(tmp2,inclusiveHistName,refData(plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType)));
+          plots._ratio_PtBar.push_back(Scatter2DPtr());
+          book(plots._ratio_PtBar[x], plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType);
         }
       }
 
@@ -294,19 +300,19 @@ namespace Rivet {
 
     /// Derive final distributions for each selection
     void finalize() {
-      foreach (const ATLAS_2011_S9126244_Plots& plots, _selectionPlots) {
+      for (const ATLAS_2011_S9126244_Plots & plots : _selectionPlots) {
 
         /// @todo Clean up temp histos -- requires restructuring the temp histo struct
 
         for (size_t x = 0; x < plots._h_gapVsDeltaYVeto.histos().size(); x++) {
-          Scatter2DPtr tmp;
           divide(plots._h_gapVsDeltaYVeto.histos()[x], plots._h_gapVsDeltaYInc.histos()[x],
-                 book(tmp, plots._gapFractionDeltaYHistIndex+x, 1, plots.selectionType));
+                 plots._ratio_DeltaY[x]);
         }
+
         for (size_t x = 0; x < plots._h_gapVsPtBarVeto.histos().size(); x++) {
           Scatter2DPtr tmp;
           divide(plots._h_gapVsPtBarVeto.histos()[x], plots._h_gapVsPtBarInc.histos()[x],
-                 book(tmp, plots._gapFractionPtBarHistIndex+x, 1, plots.selectionType));
+                 plots._ratio_PtBar[x]);
         }
 
         for (size_t h = 0; h < plots._d_vetoPtGapFraction.size(); h++) {
