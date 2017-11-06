@@ -1,6 +1,5 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/PartonicTops.hh"
 
 namespace Rivet {
@@ -17,25 +16,25 @@ namespace Rivet {
       declare(PartonicTops(PartonicTops::E_MU, false), "LeptonicPartonTops");
       declare(PartonicTops(PartonicTops::HADRONIC),    "HadronicPartonTops");
 
-      _hSL_topPt         = bookHisto1D("d15-x01-y01");
-      _hSL_topPtTtbarSys = bookHisto1D("d16-x01-y01");
-      _hSL_topY          = bookHisto1D("d17-x01-y01");
-      _hSL_ttbarDelPhi   = bookHisto1D("d18-x01-y01");
-      _hSL_topPtLead     = bookHisto1D("d19-x01-y01");
-      _hSL_topPtSubLead  = bookHisto1D("d20-x01-y01");
-      _hSL_ttbarPt       = bookHisto1D("d21-x01-y01");
-      _hSL_ttbarY        = bookHisto1D("d22-x01-y01");
-      _hSL_ttbarMass     = bookHisto1D("d23-x01-y01");
+      _hSL_topPt         = bookHisto1D(15, 1, 1);
+      _hSL_topPtTtbarSys = bookHisto1D(16, 1, 1);
+      _hSL_topY          = bookHisto1D(17, 1, 1);
+      _hSL_ttbarDelPhi   = bookHisto1D(18, 1, 1);
+      _hSL_topPtLead     = bookHisto1D(19, 1, 1);
+      _hSL_topPtSubLead  = bookHisto1D(20, 1, 1);
+      _hSL_ttbarPt       = bookHisto1D(21, 1, 1);
+      _hSL_ttbarY        = bookHisto1D(22, 1, 1);
+      _hSL_ttbarMass     = bookHisto1D(23, 1, 1);
 
-      _hDL_topPt           = bookHisto1D("d24-x01-y01");
-      _hDL_topPtTtbarSys   = bookHisto1D("d25-x01-y01");
-      _hDL_topY            = bookHisto1D("d26-x01-y01");
-      _hDL_ttbarDelPhi     = bookHisto1D("d27-x01-y01");
-      _hDL_topPtLead       = bookHisto1D("d28-x01-y01");
-      _hDL_topPtSubLead    = bookHisto1D("d29-x01-y01");
-      _hDL_ttbarPt         = bookHisto1D("d30-x01-y01");
-      _hDL_ttbarY          = bookHisto1D("d31-x01-y01");
-      _hDL_ttbarMass       = bookHisto1D("d32-x01-y01");
+      _hDL_topPt           = bookHisto1D(24, 1, 1);
+      _hDL_topPtTtbarSys   = bookHisto1D(25, 1, 1);
+      _hDL_topY            = bookHisto1D(26, 1, 1);
+      _hDL_ttbarDelPhi     = bookHisto1D(27, 1, 1);
+      _hDL_topPtLead       = bookHisto1D(28, 1, 1);
+      _hDL_topPtSubLead    = bookHisto1D(29, 1, 1);
+      _hDL_ttbarPt         = bookHisto1D(30, 1, 1);
+      _hDL_ttbarY          = bookHisto1D(31, 1, 1);
+      _hDL_ttbarMass       = bookHisto1D(32, 1, 1);
       }
 
 
