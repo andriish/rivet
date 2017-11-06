@@ -1,3 +1,7 @@
+2017-11-06  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Extend AOPath regex to allow dots and underscores in weight names.
+
 2017-10-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add energy to the list of cuts (both as Cuts::E and Cuts::energy)
