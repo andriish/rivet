@@ -61,15 +61,10 @@ namespace Rivet {
 
     /// Helper function to fill the histogram if a Z is found with the required lepton cuts
     void fillPlots(const ZFinder& zfinder, Histo1DPtr hist, double leading_pT, double weight) {
-      MSG_INFO(0);
       if (zfinder.bosons().size() != 1) return;
-      MSG_INFO(1 << " " << zfinder.bosons().size() << " " << zfinder.particles().size() << " " << zfinder.rawParticles().size());
       const FourMomentum el1 = zfinder.rawParticles()[0];
-      MSG_INFO(2);
       const FourMomentum el2 = zfinder.rawParticles()[1];
-      MSG_INFO(3);
       if (el1.pT() < leading_pT && el2.pT() < leading_pT) return;
-      MSG_INFO(4);
       const double mass = zfinder.bosons()[0].mass();
       hist->fill(mass/GeV, weight);
     }
