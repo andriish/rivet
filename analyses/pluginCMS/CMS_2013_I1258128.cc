@@ -14,9 +14,7 @@ namespace Rivet {
   public:
 
     // Constructor
-    CMS_2013_I1258128()
-      : Analysis("CMS_2013_I1258128")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1258128);
 
 
     void init() {

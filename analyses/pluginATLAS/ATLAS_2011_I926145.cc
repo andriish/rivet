@@ -17,40 +17,21 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2011_I926145()
-      : Analysis("ATLAS_2011_I926145")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_I926145);
 
-
-  public:
 
     /// Book histograms and initialise projections before the run
     void init() {
 
-      ///projection for electrons
+      // Electrons and muons
       Cut cuts = (Cuts::abseta < 1.37 || Cuts::absetaIn(1.52,  2.00)) && Cuts::pT > 7*GeV;
-      IdentifiedFinalState elecs(cuts);
-      elecs.acceptId(PID::ELECTRON);
-      elecs.acceptId(PID::POSITRON);
+      IdentifiedFinalState elecs(cuts, {PID::ELECTRON, PID::POSITRON});
       declare(elecs, "elecs");
-
-      //projection for muons -- same phase space as above??? Not sure if the crack region has
-      //to be removed for the muons as well
-      std::vector<std::pair<double, double> > eta_m;
-      //eta_m.push_back(make_pair(-2.00,-1.52));
-      //eta_m.push_back(make_pair(-1.37,1.37));
-      //eta_m.push_back(make_pair(1.52,2.00));
-      //IdentifiedFinalState muons(eta_m, 7.0*GeV);
-      IdentifiedFinalState muons(Cuts::abseta < 2 && Cuts::pT > 7*GeV);
-      muons.acceptId(PID::MUON);
-      muons.acceptId(PID::ANTIMUON);
+      IdentifiedFinalState muons(Cuts::abseta < 2 && Cuts::pT > 7*GeV, {PID::MUON, PID::ANTIMUON});
       declare(muons, "muons");
-
-      //projection for muons full range
-      IdentifiedFinalState muons_full(Cuts::abseta < 2.5 && Cuts::pT > 4*GeV);
-      muons_full.acceptId(PID::MUON);
-      muons_full.acceptId(PID::ANTIMUON);
+      IdentifiedFinalState muons_full(Cuts::abseta < 2.5 && Cuts::pT > 4*GeV, {PID::MUON, PID::ANTIMUON});
       declare(muons_full, "muons_full");
+
 	  Cut cut20 = Cuts::abseta < 2.0;
 	  Cut cut25 = Cuts::abseta < 2.5;
       const FinalState fs20(cut20);
@@ -78,91 +59,77 @@ namespace Rivet {
       _histPt_muons_full = bookHisto1D(3 ,1 ,1);
     }
 
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const double weight = event.weight();
 
+      // Veto event if no lepton is present
       const FinalState& elecs      = apply<FinalState>(event, "elecs");
       const FinalState& muons      = apply<FinalState>(event, "muons");
       const FinalState& muons_full = apply<FinalState>(event, "muons_full");
+      if (elecs.empty() && muons.empty() && muons_full.empty()) vetoEvent;
 
-      // Veto event if no lepton is present
-      if (elecs.size() == 0 && muons.size() == 0 && muons_full.size() == 0) {
-        vetoEvent;
-      }
-
-      // Check for W and or Z bosons in event
-      //
       // Z veto
       const ZFinder& zfinder_e      = apply<ZFinder>(event, "ZFinder_e");
       const ZFinder& zfinder_mu     = apply<ZFinder>(event, "ZFinder_mu");
       const ZFinder& zfinder_mufull = apply<ZFinder>(event, "ZFinder_mufull");
-
       if (zfinder_e.bosons().size() > 0 || zfinder_mu.bosons().size() > 0 || zfinder_mufull.bosons().size() > 0) {
-          MSG_DEBUG("Num elec Z-bosons found: " << zfinder_e.bosons().size());
-          MSG_DEBUG("Num muon Z-bosons found: " << zfinder_mu.bosons().size());
-          MSG_DEBUG("Num muon Z-bosons found (|eta|<2.5): " << zfinder_mufull.bosons().size());
-          vetoEvent;
+        MSG_DEBUG("Num elec Z-bosons found: " << zfinder_e.bosons().size());
+        MSG_DEBUG("Num muon Z-bosons found: " << zfinder_mu.bosons().size());
+        MSG_DEBUG("Num muon Z-bosons found (|eta|<2.5): " << zfinder_mufull.bosons().size());
+        vetoEvent;
       }
 
       // W veto
       const WFinder& wfinder_e      = apply<WFinder>(event, "WFinder_e");
       const WFinder& wfinder_mu     = apply<WFinder>(event, "WFinder_mu");
       const WFinder& wfinder_mufull = apply<WFinder>(event, "WFinder_mufull");
-
       if (wfinder_e.bosons().size() > 0 || wfinder_mu.bosons().size() > 0 || wfinder_mufull.bosons().size() > 0) {
-          MSG_DEBUG("Num elec W-bosons found: " << wfinder_e.bosons().size());
-          MSG_DEBUG("Num muon W-bosons found: " << wfinder_mu.bosons().size());
-          MSG_DEBUG("Num muon W-bosons found (|eta|<2.5): " << wfinder_mufull.bosons().size());
-          vetoEvent;
+        MSG_DEBUG("Num elec W-bosons found: " << wfinder_e.bosons().size());
+        MSG_DEBUG("Num muon W-bosons found: " << wfinder_mu.bosons().size());
+        MSG_DEBUG("Num muon W-bosons found (|eta|<2.5): " << wfinder_mufull.bosons().size());
+        vetoEvent;
       }
-
 
       // Electron histogram
       if (elecs.size() > 0) {
-        foreach (const Particle& ele, elecs.particles()) {
-          if (ele.pT()*GeV < 26.0) {
-            _histPt_elecs->fill(ele.pT()*GeV, weight);
-          }
+        for (const Particle& ele : elecs.particles()) {
+          if (ele.pT() < 26.0*GeV) _histPt_elecs->fill(ele.pT()*GeV, weight);
         }
       }
 
       // Muon histogram
       if (muons.size() > 0) {
-        foreach (const Particle& muo, muons.particles()) {
-          if (muo.pT()*GeV < 26.0) {
-            _histPt_muons->fill(muo.pT()*GeV, weight);
-          }
+        for (const Particle& muo : muons.particles()) {
+          if (muo.pT() < 26.0*GeV) _histPt_muons->fill(muo.pT()*GeV, weight);
         }
       }
 
       // Muon full histogram
       if (muons_full.size() > 0) {
-        foreach (const Particle& muo, muons_full.particles()) {
-          if (muo.pT()*GeV < 100.0) {
-            _histPt_muons_full->fill(muo.pT()*GeV, weight);
-          }
+        for (const Particle& muo : muons_full.particles()) {
+          if (muo.pT() < 100.0*GeV) _histPt_muons_full->fill(muo.pT()*GeV, weight);
         }
       }
     }
 
+
     /// Normalise histograms etc., after the run
     void finalize() {
-
-      // Data cross-section is given in nb! x-sections in rivet are in pb!
       scale(_histPt_elecs,      crossSection()/nanobarn/sumOfWeights());
       scale(_histPt_muons,      crossSection()/nanobarn/sumOfWeights());
       scale(_histPt_muons_full, crossSection()/nanobarn/sumOfWeights());
     }
 
 
-
   private:
 
     /// @name Histograms
-    Histo1DPtr _histPt_elecs;
-    Histo1DPtr _histPt_muons;
-    Histo1DPtr _histPt_muons_full;
+    //@{
+    Histo1DPtr _histPt_elecs, _histPt_muons, _histPt_muons_full;
+    //@}
+
   };
 
 

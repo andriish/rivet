@@ -1,17 +1,16 @@
 // -*- C++ -*-
-// ATLAS W pT analysis
-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/WFinder.hh"
 
 namespace Rivet {
 
 
+  /// ATLAS W pT analysis
   class ATLAS_2011_I925932 : public Analysis {
   public:
 
     /// Constructor
-    ATLAS_2011_I925932() : Analysis("ATLAS_2011_I925932") {  }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2011_I925932);
 
 
     /// @name Analysis methods
@@ -54,15 +53,17 @@ namespace Rivet {
       }
 
       // "Dressed" electron
-      if (!wfinder_dressed_el.particles().empty()) {
-	    const FourMomentum& nu = wfinder_dressed_el.constituentNeutrinos()[0].momentum();
+      if (!wfinder_dressed_el.empty()) {
+        /// @todo Is this safe? Using MET would be better
+	    const FourMomentum& nu = wfinder_dressed_el.constituentNeutrinos()[0];
 	    if (wfinder_dressed_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_dressed_el->fill(wfinder_dressed_el.bosons()[0].pT()/GeV, weight);
 	    }
       }
 
       // "Bare" electron
-      if (!wfinder_bare_el.particles().empty()) {
+      if (!wfinder_bare_el.empty()) {
+        /// @todo Is this safe? Using MET would be better
 	    const FourMomentum& nu = wfinder_bare_el.constituentNeutrinos()[0].momentum();
 	    if (wfinder_bare_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_bare_el->fill(wfinder_bare_el.bosons()[0].pT()/GeV, weight);
@@ -70,7 +71,8 @@ namespace Rivet {
       }
 
       // "Dressed" muon
-      if (!wfinder_dressed_mu.particles().empty()) {
+      if (!wfinder_dressed_mu.empty()) {
+        /// @todo Is this safe? Using MET would be better
 	    const FourMomentum& nu = wfinder_dressed_mu.constituentNeutrinos()[0].momentum();
 	    if (wfinder_dressed_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_dressed_mu->fill(wfinder_dressed_mu.bosons()[0].pT()/GeV, weight);
@@ -78,7 +80,8 @@ namespace Rivet {
       }
 
       // "Bare" muon
-      if (!wfinder_bare_mu.particles().empty()) {
+      if (!wfinder_bare_mu.empty()) {
+        /// @todo Is this safe? Using MET would be better
 	    const FourMomentum& nu = wfinder_bare_mu.constituentNeutrinos()[0].momentum();
 	    if (wfinder_bare_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_bare_mu->fill(wfinder_bare_mu.bosons()[0].pT()/GeV, weight);
@@ -101,10 +104,7 @@ namespace Rivet {
 
   private:
 
-	Histo1DPtr _hist_wpt_dressed_el;
-	Histo1DPtr _hist_wpt_bare_el;
-	Histo1DPtr _hist_wpt_dressed_mu;
-	Histo1DPtr _hist_wpt_bare_mu;
+	Histo1DPtr _hist_wpt_dressed_el, _hist_wpt_bare_el, _hist_wpt_dressed_mu, _hist_wpt_bare_mu;
 
   };
 
