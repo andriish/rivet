@@ -253,7 +253,7 @@ namespace Rivet {
 
       //check electrons
       if (!wfinder_born_el.empty()) {
-        const FourMomentum& nu = wfinder_born_el.constituentNeutrinos()[0].momentum();
+        const FourMomentum nu = wfinder_born_el.constituentNeutrinos()[0];
         if (wfinder_born_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
           keepevent = true;
           lepton_charge = wfinder_born_el.constituentLeptons()[0].charge();
@@ -263,7 +263,7 @@ namespace Rivet {
 
       //check muons
       if (!wfinder_born_mu.empty()) {
-        const FourMomentum& nu = wfinder_born_mu.constituentNeutrinos()[0].momentum();
+        const FourMomentum nu = wfinder_born_mu.constituentNeutrinos()[0];
         if (wfinder_born_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
           keepevent = true;
           lepton_charge = wfinder_born_mu.constituentLeptons()[0].charge();

@@ -55,7 +55,7 @@ namespace Rivet {
       // "Dressed" electron
       if (!wfinder_dressed_el.empty()) {
         /// @todo Is this safe? Using MET would be better
-	    const FourMomentum& nu = wfinder_dressed_el.constituentNeutrinos()[0];
+	    const FourMomentum nu = wfinder_dressed_el.constituentNeutrinos()[0];
 	    if (wfinder_dressed_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_dressed_el->fill(wfinder_dressed_el.bosons()[0].pT()/GeV, weight);
 	    }
@@ -64,7 +64,7 @@ namespace Rivet {
       // "Bare" electron
       if (!wfinder_bare_el.empty()) {
         /// @todo Is this safe? Using MET would be better
-	    const FourMomentum& nu = wfinder_bare_el.constituentNeutrinos()[0].momentum();
+	    const FourMomentum nu = wfinder_bare_el.constituentNeutrinos()[0];
 	    if (wfinder_bare_el.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_bare_el->fill(wfinder_bare_el.bosons()[0].pT()/GeV, weight);
 	    }
@@ -73,7 +73,7 @@ namespace Rivet {
       // "Dressed" muon
       if (!wfinder_dressed_mu.empty()) {
         /// @todo Is this safe? Using MET would be better
-	    const FourMomentum& nu = wfinder_dressed_mu.constituentNeutrinos()[0].momentum();
+	    const FourMomentum nu = wfinder_dressed_mu.constituentNeutrinos()[0];
 	    if (wfinder_dressed_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_dressed_mu->fill(wfinder_dressed_mu.bosons()[0].pT()/GeV, weight);
 	    }
@@ -82,7 +82,7 @@ namespace Rivet {
       // "Bare" muon
       if (!wfinder_bare_mu.empty()) {
         /// @todo Is this safe? Using MET would be better
-	    const FourMomentum& nu = wfinder_bare_mu.constituentNeutrinos()[0].momentum();
+	    const FourMomentum nu = wfinder_bare_mu.constituentNeutrinos()[0];
 	    if (wfinder_bare_mu.mT() > 40*GeV && nu.pT() > 25*GeV) {
           _hist_wpt_bare_mu->fill(wfinder_bare_mu.bosons()[0].pT()/GeV, weight);
 	    }

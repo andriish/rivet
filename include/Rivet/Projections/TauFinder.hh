@@ -26,6 +26,7 @@ namespace Rivet {
 
 
     TauFinder(DecayType decaytype, const Cut& cut=Cuts::open()) {
+      /// @todo What about directness/promptness?
       setName("TauFinder");
       _dectype = decaytype;
       addProjection(UnstableFinalState(cut), "UFS");
