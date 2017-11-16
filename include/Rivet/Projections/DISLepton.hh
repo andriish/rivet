@@ -21,7 +21,7 @@ namespace Rivet {
     DISLepton(){
       setName("DISLepton");
       addProjection(Beam(), "Beam");
-      addProjection(FinalState(), "FS");
+      addProjection(PromptFinalState(), "PromptFS");
     }
 
     /// Clone on the heap.
@@ -48,7 +48,7 @@ namespace Rivet {
     const Particle& out() const { return _outgoing; }
 
     /// Sign of the incoming lepton pz component
-    const double& pzSign() const { return _sign; }
+    const double& pzSign() const { return sign(_incoming.pz()); }
 
 
   private:
@@ -59,11 +59,8 @@ namespace Rivet {
     /// The outgoing lepton.
     Particle _outgoing;
 
-    /// The sign of the pz of the incoming lepton
-    double _sign;
-
-    /// The current sign
-    int _charged;
+    // /// The charge sign of the DIS current
+    // double _charge;
 
   };
 
