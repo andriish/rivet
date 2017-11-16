@@ -79,10 +79,6 @@ namespace Rivet {
       if (kin.Q2() > 1*GeV) vetoEvent;
       if (!inRange(kin.y(), 0.2, 0.85)) vetoEvent;
 
-      // const Particle& bpositron = kin.beamLepton();
-      // const Particle& bproton = kin.beamHadron();
-      // MSG_DEBUG("Beam proton = " << bproton.mom() << " GeV => orientation = " << orientation);
-
       // Jet selection
       const Jets jets = apply<FastJets>(event, "Jets") \
         .jets(Cuts::Et > 11*GeV && Cuts::etaIn(-1*orientation, 2.4*orientation), cmpMomByEt);
@@ -97,14 +93,6 @@ namespace Rivet {
       const double etabar = (eta1 + eta2)/2;
       const double etadiff = eta1 - eta2;
       const double costhetastar = tanh(etadiff/2);
-
-      // // Calculate the photon 4-vector from the incoming and outgoing lepton.
-      // const DISLepton& leptons      = apply<DISLepton>(event,"Lepton");
-      // const FourMomentum qleptonIn  = leptons.in();
-      // const FourMomentum qleptonOut = leptons.out();
-      // const FourMomentum qphoton    = qleptonIn - qleptonOut;
-      // const double q2 = qphoton.mass2();
-      // const double inelasticity = dot(bproton.mom(), qphoton) / dot(bproton.mom(), bpositron.mom());
 
       // Computation of x_y^obs
       /// @note Assuming Ee is the lab frame positron momentum, not in proton rest frame cf. the ambiguous phrase in the paper
