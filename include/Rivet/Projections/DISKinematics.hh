@@ -67,10 +67,23 @@ namespace Rivet {
       return _breit;
     }
 
-    /// The incoming Hadron beam particle
+    /// The incoming hadron beam particle
     const Particle& beamHadron() const {
       return _inHadron;
     }
+
+    /// The incoming lepton beam particle
+    const Particle& beamLepton() const {
+      return _inLepton;
+    }
+
+    /// @brief 1/-1 multiplier indicating (respectively) whether the event has conventional orientation or not
+    ///
+    /// Conventional DIS orientation has the hadron travelling in the +z direction
+    const int orientation() const {
+      return sign(_inHadron.pz());
+    }
+
 
   private:
 
@@ -89,13 +102,14 @@ namespace Rivet {
     /// The centre of mass energy \f$s\f$
     double _theS;
 
-    Particle _inHadron;
+    Particle _inHadron, _inLepton;
 
     /// The LorentzRotation needed to boost a particle to the hadronic CM frame.
     LorentzTransform _hcm;
 
     /// The LorentzRotation needed to boost a particle to the hadronic Breit frame.
     LorentzTransform _breit;
+
   };
 
 

@@ -6,14 +6,17 @@ namespace Rivet {
 
 
   void DISKinematics::project(const Event& e) {
+
     // Identify beam hadron
     const ParticlePair& inc = applyProjection<Beam>(e, "Beam").beams();
-    bool firstIsHadron  = PID::isHadron(inc.first.pid());
-    bool secondIsHadron = PID::isHadron(inc.second.pid());
+    const bool firstIsHadron  = PID::isHadron(inc.first.pid());
+    const bool secondIsHadron = PID::isHadron(inc.second.pid());
     if (firstIsHadron && !secondIsHadron) {
       _inHadron = inc.first;
+      _inLepton = inc.second;
     } else if (!firstIsHadron && secondIsHadron) {
       _inHadron = inc.second;
+      _inLepton = inc.first;
     } else {
       //help!
       throw Error("DISKinematics projector could not find the correct beam hadron");

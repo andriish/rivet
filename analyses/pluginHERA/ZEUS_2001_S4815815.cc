@@ -22,6 +22,7 @@ namespace Rivet {
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(ZEUS_2001_S4815815);
 
+
     /// @name Analysis methods
     //@{
 
@@ -34,6 +35,7 @@ namespace Rivet {
 
       // Projections
       declare(DISLepton(), "Lepton");
+      declare(DISKinematics(), "Kinematics");
 
       // Table 1
       _h_costh[0] = bookHisto1D(1, 1, 1);
@@ -100,6 +102,8 @@ namespace Rivet {
       const FourMomentum qleptonIn  = leptons.in();
       const FourMomentum qleptonOut = leptons.out();
       const FourMomentum qphoton    = qleptonIn - qleptonOut;
+      const q2 = qphoton.mass2();
+      if (q2 > 1*GeV) vetoEvent;
 
       // Computation and cut on inelasticity
       const double inelasticity = dot(bproton.mom(), qphoton) / dot(bproton.mom(), bpositron.mom());
