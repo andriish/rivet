@@ -209,14 +209,19 @@ if opts.LIST_ANALYSES:
                 msg = aname
                 if opts.LOGLEVEL <= logging.INFO:
                     a = rivet.AnalysisLoader.getAnalysis(aname)
-                    st = "" if a.status() == "VALIDATED" else ("[" + a.status() + "] ")
-                    msg = "%-25s   %s" % (aname, st + rivet.util.detex(a.summary()))
+                    st = "" if a.status() == "VALIDATED" else ("[%s] " % a.status())
+                    detex = rivet.util.detex(a.summary())
+                    # detex will very likely introduce some non-ASCII chars from
+                    # greek names in analysis titles.
+                    # The u"" prefix and explicit print encoding are necessary for
+                    # py2 to handle this properly
+                    msg = u"%-25s   %s" % (aname, st + detex)
                     if opts.LOGLEVEL < logging.INFO:
                         if a.keywords():
                             msg += "  [" + " ".join(a.keywords()) + "]"
                         if a.luminosityfb():
                             msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
-                print(msg)
+                print(msg.encode('utf-8'))
                 #os.write(tf, msg + "\n")
         # if os.path.getsize(tfpath) > 0:
         #     pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)

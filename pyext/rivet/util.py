@@ -109,6 +109,12 @@ def detex(tex):
     from distutils.spawn import find_executable
     if not find_executable("pandoc"):
         return tex
+
+    try:
+        tex_is_str = type(tex) in (unicode,str)
+    except NameError: # for py3
+        tex_is_str = type(tex) is str
+
     texheader = r"""
     \newcommand{\text}[1]{#1}
     \newcommand{\ensuremath}[1]{#1}
@@ -189,12 +195,14 @@ def detex(tex):
         nowrap_flags = "--no-wrap"
     p = subprocess.Popen(shlex.split("pandoc -f latex -t plain " + nowrap_flags),
                          stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    texbody = tex if type(tex) is str else "@@".join(tex)
+    texbody = tex if tex_is_str else "@@".join(tex)
     # texbody = texbody.replace("$", "")
-    plain, err = p.communicate((texheader + texbody).replace("\n", ""))
+    # pandoc communicates in UTF-8, need to encode / decode correctly
+    plain, err = p.communicate((texheader + texbody).replace("\n", "").encode('utf-8'))
+    plain = plain.decode('utf-8')
     plain = plain.replace("\n", "")
     plains = plain.replace(r"\&", "&").split("@@")
-    if type(tex) is str:
+    if tex_is_str:
         assert len(plains) == 1
         return plains[0] if plains[0] else tex
     else:
