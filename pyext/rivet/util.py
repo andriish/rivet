@@ -187,18 +187,23 @@ def detex(tex):
     \newcommand{\GeV}{GeV }
     \newcommand{\TeV}{TeV }
     """
-    import subprocess, shlex
-    nowrap_flags = "--wrap=none"
-    x = subprocess.Popen(["pandoc", nowrap_flags, "/dev/null"],
-                         stdout=subprocess.PIPE, stderr=subprocess.PIPE).wait()
+    import subprocess
+    pandoc_cmd = ['pandoc','-f','latex','-t','plain','--wrap=none']
+    ### check we have the right wrap option ###
+    x = subprocess.Popen(pandoc_cmd,stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = x.communicate(b' ')
+    x = x.wait()
     if x != 0:
-        nowrap_flags = "--no-wrap"
-    p = subprocess.Popen(shlex.split("pandoc -f latex -t plain " + nowrap_flags),
-                         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        pandoc_cmd[-1] = '--no-wrap'
+    p = subprocess.Popen(pandoc_cmd,stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     texbody = tex if tex_is_str else "@@".join(tex)
     # texbody = texbody.replace("$", "")
-    # pandoc communicates in UTF-8, need to encode / decode correctly
+    # pandoc reads in UTF-8, need to encode / decode correctly
     plain, err = p.communicate((texheader + texbody).replace("\n", "").encode('utf-8'))
+    ret = p.wait()
+    if ret != 0:
+        return tex
+    # pandoc sends UTF-8, need to decode
     plain = plain.decode('utf-8')
     plain = plain.replace("\n", "")
     plains = plain.replace(r"\&", "&").split("@@")

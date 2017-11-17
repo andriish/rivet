@@ -193,44 +193,40 @@ if opts.LIST_ANALYSES:
     if args:
         import re
         regexes = [re.compile(arg, re.I) for arg in args]
-    try:
-        # import tempfile, subprocess
-        # tf, tfpath = tempfile.mkstemp(prefix="rivet-list.")
-        for aname in all_analyses:
-            if not regexes:
-                toshow = True
-            else:
-                toshow = False
-                for regex in regexes:
-                    if regex.search(aname):
-                        toshow = True
-                        break
-            if toshow:
-                msg = aname
-                if opts.LOGLEVEL <= logging.INFO:
-                    a = rivet.AnalysisLoader.getAnalysis(aname)
-                    st = "" if a.status() == "VALIDATED" else ("[%s] " % a.status())
-                    detex = rivet.util.detex(a.summary())
-                    # detex will very likely introduce some non-ASCII chars from
-                    # greek names in analysis titles.
-                    # The u"" prefix and explicit print encoding are necessary for
-                    # py2 to handle this properly
-                    msg = u"%-25s   %s" % (aname, st + detex)
-                    if opts.LOGLEVEL < logging.INFO:
-                        if a.keywords():
-                            msg += "  [" + " ".join(a.keywords()) + "]"
-                        if a.luminosityfb():
-                            msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
-                if type(u'') is not str:
-                    msg = msg.encode('utf-8')
-                print(msg)
-                #os.write(tf, msg + "\n")
-        # if os.path.getsize(tfpath) > 0:
-        #     pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
-        #     pager.communicate()
-    finally:
-        # os.unlink(tfpath) #< always clean up
-        pass
+    # import tempfile, subprocess
+    # tf, tfpath = tempfile.mkstemp(prefix="rivet-list.")
+    names = []
+    msg = []
+    for aname in all_analyses:
+        if not regexes:
+            toshow = True
+        else:
+            toshow = False
+            for regex in regexes:
+                if regex.search(aname):
+                    toshow = True
+                    break
+        if toshow:
+            names.append(aname)
+            msg.append('')
+            if opts.LOGLEVEL <= logging.INFO:
+                a = rivet.AnalysisLoader.getAnalysis(aname)
+                st = "" if a.status() == "VALIDATED" else ("[%s] " % a.status())
+                # detex will very likely introduce some non-ASCII chars from
+                # greek names in analysis titles.
+                # The u"" prefix and explicit print encoding are necessary for
+                # py2 to handle this properly
+                msg[-1] = u"%s%s" % (st, a.summary())
+                if opts.LOGLEVEL < logging.INFO:
+                    if a.keywords():
+                        msg[-1] += u"  [%s]" % " ".join(a.keywords())
+                    if a.luminosityfb():
+                        msg[-1] += u"  [ \int L = %s fb^{-1} ]" % a.luminosityfb()
+    msg = rivet.util.detex(msg)
+    retlist = '\n'.join([ u"%-25s   %s" % (a,m) for a,m in zip(names,msg) ])
+    if type(u'') is not str:
+        retlist = retlist.encode('utf-8')
+    print(retlist)
     sys.exit(0)
 
 
