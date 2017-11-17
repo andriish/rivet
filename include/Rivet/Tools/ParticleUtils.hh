@@ -37,6 +37,9 @@ namespace Rivet {
   PARTICLE_TO_PID_BOOLFN(isChargedLepton)
   PARTICLE_TO_PID_BOOLFN(isChLepton)
 
+  /// Determine if the PID is that of a lepton (charged or neutral)
+  PARTICLE_TO_PID_BOOLFN(isLepton)
+
   /// Determine if the PID is that of a photon
   PARTICLE_TO_PID_BOOLFN(isPhoton)
 

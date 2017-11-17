@@ -55,8 +55,7 @@ namespace Rivet {
     // }
 
     // If no graph-connected scattered lepton, use the hardest (preferably same-flavour) prompt FS lepton in the event
-    /// @todo Refine
-    const Particles fsleptons = applyProjection<>(e, "PromptFS").particlesByPt(isLepton);
+    const Particles fsleptons = applyProjection<FinalState>(e, "PromptFS").particles(isLepton, cmpMomByE);
     const Particles sfleptons = filter_select(fsleptons, Cuts::pid == _incoming.pid());
     if (!sfleptons.empty()) {
       _outgoing = sfleptons.front();
