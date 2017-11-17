@@ -221,7 +221,9 @@ if opts.LIST_ANALYSES:
                             msg += "  [" + " ".join(a.keywords()) + "]"
                         if a.luminosityfb():
                             msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
-                print(msg.encode('utf-8'))
+                if type(u'') is not str:
+                    msg = msg.encode('utf-8')
+                print(msg)
                 #os.write(tf, msg + "\n")
         # if os.path.getsize(tfpath) > 0:
         #     pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
