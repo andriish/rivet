@@ -36,9 +36,9 @@ testMath testMatVec testCmp testApi testNaN testBeams \
 testImport.sh
 
 if ENABLE_ANALYSES
-if ! WITH_OSX
+
 TESTS += testCmdLine.sh
-endif
+
 endif
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh

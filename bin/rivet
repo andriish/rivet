@@ -542,13 +542,9 @@ logging.info("Rivet %s running on machine %s (%s) at %s" % \
 
 def min_nonnull(a, b):
     "A version of min which considers None to always be greater than a real number"
-    rtn = min(a, b)
-    if rtn is not None:
-        return rtn
-    if a is not None:
-        return a
-    return b
-
+    if a is None: return b
+    if b is None: return a
+    return min(a, b)
 
 ## Set up an event timeout handler
 class TimeoutException(Exception):
