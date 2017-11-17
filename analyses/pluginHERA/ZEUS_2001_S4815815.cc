@@ -76,7 +76,7 @@ namespace Rivet {
       const int orientation = kin.orientation();
 
       // Q2 and inelasticity cuts
-      if (kin.Q2() > 1*GeV) vetoEvent;
+      if (kin.Q2() > 1*GeV2) vetoEvent;
       if (!inRange(kin.y(), 0.2, 0.85)) vetoEvent;
 
       // Jet selection
