@@ -101,7 +101,7 @@ def detex(tex):
 
     The argument can either be a string or an iterable of strings.
 
-    TODO: Replace \gamma, \mu, \tau, \Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
+    TODO: Replace \gamma, \mu, \tau, \\Upsilon, \rho, \psi, \pi, \eta, \Delta, \Omega, \omega -> no-\ form?
     TODO: Replace e^+- -> e+-?
     """
     if not tex:
