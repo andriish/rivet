@@ -200,7 +200,8 @@ AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
 if test x$enable_pyext == xyes; then
   AX_PYTHON_DEVEL([>= '2.6'])
   AC_SUBST(PYTHON_VERSION)
-  RIVET_PYTHONPATH=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True);"`
+  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function;
+import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True));"`
   AC_SUBST(RIVET_PYTHONPATH)
   if test -z "$PYTHON"; then
     AC_MSG_ERROR([Can't build Python extension since python can't be found])
@@ -218,7 +219,8 @@ dnl setup.py puts its build artifacts into a labelled path
 dnl this helps the test scripts to find them locally instead of
 dnl having to install first
 dnl
-RIVET_SETUP_PY_PATH=$(${PYTHON} -c 'import distutils.util as u, sys; vi=sys.version_info; print "lib.%s-%s.%s" % (u.get_platform(),vi.major, vi.minor)')
+RIVET_SETUP_PY_PATH=$(${PYTHON} -c 'from __future__ import print_function;
+import distutils.util as u, sys; vi=sys.version_info; print("lib.%s-%s.%s" % (u.get_platform(),vi.major, vi.minor))')
 AC_SUBST(RIVET_SETUP_PY_PATH)
 
 

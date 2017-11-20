@@ -23,7 +23,7 @@ TESTS_ENVIRONMENT = \
   RIVET_DATA_PATH=$(top_builddir)/analyses/data \
   RIVET_INFO_PATH=$(top_builddir)/analyses/data \
   RIVET_REF_PATH=$(top_builddir)/analyses/data \
-  LIBLOCATION=$(top_builddir)/src/.libs:$(HEPMCLIBPATH):$(YODALIBPATH):$(FASTJETLIBPATH) \
+  LIBLOCATION=$(top_builddir)/src/.libs \
   LD_LIBRARY_PATH=$$LIBLOCATION:$(LD_LIBRARY_PATH) \
   DYLD_LIBRARY_PATH=$$LIBLOCATION:$(DYLD_LIBRARY_PATH) \
   PYTHONPATH=$(top_builddir)/pyext/build/$(RIVET_SETUP_PY_PATH):$(PYTHONPATH) \
@@ -36,9 +36,9 @@ testMath testMatVec testCmp testApi.sh testNaN.sh testBeams \
 testImport.sh
 
 if ENABLE_ANALYSES
-if ! WITH_OSX
+
 TESTS += testCmdLine.sh
-endif
+
 endif
 
 EXTRA_DIST = testApi.hepmc testCmdLine.sh testImport.sh testApi.sh testNaN.sh

@@ -4,6 +4,10 @@
 #include "Rivet/Particle.fhh"
 #include "Rivet/Tools/Exceptions.hh"
 
+// cython includes termio.h on some systems,
+// which #defines a B0 = 0 macro
+#undef B0
+
 namespace Rivet {
 
   namespace PID {

@@ -12,9 +12,7 @@ namespace Rivet {
   public:
 
     /// Constructor
-    CMS_2013_I1256943()
-      : Analysis("CMS_2013_I1256943")
-    {     }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CMS_2013_I1256943);
 
 
     /// Add projections and book histograms
@@ -69,7 +67,7 @@ namespace Rivet {
       const bool is_boosted = ( z[0].pT() > 50*GeV );
 
       // Loop over the unstable particles
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const PdgId pid = p.pid();
 
         // Look for particles with a bottom quark
@@ -79,8 +77,8 @@ namespace Rivet {
           const GenParticle* pgen = p.genParticle();
           const GenVertex* vgen = pgen -> end_vertex();
 
-          // Loop over the decay products of each unstable particle.
-          // Look for a couple of B hadrons.
+          // Loop over the decay products of each unstable particle, looking for a b-hadron pair
+          /// @todo Avoid HepMC API
           for (GenVertex::particles_out_const_iterator it = vgen->particles_out_const_begin(); it !=  vgen->particles_out_const_end(); ++it) {
             // If the particle produced has a bottom quark do not count it and go to the next loop cycle.
             if (!( PID::hasBottom( (*it)->pdg_id() ) ) ) {

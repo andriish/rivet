@@ -95,18 +95,14 @@ namespace Rivet {
       // sumPt and Beamthrust (the latter will only be filled if the min Nch criterion is met)
       // and Thrust preparation
       double sumPt = 0.0, beamThrust = 0.0;
-
       vector<Vector3> momenta;
-      foreach(const Particle& p , remfs.particles()) {
-        double pT = fabs(p.momentum().pT());
-        double eta = p.momentum().eta();
+      for (const Particle& p : remfs.particles()) {
+        const double pT = p.pT();
         sumPt += pT;
-        beamThrust += pT*exp(-1.0*fabs(eta));
-        Vector3 mom = p.momentum().vector3();
-        mom.setZ(0.0);
+        beamThrust += pT*exp(-p.abseta());
+        const Vector3 mom = p.mom().pTvec();
         momenta.push_back(mom);
       }
-
 
       // Fill inclusive histos
       if (isElec) {
@@ -153,8 +149,8 @@ namespace Rivet {
           _h_Elec_FParam[0]       ->fill(fparam.F());
           _h_Elec_Spherocity[alg] ->fill(sphero.spherocity());
           _h_Elec_Spherocity[0]   ->fill(sphero.spherocity());
-          _h_Elec_Beamthrust[alg] ->fill(beamThrust);
-          _h_Elec_Beamthrust[0]   ->fill(beamThrust);
+          _h_Elec_Beamthrust[alg] ->fill(beamThrust/GeV);
+          _h_Elec_Beamthrust[0]   ->fill(beamThrust/GeV);
         }
         if (isMuon) {
           _h_Muon_Thrust[alg]     ->fill(thrust);
@@ -163,8 +159,8 @@ namespace Rivet {
           _h_Muon_FParam[0]       ->fill(fparam.F());
           _h_Muon_Spherocity[alg] ->fill(sphero.spherocity());
           _h_Muon_Spherocity[0]   ->fill(sphero.spherocity());
-          _h_Muon_Beamthrust[alg] ->fill(beamThrust);
-          _h_Muon_Beamthrust[0]   ->fill(beamThrust);
+          _h_Muon_Beamthrust[alg] ->fill(beamThrust/GeV);
+          _h_Muon_Beamthrust[0]   ->fill(beamThrust/GeV);
         }
       }
     }

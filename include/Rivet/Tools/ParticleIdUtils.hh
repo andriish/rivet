@@ -545,9 +545,6 @@ namespace Rivet {
     }
 
 
-
-    /// @todo Add isElectron, Muon, Tau (and +- specific versions?)... and is(Anti)Proton?
-
     /// Determine if the PID is that of a W+
     inline bool isWplus(int pid) {
       return pid == WPLUSBOSON;

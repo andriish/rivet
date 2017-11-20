@@ -21,7 +21,7 @@ lookupdirs = [
     "@FASTJETLIBPATH@",
     "@YODALIBPATH@" ]
 
-if os.environ.has_key("RIVET_LOCAL"):
+if "RIVET_LOCAL" in os.environ:
   BASE_LINK_ARGS = ["-L@abs_top_builddir@/src/.libs"]
 else:
   BASE_LINK_ARGS = ["-L@prefix@/lib"]

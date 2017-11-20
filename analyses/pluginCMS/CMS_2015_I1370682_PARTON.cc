@@ -1,6 +1,5 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Projections/VetoedFinalState.hh"
 #include "Rivet/Projections/PartonicTops.hh"
 
 namespace Rivet {
@@ -17,25 +16,25 @@ namespace Rivet {
       declare(PartonicTops(PartonicTops::E_MU, false), "LeptonicPartonTops");
       declare(PartonicTops(PartonicTops::HADRONIC),    "HadronicPartonTops");
 
-      book(_hSL_topPt        , "d15-x01-y01");
-      book(_hSL_topPtTtbarSys, "d16-x01-y01");
-      book(_hSL_topY         , "d17-x01-y01");
-      book(_hSL_ttbarDelPhi  , "d18-x01-y01");
-      book(_hSL_topPtLead    , "d19-x01-y01");
-      book(_hSL_topPtSubLead , "d20-x01-y01");
-      book(_hSL_ttbarPt      , "d21-x01-y01");
-      book(_hSL_ttbarY       , "d22-x01-y01");
-      book(_hSL_ttbarMass    , "d23-x01-y01");
+      book(_hSL_topPt        , 15, 1, 1);
+      book(_hSL_topPtTtbarSys, 16, 1, 1);
+      book(_hSL_topY         , 17, 1, 1);
+      book(_hSL_ttbarDelPhi  , 18, 1, 1);
+      book(_hSL_topPtLead    , 19, 1, 1);
+      book(_hSL_topPtSubLead , 20, 1, 1);
+      book(_hSL_ttbarPt      , 21, 1, 1);
+      book(_hSL_ttbarY       , 22, 1, 1);
+      book(_hSL_ttbarMass    , 23, 1, 1);
 
-      book(_hDL_topPt        , "d24-x01-y01");
-      book(_hDL_topPtTtbarSys, "d25-x01-y01");
-      book(_hDL_topY         , "d26-x01-y01");
-      book(_hDL_ttbarDelPhi  , "d27-x01-y01");
-      book(_hDL_topPtLead    , "d28-x01-y01");
-      book(_hDL_topPtSubLead , "d29-x01-y01");
-      book(_hDL_ttbarPt      , "d30-x01-y01");
-      book(_hDL_ttbarY       , "d31-x01-y01");
-      book(_hDL_ttbarMass    , "d32-x01-y01");
+      book(_hDL_topPt        , 24, 1, 1);
+      book(_hDL_topPtTtbarSys, 25, 1, 1);
+      book(_hDL_topY         , 26, 1, 1);
+      book(_hDL_ttbarDelPhi  , 27, 1, 1);
+      book(_hDL_topPtLead    , 28, 1, 1);
+      book(_hDL_topPtSubLead , 29, 1, 1);
+      book(_hDL_ttbarPt      , 30, 1, 1);
+      book(_hDL_ttbarY       , 31, 1, 1);
+      book(_hDL_ttbarMass    , 32, 1, 1);
       }
 
 
@@ -44,8 +43,9 @@ namespace Rivet {
         // Do the analysis only for the ttbar full leptonic or semileptonic channel, without tau decay
         const Particles leptonicpartontops = apply<ParticleFinder>(event, "LeptonicPartonTops").particlesByPt();
         const Particles hadronicpartontops = apply<ParticleFinder>(event, "HadronicPartonTops").particlesByPt();
-        const bool isSemilepton = (leptonicpartontops.size() == 1 and hadronicpartontops.size() == 1);
-        if (leptonicpartontops.size() != 2) vetoEvent; //< if neither semileptonic nor dileptonic, veto
+        const bool isSemilepton = (leptonicpartontops.size() == 1 && hadronicpartontops.size() == 1);
+        const bool isDilepton = (leptonicpartontops.size() == 2 && hadronicpartontops.size() == 0);
+        if (!isSemilepton && !isDilepton) vetoEvent;
 
         // Parton level at full phase space
         // Fill top quarks defined in the parton level, full phase space

@@ -68,16 +68,16 @@ namespace Rivet {
 
       // If we find a W, make fiducial acceptance cuts and exit if not found
       if (wfinder_e.bosons().size() == 1) {
-        const FourMomentum& We = wfinder_e.constituentLeptons()[0].momentum();
-        const FourMomentum& Wenu = wfinder_e.constituentNeutrinos()[0].momentum();
+        const FourMomentum We = wfinder_e.constituentLeptons()[0];
+        const FourMomentum Wenu = wfinder_e.constituentNeutrinos()[0];
         const double mT = wfinder_e.mT();
         if (Wenu.pT() < 25*GeV || We.pT() < 20*GeV || mT < 20*GeV) {
           MSG_DEBUG("Wnu pT = " << Wenu.pT()/GeV << " GeV, Wl pT = " << We.pT()/GeV << " GeV, mT = " << mT/GeV << " GeV");
           vetoEvent;
         }
       } else if (wfinder_mu.bosons().size() == 1) {
-        const FourMomentum& Wmu = wfinder_mu.constituentLeptons()[0].momentum();
-        const FourMomentum& Wmunu = wfinder_mu.constituentNeutrinos()[0].momentum();
+        const FourMomentum Wmu = wfinder_mu.constituentLeptons()[0];
+        const FourMomentum Wmunu = wfinder_mu.constituentNeutrinos()[0];
         const double mT = wfinder_mu.mT();
         if (Wmunu.pT() < 25*GeV || Wmu.pT() < 20*GeV || mT < 20*GeV) {
           MSG_DEBUG("Wnu pT = " << Wmunu.pT()/GeV << ", Wl pT = " << Wmu.pT()/GeV << " GeV, mT = " << mT/GeV << " GeV");

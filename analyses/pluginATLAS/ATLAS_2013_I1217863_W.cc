@@ -1,10 +1,10 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
-#include "Rivet/Projections/WFinder.hh"
-#include "Rivet/Projections/LeadingParticlesFinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
+#include "Rivet/Projections/WFinder.hh"
 #include "Rivet/Projections/VetoedFinalState.hh"
+#include "Rivet/Projections/LeadingParticlesFinalState.hh"
 
 namespace Rivet {
 
@@ -79,7 +79,7 @@ namespace Rivet {
       // check photon isolation
       double coneEnergy(0.0);
       Particles fs = apply<VetoedFinalState>(event, "isolatedFS").particles();
-      foreach(const Particle& p, fs) {
+      for (const Particle& p : fs) {
         if ( deltaR(leadingPhoton, p) < 0.4 )  coneEnergy += p.E();
       }
       if ( coneEnergy / leadingPhoton.E() >= 0.5 )  vetoEvent;
@@ -104,7 +104,7 @@ namespace Rivet {
       const FastJets& jetfs = apply<FastJets>(event, "Jets");
       Jets jets = jetfs.jets(cmpMomByEt);
       int goodJets = 0;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if ( !(j.Et() > 30.0*GeV) )  break;
         if ( (j.abseta() < 4.4) && \
              (deltaR(leadingPhoton, j) > 0.3) &&            \

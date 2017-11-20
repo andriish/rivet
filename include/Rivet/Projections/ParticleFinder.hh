@@ -49,6 +49,9 @@ namespace Rivet {
     virtual const Particles& particles() const { return _theParticles; }
 
     /// Get the raw particles in no particular order, with no cuts
+    ///
+    /// @note Raw particles are the final-state constituents, as opposed to
+    /// potentially composite particles returned as the finder's particles()
     Particles rawParticles() const {
       Particles rtn;
       for (const Particle& p : particles()) rtn += p.rawConstituents();

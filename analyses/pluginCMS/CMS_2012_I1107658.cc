@@ -75,7 +75,7 @@ namespace Rivet {
       double ptSumTransverse = 0;
       double ptSumAway = 0;
 
-      foreach (const Particle& p, particles) {
+      for (const Particle& p : particles) {
         double dphi = fabs(deltaPhi(Zphi, p.phi()));
         double pT = p.pT();
 

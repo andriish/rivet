@@ -193,37 +193,40 @@ if opts.LIST_ANALYSES:
     if args:
         import re
         regexes = [re.compile(arg, re.I) for arg in args]
-    try:
-        # import tempfile, subprocess
-        # tf, tfpath = tempfile.mkstemp(prefix="rivet-list.")
-        for aname in all_analyses:
-            if not regexes:
-                toshow = True
-            else:
-                toshow = False
-                for regex in regexes:
-                    if regex.search(aname):
-                        toshow = True
-                        break
-            if toshow:
-                msg = aname
-                if opts.LOGLEVEL <= logging.INFO:
-                    a = rivet.AnalysisLoader.getAnalysis(aname)
-                    st = "" if a.status() == "VALIDATED" else ("[" + a.status() + "] ")
-                    msg = "%-25s   %s" % (aname, st + rivet.util.detex(a.summary()))
-                    if opts.LOGLEVEL < logging.INFO:
-                        if a.keywords():
-                            msg += "  [" + " ".join(a.keywords()) + "]"
-                        if a.luminosityfb():
-                            msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
-                print(msg)
-                #os.write(tf, msg + "\n")
-        # if os.path.getsize(tfpath) > 0:
-        #     pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
-        #     pager.communicate()
-    finally:
-        # os.unlink(tfpath) #< always clean up
-        pass
+    # import tempfile, subprocess
+    # tf, tfpath = tempfile.mkstemp(prefix="rivet-list.")
+    names = []
+    msg = []
+    for aname in all_analyses:
+        if not regexes:
+            toshow = True
+        else:
+            toshow = False
+            for regex in regexes:
+                if regex.search(aname):
+                    toshow = True
+                    break
+        if toshow:
+            names.append(aname)
+            msg.append('')
+            if opts.LOGLEVEL <= logging.INFO:
+                a = rivet.AnalysisLoader.getAnalysis(aname)
+                st = "" if a.status() == "VALIDATED" else ("[%s] " % a.status())
+                # detex will very likely introduce some non-ASCII chars from
+                # greek names in analysis titles.
+                # The u"" prefix and explicit print encoding are necessary for
+                # py2 to handle this properly
+                msg[-1] = u"%s%s" % (st, a.summary())
+                if opts.LOGLEVEL < logging.INFO:
+                    if a.keywords():
+                        msg[-1] += u"  [%s]" % " ".join(a.keywords())
+                    if a.luminosityfb():
+                        msg[-1] += u"  [ \int L = %s fb^{-1} ]" % a.luminosityfb()
+    msg = rivet.util.detex(msg)
+    retlist = '\n'.join([ u"%-25s   %s" % (a,m) for a,m in zip(names,msg) ])
+    if type(u'') is not str:
+        retlist = retlist.encode('utf-8')
+    print(retlist)
     sys.exit(0)
 
 
@@ -360,7 +363,7 @@ if len(opts.SHOW_ANALYSES) > 0:
         try:
             import tempfile, subprocess
             tffd, tfpath = tempfile.mkstemp(prefix="rivet-show.")
-            os.write(tffd, "\n\n".join(msgs))
+            os.write(tffd, u"\n\n".join(msgs).encode('utf-8'))
             if sys.stdout.isatty():
                 pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
                 pager.communicate()
@@ -542,13 +545,9 @@ logging.info("Rivet %s running on machine %s (%s) at %s" % \
 
 def min_nonnull(a, b):
     "A version of min which considers None to always be greater than a real number"
-    rtn = min(a, b)
-    if rtn is not None:
-        return rtn
-    if a is not None:
-        return a
-    return b
-
+    if a is None: return b
+    if b is None: return a
+    return min(a, b)
 
 ## Set up an event timeout handler
 class TimeoutException(Exception):

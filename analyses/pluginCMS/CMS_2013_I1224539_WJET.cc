@@ -62,9 +62,9 @@ namespace Rivet {
 
 
     bool isBackToBack_wj(const WFinder& wf, const fastjet::PseudoJet& psjet) {
-      const FourMomentum& w = wf.bosons()[0].momentum();
-      const FourMomentum& l1 = wf.constituentLeptons()[0].momentum();
-      const FourMomentum& l2 = wf.constituentNeutrinos()[0].momentum();
+      const FourMomentum w = wf.bosons()[0];
+      const FourMomentum l1 = wf.constituentLeptons()[0];
+      const FourMomentum l2 = wf.constituentNeutrinos()[0];
       /// @todo We should make FourMomentum know how to construct itself from a PseudoJet
       const FourMomentum jmom(psjet.e(), psjet.px(), psjet.py(), psjet.pz());
       return (deltaPhi(w, jmom) > 2.0 && deltaR(l1, jmom) > 1.0 && deltaPhi(l2, jmom) > 0.4);
@@ -89,18 +89,18 @@ namespace Rivet {
       // Get the W
       const WFinder& wfinder = apply<WFinder>(event, "WFinder");
       if (wfinder.bosons().size() != 1) vetoEvent;
-      const Particle& w = wfinder.bosons()[0];
-      const Particle& l = wfinder.constituentLeptons()[0];
+      const Particle w = wfinder.bosons()[0];
+      const Particle l = wfinder.constituentLeptons()[0];
 
       // Require a fairly high-pT W and charged lepton
       if (l.pT() < 80*GeV || w.pT() < 120*GeV) vetoEvent;
 
       // Get the pseudojets.
-      const PseudoJets& psjetsCA8_wj = apply<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );
-      const PseudoJets& psjetsCA12_wj = apply<FastJets>(event, "JetsCA12_wj").pseudoJetsByPt( 50.0*GeV );
+      const PseudoJets psjetsCA8_wj = apply<FastJets>(event, "JetsCA8_wj").pseudoJetsByPt( 50.0*GeV );
+      const PseudoJets psjetsCA12_wj = apply<FastJets>(event, "JetsCA12_wj").pseudoJetsByPt( 50.0*GeV );
 
       // AK7 jets
-      const PseudoJets& psjetsAK7_wj = apply<FastJets>(event, "JetsAK7_wj").pseudoJetsByPt( 50.0*GeV );
+      const PseudoJets psjetsAK7_wj = apply<FastJets>(event, "JetsAK7_wj").pseudoJetsByPt( 50.0*GeV );
       if (!psjetsAK7_wj.empty()) {
         // Get the leading jet and make sure it's back-to-back with the W
         const fastjet::PseudoJet& j0 = psjetsAK7_wj[0];

@@ -262,11 +262,11 @@ EOD`
 	# libraries which must be linked in when embedding
 	#
 	AC_MSG_CHECKING(python extra libraries)
-	if test -z "$PYTHON_EXTRA_LDFLAGS"; then
-	   PYTHON_EXTRA_LDFLAGS=`$PYTHON -c "import distutils.sysconfig; \
-                conf = distutils.sysconfig.get_config_var; \
-                print (conf('LIBS') + ' ' + conf('SYSLIBS'))"`
-	fi
+dnl	if test -z "$PYTHON_EXTRA_LDFLAGS"; then
+dnl	   PYTHON_EXTRA_LDFLAGS=`$PYTHON -c "import distutils.sysconfig; \
+dnl                conf = distutils.sysconfig.get_config_var; \
+dnl                print (conf('LIBS') + ' ' + conf('SYSLIBS'))"`
+dnl	fi
 	AC_MSG_RESULT([$PYTHON_EXTRA_LDFLAGS])
 	AC_SUBST(PYTHON_EXTRA_LDFLAGS)
 
