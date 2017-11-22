@@ -54,7 +54,7 @@ if not (os.access(ANASRCDIR, os.W_OK) and os.access(ANAINFODIR, os.W_OK) and os.
 
 ## Check for disallowed characters in analysis names
 import string
-allowedchars = string.letters + string.digits + "_"
+allowedchars = string.ascii_letters + string.digits + "_"
 all_ok = True
 for ananame in ANANAMES:
     for c in ananame:

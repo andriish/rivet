@@ -1578,7 +1578,7 @@ class Histogram(DrawableObject, Described):
         if norm2int or norm2sum:
             if norm2int and norm2sum:
                 print("Can't normalize to Integral and to Sum at the same time. Will normalize to the sum.")
-            foo = 0
+            foo = 0.0
             # TODO: change to "in self.data"?
             for i in range(len(self.data)):
                 if norm2sum:
@@ -2262,10 +2262,10 @@ class Ticks(object):
         prefix = ''
         if plotlog:
             bar = int(log10(value))
-	    if bar < 0:
-	        sign='-'
-	    else:
-	        sign='\\,'
+            if bar < 0:
+                sign='-'
+            else:
+                sign='\\,'
             if minor: # The power of ten is only to be added to the last minor tick label
                 if lastminor:
                     label = str(int(value/(10**bar))) + "\\cdot" + '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
@@ -2275,11 +2275,11 @@ class Ticks(object):
                 if bar==0:
                     label = '1'
                 else:
-                    label = '10$^{'+sign+'\\text{'+str(abs(bar))+'}}$'
+                    label = '10$^{'+sign+'\\text{%s}}$' % str(abs(bar))
         else:
             if fabs(value) < 1e-10:
                 value = 0
-            label = str(value)
+            label = '%.2g' % value
             if "e" in label:
                 a, b = label.split("e")
                 astr = "%2.1f" % float(a)
@@ -2615,7 +2615,7 @@ def process_datfile(datfile):
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             cnvproc = subprocess.Popen(["ps2pdf", "-"], stdin=dvproc.stdout, stdout=subprocess.PIPE, cwd=tempdir)
-            f = open(os.path.join(tempdir, "%s.pdf" % filename), "w")
+            f = open(os.path.join(tempdir, "%s.pdf" % filename), "wb")
             f.write(cnvproc.communicate()[0])
             f.close()
         if "EPS" in opts.OUTPUT_FORMAT:
@@ -2623,7 +2623,7 @@ def process_datfile(datfile):
             logging.debug(" ".join(dvcmd))
             dvproc = subprocess.Popen(dvcmd, stdout=subprocess.PIPE, cwd=tempdir)
             cnvproc = subprocess.Popen(["ps2eps"], stdin=dvproc.stdout, stderr=subprocess.PIPE, stdout=subprocess.PIPE, cwd=tempdir)
-            f = open(os.path.join(tempdir, "%s.eps" % filename), "w")
+            f = open(os.path.join(tempdir, "%s.eps" % filename), "wb")
             f.write(cnvproc.communicate()[0])
             f.close()
         if "PNG" in opts.OUTPUT_FORMAT:
