@@ -174,51 +174,59 @@ cdef class AnalysisLoader:
 
 
 def getAnalysisLibPaths():
-    return c.getAnalysisLibPaths()
+    ps = c.getAnalysisLibPaths()
+    return [ p.decode('utf-8') for p in ps ]
 
 def setAnalysisLibPaths(xs):
-    c.setAnalysisLibPaths(xs)
+    bs = [ x.encode('utf-8') for x in xs ]
+    c.setAnalysisLibPaths(bs)
 
 def addAnalysisLibPath(path):
-    c.addAnalysisLibPath(path)
+    c.addAnalysisLibPath(path.encode('utf-8'))
 
 
 def setAnalysisDataPaths(xs):
-    c.setAnalysisDataPaths(xs)
+    bs = [ x.encode('utf-8') for x in xs ]
+    c.setAnalysisDataPaths(bs)
 
 def addAnalysisDataPath(path):
-    c.addAnalysisDataPath(path)
+    c.addAnalysisDataPath(path.encode('utf-8'))
 
 def getAnalysisDataPaths():
-    return c.getAnalysisDataPaths()
+    ps = c.getAnalysisDataPaths()
+    return [ p.decode('utf-8') for p in ps ]
 
 def findAnalysisDataFile(q):
-    return c.findAnalysisDataFile(q)
-
+    f = c.findAnalysisDataFile(q.encode('utf-8'))
+    return f.decode('utf-8')
 
 def getAnalysisRefPaths():
-    return c.getAnalysisRefPaths()
+    ps = c.getAnalysisRefPaths()
+    return [ p.decode('utf-8') for p in ps ]
 
 def findAnalysisRefFile(q):
-    return c.findAnalysisRefFile(q)
+    f = c.findAnalysisRefFile(q.encode('utf-8'))
+    return f.decode('utf-8')
 
 
 def getAnalysisInfoPaths():
-    return c.getAnalysisInfoPaths()
+    ps = c.getAnalysisInfoPaths()
+    return [ p.decode('utf-8') for p in ps ]
 
 def findAnalysisInfoFile(q):
-    return c.findAnalysisInfoFile(q)
-
+    f = c.findAnalysisInfoFile(q.encode('utf-8'))
+    return f.decode('utf-8')
 
 def getAnalysisPlotPaths():
-    return c.getAnalysisPlotPaths()
+    ps = c.getAnalysisPlotPaths()
+    return [ p.decode('utf-8') for p in ps ]
 
 def findAnalysisPlotFile(q):
-    return c.findAnalysisPlotFile(q)
-
+    f = c.findAnalysisPlotFile(q.encode('utf-8'))
+    return f.decode('utf-8')
 
 def version():
-    return c.version()
+    return c.version().decode('utf-8')
 
 def setLogLevel(name, level):
-    c.setLogLevel(name, level)
+    c.setLogLevel(name.encode('utf-8'), level)

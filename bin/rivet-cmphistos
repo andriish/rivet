@@ -115,7 +115,14 @@ def getHistos(filelist):
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
             # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
-            if ao.type not in ("Counter", "Histo1D", "Histo2D", "Profile1D", "Profile2D", "Scatter1D", "Scatter2D", "Scatter3D"):
+            if ao.type not in ("Counter", 
+                               "Histo1D", 
+                               "Histo2D", 
+                               "Profile1D", 
+                               "Profile2D", 
+                               "Scatter1D", 
+                               "Scatter2D", 
+                               "Scatter3D"):
                 continue
 
             ## Make a path object and ensure the path is in standard form
@@ -207,7 +214,7 @@ def setStyle(ao, istyle, variation=False):
 
     jc = istyle % len(LINECOLORS)
     c = LINECOLORS[jc]
-    js = (istyle / len(LINECOLORS)) % len(LINESTYLES)
+    js = (istyle // len(LINECOLORS)) % len(LINESTYLES)
     s = LINESTYLES[js]
 
     ## If plotting a variation (i.e. band), fade the colour
@@ -339,7 +346,8 @@ if __name__ == '__main__':
         refhistos = refhistos2
 
     ## Purge unmatched ref data entries to save memory
-    for refhpath in refhistos.keys():
+    keylist = list(refhistos.keys()) # can't modify for-loop target
+    for refhpath in keylist:
         if refhpath not in hpaths:
             del refhistos[refhpath]
 
