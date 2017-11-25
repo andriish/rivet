@@ -63,6 +63,11 @@ namespace Rivet {
 
   vector<Particle> Particle::ancestors(const Cut& c, bool physical_only) const {
     vector<Particle> rtn;
+
+    // this case needed protecting against (at least for the latest Herwig... not sure why
+    // it didn't show up earlier
+    if (genParticle() == NULL) return rtn;
+
     /// @todo Remove this const mess crap when HepMC doesn't suck
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
     if (gv == NULL) return rtn;
