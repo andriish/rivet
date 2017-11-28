@@ -314,13 +314,22 @@ namespace Rivet {
     /// hasn't been set.
     double crossSectionPerEvent() const;
 
-    /// Get the number of events seen (via the analysis handler). Use in the
-    /// finalize phase only.
+    /// @brief Get the number of events seen (via the analysis handler).
+    ///
+    /// @note Use in the finalize phase only.
     size_t numEvents() const;
 
-    /// Get the sum of event weights seen (via the analysis handler). Use in the
-    /// finalize phase only.
-    double sumOfWeights() const;
+    /// @brief Get the sum of event weights seen (via the analysis handler).
+    ///
+    /// @note Use in the finalize phase only.
+    double sumW() const;
+    /// Alias
+    double sumOfWeights() const { return sumW(); }
+
+    /// @brief Get the sum of squared event weights seen (via the analysis handler).
+    ///
+    /// @note Use in the finalize phase only.
+    double sumW2() const;
 
 
   protected:

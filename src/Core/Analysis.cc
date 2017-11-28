@@ -81,13 +81,19 @@ namespace Rivet {
   }
 
 
+  ///////////////////////////////////////////
+
+
   size_t Analysis::numEvents() const {
     return handler().numEvents();
   }
 
+  double Analysis::sumW() const {
+    return handler().sumW();
+  }
 
-  double Analysis::sumOfWeights() const {
-    return handler().sumOfWeights();
+  double Analysis::sumW2() const {
+    return handler().sumW();
   }
 
 

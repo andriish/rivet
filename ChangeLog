@@ -1,6 +1,6 @@
 2017-11-28  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Providing neater & more YODA-consistent sumW and sumW2 methods on AnalysisHandler.
+	* Providing neater & more YODA-consistent sumW and sumW2 methods on AnalysisHandler and Analysis.
 
 	* Fix to Python version check for >= 2.7.10 (patch submitted to GNU)
 
