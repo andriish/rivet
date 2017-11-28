@@ -116,9 +116,30 @@ to something else than an empty string.
 	#
 	if test -n "$1"; then
 		AC_MSG_CHECKING([for a version of Python $1])
-		ac_supports_python_ver=`$PYTHON -c "import sys; \
-			ver = sys.version.split ()[[0]]; \
+        cat << EOF > ax_python_devel_vpy.py
+class VPy:
+    def vtup(self, s):
+        return map(int, s.strip().split("."))
+    def __init__(self):
+        import platform
+        self.vpy = self.vtup(platform.python_version())
+    def __eq__(self, s):
+        return self.vpy == self.vtup(s)
+    def __ne__(self, s):
+        return self.vpy != self.vtup(s)
+    def __lt__(self, s):
+        return self.vpy < self.vtup(s)
+    def __gt__(self, s):
+        return self.vpy > self.vtup(s)
+    def __le__(self, s):
+        return self.vpy <= self.vtup(s)
+    def __ge__(self, s):
+        return self.vpy >= self.vtup(s)
+EOF
+		ac_supports_python_ver=`$PYTHON -c "import ax_python_devel_vpy; \
+            ver = ax_python_devel_vpy.VPy(); \
 			print (ver $1)"`
+        rm -rf ax_python_devel_vpy.py*
 		if test "$ac_supports_python_ver" = "True"; then
 		   AC_MSG_RESULT([yes])
 		else
@@ -275,7 +296,7 @@ dnl	fi
 	#
 	AC_MSG_CHECKING(python extra linking flags)
 dnl
-dnl removed by dg to try to fix the issue described in https://trac.macports.org/ticket/39223 
+dnl removed by dg to try to fix the issue described in https://trac.macports.org/ticket/39223
 dnl
 dnl	if test -z "$PYTHON_EXTRA_LIBS"; then
 dnl		PYTHON_EXTRA_LIBS=`$PYTHON -c "import distutils.sysconfig; \

@@ -1,3 +1,7 @@
+2017-11-28  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix to Python version check for >= 2.7.10 (patch submitted to GNU)
+
 2017-11-17  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Various improvements to DISKinematics, DISLepton, and the ZEUS 2001 analysis.
