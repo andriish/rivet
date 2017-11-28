@@ -54,37 +54,50 @@ namespace Rivet {
     //@{
 
     /// Get the name of this run.
-    string runName() const;
+    string runName() const { return _runname; }
 
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
-    size_t numEvents() const;
+    size_t numEvents() const { return _numEvents; }
 
-    /// Get the sum of the event weights seen - the weighted equivalent of the
-    /// number of events. Should only really be used by external steering code
-    /// or analyses in the finalize phase.
-    double sumOfWeights() const;
+    /// @brief Access the sum of the event weights seen
+    ///
+    /// This is the weighted equivalent of the number of events. It should only
+    /// be used by external steering code or analyses in the finalize phase.
+    double sumW() const { return sumOfWeights(); }
+    /// Access to the sum of squared-weights
+    double sumW2() const { return _sumOfWeightsSq; }
 
-    /// Set sum of weights. This is useful if Rivet is steered externally and
+    /// @brief Compatibility alias for sumOfWeights
+    ///
+    /// @deprecated Prefer sumW
+    double sumOfWeights() const { return _sumOfWeights; }
+    /// @brief Set the sum of weights
+    ///
+    /// This is useful if Rivet is steered externally and
     /// the analyses are run for a sub-contribution of the events
     /// (but of course have to be normalised to the total sum of weights)
-    void setSumOfWeights(const double& sum);
+    ///
+    /// @todo What about the sumW2 term? That needs to be set coherently. Need a
+    /// new version, with all three N,sumW,sumW2 numbers (or a counter)
+    /// supplied.
+    void setSumOfWeights(const double& sum) { _sumOfWeights = sum; }
 
 
     /// Is cross-section information required by at least one child analysis?
+    /// @deprecated Should no-longer be an issue: does any generator not write the cross-section?
     bool needCrossSection() const;
-
-    /// Set the cross-section for the process being generated.
-    AnalysisHandler& setCrossSection(double xs);
+    /// Whether the handler knows about a cross-section.
+    /// @deprecated Should no-longer be an issue: does any generator not write the cross-section?
+    bool hasCrossSection() const;
 
     /// Get the cross-section known to the handler.
-    double crossSection() const {
-      return _xs;
-    }
+    double crossSection() const { return _xs; }
 
-    /// Whether the handler knows about a cross-section.
-    bool hasCrossSection() const;
+    /// Set the cross-section for the process being generated.
+    /// @todo What about the xsec uncertainty? Add a second, optional argument?
+    AnalysisHandler& setCrossSection(double xs);
 
 
     /// Set the beam particles for this run
