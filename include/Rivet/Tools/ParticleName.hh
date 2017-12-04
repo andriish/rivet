@@ -54,6 +54,8 @@ namespace Rivet {
     static const PdgId Z0 = Z0BOSON;
     static const PdgId HIGGSBOSON = 25;
     static const PdgId HIGGS = HIGGSBOSON;
+    static const PdgId H0BOSON = HIGGSBOSON;
+    static const PdgId HBOSON = HIGGSBOSON;
     //@}
 
     /// @name Quarks
