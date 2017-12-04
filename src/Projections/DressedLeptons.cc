@@ -61,29 +61,29 @@ namespace Rivet {
       allClusteredLeptons += DressedLepton(bl);
 
     // If the radius is 0 or negative, don't even attempt to cluster
-    if (_dRmax <= 0) return;
-
-    // Match each photon to its closest charged lepton within the dR cone
-    const FinalState& photons = applyProjection<FinalState>(e, "Photons");
-    for (const Particle& photon : photons.particles()) {
-      // Ignore photon if it's from a hadron/tau decay and we're avoiding those
-      if (!_fromDecay && photon.fromDecay()) continue;
-      const FourMomentum& p_P = photon.momentum();
-      double dRmin = _dRmax;
-      int idx = -1;
-      for (size_t i = 0; i < bareleptons.size(); ++i) {
-        // Only cluster photons around *charged* signal particles
-        if (bareleptons[i].charge3() == 0) continue;
-        // Find the closest lepton
-        const FourMomentum& p_l = bareleptons[i].momentum();
-        double dR = deltaR(p_l, p_P);
-        if (dR < dRmin) {
-          dRmin = dR;
-          idx = i;
+    if (_dRmax > 0) {
+      // Match each photon to its closest charged lepton within the dR cone
+      const FinalState& photons = applyProjection<FinalState>(e, "Photons");
+      for (const Particle& photon : photons.particles()) {
+        // Ignore photon if it's from a hadron/tau decay and we're avoiding those
+        if (!_fromDecay && photon.fromDecay()) continue;
+        const FourMomentum& p_P = photon.momentum();
+        double dRmin = _dRmax;
+        int idx = -1;
+        for (size_t i = 0; i < bareleptons.size(); ++i) {
+          // Only cluster photons around *charged* signal particles
+          if (bareleptons[i].charge3() == 0) continue;
+          // Find the closest lepton
+          const FourMomentum& p_l = bareleptons[i].momentum();
+          double dR = deltaR(p_l, p_P);
+          if (dR < dRmin) {
+            dRmin = dR;
+            idx = i;
+          }
         }
-      }
-      if (idx > -1) {
-        allClusteredLeptons[idx].addPhoton(photon);
+        if (idx > -1) {
+          allClusteredLeptons[idx].addPhoton(photon);
+        }
       }
     }
 
