@@ -15,8 +15,15 @@ namespace Rivet {
     /// Constructor
     DELPHI_2002_069_CONF_603()
       : Analysis("DELPHI_2002_069_CONF_603")
-    {
-    }
+    {    }
+
+
+    /// @name Helper functions
+    /// @note The PID:: namespace functions would be preferable, but don't have exactly the same behaviour. Preserving the original form.
+    //@{
+    bool isParton(int id) { return abs(id) <= 100 && abs(id) != 22 && (abs(id) < 11 || abs(id) > 18); }
+    // bool isBHadron(int id) { return ((abs(id)/100)%10 == 5) || (abs(id) >= 5000 && abs(id) <= 5999); }
+    //@}
 
 
     /// @name Analysis methods
@@ -55,7 +62,7 @@ namespace Rivet {
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
 
-      foreach (const GenParticle* p, particles(e.genEvent())) {
+      for (const GenParticle* p : particles(e.genEvent())) {
         const GenVertex* pv = p->production_vertex();
         const GenVertex* dv = p->end_vertex();
         if (PID::isBottomHadron(p->pdg_id())) {
@@ -65,7 +72,7 @@ namespace Rivet {
           if (pv) {
             bool is_primary = false;
             for (GenVertex::particles_in_const_iterator pp = pv->particles_in_const_begin(); pp != pv->particles_in_const_end() ; ++pp) {
-              if (PID::isParton((*pp)->pdg_id())) is_primary = true;
+              if (isParton((*pp)->pdg_id())) is_primary = true;
             }
             if (is_primary) {
               _histXbprim->fill(xp, weight);
