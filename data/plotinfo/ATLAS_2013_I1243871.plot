@@ -56,7 +56,7 @@ Title=Integrated jet shape for $b$-jets with $50\,\text{GeV} < p_T < 70\,\text{G
 Title=Integrated jet shape for $b$-jets with $70\,\text{GeV} < p_T < 100\,\text{GeV}$
 # END PLOT
 # BEGIN PLOT /ATLAS_2013_I1243871/d05-x01-y02
-Title=Integrated jet shape for $b$-jets with 100\,\text{GeV} < p_T < 150\,\text{GeV}$
+Title=Integrated jet shape for $b$-jets with $100\,\text{GeV} < p_T < 150\,\text{GeV}$
 # END PLOT
 # BEGIN PLOT /ATLAS_2013_I1243871/d01-x02-y02
 Title=Integrated jet shape for light jets with $30\,\text{GeV} < p_T < 40\,\text{GeV}$
