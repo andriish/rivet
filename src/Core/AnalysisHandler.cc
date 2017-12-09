@@ -12,8 +12,9 @@ namespace Rivet {
 
 
   AnalysisHandler::AnalysisHandler(const string& runname)
-    : _runname(runname), _numEvents(0),
-      _sumOfWeights(0.0), _xs(NAN),
+    : _runname(runname),
+      _eventcounter("/_EVTCOUNT2"),
+      _numEvents(0), _sumOfWeights(0.0), _sumOfWeightsSq(0.0), _xs(NAN),
       _initialised(false), _ignoreBeams(false)
   {  }
 
@@ -33,6 +34,8 @@ namespace Rivet {
 
     setRunBeams(Rivet::beams(ge));
     MSG_DEBUG("Initialising the analysis handler");
+    // _eventcounter.clear();
+    /// @todo Remove
     _numEvents = 0;
     _sumOfWeights = 0.0;
     _sumOfWeightsSq = 0.0;
@@ -111,6 +114,8 @@ namespace Rivet {
 
     // Weights
     /// @todo Drop this / just report first weight when we support multiweight events
+    _eventcounter.fill(event.weight());
+    /// @todo Remove
     _numEvents += 1;
     _sumOfWeights += event.weight();
     _sumOfWeightsSq += sqr(event.weight());
@@ -251,6 +256,7 @@ namespace Rivet {
     vector<AnalysisObjectPtr> rtn;
     // Event counter
     rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
+    rtn.push_back( make_shared<Counter>(_eventcounter) );
     // Cross-section + err as scatter
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
     rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );

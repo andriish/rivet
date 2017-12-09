@@ -222,6 +222,8 @@ namespace Rivet {
     /// Run name
     std::string _runname;
 
+    /// Event counter
+    Counter _eventcounter;
     /// Number of events seen.
     /// @todo Replace by a counter
     unsigned int _numEvents;
