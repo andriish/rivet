@@ -13,7 +13,7 @@ namespace Rivet {
 
   AnalysisHandler::AnalysisHandler(const string& runname)
     : _runname(runname),
-      _eventcounter("/_EVTCOUNT2"),
+      _eventcounter("/_EVTCOUNT"),
       _numEvents(0), _sumOfWeights(0.0), _sumOfWeightsSq(0.0), _xs(NAN),
       _initialised(false), _ignoreBeams(false)
   {  }
@@ -255,8 +255,8 @@ namespace Rivet {
   vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
     vector<AnalysisObjectPtr> rtn;
     // Event counter
-    rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
     rtn.push_back( make_shared<Counter>(_eventcounter) );
+    // rtn.push_back( make_shared<Counter>(YODA::Dbn0D(_numEvents, _sumOfWeights, _sumOfWeightsSq), "/_EVTCOUNT") );
     // Cross-section + err as scatter
     YODA::Scatter1D::Points pts; pts.insert(YODA::Point1D(_xs, _xserr));
     rtn.push_back( make_shared<Scatter1D>(pts, "/_XSEC") );
