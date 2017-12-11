@@ -59,20 +59,21 @@ namespace Rivet {
 
     /// Get the number of events seen. Should only really be used by external
     /// steering code or analyses in the finalize phase.
-    size_t numEvents() const { return _numEvents; }
+    size_t numEvents() const { return _eventcounter.numEntries(); }
 
     /// @brief Access the sum of the event weights seen
     ///
     /// This is the weighted equivalent of the number of events. It should only
     /// be used by external steering code or analyses in the finalize phase.
-    double sumW() const { return sumOfWeights(); }
+    double sumW() const { return _eventcounter.sumW(); }
     /// Access to the sum of squared-weights
-    double sumW2() const { return _sumOfWeightsSq; }
+    double sumW2() const { return _eventcounter.sumW2(); }
 
     /// @brief Compatibility alias for sumOfWeights
     ///
     /// @deprecated Prefer sumW
-    double sumOfWeights() const { return _sumOfWeights; }
+    double sumOfWeights() const { return sumW(); }
+
     /// @brief Set the sum of weights
     ///
     /// This is useful if Rivet is steered externally and
@@ -82,7 +83,13 @@ namespace Rivet {
     /// @todo What about the sumW2 term? That needs to be set coherently. Need a
     /// new version, with all three N,sumW,sumW2 numbers (or a counter)
     /// supplied.
-    void setSumOfWeights(const double& sum) { _sumOfWeights = sum; }
+    ///
+    /// @deprecated Weight sums are no longer tracked this way...
+    void setSumOfWeights(const double& sum) {
+      //_sumOfWeights = sum;
+      throw Error("Can't set sum of weights independently, since it's now tracked by a Counter. "
+                  "Please contact the Rivet authors if you need this.");
+    }
 
 
     /// Is cross-section information required by at least one child analysis?
@@ -224,12 +231,6 @@ namespace Rivet {
 
     /// Event counter
     Counter _eventcounter;
-    /// Number of events seen.
-    /// @todo Replace by a counter
-    unsigned int _numEvents;
-    /// Sum of event weights seen.
-    /// @todo Replace by a counter
-    double _sumOfWeights, _sumOfWeightsSq;
 
     /// Cross-section known to AH
     double _xs, _xserr;
