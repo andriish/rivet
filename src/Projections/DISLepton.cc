@@ -24,8 +24,8 @@ namespace Rivet {
       throw Error("DISLepton could not find the correct beam");
     }
 
-    // Find outgoing scattered lepton via HepMC graph
-    /// @todo Evidence that this doesn't work with Sherpa... FIX
+    // // Find outgoing scattered lepton via HepMC graph
+    // /// @todo Evidence that this doesn't work with Sherpa... FIX
     // const GenParticle* current_l = _incoming.genParticle();
     // bool found_next_vertex = true;
     // while (found_next_vertex) {
@@ -51,13 +51,15 @@ namespace Rivet {
     // }
     // if (current_l != nullptr) {
     //   _outgoing = Particle(current_l);
+    //   MSG_DEBUG("Found DIS lepton from event-record structure");
     //   return;
     // }
 
     // If no graph-connected scattered lepton, use the hardest (preferably same-flavour) prompt FS lepton in the event
+    /// @todo Specify the charged or neutral current being searched for in the DISLepton constructor/API, and remove the guesswork
     const Particles fsleptons = applyProjection<FinalState>(e, "PromptFS").particles(isLepton, cmpMomByE);
-    /// @todo Specify the charged or neutral current being searched for in the DISLepton constructor/API?
     const Particles sfleptons = filter_select(fsleptons, Cuts::pid == _incoming.pid());
+    MSG_DEBUG("SF leptons = " << sfleptons.size() << ", all leptons = " << fsleptons.size());
     if (!sfleptons.empty()) {
       _outgoing = sfleptons.front();
     } else if (!fsleptons.empty()) {
@@ -66,8 +68,6 @@ namespace Rivet {
       throw Error("Could not find the scattered lepton");
     }
 
-    // Set the charge of the DIS current
-    // _charge = sign(_outgoing.charge() - _incoming.charge());
   }
 
 
