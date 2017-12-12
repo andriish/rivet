@@ -6,9 +6,8 @@
 
 namespace Rivet {
 
-
   double Event::weight() const {
-    return genEvent()->weights().empty() ? _genevent.weights()[0] : 1.0;
+    return genEvent()->weights().empty() ? 1.0 : _genevent.weights()[0];
   }
 
   double Event::centrality() const {
