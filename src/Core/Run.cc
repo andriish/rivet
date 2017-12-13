@@ -3,6 +3,7 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "HepMC/IO_GenEvent.h"
 #include "Rivet/Math/MathUtils.hh"
+#include "Rivet/Tools/RivetPaths.hh"
 #include "zstr/zstr.hpp"
 #include <limits>
 
@@ -69,6 +70,7 @@ namespace Rivet {
     if (evtfile == "-") {
       _io.reset(new HepMC::IO_GenEvent(std::cin));
     } else {
+      if (!fileexists(evtfile)) throw Error("Event file '" + evtfile + "' not found");
       #ifdef HAVE_LIBZ
       // NB. zstr auto-detects if file is deflated or plain-text
       _istr.reset(new zstr::ifstream(evtfile.c_str()));

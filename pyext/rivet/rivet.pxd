@@ -24,12 +24,12 @@ cdef extern from "Rivet/Run.hh" namespace "Rivet":
         Run(AnalysisHandler)
         Run& setCrossSection(double) # For chaining?
         Run& setListAnalyses(bool)
-        bool init(string, double) # $2=1.0
-        bool openFile(string, double) # $2=1.0
-        bool readEvent()
-        bool skipEvent()
-        bool processEvent()
-        bool finalize()
+        bool init(string, double) except + # $2=1.0
+        bool openFile(string, double) except + # $2=1.0
+        bool readEvent() except +
+        bool skipEvent() except +
+        bool processEvent() except +
+        bool finalize() except +
 
 cdef extern from "Rivet/Analysis.hh" namespace "Rivet":
     cdef cppclass Analysis:

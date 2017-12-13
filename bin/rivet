@@ -591,7 +591,11 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 
     ## Open next HepMC file (NB. this doesn't apply to the first file: it was already used for the run init)
     if fileidx > 0:
-        run.openFile(hepmcfile, hepmcfileweight)
+        try:
+            run.openFile(hepmcfile, hepmcfileweight)
+        except:
+            logging.warning("Could not read from '%s'" % hepmcfile)
+            continue
         if not run.readEvent():
             logging.warning("Could not read events from '%s'" % hepmcfile)
             continue
