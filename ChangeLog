@@ -1,3 +1,7 @@
+2017-12-13  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Protect Run methods and rivet script against being told to run from a missing or unreadable file.
+
 2017-12-11  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Replace manual event count & weight handling with a YODA Counter object.
