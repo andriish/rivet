@@ -85,7 +85,10 @@ namespace Rivet {
     auto dressed = leptons.dressedLeptons();
     Particles tmp(dressed.begin(), dressed.end());
     imfs.calc(tmp);
-    if (imfs.particlePairs().size() < 1) return;
+    if (imfs.particlePairs().empty()) {
+      MSG_TRACE("No acceptable inv-mass lepton/antilepton pairs found");
+      return;
+    }
 
     // Assemble a pseudo-Z particle
     const ParticlePair& Zconstituents = imfs.particlePairs().front();
@@ -93,13 +96,13 @@ namespace Rivet {
     const FourMomentum pZ = p1.momentum() + p2.momentum();
     assert(p1.charge3() + p2.charge3() == 0);
     Particle z(PID::Z0BOSON, pZ);
+    MSG_DEBUG("Z " << pZ << " reconstructed from: " << p1 << " + " << p2);
 
     // Debug printout
-    stringstream msg;
-    msg << "Z " << pZ << " reconstructed from: \n"
-        << "   " << p1.momentum() << " " << p1.pid() << "\n"
-        << " + " << p2.momentum() << " " << p2.pid();
-    MSG_DEBUG(msg.str());
+    //stringstream msg;
+    //msg << "Z " << pZ << " reconstructed from: " << p1 << " + " << p2);
+    //p1.momentum() << " " << p1.pid() << " + " << p2.momentum() << " " << p2.pid();
+    //MSG_DEBUG(msg.str());
 
     // Add (dressed) lepton constituents to the W (skipping photons if requested)
     // Keep the DressedLeptons found by the ZFinder
