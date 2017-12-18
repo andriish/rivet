@@ -21,6 +21,7 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
+
     for (const Particle& p : fs.particles()) {
       if (getLog().isActive(Log::TRACE)) {
         vector<long> codes;
@@ -30,6 +31,7 @@ namespace Rivet {
         const string codestr = "{ " + join(codes) + " }";
         MSG_TRACE(p.pid() << " vs. veto codes = " << codestr << " (" << codes.size() << ")");
       }
+
       VetoDetails::iterator iter = _vetoCodes.find(p.pid());
       if (iter == _vetoCodes.end()) {
         MSG_TRACE("Storing with PDG code = " << p.pid() << ", pT = " << p.pT());
@@ -120,7 +122,6 @@ namespace Rivet {
     }
 
     // Finally veto on the registered FSes
-    /// @todo Are barcodes robust? Do we need to insist on valid GenParticle ptrs?
     for (const string& ifs : _vetofsnames) {
       const ParticleFinder& vfs = applyProjection<ParticleFinder>(e, ifs);
       const Particles& pvetos = vfs.rawParticles();
@@ -134,7 +135,32 @@ namespace Rivet {
         });
     }
 
-    // ORIGINAL
+    MSG_DEBUG("FS vetoing from #particles = " << fs.size() << " -> " << _theParticles.size());
+
+    // // ORIGINAL
+    // foreach (const string& ifs, _vetofsnames) {
+    //   const ParticleFinder& vfs = applyProjection<ParticleFinder>(e, ifs);
+    //   const Particles& vfsp = vfs.rawParticles();
+    //   for (Particles::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck) {
+    //     if (icheck->genParticle() == NULL) continue;
+    //     bool found = false;
+    //     for (Particles::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
+    //       if (ipart->genParticle() == NULL) continue;
+    //       MSG_TRACE("Comparing barcode " << icheck->genParticle()->barcode()
+    //                << " with veto particle " << ipart->genParticle()->barcode());
+    //       if (ipart->genParticle()->barcode() == icheck->genParticle()->barcode()){
+    //         found = true;
+    //         break;
+    //       }
+    //     }
+    //     if (found) {
+    //       _theParticles.erase(icheck);
+    //       --icheck;
+    //     }
+    //   }
+    // }
+
+    // INTERMEDIATE
     // for (const Particle& pcheck : _theParticles) {
     //   if (pcheck.genParticle() == nullptr) continue;
     //   bool found = false;
