@@ -91,6 +91,7 @@ namespace Rivet {
     for (const DressedLepton& lepton : allClusteredLeptons) {
       if (accept(lepton)) _theParticles.push_back(lepton);
     }
+    MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size() << " -> " << _theParticles.size() << " after cuts");
 
   }
 
