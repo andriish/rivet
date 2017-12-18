@@ -390,6 +390,7 @@ dist_pkgdata_DATA = \
   MC_TAUS.info \
   MC_TTBAR.info \
   MC_VH2BB.info \
+  MC_WEIGHTS.info \
   MC_WINC.info \
   MC_WINC_EL.info \
   MC_WINC_MU.info \

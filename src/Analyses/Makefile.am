@@ -654,6 +654,7 @@ MC_ALL = \
     MC_TTBAR.cc \
     MC_TAUS.cc \
     MC_VH2BB.cc \
+    MC_WEIGHTS.cc \
     MC_WINC.cc \
     MC_WJETS.cc \
     MC_WKTSPLITTINGS.cc \

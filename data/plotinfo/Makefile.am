@@ -378,6 +378,7 @@ dist_pkgdata_DATA = \
   MC_TAUS.plot \
   MC_TTBAR.plot \
   MC_VH2BB.plot \
+  MC_WEIGHTS.plot \
   MC_WINC.plot \
   MC_WINC_EL.plot \
   MC_WINC_MU.plot \
