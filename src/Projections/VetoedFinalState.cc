@@ -123,15 +123,20 @@ namespace Rivet {
     foreach (const string& ifs, _vetofsnames) {
       const FinalState& vfs = applyProjection<FinalState>(e, ifs);
       const Particles& vfsp = vfs.particles();
+      for (Particles::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart) {
+        MSG_TRACE("Veto test against: " << *ipart << ", ptr = " << ipart->genParticle());
+      }
       for (Particles::iterator icheck = _theParticles.begin(); icheck != _theParticles.end(); ++icheck) {
         if (icheck->genParticle() == NULL) continue;
         bool found = false;
-        for (Particles::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart){
+        for (Particles::const_iterator ipart = vfsp.begin(); ipart != vfsp.end(); ++ipart) {
+          // MSG_TRACE("Veto test against: " << *ipart << ", ptr = " << ipart->genParticle());
           if (ipart->genParticle() == NULL) continue;
           MSG_TRACE("Comparing barcode " << icheck->genParticle()->barcode()
                    << " with veto particle " << ipart->genParticle()->barcode());
           if (ipart->genParticle()->barcode() == icheck->genParticle()->barcode()){
             found = true;
+            MSG_TRACE("Vetoing: " << *icheck);
             break;
           }
         }
@@ -141,6 +146,9 @@ namespace Rivet {
         }
       }
     }
+
+    MSG_DEBUG("FS vetoing from #particles = " << fs.size() << " -> " << _theParticles.size());
+
   }
 
 
