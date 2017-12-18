@@ -129,7 +129,7 @@ namespace Rivet {
           if (pcheck.genParticle() == nullptr) return false;
           for (const Particle& pveto : pvetos) {
             if (pveto.genParticle() == nullptr) continue;
-            if (pveto.genParticle() == pcheck.genParticle()) return true;
+            if (pveto.genParticle() == pcheck.genParticle()) { MSG_TRACE("Vetoing: " << pcheck); return true; }
           }
           return false;
         });
