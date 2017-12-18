@@ -3,7 +3,7 @@
 #define RIVET_DISLepton_HH
 
 #include "Rivet/Projections/Beam.hh"
-#include "Rivet/Projections/FinalState.hh"
+#include "Rivet/Projections/PromptFinalState.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"
 
@@ -21,7 +21,7 @@ namespace Rivet {
     DISLepton(){
       setName("DISLepton");
       addProjection(Beam(), "Beam");
-      addProjection(FinalState(), "FS");
+      addProjection(PromptFinalState(FinalState()), "PromptFS");
     }
 
     /// Clone on the heap.
