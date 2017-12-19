@@ -12,6 +12,7 @@ namespace Rivet {
 
   /// A charged lepton meta-particle created by clustering photons close to the bare lepton
   /// @todo Remove completely -- it's unnecessary and too confusing (esp. between copying & aggregating)
+  /// @deprecated Just use Particle.constituents() now.
   class DressedLepton : public Particle {
   public:
 
@@ -77,6 +78,14 @@ namespace Rivet {
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false);
 
+    // For compatibility only
+    /// @cond INTERNAL
+    DEPRECATED("Use the new form with no bool cluster argument")
+    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                   double dRmax, const Cut& cut, bool, bool useDecayPhotons)
+      : DressedLeptons(photons, bareleptons, dRmax, cut, useDecayPhotons)
+    {   }
+    /// @endcond
 
     /// Clone this projection
     DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
