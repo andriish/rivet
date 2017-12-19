@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+"""%prog <yfile1> [<yfile2> ...]"""
+
 import yoda, optparse
 
 op = optparse.OptionParser()
