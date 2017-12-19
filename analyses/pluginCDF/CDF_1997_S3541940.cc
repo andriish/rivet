@@ -16,11 +16,12 @@ namespace Rivet {
 
     void init() {
 
+      // Find true jets
       const FinalState fs(-4.2, 4.2);
       FastJets fj(fs, FastJets::CDFJETCLU, 0.7);
       // declare(fj, "Jets");
 
-      // Smear Energy and mass with the 10% uncertainty quoted in the paper
+      // Smear jet energy and mass with the 10% uncertainty quoted in the paper
       SmearedJets sj_E(fj, [](const Jet& jet){ return P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet, 0.1*jet.E()), 0.1*jet.mass()); });
       declare(sj_E, "Jets");
 
@@ -48,11 +49,13 @@ namespace Rivet {
 
 
     void analyze(const Event& event) {
+
+      const Jets alljets = apply<JetAlg>(event, "Jets").jets(Cuts::Et > 20*GeV && Cuts::abseta < 3, cmpMomByEt);
+
       Jets jets;
       double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      const Jets jets = apply<JetAlg>(event, "Jets").jets(Cuts::Et > 20*GeV && Cuts::abseta < 3, cmpMomByEt);
-      for (const Jet& jet : jets) {
+      for (const Jet& jet : alljets) {
         double Et = jet.Et();
         bool separated = true;
         for (const Jet& ref : jets) {
@@ -73,6 +76,13 @@ namespace Rivet {
 
       double m6J = _safeMass(jetsystem);
       if (m6J < 520.0*GeV) vetoEvent;
+
+      if (getLog().isActive(Log::DEBUG)) {
+        stringstream ss;
+        ss << "Jets:\n";
+        for (const Jet& j : jets) ss << j << "\n";
+        MSG_DEBUG(ss.str());
+      }
 
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.betaVec());
       vector<FourMomentum> jets6;
