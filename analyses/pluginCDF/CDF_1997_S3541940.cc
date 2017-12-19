@@ -11,23 +11,18 @@ namespace Rivet {
   class CDF_1997_S3541940 : public Analysis {
   public:
 
-    CDF_1997_S3541940()
-      : Analysis("CDF_1997_S3541940")
-    {
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(CDF_1997_S3541940);
 
-
-  public:
 
     void init() {
 
       const FinalState fs(-4.2, 4.2);
-      FastJets fj (fs, FastJets::CDFJETCLU, 0.7);
-      declare(fj, "Jets");
+      FastJets fj(fs, FastJets::CDFJETCLU, 0.7);
+      // declare(fj, "Jets");
 
       // Smear Energy and mass with the 10% uncertainty quoted in the paper
       SmearedJets sj_E(fj, [](const Jet& jet){ return P4_SMEAR_MASS_GAUSS(P4_SMEAR_E_GAUSS(jet, 0.1*jet.E()), 0.1*jet.mass()); });
-      declare(sj_E, "SmearedJets");
+      declare(sj_E, "Jets");
 
       _h_m6J = bookHisto1D(1, 1, 1);
       _h_X3ppp = bookHisto1D(2, 1, 1);
@@ -56,10 +51,11 @@ namespace Rivet {
       Jets jets;
       double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, apply<JetAlg>(event, "SmearedJets").jets(Cuts::Et>20*GeV && Cuts::abseta<3,cmpMomByEt)) {
+      const Jets jets = apply<JetAlg>(event, "Jets").jets(Cuts::Et > 20*GeV && Cuts::abseta < 3, cmpMomByEt);
+      for (const Jet& jet : jets) {
         double Et = jet.Et();
         bool separated = true;
-        foreach (const Jet& ref, jets) {
+        for (const Jet& ref : jets) {
           if (deltaR(jet, ref) < 0.9) {
             separated = false;
             break;
@@ -80,7 +76,7 @@ namespace Rivet {
 
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.betaVec());
       vector<FourMomentum> jets6;
-      foreach (Jet jet, jets) {
+      for (Jet jet : jets) {
         jets6.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets6.begin(), jets6.end(), FourMomentum::byEDescending());
