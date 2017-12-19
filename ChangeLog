@@ -1,3 +1,7 @@
+2017-12-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix bugged PID codes in MC_PRINTEVENT.
+
 2017-12-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Protect Run methods and rivet script against being told to run from a missing or unreadable file.
