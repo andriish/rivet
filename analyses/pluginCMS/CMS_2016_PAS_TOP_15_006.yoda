@@ -1,0 +1,26 @@
+# BEGIN YODA_SCATTER2D /REF/CMS_2016_PAS_TOP_15_006/absXSElectronMuonHisto
+Path=/REF/CMS_2016_PAS_TOP_15_006/absXSElectronMuonHisto
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+4.0      0.5     0.5     8.42    0.74096    0.74096
+5.0      0.5     0.5     3.82    0.42784    0.42784
+6.0      0.5     0.5     1.254   0.161766   0.161766
+7.0      0.5     0.5     0.328   0.064288   0.064288
+8.0      0.5     0.5     0.0732  0.0245952  0.0245952
+9.0      0.5     0.5     0.0262  0.01178    0.01178
+10.0     0.5     0.5     0.00882 0.00456876 0.00456876
+# END YODA_SCATTER2D 
+
+
+# BEGIN YODA_SCATTER2D /REF/CMS_2016_PAS_TOP_15_006/normedElectronMuonHisto
+Path=/REF/CMS_2016_PAS_TOP_15_006/normedElectronMuonHisto
+Type=Scatter2D
+# xval   xerr-   xerr+   yval   yerr-   yerr+
+4.0      0.5     0.5     0.604    0.013892    0.013892
+5.0      0.5     0.5     0.275    0.009075    0.009075
+6.0      0.5     0.5     0.0900   0.00603     0.00603
+7.0      0.5     0.5     0.0235   0.003478    0.003478
+8.0      0.5     0.5     0.00526  0.00171476  0.00171476
+9.0      0.5     0.5     0.00188  0.00082156  0.00082156
+10.0     0.5     0.5     0.000634 0.000306856 0.000306856
+# END YODA_SCATTER2D 

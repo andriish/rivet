@@ -1,5 +1,7 @@
 2017-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Adding contributed analyses: 1 ALICE, 6 ATLAS, 1 CMS.
+
 	* Fix bugged PID codes in MC_PRINTEVENT.
 
 2017-12-13  Andy Buckley  <andy.buckley@cern.ch>
