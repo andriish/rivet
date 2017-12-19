@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+dos2unix src/Analyses/*.cc
+dos2unix data/refdata/*.*
+dos2unix data/plotinfo/*.*
+dos2unix data/refdata/*.*
+dos2unix data/anainfo/*.*
