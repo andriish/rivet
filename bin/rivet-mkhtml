@@ -377,7 +377,7 @@ if not opts.DRY_RUN:
         index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
 
         if description:
-            index.write('<p style="font-size:smaller;">%s</p>\n' % description)
+            index.write('<p style="font-size:smaller;">%s</p>\n' % description.encode("utf-8"))
 
         anapath = os.path.join(opts.OUTPUTDIR, analysis)
         if not opts.SINGLE:
@@ -389,7 +389,7 @@ if not opts.DRY_RUN:
             anaindex.write('<h3>%s</h3>\n' % htmlify(analysis))
             anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
             if description:
-                anaindex.write('<p>\n  %s\n</p>\n' % description)
+                anaindex.write('<p>\n  %s\n</p>\n' % description.encode("utf-8"))
         else:
             anaindex = index
 

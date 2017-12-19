@@ -25,17 +25,27 @@ namespace Rivet {
     _pid = abs(pid);
     _trackPhotons = trackPhotons;
 
-    IdentifiedFinalState bareleptons;
-    if (chLeptons == PROMPTCHLEPTONS)
-      bareleptons = IdentifiedFinalState(PromptFinalState(inputfs));
-    else
-      bareleptons = IdentifiedFinalState(inputfs);
-    bareleptons.acceptIdPair(_pid);
+    // Identify bare leptons for dressing
+    // Bit of a code nightmare -- FS projection copy constructors don't work?
+    /// @todo Fix FS copy constructors!!
+    if (chLeptons == PROMPTCHLEPTONS) {
+      PromptFinalState inputfs_prompt(inputfs);
+      IdentifiedFinalState bareleptons = IdentifiedFinalState(inputfs_prompt);
+      bareleptons.acceptIdPair(_pid);
+      declare(bareleptons, "BareLeptons");
+    } else {
+      IdentifiedFinalState bareleptons = IdentifiedFinalState(inputfs);
+      bareleptons.acceptIdPair(_pid);
+      declare(bareleptons, "BareLeptons");
+    }
+
+    // Dress the bare leptons
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
-    DressedLeptons leptons(inputfs, bareleptons, (doClustering ? dRmax : -1.0), fsCut, useDecayPhotons);
+    DressedLeptons leptons(inputfs, get<FinalState>("BareLeptons"), (doClustering ? dRmax : -1.0), fsCut, useDecayPhotons);
     addProjection(leptons, "DressedLeptons");
 
+    // Identify the non-Z part of the event
     VetoedFinalState remainingFS;
     remainingFS.addVetoOnThisFinalState(*this);
     addProjection(remainingFS, "RFS");
@@ -81,10 +91,8 @@ namespace Rivet {
 
     // Get leptons and find an acceptable invariant mass OSSF pair
     const DressedLeptons& leptons = applyProjection<DressedLeptons>(e, "DressedLeptons");
-    InvMassFinalState imfs(std::make_pair(_pid, -_pid), _minmass, _maxmass, _masstarget);
-    auto dressed = leptons.dressedLeptons();
-    Particles tmp(dressed.begin(), dressed.end());
-    imfs.calc(tmp);
+    InvMassFinalState imfs({_pid, -_pid}, _minmass, _maxmass, _masstarget);
+    imfs.calc(leptons.particles());
     if (imfs.particlePairs().empty()) {
       MSG_TRACE("No acceptable inv-mass lepton/antilepton pairs found");
       return;
@@ -96,20 +104,17 @@ namespace Rivet {
     const FourMomentum pZ = p1.momentum() + p2.momentum();
     assert(p1.charge3() + p2.charge3() == 0);
     Particle z(PID::Z0BOSON, pZ);
-    MSG_DEBUG("Z " << pZ << " reconstructed from: " << p1 << " + " << p2);
+    MSG_DEBUG(z << " reconstructed from: " << p1 << " + " << p2);
 
-    // Debug printout
-    //stringstream msg;
-    //msg << "Z " << pZ << " reconstructed from: " << p1 << " + " << p2);
-    //p1.momentum() << " " << p1.pid() << " + " << p2.momentum() << " " << p2.pid();
-    //MSG_DEBUG(msg.str());
-
-    // Add (dressed) lepton constituents to the W (skipping photons if requested)
+    // Add (dressed) lepton constituents to the Z (skipping photons if requested)
     // Keep the DressedLeptons found by the ZFinder
-    const DressedLepton l1 = p1.charge() > 0 ? p1 : p2;
-    z.addConstituent(_trackPhotons ? l1 : l1.bareLepton());
-    const DressedLepton l2 = p2.charge() < 0 ? p2 : p1;
-    z.addConstituent(_trackPhotons ? l2 : l2.bareLepton());
+    const Particle& l1 = p1.charge() > 0 ? p1 : p2;
+    const Particle& l2 = p2.charge() < 0 ? p2 : p1;
+    MSG_TRACE("l1 = " << l1.constituents());
+    MSG_TRACE("l2 = " << l2.constituents());
+    z.addConstituent(_trackPhotons == TRACK ? l1 : l1.constituents().front());
+    z.addConstituent(_trackPhotons == TRACK ? l2 : l2.constituents().front());
+    MSG_DEBUG("Number of stored raw Z constituents = " << z.rawConstituents().size() << "  " << z.rawConstituents());
 
     // Register the completed Z
     _theParticles.push_back(z);

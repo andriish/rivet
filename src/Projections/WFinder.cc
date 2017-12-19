@@ -36,22 +36,31 @@ namespace Rivet {
     if (_pid != PID::ELECTRON && _pid != PID::MUON)
       throw Error("Invalid charged lepton PID given to WFinder");
 
-    // Lepton clusters
-    IdentifiedFinalState bareleptons;
-    if (chLeptons == PROMPTCHLEPTONS)
-      bareleptons = IdentifiedFinalState(PromptFinalState(inputfs));
-    else
-      bareleptons = IdentifiedFinalState(inputfs);
-    bareleptons.acceptIdPair(_pid);
+    // Identify bare leptons for dressing
+    // Bit of a code nightmare -- FS projection copy constructors don't work?
+    /// @todo Fix FS copy constructors!!
+    if (chLeptons == PROMPTCHLEPTONS) {
+      PromptFinalState inputfs_prompt(inputfs);
+      IdentifiedFinalState bareleptons(inputfs_prompt);
+      bareleptons.acceptIdPair(_pid);
+      declare(bareleptons, "BareLeptons");
+    } else {
+      IdentifiedFinalState bareleptons(inputfs);
+      bareleptons.acceptIdPair(_pid);
+      declare(bareleptons, "BareLeptons");
+    }
+
+    // Dress the bare leptons
     const bool doClustering = (clusterPhotons != NOCLUSTER);
     const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
-    DressedLeptons leptons(inputfs, bareleptons, (doClustering ? dRmax : -1.), leptoncuts, useDecayPhotons);
+    DressedLeptons leptons(inputfs, get<FinalState>("BareLeptons"), (doClustering ? dRmax : -1.), leptoncuts, useDecayPhotons);
     addProjection(leptons, "DressedLeptons");
 
     // Add MissingMomentum proj to calc MET
     MissingMomentum vismom(inputfs);
     addProjection(vismom, "MissingET");
 
+    // Identify the non-Z part of the event
     VetoedFinalState remainingFS;
     remainingFS.addVetoOnThisFinalState(*this);
     addProjection(remainingFS, "RFS");
@@ -145,20 +154,12 @@ namespace Rivet {
     const int wcharge = wcharge3/3;
     const PdgId wpid = (wcharge == 1) ? PID::WPLUSBOSON : PID::WMINUSBOSON;
     Particle w(wpid, pW);
-
-    // Debug printout
-    stringstream msg;
-    string wsign = (wcharge == 1) ? "+" : "-";
-    string wstr = "W" + wsign;
-    msg << wstr << " " << pW << " reconstructed from: " << "\n"
-        << "   " << p1.momentum() << " " << p1.pid() << "\n"
-        << " + " << p2.momentum() << " " << p2.pid();
-    MSG_DEBUG(msg.str());
+    MSG_DEBUG(w << " reconstructed from: " << p1 << " + " << p2);
 
     // Add (dressed) lepton constituents to the W (skipping photons if requested)
     /// @todo Do we need to add all used invisibles to _theParticles ?
-    const DressedLepton l = p1.isChargedLepton() ? p1 : p2;
-    w.addConstituent(_trackPhotons ? l : l.bareLepton());
+    const Particle l = p1.isChargedLepton() ? p1 : p2;
+    w.addConstituent(_trackPhotons == TRACK ? l : l.constituents().front());
     const Particle nu = p1.isNeutrino() ? p1 : p2;
     w.addConstituent(nu);
 

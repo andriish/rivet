@@ -4,6 +4,35 @@
 namespace Rivet {
 
 
+  // On DressedLepton helper class
+  //{
+
+  DressedLepton::DressedLepton(const Particle& dlepton)
+    : Particle(dlepton)
+  {   }
+
+  DressedLepton::DressedLepton(const Particle& lepton, const Particles& photons, bool momsum)
+    : Particle(lepton.pid(), lepton.momentum())
+  {
+    setConstituents({{lepton}}); //< bare lepton is first constituent
+    addConstituents(photons, momsum);
+  }
+
+  void DressedLepton::addPhoton(const Particle& p, bool momsum) {
+    if (p.pid() != PID::PHOTON) throw Error("Clustering a non-photon on to a DressedLepton");
+    addConstituent(p, momsum);
+  }
+
+  const Particle& DressedLepton::bareLepton() const {
+    const Particle& l = constituents().front();
+    if (!l.isChargedLepton()) throw Error("First constituent of a DressedLepton is not a bare lepton: oops");
+    return l;
+  }
+
+  //}
+
+
+
   // Separate-FS version
   DressedLeptons::DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
                                  double dRmax, const Cut& cut, bool useDecayPhotons)
@@ -56,9 +85,13 @@ namespace Rivet {
     if (bareleptons.empty()) return;
 
     // Initialise DL collection with bare leptons
-    vector<DressedLepton> allClusteredLeptons;
-    for (const Particle& bl : bareleptons)
-      allClusteredLeptons += DressedLepton(bl);
+    vector<Particle> allClusteredLeptons;
+    allClusteredLeptons.reserve(bareleptons.size());
+    for (const Particle& bl : bareleptons) {
+      Particle dl(bl.pid(), bl.momentum());
+      dl.setConstituents({bl});
+      allClusteredLeptons += dl;
+    }
 
     // If the radius is 0 or negative, don't even attempt to cluster
     if (_dRmax > 0) {
@@ -71,25 +104,25 @@ namespace Rivet {
         double dRmin = _dRmax;
         int idx = -1;
         for (size_t i = 0; i < bareleptons.size(); ++i) {
+          const Particle& bl = bareleptons[i];
           // Only cluster photons around *charged* signal particles
-          if (bareleptons[i].charge3() == 0) continue;
+          if (bl.charge3() == 0) continue;
           // Find the closest lepton
-          const FourMomentum& p_l = bareleptons[i].momentum();
-          double dR = deltaR(p_l, p_P);
+          double dR = deltaR(bl, p_P);
           if (dR < dRmin) {
             dRmin = dR;
             idx = i;
           }
         }
-        if (idx > -1) {
-          allClusteredLeptons[idx].addPhoton(photon);
-        }
+        if (idx > -1) allClusteredLeptons[idx].addConstituent(photon, true);
       }
     }
 
     // Fill the canonical particles collection with the composite DL Particles
-    for (const DressedLepton& lepton : allClusteredLeptons) {
-      if (accept(lepton)) _theParticles.push_back(lepton);
+    for (const Particle& lepton : allClusteredLeptons) {
+      const bool acc = accept(lepton);
+      MSG_TRACE("Clustered lepton " << lepton << " with constituents = " << lepton.constituents() << ", cut-pass = " << boolalpha << acc);
+      if (acc) _theParticles.push_back(lepton);
     }
     MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size() << " -> " << _theParticles.size() << " after cuts");
 

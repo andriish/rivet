@@ -119,6 +119,7 @@ namespace Rivet {
 
 
   private:
+
     /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
     double _minmass, _maxmass, _masstarget;
 
