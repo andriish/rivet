@@ -377,7 +377,10 @@ if not opts.DRY_RUN:
         index.write('<p>%s</p>\n' % " &#124; ".join(reflist))
 
         if description:
-            index.write('<p style="font-size:smaller;">%s</p>\n' % description.encode("utf-8"))
+            try:
+                index.write('<p style="font-size:smaller;">%s</p>\n' % description)
+            except UnicodeEncodeError as ue:
+                    print("Unicode error in analysis description for " + analysis + ": " + str(ue))
 
         anapath = os.path.join(opts.OUTPUTDIR, analysis)
         if not opts.SINGLE:
@@ -389,7 +392,10 @@ if not opts.DRY_RUN:
             anaindex.write('<h3>%s</h3>\n' % htmlify(analysis))
             anaindex.write('<p><a href="../index.html">Back to index</a></p>\n')
             if description:
-                anaindex.write('<p>\n  %s\n</p>\n' % description.encode("utf-8"))
+                try:
+                    anaindex.write('<p>\n  %s\n</p>\n' % description)
+                except UnicodeEncodeError as ue:
+                    print("Unicode error in analysis description for " + analysis + ": " + str(ue))
         else:
             anaindex = index
 
