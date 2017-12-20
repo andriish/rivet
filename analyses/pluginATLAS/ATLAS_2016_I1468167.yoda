@@ -6,4 +6,4 @@ Type: Scatter2D
 ---
 # xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+
 1.300000e+04	5.000000e-01	5.000000e-01	6.810000e+01	1.431782e+00	1.431782e+00
-END YODA_SCATTER2D
+END YODA_SCATTER2D_V2
