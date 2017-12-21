@@ -1,3 +1,11 @@
+2017-12-21  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.6.0 release.
+
+2017-12-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Typo fix in TOTEM_2012_I1220862 data -- thanks to Anton Karneyeu.
+
 2017-12-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding contributed analyses: 1 ALICE, 6 ATLAS, 1 CMS.
