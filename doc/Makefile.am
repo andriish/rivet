@@ -21,12 +21,23 @@ analyses.html: $(top_srcdir)/analyses mk-analysis-html
 endif
 
 
+if ENABLE_PYEXT
+DOCS += analyses.json
+analyses.json: $(top_srcdir)/analyses mk-analysis-json
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
+    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    $(PYTHON) mk-analysis-json
+endif
+
+
+
 if WITH_PDFLATEX
 
 DOCS += rivet-manual.pdf
 
 if ENABLE_PYEXT
-analyses.bib analyses.tex: $(top_srcdir)/analyses $(top_srcdir)/data/plotinfo $(top_srcdir)/data/anainfo mk-analysis-latex
+analyses.bib analyses.tex: $(top_srcdir)/analyses mk-analysis-latex
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
@@ -85,7 +96,7 @@ doc: $(DOCS)
 RSH=rsync
 DEST=login.hepforge.org:rivet/public_html/
 upload: $(DOCS)
-	$(RSH) $? $(DEST)
+	$(RSH) -r $? $(DEST)
 
 arxivtar: $(DOCSOURCES) rivet-manual.bbl
 	for i in *.png; do convert $$i $${i/.png/.eps}; done
