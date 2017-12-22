@@ -15,11 +15,18 @@ pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
 sys.path = pydirs + sys.path
 import rivet
 
-## Build analysis Inspire -> [Name] JSON dict
-dictstrs = []
+## Build analysis Inspire -> [Ana, Ana, ...] dict
+ins_anas = {}
 for aname in sorted(rivet.AnalysisLoader.analysisNames()):
     ana = rivet.AnalysisLoader.getAnalysis(aname)
-    dictstrs.append('"{0}": ["{1}"]'.format(ana.inspireId(), aname))
+    ins_anas.setdefault(ana.inspireId(), []).append(aname)
+
+## Export to JSON
+dictstrs = []
+for ins, anas in sorted(ins_anas.items()):
+    #if len(anas) > 1: print ins, anas
+    anasstr = ", ".join('"{0}"'.format(a) for a in anas)
+    dictstrs.append('"{0}": ["{1}"]'.format(ins, anasstr))
 outstr = "{" + ", ".join(dictstrs) + "}\n"
 
 ## Write out
