@@ -10,7 +10,6 @@ if len(sys.argv) < 2:
 else:
     OUTFILE = sys.argv[1]+".html"
     OUTDIR = sys.argv[1]
-
 print "Using output file name '%s' and directory '%s'" % (OUTFILE, OUTDIR)
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
@@ -19,13 +18,16 @@ pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
           if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
 sys.path = pydirs + sys.path
 import rivet
-from rivet.util import htmlify
 
-## Set up Rivet analysis plugin and info file path variables
-##os.environ["RIVET_ANALYSIS_PATH"] = os.path.abspath("../analyses/.libs") + "::"
-##os.environ["RIVET_INFO_PATH"] = os.path.abspath("../data/anainfo") + "::"
+## Add info file locations
+from glob import glob
+dirpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*")
+for d in glob(dirpatt):
+    #print d
+    rivet.addAnalysisDataPath(os.path.abspath(d))
 
 ## Get some strings of html ready.
+from rivet.util import htmlify
 foot = """\
 </body>
 </html>
@@ -54,7 +56,6 @@ head = '''\
   <h2>Rivet analyses reference</h2>
 
 '''
-
 
 
 ## Build analysis pages
@@ -171,11 +172,13 @@ for aname in sorted(list(all_analyses)):
     page += "\n<p>" + htmlify(ana.description(), para=True) + "</p>\n"
 
     # Write out HTML analysis file
-    ANAFILE = OUTDIR+'/'+aname+'.html'
+    #print aname
+    ANAFILE = os.path.join(OUTDIR, aname+'.html')
     f = open(ANAFILE, "w")
-    outstr = head + page + foot
-    f.write(outstr)
+    outstr = unicode(head + page + foot)
+    f.write(outstr.encode(errors="ignore"))
     f.close()
+
 
 ## Write out HTML toc file
 toc = "<h3>Contents</h3>\n"
@@ -183,16 +186,14 @@ toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses:
     toc += "<li><a href='%s/%s.html'>%s</a> &ndash; %s</li>\n" % (OUTDIR,a,a, htmlify(summaries[a]))
 toc += "</ul>\n"
-
-##body = "\n\n".join(pages)
-
+#body = "\n\n".join(pages)
 outstr = head + toc + foot
+#outstr = head + toc + body + foot
 
-##outstr = head + toc + body + foot
 
 if OUTFILE == "-":
-    sys.stdout.write(outstr)
+    sys.stdout.write(outstr.encode(errors="ignore"))
 else:
     f = open(OUTFILE, "w")
-    f.write(outstr)
+    f.write(outstr.encode(errors="ignore"))
     f.close()

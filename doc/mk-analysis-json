@@ -5,7 +5,9 @@ import sys, os, re
 ## Get output filename
 OUTFILE = "analyses.json"
 if len(sys.argv) >= 2:
-    OUTFILE = sys.argv[1]+".html"
+    OUTFILE = sys.argv[1]
+if not OUTFILE.endswith(".json"):
+    OUTFILE += ".json"
 print "Using output file name '%s'" % OUTFILE
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
@@ -15,18 +17,35 @@ pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
 sys.path = pydirs + sys.path
 import rivet
 
+## Add info file locations
+from glob import glob
+dirpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*")
+for d in glob(dirpatt):
+    #print d
+    rivet.addAnalysisDataPath(os.path.abspath(d))
+
 ## Build analysis Inspire -> [Ana, Ana, ...] dict
 ins_anas = {}
 for aname in sorted(rivet.AnalysisLoader.analysisNames()):
     ana = rivet.AnalysisLoader.getAnalysis(aname)
-    ins_anas.setdefault(ana.inspireId(), []).append(aname)
+    iid = ana.inspireId()
+    #print aname, ":", iid, ":", ana.summary()
+    try:
+        x = int(iid)
+        ins_anas.setdefault(iid, []).append(aname)
+    except:
+        pass
+
+# ## Remove invalid
+# if "" in ins_anas:
+#     del ins_anas[""]
 
 ## Export to JSON
 dictstrs = []
 for ins, anas in sorted(ins_anas.items()):
     #if len(anas) > 1: print ins, anas
     anasstr = ", ".join('"{0}"'.format(a) for a in anas)
-    dictstrs.append('"{0}": ["{1}"]'.format(ins, anasstr))
+    dictstrs.append('"{0}": [{1}]'.format(ins, anasstr))
 outstr = "{" + ", ".join(dictstrs) + "}\n"
 
 ## Write out

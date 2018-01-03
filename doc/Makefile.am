@@ -1,4 +1,4 @@
-dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex
+dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex mk-analysis-json
 
 LATEXSUBSOURCES = preamble.tex intro.tex gettingstarted.tex writinganalyses.tex agilerunmc.tex acknowledgements.tex
 DOCSOURCES = compare-histos.txt slip.eps thinker.eps cone.eps bend.eps \
@@ -12,7 +12,7 @@ DOCS =
 if ENABLE_PDFMANUAL
 
 if ENABLE_PYEXT
-DOCS += analyses.html analyses
+DOCS += analyses.html
 analyses.html: $(top_srcdir)/analyses mk-analysis-html
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
@@ -33,7 +33,6 @@ endif
 
 
 if WITH_PDFLATEX
-
 DOCS += rivet-manual.pdf
 
 if ENABLE_PYEXT
@@ -72,7 +71,6 @@ endif
 
 
 if WITH_ASCIIDOC
-
 DOCS += compare-histos.html make-plots.html
 EXTRA_DIST += compare-histos.html make-plots.html
 
@@ -93,8 +91,8 @@ endif
 doc: $(DOCS)
 	@true
 
-RSH=rsync
-DEST=login.hepforge.org:rivet/public_html/
+RSH = rsync
+DEST = login.hepforge.org:rivet/public_html/
 upload: $(DOCS)
 	$(RSH) -r $? $(DEST)
 
@@ -106,11 +104,21 @@ hepnames.sty hepnicenames.sty hepparticles.sty heppennames.sty hepunits.sty mayb
 bend.eps cone.eps thinker.eps slip.eps \
 h-physrev3.bst JHEP3.cls JHEP.bst
 
+
+## Install!
+pkgdata_DATA = $(DOCS)
+
+install-data-local: doc
+	@$(NORMAL_INSTALL)
+	cp -r analyses $(DESTDIR)$(pkgdatadir)/
+
+uninstall-local:
+	@$(NORMAL_UNINSTALL)
+	rm -rf $(DESTDIR)$(pkgdatadir)/analyses
+
+
 mostlyclean-local:
 	rm -rf *.aux *.log *.toc
 
 clean-local:
-	rm -rf $(DOCS)
-
-## Install!
-pkgdata_DATA = $(DOCS)
+	rm -rf $(DOCS) analyses/
