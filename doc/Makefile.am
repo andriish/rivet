@@ -93,7 +93,7 @@ doc: $(DOCS)
 
 RSH = rsync
 DEST = login.hepforge.org:rivet/public_html/
-upload: $(DOCS)
+upload: $(DOCS) analyses
 	$(RSH) -r $? $(DEST)
 
 arxivtar: $(DOCSOURCES) rivet-manual.bbl

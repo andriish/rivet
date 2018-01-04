@@ -1,16 +1,21 @@
 #! /usr/bin/env python
 
+## Parse arguments
 import sys, os, re
+import optparse
+op = optparse.OptionParser()
+#op.add_option("--embed", dest="EMBED", action="store_true", default=False, help="do not generate <html>, <head>, and <body> surrounging tags")
+opts, args = op.parse_args()
 
 ## Get output filename
-OUTFILE = "analyses.html"
-OUTDIR = "analyses"
-if len(sys.argv) < 2:
-    pass
+if not args:
+    OUTFILE = "analyses.html"
+    OUTDIR = "analyses"
 else:
-    OUTFILE = sys.argv[1]+".html"
-    OUTDIR = sys.argv[1]
+    OUTFILE = args[0]+".html"
+    OUTDIR = args[0]
 print "Using output file name '%s' and directory '%s'" % (OUTFILE, OUTDIR)
+
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
 pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
@@ -26,22 +31,22 @@ for d in glob(dirpatt):
     #print d
     rivet.addAnalysisDataPath(os.path.abspath(d))
 
+
 ## Get some strings of html ready.
 from rivet.util import htmlify
 foot = """\
 </body>
 </html>
 """
-
 head = '''\
 <html>
 <head>
   <title>Rivet analyses reference</title>
   <style>
-    body { font-family:sans-serif; padding: 1em 1em 2em 2em; }
+    /* body { font-family:sans-serif; padding: 1em 1em 2em 2em; } */
     p, li { max-width:50em; }
-    h2 { margin-left:-1em; margin-bottom:1.5em; }
-    h3 { color:#349; margin-top:2em; }
+    /* h2 { margin-left:-1em; margin-bottom:1.5em; } */
+    /* h3 { color:#349; margin-top:2em; } */
   </style>
   <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -54,7 +59,6 @@ head = '''\
 </head>
 <body>
   <h2>Rivet analyses reference</h2>
-
 '''
 
 
@@ -62,9 +66,9 @@ head = '''\
 all_analyses = rivet.AnalysisLoader.analysisNames()
 
 ## Remove any existing directory with name OUTDIR, make new one.
-if os.path.exists(OUTDIR) and not os.path.realpath(OUTDIR)==os.getcwd():
-        import shutil
-        shutil.rmtree(OUTDIR)
+if os.path.exists(OUTDIR) and not os.path.realpath(OUTDIR) == os.getcwd():
+    import shutil
+    shutil.rmtree(OUTDIR)
 try:
     os.makedirs(OUTDIR)
 except:
@@ -180,17 +184,20 @@ for aname in sorted(list(all_analyses)):
     f.close()
 
 
-## Write out HTML toc file
+## Write out HTML toc file(s)
 toc = "<h3>Contents</h3>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses:
     toc += '<li><a id="%s" href="%s/%s.html">%s</a> &ndash; %s</li>\n' % (a, OUTDIR,a,a, htmlify(summaries[a]))
 toc += "</ul>\n"
-#body = "\n\n".join(pages)
 outstr = head + toc + foot
-#outstr = head + toc + body + foot
 
+## Index file in dir
+f = open(os.path.join(OUTDIR, "index.html"), "w")
+f.write(outstr.encode(errors="ignore"))
+f.close()
 
+## External index file
 if OUTFILE == "-":
     sys.stdout.write(outstr.encode(errors="ignore"))
 else:
