@@ -188,7 +188,9 @@ for aname in sorted(list(all_analyses)):
 toc = "<h3>Contents</h3>\n"
 toc += "<ul style=\"white-space: nowrap;\">\n"
 for a in all_analyses:
-    toc += '<li><a id="%s" href="%s/%s.html">%s</a> &ndash; %s</li>\n' % (a, OUTDIR,a,a, htmlify(summaries[a]))
+    ## NB. initial links designed for linking from inside the OUTDIR
+    toc += '<li><a id="%s" href="../%s/%s.html">%s</a> &ndash; %s</li>\n' % \
+                       (a, OUTDIR, a, a, htmlify(summaries[a]))
 toc += "</ul>\n"
 outstr = head + toc + foot
 
@@ -198,6 +200,7 @@ f.write(outstr.encode(errors="ignore"))
 f.close()
 
 ## External index file
+outstr = outstr.replace("../%s" % OUTDIR, OUTDIR) #< correct link depth
 if OUTFILE == "-":
     sys.stdout.write(outstr.encode(errors="ignore"))
 else:
