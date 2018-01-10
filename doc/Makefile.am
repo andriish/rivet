@@ -1,18 +1,22 @@
 dist_noinst_SCRIPTS = mk-analysis-html mk-analysis-latex mk-analysis-json
 
 LATEXSUBSOURCES = preamble.tex intro.tex gettingstarted.tex writinganalyses.tex agilerunmc.tex acknowledgements.tex
-DOCSOURCES = compare-histos.txt slip.eps thinker.eps cone.eps bend.eps \
+
+DOCSOURCES = $(LATEXSUBSOURCES) \
+  compare-histos.txt slip.eps thinker.eps cone.eps bend.eps \
   h-physrev3.bst hepnames.sty JHEP3.cls JHEP.bst make-plots.txt rivet-manual.tex \
-  $(LATEXSUBSOURCES) heppennames.sty hepnicenames.sty hepparticles.sty maybemath.sty \
+  heppennames.sty hepnicenames.sty hepparticles.sty maybemath.sty \
   hepunits.sty underscore.sty microtype.sty
 
 EXTRA_DIST = $(DOCSOURCES) refs.bib
-DOCS =
 
-if ENABLE_PDFMANUAL
+DOCS =
+DOCDIRS =
+
 
 if ENABLE_PYEXT
 DOCS += analyses.html
+DOCDIRS += analyses
 analyses.html: $(top_srcdir)/analyses mk-analysis-html
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
@@ -31,7 +35,19 @@ analyses.json: $(top_srcdir)/analyses mk-analysis-json
 endif
 
 
+if WITH_ASCIIDOC
+DOCS += compare-histos.html make-plots.html
+EXTRA_DIST += compare-histos.html make-plots.html
 
+compare-histos.html: compare-histos.txt
+	asciidoc -a toc compare-histos.txt
+
+make-plots.html: make-plots.txt
+	asciidoc -a toc make-plots.txt
+endif
+
+
+if ENABLE_PDFMANUAL
 if WITH_PDFLATEX
 DOCS += rivet-manual.pdf
 
@@ -70,19 +86,6 @@ endif
 endif
 
 
-if WITH_ASCIIDOC
-DOCS += compare-histos.html make-plots.html
-EXTRA_DIST += compare-histos.html make-plots.html
-
-compare-histos.html: compare-histos.txt
-	asciidoc -a toc compare-histos.txt
-
-make-plots.html: make-plots.txt
-	asciidoc -a toc make-plots.txt
-
-endif
-
-
 ################
 
 
@@ -93,7 +96,7 @@ doc: $(DOCS)
 
 RSH = rsync
 DEST = login.hepforge.org:rivet/public_html/
-upload: $(DOCS) analyses
+upload: $(DOCS) $(DOCDIRS)
 	$(RSH) -r $? $(DEST)
 
 arxivtar: $(DOCSOURCES) rivet-manual.bbl
@@ -110,7 +113,7 @@ pkgdata_DATA = $(DOCS)
 
 install-data-local: doc
 	@$(NORMAL_INSTALL)
-	cp -r analyses $(DESTDIR)$(pkgdatadir)/
+	test "$(DOCDIRS)" && cp -r $(DOCDIRS) $(DESTDIR)$(pkgdatadir)/
 
 uninstall-local:
 	@$(NORMAL_UNINSTALL)
@@ -121,4 +124,4 @@ mostlyclean-local:
 	rm -rf *.aux *.log *.toc
 
 clean-local:
-	rm -rf $(DOCS) analyses/
+	rm -rf $(DOCS) $(DOCDIRS)
