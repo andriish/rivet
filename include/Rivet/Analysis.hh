@@ -347,7 +347,12 @@ namespace Rivet {
     const std::string histoPath(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
 
     /// Get the internal histogram name for given d, x and y (cf. HepData)
-    const std::string makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
+    const std::string mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
+    /// Alias
+    /// @deprecated Prefer the "mk" form, consistent with other "making function" names
+    const std::string makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return mkAxisCode(datasetId, xAxisId, yAxisId);
+    }
 
     //@}
 
