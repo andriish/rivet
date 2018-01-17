@@ -14,7 +14,7 @@ if not args:
 else:
     OUTFILE = args[0]+".html"
     OUTDIR = args[0]
-print "Using output file name '%s' and directory '%s'" % (OUTFILE, OUTDIR)
+print("Using output file name '%s' and directory '%s'" % (OUTFILE, OUTDIR))
 
 
 ## Add the rivet Python module build dir(s) to the Python module path, then import
@@ -28,7 +28,7 @@ import rivet
 from glob import glob
 dirpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*")
 for d in glob(dirpatt):
-    #print d
+    #print(d)
     rivet.addAnalysisDataPath(os.path.abspath(d))
 
 
@@ -72,13 +72,13 @@ if os.path.exists(OUTDIR) and not os.path.realpath(OUTDIR) == os.getcwd():
 try:
     os.makedirs(OUTDIR)
 except:
-    print "Error: failed to make new directory '%s'" % OUTDIR
+    print("Error: failed to make new directory '%s'" % OUTDIR)
     sys.exit(1)
 
 ## Find analysis source files
 ccpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*", "*.cc")
 ccfiles = glob(ccpatt)
-#print ccfiles
+#print(ccfiles)
 
 summaries = {}
 pages = []
@@ -201,9 +201,9 @@ for aname in sorted(list(all_analyses)):
                 page += "<kbd>" + src.replace("\n", "<br/>\n") + "</kbd>"
 
     # Write out HTML analysis file
-    #print aname
+    #print(aname)
     ANAFILE = os.path.join(OUTDIR, aname+'.html')
-    f = open(ANAFILE, "w")
+    f = open(ANAFILE, "wb")
     outstr = unicode(head + page + foot)
     f.write(outstr.encode(errors="ignore"))
     f.close()
@@ -220,7 +220,7 @@ toc += "</ul>\n"
 outstr = head + toc + foot
 
 ## Index file in dir
-f = open(os.path.join(OUTDIR, "index.html"), "w")
+f = open(os.path.join(OUTDIR, "index.html"), "wb")
 f.write(outstr.encode(errors="ignore"))
 f.close()
 
@@ -229,6 +229,6 @@ outstr = outstr.replace("../%s" % OUTDIR, OUTDIR) #< correct link depth
 if OUTFILE == "-":
     sys.stdout.write(outstr.encode(errors="ignore"))
 else:
-    f = open(OUTFILE, "w")
+    f = open(OUTFILE, "wb")
     f.write(outstr.encode(errors="ignore"))
     f.close()
