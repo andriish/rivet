@@ -18,8 +18,8 @@ if ENABLE_PYEXT
 DOCS += analyses.html
 DOCDIRS += analyses
 analyses.html: $(top_srcdir)/analyses $(srcdir)/mk-analysis-html
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     $(PYTHON) $(srcdir)/mk-analysis-html
 endif
@@ -28,8 +28,8 @@ endif
 if ENABLE_PYEXT
 DOCS += analyses.json
 analyses.json: $(top_srcdir)/analyses $(srcdir)/mk-analysis-json
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
-    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
     $(PYTHON) $(srcdir)/mk-analysis-json
 endif

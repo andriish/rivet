@@ -204,7 +204,9 @@ for aname in sorted(list(all_analyses)):
     #print(aname)
     ANAFILE = os.path.join(OUTDIR, aname+'.html')
     f = open(ANAFILE, "wb")
-    outstr = unicode(head + page + foot)
+    outstr = head + page + foot
+    if type(u'') != str:
+        outstr = unicode(outstr)
     f.write(outstr.encode(errors="ignore"))
     f.close()
 
