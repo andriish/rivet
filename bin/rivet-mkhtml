@@ -380,7 +380,7 @@ if not opts.DRY_RUN:
             try:
                 index.write('<p style="font-size:smaller;">%s</p>\n' % description)
             except UnicodeEncodeError as ue:
-                    print("Unicode error in analysis description for " + analysis + ": " + str(ue))
+                print("Unicode error in analysis description for " + analysis + ": " + str(ue))
 
         anapath = os.path.join(opts.OUTPUTDIR, analysis)
         if not opts.SINGLE:
