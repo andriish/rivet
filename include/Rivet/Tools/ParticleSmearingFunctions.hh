@@ -39,6 +39,8 @@ namespace Rivet {
 
   /// Take a Particle and return it unmodified
   inline Particle PARTICLE_SMEAR_IDENTITY(const Particle& p) { return p; }
+  /// Alias for PARTICLE_SMEAR_IDENTITY
+  inline Particle PARTICLE_SMEAR_PERFECT(const Particle& p) { return p; }
 
 
   /// @brief Functor for simultaneous efficiency-filtering and smearing of Particles

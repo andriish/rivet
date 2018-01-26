@@ -281,6 +281,13 @@ namespace Rivet {
     return PHOTON_EFF_CMS_RUN1(y);
   }
 
+
+  /// @todo Use real photon smearing
+  inline Particle PHOTON_SMEAR_ATLAS_RUN1(const Particle& y) { return y; }
+  inline Particle PHOTON_SMEAR_ATLAS_RUN2(const Particle& y) { return y; }
+  inline Particle PHOTON_SMEAR_CMS_RUN1(const Particle& y) { return y; }
+  inline Particle PHOTON_SMEAR_CMS_RUN2(const Particle& y) { return y; }
+
   //@}
 
 
