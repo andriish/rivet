@@ -23,9 +23,9 @@ namespace Rivet {
       // Configure projections
       FinalState fs;
       Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
-      ZFinder zfinder_el(fs, cuts, (_mode ? PID::MUON : PID::ELECTRON),
+      ZFinder zfinder(fs, cuts, (_mode ? PID::MUON : PID::ELECTRON),
                          12*GeV, 150*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      declare(zfinder_el, "ZFinder");
+      declare(zfinder, _mode ? "ZFinder_mu" : "ZFinder_el");
 
       // Book histograms
       const size_t offset = _mode ? 4 : 1;
@@ -85,7 +85,7 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get leptonic Z boson
-      const ZFinder& zfinder = apply<ZFinder>(event, "ZFinder");
+      const ZFinder& zfinder = apply<ZFinder>(event, _mode ? "ZFinder_mu" : "ZFinder_el");
       if (zfinder.bosons().size() != 1 ) vetoEvent;
       const Particle& Zboson = zfinder.boson();
 
