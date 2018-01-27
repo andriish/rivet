@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.7.0-pre],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.6.0],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -195,7 +195,7 @@ AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
   [], [enable_pyext=yes])
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
-  AX_PYTHON_DEVEL([>= '2.7.1'])
+  AX_PYTHON_DEVEL([>= '2.7.3'])
   AC_SUBST(PYTHON_VERSION)
   RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function;
 import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True));"`
@@ -300,7 +300,7 @@ AC_CONFIG_FILES(test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
 AC_CONFIG_FILES(data/Makefile data/texmf/Makefile)
 AC_CONFIG_FILES(doc/Makefile)
-AC_CONFIG_FILES(doc/rivetversion.sty doc/diffanas)
+AC_CONFIG_FILES(doc/rivetversion.sty)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
 AC_CONFIG_FILES(rivetenv.sh rivetenv.csh rivet.pc)
 
