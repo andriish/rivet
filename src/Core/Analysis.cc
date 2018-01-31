@@ -56,11 +56,11 @@ namespace Rivet {
 
 
   const string Analysis::histoPath(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    return histoDir() + "/" + makeAxisCode(datasetId, xAxisId, yAxisId);
+    return histoDir() + "/" + mkAxisCode(datasetId, xAxisId, yAxisId);
   }
 
 
-  const string Analysis::makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+  const string Analysis::mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
     stringstream axisCode;
     axisCode << "d";
     if (datasetId < 10) axisCode << 0;
@@ -200,7 +200,7 @@ namespace Rivet {
                                    const string& title) {
                                    // const string& xtitle,
                                    // const string& ytitle) {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return bookCounter(axisCode, title);
   }
 
@@ -303,7 +303,7 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return bookHisto1D(axisCode, title, xtitle, ytitle);
   }
 
@@ -399,7 +399,7 @@ namespace Rivet {
                                    const string& xtitle,
                                    const string& ytitle,
                                    const string& ztitle) {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return bookHisto2D(axisCode, title, xtitle, ytitle, ztitle);
   }
 
@@ -477,7 +477,7 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return bookProfile1D(axisCode, title, xtitle, ytitle);
   }
 
@@ -571,7 +571,7 @@ namespace Rivet {
                                        const string& xtitle,
                                        const string& ytitle,
                                        const string& ztitle) {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return bookProfile2D(axisCode, title, xtitle, ytitle, ztitle);
   }
 
@@ -584,7 +584,7 @@ namespace Rivet {
                                        const string& title,
                                        const string& xtitle,
                                        const string& ytitle) {
-    const string axisCode = makeAxisCode(datasetId, xAxisId, yAxisId);
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
     return bookScatter2D(axisCode, copy_pts, title, xtitle, ytitle);
   }
 
