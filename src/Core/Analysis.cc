@@ -93,7 +93,7 @@ namespace Rivet {
   }
 
   double Analysis::sumW2() const {
-    return handler().sumW();
+    return handler().sumW2();
   }
 
 
