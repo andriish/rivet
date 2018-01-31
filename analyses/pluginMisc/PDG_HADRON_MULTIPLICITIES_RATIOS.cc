@@ -32,7 +32,6 @@ namespace Rivet {
       }
       MSG_DEBUG("Passed leptonic event cut");
 
-      // Get event weight for histo filling
       MSG_DEBUG("sqrt(S) = " << sqrtS()/GeV << " GeV");
 
       // Final state of unstable particles to get particle spectra

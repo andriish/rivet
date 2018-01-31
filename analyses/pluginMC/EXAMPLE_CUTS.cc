@@ -32,8 +32,6 @@ namespace Rivet {
 
     /// Do the analysis
     void analyze(const Event& event) {
-      // Make sure to always include the event weight in histogram fills!
-      const double weight = 1.0;
 
       const Particles ps = apply<FinalState>(event, "FS").particlesByPt();
 
@@ -43,9 +41,9 @@ namespace Rivet {
 
       for (const Particle& p : ps) {
         if ( ptcut->accept(p) )
-          _histPt->fill(p.pT(), weight);
+          _histPt->fill(p.pT());
         if ( combine->accept(p) )
-          _histMass->fill(p.mass(), weight);
+          _histMass->fill(p.mass());
       }
     }
 

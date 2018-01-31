@@ -70,9 +70,6 @@ namespace Rivet {
                 << ", eta = " << jets[0].eta()
                 << ", phi = " << jetphi);
 
-      // Get the event weight
-      const double weight = 1.0;
-
       // Get the final states to work with for filling the distributions
       const FinalState& cfs = apply<ChargedFinalState>(e, "CFS");
 
@@ -116,31 +113,31 @@ namespace Rivet {
 
 
       // Fill the histograms
-      //_hist_tnchg->fill(jetpT/GeV, numToward/(4*PI/3), weight);
-      _hist_pnchg->fill(jetpT/GeV, (numTrans1+numTrans2)/(4*PI/3), weight);
-      _hist_pmaxnchg->fill(jetpT/GeV, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      _hist_pminnchg->fill(jetpT/GeV, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3), weight);
-      //_hist_pdifnchg->fill(jetpT/GeV, abs(numTrans1-numTrans2)/(2*PI/3), weight);
-      //_hist_anchg->fill(jetpT/GeV, numAway/(4*PI/3), weight);
+      //_hist_tnchg->fill(jetpT/GeV, numToward/(4*PI/3));
+      _hist_pnchg->fill(jetpT/GeV, (numTrans1+numTrans2)/(4*PI/3));
+      _hist_pmaxnchg->fill(jetpT/GeV, (numTrans1>numTrans2 ? numTrans1 : numTrans2)/(2*PI/3));
+      _hist_pminnchg->fill(jetpT/GeV, (numTrans1<numTrans2 ? numTrans1 : numTrans2)/(2*PI/3));
+      //_hist_pdifnchg->fill(jetpT/GeV, abs(numTrans1-numTrans2)/(2*PI/3));
+      //_hist_anchg->fill(jetpT/GeV, numAway/(4*PI/3));
 
-      //_hist_tcptsum->fill(jetpT/GeV, ptSumToward/GeV/(4*PI/3), weight);
-      _hist_pcptsum->fill(jetpT/GeV, (ptSumTrans1+ptSumTrans2)/GeV/(4*PI/3), weight);
-      _hist_pmaxcptsum->fill(jetpT/GeV, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3), weight);
-      _hist_pmincptsum->fill(jetpT/GeV, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3), weight);
-      //_hist_pdifcptsum->fill(jetpT/GeV, fabs(ptSumTrans1-ptSumTrans2)/GeV/(2*PI/3), weight);
-      //_hist_acptsum->fill(jetpT/GeV, ptSumAway/GeV/(4*PI/3), weight);
+      //_hist_tcptsum->fill(jetpT/GeV, ptSumToward/GeV/(4*PI/3));
+      _hist_pcptsum->fill(jetpT/GeV, (ptSumTrans1+ptSumTrans2)/GeV/(4*PI/3));
+      _hist_pmaxcptsum->fill(jetpT/GeV, (ptSumTrans1>ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3));
+      _hist_pmincptsum->fill(jetpT/GeV, (ptSumTrans1<ptSumTrans2 ? ptSumTrans1 : ptSumTrans2)/GeV/(2*PI/3));
+      //_hist_pdifcptsum->fill(jetpT/GeV, fabs(ptSumTrans1-ptSumTrans2)/GeV/(2*PI/3));
+      //_hist_acptsum->fill(jetpT/GeV, ptSumAway/GeV/(4*PI/3));
 
       //if (numToward > 0) {
-      //  _hist_tcptave->fill(jetpT/GeV, ptSumToward/GeV/numToward, weight);
-      //  _hist_tcptmax->fill(jetpT/GeV, ptMaxToward/GeV, weight);
+      //  _hist_tcptave->fill(jetpT/GeV, ptSumToward/GeV/numToward);
+      //  _hist_tcptmax->fill(jetpT/GeV, ptMaxToward/GeV);
       //}
       if ((numTrans1+numTrans2) > 0) {
-        _hist_pcptave->fill(jetpT/GeV, (ptSumTrans1+ptSumTrans2)/GeV/(numTrans1+numTrans2), weight);
-        //_hist_pcptmax->fill(jetpT/GeV, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2)/GeV, weight);
+        _hist_pcptave->fill(jetpT/GeV, (ptSumTrans1+ptSumTrans2)/GeV/(numTrans1+numTrans2));
+        //_hist_pcptmax->fill(jetpT/GeV, (ptMaxTrans1 > ptMaxTrans2 ? ptMaxTrans1 : ptMaxTrans2)/GeV);
       }
       //if (numAway > 0) {
-      //  _hist_acptave->fill(jetpT/GeV, ptSumAway/GeV/numAway, weight);
-      //  _hist_acptmax->fill(jetpT/GeV, ptMaxAway/GeV, weight);
+      //  _hist_acptave->fill(jetpT/GeV, ptSumAway/GeV/numAway);
+      //  _hist_acptmax->fill(jetpT/GeV, ptMaxAway/GeV);
       //}
     }
 

@@ -20,13 +20,13 @@ namespace Rivet {
       // Set up projections
       FinalState fs;
       Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;
-      WFinder wfinder_dressed_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.2, WFinder::CLUSTERNODECAY);
+      WFinder wfinder_dressed_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.2);
       declare(wfinder_dressed_el, "WFinder_dressed_el");
-      WFinder wfinder_bare_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.0, WFinder::NOCLUSTER);
+      WFinder wfinder_bare_el(fs, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.0);
       declare(wfinder_bare_el, "WFinder_bare_el");
-      WFinder wfinder_dressed_mu(fs, cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.2, WFinder::CLUSTERNODECAY);
+      WFinder wfinder_dressed_mu(fs, cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.2);
       declare(wfinder_dressed_mu, "WFinder_dressed_mu");
-      WFinder wfinder_bare_mu(fs, cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.0, WFinder::NOCLUSTER);
+      WFinder wfinder_bare_mu(fs, cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.0);
       declare(wfinder_bare_mu, "WFinder_bare_mu");
 
       // Book histograms
@@ -43,6 +43,8 @@ namespace Rivet {
       const WFinder& wfinder_bare_el    = apply<WFinder>(event, "WFinder_bare_el");
       const WFinder& wfinder_dressed_mu = apply<WFinder>(event, "WFinder_dressed_mu");
       const WFinder& wfinder_bare_mu    = apply<WFinder>(event, "WFinder_bare_mu");
+      MSG_DEBUG("Found " << wfinder_dressed_el.size() + wfinder_dressed_mu.size() << " dressed W -> e/mu nu");
+      MSG_DEBUG("Found " << wfinder_bare_el.size() + wfinder_bare_mu.size() << " bare W -> e/mu nu");
 
       if (wfinder_dressed_el.empty() && wfinder_bare_el.empty() &&
           wfinder_dressed_mu.empty() && wfinder_bare_mu.empty()) {

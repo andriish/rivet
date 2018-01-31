@@ -68,7 +68,7 @@ namespace Rivet {
       initializeHistograms(_h_PtSum, 6);
 
       for (int i = 0; i < 5; ++i)
-        _nEvents[i] = 0.0;
+        book(_nEvents[i], "nEvents_"+to_str(i));
     }
 
 
@@ -99,8 +99,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
       vector<Jets*> all_jets;
       Jets jets_02 = apply<FastJets>(event, "JETS_02").jetsByPt(Cuts::pT > 4*GeV && Cuts::abseta < 1.5);
       all_jets.push_back(&jets_02);
@@ -153,36 +151,36 @@ namespace Rivet {
         ptavg[i][0] = (n_ch[i][0] == 0 ? 0.0 : sumpt[i][0] / n_ch[i][0]);
         ptavg[i][1] = (n_ch[i][1] == 0 ? 0.0 : sumpt[i][1] / n_ch[i][1]);
 
-        _nEvents[i] += weight;
+        _nEvents[i]->fill();
       }
 
-      fillProfiles(_h_meanNch,    n_ch, lead_jet_pts, weight, 1.0 / (2*PI));
-      fillProfiles(_h_meanPtAvg, ptavg, lead_jet_pts, weight, 1.0);
-      fillProfiles(_h_meanPtSum, sumpt, lead_jet_pts, weight, 1.0 / (2*PI));
+      fillProfiles(_h_meanNch,    n_ch, lead_jet_pts, 1.0 / (2*PI));
+      fillProfiles(_h_meanPtAvg, ptavg, lead_jet_pts, 1.0);
+      fillProfiles(_h_meanPtSum, sumpt, lead_jet_pts, 1.0 / (2*PI));
 
-      fillHistograms(_h_Nch,    n_ch, lead_jet_pts, weight);
-      fillHistograms(_h_PtAvg, ptavg, lead_jet_pts, weight);
-      fillHistograms(_h_PtSum, sumpt, lead_jet_pts, weight);
+      fillHistograms(_h_Nch,    n_ch, lead_jet_pts);
+      fillHistograms(_h_PtAvg, ptavg, lead_jet_pts);
+      fillHistograms(_h_PtSum, sumpt, lead_jet_pts);
     }
 
 
-    void fillProfiles(Profile1DPtr plots[5][2], double var[5][2], double lead_pt[5], double weight, double scale) {
+    void fillProfiles(Profile1DPtr plots[5][2], double var[5][2], double lead_pt[5], double scale) {
       for (int i=0; i<5; ++i) {
         double pt = lead_pt[i];
         for (int j=0; j<2; ++j) {
           double v = var[i][j];
-          plots[i][j]->fill(pt, v*scale, weight);
+          plots[i][j]->fill(pt, v*scale);
         }
       }
     }
 
 
-    void fillHistograms(BinnedHistogram plots[5][2], double var[5][2], double lead_pt[5], double weight) {
+    void fillHistograms(BinnedHistogram plots[5][2], double var[5][2], double lead_pt[5]) {
       for (int i=0; i<5; ++i) {
         double pt = lead_pt[i];
         for (int j=0; j<2; ++j) {
           double v = var[i][j];
-          plots[i][j].fill(pt, v, weight);
+          plots[i][j].fill(pt, v);
         }
       }
     }
@@ -221,7 +219,7 @@ namespace Rivet {
   private:
 
     // Data members like post-cuts event weight counters go here
-    double _nEvents[5];
+    CounterPtr _nEvents[5];
 
     Profile1DPtr _h_meanNch[5][2];
     Profile1DPtr _h_meanPtAvg[5][2];

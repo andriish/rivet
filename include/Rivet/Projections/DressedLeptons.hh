@@ -11,29 +11,24 @@ namespace Rivet {
 
 
   /// A charged lepton meta-particle created by clustering photons close to the bare lepton
+  /// @todo Remove completely -- it's unnecessary and too confusing (esp. between copying & aggregating)
+  /// @deprecated Just use Particle.constituents() now.
   class DressedLepton : public Particle {
   public:
 
-    DressedLepton(const Particle& lepton, const Particles& photons=Particles(), bool momsum=true)
-      : Particle(lepton.pid(), lepton.momentum())
-    {
-      setConstituents({{lepton}}); //< bare lepton is first constituent
-      addConstituents(photons, momsum);
-    }
+    /// Copy constructor (from Particle)
+    DressedLepton(const Particle& dlepton);
+
+    /// Components constructor
+    /// @note This is not a copy constructor, hence the explicit second argument even if empty
+    DressedLepton(const Particle& lepton, const Particles& photons, bool momsum=true);
 
     /// Add a photon to the dressed lepton
     /// @todo Deprecate and override add/setConstituents instead?
-    void addPhoton(const Particle& p, bool momsum=true) {
-      if (p.pid() != PID::PHOTON) throw Error("Clustering a non-photon on to a DressedLepton");
-      addConstituent(p, momsum);
-    }
+    void addPhoton(const Particle& p, bool momsum=true);
 
     /// Retrieve the bare lepton
-    const Particle& bareLepton() const {
-      const Particle& l = constituents().front();
-      if (!l.isChargedLepton()) throw Error("First constituent of a DressedLepton is not a bare lepton: oops");
-      return l;
-    }
+    const Particle& bareLepton() const;
     /// Retrieve the bare lepton (alias)
     /// @deprecated Prefer the more physicsy bareLepton()
     const Particle& constituentLepton() const { return bareLepton(); }
@@ -83,6 +78,14 @@ namespace Rivet {
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false);
 
+    // For compatibility only
+    /// @cond INTERNAL
+    DEPRECATED("Use the new form with no bool cluster argument")
+    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
+                   double dRmax, const Cut& cut, bool, bool useDecayPhotons)
+      : DressedLeptons(photons, bareleptons, dRmax, cut, useDecayPhotons)
+    {   }
+    /// @endcond
 
     /// Clone this projection
     DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
@@ -92,7 +95,7 @@ namespace Rivet {
     vector<DressedLepton> dressedLeptons() const {
       vector<DressedLepton> rtn;
       for (const Particle& p : particles())
-        rtn += static_cast<const DressedLepton>(p);
+        rtn += DressedLepton(p);  //static_cast<const DressedLepton>(p);
       return rtn;
     }
 

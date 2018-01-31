@@ -438,14 +438,6 @@ namespace Rivet {
   size_t AnalysisHandler::numEvents() const { return _eventCounter->numEntries(); }
 
 
-  /*
-   * why is this here?
-  void AnalysisHandler::setSumOfWeights(const double& sum) {
-    sumOfWeights() = sum;
-  }
-  */
-
-
   std::vector<std::string> AnalysisHandler::analysisNames() const {
     std::vector<std::string> rtn;
     for (AnaHandle a : _analyses) {

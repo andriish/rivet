@@ -80,15 +80,13 @@ namespace Rivet {
       const double radius = 10.e3;
       // convert to ns
       const double tr = radius/c_light;
-      // event weight
-      const double weight = 1.0;
       // get the charged final-state particles
       Particles charged =
         apply<VetoedFinalState>(event,"VFS").particles();
       // need at least two candidates
       if(charged.size()<2) vetoEvent;
       // number passing trigger
-      _count_trigger->fill(0.5,weight);
+      _count_trigger->fill(0.5);
       // Z mass veto
       foreach ( const Particle & mu1,charged ) {
         foreach ( const Particle & mu2,charged ) {
@@ -98,7 +96,7 @@ namespace Rivet {
         }
       }
       // number passing first event selection
-      _count_event->fill(0.5,weight);
+      _count_event->fill(0.5);
       // now find the candidates
       // loop over the particles and find muons and heavy charged particles
       map<double,Particle> muonCandidates;
@@ -116,7 +114,7 @@ namespace Rivet {
       // require two candidates
       if(muonCandidates.size()<2) vetoEvent;
       // number passing "quality" cut
-      _count_quality->fill(0.5,weight);
+      _count_quality->fill(0.5);
       // now do the time of flight
       bool filled = false;
       for(map<double,Particle>::const_iterator it=muonCandidates.begin();
@@ -131,8 +129,8 @@ namespace Rivet {
         deltaT = rndGauss(tsmear,deltaT);
         // beta
         double beta = 1./(1.+deltaT/tr*pT/pmag);
-        _hist_beta->fill(beta, weight);
-        _hist_time->fill(deltaT, weight);
+        _hist_beta->fill(beta);
+        _hist_time->fill(deltaT);
         // beta cut
         if(beta<0.95) continue;
         // mass
@@ -140,15 +138,15 @@ namespace Rivet {
         if(mass<0.) continue;
         mass = sqrt(mass);
         filled = true;
-        _hist_mass->fill(mass,weight);
+        _hist_mass->fill(mass);
         if(mass>90. ) {
-          _count_90 ->fill(0.5,weight);
+          _count_90 ->fill(0.5);
           if(mass>110.) {
-            _count_110->fill(0.5,weight);
+            _count_110->fill(0.5);
             if(mass>120.) {
-              _count_120->fill(0.5,weight);
+              _count_120->fill(0.5);
               if(mass>130.) {
-                _count_130->fill(0.5,weight);
+                _count_130->fill(0.5);
               }
             }
           }
@@ -156,7 +154,7 @@ namespace Rivet {
       }
       if(!filled) vetoEvent;
       // number passing beta cut
-      _count_beta->fill(0.5,weight);
+      _count_beta->fill(0.5);
     }
 
     //@}

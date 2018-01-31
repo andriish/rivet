@@ -20,9 +20,9 @@ Energies: [7000]
 PtCuts: [20, 20]
 Description:
   The production cross sections of the inclusive Drell-Yan process $Z/\gamma^\ast \rightarrow \ell\ell$
-  ($\ell = e, µ$) are measured in proton-proton collisions at $\sqrt{s} = 7$~TeV with the ATLAS detector.
+  ($\ell = e, \mu$) are measured in proton-proton collisions at $\sqrt{s} = 7$~TeV with the ATLAS detector.
   The cross sections are evaluated differentially as a function of the $Z$ boson rapidity based on an
-  integrated luminosity of about 35~$\text{pb}^{−1}$ collected in 2010.
+  integrated luminosity of about 35~$\text{pb}^{-1}$ collected in 2010.
 BibKey: Aad:2011dm
 BibTeX: '@article{Aad:2011dm,
       author         = "Aad, Georges and others",
@@ -41,4 +41,3 @@ BibTeX: '@article{Aad:2011dm,
       reportNumber   = "CERN-PH-EP-2011-143",
       SLACcitation   = "%%CITATION = ARXIV:1109.5141;%%",
 }'
-

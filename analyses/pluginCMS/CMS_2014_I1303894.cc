@@ -78,11 +78,11 @@ namespace Rivet {
       book(_histPtJet4 ,18,1,1);
 
       // Counters
-      _n_1jet = 0.0;
-      _n_2jet = 0.0;
-      _n_3jet = 0.0;
-      _n_4jet = 0.0;
-      _n_inclusivebinsummation = 0.0;
+      book(_n_1jet, "n_1jet");
+      book(_n_2jet, "n_2jet");
+      book(_n_3jet, "n_3jet");
+      book(_n_4jet, "n_4jet");
+      book(_n_inclusivebinsummation, "n_inclusivebinsummation");
     }
 
 
@@ -101,9 +101,6 @@ namespace Rivet {
       // Check that the muon and neutrino are not decay products of tau
       if (dressedmuon.constituentLepton().hasAncestor( PID::TAU)) vetoEvent;
       if (dressedmuon.constituentLepton().hasAncestor(-PID::TAU)) vetoEvent;
-
-      // Recording of event weight and numbers
-      const double weight = 1.0;
 
       // Get the missing momentum
       const MissingMomentum& met = apply<MissingMomentum>(event, "MET");
@@ -144,43 +141,43 @@ namespace Rivet {
       // Filling of histograms:
       // Fill as many jets as there are into the exclusive jet multiplicity
       if (!finaljet_pT_list.empty())
-        _histJet30MultExc->fill(finaljet_pT_list.size(), weight);
+        _histJet30MultExc->fill(finaljet_pT_list.size());
 
       for (size_t ij = 0; ij < finaljet_pT_list.size(); ++ij) {
-        _histJet30MultInc->fill(ij+1, weight);
-        _n_inclusivebinsummation += weight;
+        _histJet30MultInc->fill(ij+1);
+        _n_inclusivebinsummation->fill();
       }
 
       if (finaljet_pT_list.size() >= 1) {
-        _histPtJet1->fill(finaljet_pT_list[0],weight);
-        _histEtaJet1->fill(fabs(finaljet_eta_list[0]), weight);
-        _histDPhiMuJet1->fill(deltaPhi(finaljet_phi_list[0], phimuon),weight);
-        _histHT1JetInc->fill(htjets, weight);
-        _n_1jet +=weight;
+        _histPtJet1->fill(finaljet_pT_list[0]);
+        _histEtaJet1->fill(fabs(finaljet_eta_list[0]));
+        _histDPhiMuJet1->fill(deltaPhi(finaljet_phi_list[0], phimuon));
+        _histHT1JetInc->fill(htjets);
+        _n_1jet->fill();
       }
 
       if (finaljet_pT_list.size() >= 2) {
-        _histPtJet2->fill(finaljet_pT_list[1], weight);
-        _histEtaJet2->fill(fabs(finaljet_eta_list[1]), weight);
-        _histDPhiMuJet2->fill(deltaPhi(finaljet_phi_list[1], phimuon), weight);
-        _histHT2JetInc->fill(htjets, weight);
-        _n_2jet += weight;
+        _histPtJet2->fill(finaljet_pT_list[1]);
+        _histEtaJet2->fill(fabs(finaljet_eta_list[1]));
+        _histDPhiMuJet2->fill(deltaPhi(finaljet_phi_list[1], phimuon));
+        _histHT2JetInc->fill(htjets);
+        _n_2jet->fill();
       }
 
       if (finaljet_pT_list.size() >= 3) {
-        _histPtJet3->fill(finaljet_pT_list[2], weight);
-        _histEtaJet3->fill(fabs(finaljet_eta_list[2]), weight);
-        _histDPhiMuJet3->fill(deltaPhi(finaljet_phi_list[2], phimuon), weight);
-        _histHT3JetInc->fill(htjets, weight);
-        _n_3jet += weight;
+        _histPtJet3->fill(finaljet_pT_list[2]);
+        _histEtaJet3->fill(fabs(finaljet_eta_list[2]));
+        _histDPhiMuJet3->fill(deltaPhi(finaljet_phi_list[2], phimuon));
+        _histHT3JetInc->fill(htjets);
+        _n_3jet->fill();
       }
 
       if (finaljet_pT_list.size() >=4 ) {
-        _histPtJet4->fill(finaljet_pT_list[3], weight);
-        _histEtaJet4->fill(fabs(finaljet_eta_list[3]), weight);
-        _histDPhiMuJet4->fill(deltaPhi(finaljet_phi_list[3], phimuon), weight);
-        _histHT4JetInc-> fill(htjets, weight);
-        _n_4jet += weight;
+        _histPtJet4->fill(finaljet_pT_list[3]);
+        _histEtaJet4->fill(fabs(finaljet_eta_list[3]));
+        _histDPhiMuJet4->fill(deltaPhi(finaljet_phi_list[3], phimuon));
+        _histHT4JetInc-> fill(htjets);
+        _n_4jet->fill();
       }
 
     }
@@ -190,11 +187,11 @@ namespace Rivet {
     void finalize() {
 
       const double inclusive_cross_section = crossSection();
-      const double norm_1jet_histo = inclusive_cross_section*_n_1jet/sumOfWeights();
-      const double norm_2jet_histo = inclusive_cross_section*_n_2jet/sumOfWeights();
-      const double norm_3jet_histo = inclusive_cross_section*_n_3jet/sumOfWeights();
-      const double norm_4jet_histo = inclusive_cross_section*_n_4jet/sumOfWeights();
-      const double norm_incmultiplicity = inclusive_cross_section*_n_inclusivebinsummation/sumOfWeights();
+      const double norm_1jet_histo = inclusive_cross_section*double(_n_1jet)/sumOfWeights();
+      const double norm_2jet_histo = inclusive_cross_section*double(_n_2jet)/sumOfWeights();
+      const double norm_3jet_histo = inclusive_cross_section*double(_n_3jet)/sumOfWeights();
+      const double norm_4jet_histo = inclusive_cross_section*double(_n_4jet)/sumOfWeights();
+      const double norm_incmultiplicity = inclusive_cross_section*double(_n_inclusivebinsummation)/sumOfWeights();
 
       normalize(_histJet30MultExc, norm_1jet_histo);
       normalize(_histJet30MultInc, norm_incmultiplicity);
@@ -229,7 +226,7 @@ namespace Rivet {
     Histo1DPtr  _histDPhiMuJet1, _histDPhiMuJet2, _histDPhiMuJet3, _histDPhiMuJet4;
     Histo1DPtr  _histHT1JetInc, _histHT2JetInc, _histHT3JetInc, _histHT4JetInc;
 
-    double _n_1jet, _n_2jet, _n_3jet, _n_4jet, _n_inclusivebinsummation;
+    CounterPtr _n_1jet, _n_2jet, _n_3jet, _n_4jet, _n_inclusivebinsummation;
 
   };
 

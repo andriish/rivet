@@ -45,8 +45,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& e) {
-      const double weight = 1.0;
-
       const Jets& jets = apply<JetAlg>(e, "ConeFinder").jetsByPt(40.0*GeV);
       if (jets.size() < 2) vetoEvent;
 
@@ -55,7 +53,7 @@ namespace Rivet {
       double ymax = std::max(j0.absrap(), j1.absrap());
       double mjj = FourMomentum(j0+j1).mass();
 
-      _h_m_dijet.fill(ymax, mjj/TeV, weight);
+      _h_m_dijet.fill(ymax, mjj/TeV);
     }
 
 
@@ -65,11 +63,6 @@ namespace Rivet {
     }
 
     //@}
-
-
-  private:
-
-    // Data members like post-cuts event weight counters go here
 
 
   private:

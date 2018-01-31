@@ -131,18 +131,20 @@ namespace Rivet {
       // Apply jet smearing and efficiency transforms
       for (const Jet& j : truthjets) {
         Jet jdet = j;
-        double jeff = -1;
         bool keep = true;
+        MSG_DEBUG("Truth jet: " << "mom=" << jdet.mom()/GeV << " GeV, pT=" << jdet.pT()/GeV << ", eta=" << jdet.eta());
         for (const JetEffSmearFn& fn : _detFns) {
+          double jeff = -1;
           tie(jdet, jeff) = fn(jdet); // smear & eff
           // Re-add constituents & tags if (we assume accidentally) they were lost by the smearing function
           if (jdet.particles().empty() && !j.particles().empty()) jdet.particles() = j.particles();
           if (jdet.tags().empty() && !j.tags().empty()) jdet.tags() = j.tags();
-          MSG_DEBUG("New det jet: "
-                    << "mom=" << jdet.mom()/GeV << " GeV, pT=" << jdet.pT()/GeV << ", eta=" << jdet.eta()
-                    << ", b-tag=" << boolalpha << jdet.bTagged()
-                    << ", c-tag=" << boolalpha << jdet.cTagged()
-                    << " : eff=" << 100*jeff << "%");
+          MSG_DEBUG("         ->" << "mom=" << jdet.mom()/GeV << " GeV, pT=" << jdet.pT()/GeV << ", eta=" << jdet.eta());
+          // MSG_DEBUG("New det jet: "
+          //           << "mom=" << jdet.mom()/GeV << " GeV, pT=" << jdet.pT()/GeV << ", eta=" << jdet.eta()
+          //           << ", b-tag=" << boolalpha << jdet.bTagged()
+          //           << ", c-tag=" << boolalpha << jdet.cTagged()
+          //           << " : eff=" << 100*jeff << "%");
           if (jeff <= 0) { keep = false; break; } //< no need to roll expensive dice (and we deal with -ve probabilities, just in case)
           if (jeff < 1 && rand01() > jeff)  { keep = false; break; } //< roll dice (and deal with >1 probabilities, just in case)
         }

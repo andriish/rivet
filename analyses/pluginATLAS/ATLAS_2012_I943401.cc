@@ -109,9 +109,6 @@ namespace Rivet {
 
     /// Perform the event analysis
     void analyze(const Event& event) {
-      // event weight
-      const double weight = 1.0;
-
       // get the jet candidates
       Jets cand_jets;
       foreach (const Jet& jet,
@@ -242,88 +239,88 @@ namespace Rivet {
 
       // same sign leptons
       if(sign>0) {
-        _hist_mll_SS_D   ->fill(mll   ,weight);
-        _hist_mll_SS_B   ->fill(mll   ,weight);
-        _hist_eTmiss_SS_D->fill(eTmiss,weight);
-        _hist_eTmiss_SS_B->fill(eTmiss,weight);
+        _hist_mll_SS_D   ->fill(mll   );
+        _hist_mll_SS_B   ->fill(mll   );
+        _hist_eTmiss_SS_D->fill(eTmiss);
+        _hist_eTmiss_SS_B->fill(eTmiss);
         if(recon_jets.size()>=2) {
-          _hist_mll_SS_2Jet_D   ->fill(mll   ,weight);
-          _hist_mll_SS_2Jet_B   ->fill(mll   ,weight);
+          _hist_mll_SS_2Jet_D   ->fill(mll   );
+          _hist_mll_SS_2Jet_B   ->fill(mll   );
         }
-        _hist_njet_SS_D ->fill(recon_jets.size(),weight);
-        _hist_njet_SS_B ->fill(recon_jets.size(),weight);
+        _hist_njet_SS_D ->fill(recon_jets.size());
+        _hist_njet_SS_B ->fill(recon_jets.size());
         if(!recon_jets.empty()) {
-          _hist_pT_j1_SS_D->fill(recon_jets[0].perp(),weight);
-          _hist_pT_j1_SS_B->fill(recon_jets[0].perp(),weight);
+          _hist_pT_j1_SS_D->fill(recon_jets[0].perp());
+          _hist_pT_j1_SS_B->fill(recon_jets[0].perp());
         }
         if(recon_jets.size()>2) {
-          _hist_pT_j2_SS_D->fill(recon_jets[1].perp(),weight);
-          _hist_pT_j2_SS_B->fill(recon_jets[1].perp(),weight);
+          _hist_pT_j2_SS_D->fill(recon_jets[1].perp());
+          _hist_pT_j2_SS_B->fill(recon_jets[1].perp());
         }
-        _hist_pT_l1_SS_D->fill(recon_leptons[0].perp(),weight);
-        _hist_pT_l1_SS_B->fill(recon_leptons[0].perp(),weight);
-        _hist_pT_l2_SS_D->fill(recon_leptons[1].perp(),weight);
-        _hist_pT_l2_SS_B->fill(recon_leptons[1].perp(),weight);
+        _hist_pT_l1_SS_D->fill(recon_leptons[0].perp());
+        _hist_pT_l1_SS_B->fill(recon_leptons[0].perp());
+        _hist_pT_l2_SS_D->fill(recon_leptons[1].perp());
+        _hist_pT_l2_SS_B->fill(recon_leptons[1].perp());
         // SS-SR1
         if(eTmiss>100.) {
-          _count_SS_SR1->fill(0.5,weight);
+          _count_SS_SR1->fill(0.5);
         }
         // SS-SR2
         if(eTmiss>80. && recon_jets.size()>=2 &&
            recon_jets[1].perp()>50.) {
-          _count_SS_SR2->fill(0.5,weight);
+          _count_SS_SR2->fill(0.5);
         }
       }
       // opposite sign
       else {
-        _hist_mll_OS_D->fill(mll   ,weight);
-        _hist_mll_OS_B->fill(mll   ,weight);
-        _hist_eTmiss_OS_D->fill(eTmiss,weight);
-        _hist_eTmiss_OS_B->fill(eTmiss,weight);
+        _hist_mll_OS_D->fill(mll   );
+        _hist_mll_OS_B->fill(mll   );
+        _hist_eTmiss_OS_D->fill(eTmiss);
+        _hist_eTmiss_OS_B->fill(eTmiss);
         if(recon_jets.size()>=3){
-          _hist_eTmiss_3Jet_OS_D->fill(eTmiss,weight);
-          _hist_eTmiss_3Jet_OS_B->fill(eTmiss,weight);
+          _hist_eTmiss_3Jet_OS_D->fill(eTmiss);
+          _hist_eTmiss_3Jet_OS_B->fill(eTmiss);
         }
         if(recon_jets.size()>=4){
-          _hist_eTmiss_4Jet_OS_D->fill(eTmiss,weight);
-          _hist_eTmiss_4Jet_OS_B->fill(eTmiss,weight);
+          _hist_eTmiss_4Jet_OS_D->fill(eTmiss);
+          _hist_eTmiss_4Jet_OS_B->fill(eTmiss);
         }
-        _hist_njet_OS_D->fill(recon_jets.size(),weight);
-        _hist_njet_OS_B->fill(recon_jets.size(),weight);
+        _hist_njet_OS_D->fill(recon_jets.size());
+        _hist_njet_OS_B->fill(recon_jets.size());
         if(!recon_jets.empty()) {
-          _hist_pT_j1_OS_D->fill(recon_jets[0].perp(),weight);
-          _hist_pT_j1_OS_B->fill(recon_jets[0].perp(),weight);
+          _hist_pT_j1_OS_D->fill(recon_jets[0].perp());
+          _hist_pT_j1_OS_B->fill(recon_jets[0].perp());
         }
         if(recon_jets.size()>2) {
-          _hist_pT_j2_OS_D->fill(recon_jets[1].perp(),weight);
-          _hist_pT_j2_OS_B->fill(recon_jets[1].perp(),weight);
+          _hist_pT_j2_OS_D->fill(recon_jets[1].perp());
+          _hist_pT_j2_OS_B->fill(recon_jets[1].perp());
         }
-        _hist_pT_l1_OS_D->fill(recon_leptons[0].perp(),weight);
-        _hist_pT_l1_OS_B->fill(recon_leptons[0].perp(),weight);
-        _hist_pT_l2_OS_D->fill(recon_leptons[1].perp(),weight);
-        _hist_pT_l2_OS_B->fill(recon_leptons[1].perp(),weight);
+        _hist_pT_l1_OS_D->fill(recon_leptons[0].perp());
+        _hist_pT_l1_OS_B->fill(recon_leptons[0].perp());
+        _hist_pT_l2_OS_D->fill(recon_leptons[1].perp());
+        _hist_pT_l2_OS_B->fill(recon_leptons[1].perp());
         // different signal regions
         // OS-SR1
         if(eTmiss>250.) {
-          _count_OS_SR1->fill(0.5,weight);
+          _count_OS_SR1->fill(0.5);
         }
         // OS-SR2
         if(eTmiss>220. && recon_jets.size()>=3 &&
            recon_jets[0].perp()>80. &&
            recon_jets[2].perp()>40.) {
-          _count_OS_SR2->fill(0.5,weight);
+          _count_OS_SR2->fill(0.5);
         }
         // OS-SR3
         if(eTmiss>100. && recon_jets.size()>=4 &&
            recon_jets[0].perp()>100. &&
            recon_jets[3].perp()>70.) {
-          _count_OS_SR3->fill(0.5,weight);
+          _count_OS_SR3->fill(0.5);
         }
         // same flavour analysis
         static const double beta   = 0.75;
         static const double tau_e  = 0.96;
         static const double tau_mu = 0.816;
-        double fs_weight = weight;
+        double fs_weight = 1.0;
         if (recon_leptons[0].abspid() == PID::ELECTRON && recon_leptons[1].abspid() == PID::ELECTRON) {
           fs_weight /= beta*(1.-sqr(1.-tau_e));
         } else if (recon_leptons[0].abspid() == PID::MUON && recon_leptons[1].abspid()==PID::MUON) {

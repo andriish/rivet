@@ -63,8 +63,6 @@ namespace Rivet {
 
     /// Perform the event analysis
     void analyze(const Event& event) {
-      // event weight
-      const double weight = 1.0;
 
       // get the jet candidates
       Jets cand_jets;
@@ -162,21 +160,21 @@ namespace Rivet {
         vetoEvent;
 
       if(recon_leptons[0].pid()!=recon_leptons[1].pid())
-        _hist_eTmiss_emu ->fill(eTmiss,weight);
+        _hist_eTmiss_emu ->fill(eTmiss);
       else if(recon_leptons[0].abspid()==PID::ELECTRON)
-        _hist_eTmiss_ee ->fill(eTmiss,weight);
+        _hist_eTmiss_ee ->fill(eTmiss);
       else if(recon_leptons[0].abspid()==PID::MUON)
-        _hist_eTmiss_mumu->fill(eTmiss,weight);
-      _hist_eTmiss_ll->fill(eTmiss,weight);
+        _hist_eTmiss_mumu->fill(eTmiss);
+      _hist_eTmiss_ll->fill(eTmiss);
 
       if(eTmiss>150.) {
         if(recon_leptons[0].pid()!=recon_leptons[1].pid())
-          _count_emu ->fill(0.5,weight);
+          _count_emu ->fill(0.5);
         else if(recon_leptons[0].abspid()==PID::ELECTRON)
-          _count_ee  ->fill(0.5,weight);
+          _count_ee  ->fill(0.5);
         else if(recon_leptons[0].abspid()==PID::MUON)
-          _count_mumu->fill(0.5,weight);
-        _count_ll->fill(0.5,weight);
+          _count_mumu->fill(0.5);
+        _count_ll->fill(0.5);
       }
 
     }

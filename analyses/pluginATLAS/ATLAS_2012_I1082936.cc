@@ -64,7 +64,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
       Jets jetAr[2];
       jetAr[AKT6] = apply<FastJets>(event, "AntiKT06").jetsByPt(20*GeV);
       jetAr[AKT4] = apply<FastJets>(event, "AntiKT04").jetsByPt(20*GeV);
@@ -76,7 +75,7 @@ namespace Rivet {
         foreach (const Jet& jet, jetAr[alg]) {
           const double pT = jet.pT();
           const double absy = jet.absrap();
-          _pThistos[alg].fill(absy, pT/GeV, weight);
+          _pThistos[alg].fill(absy, pT/GeV);
 
           if (absy < 4.4 && leadjets.size() < 2) {
             if (leadjets.empty() && pT < 30*GeV) continue;
@@ -94,7 +93,7 @@ namespace Rivet {
         const double ystar = fabs(y1-y2)/2.;
         const double m = (leadjets[0] + leadjets[1]).mass();
         // Fill mass histogram
-        _mass[alg].fill(ystar, m/TeV, weight);
+        _mass[alg].fill(ystar, m/TeV);
       }
     }
 

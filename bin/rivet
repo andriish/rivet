@@ -570,7 +570,7 @@ if ":" in hepmcfile:
 try:
     if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
         signal.alarm(min_nonnull(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
-    init_ok = run.init(hepmcfile, hepmcfileweight)
+        init_ok = run.init(hepmcfile, hepmcfileweight)
     signal.alarm(0)
     if not init_ok:
         logging.error("Failed to initialise using event file '%s'... exiting" % hepmcfile)
@@ -578,7 +578,9 @@ try:
 except TimeoutException as te:
     logging.error("Timeout in initialisation from event file '%s'... exiting" % hepmcfile)
     sys.exit(3)
-
+except:
+    logging.warning("Could not read from '%s'" % hepmcfile)
+    sys.exit(3)
 
 ## Event loop
 evtnum = 0
@@ -591,7 +593,11 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 
     ## Open next HepMC file (NB. this doesn't apply to the first file: it was already used for the run init)
     if fileidx > 0:
-        run.openFile(hepmcfile, hepmcfileweight)
+        try:
+            run.openFile(hepmcfile, hepmcfileweight)
+        except:
+            logging.warning("Could not read from '%s'" % hepmcfile)
+            continue
         if not run.readEvent():
             logging.warning("Could not read events from '%s'" % hepmcfile)
             continue

@@ -298,14 +298,15 @@ namespace Rivet {
     /// hasn't been set.
     double crossSectionPerEvent() const;
 
-    /// Get the number of events seen (via the analysis handler). Use in the
-    /// finalize phase only.
+    /// @brief Get the number of events seen (via the analysis handler).
+    ///
+    /// @note Use in the finalize phase only.
     size_t numEvents() const;
 
-    /// Get the sum of event weights seen (via the analysis handler). Use in the
-    /// finalize phase only.
+    /// @brief Get the sum of event weights seen (via the analysis handler).
+    ///
+    /// @note Use in the finalize phase only.
     double sumOfWeights() const;
-
 
   protected:
 
@@ -322,7 +323,12 @@ namespace Rivet {
     const std::string histoPath(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
 
     /// Get the internal histogram name for given d, x and y (cf. HepData)
-    const std::string makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
+    const std::string mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
+    /// Alias
+    /// @deprecated Prefer the "mk" form, consistent with other "making function" names
+    const std::string makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
+      return mkAxisCode(datasetId, xAxisId, yAxisId);
+    }
 
     //@}
 

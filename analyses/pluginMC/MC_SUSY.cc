@@ -113,41 +113,38 @@ namespace Rivet {
         vetoEvent;
       }
 
-      // Get event weight
-      const double weight = 1.0;
-
       // Fill track histos
-      _hist_n_trk->fill(tracks.size(), weight);
+      _hist_n_trk->fill(tracks.size());
       foreach (const Particle& t, tracks.particles()) {
         const FourMomentum& p = t.momentum();
-        _hist_phi_trk->fill(mapAngleMPiToPi(p.phi()), weight);
-        _hist_eta_trk->fill(p.eta(), weight);
-        _hist_pt_trk->fill(p.pT()/GeV, weight);
+        _hist_phi_trk->fill(mapAngleMPiToPi(p.phi()));
+        _hist_eta_trk->fill(p.eta());
+        _hist_pt_trk->fill(p.pT()/GeV);
       }
 
       // Get jets and fill jet histos
       const FastJets& jetpro = apply<FastJets>(evt, "Jets");
       const Jets jets = jetpro.jetsByPt();
       MSG_DEBUG("Jet multiplicity = " << jets.size());
-      _hist_n_jet->fill(jets.size(), weight);
+      _hist_n_jet->fill(jets.size());
       foreach (const Jet& j, jets) {
         const FourMomentum& pj = j.momentum();
-        _hist_phi_jet->fill(mapAngleMPiToPi(pj.phi()), weight);
-        _hist_eta_jet->fill(pj.eta(), weight);
-        _hist_pt_jet->fill(pj.pT()/GeV, weight);
+        _hist_phi_jet->fill(mapAngleMPiToPi(pj.phi()));
+        _hist_eta_jet->fill(pj.eta());
+        _hist_pt_jet->fill(pj.pT()/GeV);
       }
 
       /// @todo Resum photons around electrons
 
       // Fill final state electron/positron histos
       const FinalState& efs = apply<FinalState>(evt, "Electrons");
-      _hist_n_e->fill(efs.size(), weight);
+      _hist_n_e->fill(efs.size());
       vector<FourMomentum> epluses, eminuses;
       foreach (const Particle& e, efs.particles()) {
         const FourMomentum& p = e.momentum();
-        _hist_phi_e->fill(mapAngleMPiToPi(p.phi()), weight);
-        _hist_eta_e->fill(p.eta(), weight);
-        _hist_pt_e->fill(p.pT()/GeV, weight);
+        _hist_phi_e->fill(mapAngleMPiToPi(p.phi()));
+        _hist_eta_e->fill(p.eta());
+        _hist_pt_e->fill(p.pT()/GeV);
         // Add sufficiently hard leptons to collections for m_ll histo
         if (p.pT()/GeV > 20) {
           if (PID::threeCharge(e.pid()) > 0) epluses += p; else eminuses += p;
@@ -158,13 +155,13 @@ namespace Rivet {
 
       // Fill final state muon/antimuon histos
       const FinalState& mufs = apply<FinalState>(evt, "Muons");
-      _hist_n_mu->fill(mufs.size(), weight);
+      _hist_n_mu->fill(mufs.size());
       vector<FourMomentum> mupluses, muminuses;
       foreach (const Particle& mu, mufs.particles()) {
         const FourMomentum& p = mu.momentum();
-        _hist_phi_mu->fill(mapAngleMPiToPi(p.phi()), weight);
-        _hist_eta_mu->fill(p.eta(), weight);
-        _hist_pt_mu->fill(p.pT()/GeV, weight);
+        _hist_phi_mu->fill(mapAngleMPiToPi(p.phi()));
+        _hist_eta_mu->fill(p.eta());
+        _hist_pt_mu->fill(p.pT()/GeV);
         // Add sufficiently hard leptons to collections for m_ll histo
         if (p.pT()/GeV > 20) {
           if (PID::threeCharge(mu.pid()) > 0) mupluses += p; else muminuses += p;
@@ -173,13 +170,13 @@ namespace Rivet {
 
       // Fill final state non-isolated photon histos
       const FinalState& allphotonfs = apply<FinalState>(evt, "AllPhotons");
-      _hist_n_gamma->fill(allphotonfs.size(), weight);
+      _hist_n_gamma->fill(allphotonfs.size());
       Particles isolatedphotons;
       foreach (const Particle& ph, allphotonfs.particles()) {
         const FourMomentum& p = ph.momentum();
-        _hist_phi_gamma->fill(mapAngleMPiToPi(p.phi()), weight);
-        _hist_eta_gamma->fill(p.eta(), weight);
-        _hist_pt_gamma->fill(p.pT()/GeV, weight);
+        _hist_phi_gamma->fill(mapAngleMPiToPi(p.phi()));
+        _hist_eta_gamma->fill(p.eta());
+        _hist_pt_gamma->fill(p.pT()/GeV);
         // Select isolated photons
         bool isolated = true;
         foreach (const Jet& j, jets) {
@@ -193,12 +190,12 @@ namespace Rivet {
 
 
       // Fill final state isolated photon histos
-      _hist_n_gammaiso->fill(isolatedphotons.size(), weight);
+      _hist_n_gammaiso->fill(isolatedphotons.size());
       foreach (const Particle& ph_iso, isolatedphotons) {
         const FourMomentum& p = ph_iso.momentum();
-        _hist_phi_gammaiso->fill(mapAngleMPiToPi(p.phi()), weight);
-        _hist_eta_gammaiso->fill(p.eta(), weight);
-        _hist_pt_gammaiso->fill(p.pT()/GeV, weight);
+        _hist_phi_gammaiso->fill(mapAngleMPiToPi(p.phi()));
+        _hist_eta_gammaiso->fill(p.eta());
+        _hist_pt_gammaiso->fill(p.pT()/GeV);
       }
 
       // Calculate and fill missing Et histos
@@ -233,30 +230,30 @@ namespace Rivet {
       // m_ee
       if (eminus_ok && eplus_ok) {
         const double m_ee = FourMomentum(peplus + peminus).mass();
-        _hist_mll_ossf_ee->fill(m_ee/GeV, weight);
+        _hist_mll_ossf_ee->fill(m_ee/GeV);
         if (epluses.size() == 1 && eminuses.size() == 1)
-          _hist_mll_2_ossf_ee->fill(m_ee/GeV, weight);
+          _hist_mll_2_ossf_ee->fill(m_ee/GeV);
       }
       // m_mumu
       if (muminus_ok && muplus_ok) {
         const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
-        _hist_mll_ossf_mumu->fill(m_mumu/GeV, weight);
+        _hist_mll_ossf_mumu->fill(m_mumu/GeV);
         if (mupluses.size() == 1 && muminuses.size() == 1)
-          _hist_mll_2_ossf_mumu->fill(m_mumu/GeV, weight);
+          _hist_mll_2_ossf_mumu->fill(m_mumu/GeV);
       }
       // m_emu (both configurations)
       if (eminus_ok && muplus_ok) {
         const double m_emu = FourMomentum(pmuplus + peminus).mass();
-        _hist_mll_osof_emu->fill(m_emu/GeV, weight);
+        _hist_mll_osof_emu->fill(m_emu/GeV);
         if (mupluses.size() == 1 && eminuses.size() == 1)
-          _hist_mll_2_osof_emu->fill(m_emu/GeV, weight);
+          _hist_mll_2_osof_emu->fill(m_emu/GeV);
 
       }
       if (muminus_ok && eplus_ok) {
         const double m_mue = FourMomentum(peplus + pmuminus).mass();
-        _hist_mll_osof_emu->fill(m_mue/GeV, weight);
+        _hist_mll_osof_emu->fill(m_mue/GeV);
         if (epluses.size() == 1 && muminuses.size() == 1)
-          _hist_mll_2_osof_emu->fill(m_mue/GeV, weight);
+          _hist_mll_2_osof_emu->fill(m_mue/GeV);
       }
 
 
@@ -265,27 +262,27 @@ namespace Rivet {
       foreach (const FourMomentum& peplus, epluses) {
         foreach (const FourMomentum& peminus, eminuses) {
           const double m_ee = FourMomentum(peplus + peminus).mass();
-          _hist_mll_all_ossf_ee->fill(m_ee/GeV, weight);
+          _hist_mll_all_ossf_ee->fill(m_ee/GeV);
         }
       }
       // m_mumu
       foreach (const FourMomentum& pmuplus, mupluses) {
         foreach (const FourMomentum& pmuminus, muminuses) {
           const double m_mumu = FourMomentum(pmuplus + pmuminus).mass();
-          _hist_mll_all_ossf_mumu->fill(m_mumu/GeV, weight);
+          _hist_mll_all_ossf_mumu->fill(m_mumu/GeV);
         }
       }
       // m_emu (both configurations)
       foreach (const FourMomentum& pmuplus, mupluses) {
         foreach (const FourMomentum& peminus, eminuses) {
           const double m_emu = FourMomentum(pmuplus + peminus).mass();
-          _hist_mll_all_osof_emu->fill(m_emu/GeV, weight);
+          _hist_mll_all_osof_emu->fill(m_emu/GeV);
         }
       }
       foreach (const FourMomentum& peplus, epluses) {
         foreach (const FourMomentum& pmuminus, muminuses) {
           const double m_mue = FourMomentum(peplus + pmuminus).mass();
-          _hist_mll_all_osof_emu->fill(m_mue/GeV, weight);
+          _hist_mll_all_osof_emu->fill(m_mue/GeV);
         }
       }
 

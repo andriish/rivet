@@ -21,50 +21,54 @@ namespace Rivet {
     const FinalState& fs = applyProjection<FinalState>(e, "FS");
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size());
-    for (const Particle& p : fs.particles()) {
-      if (getLog().isActive(Log::TRACE)) {
-        vector<long> codes;
-        for (VetoDetails::const_iterator code = _vetoCodes.begin(); code != _vetoCodes.end(); ++code) {
-          codes.push_back(code->first);
-        }
-        const string codestr = "{ " + join(codes) + " }";
-        MSG_TRACE(p.pid() << " vs. veto codes = " << codestr << " (" << codes.size() << ")");
-      }
-      VetoDetails::iterator iter = _vetoCodes.find(p.pid());
-      if (iter == _vetoCodes.end()) {
-        MSG_TRACE("Storing with PDG code = " << p.pid() << ", pT = " << p.pT());
-        _theParticles.push_back(p);
-      } else {
-        // This particle code is listed as a possible veto... check pT.
-        // Make sure that the pT range is sensible:
-        BinaryCut ptrange = iter->second;
-        assert(ptrange.first <= ptrange.second);
-        stringstream rangess;
-        if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
-        rangess << " - ";
-        if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
-        MSG_TRACE("ID = " << p.pid() << ", pT range = " << rangess.str());
-        stringstream debugline;
-        debugline << "with PDG code = " << p.pid() << " pT = " << p.pT();
-        if (p.pT() < ptrange.first || p.pT() > ptrange.second) {
-          MSG_TRACE("Storing " << debugline.str());
+
+
+    // Veto by PID code
+    if (getLog().isActive(Log::TRACE)) {
+      /// @todo Should be PdgId, but _vetoCodes is currently a long
+      vector<long> codes;
+      for (auto& code : _vetoCodes) codes += code.first;
+      MSG_TRACE("Veto codes = " << codes << " (" << codes.size() << ")");
+    }
+    if (_vetoCodes.empty()) {
+      _theParticles = fs.particles();
+    } else {
+      // Test every particle against the codes
+      for (const Particle& p : fs.particles()) {
+        VetoDetails::iterator iter = _vetoCodes.find(p.pid());
+        if (iter == _vetoCodes.end()) {
+          // MSG_TRACE("Storing with PDG code = " << p.pid() << ", pT = " << p.pT());
           _theParticles.push_back(p);
         } else {
-          MSG_TRACE("Vetoing " << debugline.str());
+          // This particle code is listed as a possible veto... check pT.
+          // Make sure that the pT range is sensible:
+          BinaryCut ptrange = iter->second;
+          assert(ptrange.first <= ptrange.second);
+          stringstream rangess;
+          if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
+          rangess << " - ";
+          if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
+          MSG_TRACE("ID = " << p.pid() << ", pT range = " << rangess.str());
+          stringstream debugline;
+          debugline << "with PDG code = " << p.pid() << " pT = " << p.pT();
+          if (p.pT() < ptrange.first || p.pT() > ptrange.second) {
+            MSG_TRACE("Storing " << debugline.str());
+            _theParticles.push_back(p);
+          } else {
+            MSG_TRACE("Vetoing " << debugline.str());
+          }
         }
       }
     }
 
+    /// @todo What is this block? Mass vetoing?
     set<Particles::iterator> toErase;
-    for (set<int>::iterator nIt = _nCompositeDecays.begin();
-         nIt != _nCompositeDecays.end() && !_theParticles.empty(); ++nIt) {
+    for (set<int>::iterator nIt = _nCompositeDecays.begin(); nIt != _nCompositeDecays.end() && !_theParticles.empty(); ++nIt) {
       map<set<Particles::iterator>, FourMomentum> oldMasses;
       map<set<Particles::iterator>, FourMomentum> newMasses;
       set<Particles::iterator> start;
       start.insert(_theParticles.begin());
-      oldMasses.insert(pair<set<Particles::iterator>, FourMomentum>
-                       (start, _theParticles.begin()->momentum()));
-
+      oldMasses.insert(pair<set<Particles::iterator>, FourMomentum>(start, _theParticles.begin()->momentum()));
       for (int nParts = 1; nParts != *nIt; ++nParts) {
         for (map<set<Particles::iterator>, FourMomentum>::iterator mIt = oldMasses.begin();
              mIt != oldMasses.end(); ++mIt) {
@@ -97,10 +101,10 @@ namespace Rivet {
         }
       }
     }
-
     for (set<Particles::iterator>::reverse_iterator p = toErase.rbegin(); p != toErase.rend(); ++p) {
       _theParticles.erase(*p);
     }
+
 
     // Remove particles whose parents match entries in the parent veto PDG ID codes list
     /// @todo There must be a nice way to do this -- an STL algorithm (or we provide a nicer wrapper)
@@ -120,7 +124,6 @@ namespace Rivet {
     }
 
     // Finally veto on the registered FSes
-    /// @todo Are barcodes robust? Do we need to insist on valid GenParticle ptrs?
     for (const string& ifs : _vetofsnames) {
       const ParticleFinder& vfs = applyProjection<ParticleFinder>(e, ifs);
       const Particles& pvetos = vfs.rawParticles();
@@ -128,27 +131,13 @@ namespace Rivet {
           if (pcheck.genParticle() == nullptr) return false;
           for (const Particle& pveto : pvetos) {
             if (pveto.genParticle() == nullptr) continue;
-            if (pveto.genParticle() == pcheck.genParticle()) return true;
+            if (pveto.genParticle() == pcheck.genParticle()) { MSG_TRACE("Vetoing: " << pcheck); return true; }
           }
           return false;
         });
     }
 
-    // ORIGINAL
-    // for (const Particle& pcheck : _theParticles) {
-    //   if (pcheck.genParticle() == nullptr) continue;
-    //   bool found = false;
-    //   for (const Particle& pveto : pvetos) {
-    //     if (pveto.genParticle() == nullptr) continue;
-    //     // MSG_TRACE("Comparing barcode " << pcheck.genParticle()->barcode() << " with veto particle " << pveto.genParticle()->barcode());
-    //     // if (pveto.genParticle()->barcode() == pveto.genParticle()->barcode()) { found = true; break; } //< barcode comparison
-    //     if (pveto.genParticle() == pcheck.genParticle()) { found = true; break; } //< pointer comparison
-    //   }
-    //   if (found) {
-    //     _theParticles.erase(icheck);
-    //     --icheck;
-    //   }
-    // }
+    MSG_DEBUG("FS vetoing from #particles = " << fs.size() << " -> " << _theParticles.size());
   }
 
 

@@ -57,37 +57,35 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
-      const double weight = 1.0;
-      
       const ZFinder& zfinder_dressed_el = apply<ZFinder>(event, "ZFinder_dressed_el");
       const ZFinder& zfinder_bare_el    = apply<ZFinder>(event, "ZFinder_bare_el");
       const ZFinder& zfinder_dressed_mu = apply<ZFinder>(event, "ZFinder_dressed_mu");
       const ZFinder& zfinder_bare_mu    = apply<ZFinder>(event, "ZFinder_bare_mu");	
       
-      FillPlots1d(zfinder_dressed_el, _hist_zpt_el_dressed, weight);
+      FillPlots1d(zfinder_dressed_el, _hist_zpt_el_dressed);
 
-      FillPlots1d(zfinder_bare_el,    _hist_zpt_el_bare,    weight);
+      FillPlots1d(zfinder_bare_el,    _hist_zpt_el_bare);
           
-      FillPlots1d(zfinder_dressed_mu, _hist_zpt_mu_dressed, weight);
+      FillPlots1d(zfinder_dressed_mu, _hist_zpt_mu_dressed);
           
-      FillPlots1d(zfinder_bare_mu,    _hist_zpt_mu_bare,    weight);  
+      FillPlots1d(zfinder_bare_mu,    _hist_zpt_mu_bare);  
       
-      FillPlots3d(zfinder_dressed_el, _h_zpt_el_mu_dressed, weight);      
-      FillPlots3d(zfinder_dressed_mu, _h_zpt_el_mu_dressed, weight);    
+      FillPlots3d(zfinder_dressed_el, _h_zpt_el_mu_dressed);      
+      FillPlots3d(zfinder_dressed_mu, _h_zpt_el_mu_dressed);    
 
     }
 
-    void FillPlots1d(const ZFinder& zfinder, Histo1DPtr hist, double weight) {
+    void FillPlots1d(const ZFinder& zfinder, Histo1DPtr hist) {
       if(zfinder.bosons().size() != 1) return;
       const FourMomentum pZ = zfinder.bosons()[0].momentum();
-      hist->fill(pZ.pT()/GeV, weight);
+      hist->fill(pZ.pT()/GeV);
       return; 
     } 
     
-    void FillPlots3d(const ZFinder& zfinder, BinnedHistogram& binnedHist, double weight) {
+    void FillPlots3d(const ZFinder& zfinder, BinnedHistogram& binnedHist) {
       if(zfinder.bosons().size() != 1) return;
       const FourMomentum pZ = zfinder.bosons()[0].momentum();
-      binnedHist.fill(pZ.rapidity(), pZ.pT()/GeV, weight);   
+      binnedHist.fill(pZ.rapidity(), pZ.pT()/GeV);   
       return; 
     }  
 

@@ -17,9 +17,9 @@ namespace Rivet {
 
     /// Add projections and book histograms
     void init() {
-      _sumW = 0;
-      _sumW50 = 0;
-      _sumWpT = 0;
+      book(_sumW, "sumW");
+      book(_sumW50, "sumW50");
+      book(_sumWpT, "sumWpT");
 
       FinalState fs(Cuts::abseta < 2.4 && Cuts::pT > 20*GeV);
       declare(fs, "FS");
@@ -107,39 +107,36 @@ namespace Rivet {
       const double maxdR_ZB = closest_B ? deltaR(pZ, Bmom[1]) : deltaR(pZ, Bmom[0]);
       const double AZBB = ( maxdR_ZB - mindR_ZB ) / ( maxdR_ZB + mindR_ZB );
 
-      // Get event weight for histogramming
-      const double weight = 1.0;
-
       // Fill the histograms in the non-boosted region
-      _h_dphi_BB->fill(dphiBB, weight);
-      _h_dR_BB->fill(dRBB, weight);
-      _h_min_dR_ZB->fill(mindR_ZB, weight);
-      _h_A_ZBB->fill(AZBB, weight);
-      _sumW += weight;
-      _sumWpT += weight;
+      _h_dphi_BB->fill(dphiBB);
+      _h_dR_BB->fill(dRBB);
+      _h_min_dR_ZB->fill(mindR_ZB);
+      _h_A_ZBB->fill(AZBB);
+      _sumW->fill();
+      _sumWpT->fill();
 
       // Fill the histograms in the boosted region
       if (is_boosted) {
-        _sumW50 += weight;
-        _h_dphi_BB_boost->fill(dphiBB, weight);
-        _h_dR_BB_boost->fill(dRBB, weight);
-        _h_min_dR_ZB_boost->fill(mindR_ZB, weight);
-        _h_A_ZBB_boost->fill(AZBB, weight);
+        _sumW50->fill();
+        _h_dphi_BB_boost->fill(dphiBB);
+        _h_dR_BB_boost->fill(dRBB);
+        _h_min_dR_ZB_boost->fill(mindR_ZB);
+        _h_A_ZBB_boost->fill(AZBB);
       }
 
       // Fill Z pT (cumulative) histogram
-      _h_min_ZpT->fill(0, weight);
+      _h_min_ZpT->fill(0);
       if (pZ.pT() > 40*GeV ) {
-        _sumWpT += weight;
-        _h_min_ZpT->fill(40, weight);
+        _sumWpT->fill();
+        _h_min_ZpT->fill(40);
       }
       if (pZ.pT() > 80*GeV ) {
-        _sumWpT += weight;
-        _h_min_ZpT->fill(80, weight);
+        _sumWpT->fill();
+        _h_min_ZpT->fill(80);
       }
       if (pZ.pT() > 120*GeV ) {
-        _sumWpT += weight;
-        _h_min_ZpT->fill(120, weight);
+        _sumWpT->fill();
+        _h_min_ZpT->fill(120);
       }
 
       Bmom.clear();
@@ -150,17 +147,17 @@ namespace Rivet {
     void finalize() {
 
       // Normalize excluding overflow bins (d'oh)
-      normalize(_h_dR_BB, 0.7*crossSection()*_sumW/sumOfWeights(), false);  // d01-x01-y01
-      normalize(_h_dphi_BB, 0.53*crossSection()*_sumW/sumOfWeights(), false);   // d02-x01-y01
-      normalize(_h_min_dR_ZB, 0.84*crossSection()*_sumW/sumOfWeights(), false); // d03-x01-y01
-      normalize(_h_A_ZBB, 0.2*crossSection()*_sumW/sumOfWeights(), false);  // d04-x01-y01
+      normalize(_h_dR_BB, 0.7*crossSection()*double(_sumW)/sumOfWeights(), false);  // d01-x01-y01
+      normalize(_h_dphi_BB, 0.53*crossSection()*double(_sumW)/sumOfWeights(), false);   // d02-x01-y01
+      normalize(_h_min_dR_ZB, 0.84*crossSection()*double(_sumW)/sumOfWeights(), false); // d03-x01-y01
+      normalize(_h_A_ZBB, 0.2*crossSection()*double(_sumW)/sumOfWeights(), false);  // d04-x01-y01
 
-      normalize(_h_dR_BB_boost, 0.84*crossSection()*_sumW50/sumOfWeights(), false); // d05-x01-y01
-      normalize(_h_dphi_BB_boost, 0.63*crossSection()*_sumW50/sumOfWeights(), false);   // d06-x01-y01
-      normalize(_h_min_dR_ZB_boost, 1*crossSection()*_sumW50/sumOfWeights(), false);    // d07-x01-y01
-      normalize(_h_A_ZBB_boost, 0.25*crossSection()*_sumW50/sumOfWeights(), false); // d08-x01-y01
+      normalize(_h_dR_BB_boost, 0.84*crossSection()*double(_sumW50)/sumOfWeights(), false); // d05-x01-y01
+      normalize(_h_dphi_BB_boost, 0.63*crossSection()*double(_sumW50)/sumOfWeights(), false);   // d06-x01-y01
+      normalize(_h_min_dR_ZB_boost, 1*crossSection()*double(_sumW50)/sumOfWeights(), false);    // d07-x01-y01
+      normalize(_h_A_ZBB_boost, 0.25*crossSection()*double(_sumW50)/sumOfWeights(), false); // d08-x01-y01
 
-      normalize(_h_min_ZpT, 40*crossSection()*_sumWpT/sumOfWeights(), false);   // d09-x01-y01
+      normalize(_h_min_ZpT, 40*crossSection()*double(_sumWpT)/sumOfWeights(), false);   // d09-x01-y01
     }
 
 
@@ -168,7 +165,7 @@ namespace Rivet {
 
     /// @name Weight counters
     //@{
-    double _sumW, _sumW50, _sumWpT;
+    CounterPtr _sumW, _sumW50, _sumWpT;
     //@}
 
     /// @name Histograms

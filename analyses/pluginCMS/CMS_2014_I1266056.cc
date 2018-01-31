@@ -83,21 +83,20 @@ namespace Rivet {
       const double abs_jet_eta = leadingJet.abseta();
       const double photon_pt = photon.pT()/GeV;
       const double abs_photon_eta = photon.abseta();
-      const double weight = event.weight();
 
       if (abs_jet_eta < 1.5) {
-        if      (abs_photon_eta < 0.9)  _h_phverycentral_jetcentral->fill(photon_pt, weight);
-        else if (abs_photon_eta < 1.44) _h_phcentral_jetcentral->fill(    photon_pt, weight);
+        if      (abs_photon_eta < 0.9)  _h_phverycentral_jetcentral->fill(photon_pt);
+        else if (abs_photon_eta < 1.44) _h_phcentral_jetcentral->fill(    photon_pt);
         else if (abs_photon_eta < 1.57) {}
-        else if (abs_photon_eta < 2.1)  _h_phforward_jetcentral->fill(    photon_pt, weight);
-        else if (abs_photon_eta < 2.5)  _h_phveryforward_jetcentral->fill(photon_pt, weight);
+        else if (abs_photon_eta < 2.1)  _h_phforward_jetcentral->fill(    photon_pt);
+        else if (abs_photon_eta < 2.5)  _h_phveryforward_jetcentral->fill(photon_pt);
       }
       else if (abs_jet_eta < 2.5) {
-        if      (abs_photon_eta < 0.9)  _h_phverycentral_jetforward->fill(photon_pt, weight);
-        else if (abs_photon_eta < 1.44) _h_phcentral_jetforward->fill(    photon_pt, weight);
+        if      (abs_photon_eta < 0.9)  _h_phverycentral_jetforward->fill(photon_pt);
+        else if (abs_photon_eta < 1.44) _h_phcentral_jetforward->fill(    photon_pt);
         else if (abs_photon_eta < 1.57) {}
-        else if (abs_photon_eta < 2.1)  _h_phforward_jetforward->fill(    photon_pt, weight);
-        else if (abs_photon_eta < 2.5)  _h_phveryforward_jetforward->fill(photon_pt, weight);
+        else if (abs_photon_eta < 2.1)  _h_phforward_jetforward->fill(    photon_pt);
+        else if (abs_photon_eta < 2.5)  _h_phveryforward_jetforward->fill(photon_pt);
       }
     }
     

@@ -25,6 +25,7 @@ namespace Rivet {
 
       book(_h_tracks, 1, 1, 1);
       book(_h_jets  , 2, 1, 1);
+      book(_ntracks, "ntracks");
     }
 
 
@@ -38,8 +39,7 @@ namespace Rivet {
       if (!(count_plus > 0 || count_minus > 0)) vetoEvent; //< @todo Should this really also veto the jet analysis?
       /// @warning Needs migration to an AO Counter
       /// @note This isn't the number of tracks, it's the sum of event weights passing the veto
-      const double weight = 1.0;
-      _ntracks += weight;
+      _ntracks->fill();
 
       // Do track analysis here
       // Find pttrackmax
@@ -48,7 +48,7 @@ namespace Rivet {
       // Fill track analysis histograms
       for (size_t i = 0; i < _h_tracks->numBins(); ++i) {
         const double binlimitlow_t = _h_tracks->bin(i).xMin();
-        const double weightbw_t = weight * _h_tracks->bin(i).xWidth();
+        const double weightbw_t = _h_tracks->bin(i).xWidth();
         const double xbin_t = _h_tracks->bin(i).xMid();
         if (track_ptmax > binlimitlow_t) _h_tracks -> fill(xbin_t, weightbw_t);
       }
@@ -61,7 +61,7 @@ namespace Rivet {
       // Fill jet analysis histograms
       for (size_t i = 0; i < _h_jets->numBins(); ++i) {
         const double binlimitlow_j = _h_jets->bin(i).xMin();
-        const double weightbw_j = weight * _h_jets->bin(i).xWidth();
+        const double weightbw_j = _h_jets->bin(i).xWidth();
         const double xbin_j = _h_jets->bin(i).xMid();
         if (jet_ptmax > binlimitlow_j) _h_jets -> fill(xbin_j, weightbw_j);
       }
@@ -88,7 +88,7 @@ namespace Rivet {
     /// @name Histograms
     //@{
     Histo1DPtr _h_tracks, _h_jets;
-    double _ntracks = 0;
+    CounterPtr _ntracks;
     //@}
 
   };

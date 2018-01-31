@@ -61,10 +61,6 @@ namespace Rivet {
 
 
   private:
-
-    // Data members like post-cuts event weight counters go here
-
-
     /// @name Histograms
     //@{
     Histo1DPtr _hist_zpt;

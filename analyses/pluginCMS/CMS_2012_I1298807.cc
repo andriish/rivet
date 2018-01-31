@@ -20,35 +20,30 @@ namespace Rivet {
     /// Initialise projections and histograms
     void init() {
 
-      IdentifiedFinalState leptons(Cuts::abseta < 2.5);
-      leptons.acceptChLeptons();
-
-      FinalState electrons(Cuts::abseta < 2.5 && Cuts::abspid == PID::ELECTRON);
-      IdentifiedFinalState muons(Cuts::abseta < 2.4 && Cuts::abspid == PID::MUON);
-
-      MergedFinalState leptons_cuts(electrons, muons);
-      declare(electrons, "ELECTRONS");
-      declare(muons, "MUONS");
-      declare(leptons_cuts, "LEPTONS_CUTS");
+      // FinalState electrons(Cuts::abseta < 2.5 && Cuts::abspid == PID::ELECTRON);
+      // FinalState muons(Cuts::abseta < 2.4 && Cuts::abspid == PID::MUON);
+      // MergedFinalState leptons(electrons, muons);
+      FinalState leptons((Cuts::abspid == PID::ELECTRON && Cuts::abseta < 2.5) ||
+                         (Cuts::abspid == PID::MUON && Cuts::abseta < 2.4));
+      declare(leptons, "Leptons");
 
       Cut cut_el = Cuts::abseta < 2.5 && Cuts::pT > 7.0*GeV;
       Cut cut_mu = Cuts::abseta < 2.4 && Cuts::pT > 5.0*GeV;
 
       ZFinder zeefinder(FinalState(), cut_el, PID::ELECTRON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       declare(zeefinder, "ZeeFinder");
-
       ZFinder zmmfinder(FinalState(), cut_mu, PID::MUON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
       declare(zmmfinder, "ZmmFinder");
 
       VetoedFinalState fs_woZmm;
       fs_woZmm.addVetoOnThisFinalState(zmmfinder);
-
       VetoedFinalState fs_woZee;
       fs_woZee.addVetoOnThisFinalState(zeefinder);
-      ZFinder zmmfinder_woZmm(fs_woZmm, cut_mu, PID::MUON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY);
-      declare(zmmfinder_woZmm, "Zmmfinder_WoZmm");
+
       ZFinder zeefinder_woZee(fs_woZee, cut_el, PID::ELECTRON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY);
       declare(zeefinder_woZee, "Zeefinder_WoZee");
+      ZFinder zmmfinder_woZmm(fs_woZmm, cut_mu, PID::MUON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY);
+      declare(zmmfinder_woZmm, "Zmmfinder_WoZmm");
 
       // Book histograms
       book(_hist_pt_l1  , 1, 1, 1);
@@ -65,7 +60,7 @@ namespace Rivet {
     void analyze(const Event& evt) {
 
       // Find leading leptons and apply cuts
-      const Particles& leptons = apply<FinalState>(evt, "LEPTONS_CUTS").particlesByPt();
+      const Particles& leptons = apply<FinalState>(evt, "Leptons").particlesByPt();
       if (leptons.size() < 2) vetoEvent;
       const double leading_l_pt = leptons[0].pT();
       const double second_l_pt = leptons[1].pT();
@@ -73,9 +68,10 @@ namespace Rivet {
 
       // Find acceptable ZZ combinations and build four-momenta, otherwise veto
       const ZFinder& zeefinder = applyProjection<ZFinder>(evt, "ZeeFinder");
+      const ZFinder& zeefinder_woZee = applyProjection<ZFinder>(evt, "Zeefinder_WoZee");
       const ZFinder& zmmfinder = applyProjection<ZFinder>(evt, "ZmmFinder");
       const ZFinder& zmmfinder_woZmm = applyProjection<ZFinder>(evt, "Zmmfinder_WoZmm");
-      const ZFinder& zeefinder_woZee = applyProjection<ZFinder>(evt, "Zeefinder_WoZee");
+
       FourMomentum pZ_a, pZ_b, pZ_1, pZ_2;
       FourMomentum pZZ, Z_a_l1, Z_a_l2, Z_b_l1, Z_b_l2;
       if (zeefinder.bosons().size() > 0 && zmmfinder.bosons().size() > 0) {

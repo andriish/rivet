@@ -151,7 +151,6 @@ namespace Rivet {
       const bool trigger = apply<TriggerCDFRun0Run1>(event, "Trigger").minBiasDecision();
       if (!trigger) vetoEvent;
 
-      // Get sqrt(s) and event weight
       const double sqrtS = apply<Beam>(event, "Beam").sqrtS();
 
       {

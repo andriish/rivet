@@ -91,18 +91,17 @@ namespace Rivet {
       const double ptSum_TransDIF = ptSum_TransMAX - ptSum_TransMIN;
 
       // Fill profiles
-      const double weight = 1.0;
-      _h_Nch_TransMIN_vs_pT->fill(pT_lead/GeV, 1/AREA6 * nch_TransMIN, weight);
-      _h_Sum_TransMIN_vs_pT->fill(pT_lead/GeV, 1/AREA6 * ptSum_TransMIN, weight);
+      _h_Nch_TransMIN_vs_pT->fill(pT_lead/GeV, 1/AREA6 * nch_TransMIN);
+      _h_Sum_TransMIN_vs_pT->fill(pT_lead/GeV, 1/AREA6 * ptSum_TransMIN);
       //
-      _h_Nch_TransMAX_vs_pT->fill(pT_lead/GeV, 1/AREA6 * nch_TransMAX, weight);
-      _h_Sum_TransMAX_vs_pT->fill(pT_lead/GeV, 1/AREA6 * ptSum_TransMAX, weight);
+      _h_Nch_TransMAX_vs_pT->fill(pT_lead/GeV, 1/AREA6 * nch_TransMAX);
+      _h_Sum_TransMAX_vs_pT->fill(pT_lead/GeV, 1/AREA6 * ptSum_TransMAX);
       //
-      _h_Nch_TransAVE_vs_pT->fill(pT_lead/GeV, 1/AREA3 * nch_TransSUM, weight);
-      _h_Sum_TransAVE_vs_pT->fill(pT_lead/GeV, 1/AREA3 * ptSum_TransSUM, weight);
+      _h_Nch_TransAVE_vs_pT->fill(pT_lead/GeV, 1/AREA3 * nch_TransSUM);
+      _h_Sum_TransAVE_vs_pT->fill(pT_lead/GeV, 1/AREA3 * ptSum_TransSUM);
       //
-      _h_Nch_TransDIF_vs_pT->fill(pT_lead/GeV, 1/AREA6 * nch_TransDIF, weight);
-      _h_Sum_TransDIF_vs_pT->fill(pT_lead/GeV, 1/AREA6 * ptSum_TransDIF, weight);
+      _h_Nch_TransDIF_vs_pT->fill(pT_lead/GeV, 1/AREA6 * nch_TransDIF);
+      _h_Sum_TransDIF_vs_pT->fill(pT_lead/GeV, 1/AREA6 * ptSum_TransDIF);
     }
 
 
