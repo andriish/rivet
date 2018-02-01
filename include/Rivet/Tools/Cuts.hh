@@ -23,6 +23,9 @@ namespace Rivet {
     /// Comparison to another Cut
     virtual bool operator == (const Cut&) const = 0;
 
+    /// String representation
+    virtual std::string toString() const = 0;
+
     /// Default destructor
     virtual ~CutBase() {}
 
@@ -114,6 +117,13 @@ namespace Rivet {
   Cut operator ^ (const Cut & aptr, const Cut & bptr);
 
   //@}
+
+
+  /// String representation
+  inline std::ostream& operator << (std::ostream& os, const Cut& cptr) {
+    os << cptr->toString();
+    return os;
+  }
 
 
 }

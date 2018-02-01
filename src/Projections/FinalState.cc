@@ -37,7 +37,9 @@ namespace Rivet {
 
   int FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
-    return _cuts == other._cuts ? EQUIVALENT : UNDEFINED;
+    const bool cutcmp =_cuts == other._cuts;
+    MSG_TRACE(_cuts << " VS " << other._cuts << " -> EQ == " << std::boolalpha << cutcmp);
+    return cutcmp ? EQUIVALENT : UNDEFINED;
   }
 
 
