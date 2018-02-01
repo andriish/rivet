@@ -1,5 +1,7 @@
 2018-02-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Make the project() and compare() methods of projections public.
+
 	* Fix a serious bug in the SmearedParticles and SmearedJets compare methods.
 
 	* Add string representations and streamability to the Cut objects, for debugging.

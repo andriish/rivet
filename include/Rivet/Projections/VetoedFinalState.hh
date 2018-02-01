@@ -9,7 +9,6 @@ namespace Rivet {
 
   /// @brief FS modifier to exclude classes of particles from the final state.
   class VetoedFinalState : public FinalState {
-
   public:
 
     /// Typedef for a pair of back-to-back cuts.
@@ -63,7 +62,6 @@ namespace Rivet {
     //@}
 
 
-  public:
 
     /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
     const VetoDetails& vetoDetails() const {
@@ -149,8 +147,6 @@ namespace Rivet {
       return *this;
     }
 
-
-  protected:
 
     /// Apply the projection on the supplied event.
     void project(const Event& e);
