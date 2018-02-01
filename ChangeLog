@@ -1,5 +1,7 @@
 2018-02-01  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Fix a serious bug in the SmearedParticles and SmearedJets compare methods.
+
 	* Add string representations and streamability to the Cut objects, for debugging.
 
 2018-01-08  Andy Buckley  <andy.buckley@cern.ch>
