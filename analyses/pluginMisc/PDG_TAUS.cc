@@ -86,10 +86,10 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_ratio_mu, 1./_weights_mu);
-      scale(_h_ratio_el, 1./_weights_el);
+      scale(_h_ratio_mu, 1. / *_weights_mu);
+      scale(_h_ratio_el, 1. / *_weights_el);
 
-      const double norm = double(_weights_had) + double(_weights_mu) + double(_weights_el);
+      const YODA::Counter norm = *_weights_had + *_weights_mu + *_weights_el;
       scale(_h_1prong_pinu,     1./norm);
       scale(_h_1prong_Kpnu,     1./norm);
       scale(_h_1prong_pipinu,   1./norm);

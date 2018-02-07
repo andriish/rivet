@@ -652,88 +652,118 @@ namespace Rivet {
     //@}
 
 
+  private:
+    /// to be used in finalize context only
+    class CounterAdapter {
+    public:
+    	CounterAdapter(double          x) : x_(x                ) {}
+
+	CounterAdapter(const YODA::Counter   & c) : x_(c.val()          ) {}
+
+	// CounterAdapter(CounterPtr     cp) : x_(cp->val()        ) {}
+
+    	CounterAdapter(const YODA::Scatter1D & s) : x_(s.points()[0].x()) {
+    		assert( s.numPoints() == 1 || "Can only scale by a single value.");
+    	}
+
+    	// CounterAdapter(Scatter1DPtr   sp) : x_(sp->points()[0].x()) {
+    	// 	assert( sp->numPoints() == 1 || "Can only scale by a single value.");
+    	// }
+
+	operator double() const { return x_; }
+
+    private:
+    	double x_;
+    };
+
   public:
 
+    double dbl(double          x) { return x; }
+    double dbl(const YODA::Counter   & c) { return c.val(); }
+    double dbl(const YODA::Scatter1D & s) {  
+    	assert( s.numPoints() == 1 ); 
+    	return s.points()[0].x();
+    }
 
     /// @name Analysis object manipulation
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
     //@{
 
     /// Multiplicatively scale the given counter, @a cnt, by factor @s factor.
-    void scale(CounterPtr cnt, double factor);
+    void scale(CounterPtr cnt, CounterAdapter factor);
 
     /// Multiplicatively scale the given counters, @a cnts, by factor @s factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of CounterPtrs
-    void scale(const std::vector<CounterPtr>& cnts, double factor) {
+    void scale(const std::vector<CounterPtr>& cnts, CounterAdapter factor) {
       for (auto& c : cnts) scale(c, factor);
     }
     /// @todo YUCK!
     template <std::size_t array_size>
-    void scale(const CounterPtr (&cnts)[array_size], double factor) {
+    void scale(const CounterPtr (&cnts)[array_size], CounterAdapter factor) {
       // for (size_t i = 0; i < std::extent<decltype(cnts)>::value; ++i) scale(cnts[i], factor);
       for (auto& c : cnts) scale(c, factor);
     }
 
 
     /// Normalize the given histogram, @a histo, to area = @a norm.
-    void normalize(Histo1DPtr histo, double norm=1.0, bool includeoverflows=true);
+    void normalize(Histo1DPtr histo, CounterAdapter norm=1.0, bool includeoverflows=true);
 
     /// Normalize the given histograms, @a histos, to area = @a norm.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo1DPtrs
-    void normalize(const std::vector<Histo1DPtr>& histos, double norm=1.0, bool includeoverflows=true) {
+    void normalize(const std::vector<Histo1DPtr>& histos, CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
     /// @todo YUCK!
     template <std::size_t array_size>
-    void normalize(const Histo1DPtr (&histos)[array_size], double norm=1.0, bool includeoverflows=true) {
+    void normalize(const Histo1DPtr (&histos)[array_size], CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
 
     /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
-    void scale(Histo1DPtr histo, double factor);
+    void scale(Histo1DPtr histo, CounterAdapter factor);
 
     /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo1DPtrs
-    void scale(const std::vector<Histo1DPtr>& histos, double factor) {
+    void scale(const std::vector<Histo1DPtr>& histos, CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
     /// @todo YUCK!
     template <std::size_t array_size>
-    void scale(const Histo1DPtr (&histos)[array_size], double factor) {
+    void scale(const Histo1DPtr (&histos)[array_size], CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
 
 
     /// Normalize the given histogram, @a histo, to area = @a norm.
-    void normalize(Histo2DPtr histo, double norm=1.0, bool includeoverflows=true);
+    void normalize(Histo2DPtr histo, CounterAdapter norm=1.0, bool includeoverflows=true);
 
     /// Normalize the given histograms, @a histos, to area = @a norm.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo2DPtrs
-    void normalize(const std::vector<Histo2DPtr>& histos, double norm=1.0, bool includeoverflows=true) {
+    void normalize(const std::vector<Histo2DPtr>& histos, CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
     /// @todo YUCK!
     template <std::size_t array_size>
-    void normalize(const Histo2DPtr (&histos)[array_size], double norm=1.0, bool includeoverflows=true) {
+    void normalize(const Histo2DPtr (&histos)[array_size], CounterAdapter norm=1.0, bool includeoverflows=true) {
       for (auto& h : histos) normalize(h, norm, includeoverflows);
     }
 
     /// Multiplicatively scale the given histogram, @a histo, by factor @s factor.
-    void scale(Histo2DPtr histo, double factor);
+    void scale(Histo2DPtr histo, CounterAdapter factor);
 
     /// Multiplicatively scale the given histograms, @a histos, by factor @s factor.
     /// @note Constness intentional, if weird, to allow passing rvalue refs of smart ptrs (argh)
     /// @todo Use SFINAE for a generic iterable of Histo2DPtrs
-    void scale(const std::vector<Histo2DPtr>& histos, double factor) {
+    void scale(const std::vector<Histo2DPtr>& histos, CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
     /// @todo YUCK!
     template <std::size_t array_size>
-    void scale(const Histo2DPtr (&histos)[array_size], double factor) {
+    void scale(const Histo2DPtr (&histos)[array_size], CounterAdapter factor) {
       for (auto& h : histos) scale(h, factor);
     }
 

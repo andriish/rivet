@@ -188,33 +188,33 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_hist1MinusT[_isqrts], 1.0/_sumWTrack2);
-      scale(_histTMajor[_isqrts], 1.0/_sumWTrack2);
-      scale(_histTMinor[_isqrts], 1.0/_sumWTrack2);
-      scale(_histOblateness[_isqrts], 1.0/_sumWTrack2);
-      scale(_histSphericity[_isqrts], 1.0/_sumWTrack2);
-      scale(_histAplanarity[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiMassH[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiMassL[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiBroadW[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiBroadN[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiBroadT[_isqrts], 1.0/_sumWTrack2);
-      scale(_histCParam[_isqrts], 1.0/_sumWTrack2);
-      scale(_histDParam[_isqrts], 1.0/_sumWTrack2);
-      scale(_histY23Durham[_isqrts], 1.0/_sumWJet3);
+      scale(_hist1MinusT[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histTMajor[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histTMinor[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histOblateness[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histSphericity[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histAplanarity[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiMassH[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiMassL[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiBroadW[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiBroadN[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiBroadT[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histCParam[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histDParam[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histY23Durham[_isqrts], 1.0 / *_sumWJet3);
       //
-      scale(_hist1MinusTMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histTMajorMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histTMinorMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histOblatenessMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histSphericityMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiMassHMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiMassLMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiBroadWMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiBroadNMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histHemiBroadTMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histCParamMom[_isqrts], 1.0/_sumWTrack2);
-      scale(_histY23DurhamMom[_isqrts], 1.0/_sumWJet3);
+      scale(_hist1MinusTMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histTMajorMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histTMinorMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histOblatenessMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histSphericityMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiMassHMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiMassLMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiBroadWMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiBroadNMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histHemiBroadTMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histCParamMom[_isqrts], 1.0 / *_sumWTrack2);
+      scale(_histY23DurhamMom[_isqrts], 1.0 / *_sumWJet3);
     }
 
     //@}

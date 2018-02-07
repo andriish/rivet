@@ -246,7 +246,7 @@ namespace Rivet {
       // Scale other histos
       for (size_t chn = 0; chn < 3; ++chn) {
         // For ee and mumu channels: normalize to Njet inclusive cross-section
-        double xs = (chn == 2) ? crossSectionPerEvent()/picobarn : 1 / weights_nj0[chn];
+        double xs = (chn == 2) ? crossSectionPerEvent()/picobarn : 1 / weights_nj0[chn]->val();
         // For inclusive MC sample(ee/mmu channels together) we want the single-lepton-flavor xsec
         if (_isZeeSample && _isZmmSample) xs /= 2;
 

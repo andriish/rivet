@@ -362,7 +362,7 @@ namespace Rivet {
     void finalize() {
       // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
-      const double avgNumParts = double(_weightedTotalPartNum) / sumOfWeights();
+      const double avgNumParts = dbl(*_weightedTotalPartNum) / sumOfWeights();
 
       normalize(_histPtSIn, avgNumParts);
       normalize(_histPtSOut, avgNumParts);
@@ -393,24 +393,23 @@ namespace Rivet {
 
       scale(_histMultiKStar892Plus  ,1./sumOfWeights());
 
-      //normalize(_histMultiPiPlus        ,_weightedTotalNumPiPlus / sumOfWeights());
-      //normalize(_histMultiKPlus         ,_weightedTotalNumKPlus/sumOfWeights());
-      //normalize(_histMultiP             ,_weightedTotalNumP/sumOfWeights());
-      //normalize(_histMultiPhoton            ,_weightedTotalNumPhoton/sumOfWeights());
-      //normalize(_histMultiPi0           ,_weightedTotalNumPi0/sumOfWeights());
-      //normalize(_histMultiEta           ,_weightedTotalNumEta/sumOfWeights());
-      //normalize(_histMultiEtaPrime      ,_weightedTotalNumEtaPrime/sumOfWeights());
-      //normalize(_histMultiK0            ,_weightedTotalNumK0/sumOfWeights());
-      //normalize(_histMultiLambda0       ,_weightedTotalNumLambda0/sumOfWeights());
-      //normalize(_histMultiXiMinus       ,_weightedTotalNumXiMinus/sumOfWeights());
-      //normalize(_histMultiSigma1385Plus ,_weightedTotalNumSigma1385Plus/sumOfWeights());
-      //normalize(_histMultiXi1530_0      ,_weightedTotalNumXi1530_0 /sumOfWeights());
-      //normalize(_histMultiRho           ,_weightedTotalNumRho/sumOfWeights());
-      //normalize(_histMultiOmegaMinus    ,_weightedTotalNumOmegaMinus/sumOfWeights());
-      //normalize(_histMultiKStar892_0    ,_weightedTotalNumKStar892_0/sumOfWeights());
-      //normalize(_histMultiPhi           ,_weightedTotalNumPhi/sumOfWeights());
-
-      //normalize(_histMultiKStar892Plus  ,_weightedTotalNumKStar892Plus/sumOfWeights());
+      normalize(_histMultiPiPlus        ,dbl(*_weightedTotalNumPiPlus)/sumOfWeights());
+      normalize(_histMultiKPlus         ,dbl(*_weightedTotalNumKPlus)/sumOfWeights());
+      normalize(_histMultiP             ,dbl(*_weightedTotalNumP)/sumOfWeights());
+      normalize(_histMultiPhoton        ,dbl(*_weightedTotalNumPhoton)/sumOfWeights());
+      normalize(_histMultiPi0           ,dbl(*_weightedTotalNumPi0)/sumOfWeights());
+      normalize(_histMultiEta           ,dbl(*_weightedTotalNumEta)/sumOfWeights());
+      normalize(_histMultiEtaPrime      ,dbl(*_weightedTotalNumEtaPrime)/sumOfWeights());
+      normalize(_histMultiK0            ,dbl(*_weightedTotalNumK0)/sumOfWeights());
+      normalize(_histMultiLambda0       ,dbl(*_weightedTotalNumLambda0)/sumOfWeights());
+      normalize(_histMultiXiMinus       ,dbl(*_weightedTotalNumXiMinus)/sumOfWeights());
+      normalize(_histMultiSigma1385Plus ,dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histMultiXi1530_0      ,dbl(*_weightedTotalNumXi1530_0 )/sumOfWeights());
+      normalize(_histMultiRho           ,dbl(*_weightedTotalNumRho)/sumOfWeights());
+      normalize(_histMultiOmega782    ,dbl(*_weightedTotalNumOmega782)/sumOfWeights());
+      normalize(_histMultiKStar892_0    ,dbl(*_weightedTotalNumKStar892_0)/sumOfWeights());
+      normalize(_histMultiPhi           ,dbl(*_weightedTotalNumPhi)/sumOfWeights());
+      normalize(_histMultiKStar892Plus  ,dbl(*_weightedTotalNumKStar892Plus)/sumOfWeights());
 
       // event shape
       normalize(_hist1MinusT);

@@ -70,7 +70,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_pT, 1.0/_Nevt_after_cuts);
+      scale(_h_pT, 1.0/ *_Nevt_after_cuts);
     }
 
     //@}

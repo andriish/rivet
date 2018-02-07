@@ -144,10 +144,10 @@ namespace Rivet {
     void finalize() {
       std::vector<Point2D> points;
       for (size_t i=0 ; i<4 ; i++) {
-        if (_nWeightedBaryon[i]==0 || _nWeightedAntiBaryon[i]==0) {
+        if (_nWeightedBaryon[i]->val()==0 || _nWeightedAntiBaryon[i]->val()==0) {
           points.push_back(Point2D(i,0,0.5,0));
         } else {
-          double y  = _nWeightedAntiBaryon[i]/_nWeightedBaryon[i];
+          double y  = _nWeightedAntiBaryon[i]->val()/_nWeightedBaryon[i]->val();
           double dy = sqrt( 1./_nAntiBaryon[i] + 1./_nBaryon[i] );
           points.push_back(Point2D(i,y,0.5,y*dy));
         }
@@ -157,7 +157,7 @@ namespace Rivet {
       divide(_h_pT_lambdabar,_h_pT_lambda, _h_lambar_lam);
       divide(_h_pT_xiplus,_h_pT_ximinus, _h_xiplus_ximinus);
 
-      const double factor = 1./(2*M_PI*double(_sumWeightSelected));
+      const YODA::Scatter1D factor = (1./(2.0 * M_PI)) / *_sumWeightSelected;
       scale(_h_pT_k0s,       factor);
       scale(_h_pT_kminus,    factor);
       scale(_h_pT_kplus,     factor);
@@ -167,7 +167,7 @@ namespace Rivet {
       scale(_h_pT_xiplus,    factor);
       //scale(_h_pT_omega,     1./(2*M_PI*_sumWeightSelected));
       MSG_DEBUG("sumOfWeights()     = " << sumOfWeights());
-      MSG_DEBUG("_sumWeightSelected = " << double(_sumWeightSelected));
+      MSG_DEBUG("_sumWeightSelected = " << _sumWeightSelected->val());
     }
 
   private:

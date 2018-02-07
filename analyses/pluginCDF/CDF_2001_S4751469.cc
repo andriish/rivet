@@ -215,9 +215,9 @@ namespace Rivet {
 
     /// Normalize histos
     void finalize() {
-      normalize(_ptTrans2, _totalNumTrans2 / _sumWeightsPtLead2);
-      normalize(_ptTrans5, _totalNumTrans5 / _sumWeightsPtLead5);
-      normalize(_ptTrans30, _totalNumTrans30 / _sumWeightsPtLead30);
+      normalize(_ptTrans2, *_totalNumTrans2 / *_sumWeightsPtLead2);
+      normalize(_ptTrans5, *_totalNumTrans5 / *_sumWeightsPtLead5);
+      normalize(_ptTrans30, *_totalNumTrans30 / *_sumWeightsPtLead30);
     }
 
     //@}

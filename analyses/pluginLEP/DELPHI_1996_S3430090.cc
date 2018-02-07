@@ -372,7 +372,7 @@ namespace Rivet {
     void finalize() {
       // Normalize inclusive single particle distributions to the average number
       // of charged particles per event.
-      const double avgNumParts = _weightedTotalPartNum / _passedCutWeightSum;
+      const double avgNumParts = dbl(*_weightedTotalPartNum / *_passedCutWeightSum);
 
       normalize(_histPtTIn, avgNumParts);
       normalize(_histPtTOut, avgNumParts);
@@ -385,67 +385,67 @@ namespace Rivet {
       normalize(_histLogScaledMom, avgNumParts);
       normalize(_histScaledMom, avgNumParts);
 
-      scale(_histEEC, 1.0/_passedCutWeightSum);
-      scale(_histAEEC, 1.0/_passedCutWeightSum);
-      scale(_histMultiCharged, 1.0/_passedCutWeightSum);
+      scale(_histEEC, 1.0 / *_passedCutWeightSum);
+      scale(_histAEEC, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiCharged, 1.0 / *_passedCutWeightSum);
 
-      scale(_histMultiPiPlus, 1.0/_passedCutWeightSum);
-      scale(_histMultiPi0, 1.0/_passedCutWeightSum);
-      scale(_histMultiKPlus, 1.0/_passedCutWeightSum);
-      scale(_histMultiK0, 1.0/_passedCutWeightSum);
-      scale(_histMultiEta, 1.0/_passedCutWeightSum);
-      scale(_histMultiEtaPrime, 1.0/_passedCutWeightSum);
-      scale(_histMultiDPlus, 1.0/_passedCutWeightSum);
-      scale(_histMultiD0, 1.0/_passedCutWeightSum);
-      scale(_histMultiBPlus0, 1.0/_passedCutWeightSum);
+      scale(_histMultiPiPlus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiPi0, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiKPlus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiK0, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiEta, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiEtaPrime, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiDPlus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiD0, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiBPlus0, 1.0 / *_passedCutWeightSum);
 
-      scale(_histMultiF0, 1.0/_passedCutWeightSum);
+      scale(_histMultiF0, 1.0 / *_passedCutWeightSum);
 
-      scale(_histMultiRho, 1.0/_passedCutWeightSum);
-      scale(_histMultiKStar892Plus, 1.0/_passedCutWeightSum);
-      scale(_histMultiKStar892_0, 1.0/_passedCutWeightSum);
-      scale(_histMultiPhi, 1.0/_passedCutWeightSum);
-      scale(_histMultiDStar2010Plus, 1.0/_passedCutWeightSum);
+      scale(_histMultiRho, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiKStar892Plus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiKStar892_0, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiPhi, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiDStar2010Plus, 1.0 / *_passedCutWeightSum);
 
-      scale(_histMultiF2, 1.0/_passedCutWeightSum);
-      scale(_histMultiK2Star1430_0, 1.0/_passedCutWeightSum);
+      scale(_histMultiF2, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiK2Star1430_0, 1.0 / *_passedCutWeightSum);
 
-      scale(_histMultiP, 1.0/_passedCutWeightSum);
-      scale(_histMultiLambda0, 1.0/_passedCutWeightSum);
-      scale(_histMultiXiMinus, 1.0/_passedCutWeightSum);
-      scale(_histMultiOmegaMinus, 1.0/_passedCutWeightSum);
-      scale(_histMultiDeltaPlusPlus, 1.0/_passedCutWeightSum);
-      scale(_histMultiSigma1385Plus, 1.0/_passedCutWeightSum);
-      scale(_histMultiXi1530_0, 1.0/_passedCutWeightSum);
-      scale(_histMultiLambdaB0, 1.0/_passedCutWeightSum);
+      scale(_histMultiP, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiLambda0, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiXiMinus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiOmegaMinus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiDeltaPlusPlus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiSigma1385Plus, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiXi1530_0, 1.0 / *_passedCutWeightSum);
+      scale(_histMultiLambdaB0, 1.0 / *_passedCutWeightSum);
 
-      scale(_hist1MinusT, 1.0/_passedCutWeightSum);
-      scale(_histTMajor, 1.0/_passedCutWeightSum);
-      scale(_histTMinor, 1.0/_passedCutWeightSum);
-      scale(_histOblateness, 1.0/_passedCutWeightSum);
+      scale(_hist1MinusT, 1.0 / *_passedCutWeightSum);
+      scale(_histTMajor, 1.0 / *_passedCutWeightSum);
+      scale(_histTMinor, 1.0 / *_passedCutWeightSum);
+      scale(_histOblateness, 1.0 / *_passedCutWeightSum);
 
-      scale(_histSphericity, 1.0/_passedCutWeightSum);
-      scale(_histAplanarity, 1.0/_passedCutWeightSum);
-      scale(_histPlanarity, 1.0/_passedCutWeightSum);
+      scale(_histSphericity, 1.0 / *_passedCutWeightSum);
+      scale(_histAplanarity, 1.0 / *_passedCutWeightSum);
+      scale(_histPlanarity, 1.0 / *_passedCutWeightSum);
 
-      scale(_histHemiMassD, 1.0/_passedCutWeightSum);
-      scale(_histHemiMassH, 1.0/_passedCutWeightSum);
-      scale(_histHemiMassL, 1.0/_passedCutWeightSum);
+      scale(_histHemiMassD, 1.0 / *_passedCutWeightSum);
+      scale(_histHemiMassH, 1.0 / *_passedCutWeightSum);
+      scale(_histHemiMassL, 1.0 / *_passedCutWeightSum);
 
-      scale(_histHemiBroadW, 1.0/_passedCutWeightSum);
-      scale(_histHemiBroadN, 1.0/_passedCutWeightSum);
-      scale(_histHemiBroadT, 1.0/_passedCutWeightSum);
-      scale(_histHemiBroadD, 1.0/_passedCutWeightSum);
+      scale(_histHemiBroadW, 1.0 / *_passedCutWeightSum);
+      scale(_histHemiBroadN, 1.0 / *_passedCutWeightSum);
+      scale(_histHemiBroadT, 1.0 / *_passedCutWeightSum);
+      scale(_histHemiBroadD, 1.0 / *_passedCutWeightSum);
 
-      scale(_histCParam, 1.0/_passedCutWeightSum);
-      scale(_histDParam, 1.0/_passedCutWeightSum);
+      scale(_histCParam, 1.0 / *_passedCutWeightSum);
+      scale(_histDParam, 1.0 / *_passedCutWeightSum);
 
-      scale(_histDiffRate2Durham, 1.0/_passedCut3WeightSum);
-      scale(_histDiffRate2Jade, 1.0/_passedCut3WeightSum);
-      scale(_histDiffRate3Durham, 1.0/_passedCut4WeightSum);
-      scale(_histDiffRate3Jade, 1.0/_passedCut4WeightSum);
-      scale(_histDiffRate4Durham, 1.0/_passedCut5WeightSum);
-      scale(_histDiffRate4Jade, 1.0/_passedCut5WeightSum);
+      scale(_histDiffRate2Durham, 1.0 / *_passedCut3WeightSum);
+      scale(_histDiffRate2Jade, 1.0 / *_passedCut3WeightSum);
+      scale(_histDiffRate3Durham, 1.0 / *_passedCut4WeightSum);
+      scale(_histDiffRate3Jade, 1.0 / *_passedCut4WeightSum);
+      scale(_histDiffRate4Durham, 1.0 / *_passedCut5WeightSum);
+      scale(_histDiffRate4Jade, 1.0 / *_passedCut5WeightSum);
     }
 
     //@}

@@ -83,7 +83,7 @@ namespace Rivet {
       divide(_h_pT_antiproton, _h_pT_proton, _s_antipr_pr);
       divide(_h_pT_proton, _tmp_pT_piplus, _s_pr_piplus);
       divide(_h_pT_antiproton, _tmp_pT_piminus, _s_antipr_piminus);
-      const double factor = 1/(2*M_PI*double(_sumWeightSelected));
+      const YODA::Scatter1D factor = (1/(2*M_PI)) / *_sumWeightSelected;
       scale(_h_pT_piplus,     factor);
       scale(_h_pT_piminus,    factor);
       scale(_h_pT_proton,     factor);

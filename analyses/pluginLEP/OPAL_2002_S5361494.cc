@@ -98,9 +98,9 @@ namespace Rivet {
     void finalize() {
       Histo1D temphisto(refData(1, 1, 1));
 
-      const double avgNumPartsBottom = _weightBottom != 0. ? _weightedTotalChargedPartNumBottom / _weightBottom : 0.;
-      const double avgNumPartsCharm  = _weightCharm  != 0. ? _weightedTotalChargedPartNumCharm  / _weightCharm  : 0.;
-      const double avgNumPartsLight  =  _weightLight != 0. ? _weightedTotalChargedPartNumLight  / _weightLight  : 0.;
+      const double avgNumPartsBottom = _weightBottom->val() != 0. ? dbl(*_weightedTotalChargedPartNumBottom / *_weightBottom) : 0.;
+      const double avgNumPartsCharm  = _weightCharm->val()  != 0. ? dbl(*_weightedTotalChargedPartNumCharm  / *_weightCharm ) : 0.;
+      const double avgNumPartsLight  =  _weightLight->val() != 0. ? dbl(*_weightedTotalChargedPartNumLight  / *_weightLight ) : 0.;
       
       for (size_t b = 0; b < temphisto.numBins(); b++) {
         const double x  = temphisto.bin(b).xMid();

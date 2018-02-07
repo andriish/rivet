@@ -52,9 +52,9 @@ namespace Rivet {
         book(_hist_Esigd3p80 ,5,1,1);
       }
       book(_sumwTrig, "TMP/sumwTrig");
-      book(_sumwTrig08, "TMP/sumwTrig08");
-      book(_sumwTrig40, "TMP/sumwTrig40");
-      book(_sumwTrig80, "TMP/sumwTrig80");
+      // book(_sumwTrig08, "TMP/sumwTrig08");
+      // book(_sumwTrig40, "TMP/sumwTrig40");
+      // book(_sumwTrig80, "TMP/sumwTrig80");
  
     }
 
@@ -101,15 +101,15 @@ namespace Rivet {
         // Also fill for specific dn/deta ranges at 900 GeV
         if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {
           if (inRange(dnch_deta, 0.8, 4.0)) {
-            _sumwTrig08 ->fill();
+            //_sumwTrig08 ->fill();
             _hist_Esigd3p08->fill(pt/GeV, scaled_weight);
           } else if (inRange(dnch_deta, 4.0, 8.0)) {
-            _sumwTrig40 ->fill();
+            //_sumwTrig40 ->fill();
             _hist_Esigd3p40->fill(pt/GeV, scaled_weight);
           } else {
             //MSG_WARNING(dnch_deta);
             if (dnch_deta > 8.0) {
-              _sumwTrig80 ->fill();
+              //_sumwTrig80 ->fill();
               _hist_Esigd3p80->fill(pt/GeV, scaled_weight);
             }
           }
@@ -120,7 +120,7 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_sumwTrig <= 0) {
+      if (_sumwTrig->val() <= 0) {
         MSG_WARNING("No events passed the trigger!");
         return;
       }
@@ -151,7 +151,7 @@ namespace Rivet {
 
     /// @name Weight counters
     //@{
-    CounterPtr _sumwTrig, _sumwTrig08, _sumwTrig40, _sumwTrig80;
+    CounterPtr _sumwTrig; //, _sumwTrig08, _sumwTrig40, _sumwTrig80;
     //@}
 
     /// @name Histogram collections

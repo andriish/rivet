@@ -96,12 +96,12 @@ namespace Rivet {
     void finalize() {
 
       for (int iR = 0; iR < kNregions; ++iR)  {
-        if (_sumW[iR] > 0) {
+        if (_sumW[iR]->val() > 0) {
           if (iR == k_pt100_nch2 || iR == k_pt500_nch1) {
-            scale(_hist_nch[iR], 1.0/_sumW[iR]);
+            scale(_hist_nch[iR], 1.0/ *_sumW[iR]);
           }
-          scale(_hist_pt [iR], 1.0/_sumW[iR]/TWOPI/5.);
-          scale(_hist_eta[iR], 1.0/_sumW[iR]);
+          scale(_hist_pt [iR], 1.0/ dbl(*_sumW[iR])/TWOPI/5.);
+          scale(_hist_eta[iR], 1.0/ *_sumW[iR]);
         }
       }
     }

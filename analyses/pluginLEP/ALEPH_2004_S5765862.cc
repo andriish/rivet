@@ -268,7 +268,7 @@ namespace Rivet {
       }
 
       Histo1D temphisto(refData(1, 1, 1));
-      const double avgNumParts = double(_weightedTotalChargedPartNum) / sumOfWeights();
+      const double avgNumParts = dbl(*_weightedTotalChargedPartNum) / sumOfWeights();
       
      
       for (size_t b = 0; b < temphisto.numBins(); b++) {

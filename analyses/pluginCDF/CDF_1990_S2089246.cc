@@ -56,7 +56,7 @@ namespace Rivet {
     void finalize() {
       // Divide through by num events to get d<N>/d(eta) in bins
       // Factor of 1/2 for |eta| -> eta
-      scale(_hist_eta, 0.5/_sumWTrig);
+      scale(_hist_eta, 0.5/ *_sumWTrig);
     }
 
     //@}

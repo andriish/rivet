@@ -94,7 +94,7 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for(unsigned int ix=0;ix<_histo_xE.size();++ix) {
-	if(_sumW[ix]>0.) scale(_histo_xE[ix],1./_sumW[ix]);
+	if(_sumW[ix]->val()>0.) scale(_histo_xE[ix],1./ *_sumW[ix]);
       }
     }
     //@}

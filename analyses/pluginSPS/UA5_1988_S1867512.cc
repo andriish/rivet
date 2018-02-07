@@ -9,8 +9,8 @@ namespace Rivet {
 
   namespace {
     /// @brief Helper function to fill correlation points into scatter plot
-    Point2D correlation_helper(double x, double xerr, const vector<int> & nf, const vector<int> & nb, double sumWPassed) {
-      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed));
+    Point2D correlation_helper(double x, double xerr, const vector<int> & nf, const vector<int> & nb, CounterPtr sumWPassed) {
+      return Point2D(x, correlation(nf, nb), xerr, correlation_err(nf, nb)/sqrt(sumWPassed->val()));
     }
   }
 

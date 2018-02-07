@@ -43,7 +43,7 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_hist_multiplicity, 1/_sumWTrig);
+      scale(_hist_multiplicity, 1 / *_sumWTrig);
     }
 
     //@}

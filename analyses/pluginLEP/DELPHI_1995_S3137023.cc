@@ -75,8 +75,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histXpXiMinus       , double(_weightedTotalNumXiMinus)/sumOfWeights());
-      normalize(_histXpSigma1385Plus , double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXpXiMinus       , dbl(*_weightedTotalNumXiMinus)/sumOfWeights());
+      normalize(_histXpSigma1385Plus , dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
     }
 
     //@}

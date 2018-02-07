@@ -269,9 +269,9 @@ namespace Rivet {
 
       // Multiplicities
       /// @todo Include errors
-      const double avgNumPartsLight = _weightedTotalChargedPartNumLight / _weightLight;
-      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm / _weightCharm;
-      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom / _weightBottom;
+      const double avgNumPartsLight = _weightedTotalChargedPartNumLight->val() / _weightLight->val();
+      const double avgNumPartsCharm = _weightedTotalChargedPartNumCharm->val() / _weightCharm->val();
+      const double avgNumPartsBottom = _weightedTotalChargedPartNumBottom->val() / _weightBottom->val();
       tmp1->point(0).setY(avgNumPartsLight);
       tmp2->point(0).setY(avgNumPartsCharm);
       tmp3->point(0).setY(avgNumPartsBottom);
@@ -291,37 +291,37 @@ namespace Rivet {
       scale(_h_XpPiPlusTotal, 1./sumOfWeights());
       scale(_h_XpKPlusTotal,  1./sumOfWeights());
       scale(_h_XpProtonTotal, 1./sumOfWeights());
-      scale(_h_XpPiPlusL,     1./_weightLight);
-      scale(_h_XpPiPlusC,     1./_weightCharm);
-      scale(_h_XpPiPlusB,     1./_weightBottom);
-      scale(_h_XpKPlusL,      1./_weightLight);
-      scale(_h_XpKPlusC,      1./_weightCharm);
-      scale(_h_XpKPlusB,      1./_weightBottom);
-      scale(_h_XpProtonL,     1./_weightLight);
-      scale(_h_XpProtonC,     1./_weightCharm);
-      scale(_h_XpProtonB,     1./_weightBottom);
+      scale(_h_XpPiPlusL,     1. / *_weightLight);
+      scale(_h_XpPiPlusC,     1. / *_weightCharm);
+      scale(_h_XpPiPlusB,     1. / *_weightBottom);
+      scale(_h_XpKPlusL,      1. / *_weightLight);
+      scale(_h_XpKPlusC,      1. / *_weightCharm);
+      scale(_h_XpKPlusB,      1. / *_weightBottom);
+      scale(_h_XpProtonL,     1. / *_weightLight);
+      scale(_h_XpProtonC,     1. / *_weightCharm);
+      scale(_h_XpProtonB,     1. / *_weightBottom);
 
-      scale(_h_XpChargedL, 1./_weightLight);
-      scale(_h_XpChargedC, 1./_weightCharm);
-      scale(_h_XpChargedB, 1./_weightBottom);
+      scale(_h_XpChargedL, 1. / *_weightLight);
+      scale(_h_XpChargedC, 1. / *_weightCharm);
+      scale(_h_XpChargedB, 1. / *_weightBottom);
 
-      scale(_h_NPiPlusL, 1./_weightLight);
-      scale(_h_NPiPlusC, 1./_weightCharm);
-      scale(_h_NPiPlusB, 1./_weightBottom);
-      scale(_h_NKPlusL,  1./_weightLight);
-      scale(_h_NKPlusC,  1./_weightCharm);
-      scale(_h_NKPlusB,  1./_weightBottom);
-      scale(_h_NProtonL, 1./_weightLight);
-      scale(_h_NProtonC, 1./_weightCharm);
-      scale(_h_NProtonB, 1./_weightBottom);
+      scale(_h_NPiPlusL, 1. / *_weightLight);
+      scale(_h_NPiPlusC, 1. / *_weightCharm);
+      scale(_h_NPiPlusB, 1. / *_weightBottom);
+      scale(_h_NKPlusL,  1. / *_weightLight);
+      scale(_h_NKPlusC,  1. / *_weightCharm);
+      scale(_h_NKPlusB,  1. / *_weightBottom);
+      scale(_h_NProtonL, 1. / *_weightLight);
+      scale(_h_NProtonC, 1. / *_weightCharm);
+      scale(_h_NProtonB, 1. / *_weightBottom);
 
       // Paper suggests this should be 0.5/weight but it has to be 1.0 to get normalisations right...
-      scale(_h_RPiPlus,  1./_weightLight);
-      scale(_h_RPiMinus, 1./_weightLight);
-      scale(_h_RKPlus,   1./_weightLight);
-      scale(_h_RKMinus,  1./_weightLight);
-      scale(_h_RProton,  1./_weightLight);
-      scale(_h_RPBar,    1./_weightLight);
+      scale(_h_RPiPlus,  1. / *_weightLight);
+      scale(_h_RPiMinus, 1. / *_weightLight);
+      scale(_h_RKPlus,   1. / *_weightLight);
+      scale(_h_RKMinus,  1. / *_weightLight);
+      scale(_h_RProton,  1. / *_weightLight);
+      scale(_h_RPBar,    1. / *_weightLight);
 
       // convert ratio to %
       _s_PiM_PiP->scale(1.,100.);

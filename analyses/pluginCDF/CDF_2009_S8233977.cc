@@ -96,10 +96,10 @@ namespace Rivet {
 
     /// Normalize histos
     void finalize() {
-      scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*double(_sumWeightSelected)));
-      scale(_hist_pt, crossSection()/millibarn/_sumWeightSelected);
+      scale(_hist_sumEt, crossSection()/millibarn/(4*M_PI*dbl(*_sumWeightSelected)));
+      scale(_hist_pt, crossSection()/millibarn/dbl(*_sumWeightSelected));
       MSG_DEBUG("sumOfWeights()     = " << sumOfWeights());
-      MSG_DEBUG("_sumWeightSelected = " << double(_sumWeightSelected));
+      MSG_DEBUG("_sumWeightSelected = " << dbl(*_sumWeightSelected));
     }
 
     //@}

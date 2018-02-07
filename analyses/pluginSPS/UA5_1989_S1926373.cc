@@ -72,12 +72,12 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_hist_nch, 1.0/_sumWPassed);
-      scale(_hist_nch_eta05, 1.0/_sumWPassed);
-      scale(_hist_nch_eta15, 1.0/_sumWPassed);
-      scale(_hist_nch_eta30, 1.0/_sumWPassed);
-      scale(_hist_nch_eta50, 1.0/_sumWPassed);
-      scale(_hist_mean_nch, 1.0/_sumWPassed);
+      scale(_hist_nch, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta05, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta15, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta30, 1.0 / *_sumWPassed);
+      scale(_hist_nch_eta50, 1.0 / *_sumWPassed);
+      scale(_hist_mean_nch, 1.0 / *_sumWPassed);
     }
 
     //@}

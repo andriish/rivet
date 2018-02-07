@@ -105,9 +105,9 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_weightBottom != 0) scale(_h_bottom, 1./_weightBottom);
-      if (_weightCharm  != 0) scale(_h_charm,  1./_weightCharm );
-      if (_weightLight  != 0) scale(_h_light,  1./_weightLight );
+      if (_weightBottom->val() != 0) scale(_h_bottom, 1./ *_weightBottom);
+      if (_weightCharm->val()  != 0) scale(_h_charm,  1./ *_weightCharm );
+      if (_weightLight->val()  != 0) scale(_h_light,  1./ *_weightLight );
 
       multiplicity_subtract(_h_charm,  _h_light, scatter_c);
       multiplicity_subtract(_h_bottom, _h_light, scatter_b);

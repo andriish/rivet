@@ -69,7 +69,7 @@ namespace Rivet {
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) {
         normalize(_h_dN_dNch);
       }
-      scale(_h_dN_deta, 1.0/_Nevt_after_cuts);
+      scale(_h_dN_deta, 1.0/ *_Nevt_after_cuts);
 
     }
 

@@ -187,11 +187,11 @@ namespace Rivet {
     void finalize() {
 
       const double inclusive_cross_section = crossSection();
-      const double norm_1jet_histo = inclusive_cross_section*double(_n_1jet)/sumOfWeights();
-      const double norm_2jet_histo = inclusive_cross_section*double(_n_2jet)/sumOfWeights();
-      const double norm_3jet_histo = inclusive_cross_section*double(_n_3jet)/sumOfWeights();
-      const double norm_4jet_histo = inclusive_cross_section*double(_n_4jet)/sumOfWeights();
-      const double norm_incmultiplicity = inclusive_cross_section*double(_n_inclusivebinsummation)/sumOfWeights();
+      const double norm_1jet_histo = inclusive_cross_section*dbl(*_n_1jet)/sumOfWeights();
+      const double norm_2jet_histo = inclusive_cross_section*dbl(*_n_2jet)/sumOfWeights();
+      const double norm_3jet_histo = inclusive_cross_section*dbl(*_n_3jet)/sumOfWeights();
+      const double norm_4jet_histo = inclusive_cross_section*dbl(*_n_4jet)/sumOfWeights();
+      const double norm_incmultiplicity = inclusive_cross_section*dbl(*_n_inclusivebinsummation)/sumOfWeights();
 
       normalize(_histJet30MultExc, norm_1jet_histo);
       normalize(_histJet30MultInc, norm_incmultiplicity);

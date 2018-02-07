@@ -82,18 +82,18 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_weightSum > 0.) {
-        scale(_histPiA, 1./_weightSum);
-        scale(_histPiB, 1./_weightSum);
-        scale(_histKA , 1./_weightSum);
-        scale(_histKB , 1./_weightSum);
-        scale(_histpA , 1./_weightSum);
-        scale(_histpB , 1./_weightSum);
-        scale(_multPiA, 1./_weightSum);
-        scale(_multPiB, 1./_weightSum);
-        scale(_multK  , 1./_weightSum);
-        scale(_multpA , 1./_weightSum);
-        scale(_multpB , 1./_weightSum);
+      if (_weightSum->val() > 0.) {
+        scale(_histPiA, 1. / *_weightSum);
+        scale(_histPiB, 1. / *_weightSum);
+        scale(_histKA , 1. / *_weightSum);
+        scale(_histKB , 1. / *_weightSum);
+        scale(_histpA , 1. / *_weightSum);
+        scale(_histpB , 1. / *_weightSum);
+        scale(_multPiA, 1. / *_weightSum);
+        scale(_multPiB, 1. / *_weightSum);
+        scale(_multK  , 1. / *_weightSum);
+        scale(_multpA , 1. / *_weightSum);
+        scale(_multpB , 1. / *_weightSum);
       }
     }
 

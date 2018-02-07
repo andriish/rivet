@@ -144,13 +144,13 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       // The scaling takes the multiple fills per event into account
-      scale(_sE_10_100, 1.0/norm_inclusive);
-      scale(_sE_1_100 , 1.0/norm_lowPt);
-      scale(_sE_10_500, 1.0/norm_pt500);
+      scale(_sE_10_100, 1.0/ *norm_inclusive);
+      scale(_sE_1_100 , 1.0/ *norm_lowPt);
+      scale(_sE_10_500, 1.0/ *norm_pt500);
 
-      scale(_sEta_10_100, 1.0/norm_inclusive);
-      scale(_sEta_1_100 , 1.0/norm_lowPt);
-      scale(_sEta_10_500, 1.0/norm_pt500);
+      scale(_sEta_10_100, 1.0/ *norm_inclusive);
+      scale(_sEta_1_100 , 1.0/ *norm_lowPt);
+      scale(_sEta_10_500, 1.0/ *norm_pt500);
     }
 
     //@}

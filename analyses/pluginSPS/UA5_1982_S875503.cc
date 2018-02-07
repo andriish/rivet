@@ -60,11 +60,11 @@ namespace Rivet {
     void finalize() {
       /// @todo Why the factor of 2 on Nch for ppbar?
       if (beamIds().first == beamIds().second) {
-        scale(_hist_nch, 1.0/_sumWTrig);
+        scale(_hist_nch, 1.0 / *_sumWTrig);
       } else {
-        scale(_hist_nch, 0.5/_sumWTrig);
+        scale(_hist_nch, 0.5 / *_sumWTrig);
       }
-      scale(_hist_eta, 0.5/_sumWTrig);
+      scale(_hist_eta, 0.5 / *_sumWTrig);
     }
 
     //@}

@@ -116,12 +116,12 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale(_h_pt25_30,1./_weight25_30);
-      scale(_h_pt30_40,1./_weight30_40);
-      scale(_h_pt40_50,1./_weight40_50);
-      scale(_h_pt50_60,1./_weight50_60);
-      scale(_h_pt60_70,1./_weight60_70);
-      scale(_h_pt25_70,1./_weight25_70);
+      scale(_h_pt25_30,1./ *_weight25_30);
+      scale(_h_pt30_40,1./ *_weight30_40);
+      scale(_h_pt40_50,1./ *_weight40_50);
+      scale(_h_pt50_60,1./ *_weight50_60);
+      scale(_h_pt60_70,1./ *_weight60_70);
+      scale(_h_pt25_70,1./ *_weight25_70);
     }
 
     //@}

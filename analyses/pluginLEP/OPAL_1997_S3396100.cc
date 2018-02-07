@@ -111,18 +111,18 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      normalize(_histXpLambda        , double(_weightedTotalNumLambda       )/sumOfWeights());
-      normalize(_histXiLambda        , double(_weightedTotalNumLambda       )/sumOfWeights());
-      normalize(_histXpXiMinus       , double(_weightedTotalNumXiMinus      )/sumOfWeights());
-      normalize(_histXiXiMinus       , double(_weightedTotalNumXiMinus      )/sumOfWeights());
-      normalize(_histXpSigma1385Plus , double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
-      normalize(_histXiSigma1385Plus , double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
-      normalize(_histXpSigma1385Minus, double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
-      normalize(_histXiSigma1385Minus, double(_weightedTotalNumSigma1385Plus)/sumOfWeights());
-      normalize(_histXpXi1530        , double(_weightedTotalNumXi1530       )/sumOfWeights());
-      normalize(_histXiXi1530        , double(_weightedTotalNumXi1530       )/sumOfWeights());
-      normalize(_histXpLambda1520    , double(_weightedTotalNumLambda1520   )/sumOfWeights());
-      normalize(_histXiLambda1520    , double(_weightedTotalNumLambda1520   )/sumOfWeights());
+      normalize(_histXpLambda        , dbl(*_weightedTotalNumLambda       )/sumOfWeights());
+      normalize(_histXiLambda        , dbl(*_weightedTotalNumLambda       )/sumOfWeights());
+      normalize(_histXpXiMinus       , dbl(*_weightedTotalNumXiMinus      )/sumOfWeights());
+      normalize(_histXiXiMinus       , dbl(*_weightedTotalNumXiMinus      )/sumOfWeights());
+      normalize(_histXpSigma1385Plus , dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXiSigma1385Plus , dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXpSigma1385Minus, dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXiSigma1385Minus, dbl(*_weightedTotalNumSigma1385Plus)/sumOfWeights());
+      normalize(_histXpXi1530        , dbl(*_weightedTotalNumXi1530       )/sumOfWeights());
+      normalize(_histXiXi1530        , dbl(*_weightedTotalNumXi1530       )/sumOfWeights());
+      normalize(_histXpLambda1520    , dbl(*_weightedTotalNumLambda1520   )/sumOfWeights());
+      normalize(_histXiLambda1520    , dbl(*_weightedTotalNumLambda1520   )/sumOfWeights());
     }
 
     //@}

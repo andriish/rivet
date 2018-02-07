@@ -42,7 +42,7 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_h_eta, 1./(2*_sumofweights));
+      scale(_h_eta, 0.5 / *_sumofweights);
     }
 
 

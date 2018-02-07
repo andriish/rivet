@@ -100,10 +100,10 @@ namespace Rivet {
       // Scale all histograms
       for (int iT = 0; iT < kNPartTypes; ++iT) {
         for (int iR = 0; iR < kNregions; ++iR) {
-          if (_sumW[iT][iR] > 0) {
-            scale(_hist_nch[iT][iR], 1.0/_sumW[iT][iR]);
-            scale(_hist_pt [iT][iR], 1.0/_sumW[iT][iR]/TWOPI/5.);
-            scale(_hist_eta[iT][iR], 1.0/_sumW[iT][iR]);
+          if (_sumW[iT][iR]->val() > 0) {
+            scale(_hist_nch[iT][iR], 1.0/ *_sumW[iT][iR]);
+            scale(_hist_pt [iT][iR], 1.0/ dbl(*_sumW[iT][iR])/TWOPI/5.);
+            scale(_hist_eta[iT][iR], 1.0/ *_sumW[iT][iR]);
           }
         }
       }

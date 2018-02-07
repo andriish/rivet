@@ -67,8 +67,8 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_histdSigDp, 1./_weightSum);
-      scale(_histMult  , 1./_weightSum);
+      scale(_histdSigDp, 1./ *_weightSum);
+      scale(_histMult  , 1./ *_weightSum);
     }
 
 

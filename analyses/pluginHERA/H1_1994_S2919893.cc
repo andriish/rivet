@@ -182,16 +182,16 @@ namespace Rivet {
 
     // Normalize inclusive single particle distributions to the average number of charged particles per event.
     void finalize() {
-      normalize(_histSpectraW77, _w77.first/_w77.second);
-      normalize(_histSpectraW122, _w122.first/_w122.second);
-      normalize(_histSpectraW169, _w169.first/_w169.second);
-      normalize(_histSpectraW117, _w117.first/_w117.second);
+      normalize(_histSpectraW77,  *_w77.first/ *_w77.second);
+      normalize(_histSpectraW122,  *_w122.first/ *_w122.second);
+      normalize(_histSpectraW169,  *_w169.first/ *_w169.second);
+      normalize(_histSpectraW117,  *_w117.first/ *_w117.second);
 
-      scale(_histEnergyFlowLowX , 1./_wEnergy.first );
-      scale(_histEnergyFlowHighX, 1./_wEnergy.second);
+      scale(_histEnergyFlowLowX , 1./ *_wEnergy.first );
+      scale(_histEnergyFlowHighX, 1./ *_wEnergy.second);
 
-      scale(_histEECLowX , 1./_wEnergy.first );
-      scale(_histEECHighX, 1./_wEnergy.second);
+      scale(_histEECLowX , 1./ *_wEnergy.first );
+      scale(_histEECHighX, 1./ *_wEnergy.second);
     }
 
     //@}

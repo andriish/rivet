@@ -211,19 +211,19 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      MSG_DEBUG("# Events that pass the trigger: " << double(_sum_w_passed));
-      MSG_DEBUG("# Kshort events: " << double(_sum_w_ks));
-      MSG_DEBUG("# Lambda events: " << double(_sum_w_lambda));
+      MSG_DEBUG("# Events that pass the trigger: " << dbl(*_sum_w_passed));
+      MSG_DEBUG("# Kshort events: " << dbl(*_sum_w_ks));
+      MSG_DEBUG("# Lambda events: " << dbl(*_sum_w_lambda));
 
       /// @todo Replace with normalize()?
-      scale(_hist_Ks_pT,   1.0/_sum_w_ks);
-      scale(_hist_Ks_y,    1.0/_sum_w_ks);
-      scale(_hist_Ks_mult, 1.0/_sum_w_passed);
+      scale(_hist_Ks_pT,   1.0 / *_sum_w_ks);
+      scale(_hist_Ks_y,    1.0 / *_sum_w_ks);
+      scale(_hist_Ks_mult, 1.0 / *_sum_w_passed);
 
       /// @todo Replace with normalize()?
-      scale(_hist_L_pT,   1.0/_sum_w_lambda);
-      scale(_hist_L_y,    1.0/_sum_w_lambda);
-      scale(_hist_L_mult, 1.0/_sum_w_passed);
+      scale(_hist_L_pT,   1.0 / *_sum_w_lambda);
+      scale(_hist_L_y,    1.0 / *_sum_w_lambda);
+      scale(_hist_L_mult, 1.0 / *_sum_w_passed);
 
       // Division of histograms to obtain lambda_bar/lambda ratios
       divide(_temp_lambdabar_v_y, _temp_lambda_v_y, _hist_Ratio_v_y);

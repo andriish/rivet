@@ -94,8 +94,8 @@ namespace Rivet {
       scale(_h_Z_pT_cross_section, invlumi);
       scale(_h_Z_y_cross_section, invlumi);
 
-      double factor=1/_sum_of_weights_inclusive;
-      if (_sum_of_weights_inclusive == 0) factor = 0;
+      double factor=1/dbl(*_sum_of_weights_inclusive);
+      if (_sum_of_weights_inclusive->val() == 0) factor = 0;
       scale(_h_jet_pT_normalised, factor);
       scale(_h_jet_y_normalised, factor);
       scale(_h_Z_pT_normalised, factor);

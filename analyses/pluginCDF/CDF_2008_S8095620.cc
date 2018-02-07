@@ -144,7 +144,7 @@ namespace Rivet {
       // since the cross sections are normalized to the inclusive
       // Z cross sections.
       double Scale = 1.0;
-      if (_sumWeightSelected != 0.0) Scale = 1.0/_sumWeightSelected;
+      if (_sumWeightSelected->val() != 0.0) Scale = 1.0/dbl(*_sumWeightSelected);
       scale(_dStot,Scale);
       scale(_dSdET,Scale);
       scale(_dSdETA,Scale);

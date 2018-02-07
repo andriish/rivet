@@ -58,9 +58,9 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_h_dNch_dEta_OR,  0.5/_Nevt_after_cuts_or);
-      scale(_h_dNch_dEta_AND, 0.5/_Nevt_after_cuts_and);
-      scale(_h_dNch_dEta_XOR, 0.5/_Nevt_after_cuts_xor);
+      scale(_h_dNch_dEta_OR,  0.5 / *_Nevt_after_cuts_or);
+      scale(_h_dNch_dEta_AND, 0.5 / *_Nevt_after_cuts_and);
+      scale(_h_dNch_dEta_XOR, 0.5 / *_Nevt_after_cuts_xor);
     }
 
 

@@ -91,12 +91,12 @@ namespace Rivet {
 
     // Finalize
     void finalize() {
-      scale(_h_jet1_pT, 1/_sum_of_weights);
-      scale(_h_jet2_pT, 1/_sum_of_weights);
-      scale(_h_jet3_pT, 1/_sum_of_weights);
-      scale(_h_jet1_pT_constrained, 1/_sum_of_weights_constrained);
-      scale(_h_jet2_pT_constrained, 1/_sum_of_weights_constrained);
-      scale(_h_jet3_pT_constrained, 1/_sum_of_weights_constrained);
+      scale(_h_jet1_pT, 1/ *_sum_of_weights);
+      scale(_h_jet2_pT, 1/ *_sum_of_weights);
+      scale(_h_jet3_pT, 1/ *_sum_of_weights);
+      scale(_h_jet1_pT_constrained, 1/ *_sum_of_weights_constrained);
+      scale(_h_jet2_pT_constrained, 1/ *_sum_of_weights_constrained);
+      scale(_h_jet3_pT_constrained, 1/ *_sum_of_weights_constrained);
     }
 
     //@}

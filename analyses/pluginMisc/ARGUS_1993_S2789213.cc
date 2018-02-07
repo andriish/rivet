@@ -181,40 +181,40 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_weightSum_cont > 0.) {
+      if (_weightSum_cont->val() > 0.) {
         /// @todo Replace with Counters and fill one-point Scatters at the end
-        scale(_mult_cont_Omega    , 1./_weightSum_cont);
-        scale(_mult_cont_Rho0     , 1./_weightSum_cont);
-        scale(_mult_cont_KStar0   , 1./_weightSum_cont);
-        scale(_mult_cont_KStarPlus, 1./_weightSum_cont);
-        scale(_mult_cont_Phi      , 1./_weightSum_cont);
-        scale(_hist_cont_KStarPlus, 1./_weightSum_cont);
-        scale(_hist_cont_KStar0   , 1./_weightSum_cont);
-        scale(_hist_cont_Rho0     , 1./_weightSum_cont);
-        scale(_hist_cont_Omega    , 1./_weightSum_cont);
+        scale(_mult_cont_Omega    , 1. / *_weightSum_cont);
+        scale(_mult_cont_Rho0     , 1. / *_weightSum_cont);
+        scale(_mult_cont_KStar0   , 1. / *_weightSum_cont);
+        scale(_mult_cont_KStarPlus, 1. / *_weightSum_cont);
+        scale(_mult_cont_Phi      , 1. / *_weightSum_cont);
+        scale(_hist_cont_KStarPlus, 1. / *_weightSum_cont);
+        scale(_hist_cont_KStar0   , 1. / *_weightSum_cont);
+        scale(_hist_cont_Rho0     , 1. / *_weightSum_cont);
+        scale(_hist_cont_Omega    , 1. / *_weightSum_cont);
       }
-      if (_weightSum_Ups1 > 0.) {
+      if (_weightSum_Ups1->val() > 0.) {
         /// @todo Replace with Counters and fill one-point Scatters at the end
-        scale(_mult_Ups1_Omega    , 1./_weightSum_Ups1);
-        scale(_mult_Ups1_Rho0     , 1./_weightSum_Ups1);
-        scale(_mult_Ups1_KStar0   , 1./_weightSum_Ups1);
-        scale(_mult_Ups1_KStarPlus, 1./_weightSum_Ups1);
-        scale(_mult_Ups1_Phi      , 1./_weightSum_Ups1);
-        scale(_hist_Ups1_KStarPlus, 1./_weightSum_Ups1);
-        scale(_hist_Ups1_KStar0   , 1./_weightSum_Ups1);
-        scale(_hist_Ups1_Rho0     , 1./_weightSum_Ups1);
-        scale(_hist_Ups1_Omega    , 1./_weightSum_Ups1);
+        scale(_mult_Ups1_Omega    , 1. / *_weightSum_Ups1);
+        scale(_mult_Ups1_Rho0     , 1. / *_weightSum_Ups1);
+        scale(_mult_Ups1_KStar0   , 1. / *_weightSum_Ups1);
+        scale(_mult_Ups1_KStarPlus, 1. / *_weightSum_Ups1);
+        scale(_mult_Ups1_Phi      , 1. / *_weightSum_Ups1);
+        scale(_hist_Ups1_KStarPlus, 1. / *_weightSum_Ups1);
+        scale(_hist_Ups1_KStar0   , 1. / *_weightSum_Ups1);
+        scale(_hist_Ups1_Rho0     , 1. / *_weightSum_Ups1);
+        scale(_hist_Ups1_Omega    , 1. / *_weightSum_Ups1);
       }
-      if (_weightSum_Ups4 > 0.) {
+      if (_weightSum_Ups4->val() > 0.) {
         /// @todo Replace with Counters and fill one-point Scatters at the end
-        scale(_mult_Ups4_Omega    , 1./_weightSum_Ups4);
-        scale(_mult_Ups4_Rho0     , 1./_weightSum_Ups4);
-        scale(_mult_Ups4_KStar0   , 1./_weightSum_Ups4);
-        scale(_mult_Ups4_KStarPlus, 1./_weightSum_Ups4);
-        scale(_mult_Ups4_Phi      , 1./_weightSum_Ups4);
-        scale(_hist_Ups4_KStarPlus, 1./_weightSum_Ups4);
-        scale(_hist_Ups4_KStar0   , 1./_weightSum_Ups4);
-        scale(_hist_Ups4_Rho0     , 1./_weightSum_Ups4);
+        scale(_mult_Ups4_Omega    , 1. / *_weightSum_Ups4);
+        scale(_mult_Ups4_Rho0     , 1. / *_weightSum_Ups4);
+        scale(_mult_Ups4_KStar0   , 1. / *_weightSum_Ups4);
+        scale(_mult_Ups4_KStarPlus, 1. / *_weightSum_Ups4);
+        scale(_mult_Ups4_Phi      , 1. / *_weightSum_Ups4);
+        scale(_hist_Ups4_KStarPlus, 1. / *_weightSum_Ups4);
+        scale(_hist_Ups4_KStar0   , 1. / *_weightSum_Ups4);
+        scale(_hist_Ups4_Rho0     , 1. / *_weightSum_Ups4);
       }
     }
 

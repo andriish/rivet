@@ -69,13 +69,13 @@ namespace Rivet {
       book(_h_dpT_Kaonplus   ,2, 1, 4);
       book(_h_dpT_AntiProton ,2, 1, 5);
       book(_h_dpT_Proton     ,2, 1, 6);
-      book(nCutsPassed, "nCutsPassed");
-      book(nPi, "nPi");
-      book(nPiPlus, "nPiPlus");
-      book(nKaon, "nKaon");
-      book(nKaonPlus, "nKaonPlus");
-      book(nProton, "nProton");
-      book(nAntiProton, "nAntiProton");
+      // book(nCutsPassed, "nCutsPassed");
+      // book(nPi, "nPi");
+      // book(nPiPlus, "nPiPlus");
+      // book(nKaon, "nKaon");
+      // book(nKaonPlus, "nKaonPlus");
+      // book(nProton, "nProton");
+      // book(nAntiProton, "nAntiProton");
     }
 
 
@@ -100,32 +100,32 @@ namespace Rivet {
         double pT = p.pT()/GeV;
         double y = p.rapidity();
         if (fabs(y) < 0.1) {
-          nCutsPassed->fill(weight);
+          // nCutsPassed->fill(weight);
           const PdgId id = p.pid();
           switch (id) {
           case -211:
             _h_dpT_Pi->fill(pT, weight/(TWOPI*pT*0.2));
-            nPi->fill(weight);
+            // nPi->fill(weight);
             break;
           case 211:
             _h_dpT_Piplus->fill(pT, weight/(TWOPI*pT*0.2));
-            nPiPlus->fill(weight);
+            // nPiPlus->fill(weight);
             break;
           case -321:
             _h_dpT_Kaon->fill(pT, weight/(TWOPI*pT*0.2));
-            nKaon->fill(weight);
+            // nKaon->fill(weight);
             break;
           case 321:
             _h_dpT_Kaonplus->fill(pT, weight/(TWOPI*pT*0.2));
-            nKaonPlus->fill(weight);
+            // nKaonPlus->fill(weight);
             break;
           case -2212:
             _h_dpT_AntiProton->fill(pT, weight/(TWOPI*pT*0.2));
-            nAntiProton->fill(weight);
+            // nAntiProton->fill(weight);
             break;
           case 2212:
             _h_dpT_Proton->fill(pT, weight/(TWOPI*pT*0.2));
-            nProton->fill(weight);
+            // nProton->fill(weight);
             break;
           }
         }
@@ -162,7 +162,7 @@ namespace Rivet {
     Histo1DPtr _h_dpT_AntiProton, _h_dpT_Proton;
 
     Profile1DPtr _h_pT_vs_Nch;
-    CounterPtr nCutsPassed, nPi, nPiPlus, nKaon, nKaonPlus, nProton, nAntiProton;
+    //CounterPtr nCutsPassed, nPi, nPiPlus, nKaon, nKaonPlus, nProton, nAntiProton;
   };
 
 

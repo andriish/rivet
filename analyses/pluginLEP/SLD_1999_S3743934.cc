@@ -438,33 +438,33 @@ namespace Rivet {
       divide(_h_XpKPlusN, _temp_XpChargedN2, _s_Xp_KPl_Ch);
       divide(_h_XpProtonN, _temp_XpChargedN3, _s_Xp_Pr_Ch);
       divide(_h_XpPiPlusCharm, _h_XpPiPlusLight, _s_Xp_PiPlCh_PiPlLi);
-      _s_Xp_PiPlCh_PiPlLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
+      _s_Xp_PiPlCh_PiPlLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfcWeights));
       divide(_h_XpPiPlusBottom, _h_XpPiPlusLight, _s_Xp_PiPlBo_PiPlLi);
-       _s_Xp_PiPlBo_PiPlLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
+       _s_Xp_PiPlBo_PiPlLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfbWeights));
       divide(_temp_XpKPlusCharm , _temp_XpKPlusLight, _s_Xp_KPlCh_KPlLi);
-      _s_Xp_KPlCh_KPlLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
+      _s_Xp_KPlCh_KPlLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfcWeights));
       divide(_h_XpKPlusBottom, _h_XpKPlusLight, _s_Xp_KPlBo_KPlLi);
-       _s_Xp_KPlBo_KPlLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
+       _s_Xp_KPlBo_KPlLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfbWeights));
       divide(_temp_XpKStar0Charm, _temp_XpKStar0Light, _s_Xp_KS0Ch_KS0Li);
-      _s_Xp_KS0Ch_KS0Li->scale(1.,_SumOfudsWeights/_SumOfcWeights);
+      _s_Xp_KS0Ch_KS0Li->scale(1., dbl(*_SumOfudsWeights / *_SumOfcWeights));
       divide(_h_XpKStar0Bottom, _h_XpKStar0Light, _s_Xp_KS0Bo_KS0Li);
-      _s_Xp_KS0Bo_KS0Li->scale(1.,_SumOfudsWeights/_SumOfbWeights);
+      _s_Xp_KS0Bo_KS0Li->scale(1., dbl(*_SumOfudsWeights / *_SumOfbWeights));
       divide(_temp_XpProtonCharm, _temp_XpProtonLight, _s_Xp_PrCh_PrLi);
-      _s_Xp_PrCh_PrLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
+      _s_Xp_PrCh_PrLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfcWeights));
       divide(_h_XpProtonBottom, _h_XpProtonLight, _s_Xp_PrBo_PrLi);
-      _s_Xp_PrBo_PrLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
+      _s_Xp_PrBo_PrLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfbWeights));
       divide(_h_XpLambdaCharm, _h_XpLambdaLight, _s_Xp_LaCh_LaLi);
-      _s_Xp_LaCh_LaLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
+      _s_Xp_LaCh_LaLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfcWeights));
       divide(_h_XpLambdaBottom, _h_XpLambdaLight, _s_Xp_LaBo_LaLi);
-      _s_Xp_LaBo_LaLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
+      _s_Xp_LaBo_LaLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfbWeights));
       divide(_h_XpK0Charm, _h_XpK0Light, _s_Xp_K0Ch_K0Li);
-      _s_Xp_K0Ch_K0Li->scale(1.,_SumOfudsWeights/_SumOfcWeights);
+      _s_Xp_K0Ch_K0Li->scale(1., dbl(*_SumOfudsWeights / *_SumOfcWeights));
       divide(_h_XpK0Bottom, _h_XpK0Light, _s_Xp_K0Bo_K0Li);
-      _s_Xp_K0Bo_K0Li->scale(1.,_SumOfudsWeights/_SumOfbWeights);
+      _s_Xp_K0Bo_K0Li->scale(1., dbl(*_SumOfudsWeights / *_SumOfbWeights));
       divide(_h_XpPhiCharm, _h_XpPhiLight, _s_Xp_PhiCh_PhiLi);
-      _s_Xp_PhiCh_PhiLi->scale(1.,_SumOfudsWeights/_SumOfcWeights);
+      _s_Xp_PhiCh_PhiLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfcWeights));
       divide(_h_XpPhiBottom, _h_XpPhiLight, _s_Xp_PhiBo_PhiLi);
-      _s_Xp_PhiBo_PhiLi->scale(1.,_SumOfudsWeights/_SumOfbWeights);
+      _s_Xp_PhiBo_PhiLi->scale(1., dbl(*_SumOfudsWeights / *_SumOfbWeights));
 
       // Then the leading particles
       divide(*_h_RPiMinus - *_h_RPiPlus, *_h_RPiMinus + *_h_RPiPlus, _s_PiM_PiP);
@@ -482,52 +482,52 @@ namespace Rivet {
       scale(_h_XpLambdaN,      1/sumOfWeights());
       scale(_h_XpKStar0N,      1/sumOfWeights());
       scale(_h_XpPhiN,         1/sumOfWeights());
-      scale(_h_XpPiPlusLight,  1/_SumOfudsWeights);
-      scale(_h_XpPiPlusCharm,  1/_SumOfcWeights);
-      scale(_h_XpPiPlusBottom, 1/_SumOfbWeights);
-      scale(_h_XpKPlusLight,   1/_SumOfudsWeights);
-      scale(_h_XpKPlusCharm,   1/_SumOfcWeights);
-      scale(_h_XpKPlusBottom,  1/_SumOfbWeights);
-      scale(_h_XpKStar0Light,  1/_SumOfudsWeights);
-      scale(_h_XpKStar0Charm,  1/_SumOfcWeights);
-      scale(_h_XpKStar0Bottom, 1/_SumOfbWeights);
-      scale(_h_XpProtonLight,  1/_SumOfudsWeights);
-      scale(_h_XpProtonCharm,  1/_SumOfcWeights);
-      scale(_h_XpProtonBottom, 1/_SumOfbWeights);
-      scale(_h_XpLambdaLight,  1/_SumOfudsWeights);
-      scale(_h_XpLambdaCharm,  1/_SumOfcWeights);
-      scale(_h_XpLambdaBottom, 1/_SumOfbWeights);
-      scale(_h_XpK0Light,      1/_SumOfudsWeights);
-      scale(_h_XpK0Charm,      1/_SumOfcWeights);
-      scale(_h_XpK0Bottom,     1/_SumOfbWeights);
-      scale(_h_XpPhiLight,     1/_SumOfudsWeights);
-      scale(_h_XpPhiCharm ,    1/_SumOfcWeights);
-      scale(_h_XpPhiBottom,    1/_SumOfbWeights);
-      scale(_h_RPiPlus,        1/_SumOfudsWeights);
-      scale(_h_RPiMinus,       1/_SumOfudsWeights);
-      scale(_h_RKS0,           1/_SumOfudsWeights);
-      scale(_h_RKSBar0,        1/_SumOfudsWeights);
-      scale(_h_RKPlus,         1/_SumOfudsWeights);
-      scale(_h_RKMinus,        1/_SumOfudsWeights);
-      scale(_h_RProton,        1/_SumOfudsWeights);
-      scale(_h_RPBar,          1/_SumOfudsWeights);
-      scale(_h_RLambda,        1/_SumOfudsWeights);
-      scale(_h_RLBar,          1/_SumOfudsWeights);
+      scale(_h_XpPiPlusLight,  1 / *_SumOfudsWeights);
+      scale(_h_XpPiPlusCharm,  1 / *_SumOfcWeights);
+      scale(_h_XpPiPlusBottom, 1 / *_SumOfbWeights);
+      scale(_h_XpKPlusLight,   1 / *_SumOfudsWeights);
+      scale(_h_XpKPlusCharm,   1 / *_SumOfcWeights);
+      scale(_h_XpKPlusBottom,  1 / *_SumOfbWeights);
+      scale(_h_XpKStar0Light,  1 / *_SumOfudsWeights);
+      scale(_h_XpKStar0Charm,  1 / *_SumOfcWeights);
+      scale(_h_XpKStar0Bottom, 1 / *_SumOfbWeights);
+      scale(_h_XpProtonLight,  1 / *_SumOfudsWeights);
+      scale(_h_XpProtonCharm,  1 / *_SumOfcWeights);
+      scale(_h_XpProtonBottom, 1 / *_SumOfbWeights);
+      scale(_h_XpLambdaLight,  1 / *_SumOfudsWeights);
+      scale(_h_XpLambdaCharm,  1 / *_SumOfcWeights);
+      scale(_h_XpLambdaBottom, 1 / *_SumOfbWeights);
+      scale(_h_XpK0Light,      1 / *_SumOfudsWeights);
+      scale(_h_XpK0Charm,      1 / *_SumOfcWeights);
+      scale(_h_XpK0Bottom,     1 / *_SumOfbWeights);
+      scale(_h_XpPhiLight,     1 / *_SumOfudsWeights);
+      scale(_h_XpPhiCharm ,    1 / *_SumOfcWeights);
+      scale(_h_XpPhiBottom,    1 / *_SumOfbWeights);
+      scale(_h_RPiPlus,        1 / *_SumOfudsWeights);
+      scale(_h_RPiMinus,       1 / *_SumOfudsWeights);
+      scale(_h_RKS0,           1 / *_SumOfudsWeights);
+      scale(_h_RKSBar0,        1 / *_SumOfudsWeights);
+      scale(_h_RKPlus,         1 / *_SumOfudsWeights);
+      scale(_h_RKMinus,        1 / *_SumOfudsWeights);
+      scale(_h_RProton,        1 / *_SumOfudsWeights);
+      scale(_h_RPBar,          1 / *_SumOfudsWeights);
+      scale(_h_RLambda,        1 / *_SumOfudsWeights);
+      scale(_h_RLBar,          1 / *_SumOfudsWeights);
 
       // Multiplicities
       double avgNumPartsAll, avgNumPartsLight,avgNumPartsCharm, avgNumPartsBottom;
       // pi+/-
       // all
-      avgNumPartsAll = double(_multPiPlus[0])/sumOfWeights();
+      avgNumPartsAll = dbl(*_multPiPlus[0])/sumOfWeights();
       tmp1->point(0).setY(avgNumPartsAll);
       // light
-      avgNumPartsLight = _multPiPlus[1]/_SumOfudsWeights;
+      avgNumPartsLight = dbl(*_multPiPlus[1] / *_SumOfudsWeights);
       tmp2->point(0).setY(avgNumPartsLight);
       // charm
-      avgNumPartsCharm = _multPiPlus[2]/_SumOfcWeights;
+      avgNumPartsCharm = dbl(*_multPiPlus[2] / *_SumOfcWeights);
       tmp3->point(0).setY(avgNumPartsCharm);
       // bottom
-      avgNumPartsBottom = _multPiPlus[3]/_SumOfbWeights;
+      avgNumPartsBottom = dbl(*_multPiPlus[3] / *_SumOfbWeights);
       tmp4->point(0).setY(avgNumPartsBottom);
       // charm-light
       tmp5->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
@@ -535,16 +535,16 @@ namespace Rivet {
       tmp6->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // K+/-
       // all
-      avgNumPartsAll = double(_multKPlus[0])/sumOfWeights();
+      avgNumPartsAll = dbl(*_multKPlus[0])/sumOfWeights();
       tmp7->point(0).setY(avgNumPartsAll);
       // light
-      avgNumPartsLight = _multKPlus[1]/_SumOfudsWeights;
+      avgNumPartsLight = dbl(*_multKPlus[1] / *_SumOfudsWeights);
       tmp8->point(0).setY(avgNumPartsLight);
       // charm
-      avgNumPartsCharm = _multKPlus[2]/_SumOfcWeights;
+      avgNumPartsCharm = dbl(*_multKPlus[2] / *_SumOfcWeights);
       tmp9->point(0).setY(avgNumPartsCharm);
       // bottom
-      avgNumPartsBottom = _multKPlus[3]/_SumOfbWeights;
+      avgNumPartsBottom = dbl(*_multKPlus[3] / *_SumOfbWeights);
       tmp10->point(0).setY(avgNumPartsBottom);
       // charm-light
       tmp11->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
@@ -552,16 +552,16 @@ namespace Rivet {
       tmp12->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // K0
       // all
-      avgNumPartsAll = double(_multK0[0])/sumOfWeights();
+      avgNumPartsAll = dbl(*_multK0[0])/sumOfWeights();
       tmp13->point(0).setY(avgNumPartsAll);
       // light
-      avgNumPartsLight = _multK0[1]/_SumOfudsWeights;
+      avgNumPartsLight = dbl(*_multK0[1] / *_SumOfudsWeights);
       tmp14->point(0).setY(avgNumPartsLight);
       // charm
-      avgNumPartsCharm = _multK0[2]/_SumOfcWeights;
+      avgNumPartsCharm = dbl(*_multK0[2] / *_SumOfcWeights);
       tmp15->point(0).setY(avgNumPartsCharm);
       // bottom
-      avgNumPartsBottom = _multK0[3]/_SumOfbWeights;
+      avgNumPartsBottom = dbl(*_multK0[3] / *_SumOfbWeights);
       tmp16->point(0).setY(avgNumPartsBottom);
       // charm-light
       tmp17->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
@@ -569,16 +569,16 @@ namespace Rivet {
       tmp18->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // K*0
       // all
-      avgNumPartsAll = double(_multKStar0[0])/sumOfWeights();
+      avgNumPartsAll = dbl(*_multKStar0[0])/sumOfWeights();
       tmp19->point(0).setY(avgNumPartsAll);
       // light
-      avgNumPartsLight = _multKStar0[1]/_SumOfudsWeights;
+      avgNumPartsLight = dbl(*_multKStar0[1] / *_SumOfudsWeights);
       tmp20->point(0).setY(avgNumPartsLight);
       // charm
-      avgNumPartsCharm = _multKStar0[2]/_SumOfcWeights;
+      avgNumPartsCharm = dbl(*_multKStar0[2] / *_SumOfcWeights);
       tmp21->point(0).setY(avgNumPartsCharm);
       // bottom
-      avgNumPartsBottom = _multKStar0[3]/_SumOfbWeights;
+      avgNumPartsBottom = dbl(*_multKStar0[3] / *_SumOfbWeights);
       tmp22->point(0).setY(avgNumPartsBottom);
       // charm-light
       tmp23->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
@@ -586,16 +586,16 @@ namespace Rivet {
       tmp24->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // phi
       // all
-      avgNumPartsAll = double(_multPhi[0])/sumOfWeights();
+      avgNumPartsAll = dbl(*_multPhi[0])/sumOfWeights();
       tmp25->point(0).setY(avgNumPartsAll);
       // light
-      avgNumPartsLight = _multPhi[1]/_SumOfudsWeights;
+      avgNumPartsLight = dbl(*_multPhi[1] / *_SumOfudsWeights);
       tmp26->point(0).setY(avgNumPartsLight);
       // charm
-      avgNumPartsCharm = _multPhi[2]/_SumOfcWeights;
+      avgNumPartsCharm = dbl(*_multPhi[2] / *_SumOfcWeights);
       tmp27->point(0).setY(avgNumPartsCharm);
       // bottom
-      avgNumPartsBottom = _multPhi[3]/_SumOfbWeights;
+      avgNumPartsBottom = dbl(*_multPhi[3] / *_SumOfbWeights);
       tmp28->point(0).setY(avgNumPartsBottom);
       // charm-light
       tmp29->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
@@ -603,16 +603,16 @@ namespace Rivet {
       tmp30->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // p
       // all
-      avgNumPartsAll = double(_multProton[0])/sumOfWeights();
+      avgNumPartsAll = dbl(*_multProton[0])/sumOfWeights();
       tmp31->point(0).setY(avgNumPartsAll);
       // light
-      avgNumPartsLight = _multProton[1]/_SumOfudsWeights;
+      avgNumPartsLight = dbl(*_multProton[1] / *_SumOfudsWeights);
       tmp32->point(0).setY(avgNumPartsLight);
       // charm
-      avgNumPartsCharm = _multProton[2]/_SumOfcWeights;
+      avgNumPartsCharm = dbl(*_multProton[2] / *_SumOfcWeights);
       tmp33->point(0).setY(avgNumPartsCharm);
       // bottom
-      avgNumPartsBottom = _multProton[3]/_SumOfbWeights;
+      avgNumPartsBottom = dbl(*_multProton[3] / *_SumOfbWeights);
       tmp34->point(0).setY(avgNumPartsBottom);
       // charm-light
       tmp35->point(0).setY(avgNumPartsCharm - avgNumPartsLight);
@@ -620,16 +620,16 @@ namespace Rivet {
       tmp36->point(0).setY(avgNumPartsBottom - avgNumPartsLight);
       // Lambda
       // all
-      avgNumPartsAll = double(_multLambda[0])/sumOfWeights();
+      avgNumPartsAll = dbl(*_multLambda[0])/sumOfWeights();
       tmp37->point(0).setY(avgNumPartsAll);
       // light
-      avgNumPartsLight = _multLambda[1]/_SumOfudsWeights;
+      avgNumPartsLight = dbl(*_multLambda[1] / *_SumOfudsWeights);
       tmp38->point(0).setY(avgNumPartsLight);
       // charm
-      avgNumPartsCharm = _multLambda[2]/_SumOfcWeights;
+      avgNumPartsCharm = dbl(*_multLambda[2] / *_SumOfcWeights);
       tmp39->point(0).setY(avgNumPartsCharm);
       // bottom
-      avgNumPartsBottom = _multLambda[3]/_SumOfbWeights;
+      avgNumPartsBottom = dbl(*_multLambda[3] / *_SumOfbWeights);
       tmp40->point(0).setY(avgNumPartsBottom);
       // charm-light
       tmp41->point(0).setY(avgNumPartsCharm - avgNumPartsLight);

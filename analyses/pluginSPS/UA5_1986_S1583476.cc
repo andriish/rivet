@@ -86,13 +86,13 @@ namespace Rivet {
 
     /// Scale histos
     void finalize() {
-      MSG_DEBUG("sumW_NSD,inel = " << double(_sumWTrigNSD) << ", " << double(_sumWTrig));
-      scale(_hist_eta_nsd, 0.5/_sumWTrigNSD);
-      scale(_hist_eta_inelastic, 0.5/_sumWTrig);
+      MSG_DEBUG("sumW_NSD,inel = " << _sumWTrigNSD->val() << ", " << _sumWTrig->val());
+      scale(_hist_eta_nsd, 0.5 / *_sumWTrigNSD);
+      scale(_hist_eta_inelastic, 0.5 / *_sumWTrig);
       //
       for (size_t i = 0; i < _hists_eta_nsd.size(); ++i) {
-        MSG_DEBUG("sumW[n] = " << double(_sumWn[i]));
-        scale(_hists_eta_nsd[i], 0.5/_sumWn[i]);
+        MSG_DEBUG("sumW[n] = " << _sumWn[i]->val());
+        scale(_hists_eta_nsd[i], 0.5 / *_sumWn[i]);
       }
     }
 

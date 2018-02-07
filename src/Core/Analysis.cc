@@ -703,16 +703,16 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(CounterPtr cnt, double factor) {
+  void Analysis::scale(CounterPtr cnt, Analysis::CounterAdapter factor) {
     if (!cnt) {
-      MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << factor << ")");
+      MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
     if (std::isnan(factor) || std::isinf(factor)) {
-      MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+      MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
-    MSG_TRACE("Scaling counter " << cnt->path() << " by factor " << factor);
+    MSG_TRACE("Scaling counter " << cnt->path() << " by factor " << double(factor));
     try {
       cnt->scaleW(factor);
     } catch (YODA::Exception& we) {
@@ -722,12 +722,12 @@ namespace Rivet {
   }
 
 
-  void Analysis::normalize(Histo1DPtr histo, double norm, bool includeoverflows) {
+  void Analysis::normalize(Histo1DPtr histo, Analysis::CounterAdapter norm, bool includeoverflows) {
     if (!histo) {
-      MSG_WARNING("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
+      MSG_WARNING("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << double(norm) << ")");
       return;
     }
-    MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
+    MSG_TRACE("Normalizing histo " << histo->path() << " to " << double(norm));
     try {
       histo->normalize(norm, includeoverflows);
     } catch (YODA::Exception& we) {
@@ -737,16 +737,16 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(Histo1DPtr histo, double factor) {
+  void Analysis::scale(Histo1DPtr histo, Analysis::CounterAdapter factor) {
     if (!histo) {
-      MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << factor << ")");
+      MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
     if (std::isnan(factor) || std::isinf(factor)) {
-      MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+      MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
-    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << factor);
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << double(factor));
     try {
       histo->scaleW(factor);
     } catch (YODA::Exception& we) {
@@ -756,12 +756,12 @@ namespace Rivet {
   }
 
 
-  void Analysis::normalize(Histo2DPtr histo, double norm, bool includeoverflows) {
+  void Analysis::normalize(Histo2DPtr histo, Analysis::CounterAdapter norm, bool includeoverflows) {
     if (!histo) {
-      MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << norm << ")");
+      MSG_ERROR("Failed to normalize histo=NULL in analysis " << name() << " (norm=" << double(norm) << ")");
       return;
     }
-    MSG_TRACE("Normalizing histo " << histo->path() << " to " << norm);
+    MSG_TRACE("Normalizing histo " << histo->path() << " to " << double(norm));
     try {
       histo->normalize(norm, includeoverflows);
     } catch (YODA::Exception& we) {
@@ -771,16 +771,16 @@ namespace Rivet {
   }
 
 
-  void Analysis::scale(Histo2DPtr histo, double factor) {
+  void Analysis::scale(Histo2DPtr histo, Analysis::CounterAdapter factor) {
     if (!histo) {
-      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << factor << ")");
+      MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
     if (std::isnan(factor) || std::isinf(factor)) {
-      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << factor << ")");
+      MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
-    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << factor);
+    MSG_TRACE("Scaling histo " << histo->path() << " by factor " << double(factor));
     try {
       histo->scaleW(factor);
     } catch (YODA::Exception& we) {

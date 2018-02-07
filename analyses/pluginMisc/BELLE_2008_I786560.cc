@@ -52,7 +52,7 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_weight_pipi > 0.) scale(_hist_pipi, 1./_weight_pipi);
+      if (_weight_pipi->val() > 0.) scale(_hist_pipi, 1. / *_weight_pipi);
     }
 
 

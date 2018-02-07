@@ -103,28 +103,28 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_weight_pipipi > 0.) {
-        scale(_hist_pipipi_pipipi, 1.0/_weight_pipipi);
-        scale(_hist_pipipi_pipi  , 0.5/_weight_pipipi);
+      if (_weight_pipipi->val() > 0.) {
+        scale(_hist_pipipi_pipipi, 1.0 / *_weight_pipipi);
+        scale(_hist_pipipi_pipi  , 0.5 / *_weight_pipipi);
       }
-      if (_weight_Kpipi > 0.) {
-        scale(_hist_Kpipi_Kpipi  , 1.0/_weight_Kpipi);
-        scale(_hist_Kpipi_Kpi    , 1.0/_weight_Kpipi);
-        scale(_hist_Kpipi_pipi   , 1.0/_weight_Kpipi);
+      if (_weight_Kpipi->val() > 0.) {
+        scale(_hist_Kpipi_Kpipi  , 1.0 / *_weight_Kpipi);
+        scale(_hist_Kpipi_Kpi    , 1.0 / *_weight_Kpipi);
+        scale(_hist_Kpipi_pipi   , 1.0 / *_weight_Kpipi);
       }
-      if (_weight_KpiK > 0.) {
-        scale(_hist_KpiK_KpiK    , 1.0/_weight_KpiK);
-        scale(_hist_KpiK_KK      , 1.0/_weight_KpiK);
-        scale(_hist_KpiK_piK     , 1.0/_weight_KpiK);
+      if (_weight_KpiK->val() > 0.) {
+        scale(_hist_KpiK_KpiK    , 1.0 / *_weight_KpiK);
+        scale(_hist_KpiK_KK      , 1.0 / *_weight_KpiK);
+        scale(_hist_KpiK_piK     , 1.0 / *_weight_KpiK);
       }
-      if (_weight_KKK > 0.) {
-        scale(_hist_KKK_KKK      , 1.0/_weight_KKK);
-        scale(_hist_KKK_KK       , 0.5/_weight_KKK);
+      if (_weight_KKK->val() > 0.) {
+        scale(_hist_KKK_KKK      , 1.0 / *_weight_KKK);
+        scale(_hist_KKK_KK       , 0.5 / *_weight_KKK);
       }
-      tmp11->point(0).setY(100*_weight_pipipi/_weight_total, 100*sqrt(double(_weight_pipipi))/_weight_total);
-      tmp12->point(0).setY(100*_weight_Kpipi/_weight_total, 100*sqrt(double(_weight_Kpipi))/_weight_total);
-      tmp13->point(0).setY(100*_weight_KpiK/_weight_total, 100*sqrt(double(_weight_KpiK))/_weight_total);
-      tmp14->point(0).setY(100*_weight_KKK/_weight_total, 100*sqrt(double(_weight_KKK))/_weight_total);
+      tmp11->point(0).setY(100*_weight_pipipi->val()/_weight_total->val(), 100*sqrt(double(_weight_pipipi->val()))/_weight_total->val());
+      tmp12->point(0).setY(100*_weight_Kpipi->val()/_weight_total->val(), 100*sqrt(double(_weight_Kpipi->val()))/_weight_total->val());
+      tmp13->point(0).setY(100*_weight_KpiK->val()/_weight_total->val(), 100*sqrt(double(_weight_KpiK->val()))/_weight_total->val());
+      tmp14->point(0).setY(100*_weight_KKK->val()/_weight_total->val(), 100*sqrt(double(_weight_KKK->val()))/_weight_total->val());
     }
 
 

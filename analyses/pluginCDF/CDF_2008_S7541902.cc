@@ -123,10 +123,10 @@ namespace Rivet {
 
       // Fill the 0th ratio histogram specially
       /// @todo This special case for 1-to-0 will disappear if we use Counters for all mults including 0.
-      if (_sumW > 0) {
+      if (_sumW->val() > 0) {
         const YODA::Histo1D::Bin& b0 = _histJetMult[0]->bin(0);
-        double ratio = b0.area()/_sumW;
-        double frac_err = 1/_sumW; ///< This 1/sqrt{N} error treatment isn't right for weighted events: use YODA::Counter
+        double ratio = b0.area()/dbl(*_sumW);
+        double frac_err = 1/dbl(*_sumW); ///< This 1/sqrt{N} error treatment isn't right for weighted events: use YODA::Counter
         if (b0.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b0.areaErr()/b0.area()) );
         _histJetMultRatio[0]->point(0).setY(ratio, ratio*frac_err);
       }

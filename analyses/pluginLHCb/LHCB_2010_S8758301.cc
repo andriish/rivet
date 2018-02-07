@@ -114,9 +114,9 @@ using namespace HepMC;
     void finalize() {
       MSG_DEBUG("Total number Ks0: " << sumKs0_all << endl
                 << "Sum of weights: " << sumOfWeights() << endl
-                << "Weight Ks0 (2.5 < y < 3.0): " <<  double(sumKs0_30) << endl
-                << "Weight Ks0 (3.0 < y < 3.5): " << double(sumKs0_35) << endl
-                << "Weight Ks0 (3.5 < y < 4.0): " << double(sumKs0_40) << endl
+                << "Weight Ks0 (2.5 < y < 3.0): " <<  sumKs0_30->val() << endl
+                << "Weight Ks0 (3.0 < y < 3.5): " << sumKs0_35->val() << endl
+                << "Weight Ks0 (3.5 < y < 4.0): " << sumKs0_40->val() << endl
                 << "Nb. unprompt Ks0 [null mother]: " << sumKs0_badnull << endl
                 << "Nb. unprompt Ks0 [mother lifetime exceeded]: " << sumKs0_badlft << endl
                 << "Nb. Ks0 (y > 4.0): " << sumKs0_outup << endl

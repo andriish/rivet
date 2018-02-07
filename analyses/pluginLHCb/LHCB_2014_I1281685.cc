@@ -148,7 +148,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      const double scalefactor = 1.0/_sumW; // normalize multiplicity histograms by nEvents
+      const double scalefactor = 1.0/_sumW->val(); // normalize multiplicity histograms by nEvents
       const double scale1k = 1000.; // to match '10^3' scale in reference histograms
 
       scale( _h_dndeta, scalefactor );

@@ -81,10 +81,10 @@ namespace Rivet {
             default: etaRangeSize = -999.0; break; //intentionally crazy
           }
 
-          if (_sumW[iT][iR] > 0) {
-            scale(_hist_nch[iT][iR], 1.0/_sumW[iT][iR]);
-            scale(_hist_pt [iT][iR], 1.0/_sumW[iT][iR]/TWOPI/etaRangeSize);
-            scale(_hist_eta[iT][iR], 1.0/_sumW[iT][iR]);
+          if (_sumW[iT][iR]->val() > 0) {
+            scale(_hist_nch[iT][iR], 1.0/ *_sumW[iT][iR]);
+            scale(_hist_pt [iT][iR], 1.0/ dbl(*_sumW[iT][iR])/TWOPI/etaRangeSize);
+            scale(_hist_eta[iT][iR], 1.0/ *_sumW[iT][iR]);
           } else {
             MSG_WARNING("Sum of weights is zero (!) in type/region: " << iT << " " << iR);
           }

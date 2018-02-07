@@ -175,14 +175,14 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      scale({_h_Thrust_udsc, _h_heavyJetmass_udsc, _h_totalJetbroad_udsc, _h_wideJetbroad_udsc, _h_Cparameter_udsc, _h_Dparameter_udsc}, 1/_sumW_udsc);
-      scale({_h_Thrust_bottom, _h_heavyJetmass_bottom, _h_totalJetbroad_bottom, _h_wideJetbroad_bottom, _h_Cparameter_bottom, _h_Dparameter_bottom}, 1./_sumW_b);
-      scale(_h_Ncharged, 2/_sumW_ch);
-      scale(_h_Ncharged_udsc, 2/_sumW_ch_udsc);
-      scale(_h_Ncharged_bottom, 2/_sumW_ch_b);
-      scale(_h_scaledMomentum, 1/_sumW_ch);
-      scale(_h_scaledMomentum_udsc, 1/_sumW_ch_udsc);
-      scale(_h_scaledMomentum_bottom, 1/_sumW_ch_b);
+      scale({_h_Thrust_udsc, _h_heavyJetmass_udsc, _h_totalJetbroad_udsc, _h_wideJetbroad_udsc, _h_Cparameter_udsc, _h_Dparameter_udsc}, 1/ *_sumW_udsc);
+      scale({_h_Thrust_bottom, _h_heavyJetmass_bottom, _h_totalJetbroad_bottom, _h_wideJetbroad_bottom, _h_Cparameter_bottom, _h_Dparameter_bottom}, 1./ *_sumW_b);
+      scale(_h_Ncharged, 2/ *_sumW_ch);
+      scale(_h_Ncharged_udsc, 2/ *_sumW_ch_udsc);
+      scale(_h_Ncharged_bottom, 2/ *_sumW_ch_b);
+      scale(_h_scaledMomentum, 1/ *_sumW_ch);
+      scale(_h_scaledMomentum_udsc, 1/ *_sumW_ch_udsc);
+      scale(_h_scaledMomentum_bottom, 1/ *_sumW_ch_b);
     }
 
 

@@ -207,7 +207,7 @@ namespace Rivet {
         for (int j = 0; j < 2; ++j) {
           vector<Histo1DPtr> histos = plots[i][j].histos();
           foreach(Histo1DPtr h, histos) {
-            scale(h, 1.0/_nEvents[i]);
+            scale(h, 1.0/ *_nEvents[i]);
           }
         }
       }

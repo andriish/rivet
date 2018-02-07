@@ -82,18 +82,18 @@ namespace Rivet {
 
 
     void finalize() {
-      scale(_hist_all_Jpsi     , 0.5*0.1/_weightSum);
-      scale(_hist_chi_c1       , 0.5*0.1/_weightSum);
-      scale(_hist_chi_c2       , 0.5*0.1/_weightSum);
-      scale(_hist_Psi_prime    , 0.5*0.1/_weightSum);
-      scale(_hist_primary_Jpsi , 0.5*0.1/_weightSum);
-      scale(_mult_JPsi         , 0.5*100./_weightSum);
-      scale(_mult_JPsi_direct  , 0.5*100./_weightSum);
-      scale(_mult_chi_c1       , 0.5*100./_weightSum);
-      scale(_mult_chi_c1_direct, 0.5*100./_weightSum);
-      scale(_mult_chi_c2       , 0.5*100./_weightSum);
-      scale(_mult_chi_c2_direct, 0.5*100./_weightSum);
-      scale(_mult_Psi2S        , 0.5*100./_weightSum);
+      scale(_hist_all_Jpsi     , 0.5*0.1 / *_weightSum);
+      scale(_hist_chi_c1       , 0.5*0.1 / *_weightSum);
+      scale(_hist_chi_c2       , 0.5*0.1 / *_weightSum);
+      scale(_hist_Psi_prime    , 0.5*0.1 / *_weightSum);
+      scale(_hist_primary_Jpsi , 0.5*0.1 / *_weightSum);
+      scale(_mult_JPsi         , 0.5*100. / *_weightSum);
+      scale(_mult_JPsi_direct  , 0.5*100. / *_weightSum);
+      scale(_mult_chi_c1       , 0.5*100. / *_weightSum);
+      scale(_mult_chi_c1_direct, 0.5*100. / *_weightSum);
+      scale(_mult_chi_c2       , 0.5*100. / *_weightSum);
+      scale(_mult_chi_c2_direct, 0.5*100. / *_weightSum);
+      scale(_mult_Psi2S        , 0.5*100. / *_weightSum);
     } // finalize
 
 

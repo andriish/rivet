@@ -136,12 +136,12 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       MSG_DEBUG("Total sum of weights = " << sumOfWeights());
-      MSG_DEBUG("Sum of weights for Z production in mass range = " << double(_sumWeightsWithZ));
-      MSG_DEBUG("Sum of weights for Z+jet production in mass range = " << double(_sumWeightsWithZJet));
+      MSG_DEBUG("Sum of weights for Z production in mass range = " << dbl(*_sumWeightsWithZ));
+      MSG_DEBUG("Sum of weights for Z+jet production in mass range = " << dbl(*_sumWeightsWithZJet));
 
       scale(_sigmaBJet, crossSection()/sumOfWeights());
-      scale(_ratioBJetToZ, 1.0/_sumWeightsWithZ);
-      scale(_ratioBJetToJet, 1.0/_sumWeightsWithZJet);
+      scale(_ratioBJetToZ, 1.0/ *_sumWeightsWithZ);
+      scale(_ratioBJetToJet, 1.0/ *_sumWeightsWithZJet);
     }
 
     //@}

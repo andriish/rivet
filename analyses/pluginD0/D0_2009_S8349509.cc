@@ -108,13 +108,13 @@ namespace Rivet {
 
 
     void finalize() {
-      if (_inclusive_Z_sumofweights == 0) return;
-      scale(_h_dphi_jet_Z25, 1/_inclusive_Z_sumofweights);
-      scale(_h_dphi_jet_Z45, 1/_inclusive_Z_sumofweights);
-      scale(_h_dy_jet_Z25, 1/_inclusive_Z_sumofweights);
-      scale(_h_dy_jet_Z45, 1/_inclusive_Z_sumofweights);
-      scale(_h_yboost_jet_Z25, 1/_inclusive_Z_sumofweights);
-      scale(_h_yboost_jet_Z45, 1/_inclusive_Z_sumofweights);
+      if (_inclusive_Z_sumofweights->val() == 0) return;
+      scale(_h_dphi_jet_Z25, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_dphi_jet_Z45, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_dy_jet_Z25, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_dy_jet_Z45, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_yboost_jet_Z25, 1/ *_inclusive_Z_sumofweights);
+      scale(_h_yboost_jet_Z45, 1/ *_inclusive_Z_sumofweights);
 
       scale(_h_dphi_jet_Z25_xs, crossSectionPerEvent());
       scale(_h_dphi_jet_Z45_xs, crossSectionPerEvent());

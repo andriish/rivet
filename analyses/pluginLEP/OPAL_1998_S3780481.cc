@@ -138,7 +138,7 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      const double avgNumParts = double(_weightedTotalPartNum) / sumOfWeights();
+      const double avgNumParts = dbl(*_weightedTotalPartNum) / sumOfWeights();
       normalize(_histXpuds    , avgNumParts);
       normalize(_histXpc      , avgNumParts);
       normalize(_histXpb      , avgNumParts);
@@ -148,9 +148,9 @@ namespace Rivet {
       normalize(_histLogXpb   , avgNumParts);
       normalize(_histLogXpall , avgNumParts);
 
-      scale(_histMultiChargeduds, 1.0/_SumOfudsWeights);
-      scale(_histMultiChargedc  , 1.0/_SumOfcWeights);
-      scale(_histMultiChargedb  , 1.0/_SumOfbWeights);
+      scale(_histMultiChargeduds, 1.0/ *_SumOfudsWeights);
+      scale(_histMultiChargedc  , 1.0/ *_SumOfcWeights);
+      scale(_histMultiChargedb  , 1.0/ *_SumOfbWeights);
       scale(_histMultiChargedall, 1.0/sumOfWeights());
     }
 

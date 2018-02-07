@@ -70,8 +70,8 @@ namespace Rivet {
 
     /// Finalize
     void finalize() {
-      if(_weightSum>0.)
-        scale(_histXpJPsi  , 0.1/_weightSum);
+      if(_weightSum->val()>0.)
+        scale(_histXpJPsi  , 0.1/ *_weightSum);
       scale(_multJPsi    , 1./sumOfWeights());
       scale(_multPsiPrime, 1./sumOfWeights());
     }

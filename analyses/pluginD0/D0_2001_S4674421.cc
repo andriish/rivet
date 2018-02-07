@@ -125,10 +125,10 @@ namespace Rivet {
       const double xSecPerEvent = crossSectionPerEvent()/picobarn;
 
       // Correct W pT distribution to W cross-section
-      const double xSecW = xSecPerEvent * double(_eventsFilledW);
+      const double xSecW = xSecPerEvent * dbl(*_eventsFilledW);
 
       // Correct Z pT distribution to Z cross-section
-      const double xSecZ = xSecPerEvent * double(_eventsFilledZ);
+      const double xSecZ = xSecPerEvent * dbl(*_eventsFilledZ);
 
       // Get W and Z pT integrals
       const double wpt_integral = _h_dsigdpt_w->integral();

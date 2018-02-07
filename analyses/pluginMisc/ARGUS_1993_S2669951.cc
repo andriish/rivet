@@ -136,31 +136,31 @@ namespace Rivet {
     void finalize() {
 
       // High-Z eta' multiplicity
-      if (_weightSum_Ups1 > 0) // Point at 9.460
-        s111->point(0).setY(_count_etaPrime_highZ[0] / _weightSum_Ups1, 0);
-      if (_weightSum_cont > 0) // Point at 9.905
-        s111->point(1).setY(_count_etaPrime_highZ[1] / _weightSum_cont, 0);
+      if (_weightSum_Ups1->val() > 0) // Point at 9.460
+        s111->point(0).setY(_count_etaPrime_highZ[0]->val() / _weightSum_Ups1->val(), 0);
+      if (_weightSum_cont->val() > 0) // Point at 9.905
+        s111->point(1).setY(_count_etaPrime_highZ[1]->val() / _weightSum_cont->val(), 0);
 
       // All-Z eta' multiplicity
-      if (_weightSum_Ups1 > 0) // Point at 9.460
-        s112->point(0).setY(_count_etaPrime_allZ[0] / _weightSum_Ups1, 0);
-      if (_weightSum_cont > 0) // Point at 9.905
-        s112->point(1).setY(_count_etaPrime_allZ[2] / _weightSum_cont, 0);
-      if (_weightSum_Ups2 > 0) // Point at 10.02
-        s112->point(2).setY(_count_etaPrime_allZ[1] / _weightSum_Ups2, 0);
+      if (_weightSum_Ups1->val() > 0) // Point at 9.460
+        s112->point(0).setY(_count_etaPrime_allZ[0]->val() / _weightSum_Ups1->val(), 0);
+      if (_weightSum_cont->val() > 0) // Point at 9.905
+        s112->point(1).setY(_count_etaPrime_allZ[2]->val() / _weightSum_cont->val(), 0);
+      if (_weightSum_Ups2->val() > 0) // Point at 10.02
+        s112->point(2).setY(_count_etaPrime_allZ[1]->val() / _weightSum_Ups2->val(), 0);
 
       // f0 multiplicity
-      if (_weightSum_Ups1 > 0) // Point at 9.46
-        s511->point(0).setY(_count_f0[0] / _weightSum_Ups1, 0);
-      if (_weightSum_Ups2 > 0) // Point at 10.02
-        s511->point(1).setY(_count_f0[1] / _weightSum_Ups2, 0);
-      if (_weightSum_cont > 0) // Point at 10.45
-        s511->point(2).setY(_count_f0[2] / _weightSum_cont, 0);
+      if (_weightSum_Ups1->val() > 0) // Point at 9.46
+        s511->point(0).setY(_count_f0[0]->val() / _weightSum_Ups1->val(), 0);
+      if (_weightSum_Ups2->val() > 0) // Point at 10.02
+        s511->point(1).setY(_count_f0[1]->val() / _weightSum_Ups2->val(), 0);
+      if (_weightSum_cont->val() > 0) // Point at 10.45
+        s511->point(2).setY(_count_f0[2]->val() / _weightSum_cont->val(), 0);
 
       // Scale histos
-      if (_weightSum_cont > 0.) scale(_hist_cont_f0, 1./_weightSum_cont);
-      if (_weightSum_Ups1 > 0.) scale(_hist_Ups1_f0, 1./_weightSum_Ups1);
-      if (_weightSum_Ups2 > 0.) scale(_hist_Ups2_f0, 1./_weightSum_Ups2);
+      if (_weightSum_cont->val() > 0.) scale(_hist_cont_f0, 1./ *_weightSum_cont);
+      if (_weightSum_Ups1->val() > 0.) scale(_hist_Ups1_f0, 1./ *_weightSum_Ups1);
+      if (_weightSum_Ups2->val() > 0.) scale(_hist_Ups2_f0, 1./ *_weightSum_Ups2);
     }
 
 
