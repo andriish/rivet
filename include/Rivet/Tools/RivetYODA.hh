@@ -47,6 +47,7 @@ namespace Rivet {
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
             bool operator ==(const AnalysisObjectWrapper& p) { return (this == &p); }
+            bool operator !=(const AnalysisObjectWrapper& p) { return (this != &p); }
 
         protected:
             /// @todo do we need this?
@@ -67,7 +68,7 @@ namespace Rivet {
             }
 
             bool operator!() const { return !_persistent; }
-            operator bool() const { return bool(_persistent); }
+            explicit operator bool() const { return bool(_persistent); }
 
             YODA::Scatter1D* operator->() { return _persistent.get(); }
 
@@ -91,7 +92,7 @@ namespace Rivet {
             Scatter2DPtr() : _persistent() { }
 
             bool operator!() { return !_persistent; }
-            operator bool() { return bool(_persistent); }
+            explicit operator bool() { return bool(_persistent); }
 
             YODA::Scatter2D* operator->() { return _persistent.get(); }
 
@@ -115,7 +116,7 @@ namespace Rivet {
             Scatter3DPtr() : _persistent() { }
 
             bool operator!() { return !_persistent; }
-            operator bool() { return bool(_persistent); }
+            explicit operator bool() { return bool(_persistent); }
 
             YODA::Scatter3D* operator->() { return _persistent.get(); }
 
@@ -296,7 +297,7 @@ public:
         /* @todo this probably need to loop over all? */
         bool operator!() const { return !_active; } // Don't use active() here, assert will catch
 
-        operator bool() const { return static_cast<bool>(_active); } // Don't use active() here, assert will catch
+        explicit operator bool() const { return static_cast<bool>(_active); } // Don't use active() here, assert will catch
 
         T * operator->() { return active().get(); }
 
@@ -419,11 +420,36 @@ public:
   const typename T::Inner & operator*() const { return **_p; }
 
   bool operator!() const { return !_p || !(*_p);   }
-  operator bool()  const { return _p && bool(*_p); }
+  explicit operator bool()  const { return _p && bool(*_p); }
 
   template <typename U>
   bool operator==(const rivet_shared_ptr<U> & other) const {
     return _p == other._p;
+  }
+
+  template <typename U>
+  bool operator!=(const rivet_shared_ptr<U> & other) const {
+    return _p != other._p;
+  }
+
+  template <typename U>
+  bool operator<(const rivet_shared_ptr<U> & other) const {
+    return _p < other._p;
+  }
+
+  template <typename U>
+  bool operator>(const rivet_shared_ptr<U> & other) const {
+    return _p > other._p;
+  }
+
+  template <typename U>
+  bool operator<=(const rivet_shared_ptr<U> & other) const {
+    return _p <= other._p;
+  }
+
+  template <typename U>
+  bool operator>=(const rivet_shared_ptr<U> & other) const {
+    return _p >= other._p;
   }
 
   shared_ptr<T> get() const { return _p; }
