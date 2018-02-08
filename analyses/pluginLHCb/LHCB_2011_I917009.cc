@@ -53,14 +53,14 @@ namespace Rivet {
  
       int dsId = dsShift + 1;
       for (size_t j = 0; j < 3; ++j) {
-        book(s1, dsId, 1, j+1);
-        book(s2, dsId+1, 1, j+1);
+        book(s1[j], dsId, 1, j+1);
+        book(s2[j], dsId+1, 1, j+1);
       }
       dsId += 2;
       for (size_t j = 3; j < 6; ++j) {
-        book(s3, dsId, 1, 1);
+        book(s3[j-3], dsId, 1, 1);
         dsId += 1;
-        book(s4, dsId, 1, 1);
+        book(s4[j-3], dsId, 1, 1);
         dsId += 1;
       }
 
@@ -118,15 +118,15 @@ namespace Rivet {
       int dsId = dsShift + 1;
       for (size_t j = 0; j < 3; ++j) {
         /// @todo Compactify to two one-liners
-        divide(_tmphistos[j], _tmphistos[3+j], s1);
-        divide(_tmphistos[j], _tmphistos[6+j], s2);
+        divide(_tmphistos[j], _tmphistos[3+j], s1[j]);
+        divide(_tmphistos[j], _tmphistos[6+j], s2[j]);
       }
       dsId += 2;
       for (size_t j = 3; j < 6; ++j) {
         /// @todo Compactify to two one-liners
-        divide(_tmphistos[3*j], _tmphistos[3*j+1], s3);
+        divide(_tmphistos[3*j], _tmphistos[3*j+1], s3[j-3]);
         dsId += 1;
-        divide(_tmphistos[3*j], _tmphistos[3*j+2], s4);
+        divide(_tmphistos[3*j], _tmphistos[3*j+2], s4[j-3]);
         dsId += 1;
       }
     }
@@ -213,7 +213,7 @@ namespace Rivet {
     /// Next 3 histograms contain the particles in y_loss bins for the whole pT interval (3 histos)
     /// Last 3 histograms contain the particles in pT bins for the whole rapidity (y) interval (3 histos)
     Histo1DPtr _tmphistos[18];
-    Scatter2DPtr s1,s2,s3,s4;
+    array<Scatter2DPtr,3> s1,s2,s3,s4;
     //@}
 
     // Fill the PDG Id to Lifetime[seconds] map

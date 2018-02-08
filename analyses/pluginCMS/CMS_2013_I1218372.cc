@@ -45,8 +45,8 @@ namespace Rivet {
       declare(sfsv, "sfsv");
 
       //counters
-      passedSumOfWeights = 0.;
-      inclEflow = 0.;
+      book(passedSumOfWeights, "passedSumOfWeights");
+      book(inclEflow, "inclEflow");
 
       // Temporary histograms to fill the energy flow for leading jet events.
       // Ratios are calculated in finalyze().
@@ -62,8 +62,6 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
-      const double weight = 1.0;
 
       // Skip if the event is empty
       const FinalState& fsv = apply<FinalState>(event, "fsv");
@@ -116,10 +114,10 @@ namespace Rivet {
       //  ============================== MINIMUM BIAS EVENTS
 
       // loop over particles to calculate the energy
-      passedSumOfWeights += weight;
+      passedSumOfWeights->fill();
 
       foreach (const Particle& p, fsv.particles()) {
-        if (-5.2 > p.eta() && p.eta() > -6.6) inclEflow += weight*p.E()/GeV;
+        if (-5.2 > p.eta() && p.eta() > -6.6) inclEflow->fill(p.E()/GeV);
       }
 
       //  ============================== JET EVENTS
@@ -129,12 +127,12 @@ namespace Rivet {
       if (jets.size()<1) vetoEvent;
 
       if (fabs(jets[0].eta()) < 2.0) {
-        _tmp_njet->fill(jets[0].pT()/GeV, weight);
+        _tmp_njet->fill(jets[0].pT()/GeV);
 
         // energy flow
         foreach (const Particle& p, fsv.particles()) {
           if (p.eta() > -6.6 && p.eta() < -5.2) {  // ask for the CASTOR region
-            _tmp_jet->fill(jets[0].pT()/GeV, weight * p.E()/GeV);
+            _tmp_jet->fill(jets[0].pT()/GeV, p.E()/GeV);
           }
         }
       }
@@ -142,14 +140,14 @@ namespace Rivet {
     }// analysis
 
     void finalize() {
-      scale(_tmp_jet, passedSumOfWeights/inclEflow);
+      scale(_tmp_jet, *passedSumOfWeights / *inclEflow);
       divide(_tmp_jet, _tmp_njet, _h_ratio);
     }
 
   private:
     // counters
-    double passedSumOfWeights;
-    double inclEflow;
+    CounterPtr passedSumOfWeights;
+    CounterPtr inclEflow;
 
     // histograms
     Scatter2DPtr _h_ratio;

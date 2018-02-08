@@ -45,18 +45,16 @@ namespace Rivet {
         book(_h_pT3_pT    ,13, 1, 1);  // transverse pT,      pT_max > 3GeV
       }
 
-      sumOfWeights3  = 0.0;
-      sumOfWeights20 = 0.0;
-
-      _nch_tot_pT3  = 0.0;
-      _nch_tot_pT20 = 0.0;
+      book(sumOfWeights3, "TMP/sumOfWeights3");
+      book(sumOfWeights20, "TMP/sumOfWeights20");
+      book(_nch_tot_pT3, "TMP/nch_tot_pT3");
+      book(_nch_tot_pT20, "TMP/nch_tot_pT20");
     }
 
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      const double weight = 1.0;
-
+ 
       // Find the lead jet, applying a restriction that the jets must be within |eta| < 2.
       FourMomentum p_lead;
       foreach (const Jet& j, apply<FastJets>(event, "Jets").jetsByPt(1.0*GeV)) {
@@ -81,25 +79,25 @@ namespace Rivet {
           const double pT = p.pT()/GeV;
           ptSumTransverse += pT;
 
-          if (pTlead > 3.0*GeV) _h_pT3_pT->fill(pT, weight);
-          if (fuzzyEquals(sqrtS(), 7.0*TeV) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT, weight);
+          if (pTlead > 3.0*GeV) _h_pT3_pT->fill(pT);
+          if (fuzzyEquals(sqrtS(), 7.0*TeV) && pTlead > 20.0*GeV) _h_pT20_pT->fill(pT);
         }
       }
 
       const double area = 8./3. * PI;
-      _h_Nch_vs_pT->fill(pTlead/GeV, 1./area*nTransverse, weight);
-      _h_Sum_vs_pT->fill(pTlead/GeV, 1./area*ptSumTransverse, weight);
+      _h_Nch_vs_pT->fill(pTlead/GeV, 1./area*nTransverse);
+      _h_Sum_vs_pT->fill(pTlead/GeV, 1./area*ptSumTransverse);
       if(pTlead > 3.0*GeV) {
-        _h_pT3_Nch->fill(nTransverse, weight);
-        _h_pT3_Sum->fill(ptSumTransverse, weight);
-        sumOfWeights3 += weight;
-        _nch_tot_pT3  += weight*nTransverse;
+        _h_pT3_Nch->fill(nTransverse);
+        _h_pT3_Sum->fill(ptSumTransverse);
+        sumOfWeights3->fill();
+        _nch_tot_pT3->fill(nTransverse);
       }
       if (fuzzyEquals(sqrtS(), 7.0*TeV) && pTlead > 20.0*GeV) {
-        _h_pT20_Nch->fill(nTransverse, weight);
-        _h_pT20_Sum->fill(ptSumTransverse, weight);
-        sumOfWeights20 += weight;
-        _nch_tot_pT20  += weight*nTransverse;
+        _h_pT20_Nch->fill(nTransverse);
+        _h_pT20_Sum->fill(ptSumTransverse);
+        sumOfWeights20->fill();
+        _nch_tot_pT20->fill(nTransverse);
       }
     }
 
@@ -109,12 +107,12 @@ namespace Rivet {
     void finalize() {
       normalize(_h_pT3_Nch);
       normalize(_h_pT3_Sum);
-      if (sumOfWeights3 != 0.0) normalize(_h_pT3_pT, _nch_tot_pT3 / sumOfWeights3);
+      if (sumOfWeights3->val() != 0.0) normalize(_h_pT3_pT, *_nch_tot_pT3 / *sumOfWeights3);
 
       if (fuzzyEquals(sqrtS(), 7.0*TeV)) {
         normalize(_h_pT20_Nch);
         normalize(_h_pT20_Sum);
-        if (sumOfWeights20 != 0.0) normalize(_h_pT20_pT, _nch_tot_pT20 / sumOfWeights20);
+        if (sumOfWeights20->val() != 0.0) normalize(_h_pT20_pT, *_nch_tot_pT20 / *sumOfWeights20);
       }
     }
 
@@ -122,11 +120,11 @@ namespace Rivet {
 
   private:
 
-    double sumOfWeights3;
-    double sumOfWeights20;
+    CounterPtr sumOfWeights3;
+    CounterPtr sumOfWeights20;
 
-    double _nch_tot_pT3;
-    double _nch_tot_pT20;
+    CounterPtr _nch_tot_pT3;
+    CounterPtr _nch_tot_pT20;
 
     Profile1DPtr _h_Nch_vs_pT;
     Profile1DPtr _h_Sum_vs_pT;
