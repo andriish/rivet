@@ -470,6 +470,7 @@ namespace Rivet {
     virtual bool operator()(const Particle& p) const = 0;
   };
 
+  /// Functor for and-combination of selector logic
   struct BoolParticleAND : public BoolParticleFunctor {
     BoolParticleAND(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
     BoolParticleAND(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
@@ -480,7 +481,13 @@ namespace Rivet {
     }
     std::vector<ParticleSelector> selectors;
   };
+  /// Operator syntactic sugar for AND construction
+  inline BoolParticleAND operator && (const ParticleSelector& a, const ParticleSelector& b) {
+    return BoolParticleAND(a, b);
+  }
 
+
+  /// Functor for or-combination of selector logic
   struct BoolParticleOR : public BoolParticleFunctor {
     BoolParticleOR(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
     BoolParticleOR(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
@@ -491,12 +498,21 @@ namespace Rivet {
     }
     std::vector<ParticleSelector> selectors;
   };
+  /// Operator syntactic sugar for OR construction
+  inline BoolParticleOR operator || (const ParticleSelector& a, const ParticleSelector& b) {
+    return BoolParticleOR(a, b);
+  }
 
+  /// Functor for inverting selector logic
   struct BoolParticleNOT : public BoolParticleFunctor {
     BoolParticleNOT(const ParticleSelector& sel) : selector(sel) {}
     bool operator()(const Particle& p) const { return !selector(p); }
     ParticleSelector selector;
   };
+  /// Operator syntactic sugar for NOT construction
+  inline BoolParticleNOT operator ! (const ParticleSelector& a) {
+    return BoolParticleNOT(a);
+  }
 
 
   /// PID matching functor
