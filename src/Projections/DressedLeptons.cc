@@ -9,7 +9,9 @@ namespace Rivet {
 
   DressedLepton::DressedLepton(const Particle& dlepton)
     : Particle(dlepton)
-  {   }
+  { 
+    setConstituents({{dlepton}}); //< bare lepton is first constituent
+  }
 
   DressedLepton::DressedLepton(const Particle& lepton, const Particles& photons, bool momsum)
     : Particle(lepton.pid(), lepton.momentum())
