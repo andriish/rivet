@@ -499,7 +499,12 @@ can be computed using a range of overloaded external functions of the type
 \code{deltaR(vec1, vec2)}. Angles between such vectors can be calculated via the
 similar \code{angle(vec1, vec2)} functions.
 
-% TODO: we should be specific about the type of rapidity used in DR... and change the default?
+\begin{warning}
+  Developers' note: We should be specific about the type of rapidity used in
+  $\Delta{R}$ calculations\dots and change the default? Pseudorapidity naively
+  corresponds better to detector geometry than rapidity, but it has been shown
+  that this is not true for jets (and presumably also composite particles).
+\end{warning}
 
 \subsubsection{\code{Cut}s}
 The \code{Cut} system is a very powerful innovation in Rivet, allowing clear and
@@ -586,24 +591,52 @@ many functions in Rivet, accept \code{Cut}s and filter function objects as
 optional arguments, e.g.~\code{j.bTags(Cuts::pT > 5*GeV)} will return the subset
 of ghost-associated tagging $b$-hadrons with $\pT > 5~\GeV$.
 
-\subsubsection{Filter functions}
+\subsubsection{Filter functions and filtering functors}
 
-% TODO
+Rivet contains a suite of useful functions for filtering of lists of
+\code{Particle}, \code{Jet}, and \code{FourMomentum} objects (aka
+\code{Particles}, \code{Jets}, and \code{FourMomenta}): \code{filter\_select} \&
+\code{filter\_discard}, and \code{ifilter\_*} equivalents.
 
-\subsubsection{Utils and functors}
+The \code{filter\_*} functions operate on a const list, and return a new one
+with a selection criterion applied; the ``select'' variant keeps objects for
+which the criterion evaluates as true, while the ``discard'' ones keep those for
+which it is false, e.g.~\code{Particles filtered = filter_select(unfiltered,
+  Cuts::absrap < 3)} will return the subset of particles with $|y| < 3$.  The
+\code{ifilter\_} versions operate in-place on a non-const list (hence avoiding
+copying and being a bit more efficient, if you can tolerate having non-const
+lists lying around).
 
-% TODO
+These filtering functions accept either \code{Cut} objects or general function
+objects to define the selection/rejection criterion. So you can also pass in
+simple one-argument \code{Particle} $\to$ \code{bool} functions,
+e.g.~\code{ifilter\_select(allparticles, isNeutral)} (see the
+\kbd{Rivet/Tools/ParticleUtils.hh} header for more such functions). C++11 lambda
+functions also work nicely, but are a bit syntactically ugly: in many cases you
+will be able to more elegantly use stateful function objects like this:
+\code{filter\_discard(jets, hasBTag(Cuts::pT > 5*GeV))} (see
+\kbd{Rivet/Tools/JetUtils.hh}), or even an elegant approach to jet/lepton
+isolation like this:
+%
+\begin{snippet}
+  Particles leptons = leptonfs.particles();
+  for (const Jet\& j : jets())
+    ifilter_discard(leptons, deltaRLess(j, 0.4));
+\end{snippet}
+(see \kbd{Rivet/Tools/ParticleBaseUtils.hh} for lots more kinematic function
+objects which can be applied to all types that can be cast to
+\code{FourMomentum}).
 
-\subsubsection{Smearing and efficiency functions}
+% \subsubsection{Smearing and efficiency functions}
 
 % TODO
 
 \subsubsection{Mathematical utilities}
 The \kbd{Rivet/Math/MathUtils.hh} header defines a variety of mathematical
-utility functions. These include testing functions such as \code{isZero(a)},
-\code{fuzzyEquals(a, b)} and \code{inRange(a, low, high)}, whose purpose is
-hopefully self-evident, and angular range-mapping functions such as
-\code{mapAngle0To2Pi(a)}, \code{mapAngleMPiToPi(a)}, etc.
+utility functions. These include functions such as \code{isZero(a)},
+\code{fuzzyEquals(a, b)}, \code{inRange(a, low, high)} and \code{binIndex(val,
+  binedges)}, whose purposes are hopefully self-evident, and angular range-mapping
+functions such as \code{mapAngle0To2Pi(a)}, \code{mapAngleMPiToPi(a)}, etc.
 
 
 \subsection{Histogramming}
