@@ -44,10 +44,10 @@ namespace Rivet {
       bare_elecs_fs.acceptIdPair(PID::ELECTRON);
 
       Cut lep_cuts = (Cuts::abseta < 2.5) & (Cuts::pT > 1*MeV);
-      DressedLeptons muons(Photon, bare_muons_fs, 0.1, lep_cuts, true, false);
+      DressedLeptons muons(Photon, bare_muons_fs, 0.1, lep_cuts);
       declare(muons, "MUONS");
 
-      DressedLeptons elecs(Photon, bare_elecs_fs, 0.1, lep_cuts, true, false);
+      DressedLeptons elecs(Photon, bare_elecs_fs, 0.1, lep_cuts);
       declare(elecs, "ELECS");
 
       VetoedFinalState vfs;

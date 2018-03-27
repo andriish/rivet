@@ -48,34 +48,51 @@ namespace Rivet {
     virtual bool operator()(const Jet& p) const = 0;
   };
 
+
+  /// Functor for and-combination of selector logic
   struct BoolJetAND : public BoolJetFunctor {
-    BoolJetAND(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
-    BoolJetAND(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
-    BoolJetAND(const ParticleSelector& a, const ParticleSelector& b, const ParticleSelector& c) : selectors({a,b,c}) {}
-    bool operator()(const Particle& p) const {
-      for (const ParticleSelector& sel : selectors) if (!sel(p)) return false;
+    BoolJetAND(const std::vector<JetSelector>& sels) : selectors(sels) {}
+    BoolJetAND(const JetSelector& a, const JetSelector& b) : selectors({a,b}) {}
+    BoolJetAND(const JetSelector& a, const JetSelector& b, const JetSelector& c) : selectors({a,b,c}) {}
+    bool operator()(const Jet& j) const {
+      for (const JetSelector& sel : selectors) if (!sel(j)) return false;
       return true;
     }
-    std::vector<ParticleSelector> selectors;
+    std::vector<JetSelector> selectors;
   };
+  /// Operator syntactic sugar for AND construction
+  inline BoolJetAND operator && (const JetSelector& a, const JetSelector& b) {
+    return BoolJetAND(a, b);
+  }
 
+
+  /// Functor for or-combination of selector logic
   struct BoolJetOR : public BoolJetFunctor {
-    BoolJetOR(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
-    BoolJetOR(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
-    BoolJetOR(const ParticleSelector& a, const ParticleSelector& b, const ParticleSelector& c) : selectors({a,b,c}) {}
-    bool operator()(const Particle& p) const {
-      for (const ParticleSelector& sel : selectors) if (sel(p)) return true;
+    BoolJetOR(const std::vector<JetSelector>& sels) : selectors(sels) {}
+    BoolJetOR(const JetSelector& a, const JetSelector& b) : selectors({a,b}) {}
+    BoolJetOR(const JetSelector& a, const JetSelector& b, const JetSelector& c) : selectors({a,b,c}) {}
+    bool operator()(const Jet& j) const {
+      for (const JetSelector& sel : selectors) if (sel(j)) return true;
       return false;
     }
-    std::vector<ParticleSelector> selectors;
+    std::vector<JetSelector> selectors;
   };
+  /// Operator syntactic sugar for OR construction
+  inline BoolJetOR operator || (const JetSelector& a, const JetSelector& b) {
+    return BoolJetOR(a, b);
+  }
 
+
+  /// Functor for inverting selector logic
   struct BoolJetNOT : public BoolJetFunctor {
-    BoolJetNOT(const ParticleSelector& sel) : selector(sel) {}
-    bool operator()(const Particle& p) const { return !selector(p); }
-    ParticleSelector selector;
+    BoolJetNOT(const JetSelector& sel) : selector(sel) {}
+    bool operator()(const Jet& j) const { return !selector(j); }
+    JetSelector selector;
   };
-
+  /// Operator syntactic sugar for NOT construction
+  inline BoolJetNOT operator ! (const JetSelector& a) {
+    return BoolJetNOT(a);
+  }
 
 
 
@@ -146,6 +163,35 @@ namespace Rivet {
   }
 
   //@}
+
+
+
+  /// @name Operations on collections of Jet
+  /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
+  //@{
+  namespace Kin {
+
+    inline double sumPt(const Jets& js) {
+      return sum(js, pT, 0.0);
+    }
+
+    inline FourMomentum sumP4(const Jets& js) {
+      return sum(js, p4, FourMomentum());
+    }
+
+    inline Vector3 sumP3(const Jets& js) {
+      return sum(js, p3, Vector3());
+    }
+
+    /// @todo Min dPhi, min dR?
+    /// @todo Isolation routines?
+
+  }
+  //@}
+
+
+  // Import Kin namespace into Rivet
+  using namespace Kin;
 
 
 }

@@ -337,22 +337,13 @@ namespace Rivet {
   ///
   /// @note The @a binedges vector must be sorted
   /// @todo Use std::common_type<NUM1, NUM2>::type x = val; ?
-  template <typename NUM1, typename NUM2>
-  inline typename std::enable_if<std::is_arithmetic<NUM1>::value && std::is_arithmetic<NUM2>::value, int>::type
-  binIndex(NUM1 val, const vector<NUM2>& binedges, bool allow_overflow=false) {
+  template <typename NUM, typename CONTAINER>
+  inline typename std::enable_if<std::is_arithmetic<NUM>::value && std::is_arithmetic<typename CONTAINER::value_type>::value, int>::type
+  binIndex(NUM val, const CONTAINER& binedges, bool allow_overflow=false) {
     if (val < binedges.front()) return -1; ///< Below/out of histo range
     if (val >= binedges.back()) return allow_overflow ? int(binedges.size())-1 : -1; ///< Above/out of histo range
-    return std::distance(binedges.begin(), --std::upper_bound(binedges.begin(), binedges.end(), val));
-    //
-    // int index = -1;
-    // for (size_t i = 1; i < binedges.size(); ++i) {
-    //   if (val < binedges[i]) {
-    //     index = i-1;
-    //     break;
-    //   }
-    // }
-    // assert(inRange(index, -1, int(binedges.size())-1));
-    // return index;
+    auto it = std::upper_bound(binedges.begin(), binedges.end(), val);
+    return std::distance(binedges.begin(), --it);
   }
 
   //@}
@@ -568,11 +559,17 @@ namespace Rivet {
     return fabs(y1 - y2);
   }
 
+  /// Calculate the squared distance between two points in 2D rapidity-azimuthal
+  /// ("\f$ \eta-\phi \f$") space. The phi values are given in radians.
+  inline double deltaR2(double rap1, double phi1, double rap2, double phi2) {
+    const double dphi = deltaPhi(phi1, phi2);
+    return sqr(rap1-rap2) + sqr(dphi);
+  }
+
   /// Calculate the distance between two points in 2D rapidity-azimuthal
   /// ("\f$ \eta-\phi \f$") space. The phi values are given in radians.
   inline double deltaR(double rap1, double phi1, double rap2, double phi2) {
-    const double dphi = deltaPhi(phi1, phi2);
-    return sqrt( sqr(rap1-rap2) + sqr(dphi) );
+    return sqrt(deltaR2(rap1, phi1, rap2, phi2));
   }
 
   /// Calculate a rapidity value from the supplied energy @a E and longitudinal momentum @a pz.
@@ -589,6 +586,13 @@ namespace Rivet {
   }
 
   //@}
+
+
+  /// Calculate transverse mass of two vectors from provided pT and deltaPhi
+  /// @note Several versions taking two vectors are found in Vector4.hh
+  inline double mT(double pT1, double pT2, double dphi) {
+    return sqrt(2*pT1*pT2 * (1 - cos(dphi)) );
+  }
 
 
 }

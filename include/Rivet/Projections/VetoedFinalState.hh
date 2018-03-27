@@ -9,7 +9,6 @@ namespace Rivet {
 
   /// @brief FS modifier to exclude classes of particles from the final state.
   class VetoedFinalState : public FinalState {
-
   public:
 
     /// Typedef for a pair of back-to-back cuts.
@@ -48,7 +47,7 @@ namespace Rivet {
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
     /// \f$ p_{Tmax} \f$ - these define the range of particles to be vetoed.
-    /// This version also supplies a specifi FinalState to be used.
+    /// This version also supplies a specific FinalState to be used.
     VetoedFinalState(const FinalState& fsp, const VetoDetails& vetocodes)
       : _vetoCodes(vetocodes)
     {
@@ -63,7 +62,6 @@ namespace Rivet {
     //@}
 
 
-  public:
 
     /// Get the list of particle IDs and \f$ p_T \f$ ranges to veto.
     const VetoDetails& vetoDetails() const {
@@ -123,7 +121,7 @@ namespace Rivet {
     /// Veto the decay products of particle with pdg id
     /// @todo Need HepMC to sort themselves out and keep vector bosons from
     /// the hard vtx in the event record before this will work reliably for all pdg ids
-    VetoedFinalState& addDecayProductsVeto(const long id){
+    VetoedFinalState& addDecayProductsVeto(const long id) {
       _parentVetoes.insert(id);
       return *this;
     }
@@ -141,16 +139,14 @@ namespace Rivet {
     }
 
 
-    /// Veto particles from a supplied final state.
-    VetoedFinalState& addVetoOnThisFinalState(const FinalState& fs) {
+    /// Veto particles from a supplied final state
+    VetoedFinalState& addVetoOnThisFinalState(const ParticleFinder& fs) {
       const string name = "FS_" + to_str(_vetofsnames.size());
       addProjection(fs, name);
       _vetofsnames.insert(name);
       return *this;
     }
 
-
-  protected:
 
     /// Apply the projection on the supplied event.
     void project(const Event& e);

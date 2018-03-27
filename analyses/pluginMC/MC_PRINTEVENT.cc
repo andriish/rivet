@@ -37,11 +37,11 @@ namespace Rivet {
       // bosons
       _pnames[21] = "g";
       _pnames[22] = "gamma";
-      _pnames[23] = "W+";
-      _pnames[-23] = "W-";
-      _pnames[-24] = "Z0";
-      _pnames[-25] = "h0";
-      _pnames[-26] = "h0";
+      _pnames[23] = "Z0";
+      _pnames[24] = "W+";
+      _pnames[-24] = "W-";
+      _pnames[25] = "h0";
+      _pnames[26] = "h0";
       // leptons
       _pnames[11] = "e-";
       _pnames[-11] = "e+";

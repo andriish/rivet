@@ -37,6 +37,9 @@ namespace Rivet {
   PARTICLE_TO_PID_BOOLFN(isChargedLepton)
   PARTICLE_TO_PID_BOOLFN(isChLepton)
 
+  /// Determine if the PID is that of a lepton (charged or neutral)
+  PARTICLE_TO_PID_BOOLFN(isLepton)
+
   /// Determine if the PID is that of a photon
   PARTICLE_TO_PID_BOOLFN(isPhoton)
 
@@ -467,6 +470,7 @@ namespace Rivet {
     virtual bool operator()(const Particle& p) const = 0;
   };
 
+  /// Functor for and-combination of selector logic
   struct BoolParticleAND : public BoolParticleFunctor {
     BoolParticleAND(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
     BoolParticleAND(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
@@ -477,7 +481,13 @@ namespace Rivet {
     }
     std::vector<ParticleSelector> selectors;
   };
+  /// Operator syntactic sugar for AND construction
+  inline BoolParticleAND operator && (const ParticleSelector& a, const ParticleSelector& b) {
+    return BoolParticleAND(a, b);
+  }
 
+
+  /// Functor for or-combination of selector logic
   struct BoolParticleOR : public BoolParticleFunctor {
     BoolParticleOR(const std::vector<ParticleSelector>& sels) : selectors(sels) {}
     BoolParticleOR(const ParticleSelector& a, const ParticleSelector& b) : selectors({a,b}) {}
@@ -488,12 +498,21 @@ namespace Rivet {
     }
     std::vector<ParticleSelector> selectors;
   };
+  /// Operator syntactic sugar for OR construction
+  inline BoolParticleOR operator || (const ParticleSelector& a, const ParticleSelector& b) {
+    return BoolParticleOR(a, b);
+  }
 
+  /// Functor for inverting selector logic
   struct BoolParticleNOT : public BoolParticleFunctor {
     BoolParticleNOT(const ParticleSelector& sel) : selector(sel) {}
     bool operator()(const Particle& p) const { return !selector(p); }
     ParticleSelector selector;
   };
+  /// Operator syntactic sugar for NOT construction
+  inline BoolParticleNOT operator ! (const ParticleSelector& a) {
+    return BoolParticleNOT(a);
+  }
 
 
   /// PID matching functor
@@ -687,6 +706,35 @@ namespace Rivet {
   }
 
   //@}
+
+
+
+  /// @name Operations on collections of Particle
+  /// @note This can't be done on generic collections of ParticleBase -- thanks, C++ :-/
+  //@{
+  namespace Kin {
+
+    inline double sumPt(const Particles& ps) {
+      return sum(ps, pT, 0.0);
+    }
+
+    inline FourMomentum sumP4(const Particles& ps) {
+      return sum(ps, p4, FourMomentum());
+    }
+
+    inline Vector3 sumP3(const Particles& ps) {
+      return sum(ps, p3, Vector3());
+    }
+
+    /// @todo Min dPhi, min dR?
+    /// @todo Isolation routines?
+
+  }
+  //@}
+
+
+  // Import Kin namespace into Rivet
+  using namespace Kin;
 
 
 }

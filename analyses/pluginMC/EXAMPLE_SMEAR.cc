@@ -27,7 +27,7 @@ namespace Rivet {
       MissingMomentum mm(Cuts::abseta < 5);
       declare(mm, "MET0");
 
-      SmearedMET smm1(mm, MET_SMEAR_IDENTITY);
+      SmearedMET smm1(mm, MET_SMEAR_ATLAS_RUN2);
       declare(smm1, "MET1");
 
       SmearedMET smm2(mm, [](const Vector3& met, double){ return P3_SMEAR_LEN_GAUSS(met, 0.1*met.mod()); });
@@ -40,15 +40,15 @@ namespace Rivet {
       SmearedJets sj1(fj, JET_SMEAR_IDENTITY);
       declare(sj1, "Jets1");
 
-      SmearedJets sj2(fj, JET_SMEAR_ATLAS_RUN1,
+      SmearedJets sj2(fj, JET_SMEAR_ATLAS_RUN2,
                       [](const Jet& j){ return j.bTagged() ? 0.7*(1 - exp(-j.pT()/(10*GeV))) : 0.01; } );
       declare(sj2, "Jets2");
 
       SmearedJets sj3(fj,
-                      [](const Jet& j){ return j; },
+                      JET_SMEAR_CMS_RUN2,
                       JET_BTAG_EFFS(0.7, 0.1, 0.01),
                       JET_CTAG_PERFECT,
-                      [](const Jet& j){ return 0.8; });
+                      JET_EFF_CONST(0.8));
       declare(sj3, "Jets3");
 
 
@@ -59,21 +59,21 @@ namespace Rivet {
       declare(truthelectrons, "Electrons0");
       DressedLeptons dressedelectrons(photons, truthelectrons, 0.2);
       declare(dressedelectrons, "Electrons1");
-      SmearedParticles recoelectrons(truthelectrons, ELECTRON_EFF_ATLAS_RUN1, ELECTRON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedelectrons yet...
+      SmearedParticles recoelectrons(dressedelectrons, ELECTRON_EFF_ATLAS_RUN2, ELECTRON_SMEAR_ATLAS_RUN2);
       declare(recoelectrons, "Electrons2");
 
       IdentifiedFinalState truthmuons(Cuts::abseta < 5 && Cuts::pT > 10*GeV, {{PID::MUON, PID::ANTIMUON}});
       declare(truthmuons, "Muons0");
       DressedLeptons dressedmuons(photons, truthmuons, 0.2);
       declare(dressedmuons, "Muons1");
-      SmearedParticles recomuons(truthmuons, MUON_EFF_ATLAS_RUN1, MUON_SMEAR_ATLAS_RUN1); //< @note Can't use dressedmuons yet...
+      SmearedParticles recomuons(dressedmuons, MUON_EFF_ATLAS_RUN2, MUON_SMEAR_ATLAS_RUN2);
       declare(recomuons, "Muons2");
 
       TauFinder truthtaus(TauFinder::ANY, Cuts::abseta < 5 && Cuts::pT > 10*GeV);
       declare(truthtaus, "Taus0");
       DressedLeptons dressedtaus(photons, truthtaus, 0.2);
       declare(dressedtaus, "Taus1");
-      SmearedParticles recotaus(truthtaus, TAU_EFF_ATLAS_RUN1, TAU_SMEAR_ATLAS_RUN1); //< @note Can't use dressedtaus yet...
+      SmearedParticles recotaus(dressedtaus, TAU_EFF_ATLAS_RUN2, TAU_SMEAR_ATLAS_RUN2);
       declare(recotaus, "Taus2");
 
 
@@ -185,6 +185,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
+      normalize(_h_met_true);
+      normalize(_h_met_reco);
+
       normalize(_h_nj_true);
       normalize(_h_nj_reco);
       normalize(_h_j1pt_true, 1-_h_nj_true->bin(0).area());

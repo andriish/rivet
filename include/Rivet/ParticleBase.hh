@@ -20,6 +20,16 @@ namespace Rivet {
     virtual ~ParticleBase() { }
 
 
+    // /// @name Constituent accessors
+    // //@{
+
+    // /// @todo Can't do this because a) ParticleBase is pure-virtual; b) inheritance causality for Particle... urk
+    // virtual const vector<ParticleBase>& constituents() const = 0;
+    // virtual const vector<ParticleBase>& rawConstituents() const = 0;
+
+    // //@}
+
+
     /// @name Effective momentum accessors
     //@{
 

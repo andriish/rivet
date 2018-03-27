@@ -1,8 +1,37 @@
 #include "Rivet/Particle.hh"
 #include "Rivet/Tools/Cuts.hh"
 #include "Rivet/Tools/ParticleIdUtils.hh"
+#include "Rivet/Tools/ParticleUtils.hh"
 
 namespace Rivet {
+
+
+  void Particle::setConstituents(const vector<Particle>& cs, bool setmom) {
+    _constituents = cs;
+    if (setmom) _momentum = sum(cs, p4, FourMomentum());
+  }
+
+
+  void Particle::addConstituent(const Particle& c, bool addmom) {
+    _constituents += c;
+    if (addmom) _momentum += c;
+  }
+
+
+  void Particle::addConstituents(const vector<Particle>& cs, bool addmom) {
+    _constituents += cs;
+    if (addmom)
+      for (const Particle& c : cs)
+        _momentum += c;
+  }
+
+
+  vector<Particle> Particle::rawConstituents() const {
+    if (!isComposite()) return Particles{*this};
+    vector<Particle> rtn;
+    for (const Particle& p : constituents()) rtn += p.rawConstituents();
+    return rtn;
+  }
 
 
   Particle& Particle::transformBy(const LorentzTransform& lt) {
@@ -34,6 +63,11 @@ namespace Rivet {
 
   vector<Particle> Particle::ancestors(const Cut& c, bool physical_only) const {
     vector<Particle> rtn;
+
+    // this case needed protecting against (at least for the latest Herwig... not sure why
+    // it didn't show up earlier
+    if (genParticle() == NULL) return rtn;
+
     /// @todo Remove this const mess crap when HepMC doesn't suck
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
     if (gv == NULL) return rtn;
@@ -233,29 +267,23 @@ namespace Rivet {
   ///////////////////////
 
 
-
-  string to_str(const Particle& p) {
+  /// Allow a Particle to be passed to an ostream.
+  std::ostream& operator << (std::ostream& os, const Particle& p) {
     string pname;
     try {
       pname = PID::toParticleName(p.pid());
     } catch (...) {
       pname = "PID=" + to_str(p.pid());
     }
-    stringstream out;
-    out << pname << " @ " << p.momentum() << " GeV";
-    return out.str();
+    os << "Particle<" << pname << " @ " << p.momentum()/GeV << " GeV>";
+    return os;
   }
 
 
-  string to_str(const ParticlePair& pair) {
-    stringstream out;
-    out << "[" << pair.first << ", " << pair.second << "]";
-    // out << "["
-    //     << PID::toParticleName(pair.first.pid()) << " @ "
-    //     << pair.first.momentum().E()/GeV << " GeV, "
-    //     << PID::toParticleName(pair.second.pid()) << " @ "
-    //     << pair.second.momentum().E()/GeV << " GeV]";
-    return out.str();
+  /// Allow ParticlePair to be passed to an ostream.
+  std::ostream& operator << (std::ostream& os, const ParticlePair& pp) {
+    os << "[" << pp.first << ", " << pp.second << "]";
+    return os;
   }
 
 

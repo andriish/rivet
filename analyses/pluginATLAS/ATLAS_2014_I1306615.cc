@@ -1,10 +1,3 @@
-/*
- * Rivet routine for H->yy differential cross-sections measurement
- * arXiv: http://arxiv.org/abs/ARXIV:1407.4222
- * HepData: http://hepdata.cedar.ac.uk/view/ins1306615
- * Author: Michaela Queitsch-Maitland <michaela.queitsch-maitland@cern.ch>
- */
-
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/DressedLeptons.hh"
@@ -13,6 +6,13 @@
 
 namespace Rivet {
 
+
+  /// @brief ATLAS H->yy differential cross-sections measurement
+  ///
+  /// @author Michaela Queitsch-Maitland <michaela.queitsch-maitland@cern.ch>
+  //
+  // arXiv: http://arxiv.org/abs/ARXIV:1407.4222
+  // HepData: http://hepdata.cedar.ac.uk/view/ins1306615
   class ATLAS_2014_I1306615 : public Analysis {
   public:
 
@@ -21,7 +21,6 @@ namespace Rivet {
       : Analysis("ATLAS_2014_I1306615")
     {    }
 
-  public:
 
     // Book histograms and initialise projections before the run
     void init() {
@@ -46,7 +45,7 @@ namespace Rivet {
       declare(el_bare_FS,"el_bare_FS");
 
       // Project dressed electrons with pT > 15 GeV and |eta| < 2.47
-      DressedLeptons el_dressed_FS(ph_dressing_FS, el_bare_FS, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 15*GeV, true, false);
+      DressedLeptons el_dressed_FS(ph_dressing_FS, el_bare_FS, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 15*GeV);
       declare(el_dressed_FS,"EL_DRESSED_FS");
 
       // Project bare muons
@@ -55,7 +54,7 @@ namespace Rivet {
 
       // Project dressed muons with pT > 15 GeV and |eta| < 2.47
       //DressedLeptons mu_dressed_FS(ph_dressing_FS, mu_bare_FS, 0.1, true, -2.47, 2.47, 15.0*GeV, false);
-      DressedLeptons mu_dressed_FS(ph_dressing_FS, mu_bare_FS, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 15*GeV, true, false);
+      DressedLeptons mu_dressed_FS(ph_dressing_FS, mu_bare_FS, 0.1, Cuts::abseta < 2.47 && Cuts::pT > 15*GeV);
       declare(mu_dressed_FS,"MU_DRESSED_FS");
 
       // Final state excluding muons and neutrinos (for jet building and photon isolation)
@@ -372,6 +371,7 @@ namespace Rivet {
     // Trace event record to see if particle came from a hadron (or a tau from a hadron decay)
     // Based on fromDecay() function
     bool fromHadronDecay(const Particle& p ) {
+      if (p.genParticle() == NULL) return false;
       const GenVertex* prodVtx = p.genParticle()->production_vertex();
       if (prodVtx == NULL) return false;
       foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {

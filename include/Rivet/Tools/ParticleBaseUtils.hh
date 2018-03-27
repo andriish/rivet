@@ -383,8 +383,8 @@ namespace Rivet {
 
   /// Calculator of @f$ \Delta R @f$ with respect to a given momentum
   struct DeltaRWRT : public DoubleParticleBaseFunctor {
-    DeltaRWRT(const ParticleBase& pb, RapScheme scheme=PSEUDORAPIDITY) : p(pb.mom()) {}
-    DeltaRWRT(const FourMomentum& p4, RapScheme scheme=PSEUDORAPIDITY) : p(p4) {}
+    DeltaRWRT(const ParticleBase& pb, RapScheme scheme=PSEUDORAPIDITY) : p(pb.mom()), rapscheme(scheme) {}
+    DeltaRWRT(const FourMomentum& p4, RapScheme scheme=PSEUDORAPIDITY) : p(p4), rapscheme(scheme) {}
     DeltaRWRT(const Vector3& p3) : p(p3.mod(), p3.x(), p3.y(), p3.z()), rapscheme(PSEUDORAPIDITY) {}
     double operator()(const ParticleBase& pb) const { return deltaR(p, pb, rapscheme); }
     double operator()(const FourMomentum& p4) const { return deltaR(p, p4, rapscheme); }
@@ -461,6 +461,8 @@ namespace Rivet {
 
     /// Unbound function access to momentum
     inline FourMomentum mom(const ParticleBase& p) { return p.mom(); }
+    /// Unbound function access to momentum
+    inline FourMomentum p4(const ParticleBase& p) { return p.mom(); }
 
     /// Unbound function access to p3
     inline Vector3 p3(const ParticleBase& p) { return p.p3(); }
@@ -490,8 +492,11 @@ namespace Rivet {
     inline double absrap(const ParticleBase& p) { return p.absrap(); }
 
   }
-  using namespace Kin;
   //@}
+
+
+  // Import Kin namespace into Rivet
+  using namespace Kin;
 
 
 }

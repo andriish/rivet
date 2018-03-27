@@ -43,9 +43,7 @@ namespace Rivet {
     /// Do the analysis
     void analyze(const Event & e) {
       const ZFinder& zfinder = apply<ZFinder>(e, "ZFinder");
-      if (zfinder.bosons().size()!=1) {
-        vetoEvent;
-      }
+      if (zfinder.bosons().size() != 1) vetoEvent;
       const double weight = e.weight();
 
       FourMomentum zmom(zfinder.bosons()[0].momentum());
@@ -54,7 +52,7 @@ namespace Rivet {
       _h_Z_pT_peak->fill(zmom.pT()/GeV, weight);
       _h_Z_y->fill(zmom.rapidity(), weight);
       _h_Z_phi->fill(zmom.phi(), weight);
-      foreach (const Particle& l, zfinder.constituents()) {
+      for (const Particle& l : zfinder.constituents()) {
         _h_lepton_pT->fill(l.pT()/GeV, weight);
         _h_lepton_eta->fill(l.eta(), weight);
       }

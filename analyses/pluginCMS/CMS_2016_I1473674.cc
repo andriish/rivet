@@ -37,14 +37,14 @@ namespace Rivet {
       el_id.acceptIdPair(PID::ELECTRON);
       PromptFinalState electrons(el_id);
       addProjection(electrons, "Electrons");
-      DressedLeptons dressed_electrons(photons, electrons, 0.1, Cuts::open(), true, false);
+      DressedLeptons dressed_electrons(photons, electrons, 0.1);
       addProjection(dressed_electrons, "DressedElectrons");
       //
       IdentifiedFinalState mu_id(fs);
       mu_id.acceptIdPair(PID::MUON);
       PromptFinalState muons(mu_id);
       addProjection(muons, "Muons");
-      DressedLeptons dressed_muons(photons, muons, 0.1, Cuts::open(), true, false);
+      DressedLeptons dressed_muons(photons, muons, 0.1);
       addProjection(dressed_muons, "DressedMuons");
 
       // Projection for jets

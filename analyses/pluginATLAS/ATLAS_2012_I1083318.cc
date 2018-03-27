@@ -9,25 +9,14 @@
 
 namespace Rivet {
 
-  
-
 
   /// ATLAS W + jets production at 7 TeV
   class ATLAS_2012_I1083318 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    ATLAS_2012_I1083318()
-      : Analysis("ATLAS_2012_I1083318")
-    {    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2012_I1083318);
 
-    //@}
-
-
-  public:
 
     /// @name Analysis methods
     //@{
@@ -183,9 +172,12 @@ namespace Rivet {
         for (size_t n = 1; n < _h_NjetIncl[i]->numBins(); ++n) {
           YODA::HistoBin1D& b0 = _h_NjetIncl[i]->bin(n-1);
           YODA::HistoBin1D& b1 = _h_NjetIncl[i]->bin(n);
-          if (b0.height() == 0.0 || b1.height() == 0.0) continue;
-          _h_RatioNjetIncl[i]->addPoint(n, b1.height()/b0.height(), 0.5,
-                                        b1.height()/b0.height() * (b0.relErr() + b1.relErr()));
+          double val = 0.0, err= 0.0;
+          if (b0.height() && b1.height()) {
+            val = b1.height() / b0.height();
+            err = b1.height() / b0.height() * (b0.relErr() + b1.relErr());
+          }
+          _h_RatioNjetIncl[i]->addPoint(n, val, 0.5, err);
         }
 
         // Scale all histos to the cross section

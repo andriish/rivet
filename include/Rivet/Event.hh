@@ -47,6 +47,15 @@ namespace Rivet {
     /// @name Major event properties
     //@{
 
+    /// The generated event obtained from an external event generator
+    const GenEvent* genEvent() const { return &_genevent; }
+
+    /// @brief The generation weight associated with the event
+    ///
+    /// @todo This needs to be revisited when we finally add the mechanism to
+    /// support NLO counter-events and weight vectors.
+    double weight() const;
+
     /// Get the beam particles
     ParticlePair beams() const;
 
@@ -56,14 +65,20 @@ namespace Rivet {
     /// Get the beam centre-of-mass energy per nucleon
     double asqrtS() const;
 
+    /// Get the generator centrality (impact-parameter quantile in [0,1]; or -1 if undefined (usual for non-HI generators))
+    double centrality() const;
+
     // /// Get the boost to the beam centre-of-mass
     // Vector3 beamCMSBoost() const;
 
     // /// Get the boost to the beam centre-of-mass
     // LorentzTransform beamCMSTransform();
 
-    /// The generated event obtained from an external event generator
-    const GenEvent* genEvent() const { return &_genevent; }
+    //@}
+
+
+    /// @name Access to event particles
+    //@{
 
     /// All the raw GenEvent particles, wrapped in Rivet::Particle objects
     const Particles& allParticles() const;
@@ -83,12 +98,6 @@ namespace Rivet {
       return filter_select(allParticles(), f);
     }
 
-    /// @brief The generation weight associated with the event
-    ///
-    /// @todo This needs to be revisited when we finally add the mechanism to
-    /// support NLO counter-events and weight vectors.
-    double weight() const;
-
     //@}
 
 
@@ -104,19 +113,24 @@ namespace Rivet {
     /// called and a reference to @a p is returned.
     template <typename PROJ>
     const PROJ& applyProjection(PROJ& p) const {
+      Log& log = Log::getLog("Rivet.Event");
+      log << Log::TRACE << "Applying projection " << &p << " (" << p.name() << ") -> comparing to projections " << _projections << endl;
+      // First search for this projection *or an equivalent* in the already-executed list
       const Projection* cpp(&p);
       std::set<const Projection*>::const_iterator old = _projections.find(cpp);
       if (old != _projections.end()) {
+        log << Log::TRACE << "Equivalent projection found -> returning already-run projection " << *old << endl;
         const Projection& pRef = **old;
         return pcast<PROJ>(pRef);
       }
-      // Add the projection via the Projection base class (only
-      // possible because Event is a friend of Projection)
+      // If this one hasn't been run yet on this event, run it and add to the list
+      log << Log::TRACE << "No equivalent projection in the already-run list -> projecting now" << endl;
       Projection* pp = const_cast<Projection*>(cpp);
       pp->project(*this);
       _projections.insert(pp);
       return p;
     }
+
 
     /// @brief Add a projection @a p to this Event by pointer.
     template <typename PROJ>

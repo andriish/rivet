@@ -9,6 +9,7 @@
 
 namespace Rivet {
 
+
   /// @brief ATLAS 7 TeV pseudo-top analysis
   ///
   /// @author K .Finelli <kevin.finelli@cern.ch>
@@ -41,13 +42,13 @@ namespace Rivet {
       electrons.acceptTauDecays(true);
       declare(electrons, "electrons");
 
-      DressedLeptons dressedelectrons(photons, electrons, 0.1, eta_lep & (Cuts::pT >= 25.0*GeV), true, true);
+      DressedLeptons dressedelectrons(photons, electrons, 0.1, eta_lep && Cuts::pT > 25*GeV, true);
       declare(dressedelectrons, "dressedelectrons");
 
-      DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full, true, true);
+      DressedLeptons ewdressedelectrons(photons, electrons, 0.1, eta_full, true);
       declare(ewdressedelectrons, "ewdressedelectrons");
 
-      DressedLeptons vetodressedelectrons(photons, electrons, 0.1, eta_lep & (Cuts::pT >= 15.0*GeV), true, true);
+      DressedLeptons vetodressedelectrons(photons, electrons, 0.1, eta_lep && Cuts::pT > 15*GeV, true);
       declare(vetodressedelectrons, "vetodressedelectrons");
 
       // Projection to find the muons
@@ -56,11 +57,11 @@ namespace Rivet {
       PromptFinalState muons(mu_id);
       muons.acceptTauDecays(true);
       declare(muons, "muons");
-      DressedLeptons dressedmuons(photons, muons, 0.1, eta_lep & (Cuts::pT >= 25.0*GeV), true, true);
+      DressedLeptons dressedmuons(photons, muons, 0.1, eta_lep && Cuts::pT > 25*GeV, true);
       declare(dressedmuons, "dressedmuons");
-      DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full, true, true);
+      DressedLeptons ewdressedmuons(photons, muons, 0.1, eta_full, true);
       declare(ewdressedmuons, "ewdressedmuons");
-      DressedLeptons vetodressedmuons(photons, muons, 0.1, eta_lep & (Cuts::pT >= 15.0*GeV), true, true);
+      DressedLeptons vetodressedmuons(photons, muons, 0.1, eta_lep && Cuts::pT > 15*GeV, true);
       declare(vetodressedmuons, "vetodressedmuons");
 
       // Projection to find neutrinos and produce MET

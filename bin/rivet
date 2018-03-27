@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 """\
-Run Rivet analyses on inputted events from file or Unix pipe
+Run Rivet analyses on HepMC events read from a file or Unix pipe
 
 Examples:
 
@@ -9,6 +9,7 @@ Examples:
 
   or
 
+  mkfifo fifo.hepmc
   my_generator -o fifo.hepmc &
   %prog [options] fifo.hepmc
 
@@ -17,8 +18,10 @@ ENVIRONMENT:
  * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
      analysis libraries at runtime
  * RIVET_DATA_PATH: list of paths to be searched for data files
+ * See the documentation for more environment variables.
 """
 
+from __future__ import print_function
 import os, sys
 
 ## Load the rivet module
@@ -76,6 +79,8 @@ parser.add_option_group(anagroup)
 extragroup = OptionGroup(parser, "Extra run settings")
 extragroup.add_option("-o", "-H", "--histo-file", dest="HISTOFILE",
                       default="Rivet.yoda", help="specify the output histo file path (default = %default)")
+extragroup.add_option("-p", "--preload-file", dest="PRELOADFILE",
+                      default=None, help="specify and old yoda file to initialize (default = %default)")
 extragroup.add_option("--no-histo-file", dest="WRITE_DATA", action="store_false", default=True,
                       help="don't write out any histogram file at the end of the run (default = write)")
 extragroup.add_option("-x", "--cross-section", dest="CROSS_SECTION",
@@ -188,37 +193,40 @@ if opts.LIST_ANALYSES:
     if args:
         import re
         regexes = [re.compile(arg, re.I) for arg in args]
-    try:
-        # import tempfile, subprocess
-        # tf, tfpath = tempfile.mkstemp(prefix="rivet-list.")
-        for aname in all_analyses:
-            if not regexes:
-                toshow = True
-            else:
-                toshow = False
-                for regex in regexes:
-                    if regex.search(aname):
-                        toshow = True
-                        break
-            if toshow:
-                msg = aname
-                if opts.LOGLEVEL <= logging.INFO:
-                    a = rivet.AnalysisLoader.getAnalysis(aname)
-                    st = "" if a.status() == "VALIDATED" else ("[" + a.status() + "] ")
-                    msg = "%-25s   %s" % (aname, st + rivet.util.detex(a.summary()))
-                    if opts.LOGLEVEL < logging.INFO:
-                        if a.keywords():
-                            msg += "  [" + " ".join(a.keywords()) + "]"
-                        if a.luminosityfb():
-                            msg += "  [ \int L = %s fb^{-1} ]"%a.luminosityfb()
-                print msg
-                #os.write(tf, msg + "\n")
-        # if os.path.getsize(tfpath) > 0:
-        #     pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
-        #     pager.communicate()
-    finally:
-        # os.unlink(tfpath) #< always clean up
-        pass
+    # import tempfile, subprocess
+    # tf, tfpath = tempfile.mkstemp(prefix="rivet-list.")
+    names = []
+    msg = []
+    for aname in all_analyses:
+        if not regexes:
+            toshow = True
+        else:
+            toshow = False
+            for regex in regexes:
+                if regex.search(aname):
+                    toshow = True
+                    break
+        if toshow:
+            names.append(aname)
+            msg.append('')
+            if opts.LOGLEVEL <= logging.INFO:
+                a = rivet.AnalysisLoader.getAnalysis(aname)
+                st = "" if a.status() == "VALIDATED" else ("[%s] " % a.status())
+                # detex will very likely introduce some non-ASCII chars from
+                # greek names in analysis titles.
+                # The u"" prefix and explicit print encoding are necessary for
+                # py2 to handle this properly
+                msg[-1] = u"%s%s" % (st, a.summary())
+                if opts.LOGLEVEL < logging.INFO:
+                    if a.keywords():
+                        msg[-1] += u"  [%s]" % " ".join(a.keywords())
+                    if a.luminosityfb():
+                        msg[-1] += u"  [ \int L = %s fb^{-1} ]" % a.luminosityfb()
+    msg = rivet.util.detex(msg)
+    retlist = '\n'.join([ u"%-25s   %s" % (a,m) for a,m in zip(names,msg) ])
+    if type(u'') is not str:
+        retlist = retlist.encode('utf-8')
+    print(retlist)
     sys.exit(0)
 
 
@@ -234,7 +242,7 @@ def getKeywords(alist):
 if opts.LIST_KEYWORDS:
     # a = rivet.AnalysisLoader.getAnalysis(aname)
     for k in getKeywords(all_analyses):
-        print k
+        print(k)
     sys.exit(0)
 
 
@@ -355,13 +363,13 @@ if len(opts.SHOW_ANALYSES) > 0:
         try:
             import tempfile, subprocess
             tffd, tfpath = tempfile.mkstemp(prefix="rivet-show.")
-            os.write(tffd, "\n\n".join(msgs))
+            os.write(tffd, u"\n\n".join(msgs).encode('utf-8'))
             if sys.stdout.isatty():
                 pager = subprocess.Popen(["less", "-FX", tfpath]) #, stdin=subprocess.PIPE)
                 pager.communicate()
             else:
                 f = open(tfpath)
-                print f.read()
+                print(f.read())
                 f.close()
         finally:
             os.unlink(tfpath) #< always clean up
@@ -424,7 +432,7 @@ if opts.CROSS_SECTION is not None:
 ## Print the available CLI options!
 #if opts.LIST_OPTIONS:
 #    for o in parser.option_list:
-#        print o.get_opt_string()
+#        print(o.get_opt_string())
 #    sys.exit(0)
 
 
@@ -493,6 +501,7 @@ if not os.access(histo_parentdir,os.W_OK):
 RUNNAME = opts.RUN_NAME or ""
 ah = rivet.AnalysisHandler(RUNNAME)
 ah.setIgnoreBeams(opts.IGNORE_BEAMS)
+
 for a in opts.ANALYSES:
     ## Print warning message and exit if not a valid analysis name
     if not a in all_analyses:
@@ -503,6 +512,9 @@ for a in opts.ANALYSES:
     logging.debug("Adding analysis '%s'" % a)
     ah.addAnalysis(a)
 
+if opts.PRELOADFILE is not None:
+    ah.readData(opts.PRELOADFILE)
+
 
 if opts.SHOW_BIBTEX:
     bibs = []
@@ -510,10 +522,10 @@ if opts.SHOW_BIBTEX:
         ana = rivet.AnalysisLoader.getAnalysis(aname)
         bibs.append("% " + aname + "\n" + ana.bibTeX())
     if bibs:
-        print "\nBibTeX for used Rivet analyses:\n"
-        print "% --------------------------\n"
-        print "\n\n".join(bibs) + "\n"
-        print "% --------------------------\n"
+        print("\nBibTeX for used Rivet analyses:\n")
+        print("% --------------------------\n")
+        print("\n\n".join(bibs) + "\n")
+        print("% --------------------------\n")
 
 
 ## Read and process events
@@ -533,13 +545,9 @@ logging.info("Rivet %s running on machine %s (%s) at %s" % \
 
 def min_nonnull(a, b):
     "A version of min which considers None to always be greater than a real number"
-    rtn = min(a, b)
-    if rtn is not None:
-        return rtn
-    if a is not None:
-        return a
-    return b
-
+    if a is None: return b
+    if b is None: return a
+    return min(a, b)
 
 ## Set up an event timeout handler
 class TimeoutException(Exception):
@@ -562,15 +570,17 @@ if ":" in hepmcfile:
 try:
     if opts.EVENT_TIMEOUT or opts.RUN_TIMEOUT:
         signal.alarm(min_nonnull(opts.EVENT_TIMEOUT, opts.RUN_TIMEOUT))
-    init_ok = run.init(hepmcfile, hepmcfileweight)
+        init_ok = run.init(hepmcfile, hepmcfileweight)
     signal.alarm(0)
     if not init_ok:
         logging.error("Failed to initialise using event file '%s'... exiting" % hepmcfile)
         sys.exit(2)
-except TimeoutException, te:
+except TimeoutException as te:
     logging.error("Timeout in initialisation from event file '%s'... exiting" % hepmcfile)
     sys.exit(3)
-
+except:
+    logging.warning("Could not read from '%s'" % hepmcfile)
+    sys.exit(3)
 
 ## Event loop
 evtnum = 0
@@ -583,7 +593,11 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 
     ## Open next HepMC file (NB. this doesn't apply to the first file: it was already used for the run init)
     if fileidx > 0:
-        run.openFile(hepmcfile, hepmcfileweight)
+        try:
+            run.openFile(hepmcfile, hepmcfileweight)
+        except:
+            logging.warning("Could not read from '%s'" % hepmcfile)
+            continue
         if not run.readEvent():
             logging.warning("Could not read events from '%s'" % hepmcfile)
             continue
@@ -630,7 +644,7 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
             signal.alarm(0)
             if not read_ok:
                 break
-        except TimeoutException, te:
+        except TimeoutException as te:
             logging.error("Timeout in reading event from '%s'... exiting" % hepmcfile)
             sys.exit(3)
 
@@ -644,15 +658,15 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
 loopendtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Finished event loop at %s" % str(loopendtime))
 logging.info("Cross-section = %e pb" % ah.crossSection())
-print
+print()
 
 
 ## Finalize and write out data file
 run.finalize()
 if opts.WRITE_DATA:
     ah.writeData(opts.HISTOFILE)
-print
+print()
 endtime = datetime.datetime.now().replace(microsecond=0)
 logging.info("Rivet run completed at %s, time elapsed = %s" % (str(endtime), str(endtime-starttime)))
-print
+print()
 logging.info("Histograms written to %s" % os.path.abspath(opts.HISTOFILE))

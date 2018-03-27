@@ -16,21 +16,18 @@ namespace Rivet {
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(EXAMPLE);
 
+
     /// @name Analysis methods
     //@{
 
     /// Set up projections and book histograms
     void init() {
       // Projections
-      MSG_TRACE(0);
-      const FinalState cnfs(Cuts::abseta < 4 && Cuts::pT > 500*MeV);
-      MSG_TRACE(1);
+      const FinalState cnfs(Cuts::abseta < 2.5 && Cuts::pT > 500*MeV);
       const ChargedFinalState cfs(cnfs);
-      MSG_TRACE(2);
       declare(cnfs, "FS");
-      MSG_TRACE(3);
       declare(cfs, "CFS");
-      declare(FastJets(cnfs, FastJets::KT, 0.7), "Jets");
+      declare(FastJets(cnfs, FastJets::ANTIKT, 0.4), "Jets");
       declare(Thrust(cfs), "Thrust");
       declare(Sphericity(cfs), "Sphericity");
 
@@ -42,11 +39,7 @@ namespace Rivet {
       _histMajor       = bookHisto1D("Major", 10, 0.0, 0.6);
       _histSphericity  = bookHisto1D("Sphericity", 10, 0.0, 0.8);
       _histAplanarity  = bookHisto1D("Aplanarity", 10, 0.0, 0.3);
-
-      // Non-uniform binning example:
-      double edges[11] = { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 };
-      vector<double> vedges(edges, edges+11);
-      _histThrust = bookHisto1D("Thrust", vedges);
+      _histThrust      = bookHisto1D("Thrust", { 0.5, 0.6, 0.7, 0.80, 0.85, 0.9, 0.92, 0.94, 0.96, 0.98, 1.0 });
     }
 
 
@@ -85,7 +78,7 @@ namespace Rivet {
       _histAplanarity->fill(s.aplanarity(), weight);
 
       const Jets jets = apply<FastJets>(event, "Jets").jets(Cuts::pT > 5*GeV);
-      size_t num_b_jets = count_if(jets.begin(), jets.end(), [](const Jet& j){ return j.bTagged(Cuts::pT > 500*MeV); });
+      const size_t num_b_jets = count_if(jets.begin(), jets.end(), [](const Jet& j){ return j.bTagged(Cuts::pT > 500*MeV); });
       MSG_DEBUG("Num B-jets with pT > 5 GeV = " << num_b_jets);
     }
 

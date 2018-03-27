@@ -4,13 +4,12 @@
 namespace Rivet {
 
 
-  PromptFinalState::PromptFinalState(const FinalState& fsp, bool accepttaudecays, bool acceptmudecays)
+  PromptFinalState::PromptFinalState(bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
     setName("PromptFinalState");
-    addProjection(fsp, "FS");
+    addProjection(FinalState(), "FS");
   }
-
 
   PromptFinalState::PromptFinalState(const Cut& c, bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
@@ -18,6 +17,14 @@ namespace Rivet {
     setName("PromptFinalState");
     addProjection(FinalState(c), "FS");
   }
+
+  PromptFinalState::PromptFinalState(const FinalState& fsp, bool accepttaudecays, bool acceptmudecays)
+    : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
+  {
+    setName("PromptFinalState");
+    addProjection(fsp, "FS");
+  }
+
 
 
   int PromptFinalState::compare(const Projection& p) const {

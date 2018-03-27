@@ -2,24 +2,29 @@
 
 # TODO: rewrite in Python using hglib?
 
-ANADIR=../src/Analyses
-
-## Diff between all tags including tip
-#declare -a tags
-#for t in $(hg tags | cut -d" " -f1 | sort -r); do tags+=($t); done
-
-## Diff between all tags excluding tip
+## Get list of all tags excluding tip
 declare -a tags
 for t in $(hg tags | egrep -v "\<tip\>" | cut -d" " -f1 | sort -r); do tags+=($t); done
-
-## Diff between all v2 tags (plus tip if wanted)
-#declare -a tags
-#tags+=(tip)
-#for t in $(hg tags | egrep "^rivet-2" | cut -d" " -f1 | sort -r); do tags+=($t); done
-
-
-echo -e "Rivet analysis diffs\n===================="
 let numtags=${#tags[@]}
+
+## Write out ana files per tag
+let N=$numtags-1
+for i in `seq 0 $N`; do
+    tag=${tags[$i]}
+
+    tagfile="analist-$tag.dat"
+    test -e "$tagfile" && continue
+    echo "Writing analysis list to $tagfile" 1>&2
+
+    > $tagfile
+    hg manifest --rev $tag | egrep "^src/Analyses/.*\.cc|^analyses/plugin.*/.*\.cc" | \
+        while read i; do basename $i .cc >> $tagfile; done
+    sort $tagfile > $$ && mv $$ $tagfile
+done
+
+## Diff ana lists between all tags
+echo "Rivet analysis diffs"
+echo "===================="
 let numdiffs=$numtags-1
 let N=$numdiffs-1
 for i in `seq 0 $N`; do
@@ -28,14 +33,14 @@ for i in `seq 0 $N`; do
     rev1=${tags[$i]}
     echo -e "\n$rev0 -> $rev1"
 
-    anas=$(for i in $(hg st -na --rev $rev0 --rev $rev1 $ANADIR/*.cc); do echo $(basename $i .cc); done)
-    test "$anas" && { echo -e "\n  Added:"; echo $anas | xargs rivet --list-analyses | while read l; do echo "    $l"; done; }
+    tagfile0="analist-$rev0.dat"
+    tagfile1="analist-$rev1.dat"
 
-    anas=$(for i in $(hg st -nm --rev $rev0 --rev $rev1 $ANADIR/*.cc); do echo $(basename $i .cc); done)
-    test "$anas" && { echo -e "\n  Modified:"; echo $anas | xargs rivet --list-analyses | while read l; do echo "    $l"; done; }
+    anas=$(comm -13 $tagfile0 $tagfile1)
+    test -n "$(echo $anas)" && { echo -e "\n  Added:"; echo $anas | xargs rivet --list-analyses | while read l; do echo "    $l"; done; }
 
-    anas=$(for i in $(hg st -nr --rev $rev0 --rev $rev1 $ANADIR/*.cc); do echo $(basename $i .cc); done)
-    test "$anas" && { echo -e "\n  Removed:"; echo $anas | xargs rivet --list-analyses | while read l; do echo "    $l"; done; }
+    anas=$(comm -23 $tagfile0 $tagfile1)
+    test -n "$(echo $anas)" && { echo -e "\n  Removed:"; echo $anas | sed -e 's/\ \+/\n/g' | while read l; do echo "    $l"; done; }
 
     echo
 done

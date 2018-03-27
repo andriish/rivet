@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([Rivet],[2.6.0-pre],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[2.6.1-pre],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -14,7 +14,7 @@ fi
 
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
 AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
-AM_INIT_AUTOMAKE([dist-bzip2 -Wall])
+AM_INIT_AUTOMAKE([dist-bzip2 -Wall 1.10])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_CONFIG_MACRO_DIR([m4])
@@ -54,6 +54,7 @@ AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_PROG_LIBTOOL
 
+AC_FUNC_STRERROR_R
 
 ## YODA histogramming library
 AC_CEDAR_LIBRARYANDHEADERS([YODA], , , [AC_MSG_ERROR([YODA is required])])
@@ -194,9 +195,10 @@ AC_ARG_ENABLE(pyext, [AC_HELP_STRING(--disable-pyext,
   [], [enable_pyext=yes])
 ## Basic Python checks
 if test x$enable_pyext == xyes; then
-  AX_PYTHON_DEVEL([>= '2.6'])
+  AX_PYTHON_DEVEL([>= '2.7.3'])
   AC_SUBST(PYTHON_VERSION)
-  RIVET_PYTHONPATH=`$PYTHON -c "import distutils.sysconfig; print distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True);"`
+  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function;
+import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(prefix='$prefix', plat_specific=True));"`
   AC_SUBST(RIVET_PYTHONPATH)
   if test -z "$PYTHON"; then
     AC_MSG_ERROR([Can't build Python extension since python can't be found])
@@ -208,6 +210,16 @@ if test x$enable_pyext == xyes; then
   fi
 fi
 AM_CONDITIONAL(ENABLE_PYEXT, [test x$enable_pyext == xyes])
+
+dnl
+dnl setup.py puts its build artifacts into a labelled path
+dnl this helps the test scripts to find them locally instead of
+dnl having to install first
+dnl
+RIVET_SETUP_PY_PATH=$(${PYTHON} -c 'from __future__ import print_function;
+import distutils.util as u, sys; vi=sys.version_info; print("lib.%s-%s.%s" % (u.get_platform(),vi.major, vi.minor))')
+AC_SUBST(RIVET_SETUP_PY_PATH)
+
 
 
 ## Cython checks
@@ -253,13 +265,16 @@ AC_CEDAR_CHECKCXXFLAG([-Werror=delete-non-virtual-dtor], [AM_CXXFLAGS="$AM_CXXFL
 ## Add OpenMP-enabling flags if possible
 AX_OPENMP([AM_CXXFLAGS="$AM_CXXFLAGS $OPENMP_CXXFLAGS"])
 
+## Optional zlib support for gzip-compressed data streams/files
+AX_CHECK_ZLIB
+
+
 ## Debug flag (default=-DNDEBUG, enabled=-g)
 AC_ARG_ENABLE([debug], [AC_HELP_STRING(--enable-debug,
   [build with debugging symbols  @<:@default=no@:>@])], [], [enable_debug=no])
 if test x$enable_debug == xyes; then
   AM_CXXFLAGS="$AM_CXXFLAGS -g"
 fi
-
 
 ## Extra warnings flag (default=none)
 AC_ARG_ENABLE([extra-warnings], [AC_HELP_STRING(--enable-extra-warnings,
@@ -285,7 +300,7 @@ AC_CONFIG_FILES(test/Makefile)
 AC_CONFIG_FILES(pyext/Makefile pyext/rivet/Makefile pyext/setup.py)
 AC_CONFIG_FILES(data/Makefile data/texmf/Makefile)
 AC_CONFIG_FILES(doc/Makefile)
-AC_CONFIG_FILES(doc/rivetversion.sty doc/diffanas)
+AC_CONFIG_FILES(doc/rivetversion.sty)
 AC_CONFIG_FILES(bin/Makefile bin/rivet-config bin/rivet-buildplugin)
 AC_CONFIG_FILES(rivetenv.sh rivetenv.csh rivet.pc)
 
