@@ -217,6 +217,8 @@ class InputData(Described):
         self.description['LogX'] = str(self.description.get('LogX', 0)) in ["1", "yes", "true"]
         self.description['LogY'] = str(self.description.get('LogY', 0)) in ["1", "yes", "true"]
         self.description['LogZ'] = str(self.description.get('LogZ', 0)) in ["1", "yes", "true"]
+        self.description['RatioPlotLogY'] = str(self.description.get('RatioPlotLogY', 0)) in ["1", "yes", "true"]
+
         if 'Rebin' in self.description:
             for i in self.histos:
                 self.histos[i].description['Rebin'] = self.description['Rebin']
