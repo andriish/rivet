@@ -595,8 +595,8 @@ of ghost-associated tagging $b$-hadrons with $\pT > 5~\GeV$.
 
 Rivet contains a suite of useful functions for filtering of lists of
 \code{Particle}, \code{Jet}, and \code{FourMomentum} objects (aka
-\code{Particles}, \code{Jets}, and \code{FourMomenta}): \code{filter\_select} \&
-\code{filter\_discard}, and \code{ifilter\_*} equivalents.
+\code{Particles}, \code{Jets}, and \code{FourMomenta}): \code{filter\_select},
+\code{filter\_discard}, and their \code{ifilter\_*} equivalents.
 
 The \code{filter\_*} functions operate on a const list, and return a new one
 with a selection criterion applied; the ``select'' variant keeps objects for
@@ -620,7 +620,7 @@ isolation like this:
 %
 \begin{snippet}
   Particles leptons = leptonfs.particles();
-  for (const Jet\& j : jets())
+  for (const Jet& j : jets())
     ifilter_discard(leptons, deltaRLess(j, 0.4));
 \end{snippet}
 (see \kbd{Rivet/Tools/ParticleBaseUtils.hh} for lots more kinematic function

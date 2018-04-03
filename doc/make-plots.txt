@@ -159,6 +159,7 @@ Axes
 LogX=<0|1>
 LogY=<0|1>
 LogZ=<0|1>
+RatioPlotLogY=<0|1>
 --------------------
 Use a logarithmic x-, y-, or z-axis. Default is linear.
 

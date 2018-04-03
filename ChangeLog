@@ -1,3 +1,7 @@
+2018-03-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add RatioPlotLogY key to make-plots. Thanks to Antonin Maire.
+
 2018-02-22  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Adding boolean operator syntactic sugar for composition of bool functors.
