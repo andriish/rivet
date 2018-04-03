@@ -880,7 +880,7 @@ class RatioPlot(Plot):
 
         inputdata.description['RatioPlotStage'] = True
         inputdata.description['PlotSizeY'] = inputdata.description['RatioPlotSizeY']
-        inputdata.description['LogY'] = False  # TODO: actually, log ratio plots could be useful...
+        inputdata.description['LogY'] = inputdata.description.get("RatioPlotLogY", False)
 
         # TODO: It'd be nice it this wasn't so MC-specific
         rpmode = inputdata.description.get('RatioPlotMode', "mcdata")
