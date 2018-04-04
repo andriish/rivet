@@ -46,6 +46,7 @@ namespace Rivet
         
       public:
         void project(const Event& e) {
+
           _theParticles.clear();
           _clusteredLeptons.clear();
           
@@ -60,6 +61,7 @@ namespace Rivet
                 if (cand.pt() > lepCand.pt()) lepCand = cand;
               }
             }
+
             //Central lepton must be the major component
             if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pdgId() == 0)) continue;
             
@@ -67,6 +69,7 @@ namespace Rivet
             
             for (const Particle& cand : jet.particles()) {
               if (cand == lepCand) continue;
+	      if (cand.pid() != PID::PHOTON) continue;
               lepton.addPhoton(cand, true);
             }
             allClusteredLeptons.push_back(lepton);
@@ -94,6 +97,7 @@ namespace Rivet
    /// Book histograms and initialise projections before the run
    void init()
    {
+
     FinalState fs(Cuts::pT > 0. && Cuts::abseta < 6.);
     PromptFinalState prompt_fs(fs);
     prompt_fs.acceptMuonDecays(true);

@@ -32,11 +32,8 @@ Differential and double-differential cross sections for the production of top qu
   Rivet:
   
 This analysis is to be run on $\text{t}\bar{\text{t}}$ Monte Carlo. The particle-level phase space is defined using the following definitions:
-\begin{description}
-\item[lepton]: an electron or muon with $p_\text{T}>30\,\text{GeV}$ and $|\eta|<2.5$, dressed within a cone of radius 0.1,
-\item[jet]: a jet is reconstructed with the anti-$k_t$ algorithm with a radius of 0.4, after removing the neutrinos and dressed leptons, with $p_\text{T]>25\,\text{GeV}$ and $|\eta|<2.5$,
-\item[b-jet]: a jet that contains a B-hadron.  
-\end{description}
+an electron or muon with $p_\text{T}>30\,\text{GeV}$ and $|\eta|<2.5$, dressed within a cone of radius 0.1;
+a jet is reconstructed with the anti-$k_t$ algorithm with a radius of 0.4, after removing the neutrinos and dressed leptons, with $p_\text{T}>25\,\text{GeV}$ and $|\eta|<2.5$; a jet that contains a B-hadron. 
 
 A W boson is reconstructed from a lepton and the sum of the neutrino energies, while another W boson is reconstructed from a light jet pair. The two top quarks are reconstructed by combining b jets to these W boson. A check based on the W boson and top quark masses is performed to choose the proper combinations.
 '  
