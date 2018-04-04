@@ -99,9 +99,9 @@ namespace Rivet {
 
       if (wfinder_mu.bosons().size() == 1) {
 
-        const FourMomentum& lepton0 = wfinder_mu.constituentLeptons()[0].momentum();
-        const FourMomentum& neutrino = wfinder_mu.constituentNeutrinos()[0].momentum();
-        double WmT = sqrt( 2 * lepton0.pT() * neutrino.pT() * (1 - cos(deltaPhi(lepton0, neutrino))) );
+        const FourMomentum lepton0 = wfinder_mu.constituentLepton().momentum();
+        const FourMomentum neutrino = wfinder_mu.constituentNeutrino().momentum();
+        double WmT = wfinder_mu.mT();
 
         if (WmT < 50.0*GeV) vetoEvent;
 
