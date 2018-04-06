@@ -296,7 +296,7 @@ namespace Rivet {
 
 
     /// Set the cross section from the generator
-    Analysis& setCrossSection(double xs);
+    Analysis& setCrossSection(double xs); //, double xserr=0.0);
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const { return *_analysishandler; }
