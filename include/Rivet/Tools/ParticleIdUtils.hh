@@ -775,6 +775,22 @@ namespace Rivet {
     //@}
 
 
+    /// @name Particle pair classifiers
+    /// @todo Make versions that work on PdgIdPair?
+    //@{
+
+    inline bool isSameSign(PdgId a, PdgId b) { return a*b >= 0; }
+    inline bool isOppSign(PdgId a, PdgId b) { return !isSameSign(a, b); }
+    inline bool isSameFlav(PdgId a, PdgId b) { return abs(a) == abs(b); }
+    inline bool isOppFlav(PdgId a, PdgId b) { return !isSameFlav(a, b); }
+
+    inline bool isOSSF(PdgId a, PdgId b) { return isOppSign(a, b) && isSameFlav(a, b); }
+    inline bool isSSSF(PdgId a, PdgId b) { return isSameSign(a, b) && isSameFlav(a, b); }
+    inline bool isOSOF(PdgId a, PdgId b) { return isOppSign(a, b) && isOppFlav(a, b); }
+    inline bool isSSOF(PdgId a, PdgId b) { return isSameSign(a, b) && isOppFlav(a, b); }
+
+    //@}
+
   }
 }
 

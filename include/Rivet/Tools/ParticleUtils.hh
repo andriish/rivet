@@ -267,6 +267,23 @@ namespace Rivet {
   //@}
 
 
+  /// @name Particle pair classifiers
+  /// @todo Make versions that work on ParticlePair?
+  //@{
+
+  inline bool isSameSign(const Particle& a, const Particle& b) { return PID::isSameSign(a.pid(), b.pid()); }
+  inline bool isOppSign(const Particle& a, const Particle& b) { return PID::isOppSign(a.pid(), b.pid()); }
+  inline bool isSameFlav(const Particle& a, const Particle& b) { return PID::isSameFlav(a.pid(), b.pid()); }
+  inline bool isOppFlav(const Particle& a, const Particle& b) { return PID::isOppFlav(a.pid(), b.pid()); }
+
+  inline bool isOSSF(const Particle& a, const Particle& b) { return PID::isOSSF(a.pid(), b.pid()); }
+  inline bool isSSSF(const Particle& a, const Particle& b) { return PID::isSSSF(a.pid(), b.pid()); }
+  inline bool isOSOF(const Particle& a, const Particle& b) { return PID::isOSOF(a.pid(), b.pid()); }
+  inline bool isSSOF(const Particle& a, const Particle& b) { return PID::isSSOF(a.pid(), b.pid()); }
+
+  //@}
+
+
   /// @name Particle charge/sign comparison functions
   //@{
 

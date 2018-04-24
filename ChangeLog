@@ -1,3 +1,7 @@
+2018-04-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add isSameSign, isOppSign, isSameFlav, isOppFlav, and isOSSF etc. functions on PIDs and Particles.
+
 2018-03-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add RatioPlotLogY key to make-plots. Thanks to Antonin Maire.
