@@ -1,5 +1,7 @@
 2018-04-24  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add initializer_list overload for binIndex. Needed for other util functions operating on vectors.
+
 	* Fix function signature bug is isMT2 overload.
 
 	* Add isSameSign, isOppSign, isSameFlav, isOppFlav, and isOSSF etc. functions on PIDs and Particles.
