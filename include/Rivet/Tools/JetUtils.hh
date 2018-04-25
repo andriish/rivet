@@ -46,6 +46,7 @@ namespace Rivet {
   /// Base type for Jet -> bool functors
   struct BoolJetFunctor {
     virtual bool operator()(const Jet& p) const = 0;
+    virtual ~BoolJetFunctor() {}
   };
 
 

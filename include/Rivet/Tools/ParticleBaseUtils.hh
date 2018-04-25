@@ -22,6 +22,7 @@ namespace Rivet {
   /// Base type for Particle -> bool functors
   struct BoolParticleBaseFunctor {
     virtual bool operator()(const ParticleBase& p) const = 0;
+    virtual ~BoolParticleBaseFunctor() {}
   };
 
 
@@ -396,6 +397,7 @@ namespace Rivet {
   /// Base type for Particle -> double functors
   struct DoubleParticleBaseFunctor {
     virtual double operator()(const ParticleBase& p) const = 0;
+    virtual ~DoubleParticleBaseFunctor() {}
   };
 
   /// Calculator of @f$ \Delta R @f$ with respect to a given momentum

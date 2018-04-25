@@ -485,6 +485,7 @@ namespace Rivet {
   /// Base type for Particle -> bool functors
   struct BoolParticleFunctor {
     virtual bool operator()(const Particle& p) const = 0;
+    virtual ~BoolParticleFunctor() {}
   };
 
   /// Functor for and-combination of selector logic
@@ -534,17 +535,21 @@ namespace Rivet {
 
   /// PID matching functor
   struct HasPID : public BoolParticleFunctor {
-    HasPID(PdgId pid) : targetpid(pid) { }
-    bool operator()(const Particle& p) const { return p.pid() == targetpid; }
-    PdgId targetpid;
+    HasPID(PdgId pid) : targetpids{ {pid} } { }
+    HasPID(vector<PdgId> pids) : targetpids{pids} { }
+    HasPID(initializer_list<PdgId> pids) : targetpids{pids} { }
+    bool operator()(const Particle& p) const { return contains(targetpids, p.pid()); }
+    vector<PdgId> targetpids;
   };
   using hasPID = HasPID;
 
   /// |PID| matching functor
   struct HasAbsPID : public BoolParticleFunctor {
-    HasAbsPID(PdgId pid) : targetpid(abs(pid)) { }
-    bool operator()(const Particle& p) const { return p.abspid() == abs(targetpid); }
-    PdgId targetpid;
+    HasAbsPID(PdgId pid) : targetapids{ {abs(pid)} } { }
+    HasAbsPID(vector<PdgId> pids) { for (PdgId pid : pids) targetapids.push_back(abs(pid)); }
+    HasAbsPID(initializer_list<PdgId> pids) { for (PdgId pid : pids) targetapids.push_back(abs(pid)); }
+    bool operator()(const Particle& p) const { return contains(targetapids, p.abspid()); }
+    vector<PdgId> targetapids;
   };
   using hasAbsPID = HasAbsPID;
 
