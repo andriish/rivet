@@ -86,6 +86,11 @@ namespace Rivet {
       for (double& x : counts) x *= factor;
     }
 
+    /// Scale the cutflow weights so that the weight count after cut @a icut is @a norm
+    void normalize(double norm, size_t icut=0) {
+      scale(norm/counts[icut]);
+    }
+
     /// Create a string representation
     string str() const {
       stringstream ss;
@@ -204,6 +209,12 @@ namespace Rivet {
     /// Scale the contained {Cutflow}s by the given factor
     void scale(double factor) {
       for (Cutflow& cf : cfs) cf.scale(factor);
+    }
+
+    /// Scale the cutflow weights so that all the weight counts after cut @a icut are @a norm
+    /// @todo Provide a version that takes a vector of norms?
+    void normalize(double norm, size_t icut=0) {
+      for (Cutflow& cf : cfs) cf.normalize(norm, icut);
     }
 
     /// Create a string representation
