@@ -62,10 +62,6 @@ namespace Rivet {
   };
 
 
-  /// Alias with a more correct name
-  using DirectFinalState = PromptFinalState;
-
 }
-
 
 #endif
