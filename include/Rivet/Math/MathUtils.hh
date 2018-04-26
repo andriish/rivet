@@ -306,6 +306,9 @@ namespace Rivet {
   }
 
 
+  /// @todo geomspace
+
+
   /// @brief Make a list of @a nbins + 1 values spaced for equal area
   /// Breit-Wigner binning between @a start and @a end inclusive. @a
   /// mu and @a gamma are the Breit-Wigner parameters.

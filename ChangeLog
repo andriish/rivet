@@ -1,5 +1,9 @@
 2018-04-26  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add pairMass and pairPt functions.
+
+	* Add (i)discardIfAnyDeltaRLess and (i)discardIfAnyDeltaPhiLess functions.
+
 	* Add normalize() methods to Cutflow and Cutflows.
 
 	* Add DirectFinalState and IndirectFinalState alias headers, for forward compatibility. 'Prompt' is confusing.

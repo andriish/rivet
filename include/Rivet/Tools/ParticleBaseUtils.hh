@@ -472,6 +472,38 @@ namespace Rivet {
   //@}
 
 
+  /// @name Isolation helper routines
+  //@{
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void idiscardIfAnyDeltaRLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
+    for (const ParticleBase& pb : tocompare)
+      ifilter_discard(tofilter, deltaRLess(pb, dR));
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 discardIfAnyDeltaRLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dR) {
+    PBCONTAINER1 tmp{tofilter};
+    idiscardIfAnyDeltaRLess(tmp, tocompare, dR);
+    return tmp;
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  void idiscardIfAnyDeltaPhiLess(PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
+    for (const ParticleBase& pb : tocompare)
+      ifilter_discard(tofilter, deltaPhiLess(pb, dphi));
+  }
+
+  template<typename PBCONTAINER1, typename PBCONTAINER2>
+  PBCONTAINER1 discardIfAnyDeltaPhiLess(const PBCONTAINER1& tofilter, const PBCONTAINER2& tocompare, double dphi) {
+    PBCONTAINER1 tmp{tofilter};
+    idiscardIfAnyDeltaPhiLess(tmp, tocompare, dphi);
+    return tmp;
+  }
+
+  //@}
+
+
   /// @name Non-PID particle properties, via unbound functions
   /// @todo Mostly move to functions on FourMomentum
   /// @note In a sub-namespace (imported by default) for protection
@@ -509,6 +541,16 @@ namespace Rivet {
 
     /// Unbound function access to abs rapidity
     inline double absrap(const ParticleBase& p) { return p.absrap(); }
+
+    /// Unbound function access to mass
+    inline double mass(const ParticleBase& p) { return p.mass(); }
+
+
+    /// Unbound function access to pair pT
+    inline double pairPt(const ParticleBase& p1, const ParticleBase& p2) { return (p1.mom() + p2.mom()).pT(); }
+
+    /// Unbound function access to pair mass
+    inline double pairMass(const ParticleBase& p1, const ParticleBase& p2) { return (p1.mom() + p2.mom()).mass(); }
 
   }
   //@}
