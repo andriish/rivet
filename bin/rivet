@@ -578,8 +578,8 @@ try:
 except TimeoutException as te:
     logging.error("Timeout in initialisation from event file '%s'... exiting" % hepmcfile)
     sys.exit(3)
-except:
-    logging.warning("Could not read from '%s'" % hepmcfile)
+except Exception as ex:
+    logging.warning("Could not read from '%s' (error=%s)" % (hepmcfile, str(ex)))
     sys.exit(3)
 
 ## Event loop
@@ -595,8 +595,8 @@ for fileidx, hepmcfile in enumerate(HEPMCFILES):
     if fileidx > 0:
         try:
             run.openFile(hepmcfile, hepmcfileweight)
-        except:
-            logging.warning("Could not read from '%s'" % hepmcfile)
+        except Exception as ex:
+            logging.warning("Could not read from '%s' (error=%s)" % (hepmcfile, ex))
             continue
         if not run.readEvent():
             logging.warning("Could not read events from '%s'" % hepmcfile)
