@@ -25,5 +25,5 @@ Description:
   decaying to electrons or muons and produced in association with up to four
   jets in the kinematical range of $p_\text{T} > 30$\,GeV and $|y| < 2.5$.
   NB--Use the plugin names ATLAS_2015_CONF_2015_041_EL or
-  ATLAS_2015_CONF_2015_041_MU to specify the lepton channel.  Note -- this
-  analysis is superseded by ATLAS_2017_I1514251
+  ATLAS_2015_CONF_2015_041_MU to specify the lepton channel.
+  Note: this analysis is superseded by ATLAS_2017_I1514251.
