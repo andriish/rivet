@@ -11,8 +11,8 @@ References:
  - arXiv:1702.05725 [hep-ex]
  - submitted to EPJC
 Keywords:
- - Z
- - JETS
+ - zboson
+ - jets
 RunInfo:
   pp -> Z(->mumu) + jets at 13 TeV
 Luminosity_fb: 3.16

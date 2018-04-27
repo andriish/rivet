@@ -1,5 +1,7 @@
 2018-04-27  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Tidy keywords and luminosity entries, and add both to BSM search .info files.
+
 	* Add Luminosity_fb and Keywords placeholders in mkanalysis output.
 
 2018-04-26  Andy Buckley  <andy.buckley@cern.ch>

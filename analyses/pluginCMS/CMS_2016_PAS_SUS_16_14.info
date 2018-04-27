@@ -11,6 +11,7 @@ NumEvents: 50000
 NeedCrossSection: yes
 Beams: [p+, p+]
 Energies: [13000]
+Luminosity_fb: 12.9
 Description:
   'A search for supersymmetry in all-hadronic events with large missing transverse
   momentum, produced in proton--proton collisions at $\sqrt{s} = 13~\TeV$. The data

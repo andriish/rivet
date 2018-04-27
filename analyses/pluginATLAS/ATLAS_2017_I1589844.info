@@ -12,11 +12,8 @@ References:
  - arXiv:1704.01530 [hep-ex]
  - submitted to JHEP
 Keywords:
- - KTSPLITTINGS
- - QCD
- - Z
- - JETS
- - TRACKS
+ - zboson
+ - jets
 RunInfo:
   '$pp \to Z(\to ee/\mu\mu) +$ jets at 8 TeV'
 Luminosity_fb: 20.2
