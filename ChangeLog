@@ -1,3 +1,9 @@
+2018-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* CMS_2016_I1421646.cc: Add patch from CMS to veto if leading jets
+	outside |y| < 2.5, rather than only considering jets in that
+	acceptance. Thanks to CMS and Markus Seidel.
+
 2018-04-27  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Tidy keywords and luminosity entries, and add both to BSM search .info files.
