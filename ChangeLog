@@ -1,3 +1,7 @@
+2018-05-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make CmpAnaHandle::operator() const, for GCC 8 (thanks to CMS)
+
 2018-05-07  Andy Buckley  <andy.buckley@cern.ch>
 
 	* CMS_2016_I1421646.cc: Add patch from CMS to veto if leading jets
