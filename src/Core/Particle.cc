@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  void Particle::setConstituents(const vector<Particle>& cs, bool setmom) {
+  void Particle::setConstituents(const Particles& cs, bool setmom) {
     _constituents = cs;
     if (setmom) _momentum = sum(cs, p4, FourMomentum());
   }
@@ -18,7 +18,7 @@ namespace Rivet {
   }
 
 
-  void Particle::addConstituents(const vector<Particle>& cs, bool addmom) {
+  void Particle::addConstituents(const Particles& cs, bool addmom) {
     _constituents += cs;
     if (addmom)
       for (const Particle& c : cs)
@@ -26,9 +26,9 @@ namespace Rivet {
   }
 
 
-  vector<Particle> Particle::rawConstituents() const {
+  Particles Particle::rawConstituents() const {
     if (!isComposite()) return Particles{*this};
-    vector<Particle> rtn;
+    Particles rtn;
     for (const Particle& p : constituents()) rtn += p.rawConstituents();
     return rtn;
   }
@@ -61,8 +61,8 @@ namespace Rivet {
   }
 
 
-  vector<Particle> Particle::ancestors(const Cut& c, bool physical_only) const {
-    vector<Particle> rtn;
+  Particles Particle::ancestors(const Cut& c, bool physical_only) const {
+    Particles rtn;
 
     // this case needed protecting against (at least for the latest Herwig... not sure why
     // it didn't show up earlier
@@ -84,8 +84,8 @@ namespace Rivet {
   }
 
 
-  vector<Particle> Particle::parents(const Cut& c) const {
-    vector<Particle> rtn;
+  Particles Particle::parents(const Cut& c) const {
+    Particles rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
     if (gv == NULL) return rtn;
@@ -101,8 +101,8 @@ namespace Rivet {
   }
 
 
-  vector<Particle> Particle::children(const Cut& c) const {
-    vector<Particle> rtn;
+  Particles Particle::children(const Cut& c) const {
+    Particles rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
@@ -121,8 +121,8 @@ namespace Rivet {
 
   /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
   /// @todo Use recursion through replica-avoiding functions to avoid bookkeeping duplicates
-  vector<Particle> Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
-    vector<Particle> rtn;
+  Particles Particle::allDescendants(const Cut& c, bool remove_duplicates) const {
+    Particles rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
@@ -149,8 +149,8 @@ namespace Rivet {
 
 
   /// @todo Insist that the current particle is post-hadronization, otherwise throw an exception?
-  vector<Particle> Particle::stableDescendants(const Cut& c) const {
-    vector<Particle> rtn;
+  Particles Particle::stableDescendants(const Cut& c) const {
+    Particles rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
@@ -265,6 +265,22 @@ namespace Rivet {
 
 
   ///////////////////////
+
+
+  /// Particles -> FourMomenta cast/conversion operator
+  Particles::operator FourMomenta () const {
+    // FourMomenta rtn(this->begin(), this->end());
+    FourMomenta rtn; rtn.reserve(this->size());
+    for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+    return rtn;
+  }
+
+  /// Particles concatenation operator
+  Particles operator + (const Particles& a, const Particles& b) {
+    Particles rtn(a);
+    rtn += b;
+    return rtn;
+  }
 
 
   /// Allow a Particle to be passed to an ostream.

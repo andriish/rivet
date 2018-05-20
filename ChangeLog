@@ -1,3 +1,10 @@
+2018-05-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make Particles and Jets into actual specialisations of
+	std::vector rather than typedefs, and update surrounding classes
+	to use them. The specialisations can implicitly cast to vectors of
+	FourMomentum (and maybe Pseudojet).
+
 2018-05-18  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Make CmpAnaHandle::operator() const, for GCC 8 (thanks to CMS)
