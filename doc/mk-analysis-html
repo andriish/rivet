@@ -190,6 +190,7 @@ for aname in sorted(list(all_analyses)):
             page += "<b><kbd>%s</kbd></b>\n" % os.path.basename(cc)
             with open(cc, 'r') as f:
                 src = f.read()
+                src = src.decode("UTF-8")
             try:
                 import pygments
                 from pygments.lexers import get_lexer_by_name
@@ -207,7 +208,7 @@ for aname in sorted(list(all_analyses)):
     outstr = head + page + foot
     if type(u'') != str:
         outstr = unicode(outstr)
-    f.write(outstr.encode(errors="ignore"))
+    f.write(outstr.encode("UTF-8"))
     f.close()
 
 
@@ -223,14 +224,16 @@ outstr = head + toc + foot
 
 ## Index file in dir
 f = open(os.path.join(OUTDIR, "index.html"), "wb")
-f.write(outstr.encode(errors="ignore"))
+if type(u'') != str:
+    outstr = unicode(outstr)
+f.write(outstr.encode("UTF-8"))
 f.close()
 
 ## External index file
 outstr = outstr.replace("../%s" % OUTDIR, OUTDIR) #< correct link depth
 if OUTFILE == "-":
-    sys.stdout.write(outstr.encode(errors="ignore"))
+    sys.stdout.write(outstr.encode("UTF-8"))
 else:
     f = open(OUTFILE, "wb")
-    f.write(outstr.encode(errors="ignore"))
+    f.write(outstr.encode("UTF-8"))
     f.close()
