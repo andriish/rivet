@@ -190,7 +190,8 @@ for aname in sorted(list(all_analyses)):
             page += "<b><kbd>%s</kbd></b>\n" % os.path.basename(cc)
             with open(cc, 'r') as f:
                 src = f.read()
-                src = src.decode("UTF-8")
+                if type(u'') != str:
+                    src = src.decode("UTF-8")
             try:
                 import pygments
                 from pygments.lexers import get_lexer_by_name
