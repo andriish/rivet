@@ -94,7 +94,16 @@ namespace Rivet {
     /// @note Like particles() but with helper functions
     vector<DressedLepton> dressedLeptons() const {
       vector<DressedLepton> rtn;
-      for (const Particle& p : particles())
+      for (const Particle& p : particles(cmpMomByPt))
+        rtn += DressedLepton(p);  //static_cast<const DressedLepton>(p);
+      return rtn;
+    }
+
+    /// @brief Retrieve the dressed leptons ordered by supplied sorting functor
+    /// @note Like particles() but with helper functions
+    vector<DressedLepton> dressedLeptons(const ParticleSorter& sorter) const {
+      vector<DressedLepton> rtn;
+      for (const Particle& p : particles(sorter))
         rtn += DressedLepton(p);  //static_cast<const DressedLepton>(p);
       return rtn;
     }
