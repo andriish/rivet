@@ -37,12 +37,12 @@ namespace Rivet {
         MSG_WARNING("Found multiple (" << zeefinder.bosons().size() << ") Z -> e+ e- decays!");
 
       // Z momenta
-      const FourMomentum& zee = zeefinder.bosons()[0].momentum();
+      const FourMomentum zee = zeefinder.bosons()[0].momentum();
 
       if (zeefinder.constituents().size() < 2) vetoEvent;
 
-      const Particle& pozitron = zeefinder.constituents()[0];
-      const Particle& electron = zeefinder.constituents()[1];
+      const Particle pozitron = zeefinder.constituents()[0];
+      const Particle electron = zeefinder.constituents()[1];
 
       // Calculation of the angular variable
       const double diffphi = deltaPhi(pozitron, electron);

@@ -18,7 +18,7 @@ namespace Rivet {
     /// @brief Enum for categorising top quark decay modes
     ///
     /// More specifically, the decay mode of the W from the top. We presume top decay to a W and b quark.
-    enum DecayMode { ELECTRON, MUON, TAU, E_MU, E_MU_TAU, HADRONIC, ALL };
+    enum DecayMode { ALL = 0, ANY = 0, ELECTRON, MUON, TAU, E_MU, E_MU_TAU, HADRONIC };
 
 
     /// @name Constructors
@@ -70,6 +70,12 @@ namespace Rivet {
           const Particles descendants = t.allDescendants();
           const bool prompt_e = any(descendants, [&](const Particle& p){ return p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON); });
           const bool prompt_mu = any(descendants, [&](const Particle& p){ return p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON); });
+          // const bool prompt_e = any(descendants, [&](const Particle& p){ bool x = p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON);
+          //                                                                if (p.hasAncestor(PID::PHOTON)) MSG_WARNING("Top decay electron with photon ancestor");
+          //                                                                return x; });
+          // const bool prompt_mu = any(descendants, [&](const Particle& p){ bool x = p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON);
+          //                                                                 if (p.hasAncestor(PID::PHOTON)) MSG_WARNING("Top decay muon with photon ancestor");
+          //                                                                 return x; });
           if (prompt_e && (_decaymode == ELECTRON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
           if (prompt_mu && (_decaymode == MUON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
           const bool prompt_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt(); });

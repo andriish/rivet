@@ -13,9 +13,11 @@ Authors:
 References:
  - arXiv:1610.05088 [hep-ex]
 Keywords:
+ - 3boson
  - triboson
  - multiboson
- - leptons
+ - 2lepton
+ - 3lepton
  - jets
 RunInfo:
   pp -> WWW production at 8 TeV

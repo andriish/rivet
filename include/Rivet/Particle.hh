@@ -210,13 +210,13 @@ namespace Rivet {
     //@{
 
     /// Set direct constituents of this particle
-    virtual void setConstituents(const vector<Particle>& cs, bool setmom=false);
+    virtual void setConstituents(const Particles& cs, bool setmom=false);
 
     /// Add a single direct constituent to this particle
     virtual void addConstituent(const Particle& c, bool addmom=false);
 
     /// Add direct constituents to this particle
-    virtual void addConstituents(const vector<Particle>& cs, bool addmom=false);
+    virtual void addConstituents(const Particles& cs, bool addmom=false);
 
 
     /// Determine if this Particle is a composite of other Rivet Particles
@@ -227,70 +227,70 @@ namespace Rivet {
     ///
     /// The returned vector will be empty if this particle is non-composite,
     /// and its entries may themselves be composites.
-    const vector<Particle>& constituents() const { return _constituents; }
+    const Particles& constituents() const { return _constituents; }
 
     /// @brief Direct constituents of this particle, sorted by a functor
     /// @note Returns a copy, thanks to the sorting
-    const vector<Particle> constituents(const ParticleSorter& sorter) const {
+    const Particles constituents(const ParticleSorter& sorter) const {
       return sortBy(constituents(), sorter);
     }
 
     /// @brief Direct constituents of this particle, filtered by a Cut
     /// @note Returns a copy, thanks to the filtering
-    const vector<Particle> constituents(const Cut& c) const {
+    const Particles constituents(const Cut& c) const {
       return filter_select(constituents(), c);
     }
 
     /// @brief Direct constituents of this particle, sorted by a functor
     /// @note Returns a copy, thanks to the filtering and sorting
-    const vector<Particle> constituents(const Cut& c, const ParticleSorter& sorter) const {
+    const Particles constituents(const Cut& c, const ParticleSorter& sorter) const {
       return sortBy(constituents(c), sorter);
     }
 
     /// @brief Direct constituents of this particle, filtered by a selection functor
     /// @note Returns a copy, thanks to the filtering
-    const vector<Particle> constituents(const ParticleSelector& selector) const {
+    const Particles constituents(const ParticleSelector& selector) const {
       return filter_select(constituents(), selector);
     }
 
     /// @brief Direct constituents of this particle, filtered and sorted by functors
     /// @note Returns a copy, thanks to the filtering and sorting
-    const vector<Particle> constituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
+    const Particles constituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
       return sortBy(constituents(selector), sorter);
     }
 
 
     /// @brief Fundamental constituents of this particle
     /// @note Returns {{*this}} if this particle is non-composite.
-    vector<Particle> rawConstituents() const;
+    Particles rawConstituents() const;
 
     /// @brief Fundamental constituents of this particle, sorted by a functor
     /// @note Returns a copy, thanks to the sorting
-    const vector<Particle> rawConstituents(const ParticleSorter& sorter) const {
+    const Particles rawConstituents(const ParticleSorter& sorter) const {
       return sortBy(rawConstituents(), sorter);
     }
 
     /// @brief Fundamental constituents of this particle, filtered by a Cut
     /// @note Returns a copy, thanks to the filtering
-    const vector<Particle> rawConstituents(const Cut& c) const {
+    const Particles rawConstituents(const Cut& c) const {
       return filter_select(rawConstituents(), c);
     }
 
     /// @brief Fundamental constituents of this particle, sorted by a functor
     /// @note Returns a copy, thanks to the filtering and sorting
-    const vector<Particle> rawConstituents(const Cut& c, const ParticleSorter& sorter) const {
+    const Particles rawConstituents(const Cut& c, const ParticleSorter& sorter) const {
       return sortBy(rawConstituents(c), sorter);
     }
 
     /// @brief Fundamental constituents of this particle, filtered by a selection functor
     /// @note Returns a copy, thanks to the filtering
-    const vector<Particle> rawConstituents(const ParticleSelector& selector) const {
+    const Particles rawConstituents(const ParticleSelector& selector) const {
       return filter_select(rawConstituents(), selector);
     }
 
     /// @brief Fundamental constituents of this particle, filtered and sorted by functors
     /// @note Returns a copy, thanks to the filtering and sorting
-    const vector<Particle> rawConstituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
+    const Particles rawConstituents(const ParticleSelector& selector, const ParticleSorter& sorter) const {
       return sortBy(rawConstituents(selector), sorter);
     }
 
@@ -675,7 +675,7 @@ namespace Rivet {
     const GenParticle* _original;
 
     /// Constituent particles if this is a composite (may be empty)
-    std::vector<Particle> _constituents;
+    Particles _constituents;
 
     /// The PDG ID code for this Particle.
     PdgId _id;

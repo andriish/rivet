@@ -708,7 +708,7 @@ namespace Rivet {
       MSG_WARNING("Failed to scale counter=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
-    if (std::isnan(factor) || std::isinf(factor)) {
+    if (std::isnan(double(factor)) || std::isinf(double(factor))) {
       MSG_WARNING("Failed to scale counter=" << cnt->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
@@ -742,7 +742,7 @@ namespace Rivet {
       MSG_WARNING("Failed to scale histo=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
-    if (std::isnan(factor) || std::isinf(factor)) {
+    if (std::isnan(double(factor)) || std::isinf(double(factor))) {
       MSG_WARNING("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }
@@ -776,7 +776,7 @@ namespace Rivet {
       MSG_ERROR("Failed to scale histo=NULL in analysis " << name() << " (scale=" << double(factor) << ")");
       return;
     }
-    if (std::isnan(factor) || std::isinf(factor)) {
+    if (std::isnan(double(factor)) || std::isinf(double(factor))) {
       MSG_ERROR("Failed to scale histo=" << histo->path() << " in analysis: " << name() << " (invalid scale factor = " << double(factor) << ")");
       factor = 0;
     }

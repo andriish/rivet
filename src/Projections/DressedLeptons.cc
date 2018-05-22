@@ -9,7 +9,9 @@ namespace Rivet {
 
   DressedLepton::DressedLepton(const Particle& dlepton)
     : Particle(dlepton)
-  {   }
+  { 
+    setConstituents({{dlepton}}); //< bare lepton is first constituent
+  }
 
   DressedLepton::DressedLepton(const Particle& lepton, const Particles& photons, bool momsum)
     : Particle(lepton.pid(), lepton.momentum())
@@ -19,7 +21,7 @@ namespace Rivet {
   }
 
   void DressedLepton::addPhoton(const Particle& p, bool momsum) {
-    if (p.pid() != PID::PHOTON) throw Error("Clustering a non-photon on to a DressedLepton");
+    if (p.pid() != PID::PHOTON) throw Error("Clustering a non-photon on to a DressedLepton:"+to_string(p.pid()));
     addConstituent(p, momsum);
   }
 
