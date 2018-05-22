@@ -535,7 +535,7 @@ namespace Rivet {
 
   /// PID matching functor
   struct HasPID : public BoolParticleFunctor {
-    HasPID(PdgId pid) : targetpids{ {pid} } { }
+    HasPID(PdgId pid) : targetpids{pid} { }
     HasPID(vector<PdgId> pids) : targetpids{pids} { }
     HasPID(initializer_list<PdgId> pids) : targetpids{pids} { }
     bool operator()(const Particle& p) const { return contains(targetpids, p.pid()); }
@@ -545,7 +545,7 @@ namespace Rivet {
 
   /// |PID| matching functor
   struct HasAbsPID : public BoolParticleFunctor {
-    HasAbsPID(PdgId pid) : targetapids{ {abs(pid)} } { }
+    HasAbsPID(PdgId pid) : targetapids{abs(pid)} { }
     HasAbsPID(vector<PdgId> pids) { for (PdgId pid : pids) targetapids.push_back(abs(pid)); }
     HasAbsPID(initializer_list<PdgId> pids) { for (PdgId pid : pids) targetapids.push_back(abs(pid)); }
     bool operator()(const Particle& p) const { return contains(targetapids, p.abspid()); }
