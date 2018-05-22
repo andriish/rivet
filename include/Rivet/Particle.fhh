@@ -19,7 +19,8 @@ namespace Rivet {
   public:
     using base = std::vector<Particle>; //< using-declarations don't like template syntax
     using base::base; //< import base-class constructors
-    /// Add copy constructor from vector<Particle>
+    /// Copy constructor from vector<Particle>
+    Particles(const std::vector<Particle>& vps);
     operator FourMomenta () const; //< implementation in Particle.cc
     /// @todo Add conversion to PseudoJets?
   };

@@ -20,7 +20,8 @@ namespace Rivet {
   public:
     using base = std::vector<Jet>; //< using-declarations don't like template syntax
     using base::base; //< import base-class constructors
-    /// Add copy constructor from vector<Jet>
+    /// Copy constructor from vector<Jet>
+    Jets(const std::vector<Jet>& vjs);
     operator FourMomenta () const; //< implementation in Jet.cc
     /// @todo Add conversion to PseudoJets
   };

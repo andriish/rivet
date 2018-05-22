@@ -267,6 +267,9 @@ namespace Rivet {
   ///////////////////////
 
 
+  /// Particles copy constructor from vector<Particle>
+  Particles::Particles(const std::vector<Particle>& vps) : base(vps) {}
+
   /// Particles -> FourMomenta cast/conversion operator
   Particles::operator FourMomenta () const {
     // FourMomenta rtn(this->begin(), this->end());
