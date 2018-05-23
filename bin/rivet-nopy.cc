@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
     cerr << "Usage: " << argv[0] << " <hepmcfile> <ana1> [<ana2> ...]" << endl;
     cout << "Available analyses:\n";
     for (const string& a : Rivet::AnalysisLoader::analysisNames())
-      cout << a << "\n";
+      cout << "  " << a << "\n";
     cout << endl;
     return 1;
   }
