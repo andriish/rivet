@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  foreach (const string& a, Rivet::AnalysisLoader::analysisNames())
+  for (const string& a : Rivet::AnalysisLoader::analysisNames())
     cout << a << endl;
 
   Rivet::AnalysisHandler ah;
