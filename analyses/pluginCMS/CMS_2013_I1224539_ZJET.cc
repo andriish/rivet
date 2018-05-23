@@ -9,7 +9,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   class CMS_2013_I1224539_ZJET : public Analysis {
@@ -94,23 +94,24 @@ namespace Rivet {
       if (zfinder.bosons().size() != 1) vetoEvent;
       const Particle& z = zfinder.bosons()[0];
       if (zfinder.constituents().size() <2) {
-	MSG_WARNING("Found a Z with less than 2 constituents.");
-	vetoEvent;
+        MSG_WARNING("Found a Z with less than 2 constituents.");
+        vetoEvent;
       }
 
-      const Particle l1 = zfinder.constituents()[0];
-      const Particle l2 = zfinder.constituents()[1];
-
+      MSG_WARNING("FOOO");
+      const Particle& l1 = zfinder.constituents()[0];
+      const Particle& l2 = zfinder.constituents()[1];
+      MSG_WARNING(&l1 << " " << &l2 << ", " << (&l1 == &l2));
 
       // Require a high-pT Z (and constituents)
       if (l1.pT() < 30*GeV ) vetoEvent;
       if (l2.pT() < 30*GeV ) vetoEvent;
       if (z.pT() < 120*GeV) vetoEvent;
 
+      MSG_WARNING(__LINE__);
+
       // AK7 jets
       const PseudoJets& psjetsAK7_zj = apply<FastJets>(event, "JetsAK7_zj").pseudoJetsByPt(50.0*GeV);
-
-
       if (!psjetsAK7_zj.empty()) {
         // Get the leading jet and make sure it's back-to-back with the Z
         const fastjet::PseudoJet& j0 = psjetsAK7_zj[0];
@@ -128,6 +129,8 @@ namespace Rivet {
         }
       }
 
+      MSG_WARNING(__LINE__);
+
       // CA8 jets
       const PseudoJets& psjetsCA8_zj = apply<FastJets>(event, "JetsCA8_zj").pseudoJetsByPt(50.0*GeV);
       if (!psjetsCA8_zj.empty()) {
@@ -142,6 +145,8 @@ namespace Rivet {
         }
       }
 
+      MSG_WARNING(__LINE__);
+
       // CA12 jets
       const PseudoJets& psjetsCA12_zj = apply<FastJets>(event, "JetsCA12_zj").pseudoJetsByPt(50.0*GeV);
       if (!psjetsCA12_zj.empty()) {
@@ -155,6 +160,8 @@ namespace Rivet {
           }
         }
       }
+
+      MSG_WARNING(__LINE__);
 
     }
 

@@ -72,7 +72,7 @@ namespace Rivet {
     /// @note Currently either 0 or 1 boson can be found.
     const Particles& bosons() const { return particles(); }
     /// Access to the found boson (assuming it exists).
-    const Particle boson() const { return bosons().front(); }
+    const Particle& boson() const { return bosons().front(); }
 
 
     /// Access to the Z constituent clustered leptons

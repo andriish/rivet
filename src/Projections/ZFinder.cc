@@ -58,6 +58,9 @@ namespace Rivet {
 
 
   Particles ZFinder::constituentLeptons() const {
+    /// @note Ugly -- if there's no boson, the user should already have
+    /// stopped. Being forced to return by value because of an edge case which
+    /// is anyway wrong = yuck
     if (empty()) return Particles();
     return boson().constituents();
     // return boson().constituents(isChargedLepton);
