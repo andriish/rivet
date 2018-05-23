@@ -78,6 +78,7 @@ namespace Rivet {
 
     /// Set the cross-section for the process being generated.
     AnalysisHandler& setCrossSection(double xs, double xserr);
+    AnalysisHandler& scaleCrossSections();
 
     /// Get the cross-section known to the handler.
     Scatter1DPtr crossSection() const {
@@ -244,6 +245,7 @@ namespace Rivet {
 
     /// Cross-section known to AH
     Scatter1DPtr _xs;
+    double _xstmp, _xstmperr;
 
     /// Beams used by this run.
     ParticlePair _beams;

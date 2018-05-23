@@ -85,8 +85,9 @@ namespace Rivet {
 
     // set the cross section based on what is reported by this event.
     // if no cross section
+    MSG_TRACE("getting cross section.");
     if (ge.cross_section()) {
-      MSG_TRACE("getting cross section.");
+      MSG_TRACE("getting cross section from GenEvent.");
       double xs = ge.cross_section()->cross_section();
       double xserr = ge.cross_section()->cross_section_error();
       setCrossSection(xs, xserr);
@@ -196,16 +197,6 @@ namespace Rivet {
     /// @todo Filter/normalize the event here
     Event event(ge);
 
-    // set the cross section based on what is reported by this event.
-    // if no cross section
-    MSG_TRACE("getting cross section.");
-    if (ge.cross_section()) {
-      MSG_TRACE("getting cross section from GenEvent.");
-      double xs = ge.cross_section()->cross_section();
-      double xserr = ge.cross_section()->cross_section_error();
-      setCrossSection(xs, xserr);
-    }
-
     // won't happen for first event because _eventNumber is set in
     // init()
     if (_eventNumber != ge.event_number()) {
@@ -257,6 +248,16 @@ namespace Rivet {
       }
       MSG_TRACE("Finished running analysis " << a->name());
     }
+
+    // set the cross section based on what is reported by this event.
+    // if no cross section
+    if (ge.cross_section()) {
+      MSG_TRACE("getting cross section.");
+      double xs = ge.cross_section()->cross_section();
+      double xserr = ge.cross_section()->cross_section_error();
+      setCrossSection(xs, xserr);
+    }
+
   }
 
 
@@ -279,6 +280,8 @@ namespace Rivet {
           for (auto ao : a->analysisObjects())
               ao.get()->pushToPersistent(_subEventWeights);
       }
+
+      scaleCrossSections();
 
       for (const AnaHandle& a : _analyses) {
           for (size_t iW = 0; iW < numWeights(); iW++) {
@@ -470,8 +473,8 @@ namespace Rivet {
     return *this;
   }
 
-
-  AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
+  // calculate the cross sections for each weight variation
+  AnalysisHandler& AnalysisHandler::scaleCrossSections() {
     _xs = Scatter1DPtr(weightNames(), Scatter1D("_XSEC"));
     _eventCounter.get()->setActiveWeightIdx(_defaultWeightIdx);
     double nomwgt = sumOfWeights();
@@ -483,11 +486,19 @@ namespace Rivet {
         _eventCounter.get()->setActiveWeightIdx(iW);
         double s = sumOfWeights() / nomwgt;
         _xs.get()->setActiveWeightIdx(iW);
-        _xs->addPoint(xs*s, xserr*s);
+        _xs->addPoint(_xstmp*s, _xstmperr*s);
     }
 
     _eventCounter.get()->unsetActiveWeight();
     _xs.get()->unsetActiveWeight();
+
+    return *this;
+  }
+
+
+  AnalysisHandler& AnalysisHandler::setCrossSection(double xs, double xserr) {
+    _xstmp = xs;
+    _xstmperr = xserr;
     return *this;
   }
 
