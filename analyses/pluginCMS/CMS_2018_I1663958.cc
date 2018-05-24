@@ -13,6 +13,7 @@ namespace Rivet {
   public:
 
     struct Histo1DGroup {
+      Histo1DGroup() {}
       Histo1DGroup(CMS_2018_I1663958* an, const vector<string>& hnames, const vector<double>& xbinranges);
 
       void fill(double x, double y, double w = 1.);
@@ -43,11 +44,12 @@ namespace Rivet {
       declare(invisibles, "Invisibles");
 
       IdentifiedFinalState all_photons(vfs);
-      all_photons.acceptId(22);
+      all_photons.acceptId(PID::PHOTON);
       IdentifiedFinalState leptons(vfs);
-      leptons.acceptIds({11,-11,13,-13});
+      leptons.acceptIds({PID::ELECTRON, -PID::ELECTRON, PID::MUON,-PID::MUON});
 
-      DressedLeptons dressed_leptons(all_photons, leptons, m_lepdressdr, Cuts::abseta < m_lepetamax && Cuts::pT > m_vetolepptmin*GeV, true, true);
+      DressedLeptons dressed_leptons(all_photons, leptons, m_lepdressdr,
+                                     Cuts::abseta < m_lepetamax && Cuts::pT > m_vetolepptmin*GeV, true);
       declare(dressed_leptons, "MyLeptons");
 
       VetoedFinalState photons(all_photons);
@@ -68,6 +70,7 @@ namespace Rivet {
       m_hist_ttpt = bookHisto1D("d11-x01-y01");
       m_hist_tty = bookHisto1D("d13-x01-y01");
       m_hist_njet = bookHisto1D("d15-x01-y01");
+      /// @todo Memory leak
       m_hist_njet_ttm = new Histo1DGroup(this, {"d17-x01-y01", "d18-x01-y01", "d19-x01-y01", "d20-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
       m_hist_njet_thadpt = new Histo1DGroup(this, {"d22-x01-y01", "d23-x01-y01", "d24-x01-y01", "d25-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
       m_hist_njet_ttpt = new Histo1DGroup(this, {"d27-x01-y01", "d28-x01-y01", "d29-x01-y01", "d30-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
@@ -88,6 +91,7 @@ namespace Rivet {
       m_nhist_ttpt = bookHisto1D("d93-x01-y01");
       m_nhist_tty = bookHisto1D("d95-x01-y01");
       m_nhist_njet = bookHisto1D("d97-x01-y01");
+      /// @todo Memory leak
       m_nhist_njet_ttm = new Histo1DGroup(this, {"d99-x01-y01", "d100-x01-y01", "d101-x01-y01", "d102-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
       m_nhist_njet_thadpt = new Histo1DGroup(this, {"d104-x01-y01", "d105-x01-y01", "d106-x01-y01", "d107-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
       m_nhist_njet_ttpt = new Histo1DGroup(this, {"d109-x01-y01", "d110-x01-y01", "d111-x01-y01", "d112-x01-y01"}, {-0.5, 0.5, 1.5, 2.5, 3.5});
