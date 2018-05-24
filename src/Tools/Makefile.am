@@ -1,3 +1,5 @@
+SUBDIRS = Nsubjettiness
+
 noinst_LTLIBRARIES = libRivetTools.la
 
 libRivetTools_la_SOURCES = \

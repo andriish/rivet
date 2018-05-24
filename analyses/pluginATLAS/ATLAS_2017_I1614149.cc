@@ -10,9 +10,9 @@
 #include "fastjet/tools/Filter.hh"
 
 // substructure includes included in fjcontrib-1.021 (http://fastjet.hepforge.org/contrib/)
-#include "fastjet/contrib/Njettiness.hh"
-#include "fastjet/contrib/Nsubjettiness.hh"
-#include "fastjet/contrib/NjettinessPlugin.hh"
+#include "Rivet/Tools/Nsubjettiness/Njettiness.hh"
+#include "Rivet/Tools/Nsubjettiness/Nsubjettiness.hh"
+#include "Rivet/Tools/Nsubjettiness/NjettinessPlugin.hh"
 
 namespace Rivet {
   class ATLAS_2017_I1614149 : public Analysis {
@@ -305,16 +305,16 @@ namespace Rivet {
 
       double tau32(const fastjet::PseudoJet &jet, double jet_rad) const {
         double alpha = 1.0;
-        fastjet::contrib::NormalizedCutoffMeasure normalized_measure(alpha, jet_rad, 1000000);
+        Nsubjettiness::NormalizedCutoffMeasure normalized_measure(alpha, jet_rad, 1000000);
         // WTA definition
-        // fastjet::contrib::OnePass_WTA_KT_Axes wta_kt_axes;
+        // Nsubjettiness::OnePass_WTA_KT_Axes wta_kt_axes;
         // as in JetSubStructure recommendations 
-        fastjet::contrib::KT_Axes kt_axes;
+        Nsubjettiness::KT_Axes kt_axes;
 
         /// NsubjettinessRatio uses the results from Nsubjettiness to calculate the ratio
         /// tau_N/tau_M, where N and M are specified by the user. The ratio of different tau values
         /// is often used in analyses, so this class is helpful to streamline code.
-        fastjet::contrib::NsubjettinessRatio tau32_kt(3, 2, kt_axes, normalized_measure);
+        Nsubjettiness::NsubjettinessRatio tau32_kt(3, 2, kt_axes, normalized_measure);
 
         double tau32 = tau32_kt.result(jet);
         return tau32;

@@ -126,7 +126,15 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleSmearingFunctions.hh \
   Tools/JetSmearingFunctions.hh \
   Tools/TypeTraits.hh \
-  Tools/Utils.hh
+  Tools/Utils.hh \
+  Tools/Nsubjettiness/AxesDefinition.hh \
+  Tools/Nsubjettiness/ExtraRecombiners.hh \
+  Tools/Nsubjettiness/MeasureDefinition.hh \
+  Tools/Nsubjettiness/Njettiness.hh \
+  Tools/Nsubjettiness/NjettinessPlugin.hh \
+  Tools/Nsubjettiness/Nsubjettiness.hh \
+  Tools/Nsubjettiness/TauComponents.hh \
+  Tools/Nsubjettiness/XConePlugin.hh
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
 

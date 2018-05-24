@@ -37,9 +37,9 @@
 #include <vector>
 #include <list>
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
    
 // The following AxesDefinitions are currently available (and the relevant arguments, if needed)
 class KT_Axes;
@@ -1274,9 +1274,9 @@ private:
 };
    
 
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}
 
 #endif  // __FASTJET_CONTRIB_NJETTINESS_HH__
 

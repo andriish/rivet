@@ -35,10 +35,10 @@
 #include <string>
 #include <climits>
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
 
 ///------------------------------------------------------------------------
 /// \class XConePlugin
@@ -162,8 +162,8 @@ public:
 
    
    
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}
 
 #endif  // __FASTJET_CONTRIB_XConePlugin_HH__

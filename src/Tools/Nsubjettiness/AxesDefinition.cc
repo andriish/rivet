@@ -24,9 +24,9 @@
 
 #include "AxesDefinition.hh"
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
   
 // Repeatedly calls the one pass finder to try to find global minimum
 std::vector<fastjet::PseudoJet> AxesDefinition::get_multi_pass_axes(int n_jets,
@@ -90,6 +90,6 @@ std::vector<fastjet::PseudoJet> Manual_Axes::get_starting_axes(int,
    return dummy;
 }
 
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}

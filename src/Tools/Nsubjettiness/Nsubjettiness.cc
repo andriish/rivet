@@ -24,9 +24,9 @@
 
 #include "Nsubjettiness.hh"
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
 
 LimitedWarning Nsubjettiness::_old_constructor_warning;
    
@@ -49,6 +49,6 @@ double NsubjettinessRatio::result(const PseudoJet& jet) const {
    return numerator/denominator;
 }
 
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}

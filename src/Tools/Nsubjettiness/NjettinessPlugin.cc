@@ -24,9 +24,9 @@
 
 #include "NjettinessPlugin.hh"
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib{
+namespace Nsubjettiness{
 
 LimitedWarning NjettinessPlugin::_old_constructor_warning;
 
@@ -91,6 +91,6 @@ void NjettinessPlugin::run_clustering(ClusterSequence& cs) const
 }
 
 
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}

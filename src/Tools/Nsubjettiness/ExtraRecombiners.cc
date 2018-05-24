@@ -24,9 +24,9 @@
 
 #include "ExtraRecombiners.hh"
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib{
+namespace Nsubjettiness{
   
 std::string GeneralEtSchemeRecombiner::description() const {
    return "General Et-scheme recombination";
@@ -98,6 +98,6 @@ void WinnerTakeAllRecombiner::recombine(const fastjet::PseudoJet & pa, const fas
    }
 }
 
-} //namespace contrib
+} //namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}

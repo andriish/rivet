@@ -24,9 +24,9 @@
 
 #include "XConePlugin.hh"
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib{
+namespace Nsubjettiness{
 
 std::string XConePlugin::description() const {
    std::stringstream stream;
@@ -41,6 +41,6 @@ std::string PseudoXConePlugin::description() const {
    return stream.str();
 }
    
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}

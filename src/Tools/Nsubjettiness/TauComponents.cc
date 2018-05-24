@@ -25,9 +25,9 @@
 #include "TauComponents.hh"
 #include "MeasureDefinition.hh"
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
 
 // This constructor takes input vector and double and calculates all necessary tau components
 TauComponents::TauComponents(TauMode tau_mode,
@@ -84,6 +84,6 @@ bool TauComponents::has_beam() const {
            || _tau_mode == NORMALIZED_EVENT_SHAPE);
 }
 
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}

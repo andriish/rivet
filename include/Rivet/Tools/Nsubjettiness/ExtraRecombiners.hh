@@ -36,9 +36,9 @@
 #include <string.h>
 #include <errno.h>
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
 
 ///------------------------------------------------------------------------
 /// \class GeneralEtSchemeRecombiner
@@ -96,8 +96,8 @@ private:
 	double _alpha; //power of (pt/E) term when recombining particles
 };
 
-} //namespace contrib
+} //namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}
 
 #endif  // __FASTJET_CONTRIB_WINNERTAKEALLRECOMBINER_HH__

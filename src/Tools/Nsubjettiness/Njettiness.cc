@@ -24,9 +24,9 @@
 
 #include "Njettiness.hh"
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
 
 
 ///////
@@ -218,6 +218,6 @@ AxesDefinition* Njettiness::createAxesDef(Njettiness::AxesMode axes_mode) const 
    
    
    
-} // namespace contrib
+} // namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}

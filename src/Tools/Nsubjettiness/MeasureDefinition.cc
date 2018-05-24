@@ -29,9 +29,9 @@
 #include <iomanip>
 
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {      
 
-namespace contrib {
+namespace Nsubjettiness { using namespace fastjet;
 
 ///////
 //
@@ -623,6 +623,6 @@ fastjet::PseudoJet LightLikeAxis::ConvertToPseudoJet() {
     return fastjet::PseudoJet(px,py,pz,E);
 }
 
-} //namespace contrib
+} //namespace Nsubjettiness
 
-FASTJET_END_NAMESPACE
+}
