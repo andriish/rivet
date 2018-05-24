@@ -99,6 +99,7 @@ namespace Rivet {
       const Particle& l1 = z.constituents()[0];
       const Particle& l2 = z.constituents()[1];
       MSG_DEBUG(l1.pT() << " " << l2.pT());
+      assert(&l1 != &l2);
 
       // Require a high-pT Z (and constituents)
       if (l1.pT() < 30*GeV ) vetoEvent;
