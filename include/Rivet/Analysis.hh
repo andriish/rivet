@@ -27,6 +27,8 @@ namespace Rivet {
 
   // convenience for analysis writers
   using std::cout;
+  using std::cerr;
+  using std::endl;
   using std::stringstream;
   using std::swap;
   using std::numeric_limits;

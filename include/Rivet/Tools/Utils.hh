@@ -4,6 +4,7 @@
 
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/PrettyPrint.hh"
+#include "Rivet/Tools/Exceptions.hh"
 #include <ostream>
 #include <cctype>
 #include <cerrno>

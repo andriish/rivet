@@ -24,10 +24,7 @@ nobase_pkginclude_HEADERS += \
 
 ## Build config stuff
 nobase_pkginclude_HEADERS += \
-  Config/RivetCommon.hh \
-  Config/RivetConfig.hh \
-  Config/BuildOptions.hh
-
+  Config/RivetCommon.hh
 
 ## Projections
 nobase_pkginclude_HEADERS += \

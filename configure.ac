@@ -13,7 +13,7 @@ if test "$prefix" = "NONE"; then
 fi
 
 AC_CONFIG_SRCDIR([src/Core/Analysis.cc])
-AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh include/Rivet/Config/BuildOptions.hh])
+AC_CONFIG_HEADERS([include/Rivet/Config/DummyConfig.hh include/Rivet/Config/RivetConfig.hh])
 AM_INIT_AUTOMAKE([dist-bzip2 -Wall 1.10])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
