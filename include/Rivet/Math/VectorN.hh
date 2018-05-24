@@ -67,7 +67,7 @@ namespace Rivet {
     }
 
     /// Vector dimensionality
-    size_t size() const {
+    constexpr size_t size() const {
       return N;
     }
 
@@ -144,7 +144,7 @@ namespace Rivet {
   /// Make string representation
   template <size_t N>
   inline const string toString(const Vector<N>& v) {
-    ostringstream out;
+    std::ostringstream out;
     out << "(";
     for (size_t i = 0; i < v.size(); ++i) {
       out << (fabs(v[i]) < 1E-30 ? 0.0 : v[i]);

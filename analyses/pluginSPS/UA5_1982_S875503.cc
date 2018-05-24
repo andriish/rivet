@@ -49,7 +49,7 @@ namespace Rivet {
       _hist_nch->fill(_hist_nch->bin(0).xMid(), cfs.size());
 
       // Iterate over all tracks and fill eta histograms
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         const double eta = p.abseta();
         _hist_eta->fill(eta);
       }

@@ -58,7 +58,7 @@ namespace Rivet {
 
         // Identify dijets
         vector<FourMomentum> leadjets;
-        foreach (const Jet& jet, jetAr[alg]) {
+        for (const Jet& jet : jetAr[alg]) {
           if (jet.absrap() < 3.0 && leadjets.size() < 2) {
             if (leadjets.empty() && jet.pT() < 100*GeV) continue;
             leadjets.push_back(jet.momentum());

@@ -49,7 +49,7 @@ namespace Rivet {
       }
       else {
         map<int, double> quarkmap;
-        foreach (const Particle& p, iqf.particles()) {
+        for (const Particle& p : iqf.particles()) {
           if (quarkmap[p.pid()] < p.E()) {
             quarkmap[p.pid()] = p.E();
           }

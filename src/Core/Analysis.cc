@@ -64,7 +64,7 @@ namespace Rivet {
 
 
   const string Analysis::mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-    stringstream axisCode;
+    std::stringstream axisCode;
     axisCode << "d";
     if (datasetId < 10) axisCode << 0;
     axisCode << datasetId;
@@ -115,7 +115,7 @@ namespace Rivet {
   bool Analysis::isCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
     // First check the beam IDs
     bool beamIdsOk = false;
-    foreach (const PdgIdPair& bp, requiredBeams()) {
+    for (const PdgIdPair& bp : requiredBeams()) {
       if (compatible(beams, bp)) {
         beamIdsOk =  true;
         break;
@@ -128,7 +128,7 @@ namespace Rivet {
     /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
     bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
     typedef pair<double,double> DoublePair;
-    foreach (const DoublePair& ep, requiredEnergies()) {
+    for (const DoublePair& ep : requiredEnergies()) {
       if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
           (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
           (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||

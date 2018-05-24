@@ -94,7 +94,7 @@ namespace Rivet {
 
     /// Add a particle ID to veto (all \f$ p_T \f$ range will be vetoed).
     VetoedFinalState& addVetoId(const long id) {
-      BinaryCut ptrange(0.0, numeric_limits<double>::max());
+      BinaryCut ptrange(0.0, std::numeric_limits<double>::max());
       _vetoCodes.insert(make_pair(id, ptrange));
       return *this;
     }

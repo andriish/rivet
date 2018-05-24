@@ -66,7 +66,7 @@ namespace Rivet {
 
       /// @todo Use PrimaryHadrons to avoid double counting and automatically remove the contributions from unstable?
       const UnstableFinalState &ufs = apply<UnstableFinalState> (event, "UFS");
-      foreach (const Particle& p, ufs.particles() ) {
+      for (const Particle& p : ufs.particles() ) {
 
         // We're only interested in charm hadrons
         if (!p.isHadron() || !p.hasCharm()) continue;
@@ -107,10 +107,10 @@ namespace Rivet {
     void finalize() {
       const double scale_factor = 0.5 * crossSection()/microbarn / sumOfWeights();
       /// Avoid the implicit division by the bin width in the BinnedHistogram::scale method.
-      foreach (Histo1DPtr h, _h_pdg411_Dplus_pT_y.histos()) h->scaleW(scale_factor);
-      foreach (Histo1DPtr h, _h_pdg421_Dzero_pT_y.histos()) h->scaleW(scale_factor);
-      foreach (Histo1DPtr h, _h_pdg431_Dsplus_pT_y.histos()) h->scaleW(scale_factor);
-      foreach (Histo1DPtr h, _h_pdg413_Dstarplus_pT_y.histos()) h->scaleW(scale_factor);
+      for (Histo1DPtr h : _h_pdg411_Dplus_pT_y.histos()) h->scaleW(scale_factor);
+      for (Histo1DPtr h : _h_pdg421_Dzero_pT_y.histos()) h->scaleW(scale_factor);
+      for (Histo1DPtr h : _h_pdg431_Dsplus_pT_y.histos()) h->scaleW(scale_factor);
+      for (Histo1DPtr h : _h_pdg413_Dstarplus_pT_y.histos()) h->scaleW(scale_factor);
       _h_pdg4122_Lambdac_pT->scaleW(scale_factor);
     }
 

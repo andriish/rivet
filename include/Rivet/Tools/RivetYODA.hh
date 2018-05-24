@@ -8,8 +8,6 @@
 /// @author David Grellscheid
 /// @date   2016-09-27
 
-#include "Rivet/Config/RivetCommon.hh"
-
 #include "YODA/AnalysisObject.h"
 #include "YODA/Counter.h"
 #include "YODA/Histo1D.h"
@@ -21,18 +19,13 @@
 #include "YODA/Scatter3D.h"
 
 #include <map>
+#include <valarray>
 
 namespace YODA {
     typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
-    // typedef std::shared_ptr<YODA::Scatter1D> Scatter1DPtr;
-    // typedef std::shared_ptr<YODA::Scatter2D> Scatter2DPtr;
-    // typedef std::shared_ptr<YODA::Scatter3D> Scatter3DPtr;
 }
 
-
-
 namespace Rivet {
-
 
     class AnalysisObjectWrapper {
         public:
@@ -139,7 +132,7 @@ namespace Rivet {
 
             virtual void newSubEvent() = 0;
 
-            virtual void pushToPersistent(const vector<valarray<double> >& weight) = 0;
+            virtual void pushToPersistent(const vector<std::valarray<double> >& weight) = 0;
 
             virtual YODA::AnalysisObjectPtr activeYODAPtr() const = 0;
     };
@@ -366,7 +359,7 @@ public:
         const vector<typename T::Ptr> & persistent() const { return _persistent; }
 
         /* to be implemented for each type */
-        void pushToPersistent(const vector<valarray<double> >& weight);
+        void pushToPersistent(const vector<std::valarray<double> >& weight);
 
         /* M of these, one for each weight */
         vector<typename T::Ptr> _persistent;

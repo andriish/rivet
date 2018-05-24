@@ -31,7 +31,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         if(p.absrap()<0.5) {
           switch (p.pid()) {
             case 211:

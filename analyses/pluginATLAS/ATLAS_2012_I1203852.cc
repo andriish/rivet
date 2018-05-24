@@ -121,9 +121,9 @@ namespace Rivet {
       ////////////////////////////////////////////////////////////////////
       // OVERLAP removal dR(l,l)>0.2
       ////////////////////////////////////////////////////////////////////
-      foreach ( const DressedLepton& l1, leptonsFS_sel4l) {
+      for ( const DressedLepton& l1 : leptonsFS_sel4l) {
         bool isolated = true;
-        foreach (DressedLepton& l2, leptonsFS_sel4l) {
+        for (DressedLepton& l2 : leptonsFS_sel4l) {
           const double dR = deltaR(l1, l2);
           if (dR < 0.2 && l1 != l2) { isolated = false; break; }
         }
@@ -136,7 +136,7 @@ namespace Rivet {
 
       // calculate total 'flavour' charge
       double totalcharge = 0;
-      foreach (Particle& l, leptons_sel4l) totalcharge += l.pid();
+      for (Particle& l : leptons_sel4l) totalcharge += l.pid();
 
       // Analyze 4 lepton events
       if (leptons_sel4l.size() == 4 && totalcharge == 0  ) {
@@ -199,8 +199,8 @@ namespace Rivet {
       if (leptons_sel2l2nu.empty()) vetoEvent; // no further analysis, fine to veto
 
       Particles leptons_sel2l2nu_jetveto;
-      foreach (const DressedLepton& l, mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
-      foreach (const DressedLepton& l, el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      for (const DressedLepton& l : mu_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
+      for (const DressedLepton& l : el_sel2l2nu) leptons_sel2l2nu_jetveto.push_back(l.constituentLepton());
       double ptll = (leptons_sel2l2nu[0].momentum() + leptons_sel2l2nu[1].momentum()).pT();
 
       // Find Z1-> ll
@@ -247,10 +247,10 @@ namespace Rivet {
       // JETVETO: veto all events with at least one good jet
       ///////////////////////////////////////////////////////////////////////////
       vector<Jet> good_jets;
-      foreach (const Jet& j, apply<FastJets>(e, "jet").jetsByPt(25)) {
+      for (const Jet& j : apply<FastJets>(e, "jet").jetsByPt(25)) {
         if (j.abseta() > 4.5) continue;
         bool isLepton = 0;
-        foreach (const Particle& l, leptons_sel2l2nu_jetveto) {
+        for (const Particle& l : leptons_sel2l2nu_jetveto) {
           const double dR = deltaR(l.momentum(), j.momentum());
           if (dR < 0.3) { isLepton = true; break; }
         }
@@ -317,7 +317,7 @@ namespace Rivet {
     /////////////////////////////////////////////////////////////////////////////
 
     Particles part_pos_el, part_neg_el, part_pos_mu, part_neg_mu;
-    foreach (const Particle& l , leptons_sel4l) {
+    for (const Particle& l : leptons_sel4l) {
       if (l.abspid() == PID::ELECTRON) {
         if (l.pid() < 0) part_neg_el.push_back(l);
         if (l.pid() > 0) part_pos_el.push_back(l);

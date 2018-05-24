@@ -72,11 +72,10 @@ private:
 
 /// Comparison functor for "eigen-pairs".
 template <size_t N>
-struct EigenPairCmp :
-  public std::binary_function<const typename EigenSystem<N>::EigenPair&,
-                              const typename EigenSystem<N>::EigenPair&, bool> {
+struct EigenPairCmp {
   bool operator()(const typename EigenSystem<N>::EigenPair& a,
-                  const typename EigenSystem<N>::EigenPair& b) {
+                  const typename EigenSystem<N>::EigenPair& b) const 
+  {
     return a.first < b.first;
   }
 };
@@ -133,7 +132,7 @@ inline const string toString(const typename EigenSystem<N>::EigenPair& e) {
   ostringstream ss;
   //for (typename EigenSystem<N>::EigenPairs::const_iterator i = e.begin(); i != e.end(); ++i) {
   ss << e->first << " -> " << e->second;
-  //  if (i+1 != e.end()) ss << endl;
+  //  if (i+1 != e.end()) ss << '\n';
   //}
   return ss.str();
 }

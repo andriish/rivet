@@ -6,12 +6,12 @@ using namespace std;
 
 int main(int argc, char** argv) {
   if (argc < 2) {
-    cerr << "Usage: " << argv[0] << " <hepmcfile> <ana1> [<ana2> ...]" << endl;
+    cerr << "Usage: " << argv[0] << " <hepmcfile> <ana1> [<ana2> ...]" << '\n';
     return 1;
   }
 
-  foreach (const string& a, Rivet::AnalysisLoader::analysisNames())
-    cout << a << endl;
+  for (const string& a : Rivet::AnalysisLoader::analysisNames())
+    cout << a << '\n';
 
   Rivet::AnalysisHandler ah;
   for (int i = 2; i < argc; ++i) {

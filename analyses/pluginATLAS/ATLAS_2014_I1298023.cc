@@ -79,9 +79,9 @@ namespace Rivet {
       const Jets& all_jets = apply<FastJets>(event, "jets").jetsByPt( (Cuts::abseta < 4.5) && (Cuts::pT > 30*GeV) );
       Jets jets;
       double minDR_overall = MAXDOUBLE;
-      foreach (const Jet& jet, all_jets) {
+      for (const Jet& jet : all_jets) {
         double minDR_jet = MAXDOUBLE, minDR_electrons = MAXDOUBLE;
-        foreach( DressedLepton lep, leptons ) {
+        for( DressedLepton lep : leptons ) {
           double dr = deltaR(jet, lep);
           if ( dr < minDR_jet )  minDR_jet = dr;
           if ( lep.abspid() == 11 && dr < minDR_electrons )  minDR_electrons = dr;

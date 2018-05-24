@@ -75,7 +75,7 @@ namespace Rivet {
       double y, pT;
       int id;
       int partIdx = -1;
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         id = p.pid();
         // continue if particle not a K0s nor (anti-)Lambda
         if ( (id == 310) || (id == -310) )  {

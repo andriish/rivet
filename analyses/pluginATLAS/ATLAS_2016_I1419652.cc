@@ -99,7 +99,7 @@ namespace Rivet {
       // Get number of particles
       int nch[kNPartTypes];
       int nch_noStrange = 0;
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         PdgId pdg = p.abspid ();
         if ( pdg == 3112 || // Sigma-
              pdg == 3222 || // Sigma+
@@ -127,7 +127,7 @@ namespace Rivet {
       }
 
       // Loop over particles, fill pT, eta and ptnch
-      foreach (const Particle& p, cfs.particles())  {
+      for (const Particle& p : cfs.particles())  {
         const double pt  = p.pT()/GeV;
         const double eta = p.eta();
         _hist_pt     [k_AllCharged][iRegion]->fill(pt , 1.0/pt);

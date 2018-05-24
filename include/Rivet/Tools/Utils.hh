@@ -5,7 +5,6 @@
 #include "Rivet/Tools/RivetSTL.hh"
 #include "Rivet/Tools/PrettyPrint.hh"
 #include <ostream>
-#include <iostream>
 #include <cctype>
 #include <cerrno>
 #include <stdexcept>
@@ -14,18 +13,7 @@
 #include <climits>
 #include <cfloat>
 #include <cmath>
-
-
-// // Macro to help with overzealous compiler warnings
-// /// @note It's easier and better to just not give an arg name to args which won't be used, when possible.
-// #ifdef UNUSED
-// #elif defined(__GNUC__)
-// # define UNUSED(x) UNUSED_ ## x __attribute__((unused))
-// #elif defined(__LCLINT__)
-// # define UNUSED(x) /*@unused@*/ x
-// #else
-// # define UNUSED(x) x
-// #endif
+#include <sstream>
 
 
 /// Macro to help mark code as deprecated to produce compiler warnings
@@ -80,7 +68,7 @@ namespace Rivet {
   /// Just a convenience wrapper for the more general Boost lexical_cast
   template <typename T>
   inline string to_str(const T& x) {
-    return lexical_cast<string>(x);
+    return to_string(x);
   }
 
   /// @brief Convert any object to a string
@@ -88,7 +76,7 @@ namespace Rivet {
   /// An alias for to_str() with a more "Rivety" mixedCase name.
   template <typename T>
   inline string toString(const T& x) {
-    return to_str(x);
+    return to_string(x);
   }
 
   /// Replace the first instance of patt with repl
@@ -181,6 +169,17 @@ namespace Rivet {
     return rtn;
   }
 
+  /// Make a string containing the string representations of each item in v, separated by sep
+  template <>
+  inline string join(const vector<string>& v, const string& sep) {
+    string rtn;
+    for (size_t i = 0; i < v.size(); ++i) {
+      if (i != 0) rtn += sep;
+      rtn += v[i];
+    }
+    return rtn;
+  }
+
   /// Make a string containing the string representations of each item in s, separated by sep
   template <typename T>
   inline string join(const set<T>& s, const string& sep=" ") {
@@ -188,6 +187,17 @@ namespace Rivet {
     for (const T& x : s) {
       if (rtn.size() > 0) rtn += sep;
       rtn += to_str(x);
+    }
+    return rtn;
+  }
+
+  /// Make a string containing the string representations of each item in s, separated by sep
+  template <>
+  inline string join(const set<string>& s, const string& sep) {
+    string rtn;
+    for (const string & x : s) {
+      if (rtn.size() > 0) rtn += sep;
+      rtn += x;
     }
     return rtn;
   }

@@ -53,7 +53,7 @@ namespace Rivet {
 
       // Filter to just get a vector of b-jets
       Jets bjets;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (j.bTagged()) bjets += j;
       }
       if (bjets.empty())  {
@@ -63,7 +63,7 @@ namespace Rivet {
 
       // Bin b-jets in pT
       Jets bjets_ptbinned[4];
-      foreach (const Jet& bj, bjets) {
+      for (const Jet& bj : bjets) {
         const FourMomentum pbj = bj.momentum();
         const int ipt = binIndex(pbj.pT(), _ptedges);
         if (ipt == -1) continue; ///< Out of pT range (somehow!)

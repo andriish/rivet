@@ -29,7 +29,7 @@ namespace Rivet {
       Particles nonPhotons;
       FourMomentum ptotal;
       const FinalState& fs = apply<FinalState>(e, "FS");
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         ptotal+= p.momentum();
         if (p.pid() == PID::PHOTON) {
           photons.push_back(p);
@@ -48,7 +48,7 @@ namespace Rivet {
       double evis = ptotal.mass();
       vector<fastjet::PseudoJet> input_particles;
       // Pseudo-jets from the non photons
-      foreach (const Particle& p,  nonPhotons) {
+      for (const Particle& p :  nonPhotons) {
         const FourMomentum p4 = p.momentum();
         input_particles.push_back(fastjet::PseudoJet(p4.px(), p4.py(), p4.pz(), p4.E()));
       }

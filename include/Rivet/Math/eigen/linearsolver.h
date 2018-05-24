@@ -96,10 +96,10 @@ namespace Eigen
   * @code
         if( solver.thereExistSolutions() )
         {
-            cout << "There are solutions! Here's one:" << endl;
-            cout << solver.someSolution() << endl;
+            cout << "There are solutions! Here's one:" << '\n';
+            cout << solver.someSolution() << '\n';
         }
-        else cout << "There are no solutions." << endl;
+        else cout << "There are no solutions." << '\n';
   * @endcode
   *
   * If you want a complete analysis of the space of solutions,
@@ -108,16 +108,16 @@ namespace Eigen
   * @code
         if( solver.thereExistSolutions() )
         {
-            cout << "There are solutions! Here's one:" << endl;
-            cout << solver.someSolution() << endl;
+            cout << "There are solutions! Here's one:" << '\n';
+            cout << solver.someSolution() << '\n';
 
             if( solver.dimSolutions() == 0 )
-                cout << "And this is the only solution." << endl;
+                cout << "And this is the only solution." << '\n';
             else
             {
                 cout << "The space of solutions is of dimension "
-                     << solver.dimSolutions() << endl;
-                cout << "Here's another solution:" << endl;
+                     << solver.dimSolutions() << '\n';
+                cout << "Here's another solution:" << '\n';
 
                 // let's construct a random parameter vector. This vector needs
                 // to have size equal to dimSolutions(), but as this can't be
@@ -126,10 +126,10 @@ namespace Eigen
                 for( int i = 0; i < solver.dimSolutions(); i++ )
                     param[i] = -10.0 + 20.0 * rand() / RAND_MAX;
 
-                cout << solver.genericSolution( param ) << endl;
+                cout << solver.genericSolution( param ) << '\n';
             }
         }
-        else cout << "There are no solutions." << endl;
+        else cout << "There are no solutions." << '\n';
   * @endcode
   *
   * NOTE: As Eigen only handles square matrices, the number of equations
@@ -206,10 +206,10 @@ public:
   * @code
         if( solver.thereExistSolutions() )
         {
-            cout << "There are solutions! Here's one:" << endl;
-            cout << solver.someSolution() << endl;
+            cout << "There are solutions! Here's one:" << '\n';
+            cout << solver.someSolution() << '\n';
         }
-        else cout << "There are no solutions." << endl;
+        else cout << "There are no solutions." << '\n';
   * @endcode
   *
   * If you want a complete analysis of the space of solutions,
@@ -218,16 +218,16 @@ public:
   * @code
         if( solver.thereExistSolutions() )
         {
-            cout << "There are solutions! Here's one:" << endl;
-            cout << solver.someSolution() << endl;
+            cout << "There are solutions! Here's one:" << '\n';
+            cout << solver.someSolution() << '\n';
 
             if( solver.dimSolutions() == 0 )
-                cout << "And this is the only solution." << endl;
+                cout << "And this is the only solution." << '\n';
             else
             {
                 cout << "The space of solutions is of dimension "
-                     << solver.dimSolutions() << endl;
-                cout << "Here's another solution:" << endl;
+                     << solver.dimSolutions() << '\n';
+                cout << "Here's another solution:" << '\n';
 
                 // let's construct a random parameter vector. This vector needs
                 // to have size equal to dimSolutions(), but as this can't be
@@ -236,10 +236,10 @@ public:
                 for( int i = 0; i < solver.dimSolutions(); i++ )
                     param[i] = -10.0 + 20.0 * rand() / RAND_MAX;
 
-                cout << solver.genericSolution( param ) << endl;
+                cout << solver.genericSolution( param ) << '\n';
             }
         }
-        else cout << "There are no solutions." << endl;
+        else cout << "There are no solutions." << '\n';
   * @endcode
   *
   * NOTE: As Eigen only handles square matrices, the number of equations

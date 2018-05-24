@@ -52,7 +52,7 @@ namespace Rivet {
 
     double recoilW(const Particle& mother) {
       FourMomentum lepton, neutrino, meson, q;
-      foreach(const Particle& c, mother.children()) {
+      for(const Particle& c : mother.children()) {
         if (c.isNeutrino()) neutrino=c.mom();
         if (c.isLepton() &! c.isNeutrino()) lepton =c.mom();
         if (c.isHadron()) meson=c.mom();

@@ -41,7 +41,7 @@ namespace Rivet {
         vetoEvent;
       }
       std::vector<Vector3> momenta;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (j.abseta() < 1.3) {
           Vector3 mom = j.p3();
           mom.setZ(0.0);

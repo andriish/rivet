@@ -54,7 +54,7 @@ namespace Rivet {
                 double count_chrg_forward = 0;
                 double count_chrg_backward = 0;
                 const FinalState& fschrgdv = apply<FinalState>(event, "fschrgdv");
-                foreach (const Particle& p, fschrgdv.particles()) {
+                for (const Particle& p : fschrgdv.particles()) {
                     if (3.9 < p.eta() && p.eta() < 4.4) count_chrg_forward++;
                     if (-4.4 < p.eta() && p.eta() < -3.9) count_chrg_backward++;
                 }

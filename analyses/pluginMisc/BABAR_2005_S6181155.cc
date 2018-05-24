@@ -40,7 +40,7 @@ namespace Rivet {
 
       const bool onresonance = fuzzyEquals(beamproj.sqrtS()/GeV, 10.58, 2E-3);
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         // 3-momentum in CMS frame
 
         const double mom = cms_boost.transform(p.momentum()).vector3().mod();

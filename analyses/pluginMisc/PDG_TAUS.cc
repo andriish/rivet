@@ -51,7 +51,7 @@ namespace Rivet {
       const TauFinder& tauhad = apply<TauFinder>(e, "TauHadronic");
 
       // Hadronic tau decays --- prong decays
-      foreach(const Particle& tau, tauhad.taus()) {
+      for(const Particle& tau : tauhad.taus()) {
         _weights_had->fill();
         int prongs = countProngs(tau); // number of charged particles among decay products
         // Only do 1 prong decays here
@@ -73,7 +73,7 @@ namespace Rivet {
       }
 
       // Leptonic tau decays --- look for radiative and non-radiative 1 prong decays
-      foreach(const Particle& tau, taulep.taus()) {
+      for(const Particle& tau : taulep.taus()) {
         int prongs = countProngs(tau); // number of charged particles among decay products
         // Only do 1 prong decays here
         if (prongs == 1) {
@@ -111,7 +111,7 @@ namespace Rivet {
     // Count charged decay products
     int countProngs(Particle mother) {
       int n_prongs = 0;
-      foreach(Particle p, mother.children())
+      for(Particle p : mother.children())
         if (p.threeCharge()!=0) ++n_prongs;
       return n_prongs;
     }
@@ -136,7 +136,7 @@ namespace Rivet {
       // There is no point in looking for decays with less particles than to be analysed
       if (mother.children().size() == ids.size()) {
         bool decayfound = true;
-        foreach (int id, ids) {
+        for (int id : ids) {
           if (!contains(mother, id, absolute)) decayfound = false;
         }
         return decayfound;
@@ -153,7 +153,7 @@ namespace Rivet {
       // There is no point in looking for decays with less particles than to be analysed
       if (mother.children().size() >= ids.size()) {
         bool decayfound = true;
-        foreach (int id, ids) {
+        for (int id : ids) {
           if (!contains(mother, id, absolute)) decayfound = false;
         }
         // Do not increment counters if the specified decay products were not found
@@ -164,7 +164,7 @@ namespace Rivet {
           // Only fill the histo if there is a radiative decay
           if (radiative) {
             // Iterate over decay products to find photon with 5 MeV energy
-            foreach (const Particle& son, mother.children()) {
+            for (const Particle& son : mother.children()) {
               if (son.pid() == PID::PHOTON) {
                 // Require photons to have at least 5 MeV energy in the rest frame of the tau
                 // boosted taus

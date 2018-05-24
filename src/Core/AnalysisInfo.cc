@@ -235,7 +235,7 @@ namespace Rivet {
 
 
   string toString(const AnalysisInfo& ai) {
-    stringstream ss;
+    std::stringstream ss;
     ss << ai.name();
     ss << " - " << ai.summary();
     // ss << " - " << ai.beams();

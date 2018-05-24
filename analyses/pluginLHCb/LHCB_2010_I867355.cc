@@ -24,7 +24,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       Particles bhadrons;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      for (const GenParticle* p : particles(event.genEvent())) {
         if (!( PID::isHadron( p->pdg_id() ) && PID::hasBottom( p->pdg_id() )) ) continue;
 
         const GenVertex* dv = p->end_vertex();
@@ -44,7 +44,7 @@ namespace Rivet {
         bhadrons += Particle(*p);
       }
 
-      foreach (const Particle& particle, bhadrons) {
+      for (const Particle& particle : bhadrons) {
 
         // take fabs() to use full statistics and then multiply weight by 0.5 because LHCb is single-sided
         double eta = fabs(particle.eta());

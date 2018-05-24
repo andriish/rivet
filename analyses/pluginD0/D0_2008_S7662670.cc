@@ -63,7 +63,7 @@ namespace Rivet {
       // Find the jets
       const JetAlg& jetpro = apply<JetAlg>(event, "Jets");
       // Fill histo for each jet
-      foreach (const Jet& j, jetpro.jets(Cuts::pT > 50*GeV)) {
+      for (const Jet& j : jetpro.jets(Cuts::pT > 50*GeV)) {
         const double pt = j.pT();
         const double y = j.absrap();
         MSG_TRACE("Filling histos: pT = " << pt/GeV << ", |y| = " << y);

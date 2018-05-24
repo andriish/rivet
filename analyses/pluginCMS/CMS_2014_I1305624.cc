@@ -155,7 +155,7 @@ namespace Rivet {
       if (leadingpt < 110*GeV) vetoEvent;
 
       vector<double> jtpx, jtpy, jtpz, jten;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (j.abseta() < 2.4) {
           jtpx.push_back(j.px());
           jtpy.push_back(j.py());
@@ -237,9 +237,9 @@ namespace Rivet {
           ((size_t) _object_pz.size() != length) ||
           ((size_t) _object_e.size() != length)) {
         /// @todo Change to exception or assert
-        // cout << "ERROR!!!! Input vectors differ in size! Change that please!" << endl;
+        // cout << "ERROR!!!! Input vectors differ in size! Change that please!" << '\n';
         // cout<<"py_size: "<<_object_py.size()<<" ,pz_size: "<<_object_pz.size()
-        //     <<" ,px_size: "<<_object_px.size()<<" ,E_size: "<<_object_e.size()<<endl;
+        //     <<" ,px_size: "<<_object_px.size()<<" ,E_size: "<<_object_e.size()<<'\n';
         return 0;
       }
 
@@ -282,7 +282,7 @@ namespace Rivet {
           //      << " which is bigger than E = " << _object_e[k] <<" "
           //      << _object_px[k] <<" "<< _object_py[k] <<" "
           //      << _object_pz[k] <<" of total length "<< length
-          //      << endl;
+          //      << '\n';
           return 0;
         }
 
@@ -299,14 +299,14 @@ namespace Rivet {
         if (_irap == 1) {
           if (_object_pz[k] == _object_e[k]) {
             /// @todo Change to exception or assert
-            // cout << "ERROR!!! object "<<k<<" has Pz "<< _object_pz[k] <<" which is equal to E = "<< _object_e[k] <<endl;
+            // cout << "ERROR!!! object "<<k<<" has Pz "<< _object_pz[k] <<" which is equal to E = "<< _object_e[k] <<'\n';
             return 0;
           }
           _object_eta[k]=0.5*log((_object_e[k]+_object_pz[k])/(_object_e[k]-_object_pz[k]));
         }
         if (_irap != 0 && _irap != 1) {
           /// @todo Change to exception or assert
-          // cout << "ERROR!!!, The choice to use the rapidity y or the pseudorapidity eta is not set correctly! Change that please!" << endl;
+          // cout << "ERROR!!!, The choice to use the rapidity y or the pseudorapidity eta is not set correctly! Change that please!" << '\n';
           return 0;
         }
         _object_phi[k] = atan2(_object_py[k], _object_px[k]);
@@ -354,7 +354,7 @@ namespace Rivet {
 
       if (object_px_in.size() != nin) {
         /// @todo Change to exception or assert
-        cout<<"ERROR!!! wrong dimension of 'in' momenta"<<endl;
+        cout<<"ERROR!!! wrong dimension of 'in' momenta"<<'\n';
         //return 0; ///< @todo Why not do this?
       }
       const size_t nout = length - nin;
@@ -587,9 +587,9 @@ namespace Rivet {
       if (((size_t) in_object_py.size()!=y3_length) ||
           ((size_t) in_object_pz.size()!=y3_length) ||
           (in_object_e.size()!=y3_length)) {
-        // cout << "ERROR!!!! Input vectors differ in size! Change that please!" << endl;
+        // cout << "ERROR!!!! Input vectors differ in size! Change that please!" << '\n';
         // cout<<"py_size: "<<in_object_py.size()<<" ,pz_size: "<<in_object_pz.size()
-        //     <<" ,px_size: "<<in_object_px.size()<<" , E_size: "<<in_object_e.size() <<endl;
+        //     <<" ,px_size: "<<in_object_px.size()<<" , E_size: "<<in_object_e.size() <<'\n';
         return 0.0;
       }
 
@@ -830,7 +830,7 @@ namespace Rivet {
       length_thrust_calc = input_px.size();
       if (input_py.size() != length_thrust_calc) {
         /// @todo Change to exception or assert
-        cout<<"ERROR in thrust calculation!!! Size of input vectors differs. Change that please!"<<endl;
+        cout<<"ERROR in thrust calculation!!! Size of input vectors differs. Change that please!"<<'\n';
         return thrust_values;
       }
 
@@ -901,7 +901,7 @@ namespace Rivet {
     double EventShape::_lorentz_sp(const vector<double>& a, const vector<double>& b) {
       size_t dim = (size_t) a.size();
       if (a.size()!=b.size()) {
-        cout<<"ERROR!!! Dimension of input vectors are different! Change that please!"<<endl;
+        cout<<"ERROR!!! Dimension of input vectors are different! Change that please!"<<'\n';
         return 0;
       } else {
         double l_dot_product=a[dim-1]*b[dim-1];

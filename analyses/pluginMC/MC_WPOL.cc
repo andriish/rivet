@@ -125,7 +125,7 @@ namespace Rivet {
     void finalize() {
 
       for (size_t i=0; i<_h_histos.size(); ++i) {
-        foreach (Histo1DPtr histo, _h_histos[i]) {
+        for (Histo1DPtr histo : _h_histos[i]) {
           scale(histo, crossSection()/picobarn/sumOfWeights());
         }
       }

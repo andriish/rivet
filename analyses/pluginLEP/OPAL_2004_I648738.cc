@@ -83,7 +83,7 @@ namespace Rivet {
       // fill histograms
       _sumW[itype]->fill(2.);
       const Particles& chps = applyProjection<FinalState>(event, "CFS").particles();
-      foreach(const Particle& p, chps) {
+      for(const Particle& p : chps) {
         double xE = 2.*p.E()/sqrtS();
 	_histo_xE[itype]->fill(xE);
       }

@@ -126,7 +126,7 @@ namespace Rivet {
       /// @todo cout is not a valid response to a numerical error! Is the error condition reported?!? Assert added by AB for Rivet 1.8.2
       assert(mag3 > 0);
       if (mag3 <= 0) {
-        cout << "rotation axis is null" << endl;
+        cout << "rotation axis is null" << '\n';
         return;
       }
 
@@ -152,7 +152,7 @@ namespace Rivet {
       const double phi_jet = jet.phi();
       const double eta_jet = jet.eta();
       double width(0), pTsum(0);
-      foreach (const Particle& p, jet.particles()) {
+      for (const Particle& p : jet.particles()) {
         double pT = p.pT();
         double eta = p.eta();
         double phi = p.phi();
@@ -172,7 +172,7 @@ namespace Rivet {
     //   vector<double> energies;
 
     //   double etaSum(0), phiSum(0), eTot(0);
-    //   foreach (const Particle& p, jet.particles()) {
+    //   for (const Particle& p : jet.particles()) {
     //     const double E = p.E();
     //     const double eta = p.eta();
 
@@ -254,7 +254,7 @@ namespace Rivet {
       CalcRotationMatrix(nref, rotationMatrix);
 
       double iw00(0.), iw01(0.), iw11(0.), iw10(0.);
-      foreach (const Particle& p, jet.particles()) {
+      for (const Particle& p : jet.particles()) {
         double a = 1./(p.E()*jet.mass());
         FourMomentum rotclus = RotateAxes(p.momentum(), rotationMatrix);
         iw00 += a*pow(rotclus.px(), 2);
@@ -276,7 +276,7 @@ namespace Rivet {
       double sum_a = 0.;
       // a can take any value < 2 (e.g. 1,0,-0.5 etc) for infrared safety
       const double a = -2.;
-      foreach (const Particle& p, jet.particles()) {
+      for (const Particle& p : jet.particles()) {
         double e_i       = p.E();
         double theta_i   = jet.momentum().angle(p.momentum());
         double e_theta_i = e_i * pow(sin(theta_i), a) * pow(1-cos(theta_i), 1-a);

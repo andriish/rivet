@@ -129,7 +129,7 @@ namespace Rivet {
 
         // Loop over each of the charged particles
         const Particles& tracks = apply<ChargedFinalState>(event, "TRACK_INPUT").particlesByPt();
-        foreach(const Particle& t, tracks) {
+        for(const Particle& t : tracks) {
 
           // Get the delta-phi between the track and the leading jet
           double dphi = deltaPhi(all_jets[i]->at(0), t);
@@ -206,7 +206,7 @@ namespace Rivet {
       for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 2; ++j) {
           vector<Histo1DPtr> histos = plots[i][j].histos();
-          foreach(Histo1DPtr h, histos) {
+          for(Histo1DPtr h : histos) {
             scale(h, 1.0/ *_nEvents[i]);
           }
         }

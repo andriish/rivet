@@ -129,7 +129,7 @@ namespace Rivet {
 
     // HT
     double HT = 0.0;
-    foreach (const Jet& jet, jets) {
+    for (const Jet& jet : jets) {
       HT += jet.pT();
     }
     _h_jet_HT->fill(HT);

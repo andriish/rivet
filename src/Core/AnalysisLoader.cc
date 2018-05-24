@@ -22,7 +22,7 @@ namespace Rivet {
   vector<string> AnalysisLoader::analysisNames() {
     _loadAnalysisPlugins();
     vector<string> names;
-    foreach (const AnalysisBuilderMap::value_type& p, _ptrs) names += p.first;
+    for (const AnalysisBuilderMap::value_type& p : _ptrs) names += p.first;
     return names;
   }
 
@@ -30,7 +30,7 @@ namespace Rivet {
   set<string> AnalysisLoader::getAllAnalysisNames() {
     set<string> anaset;
     vector<string> anas = analysisNames();
-    foreach (const string &ana, anas) {
+    for (const string &ana : anas) {
       anaset.insert(ana);
     }
     return anaset;
@@ -48,7 +48,7 @@ namespace Rivet {
   vector<unique_ptr<Analysis>> AnalysisLoader::getAllAnalyses() {
     _loadAnalysisPlugins();
     vector<unique_ptr<Analysis>> analyses;
-    foreach (const auto & p, _ptrs) {
+    for (const auto & p : _ptrs) {
       analyses.emplace_back( p.second->mkAnalysis() );
     }
     return analyses;
@@ -60,7 +60,7 @@ namespace Rivet {
     const string name = ab->name();
     if (_ptrs.find(name) != _ptrs.end()) {
       // Duplicate analyses will be ignored... loudly
-      //cerr << "Ignoring duplicate plugin analysis called '" << name << "'" << endl;
+      //cerr << "Ignoring duplicate plugin analysis called '" << name << "'" << '\n';
       MSG_WARNING("Ignoring duplicate plugin analysis called '" << name << "'");
     } else {
       MSG_TRACE("Registering a plugin analysis called '" << name << "'");
@@ -90,7 +90,7 @@ namespace Rivet {
     // Find plugin module library files
     const string libsuffix = ".so";
     vector<string> pluginfiles;
-    foreach (const string& d, dirs) {
+    for (const string& d : dirs) {
       if (d.empty()) continue;
       oslink::directory dir(d);
       while (dir) {
@@ -111,7 +111,7 @@ namespace Rivet {
 
     // Load the plugin files
     MSG_TRACE("Candidate analysis plugin libs: " << pluginfiles);
-    foreach (const string& pf, pluginfiles) {
+    for (const string& pf : pluginfiles) {
       MSG_TRACE("Trying to load plugin analyses from file " << pf);
       void* handle = dlopen(pf.c_str(), RTLD_LAZY);
       if (!handle) {

@@ -367,15 +367,6 @@ namespace Rivet {
 
   //@}
 
-
-  /// @name Typedefs of vector types to short names
-  /// @todo Switch canonical and alias names
-  //@{
-  //typedef Vector3 V3; //< generic
-  typedef Vector3 X3; //< spatial
-  //@}
-
-
 }
 
 #endif

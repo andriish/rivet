@@ -54,7 +54,7 @@ namespace Rivet {
       const double weight = 1.0;
 
       const UnstableFinalState& parts = apply<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, parts.particles()) {
+      for (const Particle& p : parts.particles()) {
         switch (p.abspid()) {
         case PID::K0S:
           _h_dNKshort_dy->fill(p.absrap(), weight);

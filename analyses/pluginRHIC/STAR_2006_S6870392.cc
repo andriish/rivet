@@ -47,7 +47,7 @@ namespace Rivet {
       if (!jets.empty()) {
         const Jet& j1 = jets.front();
         if (inRange(fabs(j1.eta()), 0.2, 0.8)) {
-          foreach (const Jet& j, jets) {
+          for (const Jet& j : jets) {
             const FourMomentum pj = j.momentum();
             _h_jet_pT_MB->fill(pj.pT());
             _h_jet_pT_HT->fill(pj.pT());

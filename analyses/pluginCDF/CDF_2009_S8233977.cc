@@ -58,7 +58,7 @@ namespace Rivet {
 
       const ChargedFinalState& trackfs = apply<ChargedFinalState>(evt, "CFS");
       const size_t numParticles = trackfs.size();
-      foreach (const Particle& p, trackfs.particles()) {
+      for (const Particle& p : trackfs.particles()) {
         const double pT = p.pT() / GeV;
         _hist_pt_vs_multiplicity->fill(numParticles, pT);
 
@@ -85,7 +85,7 @@ namespace Rivet {
       // Calc sum(Et) from calo particles
       const FinalState& etfs = apply<FinalState>(evt, "EtFS");
       double sumEt = 0.0;
-      foreach (const Particle& p, etfs.particles()) {
+      for (const Particle& p : etfs.particles()) {
         sumEt += p.Et();
       }
       _hist_sumEt->fill(sumEt);

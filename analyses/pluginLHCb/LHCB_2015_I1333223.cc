@@ -46,7 +46,7 @@ namespace Rivet {
       if (cfs.particles().size() == 0) vetoEvent;
 
       // See if this event has at least one prompt particle
-      foreach (const Particle &myp, cfs.particles()){
+      for (const Particle &myp : cfs.particles()){
           double dPV = getPVDCA(myp);
           // if IP > 200 microns the particle is not considered prompt
           if ((dPV < 0.) || (dPV > 0.2 * millimeter)) {

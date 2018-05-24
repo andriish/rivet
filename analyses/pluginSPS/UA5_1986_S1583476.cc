@@ -73,7 +73,7 @@ namespace Rivet {
       }
 
       // Fill histos
-      foreach (const Particle& p, cfs50.particles()) {
+      for (const Particle& p : cfs50.particles()) {
         const double eta = p.abseta();
         _hist_eta_inelastic->fill(eta);
         if (isNSD) {

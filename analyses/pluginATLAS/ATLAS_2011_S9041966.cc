@@ -130,10 +130,10 @@ namespace Rivet {
 
 
       // pTcone around muon track
-      foreach ( const Particle & mu, candtemp_mu ) {
+      for ( const Particle & mu : candtemp_mu ) {
         ++tmpmu;
         double pTinCone = -mu.pT();
-        foreach ( const Particle & track, vfs_particles ) {
+        for ( const Particle & track : vfs_particles ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -143,10 +143,10 @@ namespace Rivet {
       }
 
       // pTcone around electron
-      foreach ( const Particle e, candtemp_e ) {
+      for ( const Particle e : candtemp_e ) {
         ++tmpe;
         double pTinCone = -e.pT();
-        foreach ( const Particle & track, vfs_particles ) {
+        for ( const Particle & track : vfs_particles ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -163,10 +163,10 @@ namespace Rivet {
 
       //DEBUG
       // else{
-      // foreach (const Particle & mu,  cand_mu) {
+      // for (const Particle & mu,  cand_mu) {
       //   cerr << "cand mu: " << "Id " << mu.pid() << "      eta " << mu.eta() << "      pT " << mu.pT() << '\n';
       // }
-      // foreach (const Particle & lepton,  cand_e) {
+      // for (const Particle & lepton,  cand_e) {
       //   cerr << "cand e: " << "Id " << lepton.pid() << "      eta " << lepton.eta() << "      pT " << lepton.pT() << '\n';
       // }} // debug
 
@@ -174,7 +174,7 @@ namespace Rivet {
 
       // pTmiss
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      for ( const Particle & p : vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
@@ -182,15 +182,15 @@ namespace Rivet {
 
       // discard jets that overlap with leptons
       Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets ) {
+      for ( const Jet& jet : cand_jets ) {
         bool away_from_lept = true;
-        foreach ( const Particle e, cand_e ) {
+        for ( const Particle e : cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) <= 0.5 ) {
             away_from_lept = false;
             break;
           }
         }
-        foreach ( const Particle & mu, cand_mu ) {
+        for ( const Particle & mu : cand_mu ) {
           if ( deltaR(mu.momentum(),jet.momentum()) <= 0.5 ) {
             away_from_lept = false;
             break;
@@ -232,12 +232,12 @@ namespace Rivet {
 
       if ( cand_mu.size() == 2 && cand_e.empty() ) {
         ++candmumujj;
-        foreach ( const Particle& mu, cand_mu )
+        for ( const Particle& mu : cand_mu )
           dilept_pair.push_back(mu);
       }
       else if ( cand_e.size() == 2 && cand_mu.empty() ) {
         ++candeejj;
-        foreach ( const Particle& e, cand_e )
+        for ( const Particle& e : cand_e )
           dilept_pair.push_back(e);
       }
       else if ( cand_mu.size() == 1 && cand_e.empty() ) {

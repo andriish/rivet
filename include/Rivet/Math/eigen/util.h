@@ -33,7 +33,6 @@
 #include <cstdlib>
 #include <cmath>
 #include <complex>
-#include <iostream>
 #include <cassert>
 
 #ifdef __GNUC__

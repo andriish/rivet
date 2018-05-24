@@ -92,7 +92,7 @@ namespace Rivet {
       const Sphericity& sphericity = apply<Sphericity>(event, "Sphericity");
 
       //// Fill histograms in order of appearance in paper
-      //foreach (const Particle& p, cfs.particles()) {
+      //for (const Particle& p : cfs.particles()) {
         //// Get momentum and energy of each particle.
         //const Vector3 mom3 = p.p3();
         //// Scaled momenta.

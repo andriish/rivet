@@ -80,7 +80,7 @@ namespace Rivet {
       }
 
       double HT = ep.pT() + em.pT() + mp.pT() + mm.pT();
-      foreach (const Jet& jet, jets) HT += jet.pT();
+      for (const Jet& jet : jets) HT += jet.pT();
       if (HT > 0.0) _h_HT->fill(HT/GeV, weight);
 
       MC_JetAnalysis::analyze(e);

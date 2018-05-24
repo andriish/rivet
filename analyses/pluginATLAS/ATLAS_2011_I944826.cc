@@ -98,7 +98,7 @@ namespace Rivet {
         std::vector<double> pTs;
         std::vector<int> charges;
         std::vector<double> etas;
-        foreach (const HepMC::GenParticle* gp, particles(decV, HepMC::children)) {
+        for (const HepMC::GenParticle* gp : particles(decV, HepMC::children)) {
           pTs.push_back(gp->momentum().perp());
           etas.push_back(fabs(gp->momentum().eta()));
           charges.push_back( Rivet::PID::threeCharge(gp->pdg_id()) );
@@ -148,7 +148,7 @@ namespace Rivet {
       int n_LAMBDA = 0;
 
       // Particle loop
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 
         // General particle quantities
         const double pT = p.pT();

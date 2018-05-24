@@ -124,7 +124,7 @@ namespace Rivet {
 
       // Fiducial selection: pT > 25 GeV, |eta| < 2.37 and isolation (in cone deltaR = 0.4) is < 14 GeV
       vector<const Particle*> fid_photons;
-      foreach (const Particle& ph, photons) {
+      for (const Particle& ph : photons) {
 
 	// Veto photons from hadron or tau decay
 	if ( fromHadronDecay(ph) ) continue;
@@ -132,7 +132,7 @@ namespace Rivet {
 	// Calculate isolation
 	ET_iso = - ph.momentum();
 	// Loop over fs truth particles (excluding muons and neutrinos)
-	foreach (const Particle& p, ptcls_veto_mu_nu) {
+	for (const Particle& p : ptcls_veto_mu_nu) {
 	  // Check if the truth particle is in a cone of 0.4
 	  if ( deltaR(ph.momentum(), p.momentum()) < dR_iso )
 	    ET_iso += p.momentum();
@@ -164,7 +164,7 @@ namespace Rivet {
 
       // Electron selection
       vector<const Particle*> good_el;
-      foreach(const DressedLepton& els, el_dressed)  {
+      for(const DressedLepton& els : el_dressed)  {
 
 	const Particle& el = els.constituentLepton();
 	if ( el.momentum().pT()        < 15   ) continue;
@@ -177,7 +177,7 @@ namespace Rivet {
 
       // Muon selection
       vector<const Particle*> good_mu;
-      foreach(const DressedLepton& mus, mu_dressed)  {
+      for(const DressedLepton& mus : mu_dressed)  {
 
 	const Particle& mu = mus.constituentLepton();
 	if ( mu.momentum().pT()        < 15   ) continue;
@@ -191,7 +191,7 @@ namespace Rivet {
       // Find prompt, invisible particles for missing ET calculation
       // Based on VisibleFinalState projection
       FourMomentum invisible(0,0,0,0);
-      foreach (const Particle& p, FS_ptcls) {
+      for (const Particle& p : FS_ptcls) {
 
 	// Veto non-prompt particles (from hadron or tau decay)
         if ( fromHadronDecay(p) ) continue;
@@ -217,7 +217,7 @@ namespace Rivet {
       vector<const Jet*> jets_30;
       vector<const Jet*> jets_50;
 
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
 
 	bool passOverlap = true;
 	// Overlap with leading photons
@@ -225,7 +225,7 @@ namespace Rivet {
 	if ( deltaR(y2, jet.momentum()) < 0.4 ) passOverlap = false;
 
 	// Overlap with good electrons
-	foreach (const Particle* el, good_el)
+	for (const Particle* el : good_el)
 	  if ( deltaR(el->momentum(), jet.momentum()) < 0.2 ) passOverlap = false;
 
 	if ( ! passOverlap ) continue;
@@ -262,7 +262,7 @@ namespace Rivet {
       _pT_j3 = jets_30.size() > 2 ? jets_30.at(2)->momentum().pT() : 0.;
 
       _HT = 0.0;
-      foreach (const Jet* jet, jets_30)
+      for (const Jet* jet : jets_30)
 	_HT += jet->momentum().pT();
 
       _tau_jet     = tau_jet_max(y1 + y2, jets_25);
@@ -372,7 +372,7 @@ namespace Rivet {
       if (!gp) return false; /// TODO: something weird to make this necessary
       const GenVertex* prodVtx = p.genParticle()->production_vertex();
       if (prodVtx == NULL) return false;
-      foreach (const GenParticle* ancestor, particles(prodVtx, HepMC::ancestors)) {
+      for (const GenParticle* ancestor : particles(prodVtx, HepMC::ancestors)) {
         const PdgId pid = ancestor->pdg_id();
         if (ancestor->status() == 2 && PID::isHadron(pid)) return true;
         if (ancestor->status() == 2 && (abs(pid) == PID::TAU && fromHadronDecay(ancestor))) return true;

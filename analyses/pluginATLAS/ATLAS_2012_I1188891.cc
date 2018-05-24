@@ -60,7 +60,7 @@ namespace Rivet {
       }
 
       //select dijet
-      foreach (const Jet& jet, jetAr) {
+      for (const Jet& jet : jetAr) {
 
         const double pT   = jet.pT();
         const double absy = jet.absrap();

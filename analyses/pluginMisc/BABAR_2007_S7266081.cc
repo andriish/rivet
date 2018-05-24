@@ -46,7 +46,7 @@ namespace Rivet {
     void analyze(const Event& e) {
       // Find the taus
       Particles taus;
-      foreach(const Particle& p, apply<UnstableFinalState>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
+      for(const Particle& p : apply<UnstableFinalState>(e, "UFS").particles(Cuts::pid==PID::TAU)) {
         _weight_total->fill();
         Particles pip, pim, Kp, Km;
         unsigned int nstable = 0;

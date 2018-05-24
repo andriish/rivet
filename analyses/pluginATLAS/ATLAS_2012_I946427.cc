@@ -69,7 +69,7 @@ namespace Rivet {
       // Loop over photons and fill vector of isolated ones
       Particles fs = apply<FinalState>(event, "FS").particles();
       Particles isolated_photons;
-      foreach (const Particle& photon, photons) {
+      for (const Particle& photon : photons) {
         // remove photons in crack
         double eta_P = photon.eta();
         if (fabs(eta_P)>=1.37 && fabs(eta_P)<1.52) continue;
@@ -77,7 +77,7 @@ namespace Rivet {
         double phi_P = photon.phi();
 
         FourMomentum mom_in_EtCone = -photon.momentum();
-        foreach (const Particle& p, fs) {
+        for (const Particle& p : fs) {
           // check if it's in the cone of .2
           if (deltaR(eta_P, phi_P, p.eta(),
                      p.phi()) >= 0.2) continue;
@@ -99,7 +99,7 @@ namespace Rivet {
       Particles vfs_particles =
         apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      for ( const Particle & p : vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();

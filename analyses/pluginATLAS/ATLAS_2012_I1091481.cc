@@ -56,7 +56,7 @@ namespace Rivet {
     //
     double getSeta(const Particles& part, double xi) {
       std::complex<double> c_eta (0.0, 0.0);
-      foreach (const Particle& p, part) {
+      for (const Particle& p : part) {
         double eta = p.eta();
         double phi = p.phi();
         double arg = xi*eta-phi;

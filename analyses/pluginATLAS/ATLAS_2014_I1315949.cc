@@ -81,7 +81,7 @@ namespace Rivet {
           Cuts::pT > 0.5*GeV && Cuts::abseta <2.5);
 
       // Loop over charged particles with pT>500 MeV and |eta|<2.5
-      foreach(const Particle& p, particles) {
+      for(const Particle& p : particles) {
         double dphi = p.momentum().phi() - Zphi,
                pT   = p.momentum().pT();
 

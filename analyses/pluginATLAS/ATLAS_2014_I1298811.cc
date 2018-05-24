@@ -52,7 +52,7 @@ namespace Rivet {
       /// @todo Use Cuts instead rather than an eta cut in the proj and a y cut after
       const Jets alljets = apply<FastJets>(event, "Jets").jetsByPt(20*GeV);
       Jets jets;
-      foreach (const Jet& j, alljets)
+      for (const Jet& j : alljets)
         if (j.absrap() < 2.8) jets.push_back(j);
       // Require at least one jet in the event
       if (jets.empty()) vetoEvent;
@@ -70,7 +70,7 @@ namespace Rivet {
       double tmpetsum48[2] = {0,0};
       double tmpetsum25[2] = {0,0};
       const Particles particles = apply<FinalState>(event, "FS").particles();
-      foreach (const Particle& p, particles) {
+      for (const Particle& p : particles) {
         // Only consider the transverse region(s), not toward or away
         if (!inRange(deltaPhi(p.phi(), philead), PI/3.0, TWOPI/3.0)) continue;
         // Work out which transverse side this particle is on

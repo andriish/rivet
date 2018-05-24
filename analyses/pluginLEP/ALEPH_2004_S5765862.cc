@@ -216,7 +216,7 @@ namespace Rivet {
         const ParticlePair& beams = apply<Beam>(e, "Beams").beams();
         const double meanBeamMom = ( beams.first.p3().mod() +
                                      beams.second.p3().mod() ) / 2.0;
-        foreach (const Particle& p, cfs.particles()) {
+        for (const Particle& p : cfs.particles()) {
           const double xp = p.p3().mod()/meanBeamMom;
           _h_xp->fill(xp   );
           const double logxp = -std::log(xp);

@@ -117,7 +117,7 @@ namespace Rivet {
 
       //get true l+jets events by removing events with more than 1 electron||muon neutrino
       unsigned int n_elmu_neutrinos = 0;
-      foreach (const Particle p, _neutrinos) {
+      for (const Particle p : _neutrinos) {
         if (p.abspid() == 12 || p.abspid() == 14)  ++n_elmu_neutrinos;
       }
       if (n_elmu_neutrinos != 1)  vetoEvent;
@@ -130,13 +130,13 @@ namespace Rivet {
       // Calculate the missing ET, using the prompt neutrinos only (really?)
       /// @todo Why not use MissingMomentum?
       FourMomentum met;
-      foreach (const Particle& p, _neutrinos)  met += p.momentum();
+      for (const Particle& p : _neutrinos)  met += p.momentum();
 
       //remove jets if they are within dR < 0.2 of lepton
       Jets jets;
-      foreach(const Jet& jet, all_jets) {
+      for(const Jet& jet : all_jets) {
         bool keep = true;
-        foreach (const DressedLepton& el, _vetodressedelectrons) {
+        for (const DressedLepton& el : _vetodressedelectrons) {
           keep &= deltaR(jet, el) >= 0.2;
         }
         if (keep)  jets += jet;
@@ -146,15 +146,15 @@ namespace Rivet {
       Jets bjets, lightjets;
       for (unsigned int i = 0; i < jets.size(); ++i) {
         const Jet& jet = jets[i];
-        foreach (const DressedLepton& el, _dressedelectrons)  overlap |= deltaR(jet, el) < 0.4;
-        foreach (const DressedLepton& mu, _dressedmuons)      overlap |= deltaR(jet, mu) < 0.4;
+        for (const DressedLepton& el : _dressedelectrons)  overlap |= deltaR(jet, el) < 0.4;
+        for (const DressedLepton& mu : _dressedmuons)      overlap |= deltaR(jet, mu) < 0.4;
         for (unsigned int j = i + 1; j < jets.size(); ++j) {
           overlap |= deltaR(jet, jets[j]) < 0.5;
         }
         //// Count the number of b-tags
         bool b_tagged = false;           //  This is closer to the
         Particles bTags = jet.bTags();   //  analysis. Something
-        foreach ( Particle b, bTags ) {  //  about ghost-associated
+        for ( Particle b : bTags ) {  //  about ghost-associated
           b_tagged |= b.pT() > 5*GeV;    //  B-hadrons
         }                                //
         if ( b_tagged )  bjets += jet;
@@ -267,7 +267,7 @@ namespace Rivet {
         if (absquad[0] < absquad[1])  pzneutrino = quad[0];
         else                          pzneutrino = quad[1];
       }
-      if ( !std::isfinite(pzneutrino) )  std::cout << "Found non-finite value" << std::endl;
+      if ( !std::isfinite(pzneutrino) )  std::cout << "Found non-finite value\n";
       return pzneutrino;
     }
 

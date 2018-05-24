@@ -56,7 +56,7 @@ namespace Rivet {
       }
 
       const IdentifiedFinalState& pionfs = apply<IdentifiedFinalState>(event, "PionFS");
-      foreach (const Particle& p, pionfs.particles()) {
+      for (const Particle& p : pionfs.particles()) {
         if (p.absrap() < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;
@@ -66,7 +66,7 @@ namespace Rivet {
       }
 
       const IdentifiedFinalState& protonfs = apply<IdentifiedFinalState>(event, "ProtonFS");
-      foreach (const Particle& p, protonfs.particles()) {
+      for (const Particle& p : protonfs.particles()) {
         if (p.absrap() < 0.5) {
           /// @todo Use a binned counter to avoid this bin width cancellation hack
           const double pT = p.pT() / GeV;

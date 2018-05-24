@@ -106,17 +106,17 @@ namespace Rivet {
 
       //get MET
       FourMomentum met;
-      foreach (const Particle& p, ifs.particles())  met += p.momentum();
+      for (const Particle& p : ifs.particles())  met += p.momentum();
 
       // do a few cuts before looking at jets
       if (pTl1 <= 22. || DPhill >= 1.8 || met.pT() <= 20.)  vetoEvent;
       if (Mll <= 10. || Mll >= 55.)  vetoEvent;
 
       Jets jets_selected;
-      foreach (const Jet &j, jets) {
+      for (const Jet &j : jets) {
         if( j.abseta() > 2.4 && j.pT()<=30*GeV ) continue;
         bool keep = true;
-        foreach(DressedLepton el, good_el) {
+        for(DressedLepton el : good_el) {
           keep &= deltaR(j, el) >= 0.3;
         }
         if (keep)  jets_selected += j;

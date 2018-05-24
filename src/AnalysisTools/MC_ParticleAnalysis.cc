@@ -76,7 +76,7 @@ namespace Rivet {
   // Do the analysis
   void MC_ParticleAnalysis::_analyze(const Event& event, const Particles& particles) {
     Particles promptparticles;
-    foreach (const Particle& p, particles)
+    for (const Particle& p : particles)
       if (!p.fromDecay()) promptparticles += p;
 
     for (size_t i = 0; i < _nparts; ++i) {

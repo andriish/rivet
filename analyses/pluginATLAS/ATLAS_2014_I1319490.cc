@@ -86,7 +86,7 @@ namespace Rivet {
       // do jet-lepton overlap removal
       Jets jets;
       double ST = 0.0; // scalar pT sum of all selected jets
-      foreach (const Jet &j, all_jets) {
+      for (const Jet &j : all_jets) {
         if (deltaR(j, lepton) > 0.5) {
           jets += j;
           ST += j.pT() / GeV;

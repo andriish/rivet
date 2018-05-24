@@ -93,8 +93,9 @@ namespace Rivet {
 
     /// Create a string representation
     string str() const {
+      using namespace std;
       stringstream ss;
-      ss << fixed << setprecision(1) << counts.front();
+      ss << fixed << std::setprecision(1) << counts.front();
       const size_t count0len = ss.str().length();
       ss.str("");
       ss << name << " cut-flow:\n";
@@ -125,8 +126,8 @@ namespace Rivet {
     }
 
     /// Print string representation to a stream
-    void print(ostream& os) const {
-      os << str() << flush;
+    void print(std::ostream& os) const {
+      os << str() << std::flush;
     }
 
     string name;
@@ -138,7 +139,7 @@ namespace Rivet {
 
 
   /// Print a Cutflow to a stream
-  inline ostream& operator << (ostream& os, const Cutflow& cf) {
+  inline std::ostream& operator << (std::ostream& os, const Cutflow& cf) {
     return os << cf.str();
   }
 
@@ -226,8 +227,8 @@ namespace Rivet {
     }
 
     /// Print string representation to a stream
-    void print(ostream& os) const {
-      os << str() << flush;
+    void print(std::ostream& os) const {
+      os << str() << std::flush;
     }
 
     vector<Cutflow> cfs;
@@ -235,7 +236,7 @@ namespace Rivet {
   };
 
   /// Print a Cutflows to a stream
-  inline ostream& operator << (ostream& os, const Cutflows& cfs) {
+  inline std::ostream& operator << (std::ostream& os, const Cutflows& cfs) {
     return os << cfs.str();
   }
 

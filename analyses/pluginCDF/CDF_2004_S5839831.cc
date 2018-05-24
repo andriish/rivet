@@ -53,7 +53,7 @@ namespace Rivet {
       unsigned int numPlus(0), numMinus(0);
       double ptPlus(0), ptMinus(0);
       // Run over all charged tracks
-      foreach (const Particle& t, tracks) {
+      for (const Particle& t : tracks) {
         FourMomentum trackMom = t.momentum();
         const double pt = trackMom.pT();
 
@@ -212,7 +212,7 @@ namespace Rivet {
           _numTracksDbn630MB->fill(mbtracks.size());
         }
         // Run over all charged tracks
-        foreach (const Particle& t, mbtracks) {
+        for (const Particle& t : mbtracks) {
           FourMomentum trackMom = t.momentum();
           const double pt = trackMom.pT();
           // Plot total pT distribution for min bias
@@ -251,7 +251,7 @@ namespace Rivet {
           const double phi2 = cheesejets[1].phi();
 
           double ptSumSub2(0), ptSumSub3(0);
-          foreach (const Particle& t, cheesetracks) {
+          for (const Particle& t : cheesetracks) {
             FourMomentum trackMom = t.momentum();
             const double pt = trackMom.pT();
 

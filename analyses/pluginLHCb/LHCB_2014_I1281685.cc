@@ -71,7 +71,7 @@ namespace Rivet {
       val_dNdPt.clear();
 
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         int id = p.pdgId();
         // continue if particle is not a pion, kaon, proton, muon or electron
         if ( !( (abs(id) == 211) || (abs(id) == 321) || (abs(id) == 2212) || (abs(id) == 13) || (abs(id) == 11)) ) {
@@ -114,7 +114,7 @@ namespace Rivet {
         //particle densities -> need proper normalization (finalize)
         val_dNdPt.push_back( pT );
         val_dNdEta.push_back( eta );
-      }//end foreach
+      }//end for
 
 
       // Fill histograms only, if at least 1 particle pre event was within the

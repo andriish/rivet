@@ -34,7 +34,7 @@ namespace Rivet {
       // Count forward and backward charged particles
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
       int count_plus = 0, count_minus = 0;
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         if (inRange(p.eta(),  5.3,  6.5)) count_plus++;
         if (inRange(p.eta(), -6.5, -5.3)) count_minus++;
       }
@@ -48,7 +48,7 @@ namespace Rivet {
       if (cutsor)  _Nevt_after_cuts_or  ->fill();
       if (cutsand) _Nevt_after_cuts_and ->fill();
       if (cutsxor) _Nevt_after_cuts_xor ->fill();
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         if (cutsor)  _h_dNch_dEta_OR ->fill(p.abseta());
         if (cutsand) _h_dNch_dEta_AND->fill(p.abseta());
         if (cutsxor) _h_dNch_dEta_XOR->fill(p.abseta());

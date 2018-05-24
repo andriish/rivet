@@ -49,7 +49,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop over B0bar Mesons
-      foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::B0BAR)) {
+      for(const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::B0BAR)) {
         if (isSemileptonicDecay(p, {PID::PIPLUS, PID::ELECTRON, PID::NU_EBAR}) ||
             isSemileptonicDecay(p, {PID::PIPLUS, PID::MUON,     PID::NU_MUBAR})) {
             _h_q2_B0bar_pi->fill(q2(p, PID::PIPLUS));
@@ -60,7 +60,7 @@ namespace Rivet {
         }
       }
       // Loop over B- Mesons
-      foreach(const Particle& p, apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::BMINUS)) {
+      for(const Particle& p : apply<UnstableFinalState>(event, "UFS").particles(Cuts::pid==PID::BMINUS)) {
         if (isSemileptonicDecay(p, {PID::PI0, PID::ELECTRON, PID::NU_EBAR}) ||
             isSemileptonicDecay(p, {PID::PI0, PID::MUON,     PID::NU_MUBAR})) {
             _h_q2_Bminus_pi->fill(q2(p, PID::PI0));

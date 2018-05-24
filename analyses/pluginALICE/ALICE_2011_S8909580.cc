@@ -32,7 +32,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const double absrap = p.absrap();
         const double pT = p.pT()/GeV;
 

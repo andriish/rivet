@@ -160,7 +160,7 @@ namespace Rivet {
     }
 
     /// Get dimensionality
-    size_t size() const {
+    constexpr size_t size() const {
       return N;
     }
 
@@ -368,7 +368,7 @@ namespace Rivet {
   /// Make string representation
   template <size_t N>
   inline string toString(const Matrix<N>& m) {
-    ostringstream ss;
+    std::ostringstream ss;
     ss << "[ ";
     for (size_t i = 0; i < m.size(); ++i) {
       ss << "( ";
@@ -385,7 +385,7 @@ namespace Rivet {
 
   /// Stream out string representation
   template <size_t N>
-  inline ostream& operator << (std::ostream& out, const Matrix<N>& m) {
+  inline std::ostream& operator << (std::ostream& out, const Matrix<N>& m) {
     out << toString(m);
     return out;
   }

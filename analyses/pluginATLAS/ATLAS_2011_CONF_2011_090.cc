@@ -93,9 +93,9 @@ namespace Rivet {
       Particles cand_e;
 
       // pTcone around muon track
-      foreach ( const Particle& mu, candtemp_mu ) {
+      for ( const Particle& mu : candtemp_mu ) {
         double pTinCone = -mu.pT();
-        foreach ( const Particle& track, chg_tracks ) {
+        for ( const Particle& track : chg_tracks ) {
           if ( deltaR(mu, track) < 0.2 )
             pTinCone += track.pT();
         }
@@ -105,9 +105,9 @@ namespace Rivet {
 
 
       // pTcone around electron
-      foreach ( const Particle& e, candtemp_e ) {
+      for ( const Particle& e : candtemp_e ) {
         double pTinCone = -e.pT();
-        foreach ( const Particle& track, chg_tracks ) {
+        for ( const Particle& track : chg_tracks ) {
           if ( deltaR(e, track) < 0.2 )
             pTinCone += track.pT();
         }
@@ -118,9 +118,9 @@ namespace Rivet {
 
       // discard jets that overlap with electrons
       Jets cand_jets_2;
-      foreach ( const Jet& jet, cand_jets ) {
+      for ( const Jet& jet : cand_jets ) {
         bool away_from_e = true;
-        foreach ( const Particle & e, cand_e ) {
+        for ( const Particle & e : cand_e ) {
           if ( deltaR(e, jet) <= 0.2 ) {
             away_from_e = false;
             break;
@@ -132,17 +132,17 @@ namespace Rivet {
 
       // only consider leptons far from jet
       Particles recon_e, recon_mu;
-      foreach ( const Particle & e, cand_e ) {
+      for ( const Particle & e : cand_e ) {
         bool e_near_jet = false;
-        foreach ( const Jet& jet, cand_jets_2 ) {
+        for ( const Jet& jet : cand_jets_2 ) {
           if (inRange(deltaR(e, jet), 0.2, 0.4)) e_near_jet = true;
         }
         if ( ! e_near_jet ) recon_e.push_back( e );
       }
 
-      foreach ( const Particle & mu, cand_mu ) {
+      for ( const Particle & mu : cand_mu ) {
         bool mu_near_jet = false;
-        foreach ( const Jet& jet, cand_jets_2 ) {
+        for ( const Jet& jet : cand_jets_2 ) {
           if ( deltaR(mu, jet) < 0.4 ) mu_near_jet = true;
         }
         if ( ! mu_near_jet ) recon_mu.push_back( mu );
@@ -152,7 +152,7 @@ namespace Rivet {
       Particles vfs_particles
         = apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      for ( const Particle & p : vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
@@ -160,7 +160,7 @@ namespace Rivet {
 
       // final jet filter
       Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets_2 ) {
+      for ( const Jet& jet : cand_jets_2 ) {
         recon_jets.push_back( jet );
       }
 
@@ -174,7 +174,7 @@ namespace Rivet {
 
       int Njets = 0;
       double pTmiss_phi = pTmiss.phi();
-      foreach ( const Jet& jet, recon_jets ) {
+      for ( const Jet& jet : recon_jets ) {
         if ( jet.abseta() < 2.8 )
           Njets+=1;
       }
@@ -209,9 +209,9 @@ namespace Rivet {
         vetoEvent;
       }
       else {
-        foreach ( const Particle & mu, recon_mu )
+        for ( const Particle & mu : recon_mu )
           lepton.push_back(mu);
-        foreach ( const Particle & e, recon_e )
+        for ( const Particle & e : recon_e )
           lepton.push_back(e);
       }
 

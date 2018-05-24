@@ -36,7 +36,7 @@ namespace Rivet {
       _Nevt_after_cuts->fill();
 
       _h_dNevt_dNch->fill(charged.size());
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         double pT = p.pT()/GeV;
         _h_dNch_deta->fill(p.eta());
         _h_dNch_dpT->fill(pT, 1.0/pT);

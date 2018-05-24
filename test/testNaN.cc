@@ -17,16 +17,16 @@ public:
   }
 
   void analyze(const Rivet::Event & e) {
-    cout << "Normal fill" << endl;
+    cout << "Normal fill" << '\n';
     _h_test->fill(90., 1.);
 
-    cout << "Underflow fill" << endl;
+    cout << "Underflow fill" << '\n';
     _h_test->fill(30.,1.);
 
-    cout << "Overflow fill" << endl;
+    cout << "Overflow fill" << '\n';
     _h_test->fill(130.,1.);
 
-     cout << "Inf fill" << endl;
+     cout << "Inf fill" << '\n';
     try {
       _h_test->fill(numeric_limits<double>::infinity(), 1.);
     } catch (YODA::RangeError e) {
@@ -34,7 +34,7 @@ public:
       if ( string(e.what()) != string("X is Inf") ) throw;
     }
 
-    cout << "NaN fill" << endl;
+    cout << "NaN fill" << '\n';
     try {
       _h_test->fill(numeric_limits<double>::quiet_NaN(), 1.);
     } catch (YODA::RangeError e) {

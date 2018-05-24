@@ -116,7 +116,7 @@ namespace Rivet {
       // loop over particles to calculate the energy
       passedSumOfWeights->fill();
 
-      foreach (const Particle& p, fsv.particles()) {
+      for (const Particle& p : fsv.particles()) {
         if (-5.2 > p.eta() && p.eta() > -6.6) inclEflow->fill(p.E()/GeV);
       }
 
@@ -130,7 +130,7 @@ namespace Rivet {
         _tmp_njet->fill(jets[0].pT()/GeV);
 
         // energy flow
-        foreach (const Particle& p, fsv.particles()) {
+        for (const Particle& p : fsv.particles()) {
           if (p.eta() > -6.6 && p.eta() < -5.2) {  // ask for the CASTOR region
             _tmp_jet->fill(jets[0].pT()/GeV, p.E()/GeV);
           }

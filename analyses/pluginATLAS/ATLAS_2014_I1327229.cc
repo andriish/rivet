@@ -487,41 +487,41 @@ namespace Rivet {
 
 
       // Print out result
-      cout << "----------------------------------------------------------------------------------------" << endl;
-      cout << "Number of total events: " << sumOfWeights() << endl;
-      cout << "Best signal region: " << best_signal_region << endl;
-      cout << "Normalized number of signal events in this best signal region (per fb-1): " << signal_events_best_SR << endl;
-      cout << "Efficiency*Acceptance: " << _eventCountsPerSR[best_signal_region]->val()/sumOfWeights() << endl;
-      cout << "Cross-section [fb]: " << crossSection()/femtobarn << endl;
-      cout << "Expected visible cross-section (per fb-1): " << exp_UL_best_SR << endl;
-      cout << "Ratio (signal events / expected visible cross-section): " << ratio_best_SR << endl;
-      cout << "Observed visible cross-section (per fb-1): " << obs_UL_best_SR << endl;
-      cout << "Ratio (signal events / observed visible cross-section): " <<  signal_events_best_SR/obs_UL_best_SR << endl;
-      cout << "----------------------------------------------------------------------------------------" << endl;
+      cout << "----------------------------------------------------------------------------------------" << '\n';
+      cout << "Number of total events: " << sumOfWeights() << '\n';
+      cout << "Best signal region: " << best_signal_region << '\n';
+      cout << "Normalized number of signal events in this best signal region (per fb-1): " << signal_events_best_SR << '\n';
+      cout << "Efficiency*Acceptance: " << _eventCountsPerSR[best_signal_region]->val()/sumOfWeights() << '\n';
+      cout << "Cross-section [fb]: " << crossSection()/femtobarn << '\n';
+      cout << "Expected visible cross-section (per fb-1): " << exp_UL_best_SR << '\n';
+      cout << "Ratio (signal events / expected visible cross-section): " << ratio_best_SR << '\n';
+      cout << "Observed visible cross-section (per fb-1): " << obs_UL_best_SR << '\n';
+      cout << "Ratio (signal events / observed visible cross-section): " <<  signal_events_best_SR/obs_UL_best_SR << '\n';
+      cout << "----------------------------------------------------------------------------------------" << '\n';
 
-      cout << "Using the EXPECTED limits (visible cross-section) of the analysis: " << endl;
+      cout << "Using the EXPECTED limits (visible cross-section) of the analysis: " << '\n';
       if (signal_events_best_SR > exp_UL_best_SR)  {
-        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% C.L." << endl;
+        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% C.L." << '\n';
         _h_excluded->fill(1);
       }
       else  {
-        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << endl;
+        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << '\n';
         _h_excluded->fill(0);
       }
-      cout << "----------------------------------------------------------------------------------------" << endl;
+      cout << "----------------------------------------------------------------------------------------" << '\n';
 
-      cout << "Using the OBSERVED limits (visible cross-section) of the analysis: " << endl;
+      cout << "Using the OBSERVED limits (visible cross-section) of the analysis: " << '\n';
       if (signal_events_best_SR > obs_UL_best_SR)  {
-        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% C.L." << endl;
+        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% C.L." << '\n';
         _h_excluded->fill(1);
       }
       else  {
-        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << endl;
+        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << '\n';
         _h_excluded->fill(0);
       }
-      cout << "----------------------------------------------------------------------------------------" << endl;
-      cout << "INFO: The b-jet signal regions of the paper are not included in this Rivet implementation." << endl;
-      cout << "----------------------------------------------------------------------------------------" << endl;
+      cout << "----------------------------------------------------------------------------------------" << '\n';
+      cout << "INFO: The b-jet signal regions of the paper are not included in this Rivet implementation." << '\n';
+      cout << "----------------------------------------------------------------------------------------" << '\n';
 
 
       /// Normalize to cross section

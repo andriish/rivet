@@ -209,6 +209,7 @@ namespace Rivet {
 
   /// Allow a Jet to be passed to an ostream.
   std::ostream& operator << (std::ostream& os, const Jet& j) {
+    using std::boolalpha;
     os << "Jet<" << j.mom()/GeV << " GeV; Nparticles=" << j.size() << "; ";
     os << "bTag=" << boolalpha << j.bTagged() << ", ";
     os << "cTag=" << boolalpha << j.cTagged() << ", ";

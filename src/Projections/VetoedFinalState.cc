@@ -44,12 +44,12 @@ namespace Rivet {
           // Make sure that the pT range is sensible:
           BinaryCut ptrange = iter->second;
           assert(ptrange.first <= ptrange.second);
-          stringstream rangess;
-          if (ptrange.first < numeric_limits<double>::max()) rangess << ptrange.second;
+          std::stringstream rangess;
+          if (ptrange.first < std::numeric_limits<double>::max()) rangess << ptrange.second;
           rangess << " - ";
-          if (ptrange.second < numeric_limits<double>::max()) rangess << ptrange.second;
+          if (ptrange.second < std::numeric_limits<double>::max()) rangess << ptrange.second;
           MSG_TRACE("ID = " << p.pid() << ", pT range = " << rangess.str());
-          stringstream debugline;
+          std::stringstream debugline;
           debugline << "with PDG code = " << p.pid() << " pT = " << p.pT();
           if (p.pT() < ptrange.first || p.pT() > ptrange.second) {
             MSG_TRACE("Storing " << debugline.str());

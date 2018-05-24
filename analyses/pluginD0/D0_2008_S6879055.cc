@@ -52,7 +52,7 @@ namespace Rivet {
       const double e1phi = e1.phi();
 
       vector<FourMomentum> finaljet_list;
-      foreach (const Jet& j, apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
+      for (const Jet& j : apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
         const double jeta = j.eta();
         const double jphi = j.phi();
         if (fabs(jeta) < 2.5) {

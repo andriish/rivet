@@ -123,10 +123,13 @@ namespace Rivet {
     // Fill the canonical particles collection with the composite DL Particles
     for (const Particle& lepton : allClusteredLeptons) {
       const bool acc = accept(lepton);
-      MSG_TRACE("Clustered lepton " << lepton << " with constituents = " << lepton.constituents() << ", cut-pass = " << boolalpha << acc);
+      MSG_TRACE("Clustered lepton " << lepton 
+                << " with constituents = " << lepton.constituents() 
+                << ", cut-pass = " << std::boolalpha << acc);
       if (acc) _theParticles.push_back(lepton);
     }
-    MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size() << " -> " << _theParticles.size() << " after cuts");
+    MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size() 
+              << " -> " << _theParticles.size() << " after cuts");
 
   }
 

@@ -5,6 +5,8 @@
 #include "omp.h"
 #endif
 
+using std::mt19937;
+
 namespace Rivet {
 
 
@@ -18,7 +20,7 @@ namespace Rivet {
       vector<uint32_t> seeds(nthread+1);
       seq.generate(seeds.begin(), seeds.end());
       gens[nthread] = mt19937(seeds[nthread]);
-      // cout << "Thread " << nthread+1 << ", seed=" << seeds[nthread] << " (" << gens.size() << " RNGs)" << endl;
+      // cout << "Thread " << nthread+1 << ", seed=" << seeds[nthread] << " (" << gens.size() << " RNGs)" << '\n';
     }
     mt19937& g = gens[nthread];
     #else
@@ -31,20 +33,20 @@ namespace Rivet {
   // Return a uniformly sampled random number between 0 and 1
   double rand01() {
     // return rand() / (double)RAND_MAX;
-    return generate_canonical<double, 32>(rng()); ///< @todo What's the "correct" number of bits of randomness?
+    return std::generate_canonical<double, 32>(rng()); ///< @todo What's the "correct" number of bits of randomness?
   }
 
 
   // Return a Gaussian/normal sampled random number with the given mean and width
   double randnorm(double loc, double scale) {
-    normal_distribution<> d(loc, scale);
+    std::normal_distribution<> d(loc, scale);
     return d(rng());
   }
 
 
   // Return a log-normal sampled random number
   double randlognorm(double loc, double scale) {
-    lognormal_distribution<> d(loc, scale);
+    std::lognormal_distribution<> d(loc, scale);
     return d(rng());
   }
 

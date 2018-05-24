@@ -116,7 +116,7 @@ namespace Rivet {
       // NB. Only one of each needed since binnings are the same for the energies and pT cuts
       Histo1D hist_num_dphi_500(refData(13,1,1));
       Histo1D hist_pt_dphi_500(refData(15,1,1));
-      foreach (const Particle& p, particles500) {
+      for (const Particle& p : particles500) {
         const double pT = p.pT();
         const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);
@@ -133,7 +133,7 @@ namespace Rivet {
 
       // Iterate over charged particles again for profiles against Nch
       // This is necessary since the Nch are region-specific and so are only known after the first loop
-      foreach (const Particle& p, particles500) {
+      for (const Particle& p : particles500) {
         const double pT = p.pT();
         const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);
@@ -222,7 +222,7 @@ namespace Rivet {
 
       // Iterate over all > 100 MeV particles and count particles and scalar pTsum in the three regions
       vector<double> num100(3, 0), ptSum100(3, 0.0);
-      foreach (const Particle& p, charged100.particles()) {
+      for (const Particle& p : charged100.particles()) {
         const double pT = p.pT();
         const double dPhi = deltaPhi(philead, p.phi());
         const int ir = region_index(dPhi);

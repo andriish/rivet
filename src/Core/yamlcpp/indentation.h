@@ -7,7 +7,7 @@
 
 
 #include "yaml-cpp/ostream.h"
-#include <iostream>
+#include <ostream>
 
 namespace RIVET_YAML
 {

@@ -102,7 +102,7 @@ namespace Rivet {
       const FastJets& jetfs = apply<FastJets>(event, "Jets");
       Jets jets = jetfs.jets(cmpMomByEt);
       int goodJets = 0;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if ( !(j.Et() > 30.0*GeV) )  break;
         if ( (j.abseta() < 4.4) && \
              (deltaR(leadingPhoton, j) > 0.3) &&    \

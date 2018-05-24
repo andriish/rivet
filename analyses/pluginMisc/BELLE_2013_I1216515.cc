@@ -26,7 +26,7 @@ namespace Rivet {
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.betaVec());
       MSG_DEBUG("CMS energy sqrt s = " << beamproj.sqrtS());
 
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         // energy in CMS frame
         const double en = cms_boost.transform(p.momentum()).t();
 	const double z = 2.*en/beamproj.sqrtS();

@@ -140,7 +140,7 @@ namespace Rivet {
         double peff = -1;
         bool keep = true;
         for (const ParticleEffSmearFn& fn : _detFns) {
-          tie(pdet, peff) = fn(pdet); // smear & eff
+          std::tie(pdet, peff) = fn(pdet); // smear & eff
           MSG_DEBUG("New det particle: pid=" << pdet.pid()
                     << ", mom=" << pdet.mom()/GeV << " GeV, "
                     << "pT=" << pdet.pT()/GeV << ", eta=" << pdet.eta()

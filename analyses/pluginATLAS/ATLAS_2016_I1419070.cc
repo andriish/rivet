@@ -70,7 +70,7 @@ namespace Rivet {
 
     double CalculateNCharge(Jet& jet, double pTcut=0.5) {
       unsigned int ncharge = 0;
-      foreach (const Particle& p, jet.particles()) {
+      for (const Particle& p : jet.particles()) {
         if (p.pT() < pTcut)  continue;
         if (p.threeCharge())  ++ncharge;
       }

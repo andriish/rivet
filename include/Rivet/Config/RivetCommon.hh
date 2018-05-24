@@ -23,7 +23,4 @@
 #include "Rivet/Math/Math.hh"
 #include "Rivet/Math/Vectors.hh"
 
-// #include "Rivet/Tools/Cmp.hh"
-// #include "Rivet/Tools/Cuts.hh"
-
 #endif

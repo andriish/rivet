@@ -29,11 +29,11 @@ namespace Rivet {
       Particles upsilons;
       // First in unstable final state
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
-      foreach (const Particle& p, ufs.particles())
+      for (const Particle& p : ufs.particles())
         if (p.pid()==300553) upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+        for (const GenParticle* p : Rivet::particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
@@ -51,7 +51,7 @@ namespace Rivet {
       }
 
       // Find upsilons
-      foreach (const Particle& p, upsilons) {
+      for (const Particle& p : upsilons) {
         _weightSum->fill();
         // Find the neutral pions from the decay
         vector<GenParticle *> pions;

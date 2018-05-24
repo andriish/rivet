@@ -96,7 +96,7 @@ namespace Rivet {
 
       const double weight = vtxeff;
 
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         double pT = p.pT()/GeV;
         double y = p.rapidity();
         if (fabs(y) < 0.1) {

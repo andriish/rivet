@@ -78,7 +78,7 @@ namespace Rivet {
       Particles particles;
       particles.reserve(fs.particles().size());
       const GenParticle* dislepGP = dl.out().genParticle();
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         const GenParticle* loopGP = p.genParticle();
         if (loopGP == dislepGP) continue;
         particles.push_back(p);
@@ -86,7 +86,7 @@ namespace Rivet {
 
       // Cut on the forward energy
       double efwd = 0.0;
-      foreach (const Particle& p, particles) {
+      for (const Particle& p : particles) {
         const double th = p.angle(dk.beamHadron())/degree;
         if (inRange(th, 4.4, 15)) efwd += p.E();
       }

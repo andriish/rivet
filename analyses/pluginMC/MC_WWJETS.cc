@@ -81,7 +81,7 @@ namespace Rivet {
       }
 
       double HT = ep.pT() + mm.pT() + FourMomentum(enu+mnu).pT();
-      foreach (const Jet& jet, jets) HT += jet.pT();
+      for (const Jet& jet : jets) HT += jet.pT();
       if (HT > 0.0) _h_HT->fill(HT/GeV, weight);
 
       if (jets.size() > 1) {

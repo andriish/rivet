@@ -50,7 +50,7 @@ namespace Rivet {
       double eta_P = leadingPhoton.eta();
       double phi_P = leadingPhoton.phi();
       FourMomentum mom_in_cone;
-      foreach (const Particle& p, fs) {
+      for (const Particle& p : fs) {
         if (deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.4) {
             mom_in_cone += p.momentum();
         }

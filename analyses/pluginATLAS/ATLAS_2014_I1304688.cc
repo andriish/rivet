@@ -111,7 +111,7 @@ namespace Rivet {
       // Calculate the missing ET, using the prompt neutrinos only (really?)
       /// @todo Why not use MissingMomentum?
       FourMomentum pmet;
-      foreach (const Particle& p, _neutrinos) pmet += p.momentum();
+      for (const Particle& p : _neutrinos) pmet += p.momentum();
       _met_et = pmet.pT();
       _met_phi = pmet.phi();
 
@@ -122,11 +122,11 @@ namespace Rivet {
       for (i = 0; i < _jets.size(); i++) {
         const Jet& jet = _jets[i];
         // If dR(el,jet) < 0.4 skip the event
-        foreach (const DressedLepton& el, _dressedelectrons) {
+        for (const DressedLepton& el : _dressedelectrons) {
           if (deltaR(jet, el) < 0.4) _overlap = true;
         }
         // If dR(mu,jet) < 0.4 skip the event
-        foreach (const DressedLepton& mu, _dressedmuons) {
+        for (const DressedLepton& mu : _dressedmuons) {
           if (deltaR(jet, mu) < 0.4) _overlap = true;
         }
         // If dR(jet,jet) < 0.5 skip the event
@@ -180,7 +180,7 @@ namespace Rivet {
       // Normalize to cross-section
       const double norm = crossSection()/sumOfWeights();
       typedef map<unsigned int, Histo1DPtr>::value_type IDtoHisto1DPtr; ///< @todo Remove when C++11 allowed
-      foreach (IDtoHisto1DPtr ihpair, _hMap) scale(ihpair.second, norm); ///< @todo Use normalize(ihpair.second, crossSection())
+      for (IDtoHisto1DPtr ihpair : _hMap) scale(ihpair.second, norm); ///< @todo Use normalize(ihpair.second, crossSection())
       // Calc averages
       for (unsigned int ihist = 0; ihist < _histLimit ; ihist++) {
         unsigned int threshLimit = _thresholdLimit(ihist);

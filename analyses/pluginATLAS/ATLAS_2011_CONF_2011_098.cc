@@ -76,7 +76,7 @@ namespace Rivet {
         vetoEvent;
 
       Jets tmp_cand_jets;
-      foreach (const Jet& jet,
+      for (const Jet& jet :
                apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.eta() ) < 2.8 ) {
           tmp_cand_jets.push_back(jet);
@@ -94,12 +94,12 @@ namespace Rivet {
 
 
       Jets cand_jets;
-      foreach ( const Jet& jet, tmp_cand_jets ) {
+      for ( const Jet& jet : tmp_cand_jets ) {
         if ( fabs( jet.eta() ) >= 2.8 )
           cand_jets.push_back( jet );
         else {
           bool away_from_e = true;
-          foreach ( const Particle & e, cand_e ) {
+          for ( const Particle & e : cand_e ) {
             if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
               away_from_e = false;
               break;
@@ -113,9 +113,9 @@ namespace Rivet {
       Particles cand_lept;
 
       bool isolated_e;
-      foreach ( const Particle & e, cand_e ) {
+      for ( const Particle & e : cand_e ) {
         isolated_e = true;
-        foreach ( const Jet& jet, cand_jets ) {
+        for ( const Jet& jet : cand_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 )
             isolated_e = false;
         }
@@ -125,9 +125,9 @@ namespace Rivet {
 
 
       bool isolated_mu;
-      foreach ( const Particle & mu, cand_mu ) {
+      for ( const Particle & mu : cand_mu ) {
 	isolated_mu = true;
-	foreach ( const Jet& jet, cand_jets ) {
+	for ( const Jet& jet : cand_jets ) {
 	  if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 )
 	    isolated_mu = false;
         }
@@ -140,7 +140,7 @@ namespace Rivet {
       Particles vfs_particles
         = apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      for ( const Particle & p : vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
@@ -148,7 +148,7 @@ namespace Rivet {
 
       // bjets
       Jets bjets,recon_jets;
-      foreach (const Jet& j, cand_jets) {
+      for (const Jet& j : cand_jets) {
 	if(fabs( j.eta() ) <= 2.8) {
 	  recon_jets.push_back(j);
 	  if ( fabs( j.eta() ) <= 2.5 && j.perp()>50. &&

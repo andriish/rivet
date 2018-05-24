@@ -2128,7 +2128,7 @@ Derived & MatrixBase<T, Derived, VectorType, LUDecompositionType>
 /**
   * Allows to print a matrix by simply doing
   * @code
-    cout << mymatrix << endl;
+    cout << mymatrix << '\n';
   * @endcode
   */
 template<typename T,
@@ -2145,7 +2145,7 @@ std::ostream & operator <<
         for (int j = 1; j < m.size(); j++ )
             s << " " << m( i, j );
         if( i < m.size() - 1)
-            s << std::endl;
+            s << '\n';
     }
     return s;
 }

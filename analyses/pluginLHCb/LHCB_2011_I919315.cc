@@ -47,7 +47,7 @@ namespace Rivet {
       const double weight = 1.0;
       const UnstableFinalState& ufs = apply<UnstableFinalState> (event, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const PdgId id = p.abspid();
 
         if (id == 333) { // id 333 = phi-meson

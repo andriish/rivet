@@ -62,7 +62,7 @@ namespace Rivet {
       // Isolate photon by ensuring that a 0.4 cone around it contains less than 7% of the photon's energy
       const double egamma = photon.E();
       double econe = 0.0;
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         if (deltaR(photon, p.momentum()) < 0.4) {
           econe += p.E();
           // Veto as soon as E_cone gets larger

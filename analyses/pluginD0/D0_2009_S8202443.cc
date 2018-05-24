@@ -77,7 +77,7 @@ namespace Rivet {
       const Jets& jets_constrained = apply<JetAlg>(e, "ConeFinderConstrained").jetsByPt(20*GeV);
       /// @todo Replace this explicit selection with a Cut
       Jets jets_cut_constrained;
-      foreach (const Jet& j, jets_constrained) {
+      for (const Jet& j : jets_constrained) {
         if (j.abseta() < 2.5) jets_cut_constrained.push_back(j);
       }
       if (jets_cut_constrained.size() > 0)

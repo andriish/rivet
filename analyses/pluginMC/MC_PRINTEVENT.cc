@@ -149,17 +149,17 @@ namespace Rivet {
 
       const GenEvent* evt = event.genEvent();
 
-      cout << string(120, '=') << "\n" << endl;
+      cout << string(120, '=') << "\n" << '\n';
 
       // Weights
       cout << "Weights(" << evt->weights().size() << ")=";
       /// @todo Re-enable
-      // foreach (double w,  evt->weights())
+      // for (double w,  evt->weights())
       //   cout << w << " ";
       cout << "\n"
            << "EventScale " << evt->event_scale()
            << " [energy] \t alphaQCD=" << evt->alphaQCD()
-           << "\t alphaQED=" << evt->alphaQED() << endl;
+           << "\t alphaQED=" << evt->alphaQED() << '\n';
 
       if (evt->pdf_info()) {
         cout << "PdfInfo: id1=" << evt->pdf_info()->id1()
@@ -169,7 +169,7 @@ namespace Rivet {
              << " q=" << evt->pdf_info()->scalePDF()
              << " xpdf1=" << evt->pdf_info()->pdf1()
              << " xpdf2=" << evt->pdf_info()->pdf2()
-             << endl;
+             << '\n';
       } else {
         cout << "PdfInfo: EMPTY";
       }
@@ -178,13 +178,13 @@ namespace Rivet {
       char particle_legend[120];
       sprintf( particle_legend,"     %9s %8s %-15s %4s %8s %8s   (%9s,%9s,%9s,%9s,%9s)",
                "Barcode","PDG ID","Name","Stat","ProdVtx","DecayVtx","Px","Py","Pz","E ","m");
-      cout << endl;
+      cout << '\n';
       cout << "                                       GenParticle Legend\n" << particle_legend << "\n";
       // if (m_vertexinfo) {
       //   sprintf( particle_legend," %60s (%9s,%9s,%9s,%9s)"," ","Vx","Vy","Vz","Vct ");
-      //   cout << particle_legend << endl;
+      //   cout << particle_legend << '\n';
       // }
-      // cout << string(120, '_') << endl;
+      // cout << string(120, '_') << '\n';
 
       // Print all particles
       // const HepPDT::ParticleDataTable* pdt = m_ppsvc->PDT();
@@ -234,7 +234,7 @@ namespace Rivet {
         // }
       }
 
-      cout << "\n" << endl;
+      cout << "\n" << '\n';
     }
 
 

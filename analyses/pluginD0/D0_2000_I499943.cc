@@ -47,13 +47,13 @@ namespace Rivet {
 
       // Muon selection: require the muons to be *close* to jets, not the usual overlap vetoing!
       Particles cand_mu;
-      foreach (const Particle& mu, muons) {
+      for (const Particle& mu : muons) {
         // Ignore muons in "bad" region 80 < phi < 110 degrees
         /// @todo Is this really not corrected for?!
         if (inRange(mu.phi(), 1.4, 1.92)) continue;
 
         // A muon is a good candidate if within R = 0.8 of a jet
-        foreach (const Jet& jet, jets) {
+        for (const Jet& jet : jets) {
           if (deltaR(mu, jet) < 0.8) {
             cand_mu.push_back(mu);
             break;

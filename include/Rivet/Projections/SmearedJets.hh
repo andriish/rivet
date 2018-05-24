@@ -136,7 +136,7 @@ namespace Rivet {
         MSG_DEBUG("Truth jet: " << "mom=" << jdet.mom()/GeV << " GeV, pT=" << jdet.pT()/GeV << ", eta=" << jdet.eta());
         for (const JetEffSmearFn& fn : _detFns) {
           double jeff = -1;
-          tie(jdet, jeff) = fn(jdet); // smear & eff
+          std::tie(jdet, jeff) = fn(jdet); // smear & eff
           // Re-add constituents & tags if (we assume accidentally) they were lost by the smearing function
           if (jdet.particles().empty() && !j.particles().empty()) jdet.particles() = j.particles();
           if (jdet.tags().empty() && !j.tags().empty()) jdet.tags() = j.tags();

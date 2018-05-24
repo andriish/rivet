@@ -7,7 +7,7 @@
 
 
 #include "yaml-cpp/mark.h"
-#include <iostream>
+#include <ostream>
 #include <string>
 #include <vector>
 

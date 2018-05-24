@@ -115,7 +115,7 @@ namespace Rivet {
         double HT = 0.0;
 
         // loop over jets in an event, pushback in finaljet_list collection
-        foreach (const Jet& j, applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV)) {
+        for (const Jet& j : applyProjection<FastJets>(event, "Jets").jetsByPt(30.0*GeV)) {
           const double jrap = j.momentum().rap();
           const double jpt = j.momentum().pT();
           if ( (fabs(jrap) < 2.4) && (deltaR(lepton0, j.momentum()) > 0.4) ) {

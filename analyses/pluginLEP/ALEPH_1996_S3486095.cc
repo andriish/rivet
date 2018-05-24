@@ -189,7 +189,7 @@ namespace Rivet {
       double rapt20 = 0.;
       //int numChParticles = 0;
       MSG_DEBUG("About to iterate over charged FS particles");
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         // Get momentum and energy of each particle.
         const Vector3 mom3 = p.p3();
         const double energy = p.E();

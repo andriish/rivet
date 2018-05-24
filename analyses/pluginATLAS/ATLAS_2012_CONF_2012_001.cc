@@ -78,7 +78,7 @@ namespace Rivet {
       const double weight = 1.0;
       // get the jet candidates
       Jets cand_jets;
-      foreach (const Jet& jet,
+      for (const Jet& jet :
                apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
@@ -89,10 +89,10 @@ namespace Rivet {
       Particles cand_mu;
       Particles chg_tracks =
         apply<ChargedFinalState>(event, "cfs").particles();
-      foreach ( const Particle & mu,
+      for ( const Particle & mu :
                 apply<IdentifiedFinalState>(event, "muons").particlesByPt() ) {
         double pTinCone = -mu.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.pT();
         }
@@ -102,14 +102,14 @@ namespace Rivet {
 
       // candidate electrons
       Particles cand_e;
-      foreach ( const Particle & e,
+      for ( const Particle & e :
                 apply<IdentifiedFinalState>(event, "elecs").particlesByPt() ) {
         double eta = e.eta();
         // remove electrons with pT<15 in old veto region
         if( fabs(eta)>1.37 && fabs(eta) < 1.52 && e.perp()< 15.*GeV)
           continue;
         double pTinCone = -e.perp();
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) <= 0.2 )
             pTinCone += track.pT();
         }
@@ -120,9 +120,9 @@ namespace Rivet {
 
       // resolve jet/lepton ambiguity
       Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets ) {
+      for ( const Jet& jet : cand_jets ) {
         bool away_from_e = true;
-        foreach ( const Particle & e, cand_e ) {
+        for ( const Particle & e : cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
             away_from_e = false;
             break;
@@ -138,7 +138,7 @@ namespace Rivet {
         const Particle & e = cand_e[ie];
         // at least 0.4 from any jets
         bool away = true;
-        foreach ( const Jet& jet, recon_jets ) {
+        for ( const Jet& jet : recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
             away = false;
             break;
@@ -146,7 +146,7 @@ namespace Rivet {
         }
         // and 0.1 from any muons
         if ( away ) {
-          foreach ( const Particle & mu, cand_mu ) {
+          for ( const Particle & mu : cand_mu ) {
             if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
               away = false;
               break;
@@ -185,7 +185,7 @@ namespace Rivet {
         const Particle & mu = cand_mu[imu];
         bool away = true;
         // at least 0.4 from any jets
-        foreach ( const Jet& jet, recon_jets ) {
+        for ( const Jet& jet : recon_jets ) {
           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
             away = false;
             break;
@@ -193,7 +193,7 @@ namespace Rivet {
         }
         // and 0.1 from any electrona
         if ( away ) {
-          foreach ( const Particle & e, cand_e ) {
+          for ( const Particle & e : cand_e ) {
             if ( deltaR(mu.momentum(),e.momentum()) < 0.1 ) {
               away = false;
               break;
@@ -231,7 +231,7 @@ namespace Rivet {
       Particles vfs_particles =
         apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      for ( const Particle & p : vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
@@ -246,13 +246,13 @@ namespace Rivet {
 
       // ATLAS calo problem
       if(rand()/static_cast<double>(RAND_MAX)<=0.42) {
-        foreach ( const Particle & e, recon_e ) {
+        for ( const Particle & e : recon_e ) {
           double eta = e.eta();
           double phi = e.azimuthalAngle(MINUSPI_PLUSPI);
           if(eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
             vetoEvent;
         }
-        foreach ( const Jet & jet, recon_jets ) {
+        for ( const Jet & jet : recon_jets ) {
           double eta = jet.rapidity();
           double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
           if(jet.perp()>40 && eta>-0.1&&eta<1.5&&phi>-0.9&&phi<-0.5)
@@ -269,11 +269,11 @@ namespace Rivet {
 
       // calculate meff
       double meff = eTmiss;
-      foreach ( const Particle & e , recon_e  )
+      for ( const Particle & e  : recon_e  )
         meff += e.perp();
-      foreach ( const Particle & mu, recon_mu )
+      for ( const Particle & mu : recon_mu )
         meff += mu.perp();
-      foreach ( const Jet & jet, recon_jets ) {
+      for ( const Jet & jet : recon_jets ) {
         double pT = jet.perp();
         if(pT>40.) meff += pT;
       }

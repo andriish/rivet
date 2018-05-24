@@ -39,7 +39,7 @@ namespace Rivet {
 
   void Log::setLevel(const string& name, int level) {
     defaultLevels[name] = level;
-    //cout << name << " -> " << level << endl;
+    //cout << name << " -> " << level << '\n';
     _updateLevels(defaultLevels, existingLogs);
   }
 
@@ -186,9 +186,9 @@ namespace Rivet {
   void Log::log(int level, const string& message) {
     if (isActive(level)) {
         if (level > WARNING)
-	      cerr << formatMessage(level, message) << endl;
+	      cerr << formatMessage(level, message) << '\n';
   	else
-	      cout << formatMessage(level, message) << endl;
+	      cout << formatMessage(level, message) << '\n';
     }
   }
 

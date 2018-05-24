@@ -871,7 +871,7 @@ Derived cross
 /**
   * Allows to print a vector by simply doing
   * @code
-    cout << myvector << endl;
+    cout << myvector << '\n';
   * @endcode
   */
 template<typename T, typename Derived>

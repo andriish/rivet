@@ -72,7 +72,7 @@ namespace Rivet {
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
+    // for (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::ancestors); it != gv->particles_end(HepMC::ancestors); ++it) {
       if (physical_only && (*it)->status() != 1 && (*it)->status() != 2) continue;
@@ -90,7 +90,7 @@ namespace Rivet {
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
+    // for (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::parents); it != gv->particles_end(HepMC::parents); ++it) {
       const Particle p(*it);
@@ -108,7 +108,7 @@ namespace Rivet {
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
+    // for (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::children); it != gv->particles_end(HepMC::children); ++it) {
       const Particle p(*it);
@@ -128,7 +128,7 @@ namespace Rivet {
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
+    // for (const GenParticlePtr gp, gv->particles(HepMC::descendants))
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       const Particle p(*it);
       if (c != Cuts::OPEN && !c->accept(p)) continue;
@@ -156,7 +156,7 @@ namespace Rivet {
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
     if (gv == NULL) return rtn;
     /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
+    // for (const GenParticlePtr gp, gv->particles(HepMC::descendants))
     for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
       const Particle p(*it);

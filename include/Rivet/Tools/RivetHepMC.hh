@@ -153,7 +153,7 @@ namespace Rivet {
     #else
     // Before HepMC 2.7.0 the constness consistency of methods and their return types was all screwed up :-/
     std::vector<const GenParticle*> rtn;
-    foreach (GenParticle* gp2, particles(gp->production_vertex(), range))
+    for (GenParticle* gp2 : particles(gp->production_vertex(), range))
       rtn.push_back( const_cast<const GenParticle*>(gp2) );
     return rtn;
     #endif
@@ -177,7 +177,7 @@ namespace Rivet {
     #else
     // Before HepMC 2.7.0 the constness consistency of methods and their return types was all screwed up :-/
     std::vector<const GenParticle*> rtn;
-    foreach (GenParticle* gp2, particles(gp->end_vertex(), range))
+    for (GenParticle* gp2 : particles(gp->end_vertex(), range))
       rtn.push_back( const_cast<const GenParticle*>(gp2) );
     return rtn;
     #endif

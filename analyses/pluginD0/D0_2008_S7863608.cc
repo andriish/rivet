@@ -54,7 +54,7 @@ namespace Rivet {
         const JetAlg& jetpro = apply<JetAlg>(e, "ConeFinder");
         const Jets& jets = jetpro.jetsByPt(20*GeV);
         Jets jets_cut;
-        foreach (const Jet& j, jets) {
+        for (const Jet& j : jets) {
           if (j.abseta() < 2.8) {
             jets_cut.push_back(j);
           }

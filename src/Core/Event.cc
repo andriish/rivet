@@ -37,9 +37,9 @@ namespace Rivet {
   }
 
 
-  valarray<double> Event::weights() const {
+  std::valarray<double> Event::weights() const {
     const size_t W = _genevent.weights().size();
-    valarray<double> wts(W);
+    std::valarray<double> wts(W);
     for (unsigned int iw = 0; iw < W; ++iw)
         wts[iw] = _genevent.weights()[iw];
     return wts;

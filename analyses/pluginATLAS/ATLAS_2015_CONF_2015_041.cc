@@ -61,9 +61,9 @@ namespace Rivet {
       if (leptons.size() != 2)  vetoEvent;
 
       Jets jets;
-      foreach (Jet j, apply<JetAlg>(event, "jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 2.5)) {
+      for (Jet j : apply<JetAlg>(event, "jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 2.5)) {
         bool keep = true;
-        foreach(const Particle& l, leptons)  keep &= deltaR(j, l) > 0.4;
+        for(const Particle& l : leptons)  keep &= deltaR(j, l) > 0.4;
         if (keep)  jets += j;
       }
 

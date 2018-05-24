@@ -80,7 +80,7 @@ void Wrapper<T>::newSubEvent() {
 
     // Return value, to be populated
     map<string, YODA::AnalysisObjectPtr> rtn;
-    foreach ( YODA::AnalysisObject* ao, aovec ) {
+    for ( YODA::AnalysisObject* ao : aovec ) {
       YODA::AnalysisObjectPtr refdata(ao);
       if (!refdata) continue;
       const string plotpath = refdata->path();

@@ -41,10 +41,10 @@ namespace Rivet {
       const ChargedFinalState& tracks = apply<ChargedFinalState>(event, "tracks");
 
       Particles selected_muons;
-      foreach (Particle muon, muons.particles()) {
+      for (Particle muon : muons.particles()) {
         FourMomentum testmom = muon.momentum();
         double ptmu(testmom.pT()), ptsum(-ptmu), ratio(0.);
-        foreach (Particle track, tracks.particles()) {
+        for (Particle track : tracks.particles()) {
           const FourMomentum& trackmom = track.momentum();
           if (deltaR(testmom, trackmom) < 0.4) {
             ptsum += trackmom.pT();

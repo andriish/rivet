@@ -47,7 +47,7 @@ namespace Rivet {
       const FinalState& cfs = apply<FinalState>(event, "CFS");
       MSG_DEBUG("Total charged multiplicity = " << cfs.size());
       unsigned int nPart(0);
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         // check if prompt or not
         const GenParticle* pmother = p.genParticle();
         const GenVertex* ivertex = pmother->production_vertex();

@@ -51,7 +51,7 @@ namespace Rivet {
 
       // photon isolation: less than 2 GeV EM E_T
       double Etsum=0.0;
-      foreach (const Particle& p, apply<VetoedFinalState>(event, "VFS").particles()) {
+      for (const Particle& p : apply<VetoedFinalState>(event, "VFS").particles()) {
         if (p.charge() != 0 && deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.7) Etsum += p.Et();
       }
       if (Etsum > 2*GeV) vetoEvent;
@@ -66,7 +66,7 @@ namespace Rivet {
       if (jets[0].phi() - phi_P <= M_PI) vetoEvent;
       
       // sum all jets in the opposite hemisphere in phi from the photon
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         if (fabs(jet.phi()-phi_P) > M_PI) jetsum+=jet.momentum();
       }
 

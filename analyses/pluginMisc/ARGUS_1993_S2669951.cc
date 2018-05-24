@@ -47,19 +47,19 @@ namespace Rivet {
       Particles upsilons;
 
       // First in unstable final state
-      foreach (const Particle& p, ufs.particles())
+      for (const Particle& p : ufs.particles())
         if (p.pid() == 553 || p.pid() == 100553)
           upsilons.push_back(p);
       // Then in whole event if fails
       if (upsilons.empty()) {
         /// @todo Replace HepMC digging with Particle::descendents etc. calls
-        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+        for (const GenParticle* p : Rivet::particles(e.genEvent())) {
           if ( p->pdg_id() != 553 && p->pdg_id() != 100553 ) continue;
           // Discard it if its parent has the same PDG ID code (avoid duplicates)
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticle* pp, particles_in(pv)) {
+            for (const GenParticle* pp : particles_in(pv)) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -77,7 +77,7 @@ namespace Rivet {
 
         _weightSum_cont->fill();
         unsigned int nEtaA(0), nEtaB(0), nf0(0);
-        foreach (const Particle& p, ufs.particles()) {
+        for (const Particle& p : ufs.particles()) {
           const int id = p.abspid();
           const double xp = 2.*p.E()/sqrtS();
           const double beta = p.p3().mod() / p.E();
@@ -96,7 +96,7 @@ namespace Rivet {
       } else { // Upsilon(s) found
         MSG_DEBUG("Upsilons found => resonance event");
 
-        foreach (const Particle& ups, upsilons) {
+        for (const Particle& ups : upsilons) {
           const int parentId = ups.pid();
           ((parentId == 553) ? _weightSum_Ups1 : _weightSum_Ups2)->fill();
           Particles unstable;
@@ -107,7 +107,7 @@ namespace Rivet {
             cms_boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().betaVec());
           const double mass = ups.mass();
           unsigned int nEtaA(0), nEtaB(0), nf0(0);
-          foreach(const Particle& p, unstable) {
+          for(const Particle& p : unstable) {
             const int id = p.abspid();
             const FourMomentum p2 = cms_boost.transform(p.momentum());
             const double xp = 2.*p2.E()/mass;

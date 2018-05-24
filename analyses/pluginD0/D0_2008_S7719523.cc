@@ -93,7 +93,7 @@ namespace Rivet {
       double eta_P = photon.eta();
       double phi_P = photon.phi();
       double econe = 0.0;
-      foreach (const Particle& p, apply<FinalState>(event, "JetFS").particles()) {
+      for (const Particle& p : apply<FinalState>(event, "JetFS").particles()) {
         if (deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.4) {
           econe += p.E();
           // Veto as soon as E_cone gets larger

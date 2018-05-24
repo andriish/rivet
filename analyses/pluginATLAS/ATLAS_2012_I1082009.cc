@@ -61,24 +61,24 @@ namespace Rivet {
     void analyze(const Event& event) {
       // get the jets
       Jets jets;
-      foreach (const Jet& jet, apply<FastJets>(event, "jets").jetsByPt(25.0*GeV)) {
+      for (const Jet& jet : apply<FastJets>(event, "jets").jetsByPt(25.0*GeV)) {
         if ( jet.abseta() < 2.5 ) jets.push_back(jet);
       }
       // get the D* mesons
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       Particles Dstar;
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
         if(id==413) Dstar.push_back(p);
       }
 
       // loop over the jobs
-      foreach (const Jet& jet, jets ) {
+      for (const Jet& jet : jets ) {
         double perp = jet.perp();
         bool found = false;
         double z(0.);
         if(perp<25.||perp>70.) continue;
-        foreach(const Particle & p, Dstar) {
+        for(const Particle & p : Dstar) {
           if(p.perp()<7.5) continue;
           if(deltaR(p, jet.momentum())<0.6) {
             Vector3 axis = jet.p3().unit();

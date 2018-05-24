@@ -84,9 +84,9 @@ namespace Rivet {
     void analyze(const Event& event) {
       Jets jets;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, apply<JetAlg>(event, "SmearedJets").jets(Cuts::Et > 20.0*GeV, cmpMomByEt)) {
+      for (const Jet& jet : apply<JetAlg>(event, "SmearedJets").jets(Cuts::Et > 20.0*GeV, cmpMomByEt)) {
         bool separated = true;
-        foreach (const Jet& ref, jets) {
+        for (const Jet& ref : jets) {
           if (deltaR(jet, ref) < 0.9) {
             separated = false;
             break;
@@ -117,7 +117,7 @@ namespace Rivet {
 
       double sumEt = 0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         sumEt += jet.Et();
         jetsystem += jet.momentum();
       }
@@ -128,7 +128,7 @@ namespace Rivet {
 
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.betaVec());
       vector<FourMomentum> jets3;
-      foreach (Jet jet, jets) {
+      for (Jet jet : jets) {
         jets3.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets3.begin(), jets3.end(), FourMomentum::byEDescending());
@@ -166,7 +166,7 @@ namespace Rivet {
 
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         sumEt+=jet.Et();
         jetsystem+=jet.momentum();
       }
@@ -177,7 +177,7 @@ namespace Rivet {
 
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.betaVec());
       vector<FourMomentum> jets4;
-      foreach (Jet jet, jets) {
+      for (Jet jet : jets) {
         jets4.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets4.begin(), jets4.end(), FourMomentum::byEDescending());
@@ -233,7 +233,7 @@ namespace Rivet {
 
       double sumEt=0.0;
       FourMomentum jetsystem(0.0, 0.0, 0.0, 0.0);
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         sumEt+=jet.Et();
         jetsystem+=jet.momentum();
       }
@@ -244,7 +244,7 @@ namespace Rivet {
 
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jetsystem.betaVec());
       vector<FourMomentum> jets5;
-      foreach (Jet jet, jets) {
+      for (Jet jet : jets) {
         jets5.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets5.begin(), jets5.end(), FourMomentum::byEDescending());

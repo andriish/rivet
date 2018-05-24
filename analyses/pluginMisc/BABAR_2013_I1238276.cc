@@ -39,7 +39,7 @@ namespace Rivet {
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(mom_tot.betaVec());
       MSG_DEBUG("CMS Energy sqrt s = " << beamproj.sqrtS());
 
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         // check if prompt or not
         const GenParticle* pmother = p.genParticle();
         const GenVertex* ivertex = pmother->production_vertex();

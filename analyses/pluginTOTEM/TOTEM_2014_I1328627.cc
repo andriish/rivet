@@ -32,7 +32,7 @@ namespace Rivet {
       if (cfsm.size() == 0 && cfsp.size() == 0) vetoEvent;
 
       _sumofweights->fill();
-      foreach (const Particle& p, cfsm.particles() + cfsp.particles()) {
+      for (const Particle& p : cfsm.particles() + cfsp.particles()) {
         _h_eta->fill(p.abseta());
       }
     }

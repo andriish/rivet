@@ -91,17 +91,17 @@ namespace Rivet {
       Particles muon_candidates;
       const Particles charged_tracks    = apply<ChargedFinalState>(event, "CFS").particles();
       const Particles visible_particles = apply<VisibleFinalState>(event, "VFS").particles();
-      foreach (const Particle& mu, apply<IdentifiedFinalState>(event, "muons").particlesByPt()) {
+      for (const Particle& mu : apply<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         // Calculate pTCone30 variable (pT of all tracks within dR<0.3 - pT of muon itself)
         double pTinCone = -mu.pT();
-        foreach (const Particle& track, charged_tracks) {
+        for (const Particle& track : charged_tracks) {
           if (deltaR(mu.momentum(), track.momentum()) < 0.3)
             pTinCone += track.pT();
         }
 
         // Calculate eTCone30 variable (pT of all visible particles within dR<0.3)
         double eTinCone = 0.;
-        foreach (const Particle& visible_particle, visible_particles) {
+        for (const Particle& visible_particle : visible_particles) {
           if (visible_particle.abspid() != PID::MUON && inRange(deltaR(mu.momentum(), visible_particle.momentum()), 0.1, 0.3))
             eTinCone += visible_particle.pT();
         }
@@ -120,19 +120,19 @@ namespace Rivet {
 
       // Electrons
       Particles electron_candidates;
-      foreach (const Particle& e, apply<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
+      for (const Particle& e : apply<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         // Neglect electrons in crack regions
         if (inRange(e.abseta(), 1.37, 1.52)) continue;
 
         // Calculate pTCone30 variable (pT of all tracks within dR<0.3 - pT of electron itself)
         double pTinCone = -e.pT();
-        foreach (const Particle& track, charged_tracks) {
+        for (const Particle& track : charged_tracks) {
           if (deltaR(e.momentum(), track.momentum()) < 0.3) pTinCone += track.pT();
         }
 
         // Calculate eTCone30 variable (pT of all visible particles (except muons) within dR<0.3)
         double eTinCone = 0.;
-        foreach (const Particle& visible_particle, visible_particles) {
+        for (const Particle& visible_particle : visible_particles) {
           if (visible_particle.abspid() != PID::MUON && inRange(deltaR(e.momentum(), visible_particle.momentum()), 0.1, 0.3))
             eTinCone += visible_particle.pT();
         }
@@ -152,7 +152,7 @@ namespace Rivet {
       // Taus
       /// @todo This could benefit from a tau finder projection
       Particles tau_candidates;
-      foreach (const Particle& tau, apply<UnstableFinalState>(event, "UFS").particlesByPt()) {
+      for (const Particle& tau : apply<UnstableFinalState>(event, "UFS").particlesByPt()) {
         // Only pick taus out of all unstable particles
         if (tau.abspid() != PID::TAU) continue;
 
@@ -188,7 +188,7 @@ namespace Rivet {
 
       // Jets (all anti-kt R=0.4 jets with pT > 25 GeV and eta < 4.9)
       Jets jet_candidates;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(25*GeV)) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets04").jetsByPt(25*GeV)) {
         if (jet.abseta() < 4.9) jet_candidates.push_back(jet);
       }
 
@@ -196,7 +196,7 @@ namespace Rivet {
       // ETmiss
       Particles vfs_particles = apply<VisibleFinalState>(event, "VFS").particles();
       FourMomentum pTmiss;
-      foreach (const Particle& p, vfs_particles) pTmiss -= p.momentum();
+      for (const Particle& p : vfs_particles) pTmiss -= p.momentum();
       double eTmiss = pTmiss.pT()/GeV;
 
 
@@ -221,10 +221,10 @@ namespace Rivet {
       }
       // jet - electron
       Jets recon_jets;
-      foreach (const Jet& jet, jet_candidates) {
+      for (const Jet& jet : jet_candidates) {
         bool away = true;
         // if jet within dR < 0.2 of electron: remove jet
-        foreach (const Particle& e, electron_candidates_2) {
+        for (const Particle& e : electron_candidates_2) {
           if (deltaR(e.momentum(), jet.momentum()) < 0.2) {
             away = false;
             break;
@@ -233,7 +233,7 @@ namespace Rivet {
         // jet - tau
         if (away)  {
           // If jet within dR < 0.2 of tau: remove jet
-          foreach (const Particle& tau, tau_candidates) {
+          for (const Particle& tau : tau_candidates) {
             if (deltaR(tau.momentum(), jet.momentum()) < 0.2) {
               away = false;
               break;
@@ -252,7 +252,7 @@ namespace Rivet {
         const Particle& e = electron_candidates_2[ie];
         // If electron within 0.2 < dR < 0.4 from any jets: remove electron
         bool away = true;
-        foreach (const Jet& jet, recon_jets) {
+        for (const Jet& jet : recon_jets) {
           if (deltaR(e.momentum(), jet.momentum()) < 0.4) {
             away = false;
             break;
@@ -261,7 +261,7 @@ namespace Rivet {
         // electron - muon
         // if electron within dR < 0.1 of a muon: remove electron
         if (away) {
-          foreach (const Particle& mu, muon_candidates) {
+          for (const Particle& mu : muon_candidates) {
             if (deltaR(mu.momentum(), e.momentum()) < 0.1) {
               away = false;
               break;
@@ -278,10 +278,10 @@ namespace Rivet {
 
       // tau - electron
       Particles recon_tau;
-      foreach ( const Particle& tau, tau_candidates ) {
+      for ( const Particle& tau : tau_candidates ) {
         bool away = true;
         // If tau within dR < 0.2 of an electron: remove tau
-        foreach ( const Particle& e, recon_e ) {
+        for ( const Particle& e : recon_e ) {
           if (deltaR( tau.momentum(), e.momentum()) < 0.2) {
             away = false;
             break;
@@ -290,7 +290,7 @@ namespace Rivet {
         // tau - muon
         // If tau within dR < 0.2 of a muon: remove tau
         if (away)  {
-          foreach (const Particle& mu, muon_candidates) {
+          for (const Particle& mu : muon_candidates) {
             if (deltaR(tau.momentum(), mu.momentum()) < 0.2) {
               away = false;
               break;
@@ -304,9 +304,9 @@ namespace Rivet {
       // Muon - jet isolation
       Particles recon_mu, trigger_mu;
       // If muon within dR < 0.4 of a jet, remove muon
-      foreach (const Particle& mu, muon_candidates) {
+      for (const Particle& mu : muon_candidates) {
         bool away = true;
-        foreach (const Jet& jet, recon_jets) {
+        for (const Jet& jet : recon_jets) {
           if ( deltaR( mu.momentum(), jet.momentum()) < 0.4 ) {
             away = false;
             break;
@@ -325,7 +325,7 @@ namespace Rivet {
 
       // Jet cleaning
       if (rand()/static_cast<double>(RAND_MAX) <= 0.42) {
-        foreach (const Jet& jet, recon_jets) {
+        for (const Jet& jet : recon_jets) {
           const double eta = jet.rapidity();
           const double phi = jet.azimuthalAngle(MINUSPI_PLUSPI);
           if (jet.pT() > 25*GeV && inRange(eta, -0.1, 1.5) && inRange(phi, -0.9, -0.5)) vetoEvent;
@@ -380,21 +380,21 @@ namespace Rivet {
 
       // Calculate HTjets
       double HTjets = 0.;
-      foreach ( const Jet & jet, recon_jets )
+      for ( const Jet & jet : recon_jets )
         HTjets += jet.perp()/GeV;
 
       // Calculate meff
       double meff = eTmiss + HTjets;
       Particles all_leptons;
-      foreach ( const Particle & e , recon_e  )  {
+      for ( const Particle & e  : recon_e  )  {
         meff += e.perp()/GeV;
         all_leptons.push_back( e );
       }
-      foreach ( const Particle & mu, recon_mu )  {
+      for ( const Particle & mu : recon_mu )  {
         meff += mu.perp()/GeV;
         all_leptons.push_back( mu );
       }
-      foreach ( const Particle & tau, recon_tau )  {
+      for ( const Particle & tau : recon_tau )  {
         meff += tau.perp()/GeV;
         all_leptons.push_back( tau );
       }
@@ -445,38 +445,38 @@ namespace Rivet {
       double obs_UL_best_SR = getUpperLimit(best_signal_region, true);
 
       // Print out result
-      cout << "----------------------------------------------------------------------------------------" << endl;
-      cout << "Best signal region: " << best_signal_region << endl;
-      cout << "Normalized number of signal events in this best signal region (per fb-1): " << signal_events_best_SR << endl;
-      cout << "Efficiency*Acceptance: " <<  _eventCountsPerSR[best_signal_region]->val()/sumOfWeights() << endl;
-      cout << "Cross-section [fb]: " << crossSection()/femtobarn << endl;
-      cout << "Expected visible cross-section (per fb-1): " << exp_UL_best_SR << endl;
-      cout << "Ratio (signal events / expected visible cross-section): " << ratio_best_SR << endl;
-      cout << "Observed visible cross-section (per fb-1): " << obs_UL_best_SR << endl;
-      cout << "Ratio (signal events / observed visible cross-section): " <<  signal_events_best_SR/obs_UL_best_SR << endl;
-      cout << "----------------------------------------------------------------------------------------" << endl;
+      cout << "----------------------------------------------------------------------------------------" << '\n';
+      cout << "Best signal region: " << best_signal_region << '\n';
+      cout << "Normalized number of signal events in this best signal region (per fb-1): " << signal_events_best_SR << '\n';
+      cout << "Efficiency*Acceptance: " <<  _eventCountsPerSR[best_signal_region]->val()/sumOfWeights() << '\n';
+      cout << "Cross-section [fb]: " << crossSection()/femtobarn << '\n';
+      cout << "Expected visible cross-section (per fb-1): " << exp_UL_best_SR << '\n';
+      cout << "Ratio (signal events / expected visible cross-section): " << ratio_best_SR << '\n';
+      cout << "Observed visible cross-section (per fb-1): " << obs_UL_best_SR << '\n';
+      cout << "Ratio (signal events / observed visible cross-section): " <<  signal_events_best_SR/obs_UL_best_SR << '\n';
+      cout << "----------------------------------------------------------------------------------------" << '\n';
 
-      cout << "Using the EXPECTED limits (visible cross-section) of the analysis: " << endl;
+      cout << "Using the EXPECTED limits (visible cross-section) of the analysis: " << '\n';
       if (signal_events_best_SR > exp_UL_best_SR)  {
-        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << endl;
+        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << '\n';
         _h_excluded->fill(1);
       }
       else  {
-        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << endl;
+        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << '\n';
         _h_excluded->fill(0);
       }
-      cout << "----------------------------------------------------------------------------------------" << endl;
+      cout << "----------------------------------------------------------------------------------------" << '\n';
 
-      cout << "Using the OBSERVED limits (visible cross-section) of the analysis: " << endl;
+      cout << "Using the OBSERVED limits (visible cross-section) of the analysis: " << '\n';
       if (signal_events_best_SR > obs_UL_best_SR)  {
-        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << endl;
+        cout << "Since the number of signal events > the visible cross-section, this model/grid point is EXCLUDED with 95% CL." << '\n';
         _h_excluded->fill(1);
       }
       else  {
-        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << endl;
+        cout << "Since the number of signal events < the visible cross-section, this model/grid point is NOT EXCLUDED." << '\n';
         _h_excluded->fill(0);
       }
-      cout << "----------------------------------------------------------------------------------------" << endl;
+      cout << "----------------------------------------------------------------------------------------" << '\n';
 
 
       // Normalize to cross section
@@ -997,8 +997,8 @@ namespace Rivet {
       double best_mass_3 = 999.;
 
       // Loop over all 2 particle combinations to find invariant mass of OSSF pair closest to Z mass
-      foreach ( const Particle& p1, particles  )  {
-        foreach ( const Particle& p2, particles  )  {
+      for ( const Particle& p1 : particles  )  {
+        for ( const Particle& p2 : particles  )  {
           double mass_difference_2_old = fabs(91.0 - best_mass_2);
           double mass_difference_2_new = fabs(91.0 - (p1.momentum() + p2.momentum()).mass()/GeV);
 
@@ -1010,7 +1010,7 @@ namespace Rivet {
               best_mass_2 = (p1.momentum() + p2.momentum()).mass()/GeV;
 
             // In case there is an OSSF pair take also 3rd lepton into account (e.g. from FSR and photon to electron conversion)
-            foreach ( const Particle & p3 , particles  )  {
+            for ( const Particle & p3 : particles  )  {
               double mass_difference_3_old = fabs(91.0 - best_mass_3);
               double mass_difference_3_new = fabs(91.0 - (p1.momentum() + p2.momentum() + p3.momentum()).mass()/GeV);
               if (mass_difference_3_new < mass_difference_3_old)

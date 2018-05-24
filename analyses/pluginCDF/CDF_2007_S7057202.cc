@@ -36,13 +36,13 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = 1.0;
 
-      foreach (const Jet& jet, apply<JetAlg>(event, "JetsD07").jets(Cuts::pT > 54*GeV))
+      for (const Jet& jet : apply<JetAlg>(event, "JetsD07").jets(Cuts::pT > 54*GeV))
         _binnedHistosD07.fill(jet.absrap(), jet.pT(), weight);
 
-      foreach (const Jet& jet, apply<JetAlg>(event, "JetsD05").jets(Cuts::pT > 54*GeV))
+      for (const Jet& jet : apply<JetAlg>(event, "JetsD05").jets(Cuts::pT > 54*GeV))
         if (inRange(jet.absrap(), 0.1, 0.7)) _histoD05->fill(jet.pT(), weight);
 
-      foreach (const Jet& jet, apply<JetAlg>(event, "JetsD10").jets(Cuts::pT > 54*GeV))
+      for (const Jet& jet : apply<JetAlg>(event, "JetsD10").jets(Cuts::pT > 54*GeV))
         if (inRange(jet.absrap(), 0.1, 0.7)) _histoD10->fill(jet.pT(), weight);
     }
 

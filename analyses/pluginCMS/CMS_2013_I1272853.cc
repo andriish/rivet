@@ -65,7 +65,7 @@ namespace Rivet {
       const FastJets& jetpro = apply<FastJets>(event, "Jets");
       /// @todo Collapse this into jetpro.jetsByPt(ptGtr(20*GeV) & rapIn(2.0))
       vector<FourMomentum> jets;
-      foreach (const Jet& jet, jetpro.jetsByPt(20*GeV))
+      for (const Jet& jet : jetpro.jetsByPt(20*GeV))
         if (jet.absrap() < 2.0) jets.push_back(jet.momentum());
       if (jets.size() != 2) vetoEvent;
 

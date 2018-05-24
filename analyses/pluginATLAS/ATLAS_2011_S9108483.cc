@@ -88,8 +88,8 @@ namespace Rivet {
       // number passing trigger
       _count_trigger->fill(0.5);
       // Z mass veto
-      foreach ( const Particle & mu1,charged ) {
-        foreach ( const Particle & mu2,charged ) {
+      for ( const Particle & mu1 : charged ) {
+        for ( const Particle & mu2 : charged ) {
           double mass = (mu1.momentum()+mu2.momentum()).mass();
           double diff = abs(mass-91.18);
           if(diff<10.) vetoEvent;
@@ -100,7 +100,7 @@ namespace Rivet {
       // now find the candidates
       // loop over the particles and find muons and heavy charged particles
       map<double,Particle> muonCandidates;
-      foreach (const Particle& mu, charged) {
+      for (const Particle& mu : charged) {
         // calculate the smeared momentum
         double pT     = mu.pT2();
         double pmag   = sqrt(pT+sqr(mu.pz()));

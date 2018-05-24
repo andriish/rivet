@@ -85,7 +85,7 @@ namespace Rivet {
       //------------- stop processing the event if no true b-partons or hadrons are found
       const Particles& allBs = apply<HeavyHadrons>(e, "BHadrons").bHadrons(5.0*GeV);
       Particles stableBs;
-      foreach(Particle p, allBs) {
+      for(Particle p : allBs) {
         if(p.abseta() < 2.5)  stableBs += p;
       }
       if( stableBs.empty() )  vetoEvent;
@@ -95,15 +95,15 @@ namespace Rivet {
       // -- get the b-jets:
       const Jets& jets = apply<JetAlg>(e, "AntiKtJets04").jetsByPt(Cuts::pT >20.0*GeV && Cuts::abseta <2.4);
       Jets b_jets;
-      foreach(const Jet& jet, jets) {
+      for(const Jet& jet : jets) {
         //veto overlaps with Z leptons:
         bool veto = false;
-        foreach(const Particle& zlep, zleps) {
+        for(const Particle& zlep : zleps) {
           if(deltaR(jet, zlep) < 0.5)  veto = true;
         }
         if(veto) continue;
 
-        foreach(const Particle& bhadron, stableBs) {
+        for(const Particle& bhadron : stableBs) {
           if( deltaR(jet, bhadron) <= 0.3 ) {
             b_jets.push_back(jet);
             break; // match
@@ -122,7 +122,7 @@ namespace Rivet {
       _h_bjet_ZPt->fill(ZpT);
       _h_bjet_ZY ->fill(ZY);
 
-      foreach(const Jet& jet, b_jets) {
+      for(const Jet& jet : b_jets) {
 
         _h_bjet_Pt->fill(jet.pT()/GeV);
         _h_bjet_Y ->fill(jet.absrap());

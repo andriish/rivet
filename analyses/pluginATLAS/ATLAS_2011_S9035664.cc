@@ -42,12 +42,12 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         if (p.abspid() != 443) continue;
         const GenVertex* gv = p.genParticle()->production_vertex();
         bool nonPrompt = false;
         if (gv) {
-          foreach (const GenParticle* pi, Rivet::particles(gv, HepMC::ancestors)) {
+          for (const GenParticle* pi : Rivet::particles(gv, HepMC::ancestors)) {
             const PdgId pid2 = pi->pdg_id();
             if (PID::isHadron(pid2) && PID::hasBottom(pid2)) {
               nonPrompt = true;

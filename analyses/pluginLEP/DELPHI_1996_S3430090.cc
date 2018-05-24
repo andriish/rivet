@@ -219,7 +219,7 @@ namespace Rivet {
       double Evis = 0.0;
       double Evis2 = 0.0;
       MSG_DEBUG("About to iterate over charged FS particles");
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         // Get momentum and energy of each particle.
         const Vector3 mom3 = p.p3();
         const double energy = p.E();
@@ -257,7 +257,7 @@ namespace Rivet {
       Evis2 = Evis*Evis;
 
       // (A)EEC
-      // Need iterators since second loop starts at current outer loop iterator, i.e. no "foreach" here!
+      // Need iterators since second loop starts at current outer loop iterator, i.e. no "for" here!
       for (Particles::const_iterator p_i = fs.particles().begin(); p_i != fs.particles().end(); ++p_i) {
         for (Particles::const_iterator p_j = p_i; p_j != fs.particles().end(); ++p_j) {
           if (p_i == p_j) continue;
@@ -281,7 +281,7 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         int id = p.abspid();
         switch (id) {
         case 211:

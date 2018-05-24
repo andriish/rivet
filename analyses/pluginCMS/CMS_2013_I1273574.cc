@@ -43,7 +43,7 @@ namespace Rivet {
 
       // Ensure that there are exactly 4 jets > 20 GeV, with two above 50 GeV
       Jets hardjets, alljets;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (j.abseta() > 4.7) continue;
         if (j.pT() > 50*GeV) hardjets.push_back(j);
         if (j.pT() > 20*GeV) alljets.push_back(j);

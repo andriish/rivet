@@ -123,7 +123,7 @@ namespace Rivet {
     /// Central \f$ r \f$ value for bin @a rbin.
     double rBinMid(size_t rbin) const {
       assert(inRange(rbin, 0u, numBins()));
-      //cout << _binedges << endl;
+      //cout << _binedges << '\n';
       return (_binedges[rbin] + _binedges[rbin+1])/2.0;
     }
 

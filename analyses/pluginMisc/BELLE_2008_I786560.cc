@@ -27,7 +27,7 @@ namespace Rivet {
       // Find the taus
       Particles taus;
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         if (p.abspid() != PID::TAU) continue;
         _weight_total->fill();
         Particles pip, pim, pi0;

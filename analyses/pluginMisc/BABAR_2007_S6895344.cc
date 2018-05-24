@@ -39,7 +39,7 @@ namespace Rivet {
       const bool onresonance = fuzzyEquals(beamproj.sqrtS(), 10.58, 2E-3);
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         // Only looking at Lambda_c
         if (p.abspid() != 4122) continue;
         MSG_DEBUG("Lambda_c found");

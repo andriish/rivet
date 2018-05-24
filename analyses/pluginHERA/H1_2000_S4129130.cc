@@ -88,7 +88,7 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       Particles particles; particles.reserve(fs.size());
       const GenParticle* dislepGP = dl.out().genParticle(); ///< @todo Is the GenParticle stuff necessary? (Not included in Particle::==?)
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         const GenParticle* loopGP = p.genParticle();
         if (loopGP == dislepGP) continue;
         particles.push_back(p);
@@ -96,7 +96,7 @@ namespace Rivet {
 
       // Cut on the forward energy
       double efwd = 0.;
-      foreach (const Particle& p, particles) {
+      for (const Particle& p : particles) {
         const double th = 180 - p.angle(dl.in())/degree;
         if (inRange(th, 4.4, 15.0)) efwd += p.E();
       }
@@ -194,7 +194,7 @@ namespace Rivet {
       // Loop over the particles
       double etcent = 0;
       double etfrag = 0;
-      foreach (const Particle& p, particles) {
+      for (const Particle& p : particles) {
         // Boost momentum to CMS
         const FourMomentum hcmMom = hcmboost.transform(p.momentum());
         double et = fabs(hcmMom.Et());

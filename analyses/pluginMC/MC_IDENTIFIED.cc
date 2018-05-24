@@ -49,19 +49,19 @@ namespace Rivet {
       const double weight = 1.0;
 
       // Unphysical (debug) plotting of all PIDs in the event, physical or otherwise
-      foreach (const GenParticle* gp, particles(event.genEvent())) {
+      for (const GenParticle* gp : particles(event.genEvent())) {
         _histAllPIDs->fill(abs(gp->pdg_id()), weight);
       }
 
       // Charged + neutral final state PIDs
       const FinalState& cnfs = apply<FinalState>(event, "FS");
-      foreach (const Particle& p, cnfs.particles()) {
+      for (const Particle& p : cnfs.particles()) {
         _histStablePIDs->fill(p.abspid(), weight);
       }
 
       // Unstable PIDs and identified particle eta spectra
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         _histDecayedPIDs->fill(p.pid(), weight);
         const double eta_abs = p.abseta();
         const PdgId pid = p.abspid(); //if (PID::isMeson(pid) && PID::hasStrange()) {

@@ -63,11 +63,11 @@ namespace Rivet {
       /// @todo Do this again with the ghost match?
       MSG_DEBUG("Getting b/c-tags");
       bool gotLeadingB = false, gotLeadingC = false;;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         if (!gotLeadingB) {
           FourMomentum leadBJet, leadBHadr;
           double dRmin = MAX_DR;
-          foreach (const Particle& b, bhadrons) {
+          for (const Particle& b : bhadrons) {
             const double dRcand = min(dRmin, deltaR(j, b));
             if (dRcand < dRmin) {
               dRmin = dRcand;
@@ -91,7 +91,7 @@ namespace Rivet {
         if (!gotLeadingC) {
           FourMomentum leadCJet, leadCHadr;
           double dRmin = MAX_DR;
-          foreach (const Particle& c, chadrons) {
+          for (const Particle& c : chadrons) {
             const double dRcand = min(dRmin, deltaR(j, c));
             if (dRcand < dRmin) {
               dRmin = dRcand;

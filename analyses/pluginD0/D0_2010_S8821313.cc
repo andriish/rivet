@@ -79,8 +79,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      foreach (Histo1DPtr hist, _h_phistar_ee.histos()) normalize(hist);
-      foreach (Histo1DPtr hist, _h_phistar_mm.histos()) normalize(hist);
+      for (Histo1DPtr hist : _h_phistar_ee.histos()) normalize(hist);
+      for (Histo1DPtr hist : _h_phistar_mm.histos()) normalize(hist);
     }
 
     //@}

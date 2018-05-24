@@ -34,7 +34,7 @@ namespace Rivet {
       // A vector containing a lot of eta values
       vector<double> detparticles;
       detparticles.push_back(-edge);
-      foreach (const Particle& p, fs.particles(Cuts::pT > 0.2*GeV && Cuts::abseta<edge, cmpMomByEta) ) {
+      for (const Particle& p : fs.particles(Cuts::pT > 0.2*GeV && Cuts::abseta<edge, cmpMomByEta) ) {
         detparticles.push_back(p.momentum().eta());
       }
       detparticles.push_back(edge);
@@ -79,7 +79,7 @@ namespace Rivet {
       FourMomentum MxFourVector(0.,0.,0.,0.);
       FourMomentum MyFourVector(0.,0.,0.,0.);
 
-      foreach(const Particle& p, fs.particles(cmpMomByEta)) {
+      for(const Particle& p : fs.particles(cmpMomByEta)) {
         if (p.momentum().rapidity() > gapcenter) {
           MxFourVector += p.momentum();
         }

@@ -77,7 +77,7 @@ namespace Rivet {
       {
         // Decide empirically if this is a "hard" or "diffractive" event
         bool ishardEvt = false;
-        foreach (const Particle& p, ffs.particles()) {
+        for (const Particle& p : ffs.particles()) {
           if (p.pT() > 3.0*GeV) { ishardEvt = true; break; }
         }
         // Decide empirically if this is a "diffractive" event
@@ -90,7 +90,7 @@ namespace Rivet {
         if (ishardEvt) _hdSumW->fill();
 
         // Plot energy flow
-        foreach (const Particle& p, ffs.particles()) {
+        for (const Particle& p : ffs.particles()) {
           const double eta = p.eta();
           const double energy = p.E();
           _tp_totEF_minbias->fill(eta, energy);
@@ -113,7 +113,7 @@ namespace Rivet {
       // Charged-only version
       {
         bool ishardEvt = false;
-        foreach (const Particle& p, fcfs.particles()) {
+        for (const Particle& p : fcfs.particles()) {
           if (p.pT() > 3.0*GeV) { ishardEvt = true; break; }
         }
         // Decide empirically if this is a "diffractive" event
@@ -126,7 +126,7 @@ namespace Rivet {
         if (ishardEvt) _hdchSumW->fill();
 
         // Plot energy flow
-        foreach (const Particle& p, fcfs.particles()) {
+        for (const Particle& p : fcfs.particles()) {
           const double eta = p.eta();
           const double energy = p.E();
           _tp_chEF_minbias->fill(eta, energy);

@@ -45,7 +45,7 @@ namespace Rivet {
 
       // Loop over final state charged particles to fill eta histos
       const FinalState& fs = apply<FinalState>(event, "CFS");
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         const double eta = p.eta();
         _hist_eta->fill(fabs(eta));
       }

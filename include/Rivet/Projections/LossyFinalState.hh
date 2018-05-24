@@ -51,11 +51,11 @@ namespace Rivet {
     /// Apply the projection on the supplied event.
     void project(const Event& e) {
       const FinalState& fs = applyProjection<FinalState>(e, "FS");
-      getLog() << Log::DEBUG << "Pre-loss number of FS particles = " << fs.particles().size() << endl;
+      getLog() << Log::DEBUG << "Pre-loss number of FS particles = " << fs.particles().size() << '\n';
       _theParticles.clear();
       std::remove_copy_if(fs.particles().begin(), fs.particles().end(),
                           std::back_inserter(_theParticles), _filter);
-      getLog() << Log::DEBUG << "Filtered number of FS particles = " << _theParticles.size() << endl;
+      getLog() << Log::DEBUG << "Filtered number of FS particles = " << _theParticles.size() << '\n';
     }
 
 

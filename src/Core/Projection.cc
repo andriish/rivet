@@ -41,7 +41,7 @@ namespace Rivet {
     set<ConstProjectionPtr> projs = getProjections();
     for (set<ConstProjectionPtr>::const_iterator ip = projs.begin(); ip != projs.end(); ++ip) {
       ConstProjectionPtr p = *ip;
-      getLog() << Log::TRACE << "Proj addr = " << p << endl;
+      getLog() << Log::TRACE << "Proj addr = " << p << '\n';
       if (p) ret = intersection(ret, p->beamPairs());
     }
     return ret;

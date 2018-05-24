@@ -29,7 +29,7 @@ namespace Rivet {
       const double s = sqr(beamproj.sqrtS());
 
       // Particle masses from PDGlive (accessed online 16. Nov. 2009).
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
 
         double xp = 0.0;
         double mH2 = 0.0;

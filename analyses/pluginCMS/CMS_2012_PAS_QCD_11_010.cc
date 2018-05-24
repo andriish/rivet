@@ -47,7 +47,7 @@ namespace Rivet {
       double ptSumTrans_Kaon = 0.;
       double ptSumTrans_Lambda = 0.;
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         double dphi = deltaPhi(p, p_lead);
         double pT = p.pT();
         const PdgId id = p.abspid();

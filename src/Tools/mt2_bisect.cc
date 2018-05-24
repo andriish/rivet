@@ -138,10 +138,10 @@ void mt2::set_mn(double mn0)
 
 // void mt2::print()
 // {
-//    cout << " pax = " << pax*scale << ";   pay = " << pay*scale << ";   ma = " << ma*scale <<";"<< endl;
-//    cout << " pbx = " << pbx*scale << ";   pby = " << pby*scale << ";   mb = " << mb*scale <<";"<< endl;
-//    cout << " pmissx = " << pmissx*scale << ";   pmissy = " << pmissy*scale <<";"<< endl;
-//    cout << " mn = " << mn_unscale<<";" << endl;
+//    cout << " pax = " << pax*scale << ";   pay = " << pay*scale << ";   ma = " << ma*scale <<";"<< '\n';
+//    cout << " pbx = " << pbx*scale << ";   pby = " << pby*scale << ";   mb = " << mb*scale <<";"<< '\n';
+//    cout << " pmissx = " << pmissx*scale << ";   pmissy = " << pmissy*scale <<";"<< '\n';
+//    cout << " mn = " << mn_unscale<<";" << '\n';
 // }
 
 //special case, the visible particle is massless
@@ -429,7 +429,7 @@ void mt2::mt2_bisect()
 //number of solutions at Deltasq_low should not be larger than zero
    if( nsols(Deltasq_low) > 0 )
    {
-     //cout << "nsolutions(Deltasq_low) > 0"<<endl;
+     //cout << "nsolutions(Deltasq_low) > 0"<<'\n';
      mt2_b = (double) sqrt(mnsq+Deltasq0);
      return;
    }
@@ -534,7 +534,7 @@ int mt2::scan_high(double & Deltasq_high)
    maxmass  = sqrt(mnsq + Deltasq_high);
    // if (nevt == 32334) {
      
-   //   cout << "Deltasq_high = " << Deltasq_high << endl;
+   //   cout << "Deltasq_high = " << Deltasq_high << '\n';
    // }
    for(double mass = tempmass + SCANSTEP; mass < maxmass; mass += SCANSTEP)
    {

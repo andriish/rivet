@@ -47,7 +47,7 @@ namespace Rivet {
 
 
     void finalize() {
-      foreach (Histo1DPtr hist, _h_chi_dijet.histos()) {
+      for (Histo1DPtr hist : _h_chi_dijet.histos()) {
         normalize(hist);
       }
     }

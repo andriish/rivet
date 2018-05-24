@@ -92,7 +92,7 @@ namespace Rivet {
       const FourMomentum l1 = zf->constituents()[0].momentum();
       const FourMomentum l2 = zf->constituents()[1].momentum();
       Jets jets;
-      foreach (const Jet& jet, allJets->jetsByPt(30*GeV)) {
+      for (const Jet& jet : allJets->jetsByPt(30*GeV)) {
         const FourMomentum jmom = jet.momentum();
         if (jmom.absrap() < 4.4 &&
             deltaR(l1, jmom) > 0.5  && deltaR(l2, jmom) > 0.5) {

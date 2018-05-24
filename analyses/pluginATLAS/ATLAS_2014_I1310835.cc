@@ -239,10 +239,10 @@ namespace Rivet {
     void finalize() {
 
       const double norm = crossSection()/sumOfWeights()/femtobarn;
-      std::cout << "xsec: " << crossSection() << std::endl;
-      std::cout << "sumw: " << sumOfWeights() << std::endl;
-      std::cout << "femb: " << femtobarn << std::endl;
-      std::cout << "norm: " << norm << std::endl;
+      std::cout << "xsec: " << crossSection() << '\n';
+      std::cout << "sumw: " << sumOfWeights() << '\n';
+      std::cout << "femb: " << femtobarn << '\n';
+      std::cout << "norm: " << norm << '\n';
 
       scale(_h_pt, norm);
       scale(_h_rapidity, norm);

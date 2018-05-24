@@ -60,7 +60,7 @@ namespace Rivet {
       const double weight = 1.0;
 
       // Filling R = 0.5 jets
-      foreach(const Jet& jet, jetsak5) {
+      for(const Jet& jet : jetsak5) {
         if (jet.absrapidity() < 0.5) {
           _h_pt_05_ak5->fill(jet.pT()/GeV, weight);
         } else if (jet.absrapidity() < 1.0) {
@@ -78,7 +78,7 @@ namespace Rivet {
 
 
       // Filling R = 0.7 jets
-      foreach(const Jet& jet, jetsak7) {
+      for(const Jet& jet : jetsak7) {
         if (jet.absrapidity() < 0.5) {
           _h_pt_05_ak7->fill(jet.pT() * GeV, weight);
         } else if (jet.absrapidity() < 1.0) {

@@ -9,6 +9,10 @@
 #include "YODA/ReaderYODA.h"
 #include "YODA/WriterYODA.h"
 #include <regex>
+#include <iostream>
+
+using std::cout;
+using std::cerr;
 
 namespace {
     inline std::vector<std::string> split(const std::string& input, const std::string& regex) {
@@ -108,7 +112,7 @@ namespace Rivet {
     }
     if (num_anas_requested > 0 && analysisNames().empty()) {
       cerr << "All analyses were incompatible with the first event's beams\n"
-           << "Exiting, since this probably wasn't intentional!" << endl;
+           << "Exiting, since this probably wasn't intentional!" << '\n';
       exit(1);
     }
 
@@ -134,7 +138,7 @@ namespace Rivet {
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();
       } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
+        cerr << "Error in " << a->name() << "::init method: " << err.what() << '\n';
         exit(1);
       }
       MSG_DEBUG("Done initialising analysis: " << a->name());
@@ -145,9 +149,9 @@ namespace Rivet {
   }
 
   void AnalysisHandler::setWeightNames(const GenEvent& ge) {
-    /// reroute the print output to a stringstream and process
+    /// reroute the print output to a std::stringstream and process
     /// The iteration is done over a map in hepmc2 so this is safe
-    ostringstream stream;
+    std::ostringstream stream;
     ge.weights().print(stream);  // Super lame, I know
     string str =  stream.str();
 
@@ -187,7 +191,7 @@ namespace Rivet {
       if (!compatible(beams, _beams) || !fuzzyEquals(sqrts, sqrtS())) {
         cerr << "Event beams mismatch: "
              << PID::toBeamsString(beams) << " @ " << sqrts/GeV << " GeV" << " vs. first beams "
-             << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << endl;
+             << this->beams() << " @ " << this->sqrtS()/GeV << " GeV" << '\n';
         exit(1);
       }
     }
@@ -243,7 +247,7 @@ namespace Rivet {
       try {
         a->analyze(event);
       } catch (const Error& err) {
-        cerr << "Error in " << a->name() << "::analyze method: " << err.what() << endl;
+        cerr << "Error in " << a->name() << "::analyze method: " << err.what() << '\n';
         exit(1);
       }
       MSG_TRACE("Finished running analysis " << a->name());
@@ -295,7 +299,7 @@ namespace Rivet {
               try {
                   a->finalize();
               } catch (const Error& err) {
-                  cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
+                  cerr << "Error in " << a->name() << "::finalize method: " << err.what() << '\n';
                   exit(1);
               }
           }
@@ -305,9 +309,9 @@ namespace Rivet {
     MSG_INFO("Processed " << numEvents() << " event" << (numEvents() == 1 ? "" : "s"));
 
     // Print out MCnet boilerplate
-    cout << endl;
-    cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl;
-    cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
+    cout << '\n';
+    cout << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << '\n';
+    cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << '\n';
   }
 
 

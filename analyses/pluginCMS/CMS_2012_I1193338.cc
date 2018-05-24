@@ -38,7 +38,7 @@ namespace Rivet {
       double etapre = 0.;
       bool first = true;
 
-      foreach(const Particle& p, fs.particles(cmpMomByEta)) { // sorted from minus to plus
+      for(const Particle& p : fs.particles(cmpMomByEta)) { // sorted from minus to plus
         if (first) { // First particle
           first = false;
           etapre = p.eta();
@@ -54,7 +54,7 @@ namespace Rivet {
 
 
       FourMomentum mxFourVector, myFourVector;
-      foreach(const Particle& p, fs.particles(cmpMomByEta)) {
+      for(const Particle& p : fs.particles(cmpMomByEta)) {
         ((p.eta() > gapcenter) ? mxFourVector : myFourVector) += p.momentum();
       }
       const double M2 = max(mxFourVector.mass2(), myFourVector.mass2());

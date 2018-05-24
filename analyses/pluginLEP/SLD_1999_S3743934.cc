@@ -56,7 +56,7 @@ namespace Rivet {
         quarks = iqf.particles();
       } else {
         map<int, Particle > quarkmap;
-        foreach (const Particle& p, iqf.particles()) {
+        for (const Particle& p : iqf.particles()) {
           if (quarkmap.find(p.pid()) == quarkmap.end()) quarkmap[p.pid()] = p;
           else if (quarkmap[p.pid()].E() < p.E()) quarkmap[p.pid()] = p;
         }
@@ -96,7 +96,7 @@ namespace Rivet {
         if (quarks[0].pid() < 0) dot *= -1;
       }
 
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
         bool quark = p.p3().dot(axis)*dot > 0.;
@@ -187,7 +187,7 @@ namespace Rivet {
       }
 
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const double xp = p.p3().mod()/meanBeamMom;
         // if in quark or antiquark hemisphere
         bool quark = p.p3().dot(axis)*dot>0.;

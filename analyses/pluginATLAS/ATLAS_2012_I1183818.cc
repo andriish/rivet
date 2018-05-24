@@ -75,7 +75,7 @@ namespace Rivet {
       const FinalState& cnfs = apply<FinalState>(event, "FS");
 
       Particles particles;
-      foreach( const Particle& p, cnfs.particles() ) {
+      for( const Particle& p : cnfs.particles() ) {
         // enforce truth selection representing detected particle sensitivity
         double pp = p.p3().mod();
         if (PID::threeCharge(p.pid()) != 0 && pp < 0.5*GeV) continue;
@@ -100,7 +100,7 @@ namespace Rivet {
       // if (passes event selection)
       if (isCharged) {
 
-        foreach( const Particle& p, particles ) {
+        for( const Particle& p : particles ) {
 
           ///calculate variables
           double ET = p.Et()/GeV;
@@ -116,7 +116,7 @@ namespace Rivet {
           else if (eta <  4.0) sumETbin5 += ET;
           else if (eta <= 4.8) sumETbin6 += ET;
 
-        } // end of foreach
+        } // end of for
 
         _h_SumETbin1->fill(sumETbin1);
         _h_SumETbin2->fill(sumETbin2);
@@ -148,7 +148,7 @@ namespace Rivet {
         m_events_dijets->fill();
 
         // loop over all particles and check their relation to leading jet
-        foreach( const Particle& particle, particles ) {
+        for( const Particle& particle : particles ) {
 
           // calculate variables
           double dPhi = deltaPhi( jets[0], particle.momentum() );

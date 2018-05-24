@@ -30,7 +30,7 @@ namespace Rivet {
 
     void analyze(const Event& event) {
       const UnstableFinalState& cfs = apply<UnstableFinalState>(event, "CFS");
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
 	// protections against mc generators decaying long-lived particles
 	if ( !(p.hasAncestor(310)  || p.hasAncestor(-310)   || // K0s
 	       p.hasAncestor(130)  || p.hasAncestor(-130)   ||     // K0l

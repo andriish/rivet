@@ -91,7 +91,7 @@ namespace Rivet {
       const double weight = 1.0;
       // get the jet candidates
       Jets cand_jets;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if (jet.abseta() < 2.5) cand_jets.push_back(jet);
       }
 
@@ -116,9 +116,9 @@ namespace Rivet {
 
       // resolve jet/lepton ambiguity
       Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets ) {
+      for ( const Jet& jet : cand_jets ) {
         bool away_from_e = true;
-        foreach ( const Particle& e, cand_e ) {
+        for ( const Particle& e : cand_e ) {
           if (deltaR(e, jet) <= 0.2) {
             away_from_e = false;
             break;
@@ -129,10 +129,10 @@ namespace Rivet {
 
       // only keep electrons more than R=0.4 from jets
       Particles cand2_e;
-      foreach (const Particle& e, cand_e) {
+      for (const Particle& e : cand_e) {
         // at least 0.4 from any jets
         bool away = true;
-        foreach ( const Jet& jet, recon_jets ) {
+        for ( const Jet& jet : recon_jets ) {
           if ( deltaR(e, jet) < 0.4 ) {
             away = false;
             break;
@@ -145,10 +145,10 @@ namespace Rivet {
 
       // only keep muons more than R=0.4 from jets
       Particles cand2_mu;
-      foreach(const Particle & mu, cand_mu ) {
+      for(const Particle & mu : cand_mu ) {
         bool away = true;
         // at least 0.4 from any jets
-        foreach ( const Jet& jet, recon_jets ) {
+        for ( const Jet& jet : recon_jets ) {
           if ( deltaR(mu, jet) < 0.4 ) {
             away = false;
             break;
@@ -159,9 +159,9 @@ namespace Rivet {
 
       // electron and muon more than 0.1 apart
       Particles cand3_e;
-      foreach ( const Particle & e, cand2_e ) {
+      for ( const Particle & e : cand2_e ) {
         bool away = true;
-        foreach( const Particle & mu, cand2_mu ) {
+        for( const Particle & mu : cand2_mu ) {
           if( deltaR(e, mu) < 0.1) {
             away = false;
             break;
@@ -170,9 +170,9 @@ namespace Rivet {
         if (away) cand3_e.push_back(e);
       }
       Particles cand3_mu;
-      foreach( const Particle & mu, cand2_mu ) {
+      for( const Particle & mu : cand2_mu ) {
         bool away = true;
-        foreach ( const Particle & e, cand2_e ) {
+        for ( const Particle & e : cand2_e ) {
           if( deltaR(e, mu) < 0.1) {
             away = false;
             break;
@@ -185,7 +185,7 @@ namespace Rivet {
       Particles vfs_particles =
         apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      for ( const Particle & p : vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();
@@ -194,17 +194,17 @@ namespace Rivet {
       Particles chg_tracks =
         apply<ChargedFinalState>(event, "cfs").particles();
       Particles cand4_e;
-      foreach (const Particle& e, cand3_e) {
+      for (const Particle& e : cand3_e) {
         // charge isolation
         double pTinCone = -e.pT();
-        foreach (const Particle& track, chg_tracks) {
+        for (const Particle& track : chg_tracks) {
           if (track.pT() > 0.4*GeV && deltaR(e, track) <= 0.3 )
             pTinCone += track.pT();
         }
         if (pTinCone/e.pT() > 0.16) continue;
         // all particles isolation
         pTinCone = -e.pT();
-        foreach (const Particle& p, vfs_particles) {
+        for (const Particle& p : vfs_particles) {
           if (p.abspid() != PID::MUON && deltaR(e, p) <= 0.3 )
             pTinCone += p.pT();
         }
@@ -213,9 +213,9 @@ namespace Rivet {
 
       // apply muon isolation
       Particles cand4_mu;
-      foreach ( const Particle & mu, cand3_mu ) {
+      for ( const Particle & mu : cand3_mu ) {
         double pTinCone = -mu.perp();
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if (track.pT() > 1*GeV && deltaR(mu, track) <= 0.3)
             pTinCone += track.pT();
         }
@@ -224,9 +224,9 @@ namespace Rivet {
 
       // same SOSF pairs m>12.
       Particles recon_e;
-      foreach(const Particle& e, cand4_e) {
+      for(const Particle& e : cand4_e) {
         bool veto = false;
-        foreach(const Particle& e2, cand4_e) {
+        for(const Particle& e2 : cand4_e) {
           if (e.pid()*e2.pid() < 0 && (e.momentum()+e2.momentum()).mass() < 12*GeV) {
             veto = true;
             break;
@@ -235,9 +235,9 @@ namespace Rivet {
         if (!veto) recon_e.push_back(e);
       }
       Particles recon_mu;
-      foreach(const Particle& mu, cand4_mu) {
+      for(const Particle& mu : cand4_mu) {
         bool veto = false;
-        foreach(const Particle& mu2, cand4_mu) {
+        for(const Particle& mu2 : cand4_mu) {
           if (mu.pid()*mu2.pid() < 0 && (mu.momentum()+mu2.momentum()).mass() < 12*GeV) {
             veto = true;
             break;
@@ -280,9 +280,9 @@ namespace Rivet {
 
       // calculate meff
       double meff = eTmiss;
-      foreach ( const Particle & e , recon_e  ) meff += e.perp();
-      foreach ( const Particle & mu, recon_mu ) meff += mu.perp();
-      foreach ( const Jet & jet, recon_jets ) {
+      for ( const Particle & e  : recon_e  ) meff += e.perp();
+      for ( const Particle & mu : recon_mu ) meff += mu.perp();
+      for ( const Jet & jet : recon_jets ) {
         const double pT = jet.pT();
         if (pT > 40*GeV) meff += pT;
       }

@@ -106,11 +106,11 @@ namespace Rivet {
       // Perform lepton-jet overlap and HT calculation
       double Ht = 0;
       Jets goodjets;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         // Decide if this jet is "good", i.e. isolated from the leptons
         /// @todo Nice use-case for any() and a C++11 lambda
         bool overlap = false;
-        foreach (const Particle& l, theLeptons) {
+        for (const Particle& l : theLeptons) {
           if (Rivet::deltaR(j, l) < 0.5) {
             overlap = true;
             break;
@@ -133,7 +133,7 @@ namespace Rivet {
             
       //identification of bjets
             
-      foreach (const Jet& j, goodjets) {
+      for (const Jet& j : goodjets) {
         if ( j.bTagged() ) { jb_final.push_back(j); }
       }
             

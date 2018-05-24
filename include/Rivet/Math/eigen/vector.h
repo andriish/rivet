@@ -89,9 +89,9 @@ namespace Eigen
     vec1(2) = -1.4; // Stores the value -1.4 in coord 2 of vec1.
     vec1.z() = -1.4; // equivalent to the previous line
 
-    cout << vec1 << endl; // outputs vec1
-    cout << "norm of vec1: " << vec1.norm() << endl;
-    cout << cross( vec1, vec2 ) << endl; // cross-product
+    cout << vec1 << '\n'; // outputs vec1
+    cout << "norm of vec1: " << vec1.norm() << '\n';
+    cout << cross( vec1, vec2 ) << '\n'; // cross-product
   * @endcode
   */
 template< typename T, int Size >
@@ -264,8 +264,8 @@ protected:
     vec3 = vec1; // Resizes vec3 to size 3, copies vec1 into vec3
 
     vec1(2) = -1.4; // Stores the value -1.4 in coord 2 of vec1.
-    cout << vec1 << endl;
-    cout << "norm of vec1: " << vec1.norm() << endl;
+    cout << vec1 << '\n';
+    cout << "norm of vec1: " << vec1.norm() << '\n';
   * @endcode
   */
 template <typename T>

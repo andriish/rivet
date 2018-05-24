@@ -78,7 +78,7 @@ namespace Rivet {
     /// Perform the actual comparison if necessary.
     void _compare() const {
       if (_value == UNDEFINED) {
-        less<T> l;
+        std::less<T> l;
         if ( l(*_objects.first, *_objects.second) ) _value = ORDERED;
         else if ( l(*_objects.second, *_objects.first) ) _value = UNORDERED;
         else _value = EQUIVALENT;

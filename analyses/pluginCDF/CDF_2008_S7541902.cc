@@ -69,7 +69,7 @@ namespace Rivet {
 
       FourMomentum electronP, neutrinoP;
       bool gotElectron(false), gotNeutrino(false);
-      foreach (const Particle& p, wDecayProducts) {
+      for (const Particle& p : wDecayProducts) {
         FourMomentum p4 = p.momentum();
         if (p4.Et() > _electronETCut && fabs(p4.eta()) < _electronETACut && p.abspid() == PID::ELECTRON) {
           electronP = p4;
@@ -92,7 +92,7 @@ namespace Rivet {
       const JetAlg& jetProj = apply<FastJets>(event, "Jets");
       Jets theJets = jetProj.jets(cmpMomByEt, Cuts::Et > _jetEtCutA);
       size_t njetsA(0), njetsB(0);
-      foreach (const Jet& j, theJets) {
+      for (const Jet& j : theJets) {
         const FourMomentum pj = j.momentum();
         if (fabs(pj.rapidity()) < _jetETA) {
           // Fill differential histograms for top 4 jets with Et > 20

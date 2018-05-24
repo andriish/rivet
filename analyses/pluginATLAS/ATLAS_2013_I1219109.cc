@@ -70,7 +70,7 @@ namespace Rivet {
       const Jets& jets = apply<JetAlg>(event, "Jets").jetsByPt(25*GeV);
       int goodjets = 0, bjets = 0;
       double bPt = 0.;
-      foreach(const Jet& j, jets) {
+      for(const Jet& j : jets) {
         if( (j.abseta() < 2.1) && (deltaR(lepton, j) > 0.5) ) {
           // this jet passes the selection!
           ++goodjets;
@@ -78,7 +78,7 @@ namespace Rivet {
           // more elegant, but not what has been used in
           // this analysis originally, will match B had-
           // rons in eta-phi space instead
-          foreach(const Particle& b, bHadrons) {
+          for(const Particle& b : bHadrons) {
             if( deltaR(j, b) < 0.3 ) {
               // jet matched to B hadron!
               if(!bPt)  bPt = j.pT() * GeV; // leading b-jet pT

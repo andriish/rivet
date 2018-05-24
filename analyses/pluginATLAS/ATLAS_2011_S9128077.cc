@@ -76,7 +76,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       vector<FourMomentum> jets04;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets04").jetsByPt(60.0*GeV)) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets04").jetsByPt(60.0*GeV)) {
         if (jet.abseta() < 2.8) {
           jets04.push_back(jet.momentum());
         }
@@ -116,7 +116,7 @@ namespace Rivet {
 
       /// @todo It'd be better to avoid duplicating 95% of the code!
       vector<FourMomentum> jets06;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets06").jetsByPt(60.0*GeV)) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets06").jetsByPt(60.0*GeV)) {
         if (jet.abseta() < 2.8) {
           jets06.push_back(jet.momentum());
         }

@@ -4,38 +4,52 @@
 #include <string>
 #include <array>
 #include <vector>
-#include <set>
 #include <list>
+#include <set>
 #include <map>
-#include <utility>
-#include <tuple>
-#include <algorithm>
-#include <type_traits>
-#include <stdexcept>
-#include <cassert>
+
 #include <memory>
-#include <typeinfo>
+
+
+// #include <utility>
+// #include <tuple>
+// #include <algorithm>
+// #include <cassert>
+// #include <typeinfo>
+
+// #include <iomanip>
+// #include <cmath>
+// #include <limits>
+
+#include <ostream>
 #include <sstream>
-#include <fstream>
-#include <iostream>
-#include <iomanip>
-#include <cmath>
-#include <limits>
-#include <functional>
-
-
-#ifndef foreach
-/// @decl A foreach macro for backward compatibility with BOOST_FOREACH
-#define foreach(value, container) for (value : container)
-#endif
-
 
 namespace Rivet {
 
 
   /// We implicitly use STL entities in the Rivet namespace
-  using namespace std;
+  // using namespace std;
+  using std::string;
+  using std::to_string;
 
+  using std::array;
+  using std::vector;
+  using std::list;
+  using std::set;
+  using std::multiset;
+  using std::map;
+  using std::multimap;
+  using std::pair;
+  using std::make_pair;
+
+  using std::unique_ptr;
+  using std::shared_ptr;
+  using std::make_shared;
+  using std::dynamic_pointer_cast;
+
+  using std::initializer_list;
+
+  using std::function;
 
   /// @name Streaming containers as string reps
   /// @todo Make these named toStr rather than operator<<

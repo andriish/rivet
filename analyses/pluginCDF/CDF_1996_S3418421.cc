@@ -68,7 +68,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      foreach (Histo1DPtr hist, _h_chi.histos()) {
+      for (Histo1DPtr hist : _h_chi.histos()) {
         normalize(hist);
       }
       divide(_htmp_chi_below_25, _htmp_chi_above_25, _h_ratio);

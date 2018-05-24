@@ -10,8 +10,7 @@
 #include "yaml-cpp/mark.h"
 #include <cstddef>
 #include <deque>
-#include <ios>
-#include <iostream>
+#include <istream>
 #include <set>
 #include <string>
 

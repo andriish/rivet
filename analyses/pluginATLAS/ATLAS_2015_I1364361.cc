@@ -64,7 +64,7 @@ namespace Rivet {
 
       // Loop over final state particles and fill various particle vectors
       Particles leptons, photons, jet_ptcls;
-      foreach ( const Particle& ptcl, fs ) {
+      for ( const Particle& ptcl : fs ) {
         // Do not include the Higgs in jet finding!
         if ( ptcl.pid() == PID::HIGGSBOSON ) continue;
         // Neutrinos not from hadronisation
@@ -85,9 +85,9 @@ namespace Rivet {
 
       // Match FS photons to leptons within cone R=0.1
       // If they are not 'dressing' photons, add to jet particle vector
-      foreach ( const Particle& ph, photons ) {
+      for ( const Particle& ph : photons ) {
         bool fsr_photon = false;
-        foreach ( const Particle& lep, leptons ) {
+        for ( const Particle& lep : leptons ) {
           if ( deltaR(ph.momentum(),lep.momentum()) < 0.1 ){
             fsr_photon=true;
             continue;

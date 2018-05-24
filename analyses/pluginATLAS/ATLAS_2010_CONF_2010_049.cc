@@ -50,17 +50,17 @@ namespace Rivet {
         Jets jets;
 
         // First we want to make sure that we only use jets within |eta|<0.57
-        foreach (const Jet& jet, alljets[i]) {
+        for (const Jet& jet : alljets[i]) {
           if (jet.abseta()<0.57) {
             jets.push_back(jet);
           }
         }
-        foreach (const Jet& jet, jets) {
+        for (const Jet& jet : jets) {
           const double pTjet = jet.pT();
           const double pjet = jet.p3().mod();
           _h_xsec[i]->fill(pTjet);
           if (pTjet > 24*GeV) continue;
-          foreach (const Particle& p, jet.particles()) {
+          for (const Particle& p : jet.particles()) {
             double z = p.p3().mod()/pjet;
             if (z >= 1) z = 0.9999; // Make sure that z=1 doesn't go into overflow
             if (pTjet > 15*GeV) {

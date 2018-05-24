@@ -36,7 +36,7 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
 
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         int id = p.abspid();
         // charged pions
         if (id == PID::PIPLUS) {

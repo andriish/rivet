@@ -66,7 +66,7 @@ namespace Rivet {
 
       // get the jet candidates
       Jets cand_jets;
-      foreach (const Jet& jet,
+      for (const Jet& jet :
                apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.eta() ) < 2.8 ) {
           cand_jets.push_back(jet);
@@ -79,9 +79,9 @@ namespace Rivet {
 
       // Discard jets that overlap with electrons
       Jets recon_jets;
-      foreach ( const Jet& jet, cand_jets ) {
+      for ( const Jet& jet : cand_jets ) {
         bool away_from_e = true;
-        foreach ( const Particle & e, cand_e ) {
+        for ( const Particle & e : cand_e ) {
           if ( deltaR(e.momentum(),jet.momentum()) <= 0.2 ) {
             away_from_e = false;
             break;
@@ -95,10 +95,10 @@ namespace Rivet {
 
       // Reconstructed electrons
       Particles recon_leptons;
-      foreach ( const Particle & e, cand_e ) {
+      for ( const Particle & e : cand_e ) {
         // check not near a jet
         bool e_near_jet = false;
-        foreach ( const Jet& jet, recon_jets ) {
+        for ( const Jet& jet : recon_jets ) {
           if ( deltaR(e.momentum(),jet.momentum()) < 0.4 ) {
             e_near_jet = true;
             break;
@@ -107,7 +107,7 @@ namespace Rivet {
         if ( e_near_jet ) continue;
         // check the isolation
         double pTinCone = -e.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -118,10 +118,10 @@ namespace Rivet {
       // Reconstructed Muons
       Particles cand_mu =
         apply<IdentifiedFinalState>(event,"muons").particlesByPt();
-      foreach ( const Particle & mu, cand_mu ) {
+      for ( const Particle & mu : cand_mu ) {
         // check not near a jet
         bool mu_near_jet = false;
-        foreach ( const Jet& jet, recon_jets ) {
+        for ( const Jet& jet : recon_jets ) {
           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
             mu_near_jet = true;
             break;
@@ -130,7 +130,7 @@ namespace Rivet {
         if ( mu_near_jet ) continue;
         // isolation
         double pTinCone = -mu.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -142,7 +142,7 @@ namespace Rivet {
       Particles vfs_particles
         = apply<VisibleFinalState>(event, "vfs").particles();
       FourMomentum pTmiss;
-      foreach ( const Particle & p, vfs_particles ) {
+      for ( const Particle & p : vfs_particles ) {
         pTmiss -= p.momentum();
       }
       double eTmiss = pTmiss.pT();

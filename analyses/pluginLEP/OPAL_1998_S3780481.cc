@@ -51,7 +51,7 @@ namespace Rivet {
         flavour = iqf.particles().front().abspid();
       } else {
         map<int, double> quarkmap;
-        foreach (const Particle& p, iqf.particles()) {
+        for (const Particle& p : iqf.particles()) {
           if (quarkmap[p.pid()] < p.E()) {
             quarkmap[p.pid()] = p.E();
           }
@@ -78,7 +78,7 @@ namespace Rivet {
         break;
       }
 
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         const double xp = p.p3().mod()/meanBeamMom;
         const double logxp = -std::log(xp);
         _histXpall->fill(xp);

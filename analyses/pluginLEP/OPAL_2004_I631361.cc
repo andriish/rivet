@@ -76,7 +76,7 @@ namespace Rivet {
       unsigned int nMult[2] = {0,0};
       _sumW += 2.*weight;
       // distribution
-      foreach(const Particle& p, chps) {
+      for(const Particle& p : chps) {
         double xE = 2.*p.E()/sqrtS();
 	if(_h_chFragFunc) _h_chFragFunc->fill(xE, weight);
 	if(p.momentum().p3().dot(axis)>0.)

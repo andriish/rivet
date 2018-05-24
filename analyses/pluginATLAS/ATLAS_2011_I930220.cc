@@ -50,9 +50,9 @@ namespace Rivet {
 
       FourMomentum leadingJet, subleadingJet;
       int leadJet = 0, subJet = 0;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         bool hasB = false;
-        foreach (const Particle& b, bHadrons)
+        for (const Particle& b : bHadrons)
           if (deltaR(j, b) < 0.3) { hasB = true; break; }
 
         // Identify and classify the leading and subleading jets

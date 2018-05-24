@@ -105,7 +105,7 @@ namespace Rivet {
       const FastJets& fastjets = apply<FastJets>(event, "Jets");
       if (fastjets.clusterSeq()) {
         vector<fastjet::PseudoJet> jets;
-        foreach (const fastjet::PseudoJet& jet,
+        for (const fastjet::PseudoJet& jet :
                  fastjet::sorted_by_E(fastjets.clusterSeq()->exclusive_jets_ycut(0.008))) {
           if (jet.E()>3.0*GeV) jets.push_back(jet);
         }

@@ -66,7 +66,7 @@ namespace Rivet {
         if (zmom.pT() < 25*GeV) vetoEvent;
 
         Jets jets;
-        foreach (const Jet& j, apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
+        for (const Jet& j : apply<JetAlg>(event, "ConeFinder").jetsByPt(20*GeV)) {
           if (j.abseta() < 2.8) {
             jets.push_back(j);
             break;

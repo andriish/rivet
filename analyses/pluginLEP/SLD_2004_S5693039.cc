@@ -50,7 +50,7 @@ namespace Rivet {
       }
       else {
         map<int, Particle > quarkmap;
-        foreach (const Particle& p, iqf.particles()) {
+        for (const Particle& p : iqf.particles()) {
           if (quarkmap.find(p.pid())==quarkmap.end())
             quarkmap[p.pid()] = p;
           else if (quarkmap[p.pid()].E() < p.E())
@@ -96,7 +96,7 @@ namespace Rivet {
         if(quarks[0].pid()<0) dot *= -1.;
       }
       // spectra and individual multiplicities
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         double pcm = p.p3().mod();
         const double xp = pcm/meanBeamMom;
 

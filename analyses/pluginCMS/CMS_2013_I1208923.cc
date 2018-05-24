@@ -45,7 +45,7 @@ namespace Rivet {
       
       // Fill the jet pT spectra
       const Jets& jets = fJets.jetsByPt(Cuts::pt>100.*GeV && Cuts::absrap <2.5);
-      foreach (const Jet &j, jets) {
+      for (const Jet &j : jets) {
         _h_sigma.fill(fabs(j.momentum().rapidity()), j.momentum().pT() / GeV, weight);
       }
 

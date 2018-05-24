@@ -52,7 +52,7 @@ namespace Rivet {
       _Nevt_after_cuts->fill();
 
 
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         const double eta = p.eta();
         _h_dN_deta->fill(eta);
       }

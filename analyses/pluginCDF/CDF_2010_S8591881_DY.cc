@@ -101,7 +101,7 @@ namespace Rivet {
       double ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
       const double phiZ = dilepton.azimuthalAngle();
       const double pTZ  = dilepton.pT();
-      /// @todo Replace with foreach
+      /// @todo Replace with for
       for (Particles::const_iterator p = fs.particles().begin(); p != fs.particles().end(); ++p) {
         // Don't use the leptons
         /// @todo Replace with PID::isLepton

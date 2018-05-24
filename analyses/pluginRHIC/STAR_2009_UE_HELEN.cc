@@ -70,7 +70,7 @@ namespace Rivet {
       // The jet acceptance region is |eta|<(1-R)=0.3  (with R = jet radius)
       // Jets also must have a neutral energy fraction of < 0.7
       Jets jets;
-      foreach (const Jet jet, alljets) {
+      for (const Jet & jet : alljets) {
         if (jet.neutralEnergy()/jet.totalEnergy() < 0.7 &&
 	    jet.abseta() < 0.3)
           jets.push_back(jet);
@@ -102,7 +102,7 @@ namespace Rivet {
       size_t numTrans1(0), numTrans2(0), numAway(0);
 
       // Calculate all the charged stuff
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         const double dPhi = deltaPhi(p.phi(), jetphi);
         const double pT = p.pT();
         const double phi = p.phi();

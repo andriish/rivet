@@ -87,9 +87,9 @@ namespace Rivet {
       //    -lower pT electrons with dR(e,e)<0.1 are removed
       //
       ////////////////////////////////////////////////////////////////////////////
-      foreach (DressedLepton& l1, dressed_lepton) {
+      for (DressedLepton& l1 : dressed_lepton) {
         bool l_isolated = true;
-        foreach (DressedLepton& l2, dressed_lepton) {
+        for (DressedLepton& l2 : dressed_lepton) {
           if (l1 != l2 && l2.constituentLepton().abspid() == PID::ELECTRON) {
             double overlapControl_ll= deltaR(l1.constituentLepton(),l2.constituentLepton());
             if (overlapControl_ll < 0.1) {
@@ -142,11 +142,11 @@ namespace Rivet {
       //
       /////////////////////////////////////////////////////////////////////////
       Jets alljets, vetojets;
-      foreach (const Jet& j, apply<FastJets>(e, "jet").jetsByPt(25)) {
+      for (const Jet& j : apply<FastJets>(e, "jet").jetsByPt(25)) {
         if (j.absrap() > 4.5 ) continue;
         alljets.push_back(j);
         bool deltaRcontrol = true;
-        foreach (DressedLepton& fl,fiducial_lepton) {
+        for (DressedLepton& fl : fiducial_lepton) {
           if (fl.constituentLepton().abspid() == PID::ELECTRON) { //electrons
             double deltaRjets = deltaR(fl.constituentLepton().momentum(), j.momentum(), RAPIDITY);
             if (deltaRjets <= 0.3) deltaRcontrol = false; //false if at least one electron is in the overlap region
@@ -171,12 +171,12 @@ namespace Rivet {
       vector<double> vL_MET_angle, vJet_MET_angle;
       vL_MET_angle.push_back(fabs(deltaPhi(fiducial_lepton[0].momentum(), mismom)));
       vL_MET_angle.push_back(fabs(deltaPhi(fiducial_lepton[1].momentum(), mismom)));
-      foreach (double& lM, vL_MET_angle) if (lM > M_PI) lM = 2*M_PI - lM;
+      for (double& lM : vL_MET_angle) if (lM > M_PI) lM = 2*M_PI - lM;
 
       std::sort(vL_MET_angle.begin(), vL_MET_angle.end());
       if (vetojets.size() == 0) delta_phi = vL_MET_angle[0];
       if (vetojets.size() > 0) {
-        foreach (Jet& vj, vetojets) {
+        for (Jet& vj : vetojets) {
           double jet_MET_angle = fabs(deltaPhi(vj.momentum(), mismom));
           if (jet_MET_angle > M_PI) jet_MET_angle = 2*M_PI - jet_MET_angle;
           vJet_MET_angle.push_back(jet_MET_angle);

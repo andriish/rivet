@@ -5,10 +5,10 @@
 #include <string>
 #include <ostream>
 #include <sstream>
-#include <iostream>
 #include <cmath>
 #include <map>
 #include <vector>
+#include <array>
 
 #include "eigen/vector.h"
 #include "eigen/matrix.h"
@@ -16,9 +16,8 @@
 using std::string;
 using std::ostream;
 using std::ostringstream;
-using std::cout;
-using std::endl;
 using std::pair;
 using std::vector;
+using std::array;
 
 #endif

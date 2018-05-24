@@ -48,7 +48,7 @@ namespace Rivet {
 
       // Event classification: 
       int n_left(0), n_right(0), n_large_x(0);
-      foreach (const Particle& p, fs.particles()) {
+      for (const Particle& p : fs.particles()) {
         // Calculate the particles' Feynman x
         const double x_feyn = 2.0 * fabs(p.pz())/sqrtS();
         if (x_feyn > 0.8 ) n_large_x += 1;

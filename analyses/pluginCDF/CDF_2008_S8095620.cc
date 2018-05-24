@@ -89,7 +89,7 @@ namespace Rivet {
       // Put all b-quarks in a vector
       /// @todo Use a b-hadron search rather than b-quarks for tagging
       Particles bquarks;
-      foreach (const GenParticle* p, particles(event.genEvent())) {
+      for (const GenParticle* p : particles(event.genEvent())) {
         if (std::abs(p->pdg_id()) == PID::BQUARK) {
           bquarks += Particle(*p);
         }
@@ -112,7 +112,7 @@ namespace Rivet {
           numJet++;
           // does the jet contain a b-quark?
           bool bjet = false;
-          foreach (const Particle& bquark,  bquarks) {
+          for (const Particle& bquark :  bquarks) {
             if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(),bquark.phi()) <= _Rjet) {
               bjet = true;
               break;

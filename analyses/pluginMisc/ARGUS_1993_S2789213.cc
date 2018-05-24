@@ -63,16 +63,16 @@ namespace Rivet {
       Particles upsilons;
       // First in unstable final state
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
-      foreach (const Particle& p, ufs.particles())
+      for (const Particle& p : ufs.particles())
         if (p.pid() == 300553 || p.pid() == 553) upsilons.push_back(p);
       // Then in whole event if that failed
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, Rivet::particles(e.genEvent())) {
+        for (const GenParticle* p : Rivet::particles(e.genEvent())) {
           if (p->pdg_id() != 300553 && p->pdg_id() != 553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticle* pp, particles_in(pv)) {
+            for (const GenParticle* pp : particles_in(pv)) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -87,7 +87,7 @@ namespace Rivet {
 
         _weightSum_cont->fill();
         unsigned int nOmega(0), nRho0(0), nKStar0(0), nKStarPlus(0), nPhi(0);
-        foreach (const Particle& p, ufs.particles()) {
+        for (const Particle& p : ufs.particles()) {
           int id = p.abspid();
           double xp = 2.*p.E()/sqrtS();
           double beta = p.p3().mod()/p.E();
@@ -120,7 +120,7 @@ namespace Rivet {
 
       } else { // found an upsilon
 
-        foreach (const Particle& ups, upsilons) {
+        for (const Particle& ups : upsilons) {
           const int parentId = ups.pid();
           (parentId == 553 ? _weightSum_Ups1 : _weightSum_Ups4)->fill();
           Particles unstable;
@@ -132,7 +132,7 @@ namespace Rivet {
             cms_boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().betaVec());
           double mass = ups.mass();
           unsigned int nOmega(0),nRho0(0),nKStar0(0),nKStarPlus(0),nPhi(0);
-          foreach(const Particle & p , unstable) {
+          for(const Particle & p : unstable) {
             int id = p.abspid();
             FourMomentum p2 = cms_boost.transform(p.momentum());
             double xp = 2.*p2.E()/mass;

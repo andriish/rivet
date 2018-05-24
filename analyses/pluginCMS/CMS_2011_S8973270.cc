@@ -61,7 +61,7 @@ namespace Rivet {
         double phiB1 = 7.7, phiB2 = 7.7;
         double pTB1 = 7.7, pTB2 = 7.7;
 
-        foreach (const Particle& p, ufs.particles()) {
+        for (const Particle& p : ufs.particles()) {
           int aid = p.abspid();
           if (aid/100 == 5 || aid/1000==5) {
             nab++;

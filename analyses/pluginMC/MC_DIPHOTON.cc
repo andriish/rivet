@@ -49,11 +49,11 @@ namespace Rivet {
       // Isolate photons with ET_sum in cone
       Particles isolated_photons;
       Particles fs = apply<FinalState>(event, "FS").particlesByPt();
-      foreach (const Particle& photon, photons) {
+      for (const Particle& photon : photons) {
         FourMomentum mom_in_cone;
         double eta_P = photon.eta();
         double phi_P = photon.phi();
-        foreach (const Particle& p, fs) {
+        for (const Particle& p : fs) {
           if (deltaR(eta_P, phi_P, p.eta(), p.phi()) < 0.4) {
             mom_in_cone += p.momentum();
           }

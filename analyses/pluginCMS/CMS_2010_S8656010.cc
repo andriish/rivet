@@ -33,7 +33,7 @@ namespace Rivet {
       //charged particles
       const ChargedFinalState& charged = apply<ChargedFinalState>(event, "CFS");
 
-      foreach (const Particle& p, charged.particles()) {
+      for (const Particle& p : charged.particles()) {
         //selecting only charged hadrons
         if (! PID::isHadron(p.pid())) continue;
 

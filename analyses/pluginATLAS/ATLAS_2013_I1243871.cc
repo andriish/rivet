@@ -67,11 +67,11 @@ namespace Rivet {
       /// @todo Why rewrite the jets collection as a vector of pointers?
       const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(7*GeV);
       vector<const Jet*> allJets;
-      foreach(const Jet& j, jets) allJets.push_back(&j);
+      for(const Jet& j : jets) allJets.push_back(&j);
 
       // Keep any jets that pass the pt cut
       vector<const Jet*> pt_jets;
-      foreach (const Jet* j, allJets) {
+      for (const Jet* j : allJets) {
         /// @todo Use direct kinematics access
         const double pt = j->momentum().pT();
         const double eta = j->momentum().eta();
@@ -80,9 +80,9 @@ namespace Rivet {
 
       // Remove jets too close to an electron
       vector<const Jet*> good_jets;
-      foreach (const Jet* j, pt_jets) {
+      for (const Jet* j : pt_jets) {
         bool isElectron = 0;
-        foreach (const Particle& e, elecFS) {
+        for (const Particle& e : elecFS) {
           const double elec_jet_dR = deltaR(e.momentum(), j->momentum());
           if (elec_jet_dR < 0.2) { isElectron = true; break; }
         }
@@ -121,9 +121,9 @@ namespace Rivet {
       // Select b-jets as those containing a b-hadron
       /// @todo Use built-in dR < 0.3 Jet tagging, avoid HepMC
       vector<const Jet*> b_jets;
-      foreach (const Jet* j, good_jets) {
+      for (const Jet* j : good_jets) {
         bool isbJet = false;
-        foreach (const GenParticle* b, b_hadrons) {
+        for (const GenParticle* b : b_hadrons) {
           /// @todo Use direct momentum accessor / delta functions
           const FourMomentum hadron = b->momentum();
           const double hadron_jet_dR = deltaR(j->momentum(), hadron);
@@ -131,7 +131,7 @@ namespace Rivet {
         }
         // Check if it is overlapped to any other jet
         bool isOverlapped = false;
-        foreach (const Jet* k, allJets) {
+        for (const Jet* k : allJets) {
           if (j == k) continue;
           double dRjj = deltaR(j->momentum(), k->momentum());
           if (dRjj < 0.8) { isOverlapped = true; break; }
@@ -146,18 +146,18 @@ namespace Rivet {
       const double nominalW = 80.4*GeV;
       double deltaM = 500*GeV;
       const Jet* light1 = NULL; const Jet* light2 = NULL; // NB: const Jets, not const pointers!
-      foreach (const Jet* i, good_jets) {
+      for (const Jet* i : good_jets) {
         bool isbJet1 = false;
-        foreach (const GenParticle* b, b_hadrons) {
+        for (const GenParticle* b : b_hadrons) {
           /// @todo Use direct momentum accessor / delta functions
           const FourMomentum hadron = b->momentum();
           const double hadron_jet_dR = deltaR(i->momentum(), hadron);
           if (hadron_jet_dR < 0.3) { isbJet1 = true; break; }
         }
         if (isbJet1) continue;
-        foreach (const Jet* j, good_jets) {
+        for (const Jet* j : good_jets) {
           bool isbJet2 = false;
-          foreach (const GenParticle* b, b_hadrons) {
+          for (const GenParticle* b : b_hadrons) {
             FourMomentum hadron = b->momentum();
             double hadron_jet_dR = deltaR(j->momentum(), hadron);
             if (hadron_jet_dR < 0.3) { isbJet2 = true; break; }
@@ -177,12 +177,12 @@ namespace Rivet {
       const bool hasGoodLight = light1 != NULL && light2 != NULL && light1 != light2;
       if (hasGoodLight) {
         bool isOverlap1 = false, isOverlap2 = false;
-        foreach (const Jet* j, allJets) {
+        for (const Jet* j : allJets) {
           if (light1 == j) continue;
           const double dR1j = deltaR(light1->momentum(), j->momentum());
           if (dR1j < 0.8) { isOverlap1 = true; break; }
         }
-        foreach (const Jet* j, allJets) {
+        for (const Jet* j : allJets) {
           if (light2 == j) continue;
           const double dR2j = deltaR(light2->momentum(), j->momentum());
           if (dR2j < 0.8) { isOverlap2 = true; break; }
@@ -202,7 +202,7 @@ namespace Rivet {
 
       // b-jet shapes
       MSG_DEBUG("Filling b-jet shapes");
-      foreach (const Jet* bJet, b_jets) {
+      for (const Jet* bJet : b_jets) {
         // Work out jet pT bin and skip this jet if out of range
         const double jetPt = bJet->momentum().pT();
         MSG_DEBUG("Jet pT = " << jetPt/GeV << " GeV");
@@ -213,7 +213,7 @@ namespace Rivet {
 
         // Calculate jet shape
         vector<double> rings(10, 0);
-        foreach (const Particle& p, bJet->particles()) {
+        for (const Particle& p : bJet->particles()) {
           const double dR = deltaR(bJet->momentum(), p.momentum());
           const size_t idR = (size_t) floor(dR/binWidth);
           for (size_t i = idR; i < 10; ++i) rings[i] += p.pT();
@@ -232,7 +232,7 @@ namespace Rivet {
 
       // Light jet shapes
       MSG_DEBUG("Filling light jet shapes");
-      foreach (const Jet* lJet, light_jets) {
+      for (const Jet* lJet : light_jets) {
         // Work out jet pT bin and skip this jet if out of range
         const double jetPt = lJet->momentum().pT();
         MSG_DEBUG("Jet pT = " << jetPt/GeV << " GeV");
@@ -243,7 +243,7 @@ namespace Rivet {
 
         // Calculate jet shape
         vector<double> rings(10, 0);
-        foreach (const Particle& p, lJet->particles()) {
+        for (const Particle& p : lJet->particles()) {
           const double dR = deltaR(lJet->momentum(), p.momentum());
           const size_t idR = (size_t) floor(dR/binWidth);
           for (size_t i = idR; i < 10; ++i) rings[i] += p.pT();

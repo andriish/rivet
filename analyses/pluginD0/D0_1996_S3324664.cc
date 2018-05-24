@@ -47,7 +47,7 @@ namespace Rivet {
       double mineta = minjet.eta();
       double maxeta = maxjet.eta();
 
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         double eta = jet.eta();
         if (eta < mineta) {
           minjet = jet.momentum();
@@ -74,7 +74,7 @@ namespace Rivet {
       normalize(_h_deta, 8830.); // fixed norm OK
 
       // Normalied to 1/(4pi)
-      foreach (Histo1DPtr histo, _h_dphi.histos()) {
+      for (Histo1DPtr histo : _h_dphi.histos()) {
         normalize(histo, 1./(4.*M_PI));
       }
 

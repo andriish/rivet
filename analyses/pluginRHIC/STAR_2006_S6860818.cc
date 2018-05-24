@@ -62,7 +62,7 @@ namespace Rivet {
       }
 
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         if (p.absrap() < 0.5) {
           const PdgId pid = p.pid();
           const double pT = p.pT() / GeV;

@@ -61,7 +61,7 @@ using namespace HepMC;
       double y, pT;
       const UnstableFinalState& ufs = apply<UnstableFinalState>(event, "UFS");
       double ancestor_lftime;
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         id = p.pid();
         if ((id != 310) && (id != -310)) continue;
         sumKs0_all ++;
@@ -112,18 +112,18 @@ using namespace HepMC;
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      MSG_DEBUG("Total number Ks0: " << sumKs0_all << endl
-                << "Sum of weights: " << sumOfWeights() << endl
-                << "Weight Ks0 (2.5 < y < 3.0): " <<  sumKs0_30->val() << endl
-                << "Weight Ks0 (3.0 < y < 3.5): " << sumKs0_35->val() << endl
-                << "Weight Ks0 (3.5 < y < 4.0): " << sumKs0_40->val() << endl
-                << "Nb. unprompt Ks0 [null mother]: " << sumKs0_badnull << endl
-                << "Nb. unprompt Ks0 [mother lifetime exceeded]: " << sumKs0_badlft << endl
-                << "Nb. Ks0 (y > 4.0): " << sumKs0_outup << endl
-                << "Nb. Ks0 (y < 2.5): " << sumKs0_outdwn << endl
-                << "Nb. Ks0 (pT < " << (MIN_PT/MeV) << " MeV/c): " << sum_low_pt_loss << endl
-                << "Nb. Ks0 (pT > 1.6 GeV/c): " << sum_high_pt_loss << endl
-                << "Cross-section [mb]: " << crossSection()/millibarn << endl
+      MSG_DEBUG("Total number Ks0: " << sumKs0_all << 'n'
+                << "Sum of weights: " << sumOfWeights() << 'n'
+                << "Weight Ks0 (2.5 < y < 3.0): " <<  sumKs0_30->val() << 'n'
+                << "Weight Ks0 (3.0 < y < 3.5): " << sumKs0_35->val() << 'n'
+                << "Weight Ks0 (3.5 < y < 4.0): " << sumKs0_40->val() << 'n'
+                << "Nb. unprompt Ks0 [null mother]: " << sumKs0_badnull << 'n'
+                << "Nb. unprompt Ks0 [mother lifetime exceeded]: " << sumKs0_badlft << 'n'
+                << "Nb. Ks0 (y > 4.0): " << sumKs0_outup << 'n'
+                << "Nb. Ks0 (y < 2.5): " << sumKs0_outdwn << 'n'
+                << "Nb. Ks0 (pT < " << (MIN_PT/MeV) << " MeV/c): " << sum_low_pt_loss << 'n'
+                << "Nb. Ks0 (pT > 1.6 GeV/c): " << sum_high_pt_loss << 'n'
+                << "Cross-section [mb]: " << crossSection()/millibarn << 'n'
                 << "Nb. events: " << numEvents());
       // Compute cross-section; multiply by bin width for correct scaling
       // cross-section given by Rivet in pb

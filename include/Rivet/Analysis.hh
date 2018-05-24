@@ -25,6 +25,11 @@
 
 namespace Rivet {
 
+  // convenience for analysis writers
+  using std::cout;
+  using std::stringstream;
+  using std::swap;
+  using std::numeric_limits;
 
   // Forward declaration
   class AnalysisHandler;

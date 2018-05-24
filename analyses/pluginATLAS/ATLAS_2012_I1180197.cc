@@ -79,7 +79,7 @@ namespace Rivet {
 
       // get the candiate jets
       Jets cand_jets;
-      foreach ( const Jet& jet,
+      for ( const Jet& jet :
                 apply<FastJets>(event, "AntiKtJets04").jetsByPt(20.0*GeV) ) {
         if ( fabs( jet.eta() ) < 4.5 ) {
           cand_jets.push_back(jet);
@@ -90,13 +90,13 @@ namespace Rivet {
         apply<ChargedFinalState>(event, "cfs").particles();
       // find the electrons
       Particles cand_soft_e,cand_hard_e;
-      foreach( const Particle & e,
+      for( const Particle & e :
                apply<IdentifiedFinalState>(event, "elecs").particlesByPt()) {
         double pT  = e.pT();
         double eta = e.eta();
         // remove any leptons within 0.4 of any candidate jets
         bool e_near_jet = false;
-        foreach ( const Jet& jet, cand_jets ) {
+        for ( const Jet& jet : cand_jets ) {
           double dR = deltaR(e.momentum(),jet.momentum());
           if ( inRange(dR, 0.2, 0.4) ) {
             e_near_jet = true;
@@ -112,13 +112,13 @@ namespace Rivet {
         if(pT>10.) cand_hard_e.push_back(e);
       }
       Particles cand_soft_mu,cand_hard_mu;
-      foreach( const Particle & mu,
+      for( const Particle & mu :
                apply<IdentifiedFinalState>(event, "muons").particlesByPt()) {
         double pT  = mu.pT();
         double eta = mu.eta();
         // remove any leptons within 0.4 of any candidate jets
         bool mu_near_jet = false;
-        foreach ( const Jet& jet, cand_jets ) {
+        for ( const Jet& jet : cand_jets ) {
           if ( deltaR(mu.momentum(),jet.momentum()) < 0.4 ) {
             mu_near_jet = true;
             break;
@@ -134,9 +134,9 @@ namespace Rivet {
       }
       // pTcone around muon track (hard)
       Particles recon_hard_mu;
-      foreach ( const Particle & mu, cand_hard_mu ) {
+      for ( const Particle & mu : cand_hard_mu ) {
         double pTinCone = -mu.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -144,10 +144,10 @@ namespace Rivet {
       }
       // pTcone around muon track (soft)
       Particles recon_soft_mu;
-      foreach ( const Particle & mu, cand_soft_mu ) {
+      for ( const Particle & mu : cand_soft_mu ) {
         double pTinCone = -mu.pT();
         if(-pTinCone>20.) continue;
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(mu.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -155,9 +155,9 @@ namespace Rivet {
       }
       // pTcone around electron track (hard)
       Particles recon_hard_e;
-      foreach ( const Particle & e, cand_hard_e ) {
+      for ( const Particle & e : cand_hard_e ) {
         double pTinCone = -e.pT();
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -165,10 +165,10 @@ namespace Rivet {
       }
       // pTcone around electron track (soft)
       Particles recon_soft_e;
-      foreach ( const Particle & e, cand_soft_e ) {
+      for ( const Particle & e : cand_soft_e ) {
         double pTinCone = -e.pT();
         if(-pTinCone>25.) continue;
-        foreach ( const Particle & track, chg_tracks ) {
+        for ( const Particle & track : chg_tracks ) {
           if ( deltaR(e.momentum(),track.momentum()) < 0.2 )
             pTinCone += track.pT();
         }
@@ -177,7 +177,7 @@ namespace Rivet {
 
       // pTmiss
       FourMomentum pTmiss;
-      foreach ( const Particle & p,
+      for ( const Particle & p :
                 apply<VisibleFinalState>(event, "vfs").particles() ) {
         pTmiss -= p.momentum();
       }
@@ -187,11 +187,11 @@ namespace Rivet {
       if( ! recon_hard_e.empty() || !recon_hard_mu.empty() ) {
         // discard jets that overlap with electrons
         Jets recon_jets;
-        foreach ( const Jet& jet, cand_jets ) {
+        for ( const Jet& jet : cand_jets ) {
           if(jet.abseta()>2.5||
              jet.pT() < 25*GeV) continue;
           bool away_from_e = true;
-          foreach ( const Particle & e, cand_hard_e ) {
+          for ( const Particle & e : cand_hard_e ) {
             if ( deltaR(e.momentum(),jet.momentum()) < 0.2 ) {
               away_from_e = false;
               break;
@@ -202,7 +202,7 @@ namespace Rivet {
         // both selections require at least 2 jets
         // meff calculation
         double HT=0.;
-        foreach( const Jet & jet, recon_jets) {
+        for( const Jet & jet : recon_jets) {
           HT += jet.pT();
         }
         double m_eff_inc  = HT+eTmiss;
@@ -305,10 +305,10 @@ namespace Rivet {
       if ( recon_soft_e.size() + recon_soft_mu.size() == 1 ) {
         // discard jets that overlap with electrons
         Jets recon_jets;
-        foreach ( const Jet& jet, cand_jets ) {
+        for ( const Jet& jet : cand_jets ) {
           if (jet.abseta() > 2.5 || jet.pT() < 25*GeV) continue;
           bool away_from_e = true;
-          foreach ( const Particle & e, cand_soft_e ) {
+          for ( const Particle & e : cand_soft_e ) {
             if ( deltaR(e.momentum(), jet.momentum()) < 0.2 ) {
               away_from_e = false;
               break;
@@ -318,7 +318,7 @@ namespace Rivet {
         }
         // meff calculation
         double HT=0.;
-        foreach (const Jet & jet, recon_jets) {
+        for (const Jet & jet : recon_jets) {
           HT += jet.pT();
         }
         double m_eff_inc  = HT+eTmiss;

@@ -36,11 +36,11 @@ namespace Rivet {
         vetoEvent;
       }
 
-      foreach (const Particle& tp, fs.particles()) {
+      for (const Particle& tp : fs.particles()) {
         const double triggerpT = tp.pT();
         if (triggerpT >= 2.0 && triggerpT < 5.0) {
           int n_associated = 0;
-          foreach (const Particle& ap, fs.particles()) {
+          for (const Particle& ap : fs.particles()) {
             if (!inRange(ap.pT()/GeV, 1.5, triggerpT)) continue;
             if (deltaPhi(tp.phi(), ap.phi()) > 1) continue;
             if (fabs(tp.eta() - ap.eta()) > 1.75) continue;

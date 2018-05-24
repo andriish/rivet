@@ -53,7 +53,7 @@ namespace Rivet {
 
       // Find the lead jet, applying a restriction that the jets must be within |eta| < 2.
       FourMomentum p_lead;
-      foreach (const Jet& j, apply<FastJets>(event, "Jets").jetsByPt(1*GeV)) {
+      for (const Jet& j : apply<FastJets>(event, "Jets").jetsByPt(1*GeV)) {
         if (j.abseta() < 2.0) {
           p_lead = j.momentum();
           break;
@@ -67,7 +67,7 @@ namespace Rivet {
       Particles particles = apply<ChargedFinalState>(event, "CFS").particlesByPt();
       int nch_TransLeft = 0, nch_TransRight = 0;
       double ptSum_TransLeft = 0., ptSum_TransRight = 0.;
-      foreach (const Particle& p, particles) {
+      for (const Particle& p : particles) {
         const double dphi = signedDeltaPhi(phi_lead, p.momentum().phi());
         if (!inRange(fabs(dphi), PI/3, 2*PI/3.)) continue; //< only fill trans regions
         if (dphi < 0) {  // Transverse Right region

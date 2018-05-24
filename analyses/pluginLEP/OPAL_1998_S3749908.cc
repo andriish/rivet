@@ -64,7 +64,7 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
 
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         const int id = p.abspid();
         double xi = -log(p.p3().mod()/meanBeamMom);
         double xE = p.E()/meanBeamMom;

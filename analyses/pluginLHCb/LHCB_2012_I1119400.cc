@@ -74,7 +74,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
 
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         int id = p.pid();
         // continue if particle not a proton, a kaon or a pion
         if ( !( (abs(id) == 211) || (abs(id) == 321) || (abs(id) == 2212)))  {

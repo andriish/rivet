@@ -80,13 +80,13 @@ namespace Rivet {
       Jets jets =  apply<JetAlg>(event, "jets").jetsByPt(Cuts::pT > 30*GeV && Cuts::absrap < 2.5);
 
       bool veto = false;
-      foreach(const Jet& j, jets)  {
-        foreach(const Particle& l, leptons) { veto |= deltaR(j, l) < 0.4; }
+      for(const Jet& j : jets)  {
+        for(const Particle& l : leptons) { veto |= deltaR(j, l) < 0.4; }
       }
       if (veto) vetoEvent;
 
       double HT=0;
-      foreach(const Particle& l, leptons) { HT += l.pT(); }
+      for(const Particle& l : leptons) { HT += l.pT(); }
 
       const size_t Njets = jets.size();
       _h_Njets_excl->fill(Njets);

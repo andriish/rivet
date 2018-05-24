@@ -110,7 +110,7 @@ namespace Rivet {
       // // Take jets with pt > 30, |eta| < 2.1:
       // const Jets& jets = jetpro.jets();
       // Jets jets_cut;
-      // foreach (const Jet& j, jets) {
+      // for (const Jet& j, jets) {
       //   if (j.pT()/GeV > 30.0 && j.abseta() < 2.1) {
       //     jets_cut.push_back(j);
       //   }

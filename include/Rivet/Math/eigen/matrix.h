@@ -104,13 +104,13 @@ namespace Eigen
     mat3.loadIdentity(); // loads the identity matrix of size 5 into mat3
 
     mat1(2,3) = -1.4; // Stores the value -1.4 at row 2, column 3 of mat1.
-    cout << mat1 << endl;
+    cout << mat1 << '\n';
 
     double vec_coords[3] = {1.1, -2.5, 0.8};
     Vector3d vec( vec_coords ); // construct a vector of size 3.
     vec = mat1 * vec; // multiply vec by mat1
 
-    cout << "determinant of mat1: " << mat1.determinant() << endl;
+    cout << "determinant of mat1: " << mat1.determinant() << '\n';
         // as mat1 has size 3, the determinant is computed by brute force.
         // For larger matrices, this would use a LU decomposition.
   * @endcode
@@ -279,13 +279,13 @@ protected:
     mat3.loadIdentity(); // loads the identity matrix of size 5 into mat3
 
     mat1(2,3) = -1.4; // Stores the value -1.4 at row 2, column 3 of mat1.
-    cout << mat1 << endl;
+    cout << mat1 << '\n';
 
     double vec_coords[] = {1.1, -2.5, 0.8};
     VectorXd vec( 3, vec_coords ); // construct a vector of size 3.
     vec = mat1 * vec; // multiply vec by mat1
 
-    cout << "determinant of mat1: " << mat1.determinant() << endl;
+    cout << "determinant of mat1: " << mat1.determinant() << '\n';
         // as mat1 has size 3, the determinant is computed by brute force.
         // For larger matrices, this would use a LU decomposition.
   * @endcode

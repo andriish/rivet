@@ -137,7 +137,7 @@ namespace Rivet {
 
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjj.betaVec());
       vector<FourMomentum> jets_boosted;
-      foreach (Jet jet, jets) {
+      for (Jet jet : jets) {
         jets_boosted.push_back(cms_boost.transform(jet.momentum()));
       }
       std::sort(jets_boosted.begin(), jets_boosted.end(), FourMomentum::byEDescending());
@@ -168,7 +168,7 @@ namespace Rivet {
 
       const LorentzTransform cms_boost = LorentzTransform::mkFrameTransformFromBeta(jjjj.betaVec());
       vector<FourMomentum> jets_boosted;
-      foreach (Jet jet, jets) {
+      for (Jet jet : jets) {
         jets_boosted.push_back(cms_boost.transform(jet.momentum()));
       }
       sort(jets_boosted.begin(), jets_boosted.end(), FourMomentum::byEDescending());

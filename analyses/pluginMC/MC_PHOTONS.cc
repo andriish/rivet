@@ -70,7 +70,7 @@ namespace Rivet {
 
       // Calculate photon energies and transverse momenta
       double sumPtgamma(0), sumEgamma(0);
-      foreach (const Particle& p, photons) {
+      for (const Particle& p : photons) {
         // Individual and summed pTs and energies
         double pTgamma = p.pT()/GeV;
         double Egamma = p.E()/GeV;

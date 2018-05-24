@@ -33,7 +33,7 @@ namespace Rivet {
       double cjet_pt = 0.0;
       double fjet_pt = 0.0;
 
-      foreach(const Jet& j, jets) {
+      for(const Jet& j : jets) {
         double pT = j.pT();
         if (j.abseta() > 3.2) {
           _hist_jetpt_fwdincl->fill(j.pT()/GeV, weight);

@@ -53,7 +53,7 @@ namespace Rivet
           vector<DressedLepton> allClusteredLeptons;
           
           const Jets jets = applyProjection<FastJets>(e, "LeptonJets").jetsByPt(5.*GeV);
-          foreach (const Jet& jet, jets) {
+          for (const Jet& jet : jets) {
             Particle lepCand;
             for (const Particle& cand : jet.particles()) {
               const int absPdgId = abs(cand.pdgId());

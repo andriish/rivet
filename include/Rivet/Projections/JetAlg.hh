@@ -91,7 +91,7 @@ namespace Rivet {
       // /// @todo Use an STL erase(remove_if) and lambda function for this
       // Jets rtn;
       // rtn.reserve(size());
-      // foreach (const Jet& j, rawjets)
+      // for (const Jet& j, rawjets)
       //   if (c->accept(j)) rtn.push_back(j);
       // return rtn;
     }

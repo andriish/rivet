@@ -70,7 +70,7 @@ namespace Rivet {
     double CalculateJetCharge(Jet& jet, double kappa=0.5, double pTcut=0.5, double Qmax=1.2) {
       double PTkap = pow(jet.momentum().pT(),kappa);
       double jetcharge = 0.;
-      foreach (const Particle& p, jet.particles()) {
+      for (const Particle& p : jet.particles()) {
         if (p.pT() < pTcut)  continue;
         if (p.threeCharge()) jetcharge += (p.threeCharge()/3.)*pow(p.pT(),kappa)/PTkap;
       }

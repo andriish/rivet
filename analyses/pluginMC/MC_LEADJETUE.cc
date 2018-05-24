@@ -78,7 +78,7 @@ namespace Rivet {
       double ptMaxOverall(0.0), ptMaxToward(0.0), ptMaxTrans1(0.0), ptMaxTrans2(0.0), ptMaxAway(0.0);
 
       // Calculate all the charged stuff
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         const double dPhi = deltaPhi(p.phi(), jetphi);
         const double pT = p.pT();
         const double phi = p.phi();

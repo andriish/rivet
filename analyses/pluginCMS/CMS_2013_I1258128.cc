@@ -69,9 +69,9 @@ book(	  _hist2YDif	,8, 1, 1);
 
       // Clean the jets against the lepton candidates with a DeltaR cut of 0.5
       vector<const Jet*> cleanedJets;
-      foreach (const Jet& j, jets) {
+      for (const Jet& j : jets) {
         bool isolated = true;
-        foreach (const Particle& p, clusteredConstituents) {
+        for (const Particle& p : clusteredConstituents) {
           if (deltaR(p, j) < 0.5) {
             isolated = false;
             break;
@@ -108,7 +108,7 @@ book(	  _hist2YDif	,8, 1, 1);
 
       // Clean the jets against the photon candidate with a DeltaR cut of 0.5
       vector<const Jet*> cleanedJets;
-      foreach (const Jet& j, jets)
+      for (const Jet& j : jets)
         if (deltaR(photon, j) > 0.5)
           cleanedJets.push_back(&j);
       // Require exactly 1 jet

@@ -54,7 +54,7 @@ namespace Rivet {
       // Final state of unstable particles to get particle spectra
       const Particles& etas = apply<UnstableFinalState>(event, "UFS").particles(Cuts::abspid==PID::ETA);
 
-      foreach (const Particle& p, etas) {
+      for (const Particle& p : etas) {
 	double xp = p.p3().mod()/meanBeamMom;
         MSG_DEBUG("Eta xp = " << xp);
         _histXpEta->fill(xp);

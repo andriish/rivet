@@ -737,7 +737,7 @@ void CentralityBinner<T,MDist>::finalize() {
 
 template <typename T, typename MDist>
 void CentralityBinner<T,MDist>::fulldebug() {
-  cerr <<  endl;
+  cerr <<  '\n';
   double acc = 0.0;
   set<double>::iterator citn = _percentiles.begin();
   set<double>::iterator cit0 = citn++;
@@ -758,14 +758,14 @@ void CentralityBinner<T,MDist>::fulldebug() {
 	 << setw(8) << curr->_n
 	 << setw(8) << curr->_m
 	 << setw(12) << curr->_cestLo
-	 << setw(12) << curr->_cestHi << endl;
+	 << setw(12) << curr->_cestHi << '\n';
   }
-  cerr << "Number of sampler bins: " << _flexiBins.size() << endl;
+  cerr << "Number of sampler bins: " << _flexiBins.size() << '\n';
 }
 
 template <typename T, typename MDist>
 void CentralityBinner<T,MDist>::debug() {
-  cerr <<  endl;
+  cerr <<  '\n';
   double acc = 0.0;
   int i = 0;
   set<double>::iterator citn = _percentiles.begin();
@@ -783,11 +783,11 @@ void CentralityBinner<T,MDist>::debug() {
 	   << setw(8) << curr->_n
 	   << setw(8) << curr->_m
 	   << setw(12) << curr->_cestLo
-	   << setw(12) << curr->_cestHi << endl;
+	   << setw(12) << curr->_cestHi << '\n';
 
     }
   }
-  cerr << "Number of sampler bins: " << _flexiBins.size() << endl;
+  cerr << "Number of sampler bins: " << _flexiBins.size() << '\n';
 }
 
 /// Example of CentralityEstimator projection that the generated

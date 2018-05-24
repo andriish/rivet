@@ -31,7 +31,7 @@ namespace Rivet {
       if (fsa.size() <= 2) vetoEvent;
 
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
-      foreach (const Particle& p, cfs.particles()) {
+      for (const Particle& p : cfs.particles()) {
         const int id = p.abspid();
         // continue if particle is a proton, a kaon or a pion
         if (id == 211 || id == 321 || id == 2212) ///< @todo Use PID:: ID constants

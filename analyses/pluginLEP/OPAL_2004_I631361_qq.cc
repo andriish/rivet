@@ -95,7 +95,7 @@ namespace Rivet {
       const Particles& particles = applyProjection<FinalState>(event, "FS").particles();
       fastjet::JetDefinition ee_kt_def(fastjet::ee_kt_algorithm, &p_scheme);
       PseudoJets pParticles;
-      foreach(Particle p, particles) {
+      for(Particle p : particles) {
         PseudoJet temp = p.pseudojet();
         if(p.fromBottom()) {
           temp.set_user_index(5);
@@ -118,7 +118,7 @@ namespace Rivet {
           (sin(angle(dirs[i],dirs[(i+1)%3])) + sin(angle(dirs[i],dirs[(i+2)%3])) + sin(angle(dirs[(i+1)%3],dirs[(i+2)%3])));
         jets.push_back(FourMomentum(Ejet,Ejet*dirs[i].x(),Ejet*dirs[i].y(),Ejet*dirs[i].z()));
         bTagged[i] = false;
-        foreach(PseudoJet particle, pJets[i].constituents()) {
+        for(PseudoJet particle : pJets[i].constituents()) {
           if(particle.user_index() > 1 and !bTagged[i]) {
             bTagged[i] = true;
           }
@@ -191,7 +191,7 @@ namespace Rivet {
       double cutAngle = angle(toSymmetric.transform(jets[QUARK2].momentum()), transGlue)/2;
 
       int nCh = 0;
-      foreach(const Particle& chP, chParticles ) {
+      for(const Particle& chP : chParticles ) {
         FourMomentum pSymmFrame = toSymmetric.transform(FourMomentum(chP.p3().mod(), chP.px(), chP.py(), chP.pz()));
 	if(angle(pSymmFrame, transGlue) < cutAngle) {
           _h_chFragFunc.fill(Eg, pSymmFrame.E()*sin(cutAngle)/Eg, weight);

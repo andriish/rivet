@@ -30,7 +30,7 @@ namespace Rivet {
 
             /// Book histograms and initialise projections before the run
             void init() {
-                //std::cout << " HELLO ANALYSIS : init " << std::endl;
+                //std::cout << " HELLO ANALYSIS : init " << std::'\n';
                 const FinalState fs;
 
                 FastJets fj04(fs, FastJets::ANTIKT, 0.4);
@@ -67,7 +67,7 @@ namespace Rivet {
                 for (size_t alg = 0; alg < 2; ++alg) {
                     // Identify 3jets
                     vector<FourMomentum> leadJets;
-                    foreach (const Jet& jet, jetAr[alg]) {
+                    for (const Jet& jet : jetAr[alg]) {
                         if (jet.absrap() < 3.0 && leadJets.size() < nJets){
                             int filledJets = leadJets.size();
                             if (jet.pT() < ptCut[filledJets])  continue;

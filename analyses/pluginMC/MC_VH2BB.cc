@@ -101,7 +101,7 @@ namespace Rivet {
 
       // Identify the b-jets
       Jets bjets;
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         const double jetEta = jet.eta();
         const double jetPhi = jet.phi();
         const double jetPt = jet.pT();
@@ -119,7 +119,7 @@ namespace Rivet {
       _h_jet_b_jet_multiplicity->fill(bjets.size(), weight);
 
       // Plot vector boson properties
-      foreach (const Particle& v, vectorBosons) {
+      for (const Particle& v : vectorBosons) {
         _h_VB_phi->fill(v.phi(), weight);
         _h_VB_pT->fill(v.pT(), weight);
         _h_VB_eta->fill(v.eta(), weight);
@@ -150,7 +150,7 @@ namespace Rivet {
           _h_jet_H_phi_using_bb->fill(phiggs.phi(), weight);
           _h_jet_H_pT_using_bb->fill(phiggs.pT(), weight);
 
-          foreach (const Particle& v, vectorBosons) {
+          for (const Particle& v : vectorBosons) {
             const double deltaEtaVH = fabs(phiggs.eta() - v.eta());
             const double deltaPhiVH = deltaPhi(phiggs, v.momentum());
             const double deltaRVH = deltaR(phiggs, v.momentum());

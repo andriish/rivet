@@ -40,7 +40,7 @@ namespace Rivet {
       const Jets& jets = fj.jets(Cuts::ptIn(18*GeV, 5000.0*GeV) && Cuts::absrap < 5.2);
 
       // Fill the relevant histograms:
-      foreach(const Jet &j, jets) {
+      for(const Jet &j : jets) {
         _hist_sigma.fill(j.absrap(), j.pT());
       }
     }

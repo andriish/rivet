@@ -39,12 +39,12 @@ namespace Rivet {
       if (jets[0].pT() + jets[1].pT() < 500*GeV)  vetoEvent;
 
       double sumEt = 0.0;
-      foreach (Jet j, jets)  sumEt += j.E() / cosh(j.eta());
+      for (Jet j : jets)  sumEt += j.E() / cosh(j.eta());
 
-      foreach (Jet j1, jets) {
+      for (Jet j1 : jets) {
         double et1 = j1.E() / cosh(j1.eta());
 
-        foreach (Jet j2, jets) {
+        for (Jet j2 : jets) {
           double et2 = j2.E() / cosh(j2.eta());
           double etWeight = et1 * et2 / ( sumEt * sumEt );
           double dPhi = deltaPhi(j1, j2);

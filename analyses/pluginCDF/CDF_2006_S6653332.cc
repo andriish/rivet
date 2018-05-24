@@ -111,7 +111,7 @@ namespace Rivet {
           // Does the jet contain a b-quark?
           /// @todo Use jet contents rather than accessing quarks directly
           bool bjet = false;
-          foreach (const Particle& bquark,  bquarks) {
+          for (const Particle& bquark : bquarks) {
             if (deltaR(jt->rapidity(), jt->phi(), bquark.rapidity(), bquark.phi()) <= _Rjet) {
               bjet = true;
               break;

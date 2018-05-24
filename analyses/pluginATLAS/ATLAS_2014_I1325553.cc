@@ -57,7 +57,7 @@ namespace Rivet {
       for (size_t alg = 0; alg < 2; ++alg) {
 
         // fill the 1D pt histograms with all the jets passing the cuts
-        foreach (const Jet& jet, jetAr[alg]) {
+        for (const Jet& jet : jetAr[alg]) {
           const double absrap = jet.absrap();
           if (absrap < 3.0) {
 	          const double pt = jet.pT();

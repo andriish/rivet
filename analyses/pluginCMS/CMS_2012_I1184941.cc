@@ -35,7 +35,7 @@ namespace Rivet {
 
       const FinalState& fsp = apply<FinalState>(event, "FS");
 
-      foreach (const Particle& p, fsp.particles(cmpMomByEta)) {
+      for (const Particle& p : fsp.particles(cmpMomByEta)) {
         const double eta = p.eta();
         const double energy = p.E();
         const double costheta = cos(p.theta());

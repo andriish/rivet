@@ -49,7 +49,7 @@ namespace Rivet {
       const double weight = 1.0;
 
       Jets jets06;
-      foreach (const Jet& jet, apply<FastJets>(event, "AntiKtJets06").jetsByPt(100.0*GeV)) {
+      for (const Jet& jet : apply<FastJets>(event, "AntiKtJets06").jetsByPt(100.0*GeV)) {
         if (jet.absrap() < 2.8) {
           jets06.push_back(jet);
         }
@@ -65,7 +65,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      foreach (Histo1DPtr hist, _h_deltaPhi.histos()) {
+      for (Histo1DPtr hist : _h_deltaPhi.histos()) {
         normalize(hist, 1/M_PI);
       }
     }

@@ -55,7 +55,7 @@ namespace Rivet {
       _histPdfXQ->fill(pdfi.x2(), pdfi.scalePDF(), weight); // always in GeV?
 
       // const FinalState& cfs = apply<FinalState>(event, "CFS");
-      // foreach (const Particle& p, cfs.particles()) {
+      // for (const Particle& p : cfs.particles()) {
       //   if (fabs(eta) < 2.5 && p.pT() > 10*GeV) {
       //     _histPdfTrackptVsX->fill(pdfi.x1(), p.pT()/GeV, weight);
       //     _histPdfTrackptVsX->fill(pdfi.x2(), p.pT()/GeV, weight);

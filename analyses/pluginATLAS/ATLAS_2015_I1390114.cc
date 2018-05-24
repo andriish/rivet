@@ -81,13 +81,13 @@ namespace Rivet {
       Jets bjets;
 
       // Check overlap of jets/leptons.
-      foreach (Jet jet, jets) {
+      for (Jet jet : jets) {
         // if dR(el,jet) < 0.4 skip the event
-        foreach (DressedLepton el, electrons) {
+        for (DressedLepton el : electrons) {
           if (deltaR(jet, el) < 0.4)  vetoEvent;
         }
         // if dR(mu,jet) < 0.4 skip the event
-        foreach (DressedLepton mu, muons) {
+        for (DressedLepton mu : muons) {
           if (deltaR(jet, mu) < 0.4)  vetoEvent;
         }
         // Count the number of b-tags

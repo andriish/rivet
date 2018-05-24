@@ -85,7 +85,7 @@ namespace Rivet {
       // W. This helps to reduce pure QCD backgrounds.
       const ChargedLeptons& lfs = apply<ChargedLeptons>(event, "LFS");
       MSG_DEBUG("Charged lepton multiplicity = " << lfs.chargedLeptons().size());
-      foreach (const Particle& lepton, lfs.chargedLeptons()) {
+      for (const Particle& lepton : lfs.chargedLeptons()) {
         MSG_DEBUG("Lepton pT = " << lepton.pT());
       }
       if (lfs.chargedLeptons().empty()) {
@@ -124,7 +124,7 @@ namespace Rivet {
       const Jets jets = jetpro.jetsByPt(30*GeV);
       _h_njets->fill(jets.size(), weight);
       double ht = 0.0;
-      foreach (const Jet& j, jets) { ht += j.pT(); }
+      for (const Jet& j : jets) { ht += j.pT(); }
       _h_jet_HT->fill(ht/GeV, weight);
       if (jets.size() < 4 ||
           jets[0].pT() < 60*GeV ||
@@ -139,10 +139,10 @@ namespace Rivet {
       // Jet::bTagged() method is equivalent to perfect experimental
       // b-tagging, in a generator-independent way.
       Jets bjets, ljets;
-      foreach (const Jet& jet, jets) {
+      for (const Jet& jet : jets) {
         // // Don't count jets that overlap with the hard leptons
         bool isolated = true;
-        foreach (const Particle& lepton, lfs.chargedLeptons()) {
+        for (const Particle& lepton : lfs.chargedLeptons()) {
           if (deltaR(jet.momentum(), lepton.momentum()) < 0.3) {
             isolated = false;
             break;

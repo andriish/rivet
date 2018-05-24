@@ -59,7 +59,7 @@ namespace Rivet {
       double sumEt(0), sumE(0);
       FourMomentum JS(0,0,0,0);
 
-      foreach(const Jet& jet, SJets) {
+      for(const Jet& jet : SJets) {
         sumEt += jet.Et()*GeV;
         sumE  += jet.E()*GeV;
         JS+=jet.momentum();
@@ -78,7 +78,7 @@ namespace Rivet {
       }
       if (mass > 600.0*GeV) _h_costheta[JS.size()-2]->fill(costheta0);
       if (costheta0 < 2.0/3.0 && mass > 600.0*GeV) {
-        foreach (const Jet& jet, SJets) {
+        for (const Jet& jet : SJets) {
           _h_pT[SJets.size()-2]->fill(jet.pT());
         }
       }

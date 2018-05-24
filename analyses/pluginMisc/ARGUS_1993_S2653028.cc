@@ -19,17 +19,17 @@ namespace Rivet {
       Particles upsilons;
       // First in unstable final state
       const UnstableFinalState& ufs = apply<UnstableFinalState>(e, "UFS");
-      foreach (const Particle& p, ufs.particles()) {
+      for (const Particle& p : ufs.particles()) {
         if (p.pid() == 300553) upsilons.push_back(p);
       }
       // Then in whole event if that failed
       if (upsilons.empty()) {
-        foreach (const GenParticle* p, particles(e.genEvent())) {
+        for (const GenParticle* p : particles(e.genEvent())) {
           if (p->pdg_id() != 300553) continue;
           const GenVertex* pv = p->production_vertex();
           bool passed = true;
           if (pv) {
-            foreach (const GenParticle* pp, particles_in(pv)) {
+            for (const GenParticle* pp : particles_in(pv)) {
               if ( p->pdg_id() == pp->pdg_id() ) {
                 passed = false;
                 break;
@@ -41,7 +41,7 @@ namespace Rivet {
       }
 
       // Find an upsilon
-      foreach (const Particle& p, upsilons) {
+      for (const Particle& p : upsilons) {
         _weightSum->fill();
         vector<GenParticle *> pionsA,pionsB,protonsA,protonsB,kaons;
         // Find the decay products we want
