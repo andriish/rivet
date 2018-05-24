@@ -1472,8 +1472,8 @@ Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=Additional jets $p_{T} > 50.0$ GeV
 YLabel=$\sigma$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
-RatioPlotYMin=0.5
-RatioPlotYMax=1.5
+RatioPlotYMin=0.9
+RatioPlotYMax=1.1
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
 #END PLOT
@@ -1483,8 +1483,8 @@ Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=Additional jets $p_{T} > 75.0$ GeV
 YLabel=$\sigma$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
-RatioPlotYMin=0.5
-RatioPlotYMax=1.5
+RatioPlotYMin=0.9
+RatioPlotYMax=1.1
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
 #END PLOT
@@ -1494,8 +1494,8 @@ Title=CMS, 13\,TeV, $\mathrm{t}\mathrm{\bar{t}}$ $e/\mu +\mathrm{jets}$
 XLabel=Additional jets $p_{T} > 100.0$ GeV
 YLabel=$\sigma$ [pb]
 RatioPlotYLabel=$\frac{\mathrm{theory}}{\mathrm{data}}$
-RatioPlotYMin=0.5
-RatioPlotYMax=1.5
+RatioPlotYMin=0.9
+RatioPlotYMax=1.1
 RatioPlotYSize=2.6
 PlotSize=10.7,7.2
 #END PLOT
