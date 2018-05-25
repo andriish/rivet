@@ -239,12 +239,9 @@ namespace Rivet {
 
       void finalize() {
 
-	cout << "finalising" << endl;
-
         // Normalize histograms
         const double sf = crossSection() / sumOfWeights();
         for (auto &hist : _h) {
-	  cout << hist.second << endl;
           scale(hist.second, sf);
           if ((hist.first.find("_norm") != string::npos) && hist.second->integral(false)>0) hist.second->normalize(1.0, false);
         } 
