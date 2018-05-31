@@ -1,13 +1,20 @@
 // -*- C++ -*-
 #include "Rivet/Event.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
+#include "Rivet/Tools/Logging.hh"
+#include "Rivet/Tools/Utils.hh"
 #include "Rivet/Projections/Beam.hh"
 #include "HepMC/GenEvent.h"
 
 namespace Rivet {
 
   double Event::weight() const {
-    return genEvent()->weights().empty() ? 1.0 : _genevent.weights()[0];
+    static ssize_t WEIGHT_INDEX = -1;
+    if (WEIGHT_INDEX < 0) {
+      WEIGHT_INDEX = getEnvParam<size_t>("RIVET_WEIGHT_INDEX", 0);
+      Log::getLog("Core.Weight") << Log::TRACE << "Got weight index from env/default = "<< WEIGHT_INDEX << endl;
+    }
+    return genEvent()->weights().empty() ? 1.0 : _genevent.weights()[WEIGHT_INDEX];
   }
 
   double Event::centrality() const {

@@ -1,3 +1,10 @@
+2018-05-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add init-time setting of a single weight-vector index from the
+	RIVET_WEIGHT_INDEX environment variable. To be removed in v3, but
+	really we should have done this years ago... and we don't know how
+	long the handover will be.
+
 2018-05-22  Neil Warrack  <neil.warrack@cern.ch>
 
 	* Include 'unphysical' photon parents in PartonicTops' veto of prompt leptons from photon conversions.

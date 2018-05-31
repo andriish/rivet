@@ -15,9 +15,9 @@ Examples:
 
 
 ENVIRONMENT:
- * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin
-     analysis libraries at runtime
- * RIVET_DATA_PATH: list of paths to be searched for data files
+ * RIVET_ANALYSIS_PATH: list of paths to be searched for plugin analysis libraries at runtime
+ * RIVET_DATA_PATH: list of paths to be searched for data files (defaults to use analysis path)
+ * RIVET_WEIGHT_INDEX: the numerical weight-vector index to use in this run
  * See the documentation for more environment variables.
 """
 
