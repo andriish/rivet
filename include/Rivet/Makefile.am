@@ -38,6 +38,7 @@ nobase_pkginclude_HEADERS += \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
+  Projections/DirectFinalState.hh \
   Projections/DISFinalState.hh \
   Projections/DISKinematics.hh \
   Projections/DISLepton.hh \
@@ -51,6 +52,7 @@ nobase_pkginclude_HEADERS += \
   Projections/HeavyHadrons.hh \
   Projections/Hemispheres.hh \
   Projections/IdentifiedFinalState.hh \
+  Projections/IndirectFinalState.hh \
   Projections/InitialQuarks.hh \
   Projections/InvMassFinalState.hh \
   Projections/JetAlg.hh \
