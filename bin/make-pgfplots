@@ -1678,6 +1678,8 @@ class DrawableObject(Described):
         setup += ('mark=%s,\n' % self.getMarkerStyle())
         if self.getLineDash():
             setup += ('dash pattern=%s,\n' % self.getLineDash())
+        if self.getSmoothLine():
+            setup += ('smooth,\n')
         #if not legendName:
         #    setup += ('forget plot,\n')
         if self.getMarkerStyle() != 'none':
@@ -2262,6 +2264,7 @@ class Histogram(DrawableObject, Described):
                 #    out += '\\psline'
                 points = ''
                 if self.getErrorBars():
+                    self.props['SmoothLine'] = 0
                     points += ('x y ex- ex+ ey- ey+\n')
                 for b in self.data:
                     if isnan(b.val):
@@ -2276,6 +2279,8 @@ class Histogram(DrawableObject, Described):
                         points += ('%s %s ' % (b.xmid, b.val))
                         points += ('%s %s ' % (b.xmid - b.xmin, b.xmax - b.xmid))
                         points += ('%s %s'  % (b.err[0], b.err[1]))
+                    elif self.getSmoothLine():
+                        points += ('(%s,%s)' % (b.xmid, b.val))
                     else:
                         points += ('(%s,%s) (%s,%s)' % (b.xmin, b.val, b.xmax, b.val))
                     points += ('\n')
