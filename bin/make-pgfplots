@@ -560,8 +560,12 @@ class Plot(object):
         #out += ('legend cell align=%s,\n' % kwargs['LegendAlign'])
         #out += ('legend image post style={sharp plot, -},\n')
         if kwargs['is2D']:
-            if kwargs['is3D']:  out += ('view={45}{30}, zticklabel pos=right,\n')
-            else:               out += ('view={0}{90}, colorbar,\n')
+            if kwargs['is3D']:
+                hrotate = 45 + kwargs['HRotate']
+                vrotate = 30 + kwargs['VRotate']
+                out += ('view={%i}{%s}, zticklabel pos=right,\n' % (hrotate, vrotate))
+            else:
+                out += ('view={0}{90}, colorbar,\n')
             out += ('colormap/%s,\n' % kwargs['ColorMap'])
             if not kwargs['is3D'] and kwargs['Zmode']:
                 out += ('colorbar style={yticklabel=$\\,10^{\\pgfmathprintnumber{\\tick}}$},\n')
@@ -948,6 +952,8 @@ class MainPlot(Plot):
           #Grid = inputdata.doGrid(),
           is2D = inputdata.is2dim,
           is3D = inputdata.attr_bool('Is3D', 0),
+          HRotate = inputdata.attr_int('HRotate', 0),
+          VRotate = inputdata.attr_int('VRotate', 0),
           ColorMap = inputdata.attr('ColorMap', 'jet'),
           #LegendAlign = inputdata.getLegendAlign(),
           #LegendPos = inputdata.getLegendPos(),
@@ -1162,6 +1168,8 @@ class RatioPlot(Plot):
           #Grid = inputdata.doGrid(self.name),
           is2D = inputdata.is2dim,
           is3D = inputdata.attr_bool('Is3D', 0),
+          HRotate = inputdata.attr_int('HRotate', 0),
+          VRotate = inputdata.attr_int('VRotate', 0),
           ColorMap = inputdata.attr('ColorMap', 'jet'),
           #LegendAlign = inputdata.getLegendAlign(self.name),
           #LegendPos = inputdata.getLegendPos(self.name),
