@@ -2258,10 +2258,6 @@ class Histogram(DrawableObject, Described):
                         points += ('%s %s %s\n' % (b.xmax, b.val - b.err[0], b.val + b.err[1]))
                     out += self.makeband(points)
 
-                #if self.getSmoothLine():
-                #    out += '\\psbezier'
-                #else:
-                #    out += '\\psline'
                 points = ''
                 if self.getErrorBars():
                     self.props['SmoothLine'] = 0
