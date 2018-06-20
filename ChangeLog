@@ -1,5 +1,7 @@
 2018-06-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add FinalState(fs, cut) augmenting constructor, and PrevFS projection machinery. Validated for a abscharge > 0 cut.
+
 	* Add hasProjection() methods to ProjectionHandler and ProjectionApplier.
 
 	* Clone MC_GENERIC as MC_FSPARTICLES and deprecate the badly-named original.

@@ -18,8 +18,8 @@ namespace Rivet {
     /// Construction using Cuts object
     FinalState(const Cut& c=Cuts::open());
 
-    // /// Construction using Cuts object and another FinalState
-    // FinalState(const Cut& c=Cuts::open(), const FinalState& fsp=FinalState());
+    /// Construction using another FinalState and a Cuts object
+    FinalState(const FinalState& fsp, const Cut& c);
 
     /// Old constructor with numeric cut arguments, retained for compatibility
     /// @deprecated Use the versions with Cut arguments
