@@ -1,18 +1,16 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
-#include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
 
 namespace Rivet {
 
 
-  /// Generic analysis looking at various distributions of final state particles
-  /// @deprecated Replaced by the better-named MC_FSPARTICLES
-  class MC_GENERIC : public Analysis {
+  /// Analysis looking at various distributions of final state particles
+  class MC_FSPARTICLES : public Analysis {
   public:
 
     /// Constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(MC_GENERIC);
+    DEFAULT_RIVET_ANALYSIS_CTOR(MC_FSPARTICLES);
 
 
     /// @name Analysis methods
@@ -22,7 +20,7 @@ namespace Rivet {
     void init() {
 
       // Projections
-      const FinalState fs(Cuts::abseta < 5 && Cuts::pT > 500*MeV);
+      FinalState fs(Cuts::abseta < 5 && Cuts::pT > 500*MeV);
       declare(fs, "FS");
       declare(ChargedFinalState(fs), "CFS");
 
@@ -136,6 +134,6 @@ namespace Rivet {
 
 
   // The hook for the plugin system
-  DECLARE_RIVET_PLUGIN(MC_GENERIC);
+  DECLARE_RIVET_PLUGIN(MC_FSPARTICLES);
 
 }
