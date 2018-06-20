@@ -1,5 +1,7 @@
 2018-06-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Add hasProjection() methods to ProjectionHandler and ProjectionApplier.
+
 	* Clone MC_GENERIC as MC_FSPARTICLES and deprecate the badly-named original.
 
 	* Fix Spires -> Inspire ID for CMS_2017_I1518399.
