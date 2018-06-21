@@ -598,8 +598,12 @@ class Plot(object):
             if len(majorticks):
               if float(majorticks[0]) > float(kwargs['%smin' % axis]):
                 majorticks = [ str(2 * float(majorticks[0]) - float(majorticks[1])) ] + majorticks
+                if len(majorlabels):
+                  majorlabels = [ '.' ] + majorlabels # dummy label
               if float(majorticks[-1]) < float(kwargs['%smax' % axis]):
                 majorticks.append(str(2 * float(majorticks[-1]) - float(majorticks[-2])))
+                if len(majorlabels):
+                  majorlabels.append('.') # dummy label
               out += ('%stick={%s},\n' % (axis.lower(), ','.join(majorticks)))
             if kwargs['NeedsXLabels'] and len(majorlabels):
               out += ('%sticklabels={{%s}},\n' % (axis.lower(), '},{'.join(majorlabels)))
