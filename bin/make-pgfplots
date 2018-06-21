@@ -1645,6 +1645,9 @@ class DrawableObject(Described):
     def getErrorBandOpacity(self):
         return self.props.get("ErrorBandOpacity", "1.0")
 
+    def removeXerrors(self):
+        return bool(int(self.props.get("RemoveXerrors", "0")))
+
     def getSmoothLine(self):
         return bool(int(self.props.get("SmoothLine", "0")))
 
@@ -2277,7 +2280,10 @@ class Histogram(DrawableObject, Described):
                         if b.val == 0. and b.err == [0.,0.]:
                             continue
                         points += ('%s %s ' % (b.xmid, b.val))
-                        points += ('%s %s ' % (b.xmid - b.xmin, b.xmax - b.xmid))
+                        if self.removeXerrors():
+                            points += ('0 0 ')
+                        else:
+                            points += ('%s %s ' % (b.xmid - b.xmin, b.xmax - b.xmid))
                         points += ('%s %s'  % (b.err[0], b.err[1]))
                     elif self.getSmoothLine():
                         points += ('(%s,%s)' % (b.xmid, b.val))
