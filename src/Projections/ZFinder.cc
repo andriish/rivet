@@ -57,20 +57,11 @@ namespace Rivet {
 
 
 
-  Particles ZFinder::constituentLeptons() const {
-    /// @note Ugly -- if there's no boson, the user should already have
-    /// stopped. Being forced to return by value because of an edge case which
-    /// is anyway wrong = yuck
-    if (empty()) return Particles();
+  const Particles & ZFinder::constituentLeptons() const {
+    static const Particles none;
+    if (empty()) return none;
     return boson().constituents();
-    // return boson().constituents(isChargedLepton);
   }
-
-
-  Particles ZFinder::constituentLeptons(const ParticleSorter& cmp) const {
-    return sortBy(constituentLeptons(), cmp);
-  }
-
 
   const VetoedFinalState& ZFinder::remainingFinalState() const {
     return getProjection<VetoedFinalState>("RFS");
