@@ -113,7 +113,7 @@ pkgdata_DATA = $(DOCS)
 
 install-data-local: doc
 	@$(NORMAL_INSTALL)
-	test "$(DOCDIRS)" && cp -r $(DOCDIRS) $(DESTDIR)$(pkgdatadir)/
+	test "$(DOCDIRS)" && ( rsync -aq $(DOCDIRS) $(DESTDIR)$(pkgdatadir)/ || cp -r $(DOCDIRS) $(DESTDIR)$(pkgdatadir)/ )
 
 uninstall-local:
 	@$(NORMAL_UNINSTALL)
