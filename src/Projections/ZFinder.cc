@@ -68,9 +68,9 @@ namespace Rivet {
   }
 
 
-  int ZFinder::compare(const Projection& p) const {
+  CmpState ZFinder::compare(const Projection& p) const {
     PCmp LCcmp = mkNamedPCmp(p, "DressedLeptons");
-    if (LCcmp != EQUIVALENT) return LCcmp;
+    if (LCcmp != CmpState::EQ) return LCcmp;
 
     const ZFinder& other = dynamic_cast<const ZFinder&>(p);
     return (cmp(_minmass, other._minmass) ||

@@ -56,7 +56,7 @@ namespace Rivet {
 
 
     /// Compare projections
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       return mkNamedPCmp(p, "FS");
     }
 

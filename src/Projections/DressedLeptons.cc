@@ -61,17 +61,17 @@ namespace Rivet {
 
 
 
-  int DressedLeptons::compare(const Projection& p) const {
+  CmpState DressedLeptons::compare(const Projection& p) const {
     // Compare the two as final states (for pT and eta cuts)
     const DressedLeptons& other = dynamic_cast<const DressedLeptons&>(p);
-    int fscmp = FinalState::compare(other);
-    if (fscmp != EQUIVALENT) return fscmp;
+    CmpState fscmp = FinalState::compare(other);
+    if (fscmp != CmpState::EQ) return fscmp;
 
     const PCmp phcmp = mkNamedPCmp(p, "Photons");
-    if (phcmp != EQUIVALENT) return phcmp;
+    if (phcmp != CmpState::EQ) return phcmp;
 
     const PCmp sigcmp = mkNamedPCmp(p, "Leptons");
-    if (sigcmp != EQUIVALENT) return sigcmp;
+    if (sigcmp != CmpState::EQ) return sigcmp;
 
     return (cmp(_dRmax, other._dRmax) ||
             cmp(_fromDecay, other._fromDecay));

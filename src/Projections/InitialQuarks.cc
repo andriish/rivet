@@ -4,8 +4,8 @@
 namespace Rivet {
 
 
-  int InitialQuarks::compare(const Projection& p) const {
-    return EQUIVALENT;
+  CmpState InitialQuarks::compare(const Projection& p) const {
+    return CmpState::EQ;
   }
 
 

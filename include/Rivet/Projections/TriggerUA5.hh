@@ -54,8 +54,8 @@ namespace Rivet {
   protected:
 
     /// Compare with other projections.
-    virtual int compare(const Projection&) const {
-      return EQUIVALENT;
+    virtual CmpState compare(const Projection&) const {
+      return CmpState::EQ;
     }
 
 

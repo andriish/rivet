@@ -193,7 +193,7 @@ namespace Rivet {
     virtual void project(const Event& e) = 0;
 
     /// Compare projections.
-    virtual int compare(const Projection& p) const = 0;
+    virtual CmpState compare(const Projection& p) const = 0;
 
 
   protected:

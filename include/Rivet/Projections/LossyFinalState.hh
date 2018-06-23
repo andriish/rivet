@@ -60,10 +60,10 @@ namespace Rivet {
 
 
     /// Compare projections.
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       const LossyFinalState<FILTER>& other = pcast< LossyFinalState<FILTER> >(p);
-      const int fscmp = mkNamedPCmp(other, "FS");
-      if (fscmp) return fscmp;
+      const CmpState fscmp = mkNamedPCmp(other, "FS");
+      if (fscmp != CmpState::EQ) return fscmp;
       return _filter.compare(other._filter);
     }
 

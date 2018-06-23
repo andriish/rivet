@@ -82,9 +82,9 @@ namespace Rivet {
   }
 
 
-  int WFinder::compare(const Projection& p) const {
+  CmpState WFinder::compare(const Projection& p) const {
     PCmp dlcmp = mkNamedPCmp(p, "DressedLeptons");
-    if (dlcmp != EQUIVALENT) return dlcmp;
+    if (dlcmp != CmpState::EQ) return dlcmp;
 
     const WFinder& other = dynamic_cast<const WFinder&>(p);
     return (cmp(_minmass, other._minmass) ||

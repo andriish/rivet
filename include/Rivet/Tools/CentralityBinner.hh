@@ -52,7 +52,7 @@ protected:
   }
 
   /// Compare projections
-  int compare(const Projection& p) const {
+  CmpState compare(const Projection& p) const {
     return mkNamedPCmp(p, "CentEst");
   }
 
@@ -814,7 +814,7 @@ protected:
   }
 
   /// Compare projections
-  int compare(const Projection& p) const {
+  CmpState compare(const Projection& p) const {
     return mkNamedPCmp(p, "GeneratedCentrality");
   }
 

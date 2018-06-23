@@ -353,7 +353,6 @@ namespace Rivet {
     /// experimental analyses!
     ///
     /// @deprecated Prefer e.g. hasParentWith(Cut::pid == 123)
-    //DEPRECATED("Prefer e.g. hasParentWith(Cut::pid == 123)");
     bool hasParent(PdgId pid) const;
 
 
@@ -413,7 +412,6 @@ namespace Rivet {
     /// experimental analyses!
     ///
     /// @deprecated Prefer hasAncestorWith(Cuts::pid == pid) etc.
-    //DEPRECATED("Prefer e.g. hasAncestorWith(Cut::pid == 123)");
     bool hasAncestor(PdgId pid, bool only_physical=true) const;
 
 

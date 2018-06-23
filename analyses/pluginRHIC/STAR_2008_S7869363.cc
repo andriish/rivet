@@ -20,8 +20,8 @@ namespace Rivet {
       return (rand()/static_cast<double>(RAND_MAX) > _trkeff[idx]);
     }
 
-    int compare(const STARRandomFilter& other) const {
-      return true;
+    CmpState compare(const STARRandomFilter& other) const {
+      return CmpState::GT; // @todo really?
     }
 
   private:

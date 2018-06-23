@@ -125,7 +125,7 @@ namespace Rivet {
       getLog() << Log::TRACE << "  RTTI type matches with " << ph << '\n';
 
       // Test for semantic match
-      if (pcmp(*ph, proj) != EQUIVALENT) {
+      if (pcmp(*ph, proj) != CmpState::EQ) {
         getLog() << Log::TRACE << "  Projections at "
                  << &proj << " and " << ph << " are not equivalent" << '\n';
       } else {

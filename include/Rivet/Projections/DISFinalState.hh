@@ -74,7 +74,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       const DISFinalState& other = dynamic_cast<const DISFinalState&>(p);
       return mkNamedPCmp(p, "Kinematics") || mkNamedPCmp(p, "FS") || cmp(_boosttype, other._boosttype);
     }

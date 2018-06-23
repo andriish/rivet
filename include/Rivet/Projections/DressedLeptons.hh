@@ -78,15 +78,6 @@ namespace Rivet {
                    double dRmax, const Cut& cut=Cuts::open(),
                    bool useDecayPhotons=false);
 
-    // For compatibility only
-    /// @cond INTERNAL
-    DEPRECATED("Use the new form with no bool cluster argument")
-    DressedLeptons(const FinalState& photons, const FinalState& bareleptons,
-                   double dRmax, const Cut& cut, bool, bool useDecayPhotons)
-      : DressedLeptons(photons, bareleptons, dRmax, cut, useDecayPhotons)
-    {   }
-    /// @endcond
-
     /// Clone this projection
     DEFAULT_RIVET_PROJ_CLONE(DressedLeptons);
 
@@ -115,7 +106,7 @@ namespace Rivet {
     void project(const Event& e);
 
     /// Compare projections.
-    int compare(const Projection& p) const;
+    CmpState compare(const Projection& p) const;
 
 
   private:

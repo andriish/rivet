@@ -71,7 +71,7 @@ namespace Rivet {
   }
 
 
-  int DISKinematics::compare(const Projection & p) const {
+  CmpState DISKinematics::compare(const Projection & p) const {
     const DISKinematics& other = pcast<DISKinematics>(p);
     return mkNamedPCmp(other, "Lepton");
   }

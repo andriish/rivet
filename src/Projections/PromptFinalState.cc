@@ -27,9 +27,9 @@ namespace Rivet {
 
 
 
-  int PromptFinalState::compare(const Projection& p) const {
+  CmpState PromptFinalState::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != EQUIVALENT) return fscmp;
+    if (fscmp != CmpState::EQ) return fscmp;
     const PromptFinalState& other = dynamic_cast<const PromptFinalState&>(p);
     return cmp(_acceptMuDecays, other._acceptMuDecays) || cmp(_acceptTauDecays, other._acceptTauDecays);
   }

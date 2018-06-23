@@ -3,7 +3,7 @@
 
 namespace Rivet {
 
-    int FoxWolframMoments::compare(const Projection& p) const {
+    CmpState FoxWolframMoments::compare(const Projection& p) const {
         return mkNamedPCmp(p, "FS");
     }
 

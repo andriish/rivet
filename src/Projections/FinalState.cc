@@ -43,20 +43,20 @@ namespace Rivet {
   }
 
 
-  int FinalState::compare(const Projection& p) const {
+  CmpState FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
     // First check if there is a PrevFS and it it matches
-    if (hasProjection("PrevFS") != other.hasProjection("PrevFS")) return UNDEFINED;
+    if (hasProjection("PrevFS") != other.hasProjection("PrevFS")) return CmpState::UNDEF;
     if (hasProjection("PrevFS")) {
       const PCmp prevcmp = mkPCmp(other, "PrevFS");
-      if (prevcmp != EQUIVALENT) return prevcmp;
+      if (prevcmp != CmpState::EQ) return prevcmp;
     }
     // Then check the extra cuts
     const bool cutcmp = _cuts == other._cuts;
     MSG_TRACE(_cuts << " VS " << other._cuts << " -> EQ == " << std::boolalpha << cutcmp);
-    if (!cutcmp) return UNDEFINED;
+    if (!cutcmp) return CmpState::UNDEF;
     // Checks all passed: these FSes are equivalent
-    return EQUIVALENT;
+    return CmpState::EQ;
   }
 
 

@@ -15,7 +15,7 @@ namespace Rivet {
   }
 
 
-  Projection:: ~Projection() {  }
+  Projection:: ~Projection() = default;
 
 
   Projection& Projection::operator = (const Projection&) { return *this; }
@@ -25,7 +25,7 @@ namespace Rivet {
     const std::type_info& thisid = typeid(*this);
     const std::type_info& otherid = typeid(p);
     if (thisid == otherid) {
-      const bool cmp = compare(p) < 0;
+      const bool cmp = compare(p) == CmpState::LT;
       MSG_TRACE("Comparing projections of same RTTI type: " << this << " < " << &p << " = " << cmp);
       return cmp;
     } else {

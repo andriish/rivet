@@ -19,7 +19,7 @@ namespace Rivet {
     addProjection(FinalState(mineta, maxeta, minpt), "FS");
   }
 
-  int ChargedFinalState::compare(const Projection& p) const {
+  CmpState ChargedFinalState::compare(const Projection& p) const {
     return mkNamedPCmp(p, "FS");
   }
 }

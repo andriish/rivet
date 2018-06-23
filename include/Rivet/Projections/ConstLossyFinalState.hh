@@ -28,7 +28,7 @@ namespace Rivet {
       return rand01() < _lossFraction;
     }
 
-    int compare(const ConstRandomFilter& other) const {
+    CmpState compare(const ConstRandomFilter& other) const {
       return cmp(_lossFraction, other._lossFraction);
     }
 

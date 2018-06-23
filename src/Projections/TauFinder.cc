@@ -16,9 +16,9 @@ namespace Rivet {
   }
 
 
-  int TauFinder::compare(const Projection& p) const {
+  CmpState TauFinder::compare(const Projection& p) const {
     const PCmp fscmp = mkNamedPCmp(p, "UFS");
-    if (fscmp != EQUIVALENT) return fscmp;
+    if (fscmp != CmpState::EQ) return fscmp;
 
     const TauFinder& other = dynamic_cast<const TauFinder&>(p);
     return cmp(_decmode, other._decmode);

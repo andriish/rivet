@@ -50,27 +50,27 @@ namespace Rivet {
   }
 
 
-  int InvMassFinalState::compare(const Projection& p) const {
+  CmpState InvMassFinalState::compare(const Projection& p) const {
     // First compare the final states we are running on
-    int fscmp = mkNamedPCmp(p, "FS");
-    if (fscmp != EQUIVALENT) return fscmp;
+    CmpState fscmp = mkNamedPCmp(p, "FS");
+    if (fscmp != CmpState::EQ) return fscmp;
 
     // Then compare the two as final states
     const InvMassFinalState& other = dynamic_cast<const InvMassFinalState&>(p);
     fscmp = FinalState::compare(other);
-    if (fscmp != EQUIVALENT) return fscmp;
+    if (fscmp != CmpState::EQ) return fscmp;
 
     // Compare the mass limits
-    int masstypecmp = cmp(_useTransverseMass, other._useTransverseMass);
-    if (masstypecmp != EQUIVALENT) return masstypecmp;
-    int massllimcmp = cmp(_minmass, other._minmass);
-    if (massllimcmp != EQUIVALENT) return massllimcmp;
-    int masshlimcmp = cmp(_maxmass, other._maxmass);
-    if (masshlimcmp != EQUIVALENT) return masshlimcmp;
+    CmpState masstypecmp = cmp(_useTransverseMass, other._useTransverseMass);
+    if (masstypecmp != CmpState::EQ) return masstypecmp;
+    CmpState massllimcmp = cmp(_minmass, other._minmass);
+    if (massllimcmp != CmpState::EQ) return massllimcmp;
+    CmpState masshlimcmp = cmp(_maxmass, other._maxmass);
+    if (masshlimcmp != CmpState::EQ) return masshlimcmp;
 
     // Compare the decay species
-    int decaycmp = cmp(_decayids, other._decayids);
-    if (decaycmp != EQUIVALENT) return decaycmp;
+    CmpState decaycmp = cmp(_decayids, other._decayids);
+    if (decaycmp != CmpState::EQ) return decaycmp;
 
     // Finally compare them as final states
     return FinalState::compare(other);

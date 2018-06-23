@@ -63,7 +63,7 @@ namespace Rivet {
   }
 
 
-  int FastJets::compare(const Projection& p) const {
+  CmpState FastJets::compare(const Projection& p) const {
     const FastJets& other = dynamic_cast<const FastJets&>(p);
     return \
       cmp(_useMuons, other._useMuons) ||

@@ -35,7 +35,7 @@ namespace Rivet {
     virtual void project(const Event& e);
 
     /// Compare projections.
-    virtual int compare(const Projection& p) const;
+    virtual CmpState compare(const Projection& p) const;
 
     /// Decide if a particle is to be accepted or not.
     /// @todo Rename to _accept or acceptFinal?

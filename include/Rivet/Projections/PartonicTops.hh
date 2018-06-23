@@ -93,7 +93,7 @@ namespace Rivet {
 
 
     /// Compare projections.
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       const PartonicTops& other = dynamic_cast<const PartonicTops&>(p);
       return cmp(_cuts, other._cuts) || cmp(_decaymode, other._decaymode) ||
         cmp(_emu_from_prompt_tau, other._emu_from_prompt_tau) ||

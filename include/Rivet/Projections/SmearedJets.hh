@@ -105,22 +105,22 @@ namespace Rivet {
 
 
     /// Compare to another SmearedJets
-    int compare(const Projection& p) const {
+    CmpState compare(const Projection& p) const {
       // Compare truth jets definitions
-      const int teq = mkPCmp(p, "TruthJets");
-      if (teq != EQUIVALENT) return teq;
+      const CmpState teq = mkPCmp(p, "TruthJets");
+      if (teq != CmpState::EQ) return teq;
 
       // Compare lists of detector functions
       const SmearedJets& other = dynamic_cast<const SmearedJets&>(p);
-      const int nfeq = cmp(_detFns.size(), other._detFns.size());
-      if (nfeq != EQUIVALENT) return nfeq;
+      const CmpState nfeq = cmp(_detFns.size(), other._detFns.size());
+      if (nfeq != CmpState::EQ) return nfeq;
       for (size_t i = 0; i < _detFns.size(); ++i) {
-        const int feq = _detFns[i].cmp(other._detFns[i]);
-        if (feq != EQUIVALENT) return feq;
+        const CmpState feq = _detFns[i].cmp(other._detFns[i]);
+        if (feq != CmpState::EQ) return feq;
       }
 
       // If we got this far, we're equal
-      return EQUIVALENT;
+      return CmpState::EQ;
     }
 
 

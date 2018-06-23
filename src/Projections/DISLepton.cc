@@ -4,7 +4,7 @@
 namespace Rivet {
 
 
-  int DISLepton::compare(const Projection& p) const {
+  CmpState DISLepton::compare(const Projection& p) const {
     const DISLepton& other = pcast<DISLepton>(p);
     return mkNamedPCmp(other, "Beam") || mkNamedPCmp(other, "FS");
   }

@@ -120,45 +120,6 @@ namespace Rivet {
     return e_hadr;
   }
 
-
-  bool Jet::containsCharm(bool include_decay_products) const {
-    for (const Particle& p : particles()) {
-      const PdgId pid = p.pid();
-      if (abs(pid) == PID::CQUARK) return true;
-      if (PID::isHadron(pid) && PID::hasCharm(pid)) return true;
-      if (include_decay_products) {
-        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
-        if (gv) {
-          for (const GenParticle* pi : Rivet::particles(gv, HepMC::ancestors)) {
-            const PdgId pid2 = pi->pdg_id();
-            if (PID::isHadron(pid2) && PID::hasCharm(pid2)) return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
-
-  bool Jet::containsBottom(bool include_decay_products) const {
-    for (const Particle& p : particles()) {
-      const PdgId pid = p.pid();
-      if (abs(pid) == PID::BQUARK) return true;
-      if (PID::isHadron(pid) && PID::hasBottom(pid)) return true;
-      if (include_decay_products) {
-        const HepMC::GenVertex* gv = p.genParticle()->production_vertex();
-        if (gv) {
-          for (const GenParticle* pi : Rivet::particles(gv, HepMC::ancestors)) {
-            const PdgId pid2 = pi->pdg_id();
-            if (PID::isHadron(pid2) && PID::hasBottom(pid2)) return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
-
   Particles Jet::tags(const Cut& c) const {
     return filter_select(tags(), c);
   }
