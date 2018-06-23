@@ -39,8 +39,8 @@ namespace Rivet {
       declare(FastJets(fs_jets, FastJets::CAM, 1.2), "JetsCA12");
 
       // Partonic top for decay channel definition
-      declare(PartonicTops(PartonicTops::E_MU, false), "LeptonicTops");
-      declare(PartonicTops(PartonicTops::HADRONIC), "HadronicTops");
+      declare(PartonicTops(PartonicTops::DecayMode::E_MU, false), "LeptonicTops");
+      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC), "HadronicTops");
 
       // Main histograms
       book(_hist_mass     , "d01-x01-y01");

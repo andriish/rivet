@@ -30,9 +30,9 @@ namespace Rivet {
       Cut cut_el = Cuts::abseta < 2.5 && Cuts::pT > 7.0*GeV;
       Cut cut_mu = Cuts::abseta < 2.4 && Cuts::pT > 5.0*GeV;
 
-      ZFinder zeefinder(FinalState(), cut_el, PID::ELECTRON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      ZFinder zeefinder(FinalState(), cut_el, PID::ELECTRON, 60*GeV, 120*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zeefinder, "ZeeFinder");
-      ZFinder zmmfinder(FinalState(), cut_mu, PID::MUON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      ZFinder zmmfinder(FinalState(), cut_mu, PID::MUON, 60*GeV, 120*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zmmfinder, "ZmmFinder");
 
       VetoedFinalState fs_woZmm;
@@ -40,9 +40,9 @@ namespace Rivet {
       VetoedFinalState fs_woZee;
       fs_woZee.addVetoOnThisFinalState(zeefinder);
 
-      ZFinder zeefinder_woZee(fs_woZee, cut_el, PID::ELECTRON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY);
+      ZFinder zeefinder_woZee(fs_woZee, cut_el, PID::ELECTRON, 60*GeV, 120*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY);
       declare(zeefinder_woZee, "Zeefinder_WoZee");
-      ZFinder zmmfinder_woZmm(fs_woZmm, cut_mu, PID::MUON, 60*GeV, 120*GeV, 0.1, ZFinder::CLUSTERNODECAY);
+      ZFinder zmmfinder_woZmm(fs_woZmm, cut_mu, PID::MUON, 60*GeV, 120*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY);
       declare(zmmfinder_woZmm, "Zmmfinder_WoZmm");
 
       // Book histograms

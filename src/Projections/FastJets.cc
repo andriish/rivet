@@ -11,12 +11,12 @@ namespace Rivet {
   void FastJets::_initBase() {
     setName("FastJets");
     addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(TauFinder::HADRONIC), "Taus");
+    addProjection(TauFinder(TauFinder::DecayMode::HADRONIC), "Taus");
   }
 
 
-  void FastJets::_initJdef(JetAlgName alg, double rparameter, double seed_threshold) {
-    MSG_DEBUG("JetAlg = " << alg);
+  void FastJets::_initJdef(Algo alg, double rparameter, double seed_threshold) {
+    MSG_DEBUG("JetAlg = " << static_cast<int>(alg));
     MSG_DEBUG("R parameter = " << rparameter);
     MSG_DEBUG("Seed threshold = " << seed_threshold);
     if (alg == KT) {
@@ -142,16 +142,16 @@ namespace Rivet {
 
   void FastJets::project(const Event& e) {
     // Assemble final state particles
-    const string fskey = (_useInvisibles == JetAlg::NO_INVISIBLES) ? "VFS" : "FS";
+    const string fskey = (_useInvisibles == JetAlg::Invisibles::NONE) ? "VFS" : "FS";
     Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
     // Remove prompt invisibles if needed (already done by VFS if using NO_INVISIBLES)
-    if (_useInvisibles == JetAlg::DECAY_INVISIBLES) {
+    if (_useInvisibles == JetAlg::Invisibles::DECAY) {
       ifilter_discard(fsparticles, [](const Particle& p) { return !(p.isVisible() || p.fromDecay()); });
     }
     // Remove prompt/all muons if needed
-    if (_useMuons == JetAlg::DECAY_MUONS) {
+    if (_useMuons == JetAlg::Muons::DECAY) {
       ifilter_discard(fsparticles, [](const Particle& p) { return isMuon(p) && !p.fromDecay(); });
-    } else if (_useMuons == JetAlg::NO_MUONS) {
+    } else if (_useMuons == JetAlg::Muons::NONE) {
       ifilter_discard(fsparticles, isMuon);
     }
 

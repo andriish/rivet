@@ -69,7 +69,7 @@ namespace Rivet {
       SmearedParticles recomuons(dressedmuons, MUON_EFF_ATLAS_RUN2, MUON_SMEAR_ATLAS_RUN2);
       declare(recomuons, "Muons2");
 
-      TauFinder truthtaus(TauFinder::ANY, Cuts::abseta < 5 && Cuts::pT > 10*GeV);
+      TauFinder truthtaus(TauFinder::DecayMode::ANY, Cuts::abseta < 5 && Cuts::pT > 10*GeV);
       declare(truthtaus, "Taus0");
       DressedLeptons dressedtaus(photons, truthtaus, 0.2);
       declare(dressedtaus, "Taus1");

@@ -25,7 +25,7 @@ namespace Rivet {
       const FinalState fs;
 
       Cut cuts = Cuts::pT >= 20.0*GeV;
-      ZFinder zfinder(fs, cuts, (_mode ? PID::MUON : PID::ELECTRON), 46.0*GeV, 150*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
+      ZFinder zfinder(fs, cuts, (_mode ? PID::MUON : PID::ELECTRON), 46.0*GeV, 150*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zfinder, "ZFinder");
 
       // Book histograms

@@ -39,7 +39,7 @@ namespace Rivet {
 
       // Find W's with pT > 120, MET > 50
       WFinder wfinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 80*GeV, PID::ELECTRON, 50*GeV, 1000*GeV, 50.0*GeV,
-                      0.2, WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
+                      0.2, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wfinder, "WFinder");
 
       // W+jet jet collections

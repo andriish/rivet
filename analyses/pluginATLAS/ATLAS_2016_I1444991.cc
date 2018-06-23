@@ -52,8 +52,8 @@ namespace Rivet {
 
       // Project jets
       FastJets jets(FS, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(JetAlg::NO_INVISIBLES);
-      jets.useMuons(JetAlg::NO_MUONS);
+      jets.useInvisibles(JetAlg::Invisibles::NONE);
+      jets.useMuons(JetAlg::Muons::NONE);
       declare(jets, "jets");
 
       // Book histograms

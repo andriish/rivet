@@ -42,7 +42,7 @@ namespace Rivet {
       addProjection(dressed_muons, "DressedMuons");
 
       // Parton-level top quarks
-      declare(PartonicTops(PartonicTops::E_MU, false), "LeptonicPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::E_MU, false), "LeptonicPartonTops");
 
 
       // Booking of histograms
@@ -134,11 +134,11 @@ namespace Rivet {
           const Particle lepTop = leptonicpartontops[k];
           const auto isPromptChargedLepton = [](const Particle& p){return (isChargedLepton(p) && isPrompt(p, false, false));};
           Particles lepton_candidates = lepTop.allDescendants(firstParticleWith(isPromptChargedLepton), false);
-          if ( lepton_candidates.size() < 1 ) MSG_WARNING("error, PartonicTops::E_MU top quark had no daughter lepton candidate, skipping event.");
+          if ( lepton_candidates.size() < 1 ) MSG_WARNING("error, PartonicTops::DecayMode::E_MU top quark had no daughter lepton candidate, skipping event.");
 
           // In some cases there is no lepton from the W decay but only leptons from the decay of a radiated gamma.
-          // These hadronic PartonicTops are currently being mistakenly selected by PartonicTops::E_MU (as of April 2017), and need to be rejected.
-          // PartonicTops::E_MU is being fixed in Rivet, and when it is the veto below should do nothing.
+          // These hadronic PartonicTops are currently being mistakenly selected by PartonicTops::DecayMode::E_MU (as of April 2017), and need to be rejected.
+          // PartonicTops::DecayMode::E_MU is being fixed in Rivet, and when it is the veto below should do nothing.
           /// @todo Should no longer be necessary -- remove
           bool istrueleptonictop = false;
           for (size_t i = 0; i < lepton_candidates.size(); ++i) {

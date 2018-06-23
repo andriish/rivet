@@ -36,7 +36,7 @@ namespace Rivet {
 
       Cut cuts = Cuts::etaIn(-2.5,2.5) & (Cuts::pT > 20.0*GeV);
 
-      ZFinder zfinder(fs, cuts, _mode==1? PID::ELECTRON : PID::MUON, 76.0*GeV, 106.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
+      ZFinder zfinder(fs, cuts, _mode==1? PID::ELECTRON : PID::MUON, 76.0*GeV, 106.0*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zfinder, "ZFinder");
 
       //FastJets jetpro1( getProjection<ZFinder>("ZFinder").remainingFinalState(), FastJets::ANTIKT, 0.4);

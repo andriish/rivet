@@ -18,9 +18,9 @@ namespace Rivet {
   class ZFinder : public ParticleFinder {
   public:
 
-    enum ChargedLeptons { PROMPTCHLEPTONS=0, ALLCHLEPTONS };
-    enum ClusterPhotons { NOCLUSTER=0, CLUSTERNODECAY=1, CLUSTERALL };
-    enum PhotonTracking { NOTRACK=0, TRACK=1 };
+    enum class ChargedLeptons { PROMPT, ALL };
+    enum class ClusterPhotons { NONE, NODECAY, ALL };
+    enum class AddPhotons { NO, YES };
 
     /// @name Constructors
     //@{
@@ -41,9 +41,9 @@ namespace Rivet {
             PdgId pid,
             double minmass, double maxmass,
             double dRmax=0.1,
-            ChargedLeptons chLeptons=PROMPTCHLEPTONS,
-            ClusterPhotons clusterPhotons=CLUSTERNODECAY,
-            PhotonTracking trackPhotons=NOTRACK,
+            ChargedLeptons chLeptons=ChargedLeptons::PROMPT,
+            ClusterPhotons clusterPhotons=ClusterPhotons::NODECAY,
+            AddPhotons trackPhotons=AddPhotons::NO,
             double masstarget=91.2*GeV);
 
     /// Backward-compatible constructor with implicit chLeptons mode = PROMPTCHLEPTONS
@@ -54,10 +54,10 @@ namespace Rivet {
             double minmass, double maxmass,
             double dRmax,
             ClusterPhotons clusterPhotons,
-            PhotonTracking trackPhotons=NOTRACK,
+            AddPhotons trackPhotons=AddPhotons::NO,
             double masstarget=91.2*GeV)
       : ZFinder(inputfs, cuts, pid, minmass, maxmass,
-                dRmax, PROMPTCHLEPTONS, clusterPhotons, trackPhotons, masstarget)
+                dRmax, ChargedLeptons::PROMPT, clusterPhotons, trackPhotons, masstarget)
     {   }
 
 
@@ -111,7 +111,7 @@ namespace Rivet {
 
     /// Switch for tracking of photons (whether to include them in the Z particle)
     /// This is relevant when the clustered photons need to be excluded from e.g. a jet finder
-    PhotonTracking _trackPhotons;
+    AddPhotons _trackPhotons;
 
     /// Lepton flavour
     PdgId _pid;

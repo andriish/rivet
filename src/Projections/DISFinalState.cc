@@ -7,8 +7,8 @@ namespace Rivet {
   void DISFinalState::project(const Event& e) {
     const DISKinematics& diskin = apply<DISKinematics>(e, "Kinematics");
     LorentzTransform hcmboost; //< Null boost = LAB frame by default
-    if (_boosttype == HCM) hcmboost = diskin.boostHCM();
-    else if (_boosttype == BREIT) hcmboost = diskin.boostBreit();
+    if (_boosttype == BoostFrame::HCM) hcmboost = diskin.boostHCM();
+    else if (_boosttype == BoostFrame::BREIT) hcmboost = diskin.boostBreit();
 
     const DISLepton& dislep = diskin.apply<DISLepton>(e, "Lepton");
 
@@ -23,7 +23,7 @@ namespace Rivet {
 
     for (const Particle& p : fs.particles()) { ///< Ensure that we skip the DIS lepton
       Particle temp = p;
-      if (_boosttype != LAB) temp.setMomentum(hcmboost.transform(temp.momentum()));
+      if (_boosttype != BoostFrame::LAB) temp.setMomentum(hcmboost.transform(temp.momentum()));
       if (p.genParticle() != dislepGP)  _theParticles.push_back(temp);
     }
 

@@ -33,7 +33,7 @@ namespace Rivet {
       Cut cuts = Cuts::abseta < 2.47 && Cuts::pT > 25*GeV;
 
       // Z finder
-      ZFinder zf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 40.0*GeV, 1000.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
+      ZFinder zf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 40.0*GeV, 1000.0*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
       declare(zf, "ZF");
 
       // leading photon

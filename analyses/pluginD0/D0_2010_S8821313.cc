@@ -27,9 +27,9 @@ namespace Rivet {
       /// Initialise and register projections
       FinalState fs;
       Cut cuts = (Cuts::abseta < 1.1 || Cuts::absetaIn( 1.5,  3.0)) && Cuts::pT > 20*GeV;
-      ZFinder zfinder_ee(fs, cuts, PID::ELECTRON, 70*GeV, 110*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+      ZFinder zfinder_ee(fs, cuts, PID::ELECTRON, 70*GeV, 110*GeV, 0.2, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder_ee, "zfinder_ee");
-      ZFinder zfinder_mm(fs, Cuts::abseta < 2 && Cuts::pT > 15*GeV, PID::MUON, 70*GeV, 110*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK);
+      ZFinder zfinder_mm(fs, Cuts::abseta < 2 && Cuts::pT > 15*GeV, PID::MUON, 70*GeV, 110*GeV, 0.0, ZFinder::ClusterPhotons::NONE, ZFinder::AddPhotons::NO);
       declare(zfinder_mm, "zfinder_mm");
 
       /// Book histograms here

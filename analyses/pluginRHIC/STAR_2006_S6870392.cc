@@ -24,7 +24,7 @@ namespace Rivet {
       FinalState fs(-2.0, 2.0);
       declare(fs, "FS");
       declare(FastJets(fs, FastJets::CDFMIDPOINT, 0.4,
-                             JetAlg::ALL_MUONS, JetAlg::NO_INVISIBLES,
+                             JetAlg::Muons::ALL, JetAlg::Invisibles::NONE,
                              nullptr, 0.5), "MidpointJets");
 
       book(_h_jet_pT_MB ,1, 1, 1);

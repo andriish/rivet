@@ -20,10 +20,10 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      TauFinder tauleptonic(TauFinder::LEPTONIC); // open cuts, leptonic decays
+      TauFinder tauleptonic(TauFinder::DecayMode::LEPTONIC); // open cuts, leptonic decays
       declare(tauleptonic, "TauLeptonic");
 
-      TauFinder tauhadronic(TauFinder::HADRONIC); // open cuts, hadronic decays
+      TauFinder tauhadronic(TauFinder::DecayMode::HADRONIC); // open cuts, hadronic decays
       declare(tauhadronic, "TauHadronic");
 
       populateDecayMap();

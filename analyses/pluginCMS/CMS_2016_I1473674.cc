@@ -26,8 +26,8 @@ namespace Rivet {
       FinalState fs;
 
       // Parton level top quarks
-      declare(PartonicTops(PartonicTops::E_MU, false), "LeptonicPartonTops");
-      declare(PartonicTops(PartonicTops::HADRONIC),    "HadronicPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::E_MU, false), "LeptonicPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC),    "HadronicPartonTops");
 
       // Projections for dressed electrons and muons
       IdentifiedFinalState photons(fs);

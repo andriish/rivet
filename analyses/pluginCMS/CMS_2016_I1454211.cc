@@ -27,9 +27,9 @@ namespace Rivet {
       FinalState fs;
 
       // Partonic tops
-      declare(PartonicTops(PartonicTops::ELECTRON, false), "ElectronPartonTops");
-      declare(PartonicTops(PartonicTops::MUON, false),     "MuonPartonTops");
-      declare(PartonicTops(PartonicTops::HADRONIC),        "HadronicPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::ELECTRON, false), "ElectronPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::MUON, false),     "MuonPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC),        "HadronicPartonTops");
 
       // Projection for electrons and muons
       IdentifiedFinalState photons(fs, PID::PHOTON);

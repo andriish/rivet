@@ -29,7 +29,7 @@ namespace Rivet {
 
       // W finder for electrons and muons
       WFinder wf(fs, cuts, _mode==3? PID::MUON : PID::ELECTRON, 0.0*GeV, MAXDOUBLE, 0.0, 0.1,
-                 WFinder::CLUSTERNODECAY, WFinder::NOTRACK, WFinder::TRANSMASS);
+                 WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(wf, "WF");
 
       // jets

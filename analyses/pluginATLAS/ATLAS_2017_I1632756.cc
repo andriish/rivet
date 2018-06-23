@@ -25,7 +25,7 @@ namespace Rivet {
       declare(VisibleFinalState(Cuts::abspid != PID::MUON), "caloParticles");
 
       // Voronoi eta-phi tessellation with KT jets, for ambient energy density calculation
-      FastJets fj(FinalState(), FastJets::KT, 0.5, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
+      FastJets fj(FinalState(), FastJets::KT, 0.5, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       fj.useJetArea(new fastjet::AreaDefinition(fastjet::VoronoiAreaSpec()));
       declare(fj, "KtJetsD05");
 
@@ -35,7 +35,7 @@ namespace Rivet {
       declare(photonfs, "LeadingPhoton");
 
       // Jets
-      FastJets jetpro(FinalState(), FastJets::ANTIKT, 0.4, JetAlg::DECAY_MUONS, JetAlg::DECAY_INVISIBLES);
+      FastJets jetpro(FinalState(), FastJets::ANTIKT, 0.4, JetAlg::Muons::DECAY, JetAlg::Invisibles::DECAY);
       declare(jetpro, "Jets");
 
       // Heavy hadrons

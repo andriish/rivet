@@ -19,7 +19,7 @@ namespace Rivet {
                    double dRmax,
                    ChargedLeptons chLeptons,
                    ClusterPhotons clusterPhotons,
-                   PhotonTracking trackPhotons,
+                   AddPhotons trackPhotons,
                    MassWindow masstype,
                    double masstarget) {
     setName("WFinder");
@@ -30,7 +30,7 @@ namespace Rivet {
     _masstarget = masstarget;
     _pid = abs(pid);
     _trackPhotons = trackPhotons;
-    _useTransverseMass = (masstype == TRANSMASS);
+    _useTransverseMass = (masstype == MassWindow::MT);
 
     // Check that the arguments are legal
     if (_pid != PID::ELECTRON && _pid != PID::MUON)
@@ -39,7 +39,7 @@ namespace Rivet {
     // Identify bare leptons for dressing
     // Bit of a code nightmare -- FS projection copy constructors don't work?
     /// @todo Fix FS copy constructors!!
-    if (chLeptons == PROMPTCHLEPTONS) {
+    if (chLeptons == ChargedLeptons::PROMPT) {
       PromptFinalState inputfs_prompt(inputfs);
       IdentifiedFinalState bareleptons(inputfs_prompt);
       bareleptons.acceptIdPair(_pid);
@@ -51,8 +51,8 @@ namespace Rivet {
     }
 
     // Dress the bare leptons
-    const bool doClustering = (clusterPhotons != NOCLUSTER);
-    const bool useDecayPhotons = (clusterPhotons == CLUSTERALL);
+    const bool doClustering = (clusterPhotons != ClusterPhotons::NONE);
+    const bool useDecayPhotons = (clusterPhotons == ClusterPhotons::ALL);
     DressedLeptons leptons(inputfs, get<FinalState>("BareLeptons"), (doClustering ? dRmax : -1.), leptoncuts, useDecayPhotons);
     addProjection(leptons, "DressedLeptons");
 
@@ -149,7 +149,7 @@ namespace Rivet {
     // Add (dressed) lepton constituents to the W (skipping photons if requested)
     /// @todo Do we need to add all used invisibles to _theParticles ?
     const Particle l = p1.isChargedLepton() ? p1 : p2;
-    _leptons += (_trackPhotons == TRACK) ? l : l.constituents().front();
+    _leptons += (_trackPhotons == AddPhotons::YES) ? l : l.constituents().front();
     w.addConstituent(_leptons.back());
     const Particle nu = p1.isNeutrino() ? p1 : p2;
     _neutrinos += nu;

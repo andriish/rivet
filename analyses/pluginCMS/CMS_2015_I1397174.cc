@@ -22,13 +22,13 @@ namespace Rivet {
     void init() {
 
       // Parton level top quarks
-      addProjection(PartonicTops(PartonicTops::E_MU, false), "PartonTops");
+      addProjection(PartonicTops(PartonicTops::DecayMode::E_MU, false), "PartonTops");
 
       // Find jets not related to the top/W decays
       VetoedFinalState vfs;
       vfs.addDecayProductsVeto(PID::WPLUSBOSON);
       vfs.addDecayProductsVeto(PID::WMINUSBOSON);
-      FastJets fj(vfs, FastJets::ANTIKT, 0.5, JetAlg::ALL_MUONS, JetAlg::ALL_INVISIBLES);
+      FastJets fj(vfs, FastJets::ANTIKT, 0.5, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
       addProjection(fj, "Jets");
 
       // Book histograms

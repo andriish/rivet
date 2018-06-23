@@ -62,7 +62,7 @@ namespace Rivet {
       declare(MissingMomentum(met_fs), "MET");
 
       // Jet collection
-      FastJets jets(FinalState(Cuts::abseta < 4.9), FastJets::ANTIKT, 0.4, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
+      FastJets jets(FinalState(Cuts::abseta < 4.9), FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       declare(jets, "Jets");
 
       _h["met_mono"] = bookHandler(1, 1, 2);

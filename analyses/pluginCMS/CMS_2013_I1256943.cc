@@ -29,10 +29,10 @@ namespace Rivet {
 
       Cut zetacut = Cuts::abseta < 2.4;
 
-      ZFinder zfindermu(fs, zetacut, PID::MUON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
+      ZFinder zfindermu(fs, zetacut, PID::MUON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::ClusterPhotons::NONE, ZFinder::AddPhotons::YES, 91.2*GeV);
       declare(zfindermu, "ZFinderMu");
 
-      ZFinder zfinderel(fs, zetacut, PID::ELECTRON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::NOCLUSTER, ZFinder::TRACK, 91.2*GeV);
+      ZFinder zfinderel(fs, zetacut, PID::ELECTRON, 81.0*GeV, 101.0*GeV, 0.1, ZFinder::ClusterPhotons::NONE, ZFinder::AddPhotons::YES, 91.2*GeV);
       declare(zfinderel, "ZFinderEl");
 
 

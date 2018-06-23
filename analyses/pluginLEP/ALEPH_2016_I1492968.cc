@@ -37,8 +37,8 @@ namespace Rivet {
       const FinalState fs;
       addProjection(fs, "FS");
 
-      FastJets jets(fs, FastJets::GENKTEE, 0.5, JetAlg::NO_MUONS, JetAlg::ALL_INVISIBLES);
-      //FastJets jets(fs, FastJets::ANTIKT, 0.5, JetAlg::NO_MUONS, JetAlg::ALL_INVISIBLES);
+      FastJets jets(fs, FastJets::GENKTEE, 0.5, JetAlg::Muons::NONE, JetAlg::Invisibles::ALL);
+      //FastJets jets(fs, FastJets::ANTIKT, 0.5, JetAlg::Muons::NONE, JetAlg::Invisibles::ALL);
       addProjection(jets, "Jets");
 
       IdentifiedFinalState mu_id(fs);

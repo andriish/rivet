@@ -27,10 +27,10 @@ namespace Rivet {
 
       Cut cut = (Cuts::pT >= 20.0*GeV);
 
-      ZFinder zfinder_ee_bare(   fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.0, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      ZFinder zfinder_ee_dressed(fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      ZFinder zfinder_mm_bare(   fs, cut, PID::MUON    , 66.0*GeV, 116.0*GeV, 0.0, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
-      ZFinder zfinder_mm_dressed(fs, cut, PID::MUON    , 66.0*GeV, 116.0*GeV, 0.1, ZFinder::CLUSTERNODECAY, ZFinder::NOTRACK);
+      ZFinder zfinder_ee_bare(   fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.0, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
+      ZFinder zfinder_ee_dressed(fs, cut, PID::ELECTRON, 66.0*GeV, 116.0*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
+      ZFinder zfinder_mm_bare(   fs, cut, PID::MUON    , 66.0*GeV, 116.0*GeV, 0.0, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
+      ZFinder zfinder_mm_dressed(fs, cut, PID::MUON    , 66.0*GeV, 116.0*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::NO);
 
       declare(zfinder_ee_bare   , "ZFinder_ee_bare"   );
       declare(zfinder_ee_dressed, "ZFinder_ee_dressed");

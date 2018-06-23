@@ -24,7 +24,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       ZFinder zfinder(FinalState(), Cuts::open(), PID::ELECTRON,
-                      71*GeV, 111*GeV, 0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+                      71*GeV, 111*GeV, 0.2, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
 
       book(_h_yZ ,1, 1, 1);

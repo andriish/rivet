@@ -13,8 +13,8 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      declare(PartonicTops(PartonicTops::E_MU, false), "LeptonicPartonTops");
-      declare(PartonicTops(PartonicTops::HADRONIC),    "HadronicPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::E_MU, false), "LeptonicPartonTops");
+      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC),    "HadronicPartonTops");
 
       book(_hSL_topPt        , 15, 1, 1);
       book(_hSL_topPtTtbarSys, 16, 1, 1);

@@ -117,7 +117,7 @@ namespace Rivet
     VetoedFinalState fsForJets(fs);
     fsForJets.addVetoOnThisFinalState(dressedleptons);
     fsForJets.addVetoOnThisFinalState(neutrinos);
-    addProjection(FastJets(fsForJets, FastJets::ANTIKT, 0.4, JetAlg::DECAY_MUONS, JetAlg::DECAY_INVISIBLES), "Jets");
+    addProjection(FastJets(fsForJets, FastJets::ANTIKT, 0.4, JetAlg::Muons::DECAY, JetAlg::Invisibles::DECAY), "Jets");
     
     //book hists
     book(_hist_thadpt, "d01-x02-y01");

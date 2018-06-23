@@ -20,8 +20,8 @@ namespace Rivet {
 
       /// Declare AntiKt 0.6 jets without muons and neutrinos
       FastJets fastJets(FinalState(), FastJets::ANTIKT, 0.6);
-      fastJets.useInvisibles(JetAlg::NO_INVISIBLES);
-      fastJets.useMuons(JetAlg::NO_MUONS);
+      fastJets.useInvisibles(JetAlg::Invisibles::NONE);
+      fastJets.useMuons(JetAlg::Muons::NONE);
       addProjection(fastJets, "AntiKt6Jets");
 
       book(_hists["deltaPt34"]       ,  1, 1, 1);

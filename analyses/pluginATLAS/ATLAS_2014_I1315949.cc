@@ -19,7 +19,7 @@ namespace Rivet {
 
       FinalState fs;
 
-      ZFinder zfinder(fs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::CLUSTERNODECAY);
+      ZFinder zfinder(fs, Cuts::abseta<2.4 && Cuts::pT>20.0*GeV, PID::MUON, 66*GeV, 116*GeV, 0.1, ZFinder::ClusterPhotons::NODECAY);
       declare(zfinder, "ZFinder");
 
       ChargedFinalState cfs( zfinder.remainingFinalState() );

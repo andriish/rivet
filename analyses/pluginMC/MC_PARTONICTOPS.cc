@@ -20,9 +20,9 @@ namespace Rivet {
     void init() {
 
       // Initialise and register projections
-      declare(PartonicTops(PartonicTops::ALL), "AllTops");
-      declare(PartonicTops(PartonicTops::E_MU), "LeptonicTops");
-      declare(PartonicTops(PartonicTops::HADRONIC), "HadronicTops");
+      declare(PartonicTops(PartonicTops::DecayMode::ALL), "AllTops");
+      declare(PartonicTops(PartonicTops::DecayMode::E_MU), "LeptonicTops");
+      declare(PartonicTops(PartonicTops::DecayMode::HADRONIC), "HadronicTops");
 
       // Book histograms
       book(_h_tall_n , "t_all_n", linspace(5, -0.5, 4.5));

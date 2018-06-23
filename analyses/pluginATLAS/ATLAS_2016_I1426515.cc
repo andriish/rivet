@@ -55,7 +55,7 @@ namespace Rivet {
       addProjection(ivfs, "InvisibleFS");
 
       // Project jets
-      FastJets jets(fs, FastJets::ANTIKT, 0.4, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
+      FastJets jets(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       addProjection(jets, "jets");
 
 

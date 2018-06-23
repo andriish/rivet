@@ -20,7 +20,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       FinalState fs;
-      ZFinder zfinder_mm(fs, Cuts::abseta < 2 && Cuts::pT > 15*GeV, PID::MUON, 30*GeV, 500*GeV, 0.0, ZFinder::NOCLUSTER, ZFinder::NOTRACK);
+      ZFinder zfinder_mm(fs, Cuts::abseta < 2 && Cuts::pT > 15*GeV, PID::MUON, 30*GeV, 500*GeV, 0.0, ZFinder::ClusterPhotons::NONE, ZFinder::AddPhotons::NO);
       declare(zfinder_mm, "zfinder_mm");
 
       book(_h_phistar_mm_peak_central ,1, 1, 1);

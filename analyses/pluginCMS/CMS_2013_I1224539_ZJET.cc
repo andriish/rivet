@@ -41,7 +41,7 @@ namespace Rivet {
 
       // Find Zs with pT > 120 GeV
       ZFinder zfinder(fs, Cuts::abseta < 2.4 && Cuts::pT > 30*GeV, PID::ELECTRON, 80*GeV, 100*GeV,
-                      0.2, ZFinder::CLUSTERNODECAY, ZFinder::TRACK);
+                      0.2, ZFinder::ClusterPhotons::NODECAY, ZFinder::AddPhotons::YES);
       declare(zfinder, "ZFinder");
 
       // Z+jet jet collections

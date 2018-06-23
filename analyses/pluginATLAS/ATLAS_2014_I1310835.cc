@@ -32,7 +32,7 @@ namespace Rivet {
       DressedLeptons muon_sel4l(photons, bare_mu, 0.1, etaranges_mu, false);
       addProjection(muon_sel4l, "muons");
 
-      FastJets jetpro(fs, FastJets::ANTIKT, 0.4, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
+      FastJets jetpro(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       addProjection(jetpro, "jet");
 
       // Book histos

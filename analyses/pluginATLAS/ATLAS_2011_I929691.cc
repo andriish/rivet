@@ -19,7 +19,7 @@ namespace Rivet {
     void init() {
       const FinalState fs(Cuts::abseta < 2.0);
 
-      FastJets antikt_06_jets(fs, FastJets::ANTIKT, 0.6, JetAlg::NO_MUONS, JetAlg::NO_INVISIBLES);
+      FastJets antikt_06_jets(fs, FastJets::ANTIKT, 0.6, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
       declare(antikt_06_jets, "jets");
 
       ChargedFinalState tracks(Cuts::pT > 0.5*GeV && Cuts::abseta < 2.0);

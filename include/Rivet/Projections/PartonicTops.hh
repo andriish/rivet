@@ -18,7 +18,16 @@ namespace Rivet {
     /// @brief Enum for categorising top quark decay modes
     ///
     /// More specifically, the decay mode of the W from the top. We presume top decay to a W and b quark.
-    enum DecayMode { ALL = 0, ANY = 0, ELECTRON, MUON, TAU, E_MU, E_MU_TAU, HADRONIC };
+    enum class DecayMode { 
+      ANY = 0, 
+      ALL = 0, 
+      ELECTRON, 
+      MUON, 
+      TAU, 
+      E_MU, 
+      E_MU_TAU, 
+      HADRONIC 
+    };
 
 
     /// @name Constructors
@@ -26,7 +35,7 @@ namespace Rivet {
 
     /// Constructor optionally taking cuts object
     PartonicTops(const Cut& c=Cuts::OPEN)
-      : ParticleFinder(c), _decaymode(ALL), _emu_from_prompt_tau(true), _include_hadronic_taus(false)
+      : ParticleFinder(c), _decaymode(DecayMode::ALL), _emu_from_prompt_tau(true), _include_hadronic_taus(false)
     {  }
 
     /// Constructor taking decay mode details (and an optional cuts object)
@@ -65,17 +74,17 @@ namespace Rivet {
       // Find partonic tops
       _theParticles = filter_select(event.allParticles(_cuts), lastParticleWith(isTop));
       // Filtering by decay mode
-      if (_decaymode != ALL) {
+      if (_decaymode != DecayMode::ALL) {
         const auto fn = [&](const Particle& t) {
           const Particles descendants = t.allDescendants();
           const bool prompt_e = any(descendants, [&](const Particle& p){ return p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON, false); });
           const bool prompt_mu = any(descendants, [&](const Particle& p){ return p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON, false); });
-          if (prompt_e && (_decaymode == ELECTRON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
-          if (prompt_mu && (_decaymode == MUON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
+          if (prompt_e && (_decaymode == DecayMode::ELECTRON || _decaymode == DecayMode::E_MU || _decaymode == DecayMode::E_MU_TAU)) return true;
+          if (prompt_mu && (_decaymode == DecayMode::MUON || _decaymode == DecayMode::E_MU || _decaymode == DecayMode::E_MU_TAU)) return true;
           const bool prompt_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt()  && !p.hasAncestor(PID::PHOTON, false); });
           const bool prompt_hadronic_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt() && !p.hasAncestor(PID::PHOTON, false) && none(p.children(), isChargedLepton); });
-          if (prompt_tau && (_decaymode == TAU || _decaymode == E_MU_TAU)) return (_include_hadronic_taus || !prompt_hadronic_tau);
-          if (_decaymode == HADRONIC && (!prompt_e && !prompt_mu && (!prompt_tau || (_include_hadronic_taus && prompt_hadronic_tau)))) return true; //< logical hairiness...
+          if (prompt_tau && (_decaymode == DecayMode::TAU || _decaymode == DecayMode::E_MU_TAU)) return (_include_hadronic_taus || !prompt_hadronic_tau);
+          if (_decaymode == DecayMode::HADRONIC && (!prompt_e && !prompt_mu && (!prompt_tau || (_include_hadronic_taus && prompt_hadronic_tau)))) return true; //< logical hairiness...
           return false;
         };
         ifilter_select(_theParticles, fn);

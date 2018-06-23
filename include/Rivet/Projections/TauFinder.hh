@@ -13,7 +13,12 @@ namespace Rivet {
   class TauFinder : public FinalState {
   public:
 
-    enum DecayType { ANY=0, LEPTONIC=1, HADRONIC };
+    enum class DecayMode { 
+      ANY = 0, 
+      ALL = 0,
+      LEPTONIC, 
+      HADRONIC 
+    };
 
     static bool isHadronic(const Particle& tau) {
       assert(tau.abspid() == PID::TAU);
@@ -25,10 +30,10 @@ namespace Rivet {
     }
 
 
-    TauFinder(DecayType decaytype, const Cut& cut=Cuts::open()) {
+    TauFinder(DecayMode decaymode, const Cut& cut=Cuts::open()) {
       /// @todo What about directness/promptness?
       setName("TauFinder");
-      _dectype = decaytype;
+      _decmode = decaymode;
       addProjection(UnstableFinalState(cut), "UFS");
     }
 
@@ -51,8 +56,8 @@ namespace Rivet {
 
   private:
 
-    /// The decaytype enum
-    DecayType _dectype;
+    /// The decaymode enum
+    DecayMode _decmode;
 
   };
 
