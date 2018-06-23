@@ -714,6 +714,15 @@ namespace Rivet {
     return out;
   }
 
+
+  // inline void ifilterIsolateDeltaR(Particles& particles, const FourMomenta& vecs) {
+  //   ifilter_discard(particles,
+  // }
+
+
+  // inline Particles filterIsolateDeltaR(const Particles& particles, const FourMomenta& vecs) {
+  // }
+
   //@}
 
 

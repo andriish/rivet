@@ -192,6 +192,9 @@ namespace Rivet {
   //////////////////////
 
 
+  /// Jets copy constructor from vector<Jet>
+  Jets::Jets(const std::vector<Jet>& vjs) : base(vjs) {}
+
   /// Jets -> FourMomenta cast/conversion operator
   Jets::operator FourMomenta () const {
     // FourMomenta rtn(this->begin(), this->end());

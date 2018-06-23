@@ -232,6 +232,13 @@ namespace Rivet {
   }
 
 
+  bool ProjectionHandler::hasProjection(const ProjectionApplier& parent, const string& name) const {
+    MSG_TRACE("Searching for child projection '" << name << "' of " << &parent);
+    NamedProjsMap::const_iterator nps = _namedprojs.find(&parent);
+    if (nps == _namedprojs.end()) return false;
+    NamedProjs::const_iterator np = nps->second.find(name);
+    return !(np == nps->second.end());
+  }
 
 
   const Projection& ProjectionHandler::getProjection(const ProjectionApplier& parent,

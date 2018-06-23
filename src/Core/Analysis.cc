@@ -379,6 +379,47 @@ namespace Rivet {
     return h2d;
   }
 
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname,
+                                   const Scatter3D& refscatter,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const string path = histoPath(hname);
+
+    Histo2D hist = Histo2D(refscatter, path);
+
+    hist.setTitle(title);
+    hist.setAnnotation("XLabel", xtitle);
+    hist.setAnnotation("YLabel", ytitle);
+    hist.setAnnotation("ZLabel", ztitle);
+
+    histo = Histo2DPtr(handler().weightNames(), hist);
+    addAnalysisObject(histo);
+
+    MSG_TRACE("Made histogram " << hname <<  " for " << name());
+    return histo;
+  }
+
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, const string& hname,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const Scatter3D& refdata = refData<Scatter3D>(hname);
+    return book(histo, hname, refdata, title, xtitle, ytitle, ztitle);
+  }
+
+  Histo2DPtr & Analysis::book(Histo2DPtr & histo, unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                                   const string& title,
+                                   const string& xtitle,
+                                   const string& ytitle,
+                                   const string& ztitle) {
+    const string axisCode = mkAxisCode(datasetId, xAxisId, yAxisId);
+    return book(histo, axisCode, title, xtitle, ytitle, ztitle);
+  }
+
+
 
   Profile1DPtr & Analysis::book(Profile1DPtr & p1d,const string& hname,
                                        size_t nbins, double lower, double upper,

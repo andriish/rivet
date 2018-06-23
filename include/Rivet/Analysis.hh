@@ -466,29 +466,29 @@ namespace Rivet {
                            const std::string& ytitle="",
                            const std::string& ztitle="");
 
-    // /// Book a 2D histogram with binning from a reference scatter.
-    // Histo2DPtr bookHisto2D(const std::string& name,
-    //                        const Scatter3D& refscatter,
-    //                        const std::string& title="",
-    //                        const std::string& xtitle="",
-    //                        const std::string& ytitle="",
-    //                        const std::string& ztitle="");
+    /// Book a 2D histogram with binning from a reference scatter.
+    Histo2DPtr & book(Histo2DPtr &,const std::string& name,
+                           const Scatter3D& refscatter,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="",
+                           const std::string& ztitle="");
 
-    // /// Book a 2D histogram, using the binnings in the reference data histogram.
-    // Histo2DPtr bookHisto2D(const std::string& name,
-    //                        const std::string& title="",
-    //                        const std::string& xtitle="",
-    //                        const std::string& ytitle="",
-    //                        const std::string& ztitle="");
+    /// Book a 2D histogram, using the binnings in the reference data histogram.
+    Histo2DPtr & book(Histo2DPtr &,const std::string& name,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="",
+                           const std::string& ztitle="");
 
-    // /// Book a 2D histogram, using the binnings in the reference data histogram.
-    // ///
-    // /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
-    // Histo2DPtr bookHisto2D(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
-    //                        const std::string& title="",
-    //                        const std::string& xtitle="",
-    //                        const std::string& ytitle="",
-    //                        const std::string& ztitle="");
+    /// Book a 2D histogram, using the binnings in the reference data histogram.
+    ///
+    /// The paper, dataset and x/y-axis IDs will be used to build the histo name in the HepData standard way.
+    Histo2DPtr & book(Histo2DPtr &,unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId,
+                           const std::string& title="",
+                           const std::string& xtitle="",
+                           const std::string& ytitle="",
+                           const std::string& ztitle="");
 
     //@}
 

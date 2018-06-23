@@ -1,6 +1,9 @@
+SUBDIRS = Nsubjettiness
+
 noinst_LTLIBRARIES = libRivetTools.la
 
 libRivetTools_la_SOURCES = \
+  BinnedHistogram.cc \
   Cuts.cc \
   JetUtils.cc \
   Random.cc \
@@ -11,9 +14,8 @@ libRivetTools_la_SOURCES = \
   RivetMT2.cc \
   RivetPaths.cc \
   Utils.cc \
-  binreloc.c \
-  BinnedHistogram.cc
+  binreloc.c
 
-dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh mt2_bisect.hh
+dist_noinst_HEADERS = binreloc.h lester_mt2_bisect.hh
 
 libRivetTools_la_CPPFLAGS = $(AM_CPPFLAGS) -DENABLE_BINRELOC -DDEFAULTDATADIR=\"$(datadir)\" -DDEFAULTLIBDIR=\"$(libdir)\"

@@ -68,18 +68,12 @@ namespace Rivet {
       if (_decaymode != ALL) {
         const auto fn = [&](const Particle& t) {
           const Particles descendants = t.allDescendants();
-          const bool prompt_e = any(descendants, [&](const Particle& p){ return p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON); });
-          const bool prompt_mu = any(descendants, [&](const Particle& p){ return p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON); });
-          // const bool prompt_e = any(descendants, [&](const Particle& p){ bool x = p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON);
-          //                                                                if (p.hasAncestor(PID::PHOTON)) MSG_WARNING("Top decay electron with photon ancestor");
-          //                                                                return x; });
-          // const bool prompt_mu = any(descendants, [&](const Particle& p){ bool x = p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON);
-          //                                                                 if (p.hasAncestor(PID::PHOTON)) MSG_WARNING("Top decay muon with photon ancestor");
-          //                                                                 return x; });
+          const bool prompt_e = any(descendants, [&](const Particle& p){ return p.abspid() == PID::ELECTRON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON, false); });
+          const bool prompt_mu = any(descendants, [&](const Particle& p){ return p.abspid() == PID::MUON && p.isPrompt(_emu_from_prompt_tau) && !p.hasAncestor(PID::PHOTON, false); });
           if (prompt_e && (_decaymode == ELECTRON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
           if (prompt_mu && (_decaymode == MUON || _decaymode == E_MU || _decaymode == E_MU_TAU)) return true;
-          const bool prompt_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt(); });
-          const bool prompt_hadronic_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt() && none(p.children(), isChargedLepton); });
+          const bool prompt_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt()  && !p.hasAncestor(PID::PHOTON, false); });
+          const bool prompt_hadronic_tau = any(descendants, [&](const Particle& p){ return p.abspid() == PID::TAU && p.isPrompt() && !p.hasAncestor(PID::PHOTON, false) && none(p.children(), isChargedLepton); });
           if (prompt_tau && (_decaymode == TAU || _decaymode == E_MU_TAU)) return (_include_hadronic_taus || !prompt_hadronic_tau);
           if (_decaymode == HADRONIC && (!prompt_e && !prompt_mu && (!prompt_tau || (_include_hadronic_taus && prompt_hadronic_tau)))) return true; //< logical hairiness...
           return false;
