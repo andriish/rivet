@@ -4,7 +4,7 @@
 #include "Rivet/Math/MathHeader.hh"
 #include "Rivet/Math/MathUtils.hh"
 
-#include "Rivet/Math/eigen/vector.h"
+#include "Rivet/Math/eigen3/Dense"
 
 namespace Rivet {
 
@@ -25,7 +25,7 @@ namespace Rivet {
     friend Vector<M> multiply(const Matrix<M>& a, const Vector<M>& b);
 
   public:
-    Vector() { _vec.loadZero(); }
+    Vector() : _vec(EVector::Zero()) { }
 
     Vector(const Vector<N>& other)
       : _vec(other._vec) { }
@@ -113,24 +113,25 @@ namespace Rivet {
       return _vec != a._vec;
     }
 
-    bool operator<(const Vector<N>& a) const {
-      return _vec < a._vec;
-    }
+    // bool operator<(const Vector<N>& a) const {
+    //   return _vec < a._vec;
+    // }
 
-    bool operator<=(const Vector<N>& a) const {
-      return _vec <= a._vec;
-    }
+    // bool operator<=(const Vector<N>& a) const {
+    //   return _vec <= a._vec;
+    // }
 
-    bool operator>(const Vector<N>& a) const {
-      return _vec > a._vec;
-    }
+    // bool operator>(const Vector<N>& a) const {
+    //   return _vec > a._vec;
+    // }
 
-    bool operator>=(const Vector<N>& a) const {
-      return _vec >= a._vec;
-    }
+    // bool operator>=(const Vector<N>& a) const {
+    //   return _vec >= a._vec;
+    // }
 
     /// Vector
-    Eigen::Vector<double,N> _vec;
+    using EVector = Eigen::Matrix<double,N,1>;
+    EVector _vec;
 
   };
 

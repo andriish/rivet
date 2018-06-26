@@ -5,7 +5,7 @@
 #include "Rivet/Math/MathUtils.hh"
 #include "Rivet/Math/Vectors.hh"
 
-#include "Rivet/Math/eigen/matrix.h"
+#include "Rivet/Math/eigen3/Dense"
 
 namespace Rivet {
 
@@ -64,13 +64,9 @@ namespace Rivet {
 
   public:
 
-    Matrix() {
-      _matrix.loadZero();
-    }
+    Matrix() : _matrix(EMatrix::Zero()) {}
 
-    Matrix(const Matrix<N>& other) {
-      _matrix = other._matrix;
-    }
+    Matrix(const Matrix<N>& other) : _matrix(other._matrix) {}
 
     Matrix& set(const size_t i, const size_t j, const double value) {
       if (i < N && j < N) {
@@ -120,8 +116,8 @@ namespace Rivet {
     }
 
     Matrix<N> transpose() const {
-      Matrix<N> tmp = *this;
-      tmp._matrix.replaceWithAdjoint();
+      Matrix<N> tmp;
+      tmp._matrix = _matrix.transpose();
       return tmp;
     }
 
@@ -208,24 +204,24 @@ namespace Rivet {
       return _matrix != a._matrix;
     }
 
-    bool operator < (const Matrix<N>& a) const {
-      return _matrix < a._matrix;
-    }
+    // bool operator < (const Matrix<N>& a) const {
+    //   return _matrix < a._matrix;
+    // }
 
-    bool operator <= (const Matrix<N>& a) const {
-      return _matrix <= a._matrix;
-    }
+    // bool operator <= (const Matrix<N>& a) const {
+    //   return _matrix <= a._matrix;
+    // }
 
-    bool operator > (const Matrix<N>& a) const {
-      return _matrix > a._matrix;
-    }
+    // bool operator > (const Matrix<N>& a) const {
+    //   return _matrix > a._matrix;
+    // }
 
-    bool operator >= (const Matrix<N>& a) const {
-      return _matrix >= a._matrix;
-    }
+    // bool operator >= (const Matrix<N>& a) const {
+    //   return _matrix >= a._matrix;
+    // }
 
     Matrix<N>& operator *= (const Matrix<N>& m) {
-      _matrix = _matrix * m._matrix;
+      _matrix *= m._matrix;
       return *this;
     }
 
@@ -251,7 +247,7 @@ namespace Rivet {
 
   protected:
 
-    typedef Eigen::Matrix<double,N> EMatrix;
+    using EMatrix = Eigen::Matrix<double,N,N>;
     EMatrix _matrix;
 
   };

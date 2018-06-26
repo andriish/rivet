@@ -10,9 +10,6 @@
 #include <vector>
 #include <array>
 
-#include "eigen/vector.h"
-#include "eigen/matrix.h"
-
 using std::string;
 using std::ostream;
 using std::ostringstream;
