@@ -156,33 +156,16 @@ nobase_pkginclude_HEADERS += \
   Math/Units.hh \
   Math/Constants.hh \
   Math/eigen3/Cholesky \
-  Math/eigen3/CholmodSupport \
   Math/eigen3/Core \
   Math/eigen3/Dense \
-  Math/eigen3/Eigen \
   Math/eigen3/Eigenvalues \
   Math/eigen3/Geometry \
   Math/eigen3/Householder \
-  Math/eigen3/IterativeLinearSolvers \
   Math/eigen3/Jacobi \
-  Math/eigen3/KLUSupport \
   Math/eigen3/LU \
-  Math/eigen3/MetisSupport \
-  Math/eigen3/OrderingMethods \
-  Math/eigen3/PardisoSupport \
-  Math/eigen3/PaStiXSupport \
   Math/eigen3/QR \
-  Math/eigen3/QtAlignedMalloc \
-  Math/eigen3/Sparse \
-  Math/eigen3/SparseCholesky \
-  Math/eigen3/SparseCore \
-  Math/eigen3/SparseLU \
-  Math/eigen3/SparseQR \
-  Math/eigen3/SPQRSupport \
   Math/eigen3/src/Cholesky/LDLT.h \
   Math/eigen3/src/Cholesky/LLT.h \
-  Math/eigen3/src/Cholesky/LLT_LAPACKE.h \
-  Math/eigen3/src/CholmodSupport/CholmodSupport.h \
   Math/eigen3/src/Core/arch/AltiVec/Complex.h \
   Math/eigen3/src/Core/arch/AltiVec/MathFunctions.h \
   Math/eigen3/src/Core/arch/AltiVec/PacketMath.h \
@@ -213,7 +196,6 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/Core/ArrayBase.h \
   Math/eigen3/src/Core/ArrayWrapper.h \
   Math/eigen3/src/Core/Assign.h \
-  Math/eigen3/src/Core/Assign_MKL.h \
   Math/eigen3/src/Core/AssignEvaluator.h \
   Math/eigen3/src/Core/BandMatrix.h \
   Math/eigen3/src/Core/Block.h \
@@ -235,7 +217,6 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/Core/DiagonalProduct.h \
   Math/eigen3/src/Core/Dot.h \
   Math/eigen3/src/Core/EigenBase.h \
-  Math/eigen3/src/Core/ForceAlignedAccess.h \
   Math/eigen3/src/Core/functors/AssignmentFunctors.h \
   Math/eigen3/src/Core/functors/BinaryFunctors.h \
   Math/eigen3/src/Core/functors/NullaryFunctors.h \
@@ -263,24 +244,16 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/Core/ProductEvaluators.h \
   Math/eigen3/src/Core/products/GeneralBlockPanelKernel.h \
   Math/eigen3/src/Core/products/GeneralMatrixMatrix.h \
-  Math/eigen3/src/Core/products/GeneralMatrixMatrix_BLAS.h \
   Math/eigen3/src/Core/products/GeneralMatrixMatrixTriangular.h \
-  Math/eigen3/src/Core/products/GeneralMatrixMatrixTriangular_BLAS.h \
   Math/eigen3/src/Core/products/GeneralMatrixVector.h \
-  Math/eigen3/src/Core/products/GeneralMatrixVector_BLAS.h \
   Math/eigen3/src/Core/products/Parallelizer.h \
   Math/eigen3/src/Core/products/SelfadjointMatrixMatrix.h \
-  Math/eigen3/src/Core/products/SelfadjointMatrixMatrix_BLAS.h \
   Math/eigen3/src/Core/products/SelfadjointMatrixVector.h \
-  Math/eigen3/src/Core/products/SelfadjointMatrixVector_BLAS.h \
   Math/eigen3/src/Core/products/SelfadjointProduct.h \
   Math/eigen3/src/Core/products/SelfadjointRank2Update.h \
   Math/eigen3/src/Core/products/TriangularMatrixMatrix.h \
-  Math/eigen3/src/Core/products/TriangularMatrixMatrix_BLAS.h \
   Math/eigen3/src/Core/products/TriangularMatrixVector.h \
-  Math/eigen3/src/Core/products/TriangularMatrixVector_BLAS.h \
   Math/eigen3/src/Core/products/TriangularSolverMatrix.h \
-  Math/eigen3/src/Core/products/TriangularSolverMatrix_BLAS.h \
   Math/eigen3/src/Core/products/TriangularSolverVector.h \
   Math/eigen3/src/Core/Random.h \
   Math/eigen3/src/Core/Redux.h \
@@ -317,7 +290,6 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/Core/Visitor.h \
   Math/eigen3/src/Eigenvalues/ComplexEigenSolver.h \
   Math/eigen3/src/Eigenvalues/ComplexSchur.h \
-  Math/eigen3/src/Eigenvalues/ComplexSchur_LAPACKE.h \
   Math/eigen3/src/Eigenvalues/EigenSolver.h \
   Math/eigen3/src/Eigenvalues/GeneralizedEigenSolver.h \
   Math/eigen3/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h \
@@ -325,9 +297,7 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/Eigenvalues/MatrixBaseEigenvalues.h \
   Math/eigen3/src/Eigenvalues/RealQZ.h \
   Math/eigen3/src/Eigenvalues/RealSchur.h \
-  Math/eigen3/src/Eigenvalues/RealSchur_LAPACKE.h \
   Math/eigen3/src/Eigenvalues/SelfAdjointEigenSolver.h \
-  Math/eigen3/src/Eigenvalues/SelfAdjointEigenSolver_LAPACKE.h \
   Math/eigen3/src/Eigenvalues/Tridiagonalization.h \
   Math/eigen3/src/Geometry/AlignedBox.h \
   Math/eigen3/src/Geometry/AngleAxis.h \
@@ -347,34 +317,15 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/Householder/BlockHouseholder.h \
   Math/eigen3/src/Householder/Householder.h \
   Math/eigen3/src/Householder/HouseholderSequence.h \
-  Math/eigen3/src/IterativeLinearSolvers/BasicPreconditioners.h \
-  Math/eigen3/src/IterativeLinearSolvers/BiCGSTAB.h \
-  Math/eigen3/src/IterativeLinearSolvers/ConjugateGradient.h \
-  Math/eigen3/src/IterativeLinearSolvers/IncompleteCholesky.h \
-  Math/eigen3/src/IterativeLinearSolvers/IncompleteLUT.h \
-  Math/eigen3/src/IterativeLinearSolvers/IterativeSolverBase.h \
-  Math/eigen3/src/IterativeLinearSolvers/LeastSquareConjugateGradient.h \
-  Math/eigen3/src/IterativeLinearSolvers/SolveWithGuess.h \
   Math/eigen3/src/Jacobi/Jacobi.h \
   Math/eigen3/src/LU/arch/Inverse_SSE.h \
   Math/eigen3/src/LU/Determinant.h \
   Math/eigen3/src/LU/FullPivLU.h \
   Math/eigen3/src/LU/InverseImpl.h \
   Math/eigen3/src/LU/PartialPivLU.h \
-  Math/eigen3/src/LU/PartialPivLU_LAPACKE.h \
-  Math/eigen3/src/MetisSupport/MetisSupport.h \
-  Math/eigen3/src/misc/blas.h \
   Math/eigen3/src/misc/Image.h \
   Math/eigen3/src/misc/Kernel.h \
-  Math/eigen3/src/misc/lapack.h \
-  Math/eigen3/src/misc/lapacke.h \
-  Math/eigen3/src/misc/lapacke_mangling.h \
   Math/eigen3/src/misc/RealSvd2x2.h \
-  Math/eigen3/src/OrderingMethods/Amd.h \
-  Math/eigen3/src/OrderingMethods/Eigen_Colamd.h \
-  Math/eigen3/src/OrderingMethods/Ordering.h \
-  Math/eigen3/src/PardisoSupport/PardisoSupport.h \
-  Math/eigen3/src/PaStiXSupport/PaStiXSupport.h \
   Math/eigen3/src/plugins/ArrayCwiseBinaryOps.h \
   Math/eigen3/src/plugins/ArrayCwiseUnaryOps.h \
   Math/eigen3/src/plugins/BlockMethods.h \
@@ -383,76 +334,12 @@ nobase_pkginclude_HEADERS += \
   Math/eigen3/src/plugins/MatrixCwiseBinaryOps.h \
   Math/eigen3/src/plugins/MatrixCwiseUnaryOps.h \
   Math/eigen3/src/QR/ColPivHouseholderQR.h \
-  Math/eigen3/src/QR/ColPivHouseholderQR_LAPACKE.h \
   Math/eigen3/src/QR/CompleteOrthogonalDecomposition.h \
   Math/eigen3/src/QR/FullPivHouseholderQR.h \
   Math/eigen3/src/QR/HouseholderQR.h \
-  Math/eigen3/src/QR/HouseholderQR_LAPACKE.h \
-  Math/eigen3/src/SparseCholesky/SimplicialCholesky.h \
-  Math/eigen3/src/SparseCholesky/SimplicialCholesky_impl.h \
-  Math/eigen3/src/SparseCore/AmbiVector.h \
-  Math/eigen3/src/SparseCore/CompressedStorage.h \
-  Math/eigen3/src/SparseCore/ConservativeSparseSparseProduct.h \
-  Math/eigen3/src/SparseCore/MappedSparseMatrix.h \
-  Math/eigen3/src/SparseCore/SparseAssign.h \
-  Math/eigen3/src/SparseCore/SparseBlock.h \
-  Math/eigen3/src/SparseCore/SparseColEtree.h \
-  Math/eigen3/src/SparseCore/SparseCompressedBase.h \
-  Math/eigen3/src/SparseCore/SparseCwiseBinaryOp.h \
-  Math/eigen3/src/SparseCore/SparseCwiseUnaryOp.h \
-  Math/eigen3/src/SparseCore/SparseDenseProduct.h \
-  Math/eigen3/src/SparseCore/SparseDiagonalProduct.h \
-  Math/eigen3/src/SparseCore/SparseDot.h \
-  Math/eigen3/src/SparseCore/SparseFuzzy.h \
-  Math/eigen3/src/SparseCore/SparseMap.h \
-  Math/eigen3/src/SparseCore/SparseMatrix.h \
-  Math/eigen3/src/SparseCore/SparseMatrixBase.h \
-  Math/eigen3/src/SparseCore/SparsePermutation.h \
-  Math/eigen3/src/SparseCore/SparseProduct.h \
-  Math/eigen3/src/SparseCore/SparseRedux.h \
-  Math/eigen3/src/SparseCore/SparseRef.h \
-  Math/eigen3/src/SparseCore/SparseSelfAdjointView.h \
-  Math/eigen3/src/SparseCore/SparseSolverBase.h \
-  Math/eigen3/src/SparseCore/SparseSparseProductWithPruning.h \
-  Math/eigen3/src/SparseCore/SparseTranspose.h \
-  Math/eigen3/src/SparseCore/SparseTriangularView.h \
-  Math/eigen3/src/SparseCore/SparseUtil.h \
-  Math/eigen3/src/SparseCore/SparseVector.h \
-  Math/eigen3/src/SparseCore/SparseView.h \
-  Math/eigen3/src/SparseCore/TriangularSolver.h \
-  Math/eigen3/src/SparseLU/SparseLU.h \
-  Math/eigen3/src/SparseLU/SparseLU_column_bmod.h \
-  Math/eigen3/src/SparseLU/SparseLU_column_dfs.h \
-  Math/eigen3/src/SparseLU/SparseLU_copy_to_ucol.h \
-  Math/eigen3/src/SparseLU/SparseLU_gemm_kernel.h \
-  Math/eigen3/src/SparseLU/SparseLU_heap_relax_snode.h \
-  Math/eigen3/src/SparseLU/SparseLU_kernel_bmod.h \
-  Math/eigen3/src/SparseLU/SparseLU_Memory.h \
-  Math/eigen3/src/SparseLU/SparseLU_panel_bmod.h \
-  Math/eigen3/src/SparseLU/SparseLU_panel_dfs.h \
-  Math/eigen3/src/SparseLU/SparseLU_pivotL.h \
-  Math/eigen3/src/SparseLU/SparseLU_pruneL.h \
-  Math/eigen3/src/SparseLU/SparseLU_relax_snode.h \
-  Math/eigen3/src/SparseLU/SparseLU_Structs.h \
-  Math/eigen3/src/SparseLU/SparseLU_SupernodalMatrix.h \
-  Math/eigen3/src/SparseLU/SparseLU_Utils.h \
-  Math/eigen3/src/SparseLU/SparseLUImpl.h \
-  Math/eigen3/src/SparseQR/SparseQR.h \
-  Math/eigen3/src/SPQRSupport/SuiteSparseQRSupport.h \
-  Math/eigen3/src/StlSupport/details.h \
-  Math/eigen3/src/StlSupport/StdDeque.h \
-  Math/eigen3/src/StlSupport/StdList.h \
-  Math/eigen3/src/StlSupport/StdVector.h \
-  Math/eigen3/src/SuperLUSupport/SuperLUSupport.h \
   Math/eigen3/src/SVD/BDCSVD.h \
   Math/eigen3/src/SVD/JacobiSVD.h \
-  Math/eigen3/src/SVD/JacobiSVD_LAPACKE.h \
   Math/eigen3/src/SVD/SVDBase.h \
   Math/eigen3/src/SVD/UpperBidiagonalization.h \
-  Math/eigen3/src/UmfPackSupport/UmfPackSupport.h \
-  Math/eigen3/StdDeque \
-  Math/eigen3/StdList \
-  Math/eigen3/StdVector \
-  Math/eigen3/SuperLUSupport \
-  Math/eigen3/SVD \
-  Math/eigen3/UmfPackSupport
+  Math/eigen3/SVD
+
