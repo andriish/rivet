@@ -80,22 +80,8 @@ namespace Rivet {
     /// For example, to make more fine-grained cuts on the clustered leptons.
     /// The positive charge constituent is first in the list (if not empty), and
     /// the negative one second.
-    Particles constituentLeptons() const;
-    Particles constituents() const { return constituentLeptons(); }
-
-
-    /// Access to the Z constituent clustered leptons, sorted by a comparison functor
-    ///
-    /// Unlike the no-arg version, this returns by value (i.e. is less efficient)
-    Particles constituentLeptons(const ParticleSorter& cmp) const;
-    Particles constituents(const ParticleSorter& cmp) const { return constituentLeptons(cmp); }
-
-
-    // /// Access to all DressedLeptons in the fiducial region.
-    // ///
-    // /// This includes those DressedLeptons that could not
-    // /// be paired up with any other DressedLepton to form a Z candidate.
-    // const vector<DressedLepton>& allLeptons() const { return _allLeptons; }
+    const Particles & constituentLeptons() const;
+    const Particles & constituents() const { return constituentLeptons(); }
 
     /// Access to the particles other than the Z leptons and clustered photons
     ///
