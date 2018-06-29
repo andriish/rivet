@@ -24,8 +24,8 @@ namespace Rivet {
 
         //histogram booking
         _h["inclusive"] = bookHisto1D(2,1,1);
-        bookHistograms("t_y",  1, true);
-        bookHistograms("t_pt", 2, true);
+        bookHistograms("t_pt", 1, true);
+        bookHistograms("t_y",  2, true);
         bookHistograms("t1_pt",         3);
         bookHistograms("t1_y",          4);
         bookHistograms("t2_pt",         5);
