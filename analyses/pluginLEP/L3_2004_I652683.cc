@@ -3,10 +3,12 @@
 #include "Rivet/Projections/Beam.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/ChargedFinalState.hh"
-#include "Rivet/Projections/InitialQuarks.hh"
 #include "Rivet/Projections/Thrust.hh"
 #include "Rivet/Projections/ParisiTensor.hh"
 #include "Rivet/Projections/Hemispheres.hh"
+
+#define I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
+#include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {
 

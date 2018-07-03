@@ -2,7 +2,9 @@
 #ifndef RIVET_InitialQuarks_HH
 #define RIVET_InitialQuarks_HH
 
+#ifndef I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
 #warning "This is a dangerous projection for a few specific old analyses. Not for general use!"
+#endif
 
 #include "Rivet/Projection.hh"
 #include "Rivet/Particle.hh"

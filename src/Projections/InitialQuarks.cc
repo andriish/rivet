@@ -1,4 +1,5 @@
 // -*- C++ -*-
+#define I_KNOW_THE_INITIAL_QUARKS_PROJECTION_IS_DODGY_BUT_NEED_TO_USE_IT
 #include "Rivet/Projections/InitialQuarks.hh"
 
 namespace Rivet {

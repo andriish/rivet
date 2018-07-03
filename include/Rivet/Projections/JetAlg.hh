@@ -113,7 +113,6 @@ namespace Rivet {
     /// Get the jets, ordered by supplied sorting functor and with a selection functor applied
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     Jets jets(const JetSorter& sorter, const JetSelector selector) const {
-      /// @todo Will the vector be efficiently std::move'd by value through this function chain?
       return jets(selector, sorter);
     }
 
@@ -123,7 +122,6 @@ namespace Rivet {
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     ///
     /// This is a very common use-case, so is available as syntatic sugar for jets(c, cmpMomByPt).
-    /// @todo The other sorted accessors should be removed in a cleanup.
     Jets jetsByPt(const Cut& c=Cuts::open()) const {
       return jets(c, cmpMomByPt);
     }
@@ -133,7 +131,6 @@ namespace Rivet {
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     ///
     /// This is a very common use-case, so is available as syntatic sugar for jets(c, cmpMomByPt).
-    /// @todo The other sorted accessors should be removed in a cleanup.
     Jets jetsByPt(const JetSelector& selector) const {
       return jets(selector, cmpMomByPt);
     }
@@ -144,8 +141,6 @@ namespace Rivet {
     /// @note Returns a copy rather than a reference, due to cuts and sorting
     ///
     /// This is a very common use-case, so is available as syntatic sugar for jets(Cuts::pT >= ptmin, cmpMomByPt).
-    /// @todo The other sorted accessors should be removed in a cleanup.
-    DEPRECATED("Use the version with a Cut argument")
     Jets jetsByPt(double ptmin) const {
       return jets(Cuts::pT >= ptmin, cmpMomByPt);
     }
