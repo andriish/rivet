@@ -43,7 +43,6 @@ nobase_pkginclude_HEADERS += \
   Projections/FastJets.hh \
   Projections/FinalPartons.hh \
   Projections/FinalState.hh \
-  Projections/FoxWolframMoments.hh \
   Projections/FParameter.hh \
   Projections/HadronicFinalState.hh \
   Projections/HeavyHadrons.hh \
@@ -145,7 +144,6 @@ nobase_pkginclude_HEADERS += \
   Math/Vector3.hh \
   Math/VectorN.hh \
   Math/MatrixN.hh \
-  Math/MatrixDiag.hh \
   Math/MathHeader.hh \
   Math/Vectors.hh \
   Math/LorentzTrans.hh \
