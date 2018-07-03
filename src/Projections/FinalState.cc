@@ -27,7 +27,7 @@ namespace Rivet {
   FinalState::FinalState(double mineta, double maxeta, double minpt) {
     setName("FinalState");
     const bool openpt = isZero(minpt);
-    const bool openeta = (mineta <= -MAXDOUBLE && maxeta >= MAXDOUBLE);
+    const bool openeta = (mineta <= -DBL_MAX && maxeta >= DBL_MAX);
     MSG_TRACE("Check for open FS conditions:" << std::boolalpha << " eta=" << openeta << ", pt=" << openpt);
     if (openpt && openeta) {
       _cuts = Cuts::open();

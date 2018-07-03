@@ -58,7 +58,7 @@ namespace Rivet {
       const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
       if ( leptons.size() < 2 )  vetoEvent;
 
-      double minDR_ll = MAXDOUBLE, mll = -1.0;
+      double minDR_ll = DBL_MAX, mll = -1.0;
       for (unsigned int i = 0; i < leptons.size(); ++i) {
         DressedLepton lep1 = leptons[i];
         for (unsigned int j = i + 1; j < leptons.size(); ++j) {
@@ -78,9 +78,9 @@ namespace Rivet {
 
       const Jets& all_jets = apply<FastJets>(event, "jets").jetsByPt( (Cuts::abseta < 4.5) && (Cuts::pT > 30*GeV) );
       Jets jets;
-      double minDR_overall = MAXDOUBLE;
+      double minDR_overall = DBL_MAX;
       for (const Jet& jet : all_jets) {
-        double minDR_jet = MAXDOUBLE, minDR_electrons = MAXDOUBLE;
+        double minDR_jet = DBL_MAX, minDR_electrons = DBL_MAX;
         for( DressedLepton lep : leptons ) {
           double dr = deltaR(jet, lep);
           if ( dr < minDR_jet )  minDR_jet = dr;

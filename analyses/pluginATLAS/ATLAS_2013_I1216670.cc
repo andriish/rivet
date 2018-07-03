@@ -30,11 +30,11 @@ namespace Rivet {
 
       Cut cuts = Cuts::abseta < 2.5 && Cuts::pT >= 20*GeV;
 
-      WFinder w_e_finder(fs, cuts, PID::ELECTRON, 40*GeV, MAXDOUBLE, 0.0*GeV, 0.0, WFinder::ClusterPhotons::NODECAY,
+      WFinder w_e_finder(fs, cuts, PID::ELECTRON, 40*GeV, DBL_MAX, 0.0*GeV, 0.0, WFinder::ClusterPhotons::NODECAY,
                          WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(w_e_finder, "W_E_FINDER");
 
-      WFinder w_mu_finder(fs, cuts, PID::MUON, 40*GeV, MAXDOUBLE, 0.0*GeV, 0.0, WFinder::ClusterPhotons::NODECAY,
+      WFinder w_mu_finder(fs, cuts, PID::MUON, 40*GeV, DBL_MAX, 0.0*GeV, 0.0, WFinder::ClusterPhotons::NODECAY,
                           WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
       declare(w_mu_finder, "W_MU_FINDER");
 

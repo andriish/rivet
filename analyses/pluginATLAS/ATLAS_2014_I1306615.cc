@@ -210,7 +210,7 @@ namespace Rivet {
 
       // Jet selection
       // Get jets with pT > 25 GeV and |rapidity| < 4.4
-      //const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(25.0*GeV, MAXDOUBLE, -4.4, 4.4, RAPIDITY);
+      //const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(25.0*GeV, DBL_MAX, -4.4, 4.4, RAPIDITY);
       const Jets& jets = apply<FastJets>(event, "JETS").jetsByPt(Cuts::pT>25.0*GeV && Cuts::absrap <4.4);
 
       vector<const Jet*> jets_25;

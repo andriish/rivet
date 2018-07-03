@@ -8,10 +8,6 @@ namespace Rivet {
 
 
   /// Pre-defined numeric type limits
-  /// @deprecated Prefer the standard DBL/INT_MAX
-  static const double MAXDOUBLE = DBL_MAX; // was std::numeric_limits<double>::max(); -- warns in GCC5
-  static const double MAXINT = INT_MAX; // was std::numeric_limits<int>::max(); -- warns in GCC5
-
   /// A pre-defined value of \f$ \pi \f$.
   static const double PI = M_PI;
 

@@ -19,7 +19,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const ChargedFinalState cfs(-MAXDOUBLE, MAXDOUBLE, 0.1/GeV);
+      const ChargedFinalState cfs(-DBL_MAX, DBL_MAX, 0.1/GeV);
       declare(cfs, "CFS");
 
       // Thrust and sphericity

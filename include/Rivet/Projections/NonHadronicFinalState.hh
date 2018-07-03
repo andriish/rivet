@@ -23,8 +23,8 @@ namespace Rivet {
       declare(fsp, "FS");
     }
 
-    NonHadronicFinalState(double mineta = -MAXDOUBLE,
-			  double maxeta = MAXDOUBLE,
+    NonHadronicFinalState(double mineta = -DBL_MAX,
+			  double maxeta = DBL_MAX,
 			  double minpt = 0.0*GeV)
     {
       setName("NonHadronicFinalState");

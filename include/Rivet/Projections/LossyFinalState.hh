@@ -30,8 +30,8 @@ namespace Rivet {
 
     /// Stand-alone constructor. Initialises the base FinalState projection.
     LossyFinalState(FILTER filter,
-                    double mineta = -MAXDOUBLE,
-                    double maxeta = MAXDOUBLE,
+                    double mineta = -DBL_MAX,
+                    double maxeta = DBL_MAX,
                     double minpt = 0.0)
       : _filter(filter)
     {

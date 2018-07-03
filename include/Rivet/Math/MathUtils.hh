@@ -601,11 +601,11 @@ namespace Rivet {
   inline double rapidity(double E, double pz) {
     if (isZero(E - pz)) {
       throw std::runtime_error("Divergent positive rapidity");
-      return MAXDOUBLE;
+      return DBL_MAX;
     }
     if (isZero(E + pz)) {
       throw std::runtime_error("Divergent negative rapidity");
-      return -MAXDOUBLE;
+      return -DBL_MAX;
     }
     return 0.5*log((E+pz)/(E-pz));
   }

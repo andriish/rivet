@@ -39,7 +39,7 @@ namespace Rivet {
       declare(fsv, "fsv");
 
       // for the hadron level selection
-      VetoedFinalState sfsv(FinalState(-MAXDOUBLE, MAXDOUBLE, 0.*GeV));
+      VetoedFinalState sfsv(FinalState(-DBL_MAX, DBL_MAX, 0.*GeV));
       sfsv.vetoNeutrinos();
       sfsv.addVetoPairId(PID::MUON);
       declare(sfsv, "sfsv");

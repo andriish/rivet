@@ -48,7 +48,7 @@ namespace Rivet {
       declare(dressed_muons, "DressedMuons");
 
       // Projection for jets
-      VetoedFinalState fs_jets(FinalState(-MAXDOUBLE, MAXDOUBLE, 0*GeV));
+      VetoedFinalState fs_jets(FinalState(-DBL_MAX, DBL_MAX, 0*GeV));
       fs_jets.addVetoOnThisFinalState(dressed_muons);
       declare(FastJets(fs_jets, FastJets::ANTIKT, 0.5), "Jets");
 

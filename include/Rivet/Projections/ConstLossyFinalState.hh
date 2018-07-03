@@ -56,8 +56,8 @@ namespace Rivet {
 
     /// Stand-alone constructor. Initialises the base FinalState projection.
     ConstLossyFinalState(double lossfraction,
-                         double mineta = -MAXDOUBLE,
-                         double maxeta = MAXDOUBLE,
+                         double mineta = -DBL_MAX,
+                         double maxeta = DBL_MAX,
                          double minpt = 0.0)
       : LossyFinalState<ConstRandomFilter>(ConstRandomFilter(lossfraction), mineta, maxeta, minpt)
     {
