@@ -673,10 +673,6 @@ namespace Rivet {
       return p3()/E();
     }
 
-    /// @brief Deprecated alias for betaVec
-    /// @deprecated This will be removed; use betaVec() instead
-    Vector3 boostVector() const { return betaVec(); }
-
     //@}
 
 

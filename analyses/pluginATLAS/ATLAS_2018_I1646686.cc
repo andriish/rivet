@@ -249,7 +249,7 @@ namespace Rivet {
         LorentzTransform centreOfMassTrans;
         ttbar.setX(0);
         ttbar.setY(0);
-        centreOfMassTrans.setBetaVec( -ttbar.boostVector() );
+        centreOfMassTrans.setBetaVec( -ttbar.betaVec() );
         FourMomentum t1_star = centreOfMassTrans.transform(t1);
         double cosThetaStar = t1_star.pz()/t1_star.p3().mod();
         return cosThetaStar;

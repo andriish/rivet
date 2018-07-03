@@ -183,8 +183,8 @@ namespace Rivet {
       double H4l_pt       = Higgs.pt()/GeV; 
       double H4l_rapidity = Higgs.absrap(); 
       LorentzTransform HRF_boost;
-      //HRF_boost.mkFrameTransformFromBeta(Higgs.boostVector());
-      HRF_boost.setBetaVec(- Higgs.boostVector());
+      //HRF_boost.mkFrameTransformFromBeta(Higgs.betaVec());
+      HRF_boost.setBetaVec(- Higgs.betaVec());
       FourMomentum Z1_in_HRF = HRF_boost.transform( Z1.mom() );
       double H4l_costheta = fabs(cos( Z1_in_HRF.theta())); 
       double H4l_m34      = Z2.mom().mass()/GeV;

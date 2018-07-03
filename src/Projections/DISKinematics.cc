@@ -39,7 +39,7 @@ namespace Rivet {
 
     // Calculate boost vector for boost into HCM-system
     LorentzTransform tmp;
-    tmp.setBetaVec(-tothad.boostVector());
+    tmp.setBetaVec(-tothad.betaVec());
 
     // Rotate so the photon is in x-z plane in HCM rest frame
     FourMomentum pGammaHCM = tmp.transform(pGamma);

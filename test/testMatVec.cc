@@ -126,8 +126,8 @@ int main() {
   const FourMomentum p2 = ltX.transform(p1);
   cout << p1 << " -> " << p2 << '\n';
   cout << p2 << " -> " << ltX.inverse().transform(p2) << '\n';
-  //cout << p1.boostVector() << '\n';
-  const FourMomentum p3 = LorentzTransform::mkFrameTransformFromBeta(p1.boostVector()).transform(p1);
+  //cout << p1.betaVec() << '\n';
+  const FourMomentum p3 = LorentzTransform::mkFrameTransformFromBeta(p1.betaVec()).transform(p1);
   cout << p1 << " -> " << p3 << '\n';
   cout << '\n';
 

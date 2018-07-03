@@ -204,7 +204,7 @@ namespace Rivet {
 
         // Transform everything to the ttbar CM frame
         LorentzTransform ttCM;
-        ttCM.setBetaVec(-ttbar_p4.boostVector());
+        ttCM.setBetaVec(-ttbar_p4.betaVec());
 
         topPlus_p4 = ttCM.transform(topPlus_p4);
         topMinus_p4 = ttCM.transform(topMinus_p4);
@@ -214,8 +214,8 @@ namespace Rivet {
 
         // Now boost the leptons to their parent top CM frames
         LorentzTransform topPlus, topMinus;
-        topPlus.setBetaVec(-topPlus_p4.boostVector());
-        topMinus.setBetaVec(-topMinus_p4.boostVector());
+        topPlus.setBetaVec(-topPlus_p4.betaVec());
+        topMinus.setBetaVec(-topMinus_p4.betaVec());
 
         lepPlus = topPlus.transform(lepPlus);
         lepMinus = topMinus.transform(lepMinus);
