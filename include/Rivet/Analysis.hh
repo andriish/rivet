@@ -331,11 +331,6 @@ namespace Rivet {
 
     /// Get the internal histogram name for given d, x and y (cf. HepData)
     const std::string mkAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const;
-    /// Alias
-    /// @deprecated Prefer the "mk" form, consistent with other "making function" names
-    const std::string makeAxisCode(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      return mkAxisCode(datasetId, xAxisId, yAxisId);
-    }
 
     //@}
 
@@ -360,7 +355,7 @@ namespace Rivet {
     /// @todo SFINAE to ensure that the type inherits from YODA::AnalysisObject?
     template <typename T=YODA::Scatter2D>
     const T& refData(unsigned int datasetId, unsigned int xAxisId, unsigned int yAxisId) const {
-      const string hname = makeAxisCode(datasetId, xAxisId, yAxisId);
+      const string hname = mkAxisCode(datasetId, xAxisId, yAxisId);
       return refData(hname);
     }
 

@@ -75,7 +75,7 @@ namespace Rivet {
     HistoHandler bookHandler(unsigned int id_d, unsigned int id_x, unsigned int id_y) {
       HistoHandler dummy;
       if (_mode < 2) {  // numerator mode
-        const string histName = "_" + makeAxisCode(id_d, id_x, id_y);
+        const string histName = "_" + mkAxisCode(id_d, id_x, id_y);
         book(dummy.histo, histName, refData(id_d, id_x, id_y)); // hidden auxiliary output
         book(dummy.scatter, id_d, id_x, id_y - 1, true); // ratio
         dummy.d = id_d;

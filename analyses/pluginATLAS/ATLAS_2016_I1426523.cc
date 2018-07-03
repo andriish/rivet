@@ -114,8 +114,8 @@ namespace Rivet {
 
     void bookHandler(const string& tag, size_t ID) {
       book(_s[tag], ID, 1, 1);
-      const string code1 = makeAxisCode(ID, 1, 1);
-      const string code2 = makeAxisCode(ID, 1, 2);
+      const string code1 = mkAxisCode(ID, 1, 1);
+      const string code2 = mkAxisCode(ID, 1, 2);
       book(_h[tag], code2, refData(code1));
     }
 
