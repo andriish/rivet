@@ -187,7 +187,7 @@ namespace Rivet {
                 m_tlep = Particle(-6, tl);
                 m_tlep_decay[0] = Particle(5, bjl);
                 m_tlep_decay[1] = m_leptons[0];
-                m_tlep_decay[2] = Particle(-1*(m_leptons[0].pdgId()+1), nusum);
+                m_tlep_decay[2] = Particle(-1*(m_leptons[0].pid()+1), nusum);
               }
             }
           }

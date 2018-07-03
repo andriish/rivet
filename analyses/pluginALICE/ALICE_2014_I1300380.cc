@@ -40,7 +40,7 @@ namespace Rivet {
 	       p.hasAncestor(3312) || p.hasAncestor(-3312)  ||     // Xi-/+
 	       p.hasAncestor(3334) || p.hasAncestor(-3334)  ))     // Omega-/+     
 	{   
-	  int aid = abs(p.pdgId());
+	  int aid = abs(p.pid());
 	  if (aid == 211  || // pi+ 
           aid == 321  || // K+
           aid == 313  || // K*(892)0
@@ -51,7 +51,7 @@ namespace Rivet {
 	} // end if "rejection of long-lived particles"
       
       
-        switch (p.pdgId()) {
+        switch (p.pid()) {
 	  case 3224:
 	    _histPtSigmaStarPlus->fill(p.pT()/GeV);
 	    _histAveragePt->fill(p.mass()/GeV, p.pT()/GeV);

@@ -138,9 +138,6 @@ namespace Rivet {
     PdgId pid() const { return _id; }
     /// Absolute value of the PDG ID code.
     PdgId abspid() const { return std::abs(_id); }
-    /// This Particle's PDG ID code (alias).
-    /// @deprecated Prefer the pid/abspid form
-    PdgId pdgId() const { return _id; }
 
     //@}
 

@@ -371,15 +371,15 @@ namespace Rivet {
       /// @todo Avoid this unsafe jump into HepMC -- all this can be done properly via VisibleFS and HeavyHadrons projections
       for (const GenParticle* p : Rivet::particles(e.genEvent())) {
         const int status = p->status();
-        const int pdgId = p->pdg_id();
+        const int pid = p->pdg_id();
         if (status == 1) {
           Particle rp = *p;
-          if (!PID::isHadron(pdgId) && !rp.fromHadron()) {
+          if (!PID::isHadron(pid) && !rp.fromHadron()) {
             // Collect particles not from hadron decay
             if (rp.isNeutrino()) {
               // Prompt neutrinos are kept in separate collection
               neutrinos.push_back(rp);
-            } else if (pdgId == 22 || rp.isLepton()) {
+            } else if (pid == 22 || rp.isLepton()) {
               // Leptons and photons for the dressing
               pForLep.push_back(rp);
             }
@@ -387,7 +387,7 @@ namespace Rivet {
             // Use all particles from hadron decay
             pForJet.push_back(rp);
           }
-        } else if (PID::isHadron(pdgId) && PID::hasBottom(pdgId)) {
+        } else if (PID::isHadron(pid) && PID::hasBottom(pid)) {
           // NOTE: Consider B hadrons with pT > 5GeV - not in CMS proposal
           //if ( p->momentum().perp() < 5 ) continue;
 
@@ -403,7 +403,7 @@ namespace Rivet {
           if (!isLast) continue;
 
           // Rescale momentum by 10^-20
-          Particle ghost(pdgId, FourMomentum(p->momentum())*1e-20/p->momentum().rho());
+          Particle ghost(pid, FourMomentum(p->momentum())*1e-20/p->momentum().rho());
           pForJet.push_back(ghost);
         }
       }
@@ -454,7 +454,7 @@ namespace Rivet {
         _jets.push_back(jet);
         bool isBJet = false;
         for (const Particle& rp : jet.particles()) {
-          if (PID::hasBottom(rp.pdgId())) {
+          if (PID::hasBottom(rp.pid())) {
             isBJet = true;
             break;
           }

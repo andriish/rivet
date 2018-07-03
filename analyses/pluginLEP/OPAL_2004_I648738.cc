@@ -71,8 +71,8 @@ namespace Rivet {
       }
       // type of event
       unsigned int itype=2;
-      if(initial[0].pdgId()==-initial[1].pdgId()) {
-	PdgId pid = abs(initial[0].pdgId());
+      if(initial[0].pid()==-initial[1].pid()) {
+	PdgId pid = abs(initial[0].pid());
 	if(pid>=1&&pid<=4) 
 	  itype=0;
 	else

@@ -59,8 +59,8 @@ namespace Rivet {
 
       if (constituents1.size() > 0) {
         for (unsigned j = 0; j < constituents1.size(); j++) {
-          if (std::abs(constituents1[j].pdgId()) > 9 &&
-              std::abs(constituents1[j].pdgId())!= 21) {
+          if (std::abs(constituents1[j].pid()) > 9 &&
+              std::abs(constituents1[j].pid())!= 21) {
             if (constituents1[j].pt() > 1*GeV) {
               double charge = constituents1[j].charge();
               double mom = constituents1[j].pt();

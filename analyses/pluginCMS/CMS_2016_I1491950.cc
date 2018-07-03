@@ -56,14 +56,14 @@ namespace Rivet
           for (const Jet& jet : jets) {
             Particle lepCand;
             for (const Particle& cand : jet.particles()) {
-              const int absPdgId = abs(cand.pdgId());
+              const int absPdgId = abs(cand.pid());
               if (absPdgId == PID::ELECTRON || absPdgId == PID::MUON) {
                 if (cand.pt() > lepCand.pt()) lepCand = cand;
               }
             }
 
             //Central lepton must be the major component
-            if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pdgId() == 0)) continue;
+            if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pid() == 0)) continue;
             
             DressedLepton lepton = DressedLepton(lepCand);
             

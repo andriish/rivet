@@ -171,8 +171,8 @@ namespace Rivet {
         const double dabseta_temp = lepPlus.abseta() - lepMinus.abseta();
 
         // Get the four-momenta of the positively- and negatively-charged tops
-        const FourMomentum topPlus_p4 = leptonicpartontops[0].pdgId() > 0 ? leptonicpartontops[0] : leptonicpartontops[1];
-        const FourMomentum topMinus_p4 = leptonicpartontops[0].pdgId() > 0 ? leptonicpartontops[1] : leptonicpartontops[0];
+        const FourMomentum topPlus_p4 = leptonicpartontops[0].pid() > 0 ? leptonicpartontops[0] : leptonicpartontops[1];
+        const FourMomentum topMinus_p4 = leptonicpartontops[0].pid() > 0 ? leptonicpartontops[1] : leptonicpartontops[0];
 
         const FourMomentum ttbar_p4 = topPlus_p4 + topMinus_p4;
 

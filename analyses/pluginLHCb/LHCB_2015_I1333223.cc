@@ -50,7 +50,7 @@ namespace Rivet {
           double dPV = getPVDCA(myp);
           // if IP > 200 microns the particle is not considered prompt
           if ((dPV < 0.) || (dPV > 0.2 * millimeter)) {
-            MSG_DEBUG(" Vetoing " << myp.pdgId() << " at " << dPV);
+            MSG_DEBUG(" Vetoing " << myp.pid() << " at " << dPV);
             continue;
           }
           // histo gets filled only for inelastic events (at least one prompt charged particle)

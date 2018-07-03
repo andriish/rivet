@@ -101,7 +101,7 @@ namespace Rivet {
       for (const auto& l1 : leptons) {
         for (const auto& l2 : leptons) {
           if (l1 == l2)  continue;
-          if ((l1.pdgId() + l2.pdgId() == 0) && ((l1.mom() + l2.mom()).mass() < 5.0*GeV))  return false;
+          if ((l1.pid() + l2.pid() == 0) && ((l1.mom() + l2.mom()).mass() < 5.0*GeV))  return false;
         }
       }
       return true;

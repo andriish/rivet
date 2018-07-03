@@ -72,7 +72,7 @@ namespace Rivet {
 
       const ChargedFinalState& cfs = apply<ChargedFinalState>(event, "CFS");
       for (const Particle& p : cfs.particles()) {
-        int id = p.pdgId();
+        int id = p.pid();
         // continue if particle is not a pion, kaon, proton, muon or electron
         if ( !( (abs(id) == 211) || (abs(id) == 321) || (abs(id) == 2212) || (abs(id) == 13) || (abs(id) == 11)) ) {
           continue;

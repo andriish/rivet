@@ -102,7 +102,7 @@ namespace Rivet {
         double phi=0;
         double sumpt=0;
         for (const Particle& p : jet.particles()) {
-          if ((p.pT() < 0.5) || (p.charge3()==0) || (abs(p.pdgId())==11) || (abs(p.pdgId())==13)) continue;
+          if ((p.pT() < 0.5) || (p.charge3()==0) || (abs(p.pid())==11) || (abs(p.pid())==13)) continue;
           ncharge++;
           sumpt+=p.pT();
           eta+=p.pT()*p.eta();
@@ -119,7 +119,7 @@ namespace Rivet {
         double deta=0;
         double dphi=0;
         for (const Particle& p : jet.particles()) {
-          if ((p.pT() < 0.5) || (p.charge3()==0) || (abs(p.pdgId())==11) || (abs(p.pdgId())==13)) continue;
+          if ((p.pT() < 0.5) || (p.charge3()==0) || (abs(p.pid())==11) || (abs(p.pid())==13)) continue;
           deta+=p.pT()*pow(p.eta()-eta,2);
           dphi+=p.pT()*pow(mapAngleMPiToPi(p.phi()-phi-jet.phi()),2);
         }

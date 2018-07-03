@@ -56,7 +56,7 @@ namespace Rivet {
             }
           }
           // Central lepton must be the major component
-          if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pdgId() == 0)) continue;
+          if ((lepCand.pt() < jet.pt()/2.) || (lepCand.pid() == 0)) continue;
 
           DressedLepton lepton = DressedLepton(lepCand);
           for (const Particle& cand : jet.particles()) {
