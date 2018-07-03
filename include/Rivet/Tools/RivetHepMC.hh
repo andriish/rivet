@@ -34,7 +34,7 @@ namespace Rivet {
 
 
   inline std::vector<GenParticle const *> particles(const GenEvent* ge) {
-    assert(ge);
+    if ( !ge ) return {};
     std::vector<const GenParticle*> rtn;
     for (GenEvent::particle_const_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi)
       rtn.push_back(*pi);
@@ -42,7 +42,7 @@ namespace Rivet {
   }
 
   inline std::vector<GenParticlePtr> particles(GenEvent* ge) {
-    assert(ge);
+    if ( !ge ) return {};
     std::vector<GenParticle*> rtn;
     for (GenEvent::particle_iterator pi = ge->particles_begin(); pi != ge->particles_end(); ++pi)
       rtn.push_back(*pi);
