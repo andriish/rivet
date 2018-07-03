@@ -157,7 +157,7 @@ namespace Rivet {
         // check the number of tracks between 1 and 4
         unsigned int ncharged=0;
         for ( const Particle & particle : recon_jets[ix].particles()) {
-          if (PID::threeCharge(particle.pid())!=0) ++ncharged;
+          if (PID::charge3(particle.pid())!=0) ++ncharged;
         }
         if (ncharged==0 || ncharged>4) continue;
         // calculate transverse mass and reject if < 100

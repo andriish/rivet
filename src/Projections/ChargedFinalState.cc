@@ -26,7 +26,7 @@ namespace Rivet {
 
 namespace {
   inline bool chargedParticleFilter(const Rivet::Particle& p) {
-    return Rivet::PID::threeCharge(p.pdgId()) == 0;
+    return Rivet::PID::charge3(p.pdgId()) == 0;
   }
 }
 
@@ -39,7 +39,7 @@ namespace Rivet {
     MSG_DEBUG("Number of charged final-state particles = " << _theParticles.size());
     if (getLog().isActive(Log::TRACE)) {
       for (vector<Particle>::iterator p = _theParticles.begin(); p != _theParticles.end(); ++p) {
-        MSG_TRACE("Selected: " << p->pdgId() << ", charge = " << PID::threeCharge(p->pdgId())/3.0);
+        MSG_TRACE("Selected: " << p->pdgId() << ", charge = " << PID::charge3(p->pdgId())/3.0);
       }
     }
   }

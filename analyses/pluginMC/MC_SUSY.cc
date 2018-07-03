@@ -147,7 +147,7 @@ namespace Rivet {
         _hist_pt_e->fill(p.pT()/GeV);
         // Add sufficiently hard leptons to collections for m_ll histo
         if (p.pT()/GeV > 20) {
-          if (PID::threeCharge(e.pid()) > 0) epluses += p; else eminuses += p;
+          if (PID::charge3(e.pid()) > 0) epluses += p; else eminuses += p;
         }
       }
 
@@ -164,7 +164,7 @@ namespace Rivet {
         _hist_pt_mu->fill(p.pT()/GeV);
         // Add sufficiently hard leptons to collections for m_ll histo
         if (p.pT()/GeV > 20) {
-          if (PID::threeCharge(mu.pid()) > 0) mupluses += p; else muminuses += p;
+          if (PID::charge3(mu.pid()) > 0) mupluses += p; else muminuses += p;
         }
       }
 

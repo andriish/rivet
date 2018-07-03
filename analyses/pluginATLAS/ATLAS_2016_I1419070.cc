@@ -72,7 +72,7 @@ namespace Rivet {
       unsigned int ncharge = 0;
       for (const Particle& p : jet.particles()) {
         if (p.pT() < pTcut)  continue;
-        if (p.threeCharge())  ++ncharge;
+        if (p.charge3())  ++ncharge;
       }
       if (ncharge > 60)  ncharge = 60;
       return double(ncharge);

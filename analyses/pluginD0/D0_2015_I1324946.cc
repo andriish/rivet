@@ -42,8 +42,8 @@ namespace Rivet {
       if (zfinder_mm.bosons().size() == 1) {
 	Particles mm = zfinder_mm.constituents();
 	std::sort(mm.begin(), mm.end(), cmpMomByPt);
-	const FourMomentum& mminus = PID::threeCharge(mm[0].pid()) < 0 ? mm[0].momentum() : mm[1].momentum();
-	const FourMomentum& mplus  = PID::threeCharge(mm[0].pid()) < 0 ? mm[1].momentum() : mm[0].momentum();
+	const FourMomentum& mminus = PID::charge3(mm[0].pid()) < 0 ? mm[0].momentum() : mm[1].momentum();
+	const FourMomentum& mplus  = PID::charge3(mm[0].pid()) < 0 ? mm[1].momentum() : mm[0].momentum();
 	double phi_acop = M_PI - mapAngle0ToPi(mminus.phi() - mplus.phi());
 	double costhetastar = tanh((mminus.eta() - mplus.eta())/2);
 	double sin2thetastar = 1 - sqr(costhetastar);

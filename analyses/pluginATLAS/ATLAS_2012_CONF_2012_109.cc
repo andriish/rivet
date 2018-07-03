@@ -181,7 +181,7 @@ namespace Rivet {
         double fch(0.), fem(0.), eTotal(0.);
         for(const Particle & part : recon_jets[ix].particles()) {
           long id = part.abspid();
-          if(PID::threeCharge(id)!=0)
+          if(PID::charge3(id)!=0)
             fch += part.E();
           if (id == PID::PHOTON || id == PID::ELECTRON || id == PID::PI0)
             fem += part.E();

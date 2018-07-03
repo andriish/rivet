@@ -166,7 +166,7 @@ namespace Rivet {
       Particles charged_constituents;
       if (isCharged) {
         for (Particle p : constituents) {
-          if (p.threeCharge() != 0)  charged_constituents += p;
+          if (p.charge3() != 0)  charged_constituents += p;
         }
         constituents = charged_constituents;
       }

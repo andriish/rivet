@@ -460,10 +460,6 @@ namespace Rivet {
       return charge;
     }
 
-    /// Alias for charge3
-    /// @deprecated Prefer charge3
-    inline int threeCharge(int pid) { return charge3(pid); }
-
     /// Return the absolute value of 3 times the EM charge
     inline int abscharge3(int pid) { return std::abs(charge3(pid)); }
 

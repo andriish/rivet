@@ -112,7 +112,7 @@ namespace Rivet {
     int countProngs(Particle mother) {
       int n_prongs = 0;
       for(Particle p : mother.children())
-        if (p.threeCharge()!=0) ++n_prongs;
+        if (p.charge3()!=0) ++n_prongs;
       return n_prongs;
     }
 

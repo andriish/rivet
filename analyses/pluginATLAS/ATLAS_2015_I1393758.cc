@@ -72,7 +72,7 @@ namespace Rivet {
       double jetcharge = 0.;
       for (const Particle& p : jet.particles()) {
         if (p.pT() < pTcut)  continue;
-        if (p.threeCharge()) jetcharge += (p.threeCharge()/3.)*pow(p.pT(),kappa)/PTkap;
+        if (p.charge3()) jetcharge += (p.charge3()/3.)*pow(p.pT(),kappa)/PTkap;
       }
       //Overflow and underflow
       if (jetcharge > Qmax) jetcharge = Qmax*0.9999;

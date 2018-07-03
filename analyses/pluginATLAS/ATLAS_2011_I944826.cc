@@ -101,7 +101,7 @@ namespace Rivet {
         for (const HepMC::GenParticle* gp : particles(decV, HepMC::children)) {
           pTs.push_back(gp->momentum().perp());
           etas.push_back(fabs(gp->momentum().eta()));
-          charges.push_back( Rivet::PID::threeCharge(gp->pdg_id()) );
+          charges.push_back( Rivet::PID::charge3(gp->pdg_id()) );
           // gp->print();
         }
         if ( (pTs[0]/Rivet::GeV < 0.1) || (pTs[1]/Rivet::GeV < 0.1) ) {

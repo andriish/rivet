@@ -101,7 +101,7 @@ namespace Rivet {
     double e_neutral = 0.0;
     for (const Particle& p : particles()) {
       const PdgId pid = p.pid();
-      if (PID::threeCharge(pid) == 0) {
+      if (PID::charge3(pid) == 0) {
         e_neutral += p.E();
       }
     }

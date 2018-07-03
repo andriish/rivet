@@ -137,7 +137,7 @@ namespace Rivet {
         // Leading lepton pT cut
         pass_Zll &= leptons[0].pT() > 80*GeV;
         // Opposite-charge requirement
-        pass_Zll &= threeCharge(leptons[0]) + threeCharge(leptons[1]) == 0;
+        pass_Zll &= charge3(leptons[0]) + charge3(leptons[1]) == 0;
         // Z-mass requirement
         const double Zmass = (leptons[0].mom() + leptons[1].mom()).mass();
         pass_Zll &= (Zmass >= 66*GeV && Zmass <= 116*GeV);

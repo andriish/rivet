@@ -97,7 +97,7 @@ namespace Rivet {
 
       // Get/cut on Z boson leptons
       const ParticleVector& leptons = zfinder.constituents();
-      if (leptons.size() != 2 || leptons[0].threeCharge() * leptons[1].threeCharge() > 0) vetoEvent;
+      if (leptons.size() != 2 || leptons[0].charge3() * leptons[1].charge3() > 0) vetoEvent;
       const Particle& lminus = leptons[0].charge() < 0 ? leptons[0] : leptons[1];
       const Particle& lplus  = leptons[0].charge() < 0 ? leptons[1] : leptons[0];
 

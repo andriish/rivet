@@ -207,7 +207,7 @@ namespace Rivet {
           if(fabs(recon_jets[ix].eta())>2.) continue;
           double trackpT=0;
           for(const Particle & p : recon_jets[ix].particles()) {
-            if(PID::threeCharge(p.pid())==0) continue;
+            if(PID::charge3(p.pid())==0) continue;
             trackpT += p.perp();
           }
           if(trackpT/recon_jets[ix].perp()<0.05)

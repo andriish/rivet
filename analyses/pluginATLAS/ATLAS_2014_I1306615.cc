@@ -196,7 +196,7 @@ namespace Rivet {
 	// Veto non-prompt particles (from hadron or tau decay)
         if ( fromHadronDecay(p) ) continue;
 	// Charged particles are visible
-	if ( PID::threeCharge( p.pid() ) != 0 ) continue;
+	if ( PID::charge3( p.pid() ) != 0 ) continue;
 	// Neutral hadrons are visible
 	if ( PID::isHadron( p.pid() ) ) continue;
         // Photons are visible

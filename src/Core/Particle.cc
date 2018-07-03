@@ -42,7 +42,7 @@ namespace Rivet {
 
   bool Particle::isVisible() const {
     // Charged particles are visible
-    if ( PID::threeCharge(pid()) != 0 ) return true;
+    if ( PID::charge3(pid()) != 0 ) return true;
     // Neutral hadrons are visible
     if ( PID::isHadron(pid()) ) return true;
     // Photons are visible

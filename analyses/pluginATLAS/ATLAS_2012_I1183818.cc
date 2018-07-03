@@ -78,8 +78,8 @@ namespace Rivet {
       for( const Particle& p : cnfs.particles() ) {
         // enforce truth selection representing detected particle sensitivity
         double pp = p.p3().mod();
-        if (PID::threeCharge(p.pid()) != 0 && pp < 0.5*GeV) continue;
-        if (PID::threeCharge(p.pid()) == 0 && pp < 0.2*GeV) continue;
+        if (PID::charge3(p.pid()) != 0 && pp < 0.5*GeV) continue;
+        if (PID::charge3(p.pid()) == 0 && pp < 0.2*GeV) continue;
 
         particles.push_back(p);
       }

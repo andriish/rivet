@@ -118,7 +118,7 @@ namespace Rivet {
         const double et = fabs(hcmMom.Et());
         const double eta = hcmMom.eta();
         (x < 1e-3 ? _histEnergyFlowLowX : _histEnergyFlowHighX)->fill(eta, et);
-        if (PID::threeCharge(p.pid()) != 0) {
+        if (PID::charge3(p.pid()) != 0) {
           /// @todo Use units in w comparisons... what are the units?
           if (w > 50. && w <= 200.) {
             double xf= 2 * hcmMom.z() / w;

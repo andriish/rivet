@@ -68,11 +68,11 @@ namespace Rivet {
       // Get and cut on dressed leptons
       const vector<DressedLepton>& leptons = apply<DressedLeptons>(e, "leptons").dressedLeptons();
       if (leptons.size() != 2) vetoEvent; // require exactly two leptons
-      if (leptons[0].threeCharge() * leptons[1].threeCharge() > 0) vetoEvent; // require opposite charge
+      if (leptons[0].charge3() * leptons[1].charge3() > 0) vetoEvent; // require opposite charge
 
       // Identify lepton vs antilepton
-      const Particle& lpos = leptons[(leptons[0].threeCharge() > 0) ? 0 : 1];
-      const Particle& lneg = leptons[(leptons[0].threeCharge() < 0) ? 0 : 1];
+      const Particle& lpos = leptons[(leptons[0].charge3() > 0) ? 0 : 1];
+      const Particle& lneg = leptons[(leptons[0].charge3() < 0) ? 0 : 1];
 
       string label = "N";
       if (_mode == 1) {// electron channel
