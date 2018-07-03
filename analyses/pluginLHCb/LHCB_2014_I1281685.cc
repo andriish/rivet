@@ -33,7 +33,8 @@ namespace Rivet {
       fillMap(_partLftMap);
 
       // Projections
-      declare(ChargedFinalState(_eta_min, _eta_max, _pt_min*GeV), "CFS");
+      declare(ChargedFinalState(Cuts::etaIn(_eta_min, _eta_max) && Cuts::pT >= _pt_min*GeV),
+              "CFS");
 
       // Book histograms
       book(_h_mult_total  ,"d03-x01-y01", 50, 0.5, 50.5);

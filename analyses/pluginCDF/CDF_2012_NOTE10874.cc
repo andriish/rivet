@@ -18,7 +18,7 @@ namespace Rivet {
   public:
 
     void init() {
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
+      const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.5*GeV));
       declare(cfs, "CFS");
 
       int isqrts = -1;

@@ -16,10 +16,10 @@ namespace Rivet {
 
     void init() {
       // Projections
-      declare(FinalState(1.9, 4.9), "forwardFS");
-      declare(FinalState(-3.5,-1.5), "backwardFS");
-      declare(ChargedFinalState(1.9, 4.9), "forwardCFS");
-      declare(ChargedFinalState(-3.5,-1.5), "backwardCFS");
+      declare(FinalState((Cuts::etaIn(1.9, 4.9))), "forwardFS");
+      declare(FinalState((Cuts::etaIn(-3.5,-1.5))), "backwardFS");
+      declare(ChargedFinalState((Cuts::etaIn(1.9, 4.9))), "forwardCFS");
+      declare(ChargedFinalState((Cuts::etaIn(-3.5,-1.5))), "backwardCFS");
 
       // Histos
       book(_s_chEF_minbias, 1, 1, 1, true);

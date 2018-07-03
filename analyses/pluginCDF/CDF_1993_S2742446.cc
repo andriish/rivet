@@ -22,12 +22,12 @@ namespace Rivet {
     void init() {
 
       // The photon selection has been corrected to pTmin=22 GeV (vs. 23 in the trigger)
-      LeadingParticlesFinalState photonfs(FinalState(-0.9, 0.9, 22.0*GeV));
+      LeadingParticlesFinalState photonfs(FinalState((Cuts::etaIn(-0.9, 0.9) && Cuts::pT >=  22.0*GeV)));
       photonfs.addParticleId(PID::PHOTON);
       declare(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon
-      VetoedFinalState vfs(FinalState(-4.2, 4.2));
+      VetoedFinalState vfs(FinalState((Cuts::etaIn(-4.2, 4.2))));
       vfs.addVetoOnThisFinalState(photonfs);
       declare(vfs, "VFS");
 

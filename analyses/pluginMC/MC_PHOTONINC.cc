@@ -24,11 +24,11 @@ namespace Rivet {
     /// Book histograms
     void init() {
       // General FS
-      FinalState fs(-5.0, 5.0);
+      FinalState fs((Cuts::etaIn(-5.0, 5.0)));
       declare(fs, "FS");
 
       // Get leading photon
-      LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
+      LeadingParticlesFinalState photonfs(FinalState((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  30.0*GeV)));
       photonfs.addParticleId(PID::PHOTON);
       declare(photonfs, "LeadingPhoton");
 

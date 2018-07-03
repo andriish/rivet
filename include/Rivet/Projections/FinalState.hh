@@ -21,10 +21,6 @@ namespace Rivet {
     /// Construction using another FinalState and a Cuts object
     FinalState(const FinalState& fsp, const Cut& c);
 
-    /// Old constructor with numeric cut arguments, retained for compatibility
-    //DEPRECATED("Use the versions with Cut arguments")
-    FinalState(double mineta, double maxeta, double minpt=0.0*GeV);
-
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(FinalState);
 

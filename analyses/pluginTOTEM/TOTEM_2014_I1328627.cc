@@ -16,8 +16,8 @@ namespace Rivet {
 
 
     void init() {
-      ChargedFinalState cfsm(-7.0, -6.0, 0.0*GeV);
-      ChargedFinalState cfsp( 3.7,  4.8, 0.0*GeV);
+      ChargedFinalState cfsm(Cuts::etaIn(-7.0, -6.0));
+      ChargedFinalState cfsp(Cuts::etaIn( 3.7,  4.8));
       declare(cfsm, "CFSM");
       declare(cfsp, "CFSP");
 

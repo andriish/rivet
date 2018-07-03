@@ -21,7 +21,7 @@ namespace Rivet {
     /// Set up projections and book histos
     void init() {
       declare(TriggerUA5(), "Trigger");
-      declare(ChargedFinalState(-3.5, 3.5), "CFS");
+      declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histos based on pp or ppbar beams
       if (beamIds().first == beamIds().second) {

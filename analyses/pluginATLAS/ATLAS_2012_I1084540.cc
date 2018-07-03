@@ -34,10 +34,10 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       //All final states. Rapidity range = ATLAS calorimetry. Lowest pT cut = 200 MeV.
-      const FinalState cnfs2(-_etaMax, _etaMax, 0.2 * GeV);
-      const FinalState cnfs4(-_etaMax, _etaMax, 0.4 * GeV);
-      const FinalState cnfs6(-_etaMax, _etaMax, 0.6 * GeV);
-      const FinalState cnfs8(-_etaMax, _etaMax, 0.8 * GeV);
+      const FinalState cnfs2((Cuts::etaIn(-_etaMax, _etaMax) && Cuts::pT >=  0.2 * GeV));
+      const FinalState cnfs4((Cuts::etaIn(-_etaMax, _etaMax) && Cuts::pT >=  0.4 * GeV));
+      const FinalState cnfs6((Cuts::etaIn(-_etaMax, _etaMax) && Cuts::pT >=  0.6 * GeV));
+      const FinalState cnfs8((Cuts::etaIn(-_etaMax, _etaMax) && Cuts::pT >=  0.8 * GeV));
       declare(cnfs2, "CNFS2");
       declare(cnfs4, "CNFS4");
       declare(cnfs6, "CNFS6");

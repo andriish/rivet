@@ -19,10 +19,10 @@ namespace Rivet {
 
 
     void init() {
-      declare(ChargedFinalState(-0.8, 0.8, 0.5*GeV), "CFS_08_05");
-      declare(ChargedFinalState(-0.8, 0.8, 1.0*GeV), "CFS_08_10");
-      declare(ChargedFinalState(-2.4, 2.4, 0.5*GeV), "CFS_24_05");
-      declare(ChargedFinalState(-2.4, 2.4, 1.0*GeV), "CFS_24_10");
+      declare(ChargedFinalState((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >=  0.5*GeV)), "CFS_08_05");
+      declare(ChargedFinalState((Cuts::etaIn(-0.8, 0.8) && Cuts::pT >=  1.0*GeV)), "CFS_08_10");
+      declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >=  0.5*GeV)), "CFS_24_05");
+      declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >=  1.0*GeV)), "CFS_24_10");
 
       size_t offset = 0;
       if (fuzzyEquals(sqrtS()/GeV, 7000, 1E-3)) offset = 0;

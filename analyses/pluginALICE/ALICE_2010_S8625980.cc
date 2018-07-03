@@ -27,7 +27,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      ChargedFinalState cfs(-1.0, 1.0);
+      ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0)));
       declare(cfs, "CFS");
 
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3)) {

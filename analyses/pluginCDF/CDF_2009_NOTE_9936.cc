@@ -30,7 +30,7 @@ namespace Rivet {
 
       declare(TriggerCDFRun2(), "Trigger");
 
-      declare(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
+      declare(ChargedFinalState((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV)), "CFS");
 
       book(_hist_nch ,1, 1, 1);
     }

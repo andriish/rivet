@@ -29,14 +29,6 @@ namespace Rivet {
       declare(FinalState(c), "FS");
     }
 
-    /// Construction from explicit eta range and min ET cut values
-    NeutralFinalState(double mineta, double maxeta, double etmin=0*GeV)
-      : _Etmin(etmin)
-    {
-      setName("NeutralFinalState");
-      declare(FinalState(mineta, maxeta, 0.0*GeV), "FS");
-    }
-
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(NeutralFinalState);
 

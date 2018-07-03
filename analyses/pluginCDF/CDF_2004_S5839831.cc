@@ -100,16 +100,16 @@ namespace Rivet {
       // Set up projections
       declare(TriggerCDFRun0Run1(), "Trigger");
       declare(Beam(), "Beam");
-      const FinalState calofs(-1.2, 1.2);
+      const FinalState calofs((Cuts::etaIn(-1.2, 1.2)));
       declare(calofs, "CaloFS");
       declare(FastJets(calofs, FastJets::CDFJETCLU, 0.7), "Jets");
-      const ChargedFinalState trackfs(-1.2, 1.2, 0.4*GeV);
+      const ChargedFinalState trackfs((Cuts::etaIn(-1.2, 1.2) && Cuts::pT >=  0.4*GeV));
       declare(trackfs, "TrackFS");
       // Restrict tracks to |eta| < 0.7 for the min bias part.
-      const ChargedFinalState mbfs(-0.7, 0.7, 0.4*GeV);
+      const ChargedFinalState mbfs((Cuts::etaIn(-0.7, 0.7) && Cuts::pT >=  0.4*GeV));
       declare(mbfs, "MBFS");
       // Restrict tracks to |eta| < 1 for the Swiss-Cheese part.
-      const ChargedFinalState cheesefs(-1.0, 1.0, 0.4*GeV);
+      const ChargedFinalState cheesefs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV));
       declare(cheesefs, "CheeseFS");
       declare(FastJets(cheesefs, FastJets::CDFJETCLU, 0.7), "CheeseJets");
 

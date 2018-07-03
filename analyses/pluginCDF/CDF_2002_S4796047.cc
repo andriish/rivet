@@ -39,7 +39,7 @@ namespace Rivet {
     /// Book projections and histograms
     void init() {
       declare(TriggerCDFRun0Run1(), "Trigger");
-      const ChargedFinalState cfs(-1.0, 1.0, 0.4*GeV);
+      const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV));
       declare(cfs, "FS");
 
       // Histos

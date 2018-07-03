@@ -21,7 +21,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      const FinalState fs(-4.0, 4.0);
+      const FinalState fs((Cuts::etaIn(-4.0, 4.0)));
       declare(fs, "FS");
       //      FastJets jets(fs, FastJets::ANTIKT, 0.6);
       FastJets jets(fs, FastJets::D0ILCONE, 1.0);

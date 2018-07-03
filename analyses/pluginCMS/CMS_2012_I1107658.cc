@@ -27,7 +27,7 @@ namespace Rivet {
       ZFinder zfinder(FinalState(), cut, PID::MUON, 4*GeV, 140*GeV, 0.2, ZFinder::ClusterPhotons::NONE);
       declare(zfinder, "ZFinder");
 
-      ChargedFinalState cfs(-2, 2, 500*MeV);
+      ChargedFinalState cfs((Cuts::etaIn(-2, 2) && Cuts::pT >=  500*MeV));
       VetoedFinalState nonmuons(cfs);
       nonmuons.addVetoPairId(PID::MUON);
       declare(nonmuons, "nonmuons");

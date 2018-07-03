@@ -18,7 +18,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const FinalState cnfs(-4.7, 4.7);
+      const FinalState cnfs((Cuts::etaIn(-4.7, 4.7)));
       declare(FastJets(cnfs, FastJets::ANTIKT, 0.5), "Jets");
 
       book(_h_jetetas[0]     ,1,1,1);

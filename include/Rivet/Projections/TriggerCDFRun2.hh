@@ -18,7 +18,7 @@ namespace Rivet {
     TriggerCDFRun2() {
       setName("TriggerCDFRun2");
 
-      declare(ChargedFinalState(-4.7, 4.7), "CFS");
+      declare(ChargedFinalState(Cuts::etaIn(-4.7, 4.7)), "CFS");
     }
 
     /// Clone on the heap.

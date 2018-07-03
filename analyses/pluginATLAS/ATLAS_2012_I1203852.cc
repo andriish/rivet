@@ -37,7 +37,7 @@ namespace Rivet {
     void init() {
 
       // NB Missing ET is not required to be neutrinos
-      FinalState fs(-5.0, 5.0, 0.0*GeV);
+      FinalState fs((Cuts::etaIn(-5.0, 5.0)));
 
       // Final states to form Z bosons
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
@@ -204,7 +204,7 @@ namespace Rivet {
       double ptll = (leptons_sel2l2nu[0].momentum() + leptons_sel2l2nu[1].momentum()).pT();
 
       // Find Z1-> ll
-      FinalState fs2(-3.2, 3.2);
+      FinalState fs2((Cuts::etaIn(-3.2, 3.2)));
       InvMassFinalState imfs(fs2, vids, 20*GeV, sqrtS());
       imfs.calc(leptons_sel2l2nu);
       if (imfs.particlePairs().size() != 1) vetoEvent;

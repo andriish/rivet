@@ -16,7 +16,7 @@ namespace Rivet {
 
 
     void init() {
-      ChargedFinalState cfs(-2.5, 2.5, 0.5*GeV);
+      ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  0.5*GeV));
       declare(cfs, "CFS");
 
       book(_h_dNch_deta ,2, 1, 1);

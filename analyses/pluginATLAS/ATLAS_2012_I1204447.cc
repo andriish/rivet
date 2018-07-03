@@ -36,7 +36,7 @@ namespace Rivet {
         book(_eventCountsPerSR[_signal_regions[i]], "_eventCountsPerSR_" + _signal_regions[i]);
 
       // Final state including all charged and neutral particles
-      const FinalState fs(-5.0, 5.0, 1*GeV);
+      const FinalState fs((Cuts::etaIn(-5.0, 5.0) && Cuts::pT >=  1*GeV));
       declare(fs, "FS");
 
       // Final state including all charged particles

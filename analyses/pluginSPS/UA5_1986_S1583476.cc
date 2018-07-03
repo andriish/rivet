@@ -23,7 +23,7 @@ namespace Rivet {
     void init() {
       declare(TriggerUA5(), "Trigger");
       declare(Beam(), "Beams");
-      declare(ChargedFinalState(-5.0, 5.0), "CFS50");
+      declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS50");
 
       // Histograms
       if (fuzzyEquals(sqrtS()/GeV, 200.0, 1E-4)) {

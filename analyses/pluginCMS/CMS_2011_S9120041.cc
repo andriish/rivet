@@ -19,10 +19,10 @@ namespace Rivet {
 
 
     void init() {
-      const ChargedFinalState cfs(-2.0, 2.0, 500*MeV);
+      const ChargedFinalState cfs((Cuts::etaIn(-2.0, 2.0) && Cuts::pT >=  500*MeV));
       declare(cfs, "CFS");
 
-      const ChargedFinalState cfsforjet(-2.5, 2.5, 500*MeV);
+      const ChargedFinalState cfsforjet((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  500*MeV));
       const FastJets jetpro(cfsforjet, FastJets::SISCONE, 0.5);
       declare(jetpro, "Jets");
 

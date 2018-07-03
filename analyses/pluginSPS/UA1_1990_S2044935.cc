@@ -21,11 +21,11 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      declare(ChargedFinalState(-5.5, 5.5), "TriggerFS");
-      declare(ChargedFinalState(-2.5, 2.5), "TrackFS");
-      const FinalState trkcalofs(-2.5, 2.5);
+      declare(ChargedFinalState((Cuts::etaIn(-5.5, 5.5))), "TriggerFS");
+      declare(ChargedFinalState((Cuts::etaIn(-2.5, 2.5))), "TrackFS");
+      const FinalState trkcalofs((Cuts::etaIn(-2.5, 2.5)));
       declare(MissingMomentum(trkcalofs), "MET25");
-      const FinalState calofs(-6.0, 6.0);
+      const FinalState calofs((Cuts::etaIn(-6.0, 6.0)));
       declare(MissingMomentum(calofs), "MET60");
 
       if (fuzzyEquals(sqrtS()/GeV, 63)) {

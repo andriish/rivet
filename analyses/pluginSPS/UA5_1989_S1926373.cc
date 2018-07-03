@@ -21,10 +21,10 @@ namespace Rivet {
     /// Book histograms and projections
     void init() {
       declare(TriggerUA5(), "Trigger");
-      declare(ChargedFinalState(-0.5, 0.5), "CFS05");
-      declare(ChargedFinalState(-1.5, 1.5), "CFS15");
-      declare(ChargedFinalState(-3.0, 3.0), "CFS30");
-      declare(ChargedFinalState(-5.0, 5.0), "CFS50");
+      declare(ChargedFinalState((Cuts::etaIn(-0.5, 0.5))), "CFS05");
+      declare(ChargedFinalState((Cuts::etaIn(-1.5, 1.5))), "CFS15");
+      declare(ChargedFinalState((Cuts::etaIn(-3.0, 3.0))), "CFS30");
+      declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS50");
 
       // NB. _hist_nch and _hist_ncheta50 use the same data but different binning
       if (fuzzyEquals(sqrtS()/GeV, 200, 1E-3)) {

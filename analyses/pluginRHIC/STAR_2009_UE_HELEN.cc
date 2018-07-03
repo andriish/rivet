@@ -27,11 +27,13 @@ namespace Rivet {
 
     void init() {
       // Charged final state, |eta|<1, pT>0.2GeV
-      const ChargedFinalState cfs(-1.0, 1.0, 0.2*GeV);
+      const Cut c = Cuts::etaIn(-1.0, 1.0) && Cuts::pT >= 0.2*GeV;
+
+      const ChargedFinalState cfs(c);
       declare(cfs, "CFS");
 
       // Neutral final state, |eta|<1, ET>0.2GeV (needed for the jets)
-      const NeutralFinalState nfs(-1.0, 1.0, 0.2*GeV);
+      const NeutralFinalState nfs(c);
       declare(nfs, "NFS");
 
       // STAR can't see neutrons and K^0_L

@@ -14,11 +14,6 @@ namespace Rivet {
     declare(FinalState(c), "FS");
   }
 
-  ChargedFinalState::ChargedFinalState(double mineta, double maxeta, double minpt) {
-    setName("ChargedFinalState");
-    declare(FinalState(mineta, maxeta, minpt), "FS");
-  }
-
   CmpState ChargedFinalState::compare(const Projection& p) const {
     return mkNamedPCmp(p, "FS");
   }

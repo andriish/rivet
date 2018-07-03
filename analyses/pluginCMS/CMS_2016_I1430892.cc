@@ -21,7 +21,7 @@ namespace Rivet {
     void init() {
 
       // Complete final state
-      FinalState fs(-DBL_MAX, DBL_MAX, 0*GeV);
+      FinalState fs;
 
       // Projection for dressed electrons and muons
       IdentifiedFinalState photons(fs);

@@ -29,14 +29,11 @@ namespace Rivet {
     }
 
     /// Stand-alone constructor. Initialises the base FinalState projection.
-    LossyFinalState(FILTER filter,
-                    double mineta = -DBL_MAX,
-                    double maxeta = DBL_MAX,
-                    double minpt = 0.0)
+    LossyFinalState(FILTER filter, const Cut& c=Cuts::open())
       : _filter(filter)
     {
       setName("LossyFinalState");
-      declare(FinalState(mineta, maxeta, minpt), "FS");
+      declare(FinalState(c), "FS");
     }
 
     /// Virtual destructor, to allow subclassing

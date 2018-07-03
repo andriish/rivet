@@ -17,7 +17,7 @@ namespace Rivet {
 
 
     void init() {
-      FinalState fs(-3.5, 3.5);
+      FinalState fs((Cuts::etaIn(-3.5, 3.5)));
       declare(fs, "FinalState");
       FastJets fj(fs, FastJets::ANTIKT, 0.4);
       fj.useInvisibles();

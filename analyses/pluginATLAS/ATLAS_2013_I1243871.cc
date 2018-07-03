@@ -23,7 +23,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Set up projections
-      const FinalState fs(-4.5, 4.5);
+      const FinalState fs((Cuts::etaIn(-4.5, 4.5)));
       declare(fs, "ALL_FS");
 
       /// Get electrons from truth record

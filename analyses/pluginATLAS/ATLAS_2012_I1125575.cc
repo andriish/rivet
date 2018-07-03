@@ -28,10 +28,10 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      const ChargedFinalState jet_input(-2.5, 2.5, 0.5*GeV);
+      const ChargedFinalState jet_input((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  0.5*GeV));
       declare(jet_input, "JET_INPUT");
 
-      const ChargedFinalState track_input(-1.5, 1.5, 0.5*GeV);
+      const ChargedFinalState track_input((Cuts::etaIn(-1.5, 1.5) && Cuts::pT >=  0.5*GeV));
       declare(track_input, "TRACK_INPUT");
 
       const FastJets jets02(jet_input, FastJets::ANTIKT, 0.2);

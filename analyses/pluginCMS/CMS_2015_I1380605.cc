@@ -19,7 +19,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const ChargedFinalState cfs(-7., 7., 0.0*GeV);
+      const ChargedFinalState cfs((Cuts::etaIn(-7., 7.)));
       declare(cfs, "CFS");
       declare(FastJets(cfs, FastJets::ANTIKT, 0.5), "Jets");
 

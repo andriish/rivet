@@ -23,26 +23,6 @@ namespace Rivet {
   }
 
 
-  /// @deprecated, keep for backwards compatibility for now.
-  FinalState::FinalState(double mineta, double maxeta, double minpt) {
-    setName("FinalState");
-    const bool openpt = isZero(minpt);
-    const bool openeta = (mineta <= -DBL_MAX && maxeta >= DBL_MAX);
-    MSG_TRACE("Check for open FS conditions:" << std::boolalpha << " eta=" << openeta << ", pt=" << openpt);
-    if (openpt && openeta) {
-      _cuts = Cuts::open();
-    } else {
-      declare(FinalState(), "OpenFS");
-      if (openeta)
-        _cuts = (Cuts::pT >= minpt);
-      else if ( openpt )
-        _cuts = Cuts::etaIn(mineta, maxeta);
-      else
-        _cuts = (Cuts::etaIn(mineta, maxeta) && Cuts::pT >= minpt);
-    }
-  }
-
-
   CmpState FinalState::compare(const Projection& p) const {
     const FinalState& other = dynamic_cast<const FinalState&>(p);
     // First check if there is a PrevFS and it it matches

@@ -14,9 +14,9 @@ namespace Rivet {
 
 
     void init() {
-      const FinalState fs500(-2.5, 2.5, 500*MeV);
+      const FinalState fs500((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  500*MeV));
       declare(fs500, "FS500");
-      const FinalState fslead(-2.5, 2.5, 1.0*GeV);
+      const FinalState fslead((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  1.0*GeV));
       declare(fslead, "FSlead");
 
       // Get an index for the beam energy

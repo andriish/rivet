@@ -30,7 +30,7 @@ namespace Rivet {
     //@{
 
     void init() {
-      const FinalState fs(-3.6, 3.6);
+      const FinalState fs((Cuts::etaIn(-3.6, 3.6)));
       declare(fs, "FS");
 
       // Create a final state with any e+e- or mu+mu- pair with
@@ -38,7 +38,7 @@ namespace Rivet {
       vector<pair<PdgId,PdgId> > vids;
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
       vids.push_back(make_pair(PID::MUON, PID::ANTIMUON));
-      FinalState fs2(-3.6, 3.6);
+      FinalState fs2((Cuts::etaIn(-3.6, 3.6)));
       InvMassFinalState invfs(fs2, vids, 66*GeV, 116*GeV);
       declare(invfs, "INVFS");
 

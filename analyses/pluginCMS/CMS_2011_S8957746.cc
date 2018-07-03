@@ -18,7 +18,7 @@ namespace Rivet {
     /// Initialization, called once before running
     void init() {
       // Projections
-      const FastJets jets(FinalState(-5.0, 5.0, 0.0*GeV), FastJets::ANTIKT, 0.5);
+      const FastJets jets(FinalState((Cuts::etaIn(-5.0, 5.0))), FastJets::ANTIKT, 0.5);
       declare(jets, "Jets");
 
       // Book histograms

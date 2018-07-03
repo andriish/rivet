@@ -29,7 +29,7 @@ namespace Rivet {
       declare(zfm, "ZFM");
 
       // Try to get the leading photon
-      LeadingParticlesFinalState photonfs(FinalState(-2.5, 2.5, 40.0*GeV));
+      LeadingParticlesFinalState photonfs(FinalState((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  40.0*GeV)));
       photonfs.addParticleId(PID::PHOTON);
       declare(photonfs, "LeadingPhoton");
 

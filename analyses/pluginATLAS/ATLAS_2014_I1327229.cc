@@ -38,14 +38,14 @@ namespace Rivet {
         book(_eventCountsPerSR[_signal_regions[i]], "_eventCountsPerSR_" + _signal_regions[i]);
 
       // Final state including all charged and neutral particles
-      const FinalState fs(-5.0, 5.0, 1*GeV);
+      const FinalState fs((Cuts::etaIn(-5.0, 5.0) && Cuts::pT >=  1*GeV));
       declare(fs, "FS");
 
       // Final state including all charged particles
-      declare(ChargedFinalState(-2.5, 2.5, 1*GeV), "CFS");
+      declare(ChargedFinalState((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  1*GeV)), "CFS");
 
       // Final state including all visible particles (to calculate MET, Jets etc.)
-      declare(VisibleFinalState(-5.0,5.0),"VFS");
+      declare(VisibleFinalState((Cuts::etaIn(-5.0,5.0))),"VFS");
 
       // Final state including all AntiKt 04 Jets
       VetoedFinalState vfs;

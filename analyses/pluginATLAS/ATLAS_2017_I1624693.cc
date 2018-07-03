@@ -55,7 +55,7 @@ namespace Rivet {
     void init() {
 
       /// @todo Initialise and register projections here
-      ChargedFinalState cfs(-2.5, 2.5, 0.1*GeV);
+      ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  0.1*GeV));
       declare(cfs,"CFS");
 
       // pion mass;

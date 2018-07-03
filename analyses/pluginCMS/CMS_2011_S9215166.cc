@@ -16,7 +16,7 @@ namespace Rivet {
 
 
             void init() {
-                const FinalState fs(-6.0, 6.0, 0.0*GeV);
+                const FinalState fs((Cuts::etaIn(-6.0, 6.0)));
                 declare(fs, "FS");
                 declare(FastJets(fs, FastJets::ANTIKT, 0.5), "Jets");
 
@@ -26,7 +26,7 @@ namespace Rivet {
                 declare(fsv, "fsv");
 
                 // For the MB ND selection
-                const ChargedFinalState fschrgd(-6.0,6.0,0.0*GeV);
+                const ChargedFinalState fschrgd((Cuts::etaIn(-6.0,6.0)));
                 declare(fschrgd, "fschrgd");
                 VetoedFinalState fschrgdv(fschrgd);
                 fschrgdv.vetoNeutrinos();

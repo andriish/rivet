@@ -34,7 +34,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      FinalState fs(-2.4, 2.4, 0*GeV);
+      FinalState fs((Cuts::etaIn(-2.4, 2.4)));
       declare(fs, "FS");
 
       // Find W's with pT > 120, MET > 50

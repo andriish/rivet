@@ -16,7 +16,7 @@ namespace Rivet {
   public:
 
     void init() {
-      const ChargedFinalState cfs(-15, 15);
+      const ChargedFinalState cfs((Cuts::etaIn(-15, 15)));
       declare(cfs, "CFS");
 
       book(_histPtPions        ,"d01-x01-y01");

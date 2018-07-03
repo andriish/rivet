@@ -26,21 +26,21 @@ namespace Rivet {
 
     void init() {
       // Final state projection
-      FinalState fs(-5.0, 5.0); // corrected for detector acceptance
+      FinalState fs((Cuts::etaIn(-5.0, 5.0))); // corrected for detector acceptance
       declare(fs, "FS");
 
       // Z -> e- e+
-      LeadingParticlesFinalState eeFS(FinalState(-5.0, 5.0, 0.)); //20.);
+      LeadingParticlesFinalState eeFS(FinalState((Cuts::etaIn(-5.0, 5.0)))); //20.);
       eeFS.addParticleIdPair(PID::ELECTRON);
       declare(eeFS, "eeFS");
 
       // W- -> e- nu_e~
-      LeadingParticlesFinalState enuFS(FinalState(-5.0, 5.0, 0.)); //25.);
+      LeadingParticlesFinalState enuFS(FinalState((Cuts::etaIn(-5.0, 5.0)))); //25.);
       enuFS.addParticleId(PID::ELECTRON).addParticleId(PID::NU_EBAR);
       declare(enuFS, "enuFS");
 
       // W+ -> e+ nu_e
-      LeadingParticlesFinalState enubFS(FinalState(-5.0, 5.0, 0.)); //25.);
+      LeadingParticlesFinalState enubFS(FinalState((Cuts::etaIn(-5.0, 5.0)))); //25.);
       enubFS.addParticleId(PID::POSITRON).addParticleId(PID::NU_E);
       declare(enubFS, "enubFS");
 

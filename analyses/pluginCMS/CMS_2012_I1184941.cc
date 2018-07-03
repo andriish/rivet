@@ -18,7 +18,7 @@ namespace Rivet {
       FinalState fs;
       declare(fs, "FS");
 
-      const FastJets jets(FinalState(-4.9, 4.9, 0.0*GeV), FastJets::ANTIKT, 0.5);
+      const FastJets jets(FinalState((Cuts::etaIn(-4.9, 4.9))), FastJets::ANTIKT, 0.5);
       declare(jets, "AntiKtJets05");
 
       book(_h_xi ,1, 1, 1);

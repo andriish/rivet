@@ -12,7 +12,7 @@ namespace Rivet {
 
 
     void init() {
-      ChargedFinalState cfs(-2.5, 2.5, 0.0*GeV);
+      ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5)));
       declare(cfs, "CFS");
 
       if (fuzzyEquals(sqrtS()/GeV, 900)) {

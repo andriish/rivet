@@ -25,14 +25,14 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      const FinalState fs(-3.2, 3.2);
+      const FinalState fs((Cuts::etaIn(-3.2, 3.2)));
       declare(fs, "FS");
       // Create a final state with any e+e- or mu+mu- pair with
       // invariant mass 76 -> 106 GeV and ET > 18 (Z decay products)
       vector<pair<PdgId,PdgId> > vids;
       vids.push_back(make_pair(PID::ELECTRON, PID::POSITRON));
       vids.push_back(make_pair(PID::MUON, PID::ANTIMUON));
-      FinalState fs2(-3.2, 3.2);
+      FinalState fs2((Cuts::etaIn(-3.2, 3.2)));
       InvMassFinalState invfs(fs2, vids, 76*GeV, 106*GeV);
       declare(invfs, "INVFS");
       // Make a final state without the Z decay products for jet clustering

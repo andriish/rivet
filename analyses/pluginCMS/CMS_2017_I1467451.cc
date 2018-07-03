@@ -26,8 +26,8 @@ namespace Rivet {
       const Cut lepton_cut = (Cuts::abseta < lepMaxEta);
 
       // Initialise and register projections
-      FinalState fs(-2.5,2.5,0.0*GeV);
-      FinalState fsm(-5,5,0.0*GeV);
+      FinalState fs((Cuts::etaIn(-2.5,2.5)));
+      FinalState fsm((Cuts::etaIn(-5,5)));
       declare(fs, "FS");
       declare(fsm, "FSM");
 

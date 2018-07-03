@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     void init() {
-      ChargedFinalState cfs(-1.5, 1.5, 0.5*GeV);
+      ChargedFinalState cfs((Cuts::etaIn(-1.5, 1.5) && Cuts::pT >=  0.5*GeV));
       declare(cfs, "CFS");
 
       FastJets jetsproj6(cfs, FastJets::ANTIKT, 0.6);

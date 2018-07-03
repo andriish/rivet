@@ -58,7 +58,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      const ChargedFinalState cfs(-0.5, 0.5, 0.2*GeV);
+      const ChargedFinalState cfs((Cuts::etaIn(-0.5, 0.5) && Cuts::pT >=  0.2*GeV));
       const LossyFinalState<STARRandomFilter> lfs(cfs, STARRandomFilter());
       declare(lfs, "FS");
 

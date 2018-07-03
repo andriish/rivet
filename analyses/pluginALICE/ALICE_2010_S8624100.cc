@@ -27,9 +27,9 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      ChargedFinalState cfs05(-0.5, 0.5);
-      ChargedFinalState cfs10(-1.0, 1.0);
-      ChargedFinalState cfs13(-1.3, 1.3);
+      ChargedFinalState cfs05((Cuts::etaIn(-0.5, 0.5)));
+      ChargedFinalState cfs10((Cuts::etaIn(-1.0, 1.0)));
+      ChargedFinalState cfs13((Cuts::etaIn(-1.3, 1.3)));
       declare(cfs05, "CFS05");
       declare(cfs10, "CFS10");
       declare(cfs13, "CFS13");

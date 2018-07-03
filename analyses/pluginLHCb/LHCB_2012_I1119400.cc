@@ -66,7 +66,7 @@ namespace Rivet {
         book(_h_den_highpt  [it->first], "TMP/den_h_"+it->first,refData(_hepdataid[it->first], 1, 3));
       }
 
-      declare(ChargedFinalState(_eta_min, _eta_max, _pt_min*GeV), "CFS");
+      declare(ChargedFinalState(Cuts::etaIn(_eta_min, _eta_max) && Cuts::pT >= _pt_min*GeV), "CFS");
     }
 
 

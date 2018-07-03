@@ -48,7 +48,7 @@ namespace Rivet {
       declare(fs, "FS");
 
       // Get leading photon
-      LeadingParticlesFinalState photonfs(FinalState(-1.0, 1.0, 30.0*GeV));
+      LeadingParticlesFinalState photonfs(FinalState((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  30.0*GeV)));
       photonfs.addParticleId(PID::PHOTON);
       declare(photonfs, "LeadingPhoton");
 

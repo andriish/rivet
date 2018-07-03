@@ -12,7 +12,7 @@ namespace Rivet {
     setName("TriggerUA5");
 
     declare(Beam(), "Beam");
-    declare(ChargedFinalState(-5.6, 5.6), "CFS");
+    declare(ChargedFinalState(Cuts::etaIn(-5.6, 5.6)), "CFS");
   }
 
 

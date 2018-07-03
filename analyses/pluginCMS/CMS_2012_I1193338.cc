@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     void init() {
-      declare(ChargedFinalState(-2.4, 2.4, 0.2*GeV), "CFS");
+      declare(ChargedFinalState((Cuts::etaIn(-2.4, 2.4) && Cuts::pT >=  0.2*GeV)), "CFS");
       declare(FinalState(), "FS");
 
       book(_h_sigma ,1, 1, 1);

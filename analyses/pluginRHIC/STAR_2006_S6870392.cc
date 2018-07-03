@@ -21,7 +21,7 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      FinalState fs(-2.0, 2.0);
+      FinalState fs((Cuts::etaIn(-2.0, 2.0)));
       declare(fs, "FS");
       declare(FastJets(fs, FastJets::CDFMIDPOINT, 0.4,
                              JetAlg::Muons::ALL, JetAlg::Invisibles::NONE,

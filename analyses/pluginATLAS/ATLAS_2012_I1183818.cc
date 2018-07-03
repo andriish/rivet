@@ -23,8 +23,8 @@ namespace Rivet {
 
     void init() {
 
-      const FinalState cnfs(-4.8, 4.8, 0*MeV);
-      const ChargedFinalState cfs(-2.5, 2.5, 250*MeV);
+      const FinalState cnfs((Cuts::etaIn(-4.8, 4.8)));
+      const ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  250*MeV));
       declare(cnfs, "FS");
       declare(cfs, "CFS");
 

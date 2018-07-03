@@ -29,7 +29,7 @@ namespace Rivet {
     // Book histograms
     void init() {
       // Basic final state
-      const FinalState fs(-4.0, 4.0, 10*GeV);
+      const FinalState fs((Cuts::etaIn(-4.0, 4.0) && Cuts::pT >=  10*GeV));
 
       // Tracks and jets
       declare(ChargedFinalState(fs), "Tracks");

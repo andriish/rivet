@@ -24,9 +24,9 @@ namespace Rivet {
     /// @name Constructors
     //@{
     /// Default constructor.
-    VetoedFinalState() {
+    VetoedFinalState(const Cut& c=Cuts::open()) {
       setName("VetoedFinalState");
-      declare(FinalState(), "FS");
+      declare(FinalState(c), "FS");
     }
 
     /// Constructor with specific FinalState.

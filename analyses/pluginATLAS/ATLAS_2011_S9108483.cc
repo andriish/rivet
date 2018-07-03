@@ -33,7 +33,7 @@ namespace Rivet {
 
       // get the non-hadronic final-state particles
       double etaMax = 2.5;
-      const NonHadronicFinalState nhfs(-etaMax,etaMax,13.*GeV);
+      const NonHadronicFinalState nhfs((Cuts::etaIn(-etaMax,etaMax) && Cuts::pT >= 13.*GeV));
       declare(nhfs,"NHFS");
       // select the charged ones
       const ChargedFinalState cfs(nhfs);

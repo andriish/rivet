@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(TriggerUA5(), "Trigger");
-      declare(ChargedFinalState(-5.0, 5.0), "CFS");
+      declare(ChargedFinalState((Cuts::etaIn(-5.0, 5.0))), "CFS");
 
       book(_hist_mean_nch ,1, 1, 1);
       book(_hist_nch      ,3, 1, 1);

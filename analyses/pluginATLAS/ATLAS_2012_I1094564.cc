@@ -159,7 +159,7 @@ namespace Rivet {
     void init() {
 
       /// Projections:
-      FinalState fs(-4.5, 4.5, 0.*GeV);
+      FinalState fs((Cuts::etaIn(-4.5, 4.5) && Cuts::pT >=  0.*GeV));
       declare(fs, "FS");
       declare(FastJets(fs, FastJets::ANTIKT, 1.0), "AKT");
       declare(FastJets(fs, FastJets::CAM, 1.2)   , "CA" );

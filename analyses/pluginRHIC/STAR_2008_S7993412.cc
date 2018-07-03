@@ -19,7 +19,7 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      ChargedFinalState fs(-1.0, 1.0, 1.0*GeV);
+      ChargedFinalState fs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  1.0*GeV));
       declare(fs, "FS");
 
       book(_h_Y_jet_trigger ,1, 1, 1);

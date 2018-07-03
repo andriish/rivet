@@ -41,7 +41,7 @@ namespace Rivet {
 
     void init() {
       // Final state for jets, mET etc.
-      const FinalState fs(-3.0, 3.0);
+      const FinalState fs((Cuts::etaIn(-3.0, 3.0)));
       declare(fs, "FS");
       // Veto neutrinos, and muons with pT above 1.0 GeV
       VetoedFinalState vfs(fs);

@@ -15,7 +15,7 @@ namespace Rivet {
 
 
     void init() {
-      ChargedFinalState cfs(-2.4, 2.4, 0.0*GeV);
+      ChargedFinalState cfs((Cuts::etaIn(-2.4, 2.4)));
       declare(cfs, "CFS");
 
       // eta bins

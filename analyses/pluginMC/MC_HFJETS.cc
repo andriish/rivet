@@ -28,7 +28,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
-      FastJets fj(FinalState(-5, 5), FastJets::ANTIKT, 0.6);
+      FastJets fj(FinalState((Cuts::etaIn(-5, 5))), FastJets::ANTIKT, 0.6);
       fj.useInvisibles();
       declare(fj, "Jets");
       declare(HeavyHadrons(Cuts::abseta < 5 && Cuts::pT > 500*MeV), "BCHadrons");

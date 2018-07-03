@@ -23,12 +23,10 @@ namespace Rivet {
       declare(fsp, "FS");
     }
 
-    NonHadronicFinalState(double mineta = -DBL_MAX,
-			  double maxeta = DBL_MAX,
-			  double minpt = 0.0*GeV)
+    NonHadronicFinalState(const Cut& c=Cuts::open())
     {
       setName("NonHadronicFinalState");
-      declare(FinalState(mineta, maxeta, minpt), "FS");
+      declare(FinalState(c), "FS");
     }
 
     /// Clone on the heap.

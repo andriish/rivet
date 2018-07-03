@@ -24,7 +24,7 @@ namespace Rivet {
     void init() {
       // Setup projections
       declare(TriggerCDFRun0Run1(), "Trigger");
-      declare(ChargedFinalState(-3.5, 3.5), "CFS");
+      declare(ChargedFinalState((Cuts::etaIn(-3.5, 3.5))), "CFS");
 
       // Book histo
       if (fuzzyEquals(sqrtS()/GeV, 1800, 1E-3)) {

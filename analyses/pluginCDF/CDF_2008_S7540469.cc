@@ -26,7 +26,7 @@ namespace Rivet {
     /// Book histograms
     void init() {
       // Full final state
-      FinalState fs(-5.0, 5.0);
+      FinalState fs((Cuts::etaIn(-5.0, 5.0)));
       declare(fs, "FS");
 
       // Leading electrons in tracking acceptance

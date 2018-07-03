@@ -38,8 +38,8 @@ namespace Rivet {
 
     void init() {
       // Set up projections
-      const ChargedFinalState cfs(-1.0, 1.0, 0.5*GeV);
-      const ChargedFinalState clfs(-1.0, 1.0, 20*GeV);
+      const ChargedFinalState cfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.5*GeV));
+      const ChargedFinalState clfs((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  20*GeV));
       declare(cfs, "FS");
       declare(ChargedLeptons(clfs), "CL");
 

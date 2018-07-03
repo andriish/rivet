@@ -45,7 +45,7 @@ namespace Rivet {
       declare(ChargedFinalState(Cuts::abseta < 3.0),"cfs");
 
       // Used for pTmiss
-      declare(VisibleFinalState(-4.9,4.9),"vfs");
+      declare(VisibleFinalState((Cuts::etaIn(-4.9,4.9))),"vfs");
 
       // Book histograms
       book(_count_SR0_A1 ,"count_SR0_A1", 1, 0., 1.);

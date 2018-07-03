@@ -65,7 +65,7 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      ChargedFinalState cfs(-2.5, 2.5, 0.3*GeV);
+      ChargedFinalState cfs((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  0.3*GeV));
       FastJets trkjets04(cfs, FastJets::ANTIKT, 0.4);
       FastJets trkjets06(cfs, FastJets::ANTIKT, 0.6);
       declare(trkjets04, "Jets04");

@@ -21,7 +21,7 @@ namespace Rivet {
     /// Book projections and histograms
     void init() {
       // Full final state
-      const FinalState fs(-5.0,5.0);
+      const FinalState fs((Cuts::etaIn(-5.0,5.0)));
       declare(fs, "FS");
       // Z finders for electrons and muons
       Cut cuts = Cuts::abseta < 2.4 && Cuts::pT > 20*GeV;

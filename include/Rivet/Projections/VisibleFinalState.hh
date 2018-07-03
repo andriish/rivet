@@ -20,12 +20,10 @@ namespace Rivet {
     //@{
 
     /// Constructor with min and max pseudorapidity \f$ \eta \f$ and min \f$ p_T \f$ (in GeV).
-    VisibleFinalState(double mineta = -DBL_MAX,
-                      double maxeta =  DBL_MAX,
-                      double minpt  =  0.0*GeV)
+    VisibleFinalState(const Cut& c=Cuts::open())
     {
       setName("VisibleFinalState");
-      declare(FinalState(mineta, maxeta, minpt), "FS");
+      declare(FinalState(c), "FS");
     }
 
     /// Constructor with specific FinalState.

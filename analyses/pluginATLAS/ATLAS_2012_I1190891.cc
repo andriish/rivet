@@ -47,7 +47,7 @@ namespace Rivet {
       declare(FastJets(vfs, FastJets::ANTIKT, 0.4), "AntiKtJets04");
 
       // all tracks (to do deltaR with leptons)
-      declare(ChargedFinalState(-3.0,3.0),"cfs");
+      declare(ChargedFinalState((Cuts::etaIn(-3.0,3.0))),"cfs");
 
       // Book histograms
       book(_hist_etmiss ,"hist_etmiss",10,0.,500.);

@@ -32,14 +32,14 @@ namespace Rivet {
     void init() {
       // Set up projections
       // Basic FS
-      FinalState fs(-3.6, 3.6);
+      FinalState fs((Cuts::etaIn(-3.6, 3.6)));
       declare(fs, "FS");
 
       // Create a final state with any e-nu pair with invariant mass 65 -> 95 GeV and ET > 20 (W decay products)
       vector<pair<PdgId,PdgId> > vids;
       vids += make_pair(PID::ELECTRON, PID::NU_EBAR);
       vids += make_pair(PID::POSITRON, PID::NU_E);
-      FinalState fs2(-3.6, 3.6, 20*GeV);
+      FinalState fs2((Cuts::etaIn(-3.6, 3.6) && Cuts::pT >=  20*GeV));
       InvMassFinalState invfs(fs2, vids, 65*GeV, 95*GeV);
       declare(invfs, "INVFS");
 

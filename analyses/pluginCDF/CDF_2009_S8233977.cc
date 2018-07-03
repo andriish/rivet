@@ -35,8 +35,8 @@ namespace Rivet {
     /// Book histograms and projections
     void init() {
       declare(TriggerCDFRun2(), "Trigger");
-      declare(FinalState(-1.0, 1.0, 0.0*GeV), "EtFS");
-      declare(ChargedFinalState(-1.0, 1.0, 0.4*GeV), "CFS");
+      declare(FinalState((Cuts::etaIn(-1.0, 1.0))), "EtFS");
+      declare(ChargedFinalState((Cuts::etaIn(-1.0, 1.0) && Cuts::pT >=  0.4*GeV)), "CFS");
 
       book(_hist_pt ,1, 1, 1);
       book(_hist_pt_vs_multiplicity ,2, 1, 1);

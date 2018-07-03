@@ -23,11 +23,11 @@ namespace Rivet {
     // Book histograms and initialise projections before the run
     void init() {
       // Final state
-      FinalState fs(-3, 3);
+      FinalState fs((Cuts::etaIn(-3, 3)));
       declare(fs, "FS");
 
       // Leading photon
-      LeadingParticlesFinalState photonfs(FinalState(-2.5, 2.5, 40.0*GeV));
+      LeadingParticlesFinalState photonfs(FinalState((Cuts::etaIn(-2.5, 2.5) && Cuts::pT >=  40.0*GeV)));
       photonfs.addParticleId(PID::PHOTON);
       declare(photonfs, "LeadingPhoton");
 

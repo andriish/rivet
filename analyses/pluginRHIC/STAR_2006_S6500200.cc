@@ -18,8 +18,8 @@ namespace Rivet {
 
     /// Book projections and histograms
     void init() {
-      ChargedFinalState bbc1(-5.0,-3.3, 0.0*GeV); // beam-beam-counter trigger
-      ChargedFinalState bbc2( 3.3, 5.0, 0.0*GeV); // beam-beam-counter trigger
+      ChargedFinalState bbc1(Cuts::etaIn(-5.0,-3.3)); // beam-beam-counter trigger
+      ChargedFinalState bbc2(Cuts::etaIn( 3.3, 5.0)); // beam-beam-counter trigger
       declare(bbc1, "BBC1");
       declare(bbc2, "BBC2");
 
