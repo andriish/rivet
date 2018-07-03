@@ -9,7 +9,7 @@ namespace Rivet {
     : _regparam(rparam)
   {
     setName("Sphericity");
-    addProjection(fsp, "FS");
+    declare(fsp, "FS");
     clear();
   }
 

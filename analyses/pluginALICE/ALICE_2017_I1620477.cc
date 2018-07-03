@@ -19,7 +19,7 @@ namespace Rivet {
     void init() {
 
       const UnstableFinalState ufs(Cuts::absrap < _rapmax);
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       book(_h_pi0,1,1,1);
       book(_h_eta,2,1,1);

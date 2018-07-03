@@ -38,13 +38,13 @@ namespace Rivet {
       PromptFinalState leptons(fs_z && (Cuts::abspid == PID::ELECTRON || Cuts::abspid == PID::MUON));
       leptons.acceptTauDecays(false);
       DressedLeptons dressedleptons(photons, leptons, 0.1, FS_Zlept, true);
-      addProjection(dressedleptons, "DressedLeptons");
+      declare(dressedleptons, "DressedLeptons");
 
       // Electrons and muons in Total PS
       PromptFinalState leptons_total(Cuts::abspid == PID::ELECTRON || Cuts::abspid == PID::MUON);
       leptons_total.acceptTauDecays(false);
       DressedLeptons dressedleptonsTotal(photons, leptons_total, 0.1, Cuts::open(), true);
-      addProjection(dressedleptonsTotal, "DressedLeptonsTotal");
+      declare(dressedleptonsTotal, "DressedLeptonsTotal");
 
       // Neutrinos
       IdentifiedFinalState nu_id;

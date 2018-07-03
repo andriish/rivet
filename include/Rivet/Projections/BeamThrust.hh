@@ -17,7 +17,7 @@ namespace Rivet {
 
     BeamThrust(const FinalState& fsp) {
       setName("BeamThrust");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Clone on the heap.

@@ -15,7 +15,7 @@ namespace Rivet {
 
     void init() {
 
-      addProjection(FastJets(FinalState(), FastJets::ANTIKT, 0.4), "Jets");
+      declare(FastJets(FinalState(), FastJets::ANTIKT, 0.4), "Jets");
 
       book(forward_kappa3 ,1, 1, 1);
       book(forward_kappa5 ,2, 1, 1);

@@ -56,7 +56,7 @@ namespace Rivet {
 
       /// @todo Initialise and register projections here
       ChargedFinalState cfs(-2.5, 2.5, 0.1*GeV);
-      addProjection(cfs,"CFS");
+      declare(cfs,"CFS");
 
       // pion mass;
       pim = 0.1396;     

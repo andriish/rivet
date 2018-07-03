@@ -21,8 +21,8 @@ namespace Rivet {
     //@{
     MergedFinalState(const FinalState& fspa, const FinalState& fspb) {
       setName("MergedFinalState");
-      addProjection(fspa, "FSA");
-      addProjection(fspb, "FSB");
+      declare(fspa, "FSA");
+      declare(fspb, "FSB");
     }
 
     /// Clone on the heap.

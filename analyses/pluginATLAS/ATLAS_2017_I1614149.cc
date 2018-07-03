@@ -43,12 +43,12 @@ namespace Rivet {
 
 	      PromptFinalState photons(ph_id);
         photons.acceptTauDecays(true);
-	      addProjection(photons, "photons");
+	      declare(photons, "photons");
 
         PromptFinalState electrons(el_id);
         electrons.acceptTauDecays(true);
         DressedLeptons dressedelectrons(photons, electrons, 0.1, lep_cuts);
-        addProjection(dressedelectrons, "elecs");
+        declare(dressedelectrons, "elecs");
 	      DressedLeptons ewdressedelectrons(all_photons, electrons, 0.1, eta_full);
 
         // Projection to find the muons
@@ -58,7 +58,7 @@ namespace Rivet {
         PromptFinalState muons(mu_id);
         muons.acceptTauDecays(true);
         DressedLeptons dressedmuons(photons, muons, 0.1, lep_cuts);
-        addProjection(dressedmuons, "muons");
+        declare(dressedmuons, "muons");
         DressedLeptons ewdressedmuons(all_photons, muons, 0.1, eta_full);
 
         // Projection to find MET
@@ -77,7 +77,7 @@ namespace Rivet {
         vfs.addVetoOnThisFinalState(neutrinos);
         FastJets jets(vfs, FastJets::ANTIKT, 0.4);
         jets.useInvisibles(true);
-        addProjection(jets, "jets");
+        declare(jets, "jets");
 
         // Addition of the large-R jets
         VetoedFinalState vfs1(fs);
@@ -85,7 +85,7 @@ namespace Rivet {
         FastJets fjets(vfs1, FastJets::ANTIKT, 1.);
         fjets.useInvisibles(JetAlg::Invisibles::NONE);
         fjets.useMuons(JetAlg::Muons::NONE);
-        addProjection(fjets, "fjets");
+        declare(fjets, "fjets");
 
 	      bookHists("top_pt_res", 15);
         bookHists("top_absrap_res", 17);

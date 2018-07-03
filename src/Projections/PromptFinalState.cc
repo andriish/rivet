@@ -8,21 +8,21 @@ namespace Rivet {
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
     setName("PromptFinalState");
-    addProjection(FinalState(), "FS");
+    declare(FinalState(), "FS");
   }
 
   PromptFinalState::PromptFinalState(const Cut& c, bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
     setName("PromptFinalState");
-    addProjection(FinalState(c), "FS");
+    declare(FinalState(c), "FS");
   }
 
   PromptFinalState::PromptFinalState(const FinalState& fsp, bool accepttaudecays, bool acceptmudecays)
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
     setName("PromptFinalState");
-    addProjection(fsp, "FS");
+    declare(fsp, "FS");
   }
 
 

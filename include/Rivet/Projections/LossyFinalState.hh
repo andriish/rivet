@@ -25,7 +25,7 @@ namespace Rivet {
       : _filter(filter)
     {
       setName("LossyFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Stand-alone constructor. Initialises the base FinalState projection.
@@ -36,7 +36,7 @@ namespace Rivet {
       : _filter(filter)
     {
       setName("LossyFinalState");
-      addProjection(FinalState(mineta, maxeta, minpt), "FS");
+      declare(FinalState(mineta, maxeta, minpt), "FS");
     }
 
     /// Virtual destructor, to allow subclassing

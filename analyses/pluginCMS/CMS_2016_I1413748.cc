@@ -30,16 +30,16 @@ namespace Rivet {
       IdentifiedFinalState el_id(fs);
       el_id.acceptIdPair(PID::ELECTRON);
       PromptFinalState electrons(el_id);
-      addProjection(electrons, "Electrons");
+      declare(electrons, "Electrons");
       DressedLeptons dressed_electrons(photons, electrons, 0.1);
-      addProjection(dressed_electrons, "DressedElectrons");
+      declare(dressed_electrons, "DressedElectrons");
 
       IdentifiedFinalState mu_id(fs);
       mu_id.acceptIdPair(PID::MUON);
       PromptFinalState muons(mu_id);
-      addProjection(muons, "Muons");
+      declare(muons, "Muons");
       DressedLeptons dressed_muons(photons, muons, 0.1);
-      addProjection(dressed_muons, "DressedMuons");
+      declare(dressed_muons, "DressedMuons");
 
       // Parton-level top quarks
       declare(PartonicTops(PartonicTops::DecayMode::E_MU, false), "LeptonicPartonTops");

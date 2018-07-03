@@ -24,11 +24,11 @@ namespace Rivet {
     /// Constructor.
     FoxWolframMoments(const FinalState& fsp) {
       setName("FoxWolframMoments");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
 
       /// @todo Let the user supply any projection they like?
       VisibleFinalState vfs(fsp);
-      addProjection(vfs, "VFS");
+      declare(vfs, "VFS");
 
       // Initialize moments vector
       for (int i = 0; i < MAXMOMENT ; ++i) {

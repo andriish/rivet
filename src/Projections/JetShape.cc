@@ -17,7 +17,7 @@ namespace Rivet {
     _binedges = linspace(nbins, rmin, rmax);
     _ptcuts = make_pair(ptmin, ptmax);
     _rapcuts = make_pair(absrapmin, absrapmax);
-    addProjection(jetalg, "Jets");
+    declare(jetalg, "Jets");
   }
 
 
@@ -32,7 +32,7 @@ namespace Rivet {
     setName("JetShape");
     _ptcuts = make_pair(ptmin, ptmax);
     _rapcuts = make_pair(absrapmin, absrapmax);
-    addProjection(jetalg, "Jets");
+    declare(jetalg, "Jets");
   }
 
 

@@ -10,7 +10,7 @@ namespace Rivet {
     setName("FinalState");
     const bool isopen = (c == Cuts::open());
     MSG_TRACE("Check for open FS conditions: " << std::boolalpha << isopen);
-    if (!isopen) addProjection(FinalState(), "OpenFS");
+    if (!isopen) declare(FinalState(), "OpenFS");
   }
 
 
@@ -19,7 +19,7 @@ namespace Rivet {
   {
     setName("FinalState");
     MSG_TRACE("Registering base FSP as 'PrevFS'");
-    addProjection(fsp, "PrevFS");
+    declare(fsp, "PrevFS");
   }
 
 
@@ -32,7 +32,7 @@ namespace Rivet {
     if (openpt && openeta) {
       _cuts = Cuts::open();
     } else {
-      addProjection(FinalState(), "OpenFS");
+      declare(FinalState(), "OpenFS");
       if (openeta)
         _cuts = (Cuts::pT >= minpt);
       else if ( openpt )

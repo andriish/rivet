@@ -49,7 +49,7 @@ namespace Rivet {
 
     Thrust(const FinalState& fsp) {
       setName("Thrust");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Clone on the heap.

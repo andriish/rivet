@@ -78,7 +78,7 @@ namespace Rivet {
       : _detFns(effSmearFns), _bTagEffFn(bTagEffFn), _cTagEffFn(cTagEffFn)
     {
       setName("SmearedJets");
-      addProjection(ja, "TruthJets");
+      declare(ja, "TruthJets");
     }
 
 

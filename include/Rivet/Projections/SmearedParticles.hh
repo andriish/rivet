@@ -84,7 +84,7 @@ namespace Rivet {
         _detFns(effSmearFns)
     {
       setName("SmearedParticles");
-      addProjection(pf, "TruthParticles");
+      declare(pf, "TruthParticles");
     }
 
     /// @brief Constructor with an ordered list of efficiency and/or smearing functions

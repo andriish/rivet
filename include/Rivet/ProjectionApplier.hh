@@ -163,12 +163,6 @@ namespace Rivet {
     template <typename PROJ>
     const PROJ& declare(const std::string& name, const PROJ& proj) { return declareProjection(proj, name); }
 
-    /// @brief Register a contained projection (user-facing version)
-    /// @deprecated Use declareProjection() or declare()
-    /// @todo Add SFINAE to require that PROJ inherit from Projection
-    template <typename PROJ>
-    const PROJ& addProjection(const PROJ& proj, const std::string& name) { return declareProjection(proj, name); }
-
 
     /// Untemplated function to do the work...
     const Projection& _declareProjection(const Projection& proj, const std::string& name);

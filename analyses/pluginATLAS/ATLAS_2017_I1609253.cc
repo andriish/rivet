@@ -19,7 +19,7 @@ namespace Rivet {
 
       // Projections
       const FastJets jets(FinalState(), FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::ALL);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       // Book histograms
       book(_hist_EEC1 ,  1, 1, 1);

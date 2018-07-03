@@ -6,17 +6,17 @@ namespace Rivet {
 
   ChargedFinalState::ChargedFinalState(const FinalState& fsp) {
     setName("ChargedFinalState");
-    addProjection(fsp, "FS");
+    declare(fsp, "FS");
   }
 
   ChargedFinalState::ChargedFinalState(const Cut& c) {
     setName("ChargedFinalState");
-    addProjection(FinalState(c), "FS");
+    declare(FinalState(c), "FS");
   }
 
   ChargedFinalState::ChargedFinalState(double mineta, double maxeta, double minpt) {
     setName("ChargedFinalState");
-    addProjection(FinalState(mineta, maxeta, minpt), "FS");
+    declare(FinalState(mineta, maxeta, minpt), "FS");
   }
 
   CmpState ChargedFinalState::compare(const Projection& p) const {

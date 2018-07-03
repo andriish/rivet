@@ -10,8 +10,8 @@ namespace Rivet {
 
   void FastJets::_initBase() {
     setName("FastJets");
-    addProjection(HeavyHadrons(), "HFHadrons");
-    addProjection(TauFinder(TauFinder::DecayMode::HADRONIC), "Taus");
+    declare(HeavyHadrons(), "HFHadrons");
+    declare(TauFinder(TauFinder::DecayMode::HADRONIC), "Taus");
   }
 
 

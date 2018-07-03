@@ -28,8 +28,8 @@ namespace Rivet {
       // Initialise and register projections
       FinalState fs(-2.5,2.5,0.0*GeV);
       FinalState fsm(-5,5,0.0*GeV);
-      addProjection(fs, "FS");
-      addProjection(fsm, "FSM");
+      declare(fs, "FS");
+      declare(fsm, "FSM");
 
       ChargedLeptons charged_leptons(fs);
       IdentifiedFinalState photons(fs);
@@ -44,10 +44,10 @@ namespace Rivet {
       prompt_photons.acceptTauDecays(false);
 
       DressedLeptons dressed_leptons = DressedLeptons(prompt_photons, prompt_leptons, lepConeSize, lepton_cut, true);
-      addProjection(dressed_leptons, "DressedLeptons");
+      declare(dressed_leptons, "DressedLeptons");
 
       MissingMomentum Met(fsm);
-      addProjection(Met, "MET");
+      declare(Met, "MET");
 
 
       // Book histograms

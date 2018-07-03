@@ -16,7 +16,7 @@ namespace Rivet {
     void init() {
 
       const UnstableFinalState ufs(Cuts::absrap < RAPMAX);
-      addProjection(ufs, "UFS");
+      declare(ufs, "UFS");
 
       // Check if cm energy is 7 TeV or 0.9 TeV
       if (fuzzyEquals(sqrtS()/GeV, 900, 1E-3))       _cm_energy_case = 1;

@@ -12,7 +12,7 @@ namespace Rivet {
     : _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget), _useTransverseMass(false)
   {
     setName("InvMassFinalState");
-    addProjection(fsp, "FS");
+    declare(fsp, "FS");
     _decayids.push_back(idpair);
   }
 
@@ -25,7 +25,7 @@ namespace Rivet {
     : _decayids(idpairs), _minmass(minmass), _maxmass(maxmass), _masstarget(masstarget), _useTransverseMass(false)
   {
     setName("InvMassFinalState");
-    addProjection(fsp, "FS");
+    declare(fsp, "FS");
   }
 
 

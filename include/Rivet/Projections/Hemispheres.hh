@@ -59,7 +59,7 @@ namespace Rivet {
     /// Constructor.
     Hemispheres(const AxesDefinition& ax) {
       setName("Hemispheres");
-      addProjection(ax, "Axes");
+      declare(ax, "Axes");
       clear();
     }
 

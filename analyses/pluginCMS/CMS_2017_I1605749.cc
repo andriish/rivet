@@ -22,7 +22,7 @@ namespace Rivet {
     void init() {
       // Projections
       const FinalState fs(-5.0, 5.0, 0.0*GeV);
-      addProjection(FastJets(fs, FastJets::ANTIKT, 0.5), "Jets");
+      declare(FastJets(fs, FastJets::ANTIKT, 0.5), "Jets");
 
       // Jet Charge Histos
       for (int i = 1; i <= 18; i++) {

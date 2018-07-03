@@ -28,8 +28,8 @@ namespace Rivet {
         ifs.acceptIdPair(PID::PHOTON);
         ifs.acceptIdPair(PID::ELECTRON);
         ifs.acceptIdPair(PID::MUON);
-        addProjection(ifs, "IFS");
-        addProjection(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
+        declare(ifs, "IFS");
+        declare(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
       }
 
       /// Clone on the heap
@@ -104,12 +104,12 @@ namespace Rivet {
       FinalState fs;
       Cut superLooseLeptonCuts = Cuts::pt > 5*GeV;
       SpecialDressedLeptons dressedleptons(fs, superLooseLeptonCuts);
-      addProjection(dressedleptons, "DressedLeptons");
+      declare(dressedleptons, "DressedLeptons");
 
       // Projection for jets
       VetoedFinalState fsForJets(fs);
       fsForJets.addVetoOnThisFinalState(dressedleptons);
-      addProjection(FastJets(fsForJets, FastJets::ANTIKT, 0.5), "Jets");
+      declare(FastJets(fsForJets, FastJets::ANTIKT, 0.5), "Jets");
 
       // Booking of histograms
       book(_normedElectronMuonHisto, "normedElectronMuonHisto", 7, 3.5, 10.5,

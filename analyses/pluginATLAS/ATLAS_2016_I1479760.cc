@@ -22,7 +22,7 @@ namespace Rivet {
       FastJets fastJets(FinalState(), FastJets::ANTIKT, 0.6);
       fastJets.useInvisibles(JetAlg::Invisibles::NONE);
       fastJets.useMuons(JetAlg::Muons::NONE);
-      addProjection(fastJets, "AntiKt6Jets");
+      declare(fastJets, "AntiKt6Jets");
 
       book(_hists["deltaPt34"]       ,  1, 1, 1);
       book(_hists["deltaPhi34"]      ,  2, 1, 1);

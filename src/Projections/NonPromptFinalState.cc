@@ -8,7 +8,7 @@ namespace Rivet {
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
     setName("NonPromptFinalState");
-    addProjection(fsp, "FS");
+    declare(fsp, "FS");
   }
 
 
@@ -16,7 +16,7 @@ namespace Rivet {
     : _acceptMuDecays(acceptmudecays), _acceptTauDecays(accepttaudecays)
   {
     setName("NonPromptFinalState");
-    addProjection(FinalState(c), "FS");
+    declare(FinalState(c), "FS");
   }
 
 

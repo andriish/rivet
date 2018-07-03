@@ -25,7 +25,7 @@ namespace Rivet {
       : _metSmearFn(metSmearFn)
     {
       setName("SmearedMET");
-      addProjection(mm, "TruthMET");
+      declare(mm, "TruthMET");
     }
 
     /// @brief Constructor from a Cut (on the particles used to determine missing momentum) and a smearing function
@@ -34,7 +34,7 @@ namespace Rivet {
       : _metSmearFn(metSmearFn)
     {
       setName("SmearedMET");
-      addProjection(MissingMomentum(cut), "TruthMET");
+      declare(MissingMomentum(cut), "TruthMET");
     }
 
 

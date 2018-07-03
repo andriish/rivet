@@ -35,7 +35,7 @@ namespace Rivet {
       PromptFinalState electrons(el_id);
       electrons.acceptTauDecays(false);
       DressedLeptons dressedelectrons(photons, electrons, 0.1, Cuts::abseta< 2.5 && Cuts::pT > 25.0*GeV, true);
-      addProjection(dressedelectrons, "electrons");
+      declare(dressedelectrons, "electrons");
       DressedLeptons fulldressedelectrons(photons, electrons, 0.1, eta_full, true);
 
       // Projection to find the muons
@@ -44,7 +44,7 @@ namespace Rivet {
       PromptFinalState muons(mu_id);
       muons.acceptTauDecays(false);
       DressedLeptons dressedmuons(photons, muons, 0.1, Cuts::abseta < 2.5 && Cuts::pT > 25.0*GeV, true);
-      addProjection(dressedmuons, "muons");
+      declare(dressedmuons, "muons");
       DressedLeptons fulldressedmuons(photons, muons, 0.1, eta_full, true);
 
       // Projection to find neutrinos to exclude from jets
@@ -60,7 +60,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(neutrinos);
       FastJets jets(vfs, FastJets::ANTIKT, 0.4);
       jets.useInvisibles(true);
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
       // Book Histograms
       book(_h["bjet_pt"] , 5,1,1);

@@ -35,17 +35,17 @@ namespace Rivet {
 
       // Initialise and register projections
       const FinalState fs;
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       FastJets jets(fs, FastJets::GENKTEE, 0.5, JetAlg::Muons::NONE, JetAlg::Invisibles::ALL);
       //FastJets jets(fs, FastJets::ANTIKT, 0.5, JetAlg::Muons::NONE, JetAlg::Invisibles::ALL);
-      addProjection(jets, "Jets");
+      declare(jets, "Jets");
 
       IdentifiedFinalState mu_id(fs);
       mu_id.acceptIdPair(PID::MUON);
-      addProjection(mu_id, "MUONS");
+      declare(mu_id, "MUONS");
   
-      addProjection(MissingMomentum(fs), "MissingMomenta");      
+      declare(MissingMomentum(fs), "MissingMomenta");      
       // Book histograms
       //_h_costheta = bookHisto1D(2, 1, 1);
       book(_h_m_OS, 3, 1, 1);

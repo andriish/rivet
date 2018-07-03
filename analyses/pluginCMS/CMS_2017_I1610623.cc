@@ -33,7 +33,7 @@ namespace Rivet {
       FinalState fs;
       WFinder wfinder_mu(fs, Cuts::abseta < 2.4 && Cuts::pT > 0*GeV, PID::MUON, 0*GeV, 1000000*GeV, 0*GeV, 0.1, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::YES, WFinder::MassWindow::MT);
       //WFinder wfinder_mu(fs, Cuts::abseta < 2.4 && Cuts::pT > 0*GeV, PID::MUON, 0*GeV, 1000000*GeV, 0*GeV, 0.1, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
-      addProjection(wfinder_mu, "WFinder_mu");
+      declare(wfinder_mu, "WFinder_mu");
 
       // Define veto FS
       VetoedFinalState vfs;
@@ -42,7 +42,7 @@ namespace Rivet {
       vfs.vetoNeutrinos();
 
       FastJets fastjets(vfs, FastJets::ANTIKT, 0.4);
-      addProjection(fastjets, "Jets");
+      declare(fastjets, "Jets");
 
       //-------------
       book(_hist_Mult_exc      ,"d01-x01-y01");

@@ -20,7 +20,7 @@ namespace Rivet {
     void init() {
 
       const ChargedFinalState cfs(Cuts::abseta < 0.8 && Cuts::pT > 0.5*GeV);
-      addProjection(cfs, "Tracks");
+      declare(cfs, "Tracks");
 
       book(_NchgPDFden1 ,7,1,1);
       book(_NchgPMNden1 ,6,1,1);

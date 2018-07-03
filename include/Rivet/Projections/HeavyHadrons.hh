@@ -26,7 +26,7 @@ namespace Rivet {
     /// \f$ \eta \f$ and the min \f$ p_T \f$ (in GeV).
     HeavyHadrons(const Cut& c=Cuts::open()) {
       setName("HeavyHadrons");
-      addProjection(UnstableFinalState(c), "UFS");
+      declare(UnstableFinalState(c), "UFS");
     }
 
     /// Clone on the heap.

@@ -77,7 +77,7 @@ namespace Rivet {
       declare(neutrino_fs, "NEUTRINO_FS");
 
       // Calculate missing ET from the visible final state, not by requiring neutrinos
-      addProjection(MissingMomentum(Cuts::abseta < 4.5), "MISSING");
+      declare(MissingMomentum(Cuts::abseta < 4.5), "MISSING");
 
       VetoedFinalState jetinput;
       jetinput.addVetoOnThisFinalState(bare_MU);

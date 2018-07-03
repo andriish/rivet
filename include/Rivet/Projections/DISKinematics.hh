@@ -21,8 +21,8 @@ namespace Rivet {
     {
       setName("DISKinematics");
       //addPdgIdPair(ANY, hadid);
-      addProjection(Beam(), "Beam");
-      addProjection(DISLepton(), "Lepton");
+      declare(Beam(), "Beam");
+      declare(DISLepton(), "Lepton");
     }
 
     /// Clone on the heap.

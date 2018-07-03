@@ -34,7 +34,7 @@ namespace Rivet {
       /// @todo What about directness/promptness?
       setName("TauFinder");
       _decmode = decaymode;
-      addProjection(UnstableFinalState(cut), "UFS");
+      declare(UnstableFinalState(cut), "UFS");
     }
 
 

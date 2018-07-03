@@ -26,14 +26,14 @@ namespace Rivet {
       // Selection: lepton selection
       Cut etaranges_el = Cuts::abseta < 2.47 && Cuts::pT > 7*GeV; 
       DressedLeptons electron_sel4l(photons, bare_el, 0.1, etaranges_el, false);
-      addProjection(electron_sel4l, "electrons");
+      declare(electron_sel4l, "electrons");
  
       Cut etaranges_mu = Cuts::abseta < 2.7 && Cuts::pT > 6*GeV;
       DressedLeptons muon_sel4l(photons, bare_mu, 0.1, etaranges_mu, false);
-      addProjection(muon_sel4l, "muons");
+      declare(muon_sel4l, "muons");
 
       FastJets jetpro(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
-      addProjection(jetpro, "jet");
+      declare(jetpro, "jet");
 
       // Book histos
       book(_h_pt          , 1, 1, 1);

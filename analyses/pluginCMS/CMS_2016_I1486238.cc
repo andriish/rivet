@@ -23,7 +23,7 @@ namespace Rivet {
     void init() {
 
       FastJets akt(FinalState(), FastJets::ANTIKT, 0.5);
-      addProjection(akt, "antikT");
+      declare(akt, "antikT");
 
       book(_h_Deltaphi_newway, 1,1,1);
       book(_h_deltaphiafterlight, 9,1,1);

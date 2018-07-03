@@ -65,12 +65,12 @@ namespace Rivet {
     void init() {
 
       const FinalState fs;
-      addProjection(fs, "FS");
-      addProjection(HadronicFinalState(fs), "HFS");
+      declare(fs, "FS");
+      declare(HadronicFinalState(fs), "HFS");
 
       const ChargedFinalState cfs;
-      addProjection(cfs, "CFS");
-      addProjection(HadronicFinalState(cfs), "HCFS");
+      declare(cfs, "CFS");
+      declare(HadronicFinalState(cfs), "HCFS");
 
       {Histo1DPtr tmp; _h_chMult.add( 5.0,  5.5, book(tmp, 1,1,1));}
       {Histo1DPtr tmp; _h_chMult.add( 5.5,  6.5, book(tmp, 1,1,2));}

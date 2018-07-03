@@ -43,12 +43,12 @@ namespace Rivet {
     const bool doClustering = (clusterPhotons != ClusterPhotons::NONE);
     const bool useDecayPhotons = (clusterPhotons == ClusterPhotons::ALL);
     DressedLeptons leptons(inputfs, get<FinalState>("BareLeptons"), (doClustering ? dRmax : -1.0), fsCut, useDecayPhotons);
-    addProjection(leptons, "DressedLeptons");
+    declare(leptons, "DressedLeptons");
 
     // Identify the non-Z part of the event
     VetoedFinalState remainingFS;
     remainingFS.addVetoOnThisFinalState(*this);
-    addProjection(remainingFS, "RFS");
+    declare(remainingFS, "RFS");
   }
 
 

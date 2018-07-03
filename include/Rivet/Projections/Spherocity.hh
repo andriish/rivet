@@ -38,7 +38,7 @@ namespace Rivet {
       : _calculatedSpherocity(false)
     {
       setName("Spherocity");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Clone on the heap.

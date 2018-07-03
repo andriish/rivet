@@ -18,7 +18,7 @@ namespace Rivet {
     void init() {
 
       FastJets akt(FinalState(), FastJets::ANTIKT, 0.7);
-      addProjection(akt, "antikT");
+      declare(akt, "antikT");
 
       {Histo1DPtr tmp; _h_deltaPhi.add( 200.,  300., book(tmp, 1, 1, 1));}
       {Histo1DPtr tmp; _h_deltaPhi.add( 300.,  400., book(tmp, 2, 1, 1));}

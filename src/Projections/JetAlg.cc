@@ -8,10 +8,10 @@ namespace Rivet {
     : _useMuons(usemuons), _useInvisibles(useinvis)
   {
     setName("JetAlg");
-    addProjection(fs, "FS");
+    declare(fs, "FS");
     VisibleFinalState vfs(fs);
     // MSG_DEBUG("Making visible final state from provided FS");
-    addProjection(vfs, "VFS");
+    declare(vfs, "VFS");
   }
 
 

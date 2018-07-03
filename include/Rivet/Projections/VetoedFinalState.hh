@@ -26,14 +26,14 @@ namespace Rivet {
     /// Default constructor.
     VetoedFinalState() {
       setName("VetoedFinalState");
-      addProjection(FinalState(), "FS");
+      declare(FinalState(), "FS");
     }
 
     /// Constructor with specific FinalState.
     VetoedFinalState(const FinalState& fsp)
     {
       setName("VetoedFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
@@ -42,7 +42,7 @@ namespace Rivet {
       : _vetoCodes(vetocodes)
     {
       setName("VetoedFinalState");
-      addProjection(FinalState(), "FS");
+      declare(FinalState(), "FS");
     }
 
     /// You can add a map of ID plus a pair containing \f$ p_{Tmin} \f$ and
@@ -52,7 +52,7 @@ namespace Rivet {
       : _vetoCodes(vetocodes)
     {
       setName("VetoedFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
 
@@ -142,7 +142,7 @@ namespace Rivet {
     /// Veto particles from a supplied final state
     VetoedFinalState& addVetoOnThisFinalState(const ParticleFinder& fs) {
       const string name = "FS_" + to_str(_vetofsnames.size());
-      addProjection(fs, name);
+      declare(fs, name);
       _vetofsnames.insert(name);
       return *this;
     }

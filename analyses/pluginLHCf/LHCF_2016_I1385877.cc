@@ -25,8 +25,8 @@ public:
 	void init() {
 
 		// Initialise and register projections
-		addProjection(UnstableFinalState(), "UFS");
-		addProjection(Beam(), "Beam");
+		declare(UnstableFinalState(), "UFS");
+		declare(Beam(), "Beam");
 
 		// calculate beam rapidity
 		const Particle bm1 = beams().first;

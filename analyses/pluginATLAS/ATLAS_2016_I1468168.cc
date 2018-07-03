@@ -31,7 +31,7 @@ namespace Rivet {
       PromptFinalState electrons(el_id);
       electrons.acceptTauDecays(true);
       DressedLeptons dressedelectrons(photons, electrons, 0.1, lep_cuts, true);
-      addProjection(dressedelectrons, "DressedElectrons");
+      declare(dressedelectrons, "DressedElectrons");
 
       // Projection to find the muons
       IdentifiedFinalState mu_id(fs);
@@ -39,7 +39,7 @@ namespace Rivet {
       PromptFinalState muons(mu_id);
       muons.acceptTauDecays(true);
       DressedLeptons dressedmuons(photons, muons, 0.1, lep_cuts, true);
-      addProjection(dressedmuons, "DressedMuons");
+      declare(dressedmuons, "DressedMuons");
 
       /// @todo Make this a counter or Scatter1D?
       book(_hist ,"Passed_events", 1, 0, 1);

@@ -18,7 +18,7 @@ namespace Rivet {
       :  FinalState(), _leading_only(false)
     {
       setName("LeadingParticlesFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Clone on the heap.

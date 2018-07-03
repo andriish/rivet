@@ -20,7 +20,7 @@ namespace Rivet {
     NonHadronicFinalState(FinalState& fsp)
     {
       setName("NonHadronicFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     NonHadronicFinalState(double mineta = -MAXDOUBLE,
@@ -28,7 +28,7 @@ namespace Rivet {
 			  double minpt = 0.0*GeV)
     {
       setName("NonHadronicFinalState");
-      addProjection(FinalState(mineta, maxeta, minpt), "FS");
+      declare(FinalState(mineta, maxeta, minpt), "FS");
     }
 
     /// Clone on the heap.

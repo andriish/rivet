@@ -20,13 +20,13 @@ namespace Rivet {
       : _Etmin(etmin)
     {
       setName("NeutralFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Construction using Cuts object
     NeutralFinalState(const Cut& c=Cuts::open()) : _Etmin(0.0*GeV) {
       setName("NeutralFinalState");
-      addProjection(FinalState(c), "FS");
+      declare(FinalState(c), "FS");
     }
 
     /// Construction from explicit eta range and min ET cut values
@@ -34,7 +34,7 @@ namespace Rivet {
       : _Etmin(etmin)
     {
       setName("NeutralFinalState");
-      addProjection(FinalState(mineta, maxeta, 0.0*GeV), "FS");
+      declare(FinalState(mineta, maxeta, 0.0*GeV), "FS");
     }
 
     /// Clone on the heap.

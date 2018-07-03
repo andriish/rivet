@@ -25,14 +25,14 @@ namespace Rivet {
                       double minpt  =  0.0*GeV)
     {
       setName("VisibleFinalState");
-      addProjection(FinalState(mineta, maxeta, minpt), "FS");
+      declare(FinalState(mineta, maxeta, minpt), "FS");
     }
 
     /// Constructor with specific FinalState.
     VisibleFinalState(const FinalState& fsp)
     {
       setName("VisibleFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     /// Clone on the heap.

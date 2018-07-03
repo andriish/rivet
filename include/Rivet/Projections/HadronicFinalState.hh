@@ -20,7 +20,7 @@ namespace Rivet {
     HadronicFinalState(const FinalState& fsp)
     {
       setName("HadronicFinalState");
-      addProjection(fsp, "FS");
+      declare(fsp, "FS");
     }
 
     HadronicFinalState(double mineta = -MAXDOUBLE,
@@ -28,7 +28,7 @@ namespace Rivet {
                        double minpt = 0.0*GeV)
     {
       setName("HadronicFinalState");
-      addProjection(FinalState(mineta, maxeta, minpt), "FS");
+      declare(FinalState(mineta, maxeta, minpt), "FS");
     }
 
     /// Clone on the heap.

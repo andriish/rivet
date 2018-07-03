@@ -52,11 +52,11 @@ namespace Rivet {
       // Get MET from generic invisibles
       VetoedFinalState ivfs(fs);
       ivfs.addVetoOnThisFinalState(VisibleFinalState(fs));
-      addProjection(ivfs, "InvisibleFS");
+      declare(ivfs, "InvisibleFS");
 
       // Project jets
       FastJets jets(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
-      addProjection(jets, "jets");
+      declare(jets, "jets");
 
 
       // Integrated cross sections

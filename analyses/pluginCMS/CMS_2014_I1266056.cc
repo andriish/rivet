@@ -24,22 +24,22 @@ namespace Rivet {
     void init() {
       // Final state
       FinalState fs(-3, 3);
-      addProjection(fs, "FS");
+      declare(fs, "FS");
 
       // Leading photon
       LeadingParticlesFinalState photonfs(FinalState(-2.5, 2.5, 40.0*GeV));
       photonfs.addParticleId(PID::PHOTON);
-      addProjection(photonfs, "LeadingPhoton");
+      declare(photonfs, "LeadingPhoton");
 
       // FS excluding the leading photon
       VetoedFinalState vfs(fs);
       vfs.addVetoOnThisFinalState(photonfs);
-      addProjection(vfs, "JetFS");
+      declare(vfs, "JetFS");
 
       // Jets
       FastJets jetpro(vfs, FastJets::ANTIKT, 0.5);
       //jetpro.useInvisibles();
-      addProjection(jetpro, "Jets");
+      declare(jetpro, "Jets");
 
       book(_h_phverycentral_jetcentral, 1, 1, 1);
       book(_h_phcentral_jetcentral    , 2, 1, 1);

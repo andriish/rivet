@@ -28,8 +28,8 @@ namespace Rivet
           ifs.acceptIdPair(PID::PHOTON);
           ifs.acceptIdPair(PID::ELECTRON);
           ifs.acceptIdPair(PID::MUON);
-          addProjection(ifs, "IFS");
-          addProjection(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
+          declare(ifs, "IFS");
+          declare(FastJets(ifs, FastJets::ANTIKT, 0.1), "LeptonJets");
         }
         
         /// Clone on the heap.
@@ -106,18 +106,18 @@ namespace Rivet
     // Projection for dressed electrons and muons
     Cut leptonCuts = Cuts::abseta < 2.5 and Cuts::pt > 30.*GeV;
     SpecialDressedLeptons dressedleptons(prompt_fs, leptonCuts);
-    addProjection(dressedleptons, "DressedLeptons");
+    declare(dressedleptons, "DressedLeptons");
     
     // Neutrinos
     IdentifiedFinalState neutrinos(prompt_fs);
     neutrinos.acceptNeutrinos();
-    addProjection(neutrinos, "Neutrinos");
+    declare(neutrinos, "Neutrinos");
     
     // Projection for jets
     VetoedFinalState fsForJets(fs);
     fsForJets.addVetoOnThisFinalState(dressedleptons);
     fsForJets.addVetoOnThisFinalState(neutrinos);
-    addProjection(FastJets(fsForJets, FastJets::ANTIKT, 0.4, JetAlg::Muons::DECAY, JetAlg::Invisibles::DECAY), "Jets");
+    declare(FastJets(fsForJets, FastJets::ANTIKT, 0.4, JetAlg::Muons::DECAY, JetAlg::Invisibles::DECAY), "Jets");
     
     //book hists
     book(_hist_thadpt, "d01-x02-y01");

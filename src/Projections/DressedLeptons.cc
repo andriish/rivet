@@ -44,11 +44,11 @@ namespace Rivet {
     setName("DressedLeptons");
 
     IdentifiedFinalState photonfs(photons, PID::PHOTON);
-    addProjection(photonfs, "Photons");
+    declare(photonfs, "Photons");
 
     IdentifiedFinalState leptonfs(bareleptons);
     leptonfs.acceptIdPairs({PID::ELECTRON, PID::MUON, PID::TAU});
-    addProjection(leptonfs, "Leptons");
+    declare(leptonfs, "Leptons");
   }
 
 

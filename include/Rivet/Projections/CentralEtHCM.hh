@@ -21,7 +21,7 @@ namespace Rivet {
     CentralEtHCM(const DISFinalState& fs)
     {
       setName("CentralEtHCM");
-      addProjection(fs, "FS");
+      declare(fs, "FS");
     }
 
     /// Clone on the heap.
