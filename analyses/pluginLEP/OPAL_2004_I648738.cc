@@ -52,7 +52,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // find the initial quarks/gluons
-      ParticleVector initial;
+      Particles initial;
       for (const GenParticle* p : Rivet::particles(event.genEvent())) {
 	const GenVertex* pv = p->production_vertex();
 	const PdgId pid = abs(p->pdg_id());

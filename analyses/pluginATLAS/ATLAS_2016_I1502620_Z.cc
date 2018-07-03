@@ -49,7 +49,7 @@ namespace Rivet {
       const double zmass = Zboson.mass();
 
       // Get/cut on Z boson leptons
-      const ParticleVector& leptons = zfinder.constituents();
+      const Particles& leptons = zfinder.constituents();
       const double eta1 = leptons[0].abseta();
       const double eta2 = leptons[1].abseta();
 

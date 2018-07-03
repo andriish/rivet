@@ -2,6 +2,8 @@
 #ifndef RIVET_InitialQuarks_HH
 #define RIVET_InitialQuarks_HH
 
+#warning "This is a dangerous projection for a few specific old analyses. Not for general use!"
+
 #include "Rivet/Projection.hh"
 #include "Rivet/Particle.hh"
 #include "Rivet/Event.hh"

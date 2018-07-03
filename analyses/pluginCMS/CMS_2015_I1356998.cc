@@ -59,7 +59,7 @@ namespace Rivet {
       if (fs.size() < 2) vetoEvent;
 
       // Gap center calculations
-      const ParticleVector particlesByRapidity = fs.particles(cmpMomByRap); //ByRapidity();
+      const Particles particlesByRapidity = fs.particles(cmpMomByRap); //ByRapidity();
 
       vector<double> gaps;
       vector<double> midpoints;

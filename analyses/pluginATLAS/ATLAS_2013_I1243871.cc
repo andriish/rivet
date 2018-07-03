@@ -60,8 +60,8 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       /// Get the various sets of final state particles
-      const ParticleVector& elecFS = apply<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
-      const ParticleVector& muonFS = apply<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
+      const Particles& elecFS = apply<IdentifiedFinalState>(event, "ELEC_FS").particlesByPt();
+      const Particles& muonFS = apply<IdentifiedFinalState>(event, "MUON_FS").particlesByPt();
 
       // Get all jets with pT > 7 GeV (ATLAS standard jet collection)
       /// @todo Why rewrite the jets collection as a vector of pointers?

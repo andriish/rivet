@@ -56,8 +56,8 @@ book(	  _hist2YDif	,8, 1, 1);
       if (zfe.empty() && zfm.empty()) vetoEvent;
 
       // Choose the Z candidate
-      const ParticleVector& z = (!zfm.empty()) ? zfm.bosons() : zfe.bosons();
-      const ParticleVector& clusteredConstituents = (!zfm.empty()) ? zfm.constituents() : zfe.constituents();
+      const Particles& z = (!zfm.empty()) ? zfm.bosons() : zfe.bosons();
+      const Particles& clusteredConstituents = (!zfm.empty()) ? zfm.constituents() : zfe.constituents();
 
       // Insist that the Z is in a high-pT (boosted) regime
       if (z[0].pT() < 40*GeV) return;

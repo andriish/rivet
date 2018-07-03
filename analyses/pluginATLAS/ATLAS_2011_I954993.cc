@@ -34,12 +34,12 @@ namespace Rivet {
 
       VetoedFinalState weinput;
       weinput.addVetoOnThisFinalState(zfinder_e);
-      WFinder wfinder_e(weinput, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.1, WFinder::ClusterPhotons::NODECAY);
+      WFinder wfinder_e(weinput, cuts, PID::ELECTRON, 0*GeV, 1000*GeV, 25*GeV, 0.1, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY);
       declare(wfinder_e, "WFinder_e");
 
       VetoedFinalState wminput;
       wminput.addVetoOnThisFinalState(zfinder_mu);
-      WFinder wfinder_mu(wminput,cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.1, WFinder::ClusterPhotons::NODECAY);
+      WFinder wfinder_mu(wminput,cuts, PID::MUON, 0*GeV, 1000*GeV, 25*GeV, 0.1, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY);
       declare(wfinder_mu, "WFinder_mu");
 
       // Histograms

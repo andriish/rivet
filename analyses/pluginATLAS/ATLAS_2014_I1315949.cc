@@ -77,7 +77,7 @@ namespace Rivet {
              ptSumTrmin(0.0), ptSumTrmax(0.0), ptSumAway(0.0);
 
       // The charged particles
-      ParticleVector particles = apply<ChargedFinalState>(event, "cfs").particlesByPt(
+      Particles particles = apply<ChargedFinalState>(event, "cfs").particlesByPt(
           Cuts::pT > 0.5*GeV && Cuts::abseta <2.5);
 
       // Loop over charged particles with pT>500 MeV and |eta|<2.5

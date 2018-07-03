@@ -472,7 +472,7 @@ namespace Rivet {
     /// experimentally -- use this function with care when replicating
     /// experimental analyses!
     ///
-    /// @deprecated Too vague: use fromHadron or fromHadronicTau
+    DEPRECATED("Too vague: use fromHadron or fromHadronicTau")
     bool fromDecay() const { return fromHadron() || fromPromptTau(); }
 
     /// @brief Shorthand definition of 'promptness' based on set definition flags

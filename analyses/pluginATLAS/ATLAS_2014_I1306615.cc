@@ -111,9 +111,9 @@ namespace Rivet {
     void analyze(const Event& event) {
 
       // Get final state particles
-      const ParticleVector& FS_ptcls          = apply<FinalState>(event, "FS").particles();
-      const ParticleVector& ptcls_veto_mu_nu  = apply<VetoedFinalState>(event, "VETO_MU_NU_FS").particles();
-      const ParticleVector& photons           = apply<IdentifiedFinalState>(event, "PH_FS").particlesByPt();
+      const Particles& FS_ptcls          = apply<FinalState>(event, "FS").particles();
+      const Particles& ptcls_veto_mu_nu  = apply<VetoedFinalState>(event, "VETO_MU_NU_FS").particles();
+      const Particles& photons           = apply<IdentifiedFinalState>(event, "PH_FS").particlesByPt();
       const vector<DressedLepton>& el_dressed = apply<DressedLeptons>(event, "EL_DRESSED_FS").dressedLeptons();
       const vector<DressedLepton>& mu_dressed = apply<DressedLeptons>(event, "MU_DRESSED_FS").dressedLeptons();
 

@@ -52,39 +52,6 @@ namespace Rivet {
             MassWindow masstype=MassWindow::M,
             double masstarget=80.4*GeV);
 
-    /// Backward-compatible constructor with implicit chLeptons mode = ChargedLeptons::PROMPT
-    /// @deprecated Remove this and always use the constructor with chLeptons argument.
-    WFinder(const FinalState& inputfs,
-            const Cut& leptoncuts,
-            PdgId pid,
-            double minmass, double maxmass,
-            double missingET,
-            double dRmax,
-            ClusterPhotons clusterPhotons,
-            AddPhotons trackPhotons=AddPhotons::NO,
-            MassWindow masstype=MassWindow::M,
-            double masstarget=80.4*GeV)
-      : WFinder(inputfs, leptoncuts, pid, minmass, maxmass, missingET,
-                dRmax, ChargedLeptons::PROMPT, clusterPhotons, trackPhotons, masstype, masstarget)
-    {   }
-
-    // /// Constructor with more convenient argument ordering and default args
-    // ///
-    // /// @todo Revisit AddPhotons::NO as default?
-    // WFinder(const FinalState& inputfs,
-    //         const Cut& leptoncuts,
-    //         PdgId pid,
-    //         double minmass, double maxmass,
-    //         double missingET,
-    //         MassWindow masstype,
-    //         double masstarget=80.4*GeV,
-    //         ClusterPhotons clusterPhotons=ClusterPhotons::NODECAY,
-    //         double dRmax=0.1,
-    //         AddPhotons trackPhotons=AddPhotons::NO)
-    //   : WFinder(inputfs, leptoncuts, pid, minmass, maxmass, missingET,
-    //             dRmax, clusterPhotons, trackPhotons, masstype, masstarget)
-    // {    }
-
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(WFinder);
 

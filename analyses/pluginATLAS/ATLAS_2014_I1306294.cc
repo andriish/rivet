@@ -75,9 +75,9 @@ namespace Rivet {
 
       if(zfinder.bosons().size() != 1)  vetoEvent;
 
-      const ParticleVector boson_s =  zfinder.bosons();
+      const Particles boson_s =  zfinder.bosons();
       const Particle       boson_f =  boson_s[0]      ;
-      const ParticleVector zleps   =  zfinder.constituents();
+      const Particles zleps   =  zfinder.constituents();
       //---------------------------
 
 

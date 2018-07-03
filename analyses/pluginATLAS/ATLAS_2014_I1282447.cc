@@ -150,10 +150,10 @@ namespace Rivet {
       Cut cuts = Cuts::etaIn(-2.5, 2.5) & (Cuts::pT > 20*GeV);
 
       /// should use sample WITHOUT QED radiation off the electron
-      WFinder wfinder_born_el(fs, cuts, PID::ELECTRON, 25*GeV, 8000*GeV, 15*GeV, 0.1, WFinder::ClusterPhotons::ALL, WFinder::AddPhotons::YES);
+      WFinder wfinder_born_el(fs, cuts, PID::ELECTRON, 25*GeV, 8000*GeV, 15*GeV, 0.1, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::ALL, WFinder::AddPhotons::YES);
       declare(wfinder_born_el, "WFinder_born_el");
 
-      WFinder wfinder_born_mu(fs, cuts, PID::MUON    , 25*GeV, 8000*GeV, 15*GeV, 0.1, WFinder::ClusterPhotons::ALL, WFinder::AddPhotons::YES);
+      WFinder wfinder_born_mu(fs, cuts, PID::MUON    , 25*GeV, 8000*GeV, 15*GeV, 0.1, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::ALL, WFinder::AddPhotons::YES);
       declare(wfinder_born_mu, "WFinder_born_mu");
 
       // all hadrons that could be coming from a charm decay --

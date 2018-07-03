@@ -145,6 +145,7 @@ namespace Rivet {
     ///
     /// This is a very common use-case, so is available as syntatic sugar for jets(Cuts::pT >= ptmin, cmpMomByPt).
     /// @todo The other sorted accessors should be removed in a cleanup.
+    DEPRECATED("Use the version with a Cut argument")
     Jets jetsByPt(double ptmin) const {
       return jets(Cuts::pT >= ptmin, cmpMomByPt);
     }

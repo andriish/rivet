@@ -28,10 +28,10 @@ namespace Rivet {
 
       Cut cut = (Cuts::pT >= 20*GeV);
 
-      WFinder wfinder_el_bare(   fs, cut, PID::ELECTRON, 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.0, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
-      WFinder wfinder_el_dressed(fs, cut, PID::ELECTRON, 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.1, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
-      WFinder wfinder_mu_bare   (fs, cut, PID::MUON    , 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.0, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
-      WFinder wfinder_mu_dressed(fs, cut, PID::MUON    , 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.1, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
+      WFinder wfinder_el_bare(   fs, cut, PID::ELECTRON, 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.0, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
+      WFinder wfinder_el_dressed(fs, cut, PID::ELECTRON, 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.1, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
+      WFinder wfinder_mu_bare   (fs, cut, PID::MUON    , 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.0, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
+      WFinder wfinder_mu_dressed(fs, cut, PID::MUON    , 40.0*GeV, 7000.0*GeV, 25.0*GeV, 0.1, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
 
       declare(wfinder_el_bare   , "WFinder_el_bare");
       declare(wfinder_el_dressed, "WFinder_el_dressed");

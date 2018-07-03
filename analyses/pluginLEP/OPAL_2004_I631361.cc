@@ -54,7 +54,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       const double weight = 1.0;
       // find the initial gluons
-      ParticleVector initial;
+      Particles initial;
       for (const GenParticle* p : Rivet::particles(event.genEvent())) {
 	const GenVertex* pv = p->production_vertex();
 	const PdgId pid = p->pdg_id();

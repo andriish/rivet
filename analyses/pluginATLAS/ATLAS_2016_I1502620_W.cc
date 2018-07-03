@@ -28,6 +28,7 @@ namespace Rivet {
       Cut cut = Cuts::pT >= 25*GeV; // minimum lepton pT
 
       WFinder wfinder_dressed(fs, cut, _mode? PID::MUON : PID::ELECTRON, 40*GeV, 13*TeV, 25*GeV, 0.1, 
+                              WFinder::ChargedLeptons::PROMPT, 
                               WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::NO, WFinder::MassWindow::MT);
 
       declare(wfinder_dressed, "WFinder_dressed");

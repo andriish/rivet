@@ -79,7 +79,7 @@ namespace Rivet {
 
       /// @todo Do the event by event analysis here
       const ChargedFinalState& had = applyProjection<ChargedFinalState>(event, "CFS");
-      ParticleVector hs=had.particles();
+      Particles hs=had.particles();
       int nch = hs.size(); 
 
       if (nch < 3)  return; 

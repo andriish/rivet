@@ -24,7 +24,7 @@ namespace Rivet {
       // Initialise and register projections
       FinalState fs;
       WFinder wfinder_mu(fs, Cuts::abseta < 2.4 && Cuts::pT > 0*GeV, PID::MUON, 0*GeV, 1000000*GeV,
-                         0*GeV, 0.1, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::YES, WFinder::MassWindow::MT);
+                         0*GeV, 0.1, WFinder::ChargedLeptons::PROMPT, WFinder::ClusterPhotons::NODECAY, WFinder::AddPhotons::YES, WFinder::MassWindow::MT);
       declare(wfinder_mu, "WFinder_mu");
 
       // Define veto FS

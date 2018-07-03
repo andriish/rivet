@@ -90,7 +90,7 @@ namespace Rivet {
       if ( !(Zboson.mass() > 40.0*GeV) )  vetoEvent;
 
       // check charge of constituent leptons
-      const ParticleVector& leptons = zf.constituents();
+      const Particles& leptons = zf.constituents();
       if (leptons.size() != 2 || leptons[0].charge() * leptons[1].charge() > 0.)  vetoEvent;
 
       // check photon-lepton overlap

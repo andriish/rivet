@@ -57,8 +57,8 @@ namespace Rivet {
 
       // Choose the Z candidate (there must be one)
       if (zfe.empty() && zfm.empty()) vetoEvent;
-      const ParticleVector& z = !zfm.empty() ? zfm.bosons() : zfe.bosons();
-      const ParticleVector& leptons = !zfm.empty() ? zfm.constituents() : zfe.constituents();
+      const Particles& z = !zfm.empty() ? zfm.bosons() : zfe.bosons();
+      const Particles& leptons = !zfm.empty() ? zfm.constituents() : zfe.constituents();
 
       // Determine whether we are in the boosted regime
       const bool is_boosted = (z[0].pT() > 150*GeV);
