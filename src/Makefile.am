@@ -13,5 +13,4 @@ Tools/libRivetTools.la \
 Tools/Nsubjettiness/libRivetNsubjettiness.la \
 AnalysisTools/libRivetAnalysisTools.la \
 -lYODA -lHepMC -ldl -lm  \
-$(FASTJETCONFIGLIBADD) \
-$(GSL_LDFLAGS)
+$(FASTJETCONFIGLIBADD)

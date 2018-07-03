@@ -82,10 +82,6 @@ if test -n "$tmp"; then
     test -n "$iyoda" && OUT="$OUT -I${iyoda}"
     ifastjet="@FASTJETINCPATH@"
     test -n "$ifastjet" && OUT="$OUT -I${ifastjet}"
-    # igsl="@GSLINCPATH@"
-    # test -n "$igsl" && OUT="$OUT -I${igsl}"
-    # iboost="@BOOST_CPPFLAGS@"
-    # test -n "$iboost" && OUT="$OUT ${iboost}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<ldflags\>|--\<libs\>')
@@ -98,8 +94,6 @@ if test -n "$tmp"; then
     test -n "$lyoda" && OUT="$OUT -L${lyoda} -lYODA"
     lfastjet="@FASTJETCONFIGLIBADD@"
     test -n "$lfastjet" && OUT="$OUT ${lfastjet}"
-    # lgsl="@GSLLIBPATH@"
-    # test -n "$lgsl" && OUT="$OUT -L${lgsl}"
 fi
 
 tmp=$( echo "$*" | egrep -- '--\<libs\>|--\<ldadd\>')
