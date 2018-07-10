@@ -141,14 +141,13 @@ for ANANAME in ANANAMES:
             logging.info("Getting data file from HepData at %s" % hdurl)
             tmpfile = urlretrieve(hdurl)[0]
             #
-            import tarfile, os
-            print tmpfile
+            import tarfile, shutil
             tar = tarfile.open(tmpfile, mode="r")
             fnames = tar.getnames()
             if len(fnames) > 1:
-                logging.warning("Found more than one file in downloaded archive. Writing first only")
+                logging.warning("Found more than one file in downloaded archive. Treating first as canonical")
             tar.extractall()
-            os.rename(fnames[0], "%s.yoda" % ANANAME)
+            shutil.move(fnames[0], "%s.yoda" % ANANAME)
         except Exception as e:
             logging.warning("Problem encountered retrieving from HepData: %s" % hdurl)
             logging.warning("No reference data file written")
