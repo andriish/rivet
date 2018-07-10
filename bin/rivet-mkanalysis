@@ -114,7 +114,7 @@ for ANANAME in ANANAMES:
     bibkey, bibtex = None, None
     if STDANA:
         try:
-            logging.debug("Getting Inspire/SPIRES biblio data for '%s'" % ANANAME)
+            logging.info("Getting Inspire/SPIRES biblio data for '%s'" % ANANAME)
             bibkey, bibtex = rivet.spiresbib.get_bibtex_from_repo(INSPIRE_SPIRES, ANAINSPIREID)
         except Exception as e:
             logging.error("Inspire/SPIRES oops: %s" % e)
@@ -128,35 +128,31 @@ for ANANAME in ANANAMES:
     ## Try to download YODA data file from HepData
     if STDANA:
         try:
-            import tarfile, io
             try:
-                from urllib.request import urlopen
+                from urllib.request import urlretrieve
             except:
-                from urllib2 import urlopen
+                from urllib import urlretrieve
             #
             hdurl = None
             if INSPIRE_SPIRES == "I":
                 hdurl = "http://www.hepdata.net/record/ins%s?format=yoda" % ANAINSPIREID
-            if hdurl:
-                logging.debug("Getting data file from HepData at %s" % hdurl)
-                response = urlopen(hdurl)
-                download=response.read()
-                if not download or "<html" in download:
-                    logging.warning("Problem encountered when getting data from HepData (%s). No reference data file written." % hdurl)
-                else:
-                    tar = tarfile.open(mode= "r:gz", fileobj = io.StringIO(download))
-                    fnames = tar.getnames()
-                    if len(fnames)>1:
-                        logging.warning("Found more than one file on downloaded archive. Not writing data file")
-                    else:
-                        tar.extractall()
-                        import os
-                        os.rename(fnames[0], "%s.yoda"%ANANAME)
-                response.close()
-            else:
-                logging.warning("Could not identify a URL for getting reference data from HepData. No reference data file written.")
+            if not hdurl:
+                raise Exception("Couldn't identify a URL for getting reference data from HepData")
+            logging.info("Getting data file from HepData at %s" % hdurl)
+            tmpfile = urlretrieve(hdurl)[0]
+            #
+            import tarfile, os
+            print tmpfile
+            tar = tarfile.open(tmpfile, mode="r")
+            fnames = tar.getnames()
+            if len(fnames) > 1:
+                logging.warning("Found more than one file in downloaded archive. Writing first only")
+            tar.extractall()
+            os.rename(fnames[0], "%s.yoda" % ANANAME)
         except Exception as e:
-            logging.error("HepData oops: %s" % e)
+            logging.warning("Problem encountered retrieving from HepData: %s" % hdurl)
+            logging.warning("No reference data file written")
+            logging.debug("HepData oops: %s: %s" % (str(type(e)), e))
 
     INLINEMETHODS = ""
     if opts.INLINE:
