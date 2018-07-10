@@ -1,3 +1,7 @@
+2018-07-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add LorentzTransform factory functions direct from FourMomentum, and operator()s
+
 2018-06-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add FinalState(fs, cut) augmenting constructor, and PrevFS projection machinery. Validated for a abscharge > 0 cut.
