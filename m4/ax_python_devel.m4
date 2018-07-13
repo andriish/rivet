@@ -121,8 +121,10 @@ class VPy:
     def vtup(self, s):
         return tuple(map(int, s.strip().replace("rc", ".").split(".")))
     def __init__(self):
-        import platform
-        self.vpy = self.vtup(platform.python_version())
+        #import platform
+        #self.vpy = self.vtup(platform.python_version())
+        import sys
+        self.vpy = sys.version_info
     def __eq__(self, s):
         return self.vpy == self.vtup(s)
     def __ne__(self, s):
