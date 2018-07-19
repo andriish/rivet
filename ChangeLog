@@ -1,5 +1,7 @@
 2018-07-19  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Postpone Particles enhancement now, since the required C++11 isn't supported on lxplus7 = CentOS7.
+
 	* Add MC_DILEPTON analysis.
 
 2018-07-10  Andy Buckley  <andy.buckley@cern.ch>

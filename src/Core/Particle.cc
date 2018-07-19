@@ -267,23 +267,28 @@ namespace Rivet {
   ///////////////////////
 
 
-  /// Particles copy constructor from vector<Particle>
-  Particles::Particles(const std::vector<Particle>& vps) : base(vps) {}
+  // DISABLED UNTIL VANILLA CC7 COMPATIBILITY NOT NEEDED
 
-  /// Particles -> FourMomenta cast/conversion operator
-  Particles::operator FourMomenta () const {
-    // FourMomenta rtn(this->begin(), this->end());
-    FourMomenta rtn; rtn.reserve(this->size());
-    for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
-    return rtn;
-  }
+  // /// Particles copy constructor from vector<Particle>
+  // Particles::Particles(const std::vector<Particle>& vps) : base(vps) {}
 
-  /// Particles concatenation operator
-  Particles operator + (const Particles& a, const Particles& b) {
-    Particles rtn(a);
-    rtn += b;
-    return rtn;
-  }
+  // /// Particles -> FourMomenta cast/conversion operator
+  // Particles::operator FourMomenta () const {
+  //   // FourMomenta rtn(this->begin(), this->end());
+  //   FourMomenta rtn; rtn.reserve(this->size());
+  //   for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+  //   return rtn;
+  // }
+
+  // /// Particles concatenation operator
+  // Particles operator + (const Particles& a, const Particles& b) {
+  //   Particles rtn(a);
+  //   rtn += b;
+  //   return rtn;
+  // }
+
+
+  //////////////////////////////////
 
 
   /// Allow a Particle to be passed to an ostream.
