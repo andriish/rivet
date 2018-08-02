@@ -1,0 +1,332 @@
+#! /usr/bin/env python
+
+from __future__ import division
+
+"""\
+%prog <file.json> [<file.json> ...]
+
+TODO:
+ - add experiment grouping (with JS tabbing?)
+ - add dates/years
+ - allow hiding "search" analyses; note, not orthogonal to grey/black
+ - add JS sorting and filtering on experiment, date, priority, and keywords (HI, search, ...)
+"""
+
+import argparse
+ap = argparse.ArgumentParser(usage=__doc__)
+ap.add_argument("JSONFILES", metavar="file", nargs="+",
+                help="JSON CDS/HD/Inspire xref file to read")
+ap.add_argument("-r", "--ranking", dest="RANKFILES", metavar="file", action="append",
+                help="lists of CDS IDs to exclude, suppress, and highlight")
+ap.add_argument("-R", "--reverse", dest="REVERSE", action="store_true", default=False,
+                help="show list *reverse* ordered in CDS ID")
+ap.add_argument("-s", "--only-searches", dest="ONLYSEARCHES", action="store_true", default=False,
+                help="only show search analyses")
+ap.add_argument("-S", "--no-searches", dest="NOSEARCHES", action="store_true", default=False,
+                help="exclude search analyses")
+ap.add_argument("-i", "--only-heavyion", dest="ONLYHEAVYION", action="store_true", default=False,
+                help="only show heavy ion analyses")
+ap.add_argument("-I", "--no-heavyion", dest="NOHEAVYION", action="store_true", default=False,
+                help="exclude heavy ion analyses")
+ap.add_argument("-o", "--outfile", dest="OUTFILE", default=None,
+                help="output HTML filename")
+ap.add_argument("--basename", dest="BASENAME", default="rivet-coverage",
+                help="the base name for output files [default=%(default)s]")
+ap.add_argument("--update-ranking", dest="UPDATERANK", action="store_true", default=False,
+                help="update the per-experiment ranking files")
+args = ap.parse_args()
+
+
+import datetime
+now = datetime.datetime.now()
+
+EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Unknown"]
+
+## Read data from JSON files
+records = {}
+import json
+for jsonfile in args.JSONFILES:
+    with open(jsonfile) as jf:
+        recs = json.load(jf)
+        records.update(recs)
+
+
+## Read CDS IDs from ranking files
+blacklist, greylist, hotlist = [], [], []
+assigned = {}
+for rankfilestr in args.RANKFILES:
+    for rankfile in rankfilestr.split(" "):
+        with open(rankfile) as rf:
+            for line in rf:
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                tokens = line.split()
+                cds = unicode(tokens[0])
+                code = tokens[1]
+                if code == "X":
+                    blacklist.append(cds)
+                elif code == "?":
+                    greylist.append(cds)
+                elif code == "!":
+                    hotlist.append(cds)
+                # Detect an optional assigned email address
+                last = tokens[-1]
+                if "@" in last:
+                    if last.startswith("<") and last.endswith(">"):
+                        last = last[1:-1]
+                    assigned[cds] = last
+
+## Add rankings/tags to the record
+for cds, rec in records.items():
+    title = rec[3]
+
+    ## Experiment
+    expt = "UNKNOWN"
+    if len(rec) < 6:
+        rec.append("")
+    if rec[5]:
+        expt = rec[5].upper().replace("THE","").replace("COLLABORATION","").strip()
+    else:
+        for e in EXPTS[:-1]: #< skip the trailing "Unknown"
+            if e.lower() in title.lower():
+                expt = e
+                break
+            if rec[2] and e.lower() in " ".join(rec[2]).lower():
+                expt = e
+                break
+    rec[5] = expt
+
+    ## Ranking
+    code = "default"
+    if rec[2]:
+        code = "rivet"
+    elif cds in greylist or not rec[0]: #< something's wrong if there's a CDS but no Inspire entry!
+        code = "grey"
+    elif cds in blacklist:
+        code = "black"
+    elif cds in hotlist:
+        code = "hot"
+
+    ## Tags
+    if "search" in title.lower():
+        code += " search"
+    if "Pb" in title or "Xe" in title:
+        code += " heavyion"
+
+    rm = False
+    rm |= args.ONLYSEARCHES and not "search" in code
+    rm |= args.NOSEARCHES and "search" in code
+    rm |= args.ONLYHEAVYION and not "heavyion" in code
+    rm |= args.NOHEAVYION and "heavyion" in code
+
+    if rm:
+        del records[cds]
+    else:
+        rec.append(code)
+
+## Count numbers of records
+ex_ntots, ex_ndefaults, ex_nurgents, ex_nwanteds, ex_ntargets, ex_nrivets = {}, {}, {}, {}, {}, {}
+for ex in EXPTS:
+    ex_records = {cds : rec for cds, rec in records.items() if rec[5].lower() == ex.lower()}
+    ex_ntots[ex] = len(ex_records)
+    ex_nrivets[ex] = len([cds for cds, rec in ex_records.items() if "rivet" in rec[6]])
+    ex_ndefaults[ex] = len([cds for cds, rec in ex_records.items() if "default" in rec[6]])
+    ex_nurgents[ex] = len([cds for cds, rec in ex_records.items() if "hot" in rec[6]])
+    ex_nwanteds[ex] = ex_ndefaults[ex] + ex_nurgents[ex]
+    ex_ntargets[ex] = ex_nwanteds[ex] + ex_nrivets[ex]
+
+    if args.UPDATERANK:
+        if args.ONLYSEARCHES or args.NOSEARCHES or args.ONLYHEAVYION or args.NOHEAVYION:
+            print "Won't update rank lists while search/HI filtering is enabled"
+            sys.exit(1)
+        rfname = "{}-{}.rank".format(args.BASENAME, ex.lower())
+        print "Writing updated rank file to {}".format(rfname)
+        syms = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
+        with open(rfname, "w") as rf:
+            for cds, rec in sorted(ex_records.items()):
+                code = rec[6].split()[0]
+                # line = u"{} {} {}\n".format(cds.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
+                line = u"{} {} {}".format(cds, syms[code], rec[3])
+                # print assigned.get(cds)
+                if cds in assigned:
+                    #print cds, assigned[cds]
+                    line += "  <{}>".format(assigned[cds])
+                line += "\n"
+                rf.write(line.encode("UTF-8"))
+
+ntot = len(records)
+nrivet = len([cds for cds, rec in records.items() if "rivet" in rec[6]])
+ndefault = len([cds for cds, rec in records.items() if "default" in rec[6]])
+nurgent = len([cds for cds, rec in records.items() if "hot" in rec[6]])
+nwanted = ndefault + nurgent
+ntarget = nwanted + nrivet
+
+
+## Register filter strings
+excls = []
+if args.ONLYSEARCHES:
+    excls.append("searches only")
+if args.NOSEARCHES:
+    excls.append("no searches")
+if args.ONLYHEAVYION:
+    excls.append("heavy ion only")
+if args.NOHEAVYION:
+    excls.append("no heavy ion")
+
+
+## Web page rendering
+import html
+OUT = html.HTML("html")
+
+title = "Rivet LHC analysis coverage"
+exclstr = " ({})".format(", ".join(excls)) if excls else ""
+title += exclstr
+
+head = OUT.head(newlines=True)
+head.meta(charset="utf-8")
+head.title(title)
+head.script("MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]} });", type="text/x-mathjax-config")
+head.script("", type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", async="async")
+head.script("", type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+head.script("""
+$(document).ready( function(){
+  $("#blacktoggle").click( function(){
+    var b = $("#blacktoggle"); var t = b.text();
+    b.text(t.indexOf("Show") != -1 ? t.replace("Show", "Hide") : t.replace("Hide", "Show") );
+    $(".black").toggle(100);
+  });
+  $("#greytoggle").click( function(){
+    var b = $("#greytoggle"); var t = b.text();
+    b.text(t.indexOf("Show") != -1 ? t.replace("Show", "Hide") : t.replace("Hide", "Show") );
+    $(".grey").toggle(100);
+  });
+});
+""")
+
+style = head.style(newlines="True")
+style += "html { font-family: sans; font-size: large; color: #333; }"
+style += "body { padding: 2em; }"
+style += "table { margin: 2em 0 2em 0; border: 0; border-collapse: collapse; text-align: left; }"
+style += "table.list { border-top: 3px solid black; border-bottom: 3px solid black; }"
+style += "table.list thead { border-bottom: 1px solid #333; }"
+style += "table.key { border: 1px solid #333; margin: 0; }"
+style += "td { padding: 15px; }"
+style += "tr.ana { border-top: 1px solid #ccc; }"
+style += "tr.ana td { padding-bottom: 1em; padding-top: 1em; }"
+style += "a { color: #339; }"
+style += "button { margin: 1em; }"
+# style += ".row { margin: 1em 0 3em 0; }"
+# style += ".row:after { content: ''; display: table; clear: both; }"
+# style += ".col { float: left; width: 50%; }"
+style += "button { border: none; margin: 0 1em 0 0; border-radius: 1ex; color: #333; background: #ddf; padding: 1ex; }"
+style += "button:hover { background: #cce; }"
+style += "button:active { color: white; }"
+style += ".rivet { background: #cfc; }"
+style += ".hot { background: #fbb; }"
+style += ".default { background: #fee; }"
+style += ".grey { color: #666; background: #ddd; font-size: normal; display: none; }"
+style += ".grey a { color: #669; }"
+style += ".black { color: #eee; background: #333; display: none; }"
+style += ".black a { color: #99c; }"
+style += ".hot.assigned { background: repeating-linear-gradient(135deg, #fbb, #fbb 10px, #bd7 10px, #bd7 20px); }"
+style += ".default.assigned { background: repeating-linear-gradient(135deg, #fee, #fee 10px, #de9 10px, #de9 20px); }"
+style += ".grey.assigned { background: repeating-linear-gradient(135deg, #ddd, #ddd 10px, #dfd 10px, #dfd 20px); }"
+
+body = OUT.html.body(newlines=True)
+body.h1(title)
+body.p().b("Rivet analyses exist for {}/{} papers = {:.0f}%. {} priority analyses required.".format(nrivet, ntarget, 100*nrivet/ntarget, nurgent))
+body.p("Total number of CDS papers scanned = {}, at {}".format(ntot, now.strftime("%Y-%m-%d")))
+
+body.p("Breakdown by identified experiment (in development):")
+t = body.table(klass="list")
+th = t.thead(newlines=True)
+r = th.tr(klass="thead")
+r.td().b("Key")
+for ex in EXPTS:
+    r.td().b(ex)
+#
+tb = t.tbody(newlines=True)
+r = tb.tr(klass="default")
+r.td().b("Rivet wanted (total):")
+for ex in EXPTS:
+    r.td("{}".format(ex_nwanteds[ex]))
+#
+r = tb.tr(klass="hot")
+r.td().b("Rivet REALLY wanted:")
+for ex in EXPTS:
+    r.td("{}".format(ex_nurgents[ex]))
+r = tb.tr(klass="rivet")
+#
+r.td().b("Rivet provided:")
+for ex in EXPTS:
+    # txt = "{}".format(ex_nrivets[ex])
+    # if ex_ntargets[ex]:
+    #     txt += "<span style=\"color: #666\"> / {:d} = </span> {:.0f}%".format(ex_ntargets[ex], 100*ex_nrivets[ex]/ex_ntargets[ex])
+    # r.td(txt)
+    b = r.td().b("{}".format(ex_nrivets[ex]))
+    if ex_ntargets[ex]:
+        b.span("/{:d} = ".format(ex_ntargets[ex]), style="color: #777")
+        b += "{:.0f}%".format(100*ex_nrivets[ex]/ex_ntargets[ex])
+
+body.button("Show greylist", id="greytoggle")
+body.button("Show blacklist", id="blacktoggle")
+
+#body.input(klass="search", placeholder="Search")
+#body.button("Sort by name", klass="sort", data-sort="name")
+
+t = body.table(klass="list").tbody(newlines=True)
+for i, (cds, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
+
+    expt = rec[5]
+    code = rec[6]
+    if cds in assigned:
+        # codes = code.split()
+        # codes[0] += "_assigned"
+        # code = " ".join(codes)
+        code += " assigned"
+    cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
+    summ = u""
+    summ += u"{}: {}".format(cds, rec[3])
+    if expt != "UNKNOWN":
+        #summ += "&nbsp;"
+        summ += " [{}]".format(expt)
+    cell.b(summ)
+    cell.br()
+    cell.a("CDS", href="https://cds.cern.ch/record/{}".format(cds))
+    cell += " "
+    if rec[0]: # Inspire
+        cell.a("Inspire", href="http://inspirehep.net/record/{}".format(rec[0]))
+        cell += " "
+    if rec[1]: # HepData
+        cell.a("HepData", href="https://hepdata.net/record/ins{}".format(rec[0]))
+        cell += " "
+    if rec[4]: # DOI
+        cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[4]))
+        cell += " "
+    if rec[2]:
+        anas = u", ".join(rec[2]) if rec[2] else u""
+        cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[2][0]))
+    if cds in assigned:
+        cell.a("IN PROGRESS: assigned to {}".format(assigned[cds]), href="mailto:{}".format(assigned[cds]))
+
+
+## Time-created footer
+body.p("Generated at {}".format(now.strftime("%c")))
+body.p("Generated from JSON files extracted from CDS ({} papers in total):".format(ntot))
+body.p(", ".join(args.JSONFILES), style="font-family: monospace; font-size: smaller")
+
+
+## Write out
+outfile = args.OUTFILE
+if not outfile:
+    outfile = args.BASENAME
+    exclparts = [e.replace(" ", "") for e in excls]
+    if exclparts:
+        outfile += "-" + "-".join(exclparts)
+if not outfile.endswith(".html"):
+    outfile += ".html"
+print "Writing output to {} {}".format(outfile, exclstr)
+with open(outfile, "wb") as hf:
+    a = unicode(OUT)
+    hf.write(a.encode("UTF-8"))
