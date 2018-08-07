@@ -124,7 +124,7 @@ class VPy:
         #import platform
         #self.vpy = self.vtup(platform.python_version())
         import sys
-        self.vpy = sys.version_info
+        self.vpy = tuple(sys.version_info)
     def __eq__(self, s):
         return self.vpy == self.vtup(s)
     def __ne__(self, s):
