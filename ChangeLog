@@ -1,3 +1,7 @@
+2018-08-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a RIVET_RANDOM_SEED variable to fix the smearing random-seed engine for validation comparisons.
+
 2018-07-19  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Merge in ATLAS_2017_I1604029 (ttbar+gamma), ATLAS_2017_I1626105
