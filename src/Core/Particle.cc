@@ -103,10 +103,13 @@ namespace Rivet {
 
   Particles Particle::children(const Cut& c) const {
     Particles rtn;
+    /// @todo Something going wrong with taus -> GenParticle nullptr?
+    if (genParticle() == nullptr) return rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
+    cout << genParticle()->end_vertex() << endl;
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
-    if (gv == NULL) return rtn;
+    if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
