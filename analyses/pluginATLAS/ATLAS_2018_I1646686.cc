@@ -12,11 +12,11 @@
 namespace Rivet {
 
 
+  /// @brief All-hadronic ttbar at 13 TeV
   class ATLAS_2018_I1646686 : public Analysis {
+  public:
 
-    public:
       /// Constructor
-      /// @brief all-hadronic ttbar at 13 TeV
       DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2018_I1646686);
 
       /// Book histograms and initialise projections before the run
