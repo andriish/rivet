@@ -198,6 +198,7 @@ namespace Rivet {
   }
 
 
+  /// @todo "Automate" trimming as part of project() with pre-registered Filters
   Jet FastJets::trimJet(const Jet& input, const fastjet::Filter& trimmer) const {
     if (input.pseudojet().associated_cluster_sequence() != clusterSeq().get())
       throw Error("To trim a Rivet::Jet, its associated PseudoJet must have come from this FastJets' ClusterSequence");
