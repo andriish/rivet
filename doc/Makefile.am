@@ -21,7 +21,7 @@ analyses.html: $(top_srcdir)/analyses $(srcdir)/mk-analysis-html
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
-    $(PYTHON) $(srcdir)/mk-analysis-html
+    $(srcdir)/mk-analysis-html
 endif
 
 
@@ -31,7 +31,7 @@ analyses.json: $(top_srcdir)/analyses $(srcdir)/mk-analysis-json
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
-    $(PYTHON) $(srcdir)/mk-analysis-json
+    $(srcdir)/mk-analysis-json
 endif
 
 
@@ -56,7 +56,7 @@ analyses.bib analyses.tex: $(top_srcdir)/analyses $(srcdir)/mk-analysis-latex
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(YAML_CPPLIBPATH):$(FASTJETLIBPATH):$(HEPMCLIBPATH):$(YODALIBPATH):$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
-    $(PYTHON) $(srcdir)/mk-analysis-latex
+    $(srcdir)/mk-analysis-latex
 else
 analyses.bib analyses.tex:
 	> analyses.tex

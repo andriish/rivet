@@ -1,0 +1,126 @@
+#! /usr/bin/env python
+
+"""\
+%prog <file.marc.xml> [<file.marc.xml> ...]
+
+"""
+
+import argparse
+ap = argparse.ArgumentParser(usage=__doc__)
+#ap.add_argument("DOIFILE", metavar='file', help="CDS-exported DOI file to read")
+ap.add_argument("XMLFILES", metavar='file', nargs="+", help="CDS-exported DC XML file to read")
+args = ap.parse_args()
+
+import rivet
+anas = {}
+for aname in rivet.AnalysisLoader.analysisNames():
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    # TODO: all anas *should* have an Inspire ID...
+    anas.setdefault(ana.inspireId(), []).append(ana.name())
+del anas[""]
+# print anas.keys()
+
+from lxml import etree #as ET
+nsm = {"dc" : "http://purl.org/dc/elements/1.1/"}
+nsm = {None : "http://www.loc.gov/MARC21/slim"}
+
+for ifile, xmlfile in enumerate(args.XMLFILES):
+    import urllib2, re, os
+
+    if ifile > 0: print ""
+    print "Processing {}...".format(xmlfile)
+    jsonfile = xmlfile.replace(".marc.xml", ".json")
+    if os.path.exists(jsonfile):
+        print "{} exists, skipping {} testing".format(jsonfile, xmlfile)
+        continue
+
+    OUT = {}
+
+    tree = etree.parse(xmlfile)
+    recnodes = tree.findall("/record", namespaces=nsm)
+    for rn in recnodes:
+        sfs = rn.findall("./datafield/subfield", namespaces=nsm)
+        ins, cds, expt, doi, summ = None, None, None, None, None
+        for sf in sfs:
+            if not sf.text:
+                continue
+            # if "oai:inspirehep.net:" in sf.text:
+            #     if not ins:
+            #         ins = sf.text.replace("oai:inspirehep.net:", "")
+            #         print "Inspire =", ins
+            # el
+            if sf.attrib["code"] == "9" and sf.text == "Inspire":
+                if not ins:
+                    # othertag = sf.find("../subfield[@code='a']", namespaces=nsm)
+                    othertags = [t for t in sf.findall("../subfield", namespaces=nsm) if t.attrib.get("code") is "a"]
+                    if othertags:
+                        try:
+                            ins = str(int(othertags[0].text))
+                            #print "Inspire2 =", ins
+                        except:
+                            pass
+            elif "oai:cds.cern.ch:" in sf.text:
+                if not cds:
+                    cds = sf.text.replace("oai:cds.cern.ch:", "")
+                    #print "CDS =", cds
+            elif sf.attrib["code"] == "2" and "DOI" in sf.text:
+                if not doi:
+                    #othertag = sf.find("../subfield[@code='a']", namespaces=nsm)
+                    othertags = [t for t in sf.findall("../subfield", namespaces=nsm) if t.attrib.get("code") is "a"]
+                    if othertags:
+                        try:
+                            doi = othertags[0].text
+                            #print "DOI =", doi
+                        except:
+                            pass
+            elif sf.attrib["code"] == "a":
+                parent = sf.find("..")
+                #print sf.text, parent, parent.attrib.get("tag"), type(parent.attrib.get("tag"))
+                #print parent.attrib.get("tag")
+                if parent.attrib.get("tag"):
+                    tag = parent.attrib.get("tag")
+                    if tag == "245" and not summ:
+                        summ = sf.text
+                        # print summ
+                    if tag == "110" and not expt:
+                        expt = sf.text
+            elif sf.attrib["code"] == "e":
+                if parent.attrib.get("tag"):
+                    tag = parent.attrib.get("tag")
+                    if tag == "693" and not expt:
+                        expt = sf.text
+
+        hasInspire = False
+        try:
+            # TODO: Look up Inspire record via Inspire ID
+            insurl = "http://inspirehep.net/record/{}".format(ins)
+            u = urllib2.urlopen(insurl)
+            hasInspire = True
+        except urllib2.URLError:
+            pass
+
+        hasHD = False
+        try:
+            # TODO: Look up HepData record via Inspire ID
+            hdurl = "https://hepdata.net/record/ins{}".format(ins)
+            u = urllib2.urlopen(hdurl)
+            hasHD = True
+        except urllib2.URLError:
+            pass
+
+        # TODO: Look up Rivet entry record via Inspire ID
+        hasRivet = ins in anas
+        rivetanas = anas.get(ins)
+        # if hasRivet:
+        #     ana =
+        #     rivetanas = ana.summary()
+
+        # TODO: some kind of whitelisting
+
+        OUT[cds] = [ins, hasHD, rivetanas, summ, doi, expt]
+        print cds, ins, hasHD, rivetanas, summ, doi, expt
+
+    ## Write out as JSON
+    import json
+    with open(jsonfile, "wb") as jf:
+        json.dump(OUT, jf)

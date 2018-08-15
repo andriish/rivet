@@ -103,10 +103,13 @@ namespace Rivet {
 
   Particles Particle::children(const Cut& c) const {
     Particles rtn;
+    /// @todo Something going wrong with taus -> GenParticle nullptr?
+    if (genParticle() == nullptr) return rtn;
     if (isStable()) return rtn;
     /// @todo Remove this const mess crap when HepMC doesn't suck
+    cout << genParticle()->end_vertex() << endl;
     GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->end_vertex() );
-    if (gv == NULL) return rtn;
+    if (gv == nullptr) return rtn;
     /// @todo Would like to do this, but the range objects are broken
     // for (const GenParticlePtr gp, gv->particles(HepMC::children))
     //   rtn += Particle(gp);
@@ -267,23 +270,28 @@ namespace Rivet {
   ///////////////////////
 
 
-  /// Particles copy constructor from vector<Particle>
-  Particles::Particles(const std::vector<Particle>& vps) : base(vps) {}
+  // DISABLED UNTIL VANILLA CC7 COMPATIBILITY NOT NEEDED
 
-  /// Particles -> FourMomenta cast/conversion operator
-  Particles::operator FourMomenta () const {
-    // FourMomenta rtn(this->begin(), this->end());
-    FourMomenta rtn; rtn.reserve(this->size());
-    for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
-    return rtn;
-  }
+  // /// Particles copy constructor from vector<Particle>
+  // Particles::Particles(const std::vector<Particle>& vps) : base(vps) {}
 
-  /// Particles concatenation operator
-  Particles operator + (const Particles& a, const Particles& b) {
-    Particles rtn(a);
-    rtn += b;
-    return rtn;
-  }
+  // /// Particles -> FourMomenta cast/conversion operator
+  // Particles::operator FourMomenta () const {
+  //   // FourMomenta rtn(this->begin(), this->end());
+  //   FourMomenta rtn; rtn.reserve(this->size());
+  //   for (size_t i = 0; i < this->size(); ++i) rtn.push_back((*this)[i]);
+  //   return rtn;
+  // }
+
+  // /// Particles concatenation operator
+  // Particles operator + (const Particles& a, const Particles& b) {
+  //   Particles rtn(a);
+  //   rtn += b;
+  //   return rtn;
+  // }
+
+
+  //////////////////////////////////
 
 
   /// Allow a Particle to be passed to an ostream.

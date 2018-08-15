@@ -543,7 +543,9 @@ namespace Rivet {
     /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
     const double fsmear = max(randnorm(1., resolution), 0.);
     const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
-    return Jet(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
+    Jet rtn(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
+    //if (deltaPhi(j, rtn) > 0.01) cout << "jdphi: " << deltaPhi(j, rtn) << endl;
+    return rtn;
   }
 
   /// ATLAS Run 2 jet smearing

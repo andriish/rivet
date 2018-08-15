@@ -95,6 +95,8 @@ int main() { std::cout << VERSION << std::endl; return 0; }])])
 fi
 if test -f conftest.cc; then
   $CXX $CPPFLAGS conftest.cc -o conftest 2>&1 1>&5
+elif test -f conftest.C; then
+  $CXX $CPPFLAGS conftest.C -o conftest 2>&1 1>&5
 else
   $CXX $CPPFLAGS conftest.cpp -o conftest 2>&1 1>&5
 fi

@@ -16,9 +16,15 @@ namespace Rivet {
     static map<int,mt19937> gens;
     const int nthread = omp_get_thread_num();
     if (gens.find(nthread) == gens.end()) {
-      seed_seq seq{1,2,3,4,5};
+      // Make seeds for each thread, either via the standard seed generator or based on a fixed seed from the environment
       vector<uint32_t> seeds(nthread+1);
-      seq.generate(seeds.begin(), seeds.end());
+      const uint32_t envseed = getEnvParam<uint32_t>("RIVET_RANDOM_SEED", -1);
+      if (envseed > 0) {
+        std::iota(seeds.begin(), seeds.end(), envseed);
+      } else {
+        seed_seq seq{1,2,3,4,5};
+        seq.generate(seeds.begin(), seeds.end());
+      }
       gens[nthread] = mt19937(seeds[nthread]);
       // cout << "Thread " << nthread+1 << ", seed=" << seeds[nthread] << " (" << gens.size() << " RNGs)" << '\n';
     }

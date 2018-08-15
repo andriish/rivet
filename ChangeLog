@@ -1,3 +1,29 @@
+2018-08-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.6.1 release.
+
+2018-08-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a RIVET_RANDOM_SEED variable to fix the smearing random-seed engine for validation comparisons.
+
+2018-07-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge in ATLAS_2017_I1604029 (ttbar+gamma), ATLAS_2017_I1626105
+	(dileptonic ttbar), ATLAS_2017_I1644367 (triphotons), and
+	ATLAS_2017_I1645627 (photon + jets).
+
+	* Postpone Particles enhancement now, since the required C++11 isn't supported on lxplus7 = CentOS7.
+
+	* Add MC_DILEPTON analysis.
+
+2018-07-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix HepData tarball download handling: StringIO is *not* safe anymore
+
+2018-07-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add LorentzTransform factory functions direct from FourMomentum, and operator()s
+
 2018-06-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add FinalState(fs, cut) augmenting constructor, and PrevFS projection machinery. Validated for a abscharge > 0 cut.

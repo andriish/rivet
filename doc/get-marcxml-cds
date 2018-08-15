@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+
+for COLL in ALICE+Papers ATLAS+Papers CMS+Papers LHCb+Papers ; do
+    for YEAR in $(seq 2010 $(date +"%Y")); do
+        OUT=$(echo $COLL | tr "[:upper:]" "[:lower:]" | sed -e 's/+/-/g')-$YEAR.marc.xml
+        if [[ -e $OUT ]]; then
+            echo "$OUT exists: skipping ${COLL//+/ } $YEAR download"
+        else
+            echo "Downloading ${COLL//+/ } $YEAR CDS record to $OUT"
+            URL="https://cds.cern.ch/search?ln=en&cc=${COLL}&op1=a&m1=a&p1=${YEAR}&f1=year&rg=200&jrec=1&of=xm"
+            echo "$URL"
+            wget "$URL" -O $OUT
+        fi
+    done
+done

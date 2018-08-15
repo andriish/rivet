@@ -1622,7 +1622,7 @@ class DrawableObject(Described):
         return bool(int(self.props.get("ErrorBands", "0")))
 
     def getErrorBandColor(self):
-        return self.getColor(self.props.get("ErrorBandColor", "yellow"))
+        return self.getColor(self.props.get("ErrorBandColor", self.getLineColor()))
 
     def getErrorBandStyle(self):
         return self.props.get("ErrorBandStyle", "solid")
