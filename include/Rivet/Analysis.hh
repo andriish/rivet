@@ -25,7 +25,8 @@
 
 namespace Rivet {
 
-  // convenience for analysis writers
+
+  // Convenience for analysis writers
   using std::cout;
   using std::cerr;
   using std::endl;
@@ -33,8 +34,10 @@ namespace Rivet {
   using std::swap;
   using std::numeric_limits;
 
+
   // Forward declaration
   class AnalysisHandler;
+
 
   /// @brief This is the base class of all analysis classes in Rivet.
   ///
@@ -610,7 +613,6 @@ namespace Rivet {
     /// data's x values and errors, but with the y values and errors zeroed...
     /// assuming that there is a reference histo with the same name: if there
     /// isn't, an exception will be thrown.
-
     Scatter2DPtr & book(Scatter2DPtr & s2d, const string& hname,
                                bool copy_pts=false,
                                const std::string& title="",
@@ -655,36 +657,39 @@ namespace Rivet {
 
 
   private:
-    /// to be used in finalize context only
+
+    /// To be used in finalize context only:
     class CounterAdapter {
     public:
-    	CounterAdapter(double          x) : x_(x                ) {}
+      CounterAdapter(double          x) : x_(x                ) {}
 
-	CounterAdapter(const YODA::Counter   & c) : x_(c.val()          ) {}
+      CounterAdapter(const YODA::Counter   & c) : x_(c.val()          ) {}
 
-	// CounterAdapter(CounterPtr     cp) : x_(cp->val()        ) {}
+      // CounterAdapter(CounterPtr     cp) : x_(cp->val()        ) {}
 
-    	CounterAdapter(const YODA::Scatter1D & s) : x_(s.points()[0].x()) {
-    		assert( s.numPoints() == 1 || "Can only scale by a single value.");
-    	}
+      CounterAdapter(const YODA::Scatter1D & s) : x_(s.points()[0].x()) {
+        assert( s.numPoints() == 1 || "Can only scale by a single value.");
+      }
 
-    	// CounterAdapter(Scatter1DPtr   sp) : x_(sp->points()[0].x()) {
-    	// 	assert( sp->numPoints() == 1 || "Can only scale by a single value.");
-    	// }
+      // CounterAdapter(Scatter1DPtr   sp) : x_(sp->points()[0].x()) {
+      // 	assert( sp->numPoints() == 1 || "Can only scale by a single value.");
+      // }
 
-	operator double() const { return x_; }
+      operator double() const { return x_; }
 
     private:
-    	double x_;
+      double x_;
+
     };
+
 
   public:
 
     double dbl(double          x) { return x; }
     double dbl(const YODA::Counter   & c) { return c.val(); }
-    double dbl(const YODA::Scatter1D & s) {  
-    	assert( s.numPoints() == 1 ); 
-    	return s.points()[0].x();
+    double dbl(const YODA::Scatter1D & s) {
+      assert( s.numPoints() == 1 );
+      return s.points()[0].x();
     }
 
     /// @name Analysis object manipulation
