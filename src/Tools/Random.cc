@@ -5,15 +5,13 @@
 #include "omp.h"
 #endif
 
-using std::mt19937;
-
 namespace Rivet {
 
 
   // Return a thread-safe random number generator
-  mt19937& rng() {
+  std::mt19937& rng() {
     #if defined(_OPENMP)
-    static map<int,mt19937> gens;
+    static map<int,std::mt19937> gens;
     const int nthread = omp_get_thread_num();
     if (gens.find(nthread) == gens.end()) {
       // Make seeds for each thread, either via the standard seed generator or based on a fixed seed from the environment
@@ -22,15 +20,15 @@ namespace Rivet {
       if (envseed > 0) {
         std::iota(seeds.begin(), seeds.end(), envseed);
       } else {
-        seed_seq seq{1,2,3,4,5};
+        std::seed_seq seq{1,2,3,4,5};
         seq.generate(seeds.begin(), seeds.end());
       }
-      gens[nthread] = mt19937(seeds[nthread]);
+      gens[nthread] = std::mt19937(seeds[nthread]);
       // cout << "Thread " << nthread+1 << ", seed=" << seeds[nthread] << " (" << gens.size() << " RNGs)" << '\n';
     }
-    mt19937& g = gens[nthread];
+    std::mt19937& g = gens[nthread];
     #else
-    static mt19937 g(12345);
+    static std::mt19937 g(12345);
     #endif
     return g;
   }
