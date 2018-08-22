@@ -75,8 +75,7 @@ namespace Rivet {
         vfs.addVetoOnThisFinalState(ewdressedelectrons);
         vfs.addVetoOnThisFinalState(ewdressedmuons);
         vfs.addVetoOnThisFinalState(neutrinos);
-        FastJets jets(vfs, FastJets::ANTIKT, 0.4);
-        jets.useInvisibles(true);
+        FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
         declare(jets, "jets");
 
         // Addition of the large-R jets
@@ -269,7 +268,7 @@ namespace Rivet {
           fillHists("ttbar_absrap_res", pttbar.absrap());
           fillHists("ttbar_m_res", pttbar.mass()/GeV);
         }
-        
+
         if (pass_boosted) {// Boosted selection
           double hadtop_pt= momentum(trimmed_jets.at(fatJetIndex)).pt() / GeV;
           double hadtop_absrap= momentum(trimmed_jets.at(fatJetIndex)).absrap();
@@ -306,7 +305,7 @@ namespace Rivet {
         Nsubjettiness::NormalizedCutoffMeasure normalized_measure(alpha, jet_rad, 1000000);
         // WTA definition
         // Nsubjettiness::OnePass_WTA_KT_Axes wta_kt_axes;
-        // as in JetSubStructure recommendations 
+        // as in JetSubStructure recommendations
         Nsubjettiness::KT_Axes kt_axes;
 
         /// NsubjettinessRatio uses the results from Nsubjettiness to calculate the ratio

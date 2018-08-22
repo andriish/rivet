@@ -46,8 +46,7 @@ namespace Rivet {
       VetoedFinalState jet_fs(fs);
       jet_fs.addVetoOnThisFinalState(getProjection<WFinder>("WF"));
       jet_fs.addVetoOnThisFinalState(getProjection<LeadingParticlesFinalState>("LeadingPhoton"));
-      FastJets jets(jet_fs, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(true);
+      FastJets jets(jet_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jets, "Jets");
 
       // FS excluding the leading photon

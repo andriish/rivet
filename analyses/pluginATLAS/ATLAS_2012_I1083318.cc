@@ -44,8 +44,7 @@ namespace Rivet {
       VetoedFinalState veto;
       veto.addVetoOnThisFinalState(leptons);
       veto.addVetoOnThisFinalState(neutrinos);
-      FastJets jets(veto, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(true);
+      FastJets jets(veto, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jets, "jets");
 
       for (size_t i = 0; i < 2; ++i) {
@@ -83,20 +82,14 @@ namespace Rivet {
       const vector<DressedLepton>& leptons = apply<DressedLeptons>(event, "leptons").dressedLeptons();
       Particles neutrinos = apply<FinalState>(event, "neutrinos").particlesByPt();
 
-      if (leptons.size() != 1 || (neutrinos.size() == 0)) {
-        vetoEvent;
-      }
+      if (leptons.size() != 1 || (neutrinos.size() == 0)) vetoEvent;
 
       FourMomentum lepton = leptons[0].momentum();
       FourMomentum p_miss = neutrinos[0].momentum();
-      if (p_miss.Et() < 25.0*GeV) {
-        vetoEvent;
-      }
+      if (p_miss.Et() < 25.0*GeV) vetoEvent;
 
       double mT = sqrt(2.0 * lepton.pT() * p_miss.Et() * (1.0 - cos( lepton.phi()-p_miss.phi()) ) );
-      if (mT < 40.0*GeV) {
-        vetoEvent;
-      }
+      if (mT < 40.0*GeV) vetoEvent;
 
       double jetcuts[] = { 30.0*GeV, 20.0*GeV };
       const FastJets& jetpro = apply<FastJets>(event, "jets");

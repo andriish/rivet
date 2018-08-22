@@ -33,8 +33,7 @@ namespace Rivet {
       VetoedFinalState had_fs;
       had_fs.addVetoOnThisFinalState(zeefinder);
       had_fs.addVetoOnThisFinalState(zmumufinder);
-      FastJets jets(had_fs, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(true);
+      FastJets jets(had_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jets, "jets");
 
       // individual channels

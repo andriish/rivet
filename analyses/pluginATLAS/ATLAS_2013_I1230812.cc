@@ -52,8 +52,7 @@ namespace Rivet {
       // Define veto FS in order to prevent Z-decay products entering the jet algorithm
       VetoedFinalState had_fs;
       had_fs.addVetoOnThisFinalState(getProjection<ZFinder>("zfinder"));
-      FastJets jets(had_fs, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(true);
+      FastJets jets(had_fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jets, "jets");
 
       book(_h_njet_incl              ,  1, 1, _mode);

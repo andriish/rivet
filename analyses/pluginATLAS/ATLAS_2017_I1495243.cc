@@ -58,8 +58,7 @@ namespace Rivet {
       vfs.addVetoOnThisFinalState(fulldressedelectrons);
       vfs.addVetoOnThisFinalState(fulldressedmuons);
       vfs.addVetoOnThisFinalState(neutrinos);
-      FastJets jets(vfs, FastJets::ANTIKT, 0.4);
-      jets.useInvisibles(true);
+      FastJets jets(vfs, FastJets::ANTIKT, 0.4, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jets, "jets");
 
       // Book Histograms
