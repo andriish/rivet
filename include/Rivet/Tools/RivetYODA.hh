@@ -22,10 +22,12 @@
 #include <valarray>
 
 namespace YODA {
-    typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
+  typedef std::shared_ptr<YODA::AnalysisObject> AnalysisObjectPtr;
 }
 
+
 namespace Rivet {
+
 
     class AnalysisObjectWrapper {
         public:
@@ -35,8 +37,7 @@ namespace Rivet {
             virtual YODA::AnalysisObject* operator->() const = 0;
             virtual const YODA::AnalysisObject & operator*() const = 0;
 
-            /// @todo
-            /// rename to setActive(Idx)?
+            /// @todo Rename to setActive(idx)
             virtual void setActiveWeightIdx(unsigned int iWeight) = 0;
 
             bool operator ==(const AnalysisObjectWrapper& p) { return (this == &p); }
