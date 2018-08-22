@@ -53,8 +53,9 @@ namespace Rivet {
 
       const Particles photons = apply<IdentifiedFinalState>(event, "PHOTFS").particlesByPt();
       // We want the photon with the highest pT that does not come from a decay
-      for(const Particle& p : photons) {
-        if (p.fromDecay() || !p.isStable()) continue;
+      for (const Particle& p : photons) {
+        if (!p.isDirect()) continue;
+        if (!p.isStable()) continue;
 
         const double dR = std::min(deltaR(p, muons[0]), deltaR(p, muons[1]) );
         if (!inRange(dR, 0.05, 3.0)) continue;

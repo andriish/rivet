@@ -146,11 +146,11 @@ namespace Rivet {
     Particles fsparticles = applyProjection<FinalState>(e, fskey).particles();
     // Remove prompt invisibles if needed (already done by VFS if using NO_INVISIBLES)
     if (_useInvisibles == JetAlg::Invisibles::DECAY) {
-      ifilter_discard(fsparticles, [](const Particle& p) { return !(p.isVisible() || p.fromDecay()); });
+      ifilter_discard(fsparticles, [](const Particle& p) { return !p.isVisible() && p.isPrompt(); });
     }
     // Remove prompt/all muons if needed
     if (_useMuons == JetAlg::Muons::DECAY) {
-      ifilter_discard(fsparticles, [](const Particle& p) { return isMuon(p) && !p.fromDecay(); });
+      ifilter_discard(fsparticles, [](const Particle& p) { return isMuon(p) && p.isPrompt(); });
     } else if (_useMuons == JetAlg::Muons::NONE) {
       ifilter_discard(fsparticles, isMuon);
     }

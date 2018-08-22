@@ -139,7 +139,7 @@ namespace Rivet {
       const Particle& t2 = partontops[1];
 
       // Apply acceptance cuts on top-decay leptons (existence should be guaranteed)
-      const auto isPromptChLepton = [](const Particle& p){return isChargedLepton(p) && !fromDecay(p);};
+      const auto isPromptChLepton = [](const Particle& p){return p.isPrompt() && isChargedLepton(p);};
       const Particle lep1 = t1.allDescendants(lastParticleWith(isPromptChLepton)).front();
       const Particle lep2 = t2.allDescendants(lastParticleWith(isPromptChLepton)).front();
       if (lep1.pT() < 1e-9*GeV || lep2.pT() < 1e-9*GeV) vetoEvent; // sanity check?

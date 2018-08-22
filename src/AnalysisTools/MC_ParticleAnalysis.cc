@@ -3,7 +3,7 @@
 
 namespace Rivet {
 
-  
+
 
 
   MC_ParticleAnalysis::MC_ParticleAnalysis(const string& name,
@@ -77,7 +77,7 @@ namespace Rivet {
   void MC_ParticleAnalysis::_analyze(const Event& event, const Particles& particles) {
     Particles promptparticles;
     for (const Particle& p : particles)
-      if (!p.fromDecay()) promptparticles += p;
+      if (p.isPrompt()) promptparticles += p;
 
     for (size_t i = 0; i < _nparts; ++i) {
       if (particles.size() < i+1) continue;

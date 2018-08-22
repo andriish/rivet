@@ -49,9 +49,8 @@ namespace Rivet {
       jetFS.addVetoOnThisFinalState(muonClusters);
       jetFS.addVetoOnThisFinalState(neutrinos);
       jetFS.vetoNeutrinos();
-      FastJets JetProjection(jetFS, FastJets::ANTIKT, 0.5);
-      JetProjection.useInvisibles(false);
-      declare(JetProjection, "Jets");
+      FastJets jetprojection(jetFS, FastJets::ANTIKT, 0.5);
+      declare(jetprojection, "Jets");
 
       // Histograms
       book(_histDPhiMuJet1 ,1,1,1);

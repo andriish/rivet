@@ -9,7 +9,7 @@ namespace Rivet {
 
   DressedLepton::DressedLepton(const Particle& dlepton)
     : Particle(dlepton)
-  { 
+  {
     setConstituents({{dlepton}}); //< bare lepton is first constituent
   }
 
@@ -101,7 +101,7 @@ namespace Rivet {
       const FinalState& photons = applyProjection<FinalState>(e, "Photons");
       for (const Particle& photon : photons.particles()) {
         // Ignore photon if it's from a hadron/tau decay and we're avoiding those
-        if (!_fromDecay && photon.fromDecay()) continue;
+        if (!_fromDecay && !photon.isPrompt()) continue;
         const FourMomentum& p_P = photon.momentum();
         double dRmin = _dRmax;
         int idx = -1;
@@ -123,12 +123,12 @@ namespace Rivet {
     // Fill the canonical particles collection with the composite DL Particles
     for (const Particle& lepton : allClusteredLeptons) {
       const bool acc = accept(lepton);
-      MSG_TRACE("Clustered lepton " << lepton 
-                << " with constituents = " << lepton.constituents() 
+      MSG_TRACE("Clustered lepton " << lepton
+                << " with constituents = " << lepton.constituents()
                 << ", cut-pass = " << std::boolalpha << acc);
       if (acc) _theParticles.push_back(lepton);
     }
-    MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size() 
+    MSG_DEBUG("#dressed leptons = " << allClusteredLeptons.size()
               << " -> " << _theParticles.size() << " after cuts");
 
   }

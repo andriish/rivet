@@ -22,7 +22,7 @@ namespace Rivet {
         return false;
 
     // Reject if from a hadron or tau decay.
-    if (p.fromDecay())
+    if (p.fromHadron() || p.fromTau())
       return false;
 
     return _cuts->accept(p);

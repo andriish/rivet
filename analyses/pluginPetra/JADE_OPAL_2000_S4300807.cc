@@ -11,15 +11,8 @@ namespace Rivet {
   class JADE_OPAL_2000_S4300807 : public Analysis {
   public:
 
-    /// @name Constructors etc.
-    //@{
-
     /// Constructor
-    JADE_OPAL_2000_S4300807()
-      : Analysis("JADE_OPAL_2000_S4300807")
-    {    }
-
-    //@}
+    DEFAULT_RIVET_ANALYSIS_CTOR(JADE_OPAL_2000_S4300807)
 
 
     /// @name Analysis methods
@@ -29,10 +22,8 @@ namespace Rivet {
       // Projections
       const FinalState fs;
       declare(fs, "FS");
-      FastJets jadeJets = FastJets(fs, FastJets::JADE, 0.7);
-      FastJets durhamJets = FastJets(fs, FastJets::DURHAM, 0.7);
-      jadeJets.useInvisibles(true);
-      durhamJets.useInvisibles(true);
+      FastJets jadeJets = FastJets(fs, FastJets::JADE, 0.7, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
+      FastJets durhamJets = FastJets(fs, FastJets::DURHAM, 0.7, JetAlg::Muons::ALL, JetAlg::Invisibles::DECAY);
       declare(jadeJets, "JadeJets");
       declare(durhamJets, "DurhamJets");
 

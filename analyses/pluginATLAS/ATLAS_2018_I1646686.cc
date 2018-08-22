@@ -295,5 +295,4 @@ namespace Rivet {
 
   DECLARE_RIVET_PLUGIN(ATLAS_2018_I1646686);
 
-
 }

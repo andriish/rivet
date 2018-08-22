@@ -12,9 +12,7 @@ namespace Rivet {
   public:
 
     // Constructor
-    ATLAS_2017_I1591327() : Analysis("ATLAS_2017_I1591327") {
-
-    }
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2017_I1591327);
 
 
     // Book histograms and initialise projections before the run
@@ -88,7 +86,7 @@ namespace Rivet {
       Particles isolated_photons;
       for (const Particle& photon : photons) {
         // Check if it's a prompt photon (needed for SHERPA 2->5 sample, otherwise I also get photons from hadron decays in jets)
-        if (photon.fromDecay()) continue;
+        if (!photon.isPrompt()) continue;
 
         // Remove photons in ECAL crack region
         if (inRange(photon.abseta(), 1.37, 1.56))  continue;
@@ -163,7 +161,7 @@ namespace Rivet {
 
     // Normalise histograms etc., after the run
     void finalize() {
-      const double sf = crossSection() / (femtobarn * sumOfWeights());
+      const double sf = crossSection()/femtobarn / sumOfWeights();
       scale({_h_M, _h_pT, _h_dPhi, _h_costh, _h_phistar, _h_at}, sf);
     }
 
@@ -180,7 +178,6 @@ namespace Rivet {
   };
 
 
-  // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1591327);
 
 }

@@ -465,9 +465,9 @@ namespace Rivet {
   /// @brief Determine whether the particle is from a prompt tau decay
   inline bool fromPromptTau(const Particle& p) { return p.fromPromptTau(); }
 
-  /// @brief Determine whether the particle is from a hadron or tau decay
-  DEPRECATED("Too vague: use fromHadron or fromHadronicTau")
-  inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
+  // /// @brief Determine whether the particle is from a hadron or tau decay
+  // DEPRECATED("Too vague: use fromHadron or fromHadronicTau")
+  // inline bool fromDecay(const Particle& p) { return p.fromDecay(); }
 
   //@}
 
