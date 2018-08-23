@@ -107,7 +107,7 @@ if do_all: # check multiple files
                     print('Download from HEPData failed for Rivet analysis {}.'.format(analysis))
                 if yodafile_from_hepdata:
                     os.rename(yodafile_from_hepdata, os.path.join(hepdata_input, yodafile_from_hepdata))
-                    yodafile_from_hepdata = os.path.join(hepdata_directory, yodafile_from_hepdata)
+                    yodafile_from_hepdata = os.path.join(hepdata_input, yodafile_from_hepdata)
                 else:
                     print('Missing YODA reference data file from HEPData for Rivet analysis {}.'.format(analysis))
             else:
