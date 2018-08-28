@@ -10,10 +10,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2016_I1502620_W(string name="ATLAS_2016_I1502620_W")
-      : Analysis(name) {
-      // using electron channel by default
-      _mode = 0;
+    ATLAS_2016_I1502620_W(string name="ATLAS_2016_I1502620_W", size_t channel = 0, 
+                          string ref_data = "ATLAS_2016_I1502620") : Analysis(name) {
+      _mode = channel; // using electron channel by default
+      setRefDataName(ref_data);
     }
 
     /// @name Analysis methods
@@ -112,21 +112,13 @@ namespace Rivet {
 
   class ATLAS_2016_I1502620_W_EL : public ATLAS_2016_I1502620_W {
   public:
-    ATLAS_2016_I1502620_W_EL()
-      : ATLAS_2016_I1502620_W("ATLAS_2016_I1502620_W_EL")
-    {
-      _mode = 0;
-    }
+    ATLAS_2016_I1502620_W_EL() : ATLAS_2016_I1502620_W("ATLAS_2016_I1502620_W_EL", 0) { }
   };
 
 
   class ATLAS_2016_I1502620_W_MU : public ATLAS_2016_I1502620_W {
   public:
-    ATLAS_2016_I1502620_W_MU()
-      : ATLAS_2016_I1502620_W("ATLAS_2016_I1502620_W_MU")
-    {
-      _mode = 1;
-    }
+    ATLAS_2016_I1502620_W_MU() : ATLAS_2016_I1502620_W("ATLAS_2016_I1502620_W_MU", 1) { }
   };
 
 
