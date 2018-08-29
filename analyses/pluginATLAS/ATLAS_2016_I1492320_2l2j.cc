@@ -16,7 +16,9 @@ namespace Rivet {
   public:
 
     // Default constructor
-    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2016_I1492320_2l2j);
+    ATLAS_2016_I1492320_2l2j() : Analysis("ATLAS_2016_I1492320_2l2j") {
+      setRefDataName("ATLAS_2016_I1492320");
+    }
 
 
     /// @name Analysis methods
