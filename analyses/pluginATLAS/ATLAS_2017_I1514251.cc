@@ -12,10 +12,11 @@ namespace Rivet {
   public:
     
     /// Constructor
-    ATLAS_2017_I1514251(string name="ATLAS_2017_I1514251")
-      : Analysis(name)  {
+    ATLAS_2017_I1514251(const string name="ATLAS_2017_I1514251", size_t channel = 0,
+                        const string ref_data="ATLAS_2017_I1514251") : Analysis(name)  {
       // This class uses the combined e+mu mode
-      _mode = 0;
+      _mode = channel;
+      setRefDataName(ref_data);
     }
     
     /// Book histograms and initialise projections before the run
@@ -175,24 +176,15 @@ namespace Rivet {
 
   class ATLAS_2017_I1514251_EL : public ATLAS_2017_I1514251 {
   public:
-    ATLAS_2017_I1514251_EL()
-      : ATLAS_2017_I1514251("ATLAS_2017_I1514251_EL")
-    {
-      _mode = 1;
-    }
+    ATLAS_2017_I1514251_EL() : ATLAS_2017_I1514251("ATLAS_2017_I1514251_EL", 1) { }
   };
 
 
 
   class ATLAS_2017_I1514251_MU : public ATLAS_2017_I1514251 {
   public:
-    ATLAS_2017_I1514251_MU()
-      : ATLAS_2017_I1514251("ATLAS_2017_I1514251_MU")
-    {
-      _mode = 2;
-    }
+    ATLAS_2017_I1514251_MU() : ATLAS_2017_I1514251("ATLAS_2017_I1514251_MU", 2) { }
   };
-
 
 
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1514251);

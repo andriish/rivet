@@ -18,8 +18,10 @@ namespace Rivet {
     //@{
 
     /// Constructors
-    ATLAS_2017_I1589844(string name="ATLAS_2017_I1589844") : Analysis(name) {
-      _mode = 1; // pick electron channel by default
+    ATLAS_2017_I1589844(const string name="ATLAS_2017_I1589844", size_t channel = 0,
+                        const string ref_data="ATLAS_2017_I1589844") : Analysis(name) {
+      _mode = channel; // pick electron channel by default
+      setRefDataname(ref_data);
       setNeedsCrossSection(true);
     }
 
@@ -35,11 +37,11 @@ namespace Rivet {
       const FinalState fs;
 
       const Cut cuts = (_mode) ?
-        Cuts::pT > 25*GeV && (Cuts::abseta <= 1.37 || (Cuts::abseta >= 1.52 && Cuts::abseta < 2.47)) : //< electron channel version
-        (Cuts::pT > 25*GeV) && (Cuts::abseta < 2.4); //< muon channel version
+        (Cuts::pT > 25*GeV) && (Cuts::abseta < 2.4) : //< muon channel version
+        Cuts::pT > 25*GeV && (Cuts::abseta <= 1.37 || (Cuts::abseta >= 1.52 && Cuts::abseta < 2.47)); //< electron channel version
 
       IdentifiedFinalState bareleptons(fs);
-      bareleptons.acceptIdPair(_mode? PID::ELECTRON : PID::MUON);
+      bareleptons.acceptIdPair(_mode? PID::MUON : PID::ELECTRON);
       const DressedLeptons leptons(fs, bareleptons, 0.1, cuts, true);
       declare(leptons, "leptons");
 
@@ -151,16 +153,14 @@ namespace Rivet {
 
   /// kT splittings in Z events at 8 TeV (electron channel)
   struct ATLAS_2017_I1589844_EL : public ATLAS_2017_I1589844 {
-    ATLAS_2017_I1589844_EL() : ATLAS_2017_I1589844("ATLAS_2017_I1589844_EL") { _mode = 1; }
+    ATLAS_2017_I1589844_EL() : ATLAS_2017_I1589844("ATLAS_2017_I1589844_EL", 0) { }
   };
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1589844_EL);
 
 
   /// kT splittings in Z events at 8 TeV (muon channel)
   struct ATLAS_2017_I1589844_MU : public ATLAS_2017_I1589844 {
-    ATLAS_2017_I1589844_MU() : ATLAS_2017_I1589844("ATLAS_2017_I1589844_MU") { _mode = 0; }
+    ATLAS_2017_I1589844_MU() : ATLAS_2017_I1589844("ATLAS_2017_I1589844_MU", 1) { }
   };
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1589844_MU);
-
-
 }
