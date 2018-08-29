@@ -21,7 +21,7 @@ namespace Rivet {
     ATLAS_2017_I1589844(const string name="ATLAS_2017_I1589844", size_t channel = 0,
                         const string ref_data="ATLAS_2017_I1589844") : Analysis(name) {
       _mode = channel; // pick electron channel by default
-      setRefDataname(ref_data);
+      setRefDataName(ref_data);
       setNeedsCrossSection(true);
     }
 
