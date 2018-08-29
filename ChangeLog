@@ -1,3 +1,7 @@
+2018-08-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change default plugin library installation to $prefix/lib/Rivet, since they're non-linkable.
+
 2018-08-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version 2.6.1 release.

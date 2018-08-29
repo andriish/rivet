@@ -38,7 +38,8 @@ clean-local:
 	rm -rf data
 
 install-exec-local: $(PLUGIN_LIBS)
-	$(INSTALL) $^ $(DESTDIR)$(libdir)
+	$(MKDIR_P) $(DESTDIR)$(libdir)/Rivet
+	$(INSTALL) $^ $(DESTDIR)$(libdir)/Rivet
 
 install-data-local: $(PLUGIN_DATAFILES)
 	@echo "Installing analysis data files..."

@@ -58,7 +58,7 @@ namespace Rivet {
     if (env) dirs += pathsplit(env);
     // ... otherwise fall back to the Rivet library install path unless the path ends in ::
     if (!env || strlen(env) < 2 || string(env).substr(strlen(env)-2) != "::")
-      dirs += getLibPath();
+      dirs += getLibPath() + "/Rivet";
     return dirs;
   }
 
