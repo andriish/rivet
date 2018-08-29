@@ -33,9 +33,9 @@ namespace Rivet {
       declare(wfinder_dressed, "WFinder_dressed");
 
       /// Book histograms here
-      _h_Wp_eta = bookHisto1D(   9, 1, _mode + 1);
-      _h_Wm_eta = bookHisto1D(  10, 1, _mode + 1);
-      _h_W_asym = bookScatter2D(35, 1, _mode + 1);
+      _h_Wp_eta = bookHisto1D(   9, 1, 1);
+      _h_Wm_eta = bookHisto1D(  10, 1, 1);
+      _h_W_asym = bookScatter2D(35, 1, 1);
 
     }
 

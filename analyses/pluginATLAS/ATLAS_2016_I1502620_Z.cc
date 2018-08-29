@@ -10,10 +10,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2016_I1502620_Z(string name="ATLAS_2016_I1502620_Z")
-      : Analysis(name) {
-      // using electron channel by default
-      _mode = 0;
+    ATLAS_2016_I1502620_Z(string name="ATLAS_2016_I1502620_Z", size_t channel = 0, 
+                          string ref_data = "ATLAS_2016_I1502620") : Analysis(name) {
+      _mode = channel; // using electron channel by default
+      setRefDataName(ref_data);
     }
 
     /// @name Analysis methods
@@ -29,11 +29,11 @@ namespace Rivet {
       declare(zfinder, "ZFinder");
 
       // Book histograms
-      _h_Zcenlow_y_dressed   = bookHisto1D(11, 1, _mode + 1);
-      _h_Zcenpeak_y_dressed  = bookHisto1D(12, 1, _mode + 1);
-      _h_Zcenhigh_y_dressed  = bookHisto1D(13, 1, _mode + 1);
-      _h_Zfwdpeak_y_dressed  = bookHisto1D(14, 1, _mode + 1);
-      _h_Zfwdhigh_y_dressed  = bookHisto1D(15, 1, _mode + 1);
+      _h_Zcenlow_y_dressed   = bookHisto1D(11, 1, 1);
+      _h_Zcenpeak_y_dressed  = bookHisto1D(12, 1, 1);
+      _h_Zcenhigh_y_dressed  = bookHisto1D(13, 1, 1);
+      _h_Zfwdpeak_y_dressed  = bookHisto1D(14, 1, 1);
+      _h_Zfwdhigh_y_dressed  = bookHisto1D(15, 1, 1);
 
     }
 
@@ -110,21 +110,13 @@ namespace Rivet {
 
   class ATLAS_2016_I1502620_Z_EL : public ATLAS_2016_I1502620_Z {
   public:
-    ATLAS_2016_I1502620_Z_EL()
-      : ATLAS_2016_I1502620_Z("ATLAS_2016_I1502620_Z_EL")
-    {
-      _mode = 0;
-    }
+    ATLAS_2016_I1502620_Z_EL() : ATLAS_2016_I1502620_Z("ATLAS_2016_I1502620_Z_EL", 0) { }
   };
 
 
   class ATLAS_2016_I1502620_Z_MU : public ATLAS_2016_I1502620_Z {
   public:
-    ATLAS_2016_I1502620_Z_MU()
-      : ATLAS_2016_I1502620_Z("ATLAS_2016_I1502620_Z_MU")
-    {
-      _mode = 1;
-    }
+    ATLAS_2016_I1502620_Z_MU() : ATLAS_2016_I1502620_Z("ATLAS_2016_I1502620_Z_MU", 1) { }
   };
 
 
