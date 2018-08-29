@@ -13,11 +13,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2017_I1598613(string name="ATLAS_2017_I1598613")
-      : Analysis(name)
-    {
-      //default to the 3-muon mode:
-      _mode = 0;
+    ATLAS_2017_I1598613(const string name="ATLAS_2017_I1598613", size_t mode = 0,
+                        const string ref_data="ATLAS_2017_I1598613") : Analysis(name) {
+      _mode = mode; //default to the 3-muon mode
+      setRefDataName(ref_data);
     }
 
 
@@ -258,7 +257,7 @@ namespace Rivet {
 
   /// Specialised subclass for the BB analysis
   struct ATLAS_2017_I1598613_BB : public ATLAS_2017_I1598613 {
-    ATLAS_2017_I1598613_BB() : ATLAS_2017_I1598613("ATLAS_2017_I1598613_BB") { _mode = 1; }
+    ATLAS_2017_I1598613_BB() : ATLAS_2017_I1598613("ATLAS_2017_I1598613_BB", 1) { }
   };
 
 
