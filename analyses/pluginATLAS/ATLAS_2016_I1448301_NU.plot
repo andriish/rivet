@@ -10,12 +10,12 @@ YLabel=Fiducial Cross section [fb]
 
 # BEGIN PLOT /ATLAS_2016_I1448301_NU/d02
 Title=$Z(\to \nu\nu)+\gamma$ data
-XCustomMajorTicks=0.5 $\geq0$ 1.5 $=0$
+XCustomMajorTicks=1.0 $\geq0$ 2.0 $=0$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1448301_NU/d04
 Title=$Z(\to \nu\nu)+\gamma +\gamma$ data
-XCustomMajorTicks=0.5 $\geq0$ 1.5 $=0$
+XCustomMajorTicks=1.0 $\geq0$ 2.0 $=0$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1448301_NU/d07-x01-y01

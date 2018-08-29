@@ -16,8 +16,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2016_I1448301(string name="ATLAS_2016_I1448301") : Analysis(name) {
-      _mode = 0; // pick electron channel by default
+    ATLAS_2016_I1448301(const string name="ATLAS_2016_I1448301", size_t channel = 0,
+                        const string ref_data="ATLAS_2016_I1448301") : Analysis(name) {
+      _mode = channel; // pick electron channel by default
+      setRefDataName(ref_data);
       setNeedsCrossSection(true);
     }
 
@@ -294,15 +296,15 @@ namespace Rivet {
 
 
   struct ATLAS_2016_I1448301_EL : public ATLAS_2016_I1448301 {
-    ATLAS_2016_I1448301_EL() : ATLAS_2016_I1448301("ATLAS_2016_I1448301_EL") { _mode = 0; }
+    ATLAS_2016_I1448301_EL() : ATLAS_2016_I1448301("ATLAS_2016_I1448301_EL", 0) { }
   };
 
   struct ATLAS_2016_I1448301_MU : public ATLAS_2016_I1448301 {
-    ATLAS_2016_I1448301_MU() : ATLAS_2016_I1448301("ATLAS_2016_I1448301_MU") { _mode = 1; }
+    ATLAS_2016_I1448301_MU() : ATLAS_2016_I1448301("ATLAS_2016_I1448301_MU", 1) { }
   };
 
   struct ATLAS_2016_I1448301_NU : public ATLAS_2016_I1448301 {
-    ATLAS_2016_I1448301_NU() : ATLAS_2016_I1448301("ATLAS_2016_I1448301_NU") { _mode = 2; }
+    ATLAS_2016_I1448301_NU() : ATLAS_2016_I1448301("ATLAS_2016_I1448301_NU", 2) { }
   };
 
 
