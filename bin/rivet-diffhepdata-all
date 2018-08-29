@@ -75,6 +75,9 @@ for count, inspire_id in enumerate(sorted(analyses, key=analyses.get)):
     if num_analyses != 1:
         compatible = False
         print('Multiple (or zero) Rivet analyses {} for INSPIRE ID {}.'.format(analyses[inspire_id], inspire_id))
+    elif 'CONF' in analyses[inspire_id][0]:
+        compatible = True
+        print('Rivet analysis {} is a CONF note result. Skipping.'.format(analyses[inspire_id][0]))
     else:
         analysis = analyses[inspire_id][0]
 
