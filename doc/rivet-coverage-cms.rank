@@ -6,7 +6,7 @@
 1223868 X Alignment of the CMS Muon System with Cosmic-Ray and Beam-Halo Muons
 1223869 X Performance of CMS hadron calorimeter timing and synchronization using test beam, cosmic ray, and LHC beam data
 1223870 X Fine Synchronization of the CMS Muon Drift-Tube Local Trigger using Cosmic Rays
-1223871 X Performance of the CMS drift-tube chamber local trigger with cosmic rays 
+1223871 X Performance of the CMS drift-tube chamber local trigger with cosmic rays
 1223872 X Aligning the CMS Muon Chambers with the Muon Alignment System during an Extended Cosmic Ray Run
 1223876 X Commissioning of the CMS High-Level Trigger with Cosmic Rays
 1223941 X Identification and Filtering of Uncharacteristic Noise in the CMS Hadron Calorimeter
@@ -777,25 +777,25 @@
 2621190 ? Search for Higgs boson pair production in the $\gamma\gamma\mathrm{b\bar{b}}$ final state in pp collisions at $\sqrt{s} = $ 13 TeV
 2621370 ? Angular analysis of the decay ${\mathrm{B^{+}} \to \mathrm{K^{+}} \mu^{+} \mu^{-}}$ in proton-proton collisions at $\sqrt{s} = $ 8 TeV
 2621423 . Search for narrow and broad dijet resonances in proton-proton collisions at $\sqrt{s} = $ 13 TeV and constraints on dark matter mediators and other new particles
-2621428 . Measurement of the weak mixing angle using the forward-backward asymmetry of Drell-Yan events in pp collisions at 8 TeV
+2621428 ? Measurement of the weak mixing angle using the forward-backward asymmetry of Drell-Yan events in pp collisions at 8 TeV
 2621538 . Search for pair-produced resonances each decaying into at least four quarks in proton-proton collisions at $\sqrt{s} = $ 13 TeV
 2622479 ? Search for a singly produced third-generation scalar leptoquark decaying to a $\tau$ lepton and a bottom quark in proton-proton collisions at $\sqrt{s} =$ 13 TeV
 2622558 . Search for resonant pair production of Higgs bosons decaying to bottom quark-antiquark pairs in proton-proton collisions at 13 TeV
-2623687 . Observation of the $\mathrm{Z} \to \psi \ell^{+} \ell^{-}$ decay in pp collisions at $\sqrt{s} = $ 13 TeV
+2623687 ? Observation of the $\mathrm{Z} \to \psi \ell^{+} \ell^{-}$ decay in pp collisions at $\sqrt{s} = $ 13 TeV
 2623974 . Search for dark matter produced in association with a Higgs boson decaying to $\gamma\gamma$ or $\tau^{+}\tau^{-}$ at $\sqrt{s} = $ 13 TeV
-2624194 . Measurements of properties of the Higgs boson decaying to a W boson pair in pp collisions at $\sqrt{s} = $ 13 TeV
+2624194 ? Measurements of properties of the Higgs boson decaying to a W boson pair in pp collisions at $\sqrt{s} = $ 13 TeV
 2624195 . Search for supersymmetric partners of electrons and muons in proton-proton collisions at $\sqrt{s} = $ 13 TeV
 2624385 . Search for the decay of a Higgs boson in the $\ell\ell\gamma$ channel in proton-proton collisions at $\sqrt{s} = $ 13 TeV
 2627097 . Search for heavy Majorana neutrinos in same-sign dilepton channels in proton-proton collisions at $\sqrt{s} = $ 13 TeV
-2627479 . Measurement of differential cross sections for Z boson pair production in association with jets at $\sqrt{s}= $ 8 and 13 TeV
-2627556 . Measurement of charged particle spectra in minimum-bias events from proton-proton collisions at $\sqrt{s} = $ 13 TeV
+2627479 ! Measurement of differential cross sections for Z boson pair production in association with jets at $\sqrt{s}= $ 8 and 13 TeV
+2627556 ! Measurement of charged particle spectra in minimum-bias events from proton-proton collisions at $\sqrt{s} = $ 13 TeV
 2628267 ? Measurement of differential cross sections for inclusive isolated-photon and photon+jets production in proton-proton collisions at $\sqrt{s} = $ 13 TeV
 2628769 . Search for supersymmetry in events with a $ \tau $ lepton pair and missing transverse momentum in proton-proton collisions at $\sqrt{s} = $ 13 TeV
-2629477 . Study of the underlying event in top quark pair production in pp collisions at 13 TeV
+2629477 ! Study of the underlying event in top quark pair production in pp collisions at 13 TeV
 2629479 . Search for heavy resonances decaying into a vector boson and a Higgs boson in final states with charged leptons, neutrinos and b quarks at $\sqrt{s} = $ 13 TeV
-2629890 . Precision measurement of the structure of the CMS inner tracking system using nuclear interactions
-2630303 . Measurement of inclusive and differential Higgs boson production cross sections in the diphoton decay channel in proton-proton collisions at $\sqrt{s}=$ 13 TeV
-2631525 . Measurements of the differential jet cross section as a function of the jet mass in dijet events from proton-proton collisions at $\sqrt{s} = $ 13 TeV
+2629890 X Precision measurement of the structure of the CMS inner tracking system using nuclear interactions
+2630303 ! Measurement of inclusive and differential Higgs boson production cross sections in the diphoton decay channel in proton-proton collisions at $\sqrt{s}=$ 13 TeV
+2631525 ! Measurements of the differential jet cross section as a function of the jet mass in dijet events from proton-proton collisions at $\sqrt{s} = $ 13 TeV
 2631546 . Search for the Higgs boson decaying to two muons in proton-proton collisions at $\sqrt{s} = $ 13 TeV
 2631721 . Search for dark matter particles produced in association with a top quark pair at $\sqrt{s} = $ 13 TeV
 2632037 . Searches for pair production of charginos and top squarks in final states with two oppositely charged leptons in proton-proton collisions at $\sqrt{s} = $ 13 TeV
