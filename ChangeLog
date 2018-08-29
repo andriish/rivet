@@ -1,3 +1,9 @@
+2018-08-29  Christian Gutschow  <chris.g@cern.ch>
+
+	* Allow reference data file name to be different from plugin name
+  via setRefDataName(fname) method, aiming to unify HepData records.
+
+
 2018-08-14  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Version 2.6.1 release.
