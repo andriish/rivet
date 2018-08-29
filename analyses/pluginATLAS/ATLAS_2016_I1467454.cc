@@ -12,10 +12,10 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2016_I1467454(const string& name="ATLAS_2016_I1467454")
-      : Analysis(name)
-    {
+    ATLAS_2016_I1467454(const string& name="ATLAS_2016_I1467454", size_t channel = 0,
+                        const string& ref_data="ATLAS_2016_I1467454") : Analysis(name) {
       _mode = 0; // use electron channel by default
+      setRefDataName(ref_data);
     }
 
 
@@ -91,13 +91,13 @@ namespace Rivet {
 
   /// High-mass Drell-Yan at 8 TeV, electron channel
   struct ATLAS_2016_I1467454_EL : public ATLAS_2016_I1467454 {
-    ATLAS_2016_I1467454_EL() : ATLAS_2016_I1467454("ATLAS_2016_I1467454_EL") { _mode = 0; }
+    ATLAS_2016_I1467454_EL() : ATLAS_2016_I1467454("ATLAS_2016_I1467454_EL", 0) { }
   };
 
 
   /// High-mass Drell-Yan at 8 TeV, muon channel
   struct ATLAS_2016_I1467454_MU : public ATLAS_2016_I1467454 {
-    ATLAS_2016_I1467454_MU() : ATLAS_2016_I1467454("ATLAS_2016_I1467454_MU") { _mode = 1; }
+    ATLAS_2016_I1467454_MU() : ATLAS_2016_I1467454("ATLAS_2016_I1467454_MU", 1) { }
   };
 
 
