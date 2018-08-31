@@ -54,7 +54,6 @@ LogY=0
 # BEGIN PLOT /ATLAS_2016_I1444991/d09-x01-y01
 XLabel=$p_\text{T}^{j_1}$ [GeV]
 YLabel=$1/\sigma$ $\text{d}\sigma_\text{fid} / \text{d} p_\text{T}^{j_1}$ [10$^{-3}$/GeV]
-Scale=1000
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2016_I1444991/d10-x01-y01
