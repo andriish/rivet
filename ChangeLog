@@ -1,3 +1,7 @@
+2018-08-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update embedded yaml-cpp to v0.6.0.
+
 2018-08-29  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add RIVET_WEIGHT_INDEX=-1 -> ignore event weights behaviour. Slow, but sometimes useful for debug.
