@@ -104,7 +104,7 @@ for count, inspire_id in enumerate(sorted(analyses, key=analyses.get)):
             compatible = hepdatautils.compare_with_hepdata(yodafile, yodafile_from_hepdata=yodafile_from_hepdata, output=outfile)
         else:
             print('Missing YODA reference data file from Rivet for analysis {}.'.format(analysis))
-            compatible = False
+            compatible = True
     
     if compatible:
         print('YODA reference data files from Rivet and HEPData are compatible!')
