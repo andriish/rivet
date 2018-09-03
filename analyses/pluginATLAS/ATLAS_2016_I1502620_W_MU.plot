@@ -1,4 +1,4 @@
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d..-x..-y..
+# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d..
 LeftMargin=1.5
 LogX=0
 LogY=0
@@ -9,37 +9,19 @@ LegendXPos=0.05
 RatioPlotYMin=0.9
 RatioPlotYMax=1.1
 XLabel=$|\eta_\ell|$
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d..-x..-y..
 YLabel=$\text{d}\sigma / \text{d}\eta_\ell$ [pb]
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d35-x..-y..
+# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d35
+Title=$W$ charge asymmetry, dressed level
 YLabel=$A_\ell$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d09-x01-y01
-Title=$W^+\rightarrow e^+\nu$, dressed level
+# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d09
+Title=$W^+\rightarrow \ell^+\nu$, dressed level
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d09-x01-y02
-Title=$W^+\rightarrow \mu^+\nu$, dressed level
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d10-x01-y01
-Title=$W^-\rightarrow e^-\bar{\nu}$, dressed level
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d10-x01-y02
-Title=$W^-\rightarrow \mu^-\bar{\nu}$, dressed level
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d35-x01-y01
-Title=$W$ charge asymmetry, electron channel, dressed level
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d35-x01-y02
-Title=$W$ charge asymmetry, muon channel, dressed level
+# BEGIN PLOT /ATLAS_2016_I1502620_W_MU/d10
+Title=$W^-\rightarrow \ell^-\bar{\nu}$, dressed level
 # END PLOT
 

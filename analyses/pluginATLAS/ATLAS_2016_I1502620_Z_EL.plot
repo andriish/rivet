@@ -12,43 +12,25 @@ YLabel=$\text{d}\sigma / \text{d}y_{\ell\ell}$ [pb]
 XLabel=$|y_{\ell\ell}|$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d11-x01-y01
-Title=central $Z/\gamma^*\rightarrow ee$, $46 < m_{\ell\ell} < 66$ GeV
+# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d11
+Title=central $Z/\gamma^*\rightarrow \ell\ell$, $46 < m_{\ell\ell} < 66$ GeV
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d11-x01-y02
-Title=central $Z/\gamma^*\rightarrow \mu\mu$, $46 < m_{\ell\ell} < 66$ GeV
+# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d12
+Title=central $Z/\gamma^*\rightarrow \ell\ell$, $66 < m_{\ell\ell} < 116$ GeV
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d12-x01-y01
-Title=central $Z/\gamma^*\rightarrow ee$, $66 < m_{\ell\ell} < 116$ GeV
+# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d13
+Title=central $Z/\gamma^*\rightarrow \ell\ell$, $116 < m_{\ell\ell} < 150$ GeV
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d12-x01-y02
-Title=central $Z/\gamma^*\rightarrow \mu\mu$, $66 < m_{\ell\ell} < 116$ GeV
+# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d14
+Title=forward $Z/\gamma^*\rightarrow \ell\ell$, $66 < m_{\ell\ell} < 116$ GeV
+LegendYPos=0.95
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d13-x01-y01
-Title=central $Z/\gamma^*\rightarrow ee$, $116 < m_{\ell\ell} < 150$ GeV
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d13-x01-y02
-Title=central $Z/\gamma^*\rightarrow \mu\mu$, $116 < m_{\ell\ell} < 150$ GeV
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d14-x01-y01
-Title=forward $Z/\gamma^*\rightarrow ee$, $66 < m_{\ell\ell} < 116$ GeV
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d14-x01-y02
-Title=forward $Z/\gamma^*\rightarrow ee$, $66 < m_{\ell\ell} < 116$ GeV
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d15-x01-y01
-Title=forward $Z/\gamma^*\rightarrow ee$, $116 < m_{\ell\ell} < 150$ GeV
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d15-x01-y02
-Title=forward $Z/\gamma^*\rightarrow \mu\mu$, $116 < m_{\ell\ell} < 150$ GeV
+# BEGIN PLOT /ATLAS_2016_I1502620_Z_EL/d15
+Title=forward $Z/\gamma^*\rightarrow \ell\ell$, $116 < m_{\ell\ell} < 150$ GeV
+LegendYPos=0.95
 # END PLOT
 
