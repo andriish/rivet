@@ -23,22 +23,22 @@ namespace Rivet {
       void init() {
 
         //histogram booking
-        _h["inclusive"] = bookHisto1D(2,1,1);
-        bookHistograms("t_pt", 1, true);
-        bookHistograms("t_y",  2, true);
-        bookHistograms("t1_pt",         3);
-        bookHistograms("t1_y",          4);
-        bookHistograms("t2_pt",         5);
-        bookHistograms("t2_y",          6);
-        bookHistograms("tt_m",          7);
-        bookHistograms("tt_pt",         8);
-        bookHistograms("tt_y",          9);
-        bookHistograms("tt_chi",       10);
-        bookHistograms("tt_yboost",    11);
-        bookHistograms("tt_pout",      12);
-        bookHistograms("tt_dPhi",      13);
-        bookHistograms("tt_Ht",        14);
-        bookHistograms("tt_cosThStar", 15);
+        _h["inclusive"] = bookHisto1D(1,1,1);
+        bookHistograms("t_pt", 0, true);
+        bookHistograms("t_y",  1, true);
+        bookHistograms("t1_pt",         2);
+        bookHistograms("t1_y",          3);
+        bookHistograms("t2_pt",         4);
+        bookHistograms("t2_y",          5);
+        bookHistograms("tt_m",          6);
+        bookHistograms("tt_pt",         7);
+        bookHistograms("tt_y",          8);
+        bookHistograms("tt_chi",        9);
+        bookHistograms("tt_yboost",    10);
+        bookHistograms("tt_pout",      11);
+        bookHistograms("tt_dPhi",      12);
+        bookHistograms("tt_Ht",        13);
+        bookHistograms("tt_cosThStar", 14);
 
         // Projections
         Cut dressed_lep = (Cuts::abseta < 2.5) && (Cuts::pT >= 25*GeV);

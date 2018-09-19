@@ -246,7 +246,7 @@ namespace Rivet {
   protected:
 
     /// Analysis-mode switch
-    int _mode;
+    size_t _mode;
 
     /// Histograms
     map<string, HistoHandler> _h;
