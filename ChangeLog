@@ -1,5 +1,7 @@
 2018-09-20  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Use updated ATLAS R2 muon efficiencies.
+
 	* Use proper ATLAS photon efficiency functions for Runs 1 and 2, from arXiv:1606.01813 and ATL-PHYS-PUB-2016-014.
 
 2018-08-31  Andy Buckley  <andy.buckley@cern.ch>

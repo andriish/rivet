@@ -343,10 +343,17 @@ namespace Rivet {
     return (m.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
-  /// ATLAS Run 2 muon reco efficiency
-  /// @todo Currently just a copy of Run 1: fix!
+  /// @brief ATLAS Run 2 muon reco efficiency
+  ///
+  /// For medium ID, from Fig 3 of
+  /// https://cds.cern.ch/record/2047831/files/ATL-PHYS-PUB-2015-037.pdf
   inline double MUON_EFF_ATLAS_RUN2(const Particle& m) {
-    return MUON_EFF_ATLAS_RUN1(m);
+    if (m.abseta() > 2.7) return 0;
+    static const vector<double> edges_pt = {0., 3.5, 4., 5., 6., 7., 8., 10.};
+    static const vector<double> effs = {0.00, 0.76, 0.94, 0.97, 0.98, 0.98, 0.98, 0.99};
+    const int i_pt = binIndex(m.pT()/GeV, edges_pt, true);
+    const double eff = eff[i_pt];
+    return eff;
   }
 
 
