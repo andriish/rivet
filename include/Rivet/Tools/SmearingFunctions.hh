@@ -340,7 +340,7 @@ namespace Rivet {
   inline double MUON_EFF_ATLAS_RUN1(const Particle& m) {
     if (m.abseta() > 2.7) return 0;
     if (m.pT() < 10*GeV) return 0;
-    return (m.abseta() < 1.5) ? 0..95 : 0.85;
+    return (m.abseta() < 1.5) ? 0.95 : 0.85;
   }
 
   /// ATLAS Run 2 muon reco efficiency
