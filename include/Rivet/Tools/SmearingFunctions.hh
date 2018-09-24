@@ -352,7 +352,7 @@ namespace Rivet {
     static const vector<double> edges_pt = {0., 3.5, 4., 5., 6., 7., 8., 10.};
     static const vector<double> effs = {0.00, 0.76, 0.94, 0.97, 0.98, 0.98, 0.98, 0.99};
     const int i_pt = binIndex(m.pT()/GeV, edges_pt, true);
-    const double eff = eff[i_pt];
+    const double eff = effs[i_pt];
     return eff;
   }
 

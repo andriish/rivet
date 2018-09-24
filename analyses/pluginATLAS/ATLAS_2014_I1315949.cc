@@ -24,39 +24,39 @@ namespace Rivet {
       declare(cfs, "cfs");
 
 
-      _h_pTsum_tow    = bookProfile1D( 79, 1, 1);
-      _h_pTsum_trv    = bookProfile1D( 80, 1, 1);
-      _h_pTsum_away   = bookProfile1D( 81, 1, 1);
-      _h_pTsum_tmin   = bookProfile1D( 82, 1, 1);
-      _h_pTsum_tmax   = bookProfile1D( 83, 1, 1);
-      _h_pTsum_tdif   = bookProfile1D(149, 1, 1);
+      _h_pTsum_tow    = bookProfile1D( 67, 1, 1);
+      _h_pTsum_trv    = bookProfile1D( 68, 1, 1);
+      _h_pTsum_away   = bookProfile1D( 69, 1, 1);
+      _h_pTsum_tmin   = bookProfile1D( 70, 1, 1);
+      _h_pTsum_tmax   = bookProfile1D( 71, 1, 1);
+      _h_pTsum_tdif   = bookProfile1D(125, 1, 1);
 
-      _h_Nchg_tow     = bookProfile1D( 84, 1, 1);
-      _h_Nchg_trv     = bookProfile1D( 85, 1, 1);
-      _h_Nchg_away    = bookProfile1D( 86, 1, 1);
-      _h_Nchg_tmin    = bookProfile1D( 87, 1, 1);
-      _h_Nchg_tmax    = bookProfile1D( 94, 1, 1);
-      _h_Nchg_tdif    = bookProfile1D(150, 1, 1);
+      _h_Nchg_tow     = bookProfile1D( 70, 1, 1);
+      _h_Nchg_trv     = bookProfile1D( 71, 1, 1);
+      _h_Nchg_away    = bookProfile1D( 72, 1, 1);
+      _h_Nchg_tmin    = bookProfile1D( 73, 1, 1);
+      _h_Nchg_tmax    = bookProfile1D( 82, 1, 1);
+      _h_Nchg_tdif    = bookProfile1D(126, 1, 1);
 
-      _h_pTavg_tow    = bookProfile1D(131, 1, 1);
-      _h_pTavg_trv    = bookProfile1D(132, 1, 1);
-      _h_pTavg_away   = bookProfile1D(133, 1, 1);
+      _h_pTavg_tow    = bookProfile1D(113, 1, 1);
+      _h_pTavg_trv    = bookProfile1D(114, 1, 1);
+      _h_pTavg_away   = bookProfile1D(115, 1, 1);
 
-      _h_pTavgvsmult_tow    = bookProfile1D(140, 1, 1);
-      _h_pTavgvsmult_trv    = bookProfile1D(141, 1, 1);
-      _h_pTavgvsmult_away   = bookProfile1D(142, 1, 1);
+      _h_pTavgvsmult_tow    = bookProfile1D(116, 1, 1);
+      _h_pTavgvsmult_trv    = bookProfile1D(117, 1, 1);
+      _h_pTavgvsmult_away   = bookProfile1D(118, 1, 1);
 
 
       // Book sumpt and nch histos
       for (size_t id = 0; id < 6.; ++id) {
-        _h_ptSum_1D[0][id] = bookHisto1D( 88 + id, 1, 1);
-        _h_ptSum_1D[1][id] = bookHisto1D(125 + id, 1, 1);
-        _h_ptSum_1D[2][id] = bookHisto1D(143 + id, 1, 1);
-        _h_ptSum_1D[3][id] = bookHisto1D(151 + id, 1, 1);
-        _h_Nchg_1D[0][id]  = bookHisto1D( 95 + id, 1, 1);
-        _h_Nchg_1D[1][id]  = bookHisto1D(101 + id, 1, 1);
-        _h_Nchg_1D[2][id]  = bookHisto1D(113 + id, 1, 1);
-        _h_Nchg_1D[3][id]  = bookHisto1D(119 + id, 1, 1);
+        _h_ptSum_1D[0][id] = bookHisto1D( 89 + id, 1, 1);
+        _h_ptSum_1D[1][id] = bookHisto1D(107 + id, 1, 1);
+        _h_ptSum_1D[2][id] = bookHisto1D(119 + id, 1, 1);
+        _h_ptSum_1D[3][id] = bookHisto1D(127 + id, 1, 1);
+        _h_Nchg_1D[0][id]  = bookHisto1D( 83 + id, 1, 1);
+        _h_Nchg_1D[1][id]  = bookHisto1D( 89 + id, 1, 1);
+        _h_Nchg_1D[2][id]  = bookHisto1D( 95 + id, 1, 1);
+        _h_Nchg_1D[3][id]  = bookHisto1D(101 + id, 1, 1);
       }
     }
 
