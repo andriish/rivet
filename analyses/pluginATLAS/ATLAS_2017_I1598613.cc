@@ -49,25 +49,25 @@ namespace Rivet {
       }
 
       //Book the histograms:
-      _h["dR"]        = bookHandler( 1,  2);
-      _h["highpT_dR"] = bookHandler( 4,  5);
-      _h["lowpT_dR"]  = bookHandler( 7,  8);
-      _h["dPhi"]      = bookHandler(10, 11);
-      _h["dy"]        = bookHandler(13, 14);
-      _h["MopT"]      = bookHandler(16, 17);
-      _h["pToM"]      = bookHandler(19, 20);
-      _h["pT"]        = bookHandler(22, 23);
-      _h["M"]         = bookHandler(25, 26);
-      _h["yboost"]    = bookHandler(29, 28);
+      _h["dR"]        = bookHandler( 1);
+      _h["highpT_dR"] = bookHandler( 4);
+      _h["lowpT_dR"]  = bookHandler( 7);
+      _h["dPhi"]      = bookHandler(10);
+      _h["dy"]        = bookHandler(13);
+      _h["MopT"]      = bookHandler(16);
+      _h["pToM"]      = bookHandler(19);
+      _h["pT"]        = bookHandler(22);
+      _h["M"]         = bookHandler(25);
+      _h["yboost"]    = bookHandler(29);
     }
 
 
-    HistoHandler bookHandler(unsigned int id_xsec, unsigned int id_transfer) {
+    HistoHandler bookHandler(unsigned int id_xsec) {
       HistoHandler dummy;
       dummy.histo = bookHisto1D(id_xsec, 1, 1);
       if (_mode) {
         dummy.scatter = bookScatter2D(id_xsec, 1, 1, true);
-        dummy.d = id_transfer;
+        dummy.d = id_xsec + 1; // transfer function
         dummy.x = 1; dummy.y = 1;
       }
       return dummy;
