@@ -10,7 +10,11 @@ RUN cd /code && \
     cd LHAPDF-*/ && ./configure --prefix=/usr/local && \
     make -j5 && make install
 
-RUN lhapdf install MMHT2014{,n}lo68cl
+#RUN lhapdf install MMHT2014{,n}lo68cl
+RUN cd /usr/local/share/LHAPDF/ && \
+    for pdf in MMHT2014{,n}lo68cl; do \
+      wget https://lhapdf.hepforge.org/downloads?f=pdfsets/current/$pdf.tar.gz -O- | tar xz; \
+    done
 
 RUN cd /code && \
     wget https://www.hepforge.org/archive/thepeg/ThePEG-2.1.3.tar.bz2 -O- | tar xj && \
