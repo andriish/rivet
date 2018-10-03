@@ -50,23 +50,23 @@ for ifile, xmlfile in enumerate(args.XMLFILES):
 
         summs = rn.xpath("./mx:datafield[@tag='245']/mx:subfield[@code='a']", namespaces=nsm)
         summ = summs[0].text if summs else None
-        print("Summ", summ)
+        print("Title:", summ)
 
         expts = rn.xpath("./mx:datafield[@tag='710']/mx:subfield[@code='g']", namespaces=nsm)
         expt = expts[0].text if expts else None
-        print("Expt", expt)
+        print("Expt:", expt)
 
         dois = rn.xpath("./mx:datafield[@tag='024']/mx:subfield[(@code='2') and (text()='DOI')]/../mx:subfield[@code='a']", namespaces=nsm)
         doi = dois[0].text.replace("oai:arXiv.org:", "") if dois else None
-        print("DOI", doi)
+        print("DOI:", doi)
 
         arxs = rn.xpath("./mx:datafield[@tag='035']/mx:subfield[(@code='9') and (text()='arXiv')]/../mx:subfield[@code='a']", namespaces=nsm)
         arx = arxs[0].text.replace("oai:arXiv.org:", "") if arxs else None
-        print("arXiv", arx)
+        print("arXiv:", arx)
 
         cdss = rn.xpath("./mx:datafield[@tag='035']/mx:subfield[(@code='9') and (text()='CDS')]/../mx:subfield[@code='a']", namespaces=nsm)
         cds = cdss[0].text if cdss else None
-        print("CDS", cds)
+        print("CDS:", cds)
 
         hds = rn.xpath("./mx:datafield[@tag='035']/mx:subfield[(@code='9') and (text()='HEPDATA')]/../mx:subfield[@code='a']", namespaces=nsm)
         hd = hds[0].text if hds else None
@@ -74,10 +74,10 @@ for ifile, xmlfile in enumerate(args.XMLFILES):
             try:
                 hdurl = "https://hepdata.net/record/ins{}".format(ins)
                 u = urllib2.urlopen(hdurl)
-                hd = "ins{:d}".format(ins)
+                hd = "ins{}".format(ins)
             except urllib2.URLError:
                 pass
-        print("HepData", hd)
+        print("HepData:", hd)
 
         rivetanas = anas.get(ins)
         # hasRivet = ins in anas

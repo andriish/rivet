@@ -49,6 +49,7 @@ for jsonfile in args.JSONFILES:
     with open(jsonfile) as jf:
         recs = json.load(jf)
         records.update(recs)
+records = {int(k) : v for k, v in records.items()}
 
 
 ## Read CDS IDs from ranking files
@@ -112,7 +113,7 @@ for ins, rec in records.items():
         code = "hot"
 
     ## Tags
-    title = rec[3]
+    title = rec[3] or ""
     if "search" in title.lower():
         code += " search"
     if "Pb" in title or "Xe" in title:
