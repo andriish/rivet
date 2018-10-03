@@ -15,11 +15,11 @@ TODO:
 import argparse
 ap = argparse.ArgumentParser(usage=__doc__)
 ap.add_argument("JSONFILES", metavar="file", nargs="+",
-                help="JSON CDS/HD/Inspire xref file to read")
+                help="JSON Inspire xref file to read")
 ap.add_argument("-r", "--ranking", dest="RANKFILES", metavar="file", action="append", default=[],
-                help="lists of CDS IDs to exclude, suppress, and highlight")
+                help="lists of Inspire IDs to exclude, suppress, and highlight")
 ap.add_argument("-R", "--reverse", dest="REVERSE", action="store_true", default=False,
-                help="show list *reverse* ordered in CDS ID")
+                help="show list *reverse* ordered in Inspire ID")
 ap.add_argument("-s", "--only-searches", dest="ONLYSEARCHES", action="store_true", default=False,
                 help="only show search analyses")
 ap.add_argument("-S", "--no-searches", dest="NOSEARCHES", action="store_true", default=False,
@@ -102,6 +102,8 @@ for ins, rec in records.items():
     ## Ranking
     # TODO: Update from CDS -> Inspire
     cds = rec[3] or "NO CDS"
+    # if not cds:
+    #     print("NO CDS!!!", ins, rec[0], rec[1])
     code = "default"
     if rec[6]: #< Rivet analyses
         code = "rivet"
@@ -157,7 +159,8 @@ for ex in EXPTS:
                 # print assigned.get(ins)
                 # TODO: update cds -> ins
                 cds = rec[3]
-                if cds and cds in assigned:
+                if cds in assigned:
+                    print(cds, rec[0], assigned[cds])
                     line += "  <{}>".format(assigned[cds])
                 line += "\n"
                 rf.write(line.encode("UTF-8"))
@@ -289,9 +292,6 @@ for i, (ins, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
     code = rec[-1]
     cds = rec[3]
     if cds in assigned:
-        # codes = code.split()
-        # codes[0] += "_assigned"
-        # code = " ".join(codes)
         code += " assigned"
     cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
     summ = u""
