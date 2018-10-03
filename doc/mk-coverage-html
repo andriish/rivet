@@ -287,6 +287,7 @@ for i, (ins, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
 
     expt = rec[1]
     code = rec[-1]
+    cds = rec[3]
     if cds in assigned:
         # codes = code.split()
         # codes[0] += "_assigned"
