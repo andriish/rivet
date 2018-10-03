@@ -8,7 +8,7 @@ from __future__ import division
 TODO:
  - add experiment grouping (with JS tabbing?)
  - add dates/years
- - allow hiding "search" analyses; note, not orthogonal to grey/black
+ - allow dynamic hiding of search and HI analyses; note, not orthogonal to grey/black
  - add JS sorting and filtering on experiment, date, priority, and keywords (HI, search, ...)
 """
 
@@ -16,7 +16,7 @@ import argparse
 ap = argparse.ArgumentParser(usage=__doc__)
 ap.add_argument("JSONFILES", metavar="file", nargs="+",
                 help="JSON CDS/HD/Inspire xref file to read")
-ap.add_argument("-r", "--ranking", dest="RANKFILES", metavar="file", action="append",
+ap.add_argument("-r", "--ranking", dest="RANKFILES", metavar="file", action="append", default=[],
                 help="lists of CDS IDs to exclude, suppress, and highlight")
 ap.add_argument("-R", "--reverse", dest="REVERSE", action="store_true", default=False,
                 help="show list *reverse* ordered in CDS ID")
@@ -40,7 +40,7 @@ args = ap.parse_args()
 import datetime
 now = datetime.datetime.now()
 
-EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Unknown"]
+EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Other"]
 
 ## Read data from JSON files
 records = {}
@@ -52,6 +52,7 @@ for jsonfile in args.JSONFILES:
 
 
 ## Read CDS IDs from ranking files
+# TODO: convert to use Inspire IDs
 blacklist, greylist, hotlist = [], [], []
 assigned = {}
 for rankfilestr in args.RANKFILES:
@@ -77,31 +78,33 @@ for rankfilestr in args.RANKFILES:
                         last = last[1:-1]
                     assigned[cds] = last
 
-## Add rankings/tags to the record
-for cds, rec in records.items():
-    title = rec[3]
 
-    ## Experiment
-    expt = "UNKNOWN"
-    if len(rec) < 6:
-        rec.append("")
-    if rec[5]:
-        expt = rec[5].upper().replace("THE","").replace("COLLABORATION","").strip()
-    else:
-        for e in EXPTS[:-1]: #< skip the trailing "Unknown"
-            if e.lower() in title.lower():
-                expt = e
-                break
-            if rec[2] and e.lower() in " ".join(rec[2]).lower():
-                expt = e
-                break
-    rec[5] = expt
+## Add rankings/tags to the record
+for ins, rec in records.items():
+
+    ## Sanitise title and experiment
+    rec[0] = rec[0] or "[NO TITLE]"
+    rec[1] = (rec[1] or "UNKNOWN").upper().replace("THE","").replace("COLLABORATION","").strip()
+
+    # ## Experiment
+    # expt = expt.upper().replace("THE","").replace("COLLABORATION","").strip()
+    # # else:
+    # #     for e in EXPTS[:-1]: #< skip the trailing "Unknown"
+    # #         if e.lower() in title.lower():
+    # #             expt = e
+    # #             break
+    # #         if rec[2] and e.lower() in " ".join(rec[2]).lower():
+    # #             expt = e
+    # #             break
+    # rec[5] = expt
 
     ## Ranking
+    # TODO: Update from CDS -> Inspire
+    cds = rec[3] or "NO CDS"
     code = "default"
-    if rec[2]:
+    if rec[6]: #< Rivet analyses
         code = "rivet"
-    elif cds in greylist or not rec[0]: #< something's wrong if there's a CDS but no Inspire entry!
+    elif cds in greylist:
         code = "grey"
     elif cds in blacklist:
         code = "black"
@@ -109,6 +112,7 @@ for cds, rec in records.items():
         code = "hot"
 
     ## Tags
+    title = rec[3]
     if "search" in title.lower():
         code += " search"
     if "Pb" in title or "Xe" in title:
@@ -121,44 +125,46 @@ for cds, rec in records.items():
     rm |= args.NOHEAVYION and "heavyion" in code
 
     if rm:
-        del records[cds]
+        del records[ins]
     else:
         rec.append(code)
 
-## Count numbers of records
+
+## Count numbers of records (and update rank file if requested)
 ex_ntots, ex_ndefaults, ex_nurgents, ex_nwanteds, ex_ntargets, ex_nrivets = {}, {}, {}, {}, {}, {}
 for ex in EXPTS:
-    ex_records = {cds : rec for cds, rec in records.items() if rec[5].lower() == ex.lower()}
+    ex_records = {ins : rec for ins, rec in records.items() if rec[1].upper() == ex.upper()}
     ex_ntots[ex] = len(ex_records)
-    ex_nrivets[ex] = len([cds for cds, rec in ex_records.items() if "rivet" in rec[6]])
-    ex_ndefaults[ex] = len([cds for cds, rec in ex_records.items() if "default" in rec[6]])
-    ex_nurgents[ex] = len([cds for cds, rec in ex_records.items() if "hot" in rec[6]])
+    ex_nrivets[ex] = len([ins for ins, rec in ex_records.items() if "rivet" in rec[-1]])
+    ex_ndefaults[ex] = len([ins for ins, rec in ex_records.items() if "default" in rec[-1]])
+    ex_nurgents[ex] = len([ins for ins, rec in ex_records.items() if "hot" in rec[-1]])
     ex_nwanteds[ex] = ex_ndefaults[ex] + ex_nurgents[ex]
     ex_ntargets[ex] = ex_nwanteds[ex] + ex_nrivets[ex]
 
     if args.UPDATERANK:
         if args.ONLYSEARCHES or args.NOSEARCHES or args.ONLYHEAVYION or args.NOHEAVYION:
-            print "Won't update rank lists while search/HI filtering is enabled"
+            print "Won't update rank lists while search/HI/experiment filtering is enabled"
             sys.exit(1)
         rfname = "{}-{}.rank".format(args.BASENAME, ex.lower())
         print "Writing updated rank file to {}".format(rfname)
         syms = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
         with open(rfname, "w") as rf:
-            for cds, rec in sorted(ex_records.items()):
-                code = rec[6].split()[0]
-                # line = u"{} {} {}\n".format(cds.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
-                line = u"{} {} {}".format(cds, syms[code], rec[3])
-                # print assigned.get(cds)
-                if cds in assigned:
-                    #print cds, assigned[cds]
+            for ins, rec in sorted(ex_records.items()):
+                rankcode = rec[-1].split()[0]
+                # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
+                line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
+                # print assigned.get(ins)
+                # TODO: update cds -> ins
+                cds = rec[3]
+                if cds and cds in assigned:
                     line += "  <{}>".format(assigned[cds])
                 line += "\n"
                 rf.write(line.encode("UTF-8"))
 
 ntot = len(records)
-nrivet = len([cds for cds, rec in records.items() if "rivet" in rec[6]])
-ndefault = len([cds for cds, rec in records.items() if "default" in rec[6]])
-nurgent = len([cds for cds, rec in records.items() if "hot" in rec[6]])
+nrivet = len([ins for ins, rec in records.items() if "rivet" in rec[-1]])
+ndefault = len([ins for ins, rec in records.items() if "default" in rec[-1]])
+nurgent = len([ins for ins, rec in records.items() if "hot" in rec[-1]])
 nwanted = ndefault + nurgent
 ntarget = nwanted + nrivet
 
@@ -236,7 +242,7 @@ style += ".grey.assigned { background: repeating-linear-gradient(135deg, #ddd, #
 body = OUT.html.body(newlines=True)
 body.h1(title)
 body.p().b("Rivet analyses exist for {}/{} papers = {:.0f}%. {} priority analyses required.".format(nrivet, ntarget, 100*nrivet/ntarget, nurgent))
-body.p("Total number of CDS papers scanned = {}, at {}".format(ntot, now.strftime("%Y-%m-%d")))
+body.p("Total number of Inspire papers scanned = {}, at {}".format(ntot, now.strftime("%Y-%m-%d")))
 
 body.p("Breakdown by identified experiment (in development):")
 t = body.table(klass="list")
@@ -276,10 +282,10 @@ body.button("Show blacklist", id="blacktoggle")
 #body.button("Sort by name", klass="sort", data-sort="name")
 
 t = body.table(klass="list").tbody(newlines=True)
-for i, (cds, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
+for i, (ins, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
 
-    expt = rec[5]
-    code = rec[6]
+    expt = rec[1]
+    code = rec[-1]
     if cds in assigned:
         # codes = code.split()
         # codes[0] += "_assigned"
@@ -287,26 +293,29 @@ for i, (cds, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
         code += " assigned"
     cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
     summ = u""
-    summ += u"{}: {}".format(cds, rec[3])
-    if expt != "UNKNOWN":
-        #summ += "&nbsp;"
-        summ += " [{}]".format(expt)
+    summ += u"{}: {}".format(expt, rec[0])
+    # if expt != "UNKNOWN":
+    #     #summ += "&nbsp;"
+    #     summ += " [{}]".format(expt)
     cell.b(summ)
     cell.br()
-    cell.a("CDS", href="https://cds.cern.ch/record/{}".format(cds))
+    cell.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
     cell += " "
-    if rec[0]: # Inspire
-        cell.a("Inspire", href="http://inspirehep.net/record/{}".format(rec[0]))
+    if rec[2]: # DOI
+        cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[2]))
         cell += " "
-    if rec[1]: # HepData
-        cell.a("HepData", href="https://hepdata.net/record/ins{}".format(rec[0]))
+    if rec[3]: # CDS
+        cell.a("CDS", href="https://cds.cern.ch/record/{}".format(rec[3]))
         cell += " "
-    if rec[4]: # DOI
-        cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[4]))
+    if rec[4]: # arXiv
+        cell.a("arXiv", href="https://arxiv.org/abs/{}".format(rec[4]))
         cell += " "
-    if rec[2]:
-        anas = u", ".join(rec[2]) if rec[2] else u""
-        cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[2][0]))
+    if rec[5]: # HepData
+        cell.a("HepData", href="https://hepdata.net/record/{}".format(rec[5]))
+        cell += " "
+    if rec[6]: # Rivet
+        anas = u", ".join(rec[6]) if rec[6] else u""
+        cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[6][0]))
     if cds in assigned:
         cell.a("IN PROGRESS: assigned to {}".format(assigned[cds]), href="mailto:{}".format(assigned[cds]))
 
