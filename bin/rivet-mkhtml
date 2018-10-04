@@ -172,7 +172,8 @@ for yodafile in yodafiles:
         ## Identify analysis/histo name parts
         analysis = "ANALYSIS"
         if aop.basepathparts(keepref=False):
-            analysis = aop.basepathparts(keepref=False)[0] #< TODO: for compatibility with rivet-cmphistos... generalise?
+            analysis = rivet.stripOptions(aop.basepathparts(keepref=False)[0])
+            #< TODO: for compatibility with rivet-cmphistos... generalise?
             #analysis = "_".join(aop.dirnameparts(keepref=False)[:-1]) #< TODO: would this be nicer? Currently incompatible with rivet-cmphistos
 
         ## Optionally veto on analysis name pattern matching

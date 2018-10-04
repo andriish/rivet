@@ -29,6 +29,11 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
+
+      // Get options from the new option system
+      if ( getOption("ZMODE") == "EL" ) _mode = 2;
+      if ( getOption("ZMODE") == "MU" ) _mode = 3;
+
       // Determine the e/mu decay channels used (NB Prompt leptons only).
       /// @todo Note that Zs are accepted with any rapidity: the cuts are on the e/mu: is this correct?
       Cut pt20 = Cuts::pT >= 20.0*GeV;

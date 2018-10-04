@@ -184,6 +184,22 @@ namespace Rivet {
     void setTodos(const std::vector<std::string>& todos) { _todos = todos; }
 
 
+    /// Get the option list.
+    const std::vector<std::string>& options() const { return _options; }
+
+    /// Check if the given option is valid.
+    bool validOption(std::string key, std::string val) const;
+
+    /// Set the option list.
+    void setOptions(const std::vector<std::string>& opts) {
+      _options = opts;
+      buildOptionMap();
+    }
+
+    /// Build a map of options to facilitate checking.
+    void buildOptionMap();
+
+
     /// Return true if this analysis needs to know the process cross-section.
     bool needsCrossSection() const { return _needsCrossSection; }
 
@@ -216,6 +232,9 @@ namespace Rivet {
     std::vector<std::string> _todos;
     bool _needsCrossSection;
 
+    std::vector<std::string> _options;
+    std::map< std::string, std::set<std::string> > _optionmap;
+    
     void clear() {
       _name = "";
       _spiresId = "";
@@ -238,6 +257,8 @@ namespace Rivet {
       _status = "";
       _todos.clear();
       _needsCrossSection = false;
+      _options.clear();
+      _optionmap.clear();
     }
 
   };

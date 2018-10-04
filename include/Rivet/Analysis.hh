@@ -111,11 +111,13 @@ namespace Rivet {
 
     /// @brief Get the name of the analysis.
     ///
-    /// By default this is computed by combining the results of the experiment,
-    /// year and Spires ID metadata methods and you should only override it if
-    /// there's a good reason why those won't work.
+    /// By default this is computed by combining the results of the
+    /// experiment, year and Spires ID metadata methods and you should
+    /// only override it if there's a good reason why those won't
+    /// work. If options has been set for this instance, a
+    /// corresponding string is appended at the end.
     virtual std::string name() const {
-      return (info().name().empty()) ? _defaultname : info().name();
+      return  ( (info().name().empty()) ? _defaultname : info().name() ) + _optstring;
     }
 
     /// Get the Inspire ID code for this analysis.
@@ -678,6 +680,29 @@ namespace Rivet {
 
   public:
 
+    /// @name accessing options for this Anslysis instance.
+    //@{
+
+    /// Get an option for this analysis instance as a string.
+    std::string getOption(std::string optname) {
+      if ( _options.find(optname) != _options.end() )
+        return _options.find(optname)->second;
+      return "";
+    }
+
+    /// Get an option for this analysis instance converted to a
+    /// specific type (given by the specified @a def value).
+    template<typename T>
+    T getOption(std::string optname, T def) {
+      if (_options.find(optname) == _options.end()) return def;
+      std::stringstream ss;
+      ss << _options.find(optname)->second;
+      T ret;
+      ss >> ret;
+      return ret;
+    }
+
+    //@}
 
     /// @name Analysis object manipulation
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
@@ -1025,6 +1050,11 @@ namespace Rivet {
     /// reference data file should only be read once.
     mutable std::map<std::string, AnalysisObjectPtr> _refdata;
 
+     /// Options the (this instance of) the analysis
+     map<string, string> _options;
+
+    /// The string of options.
+    string _optstring;
 
   private:
 

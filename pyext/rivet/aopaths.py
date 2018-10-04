@@ -1,6 +1,21 @@
 def isRefPath(path):
     return path.startswith("/REF")
 
+def stripOptions(path):
+    import re
+    return re.sub(r':\w+=[^:/]+', "", path)
+
+def extractOptionString(path):
+    import re
+    re_opts = re.compile(r"^.*(:\w+=[^:/]+)+")
+    m = re_opts.match(path)
+    if not m:
+        return ""
+    opts = list(m.groups())
+    for i in range(len(opts)):
+        opts[i] = opts[i].strip(':') 
+    return " [" + ",".join(opts) + "]"
+   
 def isRefAO(ao):
     return int(ao.annotation("IsRef")) == 1 or isRefPath(ao.path)
 

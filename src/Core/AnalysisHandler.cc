@@ -182,9 +182,27 @@ namespace Rivet {
         return *this;
       }
     }
-    AnaHandle analysis( AnalysisLoader::getAnalysis(analysisname) );
+    string ananame = analysisname;
+    vector<string> anaopt = split(analysisname, ":");
+    if ( anaopt.size() > 1 ) ananame = anaopt[0];
+    AnaHandle analysis( AnalysisLoader::getAnalysis(ananame) );
     if (analysis.get() != 0) { // < Check for null analysis.
       MSG_DEBUG("Adding analysis '" << analysisname << "'");
+      for ( int i = 1, N = anaopt.size(); i < N; ++i ) {
+        vector<string> opt = split(anaopt[i], "=");
+        if ( opt.size() != 2 ) {
+          MSG_WARNING("Error in option specification. Skipping analysis "
+                      << analysisname);
+          return *this;
+        }
+        if ( !analysis->info().validOption(opt[0], opt[1]) ) {
+          MSG_WARNING("Cannot set option '" << opt[0] << "' to '" << opt[1]
+                      << "'. Skipping analysis " << analysisname);
+          return *this;
+        }
+        analysis->_options[opt[0]] = opt[1];
+        analysis->_optstring += ":" + anaopt[i];
+      }
       analysis->_analysishandler = this;
       _analyses.insert(analysis);
     } else {

@@ -94,8 +94,11 @@ namespace Rivet {
     TRY_GETINFO_SEQ("References", references);
     TRY_GETINFO_SEQ("ToDo", todos);
     TRY_GETINFO_SEQ("Keywords", keywords);
+    TRY_GETINFO_SEQ("Options", options);
     #undef TRY_GETINFO_SEQ
 
+    // Build the option map
+    ai->buildOptionMap();
 
     // A boolean with some name flexibility
     try {
@@ -244,5 +247,26 @@ namespace Rivet {
     return ss.str();
   }
 
+void AnalysisInfo::buildOptionMap() {
+  _optionmap.clear();
+  for ( auto opttag : _options ) {
+    std::vector<std::string> optv = split(opttag, "=");
+    std::string optname = optv[0];
+    for ( auto opt : split(optv[1], ",") )
+      _optionmap[optname].insert(opt);
+  }
+}
+
+bool AnalysisInfo::validOption(std::string key, std::string val) const {
+  auto opt = _optionmap.find(key);
+  if ( opt == _optionmap.end() ) return false;
+  if ( opt->second.find(val) != opt->second.end() ) return true;
+  if ( opt->second.size() == 1 && *opt->second.begin() == "#" ) {
+    std::istringstream ss(val);
+    double test;
+    if ( ss >> test ) return true;
+  }
+  return false;
+}
 
 }
