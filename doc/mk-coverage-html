@@ -114,7 +114,7 @@ for ins, rec in records.items():
         code = "hot"
 
     ## Tags
-    title = rec[3] or ""
+    title = rec[0] or ""
     if "search" in title.lower():
         code += " search"
     if "Pb" in title or "Xe" in title:

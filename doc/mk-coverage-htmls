@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 RANKFILES=$(echo *.rank)
-BASECMD='./mk-coverage-html *-papers-*.json -r "$RANKFILES" -R'
+BASECMD='./mk-coverage-html inspire-*.json -r "$RANKFILES" -R'
 
 eval "$BASECMD"
 eval "$BASECMD -SI"
