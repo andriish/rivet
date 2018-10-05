@@ -34,6 +34,8 @@ ap.add_argument("--basename", dest="BASENAME", default="rivet-coverage",
                 help="the base name for output files [default=%(default)s]")
 ap.add_argument("--update-ranking", dest="UPDATERANK", action="store_true", default=False,
                 help="update the per-experiment ranking files")
+ap.add_argument("-v", "--verbose", dest="VERBOSE", action="store_true", default=False,
+                help="print debug info to the terminal")
 args = ap.parse_args()
 
 
@@ -48,13 +50,14 @@ import json
 for jsonfile in args.JSONFILES:
     with open(jsonfile) as jf:
         recs = json.load(jf)
+        if args.VERBOSE:
+            print("Reading {} records from {}".format(len(recs), jsonfile))
         records.update(recs)
 records = {int(k) : v for k, v in records.items()}
+print("Read total of {} records".format(len(records)))
 
 
-## Read CDS IDs from ranking files
-# TODO: convert to use Inspire IDs
-alllist = []
+## Read Inspire IDs from ranking files
 blacklist, greylist, hotlist = [], [], []
 assigned = {}
 for rankfilestr in args.RANKFILES:
@@ -65,29 +68,27 @@ for rankfilestr in args.RANKFILES:
                 if not line or line.startswith("#"):
                     continue
                 tokens = line.split()
-                cds = unicode(tokens[0])
+                ins = int(tokens[0])
                 code = tokens[1]
-                alllist.append(cds)
                 if code == "X":
-                    blacklist.append(cds)
+                    blacklist.append(ins)
                 elif code == "?":
-                    greylist.append(cds)
+                    greylist.append(ins)
                 elif code == "!":
-                    hotlist.append(cds)
+                    hotlist.append(ins)
                 # Detect an optional assigned email address
                 last = tokens[-1]
                 if "@" in last:
                     if last.startswith("<") and last.endswith(">"):
                         last = last[1:-1]
-                    assigned[cds] = last
-
+                    assigned[ins] = last
 
 ## Add rankings/tags to the record
 for ins, rec in records.items():
 
     ## Sanitise title and experiment
     rec[0] = rec[0] or "[NO TITLE]"
-    rec[1] = (rec[1] or "UNKNOWN").upper().replace("THE","").replace("COLLABORATION","").strip()
+    rec[1] = (rec[1] or "UNKNOWN").upper().split()[0].strip()
 
     # ## Experiment
     # expt = expt.upper().replace("THE","").replace("COLLABORATION","").strip()
@@ -102,20 +103,14 @@ for ins, rec in records.items():
     # rec[5] = expt
 
     ## Ranking
-    # TODO: Update from CDS -> Inspire
-    cds = rec[3]
-    # if not cds:
-    #     print("NO CDS!!!", ins, rec[1], rec[0])
-    # elif cds not in alllist:
-    #     print("UNKNOWN CDS!!!", cds, ins, rec[1], rec[0])
     code = "default"
     if rec[6]: #< Rivet analyses
         code = "rivet"
-    elif cds in greylist:
+    elif ins in greylist:
         code = "grey"
-    elif cds in blacklist:
+    elif ins in blacklist:
         code = "black"
-    elif cds in hotlist:
+    elif ins in hotlist:
         code = "hot"
 
     ## Tags
@@ -148,6 +143,9 @@ for ex in EXPTS:
     ex_nwanteds[ex] = ex_ndefaults[ex] + ex_nurgents[ex]
     ex_ntargets[ex] = ex_nwanteds[ex] + ex_nrivets[ex]
 
+    if args.VERBOSE:
+        print(ex, "#urgent/#wanted =", ex_nurgents[ex], "/", ex_nwanteds[ex])
+
     if args.UPDATERANK:
         if args.ONLYSEARCHES or args.NOSEARCHES or args.ONLYHEAVYION or args.NOHEAVYION:
             print("Won't update rank lists while search/HI/experiment filtering is enabled")
@@ -159,13 +157,11 @@ for ex in EXPTS:
             for ins, rec in sorted(ex_records.items()):
                 rankcode = rec[-1].split()[0]
                 # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
-                line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
+                line = u"{} {} {} {}".format(ins, rec[3], syms[rankcode], rec[0])
                 # print(assigned.get(ins))
-                # TODO: update cds -> ins
-                cds = rec[3]
-                if cds in assigned:
-                    #print(cds, rec[0], assigned[cds])
-                    line += "  <{}>".format(assigned[cds])
+                if ins in assigned:
+                    #print(ins, rec[0], assigned[ins])
+                    line += "  <{}>".format(assigned[ins])
                 line += "\n"
                 rf.write(line.encode("UTF-8"))
 
@@ -294,8 +290,7 @@ for i, (ins, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
 
     expt = rec[1]
     code = rec[-1]
-    cds = rec[3]
-    if cds in assigned:
+    if ins in assigned:
         code += " assigned"
     cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
     summ = u""
@@ -322,13 +317,13 @@ for i, (ins, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
     if rec[6]: # Rivet
         anas = u", ".join(rec[6]) if rec[6] else u""
         cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[6][0]))
-    if cds in assigned:
-        cell.a("IN PROGRESS: assigned to {}".format(assigned[cds]), href="mailto:{}".format(assigned[cds]))
+    if ins in assigned:
+        cell.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
 
 
 ## Time-created footer
 body.p("Generated at {}".format(now.strftime("%c")))
-body.p("Generated from JSON files extracted from CDS ({} papers in total):".format(ntot))
+body.p("Generated from JSON files extracted from Inspire ({} papers in total):".format(ntot))
 body.p(", ".join(args.JSONFILES), style="font-family: monospace; font-size: smaller")
 
 
