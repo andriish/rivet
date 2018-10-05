@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from __future__ import division
+from __future__ import division, print_function
 
 """\
 %prog <file.json> [<file.json> ...]
@@ -54,6 +54,7 @@ records = {int(k) : v for k, v in records.items()}
 
 ## Read CDS IDs from ranking files
 # TODO: convert to use Inspire IDs
+alllist = []
 blacklist, greylist, hotlist = [], [], []
 assigned = {}
 for rankfilestr in args.RANKFILES:
@@ -66,6 +67,7 @@ for rankfilestr in args.RANKFILES:
                 tokens = line.split()
                 cds = unicode(tokens[0])
                 code = tokens[1]
+                alllist.append(cds)
                 if code == "X":
                     blacklist.append(cds)
                 elif code == "?":
@@ -101,9 +103,11 @@ for ins, rec in records.items():
 
     ## Ranking
     # TODO: Update from CDS -> Inspire
-    cds = rec[3] or "NO CDS"
+    cds = rec[3]
     # if not cds:
-    #     print("NO CDS!!!", ins, rec[0], rec[1])
+    #     print("NO CDS!!!", ins, rec[1], rec[0])
+    # elif cds not in alllist:
+    #     print("UNKNOWN CDS!!!", cds, ins, rec[1], rec[0])
     code = "default"
     if rec[6]: #< Rivet analyses
         code = "rivet"
@@ -146,21 +150,21 @@ for ex in EXPTS:
 
     if args.UPDATERANK:
         if args.ONLYSEARCHES or args.NOSEARCHES or args.ONLYHEAVYION or args.NOHEAVYION:
-            print "Won't update rank lists while search/HI/experiment filtering is enabled"
+            print("Won't update rank lists while search/HI/experiment filtering is enabled")
             sys.exit(1)
         rfname = "{}-{}.rank".format(args.BASENAME, ex.lower())
-        print "Writing updated rank file to {}".format(rfname)
+        print("Writing updated rank file to {}".format(rfname))
         syms = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
         with open(rfname, "w") as rf:
             for ins, rec in sorted(ex_records.items()):
                 rankcode = rec[-1].split()[0]
                 # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
                 line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
-                # print assigned.get(ins)
+                # print(assigned.get(ins))
                 # TODO: update cds -> ins
                 cds = rec[3]
                 if cds in assigned:
-                    print(cds, rec[0], assigned[cds])
+                    #print(cds, rec[0], assigned[cds])
                     line += "  <{}>".format(assigned[cds])
                 line += "\n"
                 rf.write(line.encode("UTF-8"))
@@ -337,7 +341,7 @@ if not outfile:
         outfile += "-" + "-".join(exclparts)
 if not outfile.endswith(".html"):
     outfile += ".html"
-print "Writing output to {} {}".format(outfile, exclstr)
+print("Writing output to {} {}".format(outfile, exclstr))
 with open(outfile, "wb") as hf:
     a = unicode(OUT)
     hf.write(a.encode("UTF-8"))
