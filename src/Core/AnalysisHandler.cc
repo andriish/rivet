@@ -176,18 +176,13 @@ namespace Rivet {
     // Check for a duplicate analysis
     /// @todo Might we want to be able to run an analysis twice, with different params?
     ///       Requires avoiding histo tree clashes, i.e. storing the histos on the analysis objects.
-    for (const AnaHandle& a : _analyses) {
-      if (a->name() == analysisname) {
-        MSG_WARNING("Analysis '" << analysisname << "' already registered: skipping duplicate");
-        return *this;
-      }
-    }
     string ananame = analysisname;
     vector<string> anaopt = split(analysisname, ":");
     if ( anaopt.size() > 1 ) ananame = anaopt[0];
     AnaHandle analysis( AnalysisLoader::getAnalysis(ananame) );
     if (analysis.get() != 0) { // < Check for null analysis.
       MSG_DEBUG("Adding analysis '" << analysisname << "'");
+      map<string,string> opts;
       for ( int i = 1, N = anaopt.size(); i < N; ++i ) {
         vector<string> opt = split(anaopt[i], "=");
         if ( opt.size() != 2 ) {
@@ -200,8 +195,17 @@ namespace Rivet {
                       << "'. Skipping analysis " << analysisname);
           return *this;
         }
-        analysis->_options[opt[0]] = opt[1];
-        analysis->_optstring += ":" + anaopt[i];
+        opts[opt[0]] = opt[1];
+      }
+      for ( auto opt: opts) {
+        analysis->_options[opt.first] = opt.second;
+        analysis->_optstring += ":" + opt.first + "=" + opt.second;
+      }
+      for (const AnaHandle& a : _analyses) {
+        if (a->name() == analysis->name() ) {
+          MSG_WARNING("Analysis '" << analysisname << "' already registered: skipping duplicate");
+          return *this;
+        }
       }
       analysis->_analysishandler = this;
       _analyses.insert(analysis);
