@@ -17,12 +17,7 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    ATLAS_2013_I1230812(const string name="ATLAS_2013_I1230812", size_t mode = 0,
-                        const string ref_data="ATLAS_2013_I1230812") : Analysis(name) {
-      _mode = mode; //default is combined e+mu mode
-      setRefDataName(ref_data);
-    }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2013_I1230812);
     //@}
 
 
@@ -30,6 +25,7 @@ namespace Rivet {
     void init() {
 
       // Get options from the new option system
+      _mode = 0;
       if ( getOption("ZMODE") == "EL" ) _mode = 1;
       if ( getOption("ZMODE") == "MU" ) _mode = 2;
 

@@ -177,7 +177,6 @@ namespace Rivet {
   void Analysis::_cacheRefData() const {
     if (_refdata.empty()) {
       MSG_TRACE("Getting refdata cache for paper " << name());
-      //_refdata = getRefData(( (info().name().empty()) ? _defaultname : info().name() ));
       _refdata = getRefData(getRefDataName());
     }
   }
