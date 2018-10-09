@@ -18,11 +18,9 @@ namespace Rivet {
     //@{
 
     /// Constructors
-    ATLAS_2017_I1589844(const string name="ATLAS_2017_I1589844", size_t channel = 0,
+    ATLAS_2017_I1589844(const string name="ATLAS_2017_I1589844",
                         const string ref_data="ATLAS_2017_I1589844") : Analysis(name) {
-      _mode = channel; // pick electron channel by default
       setRefDataName(ref_data);
-      setNeedsCrossSection(true);
     }
 
     //@}
@@ -34,25 +32,35 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
 
+      // Get options from the new option system
+      _mode = 0;
+      if ( getOption("ZMODE") == "EL" ) _mode = 1;
+      if ( getOption("ZMODE") == "MU" ) _mode = 2;
+
       const FinalState fs;
 
-      const Cut cuts = (_mode) ?
-        (Cuts::pT > 25*GeV) && (Cuts::abseta < 2.4) : //< muon channel version
-        Cuts::pT > 25*GeV && (Cuts::abseta <= 1.37 || (Cuts::abseta >= 1.52 && Cuts::abseta < 2.47)); //< electron channel version
+      const Cut cuts_mu = (Cuts::pT > 25*GeV) && (Cuts::abseta < 2.4);
+      const Cut cuts_el = Cuts::pT > 25*GeV && (Cuts::abseta <= 1.37 || (Cuts::abseta >= 1.52 && Cuts::abseta < 2.47));
 
-      IdentifiedFinalState bareleptons(fs);
-      bareleptons.acceptIdPair(_mode? PID::MUON : PID::ELECTRON);
-      const DressedLeptons leptons(fs, bareleptons, 0.1, cuts, true);
-      declare(leptons, "leptons");
+      IdentifiedFinalState bare_mu(fs);
+      bare_mu.acceptIdPair(PID::MUON);
+      IdentifiedFinalState bare_el(fs);
+      bare_el.acceptIdPair(PID::ELECTRON);
+      const DressedLeptons muons(fs, bare_mu, 0.1, cuts_mu, true);
+      const DressedLeptons elecs(fs, bare_el, 0.1, cuts_el, true);
+      declare(muons, "muons");
+      declare(elecs, "elecs");
 
       const ChargedFinalState cfs(Cuts::abseta < 2.5 && Cuts::pT > 0.4*GeV);
       VetoedFinalState jet_fs(cfs);
-      jet_fs.addVetoOnThisFinalState(leptons);
+      jet_fs.addVetoOnThisFinalState(muons);
+      jet_fs.addVetoOnThisFinalState(elecs);
       declare(FastJets(jet_fs, FastJets::KT, 0.4), "Kt04Jets");
       declare(FastJets(jet_fs, FastJets::KT, 1.0), "Kt10Jets");
 
       VetoedFinalState jet_fs_all(Cuts::abseta < 2.5 && Cuts::pT > 0.4*GeV);
-      jet_fs_all.addVetoOnThisFinalState(leptons);
+      jet_fs_all.addVetoOnThisFinalState(muons);
+      jet_fs_all.addVetoOnThisFinalState(elecs);
       FastJets jetpro04_all(jet_fs_all, FastJets::KT, 0.4);
       jetpro04_all.useInvisibles();
       declare(jetpro04_all, "Kt04Jets_all");
@@ -63,12 +71,22 @@ namespace Rivet {
       // Histograms with data binning
       _ndij = 8;
       for (size_t i = 0; i < _ndij; ++i) {
-        string label = "d" + to_str(i) + "_kT4";
-        _h[label] = bookHisto1D(i + 1, 1, _mode + 1);
-        _h[label + "_all"] = bookHisto1D(i + 1, 1, _mode + 5);
-        label = "d" + to_str(i) + "_kT10";
-        _h[label] = bookHisto1D(i + 1, 1, _mode + 3);
-        _h[label + "_all"] = bookHisto1D(i + 1, 1, _mode + 7);
+        if (_mode == 0 || _mode == 1) {
+          string label = "el_d" + to_str(i) + "_kT4";
+          _h[label] = bookHisto1D(i + 1, 1, 1);
+          _h[label + "_all"] = bookHisto1D(i + 1, 1, 5);
+          label = "el_d" + to_str(i) + "_kT10";
+          _h[label] = bookHisto1D(i + 1, 1, 3);
+          _h[label + "_all"] = bookHisto1D(i + 1, 1, 7);
+        }
+        if (_mode == 0 || _mode == 2) {
+          string label = "mu_d" + to_str(i) + "_kT4";
+          _h[label] = bookHisto1D(i + 1, 1, 2);
+          _h[label + "_all"] = bookHisto1D(i + 1, 1, 6);
+          label = "mu_d" + to_str(i) + "_kT10";
+          _h[label] = bookHisto1D(i + 1, 1, 4);
+          _h[label + "_all"] = bookHisto1D(i + 1, 1, 8);
+        }
       }
     }
 
@@ -77,9 +95,16 @@ namespace Rivet {
     void analyze(const Event& e) {
 
       // Check we have a Z candidate:
-      const vector<DressedLepton>& leptons = apply<DressedLeptons>(e, "leptons").dressedLeptons();
-      if (leptons.size() != 2)  vetoEvent;
-      if (leptons[0].charge3()*leptons[1].charge3() > 0) vetoEvent;
+      const vector<DressedLepton>& muons = apply<DressedLeptons>(e, "muons").dressedLeptons();
+      const vector<DressedLepton>& elecs = apply<DressedLeptons>(e, "elecs").dressedLeptons();
+      if (_mode == 0 &&  (elecs.size() + muons.size()) != 2)    vetoEvent;
+      if (_mode == 1 && !(elecs.size() == 2 && muons.empty()))  vetoEvent;
+      if (_mode == 2 && !(elecs.empty() && muons.size() == 2))  vetoEvent;
+
+      string lep_type = elecs.size()? "el_" : "mu_";
+      const vector<DressedLepton>& leptons = elecs.size()? elecs : muons;
+
+      if (leptons[0].charge()*leptons[1].charge() > 0) vetoEvent;
       const double dilepton_mass = (leptons[0].momentum() + leptons[1].momentum()).mass();
       if (!inRange(dilepton_mass, 71*GeV, 111*GeV)) vetoEvent;
 
@@ -91,7 +116,7 @@ namespace Rivet {
       for (size_t i = 0; i < min(_ndij, (size_t)seq04->n_particles()); ++i) {
         const double dij = sqrt(seq04->exclusive_dmerge_max(i))/GeV;
         if (dij <= 0.0) continue;
-        const string label = "d" + to_str(i) + "_kT4";
+        const string label = lep_type + "d" + to_str(i) + "_kT4";
         _h[label]->fill(dij, weight);
       }
       const FastJets& jetpro10 = applyProjection<FastJets>(e, "Kt10Jets");
@@ -99,7 +124,7 @@ namespace Rivet {
       for (size_t i = 0; i < min(_ndij, (size_t)seq10->n_particles()); ++i) {
         const double dij = sqrt(seq10->exclusive_dmerge_max(i))/GeV;
         if (dij <= 0.0) continue;
-        const string label = "d" + to_str(i) + "_kT10";
+        const string label = lep_type + "d" + to_str(i) + "_kT10";
         _h[label]->fill(dij, weight);
       }
 
@@ -109,7 +134,7 @@ namespace Rivet {
       for (size_t i = 0; i < min(_ndij, (size_t)seq04_all->n_particles()); ++i) {
         const double dij = sqrt(seq04_all->exclusive_dmerge_max(i))/GeV;
         if (dij <= 0.0) continue;
-        const string label = "d" + to_str(i) + "_kT4_all";
+        const string label = lep_type + "d" + to_str(i) + "_kT4_all";
         _h[label]->fill(dij, weight);
       }
       const FastJets& jetpro10_all = applyProjection<FastJets>(e, "Kt10Jets_all");
@@ -117,7 +142,7 @@ namespace Rivet {
       for (size_t i = 0; i < min(_ndij, (size_t)seq10_all->n_particles()); ++i) {
         const double dij = sqrt(seq10_all->exclusive_dmerge_max(i))/GeV;
         if (dij <= 0.0) continue;
-        const string label = "d" + to_str(i) + "_kT10_all";
+        const string label = lep_type + "d" + to_str(i) + "_kT10_all";
         _h[label]->fill(dij, weight);
       }
 
@@ -148,19 +173,4 @@ namespace Rivet {
 
   // The hook for the plugin system
   DECLARE_RIVET_PLUGIN(ATLAS_2017_I1589844);
-
-
-
-  /// kT splittings in Z events at 8 TeV (electron channel)
-  struct ATLAS_2017_I1589844_EL : public ATLAS_2017_I1589844 {
-    ATLAS_2017_I1589844_EL() : ATLAS_2017_I1589844("ATLAS_2017_I1589844_EL", 0) { }
-  };
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1589844_EL);
-
-
-  /// kT splittings in Z events at 8 TeV (muon channel)
-  struct ATLAS_2017_I1589844_MU : public ATLAS_2017_I1589844 {
-    ATLAS_2017_I1589844_MU() : ATLAS_2017_I1589844("ATLAS_2017_I1589844_MU", 1) { }
-  };
-  DECLARE_RIVET_PLUGIN(ATLAS_2017_I1589844_MU);
 }
