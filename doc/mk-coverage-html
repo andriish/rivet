@@ -42,7 +42,7 @@ args = ap.parse_args()
 import datetime
 now = datetime.datetime.now()
 
-EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Other"]
+EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb"] #, "Other"]
 
 ## Read data from JSON files
 records = {}
@@ -133,13 +133,14 @@ for ins, rec in records.items():
 
 
 ## Count numbers of records (and update rank file if requested)
+ex_records = {}
 ex_ntots, ex_ndefaults, ex_nurgents, ex_nwanteds, ex_ntargets, ex_nrivets = {}, {}, {}, {}, {}, {}
 for ex in EXPTS:
-    ex_records = {ins : rec for ins, rec in records.items() if rec[1].upper() == ex.upper()}
-    ex_ntots[ex] = len(ex_records)
-    ex_nrivets[ex] = len([ins for ins, rec in ex_records.items() if "rivet" in rec[-1]])
-    ex_ndefaults[ex] = len([ins for ins, rec in ex_records.items() if "default" in rec[-1]])
-    ex_nurgents[ex] = len([ins for ins, rec in ex_records.items() if "hot" in rec[-1]])
+    ex_records[ex] = {ins : rec for ins, rec in records.items() if rec[1].upper() == ex.upper()}
+    ex_ntots[ex] = len(ex_records[ex])
+    ex_nrivets[ex] = len([ins for ins, rec in ex_records[ex].items() if "rivet" in rec[-1]])
+    ex_ndefaults[ex] = len([ins for ins, rec in ex_records[ex].items() if "default" in rec[-1]])
+    ex_nurgents[ex] = len([ins for ins, rec in ex_records[ex].items() if "hot" in rec[-1]])
     ex_nwanteds[ex] = ex_ndefaults[ex] + ex_nurgents[ex]
     ex_ntargets[ex] = ex_nwanteds[ex] + ex_nrivets[ex]
 
@@ -154,7 +155,7 @@ for ex in EXPTS:
         print("Writing updated rank file to {}".format(rfname))
         syms = { "default" : ".", "rivet" : ".", "grey" : "?", "black" : "X", "hot" : "!" }
         with open(rfname, "w") as rf:
-            for ins, rec in sorted(ex_records.items()):
+            for ins, rec in sorted(ex_records[ex].items()):
                 rankcode = rec[-1].split()[0]
                 # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
                 line = u"{} {} {} {}".format(ins, rec[3], syms[rankcode], rec[0])
@@ -292,6 +293,8 @@ for i, (ins, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
     code = rec[-1]
     if ins in assigned:
         code += " assigned"
+    if expt:
+        code += " {}expt".format(expt.lower())
     cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
     summ = u""
     summ += u"{}: {}".format(expt, rec[0])
