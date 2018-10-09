@@ -8,8 +8,9 @@ from __future__ import division, print_function
 TODO:
  - add experiment grouping (with JS tabbing?)
  - add dates/years
- - allow dynamic hiding of search and HI analyses; note, not orthogonal to grey/black
- - add JS sorting and filtering on experiment, date, priority, and keywords (HI, search, ...)
+ - [change grey/black toggle to another file-filter?]
+ - [allow dynamic hiding of search and HI analyses; note, not orthogonal to grey/black]
+ - [add JS sorting and filtering on experiment, date, priority, and keywords (HI, search, ...)]
 """
 
 import argparse
@@ -197,9 +198,11 @@ title += exclstr
 head = OUT.head(newlines=True)
 head.meta(charset="utf-8")
 head.title(title)
+head.link("", rel="stylesheet", href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css")
 head.script("MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$']]} });", type="text/x-mathjax-config")
 head.script("", type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", async="async")
-head.script("", type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+head.script("", type="text/javascript", src="https://code.jquery.com/jquery-3.3.1.js", integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=", crossorigin="anonymous")
+head.script("", type="text/javascript", src="https://code.jquery.com/ui/1.12.1/jquery-ui.js", integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=", crossorigin="anonymous")
 head.script("""
 $(document).ready( function(){
   $("#blacktoggle").click( function(){
@@ -212,6 +215,7 @@ $(document).ready( function(){
     b.text(t.indexOf("Show") != -1 ? t.replace("Show", "Hide") : t.replace("Hide", "Show") );
     $(".grey").toggle(100);
   });
+  $("#tabs").tabs();
 });
 """)
 
@@ -230,9 +234,10 @@ style += "button { margin: 1em; }"
 # style += ".row { margin: 1em 0 3em 0; }"
 # style += ".row:after { content: ''; display: table; clear: both; }"
 # style += ".col { float: left; width: 50%; }"
-style += "button { border: none; margin: 0 1em 0 0; border-radius: 1ex; color: #333; background: #ddf; padding: 1ex; }"
+style += "button { border: none; margin: 0 1em 1em 0; border-radius: 1ex; color: #333; background: #ddf; padding: 1ex; }"
 style += "button:hover { background: #cce; }"
 style += "button:active { color: white; }"
+style += "#tabs { border: 0; }"
 style += ".rivet { background: #cfc; }"
 style += ".hot { background: #fbb; }"
 style += ".default { background: #fee; }"
@@ -286,42 +291,49 @@ body.button("Show blacklist", id="blacktoggle")
 #body.input(klass="search", placeholder="Search")
 #body.button("Sort by name", klass="sort", data-sort="name")
 
-t = body.table(klass="list").tbody(newlines=True)
-for i, (ins, rec) in enumerate(sorted(records.items(), reverse=args.REVERSE)):
+tabs = body.div(id="tabs")
+u = tabs.ul()
+for ex in EXPTS:
+    u.li().a(ex, href="#tabs-{}".format(ex.lower()))
+for ex in EXPTS:
+    d = tabs.div(id="tabs-{}".format(ex.lower()))
+    t = d.table(klass="list").tbody(newlines=True)
+    for i, (ins, rec) in enumerate(sorted(ex_records[ex].items(), reverse=args.REVERSE)):
 
-    expt = rec[1]
-    code = rec[-1]
-    if ins in assigned:
-        code += " assigned"
-    if expt:
-        code += " {}expt".format(expt.lower())
-    cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
-    summ = u""
-    summ += u"{}: {}".format(expt, rec[0])
-    # if expt != "UNKNOWN":
-    #     #summ += "&nbsp;"
-    #     summ += " [{}]".format(expt)
-    cell.b(summ)
-    cell.br()
-    cell.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
-    cell += " "
-    if rec[2]: # DOI
-        cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[2]))
+        expt = rec[1]
+        code = rec[-1]
+        if ins in assigned:
+            code += " assigned"
+        if expt:
+            code += " {}expt".format(expt.lower())
+        cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
+        summ = u""
+        # summ += u"{}: {}".format(expt, rec[0])
+        summ += rec[0]
+        # if expt != "UNKNOWN":
+        #     #summ += "&nbsp;"
+        #     summ += " [{}]".format(expt)
+        cell.b(summ)
+        cell.br()
+        cell.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
         cell += " "
-    if rec[3]: # CDS
-        cell.a("CDS", href="https://cds.cern.ch/record/{}".format(rec[3]))
-        cell += " "
-    if rec[4]: # arXiv
-        cell.a("arXiv", href="https://arxiv.org/abs/{}".format(rec[4]))
-        cell += " "
-    if rec[5]: # HepData
-        cell.a("HepData", href="https://hepdata.net/record/{}".format(rec[5]))
-        cell += " "
-    if rec[6]: # Rivet
-        anas = u", ".join(rec[6]) if rec[6] else u""
-        cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[6][0]))
-    if ins in assigned:
-        cell.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
+        if rec[2]: # DOI
+            cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[2]))
+            cell += " "
+        if rec[3]: # CDS
+            cell.a("CDS", href="https://cds.cern.ch/record/{}".format(rec[3]))
+            cell += " "
+        if rec[4]: # arXiv
+            cell.a("arXiv", href="https://arxiv.org/abs/{}".format(rec[4]))
+            cell += " "
+        if rec[5]: # HepData
+            cell.a("HepData", href="https://hepdata.net/record/{}".format(rec[5]))
+            cell += " "
+        if rec[6]: # Rivet
+            anas = u", ".join(rec[6]) if rec[6] else u""
+            cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[6][0]))
+        if ins in assigned:
+            cell.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
 
 
 ## Time-created footer
