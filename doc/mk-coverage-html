@@ -4,13 +4,6 @@ from __future__ import division, print_function
 
 """\
 %prog <file.json> [<file.json> ...]
-
-TODO:
- - add experiment grouping (with JS tabbing?)
- - add dates/years
- - [change grey/black toggle to another file-filter?]
- - [allow dynamic hiding of search and HI analyses; note, not orthogonal to grey/black]
- - [add JS sorting and filtering on experiment, date, priority, and keywords (HI, search, ...)]
 """
 
 import argparse
@@ -43,7 +36,7 @@ args = ap.parse_args()
 import datetime
 now = datetime.datetime.now()
 
-EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb"] #, "Other"]
+EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Other"]
 
 ## Read data from JSON files
 records = {}
@@ -91,18 +84,6 @@ for ins, rec in records.items():
     rec[0] = rec[0] or "[NO TITLE]"
     rec[1] = (rec[1] or "UNKNOWN").upper().split()[0].strip()
 
-    # ## Experiment
-    # expt = expt.upper().replace("THE","").replace("COLLABORATION","").strip()
-    # # else:
-    # #     for e in EXPTS[:-1]: #< skip the trailing "Unknown"
-    # #         if e.lower() in title.lower():
-    # #             expt = e
-    # #             break
-    # #         if rec[2] and e.lower() in " ".join(rec[2]).lower():
-    # #             expt = e
-    # #             break
-    # rec[5] = expt
-
     ## Ranking
     code = "default"
     if rec[6]: #< Rivet analyses
@@ -133,11 +114,15 @@ for ins, rec in records.items():
         rec.append(code)
 
 
-## Count numbers of records (and update rank file if requested)
+## Group and count records by experiment (and update rank file if requested)
 ex_records = {}
 ex_ntots, ex_ndefaults, ex_nurgents, ex_nwanteds, ex_ntargets, ex_nrivets = {}, {}, {}, {}, {}, {}
 for ex in EXPTS:
-    ex_records[ex] = {ins : rec for ins, rec in records.items() if rec[1].upper() == ex.upper()}
+    if ex != "Other":
+        ex_records[ex] = {ins : rec for ins, rec in records.items() if rec[1].upper() == ex.upper()}
+    else:
+        namedexpts = [e.upper() for e in EXPTS[:-1]]
+        ex_records[ex] = {ins : rec for ins, rec in records.items() if rec[1].upper() not in namedexpts}
     ex_ntots[ex] = len(ex_records[ex])
     ex_nrivets[ex] = len([ins for ins, rec in ex_records[ex].items() if "rivet" in rec[-1]])
     ex_ndefaults[ex] = len([ins for ins, rec in ex_records[ex].items() if "default" in rec[-1]])
@@ -308,8 +293,8 @@ for ex in EXPTS:
             code += " {}expt".format(expt.lower())
         cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
         summ = u""
-        # summ += u"{}: {}".format(expt, rec[0])
-        summ += rec[0]
+        summ += u"{}: {}".format(expt, rec[0])
+        # summ += rec[0]
         # if expt != "UNKNOWN":
         #     #summ += "&nbsp;"
         #     summ += " [{}]".format(expt)
