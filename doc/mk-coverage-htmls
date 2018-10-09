@@ -2,10 +2,12 @@
 
 RANKFILES=$(echo *.rank)
 BASECMD='./mk-coverage-html inspire-*.json -r "$RANKFILES" -R'
+UPDATE= #'--update-ranking'
+VERB= #"-v"
 
-eval "$BASECMD"
-eval "$BASECMD -SI"
-eval "$BASECMD -S"
-eval "$BASECMD -I"
-eval "$BASECMD -s"
-eval "$BASECMD -i"
+eval "$BASECMD $UPDATE $VERB"
+eval "$BASECMD -SI $VERB"
+eval "$BASECMD -S $VERB"
+eval "$BASECMD -I $VERB"
+eval "$BASECMD -s $VERB"
+eval "$BASECMD -i $VERB"

@@ -4,6 +4,8 @@ from __future__ import division, print_function
 
 """\
 %prog <file.json> [<file.json> ...]
+
+TODO: get and write year of publication in table
 """
 
 import argparse
@@ -57,6 +59,8 @@ assigned = {}
 for rankfilestr in args.RANKFILES:
     for rankfile in rankfilestr.split(" "):
         with open(rankfile) as rf:
+            if args.VERBOSE:
+                print("Reading rankings from {}".format(rankfile))
             for line in rf:
                 line = line.strip()
                 if not line or line.startswith("#"):
@@ -77,11 +81,12 @@ for rankfilestr in args.RANKFILES:
                         last = last[1:-1]
                     assigned[ins] = last
 
+
 ## Add rankings/tags to the record
 for ins, rec in records.items():
 
     ## Sanitise title and experiment
-    rec[0] = rec[0] or "[NO TITLE]"
+    rec[0] = (rec[0] or "[NO TITLE]").replace("\n", " ")
     rec[1] = (rec[1] or "UNKNOWN").upper().split()[0].strip()
 
     ## Ranking
@@ -144,7 +149,7 @@ for ex in EXPTS:
             for ins, rec in sorted(ex_records[ex].items()):
                 rankcode = rec[-1].split()[0]
                 # line = u"{} {} {}\n".format(ins.encode("UTF-8"), syms[code], rec[3].encode("UTF-8"))
-                line = u"{} {} {} {}".format(ins, rec[3], syms[rankcode], rec[0])
+                line = u"{} {} {}".format(ins, syms[rankcode], rec[0])
                 # print(assigned.get(ins))
                 if ins in assigned:
                     #print(ins, rec[0], assigned[ins])
