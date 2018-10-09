@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-for EXPT in alice atlas cms lhcb; do
+for EXPT in alice atlas cms lhcb star cleo h1 zeus babar belle; do
     for YEAR in $(seq 2010 $(date +"%Y")); do
         OUT=inspire-$EXPT-$YEAR.marc.xml
         if [[ -e $OUT ]]; then
