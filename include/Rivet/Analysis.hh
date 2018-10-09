@@ -120,6 +120,16 @@ namespace Rivet {
       return  ( (info().name().empty()) ? _defaultname : info().name() ) + _optstring;
     }
 
+    // get name of reference data file, which could be different from plugin name
+    virtual std::string getRefDataName() const {
+      return (info().getRefDataName().empty()) ? _defaultname : info().getRefDataName();
+    }
+
+    // set name of reference data file, which could be different from plugin name
+    virtual void setRefDataName(const std::string& ref_data="") {
+      info().setRefDataName(!ref_data.empty() ? ref_data : name());
+    }
+
     /// Get the Inspire ID code for this analysis.
     virtual std::string inspireId() const {
       return info().inspireId();

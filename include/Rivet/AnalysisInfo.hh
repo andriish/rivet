@@ -50,6 +50,14 @@ namespace Rivet {
     /// Set the name of the analysis.
     void setName(const std::string& name) { _name = name; }
 
+    /// Get the reference data name of the analysis (if different from plugin name).
+    std::string getRefDataName() const { 
+      if (!_refDataName.empty())  return _refDataName;
+      return name();
+    }
+
+    /// Set the reference data name of the analysis (if different from plugin name).
+    void setRefDataName(const std::string& name) { _refDataName = name; }
 
     /// Get the Inspire (SPIRES replacement) ID code for this analysis.
     const std::string& inspireId() const { return _inspireId; }
@@ -212,6 +220,7 @@ namespace Rivet {
   private:
 
     std::string _name;
+    std::string _refDataName;
     std::string _spiresId, _inspireId;
     std::vector<std::string> _authors;
     std::string _summary;
@@ -237,6 +246,7 @@ namespace Rivet {
     
     void clear() {
       _name = "";
+      _refDataName = "";
       _spiresId = "";
       _inspireId = "";
       _authors.clear();
