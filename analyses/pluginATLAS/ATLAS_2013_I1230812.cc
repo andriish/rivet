@@ -17,11 +17,10 @@ namespace Rivet {
     //@{
 
     /// Constructor
-    ATLAS_2013_I1230812(string name="ATLAS_2013_I1230812")
-      : Analysis(name)
-    {
-      // This class uses the combined e+mu mode
-      _mode = 1;
+    ATLAS_2013_I1230812(const string name="ATLAS_2013_I1230812", size_t mode = 1,
+                        const string ref_data="ATLAS_2013_I1230812") : Analysis(name) {
+      _mode = mode; //default is combined e+mu mode
+      setRefDataName(ref_data);
     }
 
     //@}
@@ -38,7 +37,7 @@ namespace Rivet {
         declare(zfinder, "zfinder");
       } else if (_mode == 2) {
         // Electron
-	    const Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
+	      const Cut eta_e = Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47);
         ZFinder zfinder(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
         declare(zfinder, "zfinder");
       } else if (_mode == 3) {
@@ -282,28 +281,13 @@ namespace Rivet {
     Histo1DPtr _h_st;
   };
 
-
-
-  class ATLAS_2013_I1230812_EL : public ATLAS_2013_I1230812 {
-  public:
-    ATLAS_2013_I1230812_EL()
-      : ATLAS_2013_I1230812("ATLAS_2013_I1230812_EL")
-    {
-      _mode = 2;
-    }
+  struct ATLAS_2013_I1230812_EL : public ATLAS_2013_I1230812 {
+    ATLAS_2013_I1230812_EL() : ATLAS_2013_I1230812("ATLAS_2013_I1230812_EL", 2) { }
   };
 
-
-
-  class ATLAS_2013_I1230812_MU : public ATLAS_2013_I1230812 {
-  public:
-    ATLAS_2013_I1230812_MU()
-      : ATLAS_2013_I1230812("ATLAS_2013_I1230812_MU")
-    {
-      _mode = 3;
-    }
+  struct ATLAS_2013_I1230812_MU : public ATLAS_2013_I1230812 {
+    ATLAS_2013_I1230812_MU() : ATLAS_2013_I1230812("ATLAS_2013_I1230812_MU", 3) { }
   };
-
 
 
   DECLARE_RIVET_PLUGIN(ATLAS_2013_I1230812);
