@@ -424,7 +424,7 @@ if __name__ == '__main__':
         styleidx = 0
         for infile in filelist:
             if infile in mchistos:
-                for xpath in mchistos[infile]:
+                for xpath in sorted(mchistos[infile]):
                     if  rivet.stripOptions(xpath) != hpath:
                         continue
                     hmcs = mchistos[infile][xpath]
