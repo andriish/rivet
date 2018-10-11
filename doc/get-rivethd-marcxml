@@ -80,12 +80,12 @@ for ifile, xmlfile in enumerate(args.XMLFILES):
         print("HepData:", hd)
 
         rivetanas = anas.get(ins)
-        # hasRivet = ins in anas
-        # if hasRivet:
-        #     ana =
-        #     rivetanas = ana.summary()
 
-        OUT[ins] = [summ, expt, doi, cds, arx, hd, rivetanas]
+        nums = rn.xpath("./mx:datafield[@tag='037']/mx:subfield[(@code='9') and (text()='arXiv:reportnumber')]/../mx:subfield[@code='a']", namespaces=nsm)
+        reportnums = [num.text for num in nums]
+        print("Nums:", reportnums)
+
+        OUT[ins] = [summ, expt, doi, cds, arx, hd, rivetanas, reportnums]
         print(OUT[ins])
 
     ## Write out as JSON

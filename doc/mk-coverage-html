@@ -305,6 +305,10 @@ for ex in EXPTS:
         #     summ += " [{}]".format(expt)
         cell.b(summ)
         cell.br()
+        if len(rec) == 9: # Report numbers
+            nums = u", ".join(rec[7]) if rec[7] else u""
+            cell.span(nums)
+            cell.br()
         cell.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
         cell += " "
         if rec[2]: # DOI
