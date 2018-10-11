@@ -5,7 +5,9 @@ from __future__ import division, print_function
 """\
 %prog <file.json> [<file.json> ...]
 
-TODO: get and write year of publication in table
+TODO:
+ - do Rivet lookup in this script, not the JSON-maker
+ - get and write year of publication in table
 """
 
 import argparse
@@ -40,6 +42,34 @@ now = datetime.datetime.now()
 
 EXPTS = ["ALICE", "ATLAS", "CMS", "LHCb", "Other"]
 
+
+## Add the rivet Python module build dir(s) to the Python module path, then import
+import os, sys, re
+pybuild = os.path.abspath(os.path.join(os.getcwd(), "..", "pyext", "build"))
+pydirs = [os.path.join(pybuild, d) for d in os.listdir(pybuild)
+          if re.match(r"lib\..*-.*-%d\.%d" % (sys.version_info[0], sys.version_info[1]), d)]
+sys.path = pydirs + sys.path
+import rivet
+
+## Add info file locations
+from glob import glob
+dirpatt = os.path.join(os.getcwd(), "..", "analyses", "plugin*")
+for d in glob(dirpatt):
+    #print(d)
+    rivet.addAnalysisDataPath(os.path.abspath(d))
+
+## Rivet analyses to cross-reference
+ranas = {}
+for aname in rivet.AnalysisLoader.analysisNames():
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    # TODO: all anas *should* have an Inspire ID...
+    try:
+        # print(aname, ":", ana.inspireId(), ":")
+        ranas.setdefault(int(ana.inspireId()), []).append(ana.name())
+    except:
+        pass
+
+
 ## Read data from JSON files
 records = {}
 import json
@@ -50,7 +80,8 @@ for jsonfile in args.JSONFILES:
             print("Reading {} records from {}".format(len(recs), jsonfile))
         records.update(recs)
 records = {int(k) : v for k, v in records.items()}
-print("Read total of {} records".format(len(records)))
+if args.VERBOSE:
+    print("Read total of {} records".format(len(records)))
 
 
 ## Read Inspire IDs from ranking files
@@ -91,7 +122,7 @@ for ins, rec in records.items():
 
     ## Ranking
     code = "default"
-    if rec[6]: #< Rivet analyses
+    if ins in ranas:
         code = "rivet"
     elif ins in greylist:
         code = "grey"
@@ -297,35 +328,43 @@ for ex in EXPTS:
         if expt:
             code += " {}expt".format(expt.lower())
         cell = t.tr(klass=code+" ana", newlines=True).td(newlines=False)
+        # Title
         summ = u""
         summ += u"{}: {}".format(expt, rec[0])
-        # summ += rec[0]
-        # if expt != "UNKNOWN":
-        #     #summ += "&nbsp;"
-        #     summ += " [{}]".format(expt)
         cell.b(summ)
         cell.br()
-        if len(rec) == 9: # Report numbers
-            nums = u", ".join(rec[7]) if rec[7] else u""
-            cell.span(nums)
-            cell.br()
+        ## Inspire ID
+        cell.span("Inspire ID: {} ".format(ins))
+
+        ## Report numbers
+        if rec[7]:
+            cell.span(u" Report IDs: " + u", ".join(rec[7]))
+        cell.br()
+        cell.span("Links: ")
+        ## Inspire link
         cell.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
         cell += " "
-        if rec[2]: # DOI
+        ## DOI link
+        if rec[2]:
             cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[2]))
             cell += " "
-        if rec[3]: # CDS
+        ## CDS link
+        if rec[3]:
             cell.a("CDS", href="https://cds.cern.ch/record/{}".format(rec[3]))
             cell += " "
-        if rec[4]: # arXiv
+        ## arXiv link
+        if rec[4]:
             cell.a("arXiv", href="https://arxiv.org/abs/{}".format(rec[4]))
             cell += " "
-        if rec[5]: # HepData
+        ## HepData link
+        if rec[5]:
             cell.a("HepData", href="https://hepdata.net/record/{}".format(rec[5]))
             cell += " "
-        if rec[6]: # Rivet
-            anas = u", ".join(rec[6]) if rec[6] else u""
-            cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(rec[6][0]))
+        ## Rivet links
+        if ins in ranas:
+            anas = u", ".join(ranas[ins])
+            cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(ranas[ins][0]))
+        ## In-progress/assignment
         if ins in assigned:
             cell.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
 
