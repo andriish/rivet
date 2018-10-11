@@ -3,11 +3,10 @@ Year: 2012
 Summary: Shape, Transverse Size, and Charged Hadron Multiplicity of Jets in pp Collisions at $\sqrt{s}=7$ TeV
 Experiment: CMS
 Collider: LHC
-SpiresID: 1111014
+InspireID: 1111014
 Status: VALIDATED
 Authors:
  - Andreas Hinzmann <andreas.hinzmann@cern.ch>
-
 References:
  - hep-ex arXiv:1204.3170
  - inspirehep 1111014

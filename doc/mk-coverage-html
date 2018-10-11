@@ -331,42 +331,44 @@ for ex in EXPTS:
         # Title
         summ = u""
         summ += u"{}: {}".format(expt, rec[0])
-        cell.b(summ)
-        cell.br()
-        ## Inspire ID
-        cell.span("Inspire ID: {} ".format(ins))
+        cell.span().b(summ)
 
-        ## Report numbers
+        ## Inspire ID and report numbers
+        p = cell.p()
+        p.span("Inspire ID: {} ".format(ins))
         if rec[7]:
-            cell.span(u" Report IDs: " + u", ".join(rec[7]))
-        cell.br()
-        cell.span("Links: ")
-        ## Inspire link
-        cell.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
-        cell += " "
-        ## DOI link
+            p.span(u" Report IDs: " + u", ".join(rec[7]))
+
+        ## Links
+        p = cell.span("Links: ")
+        ## Inspire
+        p.a("Inspire", href="http://inspirehep.net/record/{}".format(ins)) # Inspire
+        p += " "
+        ## DOI
         if rec[2]:
-            cell.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[2]))
-            cell += " "
-        ## CDS link
+            p.a("DOI/journal", href="http://dx.doi.org/{}".format(rec[2]))
+            p += " "
+        ## CDS
         if rec[3]:
-            cell.a("CDS", href="https://cds.cern.ch/record/{}".format(rec[3]))
-            cell += " "
-        ## arXiv link
+            p.a("CDS", href="https://cds.cern.ch/record/{}".format(rec[3]))
+            p += " "
+        ## arXiv
         if rec[4]:
-            cell.a("arXiv", href="https://arxiv.org/abs/{}".format(rec[4]))
-            cell += " "
-        ## HepData link
+            p.a("arXiv", href="https://arxiv.org/abs/{}".format(rec[4]))
+            p += " "
+        ## HepData
         if rec[5]:
-            cell.a("HepData", href="https://hepdata.net/record/{}".format(rec[5]))
-            cell += " "
-        ## Rivet links
+            p.a("HepData", href="https://hepdata.net/record/{}".format(rec[5]))
+            p += " "
+        ## Rivet
         if ins in ranas:
             anas = u", ".join(ranas[ins])
-            cell.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(ranas[ins][0]))
+            p += " "
+            p.a(anas, href="https://rivet.hepforge.org/analyses/{}.html".format(ranas[ins][0]))
         ## In-progress/assignment
         if ins in assigned:
-            cell.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
+            p += " "
+            p.a("IN PROGRESS: assigned to {}".format(assigned[ins]), href="mailto:{}".format(assigned[ins]))
 
 
 ## Time-created footer
