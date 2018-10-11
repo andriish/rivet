@@ -284,9 +284,9 @@ body.button("Show blacklist", id="blacktoggle")
 tabs = body.div(id="tabs")
 u = tabs.ul()
 for ex in EXPTS:
-    u.li().a(ex, href="#tabs-{}".format(ex.lower()))
+    u.li().a(ex, href="#{}expt".format(ex.lower()))
 for ex in EXPTS:
-    d = tabs.div(id="tabs-{}".format(ex.lower()))
+    d = tabs.div(id="{}expt".format(ex.lower()))
     t = d.table(klass="list").tbody(newlines=True)
     for i, (ins, rec) in enumerate(sorted(ex_records[ex].items(), reverse=args.REVERSE)):
 
