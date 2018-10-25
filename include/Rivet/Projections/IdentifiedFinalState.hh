@@ -112,8 +112,6 @@ namespace Rivet {
     }
 
 
-  protected:
-
     /// Apply the projection on the supplied event.
     void project(const Event& e);
 

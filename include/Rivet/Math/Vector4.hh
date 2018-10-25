@@ -1537,6 +1537,14 @@ namespace Rivet {
   typedef FourMomentum P4; //< momentum
   //@}
 
+  /// @name Typedefs for lists of vector types
+  //@{
+  typedef std::vector<FourVector> FourVectors;
+  typedef std::vector<FourMomentum> FourMomenta;
+  typedef std::vector<X4> X4s;
+  typedef std::vector<P4> P4a;
+  //@}
+
 
 }
 

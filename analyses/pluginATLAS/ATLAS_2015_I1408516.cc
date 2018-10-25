@@ -9,9 +9,11 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2015_I1408516(string name="ATLAS_2015_I1408516", size_t mode=0)
-      : Analysis(name), _mode(mode) // using electron channel for combined data
-    { }
+    ATLAS_2015_I1408516(const string name="ATLAS_2015_I1408516", size_t mode=0,
+                        const string ref_data="ATLAS_2015_I1408516") : Analysis(name) {
+      _mode = mode; // using electron channel for combined data
+      setRefDataName(ref_data);
+    }
 
 
     /// @name Analysis methods
@@ -241,5 +243,4 @@ namespace Rivet {
   DECLARE_RIVET_PLUGIN(ATLAS_2015_I1408516);
   DECLARE_RIVET_PLUGIN(ATLAS_2015_I1408516_EL);
   DECLARE_RIVET_PLUGIN(ATLAS_2015_I1408516_MU);
-
 }

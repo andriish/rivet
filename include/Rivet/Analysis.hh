@@ -308,10 +308,22 @@ namespace Rivet {
 
 
     /// Set the cross section from the generator
-    Analysis& setCrossSection(double xs);
+    Analysis& setCrossSection(double xs); //, double xserr=0.0);
 
     /// Access the controlling AnalysisHandler object.
     AnalysisHandler& handler() const { return *_analysishandler; }
+
+
+    // get name of reference data file, which could be different from plugin name
+    virtual std::string getRefDataName() const {
+      return (info().getRefDataName().empty()) ? _defaultname : info().getRefDataName();
+    }
+
+    // set name of reference data file, which could be different from plugin name
+    virtual void setRefDataName(const std::string& ref_data="") {
+      info().setRefDataName(!ref_data.empty() ? ref_data : name());
+    }
+
 
 
   protected:

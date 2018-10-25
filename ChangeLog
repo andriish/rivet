@@ -1,3 +1,132 @@
+2018-09-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Use updated ATLAS R2 muon efficiencies.
+
+	* Use proper ATLAS photon efficiency functions for Runs 1 and 2, from arXiv:1606.01813 and ATL-PHYS-PUB-2016-014.
+
+2018-08-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update embedded yaml-cpp to v0.6.0.
+
+2018-08-29  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add RIVET_WEIGHT_INDEX=-1 -> ignore event weights behaviour. Slow, but sometimes useful for debug.
+
+2018-08-29  Christian Gutschow  <chris.g@cern.ch>
+
+	* Allow reference data file name to be different from plugin name
+	via setRefDataName(fname) method, aiming to unify HepData records.
+
+2018-08-14  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Version 2.6.1 release.
+
+2018-08-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add a RIVET_RANDOM_SEED variable to fix the smearing random-seed engine for validation comparisons.
+
+2018-07-19  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Merge in ATLAS_2017_I1604029 (ttbar+gamma), ATLAS_2017_I1626105
+	(dileptonic ttbar), ATLAS_2017_I1644367 (triphotons), and
+	ATLAS_2017_I1645627 (photon + jets).
+
+	* Postpone Particles enhancement now, since the required C++11 isn't supported on lxplus7 = CentOS7.
+
+	* Add MC_DILEPTON analysis.
+
+2018-07-10  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix HepData tarball download handling: StringIO is *not* safe anymore
+
+2018-07-08  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add LorentzTransform factory functions direct from FourMomentum, and operator()s
+
+2018-06-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add FinalState(fs, cut) augmenting constructor, and PrevFS projection machinery. Validated for a abscharge > 0 cut.
+
+	* Add hasProjection() methods to ProjectionHandler and ProjectionApplier.
+
+	* Clone MC_GENERIC as MC_FSPARTICLES and deprecate the badly-named original.
+
+	* Fix Spires -> Inspire ID for CMS_2017_I1518399.
+
+2018-06-04  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix installation of (In)DirectFinalState.hh
+
+2018-05-31  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add init-time setting of a single weight-vector index from the
+	RIVET_WEIGHT_INDEX environment variable. To be removed in v3, but
+	really we should have done this years ago... and we don't know how
+	long the handover will be.
+
+2018-05-22  Neil Warrack  <neil.warrack@cern.ch>
+
+	* Include 'unphysical' photon parents in PartonicTops' veto of prompt leptons from photon conversions.
+
+2018-05-20  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make Particles and Jets into actual specialisations of
+	std::vector rather than typedefs, and update surrounding classes
+	to use them. The specialisations can implicitly cast to vectors of
+	FourMomentum (and maybe Pseudojet).
+
+2018-05-18  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make CmpAnaHandle::operator() const, for GCC 8 (thanks to CMS)
+
+2018-05-07  Andy Buckley  <andy.buckley@cern.ch>
+
+	* CMS_2016_I1421646.cc: Add patch from CMS to veto if leading jets
+	outside |y| < 2.5, rather than only considering jets in that
+	acceptance. Thanks to CMS and Markus Seidel.
+
+2018-04-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Tidy keywords and luminosity entries, and add both to BSM search .info files.
+
+	* Add Luminosity_fb and Keywords placeholders in mkanalysis output.
+
+2018-04-26  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add pairMass and pairPt functions.
+
+	* Add (i)discardIfAnyDeltaRLess and (i)discardIfAnyDeltaPhiLess functions.
+
+	* Add normalize() methods to Cutflow and Cutflows.
+
+	* Add DirectFinalState and IndirectFinalState alias headers, for forward compatibility. 'Prompt' is confusing.
+
+2018-04-24  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add initializer_list overload for binIndex. Needed for other util functions operating on vectors.
+
+	* Fix function signature bug is isMT2 overload.
+
+	* Add isSameSign, isOppSign, isSameFlav, isOppFlav, and isOSSF etc. functions on PIDs and Particles.
+
+2018-03-27  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add RatioPlotLogY key to make-plots. Thanks to Antonin Maire.
+
+2018-02-22  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Adding boolean operator syntactic sugar for composition of bool functors.
+
+	* Copy & paste error fixes in implementation of BoolJetAND,OR,NOT.
+
+2018-02-01  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Make the project() and compare() methods of projections public.
+
+	* Fix a serious bug in the SmearedParticles and SmearedJets compare methods.
+
+	* Add string representations and streamability to the Cut objects, for debugging.
+
 2018-01-08  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Add highlighted source to HTML analysis metadata listings.

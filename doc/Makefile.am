@@ -35,6 +35,16 @@ analyses.json: $(top_srcdir)/analyses $(srcdir)/mk-analysis-json
 endif
 
 
+if ENABLE_PYEXT
+DOCS += rivet-coverage.html
+rivet-coverage.html: $(wildcard $(srcdir)/inspire*.json) $(top_srcdir)/analyses $(srcdir)/mk-coverage-html
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
+    DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
+    PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
+    $(srcdir)/mk-coverage-htmls
+endif
+
+
 if WITH_ASCIIDOC
 DOCS += compare-histos.html make-plots.html
 EXTRA_DIST += compare-histos.html make-plots.html

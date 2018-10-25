@@ -1,5 +1,5 @@
 # BEGIN PLOT /ATLAS_2017_I1589844_MU/d..
-Title=$Z \rightarrow e^+e^-$, $R=0.4$, charged particles only
+Title=$Z \rightarrow \mu^+\mu^-$, $R=0.4$, charged particles only
 LogY=1
 LogX=1
 XTwosidedTicks=1
@@ -10,15 +10,15 @@ LegendAlign=r
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1589844_MU/d..-x01-y04
-Title=$Z \rightarrow e^+e^-$, $R=1.0$, charged particles only
+Title=$Z \rightarrow \mu^+\mu^-$, $R=1.0$, charged particles only
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1589844_MU/d..-x01-y06
-Title=$Z \rightarrow e^+e^-$, $R=0.4$, charged and neutral particles
+Title=$Z \rightarrow \mu^+\mu^-$, $R=0.4$, charged and neutral particles
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1589844_MU/d..-x01-y08
-Title=$Z \rightarrow e^+e^-$, $R=1.0$, charged and neutral particles
+Title=$Z \rightarrow \mu^+\mu^-$, $R=1.0$, charged and neutral particles
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2017_I1589844_MU/d01

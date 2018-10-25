@@ -17,6 +17,7 @@ namespace Rivet {
   using fastjet::PseudoJet;
 
   /// Typedef for a collection of PseudoJet objects.
+  /// @todo Make into an explicit container with conversion to Jets and FourMomenta?
   typedef std::vector<PseudoJet> PseudoJets;
 
 

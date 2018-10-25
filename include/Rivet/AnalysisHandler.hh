@@ -17,7 +17,7 @@ namespace Rivet {
 
   // Needed to make smart pointers compare equivalent in the STL set
   struct CmpAnaHandle {
-    bool operator() (const AnaHandle& a, const AnaHandle& b) {
+    bool operator() (const AnaHandle& a, const AnaHandle& b) const {
       return a.get() < b.get();
     }
   };

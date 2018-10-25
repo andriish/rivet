@@ -62,7 +62,7 @@ def getCommandLineOptions():
     stygroup = OptionGroup(parser, "Plot style")
     stygroup.add_option("--linear", action="store_true", dest="LINEAR",
                         default=False, help="plot with linear scale")
-    stygroup.add_option("--errs", "--mc-errs", action="store_true", dest="MC_ERRS",
+    stygroup.add_option("--errs", "--mcerrs", "--mc-errs", action="store_true", dest="MC_ERRS",
                         default=False, help="show vertical error bars on the MC lines")
     stygroup.add_option("--no-ratio", action="store_false", dest="RATIO",
                         default=True, help="disable the ratio plot")
@@ -115,13 +115,13 @@ def getHistos(filelist):
         for path, ao in analysisobjects.items():
             ## We can't plot non-histograms yet
             # TODO: support counter plotting with a faked x (or y) position and forced plot width/height
-            if ao.type not in ("Counter", 
-                               "Histo1D", 
-                               "Histo2D", 
-                               "Profile1D", 
-                               "Profile2D", 
-                               "Scatter1D", 
-                               "Scatter2D", 
+            if ao.type not in ("Counter",
+                               "Histo1D",
+                               "Histo2D",
+                               "Profile1D",
+                               "Profile2D",
+                               "Scatter1D",
+                               "Scatter2D",
                                "Scatter3D"):
                 continue
 
