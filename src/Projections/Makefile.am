@@ -30,6 +30,7 @@ libRivetProjections_la_SOURCES = \
   ParisiTensor.cc \
   ParticleFinder.cc \
   PrimaryHadrons.cc \
+  PrimaryParticles.cc \
   PromptFinalState.cc \
   Sphericity.cc \
   Spherocity.cc \

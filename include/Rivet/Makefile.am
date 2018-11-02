@@ -31,10 +31,12 @@ nobase_pkginclude_HEADERS += \
 
 ## Projections
 nobase_pkginclude_HEADERS += \
+  Projections/AliceCommon.hh \
   Projections/AxesDefinition.hh \
   Projections/Beam.hh \
   Projections/BeamThrust.hh \
   Projections/CentralEtHCM.hh \
+  Projections/CentralityProjection.hh \
   Projections/ChargedFinalState.hh \
   Projections/ChargedLeptons.hh \
   Projections/ConstLossyFinalState.hh \
@@ -48,10 +50,12 @@ nobase_pkginclude_HEADERS += \
   Projections/FinalState.hh \
   Projections/FoxWolframMoments.hh \
   Projections/FParameter.hh \
+  Projections/GeneratedPercentileProjection.hh \
   Projections/HadronicFinalState.hh \
   Projections/HeavyHadrons.hh \
   Projections/Hemispheres.hh \
   Projections/IdentifiedFinalState.hh \
+  Projections/ImpactParameterProjection.hh \
   Projections/IndirectFinalState.hh \
   Projections/InitialQuarks.hh \
   Projections/InvMassFinalState.hh \
@@ -68,7 +72,9 @@ nobase_pkginclude_HEADERS += \
   Projections/ParticleFinder.hh \
   Projections/PartonicTops.hh \
   Projections/PrimaryHadrons.hh \
+  Projections/PrimaryParticles.hh \
   Projections/PromptFinalState.hh \
+  Projections/SingleValueProjection.hh \
   Projections/SmearedParticles.hh \
   Projections/SmearedJets.hh \
   Projections/SmearedMET.hh \
@@ -80,6 +86,7 @@ nobase_pkginclude_HEADERS += \
   Projections/TriggerCDFRun2.hh \
   Projections/TriggerUA5.hh \
   Projections/UnstableFinalState.hh \
+  Projections/UserCentEstimate.hh \
   Projections/VetoedFinalState.hh \
   Projections/VisibleFinalState.hh \
   Projections/WFinder.hh \
@@ -100,6 +107,7 @@ nobase_pkginclude_HEADERS += \
 
 ## Tools
 nobase_pkginclude_HEADERS += \
+  Tools/AliceCommon.hh \
   Tools/BeamConstraint.hh \
   Tools/BinnedHistogram.hh \
   Tools/CentralityBinner.hh \

@@ -267,7 +267,7 @@ namespace Rivet {
   }
 
 
-  vector<AnalysisObjectPtr> AnalysisHandler::getData() const {
+  vector<AnalysisObjectPtr> AnalysisHandler::getData(bool includeorphans) const {
     vector<AnalysisObjectPtr> rtn;
     // Event counter
     rtn.push_back( make_shared<Counter>(_eventcounter) );
@@ -287,6 +287,8 @@ namespace Rivet {
     }
     // Sort histograms alphanumerically by path before write-out
     sort(rtn.begin(), rtn.end(), [](AnalysisObjectPtr a, AnalysisObjectPtr b) {return a->path() < b->path();});
+    if ( includeorphans )
+      rtn.insert(rtn.end(), _orphanedPreloads.begin(), _orphanedPreloads.end());
     return rtn;
   }
 

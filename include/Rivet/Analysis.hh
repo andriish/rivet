@@ -15,6 +15,7 @@
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Tools/RivetMT2.hh"
 #include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Projections/CentralityProjection.hh"
 
 
 /// @def vetoEvent
@@ -315,7 +316,7 @@ namespace Rivet {
 
 
     // get name of reference data file, which could be different from plugin name
-    virtual std::string getRefDataName() const {
+  /*  virtual std::string getRefDataName() const {
       return (info().getRefDataName().empty()) ? _defaultname : info().getRefDataName();
     }
 
@@ -323,7 +324,7 @@ namespace Rivet {
     virtual void setRefDataName(const std::string& ref_data="") {
       info().setRefDataName(!ref_data.empty() ? ref_data : name());
     }
-
+*/
 
 
   protected:
@@ -702,7 +703,7 @@ namespace Rivet {
 
   public:
 
-    /// @name accessing options for this Anslysis instance.
+    /// @name accessing options for this Analysis instance.
     //@{
 
     /// Get an option for this analysis instance as a string.
@@ -725,6 +726,27 @@ namespace Rivet {
     }
 
     //@}
+    /// @brief Book a CentralityProjection
+    ///
+    /// Using a SingleValueProjection, @a proj, giving the value of an
+    /// experimental observable to be used as a centrality estimator,
+    /// book a CentralityProjection based on the experimentally
+    /// measured pecentiles of this observable (as given by the
+    /// reference data for the @a calHistName histogram in the @a
+    /// calAnaName analysis. If a preloaded file with the output of a
+    /// run using the @a calAnaName analysis contains a valid
+    /// generated @a calHistName histogram, it will be used as an
+    /// optional percentile binning. Also if this preloaded file
+    /// contains a histogram with the name @a calHistName with an
+    /// appended "_IMP" This histogram will be used to add an optional
+    /// centrality percentile based on the generated impact
+    /// parameter. If @increasing is true, a low (high) value of @proj
+    /// is assumed to correspond to a more peripheral (central) event.
+    const CentralityProjection&
+    declareCentrality(const SingleValueProjection &proj,
+                      string calAnaName, string calHistName,
+                      const string projName, bool increasing = false);
+
 
     /// @name Analysis object manipulation
     /// @todo Should really be protected: only public to keep BinnedHistogram happy for now...
@@ -939,6 +961,22 @@ namespace Rivet {
     /// Unregister a data object from the histogram system (by pointer)
     void removeAnalysisObject(AnalysisObjectPtr ao);
 
+    /// Get all data object from the AnalysisHandler.
+    vector<AnalysisObjectPtr> getAllData(bool includeorphans) const;
+
+    /// Get a data object from another analysis (e.g. preloaded
+    /// calibration histogram).
+    /// Get a data object from the histogram system (non-const)
+    template <typename AO=YODA::AnalysisObject>
+    std::shared_ptr<AO> getAnalysisObject(const std::string & ananame,
+                                          const std::string& name) {
+      std::string path = "/" + ananame + "/" + name;
+      for ( AnalysisObjectPtr ao : getAllData(true) ) {
+        if ( ao->path() == path )
+          return dynamic_pointer_cast<AO>(ao);
+      }
+      return std::shared_ptr<AO>();
+    }
 
     /// Get a named Histo1D object from the histogram system
     const Histo1DPtr getHisto1D(const std::string& name) const {
@@ -1058,7 +1096,7 @@ namespace Rivet {
     /// Storage of all plot objects
     /// @todo Make this a map for fast lookup by path?
     vector<AnalysisObjectPtr> _analysisobjects;
-
+    
     /// @name Cross-section variables
     //@{
     double _crossSection;

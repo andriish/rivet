@@ -209,7 +209,7 @@ namespace Rivet {
     void readData(const std::string& filename);
 
     /// Get all analyses' plots as a vector of analysis objects.
-    std::vector<AnalysisObjectPtr> getData() const;
+    std::vector<AnalysisObjectPtr> getData(bool includeorphans = false) const;
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
@@ -221,6 +221,10 @@ namespace Rivet {
 
     /// The collection of Analysis objects to be used.
     set<AnaHandle, CmpAnaHandle> _analyses;
+
+    /// A vector of pre-loaded object which do not have a valid
+    /// Analysis plugged in.
+    vector<AnalysisObjectPtr> _orphanedPreloads;
 
 
     /// @name Run properties

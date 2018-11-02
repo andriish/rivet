@@ -4,6 +4,10 @@
 #include "Rivet/AnalysisHandler.hh"
 #include "Rivet/AnalysisInfo.hh"
 #include "Rivet/Tools/BeamConstraint.hh"
+#include "Rivet/Projections/ImpactParameterProjection.hh"
+#include "Rivet/Projections/GeneratedPercentileProjection.hh"
+#include "Rivet/Projections/UserCentEstimate.hh"
+#include "Rivet/Projections/CentralityProjection.hh"
 
 namespace Rivet {
 
@@ -181,6 +185,9 @@ namespace Rivet {
     }
   }
 
+  vector<AnalysisObjectPtr> Analysis::getAllData(bool includeorphans) const{
+    return handler().getData(includeorphans);
+  }
 
   CounterPtr Analysis::bookCounter(const string& cname,
                                    const string& title) {
@@ -895,5 +902,105 @@ namespace Rivet {
     }
  }
 
+const CentralityProjection &
+Analysis::declareCentrality(const SingleValueProjection &proj,
+                            string calAnaName, string calHistName,
+                            const string projName, bool increasing) {
+
+  CentralityProjection cproj;
+  
+  // Select the centrality variable from option. Use REF as default.
+  // Other selections are "GEN", "IMP" and "USR" (USR only in HEPMC 3).
+  string sel = getOption<string>("cent","REF");
+  set<string> done;
+
+  if ( sel == "REF" ) {
+    Scatter2DPtr refscat;
+    auto refmap = getRefData(calAnaName);
+    if ( refmap.find(calHistName) != refmap.end() )
+      refscat =
+        dynamic_pointer_cast<Scatter2D>(refmap.find(calHistName)->second);
+
+    if ( !refscat ) {
+      MSG_WARNING("No reference calibration histogram for " <<
+                  "CentralityProjection " << projName << " found " <<
+                  "(requested histogram " << calHistName << " in " <<
+                  calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << refscat->path());
+      cproj.add(PercentileProjection(proj, refscat, increasing), sel);
+    }
+  }
+  else if ( sel == "GEN" ) {
+    Histo1DPtr genhist;
+    string histpath = "/" + calAnaName + "/" + calHistName;
+    for ( AnalysisObjectPtr ao : handler().getData(true) ) {
+      if ( ao->path() == histpath )
+        genhist = dynamic_pointer_cast<Histo1D>(ao);
+    }
+
+    if ( !genhist || genhist->numEntries() <= 1 ) {
+      MSG_WARNING("No generated calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << " in " <<
+               calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << genhist->path());
+      cproj.add(PercentileProjection(proj, genhist, increasing), sel);
+    }
+  }
+  else if ( sel == "IMP" ) {
+    Histo1DPtr imphist =
+      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_IMP");
+    if ( !imphist || imphist->numEntries() <= 1 ) {
+      MSG_WARNING("No impact parameter calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << "_IMP in " <<
+               calAnaName << ")");
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << imphist->path());
+      cproj.add(PercentileProjection(ImpactParameterProjection(),
+                                     imphist, true), sel);
+    }
+  }
+  else if ( sel == "USR" ) {
+#if HEPMC_VERSION_CODE >= 3000000
+    Histo1DPtr usrhist =
+      getAnalysisObject<Histo1D>(calAnaName, calHistName + "_USR");
+    if ( !usrhist || usrhist->numEntries() <= 1 ) {
+      MSG_WARNING("No user-defined calibration histogram for " <<
+               "CentralityProjection " << projName << " found " <<
+               "(requested histogram " << calHistName << "_USR in " <<
+               calAnaName << ")");
+      continue;
+    }
+    else {
+      MSG_INFO("Found calibration histogram " << sel << " " << usrhist->path());
+      cproj.add((UserCentEstimate(), usrhist, true), sel);
+     }
+#else
+      MSG_WARNING("UserCentEstimate is only available with HepMC3.");
+#endif
+    }
+  else if ( sel == "RAW" ) {
+#if HEPMC_VERSION_CODE >= 3000000
+    cproj.add(GeneratedCentrality(), sel);
+#else
+    MSG_WARNING("GeneratedCentrality is only available with HepMC3.");
+#endif
+  }
+    else
+      MSG_WARNING("'" << sel << "' is not a valid PercentileProjection tag.");
+
+  if ( cproj.empty() )
+    MSG_WARNING("CentralityProjection " << projName
+                << " did not contain any valid PercentileProjections.");
+
+  return declare(cproj, projName);
+  
+}
 
 }
