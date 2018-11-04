@@ -71,6 +71,7 @@ nobase_pkginclude_HEADERS += \
   Projections/ParisiTensor.hh \
   Projections/ParticleFinder.hh \
   Projections/PartonicTops.hh \
+  Projections/PercentileProjection.hh \
   Projections/PrimaryHadrons.hh \
   Projections/PrimaryParticles.hh \
   Projections/PromptFinalState.hh \
