@@ -29,11 +29,11 @@ Description:
 
    This Rivet module implements the event selection for the weighted combination
    of both decay channels and uses the data from that combination (as in the
-   paper plots). But for simplification of its usage it only requires events with
-   the electronic final state (muonic final state will be ignored). This allows
-   to use it with either pure electronic samples, or mixed electron/muon events.
-   If you want to use it with a pure muon sample, please refer to
-   ATLAS\_2013\_I1230812\_MU.'
+   paper plots). In the default mode this is how it will run, assuming mixed 
+   electronic and muonic events. 
+   For convenience, if ZMODE is set to EL (MU), it only requires events from the 
+   the electronic (muonic) final state and ignores muonic (electronic). This allows
+   it to be used with pure electronic or pure muonic samples.'
 BibKey: Aad:2013ysa
 BibTeX: '@article{Aad:2013ysa,
       author         = "Aad, Georges and others",
