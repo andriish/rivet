@@ -30,12 +30,12 @@ namespace Rivet {
     /// Constructor
     DEFAULT_RIVET_ANALYSIS_CTOR(MC_OPTIONS);
 
-
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
     void init() {
+
 
       // Parameters read in.
       // A double.
@@ -48,17 +48,20 @@ namespace Rivet {
       cout << "foo = " << f << endl;
       cout << "bar = " << s << endl;
       cout << "baz = " << a << endl;
+      value = f;
+      h = bookHisto1D("hist",10,0,10);
     }
 
-
-    /// Perform the per-event analysis
+    // Perform the per-event analysis
     void analyze(const Event& event) {
+      h->fill(value);
 
     }
 
 
     /// Finalize
     void finalize() {
+    
     }
 
     //@}
@@ -68,8 +71,9 @@ namespace Rivet {
 
     /// @name Histograms
     //@{
+    Histo1DPtr h;
     //@}
-
+    double value;
     
   };
 

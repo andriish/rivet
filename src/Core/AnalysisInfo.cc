@@ -162,13 +162,20 @@ void AnalysisInfo::buildOptionMap() {
 
 bool AnalysisInfo::validOption(std::string key, std::string val) const {
   auto opt = _optionmap.find(key);
+  // The option is required to be defined in the .info file.
   if ( opt == _optionmap.end() ) return false;
+  // If the selection option is among the range of given options,
+  // we are fine.
   if ( opt->second.find(val) != opt->second.end() ) return true;
+  // Wild card selection option for value types is #.
   if ( opt->second.size() == 1 && *opt->second.begin() == "#" ) {
     std::istringstream ss(val);
     double test;
     if ( ss >> test ) return true;
   }
+  // Wild card selection option for any type is *.
+  if ( opt->second.size() == 1 && *opt->second.begin() == "*" )
+    return true;
   return false;
 }
 
