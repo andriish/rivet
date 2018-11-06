@@ -15,7 +15,7 @@ namespace Rivet {
     : _runname(runname),
       _eventcounter("/_EVTCOUNT"),
       _xs(NAN), _xserr(NAN),
-      _initialised(false), _ignoreBeams(false)
+      _initialised(false), _ignoreBeams(false), _dumpPeriod(0), _dumping(false)
   {  }
 
 
@@ -132,6 +132,15 @@ namespace Rivet {
       }
       MSG_TRACE("Finished running analysis " << a->name());
     }
+
+    if ( _dumpPeriod > 0 && numEvents()%_dumpPeriod == 0 ) {
+      MSG_INFO("Dumping intermediate results to " << _dumpFile << ".");
+      _dumping = true;
+      finalize();
+      _dumping = false;
+      writeData(_dumpFile);
+    }
+
   }
 
 
@@ -146,15 +155,39 @@ namespace Rivet {
 
   void AnalysisHandler::finalize() {
     if (!_initialised) return;
+
+    // First we make copies of all analysis objects.
+    map<string,AnalysisObjectPtr> backupAOs;
+    for (auto ao : getData(false, true) )
+      backupAOs[ao->path()] = AnalysisObjectPtr(ao->newclone());
+
+    // Now we run the (re-entrant) finalize() functions for all analyses.
     MSG_INFO("Finalising analyses");
     for (AnaHandle a : _analyses) {
       a->setCrossSection(_xs);
       try {
-        a->finalize();
+        if ( !_dumping || a->info().reentrant() )  a->finalize();
+        else if ( _dumping )
+          MSG_INFO("Skipping periodic dump of " << a->name()
+                   << " as it is not declared reentrant.");
       } catch (const Error& err) {
         cerr << "Error in " << a->name() << "::finalize method: " << err.what() << endl;
         exit(1);
       }
+    }
+
+    // Now we copy all analysis objects to the list of finalized
+    // ones, and restore the value to their original ones.
+    _finalizedAOs.clear();
+    for ( auto ao : getData() )
+      _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
+    for ( auto ao : getData(false, true) ) {
+      auto aoit = backupAOs.find(ao->path());
+      if ( aoit == backupAOs.end() ) {
+        AnaHandle ana = analysis(split(ao->path(), "/")[0]);
+        if ( ana ) ana->removeAnalysisObject(ao->path());
+      } else
+        copyao(aoit->second, ao);
     }
 
     // Print out number of events processed
@@ -246,39 +279,145 @@ namespace Rivet {
 
   /////////////////////////////
 
-/* Old addData which did not add orphaned preloads.
+
   void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) {
     for (const AnalysisObjectPtr ao : aos) {
-      const string path = ao->path();
-      if (path.size() > 1) { // path > "/"
-        try {
-          const string ananame =  split(path, "/")[0];
-          AnaHandle a = analysis(ananame);
-          a->addAnalysisObject(ao); /// @todo Need to statistically merge...
-        } catch (const Error& e) {
-          MSG_WARNING(e.what());
-        }
+      string path = ao->path();
+      if ( path.substr(0, 5) != "/RAW/" ) {
+        _orphanedPreloads.push_back(ao);
+        continue;
       }
-    }
-  }
-*/
- void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) {
-    for (const AnalysisObjectPtr ao : aos) {
-      const string path = ao->path();
+ 
+      path = path.substr(4);
+      ao->setPath(path);
       if (path.size() > 1) { // path > "/"
         try {
           const string ananame =  split(path, "/")[0];
-          MSG_TRACE("Preloading analysis object " << path);
           AnaHandle a = analysis(ananame);
           a->addAnalysisObject(ao); /// @todo Need to statistically merge...
         } catch (const Error& e) {
           MSG_TRACE("Adding analysis object " << path <<
                     " to the list of orphans.");
-           _orphanedPreloads.push_back(ao);
+          _orphanedPreloads.push_back(ao);
         }
       }
     }
   }
+
+  void AnalysisHandler::
+  mergeYodas(const vector<string> & aofiles, bool equiv) {
+    vector< vector<AnalysisObjectPtr> > aosv;
+    vector<double> xsecs;
+    vector<double> xsecerrs;
+    vector<CounterPtr> sows;
+    set<string> ananames;
+
+    // First scan all files and extract analysis objects and add the
+    // corresponding anayses..
+    for ( auto file : aofiles ) {
+      Scatter1DPtr xsec;
+      CounterPtr sow;
+
+      // For each file make sure that cross section and sum-of-weights
+      // objects are present and stor all RAW ones in a vector;
+      vector<AnalysisObjectPtr> aos;
+      _eventcounter.reset();
+      try {
+        /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
+        vector<YODA::AnalysisObject*> aos_raw;
+        YODA::read(file, aos_raw);
+        for (AnalysisObject* aor : aos_raw) {
+          AnalysisObjectPtr ao = AnalysisObjectPtr(aor);
+          if ( ao->path().substr(0, 5) != "/RAW/" ) continue;
+          ao->setPath(ao->path().substr(4));
+          if ( ao->path() == "/_XSEC" )
+            xsec = dynamic_pointer_cast<Scatter1D>(ao);
+          else if ( ao->path() == "/_EVTCOUNT" )
+            sow = dynamic_pointer_cast<Counter>(ao);
+          else {
+            string ananame = split(ao->path(), "/")[0];
+            if ( ananames.insert(ananame).second ) addAnalysis(ananame);
+            aos.push_back(ao);
+          }
+        }
+        if ( !xsec || !sow ) {
+          MSG_ERROR( "Error in AnalysisHandler::mergeYodas: The file " << file
+                     << " did not contain weights and cross section info.");
+          exit(1);
+        }
+        xsecs.push_back(xsec->point(0).x());
+        xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
+        _eventcounter += *sow;
+        aosv.push_back(aos);
+      } catch (...) { //< YODA::ReadError&
+        throw UserError("Unexpected error in reading file: " + file);
+      }
+    }
+
+    // Now calculate the scale to be applied for all bins in a file
+    // and get the common cross section and sum of weights.
+    _xs = _xserr = 0.0;
+    for ( int i = 0, N = sows.size(); i < N; ++i ) {
+      double effnent = sows[i]->effNumEntries();
+      _xs += (equiv? effnent: 1.0)*xsecs[i];
+      _xserr += (equiv? sqr(effnent): 1.0)*xsecerrs[i];
+    }
+
+    vector<double> scales(sows.size(), 1.0);
+    if ( equiv ) {
+      _xs /= _eventcounter.effNumEntries();
+      _xserr = sqrt(_xserr)/_eventcounter.effNumEntries();
+    } else {
+      _xserr = sqrt(_xserr);
+      for ( int i = 0, N = sows.size(); i < N; ++i ) 
+        scales[i] = (_eventcounter.sumW()/sows[i]->sumW())*(xsecs[i]/_xs);
+    }
+
+    // Initialize the analyses allowing them to book analysis objects.
+    for (AnaHandle a : _analyses) {
+      MSG_DEBUG("Initialising analysis: " << a->name());
+      if ( !a->info().reentrant() )
+        MSG_WARNING("Analysis " << a->name() << " has not been validated to have "
+                    << "a reentrant finalize method. The result is unpredictable.");
+      try {
+        // Allow projection registration in the init phase onwards
+        a->_allowProjReg = true;
+        a->init();
+        //MSG_DEBUG("Checking consistency of analysis: " << a->name());
+        //a->checkConsistency();
+      } catch (const Error& err) {
+        cerr << "Error in " << a->name() << "::init method: " << err.what() << endl;
+        exit(1);
+      }
+      MSG_DEBUG("Done initialising analysis: " << a->name());
+    }
+    _initialised = true;
+
+    // Get a list of all anaysis objects to handle.
+    map<string,AnalysisObjectPtr> current;
+    for ( auto ao : getData(false, true) ) current[ao->path()] = ao;
+
+    // Go through all objects to be merged and add them to current
+    // after appropriate scaling.
+    for ( int i = 0, N = aosv.size(); i < N; ++i)
+      for ( auto ao : aosv[i] ) {
+        if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
+        auto aoit = current.find(ao->path());
+        if ( aoit == current.end() ) {
+          MSG_WARNING("" << ao->path() << " was not properly booked.");
+          continue;
+        }
+        if ( !addaos(aoit->second, ao, scales[i]) )
+          MSG_WARNING("Cannot merge objects with path " << ao->path()
+                      <<" of type " << ao->annotation("Type") );
+      }
+
+    // Now we can simply finalize() the analysis, leaving the
+    // controlling program to write it out some yoda-file.
+    finalize();
+
+  }
+
 
   void AnalysisHandler::readData(const string& filename) {
     vector<AnalysisObjectPtr> aos;
@@ -294,7 +433,8 @@ namespace Rivet {
   }
 
 
-  vector<AnalysisObjectPtr> AnalysisHandler::getData(bool includeorphans) const {
+  vector<AnalysisObjectPtr> AnalysisHandler::
+  getData(bool includeorphans, bool includetmps) const {
     vector<AnalysisObjectPtr> rtn;
     // Event counter
     rtn.push_back( make_shared<Counter>(_eventcounter) );
@@ -308,7 +448,7 @@ namespace Rivet {
       for (const AnalysisObjectPtr ao : aos) {
         // Exclude paths from final write-out if they contain a "TMP" layer (i.e. matching "/TMP/")
         /// @todo This needs to be much more nuanced for re-entrant histogramming
-        if (ao->path().find("/TMP/") != string::npos) continue;
+        if ( !includetmps && ao->path().find("/TMP/" ) != string::npos) continue;
         rtn.push_back(ao);
       }
     }
@@ -321,9 +461,17 @@ namespace Rivet {
 
 
   void AnalysisHandler::writeData(const string& filename) const {
-    const vector<AnalysisObjectPtr> aos = getData();
+    vector<AnalysisObjectPtr> out = _finalizedAOs;
+    out.reserve(2*out.size());
+    vector<AnalysisObjectPtr> aos = getData();
+    for ( auto ao : aos ) {
+      ao = AnalysisObjectPtr(ao->newclone());
+      ao->setPath("/RAW" + ao->path());
+      out.push_back(ao);
+    }
+    
     try {
-      YODA::write(filename, aos.begin(), aos.end());
+      YODA::write(filename, out.begin(), out.end());
     } catch (...) { //< YODA::WriteError&
       throw UserError("Unexpected error in writing file: " + filename);
     }
