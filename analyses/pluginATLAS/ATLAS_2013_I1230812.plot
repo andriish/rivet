@@ -231,51 +231,46 @@ YLabel=d$\sigma$/d$S_T$ [pb/GeV]
 LegendAlign=r
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1230812/*-y01
-CustomLegend=$Z/\gamma^*\to \ell^+\ell^-$
+# BEGIN PLOT /ATLAS_2013_I1230812/d01-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \text{e}^+\text{e}^-)+\geq N_\text{jet})$ [pb]
+CustomLegend=$Z/\gamma^*\to \text{e}^+\text{e}^-$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1230812/*-y02
-CustomLegend=$Z/\gamma^*\to e^+e^-$
+# BEGIN PLOT /ATLAS_2013_I1230812/d03-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \text{e}^+\text{e}^-)+ N_\text{jet})$ [pb]
+CustomLegend=$Z/\gamma^*\to \text{e}^+\text{e}^-$
 # END PLOT
 
-# BEGIN PLOT /ATLAS_2013_I1230812/*-y03
+# BEGIN PLOT /ATLAS_2013_I1230812/d05-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \text{e}^+\text{e}^-)+ N_\text{jet})$ [pb]
+CustomLegend=$Z/\gamma^*\to \text{e}^+\text{e}^-$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2013_I1230812/d07-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \text{e}^+\text{e}^-)+ N_\text{jet})$ [pb]
+CustomLegend=$Z/\gamma^*\to \text{e}^+\text{e}^-$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2013_I1230812/d01-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+\geq N_\text{jet})$ [pb]
+CustomLegend=$Z/\gamma^*\to \mu^+\mu^-$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2013_I1230812/d03-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+ N_\text{jet})$ [pb]
+CustomLegend=$Z/\gamma^*\to \mu^+\mu^-$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2013_I1230812/d05-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+ N_\text{jet})$ [pb]
+CustomLegend=$Z/\gamma^*\to \mu^+\mu^-$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2013_I1230812/d07-x01-y.*
+YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+ N_\text{jet})$ [pb]
 CustomLegend=$Z/\gamma^*\to \mu^+\mu^-$
 # END PLOT
 
 # BEGIN PLOT /ATLAS_2013_I1230812/d01-x01-y02
-YLabel=$\sigma(Z/\gamma^*(\to e^+e^-)+\geq N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d03-x01-y02
-YLabel=$\sigma(Z/\gamma^*(\to e^+e^-)+ N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d05-x01-y02
-YLabel=$\sigma(Z/\gamma^*(\to e^+e^-)+ N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d07-x01-y02
-YLabel=$\sigma(Z/\gamma^*(\to e^+e^-)+ N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d01-x01-y03
-YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+\geq N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d03-x01-y03
-YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+ N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d05-x01-y03
-YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+ N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d07-x01-y03
-YLabel=$\sigma(Z/\gamma^*(\to \mu^+\mu^-)+ N_\text{jet})$ [pb]
-# END PLOT
-
-# BEGIN PLOT /ATLAS_2013_I1230812/d01-x01-y03
 CustomLegend=$Z/\gamma^*\to \mu^+\mu^-$ First data bin read from plot
 # END PLOT
-
