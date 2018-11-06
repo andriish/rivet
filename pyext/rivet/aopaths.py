@@ -1,6 +1,12 @@
 def isRefPath(path):
     return path.startswith("/REF")
 
+def isRawPath(path):
+    return path.startswith("/RAW")
+
+def isRawAO(ao):
+    return isRawPath(ao.path)
+
 def stripOptions(path):
     import re
     return re.sub(r':\w+=[^:/]+', "", path)
@@ -100,3 +106,7 @@ class AOPath(object):
     def istmp(self):
         "Do any basepath components start with an underscore, used to hide them from plotting?"
         return isTmpPath(self.basepath())
+
+    def israw(self):
+        "Do any basepath components start with /RAW, used to hide them from plotting?"
+        return isRawPath(self.basepath())

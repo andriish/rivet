@@ -86,8 +86,9 @@ namespace Rivet {
     try {
       if (doc["NeedsCrossSection"]) ai->_needsCrossSection = doc["NeedsCrossSection"].as<bool>();
       else if (doc["NeedCrossSection"]) ai->_needsCrossSection = doc["NeedCrossSection"].as<bool>();
+      if (doc["Reentrant"]) ai->_reentrant = doc["Reentrant"].as<bool>();
     } catch (...) {
-      THROW_INFOERR("NeedsCrossSection|NeedCrossSection");
+      THROW_INFOERR("NeedsCrossSection|NeedCrossSection|Reentrant");
     }
 
 

@@ -10,6 +10,7 @@ libRivetTools_la_SOURCES = \
   Logging.cc \
   ParticleUtils.cc \
   ParticleName.cc \
+  Percentile.cc \
   RivetYODA.cc \
   RivetMT2.cc \
   RivetPaths.cc \

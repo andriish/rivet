@@ -212,13 +212,35 @@ namespace Rivet {
     void readData(const std::string& filename);
 
     /// Get all analyses' plots as a vector of analysis objects.
-    std::vector<AnalysisObjectPtr> getData(bool includeorphans = false) const;
+    std::vector<AnalysisObjectPtr> getData(bool includeorphans = false,
+                                           bool includetmps = false) const;
 
     /// Write all analyses' plots (via getData) to the named file.
     void writeData(const std::string& filename) const;
 
-    //@}
+    /// Tell Rivet to dump intermediate result to a file named @a
+    /// dumpfile every @a period'th event. If @period is not positive,
+    /// no dumping will be done.
+    void dump(string dumpfile, int period) {
+      _dumpPeriod = period;
+      _dumpFile = dumpfile;
+    }
 
+    /// Take the vector of yoda files and merge them together using
+    /// the cross section and weight information provided in each
+    /// file. Each file in @a aofiles is assumed to have been produced
+    /// by Rivet. By default the files are assumed to contain
+    /// different processes (or the same processs but mutually
+    /// exclusive cuts), but if @a equiv if ture, the files are
+    /// assumed to contain output of completely equivalent (but
+    /// statistically independent) Rivet runs. The corresponding
+    /// analyses will be loaded and their analysis objects will be
+    /// filled with the merged result. finalize() will be run on each
+    /// relevant anslysis. The resulting YODA file can then be rwitten
+    /// out by writeData().
+    void  mergeYodas(const vector<string> & aofiles, bool equiv = false);
+
+    //@}
 
   private:
 
@@ -229,6 +251,9 @@ namespace Rivet {
     /// Analysis plugged in.
     vector<AnalysisObjectPtr> _orphanedPreloads;
 
+    /// A vector containing copies of analysis objects after
+    /// finalize() has been run.
+    vector<AnalysisObjectPtr> _finalizedAOs;
 
     /// @name Run properties
     //@{
@@ -250,6 +275,17 @@ namespace Rivet {
 
     /// Flag whether input event beams should be ignored in compatibility check
     bool _ignoreBeams;
+
+    /// Determines how often Rivet runs finalize() and writes the
+    /// result to a YODA file.
+    int _dumpPeriod;
+
+    /// The name of a YODA file to which Rivet periodically dumps
+    /// results.
+    string _dumpFile;
+
+    /// Flag to indicate periodic dumping is in progress
+    bool _dumping;
 
     //@}
 

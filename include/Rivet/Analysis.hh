@@ -15,6 +15,7 @@
 #include "Rivet/Tools/BinnedHistogram.hh"
 #include "Rivet/Tools/RivetMT2.hh"
 #include "Rivet/Tools/RivetYODA.hh"
+#include "Rivet/Tools/Percentile.hh"
 #include "Rivet/Projections/CentralityProjection.hh"
 
 
@@ -734,6 +735,64 @@ namespace Rivet {
     declareCentrality(const SingleValueProjection &proj,
                       string calAnaName, string calHistName,
                       const string projName, bool increasing = false);
+
+    /// @brief Book a Pecentile wrapper around AnalysisObjects.
+    ///
+    /// Based on a previously registered CentralityProjection named @a
+    /// projName book one AnalysisObject for each @a centralityBin and
+    /// name them according to the corresponding code in the @a ref
+    /// vector.
+    template <class T>
+    Percentile<T> bookPercentile(string projName,
+                                 vector<pair<float, float> > centralityBins,
+                                 vector<tuple<int, int, int> > ref) {
+      typedef typename ReferenceTraits<T>::RefT RefT;
+      const CentralityProjection & proj =
+        getProjection<CentralityProjection>(projName);
+      Percentile<T> pctl(this, projName, proj.projections().size());
+
+      const int nCent = centralityBins.size();
+      for (int iCent = 0; iCent < nCent; ++iCent) {
+        const string axisCode = makeAxisCode(std::get<0>(ref[iCent]),
+                                             std::get<1>(ref[iCent]),
+                                             std::get<2>(ref[iCent])); 
+	const RefT & refscatter = refData<RefT>(axisCode);
+        shared_ptr<T> temp = make_shared<T>(refscatter, histoPath(axisCode));
+        
+        vector<AnalysisObjectPtr> aos =
+          pctl.add(proj, *temp, centralityBins[iCent]);
+        for ( auto ao : aos ) addAnalysisObject(ao);
+      }
+      return pctl;
+    }
+
+    /// @brief Book Pecentile wrappers around AnalysisObjects.
+    ///
+    /// Based on a previously registered CentralityProjection named @a
+    /// projName book one (or several) AnalysisObject(s) named
+    /// according to @a ref where the x-axis will be filled according
+    /// to the percentile output(s) of the @projName.
+    template <class T>
+    PercentileXaxis<T> bookPercentileXaxis(string projName,
+                                           tuple<int, int, int> ref) {
+      typedef typename ReferenceTraits<T>::RefT RefT;
+      const CentralityProjection & proj =
+        getProjection<CentralityProjection>(projName);
+      PercentileXaxis<T> pctl(this, projName, proj.projections().size());
+
+      const string axisCode = makeAxisCode(std::get<0>(ref),
+                                           std::get<1>(ref),
+                                           std::get<2>(ref)); 
+      const RefT& refscatter = refData<RefT>(axisCode);
+
+      shared_ptr<T> temp = make_shared<T>(refscatter, histoPath(axisCode));
+        
+      vector<AnalysisObjectPtr> aos = pctl.add(proj, *temp);
+      for ( auto ao : aos ) addAnalysisObject(ao);
+     
+      return pctl;
+    }
+
 
 
     /// @name Analysis object manipulation
