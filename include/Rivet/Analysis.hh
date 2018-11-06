@@ -747,21 +747,35 @@ namespace Rivet {
                                  vector<pair<float, float> > centralityBins,
                                  vector<tuple<int, int, int> > ref) {
       typedef typename ReferenceTraits<T>::RefT RefT;
-      const CentralityProjection & proj =
-        getProjection<CentralityProjection>(projName);
-      Percentile<T> pctl(this, projName, proj.projections().size());
+      Percentile<T> pctl(this, projName);
 
       const int nCent = centralityBins.size();
       for (int iCent = 0; iCent < nCent; ++iCent) {
         const string axisCode = makeAxisCode(std::get<0>(ref[iCent]),
                                              std::get<1>(ref[iCent]),
                                              std::get<2>(ref[iCent])); 
-	const RefT & refscatter = refData<RefT>(axisCode);
-        shared_ptr<T> temp = make_shared<T>(refscatter, histoPath(axisCode));
-        
-        vector<AnalysisObjectPtr> aos =
-          pctl.add(proj, *temp, centralityBins[iCent]);
-        for ( auto ao : aos ) addAnalysisObject(ao);
+        shared_ptr<T> ao;
+        CounterPtr cnt;
+        try {
+          ao = getAnalysisObject<T>(axisCode);
+          MSG_TRACE("Found old " << histoPath(axisCode));
+        }
+        catch (Exception) {
+          const RefT & refscatter = refData<RefT>(axisCode);
+          ao = make_shared<T>(refscatter, histoPath(axisCode));
+          addAnalysisObject(ao);
+          MSG_TRACE("Created new " << histoPath(axisCode));
+        }
+        try {
+          cnt = getAnalysisObject<Counter>("TMP/COUNTER/" + axisCode);
+          MSG_TRACE("Found old " << histoPath("TMP/COUNTER/" + axisCode));
+        }
+        catch (Exception) {
+          cnt = make_shared<Counter>(histoPath("TMP/COUNTER/" + axisCode));
+          addAnalysisObject(cnt);
+          MSG_TRACE("Created new " << histoPath("TMP/COUNTER/" + axisCode));
+        }
+        pctl.add(ao, cnt, centralityBins[iCent]);
       }
       return pctl;
     }
@@ -776,20 +790,23 @@ namespace Rivet {
     PercentileXaxis<T> bookPercentileXaxis(string projName,
                                            tuple<int, int, int> ref) {
       typedef typename ReferenceTraits<T>::RefT RefT;
-      const CentralityProjection & proj =
-        getProjection<CentralityProjection>(projName);
-      PercentileXaxis<T> pctl(this, projName, proj.projections().size());
+      PercentileXaxis<T> pctl(this, projName);
 
       const string axisCode = makeAxisCode(std::get<0>(ref),
                                            std::get<1>(ref),
                                            std::get<2>(ref)); 
-      const RefT& refscatter = refData<RefT>(axisCode);
+      shared_ptr<T> ao;
+      CounterPtr cnt;
+      try {
+        ao = getAnalysisObject<T>(histoPath(axisCode));
+      }
+      catch (Exception) {
+	const RefT & refscatter = refData<RefT>(axisCode);
+        ao = make_shared<T>(refscatter, axisCode);
+        addAnalysisObject(ao);
+      }
+      pctl.add(proj, ao, make_shared<Counter>());
 
-      shared_ptr<T> temp = make_shared<T>(refscatter, histoPath(axisCode));
-        
-      vector<AnalysisObjectPtr> aos = pctl.add(proj, *temp);
-      for ( auto ao : aos ) addAnalysisObject(ao);
-     
       return pctl;
     }
 

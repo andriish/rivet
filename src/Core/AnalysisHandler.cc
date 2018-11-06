@@ -463,7 +463,7 @@ namespace Rivet {
   void AnalysisHandler::writeData(const string& filename) const {
     vector<AnalysisObjectPtr> out = _finalizedAOs;
     out.reserve(2*out.size());
-    vector<AnalysisObjectPtr> aos = getData();
+    vector<AnalysisObjectPtr> aos = getData(false, true);
     for ( auto ao : aos ) {
       ao = AnalysisObjectPtr(ao->newclone());
       ao->setPath("/RAW" + ao->path());

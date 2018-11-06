@@ -166,7 +166,7 @@ for yodafile in yodafiles:
             continue
 
         ## We don't plot data objects with path components hidden by an underscore prefix
-        if aop.istmp():
+        if aop.istmp() or aop.israw():
             continue
 
         ## Identify analysis/histo name parts

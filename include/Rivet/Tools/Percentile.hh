@@ -22,11 +22,10 @@ public:
   /// @brief the main constructor
   ///
   /// requiring a pointer, @a ana, to the Analysis to which this
-  /// object belongs, the name of the CentralityProjection, @a
-  /// projname, to be used and the number, @a nProj, of multiple
-  /// centrality definitions that are available in that projection.
-  PercentileBase(Analysis * ana, string projName, int nProj)
-    : _ana(ana), _projName(projName), _nProj(nProj) {}
+  /// object belongs and the name of the CentralityProjection, @a
+  /// projname, to be used.
+  PercentileBase(Analysis * ana, string projName)
+    : _ana(ana), _projName(projName) {}
 
   /// @brief Default constructor.
   PercentileBase() {}
@@ -42,30 +41,18 @@ public:
   static bool inRange(double x, pair<float,float> range) {
     return x >= range.first && ( x < range.second || ( x == 100.0 && x == range.second ) );
   }
-
-  /// @brief Helper function to get an analysis object from the analysis assigned to.
-  AnalysisObjectPtr getObject(string path) const;
-
-  /// @brief Helper function to get an analysis object from the analysis assigned to.
-  template <typename AO>
-  std::shared_ptr<AO> getAnalysisObject(string path) const {
-    return dynamic_pointer_cast<AO>(getObject(path));
-  }
-
   /// @brief Copy information from @a other PercentileBase
   void copyFrom(const PercentileBase & other) {
     _ana = other._ana;
     _projName = other._projName;
     _cent = other._cent;
-    _nProj = other._nProj;
   }
 
   /// @brief check if @a other PercentileBase is compatible with this.
   bool compatible(const PercentileBase & other) const {
     return ( _ana == other._ana &&
              _projName == other._projName &&
-             _cent == other._cent &&
-             _nProj == other._nProj );
+             _cent == other._cent );
   }
 
   /// @breif return the list of centrality bins.
@@ -92,10 +79,6 @@ protected:
   /// object.
   vector<pair<float, float> > _cent;
 
-  /// The number of internal optional centrality definitions included
-  /// in the CentralityProjection.
-  int _nProj;
-
 };
 
 /// @brief PercentileTBase is the base class of all Percentile classes.
@@ -113,11 +96,10 @@ public:
   /// @brief the main constructor
   ///
   /// requiring a pointer, @a ana, to the Analysis to which this
-  /// object belongs, the name of the CentralityProjection, @a
-  /// projname, to be used and the number, @a nProj, of multiple
-  /// centrality definitions that are available in that projection.
-  PercentileTBase(Analysis * ana, string projName, int nProj)
-    : PercentileBase(ana, projName, nProj), _histos() {}
+  /// object belongs and the name of the CentralityProjection, @a
+  /// projname, to be used.
+  PercentileTBase(Analysis * ana, string projName)
+    : PercentileBase(ana, projName), _histos() {}
 
   /// @brief Default constructor.
   PercentileTBase() {}
@@ -134,23 +116,10 @@ public:
   /// CentralityProjection @a proj. This function is common for
   /// Percentile and PecentileXaxis, but for the latter the @a cent
   /// argument should be left to its default.
-  vector<AnalysisObjectPtr>
-  add(const CentralityProjection & proj, const T & temp,
-      pair<float,float> cent = {0.0, 100.0} ) {
-    vector<AnalysisObjectPtr> ret;
-    for ( int i = 0, N = _nProj; i < N; ++i ) {
-      _cent.push_back(cent);
-      auto cnt  = make_shared<Counter>();
-      string path = temp.path();
-      if ( i > 0) path += "[" + proj.projections()[i] + "]";
-      auto hist = getAnalysisObject<T>(path);
-      if ( !hist ) {
-        hist = make_shared<T>(temp, path);
-        ret.push_back(hist);
-      }
-      _histos.push_back( { hist, cnt } );
-    }
-    return ret;
+  void add(shared_ptr<T> ao, CounterPtr cnt,
+           pair<float,float> cent = {0.0, 100.0} ) {
+    _cent.push_back(cent);
+    _histos.push_back( { ao, cnt } );
   }
 
   /// @brief Copy the information from an @a other Percentile object.
@@ -231,11 +200,10 @@ public:
   /// @brief the main constructor
   ///
   /// requiring a pointer, @a ana, to the Analysis to which this
-  /// object belongs, the name of the CentralityProjection, @a
-  /// projname, to be used and the number, @a nProj, of multiple
-  /// centrality definitions that are available in that projection.
-  Percentile(Analysis * ana, string projName, int nProj)
-    : PercentileTBase<T>(ana, projName, nProj) {}
+  /// object belongs and the name of the CentralityProjection, @a
+  /// projname, to be used.
+  Percentile(Analysis * ana, string projName)
+    : PercentileTBase<T>(ana, projName) {}
 
   /// @brief Default constructor.
   Percentile() {}
@@ -305,11 +273,10 @@ public:
   /// @brief the main constructor
   ///
   /// requiring a pointer, @a ana, to the Analysis to which this
-  /// object belongs, the name of the CentralityProjection, @a
-  /// projname, to be used and the number, @a nProj, of multiple
-  /// centrality definitions that are available in that projection.
-  PercentileXaxis(Analysis * ana, string projName, int nProj)
-    : PercentileTBase<T>(ana, projName, nProj) {}
+  /// object belongs and the name of the CentralityProjection, @a
+  /// projname, to be used.
+  PercentileXaxis(Analysis * ana, string projName)
+    : PercentileTBase<T>(ana, projName) {}
 
   /// @brief Default constructor.
   PercentileXaxis() {}
