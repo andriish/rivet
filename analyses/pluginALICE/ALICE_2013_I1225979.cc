@@ -32,7 +32,7 @@ namespace Rivet {
         "SPD");
 
       // Primary particles.
-      declare(ALICE::PrimaryParticles(Cuts::abseta < 5),"APRIM");
+      declare(ALICE::PrimaryParticles(Cuts::abseta < 5.6),"APRIM");
       
       // The centrality bins upper bin edges.
       centralityBins = { 5., 10., 20., 30. };

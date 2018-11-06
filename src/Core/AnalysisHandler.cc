@@ -171,6 +171,16 @@ namespace Rivet {
     cout << "Please acknowledge plots made with Rivet analyses, and cite arXiv:1003.0694 (http://arxiv.org/abs/1003.0694)" << endl;
   }
 
+  AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname, std::map<string, string> pars) {
+     // Make an option handle.
+    std::string parHandle = "";
+    for (map<string, string>::iterator par = pars.begin(); par != pars.end(); ++par) {
+      parHandle +=":";
+      parHandle += par->first + "=" + par->second;
+    }
+    return addAnalysis(analysisname + parHandle);
+
+  }
 
   AnalysisHandler& AnalysisHandler::addAnalysis(const string& analysisname) {
     // Check for a duplicate analysis
@@ -202,6 +212,7 @@ namespace Rivet {
         analysis->_optstring += ":" + opt.first + "=" + opt.second;
       }
       for (const AnaHandle& a : _analyses) {
+	cout << a->name() << " " << analysis->name() << endl;
         if (a->name() == analysis->name() ) {
           MSG_WARNING("Analysis '" << analysisname << "' already registered: skipping duplicate");
           return *this;
@@ -236,7 +247,7 @@ namespace Rivet {
 
   /////////////////////////////
 
-
+/* Old addData which did not add orphaned preloads.
   void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) {
     for (const AnalysisObjectPtr ao : aos) {
       const string path = ao->path();
@@ -251,7 +262,24 @@ namespace Rivet {
       }
     }
   }
-
+*/
+ void AnalysisHandler::addData(const std::vector<AnalysisObjectPtr>& aos) {
+    for (const AnalysisObjectPtr ao : aos) {
+      const string path = ao->path();
+      if (path.size() > 1) { // path > "/"
+        try {
+          const string ananame =  split(path, "/")[0];
+          MSG_TRACE("Preloading analysis object " << path);
+          AnaHandle a = analysis(ananame);
+          a->addAnalysisObject(ao); /// @todo Need to statistically merge...
+        } catch (const Error& e) {
+          MSG_TRACE("Adding analysis object " << path <<
+                    " to the list of orphans.");
+           _orphanedPreloads.push_back(ao);
+        }
+      }
+    }
+  }
 
   void AnalysisHandler::readData(const string& filename) {
     vector<AnalysisObjectPtr> aos;

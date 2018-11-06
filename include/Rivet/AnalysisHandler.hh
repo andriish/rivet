@@ -156,6 +156,9 @@ namespace Rivet {
     /// no analysis is added (i.e. the null pointer is checked and discarded.
     AnalysisHandler& addAnalysis(const std::string& analysisname);
 
+    /// @brief Add an analysis with a map of analysis options.
+    AnalysisHandler& addAnalysis(const std::string& analysisname, std::map<string, string> pars);
+    
     /// @brief Add analyses to the run list using their names.
     ///
     /// The actual {@link Analysis}' to be used will be obtained via
