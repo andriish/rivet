@@ -212,7 +212,6 @@ namespace Rivet {
         analysis->_optstring += ":" + opt.first + "=" + opt.second;
       }
       for (const AnaHandle& a : _analyses) {
-	cout << a->name() << " " << analysis->name() << endl;
         if (a->name() == analysis->name() ) {
           MSG_WARNING("Analysis '" << analysisname << "' already registered: skipping duplicate");
           return *this;

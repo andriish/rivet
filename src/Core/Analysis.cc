@@ -127,9 +127,8 @@ namespace Rivet {
       }
     }
     if (!beamIdsOk) return false;
-
     // Next check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
-
+    
     /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
     bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
     typedef pair<double,double> DoublePair;
@@ -912,7 +911,6 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
   // Select the centrality variable from option. Use REF as default.
   // Other selections are "GEN", "IMP" and "USR" (USR only in HEPMC 3).
   string sel = getOption<string>("cent","REF");
-  cout << "OPTION: " << sel << endl;
   set<string> done;
 
   if ( sel == "REF" ) {
@@ -937,11 +935,9 @@ Analysis::declareCentrality(const SingleValueProjection &proj,
     Histo1DPtr genhist;
     string histpath = "/" + calAnaName + "/" + calHistName;
     for ( AnalysisObjectPtr ao : handler().getData(true) ) {
-      cout << "PATH " << ao->path() << " " << histpath << endl; 
       if ( ao->path() == histpath )
         genhist = dynamic_pointer_cast<Histo1D>(ao);
     }
-    cout << "GG " << genhist << endl;
     if ( !genhist || genhist->numEntries() <= 1 ) {
       MSG_WARNING("No generated calibration histogram for " <<
                "CentralityProjection " << projName << " found " <<

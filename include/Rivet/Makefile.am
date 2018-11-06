@@ -65,6 +65,7 @@ nobase_pkginclude_HEADERS += \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
   Projections/MissingMomentum.hh \
+  Projections/MixedFinalState.hh \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/NonPromptFinalState.hh \
@@ -110,6 +111,7 @@ nobase_pkginclude_HEADERS += \
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/AliceCommon.hh \
+  Tools/AtlasCommon.hh \
   Tools/BeamConstraint.hh \
   Tools/BinnedHistogram.hh \
   Tools/CentralityBinner.hh \
