@@ -37,7 +37,7 @@ endif
 
 if ENABLE_PYEXT
 DOCS += rivet-coverage.html
-rivet-coverage.html: $(wildcard $(srcdir)/inspire*.json) $(top_srcdir)/analyses $(srcdir)/mk-coverage-html
+rivet-coverage.html: $(wildcard $(srcdir)/inspire*.json) $(wildcard $(srcdir)/*.rank) $(top_srcdir)/analyses $(srcdir)/mk-coverage-html
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(LD_LIBRARY_PATH) \
     DYLD_LIBRARY_PATH=$(top_builddir)/src/.libs:$(DYLD_LIBRARY_PATH) \
     PYTHONPATH=$(YODA_PYTHONPATH):$(RIVET_PYTHONPATH):$(PYTHONPATH) \
