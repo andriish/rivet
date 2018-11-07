@@ -18,7 +18,7 @@ Beams: [p+, p+]
 Energies: [7000]
 NeedCrossSection: True
 Options:
- - ZMODE=EL,MU
+ - LMODE=EL,MU
 Description:
   'Measurements of the production of jets of particles in association with a $Z$
    boson in $pp$ collisions at $\sqrt{s}$ = 7 TeV are presented, using data corresponding
@@ -26,14 +26,12 @@ Description:
    the Large Hadron Collider. Inclusive and differential jet cross sections in $Z$
    events, with Z decaying into electron or muon pairs, are measured for jets with
    transverse momentum $p_T > 30$ GeV and rapidity $|y| < 4.4$.
-
    This Rivet module implements the event selection for the weighted combination
-   of both decay channels and uses the data from that combination (as in the
-   paper plots). In the default mode this is how it will run, assuming mixed 
-   electronic and muonic events. 
-   For convenience, if ZMODE is set to EL (MU), it only requires events from the 
-   the electronic (muonic) final state and ignores muonic (electronic). This allows
-   it to be used with pure electronic or pure muonic samples.'
+   of both decay channels to produce the average cross section for a single lepton flavour, 
+   and uses the data from that combination (as in the paper plots). In the default mode this is how it will run, 
+   assuming mixed electronic and muonic events. 
+   If LMODE is set to EL (MU), the plots for the individual decay channels (with a slightly
+   different fiducial phase space) are made.'
 BibKey: Aad:2013ysa
 BibTeX: '@article{Aad:2013ysa,
       author         = "Aad, Georges and others",

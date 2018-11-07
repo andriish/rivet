@@ -1,4 +1,4 @@
-# BEGIN PLOT /ATLAS_2016_I1502620_Z/d..-x..-y..
+# BEGIN PLOT /ATLAS_2016_I1502620/d..-x..-y..
 LeftMargin=1.5
 LogX=0
 LogY=0
@@ -32,5 +32,30 @@ LegendYPos=0.95
 # BEGIN PLOT /ATLAS_2016_I1502620_Z/d15
 Title=forward $Z/\gamma^*\rightarrow \ell\ell$, $116 < m_{\ell\ell} < 150$ GeV
 LegendYPos=0.95
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2016_I1502620/d35
+RatioPlotYMin=0.9
+RatioPlotYMax=1.1
+XLabel=$|\eta_\ell|$
+YLabel=$\text{d}\sigma / \text{d}\eta_\ell$ [pb]
+Title=$W$ charge asymmetry, dressed level
+YLabel=$A_\ell$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2016_I1502620/d09
+RatioPlotYMin=0.9
+RatioPlotYMax=1.1
+XLabel=$|\eta_\ell|$
+YLabel=$\text{d}\sigma / \text{d}\eta_\ell$ [pb]
+Title=$W^+\rightarrow \ell^+\nu$, dressed level
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2016_I1502620/d10
+RatioPlotYMin=0.9
+RatioPlotYMax=1.1
+XLabel=$|\eta_\ell|$
+YLabel=$\text{d}\sigma / \text{d}\eta_\ell$ [pb]
+Title=$W^-\rightarrow \ell^-\bar{\nu}$, dressed level
 # END PLOT
 

@@ -26,14 +26,14 @@ namespace Rivet {
 
       // Get options from the new option system
       _mode = 0;
-      if ( getOption("ZMODE") == "EL" ) _mode = 1;
-      if ( getOption("ZMODE") == "MU" ) _mode = 2;
+      if ( getOption("LMODE") == "EL" ) _mode = 1;
+      if ( getOption("LMODE") == "MU" ) _mode = 2;
 
       // Determine the e/mu decay channels used (NB Prompt leptons only).
       /// @todo Note that Zs are accepted with any rapidity: the cuts are on the e/mu: is this correct?
       Cut pt20 = Cuts::pT >= 20*GeV;
-	    Cut eta_e = _mode? Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47) : Cuts::abseta < 2.5;
-	    Cut eta_m = _mode? Cuts::abseta < 2.4 : Cuts::abseta < 2.5;
+      Cut eta_e = _mode? Cuts::abseta < 1.37 || Cuts::absetaIn(1.52, 2.47) : Cuts::abseta < 2.5;
+      Cut eta_m = _mode? Cuts::abseta < 2.4 : Cuts::abseta < 2.5;
       ZFinder zfinder_el(FinalState(eta_e), pt20, PID::ELECTRON, 66*GeV, 116*GeV);
       ZFinder zfinder_mu(FinalState(eta_m), pt20, PID::MUON, 66*GeV, 116*GeV);
       declare(zfinder_el, "zfinder_el");

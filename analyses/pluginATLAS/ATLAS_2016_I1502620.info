@@ -1,4 +1,4 @@
-Name: ATLAS_2016_I1502620_Z
+Name: ATLAS_2016_I1502620
 Year: 2016
 Summary: W and Z inclusive cross sections at 7 TeV
 Experiment: ATLAS
@@ -21,6 +21,8 @@ Beams: [p+, p+]
 Energies: [7000]
 PtCuts: [20]
 NeedCrossSection: True
+Options:
+ - LMODE=EL,MU
 Description:
   'High-precision measurements by the ATLAS Collaboration are presented of inclusive $W^+\to\ell^+$, $W^-\to\ell^-$,
   $Z/\gamma^\ast\to\ell\ell$ ($\ell=e,\mu$) Drell-Yan production cross sections at the LHC. The data were collected
@@ -34,7 +36,7 @@ Description:
   functions, ATLAS-epWZ16, is obtained. The ratio of strange-to-light sea-quark densities in the proton is determined
   more accurately than in previous determinations based on collider data only, and is established to be close to unity in
   the sensitivity range of the data. A new measurement of the CKM matrix element $|V_{cs}|$ is also provided.
-  N.B.: Use ATLAS_2016_I1502620_Z_EL and ATLAS_2016_I1502620_Z_MU to specify the decay channel directly.'
+  N.B.: Use :LMODE to specify the decay channel directly.'
 BibKey: Aaboud:2016btc
 BibTeX: '@article{Aaboud:2016btc,
       author         = "Aaboud, Morad and others",
