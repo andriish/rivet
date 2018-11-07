@@ -48,6 +48,12 @@ cdef class AnalysisHandler:
     def finalize(self):
         self._ptr.finalize()
 
+    def dump(self, file, period):
+        self._ptr.dump(file, period)
+
+    def mergeYodas(self, filelist, equiv):
+        self._ptr.mergeYodas(filelist, equiv)
+
 
 cdef class Run:
     cdef c.Run *_ptr

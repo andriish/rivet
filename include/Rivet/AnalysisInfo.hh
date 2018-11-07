@@ -214,6 +214,12 @@ namespace Rivet {
     /// Return true if this analysis needs to know the process cross-section.
     void setNeedsCrossSection(bool needXsec) { _needsCrossSection = needXsec; }
 
+    /// Return true if finalize() can be run multiple times for this analysis.
+    bool reentrant() const { return _reentrant; }
+
+    /// setReentrant
+    void setReentrant(bool ree = true) { _reentrant = ree; }
+
     //@}
 
 
@@ -244,6 +250,8 @@ namespace Rivet {
     std::vector<std::string> _options;
     std::map< std::string, std::set<std::string> > _optionmap;
     
+    bool _reentrant;
+    
     void clear() {
       _name = "";
       _refDataName = "";
@@ -269,6 +277,7 @@ namespace Rivet {
       _needsCrossSection = false;
       _options.clear();
       _optionmap.clear();
+      _reentrant = false;
     }
 
   };

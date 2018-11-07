@@ -97,6 +97,10 @@ extragroup.add_option("--runname", dest="RUN_NAME", default=None, metavar="NAME"
 extragroup.add_option("--ignore-beams", dest="IGNORE_BEAMS", action="store_true", default=False,
                       help="ignore input event beams when checking analysis compatibility. "
                       "WARNING: analyses may not work correctly, or at all, with inappropriate beams")
+extragroup.add_option("-d", "--dump", dest="DUMP_PERIOD", type="int",
+                      default=None, metavar="NUM",
+                      help="run finalize() and write out the resulting yoda-file at regular intervals")
+
 parser.add_option_group(extragroup)
 
 
@@ -515,6 +519,8 @@ for a in opts.ANALYSES:
 if opts.PRELOADFILE is not None:
     ah.readData(opts.PRELOADFILE)
 
+if opts.DUMP_PERIOD:
+    ah.dump(opts.HISTOFILE, opts.DUMP_PERIOD)
 
 if opts.SHOW_BIBTEX:
     bibs = []

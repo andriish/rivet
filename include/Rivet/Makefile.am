@@ -65,6 +65,7 @@ nobase_pkginclude_HEADERS += \
   Projections/LossyFinalState.hh \
   Projections/MergedFinalState.hh \
   Projections/MissingMomentum.hh \
+  Projections/MixedFinalState.hh \
   Projections/NeutralFinalState.hh \
   Projections/NonHadronicFinalState.hh \
   Projections/NonPromptFinalState.hh \
@@ -102,6 +103,7 @@ nobase_pkginclude_HEADERS +=   \
 ## Analysis base class headers
 # TODO: Move to Rivet/AnalysisTools header dir?
 nobase_pkginclude_HEADERS += \
+  Analyses/MC_Cent_pPb.hh \
   Analyses/MC_ParticleAnalysis.hh \
   Analyses/MC_JetAnalysis.hh \
   Analyses/MC_JetSplittings.hh
@@ -110,6 +112,7 @@ nobase_pkginclude_HEADERS += \
 ## Tools
 nobase_pkginclude_HEADERS += \
   Tools/AliceCommon.hh \
+  Tools/AtlasCommon.hh \
   Tools/BeamConstraint.hh \
   Tools/BinnedHistogram.hh \
   Tools/CentralityBinner.hh \
@@ -126,6 +129,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleIdUtils.hh \
   Tools/ParticleUtils.hh \
   Tools/ParticleName.hh \
+  Tools/Percentile.hh \
   Tools/PrettyPrint.hh \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \

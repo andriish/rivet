@@ -134,7 +134,7 @@ def getHistos(filelist):
                 continue
 
             ## We don't plot data objects with path components hidden by an underscore prefix
-            if aop.istmp():
+            if aop.istmp() or aop.israw():
                 continue
 
             ## Add it to the ref or mc paths, if this path isn't already known
