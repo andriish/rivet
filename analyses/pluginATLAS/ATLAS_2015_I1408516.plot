@@ -217,3 +217,214 @@ LogX=0
 LegendYPos=0.95
 # END PLOT
 
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d0[2-9]..y04
+YLabel=$1/\sigma$ $\text{d}\sigma/\text{d}\phi^\ast_\eta$
+XLabel=$\phi^\ast_\eta$
+XMin=0.001
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d1[0-6]..y04
+YLabel=$1/\sigma$ $\text{d}\sigma/\text{d}\phi^\ast_\eta$
+XLabel=$\phi^\ast_\eta$
+XMin=0.001
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d02..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $46\,\text{GeV}\leq m_{\ell\ell} < 66\,\text{GeV}$, $|y_{\ell\ell}| < 0.8$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d03..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $46\,\text{GeV}\leq m_{\ell\ell} < 66\,\text{GeV}$, $0.8\leq |y_{\ell\ell}| < 1.6$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d04..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $46\,\text{GeV}\leq m_{\ell\ell} < 66\,\text{GeV}$, $1.6\leq |y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d05..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $|y_{\ell\ell}| < 0.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d06..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $0.4\leq |y_{\ell\ell}| < 0.8$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d07..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $0.8\leq |y_{\ell\ell}| < 1.2$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d08..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $1.2\leq |y_{\ell\ell}| < 1.6$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d09..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $1.6\leq |y_{\ell\ell}| < 2.0$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d10..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $2.0\leq |y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d11..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $116\,\text{GeV}\leq m_{\ell\ell} < 150\,\text{GeV}$, $|y_{\ell\ell}| < 0.8$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d12..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $116\,\text{GeV}\leq m_{\ell\ell} < 150\,\text{GeV}$, $0.8\leq |y_{\ell\ell}| < 1.6$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d13..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $116\,\text{GeV}\leq m_{\ell\ell} < 150\,\text{GeV}$, $1.6\leq |y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d14..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $46\,\text{GeV}\leq m_{\ell\ell} < 66\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d15..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d16..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $116\,\text{GeV}\leq m_{\ell\ell} < 150\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d17..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $|y_{\ell\ell}| < 0.4$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d18..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $0.4 \leq |y_{\ell\ell}| < 0.8$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d19..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $0.8 \leq |y_{\ell\ell}| < 1.2$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d20..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $1.2 \leq |y_{\ell\ell}| < 1.6$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d21..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $1.6 \leq |y_{\ell\ell}| < 2.0$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d22..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $2.0 \leq |y_{\ell\ell}| < 2.4$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d23..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $12\,\text{GeV}\leq m_{\ell\ell} < 20\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d24..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $20\,\text{GeV}\leq m_{\ell\ell} < 30\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d25..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $30\,\text{GeV}\leq m_{\ell\ell} < 46\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d26..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $46\,\text{GeV}\leq m_{\ell\ell} < 66\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d27..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d28..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $116\,\text{GeV}\leq m_{\ell\ell} < 150\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d29..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $|y_{\ell\ell}| < 0.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d30..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $0.4 \leq |y_{\ell\ell}| < 0.8$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d31..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $0.8 \leq |y_{\ell\ell}| < 1.2$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d32..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $1.2 \leq |y_{\ell\ell}| < 1.6$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d33..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $1.6 \leq |y_{\ell\ell}| < 2.0$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d34..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $2.0 \leq |y_{\ell\ell}| < 2.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d35..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $12\,\text{GeV}\leq m_{\ell\ell} < 20\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+RatioPlotYMax=3.0
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d36..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $20\,\text{GeV}\leq m_{\ell\ell} < 30\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+RatioPlotYMax=3.0
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d37..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $30\,\text{GeV}\leq m_{\ell\ell} < 46\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+RatioPlotYMax=3.0
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d38..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $46\,\text{GeV}\leq m_{\ell\ell} < 66\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d39..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $66\,\text{GeV}\leq m_{\ell\ell} < 116\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d40..y04
+Title=$Z\rightarrow \mu\mu$, dressed level, $116\,\text{GeV}\leq m_{\ell\ell} < 150\,\text{GeV}$, $|y_{\ell\ell}| < 2.4$
+YLabel=$\text{d}\sigma/\text{d} p_\text{T}^{\ell\ell}$ [pb GeV$^{-1}$]
+XMin=0.9
+# END PLOT
+
+# BEGIN PLOT /ATLAS_2015_I1408516/d41..y04
+Title=$Z\rightarrow \mu\mu$, dressed level
+XLabel=$m_{\ell\ell}$ [GeV]
+YLabel=$\sigma$ [pb]
+LogX=0
+LegendYPos=0.95
+# END PLOT
+
+

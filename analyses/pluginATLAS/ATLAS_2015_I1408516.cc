@@ -9,18 +9,19 @@ namespace Rivet {
   public:
 
     /// Constructor
-    ATLAS_2015_I1408516(const string name="ATLAS_2015_I1408516", size_t mode=0,
-                        const string ref_data="ATLAS_2015_I1408516") : Analysis(name) {
-      _mode = mode; // using electron channel for combined data
-      setRefDataName(ref_data);
-    }
-
+    DEFAULT_RIVET_ANALYSIS_CTOR(ATLAS_2015_I1408516);
+    //@}
 
     /// @name Analysis methods
     //@{
 
     /// Book histograms and initialise projections before the run
     void init() {
+
+      // Get options 
+      _mode = 0;
+      if ( getOption("LMODE") == "EL" ) _mode = 0;
+      if ( getOption("LMODE") == "MU" ) _mode = 1;
 
       // Configure projections
       FinalState fs;
@@ -31,7 +32,7 @@ namespace Rivet {
 
       // Book histograms
       const size_t offset = _mode ? 4 : 1;
-
+      
       _h["phistar_lo_00_08"] = bookHisto1D( 2, 1, offset);
       _h["phistar_lo_08_16"] = bookHisto1D( 3, 1, offset);
       _h["phistar_lo_16_24"] = bookHisto1D( 4, 1, offset);
@@ -227,20 +228,6 @@ namespace Rivet {
 
   };
 
-
-
-  class ATLAS_2015_I1408516_EL : public ATLAS_2015_I1408516 {
-  public:
-    ATLAS_2015_I1408516_EL() : ATLAS_2015_I1408516("ATLAS_2015_I1408516_EL", 0) { }
-  };
-
-  class ATLAS_2015_I1408516_MU : public ATLAS_2015_I1408516 {
-  public:
-    ATLAS_2015_I1408516_MU() : ATLAS_2015_I1408516("ATLAS_2015_I1408516_MU", 1) { }
-  };
-
-
   DECLARE_RIVET_PLUGIN(ATLAS_2015_I1408516);
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1408516_EL);
-  DECLARE_RIVET_PLUGIN(ATLAS_2015_I1408516_MU);
+
 }
