@@ -34,8 +34,8 @@ namespace Rivet {
 
       // Get options from the new option system
       _mode = 0;
-      if ( getOption("ZMODE") == "EL" ) _mode = 1;
-      if ( getOption("ZMODE") == "MU" ) _mode = 2;
+      if ( getOption("LMODE") == "EL" ) _mode = 1;
+      if ( getOption("LMODE") == "MU" ) _mode = 2;
 
       const FinalState fs;
 
@@ -97,14 +97,18 @@ namespace Rivet {
       // Check we have a Z candidate:
       const vector<DressedLepton>& muons = apply<DressedLeptons>(e, "muons").dressedLeptons();
       const vector<DressedLepton>& elecs = apply<DressedLeptons>(e, "elecs").dressedLeptons();
-      if (_mode == 0 &&  (elecs.size() + muons.size()) != 2)    vetoEvent;
-      if (_mode == 1 && !(elecs.size() == 2 && muons.empty()))  vetoEvent;
-      if (_mode == 2 && !(elecs.empty() && muons.size() == 2))  vetoEvent;
+
+      bool e_ok = elecs.size() == 2 && muons.empty();
+      bool m_ok = elecs.empty() && muons.size() == 2;
+      if (_mode == 0 && !e_ok && !m_ok) vetoEvent;
+      if (_mode == 1 && !e_ok )  vetoEvent;
+      if (_mode == 2 && !m_ok )  vetoEvent;
 
       string lep_type = elecs.size()? "el_" : "mu_";
-      const vector<DressedLepton>& leptons = elecs.size()? elecs : muons;
 
+      const vector<DressedLepton>& leptons = elecs.size()? elecs : muons;
       if (leptons[0].charge()*leptons[1].charge() > 0) vetoEvent;
+
       const double dilepton_mass = (leptons[0].momentum() + leptons[1].momentum()).mass();
       if (!inRange(dilepton_mass, 71*GeV, 111*GeV)) vetoEvent;
 

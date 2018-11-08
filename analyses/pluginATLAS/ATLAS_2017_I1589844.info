@@ -21,7 +21,7 @@ Beams: [p+, p+]
 Energies: [8000]
 PtCuts: [25, 25, 0.4]
 Options:
-- ZMODE=EL,MU
+- LMODE=EL,MU
 Description:
   'A measurement of the splitting scales occuring in the $k_\text{t}$ jet-clustering algorithm is presented for final states containing
   a $Z$ boson. The measurement is done using 20.2 fb$^{-1}$ of proton-proton collision data collected at a centre-of-mass energy of

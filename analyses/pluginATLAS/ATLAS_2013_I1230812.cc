@@ -85,9 +85,12 @@ namespace Rivet {
       const ZFinder& zfinder_el = apply<ZFinder>(event, "zfinder_el");
       const ZFinder& zfinder_mu = apply<ZFinder>(event, "zfinder_mu");
 
-      if (_mode == 0 &&  (zfinder_el.constituents().size() + zfinder_mu.constituents().size()) != 2)    vetoEvent;
-      if (_mode == 1 && !(zfinder_el.constituents().size() == 2 && zfinder_mu.constituents().empty()))  vetoEvent;
-      if (_mode == 2 && !(zfinder_el.constituents().empty() && zfinder_mu.constituents().size() == 2))  vetoEvent;
+      bool e_ok = zfinder_el.constituents().size() == 2 && zfinder_mu.constituents().size() ==0;
+      bool m_ok = zfinder_el.constituents().size() == 0 && zfinder_mu.constituents().size() ==2;
+
+      if (_mode == 0 &&  !e_ok && !m_ok ) vetoEvent;
+      if (_mode == 1 && !e_ok) vetoEvent;
+      if (_mode == 2 && !m_ok) vetoEvent;
 
       if (zfinder_el.constituents().size() == 2) {
         z = zfinder_el.boson().momentum();
