@@ -22,7 +22,7 @@ Energies: [7000]
 PtCuts: [20]
 NeedCrossSection: True
 Options:
- - LMODE=EL,MU
+ - LMODE=EL,MU,Z,W,ZEL,ZMU,WEL,WMU
 Description:
   'High-precision measurements by the ATLAS Collaboration are presented of inclusive $W^+\to\ell^+$, $W^-\to\ell^-$,
   $Z/\gamma^\ast\to\ell\ell$ ($\ell=e,\mu$) Drell-Yan production cross sections at the LHC. The data were collected
@@ -36,7 +36,10 @@ Description:
   functions, ATLAS-epWZ16, is obtained. The ratio of strange-to-light sea-quark densities in the proton is determined
   more accurately than in previous determinations based on collider data only, and is established to be close to unity in
   the sensitivity range of the data. A new measurement of the CKM matrix element $|V_{cs}|$ is also provided.
-  N.B.: Use :LMODE to specify the decay channel directly.'
+  N.B.: Use :LMODE to choose specify the signature decay channel directly. 
+        Default, run everything, assuming all decay modes are generated 
+        Contains Z (W): fill only Z (W) signature histgrams
+        Contains EL (MU): assume only electron (muon) decay modes are being generated.'
 BibKey: Aaboud:2016btc
 BibTeX: '@article{Aaboud:2016btc,
       author         = "Aaboud, Morad and others",
