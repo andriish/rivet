@@ -451,9 +451,9 @@ if __name__ == '__main__':
                             fullpath += "["+str(i)+"]"
                         hmc.setAnnotation('Path', fullpath)
                         ## Add object / path to appropriate lists
-                        if hmc.hasAnnotation("Title"):
-                            hmc.setAnnotation("Title", hmc.annotation("Title") +
-                                              rivet.extractOptionString(xpath))
+                        #if hmc.hasAnnotation("Title"):
+                        #    hmc.setAnnotation("Title", hmc.annotation("Title") +
+                        #                      rivet.extractOptionString(xpath))
                         anaobjects.append(hmc)
                         if iscanonical:
                             mainlines.append(fullpath)
