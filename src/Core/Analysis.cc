@@ -216,16 +216,18 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    Histo1DPtr hist;
+    Histo1DPtr hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
     try { // try to bind to pre-existing
+      if ( !getHisto1D(hname)->sameBinning(*hist) ) {
+        throw Exception("Histogram " + hname + " already exists with a different binning");
+      }
       // AnalysisObjectPtr ao = getAnalysisObject(path);
       // hist = dynamic_pointer_cast<Histo1D>(ao);
       hist = getHisto1D(hname);
       /// @todo Test that cast worked
       /// @todo Also test that binning is as expected?
       MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      hist = make_shared<Histo1D>(nbins, lower, upper, histoPath(hname), title);
+    } catch (LookupError) { // binding failed; make it from scratch 
       addAnalysisObject(hist);
       MSG_TRACE("Made histogram " << hname <<  " for " << name());
     }
@@ -241,16 +243,18 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    Histo1DPtr hist;
+    Histo1DPtr hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
     try { // try to bind to pre-existing
+      if ( !getHisto1D(hname)->sameBinning(*hist) ) {
+        throw Exception("Histogram " + hname + " already exists with a different binning");
+      }
       // AnalysisObjectPtr ao = getAnalysisObject(path);
       // hist = dynamic_pointer_cast<Histo1D>(ao);
       hist = getHisto1D(hname);
       /// @todo Test that cast worked
       /// @todo Also test that binning is as expected?
       MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      hist = make_shared<Histo1D>(binedges, histoPath(hname), title);
+    } catch (LookupError) { // binding failed; make it from scratch 
       addAnalysisObject(hist);
       MSG_TRACE("Made histogram " << hname <<  " for " << name());
     }
@@ -275,17 +279,18 @@ namespace Rivet {
                                    const string& title,
                                    const string& xtitle,
                                    const string& ytitle) {
-    Histo1DPtr hist;
+    Histo1DPtr hist = make_shared<Histo1D>(refscatter, histoPath(hname));
     try { // try to bind to pre-existing
+      if ( !getHisto1D(hname)->sameBinning(*hist) ) {
+        throw Exception("Histogram " + hname + " already exists with a different binning");
+      }
       // AnalysisObjectPtr ao = getAnalysisObject(path);
       // hist = dynamic_pointer_cast<Histo1D>(ao);
       hist = getHisto1D(hname);
       /// @todo Test that cast worked
       /// @todo Also test that binning is as expected?
       MSG_TRACE("Bound pre-existing histogram " << hname <<  " for " << name());
-    } catch (...) { // binding failed; make it from scratch
-      hist = make_shared<Histo1D>(refscatter, histoPath(hname));
-      if (hist->hasAnnotation("IsRef")) hist->rmAnnotation("IsRef");
+    } catch (LookupError) { // binding failed; make it from scratch 
       addAnalysisObject(hist);
       MSG_TRACE("Made histogram " << hname <<  " for " << name());
     }
