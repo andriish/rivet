@@ -24,7 +24,8 @@ namespace Rivet {
       //eek!
       throw Error("DISLepton projector could not find the correct beam.");
     }
-    const GenParticle* current_l=_incoming.genParticle();
+    
+    ConstGenParticlePtr current_l=_incoming.genParticle();
     bool found_next_vertex = true;
     while (found_next_vertex) {
         found_next_vertex = false;

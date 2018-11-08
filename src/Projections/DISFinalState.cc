@@ -18,7 +18,7 @@ namespace Rivet {
     // lepton, with momenta boosted into the appropriate frame.
     _theParticles.clear();
     _theParticles.reserve(fs.particles().size()-1);
-    const GenParticlePtr dislepGP = dislep.out().genParticle();
+    ConstGenParticlePtr dislepGP = dislep.out().genParticle();
     // const GenParticlePtr dislepIN = dislep.in().genParticle();
 
     for (const Particle& p : fs.particles()) { ///< Ensure that we skip the DIS lepton

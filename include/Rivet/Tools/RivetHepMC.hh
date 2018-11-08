@@ -27,6 +27,7 @@ namespace Rivet {
 
   #if HEPMC_VERSION_CODE >= 3000000
   using HepMC::GenParticlePtr;
+  using HepMC::ConstGenParticlePtr;
   using HepMC::GenVertexPtr;
   #elif HEPMC_VERSION_CODE >= 2007000
   // HepMC 2.07 provides its own #defines
@@ -66,6 +67,7 @@ namespace Rivet {
   /// @name Accessors from GenVertex
   //@{
 
+  /// @todo are these really necessary? Why not call GenVertex::particles_[in, out] directly?
   inline const vector<GenParticlePtr>& particles_in(const GenVertexPtr& gv) { return gv->particles_in(); }
   // inline vector<GenParticlePtr>& particles_in(GenVertexPtr& gv) { return gv->particles_in(); }
 

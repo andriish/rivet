@@ -33,19 +33,23 @@ namespace Rivet {
 
 
   vector<Particle> Particle::ancestors(const Cut& c, bool physical_only) const {
+    
+    /// @todo: use HepMC FindParticles when it actually works properly for const objects
+    //HepMC::FindParticles searcher(genParticle(), HepMC::ANCESTORS, HepMC::STATUS==1);
+    
     vector<Particle> rtn;
-    /// @todo Remove this const mess crap when HepMC doesn't suck
-    GenVertexPtr gv = const_cast<GenVertexPtr>( genParticle()->production_vertex() );
+    HepMC::ConstGenVertexPtr gv = genParticle()->production_vertex();
     if (gv == NULL) return rtn;
-    /// @todo Would like to do this, but the range objects are broken
-    // foreach (const GenParticlePtr gp, gv->particles(HepMC::children))
-    //   rtn += Particle(gp);
-    for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::ancestors); it != gv->particles_end(HepMC::ancestors); ++it) {
-      if (physical_only && (*it)->status() != 1 && (*it)->status() != 2) continue;
-      const Particle p(*it);
-      if (c != Cuts::OPEN && !c->accept(p)) continue;
+    
+    vector<HepMC::GenParticlePtr> ancestors = genParticle()->ancestors();
+    
+    for(const auto &a: ancestors){
+      if(physical_only && a->status() != 1 && a->status() != 2) continue;
+      const Particle p(a);
+      if(c != Cuts::OPEN && !c->accept(p)) continue;
       rtn += p;
     }
+
     return rtn;
   }
 

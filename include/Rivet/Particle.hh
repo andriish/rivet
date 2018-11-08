@@ -25,7 +25,7 @@ namespace Rivet {
     /// @note A particle without info is useless. This only exists to keep STL containers happy.
     Particle()
       : ParticleBase(),
-        _original(nullptr), _id(PID::ANY)
+        _original((GenParticle*) nullptr), _id(PID::ANY)
     { }
 
     /// Constructor without GenParticle.
@@ -35,12 +35,12 @@ namespace Rivet {
     { }
 
     /// Constructor from a HepMC GenParticle pointer.
-    Particle(const GenParticle* gp)
+    Particle(ConstGenParticlePtr gp)
       : ParticleBase(),
         _original(gp), _id(gp->pdg_id()),
         _momentum(gp->momentum())
     {
-      const GenVertex* vprod = gp->production_vertex();
+      const GenVertexPtr vprod = gp->production_vertex();
       if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
       }
@@ -52,7 +52,7 @@ namespace Rivet {
         _original(&gp), _id(gp.pdg_id()),
         _momentum(gp.momentum())
     {
-      const GenVertex* vprod = gp.production_vertex();
+      const GenVertexPtr vprod = gp.production_vertex();
       if (vprod != nullptr) {
         setOrigin(vprod->position().t(), vprod->position().x(), vprod->position().y(), vprod->position().z());
       }
@@ -74,12 +74,12 @@ namespace Rivet {
 
 
     /// Get a const pointer to the original GenParticle.
-    const GenParticle* genParticle() const {
+    ConstGenParticlePtr genParticle() const {
       return _original;
     }
 
     /// Cast operator for conversion to GenParticle*
-    operator const GenParticle* () const { return genParticle(); }
+    operator ConstGenParticlePtr () const { return genParticle(); }
 
     //@}
 
@@ -272,8 +272,7 @@ namespace Rivet {
     Particles ancestors(const ParticleSelector& f, bool only_physical=true) const {
       return filter_select(ancestors(Cuts::OPEN, only_physical), f);
     }
-    bool hasParentWith(const Cut& c) const;
-
+    
     /// Check whether any particle in the particle's ancestor list has the requested property
     ///
     /// @note This question is valid in MC, but may not be answerable
@@ -570,7 +569,7 @@ namespace Rivet {
   protected:
 
     /// A pointer to the original GenParticle from which this Particle is projected.
-    const GenParticle* _original;
+    ConstGenParticlePtr _original;
 
     /// The PDG ID code for this Particle.
     PdgId _id;
