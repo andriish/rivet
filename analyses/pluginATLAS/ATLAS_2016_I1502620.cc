@@ -22,9 +22,28 @@ namespace Rivet {
     void init() {
 
       // Get options from the new option system
+      // run everything
       _mode = 0;
-      if ( getOption("LMODE") == "EL" ) _mode = 1;
-      if ( getOption("LMODE") == "MU" ) _mode = 2;
+      _runZ = true;
+      _runW = true;
+      if ( getOption("LMODE") == "EL" || 
+	   getOption("LMODE") == "ZEL" ||
+	   getOption("LMODE") == "WEL" ) 
+	_mode = 1;
+      if ( getOption("LMODE") == "MU" || 
+	   getOption("LMODE") == "ZMU" ||
+	   getOption("LMODE") == "WMU" ) 
+	_mode = 2;
+      if ( getOption("LMODE") == "Z" || 
+	   getOption("LMODE") == "ZEL" || 
+	   getOption("LMODE") == "ZMU" ) 
+	_runW = false;
+      if ( getOption("LMODE") == "W" || 
+	   getOption("LMODE") == "WEL" || 
+	   getOption("LMODE") == "WMU" ) 
+	_runZ = false;
+
+
 
 
       ///Initialise and register projections here
@@ -48,17 +67,20 @@ namespace Rivet {
       declare(zfinderm, "ZFinderm");
 
 
-      /// Book histograms here
-      _h_Wp_eta = bookHisto1D(   9, 1, 1);
-      _h_Wm_eta = bookHisto1D(  10, 1, 1);
-      _h_W_asym = bookScatter2D(35, 1, 1);
+      /// Book histograms here      
+      if (_runW) {
+	_h_Wp_eta = bookHisto1D(   9, 1, 1);
+	_h_Wm_eta = bookHisto1D(  10, 1, 1);
+	_h_W_asym = bookScatter2D(35, 1, 1);
+      }
 
-      _h_Zcenlow_y_dressed   = bookHisto1D(11, 1, 1);
-      _h_Zcenpeak_y_dressed  = bookHisto1D(12, 1, 1);
-      _h_Zcenhigh_y_dressed  = bookHisto1D(13, 1, 1);
-      _h_Zfwdpeak_y_dressed  = bookHisto1D(14, 1, 1);
-      _h_Zfwdhigh_y_dressed  = bookHisto1D(15, 1, 1);
-
+      if (_runZ) {
+	_h_Zcenlow_y_dressed   = bookHisto1D(11, 1, 1);
+	_h_Zcenpeak_y_dressed  = bookHisto1D(12, 1, 1);
+	_h_Zcenhigh_y_dressed  = bookHisto1D(13, 1, 1);
+	_h_Zfwdpeak_y_dressed  = bookHisto1D(14, 1, 1);
+	_h_Zfwdhigh_y_dressed  = bookHisto1D(15, 1, 1);
+      }
     }
 
     /// Perform the per-event analysis
@@ -68,7 +90,7 @@ namespace Rivet {
       const WFinder& wfindere = apply<WFinder>(event, "WFinder_edressed");	     
       const WFinder& wfinderm = apply<WFinder>(event, "WFinder_mdressed");	     
       
-      if (wfindere.bosons().size()+wfinderm.bosons().size() == 1) {
+      if (wfindere.bosons().size()+wfinderm.bosons().size() == 1 && _runW) {
 
         const double weight = event.weight();
 
@@ -90,7 +112,7 @@ namespace Rivet {
       
 
       // must be one and only one candidate.
-      if (zfindere.bosons().size()+zfinderm.bosons().size() == 1) {
+      if (zfindere.bosons().size()+zfinderm.bosons().size() == 1 && _runZ) {
 
 	const double weight = event.weight();
 	
@@ -136,23 +158,24 @@ namespace Rivet {
 
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta)
       //divide(*_h_Wp_eta - *_h_Wm_eta, *_h_Wp_eta + *_h_Wm_eta, _h_W_asym);
-      for (size_t i = 0; i < _h_Wp_eta->numBins(); ++i) {
-        YODA::HistoBin1D& bp = _h_Wp_eta->bin(i);
-        YODA::HistoBin1D& bm = _h_Wm_eta->bin(i);
-        const double sum  = bp.height() + bm.height();
-        //const double xerr = 0.5 * bp.xWidth();
-        double val = 0., yerr = 0.;
+      if (_runW) {
+	for (size_t i = 0; i < _h_Wp_eta->numBins(); ++i) {
+	  YODA::HistoBin1D& bp = _h_Wp_eta->bin(i);
+	  YODA::HistoBin1D& bm = _h_Wm_eta->bin(i);
+	  const double sum  = bp.height() + bm.height();
+	  //const double xerr = 0.5 * bp.xWidth();
+	  double val = 0., yerr = 0.;
 
-        if (sum) {
-          const double pos2  = bp.height() * bp.height();
-          const double min2  = bm.height() * bm.height();
-          const double errp2 = bp.heightErr() * bp.heightErr();
-          const double errm2 = bm.heightErr() * bm.heightErr();
-          val = (bp.height() - bm.height()) / sum;
-          yerr = 2. * sqrt(errm2 * pos2 + errp2 * min2) / (sum * sum);
-        }
-
-        _h_W_asym->addPoint(bp.midpoint(), val, 0.5*bp.xWidth(), yerr);
+	  if (sum) {
+	    const double pos2  = bp.height() * bp.height();
+	    const double min2  = bm.height() * bm.height();
+	    const double errp2 = bp.heightErr() * bp.heightErr();
+	    const double errm2 = bm.heightErr() * bm.heightErr();
+	    val = (bp.height() - bm.height()) / sum;
+	    yerr = 2. * sqrt(errm2 * pos2 + errp2 * min2) / (sum * sum);
+	  }
+	  _h_W_asym->addPoint(bp.midpoint(), val, 0.5*bp.xWidth(), yerr);
+	}
       }
 
       // Print summary info
@@ -169,16 +192,18 @@ namespace Rivet {
       if (_mode == 0) lfac = 0.5;
       const double sf = lfac * 0.5 * xs_pb / sumw; // 0.5 accounts for rapidity bin width
 
+      if (_runW){
+	scale(_h_Wp_eta, sf);
+	scale(_h_Wm_eta, sf);
+      }
 
-      scale(_h_Wp_eta, sf);
-      scale(_h_Wm_eta, sf);
-
-      scale(_h_Zcenlow_y_dressed, sf);
-      scale(_h_Zcenpeak_y_dressed, sf);
-      scale(_h_Zcenhigh_y_dressed, sf);
-      scale(_h_Zfwdpeak_y_dressed, sf);
-      scale(_h_Zfwdhigh_y_dressed, sf);
-
+      if (_runZ){
+	scale(_h_Zcenlow_y_dressed, sf);
+	scale(_h_Zcenpeak_y_dressed, sf);
+	scale(_h_Zcenhigh_y_dressed, sf);
+	scale(_h_Zfwdpeak_y_dressed, sf);
+	scale(_h_Zfwdhigh_y_dressed, sf);
+      }
     }
 
     //@}
@@ -186,6 +211,7 @@ namespace Rivet {
 
   protected:
     size_t _mode;
+    bool _runZ, _runW;
 
   private:
 
