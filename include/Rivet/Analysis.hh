@@ -1007,7 +1007,7 @@ namespace Rivet {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
       }
-      throw Exception("Data object " + histoPath(name) + " not found");
+      throw LookupError("Data object " + histoPath(name) + " not found");
     }
 
     /// Get a data object from the histogram system (non-const)
@@ -1016,7 +1016,7 @@ namespace Rivet {
       foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
         if (ao->path() == histoPath(name)) return dynamic_pointer_cast<AO>(ao);
       }
-      throw Exception("Data object " + histoPath(name) + " not found");
+      throw LookupError("Data object " + histoPath(name) + " not found");
     }
 
     /// Unregister a data object from the histogram system (by name)
