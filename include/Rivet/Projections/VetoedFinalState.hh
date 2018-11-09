@@ -74,32 +74,32 @@ namespace Rivet {
 
     /// Add a particle ID and \f$ p_T \f$ range to veto. Particles with \f$ p_T \f$
     /// IN the given range will be rejected.
-    VetoedFinalState& addVetoDetail(const long id, const double ptmin, const double ptmax) {
+    VetoedFinalState& addVetoDetail(const long pid, const double ptmin, const double ptmax) {
       BinaryCut ptrange(ptmin, ptmax);
-      _vetoCodes.insert(make_pair(id, ptrange));
+      _vetoCodes.insert(make_pair(pid, ptrange));
       return *this;
     }
 
     /// Add a particle/antiparticle pair to veto in a given \f$ p_T \f$ range. Given a single ID, both
     /// the particle and its conjugate antiparticle will be rejected if their \f$ p_T \f$ is IN the given range.
-    VetoedFinalState& addVetoPairDetail(const long id, const double ptmin, const double ptmax) {
-      addVetoDetail(id,  ptmin, ptmax);
-      addVetoDetail(-id, ptmin, ptmax);
+    VetoedFinalState& addVetoPairDetail(const long pid, const double ptmin, const double ptmax) {
+      addVetoDetail(pid,  ptmin, ptmax);
+      addVetoDetail(-pid, ptmin, ptmax);
       return *this;
     }
 
     /// Add a particle/antiparticle pair to veto. Given a single ID, both the particle and its corresponding
     /// antiparticle (for all \f$ p_T \f$ values) will be vetoed.
-    VetoedFinalState& addVetoPairId(const long id) {
-      addVetoId(id);
-      addVetoId(-id);
+    VetoedFinalState& addVetoPairId(const long pid) {
+      addVetoId(pid);
+      addVetoId(-pid);
       return *this;
     }
 
     /// Add a particle ID to veto (all \f$ p_T \f$ range will be vetoed).
-    VetoedFinalState& addVetoId(const long id) {
+    VetoedFinalState& addVetoId(const long pid) {
       BinaryCut ptrange(0.0, numeric_limits<double>::max());
-      _vetoCodes.insert(make_pair(id, ptrange));
+      _vetoCodes.insert(make_pair(pid, ptrange));
       return *this;
     }
 
@@ -126,13 +126,13 @@ namespace Rivet {
     /// @todo Need HepMC to sort themselves out and keep vector bosons from
     /// the hard vtx in the event record before this will work reliably for all pdg ids
     VetoedFinalState& addDecayProductsVeto(PdgId pid) {
-      _parentVetoes.insert(id);
+      _parentVetoes.insert(pid);
       return *this;
     }
 
     /// Set the list of particle IDs and \f$ p_T \f$ ranges to veto.
-    VetoedFinalState& setVetoDetails(const VetoDetails& ids) {
-      _vetoCodes = ids;
+    VetoedFinalState& setVetoDetails(const VetoDetails& pids) {
+      _vetoCodes = pids;
       return *this;
     }
 
