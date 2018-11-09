@@ -1,3 +1,7 @@
+2018-11-09  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Remove doc dir from default top-level make
+
 2018-09-20  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Use updated ATLAS R2 muon efficiencies.
