@@ -4,6 +4,7 @@ noinst_LTLIBRARIES = libRivetTools.la
 
 libRivetTools_la_SOURCES = \
   BinnedHistogram.cc \
+  Correlators.cc \
   Cuts.cc \
   JetUtils.cc \
   Random.cc \

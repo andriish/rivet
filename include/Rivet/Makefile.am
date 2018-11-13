@@ -118,6 +118,7 @@ nobase_pkginclude_HEADERS += \
   Tools/CentralityBinner.hh \
   Tools/Cmp.fhh \
   Tools/Cmp.hh \
+  Tools/Correlators.hh \
   Tools/Cutflow.hh \
   Tools/Cuts.fhh \
   Tools/Cuts.hh \

@@ -392,11 +392,9 @@ namespace Rivet {
       MSG_DEBUG("Done initialising analysis: " << a->name());
     }
     _initialised = true;
-
     // Get a list of all anaysis objects to handle.
     map<string,AnalysisObjectPtr> current;
     for ( auto ao : getData(false, true) ) current[ao->path()] = ao;
-
     // Go through all objects to be merged and add them to current
     // after appropriate scaling.
     for ( int i = 0, N = aosv.size(); i < N; ++i)
@@ -411,7 +409,6 @@ namespace Rivet {
           MSG_WARNING("Cannot merge objects with path " << ao->path()
                       <<" of type " << ao->annotation("Type") );
       }
-
     // Now we can simply finalize() the analysis, leaving the
     // controlling program to write it out some yoda-file.
     finalize();
