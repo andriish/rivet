@@ -1180,63 +1180,63 @@ namespace Rivet {
   //@{
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourMomentum& a, const FourMomentum& b) {
-    return deltaPhi(a.vector3(), b.vector3());
+  inline double deltaPhi(const FourMomentum& a, const FourMomentum& b, bool sign=false) {
+    return deltaPhi(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourMomentum& v, double phi2) {
-    return deltaPhi(v.vector3(), phi2);
+  inline double deltaPhi(const FourMomentum& v, double phi2, bool sign=false) {
+    return deltaPhi(v.vector3(), phi2, sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(double phi1, const FourMomentum& v) {
-    return deltaPhi(phi1, v.vector3());
+  inline double deltaPhi(double phi1, const FourMomentum& v, bool sign=false) {
+    return deltaPhi(phi1, v.vector3(), sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourVector& a, const FourVector& b) {
-    return deltaPhi(a.vector3(), b.vector3());
+  inline double deltaPhi(const FourVector& a, const FourVector& b, bool sign=false) {
+    return deltaPhi(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourVector& v, double phi2) {
-    return deltaPhi(v.vector3(), phi2);
+  inline double deltaPhi(const FourVector& v, double phi2, bool sign=false) {
+    return deltaPhi(v.vector3(), phi2, sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(double phi1, const FourVector& v) {
-    return deltaPhi(phi1, v.vector3());
+  inline double deltaPhi(double phi1, const FourVector& v, bool sign=false) {
+    return deltaPhi(phi1, v.vector3(), sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourVector& a, const FourMomentum& b) {
-    return deltaPhi(a.vector3(), b.vector3());
+  inline double deltaPhi(const FourVector& a, const FourMomentum& b, bool sign=false) {
+    return deltaPhi(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourMomentum& a, const FourVector& b) {
-    return deltaPhi(a.vector3(), b.vector3());
+  inline double deltaPhi(const FourMomentum& a, const FourVector& b, bool sign=false) {
+    return deltaPhi(a.vector3(), b.vector3(), sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourVector& a, const Vector3& b) {
-    return deltaPhi(a.vector3(), b);
+  inline double deltaPhi(const FourVector& a, const Vector3& b, bool sign=false) {
+    return deltaPhi(a.vector3(), b, sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const Vector3& a, const FourVector& b) {
-    return deltaPhi(a, b.vector3());
+  inline double deltaPhi(const Vector3& a, const FourVector& b, bool sign=false) {
+    return deltaPhi(a, b.vector3(), sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const FourMomentum& a, const Vector3& b) {
-    return deltaPhi(a.vector3(), b);
+  inline double deltaPhi(const FourMomentum& a, const Vector3& b, bool sign=false) {
+    return deltaPhi(a.vector3(), b, sign);
   }
 
   /// Calculate the difference in azimuthal angle between two vectors.
-  inline double deltaPhi(const Vector3& a, const FourMomentum& b) {
-    return deltaPhi(a, b.vector3());
+  inline double deltaPhi(const Vector3& a, const FourMomentum& b, bool sign=false) {
+    return deltaPhi(a, b.vector3(), sign);
   }
 
   //@}

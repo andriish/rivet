@@ -1,3 +1,11 @@
+2018-11-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add signed calculation optional bool argument on all deltaPhi functions.
+
+2018-11-12  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Fix CMS_2012_I1102908 efficiency calculation. Thanks to Anton Karneyeu!
+
 2018-11-09  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Remove doc dir from default top-level make
