@@ -305,6 +305,7 @@ if __name__ == '__main__':
     ## Split the input file names and the associated plotting options
     ## given on the command line into two separate lists
     filelist, plotoptions = parseArgs(args)
+
     ## Remove the PLOT dummy file from the file list
     if "PLOT" in filelist:
         filelist.remove("PLOT")

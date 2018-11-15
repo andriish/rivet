@@ -47,6 +47,7 @@ pat_begin_block = re.compile(r'^#+\s*BEGIN ([A-Z0-9_]+) ?(\S+)?')
 pat_end_block =   re.compile('^#+\s*END ([A-Z0-9_]+)')
 pat_comment = re.compile('^#|^\s*$')
 pat_property = re.compile('^(\w+?)=(.*)$')
+pat_property_opt = re.compile('^ReplaceOption\[(\w+=\w+)\]=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
 pat_options = re.compile(r"^.*(:\w+=[^:/]+)+")
 
@@ -499,14 +500,14 @@ class InputData(Described):
             elif is_comment(line):
                 continue
             m = pat_property.match(line)
-            if m:
+            m_opt = pat_property_opt.match(line)
+            if m_opt:
+                opt_old, opt_new = m_opt.group(1,2)
+                self.description['_OptSubs'][opt_old.strip()] = opt_new.strip()
+            elif m:
                 prop, value = m.group(1,2)
                 prop = prop.strip()
                 value = value.strip()
-                if prop == 'ReplaceOption':
-                  opt, subst = value.split(" ", 1)
-                  self.description['_OptSubs'][opt] = subst
-                  continue
                 if prop in self.description:
                     logging.debug("Overwriting property %s = %s -> %s" % (prop, self.description[prop], value))
                 ## Use strip here to deal with DOS newlines containing \r
@@ -1362,10 +1363,10 @@ class Legend(Described):
             title = drawobject.getTitle()
             opt = extractOptionString(drawobject.path)
             if opt and not self.description.get("RemoveOptions", 0):
-              if opt in self.description['_OptSubs']:
-                title += ' %s' % self.description['_OptSubs'][opt]
-              else:
-                title += ' [%s]' % opt
+                if opt in self.description['_OptSubs']:
+                  title += ' %s' % self.description['_OptSubs'][opt]
+                else:
+                  title += ' [%s]' % opt
             if title == '':
                 continue
             else:
