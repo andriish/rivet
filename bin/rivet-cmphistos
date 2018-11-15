@@ -382,7 +382,10 @@ if __name__ == '__main__':
         #     plot[key] = val
         if "PLOT" in plotoptions:
             for key_val in plotoptions["PLOT"]:
-                key, val = [s.strip() for s in key_val.split("=",1)]
+                key, val = [s.strip() for s in key_val.split("=", 1)]
+                if 'ReplaceOption' in key_val:
+                    opt_group = key_val.split("=", 2)
+                    key, val = "=".join(opt_group[:2]), opt_group[2]
                 plot[key] = val
         if opts.LINEAR:
             plot['LogY'] = '0'
