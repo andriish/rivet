@@ -1,5 +1,7 @@
 2018-11-15  Andy Buckley  <andy.buckley@cern.ch>
 
+	* Merge ATLAS_2017_I1517194_MU and ATLAS_2018_I1656578.
+
 	* Add signed calculation optional bool argument on all deltaPhi functions.
 
 2018-11-12  Andy Buckley  <andy.buckley@cern.ch>
