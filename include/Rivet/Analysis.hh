@@ -54,7 +54,6 @@ namespace Rivet {
     /// The AnalysisHandler is a friend.
     friend class AnalysisHandler;
 
-
   public:
 
     /// @name Standard constructors and destructors.
