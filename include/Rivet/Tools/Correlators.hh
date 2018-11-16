@@ -633,7 +633,7 @@ namespace Rivet {
         double xeMin = fabs(xMid - binx[i]);
         double xeMax = fabs(xMid - binx[i + 1]);
         double yVal = func(i);
-        if (isnan(yVal)) yVal = 0.;
+        if (std::isnan(yVal)) yVal = 0.;
         double yErr = 0;
         points.push_back(YODA::Point2D(xMid, yVal, xeMin, xeMax, yErr, yErr));
         }
@@ -660,7 +660,7 @@ namespace Rivet {
         double xeMin = fabs(xMid - binx[i]);
         double xeMax = fabs(xMid - binx[i + 1]);
         double yVal = func(i);
-        if (isnan(yVal))
+        if (std::isnan(yVal))
           points.push_back(YODA::Point2D(xMid, 0., xeMin, xeMax,0., 0.));
 	else
           points.push_back(YODA::Point2D(xMid, yVal, xeMin, xeMax,
@@ -693,14 +693,14 @@ namespace Rivet {
       double eFac = pow(k,1./n)/n;
       for (auto b : hIn->points()) {
         double yVal = pow(k * b.y(),n);
-        if (isnan(yVal))
+        if (std::isnan(yVal))
           points.push_back(YODA::Point2D(b.x(), 0., b.xErrMinus(),
 	    b.xErrPlus(), 0, 0 ));
 	else {
 	  double yemin = abs(eFac * pow(yVal,1./(n - 1.))) * b.yErrMinus();
-	  if (isnan(yemin)) yemin = b.yErrMinus();
+	  if (std::isnan(yemin)) yemin = b.yErrMinus();
 	  double yemax = abs(eFac * pow(yVal,1./(n - 1.))) * b.yErrPlus();
-	  if (isnan(yemax)) yemax = b.yErrPlus();
+	  if (std::isnan(yemax)) yemax = b.yErrPlus();
 	  points.push_back(YODA::Point2D(b.x(), yVal, b.xErrMinus(), 
 	    b.xErrPlus(), yemin, yemax ));
 	}  
@@ -727,14 +727,14 @@ namespace Rivet {
       double eFac = pow(k,1./n)/n;
       for (auto b : pIn) {
         double yVal =  pow(k * b.y(),n);
-        if (isnan(yVal))
+        if (std::isnan(yVal))
           points.push_back(YODA::Point2D(b.x(), 0., b.xErrMinus(), 
 	    b.xErrPlus(), 0, 0 ));
 	else {
 	  double yemin = abs(eFac * pow(yVal,1./(n - 1.))) * b.yErrMinus();
-	  if (isnan(yemin)) yemin = b.yErrMinus();
+	  if (std::isnan(yemin)) yemin = b.yErrMinus();
 	  double yemax = abs(eFac * pow(yVal,1./(n - 1.))) * b.yErrPlus();
-	  if (isnan(yemax)) yemax = b.yErrPlus();
+	  if (std::isnan(yemax)) yemax = b.yErrPlus();
 	  points.push_back(YODA::Point2D(b.x(), yVal, b.xErrMinus(), 
 	    b.xErrPlus(), yemin, yemax ));
 	}  
