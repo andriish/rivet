@@ -49,7 +49,7 @@ pat_comment = re.compile('^#|^\s*$')
 pat_property = re.compile('^(\w+?)=(.*)$')
 pat_property_opt = re.compile('^ReplaceOption\[(\w+=\w+)\]=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
-pat_options = re.compile(r"^.*(:\w+=[^:/]+)+")
+pat_options = re.compile(r"((?::\w+=[^:/]+)+)")
 
 
 def fuzzyeq(a, b, tolerance=1e-6):
@@ -1361,12 +1361,14 @@ class Legend(Described):
             else:
                 continue
             title = drawobject.getTitle()
-            opt = extractOptionString(drawobject.path)
-            if opt and not self.description.get("RemoveOptions", 0):
-                if opt in self.description['_OptSubs']:
-                  title += ' %s' % self.description['_OptSubs'][opt]
-                else:
-                  title += ' [%s]' % opt
+            mopts = pat_options.search(drawobject.path)
+            if mopts and not self.description.get("RemoveOptions", 0):
+                opts = list(mopts.groups())[0].lstrip(':').split(":")
+                for i in range(len(opts)):
+                    if opts[i] in self.description['_OptSubs']:
+                        title += ' %s' % self.description['_OptSubs'][opts[i]]
+                    else:
+                        title += ' [%s]' % opts[i]
             if title == '':
                 continue
             else:
