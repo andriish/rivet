@@ -236,6 +236,7 @@ namespace Rivet {
   /// @brief Base class for correlator bins.
   class CorBinBase {
   public:
+    virtual ~CorBinBase() = 0;
     // Derived class should have fill and mean defined.
     virtual void fill(const pair<double, double>& cor, const double& weight) = 0;
     virtual const double mean() const = 0;
@@ -250,7 +251,8 @@ namespace Rivet {
   public:
     /// @brief The default constructor.
     CorSingleBin() : _sumWX(0.), _sumW(0.), _sumW2(0.), _numEntries(0.) {}
-
+    
+    ~CorSingleBin() {}
     /// @brief Fill a correlator bin with the return type from a 
     /// Correlator (a pair giving numerator and denominator of <M>_event).
     void fill(const pair<double, double>& cor, const double& weight) {
@@ -305,6 +307,7 @@ namespace Rivet {
       for(size_t i = 0; i < nBins; ++i) bins.push_back(CorSingleBin()); 
     }
 
+    ~CorBin() {}
     // @brief Fill the correct underlying bin and take a step.
     void fill(const pair<double, double>& cor, const double& weight) {
       // Test if denominator for the single event average is zero.
