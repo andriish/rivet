@@ -1350,7 +1350,7 @@ class Legend(Described):
             mopts = pat_options.search(drawobject.path)
             if mopts and not self.description.get("RemoveOptions", 0):
                 opts = list(mopts.groups())[0].lstrip(':').split(":")
-                for opt in opts):
+                for opt in opts:
                     if opt in self.description['_OptSubs']:
                         title += ' %s' % self.description['_OptSubs'][opt]
                     else:
