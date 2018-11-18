@@ -48,7 +48,7 @@ pat_end_block =   re.compile('^#+\s*END ([A-Z0-9_]+)')
 pat_comment = re.compile('^#|^\s*$')
 pat_property = re.compile('^(\w+?)=(.*)$')
 pat_path_property  = re.compile('^(\S+?)::(\w+?)=(.*)$')
-pat_options = re.compile(r"^.*(:\w+=[^:/]+)+")
+pat_options = re.compile(r"((?::\w+=[^:/]+)+)")
 
 def fuzzyeq(a, b, tolerance=1e-6):
     "Fuzzy equality comparison function for floats, with given fractional tolerance"
@@ -94,21 +94,6 @@ def checkColor(line):
       # e.g. '1,2,3'
       line = '{rgb,255:red,%s;green,%s;blue,%s}' % tuple(composition.split(','))
     return line
-
-
-def stripOptions(path):
-    return re.sub(r':\w+=[^:/]+', "", path)
-
-
-def extractOptionString(path):
-    m = pat_options.match(path)
-    if not m:
-        return ""
-    opts = list(m.groups())
-    for i in range(len(opts)):
-        opts[i] = opts[i].strip(':')
-    return ",".join(opts)
-
 
 
 class Described(object):
@@ -480,14 +465,14 @@ class InputData(Described):
             elif is_comment(line):
                 continue
             m = pat_property.match(line)
-            if m:
+            m_opt = pat_property_opt.match(line)
+            if m_opt:
+                opt_old, opt_new = m_opt.group(1,2)
+                self.props['_OptSubs'][opt_old.strip()] = opt_new.strip()
+            elif m:
                 prop, value = m.group(1,2)
                 prop = prop.strip()
                 value = value.strip()
-                if prop == 'ReplaceOption':
-                  opt, subst = value.split(" ", 1)
-                  self.props['_OptSubs'][opt] = subst
-                  continue
                 if prop in self.props:
                     logging.debug("Overwriting property %s = %s -> %s" % (prop, self.props[prop], value))
                 ## Use strip here to deal with DOS newlines containing \r
@@ -1362,12 +1347,14 @@ class Legend(Described):
             else:
                 continue
             title = drawobject.getTitle()
-            opt = extractOptionString(drawobject.path)
-            if opt and not self.props.get("RemoveOptions", 0):
-              if opt in self.props['_OptSubs']:
-                title += ' %s' % self.props['_OptSubs'][opt]
-              else:
-                title += ' [%s]' % opt
+            mopts = pat_options.search(drawobject.path)
+            if mopts and not self.props.get("RemoveOptions", 0):
+                opts = list(mopts.groups())[0].lstrip(':').split(":")
+                for opt in opts:
+                    if opt in self.props['_OptSubs']:
+                        title += ' %s' % self.props['_OptSubs'][opt]
+                    else:
+                        title += ' [%s]' % opt
             if title == '':
                 continue
             else:
