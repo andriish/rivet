@@ -336,6 +336,10 @@ namespace Rivet {
             sow = dynamic_pointer_cast<Counter>(ao);
           else {
             string ananame = split(ao->path(), "/")[0];
+            // HERE we shoud handle merged options, if any.
+            // vector<string> anaopts = split(ananame, ":");
+            // ananame = anaopts[0];
+            // for (int i = 1, N = anaopts.size(); i < N; ++i )
             if ( ananames.insert(ananame).second ) addAnalysis(ananame);
             aos.push_back(ao);
           }
@@ -348,6 +352,7 @@ namespace Rivet {
         xsecs.push_back(xsec->point(0).x());
         xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
         _eventcounter += *sow;
+        sows.push_back(sow);
         aosv.push_back(aos);
       } catch (...) { //< YODA::ReadError&
         throw UserError("Unexpected error in reading file: " + file);
