@@ -1,4 +1,4 @@
-SUBDIRS = Nsubjettiness
+SUBDIRS = fjcontrib
 
 noinst_LTLIBRARIES = libRivetTools.la
 
