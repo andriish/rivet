@@ -311,7 +311,8 @@ namespace Rivet {
     vector<double> xsecerrs;
     vector<CounterPtr> sows;
     set<string> ananames;
-
+     _eventcounter.reset();
+ 
     // First scan all files and extract analysis objects and add the
     // corresponding anayses..
     for ( auto file : aofiles ) {
@@ -321,7 +322,6 @@ namespace Rivet {
       // For each file make sure that cross section and sum-of-weights
       // objects are present and stor all RAW ones in a vector;
       vector<AnalysisObjectPtr> aos;
-      _eventcounter.reset();
       try {
         /// @todo Use new YODA SFINAE to fill the smart ptr vector directly
         vector<YODA::AnalysisObject*> aos_raw;
@@ -351,7 +351,15 @@ namespace Rivet {
         }
         xsecs.push_back(xsec->point(0).x());
         xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
+        std::cerr << _eventcounter.numEntries() << std::endl;
+        std::cerr << _eventcounter.effNumEntries() << std::endl;
+        std::cerr << _eventcounter.sumW() << std::endl;
+        std::cerr << _eventcounter.sumW2() << std::endl;
         _eventcounter += *sow;
+        std::cerr << _eventcounter.numEntries() << std::endl;
+        std::cerr << _eventcounter.effNumEntries() << std::endl;
+        std::cerr << _eventcounter.sumW() << std::endl;
+        std::cerr << _eventcounter.sumW2() << std::endl;
         sows.push_back(sow);
         aosv.push_back(aos);
       } catch (...) { //< YODA::ReadError&
