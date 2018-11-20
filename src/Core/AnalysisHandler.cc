@@ -304,8 +304,23 @@ namespace Rivet {
     }
   }
 
+  void AnalysisHandler::stripOptions(AnalysisObjectPtr ao,
+                                     const vector<string> & delopts) const {
+    string path = ao->path();
+    string ananame = split(path, "/")[0];
+    vector<string> anaopts = split(ananame, ":");
+    for ( int i = 1, N = anaopts.size(); i < N; ++i )
+      for ( auto opt : delopts )
+        if ( opt == "*" || anaopts[i].find(opt + "=") == 0 )
+          path.replace(path.find(":" + anaopts[i]), (":" + anaopts[i]).length(), "");
+    ao->setPath(path);
+  }
+   
+
+
+
   void AnalysisHandler::
-  mergeYodas(const vector<string> & aofiles, bool equiv) {
+  mergeYodas(const vector<string> & aofiles, const vector<string> & delopts, bool equiv) {
     vector< vector<AnalysisObjectPtr> > aosv;
     vector<double> xsecs;
     vector<double> xsecerrs;
@@ -335,11 +350,8 @@ namespace Rivet {
           else if ( ao->path() == "/_EVTCOUNT" )
             sow = dynamic_pointer_cast<Counter>(ao);
           else {
+            stripOptions(ao, delopts);
             string ananame = split(ao->path(), "/")[0];
-            // HERE we shoud handle merged options, if any.
-            // vector<string> anaopts = split(ananame, ":");
-            // ananame = anaopts[0];
-            // for (int i = 1, N = anaopts.size(); i < N; ++i )
             if ( ananames.insert(ananame).second ) addAnalysis(ananame);
             aos.push_back(ao);
           }
@@ -351,15 +363,7 @@ namespace Rivet {
         }
         xsecs.push_back(xsec->point(0).x());
         xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
-        std::cerr << _eventcounter.numEntries() << std::endl;
-        std::cerr << _eventcounter.effNumEntries() << std::endl;
-        std::cerr << _eventcounter.sumW() << std::endl;
-        std::cerr << _eventcounter.sumW2() << std::endl;
         _eventcounter += *sow;
-        std::cerr << _eventcounter.numEntries() << std::endl;
-        std::cerr << _eventcounter.effNumEntries() << std::endl;
-        std::cerr << _eventcounter.sumW() << std::endl;
-        std::cerr << _eventcounter.sumW2() << std::endl;
         sows.push_back(sow);
         aosv.push_back(aos);
       } catch (...) { //< YODA::ReadError&
@@ -395,6 +399,7 @@ namespace Rivet {
       try {
         // Allow projection registration in the init phase onwards
         a->_allowProjReg = true;
+        cerr << "sqrtS " << sqrtS() << endl;
         a->init();
         //MSG_DEBUG("Checking consistency of analysis: " << a->name());
         //a->checkConsistency();

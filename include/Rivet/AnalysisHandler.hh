@@ -237,8 +237,16 @@ namespace Rivet {
     /// analyses will be loaded and their analysis objects will be
     /// filled with the merged result. finalize() will be run on each
     /// relevant anslysis. The resulting YODA file can then be rwitten
-    /// out by writeData().
-    void  mergeYodas(const vector<string> & aofiles, bool equiv = false);
+    /// out by writeData(). If delopts is non-empty, it is assumed to
+    /// contain names different options to be merged into the same
+    /// analysis objects.
+    void mergeYodas(const vector<string> & aofiles,
+                    const vector<string> & delopts = vector<string>(),
+                    bool equiv = false);
+
+    /// Helper function to strip specific options from data object paths.
+    void stripOptions(AnalysisObjectPtr ao,
+                      const vector<string> & delopts) const;
 
     //@}
 

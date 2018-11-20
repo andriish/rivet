@@ -289,6 +289,11 @@ namespace Rivet {
     /// Centre of mass energy for this run
     double sqrtS() const;
 
+    /// Check if we are running rivet-merge.
+    bool merging() const {
+      return sqrtS() <= 0.0;
+    }
+
     //@}
 
 
@@ -753,27 +758,10 @@ namespace Rivet {
         const string axisCode = makeAxisCode(std::get<0>(ref[iCent]),
                                              std::get<1>(ref[iCent]),
                                              std::get<2>(ref[iCent])); 
-        shared_ptr<T> ao;
-        CounterPtr cnt;
-        try {
-          ao = getAnalysisObject<T>(axisCode);
-          MSG_TRACE("Found old " << histoPath(axisCode));
-        }
-        catch (Exception) {
-          const RefT & refscatter = refData<RefT>(axisCode);
-          ao = make_shared<T>(refscatter, histoPath(axisCode));
-          addAnalysisObject(ao);
-          MSG_TRACE("Created new " << histoPath(axisCode));
-        }
-        try {
-          cnt = getAnalysisObject<Counter>("TMP/COUNTER/" + axisCode);
-          MSG_TRACE("Found old " << histoPath("TMP/COUNTER/" + axisCode));
-        }
-        catch (Exception) {
-          cnt = make_shared<Counter>(histoPath("TMP/COUNTER/" + axisCode));
-          addAnalysisObject(cnt);
-          MSG_TRACE("Created new " << histoPath("TMP/COUNTER/" + axisCode));
-        }
+	const RefT & refscatter = refData<RefT>(axisCode);
+        shared_ptr<T> ao = addOrGetCompatAO(make_shared<T>(refscatter, histoPath(axisCode)));
+        CounterPtr cnt =
+          addOrGetCompatAO(make_shared<Counter>(histoPath("TMP/COUNTER/" + axisCode)));
         pctl.add(ao, cnt, centralityBins[iCent]);
       }
       return pctl;
@@ -794,16 +782,8 @@ namespace Rivet {
       const string axisCode = makeAxisCode(std::get<0>(ref),
                                            std::get<1>(ref),
                                            std::get<2>(ref)); 
-      shared_ptr<T> ao;
-      CounterPtr cnt;
-      try {
-        ao = getAnalysisObject<T>(histoPath(axisCode));
-      }
-      catch (Exception) {
-	const RefT & refscatter = refData<RefT>(axisCode);
-        ao = make_shared<T>(refscatter, axisCode);
-        addAnalysisObject(ao);
-      }
+      const RefT & refscatter = refData<RefT>(axisCode);
+      shared_ptr<T> ao = addOrGetCompatAO(make_shared<T>(refscatter, histoPath(axisCode)));
       pctl.add(proj, ao, make_shared<Counter>());
 
       return pctl;
@@ -999,6 +979,33 @@ namespace Rivet {
 
     /// Register a data object in the histogram system
     void addAnalysisObject(AnalysisObjectPtr ao);
+
+    /// Register a data object in the system and return its pointer,
+    /// or, if an object of the same path is already there, check if it
+    /// is compatible (eg. same type and same binning) and return that
+    /// object instead. Emits a warning if an incompatible object with
+    /// the same name is found and replcaces that with the given data
+    /// object.
+    template <typename AO=YODA::AnalysisObject>
+    std::shared_ptr<AO> addOrGetCompatAO(std::shared_ptr<AO> aonew) {
+      foreach (const AnalysisObjectPtr& ao, analysisObjects()) {
+        if ( ao->path() == aonew->path() ) {
+           std::shared_ptr<AO> aoold = dynamic_pointer_cast<AO>(ao);
+           if ( aoold && bookingCompatible(aonew, aoold) ) {
+             MSG_TRACE("Bound pre-existing data object " << aonew->path()
+                       <<  " for " << name());
+             return aoold;
+           } else {
+             MSG_WARNING("Found incompatible pre-existing data object with same path " 
+                         << aonew->path() <<  " for " << name());
+           }
+        }
+      }
+      MSG_TRACE("Registered " << aonew->annotation("Type") << " " << aonew->path()
+                <<  " for " << name());
+      addAnalysisObject(aonew);
+      return aonew;
+    }
 
     /// Get a data object from the histogram system
     template <typename AO=YODA::AnalysisObject>
