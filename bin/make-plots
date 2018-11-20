@@ -1226,23 +1226,22 @@ class RatioPlot(Plot):
                            customminorticks=xcustomminorticks,
                            drawlabels=drawlabels)
 
-
-        ycustommajortickmarks = inputdata.attr('YMajorTickMarks', '')
+        ycustommajortickmarks = inputdata.attr(self.name + 'YMajorTickMarks', '')
         ycustommajortickmarks = int(ycustommajortickmarks) if ycustommajortickmarks else -1
 
-        ycustomminortickmarks = inputdata.attr('YMinorTickMarks', '')
+        ycustomminortickmarks = inputdata.attr(self.name + 'YMinorTickMarks', '')
         ycustomminortickmarks = int(ycustomminortickmarks) if ycustomminortickmarks else -1
 
         ycustommajorticks = []
-        if 'YCustomMajorTicks' in inputdata.description:
-            tickstr = inputdata.description['YCustomMajorTicks'].strip().split() #'\t')
+        if self.name + 'YCustomMajorTicks' in inputdata.description:
+            tickstr = inputdata.description[self.name + 'YCustomMajorTicks'].strip().split() #'\t')
             if not len(tickstr) % 2:
                 for i in range(0, len(tickstr), 2):
                     ycustommajorticks.append({'Value': float(tickstr[i]), 'Label': tickstr[i+1]})
 
         ycustomminorticks = []
-        if 'YCustomMinorTicks' in inputdata.description:
-            tickstr = inputdata.description['YCustomMinorTicks'].strip().split() #'\t')
+        if self.name + 'YCustomMinorTicks' in inputdata.description:
+            tickstr = inputdata.description[self.name + 'YCustomMinorTicks'].strip().split() #'\t')
             for i in range(len(tickstr)):
                 ycustomminorticks.append({'Value': float(tickstr[i])})
 
