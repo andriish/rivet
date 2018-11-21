@@ -135,13 +135,19 @@ else
 fi;
 AC_MSG_NOTICE([FastJet LIBADD = $FASTJETCONFIGLIBADD])
 AC_SUBST(FASTJETCONFIGLIBADD)
-# Check for FastJet headers that require the --enable-all(cxx)plugins option
+
+## Check for FastJet headers that require the --enable-all(cxx)plugins option
 FASTJET_ERRMSG="Required FastJet plugin headers were not found: did you build FastJet with the --enable-allcxxplugins option?"
 oldCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS -I$FASTJETINCPATH"
 AC_CHECK_HEADER([fastjet/D0RunIIConePlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 AC_CHECK_HEADER([fastjet/TrackJetPlugin.hh], [], [AC_MSG_ERROR([$FASTJET_ERRMSG])])
 CPPFLAGS=$oldCPPFLAGS
+
+## FastJet contrib
+# TODO: Check for fjcontrib? Otherwise use a bundled version?
+## Temporary (until 2.7 or 3.0) symlink fix-up of bundled fjcontrib Nsubjettiness header path
+(cd include/Rivet/Tools/ && $LN_S fjcontrib Nsubjettiness)
 
 
 # ## GNU Scientific Library

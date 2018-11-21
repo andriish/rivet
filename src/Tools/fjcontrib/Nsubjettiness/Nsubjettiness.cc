@@ -4,7 +4,7 @@
 //  Copyright (c) 2011-14
 //  Jesse Thaler, Ken Van Tilburg, Christopher K. Vermilion, and TJ Wilkason
 //
-//  $Id: XConePlugin.cc 745 2014-08-26 23:51:48Z jthaler $
+//  $Id: Nsubjettiness.cc 821 2015-06-15 18:50:53Z jthaler $
 //----------------------------------------------------------------------
 // This file is part of FastJet contrib.
 //
@@ -22,25 +22,37 @@
 // along with this code. If not, see <http://www.gnu.org/licenses/>.
 //----------------------------------------------------------------------
 
-#include "XConePlugin.hh"
+#include "Nsubjettiness.hh"
 
-namespace Rivet {      
+namespace Rivet {
+namespace fjcontrib {
 
-namespace Nsubjettiness{
+namespace Nsubjettiness {
 
-std::string XConePlugin::description() const {
-   std::stringstream stream;
-   stream << "XCone Jet Algorithm with N = " << _N << std::fixed << std::setprecision(2) << ", Rcut = " << _R0 << ", beta = " << _beta;
-   return stream.str();
+using namespace fastjet;
+
+LimitedWarning Nsubjettiness::_old_constructor_warning;
+
+
+//result returns tau_N with normalization dependent on what is specified in constructor
+double Nsubjettiness::result(const PseudoJet& jet) const {
+   std::vector<fastjet::PseudoJet> particles = jet.constituents();
+   return _njettinessFinder.getTau(_N, particles);
 }
 
-std::string PseudoXConePlugin::description() const {
-   std::stringstream stream;
-   stream
-   << "PseudoXCone Jet Algorithm with N = " << _N << std::fixed << std::setprecision(2) << ", Rcut = " << _R0 << ", beta = " << _beta;
-   return stream.str();
+TauComponents Nsubjettiness::component_result(const PseudoJet& jet) const {
+   std::vector<fastjet::PseudoJet> particles = jet.constituents();
+   return _njettinessFinder.getTauComponents(_N, particles);
 }
-   
+
+//ratio result uses Nsubjettiness result to find the ratio tau_N/tau_M, where N and M are specified by user
+double NsubjettinessRatio::result(const PseudoJet& jet) const {
+   double numerator = _nsub_numerator.result(jet);
+   double denominator = _nsub_denominator.result(jet);
+   return numerator/denominator;
+}
+
 } // namespace Nsubjettiness
 
+}
 }

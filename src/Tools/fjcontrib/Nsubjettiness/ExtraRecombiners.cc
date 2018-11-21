@@ -24,17 +24,18 @@
 
 #include "ExtraRecombiners.hh"
 
-namespace Rivet {      
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness{
-  
+
 std::string GeneralEtSchemeRecombiner::description() const {
    return "General Et-scheme recombination";
 }
 
 // recombine pa and pb according to a generalized Et-scheme parameterized by the power delta
 void GeneralEtSchemeRecombiner::recombine(const fastjet::PseudoJet & pa, const fastjet::PseudoJet & pb, fastjet::PseudoJet & pab) const {
-   
+
    // Define new weights for recombination according to delta
    // definition of ratio done so that we do not encounter issues about numbers being too large for huge values of delta
    double ratio;
@@ -42,19 +43,19 @@ void GeneralEtSchemeRecombiner::recombine(const fastjet::PseudoJet & pa, const f
    else ratio = pow(pb.perp()/pa.perp(), _delta);
    double weighta = 1.0/(1.0 + ratio);
    double weightb = 1.0/(1.0 + 1.0/ratio);
-   
+
    double perp_ab = pa.perp() + pb.perp();
    // reweight the phi and rap sums according to the weights above
    if (perp_ab != 0.0) {
       double y_ab = (weighta * pa.rap() + weightb * pb.rap());
-      
+
       double phi_a = pa.phi(), phi_b = pb.phi();
       if (phi_a - phi_b > pi)  phi_b += twopi;
       if (phi_a - phi_b < -pi) phi_b -= twopi;
       double phi_ab = (weighta * phi_a + weightb * phi_b);
-      
+
       pab.reset_PtYPhiM(perp_ab, y_ab, phi_ab);
-      
+
    }
    else {
       pab.reset(0.0,0.0,0.0,0.0);
@@ -68,11 +69,11 @@ std::string WinnerTakeAllRecombiner::description() const {
 
 // recombine pa and pb by creating pab with energy of the sum of particle energies in the direction of the harder particle
 // updated recombiner to use more general form of a metric equal to E*(pT/E)^(alpha), which reduces to pT*cosh(rap)^(1-alpha)
-// alpha is specified by the user. The default is alpha = 1, which is the typical behavior. alpha = 2 provides a metric which more 
+// alpha is specified by the user. The default is alpha = 1, which is the typical behavior. alpha = 2 provides a metric which more
 // favors central jets
 void WinnerTakeAllRecombiner::recombine(const fastjet::PseudoJet & pa, const fastjet::PseudoJet & pb, fastjet::PseudoJet & pab) const {
    double a_pt = pa.perp(), b_pt = pb.perp(), a_rap = pa.rap(), b_rap = pb.rap();
-   
+
    // special case of alpha = 1, everything is just pt (made separate so that pow function isn't called)
    if (_alpha == 1.0) {
       if (a_pt >= b_pt) {
@@ -100,4 +101,5 @@ void WinnerTakeAllRecombiner::recombine(const fastjet::PseudoJet & pa, const fas
 
 } //namespace Nsubjettiness
 
+}
 }

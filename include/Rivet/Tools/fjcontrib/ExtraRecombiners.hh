@@ -36,7 +36,8 @@
 #include <string.h>
 #include <errno.h>
 
-namespace Rivet {      
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
 
@@ -56,13 +57,13 @@ public:
    /// Constructor takes delta weighting
    /// (delta = 1.0 for Et-scheme, delta = infinity for winner-take-all scheme)
    GeneralEtSchemeRecombiner(double delta) : _delta(delta) {}
-  
+
    /// Description
    virtual std::string description() const;
-  
+
    /// Recombine pa and pb and put result into pab
    virtual void recombine(const fastjet::PseudoJet & pa,
-                         const fastjet::PseudoJet & pb, 
+                         const fastjet::PseudoJet & pb,
                          fastjet::PseudoJet & pab) const;
 
 private:
@@ -80,13 +81,13 @@ private:
 ///------------------------------------------------------------------------
 class WinnerTakeAllRecombiner : public fastjet::JetDefinition::Recombiner {
 public:
-   
+
 	/// Constructor to choose value of alpha (defaulted to 1 for normal pT sum)
    WinnerTakeAllRecombiner(double alpha = 1.0) : _alpha(alpha) {}
 
    /// Description
    virtual std::string description() const;
-   
+
    /// recombine pa and pb and put result into pab
    virtual void recombine(const fastjet::PseudoJet & pa,
                           const fastjet::PseudoJet & pb,
@@ -98,6 +99,7 @@ private:
 
 } //namespace Nsubjettiness
 
+}
 }
 
 #endif  // __FASTJET_CONTRIB_WINNERTAKEALLRECOMBINER_HH__

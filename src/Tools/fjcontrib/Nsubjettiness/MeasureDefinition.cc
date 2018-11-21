@@ -30,6 +30,7 @@
 
 
 namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
 
@@ -625,4 +626,5 @@ fastjet::PseudoJet LightLikeAxis::ConvertToPseudoJet() {
 
 } //namespace Nsubjettiness
 
+}
 }

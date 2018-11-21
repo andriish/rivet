@@ -24,14 +24,16 @@
 // along with this code. If not, see <http://www.gnu.org/licenses/>.
 //----------------------------------------------------------------------
 
-#include "EnergyCorrelator.hh"
+#include "fjcontrib/EnergyCorrelator.hh"
 #include <sstream>
 #include <limits>
 using namespace std;
 
-FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+namespace Rivet {
+// FASTJET_BEGIN_NAMESPACE      // defined in fastjet/internal/base.hh
+  namespace fjcontrib {
+    using namespace fastjet;
 
-namespace contrib {
 
     double EnergyCorrelator::result(const PseudoJet& jet) const {
 
@@ -1086,6 +1088,6 @@ namespace contrib {
     }
 
 
-} // namespace contrib
-
-FASTJET_END_NAMESPACE
+} // namespace fjcontrib
+  //FASTJET_END_NAMESPACE
+} // namespace Rivet

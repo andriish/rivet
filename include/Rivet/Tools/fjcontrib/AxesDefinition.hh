@@ -37,10 +37,11 @@
 #include <vector>
 #include <list>
 
-namespace Rivet {      
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
-   
+
 // The following AxesDefinitions are currently available (and the relevant arguments, if needed)
 class KT_Axes;
 class CA_Axes;
@@ -51,7 +52,7 @@ class GenKT_Axes;          // (p, R0 = infinity)
 class WTA_GenKT_Axes;      // (p, R0 = infinity)
 class GenET_GenKT_Axes;    // (delta, p, R0 = infinity)
 class Manual_Axes;
-   
+
 class OnePass_KT_Axes;
 class OnePass_CA_Axes;
 class OnePass_AntiKT_Axes;       // (R0)
@@ -61,7 +62,7 @@ class OnePass_GenKT_Axes;        // (p, R0 = infinity)
 class OnePass_WTA_GenKT_Axes;    // (p, R0 = infinity)
 class OnePass_GenET_GenKT_Axes;  // (delta, p, R0 = infinity)
 class OnePass_Manual_Axes;
-   
+
 class MultiPass_Axes;            // (NPass) (currently only defined for KT_Axes)
 class MultiPass_Manual_Axes;     // (NPass)
 
@@ -85,27 +86,27 @@ class Comb_GenET_GenKT_Axes;     // (nExtra, delta, p, R0 = infinity)
 /// The AxesDefinitions are typically based on sequential jet algorithms.
 ///------------------------------------------------------------------------
 class AxesDefinition {
-   
+
 public:
-   
+
    /// This function should be overloaded in all derived classes, and defines how to find the seed axes.
    /// If desired, the measure information (which might be NULL) can be used to test multiple axes choices, but should
    /// not be used for iterative refining (since that is the job of MeasureDefinition).
    virtual std::vector<fastjet::PseudoJet> get_starting_axes(int n_jets,
                                                              const std::vector<fastjet::PseudoJet>& inputs,
                                                              const MeasureDefinition * measure) const = 0;
-   
+
    /// Short description of AxesDefinitions (and any parameters)
    virtual std::string short_description() const = 0;
 
    /// Long description of AxesDefinitions (and any parameters)
    virtual std::string description() const = 0;
-   
+
    /// This has to be defined in all derived classes, and allows these to be copied around.
    virtual AxesDefinition* create() const = 0;
-   
+
 public:
-   
+
    /// Starting from seeds, refine axes using one or more passes.
    /// Note that in order to do >0 passes, we need information from the MeasureDefinition about how to do the appropriate minimization.
    std::vector<fastjet::PseudoJet> get_refined_axes(int n_jets,
@@ -114,13 +115,13 @@ public:
                                                     const MeasureDefinition * measure = NULL) const {
 
       assert(n_jets == (int)seedAxes.size()); //added int casting to get rid of compiler warning
-            
+
       if (_Npass == 0) {
          // no refining, just use seeds
          return seedAxes;
       } else if (_Npass == 1) {
          if (measure == NULL) throw Error("AxesDefinition:  One-pass minimization requires specifying a MeasureDefinition.");
-         
+
          // do one pass minimum using measure definition
          return measure->get_one_pass_axes(n_jets, inputs, seedAxes,_nAttempts,_accuracy);
       } else {
@@ -128,7 +129,7 @@ public:
          return get_multi_pass_axes(n_jets, inputs, seedAxes, measure);
       }
    }
-   
+
    /// Combines get_starting_axes with get_refined_axes.
    /// In the Njettiness class, these two steps are done separately in order to store seed axes information.
    std::vector<fastjet::PseudoJet> get_axes(int n_jets,
@@ -138,14 +139,14 @@ public:
       return get_refined_axes(n_jets,inputs,seedAxes,measure);
    }
 
-   
+
    /// Short-hand for the get_axes function.  Useful when trying to write terse code.
    inline std::vector<fastjet::PseudoJet> operator() (int n_jets,
                                                const std::vector<fastjet::PseudoJet>& inputs,
                                                const MeasureDefinition * measure = NULL) const {
       return get_axes(n_jets,inputs,measure);
    }
-   
+
    /// \enum AxesRefiningEnum
    /// Defines the cases of zero pass and one pass for convenience
    enum AxesRefiningEnum {
@@ -154,7 +155,7 @@ public:
       ONE_PASS = 1,
       MULTI_PASS = 100,
    };
-   
+
    /// A integer that is used externally to decide how to do multi-pass minimization
    int nPass() const { return _Npass; }
 
@@ -162,12 +163,12 @@ public:
    bool givesRandomizedResults() const {
       return (_Npass > 1);
    }
-   
+
    /// A flag that indicates whether manual axes are being used.
    bool needsManualAxes() const {
       return _needsManualAxes; // if there is no starting axes finder
    }
-   
+
    /// Allows user to change number of passes.  Also used internally to set nPass.
    /// Can also specify details of one/multi pass minimziation
    void setNPass(int nPass,
@@ -182,12 +183,12 @@ public:
       _noise_range = noise_range;
       if (nPass < 0) throw Error("AxesDefinition requires a nPass >= 0");
    }
-   
+
    /// Destructor
    virtual ~AxesDefinition() {};
-   
+
 protected:
-   
+
    /// Default constructor contains no information.  Number of passes has to be set
    /// manually by derived classes using setNPass function.
    AxesDefinition() : _Npass(UNDEFINED_REFINE),
@@ -201,17 +202,17 @@ protected:
                                                        const std::vector<fastjet::PseudoJet>& inputs,
                                                        const std::vector<fastjet::PseudoJet>& seedAxes,
                                                        const MeasureDefinition* measure) const;
-   
+
    /// Function to jiggle axes within _noise_range
    PseudoJet jiggle(const PseudoJet& axis) const;
-   
+
    int _Npass;            ///< Number of passes (0 = no refining, 1 = one-pass, >1 multi-pass)
    int _nAttempts;        ///< Number of attempts per pass
    double _accuracy;      ///< Accuracy goal per pass
    double _noise_range;   ///< Noise in rapidity/phi (for multi-pass minimization only)
    bool _needsManualAxes; ///< Flag to indicate special case of manual axes
 };
-  
+
 ///------------------------------------------------------------------------
 /// \class ExclusiveJetAxes
 /// \brief Base class for axes defined from exclusive jet algorithm
@@ -221,35 +222,35 @@ protected:
 /// using their favorite fastjet::JetDefinition
 ///------------------------------------------------------------------------
 class ExclusiveJetAxes : public AxesDefinition {
-   
+
 public:
    /// Constructor takes JetDefinition as an argument
    ExclusiveJetAxes(fastjet::JetDefinition def)
    : AxesDefinition(), _def(def) {
       setNPass(NO_REFINING);    // default to no minimization
    }
-   
+
    /// Starting axes obtained by creating a cluster sequenence and running exclusive_jets.
    virtual std::vector<fastjet::PseudoJet> get_starting_axes(int n_jets,
                                                              const std::vector <fastjet::PseudoJet> & inputs,
                                                              const MeasureDefinition * ) const {
       fastjet::ClusterSequence jet_clust_seq(inputs, _def);
-      
+
       std::vector<fastjet::PseudoJet> axes = jet_clust_seq.exclusive_jets_up_to(n_jets);
-      
+
       if ((int)axes.size() < n_jets) {
          _too_few_axes_warning.warn("ExclusiveJetAxes::get_starting_axes:  Fewer than N axes found; results are unpredictable.");
          axes.resize(n_jets);  // resize to make sure there are enough axes to not yield an error elsewhere
       }
-      
+
       return axes;
    }
-   
+
    /// Short description
    virtual std::string short_description() const { return "ExclAxes";}
    /// Long description
    virtual std::string description() const { return "ExclAxes: " + _def.description();}
-   
+
    /// To make it possible to copy around.
    virtual ExclusiveJetAxes* create() const {return new ExclusiveJetAxes(*this);}
 
@@ -268,7 +269,7 @@ private:
 /// winner-take-all-style recombination schemes
 ///------------------------------------------------------------------------
 class ExclusiveCombinatorialJetAxes : public AxesDefinition {
-   
+
 public:
    /// Constructor takes JetDefinition and nExtra as options (nExtra=0 acts the same as ExclusiveJetAxes)
    ExclusiveCombinatorialJetAxes(fastjet::JetDefinition def, int nExtra = 0)
@@ -276,50 +277,50 @@ public:
       if (nExtra < 0) throw Error("Need nExtra >= 0");
       setNPass(NO_REFINING);   // default to no minimization
    }
-   
+
     /// Find n_jets + _nExtra axes, and then choose the n_jets subset with the smallest N-(sub)jettiness value.
-    virtual std::vector<fastjet::PseudoJet> get_starting_axes(int n_jets, 
+    virtual std::vector<fastjet::PseudoJet> get_starting_axes(int n_jets,
                                                            const std::vector<fastjet::PseudoJet> & inputs,
                                                            const MeasureDefinition *measure) const {
       int starting_number = n_jets + _nExtra;
       fastjet::ClusterSequence jet_clust_seq(inputs, _def);
       std::vector<fastjet::PseudoJet> starting_axes = jet_clust_seq.exclusive_jets_up_to(starting_number);
-       
+
        if ((int)starting_axes.size() < n_jets) {
           _too_few_axes_warning.warn("ExclusiveCombinatorialJetAxes::get_starting_axes:  Fewer than N + nExtra axes found; results are unpredictable.");
           starting_axes.resize(n_jets);  // resize to make sure there are enough axes to not yield an error elsewhere
        }
-       
+
       std::vector<fastjet::PseudoJet> final_axes;
 
       // check so that no computation time is wasted if there are no extra axes
       if (_nExtra == 0) final_axes = starting_axes;
 
       else {
- 
+
         // define string of 1's based on number of desired jets
         std::string bitmask(n_jets, 1);
         // expand the array size to the total number of jets with extra 0's at the end, makes string easy to permute
-        bitmask.resize(starting_number, 0); 
- 
+        bitmask.resize(starting_number, 0);
+
         double min_tau = std::numeric_limits<double>::max();
         std::vector<fastjet::PseudoJet> temp_axes;
-         
+
         do {
 
           temp_axes.clear();
- 
+
           // only take an axis if it is listed as true (1) in the string
           for (int i = 0; i < (int)starting_axes.size(); ++i) {
             if (bitmask[i]) temp_axes.push_back(starting_axes[i]);
           }
- 
+
           double temp_tau = measure->result(inputs, temp_axes);
           if (temp_tau < min_tau) {
             min_tau = temp_tau;
             final_axes = temp_axes;
           }
- 
+
           // permutes string of 1's and 0's according to next lexicographic ordering and returns true
           // continues to loop through all possible lexicographic orderings
           // returns false and breaks the loop when there are no more possible orderings
@@ -341,7 +342,7 @@ private:
    int _nExtra;                   ///< Extra axes to find
    static LimitedWarning _too_few_axes_warning;
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class HardestJetAxes
 /// \brief Base class for axes defined from an inclusive jet algorithm
@@ -356,36 +357,36 @@ public:
    : AxesDefinition(), _def(def) {
       setNPass(NO_REFINING);    // default to no minimization
    }
-   
+
    /// Finds seed axes by running a ClusterSequence, running inclusive_jets, and finding the N hardest
    virtual std::vector<fastjet::PseudoJet> get_starting_axes(int n_jets,
                                                              const std::vector <fastjet::PseudoJet> & inputs,
                                                              const MeasureDefinition * ) const {
       fastjet::ClusterSequence jet_clust_seq(inputs, _def);
       std::vector<fastjet::PseudoJet> axes = sorted_by_pt(jet_clust_seq.inclusive_jets());
-      
+
       if ((int)axes.size() < n_jets) {
          _too_few_axes_warning.warn("HardestJetAxes::get_starting_axes:  Fewer than N axes found; results are unpredictable.");
       }
-      
+
       axes.resize(n_jets);  // only keep n hardest
       return axes;
    }
-   
+
    /// Short description
    virtual std::string short_description() const { return "HardAxes";}
    /// Long description
    virtual std::string description() const { return "HardAxes: " + _def.description();}
    /// To make it possible to copy around.
    virtual HardestJetAxes* create() const {return new HardestJetAxes(*this);}
-   
+
 private:
    fastjet::JetDefinition _def;  ///< Jet Definition to use.
-   
+
    static LimitedWarning _too_few_axes_warning;
 
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class KT_Axes
 /// \brief Axes from exclusive kT
@@ -408,7 +409,7 @@ public:
    virtual std::string short_description() const {
       return "KT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -416,7 +417,7 @@ public:
       << "KT Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual KT_Axes* create() const {return new KT_Axes(*this);}
 
@@ -444,7 +445,7 @@ public:
    virtual std::string short_description() const {
       return "CA";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -452,13 +453,13 @@ public:
       << "CA Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual CA_Axes* create() const {return new CA_Axes(*this);}
-   
+
 };
 
-   
+
 ///------------------------------------------------------------------------
 /// \class AntiKT_Axes
 /// \brief Axes from inclusive anti-kT
@@ -486,7 +487,7 @@ public:
       << "AKT" << _R0;
       return stream.str();
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -494,10 +495,10 @@ public:
       << "Anti-KT Axes (R0 = " << _R0 << ")";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual AntiKT_Axes* create() const {return new AntiKT_Axes(*this);}
-   
+
 protected:
    double _R0;  ///<  AKT jet radius
 
@@ -512,8 +513,8 @@ protected:
 ///------------------------------------------------------------------------
 class JetDefinitionWrapper {
 
-public: 
-   
+public:
+
    /// Default Constructor
    JetDefinitionWrapper(JetAlgorithm jet_algorithm_in, double R_in, double xtra_param_in, const JetDefinition::Recombiner *recombiner) {
       jet_def = fastjet::JetDefinition(jet_algorithm_in, R_in, xtra_param_in);
@@ -558,7 +559,7 @@ public:
    virtual std::string short_description() const {
       return "WTA KT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -566,7 +567,7 @@ public:
       << "Winner-Take-All KT Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual WTA_KT_Axes* create() const {return new WTA_KT_Axes(*this);}
 
@@ -574,7 +575,7 @@ private:
    const WinnerTakeAllRecombiner *_recomb;  ///< Internal recombiner
 
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class WTA_CA_Axes
 /// \brief Axes from exclusive CA, winner-take-all recombination
@@ -596,7 +597,7 @@ public:
    virtual std::string short_description() const {
       return "WTA CA";
    };
-   
+
    /// Long descriptions
    virtual std::string description() const {
       std::stringstream stream;
@@ -604,10 +605,10 @@ public:
       << "Winner-Take-All CA Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual WTA_CA_Axes* create() const {return new WTA_CA_Axes(*this);}
-   
+
 private:
    const WinnerTakeAllRecombiner *_recomb;  ///< Internal recombiner
 
@@ -622,7 +623,7 @@ private:
 /// Requires the power of the KT algorithm to be used and the radius parameter
 ///------------------------------------------------------------------------
 class GenKT_Axes : public ExclusiveJetAxes {
-   
+
 public:
    /// Constructor
    GenKT_Axes(double p, double R0 = fastjet::JetDefinition::max_allowable_R)
@@ -632,7 +633,7 @@ public:
       if (p < 0) throw Error("GenKT_Axes:  Currently only p >=0 is supported.");
       setNPass(NO_REFINING);
    }
-   
+
    /// Short description
    virtual std::string short_description() const {
       std::stringstream stream;
@@ -640,7 +641,7 @@ public:
       << "GenKT Axes";
       return stream.str();
    };
-   
+
    /// Long descriptions
    virtual std::string description() const {
       std::stringstream stream;
@@ -648,16 +649,16 @@ public:
       << "General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual GenKT_Axes* create() const {return new GenKT_Axes(*this);}
-   
+
 protected:
    double _p;   ///< genkT power
    double _R0;  ///< jet radius
 };
-   
-   
+
+
 ///------------------------------------------------------------------------
 /// \class WTA_GenKT_Axes
 /// \brief Axes from exclusive generalized kT, winner-take-all recombination
@@ -686,7 +687,7 @@ public:
       << "WTA, GenKT Axes";
       return stream.str();
    };
-   
+
    /// Long descriptions
    virtual std::string description() const {
       std::stringstream stream;
@@ -694,16 +695,16 @@ public:
       << "Winner-Take-All General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual WTA_GenKT_Axes* create() const {return new WTA_GenKT_Axes(*this);}
-   
+
 protected:
    double _p;   ///< genkT power
    double _R0;  ///< jet radius
    const WinnerTakeAllRecombiner *_recomb; ///< Internal recombiner
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class GenET_GenKT_Axes
 /// \brief Axes from exclusive kT, generalized Et-scheme recombination
@@ -730,7 +731,7 @@ public:
       << "GenET, GenKT Axes";
       return stream.str();
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -741,10 +742,10 @@ public:
 
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual GenET_GenKT_Axes* create() const {return new GenET_GenKT_Axes(*this);}
-   
+
 protected:
    double _delta; ///< Recombination pT weighting
    double _p;     ///< GenkT power
@@ -764,12 +765,12 @@ public:
    OnePass_KT_Axes() : KT_Axes() {
       setNPass(ONE_PASS);
    }
-   
+
    /// Short description
    virtual std::string short_description() const {
       return "OnePass KT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -777,10 +778,10 @@ public:
       << "One-Pass Minimization from KT Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_KT_Axes* create() const {return new OnePass_KT_Axes(*this);}
-   
+
 
 };
 
@@ -801,7 +802,7 @@ public:
    virtual std::string short_description() const {
       return "OnePass CA";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -809,13 +810,13 @@ public:
       << "One-Pass Minimization from CA Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_CA_Axes* create() const {return new OnePass_CA_Axes(*this);}
 
 
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class OnePass_AntiKT_Axes
 /// \brief Axes from inclusive anti-kT, with one-pass minimization
@@ -829,7 +830,7 @@ public:
    OnePass_AntiKT_Axes(double R0) : AntiKT_Axes(R0) {
       setNPass(ONE_PASS);
    }
-   
+
    /// Short Description
    virtual std::string short_description() const {
       std::stringstream stream;
@@ -837,7 +838,7 @@ public:
       << "OnePassAKT" << _R0;
       return stream.str();
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -845,7 +846,7 @@ public:
       << "One-Pass Minimization from Anti-KT Axes (R0 = " << _R0 << ")";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_AntiKT_Axes* create() const {return new OnePass_AntiKT_Axes(*this);}
 
@@ -863,12 +864,12 @@ public:
    OnePass_WTA_KT_Axes() : WTA_KT_Axes() {
       setNPass(ONE_PASS);
    }
-   
+
    /// Short description
    virtual std::string short_description() const {
       return "OnePass WTA KT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -876,10 +877,10 @@ public:
       << "One-Pass Minimization from Winner-Take-All KT Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_WTA_KT_Axes* create() const {return new OnePass_WTA_KT_Axes(*this);}
-   
+
 
 };
 
@@ -890,7 +891,7 @@ public:
 /// Onepass minimization from winner-take-all CA axes
 ///------------------------------------------------------------------------
 class OnePass_WTA_CA_Axes : public WTA_CA_Axes {
-   
+
 public:
    /// Constructor
    OnePass_WTA_CA_Axes() : WTA_CA_Axes() {
@@ -901,7 +902,7 @@ public:
    virtual std::string short_description() const {
       return "OnePass WTA CA";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -909,10 +910,10 @@ public:
       << "One-Pass Minimization from Winner-Take-All CA Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_WTA_CA_Axes* create() const {return new OnePass_WTA_CA_Axes(*this);}
-   
+
 };
 
 ///------------------------------------------------------------------------
@@ -922,18 +923,18 @@ public:
 /// Onepass minimization, General KT Axes (standard E-scheme recombination)
 ///------------------------------------------------------------------------
 class OnePass_GenKT_Axes : public GenKT_Axes {
-   
+
 public:
    /// Constructor
    OnePass_GenKT_Axes(double p, double R0 = fastjet::JetDefinition::max_allowable_R) : GenKT_Axes(p, R0) {
       setNPass(ONE_PASS);
    }
-   
+
    /// Short description
    virtual std::string short_description() const {
       return "OnePass GenKT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -941,11 +942,11 @@ public:
       << "One-Pass Minimization from General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_GenKT_Axes* create() const {return new OnePass_GenKT_Axes(*this);}
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class OnePass_WTA_GenKT_Axes
 /// \brief Axes from exclusive generalized kT, winner-take-all recombination, with one-pass minimization
@@ -953,7 +954,7 @@ public:
 /// Onepass minimization from winner-take-all, General KT Axes
 ///------------------------------------------------------------------------
 class OnePass_WTA_GenKT_Axes : public WTA_GenKT_Axes {
-   
+
 public:
    /// Constructor
    OnePass_WTA_GenKT_Axes(double p, double R0 = fastjet::JetDefinition::max_allowable_R) : WTA_GenKT_Axes(p, R0) {
@@ -964,7 +965,7 @@ public:
    virtual std::string short_description() const {
       return "OnePass WTA GenKT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -972,7 +973,7 @@ public:
       << "One-Pass Minimization from Winner-Take-All General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_WTA_GenKT_Axes* create() const {return new OnePass_WTA_GenKT_Axes(*this);}
 };
@@ -984,7 +985,7 @@ public:
 /// Onepass minimization from General Recomb, General KT axes
 ///------------------------------------------------------------------------
 class OnePass_GenET_GenKT_Axes : public GenET_GenKT_Axes {
-   
+
 public:
    /// Constructor
    OnePass_GenET_GenKT_Axes(double delta, double p, double R0 = fastjet::JetDefinition::max_allowable_R) : GenET_GenKT_Axes(delta, p, R0) {
@@ -995,17 +996,17 @@ public:
    virtual std::string short_description() const {
       return "OnePass GenET, GenKT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
       stream << std::fixed << std::setprecision(2);
-      if (_delta < std::numeric_limits<int>::max()) stream << "One-Pass Minimization from General Recombiner (delta = " 
+      if (_delta < std::numeric_limits<int>::max()) stream << "One-Pass Minimization from General Recombiner (delta = "
         << _delta << "), " << "General KT (p = " << _p << ") Axes, R0 = " << _R0;
       else stream << "One-Pass Minimization from Winner-Take-All General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual OnePass_GenET_GenKT_Axes* create() const {return new OnePass_GenET_GenKT_Axes(*this);}
 };
@@ -1024,18 +1025,18 @@ public:
       setNPass(NO_REFINING);
       _needsManualAxes = true;
    }
-   
+
    /// This is now a dummy function since this is manual mode
    virtual std::vector<fastjet::PseudoJet> get_starting_axes(int,
                                                              const std::vector<fastjet::PseudoJet>&,
                                                              const MeasureDefinition *) const;
 
-   
+
    /// Short description
    virtual std::string short_description() const {
       return "Manual";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -1043,7 +1044,7 @@ public:
       << "Manual Axes";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual Manual_Axes* create() const {return new Manual_Axes(*this);}
 
@@ -1062,12 +1063,12 @@ public:
    OnePass_Manual_Axes() : Manual_Axes() {
       setNPass(ONE_PASS);
    }
-   
+
    /// Short description
    virtual std::string short_description() const {
       return "OnePass Manual";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -1075,12 +1076,12 @@ public:
       << "One-Pass Minimization from Manual Axes";
       return stream.str();
    };
-   
+
    // For copying purposes
    virtual OnePass_Manual_Axes* create() const {return new OnePass_Manual_Axes(*this);}
 
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class MultiPass_Axes
 /// \brief Manual axes finding, with multi-pass (randomized) minimization
@@ -1090,7 +1091,7 @@ public:
 class MultiPass_Axes : public KT_Axes {
 
 public:
-   
+
    /// Constructor
    MultiPass_Axes(unsigned int Npass) : KT_Axes() {
       setNPass(Npass);
@@ -1100,7 +1101,7 @@ public:
    virtual std::string short_description() const {
       return "MultiPass";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -1108,10 +1109,10 @@ public:
       << "Multi-Pass Axes (Npass = " << _Npass << ")";
       return stream.str();
    };
-   
+
    /// For copying purposs
    virtual MultiPass_Axes* create() const {return new MultiPass_Axes(*this);}
-   
+
 };
 
 ///------------------------------------------------------------------------
@@ -1132,8 +1133,8 @@ public:
    virtual std::string short_description() const {
       return "MultiPass Manual";
    };
-   
-   
+
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -1141,10 +1142,10 @@ public:
       << "Multi-Pass Manual Axes (Npass = " << _Npass << ")";
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual MultiPass_Manual_Axes* create() const {return new MultiPass_Manual_Axes(*this);}
-   
+
 };
 
 ///------------------------------------------------------------------------
@@ -1164,12 +1165,12 @@ public:
       if (p < 0) throw Error("Comb_GenKT_Axes:  Currently only p >=0 is supported.");
       setNPass(NO_REFINING);
    }
-   
+
    /// Short description
    virtual std::string short_description() const {
       return "N Choose M GenKT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -1177,17 +1178,17 @@ public:
       << "N Choose M Minimization (nExtra = " << _nExtra << ") from General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual Comb_GenKT_Axes* create() const {return new Comb_GenKT_Axes(*this);}
-   
+
 private:
    double _nExtra;   ///< Number of extra axes
    double _p;        ///< GenkT power
    double _R0;       ///< jet radius
 };
-   
-   
+
+
 
 ///------------------------------------------------------------------------
 /// \class Comb_WTA_GenKT_Axes
@@ -1210,7 +1211,7 @@ public:
    virtual std::string short_description() const {
       return "N Choose M WTA GenKT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
@@ -1218,7 +1219,7 @@ public:
       << "N Choose M Minimization (nExtra = " << _nExtra << ") from Winner-Take-All General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual Comb_WTA_GenKT_Axes* create() const {return new Comb_WTA_GenKT_Axes(*this);}
 
@@ -1228,7 +1229,7 @@ private:
    double _R0;       ///< jet radius
    const WinnerTakeAllRecombiner *_recomb;   ///< Internal recombiner
 };
-   
+
 ///------------------------------------------------------------------------
 /// \class Comb_GenET_GenKT_Axes
 /// \brief Axes from exclusive generalized kT, generalized Et-scheme recombination, with combinatorial testing
@@ -1251,17 +1252,17 @@ public:
    virtual std::string short_description() const {
       return "N Choose M GenET GenKT";
    };
-   
+
    /// Long description
    virtual std::string description() const {
       std::stringstream stream;
       stream << std::fixed << std::setprecision(2);
-      if (_delta < std::numeric_limits<int>::max()) stream << "N choose M Minimization (nExtra = " << _nExtra 
+      if (_delta < std::numeric_limits<int>::max()) stream << "N choose M Minimization (nExtra = " << _nExtra
         << ") from General Recombiner (delta = " << _delta << "), " << "General KT (p = " << _p << ") Axes, R0 = " << _R0;
       else stream << "N choose M Minimization (nExtra = " << _nExtra << ") from Winner-Take-All General KT (p = " << _p << "), R0 = " << _R0;
       return stream.str();
    };
-   
+
    /// For copying purposes
    virtual Comb_GenET_GenKT_Axes* create() const {return new Comb_GenET_GenKT_Axes(*this);}
 
@@ -1272,11 +1273,11 @@ private:
    double _R0;       ///< jet radius
    const GeneralEtSchemeRecombiner *_recomb;  ///<  Internal recombiner
 };
-   
+
 
 } // namespace Nsubjettiness
 
 }
+}
 
 #endif  // __FASTJET_CONTRIB_NJETTINESS_HH__
-

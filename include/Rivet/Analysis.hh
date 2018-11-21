@@ -281,6 +281,8 @@ namespace Rivet {
 
 
     /// @name Analysis / beam compatibility testing
+    /// @todo Replace with beamsCompatible() with no args (calling beams() function internally)
+    /// @todo Add beamsMatch() methods with same (shared-code?) tolerance as in beamsCompatible()
     //@{
 
     /// Check if analysis is compatible with the provided beam particle IDs and energies

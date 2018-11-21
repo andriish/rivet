@@ -24,7 +24,8 @@
 
 #include "Njettiness.hh"
 
-namespace Rivet {      
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
 
@@ -38,11 +39,11 @@ namespace Nsubjettiness { using namespace fastjet;
 LimitedWarning Njettiness::_old_measure_warning;
 LimitedWarning Njettiness::_old_axes_warning;
 
-   
+
 // Constructor
 Njettiness::Njettiness(const AxesDefinition & axes_def, const MeasureDefinition & measure_def)
 : _axes_def(axes_def.create()), _measure_def(measure_def.create()) {}
-   
+
 // setAxes for Manual mode
 void Njettiness::setAxes(const std::vector<fastjet::PseudoJet> & myAxes) {
    if (_axes_def->needsManualAxes()) {
@@ -51,14 +52,14 @@ void Njettiness::setAxes(const std::vector<fastjet::PseudoJet> & myAxes) {
       throw Error("You can only use setAxes for manual AxesDefinitions");
    }
 }
-   
+
 // Calculates and returns all TauComponents that user would want.
 // This information is stored in _current_tau_components for later access as well.
 TauComponents Njettiness::getTauComponents(unsigned n_jets, const std::vector<fastjet::PseudoJet> & inputJets) const {
    if (inputJets.size() <= n_jets) {  //if not enough particles, return zero
       _currentAxes = inputJets;
       _currentAxes.resize(n_jets,fastjet::PseudoJet(0.0,0.0,0.0,0.0));
-     
+
      // Put in empty tau components
      std::vector<double> dummy_jet_pieces;
      _current_tau_components = TauComponents(UNDEFINED_SHAPE,
@@ -72,34 +73,34 @@ TauComponents Njettiness::getTauComponents(unsigned n_jets, const std::vector<fa
       _currentPartition = TauPartition(n_jets); // empty partition
    } else {
       assert(_axes_def); // this should never fail.
-      
+
       if (_axes_def->needsManualAxes()) { // if manual mode
          // take current axes as seeds
          _seedAxes = _currentAxes;
-         
+
          // refine axes if requested
          _currentAxes = _axes_def->get_refined_axes(n_jets,inputJets,_seedAxes, _measure_def.get());
       } else { // non-manual axes
-         
+
           //set starting point for minimization
          _seedAxes = _axes_def->get_starting_axes(n_jets,inputJets,_measure_def.get());
-         
+
          // refine axes as needed
          _currentAxes = _axes_def->get_refined_axes(n_jets,inputJets,_seedAxes, _measure_def.get());
-         
+
          // NOTE:  The above two function calls are combined in "AxesDefinition::get_axes"
          // but are separated here to allow seed axes to be stored.
       }
-      
+
       // Find and store partition
       _currentPartition = _measure_def->get_partition(inputJets,_currentAxes);
-      
+
       // Find and store tau value
       _current_tau_components = _measure_def->component_result_from_partition(_currentPartition, _currentAxes);  // sets current Tau Values
    }
    return _current_tau_components;
 }
-   
+
 
 ///////
 //
@@ -107,23 +108,23 @@ TauComponents Njettiness::getTauComponents(unsigned n_jets, const std::vector<fa
 // May be deleted in a future version
 //
 ///////
-   
+
 Njettiness::Njettiness(AxesMode axes_mode, const MeasureDefinition & measure_def)
 : _axes_def(createAxesDef(axes_mode)), _measure_def(measure_def.create()) {}
 
 // Convert from MeasureMode enum to MeasureDefinition
 // This returns a pointer that will be claimed by a SharedPtr
 MeasureDefinition* Njettiness::createMeasureDef(MeasureMode measure_mode, int num_para, double para1, double para2, double para3) const {
-   
+
    _old_measure_warning.warn("Njettiness::createMeasureDef:  You are using the old MeasureMode way of specifying N-subjettiness measures.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use MeasureDefinition instead.");
-   
+
    // definition of maximum Rcutoff for non-cutoff measures, changed later by other measures
    double Rcutoff = std::numeric_limits<double>::max();  //large number
    // Most (but not all) measures have some kind of beta value
    double beta = std::numeric_limits<double>::quiet_NaN();
    // The normalized measures have an R0 value.
    double R0 = std::numeric_limits<double>::quiet_NaN();
-   
+
    // Find the MeasureFunction and set the parameters.
    switch (measure_mode) {
       case normalized_measure:
@@ -177,10 +178,10 @@ MeasureDefinition* Njettiness::createMeasureDef(MeasureMode measure_mode, int nu
 // Convert from AxesMode enum to AxesDefinition
 // This returns a pointer that will be claimed by a SharedPtr
 AxesDefinition* Njettiness::createAxesDef(Njettiness::AxesMode axes_mode) const {
-   
+
    _old_axes_warning.warn("Njettiness::createAxesDef:  You are using the old AxesMode way of specifying N-subjettiness axes.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use AxesDefinition instead.");
-   
-   
+
+
    switch (axes_mode) {
       case wta_kt_axes:
          return new WTA_KT_Axes();
@@ -215,9 +216,10 @@ AxesDefinition* Njettiness::createAxesDef(Njettiness::AxesMode axes_mode) const 
 }
 
 
-   
-   
-   
+
+
+
 } // namespace Nsubjettiness
 
+}
 }

@@ -38,8 +38,8 @@
 #include <string>
 #include <climits>
 
-namespace Rivet {      
-
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
 
@@ -60,7 +60,7 @@ namespace Nsubjettiness { using namespace fastjet;
  *    OnePass_GenET_GenKT_Axes(delta, p, R0) : one-pass min. from GenET/KT
  *    OnePass_WTA_GenKT_Axes(p, R0)          : one-pass min from WTA/GenKT
  * For recommendations on which axes to use, please see the README file.
- * 
+ *
  * Jet regions are determined by the MeasureDefinition.  The recommended choices
  * for jet finding are
  *    ConicalMeasure(beta,R0) : perfect cones in rapidity/azimuth plane
@@ -74,7 +74,7 @@ namespace Nsubjettiness { using namespace fastjet;
  * to allow for cone-shaped jets. The size of these cones can be controlled through Rcutoff
  * just as in the other measures. See the README file or MeasureDefinition.hh for information
  * on how to call these measures.
- * 
+ *
  */
 class NjettinessPlugin : public JetDefinition::Plugin {
 public:
@@ -84,7 +84,7 @@ public:
                     const AxesDefinition & axes_def,
                     const MeasureDefinition & measure_def)
    : _njettinessFinder(axes_def, measure_def), _N(N) {}
-   
+
 
    /// Description
    virtual std::string description () const;
@@ -110,12 +110,12 @@ private:
 
    /// Warning if the user tries to use v1.0.3 constructor.
    static LimitedWarning _old_constructor_warning;
-   
+
 public:
 
    // Alternative constructors that define the measure via enums and parameters
    // These constructors are deprecated and will be removed in a future version.
-   
+
    /// \deprecated
    /// Old-style constructor with 0 arguments (DEPRECATED)
    NjettinessPlugin(int N,
@@ -124,7 +124,7 @@ public:
    : _njettinessFinder(axes_mode, measure_mode, 0), _N(N) {
       _old_constructor_warning.warn("NjettinessPlugin:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the NjettinessPlugin constructor based on AxesDefinition and MeasureDefinition instead.");
    }
-   
+
    /// \deprecated
    /// Old-style constructor with 1 argument (DEPRECATED)
       NjettinessPlugin(int N,
@@ -133,9 +133,9 @@ public:
                     double para1)
    : _njettinessFinder(axes_mode, measure_mode, 1, para1), _N(N) {
       _old_constructor_warning.warn("NjettinessPlugin:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the NjettinessPlugin constructor based on AxesDefinition and MeasureDefinition instead.");
-   
+
    }
-   
+
    /// \deprecated
    /// Old-style constructor with 2 arguments (DEPRECATED)
    NjettinessPlugin(int N,
@@ -145,9 +145,9 @@ public:
                     double para2)
    : _njettinessFinder(axes_mode, measure_mode, 2, para1, para2), _N(N) {
       _old_constructor_warning.warn("NjettinessPlugin:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the NjettinessPlugin constructor based on AxesDefinition and MeasureDefinition instead.");
-   
+
    }
-   
+
    /// \deprecated
    /// Old-style constructor with 3 arguments (DEPRECATED)
    NjettinessPlugin(int N,
@@ -159,7 +159,7 @@ public:
    : _njettinessFinder(axes_mode, measure_mode, 3, para1, para2, para3), _N(N) {
       _old_constructor_warning.warn("NjettinessPlugin:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the NjettinessPlugin constructor based on AxesDefinition and MeasureDefinition instead.");
    }
-   
+
    /// \deprecated
    /// Old-style constructor for backwards compatibility with v1.0, when NormalizedCutoffMeasure was the only option
    NjettinessPlugin(int N,
@@ -176,6 +176,7 @@ public:
 
 } // namespace Nsubjettiness
 
+}
 }
 
 #endif  // __FASTJET_CONTRIB_NJETTINESSPLUGIN_HH__

@@ -33,14 +33,15 @@
 #include <string>
 #include <climits>
 
-namespace Rivet {      
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
 
 // Classes defined in this file.
 class Nsubjettiness;
 class NsubjettinessRatio;
-   
+
 ///------------------------------------------------------------------------
 /// \class Nsubjettiness
 /// \brief Implements the N-subjettiness jet shape
@@ -86,31 +87,31 @@ class NsubjettinessRatio;
 class Nsubjettiness : public FunctionOfPseudoJet<double> {
 
 public:
-   
+
    /// Main constructor, which takes N, the AxesDefinition, and the MeasureDefinition.
    /// The Definitions are given in AxesDefinition.hh and MeasureDefinition.hh
    Nsubjettiness(int N,
                  const AxesDefinition& axes_def,
                  const MeasureDefinition& measure_def)
    : _njettinessFinder(axes_def,measure_def), _N(N) {}
-   
+
    /// Returns tau_N, measured on the constituents of this jet
    double result(const PseudoJet& jet) const;
 
    /// Returns components of tau_N, so that user can find individual tau values.
    TauComponents component_result(const PseudoJet& jet) const;
-   
+
    /// To set axes in manual mode
    void setAxes(const std::vector<fastjet::PseudoJet> & myAxes) {
       // Note that cross check that manual mode has been set is in Njettiness
     	_njettinessFinder.setAxes(myAxes);
    }
-   
+
    /// returns seed axes used for onepass minimization (otherwise same as currentAxes)
    std::vector<fastjet::PseudoJet> seedAxes() const {
       return _njettinessFinder.seedAxes();
    }
-   
+
    /// returns current axes found by result() calculation
    std::vector<fastjet::PseudoJet> currentAxes() const {
       return _njettinessFinder.currentAxes();
@@ -131,22 +132,22 @@ public:
    TauPartition currentPartition() const {
       return _njettinessFinder.currentPartition();
    }
-   
+
 private:
-   
+
    /// Core Njettiness code that is called
    Njettiness _njettinessFinder; // TODO:  should muck with this so result can be const without this mutable
    /// Number of subjets to find
    int _N;
-   
+
    /// Warning if the user tries to use v1.0.3 constructor.
    static LimitedWarning _old_constructor_warning;
 
 public:
-   
+
    // The following interfaces are included for backwards compatibility, but no longer recommended.
    // They may be deleted in a future release
-   
+
    /// \deprecated
    /// Alternative constructors that define the measure via enums and parameters
    /// These constructors will be removed in v3.0
@@ -158,7 +159,7 @@ public:
    : _njettinessFinder(axes_mode, measure_mode, 0), _N(N) {
       _old_constructor_warning.warn("Nsubjettiness:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the Nsubjettiness constructor based on AxesDefinition and MeasureDefinition instead.");
    }
-   
+
    /// \deprecated
    /// Construcotr for one parameter argument
    /// (for unnormalized_measure, para1=beta)
@@ -169,7 +170,7 @@ public:
    : _njettinessFinder(axes_mode, measure_mode, 1, para1), _N(N) {
       _old_constructor_warning.warn("Nsubjettiness:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the Nsubjettiness constructor based on AxesDefinition and MeasureDefinition instead.");
    }
-   
+
    /// \deprecated
    /// Constructor for two parameter arguments
    /// (for normalized_measure, para1=beta, para2=R0)
@@ -182,7 +183,7 @@ public:
    : _njettinessFinder(axes_mode, measure_mode, 2, para1, para2), _N(N) {
       _old_constructor_warning.warn("Nsubjettiness:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the Nsubjettiness constructor based on AxesDefinition and MeasureDefinition instead.");
    }
-   
+
    /// \deprecated
    /// Constructor for three parameter arguments
    /// (for unnormalized_cutoff_measure, para1=beta, para2=R0, para3=Rcutoff)
@@ -195,7 +196,7 @@ public:
    : _njettinessFinder(axes_mode, measure_mode, 3, para1, para2, para3), _N(N) {
       _old_constructor_warning.warn("Nsubjettiness:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the Nsubjettiness constructor based on AxesDefinition and MeasureDefinition instead.");
    }
-   
+
    /// \deprecated
    /// Old constructor for backwards compatibility with v1.0,
    /// where normalized_cutoff_measure was the only option
@@ -207,7 +208,7 @@ public:
    : _njettinessFinder(axes_mode, NormalizedCutoffMeasure(beta,R0,Rcutoff)), _N(N) {
       _old_constructor_warning.warn("Nsubjettiness:  You are using the old style constructor.  This is deprecated as of v2.1 and will be removed in v3.0.  Please use the Nsubjettiness constructor based on AxesDefinition and MeasureDefinition instead.");
    }
-   
+
 };
 
 
@@ -237,16 +238,16 @@ public:
    /// Returns tau_N/tau_M based off the input jet using result function from Nsubjettiness
    double result(const PseudoJet& jet) const;
 
-private: 
+private:
 
    Nsubjettiness _nsub_numerator;   ///< Function for numerator
    Nsubjettiness _nsub_denominator; ///< Function for denominator
 
 public:
-   
+
    // The following interfaces are included for backwards compatibility, but no longer recommended.
    // They may be deprecated at some point.
-   
+
    /// \deprecated
    /// Old-style constructor for zero arguments
    /// Alternative constructor with enums and parameters
@@ -257,7 +258,7 @@ public:
                       Njettiness::MeasureMode measure_mode)
    : _nsub_numerator(N, axes_mode, measure_mode),
    _nsub_denominator(M, axes_mode, measure_mode) {}
-   
+
    /// \deprecated
    /// Old-style constructor for one argument
    NsubjettinessRatio(int N,
@@ -267,7 +268,7 @@ public:
                       double para1)
    : _nsub_numerator(N, axes_mode, measure_mode, para1),
    _nsub_denominator(M, axes_mode, measure_mode, para1) {}
-   
+
    /// \deprecated
    /// Old-style constructor for 2 arguments
    NsubjettinessRatio(int N,
@@ -278,7 +279,7 @@ public:
                       double para2)
    : _nsub_numerator(N, axes_mode, measure_mode, para1, para2),
    _nsub_denominator(M, axes_mode, measure_mode, para1, para2) {}
-   
+
    /// \deprecated
    /// Old-style constructor for 3 arguments
    NsubjettinessRatio(int N,
@@ -291,11 +292,12 @@ public:
    : _nsub_numerator(N, axes_mode, measure_mode, para1, para2, para3),
    _nsub_denominator(M, axes_mode, measure_mode, para1, para2, para3) {}
 
-   
+
 };
 
 } // namespace Nsubjettiness
 
+}
 }
 
 #endif  // __FASTJET_CONTRIB_NSUBJETTINESS_HH__

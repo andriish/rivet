@@ -113,6 +113,37 @@ namespace Rivet {
   }
 
 
+  // bool Analysis::beamIDsCompatible(const PdgIdPair& beams) const {
+  //   bool beamIdsOk = false;
+  //   for (const PdgIdPair& bp : requiredBeams()) {
+  //     if (compatible(beams, bp)) {
+  //       beamIdsOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   return beamIdsOk;
+  // }
+
+
+  // /// Check that the energies are compatible (within 1% or 1 GeV, whichever is larger, for a bit of UI forgiveness)
+  // bool Analysis::beamEnergiesCompatible(const pair<double,double>& energies) const {
+  //   /// @todo Use some sort of standard ordering to improve comparisons, esp. when the two beams are different particles
+  //   bool beamEnergiesOk = requiredEnergies().size() > 0 ? false : true;
+  //   typedef pair<double,double> DoublePair;
+  //   for (const DoublePair& ep : requiredEnergies()) {
+  //     if ((fuzzyEquals(ep.first, energies.first, 0.01) && fuzzyEquals(ep.second, energies.second, 0.01)) ||
+  //         (fuzzyEquals(ep.first, energies.second, 0.01) && fuzzyEquals(ep.second, energies.first, 0.01)) ||
+  //         (abs(ep.first - energies.first) < 1*GeV && abs(ep.second - energies.second) < 1*GeV) ||
+  //         (abs(ep.first - energies.second) < 1*GeV && abs(ep.second - energies.first) < 1*GeV)) {
+  //       beamEnergiesOk =  true;
+  //       break;
+  //     }
+  //   }
+  //   return beamEnergiesOk;
+  // }
+
+
+  // bool Analysis::beamsCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
   bool Analysis::isCompatible(const PdgIdPair& beams, const pair<double,double>& energies) const {
     // First check the beam IDs
     bool beamIdsOk = false;
@@ -139,9 +170,6 @@ namespace Rivet {
       }
     }
     return beamEnergiesOk;
-
-    /// @todo Need to also check internal consistency of the analysis'
-    /// beam requirements with those of the projections it uses.
   }
 
 

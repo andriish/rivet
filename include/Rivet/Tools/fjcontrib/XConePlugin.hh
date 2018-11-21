@@ -35,8 +35,8 @@
 #include <string>
 #include <climits>
 
-namespace Rivet {      
-
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
 
@@ -78,11 +78,11 @@ public:
                       ),
    _N(N), _R0(R0), _beta(beta)
    {}
-   
+
    // The things that are required by base class.
    virtual std::string description () const;
    virtual double R() const {return _R0;}
-   
+
    // run_clustering is done by NjettinessPlugin
 
    virtual ~XConePlugin() {}
@@ -110,7 +110,7 @@ public:
 
 };
 
-   
+
 /// \class PseudoXConePlugin
 /// \brief Implements a faster, non-optimal version of the XCone Jet Algorithm
 ///
@@ -118,7 +118,7 @@ public:
 /// Right now, used just for testing purposes by the developers
 class PseudoXConePlugin : public NjettinessPlugin {
 public:
-   
+
    /// Constructor with N, R0, and beta as the options.  beta = 2.0 is the default
    /// All this does is use the NjettinessPlugin with GenET_GenKT_Axes and the XConeMeasure.
    PseudoXConePlugin(int N, double R0, double beta = 2.0)
@@ -128,17 +128,17 @@ public:
                       ),
    _N(N), _R0(R0), _beta(beta)
    {}
-   
+
    // The things that are required by base class.
    virtual std::string description () const;
    virtual double R() const {return _R0;}
-   
+
    // run_clustering is done by NjettinessPlugin
-   
+
    virtual ~PseudoXConePlugin() {}
-   
+
 private:
-   
+
    /// Static call used within the constructor to set the recommended delta value
    static double calc_delta(double beta) {
       double delta;
@@ -146,24 +146,25 @@ private:
       else delta = std::numeric_limits<int>::max(); // use winner take all
       return delta;
    }
-   
+
    /// Static call used within the constructor to set the recommended p value
    static double calc_power(double beta) {
       return (double) 1.0/beta;
    }
-   
+
    double _N;    ///< Number of desired jets
    double _R0;   ///< Jet radius
    double _beta; ///< Angular exponent (beta = 2.0 is dafault, beta = 1.0 is recoil-free)
-   
+
 public:
-   
+
 };
 
-   
-   
+
+
 } // namespace Nsubjettiness
 
+}
 }
 
 #endif  // __FASTJET_CONTRIB_XConePlugin_HH__

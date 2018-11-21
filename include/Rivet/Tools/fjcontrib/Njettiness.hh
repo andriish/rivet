@@ -38,7 +38,8 @@
 #include <vector>
 #include <list>
 
-namespace Rivet {      
+namespace Rivet {
+namespace fjcontrib {
 
 namespace Nsubjettiness { using namespace fastjet;
 
@@ -135,17 +136,17 @@ namespace Nsubjettiness { using namespace fastjet;
  */
 class Njettiness {
 public:
-   
+
    /// Main constructor that uses AxesMode and MeasureDefinition to specify measure
    /// Unlike Nsubjettiness or NjettinessPlugin, the value N is not chosen
    Njettiness(const AxesDefinition & axes_def, const MeasureDefinition & measure_def);
 
    /// Destructor
    ~Njettiness() {};
-   
+
    /// setAxes for Manual mode
    void setAxes(const std::vector<fastjet::PseudoJet> & myAxes);
-   
+
    /// Calculates and returns all TauComponents that user would want.
    /// This information is stored in _current_tau_components for later access as well.
    TauComponents getTauComponents(unsigned n_jets, const std::vector<fastjet::PseudoJet> & inputJets) const;
@@ -168,16 +169,16 @@ public:
    fastjet::PseudoJet currentBeam() const {return _currentPartition.beam();}
    /// Return beam partition found by getTauComponents.
    TauPartition currentPartition() const {return _currentPartition;}
-   
+
 
 private:
-   
+
    /// AxesDefinition to use.  Implemented as SharedPtrs to avoid memory management headaches
    SharedPtr<const AxesDefinition> _axes_def;
    /// MeasureDefinition to use.  Implemented as SharedPtrs to avoid memory management headaches
    SharedPtr<const MeasureDefinition> _measure_def;
 
-   
+
    // Information about the current information
    // Defined as mutables, so user should be aware that these change when getTau is called.
    // TODO:  These are not thread safe and should be fixed somehow
@@ -191,11 +192,11 @@ private:
    /// Warning if the user tries to use v1.0.3 axes style.
    static LimitedWarning _old_axes_warning;
 
-   
+
 public:
-   
+
    // These interfaces are included for backwards compability, and will be deprecated in a future release (scheduled for deletion in v3.0)
-   
+
    /// \deprecated
    /// Deprecated enum to determine axes mode
    /// The various axes choices available to the user
@@ -215,7 +216,7 @@ public:
       manual_axes,         // set your own axes with setAxes()
       onepass_manual_axes  // one-pass minimization from manual starting point
    };
-   
+
    /// \deprecated
    /// Deprecated enum to determine measure mode
    /// The measures available to the user.
@@ -230,11 +231,11 @@ public:
       unnormalized_cutoff_measure,  //default unnormalized measure with explicit Rcutoff
       geometric_cutoff_measure      //geometric measure with explicit Rcutoff
    };
-   
+
    /// \deprecated
    /// Intermediate constructor (needed to enable v1.0.3 backwards compatibility?)
    Njettiness(AxesMode axes_mode, const MeasureDefinition & measure_def);
-   
+
    /// \deprecated
    /// Old-style constructor which takes axes/measure information as enums with measure parameters
    /// This version absolutely is not recommended
@@ -246,20 +247,20 @@ public:
               double para3 = std::numeric_limits<double>::quiet_NaN())
    : _axes_def(createAxesDef(axes_mode)), _measure_def(createMeasureDef(measure_mode, num_para, para1, para2, para3)) {
    }
-  
+
    /// \deprecated
    /// Convert old style enums into new style MeasureDefinition
    AxesDefinition* createAxesDef(AxesMode axes_mode) const;
-   
+
    /// \deprecated
    /// Convert old style enums into new style MeasureDefinition
    MeasureDefinition* createMeasureDef(MeasureMode measure_mode, int num_para, double para1, double para2, double para3) const;
 
 };
-   
+
 } // namespace Nsubjettiness
 
 }
+}
 
 #endif  // __FASTJET_CONTRIB_NJETTINESS_HH__
-
