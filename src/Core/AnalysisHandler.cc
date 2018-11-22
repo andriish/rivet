@@ -182,6 +182,8 @@ namespace Rivet {
     for ( auto ao : getData() )
       _finalizedAOs.push_back(AnalysisObjectPtr(ao->newclone()));
     for ( auto ao : getData(false, true) ) {
+      // TODO: This should be possible to do in a nicer way, with a flag etc.
+      if (ao->path().find("/CORR") != std::string::npos) continue;
       auto aoit = backupAOs.find(ao->path());
       if ( aoit == backupAOs.end() ) {
         AnaHandle ana = analysis(split(ao->path(), "/")[0]);
@@ -362,7 +364,8 @@ namespace Rivet {
           exit(1);
         }
         xsecs.push_back(xsec->point(0).x());
-        xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
+        sows.push_back(sow);
+	xsecerrs.push_back(sqr(xsec->point(0).xErrAvg()));
         _eventcounter += *sow;
         sows.push_back(sow);
         aosv.push_back(aos);
@@ -418,7 +421,7 @@ namespace Rivet {
     for ( int i = 0, N = aosv.size(); i < N; ++i)
       for ( auto ao : aosv[i] ) {
         if ( ao->path() == "/_XSEC" || ao->path() == "_EVTCOUNT" ) continue;
-        auto aoit = current.find(ao->path());
+	auto aoit = current.find(ao->path());
         if ( aoit == current.end() ) {
           MSG_WARNING("" << ao->path() << " was not properly booked.");
           continue;
@@ -484,7 +487,7 @@ namespace Rivet {
       ao->setPath("/RAW" + ao->path());
       out.push_back(ao);
     }
-    
+   
     try {
       YODA::write(filename, out.begin(), out.end());
     } catch (...) { //< YODA::WriteError&
